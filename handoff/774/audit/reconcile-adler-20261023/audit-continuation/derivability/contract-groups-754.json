@@ -1,0 +1,38 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-754",
+  "at": "2026-10-25T16:42:04.578406+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 989,
+  "source_id": "pr-working:crates/adventuresim-core/src/settlement_population.rs",
+  "sha256": "427a6f6e78d9b203d41f9186e0c4722a1622a9f1d3e2916b43e1b69b73ef601e",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "StableDecision",
+      "type": "AgeBand/Profession/Schedule",
+      "lines": [
+        [
+          197,
+          217
+        ]
+      ],
+      "disposition": "KEEP local inherent stable-name adapters, no existing matching derive"
+    }
+  ],
+  "analysis": [
+    "Population vocabularies/input/profile/decision/candidate records structural/Serde already derive; native stable IDs intentionally differ serde for ServiceProvider and AdultVenue; do not conflate compact/variant/wire names.",
+    "StableDecision201\u2013217 adapters AgeBand/Profession/Schedule call inherent stable_id; local trait197\u2013199 method has no existing derive. KEEP small explicit semantic name adapters, not delegation to contained field or adding Serde; str adapter begins219 pendingbody."
+  ],
+  "first_unfinished": {
+    "scope_index": 989,
+    "line": 221
+  },
+  "execution": "none"
+}

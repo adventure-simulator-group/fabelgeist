@@ -1,0 +1,106 @@
+{
+  "id": "CONT07-CONTRACT-646",
+  "at": "2026-10-24T00:59:54.690730+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 623,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/heating/placement.rs",
+      "sha256": "5dbdcafe3866798548d26b03a8880417e25b5730dd9c4d2de43f81b19dc0faa3",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/heating/placement.rs",
+      "actual_EOF": 457,
+      "ranges": [
+        [
+          1,
+          103
+        ],
+        [
+          371,
+          457
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 419,
+      "source_id": "physical-p16:crates/adventuresim-terrain/src/lib.rs",
+      "sha256": "b6f4484e8febb316766de322ff355f1d0dda5b394343be0227517c601c0f1421",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-terrain/src/lib.rs",
+      "actual_EOF": 2059,
+      "ranges": [
+        [
+          574,
+          577
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2164,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/lib.rs",
+      "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-world-schema/src/lib.rs",
+      "actual_EOF": 4796,
+      "ranges": [
+        [
+          1633,
+          1638
+        ],
+        [
+          3508,
+          3510
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1811,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/binding.rs",
+      "sha256": "9db0cfc4b4c3053884d835faaca49a404c9942f7f0599b3069b89729fd8d7ae3",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/binding.rs",
+      "actual_EOF": 209,
+      "ranges": [
+        [
+          200,
+          209
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2558,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/prefix_sum.rs",
+      "sha256": "d37a82c99c0d23659bf6b0533ccb96435592ed4e2f3e62d9b5867d5c36a6e5c7",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-compute/src/prefix_sum.rs",
+      "actual_EOF": 408,
+      "ranges": [
+        [
+          1,
+          18
+        ],
+        [
+          24,
+          43
+        ],
+        [
+          65,
+          306
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Overlay068 placement ties roof/face IDs to geometry site; usability recomputes body/shaft/operating/door/floor/weather checks from actual plan. KitchenPair derives direction from actual kitchen/common-room side. Candidate retains floor height/nextfloor from snapshot; no mutation/ordinary cache invalidation witness. Native station search regular sampling plus actual joist gaps are complementary candidate generation, not alternate claimed exact floor geometry.",
+    "Overlay070 geographic-route doc boundary574\u2013577; no extra method body. Overlay082 uncovered1633\u20131638/3508\u20133510 closing/declaration metadata only; no new field body credit.",
+    "Overlay083 BoundarySupportProjection has both mesh and gate_elevation as accepted projection outputs, exact producer support for adopted RIG-INITIAL06-F026 duplicate gate authority; keep existing source conditional qualifications.",
+    "Overlay091 prefix scan BLOCK256 injected into WGSL array/workgroup/index and used host recursion, single shared authority positive. Private scratch levels/capacity built together and ensure replacement atomic on allocation success. record checks logical count against scratch and native data byte length. Count versus capacity intentional; scratch unused binding distinct port placeholder. Sums wrapping explicitly documented policy, no arithmetic overflow defect asserted merely from u32 words.",
+    "Prefix grid folds into y and pads block groups; block-total write lacks count-block guard, but extra writes target robustness boundary and no normal wrong-result witness established here. Extreme native u32 index/capacity proof remains inherited admission/operational question, not general algorithm failure. No GPU execution."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": null
+}

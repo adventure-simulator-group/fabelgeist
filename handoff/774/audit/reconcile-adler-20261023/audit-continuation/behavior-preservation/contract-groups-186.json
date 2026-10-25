@@ -1,0 +1,33 @@
+{
+  "id": "CONT08-CONTRACT-186",
+  "at": "2026-10-25T13:51:48.930928+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 727,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_foot_frame.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/device_foot_frame.rs",
+      "before_sha256": "8631907b8f7d406545d294a0f4e19207c85cdec13a10ce00535f1481b9d684b8",
+      "after_sha256": "646358891b65b2efa4bb01c0c6ee805b0c111adc1eff16949499a91436d131a5",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0727-base-8631907b8f7d406545d294a0f4e19207c85cdec13a10ce00535f1481b9d684b8",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/646358891b65b2efa4bb01c0c6ee805b0c111adc1eff16949499a91436d131a5",
+      "diff": "source-evidence/pr-0727.diff",
+      "diff_sha256": "f000f54984d47ccc900368108f533fab321d90acc04cc0f426ec4dd888ff752e",
+      "head_body_read_ranges": [
+        [
+          1,
+          323
+        ]
+      ],
+      "facts": [
+        "Full323+entire actual diff. FLOOR/ORIENT/BOUNDS/FINISH WGSL relocated without arithmetic change. Actual side strict x sign excludes centerline, ordered minimumfloor reduction, .025 ankle rise, foot-ball horizontal facing and host_float sum-before-half/normalization/order preserved.",
+        "Bounds sum all8 skin slots at .30 threshold, .55 span filtering, .018 min frame radius and .001 orthogonality validation unchanged. Exact first foot then ball names now typed and826 checked u32, same ankle/ball uniform spellings and per-slot membership\u21921/0 words. Missing landmark prose intentionally typed source error; kernels compile/dispatch floor\u2192orient\u2192bounds\u2192finish and status source unchanged. No GPU/kernel execution."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    }
+  ],
+  "next": "728 device_foot_sections414 then729+"
+}

@@ -1,0 +1,52 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-165",
+  "at": "2026-10-23T03:55:24.805115+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-terrain/src/lib.rs",
+      "sha256": "b6f4484e8febb316766de322ff355f1d0dda5b394343be0227517c601c0f1421",
+      "scope054_index": 419,
+      "actual_EOF": 2059,
+      "scoped_ranges_compared": [
+        [
+          1,
+          100
+        ],
+        [
+          268,
+          577
+        ],
+        [
+          948,
+          995
+        ]
+      ],
+      "actual05_comparison": "Fresh complete exactcurrent scopedunion declaration/Surface/Cell/Manifest/Entry/cache/TerrainPack/load/getters/cell/chunk/validate_manifest, includingnewoverlay23859-65. No100+otherCelltraits/planner578+body/fixturesclaim;575-577nextfunctiondocumentationcontextonly,995blankcontext. Private wholePackfromloader retainsindexes/ranges/cache, butchunkshapevsper-axisquerybindingF036 missing.",
+      "source_body_proof": "Fresh actual P16 registered material bodies; no PRwhole2059 or old03/07 verdictcarry."
+    }
+  ],
+  "contract_groups": [
+    {
+      "id": "rawmanifest-versus-privatepackage",
+      "comparison": "RawManifest/Entry ordinarySerde denyunknown andpublicfields broaderboundary. load accepts1..32MiBmanifest, schema8/resolution30/nonempty<=20000entries, finiteorderedbounds (notEarthlimit), canonicaldigestmetadata/terrainfeaturelimits. Clonedmanifestzeroespackagehashonlybeforecanonicalserializationhash, rawroad/wetland/cultivationnamespacesremain distinct. Pack1..2GiB/contenthash andseek, everyrange checkedusizeconvert/add andnonoverlap/filebounds; indexes/tiles constructedfromsameentries positions, duplicatekeys/inconsistenttiledims rejectbeforeSelf. Privatepack exposesimmutablemetadata only, no derivedserde/independentmutators. HashnativeidentitynotspatialshapevalidityF036."
+    },
+    {
+      "id": "cell-decoder-and-shape-binding",
+      "comparison": "ActualsixSurfacevariantsRoad/Open/Sparse/Deep/Water/Wetland, defaultOpen, speed0forWaterlegitimateimpassablepurpose. Cellpublicrawpercentbytesnotprobabilitysealed; decoderflags0..3bitsandsurface0..5checkedbeforeunreachable, 5byteswithsignedi16elevation+canopyu8. Hilly/wetlandnative0/100, cultivated/crossingindependentbits, roadsoverwaterlegitimate. Finitequery/outsideboundsNone, missingtileNone, missingchunkErr explicithole; knownchunkflatget mayaliaslocalX into nextrowF036. south+1i16overflow/widecanopyrawdomain alreadyCamera03-042, no newuniquefindinghere."
+    },
+    {
+      "id": "immutable-data-cache-and-failure-scope",
+      "comparison": "Cacheprivateclockcheckedincrement (notworldclock/version), Mutexsafeexclusiveupdates. Hitsrefreshsameindex+Arcimmutablecells; missesreadfileunderfilemutex, boundeddeflateMAX+1thenexactexpectedlength/hash, tagsbeforecells; concurrentduplicateinsertionreturnsactualexistingcells undercachelock. LRU victimtie(index) deterministic, bytestracked5encodedbytesperCell notindependentlyconfirmednativeRustresidentmemorysize; no exact32MiBactualheapclaim. EvictionusesSAMEremovedcells.len*5andadmitdecoded.len forcurrentformat, accountingcoherentunderprivatecache. No wholepackagefilesystemimmutability/TOCTOU/nativeflateimplementationcoverageclaim."
+    }
+  ],
+  "new_unique_findings": [
+    "NATIVE-INITIAL05-F036"
+  ],
+  "remaining_dependency_obligations": [
+    "Actualdigest/terrain_feature lowerbodies and normalbuilder shapeconstructors remain independent currentqueuedsource; no PR2082full2059credit or additionalP16plannerbody. Nativefile/flate/hashkernel notexecuted."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

@@ -1,0 +1,36 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-183",
+  "at": "2026-10-25T13:21:48.396616+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_ROLE_INCOMPLETE",
+  "scope_index": 360,
+  "source_id": "physical-p16:crates/adventuresim-tactical-core/src/physics.rs",
+  "sha256": "35c74e188c90bf25618bfb0170d513f1c0b342473c22acccaca79c50447c857f",
+  "actual_compared_ranges": [
+    [
+      1,
+      970
+    ]
+  ],
+  "trait_inventory": [
+    {
+      "trait": "Default",
+      "type": "QuickstepPush",
+      "lines": [
+        161,
+        171
+      ],
+      "disposition": "Pending exact inner native Default comparison; explicit tick default, zero direction, identity rotation, origin, inactive."
+    }
+  ],
+  "semantic_contracts": "Actual physics1\u2013970 consumed: component/native serde/structural derives already; concrete controller assembly, force/trajectory/collision integration, policy and fixture prefix. No handwritten serializer or other manual trait yet. No operation correctness clearance transferred from04.",
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 360,
+    "source_id": "physical-p16:crates/adventuresim-tactical-core/src/physics.rs",
+    "next_line": 971,
+    "actual_EOF": 1762
+  },
+  "execution": "none",
+  "limits": "Changed1762-line role remains pending971\u20131762; fixture currently incomplete."
+}

@@ -1,0 +1,249 @@
+{
+  "id": "CONT08-CONTRACT-008",
+  "at": "2026-10-25T08:39:16.967120+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 18,
+      "source_id": "native-dependency:serde-saphyr-1.2.0/src/de/error.rs",
+      "sha256": "f814896313ec178ed4f0ee14ab60e358b354814e4019564a42d1f75f2f0d4713",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/f814896313ec178ed4f0ee14ab60e358b354814e4019564a42d1f75f2f0d4713",
+      "read_ranges": [
+        [
+          676,
+          1100
+        ],
+        [
+          1960,
+          1985
+        ],
+        [
+          2227,
+          2270
+        ]
+      ],
+      "native_pin": "PR base/head both lock serde-saphyr1.2.0 checksum3afb591f9cdb6223c88ba39269aff895620c7f0716dc42b705b5733d5c7c0823.",
+      "actual_comparison": [
+        "Public Error/DeserializeError reexport19:27\u201331 resolves to actual nonexhaustive enum18:686\u20131098. It retains location, typed include/IO/validation payloads and cropped snippet context. Native Display/Debug1969\u20131977 use rendered diagnostics.",
+        "Important source limit: native std::error::Error impl2233 is empty. Retaining the concrete native Error preserves its payload, but does not automatically expose all nested IO/include objects through Error::source(). Serde de::Error custom2248\u20132256 intentionally turns generic Display input into redacted message text at that native trait boundary.",
+        "Actual graphics1530 and audio1457 full bodies plus empty PR diffs consumed. Both still format native YAML and IO errors into String before semantic validate helpers and retained application results. Exact ROOT-PP-018 migration gap remains, not newly introduced decode behavior.",
+        "Actual city1536:23\u201324/74\u201375 wraps graphics String in GraphicsConfiguration; relocated preparation1612 preserves that variant/message/code, and unchanged wasm1547 builds JavaScript Error with Display message and code name at the final native boundary."
+      ],
+      "disposition": "Scoped native08 error-owner contract accounted with exact retained finding/qualification; no full YAML parser/admission or all error Display message clearance.",
+      "acceptance": "Keep actual YAML Error and path/validation context to the owning application error boundary while preserving original field failure order and browser classification. Do not promise unsupported Clone/Eq/source-chain behavior or reconstruct categories from prose.",
+      "execution": "No YAML fixture parsed by the project and no native JavaScript exception executed."
+    },
+    {
+      "scope_index": 19,
+      "source_id": "native-dependency:serde-saphyr-1.2.0/src/lib.rs",
+      "sha256": "c8ac1fdcdcbfc060a9ef1696609f81289b0fdd5700e1d9b374de91b7770d6818",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/c8ac1fdcdcbfc060a9ef1696609f81289b0fdd5700e1d9b374de91b7770d6818",
+      "read_ranges": [
+        [
+          20,
+          44
+        ]
+      ],
+      "native_pin": "PR base/head both lock serde-saphyr1.2.0 checksum3afb591f9cdb6223c88ba39269aff895620c7f0716dc42b705b5733d5c7c0823.",
+      "actual_comparison": [
+        "Public Error/DeserializeError reexport19:27\u201331 resolves to actual nonexhaustive enum18:686\u20131098. It retains location, typed include/IO/validation payloads and cropped snippet context. Native Display/Debug1969\u20131977 use rendered diagnostics.",
+        "Important source limit: native std::error::Error impl2233 is empty. Retaining the concrete native Error preserves its payload, but does not automatically expose all nested IO/include objects through Error::source(). Serde de::Error custom2248\u20132256 intentionally turns generic Display input into redacted message text at that native trait boundary.",
+        "Actual graphics1530 and audio1457 full bodies plus empty PR diffs consumed. Both still format native YAML and IO errors into String before semantic validate helpers and retained application results. Exact ROOT-PP-018 migration gap remains, not newly introduced decode behavior.",
+        "Actual city1536:23\u201324/74\u201375 wraps graphics String in GraphicsConfiguration; relocated preparation1612 preserves that variant/message/code, and unchanged wasm1547 builds JavaScript Error with Display message and code name at the final native boundary."
+      ],
+      "disposition": "Scoped native08 error-owner contract accounted with exact retained finding/qualification; no full YAML parser/admission or all error Display message clearance.",
+      "acceptance": "Keep actual YAML Error and path/validation context to the owning application error boundary while preserving original field failure order and browser classification. Do not promise unsupported Clone/Eq/source-chain behavior or reconstruct categories from prose.",
+      "execution": "No YAML fixture parsed by the project and no native JavaScript exception executed."
+    },
+    {
+      "scope_index": 1530,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/config.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "before_sha256": "e2ec96c28d8458610bba86df77c1adceae1cdfe0e71ab972e227c362f72f0fe1",
+      "before_status": "present",
+      "after_sha256": "e2ec96c28d8458610bba86df77c1adceae1cdfe0e71ab972e227c362f72f0fe1",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1530-base-e2ec96c28d8458610bba86df77c1adceae1cdfe0e71ab972e227c362f72f0fe1",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/e2ec96c28d8458610bba86df77c1adceae1cdfe0e71ab972e227c362f72f0fe1",
+      "diff": "source-evidence/1530.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          414
+        ]
+      ],
+      "old_new_comparison": "Full body and entire actual diff consumed, including moved-before source where specified.",
+      "contract": "Graphics YAML schema, validation and helper semantics",
+      "facts": [
+        "Full414-line body and empty actual PR diff read. All raw field types, Serde deny_unknown_fields, enum names/tags and Option defaults remain unchanged.",
+        "Load still enforces1..64KiB using metadata before read; parse formats YAML error, then validates in the same order. Headless disabling assignments and all MSAA/shadow/cloud/grass/tier/window bounds and first failure order are unchanged.",
+        "Existing source fixtures validate shipped config and typo rejection; read only. YAML/IO cause String flattening supports retained ROOT-PP-018.",
+        "Unchanged source conditional concern: root_occlusion validator320 uses <=0 || >1 without explicit finite check; maximum_push329\u2013332 only compares against validated positive minimum. No new08 regression or normal malformed-input witness is asserted; exact native typed-float admission/ordinary source is a separate question."
+      ],
+      "disposition": "Bounded own08 source comparison complete with explicit connected-source limits; no whole graphics/audio/generation clearance.",
+      "limits": [
+        "Actual graphics values, downstream GPU/grass limits and YAML nonfinite typed-scalar behavior are not globally cleared. Side observation sent to coordinator to compare adopted03 evidence."
+      ],
+      "acceptance": "Preserve admitted source values, field validation order, errors and actual terminal classification, while retaining structured cause to the final formatting port. No tests/builds/checks executed."
+    },
+    {
+      "scope_index": 1457,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/audio_config.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "before_sha256": "d1111aa5bdab4e1897a07e82062d8ffc5ffbed8a0790fa75a4c0c482d2e36063",
+      "before_status": "present",
+      "after_sha256": "d1111aa5bdab4e1897a07e82062d8ffc5ffbed8a0790fa75a4c0c482d2e36063",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1457-base-d1111aa5bdab4e1897a07e82062d8ffc5ffbed8a0790fa75a4c0c482d2e36063",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/d1111aa5bdab4e1897a07e82062d8ffc5ffbed8a0790fa75a4c0c482d2e36063",
+      "diff": "source-evidence/1457.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          206
+        ]
+      ],
+      "old_new_comparison": "Full body and entire actual diff consumed, including moved-before source where specified.",
+      "contract": "Audio YAML schema and ordered validation",
+      "facts": [
+        "Full206-line body and empty actual PR diff read. Same raw schemas, Serde deny_unknown_fields,32KiB size gate, YAML/IO String formatting and path context.",
+        "Volume fields retain inclusive unit bounds with finite check; pitches/radius/exponents/response require finite positive; wind threshold<one whole and heavy-rain threshold<1 retain exact order; pitch range keeps finite positive lower and finite ordered upper.",
+        "Existing shipped/invalid pitch fixtures read and unexecuted. No direct numerical or acceptance behavior change established in this file."
+      ],
+      "disposition": "Bounded own08 source comparison complete with explicit connected-source limits; no whole graphics/audio/generation clearance.",
+      "limits": [
+        "Actual native audio playback/timing and all authored content are separate pending source roles. Retained cause migration remains ROOT-PP-018."
+      ],
+      "acceptance": "Preserve admitted source values, field validation order, errors and actual terminal classification, while retaining structured cause to the final formatting port. No tests/builds/checks executed."
+    },
+    {
+      "scope_index": 1536,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/city.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "before_sha256": "dc50098c2f04955e49c7bc30582a809addb65cbd3e8107c64e282b585cdedb50",
+      "before_status": "present",
+      "after_sha256": "dc50098c2f04955e49c7bc30582a809addb65cbd3e8107c64e282b585cdedb50",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1536-base-dc50098c2f04955e49c7bc30582a809addb65cbd3e8107c64e282b585cdedb50",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/dc50098c2f04955e49c7bc30582a809addb65cbd3e8107c64e282b585cdedb50",
+      "diff": "source-evidence/1536.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "old_new_comparison": "Full body and entire actual diff consumed, including moved-before source where specified.",
+      "contract": "City graphics parser/error receiving graph",
+      "facts": [
+        "Full103-line body and empty actual PR diff read. Graphics parse occurs before supported terrain/generation in generate; jobs checks owner/staged products, decodes document, validates graphics, then emits city and first-seen missing facade jobs in same order.",
+        "Document/graphics equality and exact graphics String retained in product remain unchanged. GraphicsConfiguration wraps same string payload before final native exception; no behavior equivalence inferred for underlying terrain or product transport."
+      ],
+      "disposition": "Bounded own08 source comparison complete with explicit connected-source limits; no whole graphics/audio/generation clearance.",
+      "limits": [
+        "Ticket/residency/product source association, codec and actual generation are separate pending sources."
+      ],
+      "acceptance": "Preserve admitted source values, field validation order, errors and actual terminal classification, while retaining structured cause to the final formatting port. No tests/builds/checks executed."
+    },
+    {
+      "scope_index": 1612,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/preparation.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "before_sha256": null,
+      "before_status": "absent at exact base",
+      "after_sha256": "35db8b8b632500bacb59de9fffe065979e5da709c52dbaf0ea4d80ae6847af12",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/35db8b8b632500bacb59de9fffe065979e5da709c52dbaf0ea4d80ae6847af12",
+      "diff": "source-evidence/1612.diff",
+      "diff_sha256": "9bc49a8923b913e3f3b4e0d2c9b6fef437ae49a9b60e40b18b517bebbe4ff222",
+      "head_body_read_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "old_new_comparison": "Full body and entire actual diff consumed, including moved-before source where specified.",
+      "contract": "Relocated preparation error with explicit VistaMesh case",
+      "facts": [
+        "Full115-line head plus added-file diff read. Actual predecessor recovered from base presentation/generation/error.rs and compared via source-evidence/1612-relocated.diff; relocation cannot be mistaken for entirely new semantics.",
+        "All former variants, payloads, Display messages, From wrappers and browser code strings remain identical after move. Only new VistaMesh transparent variant and generation/vista-mesh code are added, with doc/import adjustment.",
+        "GraphicsConfiguration still stores message String and identical generation/graphics-configuration code; source cause omission is carried ROOT-PP-018. Structured other-source fields are not a blanket proof of source delegation or native API fit."
+      ],
+      "disposition": "Bounded own08 source comparison complete with explicit connected-source limits; no whole graphics/audio/generation clearance.",
+      "limits": [
+        "Actual VistaMesh failure producer and all new error recipients remain pending. Additional enum case is not a runtime failure or code renumbering claim."
+      ],
+      "acceptance": "Preserve admitted source values, field validation order, errors and actual terminal classification, while retaining structured cause to the final formatting port. No tests/builds/checks executed."
+    },
+    {
+      "scope_index": 1547,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/wasm_error.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "before_sha256": "4ccc83fc48a4ceaffaaea93ec7387dc43ffc32996324f04e6dbd84852e4273a4",
+      "before_status": "present",
+      "after_sha256": "4ccc83fc48a4ceaffaaea93ec7387dc43ffc32996324f04e6dbd84852e4273a4",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1547-base-4ccc83fc48a4ceaffaaea93ec7387dc43ffc32996324f04e6dbd84852e4273a4",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/4ccc83fc48a4ceaffaaea93ec7387dc43ffc32996324f04e6dbd84852e4273a4",
+      "diff": "source-evidence/1547.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "old_new_comparison": "Full body and entire actual diff consumed, including moved-before source where specified.",
+      "contract": "JavaScript exception boundary for preparation",
+      "facts": [
+        "Full23-line body and exact empty PR diff read. Conversion still creates JavaScript Error from owning Display text then sets name to owning stable code and returns JsValue.",
+        "Error owner moved but old existing variant codes and messages retain exact spelling in own predecessor comparison. New VistaMesh case is a deliberate new classification at its producer; actual invocation not run."
+      ],
+      "disposition": "Bounded own08 source comparison complete with explicit connected-source limits; no whole graphics/audio/generation clearance.",
+      "limits": [
+        "No JavaScript/browser execution, stack identity or complete worker retry/message protocol clearance."
+      ],
+      "acceptance": "Preserve admitted source values, field validation order, errors and actual terminal classification, while retaining structured cause to the final formatting port. No tests/builds/checks executed."
+    },
+    {
+      "scope_index": 1537,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/error.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "before_sha256": "5034a63e3f88c50bf298567c52a6ac1e6d2734e6239e7434d5275eb4e757e8d9",
+      "before_status": "present",
+      "after_sha256": null,
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1537-base-5034a63e3f88c50bf298567c52a6ac1e6d2734e6239e7434d5275eb4e757e8d9",
+      "head_object": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/5034a63e3f88c50bf298567c52a6ac1e6d2734e6239e7434d5275eb4e757e8d9",
+      "diff": "source-evidence/1537.diff",
+      "diff_sha256": "a630453038d51106f9f107a26fae64e1f8aeafe28ea852f18ed1bb5b8df0f1d6",
+      "current_status": "Absent at exact PR head. Catalog object is recovered predecessor/base only, never current-body credit.",
+      "body_read_method": "Own full predecessor semantics consumed through actual head115-line body plus complete relocation diff, with exact base111-line object retained.",
+      "relocation_target": 1612,
+      "disposition": "Deleted role accounted as relocation evidence; no claim of current source at this path.",
+      "acceptance": "No legacy API/compatibility alias reintroduced; use clean final preparation owner."
+    }
+  ],
+  "finding_support": [
+    {
+      "existing": "ROOT-PP-018",
+      "classification": "Graphics/audio native-cause migration gap is unchanged; no new decode/validation regression claimed."
+    }
+  ],
+  "source_questions": [
+    {
+      "id": "CONT08-Q005",
+      "status": "Unchanged validator admission dependency sent to coordinator, no defect promotion.",
+      "sources": [
+        1530,
+        18
+      ],
+      "question": "Actual typed YAML f32 nonfinite admission and affected root_occlusion/maximum_push recipient policy; validator alone lacks complete finite guard. Do not infer ordinary authored reachability."
+    }
+  ],
+  "next_frontier": "Native20\u201324 exact SpacetimeDB reducer/view/timestamp/callback boundaries. Original2853,246 overlays, live71 and frozen38 merged delta remain incomplete."
+}

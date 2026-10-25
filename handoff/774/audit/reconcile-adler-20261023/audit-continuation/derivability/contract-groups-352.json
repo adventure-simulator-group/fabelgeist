@@ -1,0 +1,101 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-352",
+  "at": "2026-10-25T15:01:16.816923+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 693,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_recipes.rs",
+      "sha256": "a6c834971b1cd263330dea65a4a48a826dda0b767e3e16b49dc26c8a7405c725",
+      "actual_EOF": 262,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_recipes.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-character-creator/src/armor_recipes.rs",
+        "owner": "rig",
+        "sha256": "a6c834971b1cd263330dea65a4a48a826dda0b767e3e16b49dc26c8a7405c725",
+        "base_sha256": "41fca6963a1557cb3f9e0fb04b66d2c4a38774ef69b31db30e7009b58afa3d09",
+        "state": "modified",
+        "bytes": 11249,
+        "audit_owner": "rig",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/sources.json",
+            "ranges": [
+              [
+                1,
+                262
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-DESIGN-01",
+              "RIG-PP-005"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 154,
+            "read_ranges": [
+              [
+                1,
+                262
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-ARMOR-DESIGN-028"
+            ],
+            "read_status": "full-source-read-current-lens",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-character-creator/src/armor_recipes.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          262
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "ParametricDesign Clone/Debug/PartialEq/Serde11",
+        "DedicatedGenerator Clone/Copy/Debug/PartialEq/Eq65"
+      ],
+      "absence_basis": "Full exact source consumed. ParametricDesign validation23\u201333 and same_family36\u201348 semantic nested-discriminant/kind policy, lazy catalog/recipe51\u201362, DedicatedGenerator membership72\u201378 and fit_region85\u2013122 anatomical mapping/native errors are inherent/free functions, not handmade traits. Fixtures124\u2013262 read not run. No new codec justified for runtime classifier."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "authored armor catalog family and fit-region classification",
+      "disposition": "No handwritten trait boilerplate; mechanical enum wire/structural traits already derive. Semantic validation/classification remains explicit.",
+      "acceptance": "Preserve nested family distinctions and checked lateral-side failure; no execution or new serialization."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 694,
+    "source_id": "pr-working:crates/adventuresim-character-creator/src/armory.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

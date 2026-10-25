@@ -1,0 +1,37 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-003",
+  "at": "2026-10-22T18:42:02.000965+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/plan_geometry.rs",
+      "sha256": "a767ca4e45d2c04ddf94d1f23452ecbb3a5c6c864bc8ce63fc673e6f39e5b92b",
+      "scope014_index": 651,
+      "actual_EOF": 341,
+      "scoped_ranges_compared": [
+        [
+          1,
+          341
+        ]
+      ],
+      "fresh_source_proof": "Full actual PR341 freshly read in1–230 then230–341 including ALL existing245–341 tests source-only. No prior verdict coverage."
+    }
+  ],
+  "contract": {
+    "relationship": "PlanPolygon retains finite distinct ordered >=3 vertices, nondegenerate counterclockwise convex geometry (collinear boundary vertices allowed) as a complete sequence. PlanHull explicitly distinguishes empty/point/segment/area contact topology; finite independently valid points do not imply that sequence relation.",
+    "construction": "ArchitecturalPlanPoint13–49 privateVec2/from_metres/TryFrom/manualSerde finite admission, opaque typed clone; individualpoint carries no polygon property. Public PlanPolygon::from_ordered_vertices123–146 first checks every projection finite, then len>=3 and f64 signed_area nonzero/nonnegative, uniqueness by exact projected coordinates, then everypoint onleft/nonnegativecross ofeveryorderededge. Fixed vertexorder retained, no hull/reordering/epsilon repair of authored input. Private Vec and readonly slice; Serialize only/no Deserialize/Default/Reflect/raw field or independent push/setter.",
+    "operations_and_consumers": "try_map150–161 collects all projectedQ fallibly, then rechecks complete sequence through same factory, so finite butcollapsed/reflected/nonconvex mapped output cannot keep invalid topology. Actualrelyingqueries usevertices edgecycles and half-plane relations; not every f32roofcontour/concaveweatherhole can use this strictconvexowner. PlanSegment private endpointpair only generated fromdeduplicated sorted hullpoints, no publicuncheckedconstructor. PlanHull::from_points174–224 finitechecks/sorts/dedups signedzero-geometric equal, explicit cardinality thenmonotonicf64cross halves. Areavariant privatewholehullconstruction assumesstable finite projectedpoints; no proximityepsilon merges nearcontact.",
+    "otherwise_valid_leaves_counterexample": "Threecollinear finitepoints, reversedorderedtriangle, duplicatevertex andconcaveshape all individually valid ArchitecturalPlanPoints but wholefactory rejects. Existing tests245–341 showthese productioncalls and sourceassertions, neverrun. Empty/one/twopoint contacts validPlanHull states, not errors coercedintozeroarea polygon. Mappedallvertices→samefinitepoint rejected atomically.",
+    "latent_extension_counterexample": "Public PlanVertex5–7 requires Copy+PartialEq and returns nativeVec2, but neither storage nor documentedtrait contract requires projection stability/immutable referenced state. A safe external Copy vertex can hold a shared reference to interior-mutable coordinates, initially project three valid trianglepoints, then mutate those cells after PlanPolygon admission so they coincide or become nonfinite. vertices() cannot replaceP but doesnotstop changing referencedcoords. The same concern affects direct hull temporary assumptions. This is representable extension-API weakness, not an actual current concrete implementation/caller failure; current ArchitecturalPlanPoint itself is privateimmutableVec2. No executable new case/test/assertion written orrun.",
+    "disposition": "NATIVE-INITIAL05-F001 latent aggregate retention contract gap for open projected vertices. Concrete current immutable point implementation and complete factory/map behavior are coherent. Preserve strictconvex/noholes owner; roofrawconcave/holegraphs require their own aggregate, not forced fit.",
+    "connected_repair": "Root retains exact existing plan_geometry function ownership. At actual generic extension boundary, explicitly require stable immutable geometry projection or store immutable admitted coordinate evidence with typedvertices so polygon invariant cannot change independently. Decide controlled representation using real external ScenePlanPoint needs; no elaborate branding/automaticclosedworld whitelist. Existingfactory/f64 predicates/order/zero topology and native adapter error semantics preserved.",
+    "acceptance": "Every exposed mutation path of any supported PlanVertex used by admitted PlanPolygon must preserve finite/distinct/orderedconvex geometry; changing mapping re-enters factory. Document trusted extension precondition if that is the intended architecture, with current implementations verified separately. Do not claim badruntime or universal externaltrait validation from Copy/readonlyslice."
+  },
+  "finding_refs": [
+    "NATIVE-INITIAL05-F001"
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

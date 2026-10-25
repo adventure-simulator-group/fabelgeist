@@ -1,0 +1,39 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-130",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        2412,
+        2413
+      ],
+      "ranges": {
+        "2412": [
+          [
+            1,
+            270
+          ]
+        ],
+        "2413": [
+          [
+            1,
+            694
+          ]
+        ]
+      },
+      "comparison": "Fresh inventory1\u2013270/543 and travel1\u2013694/1579. Inventory quality_override applies to real food lot plus independent book capability; food/book/weapon/ranged and alcohol/container facts can coexist. Numeric quality clamp guarantees current unreachable arm excluded, no enum of numeric grades inferred. Inventory optional columns and quantity/equipped/condition show flags are independent presentation policy; actual InventoryBrowser body not in scope read here. party_scope bool crosses quantity-target HTML and prior HTTP owner, but client/native ownership contract still open; no normal wrong target. TravelDestination round-trip route/estimate product supports F100 consumer trace. Selected destination vs selected settlement are different projections: settlement inspection legitimately has no direct route; case-site route legitimately no settlement. selected_is_current applies inspection; current normal constructor derives matching identity. Avoid merging these as redundant identical facts. Travel-at-night persisted preference is a carried semantic choice, but canonical schedule producer still untraced here; do not make departure time or walking duration inapplicable by day/night. Travel planner preview versus current journey product remains candidate pending active-journey caller in unread tail: optional journey_route may legitimately be unavailable, so do not require fabricated route. Case-site future return forecast mirrors reached/forecast stops intentionally as forecast, not observed return movement; preserve distinction from actual reached stop record. selected_round_trip only set when return terrain missing intentionally selects estimated mirrored UI, not a claim actual leg absent. Terrain span explicit Surface match is final display codec; Water intentionally omitted. Itinerary Walking/Camp compact w/c is real browser adapter. No browser body credit, no tail/tests credit.",
+      "disposition": "F100 consumer support; inventory ownership and planner mode remain exact trace gaps",
+      "finding_refs": [
+        "SEGO-INITIAL09-F100"
+      ]
+    }
+  ],
+  "new_findings": [],
+  "open_candidates": [
+    {
+      "id": "SEGO-INITIAL09-OPEN-130",
+      "details": "Active-journey planner callsite outside694; register before following. InventoryBrowser actual owner; target scope browser/native; canonical schedule preference owner. All context source gaps remain open."
+    }
+  ],
+  "limits": "No execution/repair/checks/plan/clearance. Next2414 dialogue client scoped ranges."
+}

@@ -1,0 +1,175 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-910",
+  "at": "2026-10-25T17:13:19.191958+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1104,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/fireplace_custody.rs",
+      "sha256": "91a13115f15cf32eabd8971f881e1eb15a9177e089cc8e72d8c7ef0495cdb168",
+      "actual_EOF": 656,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/fireplace_custody.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/food/fireplace_custody.rs",
+        "sha256": "91a13115f15cf32eabd8971f881e1eb15a9177e089cc8e72d8c7ef0495cdb168",
+        "bytes": 25553,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+            "ranges": null,
+            "source_read_status": null,
+            "trace_refs": []
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                656
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-CUSTODY-FOOD-RECEIVERS-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 237,
+            "read_ranges": [
+              [
+                1,
+                656
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-FOOD-RECEIVERS-023"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/food/fireplace_custody.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-MATERIAL-FOOD-016",
+            "json_pointer": "/current_shared_body_proof/source_records/7",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/food/fireplace_custody.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                656
+              ]
+            ],
+            "source_context": {
+              "index": 222,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/fireplace_custody.rs",
+              "sha256": "91a13115f15cf32eabd8971f881e1eb15a9177e089cc8e72d8c7ef0495cdb168",
+              "read_ranges": [
+                [
+                  1,
+                  656
+                ]
+              ],
+              "method": "Fresh whole P16 source and complete actual PR reverse delta, identical common source once where both pinned hashes match"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-MATERIAL-FOOD-012",
+            "json_pointer": "/source_reads/7",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/food/fireplace_custody.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                656
+              ]
+            ],
+            "source_context": {
+              "packet_obligation": 10,
+              "assigned_camera_index": 222,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/fireplace_custody.rs",
+              "sha256": "91a13115f15cf32eabd8971f881e1eb15a9177e089cc8e72d8c7ef0495cdb168",
+              "read_ranges": [
+                [
+                  1,
+                  656
+                ]
+              ],
+              "method": "Fresh whole P16 source and complete actual PR reverse delta, identical common source once where both pinned hashes match",
+              "disposition": "producer/retained-state/operation/receiver/native-port inventory accounted with existing findings; no per-cell camera credit inferred",
+              "owner_proof_refs": [
+                {
+                  "supplier": "camera",
+                  "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+                  "row": 237,
+                  "read_ranges": [
+                    [
+                      1,
+                      656
+                    ]
+                  ],
+                  "contract_refs": [
+                    "CAM-OWN-FOOD-RECEIVERS-023"
+                  ],
+                  "read_status": null,
+                  "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/food/fireplace_custody.rs"
+                }
+              ],
+              "original_producer_refs": []
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 437,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          656
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Entire exact source consumed909\u2013910, including native fixture validation, camp gates, death cleanup, instrument classification, canonical station keys and vessel place/retrieve reducers. Local StationCleanup enum has no trait impl. All native contextual custody/error policies, no handwritten trait/codec."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Fireplace custody derivability",
+      "disposition": "Retain contextual fixture and custody validation, return routing and side effects; no mechanical trait implementation to replace and no reason to add runtime Serde/classifiers."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1105,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/ingredient_preparation.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

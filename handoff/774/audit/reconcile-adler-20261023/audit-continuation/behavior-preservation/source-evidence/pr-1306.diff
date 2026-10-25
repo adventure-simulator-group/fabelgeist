@@ -1,0 +1,48 @@
+--- PRbase/crates/adventuresim-tactical-client/examples/armor_fixture/pauldron_tests.rs
++++ frozen/crates/adventuresim-tactical-client/examples/armor_fixture/pauldron_tests.rs
+@@ -26,10 +26,14 @@
+         }
+         let fit = |item, side, layers| {
+             pollster::block_on(runtime_equipment::generate(
+                 &body,
+-                item,
+-                side,
++                adventuresim_core::equipment_assets::CatalogPlacement::find(
++                    adventuresim_core::item_catalog::catalog(),
++                    item,
++                    side,
++                )
++                .ok_or_else(|| anyhow::anyhow!("unknown equipment placement"))?,
+                 &bracer,
+                 &breastplate,
+                 layers,
+             ))
+@@ -42,9 +46,16 @@
+             assert!(bare.morphs.is_empty());
+             assert_eq!(bare.indices, dressed.indices);
+             let adventuresim_character_creator::armor_recipes::ParametricDesign::Limb(
+                 fabelgeist_armor::LimbArmorDesign::Pauldron(recipe),
+-            ) = adventuresim_character_creator::armor_recipes::recipe("pauldron").unwrap()
++            ) = adventuresim_character_creator::armor_recipes::recipe(
++                adventuresim_core::equipment_assets::CatalogItem::find(
++                    adventuresim_core::item_catalog::catalog(),
++                    "pauldron",
++                )
++                .unwrap(),
++            )
++            .unwrap()
+             else {
+                 panic!("pauldron catalog recipe");
+             };
+             assert_eq!(
+@@ -68,9 +79,9 @@
+                 .unwrap() as u32;
+             for armor in [&bare, &dressed] {
+                 for component in &armor.components {
+                     assert!(
+-                        armor.joint_indices[component.vertices.clone()]
++                        armor.joint_indices.native_words()[component.vertices.clone()]
+                             .iter()
+                             .all(|j| *j == [owner; 8])
+                     );
+                 }

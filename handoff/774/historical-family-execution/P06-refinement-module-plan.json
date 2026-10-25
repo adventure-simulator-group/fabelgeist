@@ -1,0 +1,30 @@
+{
+  "head": "82cb2a3acccc852bba6a7ef9c706c337ba9fe765",
+  "observed_at": "2026-10-20T17:55:23.069141+00:00",
+  "status": "Pre-edit modularization/producer trace; no source changes.",
+  "owning_rule": "crates/AGENTS.md: extract the responsibility being materially expanded before expanding files around/above 400-500 production lines.",
+  "source": "crates/adventuresim-tactical-core/src/scene_input.rs",
+  "source_sha256": "a14ebebfa341f8931147a923ed0f6c9316e654c4699d53e9a7c79c81f8c4d567",
+  "evidence": {
+    "production_ends_before_test_module_line": 900,
+    "complete_refinement_and_relief_responsibility_lines": [
+      214,
+      596
+    ],
+    "connected_external_caller": "scene_input/generation/geographic.rs::prepare calls refine_authoritative_terrain; no outside public API for the relief helpers.",
+    "existing_road_golden": "scene_input/tests/road.rs::goslar_road_rut_preserves_the_cross_runtime_source_vertex checks exact to_bits; retain its single assertion and inputs.",
+    "already_separate_helpers": [
+      "scene_input/detail_noise.rs",
+      "scene_input/detail_obstacles.rs"
+    ]
+  },
+  "decisions": [
+    "Extract the complete authoritative refinement/relief responsibility and its owned tuning constants to a focused scene_input/refinement module before adding the checked callback and support-query flow. Keep existing noise and obstacle owners; do not move unrelated input validation, environment serialization or source-grid repair merely to reduce line counts.",
+    "Move the existing road golden with the responsibility, preserving its name, fixture values and exact bit assertion. Preserve selection beneath scene_input::. No new tests or fixture helpers.",
+    "The full relief block is already around 380 production lines before typed errors/coordinates. If expansion pushes the coherent owner too far, separate the road probing/relief concern with its existing golden into a real child module rather than introduce a pass-through facade.",
+    "Keep SceneTerrain source-grid creation as a native raster port. Refinement and rewrite callbacks expose scene-local coordinates and absolute observations and carry checked leaves until final buffer admission.",
+    "Preserve the native/browser road operation order and software transcendental calls; the existing frozen road golden must execute on hosted CI."
+  ],
+  "no_local_project_execution": true,
+  "source_unchanged": true
+}

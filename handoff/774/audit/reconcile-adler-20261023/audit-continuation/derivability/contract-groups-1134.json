@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1134",
+  "at": "2026-10-25T17:52:17.803232+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1242,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/tactical.rs",
+  "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+  "actual_compared_ranges": [
+    [
+      351,
+      730
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "MissionCaseIdentity611\u2013627 already structural derives; borrowed inherent parser nonempty case:standalone prefix fallbackOther, semantic not FromStr/Serde. No handwritten trait/codec. Native player projection joins stats/currentcondition/server/cohort/equipment/durability/appearance and selected occupancy fields; contextual transforms not derivedFrom. Enter/leave/standalone retirement/request admission validates exact server/mission/currentparty/catalog/site; preserve finite native authority boundary/error semantics."
+  ],
+  "first_unfinished": {
+    "scope_index": 1242,
+    "line": 731
+  },
+  "execution": "none"
+}

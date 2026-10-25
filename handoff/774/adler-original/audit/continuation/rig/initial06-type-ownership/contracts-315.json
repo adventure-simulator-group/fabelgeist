@@ -1,0 +1,25 @@
+{
+  "id": "RIG-INITIAL06-GROUP-315",
+  "at": "2026-10-23T08:46:06.702510+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "live-core-original-integration-spec": {
+      "comparison": "Ignored opt-in integration fixture uses canonical CoreLoopConfig/Seed/EquipmentStyle/CoreLoopEventKind and resulting report rather than duplicate agent state enum. Trace detail strings are human diagnostics parsed only by local test helper, not canonical gameplay decision source here; exact finite/public supply expectations do not define new shared numeric owner. It explicitly requires fresh disposable isolated DB and nonce/token workflow; this source review performs no publish/reset/test run. Selected event subsequences are fixture expectations, not complete authoritative event vocabulary or a second lifecycle state machine. All fields/state comparisons source-read only, no called-helper invariant credit.",
+      "disposition": "Original integration contract using canonical configuration/event/report owners."
+    },
+    "shared-tactical-public-reexports": {
+      "comparison": "Tactical Core module/prelude is shared client/server Bevy-centric owner, reexports underlying animation/combat/physics/inventory/scene/world concepts rather than defining copies. Pure Core item catalogue EquipmentChannel/Location and speed leaves reused directly; tactical CharacterId versus broaderDBidentity remains F040 separately. Complete actual PR/P16 body delta/current import roles compared: P16 exposes MeleeLungeGeometry/GeometryError/Result/distance epsilon but omits PR EquipmentSequence/Revision exports. Preserve current PR typed sequence semantics and physical migration graph separately, never import stale parent schema wholesale. Avian/Bevy exports are native integration surface, no proof whole SDK validity or otherlens clearance.",
+      "disposition": "Canonical shared tactical module boundary, existing F034/F040 graphs preserved with variant differences."
+    },
+    "garment-selection-context-owner": {
+      "comparison": "GarmentSelection owns creator choice of Construction/FabricPreset/ClothLayer/resolution/drape/appearance; canonical Pattern, CoifDesign, HelmetDesign::MailCoif and lower Fabric constants reused. Construction sewn versus fitted drives GarmentForm physical follow mode, distinct from garment material/kind. ClothLayer is legitimate selectable3-value cloth subset mapping into shared EquipmentChannel, while Chainmail forciblyFlexibleArmor; do not replace constrained selection with entire9-channel enum or call current mapping independent equipment policy. FabricPreset selects actual mechanical fabric constants beyond coarse catalogue EquipmentMaterial, so same Wool label is insufficient equivalent semantics. same_simulation explicitly excludes name/layer/mail appearance for cache purpose, not universal item identity. Exact1–225production only;226–271tests excluded.",
+      "disposition": "Meaningful creator selection/preset subsets over canonical construction and material owners."
+    }
+  },
+  "supporting_existing_findings": [
+    "F034",
+    "F040"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit."
+}

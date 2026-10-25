@@ -1,0 +1,17 @@
+--- PRbase/crates/adventuresim-tactical-client/examples/armor_fixture/anime_tests.rs
++++ frozen/crates/adventuresim-tactical-client/examples/armor_fixture/anime_tests.rs
+@@ -172,12 +172,12 @@
+         }
+         let mut owners = std::collections::BTreeSet::new();
+         for component in &armor.components {
+             let range = component.vertices.clone();
+-            let joint = armor.joint_indices[range.start][0];
++            let joint = armor.joint_indices.native_words()[range.start][0];
+             owners.insert(joint);
+             assert!(
+-                armor.joint_indices[range.clone()]
++                armor.joint_indices.native_words()[range.clone()]
+                     .iter()
+                     .all(|j| j[0] == joint)
+             );
+             assert!(

@@ -1,0 +1,103 @@
+{
+  "id": "CAMERA-INITIAL07-CONTRACT-165",
+  "at": "2026-10-23T02:25:24.683615+00:00",
+  "lens": "audit-redundant-authority",
+  "members": [
+    {
+      "scope049_index": 297,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/tests/authority_trade_dialogue.rs",
+      "sha256": "ea82a6a6d486b3ab9be06fcd3627eb304db68230316556c7f90fb69eef6238b8",
+      "actual_EOF": 761,
+      "material_ranges": [
+        [
+          1,
+          761
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-049.json#/files/297"
+    },
+    {
+      "scope049_index": 298,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/travel_planning.rs",
+      "sha256": "72e17030fb5f5e7f0337b78091c7ab5eddcac318c91f5a3ba7a246a3a7ba860b",
+      "actual_EOF": 346,
+      "material_ranges": [
+        [
+          1,
+          346
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-049.json#/files/298"
+    },
+    {
+      "scope049_index": 299,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs",
+      "sha256": "0d84cd735fae1cf275ad3e2003b55b209f41cdf0c4dc22c8acdeb1b7809864d2",
+      "actual_EOF": 1029,
+      "material_ranges": [
+        [
+          1,
+          1029
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-049.json#/files/299"
+    },
+    {
+      "scope049_index": 1235,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/tests/authority_trade_dialogue.rs",
+      "sha256": "32c5e6e23e6687a365a8b7a7920e5a7dc0a6d6cc722250448159318a90f60899",
+      "actual_EOF": 761,
+      "material_ranges": [
+        [
+          1,
+          761
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-049.json#/files/1235"
+    },
+    {
+      "scope049_index": 1236,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/travel_planning.rs",
+      "sha256": "72e17030fb5f5e7f0337b78091c7ab5eddcac318c91f5a3ba7a246a3a7ba860b",
+      "actual_EOF": 346,
+      "material_ranges": [
+        [
+          1,
+          346
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-049.json#/files/1236"
+    },
+    {
+      "scope049_index": 1237,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs",
+      "sha256": "ff33eb4a42abbfa737b312019fdfc7c457688d66bd84fb81af2364ed30fa9cfe",
+      "actual_EOF": 1029,
+      "material_ranges": [
+        [
+          1,
+          1029
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-049.json#/files/1237"
+    }
+  ],
+  "actual_source_proof": "Personally consumed substantive full actual source narratives Rig614/615/616, then current07 fresh P16planning entire346, travel130-210/300-470/494-551/774-914/943-1029 actual critical producers andrecipients. Existingtestsource whole761 prioractual narrative reanalyzed with actual current allfunction attrs and fresh1-52/430-489/546-581/722-761; no production authoritydeclared inthese24tests. Complete counterpart diffs explicitly compared: planning none, travel eightreturnaliases, fixture one exact renamed checkedhelper source-string. No passingtests or wholecalleecredit.",
+  "contracts": [
+    "Travel route distance is correlated with actualpolyline but accepts explicit tolerance5percent+250m; route duration has maximumspeed lowerbound, and spans own assessedterrain/skillmetadata plus exactcontiguousminutes sum. These are not exactduplicatevalues to derive byone unqualified formula. Package digest binds the trusted gateway terrain package identity; it doesnot independently recompute all spanterrain/skillclaims or validateentirepackagecontents. Preserve trusted authenticatedrouteproducer boundary and exactbounds ratherthanclaim cryptographiccontentproof frommatchingtag alone.",
+    "Departure weather snapshot intentionally freezes weatherinterval/precipitation/intensity/moisture/snow forrouteassessment; validate_route_departure_weather_interval checks actual synchronizeddeparture afterward. Returnleg is independently planned geometry/spans, shares package/weatherdeparture context then passes same gate reversedendpoints. Futureactualweathercanchange withoutrewritingdeparturesnapshot; sourceauthorization/schema and canonicalweatherproducer remain lowerroles, no blanketduplicateweathercachefinding.",
+    "Hybrid E7 marker selects deliberate coordinateframe: geographic WGS84 versusexplicitabstract planar. encode/decodecheckedleaf routes preserveframepolicy, straightlinedistance results derivedfornative use. Rawtwoaxes+bool remain correlated transport representation, exact futurecanonicalsumowner fit belongs laterlens; do not deriveframefromaxisranges sinceabstractvalidvalues mayfallinsideEarthbounds. Roadneighborcollection derives bothdirections fromcanonicalstorededge endpoints andDijkstra stopsatfirstsettlement, not independentlysavedroutecollection here.",
+    "Travel checks actualparty/leader/location/knowledge before andafterdeparturetimesynchronization, thenupdatesmemberandpartyplaces together onpartialleg/arrival. Actualcurrentjourney predicate162 rejects incoherentcampstate; continues validates pre-refreshcamp/fireplace custody BEFORErefresh toavoidmintingnewidentityaroundexistingobjects. Thiscloses162 itinerarysetter invalidation: walking/nightactualsetter845 storespreferences andrefreshes ifcamped; continuation905 alwaysrefreshes futureforecast. Departuretimeofday becomesimmutableoncewildernessanchorset, so itcannotinvalidatecurrentenvironmentclockbyindependentsetter.",
+    "Campfatigue threshold isuserpreference, notcachedfatiguevalue; no forecastrefreshin799 alonedoesnotprovewrongforecast becauseactualforecastinputs162 usewalking/night/memberfatigue, notthat stopthreshold. Actualcompletedmovement versuselapsed/rest stayseparate; arrivalsets locations andremovesleg, whilehistoricalvisits/objectivefacts remain. Settlementarrivalreplenishesneeds+refreshescondition+organization+capability in370 helper; continuation943 path hasownorder (condition/reconciliation/rest), retainF022 exactcachelifecycledependency ratherthaninfer identicallaterrefresh merelyfromsharedarrivalname.",
+    "Paidarrest160 closesincidentstatus afteractualfinepayment. Currenttravel494 permitscase-sitewithdrawal withoutrequiringhostilegroupresolved, andsettlementarrival424 considersONLYPending incidents foravoidancepenalty. Thus paidincidentdoesnotneedhostiledispositionequality topermitdeparture; remainingactivegroup atabandonedfixedscene doesnot itselfprovenormalbadmovement. Thiscloses specific blocked-departure hypothesis; whetherlater publicrevisit/groupaction shouldhide resolvedarrestgroup remains exactcase/group projectiondependency, notnewfindingfromdifferentstatusnames.",
+    "Guardedtravel/no unresolvedencounter preventsordinaryredirect/continuation whileAwaitingChoice orboundopenroadchallenge; setteritinerarycanchangefuturewalkingsettings withoutchangingcaptured encounterRunchoice/speed. Thus newsetter alone doesnotestablishwrongRunavailability156. Currentauthoritativegroup/capability andotheritem/conditionmutationcells stillneedactualcomparison beforechangingthattemporalpolicy. Recoverycompanion maywithdrawunreadyleader byexplicitdestinationpredicate164; do not turnthatintentionalescape intoallmembersReady precondition.",
+    "24originaltests are independent source/valueoracles forknown authoritycontracts, not parallel runtimepolicy/configuration owners. Literalexpectedvalues and stringpresence canlagimplementation ormissbranches, so they neitherreplaceactualcurrentproducertrace norjustifykeepingduplicateproductionauthority. Preserveexistingintent and exactnativeprivate/publicredaction distinctions; no newtests/cases/assertions/helpers or execution."
+  ],
+  "findings": [],
+  "existing_finding_support": [
+    "CAMERA-INITIAL07-F010",
+    "CAMERA-INITIAL07-F022"
+  ],
+  "connected_repair_acceptance": "Retain one coordinatedcurrenttravel/place/camp owner with explicitpost-syncrevalidation andfutureforecastrefresh; preservecapturedroute/weather/history andintentionalgeometrytolerance. Carrycanonicalframe/units throughretainedstate totruegateway/mathports, preserveescape/readinesssemantics. Resolve actualexternalcacheinputs/latearrivalrefresh andpublicgrouprevisit recipients beforeclaiminguniversalcoherence.",
+  "status": "Exact6 source inventories with actualcurrentroute/weather/traveloperations, qualifiedlowerdependencies; no newunique07finding"
+}

@@ -1,0 +1,90 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-100",
+  "at": "2026-10-23T02:12:55.592839+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_economy.rs",
+      "sha256": "0821918d44bc66de59484518b50255c6a75b8001427feaa6ab8309a7a8ec7e5c",
+      "actual_compared_ranges": [
+        [
+          1,
+          143
+        ]
+      ],
+      "source_evidence": "Fresh complete literal P16 bodies with actual byte-identical PR and independently compared same native integer/f32/shared enum and SDK feature contexts. No other-lens verdict carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_state/vocabulary.rs",
+      "sha256": "87baee6fe0607a7000600790507d24701630db771b54e221ce571cd98db34c13",
+      "actual_compared_ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "source_evidence": "Fresh complete literal P16 bodies with actual byte-identical PR and independently compared same native integer/f32/shared enum and SDK feature contexts. No other-lens verdict carry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_economy.rs",
+      "sha256": "0821918d44bc66de59484518b50255c6a75b8001427feaa6ab8309a7a8ec7e5c",
+      "actual_compared_ranges": [
+        [
+          1,
+          143
+        ]
+      ],
+      "source_evidence": "Fresh complete literal P16 bodies with actual byte-identical PR and independently compared same native integer/f32/shared enum and SDK feature contexts. No other-lens verdict carry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_state/vocabulary.rs",
+      "sha256": "87baee6fe0607a7000600790507d24701630db771b54e221ce571cd98db34c13",
+      "actual_compared_ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "source_evidence": "Fresh complete literal P16 bodies with actual byte-identical PR and independently compared same native integer/f32/shared enum and SDK feature contexts. No other-lens verdict carry."
+    }
+  ],
+  "groups": {
+    "checked-line-and-inn-arithmetic": "u32*u32 fits u64 exactly; widening before checked_mul preserves it. Total addition rejects overflow explicitly. Inn ceil-day computation divides before adding partial-day1 and multiplying fixed2, so u64 minute input stays far below u64 range with actual calendar day1440; Option failure policy remains legitimate. Constants and fixed11 ingredient lookup have no index or overflow risk.",
+    "sufficiency-saturation-is-correct": "split_party_purchase_payment only compares saturating sum to representable amount. If true sum overflows u64, cappedMAX still exceeds every possible u64 request, so predicate is unchanged. pooled=min(amount,party) makes amount-pooled safe and remaining payment is within personal funds. Do not replace this with checked_add rejection that would refuse affordable purchases solely because combined balances exceed representation.",
+    "pricing-and-fraction-policies": "F034 quote cap remains before checked totals. u32-to-f32 pricing also loses exact large integer precision; current f32 rounding sequence is explicit existing policy, so do not silently change it while fixing overflow. Shared-language finite clamp/nonfinite0 is current boundary policy, not universal permission for NaN retained application state. Whole-item sell minimum1 differs from fractional food sale floor permitting0; both must survive migration.",
+    "vocabulary-native-port": "Closed unit enums and stable_id exhaustive match have no arithmetic, indexing or mutation. Serde/optional SpacetimeType are actual native format/storage encoders; lifecycle variants alone do not prove corresponding payload/state coherence. Preserve canonical Core owners and stable token spelling rather than reintroduce DB string mirrors. P16/PR same imported/native contexts compared; no generated SDK or whole parsed state clearance.",
+    "existing-source-tests": "Existing economy tests use fixed small100, balances8/20/15, checkedu32MAX line and totalMAX+1, fractional3/.75 andNaN inputs; source-read only. No tests, cases, assertions or helpers added or executed."
+  },
+  "findings": [
+    {
+      "id": "ROOT-INITIAL04-F034",
+      "kind": "representable_quote_narrowing_saturation_before_checked_currency_total",
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_economy.rs",
+      "locations": [
+        [
+          23,
+          25
+        ],
+        [
+          41,
+          48
+        ],
+        [
+          67,
+          78
+        ]
+      ],
+      "case": "merchant_buy_price(u32MAX) computes a finite f32 quote above u32MAX, then native asu32 silently caps it. checked_merchant_line_total(quote,1) later succeeds in u64 but cannot recover the capped quote. merchant_sell_food_lot_value(f32MAX) likewise passes finite/nonnegative gates, computes a value above u64 range and returnsSome(u64MAX) from a saturating cast. Source-only representable API cases; no ordinary authored price/food lot or executed trade claimed.",
+      "operation": "Leaf finite/nonnegative admission and checked line extensions do not establish representable unit/lot quotes. The information is lost at the earlier native integer conversion.",
+      "connected_repair": "Carry canonical quoted currency values and explicit checked quote conversion through pricing and totals. Return a concrete overflow cause before successful publication, or use the chosen canonical wider representation while preserving intended pricing/rounding policy. Do not silently saturate a semantic payable amount or assume all finite food-lot values fit integer coin. Preserve zero-value remainder sales and explicit whole-item minimum1 policy; no unsolicited exchange-rate feature.",
+      "acceptance": "Every successful quote fits its retained currency representation before line multiplication/addition; a later checked total cannot legitimize an earlier capped value. Existing fixtures only, no new tests/assertions/helpers.",
+      "deduplication": "Strategic merchant quote conversion graph, distinct from valid saturating sufficiency comparison and nested score clamp.",
+      "contract_ref": "ROOT-INITIAL04-CONTRACT-100"
+    }
+  ],
+  "repair": "frozen_initial_audits_then_handover",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

@@ -1,0 +1,16 @@
+{
+  "id": "NATIVE-ADMISSION03-P16-RADIANS-SUPPORT-021",
+  "lens": "audit-admission-contracts",
+  "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+  "sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+  "actual_EOF": 142,
+  "actual_read": [[1,142]],
+  "qualified_contract": [[10,38]],
+  "admission": "Radians private tuplef32; finite signed unwrapped radians, zero valid. const new21–29 explicitly rejects !is_finite with GeometryError::NonFinite(Angle,Y) then privateSelf. ZERO/±QUARTER/HALF constants are finite. DerivedDefault yields0, Serializetransparent output. Manual Deserialize34–38 parsesf32 then callsnew. No unchecked From primitive, mutable raw accessor or publicbacking. Clone/Copy retain Self; opaque Reflect actual Rigreflection001 clone/downcast/ReflectDeserialize routes do not reconstruct rawf32. This P16 declaration has same supported opaque shape/version as current Rig Bevy0.19.1 witness; no blanket other reflected types.",
+  "current_receiver": "Camera P16 body_values BodyAngle::from_radians may wrap/copy only after Radians::new succeeds; compare exact Camera body independently. Native fullfile bodyread also sees PlanDirection/SpatialDirection/RigidRotation; their required native predicates are separately pending and not cleared by this narrow receipt.",
+  "counterpart_qualification": "Actual P16 body personally read current03; no PR/P16 fingerprint or prior-verdict inference. RootPRRadians G001 is supporting semantic comparison only.",
+  "acceptance": "Preserve signed/unwrapped angles and zero/default, native erroraxis, checkedSerde; no forcedangle wrapping or unitinterval narrowing.",
+  "source_coverage_awarded": false,
+  "later_lens_credit": false,
+  "execution": false
+}

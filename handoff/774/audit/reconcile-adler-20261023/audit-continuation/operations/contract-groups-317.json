@@ -1,0 +1,162 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-317",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview.rs",
+      "sha256": "8c21b357f6f90a1c9c297c9e1c4306e63872daa3ccb32e060651f5df878b7ba3",
+      "actual_EOF": 699,
+      "actual_compared_ranges": [
+        [
+          1,
+          699
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview/binding.rs",
+      "sha256": "1d37cdfbe3438b86643502d8f147cec1c22cfb04ba2ccdf09da1c30aacac7152",
+      "actual_EOF": 58,
+      "actual_compared_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview/cloth_motion.rs",
+      "sha256": "6ffc24ed612481adda0151e6c87d8c0980ecbe05f9c1cbcfccab08174af16d61",
+      "actual_EOF": 201,
+      "actual_compared_ranges": [
+        [
+          1,
+          201
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview/cloth_render.rs",
+      "sha256": "d691d43dfb3aa93344f65824b6c08ab7addcacf92e003099dde936d8b26e47ab",
+      "actual_EOF": 68,
+      "actual_compared_ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview/colliders.rs",
+      "sha256": "2b26b6da1361090bfe1dbefbc45cba4a9d6dd1bc13b22ca18e351e6ef3018718",
+      "actual_EOF": 26,
+      "actual_compared_ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Preview skin reduction must preserve the canonical whole influence row and supported normalization",
+      "source_ranges": {
+        "animation_preview/binding.rs": [
+          [
+            1,
+            58
+          ]
+        ],
+        "animation_preview.rs": [
+          [
+            1,
+            699
+          ]
+        ],
+        "animation_preview/colliders.rs": [
+          [
+            1,
+            26
+          ]
+        ]
+      },
+      "disposition": "All three whole bodies read. skin_mesh sorts8 slots directly, retains4, narrows ordinal to u16 with failure before installing attributes, then sums/divides f32. Fresh exact canonical rig/skin.rs1-190 independently read: strongest_four first combines duplicate joints. Normalized row j0:.2,j0:.2,j1:.3,j2:.1,j3:.1,j4:.1,j0:0,j0:0 yields preview totals j0:.5,j1:.375,j2:.125, versus canonical j0:4/9,j1:1/3,j2:1/9,j3:1/9. Finite nonnegative MAX row also overflows preview sum toInf and emits4zero weights; zero-total branch instead deliberately chooses first influence1. No actual MHR duplicate/MAX row, runtime result or test established. This is qualified support/extension of canonical row admission/reduction RIG-ADMISSION03-F010 (archive native05 support findings.jsonl#6), not a claimed independent unique finding. Exact final canonical alias remains parent decision. Repair must share actual row owner/duplicate policy and supported normalization, preserving8-influence physics versus4-influence native rendering and intentional zero-weight ordinal membership. Row zip truncation and public BodySkin count/face coherence remain aggregate admission dependencies; actual source rig identity is stronger than equal count."
+    },
+    {
+      "contract": "Cloth retained topology and render seam maps must be coherent before successful construction",
+      "source_ranges": {
+        "animation_preview.rs": [
+          [
+            1,
+            699
+          ]
+        ],
+        "animation_preview/cloth_render.rs": [
+          [
+            1,
+            68
+          ]
+        ]
+      },
+      "disposition": "Full bodies personally read, including all inline deformation fixtures. Exact same source/API counterexample as archive audit/continuation/native/initial05-aggregate-states/findings.jsonl#66 NATIVE-INITIAL05-F060: new Unweighted one-position with face[0,1,2] returnsOk, then weld_seams indexes nonexistent source rows. Derived edges and surface_normals use the same missing invariant. Weighted constructor does check indices.len/weights.len against positions but not whole indexed mesh. Normal drape output not shown malformed. Seam welding groups exact coordinate bits, selects the retained source skin/weights and removes degenerate mapped faces; exact signed-zero merge policy differs from geometric PlanHull intentionally, no error inferred. Canonical repair is one indexed cloth product admission, preserving material-coordinate copies and private simulation rows, rather than scattered downstream checks. Actual update_render_mesh copies position/normal through preserved render map and regenerates tangents if present; tangent failure is ignored but no concrete valid geometry tangent regression established here."
+    },
+    {
+      "contract": "Animated cloth simulation has explicit retained pose/velocity history and bounded default stepping, but raw settings are not admitted contracts",
+      "source_ranges": {
+        "animation_preview/cloth_motion.rs": [
+          [
+            1,
+            201
+          ]
+        ],
+        "animation_preview.rs": [
+          [
+            1,
+            699
+          ]
+        ]
+      },
+      "disposition": "Complete production and fixtures read. Skinned->Simulated copies current to previous once; outfit contacts concatenate cloth/body faces with matching offsets and pinned body masses. simulate_outfit substeps.max1 prevents denominator0, caps positive frame delta at1/30 and interpolates actual body start/end for each shared interval. Local per-skin simulate receives substeps1 so no double division. Contact correction removes inward normal velocity before storing previous, rather than injecting correction as motion. BodyMotion prior pose is reused only when actual rig root and position count agree. Weighted target preflight collects Option for all cloth before mutation; missing binding/joint-count mismatch leaves old geometry intentionally. Query iteration supplies same live ECS population and no structural mutations occur between enumeration/indexing. Arbitrary raw settings (negative/nonfinite gravity/damping/follow, massive substeps) or finite huge native coordinates are generic unsupported-input/capacity dependencies, not ordinary default failure. dt0 still applies shape constraints/follow/contact intentionally, as fixture source demonstrates. Missing current matrix aborts before mutation; raw zip joint/bind length coherence remains actual loader obligation. Full opposite-leg, rest-length, unweighted translation, coupled garments/no injected velocity and retained body CCD fixture sources read, never executed. WalkPreview::start_or_resume expects ready node; actual UI ready guard remains a caller dependency, no current unready normal invocation claimed."
+    }
+  ],
+  "findings": [
+    {
+      "disposition": "same existing finding; fresh lens04 support",
+      "archive_key": "audit/continuation/native/initial05-aggregate-states/findings.jsonl#66",
+      "id": "NATIVE-INITIAL05-F060",
+      "no_new_unique_count": true
+    },
+    {
+      "disposition": "qualified extension; exact canonical alias pending parent",
+      "archive_key": "audit/continuation/native/initial05-aggregate-states/findings.jsonl#6",
+      "supports": "RIG-ADMISSION03-F010",
+      "evidence": "Duplicate-aware reduction disagreement on normalized public row and finite MAX normalization overflow; normal producer unproven.",
+      "no_new_unique_count": true
+    }
+  ],
+  "fresh_dependencies": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-rig/src/skin.rs",
+      "sha256": "c1c856dd707201d43249ad4e61576728edf4ff9a2a2d1dbf68f6c980a1c2d206",
+      "actual_EOF": 226,
+      "actual_compared_ranges": [
+        [
+          1,
+          190
+        ]
+      ],
+      "path": "dependencies/317/crates/fabelgeist-rig/src/skin.rs",
+      "purpose": "Actual canonical strongest_four duplicate-combine policy, PackedRigSkin admission/row membership; no whole-role coverage transfer."
+    }
+  ],
+  "status": "5 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-character-creator/src/armor_design_input.rs"
+}

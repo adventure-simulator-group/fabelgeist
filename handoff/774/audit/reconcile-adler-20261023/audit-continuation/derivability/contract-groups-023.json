@@ -1,0 +1,294 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-023",
+  "at": "2026-10-25T11:36:49.976607+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 91,
+      "source_id": "physical-p16:crates/adventuresim-core/src/courtship.rs",
+      "sha256": "df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45",
+      "actual_EOF": 1153,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-core/src/courtship.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-core/src/courtship.rs",
+        "sha256": "df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 40371,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 209,
+            "read_ranges": [
+              [
+                1,
+                1153
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-RELATIONSHIP-031"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/courtship.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 4,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-RELATIONSHIP-CHRONOLOGY-021",
+            "json_pointer": "/current_sources/8",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row87/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                25
+              ],
+              [
+                390,
+                685
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                25
+              ],
+              [
+                390,
+                685
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "delta_observation_index": 5,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-RESIDENCE-023",
+            "json_pointer": "/current_sources/9",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row87/proofs/1",
+            "read_ranges_as_recorded": [
+              [
+                195,
+                390
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                195,
+                390
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1187,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved",
+        "admission03_increment077_role_observations": [
+          {
+            "supplier": "camera",
+            "registry": "continuation/camera/admission03/source-range-registration.jsonl",
+            "row_1based": 41,
+            "registration_id": "CAMERA-ADM03-REG039",
+            "original_record": {
+              "id": "CAMERA-ADM03-REG039",
+              "at": "2026-10-22T15:25:49.166872+00:00",
+              "authority": "CONT-ROOT-ADMISSION03-DISCOVERY-AUTHORITY-043 plusRootdirectHousingTierack",
+              "source_id": "physical-p16:crates/adventuresim-core/src/courtship.rs",
+              "sha256": "df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45",
+              "actual_EOF": 1153,
+              "ranges": [
+                [
+                  195,
+                  240
+                ]
+              ],
+              "material_caller": "Original88 privateHousingMarketReserve::default usesHousingTier::ALL; GeneratedHome Serde payload samecanonicalleaf",
+              "role": "ExactdirectHousingTier declaration/constants/checkedparse/displaypricingleaf policies only",
+              "exclusions": "No preceding/followingcourtship state, pregnancy/relationshipgraph ortests; no newSDKgraph/wholefilecredit",
+              "status": "registered BEFORE body analysis"
+            },
+            "local_qualifications": [
+              {
+                "registration_id": "CAMERA-ADM03-REG039",
+                "at": "2026-10-22T18:25:03.942345+00:00",
+                "source_id": "physical-p16:crates/adventuresim-core/src/courtship.rs",
+                "sha256": "df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45",
+                "actual_EOF": 1153,
+                "original_registered_ranges": [
+                  [
+                    195,
+                    240
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    195,
+                    240
+                  ]
+                ],
+                "context_only_ranges": [],
+                "role": "ExactdirectHousingTier declaration/constants/checkedparse/displaypricingleaf policies only",
+                "proof_refs": [
+                  "CAMERA-ADM03-112"
+                ],
+                "qualification": "Exact registered current role limits; reference source contract and original exclusions remain mandatory, no whole-file or included callee credit.",
+                "exclusions": "No preceding/followingcourtship state, pregnancy/relationshipgraph ortests; no newSDKgraph/wholefilecredit",
+                "source_registration_record": "continuation/camera/admission03/source-range-registration.jsonl#CAMERA-ADM03-REG039",
+                "no_source_body_credit_from_metadata": true,
+                "no_global_or_other_lens_credit": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                195,
+                240
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\courtship.rs",
+            "actual_EOF": 1153,
+            "bytes": 40371
+          },
+          {
+            "supplier": "camera",
+            "registry": "continuation/camera/admission03/source-range-registration.jsonl",
+            "row_1based": 42,
+            "registration_id": "CAMERA-ADM03-REG040",
+            "original_record": {
+              "id": "CAMERA-ADM03-REG040",
+              "at": "2026-10-22T15:26:17.684011+00:00",
+              "authority": "CONT-ROOT-ADMISSION03-DISCOVERY-AUTHORITY-043 plusRootdirectHousingTierack",
+              "source_id": "physical-p16:crates/adventuresim-core/src/courtship.rs",
+              "sha256": "df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45",
+              "actual_EOF": 1153,
+              "ranges": [
+                [
+                  148,
+                  157
+                ]
+              ],
+              "material_caller": "REG039 directHousingTier.economy actualreturnHousingEconomy record",
+              "role": "Exactreturnrecord declaration/visibility/derive contracts, no financial graph",
+              "exclusions": "No preceding/followingcourtshipstates/financialoperations orwholefilecredit",
+              "status": "registered BEFORE body analysis"
+            },
+            "local_qualifications": [
+              {
+                "registration_id": "CAMERA-ADM03-REG040",
+                "at": "2026-10-22T18:25:03.942345+00:00",
+                "source_id": "physical-p16:crates/adventuresim-core/src/courtship.rs",
+                "sha256": "df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45",
+                "actual_EOF": 1153,
+                "original_registered_ranges": [
+                  [
+                    148,
+                    157
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    148,
+                    157
+                  ]
+                ],
+                "context_only_ranges": [],
+                "role": "Exactreturnrecord declaration/visibility/derive contracts, no financial graph",
+                "proof_refs": [
+                  "CAMERA-ADM03-112"
+                ],
+                "qualification": "Exact registered current role limits; reference source contract and original exclusions remain mandatory, no whole-file or included callee credit.",
+                "exclusions": "No preceding/followingcourtshipstates/financialoperations orwholefilecredit",
+                "source_registration_record": "continuation/camera/admission03/source-range-registration.jsonl#CAMERA-ADM03-REG040",
+                "no_source_body_credit_from_metadata": true,
+                "no_global_or_other_lens_credit": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                148,
+                157
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\courtship.rs",
+            "actual_EOF": 1153,
+            "bytes": 40371
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1153
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Display for CourtshipRejectionCode",
+          "lines": [
+            76,
+            80
+          ],
+          "disposition": "Retain small semantic ABI-label formatter via as_str; derived Serde currently preserves enum variant wire, not same snake_case display vocabulary."
+        },
+        {
+          "trait": "FromStr for CourtshipRejectionCode",
+          "lines": [
+            82,
+            102
+          ],
+          "disposition": "Retain exact vocabulary with Err=(); no existing equivalent derive with same native error API established."
+        },
+        {
+          "trait": "Iterator for DuePeriods",
+          "lines": [
+            300,
+            312
+          ],
+          "disposition": "Retain chronological bounded progression, inclusive frontier and checked overflow termination; not structural derive."
+        }
+      ],
+      "existing_derives": [
+        "CourtshipRejectionCode structural traits Serialize Deserialize",
+        "CourtshipRejection Clone Debug Serialize Deserialize PartialEq Eq",
+        "HousingTier structural traits Serialize Deserialize and feature-gated SpacetimeType",
+        "HousingEconomy/charges/plans/morale/spans/conception records structural derives including intentional Default where declared"
+      ],
+      "absence_basis": "Full production, constants and fixtures consumed. Remaining envelope functions, recurring billing, morale refresh, overlap/coverage and deterministic trial/identity functions are semantic operations, no hand serializer."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Keep manual stable ABI vocabulary, native parser error and due-date progression. Mechanical record wire already derives. Do not replace custom text envelope with JSON or alter variant casing merely to remove label helpers.",
+      "qualification": "Full existing fixtures read only, no execution or descendants credited."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 92,
+    "source_id": "physical-p16:crates/adventuresim-core/src/courtship/child_identity.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

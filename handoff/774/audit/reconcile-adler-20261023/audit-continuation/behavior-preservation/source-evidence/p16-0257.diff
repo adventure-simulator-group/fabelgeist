@@ -1,0 +1,13 @@
+--- p16base/crates/adventuresim-stdb-module/src/simulation/disease_fixture.rs
++++ catalog-p16head/crates/adventuresim-stdb-module/src/simulation/disease_fixture.rs
+@@ -9,9 +9,9 @@
+     ctx: &ReducerContext,
+     nonce: String,
+     character_id: u64,
+     disease_id: String,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     let run = owned_run(ctx, &nonce)?;
+     let sim = ctx
+         .db
+         .simulation_character()

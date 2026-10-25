@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-466",
+  "at": "2026-10-25T15:42:34.360304+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 867,
+  "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_iteration/evidence.rs",
+  "sha256": "204c03d01cb76d4603c9c42a010a5ccf300f65abe20d62ab307212fe2fac19bc",
+  "actual_compared_ranges": [
+    [
+      1,
+      180
+    ]
+  ],
+  "existing_derives": [
+    "MeleeIterationAcceptanceEvidence/WeaponContactBandEvidence/PolearmContactRevalidationEvidence/AutoresolveTimelineEvidence/ForcedArmorContactEvidence/ArmorLayerEvidence/MirroredArmorContactEvidence/DefenseEvidence/DisabledWeaponArmEvidence/FatigueCadenceEvidence Serialize"
+  ],
+  "trait_inventory": [],
+  "analysis": "Fresh evidence1\u2013180 consumed: all named evidence record declarations already Clone/Debug/Serialize (copy where appropriate), semantic roster lookup/evidence assembly and native contact-band prefix. No handwritten trait/codec yet. Remaining181\u2013448 unread; child armor/timeline pending.",
+  "first_unfinished": {
+    "scope_index": 867,
+    "line": 181
+  },
+  "execution": "none"
+}

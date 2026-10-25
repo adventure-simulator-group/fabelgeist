@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1357",
+  "at": "2026-10-25T18:38:02.203600+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1410,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/tests.rs",
+  "sha256": "244ceaa77e510437e0f435b2ebc89eec78e610e1f67b74abc45382634fa4246f",
+  "actual_compared_ranges": [
+    [
+      301,
+      600
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Only native animation fixture helpers and assertions: drift/deadband prediction, sparse current velocity, builtin catalogue semantics/path/frame/mirror membership and duplicate pose rejection setup. No local type/trait/codec implementation; no test or asset validation executed.",
+  "first_unfinished": {
+    "scope_index": 1410,
+    "line": 601
+  },
+  "execution": "none"
+}

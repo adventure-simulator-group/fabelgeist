@@ -1,0 +1,100 @@
+{
+  "id": "CONT07-F129",
+  "lens": "audit-redundant-authority",
+  "title": "Pregnancy meter independently assumes270days while authoritative gestation lasts280",
+  "disposition": "source-confirmed-current-policy-disagreement",
+  "severity": "presentation-correctness",
+  "sources": [
+    {
+      "scope_index": 908,
+      "source_id": "pr-working:crates/adventuresim-core/src/courtship.rs",
+      "sha256": "df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45",
+      "ranges": [
+        [
+          26,
+          26
+        ]
+      ],
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/courtship.rs"
+    },
+    {
+      "scope_index": 1165,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/reproduction.rs",
+      "sha256": "52318f2d0b66c1d88adaa38059b677829f263cfe6f2033fc92c2c59f6671563c",
+      "ranges": [
+        [
+          18,
+          19
+        ],
+        [
+          49,
+          55
+        ]
+      ],
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/relationship/reproduction.rs"
+    },
+    {
+      "scope_index": 1164,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/projections.rs",
+      "sha256": "21ca8c10819955044eb13b938fbd469c82394fafb8353c1b4af33d72b8edc688",
+      "ranges": [
+        [
+          137,
+          149
+        ],
+        [
+          200,
+          200
+        ]
+      ],
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/relationship/projections.rs"
+    },
+    {
+      "scope_index": 2379,
+      "source_id": "pr-working:crates/strategic-web/src/routes/settlements/residences.rs",
+      "sha256": "f95d9bc6d0274f4525b6a04742e81bd574abbeb74fc78e7d0cab24879d33b34b",
+      "ranges": [
+        [
+          241,
+          244
+        ]
+      ],
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/routes/settlements/residences.rs"
+    },
+    {
+      "scope_index": 2406,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/chrome/residences.rs",
+      "sha256": "a227365e91a54e459db0526c1f78de353612e16c8c7ecace7217807b41e43295",
+      "ranges": [
+        [
+          85,
+          95
+        ],
+        [
+          287,
+          290
+        ]
+      ],
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/templates/settlement/chrome/residences.rs"
+    }
+  ],
+  "evidence": [
+    "CONT07-CONTRACT-663"
+  ],
+  "duplicated_fact": "Total gestation interval used to derive current pregnancy completion from actual due days. Core owns280days; template reconstructs using270.",
+  "concrete_witness": "At140days elapsed of280, actual due days140, template(270-140)*100/270=48 rather than50; first10days clamp0. Endpoint due0 reaches100 in both, actual due-day text remains correct.",
+  "actual_receiver": "household_progress writes percent to aria-valuenow and visible fill width.",
+  "qualification": "Source-only normal activepregnancy path, not executed/rendered or observed in liveDB. Ordinary endpoint labels remaincorrect; no reclassification of wedding displaywindow or fixed30dayhousingperiod. Narrow indexed archive/local search found no exactalias but no global semantic uniqueness asserted.",
+  "connected_repair": "Derive presentation completion from canonical gestation interval/current admitted timeline rather than reauthor270; keep observer-minute filtering and due-day ceiling policy. Avoid separate mutable storedprogress.",
+  "acceptance_criteria": [
+    "Actual canonical gestation start/mid/end derive0/50/100 within explicit day-rounding policy.",
+    "Changing canonical gestation period updates presentation without a second policy edit.",
+    "Preserve private pregnancy observer projection and truthful due-day label."
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "other_lens_credit": false,
+  "contract": "CONT07-CONTRACT-663",
+  "at": "2026-10-24T01:50:50.578966+00:00",
+  "classification": "source-confirmed-current-policy-disagreement"
+}

@@ -1,0 +1,105 @@
+{
+  "id": "CONT07-CONTRACT-597",
+  "at": "2026-10-24T00:26:25.465963+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2579,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/recipe/facing.rs",
+      "sha256": "1a50ad5faa518b5ed479870cc03f08e55cd30322c639cd308608aa827fd78d7f",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-weapon-model/src/recipe/facing.rs",
+      "actual_EOF": 116,
+      "ranges": [
+        [
+          15,
+          70
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2580,
+      "source_id": "physical-p16:crates/adventuresim-terrain/src/terrain_feature.rs",
+      "sha256": "6a6dfd572ca9979a848a5ce84711bace83217c58b2725218a77475f13e3b81ae",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-terrain/src/terrain_feature.rs",
+      "actual_EOF": 51,
+      "ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2581,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_fit.rs",
+      "sha256": "a15e1319cc1730ca71c4b6e36a50f3514e43c62b5c006ac28115aefb620c02e3",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/item_catalog_fit.rs",
+      "actual_EOF": 46,
+      "ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2582,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_surface.rs",
+      "sha256": "9f49d61c21b245ad0793daea4f28f1f74769c76680ef383553454b688c9f6cbd",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/item_catalog_surface.rs",
+      "actual_EOF": 47,
+      "ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2583,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_validation_numeric.rs",
+      "sha256": "a3591804f6c9134439dd3d27e42827d15a3e84c016e675123cc100e69e994f93",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/item_catalog_validation_numeric.rs",
+      "actual_EOF": 49,
+      "ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2584,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_validation_material.rs",
+      "sha256": "823eb461e0534843b71a2b8199e6428fd9a558cf9bc1387beedf87500bf71f8a",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/item_catalog_validation_material.rs",
+      "actual_EOF": 17,
+      "ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "P16 facing recursively computes opposed direction with cycle/missing-target checks, then coordinates shape direction and both local/attachment X offsets in one cloned materialization. Source authored direction is not a conflicting mutable result cache in this path.",
+    "Terrain feature validation uses canonical feature geometry/id accessors and a separate mapped-geology is_valid branch, counts/order/bounds policies remain importer admission. Equipment fit-zone and layer channel represent independent facts; conflicts_with combines explicit canonical location/channel/order/fit-zone rather than assuming broad location identity equals fit.",
+    "Equipment surface spans carry authored region chains, anchor and coverage; region cardinality is a separate admission contract, not a cached derived label. Numeric JSON validation explicitly checks f64-to-f32 stored positivity. Material string whitelist is a policy table requiring comparison to concrete producer/recipient, not proof of type-identity duplication from raw strings alone."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2585,
+    "start_line": 1
+  }
+}

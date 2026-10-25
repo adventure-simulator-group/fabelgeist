@@ -1,0 +1,152 @@
+{
+  "id": "CONT08-CONTRACT-127",
+  "at": "2026-10-25T12:32:40.737574+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 434,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/recipe/mod.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-weapon-model/src/recipe/mod.rs",
+      "before_sha256": "6df2420e23ec21a7d706b89d8af5a999f4798fbff05d5fb6d7a3b5e647b2ff4e",
+      "after_sha256": "6df2420e23ec21a7d706b89d8af5a999f4798fbff05d5fb6d7a3b5e647b2ff4e",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0434-base-6df2420e23ec21a7d706b89d8af5a999f4798fbff05d5fb6d7a3b5e647b2ff4e",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/6df2420e23ec21a7d706b89d8af5a999f4798fbff05d5fb6d7a3b5e647b2ff4e",
+      "diff": "source-evidence/p16-0434.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          265
+        ]
+      ],
+      "facts": [
+        "Full265+empty actual diff. Finite dimension owners and absent-versus-present Option decode retain null rejection, schema casing, flattened shape, component id/label/fallback precedence. Existing authoring JSON round-trip and unknown nested-field fixture bodies retain exact meaning; no execution."
+      ],
+      "disposition": "Exact own08 source comparison accounted WITH retained findings and qualifications.",
+      "acceptance": "Preserve original wire shapes, absent/null distinctions, IDs/error precedence, signed/zero admission and arithmetic order; adapt actual consumers without broadening or narrowing policies implicitly. No tests/checks/repairs."
+    },
+    {
+      "scope_index": 435,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/recipe/quantities.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-weapon-model/src/recipe/quantities.rs",
+      "before_sha256": "5e3c814a60c0d09d75c9eccfbd371f9412b76b95fefbce3c66c86ff03266bed5",
+      "after_sha256": "5e3c814a60c0d09d75c9eccfbd371f9412b76b95fefbce3c66c86ff03266bed5",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0435-base-5e3c814a60c0d09d75c9eccfbd371f9412b76b95fefbce3c66c86ff03266bed5",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/5e3c814a60c0d09d75c9eccfbd371f9412b76b95fefbce3c66c86ff03266bed5",
+      "diff": "source-evidence/p16-0435.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "facts": [
+        "Full98+empty diff. Quantity new admits finite f64 and canonicalizes both signed zeros, transparent serde/hash/Eq coherence and defaultzero unchanged. Count checked u16 decode and Direction exact-1/+1 wire/native signs unchanged. No generic positivity narrowing for signed distance/ratio/angles introduced."
+      ],
+      "disposition": "Exact own08 source comparison accounted WITH retained findings and qualifications.",
+      "acceptance": "Preserve original wire shapes, absent/null distinctions, IDs/error precedence, signed/zero admission and arithmetic order; adapt actual consumers without broadening or narrowing policies implicitly. No tests/checks/repairs."
+    },
+    {
+      "scope_index": 436,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/recipe/stock.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-weapon-model/src/recipe/stock.rs",
+      "before_sha256": "848e1187843f8082d93fa8a1adc5e8b2bc60f90336e2d496176aa32969ee596e",
+      "after_sha256": "848e1187843f8082d93fa8a1adc5e8b2bc60f90336e2d496176aa32969ee596e",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0436-base-848e1187843f8082d93fa8a1adc5e8b2bc60f90336e2d496176aa32969ee596e",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/848e1187843f8082d93fa8a1adc5e8b2bc60f90336e2d496176aa32969ee596e",
+      "diff": "source-evidence/p16-0436.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "facts": [
+        "Full38+empty diff. Forge stock identity and unit mass, dark material grouping and unsupported authoring material None unchanged. Actual consuming inventory/quote policies remain independent comparison, not established by constant owner alone."
+      ],
+      "disposition": "Exact own08 source comparison accounted WITH retained findings and qualifications.",
+      "acceptance": "Preserve original wire shapes, absent/null distinctions, IDs/error precedence, signed/zero admission and arithmetic order; adapt actual consumers without broadening or narrowing policies implicitly. No tests/checks/repairs."
+    },
+    {
+      "scope_index": 437,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/recipe/validation.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-weapon-model/src/recipe/validation.rs",
+      "before_sha256": "e40db02777c0f7401b0e90bc493f420be7630091f469a9baa7f0ef1a6f7c965a",
+      "after_sha256": "e40db02777c0f7401b0e90bc493f420be7630091f469a9baa7f0ef1a6f7c965a",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0437-base-e40db02777c0f7401b0e90bc493f420be7630091f469a9baa7f0ef1a6f7c965a",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/e40db02777c0f7401b0e90bc493f420be7630091f469a9baa7f0ef1a6f7c965a",
+      "diff": "source-evidence/p16-0437.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          207
+        ]
+      ],
+      "facts": [
+        "Full207+empty diff. Recipe serialized byte/count budgets, positive/nonnegative/signed dimension policy, optional shaft scales/caps, increasing profile station and nonempty radius rules, id validity/uniqueness and exactly-one-parent error precedence unchanged. Submodule bodies outside current role are not borrowed clear; actual current Prepared recipe failure path remains Q002."
+      ],
+      "disposition": "Exact own08 source comparison accounted WITH retained findings and qualifications.",
+      "acceptance": "Preserve original wire shapes, absent/null distinctions, IDs/error precedence, signed/zero admission and arithmetic order; adapt actual consumers without broadening or narrowing policies implicitly. No tests/checks/repairs."
+    },
+    {
+      "scope_index": 438,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/validation.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-weapon-model/src/validation.rs",
+      "before_sha256": "fd79af94c541daf7519b52218301f4cc66dbd7614d444583271a2e955ed02aff",
+      "after_sha256": "fd79af94c541daf7519b52218301f4cc66dbd7614d444583271a2e955ed02aff",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0438-base-fd79af94c541daf7519b52218301f4cc66dbd7614d444583271a2e955ed02aff",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/fd79af94c541daf7519b52218301f4cc66dbd7614d444583271a2e955ed02aff",
+      "diff": "source-evidence/p16-0438.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "facts": [
+        "Full72+empty diff. Gameplay identity then recipe+construction admission and holder recommendation/kind/dimension/geometry predicates preserve exact rejection order. Holder Grip existence is any, construction chooses first, a retained API semantics question rather than08 change. No claim overall finite derived payload from successful validation alone."
+      ],
+      "disposition": "Exact own08 source comparison accounted WITH retained findings and qualifications.",
+      "acceptance": "Preserve original wire shapes, absent/null distinctions, IDs/error precedence, signed/zero admission and arithmetic order; adapt actual consumers without broadening or narrowing policies implicitly. No tests/checks/repairs."
+    },
+    {
+      "scope_index": 439,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/basis_points.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-world-schema/src/basis_points.rs",
+      "before_sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+      "after_sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0439-base-b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+      "diff": "source-evidence/p16-0439.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "facts": [
+        "Full151+empty diff including fixture. Unit and signed basis-point constructors/saturation and round/floor conversions, zero denominator None, u128 ratio arithmetic and native projections unchanged. Derived Deserialize remains bypass of constructor bounds in both base/head, preserving inherited admission findings rather than new regression or universal guaranteed bounds."
+      ],
+      "disposition": "Exact own08 source comparison accounted WITH retained findings and qualifications.",
+      "acceptance": "Preserve original wire shapes, absent/null distinctions, IDs/error precedence, signed/zero admission and arithmetic order; adapt actual consumers without broadening or narrowing policies implicitly. No tests/checks/repairs."
+    }
+  ],
+  "next": "440calendar698 and441coordinates512, then442 exact214\u2013243/443 scoped ranges."
+}

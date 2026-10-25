@@ -1,0 +1,20 @@
+{
+  "run": 39430056255,
+  "job": 118652448927,
+  "head": "c59c01e3ea5471925a8954c26a08afadf5d22942",
+  "failure": "Check formatting",
+  "hunks": 16,
+  "files": [
+    "crates/adventuresim-tactical-client/src/animation/presentation/cadence/tests.rs",
+    "crates/adventuresim-tactical-client/src/animation/presentation/cadence.rs",
+    "crates/adventuresim-tactical-client/src/animation/presentation/events.rs",
+    "crates/adventuresim-tactical-client/src/animation/presentation.rs",
+    "crates/adventuresim-tactical-client/src/animation/tests.rs",
+    "crates/adventuresim-tactical-core/src/animation/cadence_limit.rs",
+    "crates/adventuresim-tactical-core/src/animation/landing.rs",
+    "crates/adventuresim-tactical-core/src/animation/mod.rs"
+  ],
+  "source": "Exact deduplicated hosted formatter output; no local formatter run.",
+  "review": "All hunks change layout or module import/declaration sorting only. Existing expressions, fixtures and assertions retained.",
+  "acceptance": "Pending new exact-head workflow; no Rust compilation or behavioral result on this revision."
+}

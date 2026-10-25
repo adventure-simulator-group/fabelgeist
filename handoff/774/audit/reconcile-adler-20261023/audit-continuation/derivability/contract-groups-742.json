@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-742",
+  "at": "2026-10-25T16:40:33.016524+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 987,
+  "source_id": "pr-working:crates/adventuresim-core/src/road_encounter_catalog.rs",
+  "sha256": "62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+  "actual_compared_ranges": [
+    [
+      1,
+      1100
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Road catalogue881\u20131039 validates ordinary/combat item references, speaker/review/goal-neutral prose and bounded native IDs; runtime OnceLock uses existing derived decoding then semantic validation. Quest selection applies authored eligible weighted candidates, source-map decoding already derives. No handwritten codec/trait. Fixture prefix1041\u20131100 no new impl; no execution."
+  ],
+  "first_unfinished": {
+    "scope_index": 987,
+    "line": 1101
+  },
+  "execution": "none"
+}

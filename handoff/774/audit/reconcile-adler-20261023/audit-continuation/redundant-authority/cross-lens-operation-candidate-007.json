@@ -1,0 +1,34 @@
+{
+  "id": "CONT07-CROSS-007",
+  "originating_lens": "audit-redundant-authority",
+  "classification": "cross-lens source-backed public API path codec candidate; no07unique/counttransfer",
+  "source_id": "pr-working:crates/fabelgeist-fs/src/lib.rs",
+  "sha256": "b0eda40872d0165cc3a1524083dc60e23ec7a9ee0e88d7bd88fa26e7f3a4ed6f",
+  "locations": [
+    [
+      99,
+      101
+    ],
+    [
+      463,
+      490
+    ],
+    [
+      595,
+      603
+    ],
+    [
+      857,
+      870
+    ]
+  ],
+  "witness": "NativeDirectory absolutePOSIX /tmp/project\u2192path() to_file_uri produces file:///tmp/project. persist_project_root strips file:/// first, stores tmp/project lacking leading /. restore readsPathBuf fromcontenttrim relative toCWD; withno suchrelative directory returnsNone althoughoriginaldirectoryexists. load_file instead stripsfile:// preservingPOSIX leading/, showing existingcorrectcodec elsewhere.",
+  "limits": [
+    "No filesystem/picker/persist/read execution.",
+    "No outside actual persist_project_root callsite found in PR crates bygitlocator; ordinaryapplicationtrigger notestablished.",
+    "Windowsdrivehandlingdifferent andnotclaimedbroken bythisPOSIXwitness."
+  ],
+  "disposition": "pending root owning-lens/adopted-ledger dedup and actual API acceptance; no new07finding",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

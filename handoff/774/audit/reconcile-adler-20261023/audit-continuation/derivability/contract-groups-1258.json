@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1258",
+  "at": "2026-10-25T18:18:55.489822+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1326,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/loading.rs",
+  "sha256": "eacc5fba1f6e67621c9d3e473d7556c5cf66ba140e3f1c80431b5568de9fda07",
+  "actual_compared_ranges": [
+    [
+      1,
+      300
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Loading slice contains inherent runtime-library reconstruction and Bevy request/collect/bind/target helpers only, no handwritten trait/type/codec. Source availability/clip cardinality/frame seconds/canonical targets admission and native owner hierarchy commands are semantic, not From or Default projections. Child motion module separately pending.",
+  "first_unfinished": {
+    "scope_index": 1326,
+    "line": 301
+  },
+  "execution": "none"
+}

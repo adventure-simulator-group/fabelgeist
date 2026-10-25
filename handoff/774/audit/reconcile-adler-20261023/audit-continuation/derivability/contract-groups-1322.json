@@ -1,0 +1,271 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1322",
+  "at": "2026-10-25T18:28:28.633667+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1375,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/raised_footwork.rs",
+      "sha256": "2debf0e3594941b0920d795bbb04740691602b4dfc6df95066770b0e156eb15b",
+      "actual_EOF": 498,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/raised_footwork.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/raised_footwork.rs",
+        "owner": "native",
+        "sha256": "2debf0e3594941b0920d795bbb04740691602b4dfc6df95066770b0e156eb15b",
+        "base_sha256": "fa33361e87b354f58d2ffd2889fc27f0b2ea4a41ead3eaa4f6529119365f0e69",
+        "state": "modified",
+        "bytes": 17624,
+        "audit_owner": "native",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [],
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 219,
+            "read_ranges": [
+              [
+                1,
+                498
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-IK-SETTLEMENT-005"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/procedural/ik/raised_footwork.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 561,
+            "read_ranges": [
+              [
+                1,
+                498
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-IK-SETTLEMENT-005"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/procedural/ik/raised_footwork.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          498
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Default",
+          "type": "RaisedFootworkState",
+          "lines": [
+            133,
+            148
+          ],
+          "disposition": "OPTIONAL_F011_STANDARD_DEFAULT_EXACT_FIELD_EQUIVALENCE_VERIFIED"
+        }
+      ],
+      "existing_derives": "GuardSwing structural; RaisedFootworkState Component Debug Clone Copy; request/geometry/validated types Debug Clone Copy; GuardStepState Debug Clone Copy Default Uninitialized PartialEq.",
+      "absence_basis": "Other inherent target/semantic contact/swing methods, validation and native current guarded geometry/turn/reach/track/terrain policy not mechanical trait implementations."
+    },
+    {
+      "scope_index": 1755,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/contact.rs",
+      "sha256": "e03c51c5d1f80bc6961802e1e70e9cac962661c3f83c44e275a2c5800d422d3c",
+      "actual_EOF": 55,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/contact.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-core/src/animation/contact.rs",
+        "owner": "native",
+        "sha256": "e03c51c5d1f80bc6961802e1e70e9cac962661c3f83c44e275a2c5800d422d3c",
+        "base_sha256": null,
+        "state": "new",
+        "bytes": 1511,
+        "audit_owner": "native",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [],
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 135,
+            "read_ranges": [
+              [
+                1,
+                55
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-ANIMATION-LEAVES-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-core/src/animation/contact.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 478,
+            "read_ranges": [
+              [
+                1,
+                55
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-ANIMATION-LEAVES-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-core/src/animation/contact.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "ContactSequence Clone Copy explicit Debug Default Eq/Ord Serialize Deserialize transparent From Display.",
+      "absence_basis": "Actual full contact owner consumed as reached F011 dependency; only inherent typed wrapping/checkedsuccessor/event/encoding operations, no handwritten trait/codec. Not hash-only counterpart credit."
+    },
+    {
+      "scope_index": 1769,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/mod.rs",
+      "sha256": "de9811b3907cc3d97cd41b77b27c02d459a32275b5e813ee589b0cf1b8b9e4c9",
+      "actual_EOF": 90,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/mod.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-core/src/animation/mod.rs",
+        "owner": "native",
+        "sha256": "de9811b3907cc3d97cd41b77b27c02d459a32275b5e813ee589b0cf1b8b9e4c9",
+        "base_sha256": "e082368b63e5378ddb848cafe7493998e2caed9c04dee9e5e6a1792c699e7fb0",
+        "state": "modified",
+        "bytes": 3089,
+        "audit_owner": "native",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [],
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 138,
+            "read_ranges": [
+              [
+                1,
+                90
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-ANIMATION-LEAVES-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-core/src/animation/mod.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 481,
+            "read_ranges": [
+              [
+                1,
+                90
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-ANIMATION-LEAVES-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-core/src/animation/mod.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Actual full tactical animation facade imports/reexports/module/include declarations only, no type/manualtrait/codec. Exact UnitInterval/ContactSequence reexports support F011; child/include bodies remain separate roles."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "F011 exact nongeneric standard Default equivalence: current field owners already define identical Uninitialized/zero/None initialization.",
+      "disposition": "OPTIONAL_MAINTENANCE_F011",
+      "finding": "finding-F011-raised-footwork-default.json",
+      "acceptance": [
+        "Keep all field types, visibility and exact initial values, including positive-zero f32 encoding and no retained target/bend/direction.",
+        "Use built-in Default only; no dependency, wire trait, unchecked conversion or generated binding change.",
+        "Retain all validation, semantic state classifiers, current target construction and physical operations."
+      ],
+      "qualification": [
+        "Optional cleanup, not runtime correctness defect; no compiler/test/system execution.",
+        "Actual frozen PR full owning source498 lines consumed plus exact default definitions/reexport, no metadata-only equivalence.",
+        "Related mechanical-default suggestion F006 has a different owning record; no unique global issue count inferred."
+      ]
+    }
+  ],
+  "findings": [
+    "SEGOVB-INITIAL10-F011"
+  ],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1376,
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/reach.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

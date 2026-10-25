@@ -1,0 +1,136 @@
+{
+  "id": "CONT07-CONTRACT-665",
+  "at": "2026-10-24T01:44:37.245592+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1146,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/organization.rs",
+      "sha256": "39842ba122cf2240e36f267f8db415dd2b54bfcc0dbd2478e813ef3c374a9645",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/organization.rs",
+      "actual_EOF": 655,
+      "ranges": [
+        [
+          241,
+          254
+        ],
+        [
+          565,
+          572
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2815,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/receipt.rs",
+      "sha256": "24e17b0e16c1731ef4fa81d7e8f2448cd42b12b6b75dbbe16bc502f0f606508d",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/mission/receipt.rs",
+      "actual_EOF": 102,
+      "ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 957,
+      "source_id": "pr-working:crates/adventuresim-core/src/mission/roster.rs",
+      "sha256": "2b4baf6c921fd489d497a5f002c8ee5a84e48014c6932e1bd4153754501759dd",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/mission/roster.rs",
+      "actual_EOF": 91,
+      "ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1242,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/tactical.rs",
+      "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/tactical.rs",
+      "actual_EOF": 1515,
+      "ranges": [
+        [
+          940,
+          962
+        ],
+        [
+          1032,
+          1080
+        ],
+        [
+          1140,
+          1155
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2032,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/consequence.rs",
+      "sha256": "9e767c76aa28c3742a0d11658983b2ce4abfd2fb63bc89962d5f1c02b3e396d0",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/combat/consequence.rs",
+      "actual_EOF": 308,
+      "ranges": [
+        [
+          78,
+          128
+        ],
+        [
+          164,
+          217
+        ],
+        [
+          244,
+          270
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2030,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/condition.rs",
+      "sha256": "543fe525702b8245d56a704a028a74138144789cf48c888b58704897bb6be7bf",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/combat/condition.rs",
+      "actual_EOF": 160,
+      "ranges": [
+        [
+          20,
+          64
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2026,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat.rs",
+      "sha256": "847551347ed20961db50cd3ef65998a772b1d732f26b4810f4ccb725685547ba",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/combat.rs",
+      "actual_EOF": 1148,
+      "ranges": [
+        [
+          178,
+          205
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "require_activity_membership actual565\u2013572 first requires_local_chapter which requirescurrent_settlement_id241\u2013254. Thus CaseSite originsettlement data used for otherpreviewinputs is not authorization for professionalwork there; actualcamp owner zeroes allorganizationminutes. Closed blanket with_professions wrongID question; no originsettlement substitution warranted from thisevidence.",
+    "Receipt truncate question bounded: Core TacticalPartyRoster privately admits<=16 uniqueIDs, actualserverregistration re-admits capturedroster. Actual injury/blood/equipmentconsequences track party-side players, receipt unionadds equipmentowners then uses shared16limit; DBreceipt receiver rejectscontacts notinparty and unauthorizedcurrentmembers. No valid normalaccumulator exceeding capturedroster demonstrated. Guard/truncation byitself doesnotprove stale currentparty authority or droppednormalcontacts; retain aggregate/admission invariant with exactproducerbinding ratherthan new07defect.",
+    "Actual record_equipment_contact explicitly bounds totalcontacts and merges sameinventoryID; boundedreceipt projection derivesmemberlistfromcurrentaccumulator. No source proof allcrate-private manually constructed teststates satisfyroster; tests/maliciousinternalmutation notnormaladmissionevidence. Tacticalstate remains transientserver per repositoryarchitecture."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": null
+}

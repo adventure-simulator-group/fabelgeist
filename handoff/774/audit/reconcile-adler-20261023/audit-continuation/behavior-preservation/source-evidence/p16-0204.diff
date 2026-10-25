@@ -1,0 +1,13 @@
+--- p16base/crates/adventuresim-stdb-module/src/food/cooking.rs
++++ catalog-p16head/crates/adventuresim-stdb-module/src/food/cooking.rs
+@@ -613,9 +613,9 @@
+     ctx: &ReducerContext,
+     character_id: u64,
+     fireplace_fixture_id: String,
+     container_object_id: Option<u64>,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     crate::strategic::require_strategic_gateway(ctx)?;
+     let actor = crate::character::require_living_character(ctx, character_id)?;
+     if actor.has_tactical_server_assignment() {
+         return Err("Cooking is unavailable during a tactical encounter".into());

@@ -1,0 +1,100 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-021",
+  "at": "2026-10-25T07:46:17.655674+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1079,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/character.rs",
+      "sha256": "806a50bc71cade3ffdf93f52a62693f7d02d4d55a52e1cce7e5983b894ec28cf",
+      "personally_read_ranges": [
+        [
+          1,
+          1760
+        ]
+      ],
+      "body_complete": false
+    }
+  ],
+  "contract_groups": [
+    {
+      "ranges": [
+        [
+          1,
+          331
+        ]
+      ],
+      "contract": "Character identity, scan index, native name/progression/party pointers, trusted projections and first-character claim",
+      "disposition": "Gateway views gateSDKidentity then joinrelatedtablesusingactualcharacterID; allcharacter-ownedrows projectedonlybythatbroadtrustedrole. Caller-specificchronologicalfilteringremainsaboveviewasdocumented, noclaimtheseviewsareplayerpublicdata. scan_id=id/native-everydayname/xp-level/party references relyactualownerwriters; rawpublicschemafieldsnotgenericcheckedsemanticaggregate. Startingclaimuniquecharacter/requestkey storesownerassociation; creation/retryprooflaterinthissamebody. Age/alive/native servermarker separatederived/authoritativelifecycleties, nativeIdentityZERO codec nottreatedasnewclosedenumhere."
+    },
+    {
+      "ranges": [
+        [
+          333,
+          436
+        ]
+      ],
+      "contract": "Idempotent death row, personal frontier, corpse/inheritance/party life state",
+      "disposition": "Death-at rejectsfutureagainstactualpersonalclock, insertsimmutablefirstdeath thencleanup/corpse/social/alivefalse/browserselection/inheritance/relationship/leaderrefresh. Existingdeathreturnsfirstcause/timeaftercleanup. MissingclockdefaultZERO meansat-zero permittedratherthanmissingclockerror; existingtime/admissionfamilyremains. Multiplefalliblewritesbeforealivefalse relytop-levelreducererrorrollback; a caughtResult couldleavefirstdeath/aliveinconsistent, actualnormalcatchnotprovedhere. Do notassertuniversalprivatefunctiontransaction/rollback. Tacticalassignmentintentionallyretaineduntilserverteardown, notpersistedtacticaltickstate."
+    },
+    {
+      "ranges": [
+        [
+          438,
+          701
+        ]
+      ],
+      "contract": "Native character components and equipment-anchor whole shape",
+      "disposition": "AttributesFrom copies16samefields atomically asoneProduct; typedReligion/Bestiary/Oral/Writtenhours retainedamongrawtraininghours. Bodyhealth/tempnonhumanpolicycannotdefaultto[0,1]byname. CharacterEquippedItem inventoryprimarykeybindscharacter/placement; EquipmentOccupancy tagplusoptional location/parent/point admitimpossiblecombinations, actualfactories/callersremaininginfile. attachment_would_create_cycle DFS tracksactive+finished correctlysupportsdiamondsharedancestor andrejectsself/existingcycle; unrelatedrawgraphstillcallerinput. Inventory_is_equipped ignorescharacterargumentandasksinstanceglobalID intentionallynotautomaticwrongownerexploitwithoutcallerpermissiontrace."
+    },
+    {
+      "ranges": [
+        [
+          703,
+          938
+        ]
+      ],
+      "contract": "Equipment child lifecycle, restoration and registered temporary-character creation",
+      "disposition": "UnequiprecursesactualchildoccupanciesdedupbyBTreeSet, deletesallchild/ownoccupanciesthenrow; acyclicgraphexpectedfromadmission. Restorefindssameinventorydefinition/placementindexcheckedu16thenusesactualequipfactory; deeperadmissionqueuedlaterbody. Registeredservermustmatchsenderbeforetemporarycreation/scaling/enrollment. RawgeneratedIDforcesnonzero mask; existingnativecollisionhandledbyinsert. Temporaryscaledhealth/training nothumanunitfractions; authoredthreatmultipliers actualsourcecoupling remainsqualifiedQ003. DeleteTemporary requiresactualtemporaryflag; worldimportvariantseparateexplicitworkflow, no DBoperationexecuted."
+    },
+    {
+      "ranges": [
+        [
+          940,
+          1246
+        ]
+      ],
+      "contract": "Cascade deletion of character-owned durable rows",
+      "disposition": "Deletesrepair-custodyobjectsusingactualRepairOrderownerbeforeordinaryinventory; carried-objectcanonicaldeletewhenhandledskipsduplicatecleanup, otherwiseitemcondition/repair/foodlot associatedsameinventoryID. Ownedphysiology/infection/cuts/notices/morale/religion/quantitytargets/alcohol/org/skills/clock/limbs/equipment/attributes/personality/capability/condition/needs/exposure/illness/death thenCharacterlast. Nativeforeignkeyandallotherchildcleanuphelpersneedownsourceproof; missingbrowser/claimcleanupnotassertedwithoutworldimportwholecaller. Thisisread-onlysourceinspection, notauthorizeddestructiveexecution."
+    },
+    {
+      "ranges": [
+        [
+          1248,
+          1406
+        ]
+      ],
+      "contract": "Created-character identity and idempotent candidate/default materialization",
+      "disposition": "NamedIDderive usesname+timestampnewidentity, max1; caller-suppliedrawIDpathdelegatesinsert. Startingreducertrustedgateway, generatescanonicalSpecfromrequestcoordinates BEFORElookupexistingclaim; existingowner+IDmustmatchregeneration, otherwiseErr. Newcreationcollisioncheck theninsert/claim/grantfallibleallinreducer. Defaultrequestnamespacedownerandversion, sameactualSpecandgrantjoins. TextseedmaybearbitraryhashedUTF8 not64bitSeeddomain; do notnarrowunrelatedsourceidentity. No credential/cookie replayassumption."
+    },
+    {
+      "ranges": [
+        [
+          1409,
+          1760
+        ]
+      ],
+      "contract": "Development injury, religion and foraging fixtures",
+      "disposition": "SurgeryfixtureauthorssameknownIDs/partycontexts, resetsdurableinjuriesbeforehealthprojection, commitsactualregionalwounds thenstatusmetadata; existingconditionrowsgatedbeforeitemdamage. Sharedfixture_now fromprimaryclock andknownlagcohortintentionallyrewritesdemo participantclocks; noclaimnormalclockmutationpolicy. ReligionHours sevennamedfields andconditionreligionsameactor; bothcapability/conditionrefresh. Foragingfixture checksactualisolatedsolo-partycohort beforecoordinatedcharacter/party settlement/camp/journey/encounterreset. Partialherbalismbodyends1760, nofullfixturecoverage."
+    }
+  ],
+  "remaining": "Continue samefile1761; equipmentadmissionfactoryandcreationrows laterunread. No full1079role count.",
+  "connected_acceptance": [
+    "Actual acceptedlife/custody/name/clock/progression authoritiesowncoordinatedpersistentstate changes; explicitpayloadshapeandtrustednativeports, nogenericlocaltransactionassumption.",
+    "Representrawedit/fixture/nativewirestatesseparatelyfromacceptedruntimeaggregate; preserveactualnonhumanhealth/scales, historicalsourceandpersonalfrontierpolicy."
+  ],
+  "discovery": "partial WITH qualifieddependencies; no lens/familyclearance",
+  "repair": "not_started",
+  "validation": "not_run",
+  "rules": "Current userroot guide; crates/AGENTS.md semanticrecords/lowestsharedownerandnativeboundary rules read; no scopedstdbmoduleAGENTS found."
+}

@@ -1,0 +1,130 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-047",
+  "at": "2026-10-25T11:20:31.702857+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1167,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/chronology.rs",
+      "sha256": "860b2f5a3c607c9788f7076cdb34bcf09a250c6e1182511a64a0e88f6fa8520d",
+      "personally_read_ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole90 chronology existingtests read. Canonicalclock singleowner, softscope no targetclock read/sync, ExclusiveShared/wedding officialworldclock, noforcedNPCadvance are asserted; supports actual1162 correction. These source assertions do not exercise contradictory queue processability or actualordinaryceremonycaller timing."
+    },
+    {
+      "scope_index": 1168,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/commitments.rs",
+      "sha256": "eb30645fa89aa902d3de9fbbdaeb193082599cc2ac7f2db577d6354cd8283042",
+      "personally_read_ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole30 commitment existingtests read. Unorderedpair stableID, yearnotice matchesMINUTES_PER_YEAR, terminal transitions release participantuniqueness and auditevent expected. No runtime escrow/household atomicitytest."
+    },
+    {
+      "scope_index": 1169,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/courtship.rs",
+      "sha256": "4a9668f265691ff206541f97fd9c54bf6d980153ebe8bc954f946118ff263fc8",
+      "personally_read_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole62 courtship existingtests read. Expected opinion at effective date, frozen livingfather/explicit retry and codedrejections. One sourceassertion still looks for father_of_at(ctx,partner_id,StrategicMinute::new(minute)) while actual1155 already passes typedminute; stale migration syntax oracle must be reconciled with final source while retaining semanticfatherdate check. No executed failure claimed or newtest added."
+    },
+    {
+      "scope_index": 1170,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/courtship_discovery.rs",
+      "sha256": "c1d12d725ad3f06ab7154ef88749e9214054a8a610107820c138e4406402ca41",
+      "personally_read_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole62 discovery existingtests read. Frozenobserver/deception, dailyledger outside socializing, delayedaffinity anchored currentdate all asserted; actual1156 independently confirms. Source slicing names/order may depend include layout; not runtimecase proof."
+    },
+    {
+      "scope_index": 1171,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/family.rs",
+      "sha256": "8f4047ce2ac8bff1db35b66996fbc6389bff9d3b6e795d9fc8bb7e594b4cb50c",
+      "personally_read_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole58 family existingtests read. Concrete4memberplan matches boundedroles and reciprocal10edges, incomplete2memberfamily intentionallyno kinship, >4 rejects. Marriage must preserve birthfamilyrole, birthcopiesmaternalroles; no genericrequireparentalproperty."
+    },
+    {
+      "scope_index": 1172,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/lifecycle.rs",
+      "sha256": "ebcbeec9c7898b639d3c3ce24e558e9325bedd36684d570573475020ec4d7efd",
+      "personally_read_ranges": [
+        [
+          1,
+          126
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole126 lifecycle existingtests read. Real enumorderingunitcase WeddingbeforeBirth atsame minute; source asserts orderedprocessablefilteredboundedqueue, poisonpreflight, motherfrontier/discoverywait and deathcleanup. Deadfiance processablewithoutfutureclock. No assertion proves everycaughtweddingfailure occursbeforefirstwrite; Q013 open."
+    },
+    {
+      "scope_index": 1173,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/marriage.rs",
+      "sha256": "7db20bedd436e3f4c0c34e23b008cc4a1fb306e04c3453eb410a267de62a8d2b",
+      "personally_read_ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole106 marriage existingtests read. Effectivehousinghistory/death/age, exactscheduledtime, household/guestcleanup, reservationrefund and pastmarkerhistory expectations. Existing refundtest checks presenceofescrowcalls only, not latehousingcapacityfailure afterpayment; keep Q013. Cancellationonly Reserved beforedate explicitlyasserted."
+    },
+    {
+      "scope_index": 1174,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/projections.rs",
+      "sha256": "59bd74bd660a2b5d71cbd3f5e559e0813bd415941f1fee1871eadc996367133b",
+      "personally_read_ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole47 projection existingtests read. Everypublicrelationship atpersonalfrontier, privategateway/observer, currentpregnancy and latestbornchild separatelyexpected. No erroneouspairingremedy allowed. Weddingactiveindex versushistoricalfrontier question unexercised."
+    },
+    {
+      "scope_index": 1175,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/reproduction.rs",
+      "sha256": "0e0078377860f90b7206461268146733a810756a7831e1b48426082105c3f6d1",
+      "personally_read_ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole71 reproduction existingtests read. Newborn exactreservedID/fullagezero, historicalnamesparentalorder/sex, effectivehousehold and optionalnewbornhome, activeindexcleanup, simultaneous conserved idempotentleisure, bothspousemorale cap. Core/actualreceiver separatelyread; no executionclaim."
+    },
+    {
+      "scope_index": 1176,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/socializing.rs",
+      "sha256": "32c533258dc4025806873c22b508462bd9674bbdfea82c12d61df8b94b14ee4d",
+      "personally_read_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole62 socializing existingtests read. Receipts cumulative actor/day/target and latestend watermark, partyfamiliarityseparate, actorNoTarget watermark intentional, historicalpresence/death/scheduleboundaryslices and allocationfloor differencing asserted. Raw enumshape ownerremedy mustpreserve replay and0allocationreal-target state."
+    }
+  ],
+  "discovery": "Ten existing test roles individually consumed and source-backed contracts recorded; no tests run/added. Full lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

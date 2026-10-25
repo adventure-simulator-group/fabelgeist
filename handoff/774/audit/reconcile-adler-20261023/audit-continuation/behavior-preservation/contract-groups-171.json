@@ -1,0 +1,107 @@
+{
+  "id": "CONT08-CONTRACT-171",
+  "at": "2026-10-25T13:32:04.065561+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 671,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+      "before_sha256": "b494250a425b69b4bd7bb609d270493f9dcf2f5af97242517f0b9c85b96c73e5",
+      "after_sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0671-base-b494250a425b69b4bd7bb609d270493f9dcf2f5af97242517f0b9c85b96c73e5",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+      "diff": "source-evidence/pr-0671.diff",
+      "diff_sha256": "1ac311bdb7a3dc644363f9c122827e1b1628cf803c775bceca8033a5f9b956e9",
+      "head_body_read_ranges": [
+        [
+          1,
+          142
+        ]
+      ],
+      "facts": [
+        "Full142+actual diff now read; exact own006 same-lens comparison reused explicitly. Only derived Radians Default(positive zero) and native direction error helper substitutions change. No wrapping/normalization change: Dir admission then original normalize_or_zero then normalized recheck, represented unit vector lift unchanged.",
+        "Own006 native15 constructors and own155 canonical error mapping prove Zero/Infinite/NaN class/display/wire preservation; portable child type identity intentionally changes. Quaternion finite/unit rejection and transparent wire remain. No every-caller guarantee inferred."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 672,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/tests.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/spatial_geometry/tests.rs",
+      "before_sha256": "a324c5c5af53aab4bfb758243bb6bc37d08f073d04cbdecb75055e4eda096f1b",
+      "after_sha256": "4d0e7f06245f70e6d3ae6904a2870cfea7f6a052fa5da512e1dd5a8768e1cbfc",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0672-base-a324c5c5af53aab4bfb758243bb6bc37d08f073d04cbdecb75055e4eda096f1b",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/4d0e7f06245f70e6d3ae6904a2870cfea7f6a052fa5da512e1dd5a8768e1cbfc",
+      "diff": "source-evidence/pr-0672.diff",
+      "diff_sha256": "b23a3f05a92afe7c3e3197fc40a0d5b5b60315bbdb93737ca001badb4f8ca36f",
+      "head_body_read_ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "facts": [
+        "Full99+actual diff. Only expected native error owner changes to DirectionError::Zero; exact position/leaf/bounds/clearance/MAX overflow, native normalize_or_zero, Serde/opaque reflection fixture inputs/oracles retained, not executed."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 673,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/spiral_stairs.rs",
+      "before_sha256": "495d427c43e115c3500736607942c7f99cd34f8e3044ce73028de1c6c8080054",
+      "after_sha256": "495d427c43e115c3500736607942c7f99cd34f8e3044ce73028de1c6c8080054",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0673-base-495d427c43e115c3500736607942c7f99cd34f8e3044ce73028de1c6c8080054",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/495d427c43e115c3500736607942c7f99cd34f8e3044ce73028de1c6c8080054",
+      "diff": "source-evidence/pr-0673.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          175
+        ]
+      ],
+      "facts": [
+        "Full175+empty diff. Fortified archetype filter, flight option skipping, landing floor policy then owned floor/flight/foundation/member/bearing resolution order unchanged. Landing owner range/any-owner gate and first stair source reproduce old behavior; public index casts remain retained API limits.",
+        "Solid checked envelope then .03 lower support slab publication, exact Y*X*Z bounds leaf operations preserved with155. No new global rollback promise for fallible append."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 674,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/flight.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/spiral_stairs/flight.rs",
+      "before_sha256": "0818457e8abbc4f4e47e831e9ecb51fa917ee6573d45329a524982523b982d3f",
+      "after_sha256": "0818457e8abbc4f4e47e831e9ecb51fa917ee6573d45329a524982523b982d3f",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0674-base-0818457e8abbc4f4e47e831e9ecb51fa917ee6573d45329a524982523b982d3f",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/0818457e8abbc4f4e47e831e9ecb51fa917ee6573d45329a524982523b982d3f",
+      "diff": "source-evidence/pr-0674.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          197
+        ]
+      ],
+      "facts": [
+        "Full197+empty diff. Spiral top/base/rise angle clamp and handedness, required treads and checked_sub extras, interval remainder distribution, .19 riser/.025 overlap/.12 depth clamp, native radius/tangent and yaw order unchanged. Level breaks strict base/top-.001 boundaries, storey-inclusive landings and grounded entrance same.",
+        "Private normal recipes and retained public malformed flight API policies are separate; no ordinary overflow claim from native u16 counts. Shape/member values remain same recipients for673; common155 admission does not newly narrow them."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    }
+  ],
+  "next": "675 viewer/player_build_scene420 then676+"
+}

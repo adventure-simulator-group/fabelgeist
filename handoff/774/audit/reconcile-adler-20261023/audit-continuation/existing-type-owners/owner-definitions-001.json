@@ -1,0 +1,449 @@
+{
+  "id": "OWN02-OWNER-DEFINITIONS-001",
+  "at": "2026-10-24T02:29:53.040922+00:00",
+  "definitions": [
+    {
+      "owner": "BodyMassKg",
+      "definition": {
+        "scope_index": 128,
+        "source_id": "physical-p16:crates/adventuresim-core/src/physiology.rs",
+        "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+        "ranges": [
+          [
+            19,
+            45
+          ]
+        ]
+      },
+      "queue_use_roles": [
+        70,
+        149,
+        151
+      ],
+      "fit": "Exact finite living-character mass20..300kg can remain from PreparedPlayerSpawns into character mass application state.",
+      "limits": "Not general item/stock/component mass; do not reject5kg ForgeStock or zero/static/native mass by reusing this owner. M01 physical family needs broader owner where its actual contract differs."
+    },
+    {
+      "owner": "Milliliters",
+      "definition": {
+        "scope_index": 2746,
+        "source_id": "physical-p16:crates/adventuresim-core/src/material.rs",
+        "sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+        "ranges": [
+          [
+            74,
+            118
+          ]
+        ]
+      },
+      "queue_use_roles": [
+        149,
+        151,
+        153
+      ],
+      "fit": "Exact wholeu64 volume, zero valid, checked addition/subtraction.",
+      "limits": "Different precision from Microliters(1000 per milliliter), not a floating litre scalar, physical mass or count. Object positive exterior volume is separate aggregate admission."
+    },
+    {
+      "owner": "DoseMilliunits",
+      "definition": {
+        "scope_index": 128,
+        "source_id": "physical-p16:crates/adventuresim-core/src/physiology.rs",
+        "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+        "ranges": [
+          [
+            54,
+            94
+          ]
+        ]
+      },
+      "queue_use_roles": [
+        36,
+        76,
+        127,
+        131,
+        150,
+        154
+      ],
+      "fit": "Medicinal standard dose/1000,0..8000 inclusive.",
+      "limits": "Infection WorldEvent MICROunits1e6 is a separate extensive exposure domain. No positive-only dose assumption, and no immunity/response unitinterval substitution."
+    },
+    {
+      "owner": "UnitBasisPoints",
+      "definition": {
+        "scope_index": 439,
+        "source_id": "physical-p16:crates/adventuresim-world-schema/src/basis_points.rs",
+        "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+        "ranges": [
+          [
+            7,
+            48
+          ]
+        ]
+      },
+      "queue_use_roles": [
+        64,
+        67
+      ],
+      "fit": "Constructor policy exactly fraction0..10000; suitable numeric leaf inside LandUseFraction and matching emitted unit fractions.",
+      "limits": "CAMERA-ADM03-F001 derives bypass bounds through Serde; native routes separately evidenced. Do not weaken outer checked admission. Housing multipliers11000..16000 and above1 sizing Permille do not fit."
+    },
+    {
+      "owner": "SignedUnitBasisPoints",
+      "definition": {
+        "scope_index": 439,
+        "source_id": "physical-p16:crates/adventuresim-world-schema/src/basis_points.rs",
+        "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+        "ranges": [
+          [
+            94,
+            130
+          ]
+        ]
+      },
+      "queue_use_roles": [
+        131,
+        148
+      ],
+      "fit": "Constructor policy signed fraction-10000..10000,0 neutral. Compatible numeric leaf for actual fixed-point personality potency and signed emitted humour readings where same contract.",
+      "limits": "Same canonical admission gap CAMERA-ADM03-F001; not every signed improvement[-1,2] or raw sensitivity fits. Axis identity, lossy labels and private continuous score remain different products."
+    },
+    {
+      "owner": "RequestedDuration",
+      "definition": {
+        "scope_index": 148,
+        "source_id": "physical-p16:crates/adventuresim-core/src/strategic_action.rs",
+        "sha256": "4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+        "ranges": [
+          [
+            318,
+            329
+          ]
+        ]
+      },
+      "queue_use_roles": [
+        12,
+        23,
+        89,
+        152
+      ],
+      "fit": "Positive nonzerou64 requested action minutes, exact reuse for travel rest after separate maximum bound.",
+      "limits": "Does not fit zero-valid elapsed minutes, absolute StrategicMinute, quarter-hour allocation or raw form text before parsing. Search later clarified no exact zero-valid elapsed owner, not no duration owner."
+    },
+    {
+      "owner": "ActivityMinutes",
+      "definition": {
+        "scope_index": 2675,
+        "source_id": "physical-p16:crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+        "sha256": "031ee090102b5cc2ed9889b336ac1144ef7eb705cacc6fee37cbe8e7f6bafd0e",
+        "ranges": [
+          [
+            19,
+            36
+          ]
+        ]
+      },
+      "queue_use_roles": [
+        23,
+        34,
+        93,
+        94,
+        98,
+        106,
+        108,
+        109
+      ],
+      "fit": "u16 multiple15,0 and standalone>day valid.",
+      "limits": "Not positiveRequestedDuration, arbitrary partial elapsed time, or inherently<=day; ValidatedSchedule adds daily aggregate bound, organization permission separate."
+    },
+    {
+      "owner": "ValidatedSchedule",
+      "definition": {
+        "scope_index": 2675,
+        "source_id": "physical-p16:crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+        "sha256": "031ee090102b5cc2ed9889b336ac1144ef7eb705cacc6fee37cbe8e7f6bafd0e",
+        "ranges": [
+          [
+            177,
+            195
+          ],
+          [
+            217,
+            281
+          ]
+        ]
+      },
+      "queue_use_roles": [
+        93,
+        94,
+        95,
+        96,
+        100,
+        106,
+        108,
+        109
+      ],
+      "fit": "Private accepted numerical schedule total<=day and quarter-hour,9redistribution slots with10threading unchanged.",
+      "limits": "Does not seal public DailySchedulePlan organization quantities, raw organization identity or current DB membership; retain ROOT-ADM-F005/CAMERA-INITIAL07-F017."
+    },
+    {
+      "owner": "FieldShelter",
+      "definition": {
+        "scope_index": 1020,
+        "source_id": "pr-working:crates/adventuresim-core/src/survival.rs",
+        "sha256": "63f604eeeca44d35f365c9daded84a61ca19b8c9c3976ead8503a2edbf4d1c57",
+        "ranges": [
+          [
+            45,
+            53
+          ]
+        ]
+      },
+      "queue_use_roles": [
+        23
+      ],
+      "fit": "Exact Bivouac/Tent semantic enum from form before actual DB JSON bridge.",
+      "limits": "Default Bivouac is not authorization to accept missing form shelter; ExposureShelter::Indoor is broader and different."
+    },
+    {
+      "owner": "MutablePersonalityAxis",
+      "definition": {
+        "scope_index": 234,
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/personality.rs",
+        "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+        "ranges": [
+          [
+            54,
+            69
+          ]
+        ]
+      },
+      "queue_use_roles": [
+        148
+      ],
+      "fit": "All13 enum variants exactly match semantic0..12 generator axis dispatch; no dependency barrier in same native module.",
+      "limits": "No existing ALL constant; roster must be exhaustive and preserve Nerve\u2192SelfKnowledge initial order, shuffle and RNGdraw sequence,2..4distinct axes. Do not turn entropy indices into this enum indiscriminately."
+    },
+    {
+      "owner": "RenderedPersonalName",
+      "definition": {
+        "scope_index": 2168,
+        "source_id": "pr-working:crates/adventuresim-world-schema/src/person_names.rs",
+        "sha256": "e41326d6c8ae20b958581c0027d3b5bdd79a58faf43a142e446f52dc4a8f70ec",
+        "ranges": [
+          [
+            94,
+            131
+          ]
+        ]
+      },
+      "queue_use_roles": [
+        81,
+        82,
+        103
+      ],
+      "fit": "Privately checked bounded160char nonempty trimmed control-free direct-display text.",
+      "limits": "Does not prove catalogue membership, historical evidence truth or particular social role. NameFamilyId/FormId/SurnameId are distinct nominal publicString identities with their own admission/membership gaps."
+    },
+    {
+      "owner": "ScenePlanPoint",
+      "definition": {
+        "scope_index": 1907,
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+        "sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+        "ranges": [
+          [
+            20,
+            63
+          ]
+        ]
+      },
+      "queue_use_roles": [
+        0,
+        2,
+        4,
+        5,
+        6,
+        9,
+        10,
+        19,
+        46
+      ],
+      "fit": "Finite scene-local east/northf32 position,0 valid.",
+      "limits": "Not architectural local point, WGS84degrees/E7 or EPSG3034 metres; not DVec2 exact clipping temporary or generic displacement/velocity."
+    },
+    {
+      "owner": "SupportElevation",
+      "definition": {
+        "scope_index": 1803,
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+        "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+        "ranges": [
+          [
+            73,
+            109
+          ]
+        ]
+      },
+      "queue_use_roles": [
+        0,
+        2,
+        4,
+        47
+      ],
+      "fit": "Finite signed scene architectural support elevation,0 valid.",
+      "limits": "Generator cannot depend on tacticalCore for architectural set-out; use proper lower frame leaf/move. Not positive length or maximum penetration bound."
+    },
+    {
+      "owner": "GeographicGrade",
+      "definition": {
+        "scope_index": 1828,
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/measurement.rs",
+        "sha256": "6bf7e931e120e7f023858ffebeedc30845b61f861c39ec75d03c500564192bc1",
+        "ranges": [
+          [
+            233,
+            245
+          ]
+        ]
+      },
+      "queue_use_roles": [
+        3
+      ],
+      "fit": "Finite nonnegative f64 measured rise/run, including flat0.",
+      "limits": "Different from positivef32 engineering SupportGrade; use before comparison/error rather than construct only after failure. Preserve invalid/nonfinite topology handling and existing numerical precision policy."
+    },
+    {
+      "owner": "Wgs84BoundsE7",
+      "definition": {
+        "scope_index": 2718,
+        "source_id": "physical-p16:crates/adventuresim-world-schema/src/coordinates/bounds.rs",
+        "sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+        "ranges": [
+          [
+            1,
+            49
+          ]
+        ]
+      },
+      "queue_use_roles": [
+        44,
+        46,
+        61,
+        88,
+        91
+      ],
+      "fit": "Checked ordered inclusive E7 geographic corners; equal corners valid and antimeridian crossing excluded.",
+      "limits": "Not EPSG3034 strict positive<=2000m inward-rounded projected rectangle. Precision conversion at actual source boundary must preserve contract."
+    },
+    {
+      "owner": "Position<Architectural>",
+      "definition": {
+        "scope_index": 666,
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+        "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+        "ranges": [
+          [
+            9,
+            88
+          ]
+        ]
+      },
+      "queue_use_roles": [
+        50,
+        51,
+        159,
+        160,
+        161,
+        162
+      ],
+      "fit": "Existing architectural finite position already used by StructuralNode; same role in drainageinlet/outlet/sample/channel/discharge retained fields.",
+      "limits": "Not tangent/outward direction, extent, signed coordinate offset or generic frame-free Transform. Zero-height SpatialBounds contact proof is separate.",
+      "application_evidence": {
+        "scope_index": 2715,
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/model/resolved_networks.rs",
+        "sha256": "f6935151a38ae59a0722eb9ffec6584b50ba1b3c89356185b7b9cdc2eb60dfe9",
+        "ranges": [
+          [
+            3,
+            50
+          ]
+        ]
+      }
+    },
+    {
+      "owner": "Elevation<Architectural>",
+      "definition": {
+        "scope_index": 666,
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+        "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+        "ranges": [
+          [
+            41,
+            60
+          ],
+          [
+            113,
+            139
+          ]
+        ]
+      },
+      "queue_use_roles": [
+        47,
+        48,
+        50
+      ],
+      "fit": "Finite signed architectural-datum metre height with valid zero and checked Deserialize. Exact lower geometry owner fits belfry/eave and drainage retained elevation fields.",
+      "limits": "Not positive length, tactical ground SupportElevation, displacement or a change of datum. Preserve physical minimum constraints of each receiving aggregate."
+    },
+    {
+      "owner": "AnimationElapsed",
+      "definition": {
+        "scope_index": 916,
+        "source_id": "pr-working:crates/adventuresim-core/src/elapsed.rs",
+        "sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+        "ranges": [
+          [
+            1,
+            131
+          ]
+        ]
+      },
+      "fit": "Finite nonnegative elapsed f32seconds, ZERO valid, checkedSerde and arithmetic. Fits elapsed observation before nativeDuration refinement.",
+      "limits": "Not absolute clock, positive requestduration or strategic minute; nativeDuration conversion may reject narrower range."
+    },
+    {
+      "owner": "NonnegativeSpeed/SignedSpeed/PositiveSpeed",
+      "definition": {
+        "scope_index": 952,
+        "source_id": "pr-working:crates/adventuresim-core/src/linear_speed.rs",
+        "sha256": "db3686060ebd8ce533fe48c88685c5643b024b8a92b2b617d97481196988f3e0",
+        "ranges": [
+          [
+            1,
+            178
+          ]
+        ]
+      },
+      "fit": "Finite m/s with explicit three sign domains, checkedSerde. Match rest/reverse/positive policy rather than generic numeric appearance.",
+      "limits": "Not acceleration, positionalcoordinate, angularspeed or phase. Preserve scalar order at actual math port."
+    },
+    {
+      "owner": "UnitInterval",
+      "definition": {
+        "scope_index": 1022,
+        "source_id": "pr-working:crates/adventuresim-core/src/unit_interval.rs",
+        "sha256": "268891d7d5556895ace4c6ce33b14953e35d5973bfce9b042e4b9d2dbc721a86",
+        "ranges": [
+          [
+            1,
+            58
+          ]
+        ]
+      },
+      "fit": "Existing checked finite f32[0,1] inclzero/one, checkedSerde. Exact numeric leaf for floatingfraction without basispoint quantization.",
+      "limits": "Not signed improvement[-1,2], multipliers>1, HDRcolors or physical energy. Fraction semantic role and aggregate association remain distinct."
+    }
+  ],
+  "limits": "Concrete constructor-policy and use-site matches, not all-route admission clearance. Source bodies fresh where specified in packets or exact own07body proof reused; no implementation/otherlensclearance."
+}

@@ -1,0 +1,113 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-608",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_outlets.rs",
+      "sha256": "a867ca903db8d40b4576b9e1985a40c0483f6f75f5a69efde7b6aa35d6a36ba4",
+      "actual_EOF": 1005,
+      "actual_compared_ranges": [
+        [
+          1,
+          1005
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_plan_sampling.rs",
+      "sha256": "50afa2b0cf44d396c140986593eec1d3e893d83361c56178cb7c247b9c9ef559",
+      "actual_EOF": 60,
+      "actual_compared_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_split_drainage.rs",
+      "sha256": "3b490e81578cef157900d07954f9fb8d077058299d752879ba933ba0a604576a",
+      "actual_EOF": 223,
+      "actual_compared_ranges": [
+        [
+          1,
+          223
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_weather.rs",
+      "sha256": "88c060d0755ae3acb977a20cdfac37a99cfef85d9fb40f4905957a65f51344ac",
+      "actual_EOF": 50,
+      "actual_compared_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/shed_dormers.rs",
+      "sha256": "0588cb855c05aac8502f65eb1cfa16c891360375def2fa7edff969d8c38e572b",
+      "actual_EOF": 163,
+      "actual_compared_ranges": [
+        [
+          1,
+          163
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/roof_enclosure.rs",
+      "sha256": "f17621933d3d5694bc80282196c95bb2278a5acbc501b3a367fc115eeb1957d4",
+      "actual_EOF": 63,
+      "actual_compared_ranges": [
+        [
+          1,
+          63
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Roof station consolidation and native disposal geometry",
+      "evidence": "Entire1005lines read in1\u2013320/321\u2013650/651\u20131005. Nonemptynetworkguard provespositive stationcount/chunksize andallchunkindices valid; candidateoffsetarrays nonemptyfixedbounds; actualstations max4 independentroofkind. Ownernetworks sortedazimuththenchunk, childfree-drip-to-parent orhostdownspoutorgroundfall; obstacle-awaresearchboundedfixedsamples andexplicitlaterauditfallback. Oldspoutsandmatchinginterfaces/oldoutletvoids removedtogether; reconstructionbindsactualhostsupport; network/catchment/receivingedge updatecoherently references sharedstation.",
+      "qualifications": [
+        "Docprincipalmax2 disagrees actualmax4; codepolicyrecordedwithoutchanging comment/productpolicy orpromotingnewbespokedefect.",
+        "Roofcentre/mean/elevation/nativeclamp assume actualnonemptyfinitefacevalidwall length>=.24 forinvertedclamp avoidance. No ordinaryshortwall ormalformedface proven; original aggregate/admission remainsacceptedstarting evidence.",
+        "Collector ID masks station&7/member&31; actualstation<=4 establishesstationbits but membercount<=32 needsactualface/networkcapacity, not allfiniteextent proof. Sourceconditional topology/capacity question withoutcurrentassetfailure.",
+        "All-mutatingprivate helper may returnErr afteroldstate removal, but externalpublish boundary is actualconsuminggeneration, notpersistentcommit. No inventedDB/runtime rollbackguarantee."
+      ],
+      "acceptance": "Publisheddrainage must be actual obstacle/recipient accepted byindependentfullfall-cone audit, preserveexplicitfallfallback andallreferentialclosure. Checkedphysicalsizes alone do notprovegraphidentity/capacity."
+    },
+    {
+      "contract": "Shared sampling, split-eave channels, actualweather cutouts andshedseams",
+      "evidence": "Whole60+223+50+163 read. Samplingfixed5x5 native min/max withconvexpolygonandcutoutexclusion; exactsplitlinklen3 guardsreceiverindices, missingedge/faceskip, samplesnonempty before[0]; typedphysical/bounds fromcomputedchannel; fixedkindoffsets13/9 preserve signedzero. Shedseam800positive.01steps bounded, exact22degreebuilder; undersidechildfaces0 assumesresolvedShedoneface; fullactualrotation/seatingfixtures consumednotrun.",
+      "qualifications": [
+        "Empty/allinvalidnativeface doesnotbecomeadmittedbounds inRoofPlanSampling; scratchsentinelsnotpublished, actualsourcefaceadmission prerequisite.",
+        "Split child&0xFF identityslice and support[0] need boundednativegeneratorgraph; no arbitraryu64roofowner narrowing.",
+        "Independentdrainage audit, ownfinalizerroles andnativeconsumerfailures remain required; sourcefixtures not acceptance."
+      ],
+      "acceptance": "Preserveallthree splitreceivers, realcutout exclusion andfalling/rotatedshedsemantics without fixedscale/universalpositiveelevation clamps."
+    },
+    {
+      "contract": "Enclosure residual as computed projection",
+      "evidence": "Whole63read: normalfirst3vertices/tangent, residualprojectspolygon and closescoordinate0, subtractsonlyreciprocalRoofGablewalls withmatching insetwallID/enclosure; no secondserializedresidualauthority.",
+      "qualifications": "Rawpublicface invalidempty/cardinality is existingadmission/aggregate concern; newconstructorprivate doesnotvalidateallpayload. Actualnormalgeneratedface/wallvalidity neededbeforeoperationport; no blanketenumerationofallmalformedrawpayloads asnewfindings.",
+      "acceptance": "Successfulcomputedresidual mustpreserveframe/reciprocalwallcut andphysicalholes; actualenclosureadmission/degenpolicy carriedthroughsharedrepair withoutnativeBooleanOps guess."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "6 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/fabelgeist-bvh/src/gpu/mod.rs"
+}

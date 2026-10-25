@@ -1,0 +1,770 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-213",
+  "at": "2026-10-25T13:42:04.566310+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 411,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+      "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+      "actual_EOF": 3450,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+        "owner": "camera",
+        "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+        "base_sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+        "state": "modified",
+        "bytes": 130728,
+        "audit_owner": "camera",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                3450
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-PLAYER-PROJECTION-001"
+            ]
+          },
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/progress.json",
+            "ranges": [
+              [
+                230,
+                273
+              ],
+              [
+                1030,
+                1510
+              ],
+              [
+                1574,
+                1693
+              ]
+            ],
+            "source_read_status": "exact connected functions only; whole file remains camera/root assigned",
+            "trace_refs": []
+          },
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/unchanged-receivers-005.json",
+            "ranges": [
+              [
+                230,
+                273
+              ],
+              [
+                1030,
+                1510
+              ],
+              [
+                1574,
+                1693
+              ]
+            ],
+            "source_read_status": "exact connected functions only; whole file remains camera/root assigned",
+            "trace_refs": []
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 108,
+            "read_ranges": [
+              [
+                1,
+                3450
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SERVER-PLAYER-PROJECTION-066"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-server/src/player_projection.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 532,
+            "read_ranges": [
+              [
+                1,
+                3450
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SERVER-PLAYER-PROJECTION-066"
+            ],
+            "read_status": "full_physical_plus_complete_reversePRdelta_or_samepathSHAequality",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-server/src/player_projection.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-MOTOR-TARGETING-001",
+            "json_pointer": "/source_proofs/3",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+            "read_ranges_as_recorded": [
+              [
+                390,
+                470
+              ],
+              [
+                1670,
+                1696
+              ],
+              [
+                1730,
+                1758
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-server/src/player_projection.rs",
+              "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+              "read_ranges": [
+                [
+                  390,
+                  470
+                ],
+                [
+                  1670,
+                  1696
+                ],
+                [
+                  1730,
+                  1758
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-TACTICAL-RECEIVERS-044",
+            "json_pointer": "/additional_actual_source_proofs/31",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+            "read_ranges_as_recorded": [
+              [
+                202,
+                275
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+              "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+              "actual_line_count": 3450,
+              "read_ranges": [
+                [
+                  202,
+                  275
+                ]
+              ],
+              "resolved_path": "RECORDS/final-acceptance-20261021/frozen-inputs.zip!/physical-p16/files/crates/adventuresim-tactical-server/src/player_projection.rs",
+              "method": "Fresh current material body; PR/P16 paired attack_start/action_clock/offense source plus complete exact delta, duplicate defense bytes compared. Bounded ranges stay bounded; incidental partial fixture prefixes do not imply whole fixtures."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SERVER-PROJECTION-EQUIPMENT-055",
+            "json_pointer": "/current_sources/1",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                3450
+              ]
+            ],
+            "source_context": {
+              "assigned_camera_index": 108,
+              "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-server/src/player_projection.rs",
+              "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+              "read_ranges": [
+                [
+                  1,
+                  3450
+                ]
+              ],
+              "read_mode": "fresh full PR3497 and complete exact preservedP16 textualdelta3450; all changed+unchanged production and fixtures reconciled",
+              "actual_contract": "Native ConnectedPlayer row -> mailbox -> complete batch preparation -> components/reconnect/snapshots -> input/facing/skeleton/native physics/Replicon. Whole bodies/fixtures and all materially distinct paths in026; F037 checked biological mass loss distinct generic total physicalmass. Current PR/P16 union and native typed error policies preserved.",
+              "source_trace_refs": [
+                "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-025",
+                "NATIVE-PS-SERVER-PLAYER-PROJECTION-026"
+              ],
+              "disposition": "Accounted WITH FINDINGS and actual bounded receiver closure; Camera716 explicit credit only"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-COMBAT-RECEIVER-CLOSURE-020",
+            "json_pointer": "/source_reads/31",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+            "read_ranges_as_recorded": [
+              [
+                202,
+                275
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+              "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+              "actual_line_count": 3450,
+              "read_ranges": [
+                [
+                  202,
+                  275
+                ]
+              ],
+              "resolved_path": "RECORDS/final-acceptance-20261021/frozen-inputs.zip!/physical-p16/files/crates/adventuresim-tactical-server/src/player_projection.rs",
+              "method": "Fresh current material body; PR/P16 paired attack_start/action_clock/offense source plus complete exact delta, duplicate defense bytes compared. Bounded ranges stay bounded; incidental partial fixture prefixes do not imply whole fixtures."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-SERVER-PLAYER-PROJECTION-026",
+            "json_pointer": "/source_reads/1",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                3450
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-server/src/player_projection.rs",
+              "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+              "read_ranges": [
+                [
+                  1,
+                  3450
+                ]
+              ],
+              "actual_line_count": 3450,
+              "read_kind": "fresh full PR3497 and complete exact preservedP16 textualdelta3450; all changed+unchanged production and fixtures reconciled"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-CLOSURE-027",
+            "json_pointer": "/source_dispositions/1",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                3450
+              ]
+            ],
+            "source_context": {
+              "assigned_camera_index": 108,
+              "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-server/src/player_projection.rs",
+              "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+              "read_ranges": [
+                [
+                  1,
+                  3450
+                ]
+              ],
+              "read_mode": "fresh full PR3497 and complete exact preservedP16 textualdelta3450; all changed+unchanged production and fixtures reconciled",
+              "actual_contract": "Native ConnectedPlayer row -> mailbox -> complete batch preparation -> components/reconnect/snapshots -> input/facing/skeleton/native physics/Replicon. Whole bodies/fixtures and all materially distinct paths in026; F037 checked biological mass loss distinct generic total physicalmass. Current PR/P16 union and native typed error policies preserved.",
+              "source_trace_refs": [
+                "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-025",
+                "NATIVE-PS-SERVER-PLAYER-PROJECTION-026"
+              ],
+              "disposition": "Accounted WITH FINDINGS and actual bounded receiver closure; Camera716 explicit credit only"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/rig/web-request-reconciliation-039.json",
+            "receipt": "RIG-CONT-PPS-WEB-REQUEST-RECONCILIATION-039",
+            "json_pointer": "/native027_exact_receiver_proofs/1",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                3450
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+              "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+              "read_ranges": [
+                [
+                  1,
+                  3450
+                ]
+              ],
+              "proof": [
+                "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-025",
+                "NATIVE-PS-SERVER-PLAYER-PROJECTION-026"
+              ],
+              "material_contract": "Native ConnectedPlayer row -> mailbox -> complete batch preparation -> components/reconnect/snapshots -> input/facing/skeleton/native physics/Replicon. Whole bodies/fixtures and all materially distinct paths in026; F037 checked biological mass loss distinct generic total physicalmass. Current PR/P16 union and native typed error policies preserved."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": 116,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved",
+        "admission03_increment077_role_observations": [
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 91,
+            "registration_id": "NATIVE-ADMISSION03-REG-091",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-091",
+              "at": "2026-10-22T15:49:55.551898+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+              "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+              "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+              "snapshot": "physical-p16",
+              "actual_EOF": 3450,
+              "material_ranges": [
+                [
+                  205,
+                  232
+                ],
+                [
+                  306,
+                  324
+                ],
+                [
+                  540,
+                  894
+                ],
+                [
+                  2103,
+                  2105
+                ]
+              ],
+              "role": "Actualselectedwholeparent sender/receiver spawn_connected_players/spawn_connected_player andfixedplayer_collider; AttackFacing declaration/closedCameraFacingIntent directCamera308input context. Camera307-310 completebatchbeforecommands claim requiresactualpostpreparearmor/appearance recipient, no nativeforwarderexemption.",
+              "actual_caller": "ExactCamera307PreparedInventory/309projection_equipment/310PreparedPlayerSpawns::project actualparent spawn_connected_player",
+              "reason": "Genuineactualretainedpreparation\u2192recipient admission contract registeredbeforebody; no entireplayer_projection/newnativegraph",
+              "exclusions": "Allotherparentmovement/join/reconnect/tests/sourcecontracts excluded. Nativegeneratedrowshortbody only,no generatedsourceedit/APIownership transfer.",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-server\\src\\player_projection.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADM03-FINALQUAL-091",
+                "registration_id": "NATIVE-ADMISSION03-REG-091",
+                "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+                "snapshot": "physical-p16",
+                "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+                "actual_EOF": 3450,
+                "registered_requested_ranges": [
+                  [
+                    205,
+                    232
+                  ],
+                  [
+                    306,
+                    324
+                  ],
+                  [
+                    540,
+                    894
+                  ],
+                  [
+                    2103,
+                    2105
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    205,
+                    209
+                  ],
+                  [
+                    306,
+                    323
+                  ],
+                  [
+                    540,
+                    890
+                  ],
+                  [
+                    2103,
+                    2105
+                  ]
+                ],
+                "context_or_excluded_within_registration": [
+                  [
+                    210,
+                    232
+                  ],
+                  [
+                    324,
+                    324
+                  ],
+                  [
+                    891,
+                    894
+                  ]
+                ],
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-091",
+                  "at": "2026-10-22T15:49:55.551898+00:00",
+                  "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                  "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+                  "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+                  "snapshot": "physical-p16",
+                  "actual_EOF": 3450,
+                  "material_ranges": [
+                    [
+                      205,
+                      232
+                    ],
+                    [
+                      306,
+                      324
+                    ],
+                    [
+                      540,
+                      894
+                    ],
+                    [
+                      2103,
+                      2105
+                    ]
+                  ],
+                  "role": "Actualselectedwholeparent sender/receiver spawn_connected_players/spawn_connected_player andfixedplayer_collider; AttackFacing declaration/closedCameraFacingIntent directCamera308input context. Camera307-310 completebatchbeforecommands claim requiresactualpostpreparearmor/appearance recipient, no nativeforwarderexemption.",
+                  "actual_caller": "ExactCamera307PreparedInventory/309projection_equipment/310PreparedPlayerSpawns::project actualparent spawn_connected_player",
+                  "reason": "Genuineactualretainedpreparation\u2192recipient admission contract registeredbeforebody; no entireplayer_projection/newnativegraph",
+                  "exclusions": "Allotherparentmovement/join/reconnect/tests/sourcecontracts excluded. Nativegeneratedrowshortbody only,no generatedsourceedit/APIownership transfer.",
+                  "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-server\\src\\player_projection.rs",
+                  "status": "registered_before_direct_current03_body_analysis"
+                },
+                "qualification_history": [
+                  {
+                    "qualification_file": "camera-support/source-qualifications-011.jsonl",
+                    "row_1based": 19,
+                    "payload": {
+                      "id": "NATIVE-CAMERA-SUPPORT03-QUAL-091",
+                      "registration_id": "NATIVE-ADMISSION03-REG-091",
+                      "original_registration": {
+                        "id": "NATIVE-ADMISSION03-REG-091",
+                        "at": "2026-10-22T15:49:55.551898+00:00",
+                        "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+                        "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+                        "snapshot": "physical-p16",
+                        "actual_EOF": 3450,
+                        "material_ranges": [
+                          [
+                            205,
+                            232
+                          ],
+                          [
+                            306,
+                            324
+                          ],
+                          [
+                            540,
+                            894
+                          ],
+                          [
+                            2103,
+                            2105
+                          ]
+                        ],
+                        "role": "Actualselectedwholeparent sender/receiver spawn_connected_players/spawn_connected_player andfixedplayer_collider; AttackFacing declaration/closedCameraFacingIntent directCamera308input context. Camera307-310 completebatchbeforecommands claim requiresactualpostpreparearmor/appearance recipient, no nativeforwarderexemption.",
+                        "actual_caller": "ExactCamera307PreparedInventory/309projection_equipment/310PreparedPlayerSpawns::project actualparent spawn_connected_player",
+                        "reason": "Genuineactualretainedpreparation\u2192recipient admission contract registeredbeforebody; no entireplayer_projection/newnativegraph",
+                        "exclusions": "Allotherparentmovement/join/reconnect/tests/sourcecontracts excluded. Nativegeneratedrowshortbody only,no generatedsourceedit/APIownership transfer.",
+                        "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-server\\src\\player_projection.rs",
+                        "status": "registered_before_direct_current03_body_analysis"
+                      },
+                      "qualified_material_ranges": [
+                        [
+                          205,
+                          209
+                        ],
+                        [
+                          306,
+                          323
+                        ],
+                        [
+                          540,
+                          890
+                        ],
+                        [
+                          2103,
+                          2105
+                        ]
+                      ],
+                      "qualification": "ValidatedPlayerInput211-232 incidentalread/excluded; nextjoinattribute892-894 excluded. AttackFacingHeader204/CameraHeader305 separatelyprospective094. Exactactualspawnfunctionends890, notnextjoin.",
+                      "actual_semantic_refs": [
+                        "contracts-010.json"
+                      ],
+                      "registered_before_body": true,
+                      "global_registry_reconciliation_pending": true,
+                      "later_lens_credit": false
+                    }
+                  }
+                ],
+                "current_proof_refs": {
+                  "actual_semantic_refs": [
+                    "contracts-010.json"
+                  ]
+                },
+                "body_rereads_for_this_normalization": 0,
+                "semantic_credit_from_metadata": false,
+                "producer_or_owner_or_later_lens_credit": false,
+                "global_reconciliation_pending": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                205,
+                209
+              ],
+              [
+                306,
+                323
+              ],
+              [
+                540,
+                890
+              ],
+              [
+                2103,
+                2105
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-server\\src\\player_projection.rs",
+            "actual_EOF": 3450,
+            "bytes": 130728
+          },
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 94,
+            "registration_id": "NATIVE-ADMISSION03-REG-094",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-094",
+              "at": "2026-10-22T15:54:09.664877+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+              "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+              "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+              "snapshot": "physical-p16",
+              "actual_EOF": 3450,
+              "material_ranges": [
+                [
+                  203,
+                  204
+                ],
+                [
+                  305,
+                  305
+                ]
+              ],
+              "role": "Exact attached derives on directAttackFacing/CameraFacingIntent definitions091 must enumerate ALLdeclared Component/Default/Serde/Reflect routes, notassumeheaderabsent",
+              "actual_caller": "ExactCamera307PreparedInventory/309projection_equipment/310PreparedPlayerSpawns::project actualparent spawn_connected_player",
+              "reason": "Directdefinition attachedattributes completion registeredBEFOREbodyanalysis, no newfunctiongraph",
+              "exclusions": "No otherparentdefinitions/functions/tests or currentValidatedPlayerInput bodycredit",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-server\\src\\player_projection.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADM03-FINALQUAL-094",
+                "registration_id": "NATIVE-ADMISSION03-REG-094",
+                "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+                "snapshot": "physical-p16",
+                "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+                "actual_EOF": 3450,
+                "registered_requested_ranges": [
+                  [
+                    203,
+                    204
+                  ],
+                  [
+                    305,
+                    305
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    204,
+                    204
+                  ],
+                  [
+                    305,
+                    305
+                  ]
+                ],
+                "context_or_excluded_within_registration": [
+                  [
+                    203,
+                    203
+                  ]
+                ],
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-094",
+                  "at": "2026-10-22T15:54:09.664877+00:00",
+                  "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                  "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+                  "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+                  "snapshot": "physical-p16",
+                  "actual_EOF": 3450,
+                  "material_ranges": [
+                    [
+                      203,
+                      204
+                    ],
+                    [
+                      305,
+                      305
+                    ]
+                  ],
+                  "role": "Exact attached derives on directAttackFacing/CameraFacingIntent definitions091 must enumerate ALLdeclared Component/Default/Serde/Reflect routes, notassumeheaderabsent",
+                  "actual_caller": "ExactCamera307PreparedInventory/309projection_equipment/310PreparedPlayerSpawns::project actualparent spawn_connected_player",
+                  "reason": "Directdefinition attachedattributes completion registeredBEFOREbodyanalysis, no newfunctiongraph",
+                  "exclusions": "No otherparentdefinitions/functions/tests or currentValidatedPlayerInput bodycredit",
+                  "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-server\\src\\player_projection.rs",
+                  "status": "registered_before_direct_current03_body_analysis"
+                },
+                "qualification_history": [
+                  {
+                    "qualification_file": "camera-support/source-qualifications-011.jsonl",
+                    "row_1based": 22,
+                    "payload": {
+                      "id": "NATIVE-CAMERA-SUPPORT03-QUAL-094",
+                      "registration_id": "NATIVE-ADMISSION03-REG-094",
+                      "original_registration": {
+                        "id": "NATIVE-ADMISSION03-REG-094",
+                        "at": "2026-10-22T15:54:09.664877+00:00",
+                        "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+                        "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+                        "snapshot": "physical-p16",
+                        "actual_EOF": 3450,
+                        "material_ranges": [
+                          [
+                            203,
+                            204
+                          ],
+                          [
+                            305,
+                            305
+                          ]
+                        ],
+                        "role": "Exact attached derives on directAttackFacing/CameraFacingIntent definitions091 must enumerate ALLdeclared Component/Default/Serde/Reflect routes, notassumeheaderabsent",
+                        "actual_caller": "ExactCamera307PreparedInventory/309projection_equipment/310PreparedPlayerSpawns::project actualparent spawn_connected_player",
+                        "reason": "Directdefinition attachedattributes completion registeredBEFOREbodyanalysis, no newfunctiongraph",
+                        "exclusions": "No otherparentdefinitions/functions/tests or currentValidatedPlayerInput bodycredit",
+                        "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-server\\src\\player_projection.rs",
+                        "status": "registered_before_direct_current03_body_analysis"
+                      },
+                      "qualified_material_ranges": [
+                        [
+                          204,
+                          204
+                        ],
+                        [
+                          305,
+                          305
+                        ]
+                      ],
+                      "qualification": "203priorAttackFacingdoc contextonly; actual204Component DebugCloneCopy,305CameraIntent DebugCloneCopyDefaultPartialEqEq. NoSerde/Reflectdeclared; DefaultFree corresponds306-310actualenum. Thesecompleteactualroutes incontracts010, notnewworkflow.",
+                      "actual_semantic_refs": [
+                        "contracts-010.json"
+                      ],
+                      "registered_before_body": true,
+                      "global_registry_reconciliation_pending": true,
+                      "later_lens_credit": false
+                    }
+                  }
+                ],
+                "current_proof_refs": {
+                  "actual_semantic_refs": [
+                    "contracts-010.json"
+                  ]
+                },
+                "body_rereads_for_this_normalization": 0,
+                "semantic_credit_from_metadata": false,
+                "producer_or_owner_or_later_lens_credit": false,
+                "global_reconciliation_pending": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                204,
+                204
+              ],
+              [
+                305,
+                305
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-server\\src\\player_projection.rs",
+            "actual_EOF": 3450,
+            "bytes": 130728
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          3450
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "SystemSet, native components/input markers/defaults/enum, disconnect snapshot Clone and fixture resource all already derive structural traits. No handwritten trait/serializer in3450 lines.",
+      "absence_basis": "Full changed source personally consumed:packet210 covers1\u2013920,211 extends1540,212 extends2470, fresh2471\u20132780/2781\u20133110/3111\u20133450. Inherent construction, selected DTO/Core enum bridges and copied snapshot fields distinguished from checked/normalizing/multi-source semantic projection. No existing project derive proven to replace these functions without changing APIs; native reflection serialization is delegated, not reimplemented.",
+      "source_read_receipts": [
+        "contract-groups-210.json",
+        "contract-groups-211.json",
+        "contract-groups-212.json"
+      ],
+      "coverage_limit": "This exact frozen P16 role only; child declarations, current worktree and other-lens proofs confer no coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Durable admission to transient tactical projection and reconnect snapshot",
+      "disposition": "No handwritten structural/wire trait candidate in actual whole role. Retain checked input, semantic default/normalization, recipient policy and explicit native entity/snapshot projection.",
+      "acceptance": "Preserve source/destination visibility and native types, borrowed query lifetimes, checked geometry/input/error behavior, selected durable fields, entity mapping, current authority and reconnect effect ordering. No unsolicited derived raw construction/wire expansion; no tests/build/runtime operations executed."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 412,
+    "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/dive_launch.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

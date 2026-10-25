@@ -1,0 +1,266 @@
+{
+  "id": "CONT08-CONTRACT-007",
+  "at": "2026-10-25T08:34:21.216525+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 16,
+      "source_id": "native-dependency:parry3d-0.27.0/Cargo.toml",
+      "sha256": "e9a4996484162b4fcda871bf170f0224ad27e1fff77ef5c88a8d8eafdfc89b9a",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/e9a4996484162b4fcda871bf170f0224ad27e1fff77ef5c88a8d8eafdfc89b9a",
+      "read_ranges": [
+        [
+          60,
+          87
+        ]
+      ],
+      "actual_contract": [
+        "Fresh manifest features alone are metadata, not semantic audit credit. Actual firstparty rootCargo107\u2013114 explicitly selects Avian3d f32/parry-f32; complete root manifest diff consumed and those feature flags are unchanged.",
+        "Native48055\u2013104 maps parry-f32 to f32/parry3d, native4821\u201370 selects single module and Dir3, native4831\u201385 aliases Scalar=f32 and Vector=Vec3; native4881\u201348 aliases Parry Real=f32/vector to glam float types.",
+        "Actual native481:745\u2013749 passes x/y/z*0.5 to SharedShape cuboid, native490:289\u2013292 constructs Cuboid(Vector::new(hx,hy,hz)), native489:118\u2013120 stores exact half extents. No normalization, abs or wider scalar conversion occurs at these boundaries.",
+        "Camera1462:129\u2013134 new typed X/Y/Z extent extraction reaches this same native constructor as base with identical operation order. Nonnegative finite ordinary extents preserve f32 halving, tiny underflow and signed zero behavior. Newly rejected malformed/nonfinite/negative extent is an admission qualification, not claimed successful old geometry."
+      ],
+      "pins": "PR base/head both lock Avian0.7.0 checksum35a30cb730c72527ffaca7f8806881c7e4acc70a4a74c54eb1ffb56c27f64235 and Parry0.27.0 checksum99613136af5c3ae1e26907eb8ef90183636f54d02341c0a1121caa813a242cb5.",
+      "disposition": "Exact scoped native precision contract accounted with direct source/recipient proof; no whole physics or shape-cast acceptance claim.",
+      "limits": "Native constructors document positive extents but do not check them here. Do not infer positive-only guarantees for zero/line cuboids; actual native degeneracy/query behavior remains separate.",
+      "execution": "No native physics run."
+    },
+    {
+      "scope_index": 17,
+      "source_id": "native-dependency:png-0.17.16/src/encoder.rs",
+      "sha256": "2befe627874fd46476bca960d8f89038479403b9611cbba4b37aadc42ac3658d",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/2befe627874fd46476bca960d8f89038479403b9611cbba4b37aadc42ac3658d",
+      "read_ranges": [
+        [
+          20,
+          165
+        ]
+      ],
+      "native_pin": "PR base/head both lock tiny-skia0.11.4 checksum83d13394d44dae3207b52a326c0c85a8bf87f1541f23b0d143811088497b09ab and png0.17.16 checksum82151a2fc869e011c153adc57cf2789ccb8d9906ce52c0b39a6b5697749d7526. Also locked png0.18.1 is a different port; tiny-skia Cargo46\u201347 explicitly requires0.17.",
+      "actual_comparison": [
+        "Pixmap encode172\u2013174 delegates to PixmapRef391\u2013418, which clones, demultiplies each pixel with the same native rounding method, configures RGBA/8-bit encoder then write_header and write_image_data. No encoding algorithm/version change established.",
+        "Native EncodingError23\u201328 retains IO/Format/Parameter/Limits variants; Display62\u201370 matches variant payload. Native legacy cause method53\u201359 exposes IO. Do not infer modern source() delegation from that legacy method alone.",
+        "Actual studio2102:107\u2013114 still converts native EncodingError to IconError::Png(String) via to_string; exact full helper body and empty PR diff consumed. Actual icon2100:95\u2013113 public method/error shape is unchanged; full icon body remains partial.",
+        "Exact retained RIG-OWNER-F012, producer alias RIG-PPS-F010. Typed native cause omission is preexisting, so no newly introduced PNG behavior regression is claimed."
+      ],
+      "disposition": "Scoped native08 contract accounted with retained finding/qualified unchanged caller proof; no encoded byte or renderer success claim.",
+      "acceptance": "Keep actual png0.17 EncodingError as a native payload until terminal formatting; preserve current user prefix, RGBA/demultiply/rounding and size policy. No generic replacement error or broad all-image owner clearance.",
+      "execution": "No PNG encoded, no icon renderer run."
+    },
+    {
+      "scope_index": 25,
+      "source_id": "native-dependency:tiny-skia-0.11.4/Cargo.toml",
+      "sha256": "76370c68002a8cf88f605f06e1d645d11045ae2bae97a7d8b490acf47362e6ad",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/76370c68002a8cf88f605f06e1d645d11045ae2bae97a7d8b490acf47362e6ad",
+      "read_ranges": [
+        [
+          46,
+          47
+        ]
+      ],
+      "native_pin": "PR base/head both lock tiny-skia0.11.4 checksum83d13394d44dae3207b52a326c0c85a8bf87f1541f23b0d143811088497b09ab and png0.17.16 checksum82151a2fc869e011c153adc57cf2789ccb8d9906ce52c0b39a6b5697749d7526. Also locked png0.18.1 is a different port; tiny-skia Cargo46\u201347 explicitly requires0.17.",
+      "actual_comparison": [
+        "Pixmap encode172\u2013174 delegates to PixmapRef391\u2013418, which clones, demultiplies each pixel with the same native rounding method, configures RGBA/8-bit encoder then write_header and write_image_data. No encoding algorithm/version change established.",
+        "Native EncodingError23\u201328 retains IO/Format/Parameter/Limits variants; Display62\u201370 matches variant payload. Native legacy cause method53\u201359 exposes IO. Do not infer modern source() delegation from that legacy method alone.",
+        "Actual studio2102:107\u2013114 still converts native EncodingError to IconError::Png(String) via to_string; exact full helper body and empty PR diff consumed. Actual icon2100:95\u2013113 public method/error shape is unchanged; full icon body remains partial.",
+        "Exact retained RIG-OWNER-F012, producer alias RIG-PPS-F010. Typed native cause omission is preexisting, so no newly introduced PNG behavior regression is claimed."
+      ],
+      "disposition": "Scoped native08 contract accounted with retained finding/qualified unchanged caller proof; no encoded byte or renderer success claim.",
+      "acceptance": "Keep actual png0.17 EncodingError as a native payload until terminal formatting; preserve current user prefix, RGBA/demultiply/rounding and size policy. No generic replacement error or broad all-image owner clearance.",
+      "execution": "No PNG encoded, no icon renderer run."
+    },
+    {
+      "scope_index": 26,
+      "source_id": "native-dependency:tiny-skia-0.11.4/src/pixmap.rs",
+      "sha256": "a7845a931a40b5b24eaa24b6053121e61bfe8b3fffa4c0db89f58c368fb9bc56",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/a7845a931a40b5b24eaa24b6053121e61bfe8b3fffa4c0db89f58c368fb9bc56",
+      "read_ranges": [
+        [
+          155,
+          182
+        ],
+        [
+          385,
+          430
+        ]
+      ],
+      "native_pin": "PR base/head both lock tiny-skia0.11.4 checksum83d13394d44dae3207b52a326c0c85a8bf87f1541f23b0d143811088497b09ab and png0.17.16 checksum82151a2fc869e011c153adc57cf2789ccb8d9906ce52c0b39a6b5697749d7526. Also locked png0.18.1 is a different port; tiny-skia Cargo46\u201347 explicitly requires0.17.",
+      "actual_comparison": [
+        "Pixmap encode172\u2013174 delegates to PixmapRef391\u2013418, which clones, demultiplies each pixel with the same native rounding method, configures RGBA/8-bit encoder then write_header and write_image_data. No encoding algorithm/version change established.",
+        "Native EncodingError23\u201328 retains IO/Format/Parameter/Limits variants; Display62\u201370 matches variant payload. Native legacy cause method53\u201359 exposes IO. Do not infer modern source() delegation from that legacy method alone.",
+        "Actual studio2102:107\u2013114 still converts native EncodingError to IconError::Png(String) via to_string; exact full helper body and empty PR diff consumed. Actual icon2100:95\u2013113 public method/error shape is unchanged; full icon body remains partial.",
+        "Exact retained RIG-OWNER-F012, producer alias RIG-PPS-F010. Typed native cause omission is preexisting, so no newly introduced PNG behavior regression is claimed."
+      ],
+      "disposition": "Scoped native08 contract accounted with retained finding/qualified unchanged caller proof; no encoded byte or renderer success claim.",
+      "acceptance": "Keep actual png0.17 EncodingError as a native payload until terminal formatting; preserve current user prefix, RGBA/demultiply/rounding and size policy. No generic replacement error or broad all-image owner clearance.",
+      "execution": "No PNG encoded, no icon renderer run."
+    },
+    {
+      "scope_index": 2102,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/icon/studio.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "before_sha256": "750bfa5bef2e547e50aca9f9835f5fcc90ccbc5183ebf3147cfebe159300ea69",
+      "after_sha256": "750bfa5bef2e547e50aca9f9835f5fcc90ccbc5183ebf3147cfebe159300ea69",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/2102-base-750bfa5bef2e547e50aca9f9835f5fcc90ccbc5183ebf3147cfebe159300ea69",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/750bfa5bef2e547e50aca9f9835f5fcc90ccbc5183ebf3147cfebe159300ea69",
+      "diff": "source-evidence/2102.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "body_read_ranges": [
+        [
+          1,
+          114
+        ]
+      ],
+      "actual_comparison": "Entire studio source and actual empty diff read: environment dimensions/radiance/filter sample accumulation, tone mapping/sRGB/RGBE conversion and PNG boundary unchanged. No byte-equivalence inference from an unexecuted renderer; exact code-level behavior retained in this helper.",
+      "finding_support": "RIG-OWNER-F012 unchanged PNG cause omission; no new unique defect.",
+      "disposition": "Bounded local own08 helper comparison complete; all render geometry/material input producers remain separate pending sources.",
+      "acceptance": "Preserve operation/loop/rounding order and native cause payload until terminal caller. No execution."
+    },
+    {
+      "scope_index": 1476,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/icons.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "before_sha256": "94274e424c780dc22b24886e76d2b800121be6032b9859aadb3bd59680ec0239",
+      "after_sha256": "1932b164b861910e18306e412564384cf8d4f1e057432b047eb4c1abd71b1804",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1476-base-94274e424c780dc22b24886e76d2b800121be6032b9859aadb3bd59680ec0239",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/1932b164b861910e18306e412564384cf8d4f1e057432b047eb4c1abd71b1804",
+      "diff": "source-evidence/1476.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "body_read_ranges": [
+        [
+          1,
+          206
+        ]
+      ],
+      "actual_comparison": [
+        "Entire current206-line body and actual empty diff read. Recipe length/version checks, decode and recomputed hash validation precede cache hits exactly as before.",
+        "Weapon versus holder namespace/key fields, fixed size/supersampling, fallback None on invalid generation, Image upload format and native flags remain unchanged. Missing entity/icon still uses atlas fallback and original slug-first/index0 policy.",
+        "Equipment armour texture selection still puts carried records after scene records so collection overwrite favors exact carried placement. Actual procedural_equipment_file signature/manifest lookup in parent changed and remains a connected dependency; no claim of parent1745 role closure."
+      ],
+      "disposition": "Local unchanged image-cache helper compared using own body proof, with changed parent lookup dependency explicit.",
+      "acceptance": "Preserve authenticate-before-cache ordering, fallback behavior, source namespace and native image format. No icon/image execution."
+    }
+  ],
+  "partial_sources": [
+    {
+      "scope_index": 480,
+      "source_id": "pinned-registry:avian3d-0.7.0/Cargo.toml",
+      "sha256": "784418664acf79e35890108db95d9b43517706726665ab37152f3f252cb0dba9",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/784418664acf79e35890108db95d9b43517706726665ab37152f3f252cb0dba9",
+      "read_ranges": [
+        [
+          55,
+          104
+        ]
+      ],
+      "status": "Exact own08 connected receiver body read; remaining original material ranges/full requested role not yet accounted."
+    },
+    {
+      "scope_index": 481,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/collision/collider/parry/mod.rs",
+      "sha256": "2a04ce7d6913b008e654905c96ead648efd840ddf102863532bc38bd187e3945",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/2a04ce7d6913b008e654905c96ead648efd840ddf102863532bc38bd187e3945",
+      "read_ranges": [
+        [
+          633,
+          810
+        ]
+      ],
+      "status": "Exact own08 connected receiver body read; remaining original material ranges/full requested role not yet accounted."
+    },
+    {
+      "scope_index": 482,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/math/mod.rs",
+      "sha256": "67a006eda87315f690718b4d9c45b656b04958f32a80dffb0700cd9fa2d3a0e0",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/67a006eda87315f690718b4d9c45b656b04958f32a80dffb0700cd9fa2d3a0e0",
+      "read_ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "status": "Exact own08 connected receiver body read; remaining original material ranges/full requested role not yet accounted."
+    },
+    {
+      "scope_index": 483,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/math/single.rs",
+      "sha256": "279b93c665684614416422084c7c9a7aca565ef6a57bd3fa61e76e388a1f71b9",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/279b93c665684614416422084c7c9a7aca565ef6a57bd3fa61e76e388a1f71b9",
+      "read_ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "status": "Exact own08 connected receiver body read; remaining original material ranges/full requested role not yet accounted."
+    },
+    {
+      "scope_index": 488,
+      "source_id": "pinned-registry:parry3d-0.27.0/src/math/mod.rs",
+      "sha256": "f1b05b3e1a27c95127e70c59bc0269e9a191b64f4c8f7b02d0f9e402f1752c8c",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/f1b05b3e1a27c95127e70c59bc0269e9a191b64f4c8f7b02d0f9e402f1752c8c",
+      "read_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "status": "Exact own08 connected receiver body read; remaining original material ranges/full requested role not yet accounted."
+    },
+    {
+      "scope_index": 489,
+      "source_id": "pinned-registry:parry3d-0.27.0/src/shape/cuboid.rs",
+      "sha256": "e096c59d8192dc997b7db25e0dcd024eefb5c9f37a00a2338bafd11f39582630",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/e096c59d8192dc997b7db25e0dcd024eefb5c9f37a00a2338bafd11f39582630",
+      "read_ranges": [
+        [
+          55,
+          90
+        ],
+        [
+          110,
+          127
+        ]
+      ],
+      "status": "Exact own08 connected receiver body read; remaining original material ranges/full requested role not yet accounted."
+    },
+    {
+      "scope_index": 490,
+      "source_id": "pinned-registry:parry3d-0.27.0/src/shape/shared_shape.rs",
+      "sha256": "7cec2012b2193c9dc60738a2a1ce2b9e873a83f730e6d0d15bfe616eead271c5",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/7cec2012b2193c9dc60738a2a1ce2b9e873a83f730e6d0d15bfe616eead271c5",
+      "read_ranges": [
+        [
+          282,
+          300
+        ]
+      ],
+      "status": "Exact own08 connected receiver body read; remaining original material ranges/full requested role not yet accounted."
+    },
+    {
+      "scope_index": 2100,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/icon.rs",
+      "sha256": "ee709ba9baafee9046a52d19cc14feea08c7194db4bc29a478fd98b71da4e33a",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/ee709ba9baafee9046a52d19cc14feea08c7194db4bc29a478fd98b71da4e33a",
+      "read_ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "status": "Exact own08 connected receiver body read; remaining original material ranges/full requested role not yet accounted."
+    }
+  ],
+  "finding_support": [
+    {
+      "existing": "RIG-OWNER-F012",
+      "alias": "RIG-PPS-F010",
+      "classification": "Unchanged native encoding-cause omission, no new regression claimed."
+    }
+  ],
+  "range_accounting": "native-prefix-range-accounting-001.json; exact native0\u201315 required-body comparison, only declared4 EOF overshoot differs. Metadata is not semantic audit credit.",
+  "live_extension_snapshot": 71,
+  "next_frontier": "Original18/19 native YAML error owner and actual authored parser/export cause boundary. New live71, mandatory246 overlays, frozen38 merged paths and remaining original2853 inventory incomplete."
+}

@@ -1,0 +1,264 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-167",
+  "at": "2026-10-25T13:10:44.160493+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 323,
+      "source_id": "physical-p16:crates/adventuresim-strategic-sim/src/profile.rs",
+      "sha256": "39cc68d45b7a28f306c60bc0b3aefefba48bed2e47388040f46ce636d83da67c",
+      "actual_EOF": 790,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-strategic-sim/src/profile.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-strategic-sim/src/profile.rs",
+        "owner": "camera",
+        "sha256": "39cc68d45b7a28f306c60bc0b3aefefba48bed2e47388040f46ce636d83da67c",
+        "base_sha256": "765a5b37cbc4ffd63fff90bddf75a154a779a77bc8dbfd6d26d1bbf929c8fd9e",
+        "state": "modified",
+        "bytes": 28129,
+        "audit_owner": "camera",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                790
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-SIM-001",
+              "CAM-PROP-EQUIPMENT-001"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 87,
+            "read_ranges": [
+              [
+                1,
+                790
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SIM-PROFILE-BOOTSTRAP-059"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-strategic-sim/src/profile.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 442,
+            "read_ranges": [
+              [
+                1,
+                790
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SIM-PROFILE-BOOTSTRAP-059"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-strategic-sim/src/profile.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-SIMULATION-CORE-GENERATED-PARTIAL-047",
+            "json_pointer": "/source_proofs/1",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-strategic-sim/src/profile.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                790
+              ]
+            ],
+            "source_context": {
+              "index": 87,
+              "source_id": "physical-p16:crates/adventuresim-strategic-sim/src/profile.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/adventuresim-strategic-sim/src/profile.rs",
+              "sha256": "39cc68d45b7a28f306c60bc0b3aefefba48bed2e47388040f46ce636d83da67c",
+              "read_ranges": [
+                [
+                  1,
+                  790
+                ]
+              ],
+              "mode": "Fresh full PR789 and exact sole P16fixture dimensions delta/unchangedsource reconciliation; no output/coverage/execution judgement",
+              "roles": [
+                "Canonical Seed/StreamId retained through profile generation; agentordinal rawu32 used for actual streamword encoding, retained profile/policy identity still needs agreed canonical owner. Typed personality/sex/role/style survive selection; generated schedule/skills/preferences/cash/day/probability/attribute primitives retained before actual bootstrap/decisions.",
+                "RNG draw/sourcebranch order exact, ratios and signed attribute noise output policy versus inputtraits distinct. activity_only and propensity/role relations need later aggregate/state/authority lens from real consumers, no invariant inferred solely from common generator.",
+                "Existing fixture weapon core typedlength parentP16 adapted source geometry getters and PRraw fixture; skills.into/scalarattributes/armor/interruption/timing/autoresolve original fixture values/256seed draw coverage retained source-only, no newtests or changedassertions."
+              ],
+              "pending_receivers": [
+                "Full current bootstrap/native configure and actual Runtime/policy/report callbacks; existing Core timing/contact/autoresolve owners with exact previous producer receipts only where actual roles match."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-SIMULATION-OBSERVATION-RECEIVER-CLOSURE-050",
+            "json_pointer": "/source_proofs/0",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-strategic-sim/src/profile.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                790
+              ]
+            ],
+            "source_context": {
+              "index": 87,
+              "source_id": "physical-p16:crates/adventuresim-strategic-sim/src/profile.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/adventuresim-strategic-sim/src/profile.rs",
+              "sha256": "39cc68d45b7a28f306c60bc0b3aefefba48bed2e47388040f46ce636d83da67c",
+              "read_ranges": [
+                [
+                  1,
+                  790
+                ]
+              ],
+              "actual_line_count": 790,
+              "supplier_trace": "ROOT047/048/049",
+              "disposition": "Supplier producer/retained-state/operation/actual receiving-body inventory accounted with findings; Camera must explicitly consume before716 credit.",
+              "source_roles": [
+                "Canonical Seed/StreamId retained through profile generation; agentordinal rawu32 used for actual streamword encoding, retained profile/policy identity still needs agreed canonical owner. Typed personality/sex/role/style survive selection; generated schedule/skills/preferences/cash/day/probability/attribute primitives retained before actual bootstrap/decisions.",
+                "RNG draw/sourcebranch order exact, ratios and signed attribute noise output policy versus inputtraits distinct. activity_only and propensity/role relations need later aggregate/state/authority lens from real consumers, no invariant inferred solely from common generator.",
+                "Existing fixture weapon core typedlength parentP16 adapted source geometry getters and PRraw fixture; skills.into/scalarattributes/armor/interruption/timing/autoresolve original fixture values/256seed draw coverage retained source-only, no newtests or changedassertions."
+              ],
+              "actual_receiver_closure": "Root047/048/049 source facts plus full Rig036 survival/expedition/economy and Native022 cycle/travel/recovery receipts close the prior fifteen shared receiving obligations. No blanket source or native exemption."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/current_sources/0",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-strategic-sim/src/profile.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                790
+              ]
+            ],
+            "source_context": {
+              "index": 87,
+              "source_id": "physical-p16:crates/adventuresim-strategic-sim/src/profile.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/adventuresim-strategic-sim/src/profile.rs",
+              "sha256": "39cc68d45b7a28f306c60bc0b3aefefba48bed2e47388040f46ce636d83da67c",
+              "read_ranges": [
+                [
+                  1,
+                  790
+                ]
+              ],
+              "actual_line_count": 790,
+              "supplier_trace": "ROOT047/048/049",
+              "disposition": "Supplier producer/retained-state/operation/actual receiving-body inventory accounted with findings; Camera must explicitly consume before716 credit.",
+              "source_roles": [
+                "Canonical Seed/StreamId retained through profile generation; agentordinal rawu32 used for actual streamword encoding, retained profile/policy identity still needs agreed canonical owner. Typed personality/sex/role/style survive selection; generated schedule/skills/preferences/cash/day/probability/attribute primitives retained before actual bootstrap/decisions.",
+                "RNG draw/sourcebranch order exact, ratios and signed attribute noise output policy versus inputtraits distinct. activity_only and propensity/role relations need later aggregate/state/authority lens from real consumers, no invariant inferred solely from common generator.",
+                "Existing fixture weapon core typedlength parentP16 adapted source geometry getters and PRraw fixture; skills.into/scalarattributes/armor/interruption/timing/autoresolve original fixture values/256seed draw coverage retained source-only, no newtests or changedassertions."
+              ],
+              "actual_receiver_closure": "Root047/048/049 source facts plus full Rig036 survival/expedition/economy and Native022 cycle/travel/recovery receipts close the prior fifteen shared receiving obligations. No blanket source or native exemption."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/additional_actual_source_proofs/1",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-strategic-sim/src/profile.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                790
+              ]
+            ],
+            "source_context": {
+              "index": 87,
+              "source_id": "physical-p16:crates/adventuresim-strategic-sim/src/profile.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/adventuresim-strategic-sim/src/profile.rs",
+              "sha256": "39cc68d45b7a28f306c60bc0b3aefefba48bed2e47388040f46ce636d83da67c",
+              "read_ranges": [
+                [
+                  1,
+                  790
+                ]
+              ],
+              "mode": "Fresh full PR789 and exact sole P16fixture dimensions delta/unchangedsource reconciliation; no output/coverage/execution judgement",
+              "roles": [
+                "Canonical Seed/StreamId retained through profile generation; agentordinal rawu32 used for actual streamword encoding, retained profile/policy identity still needs agreed canonical owner. Typed personality/sex/role/style survive selection; generated schedule/skills/preferences/cash/day/probability/attribute primitives retained before actual bootstrap/decisions.",
+                "RNG draw/sourcebranch order exact, ratios and signed attribute noise output policy versus inputtraits distinct. activity_only and propensity/role relations need later aggregate/state/authority lens from real consumers, no invariant inferred solely from common generator.",
+                "Existing fixture weapon core typedlength parentP16 adapted source geometry getters and PRraw fixture; skills.into/scalarattributes/armor/interruption/timing/autoresolve original fixture values/256seed draw coverage retained source-only, no newtests or changedassertions."
+              ],
+              "pending_receivers": [
+                "Full current bootstrap/native configure and actual Runtime/policy/report callbacks; existing Core timing/contact/autoresolve owners with exact previous producer receipts only where actual roles match."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": 87,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          790
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": {
+        "Clone_Copy_Debug_PartialEq_Eq_Serialize_Deserialize_snake_case": [
+          "ActivityPreference",
+          "EquipmentStyle",
+          "BuildRole"
+        ],
+        "Clone_Debug_PartialEq_Serialize_Deserialize_deny_unknown_fields": [
+          "AgentBuild",
+          "EquipmentPreferences",
+          "AgentProfile"
+        ]
+      },
+      "absence_basis": "All790 lines personally consumed in two bounded reads. Structural/native JSON traits already derive. Profile generation, semantic build derivation, preference redistribution and fixture functions contain no handwritten traits/serializer."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "deterministic agent profile and behavior-derived build",
+      "disposition": "No derivability cleanup. Keep generated attributes/personality distributions, role/rationale precedence, native family skill defaults and matched-activity mutation. derive_build417\u2013460 is gameplay classification, unrelated to structural trait derivation despite name. Explicit fixture mappings supply/transform native combat facts; no available mechanical derive established.",
+      "qualification": "Fixture/battle source read only, no resolve_battle/test call executed; no profile-policy or admission clearance."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 324,
+    "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation_viewer/harness.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

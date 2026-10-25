@@ -1,0 +1,77 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-102",
+  "at": "2026-10-23T02:24:23.991315+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/reducer_error.rs",
+      "sha256": "ec4f9bddc8b7d73ed40bcfbecb23d7b061016ee53bd6fea4a524d05e838691c7",
+      "actual_compared_ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "source_evidence": "Actual full literal bodies; Core error pair byte-identical with independent same std/enum contexts. Both DB lib revisions personally read, absent PR operation_error not invented."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/reducer_error.rs",
+      "sha256": "ec4f9bddc8b7d73ed40bcfbecb23d7b061016ee53bd6fea4a524d05e838691c7",
+      "actual_compared_ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "source_evidence": "Actual full literal bodies; Core error pair byte-identical with independent same std/enum contexts. Both DB lib revisions personally read, absent PR operation_error not invented."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/operation_error.rs",
+      "sha256": "f7a676c963f59e4691374c71e9f81caf252350a5c5c8f22da6a977beb97c62d4",
+      "actual_compared_ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "source_evidence": "Actual full literal bodies; Core error pair byte-identical with independent same std/enum contexts. Both DB lib revisions personally read, absent PR operation_error not invented."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/lib.rs",
+      "sha256": "2760315ff2997c68a703203018538d642878cf5aa461b2a6d90e38ef0005e168",
+      "actual_compared_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "source_evidence": "Actual full literal bodies; Core error pair byte-identical with independent same std/enum contexts. Both DB lib revisions personally read, absent PR operation_error not invented."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/lib.rs",
+      "sha256": "6ddb214f1409b1c3451c129b19ff4b795dfebf036c17f48f833af54c01048f2e",
+      "actual_compared_ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "source_evidence": "Actual full literal bodies; Core error pair byte-identical with independent same std/enum contexts. Both DB lib revisions personally read, absent PR operation_error not invented."
+    }
+  ],
+  "groups": {
+    "error-prefix-index-safety": "find returns a byte offset for the complete ASCII prefix. Adding prefix.len stays<=value.len and lands on a UTF8 boundary, so slicing is safe even with Unicode before prefix. split_once closing bracket then exact closed code parse handles absence/unknown viaNone, no integer narrowing or mutation. Exhaustive9-code stable token mapping andDisplay are real format boundaries. This only proves local parser operations, not that arbitrary message detail is trustworthy machine code or that every internal helper may erase causes.",
+    "concrete-cause-graph": "P16 operation_error is newly added relative to PR, with typed physical leaf causes and structured weapon cases, but Operation(String) plus From<String>/From<&str> still permits internal loss. This is an unfinished canonical error graph, not a completed migration merely because Result alias exists. Retain exact leaf causes through mutually calling helpers; actual SDK Display is final formatting port. Typed lossless From<LeafError> enum wrapping is warranted; not all .into() conversions are suspect. RequiredDeathUnavailable and named weapon diagnostics have no arithmetic or external mutation.",
+    "module-roots-and-source-helper": "Module declarations/reexports perform no application arithmetic; preserve newer PR contracts while integrating P16 additions. cfgtest production_source rsplit_once uses native string split, no unsafe numeric indexing, and returns borrowed slice/original. Its documented final-test-marker assumption must be checked for actual source tests; do not equate a string architecture assertion with runtime/whole-graph acceptance. No tests or new helper added/executed.",
+    "scope": "Five actual complete files only. Imported error types/whole DB child modules retain their separately scoped pending obligations; no transitive module clearance or current PR operation_error source claim."
+  },
+  "migration_notes": [
+    "Remove internal string catchall conversions as part of the canonical P16 error graph; preserve typed causes through actual reducers."
+  ],
+  "findings": [],
+  "repair": "frozen_initial_audits_then_handover",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

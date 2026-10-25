@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-922",
+  "at": "2026-10-25T17:14:59.837733+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1114,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/foraging.rs",
+  "sha256": "be82a5ef7905b05d68bba4d61d5173cba6011c51ee8504da85d697bb2d80df84",
+  "actual_compared_ranges": [
+    [
+      1,
+      360
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "All attestation, durable forage receipt/cursor/harvest rows and player-safe receipt/state/vicinity records already derive structural/native/table traits. Prefix native legal outcome/source privilege classification, canonical source/request admission, gateway redaction and actor location/incident ownership checks consumed. No handwritten trait/codec; private authority should not gain public serialization for cleanup.",
+  "first_unfinished": {
+    "scope_index": 1114,
+    "line": 361
+  },
+  "execution": "none"
+}

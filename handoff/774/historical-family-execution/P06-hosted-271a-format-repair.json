@@ -1,0 +1,14 @@
+{
+  "recorded_at": "2026-10-21T02:17:29.152073+00:00",
+  "source_head": "271aaad0127cb76eacac2360e5bd5d4432c554eb",
+  "run": 39531746001,
+  "job": 118998995187,
+  "first_failure": "Check formatting",
+  "evidence": "P06-hosted-271a-format-hunks.json",
+  "raw_hunks": 282,
+  "unique_hunks": 67,
+  "source_files": 29,
+  "repair_head": "b2d0193e3daa4eff068103040f7688d94a555c30",
+  "repair": "Applied exact unique hosted formatter replacements. One final log separator was omitted when matching a hunk at EOF. All original hunk matches were unique; ranges did not overlap. No local formatter/parser/project tool ran.",
+  "limits": "The first failed job did not compile or execute the increment. Missing constraint evidence is downstream of formatting."
+}

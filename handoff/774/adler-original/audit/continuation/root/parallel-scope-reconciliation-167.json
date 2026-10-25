@@ -1,0 +1,258 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-167",
+  "at": "2026-10-23T02:02:56.511590+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-048.json",
+    "sha256": "0a8726775d1512e4245b2b88b95c147bb06ae3bb376f6f291ffeab70a5510425"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-047.json",
+    "sha256": "8e839a14285ab302a71ebd6b5318db2f610e6b7e50b592b2cc57a76fe5ddc33a"
+  },
+  "new_variants": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/challenge_state.rs",
+      "sha256": "c64e6cc0ae76c920c28246e9386218ce453fc80e8cb3658f500c797456bf0fc4",
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\strategic\\challenge_state.rs",
+      "snapshot": "physical-p16",
+      "actual_line_count": 80,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "audit_owner": "camera",
+      "scope_registration": [
+        {
+          "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+          "sha256": "ae719b7285ea649dcf26c2dee0908de407f1fd679635d005107160dd907358f8",
+          "row_1based": 24,
+          "id": "CAMERA-INITIAL07-REG024",
+          "original_record": {
+            "registration_id": "CAMERA-INITIAL07-REG024",
+            "at": "2026-10-23T01:53:37.277034+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/challenge_state.rs",
+            "snapshot": "physical-p16",
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\strategic\\challenge_state.rs",
+            "sha256": "c64e6cc0ae76c920c28246e9386218ce453fc80e8cb3658f500c797456bf0fc4",
+            "actual_EOF": 80,
+            "material_ranges": [
+              [
+                1,
+                80
+              ]
+            ],
+            "reason": "Direct ChallengeAuthority/RoadChallengeAuthority definitions and is_open bodies used by already scoped challenge producer/update/backend receiver; establish current open/solved projection meaning versus independently stored flag, no inference from method name.",
+            "exclusions": "Only direct80-line canonical state records/classifiers/helpers; no wider strategic module/native codecs/tests graph.",
+            "status": "prospectively_registered_before_body_analysis"
+          }
+        }
+      ],
+      "scope_limits": "Only exact80-line challenge authority state and resolution classifiers; no wider strategic or test bodies.",
+      "source_lens_credit": "none from scope metadata"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/challenge_state.rs",
+      "sha256": "c64e6cc0ae76c920c28246e9386218ce453fc80e8cb3658f500c797456bf0fc4",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\strategic\\challenge_state.rs",
+      "snapshot": "pr-working",
+      "actual_line_count": 80,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "audit_owner": "camera",
+      "scope_registration": [
+        {
+          "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+          "sha256": "ae719b7285ea649dcf26c2dee0908de407f1fd679635d005107160dd907358f8",
+          "row_1based": 25,
+          "id": "CAMERA-INITIAL07-REG025",
+          "original_record": {
+            "registration_id": "CAMERA-INITIAL07-REG025",
+            "at": "2026-10-23T01:53:37.277034+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/challenge_state.rs",
+            "snapshot": "pr-working",
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\strategic\\challenge_state.rs",
+            "sha256": "c64e6cc0ae76c920c28246e9386218ce453fc80e8cb3658f500c797456bf0fc4",
+            "actual_EOF": 80,
+            "material_ranges": [
+              [
+                1,
+                80
+              ]
+            ],
+            "reason": "Direct ChallengeAuthority/RoadChallengeAuthority definitions and is_open bodies used by already scoped challenge producer/update/backend receiver; establish current open/solved projection meaning versus independently stored flag, no inference from method name.",
+            "exclusions": "Only direct80-line canonical state records/classifiers/helpers; no wider strategic module/native codecs/tests graph.",
+            "status": "prospectively_registered_before_body_analysis"
+          }
+        }
+      ],
+      "scope_limits": "Only exact80-line challenge authority state and resolution classifiers; no wider strategic or test bodies.",
+      "source_lens_credit": "none from scope metadata"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/state.rs",
+      "sha256": "82a59a621b3c855886fcd18f50d917a76c60070917c5921976fed5fb0a11a6a6",
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-core\\src\\animation\\state.rs",
+      "snapshot": "physical-p16",
+      "actual_line_count": 2100,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          1707,
+          1752
+        ],
+        [
+          1895,
+          1988
+        ]
+      ],
+      "audit_owner": "root",
+      "scope_registration": [
+        {
+          "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+          "sha256": "3117bb44bc0d59d0a122508914d3836bce0ee3bb2b87071369936b153f65e4a6",
+          "row_1based": 15,
+          "id": "ROOT-INITIAL04-REG015",
+          "original_record": {
+            "id": "ROOT-INITIAL04-REG015",
+            "at": "2026-10-23T01:57:51.749361+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/state.rs",
+            "snapshot": "physical-p16",
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-core\\src\\animation\\state.rs",
+            "sha256": "82a59a621b3c855886fcd18f50d917a76c60070917c5921976fed5fb0a11a6a6",
+            "actual_EOF": 2100,
+            "material_ranges": [
+              [
+                1707,
+                1752
+              ],
+              [
+                1895,
+                1989
+              ]
+            ],
+            "actual_reach": "P16 client attack_start full454 prepares fallible geometry before begin_attack_timed, but actual selection and transition mutation bodies are needed to prove rejection does not mutate an action. Exact old P16 state must not be inferred from current PR/P17 state or imported wholesale during integration.",
+            "exclusions": "Only available_strike_family, select_main_attack, select_offhand_attack and begin_attack_timed bodies; neighboring declarations/next block docs qualify after read. No whole state, schema, motor, tests or current PR behavior credit. Prior rg showed signature/navigation only, no body analysis.",
+            "status": "prospectively_registered_before_body_analysis"
+          }
+        }
+      ],
+      "scope_limits": "Only old P16 selection1707-1752 and begin transition1895-1988;1989 blank excluded. Historical parent context, not proposed replacement for current P20 state. No whole state/private helpers/tests.",
+      "source_lens_credit": "none from scope metadata"
+    }
+  ],
+  "new_overlays": [
+    {
+      "id": "CONT-OWNER-RANGE-EXTENSION-229",
+      "at": "2026-10-23T02:02:56.511590+00:00",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/personality.rs",
+      "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+      "material_ranges": [
+        [
+          2,
+          5
+        ]
+      ],
+      "audit_owner": "rig",
+      "reason": "Direct canonical reexport only; existing04654\u201369 role does not cover it and P16reexport096 is not PR credit. Registered before actual body under081.",
+      "scope_registration": [
+        {
+          "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+          "sha256": "84723fe282f3f1d145445f649bea6246a716c2b2e050de168d58eaf09a886038",
+          "row_1based": 33,
+          "id": "RIG-INITIAL06-REG-033",
+          "original_record": {
+            "id": "RIG-INITIAL06-REG-033",
+            "at": "2026-10-23T01:53:46.963714+00:00",
+            "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+            "source_id": "pr-working:crates/adventuresim-stdb-module/src/personality.rs",
+            "snapshot": "pr-working",
+            "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+            "actual_EOF": 1210,
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\personality.rs",
+            "material_ranges": [
+              [
+                2,
+                5
+              ]
+            ],
+            "material_caller": "Scoped PRtime/mod24\u201326 imports crate personality Sociability asCharacterSociability; time/schedule283\u2013287 maps all3 values to Core strategic_schedule::SocializingSociability, whose definition254\u2013259 duplicates canonical Core personality35\u201339. Exact current reexport needed before asserting same owner/type route.",
+            "reason": "Direct canonical reexport only; existing04654\u201369 role does not cover it and P16reexport096 is not PR credit. Registered before actual body under081.",
+            "exclusions": "No line1 gateway import or schema/score/mutation/generation/tail; prior54\u201369 retained separately.",
+            "status": "Prospectively registered before body analysis; global range reconciliation pending"
+          }
+        }
+      ],
+      "limits": "No line1 gateway import or schema/score/mutation/generation/tail; prior54\u201369 retained separately.",
+      "source_qualifications": "Only canonical Core leaf reexport2-5; no personality mutation/generation/schema bodies."
+    }
+  ],
+  "total_variants": 2807,
+  "total_overlays": 229,
+  "mandatory_scope_qualifications": [
+    {
+      "record": "continuation/root/parallel-scope-qualification-130.json",
+      "sha256": "5dc4e5cd771612c7e050ab4af544411523317ae4b57738f1fb20f493685a50fc"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-117.json",
+      "sha256": "f3b80648900716939057b20776d756a6e37001f6910378da1a1bbaea230d348b"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-149.json",
+      "sha256": "97103899514ade32cf1e41c2794fa9c49c0cb8c6c7a2c6a4961b7492de5dc708"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-151.json",
+      "sha256": "670dd53a640b28eef7ad9d57b37f9213e1bca7117d7098691c4b0cd20c2a8f65"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-158.json",
+      "sha256": "fa0e9cc06d04fca0a0e2b5f9a333390a0ba1e71eff846a4e957c46b68b3e940e"
+    }
+  ],
+  "registered_rows": 4,
+  "input_pins": [
+    {
+      "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+      "sha256": "ae719b7285ea649dcf26c2dee0908de407f1fd679635d005107160dd907358f8",
+      "captured_rows": 31,
+      "selected_ids": [
+        "CAMERA-INITIAL07-REG024",
+        "CAMERA-INITIAL07-REG025"
+      ]
+    },
+    {
+      "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+      "sha256": "84723fe282f3f1d145445f649bea6246a716c2b2e050de168d58eaf09a886038",
+      "captured_rows": 33,
+      "selected_ids": [
+        "RIG-INITIAL06-REG-033"
+      ]
+    },
+    {
+      "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+      "sha256": "3117bb44bc0d59d0a122508914d3836bce0ee3bb2b87071369936b153f65e4a6",
+      "captured_rows": 15,
+      "selected_ids": [
+        "ROOT-INITIAL04-REG015"
+      ]
+    }
+  ],
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through228-before048.jsonl",
+    "sha256": "f8bacc06835805d7381293438115c263d0ff8ee01e34e70c9fa9540c7d231794",
+    "through": 228
+  },
+  "limits": "Three new variants2807 (two challenge sources and old P16 state), one reexport overlay229. Prior source/qualification obligations preserved. Camera026/027 lifecycle roles remain pending separate publication. Audit then handover163, no implementation."
+}

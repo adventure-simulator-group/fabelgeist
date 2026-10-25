@@ -1,0 +1,152 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-224",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/weapon_instance.rs",
+      "sha256": "e07ad1f88c536b1cd68f6384d729b7ca9d77bb74613af181283a9954346f9c27",
+      "actual_EOF": 439,
+      "actual_compared_ranges": [
+        [
+          1,
+          439
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/weapon_instance/appearance.rs",
+      "sha256": "f6b8605a22c9db0d93d4152347ac800118d90203a6f9d6976e716755dd1b7094",
+      "actual_EOF": 78,
+      "actual_compared_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/weapon_instance/evaluation.rs",
+      "sha256": "6307923392138203a738fb32c47fe530f7f57ff0c417f2091e5440345d1a752b",
+      "actual_EOF": 152,
+      "actual_compared_ranges": [
+        [
+          1,
+          152
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/weapon_instance.rs",
+      "sha256": "0366036a85f92aec26b1e205aa69edeb41afe565c118d2d5335e5cbb2ee4e983",
+      "actual_EOF": 445,
+      "actual_compared_ranges": [
+        [
+          1,
+          445
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/weapon_instance/appearance.rs",
+      "sha256": "f6b8605a22c9db0d93d4152347ac800118d90203a6f9d6976e716755dd1b7094",
+      "actual_EOF": 78,
+      "actual_compared_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/weapon_instance/evaluation.rs",
+      "sha256": "6307923392138203a738fb32c47fe530f7f57ff0c417f2091e5440345d1a752b",
+      "actual_EOF": 152,
+      "actual_compared_ranges": [
+        [
+          1,
+          152
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Authenticated immutable construction and projected physical quantities",
+      "source_ranges": {
+        "weapon_instance.rs": [
+          [
+            1,
+            439
+          ]
+        ],
+        "appearance.rs": [
+          [
+            1,
+            78
+          ]
+        ],
+        "evaluation.rs": [
+          [
+            1,
+            152
+          ]
+        ]
+      },
+      "disposition": "Full P16 bodies and all actual PR deltas personally consumed. Initialization enforces individual row and stable object; actual melee/catalogue fit before replacing immutable recipe. EvaluatedWeapon/EvaluatedHolder canonical products compute encoded recipe, version/hash and projections, byte-bounded; consumption decode reevaluates and compares entire persisted product. Connected appearance requires exact unique physical object row, authenticates recipe then projects bounded u32/1000 finite scalars; preserves separate holder fit snapshot. Arithmetic max1 mass/length is explicit quantization policy, not proof all positive geometry has1mm extent. Raw recipe/schema/source error ownership and physical computed-result admission remain existing graph. No new ordinary geometry defect."
+    },
+    {
+      "contract": "Exact persisted-range boundary before float narrowing",
+      "source_ranges": {
+        "weapon_instance.rs": [
+          [
+            23,
+            29
+          ]
+        ],
+        "evaluation.rs": [
+          [
+            12,
+            71
+          ]
+        ]
+      },
+      "disposition": "Private checked_scaled_u32 checks finite/nonnegative scaled float against u32::MAX as f32; that bound rounds to2^32, so exact scaled2^32 is admitted and subsequent asu32 saturates toMAX. This is numeric boundary strengthening in the existing physical projection owner, not proof a real accepted evaluated weapon/holder reaches the boundary and not an ordinary inventory corruption assertion. Actual whole recipe/evaluator supported-range decision is needed. Acceptance must reject unrepresentable rounded persisted integer or make the intended quantization explicit before cast; preserve ordinary rounding and zero grip anchor, avoid arbitrary geometric shrinkage."
+    },
+    {
+      "contract": "Combat error propagation variant delta and actual fixtures",
+      "source_ranges": {
+        "weapon_instance.rs": [
+          [
+            328,
+            439
+          ]
+        ],
+        "evaluation.rs": [
+          [
+            115,
+            152
+          ]
+        ]
+      },
+      "disposition": "P16 combat_geometry propagates object lookup error, typed signedlength errors and invalid geometry structured error; PR uses Option and .ok()? collapsing those failures with absence, plus raw length constructor arguments. This strengthens existing catalogue/checked-error propagation graph, not semantic equality across variants. Fitted holder rejects corrupt authenticated construction distinctly. Fixed fixture recipe[0]/hash[0]/truncate require actually encoded nonempty canonical defaults, no generic malformed raw-vector theorem. Fixture tiny +=fields bounded and read only, not run. Contact computed precision Root04F014/F025 dependency remains; no transitive kernel clearance."
+    }
+  ],
+  "findings": [
+    {
+      "existing": "audit/records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/findings.jsonl#12 ROOT-CATALOGUE-PACKET-F003",
+      "support": "Fresh complete exact native weapon-instance construction/evaluation/consumer bodies close the previously deferred f32 u32MAX comparison boundary as a numerical strengthening, with no actual extreme evaluated recipe witness.",
+      "new_unique_claim": false
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "6 original roles personally compared; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/world_actor.rs"
+}

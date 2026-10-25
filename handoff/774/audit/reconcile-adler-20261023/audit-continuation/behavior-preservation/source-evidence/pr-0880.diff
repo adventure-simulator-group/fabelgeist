@@ -1,0 +1,98 @@
+--- PRbase/crates/adventuresim-core/src/battle_time.rs
++++ frozen/crates/adventuresim-core/src/battle_time.rs
+@@ -0,0 +1,95 @@
++//! Signed coordinates on the pure autoresolve battle clock.
++
++use crate::elapsed::{AnimationElapsed, ElapsedResult};
++use serde::{Deserialize, Serialize};
++use std::cmp::Ordering;
++
++pub type BattleTimeResult<T> = Result<T, BattleTimeError>;
++
++/// Finite seconds relative to the battle origin. Negative coordinates are
++/// valid; this clock is independent of the tactical server's authority clock.
++#[derive(Clone, Copy, Debug, Default, PartialEq, PartialOrd, Serialize, Deserialize)]
++#[serde(try_from = "f32", into = "f32")]
++pub struct BattleTime(f32);
++
++#[derive(Clone, Copy, Debug, PartialEq, Eq, thiserror::Error)]
++pub enum BattleTimeError {
++    #[error("battle-time coordinate must be finite")]
++    NonFinite,
++    #[error("battle-time coordinate arithmetic overflowed")]
++    Overflow,
++}
++
++impl BattleTime {
++    pub const ZERO: Self = Self(0.0);
++
++    pub fn from_seconds(seconds: f32) -> BattleTimeResult<Self> {
++        if !seconds.is_finite() {
++            return Err(BattleTimeError::NonFinite);
++        }
++        Ok(Self(seconds))
++    }
++
++    /// Place a checked span at the battle origin without rounding its seconds.
++    pub fn from_elapsed_since_start(elapsed: AnimationElapsed) -> Self {
++        Self(elapsed.seconds())
++    }
++
++    /// Native seconds at the serialization or final clock/ratio kernel.
++    pub fn seconds(self) -> f32 {
++        self.0
++    }
++
++    pub fn checked_add(self, elapsed: AnimationElapsed) -> BattleTimeResult<Self> {
++        let seconds = self.0 + elapsed.seconds();
++        if !seconds.is_finite() {
++            return Err(BattleTimeError::Overflow);
++        }
++        Ok(Self(seconds))
++    }
++
++    /// Reject a negative or unrepresentable interval between coordinates.
++    pub fn elapsed_since(self, earlier: Self) -> ElapsedResult<AnimationElapsed> {
++        AnimationElapsed::from_seconds(self.0 - earlier.0)
++    }
++
++    /// Return zero if this coordinate precedes `earlier`; otherwise admit the
++    /// seconds difference, rejecting a positive unrepresentable interval.
++    pub fn saturating_elapsed_since(self, earlier: Self) -> ElapsedResult<AnimationElapsed> {
++        AnimationElapsed::from_seconds((self.0 - earlier.0).max(0.0))
++    }
++
++    pub fn max(self, other: Self) -> Self {
++        Self(self.0.max(other.0))
++    }
++
++    pub fn total_cmp(&self, other: &Self) -> Ordering {
++        self.0.total_cmp(&other.0)
++    }
++
++    /// Preserve the original subtraction before the simultaneous-contact test.
++    /// An overflowing transient difference cannot be within a finite tolerance.
++    pub fn is_within(self, other: Self, tolerance: AnimationElapsed) -> bool {
++        (self.0 - other.0).abs() <= tolerance.seconds()
++    }
++
++    /// Preserve addition-before-comparison without retaining the intermediate
++    /// coordinate. Overflow makes this predicate false, as in the scalar kernel.
++    pub fn precedes_with_margin(self, other: Self, margin: AnimationElapsed) -> bool {
++        self.0 + margin.seconds() < other.0
++    }
++}
++
++impl TryFrom<f32> for BattleTime {
++    type Error = BattleTimeError;
++
++    fn try_from(seconds: f32) -> BattleTimeResult<Self> {
++        Self::from_seconds(seconds)
++    }
++}
++
++impl From<BattleTime> for f32 {
++    fn from(time: BattleTime) -> Self {
++        time.0
++    }
++}

@@ -1,0 +1,158 @@
+{
+  "id": "CONT08-CONTRACT-023",
+  "at": "2026-10-25T09:22:54.695418+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 97,
+      "source_id": "physical-p16:crates/adventuresim-core/src/encounter.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/encounter.rs",
+      "before_sha256": "aad69b12c6ade6caa59828876caede30c0a0fe2577b11fdd91f84594d2471dd5",
+      "after_sha256": "aad69b12c6ade6caa59828876caede30c0a0fe2577b11fdd91f84594d2471dd5",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0097-base-aad69b12c6ade6caa59828876caede30c0a0fe2577b11fdd91f84594d2471dd5",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/aad69b12c6ade6caa59828876caede30c0a0fe2577b11fdd91f84594d2471dd5",
+      "diff": "source-evidence/p16-0097.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          1019
+        ]
+      ],
+      "facts": [
+        "Full1019 body consumed before checkpoint023 and complete actual empty P16 diff. Encounter profiles/terrain/awareness/choice/order and sustainable overland speed unchanged; overland fatigue context is strategic travel, not a new tactical combat impairment. Fixed separate StreamIds preserve frequency/archetype/count/awareness/sneak/narrative draw roles.",
+        "Chunk boundaries remain (completed,completed.saturating_add(requested)],180-minute index; quest proximity and impossible habitat zero gates precede weights. Party speed/awareness ties, strictly faster Run and bandits-only Surrender unchanged. Narrative pending/settlement gates, sorted IDs and weighted selection unchanged. All existing retry/chunk/cadence fixtures consumed as source, no loops run. Raw public context limits and actual DB/journey recipients remain pending, not admitted by same-body/hash."
+      ],
+      "disposition": "Source-local08 comparison accounted with explicit unchanged/public API and connected-recipient limits; no new08 regression.",
+      "acceptance": "Preserve stable wire keys, exact deterministic stream/draw/order, retry identity, overland and armor laws for admitted values. Resolve actual changed-recipient dependencies without compatibility APIs; no tests/checks/repairs."
+    },
+    {
+      "scope_index": 98,
+      "source_id": "physical-p16:crates/adventuresim-core/src/encounter/choice.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/encounter/choice.rs",
+      "before_sha256": "3a327aeb8ec9f72d67960b0cdc94f7ece677c4a963d5ce8e1db7af3fd8025206",
+      "after_sha256": "3a327aeb8ec9f72d67960b0cdc94f7ece677c4a963d5ce8e1db7af3fd8025206",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0098-base-3a327aeb8ec9f72d67960b0cdc94f7ece677c4a963d5ce8e1db7af3fd8025206",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/3a327aeb8ec9f72d67960b0cdc94f7ece677c4a963d5ce8e1db7af3fd8025206",
+      "diff": "source-evidence/p16-0098.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "facts": [
+        "Full72 and actual empty diff. Stable choice tokens sneak/detour/attack/run/surrender, exact FromStr lookup and Unknown encounter choice Display retained; unknown withdraw fixture source unchanged."
+      ],
+      "disposition": "Source-local08 comparison accounted with explicit unchanged/public API and connected-recipient limits; no new08 regression.",
+      "acceptance": "Preserve stable wire keys, exact deterministic stream/draw/order, retry identity, overland and armor laws for admitted values. Resolve actual changed-recipient dependencies without compatibility APIs; no tests/checks/repairs."
+    },
+    {
+      "scope_index": 99,
+      "source_id": "physical-p16:crates/adventuresim-core/src/encounter/receipt.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/encounter/receipt.rs",
+      "before_sha256": "79edfeebdc4b5bdd4dfd8272b5b15981bf986c1acdcc4bca4b92d3fe3022b1b1",
+      "after_sha256": "79edfeebdc4b5bdd4dfd8272b5b15981bf986c1acdcc4bca4b92d3fe3022b1b1",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0099-base-79edfeebdc4b5bdd4dfd8272b5b15981bf986c1acdcc4bca4b92d3fe3022b1b1",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/79edfeebdc4b5bdd4dfd8272b5b15981bf986c1acdcc4bca4b92d3fe3022b1b1",
+      "diff": "source-evidence/p16-0099.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "facts": [
+        "Full36 and actual empty diff. Receipt identity retains separate high/low stream words with exact enc:32hex serialization; retry requires exact encounter/character/choice/revision."
+      ],
+      "disposition": "Source-local08 comparison accounted with explicit unchanged/public API and connected-recipient limits; no new08 regression.",
+      "acceptance": "Preserve stable wire keys, exact deterministic stream/draw/order, retry identity, overland and armor laws for admitted values. Resolve actual changed-recipient dependencies without compatibility APIs; no tests/checks/repairs."
+    },
+    {
+      "scope_index": 100,
+      "source_id": "physical-p16:crates/adventuresim-core/src/equipment.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/equipment.rs",
+      "before_sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+      "after_sha256": "635ee67da06496157b5b091eb40535af2493a554d2b69f6b82023886b9b2a1e0",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0100-base-e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/635ee67da06496157b5b091eb40535af2493a554d2b69f6b82023886b9b2a1e0",
+      "diff": "source-evidence/p16-0100.diff",
+      "diff_sha256": "a940000d5cbefdbc97136bb3a074b80884c6d1b7fb201c6ba61808bc21449f11",
+      "head_body_read_ranges": [
+        [
+          1,
+          1182
+        ]
+      ],
+      "facts": [
+        "Exact own08 earlier full1182 body plus complete P16 differential reused; no fresh body read credited. Equipment field order/canonical typed projections and connected weapon geometry Q002 source-policy dependency retained."
+      ],
+      "disposition": "Source-local08 comparison accounted with explicit unchanged/public API and connected-recipient limits; no new08 regression.",
+      "acceptance": "Preserve stable wire keys, exact deterministic stream/draw/order, retry identity, overland and armor laws for admitted values. Resolve actual changed-recipient dependencies without compatibility APIs; no tests/checks/repairs.",
+      "own_lens_reuse": "Earlier exact own08 body/differential evidence; see own coverage.jsonl source_index and contract003/related receipts. No borrowed lens clearance."
+    },
+    {
+      "scope_index": 101,
+      "source_id": "physical-p16:crates/adventuresim-core/src/equipment/armor.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/equipment/armor.rs",
+      "before_sha256": "1eb52192b9ef4b1d23b4a696a3f4b370baf3076b3184e4b576ec681f426e47f1",
+      "after_sha256": "1eb52192b9ef4b1d23b4a696a3f4b370baf3076b3184e4b576ec681f426e47f1",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0101-base-1eb52192b9ef4b1d23b4a696a3f4b370baf3076b3184e4b576ec681f426e47f1",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/1eb52192b9ef4b1d23b4a696a3f4b370baf3076b3184e4b576ec681f426e47f1",
+      "diff": "source-evidence/p16-0101.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          94
+        ]
+      ],
+      "facts": [
+        "Full94 body consumed before checkpoint023; fresh actual empty diff. Armor physical fields, ArmorSurface serde, canonical body-part mapping unchanged. Layer aggregate coverage complement, resistance/padding sum, weighted flex/resistance and min ROM preserve iteration/NaN policy. Outermost order remains channel.order then order then inventory ID; no new packed-rank bound assumed. Actual higher recipients pending."
+      ],
+      "disposition": "Source-local08 comparison accounted with explicit unchanged/public API and connected-recipient limits; no new08 regression.",
+      "acceptance": "Preserve stable wire keys, exact deterministic stream/draw/order, retry identity, overland and armor laws for admitted values. Resolve actual changed-recipient dependencies without compatibility APIs; no tests/checks/repairs."
+    },
+    {
+      "scope_index": 102,
+      "source_id": "physical-p16:crates/adventuresim-core/src/equipment/parametric_weapon.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/equipment/parametric_weapon.rs",
+      "before_sha256": "f62198755e98ea753340c3fdb985f7d576cfbb9a15e33dbf8a8ca4ea1e42e567",
+      "after_sha256": "b86de57ce073e0c629d63bcb5e9b1cc92c18be2705b8954f4536c12db6fd0eb3",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0102-base-f62198755e98ea753340c3fdb985f7d576cfbb9a15e33dbf8a8ca4ea1e42e567",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/b86de57ce073e0c629d63bcb5e9b1cc92c18be2705b8954f4536c12db6fd0eb3",
+      "diff": "source-evidence/p16-0102.diff",
+      "diff_sha256": "82c9a16103c4b4e082299af21441088fc2d077c216f9962c4c2cf91984a8711d",
+      "head_body_read_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "facts": [
+        "Exact own08 earlier full65 body plus complete P16 differential reused. Parametric weapon preparation/type admission migration preserved with Q002 recipe/output-guard dependency; no additional discovery credit or family clearance."
+      ],
+      "disposition": "Source-local08 comparison accounted with explicit unchanged/public API and connected-recipient limits; no new08 regression.",
+      "acceptance": "Preserve stable wire keys, exact deterministic stream/draw/order, retry identity, overland and armor laws for admitted values. Resolve actual changed-recipient dependencies without compatibility APIs; no tests/checks/repairs.",
+      "own_lens_reuse": "Earlier exact own08 body/differential evidence; see own coverage.jsonl source_index and contract003/related receipts. No borrowed lens clearance."
+    }
+  ],
+  "retained_aliases": [
+    "ROOT-INITIAL04-F039 via question-007-durability-tier.json"
+  ],
+  "next": "Original104 errantry and remaining inventory; connected Q001\u2013Q004 still explicit policy/recipient questions. All overlays/live/merged require own08 accounting."
+}

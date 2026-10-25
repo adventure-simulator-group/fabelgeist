@@ -1,0 +1,20 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-360",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        525
+      ],
+      "comparison": "Entire5632-line JSON-in-YAML parsed data schema and every member/value of184 complete items inspected as compact records in batches0-19/20-49/50-79/80-109/110-139/140-164/165-183. This is structured data review, not line-by-line Rust or consumer execution. Root schema_version1 and184 common item records. Weapon authored melee/ranged/pref attack/precision fields support F115; all supplied29weapon records choose one valid melee/ranged branch, no authored hybrid or ordinary no-mode witness. Shared equipment appears across armor/clothing/simple/shield/weapon; raw kind is not authority for every capability. Armor and clothing protection locations differ in source schema and intentionally support garment/belt asset differences; F198 accepted runtime kind propagation remains existing obligation. Books already have target-tag payload cases written/religion/bestiary/skill/terrain; medium/quality independent. Food culinary_fat denotes preparation role independent of food class, no data-based exclusive class inference. Alcohol potable/disinfectant_focused are independent consumption/use policies; aqua_vitae true/true valid, small beer/wine true/false; no forced potable-vs-disinfectant exclusive enum. Parent/occupancy/protection/layers_over separate equipment graph roles; mail voiders/knee voiders legitimately have empty occupancy and parent attachment. sword_sheath actual attached placement has multiple alternative parent mount orders0/1, reinforcing F039 qualification that a placement may permit alternative parents. Numeric0 nutrition/padding/edge sensitivity is valid authored behavior, no missing-value inference.",
+      "finding_refs": [
+        "SEGO-INITIAL09-F039",
+        "SEGO-INITIAL09-F115",
+        "SEGO-INITIAL09-F198"
+      ],
+      "disposition": "Complete structured authored catalog inspected; existing shape obligations supported without new defect claim"
+    }
+  ],
+  "new_findings": [],
+  "limits": "No application content loader, generator, tests or project checks executed. Structured data credit only; referenced consumers/findings unresolved, no clearance."
+}

@@ -1,0 +1,45 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-597",
+  "at": "2026-10-25T16:09:13.512336+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 935,
+  "source_id": "pr-working:crates/adventuresim-core/src/investigation_action.rs",
+  "sha256": "717288409edb3210de986fef4dcf838525461956d2e686f59a78a781b5e354e2",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "From native availability\u2194SATS bridge; SpacetimeType; SATS Serialize/Deserialize",
+      "lines": [
+        [
+          78,
+          147
+        ]
+      ],
+      "disposition": "NEEDS exact native derive enum named-product representation comparison before any cleanup recommendation; explicit bridge currently preserves public enum and named SATS helper shape."
+    },
+    {
+      "trait": "Display",
+      "type": "InvestigationTargetKind",
+      "lines": [
+        [
+          192,
+          196
+        ]
+      ],
+      "disposition": "KEEP small native stable-label projection, no ready owning Display derive."
+    }
+  ],
+  "analysis": "Fresh investigation_action1\u2013220: cfg-spacetimedb availability bridge has explicit enum\u2194namedproduct wrapper From78\u2013113, SpacetimeType116\u2013122, SATS Serialize125\u2013135 and Deserialize138\u2013147. Retain provisionally pending exact existing native derive shape/bound proof; raw direct derive cannot be assumed wire-equivalent to named UnavailableFields product. InvestigationTargetKind Display192\u2013196 KEEP small as_str/write_str, no owning Display derive. Serde/structural native records already derive. Route classifier continues.",
+  "first_unfinished": {
+    "scope_index": 935,
+    "line": 221
+  },
+  "execution": "none"
+}

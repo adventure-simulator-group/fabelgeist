@@ -1,0 +1,50 @@
+{
+  "id": "SEGOVB-04-LIVE-SYNCHRONIZATION-LATCH-CANDIDATE-001",
+  "lens": "04",
+  "status": "source-backed retained control-state defect on successful same-document navigation; no live browser run",
+  "source": {
+    "source_id": "pr-working:crates/strategic-web/static/live-state.js",
+    "sha256": "1a235da51b576fb096554b01baa053556d34a91ad588b5dedb611f2b76ed6e13",
+    "ranges": [
+      [
+        38,
+        60
+      ],
+      [
+        78,
+        103
+      ]
+    ]
+  },
+  "receiver": {
+    "source_id": "pr-working:crates/strategic-web/static/strategic-navigation.js",
+    "sha256": "1419143934b4dacd73085c81a770534d63fbad34612ff6cc25bb886c430e6bff",
+    "ranges": [
+      [
+        91,
+        115
+      ],
+      [
+        117,
+        182
+      ],
+      [
+        205,
+        209
+      ]
+    ],
+    "method": "Full209 own578 priorproof plus narrow current reread while resolving actual live57 dependency; no body credit transfer from other lens."
+  },
+  "witness": "After baseline, revision update enters synchronize and sets synchronizing=true44. Valid navigation response changes authoritative location, so52\u201355 beginsnavigation, calls actualwindow.strategicNavigate and returns before reset59. Actual navigation117\u2013182 successfully fetches strategic same-document replacement and commitPage91\u2013115 emits mounted100; existinglive-state mountedhandler78\u201381 resets navigating/pending but never synchronizing. Nextrevision reaches40\u201342, sets pending and returns; no active synchronize remains todrain it. Thus subsequent synchronization stays latched in same document until external script reset/reload.",
+  "qualifications": [
+    "No browser/network/live character move executed. Boundary navigation that reloads whole document creates fresh closure, so this claim is limited to actual successful strategic same-document branch.",
+    "Separate from earlier578 stale old request/page mount lifetime and plainHTTP Error status loss; shared async-state repair owner, not automatic exact same defect.",
+    "No globalunique count; exact archive alias navigation pending."
+  ],
+  "connected_repair": "Live-navigation synchronization ownership/release across async outcome, successful soft navigation, failure and mount generation.",
+  "acceptance": [
+    "After a location-mismatch-triggered same-document navigation, a later revision can perform live navigation synchronization again.",
+    "Concurrent revision coalescing, baseline suppression and failedfetch recovery retain intentional semantics; no stale old-page dispatch/newpage mutation."
+  ],
+  "execution": "none"
+}

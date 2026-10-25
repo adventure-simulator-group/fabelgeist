@@ -1,0 +1,128 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-633",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-numpy-storage/src/npz.rs",
+      "sha256": "fd06a1fe88a6b55620cbeb9015e09f4f308114e77b5c5b051df26737dc458049",
+      "actual_EOF": 186,
+      "actual_compared_ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2656"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-garment-fit/src/pose.rs",
+      "sha256": "2f61441a1ff287026cb6bbe667bb91ae6c60ae760a14632b433dc17cfaaafe36",
+      "actual_EOF": 272,
+      "actual_compared_ranges": [
+        [
+          1,
+          272
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2657"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-shell/src/outer_layer.rs",
+      "sha256": "3f1d557c4daffcbad92797372a8066682af51f46afa49672c0ec3622b39f1bd0",
+      "actual_EOF": 196,
+      "actual_compared_ranges": [
+        [
+          1,
+          116
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2658"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-shell/src/selfcollision.rs",
+      "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+      "actual_EOF": 283,
+      "actual_compared_ranges": [
+        [
+          1,
+          283
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2659"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-bvh/src/gpu/shaders.rs",
+      "sha256": "2022b9f9947af21ed0ada98816b862f6569d1237a5c6d0557c46441a78022e32",
+      "actual_EOF": 490,
+      "actual_compared_ranges": [
+        [
+          391,
+          490
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2660"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-shell/src/surface_contact/solve/tests.rs",
+      "sha256": "42ccfda42f41dfade0c7694b313e1ea574e2d1468e850bc03c2d664da867e4aa",
+      "actual_EOF": 45,
+      "actual_compared_ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2661"
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Archive member selection and pose placement against original geometry",
+      "evidence": "NPZ1\u201369/pose1\u2013272 read. Archive lookup matches exact or .npy suffix and delegates fallible native decoding without mutating caller state. Pose placement copies base positions; per-panel move then whole garment move retains intended composition against original pivots. Empty centers explicitly zero; missing panel move identity.",
+      "qualifications": [
+        "Pose public Pivots ranges can be reversed and raw Move fields nonfinite; clamping range endpoints independently does not establish ordering. Native center(min+max)/2 and transform arithmetic may overflow for extreme finite values, requiring actual geometry/frame admission; no ordinary body-space failure demonstrated.",
+        "panel_mut(index) index+1/capacity requires native index policy; no actual usizeMAX UI selection. Axis slider limits are presentation constants, not enforcement in raw set."
+      ],
+      "acceptance": "Retain rigid-distance preservation and no cumulative pose drift; actual mesh/pivot cohorts, finite move/frame and native capacities admitted before retained geometry publication."
+    },
+    {
+      "contract": "Outer-layer finite direction, physical correction and two-buffer publication",
+      "evidence": "Outer layer1\u2013116 read. Constructor asserts finite nonzero inward and finite nonnegative clearance, normalizes direction. Corrections raycast bounded layer geometry; prescribed masses skipped, incoming normal velocity removed. project_particles reads local arrays then uploads position and velocity when changed.",
+      "qualifications": [
+        "Finite inward components can still have overflowing norm; normalization to zero at extreme f32 is API arithmetic strengthening. Actual ordinary inward unit vectors discharges this route, no authored extreme or run. Raw normals/geometry, clearances changed publicly, valid face cohorts and two native write error policy remain owning contracts.",
+        "Correction is one-sided finite triangle policy, not infinite planes; no blanket positive clearance or arbitrary coordinate clamp."
+      ],
+      "acceptance": "Direction admission must establish computed finite unit vector, geometry cohorts and actual corrected finite outputs; failed logical GPU update must retain coherent buffers under explicit error policy."
+    },
+    {
+      "contract": "Self-collision hash build state and native capacity",
+      "evidence": "Selfcollision1\u2013283 read. Constructor checks adjacency list count via native u32 cast, constructs local buffers; table capacity*2 then next_power_of_two precede allocation. set_radius updates radius, spacing and invalidates built; record count<2 no-op and capacity check precede dispatch. Rebuild sets built=true before first fallible dispatch; standard SubstepHook always requests rebuild.",
+      "qualifications": [
+        "Public radius mutation can diverge spacing; this authority gap requires canonical setter/owner, not a new duplicate operation claim. Actual positive finite radius/derived reciprocal and native adjacency index/count/table capacity admission needed.",
+        "Failed batch recording can leave built=true and subsequent explicit rebuild=false skips initialization: source-qualified retained-state dependency, but no concrete native dispatch rejection/retry caller demonstrated. Do not infer ordinary failure from ? alone.",
+        "SubstepHook actual always-rebuild path discharges that retry route; no device execution performed."
+      ],
+      "acceptance": "Successful build flag tracks an actually usable grid under batch error policy; coherent radius/spacing and native table/index/buffer capacities established before record."
+    },
+    {
+      "contract": "Generated traversal stack policy and contact scalar fixtures",
+      "evidence": "BVH shaders391\u2013490 and solve tests1\u201345 read. Generated stack seeds root, guards pushing two children, deliberately drops candidate branches when full; query point uses native point\u00b1radius AABB. Contact fixture source compares exact original corrected/velocity words over36 cases and two18-case families.",
+      "qualifications": [
+        "Traversal stack0 emits invalid zero array/root indexing; stack1 deliberately drops children. These custom config policies require actual construction/depth guarantees, not claim arbitrary stack depths complete or ordinary default64 miss. Full earlier shader bodies uncredited by this bounded read.",
+        "Fixture source not executed; fixture numerical payload is separate pending original role."
+      ],
+      "acceptance": "Actual admitted traversal stack covers producer tree depth or reports explicit incomplete query policy; preserve native exact contact words where original behavior is intended."
+    }
+  ],
+  "findings": [],
+  "status": "Qualified material ranges personally analyzed; whole04 remains incomplete.",
+  "first_unfinished": "pr-working:crates/fabelgeist-xpbd/src/constraint/tests.rs",
+  "source_edits": false,
+  "project_execution": "none"
+}

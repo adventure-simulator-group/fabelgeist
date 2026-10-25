@@ -1,0 +1,96 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-397",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/phase_calibration.rs",
+      "sha256": "6d2b74658ffa77e2c7d32635515ddbc3589a7aff449110421f754a56ca0e9cc6",
+      "actual_EOF": 434,
+      "actual_compared_ranges": [
+        [
+          1,
+          434
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/phase_calibration/curve.rs",
+      "sha256": "5b1c1ef5eef21306ecadd36217f88b1c00be40518fea94696a27498347562f65",
+      "actual_EOF": 80,
+      "actual_compared_ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/phase_calibration/periodic_smoothing.rs",
+      "sha256": "c18acd7fab5ff2e7a9e77f0d7a6009b4d17637cfe08b4d204a4cffab107808be",
+      "actual_EOF": 55,
+      "actual_compared_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/physics_pose.rs",
+      "sha256": "3e8b29f3b61d9b5f287ba3b5f7bc392f8302da7462721bea60b4ec4b2d26fc30",
+      "actual_EOF": 98,
+      "actual_compared_ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/proportions.rs",
+      "sha256": "02cbec8ef4635c8fc9afb5ee10bf4abacdc552432f70d03d44cf4f46995e24ec",
+      "actual_EOF": 103,
+      "actual_compared_ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/rig.rs",
+      "sha256": "bb6e369f80f80ea602ae9a6938e333749590e3958b30a1dad1137c4bcb606288",
+      "actual_EOF": 192,
+      "actual_compared_ranges": [
+        [
+          1,
+          192
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Contact phase fitting, periodic seam and atomic smoothing",
+      "evidence": "phase_calibration.rs1\u2013434/curve.rs1\u201380/periodic_smoothing.rs1\u201355 complete: signedfinite displacement foldsreadmitted, orientationtwofeet centers0/.5 with circularmean, reversedsegmentsiteratebackward. ContactPhaseSpan nonempty/strictpositivephysicalwidthadmitted beforepartition/index andquotientfinitecheck. Distancepositive-totalfitphaseendpointsforcedexactthenrevalidated. PhaseCurveempty/singletonidentity intentional, multiendpointforward/reverseonecycleseamchecked, sampleindicesclampedactualextent, lerpfinitechecked. Smoothing13pointtriangularstencilallproducts/sums/replacements checkedbeforecopy_from_slice fullreplacement+seam.",
+      "qualification": "Finitehugeunwrappedphasesmaylose1cycleprecision; floatingequalityseamnotmathematicalexactdifference, currentfitproducer boundednear0..2. lowheightwindow clampsrawheightspan toauthoredfinitewindowbeforefinitecheck, so Infintermediatesmaydeliberatelysaturatewindow; needactualnormalgeometry/semanticpolicybeforecallingthatdefect. Existingconfigminimumwindow<=maximumwindow/sourceintervalcount guarantees areseparateadmissionbaseline. No arbitraryminimumsignedposition/globalphaseUnitInterval narrowing. No fullproductioncaptureclearance fromnumericalpurefunctions."
+    },
+    {
+      "contract": "Physics ownership, authored offset application and family binding",
+      "evidence": "physics_pose.rs1\u201398 pinjoint updatesbothsamples,clearsinertialoffset/velocities,doesnotestablishauthoredDisplaying; physicstoauthoredinvalidatesplanforfreshtransition. proportions.rs1\u2013103 actualapply_offsetsaddsSkeletalJointOffset aftersample_plan sanitize andbeforeupcomingpublish; repeatfixtureensuresnonaccumulation. rig.rs1\u2013192 familycachebuiltfromfirstactualowner bindings,nameorder; parentordinalonlyfromsameboundentitymap, lateractorsremapbytarget, fallbackbindforabsententity, tablesallocatedsamejointcount. Fixedrepeatobservationsetsdecay0/returnsNone, otherselapsedcappedvalidconfig.",
+      "qualification": "Exactexisting NATIVE-INITIAL05-F012 archive initial05/findings.jsonl#14 finitebasisoverflow receiverclosedfreshlythroughproportions.rs11\u201324, plusbind_poseearlier; no extraunique. Familycacheidentity/rigrevision/coherentbasis graph linksCameraF003/F004 suppliedproof, notautomaticallynewdefect. BevyChildOfacyclic actualboundsubset preservesparentacyclicmembership; userconstructedprivateRigDefinitioncycle notordinaryproducer. Rawbind/currentTransform numericadmission notfinitevalidatedhere, downstreamsanitizepolicieslimitedas395. Observationlastticksetbeforelaterbake/planfailure is intentional perobservedsnapshot unlessactualretrycontractproven; no clock-consumptionfinding asserted solelyfromorder."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "6 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/spline.rs"
+}

@@ -1,0 +1,16 @@
+--- p16base/crates/adventuresim-tactical-client/src/animation_viewer/harness.rs
++++ catalog-p16head/crates/adventuresim-tactical-client/src/animation_viewer/harness.rs
+@@ -233,11 +233,11 @@
+                         placement_id: Some(placement.id.clone()),
+                         occupancies,
+                     },
+                     TacticalEquipmentPhysical {
+-                        dimensions_m: Vec3::from_array(physical.dimensions_m),
++                        dimensions_m: physical.dimensions_m,
+                         grip_to_tip_m: physical.grip_to_tip_m,
+-                        striking_head_length_m: 0.0,
++                        striking_head_length_m: fabelgeist_geometry::SignedLength::ZERO,
+                         anchor_offset_m: Vec3::from_array(physical.anchor_offset_m),
+                     },
+                     Transform::default(),
+                 ))

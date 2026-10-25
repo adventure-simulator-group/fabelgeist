@@ -1,0 +1,100 @@
+{
+  "id": "CONT07-CONTRACT-595",
+  "at": "2026-10-24T00:26:01.188415+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2571,
+      "source_id": "dependency-bevy_reflect0.19.1:src/reflect.rs",
+      "sha256": "8b9875e0690eaae0626088bc3a143a38f23918c2a216ff7c3d699dd7311f9601",
+      "origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_reflect-0.19.1/src/reflect.rs",
+      "actual_EOF": 652,
+      "ranges": [
+        [
+          494,
+          496
+        ],
+        [
+          504,
+          506
+        ],
+        [
+          534,
+          540
+        ],
+        [
+          547,
+          549
+        ],
+        [
+          574,
+          576
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2572,
+      "source_id": "dependency-bevy_reflect0.19.1:src/type_registry.rs",
+      "sha256": "f3dd9ddf699c436941878566cd59d7dca62f67ccd4ddbdcea62b3aeb5afdb76d",
+      "origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_reflect-0.19.1/src/type_registry.rs",
+      "actual_EOF": 1123,
+      "ranges": [
+        [
+          881,
+          911
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2573,
+      "source_id": "pinned-registry:serde-saphyr-1.2.0/src/de/api.rs",
+      "sha256": "02fd000004106ce209ca065c78b70c71a7b86ac03a3ddbedd48eb7e577358ce7",
+      "origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-saphyr-1.2.0/src/de/api.rs",
+      "actual_EOF": 986,
+      "ranges": [
+        [
+          84,
+          99
+        ],
+        [
+          136,
+          141
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2574,
+      "source_id": "pinned-registry:serde-saphyr-1.2.0/src/de/options.rs",
+      "sha256": "d38d24ae1ae19df025ec4073c774a3eea48fcb85a0dad024b392e8c6899c40a8",
+      "origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-saphyr-1.2.0/src/de/options.rs",
+      "actual_EOF": 760,
+      "ranges": [
+        [
+          248,
+          264
+        ],
+        [
+          499,
+          527
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Reflect downcasts require exact Any type identity. ReflectDeserialize::FromType<T> calls T::deserialize, so this entry preserves the selected concrete type's Serde admission; it is not generic proof of raw-field construction or a separate schema.",
+    "Saphyr from_str and options entry points both call T::deserialize with selected options. Default rejects nonfinite typeless float, but documented concrete float handling remains independent: this policy must not be mistaken for concrete f32/f64 validation. Duplicate-key error/merge policy and strict boolean defaults are distinct parser policies, not bespoke invariant authority."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2575,
+    "start_line": 1
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1165",
+  "at": "2026-10-25T18:00:27.694746+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1268,
+  "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/bootstrap.rs",
+  "sha256": "e58eadc935d9bd93c40262b170bc85c9e2d26c0b42ee490e882e0dd96f65be55",
+  "actual_compared_ranges": [
+    [
+      681,
+      1020
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Native live core cycle orchestration only, no handwritten trait/custom codec/type. Recovery outcome and current clocks/leader/journey determine policy branches; quest selection uses fixture identity/public cohort/current assessed eligibility and profile propensity. Observation formatting and mutable semantic progress are context-dependent classifiers, not deriving Display/Serialize solely replacing logic. No execution.",
+  "first_unfinished": {
+    "scope_index": 1268,
+    "line": 1021
+  },
+  "execution": "none"
+}

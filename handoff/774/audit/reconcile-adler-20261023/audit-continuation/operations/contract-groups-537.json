@@ -1,0 +1,105 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-537",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/template.rs",
+      "sha256": "a1cd00e8c02d5c25d675041927317755b24262122ac4096db8fec9a5b1ac16c8",
+      "actual_EOF": 317,
+      "actual_compared_ranges": [
+        [
+          1,
+          317
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/tests.rs",
+      "sha256": "166ec2be7855c465b709326152b2be1babfdcd538a062213cc6a5d8ae680d1f9",
+      "actual_EOF": 192,
+      "actual_compared_ranges": [
+        [
+          1,
+          192
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/tile_map.rs",
+      "sha256": "2acac8447a7f7a9347382ff425f74de58a7aeef6786c43d1d352412cbaff4065",
+      "actual_EOF": 115,
+      "actual_compared_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Bounded template geometry from validated plate dimensions",
+      "evidence": "Plate WIDTH.012..15cm HEIGHT.02..20cm/gauge.0005..012m and bevel<=.45gauge preserve positive cap scale even narrowest plate; interior spacing narrow side*.125 keeps finite bounded sampling. Hole pairs<=3 and lacing radius validation excludes absent holes in actual laced caller. Triangle failure returns None and local template is discarded; no published partial mesh."
+    },
+    {
+      "contract": "TileMap interpolation and source fixtures",
+      "evidence": "Fixed4x8 lattice, positive validated width/height make nonzero cells. Frame.step can reject degenerate tangent and walk propagates None. Extrapolation past border intentional. Read entire fixtures for base/reversed cylinder, translation morph, weights, lamellar hangers and trim; these are supplied assertions, not executed outcomes or exhaustive arbitrary morph proof."
+    },
+    {
+      "contract": "Late work budget operation candidate",
+      "finding": "SEGOVB-04-TILING-LATE-WORK-BUDGET-CANDIDATE-001",
+      "evidence": "Public GeneratedArmor::constructed with validated default Scale construction and a finite nondegenerate 2x2 open plane of large length (for example1,000,000m) computes millions of rows from height.065 and pitch.0455, reserves grid_rows and builds the entire grid before Layout::new checks MAX_TILES20000. Geometry small in source vertex cardinality; workload grows with physical span before intended rejection. No project execution.",
+      "qualification": "API-only large-geometry witness; ordinary generated anatomy not shown to have this span. Exact inherited alias pending. Do not turn native work-budget into arbitrary physical-world extent restriction."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-TILING-LATE-WORK-BUDGET-CANDIDATE-001",
+      "sources": [
+        {
+          "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/layout.rs",
+          "sha256": "9d9424e679eb33b176ce1687f202f9a81fcf765ef6d910fdd02bb1f409711fc2",
+          "ranges": [
+            [
+              70,
+              98
+            ],
+            [
+              108,
+              189
+            ],
+            [
+              235,
+              267
+            ]
+          ]
+        }
+      ],
+      "counterexample": "Public GeneratedArmor::constructed with validated default Scale construction and a finite nondegenerate 2x2 open plane of large length (for example1,000,000m) computes millions of rows from height.065 and pitch.0455, reserves grid_rows and builds the entire grid before Layout::new checks MAX_TILES20000. Geometry small in source vertex cardinality; workload grows with physical span before intended rejection. No project execution.",
+      "qualification": "API-only large-geometry witness; ordinary generated anatomy not shown to have this span. Exact inherited alias pending. Do not turn native work-budget into arbitrary physical-world extent restriction.",
+      "connected_contract": "Per-piece plate count is a construction budget; check prospective row/column/tile work before allocation and each push, preserving deliberate overhang/stagger and structured TooManyPlates error. Unlaced/lamellar/cyclic routes need coherent budget policy.",
+      "acceptance": "Reject over-budget construction before proportional unbounded work or allocation; normal template, lacing, morph correspondence and error semantics preserved."
+    }
+  ],
+  "fresh_dependencies": [
+    {
+      "path": "source/pr-working/crates/fabelgeist-armor/src/construction.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          374
+        ]
+      ],
+      "disposition": "Full already-scoped design dependency reread for actual Plate/Tiling/Lacing bound proof, no additional original role credit; exact EOF is tracked by prior construction packet.",
+      "actual_EOF": 374,
+      "correction": "Earlier handwritten418 endpoint corrected to actual full EOF374; no coverage beyond EOF."
+    }
+  ],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/fabelgeist-armor/src/trim.rs"
+}

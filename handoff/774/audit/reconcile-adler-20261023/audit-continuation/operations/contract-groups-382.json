@@ -1,0 +1,120 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-382",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/generated_cases.rs",
+      "sha256": "73138f7fd9ee10974b6eb14acf7a18a5adb75129cb936b74159c0de5397cd584",
+      "actual_EOF": 2736,
+      "actual_compared_ranges": [
+        [
+          1,
+          2736
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/investigation_policy.rs",
+      "sha256": "beeb9c30e9b583a3e744dcc7350e83c2c5ce40a2d65d5184cd48c0a463a93ea1",
+      "actual_EOF": 528,
+      "actual_compared_ranges": [
+        [
+          1,
+          528
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/journey_policy.rs",
+      "sha256": "1d73fd41a4bac82f26a1c7973b3df5685a7dd306d0b3b9c04dd8e665d76f089c",
+      "actual_EOF": 216,
+      "actual_compared_ranges": [
+        [
+          1,
+          216
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Generated-case selection, discovery and progress guards retain public authority across bounded actions",
+      "source_ranges": {
+        "generated_cases.rs": [
+          [
+            1,
+            2736
+          ]
+        ]
+      },
+      "disposition": "All2736lines personally read. select_owned_open_generated_case guards emptybeforefairindex, actualindex>=0<len proof in379completed; noOOBcandidate. Stable publicfingerprints ignorefreshjournalIDs/timestamps foridenticalknowledge and retaincase status/actions/siteexactness; no-progress perowner/case/topic/contact, max8contacts, stepbudget16/cycle, one safe-departurewait retry thenreturn. Synchronization reobservesmedical/equipment and realignsaftercare, abortsonownerdying/changingleader; siteforecast verifiedbeforetime. Investigationattempt requiresallpartytime rows, preservingexplicitmissing unlikeF023defaultpaths. Waitre-readsafterrest/clipping, canonicalunavailreason1..1440only, shortsettlementhintusescamp/restpolicy separateintent. Onsite recovery onceperexactaction andbounded1..day, publicreturnreservebeforeaction andafter, actualbattlepubliccase/mission/party/site binding beforevictoryclaim. Directreport verifiesactualarrival/contractReadyToReportandissuer beforeinteract+report. NoactualSDKactions."
+    },
+    {
+      "contract": "Generated case diagnostic completion and missing authority must stay distinct",
+      "source_ranges": {
+        "generated_cases.rs": [
+          [
+            350,
+            577
+          ],
+          [
+            1907,
+            1983
+          ],
+          [
+            1600,
+            1639
+          ]
+        ]
+      },
+      "disposition": "Case status parse/filter_map and visible-NPC emptyfallbacks linkCAM-PROP-F009/F023 missing/malformedstategraph; officialclockZERO andmissingactortime720 additionallyexactsource support, no newcount. generated_nonce saturating and sequence-basedactionIDs canreuseatMAX but actualbounded100000work doesnotapproachMAX; privatecounterAPIquestion only. outcomes.empty afterreducerOk labeledplanned_interval_clipped; DBperform actualreplay earlyOk364 also yieldsnonewoutcome/noelapsed, so emptinessalone cannotproveclipping. ActualfreshSDKprojectionnormallyupdatesbeforecallback, noordinaryreplaymislabel established. Retain explicitreplay/interruption/completedreceiptmeaning or qualifydiagnosticratherthan infercausefromabsence. Case status!=SomeOpen includesmissing/unparseable; returnscompleted-origin routine butclosuremetricrequiresSomeResolved, nofalsecompletionmetric claimed. Exacteventpartyemptyfallback joinsnamedauthoritygraph."
+    },
+    {
+      "contract": "Generated schedule and fatigue kernels bound loops and expose a zero group-size API precondition",
+      "source_ranges": {
+        "investigation_policy.rs": [
+          [
+            1,
+            528
+          ]
+        ]
+      },
+      "disposition": "All528lines read. roundtrip2*movement+action+59 usescheckedarithmetic beforedivision/60 andu16try, bound<=1440. Windowsearchrawbreakpoints saturating thennativepushrange filters anddedups; descending<=CoreMAXwalking/day, evaluatorcallsfinite2modes *boundedwindows*168/8waits. calories_after_strenuous_action castsall u64minutes tofinitef32 (~1e19) andmultipliesfixed6000/day (<1e23), but finiteMAXcaloriesadditioncanoverflow; projectedratio/divcapacityfloor hasexplicitfatigueownerpolicy, actualserverpublicordinaryboundedvaluespendingthermalgraph, no normalInfinputasserted. balanced_party_groups cratevisible callsprofiles.len().div_ceil(party_size) beforeemptycheck, so representableparty_size0 panics evenemptyprofiles. Current config2..8 andpopulation<=32 closesnormalrun, boundedAPIpreconditionstrengthening only. RemedyNonZero/validatedgroupsizeorfallibleexistingerror beforedivision; preservebalancedtargetcapacity/rolepriority/deterministicagentorder. No need tests/build to establishexpressiondomain."
+    },
+    {
+      "contract": "Public journey observation validates delta and terminal zero semantics without unsafe subtraction",
+      "source_ranges": {
+        "journey_policy.rs": [
+          [
+            1,
+            216
+          ]
+        ],
+        "investigation_policy.rs": [
+          [
+            449,
+            528
+          ]
+        ]
+      },
+      "disposition": "Alljourney216 read. Postrest checksafter<=total, checkedafter-before, noovershoot; terminalstatechange mayvalidlyzero beforeordinaryzero-progressrejection. Shortrestrequiresinterrupted, exactotherwise; preservezero-deathboundary. Terminalelapsed requiresallbefore/afterids andcheckedcalendarorder, minactualterminaldelta, emptyNone. Campclassifier0between/1active/>1invalid; activeintervalstartmaxcompleted/endmin(total), requirespositivebeforeplainend-start, countsamepredicate. PublicroutefromDegrees/E7WGS84 explicitlyfornativeweatherport withsignedi16elevation; do not globallynarrowabstractcoordinategraphperRIGPPS019. Simulationelapsed saturatingcalendarpolicy. Effectiveinventoryfraction try_new.expect reliesactualfractionDTOproducer<=1whole, malformedrawAPIpanic isadmissiondependency; quantityignoredwhenfractionSome intentionalmeasuredstablequantity1, parentF46 actualWebstaticmass separate receiver, no duplicate projectionclaim."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-PARTY-GROUP-ZERO-SIZE-CANDIDATE-001",
+      "kind": "crate-visible API precondition strengthening",
+      "ordinary_runtime_witness": false,
+      "qualification": "CoreLoopConfig validated party_size2..8 closes ordinary runner; arbitrary zero helper call only.",
+      "acceptance": "Group construction handles rejected zero explicitly before arithmetic or consumes existing nonzero validated owner, preserving current grouping/order."
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-strategic-sim/src/live_core/mod.rs"
+}

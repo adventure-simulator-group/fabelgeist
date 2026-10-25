@@ -1,0 +1,32 @@
+{
+  "id": "CONT-CAMERA-OWNERDEF-PP-F001",
+  "at": "2026-10-22T05:41:04.771998+00:00",
+  "lens": "audit-producer-propagation",
+  "classification": "raw_producer_semantic_angle_pair_propagation_strengthening; not checked-owner loss",
+  "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation/procedural.rs",
+  "sha256": "8b82644fdbb52e00c1b40a850239bb273c956668c89805efae19800b35f42487",
+  "material_ranges": [
+    [
+      157,
+      226
+    ],
+    [
+      669,
+      715
+    ]
+  ],
+  "registration": "CONT-CAMERA-OWNERDEF-PP-REG-001",
+  "producer": "constrained_camera_look693\u2013715 derives native yaw/pitch atan2, divides each by checked LookDistribution708/712, clamps each to joint limit709/713, and returns Vec2. This new pair is semantic yaw/pitch, not a preserved LookDistribution value.",
+  "retained_state_and_recipient": "guarded_camera_look683\u2013691 returns Option<Vec2>; apply_head_and_torso_look180\u2013190 collects it with directional yaw into owner_look BTreeMap. Later192\u2013207 retrieves aim and selects offset; only212\u2013217 consumes x/y at native Quat::from_euler. additive673\u2013681 normalizes product;219 writes Transform rotation. The intervening helper return/Option/map record is actual first-party semantic state and is not itself a native-port exemption.",
+  "finding": "Newly computed yaw/pitch pair remains raw Vec2 through helper/API/collection boundaries before actual Euler recipient. Existing typed divisor has propagated correctly; the derived angles are separately inventoried as raw-producer strengthening rather than an already checked angle owner erased.",
+  "earliest_connected_repair": "In subsequent owner/admission/type-ownership work, compare this actual yaw/pitch result contract and propagate the fitting existing semantic representation through constrained_camera_look, guarded_camera_look and owner_look to actual Euler extraction. Preserve complete functions and broad invalid native input/result policies; do not assume finite geometry Radians is compatible or manufacture a duplicate owner. Root retains repair authority.",
+  "acceptance": [
+    "preserve raised/no-posture-transition gating, atan2 hemisphere folding, division then clamp order",
+    "preserve fractional positive divisor, broad native CharacterLook/Quat/NaN/Inf behavior and native normalization",
+    "preserve owner map/bone filtering, direction weight and neck/head offset selection",
+    "native scalar adaptation occurs at actual quaternion operation, not helper return or local map"
+  ],
+  "remaining_actual_receivers": [],
+  "source_edits": 0,
+  "other_lens_credit": false
+}

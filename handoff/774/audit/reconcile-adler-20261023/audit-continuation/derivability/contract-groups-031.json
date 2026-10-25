@@ -1,0 +1,361 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-031",
+  "at": "2026-10-25T11:42:25.866273+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 108,
+      "source_id": "physical-p16:crates/adventuresim-core/src/foraging.rs",
+      "sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+      "actual_EOF": 1278,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-core/src/foraging.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-core/src/foraging.rs",
+        "sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 42888,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 164,
+            "read_ranges": [
+              [
+                1,
+                1278
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-FORAGING-024"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/foraging.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "native",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1171,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1278
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "DomainTarget for ForagePlanTarget",
+          "lines": [
+            522,
+            522
+          ],
+          "disposition": "Retain explicit per-type eligibility opt-in; no existing same derive identified."
+        },
+        {
+          "trait": "DomainRequirement for ForagePlanRequirement",
+          "lines": [
+            533,
+            533
+          ],
+          "disposition": "Retain explicit per-type marker, not mechanical encoding."
+        },
+        {
+          "trait": "DomainCapability for ForagePlanCapability",
+          "lines": [
+            540,
+            540
+          ],
+          "disposition": "Retain explicit per-type marker."
+        },
+        {
+          "trait": "DomainInterruption for ForagePlanInterruption",
+          "lines": [
+            546,
+            546
+          ],
+          "disposition": "Retain explicit per-type marker."
+        },
+        {
+          "trait": "DomainEffect for ForagePlanEffect",
+          "lines": [
+            565,
+            565
+          ],
+          "disposition": "Retain explicit per-type marker."
+        },
+        {
+          "trait": "PublicPreview for ForagePublicPreview",
+          "lines": [
+            574,
+            574
+          ],
+          "disposition": "Retain explicit preview eligibility; not equivalent to deriving Serialize or exposing environment fields."
+        },
+        {
+          "trait": "DomainRightsSubject/Resource/Operation/Jurisdiction for forage vocabulary",
+          "lines": [
+            576,
+            591
+          ],
+          "disposition": "Retain four explicit empty opt-in implementations for exact domain vocabulary; no existing same derive identified."
+        }
+      ],
+      "existing_derives": [
+        "ForageSeasonalityPolicy/Biome/Rarity/Source Serialize Deserialize with snake_case plus structural traits",
+        "LocalTerrainMixture structural traits Default Serialize Deserialize",
+        "Forage environment/yield/resolution and planner/rights vocabularies structural traits",
+        "ForageLicenseDecision Clone Debug Eq PartialEq"
+      ],
+      "absence_basis": "Full source and fixture bodies consumed. No handwritten serializer or formatting trait; other handwritten impls are the ten explicit marker opt-ins and semantic inherent APIs."
+    },
+    {
+      "scope_index": 109,
+      "source_id": "physical-p16:crates/adventuresim-core/src/foraging/sampling.rs",
+      "sha256": "66d67a552e4a0f212e7a776678140af4965c40239a052e0f845c73143537d6e0",
+      "actual_EOF": 25,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-core/src/foraging/sampling.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-core/src/foraging/sampling.rs",
+        "sha256": "66d67a552e4a0f212e7a776678140af4965c40239a052e0f845c73143537d6e0",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 789,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 165,
+            "read_ranges": [
+              [
+                1,
+                25
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-FORAGING-024"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/foraging/sampling.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-040",
+            "json_pointer": "/fresh_current_source_reads/2",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-core/src/foraging/sampling.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                25
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 488,
+              "source_id": "physical-p16:crates/adventuresim-core/src/foraging/sampling.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/foraging/sampling.rs",
+              "expected_sha256": "66d67a552e4a0f212e7a776678140af4965c40239a052e0f845c73143537d6e0",
+              "observed_sha256": "66d67a552e4a0f212e7a776678140af4965c40239a052e0f845c73143537d6e0",
+              "read_ranges": [
+                [
+                  1,
+                  25
+                ]
+              ],
+              "proof_mode": "Fresh full PR source and all original fixtures; P16 sampling exact same25 bytes fingerprint verified and semantically reconciled for same source/item/draw roles, not oldverdict reuse."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/camera/traces.jsonl",
+            "receipt": "CONT-CAMERA-PP-007",
+            "json_pointer": "/exact_source_proofs/5/historical_exact_source_proofs/0",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-core/src/foraging/sampling.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                25
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 488,
+              "source_id": "physical-p16:crates/adventuresim-core/src/foraging/sampling.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/foraging/sampling.rs",
+              "expected_sha256": "66d67a552e4a0f212e7a776678140af4965c40239a052e0f845c73143537d6e0",
+              "observed_sha256": "66d67a552e4a0f212e7a776678140af4965c40239a052e0f845c73143537d6e0",
+              "read_ranges": [
+                [
+                  1,
+                  25
+                ]
+              ],
+              "proof_mode": "Fresh full PR source and all original fixtures; P16 sampling exact same25 bytes fingerprint verified and semantically reconciled for same source/item/draw roles, not oldverdict reuse."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/rig/pure-food-recipient-carry-forward-041.json",
+            "receipt": "RIG-CONT-PPS-PURE-FOOD-RECIPIENT-CARRY-FORWARD-041",
+            "json_pointer": "/sampler_subset_actual_proofs/2",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-core/src/foraging/sampling.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                25
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 488,
+              "source_id": "physical-p16:crates/adventuresim-core/src/foraging/sampling.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/foraging/sampling.rs",
+              "expected_sha256": "66d67a552e4a0f212e7a776678140af4965c40239a052e0f845c73143537d6e0",
+              "observed_sha256": "66d67a552e4a0f212e7a776678140af4965c40239a052e0f845c73143537d6e0",
+              "read_ranges": [
+                [
+                  1,
+                  25
+                ]
+              ],
+              "proof_mode": "Fresh full PR source and all original fixtures; P16 sampling exact same25 bytes fingerprint verified and semantically reconciled for same source/item/draw roles, not oldverdict reuse."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1172,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved",
+        "admission03_increment050_role_observations": [
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 56,
+            "registration_id": "NATIVE-ADMISSION03-REG-056",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-056",
+              "at": "2026-10-22T09:01:16.398238+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "physical-p16:crates/adventuresim-core/src/foraging/sampling.rs",
+              "sha256": "66d67a552e4a0f212e7a776678140af4965c40239a052e0f845c73143537d6e0",
+              "snapshot": "physical-p16",
+              "actual_EOF": 25,
+              "material_ranges": [
+                [
+                  1,
+                  25
+                ]
+              ],
+              "role": "ActualP16ForageDraw::belowhelperusedwithconcretepositive1000/1001/authoredyieldwidth byoriginal19; exactRNGnativeboundaryonly",
+              "reason": "Necessaryactualdirectcallee, priorPRcurrentfactsnotautomaticP16credit; registerbeforeactualbodycomparison.",
+              "exclusions": "Onlyscopedhelpers/currentreceivingcontracts; unrelatedP16actiontests/otherSDK graphs excluded.",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\foraging\\sampling.rs",
+              "status": "registered_before_direct_definition_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADMISSION03-QUAL-056",
+                "registration_id": "NATIVE-ADMISSION03-REG-056",
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-056",
+                  "at": "2026-10-22T09:01:16.398238+00:00",
+                  "authority": "continuation/root/admission03-discovery-authority-043.json",
+                  "source_id": "physical-p16:crates/adventuresim-core/src/foraging/sampling.rs",
+                  "sha256": "66d67a552e4a0f212e7a776678140af4965c40239a052e0f845c73143537d6e0",
+                  "snapshot": "physical-p16",
+                  "actual_EOF": 25,
+                  "material_ranges": [
+                    [
+                      1,
+                      25
+                    ]
+                  ],
+                  "role": "ActualP16ForageDraw::belowhelperusedwithconcretepositive1000/1001/authoredyieldwidth byoriginal19; exactRNGnativeboundaryonly",
+                  "reason": "Necessaryactualdirectcallee, priorPRcurrentfactsnotautomaticP16credit; registerbeforeactualbodycomparison.",
+                  "exclusions": "Onlyscopedhelpers/currentreceivingcontracts; unrelatedP16actiontests/otherSDK graphs excluded.",
+                  "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\foraging\\sampling.rs",
+                  "status": "registered_before_direct_definition_body_analysis"
+                },
+                "original_requested_context_ranges": [
+                  [
+                    1,
+                    25
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    1,
+                    25
+                  ]
+                ],
+                "qualification": "P16ForageDraw belowexactNonZeroexpect/nativeRNG; actualuppers1000/1001/positiveauthoredwidth. Arbitrary0notcertified.",
+                "current_admission_proof_refs": [
+                  "contract-groups-072.json"
+                ],
+                "frozen_hash_eof_verified": true,
+                "semantics_from_hash_or_ranges": false,
+                "global_reconciliation": "Root authority; raw original registration retained; no globalacceptance from this localqualification",
+                "producer_owner_later_lens_credit": false
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                1,
+                25
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\foraging\\sampling.rs",
+            "actual_EOF": 25,
+            "bytes": 789
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Full purpose-separated RNG helper only inherent enum operation; no manual trait/serializer."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Forage wire vocabulary already derives while planner/rights eligibility remains explicit. Keep checked question binding, canonical digest framing, resolution/duration rules and deliberately limited public preview. Do not add serialization to replace runtime classifications.",
+      "qualification": "Full existing fixture source inspected only. Prior F44 and other operation/admission findings retain separate status; no derivability finding or clearance inferred from those reports."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 110,
+    "source_id": "physical-p16:crates/adventuresim-core/src/herbalism.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

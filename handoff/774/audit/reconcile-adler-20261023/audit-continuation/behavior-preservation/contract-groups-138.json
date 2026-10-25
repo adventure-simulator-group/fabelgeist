@@ -1,0 +1,131 @@
+{
+  "id": "CONT08-CONTRACT-138",
+  "at": "2026-10-25T12:43:49.363223+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 491,
+      "source_id": "pinned-sdk-2.6.1:db_connection.rs",
+      "package_source_origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spacetimedb-sdk-2.6.1/src/db_connection.rs",
+      "source_sha256": "79c452f092b1123e8a9c4f7ca3c34167290bb97e3a64093ce903f4bf742b2b9a",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/79c452f092b1123e8a9c4f7ca3c34167290bb97e3a64093ce903f4bf742b2b9a",
+      "head_body_read_ranges": [
+        [
+          715,
+          805
+        ],
+        [
+          930,
+          975
+        ],
+        [
+          1138,
+          1180
+        ]
+      ],
+      "comparison_pin": {
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "lock_evidence": "source-evidence/native-p16-lock-comparison-137.json"
+      },
+      "facts": [
+        "Exact715\u2013805/930\u2013975/1138\u20131180 actual SDK source; nofull1624. Reducer callback invocation queues PendingMutation andreturnsOk beforeauthoritativeexecution; three-layer callback Result retains transport/internal versus reducerString failure. Procedure serializes args beforequeue and decodes callbackreturn via BSATNexpect; actualconnection identityOption andbuildercreation can precede asynchronousconnectionfailure. Singleconnect/error callback registration policy unchanged; disconnect1180ends signature, noclosurebodycredit. Same SDK2.6.1 source/checksum at bothP16pins, noqueue/connectionexecution."
+      ],
+      "disposition": "Exact scoped own08 nativecontract accounted WITH qualifications; no broaderSDK/DB/nativeclock clearance.",
+      "acceptance": "Preserve actualqueued versus completed lifecycle, callback failureowner and transport shapes; retain signednativeclock/strategicclock separation and original fixture arithmetic/panic bounds. No tests/projectchecks/nativeexecution."
+    },
+    {
+      "scope_index": 492,
+      "source_id": "pinned-sdk-2.6.1:error.rs",
+      "package_source_origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spacetimedb-sdk-2.6.1/src/error.rs",
+      "source_sha256": "e98badf5f0eaff8bfe959e31b3ed9e4a6ad5cf5ec4040bfe806f74dc0c692d38",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/e98badf5f0eaff8bfe959e31b3ed9e4a6ad5cf5ec4040bfe806f74dc0c692d38",
+      "head_body_read_ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "comparison_pin": {
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "lock_evidence": "source-evidence/native-p16-lock-comparison-137.json"
+      },
+      "facts": [
+        "Full104 nativeerrorbody. TypedSDK disconnected/failedconnection/subscription/internal retained; InternalError storesnativecauseArc but stdError.source returnsNone while cause() exposes optionalcause and Display appends it. Applicationtypederror migration must preserve realnativeclassification withoutassumingstandard source chain exists. Old/newdependencyunchanged, no08newSDKdefect."
+      ],
+      "disposition": "Exact scoped own08 nativecontract accounted WITH qualifications; no broaderSDK/DB/nativeclock clearance.",
+      "acceptance": "Preserve actualqueued versus completed lifecycle, callback failureowner and transport shapes; retain signednativeclock/strategicclock separation and original fixture arithmetic/panic bounds. No tests/projectchecks/nativeexecution."
+    },
+    {
+      "scope_index": 493,
+      "source_id": "pinned-sdk-2.6.1:lib.rs",
+      "package_source_origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spacetimedb-sdk-2.6.1/src/lib.rs",
+      "source_sha256": "8de4cda1540f853eb47c888806c1529d3a7b2ed9e928d8fa01304f7d525e8161",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/8de4cda1540f853eb47c888806c1529d3a7b2ed9e928d8fa01304f7d525e8161",
+      "head_body_read_ranges": [
+        [
+          35,
+          65
+        ]
+      ],
+      "comparison_pin": {
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "lock_evidence": "source-evidence/native-p16-lock-comparison-137.json"
+      },
+      "facts": [
+        "Exact35\u201365 codegen/native reexports and internalSDKtypes; framework identifiers/time/SQLbuilder names are actualtypednativeport, not applicationcanonical bespokeowners. Rest76notcredited, no generationrun."
+      ],
+      "disposition": "Exact scoped own08 nativecontract accounted WITH qualifications; no broaderSDK/DB/nativeclock clearance.",
+      "acceptance": "Preserve actualqueued versus completed lifecycle, callback failureowner and transport shapes; retain signednativeclock/strategicclock separation and original fixture arithmetic/panic bounds. No tests/projectchecks/nativeexecution."
+    },
+    {
+      "scope_index": 494,
+      "source_id": "pinned-sdk-2.6.1:subscription.rs",
+      "package_source_origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spacetimedb-sdk-2.6.1/src/subscription.rs",
+      "source_sha256": "5b1c6b0def7c80c6afb1659ff676de3c9414173452a374041d4c9f27f760e729",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/5b1c6b0def7c80c6afb1659ff676de3c9414173452a374041d4c9f27f760e729",
+      "head_body_read_ranges": [
+        [
+          140,
+          190
+        ]
+      ],
+      "comparison_pin": {
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "lock_evidence": "source-evidence/native-p16-lock-comparison-137.json"
+      },
+      "facts": [
+        "Exact140\u2013190. SubscriptionBuilder retainsOptionone-shotapplied/error callbacks andcloneconnection;subscribe constructs queryset ID andhandlewithpendingchannel. Range190ends memberaccess, noqueuepublication/applicationcache lifecycleproof. Nativecontract unchanged, actualcallersmustdistinguishsubscribedready versus immediatehandle."
+      ],
+      "disposition": "Exact scoped own08 nativecontract accounted WITH qualifications; no broaderSDK/DB/nativeclock clearance.",
+      "acceptance": "Preserve actualqueued versus completed lifecycle, callback failureowner and transport shapes; retain signednativeclock/strategicclock separation and original fixture arithmetic/panic bounds. No tests/projectchecks/nativeexecution."
+    },
+    {
+      "scope_index": 495,
+      "source_id": "pinned-sdk:spacetimedb-sats2.6.1/src/timestamp.rs",
+      "package_source_origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spacetimedb-sats-2.6.1/src/timestamp.rs",
+      "source_sha256": "9a2b59b755254767182009ea99cc689199e310845668b3343faf52ca6139de0c",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/9a2b59b755254767182009ea99cc689199e310845668b3343faf52ca6139de0c",
+      "head_body_read_ranges": [
+        [
+          1,
+          343
+        ]
+      ],
+      "comparison_pin": {
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "lock_evidence": "source-evidence/native-p16-lock-comparison-137.json"
+      },
+      "facts": [
+        "Full343 timestampbody including existing fixtures/proptestsource, noexecution. Signedi64microsecondsUnixnativeclock distinctfromstrategicminute; checked duration arithmetic returnsNone foroverflow, operator overloadsunwrap andSystemTime/nativeconversion bounds unchanged. NegativeTimestamp conversion uses native negation, fromSystemTime preepochexpect and Displaychronoexpect are actualretainedAPIpolicies, noimplicitpromise fulli64isconvertible. AlgebraicValueproduct/wire identity and original microsecondroundtrip/checked arithmetic fixturemeaning preserved."
+      ],
+      "disposition": "Exact scoped own08 nativecontract accounted WITH qualifications; no broaderSDK/DB/nativeclock clearance.",
+      "acceptance": "Preserve actualqueued versus completed lifecycle, callback failureowner and transport shapes; retain signednativeclock/strategicclock separation and original fixture arithmetic/panic bounds. No tests/projectchecks/nativeexecution."
+    }
+  ],
+  "next": "496PR qualityworkflow393,497lock materialcomparison,498Cargo221,499graphics96 andbinaryassets500/501."
+}

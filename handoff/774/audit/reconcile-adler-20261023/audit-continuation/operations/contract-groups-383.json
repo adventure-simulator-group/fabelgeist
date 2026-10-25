@@ -1,0 +1,122 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-383",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/mod.rs",
+      "sha256": "48d31c75f2d06657271422a7fcd7b492ec6623da3e77a4db2beffaef3cdd9005",
+      "actual_EOF": 260,
+      "actual_compared_ranges": [
+        [
+          1,
+          260
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/quest_coverage.rs",
+      "sha256": "3d43a767b929a84550f716de78fab88ac13f0dd845501e3f7b62dc1b6ede9dc5",
+      "actual_EOF": 260,
+      "actual_compared_ranges": [
+        [
+          1,
+          260
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/report.rs",
+      "sha256": "73996e2153ad432112dc56113c74b29200ad3ab6dbb85e236343407ccbec39d7",
+      "actual_EOF": 172,
+      "actual_compared_ranges": [
+        [
+          1,
+          172
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/run_error.rs",
+      "sha256": "5f8680ad8019206c22009e97209b468c4b8148340f16a0e939d5100f2fb53500",
+      "actual_EOF": 28,
+      "actual_compared_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/schema_types.rs",
+      "sha256": "1652605409faa40d7ba5189405b89e55e69d935fdc07478507e9639da63b6bff",
+      "actual_EOF": 101,
+      "actual_compared_ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Module and generated schema adapters preserve existing canonical owners at actual transport boundaries",
+      "source_ranges": {
+        "live_core/mod.rs": [
+          [
+            1,
+            260
+          ]
+        ],
+        "schema_types.rs": [
+          [
+            1,
+            101
+          ]
+        ]
+      },
+      "disposition": "All361 lines personally read. Explicit module partitions/includes retainsharedapplication imports andcrate API. calendar_minute maps generated SDKu64minuteslosslesslyintocanonicalStrategicMinute, no arithmetic. In-capacitation3/bodyregion7/interventionroute4/surgeryprocedure6 exhaustivelymapclosedvariantsbothdirectionswhereused, no fabricatedother/default. Threeadapterfixturebodiesreadnotexecuted. Root currentfractureBodyRegion/SDKbindingsmayneedregenerationonfinalschema, nothandedit. Remaining includederror/policy/bootstrap/travelbodies retainowninventory dispositions, no crosscreditfrommoduleinclude."
+    },
+    {
+      "contract": "Coverage acceptance uses concrete metrics but needs coherent report population authority",
+      "source_ranges": {
+        "quest_coverage.rs": [
+          [
+            1,
+            260
+          ]
+        ],
+        "report.rs": [
+          [
+            1,
+            172
+          ]
+        ]
+      },
+      "disposition": "All432 lines read. Coverage requiresSomefixtureevidence thenordered14checks, using saturatingdirectattempts+intakes avoidsnativeoverflow andpreservesmonotonicdiagnosticpolicy; publicreportsarbitraryMAXcombinedmetrics questioninputaggregateowner notnew04ordinarycounterexample. Finalagents anydead/critical/stranded rejects, butemptyfinalagentsvacuouslypasses; reportprofile/populationcardinalitymustbeestablished byactualrunproducer/adopted03/05aggregateevidence. ExistingF023 missingagentomission joinsactualreportcreationdependency, no claimedacceptednormalemptyrun. DoesnotitselfverifyfixtureIDnonempty/distinct/currentSDKproof; actualselectedfixtureadapterownsprovenance (read378bootstrap71\u201398only, fullproducerinherited/pending). Allreportfieldsdeclaredrawterminalserdewiretypes, earlierapplicationcanonicalpropagationstillmandatory. Traceprefixcapcandidate381 alsoaffectswrittenquestcoveragefailure boundedtail. Writeoutputcreate_newonly; no filewritten/no verdictPASS."
+    },
+    {
+      "contract": "Run error aggregate distinguishes operation from diagnostic recording failure",
+      "source_ranges": {
+        "run_error.rs": [
+          [
+            1,
+            28
+          ]
+        ]
+      },
+      "disposition": "Entire28lines read. CoreLoopRunError::Operation preservesCoreLoopError; FailureReport keepsbothoriginalsourceerror andtypedreportcause. FailureReportError nativeJSON/IOsources preserved, mutexavailabilitydistinct. Noarithmetic/mutation. TrueSDK/display/CLIouterportsmustretainaggregate untilfinaloutput; internalStringhelperssharedCAM-PROP-F012 graph remainsnotclosedbythisenum."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "5 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-strategic-sim/src/live_core/settlement.rs"
+}

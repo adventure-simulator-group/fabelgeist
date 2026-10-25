@@ -1,0 +1,106 @@
+{
+  "id": "CONT07-CONTRACT-413",
+  "at": "2026-10-23T21:28:15.565263+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1810,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure.rs",
+      "sha256": "f9abcd66e159994c71c72f4cbf44f1562f9e72eb376d07cbef3f09f01cd2053b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure.rs",
+      "actual_EOF": 263,
+      "ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1811,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/binding.rs",
+      "sha256": "9db0cfc4b4c3053884d835faaca49a404c9942f7f0599b3069b89729fd8d7ae3",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/binding.rs",
+      "actual_EOF": 209,
+      "ranges": [
+        [
+          1,
+          199
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1812,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/projection.rs",
+      "sha256": "b9c9f5a56ca087ccf2cd618c4136ff2fe79d900005cdb98d007270cfc41bf1d1",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/projection.rs",
+      "actual_EOF": 272,
+      "ranges": [
+        [
+          1,
+          272
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1813,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/entry.rs",
+      "sha256": "5530e36190c3c3b7ccab00e124d4fd3ea5fec6e1601d6356a169640ca0b7431d",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/entry.rs",
+      "actual_EOF": 208,
+      "ranges": [
+        [
+          1,
+          208
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1814,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations.rs",
+      "sha256": "067e6669cec19996bd4cbe6fc1caf61c221b294ad11a150ccc3ca36423379797",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations.rs",
+      "actual_EOF": 390,
+      "ranges": [
+        [
+          1,
+          390
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "ROOT-OWNER-BOUNDARY-MESH-039",
+    "RIG-OWNER-SUPPORT-BOUNDARY-KERNELS-063",
+    "ROOT-OWNER-FOUNDATION-059"
+  ],
+  "supplier_narrative_selected_paths": [
+    "NATIVE-PS-ROOT-TERRAIN-SOURCE-PACKET-015 related_current_reads enclosure.rs/binding.rs and paths CornerSupportProbe/measure_enclosures only; larger initial output truncated, no full-packet credit"
+  ],
+  "facts": [
+    "1810 fixed enclosure face table is shared by triangles and collider. Actual six-vertex shape is admitted once and finite/index topology flows to native ports; no second mesh-physics topology list within this source.",
+    "1811 immutable binding stores property/members/gate/descriptor digest/elements. Constructor derives elements/digest from the same CityBoundary; validate_scene compares current elements and every authored scalar digest before accepting descriptor. validate_cells requires all expected elements and rejects foreign elements, nonempty binding guards an empty-cell report assumption. Private binding has no separate mutation API.",
+    "1812 projection verifies exact property/member relationship before deriving gate datum from source triangles; creates binding and public projection gate_elevation from the same gate. REG012 personally reads public mesh+gate_elevation definition at1811:205-209. API manual mismatch could be represented, but actual output consumer datum check/update proof remains pending. No finding promoted merely from public fields.",
+    "1812 GatePost head uses fixed gate+nominal_head; walls use soil+head and capbase uses soil+nominalbase. These are intentionally different datums, not wall/post independent truth drift. Return errors on ambiguous/no gate height or post headroom.",
+    "1813 bind_street_entry consumes self, validates and constructs complete reservation/support_region/mesh locally, installs once at97-102, and rejects second binding. Partial construction errors do not publish an updated plan. Reservation is external owned apron; support_region extends through setback to building bearing; they are different regions by design.",
+    "1814 stores exact shared native prism positions plus derived support/solid topology; append_cell coordinates all and validate cross-checks expected fixed topology for every cell. Getters expose immutable slices only. Selection source-control pass and later materializing compile share visit_source_intersections helper; they perform distinct phases, not independently authored cut/fill policy.",
+    "1814 foundation bottom selects minimum of source/support planes then embedment; source and support are independent surfaces. Coverage f64 decision versus narrowed diagnostic report is existing source-backed owner/precision obligation, not redundant current mesh. Collider/prism validity and arithmetic remain their own open lenses; no clearance from these roles.",
+    "No new07 defect established in this batch. REG012 needs all-lens reconciliation; no checks executed and all13/overlay gate remains open."
+  ],
+  "new_local_findings": [],
+  "new_material_registrations": [
+    "CONT07-REG-012"
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1815,
+    "start_line": 1
+  }
+}

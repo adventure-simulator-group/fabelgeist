@@ -1,0 +1,336 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-185",
+  "at": "2026-10-25T13:24:33.952920+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 361,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/physics/quickstep.rs",
+      "sha256": "b14b69313123c2918b34a7aaa2c076821c05d7756edcfbee08561a4071504278",
+      "actual_EOF": 81,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-tactical-core/src/physics/quickstep.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-tactical-core/src/physics/quickstep.rs",
+        "owner": "root",
+        "sha256": "b14b69313123c2918b34a7aaa2c076821c05d7756edcfbee08561a4071504278",
+        "base_sha256": "10c98a5fec7f36e1567f37c82b15e65c990d8412f2a1a1a9f67982adaef10223",
+        "state": "modified",
+        "bytes": 2664,
+        "audit_owner": "root",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "root",
+            "record": "wave-01/audit-producer-propagation/root/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                81
+              ]
+            ],
+            "source_read_status": "full_collaborative_body_proof",
+            "trace_refs": [
+              "ROOT-PP-DISPATCHER-023",
+              "CAM-PROP-MOTOR-001"
+            ]
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                81
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-MOTOR-001",
+              "CAM-PROP-STRATEGIC-PROJECTION-001",
+              "CAM-PROP-WEAPON-STORAGE-001",
+              "CAM-PROP-REFERENCE-GEOMETRY-001"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 62,
+            "read_ranges": [
+              [
+                1,
+                81
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-MOTOR-013"
+            ],
+            "read_status": "full_PR_body_plus_exact_current_overlay_delta",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-core/src/physics/quickstep.rs"
+          },
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 329,
+            "read_ranges": [
+              [
+                1,
+                81
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-MOTOR-013",
+              "ROOT-OWNER-MOTOR-CLOSURE-072"
+            ],
+            "read_status": "full_PR_body_plus_exact_current_overlay_delta",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-core/src/physics/quickstep.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "No manual traits/serializers in this source.",
+      "absence_basis": "Whole source contains plain QuickstepSampleClock and inherent lifecycle/timing functions; exact tick quantization and native normalized direction policy are semantic operations."
+    },
+    {
+      "scope_index": 362,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/player.rs",
+      "sha256": "ebf883ac714ec8f48c9377495da01713b01e9f4ba9e7bd5e4edda78dc320ee68",
+      "actual_EOF": 650,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-tactical-core/src/player.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-tactical-core/src/player.rs",
+        "owner": "root",
+        "sha256": "ebf883ac714ec8f48c9377495da01713b01e9f4ba9e7bd5e4edda78dc320ee68",
+        "base_sha256": "7950d432247add4cf942e8eaf9a0dfeed6199326e4518094a1d616d1cd89a645",
+        "state": "modified",
+        "bytes": 21555,
+        "audit_owner": "native",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                40,
+                90
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-MELEE-001",
+              "CAM-PROP-REFERENCE-GEOMETRY-001",
+              "CAM-PROP-CONCENTRATION-001"
+            ]
+          },
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/supplemental-server-assignment.json",
+            "ranges": null,
+            "source_read_status": null,
+            "trace_refs": []
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 14,
+            "read_ranges": [
+              [
+                100,
+                140
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SCALE-001",
+              "CAM-OWN-AUTORESOLVE-001",
+              "CAM-OWN-CONFIG-001"
+            ],
+            "read_status": "partial",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-core/src/player.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 757,
+            "read_ranges": [
+              [
+                1,
+                650
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-MOTION-CAPTURE-RECEIVER-120"
+            ],
+            "read_status": "shared-current-lens-body-proof",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-core/src/player.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 23,
+            "read_ranges": [
+              [
+                1,
+                650
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-REPORT-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-core/src/player.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 379,
+            "read_ranges": [
+              [
+                1,
+                650
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-REPORT-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-core/src/player.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera",
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": 103,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          650
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Default",
+          "type": "CharacterDimensions/Player/BestiaryCategories/Stats/Limbs/Skills/TacticalAttributes",
+          "lines": [
+            58,
+            75,
+            92,
+            98,
+            141,
+            145,
+            155,
+            162,
+            198,
+            211,
+            330,
+            383,
+            456,
+            478
+          ],
+          "disposition": "KEEP authored measured anatomy, shared starting-character projection, Human category, focus1, healthy limb values and religion aggregation. Fieldwise defaults change gameplay policy."
+        },
+        {
+          "trait": "PlayerEssentials",
+          "type": "Stats",
+          "lines": [
+            164,
+            182
+          ],
+          "disposition": "KEEP explicit condition bypass1 to avoid hidden duplicate combat impairment plus native scalar projection; no equivalent available custom-trait derive."
+        },
+        {
+          "trait": "PlayerBody",
+          "type": "Limbs",
+          "lines": [
+            227,
+            248
+          ],
+          "disposition": "KEEP body-part classifier and right-primary-side policy; not structural trait."
+        },
+        {
+          "trait": "PlayerSkills",
+          "type": "Skills",
+          "lines": [
+            405,
+            446
+          ],
+          "disposition": "KEEP enum-to-fields policy including absent skills0 and aggregate/effective lore transformations."
+        },
+        {
+          "trait": "From<PlayerAttributeValues>",
+          "type": "TacticalAttributes",
+          "lines": [
+            480,
+            484
+          ],
+          "disposition": "F004: exact existing derive_more::From is equivalent for this nongeneric owned sole-field wrapper."
+        },
+        {
+          "trait": "PlayerAttributes",
+          "type": "TacticalAttributes",
+          "lines": [
+            486,
+            494
+          ],
+          "disposition": "KEEP small bespoke-trait forwarding; available derive_more::From/Deref does not derive this project trait."
+        }
+      ],
+      "existing_derives": "All carriers/components/native Serde/reflection and SystemParam already derive; CharacterId ordering/hash/default structural.",
+      "absence_basis": "Full player body and fixtures consumed. Query assembly, deterministic color and gameplay helpers remain semantic. Exact F004 dependency source saved185; no other cleanup generalized."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Tactical player semantic adapters versus mechanical From",
+      "disposition": "Retain gameplay/default/custom trait implementations; recommend only exact field-wrapping From derive under F004.",
+      "acceptance": "Keep all current native errors, source/destination types, wire shape, historical defaults and combat impairment policy. No raw-admission derive or source change during discovery."
+    }
+  ],
+  "findings": [
+    "SEGOVB-INITIAL10-F004"
+  ],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 363,
+    "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_coordinates.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

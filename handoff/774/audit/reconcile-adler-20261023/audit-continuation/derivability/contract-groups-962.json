@@ -1,0 +1,146 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-962",
+  "at": "2026-10-25T17:20:38.073701+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1131,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/sites/provenance.rs",
+      "sha256": "daffad8de81538d7a0bef0700cf95fbfccd01dae12ad483427b9b0246c4f29d2",
+      "actual_EOF": 95,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/sites/provenance.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/investigation/sites/provenance.rs",
+        "sha256": "daffad8de81538d7a0bef0700cf95fbfccd01dae12ad483427b9b0246c4f29d2",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 3415,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 634,
+            "read_ranges": [
+              [
+                1,
+                95
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-INVESTIGATION-SITES-CLAIMS-092"
+            ],
+            "read_status": "fresh-current-lens-full-source-read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/investigation/sites/provenance.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CASE-RECEIVERS-029",
+            "json_pointer": "/current_sources/14",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/investigation/sites/provenance.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                95
+              ]
+            ],
+            "source_context": {
+              "packet_obligation": 15,
+              "assigned_camera_index": 640,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/sites/provenance.rs",
+              "sha256": "daffad8de81538d7a0bef0700cf95fbfccd01dae12ad483427b9b0246c4f29d2",
+              "read_ranges": [
+                [
+                  1,
+                  95
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/investigation/sites/provenance.rs",
+              "read_status": "full current frozen body; packet7 shares independently verified identical bytes with packet6",
+              "role": "site-provenance",
+              "disposition": "Manual None, validated generated aliases, and invalid/ambiguous absence remain distinct. Validator returns a typed authority before canonical/public alias tuple projection. Exact F011 aggregate repair dependency; no universal alias/String substitute.",
+              "trace_refs": [
+                "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016#site-provenance"
+              ],
+              "authority": "Camera716 explicit per-cell reconciliation and whole DB repair authority unchanged"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016",
+            "json_pointer": "/source_reads/14",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/investigation/sites/provenance.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                95
+              ]
+            ],
+            "source_context": {
+              "packet_obligation": 15,
+              "assigned_camera_index": 640,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/sites/provenance.rs",
+              "sha256": "daffad8de81538d7a0bef0700cf95fbfccd01dae12ad483427b9b0246c4f29d2",
+              "read_ranges": [
+                [
+                  1,
+                  95
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/investigation/sites/provenance.rs",
+              "read_status": "full current frozen body; packet7 shares independently verified identical bytes with packet6",
+              "role": "site-provenance",
+              "disposition": "Manual None, validated generated aliases, and invalid/ambiguous absence remain distinct. Validator returns a typed authority before canonical/public alias tuple projection. Exact F011 aggregate repair dependency; no universal alias/String substitute.",
+              "trace_refs": [
+                "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016#site-provenance"
+              ],
+              "authority": "Camera716 explicit per-cell reconciliation and whole DB repair authority unchanged"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1341,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full view/reducer case authority lookup and contextual alias validation consumed. Explicit nested Option distinguishes invalid, manual and generated aliases after unique validated manifest check. Native functions only, no trait/codec or equivalent raw derive."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Site provenance derivability",
+      "disposition": "Preserve three semantic outcomes and exact case/manifest correlations, no added Serde classifier or unchecked conversion."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1132,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

@@ -1,0 +1,164 @@
+{
+  "id": "CONT07-CONTRACT-637",
+  "at": "2026-10-24T00:52:24.496614+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2781,
+      "source_id": "physical-p16:crates/adventuresim-core/src/quest_generation/sampling.rs",
+      "sha256": "3c679c4e5177ee4462d6286d81cdd3e3cfaa9b6e2d91e844d3d45b8e2f666a44",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/quest_generation/sampling.rs",
+      "actual_EOF": 213,
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2782,
+      "source_id": "physical-p16:crates/adventuresim-core/src/quest_generation/solver.rs",
+      "sha256": "5d9b71ab4620264dce7604d0c9662f52009a887d00225927ef217087e0f10ba2",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/quest_generation/solver.rs",
+      "actual_EOF": 979,
+      "ranges": [
+        [
+          1,
+          216
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2783,
+      "source_id": "physical-p16:crates/adventuresim-core/src/rights.rs",
+      "sha256": "452c9b104be14352c93d247f83a87de98fa79b10c86d3b51d28eaa252a927b07",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/rights.rs",
+      "actual_EOF": 1224,
+      "ranges": [
+        [
+          1,
+          274
+        ],
+        [
+          296,
+          297
+        ],
+        [
+          719,
+          796
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2784,
+      "source_id": "physical-p16:crates/adventuresim-core/src/provisioning.rs",
+      "sha256": "438b45a44c51026e751788a6ef9da9c40ee88ae53eac79a64ca0845d5170cd68",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/provisioning.rs",
+      "actual_EOF": 118,
+      "ranges": [
+        [
+          3,
+          3
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2785,
+      "source_id": "dependency-serde_json1.0.151:src/map.rs",
+      "sha256": "b5a2fd1ee865e6cfd83ef2da0a2e1057f892465ac7ede8a78a11354a60526f33",
+      "origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_json-1.0.151/src/map.rs",
+      "actual_EOF": 1181,
+      "ranges": [
+        [
+          29,
+          36
+        ],
+        [
+          120,
+          129
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2786,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness/museum.rs",
+      "sha256": "35d53d3ede39827789e549ee71207e9a7441cceb825d1f119698459e6d238922",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation_viewer/harness/museum.rs",
+      "actual_EOF": 69,
+      "ranges": [
+        [
+          3,
+          17
+        ],
+        [
+          19,
+          36
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2787,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/bones.rs",
+      "sha256": "1178bf380da9126c00678608493b9d252af9746d853d347d5f334d451586b5bb",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-tactical-client/src/animation_viewer/report/bones.rs",
+      "actual_EOF": 138,
+      "ranges": [
+        [
+          6,
+          106
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2788,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/tactical.rs",
+      "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-stdb-module/src/tactical.rs",
+      "actual_EOF": 1515,
+      "ranges": [
+        [
+          494,
+          566
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2789,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation/procedural/rig.rs",
+      "sha256": "5da088286521af8e54c621b356ceb3fa949d3870c3748494352eda9016277bec",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-tactical-client/src/animation/procedural/rig.rs",
+      "actual_EOF": 514,
+      "ranges": [
+        [
+          50,
+          79
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "P16 quest sampling canonicalizes candidate order, traces independent plausibility/curation acceptance and selects by current combinedweight. Solver keeps witness-candidate actual demographics/circumstance facts and explicit primary/secondary ordinals, rejecting insufficient candidates and required circumstance mismatch before binding. Trace accepted/rejected/history intentionally describes intermediate decisions, not a current mutable result duplicated as policy. Need actual context admission for unique persistent witnessIDs; distinct index alone is not identity proof (inherited aggregate contracts retained).",
+    "RightsQuestion privately coordinates resource/placejurisdiction and self-containment, fingerprint explicitly frames purpose/version/typedvariants to avoid ambiguous concatenation. PrivateRightsDecision evidence/provenance/consumption are independent explanation/permission snapshots; sanitized denied result intentionally reveals only unavailable. No authority granted by these pure values alone, actual reducer must gather current evidence and commit separately. Broader unscoped rights bodies not credited from declarations.",
+    "P17 report bones maps semantic roles to selected legacy labels once; CapturedBones sorts by label for deterministic historical fold/order and serializes that mapping, intentionally subset17 versus full Rig BoneRole. Report completeness uses this selectedset, not everynativebone. Museum item arrays intentionally distinct loadouts, not duplicate complete catalogue rosters. Serde Map insert overwritesexisting key by actualdependency contract; source schema uniqueness prerequisite explicit, no new runtime duplicate field witnessed.",
+    "P16 enter_mission checks sender/serveridentity, living actor, active server assignment and missionparty/current membership before writing character.server. Authorized requested roster is historicalpermission snapshot and current party is freshness check, both required facts; enemies and temporary fixture exception explicit. Schema authority versus character assignment are coordinated membership references, not blanket duplicate server state to remove."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2790,
+    "start_line": 1
+  }
+}

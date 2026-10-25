@@ -1,0 +1,86 @@
+{
+  "id": "CONT08-CONTRACT-276",
+  "at": "2026-10-25T15:36:13.915596+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 1055,
+      "source_id": "pr-working:crates/adventuresim-procedural-materials/src/lib.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-procedural-materials/src/lib.rs",
+      "before_sha256": "3d5a061b676b7715c8db2c3687f4feadd02dd94e6e1cd51dded341c287c43396",
+      "after_sha256": "3d5a061b676b7715c8db2c3687f4feadd02dd94e6e1cd51dded341c287c43396",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1055-base-3d5a061b676b7715c8db2c3687f4feadd02dd94e6e1cd51dded341c287c43396",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/3d5a061b676b7715c8db2c3687f4feadd02dd94e6e1cd51dded341c287c43396",
+      "diff": "source-evidence/pr-1055.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          174
+        ]
+      ],
+      "head_body_read_method": "FreshcompleteCPUmaterialandWGSLbodies with fullactualemptyPRdiffs and explicitactualbinding/clock/LODpassqualifications",
+      "facts": [
+        "Freshfull174+emptyPRdiff. Embeddedshaderpaths/materialplugins/bindings preserved: leaftextures0..11/uniform12threeVec4; barktexture100/sampler101/uniform102tenVec4/heightmap103/soil104\u2013105 exact1056/1057WGSLlayout. AlphaToCoverage/prepass/shadows/noCull/specializefragmenttransmissiondefines distinctidempotentappend stableorder retained.",
+        "Leafparameters CPU-synchronizedphasetimecomment47 doesnotestablishactualclock: actual1057 usesglobals.time andignoresparameters.w, sameinbase. Recordcommentqualificationwithoutnewbehaviorregression orrenderer run; rawpublicmaterialfieldadmission/nativeSDK boundary remainsactualport."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1056,
+      "source_id": "pr-working:crates/adventuresim-procedural-materials/src/shaders/tactical_tree_bark.wgsl",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-procedural-materials/src/shaders/tactical_tree_bark.wgsl",
+      "before_sha256": "226829eae04e17626eeda3721fcbe33fc5c2d51b0a73ed9c81112fe87f7dc653",
+      "after_sha256": "226829eae04e17626eeda3721fcbe33fc5c2d51b0a73ed9c81112fe87f7dc653",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1056-base-226829eae04e17626eeda3721fcbe33fc5c2d51b0a73ed9c81112fe87f7dc653",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/226829eae04e17626eeda3721fcbe33fc5c2d51b0a73ed9c81112fe87f7dc653",
+      "diff": "source-evidence/pr-1056.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          517
+        ]
+      ],
+      "head_body_read_method": "FreshcompleteCPUmaterialandWGSLbodies with fullactualemptyPRdiffs and explicitactualbinding/clock/LODpassqualifications",
+      "facts": [
+        "Freshfull517/twoboundedreads+emptyPRdiff. Exactuniformfield/binding/textureheight16bitdecode/terraintriangle diagonal sampling/clampedgrid edge, soilwarp/dominantprojection/seededcellcoating androotheightconditional math unchanged. ActualCPUheightmaplayout/dimensions>=2 andworldframepopulation separatepending, notprovedbysamehash.",
+        "Barktriplanar/branchUV2m/presetalignment/warp/cotangentderivatives/parallax16stepsandhorizon3stepboundedviareservedsoiloptics.y/nativecutoffs unchanged; nativezero tangent/light normalize notassertedunreachable forallpublicmaterial. Colorrootheightmetadata/terrainceiling/rangeconditional/physicalcontactresponse.0381..0508 usesexactnativeunits andthresholds. PBRnormal/roughness/AO/reflectance/soilblend/alpha andforwardvsdeferredportorder retained, noGPUexecution orvisualacceptance."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1057,
+      "source_id": "pr-working:crates/adventuresim-procedural-materials/src/shaders/tactical_tree_leaf_card.wgsl",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-procedural-materials/src/shaders/tactical_tree_leaf_card.wgsl",
+      "before_sha256": "46a5f6da85cac6f612bdbeae41a1aa0cbee85b88205509e331ad526ca6fb146c",
+      "after_sha256": "46a5f6da85cac6f612bdbeae41a1aa0cbee85b88205509e331ad526ca6fb146c",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1057-base-46a5f6da85cac6f612bdbeae41a1aa0cbee85b88205509e331ad526ca6fb146c",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/46a5f6da85cac6f612bdbeae41a1aa0cbee85b88205509e331ad526ca6fb146c",
+      "diff": "source-evidence/pr-1057.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          284
+        ]
+      ],
+      "head_body_read_method": "FreshcompleteCPUmaterialandWGSLbodies with fullactualemptyPRdiffs and explicitactualbinding/clock/LODpassqualifications",
+      "facts": [
+        "Freshfull284+emptyPRdiff. ActualCPU12uniformthreeVec4 andsixtextures/samplers match1055; forward/prepassglobalstime wind/rootUVbend andsamepositionforpreviousmotion remainretained. CPUphasecommentnotactualuniformclock; no newunrequestedperformance/visualpolicy.",
+        "Opacitydiscardstrict<cutoff, shadowmin.48 andwholeterminalshootcolor.b<.42, visibleditheralpha1-abs/16 vsdepthnormalmotion/shadowmidpointhandoff(-8,8] exactintentionaldifferentpasses. ForwardbackfacesamplesexplicitGrad, tangentframeorientation/normalstrength, vertexpigmentoptin/alphaCanopyAO, ARMroughness/metal0/reflectance.22/transmission/thickness/nativeSSAO order unchanged. PublicdegenerateUV/zeroWind/nativeinputs notblanketvalid; actualproducersseparatescope. No WGSLcompile/device/render/test."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    }
+  ],
+  "next": "1058puzzlesmanifest/1059choices/1060lib/1061logicgrid407/1062sigils392/1063puzzles1131/1064resources373"
+}

@@ -1,0 +1,227 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-172",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/disease.rs",
+      "sha256": "c001a52a7bb957260ae3914ca056d847292760b5911984791143b8a4a1ede2e5",
+      "actual_EOF": 2950,
+      "actual_compared_ranges": [
+        [
+          1,
+          2950
+        ]
+      ],
+      "method": "Entire literal P16 body including source fixtures personally read. Complete PR textual differences consumed and every typed error/inventory checked helper delta analyzed. Complete helper comparisons consumed; no hash-only credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/disease/administration_adapter.rs",
+      "sha256": "980f43c8f979574fcc23678173933bcef9f8fc18e678d0070dc3c8ec1e2a3181",
+      "actual_EOF": 27,
+      "actual_compared_ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "method": "Entire literal P16 body including source fixtures personally read. Complete PR textual differences consumed and every typed error/inventory checked helper delta analyzed. Complete helper comparisons consumed; no hash-only credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/disease/exposure_sources.rs",
+      "sha256": "fd65f1ffe87f35659e8ebfa0216668ba5e1c17373d94539901cf36bab248c81b",
+      "actual_EOF": 77,
+      "actual_compared_ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "method": "Entire literal P16 body including source fixtures personally read. Complete PR textual differences consumed and every typed error/inventory checked helper delta analyzed. Complete helper comparisons consumed; no hash-only credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+      "sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+      "actual_EOF": 50,
+      "actual_compared_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "method": "Entire literal P16 body including source fixtures personally read. Complete PR textual differences consumed and every typed error/inventory checked helper delta analyzed. Complete helper comparisons consumed; no hash-only credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/disease/interval.rs",
+      "sha256": "4384f792f23b407ce0400d31755a84c01e36c464be04edcea9ca39859deda652",
+      "actual_EOF": 53,
+      "actual_compared_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "method": "Entire literal P16 body including source fixtures personally read. Complete PR textual differences consumed and every typed error/inventory checked helper delta analyzed. Complete helper comparisons consumed; no hash-only credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease.rs",
+      "sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+      "actual_EOF": 2950,
+      "actual_compared_ranges": [
+        [
+          1,
+          2950
+        ]
+      ],
+      "method": "Entire literal P16 body including source fixtures personally read. Complete PR textual differences consumed and every typed error/inventory checked helper delta analyzed. Complete helper comparisons consumed; no hash-only credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/administration_adapter.rs",
+      "sha256": "980f43c8f979574fcc23678173933bcef9f8fc18e678d0070dc3c8ec1e2a3181",
+      "actual_EOF": 27,
+      "actual_compared_ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "method": "Entire literal P16 body including source fixtures personally read. Complete PR textual differences consumed and every typed error/inventory checked helper delta analyzed. Complete helper comparisons consumed; no hash-only credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/exposure_sources.rs",
+      "sha256": "fd65f1ffe87f35659e8ebfa0216668ba5e1c17373d94539901cf36bab248c81b",
+      "actual_EOF": 77,
+      "actual_compared_ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "method": "Entire literal P16 body including source fixtures personally read. Complete PR textual differences consumed and every typed error/inventory checked helper delta analyzed. Complete helper comparisons consumed; no hash-only credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/interval.rs",
+      "sha256": "4384f792f23b407ce0400d31755a84c01e36c464be04edcea9ca39859deda652",
+      "actual_EOF": 53,
+      "actual_compared_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "method": "Entire literal P16 body including source fixtures personally read. Complete PR textual differences consumed and every typed error/inventory checked helper delta analyzed. Complete helper comparisons consumed; no hash-only credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+      "sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+      "actual_EOF": 50,
+      "actual_compared_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "method": "Entire literal P16 body including source fixtures personally read. Complete PR textual differences consumed and every typed error/inventory checked helper delta analyzed. Complete helper comparisons consumed; no hash-only credit."
+    }
+  ],
+  "dependency_reads": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/physiology.rs",
+      "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+      "ranges": [
+        [
+          906,
+          929
+        ]
+      ],
+      "coverage": "fresh critical supplier only, no new whole role credit"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/calendar.rs",
+      "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "ranges": [
+        [
+          89,
+          143
+        ]
+      ],
+      "coverage": "fresh critical owner only, no new whole role credit"
+    }
+  ],
+  "groups": [
+    {
+      "id": "Observer chart bounds and finite mixtures",
+      "locations": "disease257-764; fresh actual physiology906-929",
+      "trace": "Span end is clamped to joint clocks and skipped when before start.30-day range bounds natural_count<=43201 so +1 and usize conversion are safe on supported native32/64bit. Cadence.max1 and positive stride with bounded end prevents nonprogress; rows cap checked at innerloop. Gap insertion can fill last row, then loop exits. Schema region/humour enums index fixed arrays; fresh quantizer clamps to signed10000 before i16 cast, so i16.abs cannot receiveMIN from actual supplier. Visible mix has finite small fixed-region sums; normalize_mix divides only positive total else uniform. Starter disease definitions are fixed nonempty, not arbitrary caller vectors, so mean denominator not0. Expected disease timing multiplies step<=24 by authored small duration, not arbitraryu64 horizon.",
+      "disposition": "No new overflow/index/zero denominator from actual bounded chart producers. Do not universalize normalize_mix to arbitrary f32MAX API input: this helper is private and all actual sources bounded. Chart filter_map(.ok()) drops invalid persisted episodes/administrations; this remains decoding/admission migration, not proof all storage is accepted.",
+      "dependencies": [
+        "Core physiology quantizer and actual disease catalogue",
+        "Native chart/default clock CAM-PPS-F003",
+        "Generated observer bindings and clinical privacy graph"
+      ],
+      "acceptance": "Preserve chart boundedness, signed humour observations, coarse uncertainty and source-free differential inference. Rejection/unavailable state must not become healthy fabricated history."
+    },
+    {
+      "id": "Plan coverage, timeline budgets and bound admission",
+      "locations": "disease867-1313; interval1-53; exposure_sources1-77",
+      "trace": "IDs sorted/dedup; member clocks required before horizons. Relevant spans fetched through both indexes and raw count bounded8192, unique count4096. Derived coverage plus pairs is bounded before segment construction. Peer clocks still defaultmissing->ZERO; actual map indexing is safe because same spanIDs built peer set first. Candidate checks bound scheduled/environmental totals100000; base work<=2000000 before core timeline. Blood work uses saturated minutes*route count as a budget, not exact monetary amount. Open pair endpoints include requestedhorizon; contact start+1 respects exclude-old frontier except terminalMAX saturation qualification. Public default/wrong-member plan remains exact supplied NATIVE-INITIAL05-F044, not newly counted. Cached terminal coverage failure is separately recorded. Historical zero vs unavailable remains conflated in protected_point_exposure971-976; because actual capability band/pinning semantics are not yet fully joined, do not assert observed protection regression.",
+      "disposition": "One representable terminal-end strengthening discovery; existing plan binding and missing-clock findings retained. No claim bounded work rejects midway after committing this plan: plan building itself has no DB writes.",
+      "dependencies": [
+        "SEGOVB-04-DISEASE-TERMINAL-COVERAGE-001",
+        "audit/continuation/native/initial05-aggregate-states/findings.jsonl#45",
+        "Core acquisition timeline, social pinned-band updates and filth",
+        "CAM-PPS-F003 missing clock receivers"
+      ],
+      "acceptance": "Bounded plans retain exact membership, starts/horizons and healing policy; preview/commit use same proposals and actual inclusive prefix. Preserve valid historical zero distinct from absent coverage where policy requires it."
+    },
+    {
+      "id": "Terminal clipping, administration and clock failures",
+      "locations": "disease766-865,1477-1507,1654-2055,2080-2392; administration_adapter1-27",
+      "trace": "Current episode decoding checks versions and parses DiseaseId. Private terminal crossing collects structural boundaries and interventions before mutation. Preview body has no writes; commit clips acquisition and notice delivery inclusively to earliest terminal and advances filth cursor only through committed prefix. Terminal exactly at requestedend retains explicit bool. Clip no-terminal returns requested even when now+requested saturates; outer time advancement acceptance must resolve representability, so no independent ordinary failure asserted without actual caller. Administration validates dose1..8000, singleton custody, profile/route and required patient time before writes; component zero is intentional no-op. Stop falls back to administered_at when clock missing, unlike real current stop time. record_committed_cut and effective attributes default clockZERO; these join existing missing chronology graph. Adapter checks ruleset and dose but not every profile/key/stop relationship; keep supplied admission/aggregate gaps open. Writes before later terminal/notice failures need whole transaction/catch policy before committed-partial assertion.",
+      "disposition": "Extend missing-clock receiver evidence, preserve raw finite-admission and aggregate qualifications. No raw NaN accepted-input claim. Existing source-only tests were read, not run.",
+      "dependencies": [
+        "CAM-PPS-F003",
+        "Native treatment/capability recipient rules and SDK rollback policy",
+        "NATIVE-INITIAL05-F044",
+        "local774:F05/M30 P16 error migration"
+      ],
+      "acceptance": "Required chronology must survive or explicitly report unavailable state. Reject invalid administration before publishing retained state, preserve true zero dose component no-op, finite signed clinical ranges and terminal-inclusive semantics."
+    },
+    {
+      "id": "Fixtures and purchasing arithmetic",
+      "locations": "disease2394-2705; fixture_administrations1-50",
+      "trace": "Actual fixture day argument is1440, dates<=60days and ages<=50days, so helper products6*day cannot overflow at actual private caller; arbitraryday input is not admitted externalAPI. Fixture high skill hours are intended, not evidence universal5000cap. Purchase aligns nonempty vectors and qty1..100 before charges; unit quotedu32 times qty100 fitsu64, sum saturatesu64. Individual currency/inventory acceptance may rule out astronomically many entries; no ordinary cheaper purchase overflow asserted. Shared helper preserves individual meds vs fungible ingredient stack. P16 fallible item helper and PR checked-name helper differ as exact migration delta; no compiler/check invoked.",
+      "disposition": "No new current arithmetic finding from fixed fixture or actualbounded line product. Preserve existing quote narrowing ROOT-INITIAL04-F034 and money leaf/admission graph; do not equate unrelated whole-input constraints.",
+      "dependencies": [
+        "Core merchant/local_problem price owners and nativecurrency capacity",
+        "Item inventory singleton/stack construction",
+        "Frozen P16 typed error integration CAM-PROP-F006"
+      ],
+      "acceptance": "Successful purchase preserves exact admitted charge and requested quantities; overflow may reject under canonical money policy. Preserve individual medications and clean final helper API."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-DISEASE-TERMINAL-COVERAGE-001",
+      "kind": "Representable retained-state terminal endpoint strengthening",
+      "source_variants": [
+        "physical-p16",
+        "pr-working"
+      ],
+      "locations": "disease1166-1188,1026-1035,1307; calendar89-143 fresh actual dependency",
+      "case": "Represent clock start MAX-1, requested1, one valid covering physiology presence span from MAX-1 through open end, and positive observer band. Projection ends at MAX. Coverage boundaries contain MAX-1 and end.saturating_add_minutes(1)=MAX. windows(2) emits only segment[MAX-1,MAX-1]; check_at(MAX) returns0 despite inclusive original coverage through MAX. The same loss occurs for closed endMAX. No arithmetic execution, live DB reproduction, or normal timeline claim. Exact StrategicMinute constructor admits every u64 and explicitly exposes MAX.",
+      "operation": "Inclusive-end to successor-exclusive conversion collapses the terminal successor at saturation and then subtracts1, dropping an admitted endpoint.",
+      "connected_repair": "Retain inclusive segments with an explicit terminal end or use checked successor and terminal policy; feed actual admitted interval to acquisition protection. Do not make MAX represent missing time or silently fabricate further minutes.",
+      "dependencies": [
+        "Canonical StrategicMinute terminal semantics",
+        "Native cached historical coverage -> Core acquisition timeline",
+        "Plan member/horizon binding NATIVE-INITIAL05-F044"
+      ],
+      "acceptance": "A successful cached plan must provide the same positive historical check as original inclusive coverage at each represented minute including MAX, or explicitly reject an unsupported terminal interval. Preserve ordinary segmentation, zero check and split-interval determinism.",
+      "unique_count": "Not assigned; discovery record only, root reconciliation required."
+    }
+  ],
+  "status": "Ten source roles compared; connected findings and whole lens remain incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/equipment_law.rs"
+}

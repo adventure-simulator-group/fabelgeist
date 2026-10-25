@@ -1,0 +1,31 @@
+{
+  "id": "AGD29",
+  "source": [
+    "crates/adventuresim-character-creator/src/bracer.rs",
+    "crates/fabelgeist-armor/src/design.rs",
+    "crates/fabelgeist-armor/src/plate_fluting.rs",
+    "crates/fabelgeist-armor/src/lib.rs",
+    "crates/fabelgeist-armor/src/gpu/bracer_wgsl.rs",
+    "crates/fabelgeist-armor/src/gpu/bracer_contour_wgsl.rs",
+    "crates/fabelgeist-armor/src/gpu/chart/chart_wgsl.rs"
+  ],
+  "dependencies": [
+    "Initial all13 expanded discovery incomplete; source repairs frozen until complete M04/M05/current-main/native export reconciliation.",
+    "#774 exact breastplate/bracer/whole fitting bodies/fields retained; canonical native core #826 separately assigned and acknowledged.",
+    "No new tests/cases/helpers/assertions; use existing fixtures and hosted project checks only after complete connected families."
+  ],
+  "acceptance_criteria": [
+    "Canonical mesh vertex/triangle/corner/sample/query/sort populations and native byte/grid/invocation quantities remain distinct through original producers/storage/recipients.",
+    "Controlled checked aggregate layouts preserve source association, full columns, packed ID eligibility and actual allocated active-prefix/layout ranges; admit before narrowing or allocation.",
+    "Preserve original topology, seam/ridge/trim/course correspondence, physical wall offsets, sampling tie/order, skin policy and post-submit readback; do not invent retained-state failures for discarded locals."
+  ],
+  "discovery": "fresh scoped aggregate source proof; full union incomplete",
+  "repair": "frozen",
+  "validation": "not-run",
+  "field_relationship": "ForearmSurfaceInput vertex columns/body-UV triangle pairing/skin joint membership/global states/morph samples must describe one named rig and source topology. Validated BracerDesign fluting count/pattern sets the private around/ring/grid/native resource layout. Native contour sample count/IDs/weights and strongest joint sets fit fixed local arrays.",
+  "construction_and_mutation": "Forearm validate establishes named nonempty domain, matching normals/skin/morph vertex columns, face/UV-face count and joint-name/state lengths; it does not validate UV IDs or joint-index membership. GpuBody later adds positive vertex/face membership, but does not establish UV or skin-joint membership. Bracer validate calls PlateFluting validation, establishing count2..64. columns starts32segments, adds<=9*64+2 pattern samples and removes closing endpoint: conservative around<=610, stillpositive because authored endpoint0/1 retained outside validated flute spread. Bracer sample_count<=10370,vertices<=20740,triangles<=41480, so its normal private products are source-bounded. Chart native uses params.rows as divisor and params.stride for modulo; original chart recipe producers must establish positive values separately.",
+  "relying_consumer": "Creator support kernel indexes supports[joint_indices[v*8+k]] even for zero-weight entries; matching joint_names/global states does not prove those stored IDs. Anatomy Surface pairs propagate atlas IDs to native bracer SKIN, indexing atlas[coordinate*2]. Native contour considers two crossing endpoints, blends two crossings into<=4 sample vertices, rejects crossing count>=2048 before store, requires>=3 before angle bracketing and stable insertion order; skin gathers<=4*8=32 joints into32 entries. Axis guards n0, weight sum and finite positions; none of these guards establishes joint-ID/UV membership for support/skin indexing.",
+  "invalid_combination_or_positive_proof": "Small valid-length ForearmSurfaceInput with appropriate rig names but a joint ID beyond names.len passes validate and GpuBody admission, then native support reads beyond supports; same-length texcoord_faces can reference beyond texcoords. These are concrete public API admission paths, not huge allocation witnesses. Existing checked native behavior may yield robust zero rather than CPU panic; acceptance is correct source membership before native projection, not an invented specific GPU crash. Positive private bracer shape bounds CLOSE its prior hypothetical huge around-product concern. Chart positive rows/stride remains separate producer obligation.",
+  "disposition": "F04/F09 body/rig/UV membership admission, F02/F05/F08 canonical propagation and documentation. Positive bracer count bounds/contour sample and joint local-array bounds retained; no inflated overflow finding for admitted small design.",
+  "connected_repair": "Extend the authoritative original body/rig/surface admission/layout contract, consume canonical checked counts and contextual indices through support/anatomy/skin, and preserve zero-weight slot semantics explicitly rather than impose speculative global rejection. Reuse checked original fixed bracer layout and canonical grid/byte projection; retain native sample/order/weight policy and existing fixture boundaries unchanged."
+}

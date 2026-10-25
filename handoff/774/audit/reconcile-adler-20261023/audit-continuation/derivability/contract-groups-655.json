@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-655",
+  "at": "2026-10-25T16:22:23.932295+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 960,
+  "source_id": "pr-working:crates/adventuresim-core/src/organization.rs",
+  "sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+  "actual_compared_ranges": [
+    [
+      1,
+      440
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Organization chapter/role/recognition/admission/dues/requirements/activity/training/reward/privilege/settlement types221\u2013416 already derive Serde and structural traits; Admission Default already derive. StartingProfession id vs human label tables are semantic vocabulary, no handwritten trait/codec. Recognition::includes and chapter lookups are native policy/accessors."
+  ],
+  "first_unfinished": {
+    "scope_index": 960,
+    "line": 441
+  },
+  "execution": "none"
+}

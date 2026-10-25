@@ -1,0 +1,43 @@
+{
+  "id": "CONT08-CONTRACT-124",
+  "at": "2026-10-25T12:29:50.683505+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 411,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-server/src/player_projection.rs",
+      "before_sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "after_sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0411-base-53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+      "diff": "source-evidence/p16-0411.diff",
+      "diff_sha256": "770eae12b63eeed21d0dff0adfdaf97c57ab4aeda5787e68dcac7149fff5c4b4",
+      "head_body_read_ranges": [
+        [
+          2001,
+          3450
+        ]
+      ],
+      "facts": [
+        "Actual2001\u20132105 standalone binding matches CharacterId, captures item/owner EntityMapper state, writes the DynamicWorldBuilder, then despawns template/removes Loading/flushes and adds posture, pace and replication. Error branch logs after possible world write; unchanged source does not establish atomic rollback.",
+        "Actual2113\u20132459 unchanged standalone-join, recipe and reconnect fixtures preserve position/name/imbalance, item owner/holding/map and untouched bot assertions. Recipe fixture keeps exact design hash/codec/appearance, short reach1.27 and long-shaft mass/inertia/head tolerances; changed observations use metres. Reconnect exercises both observer orders, orphan item cache and restored projection. These fixtures were read, not executed.",
+        "Actual2463\u20132747 capability token/rotation/claim-once/expiry, simulation tick duplicate/reorder/wrap, finite input validation and ack/velocity fixtures retain original values and branch order. Tiny/zero/invalid inputs retain explicit rejection, clamp and normalization policy.",
+        "Actual2748\u20133450 posture, movement and quickstep fixtures retain backward-dive/supine yaw cancellation, midpoint and endpoint behavior, missing-packet intent and explicit stop, roll/prone priority, root locks and downed local direction speed. Typed push ID/origin/rotation observations preserve exact native coordinates and original tolerances.",
+        "Full411 source comparison now accounted WITH qualifications. Prepared batch admission/queue failure Q002 remains open, without recoverable/default-runtime loss claim. CharacterDimensions omission is identical in old/new reconnect snapshot and therefore retained API conditional question, not introduced regression. New finite pose admission has no traced ordinary invalid native producer."
+      ],
+      "disposition": "WITH_FINDINGS_AND_QUALIFICATIONS; exact full original411 source discovery accounted, not graph/lens clearance.",
+      "acceptance": "Preserve original native axis/order, reconnect authority/entity identity, sequence consumption, side-effect order and all fixture inputs/counts/tolerances. Resolve Q002 with actual admission and failure lifecycle evidence; do not claim atomic rollback or executed behavior.",
+      "cumulative_head_body_read_ranges": [
+        [
+          1,
+          3450
+        ]
+      ],
+      "actual_diff_read": "Entire 318-line actual P16 diff, consumed in checkpoint121; current full body consumed across121\u2013124."
+    }
+  ],
+  "next": "418 actual source/diff;412\u2013417 already accounted."
+}

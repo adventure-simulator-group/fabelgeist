@@ -1,0 +1,60 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-005",
+  "at": "2026-10-24T02:34:19.530931+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 987,
+      "source_id": "pr-working:crates/adventuresim-core/src/road_encounter_catalog.rs",
+      "sha256": "62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+      "personally_read_ranges": [
+        [
+          1,
+          2689
+        ]
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "relationship": "Encounter, cast and choice membership",
+      "source": "387-487/931-952",
+      "trace": "Unique valid encounter/speaker/choice identities; spoken lines resolve an actual cast member. Supernatural characters cannot claim ordinary Character backing. Nonempty choice presentation, three to eight choices and an ignore choice are required. Provenance fields must be present. Typed review flags are declarations of external editorial review, not proof of it."
+    },
+    {
+      "relationship": "Shared authority and mechanics",
+      "source": "488-587/725-770",
+      "trace": "Shared actions must be nonempty. Combat, information, inventory and personality flags match their corresponding mechanics. Treatment requires an authored Patient whose treatment decision is Allowed or Unavailable; this is catalogue backing rather than a runtime permission grant. Narrative-only non-ignore choices cannot declare authoritative mechanics. Blocked content requires an issue and reason. Actual runtime availability remains a downstream obligation."
+    },
+    {
+      "relationship": "Ignore and combat consequences",
+      "source": "466-487/662-724/779-848",
+      "trace": "Ignore intentionally permits a positive bounded travel delay while forbidding other consequences. StartCombat owns all four outcome payloads; count is 1..8. Immediate effects and quest rewards are forbidden for combat; non-victory outcome payloads reject material rewards but permit costs and personality consequences. Outcome personality axes are unique, changes nonzero/bounded and at most one virtue per payload."
+    },
+    {
+      "relationship": "Checked leaves and whole admission",
+      "source": "588-661/850-929/992-1031",
+      "trace": "Requirements reject zero hours, item quantity and currency; checks bound difficulty; item effects reject zero quantities. Item reference validation verifies existence, including combat outcomes, but does not itself prove that a Currency item has currency kind. The runtime OnceLock calls both validators before exposing immutable catalogue references. Public derived-Serde mutable DTOs can exist before validation or be changed afterward; this is a representable API strengthening gap, not an ordinary malformed embedded catalogue claim."
+    },
+    {
+      "relationship": "Weighted choice and material route identity",
+      "source": "743-761/1011-1031",
+      "trace": "Material route signatures deliberately include requirements/checks/effects/transition, while separate content fixtures compare personality too. Do not silently redefine that policy. Eligible definitions are sorted, weights come from those same references and the selected index addresses the same vector. Individual weights bounded 1..10000; total catalogue cardinality/native overflow assumptions still belong to actual build producer and weighted sampler proof."
+    },
+    {
+      "relationship": "Existing acceptance fixtures",
+      "source": "1041-2689",
+      "trace": "All 1649 fixture lines personally read. They assert catalogue/source-map association, editorial markers, backed treatment, invalid identity/authority, deterministic eligible selection, distinct routes, correct loot/requirement/outcome/delay relationships, separate victory rewards, valid supernatural prose and no unwanted persisted animals/props/sleep states. These are existing source assertions only; none were run. Text checks do not become runtime parsing authority."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_qualified_obligations": [
+    "Actual reducer consumption must retain exact selected definition/choice, recheck current character/item authority and commit complete effects consistently.",
+    "Canonical item kind and full catalogue count/weight-sum proof are not established by the ID syntax or per-weight bound alone.",
+    "Carry raw mutable DTO and generic String errors into the shared migration inventory, preserving the actual final JSON/build and DB boundaries."
+  ],
+  "acceptance": "A retained accepted encounter must preserve member references, backed mechanics and scoped consequences across construction and execution. Do not equate an authored flag with permission. Preserve intentional ignore delays and non-victory costs. Existing fixtures only.",
+  "repair": "not started; initial thirteen-lens discovery gate",
+  "validation": "not run",
+  "discovery": "Accounted with findings/qualified obligations; no clearance"
+}

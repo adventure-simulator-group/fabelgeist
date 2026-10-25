@@ -1,0 +1,125 @@
+{
+  "id": "CONT07-CONTRACT-640",
+  "at": "2026-10-24T00:56:00.620685+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2813,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory_armor.rs",
+      "sha256": "6eccc859a14c75eb9734e96267595d482c3216028bda7e2f4cd113b8312a996b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/inventory_armor.rs",
+      "actual_EOF": 205,
+      "ranges": [
+        [
+          1,
+          79
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2814,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/enrollment.rs",
+      "sha256": "9d6646ad8d4c3da14afcf544a8426c44afd33921fc4c39d20f4e2c09a49aa5f1",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/mission/enrollment.rs",
+      "actual_EOF": 189,
+      "ranges": [
+        [
+          1,
+          125
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2815,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/receipt.rs",
+      "sha256": "24e17b0e16c1731ef4fa81d7e8f2448cd42b12b6b75dbbe16bc502f0f606508d",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/mission/receipt.rs",
+      "actual_EOF": 102,
+      "ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2816,
+      "source_id": "pr-working:crates/fabelgeist-mesh/src/lib.rs",
+      "sha256": "6a0d874f4c07665cb0c5f3e477bd5a79d6c431a46aea2be921a7fab150e5e04b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-mesh/src/lib.rs",
+      "actual_EOF": 22,
+      "ranges": [
+        [
+          1,
+          22
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2817,
+      "source_id": "pr-working:crates/fabelgeist-mesh/src/data.rs",
+      "sha256": "41c300bd088e2a69594225a867cee9f1bc3fe5f19410bf77d3c8de73a383f1b4",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-mesh/src/data.rs",
+      "actual_EOF": 293,
+      "ranges": [
+        [
+          1,
+          11
+        ],
+        [
+          41,
+          68
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2818,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory_armor.rs",
+      "sha256": "6eccc859a14c75eb9734e96267595d482c3216028bda7e2f4cd113b8312a996b",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/inventory_armor.rs",
+      "actual_EOF": 205,
+      "ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2819,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/buildings/window.rs",
+      "sha256": "f1d40643528b12fce9e1062c6a2e23e0192c6216cb5a5f645bbc624ef90b5c26",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/buildings/window.rs",
+      "actual_EOF": 129,
+      "ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "2813/2818 exact same source bytes compare original PR/P16 roles independently. Contact chain sorts outer layers then selects first authored geometry containing sample; selected and intersected are temporary derived outputs, not mutable source authority. fold_armor_layers coverage combines scalar fractions, while contact geometry projects actual surface regions: these intentionally different summaries require actual recipient intent before treating numerical discrepancy as defect.",
+    "2814 PartyEnrollment expected count is authored admission target; seen set is historical loaded roster, loaded_party is current occupancy, empty_for reconnect history. Sealed membership intentionally admits remembered reconnects and rejects new identity, not redundant duplicates of current count.",
+    "2815 receipt derives consequence payload from accumulator and inserts zero-injury participants for equipment contacts, then sorts/truncates party but retains all equipment contacts. Participant limit versus contacts may become inconsistent only if accumulator can exceed canonical participant limit; exact construction/receipt admission relationship unresolved, no normal claim from truncation alone.",
+    "2816/2817 MeshData public arrays/native topology and front_face are source geometry, not independently cached copies in scoped declarations/default. Missing optional arrays have explicit absence meaning. No upload/validation body coverage from these declarations.",
+    "2819 SceneWindow immutable scene-frame admitted geometry and independent leaf kind/bars. Receiver decodes native dimensions and normalized directions, preserving identity-rich errors; tangent/outward individually admitted does not establish joint frame orthogonality, but no competing retained recomputation shown here. Controller state explicitly belongs server; later unrelated transform recipient must be traced separately."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2828,
+    "start_line": 1
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "id": "CONT08-CONTRACT-229",
+  "at": "2026-10-25T14:52:15.818713+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 870,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_movement.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/autoresolve/melee_movement.rs",
+      "before_sha256": "21f302e1ceaf21f390e4593818c6da71e2ab7bfd42b617d05de9729ef2f873e7",
+      "after_sha256": "086c2055231445836bac21e3ffa931c0909cd95def8d4fa7e4f041a2fe629e86",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0870-base-21f302e1ceaf21f390e4593818c6da71e2ab7bfd42b617d05de9729ef2f873e7",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/086c2055231445836bac21e3ffa931c0909cd95def8d4fa7e4f041a2fe629e86",
+      "diff": "source-evidence/pr-0870.diff",
+      "diff_sha256": "8f34210686ab11181581c8dc8830b35d9d1c02a87e10f10e9bddc69f23945e78",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          389
+        ]
+      ],
+      "head_body_read_method": "own0063fullbodyreuse pluscompletevariant/fresh1\u2013145; entire507lineactualPRdiff consumed.",
+      "facts": [
+        "PR389body accountedwithown0063full392+completeinversevariantdiff, freshhead1\u2013145 andentire507lineactualPRdiff. Speed/elapsedwrappers preserve signedClose/Retreat/Hold, clampbefore,target\u2212before, accelerationdurationmin, after_acceleration clamp, trapezoid+constantoperationorder, pairedfirstthensecond centeradd andcollisiontravel-fraction/velocityclipping.",
+        "PRdistance/displacement remainrawf32 whileP16SignedLengthrejects nonfinitefulloutput; actualQ001closed-invalid-outputqualification mustnotbe importedasPRnewerror. NewPRafter_accelerationfinitecheck rejects nativeoverflow beforeoutput, intentionaltypedvelocitypolicy; finitefirstscalarsalone doesnotprovewholeoldoutputfinite. RetainedrawPRhuge displacement canstillnonfinite; no universalfiniteallvalues guarantee/newnormalbug claim.",
+        "Alloriginalcoast/zeroelapsed/speed*elapsed/substep/traction/instantreverse/opposedchase/collisionfloor fixtures preserve numericinputs/oracles, readnotrun. Exactnativeforce/mass/traction helper unchanged. Actualreceivingmobility872 comparison remainsnext; no wholemovementclearance."
+      ],
+      "disposition": "Own08 actual old/new source comparison accounted, with retained exact-source/API qualifications and remaining connected scope stated.",
+      "acceptance": "Retain canonical source identity, ordinal/wire/native geometry, first errors and original fixture oracles. No tests, checks, exports or GPU execution."
+    }
+  ],
+  "next": "871commit239 then872mobility226/873round595/874scheduling391"
+}

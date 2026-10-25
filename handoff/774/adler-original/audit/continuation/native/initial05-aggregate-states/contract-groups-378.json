@@ -1,0 +1,61 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-378",
+  "at": "2026-10-23T12:52:49.455796+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/wardrobe.rs",
+      "sha256": "41051202a9da2998dcf73b5a1e095088d6838c1a849a66d080631ac8304951b9",
+      "scope072_index": 843,
+      "actual_EOF": 154,
+      "scoped_ranges_compared": [
+        [
+          1,
+          154
+        ]
+      ],
+      "actual05_comparison": "Fresh whole sources and wardrobe original fixtures; named payload binding, clone-before-persist mutation and current settled-worker lifecycle compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/wardrobe_tab.rs",
+      "sha256": "4cd80a0338aaafa8f2b1f80eca296ef22614825d8d1058692fb8c4fe7bbe9595",
+      "scope072_index": 844,
+      "actual_EOF": 325,
+      "scoped_ranges_compared": [
+        [
+          1,
+          325
+        ]
+      ],
+      "actual05_comparison": "Fresh whole sources and wardrobe original fixtures; named payload binding, clone-before-persist mutation and current settled-worker lifecycle compared."
+    }
+  ],
+  "groups": [
+    {
+      "id": "named wardrobe owns key payload equality at normal persistence gates",
+      "comparison": "843 private BTreeMap keyed checked trimmed LibraryName with no mutable entry getter. insert first writes garment.selection.name from key then validates garment before committing; load/save validate ALL key==selection.name plus whole garment. Direct derived transparent Deserialize bypasses aggregate validate and may represent mismatch; therefore Wardrobe is raw parsedcontainer until normal load or explicit save, not sealedacceptedtoken. Existing Rig03F016 settledpayload validation/private-field decoder bypass remains canonical lower gap despite parentvalidate. Inventory articles clone saved garment, intentionally independent of later library mutation. Original full fixtures read only; missing-file emptyDefault intentional, no backwardscompat schema fallback inferred."
+    },
+    {
+      "id": "library save/delete commit in-memory after successful persistence",
+      "comparison": "844 WardrobeLibrary clones current map, inserts/removes candidate, saves validated clone then replaces live library only on success. A failed disk write doesnot mutate current in-memorylibrary; no claimed atomicfilesystemrename/durablepowerfailure guarantee. Showing enum distinguishes current Design from Saved(name), body and worker are private state, defaultredrape/refresh true."
+    },
+    {
+      "id": "ready garment needs lifecycle and current simulation key",
+      "comparison": "844 settled requires drape exists,garment exists,finished and Settling{step==of}, then same_simulation(currentselection). Problems may remain visible and saved if coherentpartialquality policy permits; no implieszero-warningstrictclearance. Edit resets design/redrape and selection; restart invalidatesworkerplacement stage. save builds currentsamebody input then SettledGarment::capture. Worker poll onlycurrent request from actual336 queue/cancellation proof; newrequest replaces drape beforeworkerrequest. Bodyupdate uses BareBody.is_current, fresh full lower body key separately already scoped, no model-revision theorem fromname."
+    },
+    {
+      "id": "wardrobe publication is intentionally static and warning preserving",
+      "comparison": "844 onbodychange regenerate before oldbodydespawn; requestredrape follows newbody. Collection happens even whenhidden, visibility separately reflects active tab. Savedwear forwards warnings plusErrdiagnostic; Design rendering clones currentappearance with mostrecentgeometry intentionally allowing pending preview. spawn clears allskin rows to make standingstillcloth, not claimedskinnedruntimeproduct. Current selectedgeometry name/fabric may be recipe-edited whilepreviewpending; settled guard prevents save unless simulation key matches. Refresh consumed before falliblespawn, potential missingpreviewonErr qualified,no ordinarybadmesh/runclaim. CameraF055 topologyidentity remains actual lower saved-drapecontract, read346, notclosedby library keymatch."
+    }
+  ],
+  "new_unique_findings": [],
+  "existing_finding_support": [
+    "RIG-ADMISSION03-F016 and CAMERA-INITIAL07-F055 lower saved garment clauses remain qualified"
+  ],
+  "remaining_dependency_obligations": [
+    "Canonical same_simulation and BareBody complete generation key are actual separate source roles, no method-name clearance."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

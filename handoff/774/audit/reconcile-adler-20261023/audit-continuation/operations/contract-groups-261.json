@@ -1,0 +1,93 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-261",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/strategic-web/src/main.rs",
+      "sha256": "43acd82de75c8823ed2a925e424704a87b8db7ee297b56d2f33f4e79fa9f97d9",
+      "actual_EOF": 762,
+      "actual_compared_ranges": [
+        [
+          1,
+          762
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/main.rs",
+      "sha256": "43acd82de75c8823ed2a925e424704a87b8db7ee297b56d2f33f4e79fa9f97d9",
+      "actual_EOF": 762,
+      "actual_compared_ranges": [
+        [
+          1,
+          762
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Negotiated navigation retains authoritative GET rendering and bounded redirect handling",
+      "source_ranges": {
+        "main.rs": [
+          [
+            1,
+            389
+          ],
+          [
+            474,
+            762
+          ]
+        ]
+      },
+      "disposition": "Both complete 762-line bodies personally read; actual textual comparison has no differences. POST redirect handling follows at most five local redirects, propagates updated cookies into each internal GET, preserves all Set-Cookie response values, and switches to hard navigation at strategic boundaries or an unresolved redirect limit. Malformed local URI and unsuccessful or non-root internal render have explicit fallback/error responses. Cookie removal and replacement are parsed before constructing a new valid HeaderValue. No assumed transaction rollback for the already completed POST. Tests were read, not executed. URL/HeaderValue conversion expectations depend on the actual admitted URI/header grammar; no reachable invalid header counterexample is established."
+    },
+    {
+      "contract": "Fragment extraction has an explicit body budget but incomplete error semantics remain qualified",
+      "source_ranges": {
+        "main.rs": [
+          [
+            390,
+            473
+          ],
+          [
+            540,
+            563
+          ]
+        ]
+      },
+      "disposition": "Root extraction uses a 16 MiB to_bytes budget. Invalid UTF-8 or missing markers returns the original collected document; ASCII marker boundaries preserve valid UTF-8 slicing. Successful extraction removes Content-Length before changing the body. Collection failure returns an empty body with the original response parts, potentially retaining a success status and prior length metadata. This is a source-backed error-path contract question, not an accepted ordinary route failure: no reachable oversized/erroring successful page or downstream client consequence was personally established. Acceptance requires the owning HTTP error policy and a concrete route/body witness before promotion; do not infer a runtime defect solely from the theoretical budget path."
+    },
+    {
+      "contract": "Startup authority and native error boundaries",
+      "source_ranges": {
+        "main.rs": [
+          [
+            1,
+            170
+          ],
+          [
+            720,
+            762
+          ]
+        ]
+      },
+      "disposition": "Startup parses configuration and credentials, connects live state, loads optional shared terrain and registers its digest/schema through the actual SATS option shape before serving the router. Frozen generated-binding and terrain failure contracts remain dependencies from packet260; this wrapper supplies no transitive coverage or claim of network execution. Existing fixtures only assert locally constructed HTTP/SATS shapes."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/strategic-web/src/routes/mod.rs",
+  "supplied_related_evidence": [
+    {
+      "ref": "audit/records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/findings.jsonl#21",
+      "id": "RIG-PPS-F021",
+      "relation": "Exact fragment body-error cause-loss seam, plus quests query/unavailable loss; personally confirmed source branch but no ordinary runtime occurrence. Archived ownership wording is evidence, not current authorization."
+    }
+  ]
+}

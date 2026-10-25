@@ -1,0 +1,29 @@
+[package]
+name = "adventuresim-plant-generator"
+description = "Deterministic parametric botanical meshes and habitat recipes"
+version.workspace = true
+edition.workspace = true
+repository.workspace = true
+license.workspace = true
+
+[features]
+default = []
+viewer = ["bevy/default", "dep:bevy_egui", "dep:bevy_panorbit_camera", "dep:clap"]
+
+[dependencies]
+bevy = { workspace = true, features = ["bevy_mesh"] }
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+fabelgeist-determinism.workspace = true
+bevy_egui = { workspace = true, optional = true }
+bevy_panorbit_camera = { workspace = true, optional = true }
+clap = { workspace = true, optional = true }
+
+[lints]
+workspace = true
+
+[[bin]]
+name = "plant-viewer"
+path = "src/viewer/main.rs"
+required-features = ["viewer"]

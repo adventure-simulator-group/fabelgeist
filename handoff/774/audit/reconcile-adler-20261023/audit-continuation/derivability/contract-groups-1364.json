@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1364",
+  "at": "2026-10-25T18:38:45.637844+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1412,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+  "sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+  "actual_compared_ranges": [
+    [
+      601,
+      900
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Native capture sampling assembles FrameSample from independently selected/normalized current data and owner-frame transformations, screenshot observer side effects, bespoke image fingerprint and semantic jitter segmentation/parent-relative projection. No manual trait/codec in slice. FrameSample field construction is semantic mapping, not mechanical record serialization; declarations/Serialize remain separate owners. No capture or I/O executed.",
+  "first_unfinished": {
+    "scope_index": 1412,
+    "line": 901
+  },
+  "execution": "none"
+}

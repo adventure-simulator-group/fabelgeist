@@ -1,0 +1,99 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-041",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "physical-property-identity-generated-capacity-and-household-allocation",
+      "sources": [
+        {
+          "scope_index": 139,
+          "ranges": [
+            [
+              1,
+              226
+            ]
+          ]
+        }
+      ],
+      "distinction": "PropertyId identifies physical frontbuilding withinsettlement, independentofhousehold/tenancy/legalowner; generatedspatial/catalogueidentity differsoperationaloccupiedresidence. MarketReserve isexplicit boundedgame supply oneperHousingTier, notestimatedvacancy. Residentcapacity/population/householdcountarecountsnotmoneyorarea; east/north/yaw/dimensionslocalframegeometricroles.",
+      "uses": "catalogvalidate112\u2013150 bindssettlement/population/buildingseed andhomeID/buildingrelationship, checkspositivegeometry/capacityandorderedreserveclaim. allocate155\u2013215 consumesfamilies asgroups thenabstractremainingpopulation, excludesmarketreserveandreturnscheckedwholeplan withoutnativewrites. PropertyIdtransparentSerde bypassesnew constructor butvalidatehomeidentityexplicitlyrechecks. Parse105\u2013110 syntaxonly, notadmittedcatalogueproof.",
+      "disposition": "Keep physicalproperty andhouseholdassignmentstage distinction; no newPropertyId ontenancytransfer, no commonOwnerId conflatingcustody/legalrights. A validatedcatalogueview canown admittedrelationships; shareddimensional/countleafbelowrolescannotreplacecapacity/populationcorrelation. No ordinarypartialnativeallocationclaimfrompureVecbuilder. Childtests226module navigationonly.",
+      "acceptance": "Stableproperty remains same throughoccupancychanges, exactdeterministicbuildingseed andreservepolicy, actualfamiliesnever split, no inventedcharacterrows. Preserve zeropopulationwherevalid andrealpositivehomecapacity/extentpolicy, no arbitraryglobalhouseholdcap. No nativewedding/transactionclearance frompureallocator."
+    },
+    {
+      "id": "simulation-bootstrap-is-capability-boundary-not-gameplay-identity",
+      "sources": [
+        {
+          "scope_index": 140,
+          "ranges": [
+            [
+              1,
+              61
+            ]
+          ]
+        }
+      ],
+      "distinction": "Compiled optional one-run bootstrapcapability and presentedsecret aredifferenttrustroles, notordinarypublicid. Fixture maximumskillhours isexplicitfixtureadmissionpolicy, notallgameplayeffectivehours orranklimit.",
+      "uses": "authorized25\u201329 returnsfalsewithoutvalidcompiledtoken, fixed64hexshape andboundedlengthfoldcomparison; helpernativebytes belongactualsecretcomparisonkernel, no needenumfor256bytevalues.",
+      "disposition": "Keep capabilitypresence versusinputshape/secretvalue distinction; no universaltokenwrapper reusedforcatalogIDs/RNGseeds/digests justhexstorage. Sourcefixtures do notproveentropy/randomproducer ortimingsecurity, actualdeploymentboundaryfutureown11.",
+      "acceptance": "NormalcompiledNone neverauthorizes, malformedinputdoesnotbecomefallbacktoken; no secretdisplay/read or testexecution. Do notapplyfixture1millionhourcap toordinaryM51trainingdomain."
+    },
+    {
+      "id": "skill-owning-categories-training-role-units-and-asymptote",
+      "sources": [
+        {
+          "scope_index": 141,
+          "ranges": [
+            [
+              9,
+              117
+            ],
+            [
+              720,
+              777
+            ],
+            [
+              892,
+              981
+            ],
+            [
+              1010,
+              1105
+            ]
+          ],
+          "qualification": "Onlyscopedranges; EOF1165. trainingrank/cappedrank bodies704+ partlyunread andPlayerSkills1104\u20131105commentonly, no fulltraitbodycredit."
+        }
+      ],
+      "distinction": "Skill canonicalfullvocabulary differsRoadSkillId134supportedsubset; subsetcanberefinedviewovercanonicalSkill without accepting allSkills. GoverningAptitudes checkedprivate100%blend differsSkillKindMental/Physical executioncategory, healthyattribute versusinjury-adjustedperformance distinct. Realhours/effectivehours/rank/aptitude/excess haveunits andsemantics beyondsamef32.",
+      "uses": "M51alias008 actualunboundedceiling andtrainingmutation. Aptituderesolve956\u2013981 onlyreadspositiveparticipatingweights andclampscommon5scale; agilityNone whenunused. SourceRoadSkillId includesactualcanonicalWill/Insight/.../Terrain*/Surgery names readhere; policy notpermissiontosupportallcanonicalskills. RootM51 alreadyownswholeconnectedtime/check/hoursgraph.",
+      "disposition": "AdoptexactM51ratherthannewInfdefect; explicitFinite|Unbounded solves actualsentinel whilepreservingasymptote. PrivateGoverningAptitudes alreadycontrolledaggregate neednotnewpercentageperfield. Canonicalskillpluspurposefulsupportedsubset canreplaceparallelvocabularyifactualcodec/scopefitproven, no arbitrarynewtypeperleafskillnumber.",
+      "finding_refs": [
+        "SEGO-INITIAL11-ALIAS008"
+      ],
+      "acceptance": "Keep latenthours, finiteordinarytrainingstate, healthyaptitudeforlearning/currenthealthforperformance, boundedrank versusuncappedhours anddifferentlinear languages; no blanket5kcap or rank5rejection. No testexecution."
+    },
+    {
+      "id": "forge-stock-total-micros-versus-bounded-single-consumable-fraction",
+      "sources": [
+        {
+          "scope_index": 142,
+          "ranges": [
+            [
+              1,
+              78
+            ]
+          ]
+        }
+      ],
+      "distinction": "ForgeQuote.materials isphysicalkg perstockcatalogkey; requirements istotal fixedpointmicros thatmayrepresentmultiplewholeunits; ConsumableFractionMicros representsoneitemfraction<=1million. SameMICROS_PER_WHOLEscale doesnotmaketheseownersinterchangeable. Minutesactualworkbudget differsmass/materialrequirement andcomponentcount.",
+      "uses": "quote19\u201348 derivesphysicalrecipe andmaterialmasses, mapsForgeStockunitmass intorequiredmicrosroundup33\u201335 thencheckedaggregaterepresentability36\u201345. Multipleconstructionmaterials cansharestockkey; correspondingphysicalmassestotal independentfrompermaterialceilquantity.",
+      "disposition": "Keepstocktotalmicrosmeaningfulquantity distinctfromsinglewhole-itemfraction, shareconstants/widenedarithmeticbelowroles. Do notreplaceu32totalwithboundedConsumableFractionMicrosandtherebyrejectlegit>onewhole; namedstockrequirement couldbindcatalogkey/unitmass/amount. RecipeValidationErrorsformattedStringhere existingerrorgraphmigration, notnewtypegranularityuniquecount.",
+      "acceptance": "Preserve actualperconstructionmaterialroundup followedbysharedstockcheckedadd, kg versusmicrosunitconversionandrealquoteclockpolicy. No newmaterialmassceiling/overflowwitnessordinaryclaim; sourcefixturesreadnotexecuted."
+    }
+  ],
+  "new_findings": [
+    "SEGO-INITIAL11-ALIAS008",
+    "SEGO-INITIAL11-ALIAS009"
+  ],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

@@ -1,0 +1,40 @@
+{
+  "id": "CONT07-F106",
+  "lens": "audit-redundant-authority",
+  "classification": "maintenance authority defect; current7members agree",
+  "source_id": "pr-working:crates/adventuresim-world-schema/src/lib.rs",
+  "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+  "locations": [
+    [
+      85,
+      104
+    ],
+    [
+      131,
+      160
+    ],
+    [
+      176,
+      188
+    ],
+    [
+      215,
+      252
+    ],
+    [
+      292,
+      296
+    ]
+  ],
+  "fact": "OfficialReligion enum7, ALL7, exhaustive index0..6 and unlabeled7x7 correlation axes repeat language-like membership policy in a separate owning type. from_id, direct-field validity, effective/maximum and ReligionMinutes.total depend on ALL.",
+  "disagreement": "An enum and exhaustive field mappings may be updated while independent ALL remains7: from_id rejects real new variant and total/validation/effective ignore it. Index edits can silently associate a matrix row with another religion. Current all7 aligned; no current data failure.",
+  "limits": [
+    "Religion direct/effective/minutes are distinct quantities; own direct-study gate is explicit policy.",
+    "F105language/F104bestiary and archiveF011disease are analogous owners, not automatic exact aliases.",
+    "No unscoped whole4796line source claim."
+  ],
+  "suggested_connected_remedy": "One official-religion membership authority drives count/iteration/index and labeled correlations while preserving target-specific study policy.",
+  "acceptance_contract": "Every admitted variant participates in parsing, validation, totals and correlation exactly once; current ordinal/tie behavior preserved.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

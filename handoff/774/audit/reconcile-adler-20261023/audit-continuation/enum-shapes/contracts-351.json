@@ -1,0 +1,130 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-351",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        480,
+        481,
+        482,
+        483,
+        484,
+        485,
+        486,
+        487,
+        488,
+        489,
+        490
+      ],
+      "ranges": {
+        "480": [
+          [
+            55,
+            104
+          ],
+          [
+            364,
+            381
+          ]
+        ],
+        "481": [
+          [
+            390,
+            441
+          ],
+          [
+            633,
+            810
+          ]
+        ],
+        "482": [
+          [
+            1,
+            70
+          ]
+        ],
+        "483": [
+          [
+            1,
+            85
+          ]
+        ],
+        "484": [
+          [
+            125,
+            146
+          ],
+          [
+            739,
+            745
+          ],
+          [
+            1051,
+            1075
+          ],
+          [
+            1092,
+            1115
+          ]
+        ],
+        "485": [
+          [
+            384,
+            410
+          ]
+        ],
+        "486": [
+          [
+            400,
+            612
+          ]
+        ],
+        "487": [
+          [
+            87,
+            155
+          ],
+          [
+            176,
+            229
+          ],
+          [
+            420,
+            493
+          ],
+          [
+            523,
+            609
+          ]
+        ],
+        "488": [
+          [
+            1,
+            48
+          ]
+        ],
+        "489": [
+          [
+            55,
+            90
+          ],
+          [
+            110,
+            127
+          ]
+        ],
+        "490": [
+          [
+            282,
+            300
+          ]
+        ]
+      },
+      "comparison": "Exact registered native source unions only. Cargo features select numerical precision/dimensional implementations at compile time; no runtime enum merely renames dimensions. Collider variants are actual SharedShape constructors; dimensions convert full extents to half extents at the adapter. Native primitive constructors do not validate positive cuboid dimensions, but this is admission evidence, not a lens09 conditional-payload defect. cast_ray solid is passed directly to the native cast; returned Option owns hit entity/distance/normal. ShapeCastConfig compute_contact_on_penetration and ignore_origin_penetration are independent native query policies, passed explicitly into ShapeCastOptions; target_distance/max_distance remain meaningful for all choices. ShapeHitData contact geometry reliability is conditional on native computation options, but no application recipient treating an uncomputed geometry as valid was established here. Preserve zero cast distance and origin penetration policies. Native transform Rotation wraps required quaternion carrier; no categorical enum for coordinates. Actual ray/shape recipient wraps complete observations in Option and filters absent collider/hit before construction. No runtime or native simulation executed.",
+      "finding_refs": [],
+      "disposition": "Native adapter/geometry contracts; no newly established application semantic shape defect"
+    }
+  ],
+  "new_findings": [],
+  "limits": "Read-only exact scoped analysis, no whole-file credit outside unions and no other-lens clearance."
+}

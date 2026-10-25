@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1013",
+  "at": "2026-10-25T17:30:27.482865+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1180,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence.rs",
+  "sha256": "df7d47666e333785437d381321a5e7b85cd6e4c453067c83f8d86ea00a30ce35",
+  "actual_compared_ranges": [
+    [
+      351,
+      730
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Residence offer materialization, historical entitlement/presence, transition fold/native precedence519\u2013527, occupancy movement/removal and public relationship/co-presence admission consumed. No handtrait/codec. Transition precedence differs from enum declaration order (Relinquished declared before Dormant/Recovered) and serves stable chronological fold; raw derived Ord is not equivalent. All field projections contextual checked native authority.",
+  "first_unfinished": {
+    "scope_index": 1180,
+    "line": 731
+  },
+  "execution": "none"
+}

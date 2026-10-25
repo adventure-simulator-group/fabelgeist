@@ -1,0 +1,18 @@
+{
+  "id": "CONT07-OBS-002",
+  "at": "2026-10-23T22:45:03.466521+00:00",
+  "status": "bounded07 comparison concluded: different selectors confirmed, same intended fact not established; no accepted defect",
+  "title": "Global guard block width and controlling-hand point select different Grip-role components",
+  "source_refs": [
+    "CONT07-CONTRACT-479",
+    "CONT07-CONTRACT-487",
+    "CONT07-REG-014"
+  ],
+  "source_trace": "Original2115 placement.rs35\u201347 computes one global grip_width from FIRST component with idgrip or roleGrip, attached unchanged to each ResolvedComponent.2116 anchors125\u2013132 overwrites GRIP frames for LAST roleGrip;2109 grip selector15\u201326 also picks LAST roleGrip center. Actual newly registered guards.rs138\u2013149 uses global first width to size outer guard block, not mortise/opening.2151/2132 identity/recipe validation does not enforce one Grip role.",
+  "disagreement": "With two admitted independent Grip-role components of different widths, retained controlling-hand point can belong to last while block dimension uses first. This is an actual different source selection, but geometry may deliberately accommodate another grip/seat; no universal equality or specific current wrong generated guard established.",
+  "remaining_dependency": "A future claim of wrong block/mortise requires explicit guard-to-receiving-grip mating policy and a complete accepted geometry witness. Nested plate/terminal helper analysis is not being claimed from guards.rs full-body reading and does not establish that missing policy.",
+  "qualification": "guards source current receiver is outer block, not physical mortise or hollow opening; prior tentative opening wording is withdrawn. No root local variant substituted, no render/model execution, no accepted new defect, no extra original2853 credit. M82/F40 related but no automatic alias.",
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "disposition": "The first-grip width sizes an outer guard block, while the last-role grip determines controlling-hand frame. These have different concrete purposes. Existing evidence does not establish that every valid multi-grip weapon must use one identical grip for both. Preserve as a qualified design/mating question and withdraw wrong-mortise/ordinary-geometry assertions; do not require speculative source repair."
+}

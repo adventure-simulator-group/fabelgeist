@@ -1,0 +1,142 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-444",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ownership.rs",
+      "sha256": "0684778a884bee8a450d0b36393b297ca63af510042690511d1c267d51bdee59",
+      "actual_EOF": 59,
+      "actual_compared_ranges": [
+        [
+          1,
+          59
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/preparation.rs",
+      "sha256": "35db8b8b632500bacb59de9fffe065979e5da709c52dbaf0ea4d80ae6847af12",
+      "actual_EOF": 115,
+      "actual_compared_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/procedural.rs",
+      "sha256": "9374a31dd00faa7d347212451bf0f2ff87b5b97246e068ec2db7894cc021b695",
+      "actual_EOF": 31,
+      "actual_compared_ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/recipe_mesh.rs",
+      "sha256": "31c7b18fa239684452edb0b7b11e6727f19a146a3588f239231c59c0501daa52",
+      "actual_EOF": 87,
+      "actual_compared_ranges": [
+        [
+          1,
+          87
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_lighting.rs",
+      "sha256": "14ccb04e74be7e9f7760d1f8b0e80da33903e4d381e2109def952436a0c18f57",
+      "actual_EOF": 143,
+      "actual_compared_ranges": [
+        [
+          1,
+          143
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/camera.rs",
+      "sha256": "e489903779b44ce0caf1979e761f7234bd5556bd984af9e0abc4b7cba7fce7ef",
+      "actual_EOF": 189,
+      "actual_compared_ranges": [
+        [
+          1,
+          189
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/city.rs",
+      "sha256": "2ecbbe4cf5f193f1cdc1e59d911e07aab57fc6122177d50e82b38c0b988ae972",
+      "actual_EOF": 284,
+      "actual_compared_ranges": [
+        [
+          1,
+          284
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/city/installation.rs",
+      "sha256": "554d9dc7e4d33ae4301f1c7c1e94e30a5c47bfb5803febcb6d536a407419b33a",
+      "actual_EOF": 115,
+      "actual_compared_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/geographic_surface.rs",
+      "sha256": "6847e6ca35b448963c06589c1fa3410c5978e9c77292c2f451be4f5a7fdf6847",
+      "actual_EOF": 133,
+      "actual_compared_ranges": [
+        [
+          1,
+          133
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Shared owner/error/native adapters",
+      "analysis": "PresentationOwners exhaustivefixedslots preserves scene/map separation; typed PreparationError conversions andstableWASMcode classifycauseswithout branchingonprose. Proceduralbasispointadapter saturatesunit andpointseedpreservesfloatbits; color conversion native. Recipe mesh subtractslocalorigin andgeneratestangents fromfixedmaterialroles; finiteextreme subtractioncanoverflow andtangentexpectcanpanic malformedUVs, actualcanonicalrecipe proofneeded andinherited03boundaryremains, noordinaryfailure."
+    },
+    {
+      "contract": "Regional light lifecycle",
+      "analysis": "Onecurrentmaprootrequired, stale sourceproxyremoved andchangedsourcecopied; clampssunilluminance0belowhorizon, noZdouble-reflection. Existingproxiescopyonlysourcechanges; newrootproxyoldparent lifecycle normallydespawnswithroot, noactualorphanproof. Sourceauthorityretained, tacticalunmodified. Wholefixtureday/night/source-removal personallyread, notrun."
+    },
+    {
+      "contract": "Geographic pose arithmetic",
+      "analysis": "Zoom checkedbeforeassignment; rotatewidensfinitef32operands tof64beforerem_euclid andreadmitsfiniteangle. Panf64 products ofboundedspan andfinitef32pixels stayfinite andbounded_originrejectsnonfinitebeforecommit thenclampsgeography. Frame_route prepares span+boundedneworigin beforeanyretainedmutation, thencommitsorigin/span. Route nonempty/aspectpositive relyadmittedMapRoute/CanvasRect owners; no arbitraryemptycounterpartassumption. Window choosesfixedpositive scales andquartergridstep; fallbackcontinent isexplicitcoveragepolicy ifneededspanlarger, no ordinaryfullcoveragepromise."
+    },
+    {
+      "contract": "Focused city replacement and ground correspondence",
+      "analysis": "Installation validatesdocument/focus/source beforeactivation, hiddenrootbuilt thenfallibleground/buildinginstallation; Errdespawnsnewroot andmarks exactpreparationfailed. Consumedactivepreparationnotrolledbackonlaterfailure, butretainedoldcity ownsArcground/products; automaticretrypolicy notasserted. GPU exactrootpublished+ownerready requiredbeforependingreplacesinstalled; failurepreservesoldroot/buffers. Reanchor installsframebufferbeforestoredframe/groundmaterialupdates, missingbufferErrhidescity. Geographicpinheight queries actualcitytriangles thensamerenderframe; terrainfallback usesactualregionalwindow sampler. Settlinguses4systemframes plusglobalpipelinecount, no actualGPUreadback assumed. Wholecurrentbodies personallyread, no rendererexecution."
+    },
+    {
+      "contract": "Geographic surface personally completed analysis after exact body read",
+      "analysis": "Range::contains rejects nonfinite grid offsets before nativeindexcasts. Grid/diagonal boundary chooses either actuallycoveredtriangle and sharedcelldimensions, no missingvertexinterpolation. Fixedregionalgridpointandfinitepositivecataloguespacing plusi16elevation boundnativecrossproducts; triangle nondegenerate inplan so normal.y nonzero. Segment midpoint picksplane onlyaftercaller splitsgrid/diagonals, documentedprerequisite; doesnotclaimarbitraryunsplitendpointswithintriangle. Nativeplaneheightformula matches emittedX/elevation/-northvertices. Fresh readsource133 lines full; no independentcallercoverage credited."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "9 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/markers.rs"
+}

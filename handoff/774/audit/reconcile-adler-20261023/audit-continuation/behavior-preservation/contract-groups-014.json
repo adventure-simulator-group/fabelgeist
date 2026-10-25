@@ -1,0 +1,284 @@
+{
+  "id": "CONT08-CONTRACT-014",
+  "at": "2026-10-25T09:05:02.217131+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 64,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/assignment.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/autoresolve/melee_round/assignment.rs",
+      "before_sha256": "edaab496e73d7ae22b10743303627d76c5526cdff566e72e60f563dcbc2c77f9",
+      "after_sha256": "edaab496e73d7ae22b10743303627d76c5526cdff566e72e60f563dcbc2c77f9",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0064-base-edaab496e73d7ae22b10743303627d76c5526cdff566e72e60f563dcbc2c77f9",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/edaab496e73d7ae22b10743303627d76c5526cdff566e72e60f563dcbc2c77f9",
+      "diff": "source-evidence/p16-0064.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "facts": [
+        "Full72+empty diff. Defender ordering melee\u2192ranged\u2192remaining active and attacker active-melee rank, modulo target and extra-rank flanking preserve order, including duplicates intentionally bounded by contains. Actual joint/side caller guards and public empty defender misuse not inferred from debug_assert alone; private source unchanged."
+      ],
+      "disposition": "Source-local08 comparison accounted WITH explicit unresolved connected sources, not full family/behavior clearance.",
+      "acceptance": "Preserve admitted physical values, exact clamp/arithmetic/RNG/phase order, Option unavailable shape and final native wire port. Keep existing CAM-PPS-F001 assertions intact while adapting actual numeric observations; no checks/tests/repairs."
+    },
+    {
+      "scope_index": 65,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/commitment.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/autoresolve/melee_round/commitment.rs",
+      "before_sha256": "52eb21ff762fa1bb6d55c4237bf1d1d66638a7929d996eb94074726727b563f6",
+      "after_sha256": "52eb21ff762fa1bb6d55c4237bf1d1d66638a7929d996eb94074726727b563f6",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0065-base-52eb21ff762fa1bb6d55c4237bf1d1d66638a7929d996eb94074726727b563f6",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/52eb21ff762fa1bb6d55c4237bf1d1d66638a7929d996eb94074726727b563f6",
+      "diff": "source-evidence/p16-0065.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          239
+        ]
+      ],
+      "facts": [
+        "Full239+empty diff. Defender phase read returns Neutral for a different opponent, existing scheduled windup before recovery, reciprocal guard chronology intact. Phase-adaptation elapsed=min(gap,interval) and enum\u2192timeline strings unchanged.",
+        "Offhand successful block during committed attack transforms retained attack power, neutral-guard defense returns zero block recovery but dodge0.5; same-weapon attempted contact during committed windup cancels independent effective hit. Work charging and actual timeline projection order preserved. No new hidden fatigue pool or duplicate generic duration."
+      ],
+      "disposition": "Source-local08 comparison accounted WITH explicit unresolved connected sources, not full family/behavior clearance.",
+      "acceptance": "Preserve admitted physical values, exact clamp/arithmetic/RNG/phase order, Option unavailable shape and final native wire port. Keep existing CAM-PPS-F001 assertions intact while adapting actual numeric observations; no checks/tests/repairs."
+    },
+    {
+      "scope_index": 66,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+      "before_sha256": "201e0aa26a4ceec81c0caa799acc2dae96ad3d1600ed6184aef8f671e3becf1c",
+      "after_sha256": "6807ada697c587ffd96f625c61692de55a4ae1548d7dcd9e5d2d539e5f6187c0",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0066-base-201e0aa26a4ceec81c0caa799acc2dae96ad3d1600ed6184aef8f671e3becf1c",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/6807ada697c587ffd96f625c61692de55a4ae1548d7dcd9e5d2d539e5f6187c0",
+      "diff": "source-evidence/p16-0066.diff",
+      "diff_sha256": "0fcc16fd68835eff7604fd9a79632c6abe564ae3d8e280a85fcf21e591b148fa",
+      "head_body_read_ranges": [
+        [
+          1,
+          234
+        ]
+      ],
+      "facts": [
+        "Reuse own earlier full234+entire actual diff. Same target intent predicate, physical speed/force selection, native grounding and mobility law. Pair mutates target/distance at same preflight location; partial error-return state is not a transaction promise. Q001 axis admission witness retained with normal caps qualification."
+      ],
+      "disposition": "Source-local08 comparison accounted WITH explicit unresolved connected sources, not full family/behavior clearance.",
+      "acceptance": "Preserve admitted physical values, exact clamp/arithmetic/RNG/phase order, Option unavailable shape and final native wire port. Keep existing CAM-PPS-F001 assertions intact while adapting actual numeric observations; no checks/tests/repairs.",
+      "own_lens_reuse": "Exact own08 full-body/differential receipts002/003 and complete local source proofs, no other-lens clearance or fresh reread credit."
+    },
+    {
+      "scope_index": 67,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/mod.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/autoresolve/melee_round/mod.rs",
+      "before_sha256": "3ada1de8aa9e1322565a5f1ae9b5882e0beba1d5ad024cc4705f7eb35ba0982b",
+      "after_sha256": "4d44aec14335abdea2ad0899a2d41cf09c7b5677fcb850b2ede69174596d3a34",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0067-base-3ada1de8aa9e1322565a5f1ae9b5882e0beba1d5ad024cc4705f7eb35ba0982b",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/4d44aec14335abdea2ad0899a2d41cf09c7b5677fcb850b2ede69174596d3a34",
+      "diff": "source-evidence/p16-0067.diff",
+      "diff_sha256": "ac0c74d2c080f827e476c60d60cebd2ac3724be093d66fcdc31944d54c95306c",
+      "head_body_read_ranges": [
+        [
+          1,
+          597
+        ]
+      ],
+      "facts": [
+        "Reuse own earlier full597+entire diff. Contact center-to-surface+.8 checked at same receiving physical slot before result application, prepare multiplier std::mem::replace remains before possiblegeometry error; do not falsely claim global rollback. Exact scheduled IDs/currentness and joint caller proof55/65 source read now connected. Remaining lower contact/defense/operation families pending."
+      ],
+      "disposition": "Source-local08 comparison accounted WITH explicit unresolved connected sources, not full family/behavior clearance.",
+      "acceptance": "Preserve admitted physical values, exact clamp/arithmetic/RNG/phase order, Option unavailable shape and final native wire port. Keep existing CAM-PPS-F001 assertions intact while adapting actual numeric observations; no checks/tests/repairs.",
+      "own_lens_reuse": "Exact own08 full-body/differential receipts002/003 and complete local source proofs, no other-lens clearance or fresh reread credit."
+    },
+    {
+      "scope_index": 68,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/scheduling.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/autoresolve/melee_round/scheduling.rs",
+      "before_sha256": "9c56fb8232e356e6e204ba7c1065597c6063b0b25572d6f0e7cb131b2a7eb320",
+      "after_sha256": "170846de4c534120087f3f12c2fd365b8f2103c97d270ff28d71bee179d6e147",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0068-base-9c56fb8232e356e6e204ba7c1065597c6063b0b25572d6f0e7cb131b2a7eb320",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/170846de4c534120087f3f12c2fd365b8f2103c97d270ff28d71bee179d6e147",
+      "diff": "source-evidence/p16-0068.diff",
+      "diff_sha256": "ea58b11f601d26c01dced672f6b9b8bb2d950d7180cbbbd73a9f915dccc29aed",
+      "head_body_read_ranges": [
+        [
+          1,
+          391
+        ]
+      ],
+      "facts": [
+        "Reuse own earlier full391+entire diff. RNGdraw/event scheduling, target/readiness fields, contact<=window_end and stable ID ordering unchanged; new checked physical lengths propagate errors before affected admission. Q001/actual extreme API inputs remain qualified; no event trace executed."
+      ],
+      "disposition": "Source-local08 comparison accounted WITH explicit unresolved connected sources, not full family/behavior clearance.",
+      "acceptance": "Preserve admitted physical values, exact clamp/arithmetic/RNG/phase order, Option unavailable shape and final native wire port. Keep existing CAM-PPS-F001 assertions intact while adapting actual numeric observations; no checks/tests/repairs.",
+      "own_lens_reuse": "Exact own08 full-body/differential receipts002/003 and complete local source proofs, no other-lens clearance or fresh reread credit."
+    },
+    {
+      "scope_index": 69,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/model.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/autoresolve/model.rs",
+      "before_sha256": "20d6bb98602db1d3dbc649b575e54c27fb766279d064deed4a13fcc0c695af72",
+      "after_sha256": "b1b76643680707125e6bd040b60703127a2ed09cc460e226b2c4f08c90724ffe",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0069-base-20d6bb98602db1d3dbc649b575e54c27fb766279d064deed4a13fcc0c695af72",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/b1b76643680707125e6bd040b60703127a2ed09cc460e226b2c4f08c90724ffe",
+      "diff": "source-evidence/p16-0069.diff",
+      "diff_sha256": "f6b644924b63271a63d726dad92757632245bd858ea94dcc2bba492adfe25e0b",
+      "head_body_read_ranges": [
+        [
+          1,
+          364
+        ]
+      ],
+      "facts": [
+        "Reuse own earlier full364+entire diff. Combat physical model fields default ZERO and native projection preserve field/role order; retained raw aggregate fields unchanged. Fresh full50/60/72 now supplies actual typed telemetry receivers. Does not clear broader schema/DB/capability ports."
+      ],
+      "disposition": "Source-local08 comparison accounted WITH explicit unresolved connected sources, not full family/behavior clearance.",
+      "acceptance": "Preserve admitted physical values, exact clamp/arithmetic/RNG/phase order, Option unavailable shape and final native wire port. Keep existing CAM-PPS-F001 assertions intact while adapting actual numeric observations; no checks/tests/repairs.",
+      "own_lens_reuse": "Exact own08 full-body/differential receipts002/003 and complete local source proofs, no other-lens clearance or fresh reread credit."
+    },
+    {
+      "scope_index": 70,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/power.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/autoresolve/power.rs",
+      "before_sha256": "76922a00bc1d4bf13c6d972aaba83258551ce853fff438f2edc3f0d295ae025a",
+      "after_sha256": "7469ca1e1a2a0c7bfa49292adac667ebbf5323f3dfd5f0e39e368e18f118d2a7",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0070-base-76922a00bc1d4bf13c6d972aaba83258551ce853fff438f2edc3f0d295ae025a",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/7469ca1e1a2a0c7bfa49292adac667ebbf5323f3dfd5f0e39e368e18f118d2a7",
+      "diff": "source-evidence/p16-0070.diff",
+      "diff_sha256": "8e2f6a19e19d046c0c1c9391a7f57d408feca542b022a515e8cbc7963c8c3e13",
+      "head_body_read_ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "facts": [
+        "Full168+complete diff. Three reach/ranged native numerical projections use .metres at same kernels. log bounded NaN/nonpositive\u21920 and positiveInf\u2192max, native ln_1p weights, ammo gates, armor coverage, health/readiness and final round/clamp order all unchanged for admitted values. Existing raw nonfinite component bounding remains intentional diagnostic model; no extra input normalization."
+      ],
+      "disposition": "Source-local08 comparison accounted WITH explicit unresolved connected sources, not full family/behavior clearance.",
+      "acceptance": "Preserve admitted physical values, exact clamp/arithmetic/RNG/phase order, Option unavailable shape and final native wire port. Keep existing CAM-PPS-F001 assertions intact while adapting actual numeric observations; no checks/tests/repairs."
+    },
+    {
+      "scope_index": 71,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/threat.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/autoresolve/threat.rs",
+      "before_sha256": "58a5e53d2fdf5283f4e7ba8a58f1335f894bb6b4ab4524f3684f92bbca8dc106",
+      "after_sha256": "bf72fdd14fdc1fc1e4196b4c65172f6c71d0658f4bad6896cb41495acf889798",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0071-base-58a5e53d2fdf5283f4e7ba8a58f1335f894bb6b4ab4524f3684f92bbca8dc106",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/bf72fdd14fdc1fc1e4196b4c65172f6c71d0658f4bad6896cb41495acf889798",
+      "diff": "source-evidence/p16-0071.diff",
+      "diff_sha256": "9ddc84d8b1a4c199083e461221ce09d0eee4f91b1ecccbac1caca708fd38434b",
+      "head_body_read_ranges": [
+        [
+          1,
+          190
+        ]
+      ],
+      "facts": [
+        "Reuse own earlier full190+entire diff. Authored threat builder fixed finite default lengths retain checked admission; actual embedded defaults and root failure propagation compared, lower bestiary profile remains next75."
+      ],
+      "disposition": "Source-local08 comparison accounted WITH explicit unresolved connected sources, not full family/behavior clearance.",
+      "acceptance": "Preserve admitted physical values, exact clamp/arithmetic/RNG/phase order, Option unavailable shape and final native wire port. Keep existing CAM-PPS-F001 assertions intact while adapting actual numeric observations; no checks/tests/repairs.",
+      "own_lens_reuse": "Exact own08 full-body/differential receipts002/003 and complete local source proofs, no other-lens clearance or fresh reread credit."
+    },
+    {
+      "scope_index": 72,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/timeline.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/autoresolve/timeline.rs",
+      "before_sha256": "4e83c1f6cda9e4f7a8f9a19ac6c54119c67701f6d4dae37641c5e6b7b94b753d",
+      "after_sha256": "97e87014b1ece1247d03e8e2a7e1e36db3c28ccae7b17b95dd7857ca13075406",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0072-base-4e83c1f6cda9e4f7a8f9a19ac6c54119c67701f6d4dae37641c5e6b7b94b753d",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/97e87014b1ece1247d03e8e2a7e1e36db3c28ccae7b17b95dd7857ca13075406",
+      "diff": "source-evidence/p16-0072.diff",
+      "diff_sha256": "22c7dc7a8abcd764f0b244fa4b50dcf7d443e87a04259fedee003ff7a0ad92a0",
+      "head_body_read_ranges": [
+        [
+          1,
+          139
+        ]
+      ],
+      "facts": [
+        "Full139+complete diff. Three Option<f32> geometry facts become Option<SignedLength>; all None defaults and snake_case enums retain shape. Tick quantization max(0)*64 round asu64 unchanged, including negative signed BattleTime records preserving time while clamping native sample tick.",
+        "Actual changed movement field17 supplies fresh same-lens proof for inherited CAM-PPS-F001 fixture.abs obligation (58:672); exact inherited record personally consumed. Numeric serde transparency own452 preserves admitted JSON numeric payload, not broad native schema clearance."
+      ],
+      "disposition": "Source-local08 comparison accounted WITH explicit unresolved connected sources, not full family/behavior clearance.",
+      "acceptance": "Preserve admitted physical values, exact clamp/arithmetic/RNG/phase order, Option unavailable shape and final native wire port. Keep existing CAM-PPS-F001 assertions intact while adapting actual numeric observations; no checks/tests/repairs."
+    },
+    {
+      "scope_index": 73,
+      "source_id": "physical-p16:crates/adventuresim-core/src/battle_rewards.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/battle_rewards.rs",
+      "before_sha256": "b01daaf0a320f38062f1772b90da65b1d29e49f85f49a1dcde2d72b539a381b5",
+      "after_sha256": "b01daaf0a320f38062f1772b90da65b1d29e49f85f49a1dcde2d72b539a381b5",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0073-base-b01daaf0a320f38062f1772b90da65b1d29e49f85f49a1dcde2d72b539a381b5",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/b01daaf0a320f38062f1772b90da65b1d29e49f85f49a1dcde2d72b539a381b5",
+      "diff": "source-evidence/p16-0073.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "facts": [
+        "Full31+empty diff. Living membership is BTreeSet, then recorded order filter retains recorded duplicate IDs and excludes dead members; no dedup/reorder of output introduced. Existing delayed/dead participant fixtures source-only; actual DB benefit mutation remains pending."
+      ],
+      "disposition": "Source-local08 comparison accounted WITH explicit unresolved connected sources, not full family/behavior clearance.",
+      "acceptance": "Preserve admitted physical values, exact clamp/arithmetic/RNG/phase order, Option unavailable shape and final native wire port. Keep existing CAM-PPS-F001 assertions intact while adapting actual numeric observations; no checks/tests/repairs."
+    },
+    {
+      "scope_index": 74,
+      "source_id": "physical-p16:crates/adventuresim-core/src/battle_time.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/battle_time.rs",
+      "before_sha256": "989db0ee4ad72276f3923b7d005480e50b6c618e04d0b7623602bf0de0d2a350",
+      "after_sha256": "989db0ee4ad72276f3923b7d005480e50b6c618e04d0b7623602bf0de0d2a350",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0074-base-989db0ee4ad72276f3923b7d005480e50b6c618e04d0b7623602bf0de0d2a350",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/989db0ee4ad72276f3923b7d005480e50b6c618e04d0b7623602bf0de0d2a350",
+      "diff": "source-evidence/p16-0074.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "facts": [
+        "Full95+empty diff. Finite signed battle coordinates, checked positive overflow for addition, negative elapsed rejects via AnimationElapsed, saturating difference max0 before admission retained. is_within subtract\u2192abs and precedes margin add-before-compare retain transient overflow Boolean semantics rather than add eager retention. Actual joint55/defense56/scheduling68 receiving comparisons now source-consumed."
+      ],
+      "disposition": "Source-local08 comparison accounted WITH explicit unresolved connected sources, not full family/behavior clearance.",
+      "acceptance": "Preserve admitted physical values, exact clamp/arithmetic/RNG/phase order, Option unavailable shape and final native wire port. Keep existing CAM-PPS-F001 assertions intact while adapting actual numeric observations; no checks/tests/repairs."
+    }
+  ],
+  "finding_alias_support": {
+    "id": "CAM-PPS-F001",
+    "source_support": "source-support-001-p16-signed-comparison.json",
+    "status": "Exact retained finding, both current fixture receiving operations supported; no new unique defect."
+  },
+  "next": "Original75 bestiary full1558 then76error/77body/78capability etc; inherited native/other-lens verdicts remain navigation only."
+}

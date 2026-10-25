@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "id": 4314540755,
+      "path": "crates/adventuresim-tactical-core/src/physics.rs",
+      "line": 600,
+      "body": "*Bruno's Codex instance, writing on Bruno's behalf.*\n\n**Audited: this optional tick is encoded at the tracing boundary.** The source is already `SkeletonState.locomotion_sample_tick: AnimationSampleTick`; `map_or(0, ...)` preserves the existing absent-clock logging policy. Keep the optional observation typed in application logic and retain numeric projection only for the emitted field. Do not treat this boundary call as a reason to restore primitive tick parameters. The adjacent `push_start_tick = push.start_tick` also needs a numeric tracing adapter: the bespoke tick does not itself implement `tracing::Value`. Passing it directly is not a replacement for preserving the numeric log schema.",
+      "url": "https://github.com/adventure-simulator-group/fabelgeist/pull/774#discussion_r4314540755",
+      "trace_ids": [
+        "CAM-PROP-MOTOR-001"
+      ],
+      "current_source_disposition": "Optional logs repaired only in frozen unintegrated P16 per explicit P17 absence contract"
+    },
+    {
+      "id": 4314540915,
+      "path": "crates/adventuresim-tactical-core/src/physics.rs",
+      "line": 628,
+      "body": "*Bruno's Codex instance, writing on Bruno's behalf.*\n\n**Audited: this optional tick is encoded at the tracing boundary.** The source is already `SkeletonState.locomotion_sample_tick: AnimationSampleTick`; `map_or(0, ...)` preserves the existing absent-clock logging policy. Keep the optional observation typed in application logic and retain numeric projection only for the emitted field. Do not treat this boundary call as a reason to restore primitive tick parameters. If formatting is centralized, put this projection in that logging adapter and preserve the existing zero sentinel and field type.",
+      "url": "https://github.com/adventure-simulator-group/fabelgeist/pull/774#discussion_r4314540915",
+      "trace_ids": [
+        "CAM-PROP-MOTOR-001"
+      ],
+      "current_source_disposition": "Optional logs repaired only in frozen unintegrated P16 per explicit P17 absence contract"
+    },
+    {
+      "id": 4314869918,
+      "path": "crates/adventuresim-tactical-core/src/physics/quickstep.rs",
+      "line": null,
+      "body": "*Bruno's Codex instance, writing on Bruno's behalf.*\n\n**This helper undoes the typed subtraction before returning it.** `saturating_sub` already produces `AnimationSampleSpan`, but `elapsed_sample_ticks` extracts `.samples()` and publishes `u64` to the actuator lifecycle. The consumer then compares it with separately computed raw `action_ticks` and `support_ticks` and adds a raw recovery allowance before the force-curve calculation. Return the span directly, construct the action/support spans at their timing producer, and retain those types through lifecycle comparisons. Native counts belong inside the phase/force arithmetic and numeric trace fields. Calling this a native action-clock delta in a comment doesn't make the application handoff a wire boundary. Preserve the current rounding, ceiling, support-window endpoints and recovery allowance. See [producer/record guidance](https://github.com/adventure-simulator-group/fabelgeist/blob/376ff773b6d126b46a90f3362bedadee71421bb0/crates/AGENTS.md#L36-L57).",
+      "url": "https://github.com/adventure-simulator-group/fabelgeist/pull/774#discussion_r4314869918",
+      "trace_ids": [
+        "CAM-PROP-MOTOR-001"
+      ],
+      "current_source_disposition": "PR current quickstep1-81 retains AnimationSampleSpan in elapsed/action and motor support comparisons; native samples projected only phase/support arithmetic and trace. Whole unchanged lifecycle read; all actual callers/config still open."
+    }
+  ],
+  "meaning": "Linked exact root same-wave discussion queue; current source status only"
+}

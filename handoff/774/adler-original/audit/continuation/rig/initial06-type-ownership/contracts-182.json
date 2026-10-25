@@ -1,0 +1,44 @@
+{
+  "id": "RIG-INITIAL06-GROUP-182",
+  "at": "2026-10-23T05:43:49.987257+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-061.json",
+  "groups": {
+    "mission-roster-current-versus-captured-authority": {
+      "comparison": "Fresh mission_roster101 imports canonical MissionEnemyRoster/EnemyRosterError, extends error with live group count and DB missing character. Capture checks group cardinality once, stores exact enemy vector alongside bound state and combat/loot snapshot; enemy_roster re-admits saved vector and checks character existence without rereading live group size. Captured roster and current group membership are different authorities, not duplicate roster definitions. into_enemy_ids erases shared collection at DB storage boundary, not reason for second DB enemy count type. Character word identity joins F040; request/scene/case/group strings remain distinct namespaces.",
+      "disposition": "Keep canonical low roster and DB contextual authority/error; preserve captured versus live distinction."
+    },
+    "generated-building-cache-and-prepared-city": {
+      "comparison": "Fresh recipes112 bundles canonical BuildingProgram/Plan/Collision into transient GeneratedBuildingRecipe; cache keys complete program equality, inserts replace matching program and take transfers product. It is not scene document or duplicate building plan. Public fields/Serde do not seal correlation (existing admission gap remains). Fresh city103 composes exact RegionalCityInput, supported terrain/ground, landform and PreparedCityGround plus graphics snapshot; jobs require regional-map ticket and use canonical BuildingProgram. Staged static exterior product intentionally omits interiors/furniture/actors, not another complete tactical scene authority. Keep complete-key caches, stage-specific products and pure generator definitions; no native asset dependency below Core.",
+      "disposition": "Preserve canonical recipes/programs and distinct transient preparation stages; no duplicated plan owner."
+    },
+    "sparse-locomotion-anchor-ordinal": {
+      "comparison": "Fresh locomotion_sampling110 uses ClipDuration/ClipTime/CyclePhase and UnitInterval to compute four semantic quarter-cycle anchors. SparseLocomotionSegment.start/end are local0..3 anchor ordinals, not RigJointOrdinal, global SampleTick or clip time. Looping cycle phase may exceed1 before rem_euclid, while interpolation amount must be unit interval; do not unify them. Preserve source multiply-then-divide f32 sampling order and actual typed animation errors. Tests source only, no new fixtures or executed assertion.",
+      "disposition": "Retain canonical timeline/fraction types and local sparse anchor kernel."
+    },
+    "physical-evaluation-memo-not-physical-invariant-owner": {
+      "comparison": "Fresh memo106 retains complete design keys D with equality in bounded64-entry Mutex deque; failed construction not cached and native locking is local infrastructure. DerivedProperties shared output, not independently recomputed fields or caller-supplied digest identity. Success alone is not checked finite physical output (existing physical output repair), and labels may affect key equality while leaving physical result same. Do not invent new native mass owner inside cache or replace full design with partialhash. Existing source tests read only.",
+      "disposition": "Keep canonical design/result owner and bounded full-key memo; no validated-output claim from cache."
+    },
+    "strategic-to-pure-combatant-projection": {
+      "comparison": "Fresh combatant111 projects handwritten DB attributes/skills/limbs/stats/condition plus StrategicEquipment into transient Core CombatantStrategicState. CombatSkills is selected combat capability view (24 fields plus religion total), not complete CharacterSkills or duplicate per-skill authority; religion_total intentionally aggregates. Health array uses canonical BodyPart order, strategic fatigue converted to one combat fatigue/starting incapacitation, not hidden parallel pool. Native raw blood/mass/health/f32 values and errors remain input projections, not accepted finite certificate. Keep shared Core pure combat below DB and durable CharacterId candidate F040; different physiology and skill products retain meaning.",
+      "disposition": "Preserve authority-to-transient projection and canonical combat/body/skills owners."
+    },
+    "coordinate-materializer-boundary": {
+      "comparison": "Fresh materialize-real-world-scene102 parses f64 CLI degrees through canonical LatitudeE7/LongitudeE7, then extracts native integers for existing imported-scene API and mission key formatting. Actual exactE7 decimal conversion is existing owner; no alternative CLI coordinate range or Seed-as-ID. Early extraction fits existing coordinate propagation F012/F018 graph, while formatting actualmissionkey is a genuine text boundary. Absolute and lunar minute share suppliedclock intentionally, terrain purposeFinal and package digest checked by canonical TerrainPack. No materialization executed, asset/filesystem paths are CLI boundary values.",
+      "disposition": "Keep canonical geography/time/package owners and narrow CLI formatting boundary; retain coordinate propagation candidate."
+    },
+    "geographic-stage-and-reservation-projection": {
+      "comparison": "Fresh geographic96 prepares full source-validated terrain, buildings, ground and obstacles before property grading and retains them in UngradedSceneTerrain. This stage product differs supported/installed scene, no duplicate accepted terrain type merely similar fields. ObstacleReservation uses existing checked centre/half-extents/orientation for horizontal occupancy, not floor elevation or full property authority. Garden soil and compound floors may differ, so do not infer one shared support height. Existing Seed/weather/refinement inputs remain canonical; raw numeric lattice projection is real preparation kernel.",
+      "disposition": "Preserve explicit geographic-before-grading stage and canonical scene/frame owners."
+    }
+  },
+  "source_fact_refs": [
+    "contracts-003.json",
+    "contracts-040.json",
+    "contracts-047.json",
+    "contracts-097.json",
+    "contracts-177.json"
+  ],
+  "limits": "Eight current PR bodies freshly read completely incl original fixtures. No implementation/materialization/DB or file effects, execution/new tests/new scope/other lens."
+}

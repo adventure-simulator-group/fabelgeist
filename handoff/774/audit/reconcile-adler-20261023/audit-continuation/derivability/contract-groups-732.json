@@ -1,0 +1,26 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-732",
+  "at": "2026-10-25T16:38:51.914582+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 985,
+  "source_id": "pr-working:crates/adventuresim-core/src/rights.rs",
+  "sha256": "452c9b104be14352c93d247f83a87de98fa79b10c86d3b51d28eaa252a927b07",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Fourteen local rights/organization/public allowance traits19\u201332 are empty CloneDebugEq marker bounds; no project matching derive. Rights subject/resource/operation/jurisdiction/question already structural derives.",
+    "CanonicalRightsQuestionDigest39\u2013170 native explicitly versioned length-framed shared/domain variant encoding; not handwritten Serialize/Hash, preserve protocol semantics rather than automatic struct/enum encoding. No handwritten trait/codec1\u2013220."
+  ],
+  "first_unfinished": {
+    "scope_index": 985,
+    "line": 221
+  },
+  "execution": "none"
+}

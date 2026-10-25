@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-826",
+  "at": "2026-10-25T16:57:05.393607+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1034,
+  "source_id": "pr-working:crates/adventuresim-dialogue/src/lib.rs",
+  "sha256": "bd30bf8d21bb5152ad8cfdc81e7ff99fc9629f6f3c5d359c156aa4b1e21cd284",
+  "actual_compared_ranges": [
+    [
+      1,
+      300
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Catalog/conversation/role/topic/response/turn/tagged fragment/addressee/runtime-slot types already derived strict Serde/structural, RuntimeBindings Default already. Inherent addressee selection/runtime/testimony binding/resolution performs validation and expansion, not trait boilerplate. No manual trait/codec in consumed range; generated include21 separate source authority not automatically credited."
+  ],
+  "first_unfinished": {
+    "scope_index": 1034,
+    "line": 301
+  },
+  "execution": "none"
+}

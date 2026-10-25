@@ -1,0 +1,2944 @@
+--- before/crates/adventuresim-tactical-client/src/animation/diagnostic_record.rs
++++ after/crates/adventuresim-tactical-client/src/animation/diagnostic_record.rs
+@@ -1,6 +1,9 @@
+ //! Native diagnostic JSON records, after application-state interpretation.
+ 
+ use super::*;
++use adventuresim_tactical_core::{
++    city_layout::grounding::SupportElevation, scene_coordinates::ScenePlanPoint,
++};
+ use serde::Serialize;
+ 
+ #[derive(Clone, Copy, Serialize)]
+@@ -68,7 +71,7 @@
+     pub(super) action_phase: UnitInterval,
+     pub(super) authored_weapon_target: Option<DiagnosticTransform>,
+     pub(super) bones: Vec<DiagnosticBone<'a>>,
+-    pub(super) terrain_height: Option<f32>,
++    pub(super) terrain_height: Option<SupportElevation>,
+     pub(super) controller_height_above_terrain: Option<f32>,
+     pub(super) authoritative: &'a SkeletonState,
+     pub(super) presented: &'a SkeletonState,
+@@ -82,6 +85,15 @@
+     pub(super) playback: DiagnosticPlayback,
+ }
+ 
++impl From<&Transform> for DiagnosticTransform {
++    fn from(transform: &Transform) -> Self {
++        Self {
++            translation: transform.translation.to_array(),
++            rotation_xyzw: transform.rotation.to_array(),
++        }
++    }
++}
++
+ impl<'a> DiagnosticBone<'a> {
+     pub(super) fn from_global(
+         target: AnimationTargetId,
+@@ -90,9 +102,9 @@
+         terrain: Option<&SceneTerrain>,
+     ) -> Self {
+         let (scale, rotation, translation) = transform.to_scale_rotation_translation();
+-        let terrain_clearance_metres = terrain
+-            .and_then(|terrain| terrain.height_at(translation.xz()))
+-            .map(|height| translation.y - height);
++        let terrain_clearance_metres = ScenePlanPoint::from_metres(translation.xz())
++            .and_then(|point| terrain.and_then(|terrain| terrain.height_at(point)))
++            .map(|height| translation.y - height.metres());
+         Self {
+             name: name.map_or("<unnamed>", Name::as_str),
+             target_id: capture_animation_target_id(target),
+--- before/crates/adventuresim-tactical-client/src/animation/diagnostics.rs
++++ after/crates/adventuresim-tactical-client/src/animation/diagnostics.rs
+@@ -1,6 +1,8 @@
+ #[cfg(not(target_family = "wasm"))]
+ use super::diagnostic_record::*;
+ use super::*;
++#[cfg(not(target_family = "wasm"))]
++use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
+ #[cfg(not(target_family = "wasm"))]
+ use std::io::{BufWriter, Write};
+ #[cfg(not(target_family = "wasm"))]
+@@ -157,7 +159,8 @@
+     {
+         let diagnostic_frame = log.frame;
+         let global_translation = global_transform.translation();
+-        let terrain_height = terrain.and_then(|terrain| terrain.height_at(global_translation.xz()));
++        let terrain_height = ScenePlanPoint::from_metres(global_translation.xz())
++            .and_then(|point| terrain.and_then(|terrain| terrain.height_at(point)));
+         let evaluation = match AnimationEvaluation::from_skeleton(presented) {
+             Ok(evaluation) => evaluation,
+             Err(error) => {
+@@ -189,10 +192,7 @@
+             render_delta_seconds: time.delta_secs(),
+             render_schedule_completion,
+             input: input.as_deref(),
+-            controller_transform: DiagnosticTransform {
+-                translation: transform.translation.to_array(),
+-                rotation_xyzw: transform.rotation.to_array(),
+-            },
++            controller_transform: DiagnosticTransform::from(transform),
+             controller_global_transform: DiagnosticTransform {
+                 translation: global_translation.to_array(),
+                 rotation_xyzw: global_transform.compute_transform().rotation.to_array(),
+@@ -210,7 +210,7 @@
+             bones: bone_transforms,
+             terrain_height,
+             controller_height_above_terrain: terrain_height
+-                .map(|height| global_translation.y - height),
++                .map(|height| global_translation.y - height.metres()),
+             authoritative,
+             presented: &presented.state,
+             presentation_phase_error_remaining: presented.phase_error_remaining,
+--- before/crates/adventuresim-tactical-client/src/animation/pose_buffer.rs
++++ after/crates/adventuresim-tactical-client/src/animation/pose_buffer.rs
+@@ -9,6 +9,7 @@
+ 
+ use super::procedural::clock::{AnimationSampleTick, FixedAnimationStep};
+ use super::*;
++use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
+ use baking::{BakedClip, BoneTrackSource, bake_clip, get_or_bake};
+ #[cfg(test)]
+ use baking::{BakedFrameCount, BoneTrack};
+@@ -96,9 +97,9 @@
+     ready: LocalPose,
+     outgoing: LocalPose,
+     finish: LocalPose,
+-    start_coordinate: f32,
+-    incoming_tangent: f32,
+-    ready_phase: f32,
++    start_coordinate: AttackPoseCoordinate,
++    incoming_tangent: IncomingAttackTangent,
++    ready_phase: ContinuationReadiness,
+ }
+ 
+ #[derive(Debug)]
+@@ -153,7 +154,7 @@
+ #[derive(Debug, Clone, Copy)]
+ struct PoseConformity<'a> {
+     owner: &'a GlobalTransform,
+-    weights: Vec2,
++    weights: FootIkInfluence,
+     terrain: Option<&'a SceneTerrain>,
+     contact_plants: ContactPlantPolicy,
+     locomotion_pelvis_rotation: Option<Quat>,
+@@ -238,18 +239,18 @@
+         }
+     }
+ 
+-    fn continuation_transition(self, transition: ContinuationTransition, progress: f32) -> Self {
+-        let start = self.extrapolate_unbounded(
+-            transition.contact,
+-            transition.start_coordinate.clamp(
+-                -AttackCurve::maximum_drawback(),
+-                1.0 + AttackCurve::maximum_overshoot(),
+-            ),
+-        );
+-        let progress = progress.clamp(0.0, 1.0);
+-        let ready_phase = transition.ready_phase;
++    fn continuation_transition(
++        self,
++        transition: ContinuationTransition,
++        progress: UnitInterval,
++    ) -> Self {
++        let start = self.extrapolate(transition.contact, transition.start_coordinate);
++        // The complete native spline consumes phase knots, normalized progress
++        // and an attack-coordinate derivative; checked roles end at this kernel.
++        let progress = progress.fraction().clamp(0.0, 1.0);
++        let ready_phase = transition.ready_phase.phase();
+         let knots = [0.0, ready_phase, 0.5, 1.0];
+-        let incoming_scale = transition.incoming_tangent / ready_phase;
++        let incoming_scale = transition.incoming_tangent.coordinate_delta() / ready_phase;
+         let rotation_values = [
+             Vec3::ZERO,
+             quaternion_log(shortest_rotation(
+@@ -1015,13 +1016,13 @@
+         .as_ref()
+         .map(|reference| RigJointTable::from(vec![None; reference.len()]));
+     for (index, (left, weight, names)) in [
+-        (true, weights.x, RigJointName::LEFT_LEG_CHAIN),
+-        (false, weights.y, RigJointName::RIGHT_LEG_CHAIN),
++        (true, weights.left(), RigJointName::LEFT_LEG_CHAIN),
++        (false, weights.right(), RigJointName::RIGHT_LEG_CHAIN),
+     ]
+     .into_iter()
+     .enumerate()
+     {
+-        let weight = weight.clamp(0.0, 1.0);
++        let weight = weight.fraction().clamp(0.0, 1.0);
+         if weight <= 0.0 && locomotion_pelvis_rotation.is_none() {
+             plants[index] = None;
+             continue;
+@@ -1051,13 +1052,13 @@
+         };
+         let reference_foot_world = owner.transform_point(reference_foot.translation);
+         let reference_foot_rotation_world = owner.rotation() * reference_foot.rotation;
+-        let terrain_target_world = terrain
+-            .and_then(|terrain| terrain.height_at(reference_foot_world.xz()))
++        let terrain_target_world = ScenePlanPoint::from_metres(reference_foot_world.xz())
++            .and_then(|point| terrain.and_then(|terrain| terrain.height_at(point)))
+             .map(|height| {
+                 reference_foot_world.with_y(
+                     reference_foot_world
+                         .y
+-                        .max(height + measured_ankle_sole_offset_metres().metres()),
++                        .max(height.metres() + measured_ankle_sole_offset_metres().metres()),
+                 )
+             })
+             .unwrap_or(reference_foot_world);
+@@ -1092,13 +1093,13 @@
+                     (excess / distance).clamp(0.0, 1.0),
+                 );
+             }
+-            if let Some(plant_height) =
+-                terrain.and_then(|terrain| terrain.height_at(plant.position_world.xz()))
++            if let Some(plant_height) = ScenePlanPoint::from_metres(plant.position_world.xz())
++                .and_then(|point| terrain.and_then(|terrain| terrain.height_at(point)))
+             {
+                 plant.position_world.y = plant
+                     .position_world
+                     .y
+-                    .max(plant_height + measured_ankle_sole_offset_metres().metres());
++                    .max(plant_height.metres() + measured_ankle_sole_offset_metres().metres());
+             }
+             plants[index] = Some(plant);
+         }
+@@ -1339,15 +1340,17 @@
+             ready: preparation,
+             outgoing: follow,
+             finish,
+-            start_coordinate: coordinate,
+-            incoming_tangent,
+-            ready_phase,
++            start_coordinate: AttackPoseCoordinate::from_coordinate(coordinate).unwrap(),
++            incoming_tangent: IncomingAttackTangent::from_coordinate_delta(incoming_tangent)
++                .unwrap(),
++            ready_phase: ContinuationReadiness::from_phase(ready_phase).unwrap(),
+         };
+         let step = 0.0005;
+         let before = guard
+             .extrapolate_unbounded(contact, coordinate - incoming_tangent * step / ready_phase);
+-        let start = guard.continuation_transition(transition, 0.0);
+-        let after = guard.continuation_transition(transition, step);
++        let start = guard.continuation_transition(transition, UnitInterval::ZERO);
++        let after =
++            guard.continuation_transition(transition, UnitInterval::from_fraction(step).unwrap());
+         let incoming_translation_velocity = (start.translation - before.translation) / step;
+         let outgoing_translation_velocity = (after.translation - start.translation) / step;
+         assert!(incoming_translation_velocity.distance(outgoing_translation_velocity) < 0.02);
+@@ -1355,9 +1358,12 @@
+         let outgoing_angular_velocity = start.rotation.angle_between(after.rotation) / step;
+         assert!((incoming_angular_velocity - outgoing_angular_velocity).abs() < 0.02);
+ 
+-        let ready = guard.continuation_transition(transition, ready_phase);
+-        let outgoing = guard.continuation_transition(transition, 0.5);
+-        let end = guard.continuation_transition(transition, 1.0);
++        let ready = guard.continuation_transition(
++            transition,
++            UnitInterval::from_fraction(ready_phase).unwrap(),
++        );
++        let outgoing = guard.continuation_transition(transition, UnitInterval::HALF);
++        let end = guard.continuation_transition(transition, UnitInterval::ONE);
+         assert!(ready.translation.distance(preparation.translation) < 0.0001);
+         assert!(ready.rotation.angle_between(preparation.rotation) < 0.0001);
+         assert!(outgoing.translation.distance(follow.translation) < 0.0001);
+@@ -1367,13 +1373,32 @@
+ 
+         let step = 0.002;
+         for seam in [ready_phase, 0.5] {
+-            let before_three = guard.continuation_transition(transition, seam - 3.0 * step);
+-            let before_two = guard.continuation_transition(transition, seam - 2.0 * step);
+-            let before_one = guard.continuation_transition(transition, seam - step);
+-            let at = guard.continuation_transition(transition, seam);
+-            let after_one = guard.continuation_transition(transition, seam + step);
+-            let after_two = guard.continuation_transition(transition, seam + 2.0 * step);
+-            let after_three = guard.continuation_transition(transition, seam + 3.0 * step);
++            let before_three = guard.continuation_transition(
++                transition,
++                UnitInterval::from_fraction(seam - 3.0 * step).unwrap(),
++            );
++            let before_two = guard.continuation_transition(
++                transition,
++                UnitInterval::from_fraction(seam - 2.0 * step).unwrap(),
++            );
++            let before_one = guard.continuation_transition(
++                transition,
++                UnitInterval::from_fraction(seam - step).unwrap(),
++            );
++            let at = guard
++                .continuation_transition(transition, UnitInterval::from_fraction(seam).unwrap());
++            let after_one = guard.continuation_transition(
++                transition,
++                UnitInterval::from_fraction(seam + step).unwrap(),
++            );
++            let after_two = guard.continuation_transition(
++                transition,
++                UnitInterval::from_fraction(seam + 2.0 * step).unwrap(),
++            );
++            let after_three = guard.continuation_transition(
++                transition,
++                UnitInterval::from_fraction(seam + 3.0 * step).unwrap(),
++            );
+             let velocity_before = (3.0 * at.translation - 4.0 * before_one.translation
+                 + before_two.translation)
+                 / (2.0 * step);
+@@ -1416,8 +1441,12 @@
+             assert!(angular_acceleration_before.distance(angular_acceleration_after) < 2.0);
+         }
+ 
+-        let before_end = guard.continuation_transition(transition, 1.0 - step);
+-        let before_end_two = guard.continuation_transition(transition, 1.0 - 2.0 * step);
++        let before_end = guard
++            .continuation_transition(transition, UnitInterval::from_fraction(1.0 - step).unwrap());
++        let before_end_two = guard.continuation_transition(
++            transition,
++            UnitInterval::from_fraction(1.0 - 2.0 * step).unwrap(),
++        );
+         let end_velocity = (3.0 * end.translation - 4.0 * before_end.translation
+             + before_end_two.translation)
+             / (2.0 * step);
+@@ -1476,7 +1505,7 @@
+             &mut [None; 2],
+             PoseConformity {
+                 owner: &GlobalTransform::IDENTITY,
+-                weights: Vec2::X,
++                weights: FootIkInfluence::LEFT,
+                 terrain: Some(&terrain),
+                 contact_plants: ContactPlantPolicy::Reset,
+                 locomotion_pelvis_rotation: None,
+@@ -1558,7 +1587,7 @@
+             &mut [None; 2],
+             PoseConformity {
+                 owner: &GlobalTransform::IDENTITY,
+-                weights: Vec2::ZERO,
++                weights: FootIkInfluence::NONE,
+                 terrain: None,
+                 contact_plants: ContactPlantPolicy::Reset,
+                 locomotion_pelvis_rotation: Some(Quat::IDENTITY),
+@@ -1629,7 +1658,7 @@
+             &mut [None; 2],
+             PoseConformity {
+                 owner: &GlobalTransform::IDENTITY,
+-                weights: Vec2::X,
++                weights: FootIkInfluence::LEFT,
+                 terrain: Some(&terrain),
+                 contact_plants: ContactPlantPolicy::Reset,
+                 locomotion_pelvis_rotation: None,
+@@ -1714,9 +1743,9 @@
+                 PoseConformity {
+                     owner: &GlobalTransform::IDENTITY,
+                     weights: if sample_index % 2 == 0 {
+-                        Vec2::X
++                        FootIkInfluence::LEFT
+                     } else {
+-                        Vec2::Y
++                        FootIkInfluence::RIGHT
+                     },
+                     terrain: Some(&terrain),
+                     contact_plants: ContactPlantPolicy::Reset,
+@@ -1780,7 +1809,7 @@
+             &mut plants,
+             PoseConformity {
+                 owner: &GlobalTransform::IDENTITY,
+-                weights: Vec2::X,
++                weights: FootIkInfluence::LEFT,
+                 terrain: Some(&terrain),
+                 contact_plants: ContactPlantPolicy::Retain,
+                 locomotion_pelvis_rotation: None,
+@@ -1797,7 +1826,10 @@
+             &mut plants,
+             PoseConformity {
+                 owner: &modest_owner,
+-                weights: Vec2::new(0.25, 0.0),
++                weights: FootIkInfluence::new(
++                    UnitInterval::from_fraction(0.25).unwrap(),
++                    UnitInterval::ZERO,
++                ),
+                 terrain: Some(&terrain),
+                 contact_plants: ContactPlantPolicy::Retain,
+                 locomotion_pelvis_rotation: None,
+@@ -1837,7 +1869,7 @@
+             &mut plants,
+             PoseConformity {
+                 owner: &far_owner,
+-                weights: Vec2::X,
++                weights: FootIkInfluence::LEFT,
+                 terrain: Some(&terrain),
+                 contact_plants: ContactPlantPolicy::Retain,
+                 locomotion_pelvis_rotation: None,
+--- before/crates/adventuresim-tactical-client/src/animation/procedural.rs
++++ after/crates/adventuresim-tactical-client/src/animation/procedural.rs
+@@ -933,6 +933,7 @@
+     use adventuresim_building_generator::spatial_geometry::SignedLength;
+     use adventuresim_core::linear_speed::NonnegativeSpeed;
+     use adventuresim_tactical_core::animation::NonnegativeLength;
++    use adventuresim_tactical_core::city_layout::grounding::SupportElevation;
+ 
+     #[test]
+     fn canonical_mhr_role_names_are_recognized() {
+@@ -1528,8 +1529,8 @@
+ 
+     #[test]
+     fn rendered_sole_contact_uses_the_shared_hierarchy_tolerance() {
+-        let terrain_height = 2.0;
+-        let exact_ankle = terrain_height + measured_ankle_sole_offset_metres().metres();
++        let terrain_height = SupportElevation::from_metres(2.0).unwrap();
++        let exact_ankle = terrain_height.metres() + measured_ankle_sole_offset_metres().metres();
+         assert!(sole_is_at_contact(exact_ankle, terrain_height));
+         assert!(sole_is_at_contact(
+             exact_ankle + sole_contact_tolerance_metres().metres() - 0.00001,
+@@ -1610,7 +1611,10 @@
+     #[test]
+     fn terrain_height_is_transient_during_an_active_guard_step() {
+         let flat = Vec3::new(0.2, -0.85, 0.3);
+-        let elevated = terrain_conformed_guard_target(flat, Some(1.25));
++        let elevated = terrain_conformed_guard_target(
++            flat,
++            Some(SupportElevation::from_metres(1.25).unwrap()),
++        );
+         assert_eq!(elevated.y, 1.335);
+         assert_eq!(terrain_conformed_guard_target(flat, None), flat);
+         assert_eq!(flat.y, -0.85);
+@@ -1641,7 +1645,7 @@
+         let bind = Quat::from_xyzw(0.8856122, 0.00000032, 0.00000032, 0.46442544).normalize();
+         let sole_up = sole_up_axis_from_bind(bind).normalize();
+         let current = Quat::from_rotation_y(0.7) * bind;
+-        let steep_normal = Vec3::new(0.8, 0.3, -0.4).normalize();
++        let steep_normal = bevy::math::Dir3::new(Vec3::new(0.8, 0.3, -0.4)).unwrap();
+ 
+         let once = slope_aligned_world_rotation(current, sole_up, steep_normal).unwrap();
+         let twice = slope_aligned_world_rotation(once, sole_up, steep_normal).unwrap();
+--- before/crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion.rs
++++ after/crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion.rs
+@@ -1,7 +1,9 @@
+ use super::*;
++use crate::animation::foot_influence::FootIkInfluence;
+ use adventuresim_building_generator::spatial_geometry::SignedLength;
+ use adventuresim_core::linear_speed::NonnegativeSpeed;
+ use adventuresim_tactical_core::animation::STATIONARY_ANIMATION_SPEED_LIMIT;
++use bevy::math::Dir3;
+ use terrain_leg::OrdinaryLeg;
+ 
+ mod terrain_leg;
+@@ -172,21 +174,11 @@
+             .unwrap_or_default();
+         let delta_seconds = state.sample_delta_seconds(&clock, &time);
+         let authored_weights = playback.foot_ik_weights;
+-        let (left_authored_weight, right_authored_weight) =
+-            match UnitInterval::from_fraction(authored_weights.x).and_then(|left| {
+-                UnitInterval::from_fraction(authored_weights.y).map(|right| (left, right))
+-            }) {
+-                Ok(weights) => weights,
+-                Err(error) => {
+-                    warn!(%error, "authored IK support rejected");
+-                    continue;
+-                }
+-            };
+ 
+         let solve_weights = if enabled.is_enabled() && terrain.is_some() {
+-            (left_authored_weight, right_authored_weight)
++            authored_weights
+         } else {
+-            (UnitInterval::ZERO, UnitInterval::ZERO)
++            FootIkInfluence::NONE
+         };
+ 
+         let legs = [
+@@ -194,14 +186,14 @@
+                 upper_role: BoneRole::ThighLeft,
+                 lower_role: BoneRole::ShinLeft,
+                 foot_role: BoneRole::FootLeft,
+-                weight: solve_weights.0,
++                weight: solve_weights.left(),
+                 foot_side: LeadFoot::Left,
+             },
+             OrdinaryLeg {
+                 upper_role: BoneRole::ThighRight,
+                 lower_role: BoneRole::ShinRight,
+                 foot_role: BoneRole::FootRight,
+-                weight: solve_weights.1,
++                weight: solve_weights.right(),
+                 foot_side: LeadFoot::Right,
+             },
+         ];
+@@ -210,7 +202,10 @@
+         let mut support = if enabled.is_enabled() {
+             [None, None]
+         } else {
+-            [Some(left_authored_weight), Some(right_authored_weight)]
++            [
++                Some(authored_weights.left()),
++                Some(authored_weights.right()),
++            ]
+         };
+         let mut desired_pelvis_shift = 0.0_f32;
+ 
+@@ -240,12 +235,12 @@
+             };
+             let foot_position = foot_snapshot.global.translation();
+             authored[index] = Some(foot_position);
+-            let Some(height) = terrain.height_at(foot_position.xz()) else {
++            let Some(height) = ScenePlanPoint::from_metres(foot_position.xz())
++                .and_then(|point| terrain.height_at(point))
++            else {
+                 continue;
+             };
+-            let target = match checked_world_height(height)
+-                .and_then(|height| ordinary_terrain_target(foot_position, height, weight))
+-            {
++            let target = match ordinary_terrain_target(foot_position, height, weight) {
+                 Ok(target) => target,
+                 Err(error) => {
+                     warn!(%error, "authored terrain target rejected");
+@@ -364,7 +359,7 @@
+ fn align_foot_to_slope_weighted(
+     foot: Entity,
+     sole_up_local: Vec3,
+-    normal: Vec3,
++    normal: Dir3,
+     weight: UnitInterval,
+     parents: &Query<&ChildOf>,
+     transforms: &mut ParamSet<(TransformHelper, Query<&mut Transform>)>,
+--- before/crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion/terrain_leg.rs
++++ after/crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion/terrain_leg.rs
+@@ -108,7 +108,10 @@
+         if weight.fraction() > 0.001
+             && let (Some(_), Some(normal), Some(sole_axis)) = (
+                 terrain,
+-                terrain.and_then(|terrain| terrain.normal_at(target.xz())),
++                terrain.and_then(|terrain| {
++                    ScenePlanPoint::from_metres(target.xz())
++                        .and_then(|point| terrain.normal_at(point))
++                }),
+                 rig.sole_axis(foot_side),
+             )
+         {
+--- before/crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs
++++ after/crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs
+@@ -14,6 +14,9 @@
+ use adventuresim_tactical_core::animation::{
+     AngularMagnitudeDegrees, HeightDistance, NonnegativeLength, SettleProgress, SignedAngleDegrees,
+     SignedAngularSpeedDegrees, UnitInterval,
++};
++use adventuresim_tactical_core::{
++    city_layout::grounding::SupportElevation, scene_coordinates::ScenePlanPoint,
+ };
+ 
+ use frame::ObservedRigFrame;
+@@ -57,6 +60,9 @@
+ use terminal::TerminalContacts;
+ pub(super) use terrain_contacts::smoothstep;
+ use terrain_contacts::*;
++pub(crate) use terrain_contacts::{
++    measured_ankle_sole_offset_metres, sole_contact_tolerance_metres,
++};
+ pub(in crate::animation::procedural) use track::FootTrackSide;
+ 
+ mod evaluation_clock;
+@@ -77,10 +83,6 @@
+ mod terrain_contacts;
+ mod track;
+ 
+-fn ik_tuning() -> InverseKinematicsConfig {
+-    runtime_animation_config().inverse_kinematics
+-}
+-
+ pub(super) fn minimum_inter_foot_separation_metres() -> PositiveLength {
+     ik_tuning().minimum_inter_foot_separation_metres
+ }
+@@ -91,14 +93,6 @@
+ 
+ pub(super) fn maximum_pelvis_correction_step_metres() -> NonnegativeLength {
+     ik_tuning().maximum_pelvis_correction_step_metres
+-}
+-
+-pub(crate) fn measured_ankle_sole_offset_metres() -> PositiveLength {
+-    ik_tuning().measured_ankle_sole_offset_metres
+-}
+-
+-pub(crate) fn sole_contact_tolerance_metres() -> PositiveLength {
+-    ik_tuning().sole_contact_tolerance_metres
+ }
+ 
+ /// Places the planted foot on the terrain with an analytic two-bone solve,
+@@ -584,7 +578,11 @@
+                         + rig_rotation * Vec3::new(contact.x, authored_local.y, contact.y);
+                     if enabled.is_enabled() {
+                         terrain.map_or(target, |terrain| {
+-                            terrain_conformed_guard_target(target, terrain.height_at(target.xz()))
++                            terrain_conformed_guard_target(
++                                target,
++                                ScenePlanPoint::from_metres(target.xz())
++                                    .and_then(|point| terrain.height_at(point)),
++                            )
+                         })
+                     } else {
+                         target
+@@ -915,7 +913,8 @@
+                 if enabled.is_enabled()
+                     && reported_support
+                     && let Some(terrain) = terrain
+-                    && let Some(normal) = terrain.normal_at(target.xz())
++                    && let Some(normal) = ScenePlanPoint::from_metres(target.xz())
++                        .and_then(|point| terrain.normal_at(point))
+                     && let Some(sole_axis) = rig.sole_axis(foot_side)
+                 {
+                     let cached_chain = if left {
+@@ -1061,8 +1060,10 @@
+                 continue;
+             };
+             let position = foot_snapshot.global.translation();
+-            if let Some(height) = terrain.height_at(position.xz()) {
+-                let desired_ankle = height + measured_ankle_sole_offset_metres().metres();
++            if let Some(height) = ScenePlanPoint::from_metres(position.xz())
++                .and_then(|point| terrain.height_at(point))
++            {
++                let desired_ankle = height.metres() + measured_ankle_sole_offset_metres().metres();
+                 desired_hip_shift = desired_hip_shift
+                     .min(((desired_ankle - position.y) * weight.fraction()).clamp(-0.18, 0.0));
+             }
+@@ -1121,10 +1122,13 @@
+             // a visibly planted foot skate during turns. New contacts are
+             // constrained when acquired, and reach limiting below remains the
+             // only reason an established plant may yield.
+-            let Some(height) = terrain.height_at(horizontal_target.xz()) else {
+-                continue;
+-            };
+-            let target_y = height + measured_ankle_sole_offset_metres().metres();
++            let Some(horizontal_point) = ScenePlanPoint::from_metres(horizontal_target.xz()) else {
++                continue;
++            };
++            let Some(height) = terrain.height_at(horizontal_point) else {
++                continue;
++            };
++            let target_y = height.metres() + measured_ankle_sole_offset_metres().metres();
+             let LimbSegments {
+                 upper: upper_length,
+                 lower: lower_length,
+@@ -1319,11 +1323,13 @@
+                 let Some(frozen_plant) = terminal_plant else {
+                     continue;
+                 };
+-                let Some(height) = terrain.height_at(frozen_plant.xz()) else {
++                let Some(height) = ScenePlanPoint::from_metres(frozen_plant.xz())
++                    .and_then(|point| terrain.height_at(point))
++                else {
+                     continue;
+                 };
+-                let target =
+-                    frozen_plant.with_y(height + measured_ankle_sole_offset_metres().metres());
++                let target = frozen_plant
++                    .with_y(height.metres() + measured_ankle_sole_offset_metres().metres());
+                 let canonical_world = pole_to_world(rig_rotation, canonical_knee_pole(side));
+                 let (remembered_pole, previous_end_direction) = if left {
+                     (
+@@ -1392,7 +1398,8 @@
+                         }
+                     }
+                 }
+-                if let Some(normal) = terrain.normal_at(target.xz())
++                if let Some(normal) = ScenePlanPoint::from_metres(target.xz())
++                    .and_then(|point| terrain.normal_at(point))
+                     && let Some(sole_axis) = rig.sole_axis(foot_side)
+                 {
+                     align_foot_to_slope(foot, sole_axis, normal, &parents, &mut transforms);
+@@ -1501,11 +1508,12 @@
+             }
+             if plant_acquired
+                 && let Some(retained_plant) = plant
+-                && let Some(height) = terrain.height_at(retained_plant.xz())
++                && let Some(height) = ScenePlanPoint::from_metres(retained_plant.xz())
++                    .and_then(|point| terrain.height_at(point))
+             {
+                 let retained_target = Vec3::new(
+                     retained_plant.x,
+-                    height + measured_ankle_sole_offset_metres().metres(),
++                    height.metres() + measured_ankle_sole_offset_metres().metres(),
+                     retained_plant.z,
+                 );
+                 let Some(reachable_target) = constrain_target_to_reach(
+@@ -1777,31 +1785,29 @@
+                     };
+                     let mut desired_target =
+                         planned_contact.map_or(foot_position, |mut contact| {
+-                            if let Some(height) = terrain.height_at(contact.xz()) {
+-                                contact.y = height + measured_ankle_sole_offset_metres().metres();
++                            if let Some(height) = ScenePlanPoint::from_metres(contact.xz())
++                                .and_then(|point| terrain.height_at(point))
++                            {
++                                contact.y =
++                                    height.metres() + measured_ankle_sole_offset_metres().metres();
+                             }
+                             planned_start
+                                 .unwrap_or(foot_position)
+                                 .lerp(contact, planned_progress.fraction())
+                         });
+-                    if profile.gait == LocomotionGait::Run
+-                        && let Some(height) = terrain.height_at(desired_target.xz())
+-                    {
+-                        let clearance = match run_swing_clearance(
++                    if profile.gait == LocomotionGait::Run {
++                        desired_target = match conform_run_swing_target(
++                            terrain,
++                            desired_target,
+                             phase_to_contact,
+                             planned_contact.map(|_| planned_progress),
+                         ) {
+-                            Ok(value) => value,
++                            Ok(target) => target,
+                             Err(error) => {
+                                 warn!(%error, "IK geometry rejected");
+                                 continue;
+                             }
+                         };
+-                        desired_target.y = desired_target.y.max(
+-                            height
+-                                + measured_ankle_sole_offset_metres().metres()
+-                                + clearance.metres(),
+-                        );
+                     }
+                     let desired_owner_target =
+                         rig_rotation.inverse() * (desired_target - rig_origin);
+@@ -1925,7 +1931,10 @@
+                         // feasible fraction of root transport.
+                         target = previous_world_target.unwrap_or(target);
+                     }
+-                    if run_airborne_budget && let Some(height) = terrain.height_at(target.xz()) {
++                    if run_airborne_budget
++                        && let Some(height) = ScenePlanPoint::from_metres(target.xz())
++                            .and_then(|point| terrain.height_at(point))
++                    {
+                         let contact_reachable = run_contact_within_follower_step(
+                             previous_owner_target,
+                             target,
+@@ -1933,7 +1942,7 @@
+                             rig_rotation,
+                             state_delta_seconds,
+                         );
+-                        let support_eligible_for_descent = run_support_eligible_for_descent(
++                        let descent = run_support_descent(
+                             airborne_budget_gait,
+                             skeleton.gait_phase,
+                             foot_side,
+@@ -1950,7 +1959,7 @@
+                             run_release_edge,
+                             phase_to_contact,
+                             planned_contact.map(|_| planned_progress),
+-                            support_eligible_for_descent,
++                            descent,
+                         ) {
+                             Ok(value) => value,
+                             Err(error) => {
+@@ -1959,16 +1968,10 @@
+                             }
+                         };
+                         target = match (FootClearanceFloor::Terrain {
+-                            surface: match checked_world_height(height) {
+-                                Ok(height) => height,
+-                                Err(error) => {
+-                                    warn!(%error, "terrain height rejected");
+-                                    continue;
+-                                }
+-                            },
++                            surface: height,
+                             clearance,
+                         })
+-                        .apply(target, support_eligible_for_descent)
++                        .apply(target, descent)
+                         {
+                             Ok(value) => value,
+                             Err(error) => {
+@@ -1989,7 +1992,7 @@
+                             rig_rotation,
+                             state_delta_seconds,
+                         );
+-                        let support_eligible_for_descent = run_support_eligible_for_descent(
++                        let descent = run_support_descent(
+                             airborne_budget_gait,
+                             skeleton.gait_phase,
+                             foot_side,
+@@ -2006,7 +2009,7 @@
+                             run_release_edge,
+                             phase_to_contact,
+                             planned_contact.map(|_| planned_progress),
+-                            support_eligible_for_descent,
++                            descent,
+                         ) {
+                             Ok(value) => value,
+                             Err(error) => {
+@@ -2022,7 +2025,7 @@
+                             state_delta_seconds,
+                             target_speeds
+                                 .run_sample(run_release_edge, settle_cancelled_for_restart),
+-                            |xz| terrain_minimum_ankle_y(terrain, clearance, xz),
++                            |xz| terrain_clearance_floor(terrain, clearance, xz),
+                         ) {
+                             Ok(value) => value,
+                             Err(error) => {
+@@ -2127,7 +2130,8 @@
+                         }
+                     }
+                     if profile.gait == LocomotionGait::Run
+-                        && let Some(normal) = terrain.normal_at(target.xz())
++                        && let Some(normal) = ScenePlanPoint::from_metres(target.xz())
++                            .and_then(|point| terrain.normal_at(point))
+                         && let Some(sole_axis) = rig.sole_axis(foot_side)
+                     {
+                         // Run swing orientation is terrain-aware before the
+@@ -2187,49 +2191,21 @@
+                         continue;
+                     }
+                 };
+-                if let Some(height) = terrain.height_at(desired_target.xz()) {
+-                    let minimum_ankle_y = height
+-                        + measured_ankle_sole_offset_metres().metres()
+-                        + (ik_tuning().swing_sole_clearance_metres.metres()
+-                            * (1.0 - settle.progress.fraction()))
+-                        .max(
+-                            ik_tuning()
+-                                .terrain_transition_flight_toe_clearance_metres
+-                                .metres(),
+-                        );
+-                    desired_target.y = desired_target.y.max(
+-                        foot_position
+-                            .y
+-                            .lerp(minimum_ankle_y, terrain_blend.fraction()),
+-                    );
+-                    if let Some((rendered_ankle, rendered_toe)) = rendered_ankle_and_toe
+-                        && let Some(toe_safe_ankle_y) = match toe_aware_minimum_ankle_y(
+-                            rendered_ankle,
+-                            rendered_toe,
+-                            desired_target.xz(),
+-                            match transition_toe_clearance_with_rotation_margin(
+-                                rendered_ankle,
+-                                rendered_toe,
+-                                state_delta_seconds,
+-                            ) {
+-                                Ok(value) => value,
+-                                Err(error) => {
+-                                    warn!(%error, "IK geometry rejected");
+-                                    continue;
+-                                }
+-                            },
+-                            |xz| terrain.height_at(xz),
+-                        ) {
+-                            Ok(value) => value,
+-                            Err(error) => {
+-                                warn!(%error, "IK geometry rejected");
+-                                continue;
+-                            }
+-                        }
+-                    {
+-                        desired_target.y = desired_target.y.max(toe_safe_ankle_y.metres());
+-                    }
+-                }
++                desired_target = match conform_settle_swing_target(
++                    terrain,
++                    desired_target,
++                    foot_position,
++                    settle.progress,
++                    terrain_blend,
++                    rendered_ankle_and_toe,
++                    state_delta_seconds,
++                ) {
++                    Ok(target) => target,
++                    Err(error) => {
++                        warn!(%error, "IK geometry rejected");
++                        continue;
++                    }
++                };
+                 let desired_owner_target = rig_rotation.inverse() * (desired_target - rig_origin);
+                 let previous_owner_target = if left {
+                     memory.left_foot_target
+@@ -2250,7 +2226,7 @@
+                     state_delta_seconds,
+                     target_speeds.settle(settle),
+                     |xz| {
+-                        transition_minimum_ankle_y(
++                        transition_clearance_floor(
+                             terrain,
+                             rendered_ankle_and_toe,
+                             state_delta_seconds,
+@@ -2312,8 +2288,8 @@
+                 ) {
+                     settle_contact_reached = settle.progress.is_complete()
+                         && solution.end.xz().distance(settle.landing_target.xz()) <= 0.02
+-                        && terrain
+-                            .height_at(solution.end.xz())
++                        && ScenePlanPoint::from_metres(solution.end.xz())
++                            .and_then(|point| terrain.height_at(point))
+                             .is_some_and(|height| sole_is_at_contact(solution.end.y, height));
+                     apply_two_bone_solution(
+                         upper,
+@@ -2340,7 +2316,8 @@
+                         }
+                     }
+                 }
+-                if let Some(normal) = terrain.normal_at(target.xz())
++                if let Some(normal) = ScenePlanPoint::from_metres(target.xz())
++                    .and_then(|point| terrain.normal_at(point))
+                     && let Some(sole_axis) = rig.sole_axis(foot_side)
+                 {
+                     // A settling foot approaches its contact tangent throughout
+@@ -2461,13 +2438,16 @@
+                     constrain_foot_to_track(horizontal_target, rig_origin, rig_rotation, side);
+                 plant = plant.map(|_| horizontal_target);
+             }
+-            let Some(height) = terrain.height_at(horizontal_target.xz()) else {
++            let Some(horizontal_point) = ScenePlanPoint::from_metres(horizontal_target.xz()) else {
++                continue;
++            };
++            let Some(height) = terrain.height_at(horizontal_point) else {
+                 continue;
+             };
+             let sole_offset = measured_ankle_sole_offset_metres();
+             let mut planted_target = Vec3::new(
+                 horizontal_target.x,
+-                height + sole_offset.metres(),
++                height.metres() + sole_offset.metres(),
+                 horizontal_target.z,
+             );
+             // A planned terrain contact can be vertically unreachable early
+@@ -2489,15 +2469,18 @@
+             // Reach limiting may have moved the target into another triangle.
+             // Resample that actual point instead of retaining a height from the
+             // old XZ and a normal from the new one.
+-            let Some(height) = terrain.height_at(horizontal_target.xz()) else {
+-                continue;
+-            };
+-            planted_target.y = height + sole_offset.metres();
++            let Some(horizontal_point) = ScenePlanPoint::from_metres(horizontal_target.xz()) else {
++                continue;
++            };
++            let Some(height) = terrain.height_at(horizontal_point) else {
++                continue;
++            };
++            planted_target.y = height.metres() + sole_offset.metres();
+             if let Some((rendered_ankle, rendered_toe)) = rendered_ankle_and_toe
+-                && let Some(toe_safe_ankle_y) = match toe_aware_minimum_ankle_y(
++                && let Some(toe_floor) = match toe_aware_clearance_floor(
+                     rendered_ankle,
+                     rendered_toe,
+-                    planted_target.xz(),
++                    horizontal_point,
+                     ik_tuning().terrain_contact_toe_clearance_metres,
+                     |xz| terrain.height_at(xz),
+                 ) {
+@@ -2508,7 +2491,13 @@
+                     }
+                 }
+             {
+-                planted_target.y = planted_target.y.max(toe_safe_ankle_y.metres());
++                planted_target = match toe_floor.apply(planted_target, FootDescent::RaiseOnly) {
++                    Ok(target) => target,
++                    Err(error) => {
++                        warn!(%error, "IK geometry rejected");
++                        continue;
++                    }
++                };
+             }
+             if left {
+                 memory.left_foot_plant.replace_target(plant);
+@@ -2591,7 +2580,7 @@
+                     upper_snapshot.global.translation(),
+                     final_solve_reach,
+                 );
+-                let rising_support = run_support_eligible_for_descent(
++                let descent = run_support_descent(
+                     profile.gait,
+                     skeleton.gait_phase,
+                     foot_side,
+@@ -2599,7 +2588,7 @@
+                     raw_nominal_weight,
+                     true,
+                 );
+-                if rising_support
++                if descent.permits_descent()
+                     && (!fixed_contact_reachable || !fixed_contact_within_leg_reach)
+                     && let Some(transported_contact) = retarget_unacquired_run_contact_for_descent(
+                         previous_owner_target,
+@@ -2647,7 +2636,7 @@
+                     rig_rotation,
+                     state_delta_seconds,
+                     target_speeds.run_airborne,
+-                    |xz| terrain_minimum_ankle_y(terrain, acquisition_clearance, xz),
++                    |xz| terrain_clearance_floor(terrain, acquisition_clearance, xz),
+                 ) {
+                     Ok(value) => value,
+                     Err(error) => {
+@@ -2689,7 +2678,7 @@
+                 rig_rotation,
+                 state_delta_seconds,
+                 target_speeds.run_airborne,
+-                |xz| terrain_minimum_ankle_y(terrain, SignedLength::ZERO, xz),
++                |xz| terrain_clearance_floor(terrain, SignedLength::ZERO, xz),
+             ) {
+                 Ok(value) => value,
+                 Err(error) => {
+@@ -2712,7 +2701,7 @@
+                     rig_rotation,
+                     state_delta_seconds,
+                     release_target_speed,
+-                    |xz| terrain_minimum_ankle_y(terrain, SignedLength::ZERO, xz),
++                    |xz| terrain_clearance_floor(terrain, SignedLength::ZERO, xz),
+                 ) {
+                     Ok(value) => value,
+                     Err(error) => {
+@@ -2738,7 +2727,7 @@
+                         state_delta_seconds,
+                         release_target_speed,
+                         |xz| {
+-                            transition_minimum_ankle_y(
++                            transition_clearance_floor(
+                                 terrain,
+                                 rendered_ankle_and_toe,
+                                 state_delta_seconds,
+@@ -2838,10 +2827,13 @@
+             );
+             let mut reported_support_weight = UnitInterval::ZERO;
+             if let Some(solution) = solution {
+-                let sole_at_contact = terrain.height_at(solution.end.xz()).is_some_and(|height| {
+-                    sole_is_at_contact(solution.end.y, height)
+-                        && plant.is_some_and(|plant| solution.end.xz().distance(plant.xz()) <= 0.02)
+-                });
++                let sole_at_contact = ScenePlanPoint::from_metres(solution.end.xz())
++                    .and_then(|point| terrain.height_at(point))
++                    .is_some_and(|height| {
++                        sole_is_at_contact(solution.end.y, height)
++                            && plant
++                                .is_some_and(|plant| solution.end.xz().distance(plant.xz()) <= 0.02)
++                    });
+                 if sole_at_contact {
+                     reported_support_weight = weight;
+                     if left {
+@@ -2913,7 +2905,7 @@
+                 }
+             }
+             if terrain_alignment_active
+-                && let Some(normal) = terrain.normal_at(horizontal_target.xz())
++                && let Some(normal) = terrain.normal_at(horizontal_point)
+                 && let Some(sole_axis) = rig.sole_axis(foot_side)
+             {
+                 let cached_chain = if left {
+@@ -2973,5 +2965,9 @@
+     }
+ }
+ 
++fn ik_tuning() -> InverseKinematicsConfig {
++    runtime_animation_config().inverse_kinematics
++}
++
+ #[cfg(test)]
+ mod tests;
+--- before/crates/adventuresim-tactical-client/src/animation/procedural/ik/observation.rs
++++ after/crates/adventuresim-tactical-client/src/animation/procedural/ik/observation.rs
+@@ -244,7 +244,8 @@
+ ) -> Option<UnitInterval> {
+     let supported = if mode.is_enabled() {
+         let ankle = ankle?;
+-        let height = terrain?.height_at(ankle.xz())?;
++        let point = ScenePlanPoint::from_metres(ankle.xz())?;
++        let height = terrain?.height_at(point)?;
+         raised_support_is_actual(nominal_support, ankle.y, height)
+     } else {
+         nominal_support
+@@ -422,7 +423,9 @@
+                 .and_then(|foot| globals.get(*foot).ok())
+                 .map(GlobalTransform::translation)
+                 .filter(|ankle| ankle.is_finite());
+-            let terrain_height = ankle.and_then(|ankle| terrain.height_at(ankle.xz()));
++            let terrain_height = ankle
++                .and_then(|ankle| ScenePlanPoint::from_metres(ankle.xz()))
++                .and_then(|point| terrain.height_at(point));
+             let target_distance = ankle
+                 .zip(target)
+                 .map(|(ankle, target)| ankle.xz().distance(target.xz()));
+--- before/crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation.rs
++++ after/crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation.rs
+@@ -6,6 +6,7 @@
+ pub(in crate::animation) use anatomical_yaw::enforce_anatomical_knee_yaw;
+ 
+ use adventuresim_core::linear_speed::NonnegativeSpeed;
++use bevy::math::Dir3;
+ 
+ mod anatomical_yaw;
+ 
+@@ -250,7 +251,7 @@
+ pub(in crate::animation::procedural) fn align_foot_to_slope(
+     foot: Entity,
+     sole_up_local: Vec3,
+-    normal: Vec3,
++    normal: Dir3,
+     parents: &Query<&ChildOf>,
+     transforms: &mut ParamSet<(TransformHelper, Query<&mut Transform>)>,
+ ) {
+@@ -494,9 +495,9 @@
+ pub(in crate::animation::procedural) fn slope_aligned_world_rotation(
+     current_world: Quat,
+     sole_up_local: Vec3,
+-    terrain_normal: Vec3,
++    terrain_normal: Dir3,
+ ) -> Option<Quat> {
+-    let normal = terrain_normal.try_normalize()?;
++    let normal = (*terrain_normal).try_normalize()?;
+     let tilt_angle = Vec3::Y.angle_between(normal).min(28.0_f32.to_radians());
+     let bounded_normal = Vec3::Y
+         .cross(normal)
+--- before/crates/adventuresim-tactical-client/src/animation/procedural/ik/raised_footwork.rs
++++ after/crates/adventuresim-tactical-client/src/animation/procedural/ik/raised_footwork.rs
+@@ -489,10 +489,10 @@
+ }
+ pub(in crate::animation::procedural) fn terrain_conformed_guard_target(
+     mut flat_target: Vec3,
+-    terrain_height: Option<f32>,
++    terrain_height: Option<SupportElevation>,
+ ) -> Vec3 {
+     if let Some(height) = terrain_height {
+-        flat_target.y = height + measured_ankle_sole_offset_metres().metres();
++        flat_target.y = height.metres() + measured_ankle_sole_offset_metres().metres();
+     }
+     flat_target
+ }
+--- before/crates/adventuresim-tactical-client/src/animation/procedural/ik/settle.rs
++++ after/crates/adventuresim-tactical-client/src/animation/procedural/ik/settle.rs
+@@ -157,7 +157,7 @@
+     memory: &mut LegIkMemory,
+     rig_origin: Vec3,
+     rig_rotation: Quat,
+-    terrain_height_at: impl Fn(Vec2) -> Option<f32>,
++    terrain_height_at: impl Fn(ScenePlanPoint) -> Option<SupportElevation>,
+ ) -> bool {
+     if !memory.terminal_contacts.is_prepared() {
+         // Terminal solve changes from ordinary pelvis ownership to an
+@@ -189,13 +189,20 @@
+     let Some(mut right) = right_seed else {
+         return false;
+     };
+-    let (Some(left_height), Some(right_height)) =
+-        (terrain_height_at(left.xz()), terrain_height_at(right.xz()))
+-    else {
+-        return false;
+-    };
+-    left.y = left_height + measured_ankle_sole_offset_metres().metres();
+-    right.y = right_height + measured_ankle_sole_offset_metres().metres();
++    let (Some(left_point), Some(right_point)) = (
++        ScenePlanPoint::from_metres(left.xz()),
++        ScenePlanPoint::from_metres(right.xz()),
++    ) else {
++        return false;
++    };
++    let (Some(left_height), Some(right_height)) = (
++        terrain_height_at(left_point),
++        terrain_height_at(right_point),
++    ) else {
++        return false;
++    };
++    left.y = left_height.metres() + measured_ankle_sole_offset_metres().metres();
++    right.y = right_height.metres() + measured_ankle_sole_offset_metres().metres();
+     memory.left_foot_world_target = Some(left);
+     memory.right_foot_world_target = Some(right);
+     memory.left_foot_target = Some(rig_rotation.inverse() * (left - rig_origin));
+@@ -215,7 +222,7 @@
+ 
+ pub(in crate::animation::procedural) fn terminal_settle_contacts_are_rendered(
+     memory: &LegIkMemory,
+-    terrain_height_at: impl Fn(Vec2) -> Option<f32>,
++    terrain_height_at: impl Fn(ScenePlanPoint) -> Option<SupportElevation>,
+ ) -> bool {
+     [
+         (
+@@ -235,13 +242,22 @@
+             .zip(target)
+             .zip(toe)
+             .is_some_and(|((rendered, target), toe)| {
++                let Some(ankle_point) = ScenePlanPoint::from_metres(rendered.xz()) else {
++                    return false;
++                };
++                let Some(toe_point) = ScenePlanPoint::from_metres(toe.xz()) else {
++                    return false;
++                };
+                 rendered.xz().distance(target.xz()) <= 0.01
+-                    && terrain_height_at(rendered.xz()).is_some_and(|height| {
+-                        (rendered.y - height - measured_ankle_sole_offset_metres().metres()).abs()
++                    && terrain_height_at(ankle_point).is_some_and(|height| {
++                        (rendered.y
++                            - height.metres()
++                            - measured_ankle_sole_offset_metres().metres())
++                        .abs()
+                             <= 0.01
+                     })
+-                    && terrain_height_at(toe.xz()).is_some_and(|height| {
+-                        let clearance = toe.y - height;
++                    && terrain_height_at(toe_point).is_some_and(|height| {
++                        let clearance = toe.y - height.metres();
+                         (-0.01..=0.10).contains(&clearance)
+                     })
+             })
+@@ -324,8 +340,8 @@
+         return false;
+     };
+     let at_contact = |foot: Vec3| {
+-        terrain
+-            .height_at(foot.xz())
++        ScenePlanPoint::from_metres(foot.xz())
++            .and_then(|point| terrain.height_at(point))
+             .is_some_and(|height| sole_is_at_contact(foot.y, height))
+     };
+     if !at_contact(left) || !at_contact(right) {
+@@ -342,16 +358,16 @@
+ 
+ pub(in crate::animation::procedural) fn sole_is_at_contact(
+     ankle_y: f32,
+-    terrain_height: f32,
+-) -> bool {
+-    (ankle_y - terrain_height - measured_ankle_sole_offset_metres().metres()).abs()
++    terrain_height: SupportElevation,
++) -> bool {
++    (ankle_y - terrain_height.metres() - measured_ankle_sole_offset_metres().metres()).abs()
+         <= sole_contact_tolerance_metres().metres()
+ }
+ 
+ pub(in crate::animation::procedural) fn raised_support_is_actual(
+     nominal_support: bool,
+     ankle_y: f32,
+-    terrain_height: f32,
++    terrain_height: SupportElevation,
+ ) -> bool {
+     nominal_support && sole_is_at_contact(ankle_y, terrain_height)
+ }
+--- before/crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts.rs
++++ after/crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts.rs
+@@ -6,15 +6,29 @@
+ pub(in crate::animation::procedural) use approach::run_contact_approach_progress;
+ pub(in crate::animation::procedural) use flight_projection::advance_run_airborne_world_target;
+ pub(in crate::animation::procedural) use foot_clearance::{
+-    FootClearanceFloor, checked_foot_target, checked_world_height, ordinary_terrain_target,
+-    run_airborne_clearance, run_airborne_clearance_for_sample, run_swing_clearance,
+-    settle_swing_target, terrain_minimum_ankle_y, toe_aware_minimum_ankle_y,
+-    transition_minimum_ankle_y, transition_toe_clearance_with_rotation_margin,
++    FootClearanceFloor, FootDescent, checked_foot_target, checked_scene_point_metres,
++    conform_run_swing_target, conform_settle_swing_target, ordinary_terrain_target,
++    run_airborne_clearance_for_sample, settle_swing_target, terrain_clearance_floor,
++    toe_aware_clearance_floor, transition_clearance_floor,
+ };
++pub(in crate::animation::procedural) use run_reach::{
++    reachable_run_contact_target, retarget_unacquired_run_contact_for_descent,
++    run_contact_within_follower_motion_step, run_contact_within_follower_step,
++    run_contact_within_leg_reach,
++};
++
++#[cfg(test)]
++pub(in crate::animation::procedural) use foot_clearance::{
++    checked_scene_elevation, run_airborne_clearance, run_swing_clearance,
++    transition_toe_clearance_with_rotation_margin,
++};
++
++pub(crate) use foot_clearance::{measured_ankle_sole_offset_metres, sole_contact_tolerance_metres};
+ 
+ mod approach;
+ mod flight_projection;
+ mod foot_clearance;
++mod run_reach;
+ 
+ // A two-bone knee can travel slightly more than twice as far as its ankle
+ // target near extension. Derive the release cap from that conservative bound
+@@ -56,7 +70,7 @@
+     rig_rotation: Quat,
+     delta_seconds: AnimationElapsed,
+     target_speed: NonnegativeSpeed,
+-    minimum_world_y: impl Fn(Vec2) -> AnimationValueResult<Option<SignedLength>>,
++    clearance_floor_at: impl Fn(ScenePlanPoint) -> AnimationValueResult<Option<FootClearanceFloor>>,
+ ) -> AnimationValueResult<Vec3> {
+     if run_budget && !has_plan && !acquired && release_owned {
+         advance_run_airborne_world_target(
+@@ -66,7 +80,7 @@
+             rig_rotation,
+             delta_seconds,
+             target_speed,
+-            minimum_world_y,
++            clearance_floor_at,
+         )
+     } else {
+         checked_foot_target(desired_world_target)
+@@ -421,171 +435,27 @@
+         && planned_contact.is_none()
+ }
+ 
+-pub(in crate::animation::procedural) fn run_support_eligible_for_descent(
++pub(in crate::animation::procedural) fn run_support_descent(
+     gait: LocomotionGait,
+     phase: CyclePhase,
+     foot_side: LeadFoot,
+     support_radius: CycleDelta,
+     raw_nominal_support: UnitInterval,
+     contact_reachable: bool,
+-) -> bool {
++) -> FootDescent {
+     let support_radius = support_radius.cycles();
+-    gait == LocomotionGait::Run
++    if gait == LocomotionGait::Run
+         && contact_reachable
+         && terrain_leg_has_support(raw_nominal_support)
+         // Only the rising shoulder approaches this foot's contact center.
+         // The symmetric raw weight on the post-contact shoulder belongs to
+         // stance/toe-off and must not pull an unacquired next-cycle plan down.
+         && phase.until_contact(foot_side).cycles() <= support_radius + 0.001
+-}
+-
+-pub(in crate::animation::procedural) fn run_contact_within_follower_step(
+-    previous_owner: Option<Vec3>,
+-    desired_world: Vec3,
+-    rig_origin: Vec3,
+-    rig_rotation: Quat,
+-    delta_seconds: AnimationElapsed,
+-) -> bool {
+-    let Some(previous_owner) = previous_owner else {
+-        return true;
+-    };
+-    let desired_owner = rig_rotation.inverse() * (desired_world - rig_origin);
+-    previous_owner.distance(desired_owner)
+-        <= (ik_tuning().run_airborne_owner_step_metres.metres()
+-            * ik_tuning().continuity_sample_hz.hertz())
+-            * delta_seconds.seconds()
+-            + sole_contact_tolerance_metres().metres()
+-}
+-
+-pub(in crate::animation::procedural) fn run_contact_within_leg_reach(
+-    target: Vec3,
+-    upper_root: Vec3,
+-    maximum_reach: ReachLimit,
+-) -> bool {
+-    maximum_reach
+-        .native_metres()
+-        .is_some_and(|reach| target.distance(upper_root) <= reach + 0.001)
+-}
+-
+-pub(in crate::animation::procedural) fn run_contact_within_follower_motion_step(
+-    previous_owner: Option<Vec3>,
+-    desired_world: Vec3,
+-    rig_origin: Vec3,
+-    rig_rotation: Quat,
+-    delta_seconds: AnimationElapsed,
+-) -> bool {
+-    let Some(previous_owner) = previous_owner else {
+-        return true;
+-    };
+-    let desired_owner = rig_rotation.inverse() * (desired_world - rig_origin);
+-    previous_owner.distance(desired_owner)
+-        <= (ik_tuning().run_airborne_owner_step_metres.metres()
+-            * ik_tuning().continuity_sample_hz.hertz())
+-            * delta_seconds.seconds()
+-            + 0.0001
+-}
+-
+-#[expect(
+-    clippy::too_many_arguments,
+-    reason = "this domain boundary names each independent input explicitly"
+-)]
+-pub(in crate::animation::procedural) fn retarget_unacquired_run_contact_for_descent(
+-    previous_owner: Option<Vec3>,
+-    fixed_contact: Vec3,
+-    rig_origin: Vec3,
+-    rig_rotation: Quat,
+-    side: FootTrackSide,
+-    upper_root: Vec3,
+-    maximum_reach: ReachLimit,
+-    delta_seconds: AnimationElapsed,
+-    terrain_height_at: impl Fn(Vec2) -> Option<f32>,
+-) -> Option<Vec3> {
+-    let previous_owner = previous_owner?;
+-    let maximum_reach = maximum_reach.native_metres()?;
+-    let fixed_within_motion = run_contact_within_follower_motion_step(
+-        Some(previous_owner),
+-        fixed_contact,
+-        rig_origin,
+-        rig_rotation,
+-        delta_seconds,
+-    );
+-    let fixed_within_reach = fixed_contact.distance(upper_root) <= maximum_reach + 0.001;
+-    if fixed_within_motion && fixed_within_reach {
+-        return None;
+-    }
+-
+-    // At 5.5 m/s a fixed world contact recedes 8.6 cm in owner space per
+-    // sample. Combining that with the final 5 cm descent exceeds the 9 cm
+-    // continuity budget. A downhill target may instead be inside that motion
+-    // budget but a few millimetres beyond the analytic leg reach. Start from
+-    // the visible owner XZ for the first case or the frozen contact for the
+-    // second, then terrain-resample and project into current reach before
+-    // freezing the final acquired footprint.
+-    let start_world = rig_origin + rig_rotation * previous_owner;
+-    let maximum_motion = (ik_tuning().run_airborne_owner_step_metres.metres()
+-        * ik_tuning().continuity_sample_hz.hertz())
+-        * delta_seconds.seconds();
+-    let mut transported_contact = if fixed_within_motion {
+-        fixed_contact
+-    } else {
+-        start_world
+-    };
+-    for _ in 0..4 {
+-        transported_contact =
+-            constrain_foot_to_track(transported_contact, rig_origin, rig_rotation, side);
+-        let height = terrain_height_at(transported_contact.xz())?;
+-        transported_contact.y = height + measured_ankle_sole_offset_metres().metres();
+-        let leg_vertical = transported_contact.y - upper_root.y;
+-        let leg_horizontal = (maximum_reach * maximum_reach - leg_vertical * leg_vertical)
+-            .max(0.0)
+-            .sqrt();
+-        let motion_vertical = transported_contact.y - start_world.y;
+-        let motion_horizontal = (maximum_motion * maximum_motion
+-            - motion_vertical * motion_vertical)
+-            .max(0.0)
+-            .sqrt();
+-        let projected = project_point_into_two_disks(
+-            transported_contact.xz(),
+-            [
+-                (upper_root.xz(), leg_horizontal),
+-                (start_world.xz(), motion_horizontal),
+-            ],
+-        );
+-        transported_contact.x = projected.x;
+-        transported_contact.z = projected.y;
+-    }
+-    transported_contact =
+-        constrain_foot_to_track(transported_contact, rig_origin, rig_rotation, side);
+-    let height = terrain_height_at(transported_contact.xz())?;
+-    transported_contact.y = height + measured_ankle_sole_offset_metres().metres();
+-    let accepted = transported_contact.distance(upper_root) <= maximum_reach + 0.001
+-        && run_contact_within_follower_motion_step(
+-            Some(previous_owner),
+-            transported_contact,
+-            rig_origin,
+-            rig_rotation,
+-            delta_seconds,
+-        );
+-    if !accepted {
+-        return None;
+-    }
+-    Some(transported_contact)
+-}
+-
+-pub(in crate::animation::procedural) fn project_point_into_two_disks(
+-    mut point: Vec2,
+-    disks: [(Vec2, f32); 2],
+-) -> Vec2 {
+-    let mut corrections = [Vec2::ZERO; 2];
+-    for _ in 0..24 {
+-        for (index, (center, radius)) in disks.into_iter().enumerate() {
+-            let corrected = point + corrections[index];
+-            let projected = center + (corrected - center).clamp_length_max(radius.max(0.0));
+-            corrections[index] = corrected - projected;
+-            point = projected;
+-        }
+-    }
+-    point
++    {
++        FootDescent::FollowFloor
++    } else {
++        FootDescent::RaiseOnly
++    }
+ }
+ 
+ pub(in crate::animation::procedural) fn ordinary_contact_target(
+@@ -614,123 +484,6 @@
+     )
+ }
+ 
+-#[expect(
+-    clippy::too_many_arguments,
+-    reason = "this domain boundary names each independent input explicitly"
+-)]
+-pub(in crate::animation::procedural) fn reachable_run_contact_target(
+-    mut candidate: Vec3,
+-    current_upper_root: Vec3,
+-    velocity: Vec3,
+-    step_distance: NonnegativeLength,
+-    phase_to_contact: CycleDelta,
+-    contact_ready_phase: CycleDelta,
+-    maximum_reach: ReachLimit,
+-    terrain_height_at: impl Fn(Vec2) -> Option<f32>,
+-) -> Option<Vec3> {
+-    let contact_ready_phase = contact_ready_phase.cycles();
+-    let direction = velocity.with_y(0.0).try_normalize().unwrap_or(Vec3::NEG_Z);
+-    let support_radius =
+-        (contact_ready_phase - ik_tuning().run_contact_chain_settle_phase.fraction()).max(0.0);
+-    let travel_per_phase = step_distance.metres() * 2.0;
+-    let current_terrain_height = terrain_height_at(current_upper_root.xz());
+-    let predicted_upper_roots = [
+-        phase_to_contact.cycles() - support_radius,
+-        phase_to_contact.cycles(),
+-        phase_to_contact.cycles() + support_radius,
+-    ]
+-    .map(|remaining_phase| {
+-        let mut root =
+-            current_upper_root + direction * (remaining_phase.max(0.0) * travel_per_phase);
+-        if let (Some(current_height), Some(predicted_height)) =
+-            (current_terrain_height, terrain_height_at(root.xz()))
+-        {
+-            root.y += predicted_height - current_height;
+-        }
+-        root - Vec3::Y
+-            * ik_tuning()
+-                .run_maximum_planned_reach_pelvis_drop_metres
+-                .metres()
+-    });
+-    // The world footprint must remain reachable for the whole stance, not
+-    // merely at entry. Project its XZ into the intersection of the predicted
+-    // entry/center/exit reach disks. Dykstra's deterministic projection keeps
+-    // an already feasible desired footprint unchanged and finds the closest
+-    // point in the convex intersection otherwise. Resampling between passes
+-    // accounts for the changing vertical budget on sloped terrain.
+-    for _ in 0..4 {
+-        if let Some(height) = terrain_height_at(candidate.xz()) {
+-            candidate.y = height + measured_ankle_sole_offset_metres().metres();
+-        }
+-        candidate = project_run_contact_into_reach_intersection(
+-            candidate,
+-            predicted_upper_roots,
+-            maximum_reach,
+-        )?;
+-    }
+-    if let Some(height) = terrain_height_at(candidate.xz()) {
+-        candidate.y = height + measured_ankle_sole_offset_metres().metres();
+-    }
+-    if !run_contact_reachable_through_stance(candidate, predicted_upper_roots, maximum_reach) {
+-        // A cliff-like sample can have no shared stance footprint even with
+-        // the bounded pelvis allowance. Keep support entry continuous; the
+-        // reach-release latch will end the stance later without reacquiring
+-        // the same lobe if the hip path still diverges.
+-        for _ in 0..3 {
+-            candidate = project_run_contact_into_reach_intersection(
+-                candidate,
+-                [predicted_upper_roots[0]; 3],
+-                maximum_reach,
+-            )?;
+-            if let Some(height) = terrain_height_at(candidate.xz()) {
+-                candidate.y = height + measured_ankle_sole_offset_metres().metres();
+-            }
+-        }
+-    }
+-    Some(candidate)
+-}
+-
+-pub(in crate::animation::procedural) fn project_run_contact_into_reach_intersection(
+-    mut candidate: Vec3,
+-    predicted_upper_roots: [Vec3; 3],
+-    maximum_reach: ReachLimit,
+-) -> Option<Vec3> {
+-    let maximum_reach = maximum_reach.native_metres()?;
+-    let horizontal_reaches = predicted_upper_roots.map(|root| {
+-        let vertical_delta = candidate.y - root.y;
+-        (maximum_reach * maximum_reach - vertical_delta * vertical_delta)
+-            .max(0.0)
+-            .sqrt()
+-    });
+-    let mut point = candidate.xz();
+-    let mut corrections = [Vec2::ZERO; 3];
+-    for _ in 0..24 {
+-        for (index, root) in predicted_upper_roots.iter().enumerate() {
+-            let corrected = point + corrections[index];
+-            let offset = corrected - root.xz();
+-            let projected = root.xz() + offset.clamp_length_max(horizontal_reaches[index]);
+-            corrections[index] = corrected - projected;
+-            point = projected;
+-        }
+-    }
+-    candidate.x = point.x;
+-    candidate.z = point.y;
+-    Some(candidate)
+-}
+-
+-pub(in crate::animation::procedural) fn run_contact_reachable_through_stance(
+-    candidate: Vec3,
+-    predicted_upper_roots: [Vec3; 3],
+-    maximum_reach: ReachLimit,
+-) -> bool {
+-    let Some(maximum_reach) = maximum_reach.native_metres() else {
+-        return false;
+-    };
+-    predicted_upper_roots
+-        .into_iter()
+-        .all(|root| candidate.distance(root) <= maximum_reach + 0.001)
+-}
+-
+ pub(in crate::animation::procedural) fn acquisition_planted_target(
+     planted_target: Vec3,
+     upper_root: Vec3,
+--- before/crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/flight_projection.rs
++++ after/crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/flight_projection.rs
+@@ -9,12 +9,12 @@
+     rig_rotation: Quat,
+     delta_seconds: AnimationElapsed,
+     speed: NonnegativeSpeed,
+-    minimum_ankle_y_at: impl Fn(Vec2) -> AnimationValueResult<Option<SignedLength>>,
++    clearance_floor_at: impl Fn(ScenePlanPoint) -> AnimationValueResult<Option<FootClearanceFloor>>,
+ ) -> AnimationValueResult<Vec3> {
+     let Some(previous_owner) = previous_owner.filter(|target| target.is_finite()) else {
+         let mut target = desired_world;
+-        if let Some(minimum_y) = minimum_ankle_y_at(target.xz())? {
+-            target.y = target.y.max(minimum_y.metres());
++        if let Some(floor) = clearance_floor_at(checked_scene_point_metres(target.xz())?)? {
++            target.y = target.y.max(floor.minimum_height()?.metres());
+         }
+         return checked_foot_target(target);
+     };
+@@ -22,8 +22,8 @@
+     let maximum_step = speed.metres_per_second() * delta_seconds.seconds();
+     let cleared_at = |progress: f32| {
+         let mut target = start_world.lerp(desired_world, progress.clamp(0.0, 1.0));
+-        if let Some(minimum_y) = minimum_ankle_y_at(target.xz())? {
+-            target.y = target.y.max(minimum_y.metres());
++        if let Some(floor) = clearance_floor_at(checked_scene_point_metres(target.xz())?)? {
++            target.y = target.y.max(floor.minimum_height()?.metres());
+         }
+         checked_foot_target(target)
+     };
+@@ -60,7 +60,7 @@
+             start_world,
+             desired_world,
+             maximum_step,
+-            &minimum_ankle_y_at,
++            &clearance_floor_at,
+         )? {
+             return Ok(feasible);
+         }
+@@ -99,7 +99,7 @@
+     start_world: Vec3,
+     desired_world: Vec3,
+     maximum_step: f32,
+-    minimum_ankle_y_at: &impl Fn(Vec2) -> AnimationValueResult<Option<SignedLength>>,
++    clearance_floor_at: &impl Fn(ScenePlanPoint) -> AnimationValueResult<Option<FootClearanceFloor>>,
+ ) -> AnimationValueResult<Option<Vec3>> {
+     if maximum_step <= 0.0 {
+         return Ok(None);
+@@ -131,10 +131,14 @@
+                 if xz.distance(nearest_chord) > 0.04 {
+                     continue;
+                 }
+-                let Some(minimum_y) = minimum_ankle_y_at(xz)? else {
++                let Some(floor) = clearance_floor_at(checked_scene_point_metres(xz)?)? else {
+                     return Ok(None);
+                 };
+-                let candidate = Vec3::new(xz.x, desired_world.y.max(minimum_y.metres()), xz.y);
++                let candidate = Vec3::new(
++                    xz.x,
++                    desired_world.y.max(floor.minimum_height()?.metres()),
++                    xz.y,
++                );
+                 if candidate.distance(start_world) > maximum_step + 0.000001 {
+                     continue;
+                 }
+@@ -204,7 +208,11 @@
+             AnimationElapsed::from_seconds(1.0).unwrap(),
+             adventuresim_core::linear_speed::NonnegativeSpeed::from_metres_per_second(maximum_step)
+                 .unwrap(),
+-            |xz| minimum_y(xz).map(checked_world_height).transpose(),
++            |point| {
++                minimum_y(point.metres())
++                    .map(|height| checked_scene_elevation(height).map(FootClearanceFloor::Minimum))
++                    .transpose()
++            },
+         )
+         .unwrap();
+         assert!(target.x.abs() >= 0.02);
+@@ -228,7 +236,11 @@
+                     * ik_tuning().continuity_sample_hz.hertz(),
+             )
+             .unwrap(),
+-            |xz| minimum_y(xz).map(checked_world_height).transpose(),
++            |point| {
++                minimum_y(point.metres())
++                    .map(|height| checked_scene_elevation(height).map(FootClearanceFloor::Minimum))
++                    .transpose()
++            },
+         )
+         .unwrap();
+         assert!(resolved.is_finite());
+--- before/crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/foot_clearance.rs
++++ after/crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/foot_clearance.rs
+@@ -1,37 +1,53 @@
+ //! Authored, run-flight and stop-settle foot-height geometry kernels.
+ 
+ use super::*;
+-
+-/// Native world-height requirements retain either a measured floor or the
++use adventuresim_building_generator::spatial_geometry::Elevation;
++use adventuresim_tactical_core::scene_coordinates::Scene;
++
++/// Foot-height requirements retain either a checked minimum or the
+ /// complete terrain/sole/clearance sum until the final point correction.
+ #[derive(Clone, Copy, Debug)]
+ pub(in crate::animation::procedural) enum FootClearanceFloor {
+-    Measured(SignedLength),
++    Minimum(Elevation<Scene>),
+     Terrain {
+-        surface: SignedLength,
++        surface: SupportElevation,
+         clearance: SignedLength,
+     },
+ }
+ 
+-impl From<SignedLength> for FootClearanceFloor {
+-    fn from(height: SignedLength) -> Self {
+-        Self::Measured(height)
++#[derive(Clone, Copy, Debug, Eq, PartialEq)]
++pub(in crate::animation::procedural) enum FootDescent {
++    RaiseOnly,
++    FollowFloor,
++}
++
++impl FootDescent {
++    pub(in crate::animation::procedural) fn permits_descent(self) -> bool {
++        matches!(self, Self::FollowFloor)
+     }
+ }
+ 
+ impl FootClearanceFloor {
++    pub(in crate::animation::procedural) fn minimum_height(
++        self,
++    ) -> AnimationValueResult<Elevation<Scene>> {
++        match self {
++            Self::Minimum(height) => Ok(height),
++            Self::Terrain { surface, clearance } => checked_scene_elevation(
++                surface.metres()
++                    + measured_ankle_sole_offset_metres().metres()
++                    + clearance.metres(),
++            ),
++        }
++    }
++
+     pub(in crate::animation::procedural) fn apply(
+         self,
+         mut target: Vec3,
+-        support_eligible_for_descent: bool,
++        descent: FootDescent,
+     ) -> AnimationValueResult<Vec3> {
+-        let required = match self {
+-            Self::Measured(height) => height.metres(),
+-            Self::Terrain { surface, clearance } => {
+-                surface.metres() + measured_ankle_sole_offset_metres().metres() + clearance.metres()
+-            }
+-        };
+-        target.y = if support_eligible_for_descent {
++        let required = self.minimum_height()?.metres();
++        target.y = if descent.permits_descent() {
+             required
+         } else {
+             target.y.max(required)
+@@ -40,16 +56,25 @@
+     }
+ }
+ 
++pub(crate) fn measured_ankle_sole_offset_metres() -> PositiveLength {
++    ik_tuning().measured_ankle_sole_offset_metres
++}
++
++pub(crate) fn sole_contact_tolerance_metres() -> PositiveLength {
++    ik_tuning().sole_contact_tolerance_metres
++}
++
+ /// Conform only upward from the authored pose, then apply the solve confidence.
+ pub(in crate::animation::procedural) fn ordinary_terrain_target(
+     foot_position: Vec3,
+-    height: SignedLength,
++    height: SupportElevation,
+     weight: UnitInterval,
+ ) -> AnimationValueResult<Vec3> {
+-    let target = foot_position.with_y(foot_position.y.max(
++    let minimum = checked_scene_elevation(
+         height.metres() + measured_ankle_sole_offset_metres().metres()
+             - ik_tuning().sole_contact_margin_metres.metres(),
+-    ));
++    )?;
++    let target = foot_position.with_y(foot_position.y.max(minimum.metres()));
+     checked_foot_target(foot_position.lerp(target, weight.fraction().clamp(0.0, 1.0)))
+ }
+ 
+@@ -57,7 +82,7 @@
+     phase_to_contact: CycleDelta,
+     planned_progress: Option<UnitInterval>,
+ ) -> AnimationValueResult<SignedLength> {
+-    checked_world_height(native_run_swing_clearance(
++    checked_signed_length(native_run_swing_clearance(
+         phase_to_contact,
+         planned_progress,
+     ))
+@@ -66,12 +91,12 @@
+ pub(in crate::animation::procedural) fn run_airborne_clearance(
+     phase_to_contact: CycleDelta,
+     planned_progress: Option<UnitInterval>,
+-    support_eligible_for_descent: bool,
++    descent: FootDescent,
+ ) -> AnimationValueResult<SignedLength> {
+     let clearance = native_run_swing_clearance(phase_to_contact, planned_progress);
+     // Admit the completed floor operation, so a capped temporary value is not
+     // mistaken for a retained nonfinite measurement.
+-    checked_world_height(if support_eligible_for_descent {
++    checked_signed_length(if descent.permits_descent() {
+         clearance
+     } else {
+         clearance.max(ik_tuning().run_swing_minimum_sole_clearance_metres.metres())
+@@ -82,16 +107,12 @@
+     just_released: bool,
+     phase_to_contact: CycleDelta,
+     planned_progress: Option<UnitInterval>,
+-    support_eligible_for_descent: bool,
++    descent: FootDescent,
+ ) -> AnimationValueResult<SignedLength> {
+     if just_released {
+         Ok(ik_tuning().run_swing_minimum_sole_clearance_metres)
+     } else {
+-        run_airborne_clearance(
+-            phase_to_contact,
+-            planned_progress,
+-            support_eligible_for_descent,
+-        )
++        run_airborne_clearance(phase_to_contact, planned_progress, descent)
+     }
+ }
+ 
+@@ -108,27 +129,91 @@
+     checked_foot_target(target)
+ }
+ 
+-pub(in crate::animation::procedural) fn toe_aware_minimum_ankle_y(
++/// Complete the planned run swing's terrain and clearance correction together.
++pub(in crate::animation::procedural) fn conform_run_swing_target(
++    terrain: &SceneTerrain,
++    desired_target: Vec3,
++    phase_to_contact: CycleDelta,
++    planned_progress: Option<UnitInterval>,
++) -> AnimationValueResult<Vec3> {
++    let point = checked_scene_point_metres(desired_target.xz())?;
++    let Some(surface) = terrain.height_at(point) else {
++        return Ok(desired_target);
++    };
++    FootClearanceFloor::Terrain {
++        surface,
++        clearance: run_swing_clearance(phase_to_contact, planned_progress)?,
++    }
++    .apply(desired_target, FootDescent::RaiseOnly)
++}
++
++/// Keep the settle arc, terrain blend and visible toe floor in one correction.
++pub(in crate::animation::procedural) fn conform_settle_swing_target(
++    terrain: &SceneTerrain,
++    mut desired_target: Vec3,
++    authored_foot: Vec3,
++    progress: SettleProgress,
++    terrain_blend: UnitInterval,
++    rendered: Option<(Vec3, Vec3)>,
++    elapsed: AnimationElapsed,
++) -> AnimationValueResult<Vec3> {
++    let point = checked_scene_point_metres(desired_target.xz())?;
++    let Some(height) = terrain.height_at(point) else {
++        return Ok(desired_target);
++    };
++    let minimum = checked_scene_elevation(
++        height.metres()
++            + measured_ankle_sole_offset_metres().metres()
++            + (ik_tuning().swing_sole_clearance_metres.metres() * (1.0 - progress.fraction())).max(
++                ik_tuning()
++                    .terrain_transition_flight_toe_clearance_metres
++                    .metres(),
++            ),
++    )?;
++    desired_target.y = desired_target.y.max(
++        authored_foot
++            .y
++            .lerp(minimum.metres(), terrain_blend.fraction()),
++    );
++    if let Some((ankle, toe)) = rendered
++        && let Some(floor) = toe_aware_clearance_floor(
++            ankle,
++            toe,
++            point,
++            transition_toe_clearance_with_rotation_margin(ankle, toe, elapsed)?,
++            |point| terrain.height_at(point),
++        )?
++    {
++        desired_target = floor.apply(desired_target, FootDescent::RaiseOnly)?;
++    }
++    checked_foot_target(desired_target)
++}
++
++pub(in crate::animation::procedural) fn toe_aware_clearance_floor(
+     rendered_ankle: Vec3,
+     rendered_toe: Vec3,
+-    desired_ankle_xz: Vec2,
++    desired_ankle: ScenePlanPoint,
+     minimum_toe_clearance: SignedLength,
+-    terrain_height_at: impl Fn(Vec2) -> Option<f32>,
+-) -> AnimationValueResult<Option<SignedLength>> {
+-    let Some(ankle_height) = terrain_height_at(rendered_ankle.xz()) else {
++    terrain_height_at: impl Fn(ScenePlanPoint) -> Option<SupportElevation>,
++) -> AnimationValueResult<Option<FootClearanceFloor>> {
++    let ankle_point = checked_scene_point_metres(rendered_ankle.xz())?;
++    let Some(ankle_height) = terrain_height_at(ankle_point) else {
+         return Ok(None);
+     };
+-    let ankle_clearance = rendered_ankle.y - ankle_height;
+-    let Some(toe_height) = terrain_height_at(rendered_toe.xz()) else {
++    let ankle_clearance = rendered_ankle.y - ankle_height.metres();
++    let toe_point = checked_scene_point_metres(rendered_toe.xz())?;
++    let Some(toe_height) = terrain_height_at(toe_point) else {
+         return Ok(None);
+     };
+-    let toe_clearance = rendered_toe.y - toe_height;
++    let toe_clearance = rendered_toe.y - toe_height.metres();
+     let ankle_above_toe = ankle_clearance - toe_clearance;
+-    let Some(desired_height) = terrain_height_at(desired_ankle_xz) else {
++    let Some(desired_height) = terrain_height_at(desired_ankle) else {
+         return Ok(None);
+     };
+-    checked_world_height(desired_height + ankle_above_toe + minimum_toe_clearance.metres())
+-        .map(Some)
++    checked_scene_elevation(
++        desired_height.metres() + ankle_above_toe + minimum_toe_clearance.metres(),
++    )
++    .map(|height| Some(FootClearanceFloor::Minimum(height)))
+ }
+ 
+ pub(in crate::animation::procedural) fn transition_toe_clearance_with_rotation_margin(
+@@ -142,7 +227,7 @@
+         * delta_seconds.seconds())
+     .min(90.0)
+     .to_radians();
+-    checked_world_height(
++    checked_signed_length(
+         ik_tuning()
+             .terrain_transition_flight_toe_clearance_metres
+             .metres()
+@@ -152,59 +237,91 @@
+ 
+ /// Combine the same sole-first, optional toe-second transition floor for each
+ /// candidate of the native sphere/disk search, without recomputing a plan.
+-pub(in crate::animation::procedural) fn transition_minimum_ankle_y(
++pub(in crate::animation::procedural) fn transition_clearance_floor(
+     terrain: &SceneTerrain,
+     rendered: Option<(Vec3, Vec3)>,
+     elapsed: AnimationElapsed,
+-    xz: Vec2,
+-) -> AnimationValueResult<Option<SignedLength>> {
+-    let sole = terrain.height_at(xz).map(|height| {
+-        height
++    point: ScenePlanPoint,
++) -> AnimationValueResult<Option<FootClearanceFloor>> {
++    let sole = terrain.height_at(point).map(|height| {
++        height.metres()
+             + measured_ankle_sole_offset_metres().metres()
+             + ik_tuning()
+                 .terrain_transition_flight_toe_clearance_metres
+                 .metres()
+     });
+-    let toe = rendered.and_then(|(ankle, toe)| {
+-        let angular_step = (ik_tuning()
+-            .airborne_foot_rotation_speed_degrees_per_second
+-            .degrees_per_second()
+-            * elapsed.seconds())
+-        .min(90.0)
+-        .to_radians();
+-        let margin = ik_tuning()
+-            .terrain_transition_flight_toe_clearance_metres
+-            .metres()
+-            + ankle.distance(toe) * angular_step.sin();
+-        let ankle_clearance = ankle.y - terrain.height_at(ankle.xz())?;
+-        let toe_clearance = toe.y - terrain.height_at(toe.xz())?;
+-        let above_toe = ankle_clearance - toe_clearance;
+-        Some(terrain.height_at(xz)? + above_toe + margin)
+-    });
+-    // Complete the native sole/toe maximum before admitting a retained height.
++    let toe = rendered
++        .map(|(ankle, toe)| -> AnimationValueResult<Option<f32>> {
++            let angular_step = (ik_tuning()
++                .airborne_foot_rotation_speed_degrees_per_second
++                .degrees_per_second()
++                * elapsed.seconds())
++            .min(90.0)
++            .to_radians();
++            let margin = ik_tuning()
++                .terrain_transition_flight_toe_clearance_metres
++                .metres()
++                + ankle.distance(toe) * angular_step.sin();
++            let ankle_point = checked_scene_point_metres(ankle.xz())?;
++            let Some(ankle_support) = terrain.height_at(ankle_point) else {
++                return Ok(None);
++            };
++            let ankle_clearance = ankle.y - ankle_support.metres();
++            let toe_point = checked_scene_point_metres(toe.xz())?;
++            let Some(toe_support) = terrain.height_at(toe_point) else {
++                return Ok(None);
++            };
++            let toe_clearance = toe.y - toe_support.metres();
++            let above_toe = ankle_clearance - toe_clearance;
++            Ok(terrain
++                .height_at(point)
++                .map(|height| height.metres() + above_toe + margin))
++        })
++        .transpose()?
++        .flatten();
++    // Complete the native sole/toe maximum before admitting a retained floor.
+     sole.into_iter()
+         .chain(toe)
+         .reduce(f32::max)
+-        .map(checked_world_height)
++        .map(|height| checked_scene_elevation(height).map(FootClearanceFloor::Minimum))
+         .transpose()
+ }
+ 
+-pub(in crate::animation::procedural) fn terrain_minimum_ankle_y(
++pub(in crate::animation::procedural) fn terrain_clearance_floor(
+     terrain: &SceneTerrain,
+     clearance: SignedLength,
+-    xz: Vec2,
+-) -> AnimationValueResult<Option<SignedLength>> {
++    point: ScenePlanPoint,
++) -> AnimationValueResult<Option<FootClearanceFloor>> {
+     terrain
+-        .height_at(xz)
++        .height_at(point)
+         .map(|height| {
+-            checked_world_height(
+-                height + measured_ankle_sole_offset_metres().metres() + clearance.metres(),
++            checked_scene_elevation(
++                height.metres() + measured_ankle_sole_offset_metres().metres() + clearance.metres(),
+             )
++            .map(FootClearanceFloor::Minimum)
+         })
+         .transpose()
+ }
+ 
+-pub(in crate::animation::procedural) fn checked_world_height(
++/// Admit completed native scene X/Z metres before application support queries.
++pub(in crate::animation::procedural) fn checked_scene_point_metres(
++    metres: Vec2,
++) -> AnimationValueResult<ScenePlanPoint> {
++    ScenePlanPoint::from_metres(metres).ok_or(AnimationValueError::Overflow {
++        quantity: AnimationQuantity::WorldPosition,
++    })
++}
++
++/// Admit a completed absolute ankle elevation in the scene's vertical datum.
++pub(in crate::animation::procedural) fn checked_scene_elevation(
++    metres: f32,
++) -> AnimationValueResult<Elevation<Scene>> {
++    Elevation::from_metres(metres).map_err(|_| AnimationValueError::Overflow {
++        quantity: AnimationQuantity::WorldPosition,
++    })
++}
++
++pub(in crate::animation::procedural) fn checked_signed_length(
+     metres: f32,
+ ) -> AnimationValueResult<SignedLength> {
+     SignedLength::from_metres(metres).map_err(|_| AnimationValueError::Overflow {
+--- before/crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/run_reach.rs
++++ after/crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/run_reach.rs
+@@ -0,0 +1,276 @@
++//! Run contact reach, motion disks and terrain-conformed footprint planning.
++
++use super::*;
++
++pub(in crate::animation::procedural) fn run_contact_within_follower_step(
++    previous_owner: Option<Vec3>,
++    desired_world: Vec3,
++    rig_origin: Vec3,
++    rig_rotation: Quat,
++    delta_seconds: AnimationElapsed,
++) -> bool {
++    let Some(previous_owner) = previous_owner else {
++        return true;
++    };
++    let desired_owner = rig_rotation.inverse() * (desired_world - rig_origin);
++    previous_owner.distance(desired_owner)
++        <= (ik_tuning().run_airborne_owner_step_metres.metres()
++            * ik_tuning().continuity_sample_hz.hertz())
++            * delta_seconds.seconds()
++            + sole_contact_tolerance_metres().metres()
++}
++
++pub(in crate::animation::procedural) fn run_contact_within_leg_reach(
++    target: Vec3,
++    upper_root: Vec3,
++    maximum_reach: ReachLimit,
++) -> bool {
++    maximum_reach
++        .native_metres()
++        .is_some_and(|reach| target.distance(upper_root) <= reach + 0.001)
++}
++
++pub(in crate::animation::procedural) fn run_contact_within_follower_motion_step(
++    previous_owner: Option<Vec3>,
++    desired_world: Vec3,
++    rig_origin: Vec3,
++    rig_rotation: Quat,
++    delta_seconds: AnimationElapsed,
++) -> bool {
++    let Some(previous_owner) = previous_owner else {
++        return true;
++    };
++    let desired_owner = rig_rotation.inverse() * (desired_world - rig_origin);
++    previous_owner.distance(desired_owner)
++        <= (ik_tuning().run_airborne_owner_step_metres.metres()
++            * ik_tuning().continuity_sample_hz.hertz())
++            * delta_seconds.seconds()
++            + 0.0001
++}
++
++#[expect(
++    clippy::too_many_arguments,
++    reason = "this domain boundary names each independent input explicitly"
++)]
++pub(in crate::animation::procedural) fn retarget_unacquired_run_contact_for_descent(
++    previous_owner: Option<Vec3>,
++    fixed_contact: Vec3,
++    rig_origin: Vec3,
++    rig_rotation: Quat,
++    side: FootTrackSide,
++    upper_root: Vec3,
++    maximum_reach: ReachLimit,
++    delta_seconds: AnimationElapsed,
++    terrain_height_at: impl Fn(ScenePlanPoint) -> Option<SupportElevation>,
++) -> Option<Vec3> {
++    let previous_owner = previous_owner?;
++    let maximum_reach = maximum_reach.native_metres()?;
++    let fixed_within_motion = run_contact_within_follower_motion_step(
++        Some(previous_owner),
++        fixed_contact,
++        rig_origin,
++        rig_rotation,
++        delta_seconds,
++    );
++    let fixed_within_reach = fixed_contact.distance(upper_root) <= maximum_reach + 0.001;
++    if fixed_within_motion && fixed_within_reach {
++        return None;
++    }
++
++    // At 5.5 m/s a fixed world contact recedes 8.6 cm in owner space per
++    // sample. Combining that with the final 5 cm descent exceeds the 9 cm
++    // continuity budget. A downhill target may instead be inside that motion
++    // budget but a few millimetres beyond the analytic leg reach. Start from
++    // the visible owner XZ for the first case or the frozen contact for the
++    // second, then terrain-resample and project into current reach before
++    // freezing the final acquired footprint.
++    let start_world = rig_origin + rig_rotation * previous_owner;
++    let maximum_motion = (ik_tuning().run_airborne_owner_step_metres.metres()
++        * ik_tuning().continuity_sample_hz.hertz())
++        * delta_seconds.seconds();
++    let mut transported_contact = if fixed_within_motion {
++        fixed_contact
++    } else {
++        start_world
++    };
++    for _ in 0..4 {
++        transported_contact =
++            constrain_foot_to_track(transported_contact, rig_origin, rig_rotation, side);
++        let height = terrain_height_at(ScenePlanPoint::from_metres(transported_contact.xz())?)?;
++        transported_contact.y = height.metres() + measured_ankle_sole_offset_metres().metres();
++        let leg_vertical = transported_contact.y - upper_root.y;
++        let leg_horizontal = (maximum_reach * maximum_reach - leg_vertical * leg_vertical)
++            .max(0.0)
++            .sqrt();
++        let motion_vertical = transported_contact.y - start_world.y;
++        let motion_horizontal = (maximum_motion * maximum_motion
++            - motion_vertical * motion_vertical)
++            .max(0.0)
++            .sqrt();
++        let projected = project_point_into_two_disks(
++            transported_contact.xz(),
++            [
++                (upper_root.xz(), leg_horizontal),
++                (start_world.xz(), motion_horizontal),
++            ],
++        );
++        transported_contact.x = projected.x;
++        transported_contact.z = projected.y;
++    }
++    transported_contact =
++        constrain_foot_to_track(transported_contact, rig_origin, rig_rotation, side);
++    let height = terrain_height_at(ScenePlanPoint::from_metres(transported_contact.xz())?)?;
++    transported_contact.y = height.metres() + measured_ankle_sole_offset_metres().metres();
++    let accepted = transported_contact.distance(upper_root) <= maximum_reach + 0.001
++        && run_contact_within_follower_motion_step(
++            Some(previous_owner),
++            transported_contact,
++            rig_origin,
++            rig_rotation,
++            delta_seconds,
++        );
++    if !accepted {
++        return None;
++    }
++    Some(transported_contact)
++}
++
++pub(in crate::animation::procedural) fn project_point_into_two_disks(
++    mut point: Vec2,
++    disks: [(Vec2, f32); 2],
++) -> Vec2 {
++    let mut corrections = [Vec2::ZERO; 2];
++    for _ in 0..24 {
++        for (index, (center, radius)) in disks.into_iter().enumerate() {
++            let corrected = point + corrections[index];
++            let projected = center + (corrected - center).clamp_length_max(radius.max(0.0));
++            corrections[index] = corrected - projected;
++            point = projected;
++        }
++    }
++    point
++}
++
++#[expect(
++    clippy::too_many_arguments,
++    reason = "this domain boundary names each independent input explicitly"
++)]
++pub(in crate::animation::procedural) fn reachable_run_contact_target(
++    mut candidate: Vec3,
++    current_upper_root: Vec3,
++    velocity: Vec3,
++    step_distance: NonnegativeLength,
++    phase_to_contact: CycleDelta,
++    contact_ready_phase: CycleDelta,
++    maximum_reach: ReachLimit,
++    terrain_height_at: impl Fn(ScenePlanPoint) -> Option<SupportElevation>,
++) -> Option<Vec3> {
++    let contact_ready_phase = contact_ready_phase.cycles();
++    let direction = velocity.with_y(0.0).try_normalize().unwrap_or(Vec3::NEG_Z);
++    let support_radius =
++        (contact_ready_phase - ik_tuning().run_contact_chain_settle_phase.fraction()).max(0.0);
++    let travel_per_phase = step_distance.metres() * 2.0;
++    let current_terrain_height =
++        terrain_height_at(ScenePlanPoint::from_metres(current_upper_root.xz())?);
++    let [Some(entry), Some(centre), Some(exit)] = [
++        phase_to_contact.cycles() - support_radius,
++        phase_to_contact.cycles(),
++        phase_to_contact.cycles() + support_radius,
++    ]
++    .map(|remaining_phase| {
++        let mut root =
++            current_upper_root + direction * (remaining_phase.max(0.0) * travel_per_phase);
++        if let (Some(current_height), Some(predicted_height)) = (
++            current_terrain_height,
++            terrain_height_at(ScenePlanPoint::from_metres(root.xz())?),
++        ) {
++            root.y += predicted_height.metres() - current_height.metres();
++        }
++        Some(
++            root - Vec3::Y
++                * ik_tuning()
++                    .run_maximum_planned_reach_pelvis_drop_metres
++                    .metres(),
++        )
++    }) else {
++        return None;
++    };
++    let predicted_upper_roots = [entry, centre, exit];
++    // The world footprint must remain reachable for the whole stance, not
++    // merely at entry. Project its XZ into the intersection of the predicted
++    // entry/center/exit reach disks. Dykstra's deterministic projection keeps
++    // an already feasible desired footprint unchanged and finds the closest
++    // point in the convex intersection otherwise. Resampling between passes
++    // accounts for the changing vertical budget on sloped terrain.
++    for _ in 0..4 {
++        if let Some(height) = terrain_height_at(ScenePlanPoint::from_metres(candidate.xz())?) {
++            candidate.y = height.metres() + measured_ankle_sole_offset_metres().metres();
++        }
++        candidate = project_run_contact_into_reach_intersection(
++            candidate,
++            predicted_upper_roots,
++            maximum_reach,
++        )?;
++    }
++    if let Some(height) = terrain_height_at(ScenePlanPoint::from_metres(candidate.xz())?) {
++        candidate.y = height.metres() + measured_ankle_sole_offset_metres().metres();
++    }
++    if !run_contact_reachable_through_stance(candidate, predicted_upper_roots, maximum_reach) {
++        // A cliff-like sample can have no shared stance footprint even with
++        // the bounded pelvis allowance. Keep support entry continuous; the
++        // reach-release latch will end the stance later without reacquiring
++        // the same lobe if the hip path still diverges.
++        for _ in 0..3 {
++            candidate = project_run_contact_into_reach_intersection(
++                candidate,
++                [predicted_upper_roots[0]; 3],
++                maximum_reach,
++            )?;
++            if let Some(height) = terrain_height_at(ScenePlanPoint::from_metres(candidate.xz())?) {
++                candidate.y = height.metres() + measured_ankle_sole_offset_metres().metres();
++            }
++        }
++    }
++    Some(candidate)
++}
++
++pub(in crate::animation::procedural) fn project_run_contact_into_reach_intersection(
++    mut candidate: Vec3,
++    predicted_upper_roots: [Vec3; 3],
++    maximum_reach: ReachLimit,
++) -> Option<Vec3> {
++    let maximum_reach = maximum_reach.native_metres()?;
++    let horizontal_reaches = predicted_upper_roots.map(|root| {
++        let vertical_delta = candidate.y - root.y;
++        (maximum_reach * maximum_reach - vertical_delta * vertical_delta)
++            .max(0.0)
++            .sqrt()
++    });
++    let mut point = candidate.xz();
++    let mut corrections = [Vec2::ZERO; 3];
++    for _ in 0..24 {
++        for (index, root) in predicted_upper_roots.iter().enumerate() {
++            let corrected = point + corrections[index];
++            let offset = corrected - root.xz();
++            let projected = root.xz() + offset.clamp_length_max(horizontal_reaches[index]);
++            corrections[index] = corrected - projected;
++            point = projected;
++        }
++    }
++    candidate.x = point.x;
++    candidate.z = point.y;
++    Some(candidate)
++}
++
++pub(in crate::animation::procedural) fn run_contact_reachable_through_stance(
++    candidate: Vec3,
++    predicted_upper_roots: [Vec3; 3],
++    maximum_reach: ReachLimit,
++) -> bool {
++    let Some(maximum_reach) = maximum_reach.native_metres() else {
++        return false;
++    };
++    predicted_upper_roots
++        .into_iter()
++        .all(|root| candidate.distance(root) <= maximum_reach + 0.001)
++}
+--- before/crates/adventuresim-tactical-client/src/animation/procedural/ik/tests.rs
++++ after/crates/adventuresim-tactical-client/src/animation/procedural/ik/tests.rs
+@@ -584,8 +584,10 @@
+         .unwrap()
+         .metres()
+             * 2.0;
+-        let downhill = |xz: Vec2| Some(2.38 + xz.y * 0.08);
+-        let current_height = downhill(upper.xz()).unwrap();
++        let downhill = |point: ScenePlanPoint| {
++            Some(SupportElevation::from_metres(2.38 + point.metres().y * 0.08).unwrap())
++        };
++        let current_height = downhill(ScenePlanPoint::from_metres(upper.xz()).unwrap()).unwrap();
+         let predicted_roots = [
+             phase_to_contact - run_locomotion_profile().support_phase_radius.cycles(),
+             phase_to_contact,
+@@ -593,7 +595,10 @@
+         ]
+         .map(|remaining_phase| {
+             let mut root = upper + Vec3::NEG_Z * (remaining_phase * travel_per_phase);
+-            root.y += downhill(root.xz()).unwrap() - current_height;
++            root.y += downhill(ScenePlanPoint::from_metres(root.xz()).unwrap())
++                .unwrap()
++                .metres()
++                - current_height.metres();
+             root - Vec3::Y
+                 * ik_tuning()
+                     .run_maximum_planned_reach_pelvis_drop_metres
+@@ -637,7 +642,10 @@
+                     .run_maximum_planned_reach_pelvis_drop_metres
+                     .metres();
+         let flat_candidate = flat_predicted_center + Vec3::new(0.1, -0.5, 0.0);
+-        let flat_height = flat_candidate.y - measured_ankle_sole_offset_metres().metres();
++        let flat_height = SupportElevation::from_metres(
++            flat_candidate.y - measured_ankle_sole_offset_metres().metres(),
++        )
++        .unwrap();
+         let flat = reachable_run_contact_target(
+             flat_candidate,
+             upper,
+@@ -1193,7 +1201,7 @@
+ 
+     #[test]
+     fn raised_support_requires_rendered_sole_contact() {
+-        let terrain_height = 0.0;
++        let terrain_height = SupportElevation::ZERO;
+         assert!(raised_support_is_actual(
+             true,
+             measured_ankle_sole_offset_metres().metres() + sole_contact_tolerance_metres().metres()
+@@ -1429,7 +1437,10 @@
+             FootTargetSpeeds::configured()
+                 .unwrap()
+                 .run_sample(false, true),
+-            |_| checked_world_height(-100.0).map(Some),
++            |_| {
++                checked_scene_elevation(-100.0)
++                    .map(|height| Some(FootClearanceFloor::Minimum(height)))
++            },
+         )
+         .unwrap();
+         assert!(
+@@ -1482,16 +1493,16 @@
+         // the next target for the strict +1.1 cm transition toe floor.
+         let rendered_ankle = Vec3::new(0.14, 0.1154449, -1.5);
+         let rendered_toe = Vec3::new(0.14, -0.017214656, -1.62);
+-        let minimum = toe_aware_minimum_ankle_y(
++        let minimum = toe_aware_clearance_floor(
+             rendered_ankle,
+             rendered_toe,
+-            Vec2::new(0.14, -1.7),
++            ScenePlanPoint::from_metres(Vec2::new(0.14, -1.7)).unwrap(),
+             ik_tuning().terrain_transition_flight_toe_clearance_metres,
+-            |_| Some(0.0),
++            |_| Some(SupportElevation::ZERO),
+         )
+         .unwrap()
+         .unwrap();
+-        assert!((minimum.metres() - 0.14365956).abs() <= 0.000001);
++        assert!((minimum.minimum_height().unwrap().metres() - 0.14365956).abs() <= 0.000001);
+         let rotation_safe_clearance = transition_toe_clearance_with_rotation_margin(
+             rendered_ankle,
+             rendered_toe,
+@@ -1513,7 +1524,7 @@
+             |_| Ok(Some(minimum)),
+         )
+         .unwrap();
+-        assert!(resolved.y + 0.000001 >= minimum.metres());
++        assert!(resolved.y + 0.000001 >= minimum.minimum_height().unwrap().metres());
+         assert!(
+             resolved.distance(rendered_ankle)
+                 <= (ik_tuning().airborne_release_step_metres.metres()
+@@ -1522,17 +1533,22 @@
+                     + 0.0001
+         );
+ 
+-        let contact_minimum = toe_aware_minimum_ankle_y(
++        let contact_minimum = toe_aware_clearance_floor(
+             Vec3::new(0.21, 0.085, 0.0),
+             Vec3::new(0.21, -0.015733838, -0.1),
+-            Vec2::new(0.21, 0.0),
++            ScenePlanPoint::from_metres(Vec2::new(0.21, 0.0)).unwrap(),
+             ik_tuning().terrain_contact_toe_clearance_metres,
+-            |_| Some(0.0),
++            |_| Some(SupportElevation::ZERO),
+         )
+         .unwrap()
+         .unwrap();
+-        assert!(contact_minimum.metres() > measured_ankle_sole_offset_metres().metres());
+-        assert!((contact_minimum.metres() - 0.09173384).abs() <= 0.000001);
++        assert!(
++            contact_minimum.minimum_height().unwrap().metres()
++                > measured_ankle_sole_offset_metres().metres()
++        );
++        assert!(
++            (contact_minimum.minimum_height().unwrap().metres() - 0.09173384).abs() <= 0.000001
++        );
+     }
+ 
+     #[test]
+@@ -1550,7 +1566,10 @@
+                     * ik_tuning().continuity_sample_hz.hertz(),
+             )
+             .unwrap(),
+-            |_| checked_world_height(measured_ankle_sole_offset_metres().metres()).map(Some),
++            |_| {
++                checked_scene_elevation(measured_ankle_sole_offset_metres().metres())
++                    .map(|height| Some(FootClearanceFloor::Minimum(height)))
++            },
+         )
+         .unwrap();
+         assert!(contact_candidate.distance_squared(contact) <= 0.000001);
+@@ -1566,7 +1585,10 @@
+                     * ik_tuning().continuity_sample_hz.hertz(),
+             )
+             .unwrap(),
+-            |_| checked_world_height(0.14365956).map(Some),
++            |_| {
++                checked_scene_elevation(0.14365956)
++                    .map(|height| Some(FootClearanceFloor::Minimum(height)))
++            },
+         )
+         .unwrap();
+         assert!(flight_candidate.distance_squared(contact) > 0.000001);
+@@ -1600,7 +1622,7 @@
+             &mut memory,
+             Vec3::ZERO,
+             Quat::IDENTITY,
+-            |_| Some(0.0),
++            |_| Some(SupportElevation::ZERO),
+         ));
+         assert_eq!(memory.terminal_contacts.shift().metres(), -0.21);
+         assert!(matches!(
+@@ -1690,18 +1712,18 @@
+             &mut memory,
+             Vec3::ZERO,
+             Quat::IDENTITY,
+-            |_| Some(0.0),
++            |_| Some(SupportElevation::ZERO),
+         ));
+         assert!(memory.settle.is_some());
+         assert!(!terminal_settle_contacts_are_rendered(&memory, |_| Some(
+-            0.0
++            SupportElevation::ZERO
+         ),));
+         memory.left_last_rendered_world = memory.left_foot_world_target;
+         memory.right_last_rendered_world = memory.right_foot_world_target;
+         memory.left_last_rendered_toe_world = Some(Vec3::new(-0.12, 0.005, -0.3));
+         memory.right_last_rendered_toe_world = Some(Vec3::new(0.12, 0.005, -0.6));
+         assert!(terminal_settle_contacts_are_rendered(&memory, |_| Some(
+-            0.0
++            SupportElevation::ZERO
+         ),));
+         finish_settle_for_idle(&mut memory);
+         assert!(memory.settle.is_none());
+@@ -1785,7 +1807,7 @@
+             ..default()
+         };
+         assert!(!terminal_settle_contacts_are_rendered(&memory, |_| Some(
+-            2.045
++            SupportElevation::from_metres(2.045).unwrap()
+         )));
+     }
+ 
+@@ -1845,7 +1867,7 @@
+             &mut memory,
+             Vec3::ZERO,
+             Quat::IDENTITY,
+-            |_| Some(0.0),
++            |_| Some(SupportElevation::ZERO),
+         ));
+         let left = memory.left_foot_world_target.unwrap();
+         let right = memory.right_foot_world_target.unwrap();
+@@ -1862,7 +1884,7 @@
+             &mut memory,
+             Vec3::ZERO,
+             Quat::IDENTITY,
+-            |_| Some(0.0),
++            |_| Some(SupportElevation::ZERO),
+         ));
+         assert_eq!(memory.left_foot_world_target, Some(left));
+         assert_eq!(memory.right_foot_world_target, Some(right));
+@@ -2571,7 +2593,7 @@
+             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz.hertz()).unwrap(),
+         );
+         assert!(reachable);
+-        let eligible = run_support_eligible_for_descent(
++        let descent = run_support_descent(
+             LocomotionGait::Run,
+             CyclePhase::from_cycles(rising_phase).unwrap(),
+             LeadFoot::Right,
+@@ -2579,24 +2601,23 @@
+             rising_raw,
+             reachable,
+         );
+-        assert!(eligible);
++        assert!(descent.permits_descent());
+         assert!(
+             run_airborne_clearance(
+                 CyclePhase::from_cycles(rising_phase)
+                     .unwrap()
+                     .until_contact(LeadFoot::Right),
+                 Some(UnitInterval::from_fraction(1.0).unwrap()),
+-                eligible,
++                descent,
+             )
+             .unwrap()
+             .metres()
+                 <= 0.0
+         );
+-        let lowered_y =
+-            FootClearanceFloor::Measured(SignedLength::from_metres(endpoint.y).unwrap())
+-                .apply(prior_floor, eligible)
+-                .unwrap()
+-                .y;
++        let lowered_y = FootClearanceFloor::Minimum(checked_scene_elevation(endpoint.y).unwrap())
++            .apply(prior_floor, descent)
++            .unwrap()
++            .y;
+         assert!(lowered_y < prior_floor.y);
+         assert!((lowered_y - endpoint.y) == 0.0);
+         let descended = advance_run_airborne_world_target(
+@@ -2610,28 +2631,34 @@
+                     * ik_tuning().continuity_sample_hz.hertz(),
+             )
+             .unwrap(),
+-            |_| checked_world_height(endpoint.y).map(Some),
++            |_| {
++                checked_scene_elevation(endpoint.y)
++                    .map(|height| Some(FootClearanceFloor::Minimum(height)))
++            },
+         )
+         .unwrap();
+         assert!(descended.y < prior_floor.y);
+         assert!(descended.distance(endpoint) <= 0.0001);
+         assert_eq!(
+-            FootClearanceFloor::Measured(SignedLength::from_metres(prior_floor.y).unwrap())
+-                .apply(endpoint, false)
++            FootClearanceFloor::Minimum(checked_scene_elevation(prior_floor.y).unwrap())
++                .apply(endpoint, FootDescent::RaiseOnly)
+                 .unwrap()
+                 .y,
+             prior_floor.y
+         );
+         let (_, post_contact_raw) =
+             gait_support_weights(profile, CyclePhase::from_cycles(0.65).unwrap()).unwrap();
+-        assert!(!run_support_eligible_for_descent(
+-            LocomotionGait::Run,
+-            CyclePhase::from_cycles(0.65).unwrap(),
+-            LeadFoot::Right,
+-            CycleDelta::from_cycles(radius).unwrap(),
+-            post_contact_raw,
+-            true,
+-        ));
++        assert!(
++            !run_support_descent(
++                LocomotionGait::Run,
++                CyclePhase::from_cycles(0.65).unwrap(),
++                LeadFoot::Right,
++                CycleDelta::from_cycles(radius).unwrap(),
++                post_contact_raw,
++                true,
++            )
++            .permits_descent()
++        );
+ 
+         // Even if a low-rate consumer skipped the explicit flight sample, the
+         // signed rising shoulder is an unambiguous new-lobe boundary.
+@@ -2659,7 +2686,7 @@
+             true,
+             CycleDelta::from_cycles(0.81).unwrap(),
+             None,
+-            false,
++            FootDescent::RaiseOnly,
+         )
+         .unwrap()
+         .metres();
+@@ -2672,7 +2699,7 @@
+                 false,
+                 CycleDelta::from_cycles(0.81).unwrap(),
+                 None,
+-                false
++                FootDescent::RaiseOnly
+             )
+             .unwrap()
+             .metres()
+@@ -2711,12 +2738,13 @@
+         let uphill_next_root = Vec3::new(0.0, 3.096167, -4.296875);
+         let uphill_plant = Vec3::new(-0.11504457, 2.2510452, -3.7630615);
+         let uphill_owner = uphill_plant - uphill_previous_root;
+-        let uphill_minimum_y = |xz: Vec2| {
+-            Some(
++        let uphill_minimum_y = |point: ScenePlanPoint| {
++            checked_scene_elevation(
+                 uphill_plant.y
+                     + ik_tuning().run_swing_minimum_sole_clearance_metres.metres()
+-                    + (uphill_plant.z - xz.y).max(0.0) * 0.475,
+-            )
++                    + (uphill_plant.z - point.metres().y).max(0.0) * 0.475,
++            )
++            .map(|height| Some(FootClearanceFloor::Minimum(height)))
+         };
+         let uphill_release = advance_run_airborne_world_target(
+             Some(uphill_owner),
+@@ -2725,7 +2753,7 @@
+             Quat::IDENTITY,
+             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz.hertz()).unwrap(),
+             FootTargetSpeeds::configured().unwrap().run_airborne(true),
+-            |xz| uphill_minimum_y(xz).map(checked_world_height).transpose(),
++            uphill_minimum_y,
+         )
+         .unwrap();
+         let uphill_release_owner = uphill_release - uphill_next_root;
+@@ -2736,8 +2764,25 @@
+                     / ik_tuning().continuity_sample_hz.hertz()
+                     + 0.0001
+         );
+-        assert!(uphill_release.y + 0.0001 >= uphill_minimum_y(uphill_release.xz()).unwrap());
+-        assert!(uphill_release.y - uphill_minimum_y(uphill_release.xz()).unwrap() <= 0.0001);
++        assert!(
++            uphill_release.y + 0.0001
++                >= uphill_minimum_y(ScenePlanPoint::from_metres(uphill_release.xz()).unwrap())
++                    .unwrap()
++                    .unwrap()
++                    .minimum_height()
++                    .unwrap()
++                    .metres()
++        );
++        assert!(
++            uphill_release.y
++                - uphill_minimum_y(ScenePlanPoint::from_metres(uphill_release.xz()).unwrap())
++                    .unwrap()
++                    .unwrap()
++                    .minimum_height()
++                    .unwrap()
++                    .metres()
++                <= 0.0001
++        );
+         assert!(uphill_release.z < uphill_plant.z);
+         assert!(uphill_release.z > uphill_plant.z - 5.5 / ik_tuning().continuity_sample_hz.hertz());
+         let captured_toe_offset = Vec3::new(-0.0108, 0.0007, -0.1370);
+@@ -2825,7 +2870,7 @@
+                 false,
+                 CycleDelta::from_cycles(0.133).unwrap(),
+                 Some(UnitInterval::from_fraction(1.0).unwrap()),
+-                false
++                FootDescent::RaiseOnly
+             )
+             .unwrap()
+             .metres(),
+@@ -2972,7 +3017,10 @@
+                     * ik_tuning().continuity_sample_hz.hertz(),
+             )
+             .unwrap(),
+-            |_| checked_world_height(-100.0).map(Some),
++            |_| {
++                checked_scene_elevation(-100.0)
++                    .map(|height| Some(FootClearanceFloor::Minimum(height)))
++            },
+         )
+         .unwrap();
+         let resolved_owner = resolved - after_root;
+@@ -2996,7 +3044,10 @@
+             Quat::IDENTITY,
+             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz.hertz()).unwrap(),
+             FootTargetSpeeds::configured().unwrap().run_airborne,
+-            |_| checked_world_height(-100.0).map(Some),
++            |_| {
++                checked_scene_elevation(-100.0)
++                    .map(|height| Some(FootClearanceFloor::Minimum(height)))
++            },
+         )
+         .unwrap();
+         assert!(
+@@ -3019,7 +3070,8 @@
+                 AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz.hertz())
+                     .unwrap(),
+                 FootTargetSpeeds::configured().unwrap().run_airborne,
+-                |_| checked_world_height(-100.0).map(Some)
++                |_| checked_scene_elevation(-100.0)
++                    .map(|height| Some(FootClearanceFloor::Minimum(height)))
+             )
+             .unwrap(),
+             desired_solve,
+@@ -3152,7 +3204,10 @@
+                     * ik_tuning().continuity_sample_hz.hertz(),
+             )
+             .unwrap(),
+-            |_| checked_world_height(0.085).map(Some),
++            |_| {
++                checked_scene_elevation(0.085)
++                    .map(|height| Some(FootClearanceFloor::Minimum(height)))
++            },
+         )
+         .unwrap();
+         assert!(
+@@ -3171,7 +3226,7 @@
+             run_airborne_clearance(
+                 CycleDelta::from_cycles(0.34).unwrap(),
+                 Some(UnitInterval::from_fraction(1.0).unwrap()),
+-                false
++                FootDescent::RaiseOnly
+             )
+             .unwrap()
+             .metres(),
+@@ -3181,7 +3236,7 @@
+             run_airborne_clearance(
+                 CycleDelta::from_cycles(0.17).unwrap(),
+                 Some(UnitInterval::from_fraction(1.0).unwrap()),
+-                false
++                FootDescent::RaiseOnly
+             )
+             .unwrap()
+             .metres(),
+@@ -3191,7 +3246,7 @@
+             run_airborne_clearance(
+                 CycleDelta::from_cycles(0.17).unwrap(),
+                 Some(UnitInterval::from_fraction(1.0).unwrap()),
+-                true
++                FootDescent::FollowFloor
+             )
+             .unwrap()
+             .metres()
+@@ -3224,7 +3279,10 @@
+                     * ik_tuning().continuity_sample_hz.hertz(),
+             )
+             .unwrap(),
+-            |_| checked_world_height(0.085).map(Some),
++            |_| {
++                checked_scene_elevation(0.085)
++                    .map(|height| Some(FootClearanceFloor::Minimum(height)))
++            },
+         )
+         .unwrap();
+         assert!(resolved.distance(fixed_contact) < 0.0001);
+@@ -3241,7 +3299,7 @@
+             run_airborne_clearance(
+                 CycleDelta::from_cycles(0.17).unwrap(),
+                 Some(UnitInterval::from_fraction(1.0).unwrap()),
+-                false
++                FootDescent::RaiseOnly
+             )
+             .unwrap()
+             .metres(),
+@@ -3277,7 +3335,7 @@
+             Vec3::new(0.1, 0.9, current_root.z - 0.5),
+             ReachLimit::Fixed(NonnegativeLength::from_metres(1.0).unwrap()),
+             AnimationElapsed::from_seconds(1.0 / ik_tuning().continuity_sample_hz.hertz()).unwrap(),
+-            |_| Some(0.0),
++            |_| Some(SupportElevation::ZERO),
+         )
+         .expect("the owner-local footprint should remain reachable after its 5 cm descent");
+         assert!(
+@@ -3304,7 +3362,10 @@
+                     * ik_tuning().continuity_sample_hz.hertz(),
+             )
+             .unwrap(),
+-            |_| checked_world_height(measured_ankle_sole_offset_metres().metres()).map(Some),
++            |_| {
++                checked_scene_elevation(measured_ankle_sole_offset_metres().metres())
++                    .map(|height| Some(FootClearanceFloor::Minimum(height)))
++            },
+         )
+         .unwrap();
+         assert!(landed.distance(transported) < 0.0001);
+@@ -3347,7 +3408,10 @@
+         ));
+         assert!(frozen_contact.distance(upper_root) > solve_reach.native_metres().unwrap() + 0.001);
+ 
+-        let terrain_height = frozen_contact.y - measured_ankle_sole_offset_metres().metres();
++        let terrain_height = SupportElevation::from_metres(
++            frozen_contact.y - measured_ankle_sole_offset_metres().metres(),
++        )
++        .unwrap();
+         let reachable_contact = retarget_unacquired_run_contact_for_descent(
+             Some(previous_owner),
+             frozen_contact,
+@@ -3373,7 +3437,7 @@
+         ));
+         assert_eq!(
+             reachable_contact.y,
+-            terrain_height + measured_ankle_sole_offset_metres().metres()
++            terrain_height.metres() + measured_ankle_sole_offset_metres().metres()
+         );
+         let landed = advance_run_airborne_world_target(
+             Some(previous_owner),
+@@ -3386,7 +3450,10 @@
+                     * ik_tuning().continuity_sample_hz.hertz(),
+             )
+             .unwrap(),
+-            |_| checked_world_height(reachable_contact.y).map(Some),
++            |_| {
++                checked_scene_elevation(reachable_contact.y)
++                    .map(|height| Some(FootClearanceFloor::Minimum(height)))
++            },
+         )
+         .unwrap();
+         assert!(landed.distance(reachable_contact) < 0.0001);
+--- before/crates/adventuresim-tactical-client/src/animation/ragdoll/drive.rs
++++ after/crates/adventuresim-tactical-client/src/animation/ragdoll/drive.rs
+@@ -7,7 +7,14 @@
+     RagdollBodyPart, Ragdolling,
+     entry::{joint_base_affine, joint_world_affines},
+ };
+-use adventuresim_tactical_core::prelude::*;
++use adventuresim_building_generator::spatial_geometry::{
++    GeometryResult, Position as ScenePosition, SignedLength,
++};
++use adventuresim_tactical_core::{
++    city_layout::grounding::SupportElevation,
++    prelude::*,
++    scene_coordinates::{Scene, ScenePlanPoint},
++};
+ use bevy::{math::Affine3A, prelude::*};
+ use fabelgeist_rig::{RigJointOrdinal, RigJointTable};
+ 
+@@ -124,16 +131,30 @@
+         if part.kinematic {
+             continue;
+         }
+-        let penetration = capsule_terrain_penetration(part, position.0, rotation.0, |point| {
++        let penetration = match capsule_terrain_penetration(part, position.0, rotation.0, |point| {
+             terrains
+                 .iter()
+                 .filter_map(|terrain| terrain.height_at(point))
+-                .reduce(f32::max)
+-        });
+-        if penetration <= 0.0 {
++                .reduce(SupportElevation::max)
++        }) {
++            Ok(penetration) => penetration,
++            Err(error) => {
++                warn!(%error, "Ragdoll terrain penetration rejected");
++                continue;
++            }
++        };
++        if penetration.metres() <= 0.0 {
+             continue;
+         }
+-        position.0.y += penetration;
++        let corrected = position.0.with_y(position.0.y + penetration.metres());
++        let corrected = match ScenePosition::<Scene>::from_metres(corrected) {
++            Ok(corrected) => corrected,
++            Err(error) => {
++                warn!(%error, "Ragdoll terrain correction rejected");
++                continue;
++            }
++        };
++        position.0 = corrected.metres();
+         if velocity.y < 0.0 {
+             // Settle rather than rebound through the surface between
+             // presentation frames.
+@@ -151,16 +172,18 @@
+     part: &RagdollBodyPart,
+     position: Vec3,
+     rotation: Quat,
+-    mut height_at: impl FnMut(Vec2) -> Option<f32>,
+-) -> f32 {
++    mut height_at: impl FnMut(ScenePlanPoint) -> Option<SupportElevation>,
++) -> GeometryResult<SignedLength> {
+     let center = position + rotation * part.center_local;
+     let axis = rotation * part.axis_local * part.half_length.metres();
+-    [center - axis, center, center + axis]
++    let penetration = [center - axis, center, center + axis]
+         .into_iter()
+         .filter_map(|sample| {
+-            height_at(sample.xz()).map(|height| height + part.radius.metres() - sample.y)
++            let point = ScenePlanPoint::from_metres(sample.xz())?;
++            height_at(point).map(|height| height.metres() + part.radius.metres() - sample.y)
+         })
+-        .fold(0.0_f32, f32::max)
++        .fold(0.0_f32, f32::max);
++    SignedLength::from_metres(penetration)
+ }
+ 
+ #[cfg(test)]
+@@ -180,9 +203,14 @@
+         let rotation = Quat::from_rotation_z(std::f32::consts::FRAC_PI_2);
+         let penetration =
+             capsule_terrain_penetration(&part, Vec3::new(0.0, 0.2, 0.0), rotation, |point| {
+-                Some(point.x.max(0.0))
+-            });
+-        assert!((penetration - 0.4).abs() < 1.0e-5, "{penetration}");
++                SupportElevation::from_metres(point.metres().x.max(0.0))
++            })
++            .unwrap();
++        assert!(
++            (penetration.metres() - 0.4).abs() < 1.0e-5,
++            "{}",
++            penetration.metres()
++        );
+     }
+ 
+     #[test]
+@@ -196,9 +224,14 @@
+         };
+         let penetration =
+             capsule_terrain_penetration(&part, Vec3::new(0.0, 0.45, 0.0), Quat::IDENTITY, |_| {
+-                Some(0.0)
+-            });
++                Some(SupportElevation::ZERO)
++            })
++            .unwrap();
+         // Lowest sample is the far cap centre at y = 0.05, radius 0.1.
+-        assert!((penetration - 0.05).abs() < 1.0e-5, "{penetration}");
+-    }
+-}
++        assert!(
++            (penetration.metres() - 0.05).abs() < 1.0e-5,
++            "{}",
++            penetration.metres()
++        );
++    }
++}

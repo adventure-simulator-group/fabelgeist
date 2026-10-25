@@ -1,0 +1,44 @@
+{
+  "id": "RIG-INITIAL06-GROUP-013",
+  "at": "2026-10-22T19:28:39.091294+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "cloth-and-shell-shared-mechanics-owner": {
+      "sources": [
+        "pr-working:crates/fabelgeist-cloth/Cargo.toml",
+        "pr-working:crates/fabelgeist-cloth/src/cloth/mod.rs",
+        "pr-working:crates/fabelgeist-cloth/src/fabric.rs",
+        "pr-working:crates/fabelgeist-cloth/src/lib.rs",
+        "pr-working:crates/fabelgeist-cloth/src/surface_contact.rs",
+        "pr-working:crates/fabelgeist-cloth/src/topology.rs",
+        "pr-working:crates/fabelgeist-shell/Cargo.toml",
+        "pr-working:crates/fabelgeist-shell/src/lib.rs"
+      ],
+      "comparison": "Fresh actual full Cloth manifest21/module93/Fabric156/lib34, one-line surface_contact/topology reexports, Shell manifest24 and Shell lib1\u201356. Cloth already depends downwards on Shell and reuses its exact Solver/Settings/Collisions/Topology/ParticleMass/Density identities; these reexports are canonical same Rust definitions, not compatibility wrappers or independent owners. Shell itself reexports XPBD Mass/InverseMass/ArealDensity and Physics Collisions, so Fabric.density correctly retains the lower native dynamics type. Fabric includes areal density and textile presets, ShellMaterial is solver-response-only because density is baked into mesh masses; retaining distinct purpose records is coherent. However shared shell geometry is redeclared in GarmentMesh and copied field-for-field in Cloth.new, exact F003 below. Fabric/ShellMaterial raw field mutation does not certify admitted material state; method/new gate coherence stays other-lens work. Cloth-specific Panel/Seam/native meshing roles remain above mechanics; shared shell/native abstractions should not import garment/pattern formats."
+    },
+    "garment-geometry-duplicates-existing-shell-record": {
+      "sources": [
+        "pr-working:crates/fabelgeist-cloth/src/garment/mod.rs",
+        "pr-working:crates/fabelgeist-shell/src/mesh.rs",
+        "pr-working:crates/fabelgeist-shell/src/shell.rs"
+      ],
+      "comparison": "Fresh exact Garment1\u2013453, full ShellMesh139 and Shell408. GarmentMesh declares identical positions/triangles/edges/rest_lengths/bends/bend_weights/seams/masses fields with the same shared types as ShellMesh, while adding distinct material-plane vertices/panel_offsets/panel_names. Cloth.new34\u201343 freshly read copies every one of those eight vectors unchanged into ShellMesh before Shell.new. Shell.new consumes precisely this common record: validate\u2192masses\u2192Particles/constraints/topology/contact state. This is duplicate maintenance of the same already-established shell mesh contract, not two coordinate frames or two different wire formats. Canonical ShellMesh should be composed as a field of GarmentMesh; garment-specific panel/material provenance stays Cloth. Preserve garment build placement, seam unfolding/rest values/arrival order/mass calculations and shell validation timing; do not rerun ShellMesh.new to recompute different rest geometry. Shell simulation state (particles/initial snapshot/constraints) is a later lifecycle representation and is not the same host source record. Public raw mutation/late projections retain existing other-lens limitations. Exact F003 migration plan/acceptance recorded separately, all remaining consumers still require map before repair."
+    },
+    "cloth-panel-and-triangulation-owner": {
+      "sources": [
+        "pr-working:crates/fabelgeist-cloth/src/triangulate/mod.rs"
+      ],
+      "comparison": "Fresh exact triangulate1\u2013410 and related Garment1\u2013453 definitions/producers. PanelMesh owns planar Vec2 vertices, triangle ordinal addresses and original edge chains; Panel/SeamSide/Seam/Placement own pattern outline/panel-edge association and panel-local XY\u2192world lifting. These are not Architectural XZ plan coordinates, generic checked position/direction or the spatial native mesh render DTO. Garment Placement permits translation+XYZ Euler degrees with fixed no-scale panel lifting, whereas shared math Transform includes independent scale and MHR uses quaternion+uniform scale; preserve restriction/frame rather than aliasing on equal vector fields. PanelMesh indexing/panel numbering and XPBD particle/original constraint/color slots are distinct address spaces. Native triangulation lattice jitter is an exact deterministic geometric perturbation algorithm with no caller-owned Seed/StreamId authority; do not replace it with game procedural RNG or alter original numerical sequence for ownership. No competing shared math vector declaration exists here, and native numeric error/admission behavior is not cleared."
+    },
+    "shared-shell-topology-not-a-second-cloth-copy": {
+      "sources": [
+        "pr-working:crates/fabelgeist-shell/src/topology.rs"
+      ],
+      "comparison": "Fresh topology1\u2013235. BendQuad identifies shared hinge versus opposite wings; Topology records canonical sorted edge/boundary/bend incidence, distinct from triangulator outline chains and world-space mesh buffers. Cloth.topology is a direct reexport, so there is one current source owner of the mesh mechanics and mass/bending algorithms. Actual Garment.build and ShellMesh.new both delegate this canonical topology; their different panel/seam construction policies stay above it. Vertex mass/areal-density operations reuse actual XPBD owners from012; affine bending weights may be signed, so do not merge them with checked UnitInterval or BarycentricWeight solely because all are f32 multipliers. Exact test tail236+ excluded. No duplicate topology owner finding; common ShellMesh record duplication is independently demonstrated in F003."
+    }
+  },
+  "new_findings": [
+    "RIG-INITIAL06-F003"
+  ],
+  "limits": "Exact scoped fresh bodies and actual lower GPU/Compute/XPBD/BVH ownership proofs. Shell lower SurfaceContacts/CCD/OuterLayer/SelfCollision definitions are pending their own current06 source cells; no whole mechanics/foreign graph or other-lens clearance."
+}

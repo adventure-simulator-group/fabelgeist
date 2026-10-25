@@ -1,0 +1,189 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-247",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/melee.rs",
+      "sha256": "6fd64503e79c60d080ad7322bfdd270e451887f48d89c80898c47cd161532727",
+      "actual_EOF": 363,
+      "actual_compared_ranges": [
+        [
+          1,
+          363
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/melee/active_defense.rs",
+      "sha256": "291b5d7171d5674bc929189b672bf92ee1b1348b9866f526f65d4377c8fbedbe",
+      "actual_EOF": 186,
+      "actual_compared_ranges": [
+        [
+          1,
+          186
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/melee/outcome.rs",
+      "sha256": "b1df703eee8ffb66e22145a48e714ea090151771043a2c85b99905acb930c2f4",
+      "actual_EOF": 129,
+      "actual_compared_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/protocol.rs",
+      "sha256": "bdc79a977759c6bc89210af417c605af95bdf23d383bcf29a3e1f49552590c6a",
+      "actual_EOF": 86,
+      "actual_compared_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/melee.rs",
+      "sha256": "fe64843450cc6ba428fd3c9c1fec3a5fcb5b65b3cbf3a5c21997548d3a355dd6",
+      "actual_EOF": 473,
+      "actual_compared_ranges": [
+        [
+          1,
+          473
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/melee/active_defense.rs",
+      "sha256": "291b5d7171d5674bc929189b672bf92ee1b1348b9866f526f65d4377c8fbedbe",
+      "actual_EOF": 186,
+      "actual_compared_ranges": [
+        [
+          1,
+          186
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/melee/outcome.rs",
+      "sha256": "b1df703eee8ffb66e22145a48e714ea090151771043a2c85b99905acb930c2f4",
+      "actual_EOF": 129,
+      "actual_compared_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/protocol.rs",
+      "sha256": "bdc79a977759c6bc89210af417c605af95bdf23d383bcf29a3e1f49552590c6a",
+      "actual_EOF": 86,
+      "actual_compared_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/melee/geometry.rs",
+      "sha256": "0e6bff7b2a9b88f916e90495f72d65ce3e854b21a05b6a59d30a684174dfe957",
+      "actual_EOF": 137,
+      "actual_compared_ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Melee completion validates live actor geometry and read-only defense before consuming authority",
+      "source_ranges": {
+        "combat/melee.rs": [
+          [
+            1,
+            363
+          ]
+        ],
+        "combat/melee/geometry.rs": [
+          [
+            1,
+            137
+          ]
+        ],
+        "combat/melee/active_defense.rs": [
+          [
+            1,
+            186
+          ]
+        ]
+      },
+      "disposition": "Full P16 main/geometry and actual complete PR inlining/body delta personally read, full identical counterpart active-defense semantics reanalyzed. P16 admits computed reach/contact and scene positions before authority consumption, PR raw geometry retains boundary. Live relationship/state/dimensions/viewer/capability/line-of-sight checked, then fallible cooldown, defender condition/performance/timing and preview all prepared read-only. Only successful authorize clears one-shot authority; then prepared defense commit charges weapon work and modifies defender intercept/trade state. Failed defense preparation preserves attack authority, though scheduled PendingMeleeContact was already removed by ingress: no persistent retry invariant inferred. Precision finite times admitted performance0..1 stays finite including signedlarge input, so expect has this specific multiplication proof, unlike config hit_precision expect. Contact result products require underlying raw physics finite producer contract, not established merely by finite leaf precision."
+    },
+    {
+      "contract": "Defender attack transformation and physical outcome publication",
+      "source_ranges": {
+        "combat/melee/active_defense.rs": [
+          [
+            86,
+            186
+          ]
+        ],
+        "combat/melee/outcome.rs": [
+          [
+            1,
+            129
+          ]
+        ]
+      },
+      "disposition": "Actual parry commits existing attack to defense, cancels skeleton/pendingcontact/lunge and emits corresponding key; shield block depowers existing attack via actual effective aligned effectiveness. Fresh Core defense131\u2013169 logistic/normalized-sample kernel proves finite engagement for finite attack_value and sample: exp overflow gives legitimate endpoint probabilities; raw upstream NaN remains open computed result admission family, no actual ordinary NaN block shown. Event result and broadcast carry same resolved contact and actual item provenance. Ambiguous BodySide::Both after authorization returns without consequence; actual TacticalPlayerView held-slot producer must establish whether Both possible, no ordinary two-handed failure alleged. P16 outcome still passes raw Transform.translation into Position<Scene> authoritative_impact signature, source API-coherence mismatch connected packet245, no compiler claim. Native mass sum, velocity and damage computations remain exact shared numeric producer dependencies."
+    },
+    {
+      "contract": "Intent/response correlation and defense timestamp qualification",
+      "source_ranges": {
+        "combat/protocol.rs": [
+          [
+            1,
+            86
+          ]
+        ]
+      },
+      "disposition": "Actual protocol stores most recent dodge/roll receipt and consumes on each attack. This supplies explicit correction to finding-dodge-replay-work.json: timestamp refresh is documented policy, not independently defective; repeated action work remains exact source candidate. DefendIntent is shared authenticated-client/server behavior seam, Melee pending stores attack key/target/body/samples/precision/style/hand/deadline; ranged None explicitly miss still consumes projectile. Raw contact/alignment samples remain actual random producer assumptions, no extra blanket probability cap. Separate optional target/body record invariant needs actual construction, not made impossible by each field type. All role bodies accounted for this focused pass only, whole04 remains incomplete."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [
+    {
+      "path": "crates/adventuresim-core/src/combat/defense.rs",
+      "pin": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "a3019cfa64106abc38bbfa7b0962e406cc6cb1a1a663a8a0dfdee71f874201e1",
+      "actually_read_ranges": [
+        [
+          1,
+          220
+        ]
+      ],
+      "coverage": "Fresh complete critical response/alignment bodies only; no whole-role credit."
+    }
+  ],
+  "status": "9 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-tactical-server/src/combat/ranged.rs"
+}

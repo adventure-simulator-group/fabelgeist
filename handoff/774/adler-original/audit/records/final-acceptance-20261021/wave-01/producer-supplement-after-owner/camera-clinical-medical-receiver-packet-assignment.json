@@ -1,0 +1,583 @@
+{
+  "mode": "read-only-current-producer-supplement-receiver-proof",
+  "supplier": "rig",
+  "camera_coverage_authority": "Camera retains716 explicitpercell decisions andwholeDBclinical/physical/operation causeownership",
+  "indices": [
+    84,
+    85,
+    191,
+    295,
+    296,
+    395,
+    397,
+    401,
+    578,
+    579,
+    580,
+    581,
+    582,
+    660,
+    661,
+    662
+  ],
+  "obligations": [
+    {
+      "index": 84,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/surgery.rs",
+      "path": "crates/adventuresim-stdb-module/src/surgery.rs",
+      "sha256": "e3beacbecc62d9b55e495bf21e6b2b430a08d0e464e6374a16047a4babf5ef08",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 400,
+          "read_ranges": [
+            [
+              1,
+              1435
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-SURGERY-057"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/surgery.rs"
+        }
+      ],
+      "existing_producer_proofs": [
+        {
+          "shard": "camera",
+          "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+          "ranges": [
+            [
+              1,
+              1435
+            ]
+          ],
+          "source_read_status": null,
+          "trace_refs": [
+            "CAM-PROP-SURGERY-001"
+          ]
+        },
+        {
+          "shard": "camera",
+          "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+          "ranges": null,
+          "source_read_status": null,
+          "trace_refs": []
+        }
+      ],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories"
+    },
+    {
+      "index": 85,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/surgery/authority_tests.rs",
+      "path": "crates/adventuresim-stdb-module/src/surgery/authority_tests.rs",
+      "sha256": "3e723b0e2fe8aff1ac257c3b4d77282b698f9f067a80d921c47d32535bf4e0e0",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 402,
+          "read_ranges": [
+            [
+              1,
+              117
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-SURGERY-057"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/surgery/authority_tests.rs"
+        }
+      ],
+      "existing_producer_proofs": [
+        {
+          "shard": "camera",
+          "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+          "ranges": [
+            [
+              1,
+              117
+            ]
+          ],
+          "source_read_status": null,
+          "trace_refs": [
+            "CAM-PROP-SURGERY-001"
+          ]
+        }
+      ],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories"
+    },
+    {
+      "index": 191,
+      "source_id": "pr-working:crates/adventuresim-core/src/surgery.rs",
+      "path": "crates/adventuresim-core/src/surgery.rs",
+      "sha256": "c0b73f812166b3333b5611325539f8c850030c5db3ef7ff4b69b11c1bf9e34fd",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 409,
+          "read_ranges": [
+            [
+              1,
+              294
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-SURGERY-057"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/surgery.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories"
+    },
+    {
+      "index": 295,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/surgery.rs",
+      "path": "crates/adventuresim-stdb-module/src/surgery.rs",
+      "sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 401,
+          "read_ranges": [
+            [
+              1,
+              1435
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-SURGERY-057"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/surgery.rs"
+        },
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+          "row": 23,
+          "read_ranges": [
+            [
+              350,
+              442
+            ]
+          ],
+          "contract_refs": [
+            "NATIVE-OWNER-STRATEGIC-002"
+          ],
+          "read_status": "exact_owner_and_receiving_bodies_read_remaining_unclaimed",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/surgery.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories"
+    },
+    {
+      "index": 296,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/surgery/authority_tests.rs",
+      "path": "crates/adventuresim-stdb-module/src/surgery/authority_tests.rs",
+      "sha256": "0ba103e0548c14b69422b361ea4bb8d34f22f9dfbda4909b19409e1545324b3f",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 403,
+          "read_ranges": [
+            [
+              1,
+              117
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-SURGERY-057"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/surgery/authority_tests.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories"
+    },
+    {
+      "index": 395,
+      "source_id": "pr-working:crates/strategic-web/src/medical.rs",
+      "path": "crates/strategic-web/src/medical.rs",
+      "sha256": "c8ff9c47a5df84de241e85a1466c1e22dcbb7991c868d86d46f9cd4c9fd37651",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 661,
+          "read_ranges": [
+            [
+              1,
+              505
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-WEB-MEDICAL-106"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/medical.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories"
+    },
+    {
+      "index": 397,
+      "source_id": "pr-working:crates/strategic-web/src/routes/settlements/medical.rs",
+      "path": "crates/strategic-web/src/routes/settlements/medical.rs",
+      "sha256": "4a65105b858f1a7597d6f005ffd1840aced5a93d6655837cb0ad03d4f1fdb502",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 662,
+          "read_ranges": [
+            [
+              1,
+              567
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-WEB-MEDICAL-106"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/routes/settlements/medical.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories"
+    },
+    {
+      "index": 401,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_health.rs",
+      "path": "crates/strategic-web/src/templates/settlement/character_health.rs",
+      "sha256": "e2d0f9c9b380042b6620943eeb712aacad78d4b258feeff578329ce8891bdb24",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 666,
+          "read_ranges": [
+            [
+              1,
+              2165
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-WEB-HEALTH-109"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/templates/settlement/character_health.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories"
+    },
+    {
+      "index": 578,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/surgery/projectile_authority_tests.rs",
+      "path": "crates/adventuresim-stdb-module/src/surgery/projectile_authority_tests.rs",
+      "sha256": "c8ea9d3119f03244e607275388d82626801d0a346e2ebd829162822e13313ed4",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 404,
+          "read_ranges": [
+            [
+              1,
+              59
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-SURGERY-057"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/surgery/projectile_authority_tests.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories"
+    },
+    {
+      "index": 579,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/surgery/projectile_authority_tests.rs",
+      "path": "crates/adventuresim-stdb-module/src/surgery/projectile_authority_tests.rs",
+      "sha256": "c8ea9d3119f03244e607275388d82626801d0a346e2ebd829162822e13313ed4",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 405,
+          "read_ranges": [
+            [
+              1,
+              59
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-SURGERY-057"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/surgery/projectile_authority_tests.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories"
+    },
+    {
+      "index": 580,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/surgery/entropy.rs",
+      "path": "crates/adventuresim-stdb-module/src/surgery/entropy.rs",
+      "sha256": "f685dee9225286b7d1e39515f8c426ab2e04cb37b064c170298794a470e1e7c7",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 406,
+          "read_ranges": [
+            [
+              1,
+              28
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-SURGERY-057"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/surgery/entropy.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories"
+    },
+    {
+      "index": 581,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/surgery/entropy.rs",
+      "path": "crates/adventuresim-stdb-module/src/surgery/entropy.rs",
+      "sha256": "f685dee9225286b7d1e39515f8c426ab2e04cb37b064c170298794a470e1e7c7",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 407,
+          "read_ranges": [
+            [
+              1,
+              28
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-SURGERY-057"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/surgery/entropy.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories"
+    },
+    {
+      "index": 582,
+      "source_id": "physical-p16:crates/adventuresim-core/src/surgery.rs",
+      "path": "crates/adventuresim-core/src/surgery.rs",
+      "sha256": "c0b73f812166b3333b5611325539f8c850030c5db3ef7ff4b69b11c1bf9e34fd",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 408,
+          "read_ranges": [
+            [
+              1,
+              294
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-SURGERY-057"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/surgery.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories"
+    },
+    {
+      "index": 660,
+      "source_id": "pr-working:crates/strategic-web/src/medical/administrations.rs",
+      "path": "crates/strategic-web/src/medical/administrations.rs",
+      "sha256": "44013b88072ffed197f1fb44e9b5de838612f08282374c95e9544cf6ed0fbfd2",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 663,
+          "read_ranges": [
+            [
+              1,
+              28
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-WEB-MEDICAL-106"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/medical/administrations.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories"
+    },
+    {
+      "index": 661,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_health/notebook.rs",
+      "path": "crates/strategic-web/src/templates/settlement/character_health/notebook.rs",
+      "sha256": "ddcf5b6d32ce9793570df94471b1a5098b3bed2ea8bf83e36cc6f0381915183f",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 671,
+          "read_ranges": [
+            [
+              1,
+              27
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-WEB-HEALTH-109"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/templates/settlement/character_health/notebook.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories"
+    },
+    {
+      "index": 662,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_health/segments.rs",
+      "path": "crates/strategic-web/src/templates/settlement/character_health/segments.rs",
+      "sha256": "75b12a94fe2b1cd0fc29b530c43478d275fd9454c9af1e6cb9a8e388ee797692",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 672,
+          "read_ranges": [
+            [
+              1,
+              72
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-WEB-HEALTH-109"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/strategic-web/src/templates/settlement/character_health/segments.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories"
+    }
+  ],
+  "goals": [
+    "Actual DB surgery/wound/projectile/permission/plan/clock/clinical observation source\u2192retained state\u2192operation\u2192SDK, exact PR/P16 union andexistingfixtures noaddedcase/assertion",
+    "Actual medical/native clinical decode\u2192Web typed records\u2192route/forms/notebook/segments\u2192final HTML/JSON, preserve permittedredactionvsunavailablevsrealzero, exact units (blood f32ml vsintegerquantity, DoseMilliunits/BPS signedhumours vsrawfullinputs)",
+    "Reuse existing exactcamera012corpse/013disease/029case/currentcanonicaloperationerror nativeport receipts narrowly; inspectactualnewBodyPart/BodyRegion/SurgeryProcedure/Rights/permission/clock/typederror receivers, no broad firstparty/native waiver",
+    "Camera ownswholeCorpseclassification/DBsurgery/OperationError; rigcurrentbuild_view/otherWebreceivers exactclaimsunchanged; do notclaimnewsourcebodyownership withoutparentreconciliation"
+  ],
+  "source_repair": "frozen_until_all13_initial_inventories",
+  "validation": "none",
+  "output": "Supplier own allowed fourfiles only, exactcurrent source/range/hash andeachrole; noautomaticcamera716credit"
+}

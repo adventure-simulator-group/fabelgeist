@@ -1,0 +1,112 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-227",
+  "at": "2026-10-23T05:33:56.929686+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/condition/fear.rs",
+      "sha256": "8cefb00626e1f5cf3f9eb57fb0e412503aecbd64597f2bbb63d04a97c0eda958",
+      "scope061_index": 187,
+      "actual_EOF": 8,
+      "scoped_ranges_compared": [
+        [
+          1,
+          8
+        ]
+      ],
+      "actual05_comparison": "Fresh actual PR exact scoped union; source-backed comparison of every selected P16 range with actual bounded diff empty. Skill1015–1057 prior223 lower joined current remaining ranges; P16excluded119+tests, unrelated118–719/etc not inferred. PRpartialfixture1–187 not entire testmodule; no188–689 coverage. Fear actual8-line source counterpart operation equal."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/condition/fear.rs",
+      "sha256": "8cefb00626e1f5cf3f9eb57fb0e412503aecbd64597f2bbb63d04a97c0eda958",
+      "scope061_index": 1087,
+      "actual_EOF": 8,
+      "scoped_ranges_compared": [
+        [
+          1,
+          8
+        ]
+      ],
+      "actual05_comparison": "Fresh actual PR exact scoped union; source-backed comparison of every selected P16 range with actual bounded diff empty. Skill1015–1057 prior223 lower joined current remaining ranges; P16excluded119+tests, unrelated118–719/etc not inferred. PRpartialfixture1–187 not entire testmodule; no188–689 coverage. Fear actual8-line source counterpart operation equal."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/skill.rs",
+      "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "scope061_index": 141,
+      "actual_EOF": 1165,
+      "scoped_ranges_compared": [
+        [
+          9,
+          117
+        ],
+        [
+          720,
+          777
+        ],
+        [
+          892,
+          981
+        ],
+        [
+          1010,
+          1105
+        ]
+      ],
+      "actual05_comparison": "Fresh actual PR exact scoped union; source-backed comparison of every selected P16 range with actual bounded diff empty. Skill1015–1057 prior223 lower joined current remaining ranges; P16excluded119+tests, unrelated118–719/etc not inferred. PRpartialfixture1–187 not entire testmodule; no188–689 coverage. Fear actual8-line source counterpart operation equal."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/skill.rs",
+      "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "scope061_index": 996,
+      "actual_EOF": 1165,
+      "scoped_ranges_compared": [
+        [
+          1,
+          187
+        ],
+        [
+          690,
+          1165
+        ]
+      ],
+      "actual05_comparison": "Fresh actual PR exact scoped union; source-backed comparison of every selected P16 range with actual bounded diff empty. Skill1015–1057 prior223 lower joined current remaining ranges; P16excluded119+tests, unrelated118–719/etc not inferred. PRpartialfixture1–187 not entire testmodule; no188–689 coverage. Fear actual8-line source counterpart operation equal."
+    }
+  ],
+  "contract_groups": [
+    {
+      "id": "closed skill catalogue and private percentage aggregate",
+      "comparison": "Skill enum authored positive max_hours constants5000..30000, kind/trained flags, nozero catalogue calibration. Private GoverningAptitudes stores threeu8 percentage fields and LimbWeights, soleweighted constructor widensu16 sum==100; all current fixed mappings valid (Surgery30/20/50, otherwise100singleaxis). No signed-percentpolicy; noexternalstructliteral/decoder/default/mutator. LimbWeights botharms/legs/allEqual are existing canonical selections, not arbitraryraw normalization proof. Description getter derives same internalweights, notsecond authority."
+    },
+    {
+      "id": "weighted aptitude finite arithmetic",
+      "comparison": "resolve skips zero-percentage channels and clamps final0..5, but finiteMAX in a selected100percent source multiplies by100 thenoverflows beforedivide, nonfinitefallback0. F052 preserves actualfixedvalidweights and rawattribute inputqualification; no normal MAX attribute caller. Resolve healthyrawaptitude deliberately avoids injury changing learningspeed; actualperformance separate lowerbodyhealth."
+    },
+    {
+      "id": "rank and training ownership",
+      "comparison": "training_rank rejectsnonfinitehours as0, hours_for_rank acceptsclosed0..5, rank5 returns intentionalInf asymptote. Scoped PR capped rank boundedbyfiniteaptitude0..5. Language training actualfinitepositive realhours only, aptitudeclamped, currentnonfinite resets0, accepted boundedbyaptitude*1000. Direct training samebudget but rank5 availableInf permits gainInf afterrealhoursMAX*2.25, storesInf/excessNaN: F053. Preserve intentional infinite inverse threshold distinct from finite storedhours. Huge positive finite API input not ordinary elapsed-duration proof."
+    },
+    {
+      "id": "one-pass skill transfer and performance",
+      "comparison": "PR1106–1125 projects directsourcehours once via immutable ordinarycorrelations, doesnotpersist transfer orrecursivelyread projectedvalues. Trained zero-direct remains0, transfercappedtodirect fortrained positive; intuitive canbenefitbeforestudy. FiniteMAXdirect+transferred mayoverflow and training_rank subsequentlyresetsnonfinite0; same computed-study-hour preservation graph, not evidencecurrentnormalhoursMAX. ActualBodyPart weights+health+armor+condition multiplyperformance once; callerrawweights can sum>1 (notguaranteednormalizedby thistrait); bodyinjuryintentional and no hiddenextra fatigue pool. P16scope ends1105comment, no1106+P16methodbodycredit."
+    },
+    {
+      "id": "fear boundary applicability",
+      "comparison": "Fear helper parses nativeenemystring asThreatId then asksprofile.combat.fear; u8fear/50+1 arithmeticboundedfinite. Actualsyntax admission versus profile cataloguemembership/panic is independent canonicalThreatId lower, no proof from parseorprofile name. Eight-line functionhas noaggregate retainedstate and no observercache; nonapplicability is source-backed for retention only, notwholebestiaryclearance."
+    },
+    {
+      "id": "scope and existing fixture qualifications",
+      "comparison": "PR1–187 includes partial tests181–187 only; no closing188/testtail orentirefixture execution/credit.690–703 enters existingmatchtail, fullmaterialmethod704+compared; enum body scoped1–117 fullyread. P16 actualselectedrangeunion retains exclusions, nofull1165sourceclaim. Current sourcecoverage means every scoped role, not wholephysicalfile. No newcode/tests/runtime or broaderenum_assoc/nativekernelgraph."
+    }
+  ],
+  "new_unique_findings": [
+    "NATIVE-INITIAL05-F052",
+    "NATIVE-INITIAL05-F053"
+  ],
+  "remaining_dependency_obligations": [
+    "Canonical ThreatId syntax/profile membership exact source stillowninventory; no lowerclearance fromfear function.",
+    "PlayerAttributes/Body/Equipment/Essentials actualrawsource and acceptednormalbounds remainindependentcurrentroles."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

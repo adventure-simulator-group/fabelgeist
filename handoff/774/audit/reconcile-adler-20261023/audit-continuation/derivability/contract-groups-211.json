@@ -1,0 +1,29 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-211",
+  "at": "2026-10-25T13:40:42.979107+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_ROLE_INCOMPLETE",
+  "scope_index": 411,
+  "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+  "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+  "actual_compared_ranges": [
+    [
+      1,
+      1540
+    ]
+  ],
+  "trait_inventory": [],
+  "source_read_receipts": [
+    "contract-groups-210.json covers1\u2013920; fresh921\u20131230 and1231\u20131540 fully read."
+  ],
+  "semantic_contracts": "No handwritten trait/serializer through1540. Join/reconnect auth+native responses and input normalization/edge/state admission are semantic; explicit durable/Core enum variant mapping is mechanical representation translation but no equivalent available derive proven. Existing component/snapshot clones and defaults derive. No child-body credit.",
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 411,
+    "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+    "next_line": 1541,
+    "actual_EOF": 3450
+  },
+  "execution": "none",
+  "limits": "3450-line changed role pending1541\u20133450; ends inside restore movement function."
+}

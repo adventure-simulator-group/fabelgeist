@@ -1,0 +1,74 @@
+{
+  "id": "NATIVE-CAMERA-SUPPORT03-CONTRACTS-013",
+  "authority": "ROOT-ADM-SUPPORT-AUTHORITY-054",
+  "lens": "audit-admission-contracts",
+  "groups": {
+    "food-raw-state-and-explicit-normalization": {
+      "camera_indices": [
+        425
+      ],
+      "source_evidence": "PR food.rs full848 freshly read, all production1–555 and original tests557–848. No execution.",
+      "invariant": "FoodClass/CookingMethod/FoodPreparation closed tags differ from raw FlavorProfile/DonenessOutcome/FoodDefinition and microbial/native energy calculations. Zero microbial load and zero elapsed time are valid; no blanket positive mass/probability guarantee from raw field names.",
+      "all_admission_routes": [
+        "FlavorProfile public five rawf32 fields, public constnew copies, Default0 and ordinary Serde accept arbitrary floats; scaled normalizes factor only, add_assign raw additions, valid checks every component finite>=0. FoodDefinition public raw numerical/static-ID data; FOOD_CATALOG copies schema fields into static LazyLock, only class string converted via closed match/unreachable. definition lookup Option exact text; no membership by arbitrary string. Item-catalog validation lower receipt pending, not inferred from unreachable or existing catalogue tests.",
+        "FoodClass12 closed ordinary Serde variants; CookingMethod4/FoodPreparation9 ordinary Serde plus optional current PR runtime unit-SATS; exact namespace/version003 and actual unit-Sum witness apply, no numeric payload bypass invented. Public DonenessOutcome has no decoder/default/checked factory. doneness factory uses target.max1, u64 elapsed/f64 division clamp0..2, quality ceil0..4. Stew late plateaus, Roast dries to85% retention and never destructive pan/oven burn; preserve exact readiness/unpenalized point.",
+        "contamination_at322–328 nonfinite anchor OR growth →MAX1e9, otherwise negative anchor/growth floor0, f64 growth exponent capped80 and final concentration capped1e9. All-u64 elapsed incl0/MAX supported. partially_cooked_contamination maps nonfinite raw toMAX, nonfinite progress0, finite progress0..1 and geometric kill; cooked_contamination positive-floor1e-9 includes native raw input policies and does not declare checked source type.",
+        "Preparation factor requires finite0..1, raw duration may0 but completed safety duration min1/nativeu32cast. cooking duration requires nonempty safety list and finite totalmass>0<=25 then checked u32 setup+maxsafety+batch; skill nonfinite→0/cap0..5 only overhead reduction. No private duration accepted-token type. microbial_concentration malformed/nonpositive-mass→0; cooked_growth filters finite raw growth and clamps .003..045.",
+        "Quality helpers deliberately clamp raw u8 tiers1..5, nonfinite skill/flavor baseline; flavor_quality explicitly calls flavors.valid and finite positive mass before required flavor equations. panfryfat checks bothfinite and positivemass plus inclusive2%fat. travel/meal nonfinite inputs→0; retained_component nonfinite→0/nonnegativevalue*clampedfraction. Flavor scaling/addition, microbial contribution scaling and arbitrary public outcome nutrition may still carry raw nonfinite values: no uniform sealed aggregate contract.",
+        "deterministic initial contamination uses actual canonical PR StreamId/Seed/unit_f64 source Root determinism-admission-023, full exact PR seed/lib/stream, high53-bit finite unit including endpoints; logarithmic interpolation between1e-8 and1e-5. Nonempty authored purpose exact. No fresh sampler graph or RNG sequence changes."
+      ],
+      "counterexample_or_intentional": "Raw FlavorProfile literal/Serde with negative/nonfinite components is representable; valid is a separate relying predicate, not broken private constructor. Different malformed-source fallbacks (MAX contamination versus0 growth/concentration) are intentional source-specific behavior. Preserve cooked meal terminal exclusion by exact cooked_meal ID; it is not a generic catalogue-membership validator.",
+      "connected_repair": "Propagate meaning/unit/checked leaves where accepted state is intended while retaining raw rejected/config records and native calculation boundaries; preserve current fallbacks and exact error/operation order. Item catalogue admission is lower dependency, not claimed from tests.",
+      "acceptance": "All actual canonical food-state admission routes must share intended predicates without erasing raw diagnostics; do not force positive values where zero load/time/empty list rejection are deliberate. No additional unique checked-owner defect established in this raw module."
+    },
+    "gameplay-reference-aggregation-and-typed-start-error": {
+      "camera_indices": [
+        434,
+        415
+      ],
+      "source_evidence": "PR item_references/gameplay.rs full30 and dialogue_boundary.rs full49 incl existing test freshly read.",
+      "invariant": "Reference validation aggregates exact live sources; generic dialogue start preserves typed result/error payloads without early String erasure.",
+      "all_admission_routes": [
+        "validate_gameplay_references builds required gameplay IDs plus currency IDs plus actual physiology preparation IDs plus quest monster optional loot IDs, delegates item_catalog::validate_references and retains missing IDs Vec<String> diagnostic. Public MissingGameplayItemReferences allows arbitrary raw diagnostic payload, no checked membership token/Serde/default/reflection. Actual Native433 item reference declaration and Native073 physiology profile facts distinguish list from lower item catalogue validator.",
+        "PublicDialogueStartOutcome<Started> closed Started(payload)/ContactUnavailable; PublicDialogueStartError<ReducerError,ProjectionError=Infallible> closed missing-session/reducer/projection, generic payloads retained. Display requires only actual payload Display and formats at boundary. No Serde/Default/Reflect/raw conversion or stringly-owned-state promise; Started generic value does not itself prove owner-scoped session exists. Existing test reads distinctu16/string payload evidence, not runtime authority."
+      ],
+      "counterexample_or_intentional": "Arbitrary diagnostics and generic Started payload remain intentional transport. No newly sealed invariant or caller permission bypass inferred from public enum construction.",
+      "connected_repair": "Preserve typed reducer/projection distinction to native formatting boundary and current reference source ownership; relying catalogue membership still actual delegated contract, not repeated lists.",
+      "acceptance": "No local constructor bypass for a declared checked payload in either source; do not narrow arbitrary rejected IDs or impose unrelated Error/Clone bounds."
+    },
+    "combat-raw-traits-contact-and-wound-state": {
+      "camera_indices": [
+        400,
+        408,
+        413
+      ],
+      "source_evidence": "PR capability72, melee_resolution123, wounds134 freshly read including original tests.",
+      "invariant": "Trait-provided health/skill/equipment and public wounds are raw numerical combat state; checked elapsed/closed contact tags retain leaf policies but do not admit whole aggregate.",
+      "all_admission_routes": [
+        "MeleeAttackCapability closedpublic3variants; helper requires holding side or NoStrikingSide, maps Left/Right/Both arms and rejects first health<=0. No finite-health predicate: NaN trait health can fall through Available; no current caller invalid state claim or private finite invariant asserted. Offhand transfer explicitly separate action. No Serde/Default/Reflect for capability.",
+        "resolve_melee_attack_by_parts receives raw hit_precision/flanking and traits plus typed contact/parameters, returns exact invalidated-miss zero damages/no physical contact before all other calculations. Otherwise measure-adjusted precision→accuracy→attack, negativeattack selects avoided-contact, allother inclnonfinite selects damage. Avoided result scales balance/weapon contactforce by energyfraction, closed weapon response determines physical flag. Lower calculation parameter/contact admission belongs actual canonical Camera068/full combat+separately owned helpers, not guaranteed by this wrapper.",
+        "CombatWound public BodyPart/closedOpenInternal/rawflowf32 ordinary Serde; no private factory seal/Default/Reflect. wounds factory positivecut→openflow and bluntenergy perpartthreshold→internalflow, filters strictly>0, permits nonfinite positive flow for arbitrary raw large inputs. advance sums max(flow,0), multiplies actual checked AnimationElapsed nonnegative finite from Native005/current canonical elapsed route, clamps completedbloodloss0..1. Infinity*zero/nonfinite rawbloodloss can defeat universalfinite guarantee; no typed finite wound policy declared here.",
+        "Acute trauma native max(nonnegative damage)*part-specific scale, no upperprobabilitycap or separate hidden fatigue. Existing tests verify disabledarm/finitewounds/zeroelapsed/threshold/additiveflow only as source. No authority/state persistence change."
+      ],
+      "counterexample_or_intentional": "Raw safe-Rust/publicSerde numerical combat inputs are broader than ordinary factory results. Do not claim an accepted finite owner bypass without a declared invariant and actual lower admission; preserve trait boundary qualifiers and zero elapsed/no wound semantics.",
+      "connected_repair": "Retain tactical transient state authority; propagate chosen checked unit/state leaves at accepted source boundaries and use typed contact outcome rather than blanket raw conversion. No hidden impairment or limb policy change.",
+      "acceptance": "Current invalidated-contact early return and native factor order preserved. Exact lower CombatResolutionParameters/MeleeContact declared policy remains relying contract, no wholecombat clearance from these3sources."
+    },
+    "provisioning-raw-preview-and-integer-consumption": {
+      "camera_indices": [
+        446
+      ],
+      "source_evidence": "PR provisioning.rs full118 actual production/tests read.",
+      "invariant": "PartyProvisioningInputs and Forecast are public raw default preview records, not sealed finite supply commitments; integer allocation conserves bounded requested units.",
+      "all_admission_routes": [
+        "shared_then_personal_units takes all-u32 incl0/MAX: shared=min(requested,shared), personal=min(requested.saturating_sub(sharedUsed),personal). Cannot exceed requested/available inputs.",
+        "Public input/forecast fields +Default0, no Serde/Reflect/checked constructor. forecast livingmembers.max1 preventszero denominator, raw reserves/lotcalories floor0, planningu64→f32day unit, negative target surplus intentionally supported, capacities0/ration<=0 produce0purchase. Native ceil→u32saturating cast is preview policy, not proof arbitrary raw inputs/results finite.",
+        "All existing tests74–118 read: negative targetdays/ceil, communalfirst, actual lotcalorie aggregation. No actual ownership/currentparty inventory lookup or consumption commits here."
+      ],
+      "counterexample_or_intentional": "Nonfinite/raw oversized f32 preview fields remain representable; no private invariant violated. Negative surplus and zero capacity are intentional; do not replace with unchecked nonzero or probability owners.",
+      "connected_repair": "Keep preview evidence separate from authoritative provision/commit validation; choose zero-valid unit owners only where intended, preserve integer saturating allocation/native forecast arithmetic.",
+      "acceptance": "No new unique admission defect from raw preview records; actual recipient must establish finite display/commit needs independently, no authority inferred from forecast."
+    }
+  },
+  "not_part_of_native443_or_root_batches": true
+}

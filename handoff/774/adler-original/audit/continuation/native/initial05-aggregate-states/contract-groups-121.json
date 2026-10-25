@@ -1,0 +1,76 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-121",
+  "at": "2026-10-23T02:55:34.390680+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bot.rs",
+      "sha256": "8626aece6d47f2087249b45ecc70c2fc943b600943ac23e3a5eb3c7cbc55619b",
+      "scope050_index": 2018,
+      "actual_EOF": 1248,
+      "scoped_ranges_compared": [
+        [
+          1,
+          1248
+        ]
+      ],
+      "actual05_comparison": "Fresh complete PR1248 read in1–380/381–820/821–1248, including every original inline fixture; no tests executed. CombatantBehaviorPackages is intentionally composable recipe Vec, not a mutually exclusive tactical-state enum: standard includes raised guard/offense/reactive defense/recovery, passive recovery only, always-dodge adds aim and deterministic dodge. Added-only materializer inserts component projections; no mutation/removal synchronization or arbitrary duplicate-package validity promised. Raw public Vec/Reflect can diverge from materialized capabilities, but no actual normal runtime reconfiguration demonstrated and no stale-cache finding from public mutability alone. RaisedGuard maintains the same SkeletonState guard owner after condition, distinct from facing/target; recovery starts authored transition rather than skipping body state. Aim nearest current opposing live actor uses same position query and stable tie comparator; offense narrower yielded filter has separate purpose. Plugin chains materialize→guard→aim→recovery→offense→pending reactions after CombatSet::Condition; init_resource does not by itself show a second installed default replacing explicit main config. CombatRandom wraps one deterministic combat.tactical stream; Default native random Seed boundary intentional, tests explicitSeed1; no entropy/provenance invariant or fixed one-word sampler assumption. Fixture application derives required enemy kills from loaded enemy fixture, avoiding independent stale count in this route. All original fixtures personally compared: composed capabilities, shared guard, nearest untargeted passive blocks farther reactive selection intentionally, delayed dodge enters shared authority, facing, authored prone recovery, ammo exhaustion hybrid melee, deterministic motor-isolated duel, committed threat guard/counter-assessment, entity tie and eventual incapacitated stop. Test scaffolding intentionally partial runtime records/zero weapon skill weights; do not require every raw observation fixture be accepted full production actor. Specific tactical source-total coherence F029 remains actual production graph rather than claiming fixture execution validates it.",
+      "source_body_proof": "Fresh complete PR source; complete actual P16 body diff and explicit personal semantic comparison where specified."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot.rs",
+      "sha256": "8799ec6db566e8afa5b708f0f13cb671cd6ecdbd5e02ae02a75e9c237954b1ce",
+      "scope050_index": 374,
+      "actual_EOF": 1248,
+      "scoped_ranges_compared": [
+        [
+          1,
+          1248
+        ]
+      ],
+      "actual05_comparison": "Complete actual P16/PR full1248 diff consumed; personally compared every production/package/scheduler/RNG and fixture role above, with current P16 offense118/config119/120 recipients. P16 only changes existing fixture lengths into checked SignedLength and falls through Result unwrap for valid authored measurements; production package/guard/aim/recovery/RNG/plugin body unchanged. Fresh complete PR1248 read in1–380/381–820/821–1248, including every original inline fixture; no tests executed. CombatantBehaviorPackages is intentionally composable recipe Vec, not a mutually exclusive tactical-state enum: standard includes raised guard/offense/reactive defense/recovery, passive recovery only, always-dodge adds aim and deterministic dodge. Added-only materializer inserts component projections; no mutation/removal synchronization or arbitrary duplicate-package validity promised. Raw public Vec/Reflect can diverge from materialized capabilities, but no actual normal runtime reconfiguration demonstrated and no stale-cache finding from public mutability alone. RaisedGuard maintains the same SkeletonState guard owner after condition, distinct from facing/target; recovery starts authored transition rather than skipping body state. Aim nearest current opposing live actor uses same position query and stable tie comparator; offense narrower yielded filter has separate purpose. Plugin chains materialize→guard→aim→recovery→offense→pending reactions after CombatSet::Condition; init_resource does not by itself show a second installed default replacing explicit main config. CombatRandom wraps one deterministic combat.tactical stream; Default native random Seed boundary intentional, tests explicitSeed1; no entropy/provenance invariant or fixed one-word sampler assumption. Fixture application derives required enemy kills from loaded enemy fixture, avoiding independent stale count in this route. All original fixtures personally compared: composed capabilities, shared guard, nearest untargeted passive blocks farther reactive selection intentionally, delayed dodge enters shared authority, facing, authored prone recovery, ammo exhaustion hybrid melee, deterministic motor-isolated duel, committed threat guard/counter-assessment, entity tie and eventual incapacitated stop. Test scaffolding intentionally partial runtime records/zero weapon skill weights; do not require every raw observation fixture be accepted full production actor. Specific tactical source-total coherence F029 remains actual production graph rather than claiming fixture execution validates it.",
+      "source_body_proof": "Fresh complete PR source; complete actual P16 body diff and explicit personal semantic comparison where specified."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bot/defense.rs",
+      "sha256": "4eca0fbb28b320a2c62d9351bc7ce4331d2b0d011abe8ad74a6f10b62071884e",
+      "scope050_index": 2019,
+      "actual_EOF": 287,
+      "scoped_ranges_compared": [
+        [
+          1,
+          287
+        ]
+      ],
+      "actual05_comparison": "Fresh full PR287. PendingBotReaction private timer+chosen DefendRequest built only after facing/opposing active actor and random-choice admission; attack observation is a cue, not authoritative accepted attack token. Untargeted selects nearest enemy before requiring reactive package, so passive nearest suppresses farther reaction by explicit original fixture; targeted melee/ranged join actual attacker+target looks and only active defense target. BotReactionAttempt borrows both actual looks and one windup; reaction timer checked elapsed/nativeDuration before component publication, no partially published timer/choice. Facing requirement is independent optional capability; does not imply target ownership or world attack acceptance. DefenseChances public raw f64 and Reflect intentionally test-mutable, constructor Default.2 and normal package configured chance; nonfinite/out-of-range raw broader than actual config validator, no current bad package claimed. >=1 authored test dodger intentionally anticipatory .02..12 delay; other delay uses actual configured ordered interval and checked duration. Pending reaction deliberately need not retain attack identity: eventual DefendIntent generic self-defense, independent incoming occurrence, no new authority-key defect. Tick removes pending on incapacity or once timer complete then triggers shared defense intent; actual decoder/guard/capability checks still shared authority receiver, no second combat penalty. No all-actions transactional rollback guarantee from RNG draw/timer errors.",
+      "source_body_proof": "Fresh complete PR source; complete actual P16 body diff and explicit personal semantic comparison where specified."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/defense.rs",
+      "sha256": "4eca0fbb28b320a2c62d9351bc7ce4331d2b0d011abe8ad74a6f10b62071884e",
+      "scope050_index": 375,
+      "actual_EOF": 287,
+      "scoped_ranges_compared": [
+        [
+          1,
+          287
+        ]
+      ],
+      "actual05_comparison": "Complete actual P16/PR full287 diff empty; personally compared same current defense context and P16 typed attack/timer/authority recipients, not hash-only carry. Fresh full PR287. PendingBotReaction private timer+chosen DefendRequest built only after facing/opposing active actor and random-choice admission; attack observation is a cue, not authoritative accepted attack token. Untargeted selects nearest enemy before requiring reactive package, so passive nearest suppresses farther reaction by explicit original fixture; targeted melee/ranged join actual attacker+target looks and only active defense target. BotReactionAttempt borrows both actual looks and one windup; reaction timer checked elapsed/nativeDuration before component publication, no partially published timer/choice. Facing requirement is independent optional capability; does not imply target ownership or world attack acceptance. DefenseChances public raw f64 and Reflect intentionally test-mutable, constructor Default.2 and normal package configured chance; nonfinite/out-of-range raw broader than actual config validator, no current bad package claimed. >=1 authored test dodger intentionally anticipatory .02..12 delay; other delay uses actual configured ordered interval and checked duration. Pending reaction deliberately need not retain attack identity: eventual DefendIntent generic self-defense, independent incoming occurrence, no new authority-key defect. Tick removes pending on incapacity or once timer complete then triggers shared defense intent; actual decoder/guard/capability checks still shared authority receiver, no second combat penalty. No all-actions transactional rollback guarantee from RNG draw/timer errors.",
+      "source_body_proof": "Fresh complete PR source; complete actual P16 body diff and explicit personal semantic comparison where specified."
+    }
+  ],
+  "comparison_groups": {
+    "composable-behavior-recipe": "Recipe packages and independently composable runtime capabilities are intentional; Added-only projection not arbitrary dynamic synchronization seal.",
+    "reaction-product": "Timer and valid choice admitted together; generic defend action is independent of incoming occurrence identity.",
+    "actual-scheduling": "Guard/aim/recovery/offense/reactive tick chained after condition and use canonical Skeleton/authority state.",
+    "source-only-fixtures": "All original full bot fixture production-equivalent seams and deliberate partial observations compared; no execution or invented new cases."
+  },
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Exact native deferred Added/observer hooks and called get-up/flanking helpers remain their actual scoped contracts; no foreign whole-package waiver or automatic new finding."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

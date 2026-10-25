@@ -1,0 +1,128 @@
+--- own79
++++ PR891
+@@ -310,7 +310,7 @@
+         defender_equip,
+         defender_equip.armor_surface(defender_body_part, 0.5),
+         parameters,
+-        MeleeContactAtTime::intended(fabelgeist_geometry::SignedLength::ZERO),
++        MeleeContactAtTime::intended(0.0),
+     )
+ }
+ 
+@@ -359,7 +359,7 @@
+     let upper_muscle_kg = strength * UPPER_MUSCLE_KG_PER_STRENGTH;
+     let punch_kg = UPPER_MUSCLE_KG_TO_PUNCH_KG * upper_muscle_kg;
+     let striking_mass_kg =
+-        punch_kg + equip.weapon_weight() * (1.0 + equip.weapon_balance() * equip.weapon_reach().metres());
++        punch_kg + equip.weapon_weight() * (1.0 + equip.weapon_balance() * equip.weapon_reach());
+     let weapon_transfer = if equip.weapon_is_unarmed() {
+         1.0
+     } else {
+@@ -630,7 +630,7 @@
+             &defender,
+             defender.armor_surface(BodyPart::Chest, 0.0),
+             EMBEDDED_COMBAT_RESOLUTION_PARAMETERS,
+-            MeleeContactAtTime::intended(fabelgeist_geometry::SignedLength::ZERO),
++            MeleeContactAtTime::intended(0.0),
+         );
+         let AttackResult::ToDefender {
+             cut_damage,
+@@ -662,7 +662,7 @@
+             weapon: Some(CombatWeapon {
+                 weight: 1.5,
+                 precision: 1.0,
+-                melee_reach: fabelgeist_geometry::SignedLength::from_metres(1.25).unwrap(),
++                melee_reach: 1.25,
+                 balance: 0.45,
+ 
+                 ..Default::default()
+@@ -701,7 +701,7 @@
+             &munition_armor,
+             munition_armor.armor_surface(BodyPart::Head, 0.5),
+             EMBEDDED_COMBAT_RESOLUTION_PARAMETERS,
+-            MeleeContactAtTime::intended(fabelgeist_geometry::SignedLength::ZERO),
++            MeleeContactAtTime::intended(0.0),
+         );
+         let AttackResult::ToDefender {
+             cut_damage,
+@@ -791,7 +791,7 @@
+                     surface_coordinate: 0.5,
+                     armor_surface: None,
+                 },
+-                MeleeContactAtTime::intended(fabelgeist_geometry::SignedLength::ZERO),
++                MeleeContactAtTime::intended(0.0),
+                 DefenderResponse::None,
+                 &StubSkills,
+                 &StubAttributes,
+@@ -890,7 +890,7 @@
+                     surface_coordinate: 0.9,
+                     armor_surface: None,
+                 },
+-                MeleeContactAtTime::intended(fabelgeist_geometry::SignedLength::ZERO),
++                MeleeContactAtTime::intended(0.0),
+                 matchup.response,
+                 &player.skills,
+                 &player.attributes,
+@@ -940,7 +940,7 @@
+             &defender,
+             defender.armor_surface(BodyPart::Chest, 0.0),
+             EMBEDDED_COMBAT_RESOLUTION_PARAMETERS,
+-            MeleeContactAtTime::intended(fabelgeist_geometry::SignedLength::ZERO),
++            MeleeContactAtTime::intended(0.0),
+         );
+         let stronger = calculate_damage_from_force(
+             1.0,
+@@ -951,7 +951,7 @@
+             &defender,
+             defender.armor_surface(BodyPart::Chest, 0.0),
+             EMBEDDED_COMBAT_RESOLUTION_PARAMETERS,
+-            MeleeContactAtTime::intended(fabelgeist_geometry::SignedLength::ZERO),
++            MeleeContactAtTime::intended(0.0),
+         );
+ 
+         assert!(matches!(
+@@ -988,7 +988,7 @@
+             &CombatEquipment::default(),
+             None,
+             EMBEDDED_COMBAT_RESOLUTION_PARAMETERS,
+-            MeleeContactAtTime::intended(fabelgeist_geometry::SignedLength::ZERO),
++            MeleeContactAtTime::intended(0.0),
+         );
+         assert!(matches!(
+             result,
+@@ -1010,18 +1010,18 @@
+             ..Default::default()
+         };
+         let contact = resolve_melee_contact_at_time(MeleeContactAtTimeFacts {
+-            scheduled_measure_metres: fabelgeist_geometry::SignedLength::from_metres(2.0).unwrap(),
+-            actual_measure_metres: fabelgeist_geometry::SignedLength::from_metres(1.25).unwrap(),
+-            ideal_measure_metres: fabelgeist_geometry::SignedLength::from_metres(1.92).unwrap(),
+-            effective_reach_metres: fabelgeist_geometry::SignedLength::from_metres(2.0).unwrap(),
+-            grip_to_tip_metres: fabelgeist_geometry::SignedLength::from_metres(1.9).unwrap(),
+-            total_length_metres: fabelgeist_geometry::SignedLength::from_metres(2.1).unwrap(),
+-            striking_head_length_metres: fabelgeist_geometry::SignedLength::from_metres(0.16).unwrap(),
++            scheduled_measure_metres: 2.0,
++            actual_measure_metres: 1.25,
++            ideal_measure_metres: 1.92,
++            effective_reach_metres: 2.0,
++            grip_to_tip_metres: 1.9,
++            total_length_metres: 2.1,
++            striking_head_length_metres: 0.16,
+             distal_headed: true,
+             attack_style: crate::combat_style::MeleeAttackStyle::Swing,
+             body_material: Some(crate::item_catalog_schema::EquipmentMaterial::Hardwood),
+             striking_material: Some(crate::item_catalog_schema::EquipmentMaterial::RoughSteel),
+-        }).unwrap();
++        });
+         let result = calculate_damage_from_force(
+             1.0,
+             101.4 * contact.energy_fraction,
+@@ -1058,7 +1058,7 @@
+             &StubEquipment,
+             None,
+             EMBEDDED_COMBAT_RESOLUTION_PARAMETERS,
+-            MeleeContactAtTime::intended(fabelgeist_geometry::SignedLength::ZERO),
++            MeleeContactAtTime::intended(0.0),
+         );
+         assert!(matches!(
+             result,

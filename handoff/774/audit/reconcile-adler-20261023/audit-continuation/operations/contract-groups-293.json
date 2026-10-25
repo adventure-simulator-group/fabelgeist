@@ -1,0 +1,98 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-293",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture.rs",
+      "sha256": "c4d1d8c287ce1d87edbe8441dd8e4d8b23e18bbcb01281607920d8c02cf77b28",
+      "actual_EOF": 345,
+      "actual_compared_ranges": [
+        [
+          1,
+          345
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/apparatus.rs",
+      "sha256": "57a71101f8747cf04aefc87d9da7e8aaa1623dc4eed4cb2809ad0e43dd622c45",
+      "actual_EOF": 61,
+      "actual_compared_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/apparatus/commerce.rs",
+      "sha256": "a5ba909b87245e6e541d38a7c604ee03be104bbc5f52daeea4560259e18453df",
+      "actual_EOF": 112,
+      "actual_compared_ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/apparatus/household.rs",
+      "sha256": "c027acfa831db62d2b8c7cf50a46c969ae6cee0965626671703e6fd66565ae1f",
+      "actual_EOF": 93,
+      "actual_compared_ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Furniture recipe cache retains first exact catalogue result and whole-object identity through fallible construction",
+      "source_ranges": {
+        "furniture.rs": [
+          [
+            1,
+            345
+          ]
+        ]
+      },
+      "disposition": "Entirebodyread. OUTDOOR5/INTERIOR45/ALL50 are explicitauthoredregistrysets, notenumordinalarithmetic. OnceLock cachesResultarray producedbyexactFurnitureKeyALL; indexpositionproof beforedirectindex, unsupportedpublickeyreturnsMissingRecipe, constructioncauseclonepreserved. Builder::finish prepares recipe before specaccessclearances appended; specfailure drops unexportedlocalrecipe, notpublishedpartialcacheentry. Building-local/framecontext belongs runtime, recipeColliderIDsexplicitlyscopedbyinstance. actualBuilder admission/supportpoints/bounds andspecdimensions/requiredfaces remain originalfrontierdependencies. No cacheinit/generationexecution or claimedcompletecatalogueacceptance."
+    },
+    {
+      "contract": "Furniture apparatus uses authored local metric geometry and one fallible builder admission owner",
+      "source_ranges": {
+        "apparatus.rs": [
+          [
+            1,
+            61
+          ]
+        ],
+        "commerce.rs": [
+          [
+            1,
+            112
+          ]
+        ],
+        "household.rs": [
+          [
+            1,
+            93
+          ]
+        ]
+      },
+      "disposition": "All3wholebodiesread. assemblefirstgetsactualinterior_speccheckedsize thenfixedrole match; unsupportedkindtypedMissingRecipe. Tablelegs/brace/slats/constants boundedlocalrecipes; balancebeamheight=size.y-.09/top.78 andsize.y-top requireactualspecpositiveconstructionrelationships, notmerelypositivey. Suspendedpan3chainsnormalizepositivegeometryprovidedactualspec keepsnoncoincidentstart/end; builderconstructor/finishcause pathneeded. Reckoningfixed4rows/8counters authoredpositions; notlivegameplaycurrencyarithmetic. Candle/spindle/profileheight offsets andcruciformfoot dimensions constrainedbyactualspec; no arbitraryhuge/too-shortcatalogueentryasserted. Turnedprofilesaregeometricclosedsections andcaninclude nonmonotoneheights intentionally, nottimelines. DecorationvsSolid colliderpolicy deliberategeometry/humanaccess split, not hiddenstrategic gameplaystate. Allnumericalhandoffs/nativeQuat/norm results need actualBuilderreadmission, whichremainsunreadandnotcredited. No new ordinary defectpromoted."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-building-generator/src/furniture/apparatus/printing.rs"
+}

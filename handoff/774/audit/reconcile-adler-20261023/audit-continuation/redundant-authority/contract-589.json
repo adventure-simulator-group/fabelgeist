@@ -1,0 +1,64 @@
+{
+  "id": "CONT07-CONTRACT-589",
+  "at": "2026-10-24T00:21:42.319429+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2550,
+      "source_id": "pr-working:crates/fabelgeist-bvh/src/gpu/mod.rs",
+      "sha256": "6634431db696f50d97f3a8f405615336895803d2302aca8e7690144b710dae4d",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-bvh/src/gpu/mod.rs",
+      "actual_EOF": 376,
+      "ranges": [
+        [
+          27,
+          42
+        ],
+        [
+          62,
+          138
+        ],
+        [
+          175,
+          299
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2551,
+      "source_id": "pr-working:crates/fabelgeist-physics/src/mesh.rs",
+      "sha256": "227950fb9466ae2c9f5c59c33322ac2c4f43a1d9eb743669e7f65fb6cdeba9dc",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-physics/src/mesh.rs",
+      "actual_EOF": 205,
+      "ranges": [
+        [
+          1,
+          205
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "RIG-ADMISSION03-F073-SUPPLEMENT-001",
+    "RIG-ADMISSION03-F054-SUPPLEMENT-001",
+    "RIG-OWNER81-F008",
+    "RIG-OWNER81-F009"
+  ],
+  "facts": [
+    "PR GpuBvh privatecapacity/count andpublicnodes/rightchildren/indices/parents formone compilednativeproduct; publicreplacementcanbreak association despite privatecounts. Actualconstructorcapacitymax1 andrecord_buildcount<=capacitygate preserve explicitlimits. Inherited RIG-ADMISSION03-F054-SUPPLEMENT001 exact coherence finding, not new07unique.",
+    "PR MeshCollider actualconstructorrejects emptytriangles and out-of-boundsvertexindices beforeupload, unlike uncheckedrawTriangleBVH. Publicpositions/triangles/bounds/BVHreplacement permits laterincoherence; do noterasepositiveinitialmembershipgate. Countnativecasts/u32nodearithmetic remainRIG-ADMISSION03-F073-SUPPLEMENT001 with possibleearlierSDKallocationerrors, noexecutedoverflow.",
+    "PR MeshCollider write_positions explicitlyrequires matchingretainedvertexcount andcallerdocrequiresrefit/rebuildafterdeformation; bounds include currentsurface.thickness onlywhenrecord_bounds runs. Geometrywrite andlaterrefit are explicittwo-stepnativeAPIcontract, not ordinarycacheinvalidationdefect merely becausea publiccaller canomitrequiredoperation. Mutablethickness mustlikewise coordinatewithnativebounds ifmodified; actualnormalcaller nottraced.",
+    "PR GpuBvh record_build updatescount beforedispatchsuccess; record_refit trustslastcount. A failedorunsubmittedKernelBatch couldleavecountaheadexecutedtopology; exactbatchownership/errorlifecycle requiredbefore promotion. NoGPUrun or partialdispatch occurrence claimed.",
+    "PR BVHrefit rebuilds bounds while intentionallyretainingtopology/Mortonorder; expectedorderingquality andactualboundingcorrectnessareseparate facts. Primitiveboundsinputprovenance/cardinalityrequirecoherentadmissionperinheritedF054, not genericallforeignGPUaudit."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2552,
+    "start_line": 1
+  }
+}

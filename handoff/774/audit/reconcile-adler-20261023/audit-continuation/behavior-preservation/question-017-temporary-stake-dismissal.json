@@ -1,0 +1,37 @@
+{
+  "id": "CONT08-Q017",
+  "classification": "Retained source-backed API/behavior defect candidate; exactdedup pending, not introduced774regression",
+  "source": {
+    "scope_index": 1225,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+    "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+    "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+    "before_sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+    "after_sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+    "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1225-base-013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+    "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+    "diff": "source-evidence/pr-1225.diff",
+    "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "ranges": [
+    [
+      1799,
+      1831
+    ],
+    [
+      3010,
+      3087
+    ],
+    [
+      3093,
+      3109
+    ]
+  ],
+  "before_after": "Actual fullPRdiffempty",
+  "trigger": "Otherwisevalidleaderdismissesnonleader temporarymember withstake1andpartycoin1, nocampfireplace/pendingencounter.",
+  "actual_trace": "settle_temporary_member_stake transferspartycoin to member withoutdebitstake; remove_party_member immediatelyrejects anypositivestake. Newpersonalcoin couldexist transientlybeforeErr, but noDBrollbackbehavior executed or claimed.",
+  "qualification": "Actualsource branch requires character.temporary true; exact ordinary generatedcompanion population not newlytracedhere; parentdeduppending.",
+  "repair_if_confirmed": "Use canonical earnedstake withdrawal which atomically debits entitlement andmoves currency, then membershipremoval; preserve member property andinsufficientfunds error.",
+  "acceptance": "Exactexistingactor/materialstate plusrecipient proof, coherentonce-onlyasset/entitlementtransfer and originalfirstfailure/portbehavior; no fixturesexecuted/newtests."
+}

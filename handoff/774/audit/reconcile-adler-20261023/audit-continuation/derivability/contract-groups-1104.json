@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1104",
+  "at": "2026-10-25T17:46:29.634338+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1225,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+  "sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+  "actual_compared_ranges": [
+    [
+      2251,
+      2630
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "StorefrontTradeExecution2506\u20132512 native command aggregate no handwritten traits. MerchantProviderId checked conversion, StorefrontTradeRequest canonical parse, explicit quote/payment authorization, live provider/default/presence/service/stock/bookallowlist/language/effects validate context. Request flattening2525\u20132548 produces native aligned vectors for implementation, not handwritten Serialize or standalone From. No derive opportunity; retain exact errors and typed provider admission."
+  ],
+  "first_unfinished": {
+    "scope_index": 1225,
+    "line": 2631
+  },
+  "execution": "none"
+}

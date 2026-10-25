@@ -1,0 +1,150 @@
+{
+  "id": "CONT07-CONTRACT-645",
+  "at": "2026-10-24T00:59:20.740046+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 236,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/family.rs",
+      "sha256": "39967c3fc01c7e182d648f23a06e4a8a214c51ea7425f4672318d891fc2178e7",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-stdb-module/src/relationship/family.rs",
+      "actual_EOF": 267,
+      "ranges": [
+        [
+          115,
+          126
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 419,
+      "source_id": "physical-p16:crates/adventuresim-terrain/src/lib.rs",
+      "sha256": "b6f4484e8febb316766de322ff355f1d0dda5b394343be0227517c601c0f1421",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-terrain/src/lib.rs",
+      "actual_EOF": 2059,
+      "ranges": [
+        [
+          995,
+          995
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 366,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings/window.rs",
+      "sha256": "f1d40643528b12fce9e1062c6a2e23e0192c6216cb5a5f645bbc624ef90b5c26",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/scene_input/buildings/window.rs",
+      "actual_EOF": 129,
+      "ranges": [
+        [
+          76,
+          76
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 365,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+      "sha256": "2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+      "actual_EOF": 438,
+      "ranges": [
+        [
+          221,
+          221
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 465,
+      "source_id": "physical-p16:crates/strategic-web/src/templates/settlement/character_skills.rs",
+      "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/strategic-web/src/templates/settlement/character_skills.rs",
+      "actual_EOF": 3812,
+      "ranges": [
+        [
+          2235,
+          2235
+        ],
+        [
+          2355,
+          2355
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2522,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/city_layout/compound.rs",
+      "sha256": "8d64dedb165f7ed83c658f1f3126c264e7d67aef759ccaeed83843d99190c86b",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/city_layout/compound.rs",
+      "actual_EOF": 93,
+      "ranges": [
+        [
+          16,
+          20
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2480,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/timber.rs",
+      "sha256": "452e6d4196200a40485612e2a5717561e708e0ebbaa595e20cb9b26b43ba599b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/model/timber.rs",
+      "actual_EOF": 310,
+      "ranges": [
+        [
+          136,
+          138
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 608,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/room_allocation.rs",
+      "sha256": "0af46aaa9d2e8406c02e95802701cab06cb2c9e496138d7589c422b4d53d48c5",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/generator/room_allocation.rs",
+      "actual_EOF": 249,
+      "ranges": [
+        [
+          181,
+          249
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 602,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/heated_rooms.rs",
+      "sha256": "443063c283413c94c1d5b856ab84ff71fe275f9f039e1427384f13a395671879",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/generator/heated_rooms.rs",
+      "actual_EOF": 274,
+      "ranges": [
+        [
+          1,
+          74
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Overlay014 SeededHouseholdPlan is private seed-time roles/kinships plan, explicitly records relationships after demographic finalization. Family key/household ID are distinct identities, not cached current family state. Scope newly read115\u2013126 only, earlier same-lens baseline supplies surrounding role.",
+    "Overlay017/018/019/021/029/030 uncovered inclusive endpoints are whitespace; personally read exact bytes. Adds no semantic body, no new unique source or defect.",
+    "Overlay041 CityPropertyId declaration wraps numeric identity; no redundant authority in newly read16\u201320. Overlay060 closing brace/derive boundary136\u2013138 adds no field body credit.",
+    "Overlay065 room growth recomputes room counts from assignments each iteration; candidate fill ratio/distance/neighbor geometry/rng rank transient ordering criteria, not independently persisted authoritative room sizes. Final assignment mutation in one owner; deterministic order must survive owner migration.",
+    "Overlay067 HeatingStorey private constructor derives role once from storey index while retaining immutable borrowed programme/index. Same derived role could be method, but private immutable construction coordinates it; no independent mutator or disagreement. RearCellOffset positive cell measure and HeatingBayAnchor room/offset distinct dimensions."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": null
+}

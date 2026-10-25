@@ -1,0 +1,27 @@
+{
+  "id": "RIG-INITIAL06-GROUP-024",
+  "at": "2026-10-22T19:58:20.046488+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "canonical-low-RGBA-owner-and-raw-host-carrier": {
+      "sources": [
+        "pr-working:crates/fabelgeist-color/Cargo.toml",
+        "pr-working:crates/fabelgeist-color/src/color.rs",
+        "pr-working:crates/fabelgeist-color/src/lib.rs"
+      ],
+      "comparison": "Fresh Cargo25/Color80/lib24. fabelgeist-color::Color is canonical four-f32 RGBA hostvalue with publicr/g/b/a, rawnew/rgb/with_alpha/from_array/to_array and lerp; optionalSerde/Pod/WGPU, no appCore/Building/Bevydependency. It has no finite/unit/linear/sRGB guarantee, so use MUSTNOT implyclamping/HDRloss orprobability admission. FreshpreviousREG009 ArmorComponentMaterial.base_color[f32;4] and TextileColor.material producer015/019 compared EXACT RGBAmeaning/alpha1/publicrawf32/Serde/authority: continuous hostcolor is same common product, no Armor-specific colorsemantics retained by array. F005 migrate hostbase_color tocanonicalColor inlowColorcrate, use explicit channel conversion onlynative/materialports. Quantized authoredTextileColor[u8;3] is NOT sameproduct and mustremain source owner; its division255 canconstructColor atoneactualsourceprojection, no automaticcolor-space correction. MetalRGB[f32;3] specifically noalpha also notblindforcedRGBA. Existing externalengineColor may remainnativeadapter, broader consumersnotyetreviewed. No newColorownerinArmor/Core orcompatibilityaliases. Cargooptionalfeatures cankeepGPUoutof sourceonlytypeowners."
+    },
+    "color-context-and-numerical-transform-products": {
+      "sources": [
+        "pr-working:crates/fabelgeist-color/src/conversion.rs",
+        "pr-working:crates/fabelgeist-color/src/space.rs",
+        "pr-working:crates/fabelgeist-color/src/transfer.rs"
+      ],
+      "comparison": "Fresh space356/Conversion1\u2013230/Transfer1\u2013210. Chromaticityf64 CIE1931xy, WhitePointclosedilluminant, ColorPrimaries threechromaticities+white, ColorSpaceprimaries+transfer authority and ColorTransformmatrix+src/dstcurve represent different contexts. Linear/nonlinear/HDR distinction is not encoded by genericColor itself; explicit context transformsread/produceunrestrictednativeRGB. ACES AP0 blue.y=-.077 actualsource proves chromaticity is notUnitInterval. Matrix3x3f64 row-major colorprecision differs genericMathf32transform/physicalFrame and MHRquat; no silentmerge orprecisiondowngrade. Actual invert_3x3 containszero/singularOption plusColorPrimariesidentityfallback; numerical/admissiongapremainsotherinitiallens, no privaterecordwaiver. Transferfunctions deliberatelyvary signed/nonpositive/HDR/PQclamps; sourcefunctionalpreservationbeforeanytypedprojection, not a globalColorchannel[0,1]promise. Bytebuffererroractual/expectedusize representsCPUbufferlengthnotGPUByteLength proof; sharedlowColorowns formatconversionerrors, no appdependency. PartialConversion230endsinsideI420errorbody; laterformats/PixelFormat/YUVdecls and TransferHLGfunction211+notread/credited, lowercalls unresolvedforactualfullalgorithm but no currentownerdef assumedfromname. Lib reexports arenotwholefeaturebodycoverage."
+    }
+  },
+  "new_findings": [
+    "RIG-INITIAL06-F005"
+  ],
+  "limits": "Fresh exactcurrent owner/sourceproducer comparison; canonicalColor broadrawpolicy explicitly preserved. No newsource/foreign/fullconvertalgorithm/laterlens or repaircredit; whole06 incomplete."
+}

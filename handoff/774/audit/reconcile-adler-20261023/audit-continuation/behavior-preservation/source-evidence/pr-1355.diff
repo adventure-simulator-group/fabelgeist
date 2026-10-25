@@ -1,0 +1,23 @@
+--- PRbase/crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs
++++ frozen/crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs
+@@ -16,9 +16,9 @@
+             .init_resource::<pose_buffer::BakedClipBank>()
+             .init_resource::<AuthoredLocomotionStrides>()
+             .init_resource::<AnimationRuntime>()
+             .init_resource::<semantic_route::SemanticRouteTelemetry>()
+-            .init_resource::<TerrainIkEnabled>()
++            .init_resource::<TerrainIkMode>()
+             .init_resource::<ProceduralAnimationClock>()
+             .init_resource::<procedural::FixedTickPoseCache>()
+             .init_resource::<bouncy_bones::BouncyBonesTelemetry>()
+             .register_required_components::<procedural::HumanoidRig, bouncy_bones::BouncyBones>()
+@@ -37,8 +37,9 @@
+             .add_observer(on_successful_attack)
+             .add_systems(
+                 Update,
+                 (
++                    super::super::clip_revision::refresh_animation_revisions,
+                     collect_loaded_packs,
+                     attach_loaded_rig_scenes,
+                     super::super::identity_morphs::sync_character_morphs,
+                     update_presented_skeletons,

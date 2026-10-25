@@ -1,0 +1,68 @@
+[
+  {
+    "id": "NATIVE-CONT-WORLD-F001",
+    "lens": "audit-producer-propagation",
+    "classification": "migration gap",
+    "earliest_unfinished_producer": "pr-working:crates/adventuresim-stdb-module/src/food/consumption.rs85",
+    "trace": "Checked current_strategic_place -> place.to_string -> internal commit_food_water_infection(...strategic_place_id:&str...) -> WorldEventPlace::Strategic {place_id:String} -> WorldEventEnvelope/WorldEventRequest retained state -> validation/persist -> actual world_event_receipt SDKrow.",
+    "locations": [
+      {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/consumption.rs",
+        "sha256": "6774eac9e912e8d500d0d9912545c2051fcc102d969f024be6dd157b22dea910",
+        "ranges": [
+          [
+            79,
+            96
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_event.rs",
+        "sha256": "9403e2e3d8bc995c0483da0502427442f1c526ee1b513db2a9b5beac3078a5b0",
+        "ranges": [
+          [
+            941,
+            999
+          ],
+          [
+            220,
+            227
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-core/src/world_event.rs",
+        "sha256": "10007dfcca53443d2794c0e38d8e9d741588f79ba8f61163c84d2281e7b40fb4",
+        "ranges": [
+          [
+            56,
+            60
+          ],
+          [
+            245,
+            257
+          ],
+          [
+            306,
+            309
+          ]
+        ]
+      }
+    ],
+    "existing_owner_fit": "Canonical Core StrategicPlaceId already produced and exact successful semantic value. Generic event key validation has broader accepted unknown/rejected-input domain; preserve that evidence at ingress instead of blindly pretending every raw input has canonical membership.",
+    "connected_repair": "Retain existing StrategicPlaceId through actual pure event place/request/application records and helper parameters, project at actual native persisted schema codec; reconcile world-event identity shape with Camera F009 place graph, CAM-OWN-WORLD-EVENT-083 and subsequent admission/aggregate/behavior lenses. Include current_strategic_place/exposure/commit/validate/persist callers once, no duplicate owner or raw forwarding compatibility API.",
+    "acceptance": "Admitted place remains checked until SDK/JSON formatting; all original occurrence IDs/hash bytes/native payload/privacy/mutation order/retry/validzero and malformed/rejected evidence policies preserved. Existing fixtures only; no source fixes/validation here.",
+    "repair_owner": "Existing Camera whole DB world-event and canonical place repair, coordinator to reconcile exact claim delta before source changes.",
+    "status": "discovered; source repair frozen; validation not run"
+  },
+  {
+    "id": "NATIVE-CONT-WORLD-OWNERSHIP-001",
+    "classification": "ownership delta for existing F023, not new defect",
+    "functions": [
+      "world_actor.rs::contextual_treatment_decision_with_emergency",
+      "world_actor/roster.rs::deactivate_context_roster and necessary connected close helper"
+    ],
+    "evidence": "Exact four-claims-file lookup found no explicit function claim despite current Native011/Rig035 and fresh actual sources proving required-clock default paths. Coordinator notified and acknowledged reconciliation to existing Camera owner.",
+    "status": "pending coordinator authoritative claim reconciliation; no source changes"
+  }
+]

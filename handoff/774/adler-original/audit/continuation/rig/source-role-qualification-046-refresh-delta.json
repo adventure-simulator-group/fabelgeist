@@ -1,0 +1,684 @@
+{
+  "id": "RIG-CONT-PPS-SOURCE-ROLE-QUALIFICATION-046-REFRESH-DELTA",
+  "lens": "audit-producer-propagation-only",
+  "inputs": [
+    {
+      "path": "continuation\\rig\\source-scope-reconciliation-044.json",
+      "sha256": "fe7e2e81a37b125318a22c961f2d9bead728e93d3721e1e3a4142ff1f62defa1"
+    },
+    {
+      "path": "continuation\\producer-reached-role-index.json",
+      "sha256": "a8fe2eb9e3af471b1f33a5eaf40c2252bc26e74fea442616c37e1b47e7c84ff6"
+    },
+    {
+      "path": "continuation\\camera\\traces.jsonl",
+      "sha256": "6d71ea84825f461cafe98446af772c3a8afd950d7e9023a1be5f616734ebc355"
+    },
+    {
+      "path": "continuation\\native\\world5-final-packet.json",
+      "sha256": "7ba1ee61682039e3d002173a202f44ec73e61a760013e2d9f06388f69ea81a90"
+    },
+    {
+      "path": "continuation\\native\\source-reads.json",
+      "sha256": "e3c6d343a57aee4b22470341c90ac37a02ce9381ea1adc8f8d3cd3fbf5d58624"
+    },
+    {
+      "path": "continuation\\rig\\source-role-qualification-045.json",
+      "sha256": "00e75e86a8db94064b311e4fdb37acb213ee1120a61188ffd321519e381d8635"
+    }
+  ],
+  "stable_observation_key": [
+    "record",
+    "receipt",
+    "json_pointer"
+  ],
+  "original_unqualified_count": 231,
+  "refreshed_unqualified_count": 246,
+  "original_keys_missing_from_refresh": [],
+  "delta_dispositions": [
+    {
+      "input_ref": {
+        "record": "continuation/camera/coverage.jsonl",
+        "receipt": "row-42",
+        "json_pointer": ""
+      },
+      "source_id": "pr-working:crates/adventuresim-core/src/world_event.rs",
+      "original_schema": "coverage-navigation",
+      "source_sha256_verified": "10007dfcca53443d2794c0e38d8e9d741588f79ba8f61163c84d2281e7b40fb4",
+      "exact_material_ranges": [
+        [
+          1,
+          620
+        ]
+      ],
+      "actual_EOF": 620,
+      "source_proof_refs": [
+        {
+          "record": "continuation/camera/traces.jsonl",
+          "receipt": "CONT-CAMERA-PP-009",
+          "json_pointer": "/exact_source_proofs/0"
+        },
+        {
+          "record": "continuation/native/source-reads.json",
+          "json_pointer": "/0"
+        }
+      ],
+      "role_graph_ref": {
+        "record": "continuation/camera/traces.jsonl",
+        "receipt": "CONT-CAMERA-PP-009",
+        "json_pointer": "/per_cell/0"
+      },
+      "actual_contract_refs": [
+        "CONT-CAMERA-PP-009/contracts_consumed/0",
+        "CONT-CAMERA-PP-009/contracts_consumed/1",
+        "CONT-CAMERA-PP-009/contracts_consumed/2"
+      ],
+      "disposition": "navigation-summary-qualified-by-exact-world5-source-and-actual-recipient-proof; not-independent-read",
+      "remaining_actual_unread": [],
+      "limit": "Preserve all world5 findings and counterpart proof limits. Matching hashes confirm locator only; individually traced source/retained-state/operations/actual recipient graph supplies producer evidence. No owner-fit or lens clearance."
+    },
+    {
+      "input_ref": {
+        "record": "continuation/camera/coverage.jsonl",
+        "receipt": "row-43",
+        "json_pointer": ""
+      },
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "original_schema": "coverage-navigation",
+      "source_sha256_verified": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "exact_material_ranges": [
+        [
+          1,
+          1586
+        ]
+      ],
+      "actual_EOF": 1586,
+      "source_proof_refs": [
+        {
+          "record": "continuation/camera/traces.jsonl",
+          "receipt": "CONT-CAMERA-PP-009",
+          "json_pointer": "/exact_source_proofs/1"
+        },
+        {
+          "record": "continuation/native/source-reads.json",
+          "json_pointer": "/1"
+        }
+      ],
+      "role_graph_ref": {
+        "record": "continuation/camera/traces.jsonl",
+        "receipt": "CONT-CAMERA-PP-009",
+        "json_pointer": "/per_cell/1"
+      },
+      "actual_contract_refs": [
+        "CONT-CAMERA-PP-009/contracts_consumed/3",
+        "CONT-CAMERA-PP-009/contracts_consumed/5",
+        "CONT-CAMERA-PP-009/contracts_consumed/6",
+        "CONT-CAMERA-PP-009/contracts_consumed/7",
+        "CONT-CAMERA-PP-009/contracts_consumed/8"
+      ],
+      "disposition": "navigation-summary-qualified-by-exact-world5-source-and-actual-recipient-proof; not-independent-read",
+      "remaining_actual_unread": [],
+      "limit": "Preserve all world5 findings and counterpart proof limits. Matching hashes confirm locator only; individually traced source/retained-state/operations/actual recipient graph supplies producer evidence. No owner-fit or lens clearance."
+    },
+    {
+      "input_ref": {
+        "record": "continuation/camera/coverage.jsonl",
+        "receipt": "row-44",
+        "json_pointer": ""
+      },
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor.rs",
+      "original_schema": "coverage-navigation",
+      "source_sha256_verified": "a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95",
+      "exact_material_ranges": [
+        [
+          1,
+          1353
+        ]
+      ],
+      "actual_EOF": 1353,
+      "source_proof_refs": [
+        {
+          "record": "continuation/camera/traces.jsonl",
+          "receipt": "CONT-CAMERA-PP-009",
+          "json_pointer": "/exact_source_proofs/3"
+        },
+        {
+          "record": "continuation/native/source-reads.json",
+          "json_pointer": "/3"
+        }
+      ],
+      "role_graph_ref": {
+        "record": "continuation/camera/traces.jsonl",
+        "receipt": "CONT-CAMERA-PP-009",
+        "json_pointer": "/per_cell/2"
+      },
+      "actual_contract_refs": [
+        "CONT-CAMERA-PP-009/contracts_consumed/3",
+        "CONT-CAMERA-PP-009/contracts_consumed/4",
+        "CONT-CAMERA-PP-009/contracts_consumed/5"
+      ],
+      "disposition": "navigation-summary-qualified-by-exact-world5-source-and-actual-recipient-proof; not-independent-read",
+      "remaining_actual_unread": [],
+      "limit": "Preserve all world5 findings and counterpart proof limits. Matching hashes confirm locator only; individually traced source/retained-state/operations/actual recipient graph supplies producer evidence. No owner-fit or lens clearance."
+    },
+    {
+      "input_ref": {
+        "record": "continuation/camera/coverage.jsonl",
+        "receipt": "row-45",
+        "json_pointer": ""
+      },
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_event.rs",
+      "original_schema": "coverage-navigation",
+      "source_sha256_verified": "9403e2e3d8bc995c0483da0502427442f1c526ee1b513db2a9b5beac3078a5b0",
+      "exact_material_ranges": [
+        [
+          1,
+          1188
+        ]
+      ],
+      "actual_EOF": 1188,
+      "source_proof_refs": [
+        {
+          "record": "continuation/camera/traces.jsonl",
+          "receipt": "CONT-CAMERA-PP-009",
+          "json_pointer": "/exact_source_proofs/4"
+        },
+        {
+          "record": "continuation/native/source-reads.json",
+          "json_pointer": "/4"
+        }
+      ],
+      "role_graph_ref": {
+        "record": "continuation/camera/traces.jsonl",
+        "receipt": "CONT-CAMERA-PP-009",
+        "json_pointer": "/per_cell/3"
+      },
+      "actual_contract_refs": [
+        "CONT-CAMERA-PP-009/contracts_consumed/0",
+        "CONT-CAMERA-PP-009/contracts_consumed/1",
+        "CONT-CAMERA-PP-009/contracts_consumed/2"
+      ],
+      "disposition": "navigation-summary-qualified-by-exact-world5-source-and-actual-recipient-proof; not-independent-read",
+      "remaining_actual_unread": [],
+      "limit": "Preserve all world5 findings and counterpart proof limits. Matching hashes confirm locator only; individually traced source/retained-state/operations/actual recipient graph supplies producer evidence. No owner-fit or lens clearance."
+    },
+    {
+      "input_ref": {
+        "record": "continuation/camera/coverage.jsonl",
+        "receipt": "row-46",
+        "json_pointer": ""
+      },
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "original_schema": "coverage-navigation",
+      "source_sha256_verified": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "exact_material_ranges": [
+        [
+          1,
+          1586
+        ]
+      ],
+      "actual_EOF": 1586,
+      "source_proof_refs": [
+        {
+          "record": "continuation/camera/traces.jsonl",
+          "receipt": "CONT-CAMERA-PP-009",
+          "json_pointer": "/exact_source_proofs/2"
+        },
+        {
+          "record": "continuation/native/source-reads.json",
+          "json_pointer": "/2"
+        }
+      ],
+      "role_graph_ref": {
+        "record": "continuation/camera/traces.jsonl",
+        "receipt": "CONT-CAMERA-PP-009",
+        "json_pointer": "/per_cell/4"
+      },
+      "actual_contract_refs": [
+        "CONT-CAMERA-PP-009/contracts_consumed/3",
+        "CONT-CAMERA-PP-009/contracts_consumed/5",
+        "CONT-CAMERA-PP-009/contracts_consumed/6",
+        "CONT-CAMERA-PP-009/contracts_consumed/7",
+        "CONT-CAMERA-PP-009/contracts_consumed/8"
+      ],
+      "disposition": "navigation-summary-qualified-by-exact-world5-source-and-actual-recipient-proof; not-independent-read",
+      "remaining_actual_unread": [],
+      "limit": "Preserve all world5 findings and counterpart proof limits. Matching hashes confirm locator only; individually traced source/retained-state/operations/actual recipient graph supplies producer evidence. No owner-fit or lens clearance."
+    },
+    {
+      "input_ref": {
+        "record": "continuation/camera/traces.jsonl",
+        "receipt": "CONT-CAMERA-PP-009",
+        "json_pointer": "/per_cell/0"
+      },
+      "source_id": "pr-working:crates/adventuresim-core/src/world_event.rs",
+      "original_schema": "per-cell-role-summary-without-inline-hash-or-range",
+      "source_sha256_verified": "10007dfcca53443d2794c0e38d8e9d741588f79ba8f61163c84d2281e7b40fb4",
+      "exact_material_ranges": [
+        [
+          1,
+          620
+        ]
+      ],
+      "actual_EOF": 620,
+      "source_proof_refs": [
+        {
+          "record": "continuation/camera/traces.jsonl",
+          "receipt": "CONT-CAMERA-PP-009",
+          "json_pointer": "/exact_source_proofs/0"
+        },
+        {
+          "record": "continuation/native/source-reads.json",
+          "json_pointer": "/0"
+        }
+      ],
+      "role_graph_ref": {
+        "record": "continuation/camera/traces.jsonl",
+        "receipt": "CONT-CAMERA-PP-009",
+        "json_pointer": "/per_cell/0"
+      },
+      "actual_contract_refs": [
+        "CONT-CAMERA-PP-009/contracts_consumed/0",
+        "CONT-CAMERA-PP-009/contracts_consumed/1",
+        "CONT-CAMERA-PP-009/contracts_consumed/2"
+      ],
+      "disposition": "navigation-summary-qualified-by-exact-world5-source-and-actual-recipient-proof; not-independent-read",
+      "remaining_actual_unread": [],
+      "limit": "Preserve all world5 findings and counterpart proof limits. Matching hashes confirm locator only; individually traced source/retained-state/operations/actual recipient graph supplies producer evidence. No owner-fit or lens clearance."
+    },
+    {
+      "input_ref": {
+        "record": "continuation/camera/traces.jsonl",
+        "receipt": "CONT-CAMERA-PP-009",
+        "json_pointer": "/per_cell/1"
+      },
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "original_schema": "per-cell-role-summary-without-inline-hash-or-range",
+      "source_sha256_verified": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "exact_material_ranges": [
+        [
+          1,
+          1586
+        ]
+      ],
+      "actual_EOF": 1586,
+      "source_proof_refs": [
+        {
+          "record": "continuation/camera/traces.jsonl",
+          "receipt": "CONT-CAMERA-PP-009",
+          "json_pointer": "/exact_source_proofs/1"
+        },
+        {
+          "record": "continuation/native/source-reads.json",
+          "json_pointer": "/1"
+        }
+      ],
+      "role_graph_ref": {
+        "record": "continuation/camera/traces.jsonl",
+        "receipt": "CONT-CAMERA-PP-009",
+        "json_pointer": "/per_cell/1"
+      },
+      "actual_contract_refs": [
+        "CONT-CAMERA-PP-009/contracts_consumed/3",
+        "CONT-CAMERA-PP-009/contracts_consumed/5",
+        "CONT-CAMERA-PP-009/contracts_consumed/6",
+        "CONT-CAMERA-PP-009/contracts_consumed/7",
+        "CONT-CAMERA-PP-009/contracts_consumed/8"
+      ],
+      "disposition": "navigation-summary-qualified-by-exact-world5-source-and-actual-recipient-proof; not-independent-read",
+      "remaining_actual_unread": [],
+      "limit": "Preserve all world5 findings and counterpart proof limits. Matching hashes confirm locator only; individually traced source/retained-state/operations/actual recipient graph supplies producer evidence. No owner-fit or lens clearance."
+    },
+    {
+      "input_ref": {
+        "record": "continuation/camera/traces.jsonl",
+        "receipt": "CONT-CAMERA-PP-009",
+        "json_pointer": "/per_cell/2"
+      },
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor.rs",
+      "original_schema": "per-cell-role-summary-without-inline-hash-or-range",
+      "source_sha256_verified": "a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95",
+      "exact_material_ranges": [
+        [
+          1,
+          1353
+        ]
+      ],
+      "actual_EOF": 1353,
+      "source_proof_refs": [
+        {
+          "record": "continuation/camera/traces.jsonl",
+          "receipt": "CONT-CAMERA-PP-009",
+          "json_pointer": "/exact_source_proofs/3"
+        },
+        {
+          "record": "continuation/native/source-reads.json",
+          "json_pointer": "/3"
+        }
+      ],
+      "role_graph_ref": {
+        "record": "continuation/camera/traces.jsonl",
+        "receipt": "CONT-CAMERA-PP-009",
+        "json_pointer": "/per_cell/2"
+      },
+      "actual_contract_refs": [
+        "CONT-CAMERA-PP-009/contracts_consumed/3",
+        "CONT-CAMERA-PP-009/contracts_consumed/4",
+        "CONT-CAMERA-PP-009/contracts_consumed/5"
+      ],
+      "disposition": "navigation-summary-qualified-by-exact-world5-source-and-actual-recipient-proof; not-independent-read",
+      "remaining_actual_unread": [],
+      "limit": "Preserve all world5 findings and counterpart proof limits. Matching hashes confirm locator only; individually traced source/retained-state/operations/actual recipient graph supplies producer evidence. No owner-fit or lens clearance."
+    },
+    {
+      "input_ref": {
+        "record": "continuation/camera/traces.jsonl",
+        "receipt": "CONT-CAMERA-PP-009",
+        "json_pointer": "/per_cell/3"
+      },
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_event.rs",
+      "original_schema": "per-cell-role-summary-without-inline-hash-or-range",
+      "source_sha256_verified": "9403e2e3d8bc995c0483da0502427442f1c526ee1b513db2a9b5beac3078a5b0",
+      "exact_material_ranges": [
+        [
+          1,
+          1188
+        ]
+      ],
+      "actual_EOF": 1188,
+      "source_proof_refs": [
+        {
+          "record": "continuation/camera/traces.jsonl",
+          "receipt": "CONT-CAMERA-PP-009",
+          "json_pointer": "/exact_source_proofs/4"
+        },
+        {
+          "record": "continuation/native/source-reads.json",
+          "json_pointer": "/4"
+        }
+      ],
+      "role_graph_ref": {
+        "record": "continuation/camera/traces.jsonl",
+        "receipt": "CONT-CAMERA-PP-009",
+        "json_pointer": "/per_cell/3"
+      },
+      "actual_contract_refs": [
+        "CONT-CAMERA-PP-009/contracts_consumed/0",
+        "CONT-CAMERA-PP-009/contracts_consumed/1",
+        "CONT-CAMERA-PP-009/contracts_consumed/2"
+      ],
+      "disposition": "navigation-summary-qualified-by-exact-world5-source-and-actual-recipient-proof; not-independent-read",
+      "remaining_actual_unread": [],
+      "limit": "Preserve all world5 findings and counterpart proof limits. Matching hashes confirm locator only; individually traced source/retained-state/operations/actual recipient graph supplies producer evidence. No owner-fit or lens clearance."
+    },
+    {
+      "input_ref": {
+        "record": "continuation/camera/traces.jsonl",
+        "receipt": "CONT-CAMERA-PP-009",
+        "json_pointer": "/per_cell/4"
+      },
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "original_schema": "per-cell-role-summary-without-inline-hash-or-range",
+      "source_sha256_verified": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "exact_material_ranges": [
+        [
+          1,
+          1586
+        ]
+      ],
+      "actual_EOF": 1586,
+      "source_proof_refs": [
+        {
+          "record": "continuation/camera/traces.jsonl",
+          "receipt": "CONT-CAMERA-PP-009",
+          "json_pointer": "/exact_source_proofs/2"
+        },
+        {
+          "record": "continuation/native/source-reads.json",
+          "json_pointer": "/2"
+        }
+      ],
+      "role_graph_ref": {
+        "record": "continuation/camera/traces.jsonl",
+        "receipt": "CONT-CAMERA-PP-009",
+        "json_pointer": "/per_cell/4"
+      },
+      "actual_contract_refs": [
+        "CONT-CAMERA-PP-009/contracts_consumed/3",
+        "CONT-CAMERA-PP-009/contracts_consumed/5",
+        "CONT-CAMERA-PP-009/contracts_consumed/6",
+        "CONT-CAMERA-PP-009/contracts_consumed/7",
+        "CONT-CAMERA-PP-009/contracts_consumed/8"
+      ],
+      "disposition": "navigation-summary-qualified-by-exact-world5-source-and-actual-recipient-proof; not-independent-read",
+      "remaining_actual_unread": [],
+      "limit": "Preserve all world5 findings and counterpart proof limits. Matching hashes confirm locator only; individually traced source/retained-state/operations/actual recipient graph supplies producer evidence. No owner-fit or lens clearance."
+    },
+    {
+      "input_ref": {
+        "record": "continuation/native/world5-final-packet.json",
+        "receipt": "NATIVE-CONT-WORLD-AUTHORITY-FINAL-029",
+        "json_pointer": "/per_cell/0"
+      },
+      "source_id": "pr-working:crates/adventuresim-core/src/world_event.rs",
+      "original_schema": "per-cell-role-summary-without-inline-hash-or-range",
+      "source_sha256_verified": "10007dfcca53443d2794c0e38d8e9d741588f79ba8f61163c84d2281e7b40fb4",
+      "exact_material_ranges": [
+        [
+          1,
+          620
+        ]
+      ],
+      "actual_EOF": 620,
+      "source_proof_refs": [
+        {
+          "record": "continuation/camera/traces.jsonl",
+          "receipt": "CONT-CAMERA-PP-009",
+          "json_pointer": "/exact_source_proofs/0"
+        },
+        {
+          "record": "continuation/native/source-reads.json",
+          "json_pointer": "/0"
+        }
+      ],
+      "role_graph_ref": {
+        "record": "continuation/camera/traces.jsonl",
+        "receipt": "CONT-CAMERA-PP-009",
+        "json_pointer": "/per_cell/0"
+      },
+      "actual_contract_refs": [
+        "CONT-CAMERA-PP-009/contracts_consumed/0",
+        "CONT-CAMERA-PP-009/contracts_consumed/1",
+        "CONT-CAMERA-PP-009/contracts_consumed/2"
+      ],
+      "disposition": "navigation-summary-qualified-by-exact-world5-source-and-actual-recipient-proof; not-independent-read",
+      "remaining_actual_unread": [],
+      "limit": "Preserve all world5 findings and counterpart proof limits. Matching hashes confirm locator only; individually traced source/retained-state/operations/actual recipient graph supplies producer evidence. No owner-fit or lens clearance."
+    },
+    {
+      "input_ref": {
+        "record": "continuation/native/world5-final-packet.json",
+        "receipt": "NATIVE-CONT-WORLD-AUTHORITY-FINAL-029",
+        "json_pointer": "/per_cell/1"
+      },
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "original_schema": "per-cell-role-summary-without-inline-hash-or-range",
+      "source_sha256_verified": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "exact_material_ranges": [
+        [
+          1,
+          1586
+        ]
+      ],
+      "actual_EOF": 1586,
+      "source_proof_refs": [
+        {
+          "record": "continuation/camera/traces.jsonl",
+          "receipt": "CONT-CAMERA-PP-009",
+          "json_pointer": "/exact_source_proofs/1"
+        },
+        {
+          "record": "continuation/native/source-reads.json",
+          "json_pointer": "/1"
+        }
+      ],
+      "role_graph_ref": {
+        "record": "continuation/camera/traces.jsonl",
+        "receipt": "CONT-CAMERA-PP-009",
+        "json_pointer": "/per_cell/1"
+      },
+      "actual_contract_refs": [
+        "CONT-CAMERA-PP-009/contracts_consumed/3",
+        "CONT-CAMERA-PP-009/contracts_consumed/5",
+        "CONT-CAMERA-PP-009/contracts_consumed/6",
+        "CONT-CAMERA-PP-009/contracts_consumed/7",
+        "CONT-CAMERA-PP-009/contracts_consumed/8"
+      ],
+      "disposition": "navigation-summary-qualified-by-exact-world5-source-and-actual-recipient-proof; not-independent-read",
+      "remaining_actual_unread": [],
+      "limit": "Preserve all world5 findings and counterpart proof limits. Matching hashes confirm locator only; individually traced source/retained-state/operations/actual recipient graph supplies producer evidence. No owner-fit or lens clearance."
+    },
+    {
+      "input_ref": {
+        "record": "continuation/native/world5-final-packet.json",
+        "receipt": "NATIVE-CONT-WORLD-AUTHORITY-FINAL-029",
+        "json_pointer": "/per_cell/2"
+      },
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor.rs",
+      "original_schema": "per-cell-role-summary-without-inline-hash-or-range",
+      "source_sha256_verified": "a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95",
+      "exact_material_ranges": [
+        [
+          1,
+          1353
+        ]
+      ],
+      "actual_EOF": 1353,
+      "source_proof_refs": [
+        {
+          "record": "continuation/camera/traces.jsonl",
+          "receipt": "CONT-CAMERA-PP-009",
+          "json_pointer": "/exact_source_proofs/3"
+        },
+        {
+          "record": "continuation/native/source-reads.json",
+          "json_pointer": "/3"
+        }
+      ],
+      "role_graph_ref": {
+        "record": "continuation/camera/traces.jsonl",
+        "receipt": "CONT-CAMERA-PP-009",
+        "json_pointer": "/per_cell/2"
+      },
+      "actual_contract_refs": [
+        "CONT-CAMERA-PP-009/contracts_consumed/3",
+        "CONT-CAMERA-PP-009/contracts_consumed/4",
+        "CONT-CAMERA-PP-009/contracts_consumed/5"
+      ],
+      "disposition": "navigation-summary-qualified-by-exact-world5-source-and-actual-recipient-proof; not-independent-read",
+      "remaining_actual_unread": [],
+      "limit": "Preserve all world5 findings and counterpart proof limits. Matching hashes confirm locator only; individually traced source/retained-state/operations/actual recipient graph supplies producer evidence. No owner-fit or lens clearance."
+    },
+    {
+      "input_ref": {
+        "record": "continuation/native/world5-final-packet.json",
+        "receipt": "NATIVE-CONT-WORLD-AUTHORITY-FINAL-029",
+        "json_pointer": "/per_cell/3"
+      },
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_event.rs",
+      "original_schema": "per-cell-role-summary-without-inline-hash-or-range",
+      "source_sha256_verified": "9403e2e3d8bc995c0483da0502427442f1c526ee1b513db2a9b5beac3078a5b0",
+      "exact_material_ranges": [
+        [
+          1,
+          1188
+        ]
+      ],
+      "actual_EOF": 1188,
+      "source_proof_refs": [
+        {
+          "record": "continuation/camera/traces.jsonl",
+          "receipt": "CONT-CAMERA-PP-009",
+          "json_pointer": "/exact_source_proofs/4"
+        },
+        {
+          "record": "continuation/native/source-reads.json",
+          "json_pointer": "/4"
+        }
+      ],
+      "role_graph_ref": {
+        "record": "continuation/camera/traces.jsonl",
+        "receipt": "CONT-CAMERA-PP-009",
+        "json_pointer": "/per_cell/3"
+      },
+      "actual_contract_refs": [
+        "CONT-CAMERA-PP-009/contracts_consumed/0",
+        "CONT-CAMERA-PP-009/contracts_consumed/1",
+        "CONT-CAMERA-PP-009/contracts_consumed/2"
+      ],
+      "disposition": "navigation-summary-qualified-by-exact-world5-source-and-actual-recipient-proof; not-independent-read",
+      "remaining_actual_unread": [],
+      "limit": "Preserve all world5 findings and counterpart proof limits. Matching hashes confirm locator only; individually traced source/retained-state/operations/actual recipient graph supplies producer evidence. No owner-fit or lens clearance."
+    },
+    {
+      "input_ref": {
+        "record": "continuation/native/world5-final-packet.json",
+        "receipt": "NATIVE-CONT-WORLD-AUTHORITY-FINAL-029",
+        "json_pointer": "/per_cell/4"
+      },
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "original_schema": "per-cell-role-summary-without-inline-hash-or-range",
+      "source_sha256_verified": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "exact_material_ranges": [
+        [
+          1,
+          1586
+        ]
+      ],
+      "actual_EOF": 1586,
+      "source_proof_refs": [
+        {
+          "record": "continuation/camera/traces.jsonl",
+          "receipt": "CONT-CAMERA-PP-009",
+          "json_pointer": "/exact_source_proofs/2"
+        },
+        {
+          "record": "continuation/native/source-reads.json",
+          "json_pointer": "/2"
+        }
+      ],
+      "role_graph_ref": {
+        "record": "continuation/camera/traces.jsonl",
+        "receipt": "CONT-CAMERA-PP-009",
+        "json_pointer": "/per_cell/4"
+      },
+      "actual_contract_refs": [
+        "CONT-CAMERA-PP-009/contracts_consumed/3",
+        "CONT-CAMERA-PP-009/contracts_consumed/5",
+        "CONT-CAMERA-PP-009/contracts_consumed/6",
+        "CONT-CAMERA-PP-009/contracts_consumed/7",
+        "CONT-CAMERA-PP-009/contracts_consumed/8"
+      ],
+      "disposition": "navigation-summary-qualified-by-exact-world5-source-and-actual-recipient-proof; not-independent-read",
+      "remaining_actual_unread": [],
+      "limit": "Preserve all world5 findings and counterpart proof limits. Matching hashes confirm locator only; individually traced source/retained-state/operations/actual recipient graph supplies producer evidence. No owner-fit or lens clearance."
+    }
+  ],
+  "summary": {
+    "delta_rows_qualified": 15,
+    "original_rows_qualified_by045": 231,
+    "cumulative_rows": 246,
+    "schema_counts": {
+      "coverage-navigation": 5,
+      "per-cell-role-summary-without-inline-hash-or-range": 10
+    },
+    "genuinely_unresolved_material_obligations": 0
+  },
+  "previous_four_EOF_observations": "Exact original ranges and fresh real-body proof are preserved in045/overrun_observation_qualifications; nonexistent lines receive zero credit.",
+  "remaining_material_obligations": [],
+  "first_unfinished_cell": null,
+  "next": "Coordinator evaluates producer reached-role scope then owner-fit delta. Findings and later lenses remain mandatory; no edits or additional lens started here.",
+  "source_edits": 0,
+  "project_commands_or_tests": 0,
+  "overall_lens_clearance": "not awarded"
+}

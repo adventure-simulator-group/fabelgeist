@@ -1,0 +1,268 @@
+{
+  "record_kind": "superseded snapshot; provenance only, not current instructions",
+  "superseded_by": "../execution-ledger.json",
+  "archived_at": "2026-10-21T07:44:26.207345+00:00",
+  "snapshot": {
+    "head": "c912fd7a7c7346c187399644e32919dde8aa2bbd",
+    "goal_status": "active",
+    "items": [
+      {
+        "id": "P01",
+        "name": "Movement-audio Seed propagation",
+        "source_status": "Connected implementation published; source trace and Code/Rule review checked twice.",
+        "validation_status": "Accepted on exact head 82cb2a3ac/run 39466774426/job 118780099699: all 36 authored steps successful; artifacts, 25 nonempty required cells, 16 Creator commands and 28 raw logs verified. 676 rig-selected executions plus 67 constraint unit and five constraint doctests = 748 executions including eight doctests, zero failures/ignores. All nineteen reduced ceilings match the official current-head export. Selected coverage only; not whole-repository or live renderer acceptance.",
+        "exit_requirement": "No Seed\u2192u64\u2192Seed round trip between application audio helpers.",
+        "source_commit": "1115db3ed1a9507f71337024a79020ed59cfdf1e",
+        "accepted_head": "82cb2a3acccc852bba6a7ef9c706c337ba9fe765",
+        "acceptance_evidence": "rig-artifact-verification-82cb2.json"
+      },
+      {
+        "id": "P05",
+        "name": "Capture elapsed through jitter analysis",
+        "source_status": "Connected implementation published; source trace and Code/Rule review checked twice.",
+        "validation_status": "Accepted on exact head 82cb2a3ac/run 39466774426/job 118780099699: all 36 authored steps successful; artifacts, 25 nonempty required cells, 16 Creator commands and 28 raw logs verified. 676 rig-selected executions plus 67 constraint unit and five constraint doctests = 748 executions including eight doctests, zero failures/ignores. All nineteen reduced ceilings match the official current-head export. Selected coverage only; not whole-repository or live renderer acceptance.",
+        "exit_requirement": "No elapsed erasure when building JitterFrame; derivative division sees only its final numerical coefficient.",
+        "source_commit": "43dd4dbdc4c47b3af2e99170204a0c21f3e2fa70",
+        "accepted_head": "82cb2a3acccc852bba6a7ef9c706c337ba9fe765",
+        "acceptance_evidence": "rig-artifact-verification-82cb2.json"
+      },
+      {
+        "id": "P07",
+        "name": "IK angular-cap handoff",
+        "source_status": "Connected implementation published; source trace and Code/Rule review checked twice.",
+        "validation_status": "Accepted on exact head 82cb2a3ac/run 39466774426/job 118780099699: all 36 authored steps successful; artifacts, 25 nonempty required cells, 16 Creator commands and 28 raw logs verified. 676 rig-selected executions plus 67 constraint unit and five constraint doctests = 748 executions including eight doctests, zero failures/ignores. All nineteen reduced ceilings match the official current-head export. Selected coverage only; not whole-repository or live renderer acceptance.",
+        "exit_requirement": "No angle representation round trip at the two knee-cap application calls; native atan2/clamp/trigonometry receives the final radian coefficient.",
+        "source_commit": "c0796a58c1df9ad25078ef5339bc7d1d46a41056",
+        "accepted_head": "82cb2a3acccc852bba6a7ef9c706c337ba9fe765",
+        "acceptance_evidence": "rig-artifact-verification-82cb2.json"
+      },
+      {
+        "id": "P02",
+        "name": "Autoresolve battle-time coordinates",
+        "source_status": "Connected implementation published; source trace and Code/Rule review checked twice.",
+        "validation_status": "Accepted on exact head 82cb2a3ac/run 39466774426/job 118780099699: all 36 authored steps successful; artifacts, 25 nonempty required cells, 16 Creator commands and 28 raw logs verified. 676 rig-selected executions plus 67 constraint unit and five constraint doctests = 748 executions including eight doctests, zero failures/ignores. All nineteen reduced ceilings match the official current-head export. Selected coverage only; not whole-repository or live renderer acceptance.",
+        "exit_requirement": "No raw absolute-time parameter/field on this connected scheduling/defense chain; no admitted duration re-erased into readiness state.",
+        "source_commit": "604e241dcaca46420b355e7a5762f4d053d78e3c",
+        "accepted_head": "82cb2a3acccc852bba6a7ef9c706c337ba9fe765",
+        "acceptance_evidence": "rig-artifact-verification-82cb2.json",
+        "review_followthrough": {
+          "recorded_at": "2026-10-21T05:59:19.487078+00:00",
+          "status": "Follow-through source is committed in the current branch; worktree clean. Historical82cb2 acceptance does not cover it. Exact-head8f2b hosted acceptance pending.",
+          "report": "P02-authored-sidearm-evidence-source-review.json"
+        }
+      },
+      {
+        "id": "P03",
+        "name": "Remaining maneuver-duration producers",
+        "source_status": "Connected implementation published; source trace and Code/Rule review checked twice.",
+        "validation_status": "Accepted on exact head 82cb2a3ac/run 39466774426/job 118780099699: all 36 authored steps successful; artifacts, 25 nonempty required cells, 16 Creator commands and 28 raw logs verified. 676 rig-selected executions plus 67 constraint unit and five constraint doctests = 748 executions including eight doctests, zero failures/ignores. All nineteen reduced ceilings match the official current-head export. Selected coverage only; not whole-repository or live renderer acceptance.",
+        "exit_requirement": "All maneuver durations stay checked until sample-count conversion.",
+        "source_commit": "d5b4837ea6c2863cb99c768ee528cb94177f0f08",
+        "accepted_head": "82cb2a3acccc852bba6a7ef9c706c337ba9fe765",
+        "acceptance_evidence": "rig-artifact-verification-82cb2.json",
+        "review_followthrough": {
+          "recorded_at": "2026-10-21T05:59:19.487078+00:00",
+          "status": "Follow-through source is committed in the current branch; worktree clean. Historical82cb2 acceptance does not cover it. Exact-head8f2b hosted acceptance pending.",
+          "report": "partial-review-20261020-followthrough.json"
+        }
+      },
+      {
+        "id": "P04",
+        "name": "Playback rates, phase bounds and event budget",
+        "source_status": "Complete connected implementation committed and pushed; two self Code/Rule source passes and exact hosted formatting recorded.",
+        "validation_status": "Accepted on exact head 82cb2a3ac/run 39466774426/job 118780099699: all 36 authored steps successful; artifacts, 25 nonempty required cells, 16 Creator commands and 28 raw logs verified. 676 rig-selected executions plus 67 constraint unit and five constraint doctests = 748 executions including eight doctests, zero failures/ignores. All nineteen reduced ceilings match the official current-head export. Selected coverage only; not whole-repository or live renderer acceptance.",
+        "exit_requirement": "Each retained playback policy value has its existing or specifically owned checked role; no same-quantity float helper forwarding.",
+        "source_commit": "c59c01e3ea5471925a8954c26a08afadf5d22942",
+        "format_only_followup": "82528917d5de0b9391b6e608ca5db8ba4a8c9271",
+        "accepted_head": "82cb2a3acccc852bba6a7ef9c706c337ba9fe765",
+        "acceptance_evidence": "rig-artifact-verification-82cb2.json",
+        "review_followthrough": {
+          "recorded_at": "2026-10-21T05:59:19.487078+00:00",
+          "status": "Follow-through source is committed in the current branch; worktree clean. Historical82cb2 acceptance does not cover it. Exact-head8f2b hosted acceptance pending.",
+          "report": "partial-review-20261020-followthrough.json"
+        }
+      },
+      {
+        "id": "P06",
+        "name": "Terrain support elevation through IK",
+        "source_status": "Connected boundary reopen repair committed locally in b948c992a; typed support/IK source retained. No current source acceptance.",
+        "validation_status": "Published 8f2b run39552331390 failed native Clippy on existing litter fixture unused Result. Repaired locally; not pushed. No behavioral acceptance on the newer local source.",
+        "exit_requirement": "No typed support hit is flattened merely to pass between application queries and IK consumers.",
+        "pre_edit_evidence": [
+          "P06-execution-plan.md",
+          "P06-reference-classification.json",
+          "P06-expanded-survey.json",
+          "P06-absence-policy-plan.json",
+          "P06-validation-selection-plan.json",
+          "P06-coordinate-producer-frontier.json",
+          "P06-range-consumer-trace.json",
+          "P06-viewer-dispatcher-trace.json",
+          "P06-ik-scatter-body-trace.json",
+          "P06-admission-decisions.json",
+          "P06-vista-placement-body-trace.json",
+          "P06-strategic-preparation-error-trace.json",
+          "P06-server-spawn-body-trace.json",
+          "P06-native-grid-boundary-trace.json"
+        ],
+        "pre_edit_status": "Historical pre-edit traces remain binding. Current implementation status is recorded by source_status and the latest source evidence; no P06 acceptance is established.",
+        "source_evidence": "P06-source-code-rule-review.json",
+        "latest_followthrough_report": "P06-hosted-66d90-caller-repair-source-review.json",
+        "source_commit": "39121ddae304f977f944eccfe4eab307644d763c",
+        "latest_source_commit": "8f2b901881f8aa8035a03cd99dbfefb7bbdf8926",
+        "ground_consumer_followthrough": "P06-hosted-807a-ground-consumer-source-review.json",
+        "status": "in_progress",
+        "source_plan": "P06-vista-source-completion-plan.json",
+        "consumer_repair_commit": "3a9b72c7ffaec06ab2895081d1902e8df5e33709",
+        "native_caller_formatting": "P06-hosted-b1ac-format-repair.json",
+        "main_integration": "P06-main-3a50-integration-source-review.json",
+        "latest_formatting": "P06-hosted-64ca-format-repair.json",
+        "model_ownership_repair": "P06-hosted-a0b1-model-ownership-preservation.json"
+      },
+      {
+        "id": "P08",
+        "name": "Camera physical measures and retained history",
+        "source_status": "Source-complete camera contracts integrated as ea6179163/e329c7dd8 plus canonical min/max cap correction; final source review and deferred size cleanup active.",
+        "validation_status": "Pending exact integrated-head hosted checks; no current acceptance.",
+        "exit_requirement": "Physical camera state is typed until actual physics/render/math projection, without duplicate camera time or length owners."
+      },
+      {
+        "id": "P09",
+        "name": "Joint columns and skin ordinals from their producers",
+        "source_status": "pending",
+        "validation_status": "not executed",
+        "exit_requirement": "No late table recollection or internal ordinal\u2192usize\u2192ordinal round trip on these columns; packing occurs at TensorData/glTF/GPU endpoints.",
+        "additional_inventory": "P09-main-3a50-hair-consumers.json"
+      },
+      {
+        "id": "P10",
+        "name": "Parent topology without the -1 sentinel",
+        "source_status": "pending",
+        "validation_status": "not executed",
+        "exit_requirement": "No parent -1, negative-parent test or cast-based root reconstruction in application topology."
+      },
+      {
+        "id": "P11",
+        "name": "MHR joint-channel rows and model-parameter columns",
+        "source_status": "pending",
+        "validation_status": "not executed",
+        "exit_requirement": "No joint ordinal erasure before an application row API, or interchangeable raw row/column indices in retained parameter records."
+      },
+      {
+        "id": "P12",
+        "name": "Garment offsets and named upright anchors",
+        "source_status": "pending",
+        "validation_status": "not executed",
+        "exit_requirement": "No typed garment offset is erased into retained tuples or passed as a naked distance through fitting APIs."
+      },
+      {
+        "id": "P13",
+        "name": "Shader candidate and cursor states",
+        "source_status": "pending",
+        "validation_status": "not executed",
+        "exit_requirement": "No -1/MAX/zero sample stands in for an uninitialized cursor or absent candidate in these searches."
+      },
+      {
+        "id": "P14",
+        "name": "Catalogue-bound equipment placement through generation",
+        "source_status": "pending",
+        "validation_status": "not executed",
+        "exit_requirement": "No internal raw-key dispatch/re-admission or API that accepts an arbitrary unrelated item/placement pair. EquipmentItemSelection's private exact-string membership operation is not by itself a gap."
+      },
+      {
+        "id": "P15",
+        "name": "Equipment reservations, replay chronology and missing revision",
+        "source_status": "Source-complete b656d15d7; native DB reservations explicit, canonical typed equipment chronology, missing revision rejected.",
+        "validation_status": "Unvalidated; existing DB unit fixtures remain disabled by owning manifest, no live DB acceptance.",
+        "exit_requirement": "No fabricated occupant or chronology observation; initial protocol behavior is explicit and type-safe."
+      },
+      {
+        "id": "P16",
+        "name": "Melee geometry and explicit targeting range policy",
+        "source_status": "Camera owner continuing complete physical producer/consumer closure; checked DB equipment projection/load admission required through eight actual consumers.",
+        "validation_status": "Unfinished; no integration or CI for this family.",
+        "exit_requirement": "No naked physical range tuple/helper forwarding or numeric code for the absence of a radial limit."
+      },
+      {
+        "id": "P17",
+        "name": "Typed report measurements, applicability and optional observations",
+        "source_status": "Transferred to native_reports agent; complete viewer report producer/consumer repair active in isolated worktree.",
+        "validation_status": "Unvalidated and unfinished; no integration of partial metric work.",
+        "exit_requirement": "Report computations retain their guarantees until actual serialization/formatting; applicability and absence cannot impersonate measurements."
+      },
+      {
+        "id": "P18",
+        "name": "Causal report quantities at f64 precision",
+        "source_status": "Source-complete c6fe55e42 integrated as6a758402e; coordinator read typed f64 arithmetic/report/audit/native clock and external I/O cause path.",
+        "validation_status": "Unvalidated on current integrated source; tactical/auto/wall clocks distinct, native minima absent explicitly. P16 will consume typed reach source separately.",
+        "exit_requirement": "The unobserved contact minimum is explicit. A typed f64 statistical owner is a worthwhile separate increment; f64::from inside a genuine numerical reduction is not itself a migration defect.",
+        "additional_source_evidence": "P18-native-measurement-error-source-trace.json"
+      },
+      {
+        "id": "P19",
+        "name": "Per-foot bounded influence",
+        "source_status": "Source-complete0e6dad125, connected influence source review complete.",
+        "validation_status": "Unvalidated on current integrated source.",
+        "exit_requirement": "No UnitInterval\u2192Vec2 application retention\u2192UnitInterval cycle. Record the prior scope decision before pulling this followup into implementation.",
+        "source_commit": "0e6dad125",
+        "source_evidence": "P19-source-closure.json"
+      },
+      {
+        "id": "P20",
+        "name": "Continuation coordinate, tangent, readiness and progress",
+        "source_status": "Source-complete1d4873f41, from Core queue/sequence through actual client spline.",
+        "validation_status": "Unvalidated; stricter readiness/nonfinite decode invariants explicit. Existing native-kernel bind fallback preserved.",
+        "exit_requirement": "No typed action phase erasure into continuation records or untyped continuation producer signature; settle the explicit followup before implementation."
+      }
+    ],
+    "hosted_run": 39466774426,
+    "hosted_job": 118780099699,
+    "do_not_merge": true,
+    "next": "Observe exact-head run39552331390/job119064104970. a0b1 passed formatting/bindings/schemaGPU/guards, then failed only the autoresolve file ceiling. Existing model owner now owns body/essentials/skills without changed values. Require current-head selected tests/artifacts and official relevant baseline reductions. No P08 source before acceptance.",
+    "latest_merge_conflict_check": "merge-conflict-check-20261020.json",
+    "current_hosted": {
+      "head": "8f2b901881f8aa8035a03cd99dbfefb7bbdf8926",
+      "run": 39552331390,
+      "job": 119064104970,
+      "status": "in_progress",
+      "conclusion": null
+    },
+    "latest_repair": "relevant-baseline-reductions-a15f2.json",
+    "latest_verified_artifact": "rig-artifact-verification-82cb2.json",
+    "last_full_source_verification": {
+      "head": "82cb2a3acccc852bba6a7ef9c706c337ba9fe765",
+      "run": 39466774426,
+      "job": 118780099699,
+      "conclusion": "success",
+      "artifact_report": "rig-artifact-verification-82cb2.json",
+      "required_cells": 25,
+      "creator_vectors": 16,
+      "selected_executions": 676,
+      "constraint_unit": 67,
+      "constraint_doctest": 5,
+      "combined_executions": 748,
+      "combined_doctests": 8
+    },
+    "exit_requirements_checked_against_original_plan": true,
+    "pre_edit_evidence_updated": [
+      "P06-ground-cover-query-body-trace.json",
+      "P06-refinement-module-plan.json",
+      "P06-validation-selection-plan.json",
+      "P06-workspace-query-expansion.json"
+    ],
+    "current_uncommitted_family": null,
+    "current_source_progress": "Source-complete support and error follow-through plus preserved combat snapshot ownership published8f2b; exact-head acceptance pending.",
+    "current_source_followthrough": "Vista public contracts, mesh cohort preparation, scene-owned court stair support, checked signed floor shifts, ignored pigment fixture, Wasm classification, cached paving error causes.",
+    "pending_hosted_run": 39552331390,
+    "pending_hosted_job": 119064104970,
+    "last_goal_turn_classification": "Progress: diagnosed exact a0b1 hosted failure (one file ceiling), moved complete body/essentials/skills snapshots and trait/default implementations byte-identically into existing model owner, preserved existing tests and all20 exits, no ceiling/registry change; committed/pushed8f2b and pinned its in_progress hosted job. Exact-head semantic/growth and calendar gates now pass; Wasm lint live at 2026-10-21T06:03:39.868877+00:00. No family acceptance.",
+    "current_scope_warning": "Six earlier families retain historical acceptance only; expanded accessor-lens reconciliation is not implicitly complete. P08-P20 are not started and no original exit is removed.",
+    "early_family_current_source_recheck": "early-family-current-source-reconciliation.json; limited named-path source recheck, no fresh execution acceptance.",
+    "source_head": "c912fd7a7c7346c187399644e32919dde8aa2bbd",
+    "published_head": "8f2b901881f8aa8035a03cd99dbfefb7bbdf8926",
+    "updated_at": "2026-10-21T07:29:42.349705+00:00",
+    "parallel_ownership": "parallel-ownership/ownership-map.json and agent *-claims.json",
+    "hosted_ci_gate": "Only presume a connected family complete after tracing known producers, unchanged callers and receiving bodies. Push only source-complete increments. Reopen source repair if compilation exposes unknown gaps.",
+    "next_expected_required_groups": 48,
+    "next_expected_log_count": 51
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-458",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/traffic/mask.rs",
+      "sha256": "fad483542b55d8c03320f7821e731f040ab8d531131f55fce69bb448321463ef",
+      "actual_EOF": 175,
+      "actual_compared_ranges": [
+        [
+          1,
+          175
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/traffic/paths.rs",
+      "sha256": "325f130f750218a5c1d23de280add6f1f8e101a349427bc68e47f306d4a0bfc8",
+      "actual_EOF": 325,
+      "actual_compared_ranges": [
+        [
+          1,
+          325
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/traffic/tests.rs",
+      "sha256": "1c244b9eb9aefab83effd806c86bd999b7f56495eea1d48ebf72495b181187db",
+      "actual_EOF": 212,
+      "actual_compared_ranges": [
+        [
+          1,
+          212
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Traffic history generation and raster publication",
+      "analysis": "Full175/325/212line bodies read. Raster dimensions fixed258x258, fourchannels, signedrasterbounds clamp toimage; eachwheelstroke derivedfromdelta\u2265epsilon beforekept. Network buildsroad/marketspatialindices thenstraight/junctioncurves thenstroketileindices, all local beforeimagepublication. Sevenpasses fixedgauges/strengths and0.6mstep; validshortpositive road producesatleasttwopoints. Extremefinite rawlength canoverflowlength/worksteps; node_key millimetres saturatesi32 beyond~2147km, aliasesdistinctcoords; neither ordinarycityproducer nor checkedpublicAPIreachabilityshown. Keep geometrybudget/indexrepresentationqualification, notnewordinarydefect. CurvedBothaxles buildsallcandidate strokeslocally andrejects entirepassonunsupportedwheel envelope beforeextend; Frontintentionallyskipsunsupportedsegments. Finitepositivewidth guarantees nonzero smoothband denominators. Fixture masks/order/seams/junctions/narrowroad source analyzed, no execution."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/surface.rs"
+}

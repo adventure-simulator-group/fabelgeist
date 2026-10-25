@@ -1,0 +1,97 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-364",
+  "at": "2026-10-23T12:41:22.177840+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory.rs",
+      "sha256": "0f820bca06e27b164da010e95dc7d3500a79a6feb0b7be9411ed8a41e88feb18",
+      "scope072_index": 809,
+      "actual_EOF": 442,
+      "scoped_ranges_compared": [
+        [
+          1,
+          442
+        ]
+      ],
+      "actual05_comparison": "Fresh complete Inventory/loadout/occupancy and original239-line fixture body. Article selection binding, unique identity allocation, fallible wear rollback, dependency progress and fit-result exposure compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory/loadout.rs",
+      "sha256": "8b3ada636d68eaae16cf4ca2bab097cd918be93a52452d34dc3e2648add51691",
+      "scope072_index": 810,
+      "actual_EOF": 110,
+      "scoped_ranges_compared": [
+        [
+          1,
+          110
+        ]
+      ],
+      "actual05_comparison": "Fresh complete Inventory/loadout/occupancy and original239-line fixture body. Article selection binding, unique identity allocation, fallible wear rollback, dependency progress and fit-result exposure compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory/occupancy.rs",
+      "sha256": "dbd62cb0c402bcb0903b4bcebdc159c2d2f35f266e4dff77c359796db40231b8",
+      "scope072_index": 811,
+      "actual_EOF": 287,
+      "scoped_ranges_compared": [
+        [
+          1,
+          287
+        ]
+      ],
+      "actual05_comparison": "Fresh complete Inventory/loadout/occupancy and original239-line fixture body. Article selection binding, unique identity allocation, fallible wear rollback, dependency progress and fit-result exposure compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory/tests.rs",
+      "sha256": "3c8c66c5b49199d343845589bf635cd68c05dbd740656a1e33bdbc7c0534f4cd",
+      "scope072_index": 812,
+      "actual_EOF": 239,
+      "scoped_ranges_compared": [
+        [
+          1,
+          239
+        ]
+      ],
+      "actual05_comparison": "Fresh complete Inventory/loadout/occupancy and original239-line fixture body. Article selection binding, unique identity allocation, fallible wear rollback, dependency progress and fit-result exposure compared."
+    }
+  ],
+  "groups": [
+    {
+      "id": "catalogue article binding and raw editable state",
+      "comparison": "809 CatalogArticle.resolve obtains item+placement together, design_for rejects mismatching passed selection identity and requires override same construction family as current default. Article.validate checks IDs nonempty/design/decoration/construction or real garment validation, but membership only resolve later. Inventory privateVec exposes get_mut raw public InventoryItem and derivedSerde, so uniqueness is not sealed merely by backing privacy; normal recipe validation remains separate. Article carry versus worn intentionallydifferent, invalid carried raw edit not equivalent to acceptedLoadout."
+    },
+    {
+      "id": "F064 stable ID arithmetic preserves neither success nor rejection",
+      "comparison": "Stable article identity and actual validate duplicate check supply relation; map(id+1).max overflow occurs before allocation. Two unique representable IDs[MAX-1,MAX] suffice; checked builds panic and unchecked release chooses duplicateMAX. Existing small authored inventories positive, no run/normal exhaustion. New qualifiedF064 unrelated tactical runtime sequence wrapping policy."
+    },
+    {
+      "id": "wear operation has explicit rollback",
+      "comparison": "wear clones items before set_worn, retries fits while replacing conflict involving requested ID, restores complete clone for any otherErr. take_off clears requestedworn and removes unsupported dependants by rebuilding graph until none; remove then drops matching identity. Under normal unique candidateIDs each removal reducesworn count; arbitrary duplicate raw inputs may break that precondition, actual validate gateway not universally imposed here. shift guardsboundary, preserving relative inventory order exceptrequested adjacent swap."
+    },
+    {
+      "id": "worn graph dependency construction",
+      "comparison": "811 pending attachments only placed after actual parents available, retains order of alreadyplaced references. Each successfulpass reducespending; no-progress deferrednonempty implies actualmissing parent requirement, so expect has constructor-derived witness. Candidate support matches current location/channel/order/tags and available pointcapacity; repeated samepoint requirements increment owncandidate capacity indexes, downstream actual CoreEquipmentGraph.equip must validate complete edges. Nativeu16 count/narrowing/parent capacities and Coreequip body remain exact lower policies, not cleared from method name. Privategraph and supports snapshot created together; publicsupports mutation broader diagnostic API."
+    },
+    {
+      "id": "loadout grouped product and stable ordering",
+      "comparison": "810 first Inventory.fit, then resolves each worn item and requires wearable nonempty authoredsurface; same selection and design identity capturedtogether. Cloth saved selection/drape borrowed from same Article, sortedstable bylayer order preserving inventory order ties. EmptyDefaultintentvalid. PublicLoadout vectors/pieces can fabricate documented validated-fit product, exact existing Rig03F020 finding personally inspected and sourcecompared, no new unique. Its proposed encapsulation doesnotimply mutable Inventory is already accepted state."
+    },
+    {
+      "id": "fixtures and actual partial guarantees",
+      "comparison": "812 entire239 original tests compare default split/clothing/fitted identities, replacement acrosssame/differentlayers, fitzones, missing/capacity/sided parent dependencies, transitive takeoff, stable drape order, samefamily override, roundtrip then explicit validate/repeatedID rejection, outerwear and editedpattern occupancy. Tests read only; no project command/test/newcase. No inferred all raw design/skin/graphvalidity from successful sample assertions."
+    }
+  ],
+  "new_unique_findings": [
+    "NATIVE-INITIAL05-F064"
+  ],
+  "existing_finding_support": [
+    "RIG-ADMISSION03-F020 public accepted Loadout fit bypass"
+  ],
+  "remaining_dependency_obligations": [
+    "Normal recipe.validate and canonical CoreEquipmentGraph.equip complete predicates remain separately queued exact bodies."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

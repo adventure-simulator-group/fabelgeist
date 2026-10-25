@@ -1,0 +1,12 @@
+{
+  "id": "RIG-OWNER-DELTA-SEMANTIC-CORRECTION-001",
+  "corrects": [
+    "coverage.jsonl#RIG-OWNER-DELTA-COVERAGE-180 per_source_role_comparison",
+    "coverage.jsonl#RIG-OWNER-DELTA-COVERAGE-074..083 vague remainder61? wording"
+  ],
+  "actual_evidence": "Curl source37-38 and apply75/94 actual storedfrequency means three turns/metre per unit; Lookgroom frequency conversion read110-155. Existing old RIG-OWNER-HAIR-OPERATIONS084 summary frequency wording must be qualified, not automatically carried.",
+  "correct_disposition": "Stored Curl.frequency is a calibration multiplier of THREE turns/metre, not directly existing TurnsPerMetre. Derived frequency*3.0 is actual turns/metre. Existing unit-only Ratio is reusable multiplier leaf, or own exact calibrated role; any changing storedrepresentation must preserve original divide/multiply FP order and publicSerde numericwire. No simple TurnsPerMetre(rawfrequency) alias. Phase random_offset is turns, not radians or physicalfrequency.",
+  "fixture_correction": "The uncertain remainder61? token in shared fixture notes is withdrawn; no exact numeric remainder61 assertion is made. Precise fixture inputs/assertions remain only their cited actual original source/proof, with no changes or execution.",
+  "source_edits": 0,
+  "coverage_count_change": 0
+}

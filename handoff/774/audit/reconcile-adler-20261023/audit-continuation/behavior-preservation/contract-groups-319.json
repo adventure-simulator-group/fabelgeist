@@ -1,0 +1,138 @@
+{
+  "id": "CONT08-CONTRACT-319",
+  "at": "2026-10-25T16:26:48.669045+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 1160,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/marriage.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/relationship/marriage.rs",
+      "before_sha256": "707052669ad21da99362ea13fe18eefef9b2ee79c0cea3da8f4350da05068031",
+      "after_sha256": "707052669ad21da99362ea13fe18eefef9b2ee79c0cea3da8f4350da05068031",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1160-base-707052669ad21da99362ea13fe18eefef9b2ee79c0cea3da8f4350da05068031",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/707052669ad21da99362ea13fe18eefef9b2ee79c0cea3da8f4350da05068031",
+      "diff": "source-evidence/pr-1160.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          481
+        ]
+      ],
+      "head_body_read_method": "Fresh complete body and actual full base/head diff; own08 queue/recipient/default/error/wire comparison, explicit remainingtransaction/history API limits.",
+      "facts": [
+        "Fresh full1\u2013481; full PR diff empty. Participantwedding ignoresparameterfrontier, refreshesofficialclock andcollectsreservedengagementdue<=official; earliestparticipantdeath<=ceremony cancelsatdeath elsehistoricalalive+age atceremony,missingcharacter/underage distinctterminalreasons. Housing selects effective legalhistory acquisition<=ceremony<resolved/nativeholding_active andsameceremonysettlement, sort(acquired,id),first; nocurrentprimaryresidence/locationauthority substitution. Actualnativeholdingreceiver remainsindependentrole.",
+        "Formalpairedcourtship controlsfrozendowry(father/amount),firstfemale personality determinesrecipient elsefallbacksecond, exactescrowmatchpaidelseInsufficientFunds. Creditrecipient/deleteescrow\u2192household\u2192joinfirstHead/secondSpouse\u2192eachmove_residence_occupant_at?\u2192kinships\u2192dowryoutcome\u2192marriage+participantrows\u2192courtshipEnded\u2192commitmentFulfilled. Comment allfalliblevalidationbeforewrite doesnotproveabsence laterfalliblemove/nativeDBrollback. Globalmixedqueue catchesweddingErr so conditionalpartialpublication/compensation obligations retained ratherthan asserting atomicity. No actualadmittedfailingmove witness established, no new774regression count.",
+        "Dedicatedweddingsglobal sorts(effective,id),truncate thenparticipantdelegate; normalcurrentexclusiveparticipantuniqueness boundsoneactivecommitment, malformedduplicateAPIoutsideordinaryproof. Resolveactiveonly updatesmarriage thenleaveonlymatchinghouseholdjoined<=minute,remove_nonowned occupancy,matchingmarriageparticipantdelete andspousekinshipdelete,commitmentEnded/event; exactmarriagehistory retainsinsteadofcurrentkinshipforobserver. Endpublicauthority/parsedstate/participant/ExclusiveSharedworldclock/effectivehalfopenguard thenresolve. Widowrequiresdeath<=suppliedminute andbothpersonalfrontiers>=death; no retrospectivelocationrewrite prooffromthisfilealone."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1161,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/mod.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/relationship/mod.rs",
+      "before_sha256": "3a963760e8bdf9dbe54464488f72d3dd2c976d3a2da5705a5cb30dec2f9265b1",
+      "after_sha256": "3a963760e8bdf9dbe54464488f72d3dd2c976d3a2da5705a5cb30dec2f9265b1",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1161-base-3a963760e8bdf9dbe54464488f72d3dd2c976d3a2da5705a5cb30dec2f9265b1",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/3a963760e8bdf9dbe54464488f72d3dd2c976d3a2da5705a5cb30dec2f9265b1",
+      "diff": "source-evidence/pr-1161.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "head_body_read_method": "Fresh complete body and actual full base/head diff; own08 queue/recipient/default/error/wire comparison, explicit remainingtransaction/history API limits.",
+      "facts": [
+        "Fresh full1\u2013217; full PR diff empty. Includes importedcanonicalnativevocabulary andsameorderedrelationshipowners; authority/leisurefixturesfeature-gated, sourceconcatcfgtest no bodycoverageforunreadchildren. Mixedglobalqueue sortsfullkey(effective,weddingbeforebirth,id),filterprocessable beforelimit, so temporarydeferredno capacity;actualprocessableown318 clocks/death guard distinctfromweddingdelegateworldclock policy. Normalexclusive uniqueness limits delegatedweddingexpansion; no blanketallrawduplicates safe.",
+        "OnweddingErr attemptcancelexactcommitmentwithResidenceUnavailable (itself?canabort), thenrecordfailure Unicode512chars. Birthvalidate_due_birth error\u2192quarantine+failure vsactualsettle_due_births errorpropagated (no catch afterpartialCharacterconstruction). countselectedrows not necessarilycompletedoutputs. NativeDBtransactioncommentnotproofcaughtpriorwritesrollback. Ownproductionreceivers1160/birthforthcoming independentlyassessed; no inheritedcross-lensclearance."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1162,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/model.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/relationship/model.rs",
+      "before_sha256": "91e0b874352ecb65b64568b5149fbf1bd8a1103dbb836c2a5639cca239ab0043",
+      "after_sha256": "91e0b874352ecb65b64568b5149fbf1bd8a1103dbb836c2a5639cca239ab0043",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1162-base-91e0b874352ecb65b64568b5149fbf1bd8a1103dbb836c2a5639cca239ab0043",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/91e0b874352ecb65b64568b5149fbf1bd8a1103dbb836c2a5639cca239ab0043",
+      "diff": "source-evidence/pr-1162.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          496
+        ]
+      ],
+      "head_body_read_method": "Fresh complete body and actual full base/head diff; own08 queue/recipient/default/error/wire comparison, explicit remainingtransaction/history API limits.",
+      "facts": [
+        "Fresh full1\u2013496; full PR diff empty. TemporalScopeActorLocal/PairwiseSoft/Institutional returnsactorpersonalclock ignoringtarget; NpcCanonical requiretargetpolicy thenactorclock; ExclusiveShared requiretargetexists thenrefreshofficialworldclock, notmaxparticipant orpersonaldateequality. Rawschemaallprivate tables/keys/uniquehouseholdmember/activeparticipants/activepregnancy/childreservation andtransportenum shapes unchanged. Parsedstate nativeowners appliedspecificcommitment/marriage/courtship/pregnancy transitions, rawfields themselvesnotsealed.",
+        "Conceptionreceiptordinal/minute/success,checkpointu8conservedminutes+u64nextordinal, fixedoverlap/sourceIDs, snapshotriskfields, birthname/home seeds andsignedbirth coordinate retainnativeownership. Dowryoutcome/escrow/Lifecyclefailure/socializingreceipt namespace+order preserved. Frozenapprovedfather/wealth/riskintent explicit; no runtime/privateDBleak frompublicgatewayonlyDTO. Actualconstructor/recipientbodies individuallyread elsewhere, notsimplemetadataexhaustion."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1163,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/newborn_residence.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/relationship/newborn_residence.rs",
+      "before_sha256": "4057e287f3a5f3e79a9925db6a3b0769662f356fc27a8a8f9ea82a4db3b4affc",
+      "after_sha256": "4057e287f3a5f3e79a9925db6a3b0769662f356fc27a8a8f9ea82a4db3b4affc",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1163-base-4057e287f3a5f3e79a9925db6a3b0769662f356fc27a8a8f9ea82a4db3b4affc",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/4057e287f3a5f3e79a9925db6a3b0769662f356fc27a8a8f9ea82a4db3b4affc",
+      "diff": "source-evidence/pr-1163.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "head_body_read_method": "Fresh complete body and actual full base/head diff; own08 queue/recipient/default/error/wire comparison, explicit remainingtransaction/history API limits.",
+      "facts": [
+        "Fresh full1\u201321; full PR diff empty. Ancillarynewbornhousing intentionally discards inherit_parent_home_at Result afterbirthcommits, householdmembershipauthoritative evennobed; preservethisnonfatalpolicy ratherthan makewholebirthfail. Nativehomereceiverfuturefullrole, noclaimedallerrorsunimportantoutsidebirth."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1164,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/projections.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/relationship/projections.rs",
+      "before_sha256": "21ca8c10819955044eb13b938fbd469c82394fafb8353c1b4af33d72b8edc688",
+      "after_sha256": "21ca8c10819955044eb13b938fbd469c82394fafb8353c1b4af33d72b8edc688",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1164-base-21ca8c10819955044eb13b938fbd469c82394fafb8353c1b4af33d72b8edc688",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/21ca8c10819955044eb13b938fbd469c82394fafb8353c1b4af33d72b8edc688",
+      "diff": "source-evidence/pr-1164.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          255
+        ]
+      ],
+      "head_body_read_method": "Fresh complete body and actual full base/head diff; own08 queue/recipient/default/error/wire comparison, explicit remainingtransaction/history API limits.",
+      "facts": [
+        "Fresh full1\u2013255; full PR diff empty. Trustedgatewayonly wholeprojection, ownerfilterwebcallercontractnotnativeviewperactorsecuritybyitself. CandidateIDs kinship/courtship/pregnancy allparticipantsBTree, characterexists+personalminute(default0); spouse scansbothcanonicalpositions halfopenhistory; courtship firstposfallbacksecond andhistoricalwindow, exposed onlysucceededreceipt<=observer. Activepregnancyscansbothparents byhistoricalconceived/resolved; bornlatest(due,id)statusBorn+due<=observer. No directpregnancytruthdisease/privaterisk fields.",
+        "Weddingprojection dependscurrent exclusive_commitment_participant thenhistoricalwindow; removedparticipantrows mayhideoldweddingpendingatlaggingfrontier, retainedmaterialization/history limitation notintroduced774regression orprovenordinaryvisibledefect. Pairwise active_courtship_between_view useslatestActive|Exposed withoutfrontier, distinctavailabilitycallercontract mustapplyappropriateobserverlogic. Discoveryview onlysuccess+attempted<=observer, resolvesexactprivatecourtship andexposesobserver/pair/minute; webactualrecipientstillindependentrole. Preservefullu64IDs/Optionwireorder/firstlookuppriority, no browserexecution."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    }
+  ],
+  "next": "1165 reproduction full pinned source;1166 socializing then sourcefixtures"
+}

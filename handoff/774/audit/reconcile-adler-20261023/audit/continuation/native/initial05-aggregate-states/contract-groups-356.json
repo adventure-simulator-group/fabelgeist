@@ -1,0 +1,63 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-356",
+  "at": "2026-10-23T12:34:37.902869+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/place/mod.rs",
+      "sha256": "4197c4d14aeac409495f9d91e21e2e69439a4a62bd9991804a5b8fe59ebaad8d",
+      "scope072_index": 801,
+      "actual_EOF": 365,
+      "scoped_ranges_compared": [
+        [
+          1,
+          365
+        ]
+      ],
+      "actual05_comparison": "Fresh full host and generated place shader in bounded displays; point/strand/guide addressing, frame normal transforms, whole-root shift and ordered difference-of-equilibria compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/place/wgsl.rs",
+      "sha256": "21850bcf4f22d8cd055230bb6ac0c8b93f722a90a278d51568acb513894f88c3",
+      "scope072_index": 802,
+      "actual_EOF": 274,
+      "scoped_ranges_compared": [
+        [
+          1,
+          274
+        ]
+      ],
+      "actual05_comparison": "Fresh full host and generated place shader in bounded displays; point/strand/guide addressing, frame normal transforms, whole-root shift and ordered difference-of-equilibria compared."
+    }
+  ],
+  "groups": [
+    {
+      "id": "point channels carried by one current mapping",
+      "comparison": "801 captures count/points once, sizes positions count*points*16, attributes count*32 and roots count*16, then802 one invocation per strand copies same attribute ID/UV/group/radius with transformed normal and every point/root with same root lift. Geometry channels stay corresponding; original w retained. New GpuGroom count/points match source, bounds/head/guides deliberately invalidated, transformed conservative root bounds recomputed. Native points>=1 and actual buffer logical extents remain producer conditions."
+    },
+    {
+      "id": "guide selection proves bounded source membership",
+      "comparison": "step=max(count/2048,1), guides=ceil(count/step). For count>0, every guide ordinal<guides maps guide*step<count, so GATHER source_index valid within corresponding points row absent native product overflow. Same guides and points allocate placed and groomed buffers; four equilibrium solves operate on matching order against current body/free and original bust/free. MOVES subtracts world-frame character push and transformed bust push for same point ordinal, avoiding mixing unrelated guide sets."
+    },
+    {
+      "id": "nearest guide keeps occurrence correspondence",
+      "comparison": "FOLLOW current count guard and positive points source contract; each strand chooses one nearest guide root, not weighted blending across opposite sides of shoulder. Nonzero count ensures guides>=1 by host formula. Same guide point j used for strand point j. Root unchanged, below-head/sink weighting uses current fitted frame; segment reconstruction uses each original segment rest length. This preserves intended style-relative change, not proof every numerical extreme or final collision-free strand."
+    },
+    {
+      "id": "scalar ordering from current authored constants",
+      "comparison": "ROOT steps12/tolerance.0001/shift.03/min incidence.3 and sink.03<.05 protect ordinary division. Hold start/full computed from current bust cranium under accepted positive placement scale, so ordered positive vertical span relies on existingRig03F019 coherent affine gate. Frame::params reciprocal length floor is native projection stabilization, not repairing zero-scale private owner or proving all host/device inverses identical."
+    },
+    {
+      "id": "ordered submission and final shrinkwrap",
+      "comparison": "Carry submits before guide gather, equilibrium results precede moves/follow, then explicit Shrinkwrap preserve_length applied to placed groom against same field. Body no-body comparisons intentional. Native equilibrium, shrinkwrap and folded dispatch actual bodies remain separate own05 obligations; no source/compiler/GPU execution or normal failure claimed. Two production files have no inline original fixtures."
+    },
+    {
+      "id": "F063 exact dedup qualification",
+      "comparison": "Camera07 reports no own exact triangle packing record, but personally consumed Rig03F018 is exact source-backed prior graph perQUAL095. F063 remains independent support only, current unique count62. No additional finding from repeated numerical leaf guards in this batch."
+    }
+  ],
+  "new_unique_findings": [],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

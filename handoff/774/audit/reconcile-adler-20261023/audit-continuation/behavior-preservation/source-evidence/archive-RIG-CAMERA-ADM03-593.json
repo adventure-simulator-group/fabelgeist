@@ -1,0 +1,37 @@
+{
+  "id": "RIG-CAMERA-ADM03-593",
+  "camera_queue_index": 593,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_effects.rs",
+  "sha256": "e86e2ae841e103433b835515ccaa96bca4bdf76b249feda73990195735993201",
+  "queue_ref": "continuation/admission03-queue-v002/camera_rig_support.json#/queue/46",
+  "scope_pointer": "/files/1213",
+  "actual_read_ranges": [
+    [
+      1,
+      636
+    ]
+  ],
+  "actual_eof": 636,
+  "current_source_absent": false,
+  "base_sha256": null,
+  "current_roles": "Dialogue effect execution, exact chapter representative and consumed investigation binding",
+  "invariant": "Actual live presence precedes each effect; business authority derives current NPC/chapter/service and pre-issued exact session/objective/custody binding, not authored arbitrary IDs.",
+  "all_admission_routes": [
+    "apply_dialogue_effect first require_live_dialogue_presence. Accept/Report only special selected-service-contract sentinel; actualoffered/activecontract mustsameactualNPC/service/settlement before interactionreceipt+recipient. Onlyknownprofess-local-faith flag accepted.",
+    "Organization effect derives exactactualchapter representative with canonicalobserved/effectiveplace equality, checked StrategicFixtureId::chapter and exactexpectedNPC/home/organization/conversation fields. Explicit/uniquepromotion target isdirectauthored; entryrole actualcataloguefirst. Underlying join/dues/promotion gates are own558 body, no arbitraryorganizationcontent authority.",
+    "Referred testimony requiresactualemitted eventsequence before receive+passiveassessment. Investigation requireslivingpartyleader and exactbinding session/character/party/action/sourceScope/currentrevision/unconsumed, actualNPCrecipient stillpresent, opencase/currentobjective and freshlyrecomputedrecipient plusgeneratedmanifest.",
+    "Return/release/exchange additionally currentcase/partyholder+expectedcustodyversion beforestate-machine helper589, incrementversion.saturating andconsume binding onlyafteractualsuccess. Otherobjectivefamilies constructmatchingtypedfact andingest589 beforeconsumebinding.",
+    "Playerconversation sharedsettlementoractualcontextualpresence andbothpartyIDs. NPCconversation senderparty+settlement/navigablelocation, actualnumericNPC/profile/presencerow, exacthome/ID/settlement/location+dailywindow andnpc_is_present; missingpersonalclock fallback720 is explicitbusinessbehavior, not fullchronologystateadmission. No localnewrecord/Serde/Reflect/Default."
+  ],
+  "counterexample_or_intentional_boundary": "Full636 actualread. Lower policy forliveDialogue/session/clock/fixturecanonical and actualbusiness methods remains explicitjoins. No accepted-state seal fromstructnames or previousbindingalone. Comparison/correlation rules statedhere are admission facts only, no laterlensclearance.",
+  "finding_refs": [],
+  "connected_dependencies": [
+    "RIG-CAMERA-ADM03-558/582 organization",
+    "RIG-CAMERA-ADM03-589 custody/facts",
+    "RIG-CAMERA-ADM03-592 issuedbinding",
+    "Native current place codec001; own dialogue_sessions598 and canonical DailyPresenceWindow dependency"
+  ],
+  "mode": "Fresh actual current admission source comparison; original tests read as source only. No project execution or earlier-lens verdict carry.",
+  "authority": "root/admission03/support-authority-053.json; Camera retains source/audit ownership; Root final audit/repair authority",
+  "disposition": "exact_source_role_compared_with_stated_limits_and_dependencies"
+}

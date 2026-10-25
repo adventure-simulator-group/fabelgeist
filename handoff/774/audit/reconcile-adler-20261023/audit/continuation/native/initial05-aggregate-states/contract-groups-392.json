@@ -1,0 +1,82 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-392",
+  "at": "2026-10-23T13:03:25.725089+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/joint_melee.rs",
+      "sha256": "7373a905f23ab3075cfb464c0a936ce1ebc33ba6c5c6ad23866b1a1479c5b983",
+      "scope072_index": 862,
+      "actual_EOF": 329,
+      "scoped_ranges_compared": [
+        [
+          1,
+          329
+        ]
+      ],
+      "actual05_comparison": "Fresh full source and original exchange fixtures; private scheduling phases, simultaneous member identity and returned exchange contact/defense/result relationships independently compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_defense.rs",
+      "sha256": "6c64790c60c4ad2b52d4e3a18e312b8be73cb714ec27aa194f9a345d17eda293",
+      "scope072_index": 863,
+      "actual_EOF": 221,
+      "scoped_ranges_compared": [
+        [
+          1,
+          221
+        ]
+      ],
+      "actual05_comparison": "Fresh full source and original exchange fixtures; private scheduling phases, simultaneous member identity and returned exchange contact/defense/result relationships independently compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_exchange.rs",
+      "sha256": "24f36a32ff70fea580b9c7b902884edc25bf7c01b0d6feb3e03b35f257c93935",
+      "scope072_index": 864,
+      "actual_EOF": 293,
+      "scoped_ranges_compared": [
+        [
+          1,
+          293
+        ]
+      ],
+      "actual05_comparison": "Fresh full source and original exchange fixtures; private scheduling phases, simultaneous member identity and returned exchange contact/defense/result relationships independently compared."
+    }
+  ],
+  "groups": [
+    {
+      "id": "joint windows separate contact, movement and scheduling lifecycle",
+      "comparison": "862 full329. Round duration split into rounded 64Hz step count with minimum1, checked window duration and BattleTime arithmetic. These are private functions receiving embedded parameters; no arbitrary unvalidated public extreme config reachability assumed. Each window collects private scheduled contacts, selects earliest time, retains contacts within tolerance, advances movement to that time then resolves. Recursion handles remainder only when time precedes window end by tolerance. Progress still depends on scheduled-current attacks being cleared/canceled by actual lower turn logic; no name-only recursion termination guarantee. No blanket stack bound from outer256 rounds."
+    },
+    {
+      "id": "contact batch uses same ordered list and exact identity relation",
+      "comparison": "862 sort compares actual contact times then full attacker ID. contact_batch filters exact equal contact time from same current list, constructs member attack IDs and finds current member position. Current attack necessarily contributes a member, so empty/default branches are not normal absence handling. However 863 attack_id loses upper32 actor bits: personally consumed Root04F027/CON075, then independently compared current863188\u2013190 and862175\u2013205. Distinct admitted actor IDs1/4294967297 at same start alias, repeated members produce same first order. Exact existing API-only identity graph support, not a new unique or normal high DB-ID/runtime claim. Native tick unit/clock capacity remains distinct."
+    },
+    {
+      "id": "simultaneous and current attack relations are intentional",
+      "comparison": "862 precomputes all batches before applying damage; a defeated attacker may resolve if a multi-member batch, but stale/canceled scheduled attack is still rejected by scheduled_attack_is_current. Resolve then clears all three private start/contact/measure option fields together. No vector resize/removal occurs while captured indices are used. Per-side scheduling chooses deterministic first side using IDs; movement pairs by stable current index up to min side lengths, not proof of arbitrary engagement-ID matching. Actual lower scheduling/movement/commit policies remain separate queued sources."
+    },
+    {
+      "id": "defense decision payload and phase state are coupled by normal factories",
+      "comparison": "863 full221. Closed MeleeDefenderPhase distinguishes neutral, committed timing and recovery deadline. Default response constructor always committedNone; committed response chooses same returned CommittedThreatDecision and resulting finish-trade/reciprocal response together. Intercept requires own start after incoming start, not after contact, within reflex window; checked elapsed admits difference. Decision commit writes jitter/start/contact/measure/recovery together with no fallible step midway. Raw same-module ScheduledMeleeTiming fields can be out of order; actual scheduling factory must establish ordering before commit. Three separate BattleTime leaves are not a whole timing validator."
+    },
+    {
+      "id": "reaction timing and recovered guard have different zero semantics",
+      "comparison": "863 remaining recovery0 returns guard1 before division, so zero windup with positive remaining yields0 after clamp rather than0/0. Reaction delay interpolates ordered authored bounds using current sample clamped0..1, displacement elapsed is admitted before returning. Input reflex is a separate ratio using configured reflex-window; actual build851 requires its positivity. Raw nonfinite same-crate samples are not sealed by clamp; normal deterministic samples are finite0..1. No arbitrary finite sample or shipped config failure inferred."
+    },
+    {
+      "id": "exchange retains one contact and effective defense decision",
+      "comparison": "864 full293 with original fixtures. Computes checked incapacitation performance, one melee contact using same attacker/defender views and precision, optional alignment only for weapon-contact response, uses alignment.effective for actual shared attack resolution. Returned result, contact, alignment and effective response belong to that one exchange. Final result multiplied by bounded performance; this normal multiplier0..1 does not itself instantiate Root04 arbitrary rhs2 overflow witness. Raw contact-at-time scalar and numeric result admission remain lower canonical contracts. Test-only helper creates intended contact from effective reach, original432-case projection equivalence and outside-reach assertions were read but never executed."
+    }
+  ],
+  "new_unique_findings": [],
+  "existing_finding_support": [
+    "ROOT-INITIAL04-F027 / CONTRACT075, independently actual PR supplier and batch recipients compared"
+  ],
+  "remaining_dependency_obligations": [
+    "Actual lower scheduling/commit/movement/current-attack and canonical tick bodies remain queued; no loop or native clock proof from method names."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

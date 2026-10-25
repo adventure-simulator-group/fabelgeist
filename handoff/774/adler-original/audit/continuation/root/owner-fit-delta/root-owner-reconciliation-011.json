@@ -1,0 +1,2497 @@
+{
+  "id": "CONT-ROOT-OWNER-DELTA-ACCEPTANCE-011",
+  "at": "2026-10-22T03:20:49.591255+00:00",
+  "lens": "audit-existing-type-owners",
+  "status": "Root exact311 requested owner-role delta exhausted_with_findings; not global lens clearance",
+  "source_scope": "continuation/cumulative-source-scope-owner-delta-006.json + mandatory rangeoverlay",
+  "self_source_roles": 151,
+  "native_original_supplier_roles": 132,
+  "native_building_supplier_roles": 31,
+  "intentional_overlap": 3,
+  "unique_original_root_sources": 311,
+  "original_root_proofsets_preserved": true,
+  "consumed_native_semantic_evidence": {
+    "root132": "Personally reviewed all35 exact role/comparison-axis/connectedrepair groups in root-review-groups.json in three boundedparts, all11 finding/supportrows with actualdefinition/use/producer pointers and exactoriginalsource proofs retained. No originalpath/hash/readcount impliesownerfit.",
+    "building31": "Personally consumed all31 per-source semantic comparisons and G/R/T/P/N role matrices plus6 exactdependency proofs/six findings; reread omitted0\u201310 and dependency/findings after oversizedoutput truncation. Church461\u20131529 exactRIG029 source narrative supplies missingfreshbody claim only as explicitlyqualified.",
+    "selected_fit_checks": [
+      "SameBuildingId/ScenePlanPoint portablemove versusCoreenginecycle; finiteyaw broaderthanwrappingorientation.",
+      "Scene/Architectural/Botanicalassetorigin/Geographic-render reflectedsouth distinct; nofloatframecoercion.",
+      "Room0real versusfloor/editor0synthetic; StoreyIndexusize/u16checkedordinal versuswall/bay/indexroles.",
+      "PlanDimensionssectioncomponent exactsource beforeRoofWindowheadheight; newarithmeticlegitreadmission.",
+      "Contactsampledplanes mayreverse undergap; notSpatialBounds.",
+      "PerMetreinversespatialunit notRatio/grain_tilelength; actualreciprocalnativeprojectionlegitimate.",
+      "Exactf64route/source/hash/nativegeometry notf32/E7narrowed; actualnativeendpoints sourcebacked.",
+      "No guarantee from publicraw/Serde orcheckedboundingbox for independentpayload; all admission/aggregate/statequestions laterlenses."
+    ]
+  },
+  "supplier_pins": [
+    {
+      "record": "continuation\\native\\root-supplier-owner-fit\\progress.json",
+      "sha256": "4047dde93bb775690f3e2aed5bc83931d1c8c4a949415837cfedcb0d614ebee4"
+    },
+    {
+      "record": "continuation\\native\\root-supplier-owner-fit\\coverage.jsonl",
+      "sha256": "22a97e12aedf8164142902b71a24ebbaf9887785b7f767d75bbcc88dfb320f34"
+    },
+    {
+      "record": "continuation\\native\\root-supplier-owner-fit\\findings.jsonl",
+      "sha256": "a604517db5e331c737c9c4381fe6f9e0619581e1f99c553a47380fea610d25a4"
+    },
+    {
+      "record": "continuation\\native\\root-supplier-owner-fit\\additional-sources.jsonl",
+      "sha256": "843c7a7e2a2593236ab92b82a779774adb69eced365053a32f2616a6ad837f91"
+    },
+    {
+      "record": "continuation\\native\\root-supplier-owner-fit\\contract-witnesses.json",
+      "sha256": "14d81eac886e2ebe67945f9e68cee71b17f776e832b0021355b941f6d839ccd7"
+    },
+    {
+      "record": "continuation\\native\\root-building-owner-fit\\progress.json",
+      "sha256": "2a170149975a05a8fdfda2011628457d724b155990ea79008ea1987851ed1abc"
+    },
+    {
+      "record": "continuation\\native\\root-building-owner-fit\\coverage.jsonl",
+      "sha256": "d3895ee2416f9511fedb813d0d14dec0eeaf206be695e4c46b5d7230193b08d4"
+    },
+    {
+      "record": "continuation\\native\\root-building-owner-fit\\findings.jsonl",
+      "sha256": "1dc5a83c26ef16430596687b3815ed84d282cafeeb3d14026a318a0db9cd88c8"
+    },
+    {
+      "record": "continuation\\native\\root-building-owner-fit\\additional-sources.jsonl",
+      "sha256": "2e506669c305081faa369a886c2896404b1bab457414df31c050b52c7925d27e"
+    },
+    {
+      "record": "continuation\\native\\root-building-owner-fit\\contract-witnesses.json",
+      "sha256": "7c8969891eaccdb0e2aa7fe7081189dec38984bc00a8f70fac0d32bb335aad0f"
+    }
+  ],
+  "mandatory_errata": "continuation/root/owner-fit-delta/reference-errata-010.json",
+  "source_membership": {
+    "pr-working:crates/fabelgeist-geometry/src/lib.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": "geometry-owner-comparison-001.json",
+          "contract_refs": [
+            "finite-leaf-versus-unit",
+            "framed-points-and-bounds",
+            "existing-scene-owner-reuse"
+          ]
+        }
+      }
+    ],
+    "pr-working:crates/fabelgeist-geometry/src/length.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": "geometry-owner-comparison-001.json",
+          "contract_refs": [
+            "finite-leaf-versus-unit",
+            "framed-points-and-bounds",
+            "existing-scene-owner-reuse"
+          ]
+        }
+      }
+    ],
+    "pr-working:crates/fabelgeist-geometry/src/measurement.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": "geometry-owner-comparison-001.json",
+          "contract_refs": [
+            "finite-leaf-versus-unit",
+            "framed-points-and-bounds",
+            "existing-scene-owner-reuse"
+          ]
+        }
+      }
+    ],
+    "pr-working:crates/fabelgeist-geometry/src/cuboid.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": "geometry-owner-comparison-001.json",
+          "contract_refs": [
+            "finite-leaf-versus-unit",
+            "framed-points-and-bounds",
+            "existing-scene-owner-reuse"
+          ]
+        }
+      }
+    ],
+    "pr-working:crates/fabelgeist-geometry/src/error.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": "geometry-owner-comparison-001.json",
+          "contract_refs": [
+            "finite-leaf-versus-unit",
+            "framed-points-and-bounds",
+            "existing-scene-owner-reuse"
+          ]
+        }
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/spatial_geometry.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": "geometry-owner-comparison-001.json",
+          "contract_refs": [
+            "finite-leaf-versus-unit",
+            "framed-points-and-bounds",
+            "existing-scene-owner-reuse"
+          ]
+        }
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": "geometry-owner-comparison-001.json",
+          "contract_refs": [
+            "finite-leaf-versus-unit",
+            "framed-points-and-bounds",
+            "existing-scene-owner-reuse"
+          ]
+        }
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/bounds.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": "geometry-owner-comparison-001.json",
+          "contract_refs": [
+            "finite-leaf-versus-unit",
+            "framed-points-and-bounds",
+            "existing-scene-owner-reuse"
+          ]
+        }
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": "geometry-owner-comparison-001.json",
+          "contract_refs": [
+            "finite-leaf-versus-unit",
+            "framed-points-and-bounds",
+            "existing-scene-owner-reuse"
+          ]
+        }
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": "geometry-owner-comparison-001.json",
+          "contract_refs": [
+            "finite-leaf-versus-unit",
+            "framed-points-and-bounds",
+            "existing-scene-owner-reuse"
+          ]
+        }
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates/polygon.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": "geometry-owner-comparison-001.json",
+          "contract_refs": [
+            "finite-leaf-versus-unit",
+            "framed-points-and-bounds",
+            "existing-scene-owner-reuse"
+          ]
+        }
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/error.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-ROLES-002#finite_native_helpers"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/model/room_index.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-ROLES-002#room_ordinal_owner"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/model/layout.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-ROLES-002#room_ordinal_owner"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/generator/room_connections.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-ROLES-002#room_ordinal_owner"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/generator/wall_derivation.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-ROLES-002#room_ordinal_owner"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/generator/room_allocation.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-ROLES-002#room_ordinal_owner"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/generator/heated_rooms.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-ROLES-002#room_ordinal_owner"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/generator/occupied_storeys.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-ROLES-002#room_ordinal_owner"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/clearance.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-ROLES-002#geometry_refinements"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-ROLES-002#geometry_refinements"
+      }
+    ],
+    "physical-p16:crates/fabelgeist-geometry/src/measurement.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-ROLES-002#p16_neutral_scalar"
+      }
+    ],
+    "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-ROLES-002#p16_neutral_scalar"
+      }
+    ],
+    "physical-p16:crates/adventuresim-tactical-client/src/camera/smoothing.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-ROLES-002#p16_camera_kernel"
+      }
+    ],
+    "physical-p16:crates/adventuresim-tactical-client/src/player/quickstep_trace.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-ROLES-002#p16_trace_and_reexports"
+      }
+    ],
+    "physical-p16:crates/adventuresim-tactical-core/src/animation/mod.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-ROLES-002#p16_trace_and_reexports"
+      }
+    ],
+    "pr-working:crates/adventuresim-puzzles/src/choices.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "pr-working:crates/adventuresim-puzzles/src/lib.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "pr-working:crates/adventuresim-puzzles/src/logic_grid.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "pr-working:crates/adventuresim-puzzles/src/ordered_sigils.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "pr-working:crates/adventuresim-puzzles/src/puzzles.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "pr-working:crates/adventuresim-puzzles/src/resource_allocation.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "pr-working:crates/fabelgeist-determinism/src/lib.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "pr-working:crates/fabelgeist-determinism/src/seed.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "pr-working:crates/fabelgeist-determinism/src/stream.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "physical-p16:crates/adventuresim-terrain/src/digest.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "physical-p16:crates/adventuresim-world-schema/src/source_package.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "pr-working:crates/adventuresim-terrain/src/digest.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "pr-working:crates/adventuresim-world-schema/src/source_package.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "pr-working:crates/adventuresim-terrain/src/builder.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "pr-working:crates/adventuresim-terrain/src/builder/features.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "pr-working:crates/adventuresim-terrain/src/lib.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "pr-working:crates/adventuresim-terrain/src/road_pack.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "pr-working:crates/adventuresim-world-schema/src/coordinates/bounds.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "pr-working:crates/adventuresim-world-schema/src/coordinates/terrain_projection.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-server-dispatcher/src/bin/materialize-real-world-scene.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-server-dispatcher/src/main.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-server-dispatcher/src/regional_terrain.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-server-dispatcher/src/scene_input.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-server-dispatcher/src/scene_input/establishments.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-server-dispatcher/src/scene_input/terrain_capture.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-server-dispatcher/src/scene_input/tests/startup_fixtures.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-server-dispatcher/src/settlement_buildings.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-server/src/scene_setup.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "pr-working:crates/strategic-web/src/regional_source.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "pr-working:crates/strategic-web/src/routes/map_city.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "pr-working:crates/strategic-web/src/routes/map_environment.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "pr-working:crates/strategic-web/src/routes/map_environment/roads.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "pr-working:crates/strategic-web/src/routes/scene_assets.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "pr-working:crates/strategic-web/src/strategic_map/mod.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "pr-working:crates/strategic-web/src/strategic_map/producer.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "pr-working:crates/strategic-web/src/strategic_map/tests.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "pr-working:crates/strategic-web/src/templates/settlement/travel.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": {
+          "evidence": null,
+          "contract_refs": null
+        }
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/binding.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-NEW-SOURCES-004#boundary_descriptor_source"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/regional_environment.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-NEW-SOURCES-004#regional_retained_owners"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/regional_terrain.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-NEW-SOURCES-004#regional_retained_owners"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/terrain_transition.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-NEW-SOURCES-004#terrain_collars"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/terrain_transition/admission.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-NEW-SOURCES-004#terrain_collars"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-server-dispatcher/src/terrain_sampling.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-NEW-SOURCES-004#regional_percent_ingress"
+      }
+    ],
+    "pr-working:crates/strategic-web/src/routes/map_environment/connection_window.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-NEW-SOURCES-004#regional_clip_simplify_and_maplinks"
+      }
+    ],
+    "pr-working:crates/strategic-web/src/routes/map_environment/connection_window/simplification.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-NEW-SOURCES-004#regional_clip_simplify_and_maplinks"
+      }
+    ],
+    "pr-working:crates/strategic-web/src/strategic_map/markers.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-NEW-SOURCES-004#regional_clip_simplify_and_maplinks"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/audit/resolved_geometry_helpers.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-AUDIT-005#resolved_bounds_and_native_sat"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/solid_overlap.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-AUDIT-005#resolved_bounds_and_native_sat"
+      },
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-building-owner-fit/coverage.jsonl",
+        "id": "NATIVE-ROOT-BUILDING-OWNER-029"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/audit/bonding_metrics.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-AUDIT-005#contact_metrics_refinement"
+      },
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-building-owner-fit/coverage.jsonl",
+        "id": "NATIVE-ROOT-BUILDING-OWNER-001"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/audit/resolved_geometry.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-AUDIT-005#audit_complete_receiver"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/audit/shared_helpers.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-AUDIT-005#audit_complete_receiver"
+      },
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-building-owner-fit/coverage.jsonl",
+        "id": "NATIVE-ROOT-BUILDING-OWNER-002"
+      }
+    ],
+    "pr-working:crates/adventuresim-core/src/bestiary.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-CORE-006#bestiary_concentration_quantity_and_namespace"
+      }
+    ],
+    "pr-working:crates/adventuresim-core/src/bestiary/error.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-CORE-006#bestiary_concentration_quantity_and_namespace"
+      }
+    ],
+    "pr-working:crates/adventuresim-core/src/combat/armor.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-CORE-006#bestiary_concentration_quantity_and_namespace"
+      }
+    ],
+    "pr-working:crates/adventuresim-core/src/organization.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-CORE-006#organization_and_quest_authoring"
+      }
+    ],
+    "pr-working:crates/adventuresim-core/src/organization_catalog_validation.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-CORE-006#organization_and_quest_authoring"
+      }
+    ],
+    "pr-working:crates/adventuresim-core/src/quest_catalog.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-CORE-006#organization_and_quest_authoring"
+      }
+    ],
+    "pr-working:crates/adventuresim-core/src/quest_catalog_validation.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-CORE-006#organization_and_quest_authoring"
+      }
+    ],
+    "pr-working:crates/adventuresim-core/src/quest_catalog_validation/demographic.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-CORE-006#organization_and_quest_authoring"
+      }
+    ],
+    "pr-working:crates/adventuresim-core/src/road_encounter_catalog.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-CORE-006#road_catalogue_subset_and_precision"
+      }
+    ],
+    "pr-working:crates/adventuresim-core/src/attribute.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-CORE-006#attribute_body_and_generic_solver_mass"
+      }
+    ],
+    "pr-working:crates/adventuresim-core/src/body.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-CORE-006#attribute_body_and_generic_solver_mass"
+      }
+    ],
+    "pr-working:crates/fabelgeist-xpbd/src/dynamics/mass.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-CORE-006#attribute_body_and_generic_solver_mass"
+      }
+    ],
+    "pr-working:crates/adventuresim-core/src/local_problem.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-CORE-006#local_effects_signed_price_and_schedule"
+      }
+    ],
+    "pr-working:crates/adventuresim-core/src/strategic_schedule/allocation.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-CORE-006#local_effects_signed_price_and_schedule"
+      }
+    ],
+    "pr-working:crates/adventuresim-stdb-module/src/time/schedule.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-CORE-006#local_effects_signed_price_and_schedule"
+      }
+    ],
+    "physical-p16:crates/adventuresim-weapon-model/src/derived_properties.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-BOUNDARIES-007#weapon_holder_precision_and_native_output"
+      }
+    ],
+    "physical-p16:crates/adventuresim-weapon-model/src/design/generated.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-BOUNDARIES-007#weapon_holder_precision_and_native_output"
+      }
+    ],
+    "physical-p16:crates/adventuresim-weapon-model/src/holders.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-BOUNDARIES-007#weapon_holder_precision_and_native_output"
+      }
+    ],
+    "physical-p16:crates/adventuresim-weapon-model/src/mesh.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-BOUNDARIES-007#weapon_holder_precision_and_native_output"
+      }
+    ],
+    "pr-working:crates/adventuresim-weapon-model/src/design/holders.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-BOUNDARIES-007#weapon_holder_precision_and_native_output"
+      }
+    ],
+    "pr-working:crates/adventuresim-weapon-model/src/holders.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-BOUNDARIES-007#weapon_holder_precision_and_native_output"
+      }
+    ],
+    "pr-working:crates/adventuresim-weapon-model/src/recipe/material.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-BOUNDARIES-007#weapon_holder_precision_and_native_output"
+      }
+    ],
+    "physical-p16:crates/adventuresim-tactical-server/src/equipment/lifecycle.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-BOUNDARIES-007#equipment_lifecycle_native_entity"
+      }
+    ],
+    "native-dependency:serde-saphyr-1.2.0/src/de/error.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-BOUNDARIES-007#foreign_yaml_error"
+      }
+    ],
+    "native-dependency:serde-saphyr-1.2.0/src/lib.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-BOUNDARIES-007#foreign_yaml_error"
+      }
+    ],
+    "sdk-noiz-0.5.0:src/lib.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-BOUNDARIES-007#native_sdk_clock_and_noise"
+      }
+    ],
+    "sdk-spacetimedb-sats-2.6.1:timestamp.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-BOUNDARIES-007#native_sdk_clock_and_noise"
+      }
+    ],
+    "pr-working:Cargo.lock": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-BOUNDARIES-007#native_build_metadata_and_exports"
+      }
+    ],
+    "pr-working:Cargo.toml": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-BOUNDARIES-007#native_build_metadata_and_exports"
+      }
+    ],
+    "pr-working:crates/adventuresim-core/AGENTS.md": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-BOUNDARIES-007#native_build_metadata_and_exports"
+      }
+    ],
+    "pr-working:crates/adventuresim-puzzles/Cargo.toml": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-BOUNDARIES-007#native_build_metadata_and_exports"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-server/Cargo.toml": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-BOUNDARIES-007#native_build_metadata_and_exports"
+      }
+    ],
+    "pr-working:crates/fabelgeist-color/Cargo.toml": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-BOUNDARIES-007#native_build_metadata_and_exports"
+      }
+    ],
+    "pr-working:crates/fabelgeist-geometry/Cargo.toml": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-BOUNDARIES-007#native_build_metadata_and_exports"
+      }
+    ],
+    "pr-working:crates/fabelgeist-gpu/Cargo.toml": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-BOUNDARIES-007#native_build_metadata_and_exports"
+      }
+    ],
+    "pr-working:crates/fabelgeist-math/Cargo.toml": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-BOUNDARIES-007#native_build_metadata_and_exports"
+      }
+    ],
+    "pr-working:crates/fabelgeist-math/src/lib.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-BOUNDARIES-007#native_build_metadata_and_exports"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/admission_tests.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-BOUNDARIES-007#p17_orientation_exact_owner_policy"
+      }
+    ],
+    "report-p17:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-BOUNDARIES-007#p17_orientation_exact_owner_policy"
+      }
+    ],
+    "pr-working:assets/shaders/tactical_city_ground.wgsl": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#paired_native_shader_and_botanical_source"
+      }
+    ],
+    "pr-working:assets/shaders/tactical_interior_lighting.wgsl": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#paired_native_shader_and_botanical_source"
+      }
+    ],
+    "pr-working:assets/shaders/tactical_weather.wgsl": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#paired_native_shader_and_botanical_source"
+      }
+    ],
+    "pr-working:content/tactical/garden-hazel-envelope.json": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#paired_native_shader_and_botanical_source"
+      }
+    ],
+    "pr-working:crates/adventuresim-procedural-materials/src/lib.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#paired_native_shader_and_botanical_source"
+      }
+    ],
+    "pr-working:crates/adventuresim-procedural-materials/src/shaders/tactical_tree_bark.wgsl": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#paired_native_shader_and_botanical_source"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/signs.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#sign_architectural_geometry_and_output"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/signs/lettering.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#sign_architectural_geometry_and_output"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/signs/mounting.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#sign_architectural_geometry_and_output"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/signs/rendering.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#sign_architectural_geometry_and_output"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/signs/rendering/materials.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#sign_architectural_geometry_and_output"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/signs/site.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#sign_architectural_geometry_and_output"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/signs/tests.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#sign_architectural_geometry_and_output"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/audit/wall_openings.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#wall_opening_complete_sources"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/generator/artillery_openings.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#wall_opening_complete_sources"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/generator/church_tower.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#wall_opening_complete_sources"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare-city-terrain.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#support_diagnostic_actual_ports"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/capture.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#support_diagnostic_actual_ports"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/capture_export.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#support_diagnostic_actual_ports"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/contacts.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#support_diagnostic_actual_ports"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/gardens.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#support_diagnostic_actual_ports"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/export-city-scene.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#support_diagnostic_actual_ports"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/gate_approach/profile.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#support_diagnostic_actual_ports"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/support_regions.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#support_diagnostic_actual_ports"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/support_regions/distance.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#support_diagnostic_actual_ports"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/validate-city-support.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#support_diagnostic_actual_ports"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/validate_city_support/composition.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#support_diagnostic_actual_ports"
+      }
+    ],
+    "pr-working:crates/adventuresim-core/src/reputation.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-IDENTITY-009#home_population_and_presence"
+      }
+    ],
+    "pr-working:crates/adventuresim-core/src/settlement_property.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-IDENTITY-009#home_population_and_presence"
+      }
+    ],
+    "pr-working:crates/adventuresim-core/src/settlement_property/tests.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-IDENTITY-009#home_population_and_presence"
+      }
+    ],
+    "pr-working:crates/adventuresim-core/src/strategic_presence.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-IDENTITY-009#home_population_and_presence"
+      }
+    ],
+    "pr-working:crates/adventuresim-core/src/investigation.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-IDENTITY-009#investigation_adapter_identity"
+      }
+    ],
+    "pr-working:crates/adventuresim-strategic-sim/src/live_core/config.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-IDENTITY-009#simulation_fixture_runtime_owner_policy"
+      }
+    ],
+    "pr-working:crates/adventuresim-strategic-sim/src/live_core/fixture_policy.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-IDENTITY-009#simulation_fixture_runtime_owner_policy"
+      }
+    ],
+    "pr-working:crates/adventuresim-world-schema/src/lib.rs": [
+      {
+        "supplier": "root",
+        "record": "continuation/root/owner-fit-delta/coverage.jsonl",
+        "contract_ref": "CONT-ROOT-OWNER-IDENTITY-009#world_schema_exact_units_and_qualified_prior_refs"
+      }
+    ],
+    "physical-p16:crates/adventuresim-tactical-client/src/debug.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-000"
+      }
+    ],
+    "physical-p16:crates/adventuresim-tactical-client/src/targeting.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-001"
+      }
+    ],
+    "physical-p16:crates/adventuresim-tactical-core/src/physics.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-002"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/examples/armor_fixture/pauldron_tests.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-003"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/examples/runtime_equipment_bench.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-004"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/examples/runtime_equipment_ports.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-005"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/art_demo.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-006"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/art_demo/camera.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-007"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/art_demo/exhibits.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-008"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/art_demo_main.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-009"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/audio_config.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-010"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/combat_effects.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-011"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/combat_effects/blood_decals.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-012"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/debug.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-013"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/main.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-014"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/movement_audio.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-015"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/boundaries/projection/tests.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-016"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/signs.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-017"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/streaming.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-018"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/closure_meshes.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-019"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/config.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-020"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/generation.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-021"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/city.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-022"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/ownership.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-023"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/requests.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-024"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/scene.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-025"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/wasm_error.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-026"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/worker_products.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-027"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass/placement.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-028"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/batching.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-029"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/capture.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-030"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/placement.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-031"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/interior_lighting/exposure.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-032"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/interior_lighting/material.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-033"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/interior_lighting/shutters.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-034"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/interior_lighting/tests.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-035"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/mod.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-036"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/rock.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-037"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/lod.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-038"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/materials.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-039"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/ownership.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-040"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/preparation.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-041"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/procedural.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-042"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/recipe_mesh.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-043"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/camera.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-044"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/city.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-045"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/city/installation.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-046"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/geographic_surface.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-047"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/markers.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-048"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/mod.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-049"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/surface.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-050"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/terrain/ground_map.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-051"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/terrain/ground_map/noise.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-052"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/pending.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-053"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/regional.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-054"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/activity.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-055"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/material.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-056"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/partition.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-057"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/streaming.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-058"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/support.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-059"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/support/index.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-060"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/traffic.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-061"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/traffic/mask.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-062"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/traffic/paths.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-063"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/traffic/tests.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-064"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/weather.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-065"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/equipment.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-066"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/targeting.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-067"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-client/src/weather_audio.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-068"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/AGENTS.md": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-069"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/homes.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-070"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/support/street.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-071"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/city_layout/gardens.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-072"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/city_layout/gardens/geometry.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-073"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/city_layout/gardens/specimen.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-074"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/access/tests.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-075"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/diagnostic.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-076"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source/presented.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-077"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source/region.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-078"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/location.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-079"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/measurement.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-080"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/planar/query.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-081"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/planar/query/tests.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-082"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/policy.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-083"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/profile.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-084"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/query.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-085"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement/production.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-086"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement/single.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-087"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/city_layout/surfaces.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-088"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/inventory/armor.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-089"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/physics.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-090"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/player/attack_timing.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-091"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/regional_map.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-092"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene/admission.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-093"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene/grade/tests.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-094"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene/ground.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-095"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates/spatial_tests.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-096"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates/velocity.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-097"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates/window.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-098"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene_ground.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-099"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene_input.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-100"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene_input/buildings.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-101"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene_input/buildings/identity.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-102"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene_input/buildings/placement.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-103"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene_input/descriptor.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-104"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene_input/environment.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-105"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-106"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/candidates.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-107"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/candidates/composition.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-108"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/candidates/frontage.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-109"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/candidates/market.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-110"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/collision.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-111"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/footprint.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-112"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/ground.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-113"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/interior.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-114"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/occupancy.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-115"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/placement.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-116"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/reservations.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-117"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/sites.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-118"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/sites/local.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-119"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene_input/gardens.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-120"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene_input/properties.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-121"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene_input/rock_recipe.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-122"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene_input/rock_streams.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-123"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene_input/terrain_samples.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-124"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene_input/urban.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-125"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/scene_input/validation.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-126"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-127"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain/error.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-128"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain/resistance.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-129"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain/support.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-130"
+      }
+    ],
+    "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain/surface_recipe.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-supplier-owner-fit/coverage.jsonl",
+        "id": "CONT-NATIVE-ROOT-SUPPLIER-OWNER-COV-131"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/audit.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-building-owner-fit/coverage.jsonl",
+        "id": "NATIVE-ROOT-BUILDING-OWNER-000"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/audit/vertical_circulation.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-building-owner-fit/coverage.jsonl",
+        "id": "NATIVE-ROOT-BUILDING-OWNER-003"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/generator/artillery_castle.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-building-owner-fit/coverage.jsonl",
+        "id": "NATIVE-ROOT-BUILDING-OWNER-004"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/generator/cathedral_clerestory.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-building-owner-fit/coverage.jsonl",
+        "id": "NATIVE-ROOT-BUILDING-OWNER-005"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/generator/church_assembly.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-building-owner-fit/coverage.jsonl",
+        "id": "NATIVE-ROOT-BUILDING-OWNER-006"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/generator/church_ground.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-building-owner-fit/coverage.jsonl",
+        "id": "NATIVE-ROOT-BUILDING-OWNER-007"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/generator/church_window_schedule.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-building-owner-fit/coverage.jsonl",
+        "id": "NATIVE-ROOT-BUILDING-OWNER-008"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/generator/church_windows.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-building-owner-fit/coverage.jsonl",
+        "id": "NATIVE-ROOT-BUILDING-OWNER-009"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/generator/entrances.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-building-owner-fit/coverage.jsonl",
+        "id": "NATIVE-ROOT-BUILDING-OWNER-010"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/generator/gable_openings.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-building-owner-fit/coverage.jsonl",
+        "id": "NATIVE-ROOT-BUILDING-OWNER-011"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/generator/gable_openings/obstacles.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-building-owner-fit/coverage.jsonl",
+        "id": "NATIVE-ROOT-BUILDING-OWNER-012"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/generator/gable_openings/tests.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-building-owner-fit/coverage.jsonl",
+        "id": "NATIVE-ROOT-BUILDING-OWNER-013"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/generator/roof_child_fronts.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-building-owner-fit/coverage.jsonl",
+        "id": "NATIVE-ROOT-BUILDING-OWNER-014"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/generator/roof_wall_opening.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-building-owner-fit/coverage.jsonl",
+        "id": "NATIVE-ROOT-BUILDING-OWNER-015"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/generator/roof_wall_opening/surfaces.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-building-owner-fit/coverage.jsonl",
+        "id": "NATIVE-ROOT-BUILDING-OWNER-016"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/generator/round_towers.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-building-owner-fit/coverage.jsonl",
+        "id": "NATIVE-ROOT-BUILDING-OWNER-017"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-building-owner-fit/coverage.jsonl",
+        "id": "NATIVE-ROOT-BUILDING-OWNER-018"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/generator/small_church/appearance_tests.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-building-owner-fit/coverage.jsonl",
+        "id": "NATIVE-ROOT-BUILDING-OWNER-019"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/generator/small_church/fittings.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-building-owner-fit/coverage.jsonl",
+        "id": "NATIVE-ROOT-BUILDING-OWNER-020"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/generator/small_church/programme.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-building-owner-fit/coverage.jsonl",
+        "id": "NATIVE-ROOT-BUILDING-OWNER-021"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/generator/small_church/storey.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-building-owner-fit/coverage.jsonl",
+        "id": "NATIVE-ROOT-BUILDING-OWNER-022"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/generator/small_church/tests.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-building-owner-fit/coverage.jsonl",
+        "id": "NATIVE-ROOT-BUILDING-OWNER-023"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/generator/stair_landing.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-building-owner-fit/coverage.jsonl",
+        "id": "NATIVE-ROOT-BUILDING-OWNER-024"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/generator/wall_assemblies.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-building-owner-fit/coverage.jsonl",
+        "id": "NATIVE-ROOT-BUILDING-OWNER-025"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/generator/window_closures.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-building-owner-fit/coverage.jsonl",
+        "id": "NATIVE-ROOT-BUILDING-OWNER-026"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/heating/placement.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-building-owner-fit/coverage.jsonl",
+        "id": "NATIVE-ROOT-BUILDING-OWNER-027"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/signs/emblems.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-building-owner-fit/coverage.jsonl",
+        "id": "NATIVE-ROOT-BUILDING-OWNER-028"
+      }
+    ],
+    "pr-working:crates/adventuresim-building-generator/src/viewer/player_build_scene.rs": [
+      {
+        "supplier": "native",
+        "record": "continuation/native/root-building-owner-fit/coverage.jsonl",
+        "id": "NATIVE-ROOT-BUILDING-OWNER-030"
+      }
+    ]
+  },
+  "new_definition_comparisons": [
+    {
+      "id": "NATIVE-ROOT-BUILDING-DEPENDENCY-002",
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/storey_index.rs",
+      "sha256": "399c8ab44cc2dd0c22df8ab1cb88d4284837f7aaccd08f14cb1e4fefcd58c05c",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\model\\storey_index.rs",
+      "read_ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "evidence_mode": "fresh exact allowed body read",
+      "comparison": "R: existing occupied-storey role, usize internal/all-u16packed/ground0/from_elevation checkedrounded admission, native Serde/error/fixtures preserved.",
+      "registration": "Root registration cumulative-source-scope-owner-delta-005 before fresh bodyread; producer supplement queued separately",
+      "scope_extension": "none by supplier; Root registered first",
+      "remaining_actual_unread_role_cells": []
+    },
+    {
+      "id": "NATIVE-ROOT-BUILDING-DEPENDENCY-003",
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/timber.rs",
+      "sha256": "452e6d4196200a40485612e2a5717561e708e0ebbaa595e20cb9b26b43ba599b",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\model\\timber.rs",
+      "read_ranges": [
+        [
+          1,
+          45
+        ],
+        [
+          139,
+          158
+        ]
+      ],
+      "evidence_mode": "fresh exact allowed body read",
+      "comparison": "T: existing distinct all-u64 Timber IDs and already checked Architectural positions/positive PlanDimensions section, no nonzero or membership promise.",
+      "registration": "Root registration cumulative-source-scope-owner-delta-005 before fresh bodyread; producer supplement queued separately",
+      "scope_extension": "none by supplier; Root registered first",
+      "remaining_actual_unread_role_cells": []
+    }
+  ],
+  "producer_followup": "Newdefinition/rangecontracts pending beforeadmission; currentowner workdoesnotclearproducer orotherlens",
+  "source_repairs": 0,
+  "local_project_commands": 0,
+  "human_decision_required": [],
+  "remaining": "Camera/Rig ownerqueues and newdefs; Native121 exactrootacceptance stillrequired. Globalinitial03\u201313, allrepairs/reviews/hostedCI pending."
+}

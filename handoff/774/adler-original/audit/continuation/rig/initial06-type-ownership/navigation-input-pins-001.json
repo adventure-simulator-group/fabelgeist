@@ -1,0 +1,191 @@
+{
+  "kind": "metadata_navigation_only_no_semantic_coverage",
+  "inputs": [
+    {
+      "record": "root/admission03/coverage.jsonl",
+      "sha256": "6352f3261f2053e66017c757994eefb9a7db3532d1262be76d4db93173aea9f8"
+    },
+    {
+      "record": "root/admission03/camera-native2-support/coverage.jsonl",
+      "sha256": "77997ad276ef6499a3c371f37d7ec0c3bc7937aa40348d64e3c8a7882d4b9ba0"
+    },
+    {
+      "record": "root/admission03/camera-support/coverage.jsonl",
+      "sha256": "ee909d158cd9503097ce596cb9c140a9deec1e006a893b6481d1e3a6f85c065e"
+    },
+    {
+      "record": "root/admission03/camera-support-extra40/coverage.jsonl",
+      "sha256": "babfa362e3908a633dea79184618d27930a6cfa1cc55faccffe9ebdf1bff4521"
+    },
+    {
+      "record": "rig/admission03/coverage.jsonl",
+      "sha256": "0edfac97636a8ae7260aadadd50349259f1b6b3aa1a1cc0d3957c7e340544653"
+    },
+    {
+      "record": "rig/admission03/camera-support/coverage.jsonl",
+      "sha256": "0d0db412b7a4828550a3b95348a8fab3fce3f97c57b6bada01fc545e05147f40"
+    },
+    {
+      "record": "rig/admission03/native20-support/coverage.jsonl",
+      "sha256": "cccfc953c6c053498dfd64d3b664d31bae0fa01f516ac86edc6fd529a86af5fe"
+    },
+    {
+      "record": "rig/admission03/root-support/coverage.jsonl",
+      "sha256": "c0a0ded92c549667bb305f57e386e52495efb18cda23fd7144a75169aae86670"
+    },
+    {
+      "record": "native/admission03/coverage.jsonl",
+      "sha256": "db5ac7e4c288ec2e91e8e86e0b1c5e556ff52c489cb0ceb1c0f7c2dddbd0d10c"
+    },
+    {
+      "record": "native/admission03/camera-lower-followthrough/coverage.jsonl",
+      "sha256": "36071bf6d0b8dd310c539909388e217da8124022a49e46562ce3a4f5e39ba24d"
+    },
+    {
+      "record": "native/admission03/camera-support/coverage.jsonl",
+      "sha256": "34bc1ce95f267be64e0b214779528dff7bc5e13fc9749c6d0f3aac447b883d36"
+    },
+    {
+      "record": "native/admission03/root-support/coverage.jsonl",
+      "sha256": "9f96db6c453400de3bc1b0e180087a3f2f2ac00b4415b099e04dc3c92a8963a1"
+    },
+    {
+      "record": "native/admission03/root-support-batch2/coverage.jsonl",
+      "sha256": "6215bbc2eec420510914b792073cdd7924c582e01dbc80cc379ba67840caaf22"
+    },
+    {
+      "record": "native/admission03/root-support-batch3/coverage.jsonl",
+      "sha256": "ae9ca1b7919916a0f1b5f3b2adbe79e41aeded2698db99c181c4509472bff992"
+    },
+    {
+      "record": "camera/admission03/coverage.jsonl",
+      "sha256": "b15aa63daed26c30c2073220187dbf0eadaedc8fc0f7a042fae28012d1b1cf81"
+    }
+  ],
+  "matched_scope_identities": 2570,
+  "unmatched_scope_identities": [
+    "pinned-registry:spacetimedb-bindings-macro-2.6.1/src/lib.rs",
+    "pinned-registry:spacetimedb-bindings-macro-2.6.1/src/sats.rs",
+    "dependency-bevy_reflect_derive0.19.1:src/lib.rs",
+    "dependency-bevy_reflect_derive0.19.1:src/from_reflect.rs",
+    "dependency-bevy_reflect_derive0.19.1:src/impls/opaque.rs",
+    "dependency-bevy_reflect_derive0.19.1:src/impls/common.rs",
+    "dependency-bevy_reflect_derive0.19.1:src/remote.rs",
+    "dependency-bevy_reflect_derive0.19.1:src/registration.rs",
+    "dependency-bevy_reflect_derive0.19.1:src/derive_data.rs",
+    "dependency-bevy_reflect_derive0.19.1:src/container_attributes.rs",
+    "dependency-bevy_reflect0.19.1:src/reflect.rs",
+    "dependency-bevy_reflect0.19.1:src/type_registry.rs",
+    "physical-p16:crates/adventuresim-weapon-model/src/model/placement.rs",
+    "physical-p16:crates/adventuresim-weapon-model/src/recipe/facing.rs",
+    "physical-p16:crates/adventuresim-terrain/src/terrain_feature.rs",
+    "physical-p16:crates/adventuresim-core/src/item_catalog_fit.rs",
+    "physical-p16:crates/adventuresim-core/src/item_catalog_surface.rs",
+    "physical-p16:crates/adventuresim-core/src/item_catalog_validation_numeric.rs",
+    "physical-p16:crates/adventuresim-core/src/item_catalog_validation_material.rs",
+    "physical-p16:crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+    "physical-p16:crates/adventuresim-core/src/item_catalog_validation_surface.rs",
+    "physical-p16:crates/adventuresim-core/src/item_catalog_validation.rs",
+    "dependency-serde_core1.0.229:src/de/impls.rs",
+    "dependency-serde_json1.0.151:src/value/de.rs",
+    "dependency-serde_json1.0.151:src/number.rs",
+    "physical-p16:crates/adventuresim-weapon-model/src/catalog.rs",
+    "physical-p16:crates/adventuresim-core/src/equipment_assets.rs",
+    "physical-p16:crates/adventuresim-tactical-client/src/equipment/runtime_equipment.rs",
+    "physical-p16:crates/fabelgeist-determinism/src/lib.rs",
+    "pr-working:crates/adventuresim-character-creator/src/garment/selection.rs",
+    "pr-working:crates/adventuresim-character-creator/src/underlayer.rs",
+    "pr-working:crates/fabelgeist-armor/src/trunk_hose.rs",
+    "pr-working:crates/adventuresim-strategic-sim/src/lifecycle/runner/sampling.rs",
+    "dependency-serde_json1.0.151:src/de.rs",
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/growth_axes.rs",
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_plan.rs",
+    "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/root_profile.rs",
+    "pr-working:crates/adventuresim-weapon-model/src/icon/screen.rs",
+    "pr-working:crates/fabelgeist-armor/src/lib.rs",
+    "pr-working:crates/fabelgeist-armor/src/breastplate_design.rs",
+    "pr-working:crates/fabelgeist-armor/src/plate_fluting.rs",
+    "pr-working:crates/fabelgeist-armor/src/anime_design.rs",
+    "pr-working:crates/fabelgeist-armor/src/helmets.rs",
+    "pr-working:crates/fabelgeist-armor/src/helmet_crown.rs",
+    "pr-working:crates/fabelgeist-armor/src/helmets_buffe.rs",
+    "pr-working:crates/fabelgeist-armor/src/visor_breaths.rs",
+    "pr-working:crates/fabelgeist-armor/src/helmets_buffe_courses.rs",
+    "pr-working:crates/fabelgeist-armor/src/pierced_plate_domain.rs",
+    "pr-working:crates/fabelgeist-armor/src/sampling.rs",
+    "pr-working:crates/fabelgeist-armor/src/gpu/extremities.rs",
+    "pr-working:crates/fabelgeist-armor/src/joint_cup_design.rs",
+    "pr-working:crates/fabelgeist-armor/src/besagew.rs",
+    "pr-working:crates/fabelgeist-armor/src/radial_fluting.rs",
+    "pr-working:crates/fabelgeist-armor/src/joint_extension.rs",
+    "pr-working:crates/fabelgeist-armor/src/pauldron.rs",
+    "pr-working:crates/fabelgeist-armor/src/garment_armor.rs",
+    "pr-working:crates/fabelgeist-armor/src/garment_plate_design.rs",
+    "pr-working:crates/fabelgeist-armor/src/wrapped_tassets.rs",
+    "cargo-registry:num_enum_derive-0.7.6/src/lib.rs",
+    "cargo-registry:num_enum_derive-0.7.6/src/parsing.rs",
+    "cargo-registry:num_enum_derive-0.7.6/src/enum_attributes.rs",
+    "pr-working:crates/fabelgeist-garment-code/src/pattern/spec.rs",
+    "pr-working:crates/fabelgeist-garment-code/src/pattern/core.rs",
+    "pr-working:crates/fabelgeist-cloth/src/garment/mod.rs",
+    "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+    "pr-working:crates/fabelgeist-cloth/src/topology.rs",
+    "pr-working:crates/fabelgeist-cloth/src/triangulate/mod.rs",
+    "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+    "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+    "pr-working:crates/fabelgeist-hair/src/head.rs",
+    "pr-working:crates/fabelgeist-hair/src/haircut.rs",
+    "pr-working:crates/fabelgeist-hair/src/hairstyle.rs",
+    "pr-working:crates/fabelgeist-hair/src/hairdo/tied.rs",
+    "pr-working:crates/fabelgeist-hair/src/gpu/grow/input.rs",
+    "pr-working:crates/fabelgeist-hair/src/gpu/grow/profile.rs",
+    "pr-working:crates/fabelgeist-hair/src/surface.rs",
+    "pr-working:crates/fabelgeist-hair/src/grid.rs",
+    "pr-working:crates/fabelgeist-hair/src/collider.rs",
+    "pr-working:crates/fabelgeist-shell/src/mesh.rs",
+    "pr-working:crates/fabelgeist-shell/src/lib.rs",
+    "pr-working:crates/fabelgeist-xpbd/src/particles.rs",
+    "pr-working:crates/fabelgeist-xpbd/src/particles/packed.rs",
+    "pr-working:crates/fabelgeist-physics/src/contact/tests.rs",
+    "pr-working:crates/fabelgeist-physics/src/contact/count/tests.rs",
+    "pr-working:crates/fabelgeist-xpbd/src/incidence.rs",
+    "pr-working:crates/fabelgeist-xpbd/src/constraint/address.rs",
+    "pr-working:crates/fabelgeist-xpbd/src/dynamics/constraint.rs",
+    "pr-working:crates/fabelgeist-xpbd/src/coloring.rs",
+    "pr-working:crates/fabelgeist-numpy-storage/src/npz.rs",
+    "pr-working:crates/fabelgeist-garment-fit/src/pose.rs",
+    "pr-working:crates/fabelgeist-shell/src/outer_layer.rs",
+    "pr-working:crates/fabelgeist-shell/src/selfcollision.rs",
+    "pr-working:crates/fabelgeist-bvh/src/gpu/shaders.rs",
+    "pr-working:crates/fabelgeist-shell/src/surface_contact/solve/tests.rs",
+    "pr-working:crates/fabelgeist-xpbd/src/constraint/tests.rs",
+    "pr-working:crates/fabelgeist-physics/tests/fixtures/collider-capacity.txt",
+    "pr-working:crates/fabelgeist-shell/tests/fixtures/contact_masses.json",
+    "pr-working:crates/fabelgeist-xpbd/tests/fixtures/constraint-native.json",
+    "pr-working:crates/fabelgeist-numpy-storage/src/npy.rs",
+    "pr-working:crates/fabelgeist-numpy-storage/src/zip.rs",
+    "pr-working:crates/fabelgeist-shell/src/outer_layer/surface.rs",
+    "pr-working:crates/strategic-web/src/routes/inventory_forms.rs",
+    "physical-p16:crates/adventuresim-world-schema/Cargo.toml",
+    "physical-p16:Cargo.toml",
+    "native-dependency:spacetimedb-lib-2.6.1/src/lib.rs",
+    "native-dependency:spacetimedb-sats-2.6.1/src/lib.rs",
+    "native-dependency:spacetimedb-sats-2.6.1/src/typespace.rs",
+    "physical-p16:crates/adventuresim-tactical-server/src/iteration/clock.rs",
+    "pr-working:crates/adventuresim-core/src/threat_escalation_limits.rs",
+    "report-p17:crates/fabelgeist-geometry/src/measurement.rs",
+    "report-p17:crates/fabelgeist-geometry/src/length.rs",
+    "report-p17:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+    "report-p17:crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+    "report-p17:crates/adventuresim-building-generator/Cargo.toml",
+    "report-p17:crates/fabelgeist-geometry/Cargo.toml",
+    "report-p17:Cargo.toml",
+    "report-p17:Cargo.lock",
+    "report-p17:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+    "report-p17:crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+    "p16:crates/adventuresim-tactical-server/src/combat/authority.rs",
+    "p16:crates/adventuresim-core/src/combat/incapacitation.rs",
+    "p16:crates/adventuresim-tactical-core/src/combat.rs",
+    "physical-p16:crates/adventuresim-stdb-module/src/world_actor/presence.rs"
+  ]
+}

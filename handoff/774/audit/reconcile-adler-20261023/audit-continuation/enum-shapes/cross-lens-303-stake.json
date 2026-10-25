@@ -1,0 +1,27 @@
+{
+  "id": "SEGO-INITIAL09-CROSSLENS-303-stake-settlement",
+  "sources": [
+    {
+      "scope_index": 287,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "sha256": "85c8f2c699beb1c00311678bbe179a5cc75bb33c607051bd967e91c9e6eba749",
+      "ranges": [
+        [
+          1799,
+          1832
+        ],
+        [
+          3007,
+          3057
+        ],
+        [
+          3090,
+          3109
+        ]
+      ]
+    }
+  ],
+  "observation": "Leader removing temporary member with positive stake calls helper that only transfers party coin to personal inventory and does not debit party_stake; following unchanged-positive-stake guard returnsErr. Transactional source context means nominal transfer rolls back under that guard.",
+  "qualification": "Static control-flow/API witness, not executed. Actual ordinary temporary companion positive stake producer path not traced here. Not counted as independent09finding; forwarded to root for existing actual stake-settlement repair reconciliation.",
+  "coordinator_notified": true
+}

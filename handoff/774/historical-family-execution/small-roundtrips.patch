@@ -1,0 +1,363 @@
+diff --git a/.github/workflows/rust-quality.yml b/.github/workflows/rust-quality.yml
+index dff8a22f0..c99e9afd0 100644
+--- a/.github/workflows/rust-quality.yml
++++ b/.github/workflows/rust-quality.yml
+@@ -199,10 +199,11 @@ jobs:
+           creator_contract animation-preview --bin adventuresim-character-creator animation_preview:: -- --test-threads=1 --nocapture
+           creator_contract device-bracer --test device_bracer -- --test-threads=1 --nocapture
+           creator_contract device-breastplate --test device_breastplate -- --test-threads=1 --nocapture
+-      - name: Test tactical animation contracts
++      - name: Test tactical animation and audio contracts
+         run: |
+           set -o pipefail
+           cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client animation:: -- --test-threads=1 2>&1 | tee target/rig-contracts/animation.log
++          cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client movement_audio::tests:: -- --test-threads=1 2>&1 | tee target/rig-contracts/audio.log
+       - name: Test tactical equipment contracts
+         run: |
+           set -o pipefail
+@@ -249,7 +250,7 @@ jobs:
+           if not re.fullmatch(r"[0-9a-f]{40}", revision) or revision != os.environ["EXPECTED_RIG_REVISION"]:
+               raise SystemExit("Recorded rig revision does not match the required PR head")
+           required = [
+-              "rig", "mhr", "animation", "equipment",
++              "rig", "mhr", "animation", "audio", "equipment",
+               "creator-armor-frames", "creator-clothing",
+               "creator-device-frames", "creator-gorget-bib",
+               "creator-gorget-collar", "creator-wrapped-tasset",
+diff --git a/crates/adventuresim-core/src/elapsed.rs b/crates/adventuresim-core/src/elapsed.rs
+index b027d9690..bcc80b03c 100644
+--- a/crates/adventuresim-core/src/elapsed.rs
++++ b/crates/adventuresim-core/src/elapsed.rs
+@@ -60,6 +60,12 @@ impl AnimationElapsed {
+         Self((self.0 - other.0).max(0.0))
+     }
+ 
++    /// Separation of two finite, nonnegative elapsed observations. Their
++    /// difference cannot exceed the larger operand, so it remains finite.
++    pub fn abs_diff(self, other: Self) -> Self {
++        Self((self.0 - other.0).abs())
++    }
++
+     pub fn checked_scale(self, factor: f32) -> ElapsedResult<Self> {
+         let seconds = self.0 * factor;
+         if !seconds.is_finite() {
+diff --git a/crates/adventuresim-tactical-client/src/animation/jitter.rs b/crates/adventuresim-tactical-client/src/animation/jitter.rs
+index 427e21eed..3c8eb2560 100644
+--- a/crates/adventuresim-tactical-client/src/animation/jitter.rs
++++ b/crates/adventuresim-tactical-client/src/animation/jitter.rs
+@@ -7,9 +7,21 @@
+ use super::review_scenarios::{ScenarioFeature, ScenarioId, ScenarioMetadata};
+ use std::collections::BTreeMap;
+ 
++use adventuresim_core::elapsed::AnimationElapsed;
+ use bevy::prelude::{Quat, Vec3};
+ use serde::Serialize;
+ 
++const MINIMUM_DERIVATIVE_INTERVAL: AnimationElapsed =
++    match AnimationElapsed::from_seconds(1.0 / 1000.0) {
++        Ok(interval) => interval,
++        Err(_) => panic!("jitter derivative interval floor must be finite and nonnegative"),
++    };
++const MISSING_FRAME_INTERVAL: AnimationElapsed =
++    match AnimationElapsed::from_seconds(1.0 / 64.0) {
++        Ok(interval) => interval,
++        Err(_) => panic!("jitter missing-frame interval must be finite and nonnegative"),
++    };
++
+ #[derive(Debug, Clone, Copy, Serialize)]
+ pub(crate) struct JitterThresholds {
+     pub(crate) angular_acceleration_absolute: f32,
+@@ -44,7 +56,7 @@ pub(crate) struct JitterFrame<K> {
+     pub(crate) scenario: ScenarioMetadata<'static>,
+     pub(crate) analysis_segment: u64,
+     pub(crate) scenario_frame: usize,
+-    pub(crate) time_seconds: f32,
++    pub(crate) time_seconds: AnimationElapsed,
+     pub(crate) bones: BTreeMap<K, JitterBone>,
+ }
+ 
+@@ -312,7 +324,7 @@ fn analyze_scenario<K: JitterBoneIdentity>(
+         let angular_velocity = angles
+             .windows(2)
+             .enumerate()
+-            .map(|(index, pair)| pair[0].angle_between(pair[1]) / dt(frames, index + 1))
++            .map(|(index, pair)| pair[0].angle_between(pair[1]) / dt(frames, index + 1).seconds())
+             .collect::<Vec<_>>();
+         let angular_accel = derivative(&angular_velocity, &frames[1..]);
+         let angular_jerk = derivative(&angular_accel, &frames[2..]);
+@@ -407,12 +419,14 @@ fn report<K: JitterBoneIdentity>(
+     }
+ }
+ 
+-fn dt<K: JitterBoneIdentity>(frames: &[JitterFrame<K>], index: usize) -> f32 {
++fn dt<K: JitterBoneIdentity>(frames: &[JitterFrame<K>], index: usize) -> AnimationElapsed {
+     frames
+         .get(index)
+         .zip(frames.get(index.saturating_sub(1)))
+-        .map_or(1.0 / 64.0, |(a, b)| {
+-            (a.time_seconds - b.time_seconds).abs().max(1.0 / 1000.0)
++        .map_or(MISSING_FRAME_INTERVAL, |(a, b)| {
++            a.time_seconds
++                .abs_diff(b.time_seconds)
++                .max(MINIMUM_DERIVATIVE_INTERVAL)
+         })
+ }
+ 
+@@ -420,7 +434,7 @@ fn derivative<K: JitterBoneIdentity>(values: &[f32], frames: &[JitterFrame<K>])
+     values
+         .windows(2)
+         .enumerate()
+-        .map(|(index, pair)| (pair[1] - pair[0]).abs() / dt(frames, index + 1))
++        .map(|(index, pair)| (pair[1] - pair[0]).abs() / dt(frames, index + 1).seconds())
+         .collect()
+ }
+ 
+@@ -431,7 +445,7 @@ fn vector_derivative<K: JitterBoneIdentity>(
+     values
+         .windows(2)
+         .enumerate()
+-        .map(|(index, pair)| (pair[1] - pair[0]) / dt(frames, index + 1))
++        .map(|(index, pair)| (pair[1] - pair[0]) / dt(frames, index + 1).seconds())
+         .collect()
+ }
+ 
+@@ -453,7 +467,7 @@ mod tests {
+                 scenario: ScenarioMetadata::from_label("test").into_owned(),
+                 analysis_segment: 0,
+                 scenario_frame: index,
+-                time_seconds: index as f32 / 64.0,
++                time_seconds: AnimationElapsed::from_seconds(index as f32 / 64.0).unwrap(),
+                 bones: [(
+                     "foot".to_owned(),
+                     JitterBone {
+diff --git a/crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation.rs b/crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation.rs
+index ea3e93023..e2144fe5d 100644
+--- a/crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation.rs
++++ b/crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation.rs
+@@ -111,12 +111,7 @@ pub(in crate::animation::procedural) fn stabilized_knee_pole(
+                 selected,
+                 next_end_direction,
+                 facing,
+-                BodyAngularMagnitude::from_radians(
+-                    ik_tuning()
+-                        .knee_pole_maximum_foot_facing_offset_degrees
+-                        .radians(),
+-                )
+-                .ok()?,
++                ik_tuning().knee_pole_maximum_foot_facing_offset_degrees,
+             )
+         })
+         .or(Some(selected))
+@@ -126,7 +121,7 @@ pub(in crate::animation::procedural) fn constrain_knee_pole_to_foot_facing(
+     pole: Vec3,
+     leg_direction: Vec3,
+     foot_facing: Vec3,
+-    maximum_offset: BodyAngularMagnitude,
++    maximum_offset: AngularMagnitudeDegrees,
+ ) -> Option<Vec3> {
+     let leg_direction = leg_direction.try_normalize()?;
+     let facing_yaw = foot_facing.xz().try_normalize()?;
+@@ -180,12 +175,7 @@ pub(in crate::animation::procedural) fn constrain_rendered_leg_pole(
+                 pole,
+                 target - hip,
+                 facing,
+-                BodyAngularMagnitude::from_radians(
+-                    ik_tuning()
+-                        .knee_pole_maximum_foot_facing_offset_degrees
+-                        .radians(),
+-                )
+-                .ok()?,
++                ik_tuning().knee_pole_maximum_foot_facing_offset_degrees,
+             )
+         })
+         // Sparse/non-humanoid rigs may not expose a toe direction. Preserve
+diff --git a/crates/adventuresim-tactical-client/src/animation/procedural/ik/tests.rs b/crates/adventuresim-tactical-client/src/animation/procedural/ik/tests.rs
+index 4cc71133e..82985417c 100644
+--- a/crates/adventuresim-tactical-client/src/animation/procedural/ik/tests.rs
++++ b/crates/adventuresim-tactical-client/src/animation/procedural/ik/tests.rs
+@@ -857,7 +857,7 @@ mod coordination_tests {
+             Vec3::X,
+             leg_direction,
+             foot_facing,
+-            BodyAngularMagnitude::from_radians(std::f32::consts::FRAC_PI_8).unwrap(),
++            AngularMagnitudeDegrees::from_degrees(22.5).unwrap(),
+         )
+         .unwrap();
+ 
+@@ -873,7 +873,7 @@ mod coordination_tests {
+             Vec3::X,
+             leg_direction,
+             foot_facing,
+-            BodyAngularMagnitude::from_radians(std::f32::consts::FRAC_PI_8).unwrap(),
++            AngularMagnitudeDegrees::from_degrees(22.5).unwrap(),
+         )
+         .unwrap();
+ 
+@@ -889,7 +889,7 @@ mod coordination_tests {
+             expected,
+             leg_direction,
+             Vec3::Z,
+-            BodyAngularMagnitude::from_radians(std::f32::consts::FRAC_PI_8).unwrap(),
++            AngularMagnitudeDegrees::from_degrees(22.5).unwrap(),
+         )
+         .unwrap();
+ 
+diff --git a/crates/adventuresim-tactical-client/src/animation_viewer/capture.rs b/crates/adventuresim-tactical-client/src/animation_viewer/capture.rs
+index 02df53739..20521bfda 100644
+--- a/crates/adventuresim-tactical-client/src/animation_viewer/capture.rs
++++ b/crates/adventuresim-tactical-client/src/animation_viewer/capture.rs
+@@ -1062,7 +1062,7 @@ pub(super) fn jitter_frames(frames: &[FrameSample]) -> Vec<JitterFrame<BoneRole>
+                 scenario: frame.scenario.clone(),
+                 analysis_segment,
+                 scenario_frame: frame.scenario_frame,
+-                time_seconds: frame.time_seconds.seconds(),
++                time_seconds: frame.time_seconds,
+                 bones: frame
+                     .bones
+                     .iter()
+diff --git a/crates/adventuresim-tactical-client/src/movement_audio.rs b/crates/adventuresim-tactical-client/src/movement_audio.rs
+index dd0aebd18..d63291d45 100644
+--- a/crates/adventuresim-tactical-client/src/movement_audio.rs
++++ b/crates/adventuresim-tactical-client/src/movement_audio.rs
+@@ -96,9 +96,8 @@ fn play_locomotion_audio(
+             continue;
+         };
+         let position = transform.translation();
+-        let sequence = StreamId::new("audio.locomotion-event")
+-            .seed((character_id.0).into(), &[event.payload.encoded_sequence()])
+-            .to_u64();
++        let event_seed = StreamId::new("audio.locomotion-event")
++            .seed((character_id.0).into(), &[event.payload.encoded_sequence()]);
+         match event.payload {
+             LocomotionPresentationPayload::Contact { .. } => {
+                 let surface = ground.and_then(|ground| ground.ground_at(position.xz()));
+@@ -114,7 +113,7 @@ fn play_locomotion_audio(
+                     &mut commands,
+                     &asset_server,
+                     family,
+-                    sequence,
++                    event_seed,
+                     position,
+                     config.movement.footstep_relative_volume,
+                     config.movement.pitch_randomization,
+@@ -123,7 +122,7 @@ fn play_locomotion_audio(
+                     spawn_rustle(
+                         &mut commands,
+                         &asset_server,
+-                        sequence,
++                        event_seed,
+                         position,
+                         config.movement.tall_grass_rustle_relative_volume,
+                         config.movement.tall_grass_rustle_pitch,
+@@ -135,8 +134,7 @@ fn play_locomotion_audio(
+                         &mut commands,
+                         &asset_server,
+                         StreamId::new("audio.understory-rustle")
+-                            .seed((sequence).into(), &[])
+-                            .to_u64(),
++                            .seed(event_seed, &[]),
+                         position,
+                         config.movement.bush_rustle_relative_volume,
+                         config.movement.bush_rustle_pitch,
+@@ -156,7 +154,7 @@ fn play_locomotion_audio(
+                     &mut commands,
+                     &asset_server,
+                     "impactSoft_heavy_00",
+-                    sequence,
++                    event_seed,
+                     position,
+                     config.movement.body_impact_relative_volume,
+                     config.movement.pitch_randomization,
+@@ -195,8 +193,7 @@ fn play_grounded_dive_impacts(
+                     .seed(
+                         (character_id.0).into(),
+                         &[skeleton.locomotion_sample_tick.encoded()],
+-                    )
+-                    .to_u64(),
++                    ),
+                 transform.translation(),
+                 config.movement.body_impact_relative_volume,
+                 config.movement.pitch_randomization,
+@@ -230,13 +227,13 @@ fn spawn_spatial_variant(
+     commands: &mut Commands,
+     asset_server: &AssetServer,
+     family: &str,
+-    sequence: u64,
++    event_seed: Seed,
+     position: Vec3,
+     volume: f32,
+     pitch_randomization: [f32; 2],
+ ) {
+     let sample =
+-        sound_seed(sequence, position).child(StreamId::new("audio.family"), &[family.as_bytes()]);
++        sound_seed(event_seed, position).child(StreamId::new("audio.family"), &[family.as_bytes()]);
+     let variant = sample
+         .child(StreamId::new("audio.variant"), &[])
+         .rng()
+@@ -256,13 +253,13 @@ fn spawn_spatial_variant(
+ fn spawn_rustle(
+     commands: &mut Commands,
+     asset_server: &AssetServer,
+-    sequence: u64,
++    event_seed: Seed,
+     position: Vec3,
+     volume: f32,
+     base_speed: f32,
+     pitch_randomization: [f32; 2],
+ ) {
+-    let sample = sound_seed(sequence, position);
++    let sample = sound_seed(event_seed, position);
+     spawn_spatial_sound(
+         commands,
+         asset_server.load("audio/movement/foliage_rustle.ogg"),
+@@ -303,9 +300,9 @@ fn spawn_spatial_sound(
+     ));
+ }
+ 
+-fn sound_seed(sequence: u64, position: Vec3) -> Seed {
++fn sound_seed(event_seed: Seed, position: Vec3) -> Seed {
+     StreamId::new("audio.spatial-event").seed(
+-        (sequence).into(),
++        event_seed,
+         &[
+             u64::from(position.x.to_bits()),
+             u64::from(position.y.to_bits()),
+diff --git a/rust-quality-baseline.toml b/rust-quality-baseline.toml
+index 7cf65e5f8..98b40d52a 100644
+--- a/rust-quality-baseline.toml
++++ b/rust-quality-baseline.toml
+@@ -518,10 +518,6 @@ ceiling = 702
+ path = "crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs"
+ ceiling = 2745
+ 
+-[[files]]
+-path = "crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation.rs"
+-ceiling = 566
+-
+ [[files]]
+ path = "crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts.rs"
+ ceiling = 844
+@@ -2185,11 +2181,6 @@ path = "crates/adventuresim-tactical-client/src/animation/diagnostics.rs"
+ item = 'log_animation_diagnostics@cfg(not(target_family="wasm"))'
+ ceiling = 140
+ 
+-[[functions]]
+-path = "crates/adventuresim-tactical-client/src/animation/loading.rs"
+-item = "collect_loaded_packs"
+-ceiling = 117
+-
+ [[functions]]
+ path = "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs"
+ item = "conform_upcoming_pose_to_terrain"
+@@ -2295,11 +2286,6 @@ path = "crates/adventuresim-tactical-client/src/player.rs"
+ item = "CombatTargeting<'_,'_>::acquire"
+ ceiling = 124
+ 
+-[[functions]]
+-path = "crates/adventuresim-tactical-client/src/player.rs"
+-item = "try_start_attack"
+-ceiling = 170
+-
+ [[functions]]
+ path = "crates/adventuresim-tactical-client/src/presentation/clouds.rs"
+ item = "setup_tactical_clouds"

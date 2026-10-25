@@ -1,0 +1,154 @@
+{
+  "id": "CONT07-CONTRACT-512",
+  "at": "2026-10-23T23:04:52.803008+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2228,
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/cloth/mod.rs",
+      "sha256": "2318544fe5a77b517ae01b26f7d4b65b288c0be78c63aa9a90034bd2a7385c05",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-cloth/src/cloth/mod.rs",
+      "actual_EOF": 93,
+      "ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2229,
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/fabric.rs",
+      "sha256": "37cf4430a9923bb91663a7eb0eadee8674fd3489e172a5f8d164a929d6ba1313",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-cloth/src/fabric.rs",
+      "actual_EOF": 156,
+      "ranges": [
+        [
+          1,
+          156
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2230,
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/lib.rs",
+      "sha256": "73854d3247aafeacaca9882c0d9666e5b83e482dd9924374ff0dec2b6a77cef9",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-cloth/src/lib.rs",
+      "actual_EOF": 34,
+      "ranges": [
+        [
+          1,
+          34
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2231,
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/surface_contact.rs",
+      "sha256": "fe0e9ecb46d3101535274523f58c8b35f92d8e1f4d69d6b37b5826cac9120001",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-cloth/src/surface_contact.rs",
+      "actual_EOF": 1,
+      "ranges": [
+        [
+          1,
+          1
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2233,
+      "source_id": "pr-working:crates/fabelgeist-color/src/color.rs",
+      "sha256": "ec95ce41e0de2b14f31c2d8a206461d2ed69f95183e18ae020c7ce956de86c74",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-color/src/color.rs",
+      "actual_EOF": 80,
+      "ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2234,
+      "source_id": "pr-working:crates/fabelgeist-color/src/conversion.rs",
+      "sha256": "1c16766feee62bbb80b38bdcc46c18cd7c732d6f2d796a4c26e228cb4eff6f1e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-color/src/conversion.rs",
+      "actual_EOF": 472,
+      "ranges": [
+        [
+          1,
+          472
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2341,
+      "source_id": "pr-working:crates/fabelgeist-shell/src/shell.rs",
+      "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-shell/src/shell.rs",
+      "actual_EOF": 408,
+      "ranges": [
+        [
+          1,
+          408
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2647,
+      "source_id": "pr-working:crates/fabelgeist-shell/src/lib.rs",
+      "sha256": "f56675ce9e64d8c46ee028e405abd261b969614531a211b4c75471ba5b714f10",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-shell/src/lib.rs",
+      "actual_EOF": 58,
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2659,
+      "source_id": "pr-working:crates/fabelgeist-shell/src/selfcollision.rs",
+      "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-shell/src/selfcollision.rs",
+      "actual_EOF": 283,
+      "ranges": [
+        [
+          1,
+          283
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Cloth93 Fabric156 lib34 reexport1 Color80 conversion472 Shell408 Shelllib58 SelfCollision283 full exact bodies personally read. Cloth retains publicFabric+ShellMaterial+appliedconstraintcopies; existingRIG-ADMISSION03-F083/F089 supportextended, no newuniquerecord.",
+    "Additional wrapperconditional: changefabric.thickness thenCloth.step/record_step/interleaved copiesonlymaterial.thickness; Shellworldradius219/267 andhostthickness363 readnew whileSelfCollision.radius staysold untilapply_fabric/material. Explicitapply_fabric setswholematerial thenappliesconstraints/radius; no outsidecurrentapply_fabric/directfabricthicknessmutations foundby PRgitlocator, so no ordinarymisuse claimed.",
+    "SelfCollision publicradius/privateSpacing andbuiltcache exactRIG-F089 authority; set_radius updatesboth andinvalidatesbuilt. Shellhook alwaysrebuilds before/afterconstraints; genericstaleper-substepcachedpositionsclaim closedfor thatnormalpipeline. Zero/negative/nonfinite admissions retain existingfinding, no silentlynewzeroPolicy.",
+    "Fabric densitysetsinitialmesh masses inconstructinggraph, notpartofShellMaterial; Shellinitialpositions/inversemasses are reset history deliberate. Friction documented suggested collidercoefficient ratherthan automaticallyownedallworldsurfaces.",
+    "Color channels areonlystoredrepresentation; arrays/lerp derived. ColorTransformmatrix+src/dsttransfer are intentionally customizablecomplete transform with no retainedsourceColorSpaceidentity, not independently mutable cachedlabel. Standardbetween_spaces constructsallfromone inputpair; explicitBradford coefficient/inverseconstants are fixedalgorithmcoefficients, no edit/runtime driftdemonstrated.",
+    "Pixelconversionactualformat routes preserveRGBAalpha andexplicitBT709FullYUVdefault; existingpixelshape/length/oddchromaingress belongsadmission/aggregate contracts, no countas07duplicatecurrentfact. Readingfixturesnotrunningconversion."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2235,
+    "start_line": 1
+  },
+  "existing_finding_source_support": [
+    "RIG-ADMISSION03-F083",
+    "RIG-ADMISSION03-F089"
+  ]
+}

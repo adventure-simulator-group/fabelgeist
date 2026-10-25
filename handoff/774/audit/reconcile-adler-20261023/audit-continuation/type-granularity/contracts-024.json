@@ -1,0 +1,44 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-024",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "strategic-housing-money-morale-and-time-roles",
+      "sources": [
+        {
+          "scope_index": 91,
+          "ranges": [
+            [
+              1,
+              1153
+            ]
+          ]
+        }
+      ],
+      "distinction": "Housing purchase price, perperiod charge and paid settlement amount are money, not counts or time though integers. Morale milli-points differ from basispoint scale: leisure_morale_basis_points11000/13000/16000 is a multiplier above whole10000, not probability or UnitInterval. StrategicMinute coordinates differ from elapsed minute counts, billing period ordinal and interval endpoints.",
+      "uses": "residence_period_charge175\u2013194 uses tenure policy for rent versus maintenance+tax then necessity lineitems; DueSettlementPlan342\u2013367 retains indivisible-period payment and firstunpaid date. refresh_morale401\u2013418 expires atabsoluteStrategicMinute andaddsbounded source-specificgain; residence premium472\u2013481 subtracts wholebasispoints before scalingmilli. zero earnedgain deliberately doesnotextendexpiry. MinuteSpan/uncovered540\u2013580 is generic strategic timecoverage; LeisureInterval additionally owns locationassociation.",
+      "disposition": "Preserve coherent economy/charge/settlement and realized-leisure interval families; avoid monolithic universal money-time morale record or one generic boundedfraction for multiplier. Common integer overflow policy is not semantic equality. Actual planner normalproductscoherent; relation-only API constructors do not prove ordinaryunpaid/cap defect. Existing perrole wrappers may share scalarunits beneath named fields without gratuitouswrapperperlineitem.",
+      "acceptance": "Retain actual30daybilling, authored ordered3tiers, zerocharge behavior, indivisiblebills, stable firstunpaid date, legitimatezero/reversedinterval yields0 andlocationmembership, exactmilliunits/saturation andexpiryexclusive. No new positiveelapsed bounds or payment/reducertransaction claim frompureplan."
+    },
+    {
+      "id": "lifecycle-seed-roles-prevent-purpose-interchange",
+      "sources": [
+        {
+          "scope_index": 92,
+          "ranges": [
+            [
+              1,
+              97
+            ]
+          ]
+        }
+      ],
+      "distinction": "ChildIdentitySeed/PregnancyOrdinal bothu64 but differ purpose; ChildNameSeed and HouseholdPlacementSeed wrapsameSeed but prevent naming stream versus homeplacement interchange. The wrappers earn place frompurpose withoutnarrowernumericpredicate. ChildSeeds coherent outputs includeactualSex, not arbitraryordinalenum.",
+      "uses": "deterministic67\u201396 sortsparentIDs, framespregnancy+birthcontext, separatesidentity/name/sex/home domains, andaddshomelocationonlyplacement. ChildIdentitySeed wrapping_add isnamespacecollision probing API, notordinaladvance. Actualchildproducer/consumersremainfuture own11 roles; constructorallowsanyseedintentionally.",
+      "disposition": "Keep purpose wrappers and common Seedbeneathnames ratherthancollapseintooneSeedparameter or inventpositive/collision-freevalidation. Generic stable_lifecycle_hash ofparent91 sharesimplementationbelowpurposes; no universalLifecycleId fromequalhashstorage. Distinct name/home domainsareintentionalnotredundantseeds.",
+      "acceptance": "Preserve byteframing, lexicalparentorder, domainstringsandstreams, truefullu64seedspaceinclzero, identitycollisionpolicy andseparatenaming/homepurpose. No claimstatisticalindependence/birthdurability fromreadfixtures; noexecution."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

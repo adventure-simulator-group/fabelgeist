@@ -1,0 +1,157 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-136",
+  "at": "2026-10-22T21:44:54.805024+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-035.json",
+    "sha256": "cf6b82c5a6f9fd63ac810a21211e89f30c9bedf46255bd3ea19276f1324122dd"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-034.json",
+    "sha256": "6e6d35282fb6aa314bc2d5839820ea8b50c9a5a661fd9129aabc25773bf1b7a4"
+  },
+  "new_variants": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/rights.rs",
+      "sha256": "452c9b104be14352c93d247f83a87de98fa79b10c86d3b51d28eaa252a927b07",
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\rights.rs",
+      "snapshot": "physical-p16",
+      "actual_line_count": 1224,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          1,
+          274
+        ],
+        [
+          296,
+          297
+        ],
+        [
+          719,
+          796
+        ]
+      ],
+      "audit_owner": "rig",
+      "scope_registration": [
+        {
+          "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+          "sha256": "f4fde79dda3ebd983a9bb731d56c20a468a94afaafcd8286b2ae01d093acd103",
+          "row_1based": 30,
+          "id": "RIG-INITIAL06-REG-030",
+          "original_record": {
+            "id": "RIG-INITIAL06-REG-030",
+            "at": "2026-10-22T21:32:35.163814+00:00",
+            "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+            "source_id": "physical-p16:crates/adventuresim-core/src/rights.rs",
+            "snapshot": "physical-p16",
+            "sha256": "452c9b104be14352c93d247f83a87de98fa79b10c86d3b51d28eaa252a927b07",
+            "actual_EOF": 1224,
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\rights.rs",
+            "material_ranges": [
+              [
+                1,
+                275
+              ],
+              [
+                296,
+                297
+              ],
+              [
+                719,
+                797
+              ]
+            ],
+            "material_caller": "P16 Core herbalism146\u2013184 canonical RightsQuestion+Digest,159\u2013171 PrivateRightsDecision/DecisionProvenance/RightsRevision; current06 supplier053 retains lower actual definition qualification until this comparison",
+            "reason": "PR actual definition/current-role read is not automatic P16 definition credit; register exact direct P16 used owner declarations and called digest/decision body before analysis",
+            "exclusions": "No PermissionGrant/attempt/consumption/lifecycle constructors298\u2013718, no798+tests, no unrelated organization or DB permission graph",
+            "status": "Prospectively registered before body analysis; global pending"
+          }
+        }
+      ],
+      "scope_limits": "RigQUAL016 excludes275nextderive/797blank. Exact direct P16 question/digest/revision/decision used by herbalism, no grants/lifecycle298-718 or tests798+. NativeConsumptionDecision declaration only, no body credit.",
+      "source_lens_credit": "none from scope metadata"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/provisioning.rs",
+      "sha256": "438b45a44c51026e751788a6ef9da9c40ee88ae53eac79a64ca0845d5170cd68",
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\provisioning.rs",
+      "snapshot": "physical-p16",
+      "actual_line_count": 118,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          3,
+          3
+        ]
+      ],
+      "audit_owner": "root",
+      "scope_registration": [
+        {
+          "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+          "sha256": "35d5b1a3776a54b780ae73c8ac670ff7631a48898f56a0474d206af0a43f5b22",
+          "row_1based": 14,
+          "id": "ROOT-INITIAL04-REG014",
+          "original_record": {
+            "id": "ROOT-INITIAL04-REG014",
+            "at": "2026-10-22T21:43:01.757584+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "physical-p16:crates/adventuresim-core/src/provisioning.rs",
+            "snapshot": "physical-p16",
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\provisioning.rs",
+            "sha256": "438b45a44c51026e751788a6ef9da9c40ee88ae53eac79a64ca0845d5170cd68",
+            "actual_EOF": 118,
+            "material_ranges": [
+              [
+                3,
+                3
+              ]
+            ],
+            "direct_role": "Exact constant imported by scoped P16 strategic_time fatigue clearance and walking operations, not implementation body of provisioning. Prior line-number navigation only; prospectively register before fresh actual constant analysis.",
+            "scope_limits": "Only line3 travel calories per day constant. No other provisioning definitions/callers/tests or broad P16 work scope.",
+            "status": "prospectively_registered_before_fresh_body_analysis"
+          }
+        }
+      ],
+      "scope_limits": "Only constantline3; no other provisioning body. Prior navigation no semanticcredit; Root054 fresh actual independently admits exact constant.",
+      "source_lens_credit": "none from scope metadata"
+    }
+  ],
+  "new_overlays": [],
+  "total_variants": 2785,
+  "total_overlays": 222,
+  "mandatory_scope_qualifications": [
+    {
+      "record": "continuation/root/parallel-scope-qualification-130.json",
+      "sha256": "5dc4e5cd771612c7e050ab4af544411523317ae4b57738f1fb20f493685a50fc"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-117.json",
+      "sha256": "f3b80648900716939057b20776d756a6e37001f6910378da1a1bbaea230d348b"
+    }
+  ],
+  "registered_rows": 2,
+  "input_pins": [
+    {
+      "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+      "sha256": "f4fde79dda3ebd983a9bb731d56c20a468a94afaafcd8286b2ae01d093acd103",
+      "captured_rows": 30,
+      "selected_ids": [
+        "RIG-INITIAL06-REG-030"
+      ]
+    },
+    {
+      "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+      "sha256": "35d5b1a3776a54b780ae73c8ac670ff7631a48898f56a0474d206af0a43f5b22",
+      "captured_rows": 14,
+      "selected_ids": [
+        "ROOT-INITIAL04-REG014"
+      ]
+    }
+  ],
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through222-before035.jsonl",
+    "sha256": "af445c2147cdd915f00132adc1b3f95703f6e5681b47bcbf35d96e77abf2dd0f",
+    "through": 222
+  },
+  "limits": "Two new variants: P16rights exact effective direct owner role and P16provisioning onlyline3; no new overlays or expanded earlier bodies. SDK117/Bevy130 and all existing qualifications preserved."
+}

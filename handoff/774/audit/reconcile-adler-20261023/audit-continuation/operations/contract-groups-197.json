@@ -1,0 +1,169 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-197",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social.rs",
+      "sha256": "93e446648725e961aaac7377e920dd07a8fcef4b7c0ff243ad9b054801f2ca41",
+      "actual_EOF": 3805,
+      "actual_compared_ranges": [
+        [
+          1,
+          3805
+        ]
+      ],
+      "method": "Whole P16 3805-line body/inline fixtures personally read in12 bounded displays. Complete PR actual textual diff consumed (3800lines), all Result and presentation diagnostic behavior changes assessed; no hash-only credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/social.rs",
+      "sha256": "a09342196732b00b8520e9a446aa9fdef60e8fd44a439032ebdadc21e6e8e4c5",
+      "actual_EOF": 3800,
+      "actual_compared_ranges": [
+        [
+          1,
+          3800
+        ]
+      ],
+      "method": "Whole P16 3805-line body/inline fixtures personally read in12 bounded displays. Complete PR actual textual diff consumed (3800lines), all Result and presentation diagnostic behavior changes assessed; no hash-only credit."
+    }
+  ],
+  "groups": [
+    {
+      "id": "Bounded chat and affinity arithmetic",
+      "locations": "social268-373,469-861,1572-1690; fresh Core social886-997/affinity1-60",
+      "trace": "Actualchat request15..480 divisible15 =>1..32segments; positive threshold products<=96, safe. Familiarityu64 to f32 remainsfinite; nonnegativehours/60 boundedfinite; actualcurrentaffinity kernel filtersinvalidanchor0 and clamps[-100,100] beforedecayfactor0..1. Perchat Core resolvesclampedchecks, closedpersonalityfit andboundedmoralemagnitude;32 accumulations finite, updatesclampedaffinity. Asyncminutesu64 asf32/60*.4 finite, realizeddelta sourcecurrentclamped; explicitsharedminutes saturation preservesrepresentablecounter butnotunboundedexacttime. Partysharedclock min anchors monotonicmax, incrementselapsedonce, firstcontactanchors0sharedratherthanretrotime. Explicitjoinreset requiredforleave/rejoin semantics; helpercalledrepeatedlywithoutjointransition couldconsumeanchor history butactualcallersmustbechecked.",
+      "disposition": "No new ordinary finite overflow; preserve boundedpositive/negativeeffect and legalextensivefamiliarity.",
+      "dependencies": [
+        "Core casual chat personality/profile contracts",
+        "Canonical affinity/familiarity counter exhaustion policy",
+        "Actual join/leave/reset callers and shared-party time ordering",
+        "Character condition aggregate finite morale graph existingNATIVE-INITIAL05-F040"
+      ],
+      "acceptance": "Accepted boundedchat preservesfinite affinity/morale, exactcaller-ownedretry and partysharedtime semantics withoutdoublecount; saturatingcounter policy mustnotbe mistaken for exactunboundedhistory."
+    },
+    {
+      "id": "Clock acquisition and observation intervals",
+      "locations": "social35-45,319-335,612-639,729-736,807/842,1572-1595,1693-1997,2213-2218,2627-2632,2751-2768",
+      "trace": "Numerousactualclock lookups synthesizeZERO or callerexpectedafter/anchor; theseextendexistingCAM-PPS-F003 acquisitiongraph, notnewepochbugcount. Presenceclosure setsend=max(start,minactualclocks) avoidsreverse spans, butfallbackcaninventend. Contactbegin usesminclocks, actualcontextobservationpolicy necessarybeforecallingitretroactive. Observerbandround/clamp0..5 safeu8narrow forfinite actualcapability; unavailableband0 isexplicitabsencefallback policy distinctvalidnovice0. Directionalviewmorale+bonus andafter-before derivefromactualconditionwholefiniteaggregate, notprovedsafejustbecauseeachstoredleaf finite. Relprojection uses subjectclock despite observerlabel; temporalownerfit broaderlensdependency, do notsilentlyreplaceclock policy.",
+      "disposition": "Clock fallback extends existing supplied graph. Preserve abstractclockavailability distinctions and historicalbandtruth; no ordinarytimecorruptionclaimedwithoutactualabsentproducer.",
+      "dependencies": [
+        "CAM-PPS-F003 exact coordinatornamespace reconciliation",
+        "Actual character clock and capability fullcomponent admission",
+        "Disease/observation historical presence caller policy",
+        "Native morale aggregate finiteowner"
+      ],
+      "acceptance": "Missing requiredclock/capability mustremainunavailable ratherthaninventingepoch0/expectedfuture; accepted spans retaincorrectactualobserverfrontier and monotone endpoints."
+    },
+    {
+      "id": "Witness claim coordinates and mutation receipts",
+      "locations": "social375-467,864-1281",
+      "trace": "Exactwitnessreceipt comparesobserver/approach/challengetoken beforemutablechecks; freshclaimrequiresactivesessionmember/revision/claimunresolved/heardevent/authoredresponse. Passiveclaims enumeratereferredVec andcastusizeasu32 at950; actualupstreamtestimonycardinality mustfit, elsewrap. Thisjoins claimcoordinateproducer graphSEGOVB-04-CLAIM-ORDINAL-001 butdiffersfromdialogueruntime saturation andearlierDB ordercheck, so no automaticexactdedup/currentaccepted4bclaimsclaim. Finishrevision uses saturating+1;MAX doesnotinvalidateotherclaims staleexpectedrevision. Terminal representedrevisionpolicy qualification, noordinarysessionexhaustion. Resolutionapplied,timeconsumed, relationship/referralrelease/passiveassessment thenreceipt;errorspropagate butcaller/transactioncatchesmatter. Corpsefamilyhelperdocretry-safe addsaffinitybeforeeventrecord withoutownreceipt; repeatedsamehelpercall wouldrepeatfinite -3affinity. Fresh3actualcorpsecallers use outeraction/permissionreceipts; noordinaryduplicatereplay established. Do notrequireanotherduplicateidempotencyauthority beforeclarifyinghelpercontract.",
+      "disposition": "No newlypromotedordinarywitness/corpsebug. Retain claimnarrowing/revision and helperretry qualifications as exactconnecteddependencies, no globaluniquecount.",
+      "dependencies": [
+        "SEGOVB-04-CLAIM-ORDINAL-001",
+        "local774:M48",
+        "Actual strategic referred_testimony_claims/cardinality and release eventsequence owner",
+        "Corpse outerreceipt/permissionscope semantic policy packet171",
+        "Canonical sessionrevision exhaustion and optimistic concurrency"
+      ],
+      "acceptance": "Admittedclaimcoordinates fituniquely, successfulstatechange advancesorendsexplicitrevisionauthority; exactretriesdonotduplicateaffinity/morale/time/release. Caller-ownedretry contracts mustbeexplicitratherthanaddingparallelreceipts."
+    },
+    {
+      "id": "Automatic action, selection and failure behavior",
+      "locations": "social1999-2882,2885-3052",
+      "trace": "Personalityfit isfiniteclosedenum sum; sensitivityfixedbounded; actual8candidateactions filtertopic/traits/prayeravailability andcooldown. Coreautomatic targetplanner sort/dedup thentruncate<=3; actualcandidateIDs/sourceexist guardedbeforeexpect. Earlieractions mayrefreshsources forlatertargets, buttarget IDsunique so ordinarycross-sourceinvalidity notproved. All fallible automatic action callspropagate (noinnercatch), includingmentalchecks before firstauxiliarywrite. Ordinarymanualtimesynchronization andbothparticipantadvances precedesomeerrors; outertransactionsemanticsremainnecessary. Cooldownnow+saturatedduration atMAX allowsimmediatereuse ifactualno-timeautomatic pathreentered; terminalpolicy qualification. Directreligionstudyfinitepositive gate distinctfromeffectivecategorycheck. Belief legalaxisvalues checked; confidenceproducer numericadmissionstillcanonicalCore. Discoverytraining usesdirectsharedowner withfinitefixedminutes, not NativeF053 hugebudgetwitness. P16presentationerrorslogged thenreturn, PRsilentreturn; sameunavailableobservationoutcome differentdiagnostics. Cleanup collectsbeforedeletion, noindexmutationiterationhazard.",
+      "disposition": "No new finiteoperationdefect. Preserve intentionalpairsoftasyncscope, directreligiongate, fixedcandidatepolicy, actortraitgates and automaticerrorpropagation.",
+      "dependencies": [
+        "audit/continuation/native/initial05-aggregate-states/findings.jsonl#55 NATIVE-INITIAL05-F053",
+        "Core diagnosed_axis/discovery_training_split/automatic candidate policy",
+        "Social admission/discovery/draws helpers next unread",
+        "SDK outertransaction/caller catch graph and canonical cooldown exhaustion"
+      ],
+      "acceptance": "Successfulautomaticpass processesatmost3uniqueactionabletargets andpersistssameoutcomesasmanualsharedresolver withoutspendingadditionaldowntime; failuresdonotconsumeauxiliarystate or retrytime. Preserve legalaxisencoding and deterministicdraworder."
+    },
+    {
+      "id": "Full inline fixture source evidence",
+      "locations": "social3080-3805",
+      "trace": "Completeisolateddemo andinlinecontractfixturebodiesread, notrun. Demo usesfixedsmallskills/negativeevents/legalbeliefs anddistinctIDs. Fixturescoverprayer/reassurance, traitgates, belieflegalvalues, single-rowselftraining, currentaddressprojection, witnessclaimreceiptprivacy/heardevent andfiveminuteaction. Separateauthoritytestmodulesremainunreadanduncredited.",
+      "disposition": "No execution orfull04clearance.",
+      "dependencies": [
+        "All13initialinventorygate"
+      ],
+      "acceptance": "Laterauthorizedacceptancemustverifyactualreducerbehavior andfailuretransactions; sourcestringassertionsdonotcertifyruntimeacceptance."
+    }
+  ],
+  "findings": [],
+  "status": "Two original source roles personally compared; connected critical helpers/callers remain incomplete, whole04 incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/social/action_authority_tests.rs",
+  "fresh_dependencies": [
+    {
+      "path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/source/physical-p16-unscoped-dependency/crates/adventuresim-core/src/social/affinity.rs",
+      "sha256": "498a0922e501f63800d2c4fa9bbffd863ca4cf98b83e09393c504b29d8a8ba7c",
+      "actually_read_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "coverage": "Criticalbody reanalysis only; no new whole originalrole credit."
+    },
+    {
+      "path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/source/physical-p16-unscoped-dependency/crates/adventuresim-core/src/social.rs",
+      "sha256": "bb53725a73f48ae6fbd9f4ff3e2e744aaaea403fa2fd0a9381c6766ce0ad1b6d",
+      "actually_read_ranges": [
+        [
+          508,
+          554
+        ],
+        [
+          886,
+          1005
+        ]
+      ],
+      "coverage": "Criticalbody reanalysis only; no new whole originalrole credit."
+    },
+    {
+      "path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/source/physical-p16-unscoped-dependency/crates/adventuresim-core/src/social/witness.rs",
+      "sha256": "14db851b00491a104efa4d272f24ef1285b357a92dbd0f875a109a27033fd735",
+      "actually_read_ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "coverage": "Criticalbody reanalysis only; no new whole originalrole credit."
+    },
+    {
+      "path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/source/physical-p16-unscoped-dependency/crates/adventuresim-core/src/skill.rs",
+      "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "actually_read_ranges": [
+        [
+          1015,
+          1088
+        ]
+      ],
+      "coverage": "Criticalbody reanalysis only; no new whole originalrole credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/corpse.rs",
+      "sha256": "7c9ccbcd887b073dab9e1e468d3e89b3b491124213383e12957c5e5736f06242",
+      "actually_read_ranges": [
+        [
+          309,
+          351
+        ],
+        [
+          1524,
+          1583
+        ],
+        [
+          1728,
+          1778
+        ]
+      ],
+      "coverage": "Freshactualcallers; no duplicate originalrole credit."
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-115",
+  "at": "2026-10-25T12:41:24.858198+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_ROLE_INCOMPLETE",
+  "scope_index": 260,
+  "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social.rs",
+  "sha256": "93e446648725e961aaac7377e920dd07a8fcef4b7c0ff243ad9b054801f2ca41",
+  "actual_compared_ranges": [
+    [
+      701,
+      1400
+    ]
+  ],
+  "trait_inventory": [],
+  "existing_derives": "PhysiologyPresenceSpan1286\u20131302,SocialBelief1306\u20131319,SocialInteraction1368\u20131384,SocialAddress1386\u20131397 already Clone/Debug+table macros; no manual trait/serializer in701\u20131400.",
+  "semantic_contracts": "Actual resident/party chat, checked witness/session/replay/response admission, sampled assessment/native meaning classification and private outcome projection/mutation consumed. assessment_direction is runtime stable-ID classifier, not serializer. Existing table/native output derives retain mechanical structure; no fresh trait replacement recommendation.",
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 260,
+    "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social.rs",
+    "next_line": 1401,
+    "actual_EOF": 3805
+  },
+  "execution": "none",
+  "limits": "Full3805 role pending1401\u20133805;114 covers1\u2013700. No child or other-lens coverage."
+}

@@ -1,0 +1,45 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-248",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        110,
+        111
+      ],
+      "comparison": "Exact P16 herbalism405 and ingredient_preparation72 fully read, source tests unexecuted. IngredientPreparationAction already owns Cut/Grind operation distinct from resulting material preparation. Actual final effect enum owns AttemptWait vs CommitPreparation(action/revision/name), and partial terminal interval deliberately emits wait only; no separate completion permission/yield flag product. Authority custody/revision/transition/tool Booleans are independent evidence preconditions represented downstream by named requirements; do not replace with one exclusive rejection state or conflate query fact with admission witness. Rights provenance must be checked by actual owning adapters, not inferred from current True fixture; generic supplied PrivateRightsDecision question-binding remains other-lens concern. has_grinding_tool is observed resource availability used only for Grind, not mutually exclusive gameplay mode; no reason to discard tool history on Cut. Empty domain enums restrict extensible schema categories statically, not missing runtime variants. Public preview exposes action/revision/duration only; medicinal profile truth stays material/private. Stable action byte codes1/2 differ from serde variant spelling and must remain exact hash coordinates. Duration min1 and nonfinite skill fallback preserve current physical preparation policy.",
+      "disposition": "Existing applicable effect/action owners, independent authority predicates and boundary codes preserved",
+      "finding_refs": []
+    },
+    {
+      "indices": [
+        114,
+        117,
+        118
+      ],
+      "comparison": "Exact P16 physical serde18, leadership89 and Core facade138 fully read. Cuboid authored array deserializer invokes checked CuboidDimensions constructor at actual Serde adapter; this proves only that exact boundary, not unrelated reflection/STDB. Leadership current_leader_alive is current observation selecting66% challenger threshold vs50% succession; living electorate and ballots separately define actual counted actors. No policy enum inferred from alive predicate, and no universal equivalence to membership without actual caller authority trace. Stable highest tally then lowest ID, incumbent not reelected and no qualifying challenger returnsNone intentionally. Duplicate-voter admission is a separate direct API question, not observed election failure. Core facade exports module/traits without body credit; cfg(test) source declarations do not establish execution or activation.",
+      "disposition": "Exact checked Serde adapter and election observation semantics preserved",
+      "finding_refs": []
+    },
+    {
+      "indices": [
+        120,
+        121,
+        122
+      ],
+      "ranges": {
+        "120": [
+          [
+            1,
+            106
+          ]
+        ]
+      },
+      "comparison": "Exact P16 mission106, enemy_roster96 and party_roster91 fully read. Registered mission endpoint114 exceeds actual EOF106; all present body read, qualification saved. HostileGroupBinding already owns Bound(ID) vs Unbound; random encounter intentionally unbound and cannot defeat unrelated persistent group. Strategic battle victor and hostile resolution remain separate meanings. Authority IDs have checked new syntax but derived transparent Deserialize does not route through new; preserve adopted03 admission evidence rather than claiming native checked decode. Roster owners enforce nonempty uniqueness/cardinality and derive counts from captured IDs, preserving original enrollment order. Enemy count deliberately not capped by16-party receipt participant limit; source test accepts17. ID0 allowed by reached roster contract, not automatically nonzero. Absence of duplicate count fields is appropriate authority; no enums of arbitrary participant positions. Tests read only, no source/build/test execution.",
+      "disposition": "Existing binding payload and roster cardinality authority preserved; exact EOF correction",
+      "finding_refs": []
+    }
+  ],
+  "new_findings": [],
+  "limits": "Discovery only; no execution, fixes, checks, implementation plan or lens clearance."
+}

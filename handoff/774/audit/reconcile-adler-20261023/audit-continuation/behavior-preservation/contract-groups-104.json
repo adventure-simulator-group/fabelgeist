@@ -1,0 +1,106 @@
+{
+  "id": "CONT08-CONTRACT-104",
+  "at": "2026-10-25T11:54:57.745661+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 351,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/combat_config.rs",
+      "before_sha256": "5d114988a64595879b04e6f151d2a184cdf8f893f2f2b17a9987a3faf933d4ab",
+      "after_sha256": "6f50079ada28d050e5bfea42953c9c789e0da99bde9ea8af38f69a2240f4c47c",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0351-base-5d114988a64595879b04e6f151d2a184cdf8f893f2f2b17a9987a3faf933d4ab",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/6f50079ada28d050e5bfea42953c9c789e0da99bde9ea8af38f69a2240f4c47c",
+      "diff": "source-evidence/p16-0351.diff",
+      "diff_sha256": "5b0beae022352cfa92187999a8ae5d6cd877ec085cce3cb03a154aae8df3259a",
+      "head_body_read_ranges": [
+        [
+          1,
+          827
+        ]
+      ],
+      "facts": [
+        "Fresh full827 and complete79-line actual P16 diff. New SignedLength range/tolerance/quickstep fields project .metres at same validation slots. Existing complete config still rejects negative authority distances and nonpositive quickstep references, despite signed leaf capacity; no global positive narrowing. Schema9, deny_unknown_fields, digest validate\u2192JSON\u2192SHA, hitbox uniqueness, quadratic turn and authored profile policies preserved.",
+        "Exact defaults/submodule body coverage not obtained from Default/reexport. Actual unchanged landing validator call681 connects SUPPORT004; P16 diff alone does not clear prior PR migration. Finite leaf deserialization rejection earlier than aggregate validation is intended admission; no normal finite config rejection observed here.",
+        "Actual frozen source has added fabelgeist_geometry::SignedLength import1 alongside retained building spatial_geometry::SignedLength10; preserve source-level duplicate binding/migration evidence, no compiler execution or inferred diagnostic."
+      ],
+      "disposition": "Own08 exact scoped source comparison accounted WITH migration/finite-admission qualifications.",
+      "acceptance": "Preserve complete config validation order/finite values, schema/digest policy and actual receiving numeric projections; resolve duplicate bindings cleanly with canonical owner, no compatibility alias. Preserve collision endpoint/pair-local behavior. No checks/tests/source repairs."
+    },
+    {
+      "scope_index": 352,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/ai_offense.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/combat_config/ai_offense.rs",
+      "before_sha256": "ee4573d3b48808c80f0dcea6b98ccbb8b44ef4d1120c6c8b0889571c572b982c",
+      "after_sha256": "cede3ecf1ccb8e95c2d4fedb6196a0a8137451304361c35822cafbe9c5f799e7",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0352-base-ee4573d3b48808c80f0dcea6b98ccbb8b44ef4d1120c6c8b0889571c572b982c",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/cede3ecf1ccb8e95c2d4fedb6196a0a8137451304361c35822cafbe9c5f799e7",
+      "diff": "source-evidence/p16-0352.diff",
+      "diff_sha256": "c148d53b9474282cc84fafffbd06fa4ee7a2bfd7f703094d04c36f989d4e7975",
+      "head_body_read_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "facts": [
+        "Fresh full37 and complete34-line P16 diff. Same ordered ranged standoff/initiative intervals and strict positive long-measure threshold, melee fraction inclusive[0,1]. New finite signed leaves prevent previously possible maxInf or slopNaN in public config; intentional finite owner admission, not finite-output gameplay regression. Missing slop/reach-fraction policy not silently invented."
+      ],
+      "disposition": "Own08 exact scoped source comparison accounted WITH migration/finite-admission qualifications.",
+      "acceptance": "Preserve complete config validation order/finite values, schema/digest policy and actual receiving numeric projections; resolve duplicate bindings cleanly with canonical owner, no compatibility alias. Preserve collision endpoint/pair-local behavior. No checks/tests/source repairs."
+    },
+    {
+      "scope_index": 353,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "before_sha256": "5d254790fa2ec7e53bc749b18bfc8f4d89a1df367c3542f8f969403641c8a970",
+      "after_sha256": "5d254790fa2ec7e53bc749b18bfc8f4d89a1df367c3542f8f969403641c8a970",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0353-base-5d254790fa2ec7e53bc749b18bfc8f4d89a1df367c3542f8f969403641c8a970",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/5d254790fa2ec7e53bc749b18bfc8f4d89a1df367c3542f8f969403641c8a970",
+      "diff": "source-evidence/p16-0353.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "facts": [
+        "Fresh full71 and empty P16 diff. Install validates before publishing cloned process snapshot then increments version; per-thread animation cache copies, other snapshots read current lock. Cached version/lock concurrency behavior retained, no new atomic snapshot policy or different replay authority claimed."
+      ],
+      "disposition": "Own08 exact scoped source comparison accounted WITH migration/finite-admission qualifications.",
+      "acceptance": "Preserve complete config validation order/finite values, schema/digest policy and actual receiving numeric projections; resolve duplicate bindings cleanly with canonical owner, no compatibility alias. Preserve collision endpoint/pair-local behavior. No checks/tests/source repairs."
+    },
+    {
+      "scope_index": 354,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/doors.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/doors.rs",
+      "before_sha256": "daf461a37ebe8f9ef72ac67aa98842c02bd8239ca43087f5c4d285f70df1ca34",
+      "after_sha256": "daf461a37ebe8f9ef72ac67aa98842c02bd8239ca43087f5c4d285f70df1ca34",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0354-base-daf461a37ebe8f9ef72ac67aa98842c02bd8239ca43087f5c4d285f70df1ca34",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/daf461a37ebe8f9ef72ac67aa98842c02bd8239ca43087f5c4d285f70df1ca34",
+      "diff": "source-evidence/p16-0354.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "facts": [
+        "Fresh1\u201385 and empty P16 diff; exact effective role union1\u201385, remainder86\u2013132 uncredited. Inclusive negative interior depth[-1.6,-.05], lateral<=halfwidth+.6, window delegates, pair exemption local to each queried entity and symmetrical OR exclusion. No outward-sign normalization, hiddenglobalcollision exemption or unchanged native PhysicsPlugins body credit."
+      ],
+      "disposition": "Own08 exact scoped source comparison accounted WITH migration/finite-admission qualifications.",
+      "acceptance": "Preserve complete config validation order/finite values, schema/digest policy and actual receiving numeric projections; resolve duplicate bindings cleanly with canonical owner, no compatibility alias. Preserve collision endpoint/pair-local behavior. No checks/tests/source repairs."
+    }
+  ],
+  "next": "355 inventory858 then356armor53 and connected equipment recipients."
+}

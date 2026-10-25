@@ -1,0 +1,52 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-515",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-netcode/src/message.rs",
+      "sha256": "61261c4055cee33ac91c6cdac317996352c4997f93cbd692a93448656a2db2eb",
+      "actual_EOF": 475,
+      "actual_compared_ranges": [
+        [
+          1,
+          475
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-netcode/src/replication.rs",
+      "sha256": "3723f618b79b8e9c01b414c6fb374dd1f15e970c4182b2fa6d446c84924a33c8",
+      "actual_EOF": 242,
+      "actual_compared_ranges": [
+        [
+          1,
+          242
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Wire/raw input does not establish authoritative computed invariants",
+      "evidence": "Full message475: Join transportidentity distinctfrom CharacterId, reconnectbearer32bytes noarithmetic. PlayerInput movement/look/quickstep rawvector protocol fields require serveradmission. Mapped equipment/melee/ranged entityvariants annotate actualnestedtargets; expectedrevision/hand/destination remainoptimisticconcurrencyinputs notpermission. SuccessfulAttackResponse total_damage465\u2013472 rawcut+blunt canoverflowforarbitraryrawMAXfields; no admitted bounded damage guarantee/currentproducer route established here, so noordinarydefect promoted. Tacticaloutcome presentation is onlybroadcastafterstrategicacceptance bystatedcontract, exactsender needed forauthorityproof."
+    },
+    {
+      "contract": "Actual replication codec and static recipe boundaries",
+      "evidence": "Full replication242: TerrainLandformRecipe replicate_once65 and ordinarypostcard scenevistabundle77 support existingrootlocal774:F52 nested internallytagged geology codec defect; independent04registrationread, notdependencycodec execution. SceneBuilding alone uses explicitJSONbytes wrapper insidepostcard114\u2013126, sourcefixture192 acknowledgesdefaultpostcardcannotdecodeBuildingProgram. Door/windowordinarycodec sourceassertions andfurniturecompactu64MAX/u16MAX roundtrip reflect recipeIDs/ordinals intentionallydifferentfromnonzeroidentity/canonicalcataloguemembership. Servercollision notstreamedbuildingcompound; transientcharacterHP/positionstate staysBevy, notDB."
+    }
+  ],
+  "findings": [
+    {
+      "id": "local774:F52",
+      "disposition": "existing exact codec finding; independent registration support only",
+      "new_unique": false
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare-city-terrain.rs"
+}

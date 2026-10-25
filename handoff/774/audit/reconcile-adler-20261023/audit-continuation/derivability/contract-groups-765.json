@@ -1,0 +1,26 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-765",
+  "at": "2026-10-25T16:44:16.800217+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 996,
+  "source_id": "pr-working:crates/adventuresim-core/src/skill.rs",
+  "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+  "actual_compared_ranges": [
+    [
+      1,
+      1100
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "GoverningAptitudes structural traits already derive; weighted constructor/asserted total, bounded resolution and semantic human description are inherent, no trait boilerplate. TrainingGain Default/structural already derive; language/direct training numeric policy stays explicit.",
+    "PlayerSkills declaration reaches existing blanket::blanket and ambassador::delegatable_trait1099\u20131100, actual methods pending next slice. No new handwritten trait/codec881\u20131100."
+  ],
+  "first_unfinished": {
+    "scope_index": 996,
+    "line": 1101
+  },
+  "execution": "none"
+}

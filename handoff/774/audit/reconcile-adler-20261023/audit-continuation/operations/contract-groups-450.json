@@ -1,0 +1,62 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-450",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista.rs",
+      "sha256": "b571c37d64c20535df90dc5b14ebddd2cc22010885764fbeae66c78ad6970d6c",
+      "actual_EOF": 1187,
+      "actual_compared_ranges": [
+        [
+          1,
+          1187
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/details.rs",
+      "sha256": "15095204e03f1e13f74d77b1afbd17e33489f798b7732c59acfbacdfcc219307",
+      "actual_EOF": 362,
+      "actual_compared_ranges": [
+        [
+          1,
+          362
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/focused.rs",
+      "sha256": "d1bb5a38bc3cecf8703fb9165e1c290037f3ae5d346d3285a7f34e256458c83e",
+      "actual_EOF": 144,
+      "actual_compared_ranges": [
+        [
+          1,
+          144
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Vista scene replacement",
+      "analysis": "Full1187/362/144-line bodies read. Matching digest/playable prerequisites and PendingVista acceptance precede prepare_all; preparation Err returns before active_surface replacement/despawn. Pending accept retry consumption needs exact pending owner follow-through (next roles), not assumed safe. Source then updates active surface, retains playable and submits prepared meshes; details helpers return no Result, so ordinary later partial-error claim not shown here. Coverage interpolation uses fixed positive12m denominator and re-admitted ScenePlanPoint."
+    },
+    {
+      "contract": "Vista scatter native arithmetic",
+      "analysis": "Rock layout fixed24m lattice and420m extent; helper size/indexing depends admitted vista dimensions/environment length. Trees cap per-cell realized candidates24/3 after area-scaled estimate, deterministic seeds, bounded scale. Coordinates and root height admitted before retained transforms. Stand visibility receives cached projected card bounds; no source-backed nonfinite actual cached provenance witness. Arbitrary raw helper widths0 or nonfinite spacing remain upstream admission obligations, not automatic ordinary defect. Fixture source covers seams, canonical triangle support and background angular bounds but no tests executed."
+    },
+    {
+      "contract": "Focused ground install failure publication",
+      "analysis": "GroundMeshes, digest and terrain material fallible preparation precede terrain command publication. Later paving.spawn_focused remains fallible after local asset additions and queued Commands; state.apply occurs only success, so no proven live geometry partial publication from this body. Assets may be added before Err; exact retry/cleanup and paving error prerequisites remain connected owner obligations. Returned FocusedGround is published only success; no persistence or DB writes."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/focused/meshes.rs"
+}

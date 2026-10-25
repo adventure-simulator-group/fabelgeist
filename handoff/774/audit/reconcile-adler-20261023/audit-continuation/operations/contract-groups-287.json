@@ -1,0 +1,108 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-287",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:content/dialogue/examples.yaml",
+      "sha256": "0b88481c5969b3dba36855dd3f2cdeff3895abda9e9696cd76e1f9eb263dbc7f",
+      "actual_EOF": 45,
+      "actual_compared_ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:content/dialogue/organizations.yaml",
+      "sha256": "57f566bbee311d7f54aa2cb344abbb5b0119fcdf7e321d2a2f2bda43bc2dcf67",
+      "actual_EOF": 707,
+      "actual_compared_ranges": [
+        [
+          1,
+          707
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:content/dialogue/services.yaml",
+      "sha256": "72e3e18751e06c9334390f98ed3dec812147d32f089fd7dd4a03429b0c192556",
+      "actual_EOF": 246,
+      "actual_compared_ranges": [
+        [
+          1,
+          246
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Authored dialogue cardinality, selection and effect declarations preserve runtime admission boundaries",
+      "source_ranges": {
+        "examples.yaml": [
+          [
+            1,
+            45
+          ]
+        ],
+        "organizations.yaml": [
+          [
+            1,
+            707
+          ]
+        ],
+        "services.yaml": [
+          [
+            1,
+            246
+          ]
+        ]
+      },
+      "disposition": "All exact authored bodies personally read, including the previously unread organizations tail and separately reread services truncation gap. No parser/runtime execution. Players min1/max4 and single NPC roles, integer priorities and yes/no/single modes are ordinary finite authored values. Majority example and first_response apprenticeship make different explicit resolution policies. Content performs no numeric accumulation itself. Actual dialogue build/runtime admission and participant/result resolution remain dependencies; author declarations do not independently prove checked runtime transitions."
+    },
+    {
+      "contract": "Dialogue effect success statements require actual effect application before published result turns",
+      "source_ranges": {
+        "organizations.yaml": [
+          [
+            1,
+            707
+          ]
+        ],
+        "services.yaml": [
+          [
+            1,
+            246
+          ]
+        ]
+      },
+      "disposition": "Join, dues payment, promotion request, organization presentation, apprenticeship, contract acceptance/reporting, faith flag, referred testimony and investigation return/expose are explicit effect ports. Content branches use fact states and priorities, but statements such as reward settled/new role recorded are result turns whose truth depends on runtime/effect/reducer success and rollback contracts already under audit. Missing conditions on return/expose are not proof of unauthorized mutation because actual reducer authority is required. Decline/wait branches intentionally omit effects. No content-only new defect or independent transaction guarantee promoted."
+    },
+    {
+      "contract": "Authored explanations preserve skill and observation interpretation while runtime values stay owned by their producers",
+      "source_ranges": {
+        "services.yaml": [
+          [
+            44,
+            65
+          ],
+          [
+            125,
+            153
+          ]
+        ]
+      },
+      "disposition": "Physician and herbalist explanations explicitly distinguish imperfect measured observations from diagnosis/treatment; surgeon text states direct Surgery with correlated Knife/Tailoring. This content owns no computed skill aggregate. Runtime slot fragments retain typed compiler/runtime handling and actual fact materialization dependencies. No hidden new arithmetic owner inferred from localized prose; gameplay and observation audit findings remain separate canonical records."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:content/items/catalog.yaml"
+}

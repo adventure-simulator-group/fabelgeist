@@ -1,0 +1,80 @@
+{
+  "id": "CONT07-F131",
+  "contract": "CONT07-CONTRACT-666",
+  "at": "2026-10-24T01:47:32.286963+00:00",
+  "title": "Roof drainage clearance reconstructs straight stair length from tread count instead of retained run",
+  "classification": "source-confirmed duplicate geometry authority; layout outcome conditional and unexecuted",
+  "sources": [
+    {
+      "scope_index": 646,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/layout.rs",
+      "sha256": "f19587b5c651091d18b720268e43f9bdef0e2ca083b33b57d53cbdbccb1be298",
+      "ranges": [
+        [
+          420,
+          432
+        ]
+      ]
+    },
+    {
+      "scope_index": 2544,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_outlets.rs",
+      "sha256": "a867ca903db8d40b4576b9e1985a40c0483f6f75f5a69efde7b6aa35d6a36ba4",
+      "ranges": [
+        [
+          737,
+          758
+        ]
+      ]
+    },
+    {
+      "registration": "CONT07-REG-039",
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/viewer/walk_rendering.rs",
+      "sha256": "a521f1cc3330dab17536f0ebba8613bb5458a5440ecb1ae254ef565f2107045b",
+      "ranges": [
+        [
+          1,
+          89
+        ]
+      ]
+    },
+    {
+      "registration": "CONT07-REG-040",
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/timber.rs",
+      "sha256": "10ebf86610fc1cb874862c7b0251c39d8de75bc476fa97a569a6cd5ece7ecb3c",
+      "ranges": [
+        [
+          1450,
+          1495
+        ],
+        [
+          1535,
+          1615
+        ],
+        [
+          2255,
+          2310
+        ]
+      ]
+    },
+    {
+      "registration": "CONT07-REG-041",
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/roofs.rs",
+      "sha256": "cb1b28e1acae9488d9a5022e46476dc3693e8947fe3e30f1444769d4015fcc5f",
+      "ranges": [
+        [
+          485,
+          530
+        ]
+      ]
+    }
+  ],
+  "producer_and_recipient": "Stair::Straight.run_metres explicitlyowns horizontalflightlength. Actualviewer andtimbergeometry derive placements fromrun/count. Roofcollector candidateclearance and finalauditor insteadusecount*.28.",
+  "static_witness": "Positive18tread straightflight withrun4.2m: actualtimber/viewerendpoint4.2 but roofclearanceendpoint5.04. Width1m+0.30margin; candidateonaxis5.1 lies0.9m beyondactualend(clear) but0.06 beyond reconstructedend(blocked). A longerdeclaredrun canlikewise underexclude, but no suchordinarylayout claimed.",
+  "normal_qualification": "Normaltimberconstructor takes declaredrunclampedbybuildingdims or fallback2.8\u20134.2, sets18treads andrendersactualrun. Completeadmittedgeneratedroofcollectorplacement/rejection witness notexecuted or proven; current sourcepolicy mismatch sufficient boundedfinding. Spiralflight separate andunchanged.",
+  "connected_repair": "Use oneexplicit retained/compiledstairfootprint for physicalrendering, roofcollector candidate search and auditor; derivefromrun_metres instead of independently assuming fixed0.28going. Preserveactualwidth/margins/directions andsplitstringers.",
+  "acceptance": "Samepositivevalidstraightdescriptor yieldssame horizontalflightend andclearance capsule inproducer and auditor for variedrun/count. Preserveactualspiralradius anddifferentpurposeoccupant vsstructuralwidth.",
+  "dedup": "Parent narrowarchive search found noexactalias; native05F056 concernsdifferent spiral admission, M12openingsdifferent. No globalunique union asserted.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

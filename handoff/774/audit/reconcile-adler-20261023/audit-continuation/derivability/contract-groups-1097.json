@@ -1,0 +1,126 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1097",
+  "at": "2026-10-25T17:45:27.069586+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1224,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/incidents.rs",
+      "sha256": "9358dd5b0a17f5f01f321c614d3c3309139134a24febfb634a9e6fa19eb0d622",
+      "actual_EOF": 703,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/incidents.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/strategic/incidents.rs",
+        "sha256": "9358dd5b0a17f5f01f321c614d3c3309139134a24febfb634a9e6fa19eb0d622",
+        "bytes": 23893,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                703
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-HOSTILE-INCIDENT-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 300,
+            "read_ranges": [
+              [
+                1,
+                703
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-INCIDENT-049"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/incidents.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 328,
+            "read_ranges": [
+              [
+                1,
+                703
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-INCIDENT-049"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/incidents.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 6,
+            "read_ranges": [
+              [
+                320,
+                535
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-STRATEGIC-001"
+            ],
+            "read_status": "whole actual maybe_trigger_activity_incident329\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153517, adjacent ranges exact only; no whole file clearance",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/incidents.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera",
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 533,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          703
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "BackendAuthorityArrestAction Clone/Debug/PartialEq/Eq/SpacetimeType."
+      ],
+      "absence_basis": "Full703lines1096\u20131097 consumed; no handwritten trait/custom codec. IncidentSpec borrowed recipe. Private-to-public action projection joins membership/unsettled charges/funds; contextual seeded event/materialization/surrender/finish policy. Domain separated SHA/seed and offense fingerprint387\u2013395/672\u2013690 fixed framing/selected identity, not derived Hash. Abstract/geographic coordinate conversions retain exact admission/errors."
+    }
+  ],
+  "groups": [
+    "KEEP contextual authority/privacy/state policy, selected sorting/identity and canonical fingerprint framing. Runtime event labels do not justify serialization."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1225,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1133",
+  "at": "2026-10-25T17:52:09.222589+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1242,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/tactical.rs",
+  "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+  "actual_compared_ranges": [
+    [
+      1,
+      350
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "All tactical wire vocab/receipt/hit/consequence/equipment/contact/connectedplayer types already structural/SpacetimeType; TacticalConsequenceReceipt Default already. Native request/server/claim tables Clone/Debug. No handwritten trait/codec. Tactical success90\u201397 semantic many\u2192bool classifier; authority-only native views/claim gate/revocation and player assembly contextual. Claim hash size/SHA authority retained, not derived Hash. request child independent."
+  ],
+  "first_unfinished": {
+    "scope_index": 1242,
+    "line": 351
+  },
+  "execution": "none"
+}

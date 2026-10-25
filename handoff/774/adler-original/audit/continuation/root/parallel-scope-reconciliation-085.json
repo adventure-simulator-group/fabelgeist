@@ -1,0 +1,61 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-085",
+  "at": "2026-10-22T18:54:11.404493+00:00",
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-015.json",
+    "sha256": "eef57a9f3e0e818a658daabfb9b9aba8e059a9481bff3bfb23d191bb35c31213"
+  },
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-016.json",
+    "sha256": "391e99888dc6fa833ea8ac6c7e86a7862d411654ce7d5d53449dec180f108d22"
+  },
+  "new_variant": {
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/identity_morphs.rs",
+    "snapshot": "pr-working",
+    "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-client\\src\\animation\\identity_morphs.rs",
+    "sha256": "340b2018b6091fe33081fc257ab36fc8f65a72011cb81d5fc583239d32807c5d",
+    "bytes": 5145,
+    "actual_line_count": 138,
+    "scope_kind": "materially_reached_parallel_initial07_dependency",
+    "audit_owner": "camera",
+    "material_ranges": [
+      [
+        1,
+        76
+      ]
+    ],
+    "scope_limits": "Only production sync_character_morphs1-76. Tests77-138 excluded. Fresh source-specific comparison required independently in every lens; no cross-lens verdict credit.",
+    "parallel_reached_registration": {
+      "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+      "sha256": "63b443ce4e9b3873b45f5ca97518fc6965a323b2b52eede501655d1a861b2308",
+      "row_1based": 2,
+      "id": "CAMERA-INITIAL07-REG002",
+      "original_record": {
+        "id": "CAMERA-INITIAL07-REG002",
+        "at": "2026-10-22T18:47:52.860705+00:00",
+        "authority": "continuation/root/parallel-initial-audits-081.json",
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/identity_morphs.rs",
+        "snapshot": "pr-working",
+        "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-client\\src\\animation\\identity_morphs.rs",
+        "sha256": "340b2018b6091fe33081fc257ab36fc8f65a72011cb81d5fc583239d32807c5d",
+        "actual_EOF": 138,
+        "material_ranges": [
+          [
+            1,
+            76
+          ]
+        ],
+        "excluded_context": "77+ cfg(test) excluded; no whole-file admission",
+        "direct_role": "Actual sync_character_morphs receiving SkeletalProportionReference copied from skeletal_bases; compare cache/reference consumer coherence against canonical body/fit source",
+        "status": "prospectively_registered_before_body_read_pending_global"
+      }
+    },
+    "producer_inventory_accounting": "bounded_01_02_newmaterial_comparison_pending",
+    "admission_discovery": "incomplete_exact_new_role"
+  },
+  "total_variants": 2750,
+  "mandatory_overlays": 197,
+  "limits": "Metadata-only explicit prospective CameraREG002 registration. No semantic credit, no frozen-source change, no test scope. All previous roles preserved.",
+  "source_edits": 0,
+  "project_execution": 0
+}

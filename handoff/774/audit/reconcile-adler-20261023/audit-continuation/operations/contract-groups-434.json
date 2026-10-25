@@ -1,0 +1,122 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-434",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants/lod.rs",
+      "sha256": "ed647cd71017f84b64945f398ad873fce7a452384db4b485eaafb29ba4de70a8",
+      "actual_EOF": 140,
+      "actual_compared_ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants/streams.rs",
+      "sha256": "415b7203142daf29b1d32af8b61b4a629d995ee6e0d851d281517802908205ad",
+      "actual_EOF": 11,
+      "actual_compared_ranges": [
+        [
+          1,
+          11
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants/tests.rs",
+      "sha256": "25420a15928ded72b0fe13b6e069519f74758b1555d6b4439bbf6d8602217239",
+      "actual_EOF": 301,
+      "actual_compared_ranges": [
+        [
+          1,
+          301
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/review_specimens.rs",
+      "sha256": "8acf0ffcb0e18a04c212bb749ffd1ed34edfdf3387a3fa35c2d1085cd5785a5f",
+      "actual_EOF": 99,
+      "actual_compared_ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/scene_mask.rs",
+      "sha256": "59bb666eebc24c7e9602dd6f5881f920b34f7eb6b1b65b313378330d402d58d7",
+      "actual_EOF": 67,
+      "actual_compared_ranges": [
+        [
+          1,
+          67
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/specimens.rs",
+      "sha256": "fc7ff2bd7a82b647f3d159373a29f47dbed689557c87cfddb5d3a0233a064beb",
+      "actual_EOF": 147,
+      "actual_compared_ranges": [
+        [
+          1,
+          147
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/tests.rs",
+      "sha256": "173ae946e3e1c74f3295deae3d929d675cf3047398c7fb8b8abff35408c28d62",
+      "actual_EOF": 96,
+      "actual_compared_ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/understory.rs",
+      "sha256": "2d5aaa58b592f7182c148c4bcdd572837c6e85df8e036e622c604c92bb594d96",
+      "actual_EOF": 357,
+      "actual_compared_ranges": [
+        [
+          1,
+          357
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Plant preset cache and shared LOD anchors",
+      "analysis": "Specimen cache generates actual threeLOD fixedpresets, combines their bounds then stores meshhandles, uses species/LOD canonicalindex. Reuses one material and identical transform/bounds across adjacent complementarytier ranges. Preset generator expects success/nonemptyfinitegeometry; no arbitraryexternal preset acceptedhere. Assets allocated before expect failure are not claimed transactionallyrolledback; fixedcatalogue admittedproducer pending. Whole fixtures personallyread cover deterministic512population, seasonalweights/exclusions, exact three tiers/anchor and secondframeidempotence, not run."
+    },
+    {
+      "contract": "Scatter masking and review asset preparation",
+      "analysis": "Mask clones canonical grid, mutates only collarcontained samples preserving dimensioncount/scale and urban authority; reconstruction expect inheritsunchangedadmittedshape. Review preparation collects every requiredspecies handle before spawning specimen entities, so incompletepresentation Err publishes none (cacheassetsetupalreadyperformed). ensure_understory_presentations uses hazelbranches sentinel and writes species incrementally through infalliblepresethelpers; ordinarycompletecallfillsallspecies. No othercachewriter/partialassetpanic witnessed; do not requiregeneraltransactionpromise. Envelope exportfixtureexplicitlywritescontentonlywithenvswitch; notexecuted or currentauthorization."
+    },
+    {
+      "contract": "Understory habitat and placement operations",
+      "analysis": "Actualcaller supplies saturated basispointunitinputs; positivehazelbase andboundednonnegativeotherweights ensurequantizedweighted_indexnonzero. Rawprivatehabitatstructcould violateassumptions but noactualinvalidproducer. Fixed3.2spacing andfourcellcommunity preserve deterministic grouping; jitteredpositions re-admitted andcover/water/managedground reject. Scene dimensions canimplylargeenumerationbeforeunboundedVec; workbudgetquestionremains upstreamscenecontract, noordinaryhang. Shrub geometry simplificationandreorderingfixture sourcewhole read, notrun."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "8 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/presentation/interior_lighting/exposure.rs"
+}

@@ -1,0 +1,200 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-216",
+  "at": "2026-10-25T13:43:41.552450+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 419,
+      "source_id": "physical-p16:crates/adventuresim-terrain/src/lib.rs",
+      "sha256": "b6f4484e8febb316766de322ff355f1d0dda5b394343be0227517c601c0f1421",
+      "actual_EOF": 2059,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-terrain/src/lib.rs",
+        "snapshot": "physical-p16",
+        "path": "SNAPSHOTS\\p16\\crates\\adventuresim-terrain\\src\\lib.rs",
+        "sha256": "b6f4484e8febb316766de322ff355f1d0dda5b394343be0227517c601c0f1421",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 2059,
+        "producer_reached_contract_observations": [
+          {
+            "record": "continuation/camera/receivers.jsonl",
+            "receipt": "row-5",
+            "json_pointer": "",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-terrain/src/lib.rs",
+            "read_ranges_as_recorded": [
+              [
+                321,
+                437
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-terrain/src/lib.rs",
+              "sha256": "b6f4484e8febb316766de322ff355f1d0dda5b394343be0227517c601c0f1421",
+              "read_ranges": [
+                [
+                  321,
+                  437
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "continuation_actual_producer_source_proofs": [
+          {
+            "record": "continuation/native/new-variant-producer-role-reconciliation.json",
+            "json_pointer": "/fresh_bounded_source_proofs/1",
+            "source_id": "physical-p16:crates/adventuresim-terrain/src/lib.rs",
+            "sha256": "b6f4484e8febb316766de322ff355f1d0dda5b394343be0227517c601c0f1421",
+            "read_ranges": [
+              [
+                1,
+                65
+              ],
+              [
+                321,
+                437
+              ],
+              [
+                948,
+                994
+              ]
+            ],
+            "proof": {
+              "source_id": "physical-p16:crates/adventuresim-terrain/src/lib.rs",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-terrain\\src\\lib.rs",
+              "sha256": "b6f4484e8febb316766de322ff355f1d0dda5b394343be0227517c601c0f1421",
+              "actual_line_count": 2059,
+              "read_ranges": [
+                [
+                  1,
+                  65
+                ],
+                [
+                  321,
+                  437
+                ],
+                [
+                  948,
+                  994
+                ]
+              ],
+              "actual_contract": "TerrainPack fields, full load332-408, getters410-436 and full validate_manifest948-994 read. Actual manifest JSON/validate, hash canonicalization, file seek/read, index/range/duplicate/tile bounds and cache; package hash is zeroed in cloned canonical serialized manifest only. SourcePackageDigest admission called through valid_digest discards checked value then retains raw manifest strings/getters. Other digest namespaces and broad finite f64 geographic bounds are distinct. Called terrain_feature validation is an existing traced contract, not a new whole helper read here.",
+              "mode": "fresh bounded source read, no project command or execution"
+            },
+            "limits": "Actual source-role proof for producer lens only; no owner-fit or other-lens clearance."
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved",
+        "admission03_increment046_role_observations": [
+          {
+            "supplier": "camera",
+            "registry": "continuation/camera/admission03/source-range-registration.jsonl",
+            "row_1based": 6,
+            "registration_id": "CAMERA-ADM03-REG-006",
+            "original_record": {
+              "id": "CAMERA-ADM03-REG-006",
+              "at": "2026-10-22T06:56:24.670161+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "physical-p16:crates/adventuresim-terrain/src/lib.rs",
+              "snapshot": "physical-p16",
+              "path": "SNAPSHOTS\\p16\\crates\\adventuresim-terrain\\src\\lib.rs",
+              "sha256": "b6f4484e8febb316766de322ff355f1d0dda5b394343be0227517c601c0f1421",
+              "actual_EOF_metadata_only": 2059,
+              "ranges": [
+                [
+                  66,
+                  100
+                ],
+                [
+                  268,
+                  269
+                ],
+                [
+                  316,
+                  320
+                ],
+                [
+                  438,
+                  577
+                ]
+              ],
+              "material_reach": "Existing Camera311 TerrainPack::load/validate_manifest private admission and Camera103 forecast_itinerary direct cell/query receiver requested by Rigtravel37: exact Cell/closedSurface tail, Manifest Serdeattributes, privatecache record and actual cell\u2192chunk decoding/cache receipt. No routing planner/astar/newbuilder/fixtures.",
+              "status": "prospectively_registered_before_new_body_analysis",
+              "source_coverage_awarded": false
+            },
+            "local_qualifications": [],
+            "effective_material_ranges": [
+              [
+                66,
+                100
+              ],
+              [
+                268,
+                269
+              ],
+              [
+                316,
+                320
+              ],
+              [
+                438,
+                577
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-terrain\\src\\lib.rs",
+            "actual_EOF": 2059,
+            "bytes": 71074
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          100
+        ],
+        [
+          268,
+          580
+        ],
+        [
+          948,
+          994
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "Error already thiserror::Error; Surface Default/structural/native Serde; Cell Default/structural; Manifest/Entry native Serde and TerrainPurpose structural/Serde already derive.",
+      "absence_basis": "Every registered1\u2013100/268\u2013269/316\u2013577/948\u2013994 range personally consumed, with full Manifest/TerrainPurpose/Entry definitions270\u2013312 and complete enclosing plan578\u2013580. No manual trait/serializer in material. Native five-byte chunk validation/decode is a custom external binary format and semantic cache/index admission; Serde record derive cannot replace this pack representation or error order.",
+      "necessary_signature_extension": "270\u2013315 completes manifest/native entry shapes used by load;578\u2013580 completes function whose docs enter material.",
+      "coverage_limit": "Exact material ranges only, not2059-line whole source. Exploratory101\u2013110/250\u2013267/582\u2013605/925\u2013947/996\u20131015 not credited. Routing bodies outside material remain separate obligations."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Terrain manifest/native chunk admission and cache representation",
+      "disposition": "Mechanical Serde output already derives; retain custom native binary decode and validated immutable-package construction. No derivability finding in material.",
+      "acceptance": "Preserve byte discriminants/flags, exact signed elevation lattice, native validation/errors, digest representation, lock/cache state and scoped API. No serde replacement of native pack protocol, physical extent policy or execution."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 420,
+    "source_id": "physical-p16:crates/adventuresim-terrain/src/road_pack.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

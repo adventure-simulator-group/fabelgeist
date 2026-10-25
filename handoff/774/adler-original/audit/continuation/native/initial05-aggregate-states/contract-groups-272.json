@@ -1,0 +1,86 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-272",
+  "at": "2026-10-23T06:36:13.243454+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/church.rs",
+      "sha256": "acda6fd16215547057139382ba949b935f7da6c3418ffa32674503dc5ba7932b",
+      "scope065_index": 627,
+      "actual_EOF": 109,
+      "scoped_ranges_compared": [
+        [
+          1,
+          109
+        ]
+      ],
+      "actual05_comparison": "Fresh complete scoped source bodies read before resumption checkpoint; explicit current aggregate relationships and actual recipient comparison below. No prior verdict/hash credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/exterior_access.rs",
+      "sha256": "d894566a0df2de9fac64d4c280d294f9254efa76ee57571735fec57eb1213abf",
+      "scope065_index": 629,
+      "actual_EOF": 150,
+      "scoped_ranges_compared": [
+        [
+          1,
+          150
+        ]
+      ],
+      "actual05_comparison": "Fresh complete scoped source bodies read before resumption checkpoint; explicit current aggregate relationships and actual recipient comparison below. No prior verdict/hash credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/obstruction.rs",
+      "sha256": "8d952e88a1c730d20672d0ac7fe4e79cc14a7fab083ca6943dd22639d4a7ecf8",
+      "scope065_index": 636,
+      "actual_EOF": 183,
+      "scoped_ranges_compared": [
+        [
+          1,
+          183
+        ]
+      ],
+      "actual05_comparison": "Fresh complete scoped source bodies read before resumption checkpoint; explicit current aggregate relationships and actual recipient comparison below. No prior verdict/hash credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/room_facing.rs",
+      "sha256": "8354b4ab6e76c9f87bd7fab5a54ef22942ccf542e4a7d2404c827c6b8c812efd",
+      "scope065_index": 638,
+      "actual_EOF": 123,
+      "scoped_ranges_compared": [
+        [
+          1,
+          123
+        ]
+      ],
+      "actual05_comparison": "Fresh complete scoped source bodies read before resumption checkpoint; explicit current aggregate relationships and actual recipient comparison below. No prior verdict/hash credit."
+    }
+  ],
+  "groups": [
+    {
+      "id": "same-source height-sliced obstruction",
+      "comparison": "Obstruction privately retains corners/source/bottom/top/footprint from the same checked CollisionCuboid. Bounds centre and extent are readmitted before retention. Projection uses corners within the requested vertical slice and crossings of the twelve actual cuboid edges; horizontal equal-height edges skip division. Empty intersections return None. Footprint quick rejection precedes actual height-sliced overlap. No independently editable pose cache. Generic bottom/top order and derived edge arithmetic remain caller/operation preconditions; actual StandingClearance supplies floor+.15 through floor+1.8 in order. Tilted-beam original fixture fully read, not run."
+    },
+    {
+      "id": "continuous standing clearance",
+      "comparison": "Factory projects each actual obstruction over the standing-height interval and expands same rectangle by person radius .3. All rectangles privately retained; is_clear checks every one against the same query segment. Finite Position leaves do not prove finite end-start. F058 records the specific false-positive relation failure; zero-length and boundary-touch policy remains intentional, with no false-clear or ordinary caller claim."
+    },
+    {
+      "id": "church route reservation purpose",
+      "comparison": "SmallChurch public-route rectangles contribute only near matching height within .3. LargeChurch only PublicProcessional waypoint windows whose two heights fit that interval contribute midpoint/extents plus route width. Intersections are restricted to Nave room bounds; Chancel and altar intentionally excluded. It iterates all storeys during room intersections; no cross-storey normal bad producer established, so this is not a new stale route finding. Original seeded church furnishing/validation/pulpit fixtures read only."
+    },
+    {
+      "id": "room facing and score consumers",
+      "comparison": "Ward beds choose orientation from the same current RoomBounds long axis and placement half. Altar/Torah use first actual Nave, bench/pulpit first Chancel, explicit North fallback; no nearest-room promise inferred. RoomBounds::from_room precedes cell mean division and establishes nonempty room. Pulpit behind-procession score intentionally returns Infinity as rejection sentinel, and actual placement recipient checks finite and drops it. It is not an accepted nonfinite score. Static recipe orientation is not an observer cache."
+    }
+  ],
+  "new_unique_findings": [
+    "NATIVE-INITIAL05-F058"
+  ],
+  "remaining_dependency_obligations": [
+    "Normal extreme-coordinate route producer bounds not established; remaining source inventory unread."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

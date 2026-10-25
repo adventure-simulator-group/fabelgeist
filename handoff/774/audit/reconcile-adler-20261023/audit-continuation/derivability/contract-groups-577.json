@@ -1,0 +1,34 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-577",
+  "at": "2026-10-25T16:05:49.558916+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 928,
+  "source_id": "pr-working:crates/adventuresim-core/src/foraging.rs",
+  "sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+  "actual_compared_ranges": [
+    [
+      1,
+      660
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "DomainTarget/DomainRequirement/DomainCapability/DomainInterruption/DomainEffect/PublicPreview/DomainRightsSubject/DomainRightsResource/DomainRightsOperation/DomainJurisdiction",
+      "lines": [
+        [
+          522,
+          591
+        ]
+      ],
+      "disposition": "KEEP explicit empty marker opt-ins for distinct local planner/rights vocabulary; no available owning derive, no semantic/wire changes."
+    }
+  ],
+  "analysis": "Fresh441\u2013660 native yield/stealth/training policies then typed planner/right adapter vocabulary. Empty marker impls DomainTarget522, DomainRequirement533, DomainCapability540, DomainInterruption546, DomainEffect565, PublicPreview574, DomainRightsSubject578, DomainRightsResource583, DomainRightsOperation588, DomainJurisdiction591 KEEP explicit marker opt-ins; not mechanical standard traits, no owning ready marker derives. Structural traits already derive. Rights question/digest uses deliberate tagged framing and empty-domain impossibility, not Serde; license admission continues.",
+  "first_unfinished": {
+    "scope_index": 928,
+    "line": 661
+  },
+  "execution": "none"
+}

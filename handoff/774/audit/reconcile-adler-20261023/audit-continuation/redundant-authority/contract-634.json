@@ -1,0 +1,65 @@
+{
+  "id": "CONT07-CONTRACT-634",
+  "at": "2026-10-24T00:51:06.908529+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2764,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/helmet/codes.rs",
+      "sha256": "0b8a7c542323af91d7989eb07067b61c68e2ffe46254a1d10477293591c3cb13",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/gpu/helmet/codes.rs",
+      "actual_EOF": 171,
+      "ranges": [
+        [
+          1,
+          171
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2765,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/puff_and_slash.rs",
+      "sha256": "d17c799bb303030a857deb25d4f1b93c144147bafa6ef4a1a2760b3528ea1717",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/puff_and_slash.rs",
+      "actual_EOF": 100,
+      "ranges": [
+        [
+          11,
+          28
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2766,
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/coverage.rs",
+      "sha256": "8bebf038e281f0b1529dd8008a42379c43eac3e0c2f9767d9a29606eb69ddced",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/combat/coverage.rs",
+      "actual_EOF": 347,
+      "ranges": [
+        [
+          1,
+          142
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "ROOT-INITIAL04-F007"
+  ],
+  "facts": [
+    "Helmet shared_codes macro emits Rust enum/count and WGSL constants from one declaration. Design slots/carrier vertex kinds/PostMap codes have one host/shader source, unlike separately handwritten Growth code table F112; this family adds no independent maintenance roster defect. Generated screaming names are native shader spelling, not player labels.",
+    "TextileColor material derives current RGB8 normalized channels plus fixed finish; sourcecolor and resulting PBR are a one-way constructor projection. Actual recipient mutability/override policy remains separate before claiming cached appearance wrong.",
+    "Fresh coverage body independently confirms adopted ROOT-INITIAL04-F007 from_span bypasses checked interval TryFrom. from_placement partitions each declared ordered region chain and retains source surface/anchor/laterality provenance, while contains unions intervals without stacking overlaps. These fields support exact authored geometry association, not a generic scalar total equality. Actual lower region interval mapping/contact coordinate recipients needed before visual-vs-combat coverage semantics claim; no coverage execution or imported01credit."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2767,
+    "start_line": 1
+  }
+}

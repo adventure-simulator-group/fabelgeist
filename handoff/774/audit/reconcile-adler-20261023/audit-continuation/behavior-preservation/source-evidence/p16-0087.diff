@@ -1,0 +1,13 @@
+--- p16base/crates/adventuresim-core/src/combat/weapon_contact.rs
++++ catalog-p16head/crates/adventuresim-core/src/combat/weapon_contact.rs
+@@ -74,9 +74,9 @@
+ 
+     /// Wrist-angle error grows with grip-to-tip distance. Imbalance increases
+     /// that angular error; neither contact precision nor weapon identity enters.
+     pub fn handling_accuracy(self, equipment: &impl PlayerEquipment) -> f32 {
+-        let lever = equipment.weapon_grip_to_tip().max(0.0) / self.reference_control_length_metres;
++        let lever = equipment.weapon_grip_to_tip().metres().max(0.0) / self.reference_control_length_metres;
+         let angular_error = 1.0 + equipment.weapon_balance().max(0.0);
+         (1.0 + (lever * angular_error).powi(2)).sqrt().recip()
+     }
+ }

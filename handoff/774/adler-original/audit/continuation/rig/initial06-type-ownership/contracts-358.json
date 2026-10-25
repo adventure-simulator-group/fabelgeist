@@ -1,0 +1,26 @@
+{
+  "id": "RIG-INITIAL06-GROUP-358",
+  "at": "2026-10-23T09:27:25.599582+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "blood-mask-native-surface-port": {
+      "comparison": "BloodMaskExtension composes StandardMaterial/InteriorMaterialSource and a native R8Unorm mask; bytecoverage is not host RGBA owner. Actual inverse mesh transform, indexed triangle barycentric interpolation and UV→pixel radius/stamp arithmetic are numerical native adapters. Texturetexels, worldmetres and normalizedUV are genuinely distinct dimensions; no reuse of signed ScenePlanPoint or skin-weight record for barycentric/projected mask coordinates. Sequence u64 is purely visual stain orientation, not DBclock/EquipmentSequence/attack authority. SurfaceUvHit retains query result/material ownership without shadow canonical geometry definition; source fixture read only.",
+      "disposition": "native mesh/texture calculation and material composition, no competing gameplay geometry owner"
+    },
+    "combat-effects-presentation-authority": {
+      "comparison": "SuccessfulAttackResponse/ImpactSound canonical netcode classification drives client-only particles/audio; impact localpoint/normal explicitly transforms to world for rendering. Seed/StreamId owns variation; sequence is per-character sound ordinal or stain ordinal, not combat authority time. CharacterId .0 enters deterministic seed context and keyed sound series, supports F040 typed identity retention until actual Seed projection. CombatParticle native velocity and countdown may become negative at expiry, unlike nonnegative AnimationElapsed; do not borrow wrong checked time owner merely because seconds. Real StandardMaterial colors/emissive HDR8.0 support F005 preserving HDR rather than unitRGBA. Native physics raycast/audio playback/material APIs are real ports, not state persistence.",
+      "disposition": "canonical event/variation owners with intentional presentation countdown/native integration and HDR distinction"
+    },
+    "settled-garment-surface-binding-owner": {
+      "comparison": "SettledGarment composes canonical GarmentSelection and SettledDrape; BodyTopology is exact vertex/triangle count compatibility metadata, not proof of same asset/hierarchy. SurfaceBinding stores actual native triangle index, barycentric2 and tangent/bitangent/normal offset3, with shared Packed serializer words; these roles are not rig skin ordinals/weights or Scene absolute positions. Capture checks settled stage and mesh relationships then binds via actual closest triangle kernel; wear transfers on body mesh and retakes canonical skin. Rawcloth position/texcoord/faces duplication remains connected F003 shared ClothMesh ownership rather than a new checked geometry owner. Dynamic Worn and Settling laststep meanings deliberately accepted separately. No helper/testmodule body credit from mod/call.",
+      "disposition": "meaningful settled surface-binding artifact; F003 shared cloth representation opportunity retained"
+    }
+  },
+  "supporting_existing_findings": [
+    "F003",
+    "F005",
+    "F040"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit."
+}

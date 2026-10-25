@@ -1,0 +1,49 @@
+{
+  "id": "RIG-INITIAL06-GROUP-157",
+  "at": "2026-10-23T05:05:03.374588+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-060.json",
+  "groups": {
+    "canonical-rig-and-cache-specific-identities": {
+      "comparison": "Fresh full ClothingRig73, export skeleton69, CalibrationInputs59 and BodyShapeKey77. Clothing resolves canonical RigJointNames once into canonical RigJointOrdinal/table, caches distinct garmentRegion→segment/skin matches, keeps requested order and first exact landmark versus all skin matches. Garment region is not an alternate RigJointPart; RigSegment proximal/distal has actual anatomical use. Export converts ordinals to usize only at actual glTF parent/child JSON port; typed tables remain retained, count/proportions validation not same-asset provenance. append_attachment mutates corresponding typed tables; aggregate coherence remains separate. CalibrationInputs is exact config-derived cache identity, not independently authored tuning, retaining existing sample rate/positive duration/height-scale/interval leaves. F001 generic length owner relocation remains. BodyShapeKey uses floatbits for Eq/Hash, reproduces checked CharacterProportions through TryFrom, and materializes native mesh deltas using canonical character identity or SkeletalFitMorph; bitkey is deliberate cache equality encoding, not an alternative authored proportion schema. Unknown morphname zero policy differs requiredRigJointName lookup. No need make all morph strings authored joints or all u64 IDs Seed.",
+      "disposition": "Keep canonical rig/proportion/config leaves and useful cached anatomical/source keys; native indices and bitwise cache encoding are real boundaries."
+    },
+    "phase-and-sample-numerical-kernels": {
+      "comparison": "Fresh full periodic_smoothing55, spline69 and quickstep81. Periodic convolution keeps unwrapped CyclePhase versus signed CycleDelta and orientation/timeline roles; grid ordinals become cycles only inside stencil, products/sums readmitted and replacement atomically copied after all success. Spline arrays/velocities/knot coordinates are native const-generic numerical kernel, not new independent accepted phase owner; KNOTS>=2 assertion and interval prerequisites are not proven by raw f32 name. Quickstep keeps authoritative sampleTick/span and positive duration, action spans min1 and contact midpoint separatelymin1; targetphase may exceed1 during recovery, not universal UnitInterval. Canonical sample span is shared count, but combat wallclock/eventsequence remain different. No second clock declaration or owner move required for these actual kernels.",
+      "disposition": "Keep phase/delta/timeline/sample distinctions and true numerical boundaries; caller prerequisites/admission remain explicitly separate."
+    },
+    "preparation-and-native-runtime-state": {
+      "comparison": "Fresh full ragdoll geometry66, litter-independent equipment readiness72, WASM generation73, worker_products67, PreparedStrategicScene69, windows77 and terrain_collision75. Ragdoll CapsuleShape positive bindlength versus scaled signed segment/half-length preserve Avian endpoint swap semantics; radius positive, marginzero-valid, no global positive-length substitution. F001/F002 canonical low leaf location remains; complete batchpreflight is usefulstage product. EquipmentReadiness queries actual ECS part/root flags/visibility/Entity, not another equipment accepted identity; output String is final diagnostic, not internal typed error erasure. WASM explicitly encodes/decodes canonical PresentationOwner/Ticket/jobs/products at JavaScript boundary; Rust requiresowner and typedstageproducts, so JSONprimitive port is warranted. Worker accepts matching tagged job/product and exact programmequality thenretains existing preparedfacade/venue/city types; payload/content admission gap remains priorRoot graph, no seal byTicketalone. StrategicScene binds actualprimary/distantplacements/venues beforegeneratedbuilding/furniture, not a new strategic/tactical DB authority. Window renderer keeps SceneWindow/canonicaldimensions/opening IDs until engineMesh/Outline and materialappearanceSeed projection; PresentedWindowCasement is lifecyclemarker, not competing window schema. Server terrain uses canonicalSceneTerrain/recipe/preparedpatch then derives nativecolliders; immutablepatchremoved after derivednative bodies installed, dump reconstruction is current product reconstruction rather than compatibilityschemafallback.",
+      "disposition": "Keep useful prepared/ECS products and checked leaves through retained state; preserve legitimate WASM/mesh/physics ports and existing payload coherence findings."
+    },
+    "support-and-final-observation-projections": {
+      "comparison": "Fresh full single bearing66, support observations71 and regional map markers74. Bearing factory composes PropertySupportSurface/Mesh with canonical property/building IDs, checkedgrounding limits and actualoutlinecontainment; raw tolerancemetres retained supports existing geometry/SupportElevation ownership graph, not newwholegeometrystateclearance. ObservationError composes Geometry/Door and exactmissingOpening/Lodroles; observationJSON sums actualbuildinglocalelevation+sceneSupportElevation, true numeric frameprojection/readout, not a second scene datum. Marker projection preserves canonicalStrategicPlaceId and low MapMarkerRank/Emphasis, actualpose/source/request coherence, croppedCamera projection to logicalcanvaspixels; pixel XY are native UI port, not WGS or ScenePlanPoint. Root map CanvasRect/StrategicView facts apply names exactly; no ViewRect alias. Different ranks/presentationthresholds do not introduce a second place identity.",
+      "disposition": "Keep canonical source/frame/identity ownership and structured diagnostics; distinguish observed JSON/canvas coordinates from accepted world geometry."
+    },
+    "procedural-geometry-and-fixture-contracts": {
+      "comparison": "Fresh full PlantLODtests68, fungusattachment72, profilebody75 and furniturefinishes69. Originalplanttests use canonical species/PlantLod/Seed and budgets, deterministicgeneration and positivearea expectations; no fresh result or second LODowner, PlantLOD differs CharacterLOD. Fungus attachment interpolates actualcoarsemesh triangles and unitnormal fallback at native meshoperation; no duplicate canonical direction owner retained. ProfileBody validator applies canonical dimension/ratio/count fields and correlated orderedstation0..1 endpoints, inset/ribclearance and gripbounds. Same scalar positivecondition does not warrant one type per field; ratio versus absoluteSI dimensions remain distinct. Finish assignment uses canonicalFinishableFurnitureKind/FurnitureKey/woodstate, Room/Storey identities and namedSeedstream from spatialplacement and programmeSeed; Room ordinal not globalproperty identity, deterministic projectioncontext not a competingSeed. Nonemptyfixedstate arrays remain actualsampler precondition. All containedfixtures read only.",
+      "disposition": "Keep low canonical species/LOD/recipe/furniture vocabularies, shape-specific aggregates and genuine numerical sampling/render ports."
+    },
+    "packed-wire-adapter": {
+      "comparison": "Fresh full settledgarment packed78. Private Packed trait describes literal fixed32bitword record encoding, f32bits/[u32;3]faces to littleendian Base64 wire and exactwhole-record decoder. This is actualserializationrepresentation, not an alternative finitePosition/RigOrdinal owner. Rawfloatpayload preservesbitpatterns; no semanticvalidation is inferred from modulo check. Generictrait and private implementations are codec machinery, not migrationcompatibility wrappers.",
+      "disposition": "Keep explicit packed wire adapter; semantic garment/mesh admission belongs current canonical products, not byte-length predicate."
+    },
+    "generic-targeting-native-kernel": {
+      "comparison": "Fresh full targeting84 including originalfixtures. GenericcandidateT remainscalleridentity; tupleu64 is stable tiekey, not automatically SceneBuildingId/characterID/Seed. Nativecamera/actorVec3 and normalizedforward/angularerror/distance computation select byalignment thenrange thenstablekey; no cursorcone deliberately. This renderinginteractionquery is actual numericalport, not another authored finiteScenePosition schema. Rawinputacceptance/NaNbehavior and callers are separate not certified bynormalizeOption.",
+      "disposition": "Keep generic candidate identity and final native targeting kernel; no unrelated identity/frame/type borrowing."
+    },
+    "native-transition-mesh-port": {
+      "comparison": "Fresh full scene transitionmesh82. Canonical SceneTerrain/TransitionCollar stayretained until actual Bevy Mesh/Collider arrays, nativeindices/UV and normals. Filtering readmits rawpoint as ScenePlanPoint beforecollarquery. Stride is local nativegrid samplingparameter derived fromscale ratio, not VistaLevelIndex/CharacterLOD. Native triangle triples versus flat meshindices are intended ABI conversions, not duplicate topologyauthorities. No full lower mesh_components or collider validation from delegate name.",
+      "disposition": "Keep canonical terrain/collar owners through true engine boundaries; preserve native stride/array representation and caller prerequisites."
+    }
+  },
+  "source_fact_refs": [
+    "contracts-001.json",
+    "contracts-005.json",
+    "contracts-083.json",
+    "contracts-097.json",
+    "contracts-155.json",
+    "contracts-156.json"
+  ],
+  "limits": "24 exact full PR bodies and contained originalfixtures freshly read for06; no called-helper/body credit byname, projectexecution, newtests, source edits or otherlens."
+}

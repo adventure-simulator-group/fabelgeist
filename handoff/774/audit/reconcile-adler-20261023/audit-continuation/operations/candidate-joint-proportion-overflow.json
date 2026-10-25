@@ -1,0 +1,37 @@
+{
+  "id": "SEGOVB-04-JOINT-PROPORTION-OVERFLOW-CANDIDATE-001",
+  "lens": "04",
+  "source_id": "pr-working:crates/adventuresim-core/src/character_proportions.rs",
+  "sha256": "7a3b0a5797dbb6d8c811aa2e2df9d831e7424367faf501cf6b3b9bffe1683433",
+  "ranges": [
+    [
+      69,
+      79
+    ],
+    [
+      98,
+      104
+    ],
+    [
+      136,
+      160
+    ]
+  ],
+  "status": "source-backed bounded API candidate; no ordinary runtime witness or global unique-count claim",
+  "contract": "Finite basis coefficients and independently admitted bounded proportions do not guarantee finite computed local translations.",
+  "witness": "Set only SpineLength translation x coefficient to f32::MAX. Reference SpineLength=-1.1 and target=+1.1 are both admitted; is_finite is true, while translation multiplies MAX by 2.2 and yields infinity.",
+  "qualifications": [
+    "No current authored MHR basis with extreme coefficients or current pose receiver proved. This is a numerical API contract candidate, not an ordinary asset failure.",
+    "Generated proportions use a smaller cosmetic range; tactical physics/reach intentionally independent."
+  ],
+  "connected_dependencies": [
+    "Creator export/skeleton.rs finite-metadata gate personally read packet331",
+    "Creator proportions.rs personally read packet339; actual model coefficient magnitudes pending."
+  ],
+  "acceptance_constraints": [
+    "Choose justified basis/output bounds or checked finite translation publication; rejection is valid.",
+    "Preserve negative and positive legal skeletal controls, reference-relative semantics and cosmetic scope."
+  ],
+  "execution": "none",
+  "source_edits": false
+}

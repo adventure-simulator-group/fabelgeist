@@ -1,0 +1,64 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-478",
+  "at": "2026-10-25T15:46:09.282059+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 881,
+  "source_id": "pr-working:crates/adventuresim-core/src/bestiary.rs",
+  "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [
+    "ThreatId Clone Copy PartialEq Eq Hash PartialOrd Ord",
+    "Native categorical enums structural derives",
+    "ReportDescription Clone Copy PartialEq Eq Hash"
+  ],
+  "trait_inventory": [
+    {
+      "trait": "FromStr",
+      "type": "ThreatId",
+      "lines": [
+        108,
+        117
+      ],
+      "disposition": "KEEP lexical plus catalogue membership admission, exact UnknownThreatId."
+    },
+    {
+      "trait": "Debug",
+      "type": "ThreatId",
+      "lines": [
+        119,
+        123
+      ],
+      "disposition": "KEEP unquoted canonical ID write_str, builtin structural Debug changes representation/output."
+    },
+    {
+      "trait": "Serialize",
+      "type": "ThreatId",
+      "lines": [
+        124,
+        128
+      ],
+      "disposition": "KEEP borrowed canonical str encoding from len+fixed bytes; structural derive emits different wire, owned into String allocates/adds API."
+    },
+    {
+      "trait": "Deserialize",
+      "type": "ThreatId",
+      "lines": [
+        129,
+        134
+      ],
+      "disposition": "KEEP owned String plus checked FromStr membership; no existing TryFrom<String> for exact deriving, raw fields bypass admission."
+    }
+  ],
+  "analysis": "Fresh bestiary1\u2013220 consumed: fixed-capacity ThreatId representation, lexical construction plus catalogue-membership FromStr, unquoted native Debug and borrowed string Serialize/owned checked String decode, enum vocabulary and report wrapper prefix. Native ID codecs preserve string wire (not length+bytes struct), checked decode membership and borrowing; no exact ready raw-field derive. ReportDescription implementation remainder not yet read; role221\u20131558 unread.",
+  "first_unfinished": {
+    "scope_index": 881,
+    "line": 221
+  },
+  "execution": "none"
+}

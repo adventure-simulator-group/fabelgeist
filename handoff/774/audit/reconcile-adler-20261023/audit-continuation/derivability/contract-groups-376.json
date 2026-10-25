@@ -1,0 +1,172 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-376",
+  "at": "2026-10-25T15:09:34.527940+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 741,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_gorget.rs",
+      "sha256": "ba644b18ad4daf9cdbfa3caf009737c018ee220b98b321e5338bad8e38539e95",
+      "actual_EOF": 368,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-character-creator/src/device_gorget.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-character-creator/src/device_gorget.rs",
+        "owner": "rig",
+        "sha256": "ba644b18ad4daf9cdbfa3caf009737c018ee220b98b321e5338bad8e38539e95",
+        "base_sha256": "34566666bbb966e20fd393d678de1e91e25cbc5b9234a1444c9649756f3a59d4",
+        "state": "modified",
+        "bytes": 13512,
+        "audit_owner": "rig",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/sources.json",
+            "ranges": [
+              [
+                1,
+                368
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-DEVICE-FIT-02"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 188,
+            "read_ranges": [
+              [
+                1,
+                368
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-GORGET-NATIVE-032"
+            ],
+            "read_status": "full-source-read-current-lens",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-character-creator/src/device_gorget.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          368
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full exact source read1\u2013220/221\u2013368. Native SETUP/SAMPLES/PLANE_SECTIONS/SECTIONS/CAGE_SETUP53\u2013207 shader programs; DeviceWearer record_fitted_gorget211\u2013303 checked design/shape/joint/native setup/support and record_gorget_sections307\u2013368 ABI/ordered batch geometry. No handwritten Rust trait/codec; semantic native conversion/error policy retained."
+    },
+    {
+      "scope_index": 742,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_gorget_bib.rs",
+      "sha256": "002c0b80c36401a0849cba9cb6f2a4cecc3e6eb6bcd57bef872bd3a5b7fde726",
+      "actual_EOF": 326,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-character-creator/src/device_gorget_bib.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-character-creator/src/device_gorget_bib.rs",
+        "owner": "rig",
+        "sha256": "002c0b80c36401a0849cba9cb6f2a4cecc3e6eb6bcd57bef872bd3a5b7fde726",
+        "base_sha256": "1425663f319a310838460e34e282ee8d2d421c87d4b0e074d5cd14e50f09e225",
+        "state": "modified",
+        "bytes": 12890,
+        "audit_owner": "rig",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/sources.json",
+            "ranges": [
+              [
+                1,
+                326
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-DEVICE-FIT-02"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 189,
+            "read_ranges": [
+              [
+                1,
+                326
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-GORGET-NATIVE-032"
+            ],
+            "read_status": "full-source-read-current-lens",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-character-creator/src/device_gorget_bib.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          326
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full exact source read1\u2013160/161\u2013326. DeviceWearer native borrowed lower-equipment record_bib_fit21\u201338/record_bib_measure41\u201379 geometric coordinate/native buffer mapping; MEASURE83\u2013132/ENVELOPE140\u2013162 shader programs. Synthetic GPU fixture164\u2013326 read only; no handwritten Rust trait/type/codec."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "gorget native fit and lower-equipment bib support",
+      "disposition": "No handwritten trait boilerplate; retain checked design/native geometry/lower-surface/frame mapping and shader programs.",
+      "acceptance": "No generic derive/new codec weakening shape/identity validation; no fixture or GPU execution."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 743,
+    "source_id": "pr-working:crates/adventuresim-character-creator/src/device_gorget_cage.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

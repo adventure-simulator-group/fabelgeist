@@ -1,0 +1,117 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-403",
+  "at": "2026-10-25T15:19:08.121258+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 780,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment.rs",
+      "sha256": "d6b09524be811c5e4202be50af529c941a917ff8f31ea61e2a73e4da17dc103e",
+      "actual_EOF": 702,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-character-creator/src/garment.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-character-creator/src/garment.rs",
+        "owner": "rig",
+        "sha256": "d6b09524be811c5e4202be50af529c941a917ff8f31ea61e2a73e4da17dc103e",
+        "base_sha256": "0b3848587b150afe8baa0f7dc30a928a6f51cb3b5e7cfa1767303f001ff7b84b",
+        "state": "modified",
+        "bytes": 24838,
+        "audit_owner": "rig",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/sources.json",
+            "ranges": [
+              [
+                1,
+                702
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-GARMENT-05"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 207,
+            "read_ranges": [
+              [
+                1,
+                702
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-DRAPE-OWNERS-035"
+            ],
+            "read_status": "full-source-read-current-lens",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-character-creator/src/garment.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          702
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Display",
+          "type": "DrapeStage",
+          "lines": [
+            82,
+            91
+          ],
+          "disposition": "Optional exact existing derive_more::Display equivalent F008; exact four explicit formats, nongeneric native u32 fields, no semantic classification/error/conversion in formatter."
+        }
+      ],
+      "existing_derives": [
+        "DrapeInput/DrapedGarment Clone40/55",
+        "DrapeStage Debug/Clone/Copy/PartialEq/Eq70"
+      ],
+      "source_read_receipts": [
+        "SEGOVB-INITIAL10-CONTRACT-401",
+        "SEGOVB-INITIAL10-CONTRACT-402",
+        "Fresh481\u2013702 final skin transfer and existing fixtures personally consumed before this packet"
+      ],
+      "absence_basis": "Full exact702-line source read1\u2013240/241\u2013480/481\u2013702. Only handwritten trait is DrapeStage Display F008. Other native measurements/centimetre adapter99\u2013142, panel clearing157\u2013212, SewnSurface219\u2013298, normals299\u2013319/component winding323\u2013381, checked skirt/general skin transfer385\u2013522 are semantic geometry/skin operations. Fixtures524\u2013702 read only; child modules separately pending. Exact direct feature/lock/primary macro proof in401."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "garment progress formatting and native geometry/skin operations",
+      "disposition": "F008 optional existing derive_more Display cleanup preserves exact current messages/API; retain all checked/native geometry/skin semantics.",
+      "acceptance": "No new dependency/serde/conversion API, no formatter/wire/bound changes, no tests or macro/compiler execution."
+    }
+  ],
+  "findings": [
+    "SEGOVB-INITIAL10-F008"
+  ],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 781,
+    "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/conform.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

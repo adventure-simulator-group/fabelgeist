@@ -1,0 +1,81 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-642",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/terrain_feature.rs",
+      "sha256": "0e27249f12fa5c9007dcb4fc1bc99d1b0106a6b741d0ae6b4078e3078825b36a",
+      "actual_EOF": 43,
+      "actual_compared_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2713"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/geologic_window.rs",
+      "sha256": "371180d1fdfd5e93061a55a884f3bbf816db1e853a49f81540f215c4f9c3e2b3",
+      "actual_EOF": 36,
+      "actual_compared_ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2714"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/resolved_networks.rs",
+      "sha256": "f6935151a38ae59a0722eb9ffec6584b50ba1b3c89356185b7b9cdc2eb60dfe9",
+      "actual_EOF": 463,
+      "actual_compared_ranges": [
+        [
+          1,
+          192
+        ],
+        [
+          202,
+          209
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2715"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/coordinates/bounds.rs",
+      "sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+      "actual_EOF": 49,
+      "actual_compared_ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2718"
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Terrain feature projections and geographic rectangle arithmetic",
+      "evidence": "All registered terrainfeature1\u201343/geologic1\u201336/bounds1\u201349 read. Feature geometry accessor deliberately returns empty for geology windows, distinct from fault traces. Geologic width/height differences widen i32 bounds to i64 before subtract; exact inclusive contains in f64. WGS bounds uses checked corners/order and inclusive intersects, excludes antimeridian by documented source contract.",
+      "qualifications": "Mapped window unit/lithology/world polygon evidence is construction provenance, not proven by rectangle validity alone. No runtime geographic projection or ordinary bad geometry claimed. EPSG3034 and WGS84 rectangles distinct; do not impose geographic caps on abstract native coordinates.",
+      "acceptance": "Preserve exact coordinate systems, full signed native inputs, inclusive boundary policy and widened differences without source authority substitution."
+    },
+    {
+      "contract": "Resolved structural position admission and correlated network descriptors",
+      "evidence": "Resolved_networks1\u2013192/202\u2013209 read. StructuralNode raw producer/Serde both admit Position<Architectural> with source node identity before construction. SupportInterface retains checked SpatialBounds that may have zero height. Remaining structs retain topology/IDs/positions/channel dimensions and explicit recipient/disposition.",
+      "qualifications": "No mutation/arithmetic implementation in raw network descriptors. Matching physical IDs, nodes, drainage samples/outlet stations and solid/interface deletion require owning whole network compiler/audit; valid fields alone do not establish correlation. No automatic alias or full accepted network claim.",
+      "acceptance": "Preserve source-bearing arithmetic errors and legitimate zero-height interfaces, exact network references/cohorts and geometry admission at actual compiler/retained mutation owner."
+    }
+  ],
+  "findings": [],
+  "status": "Qualified material ranges personally analyzed; whole04 remains incomplete.",
+  "first_unfinished": "physical-p16:crates/adventuresim-tactical-core/src/animation/state/turn_deadline.rs",
+  "source_edits": false,
+  "project_execution": "none"
+}

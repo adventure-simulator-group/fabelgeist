@@ -1,0 +1,62 @@
+[
+  {
+    "snapshot": "pr-working-unchanged-receiver",
+    "path": "crates/adventuresim-character-creator/src/inventory_acquire.rs",
+    "observed_sha256": "38c1ff570b3617b06af25f869d5ccd0f82d4827a6c4d0f9c4298e14c04ec145f",
+    "line_count": 138,
+    "read_ranges": [
+      [
+        1,
+        138
+      ]
+    ],
+    "coverage": "source-read-full",
+    "reason": "Actual original checked-catalogue selection -> raw ItemDefinition helper -> CatalogArticle string producer and acquisition application operation."
+  },
+  {
+    "snapshot": "pr-working-unchanged-receiver",
+    "path": "crates/adventuresim-core/src/equipment.rs",
+    "observed_sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+    "line_count": 1182,
+    "read_ranges": [
+      [
+        170,
+        370
+      ],
+      [
+        990,
+        1196
+      ]
+    ],
+    "coverage": "partial-source-read-actual-receiver-covered",
+    "reason": "Every actual EquipmentGraph record/method body and all three inline graph fixture bodies; PlayerEquipment and unrelated portions remain outside this additional receiver read."
+  },
+  {
+    "snapshot": "pr-working-unchanged-receiver",
+    "path": "crates/adventuresim-core/tests/armor_harness.rs",
+    "observed_sha256": "264aac03ab4bce2ffa47c2532cb1f092ed5717c1e5abac65af784125b1a90e0d",
+    "line_count": 170,
+    "read_ranges": [
+      [
+        1,
+        170
+      ]
+    ],
+    "coverage": "source-read-full",
+    "reason": "All four actual external Core graph fixture callers with authored or loop-generated native IDs."
+  },
+  {
+    "snapshot": "pr-working-unchanged-receiver",
+    "path": "crates/adventuresim-tactical-client/src/animation_viewer/harness.rs",
+    "observed_sha256": "ed20b1e997850b7b95cc52c88c55fad7855c2cf9c7a8e08ec3f610656517ee13",
+    "line_count": 511,
+    "read_ranges": [
+      [
+        430,
+        522
+      ]
+    ],
+    "coverage": "partial-source-read-actual-receiver-covered",
+    "reason": "Actual test-local graph ID conversion and parent-edge receiver; other harness implementation owned by camera and not read here yet."
+  }
+]

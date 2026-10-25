@@ -1,0 +1,82 @@
+{
+  "id": "CONT07-CONTRACT-594",
+  "at": "2026-10-24T00:25:46.977748+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2568,
+      "source_id": "dependency-bevy_reflect_derive0.19.1:src/registration.rs",
+      "sha256": "c069e2d3114fe1ba4276ce53531d7a1fd0b7bad25b9da0d56ffeb294736bd7aa",
+      "origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_reflect_derive-0.19.1/src/registration.rs",
+      "actual_EOF": 59,
+      "ranges": [
+        [
+          1,
+          59
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2569,
+      "source_id": "dependency-bevy_reflect_derive0.19.1:src/derive_data.rs",
+      "sha256": "113809d703c47d2d0c5d22bcb8be364a9c158c2878bbdbccd7034b57ba95a1dd",
+      "origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_reflect_derive-0.19.1/src/derive_data.rs",
+      "actual_EOF": 1422,
+      "ranges": [
+        [
+          184,
+          322
+        ],
+        [
+          489,
+          498
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2570,
+      "source_id": "dependency-bevy_reflect_derive0.19.1:src/container_attributes.rs",
+      "sha256": "a672e1d7725e7a2417f0542e59726962d0cf1489fe4bea11ffa798ec5b09b778",
+      "origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_reflect_derive-0.19.1/src/container_attributes.rs",
+      "actual_EOF": 693,
+      "ranges": [
+        [
+          219,
+          225
+        ],
+        [
+          228,
+          246
+        ],
+        [
+          395,
+          399
+        ],
+        [
+          621,
+          637
+        ],
+        [
+          660,
+          662
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Registration stores TypeRegistration::of<Self>, the same Self-derived pointer/from-reflect data and explicit trait data, rather than a manually duplicated primitive schema. Opaque derive bypasses field/variant collection and its registration has no field dependency iterator.",
+    "The single parsed container is_opaque attribute selects opaque behavior. Reflect clone delegates to Clone<Self> or the explicitly authored custom clone; this scoped generator does not itself supply an independent primitive construction authority. Custom clone remains the caller's contract, not automatically invalidated by metadata."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2571,
+    "start_line": 1
+  }
+}

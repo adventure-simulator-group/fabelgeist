@@ -1,0 +1,179 @@
+{
+  "id": "CONT08-CONTRACT-180",
+  "at": "2026-10-25T13:45:13.769883+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 707,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/clothing.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/clothing.rs",
+      "before_sha256": "459ff9e029460faffa0502eb358e22f603beff7ef183d93ba8746c4d1aaf1283",
+      "after_sha256": "01a1b2449b801b5bc0597ad35ddb9a5cef1bc7f86612b1c02efcb50c6b18e049",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0707-base-459ff9e029460faffa0502eb358e22f603beff7ef183d93ba8746c4d1aaf1283",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/01a1b2449b801b5bc0597ad35ddb9a5cef1bc7f86612b1c02efcb50c6b18e049",
+      "diff": "source-evidence/pr-0707.diff",
+      "diff_sha256": "f3393611aa49a0513456330de57495aabb22feb0ea61dcbc5baced040844f7df",
+      "head_body_read_ranges": [
+        [
+          1,
+          714
+        ]
+      ],
+      "facts": [
+        "Full714 body plus entire819-line actual diff consumed in bounded ranges after first combined display truncated (no credit from omitted output). Garment name/finite signed offset and actual catalog placement/material admission retain .007/.012/.017/.024/.008 values, .35 threshold, one ring and material source. Body equal position/normal/skin/weight rows and name/global count precede triangle-bound checks; new packed bound adds owning rig count.",
+        "ClothingRig711/regions710 retain region order, first exact landmark/all matching skin slots and waist semantics. Selected masks, inclusive anchor interval, >=2 triangle/ring expansion, .01 waist weight strict threshold and body occlusion/source order unchanged. Fitting returns full positions/normals, including unselected body rows; this actual producer supports703 clothing residual row correspondence.",
+        "Moved3-pass .5 concavity relaxation retains adjacent sort/order and per-axis native arithmetic; normals and source-position quantized1e6/f64 mean weld unchanged. Chain now rejects nonfinite total/candidate coordinate: for finite custom endpoints yielding totalInf, old finite coordinate can only be0 (or nonfinite), so original extent>0 gate already prevents usable selected triangles; earlier failure stage is not proof lost successful finite shell. No normal invalid-landmark/config/runtime regression claim."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 708,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/clothing/error.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/clothing/error.rs",
+      "before_sha256": null,
+      "after_sha256": "3a33f6fd8aaabd68b8be71ea21f472b142fd17f7648bd79551af19b2c8f24297",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/3a33f6fd8aaabd68b8be71ea21f472b142fd17f7648bd79551af19b2c8f24297",
+      "diff": "source-evidence/pr-0708.diff",
+      "diff_sha256": "4cff768405d34a3bedc8df56d6bad75bd641c9668fc7f949a5f27cda737c3863",
+      "head_body_read_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "facts": [
+        "Full48 new error body compared old707/709 string producers. Most display text and rejected face/name data preserved; MissingLandmark intentionally changes display from MHR rig is missing anatomical landmark ... to canonical rig joint ... is missing while retaining exact label and source class. No promise exact old prose to parsers; actual presentation boundary remains owned error formatting."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 709,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/clothing/fitting.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/clothing/fitting.rs",
+      "before_sha256": "324acdde8216e7493222fe923e030f2ee4ca083f763f59226c50f27741414f71",
+      "after_sha256": "c994568e769cacd263045e2683b6750382cc6834f28a6f3059b6bad839cea628",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0709-base-324acdde8216e7493222fe923e030f2ee4ca083f763f59226c50f27741414f71",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/c994568e769cacd263045e2683b6750382cc6834f28a6f3059b6bad839cea628",
+      "diff": "source-evidence/pr-0709.diff",
+      "diff_sha256": "60f32b9a6f245951bb6b75690a407b85cce476375c6cd8445ddd215d8537f514",
+      "head_body_read_ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "facts": [
+        "Full49+actual diff. Refit requires same full body vertex count/normal rows, then same native fitting and finite/faces validation. Source normals/relaxation\u2192normal offset multiply+add\u2192position weld order preserved with SignedLength.metres; finite negative/zero offset remains admitted, no absolute/epsilon repair.",
+        "MorphCorrespondenceChanged/TrianglesInvalidated preserve old message and error stage. Actual producer707 and703 same model capture close normal clothing residual short-index witness; malformed public shell still separate API possibility, not ordinary regression."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 710,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/clothing/regions.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/clothing/regions.rs",
+      "before_sha256": "5ce74538b4dcebf55af6097b1965394ea2f58141b08d923384d3e323d8f887ed",
+      "after_sha256": "3819e9e4805a3004655e303c8a9e84b2d28892ea2d2b193ea9d094a31afc8f5a",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0710-base-5ce74538b4dcebf55af6097b1965394ea2f58141b08d923384d3e323d8f887ed",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/3819e9e4805a3004655e303c8a9e84b2d28892ea2d2b193ea9d094a31afc8f5a",
+      "diff": "source-evidence/pr-0710.diff",
+      "diff_sha256": "a04a9e683e7d417bc866ddb300fef54a2ceb80de79e476dd1394b14102adc688",
+      "head_body_read_ranges": [
+        [
+          1,
+          162
+        ]
+      ],
+      "facts": [
+        "Full162+entire actual diff. Every15-region proximal/distal mapping and exact head/eye/jaw/tongue, spine/clavicle/groin, side limb twist policy retain former strings. Waist root/spine0/1 plus both thigh twists excludes spine twists, unchanged. Native membership typed Boolean adapter and source slot enumeration same; fixtures read not run."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 711,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/clothing/rig.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/clothing/rig.rs",
+      "before_sha256": null,
+      "after_sha256": "827e367d7bc6b3b171f5a1bde231ebf13a91a54ad593dc09474bccaae1360e18",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/827e367d7bc6b3b171f5a1bde231ebf13a91a54ad593dc09474bccaae1360e18",
+      "diff": "source-evidence/pr-0711.diff",
+      "diff_sha256": "9b555ff87334545e9ce51f468d9472a51cc67e089380384186332bb89c09a0a6",
+      "head_body_read_ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "facts": [
+        "Full73 added body compared removed707 inline region/landmark calculations. Cache entry only after proximal then distal require succeeds; requested regions append every segment in original order, selected set union includes all matching duplicate slots. First duplicate landmark retained via2332; earlier region/garment absent-landmark order preserved. Per-call names borrow immutable; no stale persistent cache."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 713,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/clothing/validation.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/clothing/validation.rs",
+      "before_sha256": null,
+      "after_sha256": "630f8e3e98411ed571b011cdd36f22ff53ea367770a459c0fd16617077b05a1c",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/630f8e3e98411ed571b011cdd36f22ff53ea367770a459c0fd16617077b05a1c",
+      "diff": "source-evidence/pr-0713.diff",
+      "diff_sha256": "4966404b7931d70c71aea3c3b38f645680907ebb1fb96b91def4bbe8e173d2b4",
+      "head_body_read_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "facts": [
+        "Full28 added body compared exact removed707 validation. All fitted coordinate finite before first out-of-range encoded face; retains original triangle unchanged and exact garment/face context in owned errors. No added geometric quality/degeneracy rejection."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 714,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/clothing_material.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/clothing_material.rs",
+      "before_sha256": "bafb2117ada36281130d4dd00bb3862dc6f51840637a74fe1924c5106840668e",
+      "after_sha256": "bafb2117ada36281130d4dd00bb3862dc6f51840637a74fe1924c5106840668e",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0714-base-bafb2117ada36281130d4dd00bb3862dc6f51840637a74fe1924c5106840668e",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/bafb2117ada36281130d4dd00bb3862dc6f51840637a74fe1924c5106840668e",
+      "diff": "source-evidence/pr-0714.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          16
+        ]
+      ],
+      "facts": [
+        "Full16+empty diff. All10 material base RGBA/metallicity/roughness table values unchanged, including oxidized nonmetal0 and lead1. Supports same garment/plate recipient behavior; no rendering executed."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    }
+  ],
+  "next": "715 construction_controls93 then716+"
+}

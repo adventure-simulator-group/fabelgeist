@@ -1,0 +1,61 @@
+{
+  "id": "CONT08-QUALIFICATION-005",
+  "at": "2026-10-25T10:16:00.489681+00:00",
+  "exact_alias": "CAM-PROP-F006",
+  "support": "migration-001-p16-equipment-result-receivers.json",
+  "personally_consumed_record": "audit/records/final-acceptance-20261021/wave-01/audit-producer-propagation/camera/findings.jsonl#CAM-PROP-F006",
+  "actual_frozen_source_correction": {
+    "source_index": 178,
+    "sha256": "1c346cbf22b4b7ad34cdd6b515b08d015c43e6489f953aa3a75ea40d8e3c675c",
+    "fresh_range": [
+      315,
+      329
+    ],
+    "fact": "require_living_character currently returns Result<Character,String>, not StrategicOperationResult; no new typed-living receiving mismatch inferred for frozenP16name180 orother unchangedStringcaller solelyfromF006broadstatement.",
+    "limit": "Otherplanned/rangeoverlayversions maydiffer; exactvariant proofrequired, no blanketretraction ofwholeF006.",
+    "base_sha256": "c0d449aad5116662aeb2f7dfb377d60e0e1753b043d529a8b871072fa36ea6de",
+    "before_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0178-base-c0d449aad5116662aeb2f7dfb377d60e0e1753b043d529a8b871072fa36ea6de",
+    "after_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/1c346cbf22b4b7ad34cdd6b515b08d015c43e6489f953aa3a75ea40d8e3c675c",
+    "actual_full_p16_diff": "source-evidence/p16-0178.diff",
+    "full_diff_sha256": "d3758a18c0e77235e26235742002ba38bbdb5ba0c94772486fab2201ef038667",
+    "full_diff_qualification": "Own08 actualentireP16base/headdiff read atcheckpoint050; function315\u2013329 unchanged/absentfromdeltahunks. Freshbothactualbase/head315\u2013329 displayedagain forsource-backed signature/body equality, not search-onlyabsence."
+  },
+  "retained_defect": "refresh_equipment_dependents799typed\u2192equip2898String?3175 andstarter3225typed\u2192tailString3240 remainactualsource-backed missingreceivermigration.",
+  "no_execution": "No compiler/test/projectcheck/runtime result.",
+  "own_record_qualification": "Own180 receipt051 describes unchangedStringname reducer/livingguard and asserts no typed-living mismatch; no own finding to retract there. Migration001 alreadyupdated alias/correction. Otheractualsource-read rows retainexactproducerresult type, no broad all-livingtyped promise.",
+  "additional_actual_unchanged_String_receivers": [
+    {
+      "scope_index": 180,
+      "sha256": "ce69b10b91846fd901ae6d97b470b4d96c592e96858032dedb6376b4b8b4cc17",
+      "range": [
+        1,
+        8
+      ],
+      "fact": "Frozen update_character StringResult calls frozenString require_living; no typed-living mismatch."
+    },
+    {
+      "scope_index": 205,
+      "sha256": "91a13115f15cf32eabd8971f881e1eb15a9177e089cc8e72d8c7ef0495cdb168",
+      "ranges": [
+        [
+          512,
+          520
+        ],
+        [
+          570,
+          577
+        ]
+      ],
+      "fact": "Bothplace/retrievefireplacecontainer StringResult call samefrozenString require_living; archiveF006 generictyped-livingclaim notadoptedhere."
+    },
+    {
+      "scope_index": 193,
+      "sha256": "c001a52a7bb957260ae3914ca056d847292760b5911984791143b8a4a1ede2e5",
+      "range": [
+        2080,
+        2101
+      ],
+      "fact": "require_intervention_relationship StringResult\u2192frozenStringliving calls coherent; protected_point/stoppreparation typedcapability/terminal gaps remainactualdistinctreceiving seams."
+    }
+  ]
+}

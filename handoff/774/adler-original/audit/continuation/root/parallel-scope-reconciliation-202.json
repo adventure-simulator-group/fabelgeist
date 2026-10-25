@@ -1,0 +1,136 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-202",
+  "at": "2026-10-23T04:47:59.039535+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-059.json",
+    "sha256": "27f1f45cd5c4b91bfbbee6a128f8939104a2eb113fd987d197128741e951fe9a"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-058.json",
+    "sha256": "93e47bb408cea71ef8c41710dfe61aa5958c957367ff8e834737e034b5398fb3"
+  },
+  "new_variants": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-puzzles/src/ordered_sigils.rs",
+      "sha256": "663ef1d62d85a2b952a6be5d496949ae0b71d293110c14d6d7d123319559ee6b",
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-puzzles\\src\\ordered_sigils.rs",
+      "snapshot": "physical-p16",
+      "actual_line_count": 392,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          1,
+          12
+        ],
+        [
+          56,
+          81
+        ]
+      ],
+      "audit_owner": "root",
+      "scope_registration": [
+        {
+          "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+          "sha256": "62184c66456e0c79da6e57e6d196f7b16b75342a180e2219f4e1c3ef3fb60ff4",
+          "row_1based": 20,
+          "id": "ROOT-INITIAL04-REG020",
+          "original_record": {
+            "id": "ROOT-INITIAL04-REG020",
+            "at": "2026-10-23T04:45:32.590879+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "physical-p16:crates/adventuresim-puzzles/src/ordered_sigils.rs",
+            "snapshot": "physical-p16",
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-puzzles\\src\\ordered_sigils.rs",
+            "sha256": "663ef1d62d85a2b952a6be5d496949ae0b71d293110c14d6d7d123319559ee6b",
+            "actual_EOF": 392,
+            "material_ranges": [
+              [
+                1,
+                13
+              ],
+              [
+                56,
+                83
+              ]
+            ],
+            "actual_reach": "Already scoped P16Core errantry fey_clue_text270-289 indexes5-element speech tables from OrderedSigilClue position and sigil fields; direct current P16 enum/serde payload and own clue operation definitions required, not assumed from globally scoped PR counterpart.",
+            "exclusions": "Only direct clue declaration/imports1-13 and exact clue impl56-83. No spec14-55, puzzle/projection/generator/solver84+ or whole392-source credit. No prior P16 body read credited.",
+            "status": "prospectively_registered_before_new_material_body_analysis"
+          }
+        }
+      ],
+      "scope_limits": "Only P16 clue enum1-12 and own text operation56-81 after prospective registration/fresh Root03proof201. Raw13/82blank/83next-authority doc are context only; no14-55/84+ or whole392. All prior mandatory qualifications includingRoot200 retained.",
+      "source_lens_credit": "none from scope metadata"
+    }
+  ],
+  "new_overlays": [],
+  "total_variants": 2827,
+  "total_overlays": 243,
+  "mandatory_scope_qualifications": [
+    {
+      "record": "continuation/root/parallel-scope-qualification-130.json",
+      "sha256": "5dc4e5cd771612c7e050ab4af544411523317ae4b57738f1fb20f493685a50fc"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-117.json",
+      "sha256": "f3b80648900716939057b20776d756a6e37001f6910378da1a1bbaea230d348b"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-149.json",
+      "sha256": "97103899514ade32cf1e41c2794fa9c49c0cb8c6c7a2c6a4961b7492de5dc708"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-151.json",
+      "sha256": "670dd53a640b28eef7ad9d57b37f9213e1bca7117d7098691c4b0cd20c2a8f65"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-158.json",
+      "sha256": "fa0e9cc06d04fca0a0e2b5f9a333390a0ba1e71eff846a4e957c46b68b3e940e"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-170.json",
+      "sha256": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-173.json",
+      "sha256": "5763e9e965b4f4c1d402a09eab682de47336885c8d30b3c5b3d157242a496948"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-176.json",
+      "sha256": "9a321e498a00285331d4ec4fb4dc7c3a49d7bb6e3a08a44a79c2e5bf58186270"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-184.json",
+      "sha256": "5e35c8530a11d0f90bc767812758e4c504eb9ca5e776d0d1f17bf14c0853468d"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-188.json",
+      "sha256": "e15ac81028377714ef550a4cbd68546ec0fbd2ab41300f64db2a1c8686cb43ab"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-193.json",
+      "sha256": "fa718d979ab18d0f9bc7ea210e912d4cb8e971c3bbaa8702a602311d515d6e06"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-200.json",
+      "sha256": "0488f5857b999e28c0bfa68767711e5ccd0f5f7624892db7e578d0f680fa8c3c"
+    }
+  ],
+  "registered_rows": 1,
+  "input_pins": [
+    {
+      "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+      "sha256": "62184c66456e0c79da6e57e6d196f7b16b75342a180e2219f4e1c3ef3fb60ff4",
+      "captured_rows": 20,
+      "selected_ids": [
+        "ROOT-INITIAL04-REG020"
+      ]
+    }
+  ],
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through243-before059.jsonl",
+    "sha256": "e7f32dbf953ff76417492b323e263ab3b8210163691823732b7a9bff5eb8deee",
+    "through": 243
+  },
+  "limits": "One new exact P16 clue declaration/operation variant2827; overlays remain243. All prior mandatory qualifications includingRoot200 retained. All13 exhaustive initial audits then handover163."
+}

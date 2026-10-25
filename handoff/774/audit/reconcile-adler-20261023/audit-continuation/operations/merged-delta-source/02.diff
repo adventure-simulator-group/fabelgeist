@@ -1,0 +1,38 @@
+--- 6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/clothing.rs
++++ 13fc9dcc71ab879de364117e5462310673e43210:crates/adventuresim-character-creator/src/clothing.rs
+@@ -230,29 +230,14 @@
+                     .count()
+                     >= 2
+             })
+             .collect::<Vec<_>>();
+-        for _ in 0..specification.expansion_rings {
+-            let mut selected_vertices = vec![false; vertices];
+-            for (face, selected) in faces.iter().zip(&selected_faces) {
+-                if *selected {
+-                    for vertex in face {
+-                        selected_vertices[*vertex as usize] = true;
+-                    }
+-                }
+-            }
+-            let previous = selected_faces.clone();
+-            for (index, face) in faces.iter().enumerate() {
+-                selected_faces[index] |= face
+-                    .iter()
+-                    .filter(|vertex| selected_vertices[**vertex as usize])
+-                    .count()
+-                    >= 2;
+-            }
+-            if selected_faces == previous {
+-                break;
+-            }
+-        }
++        validation::expand_selected_faces(
++            faces,
++            &mut selected_faces,
++            vertices,
++            specification.expansion_rings,
++        );
+         let waist_joints = span_masks
+             .iter()
+             .filter_map(|mask| mask.4.as_ref())
+             .flatten()

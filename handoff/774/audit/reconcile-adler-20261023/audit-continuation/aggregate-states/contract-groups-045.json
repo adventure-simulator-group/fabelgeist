@@ -1,0 +1,35 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-045",
+  "at": "2026-10-25T11:16:37.072271+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1162,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/model.rs",
+      "sha256": "91e0b874352ecb65b64568b5149fbf1bd8a1103dbb836c2a5639cca239ab0043",
+      "personally_read_ranges": [
+        [
+          1,
+          496
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole496 relationship schema+temporal enforcement read. Crucial actual policy: ExclusiveShared requires existingsecondparticipant but returns refresh_clock officialworld minute; it does NOT require equal subjectiveclocks. NpcCanonical requires NPCtarget but returnsactorclock; other soft/institutional/local modes readonlyactor. TargetOption still generic parameter permits missingtarget and unnecessarytarget in modes, normal callers/guard intentional; existing enum/type policy gaps retained. Relationship rows flatten already-owned CommitmentState/CourtshipRoute+State/MarriageState/PregnancyState into status+options and parsed_state re-admits at consumers; exact inherited RIG-INITIAL09-F002 migration, not new owner. Kind and terminalpayload can be invalid rawrecord, but normal constructors/terminalwriters read in1154\u20131160 paired. Participant/activepregnancy/childreservation tables maintain unique currentindexes apartfrom history, legitimate derivedauthority needing atomic operations. Courtship baseline/observer receipts freeze participants/day/insight/deception, not generic latestskill redundant fields. SpouseLeisureSlice requires ordered times/location and overlap receipts bind twoinputIDs/jointminutes; accrual remainder+nextordinal constrain conceptionquantum; actual1165 consumer next. Dowrykind/father/amount combination normal1160 tuplecoherent, cancellationescrow atomicquestionQ013 distinct. Lifecyclefailure rawString cannot distinguish expectedinvaliddata versus infrastructure, comment infrastructurealwaysabort contradicted by catchallwedding caller1161; actualcauseclassification needs canonical ownerrepair. SocializingreceipttargetID+start/end/minutes explicitlyrelated, actual1166 constructor/overlapconsumers next. All raw schema IDs need decoded owners; no tablemacroassumption enforcesassociated invariants."
+    },
+    {
+      "scope_index": 1163,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/newborn_residence.rs",
+      "sha256": "4057e287f3a5f3e79a9925db6a3b0769662f356fc27a8a8f9ea82a4db3b4affc",
+      "personally_read_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole21 ancillary newborn residence helper read. Deliberately ignores inherit_parent_home_at Result because bedabsence must not prevent birth; child+household membership authoritative. Capacity failure own1183 occurs before itsownoccupancywrites, so this is a justified expectedoptional housing fallback, not same defect as catchafterweddingwrites Q013. Nonetheless generic StringResult canhide infrastructurecause too; later cause-owner distinction should retain intentional bedabsence policy. No fabricated mandatoryhome or sourcefix."
+    }
+  ],
+  "correction_to_prior_packet": "Packet043 phrase equal ExclusiveShared temporal scope is corrected: actual1162:49\u201359 returns canonicalworldclock, not equality of participants subjective clocks. Validation uses that effectiveworldminute for age/history; record amendment, no source behavior change.",
+  "discovery": "Two original roles compared WITH qualified state/cause migrations; full lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

@@ -1,0 +1,122 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-167",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/character.rs",
+      "sha256": "1c346cbf22b4b7ad34cdd6b515b08d015c43e6489f953aa3a75ea40d8e3c675c",
+      "actual_EOF": 3987,
+      "actual_compared_ranges": [
+        [
+          1,
+          3987
+        ]
+      ],
+      "method": "P16 complete literal source read; PR complete actual textual diff against that read plus independent per-delta operation/error/capacity analysis; canonical capacity full literal21 lines consumed. No hash-only or import credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/character.rs",
+      "sha256": "806a50bc71cade3ffdf93f52a62693f7d02d4d55a52e1cce7e5983b894ec28cf",
+      "actual_EOF": 3983,
+      "actual_compared_ranges": [
+        [
+          1,
+          3983
+        ]
+      ],
+      "method": "Exact36c979preservedworking source recoveredbycoordinator. FullP16literal body + actualcompleteP16-to6533diff + actualcomplete6533-toexactPRworkingdiff personallyconsumed, all signature/Option/Result/reservationconversion deltas independentlyreconciled. Exactcapacity29linebody literalread inclownedrowFrom; no hash-only credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/character/attachment_capacity.rs",
+      "sha256": "18c128dcb7feb81a25a316b32ebf5325c4ded21b8d9b049fc3f99be640860f9b",
+      "actual_EOF": 29,
+      "actual_compared_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "method": "Exact36c979preservedworking source recoveredbycoordinator. FullP16literal body + actualcompleteP16-to6533diff + actualcomplete6533-toexactPRworkingdiff personallyconsumed, all signature/Option/Result/reservationconversion deltas independentlyreconciled. Exactcapacity29linebody literalread inclownedrowFrom; no hash-only credit."
+    }
+  ],
+  "groups": [
+    {
+      "id": "durable projections and component conversion",
+      "locations": "P16 character1-333,436-632",
+      "trace": "Gateway guards broad row reads; ID scan copies same durable key. Attributes conversions copy each named leaf without arithmetic. Condition/skills/limbs remain raw native rows; component declaration names do not prove numeric admission. BodyPart/BodyRegion/Attribute/check units remain separate. No tactical tick state is added to DB.",
+      "disposition": "No new04defect in pure copy/projection; existing local774:M01/M51 owner propagation retained.",
+      "acceptance": "Preserve all rows/leaf roles and privacy; actual mutating recipients must admit operations, no blanket table-boundary exemption."
+    },
+    {
+      "id": "death firstreceipt and chronology",
+      "locations": "P16 character334-434",
+      "trace": "Existing death returns first immutable receipt after cleanup, before fresh clock requirement. New death checks proposed minute<=current then inserts death and calls cleanup/corpse/social/life/relationship/election. Both clock loads use missing->ZERO346/382. This is archive CAM-PPS-F003, not another unique finding. Birth authoredinitialZERO later is deliberatelydifferent.",
+      "disposition": "Existing missingclock propagation defect remains; no separate partialtransaction claim because outer SDK/reducer transaction and caller caught-error policy require whole recipients.",
+      "dependencies": [
+        "audit/records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/findings.jsonl#3",
+        "physical-p16:crates/adventuresim-stdb-module/src/continuity.rs",
+        "physical-p16:crates/adventuresim-stdb-module/src/relationship.rs"
+      ],
+      "acceptance": "Missing required chronology distinct from observed0; existing firstdeath/idempotent cleanup retained; explicit proposed future death rejected before newdeath write."
+    },
+    {
+      "id": "cycle and capacity operations with P15 delta",
+      "locations": "P16 character642-685,719-745,2890-3177; PRcapacity1-21",
+      "trace": "DFS stack exitmarkers plusactive/finished sets distinguishes ancestor cycles from shared DAG ancestry. Safe enum mode and checked .get/try_from protect placement/requirement indexing; handroot index0 follows len==1. OldP16Some(u64MAX) reservation aliases valid actualinventoryMAX through firstfree equality; canonical PRexplicitFree/Reserved/Occupied prevents that alias and preserves same-item reparent. Full actual diff includes macro/import/error changes, not just equal hash. Replacement validates targets/conflicts/cycles/displaced children before normalized table deletes/inserts; physicaldetach occurs earlier2951 and its native/caller rollback guarantee remains ownrecipient obligation.",
+      "disposition": "Preserve PRP15 repair; no restore of staleP16MAXsentinel and no duplicate currentdefect count. Existing exact wholegraph claims unchanged.",
+      "dependencies": [
+        "pr-working:crates/adventuresim-stdb-module/src/character/attachment_capacity.rs",
+        "physical-p16:crates/adventuresim-stdb-module/src/character/occupancy.rs",
+        "physical-p16:crates/adventuresim-stdb-module/src/inventory_container.rs"
+      ],
+      "acceptance": "Everyu64stored item ID inclMAX distinct from reservation; no accepted cycle; checked ordinal conversion before indexing; no ordinary partial committed graph inferred from private helper localstate alone."
+    },
+    {
+      "id": "creation, regeneration, life and quantity mutations",
+      "locations": "P16 character1255-1414,1892-2795",
+      "trace": "Starting request regenerates actual spec; requestkey binds version/seed/tier/slot, checks exactowner/ID on retry and collision before creation. Namehash stream includes bytes+signedtimestamp, nonzero normalization is actual identity producer policy. NPC stableage RNGindex43 narrows thenadds18 within18..60. initialtimes authoredOptional withZERO fallback; explicittime rowset after initialization. Starting written skills retained while actual oral source comes settlement/life. Equipped starter subtract1 onlyafterquantity>1. InitialduesNone mapsMAX; actualdays addition saturates intentionalkernel but lifetime state fits local774:M53 requirement. Fullcomponent validator checks existence+seveninjurycount, not every field invariant or arbitrary row-region provenance.",
+      "disposition": "Existing local774:M54/M55/M51/M52/M53/M56/M57 and typed name/error producer obligations remain. No new IDcollision/ordinaryzeroquantity/birthtime defect invented.",
+      "acceptance": "Exactretry and realgenerator authority preserved; checked owned spec/owner/role relationships retained to actual codecs; finite stored training distinct deliberateunbounded ceilings; actualtime and birth policies remain explicit."
+    },
+    {
+      "id": "temporary scaling and cache receiver seam",
+      "locations": "P16 character804-923",
+      "trace": "Clampedbase1..20 yields authored1..2.9, multiplies physical/training factors; raw retained attrs/limbs/hours are replaced beforeOk. Function does not refresh capability after changed values; caller enrolls viaenter_mission. Static supplied existing CAMERA-INITIAL07-F022 remains; actual enter_mission native projections require separate fullsource comparison before wholepath proof. Public raw MAXattributes couldoverflowfinitefactor, but actual temporary supplierbounds not shownbad and no new ordinary nonfinite state asserted.",
+      "disposition": "Existing cacheauthority and local774:M34/M01 scalingcontracts; not newcount or blanket finite-input sufficiency.",
+      "acceptance": "Successful actualderived capability corresponds final authoritative scaled snapshot, preserving intentionalhealth>1 and tactical mode; computed outputs admitted or typed rejected at their actualcontract."
+    },
+    {
+      "id": "cleanup and development fixtures",
+      "locations": "P16 character925-1253,1416-1890,3258-3987",
+      "trace": "Cleanup takes owned snapshots before row deletes, explicittemporaryguard before cascade. Unequip recursion depends canonical acyclic graph. Developmentseed numeric inputs intentionally include20k surgery/10k herbalism, seven armor profiles, fixedlargeu64 IDs and clocklags saturation; no universal5000cap. Every existing fixture body was read; rawsourcelexical assertions remain exact existing checks, not projectexecution. Developmentloadout removes oldroots before per-item fallible work; no successfulpartialcommit claimed without actualcatchingcaller/transaction proof.",
+      "disposition": "Source operations compared; linked helper bodies and SDK/native transaction semantics remain their own source cells. No tests/cases/assertions/helpers changed.",
+      "acceptance": "Preserve sourcefixture purpose, exactinputs/order and legitimate specializationhours; operation errors retain causes to actual SDKport; realauthoritative preflight and rollback determined on fullcaller graph."
+    },
+    {
+      "id": "typed error preservedP16 versus PRcomparison",
+      "locations": "full textualdelta characterP16->PR",
+      "trace": "P16 changes many StringResult signatures toStrategicOperationResult and makes add_inventory_item fallible; equip_equipment_internal/restore stillString APIs. PR uses originalOptionadd APIs and preserves explicitP15capacityowner. These are a connected integration obligation, not evidence P16applies cleanly or currentcompilefailed. No compiler run.",
+      "disposition": "Same mandatory supplier CAM-PROP-F006/local774:F05/M30 errorgraph, preserve exactvariant differences.",
+      "acceptance": "Canonicalerrors retain actual underlyingcauses through allconnectedreceiver signatures; no stalebranchrestore, primitive forwarding compatibility or fabricateddefaultsuccess."
+    }
+  ],
+  "findings": [],
+  "qualifications": [
+    "P16oldcapacityreservation aliasesMAX, superseded byactualPRcanonicalenum; not currentnewdefect.",
+    "Existingdeathclock/cache/producer findings retain qualifiednamespaces; no guessedglobalunique count.",
+    "No transitive child include/body credit; full character has included name modules and actual imported kernels stillqueued.",
+    "Firstunread cell remains originalP16character/name_identity; no automatic counterpart or currentmain acceptance.",
+    "Resolved archivedPRworking806a50character3983 and18c128capacity29 fromgit36c979. Unmodified6533servesintermediatecomparisononly. Actualworkingdelta changesmapclosuretoAttachmentCapacity::from withownedrow conversion; no numericdataorall-u64reservationpolicychange."
+  ],
+  "status": "complete scoped source comparisons with existing findings and pending graph obligations; whole04incomplete",
+  "source_edits": 0,
+  "project_execution": 0,
+  "source_provenance": {
+    "pr-working": "git36c97923da8ee84d0ab8994e7cfedf6a0cdea641 preservedoverlay exacthashes",
+    "physical-p16": "git039329518e264f19206cf5b0b98d177433f40c17",
+    "textual_diff_chain": [
+      "P16full3987 -> git6533unmodified3985",
+      "git6533unmodified3985 -> exactPRworking3983"
+    ]
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "id": "CONT08-MIGRATION-002",
+  "lens": "08 behavior-preservation",
+  "at": "2026-10-25T13:50:04.606660+00:00",
+  "classification": "source-confirmed unfinished fallible skin-append receiver migration; no compiler result",
+  "pins": [
+    {
+      "scope_index": 726,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_fit.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/device_fit.rs",
+      "before_sha256": "91f583ae36ac5c421f00022df26fcb7843b697f9dc4912eecd94af6e97f8d575",
+      "after_sha256": "5eb9fadd5491db5b34e9ea0b0478355229d88f1b0b9d937911f586dc55a0b710",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0726-base-91f583ae36ac5c421f00022df26fcb7843b697f9dc4912eecd94af6e97f8d575",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/5eb9fadd5491db5b34e9ea0b0478355229d88f1b0b9d937911f586dc55a0b710",
+      "diff": "source-evidence/pr-0726.diff",
+      "diff_sha256": "af34bfa0f1d2eb06ce888b8a92f4f697baf4453097ccb725a17aecebac2c666f"
+    },
+    {
+      "scope_index": 2179,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/body.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/gpu/body.rs",
+      "before_sha256": "11e695a0f8db7ec12ca134259cc055a994c2145e6673402ed24de6f95608abcf",
+      "after_sha256": "f1bd53ff9b582384bddb6b2c32e63eb62838eb48c3b8eba911d1b4802a013624",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-2179-base-11e695a0f8db7ec12ca134259cc055a994c2145e6673402ed24de6f95608abcf",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/f1bd53ff9b582384bddb6b2c32e63eb62838eb48c3b8eba911d1b4802a013624",
+      "diff": "source-evidence/pr-2179.diff",
+      "diff_sha256": "e1d93920b6a42b42bd0589d342a74564e1c78bcc19de0df0f74757bcc0046a0f"
+    }
+  ],
+  "trace": [
+    {
+      "source_index": 2179,
+      "ranges": [
+        [
+          99,
+          106
+        ]
+      ],
+      "fact": "Skin::append now Result<(), GenerateError>; packed rig append occurs before extending texcoords/weights, preserving no parallel partial update on bound failure."
+    },
+    {
+      "source_index": 726,
+      "ranges": [
+        [
+          305,
+          305
+        ],
+        [
+          310,
+          367
+        ]
+      ],
+      "fact": "fit_recipe_async calls Ok(suspended_waist(...)); suspended_waist declares -> DevicePiece, uses skin.append(tassets.skin)? at357 and returns bare DevicePiece358\u2013366. Source owning return boundary has not propagated Result."
+    }
+  ],
+  "before": "In exact PRbase skin.append returned unit; suspended_waist -> DevicePiece called infallibly after fauld/tassets fits.",
+  "after": "Exact6533 changes the append operation to fallible and introduces ? without changing the receiving helper/caller result shapes. This is concrete source-level inconsistency, independent of runtime triggering input.",
+  "scope_limits": [
+    "No compiler/test/check run; no claim about emitted diagnostic or runtime occurrence.",
+    "Original pinned PR source; isolated P16 source is not substituted as evidence.",
+    "No unique-count or alias verdict before global exact reconciliation."
+  ],
+  "connected_repair_obligation": "Propagate canonical fallible skin append through suspended_waist and fit_recipe_async owning return boundary; preserve successful native vertical shift/min cap, wrapped no-shift policy, fauld then tasset component/index/skin order and endpoint pairing.",
+  "acceptance": [
+    "Exact source error-return graph accepts no dropped/converted append failure and preserves GenerateError source at presentation boundary.",
+    "Original successful waist geometry, source skin association and all morph endpoint ordering unchanged.",
+    "Any future execution is separate authorized validation; none performed here."
+  ],
+  "exact_archive_alias": "RIG-CODE-001",
+  "archive_evidence": "audit/records/final-acceptance-20261021/wave-01/audit-producer-propagation/rig/findings.json findings record7, contracts-007.json",
+  "current_disposition": "Exact inherited PR6533 defect, SOURCE-RESOLVED in frozen merged13fc by own08 diff04 and actual301\u2013367 read; no new unique finding or current merged defect.",
+  "merged_evidence": "qualified-008-waist-append-merged-resolution.json"
+}

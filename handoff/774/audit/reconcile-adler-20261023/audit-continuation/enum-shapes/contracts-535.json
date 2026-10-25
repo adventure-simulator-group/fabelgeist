@@ -1,0 +1,19 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-535",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        1143,
+        1144
+      ],
+      "comparison": "Fresh full635 NPC causal scheduler and28 actual romance candidate helper. Existing F200 phase/outcome/optional-target applies unchanged at PR source: current writers pair Schedule and Housing with None, EstablishedRomance with target, NoCandidate/Ineligible without. Housing tier payload is flattened into three outcomes despite existing HousingTier. Schedule history is meaningful: any prior ScheduleInitialized/Preserved prevents reinitialization of a deliberately later empty schedule; Ineligible during childhood does not. Preserve this receipt history rather than infer initialized solely from current zero minutes. Scheduler local booleans are predicates, not extra retained choices. Distinct source policies: schedule uses effective_age_years at minute while housing/romance read character.age_years; no ordinary chronology drift established without actual age refresh trace. Whole cohort decides before any advances, lifecycle events run independently, opposite-sex directional roles normalized while same-sex actor order retained. No fixed-point or test execution claim.",
+      "finding_refs": [
+        "SEGO-INITIAL09-F200"
+      ],
+      "disposition": "Existing shape source-supported; retained initialization history and independent chronology qualified"
+    }
+  ],
+  "new_findings": [],
+  "limits": "No repair, execution or clearance. Scheduler-body read does not clear its callees."
+}

@@ -1,0 +1,49 @@
+{
+  "id": "CONT08-Q011",
+  "at": "2026-10-25T16:05:38.797657+00:00",
+  "sources": [
+    {
+      "scope_index": 1103,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "before_sha256": "05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+      "after_sha256": "05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1103-base-05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+      "diff": "source-evidence/pr-1103.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "scope_index": 1106,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/lot_inventory.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/food/lot_inventory.rs",
+      "before_sha256": "28b22445ed307bc12de78b72d95df5b4325ba47ad3403f45292bb0c5b6efb87b",
+      "after_sha256": "28b22445ed307bc12de78b72d95df5b4325ba47ad3403f45292bb0c5b6efb87b",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1106-base-28b22445ed307bc12de78b72d95df5b4325ba47ad3403f45292bb0c5b6efb87b",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/28b22445ed307bc12de78b72d95df5b4325ba47ad3403f45292bb0c5b6efb87b",
+      "diff": "source-evidence/pr-1106.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "scope_index": 1116,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/herbalism.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/herbalism.rs",
+      "before_sha256": "22a0312534bd03b91e900595bd44d7bffe8b159545dfd65c8eccfe207f8cb0b8",
+      "after_sha256": "22a0312534bd03b91e900595bd44d7bffe8b159545dfd65c8eccfe207f8cb0b8",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1116-base-22a0312534bd03b91e900595bd44d7bffe8b159545dfd65c8eccfe207f8cb0b8",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/22a0312534bd03b91e900595bd44d7bffe8b159545dfd65c8eccfe207f8cb0b8",
+      "diff": "source-evidence/pr-1116.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "classification": "Retained partial cooking companion source-conditional concern, normalmedicinalpopulation narrowed",
+  "trace": "1103partialingredientretain529\u2013536 scaleslotmaterial butnot existingmedicinal/provenance companions;1106helper225\u2013241 noDBcompanions, whileconsume1102 explicitlyuses1116consumefoodmedicine andprovenance. Fresh1116fullbody showsordinaryfoodmedicine createdby1103 cookedmeal and splitonly; actualcooking rejectsrecook. Initialrawfood constructors1106createanchor butnocontributionprovenance.",
+  "disposition": "API/material population qualification only within personally consumedgraph. No ordinary medicine duplication proven; no unique finding/new774regression. Otherprovenance producers/materialtransfers still independentlypending, no globalabsence/clearancebysearch.",
+  "repair_acceptance": "Resolve actual admitted sourcepopulation before identifying canonicalmaterialportion transaction; preserve extensivecomponents/provenance conservation and original extractionheat policy. No repair/test during discovery."
+}

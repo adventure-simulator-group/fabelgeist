@@ -1,0 +1,68 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-002",
+  "at": "2026-10-24T02:28:30.064819+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 976,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/tests.rs",
+      "sha256": "7cb3ba6a24f81afd052cf1c35d004918cfcf693f5e7c7655302b74a74cb731ba",
+      "personally_read_ranges": [
+        [
+          1,
+          10
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Test module includes all five quest suites under cfg(test). This is a source ownership/import list, not proof their implementations ran or passed.",
+      "repair": "none in fixtures; adapt existing checks only after owning contracts repaired, add no tests",
+      "validation": "source inspected only; not run"
+    },
+    {
+      "scope_index": 977,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/tests/outbreak.rs",
+      "sha256": "f71a35301c19050ae9f6cec34f321798d94fdf73554c6104b7c5af1d3f9281d3",
+      "personally_read_ranges": [
+        [
+          1,
+          288
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Outbreak fixtures cover six diseases across128seeds, source kinds and two route classes; reject chronology/transmission/route/remediation mutations, require distinct patient/episode identities and living social target, exact source remediation fact vswrong fact. These are explicit existing acceptance assertions, not execution proof; do not infer universal mutated DTO admission from bounded seeds.",
+      "repair": "none in fixtures; adapt existing checks only after owning contracts repaired, add no tests",
+      "validation": "source inspected only; not run"
+    },
+    {
+      "scope_index": 978,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/tests/projection_and_limits.rs",
+      "sha256": "8bb989bec981a22f6606c07380d29c36e09c7599dfb4183ac97014095c82ca6a",
+      "personally_read_ranges": [
+        [
+          1,
+          407
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Projection fixtures relate pattern evidence to exact prerequisite/consumer, VictimProfile fields to selected cohort and presence commitment, hidden payload not leaking initial actions, >2^53 IDs and presentation/sex distinctions. Invalidated demographic/location/version rejected by exact match; no-unused-target hard-zero proved and oversized candidate/text rejects. Expected tests include string-based inspection of produced fixture; native JSON representation at boundary is intentional, not global license for raw target identities.",
+      "repair": "none in fixtures; adapt existing checks only after owning contracts repaired, add no tests",
+      "validation": "source inspected only; not run"
+    },
+    {
+      "scope_index": 979,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/tests/routes_and_evidence.rs",
+      "sha256": "1e63a6243b28e6299494477083e5ed5bed233a8a73c76fafded2475553a0ce10",
+      "personally_read_ranges": [
+        [
+          1,
+          581
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Referred-contact fixtures compare exact large resident IDs despite same display name, apply transition with owner/case, replay keepsversion, wrong witness no mutation, duplicate roots Err, terminal root valid with no successors, failed alternate cannotreactivate completedcontact. Route graph fixtures reject target/kind/route/prereq substitutions, missingalternate, disconnected/cyclic exact route. Evidence fixtures preserve diagnostic ownership and skill threshold; these do not establish raw DTO cannotmutate after a prior validation.",
+      "repair": "none in fixtures; adapt existing checks only after owning contracts repaired, add no tests",
+      "validation": "source inspected only; not run"
+    }
+  ],
+  "new_unique_findings": [],
+  "discovery": "Accounted fixture contracts; whole05 incomplete",
+  "repair": "not started",
+  "validation": "not run",
+  "next": "scope980 solver_and_generation603 then981testimony713"
+}

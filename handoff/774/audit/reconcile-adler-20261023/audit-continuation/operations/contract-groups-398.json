@@ -1,0 +1,77 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-398",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/spline.rs",
+      "sha256": "81c80049332da27f4e7ba2bac782477bf2d848d1f37ee1ec56b0cd0dacc36e0b",
+      "actual_EOF": 69,
+      "actual_compared_ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/stride_calibration.rs",
+      "sha256": "f3474e23dc4875712eb9e3c3a0ad4da0bd71e840ff758ae43ab1b877231e05e4",
+      "actual_EOF": 297,
+      "actual_compared_ranges": [
+        [
+          1,
+          297
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/visibility.rs",
+      "sha256": "bf02e1e338624be655cffa36d3628074ab252de4018d400f9ffc629cb37f5f34",
+      "actual_EOF": 98,
+      "actual_compared_ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/continuation_parameters.rs",
+      "sha256": "136104d58296283dd4227e0381e52b7d9893172a96f83ce34abf301c64d7b4a9",
+      "actual_EOF": 112,
+      "actual_compared_ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Continuation spline native denominators and admitted readiness",
+      "evidence": "spline.rs1\u201369 full: compiletimeKNOTS assertion>=2, tridiagonalforward/backwardnativef32kernel, intervaldividespositivewhenstrictknots. Fresh entire tactical-core/animation/continuation_parameters.rs1\u2013112: finite readinessstrict0<phase<.5, so actualposeknots[0,readiness,.5,1] ordered; IncomingAttackTangent finite>=0,decodelegacynegativefinite normalized0 beforetypeadmission policy, FOLLOW_READY7/24constant.",
+      "qualification": "Nativefunctiongenericarrayscanrepeated/unorderedknots ifuntrustedprivatecaller; actualcontinuationonlystrictknots, no ordinaryzero-widthclaim. Subnormalpositive readiness andfinitehugetangent canoverflowratio/splinecoefficients; currentcaller sanitizesresulttobind (packet395), a documentednativefallback ratherthan successfulbespoke finiteposeguarantee. Currentactualreadyconstant7/24safe. Do notinvent arbitraryminimumphase or convertunwrappedcoordinates toUnitInterval; no duplicatefindingsolelyforrepresentablenativeInf masked byexplicitfallback."
+    },
+    {
+      "contract": "Calibration replacement, observed source identity and rig-specific offsets",
+      "evidence": "stride_calibration.rs1\u2013297 full: currentcharactermeasurements match Arc rigdefinition+fulloffsetvector, recomputeifreferencechanged/offsetchanged. TypedaxisadmitsselectedcomponentSignedLength, eachmotionpercatalogid; bakeslocally,offsetsretargetthenfit. Err skipsreplacement/unmeasuredmarker, OkNone clearsoldmeasurement andmarksclipobserved; successfulcurve/stride committedthenclipid. maximumslipbudgetwarnsbutconsumerlatercanexclude.",
+      "qualification": "Phasecurveinsertbeforestridewarning intentionalacceptedcalibrationpolicy, noterrorpath; currentreceiversenforcebudget. Atomicityperselectedmotion notwhole4motioncache, eachsourceindependent. Referenceis_changed couldtriggerextrarecompute butbounded4clips intentional. Rigbasisfiniteoverflow exactNative05F012 receiveragain, no newunique. Globalnormalconfigurationwalk2/run5.5; Native05F009 equalreferencepair exactsupplierqualification retained, no globalclearance."
+    },
+    {
+      "contract": "Visibility reset and finite geometry distance comparisons",
+      "evidence": "visibility.rs1\u201398 full: frozen\u2192visible resetsaccumulator/interpolation/targetvelocities butpreservesauthoredhistory; considersallactive3Dcameras matchingrenderlayers/range/frustum, noactiveview returnsnotculled. Sphereauthoredpositivecullradius, distancesquared<=configdistance\u00b2. Nativefixtureinactivecamera/matchingportraitlayer/1000m supportsactualpolicy.",
+      "qualification": "Finitehugedistance/distance\u00b2 canInf andcompareInf<=Inf true, butfrustumseparatepredicateandactualscene/cameraboundsneedtracing beforefalsevisibleordinaryclaim. Noactiveviewfail-open explicitpolicy; not geometricadmission. No testsrun."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/animation/presentation.rs"
+}

@@ -1,0 +1,61 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-649",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/material.rs",
+      "sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+      "actual_EOF": 1869,
+      "actual_compared_ranges": [
+        [
+          1,
+          73
+        ],
+        [
+          204,
+          387
+        ],
+        [
+          452,
+          614
+        ],
+        [
+          707,
+          1197
+        ],
+        [
+          1253,
+          1382
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2746"
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Exact material extensive arithmetic, splitting and private conservation",
+      "evidence": "Personally read exact ranges1\u201373/204\u2013387/452\u2013614/707\u20131197/1253\u20131382. MaterialMeasure checked sums/subtractions reject overflow/underflow; zero is legal accumulator while snapshot rejects empty measure. Portion enforces0<num<=den, u128 multiplication then floor and u64 conversion preserve take<=whole; raw remainder subtraction thus safe. Private component/load splitting preserves exact taken+remainder. Whole receipt validates source/output uniqueness, exact bulk loss/one-subunit tolerance and private gain/loss checked sums before local publication.",
+      "qualifications": [
+        "No body credit for omitted ranges74\u2013203/388\u2013451/615\u2013706/1198\u20131252. Actual process readiness/replay policies there remain existing separate evidence.",
+        "Quantized floating measures permit tiny positive\u2192zero/None by explicit raw quantity policy. f64 milligram scaled boundary compares >u64MAXasf64 rounded2^64 before saturating cast; exact reachable equality needs rigorous numeric witness/caller qualification before promoting. f32 component lattice not automatically same endpoint route.",
+        "No source mutation in pure helpers. Rejection from checked arithmetic is valid; no demand finite inputs make conservation infallible."
+      ],
+      "acceptance": "Actual quantization representability before retained integer measure, explicit subunit policy; exact conservation and private truth retained without arbitrary rounding allowances."
+    },
+    {
+      "contract": "Material identity digest and same-transaction commit preconditions",
+      "evidence": "Digest canonicalizes sources by lot then hashes fixed width IDs/revision/measures/consumption plus tagged length-prefixed custody. validate_material_commit requires exactly one current lot, exact identity/custody/revision, no overconsume, complete measure/preparation/truth equality. Pure validation mutates no retained source.",
+      "qualifications": [
+        "Input digest intentionally excludes generic preparation/private truth, relying revision/full snapshot commit validation; no cryptographic completeness claim without actual replay recipient proof.",
+        "Actual reducer must call validator in same transaction immediately before non-replay receipt, as documented; this pure source alone proves no DB authority/rollback or current writer exclusivity. Private sanitization explicitly requires observer-safe producer."
+      ],
+      "acceptance": "Preserve exact snapshot/revision/custody correlation and actual transactional adapter enforcement, retry semantics and private/public knowledge boundary."
+    }
+  ],
+  "findings": [],
+  "status": "Qualified material ranges personally analyzed; whole04 remains incomplete.",
+  "first_unfinished": "physical-p16:crates/adventuresim-core/src/inventory_containers.rs",
+  "source_edits": false,
+  "project_execution": "none"
+}

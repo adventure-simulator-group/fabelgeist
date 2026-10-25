@@ -1,0 +1,40 @@
+{
+  "lens": "audit-producer-propagation",
+  "owner": "rig",
+  "authority": "../../../audit-ledger.json",
+  "source_cells_total": 191,
+  "discovery": "assigned-lens-inventory-exhausted-with-findings",
+  "source_read_complete": 191,
+  "trace_complete": 191,
+  "first_unfinished_source_cell": null,
+  "read_order": "Canonical rig producers, MHR, Creator/runtime/native consumers, overlay reconciliation, metadata/config/docs. Assigned ordinal remains stable.",
+  "execution": "Read-only source/Git/rg and stdlib metadata; no source/Git changes or project execution.",
+  "instructions_read": [
+    "DISCOVERY-INSTRUCTIONS.md",
+    "bespoke-audit/SKILL.md",
+    "audit-producer-propagation/SKILL.md",
+    "AGENTS.md",
+    "crates/AGENTS.md",
+    "pr-working:crates/adventuresim-core/AGENTS.md",
+    "pr-working:crates/adventuresim-character-creator/AGENTS.md",
+    "pr-working:crates/fabelgeist-armor/AGENTS.md"
+  ],
+  "active_next_source_cell": null,
+  "active_trace": "All191assignedvariantsfullyreadandmaterialunchangedreceivingqueuesreconciled. Nineproducer-gapcandidates,threeCodeblockers,onewithdrawnprivate-membershipcandidate;sharedrootanimeCodeandcameraF002/F004linked. Requiredremaininglenses/globalsharedgraphs/repairs/CIarenotcleared.",
+  "inventory_accounted": 191,
+  "remaining_own_source_coverage": [],
+  "next_action": "Awaitcoordinatornextlens; sourcefreezecontinues.",
+  "evidence_files": [
+    "sources.json",
+    "contracts-001.json through contracts-018.json",
+    "additional-sources-001.json through additional-sources-015.json",
+    "primitive-escape-inventory.json",
+    "receiver-closure.json",
+    "findings.json",
+    "shared-current-wave-proofs.json",
+    "discussion-source.json",
+    "discussion-reconciliation.json",
+    "cargo-lock-metadata.json"
+  ],
+  "validation": "Notexecuted; noPASSclaims."
+}

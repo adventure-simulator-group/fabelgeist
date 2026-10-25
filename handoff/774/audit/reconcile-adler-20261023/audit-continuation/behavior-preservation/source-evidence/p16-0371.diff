@@ -1,0 +1,65 @@
+--- p16base/crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/measurement.rs
++++ catalog-p16head/crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/measurement.rs
+@@ -10,8 +10,9 @@
+ use adventuresim_core::{
+     elapsed::AnimationElapsed, linear_speed::NonnegativeSpeed, unit_interval::UnitInterval,
+ };
+ use adventuresim_tactical_server::iteration::TacticalElapsed;
++use fabelgeist_geometry::SignedLength;
+ use serde::Serialize;
+ 
+ pub(super) type MeasurementResult<T> = Result<T, MeasurementError>;
+ 
+@@ -33,8 +34,10 @@
+ 
+ pub(super) trait ReportUnit: Copy + Default + PartialOrd {
+     const QUANTITY: ReportQuantity;
+ }
++
++pub(super) trait ReportLengthUnit: ReportUnit {}
+ 
+ macro_rules! report_quantities {
+     ($($role:ident),+ $(,)?) => {
+         #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+@@ -78,8 +81,13 @@
+     DuelsPerWallSecond,
+     TacticalSecondsPerWallSecond,
+ }
+ 
++impl ReportLengthUnit for ContactMetres {}
++impl ReportLengthUnit for CenterSeparationMetres {}
++impl ReportLengthUnit for WeaponReachMetres {}
++impl ReportLengthUnit for MovementMetres {}
++
+ impl<Role: ReportUnit> Measurement<Role> {
+     pub(super) const ZERO: Self = Self {
+         value: 0.0,
+         role: PhantomData,
+@@ -176,8 +184,27 @@
+         Self::from_native(speed.metres_per_second())
+     }
+ }
+ 
++impl<Role: ReportLengthUnit> Measurement<Role> {
++    /// Promote admitted gameplay metres at the owning f64 report operation.
++    pub(super) fn from_length(length: SignedLength) -> Self {
++        Self {
++            value: f64::from(length.metres()),
++            role: PhantomData,
++        }
++    }
++}
++
++impl Measurement<MovementMetres> {
++    pub(super) fn from_absolute_displacement(displacement: SignedLength) -> Self {
++        Self {
++            value: f64::from(displacement.metres().abs()),
++            role: PhantomData,
++        }
++    }
++}
++
+ impl Measurement<WallSeconds> {
+     pub(super) fn from_duration(elapsed: Duration) -> MeasurementResult<Self> {
+         Self::from_f64(elapsed.as_secs_f64())
+     }

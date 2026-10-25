@@ -1,0 +1,80 @@
+{
+  "packet_number": 109,
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh full literal1-66 after Native030 registration and global051; existing bounded prefix plus exact completing tail, independent operations-lens comparison."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/playback.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh full literal1-48 after Native031 registration/global051, complete declaration and validator; no absent Default inferred."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/ragdoll.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          59
+        ],
+        [
+          61,
+          80
+        ],
+        [
+          81,
+          112
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh actual1-112, effective new capsule role61-80 under mandatory176; blank60 context only. All prior roles independently reconciled."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-mesh/src/lib.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          22
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh exact literal export/declaration file after Rig034 registration and global051; no child module behavior credited."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-mesh/src/data.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          11
+        ],
+        [
+          41,
+          68
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh literal imports1-11 and declaration/default41-68 ONLY after Rig035 registration; helpers12-40 and69+ excluded under173."
+    }
+  ],
+  "groups": {
+    "procedural": "Validator compares admitted gap/angle leaves against explicit zero and positive report-margin; no local mutation/arithmetic aggregate or external publication. Full body now includes structured error and success return. Body-response leaf conversion and native consumer integration remain their own obligations; checked config label alone cannot clear runtime interpolation/scaling.",
+    "playback": "Nonzero maximum gap plus deactivation<=initial<=activation checked as complete local product before success. Ordering relies on finite admitted leaf speeds; direct field mutation can invalidate relation, so propagate a coherent validated product at consumers rather than merely preserving three bespoke leaves. Source has no Default method. Signed visualY remains signed, stance slip nonnegative, source/frame/sampling/cadence quantities distinct.",
+    "ragdoll": "Capsule product assembles nine distinct body locations from positive radius/length leaves; declaration/default has no geometry arithmetic. MuscleRelease TryFrom None→Never and Some→positive duration preserves explicit absence and concrete leaf failure; reverse conversion is real serde/native representation boundary. Default delegates canonical config, no proof every native capsule/PD step is finite. Runtime mass/joint topology not reviewed here.",
+    "mesh": "CPU default builds empty positions/normals/UV, no indices or skin, explicit TriangleList/Ccw. No unchecked operation in the scoped declaration/default; mutable vectors and independent option arrays require actual operation/receiver correlation before native use. This record does not review MeshData validators/upload/read or claim equivalence to colored PlantMesh. Feature-gated exports preserve CPU/GPU boundary.",
+    "qualifications": "Root173 excludes all displayed foreign-role upload/read helpers; Root176 excludes ragdollblank60 and absent playbackDefault. Operations-lens conclusions personally authored from actual bodies; no03/05/06 verdict transfer."
+  },
+  "findings": []
+}

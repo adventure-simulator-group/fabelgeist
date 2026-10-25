@@ -1,0 +1,36 @@
+{
+  "id": "CONT08-Q010",
+  "at": "2026-10-25T16:05:38.797657+00:00",
+  "sources": [
+    {
+      "scope_index": 1103,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "before_sha256": "05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+      "after_sha256": "05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1103-base-05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+      "diff": "source-evidence/pr-1103.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "scope_index": 927,
+      "source_id": "pr-working:crates/adventuresim-core/src/food.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/food.rs",
+      "before_sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+      "after_sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0927-base-e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+      "diff": "source-evidence/pr-0927.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "classification": "Retained source/API preview coherence candidate, actual ordinary caller not established",
+  "trace": "1103preview819\u2013868 rawdefinition.cooking_minutes vsactual381\u2013390 preparation_safety_minutes(raw, .75Cut/.50Ground); actualvesselwater449\u2013470 alsoaffectsmass. Exact927 constants12\u201313/helper84\u201388 reconsumed after priorown08fullproof. Raw orpreparedsame inputs must be compared withsame method/skill/safety/massbefore numericwitness.",
+  "disposition": "Do not promote ordinarybug/new774regression. Objectcatalogue search onlylocatedpreviewdefinitions, notactualconsumer proof; futureextensions/missing sources may supplycaller. Preserve API source difference; no blanket globalunused claim.",
+  "repair_acceptance": "Ifpreviewpubliccontract retained, use same canonical recipe/material/preparation/water inputs and evaluator asactual dish; verify Cut/Ground and vesselwater representation before proposal. No implementation plan/test."
+}

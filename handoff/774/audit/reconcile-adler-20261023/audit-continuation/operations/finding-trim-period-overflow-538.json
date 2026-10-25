@@ -1,0 +1,39 @@
+{
+  "id": "SEGOVB-04-TRIM-PERIOD-OVERFLOW-CANDIDATE-001",
+  "sources": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/trim.rs",
+      "sha256": "f6f7a3d774d843fe5c0e7cbf2c1d141aebe44d81c23b715ecb5d098c217aae13",
+      "ranges": [
+        [
+          70,
+          98
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/trim/edges.rs",
+      "sha256": "ffdc73a54de37023064d476bba8fbf666fe57f7597a910468c96fa3e9f63b2c7",
+      "ranges": [
+        [
+          117,
+          158
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/trim/split.rs",
+      "sha256": "44aafa5468b01108bee89840514846df79aa2075ea6c2e154b21d93cee321b9a",
+      "ranges": [
+        [
+          269,
+          297
+        ]
+      ]
+    }
+  ],
+  "counterexample": "An ordinary finite closed plate rim with positive length and TrimBand {width:.03, period:f32::from_bits(1)} passes public validate. push_chain computes length/period as Inf, round/max preserves Inf, periods*period remains Inf; scale/closure become Inf and first along0*Inf becomes NaN. nearest propagates rescaled along/closure and Split.finish publishes coordinates without finite admission. Source arithmetic proof; no execution.",
+  "qualification": "Public tiny custom-period API case. Normal validated Trim material uses bounded Engraving tiles and ordinary period, excluding this witness. No ordinary authored failure or GPU output claimed; archive exact alias pending, no global unique count.",
+  "connected_contract": "Closed-rim repeat count and rescaling must have explicit representable arithmetic/rejection policy before publishing finite trim coordinates. Preserve positive physical periods rather than inventing arbitrary physical lower bound; robust wider arithmetic plus admission or structured error is valid.",
+  "acceptance": "Finite accepted coordinate/closure results or named failure; ordinary period.05 closed seam, continuous unwrap, skins/morphs/components and rejection staging preserved."
+}

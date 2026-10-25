@@ -1,0 +1,12 @@
+{
+  "id": "RIG-INITIAL06-GROUP-072",
+  "at": "2026-10-23T00:41:50.161241+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "native-png-export-causes-and-byte-color-port": {
+      "comparison": "Fresh exact PNGencoder20-165, TinySkiaCargo46-47, Pixmap155-182/385-430. Actual TinySkia depends png0.17 and delegates encode/save to native EncodingError, while native save encodes then filesystemwrite? retaining IOError through PNG From. EncodingErrorIo/Format/Parameter/Limits and private FormatErrorKind own image-format/stream constraints, not duplicate application recipe or source validation errors. Explicit From<EncodingError> for io::Error native body120-123 uses err.to_string (lossy); do not infer that every application wrapper must convert to io or string, preserve concrete PNGerror when API permits. This SDK limitation does not justify foreign patch or another game-owned copy of PNG taxonomy. Encoder carries native writer/Info/Options; new body beyond165 uncredited, no numeric/size validation inferred. Actual Pixmap encode391-418 clones and demultiplies byte pixels, writes RGBA8 header and image bytes; that is concrete native alpha/byte encoding port. PremultipliedColorU8 staging carrier after demultiplication is native algorithm representation, not the same semantic contract as canonical floating RGBA Color/Armor materialF005 or textile sRGB palette. Do not force floatColor/UnitInterval into PNGbytes or infer shared color-space policy from same4channels. PixmapRefDebug body after430 excluded, decode_png and writer bodies not credited from calls. Application export wrapper should add actual path/operation and original cause at outer port; no schema compatibility/error-message parsing/whole native-package waiver.",
+      "disposition": "Keep native PNG/pixmap export and byte-color/error owners; preserve application concrete causes to export boundary"
+    }
+  },
+  "limits": "Only exact pinned encoding/feature/export ranges; no wholePNG2429/Pixmap603 or unseen method bodies; whole06 incomplete, no execution/source edits/newtests/other-lens credit."
+}

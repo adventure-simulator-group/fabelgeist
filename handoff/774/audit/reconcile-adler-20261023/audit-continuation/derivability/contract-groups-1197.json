@@ -1,0 +1,27 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1197",
+  "at": "2026-10-25T18:06:12.350948+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1285,
+  "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/policy.rs",
+  "sha256": "d056fbef7a8fa3486dd75f7f51b2cb3cc942a71163499480d0c52023c76930ba",
+  "actual_compared_ranges": [
+    [
+      1,
+      340
+    ]
+  ],
+  "existing_derives": [
+    "MedicalChoice Clone Copy Debug PartialEq Eq",
+    "PublicInterventionOffer Clone Debug PartialEq Eq",
+    "MedicalActionContext Clone Copy Debug PartialEq Eq"
+  ],
+  "trait_inventory": [],
+  "analysis": "LiveRunner authority collection record has no hand traits. MedicalChoice/PublicInterventionOffer/MedicalActionContext already derive structural traits. Native medical ranking/quantized weighted differential/choice/funds policy and identity-bound live_attributes/live_skills SDK adapters synthesize missing language/terrain fields and renamed nested payloads; not automatic From/default. No handwritten trait/custom codec; crime schedule adaptation checked semantic allocation.",
+  "first_unfinished": {
+    "scope_index": 1285,
+    "line": 341
+  },
+  "execution": "none"
+}

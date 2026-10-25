@@ -1,0 +1,712 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-177",
+  "at": "2026-10-25T13:18:36.244547+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 345,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+      "sha256": "62a3215d6f52174d7351776d55c5f7f07adf340abada8e8aff653d674f389095",
+      "actual_EOF": 135,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+        "sha256": "62a3215d6f52174d7351776d55c5f7f07adf340abada8e8aff653d674f389095",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 4510,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 114,
+            "read_ranges": [
+              [
+                1,
+                135
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-CAMERA-015"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-core/src/animation/authored_angle.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-CANONICAL-SPATIAL-CLOCK-CLOSURE-053",
+            "json_pointer": "/source_proofs/13",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                135
+              ]
+            ],
+            "source_context": {
+              "index": 462,
+              "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+              "sha256": "62a3215d6f52174d7351776d55c5f7f07adf340abada8e8aff653d674f389095",
+              "read_ranges": [
+                [
+                  1,
+                  135
+                ]
+              ],
+              "role": "fresh current clock/angle/frame/velocity owner source, worldlib explicitly scoped; actual receiving contract disposition pending",
+              "timestamp": "2026-10-21T22:37:14.129202+00:00"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CANONICAL-SPATIAL-CLOCK-053",
+            "json_pointer": "/current_sources/13",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                135
+              ]
+            ],
+            "source_context": {
+              "index": 462,
+              "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+              "sha256": "62a3215d6f52174d7351776d55c5f7f07adf340abada8e8aff653d674f389095",
+              "read_ranges": [
+                [
+                  1,
+                  135
+                ]
+              ],
+              "role": "fresh current clock/angle/frame/velocity owner source, worldlib explicitly scoped; actual receiving contract disposition pending",
+              "timestamp": "2026-10-21T22:37:14.129202+00:00"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1145,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          135
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "TryFrom<f32>",
+          "lines": [
+            67,
+            78
+          ],
+          "disposition": "KEEP signed quantity-specific finite admission and AnimationValueError; both small checked constructor delegations."
+        },
+        {
+          "trait": "TryFrom<f32>",
+          "lines": [
+            106,
+            118
+          ],
+          "disposition": "KEEP nonnegative angular magnitude/speed admission; raw field conversion derive would bypass checked quantity error."
+        },
+        {
+          "trait": "TryFrom<f32>",
+          "lines": [
+            130,
+            135
+          ],
+          "disposition": "KEEP checked radians/second admission."
+        }
+      ],
+      "existing_derives": "Structural and serde try_from/into derives plus derive_more::Into already used for all five wrappers.",
+      "absence_basis": "Every trait and inherent body consumed; getter/radian unit operations are semantic, no handwritten serialization."
+    },
+    {
+      "scope_index": 346,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "sha256": "3e29916a9d570f6e0d12ffb54541ee018fb068902a4e5b6c0f744db9971d9ba9",
+      "actual_EOF": 100,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/measurement.rs",
+        "snapshot": "physical-p16",
+        "path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-core\\src\\animation\\measurement.rs",
+        "sha256": "3e29916a9d570f6e0d12ffb54541ee018fb068902a4e5b6c0f744db9971d9ba9",
+        "bytes": 3379,
+        "actual_line_count": 100,
+        "scope_kind": "materially_reached_existing_owner_definition",
+        "audit_owner": "camera",
+        "material_ranges": [
+          [
+            89,
+            100
+          ]
+        ],
+        "scope_limits": "Only checked_nonnegative admission helper89\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153100 actually called by response_parameters reference-acceleration/rate constructors. Unrelated measurement definitions1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u015388 are not scoped or credited.",
+        "scope_extension_authority": "Root accepted exact called-helper dependency before owner-fit analysis.",
+        "owner_fit_delta_status": "incomplete_scoped_before_definition_comparison",
+        "producer_inventory_accounting": {
+          "status": "incomplete_new_owner_reached_contract_supplement_required_after_current_owner_pass",
+          "initial2473_producer_completion": "preserved exact roles only"
+        },
+        "source_or_other_lens_credit": "none from metadata registration",
+        "owner81_scope_additions": [
+          {
+            "authority": "continuation/root/owner-delta-scope-authority-029.json",
+            "registration_observations": [
+              {
+                "registry": "continuation/camera/owner81/source-range-registration.jsonl",
+                "row_1based": 5,
+                "supplier": "camera",
+                "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/measurement.rs",
+                "sha256": "3e29916a9d570f6e0d12ffb54541ee018fb068902a4e5b6c0f744db9971d9ba9",
+                "actual_EOF": 100,
+                "ranges": [
+                  [
+                    13,
+                    17
+                  ],
+                  [
+                    44,
+                    53
+                  ],
+                  [
+                    63,
+                    69
+                  ],
+                  [
+                    82,
+                    88
+                  ]
+                ],
+                "effective_material_ranges": [
+                  [
+                    13,
+                    17
+                  ],
+                  [
+                    44,
+                    53
+                  ],
+                  [
+                    63,
+                    69
+                  ],
+                  [
+                    82,
+                    88
+                  ]
+                ],
+                "qualification": null,
+                "original_registration": {
+                  "id": "CONT-CAMERA-OWNER81-REGISTRATION-005",
+                  "at": "2026-10-22T05:14:47.718715+00:00",
+                  "authority": "continuation/root/owner-delta-scope-authority-029.json",
+                  "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/measurement.rs",
+                  "snapshot": "physical-p16",
+                  "sha256": "3e29916a9d570f6e0d12ffb54541ee018fb068902a4e5b6c0f744db9971d9ba9",
+                  "actual_eof": 100,
+                  "ranges": [
+                    [
+                      13,
+                      17
+                    ],
+                    [
+                      44,
+                      53
+                    ],
+                    [
+                      63,
+                      69
+                    ],
+                    [
+                      82,
+                      88
+                    ]
+                  ],
+                  "actual_reach": "Newactual P16MuscleRelease::After(PositiveAnimationDuration) and TryFrom95/encoding103 reaches exact durationconstructor and secondsgetter; compare positiveage versuszero-validelapsed/Nonewithout relyingtypename.",
+                  "why_prior_proof_insufficient": "Existing P16measurement scope89\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153100 onlycommonhelper, earlier PRcanonicalpositiveDurationproof supportsmeaningbutnotnew P16constructorbody.",
+                  "exclusions": "NonnegativeLength1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u015312/19\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u015343/70\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u015381 and sample_span54\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u015362 uncredited; no unrelated1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u015388wholefile expansion.",
+                  "status": "prospectiveprebodyregistration; producerfollowuprequired"
+                },
+                "frozen_path": "SNAPSHOTS/p16/crates/adventuresim-tactical-core/src/animation/measurement.rs",
+                "bytes": 3379
+              },
+              {
+                "registry": "continuation/rig/producer-reached-owner81/additional-sources.jsonl",
+                "row_1based": 4,
+                "supplier": "rig",
+                "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/measurement.rs",
+                "sha256": "3e29916a9d570f6e0d12ffb54541ee018fb068902a4e5b6c0f744db9971d9ba9",
+                "actual_EOF": 100,
+                "ranges": [
+                  [
+                    1,
+                    43
+                  ],
+                  [
+                    70,
+                    82
+                  ]
+                ],
+                "effective_material_ranges": [
+                  [
+                    1,
+                    43
+                  ],
+                  [
+                    70,
+                    82
+                  ]
+                ],
+                "qualification": null,
+                "original_registration": {
+                  "id": "RIG-OWNER81-REGISTER-004",
+                  "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/measurement.rs",
+                  "snapshot": "p16",
+                  "sha256": "3e29916a9d570f6e0d12ffb54541ee018fb068902a4e5b6c0f744db9971d9ba9",
+                  "actual_EOF": 100,
+                  "material_ranges": [
+                    [
+                      1,
+                      43
+                    ],
+                    [
+                      70,
+                      82
+                    ]
+                  ],
+                  "actual_use_and_candidate": "DoorController half-width size.x*.5 needs actual finite nonnegative zero-permitting NonnegativeLength candidate; original helper89\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153100 already scoped, unrelated PositiveDuration operations44\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u015369 excluded.",
+                  "why_previous_proof_insufficient": "New exact P16 definition/source constructor range not globally registered for this current material role; previous PR body/current owner verdict/hash insufficient. Register before actual owner body analysis.",
+                  "authority": "continuation/root/owner-delta-scope-authority-029.json",
+                  "new_variant_vs_global008": false,
+                  "limits": "Only exact named current role; no unrelated declaration/operations/fixtures or other-lens credit."
+                },
+                "frozen_path": "SNAPSHOTS/p16/crates/adventuresim-tactical-core/src/animation/measurement.rs",
+                "bytes": 3379
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                1,
+                53
+              ],
+              [
+                63,
+                88
+              ]
+            ],
+            "original_range_scope_preserved": true,
+            "limits": "Only exact prospective candidate-definition/constructor/helper/dependency roles, including all exclusions and local qualifications; source bytes/ranges/counts are not owner/producer acceptance.",
+            "producer_followup": "pending exact new-role producer qualification; no credit from current owner packet",
+            "owner_discovery": "supporting exact current owner witnesses separately reconciled in Root supplier acceptance; not inferred here"
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "From<PositiveLength>",
+          "lines": [
+            70,
+            74
+          ],
+          "disposition": "KEEP small unit-representation bridge extracting metres into a distinct weaker admitted type; simple fieldwise From does not express this source shape."
+        },
+        {
+          "trait": "TryFrom<f32>",
+          "lines": [
+            75,
+            87
+          ],
+          "disposition": "KEEP two checked admission adapters; positive duration requires finite nonnegative AnimationElapsed then nonzero check with exact AnimationValueError."
+        }
+      ],
+      "existing_derives": "Both wrappers already derive structural traits, serde try_from/into and derive_more::Into.",
+      "absence_basis": "Full material union plus contiguous methods sample_span54\u201362 personally read; no manual serialization or mechanical field writer.",
+      "necessary_signature_extension": "Sample_span54\u201362 completes same PositiveAnimationDuration impl; ensures no skipped trait/mechanics within registration union."
+    },
+    {
+      "scope_index": 347,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/mod.rs",
+      "sha256": "75fc12083762ad42e6fa03e9dbbd10e448c72c7940847b8c105add09c96e3c66",
+      "actual_EOF": 86,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/mod.rs",
+        "snapshot": "physical-p16",
+        "path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-core\\src\\animation\\mod.rs",
+        "sha256": "75fc12083762ad42e6fa03e9dbbd10e448c72c7940847b8c105add09c96e3c66",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "root",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 86,
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-CANONICAL-SPATIAL-CLOCK-CLOSURE-053",
+            "json_pointer": "/additional_actual_source_proofs/2",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-tactical-core/src/animation/mod.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                86
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/mod.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-core/src/animation/mod.rs",
+              "sha256": "75fc12083762ad42e6fa03e9dbbd10e448c72c7940847b8c105add09c96e3c66",
+              "read_ranges": [
+                [
+                  1,
+                  86
+                ]
+              ],
+              "role": "Actual elapsed/speed/angle reexport ownership and include-fixture source prefix"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CANONICAL-SPATIAL-CLOCK-053",
+            "json_pointer": "/additional_actual_source_proofs/2",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-tactical-core/src/animation/mod.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                86
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/mod.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-core/src/animation/mod.rs",
+              "sha256": "75fc12083762ad42e6fa03e9dbbd10e448c72c7940847b8c105add09c96e3c66",
+              "read_ranges": [
+                [
+                  1,
+                  86
+                ]
+              ],
+              "role": "Actual elapsed/speed/angle reexport ownership and include-fixture source prefix"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "None in module assembly.",
+      "absence_basis": "Imports/reexports/module declarations and test include only; no handwritten impl or writer. Child modules not credited from declaration."
+    },
+    {
+      "scope_index": 348,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+      "sha256": "d2eeb3c98817ee0e266094c559b48ef3736dc8b9fcdbcd975a9f47f637213222",
+      "actual_EOF": 217,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+        "snapshot": "physical-p16",
+        "path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-core\\src\\animation\\response_parameters.rs",
+        "sha256": "d2eeb3c98817ee0e266094c559b48ef3736dc8b9fcdbcd975a9f47f637213222",
+        "bytes": 8238,
+        "actual_line_count": 217,
+        "scope_kind": "materially_reached_existing_owner_definition",
+        "audit_owner": "camera",
+        "material_ranges": [
+          [
+            1,
+            85
+          ]
+        ],
+        "scope_limits": "ReferenceAcceleration/ResponseRate definitions and necessary constructor/operation contract only. No whole217-line file or unrelated response-controller coverage. Any further reached signature dependencies require explicit extension.",
+        "scope_extension_authority": "Root accepted Camera owner-candidate definition dependency before owner-fit analysis; user authorized read-only parallel discovery.",
+        "owner_fit_delta_status": "incomplete_scoped_before_definition_comparison",
+        "producer_inventory_accounting": {
+          "status": "incomplete_new_owner_reached_contract_supplement_required_after_current_owner_pass",
+          "initial2473_producer_completion": "preserved for exact prior roles; not extended by fingerprint equality"
+        },
+        "source_or_other_lens_credit": "none from this metadata registration",
+        "owner81_scope_additions": [
+          {
+            "authority": "continuation/root/owner-delta-scope-authority-029.json",
+            "registration_observations": [
+              {
+                "registry": "continuation/camera/owner81/source-range-registration.jsonl",
+                "row_1based": 1,
+                "supplier": "camera",
+                "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+                "sha256": "d2eeb3c98817ee0e266094c559b48ef3736dc8b9fcdbcd975a9f47f637213222",
+                "actual_EOF": 217,
+                "ranges": [
+                  [
+                    86,
+                    99
+                  ],
+                  [
+                    126,
+                    141
+                  ],
+                  [
+                    156,
+                    162
+                  ],
+                  [
+                    170,
+                    217
+                  ]
+                ],
+                "effective_material_ranges": [
+                  [
+                    86,
+                    99
+                  ],
+                  [
+                    126,
+                    141
+                  ],
+                  [
+                    156,
+                    162
+                  ],
+                  [
+                    170,
+                    217
+                  ]
+                ],
+                "qualification": null,
+                "original_registration": {
+                  "id": "CONT-CAMERA-OWNER81-REGISTRATION-001",
+                  "at": "2026-10-22T05:01:49.520740+00:00",
+                  "authority": "continuation/root/owner-delta-scope-authority-029.json",
+                  "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+                  "snapshot": "physical-p16",
+                  "sha256": "d2eeb3c98817ee0e266094c559b48ef3736dc8b9fcdbcd975a9f47f637213222",
+                  "actual_eof": 217,
+                  "ranges": [
+                    [
+                      86,
+                      99
+                    ],
+                    [
+                      126,
+                      141
+                    ],
+                    [
+                      156,
+                      162
+                    ],
+                    [
+                      170,
+                      217
+                    ]
+                  ],
+                  "actual_reach": "Owner queue019/020 actual inertial/body angle operations use InertialLeanGain; queue039 typed guarded look divisor uses LookDistribution; queue040/022 PD muscle fields use MuscleTone and AngularStiffness. Their PRcanonical body proofs exist, but new current P16 typed config/receiving roles need actual P16constructor/operation policies before owner fit.",
+                  "why_prior_proof_insufficient": "Prior P16definition scope only1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u015385/142\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153155 covers ReferenceAcceleration/ResponseRate, not these directly reached leaf bodies. No whole217-file inference from equalSHA or oldnamedowner verdict.",
+                  "exclusions": "No ImpactCompressionCompliance101\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153125/163\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153169 role; no unrelated responsecontrollers/othermeasurement1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u015388 scope.",
+                  "status": "prospectively_registered_before_owner_body_analysis; producer supplement still required for any new role/range before admission"
+                },
+                "frozen_path": "SNAPSHOTS/p16/crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+                "bytes": 8238
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                86,
+                99
+              ],
+              [
+                126,
+                141
+              ],
+              [
+                156,
+                162
+              ],
+              [
+                170,
+                217
+              ]
+            ],
+            "original_range_scope_preserved": true,
+            "limits": "Only exact prospective candidate-definition/constructor/helper/dependency roles, including all exclusions and local qualifications; source bytes/ranges/counts are not owner/producer acceptance.",
+            "producer_followup": "pending exact new-role producer qualification; no credit from current owner packet",
+            "owner_discovery": "supporting exact current owner witnesses separately reconciled in Root supplier acceptance; not inferred here"
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "TryFrom<f32>",
+          "lines": [
+            142,
+            175
+          ],
+          "disposition": "KEEP five constructor adapters retaining finite/positive/nonnegative quantity validation and native AnimationValueError."
+        },
+        {
+          "trait": "TryFrom<f32>",
+          "lines": [
+            206,
+            217
+          ],
+          "disposition": "KEEP MuscleTone/AngularStiffness checked admission adapters."
+        }
+      ],
+      "existing_derives": "All seven coefficient wrappers already structural/serde try_from+into/derive_more::Into.",
+      "absence_basis": "Read full owning constructors and conversion impls, including previously unregistered adjacent compression/adapter bodies; no manual serializer. Derived raw conversions would bypass admission, scalar response/interpolation methods remain semantic.",
+      "necessary_signature_extension": "100\u2013125/142\u2013155/163\u2013169 complete sibling checked methods and every TryFrom on registered wrapper definitions; bounded file217 fully read."
+    },
+    {
+      "scope_index": 349,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/sample_tick.rs",
+      "sha256": "ce44941a09ab6edf1bfe96d5617ad84d777c4bc3e0c8735d65ed6b369d727990",
+      "actual_EOF": 110,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/sample_tick.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-tactical-core/src/animation/sample_tick.rs",
+        "sha256": "ce44941a09ab6edf1bfe96d5617ad84d777c4bc3e0c8735d65ed6b369d727990",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 3274,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 43,
+            "read_ranges": [
+              [
+                1,
+                110
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-AUTORESOLVE-001",
+              "CAM-OWN-CONFIG-001",
+              "CAM-OWN-COMBAT-PHYSICAL-002",
+              "CAM-OWN-COMBAT-FRACTIONS-003"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-core/src/animation/sample_tick.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-STATE-NATIVE-PORTS-054",
+            "json_pointer": "/current_sources/2",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-tactical-core/src/animation/sample_tick.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                110
+              ]
+            ],
+            "source_context": {
+              "index": 427,
+              "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/sample_tick.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-core/src/animation/sample_tick.rs",
+              "sha256": "ce44941a09ab6edf1bfe96d5617ad84d777c4bc3e0c8735d65ed6b369d727990",
+              "read_ranges": [
+                [
+                  1,
+                  110
+                ]
+              ],
+              "mode": "Fresh actual whole current source and exact PR/P16 byteidentity where shared; generatedfiles read only, no generation/edit/check."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1106,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "Both tick/span wrappers derive Debug/Display/From, native serde transparent, reflection, default and structural ordering already.",
+      "absence_basis": "All remaining impls are inherent checked/saturating/wrapping coordinate/span arithmetic or quantization with documented native count conversion. No handwritten trait/serializer."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Animation coefficient admission and clock identity",
+      "disposition": "Existing derives already own structural/wire forwarding. Retain checked TryFrom, explicit unit bridge and operation policies; no recommendation to add raw conversion or serde bypass.",
+      "acceptance": "Preserve quantity-specific error order, finite/nonnegative versus positive domains, scalar serde shape, tick-versus-span distinction, generic API and wrapping/saturating/checked semantics."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 350,
+    "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

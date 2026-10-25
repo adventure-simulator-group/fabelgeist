@@ -1,0 +1,49 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-629",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "sha256": "1c55bd7318aad5de90e1269947be86e50e89d12439d37c0bba301f30d05a7668",
+      "actual_EOF": 88,
+      "actual_compared_ranges": [
+        [
+          1,
+          88
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2635"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+      "actual_EOF": 209,
+      "actual_compared_ranges": [
+        [
+          1,
+          209
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2636"
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Shader compilation and reflected binding layout publication",
+      "evidence": "All registered compute_shader1\u201388/reflection1\u2013209 personally read. Parse/validator/conversion errors reject before definition publication. Native non-WASM blocking validation scope is conditional; disabled/WASM paths rely native behavior. Reflection builds local BTreeMap by actual group number, orders entries by binding, and publishes local layouts plus metadata. No arithmetic overflow in scalar reflection itself.",
+      "qualifications": [
+        "Layouts are packed in existing-group order while metadata retains native group index. Sparse group identity and multiple uniforms per group require actual pipeline/binding recipient cohort; this source alone does not establish an ordinary failure or correct that earlier aggregate/authority concern.",
+        "Image arrayed/multisampled/comparison sampler/storage read-write distinctions are projected into simplified native descriptors; native validation can reject unsupported combinations. No actual unsupported authored shader or GPU execution claimed.",
+        "Public ComputeShader fields may be independently mutated, but constructor success itself uses matching local code/module. Mutex error field remains no proof of asynchronous validation capture."
+      ],
+      "acceptance": "Preserve actual shader group/binding/cohort identity through layout selection and retained resources; error path must not publish a mismatched definition. Native device validation and capability limits remain explicit boundaries."
+    }
+  ],
+  "findings": [],
+  "status": "Qualified material ranges personally analyzed; whole04 remains incomplete.",
+  "first_unfinished": "pr-working:crates/fabelgeist-hair/src/haircut.rs",
+  "source_edits": false,
+  "project_execution": "none"
+}

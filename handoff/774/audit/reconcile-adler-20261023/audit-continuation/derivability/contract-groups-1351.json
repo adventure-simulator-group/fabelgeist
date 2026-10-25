@@ -1,0 +1,265 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1351",
+  "at": "2026-10-25T18:36:27.390880+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1394,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/ragdoll/drive.rs",
+      "sha256": "10c455bd92024d36b8b6cfc339c73ba3f7ebebe1fc0971090e69d63497d59904",
+      "actual_EOF": 237,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/ragdoll/drive.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/animation/ragdoll/drive.rs",
+        "owner": "native",
+        "sha256": "10c455bd92024d36b8b6cfc339c73ba3f7ebebe1fc0971090e69d63497d59904",
+        "base_sha256": "59bf5f1863d26a8e130f4786487d0e5d3716191bb04f0e79efa7f3aa411ac6c5",
+        "state": "modified",
+        "bytes": 9437,
+        "audit_owner": "native",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [],
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 231,
+            "read_ranges": [
+              [
+                1,
+                237
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-RAGDOLL-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/ragdoll/drive.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 571,
+            "read_ranges": [
+              [
+                1,
+                237
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-RAGDOLL-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/ragdoll/drive.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          237
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Native free systems compose current pose/body bind frames, pin/hold ancestors, apply buffered transforms and checked terrain correction/velocity retention; free checked penetration helper and fixtures. No declared types, manual trait or codec."
+    },
+    {
+      "scope_index": 1395,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/ragdoll/entry.rs",
+      "sha256": "ba3c2942e73fcaac4b7698ec909382e907d0fd807f395e5f31509d904f910d6f",
+      "actual_EOF": 359,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/ragdoll/entry.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/animation/ragdoll/entry.rs",
+        "owner": "native",
+        "sha256": "ba3c2942e73fcaac4b7698ec909382e907d0fd807f395e5f31509d904f910d6f",
+        "base_sha256": "85bbbc10fd3de3a87b4cb8e848914a1d5fac5cc8f339b2e3d3ea7e4b570e83f0",
+        "state": "modified",
+        "bytes": 13424,
+        "audit_owner": "native",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [],
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 232,
+            "read_ranges": [
+              [
+                1,
+                359
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-RAGDOLL-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/ragdoll/entry.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 572,
+            "read_ranges": [
+              [
+                1,
+                359
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-RAGDOLL-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/ragdoll/entry.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          359
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "Debug/Clone/Copy BodySeed/MuscleTarget"
+      ],
+      "absence_basis": "Native current hierarchy/topological order, paired buffered-world transforms, physical velocities, geometry preflight before queueing bodies/joints and short-arc fixture. SpawnedRagdoll is output record without manual trait; no handwritten trait/codec."
+    },
+    {
+      "scope_index": 1396,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/ragdoll/geometry.rs",
+      "sha256": "90a0f67311aeddea43683a7d3e4c1c8ce0fa9dda96367303edd0e7557c63e224",
+      "actual_EOF": 66,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/ragdoll/geometry.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/animation/ragdoll/geometry.rs",
+        "owner": "native",
+        "sha256": "90a0f67311aeddea43683a7d3e4c1c8ce0fa9dda96367303edd0e7557c63e224",
+        "base_sha256": null,
+        "state": "new",
+        "bytes": 2513,
+        "audit_owner": "native",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [],
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 208,
+            "read_ranges": [
+              [
+                1,
+                66
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-IK-TARGETS-002"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/ragdoll/geometry.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 233,
+            "read_ranges": [
+              [
+                1,
+                66
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-RAGDOLL-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/ragdoll/geometry.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 550,
+            "read_ranges": [
+              [
+                1,
+                66
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-RAGDOLL-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/ragdoll/geometry.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "Debug/Clone/Copy/PartialEq CapsuleShape"
+      ],
+      "absence_basis": "Inherent multi-input geometry preflight zips bodies/seeds, preserves missing seed, checks scaled positive radius and signed segment/half length before any caller mutation; GeometryResult propagated. No handwritten trait/codec; raw From/default derive cannot preserve these admission and frame operations."
+    }
+  ],
+  "groups": [
+    "Retain native geometry/coordinate/mutation procedures. Structural record derives already present where used. No codec replacement, project execution, or cross-lens verdict."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1397,
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/ragdoll/mod.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

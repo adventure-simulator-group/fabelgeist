@@ -1,0 +1,86 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-587",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+      "sha256": "afd630bf1aa3b39007ee568f0428f37e30d43c9b43bd12fc7cd114fca1486c34",
+      "actual_EOF": 1184,
+      "actual_compared_ranges": [
+        [
+          1,
+          1184
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/clearance.rs",
+      "sha256": "ef24a6569ba92503d98ad956984ab627e7c5fc41f7429713cbac258a178e57dd",
+      "actual_EOF": 182,
+      "actual_compared_ranges": [
+        [
+          1,
+          182
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/continuity.rs",
+      "sha256": "d231794853b7f8d0c526e543e50e13d15499341746d4d50187f88d2022c5ced3",
+      "actual_EOF": 186,
+      "actual_compared_ranges": [
+        [
+          1,
+          186
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/facing.rs",
+      "sha256": "3c351540f1c379a250a87469a2cc86c4bb2c525b5fc2dbf084ace8e4b1057671",
+      "actual_EOF": 146,
+      "actual_compared_ranges": [
+        [
+          1,
+          146
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/guard_liveness.rs",
+      "sha256": "4e99ffb41426fe317a4a92c09f49f3533cc6c9a8ced6517f4650408aa0a9d45f",
+      "actual_EOF": 108,
+      "actual_compared_ranges": [
+        [
+          1,
+          108
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "P17metric derivations preserve coordinate frames, complete trackedbone inputs and finitecheckedcomputedobservations.",
+      "evidence": "metrics1184/clearance182/continuity186/facing146/guard108fullbodiespersonallyread includingallfixturetails. scenarioBTreeMapgroupssameMetadata andkeepsinputorder, warmupactualterrainphasefilterexplicit. Continuity requires>=3frames andREPORT_BONES everyadjacentpair from1->2, thencheckedNonnegativeLengthdistance/AngularMagnitudeDegreesanglebeforemax; worstlocationupdatesonlystrictgreater preservingfirstties. Loopseam requiresrepeatable crossingabsphase>0.5, expectedupperbones present andmeasuredcheckednativebodyframe projection; noCompletedCycle unavailable. Plantdriftfullsupport.99 distinctperframeblendedslip andresetanchoronrelease. Facingnormalization/nativeangle convertedAngularMagnitudeDegrees beforefold; noMotionSamples orNoStableDiveAxis explicit. Guardhalfstepintervals1..len safeindex-1, counts<=actualframeslen, supportdeltas-1..1finite andclearancegaincheckedSignedLength.",
+      "qualifications": "No tests/native/GPUexecution. Rawquatnormalize/inverse requiresunit/nonzerofiniteinput; normalizationisnot universaladmission, actualSDK/captureproducerprerequisite. Bothfeetbehindhips missingbone->false/noaxis->reset and ordinaryplannedtransition None->true arelocalpredicatepolicies, outercompleteframeowner stillrequired (existingNATIVE05F016). Chronologicalorder mustbeadmitted beforedurationclamps; sourcegroupingdoesnotsortlogicalticks. Globalturntracking_residual APIqualification local774:F53 sharedkernel notfreshnewcount.",
+      "acceptance": "Retainexactbodylocal/worldprojection, sourceFPorder, checkedcomputedfailure, expectedtrackedbone/cohort/counterclock alignment andspecificUnavailablecauses; no thresholdweakening or silentnormalizationofinvalidnativeframes."
+    },
+    {
+      "contract": "Onecanonicalankle-to-sole measurement must feed both flightandcontact reports; contactselection and independentacceptance remain distinct.",
+      "evidence": "P17clearance39 literalankle-.085, contactusesmeasured_ankle_sole_offset_metres; freshactualbody confirms sameexactarchiveCAMERA-INITIAL07-F065. Fullwrapperpersonallyconsumed audit/continuation/camera/initial07-redundant-authority/findings.jsonl record_index64, originalPRcustomYAML0.1vsdefault0.085 yields.015moverstatement. P17sameoperation evidenceonly; actualP17configinstallation notinferredfromPRproof. Relief subtractclearance/rootthenextrema/range retainsFPorder andcheckedSignedLength/HeightDistance; missingrequiredfoot/terrainclearance unavailable insteadzero.",
+      "qualifications": "No customconfig orcapturedpose/run executed; no particularacceptanceboundarycrossingclaimed. P17comment preserveexistingoffsetdoesnotresolveindependentauthorityorauthorizecompatibilityalias. Genuineflight/contactsupportconditions andreportoraclethresholds separatefromsharedgeometricmeasurement.",
+      "acceptance": "ExistingF065canonicalmeasurementrepair acrossflight/contact orcapturegenerationmeasurement; retain defaultagreement, supportthresholdselection, explicitabsence andindependentoracletolerances. No newunique count."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "5 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height.rs"
+}

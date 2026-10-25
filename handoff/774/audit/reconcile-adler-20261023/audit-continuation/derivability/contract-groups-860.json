@@ -1,0 +1,82 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-860",
+  "at": "2026-10-25T17:02:29.250044+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1076,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability.rs",
+  "sha256": "3249a867a88a75dc29d514b94c01a89965aed2c037a05fdbcc9109b0bde179f6",
+  "actual_compared_ranges": [
+    [
+      1,
+      300
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "From<(u64,CharacterCapabilities)>",
+      "type": "CharacterCapability",
+      "lines": [
+        [
+          52,
+          75
+        ]
+      ],
+      "disposition": "KEEP flattening plus separately owned power0 initialization"
+    },
+    {
+      "trait": "PlayerBody",
+      "type": "CharacterLimbs",
+      "lines": [
+        [
+          168,
+          188
+        ]
+      ],
+      "disposition": "KEEP selector+body constants"
+    },
+    {
+      "trait": "PlayerEssentials",
+      "type": "CharacterStats",
+      "lines": [
+        [
+          190,
+          198
+        ]
+      ],
+      "disposition": "KEEP two small projections, no owning enabled derive"
+    },
+    {
+      "trait": "PlayerAttributes",
+      "type": "CharacterAttributes",
+      "lines": [
+        [
+          200,
+          208
+        ]
+      ],
+      "disposition": "KEEP delegated temporary values projection, not an innerfield derive"
+    },
+    {
+      "trait": "PlayerSkills",
+      "type": "CharacterSkills",
+      "lines": [
+        [
+          210,
+          253
+        ]
+      ],
+      "disposition": "KEEP effective leaf/aggregate semantics"
+    }
+  ],
+  "analysis": [
+    "CharacterCapability From tuple52\u201375 flattens semantic capability view but deliberately initializes separately recomputed autoresolve power0, not equivalent field-to-field derive. PlayerBody168\u2013188 contains body selector map and70kg/rightside policy. PlayerEssentials190\u2013198 two tiny field projections necessary without module direct delegation derive dependency; PlayerAttributes200\u2013208 delegates temporary self.values() semantic projection rather than contained field. PlayerSkills210\u2013253 selector table includes maximum-effective Religion and category-effective Bestiary, not structural delegation. Keep all5manual traits.",
+    "CharacterCapability structural/table macro already; native evaluate/refresh and strategic equipment authoritative gathering are semantic functions. Exact module manifest1072 lacks ambassador/derive_more, core transitive availability not own import authority; no dependency solely cleanup."
+  ],
+  "first_unfinished": {
+    "scope_index": 1076,
+    "line": 301
+  },
+  "execution": "none"
+}

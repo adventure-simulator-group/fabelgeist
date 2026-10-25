@@ -1,0 +1,164 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-285",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:assets/shaders/tactical_interior_lighting.wgsl",
+      "sha256": "92d6043b6367ed1a9ce3159c5e749bbff8eb7b5b528dd26ae9cd17592fada2d4",
+      "actual_EOF": 100,
+      "actual_compared_ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:assets/shaders/tactical_moon.wgsl",
+      "sha256": "69d07afb5411b9aab80510259c6f30c47d2f6a6f27a07e96b09276dc3fb7639a",
+      "actual_EOF": 65,
+      "actual_compared_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:assets/shaders/tactical_pebble.wgsl",
+      "sha256": "5a55c52e1b2950b498e8d1679e7983bd84b6da069dc6fe5698a4b22d0646353e",
+      "actual_EOF": 90,
+      "actual_compared_ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:assets/shaders/tactical_pebble_billboard.wgsl",
+      "sha256": "c4644f87c9162b39d2fc1225d9912d8e7a0580cd7556d1333181defd62752b93",
+      "actual_EOF": 95,
+      "actual_compared_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:assets/shaders/tactical_shrub_bark_instanced.wgsl",
+      "sha256": "696467dcd07aed5f94b0dfb6d9605560daf85fd74e780da49e2449c840e15844",
+      "actual_EOF": 119,
+      "actual_compared_ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:assets/shaders/tactical_shrub_leaf_instanced.wgsl",
+      "sha256": "0f80c3f51e71056d7249e91d9dda6b82980138f76358602cf5aa887976e8aa52",
+      "actual_EOF": 197,
+      "actual_compared_ranges": [
+        [
+          1,
+          197
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:assets/shaders/tactical_stars.wgsl",
+      "sha256": "929fdce1cb1b288bcc885f481a2fd64d20f60dc513e16ebd534b84d700e7ca98",
+      "actual_EOF": 61,
+      "actual_compared_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Interior light grid must preserve native address, dimensions, room and interpolation aggregate",
+      "source_ranges": {
+        "tactical_interior_lighting.wgsl": [
+          [
+            1,
+            100
+          ]
+        ]
+      },
+      "disposition": "Seven complete exact shader bodies personally read; no shader check/compile/GPU/render/art verification. Interior buildings fixedarray16 but countx unchecked in shader; sample address=offset+(cell.y*dims.z+cell.z)*dims.x+cell.x requires host allocated products/offsets representableu32 and every building metadata matches sample buffer. Position divides by horizontal cell and storeyheight; boundary checks precede floor/cast only for valid finite dimensions/local frame. Reserved countsy must remain0: width2+i32(countsy) changes both work and bilinear weight meaning if raw host violates reservedzero. Normalized interpolation selects center for missing/different-room neighbors, preventing deliberate cross-partition spill for admitted room metadata. Actual first-party grid producer and transformednormal/frame admissibility remain dependencies; no concrete count>16, zeroheight or actual wrong room value published. Fixed reference floor1e-4 bounds final occlusion denominator but not arbitrary nonfinite light product."
+    },
+    {
+      "contract": "Pebble mesh and billboard paths have different encoded geometry and native normal prerequisites",
+      "source_ranges": {
+        "tactical_pebble.wgsl": [
+          [
+            1,
+            90
+          ]
+        ],
+        "tactical_pebble_billboard.wgsl": [
+          [
+            1,
+            95
+          ]
+        ]
+      },
+      "disposition": "Mesh uses actual transformed normal and native bounded light iteration; billboard deliberately treats vertex.normal as pebble center rather than a normal, then camera-facing basis reconstructs silhouette/lighting. Exact producer attribute contract must preserve this semantic distinction, not a blanket normal-owner reuse. Derivative floors bound reciprocal diameter and silhouette width; sqrtmax prevents negative sphere remainder, but signed vector+epsilon normalization can still cancel and needs actual camera/geometry admission. Pixel threshold/hash and material/exposure raw native ports do not prove finite outputs. No actor/camera degenerate case or visual disagreement promoted; ordinary light/shadow/transmission policies remain as source."
+    },
+    {
+      "contract": "Instanced shrub normals assume admitted batch frame in addition to per-instance yaw",
+      "source_ranges": {
+        "tactical_shrub_bark_instanced.wgsl": [
+          [
+            1,
+            119
+          ]
+        ],
+        "tactical_shrub_leaf_instanced.wgsl": [
+          [
+            1,
+            197
+          ]
+        ]
+      },
+      "disposition": "Positions use native complete instance_matrix from batch world_from_local plus per-instance scale/yaw. Normal paths only apply per-instance yaw and normalize, explicitly assuming uniform scale and omitting batch linear orientation. If actual supported batch carries nonidentity rotation/nonuniform scale, normals could disagree with rendered geometry; no such actual CPU batch supplier/witness inspected yet, so qualified source-derived candidate only. Leaf wind normalization/displacement require nonzero direction and finite amplitudes; derivativeGrad backface texture path preserves intentional divergent-face sampling. Packed wood vertex color carries metric root-height data, while shrub bark deliberately uses flat pigment; keep producer/recipient semantics. Complementary dither is same represented16step policy as284, not a new duplicate finding. Unused bound front/backnormal textures are no arithmetic/mutation defect and do not authorize cleanup in discovery."
+    },
+    {
+      "contract": "Moon/star radiance and view expansion require admitted astronomy/material/viewport values",
+      "source_ranges": {
+        "tactical_moon.wgsl": [
+          [
+            1,
+            65
+          ]
+        ],
+        "tactical_stars.wgsl": [
+          [
+            1,
+            61
+          ]
+        ]
+      },
+      "disposition": "Moon phase/scattering divides by max(positive sum,.025), lunar albedo normalization uses fixed.18 and bounded posterization; finite unit normal/light/view directions remain native mesh/astronomy producer dependencies. Star quad expands clip coordinates by native viewport extents and clipw; nonzero active viewport, finite dome distance and actual magnitude/radiance owner needed. pow10(-.4*magnitude) can overflow for arbitrary huge negative finite raw magnitude, but no catalog/first-party ordinary negative-extreme star asserted. Sky transform/clock source authority and valid formed celestial directions are independent actual source roles, not cleared by shader reading. Preserve real calendar/astronomy coordinate conventions and intentional horizon/visibility thresholds."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "7 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:assets/shaders/tactical_terrain.wgsl"
+}

@@ -1,0 +1,13 @@
+--- p16base/crates/adventuresim-core/src/autoresolve/error.rs
++++ catalog-p16head/crates/adventuresim-core/src/autoresolve/error.rs
+@@ -5,8 +5,10 @@
+ 
+ /// Checked physical inputs and interval arithmetic used during pure resolution.
+ #[derive(Debug, thiserror::Error)]
+ pub enum BattleResolutionError {
++    #[error(transparent)]
++    Geometry(#[from] fabelgeist_geometry::GeometryError),
+     #[error(transparent)]
+     Speed(#[from] SpeedError),
+     #[error(transparent)]
+     Timing(#[from] ElapsedError),

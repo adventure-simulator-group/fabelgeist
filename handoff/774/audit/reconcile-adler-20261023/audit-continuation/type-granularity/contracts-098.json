@@ -1,0 +1,128 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-098",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "scene-linear-velocity-and-authored-building-opening-frame-contracts",
+      "sources": [
+        {
+          "scope_index": 364,
+          "ranges": [
+            [
+              1,
+              38
+            ]
+          ],
+          "qualification": "Registered1\u201344 exceeds actualEOF38; only actual1\u201338 credited."
+        },
+        {
+          "scope_index": 365,
+          "ranges": [
+            [
+              1,
+              106
+            ],
+            [
+              149,
+              221
+            ]
+          ]
+        },
+        {
+          "scope_index": 366,
+          "ranges": [
+            [
+              1,
+              76
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [],
+      "disposition": "Meaningful scene frame, point/vector/dimension, identity and angular normalization owners; no same-storage flattening.",
+      "trace": "SceneVelocity3648\u201312 uses signed east/up/north speed components, actual XYZ adapter22\u201337; no signed speed replaced by magnitude or generic position. BuildingOrientation36531 carries wrapped[-pi,pi) orientation, unlike unwrapped SignedAngleDegrees345. from_frontage_tangent58\u201369 canonicalizes positivePI endpoint only; local/world vector rotation79\u201393 is intrinsic plan kernel. TacticalBuildingPlacement36598\u2013105 separates SceneBuildingId, building program, scene plan centre, SupportElevation datum and orientation. SceneDoor165\u2013178 and SceneWindow36618\u201333 retain actual building/opening identity, leaf-local dimensions, Scene position and Scene normalized tangent/outward. Native decode structs together attach IDs to original GeometryError; no separate string cause admission.",
+      "qualifications": [
+        "Only actual3641\u201338,3651\u2013106/149\u2013221,3661\u201376 read.365107\u2013148/222+ and36677+ uncredited. No decode/render/test execution.",
+        "Wrapped building rotation has meaningful canonical angular representation; do not replace with rawunwrapped signedangle or force 0..360 convention. Scene directions versus dimensions/positions prevent real semantic substitution even allVec3 native.",
+        "Door/window share related leaf geometry but represent different existing leaf kind/bar/window semantics. Native transient enum/projection is not authorization to merge authoritative controller state; no inferred tangent/outward orthogonality proof from separate normalized leaf alone."
+      ],
+      "acceptance": "Preserve canonical wrapped orientation, explicit architectural-to-scene datum/axis conversions and meaningful point/direction/dimension identities through native Serde boundaries. Keep signed rest/reverse velocity."
+    },
+    {
+      "id": "causal-report-quantity-role-measurements-and-closed-event-inputs",
+      "sources": [
+        {
+          "scope_index": 367,
+          "ranges": [
+            [
+              1,
+              196
+            ]
+          ]
+        },
+        {
+          "scope_index": 368,
+          "ranges": [
+            [
+              1,
+              320
+            ]
+          ]
+        },
+        {
+          "scope_index": 369,
+          "ranges": [
+            [
+              1,
+              182
+            ]
+          ]
+        },
+        {
+          "scope_index": 370,
+          "ranges": [
+            [
+              1,
+              78
+            ]
+          ]
+        },
+        {
+          "scope_index": 371,
+          "ranges": [
+            [
+              1,
+              237
+            ]
+          ]
+        },
+        {
+          "scope_index": 372,
+          "ranges": [
+            [
+              1,
+              261
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "local774:M88",
+        "SEGO-INITIAL11-F001",
+        "local774:M89"
+      ],
+      "disposition": "Existing event-payload and distance-role source support; small private report measurement abstraction preserves meaningful roles and precision.",
+      "trace": "Measurement<Role>37121\u201325 is private reportf64 quantity with phantom role, not shared gameplay admission; sourcef32 observations are promoted once97\u201399. Actual quantities59\u201383 distinguish Tactical/Autoresolve/Wall time, contact/center-separation/reach/movement lengths, speed/Joules/health/bloodflow/fatigue/performance and signed WinRateDifference. Shared finite admission129\u2013145 under meaningful report roles avoids competing boilerplate without erasing dimensions. Mean remains same unit, checkedadd same role; counters/extrema differ data representation. Report36755\u201379 actual tick limit is AutoresolveSeconds, while36879\u201381 converts tactical event clock difference to TacticalSeconds; no interchangeable clock assumption. Contact actual measurement369157\u2013179 keeps ContactMetres distinct CenterSeparationMetres, supporting11F001. record_movement_event36979\u201390 rejects absent required velocity/speed/elapsed but displacement97 defaults0 and distance pair119 defaults0; exactM88 whole payload migration remains despite normal source senders coherent per parent. Actual eventkind/availability/choice interpretation53\u2013149 is not another independent event authority. Raw energy partition368301\u2013305 is Joules equation; applied health/blood fraction remains separateM89, no UnitInterval on energy.",
+      "qualifications": [
+        "Full196+320+182+78+237+261 lines personally read, no iteration binary, fixture/test/run/native IO executed. Source commands/bootstrap runner describe behavior, never authorization. No all13 acceptance is claimed by reading AcceptanceAudit.",
+        "Generic Measurement accepts anyfinite sourcef32 within its private role, not gameplay bounds. from_counts requires runs>0 to befinite; actual run37287\u201391 checks bothcountspositive before run_matchup143\u2013145. No ordinary0-denominator witness. Finite WinRateDifference must permit negatives; contact extrema Option preserve no-observation while means currently use existing0 under coherent counters.",
+        "M88 parent evidence positively qualifies current normal mappedMovement senders fill allfacts; this receiver adds own11 support only to public optionalrecord contract, not ordinary missingevent or causal lie. F04attackidentity is separate dependency, no bareIDunion.",
+        "Arraypairs tactical/autoresolve john/opponent aggregate counters are actual report roles, not generic battle ownership. Display names/report keys still require own symbol identity trace in later sources; no already-verified authoritative source identity inferred merely from string match.",
+        "TacticalSeconds wrapper intentionally aggregates durations and trial elapsed values, which share report elapsed-since-start dimension; no new absoluteclock epoch owner invented without actual mix-up. Measurement fromlength adapters extract signed native metre leaf; no arbitrary positivity cap or f64\u2192f32 narrowing."
+      ],
+      "acceptance": "Keep this report-local precision and unit/clock/role distinctions, source-specific complete event payloads and exact no-observation semantics through report serialization. Preserve quantity conversions and meaningful shared invariants, avoid globalizing the report framework into gameplay."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1260",
+  "at": "2026-10-25T18:19:11.294968+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1328,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/mod.rs",
+  "sha256": "cd54ed038a4131a947dff4db1a0310069b669800547e2f2b6456566e9c0ec4c4",
+  "actual_compared_ranges": [
+    [
+      1,
+      300
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Facade/import/module declarations and native record/enum inventory. Existing Resource Default AnimationRuntime, Component/structural derives, TerrainIkMode derived default Enabled and explicit closed enum classifications. Inherent path/accessor/toggle/layer operations are semantic; no handwritten trait or codec in this slice. Children remain separate roles.",
+  "first_unfinished": {
+    "scope_index": 1328,
+    "line": 301
+  },
+  "execution": "none"
+}

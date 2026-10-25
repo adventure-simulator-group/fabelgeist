@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-857",
+  "at": "2026-10-25T17:02:03.721881+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1074,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/browser_session.rs",
+  "sha256": "58bcbbfa28a430def36a47439a94587ab24f3fbdfe2eeca4b9c58e19a6e0ed4a",
+  "actual_compared_ranges": [
+    [
+      1,
+      300
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "All grant/selection/development-access/backend records use structural/SpacetimeType/table macros already. Native provenance/opaque owner-key shape, claim/age/liveness/custody authority and DB grant/update/selection functions express semantic policy. No handwritten trait/codec in consumed range; preserve private projections and reducer macro boundary, not derive runtime checks."
+  ],
+  "first_unfinished": {
+    "scope_index": 1074,
+    "line": 301
+  },
+  "execution": "none"
+}

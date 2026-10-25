@@ -1,0 +1,79 @@
+{
+  "id": "CONT07-CONTRACT-564",
+  "at": "2026-10-24T00:05:51.609038+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2434,
+      "source_id": "pr-working:rust-quality-baseline.toml",
+      "sha256": "059d0c2bc687c8d7bd314cfa50fb863ac83959cc3483e74aee993980f47e3efe",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:rust-quality-baseline.toml",
+      "actual_EOF": 12847,
+      "ranges": [
+        [
+          1,
+          12847
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2435,
+      "source_id": "pr-working:vendor/bevy_ahoy/src/lib.rs",
+      "sha256": "a0b15625d3086b64fd425b8bccae4f18370ae8f1f64b2633b9b3736523cc580d",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:vendor/bevy_ahoy/src/lib.rs",
+      "actual_EOF": 552,
+      "ranges": [
+        [
+          282,
+          331
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2436,
+      "source_id": "report-p17:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+      "sha256": "10ec37a1c4a64e581565d0eb9c297d396a34c1c9134a8d210de29cecb77e88ee",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+      "actual_EOF": 147,
+      "ranges": [
+        [
+          1,
+          147
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2437,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation/bouncy_bones.rs",
+      "sha256": "36a72e8b7ec69bfee0e9bf67a633ca079e4b157230b4628f885c9a19a4160e2b",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-tactical-client/src/animation/bouncy_bones.rs",
+      "actual_EOF": 492,
+      "ranges": [
+        [
+          1,
+          492
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "2434 complete native TOML decode/inventory:209 file ceilings,485 function ceilings,1369 fingerprint occurrence exceptions across6 rules; source head/tail and every row shape/identity inspected structurally. This is explicit quality policy/history, not gameplay authority; no semantic review of named source files or gate execution. See metadata-2434-inventory.json.",
+    "2435 CharacterLook yaw/pitch are admitted look inputs and quaternion conversions preserve or intentionally zero roll; controller orientation is a distinct movement-state recipient, not proven same current fact without update contract. Existing producer migration evidence remains separate.",
+    "2436 P17 finite unwrapped Radians and private normalized direction/quaternion wrappers hold a single native value each; phantom frame is compile-time provenance, max computes from admitted operands, serialization re-admits same value. No independently cached labels.",
+    "2437 P17 springs own dynamic offsets/velocity, telemetry resets every apply pass and derives count/max with explicit GeometryResult preservation. Reactive parent chain is authored anatomy distinct transform hierarchy, not competing parent authority. Per-bone array length derives from the one roster.",
+    "2437 fresh transform-chain rotation avoids reading last-frame additive GlobalTransform during application; kicks intentionally sample current reported global bone direction before additive walk. Rig culling/ragdoll keeps springs decaying; zero delta resets telemetry and emits no current observation, separate diagnostics policy. No scheduling occurrence claimed from source alone."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2438,
+    "start_line": 1
+  }
+}

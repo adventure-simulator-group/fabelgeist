@@ -1,0 +1,26 @@
+{
+  "id": "RIG-INITIAL06-GROUP-293",
+  "at": "2026-10-23T08:27:14.308650+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "animation-pack-library-owner": {
+      "comparison": "AnimationPack and private-map AnimationPackLibrary own authored clip availability/fallback graph over shared AnimationPackId, SkeletonFamily and SemanticPose. ResolvedPose explicitly distinguishes requested satisfied semantic, sampled clip pose and ClipMirror; BindPoseT is a legitimate no-clip result, not a competing pose enum. PackValidationError retains canonical IDs and required SemanticPose rather than strings. AttackAnimations is the shared complete capability product; local algorithm derives main and offhand inheritance according to separate explicit policies. Structural versus complete content validation have different acceptance responsibilities and do not justify merging library with runtime sampled pose/cache. No new duplicate categorical owner authored here.",
+      "disposition": "Coherent content library and resolved-choice products over canonical IDs/semantics."
+    },
+    "furniture-demand-policy": {
+      "comparison": "FurnitureBudget owns target kind/count/placement strategy, not accepted fitted furniture instance. FurniturePosition Wall/Rows/Centre/CounterRun describes placement algorithm policy distinct from furniture kind, room usage and spatial pose; canonical FurnitureKind/RoomKind/world BuildingUse are reused directly. TradeKit is a local three-slot selection product, not another inventory or material owner. Count cap/area equations are actual demand arithmetic from room cells; fixed positive density parameters are local authored furnishing policy rather than neutral length validation. The comprehensive BuildingUse mapping supplies placement budget policy instead of replicating that enum. No conflicting owner or dependency inversion identified.",
+      "disposition": "Legitimate furnishing-demand policy owned by building generator."
+    },
+    "canonical-shield-manufacturing-parameters": {
+      "comparison": "RoundShieldParameters and ShapedShieldParameters are canonical weapon-kernel authored manufacturing records using shared Metres/Ratio/Degrees/Count, Material and fitting/top/bottom vocabularies. Different outline/geometric fields make these distinct shape products; common fitting dimensions/material slots are coherent repeated composition candidates only if a shared fitting concept is independently established, not proof to merge complete shapes or wire adapters. Optional explicit-present Serde fields preserve absence policy. outline_resolution is an actual numerical error-budget/count projection, not another unchecked semantic sampling owner. Full231 producer role ROOT-PPS-CAMERA-WEAPON-SHAPE-PACKET-041 and CAM-PPS-WEAPON-SHAPE-037 explicitly expands old owner1–70, so all231 freshly read roles are in scope. No blanket strict-positive Metres policy or borrowed animation quantity introduced.",
+      "disposition": "Canonical kernel owns shape parameters; no new ownership defect from structurally shared fitting slots alone."
+    },
+    "support-diagnostic-taxonomy": {
+      "comparison": "SupportDiagnostic owns rejected-attempt evidence: property/member IDs, boundary/constraint/unit/violation/location and attempted treatment. It reuses exact SceneBuildingId/CityPropertyId and nested canonical construction errors from geometry/floor/door/boundary modules rather than parallel string error owners. Constraint, Boundary, Bound and DiagnosticUnit answer different questions and must not collapse because they are small enums. Constructors deliberately retain failed raw Vec2 through SupportDiagnosticLocation::from_attempt_metres and raw measured/permitted via SupportViolation; importing checked accepted finite geometry here could erase rejected evidence and classification order. Same metre/count storage does not equate diagnostics with accepted support geometry; F023 neutral valid elevation leaf migration remains separate.",
+      "disposition": "Coherent rejected-evidence product and contextual diagnostic taxonomy; preserve raw failed inputs."
+    }
+  },
+  "supporting_existing_findings": [],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit."
+}

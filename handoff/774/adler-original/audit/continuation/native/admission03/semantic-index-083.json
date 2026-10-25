@@ -1,0 +1,2255 @@
+{
+  "id": "NATIVE-ADMISSION03-SEMANTIC-INDEX-083",
+  "lens": "audit-admission-contracts",
+  "source_count": 443,
+  "groups": [
+    {
+      "ref": "contract-groups-001.json#finite-authored-angles",
+      "queue_indices": [
+        325,
+        441
+      ],
+      "invariant": "SignedAngleDegrees/SignedAngularSpeedDegrees finite signed unwrapped degree roles; AngularMagnitudeDegrees/AngularSpeedDegrees/AngularSpeedRadians finite>=0 with actual authored unit. No blanket range<=1/FOV constraint.",
+      "acceptance": "All scalar decode paths preserve authoritative finite/sign/unit invariant without unwanted wrapping/normalizing; P17 additional selectors and error-role distinction retained.",
+      "qualification": "NaN/±Inf rejected on direct/TryFrom/Serde route; negative magnitude rejected while signed negative and magnitude>1 intentionally admitted. P17 SignedAngleDegrees uses BodyAngle rejection quantity, PR uses SignedAngle; source-specific error provenance preserved, no grouping by equal bytes.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-001.json#authored-cadence-cap",
+      "queue_indices": [
+        326
+      ],
+      "invariant": "StepCadence finite>=0 incl0; AuthoredCadenceCap stores admitted cadence/positive stride floor and requires half transition width<=maximum. ExceedsScalarRange is explicit demand evidence, not finite rate.",
+      "acceptance": "Same leaf and cap relation enforced for authored decode and direct construction; no constructor bypass via public fields/derive.",
+      "qualification": "Negative/NaN cadence cannot enter scalar. Width4/max1 rejected by new and structured Serde route. Zero maximum/zero width permitted, no reciprocal needed. Huge finite rate demand becomes explicit overflow state. Aggregate correctness beyond checked cap admission remains05.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-001.json#calibration-policy",
+      "queue_indices": [
+        327
+      ],
+      "invariant": "ContactHeightScale finite>0 unbounded multiplier; PhaseCalibrationIntervals fullu32>=3.",
+      "acceptance": "Every route keeps exact >0 or >=3 requirement without adding probability bound.",
+      "qualification": "0/-0/negative/NaN/Inf scale rejected; factor2 valid. Intervals0/1/2 rejected,3/u32MAX accepted as stated; execution capacity not invented admission bound.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-001.json#open-event-and-sample-counters",
+      "queue_indices": [
+        328,
+        334,
+        349
+      ],
+      "invariant": "ContactSequence/Landing analogous handledseparately here Contact; AnimationEventSpan, AnimationSampleTick/Span are all-u64 role owners incl0/MAX, distinct provenance. CoalescedEventBudget strictlypositive u64.",
+      "acceptance": "Openfull-width admission remains representable; positive budget decode rejects0, role and original clock policies retained.",
+      "qualification": "u64MAX and0 deliberately valid counters, not sentinel bypass or checked chronology. Budget0 rejected by NonZero constructor and decode. SampleSpan::from_positive_duration explicit multiply/round/min1/saturating cast is producerpolicy, not claimed nonzero Span generally.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-001.json#continuation-boundaries",
+      "queue_indices": [
+        329
+      ],
+      "invariant": "IncomingAttackTangent finite>=0 and normalizes negativezero; Readiness finite strictly0<phase<.5. AttackContinuation contains alreadychecked leaves.",
+      "acceptance": "All paths yield valid typed leaves; intentional raw normalization remains explicit rather than asserted uniform rejection.",
+      "qualification": "Readiness0/.5/NaN rejected, 7/24 constant insideopeninterval. Negative tangent direct rejects; finite negative decode yields0 intentionally per source comment and existing boundary contract, not an invalid typed value. from_arithmetic changes errorcategory while retaining same finite/sign invariant.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-001.json#grounded-and-motion-enums",
+      "queue_indices": [
+        336,
+        343
+      ],
+      "invariant": "Closed Grounded/Airborne, DownedResting/Turning, GuardedFootwork/Sprint, anticipationInactive/Charging role vocabulary.",
+      "acceptance": "Every native predicate/decode resolves one closed state with unchanged default and pace mapping.",
+      "qualification": "Both Boolean values valid distinct states; no finite/bounds or unknown-name validation invented. Richer posture/physical correlation belongs05, not a Boolean bypass.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-001.json#height-and-impact-leaves",
+      "queue_indices": [
+        337,
+        339,
+        442
+      ],
+      "invariant": "HeightDistance finite>=0 metres, HeightSpeed/LandingImpactSpeed finite>=0 m/s; LandingSequence allu64 incl0/MAX.",
+      "acceptance": "Canonical checked dependencies cannot be bypassed by wrapper Serialize/Deserialize/Default; zero/units and P17 selection methods retained.",
+      "qualification": "Negative/NaN/Inf measurement rejected through canonical dependency and wrapper decode; zero and subnormal accepted. SequenceMAX not invalidprovenance. P17 admission identical but selectors present, exact wrapper errorrole preserved. No new assertions executed.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-001.json#knee-and-settle-admission",
+      "queue_indices": [
+        338
+      ],
+      "invariant": "KneeTargetAmplification finite>0 unbounded; SettleProgress documented finite signed progress cappedabove1, no lower0floor.",
+      "acceptance": "Every admitted SettleProgress meets declared uppercap, with direct and internal factories coherent and current negative/zero/shapingpolicy preserved.",
+      "qualification": "Conceptual internal from_arithmetic(2.0) returns typed2 despite documented cap, while from_progress(2.0) returns1. Existing sole actual shaping_time36 caller passes .min1, so no claimed reproduced runtime symptom. Negative finiteprogress intentionallyallowed. This is an extra constructor route whose prerequisite is not enforced, crossref04but admission inventory retained.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-001.json#length-positive-duration",
+      "queue_indices": [
+        341,
+        443
+      ],
+      "invariant": "NonnegativeLength finite>=0; PositiveAnimationDuration wraps finite nonnegative AnimationElapsed then rejectszero, including-0.",
+      "acceptance": "All duration decode/direct routes use canonicalelapsed then exactpositive refinement, P17 admission equivalence and new selectors preserved.",
+      "qualification": "NaN/Inf/negative rejected, elapsed0/-0 rejecteddurationbut validlength; sample_span0 intentionally produces0elapsed not invalidpositive duration. No scalar bypass from default. Arithmetic operations04separate.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-001.json#phase-and-response-scalars",
+      "queue_indices": [
+        345,
+        347
+      ],
+      "invariant": "PhaseCorrectionRate/ErrorLimit, ResponseRate, InertialLeanGain, Compliance, MuscleTone, Stiffness finite>=0; ReferenceAcceleration/LookDistribution finite>0. Greaterthan1 values intentional where unbounded.",
+      "acceptance": "Every raw/config/Serde route preserves ownsign/units/errorrole, no derivebypass; strongercorrelatedconstraintslater05.",
+      "qualification": "NaN/Inf/negative cannotenter; zero permittednonnegroles but rejectedacceleration/lookdivisor. .5lookdivisor intentionallyvalid. Finiteinput interpolationoverflow sourceerror distinction not reason clamp or rejectunbounded scalar atadmission.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-001.json#pose-and-action-coordinate",
+      "queue_indices": [
+        346
+      ],
+      "invariant": "AttackPoseCoordinate and ActionProgressDelta finite signed unwrapped; drawback<0/overshoot>1valid. UnitInterval decoded actionprogress finite0..1.",
+      "acceptance": "Finite/coordinate-unit checks and raw-boundary normalizepolicy consistent; unchanged firsterror and curve policy.",
+      "qualification": "Negative/2 attackcoordinate valid; NaN/Inf rejected. Negative/2 progress decode normalize0/1 intentionally; UnitInterval rawconstructorwouldreject but resultingtypedguarantee consistent. No Default/Reflect/rawfloat From bypass.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-001.json#frequency-and-reciprocal-rate",
+      "queue_indices": [
+        348
+      ],
+      "invariant": "AnimationFrequency finite>0 without reciprocal guarantee; AnimationSampleRate additionally stores representable positive interval with originalfrequencybits.",
+      "acceptance": "Allsample-rateentryroutes enforce both leaf/domainrequirements without adding reciprocalrequirementtoFrequency.",
+      "qualification": "Smallestpositivefrequency validFrequency but reciprocalinfinite rejectedSampleRate through canonicalelapsed; these are intentionally different admissioncontracts. Zero/-0/negative/Inf/NaN frequencyreject. No independently constructible mismatchfields.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-001.json#cycles-and-blend",
+      "queue_indices": [
+        350
+      ],
+      "invariant": "CyclePhase/Delta finite signed unwrapped; BlendWeight finite>=0 unbounded; ClipMirror closedbinary.",
+      "acceptance": "Allinputroutes retain exact signed/unwrapped/nonnegative contracts and binaryselection without stricterprobabilityinterpretation.",
+      "qualification": "Negative/2cycles deliberatelyvalid; blend2valid, negative/NaN/Inf rejected. Periodicoperationwrap not automaticadmission. Raw fraction in checked_lerp not claimboundedfraction, outputfinitechecked.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-001.json#signed-shaping-and-open-family",
+      "queue_indices": [
+        352,
+        353
+      ],
+      "invariant": "ResponseShapingTime finite signedseconds incl0, consumer ownsdivision/floor/clamp; SkeletonFamily open authored string identity with unknown/emptyname not membershipproof.",
+      "acceptance": "Allentryroutes preserve finite signed shaping and openidentityauthority, no invented restrictivegrammar.",
+      "qualification": "Shaping0/negative valid byexplicit docs, Inf/NaN rejected. Family empty/unknown representable intentionally untilactualpacklookup; no grammar/membershipinvariantimpliedbyidentityname. advance_settle36 capsresultbefore internalfactory; doesnotclosefactoryF001byitself.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-001.json#module-and-error-vocabulary",
+      "queue_indices": [
+        342,
+        364
+      ],
+      "invariant": "Module reexports canonical owners without alternateadmission. AnimationQuantity/Error are closedcause/role enums, contextual expected/actual values maydescribeinvalidsource.",
+      "acceptance": "No duplicateprimitiveadmissionintroducedbyexports; preservecausecategoryandintentionalrejectionevidence.",
+      "qualification": "Diagnostic actual0/largeexpected/unknownrequestevidence not validmeasurement owner and shouldremainrepresentable. No numeric invariant for counts on error constructor. Existing sourceinclude tests notexecuted; tests.rs separatelyqueued363andnotcreditedbyinclude.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-002.json#reflection-remote",
+      "queue_indices": [
+        330,
+        335
+      ],
+      "invariant": "Remote elapsed finite>=0 seconds; fraction finiteclosed0..1. Reflection cannot construct invalid scalar bypassing private backing and canonical Serde.",
+      "acceptance": "Every reflected/fromreflect/apply/Serde pathway retains canonical invariant without rawfielddecoder, preservingactualadmittedzero/signedzeroandformatpolicy.",
+      "qualification": "A DynamicTupleStruct carryingNaN/-1 or reflectedrawf32 is not canonical Remote and fails actual downcast; scalar deserializeNaN/-1 or fraction2 reaches checkedcanonicalconstructorand rejects. Cloning alreadytypedRemote cannot create invalidf32 throughsafeAPIs. Unsafeexternalfabricationnotclaimedimpossible.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-003.json#evaluation-and-pose-admission",
+      "queue_indices": [
+        331,
+        332,
+        333
+      ],
+      "invariant": "PoseSample/Evaluation field-level guarantees are checked speed/cycles/fraction/weight and closed semantic/sampling/mirror vocabulary; independent weight>1 and empty Ragdoll layer remainvalid. No sum1 or packavailability invariant invented.",
+      "acceptance": "All public/decode/derivedsource paths retain checked leaf guarantees and existing explicit normalization; no blanket validated-aggregate assertion.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-003.json#locomotion-profiles-and-guard-math",
+      "queue_indices": [
+        340,
+        357,
+        358
+      ],
+      "invariant": "Profile/landingrecords store checked speed/length/height/compliance/elapsed/cycle leaves. Guards return finite>=0 lengths through checked factories; raw native direction/leg signed input deliberately broader. Profile radius CycleDelta signed and recoveryElapsed0 remain current representation, stronger physicalrelations not inferred.",
+      "acceptance": "All local resultant leaf admissions preserve contracts; source/helper arrays/records retain typed fields, future aggregate refinements preserve actual zero/signed behavior.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-003.json#closed-semantic-pose-and-original-tests",
+      "queue_indices": [
+        351,
+        363
+      ],
+      "invariant": "SemanticPose closed41 variants, stable explicit textual APIs. Source tests deliberately construct raw authoring inputs/unknown pack names/rejection evidence, no newproduction validity claim.",
+      "acceptance": "Every semantic parser uses closed declared vocabulary, existing invalid-source fixtures remain originalcases at actualboundary; no whitelistforopenpackidentity.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-003.json#open-pack-registry-staging",
+      "queue_indices": [
+        344
+      ],
+      "invariant": "AnimationPackId/SkeletonFamily open authoredidentity; library has unique keys, while refs/cycles/family/completeness intentionally stagedexplicit validation during artwork.",
+      "acceptance": "Duplicateadmission remains enforced, explicit validation stages cannot be mistaken for inherent membership, openidentityandintentional incompleteauthoring supported.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-003.json#state-factory-and-wire-boundaries",
+      "queue_indices": [
+        324,
+        354,
+        355,
+        359
+      ],
+      "invariant": "ActionState/SkeletonState private discriminatedbody/action state admits normalized numeric/source facts and atomic transition policies; raw public velocity and authoringAttackCurve/Spec are currently broader source records. GuardContacts/StepPlan and posture/timeline helpers have standalone Serde routes beyond normalized outerstate.",
+      "acceptance": "All pathways that promise admittedfinite/normalized state must enforce sameinvariant or clearlyretainrawsourceuntilauthoritativeconstructor; preserve currentinvalidfrontendnormalization, zero/MAXclock behavior, sourceerrors and originalfixtures. No newserializercompatibilitypath.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-003.json#downed-facing-sanitized-source",
+      "queue_indices": [
+        356
+      ],
+      "invariant": "SignedHalfTurns finite signedunwrapped; FacingStep finite>=0; RollMotion finite[-1,1]. FacingState contains theseleaves plusclosedtarget.",
+      "acceptance": "Everydirect/wire/literalfactory returns validdeclaredleaf andrawnormalization remains explicitatactualsourceboundary, no cyclic wrapping forced.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-003.json#controller-projection-admission",
+      "queue_indices": [
+        360,
+        361
+      ],
+      "invariant": "SkeletonLocomotionInput finite nativeorientation/worldvelocity and checkedelapsed/tick; quaternion neednotunit. RaisedLocomotionIntent planted or moving normalizednonzero direction withnonnegative speed above threshold.",
+      "acceptance": "Allpublic/wirefactories enforce declaredfinite/movingcriteria whilepreservingexplicitplantednormalization/quatbroaderpolicy and rawinvalidfixtureingress.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-003.json#facing-turn-operand-admission",
+      "queue_indices": [
+        362
+      ],
+      "invariant": "BodyFacingTurn retains finitechecked angle/speed and positive duration operands; transient quotient mayInf inside cappednativekernel, not typedrateinvariant.",
+      "acceptance": "Allsafeinputfactories retain exactcheckedleafoperands and intentionalzero/missingdirection behavior; no genericfinite-rate refinementbeforecompletekernel.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-004.json#catalog-identities",
+      "queue_indices": [
+        145
+      ],
+      "invariant": "MotionId is a safe authored stem; AnimationAssetDirectory a normalized relative directory; AssetPath deliberately broader native path; authored frame every u16.",
+      "acceptance": "All routes promising each stated local invariant must enforce it or expose clearly raw source before owned admission; preserve stated intentional zero/sign/absence/native/error policies. No aggregate/arithmetic clearance.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-004.json#catalog-staging-and-builtin",
+      "queue_indices": [
+        143,
+        144
+      ],
+      "invariant": "Catalog is authored staging with checked identity/frame leaves; built-in factory additionally validates semantic completeness. Raw frame indexes need not inherently belong to a loaded asset.",
+      "acceptance": "All routes promising each stated local invariant must enforce it or expose clearly raw source before owned admission; preserve stated intentional zero/sign/absence/native/error policies. No aggregate/arithmetic clearance.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-004.json#native-bind-and-report-boundary",
+      "queue_indices": [
+        140,
+        142,
+        149
+      ],
+      "invariant": "Native transforms/entities/target IDs are captured or reported; diagnostics do not promise finite admitted animation coordinates.",
+      "acceptance": "All routes promising each stated local invariant must enforce it or expose clearly raw source before owned admission; preserve stated intentional zero/sign/absence/native/error policies. No aggregate/arithmetic clearance.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-004.json#native-revision-observation",
+      "queue_indices": [
+        146,
+        147
+      ],
+      "invariant": "Asset revision observation retains SDK-owned handles/AssetIds and typed MotionKey; unknown/failed assets remain expressible.",
+      "acceptance": "All routes promising each stated local invariant must enforce it or expose clearly raw source before owned admission; preserve stated intentional zero/sign/absence/native/error policies. No aggregate/arithmetic clearance.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-004.json#loaded-clip-and-content-admission",
+      "queue_indices": [
+        154,
+        155
+      ],
+      "invariant": "LoadedClip retains SDK clip handle plus finite nonnegative duration and closed layer; content/target compatibility admitted by actual motion loading stage, not implied by newtype name alone.",
+      "acceptance": "All routes promising each stated local invariant must enforce it or expose clearly raw source before owned admission; preserve stated intentional zero/sign/absence/native/error policies. No aggregate/arithmetic clearance.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-004.json#playback-typed-admission",
+      "queue_indices": [
+        148,
+        152,
+        156,
+        157,
+        158,
+        227,
+        228,
+        239
+      ],
+      "invariant": "Retained playback coordinates finite signed ClipTime; weight nonnegative finite unbounded; left/right IK and mirror fractions0..1. Empty plan bind pose and absent anchors supported. Sum1/clip membership are not scalar invariants.",
+      "acceptance": "All routes promising each stated local invariant must enforce it or expose clearly raw source before owned admission; preserve stated intentional zero/sign/absence/native/error policies. No aggregate/arithmetic clearance.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-004.json#rig-open-name-classification",
+      "queue_indices": [
+        234
+      ],
+      "invariant": "AuthoredRigJoint caches classification of an exact open RigJointName; does not assert authored rig membership or fixed vocabulary.",
+      "acceptance": "All routes promising each stated local invariant must enforce it or expose clearly raw source before owned admission; preserve stated intentional zero/sign/absence/native/error policies. No aggregate/arithmetic clearance.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-004.json#clip-duration-and-signed-time",
+      "queue_indices": [
+        235
+      ],
+      "invariant": "ClipDuration finite>=0 seconds incl0; ClipTime finite signed seconds, negative valid for extrapolation.",
+      "acceptance": "All routes promising each stated local invariant must enforce it or expose clearly raw source before owned admission; preserve stated intentional zero/sign/absence/native/error policies. No aggregate/arithmetic clearance.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-005.json#calibration-cache-inputs",
+      "queue_indices": [
+        139,
+        161
+      ],
+      "invariant": "Calibration retains checked speed/length/scale/rate/grid/interval leaves, optional measured state distinct from fallback. Configuration identity does not itself imply min<=max or rigmembership.",
+      "acceptance": "All promised checked local invariants enforced by each actual direct/literal/default/decode route; preserve signed/zero/absence/raw/native distinctions and original existing fixtures. No arithmetic04/correlated05 clearance.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-005.json#closed-display-and-side-roles",
+      "queue_indices": [
+        163,
+        218
+      ],
+      "invariant": "Display mode and selected corridor half are closed roles; no scalar normalization/membership guarantee.",
+      "acceptance": "All promised checked local invariants enforced by each actual direct/literal/default/decode route; preserve signed/zero/absence/raw/native distinctions and original existing fixtures. No arithmetic04/correlated05 clearance.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-005.json#checked-pose-interpolation",
+      "queue_indices": [
+        166
+      ],
+      "invariant": "Private PoseInterpolation always UnitInterval finite0..1; time ratio intentionally capped.",
+      "acceptance": "All promised checked local invariants enforced by each actual direct/literal/default/decode route; preserve signed/zero/absence/raw/native distinctions and original existing fixtures. No arithmetic04/correlated05 clearance.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-005.json#periodic-curve-admission",
+      "queue_indices": [
+        169,
+        170
+      ],
+      "invariant": "AuthoredPhaseCurve identity or private sampled typed finite unwrapped phases with at least2 and exact forward/reverse cycle seam. Sampled interior monotonicity not promised.",
+      "acceptance": "All promised checked local invariants enforced by each actual direct/literal/default/decode route; preserve signed/zero/absence/raw/native distinctions and original existing fixtures. No arithmetic04/correlated05 clearance.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-005.json#raw-native-spline-kernel",
+      "queue_indices": [
+        175
+      ],
+      "invariant": "This is an explicitly raw native interpolation kernel; it creates no refined newtype or checked admitted aggregate.",
+      "acceptance": "All promised checked local invariants enforced by each actual direct/literal/default/decode route; preserve signed/zero/absence/raw/native distinctions and original existing fixtures. No arithmetic04/correlated05 clearance.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-005.json#body-checked-quantities",
+      "queue_indices": [
+        187
+      ],
+      "invariant": "BodyAngle finite signed unwrapped radians, localvelocity/acceleration finite signed Vec3, angularvelocityfiniteVec2; angularmagnitude finite>=0; braking scale0..1.",
+      "acceptance": "All promised checked local invariants enforced by each actual direct/literal/default/decode route; preserve signed/zero/absence/raw/native distinctions and original existing fixtures. No arithmetic04/correlated05 clearance.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-005.json#optional-fixed-clock",
+      "queue_indices": [
+        188,
+        192
+      ],
+      "invariant": "Optional fixedtick is explicit deterministic clock authority; tick everyu64 incl0/MAX, elapsed finite>=0 incl0. Absence uses native renderduration.",
+      "acceptance": "All promised checked local invariants enforced by each actual direct/literal/default/decode route; preserve signed/zero/absence/raw/native distinctions and original existing fixtures. No arithmetic04/correlated05 clearance.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-005.json#height-offset-result-admission",
+      "queue_indices": [
+        191
+      ],
+      "invariant": "SignedLength finite signed presentation metre offsets, HeightDistance>=0; output computation must be readmitted.",
+      "acceptance": "All promised checked local invariants enforced by each actual direct/literal/default/decode route; preserve signed/zero/absence/raw/native distinctions and original existing fixtures. No arithmetic04/correlated05 clearance.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-005.json#foot-speed-admission",
+      "queue_indices": [
+        210
+      ],
+      "invariant": "FootTargetSpeeds checked nonnegative finite speed leaves; zero allowed, source SignedLength may initially be negative.",
+      "acceptance": "All promised checked local invariants enforced by each actual direct/literal/default/decode route; preserve signed/zero/absence/raw/native distinctions and original existing fixtures. No arithmetic04/correlated05 clearance.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-005.json#semantic-route-reporting",
+      "queue_indices": [
+        236
+      ],
+      "invariant": "Route inputs combine typed leaves with explicitly native reported direction; route vocabulary closed, packidentityopen. Telemetry output not an admitted geometric direction type.",
+      "acceptance": "All promised checked local invariants enforced by each actual direct/literal/default/decode route; preserve signed/zero/absence/raw/native distinctions and original existing fixtures. No arithmetic04/correlated05 clearance.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-006.json#pose-buffer-raw-native-retention",
+      "queue_indices": [
+        159,
+        173,
+        174
+      ],
+      "invariant": "Pose buffer owns typed nonnegative elapsed/interpolation/ticks and deliberately raw engine LocalPose/native velocities. LocalPose is not a validated rigidtransform; rig names/ordinals/tables are not membership proofs.",
+      "acceptance": "Every declared refined admission route checked or typedsubset; rawnative/source records remain explicitly broader and all originalinvalidfixtures preserved. Repair connected to existing raw-source strengthening claims, no false finite/aggregate guarantee; no laterlens clearance.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-006.json#baked-grid-complete-admission",
+      "queue_indices": [
+        160
+      ],
+      "invariant": "BakedFrameCount nonzero sample count incl1; BakedClip channels exactly count, checked duration>=0 and frame_dt>0. Native channel components intentionally raw.",
+      "acceptance": "Every declared refined admission route checked or typedsubset; rawnative/source records remain explicitly broader and all originalinvalidfixtures preserved. Repair connected to existing raw-source strengthening claims, no false finite/aggregate guarantee; no laterlens clearance.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-006.json#hierarchy-and-sparse-native-sampling",
+      "queue_indices": [
+        164,
+        167
+      ],
+      "invariant": "Typed ordinal addresses native pose/table and closed layers; sparse private segment has typed UnitInterval and native quartercycleindexes, raw sampled transforms unchanged guarantee.",
+      "acceptance": "Every declared refined admission route checked or typedsubset; rawnative/source records remain explicitly broader and all originalinvalidfixtures preserved. Repair connected to existing raw-source strengthening claims, no false finite/aggregate guarantee; no laterlens clearance.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-006.json#inertial-raw-coefficients-checked-clock",
+      "queue_indices": [
+        165
+      ],
+      "invariant": "Quintic inertial state retains raw native polynomial coefficients/direction and checked elapsed; finished Defaultzero is legitimate. Positive requested blend does not inherently guarantee all computed coefficients finite.",
+      "acceptance": "Every declared refined admission route checked or typedsubset; rawnative/source records remain explicitly broader and all originalinvalidfixtures preserved. Repair connected to existing raw-source strengthening claims, no false finite/aggregate guarantee; no laterlens clearance.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-006.json#procedural-sample-record-leaves",
+      "queue_indices": [
+        220
+      ],
+      "invariant": "Retained body/height records have checked signed angle/length/speed/elapsed/tick leaves; optional raw plantVec3 and optional observation are explicit broader records.",
+      "acceptance": "Every declared refined admission route checked or typedsubset; rawnative/source records remain explicitly broader and all originalinvalidfixtures preserved. Repair connected to existing raw-source strengthening claims, no false finite/aggregate guarantee; no laterlens clearance.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-006.json#skeletal-proportion-boundary",
+      "queue_indices": [
+        237
+      ],
+      "invariant": "Character coefficients finite per-role bounds, while JointProportionBasis translationarray raw glTF metadata; private SkeletalJointBasis introduced only after explicit finitegate in production loader.",
+      "acceptance": "Every declared refined admission route checked or typedsubset; rawnative/source records remain explicitly broader and all originalinvalidfixtures preserved. Repair connected to existing raw-source strengthening claims, no false finite/aggregate guarantee; no laterlens clearance.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-007.json#physics-proportion-and-view-native-adapters",
+      "queue_indices": [
+        171,
+        172,
+        177
+      ],
+      "invariant": "Pose buffer keeps raw native poses and typed clock/interpolation/closed ownership. These adapters introduce no new finite geometry wrapper or decoded admission path.",
+      "acceptance": "Every actual declared route preserves local stated invariant and explicit raw/native/openlabel policy; earlier producer/owner repairs remain connected to existing claims, no inferred aggregate/operation/source-family clearance.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-007.json#fallback-diagnostic-authored-dimensions",
+      "queue_indices": [
+        151
+      ],
+      "invariant": "Private fallback capsule dimensions strictlypositive finite; CuboidDimensions nonnegativefinite XYZ; rootlocal anchors codeowned finite rawVec3.",
+      "acceptance": "Every actual declared route preserves local stated invariant and explicit raw/native/openlabel policy; earlier producer/owner repairs remain connected to existing claims, no inferred aggregate/operation/source-family clearance.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-007.json#open-review-metadata",
+      "queue_indices": [
+        229,
+        230,
+        231,
+        232,
+        233
+      ],
+      "invariant": "ScenarioMetadata admits every case-sensitive source label; optionally recognized authored ScenarioId and derived closed policy/features. Label text retained unchanged; no whitelist/nonemptypromise.",
+      "acceptance": "Every actual declared route preserves local stated invariant and explicit raw/native/openlabel policy; earlier producer/owner repairs remain connected to existing claims, no inferred aggregate/operation/source-family clearance.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-007.json#jitter-report-raw-observations",
+      "queue_indices": [
+        153
+      ],
+      "invariant": "Jitter input/report is intentionally raw measurement data, with checkednonnegative elapsed; no intrinsic finite/unit/positive guarantee for arrays/thresholds/severity.",
+      "acceptance": "Every actual declared route preserves local stated invariant and explicit raw/native/openlabel policy; earlier producer/owner repairs remain connected to existing claims, no inferred aggregate/operation/source-family clearance.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-008.json#calibration-admitted-spans-and-measurements",
+      "queue_indices": [
+        162,
+        168,
+        176
+      ],
+      "invariant": "Retained authored/physical phase and signed calibration positions finite; private ContactPhaseSpan nonempty strictlyincreasingphysical samples, singletonvalid/reverseauthoredvalid. Measured stride/slip finite>=0; unavailablecalibration None separate actualidentity curve.",
+      "acceptance": "Every genuinelyrefined constructor/decode/literal route enforces finite/sign/nonempty/strictphysicalordering and preserves reverse/singleton/emptyidentity/None/error policies; rawinputandoriginalfixtureingress remain original. Arithmetic04/cachegraph05 notcleared.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-009.json#presented-attack-gait-cadence-admission",
+      "queue_indices": [
+        178,
+        179,
+        180,
+        181
+      ],
+      "invariant": "Presented gait phase finite signed/unwrapped, action progress0..1, error finite signed, cadence closedmode plus finitephase. Presentation source SkeletonState intentionally retains its existing raw/native source breadth (F002); rendering never promotes presentation tick to tacticalauthority.",
+      "acceptance": "All newlyretained refined phase/error/cadence leaves passcanonicalchecked constructors orcopycheckedleaf; preserve complete FP order/caps/tiny/zero/MAX behavior and original fixtures, no tactical authority shift.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-009.json#coalesced-event-role-admission",
+      "queue_indices": [
+        182
+      ],
+      "invariant": "Presentation event retains nativeownerEntity/authoritativesampleTick and closedcontact/landing payload with typed allu64 sequences; cursor absent observation distinct sequence0.",
+      "acceptance": "Retain typed source IDs through event and project onlyactualnativeoutputboundary; no false closed numeric domain or default observation.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-009.json#animation-system-registration",
+      "queue_indices": [
+        183
+      ],
+      "invariant": "Marker StrategicModel requires existing SkeletonState default; plugin declares lifecycle/resources/system order, creates no rawscalarcheckedtype or decodedadmission.",
+      "acceptance": "Preserve lifecycle/default evidence and exact tactical/presentation/physics boundary; no fullmoduleclearance from registration.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-010.json#bouncy-bone-raw-native-springs",
+      "queue_indices": [
+        141
+      ],
+      "invariant": "Spring/impulse state is explicitly raw worldspace native vectors and SDK role/entity; no checked finite angularvelocity/rotation owner yet. Default is exact rest; closed role mapping does not establish external entitymembership.",
+      "acceptance": "Connected repair must state rawsource vscheckedretention honestly and preserveworldframe/nativecosmetic-onlyauthority; no new gameplay/persistence state. Actualconfig admission independently assigned Camera; no claim stableallunboundedinputs, no04operation/05chainprovenance clearance.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-010.json#diagnostic-report-and-clock-observation",
+      "queue_indices": [
+        150
+      ],
+      "invariant": "Diagnostic records retain native observation values and outboundSerialize; timing/count output nativebits deliberately distinct from checkedAnimationElapsed and authoritativetick.",
+      "acceptance": "Preserve actualreport/error/None/nativeclockencoding and rawsourceevidence; typedcheckedleaf output doesnotretroactivelyvalidate entirediagnosticrecord. Existing raw measurement/configownership repairs independent, no newrefinedadmissionbypass or sourcefamilyclearance.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-011.json#body-response-candidate-admission",
+      "queue_indices": [
+        185,
+        186
+      ],
+      "invariant": "Retained body velocity/acceleration finite in presentationbody frame, anglesfinite signed, angularvelocityfinite, brakingscale0..1; optionalrealobservation remainsdistinct neutraldefault.",
+      "acceptance": "Every actual newretained scalar/vector leaf checked; no additional fixed anglecap guarantee beyondintrinsicfinite/signpolicies inferred. Preserve units/bodyframe, observationNone, sign/zero and originalfixture/errorbehavior.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-011.json#dive-influence-admission",
+      "queue_indices": [
+        189
+      ],
+      "invariant": "Private DiveInfluence finite0..1; deliberately normalize finite authored factor tointerval. Nativequaternion outputs do not become checkedrotationowners.",
+      "acceptance": "All retainedDiveInfluence values satisfyinterval throughoneownedgate, finiteclampintentional with rawinvalidingress unchanged; nounitquatguarantee inferred.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-011.json#height-response-retention-admission",
+      "queue_indices": [
+        190
+      ],
+      "invariant": "HeightDistance/Speed checked>=0, signedwave/transitionoffset finite signed, optionalrawworldplant and tickobservations; zero and missinghistorymeaningful.",
+      "acceptance": "Every retainedcheckedheight/offset/clock route readmitschangedvalue and preserves signed/zero/None/unsupportedmodepolicy. No blanket checkedgeometry claim fromnativepositionfields.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-012.json#observed-rig-frame-admission",
+      "queue_indices": [
+        194
+      ],
+      "invariant": "ObservedRigFrame privateorigin finiteVec3 and rotationfiniteQuat; nonunit includingzero explicitly representable. Absence neverfabricates worldorigin/identity.",
+      "acceptance": "Every route enforcesfinite origin/rotation withoutnormalization or unitrequirement; preserve errororder, missingframe None and realobservationauthority.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-012.json#reach-operands-not-eager-scalar",
+      "queue_indices": [
+        204
+      ],
+      "invariant": "LimbSegments retainchecked finite>=0 lengths; ReachLimit retains typedoperand variant, notguaranteed finite/nonnegative eagerlycomputed native reach. Signed minimumflexion remainsfiniteunwrapped angle.",
+      "acceptance": "Typedoperands retainfinite/sign invariants and nativekernelprojection remainslocal, no type name usedas stronger finite-result guarantee.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-012.json#two-bone-native-input-and-output",
+      "queue_indices": [
+        207
+      ],
+      "invariant": "TwoBoneChain checkedsegmentleaves plus explicitly rawpositions/knee/end/pole; Solution rawnative outputrecord, no inherent finiteowner. Ownedsolver checksfiniteknee/end before result literal.",
+      "acceptance": "Actual checked segment/offset admissions remain checked; raw native contracts cannot be promoted silently tocheckedgeometry; preserve small/zero/None/fallback/rawfixtureandFPorder.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-012.json#rig-topology-and-axes-admission",
+      "queue_indices": [
+        219
+      ],
+      "invariant": "Native Entity topology partial/empty allowed, closed BoneRole27; exactopenname source matching separateMHRnaming convention and actualhierarchy/partnerlookup. Optionalsoleaxisprivate only actualbind normalizedcapture.",
+      "acceptance": "Allclosedroles/actualnormalizedsolecapture andoptional/partialstate routes explicit; stronger arbitrarypublictopology validity notinferred; no renderer/foreignSDK waiver.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-012.json#procedural-facade-raw-and-checked-seams",
+      "queue_indices": [
+        184,
+        193
+      ],
+      "invariant": "Procedural facade rawengine transform snapshots and privatefiniteboundedamount recurrence coexist with checkedheight/degree outputs; no rawTransform automatically admitted into canonicalgeometry.",
+      "acceptance": "Local newlyadmittedheight/degree leaveschecked and raw/native/missing/zero/signpoliciesexplicit; preserve exact source fixtures, bodyframe, virtualfixedclock and tacticalauthority boundaries.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-013.json#raised-guard-validated-request-bypass",
+      "queue_indices": [
+        203
+      ],
+      "invariant": "ValidatedGuardTargets explicitlyfiniteworldrequest46–49; GuardTargetRequest/GuardSwing/GuardStepState and exposedRaisedFootworkState native targets deliberately stagedraw until validation. Typed progress/support fractions remain0..1.",
+      "acceptance": "A value named/declaredfinite validatedrequest cannot be built ormutated fromnonfinite rawrequest throughanysafe exposedliteral route; currentnormalfactory remainsunchangedsemantics.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-013.json#plant-and-terminal-topology-raw-payloads",
+      "queue_indices": [
+        202,
+        211
+      ],
+      "invariant": "FootPlant closedpresence/acquisition topology and TerminalContacts closedownership distinguish absent/seeded/prepared; rawposition payloadnotinherentlyfinite while signedshift checkedfinite.",
+      "acceptance": "Closedtopology disallows acquiredAbsent combination and scalarleavesstaychecked; rawposition routes remainexplicit priorownedfinitevalidation, no fake blanketfinitepayload guarantee.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-013.json#ik-memory-and-publication",
+      "queue_indices": [
+        208,
+        209
+      ],
+      "invariant": "Leg/Arm memory fields mixcheckedfinite leaves with rawpose/direction/history fields; named publish gate finitechecks specificallyselectedfinaltargets plussettletriplet, not full-memoryuniversalfinite. Optionalobservationsdistinctzero.",
+      "acceptance": "Every guarantee is accurately scoped to actualgate/predicate and actualrawmutability; newlyretained refinedleaves checked; currentselectedtarget publication cannot besilentlytreated universalfinite memory. Later04/05/06/11 notcleared.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-014.json#hand-native-target-admission",
+      "queue_indices": [
+        195
+      ],
+      "invariant": "Client-only hand/worldtarget and weaponlocal secondary grip rawnativeposition/optionalquat, with checkedUnitIntervalweight; closedHandSide and optionalabsence meaningful.",
+      "acceptance": "Allnewrefinedweight/length/frameadmissions useactualcurrentcanonicalgate; rawposition/quaternion remainexplicit inputdomain, no tacticreplication/persistence. Later04/05/11 separate.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-014.json#ordinary-ik-pelvis-state-admission",
+      "queue_indices": [
+        196,
+        197
+      ],
+      "invariant": "Private OrdinaryLocomotionIkState defaultPending/missingevaluation, trackingcheckedSignedLength; helperrecordsclosedroles/checkedweights. Rawtarget/nativepose remainsbroader.",
+      "acceptance": "EveryretainednewSignedLength checkedandallclosed/defaultbranches valid, preserve actualclockauthority/None/zero/nativeerrorpolicies. No generalgeometryorcolumnalignmentclaim.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-014.json#propagated-endpoint-admission",
+      "queue_indices": [
+        199
+      ],
+      "invariant": "Observed rendered endpoints finite before namedendpoint-retention; orientations finite nonunitallowed, reportedcontactweights0..1, optionalobservationsnotzeroassumption. WholeLegMemory remainsrawstagingtype.",
+      "acceptance": "Namedobservationaladmission gates retainfiniteendpoints+realoptionalframe with errororder, typedsupportvaluesneverrawfloats; all source-specific terrain/disabled/missingpolicies preserved, no universalvalidatedmemoryclaim.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-015.json#orientation-native-kernels-and-checked-yaw",
+      "queue_indices": [
+        200,
+        201
+      ],
+      "invariant": "Orientation helpers retain raw native directions/quaternions and typed finite signed angularspeed / nonnegative magnitude / elapsed. Only observed kneeoffset becomes refinedchecked magnitude; no universal finiteunitQuat output type.",
+      "acceptance": "All actualretainedrefinedangle outputs checked orcopiedcheckedleaf; raw SDK rotation/vector routes accuratelybroader, no unitnormalization restrictiononObservedRigFrame or swallowed missinggeometry. Sourcefreeze/alllaterlensespreserved.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-016.json#scene-support-direct-definitions",
+      "queue_indices": [],
+      "invariant": "ScenePlanPoint is finite signed scene east/north metres; SupportElevation is finite signed scene support height; zero valid, no terrain-membership or geographic-degree promise.",
+      "acceptance": "Private canonical backing and current checked scalar routes preserve signed/zero values; retain actual Position dependency and no false blanket opaque-Reflect cure.",
+      "qualification": "Root G007 identifies Position pub(super) literal/mutation bypass: already-invalid Position can propagate through ScenePlanPoint From100–104. This is dependent support for Root canonical encapsulation repair, not a separate proven invalid runtime caller. Native raw source vectors and missing support remain intentional; no nonnegative height restriction.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-016.json#settle-state-planning",
+      "queue_indices": [
+        205,
+        206
+      ],
+      "invariant": "Settle helpers retain checked elapsed/progress/shift leaves inside raw IK candidate state; no universal finite-world-vector promise on every intermediate.",
+      "acceptance": "Typed leaves checked or copied; raw candidate/None/current fallback semantics preserved, completed final-point publication remains actual relying gate.",
+      "qualification": "prepare_terminal bool true is not finite-state admission: checked Scene XZ and support height can still feed native height sum or nonunit-frame projection before publication. Some raw fallbacks and retained recent velocity intentionally remain broad. finish_idle promotes raw current target to raw FootPlant; independent aggregate ownership policy remains open. No invented terrain0 substitute.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-016.json#terrain-contact-progress",
+      "queue_indices": [
+        212,
+        213
+      ],
+      "invariant": "Measured speed and signed scalar offsets are checked leaves; contact target vectors remain native candidate values. Progress is checked UnitInterval with explicit collapsed-window step behavior.",
+      "acceptance": "No unchecked checkedleaf construction found; preserve selected None/reset behavior and raw staging.",
+      "qualification": "Raw desired/fallback vectors, smoothstep f32 helper values and reach operands can be broad; specific checked_foot_target use does not make every contact helper finite. Optional measurement is distinct from zero; signed speed leaf permits negative at source and consumer nonnegative_part policy remains local.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-016.json#terrain-clearance-projection-reach",
+      "queue_indices": [
+        214,
+        215,
+        216
+      ],
+      "invariant": "FootClearanceFloor holds checked typed operands, not eagerly finite sums. Native reach/projection helpers return raw Vec3/Option/Result; actual point validation is explicit.",
+      "acceptance": "Exact typed operand admission separated from raw native output; no false global finite promise or new bypass finding.",
+      "qualification": "conform_run_swing_target/conform_settle_swing_target check XZ, but terrain None returns raw desired vector without Y validation; Result<Vec3> is not a finite bespoke type. terrain_feasible_target_in_step accepts raw maxstep and vectors: no global finite-vector guarantee, despite actual checked current caller operands and selected candidate filters. run_contact missing previous returns true deliberately, not proof of finite measurement. Raw coupled sums, nonunit rotations and native reach limits remain broad; eventual publication validates selected points.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-016.json#ik-facade-current-receivers",
+      "queue_indices": [
+        198
+      ],
+      "invariant": "Facade orchestrates raw candidate state with checked finite leaf admissions and selected publication boundary; no stronger whole-memory guarantee.",
+      "acceptance": "Current leaf admission checked, raw/native and missing behavior accurately retained; all exact reached helper contracts compared rather than inferred from names.",
+      "qualification": "Raw Vec3/Quat candidates, previous-frame histories, optional terrain and finite nonunit frame transform arithmetic remain native. Existing finite point checks and typed floor operands do not imply all raw intermediates/final SDK transforms finite. Separate original tests217 still need full source audit. F003 remains latent safe literal bypass despite correct actual facade use.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-017.json#original-ik-coordination-tests",
+      "queue_indices": [
+        217
+      ],
+      "invariant": "Original coordinator fixtures construct raw native candidate/memory records and checked scalar leaves; test validity and checked-type admission are distinct.",
+      "acceptance": "Preserve all original fixture inputs, expected branches, None/zero and FP/error order during later connected repairs; source-only current03 evidence.",
+      "qualification": "No new refined-type bypass in fixture construction. Original raw literals and invalid request must remain representable in raw source records. Existing successful finite fixture assertions do not prove all native helper inputs finite or validate broader memory; group016 exact raw-output qualifications remain.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-017.json#ragdoll-definition-and-scaled-shape-admission",
+      "queue_indices": [
+        221,
+        224
+      ],
+      "invariant": "Bind-definition contains raw native transforms/axes plus checked angle and positive capsule leaves. Scaled preflight gates actual radius positive and signed cylinder segment finite before spawning any entities.",
+      "acceptance": "Complete scaled scalar admission precedes command side effects; preserve missing rig None, seed None, strict-positive radius versus signed segment and native transform qualifiers.",
+      "qualification": "GeometryResult/Some(definition) does not guarantee every raw Transform/axis/anchor finite or all joint/seed/table correlations; native bind metadata remains raw. Signed segment length is deliberately distinct from positive Parry radius; do not blanket Nonnegative or unit-direction narrow. prepare zip cardinality/alignment and minimum≤maximum joint relation are aggregate05, not this leaf admission. Native collider_local translation may overflow independently of checked dimension.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-017.json#ragdoll-native-entry-drive-and-muscles",
+      "queue_indices": [
+        222,
+        223,
+        225,
+        226
+      ],
+      "invariant": "Presentation ragdoll uses raw SDK Transform/Affine/Quat/velocity state and checked elapsed, dimensions, angles and muscle gain leaves. No finite native body-state guarantee is declared.",
+      "acceptance": "Preserve presentation-only physics authority, kinematic pelvis never kicked, empty/missing/cycle-break behavior, positive-radius/signed-segment distinctions and age/error ordering. Current03 actual checked scalar routes close; raw native strengthening remains distinct.",
+      "qualification": "BodySeed/native transforms/velocities remain broad; clamp_length_max and normalize are native math, not checked finite ownership. raw local collider transform/relative muscle quaternion no finite guarantee. Terrain unavailable/nonfinite XZ skips sample, fold0 intentional existing policy; positive capsule radius does not guarantee every other field valid. Root canonical Position G007 backing bypass remains separately recorded despite checked actual correction route. Ragdoll native recipients extraction is deliberate SDK boundary, not eager scalar erasure finding. Config leaf constructors already current Native scalar groups; Camera exact config aggregate admission separate. Table membership/parent order/alignment and correlated seed/definition scope remain later05/11, no clearance here.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-018.json#original-animation-fixtures",
+      "queue_indices": [
+        238
+      ],
+      "invariant": "Original animation fixtures use checked scalar/time/frame leaves and intentionally open pack/family identity, raw native samples and incomplete asset staging.",
+      "acceptance": "Preserve original source expectations including zero/missing/incomplete staging and reverse fallback; no admission bypass beyond previously qualified sources.",
+      "qualification": "Tests do not prove all raw geometry or every catalog relation admitted; standalone raw fields and F002 remain. No new tests executed/added and no assertions weakened.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-018.json#capture-sequence-and-terminal-admission",
+      "queue_indices": [
+        240,
+        241,
+        242,
+        243,
+        246,
+        248,
+        249
+      ],
+      "invariant": "Capture private sequence stores raw diagnostic/staging values and typed admitted leaves. Rejected geometry/timing/locomotion/terrain is terminal; readiness waits are distinct.",
+      "acceptance": "Retain terminal vs wait/error order, current initial0 tick and zeroelapsed, f64/native rounding, signed heights, optional measurements, original authored fixture behavior.",
+      "qualification": "Private resource/closed states can be deliberately assembled by definingmodulechildren; no cryptographic linear terminal guarantee or aggregate05 pass. CompletedCapture pub(super) rawrecords no finite completeness invariant. Native velocities, scenario_distancef32, raw bone/quat/clearance reports remain broad. Native frameinterval positivity is separately checked beyond f32 rate invariant. Missing support rejects only required observations; no terrain0 invented. Current typed Position actualconstructor path retains RootG007 latent backing qualifier. No blanket fullTransformfinite proof.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-018.json#capture-native-observations-and-report-identity",
+      "queue_indices": [
+        244,
+        245,
+        247,
+        250,
+        256,
+        263,
+        264
+      ],
+      "invariant": "Captured raw native arrays and outbound diagnostic records are not refined finite state. Typed clocks/weights/sequences remain typed until actual serialization/math boundary; report bone identity is a selected closed-role subset.",
+      "acceptance": "No new refinedleaf bypass; preserve raw rejected evidence, selected report-label rejection, stable FP fold order, None versus observed0 and actual wire extraction.",
+      "qualification": "Repeated comparison nativeNaN distance can make comparisons false in repeated_bone_mismatch, but this is a raw diagnostic predicate and finite-transforms acceptance is separate, not a validated newtype bypass. Missingbone uses Infinity diagnostic sentinel. Report code intentionally records evidence, so narrowing all raw fields would hide rejected evidence; refine only actual admitted retained-state contract. No incoming JSON decoder in these sources. Empty bone collection allowed; source no completeness claim.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-018.json#scenario-plan-and-authored-leaf-admission",
+      "queue_indices": [
+        266,
+        267,
+        268,
+        269,
+        270
+      ],
+      "invariant": "PlannedFrame is raw fixture plan with checked finite signed speed/angles/nonnegative elapsed and open scenario metadata; local_directionVec2 is raw, not a normalizeddirection owner.",
+      "acceptance": "All retained refinedleaves use actualcheckedroutes; preserve original stress/captured fixture constants, negative angle, zero idle, arbitrary valid scenario text and explicit missing/unknown behavior.",
+      "qualification": "Steady builders accept raw cycles/native direction and calculate native durations/framecounts; they do not claim arbitrary-input checked aggregate or bounded allocation. Raw direction can be nonunit/invalid if direct helpercaller supplies it; actual built-in authored vectors explicitly finite and later controllerchecks remain. Exact default config runtimephysics may return error/panic beforetypedstore; no invented raw input decoder graph or laterlens clearance.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-018.json#viewer-entry-and-native-camera-inspection",
+      "queue_indices": [
+        252,
+        253,
+        271,
+        272,
+        273
+      ],
+      "invariant": "Capture options are raw CLI/resource parameters with typed combatconfig/proportions; native camerainspection quaternion is raw, not RigidRotation. Setup checks scene translation before SDK insertion.",
+      "acceptance": "Preserve CLI/raw evidence vs checked retained leaves, exact admission-before-output order, current scene datum/signedheight and missing support rejection. No project execution.",
+      "qualification": "Raw CLI orbit can admitNaN/Inf and nativequat can be nonfinite, but no documented validatedowner invariant—existing rawsource strengthening, not checkedtype bypass. Camera native translation sum/rawlook_at not universallyfinite. CaptureOptions combatconfig can be constructed without main install; fieldtype does not imply cross-field policy; Camera config sourcecurrent03 separate. Native Parry/renderer inputs here authoredconstants, no newforeign dependencygraph inspected.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-019.json#actual-equipment-readiness",
+      "queue_indices": [
+        251
+      ],
+      "invariant": "Readiness is a runtime predicate over actual resolved native mesh/material/skin state, not a validated proof token or raw diagnostic summary.",
+      "acceptance": "Retain actual freshmesh scan, zero weights/sum tolerance, missing/loading/failed distinctions and no overclaimed alignment guarantee.",
+      "qualification": "This predicate does not prove native jointindices/arrayalignment/samerig/morph semantic compatibility. Summary fields rawdiagnostic and default requirementsempty deliberate; no actual bypass to checkedleaf found. Original tests explicitly mutateweight/tolerance,missingtextures/skins/names/morphs and failed/loadingstatus, source-only unchanged.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-019.json#report-measurements-and-acceptance-predicates",
+      "queue_indices": [
+        254,
+        255,
+        257,
+        258,
+        259,
+        260,
+        261,
+        262,
+        265
+      ],
+      "invariant": "Metrics and validation are raw evidence and booleans, not refined finite geometry/quality tokens. Physical checked measurement output exists only supported_foot_slip→NonnegativeLength.",
+      "acceptance": "Preserve raw rejected/absent evidence, exact sentinel/None/zero behavior, lexical fold order and current threshold/fixture inputs; all retained refinedmeasurement admissions checked, output report need not masquerade as admittedruntimegeometry.",
+      "qualification": "Raw metrics may filter/dropNaN or collapse missing measurement to0/−1/Infinity (e.g metrics642–705/947–1045/1257–1270, bodyresponse115–133), and booleans can be freely literal-assembled; existing evidence/laterlens obligations remain explicit. No current03 checkedfiniteleaf bypass inferred from these raw predicates. has_finite_bone_transforms checks selected arrays only; validation completeness separately checks17 reportroles/plan membership. Native finite vs unit quaternion is not conflated. Empty scenarios/frames yield documented vacuous/localfallback predicates; no 05/evidence acceptance fromthis03 result. Originalfixtures intentionally craft crossedfeet/missingbone/signedterrain/typed0/rawmismatches; retained unchanged.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-020.json#geographic-component-and-pair-admission",
+      "queue_indices": [
+        411
+      ],
+      "invariant": "Geographic latitude/longitude have inclusive WGS84 axis bounds with signed0, exact E7/microdegree scale; UnboundedCoordinateE7 is explicitly abstract all-i32 and not WGS84.",
+      "acceptance": "Every declared axis admission route checks bound orcopiescheckedleaf; preserve inclusivepoles/dateline, signed0, exact rounding/truncation and primitivewire shape.",
+      "qualification": "Parentdefiningmodulechildren can access privatebacking asRustvisibility context but no pub(super) outsideowner rawaccessor. No current material childmoduleuncheckedconstruction shown; no blanket scopecredit for bounds/projectionchildmodules. Original TravelGeometryPoint test501–511 is wire/outputboundarysourceobservation, its owning definition separatelyassignedaudit; no guarantee inferred justfromname. Do not change abstractcoordinatebehavior or E7 negative truncation.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-020.json#strategic-minute-supporting-definition",
+      "queue_indices": [],
+      "invariant": "StrategicMinute is absolute strategic-minute unit with entireu64 range including0/MAX; it does not promise monotonicity, wallclockauthority, nonzero or currentcalendar membership.",
+      "acceptance": "Preserve0/MAX and explicit checkedvs saturation behavior; calendar arithmetic04 remainsopen.",
+      "qualification": "Registeredrole is StrategicMinute and direct actualcloud/skycalendar methods. CalendarYear declaration/incidental otherhelpers read ascontext excluded from independentadmissionanalysis/coverage; no full698 orclockauthority credit. Actual allu64timestamp distinct AnimationSampleTick and nativef64elapsed.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-020.json#celestial-public-result-admission",
+      "queue_indices": [
+        84
+      ],
+      "invariant": "CelestialDirections documents sun/moon as unitvectors and lunarphase as canonicalcyclefraction but exposes public primitive arrays/floats. Actual factory is current checked-input numerical producer; storage itself does not enforce these promises.",
+      "acceptance": "Make documentedresult/admission contract explicit with existingcanonicalfiniteunitdirection and phaseleaf or deliberate rawsource/admittedresults split; preserve actualeast/up/north frame, math/FPorder, sourceerror/Nonepolicy and originalfixtures. No code/testexecution.",
+      "qualification": "Safe publicliteral or mutation can set sun=[0,0,0] ornonfinite/nonunit and lunarphase outsidecanonicalrange without anyfactory. This is latent invariant/representationgap NATIVE-ADMISSION03-F004, supports existing ownerpropagation ratherthan declaring currentruntimefailure. NativeVec/Quat consumers normalizebroaderrawsource, that doesnotsealpublicresult or warrant silentlyaccepting/repairingrawinvalidinput.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-021.json#bounded-native-direction-admission",
+      "queue_indices": [
+        11
+      ],
+      "invariant": "Native Dir2/Dir3 checkednew normalizes finitepositive-length inputs; uncheckednew trusts caller with debug assertions, no release validation. Native error enum is closed Zero/Infinite/NaN.",
+      "acceptance": "Use actualcheckednativeconstructor or establishedfirstpartyfiniteunitgate before uncheckedstorage; preserve errors and native debug/release precondition behavior.",
+      "qualification": "Native uncheckednew is publicsafe precondition API; it canholdbadvector releasebuild. This is intentional SDKcontract and not universalapplicationadmissionclearance. No nativeoperators/slerp/from_angle/unrelatedtests analyzed, despite contextual lines618–660 and205signature read; no full1511claim. Native numerical normalizationalgorithm and tolerance04 not cleared.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-021.json#p16-geometry-orientation-admission",
+      "queue_indices": [
+        18
+      ],
+      "invariant": "P16Radians finite signed unwrapped; Plan/SpatialDirection finite normalized within declaredframe; RigidRotation finiteunit and never repairs scaledinvalidquaternion.",
+      "acceptance": "Actualpublicconstruction/Serde/default/reflection routes preserve declaredfinite/unit invariants, signed/unwrapped0validangle, exactframeandnativeerror semantics; no fullgeometryfamily/laterlenscredit.",
+      "qualification": "This exactP16source reanalyzed current03, not PRfingerprintcarry. Privatefirstpartyfields retainownercontrol; no pub(super) raw backing analogousRootG007 seen here. Nativepositive-length normalization mayrejectunder/overflow; preserve nativeerrors and representedangle/quaternionwithoutsilentrepair. Lift copiesvalidcomponents, no arithmeticnewfiniteposition promise.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-022.json#activity-raw-policy-and-constants",
+      "queue_indices": [
+        81
+      ],
+      "invariant": "ActivityLocation/LocationActivity are closed policy tags, numeric fatigue/economy/morale arguments/results are raw primitive calculations rather than finite/bounded bespoke types.",
+      "acceptance": "Do not conflate rawpolicy parameters with finitevalidatedvalues, preserve zeroelapsed and typedabsoluteclock distinction; numeric/authority strengthening separate existingobligations.",
+      "qualification": "Raw f32inputs maybenonfinite/negative and native clamps/casts broadpolicy; no existing finiteleaf guarantee to bypass. Publiceligibilitytagliteral mayassertwrongsitefacts, crossauthority/laterlens policy separate; actualclient/servermustresolveauthoritativefacts. No newexecutablecase; existinginvalid/zero/missinganddefaultfixtureinputs preserved.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-022.json#scene-capture-resource-and-readback-evidence",
+      "queue_indices": [
+        285
+      ],
+      "invariant": "SceneCaptureState is broad captureassembly/evidence record with typedposition/angle/clock/scalarleaves and rawdiagnostic metadata. CapturePhase is mutuallyexclusiveclosedstate, not correlatedproof ofvalidviewindex.",
+      "acceptance": "Preserve missingvs0/NaN/readbackorder/budget and closedstatebehavior; rawcaptureevidence neednotbe narrowed into admittedruntimegeometry.",
+      "qualification": "Resource fields canfreelymutaterawmetadata, diagnosticNaNvalidrejected-evidence representation. TypedPositionlowerownerG007 retained; u16BPsraw here notUnitBP admissiontype, despite actualhelpersboundingtheiroutput. Phaseviewandstateviews correlation05 separate; no falseheader/name guarantee. Existingtests literalreadbackindex3 andrawNaNtrace remain unmodified.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-022.json#scene-camera-view-admission-and-mutation",
+      "queue_indices": [
+        304
+      ],
+      "invariant": "LookingAt view requires usable distinct pointdifference and nonparallelup atconstruction; Fixed view carriescheckedrotation and intentionallydoesnotrequiretargetdifference. Publictypedpointfields allow latercorrelationbypass.",
+      "acceptance": "Preserve checkedLookingAtrelationship and Fixedmodeflexibility, exactnativekernel/FPerrorbehavior, typeduntilrender/serialization; never blanketdistinctpointnarrowFixed.",
+      "qualification": "NATIVE-ADMISSION03-F005: safe parent/sibling mutation can set LookingAt target=position or parallelup aftervalidfactory; no actualbadcaller/runtime observed. Publictypedleaf assuresfiniteonly (and RootG007latentlowerowner exception), cannotassureviewrelation. Fixedmodeposition==target remainsintentionalvalid. Aggregate05correlation crossref staysopen; mutationroute iscurrent03admission/encapsulation support.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-022.json#nonempty-vista-observation-admission",
+      "queue_indices": [
+        321
+      ],
+      "invariant": "VistaCaptureGeometry is private nonempty observation: typedfinite scene extrema atactualsourcepoints, finite signed diameter/relief; no fullserializedgrid validity promise.",
+      "acceptance": "Retainactualpoint/elevationcoupling, nonemptyNone, width0error, firsttieorder, signed/0-capable dimensions and completedresultadmission; no width16→nonzero policy invented.",
+      "qualification": "width/depth/cardinality/negative rawspacing remainrawsourcecontract: from_source doesnotpromiseadmittedTacticalSceneInput/gridmembership. Nativezero diameter possible(singlecolumn/negative-spacingfold), signedlengthvalid. GeographicHeightRange underlyingpublicpair alone canbeinconsistent but no publicinjection into privateVistaCaptureGeometry shown. No automaticpositivearea/nonzerodiameter or newterrainheightfallback.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-023.json#strategic-clock-day-and-raw-itinerary-admission",
+      "queue_indices": [
+        111
+      ],
+      "invariant": "StrategicMinuteOfDay is private0..1439 clockposition; absolute StrategicMinute allu64 is different. Travel/itinerary/health/fatigue inputs/results are raw records and native primitive calculations, not finite/bounded acceptedstate.",
+      "acceptance": "Privateclockminute routeintact; preserve rawrejectedinputs, elapsed0, optionalfailure/truncation/saturation, signedbirth/walltime distinction and existingnativeequations/errororder.",
+      "qualification": "Raw fatigue/health helpers may acceptnegative/NaN/Inf andreturnrawnativevalues; callerpolicy/refinedsource strengthening staysseparate. Itinerary memberorder/segmentconservation and clockauthority05/11 not cleared. No accidental bound<=1 fatigueinference from phraseboundedorder. DefaultDailySchedule broadraw perRoot021. Canonical minute0/MAX valid; nativeelapsednonnegative!=clocknonzero. Existingtests include0/futureepoch/MAX/empty/truncated/yearbaseline/mixedpartitions, all source-only unchanged.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-023.json#schedule-raw-training-and-validated-allocation-boundary",
+      "queue_indices": [
+        110
+      ],
+      "invariant": "Raw schedules/traininghours/outcomes and weaponweights are mutable/decoded primitive inputs; separately private ValidatedSchedule is the acceptedquarterhour/day allocation. Do notmistake rawoutputrecords for sealedfinite/budget invariants.",
+      "acceptance": "Propagate acceptedallocation wherecontractrequiresit while retainingexplicitrawtransport/source records and legitimate0; preserve quarterhour/day/orgerrororder, independentauthorizedDBmembership and currentredistribution/seedselection semantics.",
+      "qualification": "No inferred rawSkillHoursfinite guarantee or organizationDBmembership; publicOrganizationScheduledzero/blank andDailySchedulePlanaggregateoverflow remain RootF005 support, not duplicateNativefinding. Actualschedulefunctions acceptDailySchedule ratherthanprivateValidatedSchedule, so currentsource signature cannot enforce aggregateadmission bytypename. No currentproductioncallerarray/orgtuplecorrelation claimed. Existingtests validatequarterhour/day/blankorgtrim and checkrawprofileNaNsanitization; no tests executedadded/changed. Weights/provenance/aggregate05 and nativefloatingresult04 remainopen.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-024.json#resolved-shape-raw-parameters-versus-checked-envelope",
+      "queue_indices": [
+        80
+      ],
+      "invariant": "ResolvedSolid envelope preserves finite architectural coordinates, nonnegative cuboid dimensions and finite unwrapped angles; raw shape variants do not independently promise finite/positive/correlated arch, tower, ring, route or reveal geometry. Open numeric IDs do not prove current plan membership.",
+      "acceptance": "All envelope routes preserve exact canonical predicates, frame, ID error context and order, zero/nonunit-angle policy; strengthen or explicitly separate raw shape parameters at real authority boundary without silently normalizing malformed authored source.",
+      "qualification": "Envelope success cannot certify raw arch span/rise/radius or source-ID/support membership. Public raw variants intentionally preserve authored/rejected inputs; do not claim current invalid runtime or force all dimensions positive. Existing shape/profile producer-owner strengthening remains separate from raw source admission. Native mesh/compiler consumers independently compare their actual inputs; no whole generated plan certificate. Public finite lower backing Root007 latent qualification still applies, opaque typed-clone does not repair already invalid leaves.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-025.json#door-leaf-native-codec-and-derived-sweep",
+      "queue_indices": [
+        78,
+        79
+      ],
+      "invariant": "DoorSpec carries canonical finite framed centres, strictly positive LeafDimensions, unit plan directions and signed finite unwrapped radians. Operable-plan source identity/inward swing and tangent/outward correlation are factory/aggregate properties, not established by arbitrary public typed-field literals.",
+      "acceptance": "Every rawcodecroute retains onecanonical predicate+firstfield order+opening/sourceerror; completed sweepoverflowrejected before ordinaryradius maximum, positivespecificleaf policy and signedangles preserved. Aggregate repair must keep independentrawsource and acceptedoperableleaf meaning explicit.",
+      "qualification": "PublicDoorSpec fields permit individuallyvalidbutoutward ornonorthogonal relationship andunrelatedopening/source identities; no all-plan-acceptance fromtypedleaves. Preserveexactactualfactoryinwardswing andcurrentexistingfixture, not claim currentruntimebadcaller. Do not silently normalize decoder direction: from_normalized intentionallyrejects nonunitwire while factoryfrom_vector explicitlynormalizes authoredwallframe. Openangle signed0 permitted byRadians itself; lower geometry definition cannot own policyinward/nonzero.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-026.json#review-camera-authored-source-and-native-placement",
+      "queue_indices": [
+        282,
+        283
+      ],
+      "invariant": "Review JSON remains an authored selection record; typed offsets/positions/IDs preserve their canonical leaf policies without proving a target exists or an arbitrary slug is safe for every use.",
+      "acceptance": "Preserve authoredselection errors, missingoptionalrooms/targets and frame mappings; completed pointadmission remains authoritative, do not inventlookup validation inside openIDconstructor.",
+      "qualification": "Public/source records can selectmissingIDs orblankslug; no checkedidentity/filenamepromise. Originaltests are source evidence only. GeometryRoot007 latentinvalidSelf backing retained; no current invalid reviewconstructor route claimed.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-026.json#obstructed-capture-camera-and-required-terrain-failure",
+      "queue_indices": [
+        284,
+        286,
+        287
+      ],
+      "invariant": "Camera capture uses checked completed scene geometry and actual fallible collision placement; required terrain absence is a failure, while native queryfilters do not themselves admit geometry.",
+      "acceptance": "Retain exactterrainabsence→failure and sourceerrors, checkedselectednativecompletedresults, atomicboomstate and zero/offscreen/signedpolicy; all sharedcanonicalleaf admission routes explicit.",
+      "qualification": "NativeProjection/margin andphysics inputs broaderthanvalidatedfiniteleaf; Camera044 doesnotproveeverymalformedprojectionrejects. ElapsedZERO isintentionalcapture andBoomdistance0 valid. No newruntimebadconfigclaim or blanketnativeSDKcoverage. Geometry007 latentbackingqualification persists.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-026.json#capture-camera-leaf-and-optional-landscape-measurements",
+      "queue_indices": [
+        302,
+        303
+      ],
+      "invariant": "Completed camera position/target/unitup and signed extent/distance are admitted by real canonical constructors; optional absent landscape measurement remains None/error and is not fabricated as zero.",
+      "acceptance": "Keep completedvalue finitegates and exactoptionalabsence/fallback/errororder, signedunit/frame policies and separateFixedversusLookingAt admission. Preserveoriginalexistingfixtures unchanged.",
+      "qualification": "Typedfinitecoordinatesalone do not prove distincttarget/nonparallelup or collisionclearance; actuallooking_atrecipienthandlesrelationship. Signeddistance/extent canbe0/negative wherecanonicalpolicyallows. SceneCameraViewF005 bypass isnot repaired byconsumerResult; no actualbadcaller claimed. Otherview_specs sourceconstructors separatelyqueued.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-027.json#capture-spec-closed-pose-and-open-authored-controls",
+      "queue_indices": [
+        305
+      ],
+      "invariant": "CapturePose is a closed authored variant with checked finite signed lengths/degrees and scene coordinates; CaptureViewSpec is mutable authored controls, not an all-purpose validated camera/profile token.",
+      "acceptance": "Retain finitecanonicalunits andrawauthored/rejectedevidence distinction; accepted runtimecameracontrols need coherent actualrole predicates before nativeprojection/indexing. Preserve allauthoredarrays/errororder andtemporalprefix semantics.",
+      "qualification": "Publicliteral/fluentcontrols admitNaNscale, nonsensicalFOVsignedangle andinvalidcameraindex; source/authoredrecord hasno declared accepted aggregate invariant. Exactconsumer camera/projection/arraymembership obligations remain, no arbitrary strongerleafpolicy. ExistingSourceview/currentproducerfindings retained; no runtimeinvalidliteral inreadtables asserted. Invalidruntimeinputtoauthored_degrees panics bydesign; touchedproductionpanic cleanup remainsRust-ruleimplementation requirement, not uncheckedleafadmission.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-027.json#city-and-fixed-camera-source-admission",
+      "queue_indices": [
+        288,
+        290
+      ],
+      "invariant": "Native corridor searches and Bounds2 are private work records; fixedcamera Document is raw decoded source, and Contract load performs explicit version/cardinality/finite nonvertical-pose gates before retaining the document.",
+      "acceptance": "Oneexplicit source-to-contract gate, exactversion/seven/optionalpose semantics preserved; completedpointoverflow rejects viaowner andnoemptycityfallback or inventedmembership.",
+      "qualification": "PrivateDocument/Camera are raw inputs and can decodebadposes beforeloadgate; no falsebypass ofacceptedContract merelyrawSerde. PublicsceneSource emptybuildings/degenerateCorridor cannot beassumed valid byVec2; Resultalone doesnoteliminate documentedexpects/aggregatepreconditions. Existingtestsverifyactualauthoredposes, notallfiniteextremegeometry. SourceIDsallword incl0, fixedidlist doesnotproveworldmembership.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-027.json#furniture-and-interior-review-native-producers",
+      "queue_indices": [
+        291,
+        292,
+        293,
+        294,
+        295,
+        296,
+        297,
+        298
+      ],
+      "invariant": "These are actual review-source selection, native composition and production furniture staging helpers. Only real completed geometric leaves are checked; private native work records/public authored selections do not certify entire furnished-building graphs or visibility.",
+      "acceptance": "Keep allreal canonical checks at completedvalue/nativeports andoriginalFP/order/selection/tie semantics, requiredheightfailure/None distinctions, syntheticID0 andnonnegative genericenvelopes. Replaceproductionexpects accordingtoRust rules whenimplementing; no newtests here.",
+      "qualification": "No rawworkrecord is silently strengthened tofinite/unit/positive/convex/newworldmembership. PublicSubjectempty canviolatecallerprecondition; keepcorrelatedstatequalification separate fromfiniteleafadmission andcurrentcallerconstructivelynonempty. BuildingReviewCamera carries independenttypedPositionleaves andrawplasterevidence, relationshipcheckedonlyrealSceneCameraView consumer304 withF005latentmutability retained. Alloriginaltests/sourcefixtures readwithout executionoraddition. Furniture source/catalogue dependencies relyactualfalliblelookup, notnewleafpolicy.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-028.json#scene-viewer-runtime-install-and-raw-evidence",
+      "queue_indices": [
+        281
+      ],
+      "invariant": "Scene setup, capture and benchmark resources are runtime work/evidence records. Typed geometrical leaves are checked where completed; native report numbers/optional observations, sample counts and source fields are not universally finite/positive/certified merely because a report/state exists.",
+      "acceptance": "Acceptedruntime geometry/controlcontracts usecanonicalpredicates andcompletedvaluechecks beforestatecommit/nativeprojection; preserve rawrejected/evidence fields, exactoptionalabsence, temporalorder/FP/ID/error semantics andoriginalfixtures. Initial03only; no build/runtime validation.",
+      "qualification": "Rawpublicresource/config/authorcontrols canrepresentinvalidcoupledchoices; no currentruntimebadcaller asserted. NativeFrameClock andcount0different frompositiveelapsed. DiagnosticmissingmeanluminanceNaN/lightingdeltaInf andNoneGPU evidence mustremainrepresentable. Currentgeometry007 latentbacking, NativeF005 viewmutation andCamera044/F012 configrelationships retained. Existingpanic/expect/unreachable production sites mustbecleanedunderRust rules duringclaimedrepair; notinventedruntimefailures or wholegraph acceptance.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-029.json#debris-real-roots-and-completed-camera-target-admission",
+      "queue_indices": [
+        289
+      ],
+      "invariant": "DebrisCaptureTarget stores individuallycheckedscenePosition andNonnegativeLength, while sourcepair identity/provenance/closeness isexplicitfactory/recipientpolicy ratherthan sealed bypair typename.",
+      "acceptance": "Keep realrenderedroots ratherthanbatchorigins, completeECSobservationadmissionbeforeselection, exactdistance/tie/None/error/fallback policy andcheckedcompletednativepoints. Retainnonnegative0 ownerpolicy whileclosest0 means nosearch; no universalstrictpositive geometry.",
+      "qualification": "Publicpair literal canjoinfarapartvalidroots; actualreceiver explicitlyfiltersdistance, so notnewruntimebypass. PublicDebrisCaptureTarget independenttypedleaves do notprovefocusmidpoint/obstacleclearance; factorypolicy preserved andaggregate05separate. FiniteXYZ doesnotprove boundedspatialhashindex or nativeGlobalTransformscalevalidity. No currentinvalidcaller noractualtestexecution; unchangedoriginalcallerfixtures281 source-onlyread.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-030.json#cloud-source-native-lattice-and-gpu-uniforms",
+      "queue_indices": [
+        74,
+        75,
+        274,
+        275,
+        276,
+        277
+      ],
+      "invariant": "Cloud layer/weather inputs and native GPU uniform/material/lattice work records are broad raw presentation data. Seed is entireu64 with purpose-owned nonemptyStreamId; lattice coordinates are dimensionless, not geographicmetres/finitecheckedpoint. No inferred finite guarantee from renderedtexture bytecasts.",
+      "acceptance": "CanonicalSeedretainedtobits/hash/RNGports; actualruntimegraphics acceptedstate mustcarryhonestpredicates, rawGPU uniforms actualnativeboundaryonly. Preserve inclusiveendpoint1, optionalemptylayers/None, temporalkeymatching/nativeFP/bytecast andoriginalfixture policies.",
+      "qualification": "PersonallyconsumedRootdeterminism023 fullcurrentPRsourceproof afterownprospectiveREG010/011: Seedprivatewordall0/MAX/Default0/Serde+SATSallword/FromStringu64/nativeRandoneword intentional; StreamIdonlynonemptyconstnew nodecoder/default, anyothertextallowed. Actualinclusiveunit high24bits/(2^24−1) includes1finite, no assumedhalfopenoutput; nativecloudusesactualRNG/Seedprojections. Rootgraphics022 rawpubconfig +actualSettingsREG009/Native028 provesparsevalidateddefault canbemutated/installedwithoutrevalidate; RootF006 actualYAMLNaNholes retained, no newNativecount. NativeclockREG006 period_index360 preserves0/MAX/allwordclock; no stablecontext/provenance assurancefromSeedname. No invalidruntimeclaimed, no fullforeignpackage/shaderblanketcoverage.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-030.json#celestial-native-materials-and-active-regional-clones",
+      "queue_indices": [
+        76,
+        77,
+        278,
+        279,
+        280
+      ],
+      "invariant": "Celestial native lighting/material snapshots are raw presentation outputs from actualcanonicalclock/coordinates. Rawdirections/phase are notsealed byCelestialDirections record; actualfactory-only currentcaller distinct from publicliteral gapF004.",
+      "acceptance": "Preserve actualnativeframeflip/clock/lookup/error/dropfallback andoriginaltests, distinguishrawcatalogue/metadata source strengthening fromuncheckedalreadyadmittedleaf. Canonicalowners propagateduntilnativeuniforms whereactualmeaningfits.",
+      "qualification": "F004 publicCelestialDirectionsrawarrays/phase allowinvalidliteralstate; actualreadskyconsumesfactory, no currentbadruntimecaller. Root001unitgeometrypolicy isnotautomaticallypolicyforrawmatrix/material. SettingsREG009actualclone/publicrawconfig andRootF006 retained; missingenvironmentNone/0 visualpolicyallowed. No universal <=1width/illumination/materialclaim beyondactualsourcecontracts.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-030.json#sky-capture-authored-configuration-and-raw-observed-evidence",
+      "queue_indices": [
+        322,
+        323
+      ],
+      "invariant": "Skyconfiguration/capture/probe/metrics/manifest are rawclosed-authored choices andnativeobservations, notvalidatedfinitecam or gameplaystate. Typedclock/latitude/longitude andactualbasispointoutput usecanonicaladmissions.",
+      "acceptance": "PreserveclosedSkyView/FOV/diagnosticmagnification/sourceclock/nativeframe policies, explicitNone/rejectedobservedevidence andactualbasispointfloor/saturation; acceptedruntimecamera contractsmustnotborrowreportvalidationasleafadmission.",
+      "qualification": "Do not infer fullnativeProjection/Transform/cameraunitvalidity fromauthoredvalues orlatertolerance check; rawdiagnosticNaN/default0remainallowedfailureevidence. GeometryandCameraConfigF012 relation gaps unaffected. Existingtestssourceonlyread unchanged; no newfixture/test/execution.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-032.json#capture-manifest-pending-report-is-not-accepted-gameplay",
+      "queue_indices": [
+        299,
+        300
+      ],
+      "invariant": "Capture manifests, evidence observations andvalidationbooleans deliberatelyretainraw/optional/failedmeasurements. PendingSceneCaptureManifest privatewrapping means pendingreport, not validatedstate; typedheight/distance/Seedfields still usecanonicalowners.",
+      "acceptance": "Keep rawfailureevidence andtypedactualmeasurements distinct, preserve None/empty/default0 and alloriginalvalidationcondition/errororder. Acceptedruntime value mustcomeactualconstructor, no blanketderiveSerializecertificate andno manualbooleans masqueradingascheckedgameplay.",
+      "qualification": "Rawpendingreport cancontainpassedtrue/manualflags/NaN ormissingobservations; thatisnotbypassofanacceptedstateconstructor. ExistingdiagnosticInfdelta/NaNsupported. Fieldvisibility permits fabricatedevidence anddoesnotproveauthoritativeorigin; actualreportwriter-onlyprocess andscopedsourceprovenance analyzedseparatelylater. Nonnegativeleaf andSupportElevationcanonicalprivatechecks intact; Rootgeometry007 lowerbackingqualification applieswheretypedpositionsoriginate.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-032.json#supported-obstacle-preflight-before-native-publication",
+      "queue_indices": [
+        301
+      ],
+      "invariant": "Private SupportedObstacle promises a checkedscenePosition obtainedfromrequiredsupport, while CapturedObstacles israwcount/focus/position-sum evidence andObstacleVisual isactualnativecollider/renderboundary.",
+      "acceptance": "Allsupportadmission completes before firstsideeffect, sourceFPorder/frame/Nonefailure preserved, realnativeboundaryexplicit andsemanticownersretaineduntilpointofuse; rawaggregateevidencekeepsitsbroadpolicy.",
+      "qualification": "Actualall-support preflight onlycertifiesscopedpositions/requiredheight, notentirerockrecipe/currentworldmembership/nativephysicsvalidity. Broadgeneratedsource/grid fields maybepathological, butcompletedpointnonfinite admissionrejects. Nativegeometryzero/positivechoice notinventedhere; no currentinvalidcallerclaimed.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-033.json#authored-review-spec-members-and-real-plant-camera-recipient",
+      "queue_indices": [
+        306,
+        307,
+        308,
+        309,
+        310,
+        311,
+        312,
+        313,
+        314,
+        315,
+        316,
+        317,
+        318,
+        319,
+        320
+      ],
+      "invariant": "Each actualauthoredreviewtable constructs the same broad CaptureViewSpec current027 through checkedfiniteSignedAngleDegrees; rawcameraindex/BPs/nativeLODscale/flags are authoredcontrols withoutindependentmembership/aggregatepromise. Physical distance remains signedfiniteowner, not positive/probability.",
+      "acceptance": "Preserve everyactualauthoredpose/FOV/signedunit/minimumthreshold/closedflag/temporalorder, originalprojections and nativeerrororder. Runtimeacceptedcontrols usecoherentactualrole admission while rawauthoring/evidence remain honest; no blanket enum/narrowing or probabilitymax1 forangles/scales.",
+      "qualification": "Explicitactualsharedcontractcomparison: new/vrouteidentical305predicate forfiniteFOV inall15, no additionaldecoder ordefault; constantstypedleafvaliditydoesnotsealwrongcameraindex/contradictoryflags/nonsensicalfiniteFOV. Currentactual authoredtablescarryknownfinitechoices, no currentbadcaller claim. ParentCaptureViewSpec publicfieldqualification027 andSceneCameraViewlatentF005 remain. ExistingRootgeometry007lowerencapsulationgap stillapplies; no newfindingcount. Allsourcefixturesonlyreviewed; no execution/assertions/testsadded.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-034.json#closed-disease-and-investigation-vocabularies",
+      "queue_indices": [
+        88,
+        90
+      ],
+      "invariant": "DiseaseId andInvestigationActionKind/Terrain admit exactlyclosed canonical Rustvariants; stringadmission usesone Serdeenumvocabulary. Storagekeys differfromdeliberateexistinguppercase determinismcoordinates.",
+      "acceptance": "Onevocabularyallroutes, exactcanonicalkeys/deterministiccoordinates andoriginalinvalidrawinputevidence preserved; no compatibilityalias/casefold/trimornewenumsamepurpose.",
+      "qualification": "All12canonicaldiseasesvalid; fixture9subset isindependentpolicy notenumwhitelistshrink. Closedmethod/terrainvalues donotproveroutetrackinggraph/context/capabilityauthorization; privateparsererror intentionallycoarseUnknown text (separateerrorgraphlens). Nonewcodec/uncheckedadmissiongap intheseactualdefinitions.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-034.json#strategic-clock-window-public-field-bypass",
+      "queue_indices": [
+        106
+      ],
+      "invariant": "RightsValidity requiresvalidoptionalinclusiveabsoluteclockwindow, Noneunbounded andequalinstantvalid.",
+      "acceptance": "Privatevaliditybacking/canonicalcheckedmutation orhonestraw/admittedsplit; allroutesretainNone/equal/inclusivepredicate anderroridentity withoutrepeatedcallerchecks.",
+      "qualification": "NATIVEF006 latentpublicconstructionbypass, no currentinvalidcaller/executedfailureclaim. Wholegrant/runtimeauthorization inparentrights105 separatelyqueued; canonicalclocknonzero/elapsedtimepolicy mustnotbeinvented.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-034.json#raw-strategic-identity-seeding-cli-and-context-tags",
+      "queue_indices": [
+        82,
+        87,
+        109
+      ],
+      "invariant": "Identity-seedbitport/nativeCLIselector andclosedcontexttags do not themselves proveworldmembership, presence/privacy or interactioncompletion.",
+      "acceptance": "Preserve rawrejectedselector/closedtags/nonevidence distinctions, exactentirewordseed bytes/order andpresentationversuspermission/completion contract; no newruntimepolicyfromnames.",
+      "qualification": "No newrefinedleafcodec gap; nativeCLIopenrawString lifetime endsactualselectorboundary, notidentitytypechurn. Strategicseedprovenance/Stablecontextslots/currentauthority notinferredbytype. Optionalgeneratedenumadapter semantics notblanketreviewed; no namedproductbasispointproofmisapplied. Source/decodeclassification andactualauthority aggregate laterlensretained.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-035.json#language-closed-tags-versus-raw-hours-and-settlement-mix",
+      "queue_indices": [
+        412
+      ],
+      "invariant": "Oral/WrittenLanguage closedstablevariants/indexes are identity; hours andsettlementmix are publicrawrecords withseparatevaliditypredicates, notprivateboundedfiniteowners. CanonicalLatLong/Seedactualinputadmission retainsitsownpolicy.",
+      "acceptance": "Preserve directzeroliteracy/correlation/5000 cap/stableenumindices/tie/nativeintegerrounding, initialemptyrawprofile andallrejectedrawinput evidence. Actualacceptedhour/mixroutes must applycoherentpredicate onceandretainsemanticowners; no blanketbounds/unitprobabilityonrawnativeworkrecords.",
+      "qualification": "Rawhours/propertydecoder acceptsNaN/negative/overflow, distinct fromrefinedownerbypassbecausecurrentrecordisnotsealedandexplicitvaliditypredicateexists. Preserve rawsource missingowner strengthening andactualdownstreamvalidatedDBpredicate; no generalvaluefiniteguaranteefromHoursname. Generatedadapterdeclarationsnotactualnewmacroproof; publicf32alreadybroad andnoadditionalpolicyinvariantclaimed. Currentinferencevalidformula doesnotcloseotherpublicliteral/routes. No currentinvalidruntimecallerclaimed; correlation/partition/overflow arithmetic laterlensnotcleared.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-035.json#book-schema-raw-input-and-bounded-training-math",
+      "queue_indices": [
+        83
+      ],
+      "invariant": "Book is structurallydecodedrawauthoredmetadata; book_shape_is_valid suppliesactualfamilyquality/terrainpredicate. BoundedBookGain israwpublicmathresult, notsealedfinitevaliditytoken; characterlanguagehours remainpublicrawrecords.",
+      "acceptance": "Keepactualfamilycaps/terrainvocabulary/qualityrange/readingmedium/directzero/personalordering andanalytic/nativeFP partitionsemantics, rejectrawunsupportedtargets atactualadmission ratherthancompatibilityfallback; acceptedstateconstructorscanonicalwithoutinventedfinitepromise onrawmathworkrecord.",
+      "qualification": "Quality/family/terrain/rawallowlist andactualcompiledcatalogueacceptance areindependent; rawSchemaBook isnotvalidatedartifactsimplybecausehelperusesBook. Any sealedcompiledbookpolicyrequiresactualRig/Camera cataloguegate, notassumedhere. Arbitrarymathcallbacks/negativehoursmayyieldrawinvalidoutputs, distinct fromalreadyvalidatedleafbypass. Existingoriginaltestoracles sourceonlyread; no newcases/run. SupportingRigP16factsnotNativePRcredit.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-036.json#native-bevy-observer-result-and-error-boundary",
+      "queue_indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "invariant": "Bevy observer/system result andboxederror are actualnativeframeworkports. They do notvalidateapplicationevent semantic invariants; a legitimate finaltypedError→BevyError conversion differsfromprematureappstringerasure.",
+      "acceptance": "Retaintypedcauses andstructuredroles throughapphelpersuntilactualframeworkErrorport, exactEgenericconstraints andhandler/default/semanticnonvalidation policies. Preserve fixedcurrentforeignranges/qualifications andsourceidentity; no tests/run/project/sourceedits/foreignlibrarychanges.",
+      "qualification": "Exactcurrentfirstpartyjoins: Native281/322setup app.add_observer/nativefallibleResult andREG009plugin313–321, geometry/capturehelpers returnactualBevyResult; typedGeometryError canbeconvertedatthisnativeoutputport whileownercause/context shouldsurviveuntilhere. BevyErrorFromboxedE retainsoriginalerror, soearlyformat/map_errString isnotrequiredbyframeworkbounds. Nativeunit/frame/validzero/admissionbounds notapplicablebeyondactualEvent/System/typeerror contracts; no finitegeometry/event/state guaranteefrom SDKtrait. Scopedpartialneighborfunctions not silentlycompleted orwaived, no newlynecessarypartialbody materialdependency inactualtypedchain. No fullSDK/sourcehash/verdictclearance.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-037.json#pure-rights-questions-identity-and-retained-validity",
+      "queue_indices": [
+        105
+      ],
+      "invariant": "Puretypedrightsvalues expresslygrantNOauthorityandhavenopersistence/wireformat(module3–4). Privatequestion/lifecycle records enforceexactlocalcorrelations; nonzeroID/digesttypes enforceonlytheirlocaladmission, notserverprovenance/DBmembership.",
+      "acceptance": "Seal orderedvaliditybacking onceandpreserveexactinclusiveNone/equal/0/MAX; retainprivatequestion/lifecyclestatepredicates and typederror causes, genericpureevidence versus realmutationauthority boundary. Alloriginaltests sourceonly, no newtest/execution/implementation.",
+      "qualification": "NATIVEF006 exactactualreceiverextend: arbitrarysafeRightsValidityliteralwiththrough<from isacceptedbyPermissionGrant::try_new becauseittrustslowerrecord. AllcurrentoriginaltestsuseRightsValidity::try_new(valid100..200), no productioninvalidcallclaimed. Canonicalplace/custodylowerdefinitionpendingcurrent03throughseparateownerqueues doesnotblockthismoduletypedinputboundaryanalysis; explicitunknownratherthanfullleafclearance. No globalrightsdecision/security/authorityclearance frompureadmissionreview. Digestnonzeroids syntax/provenance different, allu64revisionvalid0; no newlookupinsideleafconstructors.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-038.json#actual-sdk-reducer-view-argument-and-error-admission",
+      "queue_indices": [
+        12,
+        13,
+        14,
+        15
+      ],
+      "invariant": "SATS/BSATN exported argument routing calls each actual argumenttype Deserialize; reducererrornativeport accepts E:Display thenformats atSDKresult boundary. Viewrow Vec/Option serialization isnot a semanticvalidator. Nativefloatprecisionfeature isnot finitegeometryadmission.",
+      "acceptance": "Everyacceptedbespoketype musthaveactualSATSargumentdecoder routeenforceitsowninvariant whenneeded, orremainhonestrawDTO; typedapplicationerrorsretaineduntilrealIntoReducerResultformat. Keep exactVec/Optionempty/nativewallclock/allword/featureprecision semantics andoriginalscopequalifications, no newtests/execution/foreignedits.",
+      "qualification": "Actualcurrentfirstpartyreducer/time/localproblem/worldactor andview contracts mayholdrawprimitivefields; thisnativeadapter merelycallsactualconcreteSATSDeserialize, no canonicalcheckednew orSerdefinitevalidation addedautomatically. Allu64SeednamedSATSroutelegitimate Root023 sinceentirewordvalid, unlikeCameraUnitBPsactualboundbypass. Native E:Displayresult formattingwarrantedonlyhere; BevyboxedErrorboundary036 isdifferentactualcontract. No newSource/decode/laterlenscredit fromnativeABIbytesorfunctiontypeassertions. bytes_source_read API opaque nativebound, no newforeigngraph/speculativecaller.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-039.json#native-signed-wallclock-timestamp-admission",
+      "queue_indices": [
+        16,
+        73
+      ],
+      "invariant": "NativeTimestamp is signedi64microsecondssinceUnixepoch, validnegative/zero/positive includingallnativebits. ThisdiffersfromabsoluteStrategicMinuteallu64/elapsednonnegativephysicsduration; callbackhostbits alone do notestablishapplicationclockauthority.",
+      "acceptance": "Convertonlyatrealnativeclock/codec boundary withsign/epoch/unit/overflowpolicyexplicit; preservepreEpoch,0/MAXsignednativebits andOptionoverflow, no naïveu64 ornonzerotime strengthening. Existingtests source-only, no runtimedemonstration.",
+      "qualification": "Alli64Timestampvalidity isnotnonnegativeelapsed/strategicworldclock. NativeMINnegation in to_duration66 andChronoDisplayoutofrange canpanic despitevalidtimestamp; arithmetic/nativebehavior preserved for later04, notfirstpartybypassedfiniteconstructor. No foreignsemanticschange/newtest/wholeTimeDurationorChronographcoverage. NativeSDKlegacydeprecatednowdocs contextnotadoptedcompatpath.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-040.json#sdk-client-typed-args-and-native-string-result-callback",
+      "queue_indices": [
+        17
+      ],
+      "invariant": "SDK callback is realnestedResult<Result<(),String>,InternalError> transportboundary; arguments remainactualmoduletypedreducervariant until args_bsatn serialization. Transportsuccess isnotapplicationsemanticadmission.",
+      "acceptance": "Everyadmittedargumenttype enforcesactualinvariant beforewire/stateuse, andcallbackinputtype stayshonestnativeString/InternalError untilapprealerror/responseboundary. Preserve exactnestedResult/status/request-IDandupdatebeforecallbackorder/optionalidentity; no fallbacksuccess or errorcategorycollapse.",
+      "qualification": "CallbackString isactualSDKport notexceptionthatletsallappstate/errorsbeString. Nativegeneratedargs serialization needscanonicalproducerfieldadmission; SDKSerialize doesnotrepairSATSbasispointsdecoderCameraF001 orotherrawinput. Logical/transport/internalerrorspreservedasdistinct; queueOk !=committedgameplayaction. No stale/correlatedstate/authorityclearance, no fullSDKgraph, no source/runtime execution.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-041.json#raw-db-clock-and-schedule-wire-model",
+      "queue_indices": [
+        125,
+        127,
+        128,
+        129
+      ],
+      "invariant": "Persistedofficial/personalclock fields usecanonicalallwordStrategicMinute butsourceauthority/synchronization arehandlerproperties. ScheduleAllocation ispublicrawwire input; a24hour/dayquarterhour acceptedplan isseparateprivateValidatedSchedule actualRoot021.",
+      "acceptance": "Rawwireadmission separatedfromacceptedquarterhour/day/organizationplan and actualclockauthority; keepcanonicalclocksretained, exactsourcewrites/lifecycleorder/None/zero/saturation/errorpolicy. No test/case/execution/sourceedits/newforeigngraph.",
+      "qualification": "RawScheduleAllocation2000+minutes/non-quarterhour canbeconstructed/decoded asrawsource, notcheckedprivateValidatedSchedulebypass. ActualRoot021 andRootcurrentDBschedule122 convertscore_schedule→ValidatedSchedule::try_from; sourcefieldsum/tokenrelation notautomaticallysafeuntilrealconsumer. PreserveorganizationIDrawvalidation+membership independent, andeligibilityzeroing keeps0valid/nodaycapstandaloneActivityMinutes. OfficialvsSubjectiveauthority/intervalconservation remainlaterlens. CurrentnativeTimestamp039 signedepoch remainsdistinctfrom0-validStrategicMinute andrawelapsedminutes; no inferrednonzeroids/worldlookupinsidecanonicalclock.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-043.json#p16-basispoints-all-adapter-routes",
+      "queue_indices": [
+        59
+      ],
+      "invariant": "ActualP16UnitBasisPoints0..10000/Signed−10000..10000 validatedfractions musthaveallroutesmatchtheirbound. Zero/endpointsintentional; explicitsaturationandrawsource distinct.",
+      "acceptance": "Allaccepteddecode/constructionroutes enforceactualbounds whileexplicitrawu16/i16authoring/rejectedevidence staysrepresentable; preserveunitround/floor/denominator0/whole/negativeendpoints, no early into/getter churn.",
+      "qualification": "SerdeandfeatureSATS10001/−10001 bypassauthoritativepredicate, supportsCameraADM03F001 bothroutes. OwnNative042SATSpendingstatement historicallytrue beforedependencyread; this043supersedesonlythatpendingqualification. P16/PRwireformat/sourcecontractsemanticallysameactualnameddeclarations compared, no tuple/enum/othermacroversioncredit. Dependencyregistrynewroles requireRootglobalreconciliation andlaterfixedpoint, notautomaticproducer/ownercredit.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-043.json#portable-p16-geometry-error-boundary",
+      "queue_indices": [
+        60
+      ],
+      "invariant": "Geometryerror isstructuredfailureevidence withclosedrole/axis/cause vocabulary, notadmittedspatialvalue. Errorenumconstructibility doesnotcertifyactualoperationfailuretruth.",
+      "acceptance": "Preserveexactrole/axis/typednativeZero/Infinite/NaN andwireformat/firsterror ordering untilrealnativepresentationboundary; no duplicateerrorowner, no sourceedit/newtest/execution.",
+      "qualification": "No new geometryadmissiongap inerrorsource; actualtypedcause retained ratherthan reconstructingfrommessage. Rawcause/rolevariants servefailedinputevidence; do not forcecheckedspatialownerintoerrorvalue orserializeerrorstrings asacceptedvector.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-044.json#world-context-interval-raw-row-and-actual-recipient-gates",
+      "queue_indices": [
+        135,
+        136,
+        137,
+        138
+      ],
+      "invariant": "Contextmembership intervals are rawpersistedrowinputs untilactualwellformed/time/occupancy/visibility predicates; entered<=left withright-openmembership differsfromRightsValidityinclusiveend. Currentcontextdecisiontags do notproveinteractionauthorization/existence.",
+      "acceptance": "Preserveright-opencontextinterval/equalinstantempty/Noneopen/currentwellformedgate andactualuniqueoccupancy/lead/privacy predicates, signedbirth and0validclocks; propagateactualsourceerrors instead offabricatingclock0 whilekeepingexplicitzero fixtures. Canonicaladmittedtypes mustretainrealmeaningthroughDBhelpers; no blanketnarrowingrawrejectedsource/evidence.",
+      "qualification": "Public/rawmembershiptable literals andnativecodec admission aredistinctfromlocalusableintervalgate; thesehelpers doNOTturnallrawrowsintoacceptedintervaltokens. Currentwellformedpredicateclosescontextconsumerpath, no invalidcurrentcaller or runtimesymptomclaimed. RoottypedStrategicPresence/StrategicPlace canonicaldefs separatelyqueued/currentlowergrammarunproved, explicittypedinputboundaryqualification asRootdirected; no lookup/lineagecertaintyfromIDname. Originaltestreducersareexisting guardedsource, cannotbeusedasnewtestpermission. HistoricalclosuredoesnotchangeonceleftSome; defaultclockfallbacklossretained forcoherentlatererror/authorityrepair.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-045.json#activity-clipped-interval-and-clock-advance-admission",
+      "queue_indices": [
+        123,
+        124,
+        132,
+        134
+      ],
+      "invariant": "Daily authored schedule budgets differ from realized clipped activity intervals. Typed absolute StrategicMinute allows zero; InjuryRecoveryMinutes is a unit amount admitting every u64, including zero/MAX. Database row and raw ScheduleAllocation construction is not a sealed validated daily schedule.",
+      "acceptance": "Retain actual requested-duration gate, organization membership gate, clipped interval policy, zero recovery, absolute zero clock and existing ordering. Propagate sourced clocks/errors instead of fabricated defaults, preserving deliberate explicit zero boundaries. No new test, source edit or project execution.",
+      "qualification": "Raw ScheduleAllocation literals admit non-quarterhour/overbudget data, intentionally broader than daily validation. Realized clipped interval may validly be7 or0; indiscriminate narrowing is a semantic regression. Existing clock fallback/error erasure and misleading synchronize prose remain qualified connected work, with no newly demonstrated invalid runtime caller. Arithmetic overflow/reordering and correlated state are cross-references to later lenses, not skipped admission routes.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-046.json#camp-settlement-and-stationary-sourced-admission",
+      "queue_indices": [
+        126,
+        130,
+        131,
+        133
+      ],
+      "invariant": "Rest request limits, zero no-op, venue authorization, actual settled elapsed and daily schedule admission are separate policies. Raw native reducer inputs and internal recovery amounts remain broader than accepted player requests. No blanket positive minute, currency or fatigue assumption.",
+      "acceptance": "Keep explicit venue/membership/quote/duration gates and deliberately different internal paths, original fixtures and exact minute behavior. Typed request construction should live at authoritative gates, not cosmetic conversion at each primitive helper; prevent lower-owner unsafe reconstruction without adding duplicate checks. No source changes/execution.",
+      "qualification": "Native reducer fields remain raw, with actual local relying gates. Internal explicit=false short catch-up and requested0 no-op are intentional, not bypasses of documented public request policy. Raw DB membership, stats and raw schedules have typed-input/current-query boundary qualifications; no current impossible party/NaN caller is asserted from their use. Date/time saturation, float arithmetic and multirow correlation remain connected later-lens obligations rather than admission clearance.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-047.json#native-network-physics-codec-boundaries",
+      "queue_indices": [
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72
+      ],
+      "invariant": "These are actual native protocol, generic Deserialize and physics value ports. They accept/transport native representations and delegate semantic admission to the concrete type or callback; they do not promise application identity, finite geometry, authority or membership.",
+      "acceptance": "Preserve actual codecs/version, entity mapping, callback signatures/native errors, raw invalid evidence and deliberate zero. Correct concrete admission owners rather than adding unrelated generic foreign validators; new REG021 only exact already reached adapter role pending Root global reconciliation.",
+      "qualification": "Representable raw NaN/native vector or unvalidated command fields may pass structural decoding when concrete type admits them; this is not itself a defect in native libraries. Manual concrete Deserialize invariant remains authoritative, and From/FromReflect do not acquire validation from codec names. Exact signature/native operation proves only native port. No foreign whole-file waiver, new dependency package, new application bad caller or duplicate defect asserted.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-048.json#p16-harness-quickstep-native-presentation-admission",
+      "queue_indices": [
+        37,
+        38,
+        39
+      ],
+      "invariant": "Authored fixture enum selection and readiness work records are separate from checked physical geometry. P16 raw native camera setup and presentation parameters are not validated finite types merely because defaults are valid. Quickstep completed displacement is explicitly admitted at its real receiver.",
+      "acceptance": "Keep closed fixtures/open catalogue lookup distinctions, absent review camera, zero physical head amount, completed-displacement admission and fail-fast authored errors. Retain actual count/status readiness without inventing sealed global graph/camera guarantee. No source edits/project execution/later-lens clearance.",
+      "qualification": "Raw camera NaN/zero direction is representable because fields are raw, no checked finite camera promise in this type. Do not rename it validated without adding coherent construction, and do not treat current valid defaults as exhaustive admitted-state proof. Harness readiness and equality of placement counts do not prove graph/proportion validity; actual lower validator/visual status proof is separate. No new defect count or current invalid caller is asserted.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-049.json#p16-time-counterpart-admission-current-role-comparison",
+      "queue_indices": [
+        22,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        35
+      ],
+      "invariant": "P16 typed operation failures preserve structured causes without changing admission policies for sourced absolute clocks, raw schedules, zero-capable recovery or realized clipped intervals. Canonical P16 daily-quarterhour admission is distinct from raw input and actual elapsed allocation.",
+      "acceptance": "Preserve P16 typed causes until SDK Display, raw rejected input, valid0 clock/recovery and intentionalpartial/forced intervals; seal actual promisedplan/organization invariants at constructor/decoding/visibility without conflating whole-day budget andclippedelapsed. Keep exact originalfixtures/order/RNGstream.",
+      "qualification": "Current admission contracts compared by actual meaning and routes per counterpart, not hashes or old verdict. Public plan/org lower bypass shares ROOT-F005; raw source and clipped interval broadness is intentional. P16 structured error improvement does not repair all existing earlyString errors or ignoredmissingclock fallbacks. Native rootcanonicalproof is not automatic P16sourceproof; actualsupportingP16definitions registered/read. No additional independent defect count or globalsource/producer/owner acceptance.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-050.json#native-report-measurement-and-output-admission",
+      "queue_indices": [
+        41,
+        44,
+        45,
+        376,
+        377,
+        380,
+        381,
+        382,
+        383,
+        384
+      ],
+      "invariant": "Native report measurements preserve finite f64 and role/unit identity, not every gameplay sign/probability bound. Report/acceptance/reviewer records are mutable serialized evidence, not immutable gameplay authority or a success certificate. Typed error reports intentionally carry invalid observations and external failures.",
+      "acceptance": "Preserve zero/default/Noneobservations, finite f64precision andorderedreducers, actualpositiveCLIseedgate, errorclassification andsourcecontext. No sourcechanges/projectexecution/newtests or source/producer/owner/laterlens clearance.",
+      "qualification": "Representable reportcounterexamples (finite negative native observations, wins>runs, fabricatedAcceptanceAudit true/false fields) do not bypass an advertised gameplayvalidity owner: thesearetypedunits/finite measurements or rawmutableevidence. They mustnot be usedasvalidatedsuccess tokens withoutactualrelyingpredicate. P16SignedLengthinput is canonicaltypedboundary pending exactsnapshotdefinitionref; doesnotgrant sourcecoverage. Originalsumorder/f64precision/Noneextrema/0unobservedmeans remain deliberate; arithmetic/correlatedstate are later-lenscrossreferences.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-051.json#causal-report-recipients-and-native-runner",
+      "queue_indices": [
+        42,
+        43,
+        46,
+        378,
+        379,
+        385
+      ],
+      "invariant": "Causal report callbacks consume decoded/logged evidence and admit reportfinite quantities at actual boundaries. Optional missing observations and raw diagnostic counters must remain distinguishable from real measurements. Native batch workrecords are not accepted battle state or a sealed success result.",
+      "acceptance": "Retain all actual missing-observation errors withsequence/kind, timing/measurement causes, originalorder/epsilon/f64reductions/closedtags andnativeJSONprojection. Any stronger acceptedtelemetry aggregate must distinguishmissing/0 and beconstructedatactualsource, not cosmeticallyconvertinsideeachreporthelper. No edits/tests/execution/newlens.",
+      "qualification": "Raw/partiallypopulated telemetry canlackmovementobservations andactualcontractfailswhereexplicitrequired; otherNone→0 defaults remaina source/evidence distinction forconnectedrepair. No inventedcurrentfailureornewdeduplicatedfinding. Fixedone-per-sidecaller isactualsourcefact, notgeneralindexsafeproof forarbitraryBattleOutcome. Currentruntime state remains transient; theseare nativeoffline reportcallbacks, not persistedstrategictacticalstate. P16SignedLengthexactlowerrefpending/typedboundaryexplicit.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-052.json#server-clock-and-supported-scene-admission",
+      "queue_indices": [
+        53,
+        58,
+        393,
+        396,
+        397,
+        398,
+        403,
+        405,
+        406,
+        407,
+        408
+      ],
+      "invariant": "TacticalElapsed is a private finite nonnegative coordinate from fixed64Hz tickcount, distinct from wall/autoresolve clocks. Supported scene objects must retain actual required-support failure and completed position admission before publishing a batch. Raw/native scene/evidence records do not prove world authority or a whole building/terrain aggregate.",
+      "acceptance": "Retain exactnativeclockrounding64Hz/zero, sourceerrorsandall-or-nothingobstacleadmission, SceneDoorPosequaternionpairingforthisgate, explicitnon-solid/vista/Nonecases andnativeports. Strongeraggregateprovenance belongscoherentcanonicalsourceadmission, notextrauncheckedwrapper or cosmeticcast. No sourceedits/projectexecution/newtests/laterlens.",
+      "qualification": "RawtransformNaN rejectedGateDatumactualgate; missingphysicalterrainErrpreserved andwholeobstaclebatchcollectprecedespublication. CheckedPositioninheritsRootG007latentrawsiblingbypassqualification, no currentinvalidcaller. WholeBuilding/terrain/furniturecompilerpolicies delegatedandownedseparately; do notinferfromResulttypename or theseobservers. NewdirectmaterialregisteredbeforeanalysisbutpendingRootmetadataandbounded01/02 qualification, no global/laterlenscredit. Alloriginalfixturesremainunchanged.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-054.json#ai-ranged-and-tactics-current-receiver-admission",
+      "queue_indices": [
+        51,
+        52,
+        391,
+        392
+      ],
+      "invariant": "AIconfig sourceDTO is public mutable author input; actual canonical/default/runtime snapshot validation is a separate route. Physical signed length is not nonnegative or ordered-pair validation. Timers refine general finite nonnegative elapsed into native representable Duration.",
+      "acceptance": "Keep exactstandoff/sampling/recognition math, optionalmovement/zerotimer/nativeDurationerrors andactualruntimeinstallationvalidation; retainrawrejectedDTOsandoriginalfixtures. Do notinventprobability/clamp/nonnegative restrictionsfromnamesorclaimallcallerssafe. No sourceedits/projectexecution/newtests/laterlens.",
+      "qualification": "Publicrawconfig/reversedbounds are representable beforevalidation; thisfactcannotbeconflatedwithinvalidinstalledsnapshot. RawfractionNaN/slop/hitprecision ownerpolicy remainsactualsource-strengthening gap, not a bypassofcheckedSignedLengthorUnitInterval. Valid elapsed beyondnativeDurationrange is rejectedatactualTimerport, zerodurationallowed. No newdefectcountorcurrentinvalidruntimecaller.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-055.json#survival-raw-state-weather-math-and-purpose-identities",
+      "queue_indices": [
+        112,
+        116,
+        117
+      ],
+      "invariant": "Survival inputs/state/clothing are public raw numeric records and closed shelter tags, not refined bounded state. Weather fixed-point math produces bounded scalar outputs through actual operations; named random-purpose identity is deliberately open nonemptytext, not a closed grammar or provenance token.",
+      "acceptance": "Preserveminuteorder/partitionreplay, closedIndoor/Tent/Bivouac, explicitrainblocking/wind0, signedcold/heatstrain andvalid0/emptyweather/damageoffsets; keep real nonemptytieproof andpurposeidentities. Do notsilentlyclamprawsourceintoanadmittedtype orchangegameplayunderconstructorrefactor. No edits/execution/newtests/laterlens.",
+      "qualification": "Representable rawwetness65535/thermalMAX/clothing>WHOLE state canbeconstructed/defaultmutated, andemptyexposure/apply_immersion do not seal it. Treat thisasexistingrawsource-strengthening/ownerpropagation work, not claimeveryoutputisbounded because tests/titlementionbounds. No currentinvalidDBcaller/hiddencombatpenalty ornewdeduplicateddefect asserted. Parentweather115 stillrequiresfullsourceadmissionpass; notcoveredfromfieldhelper. Arithmeticoverflow/statecorrelationscrossref04/05, no accidentalwholelensacceptance.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-056.json#weather-snapshot-raw-admission-versus-actual-generator",
+      "queue_indices": [
+        115
+      ],
+      "invariant": "WeatherSnapshot captures a rules/time/cell calculation for retention, but its public numeric DTO and ordinary decoding do not establish producer provenance, bounded basis points, a wind-angle range or cloud ordering. Closed precipitation/cloud categories differ from bounded physical quantities.",
+      "acceptance": "Preserveworldseed/version/purpose/360minutequantization/16history, closedcloudfamilies/None andzero-valuedweather, actualboundedgeneratorroutes/signedtemperature/geographicframes andoriginalfixtures. Ifsnapshots becomeadmittedtypes, allliteral/default/Serde/source-provenanceroutes mustmatch actualpromises ratherthanblindlycallinginto atretention. No sourceedits/projectexecution/newtests/laterlens.",
+      "qualification": "Safe literals/ordinarySerde canrepresent BP65535, winddirection65535, lift i16outside±10000, reversedcloudtop/base, wrongrulesversion andarbitrarycell despitevalidproducerdefaults. Thisisretainedrawsource/missingexisting-owner propagation, not a decoderbypassofcheckedUnitBasisPoints itself andnot a newdeduplicateddefect. weather_atrawlat/lon admitnongeographicwords; currentNative411 canonicalLatitude/Longitude semantics remain separate actualsource owner, no validgeographypromise fromi32parametername. Conceptualextreme arithmetic/clockMAX andrawhelperdivision are later04 crossreferences; no runtimebadcaller demonstrated ornewuserdecision. Currentgeneratoroutputshape/formation doesnotclearallrawdecoder/literalroutes.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-057.json#threat-escalation-raw-profile-and-distinct-scale-admission",
+      "queue_indices": [
+        113
+      ],
+      "invariant": "Growth/awareness progress basis points cap at whole, while per-enemy combat scale legitimately exceeds whole and mission countermeasure is below/equalwhole. EscalationProfile is raw authored input, not validated content; normalized group power and count bounds come from actual generator operations.",
+      "acceptance": "Preservemob/single/countclamps, exact1000..300000powerbounds/scaleceiling, zeroawareness/unreachableNone/0intervalsourcepolicy, stabilityduplicates andorderedintegerrounding. Admittedcontentownerrequiresallrawparser/literal/Serderoutescoherentlygated, not blanketbasispointnarrowing. No sourceedits/projectexecution/newtests/laterlens.",
+      "qualification": "RawprofileSerde/literal canrepresent growth65535/baseline0 orMAX, rawEscalatedCombatliteral cancontradictgeneratorbounds; thesearemissingexisting-owner/sourcepropagation distinctions, not uncheckedconstructionofUnitBasisPoints. Neverreplacecombatmultiplieru32withunitfraction<=1: legitimatescale>10000 andcountermeasure<10000 aredistinctcontracts. Actualgeneratorclampsarepolicy; preserveinvalidrawsource/rejectedauthoredfixtures ratherthanpretendrecordisvalidated. Currentrawgeneratedjournalidentity stillrequiresactualrecipientgrammar/membership, typeNameprovesneither. No newdeduplicatedfinding/currentruntimebadcaller.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-058.json#material-private-constructors-and-raw-water-flow",
+      "queue_indices": [
+        91,
+        114
+      ],
+      "invariant": "Exact extensive units permit zero while a retained nonempty material lot does not. Positive components, portions, durations and capacities have distinct checked contracts. Pure material/rights/planning records do not certify database custody or authority; caller adapters retain that responsibility.",
+      "acceptance": "Retain0-capableextensiveunitsvsnonemptylots/positivecomponents, exactfloor/remainders/1subunitrounding, integerwidth, canonicaldigest/order/exactretry/commitfreshness anderrorclassification. AllentryroutesmusthonoractualpromisedinvariantwithoutblanketNonZeroamount orhideinvalidrawfixtures. No sourceedits/projectexecution/newtests/laterlensclearance.",
+      "qualification": "GenericzeroMaterialMeasure/volume isdeliberate; privateSnapshotactualnonemptygatecloseslotadmission, not a defaultbypassfinding. RawpublicOutbreakWaterFlow/PublicMaterialView/ConservationReceipt/PlanningAuthority canbeconstructedwithoutactualDBauthority, andsourceexplicitlydelegatesadapters; donotinventunforgeablepureevidenceguarantee. Privatecheckedpositive/portion/duration/capacity/uniqueTruth/receipt constructors have no independentnewroutebypassfound inactualfullbody. Scope of lowerObjectCustody/PhysicalObject/PlanInput/WorldEventcanonicalcurrent03 remainsotherassignedsources; no grammar/membership/currentcallercreditfromnames. Existingordinaryrawfractioncookloopneedscoherenttypedpropagation, notnewtest/reachabilityclaim. FProunding/partialmutation/errorordering andcrossrecordcorrelationpreservedforlaterlenses.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-059.json#p17-capture-selected-observation-admission",
+      "queue_indices": [
+        413,
+        414,
+        415,
+        416,
+        417,
+        418,
+        419
+      ],
+      "invariant": "P17retained scalar observations are checked finite/unit leaves with explicit missing/invalid states. Raw native transforms/arrays remain evidence, not universalfinite sample promises. Bouncy observation failure and selected capture admission failure must remain explicit; absent requiredIK differs from disabled/notapplicable.",
+      "acceptance": "Keeporderednativekernels/firsterror/signedzero/unwrappedangle/negativeclearance/zeroelapsed andactualsnapshotunits, preserveoriginalrawrejectedfixtures/None/requiredsupport behavior. FrameSamplepublicationrequiresallselectedrefinedleaves successbutdoesnotmaskrawinvaliddiagnostics. No edits/projectexecution/newtests/laterlens.",
+      "qualification": "Nonfinite nativebone observation nowbecomesexplicitInvalidObservation/Geometryrejectionwhereactualselected scalaradmissionexists; rawpositions/rotationsaccelerationcanstillrecorddiagnosticinvalidinputandqualitypredicateisindependent, notnewsourcefiniteguarantee. Missing/Unexpectedbones areenumstatesnotInfinitytypedmeasurements, legitimatebothNoneIKnotflight. ActualP17parentrawPositionbackingbypasssharedRootF003preservedwithfreshsourceproof, nonewNativefindingcount. Newdependenciesareboundedcurrent03localmaterialpendingRootglobalmetadataandnecessary01/02qualification; no actualproducer/owner/laterlenscoverage byregistrationorcount.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-060.json#p17-report-observation-and-serialized-records",
+      "queue_indices": [
+        438,
+        439
+      ],
+      "invariant": "Observation distinguishes measured, unavailable and explicitly not applicable evidence. Payload invariants come from actual T; the generic enum doesnotproveapplicability or allpossibleT finite. Private quantity/range wrappers enforce onlytheiradvertisedpolicy; reportbool/count/nativearrayrecords remain evidence underconstruction.",
+      "acceptance": "PreservefiniteDotwithoutunwanted[-1,1]clamp, orderedranges/equalbounds/signedzero, qualitypercentage0..100underactualUnitIntervalinput, wrappedphase, rawrejectednativeevidence andNone→Unavailable semantics. Admittedreporttokenifintroducedmustbeconstructedatactualcompletevalidation, not byrename/privateboolguess. No edits/execution/newtests/laterlens.",
+      "qualification": "Safeviewerliteral Observation::NotApplicable forarequiredscenario wouldmisstateapplicability, but genericpublictaghasnodocumentedsourcesealingpromise; actualbuilders/relyinggates mustbecomparedandremainingmetricsstillqueued. LikewiseHeightPeaks{count:2,...}isclaimedrawdiagnostic; from_cycles aggregatesitwithoutcertifyingcapturehistory. Reporttypedleafpayloadcannotbebypassedthroughpublicouterfield: itrequiresexistingcanonicalleaf, lowerconstructorobligationsretainedseparately. Rawarraysmaycontainnonfiniteevidence withoutconstitutingprivateKneeDot/lengthdecoderbypass. No newdefectcount/currentbadcallerorreport-familyclearance.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-061.json#scenario-authored-acceptance-policy",
+      "queue_indices": [
+        421
+      ],
+      "invariant": null,
+      "acceptance": "Preserve exact authored thresholds, zero, signed relief and unavailable semantics. Correlated scenario/bounds provenance belongs later aggregate/evidence lenses; no new defect count or acceptance certificate.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-061.json#biomechanics-required-versus-inapplicable",
+      "queue_indices": [
+        422
+      ],
+      "invariant": null,
+      "acceptance": "Keep exemptions, signed tolerances and failure on missing required evidence; no invented <=1 knee-dot constructor policy.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-061.json#body-response-measured-ranges",
+      "queue_indices": [
+        423
+      ],
+      "invariant": null,
+      "acceptance": "Propagate first actual source errors and retain empty versus missing distinctions; no aggregate-history guarantee inferred.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-061.json#continuity-height-and-landing-gates",
+      "queue_indices": [
+        424,
+        425,
+        427
+      ],
+      "invariant": null,
+      "acceptance": "Preserve original threshold, order, None/NotApplicable, zero, last-tie and sequence wrapping behavior. Whole-report validation440 remains queued; these gates do not assert it.",
+      "qualification": null,
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-062.json#capture-entry-and-outbound-report",
+      "queue_indices": [
+        420,
+        426,
+        437
+      ],
+      "invariant": "Raw capture input and diagnostic report are not sealed accepted gameplay state.",
+      "acceptance": "Preserve output on failed validation, error/write order, raw rejected evidence and measured-zero versus absent text.",
+      "qualification": "CompletedReport is assembled evidence, not validated acceptance token; private/group-visibility report fields and booleans can be assembled by owning module. Raw native camera orientation remains intentionally raw, not a finite/unit owner. Keep existing panic/expect cleanup in connected whole-function work; no new tests.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-062.json#signed-clearance-and-continuity-admission",
+      "queue_indices": [
+        429,
+        430,
+        436
+      ],
+      "invariant": "Each completed refined distance/angle is checked before metric storage; optional observation semantics encode actual applicability.",
+      "acceptance": "Preserve signed terrain clearance, zero maxima, missing versus exempt, first-worst tie, exact native equation/fold order and optional support source.",
+      "qualification": "Private local measurement structs have only measured factories; no Serde/Reflect/Default/raw backing admission. Public diagnostic metric records can hold valid leaves without proving actual history; aggregate provenance is separate. Generic native arrays/quaternions are not claimed finite/unit.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-062.json#facing-pose-guard-observations",
+      "queue_indices": [
+        431,
+        432,
+        435
+      ],
+      "invariant": "Actual finite signed or nonnegative observations are admitted after native computation; required missing geometry is distinct from exemption.",
+      "acceptance": "Keep exact signed policies, .25/.75 thresholds, left tie and actual missing reason; no normalization/clamp/range tightening from names.",
+      "qualification": "No incoming decoder/Default/Reflect/new scalar backing in these sources. Native raw vectors may be rejected by completed-value factory or become explicit Unavailable, not universal all-array admission. Public measured diagnostics can be forged as report data, not claimed certified state. Knee-dot valid negative values and finite rounding>1 remain representable.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-062.json#height-and-peak-observations",
+      "queue_indices": [
+        433,
+        434
+      ],
+      "invariant": "Signed sample bounds and completed nonnegative ranges are distinct owners; absence is not numerical extrema sentinel.",
+      "acceptance": "Preserve sample order, warmup/trailingpartial behavior, signedgain, zero/None reasons, peak tolerance and errors.",
+      "qualification": "Private sample/range wrappers in060 accept actual typed leaves, no decoder/default/reflection route. Equal range/zero elapsed valid; sequence monotonicity/history/provenance remains aggregate/evidence work. Peak raw fields may be manually assembled as diagnostic, not sealed validity.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-062.json#report-assembly-quality-and-acceptance",
+      "queue_indices": [
+        428,
+        440
+      ],
+      "invariant": "Factory validates observations and assembles evidence even on failed gates; quality percent is checked only for complete capture.",
+      "acceptance": "Keep all31weight semantics, unavailable incompletequality, measuredzero, explicit exemptions/errors, diagnostics before finalpass, original source tests untouched and unexecuted.",
+      "qualification": "Report fields withinmodule may be constructed/mutated without rerunning predicates; no accepted runtime token invariant promised. Generic raw diagnostic arrays not globallyfinite. Imported catastrophic_contacts/presentation_events purepredicate calls are exact invocation boundaries with PR259/264 current03 source evidence018/019, not automatic P17 body credit; if their actual additional material is needed register before reading. Source original test name says quality_zero but actual expectsIncompleteCapture explicitly; preserve actual source behavior. No aggregate/evidence/later-lens clearance.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-063.json#sweep-and-prepared-native-cache",
+      "queue_indices": [
+        365,
+        366
+      ],
+      "invariant": "Native calculations do not constitute unchecked admission to refined geometry; derived cache stores native geometry under upstream surface contract.",
+      "acceptance": "Keep zero sweep, finite-degenerate/no-support, exact FP classification and source-ID error order.",
+      "qualification": "Zero open angle yields zero iterations and true; intermediate step division is native arithmetic, not stored checked state, preserve later04 review rather than call invalid leaf admission. Cache name does not prove all raw source triangles finite or index membership by itself; lower surface/tree/GroundTriangle admission is upstream separately owned contract, no extra source-body credit inferred.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-063.json#foundation-transport-and-existing-contract-tests",
+      "queue_indices": [
+        367,
+        368,
+        369,
+        370,
+        375
+      ],
+      "invariant": "Actual manual codecs call mesh validation; tests exercise raw rejected inputs and exact topology without being runtime proof.",
+      "acceptance": "Preserve exact topology/bytes/windings/thin and contact-only zero behavior, error order/IDs and negative support levels; no codec bypass observed in actual adapter bodies.",
+      "qualification": "Codec calls establish actual validation routing, not a complete lower validate-body proof or generic mesh provenance. Existing tests do not grant whole lower-source coverage; raw private wire adapter can decode malformedvalues only before final validate. Lower direct mesh/scene admission is separately scoped Root/Camera; preserved exact typedinput/delegation qualifier, not inferred from typename or tests.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-063.json#movement-completed-speed-admission",
+      "queue_indices": [
+        372
+      ],
+      "invariant": "Every retained NonnegativeSpeed is finite>=0 at actual checked constructor or checkedscale/lerp; raw attribute/config inputs are not sealed by this module.",
+      "acceptance": "Preserve no-playerfallback, analogmagnitude, proneeffort/lateralpolicy, guard sprint=jog, injury/mass effects separate from incapacitation; no hidden fatigue speed penalty.",
+      "qualification": "Input/config raw NaN/Inf may be rejected by completedvalue or native clamp policy may map it to finite bound; module does not promise rejecting every invalid raw input. Zero movement legitimate, currentstyle error semantics and ordering retained. No own decoder/Reflect/Default/unchecked scalar backing.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-063.json#transient-public-player-and-combat-records",
+      "queue_indices": [
+        373,
+        374,
+        40
+      ],
+      "invariant": "Transient authoritative state is public raw replicated record, not a globally admitted finite/bounded aggregate; leaves that are checked retain their own policy.",
+      "acceptance": "Retain allwordID0, opennames, rawrejected/evidence distinctions, sourceauthorityboundary, defaultvalues, visible fatigue/encumbrance contribution once and originaltests unchanged.",
+      "qualification": "Raw state source-strengthening and meaning-specific owner propagation remain connected existing findings; no new checkedtype bypass count solely because rawpublicfield exists. ECSimmutable does not make publicdata admitted. Opaque reflection clone safeonlyaslowerSelf, cannotrepairalreadyinvalidSelf. P16 finiteSignedLength is not strictpositive.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-064.json#actual-interior-authority-and-native-door-window-state",
+      "queue_indices": [
+        371,
+        394,
+        395,
+        409
+      ],
+      "invariant": "Per-character native passage exemptions and server interaction predicates establish actual current interaction authority, not an unforgeable semantic grant token.",
+      "acceptance": "Preserve strict interior access, door-specificgrant/revoke, weakerclosingtorque, onehingemutationsystem, signedopenangles/zeroidentity and transientauthorityboundary.",
+      "qualification": "DoorPassageExemptions publicgrant intentionally low-level nativeauthority API, arbitrary caller can grant; actualserver gate establishes authorization. Root/Camera source-defined CollisionCentreDatum/SceneWindowPose lower factories separatelyowned; do not infer allposefields validated solely name. Native currentphysics may drift/NaN and rawdiagnostics preserved; no universalfinite guarantee or broadermembership. No newcheckedowner bypass count.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-064.json#bestiary-open-record-versus-explicit-predicate",
+      "queue_indices": [
+        410
+      ],
+      "invariant": "Closed category identity is distinct from bounded direct study and correlated effective knowledge.",
+      "acceptance": "Preserve zero-untrained, all13closedcategories, directfinite0..mastery versus independent effectivecorrelation policy, exactmatrix and originaltests.",
+      "qualification": "Module docs title boundedknowledge does not make rawrecord checked. Generic5000 mastery predicate onlydirectpolicy; effectivecorrelated>5000 is not invalid directleaf norprobability. Current rawrecord strengthening/missingowner remains connected existingtypework, not additional constructorbypass to a privatecheckedtype. Source tests manuallycallpredicate, do not prove universalingress.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-065.json#defense-native-chance-and-checked-scheduling",
+      "queue_indices": [
+        387
+      ],
+      "invariant": "Raw mutable defense chance and facing policy are distinct from checked elapsed and native Timer admission.",
+      "acceptance": "Preserve anticipatorytestdodger, RNGdraworder, no reaction/missingtarget semantics, actualinsideauthority and finite/native clock errors beforeinsert.",
+      "qualification": "NaN/out-of-unit chance remains publiclyrepresentable and may disable/forcechoice; no UnitInterval invariant sealed by thisrawrecord. Source strengthening/expectedprobability role stays existingowner repair. Actual configorderedbounds relyCamera011/012validate/install, not implicitfieldtype; no guarantee every publicDTOinstancevalidated. Timer rawSDKstate not bespoke accepted duration.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-065.json#actual-offense-facts-and-public-reflection-phase",
+      "queue_indices": [
+        388,
+        389,
+        390,
+        48,
+        49,
+        50
+      ],
+      "invariant": "Actual target availability, optional collider facts and fallible native clock admissions are checked separately from raw AI configuration and diagnostic geometry.",
+      "acceptance": "Preserve RNGsequence, explicit0/None/no-playerfallback, positivearm policy versus signedleaf, stabletargettie, staged timercommit and exact errororder. Removeexpect underfuture implementationstyle withoutfallback ornewtests.",
+      "qualification": "Public ordinaryReflect can set target/phase/nativeTimer but source does not promise unforgeable targetmembership/provenance. Rawconfig ordering/precision notsealedbyAIinputtype; finiteReportedPrecision exactlowerdefinition notyet supplied current03, so only actualfalliblefactorycall/expect is established here; no invented constructorpredicate beyonderror text. RecoveryTime/MeleeLungeArrival lowerconstructors separatelyassigned, exacttypedinput boundary not generalclearance. Existing config/rawsource owner findings retained, no duplicatefindingcount.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-066.json#iteration-actual-equipment-literals",
+      "queue_indices": [
+        399,
+        54
+      ],
+      "invariant": "Iteration recipes are authored projections into raw equipment records; relying expect is not accepted-state sealing.",
+      "acceptance": "Preserve item/placement occurrence/layerorder, duplicatearmor selections, exactsourceerrors instead of fallback, rawmaterial/anchor diagnostics.",
+      "qualification": "Original authored fixture literals intentionally retained; do not add tests/rewrite fixtures under discovery. Expect/unreachable paths require cleanup in connected futureRustimplementation; catalogue generatedrecipe assumptions notruntimeproof. Armorbodyindex/placements separatelyscopedlower sourcecontract, no inferred arbitraryinputsafeindex.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-066.json#iteration-output-only-evidence",
+      "queue_indices": [
+        400,
+        401,
+        402,
+        55,
+        56
+      ],
+      "invariant": "Outbound logs preserve raw and missing diagnostics; Serialize-only reports do not certify numeric bounds or event-history provenance.",
+      "acceptance": "Preserve None andrawrejected evidence, actualsource/eventorder, checkederrorbeforeappend, exact0 absentarmor meaning and no counter/provenance claims.",
+      "qualification": "PublicSerialize-onlyrecords can be manuallyassembled, intentionallyrawreportnotsealedvalidity. P16checkedfiniteSIGNED does notprovenonnegative separation bytype alone though actualdistanceformula>=0; no constructorbypass. Existingdiagnosticexpect/serializablestringassumptions needstylecleanup, noinventedJSONadmissiongraph or arithmetic/historyclearance.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-066.json#server-cli-startup-and-world-dump-boundaries",
+      "queue_indices": [
+        404,
+        57
+      ],
+      "invariant": "CLI/native runtime and debug world restore are separate routes; typed lower custom decoders retain their own policy, raw fields remain broad.",
+      "acceptance": "Preserve debugstandaloneauthorityboundary, optionaltimeout, exactCLIerrororder, bodyentitymapping, no fallback/migration, no newtests or runtimeexecution.",
+      "qualification": "Rawtimeout/reconnectNaN/negative/extreme maypanic at nativeconstructor, source-strengthening missingappropriateowner; nota checkedleafdecoder bypass. Worlddump canrestorebroadpublicrawrecords andmodulefields, preservesdebugpurpose/typedinputqualifications. Originaltest andnativeports notblanketadmissionclearance. Initialall13repairfreeze remains.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-067.json#composable-bot-capabilities-and-original-fixtures",
+      "queue_indices": [
+        386,
+        47
+      ],
+      "invariant": "Behavior packages are open composable native capabilities, not an authenticated mission-enrollment or bounded-chance proof.",
+      "acceptance": "Preserve explicitpassive, allcomposablecapabilities, exactauthoritativeguard/getupbehavior, allwordSeed0/defaultnativeentropy, RNGdraworder and originalfixtureexpectations.",
+      "qualification": "Reflection/default/vector mutation cancomposeorclearcapabilities/chances, intentional declarativeconfiguration notsealedacceptedactor. Native rawlook/Transform notfiniteowner. Actualfixtureload helperdelegates separatelyscopedTacticalEnemyFixtureload; no admissioncreditjustfromloadname or tests. No newtest/execution/fixturechanges.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-067.json#narrow-current-bot-leaf-dependencies",
+      "queue_indices": [],
+      "invariant": "Finite trusted precision, snapshot-dependent recovery and explicit nonarrival remain distinct; exact dependency bodies close065lowerdeclaration gap only.",
+      "acceptance": "Preserve precisionallfiniteopenrange, zerorecovery, incap-onlyperformance, explicitcannotrecover/cannotarrive, exactFP/errororder.",
+      "qualification": "Wholefunctionclaimedownership remainsRoot/Rig originalauthorities. These exactdefinitions are source-suppliers current03 only; no01/02/laterlens credit beforeRootreconciliation. Native065pendingprecision/recovery/arrivaldeclarationqualificationnowclosedforthesethreeexactcontracts, no broaderactualgeometryobserverguarantee.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-068.json#quest-module-and-original-audit-fixtures",
+      "queue_indices": [
+        94,
+        95,
+        99
+      ],
+      "invariant": "Audit generation context and include modules do not seal input or generation success.",
+      "acceptance": "Preserve deterministicseeds, observerentropy, authoredwitness fixture and empty/Ok-onlyaudit count; no generation/evidenceclearance.",
+      "qualification": "Rawfixture witness/context fields intentionally notunforgeableNPCpresenceorgrammar; identity constructors/lowerGeneratedCase validation separatelyowned. Actual sourceonly, no auditloop/tests executed.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-068.json#canonical-weighted-sampling-boundary",
+      "queue_indices": [
+        97
+      ],
+      "invariant": "Sampling admits actual non-impossible positiveweighted candidates after canonical identity uniqueness, preserves native seeded draw semantics.",
+      "acceptance": "Preserve tracesincludingrejected, uniquebeforefilter, exactcanonicaldraworder, emptyweightedorder, no drawfallback/clamp/probabilitynarrowing.",
+      "qualification": "Privatehelperindices underactualcaller-created0..len; arbitraryinvalidindices direct canonicalizewouldindexpanic, notsafeindexnewtypepromise. Integerweights notprobabilities<=1; zero/impossibleexcluded, totaloverflowfallible. Candidate/Weight publicmodel lowercontract remains separatelyassignedsource, no typename/hash clearance or invented membership validation.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-068.json#incident-local-effect-and-contact-context",
+      "queue_indices": [
+        119,
+        120,
+        121
+      ],
+      "invariant": "Helpers apply current policy to rawauthority/input records; they do not certify a whole incident or authenticate arbitrary context.",
+      "acceptance": "Preserve recurring/ends/resolved semantics, signedscaling/valid0, exactRNGnamespace/draworder, explicitfalseabsentcontact and typedobserverminute.",
+      "qualification": "Raw LocalProblemAuthority aggregate and directRNGindexcallerpolicy retained for118 laterbody; actualhelpersnotuniversalvalidityproof. Lowernpc_is_present/dialoguepredicate separatelyscopedactualboundary, notinferredname; no speculativepopulationgraph. Fullrequestedhelperbodiesreadonly.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-069.json#p16-actual-context-admission",
+      "queue_indices": [
+        34
+      ],
+      "invariant": "Stored public membership/receipt rows are raw transport, while current contact/treatment use exact liveauthority/presence/interval/revision predicates.",
+      "acceptance": "Preserve historicclosedrows, exactretrytuple/idempotence, observerrelativeprivacy, refusedoverrides/emergencybandageonly, nonemptyactionbytebound, clocks0legitimateandfalliblesourceerrorseparate.",
+      "qualification": "ActualprivateContextualTreatmentClaim ispubfields rawcontext/revisionnotsealedidentity. TypedlowerCharacterId/StrategicPlace/BodyRegion/Seed references keepindependentactualdefinitionpolicy; no membershipfromtypename. Rawtableliteral cancarryreversedinterval but actualconsumerchecks; futurecoherentintervalowner mustpreserveequalinstantemptyandright-open semantics. Rolepermissiondoesnotproveepoch/sourceprovenance. No freshcheckedtypebypassfindingcount.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-069.json#bounded-p16-world-event-commit",
+      "queue_indices": [
+        36
+      ],
+      "invariant": "Raw envelope/source inputs mustpass actualcommitvalidationrouting; conversion itselfdoesnotseal source dose/immunity/authority.",
+      "acceptance": "Keep exacterrororder/preflightbeforeapply, sourceIDs/versions/idempotence, doseunits/microunits/sign/rawrejected distinctions andqualifiedpartialranges.",
+      "qualification": "No newprivatevalidatedtype/default/Serde/Reflect admitted here, rawenvelope remainsbroad; canonicalvalidationdelegation notclaimedsealeduntillowercurrentreceipt. Digestonlyretry/provenance andsourceimmunityloss retain existingproducer/owner repair,evidence/laterlens separately; no blanketsourcewholefileextensionfromqualifiedendpoints.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-069.json#morale-raw-kernels-and-closed-tags",
+      "queue_indices": [
+        92
+      ],
+      "invariant": "Closed morale/status tags are distinct from rawnumericrecords and scalarcalculation policy; no universal finite-fraction token isdeclared.",
+      "acceptance": "Preserve onegeneralfatigue/visibleincapsources, strategiccheckthresholds separatefromtacticalmovement, signedmorale/zero durations and exactnonfinitepolicies/FPorder.",
+      "qualification": "Functiondocs result boundedunderactualinputpolicy do notsealrawarguments/return; missingbespokeunit/policypropagation remainowner/producerfindings. Correlatedeffects/finiteoverflow belong04/05crossrefs, no fabricated narrowerprobabilitycaps orcurrentruntimeclaim. Existingtestsactualstrategicstaggerthreshold/command/fervor/decay/blood/masteryexamples readnotexecuted.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-070.json#pure-strategic-action-admission-and-replan",
+      "queue_indices": [
+        108,
+        21
+      ],
+      "invariant": "A plan is evidence, never authority; pure helpers validate local shape while actualreducers supply source authority and freshlyreplan beforecommit.",
+      "acceptance": "Preserve positive requested durationvs0realized, allu64strategicclock0/MAX, endpoint/tie/errororder, fullreceipt/replancomparison, sourceprivacy, selfcontainmentrejection and originaltests. Neveruseplanaloneasauthority.",
+      "qualification": "Public evidence records/closedvariants canbemanuallyassembled butsourceexplicitlydoesnotclaimpermissiontoken orwholegraphadmission; sourceauthority validation remainsactualdomainreducers, no phantomnewdefectbypublicfields. Lowerobjectcustody/strategicplace currenttypedinputpolicy mustnotbeinvented; exactactualcalleeinvocations/privacypathestablishedonly. No serialization/persistence surface inthismodule.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-071.json#actual-journey-camp-and-conserved-time-consumers",
+      "queue_indices": [
+        122,
+        23
+      ],
+      "invariant": "Canonical camp identity describes a location only; actual coherent livejourney checks establish currentcamp, and training commits only actual common clockprefix.",
+      "acceptance": "Preserve 0movement/emptyNone/checkpointdistinction, activeoutboundonly, commonprefix-beforetraining, settledterminal0, wrappedenvironmentclock versusabsoluteauthority, leadershippreservation andfullPR/P16 actualsamecontract.",
+      "qualification": "No newsealedowner/decoder/default/reflection inthisfile. RawpublicParty/Journey/Route/Fatigue recordscanencodeincoherentstate; actualusingpredicates/gatheredDBrows govern currentcamp, no claimallpublicstatevalid. ForecastSome/plan? andlowertraining/disease semantics exactdelegationboundaries, notautomaticlower-sourcecoverage. Correlatedmovement/elapsed/conservation/freshauthority remains04/05/evidence review, no newconstructorbypasscount.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-072.json#p16-forage-current-source-and-rights-admission",
+      "queue_indices": [
+        19
+      ],
+      "invariant": "Raw environment/resource/authority records are separate from resolve request gates and privately question-bound license decisions.",
+      "acceptance": "Preserve current-vicinity/yearround/no-marketpricing, canonicaldraworder, licensedenialversuslocalillegalclassification, partialexposure/no partialyield, rawrejectedmixture and originalfixtures/testsunchanged.",
+      "qualification": "ForagePlanAuthority/resolution/publicfieldscanbeassembled outsidecorrectresolve; pureplanisevidenceactualreducersmustreplan current070, notclaimssealedlookup/authority. BounddurationpolicyseparatepositivegenericRequestedDuration; do not imposewholehourrestrictiononrealizedelapsed. ExactlowerP16Rights/Custody/Place declarationpolicy stillindependentlyscoped; actualcall/digestbinding established, no falsePRversioncredit.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-072.json#p16-medicinal-preparation-raw-authority-and-wait-plan",
+      "queue_indices": [
+        20
+      ],
+      "invariant": "Typed preparation fragments and privategenericplan do not authenticate publicauthoritybooleans; actualtime completion gates preparation effect.",
+      "acceptance": "Preserve terminalclipping/no inventedcompletion, minimum1workminute, finitecheckfallbackcurrentpolicy, exactrightsquestionnamespace and originaltestdata.",
+      "qualification": "Publicauthoritycanlieaboutcustody/rightsbooleanorcurrentrevision; sourcepureplanningnotsealedpermission. NoallprofilemembershipfromString/versionorDomaintrait. ExactP16lowerplancontractnowactualREG055/current070comparison, canonicalrights/custodytypedinputqualifiednotPRhashinference.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-073.json#canonical-body-mass-dose-and-closed-regions",
+      "queue_indices": [
+        93
+      ],
+      "invariant": "Checked living bodymass and bounded medicinal dose have private backing; raw meters/curves/administrations/notebook spans remain separate simulation/evidence records.",
+      "acceptance": "Preserve massinclusive20..300, dose0..8000standard1000/rounded0, finiteerrororder, exactclosedregionlabels, signedmeter[-1,2]/terminal>=1 andmany-to-onehumours, expiry/inclusivespansemanticsandrawrejected/notebookevidence.",
+      "qualification": "Mass/Doseprivateleafroutesintact; no broadnumericfinite/policycredit topublicMeterVector/Administration/PresenceSpan orcodedprofilemembership. Relevantrawrecordstrengthening/interval/correlatedgraph findingsremainexistingowner/producerconnectedrepair, notnewprivateconstructorbypasscount. ActualbodyregioncanonicalpolicyseparatefromTacticalBodyPart/Stomachmapping; no enumrename/compatibilityalias. Originaltestsreadsourceonly, notexecuted/extended.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-074.json#skill-identity-private-aptitude-policy-and-raw-hour-operations",
+      "queue_indices": [
+        107
+      ],
+      "invariant": "Closedskill identity and privateauthored governing percentages are separate from mutable rawhours/training math and player-provided attribute/body/equipment traits.",
+      "acceptance": "Preserve zeroaptitude/noaward, latenthoursabovecurrentcap, intentionalrank5infiniteboundary, direct-onlyonepasstransfer andactualfixedsourcepolicy; injuryperformance separatelearningaptitude, no hiddenfatiguefactor.",
+      "qualification": "Storedstrategiccharacter_skills finiteness cannotbeprovenfromtraininghelperalone; invalidrealhours earlyreturndoesnotrepairalreadyinvalidstored. ActualDBdeclaration/currentingress separatelyowned, asnotifiedRigcourtsinsightdependency. PrivateGoverningAptitudesconstructorpercentpolicyintact, but doesnotcertifyarbitrarylowertraits orrawLimbWeightinput. Sourceonlyno newtests/cases/assertions.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-075.json#quest-projection-current-canonical-admission",
+      "queue_indices": [
+        96
+      ],
+      "invariant": "Generated public evidence and testimony projection must preserve checked identity/text admission separately from catalogue membership and privacy.",
+      "acceptance": "Preserve rawrejected/testimonyreliability evidence/privacy, Noneempty, finiteintegerdifficultyunits andoriginalcataloguefallback/priority; keep open syntax vsmembership distinct.",
+      "qualification": "Type names/callsiteexpect(\"validated...\") do not prove catalogue admission or model currentdefinitions. Actualcanonical modelREG057 supplies ID/Weight/Context facts separately and discovers F007/F008; rawgeneratedrecords may encodeinvalidgraphthroughfields/Serde, fullvalidation/assembly separatelyRootscoped, notsourcecompletefromthispacket. Productionexpect/unreachablecleanup retained underexistingRustwork, no new tests.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-075.json#bounded-solver-and-closed-action-assembly",
+      "queue_indices": [
+        98
+      ],
+      "invariant": "SolvedVariables is private selected evidence under supplied currentcontext/catalogue facts, not a source authority token.",
+      "acceptance": "Preserve deterministiccanonicalordering/traceincludingbacktrack, limits/errororder, originalclosedmechanicmapping andactualopencatalogue IDs. No workload-based scopewaiver ornewtests.",
+      "qualification": "Source03 localselection gates intact, but sourcecatalogue/currentcontextvalidation isindependent; IDs do notproveexistence/privacy/graphreachability. RawEffectsu16/u8 fields notgenericUnitBasisPoints/newcheckedleaf. Solver usesrealindices notpublicproofindex. Fullgraph/unsat/evidence/laterlensesremainopen; currentexpectcleanup routineimplementation, not inventeduserquestion.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-075.json#exact-model-dependency-contracts-and-two-alternate-route-gaps",
+      "queue_indices": [],
+      "invariant": "Checked constructor syntax must hold across all admission routes; open catalogue membership must remain independent.",
+      "acceptance": "Seal boundedquest ID tuple/Serde admission and make static open-ID route enforce exactsame syntax, while preservingunknownsyntax-validcatalogueIDs/actualconstants/bytebounds/errorsemantics. Source-onlylatentbypass; no actualbadcaller/newtests/runtimeclaim.",
+      "qualification": "Onlyexactthree rangesanalyzed; incidentalimportedtypes/nextVisibleWitness docs337–341notcoverage, SiteRole/Reliability/EvidenceKind invocation after161notcurrentREG057coverage. Macrobodyproves routegap atactualSiteKind declaration only, no automaticallotherdefinitionsscopegrowth. Rootoriginalmodelwholeaudit/repairauthority retained.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-076.json#existing-outbreak-admission-regressions",
+      "queue_indices": [
+        100
+      ],
+      "invariant": "Original rejection and generation fixtures document separate chronology, route, site membership and privacy contracts; they are not runtime validation or new test execution.",
+      "acceptance": "Retain all original fixtures, deterministic seeds, physical/social alternatives, privacy and rejection order.",
+      "qualification": "Raw mutation and unchecked fixture reports are intentional rejected input, not canonical admitted state. Test invocation does not cover production validator/assembly bodies; no execution/new assertions.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-076.json#existing-projection-and-limit-regressions",
+      "queue_indices": [
+        101
+      ],
+      "invariant": "Projection must preserve privacy and candidate limits independently of raw fixture construction.",
+      "acceptance": "Preserve exact limits, error precedence, privacy and original cases without adding or running tests.",
+      "qualification": "Original fixtures/source assertions only. visible_witness_candidate/compile canonical source bodies remain separate obligations; test calls are not body credit.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-077.json#original-exact-referral-and-route-rejection-fixtures",
+      "queue_indices": [
+        102
+      ],
+      "invariant": "Exact persistent witness identity and complete route state govern contact transitions; display name and syntax-valid action IDs do not confer authority.",
+      "acceptance": "Preserve idempotence, duplicate failure, exact integer IDs, terminal empty successors and original rejection fixtures.",
+      "qualification": "Existing fixtures mutate deliberately raw records. No new type factory or decoder in this test file; calls to production validation/transition do not clear unread production bodies. No execution/new tests.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-077.json#original-solver-generation-and-privacy-fixtures",
+      "queue_indices": [
+        103
+      ],
+      "invariant": "Generated cases must retain deterministic variation, catalogue hard-zero exclusions, graph reachability and opaque public identity.",
+      "acceptance": "Keep exact seeds/counts/hardzeros/bridges, open catalogue IDs, deterministic ordering and separate location versus resolution.",
+      "qualification": "Original source assertions/sweeps not executed. Their finite fixture set does not prove universal privacy, catalogue validity, entropy provenance or standalone GeneratedCase validity; later graph/aggregate lenses remain separate.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-077.json#original-testimony-and-trail-admission-fixtures",
+      "queue_indices": [
+        104
+      ],
+      "invariant": "Private reliability/concern cannot leak through initial dialogue; exact referral, ID budgets, challenge boundaries and contiguous track links remain separately validated.",
+      "acceptance": "Preserve None authored response, raw rejection fixtures, privacy, exact ID bytes, advertised tab membership and track chronology.",
+      "qualification": "Raw GenerationContext/WitnessCandidate fixtures deliberately constructed publicly; source tests are not sealed admissions. No production body credit from calls, no execution/new assertions; modelF007/F008 remain independent despite valid fixtures.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-078.json#investigation-native-resolution-and-planning-admission",
+      "queue_indices": [
+        89
+      ],
+      "invariant": "Closed action observations and raw environmental/resolution inputs are separate from reducer-owned capability/party/place authority and checked strategic plan construction.",
+      "acceptance": "Preserve firstattempt/nativeRNG sequence, sixth bound, error/rejection order, privacy, zero wait/enumclosedness, nativecosts, requestedinterval versus realizedcommit and existing fixtures; no new tests/execution.",
+      "qualification": "RawEnvironmental/Skill/Resolution records do not seal documented basispoint bounds or authority; no ctor bypass alleged where no checkedowner exists. Caller-supplied Allowed decision is not authentication, unchanged typedinput loweridentity policy qualified. Resolutioncost/duration/member correlation belongs exactcaller/aggregate lens, not inferred from suffix Authority. NativeRNGactualRoot023 index10000 and StrategicAction070 checkedprivateplan joined, original tests source-only. Production computed-value clamping is intentional existingkernel, not admission policy proposed for allinputs.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-079.json#developer-definition-raw-input-and-exact-compile-boundary",
+      "queue_indices": [
+        85
+      ],
+      "invariant": "Editable developer authoring input is raw; authoritative root IDs/time/settlement come from supplied server context and structural validation must precede materialization.",
+      "acceptance": "Preserve raw authoring/rejection inputs, exactdiagnosticpaths/order, allstructuralfailuresunderoverride, opencatalogueidentity, authoredcustodysite notforcedfinale, deterministicnamespacing and prose bytes; no newtests/execution.",
+      "qualification": "Public parsed input/returned raw GeneratedCase is not unforgeable validity. Known modelF007/F008 alternateleafroutes persist despite this stricter author-local gate; compile can reject malformed declarations but doesnotrepairgenericcanonicaltype. Servercontext presence/entropy/authority supplied externally; helper trusts sourcecontext, no cryptographic secrecy impliedbyprivate naming. Actual originaltests exercisebounds/duplicates/missingrefs/unsupportedchallenge/plausibilityoverride/namespacingnotprose, unexecuted.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-080.json#disease-raw-authority-records-and-authored-catalogue",
+      "queue_indices": [
+        86
+      ],
+      "invariant": "Disease identity and absolute minute leaves have separate admission from raw episode/version/source/capability records and native physiology/exposure equations.",
+      "acceptance": "Preserve rawrejected/scenarioinputs, all12diseases versus9fixturepolicy, authoredresidualrisk, zero/nativeempty/None, absoluteinclusiveclipping, nextminuteeligibility, stableordering/RNGbytes and exact FP/clamp behavior until explicitconnectedrepair; originaltests source-only.",
+      "qualification": "Do not constrain allimpairments or exposure intensities to0..1: combinedvitals canexceed1 and diseaseprofile/scenario exposes1e6dose; privateMeterVector[-1,2] isseparate. Publicepisode versions/character/sourceID do notprovepersistence/sourceauthority. CanonicalBodyRegion/Dose/clock/Seed exactcurrent073/020/Root023 policies applied; aggregate_bounded_party_check importeddelegate not freshlylowerbodyclearedhere. No newsealedleafalternateadmissiondefect inthisfile; source-raw finitechecks/missingowner andlaterarithmetic/aggregatefindings preserved.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    },
+    {
+      "ref": "contract-groups-081.json#local-problem-db-raw-schema-and-exact-authority-consumers",
+      "queue_indices": [
+        118
+      ],
+      "invariant": "Private DB raw rows and projected receipts are not validity or permission tokens; current generation bindings, observer versus official clocks and retry identity must be checked at actual consuming boundaries.",
+      "acceptance": "Keep strictcanonical/pubcasebinding, unknown/skipped/None semantics, authoritativeversusobserverclock, boundedwork/order, immutable retries, rawrejectedDTO/schema and privacy; no tacticaltick persistence/newtests or sourceedits.",
+      "qualification": "No declaredcheckedleafbypassfoundinthisfile; rawtable/DTOrejectedinput andtrustedinternalboundariesmustnotbeconflatedwithvalidatedcanonicalstate. Candidatecorrelatedauthority/visibility/timing/retryproof belongs exactreceivers andlateraggregate/lens, not newblanket defect count. Originalsource-boundarytests readastext incl referencedinclude_str arguments; referencedforeignfiles notopened/clearedthroughstringassertions. No global DBauthority/privacy/sourcecomplete claim.",
+      "semantics": "Actual substantive admission narrative in ref; compact index is navigation only"
+    }
+  ],
+  "findings": [
+    {
+      "id": "NATIVE-ADMISSION03-F001",
+      "evidence": null,
+      "scope": "pr-working:crates/adventuresim-tactical-core/src/animation/ik_parameters.rs",
+      "qualification": "shaping_time.rs31–36 actualsolecaller passes.min1, so runtimepathcurrentlymaintainscap butfactorypreconditionunenforced."
+    },
+    {
+      "id": "NATIVE-ADMISSION03-F002",
+      "evidence": null,
+      "scope": [
+        "pr-working:crates/adventuresim-tactical-core/src/animation/state.rs",
+        "pr-working:crates/adventuresim-tactical-core/src/animation/state/action_timeline.rs",
+        "pr-working:crates/adventuresim-tactical-core/src/animation/state/posture_transition.rs"
+      ],
+      "qualification": "ExistingSnapshot/ActionState decode explicitlynormalizes and current projection checks badpreviousvelocity. Some exposedrecords may beintentionalrawsource; remedy must preserve rawinvalidinputevidence and placeadmissionclearly ratherthanblindlyreject/fixallSerde. Crossfieldguarantees05notcleared."
+    },
+    {
+      "id": "NATIVE-ADMISSION03-F003",
+      "evidence": null,
+      "scope": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/raised_footwork.rs",
+      "qualification": null
+    },
+    {
+      "id": "NATIVE-ADMISSION03-F004",
+      "evidence": "contract-groups-020.json#celestial-public-result-admission",
+      "scope": "pr-working:crates/adventuresim-core/src/celestial.rs",
+      "qualification": "Actual factory normalizes finite typed-input celestial equations, and current sky uses this factory; no current invalid caller or runtime symptom shown."
+    },
+    {
+      "id": "NATIVE-ADMISSION03-F005",
+      "evidence": "contract-groups-022.json#scene-camera-view-admission-and-mutation",
+      "scope": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/placement.rs",
+      "qualification": "Fixed orientation intentionally accepts target independent ofposition; do not imposeLookingAtconstraints there. No actualinvalidcurrentcaller/runtime demonstrated. Crossrefsaggregate05; this is admission/visibility support for existing viewrepair."
+    },
+    {
+      "id": "NATIVE-ADMISSION03-F006",
+      "evidence": null,
+      "scope": "pr-working:crates/adventuresim-core/src/rights/validity.rs",
+      "qualification": "Latentencapsulation/correlatedadmissiongap, no actualbadcaller/runtimeexecutionclaimed. Fullparentrights105 separatelyqueued, actualacceptedgrantreceiverwillbecompared there. Rootcanonicalclockproof andNativeREG006 prove0/MAXvalid; do notinventnonzero/strictthrough>from."
+    },
+    {
+      "id": "NATIVE-ADMISSION03-F007",
+      "evidence": "contract-groups-075.json#exact-model-dependency-contracts-and-two-alternate-route-gaps",
+      "scope": "pr-working:crates/adventuresim-core/src/quest_generation/model.rs",
+      "qualification": "Latent alternate-admission gap. Current inspected static/generated callsites use checked new; no actual invalid caller/runtime symptom claimed. Original IDs remain open within their accepted syntax; no catalogue-membership narrowing."
+    },
+    {
+      "id": "NATIVE-ADMISSION03-F008",
+      "evidence": "contract-groups-075.json#exact-model-dependency-contracts-and-two-alternate-route-gaps",
+      "scope": "pr-working:crates/adventuresim-core/src/quest_generation/model.rs",
+      "qualification": "Latent constructor-policy mismatch at actual SiteKind macro expansion155–160. Original named constants inspected are valid; no current bad caller/runtime failure. UTF8 input remains valid; this is syntax consistency, not memory safety or required catalogue membership."
+    }
+  ],
+  "delegation_qualifications": [
+    {
+      "contract": "Opaque/remote checked reflection",
+      "evidence": "continuation/rig/admission03/reflection-witness-001.json; local002/016/021/059",
+      "limit": "Existing concrete Self clone preserves invariant; raw lowervisibilitybypassesRootG007 unaffected. ExactP17namespaceversion039–043 compared."
+    },
+    {
+      "contract": "SATS basispoints",
+      "evidence": "continuation/camera/admission03/sats-basispoints-route-001.json; local042/043; REG014–019",
+      "limit": "PRactualnamedproductdecoder plus exactP16namespace bridge; not tuple/enum/arbitraryversion blanket."
+    },
+    {
+      "contract": "Canonical geometry",
+      "evidence": "continuation/root/admission03/contracts.jsonl#ROOT-ADM-GEOMETRY-001; qualifications.jsonl G007; local016/021/059",
+      "limit": "Position/Displacement pub(super)latentbypass retained; SignedLength privatefinite unaffected. SpecificPR/P16/P17source comparisons distinct."
+    },
+    {
+      "contract": "Runtime config versus raw DTO",
+      "evidence": "continuation/camera/admission03/contracts.jsonl CAMERA-ADM03-011/012; continuation/root/admission03/graphics-config-admission-022.json; local028/030/054/065",
+      "limit": "Actualinstalledcombatconfig validates; publicrawDTO doesnotseal; Graphics Settings clonesno revalidation, RootF006support."
+    },
+    {
+      "contract": "Schedule daily versus clipped",
+      "evidence": "continuation/root/admission03/schedule-admission-021.json; local022constants/045/049/070–072",
+      "limit": "RawScheduleAllocation/realizedclipped0or7minutes intentionallybroad; privateValidatedScheduleintact/publicplanOrgF005 preserved."
+    },
+    {
+      "contract": "Raw tactical equipment and mesh diagnostic",
+      "evidence": "continuation/camera/admission03/equipment-admission-033.json; RigCON054WeightSummary; local019/048/066",
+      "limit": "Physicalis_validactualpredicate separatefromrawSerde/Reflect/F007. Literalfixturedoesnotinvokeit; validate_breastplate lowerpredicate separateRigassignedsource, not name-onlycredit."
+    },
+    {
+      "contract": "Canonical identities/custody/authority",
+      "evidence": "local034/035/037/070/075/079/081 plus exactsharedBook008/openRig032/table037/proportions041",
+      "limit": "Typedinputboundary doesnotproveDBmembership/sourceauth. Rootquestgenerationvalidator/strategic/investigation lowerbodyobligations retained; Nativeprovesactualcallsandlocalchecks only, not their unseenpredicatebodies."
+    },
+    {
+      "contract": "Current standard/foreign ports",
+      "evidence": "local036/038–040/043/047/067",
+      "limit": "Display/String/nestederrors/nativeDuration/SDKstructuraldecode actuallywarrantedatspecifiedoperation only; noforeignalldecoders/bodywaiver. REG051incidentalexcluded."
+    }
+  ],
+  "current_original_queue_complete": true,
+  "global_acceptance": false,
+  "later_lens_credit": false
+}

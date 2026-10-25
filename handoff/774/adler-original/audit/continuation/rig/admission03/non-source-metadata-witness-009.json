@@ -1,0 +1,66 @@
+{
+  "id": "RIG-ADMISSION03-NON-SOURCE-METADATA-009",
+  "source_id": "pr-working:crates/adventuresim-character-creator/Cargo.lock",
+  "sha256": "60cf80c50552791fe98d6c50b3a730b7c0f04bdfa993ec003a781538683e6d72",
+  "scope_ranges": [
+    [
+      1,
+      12310
+    ]
+  ],
+  "method": "Entire pinned file consumed with stdlib TOML parser; exhaustive actual top-level/package field schema classified. Partial literal display was truncated and is NOT claimed as a full line-by-line human source read. This is non-executable dependency metadata, not source admission implementation.",
+  "top_level_fields": [
+    "version",
+    "package"
+  ],
+  "lock_format": 4,
+  "package_count": 1064,
+  "package_field_schemas": [
+    {
+      "keys": [
+        "checksum",
+        "dependencies",
+        "name",
+        "source",
+        "version"
+      ],
+      "records": 726
+    },
+    {
+      "keys": [
+        "checksum",
+        "name",
+        "source",
+        "version"
+      ],
+      "records": 253
+    },
+    {
+      "keys": [
+        "dependencies",
+        "name",
+        "version"
+      ],
+      "records": 29
+    },
+    {
+      "keys": [
+        "dependencies",
+        "name",
+        "source",
+        "version"
+      ],
+      "records": 56
+    }
+  ],
+  "source_kinds": {
+    "registry": 979,
+    "local": 29,
+    "git": 56
+  },
+  "unexpected_fields": [],
+  "disposition": "All records supply package identity/version/source/checksum/dependency selection only. No constructors, retained gameplay values, native math predicate, Serde/Reflect adapter bodies or feature-gated source implementation occurs in this document. Metadata accounted without any SDK/source-route or compilation/feature activation clearance.",
+  "limits": "Package count/schema classification is bookkeeping only and does not establish correctness of any package implementation. Actual directly reached adapters require their own prospective source registration and current-lens proof.",
+  "repair": "frozen",
+  "validation": "not_run"
+}

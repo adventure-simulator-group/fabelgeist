@@ -1,0 +1,44 @@
+{
+  "id": "SEGOVB-INITIAL10-F003",
+  "classification": "source-backed maintenance suggestion",
+  "source_id": "physical-p16:crates/adventuresim-core/src/bestiary.rs",
+  "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+  "ranges": [
+    [
+      210,
+      247
+    ]
+  ],
+  "problem": "ReportDescription manually forwards Serialize as the same string serializer already owned by its sole ThreatId field.",
+  "equivalent_implementation": "Derive serde::Serialize with #[serde(transparent)] on nongeneric ReportDescription(ThreatId); remove only wrapper Serialize237\u2013241.",
+  "source_proof": [
+    "ThreatId Serialize124\u2013128 invokes serializer.serialize_str(self.as_str())",
+    "ReportDescription as_str228\u2013230 delegates same inner as_str; Serialize237\u2013241 invokes same string serializer",
+    "Pinned serde_derive1.0.229 transparent serializer191\u2013212 already personally consumed in fresh-dependency-registration-006.json delegates borrowed inner directly with same serializer"
+  ],
+  "acceptance": [
+    "Same serializer method, borrowed string bytes and error/result propagation; no ownership change or generic bounds",
+    "KEEP ReportDescription custom Deserialize242\u2013247: try_new is syntax-only and emits invalid description ID; deriving transparent Deserialize would call catalogue-member ThreatId Deserialize129\u2013133 and change admission/error policy",
+    "Keep custom Debug232\u2013236 and ThreatId fixed-buffer string wire adapter; neither is replaced by structural Debug/Serialize"
+  ],
+  "qualifications": [
+    "Frozen physicalP16 selected contracts plus necessary exact local signature dependencies only; not full bestiary1558 coverage",
+    "Source-backed optional cleanup, no runtime defect or execution claim",
+    "Catalogue-vs-syntax distinction preserved; no global uniqueness claim"
+  ],
+  "independently_analyzed_source_variants": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/bestiary.rs",
+      "scope_index": 881,
+      "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+      "actual_compared_ranges": [
+        [
+          1,
+          1558
+        ]
+      ],
+      "evidence": "contract-groups-484.json",
+      "disposition": "Same exact F003 wrapper serialize237\u2013241 remedy; full PR body personally consumed, earlier P16 slice qualification remains distinct."
+    }
+  ]
+}

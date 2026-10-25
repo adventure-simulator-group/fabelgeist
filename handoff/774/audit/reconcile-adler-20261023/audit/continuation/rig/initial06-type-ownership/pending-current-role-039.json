@@ -1,0 +1,50 @@
+{
+  "id": "RIG-INITIAL06-PENDING-CURRENT-ROLE-039",
+  "at": "2026-10-22T20:37:23.592202+00:00",
+  "status": "actualbodyread_current06; whole-sourceownerroleclosurepending",
+  "sources": [
+    {
+      "scope_pointer": "/files/920",
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment.rs",
+      "sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+      "actual_fresh_read_ranges": [
+        [
+          1,
+          1182
+        ]
+      ],
+      "actual_EOF": 1182
+    },
+    {
+      "scope_pointer": "/files/939",
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "sha256": "96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+      "actual_fresh_read_ranges": [
+        [
+          1,
+          618
+        ]
+      ],
+      "actual_EOF": 618
+    },
+    {
+      "scope_pointer": "/files/901",
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/melee_resolution.rs",
+      "sha256": "5dd8e24f1b117b07079d9bbd53930a23740ac4970336b315e88a11642e2d0635",
+      "actual_fresh_read_ranges": [
+        [
+          1,
+          123
+        ]
+      ],
+      "actual_EOF": 123
+    }
+  ],
+  "actual_owner_witness": "contracts-039.json#/groups/duplicate-weapon-skill-value-owner-current-witness",
+  "pending_exact_roles": [
+    "Equipment/Schema canonicalFitZone/SurfaceSpan/AnimationPackID/ParametricWeapon/LoadoutSlot/Skill directownerdefinition/use join; allarecurrentreachedrole, no newforeigngraph",
+    "MeleeResolution uses MeleeContactLocation/DefenderResponse/AttackResult declarations fromcurrentCorecombat/targeting/defense roles; closurepending actual06definitions",
+    "No automatic sourcecellclearance fromfullbodyread; preservefreshread toavoid repeating unnecessarily"
+  ],
+  "source_limits": "PRArmorhelper40\u201394 pendingCamera07REG007/global; PRParametricWeapon66pendingCameraREG006/global; no bodycredit fromnotice"
+}

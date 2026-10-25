@@ -1,0 +1,101 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-102",
+  "at": "2026-10-25T16:28:56.018708+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1457,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/audio_config.rs",
+      "sha256": "d1111aa5bdab4e1897a07e82062d8ffc5ffbed8a0790fa75a4c0c482d2e36063",
+      "personally_read_ranges": [
+        [
+          1,
+          206
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full206 audio configuration read. validate establishes finite unit volumes, positive pitch/radius/exponents/rates, ordered positive pitch pairs, wind threshold below10000 and heavy-rain threshold strictly below1 before parser success. Public crate fields and derivedDeserialize can bypass that gate; M61 must retain checked whole audio configuration through actual startup/receivers rather than revalidate raw floats. Actual parse/load path does call validate, so no ordinary shipped invalid configuration claimed. File/YAML String cause erasure is an internal error boundary gap until final CLI/browser sink; existing owner/error graph applies.",
+        "Pitch pair is a positive ordered interval, not two independent unit fractions: values above1 are valid. Zero wind/rain thresholds and volume valid where actual policy permits; positive radius/rate differ. Existing fixture deliberately rejects reversed endpoints, read only."
+      ]
+    },
+    {
+      "scope_index": 1458,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/browser_runtime.rs",
+      "sha256": "afb6d3b0ff97037051e1fae2f1c9340a31fe07a1b34a6bc244d0110010c429d3",
+      "personally_read_ranges": [
+        [
+          1,
+          507
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full507 persistent browser runtime source consumed. F008 records actual whole-batch deferred structural state mismatch, with real JS producer and native primary semantics. Mode, client/character/server, selected forge root and teardown cannot be independently accepted. PreparationTicket/StrategicView/MapCommand retain existing canonical payloads at wire admission; external JSON String is a true port, not blanket primitive waiver internally.",
+        "F31 exact JS CharacterId numeric narrowing remains, and M80 forge angle/distance state requires canonical checked owners until native Transform. F37 viewport clipped pixel/geometry admission remains receiving dependency. Independent Forge design_json override and catalogue default are intentional selection, not a requirement both represent one chassis without source policy. Mesh generation failures currently warn and return, preserve explicit failed/unavailable state rather than fake ready.",
+        "Native weapon JSON helper exports encode/decode at actual Wasm boundary and retain canonical WeaponDesign inside. quote stock keys need RIG-INITIAL06-F016 canonical ForgeStock through internal quote before JSON output. Preview finite input/angle accumulation belongs actual admission/operations; API tests finite bounded examples do not establish all native errors clear. Atmospheric one-pixel warmup camera is deliberate preparation behavior, not tactical camera authority."
+      ]
+    },
+    {
+      "scope_index": 1459,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/browser_runtime/forge_view.rs",
+      "sha256": "be717339d13100a2187fb5bbe385c1c074f5625fb45e7e40254f2f35f40551f3",
+      "personally_read_ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full44 forge camera adapter read. StrategicView optional forge rectangle controls camera activation through actual rect.apply(window physical size). It is a native viewport boundary, not another independently stored forge placement; no own scene/client authority. F37 clipping/rounding acceptance must reach this receiver. Camera/light/exposure constants are renderer policy, typed low-level semantics remain distinct from gameplay/tactical state."
+      ]
+    },
+    {
+      "scope_index": 2428,
+      "source_id": "pr-working:crates/strategic-web/static/strategic-renderer.js",
+      "sha256": "37325cf5d7929ee9c30e7443412975c9f522fbc48fb147dd754d77f8bda24f00",
+      "personally_read_ranges": [
+        [
+          1,
+          261
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full261 JS source consumed as connected producer ahead of ordinal frontier. actual command helper enqueues runtime Wasm JSON without waiting for world commit; all normal forge editor input changes can accumulate before one drain (F008). JSON/native widget numbers and dynamic field paths are real UI ports, but accepted design and constraint/source association require actual validation. Current detached/mounted forge/root weakmaps and async lifecycle must be traced rather than assume current root because a Promise resolved.",
+        "F31 is exact Number(characterId) loss at248\u2013251; preserve ID through nativeString/checked decoding instead. Editor generation quote and encodedrecipe derive from the same serialized design in updateForge, avoiding one computed authority per field; invalid recipe disables submit. free labels/format units are final UI presentation, not mechanic identity. Public network fetches are source behavior only; none executed."
+      ]
+    }
+  ],
+  "additional_material": [
+    {
+      "material_index": 160,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/system/commands/mod.rs",
+      "sha256": "a379a6828b061f0ef889b7a495f591282ac97f568e21d8355a14d33a3f7b3cc9",
+      "personally_read_ranges": [
+        [
+          42,
+          62
+        ],
+        [
+          398,
+          426
+        ],
+        [
+          1897,
+          1915
+        ]
+      ],
+      "package_checksum": "a350b2e4c2e47f7903d688affb8a723b31bca63af9789f1da88703f1ba04e354",
+      "lock_provenance": "FrozenPR Cargo.lock selectsbevy_ecs0.19.1 with exact a350b2e4c2e47f7903d688affb8a723b31bca63af9789f1da88703f1ba04e354; cached archive/member matches."
+    }
+  ],
+  "findings": [
+    "SEGO-INITIAL05-F008",
+    "M61 checked whole audio configuration",
+    "M80 checked forge view",
+    "F31 exact JavaScript CharacterId",
+    "F37 viewport relationship",
+    "RIG-INITIAL06-F016 canonical ForgeStock quote"
+  ],
+  "discovery": "Four full original roles including one ahead-of-frontier connected JS producer and exact new native material160 accounted. New discrete batch defect source-backed, whole lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

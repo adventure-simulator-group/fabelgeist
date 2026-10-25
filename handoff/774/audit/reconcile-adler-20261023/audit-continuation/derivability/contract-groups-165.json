@@ -1,0 +1,209 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-165",
+  "at": "2026-10-25T13:09:31.993681+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 321,
+      "source_id": "physical-p16:crates/adventuresim-strategic-sim/src/live_core/bootstrap.rs",
+      "sha256": "e58eadc935d9bd93c40262b170bc85c9e2d26c0b42ee490e882e0dd96f65be55",
+      "actual_EOF": 1325,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-strategic-sim/src/live_core/bootstrap.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-strategic-sim/src/live_core/bootstrap.rs",
+        "sha256": "e58eadc935d9bd93c40262b170bc85c9e2d26c0b42ee490e882e0dd96f65be55",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 58364,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 444,
+            "read_ranges": [
+              [
+                1,
+                1325
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SIM-PROFILE-BOOTSTRAP-059"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-strategic-sim/src/live_core/bootstrap.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-SIMULATION-CORE-GENERATED-PARTIAL-047",
+            "json_pointer": "/source_proofs/3",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-strategic-sim/src/live_core/bootstrap.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1325
+              ]
+            ],
+            "source_context": {
+              "index": 594,
+              "source_id": "physical-p16:crates/adventuresim-strategic-sim/src/live_core/bootstrap.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/adventuresim-strategic-sim/src/live_core/bootstrap.rs",
+              "sha256": "e58eadc935d9bd93c40262b170bc85c9e2d26c0b42ee490e882e0dd96f65be55",
+              "read_ranges": [
+                [
+                  1,
+                  1325
+                ]
+              ],
+              "mode": "Fresh actual source read and exact variant/role reconciliation; source proof only, not percell accounting",
+              "roles": [
+                "Current P16 bootstrap identical bytes and same exact full source/nativeSDK/profile/clock/error/report roles as301 freshly read1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01531325, explicitly reconciled."
+              ],
+              "pending_receivers": [
+                "Connected simulation cycle/settlement/survival/expedition/generated/travel producer and actual policy consumers remain assigned in30 packet; exact receipt will close only after actual bodies reconciled."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-SIMULATION-OBSERVATION-RECEIVER-CLOSURE-050",
+            "json_pointer": "/source_proofs/16",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-strategic-sim/src/live_core/bootstrap.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1325
+              ]
+            ],
+            "source_context": {
+              "index": 594,
+              "source_id": "physical-p16:crates/adventuresim-strategic-sim/src/live_core/bootstrap.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/adventuresim-strategic-sim/src/live_core/bootstrap.rs",
+              "sha256": "e58eadc935d9bd93c40262b170bc85c9e2d26c0b42ee490e882e0dd96f65be55",
+              "read_ranges": [
+                [
+                  1,
+                  1325
+                ]
+              ],
+              "actual_line_count": 1325,
+              "supplier_trace": "ROOT047/048/049",
+              "disposition": "Supplier producer/retained-state/operation/actual receiving-body inventory accounted with findings; Camera must explicitly consume before716 credit.",
+              "source_roles": [
+                "Current P16 bootstrap identical bytes and same exact full source/nativeSDK/profile/clock/error/report roles as301 freshly read1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01531325, explicitly reconciled."
+              ],
+              "actual_receiver_closure": "Root047/048/049 source facts plus full Rig036 survival/expedition/economy and Native022 cycle/travel/recovery receipts close the prior fifteen shared receiving obligations. No blanket source or native exemption."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/current_sources/16",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-strategic-sim/src/live_core/bootstrap.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1325
+              ]
+            ],
+            "source_context": {
+              "index": 594,
+              "source_id": "physical-p16:crates/adventuresim-strategic-sim/src/live_core/bootstrap.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/adventuresim-strategic-sim/src/live_core/bootstrap.rs",
+              "sha256": "e58eadc935d9bd93c40262b170bc85c9e2d26c0b42ee490e882e0dd96f65be55",
+              "read_ranges": [
+                [
+                  1,
+                  1325
+                ]
+              ],
+              "actual_line_count": 1325,
+              "supplier_trace": "ROOT047/048/049",
+              "disposition": "Supplier producer/retained-state/operation/actual receiving-body inventory accounted with findings; Camera must explicitly consume before716 credit.",
+              "source_roles": [
+                "Current P16 bootstrap identical bytes and same exact full source/nativeSDK/profile/clock/error/report roles as301 freshly read1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01531325, explicitly reconciled."
+              ],
+              "actual_receiver_closure": "Root047/048/049 source facts plus full Rig036 survival/expedition/economy and Native022 cycle/travel/recovery receipts close the prior fifteen shared receiving obligations. No blanket source or native exemption."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/additional_actual_source_proofs/3",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-strategic-sim/src/live_core/bootstrap.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1325
+              ]
+            ],
+            "source_context": {
+              "index": 594,
+              "source_id": "physical-p16:crates/adventuresim-strategic-sim/src/live_core/bootstrap.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/adventuresim-strategic-sim/src/live_core/bootstrap.rs",
+              "sha256": "e58eadc935d9bd93c40262b170bc85c9e2d26c0b42ee490e882e0dd96f65be55",
+              "read_ranges": [
+                [
+                  1,
+                  1325
+                ]
+              ],
+              "mode": "Fresh actual source read and exact variant/role reconciliation; source proof only, not percell accounting",
+              "roles": [
+                "Current P16 bootstrap identical bytes and same exact full source/nativeSDK/profile/clock/error/report roles as301 freshly read1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01531325, explicitly reconciled."
+              ],
+              "pending_receivers": [
+                "Connected simulation cycle/settlement/survival/expedition/generated/travel producer and actual policy consumers remain assigned in30 packet; exact receipt will close only after actual bodies reconciled."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1292,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1325
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "All1325 lines personally consumed in four bounded reads. Only bootstrap/run/policy/output functions; no local type/manual trait or serializer. Existing referenced report/config/runtime state definitions live elsewhere."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "live simulation bootstrap and final public observation/report construction",
+      "disposition": "No derivability cleanup. Explicit runner initialization supplies configuration/state, bootstrap binds safe native SDK observations and reports compose distinct public measurements/metrics/trace/fixture facts. They are multi-source projections, not mechanical single-input From/serialization. Keep native error reporting and safety gates, exact fixture selection and semantic event evidence.",
+      "qualification": "All network/reducer/thread/sleep code read only, never executed. No simulator report/runtime acceptance or child-type coverage inferred."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 322,
+    "source_id": "physical-p16:crates/adventuresim-strategic-sim/src/live_core/policy.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

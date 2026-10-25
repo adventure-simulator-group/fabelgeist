@@ -1,0 +1,45 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-066",
+  "at": "2026-10-23T00:24:52.999401+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/model.rs",
+      "sha256": "91e0b874352ecb65b64568b5149fbf1bd8a1103dbb836c2a5639cca239ab0043",
+      "actual_compared_ranges": [
+        [
+          60,
+          91
+        ],
+        [
+          250,
+          440
+        ]
+      ],
+      "source_evidence": "Fresh new60-91 PLUS original250-440 actualread. 250-256 priorCourtshipRecordtailcontext,439-440nextDowryEscrowattributescontext; no excludedhouseholdorprecedingroutefielddeclarations."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_state.rs",
+      "sha256": "b704a73eded4ae15345f15781c8f117d919e7f97e047e08e31bb068c912072f8",
+      "actual_compared_ranges": [
+        [
+          1,
+          573
+        ]
+      ],
+      "source_evidence": "Fresh fullactualP16canonicalstateparsers/declarations/existingtests toclose direct parsed_state recipients, no PRhashverdictcarry."
+    }
+  ],
+  "groups": {
+    "kinship-and-snapshot-stages": "Exactnewkind/table declarations have no numericaloperators/mutation. DirectedParent/Childreverseedge construction callerobligation distinctfromsameundirectededge, no blanketduplicatesourceremoval. CanonicalKinship versus frozenCorpseFamilyBinding permissions differentpurposeuntilactualprojectionproved; stale no-kinshipcomment evidence notstandalone gameplayfailure. No body/codeccreditforHousehold93-94attrcontext/enumderiveprefixoutside60.",
+    "relationship-row-operations": "Original250-440 parsed_state methods passcurrentrowfieldcombinationstoCoreconstructors, returntypedResultwithoutmutatingrow/retryclock. Discoveryreceipt/dayprimarykey/historybaseline eligibilitycapturedintentional, notcurrentActor.aliveduplicates. Pregnancyreservedchildid/childnameseed/sex/home/settlementatconception historicalbindingdifferentbirthresult. ActivePregnancylookup/reservation rowindexes differlifecyclepayload. SpouseleisureSlice actualstart/end/location vsOverlapreceipt vsAccrualremainder vsTrialreceipt fourstages, notfourliveclocks; no arithmetic/gateinthisdeclaration, actualintersection/remaindermutatorseparate. Rawu8conservedminutesnotproof<period; leavewholeownerpropagationgapexistingotherlens, no resultmodulobugfromdecl.",
+    "canonical-state-parser-matches": "Contract matchallowsOfferedempty, Accepted/Readybothparty+acceptedclock, Paidbothandpaid>=accepted, Withdrawnoptionalallornoneprioracceptance; failurebeforeSelf. MissionbindingOptionpairallornone, Committedresolutionexactpayload(Capturedrequirescustodyversioneven0legitimate), Failed/Cancellednone. PrivateCustodyVersionfullu32opaque notnonzero. Formalcourtshiprequiresfather/nosecrecy, Informalrequiressecrecy/nofather ANDdowry0; statusActive/Exposednoendedpayload, Endedhasboth. PregnancyBornrequireschild+resolved, Active/Ended exactNone/Somecombinations. MarriageActiveNone/terminalSome, Commitmentstatus/reasonclosedcompatiblepairs; locallyconstructedroute droppedifstatefails, noexternalpartialcommit.",
+    "lifecycle-and-leaf-limits": "Parserschecklifecyclepayloadconsistency, notexternalrowreferentialexistence or completechronologywhenstarttimesarenotparameters. Do not inferpregnancyconceived<=resolvedfromPregnancyState::parse orworldclockbound beyondcanonicalu64. Rawparty/subject/character IDs Strings/u64 retainedmigrationgaps; derivingEq onpubstatevariants notcompletebusinessadmission. Literalnoarithmeticequal/orderbranches finiteclock safe, no uncheckedindexes/countnarrowing. ErrorstaticDisplaynativehumanport, notprematureauthoredcauseerase. Existingstate tests source-readincludingzeroCustodyVersionacceptance, noexecution/newtests/assertions/helpers."
+  },
+  "findings": [],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

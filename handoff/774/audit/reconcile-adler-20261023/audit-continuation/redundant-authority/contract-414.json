@@ -1,0 +1,84 @@
+{
+  "id": "CONT07-CONTRACT-414",
+  "at": "2026-10-23T21:29:05.369952+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1815,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/banks.rs",
+      "sha256": "a1e7915c756f7e5046405fc0347f787bca5fdfe2bd2c43fe61b32ff02bba3c6c",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/banks.rs",
+      "actual_EOF": 146,
+      "ranges": [
+        [
+          1,
+          146
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1816,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/constraints.rs",
+      "sha256": "09c5be604238aa229f500445a67b533b8ef1d012d81e5627dd8b5aeeb7825fc9",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/constraints.rs",
+      "actual_EOF": 141,
+      "ranges": [
+        [
+          1,
+          141
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1817,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/geometry.rs",
+      "sha256": "35462629537232e291556fb180d6092e157ed718cf492f6a448d1c1c142cf0cb",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/geometry.rs",
+      "actual_EOF": 242,
+      "ranges": [
+        [
+          1,
+          242
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1818,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/replacement.rs",
+      "sha256": "b75aba1e567b755f62e7882e2ad69001c5ad5fc8923d0b9a8430a4ffcebf0f32",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/replacement.rs",
+      "actual_EOF": 152,
+      "ranges": [
+        [
+          1,
+          152
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "RIG-OWNER-SUPPORT-BOUNDARY-KERNELS-063",
+    "ROOT-OWNER-FOUNDATION-059"
+  ],
+  "facts": [
+    "1815 bank faces derive source-versus-selected-support difference at ordered boundary stations, only add positive-area exposed cut faces; these faces are not extra walkable support. Choosing upper support at a bank boundary serves excavation closure; it does not replace the member-bound closest-level selection within bearing validation.",
+    "1816 floor_shift compares original plan and explicitly uninstalled unit basis mesh to derive affine response coefficient, then constrains one local interval. These are original/counterfactual numerical states, not two installed authoritative floors. upper_control updates exactly when upper bound tightens and is retained explanatory evidence. Full stair/mesh topology invariance across floor basis still merits source comparison before treating zip length as guaranteed; no concrete divergent case proved here.",
+    "1817 GroundTriangle stores checked scene positions and recomputes plane, bounds and area from one triangle. Canonical point order/winding guarantees deterministic comparison. f64 clipping and final f32 represented-point lift are distinct precision stages; lifting after rounding preserves originating affine plane. represented rounding-cell tolerance differs from architectural contact tolerance.",
+    "1818 compile constructs foundations, source subtraction cuts, immutable natural triangles and support regions once. Retained contact_tolerance used for current query inclusion/dedup has no mutation setter; native collider geometry is derived from the same support/natural arrays. Query tolerance versus exact physical collision is distinct intentional numerical semantics, not evidence collision and query should use identical inclusivity.",
+    "1818 source_clipping_outlines124-151 derives all owned regions, then projects only explicitly bound apron join vertices onto canonical plot front halfplane. This is an actual coordinated correction for two rounded rectangle representations; it does not authorize merging unrelated terraces or modifying source height. Current consumer uses canonical cut outlines; no remaining concrete disagreement established in this body.",
+    "Potential collider early return when natural triangles empty precedes cut_faces collection; no independent07 duplicate-authority case established without actual geometry/recipient behavior. Admission/operation/behavior scope stays open.",
+    "No new07 finding. Source-specific pending caller/constructor questions preserved; no checks executed or13-lens/overlay clearance."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1819,
+    "start_line": 1
+  }
+}

@@ -1,0 +1,152 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-363",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/backend_corpse_type.rs",
+      "sha256": "dd5944235209203975663dc19185603e5716f5e17b824378f5ae0b83243a7c98",
+      "actual_EOF": 81,
+      "actual_compared_ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/backend_corpses_table.rs",
+      "sha256": "8ba1ad5097b419d8e42a9c46fb4d35e6e799de447a8be7ec3a8bf1abe0f826f7",
+      "actual_EOF": 112,
+      "actual_compared_ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/continue_camp_travel_reducer.rs",
+      "sha256": "1b6c34fcc239973cbd97568ceaba3e60a04372b745ad88547dbf7a0de4468fca",
+      "actual_EOF": 72,
+      "actual_compared_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/end_tactical_server_reducer.rs",
+      "sha256": "45a56ae8f6a11c4f676604c9e3c69148174c0cd6c50178a693bd9ebe8d3d4e0e",
+      "actual_EOF": 88,
+      "actual_compared_ranges": [
+        [
+          1,
+          88
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/enter_mission_reducer.rs",
+      "sha256": "92a0024a27555a70ff4a28541bfacd19dae4f1ff89cbfbcdb12babfab28db71a",
+      "actual_EOF": 81,
+      "actual_compared_ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/leave_mission_reducer.rs",
+      "sha256": "f31d61010f0bf76ac7c53412482736cc1568dfec0b445db4fe8e9bf057a460e6",
+      "actual_EOF": 72,
+      "actual_compared_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/perform_investigation_action_reducer.rs",
+      "sha256": "13f9af96e0d72a0fad5af184e6c66424a2e09ea14ab3d35b45b35812ac767bf7",
+      "actual_EOF": 103,
+      "actual_compared_ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Generated corpse subscription preserves wire fields without introducing arithmetic",
+      "source_ranges": {
+        "backend_corpse_type.rs": [
+          [
+            1,
+            81
+          ]
+        ],
+        "backend_corpses_table.rs": [
+          [
+            1,
+            112
+          ]
+        ]
+      },
+      "disposition": "Both exact complete generated bodies personally read. BackendCorpse publishes owner u64, optional typed CaseSiteId, revisionu32 and findings strings along with descriptive/permission fields; column accessors preserve every declared type. Table delegates count/iter/callback registration/removal to SDK with matching row; parse errors contextualized as failed TableUpdate. No local mutation/arithmetic or wire revision transformation. Actual schema producers own lifecycle/admission/authorization and revision policy. This is projection evidence only, not proof corpse injuries/classification persisted correctly (local774:F45/M97 distinct producer findings). Any schema repair regenerates bindings with just generate-db-client; no hand edits."
+    },
+    {
+      "contract": "Generated reducer wrappers retain argument association and distinguish send from server completion",
+      "source_ranges": {
+        "continue_camp_travel_reducer.rs": [
+          [
+            1,
+            72
+          ]
+        ],
+        "end_tactical_server_reducer.rs": [
+          [
+            1,
+            88
+          ]
+        ],
+        "enter_mission_reducer.rs": [
+          [
+            1,
+            81
+          ]
+        ],
+        "leave_mission_reducer.rs": [
+          [
+            1,
+            72
+          ]
+        ],
+        "perform_investigation_action_reducer.rs": [
+          [
+            1,
+            103
+          ]
+        ]
+      },
+      "disposition": "Each of five complete bodies personally read, not hash stamped. Continue/leave propagate characterid; enter pairs characterid with Identity server; end pairs typed mission resolution and consequence receipt; investigation pairs actorid/actionid/method/expectedversion without increment/narrowing. From Args and SDK invocations preserve each named association. Callback receives transport InternalError separately from reducer Result<(),String>; immediate Ok only sends. None claims a successful committed logical update. Authorization/version/result-provenance producers remain native module frontier. Preserve tactical transient authority: generated receipt/resolution does not authorize persisting tick state. No invocation, SDK package audit or regeneration."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "7 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-stdb-module/src/browser_session.rs"
+}

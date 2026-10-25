@@ -1,0 +1,22 @@
+{
+  "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+  "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+  "actual_EOF": 3450,
+  "personally_read_ranges": [
+    [
+      1,
+      3450
+    ]
+  ],
+  "status": "completed in SEGOVB-INITIAL04-CONTRACT-252",
+  "first_unread": null,
+  "counterpart_status": "Complete actual PR delta consumed; both original roles personally accounted packet252",
+  "notes": [
+    "Native input tick wrap policy accepts only newer sample; postures/jump retain distinct command sequences.",
+    "Enemy scale computes difficulty factor from saturating_sub then bps products; raw skill/attribute/limb multiplication post preparedspawn mayoverflow for finite extreme receivedvalues, whole admission dependency pending actual spawn_admission source.",
+    "Snapshot core/motion fields currently do not include TacticalWounds or PendingDefenderResponse; actual disconnect/snapshot/restore/on_player_added critical bodies not yet fully read so no source defect promoted.",
+    "Projection reserves item entities BTreeMap before mapping attachments; Empty entries reserve empty entity then continue; duplicate inventory-ID/order and parent admission pending helper.",
+    "Religion seven finite positive hours sum mayoverflow; actual normal producer bound pending, not ordinary counterexample.",
+    "Generated stdb snapshot fields adapted to transient ECS, no generated binding edit."
+  ]
+}

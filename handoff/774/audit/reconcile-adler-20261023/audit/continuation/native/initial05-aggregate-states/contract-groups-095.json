@@ -1,0 +1,132 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-095",
+  "at": "2026-10-23T01:48:06.131567+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081 + directuserhandoversteering Root163 pendingpin",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics/controller_config.rs",
+      "sha256": "56773ae80325116c0e2383940bec1f3f8a05d95d97a2c76596982c717b5dbc62",
+      "scope046_index": 1887,
+      "actual_EOF": 18,
+      "scoped_ranges_compared": [
+        [
+          1,
+          18
+        ]
+      ],
+      "actual05_comparison": "Fresh complete18. Native Ahoy adapter sets all four stock acceleration/friction rates and stopspeed to0, then gravity/step/slopecos from SAME tacticalmotor record before target-speed selection. Intentional one tacticalmotor authority, not duplicatehiddenmovementpenalty. No retainedparallelstate/callback/falliblepartialupdate inthisadapter. Actualrawmotorfinite/range policy belongscanonicalconfiguration andnativeAhoycurrentport, notinferred fromthis18lineassignment.",
+      "source_body_proof": "Fresh actual exact scoped body personally read; existingtests source-only no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics/quickstep.rs",
+      "sha256": "10c98a5fec7f36e1567f37c82b15e65c990d8412f2a1a1a9f67982adaef10223",
+      "scope046_index": 1889,
+      "actual_EOF": 81,
+      "scoped_ranges_compared": [
+        [
+          1,
+          81
+        ]
+      ],
+      "actual05_comparison": "Fresh complete81. QuickstepPush.begin sets starttick/direction/orientation/origin/active together; active iff completednormalizeddirection!=ZERO, cancel onlylifecycleflag. RawVec2/Quat/Vec3 port inputs retainactualcallerfinite/frame precondition, no checkedSelf guaranteefromnormalize_or_zero name. sample_clock derives elapsedfrom SAME authoritativeSkeleton locomotiontick minus retainedstart (saturating), actionduration rounds/min1 before u64cast, so private actionspan>=1 and target_phase divisionpositive. MissingSkeleton usesstart soelapsed0 intentionally. Recovery margin action+2 saturates; phase beyond1 legitimately laterrecovery, notunitinterval byname. quickstep_action_contact_ticks usescomplete duration as total andreturnsnonzerohalf midpoint, preserves symmetricdodgetimeline insteadofdoublingcontact. Arbitraryextreme product castsaturates; no wholeu64clockimpossibility/normalbadconfig asserted.",
+      "source_body_proof": "Fresh actual exact scoped body personally read; existingtests source-only no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/player/attack_timing.rs",
+      "sha256": "b12efd1cc517a4644ee8742fcde084e4fec7ecf93bf35234fd1d7ba0b3ffaf31",
+      "scope046_index": 1891,
+      "actual_EOF": 41,
+      "scoped_ranges_compared": [
+        [
+          1,
+          41
+        ]
+      ],
+      "actual05_comparison": "Fresh full41. Attack preparation/recovery derive boundedcorrection from actualweaponinertia/armstrength/handling andauthoredsame-stylecadence; completed elapsed checkedbefore return. Unarmed inertia role distinct fromweaponphysicalinertia; boundedstrength helpscontrol noteraseweaponlength/distinction. Continuation flag changesrecoveryonly. Rawview/helperfiniteinputs notsealedbyclamp, caller-source contracts remainpending; no new aggregatepersistentstate here. No timingdelay/contact relation claimedbeyondactualcomputedscalar.",
+      "source_body_proof": "Fresh actual exact scoped body personally read; existingtests source-only no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/player/combat_state.rs",
+      "sha256": "bfc02321b1d2716ffaf92d38902b547713a76a9de7a350ece7f35449e9dddf37",
+      "scope046_index": 1892,
+      "actual_EOF": 211,
+      "scoped_ranges_compared": [
+        [
+          1,
+          211
+        ]
+      ],
+      "actual05_comparison": "Fresh full211 incloriginalinlinefixtures source-only. TacticalCombatState transientservercomponent retains startingstrategicbreakdown/livefatigue/trauma/bloodloss/imbalance/burden and totalincapacitation. projected_increase explicitlypresentationonly, excludedfromcurrenttotal/performance perAGENTS. Defaultstatecoherent. charge_work mutatesfatigue thenadjustsretainedtotal bysamerealdelta underone &mut; thispreserves existingcoherence butdoesnotestablishitforrawpublic/Serde/Reflect input. sources getterrecomputes livepain/blood/fatigue andretainsstrategicothers; readiness derivedoneincapvalue (positiveavoidduplicateboolean), but fatiguemeter/total canbeindependentlymismatched via broaderrawrecord (F029). Actualnormal tick/enrollment wholecoherence notyettracedhere; no runtimebadactorclaim. Originalworkvisibility/calorie-history fixtures compareintendedwhole-state relation, notallrawroutes.",
+      "source_body_proof": "Fresh actual exact scoped body personally read; existingtests source-only no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/player/input_tick.rs",
+      "sha256": "e9d4d32a4beaa8f4a1631034abbb4cdd7db4e43bccd80935b3eb7e7674d4e27f",
+      "scope046_index": 1893,
+      "actual_EOF": 33,
+      "scoped_ranges_compared": [
+        [
+          1,
+          33
+        ]
+      ],
+      "actual05_comparison": "Fresh complete33. PlayerInputTick allu32including0/MAX nativeclientinputclock; nextwraps, ordering usesnonzeroforwardhalfwindow. No clockduration/animationframe/concurrentactoridentity guarantee; primitivewordalone no aggregatecorrelation beyondactualwrapdistancepredicate. NativeSerde/Reflect acceptallvalidwords intentionally; firstobserved0 valid unlikeEquipmentSequence initialhalfwindow. ActualrecipientNone/previous-tick policy separate sourceobligation.",
+      "source_body_proof": "Fresh actual exact scoped body personally read; existingtests source-only no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/personality.rs",
+      "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+      "scope046_index": 2802,
+      "actual_EOF": 1210,
+      "scoped_ranges_compared": [
+        [
+          54,
+          69
+        ]
+      ],
+      "actual05_comparison": "Fresh exact PR personality54-69 only, newglobal046. Closed13-case MutablePersonalityAxis selector withderive, no scalarpayload/collection/correlatedvalue/lifecycle internally. Scores/mutation/gateway/schema fields outside54-69 entirelyunread; no aggregatecreditforwhole1210source. Compare actualpurpose as axischoice, notadmission ofascoreor proof matchingCore13-axisrecord. GeneratedSDKmacro route notneededforanaggregateinvariantandnotblanketcredited.",
+      "source_body_proof": "Fresh actual exact scoped body personally read; existingtests source-only no execution."
+    }
+  ],
+  "comparison_groups": {
+    "actuator-clock-correlation": "Same start/authoritativeclock andnonzeroactionquantization retained; phase notnecessarilyprobability.",
+    "current-combat-state": "Visiblefatigue andretainedtotal needwhole-state admission, projectedfuture stateintentionallyseparate.",
+    "native-input-order": "Allwordwrappingclienttick notduration orEquipmentSequence admissionpolicy.",
+    "closed-axis-selection": "Newpureenum rolehas noaggregatepayload; no scoregateway clearance."
+  },
+  "new_unique_findings": [
+    {
+      "id": "NATIVE-INITIAL05-F029",
+      "lens": "audit-aggregate-states",
+      "classification": "raw combat state can disagree between visible fatigue source and authoritative total",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/player/combat_state.rs",
+      "sha256": "bfc02321b1d2716ffaf92d38902b547713a76a9de7a350ece7f35449e9dddf37",
+      "source_ranges": [
+        [
+          7,
+          26
+        ],
+        [
+          48,
+          99
+        ]
+      ],
+      "relationship": "Current generalfatigue contributes to totalincapacitation/readiness, and visiblecurrentwheel sources mustdescribe thatsameacceptedstate. Projectedfutureincrease isseparate.",
+      "source_counterexample": "Safe public TacticalCombatState literal/ordinarydecodedrecord with fatigue1,incapacitation0 andotherDefaultfields: sources(...).fatigue reports1 while incapacitation_status returnsReady from0. charge_work maintainsoldtotal plusnewfatigue-before; itcannotrepair aninitialmismatch. No need assume pain/blood helpernumerics toshowthese twoactualdirectobserveroutputs. No newtest/execution.",
+      "actual_path": "Representable API/rawSerde/ordinaryReflect aggregateweakness, notprovenordinaryserver enrollment/tick mismatch. ActualDefaultcoherent andnormalcharge_work preservescoherenceifalreadyestablished. Distinct fromRoot04computedfatigueNaN F030 andfromrawBodylimbweights; mayjoincommoncombatstate physicalownergraph.",
+      "connected_repair": "Root retains repair. Establish controlledwholecurrentcombatstate atactualenrollment/decoder/mutationboundary or derive totalfromsamecanonicalsourceobservation atomically. Avoidindependent rawupdates ofcurrentfatigue andtotal. Keep onegeneral fatigue value; no secondfatiguepool, hiddenimpairment or duplicatedreadinessflag.",
+      "acceptance": "Currentwheel-source andauthoritativeincapacitation total/readiness agree onacceptedstate afterallactualwrites. Preserveprojectedyellow-onlyincrease,100percentdisplaycutoff,encumbranceonce, existingintentional limb-specificpenalties andno additionalmovement-speedpenalty. Validate actualnormalupdatesbeforeassertingruntimebug; no repeatedgetterrevalidation or epsilondefaults tohideinvalidstate.",
+      "proof_ref": "contract-groups-095.json",
+      "repair": "frozen",
+      "validation": "not_established"
+    }
+  ],
+  "remaining_dependency_obligations": [
+    "Actual wholeTacticalCombatState enrollment/tick/replication consumers andbroaderfrozeninventory remainexactpendingroles. Current05 notcomplete, no10/13yet."
+  ],
+  "delivery_intent": "Finishassignedinitialaudits thenhandover; no implementation evenafterinitialgatesfinish.",
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

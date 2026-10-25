@@ -1,0 +1,121 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-085",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "activity-allocation-scaled-accrual-and-injury-recovery-contracts",
+      "sources": [
+        {
+          "scope_index": 304,
+          "ranges": [
+            [
+              1,
+              445
+            ]
+          ]
+        },
+        {
+          "scope_index": 305,
+          "ranges": [
+            [
+              1,
+              582
+            ]
+          ]
+        },
+        {
+          "scope_index": 306,
+          "ranges": [
+            [
+              1,
+              11
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "local774:M32",
+        "local774:M36",
+        "local774:M48",
+        "local774:M51",
+        "local774:M53",
+        "local774:M59",
+        "SEGO-INITIAL09-F250",
+        "SEGO-INITIAL09-F365"
+      ],
+      "disposition": "Existing activity, time, organization and policy graph support; meaningful quantity distinctions retained, no new unique finding.",
+      "trace": "Activity304 outcomes retain independent risk probabilities3\u20137, skill/strength/endurance checks, settlement population scale, earned currency and signed reputation centipoint conversion135\u2013145. Carousing morale occurs independently of apply_leisure flag; that flag controls leisure condition and conception148\u2013163, existing F365. Immediate selected activity179\u2013350 owns fixed whole-hour requested duration60\u20131440 but terminal clipping may produce partial/zero actual elapsed. Required organization identity for Apprenticeship/ProfessionPractice is conditional, exact F250; saved inactive configuration is a different contract. Effective selected schedule319 is applied over one canonical day332/346 so allocation expresses this actual interval, not elapsed again. Organization accrual388/403\u2013405 stores elapsed\u00d7daily allocation numerator; cadence407 scales authored interval by1440 before reward411. That fixed-point accumulator is not plain elapsed minutes despite field name, and existing M53 must preserve scale. Advancement305 distinguishes strenuous stationary investigation266\u2013297, actual movement201\u2013260 with filth checkpoints, restorative neutral wait417\u2013582 and non-restorative travel6\u2013145. InjuryRecoveryMinutes NONE versus actual restorative minutes remains meaningful despite commonu64. Actual lifecycle boundary306 returns relative duration from absolute start/boundary; absolute coordinate and span cannot interchange. Ordinary shared activity synchronization302\u2013411 checks live co-location and retains subjective clocks, not a second official clock.",
+      "qualifications": [
+        "All445+582+11 source lines read; no tests, reducers or time advancement executed. Current named wrappers choose coherent leisure/recovery policies; no ordinary duplicate conception, missing organization or time double-advance shown.",
+        "Zero elapsed can settle an exact terminal boundary, and requested0 may be no-op elsewhere. Do not force all positive RequestedDuration or silently narrow generic u64 domain based on immediate activity UI. Distinguish real progress, restored duration and empty/terminal unavailable outcome.",
+        "Plan-aware and ordinary functions share one algorithmic purpose but differ explicit precomputed disease interval authority. Do not remove plan context as redundant just because normal fixtures align. Shared loops retain exact common prefix and participant identities.",
+        "The local completed/alive Bool currently controls success/terminal continuation across helpers; it is not errorResult and should preserve distinct normal interruption rather than fabricate failure. Actual source result payload strengthening is part of existing complete time/injury contract, no numerical failure claimed.",
+        "Saturation and current conversions preserved. Derived activity inputs are not constrained to genericUnitInterval; clinical injury fraction, effective training hour, rank, phase and population scale differ. No new hidden fatigue penalty or duplicate physical energy owner."
+      ],
+      "acceptance": "Retain contextual activity/recovery policy and quantities through actual scheduled/immediate/advancement consumers, preserving scaled accrual numerators, single clock write, exact clipped effects and separate restorative/strenuous/movement semantics."
+    },
+    {
+      "id": "camp-rest-cursor-and-independent-clock-authorities",
+      "sources": [
+        {
+          "scope_index": 307,
+          "ranges": [
+            [
+              1,
+              378
+            ]
+          ]
+        },
+        {
+          "scope_index": 308,
+          "ranges": [
+            [
+              1,
+              127
+            ]
+          ]
+        },
+        {
+          "scope_index": 309,
+          "ranges": [
+            [
+              1,
+              108
+            ]
+          ]
+        },
+        {
+          "scope_index": 310,
+          "ranges": [
+            [
+              1,
+              98
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "local774:M36",
+        "local774:M38",
+        "local774:M48",
+        "local774:M51",
+        "local774:M53",
+        "SEGO-INITIAL11-F002",
+        "SEGO-INITIAL09-F240",
+        "SEGO-INITIAL09-F250"
+      ],
+      "disposition": "Existing clock/schedule contracts and own11 contextual cursor support; no new unique finding.",
+      "trace": "Camp307 allowed schedule removes prohibited fields but retains other selected activities; field rest includes shelter admission, authority, zero no-op and one-year request cap. Narrative selection82\u2013109 reads narrative_rest_elapsed_minutes, while actual elapsed317\u2013334 updates this dedicated rest cursor and commits ChanceRest only on exact reached boundary. This closes the native rest side of own11F002, complementing actual travel cursor in281. Disease/injury shared prefix116\u2013133 and restorative injury187 differ requested camp duration. Physiological convalescence, equipment maintenance, fatigue clearance and discretionary downtime219\u2013293 use explicit priority=max(fatigue,convalescence+maintenance), not four independent elapsed intervals. Mean/max fatigue344\u2013378 is normalized bycapacity but can exceed1; no blanket UnitInterval cap. Clock308 refreshes signed Unix epoch\u2192official StrategicMinute, while married-family propagation adds actual elapsed to each related NPC personal frontier119 rather than copying actorabsolute time. Model310 makes WorldClock and personal CharacterTime separate authorities even with same absolute coordinate owner. Daily ScheduleAllocation is minutes-per-day budget, not arbitrary elapsed duration; ImmediateActivity is finite selected operation, not the saved composite allocation.",
+      "qualifications": [
+        "All378+127+108+98 lines read. Module declarations309 are namespace coverage only; pending schedule, rest, stationary and tests bodies receive no credit from includes.",
+        "Personal and official minutes share coordinate representation but have distinct authority and current progression; shared lower clock unit need not imply one source of truth or direct substitution. Signed Unix microsecond epoch is neither unsigned StrategicMinute nor relative duration.",
+        "Actual rest cursor F002 is relative accumulated camp-rest progress, not absolute time or movement. Preserve normal coherent current arithmetic and exact seed origin; no runtime mix-up claimed.",
+        "Current field rest at settlement deliberately avoids settlement replenishment/pricing, and Tent requires actual carried shelter tag; stored source prose not license to create/removeinventory. Dead durable membership differs active living cohort.",
+        "Daily allocations may include inactive organization selection, and independent socializing/carousing effects remain meaningful. Current forecast/actual rest histories and average/max summaries have different role; no generic redundant-authority merge based only on matching fields."
+      ],
+      "acceptance": "Preserve origin-bearing movement/rest/absolute clocks, daily allocation units, exact common rest effects and historical/current authority distinctions through the actual time module and consumers."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

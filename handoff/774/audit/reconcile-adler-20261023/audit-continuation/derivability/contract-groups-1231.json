@@ -1,0 +1,27 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1231",
+  "at": "2026-10-25T18:12:06.352691+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1298,
+  "source_id": "pr-working:crates/adventuresim-strategic-sim/src/main.rs",
+  "sha256": "9b6221a78408db588faf85ca8795c5004e6b3cf501828cd610d608205e1892f1",
+  "actual_compared_ranges": [
+    [
+      1,
+      300
+    ]
+  ],
+  "existing_derives": [
+    "Cli clap::Parser",
+    "Command clap::Subcommand",
+    "EvalPolicyArg/EvalFamilyArg Clone Copy Debug clap::ValueEnum"
+  ],
+  "trait_inventory": [],
+  "analysis": "CLI/Command already derive clap Parser/Subcommand and closed arg enums ValueEnum Clone Copy Debug. Native dispatch constructs concrete policy/config/limits with explicit checks/output/typed family mapping. No handwritten trait/custom codec in slice; existing Serde used for replay/current DTOs. Preserve contextual native error paths/provider config/output admission; no CLI/network/process/project script executed.",
+  "first_unfinished": {
+    "scope_index": 1298,
+    "line": 301
+  },
+  "execution": "none"
+}

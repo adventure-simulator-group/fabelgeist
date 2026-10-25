@@ -1,0 +1,36 @@
+{
+  "id": "SEGOVB-04-LOCAL-CONSEQUENCE-CLAMP-ORDER-CANDIDATE-001",
+  "source_id": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+  "sha256": "42c0284a19db9d6e763cb9be7bb0c2472dea34f759b13794f37883c42e838474",
+  "ranges": [
+    [
+      55,
+      77
+    ],
+    [
+      360,
+      407
+    ],
+    [
+      434,
+      482
+    ]
+  ],
+  "status": "source-backed policy/authority candidate; no actual DB runtime witness or global unique count",
+  "witness": "Three active represented ConsequenceInputs ordered by IDs a,b,c, incident_count5, actual effects_for Bandits1200,Bandits1200,Smugglers-200. Scaled buy2400,2400,-400; per-row cap2500 produces2100. Same values with negative first produce2500. Uncapped total4400, final cap2500.",
+  "qualifications": [
+    "Raw record API allows the witness; current generated-case/DB path and intended per-step versus final cap policy remain pending.",
+    "Deterministic sorting avoids input iteration order dependence, but semantic result still depends on stable IDs assigned to effects.",
+    "Do not collapse with abstract generic saturation or quantity-owner migrations. Archive exact-token search found no prior aggregate_consequences/MAX_TRADE_BPS finding; broader semantic dedup still coordinator-owned."
+  ],
+  "connected_dependencies": [
+    "GeneratedCase ConsequenceProfile and incident count producer",
+    "DB local consequence projection and merchant price consumer",
+    "Pure local_problem aggregate versus aggregate_consequences cap consistency"
+  ],
+  "acceptance_constraints": [
+    "Decide intended combined-consequence authority before repair; if cap applies to aggregate sum, accumulate signed contributions in sufficiently wide checked arithmetic and cap once.",
+    "Preserve exact integer truncation, selected maximum3 active rows, mitigation and incident scaling; do not alter intentional per-effect protection without policy evidence."
+  ],
+  "project_execution": "none"
+}

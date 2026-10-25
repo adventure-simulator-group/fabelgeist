@@ -1,0 +1,93 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-099",
+  "at": "2026-10-23T02:09:58.261029+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/personality.rs",
+      "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+      "registration_id": "CAMERA-INITIAL07-REG026",
+      "actual_compared_ranges": [
+        [
+          1,
+          666
+        ]
+      ],
+      "source_evidence": "Fresh actual PR1-666 and fixture bodies; paired P16 bytes verified identical and independently compared same integer/native SDK/Core enum contexts. Only registered effective roles, no hash-only verdict carry. Earlier registered1-160 also freshly compared from identical actual body, completing scoped prefix without tail credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/personality.rs",
+      "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+      "registration_id": "CAMERA-INITIAL07-REG027",
+      "actual_compared_ranges": [
+        [
+          1,
+          666
+        ]
+      ],
+      "source_evidence": "Fresh actual PR1-666 and fixture bodies; paired P16 bytes verified identical and independently compared same integer/native SDK/Core enum contexts. Only registered effective roles, no hash-only verdict carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/authority_tests.rs",
+      "sha256": "79cb2928c581b94b83b90e220abb46105033b5e89588d1c7ba20e497772a0992",
+      "registration_id": "CAMERA-INITIAL07-REG028",
+      "actual_compared_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "source_evidence": "Fresh actual PR1-666 and fixture bodies; paired P16 bytes verified identical and independently compared same integer/native SDK/Core enum contexts. Only registered effective roles, no hash-only verdict carry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/authority_tests.rs",
+      "sha256": "79cb2928c581b94b83b90e220abb46105033b5e89588d1c7ba20e497772a0992",
+      "registration_id": "CAMERA-INITIAL07-REG029",
+      "actual_compared_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "source_evidence": "Fresh actual PR1-666 and fixture bodies; paired P16 bytes verified identical and independently compared same integer/native SDK/Core enum contexts. Only registered effective roles, no hash-only verdict carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/character/authority_tests.rs",
+      "sha256": "26d2e3fb9b68e8445ac7f7364922ebd8e06e0bd37bd1060b3830ea6526e50b85",
+      "registration_id": "CAMERA-INITIAL07-REG030",
+      "actual_compared_ranges": [
+        [
+          249,
+          303
+        ]
+      ],
+      "source_evidence": "Fresh actual PR1-666 and fixture bodies; paired P16 bytes verified identical and independently compared same integer/native SDK/Core enum contexts. Only registered effective roles, no hash-only verdict carry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/character/authority_tests.rs",
+      "sha256": "26d2e3fb9b68e8445ac7f7364922ebd8e06e0bd37bd1060b3830ea6526e50b85",
+      "registration_id": "CAMERA-INITIAL07-REG031",
+      "actual_compared_ranges": [
+        [
+          249,
+          303
+        ]
+      ],
+      "source_evidence": "Fresh actual PR1-666 and fixture bodies; paired P16 bytes verified identical and independently compared same integer/native SDK/Core enum contexts. Only registered effective roles, no hash-only verdict carry."
+    }
+  ],
+  "groups": {
+    "signed-fixed-point-arithmetic": "set_score clamps i16 to signed10000. In apply_development, saturating i16 addition before final signed10000 clamp is mathematically safe for the final bounded result: if the exact sum exceeds i16 range, it already exceeds the narrower target interval in the same direction. Do not transfer RootF017/F022 premature-saturation findings to this nested-clamp operation. Non-neutral count sums exactly13 booleans, usize safe. Conversion to f32 is exact for every i16; valid score conviction_strength is0..5 with no overflow. Public raw row can contain out-of-policy i16 and break semantic strength bounds despite remaining finite, an admission obligation, not an ordinary helper failure. Delta and bounded score have different input policies; do not blindly use the same leaf.",
+    "projection-and-thresholds": "Visible labels are intentionally lossy. From_visible uses endpoints, Callous=-5000 and Cruel=-10000, and projection splits inclusive thresholds\u00b15000/-8000 correctly. Existing continuous score wins during initialization; reset explicitly replaces it. Score, axis and demographic updates reproject all behavioral labels from same retained scores. project_scores accepts independent raw demographics/score IDs but normal helpers fetch same character; no universal binding guarantee inferred from signature or a normal mismatch claim. Canonical owner/roster duplication joins existing Rig/Camera findings.",
+    "receipt-and-state-mutation": "Replay checks source receipt first and compares character/axis/delta/deed/virtue, leaving original event timestamp/result untouched and not reapplying the delta. Different retry time alone is not a conflicting action. Development writes score then may fail finding visible row; actual reducer transaction semantics own rollback, not statement-order speculation. Other local score edits happen on owned copies. Preserve concrete causes through internal error graph and first-commit receipt behavior. Backend gateway identity check and projection traversal have no numeric arithmetic requiring a new owner.",
+    "generation-and-observation-boundaries": "Stable seed versus reducer random generation policies remain distinct; no draw/domain/order changes. Actual delegated generation kernels remain their separately scoped sources, not certified by caller names. Visible demographic fields, hidden continuous authority and immutable development receipts have distinct purposes. Explicit default-neutral behavior is current application policy, not a proposed compatibility fallback. No raw score gateway exposure introduced.",
+    "fixture-operations": "Actual relationship fixture mutates only personality sex; resident fixture only sex/presentation. No behavioral score/label cache drift from these writers. Historical fixture uses small fixed10/adulthood/minus1/plus10/plus1 coordinates and typed calendar saturation; no native numeric overflow in those actual values. Deliberately stale age/alive projections test historical conception authority. Resident current projection versus immutable seed relations is intentional. Guarded development-only database mutations are existing fixture source, not executed or copied into production.",
+    "scope-and-pairs": "Both exact snapshots use identical bodies and shared integer/Core/SDK contracts with independently compared purposes; no other-lens verdict carry. P16 prior1-160 plus new161-666 and PR1-666 only. No667blank/MoraleStimulus668-675/reaction678+/whole1210 or character1-248 credit. Existing tests only, no added cases/assertions/helpers."
+  },
+  "findings": [],
+  "repair": "frozen_initial_audits_then_handover",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

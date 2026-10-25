@@ -1,0 +1,116 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1085",
+  "at": "2026-10-25T17:43:44.505761+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1219,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+      "sha256": "88470ea4f157d8b74f281effcb8bac261e5f3af81a84fe81562a9a549d695d6d",
+      "actual_EOF": 1463,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+        "owner": "camera",
+        "sha256": "88470ea4f157d8b74f281effcb8bac261e5f3af81a84fe81562a9a549d695d6d",
+        "base_sha256": "48358352f3204cb4d0371bc3402764d7222b7011401eb9ae65b6fbe69e0fea0f",
+        "state": "modified",
+        "bytes": 54084,
+        "audit_owner": "camera",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                1463
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-ENCOUNTER-001",
+              "CAM-PROP-STRATEGIC-BATTLE-001"
+            ]
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+            "ranges": null,
+            "source_read_status": null,
+            "trace_refs": []
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 295,
+            "read_ranges": [
+              [
+                1,
+                1463
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-ENCOUNTER-046"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/encounters.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 310,
+            "read_ranges": [
+              [
+                1,
+                1463
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-ENCOUNTER-046"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/encounters.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": 528,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1463
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Full1463lines1082\u20131085 consumed. No handwritten trait/codec/type declaration. Native combat/narrative/terrain/awareness classification, fractional masses/condition/capacity, journey encounter selection/commit, loss preview/surrender/accounting, durable battle consequences and typed resolver. Final1111\u20131463 checks exact replay/current party/revision/choice, dynamic surrender preview, route redirect and departure resynchronization. Selected request equality/order excludes mutable irrelevant fields; contextual adapters not structural derives."
+    }
+  ],
+  "groups": [
+    "KEEP semantic terrain subset/fallback/classification, explicit authority/replay/condition effect admission and contextual durable projections. No new serialization or conversion dependency solely for freefunction mapping."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1220,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/governance.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

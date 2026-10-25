@@ -1,0 +1,73 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-141",
+  "at": "2026-10-25T18:29:39.515870+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1632,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/terrain/urban.rs",
+      "sha256": "9a5b7ee95b337a7ebea938ba18f6e87c6ab6bd67b1119745c9287b756925deee",
+      "personally_read_ranges": [
+        [
+          1,
+          336
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "GroundCoverage couples vista revision and Canonical/Sampled topology; derives replacement mesh and exact triangle count before deferred component insert, material cutout and detail visibility independently track same current topology. Canonical required for accepted property surface or urban vista, preserving multi-level bearings. Current synchronous mesh path infallible; M66 fallible whole-product repair must coordinate cutout/material/coverage with eventual rejected mesh, not mutate cutout before a failing replacement.",
+        "Existing late-vista fixture checks initial coarse mesh, canonical fine replacement after source CPU asset release, hidden detail and disabled base discard, then restoration after streets cleared. Read entire fixture; no execution or GPU verdict."
+      ]
+    },
+    {
+      "scope_index": 1633,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/terrain/urban/owned_tests.rs",
+      "sha256": "dec16e8dcf926fed2d6260f315e3a1a59d9697ba51fae232d6bb74b1155c23e3",
+      "personally_read_ranges": [
+        [
+          1,
+          259
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Real catalogue fixture loader generates unfurnished accepted property terrain; same terrain/landform passed to base publication. Triangle-bit sets distinguish exact natural-triangle removal and retained foundation bearings. Existing facade-review and heating-review fixture checks empty sampled detail, initially reused canonical base, hidden detail and disabled discard; landform fixture verifies removed natural subset, all foundation bearings retained and serialized source terrain unchanged. No fixture files executed or altered; catalogue generation failures remain acceptance evidence pending actual checks."
+      ]
+    },
+    {
+      "scope_index": 1634,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/terrain/volumetric.rs",
+      "sha256": "0f2bab77a6c50c3112e630c06558e9a4b3612de7011b2de38930f464abd3cfe1",
+      "personally_read_ranges": [
+        [
+          1,
+          338
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full terrain publication trace: material fallible generation completes before base/detail Commands publication; refresh prechecks both material handles then updates both under exclusive asset-store borrow, mesh replacement uses infallible facade and exact count/revision. Missing CPU render-only mesh can be legitimate after upload, so refresh success without CPU mesh is not by itself false publication. Mesh/range/recipe independent associations and future fallible M66 factory repair remain connected requirements.",
+        "spawn_base_and_fault chooses prepared patch else attempts terrain_landform_patch(...).ok(), builds base mesh with recipe collar regardless of absent generated patch. Conditional API weakness: if checked recipe generation fails, base can cut out with no replacement. Need actual terrain_landform_patch rejection/caller policy before promoting a distinct ordinary hole defect; M66 already names this exact whole-function repair. Prepared patch plus landform are independently supplied; canonical producer establishes correspondence, safe accepted-product repair should preserve it, without duplicate patch types.",
+        "terrain_patch_mesh projects canonical SceneTerrainPatch same position collection to UVs and consumes matching position/normal/index buffers; positive scene extents are owning terrain guarantee. append_detail_cell only called from fixed valid cell grid, two same-diagonal triangles clipped by radius and collar centroid. Existing one-base/one-fault material fixture source read only."
+      ]
+    },
+    {
+      "scope_index": 1635,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/venues.rs",
+      "sha256": "ae556b18add14ae22e1b97bc772ab06f455827e6afdff55b5659fac6ae9b9d27",
+      "personally_read_ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Place pairs admitted PlaceId and PlaceKind; portrait string-only u64 decoding preserves JavaScript-safe identity. select_building returns actual canonical SceneBuildingId from one input, prioritizes operator ownership then local/distant usage fallback. No unverified correspondence claim between requested place and fallback building; explicit selection policy. Raw operator IDs and PlaceId Strings remain existing producer/owner migration responsibilities, not independent bespoke aliases."
+      ]
+    }
+  ],
+  "findings": [],
+  "qualified_connected_requirements": [
+    "M66 terrain product admission/fallible publication repair must cover update_coverage, refresh/spawn and source patch generation together; prove failure/collar policy from actual generator before distinct defect claim."
+  ],
+  "discovery": "4 newly accounted original roles; other reads support already counted historical roles. Lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

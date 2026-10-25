@@ -1,0 +1,445 @@
+{
+  "scope": "Current-wave camera exact full-source/delta proofs, not historical verdicts",
+  "rows": [
+    {
+      "evidence": "../camera/related-paths.jsonl",
+      "line": 54,
+      "record": {
+        "snapshot": "pr-working",
+        "snapshot_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "path": "crates/adventuresim-core/src/strategic_place.rs",
+        "sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+        "read_ranges": [
+          [
+            1,
+            380
+          ]
+        ],
+        "full_source_read": false,
+        "trace_ids": [
+          "CAM-PROP-ENCOUNTER-001",
+          "CAM-PROP-AUTHORITY-001"
+        ],
+        "status": "Canonical CaseSiteId exact actual owner/Serde and place ID operations read; remaining fixtures and other getter callers open."
+      }
+    },
+    {
+      "evidence": "../camera/related-paths.jsonl",
+      "line": 105,
+      "record": {
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/food/cooking.rs",
+        "sha256": "05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+        "read_ranges": [
+          [
+            1,
+            868
+          ]
+        ],
+        "full_source_read": true,
+        "trace_ids": [
+          "CAM-PROP-COOKING-SCOPE-001"
+        ],
+        "note": "CookingfullPRviareverseP16delta; physicalobject actualCarriedInventoryScope19\u201343 completeowner/admission/accessor and locationreceivers1\u2013150partialwholefile."
+      }
+    },
+    {
+      "evidence": "../camera/related-paths.jsonl",
+      "line": 106,
+      "record": {
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/physical_object.rs",
+        "sha256": "906e67eed5acc9fbf6ab98e2e4bc7df11b8e9742c1ee148092c7d2061f64afab",
+        "read_ranges": [
+          [
+            1,
+            150
+          ]
+        ],
+        "full_source_read": false,
+        "trace_ids": [
+          "CAM-PROP-COOKING-SCOPE-001"
+        ],
+        "note": "CookingfullPRviareverseP16delta; physicalobject actualCarriedInventoryScope19\u201343 completeowner/admission/accessor and locationreceivers1\u2013150partialwholefile."
+      }
+    },
+    {
+      "evidence": "../camera/related-paths.jsonl",
+      "line": 107,
+      "record": {
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/food/ingredient_preparation.rs",
+        "sha256": "8424b8d20fe3619b57687d4e31b3715b141fe47d21a1f21d7c78ed11958c0b9f",
+        "read_ranges": [
+          [
+            1,
+            652
+          ]
+        ],
+        "full_source_read": true,
+        "trace_ids": [
+          "CAM-PROP-PREPARATION-001"
+        ],
+        "note": "CompleteP16plusreverseexactdelta foringredient; fullpreparationauthorityall635 inclactualhash/retainedscope/materialreceiversread."
+      }
+    },
+    {
+      "evidence": "../camera/related-paths.jsonl",
+      "line": 108,
+      "record": {
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/food/preparation_authority.rs",
+        "sha256": "4f06d127e8d7d358ded01b2d1b7eba9116644b53146a476dd780e98344689613",
+        "read_ranges": [
+          [
+            1,
+            635
+          ]
+        ],
+        "full_source_read": true,
+        "trace_ids": [
+          "CAM-PROP-PREPARATION-001"
+        ],
+        "note": "CompleteP16plusreverseexactdelta foringredient; fullpreparationauthorityall635 inclactualhash/retainedscope/materialreceiversread.",
+        "identical_snapshot_proof": {
+          "snapshot": "physical-p16",
+          "sha256": "4f06d127e8d7d358ded01b2d1b7eba9116644b53146a476dd780e98344689613",
+          "proof": "fullbyteidentity"
+        }
+      }
+    },
+    {
+      "evidence": "../camera/related-paths.jsonl",
+      "line": 109,
+      "record": {
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/foraging.rs",
+        "sha256": "be82a5ef7905b05d68bba4d61d5173cba6011c51ee8504da85d697bb2d80df84",
+        "read_ranges": [
+          [
+            1,
+            1381
+          ]
+        ],
+        "full_source_read": true,
+        "trace_ids": [
+          "CAM-PROP-FORAGING-001"
+        ],
+        "note": "Complete actual source incl fixtures; STDB PR viareverseP16 exactdelta."
+      }
+    },
+    {
+      "evidence": "../camera/related-paths.jsonl",
+      "line": 111,
+      "record": {
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/foraging.rs",
+        "sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+        "read_ranges": [
+          [
+            1,
+            1278
+          ]
+        ],
+        "full_source_read": true,
+        "trace_ids": [
+          "CAM-PROP-FORAGING-001"
+        ],
+        "note": "Complete actual source incl fixtures; STDB PR viareverseP16 exactdelta.",
+        "identical_snapshot_proof": {
+          "snapshot": "physical-p16",
+          "sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+          "proof": "fullbyteidentity"
+        }
+      }
+    },
+    {
+      "evidence": "../camera/related-paths.jsonl",
+      "line": 118,
+      "record": {
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/outbreak.rs",
+        "sha256": "7231d6f5c0ea33a0f938db9887dab36dff87fdb6341d8bf2099ada481593c41e",
+        "read_ranges": [
+          [
+            1,
+            2111
+          ]
+        ],
+        "full_source_read": true,
+        "trace_ids": [
+          "CAM-PROP-DURABLE-LIFECYCLE-001"
+        ],
+        "note": "Complete exact reverse textual delta after full frozen P16 body read."
+      }
+    },
+    {
+      "evidence": "../camera/related-paths.jsonl",
+      "line": 156,
+      "record": {
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/inventory_container.rs",
+        "sha256": "1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+        "read_ranges": [
+          [
+            1,
+            1451
+          ]
+        ],
+        "full_source_read": true,
+        "trace_ids": [
+          "CAM-PROP-CUSTODY-FOOD-RECEIVERS-001"
+        ],
+        "note": "Whole unchanged connected receiver owner, incl all inline fixtures/child source fixture file, read this wave."
+      }
+    },
+    {
+      "evidence": "../camera/related-paths.jsonl",
+      "line": 157,
+      "record": {
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/physical_object.rs",
+        "sha256": "906e67eed5acc9fbf6ab98e2e4bc7df11b8e9742c1ee148092c7d2061f64afab",
+        "read_ranges": [
+          [
+            1,
+            383
+          ]
+        ],
+        "full_source_read": true,
+        "trace_ids": [
+          "CAM-PROP-CUSTODY-FOOD-RECEIVERS-001"
+        ],
+        "note": "Whole unchanged connected receiver owner, incl all inline fixtures/child source fixture file, read this wave."
+      }
+    },
+    {
+      "evidence": "../camera/related-paths.jsonl",
+      "line": 158,
+      "record": {
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/inventory_containers.rs",
+        "sha256": "4feda6b091c108a9cb8def2cfa8cd63c6fd7123d64c3584d308dec283048d50a",
+        "read_ranges": [
+          [
+            1,
+            256
+          ]
+        ],
+        "full_source_read": true,
+        "trace_ids": [
+          "CAM-PROP-CUSTODY-FOOD-RECEIVERS-001"
+        ],
+        "note": "Whole unchanged connected receiver owner, incl all inline fixtures/child source fixture file, read this wave."
+      }
+    },
+    {
+      "evidence": "../camera/related-paths.jsonl",
+      "line": 159,
+      "record": {
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/food/mod.rs",
+        "sha256": "80bfa29d162de3dce0554d867093029ba6a5a3b02e405cafd0863a80692c0e7f",
+        "read_ranges": [
+          [
+            1,
+            84
+          ]
+        ],
+        "full_source_read": true,
+        "trace_ids": [
+          "CAM-PROP-CUSTODY-FOOD-RECEIVERS-001"
+        ],
+        "note": "Whole unchanged connected receiver owner, incl all inline fixtures/child source fixture file, read this wave."
+      }
+    },
+    {
+      "evidence": "../camera/related-paths.jsonl",
+      "line": 167,
+      "record": {
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/food.rs",
+        "sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+        "read_ranges": [
+          [
+            1,
+            848
+          ]
+        ],
+        "full_source_read": true,
+        "trace_ids": [
+          "CAM-PROP-CORE-FOOD-SOCIAL-001"
+        ],
+        "note": "Whole current-wave source and all existing inline fixtures read."
+      }
+    },
+    {
+      "evidence": "../camera/related-paths.jsonl",
+      "line": 168,
+      "record": {
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/herbalism.rs",
+        "sha256": "501c6cf8ba05522213c175784f28e6ddecd14aaab72a490fcb4bfa846eccb203",
+        "read_ranges": [
+          [
+            1,
+            405
+          ]
+        ],
+        "full_source_read": true,
+        "trace_ids": [
+          "CAM-PROP-CORE-FOOD-SOCIAL-001"
+        ],
+        "note": "Whole current-wave source and all existing inline fixtures read."
+      }
+    },
+    {
+      "evidence": "../camera/related-paths.jsonl",
+      "line": 169,
+      "record": {
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/ingredient_preparation.rs",
+        "sha256": "ae086fd226814d3e6a5085e053f4e16a02c4a46ecbfbe9e0c2bf7063e6edf170",
+        "read_ranges": [
+          [
+            1,
+            72
+          ]
+        ],
+        "full_source_read": true,
+        "trace_ids": [
+          "CAM-PROP-CORE-FOOD-SOCIAL-001"
+        ],
+        "note": "Whole current-wave source and all existing inline fixtures read."
+      }
+    },
+    {
+      "evidence": "../camera/related-paths.jsonl",
+      "line": 176,
+      "record": {
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/strategic_place.rs",
+        "sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+        "read_ranges": [
+          [
+            1,
+            998
+          ]
+        ],
+        "full_source_read": true,
+        "trace_ids": [
+          "CAM-PROP-PLACE-ENCOUNTER-RECEIVERS-001"
+        ],
+        "note": "Whole current-wave source and all existing inline fixtures read."
+      }
+    },
+    {
+      "evidence": "../camera/coverage.jsonl",
+      "line": 173,
+      "record": {
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/cooking.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-stdb-module/src/food/cooking.rs",
+        "owner": "camera",
+        "sha256": "da8832af71a29edfd807274456fa4ee5890834beec5b80ef726e55b8399eaf7b",
+        "base_sha256": "05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+        "state": "modified",
+        "bytes": 33868,
+        "discovery": "read_pending_trace",
+        "read_ranges": [
+          [
+            1,
+            868
+          ]
+        ],
+        "trace_ids": [
+          "CAM-PROP-COOKING-SCOPE-001"
+        ],
+        "observed_sha256": "da8832af71a29edfd807274456fa4ee5890834beec5b80ef726e55b8399eaf7b",
+        "read_method": "fullP16andcompleteexactreversePRdelta",
+        "note": "Wholeactualcookingbodyread; canonicalscopeownerread1\u2013150; remainingcustody/fixture/foodnumericalreceiverspending."
+      }
+    },
+    {
+      "evidence": "../camera/coverage.jsonl",
+      "line": 174,
+      "record": {
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/ingredient_preparation.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-stdb-module/src/food/ingredient_preparation.rs",
+        "owner": "camera",
+        "sha256": "9e75b9aba8942a342cb8fefc7b4d41940349122a52c86c976547d280e751a509",
+        "base_sha256": "8424b8d20fe3619b57687d4e31b3715b141fe47d21a1f21d7c78ed11958c0b9f",
+        "state": "modified",
+        "bytes": 22318,
+        "discovery": "read_pending_trace",
+        "read_ranges": [
+          [
+            1,
+            652
+          ]
+        ],
+        "trace_ids": [
+          "CAM-PROP-PREPARATION-001"
+        ],
+        "observed_sha256": "9e75b9aba8942a342cb8fefc7b4d41940349122a52c86c976547d280e751a509",
+        "read_method": "completeP16sourceandallreversePRdelta",
+        "note": "Whole bodyread; full relatedpreparationauthority635read. Scope/hash/custody/physicalprecision causes remain linkedopen."
+      }
+    },
+    {
+      "evidence": "../camera/coverage.jsonl",
+      "line": 175,
+      "record": {
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/foraging.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-stdb-module/src/foraging.rs",
+        "owner": "camera",
+        "sha256": "c58f33b486ca2344cd5e4a141065bf3f39de22d6dc739e48a217ae969173d604",
+        "base_sha256": "be82a5ef7905b05d68bba4d61d5173cba6011c51ee8504da85d697bb2d80df84",
+        "state": "modified",
+        "bytes": 50038,
+        "discovery": "read_pending_trace",
+        "read_ranges": [
+          [
+            1,
+            1381
+          ]
+        ],
+        "trace_ids": [
+          "CAM-PROP-FORAGING-001"
+        ],
+        "observed_sha256": "c58f33b486ca2344cd5e4a141065bf3f39de22d6dc739e48a217ae969173d604",
+        "read_method": "fullP16andcompleteexactreversePRdelta inclfixtures",
+        "note": "Full Coreforaging1278/sampling25 andforagingtiming43 read; actualremaininggateway/Serde recipients pending."
+      }
+    },
+    {
+      "evidence": "../camera/coverage.jsonl",
+      "line": 182,
+      "record": {
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/outbreak.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-stdb-module/src/outbreak.rs",
+        "owner": "camera",
+        "sha256": "463018a13e8d3061fb161e6f5d814acd00f8cb489e3aa43f3cb08def9ea35f27",
+        "base_sha256": "7231d6f5c0ea33a0f938db9887dab36dff87fdb6341d8bf2099ada481593c41e",
+        "state": "modified",
+        "bytes": 80322,
+        "discovery": "read_pending_trace",
+        "read_ranges": [
+          [
+            1,
+            2111
+          ]
+        ],
+        "trace_ids": [
+          "CAM-PROP-DURABLE-LIFECYCLE-001"
+        ],
+        "observed_sha256": "463018a13e8d3061fb161e6f5d814acd00f8cb489e3aa43f3cb08def9ea35f27",
+        "read_method": "full P16 source and complete reverse textual PR delta; common lines identical",
+        "note": "Includes complete existing fixtures; related runtime/leaf/planner/SDK ports remain open as trace records."
+      }
+    }
+  ]
+}

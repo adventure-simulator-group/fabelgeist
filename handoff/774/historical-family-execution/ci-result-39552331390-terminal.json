@@ -1,0 +1,26 @@
+{
+  "record_kind": "immutable completed CI observation; current family status belongs to execution-ledger.json",
+  "head": "8f2b901881f8aa8035a03cd99dbfefb7bbdf8926",
+  "run": 39552331390,
+  "job": 119064104970,
+  "status": "completed",
+  "conclusion": "failure",
+  "completed_at": "2026-10-21T06:05:32Z",
+  "result_checked_at": "2026-10-21T07:44:26.207345+00:00",
+  "url": "https://github.com/adventure-simulator-group/fabelgeist/actions/runs/39552331390",
+  "first_failed_contract": "Native Clippy: existing ground_scatter/litter.rs test caller ignored the new spawn Result.",
+  "first_failure_evidence": "P06-hosted-8f2b-first-failure.log",
+  "repair_commit": "b948c992a430dd8c53c3162c26d0cd13e74d51a1",
+  "other_failed_stage": "Constraint artifact upload failed because its preceding validation stage did not execute. Upload success/failure is not acceptance.",
+  "passed_scope": [
+    "formatting",
+    "generated bindings and schema/GPU boundaries",
+    "resolved Bevy and FBX guards",
+    "semantic values and Rust growth",
+    "calendar API ownership",
+    "Wasm lint",
+    "native/Wasm deterministic draws"
+  ],
+  "not_executed": "Subsequent native constraint and selected rig/family behavioral groups did not establish acceptance.",
+  "covers_current_integration_head": false
+}

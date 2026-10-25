@@ -1,0 +1,146 @@
+{
+  "id": "CONT07-CONTRACT-633",
+  "at": "2026-10-24T00:50:38.654560+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2757,
+      "source_id": "native-rand0.9.5:src/distr/weighted/weighted_index.rs",
+      "sha256": "b4559037354bcb9e0b1eab569c867dd70053de382232c7ed4d9aef3d5b049003",
+      "origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rand-0.9.5/src/distr/weighted/weighted_index.rs",
+      "actual_EOF": 631,
+      "ranges": [
+        [
+          1,
+          145
+        ],
+        [
+          358,
+          369
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2758,
+      "source_id": "native-rand0.9.5:src/distr/uniform.rs",
+      "sha256": "04efcc061e1904b824e3feb68541c4e8259a46ecd2c118af6fb383b3ad37f73c",
+      "origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rand-0.9.5/src/distr/uniform.rs",
+      "actual_EOF": 622,
+      "ranges": [
+        [
+          190,
+          260
+        ],
+        [
+          268,
+          312
+        ],
+        [
+          399,
+          415
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2759,
+      "source_id": "native-rand0.9.5:src/distr/uniform_int.rs",
+      "sha256": "30c620bc9d74263162de2e0755ae4b323abce1d6aa22c00d1b9de378480f22c0",
+      "origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rand-0.9.5/src/distr/uniform_int.rs",
+      "actual_EOF": 914,
+      "ranges": [
+        [
+          1,
+          160
+        ],
+        [
+          280,
+          280
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2760,
+      "source_id": "native-rand0.9.5:src/distr/weighted/mod.rs",
+      "sha256": "52379f09ea06c8ac54bdb4ecaed93fd7fc08f85866b5e3fcb4e40d0f1576bdfe",
+      "origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rand-0.9.5/src/distr/weighted/mod.rs",
+      "actual_EOF": 115,
+      "ranges": [
+        [
+          25,
+          60
+        ],
+        [
+          85,
+          115
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2761,
+      "source_id": "native-rand0.9.5:src/distr/utils.rs",
+      "sha256": "a631940e728257c9b0cb753bc64fa631958c92ce52d5b2265c7ed06a46567b8f",
+      "origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rand-0.9.5/src/distr/utils.rs",
+      "actual_EOF": 408,
+      "ranges": [
+        [
+          16,
+          61
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2762,
+      "source_id": "native-rand0.9.5:src/distr/integer.rs",
+      "sha256": "69ac205b6fed57ae09e2f8f1b15ae3d2049b85874bc4da3f246a18188b42d8ea",
+      "origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rand-0.9.5/src/distr/integer.rs",
+      "actual_EOF": 307,
+      "ranges": [
+        [
+          49,
+          54
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2763,
+      "source_id": "native-rand0.9.5:src/rng.rs",
+      "sha256": "19a29d58ea169c50ae7fea0a941c405e4a8f3a9b2ac0dc0edd9f7a55e9431703",
+      "origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/rand-0.9.5/src/rng.rs",
+      "actual_EOF": 657,
+      "ranges": [
+        [
+          58,
+          58
+        ],
+        [
+          95,
+          103
+        ],
+        [
+          357,
+          357
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Pinned rand0.9.5 WeightedIndex constructor computes private cumulative weights, total and uniform sampler together from source sequence, rejects empty/negative/zero total and checked integer sum overflow. Sampling consults same stored sampler and cumulative roster. No public field mutation route found here; serde-enabled derive/update are distinct SDK admission paths not automatically used by application. Actual scoped source only, not full foreign SDK audit.",
+    "Uniform wrapper delegates to native sampler; UniformInt derives low/range/rejection threshold coherently, explicitly reserves range0 as full inclusive domain, and sampling uses widening multiplication/high word plus rejection. These native internal fields are algorithm representation, not hand-authored competing policy tables. u64 StandardUniform directly requests next_u64 through blanketRng; numerical seed/draw history must preserve actual call order and target width. No RNG executed or distribution measurements inferred from docs."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2764,
+    "start_line": 1
+  }
+}

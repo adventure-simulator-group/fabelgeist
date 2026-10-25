@@ -1,0 +1,104 @@
+--- PRbase/crates/adventuresim-character-creator/src/preview.rs
++++ frozen/crates/adventuresim-character-creator/src/preview.rs
+@@ -1,17 +1,29 @@
+ //! Spawn generated clothing and armor into the studio preview.
+ 
+ use super::*;
+ use adventuresim_character_creator::clothing::ClothingShell;
++
++/// How a piece is shaded: its plate, and the band along its edges.
++pub(super) struct ArmorShading<'a> {
++    pub plate: StandardMaterial,
++    pub trim: Option<TrimPreview<'a>>,
++}
++
++/// The band along a piece's edges, as the preview shades it.
++pub(super) struct TrimPreview<'a> {
++    pub texcoords: &'a [[f32; 2]],
++    pub material: StandardMaterial,
++}
+ 
+ pub(super) fn spawn_clothing(
+     commands: &mut Commands,
+     meshes: &mut Assets<Mesh>,
+     materials: &mut Assets<StandardMaterial>,
+     walk: &WalkPreview,
+     model: &BodyModel,
+     shells: Vec<ClothingShell>,
+-) {
++) -> Result<()> {
+     for shell in shells {
+         let specification = shell.specification;
+         let indices = shell
+             .faces
+@@ -28,14 +40,14 @@
+         animation_preview::skin_mesh(
+             &mut mesh,
+             &model.mhr.character.skin_weights.index,
+             &model.mhr.character.skin_weights.weight,
+-        );
++        )?;
+         let [red, green, blue, alpha] = specification.base_color;
+         commands.spawn((
+             CharacterMesh,
+-            animation_preview::skin(walk).expect("animation rig was just rebuilt"),
+-            Name::new(specification.name.clone()),
++            animation_preview::skin(walk).context("animation preview has no rebuilt rig")?,
++            Name::new(specification.name.as_ref().to_owned()),
+             Mesh3d(meshes.add(mesh)),
+             MeshMaterial3d(materials.add(StandardMaterial {
+                 base_color: Color::srgba(red, green, blue, alpha),
+                 metallic: specification.metallic,
+@@ -43,20 +55,9 @@
+                 ..default()
+             })),
+         ));
+     }
+-}
+-
+-/// How a piece is shaded: its plate, and the band along its edges.
+-pub(super) struct ArmorShading<'a> {
+-    pub plate: StandardMaterial,
+-    pub trim: Option<TrimPreview<'a>>,
+-}
+-
+-/// The band along a piece's edges, as the preview shades it.
+-pub(super) struct TrimPreview<'a> {
+-    pub texcoords: &'a [[f32; 2]],
+-    pub material: StandardMaterial,
++    Ok(())
+ }
+ 
+ /// The cord lacing a piece's small plates, as the preview shades it.
+ pub(super) fn lacing_material(cord: &fabelgeist_armor::Lacing) -> StandardMaterial {
+@@ -150,26 +151,27 @@
+     walk: &WalkPreview,
+     model: &BodyModel,
+     generated: &GeneratedCharacter,
+     mut mesh: Mesh,
+-) {
++) -> Result<()> {
+     animation_preview::skin_mesh(
+         &mut mesh,
+         &model.mhr.character.skin_weights.index,
+         &model.mhr.character.skin_weights.weight,
+-    );
++    )?;
+     commands.spawn((
+         CharacterMesh,
+         animation_preview::BodySkin {
+             positions: generated.positions.clone(),
+             faces: model.mhr.character.mesh.faces.clone(),
+             indices: model.mhr.character.skin_weights.index.clone(),
+             weights: model.mhr.character.skin_weights.weight.clone(),
+         },
+-        animation_preview::skin(walk).expect("animation rig was just rebuilt"),
++        animation_preview::skin(walk).context("animation preview has no rebuilt rig")?,
+         Mesh3d(meshes.add(mesh)),
+         MeshMaterial3d(materials.add(skin_material())),
+     ));
++    Ok(())
+ }
+ 
+ /// The previewed skin: of the body, and of the scalp cap under hair.
+ pub(super) fn skin_material() -> StandardMaterial {

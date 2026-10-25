@@ -1,0 +1,170 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-188",
+  "at": "2026-10-25T13:25:52.643026+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 367,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/audit.rs",
+      "sha256": "a5a83e7409778230722685583a4efc7985dc11db52bf5eb2dd5a7ebde16af5a0",
+      "actual_EOF": 196,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/audit.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/audit.rs",
+        "owner": "native",
+        "sha256": "a5a83e7409778230722685583a4efc7985dc11db52bf5eb2dd5a7ebde16af5a0",
+        "base_sha256": "93b2a1a15c9602a37d0bb6723f000e57a3d3d5a9b698fc6267be4e33fc0801d7",
+        "state": "modified",
+        "bytes": 8497,
+        "audit_owner": "native",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                65,
+                115
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-MELEE-001",
+              "CAM-PROP-REFERENCE-GEOMETRY-001",
+              "CAM-PROP-CONCENTRATION-001"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 24,
+            "read_ranges": [
+              [
+                1,
+                196
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-REPORT-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/audit.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 380,
+            "read_ranges": [
+              [
+                1,
+                196
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-REPORT-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/audit.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CORE-MELEE-RECEIVERS-049",
+            "json_pointer": "/additional_actual_source_proofs/9",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/audit.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                196
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/audit.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/audit.rs",
+              "sha256": "a5a83e7409778230722685583a4efc7985dc11db52bf5eb2dd5a7ebde16af5a0",
+              "read_ranges": [
+                [
+                  1,
+                  196
+                ]
+              ],
+              "actual_line_count": 196,
+              "read_kind": "complete PR body above + complete exact physicalP16 textualdelta, preserving all unchanged bodies"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CORE-MELEE-RECEIVER-CLOSURE-024",
+            "json_pointer": "/additional_actual_receivers/9",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/audit.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                196
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/audit.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/audit.rs",
+              "sha256": "a5a83e7409778230722685583a4efc7985dc11db52bf5eb2dd5a7ebde16af5a0",
+              "read_ranges": [
+                [
+                  1,
+                  196
+                ]
+              ],
+              "actual_line_count": 196,
+              "read_kind": "complete PR body above + complete exact physicalP16 textualdelta, preserving all unchanged bodies"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          196
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "No local type or handwritten trait declaration.",
+      "absence_basis": "Whole audit builder and acceptance-predicate functions personally consumed: multi-source causal aggregation, checked measurement admission, policy comparisons and selected report projection. No manual serializer; do not prescribe derives for semantic acceptance logic."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Melee acceptance audit projection",
+      "disposition": "No handwritten trait candidate; retain explicit causal policy and measurement conversion.",
+      "acceptance": "Preserve exact MeasurementResult/errors, metric meaning and selected report fields; no execution or passing-acceptance claim from source read."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 368,
+    "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

@@ -1,0 +1,76 @@
+{
+  "id": "CONT07-CONTRACT-606",
+  "at": "2026-10-24T00:29:54.695369+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2623,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/garment_armor.rs",
+      "sha256": "b7db125949767f6ceb62c661e5adf0aee5dde960f2f459db43bcc3c77fd5545c",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/garment_armor.rs",
+      "actual_EOF": 129,
+      "ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2624,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/garment_plate_design.rs",
+      "sha256": "9db005761d7aeb12d60fc9a4394da26b138cb4ad969748274fb55e1d9d44dd5e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/garment_plate_design.rs",
+      "actual_EOF": 137,
+      "ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2625,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/wrapped_tassets.rs",
+      "sha256": "5be7e371146dbc5fa6df7699431643018b788550460a84cfc29faf6e32bea46e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/wrapped_tassets.rs",
+      "actual_EOF": 62,
+      "ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2626,
+      "source_id": "cargo-registry:num_enum_derive-0.7.6/src/lib.rs",
+      "sha256": "8dd8a3259e3f016b189332efb66b735c1473c70ce7e1c152da33a3e99250741a",
+      "origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/num_enum_derive-0.7.6/src/lib.rs",
+      "actual_EOF": 362,
+      "ranges": [
+        [
+          190,
+          260
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "GarmentArmorDesign explicitly retains kind plus plate_shape, and validates their relation exhaustively: None excluded for Fauld/Tassets/Gorget, each shaped payload restricted to correct kind, WrappedTassets additionally checks section_break against actual lame_count. Valid construction therefore coordinates redundant coarse kind/payload; direct public mutation can still bypass explicit validate, but no normal receiver bypass proved here. Default kind derives initial shape once; later custom shaped values are intended controls rather than necessarily stale derived defaults.",
+    "num_enum TryFromPrimitive generator derives all discriminant expression matches and From<repr> delegation from one parsed EnumInfo. Unknown primitive returns typed configured error, no handwritten parallel valid-value roster generated here. #[num_enum] alternative/representation interpretation remains parser contract covered in next cell."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2627,
+    "start_line": 1
+  }
+}

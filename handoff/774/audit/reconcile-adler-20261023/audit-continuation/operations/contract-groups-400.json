@@ -1,0 +1,46 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-400",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural.rs",
+      "sha256": "8b82644fdbb52e00c1b40a850239bb273c956668c89805efae19800b35f42487",
+      "actual_EOF": 1813,
+      "actual_compared_ranges": [
+        [
+          1,
+          1813
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Repeated observation, additive look and anticipation history",
+      "evidence": "procedural.rs1\u2013369 and704\u2013801: fixedtickfirstcompletepostproceduralposecached andrestoredrepeatrender; liveclockunset clearscache. Previouslookbase restoredexplicitlybeforeauthored/procedural; perboneoffsetweightedtorso/head, guardedlookexcludedposturetransition andloweredguard. Jumpcharge retainsbase/applied/evaluationtick topreventrepeataccumulation, changesamount bybounded.125pernewtick, quickstepzeroescharge; pelvisloweronlyloweredguard.",
+      "qualification": "RawCharacterLook yaw/pitch andownerrotation nativequaternion needactualvalidatedproducerbefore universalfiniteclaim; no NaNordinarylookwitness. Statefromprivatebounded0..1 recurrence preservesamounts. Inputbasefinitequaternion/normalization assumptions sharednativeposegraph; checkedscalarfields alone do notprovewholetransform. No syntheticfixedtickcaptureauthorityclaimedforlivegameplay."
+    },
+    {
+      "contract": "Whole-body mirror and retained height publication",
+      "evidence": "procedural.rs370\u2013546: snapshotallnamedmirrorbones beforemutation, transformreflectioninownerframe anddesiredparentmirrorglobal avoidssequentialdoubleapplication, checksdecomposedtargettranslation/rotation/scale finitebeforeinterpolating; weightsUnitInterval, originalsameanatomicalside. Height.advance_height computedfullcandidatebeforestatecommit, rootadditiveYfiniteguard beforeTransformreplace, pelvisauthoredpreserved. Guardedrunyaw pairsinversepelvis/spine rotations.",
+      "qualification": "Finiteprelerptransforms mayoverflow nativeinterpolation ifoppositeextremegeometry; actualbinding/bodybounds pending, notordinaryfinding. Heightretainedstatecommitsbeforeperroottranslationoverflowguard (roottransformkeepsprior), errorboundarydeliberatelyindividual notwholeframeatomic. No requirementforceidentity/silentlyzeroinvalidposes. Allnativefixtureassertions readnotrun."
+    },
+    {
+      "contract": "Landing foot plants and anatomical two-bone recipients",
+      "evidence": "procedural.rs547\u2013703: prelandingworldfoot snapshot fromHumanoidBone, supporthistoryclearedforinactive/discontinuous/wrapgap; rootpositiondistance>2mresync, repeatedresynctick skips. Appliespelviscompression thenforactualriglegs snapshotschain, admittedLimbSegments measured, retainsworldtarget, constrainsrenderedpole, falliblesolve andconditionalapply. Desirednativepose methods inchildIKowners remainunreadfrontier.",
+      "qualification": "previous_world_positions[foot] assumesrigfootstillhasHumanoidBone+GlobalTransform (snapshot_chain requiresglobal butnotthatmarker). A stale externallymutatedrigcanpanic; normalbind/despawn/revision lifecycle actualproducerunproven, APIaggregatequestion only. Pelviscompressioncanremainifonelegmeasurement/solvefails; no wholelegtransactionpromise orvalidnormalfailedlegwitnessestablished. Posebuffer smallchain Native05F011 separatekernel/caller; do notsilentlyaliasallIKmath."
+    },
+    {
+      "contract": "Existing source fixtures and acceptance limits",
+      "evidence": "procedural.rs802\u20131813 full: additiverunheight/authoredroot-pelvispreservation, wraptick/gapclassification, guardedrunoppositeyaw, boundedlookrearbranch, flight90\u2013110ms, landingcompression/kneeflexion/reachreserve, 3.4m/sfootrelease, contacttolerance/supportrelease, slopeidempotence28deg, mirroredinvolution/anatomicalseparation, time-basedpelvissmoothing anddowned/quickstep exclusion.",
+      "qualification": "Allsourcefixturebodypersonallyconsumed, no tests/native/GPUexecution. Childimplementationcoverage notinferredfromassertions; localconstants/tests notnewruntimepolicy. Nativeproductiondiagnostic acceptance remainsneededonlywhenauthorizedrepairsresume; notruninthisdiscoverypass."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "1 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/body_response.rs"
+}

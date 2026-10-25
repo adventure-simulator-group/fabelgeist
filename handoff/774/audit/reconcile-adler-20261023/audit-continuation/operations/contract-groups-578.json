@@ -1,0 +1,96 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-578",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/strategic-web/static/dialogue-client.js",
+      "sha256": "dd5524466d59c0e52e3a527e31b8cc005ebf64f581b89a08801e2195943fcf19",
+      "actual_EOF": 825,
+      "actual_compared_ranges": [
+        [
+          1,
+          825
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Dialogue interpolation, selection and mutation retain exact current identity/revision and retry/mount authority.",
+      "evidence": "Full825lines personallyread; focusedcanonicalclient/routerpreviousbodies usedonlyasqualifications. Completion numericindices derivedfromlen andmatchcount; nozero modulo executeswithouttabs/buttons. Relationshiplevel0..1 byfixedbands, morale clamp-5..5 /finitecolors bounded; claimassessment clip0..1 butrawNaNremains rawCSSstrengtheningonly. Promptcountsvalidated andcanonicalbackendstillownschoiceidentity. ExistingNPCgeneration/session/revision guardsprotectsame-mountselectionchanges. Actualhelpers83/209fullread exposefailurestatus andmountguard gaps recordedbelow.",
+      "qualifications": "No source/project/test/browser execution. social_revision comparedagainstcurrentview ratherthanskippingrefresh, so prior559 omission concernnotautomatically staleprojectiondefect. JSNumber dialogue revision canloseu64precision onlyifactualbackendrevisiontypeadmitssuchstates; separateexistingidentity/clockcontracts, notordinarycounterexamplehere. Claim/socialactions generatenewIDs eachclick, whileOrderacceptance ownspendingID: exactreducer receipt/revisionpolicy neededbeforeblanketexactlyonceclaim.",
+      "acceptance": "Preserve numericboundeddisplay, exactopaqueidentities, explicitunavailableerrors, canonicalprompt/choicecounts andcurrentmount/session replyownership. Errorstatus/retry identity andsourcecurrentness failures retain their distinct acceptance constraints."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-DIALOGUE-HTTP-STATUS-RETRY-CANDIDATE-001",
+      "status": "source-backed actual wrapper/caller disagreement; ordinary terminal HTTP response conditional, no runtime run",
+      "operation": "dialogue-client.js request() expects Response on !ok to create error.status; background-fetch.js38\u201347 strategicFetch instead throws plain Error for !ok before returning. createRetriableAction53\u201370 clears pendingActionId on409/422 only.",
+      "witness": "Use actual acceptance.run(request accept-order-errantry). Server returns409 or422. Shared wrapper rejects plain Error with message status but no statusproperty; dialogue local if!response.ok is unreachable, catch cannot clear pendingID by expectednumericstatus. Retrying same button retains the prior attemptID despite explicit terminalrejection reset policy.",
+      "qualifications": [
+        "No actual rejected session/HTTP/browser execution. Terminalrejection may remain meaningful withsameID if reducer policy differs; primary proved gap is discardedstructuredstatus and unreachable intended branch.",
+        "Existing cross-system concrete-error graph is related; no indexed exactalias found by targeted1002recordsearch, not exhaustive semanticdedup proof.",
+        "Do not infer all transport errors require newID or clear IDs on uncertainnetwork failures."
+      ],
+      "repair_cluster": "strategic-http-error-and-retry-authority",
+      "dependencies": [
+        "actual terminalreject vs uncertaincommit protocol",
+        "shared strategicFetch callers expectingResponse/status",
+        "generated/backend error envelope ownership"
+      ],
+      "acceptance": "Preserve structuredHTTPstatus and specificservercause through sharedwrapper; terminal409/422 policy observable atretryowner while transport/unknowncommit retains exactattemptID. No implementation or test run in this audit."
+    },
+    {
+      "id": "SEGOVB-04-DIALOGUE-UNMOUNT-STALE-COMMIT-CANDIDATE-001",
+      "status": "source-backed ordinary bounded asynchronous response-order counterexample; no DOM/browser witness executed",
+      "operation": "dialogue mount aborts lifecycle for listeners but request() doesnotpass lifecycle.signal. background-fetch abortAll onlytracks strategicBackgroundFetch. begin/start resolution checksoldclosure selectionGeneration/oldchat, notabort/currentmount; renderCategoryTopics queriesglobalcurrentdocument categorypanels. strategic-navigation commitPage unmounts/replaces/mounts whilependingstart canresolve.",
+      "witness": "Mount pageA and selectNPCA, delaying POST/api/dialogue/start A. Softnavigate to settlementpageB andletits newdialogue/start B render. Resolve oldA response next: old generation andoldchat unchanged satisfybegin guard; render(A) writes A topics into currentB globalcategorypanels, whileoldmessages remain detached. A lifecycle aborted alreadybutno callback guard. Samegapcanrefreshglobalrelationship context afteroldmutation.",
+      "qualifications": [
+        "Actual6533wrapper/navigation/request paths consumed; ordinarynetworkreordering supported, no malformedvalue needed. No realnetwork/DOM run or currentmain claim.",
+        "Background socialfetch is separatelycancelled on unmount; this doesnot cancel untracked start/topic/answer/directmutation requests.",
+        "No claim stalePOST didnotcommit server; cancellingrender mustnotpretendcancel authoritative mutation."
+      ],
+      "repair_cluster": "strategic-dialogue-mount-authority",
+      "dependencies": [
+        "one currentmount/session selection token across all callbacks",
+        "shared fetch cancellation and navigation lifecycle",
+        "pendingaction receipt recovery independent ofviewlifetime"
+      ],
+      "acceptance": "Afterunmount nooldcallback maymutate currentdocument or replacementpage panels. Bindrender toexactmount+session+selection and/orabortedepoch, scopeDOMqueries toownedroot. Keep successfulservercommit/retryidentity separate; preserveordinaryNPCswitch stale guards and mountedpage refresh."
+    }
+  ],
+  "fresh_dependencies": [
+    {
+      "source_id": "pr-working:crates/strategic-web/static/background-fetch.js",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/static/background-fetch.js",
+      "sha256": "00cfcd2e251b7d8b3020a2493c94a0907b7cf2afbeccc841331a2f81aabf2c86",
+      "actual_EOF": 83,
+      "actual_compared_ranges": [
+        [
+          1,
+          83
+        ]
+      ],
+      "method": "Complete exact fresh helper source body personally read; new shared extension registration requested; no original2853 role coverage inferred."
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/static/strategic-navigation.js",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/static/strategic-navigation.js",
+      "sha256": "1419143934b4dacd73085c81a770534d63fbad34612ff6cc25bb886c430e6bff",
+      "actual_EOF": 209,
+      "actual_compared_ranges": [
+        [
+          1,
+          209
+        ]
+      ],
+      "method": "Complete exact fresh helper source body personally read; new shared extension registration requested; no original2853 role coverage inferred."
+    }
+  ],
+  "status": "1 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/strategic-web/static/equipment-icons/belt--worn.png"
+}

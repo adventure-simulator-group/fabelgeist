@@ -1,0 +1,115 @@
+{
+  "id": "CONT07-CONTRACT-411",
+  "at": "2026-10-23T21:25:56.436121+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1800,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/gardens.rs",
+      "sha256": "fe019503a9b5cc09df4b954906c81c1484e5b1f31f622c2b385d2de4ea88da85",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/gardens.rs",
+      "actual_EOF": 97,
+      "ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1801,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/gardens/geometry.rs",
+      "sha256": "6714471caf51d59b35d1f74bc741f96616aa5eded3fd07658d13516b2aeab93d",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/gardens/geometry.rs",
+      "actual_EOF": 270,
+      "ranges": [
+        [
+          1,
+          270
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1802,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/gardens/specimen.rs",
+      "sha256": "f4f7b85d6aa1694b5b2732810b329ac15caf2ebb77b71832a67880c70e0bd4d4",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/gardens/specimen.rs",
+      "actual_EOF": 61,
+      "ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1803,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+      "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+      "actual_EOF": 407,
+      "ranges": [
+        [
+          1,
+          407
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1804,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/access.rs",
+      "sha256": "cf8f7790613cc67bc1de9815eea5ef31cc30c35b571b64930902c42c8d0469ab",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/access.rs",
+      "actual_EOF": 115,
+      "ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1805,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/access/tests.rs",
+      "sha256": "95d01208f51eef1ecd658d46f278a2653900f5d066b8dbd204b06f92568df4fa",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/access/tests.rs",
+      "actual_EOF": 92,
+      "ranges": [
+        [
+          1,
+          92
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "ROOT-OWNER-GARDEN-SUPPORT-057",
+    "ROOT-OWNER-RIGID-HULL-058",
+    "ROOT-OWNER-SCENE-SOURCE-056",
+    "RIG-OWNER-SUPPORT-BOUNDARY-KERNELS-063"
+  ],
+  "facts": [
+    "1800 exactEOF97 supersedes historic105/100-range claims; no extra source inferred. GardenPlantScale checked constructor and decode repeat the same finite-positive leaf contract, not separate current state; custom validate adds <=2 aggregate policy.",
+    "1801 garden plot/cultivated bounds/beds/access/plants are different working and ownership regions. translate updates all together; this body can fail after earlier translations, but no actual caller that retains a failed partial garden was proved, so no current authority finding. clearance_geometry recomputes from current source members without retaining an invalidation cache.",
+    "1801 broad-distance building cull and exact bed/route/hull SAT have distinct broad/narrow purposes. Broad reach relies on geometry admission bounding the street approach to6m; the same constant owns validation and cull. Public bypass before admission remains an admission/caller obligation; no ordinary false-clearance asserted.",
+    "1802 envelope is immutable authored measured source with geometry_revision/seed/hull/min-max/count. It is an authority for garden siting and rendering, not sufficient proof they currently agree. Current contains_local_vertex checks a generated vertex against it; actual generator/revision/count comparison is a separate reached receiver prerequisite before promoting any cross-source disagreement. Shader strength0.035 versus clearance0.04 is a deliberately conservative envelope allowance; equality would be wrong.",
+    "1803 private CompoundSupportPlan coordinates property/levels/passage/regions/profiles/stairs/treatment. Static construction and later exact constructors still need tracing; getters do not permit independent mutation. Geographic observations, passage/court/gate floors and multiple query elevations at retaining interfaces have explicit different roles. floor_translation_basis clones/translates private diagnostic basis only and is never installed as admitted plan; do not label this alternate current physical truth.",
+    "1803 main_height304-317 suppresses a CourtStair arithmetic error through .ok(); elevations_at then can omit required height and displacement388-392 folds empty to0. Existing PP019 error-loss obligation is supported, but no fresh07 duplicate-authority finding asserted. Exact required-versus-optional coverage and actual constructor/caller conditions remain needed.",
+    "1804 computes union-subtracted available strip in f64 and uses explicit caller maximum or any nonfinite as derived cap. This is native policy computation, no independent retained run cache.1805 fixtures check joining regions/order/gap/zero-area behavior without execution. Broader nonfinite admission roles remain separate from07 current authority.",
+    "All13 and overlay gate remain open, no source repair or checks executed."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1806,
+    "start_line": 1
+  }
+}

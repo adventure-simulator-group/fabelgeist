@@ -1,0 +1,179 @@
+{
+  "head": "82cb2a3acccc852bba6a7ef9c706c337ba9fe765",
+  "status": "Fourteen existing command cells are now wired into the hosted workflow and required-cells verifier. No command has run for P06; every prior gate, command cell and Creator command vector remains.",
+  "module_ownership": {
+    "core_scene": "lib.rs unconditionally declares scene; scene mesh APIs are gated by meshgen and native tests by cfg(test).",
+    "core_scene_input": "lib.rs unconditionally declares scene_input; its inline tests include occupied; nested generation/garden/furniture test modules remain selected by scene_input::.",
+    "core_grounding": "city_layout::grounding is unconditional with cfg(test) tests; selected descendants include sampled/owned/coarse behavior.",
+    "core_vista_surface": "Production-only module: no #[test] or mod tests in source. A direct filter would be empty. Use existing presentation::vista::ground consumer coverage and record indirect scope.",
+    "client_main": "Presentation and animation modules are compiled in the native client; current default features include debug and client-audio.",
+    "tactical_scene_viewer": "Cargo binary uses src/tactical_scene_viewer_main.rs, requires debug, declares native tactical_scene_viewer and shared presentation modules.",
+    "animation_viewer": "Cargo binary uses src/animation_viewer_main.rs, requires debug, reuses animation/presentation; existing report filter retained."
+  },
+  "fixtures": {
+    "scene_query": "Existing centered/non-unit grid, triangle diagonal, fine/coarse, collider and boundary normal tests in scene.rs.",
+    "scene_and_garden": "Existing assets/tactical-scenes/garden-review.json used by source identity, garden, occupied and geographic preparation fixtures.",
+    "grounding": "Existing foundation settlement, sampled/owned and controller fixtures; no new cases or assertions.",
+    "native_surface": "Existing marching height extraction order and nonfinite-column fixtures, existing volumetric terrain fixtures.",
+    "client": "Existing ragdoll capsule slope/offset, IK contact/floor/projection, presentation vista/terrain/weather and viewer camera tests."
+  },
+  "explicit_limits": [
+    "Three production route tests remain ignored: garden, compound and single entrances. Each needs FABELGEIST_TERRAIN_SCENE; compilation is not execution. Record them separately from passing selected cases, and inspect actual logs for any other ignores.",
+    "No new live production failure, calibrated renderer or unavailable-range scenario is established by compilation or existing unit selection.",
+    "Actual nonempty outputs and exact tested revision must be inspected after hosted execution; source names alone do not prove execution."
+  ],
+  "new_tests_or_local_commands": false,
+  "rechecked_head": "82cb2a3acccc852bba6a7ef9c706c337ba9fe765",
+  "rechecked_at": "2026-10-20T20:39:48.359166+00:00",
+  "additional_verified_modules": {
+    "scene_coordinates": "Unconditional lib module; one existing root test and three existing spatial_tests tests cover checked decoding and canonical datums.",
+    "erosional_terrain": "Unconditional lib module with ten existing tests, including deterministic sound mesh, winding, roof/crossing and rejoin behavior. This family must be selected when its terrain lookup and field callback become fallible; marching-height tests alone do not cover these fields.",
+    "marching_tetrahedra": "Unconditional lib module; height_surface child has two existing tests for ordered mesh buffers and nonfinite columns, not zero tests.",
+    "inspect_city_grounding": "Auto-discovered example target examples/inspect-city-grounding.rs with eleven existing tests across explicitly pathed child modules. Cargo manifest has no disabled harness or required feature gate for this example.",
+    "strategic_scene": "Existing main-client module and native tests cover scene document parsing, frontage/furniture relocation, venue placement, retained actors, camera views and cached portraits. Select strategic_scene:: in addition to all ten previous planned cells because the connected preparation/error/anchor family now changes these paths. Require nonempty hosted output; source inventory is not execution.",
+    "dispatcher_scene_input": "src/lib.rs owns public scene_input; root/geology tests belong to --lib. Require nonempty hosted scene_input:: results.",
+    "art_demo": "Cargo binary art-demo uses src/art_demo_main.rs with an unconditional mod art_demo and the default harness. Select art_demo::; two existing offline generators stay ignored. Source declarations are not execution.",
+    "animation_capture": "Five existing capture tests: two root cases, one frame-clock case and two repeated-evaluation cases, selected by animation_viewer::capture:: in the animation-viewer binary. These do not directly execute the new missing-support runtime lifecycle."
+  },
+  "proposed_existing_test_commands": [
+    "cargo test --locked --package adventuresim-tactical-core --features meshgen --lib scene:: -- --test-threads=1",
+    "cargo test --locked --package adventuresim-tactical-core --features meshgen --lib scene_input:: -- --test-threads=1",
+    "cargo test --locked --package adventuresim-tactical-core --features meshgen --lib scene_coordinates:: -- --test-threads=1",
+    "cargo test --locked --package adventuresim-tactical-core --features meshgen --lib city_layout::grounding:: -- --test-threads=1",
+    "cargo test --locked --package adventuresim-tactical-core --features meshgen --lib volumetric_terrain:: -- --test-threads=1",
+    "cargo test --locked --package adventuresim-tactical-core --features meshgen --lib erosional_terrain:: -- --test-threads=1",
+    "cargo test --locked --package adventuresim-tactical-core --features meshgen --lib marching_tetrahedra:: -- --test-threads=1",
+    "cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client presentation:: -- --test-threads=1",
+    "cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client strategic_scene:: -- --test-threads=1",
+    "cargo test --locked --package adventuresim-tactical-client --features debug --bin tactical-scene-viewer tactical_scene_viewer:: -- --test-threads=1",
+    "cargo test --locked --package adventuresim-tactical-client --bin art-demo art_demo:: -- --test-threads=1",
+    "cargo test --locked --package adventuresim-tactical-server-dispatcher --lib scene_input:: -- --test-threads=1",
+    "cargo test --locked --package adventuresim-tactical-server-dispatcher --example inspect-city-grounding -- --test-threads=1",
+    "cargo test --locked --package adventuresim-tactical-client --features debug --bin animation-viewer animation_viewer::capture:: -- --test-threads=1"
+  ],
+  "known_ignored_production_acceptance": [
+    {
+      "test": "production_garden_routes_allow_entry_tending_and_return",
+      "file": "crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement/gardens.rs",
+      "requirement": "Frozen production export through FABELGEIST_TERRAIN_SCENE; remains ignored, not claimed executed."
+    },
+    {
+      "test": "production_compound_routes_allow_entry_thresholds_and_return",
+      "file": "crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement/production.rs",
+      "requirement": "Frozen production export through FABELGEIST_TERRAIN_SCENE; remains ignored, not claimed executed."
+    },
+    {
+      "test": "production_single_entrances_allow_full_width_entry_and_return",
+      "file": "crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement/single.rs",
+      "requirement": "Frozen production export through FABELGEIST_TERRAIN_SCENE; remains ignored, not claimed executed."
+    },
+    {
+      "test": "goslar_property_1236_vista_scenery_uses_accepted_support",
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/ground/tests.rs",
+      "requirement": "Accepted Goslar export through FABELGEIST_SCENERY_ACCEPTANCE_INPUT; remains ignored, not claimed executed."
+    },
+    {
+      "test": "required_city_vista_scenery_matches_property_support",
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/ground/tests.rs",
+      "requirement": "Frozen acceptance manifest through FABELGEIST_PARTITION_ACCEPTANCE_MANIFEST; remains ignored, not claimed executed."
+    },
+    {
+      "test": "regenerate_art_demo_cloud_assets",
+      "file": "crates/adventuresim-tactical-client/src/art_demo/scenery.rs",
+      "requirement": "Full deterministic offline cloud-bake generator; remains ignored."
+    },
+    {
+      "test": "regenerate_art_demo_tree_impostors",
+      "file": "crates/adventuresim-tactical-client/src/art_demo/scenery.rs",
+      "requirement": "Deterministic offline tree-bake generator; remains ignored."
+    }
+  ],
+  "hosted_cells": [
+    {
+      "label": "terrain-scene",
+      "command": "cargo test --locked --package adventuresim-tactical-core --features meshgen --lib scene:: -- --test-threads=1"
+    },
+    {
+      "label": "terrain-scene-input",
+      "command": "cargo test --locked --package adventuresim-tactical-core --features meshgen --lib scene_input:: -- --test-threads=1"
+    },
+    {
+      "label": "terrain-scene-coordinates",
+      "command": "cargo test --locked --package adventuresim-tactical-core --features meshgen --lib scene_coordinates:: -- --test-threads=1"
+    },
+    {
+      "label": "terrain-grounding",
+      "command": "cargo test --locked --package adventuresim-tactical-core --features meshgen --lib city_layout::grounding:: -- --test-threads=1"
+    },
+    {
+      "label": "terrain-landforms",
+      "command": "cargo test --locked --package adventuresim-tactical-core --features meshgen --lib volumetric_terrain:: -- --test-threads=1"
+    },
+    {
+      "label": "terrain-erosion",
+      "command": "cargo test --locked --package adventuresim-tactical-core --features meshgen --lib erosional_terrain:: -- --test-threads=1"
+    },
+    {
+      "label": "terrain-extraction",
+      "command": "cargo test --locked --package adventuresim-tactical-core --features meshgen --lib marching_tetrahedra:: -- --test-threads=1"
+    },
+    {
+      "label": "terrain-presentation",
+      "command": "cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client presentation:: -- --test-threads=1"
+    },
+    {
+      "label": "terrain-strategic",
+      "command": "cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client strategic_scene:: -- --test-threads=1"
+    },
+    {
+      "label": "terrain-viewer",
+      "command": "cargo test --locked --package adventuresim-tactical-client --features debug --bin tactical-scene-viewer tactical_scene_viewer:: -- --test-threads=1"
+    },
+    {
+      "label": "terrain-art-demo",
+      "command": "cargo test --locked --package adventuresim-tactical-client --bin art-demo art_demo:: -- --test-threads=1"
+    },
+    {
+      "label": "terrain-dispatcher",
+      "command": "cargo test --locked --package adventuresim-tactical-server-dispatcher --lib scene_input:: -- --test-threads=1"
+    },
+    {
+      "label": "terrain-inspection",
+      "command": "cargo test --locked --package adventuresim-tactical-server-dispatcher --example inspect-city-grounding -- --test-threads=1"
+    },
+    {
+      "label": "terrain-animation-capture",
+      "command": "cargo test --locked --package adventuresim-tactical-client --features debug --bin animation-viewer animation_viewer::capture:: -- --test-threads=1"
+    }
+  ],
+  "historical_initial_planning_head": "2d0631412e835e23a3f4c9460d1b2f4b48c128a9",
+  "working_tree_uncommitted": true,
+  "required_cell_total": 40,
+  "source_verification_report": "P06-workflow-source-verification.json",
+  "weather_audio_followthrough": {
+    "command": "cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client weather_audio::tests:: -- --test-threads=1",
+    "cell": "weather-audio",
+    "existing_cases": 2,
+    "status": "Newly included existing cases; execution pending."
+  },
+  "ground_consumer_selection_followthrough": {
+    "recorded_at": "2026-10-21T00:59:11.775483+00:00",
+    "head": "5b44a561bd7543d4edadfc65265bf0255819688b",
+    "existing_cell": "terrain-presentation",
+    "filter": "presentation::",
+    "covered_modules": [
+      "presentation::ground_scatter::plants::tests",
+      "presentation::ground_scatter::instanced_grass::tests",
+      "presentation::terrain::tests",
+      "presentation::terrain::urban::tests",
+      "presentation::terrain::urban::owned_tests",
+      "presentation::terrain::cliff_surface::tests",
+      "presentation::terrain::volumetric::tests"
+    ],
+    "named_botanical_fixtures": [
+      "assets/tactical-scenes/fungi-woodland.json",
+      "assets/tactical-scenes/flower-woodland-edge.json"
+    ],
+    "limit": "Selection is verified from workflow source; no current-head test execution verdict exists. No new invalid-raster-coordinate test was added, per user instruction."
+  }
+}

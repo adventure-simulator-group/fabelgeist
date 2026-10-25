@@ -1,0 +1,37 @@
+{
+  "id": "RIG-INITIAL06-GROUP-260",
+  "at": "2026-10-23T07:45:07.293120+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-070.json",
+  "groups": {
+    "hair-native-geometry-capabilities-and-atlas": {
+      "comparison": "Fresh hair geometry172 HairGeometry owns native GPU readback position/normal/UV/occlusion/random/tangent/face channels, distinct from generic MeshData or colored PlantMesh capabilities. Blind replacement would drop hair-specific channels; no confirmed whole-product duplicate merely because common arrays. Form Cards versus Strands is canonical lower fabelgeist_hair LOD representation, not CharacterLod or terrain ring. Card fallback to last available representation is display LOD choice, not legacy schema compatibility. Carried geometry maps body-specific HeadPlacement from/to through bust coordinate frame, preserving normals versus directions/positions. Actual atlas converts packed coverage/shade/depth to shadeRGB+coverageRGBA8, legitimate native image adapter, not arbitrary color versus metric lanes. F005 generic semantic color leaves at host unchanged retention remain separate; no forced raw u8 image branding. Missing form returns empty geometry by explicit representation policy, not universally invalid body acceptance. No GPU/readback/image/test execution.",
+      "disposition": "Keep hair-specific native geometry capabilities, placement frames and atlas format distinct from generic/plant/cloth products."
+    },
+    "shared-procedural-material-native-owner": {
+      "comparison": "Fresh procedural-materials lib174 is already a shared production bark/leaf binding owner below tactical game and Texture Studio. Bevy Asset/AsBindGroup/Reflect native structs contain exact texture handles and packed uniform lanes for direction/phase/wind, opacity/normal/AO/transmission, roughness/physicalthickness, pigment/roughness and terrainheight/deposition. These Vec4 fields have deliberately mixed units; genericColor cannot replace pigment+roughness fourtuple or tiles/metre+height payload. Tactical prefix is rendering-purpose naming, not duplicate source tree identity. One sharedshaderdefine helper preventsduplicate transmission capability flags, actualnative pipeline specialization disables culling and usesAlphaToCoverage bypurpose. Canonical source texture/material/generative parameters remain upstream, shared runtimeassetbindings not game ground authority. F005 proper color leaf reuse before packing remains, no new independent Color owner. No foreignshaderimportbody/renderexecution or type-name validity seal fromReflect/Material.",
+      "disposition": "Keep shared renderer material/ABI ownership and unit-specific packed lanes, distinct from source gameplay/material semantics."
+    },
+    "anatomical-yaw-rig-role-projection": {
+      "comparison": "Fresh anatomical_yaw165 KneeYawLeg private product groups canonical BoneRole upper/lower/foot with LeadFoot side. This is useful localconstraint mapping, not duplicate full rig topology, coarse bodyregion or namegrammar. ObservedRigFrame, chain snapshots and native world positions define geometric reference; LimbSegments canonical lengths and AngularMagnitudeDegrees result keep distinctunits. Native projectedbend/facing/quat solve are actualnumericalport; degree magnitude is unsigned angle, not reportedprecision/fraction or scene signedlength. F002 neutral measuredlength owner and exactF039 angular kernel concerns preserved. Missing measurement returnsNone yet finaloffsetarray initializeszero, a report/aggregateobservationpolicy separate from ownership and P17explicitmissingness; no current guarantee zeroalwaysmeasured. Actual downed/posturetransition/quickstep guards preserveauthoredposeowner, no tacticalDBstate. Called solve/rig/frame helperbodies separatelyscoped, no execution.",
+      "disposition": "Keep final pose constraint mapping and measured-angle role local over canonical rig/leaves, preserve frame and missingness limits."
+    },
+    "forecast-rate-unit-differs-from-current-wheel-level": {
+      "comparison": "Fresh forecast166 together with fresh combat_state211 shows canonical TacticalIncapacitationSources is produced by incapacitation_sources61–82 as current wheel contribution fractions, and total118–129 sums those levels. ConditionTrend previous/current use that meaning, but rates field8 stores (current−previous)/elapsed.seconds at28–30, including negative recovery derivatives; its unit is fraction/second. Reusing the same level record for that retained rate is a concrete wrong-meaning use, new F044 suggestion. Current and projectedincrement share fraction dimension but different authorities, do not merge them into extra gameplay impairment or apply forecast toperformance. Coherent repair keeps one source-category roster and separates rate versus contribution quantity at smoothing API (e.g. shared generic source product or named rate product consuming canonical roster), not ten independentlymaintained source lists. Preserve signed rates, exp smoothing, horizon multiplication and max0 only completedforecast; do not imposeUnitInterval on total/rate or changeonegeneral fatigue/displaycutoff. Canonical state remains transientBevy, readinessderived fromtotal, explicitcharge_work updatesfatigue+total. ExistingNative05 lateconsequence totalfreshness gap separate. No numericalfailure/runtime/currentbadcaller claim here, no testsrun or newassertions.",
+      "disposition": "F044: distinguish retained signed per-second trend rates from canonical current contribution levels while sharing source categories; preserve gameplay and forecast arithmetic."
+    }
+  },
+  "supporting_existing_findings": [
+    "RIG-INITIAL06-F002",
+    "RIG-INITIAL06-F005",
+    "RIG-INITIAL06-F039",
+    "RIG-INITIAL06-F044"
+  ],
+  "source_fact_refs": [
+    "contracts-122.json",
+    "contracts-243.json",
+    "contracts-256.json",
+    "contracts-259.json"
+  ],
+  "limits": "Five fresh complete actual bodies including whole canonical combat_state211 newly compared. No helper/native/Reflect blanketcredit; no source/claim edits/execution/tests/GPU/newscope/other-lens credit."
+}

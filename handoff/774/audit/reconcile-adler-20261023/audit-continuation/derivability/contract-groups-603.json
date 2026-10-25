@@ -1,0 +1,314 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-603",
+  "at": "2026-10-25T16:11:25.360262+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 935,
+      "source_id": "pr-working:crates/adventuresim-core/src/investigation_action.rs",
+      "sha256": "717288409edb3210de986fef4dcf838525461956d2e686f59a78a781b5e354e2",
+      "actual_EOF": 1291,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/investigation_action.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/investigation_action.rs",
+        "sha256": "717288409edb3210de986fef4dcf838525461956d2e686f59a78a781b5e354e2",
+        "bytes": 46479,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/supplemental-operation-sources.json",
+            "ranges": [
+              [
+                1,
+                1291
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "NATIVE-SUPP-OPERATION-001"
+            ]
+          }
+        ],
+        "audit_owner": "native",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 621,
+            "read_ranges": [
+              [
+                255,
+                345
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-INVESTIGATION-MODEL-CAPABILITY-088"
+            ],
+            "read_status": "scoped_definition_and_affected_receivers_only",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/investigation_action.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 98,
+            "read_ranges": [
+              [
+                1,
+                1291
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-INVESTIGATION-001",
+              "NATIVE-OWNER-F014"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/investigation_action.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 442,
+            "read_ranges": [
+              [
+                1,
+                1291
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-INVESTIGATION-001",
+              "NATIVE-OWNER-F014"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/investigation_action.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera",
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CASE-RECEIVERS-029",
+            "json_pointer": "/related_current_sources/3",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/investigation_action.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                62
+              ],
+              [
+                279,
+                342
+              ],
+              [
+                480,
+                1010
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/investigation_action.rs",
+              "sha256": "717288409edb3210de986fef4dcf838525461956d2e686f59a78a781b5e354e2",
+              "read_ranges": [
+                [
+                  1,
+                  62
+                ],
+                [
+                  279,
+                  342
+                ],
+                [
+                  480,
+                  1010
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/investigation_action.rs",
+              "scope": "Whole actual planning producer and rights callback, resolution/roll/result/weather numerical kernels and affected existing fixture prefix; no whole1291 claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016",
+            "json_pointer": "/related_current_reads/3",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/investigation_action.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                62
+              ],
+              [
+                279,
+                342
+              ],
+              [
+                480,
+                1010
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/investigation_action.rs",
+              "sha256": "717288409edb3210de986fef4dcf838525461956d2e686f59a78a781b5e354e2",
+              "read_ranges": [
+                [
+                  1,
+                  62
+                ],
+                [
+                  279,
+                  342
+                ],
+                [
+                  480,
+                  1010
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/investigation_action.rs",
+              "scope": "Whole actual planning producer and rights callback, resolution/roll/result/weather numerical kernels and affected existing fixture prefix; no whole1291 claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 321,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1291
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "From<InvestigationActionAvailability> for native SATS helper and reverse",
+          "lines": [
+            [
+              78,
+              113
+            ]
+          ],
+          "disposition": "KEEP explicit named-three-field public enum\u2194named product/single-payload sum representation conversion. Pinned native derive rejects this public variant shape; proof598."
+        },
+        {
+          "trait": "spacetimedb::SpacetimeType",
+          "type": "InvestigationActionAvailability",
+          "lines": [
+            [
+              116,
+              122
+            ]
+          ],
+          "disposition": "KEEP type delegation to explicit named helper sum. Direct derive rejected by native variant_data; proof598."
+        },
+        {
+          "trait": "spacetimedb::Serialize + Deserialize",
+          "type": "InvestigationActionAvailability",
+          "lines": [
+            [
+              125,
+              147
+            ]
+          ],
+          "disposition": "KEEP named-product bridge delegation, public enum/API unchanged; same native shape parser rejects direct derive. No editing generated SDK."
+        },
+        {
+          "trait": "Display",
+          "type": "InvestigationTargetKind",
+          "lines": [
+            [
+              192,
+              196
+            ]
+          ],
+          "disposition": "KEEP small stable as_str/write_str, no owning ready Display derive."
+        },
+        {
+          "trait": "DomainTarget/DomainRequirement/DomainCapability/DomainInterruption/DomainEffect/PublicPreview/DomainRightsSubject/DomainRightsResource/DomainRightsOperation/DomainJurisdiction",
+          "lines": [
+            [
+              484,
+              484
+            ],
+            [
+              493,
+              493
+            ],
+            [
+              499,
+              499
+            ],
+            [
+              505,
+              505
+            ],
+            [
+              516,
+              516
+            ],
+            [
+              522,
+              522
+            ],
+            [
+              526,
+              526
+            ],
+            [
+              532,
+              532
+            ],
+            [
+              537,
+              537
+            ],
+            [
+              540,
+              540
+            ]
+          ],
+          "disposition": "KEEP ten explicit empty local opt-ins; no existing matching derives or imported-body credit."
+        }
+      ],
+      "existing_derives": [
+        "Unavailable reason/availability Serde structural35\u201350",
+        "native SATS helper product/sum derive SpacetimeType60\u201374 with exact sats names",
+        "target/time/weather/skill/prerequisite/cost/resolution/progress records structuralSerde",
+        "planner/right vocabulary structural"
+      ],
+      "absence_basis": "Full1291 personally consumed597/599\u2013603; native dependency598 independently resolves exact bridge question, partial original2562 only. Other native tracking/planning/rights/skill/time/weather/resolution functions semantic; all existing fixtures read only."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Native availability named-product bridge is necessary",
+      "evidence": "contract-groups-598.json exact2.6.1 parser54\u201385 and variant_data728\u2013752 reject three-field enum payload; helper constructor/type/codecs preserve publicAPI and named SATS wire. Existing Serde already derives public JSON.",
+      "disposition": "KEEP bridge; no new derivability finding, no schema/bindings edits or execution."
+    },
+    {
+      "contract": "Investigation native authority/planner policies",
+      "disposition": "Retain explicit empty opt-ins and semantic rights/time/result functions; no new dependency or derive imposed."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 936,
+    "source_id": "pr-working:crates/adventuresim-core/src/investigation_action/vocabulary.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

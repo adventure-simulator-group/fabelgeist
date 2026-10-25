@@ -1,0 +1,80 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-380",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/expedition.rs",
+      "sha256": "a77ae88e526acb661515b4069d678cd7b7e42f278d4e8fc4cb2f1a317440246a",
+      "actual_EOF": 1273,
+      "actual_compared_ranges": [
+        [
+          1,
+          1273
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/expedition_policy.rs",
+      "sha256": "3445a120138cc90a66de9186ddcbd2e3fb8da430e9e6e506883baa6cc071c7e9",
+      "actual_EOF": 240,
+      "actual_compared_ranges": [
+        [
+          1,
+          240
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Expedition observation defaulting is exact support for supplied observation-loss findings",
+      "source_ranges": {
+        "expedition.rs": [
+          [
+            31,
+            340
+          ]
+        ],
+        "expedition_policy.rs": [
+          [
+            1,
+            240
+          ]
+        ]
+      },
+      "disposition": "All1513 lines across both complete bodies personally read. Fresh actual expedition_member_observations requires character but missing clock\u2192ZERO, missing condition\u2192zero hunger/thirst/supplies, missing survival\u2192Default, absent illness\u2192false. Missing aftermember in diagnostic output reuses beforemember. Existing SIM-OBSERVATION-001/CAM-PROP-F009/F012/F006/F023 and RIG-PPS-F018 source supplement share required/malformed observation erasure; link these exact paths as04support, notnewdefect/globalcount. Recovery checks conditionStatusOptionReady/Some failclosed in some paths, but that doesnotlegitimize successful diagnostics replacing lost data. Full actual observation/thermal/survival/callback repair graph must preserve actualzero/absence distinctions, explicitunavailable causes and oldretry/firstfailure. No sourcecoverage transfer from suppliedotherlenses."
+    },
+    {
+      "contract": "Recovery and evacuation select current public actors and remain bounded across external actions",
+      "source_ranges": {
+        "expedition.rs": [
+          [
+            341,
+            1273
+          ]
+        ]
+      },
+      "disposition": "Allremaining933 lines read. Unique affordable arrestaction mustmatchparty/site/controlledinstigator, rechecks aliveparty then actualresult and projection disappearance/samesite beforemetric/observedorigin. Publicreturnoriginfromjourneysettlementorunique disclosedsiteorigin; ambiguityholds, exactpreviousauthoritativeactivityorigin fallback keyedparty+site distinctexplicitretainedobservation. Idle returnexcludesactivejourney/directcontract/unresolvedgeneratedcase; checks actualpartyreadiness/supplies/departure/thermal unlessexplicitknownactivityreturnbranch. Recoveryreselects actor eachrest, max2 one-dayrests, unresolvedencounter/incoherentcamp/noactor holds; passiveleader onlystrictconditions. Reobservesdeath/member/supplies, explicitrecoveryresumeorpublicevacuationthenobservesactualsettlement/camp/livingsuccess. Continuingpersistedpublicjourney bypassnewforecast intentionallyexistingjourneyrecovery policy, nofreshunsafe routewitness. Counter increments saturating; member/indexnarrow fromsimrosterposition<=32 configproved, no arbitraryu32argsmisuse promoted. Supplies sumfinitecatalog-derivedquantities ordinaryboundedwork, broadrawpositiveInf policyquestionbelongsadmission, noimpossiblehuge-lot witness."
+    },
+    {
+      "contract": "Recovery aggregate predicates and elapsed delta use intended public meanings",
+      "source_ranges": {
+        "expedition_policy.rs": [
+          [
+            159,
+            240
+          ]
+        ]
+      },
+      "disposition": "Predicates alive+SomeReady+asymptomatic/noncritical, nonemptyliving; allmustreadytoresume, anyactionable redundantlogicallybutexplicitcontract. One-restsupplies compareslivingcount*knownpositiveperdayrates, actualsim32 bounds. Passiveconditionpermitsknownincapacitatedaliveleader withsupplies/noencounter/campandnoncritical, notnewpermissionfromcomment. expedition_elapsed_delta maxfrontierafter-minusmaxbefore uses saturatingcalendar delta; measurespartyfurthestfrontier notpermemberelapsed orsum. Dead/removedmaxmembercanmaskotherprogress butactualmemberhistoricalclockfrozenandmembershipconsistencyactualcallerdep, donotreplacewithsum withoutproductmeaning. No executedrecovery/DBupdates."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-strategic-sim/src/live_core/failure.rs"
+}

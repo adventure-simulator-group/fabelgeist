@@ -1,0 +1,44 @@
+--- PRbase/crates/adventuresim-tactical-client/src/animation_viewer/view.rs
++++ frozen/crates/adventuresim-tactical-client/src/animation_viewer/view.rs
+@@ -1,6 +1,7 @@
+ //! Deterministic gameplay and armor inspection camera framing.
+ use super::*;
++use adventuresim_building_generator::spatial_geometry::RigidRotation;
+ 
+ pub(super) fn position_capture_camera(
+     sequence: Res<CaptureSequence>,
+     armor: Res<harness::ArmorCapture>,
+@@ -23,10 +24,16 @@
+             // not refresh its controller-follow base transform. Reconstruct
+             // that default base and apply the exact gameplay camera offset;
+             // otherwise the offset accumulates and the first raw frame is a
+             // pelvis-level/empty view.
+-            camera.translation =
+-                subject.translation + animation_capture_camera_offset(Quat::IDENTITY);
++            let offset = match animation_capture_camera_offset(RigidRotation::IDENTITY) {
++                Ok(offset) => offset,
++                Err(error) => {
++                    error!(%error, "cannot position capture camera");
++                    return;
++                }
++            };
++            camera.translation = subject.translation + offset.metres();
+             camera.rotation = Quat::IDENTITY;
+         }
+         CaptureView::Side => {
+             camera.translation = focus + Vec3::new(5.0, 0.45, 0.0);
+@@ -55,11 +62,11 @@
+                 Visibility::Inherited
+             };
+             **label = format!(
+                 "{} | {:>4.2} m/s | phase {:>5.3} | {} view | 64 Hz frame {}",
+-                frame.scenario,
+-                frame.speed,
+-                skeleton.gait_phase,
++                frame.scenario.label(),
++                frame.speed.metres_per_second(),
++                skeleton.gait_phase.cycles(),
+                 view.slug(),
+                 frame.scenario_frame,
+             );
+         }

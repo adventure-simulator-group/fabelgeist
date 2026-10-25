@@ -1,0 +1,23 @@
+--- PRbase/crates/adventuresim-character-creator/src/device_underlayer/plan.rs
++++ frozen/crates/adventuresim-character-creator/src/device_underlayer/plan.rs
+@@ -7,8 +7,9 @@
+ //! shared by neighbouring body triangles relies on the host's `f64`
+ //! clipping. It stays on the host; everything it feeds -- offsets, layers,
+ //! normals and attributes -- is evaluated on the device.
+ 
++use crate::armor_frames::FittingPlacement;
+ use anyhow::{Result, ensure};
+ 
+ use crate::armor_frames::Wearer;
+ use crate::surface_cut::{SurfaceCut, interpolate};
+@@ -38,9 +39,9 @@
+     /// surface-coordinate triangles `uv_faces`; `frame` fits the part frames
+     /// that size the regions.
+     pub fn new(
+         design: &UnderlayerDesign,
+-        placement: &str,
++        placement: FittingPlacement,
+         body: &Wearer<'_>,
+         uv_faces: &[[u32; 3]],
+         frame: RegionFrame<'_>,
+     ) -> Result<Self> {

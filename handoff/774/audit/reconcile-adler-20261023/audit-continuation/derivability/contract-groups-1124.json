@@ -1,0 +1,312 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1124",
+  "at": "2026-10-25T17:50:35.786353+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1235,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/tests/authority_trade_dialogue.rs",
+      "sha256": "32c5e6e23e6687a365a8b7a7920e5a7dc0a6d6cc722250448159318a90f60899",
+      "actual_EOF": 761,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/tests/authority_trade_dialogue.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/strategic/tests/authority_trade_dialogue.rs",
+        "sha256": "32c5e6e23e6687a365a8b7a7920e5a7dc0a6d6cc722250448159318a90f60899",
+        "bytes": 29213,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+            "ranges": null,
+            "source_read_status": null,
+            "trace_refs": []
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                761
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-TRAVEL-FIXTURES-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 309,
+            "read_ranges": [
+              [
+                1,
+                761
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-STRATEGIC-FIXTURES-055"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/tests/authority_trade_dialogue.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 397,
+            "read_ranges": [
+              [
+                1,
+                761
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-STRATEGIC-FIXTURES-055"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/tests/authority_trade_dialogue.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-TRAVEL-READINESS-051",
+            "json_pointer": "/current_sources/4",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/strategic/tests/authority_trade_dialogue.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                761
+              ]
+            ],
+            "source_context": {
+              "index": 293,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/tests/authority_trade_dialogue.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/tests/authority_trade_dialogue.rs",
+              "sha256": "32c5e6e23e6687a365a8b7a7920e5a7dc0a6d6cc722250448159318a90f60899",
+              "read_ranges": [
+                [
+                  1,
+                  761
+                ]
+              ],
+              "mode": "Fresh complete P16 source bodies and complete exact PR reverse delta/byteidentity; every existing fixture source input/count/order/assertion read, no execution."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 543,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          761
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Fullnative fixture source1122\u20131124 consumed. No manual trait/codec/type; assertions/native counterexamples/text inspection for lifecycle/custody/authority/trade/dialogue and redacted actions. Read only, not run/no testpass/current behavior inferred from assertion string."
+    },
+    {
+      "scope_index": 1236,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/travel_planning.rs",
+      "sha256": "72e17030fb5f5e7f0337b78091c7ab5eddcac318c91f5a3ba7a246a3a7ba860b",
+      "actual_EOF": 346,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/travel_planning.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/strategic/travel_planning.rs",
+        "sha256": "72e17030fb5f5e7f0337b78091c7ab5eddcac318c91f5a3ba7a246a3a7ba860b",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 12475,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 373,
+            "read_ranges": [
+              [
+                1,
+                346
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-ROUTE-SOURCE-054"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/travel_planning.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 102,
+            "read_ranges": [
+              [
+                255,
+                335
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-JOURNEY-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/travel_planning.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera",
+          "native"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CASE-RECEIVERS-029",
+            "json_pointer": "/related_current_sources/14",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/strategic/travel_planning.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                87
+              ],
+              [
+                291,
+                346
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/travel_planning.rs",
+              "sha256": "72e17030fb5f5e7f0337b78091c7ab5eddcac318c91f5a3ba7a246a3a7ba860b",
+              "read_ranges": [
+                [
+                  1,
+                  87
+                ],
+                [
+                  291,
+                  346
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/travel_planning.rs",
+              "scope": "Actual coordinate decoder and complete f64 distance kernels receiving investigation geometry; real zero/abstract mode and invalid geography preserved. No whole route planner claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-TRAVEL-READINESS-051",
+            "json_pointer": "/current_sources/7",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/strategic/travel_planning.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                346
+              ]
+            ],
+            "source_context": {
+              "index": 568,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/travel_planning.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/travel_planning.rs",
+              "sha256": "72e17030fb5f5e7f0337b78091c7ab5eddcac318c91f5a3ba7a246a3a7ba860b",
+              "read_ranges": [
+                [
+                  1,
+                  346
+                ]
+              ],
+              "mode": "Fresh complete P16 source bodies and complete exact PR reverse delta/byteidentity; every existing fixture source input/count/order/assertion read, no execution."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016",
+            "json_pointer": "/related_current_reads/14",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/strategic/travel_planning.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                87
+              ],
+              [
+                291,
+                346
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/travel_planning.rs",
+              "sha256": "72e17030fb5f5e7f0337b78091c7ab5eddcac318c91f5a3ba7a246a3a7ba860b",
+              "read_ranges": [
+                [
+                  1,
+                  87
+                ],
+                [
+                  291,
+                  346
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/travel_planning.rs",
+              "scope": "Actual coordinate decoder and complete f64 distance kernels receiving investigation geometry; real zero/abstract mode and invalid geography preserved. No whole route planner claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1258,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          346
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "StrategicPositionE7 Clone/Copy/Debug/Eq/PartialEq."
+      ],
+      "absence_basis": "Fullsource native checked hybrid geographic/abstract position encode/decode and route geometry/weather/metadata/capacity/interval validation, graph neighbor/distance and time/distance arithmetic. Explicit semantic return-leg snapshot constructs checked JourneyRoutePlan from distinct route+leg fields/context; not mechanical From. No handwritten trait/custom codec; coordinate representation changes/errors retained."
+    }
+  ],
+  "groups": [
+    "KEEP checked conversions, abstract signed-coordinate lattice, aggregate route correlation/weather/geometry and numeric policy; no raw derive admission bypass. Fixture assertions not validation run."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1237,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

@@ -1,0 +1,147 @@
+{
+  "id": "SEGO-INITIAL05-F007",
+  "at": "2026-10-25T15:09:12.760096+00:00",
+  "title": "Subscribe to the hostile-negotiation projection before interpreting its empty cache",
+  "priority": "P2",
+  "classification": "Source-backed native observation wiring defect; frozen PR and merged snapshots, not executed or attributed to a specific introducing commit",
+  "lenses": [
+    "aggregate-states"
+  ],
+  "locations": [
+    {
+      "file": "crates/adventuresim-strategic-sim/src/live_core/bootstrap.rs",
+      "start": 372,
+      "end": 394
+    },
+    {
+      "file": "crates/adventuresim-strategic-sim/src/live_core/generated_cases.rs",
+      "start": 2403,
+      "end": 2412
+    }
+  ],
+  "contract_trace": "The simulator attempts a peaceful hostile withdrawal from backend_hostile_negotiations when a present generated case site allows combat. Both actual explicit subscription lists in run_core_loop_inner omit this view, and the frozen simulator source contains no other subscription registration. The generated accessor obtains a local table handle and iterates its cache; it does not query or subscribe. SDK2.6.1 creates an empty cache table during registration and retains only subscribed rows. Thus absence of an installed observation is interpreted as an observed absence of a negotiation opportunity, and the intended negotiation branch is skipped.",
+  "counterexample": "A registered strategic gateway with an occupied case site, active sapient negotiable hostile group, valid current drive-off capability, exact living spokesman and shared language causes the actual authoritative view1221:336\u2013405 to emit a row for that party leader and site. The simulator is subscribed to its other public case/site state but never requests this view. Local backend_hostile_negotiations iteration therefore remains empty, so generated_cases bypasses negotiate_hostile_withdrawal and proceeds to combat assessment/retreat. This is a conditional ordinary supported view state derived from source, not an executed run or a claim that every case offers negotiation.",
+  "repair": "Repair the complete simulator observation installation and receiving contract together: include the existing gateway-only backend_hostile_negotiations query in the enumerated post-registration subscription, await that subscription before using the cache, and preserve the public owner/site binding when selecting a negotiation. Keep absent or unavailable observation distinct from a successfully installed empty projection in any retained readiness contract used by this family. Reuse the generated query/accessor and existing canonical public negotiation types; do not edit generated bindings, subscribe to private hostile/group/case tables, fabricate a negotiation, or infer hidden eligibility. Preserve negotiation-first policy, actual reducer authorization, first failure/replan behavior and existing combat/retreat outcomes.",
+  "dependencies": [
+    "Whole run_core_loop_inner public observation setup is also consumed by the existing CAM-PROP-F012 SDK/error propagation repair; coordinate one owner for the shared function.",
+    "Actual backend_hostile_negotiations authoritative view and existing generated accessor/query are canonical; no duplicate view, bespoke negotiation identity or private authority projection.",
+    "Own09 qualified state/decision and event products F374/F376 are adjacent dependencies, not this missing installation defect.",
+    "All13 initial discovery must finish before execution planning/repairs; existing tests only, none added."
+  ],
+  "acceptance": "After gateway registration, the completed observation subscription includes the existing hostile-negotiation view. A matching published owner/site row reaches the intended negotiation-first branch; a successfully observed empty view preserves current combat/retreat policy. No private authority is added to the simulator observation surface. Readiness, owner/site and typed failure semantics remain coherent. Existing checks only when authorized after connected repairs.",
+  "sources": [
+    {
+      "scope_index": 1268,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/bootstrap.rs",
+      "sha256": "e58eadc935d9bd93c40262b170bc85c9e2d26c0b42ee490e882e0dd96f65be55",
+      "personally_read_ranges": [
+        [
+          162,
+          259
+        ],
+        [
+          351,
+          398
+        ]
+      ]
+    },
+    {
+      "scope_index": 1281,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/generated_cases.rs",
+      "sha256": "73138f7fd9ee10974b6eb14acf7a18a5adb75129cb936b74159c0de5397cd584",
+      "personally_read_ranges": [
+        [
+          2385,
+          2452
+        ]
+      ]
+    },
+    {
+      "scope_index": 1221,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/hostile_negotiation.rs",
+      "sha256": "9fc4780022d9229014f92e14ea895c8d0a07a7aca3cbb61dbe87957cc6190c7e",
+      "personally_read_ranges": [
+        [
+          332,
+          405
+        ]
+      ]
+    }
+  ],
+  "native_support": [
+    {
+      "material_index": 149,
+      "source_id": "native-dependency:spacetimedb-sdk-2.6.1/src/client_cache.rs",
+      "sha256": "1815445657f053bf0d24bdf218219eed822e9626511eade5d3afa0aca3fa7ff1",
+      "personally_read_ranges": [
+        [
+          22,
+          79
+        ],
+        [
+          196,
+          214
+        ],
+        [
+          340,
+          406
+        ],
+        [
+          409,
+          452
+        ]
+      ]
+    },
+    {
+      "material_index": 150,
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/backend_hostile_negotiations_table.rs",
+      "sha256": "ef0878fa2f385c6e35e1b4ef8e3702bbb114a81520c8cc3b6c35ddab4319065e",
+      "personally_read_ranges": [
+        [
+          24,
+          57
+        ],
+        [
+          85,
+          90
+        ],
+        [
+          106,
+          120
+        ]
+      ]
+    }
+  ],
+  "additional_native_support": {
+    "scope_index": 24,
+    "source_id": "native-dependency:spacetimedb-sdk-2.6.1/src/db_connection.rs",
+    "sha256": "79c452f092b1123e8a9c4f7ca3c34167290bb97e3a64093ce903f4bf742b2b9a",
+    "personally_read_ranges": [
+      [
+        1,
+        34
+      ],
+      [
+        66,
+        85
+      ],
+      [
+        297,
+        312
+      ],
+      [
+        727,
+        748
+      ],
+      [
+        1228,
+        1246
+      ]
+    ]
+  },
+  "search_qualification": "Metadata search of every frozen PR simulator source identifies only the two fully read bootstrap subscription builders and generated_cases table read. Search is locator evidence, not substitute for actual subscription/cache bodies.",
+  "merged_confirmation": "Exact git diff6533\u219213fc for bootstrap.rs and generated_cases.rs is empty. Mechanism remains on frozen merged head. No claim of current checkout runtime validation or original introducing regression.",
+  "deduplication": "Targeted root167 and Adler1002 exact backend_hostile_negotiations/unsubscribed/missing negotiation/subscription lookup has no exact alias; own09 owner separately confirms no alias. Existing CAM-PROP-F012 is actual error/cause erasure, not missing observation installation.",
+  "repair_status": "not_started_initial_discovery_gate",
+  "validation": "Source only; no test, build, DB, hosted CI, rendered session or network execution."
+}

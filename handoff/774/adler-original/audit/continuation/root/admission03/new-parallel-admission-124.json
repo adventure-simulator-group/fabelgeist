@@ -1,0 +1,49 @@
+{
+  "id": "ROOT-ADM03-PARALLEL-124",
+  "at": "2026-10-22T21:05:03.809085+00:00",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/quest_generation/sampling.rs",
+      "sha256": "3c679c4e5177ee4462d6286d81cdd3e3cfaa9b6e2d91e844d3d45b8e2f666a44",
+      "actual_compared_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "source_evidence": "Fresh actual registered body; solver217-219 next-helper context excluded explicitly, all other original exclusions retained."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/quest_generation/solver.rs",
+      "sha256": "5d9b71ab4620264dce7604d0c9662f52009a887d00225927ef217087e0f10ba2",
+      "actual_compared_ranges": [
+        [
+          1,
+          216
+        ]
+      ],
+      "source_evidence": "Fresh actual registered body; solver217-219 next-helper context excluded explicitly, all other original exclusions retained."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/lib.rs",
+      "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+      "actual_compared_ranges": [
+        [
+          1692,
+          1701
+        ]
+      ],
+      "source_evidence": "Fresh actual registered body; solver217-219 next-helper context excluded explicitly, all other original exclusions retained."
+    }
+  ],
+  "groups": {
+    "candidate-eligibility": "Sampling choose appends each factor diagnostic with accepted=(impossibleNone and combinedweight>0), decisionCandidate. This boolean is eligibility, not final lifecycle binding; do not collapse into decision Bound or remove intentional distinct fact. Rejection reason Some and acceptedfalse agree here but zero combinedweight may also yieldfalse withoutreason, preserveactualdifferentcases. Local canonical ordering precedes appends; emptyeligible returns NoCandidates with diagnosticclone, not successfulselected value. Weighted index error propagates existingSampling typedcause, no invalid default candidate introduced. Scalar component guarantees remain actual Candidate/Weight source contract separate, no finitefloat or boundedBPS inferred from name.",
+    "solver-binding-and-diagnostics": "Witness count<2 rejected, cap and totalbytes checked before actual selection. Scope solver1-216 is fullsolve_variables, not family_candidates218+. Candidate lists and weighted-order indexes must keep actuallowerproducer invariant; no automaticcallee admission credit. Each rejection diagnostic false/ForwardRejected orBacktracked, successsixbindingdiagnostics true/Bound then returns all fields from selected source rows. Eligibility and lifecycle distinguish stages, diagnostic vector intentionally grows across rejected attempts and Err returns cloneddiagnostics: not accidental partial committed game state. ReturnSolvedVariables literal tiesbridge/value andpersistentwitnesssourceindex. distinct indexsecondary selection actual orderhelper needed for whole cardinality proof; at leasttwoinputrows alone doesnot prove distinct indexhelper behavior. No currentnormalcorrupttrace asserted.",
+    "elevation-enum": "Five closed categories BelowSeaLevel/Lowland/Upland/Highland/Alpine derive ordinary closedSerde and optionalSATStype. Categorical result distinct from exact signed ElevationMeters value; declaration makes no numeric admission, arithmetic, cross-field aggregate or mutation guarantee. No unscopedLanguageCode1704+ or broadWorldLib credit."
+  },
+  "status": "exact_new_trace_and_declaration_admission_roles_manually_compared_with_dependency_limits",
+  "findings": [],
+  "limits": "No broad helper proof or prior other-lens verdict carried; solver217-219 context excluded; current known candidate/diagnostic propagation gaps retained.",
+  "source_edits": 0,
+  "project_execution": 0
+}

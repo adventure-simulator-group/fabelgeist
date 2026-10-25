@@ -1,0 +1,35 @@
+{
+  "id": "CONT07-CONTRACT-408",
+  "at": "2026-10-23T21:23:01.147290+00:00",
+  "lens": "audit-redundant-authority",
+  "source": {
+    "scope_index": 1790,
+    "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/tests.rs",
+    "sha256": "48ba1b8005d63740183260c570153bbd903dba12c0fc3615253199a65a70f27e",
+    "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/animation/tests.rs",
+    "actual_EOF": 1969,
+    "ranges": [
+      [
+        1,
+        900
+      ]
+    ],
+    "read_kind": "fresh partial exact source in four bounded untruncated reads"
+  },
+  "coverage_status": "partial only; no full source variant credit",
+  "facts": [
+    "Fixture body personally read through900; assertions are source evidence, not executed results. Input intent/current physical velocity, body facing/root rotation and contact history have different documented roles.",
+    "Main-hand child owns main attack set while offhand inherits; do not infer a blanket all-attack override from the comment.",
+    "Raised contact fixtures explicitly retain intent while braking, reset phase only on newly raised guard, and keep current phase on repeated writes. Guard stance direction can remain fixed while physical movement changes.",
+    "Gait fixtures intentionally distinguish walking support from running flight at phase0.25, two steps per cycle, and Footwork versus Guarded locomotion lower-body policy. None proves independent authority drift without the actual normal producer.",
+    "Remaining901-1969 unread; no additional finding or whole-source credit."
+  ],
+  "next_cell": {
+    "scope_index": 1790,
+    "start_line": 901,
+    "scope_end": 1969
+  },
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true
+}

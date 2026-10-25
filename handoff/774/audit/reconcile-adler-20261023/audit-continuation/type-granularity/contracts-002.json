@@ -1,0 +1,75 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-002",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "native-observer-type-and-runner",
+      "sources": [
+        {
+          "scope_index": 9,
+          "ranges": [
+            [
+              216,
+              275
+            ],
+            [
+              554,
+              583
+            ]
+          ]
+        },
+        {
+          "scope_index": 10,
+          "ranges": [
+            [
+              45,
+              64
+            ]
+          ]
+        },
+        {
+          "scope_index": 11,
+          "ranges": [
+            [
+              1,
+              150
+            ]
+          ]
+        },
+        {
+          "scope_index": 12,
+          "ranges": [
+            [
+              570,
+              630
+            ]
+          ]
+        },
+        {
+          "scope_index": 13,
+          "ranges": [
+            [
+              1,
+              75
+            ]
+          ]
+        },
+        {
+          "scope_index": 14,
+          "ranges": [
+            [
+              3448,
+              3475
+            ]
+          ]
+        }
+      ],
+      "distinction": "ObserverSystem constrains native System input to On<E,B>; IntoObserverSystem is a construction trait, not redundant retained owner. Marker types distinguish generic trait impl families, not invented gameplay roles. ObserverRunner is a required erased native unsafe function boundary with explicit event/trigger/world association contracts.",
+      "uses": "Observer::new converts system and rejects exclusive system, ties hook/runner to E/B/S and initially leaves handler None for native fallback policy. Runner recovers concrete S, builds On with event and trigger, forwards only Failed(err) with native Observer context and then queues deferred work. IntoResult keeps plain output, RunSystemError and BevyError output forms meaningful; World resolves fallback resource/default.",
+      "disposition": "Keep native trait-input, concrete-versus-erased runner, observer identity and error/context boundaries. No reason to collapse On into raw pointer at application interfaces or duplicate native observer marker types. Error-handler Option represents actual override/fallback policy, independent of condition/trigger state; not meaningless optional payload.",
+      "acceptance": "Later actual application fallible observer callbacks must preserve result conversion and typed cause through native runner. Do not infer skipped RunSystemError variants are failures or all errors panic; no observer/test execution. Native unsafe association checks are caller contracts, not evidence that current first-party observer is mismatched. Scope includes only listed excerpts, not whole observer implementation or SDK style repair."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

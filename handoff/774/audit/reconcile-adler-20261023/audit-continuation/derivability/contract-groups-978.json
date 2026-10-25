@@ -1,0 +1,308 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-978",
+  "at": "2026-10-25T17:25:08.414660+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1139,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem.rs",
+      "sha256": "49dfecf1d8b09c88835ef0e2c5d2ffcc8cfd8b6624b3a05e7320e7499a723942",
+      "actual_EOF": 2518,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/local_problem.rs",
+        "sha256": "49dfecf1d8b09c88835ef0e2c5d2ffcc8cfd8b6624b3a05e7320e7499a723942",
+        "bytes": 95282,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/supplemental-quest-receivers.json",
+            "ranges": [
+              [
+                556,
+                625
+              ]
+            ],
+            "source_read_status": "exact actual caller range only; no whole local_problem claim",
+            "trace_refs": [
+              "NATIVE-SUPP-QUEST-IDENTITY-001"
+            ]
+          }
+        ],
+        "audit_owner": "native",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 106,
+            "read_ranges": [
+              [
+                1,
+                2518
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-LOCAL-PROBLEM-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/local_problem.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 449,
+            "read_ranges": [
+              [
+                1,
+                2518
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-LOCAL-PROBLEM-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/local_problem.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CASE-RECEIVERS-029",
+            "json_pointer": "/related_current_sources/26",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/local_problem.rs",
+            "read_ranges_as_recorded": [
+              [
+                958,
+                1065
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem.rs",
+              "sha256": "49dfecf1d8b09c88835ef0e2c5d2ffcc8cfd8b6624b3a05e7320e7499a723942",
+              "read_ranges": [
+                [
+                  958,
+                  1065
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/local_problem.rs",
+              "scope": "Actual apply_outcome final source-id/clock validation, authoritative update and receipt SDK insert; partial adjacent generation validator only, whole local_problem scope not credited."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-QUEST-KNOWLEDGE-050",
+            "json_pointer": "/additional_actual_source_proofs/19",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/local_problem.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                95
+              ],
+              [
+                452,
+                498
+              ],
+              [
+                570,
+                710
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/local_problem.rs",
+              "sha256": "49dfecf1d8b09c88835ef0e2c5d2ffcc8cfd8b6624b3a05e7320e7499a723942",
+              "read_ranges": [
+                [
+                  1,
+                  95
+                ],
+                [
+                  452,
+                  498
+                ],
+                [
+                  570,
+                  710
+                ]
+              ],
+              "actual_line_count": 2518,
+              "role": "Actual follow-up choice caller and text/proposition/evidence native SDK row/Serde output bodies; no whole DB function/authority coverage",
+              "mode": "Fresh exact producer-supplement source-body read; only listed ranges, no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-037",
+            "json_pointer": "/fresh_current_source_reads/13",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/local_problem.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                95
+              ],
+              [
+                452,
+                498
+              ],
+              [
+                570,
+                710
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/local_problem.rs",
+              "sha256": "49dfecf1d8b09c88835ef0e2c5d2ffcc8cfd8b6624b3a05e7320e7499a723942",
+              "read_ranges": [
+                [
+                  1,
+                  95
+                ],
+                [
+                  452,
+                  498
+                ],
+                [
+                  570,
+                  710
+                ]
+              ],
+              "actual_line_count": 2518,
+              "role": "Actual follow-up choice caller and text/proposition/evidence native SDK row/Serde output bodies; no whole DB function/authority coverage",
+              "mode": "Fresh exact producer-supplement source-body read; only listed ranges, no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016",
+            "json_pointer": "/related_current_reads/26",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/local_problem.rs",
+            "read_ranges_as_recorded": [
+              [
+                958,
+                1065
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem.rs",
+              "sha256": "49dfecf1d8b09c88835ef0e2c5d2ffcc8cfd8b6624b3a05e7320e7499a723942",
+              "read_ranges": [
+                [
+                  958,
+                  1065
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/local_problem.rs",
+              "scope": "Actual apply_outcome final source-id/clock validation, authoritative update and receipt SDK insert; partial adjacent generation validator only, whole local_problem scope not credited."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/camera/traces.jsonl",
+            "receipt": "CONT-CAMERA-PP-009",
+            "json_pointer": "/exact_receiver_proofs/6",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/local_problem.rs",
+            "read_ranges_as_recorded": [
+              [
+                940,
+                1060
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/local_problem.rs",
+              "sha256": "49dfecf1d8b09c88835ef0e2c5d2ffcc8cfd8b6624b3a05e7320e7499a723942",
+              "actual_lines": 2518,
+              "read_ranges": [
+                [
+                  940,
+                  1060
+                ]
+              ],
+              "role": "Fresh entire apply_outcome input/preflight/idempotence/clock/max/min mutation/SDKreceipt and bounded validated generation prefix only. Whole broader local problem producer proof remains separate."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/native/receiver-reads.json",
+            "receipt": "row-1",
+            "json_pointer": "/6",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/local_problem.rs",
+            "read_ranges_as_recorded": [
+              [
+                940,
+                1060
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/local_problem.rs",
+              "sha256": "49dfecf1d8b09c88835ef0e2c5d2ffcc8cfd8b6624b3a05e7320e7499a723942",
+              "actual_lines": 2518,
+              "read_ranges": [
+                [
+                  940,
+                  1060
+                ]
+              ],
+              "role": "Fresh entire apply_outcome input/preflight/idempotence/clock/max/min mutation/SDKreceipt and bounded validated generation prefix only. Whole broader local problem producer proof remains separate."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 460,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          2518
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "LocalProblemAuthority/GenerationExplanation/Symptom/Receipt/RumorPreference/RumorDelivery/IncidentReceipt/OutcomeReceipt Clone/Debug/table",
+        "GeneratedProblemIncident Clone/Debug/Serialize/Deserialize/table",
+        "PublicThreatDisclosure Clone/Debug/PartialEq/Eq/table",
+        "BackendLocalProblemTradeEffect and Rumor Clone/Debug/SpacetimeType",
+        "PrivateExplanation and LocalProblemOutcomeInput Clone/Debug/PartialEq/Eq/Serialize/Deserialize",
+        "BoundedHearingGraph Default"
+      ],
+      "absence_basis": "Entire body across972\u2013978 personally consumed. No handwritten trait or Serializer/Deserializer. Explicit kind/wording classifiers, contextual private-authority\u2192observer-safe joins, bounded graph/selection, timed mutation and idempotent outcome validation are semantic work. Existing Serde serializes scopes/explanations/Fragment variants/json! objects; no unchecked derive substitution. Tail2221\u20132518 fixtures/module declaration consumed, not run; includes remain independently scoped."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Local problem authority and safe discovery derivability",
+      "disposition": "Structural/codec boilerplate already derives. Preserve explicit authority/observer/time validation and representation mapping; no new finding, no other-lens clearance."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1140,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem/effects.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

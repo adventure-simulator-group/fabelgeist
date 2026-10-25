@@ -1,0 +1,63 @@
+{
+  "source": {
+    "scope_index": 2434,
+    "source_id": "pr-working:rust-quality-baseline.toml",
+    "snapshot": "pr-working",
+    "path": "rust-quality-baseline.toml",
+    "expected_sha256": "059d0c2bc687c8d7bd314cfa50fb863ac83959cc3483e74aee993980f47e3efe",
+    "scope_kind": "frozen_requested_change",
+    "status": "exact source recovered; no audit coverage inferred",
+    "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:rust-quality-baseline.toml",
+    "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/059d0c2bc687c8d7bd314cfa50fb863ac83959cc3483e74aee993980f47e3efe",
+    "bytes": 331915,
+    "line_count": 12847,
+    "kind": "utf8"
+  },
+  "method": "stdlib TOML full decode; all row shape/identity population inventoried; head/tail source read, not manual semantic review of 12847 lines or named source files",
+  "populations": {
+    "files": {
+      "entries": 209,
+      "keysets": [
+        {
+          "keys": [
+            "ceiling",
+            "path"
+          ],
+          "count": 209
+        }
+      ],
+      "duplicate_identity_rows": 0
+    },
+    "functions": {
+      "entries": 485,
+      "keysets": [
+        {
+          "keys": [
+            "ceiling",
+            "item",
+            "path"
+          ],
+          "count": 485
+        }
+      ],
+      "duplicate_identity_rows": 0
+    },
+    "findings": {
+      "entries": 1369,
+      "keysets": [
+        {
+          "keys": [
+            "fingerprint",
+            "item",
+            "occurrences",
+            "path",
+            "rule"
+          ],
+          "count": 1369
+        }
+      ],
+      "duplicate_identity_rows": 0
+    }
+  },
+  "authority_disposition": "Explicit independent quality ceilings and exception fingerprints; metadata names and prior lint counts are not current gameplay state or source semantics. No quality gate run and no source file clearance inferred."
+}

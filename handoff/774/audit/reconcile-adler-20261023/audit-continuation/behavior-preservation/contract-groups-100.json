@@ -1,0 +1,126 @@
+{
+  "id": "CONT08-CONTRACT-100",
+  "at": "2026-10-25T11:40:18.027117+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 333,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-client/src/player.rs",
+      "before_sha256": "e58cbe13aa543aebd82995383e999d55e0e47b9885396f958282313316f4e37c",
+      "after_sha256": "5da51367e584ae158ebf0c1b3b4edc472dbc542fe12aa8b52682c918e1f42b62",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0333-base-e58cbe13aa543aebd82995383e999d55e0e47b9885396f958282313316f4e37c",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/5da51367e584ae158ebf0c1b3b4edc472dbc542fe12aa8b52682c918e1f42b62",
+      "diff": "source-evidence/p16-0333.diff",
+      "diff_sha256": "3783ae604b8f3173d7a11f81b8a13a150748a35a1fab8220e10793f69b0fcfe0",
+      "head_body_read_ranges": [
+        [
+          1,
+          575
+        ]
+      ],
+      "source_fact_reuse": [
+        "source-evidence/archive-CAMERA-INITIAL07-CONTRACT-176.json"
+      ],
+      "facts": [
+        "Freshfull575 currentbody +freshactualoldparent235\u2013430/550\u2013677/108\u2013163/353\u2013367 andentirefunctionalchanged/movedregion comparison; removedtestbodies matchedoriginalmoved334fixtures. Complete textualdiff retained, substantivefullbefore/aftersourcefacts176 personallyconsumed forunchangedrest; notclaimallold944freshbody.",
+        "AttackState physical/scene/localHitbox fields admittedwithoutaxis/signchange; attackorigin sameAABBminY+height*(2/3). Currenttargetlocalpoint reprojects throughcurrenthitbox beforetimers/facing, missinghitboxkeepslastpoint unchanged. Invalidownedobservation nowwarns/removeslocalstate; atcontactremovesexpiredstate thenpreparesoneactualray/result beforepublishingrangedcomplete/debug. Oldinlinealwayspublishedfromrawvalues; intentionalfiniteadmission/newerrorpathrequiresactualnativeinput/serverlifecycledispositionQ008, no ordinaryregressionproved.",
+        "RenderBodyFacing nativekinematics/currentcamera/targetdeadline/resetdowned+posture andsuccessonlyrotationpublication retained, localpredictiondistinctauthoritativereplication. Directattackwarnings/samequickstepDefendRequest andoriginalfist/reach/contactdelay/gamepad/surface-distanceoracles preserved; 3acquisitionfixturesmovedwithoriginalexpectations notdeletedacceptance."
+      ],
+      "disposition": "Own08 source-local comparison accounted WITH connected nativeerror-lifecycle questionQ008; no wholeprediction/protocolclearance.",
+      "acceptance": "Preserve capturedtargetidentity/currenttransform/timer/contactrequestordering andnativefinitepolicy, carryactualauthoritativereceiver lifecycle before recovery verdict; originaloracles intact. No tests/checks/repair."
+    },
+    {
+      "scope_index": 334,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player/acquisition.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-client/src/player/acquisition.rs",
+      "before_status": "absent_at_new_path; implementation moved from oldplayer, NOT empty behavioral baseline",
+      "after_sha256": "2e7f4ea1406c4d400b369bb79f73a65677af168b00a1d8eecc0489dbd013f746",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/2e7f4ea1406c4d400b369bb79f73a65677af168b00a1d8eecc0489dbd013f746",
+      "diff": "source-evidence/p16-0334-new-path.diff",
+      "diff_sha256": "d1c4d6897fe4b63a36a646d37475258e8ec876d8d57605950914d3b42761a4cd",
+      "moved_before": {
+        "path": "crates/adventuresim-tactical-client/src/player.rs",
+        "sha256": "e58cbe13aa543aebd82995383e999d55e0e47b9885396f958282313316f4e37c",
+        "object": "source-evidence/p16-player-moved-base-e58cbe13aa543aebd82995383e999d55e0e47b9885396f958282313316f4e37c",
+        "actual_old_body_ranges": [
+          [
+            108,
+            163
+          ],
+          [
+            235,
+            430
+          ],
+          [
+            353,
+            367
+          ]
+        ]
+      },
+      "head_body_read_ranges": [
+        [
+          1,
+          409
+        ]
+      ],
+      "source_fact_reuse": [
+        "source-evidence/archive-CAMERA-INITIAL07-CONTRACT-176.json"
+      ],
+      "facts": [
+        "Freshfull409 +actualoldmonolithicacquisition235\u2013430/body-stable120\u2013157. Sameattacker/camera missing\u2192emptydefaultNEG_Z, side/incapacitatedfilter, observedhitboxscene point\u2192rayvisibility\u2192movementarrival\u2192angularthreshold\u2192bodypriority/resolvedsamebody choice. Nativeoperationorder/strictbounds preserved; actualsharedrange/maximumtravel explicitproduct, no inferringeveryResultvalidworld.",
+        "MovementPrevalidated actualarrival closure usesminimumquickstep/colliderclearance andnativecenterseparation beforecontact_arrival; oldf32MAXselector sentinel equivalence own098 retained, no nearest-hitbox policy rewrite. Checked Scene/HitboxLocal points+surface/clearance lengths introduceintentionalfinitefailure; oneinvalidcandidateerror propagateswholecollect asbeforeexistingarrivalerrors, no admittedordinarybadcandidate/normalinvisiblebodyfailure established.",
+        "Fresh original3movedfixtures retainbodypriority/preferredunreachablefallback and180/90/45degree endpoints/far. LocalinverseAffine frameprojection unchangednativeoperation beforetypedfiniteadmission; no newrigid-transformpromise/unitnormalassumed."
+      ],
+      "disposition": "Own08 actualmovedsourcecomparison accounted WITH nativefinite/APIqualification; no ordinaryworld/runtimeclearance.",
+      "acceptance": "Preserve same-body priority, current affine/scene units andallangular/surface/collision/nativeboundaryintent; actualinvalid-inputpolicy throughcallerQ008 before normalregressionclaim. No tests/checks/repair."
+    },
+    {
+      "scope_index": 337,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player/contact.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-client/src/player/contact.rs",
+      "before_status": "absent_at_new_path; implementation moved from oldplayer, NOT empty behavioral baseline",
+      "after_sha256": "c2ecfdb4af316c360a84cf28f9b9e0217b87f33150794971dd656ec47239a599",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/c2ecfdb4af316c360a84cf28f9b9e0217b87f33150794971dd656ec47239a599",
+      "diff": "source-evidence/p16-0337-new-path.diff",
+      "diff_sha256": "759cb489ad1660aa585863a2fd5fcb97730b3473982c1ea039c71a1c9384da80",
+      "moved_before": {
+        "path": "crates/adventuresim-tactical-client/src/player.rs",
+        "sha256": "e58cbe13aa543aebd82995383e999d55e0e47b9885396f958282313316f4e37c",
+        "object": "source-evidence/p16-player-moved-base-e58cbe13aa543aebd82995383e999d55e0e47b9885396f958282313316f4e37c",
+        "actual_old_body_ranges": [
+          [
+            83,
+            96
+          ],
+          [
+            579,
+            677
+          ]
+        ]
+      },
+      "head_body_read_ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "source_fact_reuse": [
+        "source-evidence/archive-CAMERA-INITIAL07-CONTRACT-176.json"
+      ],
+      "facts": [
+        "Freshfull82 +actualoldinlinecontact579\u2013677. Privatepreparedproductcouplesoneactualray/result: noTarget\u2192aimdirection/reach/Miss; selectedtargetlastpointororigin+aim*reach, sameDirfallback, excludedsceneitems+attacker, castmaxmin(delta.length,reach), actualbody obstructionqualifier, hitbodypart/raydistance copiedsamesource.",
+        "Newcheckedlength failure occursbeforecompleteevent publication. Proposedhuge-delta-onlywitness EXCLUDED: misslengthminfinite reach, unobstructed requiresSome(hit), so actualhitdistancebound mustbereadbeforeassertingfinite-lengthfailure. No actualordinarytrigger orprotocolstateharmproved; Q008 onlynativeadmission-error cancellationreceivingquestion, notnewuniquefinding."
+      ],
+      "disposition": "Own08 actualmovedcontactcomparison accounted WITH excludedfalsewitness/retainedQ008policyboundary.",
+      "acceptance": "Preserve realhit/missray/sourcecorrelation, finite ownedresult andactualauthoritativecompletion/error lifecycle; no fabricationoffallbackhit/miss tohideerror. No tests/checks/repair."
+    }
+  ],
+  "next": "335action_clock199/336attackstart454 preparation-before-publication andoldactualcounterpartdiff; 338trace128boundedroleafter."
+}

@@ -1,0 +1,67 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-215",
+  "at": "2026-10-23T05:10:31.126838+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration.rs",
+      "sha256": "5ebb42e36e764cd3adee88c336b2976f42db557494a436e8fa2eef2f79fdef61",
+      "scope061_index": 406,
+      "actual_EOF": 649,
+      "scoped_ranges_compared": [
+        [
+          1,
+          649
+        ]
+      ],
+      "actual05_comparison": "Fresh PRentire648 incl alloriginal290–648fixtures plus earlier213prefix; completeactualP16diffpersonallycompare full649currentroles. Differences: P16SignedLengthimport/initial4checkedmetres and MeleeGeometryResult versusPRraw4/AnimationValueResult; fixturegetterchanges only. No P16 quantity/alias semantics inferredfromPRhash; lowerbranchesexplicit. Closes213constants-onlypartial, doesnotdoublecountpriorprefix."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration.rs",
+      "sha256": "812c3b491db93ba51220e73ebe4aef93934ff80abeb3f7d4e2af796c598ce1b7",
+      "scope061_index": 2055,
+      "actual_EOF": 648,
+      "scoped_ranges_compared": [
+        [
+          1,
+          648
+        ]
+      ],
+      "actual05_comparison": "Fresh PRentire648 incl alloriginal290–648fixtures plus earlier213prefix; completeactualP16diffpersonallycompare full649currentroles. Differences: P16SignedLengthimport/initial4checkedmetres and MeleeGeometryResult versusPRraw4/AnimationValueResult; fixturegetterchanges only. No P16 quantity/alias semantics inferredfromPRhash; lowerbranchesexplicit. Closes213constants-onlypartial, doesnotdoublecountpriorprefix."
+    }
+  ],
+  "contract_groups": [
+    {
+      "id": "run configuration and world publication",
+      "comparison": "SeededApp installs sameproductionphysics/combat/equipment/bot/replication plugins,64Hzmanualstrategy/rawtime/IterationClock0/log/default+seededRNG, observersbeforeworldspawn. Movementrestorebeforemotor, snapshotchainafterMoveCharacters, conditionrecordafterCondition explicitsourceorder. Sourceestablishesconfiguration/intent only, notnativeBevyfixedschedule/emittedruntimebehavior. Freshstatic40x.5x40ground+twofixedpositions(0,.95,+/-2), no arbitrarygeometryadmission. BothMeleeIterationBuildspublicinputs; identity/skills/attrs/body/encumbrancenormalproducerbounds remainactuallowerkernel contracts."
+    },
+    {
+      "id": "coupled combatant snapshot",
+      "comparison": "Same source.combatant suppliesCharacterId,skills,bodyhealth,attrs,calories/focus,startingincap/fatigue/encumbrance/derivedtotal/blood, thendefaultwounds andmotor/skeleton/authority components beforeequipment. Eachfieldplainfactorycopiesnotwholecheckedstateadmission; existingF029rawtotalcoherence distinctionretained, no newnormaldivergence. Party/Enemy sidesdistinct, no proofarbitrarysourceIDs/namesunique; actualrecipientbeforecallingidentitydefectrequired. Skillbow/crossbow/firearm intentionally0 forMELEEharness, otherdefaultfieldsnotuniversalshadowgameplayclaim. BodyPart indexedhealthactualtypedmapping preservessevenlimbs."
+    },
+    {
+      "id": "elapsed and result materialization",
+      "comparison": "Loopmax180*64=11520, setsclocktick0-based, explicitlyadvances1/64thenupdatesapp, checksdefeat/yieldafterupdate. Earlyendfinaltick+1 countscompletedupdates. Timeoutinitialfinal_tick=max leaves11521reportcount despite11520updates; sourceconditionalreportbugexactCameraF034/CONTRACT189 support, noextraNativeunique/noexecutedtimeout. SimulatedsecondsderivedSAMEreportedtickssointernallymatcheswrongcount butnotrunsteps. Retaincanonicalcompletedtickcountandderiveelapsed; preserveearlyend+mutualincap/defaulttimeout semantics."
+    },
+    {
+      "id": "whole outcome and terminal shape",
+      "comparison": "Victory left/right bytwofreshpostrunchecks, bothtrueMutualIncapacitation,bothfalseTimeout; no impossibleindependentvictoroptionalfield. Finaldistance onlyifbothtransforms, rawxz.distance readmitted NonnegativeLength/Resultbeforeoutcome; initialdistance4 P16SignedLength checked vsPRraw4 knownfinite. Logresourceexistsactualappfactory beforeunwrap thenmovedONCE intooutcome arrays; resolved_attacks=events.len casts32bitcapacityqualified, not proofeventmembership/bijection. Samecurrentseed, count/time/log arrays fromSAMErun. F035diagnosticresponsebijection staysseparate, no data-similarityclearance."
+    },
+    {
+      "id": "existing behavioral fixtures source only",
+      "comparison": "Alloriginalfixturespersonallyread: bot/combatobservers, count attempted==accepted+rejected, rawwoundflow*tick, seededreplay, parrycancelbeforeriposte, bucklertransformbeforecontact,polearmheadband/livecontact,disabledarmwithdraw/yield, mutualvsTimeout. Fixturecount-equality doesnotproveeventbijection(F035) and polearmseedsnoTimeout notuniversal timeoutbranchsafety. No runs/newcases/assertions. Allcalledcombat/kernel/projection/equipment source roles independentlypendingoractualpriorproof, nevername-onlyseal."
+    }
+  ],
+  "new_unique_findings": [],
+  "finding_support": [
+    "CAMERA-INITIAL07-F034 exact timeout count/time support; actual Camera ref CONTRACT189 (184 corrected beforepin)"
+  ],
+  "scope_reconciliation": "Global061 includes9localP16registrations037–045; substantive208 actualsourcecomparisonsalreadycomplete. CountingunionIDsadds8newvariants, orderedexistingroleextensionnotnewsource. Root03/04verdictnottransferred; qualifier063–071 andoverlay244mandatory.",
+  "remaining_dependency_obligations": [
+    "Actual equipment spawn/local combat transition/native scheduling semantics remain independent globalown05sourcecontracts, no projectexecution.",
+    "ParentDBtime familyNoneabsencepolicy and calculatedofficialkernel actualcaller analysis stillunread beforedefectclaim."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

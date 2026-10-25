@@ -1,0 +1,202 @@
+{
+  "recorded_at": "2026-10-21T06:49:24.582106+00:00",
+  "owner": "/root/native_reports",
+  "family": "P18",
+  "contributes_to": [
+    "P02 native error preservation"
+  ],
+  "status": "SOURCE-COMPLETE CONNECTED INCREMENT; manual source review only. Compilation, formatting, quality gates and runtime acceptance are pending coordinator-hosted validation.",
+  "worktree": "LOCAL_COORDINATOR/target/semantic-goal/pr774-parallel/native-reports/worktree",
+  "branch": "codex/774-native-reports-parallel",
+  "base": "8f2b901881f8aa8035a03cd99dbfefb7bbdf8926",
+  "source_commit": "c6fe55e42e90981d9e132fcf1dd6615d17227275",
+  "changed_files": [
+    "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/audit.rs",
+    "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal.rs",
+    "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal/autoresolve.rs",
+    "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/error.rs",
+    "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/measurement.rs",
+    "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/mod.rs",
+    "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/report.rs",
+    "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs",
+    "crates/adventuresim-tactical-server/src/iteration.rs",
+    "crates/adventuresim-tactical-server/src/iteration/clock.rs",
+    "crates/adventuresim-tactical-server/src/iteration/logging.rs",
+    "crates/adventuresim-tactical-server/src/iteration/logging/decisions.rs",
+    "crates/adventuresim-tactical-server/src/iteration/logging/resolution.rs"
+  ],
+  "source_file_metadata": [
+    {
+      "path": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/audit.rs",
+      "lines": 196,
+      "sha256": "93b2a1a15c9602a37d0bb6723f000e57a3d3d5a9b698fc6267be4e33fc0801d7"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal.rs",
+      "lines": 320,
+      "sha256": "4e2e366844c2eb7fb9b9bb8ca4a3d19d8fea3ee9e1a5e0db4d52656a745ca18e"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal/autoresolve.rs",
+      "lines": 182,
+      "sha256": "78665b3e581afc1df233445c0768d26d728ec149b644e68039248b971dfd3f9a"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/error.rs",
+      "lines": 62,
+      "sha256": "ff23deb907351c2ca0aab6e8e2831f2dfee7c3ec855d91124522d9e0102442e4"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/measurement.rs",
+      "lines": 210,
+      "sha256": "9490cf8ef958a5255d6b7ee9cc426dcd55bf0affebce9e718e2ce71fd24720a2"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/mod.rs",
+      "lines": 261,
+      "sha256": "61fe528d93435e9e3d2d263110bc870e10ee25ea61c84196be203e4e771d6741"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/report.rs",
+      "lines": 269,
+      "sha256": "732565c70b576d74ef982a5902e2268a5bd2611b296b9319f242562dd26571be"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs",
+      "lines": 319,
+      "sha256": "046e8dc719a971872db9d34ed946e572fefdc5d80d4f11e990eab4e47765bc86"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/iteration.rs",
+      "lines": 648,
+      "sha256": "812c3b491db93ba51220e73ebe4aef93934ff80abeb3f7d4e2af796c598ce1b7"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/iteration/clock.rs",
+      "lines": 29,
+      "sha256": "049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/iteration/logging.rs",
+      "lines": 427,
+      "sha256": "9b544bf84edcca32609b26242d2794c3800a45618c40cef1aa5f4d6965225b88"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/iteration/logging/decisions.rs",
+      "lines": 89,
+      "sha256": "1e132304f3127343f18a77a99b9d18205c3057788ce99700525a0d16e27a8768"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/iteration/logging/resolution.rs",
+      "lines": 167,
+      "sha256": "a61ef59cb4da06988229325123ef72662197b3c568ea9822b2d27ee6cb1d7616"
+    }
+  ],
+  "producer_consumer_closure": [
+    {
+      "producer": "iteration/clock.rs::TacticalElapsed::from_tick_count",
+      "retention": "Every TacticalMelee/Decision/Condition/WoundLogEntry.elapsed_seconds and TacticalMeleeOutcome.simulated_seconds",
+      "consumers": "record_combatant_decision -> elapsed_since -> Measurement<TacticalSeconds>::from_interval -> ordered sum -> finish_means; run_tactical_batch -> Measurement<TacticalSeconds>::from_elapsed -> run_matchup -> transparent scalar JSON.",
+      "preservation": "Original f32 tick-count multiplication remains in the owner. Original tactical-coordinate subtraction happens in f32 before promotion; native Duration and autoresolve coordinates never become that tactical coordinate."
+    },
+    {
+      "producer": "RecoveryTime::available / movement and phase-adaptation AnimationElapsed / NonnegativeSpeed / UnitInterval performance",
+      "retention": "Measurement<AutoresolveSeconds>, Measurement<MovementSpeed> and Measurement<IncapacitationPerformance> in report records",
+      "consumers": "record_autoresolve_telemetry / record_movement_event / record_response_event -> report finish_means -> movement_respects_limits / summary_contact_contract_holds -> actual summary JSON writers.",
+      "preservation": "Typed gameplay leaves reach the statistical admission methods. Native movement inequality remains f32 with the exact original multiply/add order and tolerance."
+    },
+    {
+      "producer": "Native contact, wound, damage and condition output snapshots",
+      "retention": "Measurement<Role> with separate ContactMetres, CenterSeparationMetres, WeaponReachMetres, MovementMetres, ContactJoules, HealthDamage, BloodLossFraction, WoundFlowFractionPerSecond, Fatigue, AcuteTrauma, Imbalance and PainIncapacitation roles",
+      "consumers": "Every retained report quantity, ordered addition, mean, maximum/minimum and final serializer. Numerical fields remain scalar at serialization.",
+      "preservation": "All retained report f64 quantities stay f64. No f32 narrowing or extraction/re-admission between report operations. Native count, event loop and sample accumulation orders remain."
+    },
+    {
+      "producer": "Instant::elapsed -> Duration::as_secs_f64",
+      "retention": "Measurement<WallSeconds> in both batch types",
+      "consumers": "Typed milliseconds and duels-per-wall-second; tactical seconds per wall second only through the explicit clock-combining operation.",
+      "preservation": "Same as_secs_f64, multiplication by 1000, division order and explicit zero-wall behavior."
+    },
+    {
+      "producer": "First actual contact or performance observation",
+      "retention": "Option<Measurement<Role>> extrema; default None; actual zero is Some(zero)",
+      "consumers": "Tactical summary JSON and autoresolve contact audit. An absent autoresolve center minimum permits the existing no-contact case only when its sample count is zero; absence with positive samples fails.",
+      "preservation": "No Infinity or zero minimum sentinel and no serializer restores one. Existing numeric report field names remain; absent extrema serialize null, observed extrema serialize scalar numbers."
+    },
+    {
+      "producer": "NonnegativeLength final-distance admission -> AnimationValueError",
+      "retention": "IterationError::Measurement via run_tactical_batch -> run_matchup -> run",
+      "consumers": "Unchanged native main -> IterationResult<()>",
+      "preservation": "No String/to_string/Operation erasure. Existing Preparation(MeleeIterationError) and Resolution(BattleResolutionError) remain transparent and unchanged."
+    },
+    {
+      "producer": "Unavailable required recovery interval; absent required movement velocity-before, velocity-after, speed-limit or elapsed evidence",
+      "retention": "ReportContractError::{UnavailableRecoveryInterval,MissingMovementObservation} (movement includes event sequence and exact missing observation)",
+      "consumers": "IterationError::ReportContract through the full native graph to main",
+      "preservation": "The existing failing behavior stays explicit; optional displacement and optional engagement-distance observations keep their original optional/default arithmetic. No fabricated successful required measurement."
+    },
+    {
+      "producer": "Native I/O and serde_json failures in all touched runner/run/write functions",
+      "retention": "IterationError::{Io,Serialization,WriteReport}; WriteReport keeps path and typed std::io::Error source",
+      "consumers": "Native main",
+      "preservation": "All old generic string adapters removed in the owned native graph. Invalid seed counts and unknown tactical victor are also structured classifications."
+    }
+  ],
+  "family_requirements": {
+    "P18_satisfied_in_source": [
+      "Typed f64 quantities/sums/means/maxima through causal/audit/serialization consumers",
+      "Unobserved contact extrema are explicit and real zero stays measured",
+      "Tactical/autoresolve/wall clocks remain distinct",
+      "Original f64 accumulation/averaging order and f32 tactical subtraction order retained",
+      "No narrowing into f32 gameplay wrappers",
+      "Measurement and report-contract failures retain typed causes through command main"
+    ],
+    "P02_preserved_in_source": [
+      "Pure roster/authored weapon preparation and battle-resolution error variants and propagation remain",
+      "Native shared error enum still preserves Preparation and Resolution independently"
+    ],
+    "pending": [
+      "Exact integrated-head compilation/formatting/lint and quality gates",
+      "Existing hosted server iteration and core melee-iteration fixtures",
+      "Existing native report command acceptance; no compile/runtime PASS claimed"
+    ],
+    "not_claimed": "No whole-PR/family acceptance beyond these source exits; no other owner-family clearance."
+  },
+  "source_reviews": [
+    {
+      "lens": "Code / behavior",
+      "result": "No unresolved finding in the manual source review of every touched receiving body and unchanged callers. Seed ranges/wrapping offsets, event order, counts, fixed fixture inputs/assertions, gameplay decisions and numerical thresholds remain. Nonfinite report observations and arithmetic overflow now produce structured failure rather than poison report values. Unobserved extrema now have explicit null representation."
+    },
+    {
+      "lens": "Rules / ownership",
+      "result": "Root/crates AGENTS read. Claims recorded for owned source graph; no shared gameplay/math owner changed. Report records and autoresolve causal processing extracted by responsibility. One canonical finite f64 storage owner with compiler-distinct semantic roles. No compatibility shims, duplicate shared owners, wiki/schema/DB/generated edits, baselines/registry/gate changes, new tests/assertions/helpers/doctests, external posts/pushes/CI requests or local project checks."
+    }
+  ],
+  "existing_fixture_preservation": {
+    "iteration_test_module_byte_identical": true,
+    "base_sha256": "a915d3bc30a0f9c15258e7d2759ce42b1ff52e50c12e8934c998af2307d8370f",
+    "current_sha256": "a915d3bc30a0f9c15258e7d2759ce42b1ff52e50c12e8934c998af2307d8370f",
+    "test_source_path": "crates/adventuresim-tactical-server/src/iteration.rs",
+    "core_files_changed": false,
+    "new_test_cases_assertions_fixtures_or_helpers": false,
+    "tactical_tests_require_no_adaptation": "Existing tests do not project elapsed/simulated scalar fields; their outcome JSON replay equality still uses identical typed f32 serialization."
+  },
+  "local_inspection": [
+    "Plain source reads and rg caller/consumer searches",
+    "Git diffs/status/diff --check",
+    "Python standard-library text/JSON/hash metadata only"
+  ],
+  "prohibited_actions_executed": false,
+  "existing_hosted_command_selections_not_executed": [
+    "just fmt-check",
+    "just lint",
+    "cargo test --locked --package adventuresim-tactical-server --features iteration --lib iteration::tests:: -- --test-threads=1",
+    "cargo test --locked --package adventuresim-core --lib autoresolve::melee_iteration::tests:: -- --test-threads=1",
+    "just melee-combat-iteration (existing defaults: tactical_seeds=32, autoresolve_seeds=1000, first_seed=1)"
+  ],
+  "known_limits": [
+    "No executable, runtime or numerical probe was run. All conclusions above are source-based.",
+    "Former tactical f32 extrema are promoted exactly to the report f64 owner. Scalar JSON types/units stay numeric; their decimal spelling can expose full promoted precision.",
+    "No new failure-path fixture was introduced because new tests/cases/assertions were explicitly prohibited."
+  ]
+}

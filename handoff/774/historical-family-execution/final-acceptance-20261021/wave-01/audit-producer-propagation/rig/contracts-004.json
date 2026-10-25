@@ -1,0 +1,113 @@
+[
+  {
+    "id": "RIG-CATALOG-01",
+    "source_cells": [
+      115,
+      116,
+      117,
+      118,
+      57,
+      98,
+      99
+    ],
+    "status": "incomplete",
+    "meaning": "One admitted actual catalogue record and a placement belonging to that actual record; original authored strings remain format input/output, not internal selection authority",
+    "canonical_owner": "Core equipment_assets/selection.rs CatalogItem11-13, CatalogPlacement19-22, OwnedCatalogPlacement27-33",
+    "producer": [
+      "Core item_catalog27-107 loads native embedded JSON, projects generated equipment/coverage and sorts records; original public DTO fields/serde live in schema23-113",
+      "CatalogItem::all36-38 and admit49-54 retain actual record identity; find41-46 decodes external exact spelling once",
+      "CatalogPlacement::find114-115 and item.placement61-64 bind raw external pair at admission; placements67-76 retain owning item relationship",
+      "OwnedCatalogPlacement retained_placements80-91 makes one immutable Arc snapshot and private ordinal; selection101-108 projects checked original relationship without key re-admission"
+    ],
+    "operations": [
+      "Pointer Eq/Hash127-153 preserves actual record identity; Deref/definition getters borrow unchanged source records, which expose authored/wire fields for trace at each caller",
+      "EquipmentAssets::from_json48-87 decodes manifest item_id/placement_id strings to canonical static selection, rejects repeated actual selection, sorts by lexical wire IDs to retain old default order",
+      "EquipmentAssets file_for89-94/default_file_for97-102 compare typed handles then return file text. Actual AssetServer/filesystem receiver still pending. entries104-106 exposes typed entry records.",
+      "Creator ItemCatalog::load52-69 admits loose JSON-compatible YAML documents once and owns definitions/designs. wearable91-93 and material96-100 retain canonical items; is_wearable103-111 reads optional authored fields without rebuilding identity.",
+      "RuntimeClothing::generate21-25 projects IDs only for ClothingPieceName presentation and serde_json tuple digest50; selection itself reaches garment specification as checked handle, and generated output retains admitted body skin55-58. These specific text escapes have actual formatting/serialization endpoints."
+    ],
+    "primitive_inventory": [
+      "Schema ItemDefinition.id/String and placement IDs are authored/wire DTO fields; every actual accessor consumer still requires classification. No blanket schema/catalogue exemption.",
+      "Core item_catalog::{definition,weapon_carry,weapon_handling,weapon_precision,weapon_animation_pack,weapon_skills,source_for_item,revision,validate_references} raw returns/arguments inventoried from124-201; external/native callers not yet fully traced.",
+      "EquipmentChannel::order160 and EquipmentLocation::stable_id344 produce native ordering/text codes; actual enum/text receivers pending.",
+      "Creator EquipmentItemSelection private exact-string membership backing is an intentional bespoke owner implementation after full source reconciliation RIG-PP-004; no primitive key escapes or re-admits.",
+      "Runtime is_runtime_armor/clothing/equipment180-199 and catalog_item320 retain raw item-id admission APIs; actual tactical caller producers pending; do not assume these private/public helper boundaries justify raw identities."
+    ],
+    "receivers_pending": [
+      "All Creator design/inventory/armory/export/cache/fitting producers and actual endpoint functions",
+      "Tactical replicated inventory/raw IDs -> runtime canonical selection/cache/GLB/model native endpoint",
+      "Core authored-document build validation/generated JSON/schema and source-map authoring pipeline (camera assigned build bodies)",
+      "Every serialized/raw ID/geometry/quantity getter from ItemDefinition/schema not already covered"
+    ]
+  },
+  {
+    "id": "RIG-PHYSICAL-CATALOG-01",
+    "source_cells": [
+      117,
+      118,
+      182,
+      183,
+      184,
+      185
+    ],
+    "status": "incomplete",
+    "meaning": "PR currently stores physical dimensions/reach as raw numeric DTO fields; mandatory physical-p16 overlay retains canonical checked lengths/dimensions after decode",
+    "variant_reconciliation": [
+      "PR schema EquipmentPhysical76/80 and ItemKind::Weapon419 are raw [f32;3]/f32, and PR catalog projects raw generated properties at53/57/58",
+      "physical schema cell185 changes dimensions to CuboidDimensions with native axis-array Serde and reach/grip to SignedLength; cell183 deserialize16-17 admits raw [f32;3] once at wire, serialize10 extracts axis_metres directly into actual Serde serializer",
+      "physical catalog cell182 applies projection::load_catalog once into OnceLock; complete delta deletes old raw projection block and preserves remaining API/fixture text except getters explicitly adapted to native assertions",
+      "physical projection cell184 decode24 constructs typed ItemCatalogDocument; native generated model properties from derive_properties53 are admitted59-60; typed grip retained in reach65/equipment69 and CuboidDimensions::from_axis_lengths71 consumes existing typed X/Z leaves and typed total length. No axes extraction/re-admission in dimension mutation.",
+      "Generated projection precision.value64 and raw mass/inertia66-67 still feed DTO fields. Actual authoritative contact/physical property producer and all recipients require separate traces; camera owns overlapping original weapon contract investigation."
+    ],
+    "native_boundary_proof": [
+      "item_catalog_physical_serde.rs axis_metres10 terminates in actual serializer; source [f32;3]16 terminates in single owning constructor17. This establishes only the Serde adapter, not every CuboidDimensions getter or later physical receiver.",
+      "physical existing catalogue fixture only uses axis_metres/metres directly in retained original numeric assertions; same case/count/order assertions per complete textual delta. No new test execution."
+    ],
+    "dependencies": [
+      "Camera build.rs/schema validation/generated constants trace CAM-PROP-BUILD-001 must reconcile schema imports used at build time as well as runtime",
+      "Weapon-model original derive_properties/DerivedProperties/mesh bodies now fully read with hashes in additional-sources-004.json. Shared camera CAM-PROP-F002 records first-party raw length metadata retained before downstream checked admission; link same connected repair.",
+      "Native/client TacticalEquipmentPhysical/placeholder visual/socket/collider/grab receiving bodies remain mandatory",
+      "Shared camera CAM-PROP-F004 traces checked precision_for_design output .value() into raw schema precision and actual combat re-admission; link rather than duplicate finding. Physical projection source fully read here; complete combat receiver proof belongs camera shard."
+    ],
+    "acceptance": "Final union must retain typed physical fields from actual authored/generated source through every application operation/retained record until real Serde/render/physics/numerical endpoints, including build-time schema compile context. No unmodified raw PR body may overwrite P16 checked projection."
+  },
+  {
+    "id": "RIG-RUNTIME-BODY-01",
+    "source_cells": [
+      98,
+      99
+    ],
+    "status": "incomplete",
+    "producer": "RuntimeBody47-60 retains admitted packed skin, typed names/states and DeviceBody cache; actual native glTF admission producer is tactical runtime_equipment/body.rs, still to read",
+    "operations": [
+      "validate85-100 checks paired native surface counts and joint count alignment before either runtime clothing or armor generation",
+      "fit_body103-111 and wearer113-120 retain checked rig payloads; generate125-168 retains canonical static selection through dedicated or parametric path",
+      "generate_vambrace201-229 and breastplate232-255 forward typed body columns through actual input records",
+      "generate_parametric257-311 retains typed FittingPlacement and body sources through UnderlayerBody or device_fit Fitted fields; receiving implementations still pending",
+      "RuntimeCatalogItem70-80 classifies canonical record clothing role once, retains canonical CatalogItem; catalog_record313-318 compares typed pointer identity."
+    ],
+    "receivers_pending": [
+      "Actual tactical native GLTF/body admission",
+      "DeviceBody cache and FitBody/Realization/Wearer full actual receiver implementations",
+      "GeneratedArmor paths, named fitting and actual GPU/readback/export/mesh consumers"
+    ]
+  },
+  {
+    "id": "RIG-PP-004",
+    "status": "reconciled-intentional-owner-implementation",
+    "disposition": "not an actionable producer-propagation gap",
+    "location": "pr-working:crates/adventuresim-character-creator/src/equipment_catalog.rs21,28-31,40-41 EquipmentItemSelection::{admit,includes}",
+    "scenario": "Full owner equipment_catalog.rs18-43 re-read: private ids backing is created only by admit after exact authored filter resolves wearable record. includes takes typed CatalogItem and performs membership wholly inside EquipmentItemSelection. No raw IDs escape this container and no downstream re-admission is required; export292 only consumes includes bool. Record identity is intentionally coarser than CatalogItem pointer identity so every duplicate-ID catalogue record remains selected.",
+    "rule": "Encapsulated validated bespoke container may own primitive backing; producer propagation does not require another nested bespoke identity without an actual naked application API/state edge.",
+    "smallest_connected_repair": "None for this container under current lens.",
+    "dependencies": [
+      "Core canonical CatalogItem identity and duplicate-record policy",
+      "EquipmentItemSelection admission and export loop receiver",
+      "CLI filters remain legitimate original raw boundary and must keep exact unknown-filter error/order"
+    ],
+    "acceptance": "Preserve exact-string match, unknown-filter errors, duplicate-ID selection and export order. CLI filter authoring/parsed input still needs its own current-wave source read.",
+    "coordinator_notified": true,
+    "validation": "not executed",
+    "reconciliation": "Root identified original P14 risk; current-wave full owner and actual export receiver source independently confirm stated distinction. Prior candidate is withdrawn, not waived as legacy debt."
+  }
+]

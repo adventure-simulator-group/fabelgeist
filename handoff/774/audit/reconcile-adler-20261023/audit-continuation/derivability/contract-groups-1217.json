@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1217",
+  "at": "2026-10-25T18:10:01.344153+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1293,
+  "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/tests/failure_security.rs",
+  "sha256": "c072e8a42ab41dbd28ee281414b98b457e54f52f978dd91320c77bd9fad4b933",
+  "actual_compared_ranges": [
+    [
+      301,
+      600
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Only native/source test/fixture helper functions for exact report/context data, quest coverage errors/artifacts and typed code\u2192public category/privacy/trace contracts. No handwritten trait/custom codec/local type. Fixed report fixture identity/default metrics is test construction, not hand Default. Exact first-metric/native classifiers use structural derives; no tests/I/O executed.",
+  "first_unfinished": {
+    "scope_index": 1293,
+    "line": 601
+  },
+  "execution": "none"
+}

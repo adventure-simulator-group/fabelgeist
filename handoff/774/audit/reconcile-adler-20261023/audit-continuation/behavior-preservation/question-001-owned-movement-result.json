@@ -1,0 +1,24 @@
+{
+  "id": "CONT08-Q001",
+  "at": "2026-10-25T09:35:18.229237+00:00",
+  "status": "resolved_with_API_result_qualification; no demonstrated valid-output regression",
+  "source": {
+    "scope_index": 63,
+    "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_movement.rs",
+    "sha256": "3fcb38f4034fe1eccf1d7d99ee3310fed62812d16ef25d547e79e009e4425c33",
+    "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/3fcb38f4034fe1eccf1d7d99ee3310fed62812d16ef25d547e79e009e4425c33",
+    "fresh_reanalysis_ranges": [
+      [
+        1,
+        392
+      ]
+    ],
+    "before_and_diff_proof": "Own complete actual differential002/014 and source-evidence/p16-0063.diff; runtime hunks freshly reread, repeated diff output fixture middle truncated and not counted as new full differential."
+  },
+  "analytical_witness": "Finite firstvelocity=-1e38,Close,maxspeed1e38,accel0,elapsed4,secondstationary,distance2,bounds[.8,10]. Oldaxis displacement=-Inf; final center clamp gives.8 and closing velocitiesstop, but travelfraction0 multiplies old -Inf displacement toNaN. Complete retained OpposedMovement therefore not finite even though gameplay center subfield was finite. No numeric execution.",
+  "new_result": "AxisMotion147 rejects unrepresentable owned SignedLength; propagates before full movement result. Actual owner fields7\u201320 own displacements as well as centers/speeds/time, not only finaldistance.",
+  "intent_evidence": "Captured PR128\u2013135 permits structured rejection of unrepresentable owned result and limits guarantee to affected operation, not global transaction. Complete old result includes nonfinite displacement; not counterexample to preservation of valid complete result.",
+  "preserved_bounded_law": "When each individual displacement is finite but their ordered sum overflows, native raw_after/clamp/travel_fraction remains before final center admission. Each finite displacement*0 is representable and bounded result retains clipping; no eager admission of raw_after added.",
+  "ordinary_qualification": "Exact own mobility66 normal guarded/lunge caps2/5.5 exclude huge witness. No ordinary incident, runtime/diagnostic execution or all melee family clearance.",
+  "acceptance": "Keep ordered native axis/center kernel and clipping for representable complete results, supportedzero/negative coordinates, and typed failure for nonfinite owned axis. Do not replace all transient arithmetic with premature validation or infer global rollback."
+}

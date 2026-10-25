@@ -1,0 +1,129 @@
+{
+  "id": "CONT08-CONTRACT-181",
+  "at": "2026-10-25T13:46:14.263373+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 715,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/construction_controls.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/construction_controls.rs",
+      "before_sha256": "3f3fa3760c04b76557e2a6927b461eb83c134a41d561952d22579c3f3f286599",
+      "after_sha256": "3f3fa3760c04b76557e2a6927b461eb83c134a41d561952d22579c3f3f286599",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0715-base-3f3fa3760c04b76557e2a6927b461eb83c134a41d561952d22579c3f3f286599",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/3f3fa3760c04b76557e2a6927b461eb83c134a41d561952d22579c3f3f286599",
+      "diff": "source-evidence/pr-0715.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "facts": [
+        "Full93+empty diff. Construction variant switch resets usual tiling only when changed; bevel/hole cap, lacing availability/take/default and radius clamp preserve order. Native metre\u2194millimetre conversion changes only on slider response; validators and all native ranges unchanged. No UI interaction."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 716,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/design_input.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/design_input.rs",
+      "before_sha256": "9140c84ddc9d85554f2a063e1ccf8e162cf046d680f663bf44c91986a4589904",
+      "after_sha256": "9140c84ddc9d85554f2a063e1ccf8e162cf046d680f663bf44c91986a4589904",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0716-base-9140c84ddc9d85554f2a063e1ccf8e162cf046d680f663bf44c91986a4589904",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/9140c84ddc9d85554f2a063e1ccf8e162cf046d680f663bf44c91986a4589904",
+      "diff": "source-evidence/pr-0716.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "facts": [
+        "Full119+empty diff. Authored versus selected file loading, no malformed fallback, parse\u2192specific parameter validation and error contexts preserved; exact missing/unknown/duplicate/invalid fixtures consume same values including zero thickness and historical authored-vs-default distinction. No file fixture/check execution."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 717,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_body.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/device_body.rs",
+      "before_sha256": "7f528ffbfd597a6199b1ef50c86f045e36ae230acb0b5957c2504f6285a99bd3",
+      "after_sha256": "7f528ffbfd597a6199b1ef50c86f045e36ae230acb0b5957c2504f6285a99bd3",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0717-base-7f528ffbfd597a6199b1ef50c86f045e36ae230acb0b5957c2504f6285a99bd3",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/7f528ffbfd597a6199b1ef50c86f045e36ae230acb0b5957c2504f6285a99bd3",
+      "diff": "source-evidence/pr-0717.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "facts": [
+        "Full26+empty diff. DeviceBody uses existing OnceLock upload only on empty; upload error leaves empty for retry, racing winner reused, clone retains any initialized GpuBody. Device/body identity not branded; retained source/cached-instance contract question, not new08 behavior."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 718,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_bracer.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/device_bracer.rs",
+      "before_sha256": "b99b1d4617e64627a9b0f5f3cb2af20d18bd75ea166995959b4a2a14a7731a50",
+      "after_sha256": "ff37e035a52f79f4970f87fb21acef7702a0e9cf0ab288cf551e1c35d78365c4",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0718-base-b99b1d4617e64627a9b0f5f3cb2af20d18bd75ea166995959b4a2a14a7731a50",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/ff37e035a52f79f4970f87fb21acef7702a0e9cf0ab288cf551e1c35d78365c4",
+      "diff": "source-evidence/pr-0718.diff",
+      "diff_sha256": "f082b33913a330a66d025f12c0fd10197218be551248aea91cc65b2fe0cf63ee",
+      "head_body_read_ranges": [
+        [
+          1,
+          248
+        ]
+      ],
+      "facts": [
+        "Full248+actual diff. Forearm validation before exact lowarm then wrist landmark lookup now carries typed missing label instead of formatted MHR string. Actual support membership .35/axial margin .1/zero-length status32 and all8 slot sum/native WGSL dot ordering/clamp preserved. Kernel/source/buffer bindings/order and base/morph batch submit/readback sequence unchanged.",
+        "826 native ordinal adapter keeps lowarm/wrist ABI names and native u32 values for representable actual slots, rejects formerly narrowed >u32 indices. Raw status order coincident before empty and readback name roster unchanged. Device/GpuBody/morph receiver population and dispatch lifecycle remain forthcoming original cells; no GPU execution or transaction guarantee."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 826,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/rig_parameters.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/rig_parameters.rs",
+      "before_sha256": null,
+      "after_sha256": "f16955ae53a597eebce8b190c050f47e10671e50fb6f8426ce7bbed3164f14cc",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/f16955ae53a597eebce8b190c050f47e10671e50fb6f8426ce7bbed3164f14cc",
+      "diff": "source-evidence/pr-0826.diff",
+      "diff_sha256": "22a8bb46e123136fe987e645e2bf0186f5c6681dab3914b214ee650f93b2dcd7",
+      "head_body_read_ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "facts": [
+        "Full81 new body (base absent) consumed. All uniform binding-role display strings inspected, explicitly distinct from joint label spelling;718 lowarm/wrist match actual WGSL Params. insert_joint uses checked u32 before insert and returns Result; this is intentional native-width admission, no normal >u32 skeleton claim. Other parameter roles will be compared at actual scoped consumers; declaration alone no ABI-family clearance."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    }
+  ],
+  "next": "719 device_chausses334 then720+"
+}

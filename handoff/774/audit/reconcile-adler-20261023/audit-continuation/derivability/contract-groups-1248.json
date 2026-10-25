@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1248",
+  "at": "2026-10-25T18:17:08.824803+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1313,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/bouncy_bones.rs",
+  "sha256": "14cc7dac87568e296696a1720be8620adc2c31b3451388d7e099e569d6608108",
+  "actual_compared_ranges": [
+    [
+      1,
+      300
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "BoneKick Message/structural derives; Spring structural Default/Clone/Copy/Debug/PartialEq; BouncyBones Component/Default/Debug; telemetry Resource/Default/structural derives already. No handwritten trait or codec in actual slice. Native anatomy classifier, spring numerical step, hierarchy/impulse logic and inherent summaries are semantic, not trait projection.",
+  "first_unfinished": {
+    "scope_index": 1313,
+    "line": 301
+  },
+  "execution": "none"
+}

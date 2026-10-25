@@ -1,0 +1,503 @@
+{
+  "lens": "audit-producer-propagation",
+  "scope": "materially distinct primitive escapes/accessors and adjacent raw retained roles; every assigned supplemental source full-read",
+  "path_prefix": "crates/adventuresim-tactical-client/src/presentation/ unless named crate path",
+  "entries": [
+    {
+      "paths": [
+        "ground_scatter/grass.rs"
+      ],
+      "anchors": [
+        "GrassMeshLod::tier_index82-89",
+        "GrassSpecies::index386-388"
+      ],
+      "role": "typed enum projected only at actual fixed tier/species array indexing; native mesh topology/UV arrays in direct numerical builders249-302/441-772; no decoded type reconstructed from raw identity"
+    },
+    {
+      "paths": [
+        "ground_scatter/grass/community.rs"
+      ],
+      "anchors": [
+        "grass_community_at113-141 cfg(test)",
+        "GrassCommunityField::community_at208-228"
+      ],
+      "role": "ScenePlanPoint.metres enters actual Voronoi distance/lattice kernel; Seed retained through site cache and final weighted_index; private numeric site positions directly consumed in distance arithmetic, no scene point re-admission"
+    },
+    {
+      "paths": [
+        "ground_scatter/instanced_grass.rs"
+      ],
+      "anchors": [
+        "scatter_cell_tufts319-324",
+        "fitted_batch_aabb249-265"
+      ],
+      "role": "checked scene point/elevation ->native InstanceData position andcoverage/shaderword; actual repr(C)/Pod/Arc/extraction/upload/shader body proven; AABB directly calculated from native instances"
+    },
+    {
+      "paths": [
+        "ground_scatter/instanced_understory.rs"
+      ],
+      "anchors": [
+        "spawn200-207",
+        "shrub_instance309-321"
+      ],
+      "role": "2Dcheckedpoint+checkedheight immediate dimensional3Dchecked composition; then Position/Seed kept to actual native InstanceData record, low32shader entropy only at output port"
+    },
+    {
+      "paths": [
+        "ground_scatter/litter.rs"
+      ],
+      "anchors": [
+        "leaf_litter_proximity511-525",
+        "tests::twig_variants929"
+      ],
+      "role": "NonnegativeLength distance produced from direct lattice displacement, comparison stays typed; final metres division computes new dimensionless proximity. Fixture Seedword%2 only native expected topology arithmetic; no blanket fixture exemption"
+    },
+    {
+      "paths": [
+        "ground_scatter/litter/geometry.rs",
+        "ground_scatter/litter/mesh.rs"
+      ],
+      "anchors": [
+        "append_rosette_leaf12-63",
+        "append_bent_twig65-148",
+        "append_cambered_leaf182-256",
+        "into_mesh150-168"
+      ],
+      "role": "checked patch frame points/displacements/positive radii/directions retained until actual coordinate/normal/triangle math, then native attributes/index buffers; no checked adapter API in between"
+    },
+    {
+      "paths": [
+        "ground_scatter/litter/assets.rs"
+      ],
+      "anchors": [
+        "PreparedFamily::prepare17-30"
+      ],
+      "role": "u64 variant from actual authored catalogue0..variant_count consumed directly at mesh recipe; no upstream Seed stripped to variant"
+    },
+    {
+      "paths": [
+        "ground_scatter/loose_stone.rs"
+      ],
+      "anchors": [
+        "scree_patch_coverage196-228",
+        "pebble_patch_mesh268-398",
+        "pebble_billboard_patch_mesh401-459"
+      ],
+      "role": "ScenePlanPoint.metres consumed direct dot/noise scaling; Seed retained through Rng APIs. Actual nativeMesh vertex/normal/UV/index construction; native geometric recipe/intermediate raw parameters remain mandatory other-lens inventory"
+    },
+    {
+      "paths": [
+        "ground_scatter/loose_stone/spawn.rs"
+      ],
+      "anchors": [
+        "PatchPlacement::new188-242"
+      ],
+      "role": "native lattice coordinates admitted once as ScenePlanPoint, typed terrain query, checked point/elevation projected only into actual Bevy Transform. Private PatchPlacement stores that native output, not re-admitted scene identity"
+    },
+    {
+      "paths": [
+        "ground_scatter/mod.rs",
+        "ground_scatter/plants.rs"
+      ],
+      "anchors": [
+        "scatter_seed514-519",
+        "plants::present79-81"
+      ],
+      "role": "Seedword used only immediate framed hash context or canonical xor_word mask arithmetic; actual StreamId bytes/Rng implementation freshly read. Result remains Seed across first-party APIs"
+    },
+    {
+      "paths": [
+        "ground_scatter/plants.rs"
+      ],
+      "anchors": [
+        "present92",
+        "placements168-172",
+        "prioritysort184-190",
+        "open_understory_site202-203"
+      ],
+      "role": "checked root into real Transform; actual embed/dimensional composition admission; point bit pattern used only actual stable sort tie-key; translated coordinates admitted after actualoffset arithmetic. No primitive retained crossing"
+    },
+    {
+      "paths": [
+        "ground_scatter/plants.rs",
+        "adventuresim-plant-generator/src/habitat.rs"
+      ],
+      "anchors": [
+        "habitat207-228",
+        "PlantHabitat16-23",
+        "actualseasonpredicates27-94"
+      ],
+      "role": "Derived calendar phenologyday and normalizedbps fractions remain raw retained inputs. StrategicMinute.day_of_year380-383 is actual new ordinal arithmetic, not same strategic timestamp roundtrip; no Day owner established in this lens. Mandatory owner/granularity/magic-number/admission lenses must resolve all these raw roles; no numeric/native waiver"
+    },
+    {
+      "paths": [
+        "ground_scatter/review_specimens.rs"
+      ],
+      "anchors": [
+        "spawn86/95"
+      ],
+      "role": "typed specimen focus Position kept until actual Transform translation, authored label only Name/output diagnostic"
+    },
+    {
+      "paths": [
+        "obstacles/tree/geometry/leaves/identity.rs",
+        "obstacles/tree/geometry/leaves.rs",
+        "obstacles/tree/geometry/leaves/arrangement.rs",
+        "obstacles/tree/geometry/leaves/selection.rs",
+        "obstacles/tree/impostor/raster.rs"
+      ],
+      "anchors": [
+        "identity4-20",
+        "TreeLeaf33",
+        "arrangement19/128/213",
+        "leaf_shadow_selector56",
+        "selection26/59",
+        "raster122"
+      ],
+      "role": "connected migration gap RIG-SUPP-PP-002: checked Seed -> raw retained shoot identity -> Seed reconstructed. Whole graph first-trace claim accepted; numeric hash-context/f32 ports kept separate"
+    },
+    {
+      "paths": [
+        "obstacles/tree/impostor.rs"
+      ],
+      "anchors": [
+        "tree_source_geometry_hash707-744"
+      ],
+      "role": "native exact fingerprint numeric encoding: retain current raw word->f32 conversion737->bits; will project typed shoot value only at actual numeric encoding after002repair. Hash result/provenance rawfingerprint policy remains later ownership lens; not automatically canonical Seed"
+    },
+    {
+      "paths": [
+        "obstacles/tree/impostor_assets.rs"
+      ],
+      "anchors": [
+        "PreparedTreeLodBake265-374",
+        "species_tag45-50",
+        "PreparedTreeLodCluster378-402",
+        "PreparedTreeImpostorRecord405-444"
+      ],
+      "role": "actual gzip/postcard external codec/native mesh+RGBA image buffers; Seed stayscanonical269/360. Species enum->codec byte tag/private equality lookup; geometry arrays actually Mesh/Image34x. Admission/version/aggregate invariants not cleared by codec/native label"
+    },
+    {
+      "paths": [
+        "terrain/volumetric.rs",
+        "terrain/urban.rs"
+      ],
+      "anchors": [
+        "refresh71",
+        "spawn129",
+        "GroundCoverage46/57"
+      ],
+      "role": "raw vista revision from actual ActiveVistaSurface.revision:u64 state12/update30/getter89-91; root ROOT-PP-TERRAIN-008 authority inventory. No new revision owner invented; shared root final-lens decision retained"
+    },
+    {
+      "paths": [
+        "terrain/volumetric.rs"
+      ],
+      "anchors": [
+        "spawn_base_and_fault157-159",
+        "spawn_presentation136",
+        "terrain::present_pending_terrain157-166"
+      ],
+      "role": "connected error propagation gap RIG-SUPP-PP-001: classified TerrainRecipeError dropped into OptionNone, success falsely accepted; exact complete producer/error/receiver graph read and claimed"
+    },
+    {
+      "paths": [
+        "terrain/urban.rs",
+        "vista/owned/clip.rs"
+      ],
+      "anchors": [
+        "urbanmesh62-91",
+        "clip::PreparedTriangle60-124"
+      ],
+      "role": "typed terrain/collar dispatch into root-owned canonical mesh receiver; actual native f64 rectangle intersection/plane reconstruction/narrowing. Root rawvistaextent002 stays open; no mesh blanket exemption"
+    },
+    {
+      "paths": [
+        "terrain/volumetric.rs",
+        "volumetric_terrain/patch.rs"
+      ],
+      "anchors": [
+        "terrain_patch_mesh192-216",
+        "SceneTerrainPatch::into_mesh_buffers92-98"
+      ],
+      "role": "admitted buffer owner consumed to actual native BevyMesh arrays; positions() view used only actualUVdivision beforeconsumption. Meshadmission/cardinality/nativearray invariants independently reviewed in laterlenses"
+    },
+    {
+      "paths": [
+        "ground_scatter/instanced_grass/variation.rs"
+      ],
+      "anchors": [
+        "TuftVariation::new12-22"
+      ],
+      "role": "canonical rng.next_seed stored speciesSeed; native shaderseed32word drawn intoactualInstanceData, never reconstructed as generation Seed. Draw slots/order unchanged"
+    },
+    {
+      "paths": [
+        "ground_scatter/scene_mask.rs"
+      ],
+      "anchors": [
+        "scatter_ground_without_patch37-67"
+      ],
+      "role": "native row-major grid sample mutation preserves storedshapeandurbanowner; actual typed collar query consumeschecked ScenePlanPoint. Full grid aggregate/state mutation policy remains subsequentlens; no project runtime executed"
+    }
+  ],
+  "source_proof": "supplemental-root-sources.json + receiver001-006 + exact shared proofs + traces",
+  "limitations": "Source inventory only. Other12 lenses/Code/Rule/Comment/hostedCI mandatory; root validation/grounding receiver proof dependency remains open until exact source rows linked.",
+  "prior_scope": "Original17 supplemental scenery source cells and their receiver proof remain independently preserved.",
+  "strategic_entries": [
+    {
+      "paths": [
+        "strategic_scene/protocol.rs",
+        "strategic_scene/cached_views.rs",
+        "strategic_scene/world.rs"
+      ],
+      "anchors": [
+        "PortraitId serde",
+        "PlaceId",
+        "CanvasRect",
+        "scene/current/signature"
+      ],
+      "role": "Portrait identity uses lossless decimal String at actual JSON boundary; retained typed protocol identities through Rust caches/ECS. CanvasRect extracted to native viewport/image/DOM rectangle arithmetic; raw signature strings are actual opaque JSON/equality cache transport, not reconstructed typed identity. Admission/authority lenses independent.",
+      "source_proof": "supplemental-root-sources.json last13 + receivers007\u2013012 + strategic shared/root proofs + STRATEGIC001\u2013006"
+    },
+    {
+      "paths": [
+        "strategic_scene/staging.rs"
+      ],
+      "anchors": [
+        "ConversationPose::in_building",
+        "floor_height",
+        "obstacles"
+      ],
+      "role": "RIG-SUPP-PP-003 checked planpoint\u2192raw helper/height output; checked furniture size+yaw\u2192raw\u2192same composite readmission. Whole rig function graph; root canonical frame/geometry/extent owners.",
+      "source_proof": "supplemental-root-sources.json last13 + receivers007\u2013012 + strategic shared/root proofs + STRATEGIC001\u2013006"
+    },
+    {
+      "paths": [
+        "strategic_scene/status.rs"
+      ],
+      "anchors": [
+        "capture_asset_failures",
+        "SceneAssetFailure",
+        "status_error"
+      ],
+      "role": "PP004 concrete Bevy AssetLoadError discarded into internal retained String; actual final JSON message is terminal text endpoint. Retain cause/path until that native serialization, not before.",
+      "source_proof": "supplemental-root-sources.json last13 + receivers007\u2013012 + strategic shared/root proofs + STRATEGIC001\u2013006"
+    },
+    {
+      "paths": [
+        "browser_runtime.rs"
+      ],
+      "anchors": [
+        "queue_json",
+        "pending_commands",
+        "spawn_forge_scene"
+      ],
+      "role": "queue_json String decode error reaches actual exported wasm Result directly (root019 proof): intentional terminal native diagnostic. PP009 poison\u2192empty queue is independent dropped failure; PP005 forge concrete generation cause lost in generic final warning.",
+      "source_proof": "supplemental-root-sources.json last13 + receivers007\u2013012 + strategic shared/root proofs + STRATEGIC001\u2013006"
+    },
+    {
+      "paths": [
+        "strategic_scene/equipment.rs",
+        "runtime_equipment/cache.rs",
+        "runtime_equipment/generation.rs",
+        "equipment/readiness.rs"
+      ],
+      "anchors": [
+        "body model cache",
+        "finish_generation",
+        "resolve_jobs",
+        "check"
+      ],
+      "role": "PP007 typed fitting cause\u2192cache String\u2192anyhow reconstruction/failedbool/unit Failed marker\u2192generic readiness before final status JSON. Whole canonical rig error graph; native owns harness readiness state/query and consumes payload. P16 physical variant separately read and retained.",
+      "source_proof": "supplemental-root-sources.json last13 + receivers007\u2013012 + strategic shared/root proofs + STRATEGIC001\u2013006"
+    },
+    {
+      "paths": [
+        "../../../strategic-web/static/strategic-renderer.js",
+        "browser_runtime.rs",
+        "main.rs",
+        "player.rs",
+        "../../../adventuresim-netcode/src/client.rs",
+        "ui.rs"
+      ],
+      "anchors": [
+        "mission launch dataset.characterId\u2192Number",
+        "BrowserCommand::EnterTactical",
+        "Args.id",
+        "LocalCharacterId",
+        "AdventureSimulatorClient::player_id",
+        "announce_join"
+      ],
+      "role": "PP006 exact u64 decimal transport narrowed by JS Number then first-party raw identity retained before typed CharacterId reconstruction. Existing baseline3a50 same source bug established, still mandatory scope. Rig graph retains canonical strategic CharacterId; network transport/client/Entity roles remain distinct.",
+      "source_proof": "supplemental-root-sources.json last13 + receivers007\u2013012 + strategic shared/root proofs + STRATEGIC001\u2013006"
+    },
+    {
+      "paths": [
+        "strategic_scene/buildings.rs",
+        "presentation/generation/venues.rs",
+        "venues.rs"
+      ],
+      "anchors": [
+        "SelectedBuildings::prepare",
+        "VenueRequest::placements",
+        "select_building"
+      ],
+      "role": "PP008 typed PortraitId or CharacterId stripped into Iterator/Vec u64 internal selector then compared to typed establishment operator. No native codec/kernel requires this primitive API; canonical CharacterId-purpose mapping retained through whole rig methods.",
+      "source_proof": "supplemental-root-sources.json last13 + receivers007\u2013012 + strategic shared/root proofs + STRATEGIC001\u2013006"
+    },
+    {
+      "paths": [
+        "strategic_scene/status.rs",
+        "strategic_scene/street.rs"
+      ],
+      "anchors": [
+        "StreetBay.id",
+        "status serialized street.bays"
+      ],
+      "role": "PlaceId.0 projected into direct serialized Status output; actual JS findBay/DOM recipients read. No internal Rust raw identity branch or reconstruction on this particular DTO edge; other lenses still classify roles.",
+      "source_proof": "supplemental-root-sources.json last13 + receivers007\u2013012 + strategic shared/root proofs + STRATEGIC001\u2013006"
+    },
+    {
+      "paths": [
+        "presentation/generation/ownership.rs",
+        "presentation/generation/wasm_generation_jobs.rs",
+        "../../../strategic-web/static/strategic-generation*.js"
+      ],
+      "anchors": [
+        "PreparationTicket",
+        "Worker.postMessage",
+        "job/ticket cache keys"
+      ],
+      "role": "Checked ticket owner+NonZeroU32 sequence retained all Rust transitions. JS treats exact serialized JSON ticket/job strings opaquely as correlation/cache keys; actual worker/native wasm Serde boundary. Native storage digest/checksum/compression bytes proven. No typed job stripped into internal primitive semantic field.",
+      "source_proof": "supplemental-root-sources.json last13 + receivers007\u2013012 + strategic shared/root proofs + STRATEGIC001\u2013006"
+    },
+    {
+      "paths": [
+        "../../../adventuresim-building-generator/src/interior/footprints.rs"
+      ],
+      "anchors": [
+        "validate64\u201367"
+      ],
+      "role": "PP010 checked nonnegative CuboidDimensions.y\u2192raw PositiveLength admission is real positivity refinement; root canonical checked refinement required, preserving zero rejection and exact GeometryError. Distinct from same-type re-admission.",
+      "source_proof": "supplemental-root-sources.json last13 + receivers007\u2013012 + strategic shared/root proofs + STRATEGIC001\u2013006"
+    },
+    {
+      "paths": [
+        "../../../adventuresim-building-generator/src/interior/navigation.rs"
+      ],
+      "anchors": [
+        "Navigation::enter_front_door10\u201335"
+      ],
+      "role": "PP011 typed entrance approach/threshold stripped for actual swept geometry then unnecessarily readmitted unchanged for insert/ensure callbacks. Preserve original typed points plus numeric locals at actual swept math boundary.",
+      "source_proof": "supplemental-root-sources.json last13 + receivers007\u2013012 + strategic shared/root proofs + STRATEGIC001\u2013006"
+    },
+    {
+      "paths": [
+        "presentation/generation/tests.rs"
+      ],
+      "anchors": [
+        "grounded_test_building444\u2013447"
+      ],
+      "role": "PP012 same ScenePlanPoint\u2192raw\u2192ScenePlanPoint in existing fixture. Remove redundant roundtrip only; authored values/count/order/assertions unchanged. No fixture-wide exemption.",
+      "source_proof": "supplemental-root-sources.json last13 + receivers007\u2013012 + strategic shared/root proofs + STRATEGIC001\u2013006"
+    },
+    {
+      "paths": [
+        "../../../adventuresim-building-generator/src/collision.rs",
+        "../../../adventuresim-building-generator/src/axle.rs"
+      ],
+      "anchors": [
+        "compile_building_collision206\u2013213",
+        "axle::collision55\u201385"
+      ],
+      "role": "PP013 checked WindowBarSpec unchanged centre/size/yaw composite readmission; axle existing centre similarly re-admitted while newly computed size/euler need one original admission. Root canonical operations reused; complete shared function rig-owned.",
+      "source_proof": "supplemental-root-sources.json last13 + receivers007\u2013012 + strategic shared/root proofs + STRATEGIC001\u2013006"
+    },
+    {
+      "paths": [
+        "../../../adventuresim-building-generator/src/furniture/builder.rs",
+        "../../../adventuresim-building-generator/src/windows/leaf.rs",
+        "../../../adventuresim-building-generator/src/furniture/{domestic,trade,apparatus,worship}.rs"
+      ],
+      "anchors": [
+        "Builder member/collider/support/finish",
+        "compile_window_leaf",
+        "all four assemble dispatchers"
+      ],
+      "role": "PP014 canonical checked WindowLeaf + InteriorFurnitureSpec envelope loses guarantee through raw constructor/helper APIs; Builder admits centre/size for corners then same values again for collider, stores raw support until final readmission. Exact complete helper/caller graph read012, claims authoritative247; literal/new numeric outputs admitted at real leaf, no primitive forwarding.",
+      "source_proof": "supplemental-root-sources.json last13 + receivers007\u2013012 + strategic shared/root proofs + STRATEGIC001\u2013006"
+    },
+    {
+      "paths": [
+        "../../../adventuresim-building-generator/src/furniture/{turned,finish}.rs",
+        "../../../adventuresim-building-generator/src/lod.rs",
+        "presentation/buildings/gpu/**",
+        "assets/shaders/tactical_city*.wgsl"
+      ],
+      "anchors": [
+        "turned profile",
+        "member_uvs",
+        "push_quad/triangle",
+        "Part\u2192packing\u2192ShaderBuffer"
+      ],
+      "role": "Actual numerical face/normal/UV/winding/profile/matrix/index kernels and actual dependency encase/write_buffer/create_buffer receiving instructions full-read. Native fields retained as GPU/mesh ABI, not accepted from private/module prefix alone. Existing fixture geometric assertions independently read; no checks run.",
+      "source_proof": "supplemental-root-sources.json last13 + receivers007\u2013012 + strategic shared/root proofs + STRATEGIC001\u2013006"
+    },
+    {
+      "paths": [
+        "presentation/buildings/materials.rs",
+        "presentation/buildings.rs",
+        "presentation/furniture.rs",
+        "presentation/doors.rs",
+        "presentation/windows.rs",
+        "presentation/buildings/gpu/assembly/input.rs",
+        "tactical_scene_viewer/*readiness.rs",
+        "presentation/buildings/boundaries/{batching,projection}.rs"
+      ],
+      "anchors": [
+        "for_building219/70",
+        "all actual callers found/read/shared proof"
+      ],
+      "role": "PP015 typed SceneBuildingId/FurnitureInstanceId rawword into first-party visual RNG API before Seed reconstruction. Canonical Seed purpose projection required; not building-only identity. Preserve exact stream/wordbits/draworder. Root retains both boundary whole functions; rig owns disjoint actual callers.",
+      "source_proof": "supplemental-root-sources.json last13 + receivers007\u2013012 + strategic shared/root proofs + STRATEGIC001\u2013006"
+    },
+    {
+      "paths": [
+        "ui.rs"
+      ],
+      "anchors": [
+        "render incapacitation/health geometry",
+        "CameraDebug diagnostic fields"
+      ],
+      "role": "Checked CameraDebug fractions/lengths extract immediately for native formatted text. Existing raw combat state goes to actual clipping/forecast/wheel geometry; no checked producer strip proved on this particular edge. Other primitive owner/magic/state lenses remain mandatory; no UI-prefix exemption.",
+      "source_proof": "supplemental-root-sources.json last13 + receivers007\u2013012 + strategic shared/root proofs + STRATEGIC001\u2013006"
+    },
+    {
+      "paths": [
+        "strategic_scene/tests.rs",
+        "strategic_scene/cached_views/demand_tests.rs",
+        "strategic_scene/views.rs",
+        "../../../strategic-web/tests/strategic-scene.browser.cjs"
+      ],
+      "anchors": [
+        "all existing fixture bodies",
+        "every_building_shares_one_street_camera331"
+      ],
+      "role": "Full existing fixtures read unchanged. CODE001 raw Vec3ZERO assigned Position<Scene> in views requires typedORIGIN API adaptation. Other native geometric/DOM pixel/math assertions are actual test endpoints, not blanket fixture exemption.",
+      "source_proof": "supplemental-root-sources.json last13 + receivers007\u2013012 + strategic shared/root proofs + STRATEGIC001\u2013006"
+    },
+    {
+      "paths": [
+        "assets/tactical/massive-city.json",
+        "assets/tactical/sparse-woodland.json"
+      ],
+      "anchors": [
+        "supplemental-root-authored-scene-inventory.json"
+      ],
+      "role": "Both complete byte documents decoded and every key/array entry structurally inventoried by coordinator-approved stdlib grouping; all414 distinct role/shape records reviewed. Original raw authored admission, not checked value erasure. Not manual full literal read or executed validation; all actual typed decode policies/materially distinct receivers separately traced; root downstream validation question remains open.",
+      "source_proof": "supplemental-root-sources.json last13 + receivers007\u2013012 + strategic shared/root proofs + STRATEGIC001\u2013006"
+    }
+  ]
+}

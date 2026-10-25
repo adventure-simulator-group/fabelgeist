@@ -1,0 +1,89 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-104",
+  "at": "2026-10-23T02:46:15.067083+00:00",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/capability/mass.rs",
+      "sha256": "f041c03c0717ed86e0918d7002f19d097d720976ff98ad591ad80a10711add01",
+      "actual_compared_ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "source_evidence": "Fresh complete literal actual variant. PR and P16 differences personally compared; identical armor source shares only independently resolved identical justification."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/capability/combatant.rs",
+      "sha256": "70185e2b1fa6e8e4ca7406ef36aa13c78ac0517e4ff69e7132036a63fcb7d2f2",
+      "actual_compared_ranges": [
+        [
+          1,
+          109
+        ]
+      ],
+      "source_evidence": "Fresh complete literal actual variant. PR and P16 differences personally compared; identical armor source shares only independently resolved identical justification."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/capability/armor.rs",
+      "sha256": "027f27a4294fe1574bcb9c7f376db05904519094f99936be09bcf66d5459b7e0",
+      "actual_compared_ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "source_evidence": "Fresh complete literal actual variant. PR and P16 differences personally compared; identical armor source shares only independently resolved identical justification."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/battle_combatants.rs",
+      "sha256": "761099a162f432296e633e8d5a6f3e4092c08fb664bebb89dc3be7d725988444",
+      "actual_compared_ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "source_evidence": "Fresh complete literal actual variant. PR and P16 differences personally compared; identical armor source shares only independently resolved identical justification."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability/combatant.rs",
+      "sha256": "afba3aaeb15ab41fe36d35221b5269a784098863766c03ad61ecd6532204bdbc",
+      "actual_compared_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "source_evidence": "Fresh complete literal actual variant. PR and P16 differences personally compared; identical armor source shares only independently resolved identical justification."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/battle_combatants.rs",
+      "sha256": "85a9cdeb34de89b6b81a65c512747b50771666aae4d1e6616345a617767a6706",
+      "actual_compared_ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "source_evidence": "Fresh complete literal actual variant. PR and P16 differences personally compared; identical armor source shares only independently resolved identical justification."
+    }
+  ],
+  "source_proof": {
+    "record": "continuation/root/initial04-invariant-operations/contract-groups-103.json",
+    "sha256": "92c1d0712516d88d1470f9f7d760ad0e1de54f6eda124e9dc851ae5dc2154743"
+  },
+  "mandatory_qualification": {
+    "record": "continuation/root/parallel-scope-qualification-170.json",
+    "sha256": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c"
+  },
+  "groups": {
+    "recovery": "Credit only six already-scoped actual source roles from103; partial writer saved findings/raw coverage but not authority. Preserve all raw receipts, do not append findings or six coverage rows again. Two PR counterparts remain uncredited103 permanently; fresh registered comparison171 will receive later independent04 reconciliation after global publication."
+  },
+  "findings": [],
+  "repair": "frozen_initial_audits_then_handover",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

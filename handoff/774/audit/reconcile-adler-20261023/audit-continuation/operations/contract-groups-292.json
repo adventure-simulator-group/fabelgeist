@@ -1,0 +1,104 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-292",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/detail/solids.rs",
+      "sha256": "7c09ee54b3d9ae39bd91d4b22a275373eaa3a5516f95a1835b997ce165488cf2",
+      "actual_EOF": 260,
+      "actual_compared_ranges": [
+        [
+          1,
+          260
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/detail/stove_tiles.rs",
+      "sha256": "7b113cb3c338df1fb2d706bf81cf21ca7f48b8523e220dad89c0dda00ef0adad",
+      "actual_EOF": 249,
+      "actual_compared_ranges": [
+        [
+          1,
+          249
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/doors.rs",
+      "sha256": "117277d2c1a3694f567606dcd0e8207f647755a386fdabfca098aa8597a6e1b7",
+      "actual_EOF": 295,
+      "actual_compared_ranges": [
+        [
+          1,
+          295
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/doors/admission_tests.rs",
+      "sha256": "6f85090d8c5d624da30e2e2ebeb308b0a110340a189eac9bc4c13c28888e011a",
+      "actual_EOF": 51,
+      "actual_compared_ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Solid rendering keeps explicit shape/finish ownership and bounded fixed topology",
+      "source_ranges": {
+        "solids.rs": [
+          [
+            1,
+            260
+          ]
+        ]
+      },
+      "disposition": "Fullbodyread. RoundTowerShell intentionallydeferred;recessedFachwerkbearingpiecesnotsecondvisiblefinish. Sharedarched/shutter/leadedwindow/axle/bellportsretainshapeapplicability; windowdimensionprojectionreadmittedCuboidDimensions, finaltransformedverticesnativeLodMeshownerdependency. Everytriangle/fixededgearrayboundsguaranteedbyconstruction; compile_window_leaf indices requireitsactualproducer. panel_edge_key rounded100000\u00d7coordinatecasts to i64, so unboundedcoords/NaNaliases not invalid-stateproof; actualnormalbuildingbounds andtriangulationcoherence needed. PanelBoundarycounts u8+=1 assumes validmanifoldedgeincidence;256samequantizededge occurrencesrepresentablemalformedplan couldoverflow/wrap, but actualsource/generator/publicplanadmission witness not established; qualifiedstrengthening only, no ordinary productionfailure. Normal/depthfinitecomputedclosure remains nativekernelhandoff not guarantee fromprivatevisibility."
+    },
+    {
+      "contract": "Recessed tile joints remain render decoration inside canonical stove shell",
+      "source_ranges": {
+        "stove_tiles.rs": [
+          [
+            1,
+            249
+          ]
+        ]
+      },
+      "disposition": "Fullbody+fixture readnotrun. TiledStove membership provesactualselectedsolid includedinboundsloop; eachboundsfallible, no emptyInfaggregationforeligiblebody. Face4chunks indexesvalid; axis/u/vfixedindices. Bounds/tile.2ceilcounts anddividecount requirepositiveglobalfaceextents andcardinal stoveorientation; actualheatingproducer mustprove this mode. Zeroextent genericcuboid notautomaticallyordinaryeligibleTiledStove. Exposedfacesexclude kitcheninlet/downward/internalplanes, backingrecess.003 andjoint.003 intentionallyrenderonlycollisionunchanged. Largeunboundedcountsworkbudgetquestionnot anordinaryhuge-stovefinding. Fixtures500..2000trianglebudget/closedjoints/readmission documentedacceptance, no renderorbuild."
+    },
+    {
+      "contract": "Door compilation and sweep arithmetic retain physical identity, geometry failures and inward-swing policy",
+      "source_ranges": {
+        "doors.rs": [
+          [
+            1,
+            295
+          ]
+        ],
+        "admission_tests.rs": [
+          [
+            1,
+            51
+          ]
+        ]
+      },
+      "disposition": "Bothcompletebodiesreadincludingfixtures. Actualoperable_openingsonlyDoor+Operable+DoorLeaf+insideSome/outsideNone; firstexistingclosureselectedbothhereandstaticdetail exclusion, so samechosenleafandno unexplained dynamic/static mismatch established. MissingclosuretypedDoorError withopeningandoptional source; othercomputedwidth/thickness/hinge/yawreadmittedcheckedleaves, Resultcollect prepareslocalVecbeforepublication. Horizontalradius computes4cornersfromactualhingeoffset+closedyaw, checkscomputedpointandlengthfinitebeforemax; not merely leaf finitevalidation. Finiteoverflow validerror preserves originalsourceGeometryError. Tangent/outward individualadmission doesnotbyitselfproveorthogonality orclosedcentre/hinge/size relationship inpublicSerdeDoorSpec; exactnormalopeningwallframe admissionneeded, otheraggregate lensdependency not currentbadgenerateddoor. Positive100degree sign chosen bysmall.01radianswing againstinward; nearambiguousnonorthogonalframes qualification only. Signedpositions/anglesvalid; noallpositivegeometry rule. Admissiontestsincludezero leaf-height rejection+nativewire roundtrip, readnotexecuted."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-building-generator/src/furniture.rs"
+}

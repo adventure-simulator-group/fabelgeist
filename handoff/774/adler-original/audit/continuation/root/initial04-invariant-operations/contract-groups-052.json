@@ -1,0 +1,51 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-052",
+  "at": "2026-10-22T21:29:23.455563+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_schedule.rs",
+      "sha256": "ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+      "actual_compared_ranges": [
+        [
+          1,
+          182
+        ],
+        [
+          184,
+          239
+        ]
+      ],
+      "source_evidence": "Fresh everyoldP16schedule1-170/184-239 andprospective171-182tail.183blankexcluded; no other239+operations/tests or PR equalityinference."
+    }
+  ],
+  "groups": {
+    "span-admission-and-progress": "Tailpushes spanonlyunderpriorend>start, endpoints derive max/min ofactualinterval/calendarboundaries. Nonemptypositiveinterval perreturnedrow; readonlyinputs andlocalVec. nextday<=daystartbreak protects saturatingclockedge, otherwise monotonedayprogress; topbreakatintervalend. Nativecalendararithmeticcontract separatecurrentStrategicMinute source. Scalarsaturation/prepassdefault handleszeroelapsed/fullallocation withemptyspans intentionally. No extra bool/cachedscalar authority fromspanlist versus pro-rata leisureminutes: differentdocumentedquestions, actualCamera094 rest/reproduction recipients confirm.",
+    "bounded-work-requirement": "Entirepublicfunction enumeratesandretainsonepotentialspanpercalendar day. Generalu64elapsed +unallocatedvalidschedule permitsastronomicalnumberofdays, no explicitacceptedinterval/nativeVecworkbound insidefunction. This is count/work contract strengthening fromrepresentableAPI, not normalbadrest/checkpoint. Earliestneed projecteddaycount/collectioncapacity orlazyexplicitwork ownershipbeforeloop; no imposednewglobalclock/yearlimit orsilenttruncation. Root052 independentoperationwitnessF018, no verdictcarry.",
+    "local-construction-failure": "Allspanrecordscollectedlocallybeforereturn; no externalstate/retryclockmutatedbyallocation/iterationfailure. Doesnotprovetransactionaroundcaller. Do notmisrepresent finitebutimpracticalhugeiterationasinfinitewhile: clockstrictlyprogresseswithupperboundu64MAX.",
+    "skill_hours": "SkillHours.values fixed32elementarray preservesdeclaredreportorder; Religion/Bestiary family totals areintentionalrollups among32categories, notflattenedfinetaxonomy. is_finite checksbothcomputedrolluptotals andeachrawfamilydirectleaf, so finiteindividualMAXoverflowtotalcausesfalse (positivevalidationevidence, supportsneedwholefamilycontractF016). Rawpublicfields/Serde notadmissionseal.",
+    "leisure_outcome": "Fresh actual184-239 dataandwholefunction. elapsed0 returndefault0. u64MAXminutes convertsfinitef32days~1.28e16; u16labor andatmost1440leisureminutes keepgenerated/recovery products below~1e21, farbelowf32MAX. Finitecurrentfatigue>=0 plusgenerated cannotroundInf evenatMAX becausegeneratedfarbelowhalfULP nearMAX; remainingnonnegativefatigue/subtract finite. currentNaNmax0 isexistingnormalization; positiveInfcurrent canproduceInf-InfNaN finaldelta, rawinputadmissiongap notfiniteinputoverflow. time_to_clear sentinelInf whennosurplus, andfinitefatigue/positiveverysmallsurplus canoverflowInf too; qualifying_days.max0then yields0 appropriatelyunreachableclearancewithinfiniteinterval, neverretains this timer. Moralequalifyingdays*boundedquality<=4*daysfinite andcanvalidlyexceeddaily4overmultipledays. Fatiguereservoirunits versuspreviewpoints actualdifferentrepresentations; no newparallelcombatpool or100capinvented. Outputsneedactualrawfatigueadmission/typepropagation, notallprivateintermediatesmustbefinite. Pro-rata cumulativeintegerfactory separatecalendar arithmetic remains ownsourceproof, no blankettelecopingproof frommethodname."
+  },
+  "findings": [
+    {
+      "id": "ROOT-INITIAL04-F018",
+      "kind": "representable_API_collection_work_contract_strengthening",
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_schedule.rs",
+      "locations": [
+        [
+          151,
+          182
+        ]
+      ],
+      "case": "Public restorative_leisure_spans(DailySchedule::default(), StrategicMinute::new(0), u64::MAX) requests one span percalendar day across representablefullclock, approximately1.28e16spans. Loopstrictlyprogresses but cannotreasonablymaterializeVec; no normalactualrest/writer/runtimebadintervalclaimed.",
+      "operation": "Acceptedclock/durationleafvalues do notestablishrepresentable/practical collectedcalendarspanwork/capacity. Unlike independentalcoholintervalfactorycheckedyearbound, thisfunctionhasnocorrespondinglocalwholeworkgate.",
+      "connected_repair": "Explicit projecteddaycount/collectionextent admission withordinaryfalliblefailure beforework, orlazybounded-memory spanproducer andactualcallerworkownership. Propagate realduration/clock/scheduleowner throughallactualrecipients; preservezero/fullallocatedempty, calendarend clipping andpro-rata-versus-overlap distinctions. Do notgloballyshrinkStrategicMinute orsilentlytruncateinterval.",
+      "acceptance": "Every accepted collectedspanoperation has an explicit feasible work/capacity contract before enumeration, with exact nativeerror orlazy ownership; validnormalintervals keepstableendpoints/order andendpoint saturation. No newtests/cases/assertions/helpers."
+    }
+  ],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

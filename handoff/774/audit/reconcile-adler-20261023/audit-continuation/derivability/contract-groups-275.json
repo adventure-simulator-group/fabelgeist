@@ -1,0 +1,112 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-275",
+  "at": "2026-10-25T14:21:37.364340+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 546,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/detail/cuboids.rs",
+      "sha256": "1bc389873b2835026a9bd59935dcc2392411f1bbe05047c3cfdf8adfe9b15960",
+      "actual_EOF": 254,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/detail/cuboids.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-building-generator/src/detail/cuboids.rs",
+        "sha256": "1bc389873b2835026a9bd59935dcc2392411f1bbe05047c3cfdf8adfe9b15960",
+        "bytes": 9315,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-root-receivers-009.json",
+            "ranges": [
+              [
+                1,
+                254
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-SUPP-STRATEGIC-003"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+            "row": 84,
+            "read_ranges": [
+              [
+                1,
+                254
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-SCATTER-041"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/detail/cuboids.rs"
+          },
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 477,
+            "read_ranges": [
+              [
+                1,
+                254
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-DETAIL-TIMBER-COMPONENT-072"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/detail/cuboids.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root",
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 147,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          254
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "No local handwritten Rust trait/Serde.",
+      "absence_basis": "Full254-line exact PR cuboid detail and fixture source consumed. Native orientation/material/seam cover, checked render-centre mutation, endgrain/face classification and metric texture phase mapping semantic functions; no conversion derive equivalent. Fixtures not run, native/geometry helper definitions separately scoped."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Cuboid native render placement and UV/material classification",
+      "disposition": "Function-only semantic geometry code, no handwritten trait boilerplate.",
+      "acceptance": "Preserve frame/checked error/mutation/material/unit contracts; no geometry/operator/visual/pass or other-lens clearance."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 547,
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/detail/kit.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

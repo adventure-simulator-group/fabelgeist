@@ -1,0 +1,61 @@
+{
+  "id": "CONT07-CONTRACT-662",
+  "at": "2026-10-24T01:35:11.863169+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2550,
+      "source_id": "pr-working:crates/fabelgeist-bvh/src/gpu/mod.rs",
+      "sha256": "6634431db696f50d97f3a8f405615336895803d2302aca8e7690144b710dae4d",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-bvh/src/gpu/mod.rs",
+      "actual_EOF": 376,
+      "ranges": [
+        [
+          1,
+          337
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2551,
+      "source_id": "pr-working:crates/fabelgeist-physics/src/mesh.rs",
+      "sha256": "227950fb9466ae2c9f5c59c33322ac2c4f43a1d9eb743669e7f65fb6cdeba9dc",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-physics/src/mesh.rs",
+      "actual_EOF": 205,
+      "ranges": [
+        [
+          30,
+          205
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2243,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/kernel/fast.rs",
+      "sha256": "8cb7511310b96d6e799dd584a3a6f64270c73ee3abbb50a7f730831938ef2fcf",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-compute/src/kernel/fast.rs",
+      "actual_EOF": 379,
+      "ranges": [
+        [
+          150,
+          305
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "GpuBvh count is explicitly last recorded build, not last submitted GPU topology (143). Known capacity rejection203\u2013208 precedes count mutation209. BvhKernels fields35\u201341 are private and normal constructor compiles fixed sources; arbitrary missing-binding kernel substitution is not admitted by this API.",
+    "Actual KernelBatch dispatch250\u2013290 can return Result error from prepare/ComputePass. Fast prepare's concrete missing/nonbuffer parameter failure251\u2013258 exists, but no such missing parameter or other recoverable Result failure in this correctly constructed GpuBvh path has been established. Public GPU buffers do not by themselves establish missing-name failure. Do not infer source bug solely from count-before-questionmark.",
+    "Actual build304\u2013313 and MeshCollider rebuild169\u2013173 submit only after recording success; failed owned batch is dropped, and constructor MeshCollider new106 propagates failure dropping freshcollider. Existing public record caller owns batch lifecycle. KernelBatch after_submit callbacks explicitly dropped when unsubmitted; submit consumesencoder. No submitted partial GPU corruption or ordinary failed build mismatch proven. Retain bounded failed-record atomicity hardening question, no accepted07 defect.",
+    "A successful recording deliberately changes count before submit; record_refit contract requires successful same-count build and caller orders onebatch. These are staged facts, not duplicate submitted-authority caches unless unsupported rollback use is demonstrated."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": null
+}

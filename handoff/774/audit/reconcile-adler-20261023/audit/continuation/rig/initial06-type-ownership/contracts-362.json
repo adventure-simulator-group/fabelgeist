@@ -1,0 +1,27 @@
+{
+  "id": "RIG-INITIAL06-GROUP-362",
+  "at": "2026-10-23T09:29:27.393600+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "hair-worker-body-topology-ownership": {
+      "comparison": "HairPreview keeps canonical Groom/GroomedHair/HairDesign/Form/PlacedHair/HeadPlacement. Worker key is Groom plus Arc<GeneratedCharacter> identity, and PlacedStyle carries exact body used; BodyHead owns necessary copied native mesh/skin/joint tables for thread lifetime rather than another semantic skeleton schema. Canonical PackedRigSkin<8>/RigJointName/Table remain through HeadSkin, actual scene GPU rendering/skinned mesh is terminalport. FormChoice adds display label to canonical Form, StrandsDrawn is observable drawn/all counts, not duplicate Lod or fractions. No local hair preset/style identity or broad geometry owner introduced. F003 shared mesh representation and F032 animation-preview skin reduction remain separate exact graphs, not erased by this correct8column producer.",
+      "disposition": "canonical hair/rig owners with thread/body-specific prepared artifact"
+    },
+    "private-relationship-observer-projection": {
+      "comparison": "BackendCharacterRelationshipStatus and BackendCourtshipDiscoveryStatus are deliberately trusted-gateway projections over private relationship/commitment/pregnancy tables, not second authoritative model definitions. Canonical CourtshipKind/PregnancyStatus/StrategicMinute remain typed; character/observer/partner IDs retain distinct positions despite common DBword storage. Gateway identity and selected observer personalminute filter effective intervals; activity/status query is intentionally not equivalent to observed temporal projection. F040 inner character identity propagation should preserve observer role and private-source disclosure policy, not merge these DTOs into mutable model. No new clock type or concurrent independent accepted relationship state owner.",
+      "disposition": "meaningful current/private-source versus observer-scoped wire authority"
+    },
+    "rock-visual-field-versus-collision-recipe": {
+      "comparison": "RockRecipe/RockArchetype/RockLithology/Seed are canonical source owners; private RockField derives native halfextents/phase/sin/cos/radius for actual SDF sampling, not alternative recipe storage/API. Native SurfaceNetsGrid/extract are explicit render kernel and conservative collision proxy remains server authority, no mesh success assumed from expect. TacticalRockExtension.surface mixes linear tintRGB with roughnessbiasW, geology packs radians/frequency/macro/normal strengths; cannot apply unitRGBA F005 to everyVec4. Linear multiplicative tints can exceed1 (limestone/sandstone), preserve HDR/multiplier semantics. Original recipe/shader fixtures read only; no called extractor or shader body credit.",
+      "disposition": "canonical rock recipe/proxy versus native sampled visual field/material ABI"
+    }
+  },
+  "supporting_existing_findings": [
+    "F003",
+    "F005",
+    "F032",
+    "F040"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit."
+}

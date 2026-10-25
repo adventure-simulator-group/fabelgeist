@@ -1,0 +1,115 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-187",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/organization.rs",
+      "sha256": "c6543ebb001f40f15986ba54ee0f5a2d05fa72e12639504d65d963aa816b17fc",
+      "actual_EOF": 655,
+      "actual_compared_ranges": [
+        [
+          1,
+          655
+        ]
+      ],
+      "method": "Whole P16 literal module/helper and fixtures read. Complete PR textual diff consumed; each Result propagation delta assessed. Entire unchanged helper comparison consumed, not hash-only."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/organization/membership.rs",
+      "sha256": "0d33ff33d3e12486c22e7724790e4c745f5f6e603ec06302c7e9fa161e3597a5",
+      "actual_EOF": 25,
+      "actual_compared_ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "method": "Whole P16 literal module/helper and fixtures read. Complete PR textual diff consumed; each Result propagation delta assessed. Entire unchanged helper comparison consumed, not hash-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/organization.rs",
+      "sha256": "39842ba122cf2240e36f267f8db415dd2b54bfcc0dbd2478e813ef3c374a9645",
+      "actual_EOF": 655,
+      "actual_compared_ranges": [
+        [
+          1,
+          655
+        ]
+      ],
+      "method": "Whole P16 literal module/helper and fixtures read. Complete PR textual diff consumed; each Result propagation delta assessed. Entire unchanged helper comparison consumed, not hash-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/organization/membership.rs",
+      "sha256": "0d33ff33d3e12486c22e7724790e4c745f5f6e603ec06302c7e9fa161e3597a5",
+      "actual_EOF": 25,
+      "actual_compared_ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "method": "Whole P16 literal module/helper and fixtures read. Complete PR textual diff consumed; each Result propagation delta assessed. Entire unchanged helper comparison consumed, not hash-only."
+    }
+  ],
+  "groups": [
+    {
+      "id": "Membership time and monotonic dues operations",
+      "locations": "organization48-143,257-370,425-444; membership1-25",
+      "trace": "Canonical role is separate social-role authority; backend joins actual assignment rather than storing duplicate rank. Current helper requires real actor clock, no default. Membership current uses Active and inclusive now<=paid_through, matching settlement lapsed condition now>deadline. Joining authenticates local chapter, temporal scope, whole admission and entry role requirements before fee; no-dues chooses explicit MAX. Payment can prepay from active paid-through or renew fromnow. Both use saturating days, with qualified no-extension charge atMAX recorded. Activity accrual uses explicit saturated counters; no exact-unbounded minute guarantee inferred. Whole currency/role write failures may follow earlier mutation, requiring outer transaction/catch proof before partial committed allegation.",
+      "disposition": "One terminal represented-state policy strengthening record; no ordinary wrap or off-by-one failure. Missing real clock returns error consistently here.",
+      "dependencies": [
+        "SEGOVB-04-DUES-EXHAUSTION-001",
+        "Canonical role, authored organization and time admission",
+        "Native currency and SDK transaction/caught-error graph"
+      ],
+      "acceptance": "Accepted dues lifecycle preserves inclusive endpoint, monotone paid-through and actual payment outcome; failed admission cannot consume fee or publish partial membership."
+    },
+    {
+      "id": "Requirements, presentation and capability mutation",
+      "locations": "organization145-255,323-343,373-588",
+      "trace": "Skill vocabulary maps known strings to actual Skill/religion/bestiary leaves; unknown requirement returns error. Direct religious/category hours intentionally separate from generic effective totals, source policy not replaced by arbitrary sharedrank. Promotion follows one authored transition and canonical role update. Present/clear/reconcile mutate selection then fallibly enforce equipment compliance; no partial committed change asserted without transaction proof. Missing global/local presentation lookup returns unavailable/false rather than epoch. Global role privilege checks actual role and active dues; local presented_privilege checks definition.has_privilege and current membership, a distinct authorization policy needing owner/consumer comparison if expanded, not an arithmetic finding. Leaving local recognition retains globally current selection intentionally.",
+      "disposition": "No new finite-operation defect. Preserve whole role/privilege/selection policy, direct leaf skill meaning and actual cause propagation; blanket presentation deletion or global/local permission unification not inferred.",
+      "dependencies": [
+        "Existing canonical social-role and organization authority graphs",
+        "Equipment law/capability/condition recipients",
+        "Core skill training rank and authored requirement admission"
+      ],
+      "acceptance": "Successful presentation and promotion preserve one canonical role and explicit local/global recognition policy; rejection cannot leave partial equipment state. Use actual skill owners without conflating direct specialty and effective aggregate."
+    },
+    {
+      "id": "Source fixtures",
+      "locations": "organization590-655",
+      "trace": "Complete fixed membership fixtures read, including inclusive100 deadline, overdue99, suspended100, warden versus master and global forage privilege. No tests or project checks run.",
+      "disposition": "Source evidence only; whole lens still incomplete.",
+      "dependencies": [
+        "All13 initial gate and later authorized validation"
+      ],
+      "acceptance": "Preserve exact inclusive deadline and role-specific privileges when eventual source repairs are authorized."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-DUES-EXHAUSTION-001",
+      "kind": "Representable retained-state paid-through exhaustion strengthening",
+      "source_variants": [
+        "physical-p16",
+        "pr-working"
+      ],
+      "locations": "organization347-370; membership11-14",
+      "case": "A represented Active dues-bearing membership with paid_through=StrategicMinuteMAX and a current valid actor clock<=MAX passes membership_is_current. pay_organization_dues first consumes ordinary positive authored dues, selects baseMAX, then saturating_add_days retainsMAX and returns Ok. Repeating payment spends again without extending paid-through. No normal membership reachingMAX, executed payment or UI reachability claim. Saturation is explicit, so whether further prepayment should reject is a terminal chronology policy qualification, not inferred ordinary overflow.",
+      "operation": "A successful purchase of additional time can charge despite represented endpoint having no extension capacity.",
+      "connected_repair": "Define canonical paid-through exhaustion policy and check any required positive extension before currency mutation; use shared absolute/elapsed time owners and existing structured failure. Preserve lawful normal prepayment and inclusive paid-through endpoint. Joins terminal temporal operation graph; not blindly deduplicated with residence due-occurrence replay ROOT-INITIAL04-F046.",
+      "dependencies": [
+        "Canonical StrategicMinute exhaustion/interval policy",
+        "Native currency withdrawal and SDK transaction semantics",
+        "Organization authored positive dues interval and amount admission"
+      ],
+      "acceptance": "If accepted dues payment promises an extra period, it must extend the admitted paid-through date or reject before charge at exhaustion. Preserve no-duesMAX meaning and genuine epoch0, without wrapping or compatibility fallback.",
+      "unique_count": "Not assigned; coordinator reconciliation required."
+    }
+  ],
+  "status": "Four source roles personally compared; whole lens/overlays/connected dependencies incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/outbreak.rs"
+}

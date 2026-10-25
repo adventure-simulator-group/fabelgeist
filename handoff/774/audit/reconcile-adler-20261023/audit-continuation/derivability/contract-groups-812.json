@@ -1,0 +1,283 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-812",
+  "at": "2026-10-25T16:54:43.585729+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1022,
+      "source_id": "pr-working:crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "268891d7d5556895ace4c6ce33b14953e35d5973bfce9b042e4b9d2dbc721a86",
+      "actual_EOF": 58,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/unit_interval.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/unit_interval.rs",
+        "owner": "camera",
+        "sha256": "268891d7d5556895ace4c6ce33b14953e35d5973bfce9b042e4b9d2dbc721a86",
+        "base_sha256": null,
+        "state": "new",
+        "bytes": 1740,
+        "audit_owner": "camera",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                58
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-FRACTION-001"
+            ]
+          },
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/progress.json",
+            "ranges": [
+              [
+                1,
+                58
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": []
+          },
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/unchanged-owners-002.json",
+            "ranges": [
+              [
+                1,
+                58
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": []
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+            "row": 2,
+            "read_ranges": [
+              [
+                1,
+                58
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-RATIO-003",
+              "ROOT-OWNER-ZERO-LENGTH-007",
+              "ROOT-OWNER-FRAMES-004"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/unit_interval.rs"
+          },
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+            "row": 55,
+            "read_ranges": [
+              [
+                1,
+                58
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-TREE-030"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/unit_interval.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 203,
+            "read_ranges": [
+              [
+                1,
+                58
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SCALAR-DEFINITIONS-001",
+              "CAM-OWN-CONFIG-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/unit_interval.rs"
+          },
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 5,
+            "read_ranges": [
+              [
+                1,
+                58
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-LEAF-003",
+              "RIG-OWNER-WEIGHT-002"
+            ],
+            "read_status": "full_current_lens_owner_definition_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/unit_interval.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 4,
+            "read_ranges": [
+              [
+                1,
+                58
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-STRATEGIC-001"
+            ],
+            "read_status": "full existing owner/admission/Serde/error body",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/unit_interval.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root",
+          "camera",
+          "rig",
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": 379,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner81_scope_additions": [
+          {
+            "authority": "continuation/root/owner-delta-scope-authority-029.json",
+            "registration_observations": [
+              {
+                "registry": "continuation/native/owner81/local-owner-source-registrations.jsonl",
+                "row_1based": 5,
+                "supplier": "native",
+                "source_id": "pr-working:crates/adventuresim-core/src/unit_interval.rs",
+                "sha256": "268891d7d5556895ace4c6ce33b14953e35d5973bfce9b042e4b9d2dbc721a86",
+                "actual_EOF": 58,
+                "ranges": [
+                  [
+                    1,
+                    58
+                  ]
+                ],
+                "effective_material_ranges": [
+                  [
+                    1,
+                    58
+                  ]
+                ],
+                "qualification": null,
+                "original_registration": {
+                  "id": "NATIVE-OWNER81-REG-005",
+                  "registered_at": "2026-10-22T05:03:25.081022+00:00",
+                  "authority": "continuation/root/owner-delta-scope-authority-029.json",
+                  "source_id": "pr-working:crates/adventuresim-core/src/unit_interval.rs",
+                  "snapshot": "pr-working",
+                  "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/unit_interval.rs",
+                  "sha256": "268891d7d5556895ace4c6ce33b14953e35d5973bfce9b042e4b9d2dbc721a86",
+                  "actual_EOF": 58,
+                  "material_ranges": [
+                    [
+                      1,
+                      58
+                    ]
+                  ],
+                  "actual_use": "Native26 roof source roles; Existing closed fraction candidate for proven segment stations only, contrast tolerance-extended/clipping/extrapolation factors.",
+                  "why_prior_proof_insufficient": "Current source-use semantic comparison requires actual candidate admission/operations/dependency. Root001/prior Native proof can carry only explicit same-contract semantics; no new producer credit.",
+                  "exclusions": "Only stated candidate definitions/operations/signature dependency; incidental declarations/imports not general module coverage.",
+                  "body_read_yet": false,
+                  "coverage_credit": "none at registration; Root reconciliation and newly reached producer roles pending"
+                },
+                "frozen_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/unit_interval.rs",
+                "bytes": 1740
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                1,
+                58
+              ]
+            ],
+            "original_range_scope_preserved": true,
+            "limits": "Only exact prospective candidate-definition/constructor/helper/dependency roles, including all exclusions and local qualifications; source bytes/ranges/counts are not owner/producer acceptance.",
+            "producer_followup": "pending exact new-role producer qualification; no credit from current owner packet",
+            "owner_discovery": "supporting exact current owner witnesses separately reconciled in Root supplier acceptance; not inferred here"
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "From<UnitInterval> for f32",
+          "lines": [
+            [
+              39,
+              43
+            ]
+          ],
+          "disposition": "KEEP tiny extraction, no owning Into/From derive"
+        },
+        {
+          "trait": "TryFrom<f32>",
+          "type": "UnitInterval",
+          "lines": [
+            [
+              44,
+              49
+            ]
+          ],
+          "disposition": "KEEP finite/inclusive unit interval checked admission and exact FractionError"
+        },
+        {
+          "trait": "Display + Error",
+          "type": "FractionError",
+          "lines": [
+            [
+              50,
+              58
+            ]
+          ],
+          "disposition": "OPTIONAL F002 two literal source-less unit errors"
+        }
+      ],
+      "existing_derives": [
+        "UnitInterval already structural/Default and Serde checked try_from/into derived"
+      ]
+    }
+  ],
+  "groups": [
+    "Preserve signed-zero/native fraction semantics, finite range/error order and existing validated derive bridge. Existing thiserror literal equivalent only optional maintenance; no raw transparent deserializer/From admission."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1023,
+    "source_id": "pr-working:crates/adventuresim-core/src/water_source.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

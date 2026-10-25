@@ -1,0 +1,86 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-183",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "sha256": "1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+      "actual_EOF": 1451,
+      "actual_compared_ranges": [
+        [
+          1,
+          1451
+        ]
+      ],
+      "method": "Full P16 literal production body and source fixtures personally read; complete PR textual comparison empty and exact semantic counterpart independently assessed, not hash-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "sha256": "1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+      "actual_EOF": 1451,
+      "actual_compared_ranges": [
+        [
+          1,
+          1451
+        ]
+      ],
+      "method": "Full P16 literal production body and source fixtures personally read; complete PR textual comparison empty and exact semantic counterpart independently assessed, not hash-only."
+    }
+  ],
+  "groups": [
+    {
+      "id": "Object identity, traversal and destructive preflight",
+      "locations": "inventory_container1-370,549-647,790-950",
+      "trace": "Native row lookup detects a second matching physical object rather than choosing arbitrarily. Insertions require carried location, unoccupied row identity and quantity-one wrappers. Ancestry is bounded by MAX depth; cycles/deep chains terminate. Missing object returns false in ancestry helper but callers that authorize actions separately resolve custody; do not claim whole missing-chain acceptance without recipient trace. Full deletion obtains canonical graph subtree, validates root carried custody and every descendant exact backing before any mutation, then reverses traversal to remove measured amount, condition, food payload, liquid provenance, medicine, edge, weapon instance and object. Unsupported deletion location unreachable is protected by prior loop match. Complete existing source fixtures read but not executed.",
+      "disposition": "No new numerical/index/nontermination finding. This actual body closes prior food/custody deletion dependency locally; whole graph/custody implementation remains distinct source evidence.",
+      "dependencies": [
+        "Core ContainmentGraph admission/traversal and native object_custody",
+        "Weapon instance/private material lifetime association",
+        "Actual outer SDK transaction/caught error policy"
+      ],
+      "acceptance": "Successful deletion removes one authenticated complete subtree and linked state exactly once, without aliases outside it. Unsupported or missing authority fails before destructive writes."
+    },
+    {
+      "id": "Subtree rehome and exact singleton transfers",
+      "locations": "inventory_container373-547",
+      "trace": "Prevalidation admits destination character/party and every source subtree row quantity1 with resolved custody. Same-scope transfer updates actual owner and location. Cross-scope transfer creates singleton destination, moves food with literal taken1/original1, transfers exact amount and all five damage tiers, removes source backing and updates stable object location. This is an actual current caller proving the full-move branch of old raw food split API, qualifying M29 invalid zero/partial examples from177; it is not evidence all other callers use1/1. Native amount getter admission can still panic on corrupt represented fraction, separate from admitted arithmetic. No arithmetic accumulation in this operation.",
+      "disposition": "No new valid-input quantity failure. Preserve clean singleton path and exact stable object while continuing whole transfer caller inventory; do not mechanically delete raw helpers before all actual callers traced.",
+      "dependencies": [
+        "local774:M29 and packet177 API qualification",
+        "Native inventory_amount and food association",
+        "SDK reducer transaction and internal catches"
+      ],
+      "acceptance": "Accepted rehome preserves stable object, destination custody, exact remaining amount and complete condition/private payload across every descendant. Failure cannot commit only a prefix of the logical transfer."
+    },
+    {
+      "id": "Empty stack merge and bounded amount projection",
+      "locations": "inventory_container649-787,953-1088",
+      "trace": "Merge authenticates exact source/root and eligible target, requires empty root containers and no per-instance condition, chooses deterministic lowest eligible row, then checked_add quantities before updating/deleting. An overflow rejects explicitly. Model graph decodes object IDs and checked native definitions; measured fraction is admitted0..whole before scale_floor, whose widened u128 product retains bounded u64 result. Missing amount produces no measured-volume override; actual fallback to exterior volume is a model policy, not automatic zero-capacity proof. Graph insert validates actual edges through canonical Core owner. Native remaining capacity sums solid/model volume and direct liquid with checked_add then checked_sub authored capacity.",
+      "disposition": "No new admitted arithmetic overflow or saturated undercount. Raw measured state decode and whole source shape remain prior owner/admission concerns.",
+      "dependencies": [
+        "Core Milliliters and fixed-point fraction operations",
+        "Core ContainmentGraph used-volume/exterior model",
+        "Native singletons/instance payload and measured definition admission"
+      ],
+      "acceptance": "Successful merge conserves exact stack quantity or rejects overflow, with no per-instance state loss. Successful capacity projection counts each admitted physical solid/liquid once under explicit rigid-container model."
+    },
+    {
+      "id": "Water totals, consumption and container insertion",
+      "locations": "inventory_container1034-1451",
+      "trace": "Contained water total checks every matching resolved-root addition and errors on overflow; this fresh body confirms actual source of errors previously erased to Infinity in equipment ROOT-INITIAL04-F035. Filling uses checked remaining capacity and checked liquid addition, deterministic object order and mutable gate. Consumption min(remaining, volume) protects both subtractions and final requested-minus-remaining, returns actual consumed; provenance recipient executes before liquid update. Discard requires positive request<=available and checked milliliter-to-microliter conversion before subtraction. Container insertion authenticates custody/mutability and equal carried owner, then removes old edge before constructing prospective graph and checking solid+liquid capacity. Failure may follow old-edge deletion; direct reducer rollback/catching semantics needed before any partial committed state allegation. Native whole input graph validation can reject malformed unrelated objects; no ordinary live corruption asserted.",
+      "disposition": "No new admitted arithmetic failure; preserve existing error-erasure finding and transaction dependency. Exact typed volume should survive downstream internal consumers until genuine schema boundary.",
+      "dependencies": [
+        "audit/continuation/root/initial04-invariant-operations/findings.jsonl#34 ROOT-INITIAL04-F035",
+        "Outbreak water provenance full recipient and material Microliters",
+        "SDK reducer atomicity and actual callers",
+        "Native capability/inventory aggregate migration"
+      ],
+      "acceptance": "Accepted water operation conserves exact admitted volume/provenance in the correct authenticated root, preserving explicit partial consumption and zero policy. Rejection must not leave a moved edge or consumed provenance without its corresponding logical change."
+    }
+  ],
+  "findings": [],
+  "status": "Two source roles personally compared; whole lens/overlays/connected dependencies incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/item.rs"
+}

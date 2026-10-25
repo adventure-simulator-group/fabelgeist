@@ -1,0 +1,100 @@
+{
+  "id": "CONT07-CONTRACT-417",
+  "at": "2026-10-23T21:32:18.138368+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1828,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/measurement.rs",
+      "sha256": "6bf7e931e120e7f023858ffebeedc30845b61f861c39ec75d03c500564192bc1",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/measurement.rs",
+      "actual_EOF": 261,
+      "ranges": [
+        [
+          1,
+          261
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1829,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/mesh.rs",
+      "sha256": "d126f49c7be7d94e3c1e6bd19e6479542f155aaee7fedfccaa1c471706eed66e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/mesh.rs",
+      "actual_EOF": 242,
+      "ranges": [
+        [
+          1,
+          242
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1830,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/mesh/assembly.rs",
+      "sha256": "500f6c56dfff2ce9e890472eb9d589737a74c9dd2e4c8584dc9644bd80f422a8",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/mesh/assembly.rs",
+      "actual_EOF": 67,
+      "ranges": [
+        [
+          1,
+          67
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1831,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/mesh/grid.rs",
+      "sha256": "8c28100b68a4934760fdb6e468d601a8a4f29890d5ee8837120d992250b837f3",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/mesh/grid.rs",
+      "actual_EOF": 279,
+      "ranges": [
+        [
+          1,
+          279
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1832,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/mesh/union.rs",
+      "sha256": "9cdb98cd62ba36d980b2849b02eecb067caa56a6cd6f62c6ad3f7ef8f008412a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/mesh/union.rs",
+      "actual_EOF": 37,
+      "ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "ROOT-OWNER-DIAGNOSTICS-006",
+    "ROOT-OWNER-GARDEN-SUPPORT-057",
+    "RIG-OWNER-SUPPORT-MESH-APRON-064",
+    "ROOT-OWNER-SUPPORT-RECEIVERS-060"
+  ],
+  "facts": [
+    "1828 SupportViolation enum owns unit/bound and actual/limit controls; getters derive numeric discrepancy per current bound instead of retaining cached discrepancy. No independent stored unit for measured variants. Unmeasurable getters synthesize Inf/0 and Minimum discrepancy can return0; this is existing explicit-missing measurement/operation issue, not a fresh07 second current value. Diagnostic snapshots remain historical evidence.",
+    "1829 mesh support versus retaining triangle sets classify intentionally different physical roles; support queries/grade omit vertical retaining faces while collider includes both. quad/convex_floor/append coordinate native positions and indices. Current maximum_grade derives from actual support triangles, no stale grade field stored.",
+    "1830 vertex_start checks total before any append; diagnostic violation replacement overwrites initial placeholder before return. No published simultaneous count authorities; actual overflow versus representable cardinality remain explicit enum cases.",
+    "1831 CompoundGrid computes one local partition shared by physical mesh and semantic floor records, using same profile/stair/entry cuts and contact tolerance. Independent rounded landing cuts are explicitly coalesced. floor_regions selects member plateau and exact bound member elevation; this differs from all walkable court/passage surfaces.",
+    "1831 main_height Option mapping/generic InvalidProjection and floor_regions equality/filter continue existing PP019 required-error loss; no new07 merge solely from different consumer forms. Stair height/cut correspondence and unit-basis topology remain actual later-source prerequisite before a stronger claim.",
+    "1832 same-property doorway union subtracts floor outline before appending apron support; retaining faces remain separate. This is an actual overlap-removal handoff, not independently retaining two entire walkable floors. Mutation can fail after prior triangles but no normal retained partial-on-error consumer proved.",
+    "No new07finding; no checks executed; all13 and mandatory overlays remain open."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1833,
+    "start_line": 1
+  }
+}

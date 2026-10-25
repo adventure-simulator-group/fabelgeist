@@ -1,0 +1,66 @@
+--- p16base/crates/adventuresim-core/src/autoresolve/model.rs
++++ catalog-p16head/crates/adventuresim-core/src/autoresolve/model.rs
+@@ -2,8 +2,9 @@
+ 
+ use super::*;
+ use adventuresim_world_schema::{BestiaryCategory, BestiaryHours};
+ use serde::Serialize;
++use fabelgeist_geometry::SignedLength;
+ 
+ #[derive(Clone, Debug, Serialize)]
+ pub struct CombatBody {
+     pub health: [f32; 7],
+@@ -65,16 +66,16 @@
+     pub preferred_melee_style: crate::combat_style::MeleeAttackStyle,
+     pub weight: f32,
+     pub moment_of_inertia_kg_m2: f32,
+     pub precision: f32,
+-    pub melee_reach: f32,
+-    pub grip_to_tip_m: f32,
+-    pub total_length_m: f32,
+-    pub striking_head_length_m: f32,
++    pub melee_reach: SignedLength,
++    pub grip_to_tip_m: SignedLength,
++    pub total_length_m: SignedLength,
++    pub striking_head_length_m: SignedLength,
+     pub distal_headed: bool,
+     pub body_material: Option<crate::item_catalog_schema::EquipmentMaterial>,
+     pub striking_material: Option<crate::item_catalog_schema::EquipmentMaterial>,
+-    pub ranged_range: f32,
++    pub ranged_range: SignedLength,
+     pub attack_interval_seconds: crate::elapsed::AnimationElapsed,
+     pub balance: f32,
+     pub ranged_force_joules: f32,
+ }
+@@ -290,20 +291,20 @@
+     }
+     fn weapon_precision(&self) -> f32 {
+         self.weapon.map_or(0.0, |weapon| weapon.precision)
+     }
+-    fn weapon_reach(&self) -> f32 {
+-        self.weapon.map_or(0.0, |weapon| weapon.melee_reach)
+-    }
+-    fn weapon_grip_to_tip(&self) -> f32 {
+-        self.weapon.map_or(0.0, |weapon| weapon.grip_to_tip_m)
+-    }
+-    fn weapon_total_length(&self) -> f32 {
+-        self.weapon.map_or(0.0, |weapon| weapon.total_length_m)
+-    }
+-    fn weapon_striking_head_length(&self) -> f32 {
++    fn weapon_reach(&self) -> SignedLength {
++        self.weapon.map_or(SignedLength::ZERO, |weapon| weapon.melee_reach)
++    }
++    fn weapon_grip_to_tip(&self) -> SignedLength {
++        self.weapon.map_or(SignedLength::ZERO, |weapon| weapon.grip_to_tip_m)
++    }
++    fn weapon_total_length(&self) -> SignedLength {
++        self.weapon.map_or(SignedLength::ZERO, |weapon| weapon.total_length_m)
++    }
++    fn weapon_striking_head_length(&self) -> SignedLength {
+         self.weapon
+-            .map_or(0.0, |weapon| weapon.striking_head_length_m)
++            .map_or(SignedLength::ZERO, |weapon| weapon.striking_head_length_m)
+     }
+     fn weapon_body_material(&self) -> Option<crate::item_catalog_schema::EquipmentMaterial> {
+         self.weapon.and_then(|weapon| weapon.body_material)
+     }

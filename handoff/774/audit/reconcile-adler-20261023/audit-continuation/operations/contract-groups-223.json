@@ -1,0 +1,154 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-223",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/settlement_rest.rs",
+      "sha256": "597a9011b190676ac71213abd7cf040a71a673d78e5b0498f204452a5b2d3223",
+      "actual_EOF": 651,
+      "actual_compared_ranges": [
+        [
+          1,
+          651
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/stationary.rs",
+      "sha256": "4247ba159aa9a5ceb6183f7a4e23023b27e47cd6c48c46e66565120fe89e1ca8",
+      "actual_EOF": 263,
+      "actual_compared_ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/settlement_rest.rs",
+      "sha256": "f63df87344c6f358a0bcaa63481d349415e8e5481acb42031232d17cf20db125",
+      "actual_EOF": 651,
+      "actual_compared_ranges": [
+        [
+          1,
+          651
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/stationary.rs",
+      "sha256": "4b9f686e5eb3dc2600ce935086991c271678c71692415cfb58c056a74883caf2",
+      "actual_EOF": 263,
+      "actual_compared_ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Explicit settlement rest, payment and admitted schedule write",
+      "source_ranges": {
+        "settlement_rest.rs": [
+          [
+            1,
+            651
+          ]
+        ],
+        "stationary.rs": [
+          [
+            194,
+            263
+          ]
+        ]
+      },
+      "disposition": "Full exact P16 bodies and full PR typed-result comparisons consumed. Public explicit rest bounded1hour..1year except0no-op; Inn quote checked, patient contributes min(actual funds,actual clipped cost), sponsor exact gap and actual service/presence/membership authority. Residence uses active exact presence. Restorative minutes derive admitted saved daily allocation, injury gets that recovery budget, repairs only remaining recovery; scheduled training uses actual full elapsed because named activities coexist with the separately allocated leisure budget. Clock add checked after injury writes; transaction rollback dependency remains. Nonexplicit private convalescence can bypass year cap but still pays checked quote and uses actual finite derived recovery; huge raw injury clock/work bounds remain qualified. Time-of-day synchronization always<1440 and preserves date; departure anchor intentionally freezes canonical day and retains subjective ages. Stationary update validates all ten allocations and organization payload relationships, reconstructs canonical plan values then persists; this closes packet222 ordinary saved-write expect precondition (other private/raw writers still separate)."
+    },
+    {
+      "contract": "Stationary frontier, recovery policy and realized socializing",
+      "source_ranges": {
+        "stationary.rs": [
+          [
+            1,
+            193
+          ]
+        ]
+      },
+      "disposition": "Stationary rejects retroactive target, zeroelapsed exits and dead actors retain deathfrontier; target<=MAX proves starting+requested_elapsed representable, so its saturation is not itself packet220 overflow witness when helper clipping contract holds. Lifecycle recursion stops death/NPC-authority transfer. Stationary gives injuries all elapsed recovery then removes convalescence from training, whereas explicit settlement rest gives only admitted leisure recovery and keeps full elapsed named-activity training; this source difference needs canonical recovery policy decision before declaring equivalence or a distinct defect. Socializing actual receipts are totaled before/after, but only zero versus positive is retained; positive partial realized minutes do not scale training allocation. Fresh actual socializing producer confirms real availability slices and zero-minute watermarks; detailed candidate below. No live DB/actor run."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-SOCIALIZING-REALIZED-BUDGET-001",
+      "classification": "conditional source-backed realized-duration propagation defect; no live partial-availability actor/DB execution claim",
+      "sources": {
+        "stationary.rs": [
+          [
+            135,
+            179
+          ]
+        ],
+        "relationship/socializing.rs": [
+          [
+            60,
+            159
+          ],
+          [
+            162,
+            209
+          ],
+          [
+            211,
+            325
+          ]
+        ],
+        "core/strategic_schedule.rs": [
+          [
+            395,
+            433
+          ]
+        ]
+      },
+      "case": "A valid daily Socializing allocation480 over a1day healthy stationary interval can realize only240 when a real target exists for exactly half the interval and no target for the remainder. Actual producer splits at resident/birth/death/courtship availability, recording positive240 and a zero-minute watermark. Consumer computes realized240 but only tests ==0; it retains declared480 and core apply_schedule_training uses increment(schedule.socializing_minutes), awarding twice the realized training budget at the same common rate. Supported conditional availability and source arithmetic, not a demonstrated populated settlement with exactly that target set or executed transaction.",
+      "rationale": "Actual completed relationship duration is admitted and then erased to a bool before skill mutation; independently valid declared daily allocation cannot establish realized practice.",
+      "connected": "Actual socializing receipt/elapsed owner, daily schedule and canonical training distribution; local774:M23 book subset is unrelated. Do not dedup by same schedule path. Cross-lens aggregate/producer propagation support, no unique global count asserted.",
+      "acceptance": "Retain realized socializing duration through skill award and return unavailable share to canonical leisure policy, preserving exact availability slices, actor/day/target receipts, zero watermark, subjective clocks, no double familiarity and one conserved Charm/Insight/Deception budget. Explicit rest/camp recipients need same actual policy decision. No tests added/run."
+    }
+  ],
+  "fresh_dependencies": [
+    {
+      "path": "physical-p16-unscoped-dependency/crates/adventuresim-stdb-module/src/relationship/socializing.rs",
+      "git": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "9a9ab241262b451da17be5f58496db212b0d767fba0049cd64ee9de105ed927f",
+      "actually_read_ranges": [
+        [
+          1,
+          325
+        ]
+      ],
+      "coverage": "Fresh dependency body; no additional original full-role credit."
+    },
+    {
+      "path": "physical-p16-unscoped-dependency/crates/adventuresim-core/src/strategic_schedule.rs",
+      "git": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+      "actually_read_ranges": [
+        [
+          395,
+          515
+        ]
+      ],
+      "coverage": "Fresh critical training body only; earlier whole-file terminal output truncated, no full-file coverage claim."
+    }
+  ],
+  "status": "4 original roles personally compared; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/weapon_instance.rs"
+}

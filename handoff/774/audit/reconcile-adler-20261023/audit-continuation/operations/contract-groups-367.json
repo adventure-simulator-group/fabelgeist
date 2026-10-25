@@ -1,0 +1,111 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-367",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/model.rs",
+      "sha256": "ce5e06fe7f483ecbd5c30af9a9475686d4c7acf147a8bb8de2e8a9e738211cb4",
+      "actual_EOF": 1399,
+      "actual_compared_ranges": [
+        [
+          1,
+          1399
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/projections.rs",
+      "sha256": "4277df1f4841a51dafe10f9ef950ca7dec6f434358cc8aa5a98f742766825102",
+      "actual_EOF": 1801,
+      "actual_compared_ranges": [
+        [
+          1,
+          1801
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/projections/site_context.rs",
+      "sha256": "2e0af33426ae082a23f587bfc8faa842f644769551a897e091208fa14caf7129",
+      "actual_EOF": 40,
+      "actual_compared_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Physical inspection and bestiary deduction mutation preserve bounded outcomes; learned chronology needs explicit policy",
+      "source_ranges": {
+        "model.rs": [
+          [
+            1,
+            824
+          ]
+        ]
+      },
+      "disposition": "Whole model1399 personally read including schemas. Lore parse rejects duplicate kind, malformed token, blank/over1024 interpretation; merge bykind retains prior interpretation, change only newkind count. Failed initial physical check remains failed and never augments; passed inspection can rerun current Bestiary skills and merge newly passed lore. New diagnostic receipts use original inspection.attempted_at; rebuild deductions also receives old attempted_at (647\u2013777). Represented ordinary latertraining/currentattributes may newly pass while chronology is recorded at initial inspection. This is source-backed chronology question, not a historical visibility/privacy bypass: backend projection219\u2013245 directly forwards updated_at without observer-date filter. If updated_at/learned_at mean actual acquisition, stamp newly learned diagnostic at present and preserve original inspection timestamp separately; if retrospective interpretation is intentional, document exact authority and preserve downstream time gates. Actual generated skill progression/runtime witness and receiver policy pending. No new ordinary run assertion."
+    },
+    {
+      "contract": "Case-site occupancy and journal writes retain interval/idempotency associations",
+      "source_ranges": {
+        "model.rs": [
+          [
+            824,
+            1399
+          ]
+        ]
+      },
+      "disposition": "Occupancy current and historical readers require exactly one matchingrow; historical halfopen entered<=minute<left. Setter parses destination and requires CharacterTime before writes; >1active rejects, identicalsite returnsOk, previousrow closed at currentminute and new ID uses character+minute+site. Represented A\u2192B\u2192A within same minute reuses original A ID and may fail insertion after closing B; current transitions/time advance and reducer rollback still pending, so bounded mutation identity dependency only. Do not claim ordinary duplicate without actual zero-duration path. Journal stablehash IDs verify fullpayload onretry, so hashcollision rejects explicitly rather than overwrites. Public threat notice intentionally upserts onecase identity; chronology monotonicity depends actual producer. Body schemas raw fields join accepted03/06migration evidence, generated bindings only regenerate through owner."
+    },
+    {
+      "contract": "Generated investigability manifest/context tuple swap is an exact existing finding",
+      "source_ranges": {
+        "projections.rs": [
+          [
+            775,
+            944
+          ]
+        ]
+      },
+      "disposition": "Fresh actual proof: exactly_one_generated_authority and validated candidate return(manifest_json,context_json), wrappers preserve order. generated_investigability destructures(_,manifest_json), then decodes context asGeneratedCase; normal context shape fails and returnsNone. Actual action body1577 calls it then conditional apply_investigability_to_route_skills; so authored threat modifier omitted. Alias existing audit/records/final-acceptance-20261021/wave-01/audit-existing-type-owners/camera/findings.jsonl#11 CAM-OWNER-F011 and local774:F19; RIG06F050 source correction QUAL069 joins same defect. No duplicate count. Repair named authority return/projection and actual modifier use preserving current clamp[0,10000] and familymeaning, no new equivalent owner or fallback."
+    },
+    {
+      "contract": "Projection association, live-route checks and numerical bounds",
+      "source_ranges": {
+        "projections.rs": [
+          [
+            1,
+            1801
+          ]
+        ],
+        "projections/site_context.rs": [
+          [
+            1,
+            40
+          ]
+        ]
+      },
+      "disposition": "All1801+40 lines read. Gateway identity gates all public views; corpse/site pins require separate source. Journal joins revisions to sameownerbelief and sanitizes revisionlabels; lead pins stripped bystage. Bestiary lexical ThreatId parse then profile is additional existing SEGOVB-04-THREAT-PROFILE-MEMBERSHIP-CANDIDATE-001 receiver; normal deductions originate typed infer_threats knowncatalog so no actual unknown-row witness. Action duration derived from fixed Corebasecost with max15/min and saturatingmul3/2; originalcosts bounded, no narrowing overflow. Generated pattern validates everysemanticblueprint field, exact consequences and outputs, then samecase aliases; duplicates identicalauthority allowed, distinct conflictingauthority rejects. Tracking visit HashSet rejects cycles; actual coherent kind edges bound chain semanticdepth, no stackoverflowpromoted. Pattern evidence adaptation rejects invalid/future knowledge and hashcollision; no fabricatedzero acceptance inferred from clockfallback without trueownerbody. Exact site helper firstmatchinglivelead then crosschecks case/coords/provenance, may hide valid laterlead if earliermismatch; no actual mismatchedproducer proof so policydependency only. Availability readiness, contacthistoricalpresence, nightwindow/victim checks are projection UX; mutation independently validates co-location/camp/journey; differences are not automaticallybrokencommit. Root schedulecorrelation evidence shared. SiteContext40 only typed payload declarations and optionalopposition aggregate, no arithmetic."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-INSPECTION-LORE-CHRONOLOGY-CANDIDATE-001",
+      "kind": "source-backed learned timestamp policy question",
+      "ordinary_runtime_witness": false,
+      "acceptance": "Explicitly preserve original inspection time while recording later learned diagnostic/deduction at its intended authority time; no future knowledge bypass claim."
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-stdb-module/src/investigation/sites.rs"
+}

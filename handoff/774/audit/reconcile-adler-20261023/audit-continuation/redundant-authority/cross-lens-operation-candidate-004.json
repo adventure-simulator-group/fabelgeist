@@ -1,0 +1,16 @@
+{
+  "id": "CONT07-CROSS-LENS-004",
+  "at": "2026-10-23T22:10:49.396115+00:00",
+  "kind": "degenerate polygon operation candidate",
+  "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/support_regions/distance.rs",
+  "ranges": [
+    [
+      4,
+      67
+    ]
+  ],
+  "observation": "contains on >=3 repeated or collinear vertices can treat a disjoint point as inside. between([ZERO,ZERO,ZERO],far square) therefore returns0. Actual1992 caller uses ground_contact().points(); must inspect its dedup/cardinality guarantee before claiming ordinary path. No07finding, numeric probe or execution.",
+  "status": "forwarded coordinator for independent operation-lens proof",
+  "other_lens_coverage": false,
+  "validation_status": "not_run"
+}

@@ -1,0 +1,174 @@
+[
+  {
+    "source_id": "pr-working:crates/strategic-web/src/routes/travel.rs",
+    "snapshot": "pr-working",
+    "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "path": "crates/strategic-web/src/routes/travel.rs",
+    "sha256": "64146fe8563b4e15f539d9f28b47f2380bcae0191509deca6956fff1468bc42c",
+    "line_count": 696,
+    "read_ranges": [
+      [
+        35,
+        210
+      ]
+    ],
+    "coverage": "exact bounded actual function/fixture bodies only",
+    "trace_refs": [
+      "RIG-SUPP-DIGEST-001"
+    ],
+    "disposition": "Full TerrainPlanner struct/new/digest/forage_environment and TerrainPlanKey::new observed; bounded actual digest forwarding body162\u2013164. Later async planner body not credited."
+  },
+  {
+    "source_id": "pr-working:crates/strategic-web/src/routes/mod.rs",
+    "snapshot": "pr-working",
+    "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "path": "crates/strategic-web/src/routes/mod.rs",
+    "sha256": "4adf3c28275906a5a006f13438074aa6c5b525d53e57d25855f4d5195cbaf2c2",
+    "line_count": 930,
+    "read_ranges": [
+      [
+        516,
+        903
+      ]
+    ],
+    "coverage": "exact bounded actual function/fixture bodies only",
+    "trace_refs": [
+      "RIG-SUPP-DIGEST-001"
+    ],
+    "disposition": "Full planned_travel_call516\u2013674, persisted_route_position676\u2013722, terrain_route_json724\u2013775 +all adjacent existing terrain payload/readiness fixtures779\u2013902 read. Actual JSON boundary includes exact digest and SATS enums/routepoint conversion."
+  },
+  {
+    "source_id": "pr-working:crates/strategic-web/src/routes/foraging.rs",
+    "snapshot": "pr-working",
+    "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "path": "crates/strategic-web/src/routes/foraging.rs",
+    "sha256": "53f53a7e7a04ffb7a52a677421b41ebba0b7f934c94822eb08f4bf9333c34836",
+    "line_count": 849,
+    "read_ranges": [
+      [
+        86,
+        116
+      ],
+      [
+        327,
+        381
+      ],
+      [
+        466,
+        610
+      ],
+      [
+        725,
+        795
+      ]
+    ],
+    "coverage": "exact bounded actual function/fixture bodies only",
+    "trace_refs": [
+      "RIG-SUPP-DIGEST-001"
+    ],
+    "disposition": "Full WireForageEnvironmentAttestation97\u2013111/environment327\u2013380/perform466\u2013533 and complete existing wire-field fixture738\u2013779 read. Direct serde_json\u2192SpacetimeClient call attestation. Other file roles/readiness/permissions not wholefile credited."
+  },
+  {
+    "source_id": "pr-working:crates/strategic-web/src/main.rs",
+    "snapshot": "pr-working",
+    "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "path": "crates/strategic-web/src/main.rs",
+    "sha256": "43acd82de75c8823ed2a925e424704a87b8db7ee297b56d2f33f4e79fa9f97d9",
+    "line_count": 762,
+    "read_ranges": [
+      [
+        45,
+        145
+      ],
+      [
+        745,
+        762
+      ]
+    ],
+    "coverage": "exact bounded actual function/fixture bodies only",
+    "trace_refs": [
+      "RIG-SUPP-DIGEST-001"
+    ],
+    "disposition": "Full main45\u2013143 startup including digest optional registration +complete option fixture751\u2013762. Actual sats_option\u2192HTTP call native output; no full navigation/middleware inference."
+  },
+  {
+    "source_id": "pr-working:crates/strategic-web/src/spacetimedb/mod.rs",
+    "snapshot": "pr-working",
+    "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "path": "crates/strategic-web/src/spacetimedb/mod.rs",
+    "sha256": "a020d51bfbce659a44fe8f52c25124b01e77eb9659ef473bf76a4029e28ae130",
+    "line_count": 136,
+    "read_ranges": [
+      [
+        30,
+        64
+      ]
+    ],
+    "coverage": "exact bounded actual function/fixture bodies only",
+    "trace_refs": [
+      "RIG-SUPP-DIGEST-001"
+    ],
+    "disposition": "Actual generic sats_option41\u201346 serde JSON Some/None sum native formatter; adjacent actualSatsUnitVariant trait prefix only."
+  },
+  {
+    "source_id": "pr-working:crates/strategic-web/src/spacetimedb/client.rs",
+    "snapshot": "pr-working",
+    "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "path": "crates/strategic-web/src/spacetimedb/client.rs",
+    "sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+    "line_count": 273,
+    "read_ranges": [
+      [
+        180,
+        235
+      ]
+    ],
+    "coverage": "exact bounded actual function/fixture bodies only",
+    "trace_refs": [
+      "RIG-SUPP-DIGEST-001"
+    ],
+    "disposition": "Full actual SpacetimeClient::call193\u2013220 uses reqwest.post.json(args).send and final HTTP response error text. Concrete external wire endpoint, no primitive semantic reconstruction inside."
+  },
+  {
+    "source_id": "pr-working:crates/adventuresim-world-import/src/bin/build-strategic-map.rs",
+    "snapshot": "pr-working",
+    "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "path": "crates/adventuresim-world-import/src/bin/build-strategic-map.rs",
+    "sha256": "04e204bfa41896b53eb82671ad9b0378036a21b7ec54b3fce0e4c285c0b097bb",
+    "line_count": 1194,
+    "read_ranges": [
+      [
+        123,
+        258
+      ],
+      [
+        285,
+        300
+      ]
+    ],
+    "coverage": "exact bounded actual function/fixture bodies only",
+    "trace_refs": [
+      "RIG-SUPP-DIGEST-001"
+    ],
+    "disposition": "Full CLI main/run incl actual package digest comparison194 and finalbuilder+RoadPack output and native logs; full base_contract_matches285\u2013299 compares distinct road/wetland hash roles. No fullbuild compiler function/read allfile credited."
+  },
+  {
+    "source_id": "pr-working:crates/adventuresim-world-import/src/sources/road_inference.rs",
+    "snapshot": "pr-working",
+    "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "path": "crates/adventuresim-world-import/src/sources/road_inference.rs",
+    "sha256": "f74f07db1d321f14985590625124b5cbaccae7ff6ef35b7430a0749d2d8cfcf5",
+    "line_count": 299,
+    "read_ranges": [
+      [
+        1,
+        207
+      ]
+    ],
+    "coverage": "exact bounded actual function/fixture bodies only",
+    "trace_refs": [
+      "RIG-SUPP-DIGEST-001"
+    ],
+    "disposition": "Full enrich31\u2013206 including actual base package digest sources diagnostic178 and retained report assignment198. Other graph/hash/haversine helper implementations not re-read: digest transport scope only, not broad numerical closure."
+  }
+]

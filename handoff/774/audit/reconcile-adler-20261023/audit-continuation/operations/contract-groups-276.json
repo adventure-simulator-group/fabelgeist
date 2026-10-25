@@ -1,0 +1,90 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-276",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/ray_caster.rs",
+      "sha256": "bcc49b636bc3db8ebe946f004414493433003c689a819ede071337f555cc7c52",
+      "actual_EOF": 410,
+      "actual_compared_ranges": [
+        [
+          1,
+          410
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/shape_caster.rs",
+      "sha256": "e7ddca53ee044c4814c925fffa7f172680988ea9456834049da965f16a5c6b66",
+      "actual_EOF": 612,
+      "actual_compared_ranges": [
+        [
+          1,
+          612
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Native casts clear results before mutation and have deliberate nearest-hit/count policies",
+      "source_ranges": {
+        "ray_caster.rs": [
+          [
+            1,
+            410
+          ]
+        ],
+        "shape_caster.rs": [
+          [
+            1,
+            612
+          ]
+        ]
+      },
+      "disposition": "Both complete pinned bodies personally read. cast synchronizes self-exclusion by inserting/removing only caster Entity in filter, clears old hit vector, then runs specialized nearest query for max_hits1 or bounded multi-hit query otherwise. No global sorted/nearest guarantee for arbitrary small multi-hit caps; native docs explicitly distinguish those policies. Default RayCaster max_hitsu32MAX versus ShapeCaster1 are intentional, while max_distance actual defaultScalarMAX is large finite despite docs saying infinite. Setters/raw public fields admit arbitrary raw distance/target config; no first-party finite/positive/tolerance guarantee inferred from native wrapper name. Disabled systems/synchronization of local/global pose require actual native schedule body, separate from these field setters. No simulation/cast/runtime execution."
+    },
+    {
+      "contract": "Hit allocation, computed points and sorted iteration require actual input/output admission",
+      "source_ranges": {
+        "ray_caster.rs": [
+          [
+            283,
+            410
+          ]
+        ],
+        "shape_caster.rs": [
+          [
+            393,
+            612
+          ]
+        ]
+      },
+      "disposition": "Insertion hooks preallocate10 for unbounded sentinel u32MAX, otherwise cast raw max_hitsu32 to nativeusize and allocate directly; no concrete first-party huge request or memory pressure claimed. Native result DTOs expose raw mutable distance/normals/points; iter_sorted copies then partial_cmp.unwrap, so NaN hit distance could panic. Need an actual native or first-party accepted NaN producer to promote; raw public mutation alone does not prove ordinary returned hits invalid. get_point/global_point compute origin+direction*distance without overflow readmission, preserving signed raw native API applicability until actual first-party port decides. Fixed native Dir admits normalized direction, but rotation/native output must preserve it (packet275); no transitive closure. Entity mapping touches every retained hit ID; scalar/geometry guarantees do not follow from mapping."
+    },
+    {
+      "contract": "Shape config and contact applicability stay coherent through native cast preparation",
+      "source_ranges": {
+        "shape_caster.rs": [
+          [
+            1,
+            393
+          ],
+          [
+            407,
+            499
+          ]
+        ]
+      },
+      "disposition": "ShapeCaster builds one ShapeCastConfig from its current fields before querying; shape/pose/config are borrowed for the synchronous call. Zero-radius default shape and zero target-distance/default penetration flags are intentional native applicability values. Positive target_distance and compute_contact_on_penetration=false explicitly make initial contact points/normals unreliable according to native contract; first-party consumers must honor this rather than assume always valid contacts. No blanket positive-only radius, total query sorting or finite max-range rewrite imposed on pinned API. Acceptance at first-party boundary requires canonical admitted cast request plus valid output consumption, not local duplicate distance/normal wrappers or new tests."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pinned-registry:avian3d-0.7.0/src/spatial_query/system_param.rs"
+}

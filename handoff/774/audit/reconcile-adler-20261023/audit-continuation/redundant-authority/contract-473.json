@@ -1,0 +1,67 @@
+{
+  "id": "CONT07-CONTRACT-473",
+  "at": "2026-10-23T22:30:35.065846+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2085,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/curves.rs",
+      "sha256": "b5accc11c18f0ac90310414f5db75ca9ef76661bea923b658513fed644cea66e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/construction/curves.rs",
+      "actual_EOF": 170,
+      "ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2086,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/mod.rs",
+      "sha256": "7327c75b4030df58f3b59c44b7b691713289908715ecb4c6adae4b0829806fc1",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/construction/mod.rs",
+      "actual_EOF": 230,
+      "ranges": [
+        [
+          1,
+          230
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2087,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/polygon.rs",
+      "sha256": "660aa84bce2b4252168df40b15a47bdb710ba829c03ea76bf45584a0c6e1bc9f",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/construction/polygon.rs",
+      "actual_EOF": 318,
+      "ranges": [
+        [
+          1,
+          318
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "ROOT-PPS-CAMERA-WEAPON-PHYSICAL-PACKET-040 and ROOT-PPS-CAMERA-WEAPON-SHAPE-PACKET-041 supplied per-source contexts personally consumed for2085\u20132087; no other-lens verdict inherited"
+  ],
+  "facts": [
+    "2085 full170 detail travels explicitly through curve construction, quality requested minimum and geometric error budgets are distinct constraints. Default infinity deliberately disables chord/deviation tests; no finite-wrapper substitution. Refined endpoints reuse actual evaluated positions; compact endpoint replacement retains final original evaluation, not independently stored second curve truth.",
+    "2086 full230 reached by producer extension beyond original owner1\u2013160: Solid positions/faces/surfaces jointly mutated by triangle/quad/append; triangle adds one face and surface group, append offsets face indices and nonzero groups by current max. Groups are smoothing identity labels, zero intentionally unsmoothed. Public(crate) arrays permit malformed combinations but no actual inconsistent producer proved at these constructors.",
+    "2086 Detail methods derive sampling/error budgets from one explicit enum; no mutable global detail authority. Lathe exact requested<=8 preserves authored polygon topology as distinct policy from radial smooth sampling. Model extent and float32 strip floor express conversion budget, not independent measured object bound.",
+    "2087 full318 Region points/triangles/boundary represent current geometry and boundary topology, not all derivable identically by counts after refinement. Initial triangulate builds coordinated roster after checked outline/compaction/reversal; improve only flips interior two-face edges and does not mutate boundary. Refine adds shared midpoint indices then calls split_edges; actual split_edges boundary update must be read before stale boundary closure.",
+    "2087 cached edges maps and touched face set are rebuilt each improve round and used only until next round; touched prevents consuming outdated face adjacency twice within same round. Current before/after quality recomputed from current points, so no stale independently retained metric. Outline tolerances scale from same extent and checking phase; no assertion all later geometric validity guaranteed by finite outline alone."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2088,
+    "start_line": 1
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-333",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/conform.rs",
+      "sha256": "4c3ee7c251ed1a4d18681e0b05c0fcf35b3b61e7d6dd0decfda0708577469162",
+      "actual_EOF": 324,
+      "actual_compared_ranges": [
+        [
+          1,
+          324
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/dressing.rs",
+      "sha256": "a5b190694f00f1dbc5e1895f5b40f65b6c1f7242da45ea844b59a6b6d6932523",
+      "actual_EOF": 145,
+      "actual_compared_ranges": [
+        [
+          1,
+          145
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/fitted.rs",
+      "sha256": "90a73376395b601a39a8d4a51fe9004d62176ce2ac236c578bee720bab2007a6",
+      "actual_EOF": 588,
+      "actual_compared_ranges": [
+        [
+          1,
+          588
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/lining.rs",
+      "sha256": "693fb7bf790d8bfebd26304241c8dfd0e2b338bc37225a4d0795b0fe754e8b70",
+      "actual_EOF": 227,
+      "actual_compared_ranges": [
+        [
+          1,
+          227
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/placement.rs",
+      "sha256": "7e744958c7df65097784318b313e51c658edae89fde9e0f80ba70ddce4fcaa81",
+      "actual_EOF": 76,
+      "actual_compared_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Garment deformation is a bounded sampled correction with declared warning/failure boundaries",
+      "source_ranges": {
+        "garment/conform.rs": [
+          [
+            1,
+            324
+          ]
+        ],
+        "garment/dressing.rs": [
+          [
+            1,
+            145
+          ]
+        ]
+      },
+      "disposition": "Both complete bodies including dressing fixture read. SewnCloth builds each edge once from admitted welded source, actual source indices retained across rest/current/expanded views. hold skips length<=limit before divide; positive correction only and Jacobi degreeaverage64passes is bounded approximation, not exact final no-stretch theorem. push spread divides neighbour count only when pushed nonempty, so degreepositive; cover uses facing>=.3 and all interiorweights>=.001 before divide by facing/squaredweights. draw_in fit actualcaller validated0..1 before fractionalpower, fixed12rounds positive denominator; keep_out boundedpasses intentionallymayleavewarning. Raw finite extreme Vec3 cross/norm and accumulation can overflow; unit onlypositive length does not itself excludeInf. Current normal source producer bounds/finalfinite admission are dependencies; no ordinary garmentfailure or new global arithmeticfinding here. Dressing fixed8influences makes max_by expect valid; missingordinal fallbacktrunk preserves source behavior and needs canonical joint-source owner, not inferred name grammar or arbitrary stricter part policy. Body classification intentionally uses existing contains_part lexical membership, includingtwist; no closed-rig roster imposed."
+    },
+    {
+      "contract": "Fitted coif cut preserves original indices and explicitly rejects collapsed texture setup",
+      "source_ranges": {
+        "garment/fitted.rs": [
+          [
+            1,
+            588
+          ]
+        ]
+      },
+      "disposition": "Full588lines read in threechunks including GPU fixture source only. surface_mesh checks nonzero vertices, wholetriangle cardinality and bounded carrierindices. FrontCut copies only front-center vertices used by both sides; originals retain theirindices so uncut bending topology still indexes originalpositions. Backhem required, conformal pins positive span, restarea thresholds and nonempty scale list reject absent/degenerate map. Sparse variable map resolves free/pinned disjointly; rigidfree called onlynonanchor, so vertex0doesnotunderflowwhenanchor0. Least-squares loops have explicit iteration/curvature stop and approximate convergence; no exactsolver/conformal guarantee inferred from boundediterations. Native finite inverse/scale/unwrapf64-to-f32 output needs coherent acceptedcarrier predicate, not universal arbitrary raw input guarantee. Actual coif carrier already checked by prior324/318source; no generatedchartNaN/run claimed. Fixture orientation/area percentiles express intended ordinarymapquality, not executed proof."
+    },
+    {
+      "contract": "Plate lining and placement retain canonical unposed geometry and explicit precedence",
+      "source_ranges": {
+        "garment/lining.rs": [
+          [
+            1,
+            227
+          ]
+        ],
+        "garment/placement.rs": [
+          [
+            1,
+            76
+          ]
+        ]
+      },
+      "disposition": "Both complete source and fixture bodies read. PlateLining selects inner faces from matching triangle/PlateFace traversal, derives rim by exact coordinate edgeidentity and buildsoneBVH; zip truncates malformeddisalignedpublic GeneratedArmor, so admittedarmorartifact remains owning boundary dependency. Canonical generatedartifact correspondence must be established at producer, not assumedfromtypetitle. Rim check rejectsoutsideedge pressing, signedinnernormal and boundedreachchoosecorrectside; finaltuckintentionallygivesplatepriorityafterkeep_out, latercontactwarningsremainavailable. UnderPlate rawstandoff publicfinite/rangequestion is latentadmission, no actualbadloadout. Sourcecounts narrowed/offsetu32additions rely practicalnativecapacity, no ordinarycapacitycounterexample. Patternplacement translatesonly by bodyfloor/hipcenter, preserve actualbody scale; fittedcoif skips placement. Collision surface concatenates originalbody then actuallowergarmentfaces withsameoffset, ordinalrelocation consistent when inputcountsfit. NoGPU/solverexecution, tests, generation or sourcefixes."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "5 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-character-creator/src/garment/settled.rs"
+}

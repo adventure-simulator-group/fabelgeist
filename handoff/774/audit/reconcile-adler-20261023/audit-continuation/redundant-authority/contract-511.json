@@ -1,0 +1,54 @@
+{
+  "id": "CONT07-CONTRACT-511",
+  "at": "2026-10-23T23:03:05.605964+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2225,
+      "source_id": "pr-working:crates/fabelgeist-bvh/src/aabb.rs",
+      "sha256": "0074a09a772019820c52e9b1e4cb603c12473a575d992332cf89844c4d1fff36",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-bvh/src/aabb.rs",
+      "actual_EOF": 299,
+      "ranges": [
+        [
+          1,
+          299
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2226,
+      "source_id": "pr-working:crates/fabelgeist-bvh/src/cpu/mod.rs",
+      "sha256": "c38b573a2cc782cf12b477bf67c5fd77c4b35c756c91569d8b2e0c36a75273b2",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-bvh/src/cpu/mod.rs",
+      "actual_EOF": 462,
+      "ranges": [
+        [
+          1,
+          462
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Aabb299 CPUbvh462 fullfreshread. AabbEMPTY intentional unionidentity andquerysentinel, flatboxes are admissible trianglebounds; do not blanketfinitepositiveextent requirements or forcetraynormalization. Boundscenter/extent/area derivedfromsamecorners.",
+    "Ray publicdirection andprivateinverse computeonce staleauthority actualbothconsumers traced: Bvh.raycast339 usesRay.hits183\u2013192cachedinverse whileTriangleBvh.raycast442\u2013446 callsray_triangleactualpublicdirection. ExactRIG-ADMISSION03-F055source support, no newuniquefinding andnoordinarymutation/run asserted; zeroaxisreciprocalInfintentional.",
+    "TriangleBvh.update_positions explicitlyrefits hierarchy againstsameactualtopology. Publicpositions/triangles/bvh canindependentlymutate andexternalrefitbounds lackprovenance existingRIG-ADMISSION03 backingcoherencefinding; rawBvhnodebounds/count/index are independentpublicrelations, not cleared byconstructionhelper.",
+    "CPU BVH andGPU Mortontree distinct algorithms with deliberateoracle comparison, not duplicateauthoritative simulationstate. Candidateoverreportingbyunionleafbounds expresslycontract; exactquery_aabb/pointrechecks actualprimitivebounds, no falsepositivebugfrombroadphase alone. Stackcapacity64 isinitialallocationandgrowable, not hardquerydepthcutoff."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2228,
+    "start_line": 1
+  },
+  "existing_finding_source_support": [
+    "RIG-ADMISSION03-F054",
+    "RIG-ADMISSION03-F055"
+  ]
+}

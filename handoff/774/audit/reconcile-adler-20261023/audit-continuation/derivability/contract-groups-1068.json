@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1068",
+  "at": "2026-10-25T17:41:07.442807+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1212,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+  "sha256": "775c9d22ecc0823474a0e4941da7a73e63c7fe7ca755ffc29cc479d95c611dfe",
+  "actual_compared_ranges": [
+    [
+      151,
+      530
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "No handwritten trait/codec. Released-testimony trimming/filtering/private witness admission and runtime binding/fallible resolution retain explicit semantic mapping; existing ResolvedFragment/SourceRef Serde performs encoding. dialogue_investigation_action_id282\u2013299 is const/runtime classifier not missing serialization. Generated manifest335\u2013363 compares case/provenance/authority/objective exact encoded representation; partial generated action matcher384\u2013398 not total enum conversion. Evidence/recipient selection400\u2013530 requires actual observer/custody/knowledge context."
+  ],
+  "first_unfinished": {
+    "scope_index": 1212,
+    "line": 531
+  },
+  "execution": "none"
+}

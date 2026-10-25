@@ -1,0 +1,638 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-025",
+  "at": "2026-10-25T11:38:21.792321+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 93,
+      "source_id": "physical-p16:crates/adventuresim-core/src/disease.rs",
+      "sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+      "actual_EOF": 3842,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-core/src/disease.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-core/src/disease.rs",
+        "sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 125549,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 130,
+            "read_ranges": [
+              [
+                1,
+                60
+              ],
+              [
+                160,
+                205
+              ],
+              [
+                440,
+                510
+              ],
+              [
+                1300,
+                1405
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-DISEASE-017"
+            ],
+            "read_status": "partial",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/disease.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-FORAGE-OUTBREAK-020",
+            "json_pointer": "/current_shared_actual_source_proofs/1/related_current_reads/6",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-core/src/disease.rs",
+            "read_ranges_as_recorded": [
+              [
+                1723,
+                1837
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-core/src/disease.rs",
+              "sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+              "read_ranges": [
+                [
+                  1723,
+                  1837
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/disease.rs",
+              "scope": "whole combined_state1723\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01531754/regional_vitals1760\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01531773/private_meter_state1778\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01531808 actual numerical recipients; adjacent curve prefix read only"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-MATERIAL-OUTBREAK-014",
+            "json_pointer": "/related_current_reads/6",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-core/src/disease.rs",
+            "read_ranges_as_recorded": [
+              [
+                1723,
+                1837
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-core/src/disease.rs",
+              "sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+              "read_ranges": [
+                [
+                  1723,
+                  1837
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/disease.rs",
+              "scope": "whole combined_state1723\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01531754/regional_vitals1760\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01531773/private_meter_state1778\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01531808 actual numerical recipients; adjacent curve prefix read only"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 7,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-DISEASE-013",
+            "json_pointer": "/current_sources/7",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row89/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                60
+              ],
+              [
+                160,
+                205
+              ],
+              [
+                440,
+                510
+              ],
+              [
+                1300,
+                1405
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                60
+              ],
+              [
+                160,
+                205
+              ],
+              [
+                440,
+                510
+              ],
+              [
+                1300,
+                1405
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1155,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved",
+        "admission03_increment077_role_observations": [
+          {
+            "supplier": "camera",
+            "registry": "continuation/camera/admission03/source-range-registration.jsonl",
+            "row_1based": 16,
+            "registration_id": "CAMERA-ADM03-REG015",
+            "original_record": {
+              "id": "CAMERA-ADM03-REG015",
+              "at": "2026-10-22T07:56:05.589477+00:00",
+              "authority": "CONT-ROOT-ADMISSION03-DISCOVERY-AUTHORITY-043",
+              "source_id": "physical-p16:crates/adventuresim-core/src/disease.rs",
+              "sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+              "actual_EOF": 3842,
+              "ranges": [
+                [
+                  127,
+                  159
+                ],
+                [
+                  345,
+                  353
+                ],
+                [
+                  1282,
+                  1299
+                ],
+                [
+                  1510,
+                  1518
+                ],
+                [
+                  1556,
+                  1619
+                ]
+              ],
+              "material_caller": "AssignedDiseaseDefinition183/combined_state1723/regional_vitals1760/private_meter_state1778/has_unresolved1354 actualdirectleaf/default/evaluate dependencies",
+              "role": "DirectclinicalAttribute/Vital publicdeclarations/defaults/terminalfailure helpers, TransmissionVector closedvocabulary, exactdconstructor signatureconnects1300-1314 alreadyassigned, actualseverity/agecurve/evaluate bodyadmission policies.",
+              "exclusions": "No unrelateddiseaseeventplanning/outbreak/curves/sourcecatalogue985-1281/physicsgraph/bodyclipping callers. Actualstaticdiseasecatalogue content anddirectmeter/regionproducersremain explicit pending untilneededqualifiedbodyreceipts.",
+              "status": "registered BEFORE new body analysis"
+            },
+            "local_qualifications": [
+              {
+                "registration_id": "CAMERA-ADM03-REG015",
+                "at": "2026-10-22T18:25:03.942345+00:00",
+                "source_id": "physical-p16:crates/adventuresim-core/src/disease.rs",
+                "sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+                "actual_EOF": 3842,
+                "original_registered_ranges": [
+                  [
+                    127,
+                    159
+                  ],
+                  [
+                    345,
+                    353
+                  ],
+                  [
+                    1282,
+                    1299
+                  ],
+                  [
+                    1510,
+                    1518
+                  ],
+                  [
+                    1556,
+                    1619
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    127,
+                    159
+                  ],
+                  [
+                    345,
+                    353
+                  ],
+                  [
+                    1282,
+                    1299
+                  ],
+                  [
+                    1510,
+                    1518
+                  ],
+                  [
+                    1556,
+                    1559
+                  ],
+                  [
+                    1564,
+                    1619
+                  ]
+                ],
+                "context_only_ranges": [
+                  [
+                    1560,
+                    1563
+                  ]
+                ],
+                "role": "DirectclinicalAttribute/Vital publicdeclarations/defaults/terminalfailure helpers, TransmissionVector closedvocabulary, exactdconstructor signatureconnects1300-1314 alreadyassigned, actualseverity/agecurve/evaluate bodyadmission policies.",
+                "proof_refs": [
+                  "CAMERA-ADM03-075"
+                ],
+                "qualification": "075 and QUAL076 explicitly exclude wall_minute1560-1563 incidental adjacent body; no new wallclock material role.",
+                "exclusions": "No unrelateddiseaseeventplanning/outbreak/curves/sourcecatalogue985-1281/physicsgraph/bodyclipping callers. Actualstaticdiseasecatalogue content anddirectmeter/regionproducersremain explicit pending untilneededqualifiedbodyreceipts.",
+                "source_registration_record": "continuation/camera/admission03/source-range-registration.jsonl#CAMERA-ADM03-REG015",
+                "no_source_body_credit_from_metadata": true,
+                "no_global_or_other_lens_credit": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                127,
+                159
+              ],
+              [
+                345,
+                353
+              ],
+              [
+                1282,
+                1299
+              ],
+              [
+                1510,
+                1518
+              ],
+              [
+                1556,
+                1559
+              ],
+              [
+                1564,
+                1619
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\disease.rs",
+            "actual_EOF": 3842,
+            "bytes": 125549
+          },
+          {
+            "supplier": "camera",
+            "registry": "continuation/camera/admission03/source-range-registration.jsonl",
+            "row_1based": 17,
+            "registration_id": "CAMERA-ADM03-REG016",
+            "original_record": {
+              "id": "CAMERA-ADM03-REG016",
+              "at": "2026-10-22T07:57:01.145596+00:00",
+              "authority": "CONT-ROOT-ADMISSION03-DISCOVERY-AUTHORITY-043",
+              "source_id": "physical-p16:crates/adventuresim-core/src/disease.rs",
+              "sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+              "actual_EOF": 3842,
+              "ranges": [
+                [
+                  985,
+                  1271
+                ]
+              ],
+              "material_caller": "Assigneddefinition1316 indexesSTARTER_DISEASES byclosedDiseaseIdordinal; freshlyregistered evaluate1607 symptoms[..symptom_count] requires actualimmutabletablecontents/cardinalities",
+              "role": "Exact12canonicalstaticdiseaseentries inarrayfactory toqualify realenumordinalalignment/duration/finiteconstant/default/symptomnonemptyactualadmission; dsignature/bodyalreadyscoped",
+              "exclusions": "No otherauthoredconstants/diagnosticprofiles/tests/curvearrays; descriptionsdataonlydoesnotwidenruntimefeaturegraph",
+              "status": "registered BEFORE body analysis"
+            },
+            "local_qualifications": [
+              {
+                "registration_id": "CAMERA-ADM03-REG016",
+                "at": "2026-10-22T18:25:03.942345+00:00",
+                "source_id": "physical-p16:crates/adventuresim-core/src/disease.rs",
+                "sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+                "actual_EOF": 3842,
+                "original_registered_ranges": [
+                  [
+                    985,
+                    1271
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    985,
+                    1271
+                  ]
+                ],
+                "context_only_ranges": [],
+                "role": "Exact12canonicalstaticdiseaseentries inarrayfactory toqualify realenumordinalalignment/duration/finiteconstant/default/symptomnonemptyactualadmission; dsignature/bodyalreadyscoped",
+                "proof_refs": [
+                  "CAMERA-ADM03-075"
+                ],
+                "qualification": "Exact registered current role limits; reference source contract and original exclusions remain mandatory, no whole-file or included callee credit.",
+                "exclusions": "No otherauthoredconstants/diagnosticprofiles/tests/curvearrays; descriptionsdataonlydoesnotwidenruntimefeaturegraph",
+                "source_registration_record": "continuation/camera/admission03/source-range-registration.jsonl#CAMERA-ADM03-REG016",
+                "no_source_body_credit_from_metadata": true,
+                "no_global_or_other_lens_credit": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                985,
+                1271
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\disease.rs",
+            "actual_EOF": 3842,
+            "bytes": 125549
+          },
+          {
+            "supplier": "camera",
+            "registry": "continuation/camera/admission03/source-range-registration.jsonl",
+            "row_1based": 18,
+            "registration_id": "CAMERA-ADM03-REG017",
+            "original_record": {
+              "id": "CAMERA-ADM03-REG017",
+              "at": "2026-10-22T14:20:20.938452+00:00",
+              "authority": "CONT-ROOT-ADMISSION03-DISCOVERY-AUTHORITY-043",
+              "source_id": "physical-p16:crates/adventuresim-core/src/disease.rs",
+              "sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+              "actual_EOF": 3842,
+              "ranges": [
+                [
+                  390,
+                  437
+                ],
+                [
+                  930,
+                  984
+                ],
+                [
+                  1272,
+                  1277
+                ],
+                [
+                  2093,
+                  2160
+                ],
+                [
+                  2214,
+                  2271
+                ]
+              ],
+              "material_caller": "Assignedresidual453/blood442, definition1316/evaluate newlyregistered/combined1723/regional1760/private_meter1778 actualdirecthelpers andreferencedconstants",
+              "role": "Direct residual exposure prevention constants/helper; DAY/vital/symptomconstant cardinality for12immutablefactory; actualdisease->meter/curve dispatch andregionalweightfactory receivingBodyRegion values",
+              "exclusions": "No private_regional_meter_state2162-2212/newclinicalprojection role, no full authoredcurve arrays1814-2091 orotherdiseasefeatures; sharedCurvePoint/Meter canonicaladmission separateoriginalphysiology80",
+              "status": "registered BEFORE new body analysis"
+            },
+            "local_qualifications": [
+              {
+                "registration_id": "CAMERA-ADM03-REG017",
+                "at": "2026-10-22T18:25:03.942345+00:00",
+                "source_id": "physical-p16:crates/adventuresim-core/src/disease.rs",
+                "sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+                "actual_EOF": 3842,
+                "original_registered_ranges": [
+                  [
+                    390,
+                    437
+                  ],
+                  [
+                    930,
+                    984
+                  ],
+                  [
+                    1272,
+                    1277
+                  ],
+                  [
+                    2093,
+                    2160
+                  ],
+                  [
+                    2214,
+                    2271
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    390,
+                    437
+                  ],
+                  [
+                    930,
+                    984
+                  ],
+                  [
+                    1272,
+                    1277
+                  ],
+                  [
+                    2093,
+                    2160
+                  ],
+                  [
+                    2214,
+                    2271
+                  ]
+                ],
+                "context_only_ranges": [],
+                "role": "Direct residual exposure prevention constants/helper; DAY/vital/symptomconstant cardinality for12immutablefactory; actualdisease->meter/curve dispatch andregionalweightfactory receivingBodyRegion values",
+                "proof_refs": [
+                  "CAMERA-ADM03-075"
+                ],
+                "qualification": "Exact registered current role limits; reference source contract and original exclusions remain mandatory, no whole-file or included callee credit.",
+                "exclusions": "No private_regional_meter_state2162-2212/newclinicalprojection role, no full authoredcurve arrays1814-2091 orotherdiseasefeatures; sharedCurvePoint/Meter canonicaladmission separateoriginalphysiology80",
+                "source_registration_record": "continuation/camera/admission03/source-range-registration.jsonl#CAMERA-ADM03-REG017",
+                "no_source_body_credit_from_metadata": true,
+                "no_global_or_other_lens_credit": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                390,
+                437
+              ],
+              [
+                930,
+                984
+              ],
+              [
+                1272,
+                1277
+              ],
+              [
+                2093,
+                2160
+              ],
+              [
+                2214,
+                2271
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\disease.rs",
+            "actual_EOF": 3842,
+            "bytes": 125549
+          },
+          {
+            "supplier": "camera",
+            "registry": "continuation/camera/admission03/source-range-registration.jsonl",
+            "row_1based": 19,
+            "registration_id": "CAMERA-ADM03-REG018",
+            "original_record": {
+              "id": "CAMERA-ADM03-REG018",
+              "at": "2026-10-22T14:21:36.910409+00:00",
+              "authority": "CONT-ROOT-ADMISSION03-DISCOVERY-AUTHORITY-043",
+              "source_id": "physical-p16:crates/adventuresim-core/src/disease.rs",
+              "sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+              "actual_EOF": 3842,
+              "ranges": [
+                [
+                  1519,
+                  1530
+                ]
+              ],
+              "material_caller": "Assigned first_presence_exposure_minute1391 acquisition_succeeds directlyreceivesrawperdaydefinition/risk/immunity",
+              "role": "Exactcalled probability admission nativekernel policy only",
+              "exclusions": "No exposurethreshold1535+ orunrelatedepisode/eventplanner functions",
+              "status": "registered BEFORE body analysis"
+            },
+            "local_qualifications": [
+              {
+                "registration_id": "CAMERA-ADM03-REG018",
+                "at": "2026-10-22T18:25:03.942345+00:00",
+                "source_id": "physical-p16:crates/adventuresim-core/src/disease.rs",
+                "sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+                "actual_EOF": 3842,
+                "original_registered_ranges": [
+                  [
+                    1519,
+                    1530
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    1519,
+                    1530
+                  ]
+                ],
+                "context_only_ranges": [],
+                "role": "Exactcalled probability admission nativekernel policy only",
+                "proof_refs": [
+                  "CAMERA-ADM03-075"
+                ],
+                "qualification": "Exact registered current role limits; reference source contract and original exclusions remain mandatory, no whole-file or included callee credit.",
+                "exclusions": "No exposurethreshold1535+ orunrelatedepisode/eventplanner functions",
+                "source_registration_record": "continuation/camera/admission03/source-range-registration.jsonl#CAMERA-ADM03-REG018",
+                "no_source_body_credit_from_metadata": true,
+                "no_global_or_other_lens_credit": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                1519,
+                1530
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\disease.rs",
+            "actual_EOF": 3842,
+            "bytes": 125549
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          209
+        ],
+        [
+          345,
+          353
+        ],
+        [
+          390,
+          437
+        ],
+        [
+          440,
+          510
+        ],
+        [
+          930,
+          1277
+        ],
+        [
+          1282,
+          1405
+        ],
+        [
+          1510,
+          1530
+        ],
+        [
+          1556,
+          1559
+        ],
+        [
+          1564,
+          1619
+        ],
+        [
+          1723,
+          1857
+        ],
+        [
+          2093,
+          2160
+        ],
+        [
+          2214,
+          2271
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "Selected DiseaseStage, Symptom, AttributeImpairment, VitalImpairment, TerminalFailure, DiseaseDefinition, DiagnosticPattern, TransmissionVector, ExposureComponents, InfectionEpisode and DiseaseState use structural derives; Symptom/TerminalFailure/TransmissionVector Serialize Deserialize already derived"
+      ],
+      "absence_basis": "Every registered material range plus explicitly closed declarations/inherent blocks consumed. No handwritten trait or serializer within these material ranges. Symptom narratives/humour/region classifiers, exposure/episode computations and authored disease constants are semantic mappings, not record encoding.",
+      "necessary_signature_extension": "Exact61\u2013126 closes Symptom inherent block reached at51\u201360;206\u2013209 closes DiagnosticPattern declaration started205;1838\u20131857 closes authored constant begun1836\u20131837. Additional211\u2013223 exploratory context not claimed as a complete separate contract.",
+      "coverage_limit": "Selected registered disease contracts, not whole3842-line body or unread fixture remainder."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Keep semantic disease projection and observation classifiers. Structural traits and selected wire enum traits already derive. No additional mechanical manual trait in this bounded role.",
+      "qualification": "Source-only material-range accounting. Child identity/entropy and unread disease bodies do not inherit credit; no operation/admission clearance transferred."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 95,
+    "source_id": "physical-p16:crates/adventuresim-core/src/durability.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

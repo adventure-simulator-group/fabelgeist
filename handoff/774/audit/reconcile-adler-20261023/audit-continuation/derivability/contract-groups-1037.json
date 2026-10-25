@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1037",
+  "at": "2026-10-25T17:34:02.521012+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1195,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/social.rs",
+  "sha256": "a09342196732b00b8520e9a446aa9fdef60e8fd44a439032ebdadc21e6e8e4c5",
+  "actual_compared_ranges": [
+    [
+      3011,
+      3390
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Cleanup complete; SocialDemoMoraleSourceId structural derives already, const as_str and parse are private fixture-source vocabulary, not handwritten Serde. Guarded deterministic social demo/native phenotype/religion/knowledge setup read; fixtures3282\u20133390 no handwritten trait/codec. No demo/tests executed.",
+  "first_unfinished": {
+    "scope_index": 1195,
+    "line": 3391
+  },
+  "execution": "none"
+}

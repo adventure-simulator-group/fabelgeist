@@ -1,0 +1,154 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-586",
+  "at": "2026-10-25T16:07:22.412756+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 932,
+      "source_id": "pr-working:crates/adventuresim-core/src/inventory_containers.rs",
+      "sha256": "4feda6b091c108a9cb8def2cfa8cd63c6fd7123d64c3584d308dec283048d50a",
+      "actual_EOF": 256,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/inventory_containers.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/inventory_containers.rs",
+        "sha256": "4feda6b091c108a9cb8def2cfa8cd63c6fd7123d64c3584d308dec283048d50a",
+        "bytes": 9498,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                256
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-CUSTODY-FOOD-RECEIVERS-001"
+            ]
+          },
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/supplemental-operation-receivers.json",
+            "ranges": [
+              [
+                1,
+                175
+              ]
+            ],
+            "source_read_status": "exact connected ranges; full counterpart or common body proof linked camera",
+            "trace_refs": [
+              "NATIVE-SUPP-OPERATION-001"
+            ]
+          },
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/supplemental-operation-shared-links.json",
+            "ranges": [
+              [
+                1,
+                256
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-CUSTODY-FOOD-RECEIVERS-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 171,
+            "read_ranges": [
+              [
+                1,
+                256
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-CONTAINMENT-073"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/inventory_containers.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CONTAINER-CUSTODY-043",
+            "json_pointer": "/current_sources/0",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/inventory_containers.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                256
+              ]
+            ],
+            "source_context": {
+              "index": 161,
+              "source_id": "pr-working:crates/adventuresim-core/src/inventory_containers.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/inventory_containers.rs",
+              "sha256": "4feda6b091c108a9cb8def2cfa8cd63c6fd7123d64c3584d308dec283048d50a",
+              "read_ranges": [
+                [
+                  1,
+                  256
+                ]
+              ],
+              "read_mode": "Fresh full P16 container1451/custody517/Coregraph256/physical383 and exact empty PR/P16 deltas; same actual native-backed schema/dependency contract reconciled per variant, no hash/readcount clearance."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 319,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          256
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "Object Clone Debug PartialEq Eq11",
+        "ContainmentGraph Clone Debug Default PartialEq Eq22"
+      ],
+      "absence_basis": "Full256 source personally consumed585\u2013586. Native volume/identity/cycle/depth checks and stateful containment traversal/mutation; all existing source fixtures read. No handwritten trait/codec, no derive substitution for validation/state."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Containment semantic admission and state operations",
+      "disposition": "Existing structural traits already derive; retain native graph policies, no new derivability issue. Fixtures read only."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 933,
+    "source_id": "pr-working:crates/adventuresim-core/src/inventory_measurement.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

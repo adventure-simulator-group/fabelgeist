@@ -1,0 +1,65 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-030",
+  "at": "2026-10-22T20:37:51.095231+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+      "sha256": "7b026fd31eb9c09c84b446dbb0b71faea9717f93c027226dfbe357c5150dd704",
+      "scope025_index": 1758,
+      "actual_EOF": 591,
+      "scoped_ranges_compared": [
+        [
+          1,
+          591
+        ]
+      ],
+      "actual05_comparison": "Raw public AnimationEvaluation/PoseSample collections and payloadPoseSampling carrytypedsourcevalues butno immutableacceptedcatalog/topology/normalizationcertificate. Fullfrom_skeleton96 buildsbase/lower/action fromsameactualState with precedence, completedtypedmovement/phase/readiness/progress. gait_phase98 wrapped; projectedcycle_samples actualchildwrap268, closesnormalFootIkphase2 input. Full original405-591testsreadnotrun. Posecatalog/topology/incompatiblepublicliteralreceivers remainactualownqueuedcontracts, notassumedvalidbyenum.",
+      "source_body_proof": "Fresh fullactualsource current05, evaluation1-310/311-591 andlocomotion1-327 complete including originalinlinefixtures/helper; no testsrun/newcases or priorverdictcarry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+      "sha256": "2767919da7545eecbaab9b212fc6a8e52802f6a61f3862c447903f75cf1ec6e7",
+      "scope025_index": 1760,
+      "actual_EOF": 327,
+      "scoped_ranges_compared": [
+        [
+          1,
+          327
+        ]
+      ],
+      "actual05_comparison": "Actualfullchild buildsLocomotion/Strafe/Skip/contact contributions fromoneState/velocity andpairedphase/direction. Everycycle_sample264 usesphase.wrapped, alternatingcontact187 wraps andemitscomplementaryweights+mirrors aswholepair. Quickstep4directionweights filteredpositive beforedivide, zeroVector givesemptywithoutdivision. append_scaled275 buildsallfalliblescaledvalues beforeextending target (atomicErr). RuntimeConfigorderedpositivewalk/run/blend/referencepolicy exactlowerstillpendingqueuedconfig, no callee-nameclearance.",
+      "source_body_proof": "Fresh fullactualsource current05, evaluation1-310/311-591 andlocomotion1-327 complete including originalinlinefixtures/helper; no testsrun/newcases or priorverdictcarry."
+    }
+  ],
+  "groups": {
+    "same-state-layer-selection-and-payload-construction": {
+      "invariant": "Eachsamplepose/samplingendpoint/coordinate/weight/mirror andtoplayercollection describeoneactualaction/posture/movement; priority mustnotmutuallyapplyincompatibleposeownership.",
+      "source": "from_skeleton96 computesmovementonce,gaitphasewrapped98, selectsbasefromsameposture/action, lowerbodydive>quickstep>uprightraised, actionposturetransition>downedfacing>actualaction. EachbranchconstructswholePoseSample; Dive contactdirection/spanprogress pairedatgroundphase. Attackchild029 bindscontinuationanchors/parameterssamepayload.",
+      "positive": "Onlyafterallfalliblebranchproducts andcheckedleaves complete buildsAnimationEvaluation144. Directionenum mappings closed, posturehalfspanprogresscomputedwithin0..1branch. None absenttransition givesotherlegitimateaction, ragdollbaseemptyintentional.",
+      "raw_bypass_and_unknowns": "PublicrawEvaluation vectors andPoseSample+PoseSampling combinations maybesourceDTO, notacceptedcatalogcompatibleartifact. Whethercertainsemanticpose cannotusecertainSampling/endpoints/rigfamily needsactualCatalog/playbackcurrentrecipient; stillqueuedunread, NOnewdefectorfullwholegraphacceptancefromthissourcealone. Preserveinputraw/evaluationacceptedboundary distinction."
+    },
+    "periodic-phase-source-qualification-for-F008": {
+      "source": "Evaluationfrom_skeleton98 gait_phasewrapped, uprightchild115 wraps, locomotionchildcycle_sample264-272 wraps ANY incomingphase beforePoseSampling::Cycle; ordinarywalk/run, guardedsprintallroutesthroughcycle_sample. Alternatingcontactpair191 wrapsfirst beforehalfcyclecrossfade; combat-cycle169/174 explicitmoduloforoffset/reversal.",
+      "finding_qualification": "ThisclosesF008 normalAnimationEvaluation::from_skeleton→FootIkInfluence Walk/RunContact projection: actualfactory doesnotemitphase2 evenifstateunwrapped. F008 remains publicgait_support_weights/rawEvaluationliteral API counterexample only; boundedIKdiagnosticpassesdirectstatephase112butwholeStateactualadvancer/decodecurrent05pending. No observednormalruntimebugclaimed.",
+      "acceptance": "Ownperiodicnormalization atactualperiodickernel consistentwithvalidunwrappedCyclePhase; keepgenericcoordinateunwrappedandsaturating/wrappingclockrolesindependent. Keeporiginalfinding029immutable, applythisqualification."
+    },
+    "coupled-contribution-and-mirror-collections": {
+      "invariant": "Directionmagnitudes/phase/weightandmirror defineonecontribution, conservation/zeroabsence intentional atwholecollectionlevel, no blanketindividualweight<=1required.",
+      "source": "Quickstep directionalentries4 exact matchingposekeys, filterpositive thenweight/total; total0 yieldsnoentries so no division. Strafe+skip useabsdir andtotal>0guard; allpairweightdecoderschecked. Alternatingcontacts complement1-progress/progress, mirrorschosenfromsamehalfcycle. Upright blend scalesexistingwalk/run weights bysame longitudinalratio, appendslateralweight anddropsabsent.",
+      "atomicity": "append_scaled275 collectsallfalliblecheckedscalingslocally thenextends, so failuredoesnotpartiallyappend. Topfrom_skeleton returnsnoEvaluationuntilalllayersconstructed. No guaranteeinputState/config/semanticCatalogwholerelationshipfromthisalone."
+    },
+    "finite-source-math-and-catalogue-frontier": {
+      "source": "RawCycleSpan/ContinuationSpan finiteleavesfrom27correctdomain; from_skeleton verticalairborne/targetprogress finitecheckedafterclamp. Downedfacingrollfloorparityandfraction derivefromsameactualrollcoordinate; missinglowerboundedrolladmissionparentstate/definitionsstillunread. Currentprofile/locomotionrunweightdivisionsrequireactualinstalledconfigordering, notprovenbyConfigcallname.",
+      "acceptance": "Completeexactnormalconfig/state/catalogreceiverrolesduringwhole05fixedpoint; preventrawacceptedartifactunrelatedwholebodywaivers. No extra newcases/tests/validations/implementation."
+    }
+  },
+  "new_unique_findings": [],
+  "finding_support": [
+    "NATIVE-INITIAL05-F008 normalEvaluationcycleprojectionclosed; rawAPI/wholeStatequalificationsremain"
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

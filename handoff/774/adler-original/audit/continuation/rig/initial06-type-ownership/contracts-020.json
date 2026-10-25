@@ -1,0 +1,29 @@
+{
+  "id": "RIG-INITIAL06-GROUP-020",
+  "at": "2026-10-22T19:51:12.486521+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "trim-source-versus-geometric-band": {
+      "sources": [
+        "pr-working:crates/fabelgeist-armor/src/trim.rs",
+        "pr-working:crates/fabelgeist-armor/src/trim/finish.rs"
+      ],
+      "comparison": "Fresh trim128/finish146 incloriginaltests. Trim is authored width+Metal finish and TrimBand is geometric width+physicalperiod derived from source Metal tilefrequency/Engraving repeats; actual narrowed changes source width and engraving tilecount, period physicalmetres. Different products/operations, not duplicate owner of sourceMetal or genericunit. ArmorTrim produced per-vertex along/inset metres+per-surfacebandranges, ArmorSurface indexes component/plate/trim indexranges; runtime output distinct sourceband widths. NeutralPositiveLength source owner couldserve width/period (>0finite) and retainedtypedhost APIs directly, unlike quantized unsigned Millimeters or zerovalidSignedLength. Their high feature data belongs Armor, not Building/Core. Exact publicrawrecords/Serde/sourcevalidation and trimmed bandvalidation remain alternatives;06doesnot certifypublicsealedstate or silently tightenunknowncallers."
+    },
+    "rim-index-and-native-welding": {
+      "sources": [
+        "pr-working:crates/fabelgeist-armor/src/trim/edges.rs"
+      ],
+      "comparison": "Fresh edges319. Rims owns mesh-connected plate identity, line segments, nearest rim along/distance/closure and hashgrid; plateu32 is lowest weldedvertex of connectedcomponent, not authoredPlateCourse/ArmorComponentRole/RigJointOrdinal, despite same integer width. Nearest closure0 means openrim, not PositiveLength; along includes slightlyrescaledclosedperiod distance, notprobability. Weldmicrometre native[i64;3]key and gridcell[i32;3] address are lossyspatialbucket algorithms, not checkedBuilding/GridPoint or globalidentity. Actual choose/currentplate search preserves localauthority. GenericMathVec3 arithmetic canbe used locally but duplicate simplearray sub/dot/lerp is not a competing semantic type definition; numerical behavior and collision/admission concerns remain separate. No finite/precision guarantee from cast/type name."
+    },
+    "topology-edit-keeps-canonical-skin-and-products": {
+      "sources": [
+        "pr-working:crates/fabelgeist-armor/src/trim/split.rs",
+        "pr-working:crates/fabelgeist-armor/src/trim/tests.rs"
+      ],
+      "comparison": "Fresh Split330/tests276. Split owns current edit caches near/component_of/cutedge\u2192newvertex/unwrappedcopy and staged triangles; finaloutput returns SAMEcanonicalGeneratedArmor afterremapping sourcepositions/normals/texcoords/skin/morphs/componentranges/trim and clearinginvalidgrids. No independentlymaintained Armor mesh owner or unchanged8fieldcopyasF003. Canonical PackedRigSkin.weighted_vertex/push/select and local sharedskin.blend are actualpath, sourcegeometric t drives both skin/morph interpolation. Native triangle/u32vertex,usizecomponent index and old\u2192newpermutation distinct addressdomains. Bisectiont[0,1] algorithm blend notgameprobability/elapsedclock; no Core importjusttoavoidscalar. Existingtests intentionallyuse rawgeometry/meshtopology and canonicalnative joint boundary; read only, no source/test change or inferredwholeShellPlan algorithm (notread). All privatecache/publicsource aggregate/admission qualifications survive, no helperexemption."
+    }
+  },
+  "new_findings": [],
+  "limits": "Fresh exact full source-specific source/native/owner comparisons, no wholefeature/foreign/later-lens clearance. Whole06 incomplete."
+}

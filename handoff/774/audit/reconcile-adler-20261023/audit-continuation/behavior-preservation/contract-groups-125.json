@@ -1,0 +1,313 @@
+{
+  "id": "CONT08-CONTRACT-125",
+  "at": "2026-10-25T12:31:24.704070+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 418,
+      "source_id": "physical-p16:crates/adventuresim-terrain/src/digest.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-terrain/src/digest.rs",
+      "before_sha256": "80e021f45fedb26ff313fe42e19a49503716be0c710173af5285e572bfe5ce98",
+      "after_sha256": "80e021f45fedb26ff313fe42e19a49503716be0c710173af5285e572bfe5ce98",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0418-base-80e021f45fedb26ff313fe42e19a49503716be0c710173af5285e572bfe5ce98",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/80e021f45fedb26ff313fe42e19a49503716be0c710173af5285e572bfe5ce98",
+      "diff": "source-evidence/p16-0418.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "facts": [
+        "Full28 and actual empty diff. Digest validation delegates canonical SourcePackageDigest admission, byte/string hash and streaming EOF/error order unchanged. SHA helper does not introduce package identity or schema behavior change."
+      ],
+      "disposition": "Exact scoped own08 source comparison accounted WITH qualifications; actual base/head unchanged here, not broad family clearance.",
+      "acceptance": "Preserve native payload/hash/schema/part order, original validation/error and cache timing, arithmetic precision/clamp order and original typed-admission boundaries; connected changed recipients remain separately traced. No project checks or tests."
+    },
+    {
+      "scope_index": 419,
+      "source_id": "physical-p16:crates/adventuresim-terrain/src/lib.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-terrain/src/lib.rs",
+      "before_sha256": "b6f4484e8febb316766de322ff355f1d0dda5b394343be0227517c601c0f1421",
+      "after_sha256": "b6f4484e8febb316766de322ff355f1d0dda5b394343be0227517c601c0f1421",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0419-base-b6f4484e8febb316766de322ff355f1d0dda5b394343be0227517c601c0f1421",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/b6f4484e8febb316766de322ff355f1d0dda5b394343be0227517c601c0f1421",
+      "diff": "source-evidence/p16-0419.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          100
+        ],
+        [
+          268,
+          269
+        ],
+        [
+          316,
+          577
+        ],
+        [
+          948,
+          994
+        ]
+      ],
+      "facts": [
+        "Exact scoped ranges1\u2013100,268\u2013269,316\u2013577,948\u2013994 consumed, plus manifest/signature270\u2013315 and context101\u2013260; actual complete diff empty. No full2059 body credit. Native terrain metadata bounds/hash checks precede file admission; duplicate chunk and inconsistent tile dimensions reject in original order.",
+        "Cell nonfinite/outside returns None; negative coordinates floor before indexed chunk conversion; exact edge<=bounds policy, native pixel floor/clamp and chunk bounds unchanged. Chunk decode/hash/discriminant rejection precedes cache admission, deterministic LRU tie-break, double checked clock and concurrent existing-entry recheck preserved. Cache arithmetic policy unchanged, not introduced08 defect. Unread route/search/fixtures excluded."
+      ],
+      "disposition": "Exact scoped own08 source comparison accounted WITH qualifications; actual base/head unchanged here, not broad family clearance.",
+      "acceptance": "Preserve native payload/hash/schema/part order, original validation/error and cache timing, arithmetic precision/clamp order and original typed-admission boundaries; connected changed recipients remain separately traced. No project checks or tests."
+    },
+    {
+      "scope_index": 420,
+      "source_id": "physical-p16:crates/adventuresim-terrain/src/road_pack.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-terrain/src/road_pack.rs",
+      "before_sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+      "after_sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0420-base-d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+      "diff": "source-evidence/p16-0420.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          80
+        ],
+        [
+          110,
+          155
+        ]
+      ],
+      "facts": [
+        "Exact requested1\u201380 and110\u2013155 reread; complete diff empty. Native road manifest/typed source, ordered line/payload structures and errors retain same wire schema; intersection uses stored bounds, builder checked point accumulation/source identity before native geometry encoding remains same. Other ranges printed for context earlier are not full344 role credit."
+      ],
+      "disposition": "Exact scoped own08 source comparison accounted WITH qualifications; actual base/head unchanged here, not broad family clearance.",
+      "acceptance": "Preserve native payload/hash/schema/part order, original validation/error and cache timing, arithmetic precision/clamp order and original typed-admission boundaries; connected changed recipients remain separately traced. No project checks or tests."
+    },
+    {
+      "scope_index": 421,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/Cargo.toml",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-weapon-model/Cargo.toml",
+      "before_sha256": "3a08ad5b69e06fb586e1ff7ace785e9b53c79345119fddc49c3f162b5f2f3bdb",
+      "after_sha256": "3a08ad5b69e06fb586e1ff7ace785e9b53c79345119fddc49c3f162b5f2f3bdb",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0421-base-3a08ad5b69e06fb586e1ff7ace785e9b53c79345119fddc49c3f162b5f2f3bdb",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/3a08ad5b69e06fb586e1ff7ace785e9b53c79345119fddc49c3f162b5f2f3bdb",
+      "diff": "source-evidence/p16-0421.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "facts": [
+        "Full19 manifest+empty actual diff. Explicit serde_json float_roundtrip, glam0.32.1 and same dependency features unchanged; no build/native solver claim."
+      ],
+      "disposition": "Exact scoped own08 source comparison accounted WITH qualifications; actual base/head unchanged here, not broad family clearance.",
+      "acceptance": "Preserve native payload/hash/schema/part order, original validation/error and cache timing, arithmetic precision/clamp order and original typed-admission boundaries; connected changed recipients remain separately traced. No project checks or tests."
+    },
+    {
+      "scope_index": 422,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/codec.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-weapon-model/src/codec.rs",
+      "before_sha256": "1a32ed016049692514041f1111820fc2513464dcd4f23b45a4f65f8b084c9b60",
+      "after_sha256": "1a32ed016049692514041f1111820fc2513464dcd4f23b45a4f65f8b084c9b60",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0422-base-1a32ed016049692514041f1111820fc2513464dcd4f23b45a4f65f8b084c9b60",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/1a32ed016049692514041f1111820fc2513464dcd4f23b45a4f65f8b084c9b60",
+      "diff": "source-evidence/p16-0422.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "facts": [
+        "Full111 and empty actual diff. Weapon/holder public encode validate before envelope serialization, decode checks transport byte bound then JSON/version then validation. Internal parse and serialization intentionally skip validation only behind callers, no change from base; derived Evaluated owners must supply validation before encode."
+      ],
+      "disposition": "Exact scoped own08 source comparison accounted WITH qualifications; actual base/head unchanged here, not broad family clearance.",
+      "acceptance": "Preserve native payload/hash/schema/part order, original validation/error and cache timing, arithmetic precision/clamp order and original typed-admission boundaries; connected changed recipients remain separately traced. No project checks or tests."
+    },
+    {
+      "scope_index": 423,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/derive.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-weapon-model/src/derive.rs",
+      "before_sha256": "c21331b47fbf9aff7837343abc27e7f572acb622fd7baaf8a86a3dfb0fc92edd",
+      "after_sha256": "c21331b47fbf9aff7837343abc27e7f572acb622fd7baaf8a86a3dfb0fc92edd",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0423-base-c21331b47fbf9aff7837343abc27e7f572acb622fd7baaf8a86a3dfb0fc92edd",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/c21331b47fbf9aff7837343abc27e7f572acb622fd7baaf8a86a3dfb0fc92edd",
+      "diff": "source-evidence/p16-0423.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "facts": [
+        "Full47+empty diff. Derive identity check then Construction new, physical/frames/source order into mesh derived; material aggregation first-seen order and f64-to-f32 then f32 add retained. No final finite aggregate certificate inferred. Supplies actual Q002 recipe/PreparedInventory receivers unchanged, not clear admissibility."
+      ],
+      "disposition": "Exact scoped own08 source comparison accounted WITH qualifications; actual base/head unchanged here, not broad family clearance.",
+      "acceptance": "Preserve native payload/hash/schema/part order, original validation/error and cache timing, arithmetic precision/clamp order and original typed-admission boundaries; connected changed recipients remain separately traced. No project checks or tests."
+    },
+    {
+      "scope_index": 424,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/derived_properties.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-weapon-model/src/derived_properties.rs",
+      "before_sha256": "fc35cb85ad750d9eb943b55cde7f20e3dc6cffd2d3ac119bef96732eb32402c5",
+      "after_sha256": "fc35cb85ad750d9eb943b55cde7f20e3dc6cffd2d3ac119bef96732eb32402c5",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0424-base-fc35cb85ad750d9eb943b55cde7f20e3dc6cffd2d3ac119bef96732eb32402c5",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/fc35cb85ad750d9eb943b55cde7f20e3dc6cffd2d3ac119bef96732eb32402c5",
+      "diff": "source-evidence/p16-0424.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          22
+        ]
+      ],
+      "facts": [
+        "Full22+empty diff. Raw default zero physical record and signed center-of-mass serde shape remain; no claim finite ownership merely from DerivedProperties name. Actual migrated consumers perform explicit admission elsewhere."
+      ],
+      "disposition": "Exact scoped own08 source comparison accounted WITH qualifications; actual base/head unchanged here, not broad family clearance.",
+      "acceptance": "Preserve native payload/hash/schema/part order, original validation/error and cache timing, arithmetic precision/clamp order and original typed-admission boundaries; connected changed recipients remain separately traced. No project checks or tests."
+    },
+    {
+      "scope_index": 425,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/design/generated.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-weapon-model/src/design/generated.rs",
+      "before_sha256": "676cdac09cfd5549f08dcaad5876f3053c52b04c49fb59a70b09df15c766df03",
+      "after_sha256": "676cdac09cfd5549f08dcaad5876f3053c52b04c49fb59a70b09df15c766df03",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0425-base-676cdac09cfd5549f08dcaad5876f3053c52b04c49fb59a70b09df15c766df03",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/676cdac09cfd5549f08dcaad5876f3053c52b04c49fb59a70b09df15c766df03",
+      "diff": "source-evidence/p16-0425.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "facts": [
+        "Full47+empty diff. Ordered generated mesh parts/native buffers/anchors/hash/bounds/derived outputs remain serde-public/native projection with same default bounds and independent holder grip. No newly added population/domain qualification inferred."
+      ],
+      "disposition": "Exact scoped own08 source comparison accounted WITH qualifications; actual base/head unchanged here, not broad family clearance.",
+      "acceptance": "Preserve native payload/hash/schema/part order, original validation/error and cache timing, arithmetic precision/clamp order and original typed-admission boundaries; connected changed recipients remain separately traced. No project checks or tests."
+    },
+    {
+      "scope_index": 426,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/evaluation.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-weapon-model/src/evaluation.rs",
+      "before_sha256": "bf99629f5204b4bcdab31adcee2f5029e28085143bb3b3e00e2987c1ad2e7b4d",
+      "after_sha256": "bf99629f5204b4bcdab31adcee2f5029e28085143bb3b3e00e2987c1ad2e7b4d",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0426-base-bf99629f5204b4bcdab31adcee2f5029e28085143bb3b3e00e2987c1ad2e7b4d",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/bf99629f5204b4bcdab31adcee2f5029e28085143bb3b3e00e2987c1ad2e7b4d",
+      "diff": "source-evidence/p16-0426.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          59
+        ]
+      ],
+      "facts": [
+        "Full59+empty diff. EvaluatedWeapon/Holder owns design, obtains derived via distinct static memo, decode parse then new admission, encode private serializer from retained design; cached physical properties identity/serialization behavior unchanged. Exact memo already own08 accounted427, no new reread or other-lens clearance."
+      ],
+      "disposition": "Exact scoped own08 source comparison accounted WITH qualifications; actual base/head unchanged here, not broad family clearance.",
+      "acceptance": "Preserve native payload/hash/schema/part order, original validation/error and cache timing, arithmetic precision/clamp order and original typed-admission boundaries; connected changed recipients remain separately traced. No project checks or tests."
+    },
+    {
+      "scope_index": 428,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/hash.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-weapon-model/src/hash.rs",
+      "before_sha256": "9867c4c6274f7317827e20ac0f0dc279bdce3b0fbc3a9c3093f5dbd125c936cc",
+      "after_sha256": "9867c4c6274f7317827e20ac0f0dc279bdce3b0fbc3a9c3093f5dbd125c936cc",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0428-base-9867c4c6274f7317827e20ac0f0dc279bdce3b0fbc3a9c3093f5dbd125c936cc",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/9867c4c6274f7317827e20ac0f0dc279bdce3b0fbc3a9c3093f5dbd125c936cc",
+      "diff": "source-evidence/p16-0428.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          34
+        ]
+      ],
+      "facts": [
+        "Full34+empty diff. Hash domain prefix, little-endian schema and generator versions then serialized design preserve digest order. Public DesignHash raw bytes/serde unchanged; nonfinite recipe serialization expectation is retained, no newly introduced failure."
+      ],
+      "disposition": "Exact scoped own08 source comparison accounted WITH qualifications; actual base/head unchanged here, not broad family clearance.",
+      "acceptance": "Preserve native payload/hash/schema/part order, original validation/error and cache timing, arithmetic precision/clamp order and original typed-admission boundaries; connected changed recipients remain separately traced. No project checks or tests."
+    },
+    {
+      "scope_index": 429,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/holders.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-weapon-model/src/holders.rs",
+      "before_sha256": "d99cadde4f1dc9227c791e6b25dab8869a68bc888b93fa6854a2a43460148635",
+      "after_sha256": "d99cadde4f1dc9227c791e6b25dab8869a68bc888b93fa6854a2a43460148635",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0429-base-d99cadde4f1dc9227c791e6b25dab8869a68bc888b93fa6854a2a43460148635",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/d99cadde4f1dc9227c791e6b25dab8869a68bc888b93fa6854a2a43460148635",
+      "diff": "source-evidence/p16-0429.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          261
+        ]
+      ],
+      "facts": [
+        "Full261+empty diff. Holder validates identity then canonical weapon construction, chooses first blade or first Grip by component identity, computes sheath/loop with identical ordered native f64 math and clamps before bounded solid creation. Generates hash, grip, native parts and physical f32 projection at same endpoint. First-grip choice/API geometry questions retained as unchanged, no08 regression or runtime claim."
+      ],
+      "disposition": "Exact scoped own08 source comparison accounted WITH qualifications; actual base/head unchanged here, not broad family clearance.",
+      "acceptance": "Preserve native payload/hash/schema/part order, original validation/error and cache timing, arithmetic precision/clamp order and original typed-admission boundaries; connected changed recipients remain separately traced. No project checks or tests."
+    },
+    {
+      "scope_index": 430,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/lib.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-weapon-model/src/lib.rs",
+      "before_sha256": "617d4da8bd91ac58b857ad94c1a1d44d417e90055976d46637e567caeb218bad",
+      "after_sha256": "617d4da8bd91ac58b857ad94c1a1d44d417e90055976d46637e567caeb218bad",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0430-base-617d4da8bd91ac58b857ad94c1a1d44d417e90055976d46637e567caeb218bad",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/617d4da8bd91ac58b857ad94c1a1d44d417e90055976d46637e567caeb218bad",
+      "diff": "source-evidence/p16-0430.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "facts": [
+        "Full50+empty diff. All public exports/version constants/transport cap and grip dimension bounds unchanged. Typed geometry refactor in consuming crates does not change this producer API; existing native physical leaves remain explicit recipient obligations."
+      ],
+      "disposition": "Exact scoped own08 source comparison accounted WITH qualifications; actual base/head unchanged here, not broad family clearance.",
+      "acceptance": "Preserve native payload/hash/schema/part order, original validation/error and cache timing, arithmetic precision/clamp order and original typed-admission boundaries; connected changed recipients remain separately traced. No project checks or tests."
+    }
+  ],
+  "next": "431mesh145,432construction273,433output365 actual bodies/diffs."
+}

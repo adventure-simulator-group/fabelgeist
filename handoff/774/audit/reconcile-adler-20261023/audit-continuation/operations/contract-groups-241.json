@@ -1,0 +1,91 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-241",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+      "sha256": "2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+      "actual_EOF": 438,
+      "actual_compared_ranges": [
+        [
+          1,
+          438
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+      "sha256": "2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+      "actual_EOF": 438,
+      "actual_compared_ranges": [
+        [
+          1,
+          438
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings/window.rs",
+      "sha256": "f1d40643528b12fce9e1062c6a2e23e0192c6216cb5a5f645bbc624ef90b5c26",
+      "actual_EOF": 129,
+      "actual_compared_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Canonical building placement rotation, materialized recipes and pad operations",
+      "source_ranges": {
+        "buildings.rs": [
+          [
+            1,
+            438
+          ]
+        ]
+      },
+      "disposition": "Full P16body and actualPRcomparison consumed. Orientationfinitecanonical[-pi,pi), rawradianconstructorwraps, normalizedfrontagetangentrejectszero andcanonicalizesatan2positivepi; local/worldrotation usesactualscalartrig. Fullnativewidthfinitecoordinates mayoverflowrotationproducts, actualcallerre-admission/localextent required, no ordinaryhugebuildingproved. Placements caps64/actualcitylimit, IDsnonzero/unique percollection, exactfinitecenter/support/orientation; admitted programgeneration fallible withconcretebuildingIDcause. Distant->tactical promotion preservesoccupied program/seed/usage/service_size insteadofreconstructingfixtureonly. Generatedplan/collision products mustremaincoherent, publicrawGeneratedBuildingfields notprovenfromleafchecks. Padsgeometry planhalfextentchecked beforepartywallallowance.4/min.1; pairloopindex+1 safeactualboundedvec. SATusesbothorientationaxes andstrictcontacttest, numericextremeoverflow notclosedsolely byfiniteleaves; no acceptedcanonicalrecipehugegeometrywitnesshere. Actualsourcefixtures onlytinyrectangles/readnotrun."
+    },
+    {
+      "contract": "Replicated door/window geometry admission and named error causes",
+      "source_ranges": {
+        "buildings.rs": [
+          [
+            156,
+            226
+          ]
+        ],
+        "window.rs": [
+          [
+            1,
+            129
+          ]
+        ]
+      },
+      "disposition": "Native leaves decodedtogether withbuilding/openingIDs thenLeafDimensions/Position/normalizedSpatialDirection readmit beforeSelf. These preserveusableindividualpositiveleaf/fullframefinitebounds; perpendicular/horizontal tangent-outwardaggregate relation dependscanonicalSceneDoor/WindowPose producer, notguaranteedbytwoindependentlynormalizedvectors. Noactualproducerbadbasisproved. FullwindowPRbody reread/diffconsumed butinheritedprior612cellnotcreditedagain. BarsnamedenumandTimberShutterleaf preservewireidentity; actualSerde mapsSceneWindowError/SceneDoorError cause into nativecustomerrorport after attachingIDs, not generic internalStringescape. Tinyroundtrip/invalidzero-thickness fixturesreadnotrun. No newordinaryoperationdefect orprojectexecution."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [
+    {
+      "path": "pr-working:crates/adventuresim-tactical-core/src/scene_input/buildings/window.rs",
+      "actually_read_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "coverage": "Already inherited prior612 completedcell, freshwholecomparison no secondcredit."
+    }
+  ],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/audit.rs"
+}

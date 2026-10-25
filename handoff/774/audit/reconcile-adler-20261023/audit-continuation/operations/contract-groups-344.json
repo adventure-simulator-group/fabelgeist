@@ -1,0 +1,113 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-344",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/case.rs",
+      "sha256": "7b919041dbce7f4e53f859aab2c5b7c6b16dd110b1452ecfa598555bda9055b0",
+      "actual_EOF": 921,
+      "actual_compared_ranges": [
+        [
+          1,
+          921
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/celestial.rs",
+      "sha256": "c31595528b5df5ab5137bb15789e202abcc096187f12ba1f5f207d7299726b06",
+      "actual_EOF": 169,
+      "actual_compared_ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/character_morph.rs",
+      "sha256": "078e18702247381254e0d5970a170bf88f594487ea11fee98a44c1b01d849013",
+      "actual_EOF": 73,
+      "actual_compared_ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/character_proportions.rs",
+      "sha256": "7a3b0a5797dbb6d8c811aa2e2df9d831e7424367faf501cf6b3b9bffe1683433",
+      "actual_EOF": 208,
+      "actual_compared_ranges": [
+        [
+          1,
+          208
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Case objective evaluation, idempotent custody and terminal versions",
+      "source_ranges": {
+        "case.rs": [
+          [
+            1,
+            921
+          ]
+        ]
+      },
+      "disposition": "Full body personally read, including fixtures. Fact evaluation filters case and party; explicit ObjectiveImpossible dominates. Saturating counts then min(required) preserve threshold semantics. Empty or duplicate public ObjectiveExpression paths are admission/aggregate dependencies, not new operations findings. apply_custody mutates only after checks; MAX version same-version replacement remains bounded API candidate, linked to separate custody identity dependency local774:M44."
+    },
+    {
+      "contract": "Celestial presentation bounded trigonometry and independent phase anchor",
+      "source_ranges": {
+        "celestial.rs": [
+          [
+            1,
+            169
+          ]
+        ]
+      },
+      "disposition": "Whole body and fixtures read. Calendar methods bound daily/year fractions; checked latitude/longitude yield bounded trig inputs. Horizon length is mathematically unit for finite angles, hypot avoids squaring overflow; f32 output remains bounded. Independent lunar phase anchor intentional. No new operations counterexample established; calendar/lunar methods are dependencies, not coverage transfer."
+    },
+    {
+      "contract": "Cosmetic identity naming and bounded generation",
+      "source_ranges": {
+        "character_morph.rs": [
+          [
+            1,
+            73
+          ]
+        ],
+        "character_proportions.rs": [
+          [
+            1,
+            208
+          ]
+        ]
+      },
+      "disposition": "Both whole bodies and fixtures read. Private IdentityMorph index is admitted by canonical name roundtrip or bounded all iterator. Cosmetic morph generation uses inclusive finite unit interval and fixed .35 range. CharacterProportions validates all nine finite signed bounded coefficients through set/TryFrom/serde. JointProportionBasis finite coefficient predicate does not ensure finite relative linear combination; separate API numerical candidate retained without authored-asset/runtime claim."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-CUSTODY-VERSION-TERMINAL-CANDIDATE-001",
+      "disposition": "qualified bounded API candidate, not new global count"
+    },
+    {
+      "id": "SEGOVB-04-JOINT-PROPORTION-OVERFLOW-CANDIDATE-001",
+      "disposition": "qualified bounded API candidate, not new global count"
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-core/src/developer_quest.rs"
+}

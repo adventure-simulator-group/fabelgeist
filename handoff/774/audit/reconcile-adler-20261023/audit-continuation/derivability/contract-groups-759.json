@@ -1,0 +1,206 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-759",
+  "at": "2026-10-25T16:43:12.875689+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 993,
+      "source_id": "pr-working:crates/adventuresim-core/src/settlement_property/tests.rs",
+      "sha256": "37706ca3f62b5b44d61a78f6ec146281ba11990c9a218f0182be06e9f23a2c3b",
+      "actual_EOF": 99,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/settlement_property/tests.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/settlement_property/tests.rs",
+        "sha256": "37706ca3f62b5b44d61a78f6ec146281ba11990c9a218f0182be06e9f23a2c3b",
+        "bytes": 2936,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "root",
+            "record": "wave-01/audit-producer-propagation/root/additional-sources-028.json",
+            "ranges": [
+              [
+                1,
+                99
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "ROOT-PP-CONFIG-PORTS-028"
+            ]
+          },
+          {
+            "shard": "root",
+            "record": "wave-01/audit-producer-propagation/root/unchanged-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                99
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "ROOT-PP-CONFIG-PORTS-028"
+            ]
+          }
+        ],
+        "audit_owner": "root",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 112,
+            "read_ranges": [
+              [
+                1,
+                99
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-HOME-029"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/settlement_property/tests.rs"
+          },
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 395,
+            "read_ranges": [
+              [
+                1,
+                99
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-HOME-029",
+              "ROOT-OWNER-CLOSURE-SUPPORT-HOME-080"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/settlement_property/tests.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-HOME-PROPERTY-008",
+            "json_pointer": "/source_proofs/1",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/settlement_property/tests.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                99
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/settlement_property/tests.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/settlement_property/tests.rs",
+              "sha256": "37706ca3f62b5b44d61a78f6ec146281ba11990c9a218f0182be06e9f23a2c3b",
+              "read_ranges": [
+                [
+                  1,
+                  99
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 359,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Entire99line exact property fixture role personally consumed758 output, native fixture constructor/assertions for identity/scope/geometry/marketreserve/capacity/household population. No handtrait/codec/type; not run."
+    },
+    {
+      "scope_index": 994,
+      "source_id": "pr-working:crates/adventuresim-core/src/simulation_security.rs",
+      "sha256": "3c199480635cb250ba4fe3c60e13afcad2b958c8b11b3e97588c57fd85500272",
+      "actual_EOF": 61,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/simulation_security.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/simulation_security.rs",
+        "sha256": "3c199480635cb250ba4fe3c60e13afcad2b958c8b11b3e97588c57fd85500272",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 2328,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 242,
+            "read_ranges": [
+              [
+                1,
+                61
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SIMULATION-035"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/simulation_security.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1199,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Entire61line exact security helper source personally consumed758 output, token shape/fixedexpectedlength comparison/bootstrap predicate and fixture assertions; no trait/codec/type. No execution and no actual token read."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Property fixtures and simulation authorization",
+      "disposition": "No trait boilerplate targets. Preserve semantic nonempty reserve and bootstrap authority predicates, no serde/classifier derive introduced. Fixtures source-only."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 995,
+    "source_id": "pr-working:crates/adventuresim-core/src/skeletal_fit.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

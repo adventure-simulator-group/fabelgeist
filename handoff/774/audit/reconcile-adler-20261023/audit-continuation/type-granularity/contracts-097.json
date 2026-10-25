@@ -1,0 +1,97 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-097",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "whole-physical-motor-quantity-producer-to-engine-mutation",
+      "sources": [
+        {
+          "scope_index": 360,
+          "ranges": [
+            [
+              1,
+              1762
+            ]
+          ]
+        },
+        {
+          "scope_index": 361,
+          "ranges": [
+            [
+              1,
+              81
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "local774:M01",
+        "local774:F07",
+        "SEGO-INITIAL09-F257",
+        "SEGO-INITIAL09-F018"
+      ],
+      "disposition": "Exact M01 physical role propagation and F07 actual burden recipient support; no new quantity-family count.",
+      "trace": "CharacterMotionSnapshot360119\u2013127 is retained rollback state, not engine-only final DTO: input acknowledgment Option explicitly keeps tick0 distinct initialization, position/rotation/velocity/grounded and actuators are independent observations. Motor448\u2013473 computes total burden=body+inventory separately biological mass, health-adjusted leg strength/agility; Avian Mass475\u2013477 gets total while force570\u2013580 uses biological mass for capacity and total for inertia. F07 source355 aggregator omission reaches this actual burden. QuickstepMotionTarget224\u2013228 combines displacement, signed velocity, raw acceleration retained between target sampler250\u2013308 and tracking313\u2013350; M01 physical input/output migration remains. Named GroundVelocityLimits864\u2013870 contains drive/braking/lateral/traction acceleration and radius, dimensions stay meaningful through helper872\u2013945, not all one nonnegative scalar. Complete numerical kernels can extract units locally, but target records, snapshot and operation inputs remain semantic application state. QuickstepSampleClock3616\u201323 keeps action span and elapsed span, target phase may exceed1 during bounded recovery so not blindly UnitInterval. action contact73\u201381 is midpoint sample count, deliberately differs complete duration; do not double it again.",
+      "qualifications": [
+        "Full1762+81 lines personally read, existing source tests only; no physics/client/project execution. M01 actual full record read, including generic creature mass qualification and exact whole motor repair; no blanket kernel exemption.",
+        "Biological mass bounds human20..300 cannot constrain generic equipment/creature/aggregate mass. Actual floor1/fallback/force-clamp/no-reversal and signed/braking policies remain. Gravity0 during supported push605\u2013616 is deliberate support policy, not zero-invalid world gravity.",
+        "Quickstep actuator persists inactive start/origin/orientation after cancel36141\u201343; retained history is meaningful. Melee lunge.quickstep policy variant F257 differs actual animation SkeletonAction; never force equality. Default/cancel inactive0direction is valid.",
+        "Locally computed normalized phase target can exceed1, downstream sampling clamps at actual kernel; no arbitrary new rejection. duration0 terminal target257\u2013262 is supported public helper behavior, positive configuredaction is narrower. Signed vertical velocity/acceleration during return are legitimate.",
+        "Long tests include isolated native primitive fixture assumptions from recorded P16 state; source evidence is not compiler validation. No claim every fixture currently compiles or its expected output passed."
+      ],
+      "acceptance": "Complete existingM01 shared body/equipment/force/acceleration/frame/elapsed producer repair through retained targets and operations to final native Mass/LinearVelocity/controller mutation. Preserve F07 unit-versus-stack correction separately, biological capacity versus total inertia, signed states and bounded recovery semantics."
+    },
+    {
+      "id": "tactical-player-health-training-and-identity-role-projections",
+      "sources": [
+        {
+          "scope_index": 362,
+          "ranges": [
+            [
+              1,
+              650
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "local774:M01",
+        "local774:M51",
+        "local774:M89",
+        "local774:M55"
+      ],
+      "disposition": "Exact canonical health/training/physical identity owner support; ECS wrappers add real role, no broad wrapper removal.",
+      "trace": "CharacterId362119 is fullu64 strategic person identity, unlike native Entity, profile seed, transport connection or scoped browsergrant. color124 deterministically derives display RNG from identity without making identity a seed concept. TacticalCombatSide83 independent from controlled player/connectivity. TacticalAttributes454 wraps canonical PlayerAttributeValues for ECS behavior/Reflect/native serialization, no competing numeric admission. Limbs187\u2013196 combines biological mass and per-part health, health_mut214 exposes raw mutation while apply_damage254\u2013266 returns actual applied amount; total_damage271\u2013283 sums per-part deficits and may exceed1. ExistingM89 keeps remaining scaled enemy health separate applied fractions/physical energy, no whole UnitInterval cap. Skills291\u2013328 projects trained hour columns, religion hours aggregate direct and bestiary effective/category stages differ405\u2013445; M51 canonical training/check/rank roles remain, no new per-skill scalar family. PlayerInfo type alias496 is useful composition of borrowed owners, not duplicate player record.",
+      "qualifications": [
+        "Full650 lines source read; tests not executed. Positive defaults, partial fixture TacticalCombatState and require components do not prove complete runtime admission.",
+        "No generic player fatigue penalty added: Stats physical_skill_condition returns1 because fatigue/burden already in live incapacity165\u2013172, repository authority preserved. Biological mass and aggregate total not interchangeable; skill trained hours versus effective/correlated checks distinct.",
+        "LocalCharacterId receiver333 and canonical CharacterId share fullidentity meaning but local resource role remains useful; no private native runtime dependency imported and no new nonzero bound. Actual grant/control policy not established by wrapper name."
+      ],
+      "acceptance": "Retain canonical fullidentity, attribute/training and generic health/mass owners through actual player projections/traits/mutations, while preserving purpose ECS wrappers and transient tactical authority."
+    },
+    {
+      "id": "scene-plan-point-versus-displacement-and-geography-frame",
+      "sources": [
+        {
+          "scope_index": 363,
+          "ranges": [
+            [
+              1,
+              122
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [],
+      "disposition": "Meaningful affine-role/frame wrappers; no redundant same-Vec2 types.",
+      "trace": "ScenePlanPoint23 is finite scene-local east/north position in metres, PlanDisplacement27 is translation; translated44\u201349 adds displacement to point and readmits result. Position<Scene>100\u2013104 explicitly drops height into plan axesx/z, not geographic degrees or building-local vertex. Shared GeometryError has specific Position/Displacementrole and axis sources. PlanVertex trait65\u201369 is explicit geometry kernel projection, not proof architectural and scene points share authority.",
+      "qualifications": [
+        "Full122 lines read, source tests only; child spatial_tests declaration122 and siblingmodules do not credit their bodies. Origin/negative coordinates are valid, no forcepositive point/displacement.",
+        "Finite constructors share invariant but affine/frame roles prevent real misuse without extra bounds. Errors with same numeric leaf can stay distinct contextual roles rather than duplicate per-coordinate type hierarchies."
+      ],
+      "acceptance": "Preserve point/displacement, geographic/architectural/scene frames and real axis projection; numerical extraction only at actual geometry operations."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

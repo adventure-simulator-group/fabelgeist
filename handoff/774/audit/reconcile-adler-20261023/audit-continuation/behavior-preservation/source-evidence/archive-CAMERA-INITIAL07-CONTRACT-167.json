@@ -1,0 +1,128 @@
+{
+  "id": "CAMERA-INITIAL07-CONTRACT-167",
+  "at": "2026-10-23T02:31:55.100333+00:00",
+  "lens": "audit-redundant-authority",
+  "members": [
+    {
+      "scope049_index": 308,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/clock.rs",
+      "sha256": "25673af055bc146c82eb0fcf5bcbde2db09174cc6bec4e4dc2ae081150e3a25c",
+      "actual_EOF": 127,
+      "material_ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-049.json#/files/308"
+    },
+    {
+      "scope049_index": 310,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/model.rs",
+      "sha256": "8b5882561331877cca6e022666a6fc03c813375df88bcdda95752cddd3cd1a1e",
+      "actual_EOF": 98,
+      "material_ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-049.json#/files/310"
+    },
+    {
+      "scope049_index": 309,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/mod.rs",
+      "sha256": "0e0aec9ef7cae2e967e3e7018f1c6a823c847e11839fb43bf5c2fee295c404bc",
+      "actual_EOF": 108,
+      "material_ranges": [
+        [
+          1,
+          108
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-049.json#/files/309"
+    },
+    {
+      "scope049_index": 306,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/advancement/lifecycle.rs",
+      "sha256": "a8f43539a28232bc47303c02e648761d55590e7f33d97fd66abbc703374965f5",
+      "actual_EOF": 11,
+      "material_ranges": [
+        [
+          1,
+          11
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-049.json#/files/306"
+    },
+    {
+      "scope049_index": 1248,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/clock.rs",
+      "sha256": "5494962821652b9edef4abf446ca231baf0db2919917b93fafb37218340af587",
+      "actual_EOF": 127,
+      "material_ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-049.json#/files/1248"
+    },
+    {
+      "scope049_index": 1250,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/model.rs",
+      "sha256": "8b5882561331877cca6e022666a6fc03c813375df88bcdda95752cddd3cd1a1e",
+      "actual_EOF": 98,
+      "material_ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-049.json#/files/1250"
+    },
+    {
+      "scope049_index": 1249,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/mod.rs",
+      "sha256": "00f1fa799283c10da8bc5b3310a04c43d117753258629c791c379b6485f25f3f",
+      "actual_EOF": 107,
+      "material_ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-049.json#/files/1249"
+    },
+    {
+      "scope049_index": 1246,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/advancement/lifecycle.rs",
+      "sha256": "a8f43539a28232bc47303c02e648761d55590e7f33d97fd66abbc703374965f5",
+      "actual_EOF": 11,
+      "material_ranges": [
+        [
+          1,
+          11
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-049.json#/files/1246"
+    }
+  ],
+  "actual_source_proof": "Fresh complete P16 clock127/model98/module108/lifecycle11 and actual full counterpart diff/current-role comparison (PR module107, one clock resultalias, lifecycle/model identical). Personally consumed Native actual full PR045/046 and P16 specific049 source facts; used actual policy for current07, no admission verdict carry.",
+  "contracts": [
+    "Official clock epoch_micros anchors deterministic wall-clock projection official_minutes. refresh_clock12 recalculates from actual native timestamp and updates only on change; initialize inserts the pair once. Retained minute is an explicit lazily refreshed projection, not an independent clock source, while disposable simulation legitimately changes epoch+minute together (actual earlier current07simulation proof). Whether every read requires refresh is operation-specific; no claim arbitrary view at later wall time is realtime simply from stored field name. Preserve absolute full-u64 chronology and valid zero separately from missing source.",
+    "CharacterTime is personal subjective chronology initialized from official time and subsequently independently advanced by activity/family. It need not equal official time or other characters after different activity. Wilderness environment wrapped phase is another intentional projection162, not an excuse to replace absolute personal clock with official value. CharacterTime.scan_id is private native scan seam initialized with identity, not another gameplay clock. Public raw world records retain admission limits, no normal epoch/current disagreement found in these exact construction/update routes.",
+    "Family propagation advances selected living NPC relatives by same elapsed amount from THEIR own current clock, not to actor absolute target or official time. Household association and kinship edges contribute selection under active marriage with bounded32; this is explicit lifecycle policy, not proof household implies biological kin or all relatives receive every event. Preserve settled historical marriage/birth semantics and exact source dependency; source-loss fallbacks in other callers remain separate.",
+    "Stored daily ScheduleAllocation, requested immediate interval and realized clipped activity share raw field layout but different contracts. allocated_minutes is derived sum, leisure unallocated remainder, and organization IDs identify chosen activity association rather than derived totals. Do not persist a second total/leisure cache or impose whole-day quarterhour policy on actual clipped7/0 minute intervals. Current canonical owner propagation should distinguish raw wire input, admitted daily plan and realized interval, preserving actual organization pairing.",
+    "Lifecycle module is one ordered receiver after authoritative personal-clock writes: age then continuity/residence/weddings/births/discovery/marriage/patient context. This closes exact current-age refresh helper dependency105 for callers that actually invoke it, not all external raw clock writers. First_lifecycle_segment computes event boundary from actual start/end and returns elapsed, so boundary instant and elapsed are different measures; no second retained date/cache. Underlying relationship boundary and all callsites still require their own source inventory before universal lifecycle guarantee.",
+    "Module includes and TIME_SOURCE existing source-test concatenation carry definitions into native macro scope; they are not independent runtime policy values. Canonical enum imports/reexports keep current owners, no source body coverage from include names. Native errors preserve P16 structured causes until actual adapter, PR result erasure remains connected producer migration evidence rather than additional clock authority. Existing constants recovery-rate versus innprice are distinct policies; innprice directly references Core canonical economic constant."
+  ],
+  "findings": [],
+  "existing_finding_support": [
+    "CAMERA-INITIAL07-F010",
+    "CAMERA-INITIAL07-F011",
+    "CAMERA-INITIAL07-F022"
+  ],
+  "connected_repair_acceptance": "Keep epoch sole official projection source and personal timelines independent; retain one explicit lifecycle receiver after actual writes, no fabricated zero on failed source read. Propagate distinct daily/requested/realized interval owners through retained records to native ports. Preserve zero/full-word clocks, family elapsed semantics and all existing event ordering; no source or later-lens changes.",
+  "status": "Exact8 source inventories; explicit caller-specific refresh/lifecycle dependencies, no universal synchronized-clock claim"
+}

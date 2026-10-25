@@ -1,0 +1,35 @@
+{
+  "id": "CONT08-CONTRACT-232",
+  "at": "2026-10-25T14:58:16.043960+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 874,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/scheduling.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/autoresolve/melee_round/scheduling.rs",
+      "before_sha256": "d76ca70d91221f1eaa346d0ef5a7b6a9f96677fb31feadf9033be9b14b8c91aa",
+      "after_sha256": "9c56fb8232e356e6e204ba7c1065597c6063b0b25572d6f0e7cb131b2a7eb320",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0874-base-d76ca70d91221f1eaa346d0ef5a7b6a9f96677fb31feadf9033be9b14b8c91aa",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/9c56fb8232e356e6e204ba7c1065597c6063b0b25572d6f0e7cb131b2a7eb320",
+      "diff": "source-evidence/pr-0874.diff",
+      "diff_sha256": "5ffd3e9c0db11ebc23d63b0d3593db9ffd088621c927c686eb509a68350ff675",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          391
+        ]
+      ],
+      "head_body_read_method": "Own0068 commonbody reuse plus full variant and actual PR diff; fresh critical source ranges stated in facts.",
+      "facts": [
+        "Full391line PR head accounted through own0068 full P16 body plus complete inverse-variant diff0874-vs-own0068.diff; entire462line actual PR diff consumed; fresh184\u2013331. PR source rawf32 distance is not isolatedP16 SignedLength. Moved initialization old857diff612\u2013644 versus new874diff95\u2013131 preserves sorted CombatantId order and two RNG draws per actor; same delay min+unit*(max-min) and instinct clamp. New finite jitter/delay admission occurs before publishing recovery/jitter.",
+        "MeleeEngagement.observe computes formerly written/read relation; commit delayed until finite scheduling preflight succeeds. Normal out-of-reach/no available start/CannotRecover branches explicitly commit before OkNone. Existing contact<=window_end and collection inclusive[start,end], retained-target lookup then assignment fallback preserved. Whole battle owns/discards failed vectors; private atomic retry promise not established.",
+        "attack_interval same(max(weapon/reference,minattack)+priorjitter)/performance numeric order for finite positive results, now checked elapsed addition and900RecoveryTime. Positivebase/performance0 yields CannotRecover skip rather old infinite schedule, but actual schedule_attacker defeats totalincap>=1 before this branch, so no ordinary zero-performance firstattack loss inferred. Zero-base explicit recovery policy retained. Source scheduling/new Result propagation reviewed without running fixtures."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    }
+  ],
+  "next": "875model363 then876power168/877threat187/878timeline139/879rewards31"
+}

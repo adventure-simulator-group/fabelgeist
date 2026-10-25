@@ -1,0 +1,19 @@
+{
+  "id": "SEGOVB-04-LEAF-CARD-TRIANGLE-COUNT-CANDIDATE-001",
+  "classification": "source-backed retained diagnostic count mismatch, canonical archive alias pending",
+  "operation": "tree/presentation.rs:227-282 computes TreeLeafTriangleCount(cluster_leaf_count*2) from full source leaves",
+  "actual_geometry": "presentation.rs:529-540 calls procedural_oak_leaf_card_group_mesh -> leaves.rs group helper -> selection.rs detailed_flat_card_group_leaves keeps3/4 ordinal lanes; mesh has2triangles per retained leaf. Nonzero currentoak source16leaves/shoot guaranteesexact12retained/shoot.",
+  "receiver": "Frozen tactical_scene_viewer.rs benchmark_leaf_representations1666-1748 queries component+representation, sums triangles.0 into scene_leaf_triangles, emits LeafBenchmarkResult; write_leaf_benchmark2465-2515 serializes JSON report and Markdown comparison table. This is scene mesh inventory, not actual per-view visible GPU submissions.",
+  "witness": "Per currentoak terminalshoot source16leaves: retained12cardquads produce24triangles, diagnostic stores32. For competition0 oak structural3174terminalshoots: source50784, retained38088, actual76176triangles vsdiagnostic101568. Arithmetic source witness; fixtureasserts thesecounts but no fixtureexecuted.",
+  "qualifications": [
+    "No native renderer/benchmark/report written by project code; source only.",
+    "Cambered8triangles/fullsource leaf remainscorrect; accepted75%flatcardselectionintentional and mustremain.",
+    "Sourcegeometryandmeshresidency diagnostics already recordactualretained count; use actual generatedmesh metadata atpublication ratherthanundoingreduction.",
+    "Archive alias search requested; no unique globalcount asserted."
+  ],
+  "connected_repair": "One retained mesh triangle authority captured whenCPUgeometryexists andcarriedwithcachedcluster tospawn/benchmark; avoidindependentrecomputed sourceleafmultiplier.",
+  "acceptance": [
+    "Published AlphaCard scene count equals actual generatedindexedtriangles for currentoak andbeech selectedsubsets, evenif leafcountnotdivisibleby4.",
+    "Preserve fullcamberedcounts, deterministic75%selection, scene-total versusvisibility semantics, andCPU-meshrelease behavior."
+  ]
+}

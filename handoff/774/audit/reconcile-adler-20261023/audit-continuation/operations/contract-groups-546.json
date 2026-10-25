@@ -1,0 +1,80 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-546",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-garment-code/src/measure/mod.rs",
+      "sha256": "dbbbf373f7069a15074d0e348f36707aa24f9125146cc3cb60579a75fd5e3452",
+      "actual_EOF": 791,
+      "actual_compared_ranges": [
+        [
+          1,
+          791
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-garment-code/src/measure/section.rs",
+      "sha256": "be4a376452c89f7275b6f7c4692168b16814d28e82539b5d76d13e2c0e02193f",
+      "actual_EOF": 356,
+      "actual_compared_ranges": [
+        [
+          1,
+          356
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Measurement scan progress",
+      "finding": "SEGOVB-04-MEASUREMENT-SCAN-PROGRESS-CANDIDATE-001",
+      "evidence": "Finite translated mesh floor1e9cm, topfloor+128cm passes height>50 and step=.256cm. Finite hip landmarks yfloor+64cm give hip_joint that same value; waist from hip+height*.01 and to hip+height*.18 both round to same f32y. scan whiley<=to holds and y+=step leaves y unchanged forever. Section computation returns finite vectors or empty but does not change loop guard. Source-level admitted API counterexample, no run.",
+      "qualification": "Large translation with ordinary128cm span; no actual current anatomical asset/caller incidence. API documentation says floor wherever and no centering required. Need canonical relative-coordinate iteration or explicit representable-progress error, not arbitrary geographic/world clamp. Exact archive alias pending, no global unique count."
+    },
+    {
+      "contract": "Cross-section and hull termination",
+      "evidence": "Crossing treats planezero asMINPOSITIVE deliberately for consistent side; assemble marks each segmentused and terminates, permits openbroken loops by documented policy. Hull monotone chain finite input cardinality, winding loop increments modulo finite len and starts validindex. key quantization to i32 saturates on large translated cm coordinates and collapses spatial identity; related coordinate representation question, no ordinary witness promoted independently. Nonunit/zero arbitrary flatten normal may divide0 but actual limbs normalize above1e-3 and horizontal/sagittal fixednormals."
+    },
+    {
+      "contract": "Measurement numeric admission",
+      "evidence": "Public measure only rejects empty and height<=50/nonfinite; face membership, landmarks frame/finiteness and bodyshape remain accepted03 admission dependencies. Extreme norm/centroid products can overflow rawf32, but no actual ordinary finite-input measurement loss established beyond progressfinding. Local Body filledall26measurements theneval prevents inherited incompletebuilderpanic inthisactualcaller. No sourcefixes or visual/bodyfit acceptance inferred."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-MEASUREMENT-SCAN-PROGRESS-CANDIDATE-001",
+      "source_id": "pr-working:crates/fabelgeist-garment-code/src/measure/mod.rs",
+      "sha256": "dbbbf373f7069a15074d0e348f36707aa24f9125146cc3cb60579a75fd5e3452",
+      "ranges": [
+        [
+          131,
+          162
+        ],
+        [
+          191,
+          210
+        ],
+        [
+          252,
+          283
+        ],
+        [
+          421,
+          464
+        ]
+      ],
+      "counterexample": "Finite translated mesh floor1e9cm, topfloor+128cm passes height>50 and step=.256cm. Finite hip landmarks yfloor+64cm give hip_joint that same value; waist from hip+height*.01 and to hip+height*.18 both round to same f32y. scan whiley<=to holds and y+=step leaves y unchanged forever. Section computation returns finite vectors or empty but does not change loop guard. Source-level admitted API counterexample, no run.",
+      "qualification": "Large translation with ordinary128cm span; no actual current anatomical asset/caller incidence. API documentation says floor wherever and no centering required. Need canonical relative-coordinate iteration or explicit representable-progress error, not arbitrary geographic/world clamp. Exact archive alias pending, no global unique count.",
+      "connected_contract": "Enumerate bounded scan sample indices in relative height frame or detect representable advancement before loops; coordinate body/landmark frame consistently. Cover upward/downward scan, split_below, underbust, split_two_legs and neck_base; preserve fixed relative resolution/fallback level policies.",
+      "acceptance": "Every accepted nonempty finite body with positive height scan terminates within explicit sample bound or structured error; translation must not silently consume progress. Normal cm units, anthropometric level selection and fallback semantics preserved."
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/fabelgeist-garment-fit/src/lib.rs"
+}

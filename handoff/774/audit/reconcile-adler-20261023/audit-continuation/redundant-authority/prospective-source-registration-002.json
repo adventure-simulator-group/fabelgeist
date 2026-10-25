@@ -1,0 +1,23 @@
+{
+  "id": "CONT07-REG-002",
+  "at": "2026-10-23T19:20:19.066950+00:00",
+  "status": "prospective before actual method-body analysis",
+  "source_id": "native-dependency:bevy_render-0.19.1/src/storage.rs",
+  "origin": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_render-0.19.1/src/storage.rs",
+  "sha256": "dcce6f3140c253231a106b1343c0dfa5e78e3175a78e9e78863e65ee3764b35a",
+  "actual_EOF": 231,
+  "requested_material_roles": "ShaderBuffer::set_data and GpuShaderBuffer::prepare_asset allocation/reuse behavior, including directly necessary struct/bindings/RenderAsset signature definitions. Exact bounded production ranges to follow before semantic analysis; unrelated storage features/tests excluded.",
+  "dependency_pin": "Frozen6533 Cargo.lock bevy_render0.19.1 registry checksumfc86a32b2eef9859e1e7d323c6d1a9150fe77aa17c30fd05abebc12f645929dc",
+  "reason": "Immediate native cache lifecycle needed: CityFrame.install updates same frame_buffer AssetId; CityScratch.prepare keys only buildings AssetId. Must determine whether native ShaderBuffer set_data reuses allocation or replaces it, which determines bind-group validity under supported reanchor.",
+  "scope072_membership": "not a current catalog source role",
+  "coverage": "no actual method bodies read yet; all-lens global new-material reconciliation pending",
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "requested_material_ranges": [
+    [
+      1,
+      231
+    ]
+  ],
+  "range_reason": "The entire231-line module contains ShaderBuffer source constructors/mutation and the directly owning GpuShaderBuffer RenderAsset lifecycle; full cohesive native storage adapter registered before body display."
+}

@@ -1,0 +1,39 @@
+{
+  "recorded_at": "2026-10-21T00:39:03.564295+00:00",
+  "base": "807ab138a2dcbee4707095b87731bf7a063a7af7",
+  "first_failure": {
+    "run": 39519429750,
+    "job": 118959359642,
+    "stage": "Lint tactical client WASM target",
+    "evidence": "P06-hosted-807a-wasm.log"
+  },
+  "status": "Plan before source edits; three unaccounted ground consumers contradict the earlier completeness claim. P06 remains unaccepted.",
+  "steps": [
+    {
+      "owner": "movement_audio.rs",
+      "action": "Admit canonical Position<Scene> once at each actual GlobalTransform event producer. Carry it through variant, rustle, proximity and spatial-seed helpers, projecting only in native vector proximity, seed bit framing and Bevy Transform. Use the infallible canonical Position<Scene> -> ScenePlanPoint projection for ground queries. Preserve seed labels/context order/draws and every valid float bit."
+    },
+    {
+      "owner": "weather_audio.rs",
+      "action": "Produce Option<ScenePlanPoint> directly from the native listener transform and pass it to ground_at. Preserve the existing no-surface rain-bed classification. Move existing UnitBasisPoints intensity projection into the complete rain-mix calculation; adapt the existing 0/1/0.8/0.42 fixture representations without adding cases."
+    },
+    {
+      "owner": "presentation/terrain/ground_map.rs and consumers",
+      "action": "Admit each complete native grid-to-scene pixel coordinate with ScenePlanPoint::try_from. Propagate GeometryError from required coordinate admission through raster/mask/material preparation. Retain natural sample fallback only after a valid query returns no urban overlay. Complete each relevant image/mask before publishing affected resources/entities. Adapt existing fixture calls, not their numerical inputs or assertions."
+    },
+    {
+      "owner": "query caller reconciliation",
+      "action": "Reconcile ground_at, urban surface_at, refined, rewrite_heights and cover_intersects_square references, including unchanged tests and actual receivers. The unchanged late-vista refined callback still uses the old Vec2/f32 signature and must be adapted using checked point/support leaves with the same formula."
+    },
+    {
+      "owner": "hosted validation",
+      "action": "Preserve all 39 current cells and sixteen Creator vectors. Add the two existing weather-audio cases as one additional required weather-audio cell because this newly affected path was not selected by movement_audio::. Keep ignored production/offline limits explicit. No new tests or local project tools."
+    }
+  ],
+  "limits": [
+    "Do not claim all SceneGround metadata/serde/reflection or audio configuration fields migrated. Only the connected coordinate, required-raster-admission and checked intensity handoffs are covered.",
+    "UnitBasisPoints has preexisting transparent derived deserialization; the production weather path explicitly constructs it with saturating. Do not introduce an infallible conversion that assumes every possible UnitBasisPoints instance is validated.",
+    "Only existing tests may be adapted; no new cases, assertions, helpers, full audit wave or agents.",
+    "All twenty original exits remain intact; no merge or Goal completion."
+  ]
+}

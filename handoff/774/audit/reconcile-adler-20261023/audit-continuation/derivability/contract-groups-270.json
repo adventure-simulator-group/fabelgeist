@@ -1,0 +1,202 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-270",
+  "at": "2026-10-25T14:19:41.174376+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 537,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/axle.rs",
+      "sha256": "a52c5fbd5d1c089183621dc0e4129831ea4182d070a79b627be7cdf00dc9c4bc",
+      "actual_EOF": 123,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/axle.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-building-generator/src/axle.rs",
+        "sha256": "a52c5fbd5d1c089183621dc0e4129831ea4182d070a79b627be7cdf00dc9c4bc",
+        "bytes": 4460,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-root-receivers-011.json",
+            "ranges": [
+              [
+                1,
+                123
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-SUPP-STRATEGIC-005"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+            "row": 137,
+            "read_ranges": [
+              [
+                1,
+                123
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-RESOLVED-SHAPE-PORTS-075"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/axle.rs"
+          },
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 468,
+            "read_ranges": [
+              [
+                1,
+                123
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-ARCH-BELL-COLLISION-071"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/axle.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root",
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 138,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          123
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "No local Rust type/trait/Serde implementation.",
+      "absence_basis": "Full123-line exact PR axle source and fixtures consumed. Native rotations, explicit mesh triangulation and checked inscribed collision cuboid generation are semantic functions, not mechanical traits. Fixtures read, not executed; mesh/CollisionCuboid owner source separately scoped."
+    },
+    {
+      "scope_index": 538,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/bell.rs",
+      "sha256": "5ec0558f29b7b43440811dbf37b2648d9096a07f66e7ab0eff5a00e78eee6ea5",
+      "actual_EOF": 205,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/bell.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-building-generator/src/bell.rs",
+        "sha256": "5ec0558f29b7b43440811dbf37b2648d9096a07f66e7ab0eff5a00e78eee6ea5",
+        "bytes": 7546,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-root-receivers-011.json",
+            "ranges": [
+              [
+                1,
+                205
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-SUPP-STRATEGIC-005"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+            "row": 138,
+            "read_ranges": [
+              [
+                1,
+                205
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-RESOLVED-SHAPE-PORTS-075"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/bell.rs"
+          },
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 469,
+            "read_ranges": [
+              [
+                1,
+                205
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-ARCH-BELL-COLLISION-071"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/bell.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root",
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 139,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          205
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "No handwritten Rust trait or serializer.",
+      "absence_basis": "Full205-line exact PR bell source and fixtures consumed. Authored section, rendered hollow bell/clapper, native collision chords/crown and shape_for_role gameplay/material classification semantic. Do not add serialization to replace runtime classifier; owner native builders/shape codecs separately scoped."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Shared architectural rendering/collision shape kernels",
+      "disposition": "Function-only geometry/material/native boundary behavior, no derivability replacement.",
+      "acceptance": "Preserve native orientation/units/checked error/multiple-output behavior and explicit role classification. No independent geometry safety/pass or tests/build/runtime claim."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 539,
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/collision.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

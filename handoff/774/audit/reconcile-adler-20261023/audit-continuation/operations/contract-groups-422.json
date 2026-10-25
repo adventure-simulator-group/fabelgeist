@@ -1,0 +1,126 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-422",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers.rs",
+      "sha256": "f57dcb58da364002292182c580ca197bfaa3ad85fc820f2dc6ce95d078b25dc0",
+      "actual_EOF": 193,
+      "actual_compared_ranges": [
+        [
+          1,
+          193
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers_tests.rs",
+      "sha256": "3ffe851b3adc14ac721684061b3d858a69bdf83e8114530b5f8c2639cda5dcdd",
+      "actual_EOF": 62,
+      "actual_compared_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/mesh_tests.rs",
+      "sha256": "469e30265983c8cf91c3a69cd688876287af3f9ba0efb71f2800256415e23933",
+      "actual_EOF": 137,
+      "actual_compared_ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/meshes.rs",
+      "sha256": "6a50a68295abda59aac92334c8dbb8a78d1d363d9ae39dd86ca676d57754164e",
+      "actual_EOF": 160,
+      "actual_compared_ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/morphs.rs",
+      "sha256": "166a50824e9c051fa93ab7ce03790a3e36f362ad1b2326c98ce4e1da7fe7490c",
+      "actual_EOF": 77,
+      "actual_compared_ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/rig.rs",
+      "sha256": "376e2b436adccb5e961cafbb25082a1e38c1cabe2e56d0d9ccbada3fa69a1a7b",
+      "actual_EOF": 190,
+      "actual_compared_ranges": [
+        [
+          1,
+          190
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/rig_tests.rs",
+      "sha256": "4361cea596a62d622535d10bf3c8e217573ebb98a64ec6dee0ac5e28a95eb2da",
+      "actual_EOF": 161,
+      "actual_compared_ranges": [
+        [
+          1,
+          161
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/sockets.rs",
+      "sha256": "a45cb5eedc27be4cfec5bdd354ffbd7db75dc898d4a3f5dd1e06044c3fe47936",
+      "actual_EOF": 89,
+      "actual_compared_ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Deterministic equipment layer dependencies",
+      "analysis": "LayerSelection equality/hash/order consistently use item+placement; OutfitPlan sorts/deduplicates before constructing LayerPlan and resolves requested membership through binary search. Support keys retain lower ancestor fits and wearer shape; next_fit recursively selects missing innermost support and propagates cached failures. Termination depends on LayerPlan admitted DAG, not arbitrary recursive input. Actual tests personally read cover order independence, unrelated limb exclusion, innermost rebuild and error propagation; not run."
+    },
+    {
+      "contract": "Generated material meshes and rigid origin",
+      "analysis": "Partitions preserve source face material and compact per-draw vertices, preserve UV and strongest-four skin mapping; native-u16 joint narrowing rejects before publishing that mesh. Referenced center uses only referenced vertices, but (min+max)*.5 can overflow finite same-sign extreme coordinates and empty indices yield NaN. No admitted generator/current asset witness established here; retain generator-contract dependency rather than claim ordinary rendering failure. Earlier successful mesh/material assets can be allocated before a later partition rejects; no ECS replacement attaches until whole collection succeeds, so abandoned assets are not asserted as a published mixed fit."
+    },
+    {
+      "contract": "Morph and fitting rig operations",
+      "analysis": "Morph dimension mismatch rejects before body writes; dimensions assume nonempty admitted canonical body (body extraction requires positive finite height). Native morph accumulation/normal normalization and skeletal matrix multiplication, offsets, weighted sums and inverse matrices lack completed finite readmission here. This supports accepted Native05F012 skeletal-basis finite overflow concern; finite basis does not bound sums. Actual body preparation is a clone committed only after generation pipeline success; no current bad asset proven. Rig parent duplicate rejection and bounded global traversal reject cycles before fit ancestor correction walks; global joint table/count consistency remains producer prerequisite. Foot-root lift intentionally affects pelvis descendants but not body_world, with coupled morph/skin fixtures personally read, not run."
+    },
+    {
+      "contract": "Carry socket surface extraction",
+      "analysis": "Missing equipment/root/geometry or unsupported/absent location/tangent skips a socket. Normalized tangent uses fallible try_normalize. Surface selection intentionally scores existing referenced vertices near waist rather than exact surface ray intersection; midpoint and score arithmetic still require admitted finite-scale geometry. Socket local transform is derived relative to body root bind; no arbitrary unit/positive narrowing imposed. Opposite belt fixture personally read, not run."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "8 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/equipment/skin.rs"
+}

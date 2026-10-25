@@ -1,0 +1,38 @@
+{
+  "id": "CONT08-CONTRACT-395-PARTIAL",
+  "at": "2026-10-25T17:56:10.380059+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 1356,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation/procedural.rs",
+      "before_sha256": "344e229759ee5afad015b4ff72ecf35eb8cc3b83bf3cfdb6df805db6ede33cc0",
+      "after_sha256": "8b82644fdbb52e00c1b40a850239bb273c956668c89805efae19800b35f42487",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1356-base-344e229759ee5afad015b4ff72ecf35eb8cc3b83bf3cfdb6df805db6ede33cc0",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/8b82644fdbb52e00c1b40a850239bb273c956668c89805efae19800b35f42487",
+      "diff": "source-evidence/pr-1356.diff",
+      "diff_sha256": "03c7de1478068f26c5ce087195fa9ba7635fb72cdbd3fab763e58213e481a4ef",
+      "actual_head_body_read_ranges": [
+        [
+          1,
+          1813
+        ]
+      ],
+      "actual_diff_read_ranges": [
+        [
+          1,
+          1998
+        ]
+      ],
+      "status": "Whole1356head1813+actualdiff1998 read. Connectedheight/bodyresponse/sample-state/IK/rig children pending; nofullrolecredit.",
+      "facts": [
+        "Actualfixedtickcache/look/anticipation/mirroring/locomotionheight/landingcompression andallretainedfixturebodies read. Needsoldnewdiffcomparison andmaterialheight/bodyresponse/IK/rig children beforefullrolecompletion. No nativeframe/runclaim.",
+        "Successfullook/anticipation/mirror/rootheight/plantdiscontinuity paths andallchangedfixtureadapters compared. Oldheightstate/helperbodiesremoved intoheight/sample_state; changedlandingsegmentmeasurement/admission+geometry errors nowwarnskip; preserve nativeoldkernelcomparisons atchildfrontier. Removeddive/support/settlefixtures notassumeddeleted: confirmactualmovedchildren beforeclosure."
+      ]
+    }
+  ],
+  "next": "1357bodyresponse/1358target/1359values/1360clock/1361dive/1362height/1392sample_state +lowerIK contracts"
+}

@@ -1,0 +1,84 @@
+[
+  {
+    "id": "RIG-METADATA-02",
+    "source_cells": [
+      1
+    ],
+    "status": "complete-non-applicable",
+    "evidence": "Full manifest1-79 is native Cargo package/dependency/feature/profile/lint configuration. Shared rig and geometry edges18-19 link actual canonical application owners; no application value producer admitted here."
+  },
+  {
+    "id": "RIG-CLOTHING-OVERLAY-01",
+    "source_cells": [
+      175,
+      176
+    ],
+    "status": "source-read-full",
+    "evidence": "Exact complete overlay delta of clothing175 versus fully read22 moves unchanged aggregate input validation into actual helper17611-37. Geometry validated_placeholder_faces42-62 identical to prior source28. No new raw conversion/admission introduced by extraction."
+  },
+  {
+    "id": "RIG-DEVICE-FIT-01",
+    "source_cells": [
+      9,
+      10,
+      11,
+      13,
+      14,
+      15,
+      16,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39
+    ],
+    "status": "incomplete-connected-receivers-pending",
+    "operations": [
+      "armor_frames::FittingPlacement::from20-28 decodes raw external catalogue placement spelling to semantic side. Input is already bound CatalogPlacement; coordinate owning placement semantics/type with RIG-PP-005 and later existing-owner/granularity lenses before judging independent duplicate role. Side::sign only consumed by numerical device-sign/geometry kernels.",
+      "Wearer::support_indices_for192-228 retains typed packed ordinals and same-count checks, indexes typed membership tables, returns native vertex slots into actual geometry/support shader buffers. ForearmSurfaceInput::validate85-117 retains typed names, error owner, same-table cardinality, typed sets; no ordinal peel.",
+      "ArmorLayerSurface::from_generated18-53 selects morph by raw String name retained consistently through morph pipeline; topology/native vertex bounds checked; packed skin borrowed unchanged. No new bespoke morph owner currently reached on this read, inventory remains for later string lens.",
+      "Armory Exhibit placements retain OwnedCatalogPlacement throughout exhibits406-430 and fit_exhibits440-485; errors132-142 id extraction ends actual UI label armory_ui121-123/176-177; scene name81-85 feeds actual Bevy spawn name; editor item_id162 only feeds actual labels/errors167/209, while set_default207 takes bound CatalogItem. Selection indices and geometry wall transforms use actual native UI/Bevy/math operations.",
+      "armor_metal scale_to_metal_density39-62 peels native vertex slots into geometry arrays and calculates native UV scale; trim unit getters feed actual GeneratedArmor trim/UV numerical kernel (owning trim bodies pending). All existing198-line fixtures read.",
+      "device_bracer::generate53-142 retains typed lowarm/wrist; typed membership->u32 immediate BufferUpload93-95. record_support147-181 passes typed ordinals to canonical uniform adapter; embedded shader209-240 consumes those native uniform words and packed8 slots, flags coincident landmarks, weights order preserved.",
+      "device_chausses embedded CAGE25-225 uses explicit Section.present and cursor/candidate presence; payload reads gated; numeric float math/NaN/tie comparisons read. Typed joints251-253 go only uniform adapter; design clearance/thickness262 are native uniform arithmetic into actual shader gap221-222.",
+      "device_clearance style_words47-94 peels design unit/length getters into native style-word array, then197-199 actual uniform values; raw ClearanceFit clearance/thickness99-100 are retained across internal API before uniform194, original producer/callers + actual included wgsl sibling pending.",
+      "device_coif design_words299-309 use unit/metres directly into BufferUpload324 and actual embedded WGSL44-209 consumes values. Typed joint ordinals312-314 only canonical uniform adapter; actual readback carrier229 reads native buffer into XYZ geometry; included section WGSL still queued.",
+      "device_equipment::fit_body30-39 and wearer41-48 retain checked same-source columns into FitBody/Realization. Realization::upload49-68 checks same bound and forwards to GpuBody; actual cache DeviceBody owner still queued. DevicePiece holds typed Skin through readback read176-228, assemble443-510 retains skin into GeneratedArmor then skin_rules::attach.",
+      "device_fit morph name as_str79 ends internal exact association/serialized morph label, no canonical typed identity currently reached. fit_piece records wearer then morphs in originalorder; read checks statuses before assembling body. suspended_waist has concrete Code failure RIG-CODE-001.",
+      "device_foot_frame 1-323 native GPU frame operation includes exact host_float numerical shader producer/consumer; typed landmark Ord only uniform. Membership->u32 immediate BufferUpload188-194. Finite/orthonormal statuses correspond actual shader finish.",
+      "device_foot_sections 1-414: typed membership becomes bitmask52 directly uploaded68; all raw masks/counts native WGSL bit packing/kernel dispatch. Ordered float conversion29-36 initializes actual atomic buffer words. Full embedded support/point/bounds/sections kernels consume those same layouts.",
+      "device_frames/landmarks FrameLandmark explicit Joint/Unused38-40; typed lookup same table86-88; .device_word60 only actual uniform write device_frames201 or exact existing ABI fixture assertions. Rule/side getters are actual device code/sign writes199/203. DeviceFrame::read84-95 is actual device XYZ readback into native PartFrame. Underlying passes WGSL owner pending.",
+      "Existing armor support, metal, armory UI and frame synthetic fixtures fully read without execution or modification. Fixture-only empty metadata is not evidence of aggregate coherence."
+    ],
+    "receivers_pending": [
+      "fabelgeist_armor gpu/body and bracer/breastplate actual storage/readback endpoints",
+      "device_frames/passes.rs and embedded device_coif_sections.wgsl actual full bodies",
+      "device_clearance/wgsl actual consumer and original clearance producer/callers",
+      "Remaining fit recipe/underlayer/garment/native geometry/kernel receivers",
+      "DeviceBody retained upload cache owning implementation"
+    ]
+  },
+  {
+    "id": "RIG-CODE-001",
+    "status": "actionable-source-finding",
+    "lens": "Code discovered during producer-propagation",
+    "source_cells": [
+      34
+    ],
+    "location": "device_fit.rs310-367 suspended_waist, call305",
+    "scenario": "suspended_waist returns DevicePiece314 but uses fallible skin.append(tassets.skin)?357. The non-Result return cannot propagate this error; actual caller305 wraps result in Ok.",
+    "smallest_connected_repair": "Make whole suspension composition return Result<DevicePiece>, propagate checked append incompatibility, adapt actual fit_recipe_async caller without unwrap/discard. Preserve geometry order/arithmetic and existing cases.",
+    "dependencies": [
+      "Skin::append actual owning Result contract (full owner pending)"
+    ],
+    "acceptance": "Source return type and all callers propagate actual append error consistently; existing geometry and morph behavior unchanged.",
+    "coordinator_notified": true,
+    "validation": "not executed"
+  }
+]

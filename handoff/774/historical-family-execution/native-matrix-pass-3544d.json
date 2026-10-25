@@ -1,0 +1,28 @@
+{
+  "head": "3544d8e99f1d9f765a813cc71b56f089e31c5118",
+  "run": 39452715702,
+  "job": 118731479728,
+  "native_step": "Run Clippy with warnings denied",
+  "native_step_status": "completed",
+  "native_step_conclusion": "success",
+  "commands_rechecked_in_current_source": [
+    "cargo clippy --workspace --all-targets --all-features -- -D warnings",
+    "cargo clippy --locked --manifest-path crates/adventuresim-character-creator/Cargo.toml --all-targets --all-features -- -D warnings",
+    "cargo clippy --locked --manifest-path crates/fabelgeist-mhr/Cargo.toml --all-targets --all-features -- -D warnings",
+    "cargo clippy --locked --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml --all-targets --all-features -- -D warnings"
+  ],
+  "native_result_observed_twice": true,
+  "revision_guard_step": "Record rig contract revision completed successfully before shared rig tests",
+  "selected_steps_completed": [
+    "Test constraint graph and shell consumers",
+    "Test shared rig contracts",
+    "Test autoresolve battle-time consumers",
+    "Test MHR rig admission"
+  ],
+  "current_live_step": "Test creator rig family contracts",
+  "constraint_artifact_verification": "constraint-artifact-verification-3544d.json",
+  "constraint_unit_executions": 67,
+  "constraint_doctest_executions": 5,
+  "scope_limit": "Native matrix proves compilation/lint coverage, not the remaining required behavioral cells or final baseline verification. Rig/autoresolve step passes await nonempty result artifact inspection. Full family acceptance remains pending.",
+  "observed_at": "2026-10-20T16:25:16.596543+00:00"
+}

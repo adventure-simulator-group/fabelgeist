@@ -1,0 +1,14 @@
+{
+  "contract_ref": "contracts-061.json",
+  "pending": [
+    {
+      "subject": "Defender contact selection tuple",
+      "sources": [
+        2032,
+        2034
+      ],
+      "evidence": "Actual result match selects armor (false,true), Block (true,false), parry/default(false,false) beside slot/item/stress payload. Native is_shield/is_armor are measured component predicates, independent from semantic selection.",
+      "untraced": "Resolve_weapon_defense_alignment and actual melee record publication before asserting Block-with-weapon loss; no ordinary contact-loss verdict yet. Concrete selector must retain exact item-ID precedence, generic slot fallback and no-contact absence."
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "id": "RIG-INITIAL09-GROUP-009",
+  "at": "2026-10-23T12:44:32.230063+00:00",
+  "lens": "audit-enum-shapes",
+  "scope": "cumulative-source-scope-parallel-072.json",
+  "groups": {
+    "commit-observation": {
+      "comparison": "Fresh12. commit_attack_to_defense compares current action_kind and resets actual ActionState onlywhenAttack; returnedcommitted is ordinary immediate observation of whethertransition occurred, not a retainedmodeflag or neighboringoptionalpayload. Existing ActionState definition/currentalltransitions still separately queued, no inferencefromdefault name.",
+      "disposition": "Ordinary named transition-resultpredicate; no new enum needed"
+    },
+    "calibration-numeric": {
+      "comparison": "Freshcalibration57/ik64/phase_response52. Scale andintervalcount are refined continuous/discretequantities, no tag/payloadchoices. SettleProgress finite signed supportsnegativeauthoredresponse; COMPLETE/is_complete is scalarprogress test, no separateinitialized/settledboolstored. PhaseCorrectionRate andErrorLimit allow0 and>1 appropriately, notunitprobabilityordisabledtag. Existing Result owns errors withoutsentinelrawvalues.",
+      "disposition": "Continuous refined values and computed predicates appropriate"
+    },
+    "contact-history": {
+      "comparison": "Fresh contact55/event_span81/landing61. Sequences wrappingwordidentity versus events counts/positivebudgetare distinct numeric roles. Optional events_since/preceding are checkedcoordinatearithmeticavailability, not a retainedflagwithmissinghistory. is_successor/is_even/is_zero/contains areordinarycomputedpredicates. LandingImpactSpeed is retainedobservedmagnitude includingzero, not an activelandingtag; actual owningstate/event relationship notinferredfromthesedefinitionsalone. No exclusivecontactversuslanding assumption.",
+      "disposition": "Numeric history/count products, no redundant initializationflag intheseowners"
+    },
+    "continuation-product": {
+      "comparison": "Freshcontinuation112. AttackContinuation groups startcoordinate+incomingtangent as complete currentobservation, withno flag/optionalunusedmember. Readiness is strict0..0.5 coordinate not readinessbool, tangentfinite>=0 independentderivative; customdeserialize finite negative normalization intentional. Howparentstate chooses continuation remainsseparatescope, not automaticallycleared.",
+      "disposition": "Complete variant productalreadyexists; parent conditionalshape remainsqueued"
+    },
+    "controller-contact": {
+      "comparison": "Fresh26. GroundContact Grounded/Airborne is actualbinarycontrollerobservation, booladapter maps trueexactlyGrounded. Explicitlydistinct richerdowned-body support; FromSkeletonState queriespredicate. No neighboringoptionalpayload or reflectedflatduplicatehere.",
+      "disposition": "Existing semantic enum with explicit nativepredicateadapter appropriate"
+    },
+    "motion-policies": {
+      "comparison": "Fresh77. DownedMotion Resting/Turning andGuardedLocomotion Footwork/Sprint areindependentcarriedpolicies, each explicitboolSerde/inverse mapping. JumpAnticipation Inactive/Charging separatepresentationpolicy, no authoritativeposture/speed change. MovementPace Walk/Jog bothtranslateFootwork; notneedretainirrelevantfullpaceinthisview. No redundantbooleanalongsideenumsinsidefile or forcedsumacrossindependentaxes.",
+      "disposition": "Existing modeenums and realboolboundary mappings correct"
+    },
+    "open-family": {
+      "comparison": "Fresh24. SkeletonFamily openauthoredCow string, humanoid onlyconstantnotclosedroster. No tag/optionalpayload/semanticboolhere; replacingwithclosedHumanoid enum wouldwronglynarrowfutureauthoredrigfamilies. Type ownership/cacheprovenance separatefromenumshape.",
+      "disposition": "Open identityvalue intentionallynotclosedenum"
+    }
+  },
+  "finding_refs": [],
+  "limits": "All original scope/context exclusions retained; no whole caller/nativepackage credit."
+}

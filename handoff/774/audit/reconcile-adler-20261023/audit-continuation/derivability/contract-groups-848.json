@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-848",
+  "at": "2026-10-25T17:00:30.151827+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1063,
+  "source_id": "pr-working:crates/adventuresim-puzzles/src/puzzles.rs",
+  "sha256": "e3eb46b050e02df31df84a6d18ded142d748383d0e9611c55bc720d086bbbfbe",
+  "actual_compared_ranges": [
+    [
+      1,
+      300
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "All puzzle dispatch/request/spec/authority/projection/submission/error records already derive structural/appropriate tagged Serde. Native kind slug/find/standard generation, private-to-observer projection, replay, validation and matching-kind submission dispatch express semantic ownership/policy. No handwritten trait/codec in consumed range; do not add runtime serialization just to replace variant classifiers."
+  ],
+  "first_unfinished": {
+    "scope_index": 1063,
+    "line": 301
+  },
+  "execution": "none"
+}

@@ -1,0 +1,63 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-091",
+  "at": "2026-10-23T01:35:56.072102+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement/gardens.rs",
+      "sha256": "7194841c344f694469815ebb3e0ac44331b6b0dffe29fd41ebfd096e08f0bc3e",
+      "scope044_index": 1853,
+      "actual_EOF": 227,
+      "scoped_ranges_compared": [
+        [
+          1,
+          227
+        ]
+      ],
+      "actual05_comparison": "Fresh full227 existing acceptance/helper source-only, notrun; ignoredproductionexport requirement explicit. Test constructs generatednear+distantbuilding recipe/collision fromsameplacement andretains shape+building in OccupiedBuilding. Actualwalker installs fullnearbyterrain/building/outdoor/enclosure collision withsameposes, selected gateopen/othersclosed policy explicit. Garden visits require nonemptyobservations, complete targetcount andallvisitedpasses; firstfailure stops. Report explicitly centreline entry/tending/return, fullwidth/soil checksseparate, so no universalaccessproof. Indexed gardenaccess[0..2] presupposes actualproductionrecipe roster (validate_geometry onlynonempty doesnotaloneprove>=3); no generic arbitraryacceptedgarden harness safety claim. Partialworldinstallation acceptabletestlocal state, no productionatomicity inference.",
+      "source_body_proof": "Fresh complete originalexisting acceptance/helper source only; no environmentaccess, projectexecution, tests or newcases."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement/production.rs",
+      "sha256": "5f93404e0fc4e5bcc3c452fd4874298568fb5b933a531c09430b006ebb0e6e17",
+      "scope044_index": 1855,
+      "actual_EOF": 123,
+      "scoped_ranges_compared": [
+        [
+          1,
+          123
+        ]
+      ],
+      "actual05_comparison": "Fresh full123 existing ignoredproductionexport test, notrun. Actual compounddriver canonicalsortsproperties, matchesrequestedID, identifiesgatepassage fromactualgeometry, opensonlyselectedgate and retains otherfixedcollision. Requires complete twelve-targetvisit count plusnonemptyobservations/allpasses, no success fromemptyselectedscope. Indexed access1..4 is actualproductionfixtureprecondition, not proven by genericrawCityCompound Vec. Report keeps centreline route/gatesweepseparate/unfurnished/vistafurniture-no-physics limitations explicit. No productionruntimeauthority or new testexecution.",
+      "source_body_proof": "Fresh complete originalexisting acceptance/helper source only; no environmentaccess, projectexecution, tests or newcases."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement/single.rs",
+      "sha256": "661dc3873537da23868c5366984c8aeed205db213413a8c3d4634f77e00eca49",
+      "scope044_index": 1856,
+      "actual_EOF": 199,
+      "scoped_ranges_compared": [
+        [
+          1,
+          199
+        ]
+      ],
+      "actual05_comparison": "Fresh complete199 source-only. Singlesdriver filters exactone-member surfaces, resolves actualmatchingbuildingID, compilesactualarchitecturalfloor entrances and canonicalsorts byID; explicitdoorcount == regioncount-1 BEFOREzip. Real singleproducer082 appendsaprons in samecanonicaldoororder; matchingcounts alone notprovenance. Edgeclearance subtractsactualactorradius+skin+contacttolerance beforethreeusablewidthtracks, entryANDreturn bothrequired. Diagnosticenvironment may intentionallychoosecentre/oneexistingtrack; noclaim alltracksrun fromsource. Nonemptyobservation andallpasses avoidemptyselectedsuccess. SeparateoriginalGoslarstair/steepface fixtures preservecollisiongrounding andactorsteeplimit, no relaxingmovementtofitstairs. Genericrawfixture/envindices remain explicitpreconditions, notapplicationingress.",
+      "source_body_proof": "Fresh complete originalexisting acceptance/helper source only; no environmentaccess, projectexecution, tests or newcases."
+    }
+  ],
+  "comparison_groups": {
+    "observation-completeness": "Nonemptyselectedscope andfulltargetcount plusallpasses, nocount-only/vacuousreport success.",
+    "fixture-roster-preconditions": "Explicitproductionrouteindex assumptions do not follow from genericnonemptyVec validation.",
+    "geometry-and-world-pose": "Sameactualretained collider/transform/buildingdatum used in testworld; no controller/nativealgorithm credit.",
+    "purpose-of-test-observer": "Centreline/fullwidth/gatesweep/unfurnished/vistaphysics limits keptsource-specific."
+  },
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Originalmovementparent/controller fixturebody and remainingcurrentinventory unread; no producedruntimeacceptanceclaimed."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

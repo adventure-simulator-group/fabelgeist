@@ -1,0 +1,33 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-650",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        1460,
+        1461,
+        1462,
+        1463,
+        1464,
+        1465,
+        1466,
+        1467,
+        1468,
+        1469
+      ],
+      "comparison": "Fresh entirecamera185/aim94/collision339/fixtures296/config142/rig97/observation170/history105/smoothing269/values105. F414 namedmode, F415 complete sweep and F416 projection/defined screenobservation qualified. CameraRigState history Option already wholeobservedpose inclsubject/anchor/focus/velocities/boom/shoulder; initialization solelyobservedhistory, no redundantflag. Profileblend advances independently evenunavailablepose, intentional. Preparecloneshistory and commitsonly completeobservation, whileprofile independentlycommits; do not demand atomicity acrossindependentstate. Boom holdremaining actual countdown, distance/velocity always meaningfulthroughhold, no forced mode invalidatinghistory. CameraAim state Option complete ray+muzzleobservation; endpoints meaningful evenwithoutHit (rangeend) and independentrayhitidentities valid, no requirementbothhit. SoftOcclusion option ownsentity+point already. Native flags castsolid/queryhardobstacle and debugEnabled predicate appropriate boundaries; debugcapability independentlytoggleable. Blend continuousfraction andsignedderivative nottwo modes; sourcefixtures reversingblendretainmomentum. NativeQuat/Vec math kernel explicitreturnsadmittedtyped samples. Config checkedconstexpr literals no runtimepanicproof; public SignedLengthnegative safetyseparateadmissionlens, not mechanically enum. Genericview fallback and undefscreen qualifiedF416 no normalwitness. Source collisiontests use actualphysicsAPI but onlyread, neverexecuted.",
+      "finding_refs": [
+        "SEGO-INITIAL09-F414",
+        "SEGO-INITIAL09-F415",
+        "SEGO-INITIAL09-F416"
+      ],
+      "disposition": "Three qualifiedcamera semantic/observationcontract gaps; correctwholehistory retained"
+    }
+  ],
+  "new_findings": [
+    "SEGO-INITIAL09-F414",
+    "SEGO-INITIAL09-F415",
+    "SEGO-INITIAL09-F416"
+  ],
+  "limits": "Source-only discovery. Next1470 combat effects. No tests, repair or clearance."
+}

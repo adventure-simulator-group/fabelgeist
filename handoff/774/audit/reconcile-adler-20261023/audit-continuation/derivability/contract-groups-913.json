@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-913",
+  "at": "2026-10-25T17:13:48.440438+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1106,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/lot_inventory.rs",
+  "sha256": "28b22445ed307bc12de78b72d95df5b4325ba47ad3403f45292bb0c5b6efb87b",
+  "actual_compared_ranges": [
+    [
+      1,
+      360
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Prefix stable material-object admission, typed food catalog expansion, explicit lot/provenance creation/deletion, checked retention revisions, split conservation and personal/party movement consumed. Native functions only; no handwritten trait/codec. Recipe expansion, contextual quantity and retained authority are semantic operations.",
+  "first_unfinished": {
+    "scope_index": 1106,
+    "line": 361
+  },
+  "execution": "none"
+}

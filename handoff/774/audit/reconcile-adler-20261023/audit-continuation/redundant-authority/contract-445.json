@@ -1,0 +1,53 @@
+{
+  "id": "CONT07-CONTRACT-445",
+  "at": "2026-10-23T21:58:48.898815+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1962,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/terrain_transition.rs",
+      "sha256": "df252469b9538a750abdbc7646c7cb240e14f41a73eb79e640670ab4be6dda90",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/terrain_transition.rs",
+      "actual_EOF": 200,
+      "ranges": [
+        [
+          1,
+          200
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1963,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/terrain_transition/admission.rs",
+      "sha256": "b5fd9a68595105294678fd91c0f3c492e18e5d71d72be01dc8fe7b235f8f25a8",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/terrain_transition/admission.rs",
+      "actual_EOF": 41,
+      "ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "RIG-OWNER-EROSION-RECIPES-065 full narrative including chronological limits/current closure qualification",
+    "ROOT-PPS-VOLUMETRIC-COLLAR-027 full narrative excluding source_proofs"
+  ],
+  "facts": [
+    "1962 TerrainTransitionCollar privately retains seed and derived three noise seeds. Constructor and wire admission both derive noise seeds from the supplied seed; skipped Serde does not admit an independent stale cache, and no mutation setter exists. Equality includes deterministic derived seeds. Cache alone is not a defect.",
+    "1962 cuts_out strict radial<1 versus contains inclusive<=1 is explicit boundary policy; outside_length is an early rejection using same longitudinal axis, while wander changes transverse only. No competing ownership predicates inferred merely from strict/inclusive role.",
+    "1962 typed parameter constructor peels checked tangent/units, whereas wire accepts raw encoded tangent then checks PlanDirection::from_normalized without renormalizing. Fresh actual recipe normalization and raw-quantized/collar relationship remain queued1968; no inherited supplier verdict about same behavior.",
+    "1963 variation<=5000 and nonnegative wander leaf admission agree with private aggregate valid today. Aggregate also requires half dimensions greater than collar width. These are distinct relational and leaf bounds; no concrete divergent admitted current value in this batch."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1965,
+    "start_line": 1
+  }
+}

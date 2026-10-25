@@ -1,0 +1,13 @@
+--- PRbase/crates/adventuresim-character-creator/src/garment/validation.rs
++++ frozen/crates/adventuresim-character-creator/src/garment/validation.rs
+@@ -164,9 +164,9 @@
+             positions: vec![[-0.1, 0., -0.01], [0.1, 0., -0.01], [0., 0.1, -0.01]],
+             faces: vec![[0, 1, 2]],
+             normals: vec![],
+             texcoords: vec![],
+-            indices: vec![],
++            indices: Default::default(),
+             weights: vec![],
+             stage: DrapeStage::Placed,
+         };
+         assert!(cloth.contact_issues(&body).is_empty());

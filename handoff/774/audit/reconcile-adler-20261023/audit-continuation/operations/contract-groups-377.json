@@ -1,0 +1,62 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-377",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/lifecycle/runner.rs",
+      "sha256": "8e66bfc1f9b0ca9fbf5210ffa925235c3a1965e8165b6992d35f0b5278c638ae",
+      "actual_EOF": 590,
+      "actual_compared_ranges": [
+        [
+          1,
+          590
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/config.rs",
+      "sha256": "7e192ef20631845534afb5f4060d45c4253271682e203f89ae3c83dec1b5687e",
+      "actual_EOF": 171,
+      "actual_compared_ranges": [
+        [
+          1,
+          171
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Offline lifecycle runner has bounded fixed horizon and reports its evidence limits",
+      "source_ranges": {
+        "lifecycle/runner.rs": [
+          [
+            1,
+            590
+          ]
+        ]
+      },
+      "disposition": "Whole590lines read. Fixed3yearhorizon, dailyadvanceboundarystrictgreaterwhilebeforeend includinglastpartialday, fixed17queue/batch4countbounded. BillingdelegatesCorechecked/intentionalpolicy andupdatesretainednextdue; supportsROOT04F046 terminaldueplan shared graph but thisrunnernormalfixedhorizonnowhereMAX. Weddingone-shotbool boundsincrements; jointleisureintersectsactual12..24and10..22samehome onceuntilconception, quantumplan/crossingminute retained; trialstateincludingpostsuccess remainder irrelevantbecausenomoreconception. Fixedcounts/3offers fitnarrow u8, 12secrecytrialscountfitsu64, moralecheckedCorecaps. Wholeanddailybothultimatelycallidenticaldailyinnerboundaries; cadencecomparison validatescompositiononthisgrid, notDBconcurrency/arbitrarychunksemantics. Several courtshiproute booleans are authoredtrue fixtureclaims, notproofactualreducers; limitations explicitlynoSDK/browser. No run/acceptancePASS inferred. Fileoutputexistsreject andcreate_new preserveimmutablefiles; multiwritefailurecanleavepartialnewdirectory asordinaryfilesystemerror, intentionalfailureartifactpolicyquestiononlynotgame-state atomicity. Embeddedfixturetempdirdeletion code read neverexecuted."
+    },
+    {
+      "contract": "Simulation configuration admits bounded local disposable work before actual execution",
+      "source_ranges": {
+        "live_core/config.rs": [
+          [
+            1,
+            171
+          ]
+        ]
+      },
+      "disposition": "All171lines read. Loopbackcredentialfreehttporiginonly, disposable adventuresim-sim- ASCII name, population2..32/cycles1..10000/duration1..100years/party2..8<=population, checkedu64population*cycles<=100000. runnonce16..96ASCII. Disease9closedscenariochoices, importedmanifest64lowerhex andmodecorrelation, questfixturetwo-parties. Valueswidenu32 tou64beforemul sofits actualboundedvalues; no overflow. Workcaponlypopulation*cycles, actualduration/path/timeouthelper loops nextfrontier. Envbootstrapreturnsrequired64hex stringwithoutprintingtoken; exacttokenvalidationactualSDKentrydep, nopublicreset/reseedauthorization implied. Destinationknowledgeclosedenumlosslessmapper, no casts. No executingconfiguration/destructive workflows."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-strategic-sim/src/live_core/cycle.rs"
+}

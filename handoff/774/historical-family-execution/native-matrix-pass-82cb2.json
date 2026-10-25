@@ -1,0 +1,23 @@
+{
+  "head": "82cb2a3acccc852bba6a7ef9c706c337ba9fe765",
+  "run": 39466774426,
+  "job": 118780099699,
+  "step": 19,
+  "status": "completed",
+  "conclusion": "success",
+  "observed_twice": true,
+  "independent_sources": [
+    "GitHub connector job metadata",
+    "Direct gh REST job response saved in hosted-job-118780099699-current.json"
+  ],
+  "native_started_at": "2026-10-20T17:39:06Z",
+  "native_completed_at": "2026-10-20T17:49:26Z",
+  "commands_rechecked_in_current_source": [
+    "cargo clippy --workspace --all-targets --all-features -- -D warnings",
+    "cargo clippy --locked --manifest-path crates/adventuresim-character-creator/Cargo.toml --all-targets --all-features -- -D warnings",
+    "cargo clippy --locked --manifest-path crates/fabelgeist-mhr/Cargo.toml --all-targets --all-features -- -D warnings",
+    "cargo clippy --locked --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml --all-targets --all-features -- -D warnings"
+  ],
+  "constraint_artifact": "constraint-artifact-verification-82cb2.json",
+  "full_family_acceptance": "pending the complete current-head matrix and final artifact"
+}

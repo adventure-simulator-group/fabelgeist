@@ -1,0 +1,104 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-616",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pinned-registry:serde-saphyr-1.2.0/src/de/api.rs",
+      "sha256": "02fd000004106ce209ca065c78b70c71a7b86ac03a3ddbedd48eb7e577358ce7",
+      "actual_EOF": 986,
+      "actual_compared_ranges": [
+        [
+          84,
+          99
+        ],
+        [
+          136,
+          141
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2573"
+    },
+    {
+      "source_id": "pinned-registry:serde-saphyr-1.2.0/src/de/options.rs",
+      "sha256": "d38d24ae1ae19df025ec4073c774a3eea48fcb85a0dad024b392e8c6899c40a8",
+      "actual_EOF": 760,
+      "actual_compared_ranges": [
+        [
+          248,
+          264
+        ],
+        [
+          499,
+          527
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2574"
+    },
+    {
+      "source_id": "pinned-registry:serde-saphyr-1.2.0/src/de/deserializer.rs",
+      "sha256": "72b755ac168c5dd782c5b1bea90fce7488a9d4b9ba713fe26be33b553973362a",
+      "actual_EOF": 2941,
+      "actual_compared_ranges": [
+        [
+          484,
+          501
+        ],
+        [
+          577,
+          623
+        ],
+        [
+          978,
+          989
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2575"
+    },
+    {
+      "source_id": "pinned-registry:serde-saphyr-1.2.0/src/parse_scalars.rs",
+      "sha256": "cf724ec89b4f506fa46193c9b2c1917b43356e02a342f11c9ccf45483dc3bebb",
+      "actual_EOF": 699,
+      "actual_compared_ranges": [
+        [
+          271,
+          334
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2576"
+    },
+    {
+      "source_id": "pinned-registry:serde-saphyr-1.2.0/src/de/with_deserializer.rs",
+      "sha256": "c6304415acbe2cb08fe5a730da8625f2c4631d111b7dccde6dad44c2d5e34c95",
+      "actual_EOF": 222,
+      "actual_compared_ranges": [
+        [
+          120,
+          147
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2577"
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Pinned serde-saphyr scalarfloat andactualcheckedDeserialize invocation",
+      "evidence": "Everylistedrangepersonallyread: from_str defaultsOptions\u2192with_options\u2192Tdeserialize; scalarread retainslocation/tag, applicableplainvalueinterpolationbeforevisitor; f32/f64 actualgenericparse thenvisit. Nonrobotics parser explicitlyallows.nan/\u00b1.inf, butdecimalfallback parsesTandrequiresis_finite; overflowdecimalinvalid. Roboticsfeature routesangle-enabled branch toseparatekernel, otherwise sameexplicitnonfinite/fallback. Single-documentfinish aftersuccessful Tvalue andreturnsErr fortrailingcontent.",
+      "qualifications": [
+        "Defaultreject_non_finite_typeless_float applies typelessValue only, notconcretefloat specials; do nottreatflagas canonicalfinite typeadmission. CheckedbespoketypeDeserialize/TryFrom ownsrejecting observednonfinite input; plainSDKfloat intentional.",
+        "Finitef64\u2192f32narrowing/e100Infinityclaim isfeature/pathconditional; actualnonroboticsgenericf32fallback rejects decimaloverflowbeforevisitor. PreserveRIG03F025featurequalification frompriorforge, not blanket1e100acceptance.",
+        "Only boundedscalar/adaptor routesread; no wholeYAML/robotics/propertyengine/fullSDKcoverage. No parserexecution."
+      ],
+      "acceptance": "Actualcustomfinite values reject special/nonrepresentable after properparserroute; retain explicitnonfinitewhereplainnativefloatpolicyallows, exacterrors/location/checkedfirstcause andsingle-document contract."
+    }
+  ],
+  "findings": [],
+  "status": "Qualified material ranges personally analyzed; whole04 remains incomplete.",
+  "first_unfinished": "physical-p16:crates/adventuresim-terrain/src/terrain_feature.rs",
+  "source_edits": false,
+  "project_execution": "none"
+}

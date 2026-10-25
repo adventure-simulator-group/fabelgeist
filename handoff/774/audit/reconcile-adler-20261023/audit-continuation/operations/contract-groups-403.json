@@ -1,0 +1,89 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-403",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/evaluation_clock.rs",
+      "sha256": "494c46a4fd56879e1b9901c824fedc3ae9d2e5a44d40535a7b7ef5acb93425be",
+      "actual_EOF": 23,
+      "actual_compared_ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/foot_roll.rs",
+      "sha256": "7166759c52955028a3f30d17715d0b9abfe7b58c527666aeeebcaac588809717",
+      "actual_EOF": 118,
+      "actual_compared_ranges": [
+        [
+          1,
+          118
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/frame.rs",
+      "sha256": "30e14becdee166e5f15201b0deae415b38c6d088df46d22ff2a918a77eff9fda",
+      "actual_EOF": 54,
+      "actual_compared_ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/hands.rs",
+      "sha256": "e62b67d40676cfd09497eaf6f5b03e923700b922059570b8c56af5b520316243",
+      "actual_EOF": 391,
+      "actual_compared_ranges": [
+        [
+          1,
+          391
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion.rs",
+      "sha256": "7e4b80c439d05e7d13d360b80fcda7a4a10e6e8380d0889198f514dce0df962b",
+      "actual_EOF": 526,
+      "actual_compared_ranges": [
+        [
+          1,
+          526
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Finite observed rig frame and elapsed deduplication",
+      "evidence": "evaluation_clock.rs1\u201323/frame.rs1\u201354 complete: repeatedfixedIKtickNone, firstnewtickstoresobservedclock andadmittedelapsed; livezeroelapsedskips. ObservedRigFrame finiteorigin+finitequaternion only, absentrigscene/failedglobalcompute returnsNone without fabricatedidentityorigin.",
+      "qualification": "Finite non-unit orientations explicitlyretainoriginalprojectionsemantics (frame.rs51), do NOTgloballyforceunitrotation orrejectrawsyntheticIDs. Nativequat/vectorproducts/inverse maylosefiniteness; realcomputedrecipientchecks needed, notleafadmissiononly. TickmarkedbeforelaterIKfailure butnoactualordinaryretrycontractproven. Sourceonly, no engineexecution."
+    },
+    {
+      "contract": "Phase-owned foot roll and hand/socket constraints",
+      "evidence": "foot_roll.rs1\u2013118 runonlynoneactionloweredguard, nearestcontactoffsettyped, piecewisesmoothstepheel/flat/toe\u00b18degreereadmitted. hands.rs1\u2013391 actualprimaryexplicitarm solvefirst, weaponsocketthencomputedsecondarygrip; derivedtargetweightONE overridessamesecondaryexplicit target, missingtarget/socket/bonesinert. Segmentmeasurementfallible beforetwo-bone, polememoryfinite-normalizedbend, transformsupdatedonlyresolvedsolution; rotationcandidatefinitechecked thennormalized.",
+      "qualification": "HandIkTarget.weight scalestranslationlerp butoptionaltarget.rotation appliesfull aftersolve. Meaningofrotationweightandactualfractionaltargetproducer needtracebeforedefectpromotion; currentderivedgripweightONE/rotationNone unaffected. set_world_transformchecksfiniteposition/rotation butnotlocalscale fromreparenting, actualzero/hugeparent-scaleproducerpending. Finitezeroquaternion normalization unsafe butObservedRigFrame explicitlydoesnotpromiseunit; no unsolicitedunitnarrowing. Actual nativequaternionproof/completeproducer required. No allconstraintsatomicpromise: primary/weapon/secondaryareacceptedsequentialpasses."
+    },
+    {
+      "contract": "Ordinary pelvis/terrain targets, diagnostics and source support",
+      "evidence": "locomotion.rs1\u2013526 full: supportednone/attackonly, idleBOTH, raisedmovingonecontactfoot, runcontactweightsvswalkexclusivegroundsupport. PelvisPending acceptsfirstdesired evenelapsed0, Tracking0retains; trackingadvancefalliblebeforestatecommit. Resolvesrealrigframe, selectsweightsfromterrain-toggle, measuresactuallegs/terrainheight/reachbeforeminimumdownwardshift, appliessharedroot thenlegsolve; diagnosticmemorypublishbeforestatecomponentreplace.",
+      "qualification": "RootnativeTransform.translation+=finite delta canoverflow; actualhugeparent/scenegeometrynotprovedordinary, samefinitecomputed-transformownerquestion. Existing Native05F008 unwrapped gaitsupport callerclosedfreshly87\u2013119; no duplicateunique. Missingterrain yields0desiredshift/absentdiagnostics whereasdisabledterrain suppliesauthoredweights intentionallypolicy; notfabricatedphysicalgroundtruth. Partialperlegfailure canleaveothersolved/rootshift; no wholeframeatomicity inferredfromfalliblememorypublish. Childterrain_leg/reach/mathoriginalroles remainunread untilownfullread."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "5 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion/terrain_leg.rs"
+}

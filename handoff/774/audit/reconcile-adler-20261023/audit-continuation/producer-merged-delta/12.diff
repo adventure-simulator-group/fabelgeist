@@ -1,0 +1,15 @@
+diff --git a/crates/adventuresim-character-creator/src/hair_preview/render_test.rs b/crates/adventuresim-character-creator/src/hair_preview/render_test.rs
+index e2f5d334f..30c65cdaa 100644
+--- a/crates/adventuresim-character-creator/src/hair_preview/render_test.rs
++++ b/crates/adventuresim-character-creator/src/hair_preview/render_test.rs
+@@ -289,9 +289,9 @@ fn hair_renders() -> Result<()> {
+             Form::Cards { level } => format!("cards{level}"),
+         };
+         // Drawn in the bind pose, skinned as the studio skins it but to one
+         // joint left where it is.
+-        let mesh = assets::mesh(&geometry, 0)?;
++        let mesh = assets::mesh(&geometry, fabelgeist_rig::RigJointOrdinal::from(0usize))?;
+         let paths = VIEWS
+             .iter()
+             .map(|view| {
+                 out.join(format!(

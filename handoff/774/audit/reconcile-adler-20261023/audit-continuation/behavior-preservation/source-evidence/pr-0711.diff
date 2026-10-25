@@ -1,0 +1,76 @@
+--- PRbase/crates/adventuresim-character-creator/src/clothing/rig.rs
++++ frozen/crates/adventuresim-character-creator/src/clothing/rig.rs
+@@ -0,0 +1,73 @@
++//! Resolve anatomical regions once, then carry ordered-rig slots through fitting.
++
++use super::Region;
++use super::regions::{RegionRig, region_rig, waist_joints};
++use fabelgeist_rig::{RigJointLookupError, RigJointName, RigJointOrdinal};
++use std::collections::{HashMap, HashSet, hash_map::Entry};
++
++type Result<T> = std::result::Result<T, RigJointLookupError>;
++
++pub(super) struct ClothingRig<'a> {
++    names: &'a fabelgeist_rig::RigJointTable<RigJointName>,
++    regions: HashMap<Region, RegionBinding>,
++    waist: HashSet<RigJointOrdinal>,
++}
++
++pub(super) struct SpanRig {
++    pub selected_joints: HashSet<RigJointOrdinal>,
++    pub segments: Vec<RigSegment>,
++}
++
++#[derive(Clone, Copy)]
++pub(super) struct RigSegment {
++    pub proximal: RigJointOrdinal,
++    pub distal: RigJointOrdinal,
++}
++
++struct RegionBinding {
++    segment: RigSegment,
++    skin: HashSet<RigJointOrdinal>,
++}
++
++impl<'a> ClothingRig<'a> {
++    pub(super) fn new(names: &'a fabelgeist_rig::RigJointTable<RigJointName>) -> Self {
++        Self {
++            names,
++            regions: HashMap::new(),
++            waist: waist_joints(names),
++        }
++    }
++
++    /// Admit in requested order so an absent landmark retains its original
++    /// precedence over later regions and garments. Exact lookup keeps the first
++    /// duplicate, while skin selection retains every matching joint slot.
++    pub(super) fn span(&mut self, regions: &[Region]) -> Result<SpanRig> {
++        let mut span = SpanRig {
++            selected_joints: HashSet::new(),
++            segments: Vec::with_capacity(regions.len()),
++        };
++        for &region in regions {
++            let binding = match self.regions.entry(region) {
++                Entry::Occupied(entry) => entry.into_mut(),
++                Entry::Vacant(entry) => {
++                    let definition = region_rig(region);
++                    let segment = RigSegment {
++                        proximal: definition.proximal.require_in(self.names)?,
++                        distal: definition.distal.require_in(self.names)?,
++                    };
++                    entry.insert(RegionBinding {
++                        segment,
++                        skin: RegionRig::skin_joints(&[definition], self.names),
++                    })
++                }
++            };
++            span.selected_joints.extend(&binding.skin);
++            span.segments.push(binding.segment);
++        }
++        Ok(span)
++    }
++
++    pub(super) fn waist_joints(&self) -> &HashSet<RigJointOrdinal> {
++        &self.waist
++    }
++}

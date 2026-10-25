@@ -1,0 +1,66 @@
+{
+  "id": "NATIVE-PP-RECEIVERS-007",
+  "read_files": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/tactical_fixture.rs",
+      "observed_sha256": "563f1e6e038981b2f33a77d3291e761b7d1569335ddac5355278d04335c50670",
+      "read_ranges": [
+        [
+          1,
+          202
+        ]
+      ],
+      "read_status": "full source including existing fixtures",
+      "trace_refs": [
+        "NATIVE-PP-SERVER-001"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-netcode/src/message.rs",
+      "observed_sha256": "61261c4055cee33ac91c6cdac317996352c4997f93cbd692a93448656a2db2eb",
+      "read_ranges": [
+        [
+          400,
+          432
+        ],
+        [
+          455,
+          475
+        ]
+      ],
+      "read_status": "exact connected function/field ranges; full Core graph source also fresh-read by camera",
+      "trace_refs": [
+        "CAM-PROP-F015"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/scheduling.rs",
+      "observed_sha256": "9c56fb8232e356e6e204ba7c1065597c6063b0b25572d6f0e7cb131b2a7eb320",
+      "read_ranges": [
+        [
+          2,
+          122
+        ]
+      ],
+      "read_status": "exact connected function/field ranges; full Core graph source also fresh-read by camera",
+      "trace_refs": [
+        "NATIVE-PP-C003"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/mod.rs",
+      "observed_sha256": "3ada1de8aa9e1322565a5f1ae9b5882e0beba1d5ad024cc4705f7eb35ba0982b",
+      "read_ranges": [
+        [
+          160,
+          222
+        ]
+      ],
+      "read_status": "exact connected function/field ranges; full Core graph source also fresh-read by camera",
+      "trace_refs": [
+        "NATIVE-PP-C003"
+      ]
+    }
+  ],
+  "limits": "Native message excerpt only; camera owns whole network source. No source/tests/checks executed."
+}

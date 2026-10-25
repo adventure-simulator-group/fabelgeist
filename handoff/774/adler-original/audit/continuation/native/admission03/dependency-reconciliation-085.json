@@ -1,0 +1,539 @@
+{
+  "id": "NATIVE-ADMISSION03-DEPENDENCY-RECONCILIATION-085",
+  "lens": "audit-admission-contracts",
+  "scope": "Appendqualification tooriginal443/190groups/57registrations; no originalreceiptmutation/extraqueuecounts/authoritativeglobalacceptance",
+  "original_completion": "completion-084.json",
+  "original_completion_sha256": "0eae200643d2608dd5b44d19d142eefcdbdda7bb0bdc225ace0ef0ea71afaf84",
+  "source_specific_reconciliations": [
+    {
+      "id": "canonical-terrain-and-support-queries",
+      "original_native_sources": [
+        {
+          "queue_index": 214,
+          "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/flight_projection.rs",
+          "sha256": "522eaadd0e7580f987c7a1d37d5687abf202baca0b78bdc2ae9247d3de39424c"
+        },
+        {
+          "queue_index": 215,
+          "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/foot_clearance.rs",
+          "sha256": "fbee9961d5150f7a221c942cab5c5288e3efdca4d36e920ab5476a2ed9be3b82"
+        },
+        {
+          "queue_index": 216,
+          "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/run_reach.rs",
+          "sha256": "5c01b29f63732c34ba8e0fc73277f220ccb1ee6fc67f243a9c06ba5743093b92"
+        },
+        {
+          "queue_index": 406,
+          "source_id": "pr-working:crates/adventuresim-tactical-server/src/scene_obstacles.rs",
+          "sha256": "8d76b7aadada8bae53e9f27cbbb6eca7e0beffb9b25519a98b10edc521476042"
+        },
+        {
+          "queue_index": 408,
+          "source_id": "pr-working:crates/adventuresim-tactical-server/src/terrain_collision.rs",
+          "sha256": "faee49ad384b0820c1a89f3956a9a356ba1df53ce2f8bcc29047e8c99c2c3ce5"
+        },
+        {
+          "queue_index": 53,
+          "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration.rs",
+          "sha256": "5ebb42e36e764cd3adee88c336b2976f42db557494a436e8fa2eef2f79fdef61"
+        },
+        {
+          "queue_index": 58,
+          "source_id": "physical-p16:crates/adventuresim-tactical-server/src/scene_spawn.rs",
+          "sha256": "0ed8029897a512fc8ebb39248471b4febef60c0a7c7657673a9df6b393d9838a"
+        }
+      ],
+      "original_narrative": "016terrain-clearance/052server-supported-scene",
+      "current_actual_proof": [
+        "root/admission03/scene-ground-admission-040.json",
+        "root/admission03/grounding-garden-admission-035.json",
+        "Native052REG029 required_height actual1-24/61-97"
+      ],
+      "disposition": "closed_exact_canonical_and_query_routes_with_findings",
+      "explicit_current_contract_comparison": "Native nativefoot/support/obstacle and server recipients call finite ScenePlanPoint, required_height_at and completedPosition. RootG040 actualSceneTerrain validatesdimensions2+,capacity/divisibility/finitepositiveScale/extents/allheights; manualSerde samefactory andopaqueReflecttypedcopy. Native052query requiredheight returnsSurfaceHit typedSupportElevation orMissingSupport, nozero fallback. CurrentNative017finiteSIGNEDSupportElevation gate is exactsameactualrole; RootG035 fullSurfaceHit/querypolicy supports it.",
+      "remaining_limits": "SceneGround broadderivedSerde/nonopaqueReflect F011 and backingF003/F010 remain; SceneTerrain constructor notwholeOwnedTerrainGeometry validation or allcollideralgorithm certificate. P16wholeSceneTerraincounterpart not inferred fromPR."
+    },
+    {
+      "id": "actual-scene-datums-door-window-pairing",
+      "original_native_sources": [
+        {
+          "queue_index": 393,
+          "source_id": "pr-working:crates/adventuresim-tactical-server/src/boundaries.rs",
+          "sha256": "41530ea3d8197242c6c5cc79ac9a35b31b9df76287a57aae530247553f3e2f2b"
+        },
+        {
+          "queue_index": 394,
+          "source_id": "pr-working:crates/adventuresim-tactical-server/src/doors.rs",
+          "sha256": "676d9b173c594a21fd92761c7737e160d1c19c5c17a5efd8cadd784c51cb6c33"
+        },
+        {
+          "queue_index": 395,
+          "source_id": "pr-working:crates/adventuresim-tactical-server/src/doors/gate_tests.rs",
+          "sha256": "b2f9e246b2d68e862f6c8fea96ceccacb559e6fa33edf26af6224836fdc57d4c"
+        },
+        {
+          "queue_index": 409,
+          "source_id": "pr-working:crates/adventuresim-tactical-server/src/windows.rs",
+          "sha256": "1558b154ebeb2ec83990f857600744dc6086859d467f5cfbaa974c04e6f3859d"
+        }
+      ],
+      "original_narrative": "052GateDatum narrow;064interior/door/window relyingcalls",
+      "current_actual_proof": [
+        "root/admission03/scene-datum-admission-036.json#datums302_305",
+        "Native052REG028 GateDatum155-225/254-264",
+        "rig/admission03/contract-groups.jsonl#RIG-ADMISSION03-CONTRACT-802",
+        "rig/admission03/contract-groups.jsonl#RIG-ADMISSION03-CONTRACT-803"
+      ],
+      "disposition": "closed_PR_definition_routes_P16_exact_bounded_supplier_only",
+      "explicit_current_contract_comparison": "Personally consumed RootG036 actualfull270/136: CollisionCentreDatum private origin/centre plus pubsupertypedOrientation, rejectsinvalidorientation atnew; nativecompletedpoint readmittedPosition, quaternionproduct checkedRigidRotation, transformednormalizedaxes andfiniteyaws checked. SceneDoorPose/SceneWindowPose privateleaf+rotation onlydatumfactories/noSerdeDefaultReflect, copygetters. This joins exactPRNative064publication factory predicates without assumptionfrompose name. Rig802/803 separatelyactualP16bounded counterpart facts retain PRvsP16 scopes.",
+      "remaining_limits": "RootF003Position/Displacement friendbacking remains; no blanket arbitrarywall/window programmembership or permissions frompose. Rig802BuildingOrientation exactlowerpredicate wasqualified pending; RootG036PR doesnotautomaticallycloseP16."
+    },
+    {
+      "id": "vista-observations-vs-sampled-height-policy",
+      "original_native_sources": [
+        {
+          "queue_index": 321,
+          "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/vista_geometry.rs",
+          "sha256": "83f5cbb8ab47d0cbde37aea65663ecbb5ae380088d132a5b909926294fff523d"
+        },
+        {
+          "queue_index": 299,
+          "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/manifest.rs",
+          "sha256": "90d78c0c708175d63d2b3654ce3d96a08c32444ff581cf53e94f78d5f971bb96"
+        },
+        {
+          "queue_index": 300,
+          "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/plant_lods.rs",
+          "sha256": "36ec27846639fcd39472f076870256cb3a37ae29dfd489fe49f7e93cbe40d0a7"
+        },
+        {
+          "queue_index": 302,
+          "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera.rs",
+          "sha256": "17a9a24f5d15cbd9db474bed73f9cecc39d1dddb1af6a7ff2d9d74a83ae13461"
+        },
+        {
+          "queue_index": 303,
+          "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/landscape.rs",
+          "sha256": "8a9fe4f5dd1a72f306edf38bf29bb147569abd3314d13ff00e9f3fc01fb8e66e"
+        },
+        {
+          "queue_index": 306,
+          "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/building_review.rs",
+          "sha256": "183f14a949adfa0541e353577a85617dcdcc02a3b3a2aa373b727ba2fb3bb158"
+        },
+        {
+          "queue_index": 307,
+          "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/city.rs",
+          "sha256": "15ee883d0bbf24bf353ef314307e2672e44d8d8142673b5d08da55f9f889548b"
+        },
+        {
+          "queue_index": 308,
+          "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/compound.rs",
+          "sha256": "418b8b501a48ca00cf36acd6e0db1a33f980ec90d01b5ce30e1dac82d062ef77"
+        },
+        {
+          "queue_index": 309,
+          "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/environment.rs",
+          "sha256": "913f58c174de72b8ad0b70160392437f294828f5fc3de6aeb7856771c5c1e1d9"
+        },
+        {
+          "queue_index": 310,
+          "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/facade.rs",
+          "sha256": "a3ffee68cadb7373c2eab3a1b6df13f042b47bc33cf0177aba1fe4b7883928ad"
+        },
+        {
+          "queue_index": 311,
+          "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/fungi.rs",
+          "sha256": "bde10d85a38741896836a0e0bb333b05ab49f3ba3569cd0abadd2210d1781e31"
+        },
+        {
+          "queue_index": 312,
+          "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/furniture.rs",
+          "sha256": "c0f2743fb94e315015e7c9ec8d61e3a5de0d608846a3558fd9db294e4e5ec1c7"
+        },
+        {
+          "queue_index": 313,
+          "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/gable.rs",
+          "sha256": "c06c6a2a44625d95f4179ea3a8ff362ce6bbc5d39db4adbf2f67b69f057b918d"
+        },
+        {
+          "queue_index": 314,
+          "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/garden.rs",
+          "sha256": "0c939fe50254edf2c21b75afc2b9d464c12cde349a94d535c3f8a10f06edac06"
+        },
+        {
+          "queue_index": 315,
+          "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/heating.rs",
+          "sha256": "3d4bcbe72d6cb1483399822f0ff4cc18aef6446b0b7efe38be75eb4ebe2497d3"
+        },
+        {
+          "queue_index": 316,
+          "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/interiors.rs",
+          "sha256": "24552f7e7aa0805d62cae17823286990da18581de634a569fac255f8d6c342af"
+        },
+        {
+          "queue_index": 317,
+          "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/landform.rs",
+          "sha256": "39ff39cec45d94d185c1bac596accf4ef2fae16f917bb820110522fdd5876a9c"
+        },
+        {
+          "queue_index": 318,
+          "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/parish.rs",
+          "sha256": "339e2d9cf79db85aa113576b820a43ccaa57d6f41046eff717ae3b87648bf99d"
+        },
+        {
+          "queue_index": 319,
+          "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/plant_lods.rs",
+          "sha256": "b850100ae1740709302dacd1a36ee787c8fb3f7836ab5cc947c3d3814f923d8c"
+        },
+        {
+          "queue_index": 320,
+          "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/plants.rs",
+          "sha256": "60f01634eb5a6148da91a0723992f2e1ac569ab9eacfd993328f3c3005be1fe1"
+        }
+      ],
+      "original_narrative": "022nonempty-vista;026capture-camera;032manifest;033review",
+      "current_actual_proof": [
+        "root/admission03/vista-admission-046.json",
+        "root/admission03/scene-ground-admission-040.json",
+        "root/admission03/scene-datum-admission-036.json#scene_descriptors307_312_313_347"
+      ],
+      "disposition": "closed_exact_current_PR_vista_definition_routes",
+      "explicit_current_contract_comparison": "OriginalNative321 own privateVistaCaptureGeometry independentlyreads EVERYactualsourceheight intoSupportElevation and completeddiameter/reliefSignedLength; emptyNone, width0Error retained. RootG046 VistaLod::has_height_grid onlystructuralheader/finitepositive spacing/nativeorigin; it doesnotvalidateallheights/BPs, matchingNativeexplicitrawsourcequalification. Actualsample completedheight/displacements checked, coarseNaN mustreachouterrejection ratherthanbecomeabsentfallback; firstmin/max ties/explicitinnerclip retained. Manifests remainmutableevidence ratherthanacceptedscene.",
+      "remaining_limits": "No serializedVista fullvalidity fromhas_height_grid, no allLOD/water/wind authority gate or laterarithmetic proof. Existing falsepassed/rawdiagnostics neveracceptedcertificates."
+    },
+    {
+      "id": "volumetric-canonical-recipe-and-raw-rock-distinction",
+      "original_native_sources": [
+        {
+          "queue_index": 393,
+          "source_id": "pr-working:crates/adventuresim-tactical-server/src/boundaries.rs",
+          "sha256": "41530ea3d8197242c6c5cc79ac9a35b31b9df76287a57aae530247553f3e2f2b"
+        },
+        {
+          "queue_index": 406,
+          "source_id": "pr-working:crates/adventuresim-tactical-server/src/scene_obstacles.rs",
+          "sha256": "8d76b7aadada8bae53e9f27cbbb6eca7e0beffb9b25519a98b10edc521476042"
+        },
+        {
+          "queue_index": 408,
+          "source_id": "pr-working:crates/adventuresim-tactical-server/src/terrain_collision.rs",
+          "sha256": "faee49ad384b0820c1a89f3956a9a356ba1df53ce2f8bcc29047e8c99c2c3ce5"
+        }
+      ],
+      "original_narrative": "032obstacle;052supported-scene",
+      "current_actual_proof": [
+        "root/admission03/volumetric-admission-042.json",
+        "root/admission03/scene-datum-admission-036.json#scene_descriptors307_312_313_347"
+      ],
+      "disposition": "closed_canonical_recipe_definitions_only",
+      "explicit_current_contract_comparison": "G042 actualprivateSurfaceRecipe sharedfactory/Serde andLandformfrom_quantized sharedfinite/normal/relief/dimension/collar gates nowactualpredicateevidence. Native408dispatch choosespreparedpatch/norecipe/recipe actualroutes; thatdispatch doesnotitselfvalidatearbitraryrawpatch. RootG036 RockRecipe publicu16dimensions/radius remainsrawformat, actualproducer341 choosesfixedboundedconstants+Seed; doNOTmistakeSurfaceRecipe strongergateforRawRockRecipe/Collider radius.",
+      "remaining_limits": "F012pubsuperquantizedbacking/cachedcollar gap remains; nativephysics loweralgorithm independentlyscoped."
+    },
+    {
+      "id": "roof-node-solid-interface-native-leaf-closure",
+      "original_native_sources": [
+        {
+          "queue_index": 80,
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/model/resolved_shapes.rs",
+          "sha256": "485156188b8c858094e576418d153b0e315f06c01ef25685a6e11eb97e60a56b"
+        },
+        {
+          "queue_index": 81,
+          "source_id": "pr-working:crates/adventuresim-core/src/activity.rs",
+          "sha256": "d8ee276214a67b09ca6571d03b1adce2dc200e6201284a9a8e25b6053aa72a15"
+        },
+        {
+          "queue_index": 82,
+          "source_id": "pr-working:crates/adventuresim-core/src/bin/content-check.rs",
+          "sha256": "98447fa524e96dfa1f89ade51017472fae06833cd9ea73014855140c7062f387"
+        }
+      ],
+      "original_narrative": "024resolved-shape/025doors/local building model relyingdefinitions",
+      "current_actual_proof": [
+        "root/admission03/native-roof-support-acceptance-058.json",
+        "native/admission03/root-support-batch3/contracts-001.json",
+        "native/admission03/root-support-batch3/contracts-002.json",
+        "native/admission03/root-support-batch3/contracts-003.json",
+        "native/admission03/root-support-batch3/contracts-004.json"
+      ],
+      "disposition": "additional_exact_helper_closure_not_original_scope_expansion",
+      "explicit_current_contract_comparison": "Actual26roofrelateddefinitions/helpers suppliedRoot23 plusNative068-072: Nodefrom_metres/manualSerdechecksPosition withnodeID, typednewcopiesleaves; InterfacecopycheckedBounds zeroheightallowed; Drainage rawpublicSerde notsealedgraph. OriginalNative024ResolvedSolidnewcopiescheckedCollisionCuboidandrawshape/supportIDs, exactsamecurrentreceivercontext. Bounds/cuboids admitcompletednativegeometry, notallrawplane/contourrelations. Coupledscalednormal+constant, concavecutouts, zero-then-retaintrim andmutationsbeforeErr explicitlypreserved.",
+      "remaining_limits": "Indices80/81/82 remaintheirown originalsourcecontracts; G058 helpers areadditional lowerclosure/navigation, notblanket allmodelroles credit. RootF001/F003 retained, fallbackrequiresactualindependentaudit, source count unchanged."
+    },
+    {
+      "id": "pure-rights-and-action-canonical-identities",
+      "original_native_sources": [
+        {
+          "queue_index": 105,
+          "source_id": "pr-working:crates/adventuresim-core/src/rights.rs",
+          "sha256": "452c9b104be14352c93d247f83a87de98fa79b10c86d3b51d28eaa252a927b07"
+        },
+        {
+          "queue_index": 108,
+          "source_id": "pr-working:crates/adventuresim-core/src/strategic_action.rs",
+          "sha256": "4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9"
+        },
+        {
+          "queue_index": 21,
+          "source_id": "physical-p16:crates/adventuresim-core/src/strategic_action.rs",
+          "sha256": "4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9"
+        },
+        {
+          "queue_index": 122,
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/journey_camp.rs",
+          "sha256": "ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d"
+        },
+        {
+          "queue_index": 23,
+          "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/journey_camp.rs",
+          "sha256": "ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d"
+        },
+        {
+          "queue_index": 135,
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor/authority_tests.rs",
+          "sha256": "347470fad13ff5772d20c8221b4f1157d851eab67776ae32614339069ba56d33"
+        },
+        {
+          "queue_index": 136,
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor/contact_authority_tests.rs",
+          "sha256": "67f3636f0569656541c6b0c20e49646ff86e0cd51031ae2f6e7ba810f7d8d1a5"
+        },
+        {
+          "queue_index": 137,
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor/presence.rs",
+          "sha256": "39cd6d057c070e586f5701d068b930beaafe12dc00d68465ffd460ede664c5ea"
+        },
+        {
+          "queue_index": 138,
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor/roster.rs",
+          "sha256": "9b4cde3a9009140eb19a6dab12c897dc30ea527fd5cb976c867d651f62c73a07"
+        }
+      ],
+      "original_narrative": "037rights/044context/070action/071journey",
+      "current_actual_proof": [
+        "camera/admission03/contracts.jsonl#CAMERA-ADM03-094",
+        "native/admission03/camera-support/contracts-001.json#canonical-place-codec-and-public-fixture-association-bypass",
+        "native/admission03/camera-support/case-site-sats-admission-003.json",
+        "root/admission03/contracts.jsonl#ROOT-ADM-G033"
+      ],
+      "disposition": "closed_PR_canonical_lower_syntax_with_findings_P16_distinct",
+      "explicit_current_contract_comparison": "Camera094 actualPhysicalObjectprivateNonZero/Custodychecks + currentPRPlace/Fixturefull998 nowactualsource: checkedboundedcomponents/manualcanonicalversionhexcodec, all-u64campclocks, noDBmembershippromise. PublicFixturevariantassociationbypass F001 and featureCaseSiteSATSgrammarbypass F002 nowexplicitadditionalfindings, not strongercanonicalclearance. RootG033privateStrategicPresenceexactfactories/DailyWindowremaining sourcepolicy separatescoarse/exactsame-settlementvenue/frontier. RightsValidityF006 canstillflowprivatePermissionGrantbecauseactualgranttrustslowerwindow; not repairedbytypedIDs.",
+      "remaining_limits": "No P16Place/FixturecounterpartgrammarcreditfromPRbody. Existence/observercurrentness/permissionactor evidence remainactualDBrecipientcontracts, nottypedbool/tokenauthority. NewCamera150findingdedupRootpending."
+    },
+    {
+      "id": "skill-aptitude-limb-raw-weights",
+      "original_native_sources": [
+        {
+          "queue_index": 107,
+          "source_id": "pr-working:crates/adventuresim-core/src/skill.rs",
+          "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c"
+        },
+        {
+          "queue_index": 122,
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/journey_camp.rs",
+          "sha256": "ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d"
+        },
+        {
+          "queue_index": 23,
+          "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/journey_camp.rs",
+          "sha256": "ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d"
+        }
+      ],
+      "original_narrative": "074skillidentity/currentjourneytraining",
+      "current_actual_proof": [
+        "root/admission03/contracts.jsonl#ROOT-ADM-CORE-VALUES-020/source_roles/98",
+        "Native074actualprivateGoverningAptitudes/currentapplyhelpers"
+      ],
+      "disposition": "closed_exact_limb_definition_as_raw_input",
+      "explicit_current_contract_comparison": "Root020 actualBodyPart/LimbWeights179: rawpublicf32/defaultzero/fixedpresets, noSerdeReflect/normalizedallvaluespromise. MatchesNative074actualfactorycallspresetbotharms/legs/all_equal andprivateGoverningAptitudes finitepercent[-100,100]; rawtraits/storedhours canremainbroader. No needinventunitinterval/nonzero normalizedweightcontract. Source-level normalizeDefault0division remains04operationissue, not03scalarbypass.",
+      "remaining_limits": "CurrentDBCharacterSkillsactualdeclaration/fixturewhole-row ingress stillseparatecurrentCamera/Rigrole; no finitehourguarantee inferredfromapply_training sanitation. Root mustnotmarkstoredrawDBfinite basedonthisgroup."
+    },
+    {
+      "id": "already-closed-historical-signedlength-and-config-dependencies",
+      "original_native_sources": [
+        {
+          "queue_index": 41,
+          "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/audit.rs",
+          "sha256": "a5a83e7409778230722685583a4efc7985dc11db52bf5eb2dd5a7ebde16af5a0"
+        },
+        {
+          "queue_index": 44,
+          "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/error.rs",
+          "sha256": "5e7c0c74cc71452ee3a99374100ae1c8d60941f4b1a563eb4aa6d693440b3c31"
+        },
+        {
+          "queue_index": 45,
+          "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/measurement.rs",
+          "sha256": "7484685c90ececcfe299b8e5e8c4c4f361fe53ed917ec14e15c28affe40669df"
+        },
+        {
+          "queue_index": 51,
+          "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/offense/ranged.rs",
+          "sha256": "2f92d78e5bd08a1b831ec0901c256ce7b4a540193ad988ef6d3a4f3d62f68fdc"
+        },
+        {
+          "queue_index": 52,
+          "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/offense/tactics.rs",
+          "sha256": "b65059c1af131b6b98f426067c5bf495ade564c4f8538987bbdce63dcc42a54d"
+        },
+        {
+          "queue_index": 376,
+          "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee-combat-iteration.rs",
+          "sha256": "e1be72383593bbc4c921ecfdc904afcc7dc0b8364bef5b64efc35cb0ad11e5b3"
+        },
+        {
+          "queue_index": 377,
+          "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/audit.rs",
+          "sha256": "351dc4cb2a26bcf9f8f708150890f43c3766a24c6d541eecdbe1a43869121f44"
+        },
+        {
+          "queue_index": 380,
+          "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/error.rs",
+          "sha256": "ff23deb907351c2ca0aab6e8e2831f2dfee7c3ec855d91124522d9e0102442e4"
+        },
+        {
+          "queue_index": 381,
+          "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/measurement.rs",
+          "sha256": "ed0fe144881de7795bc3d5911ffa2a14bc9d33052a4c04f4af4d0db81e80ad95"
+        },
+        {
+          "queue_index": 382,
+          "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/mod.rs",
+          "sha256": "5a603f0c5055543157a0dd1d47bc979a6109569d0e61cf088f5ca7a99ca495bd"
+        },
+        {
+          "queue_index": 383,
+          "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/report.rs",
+          "sha256": "06ae9c455782ac10767b46537f84eea1e57f16391b7033fe44352edc24e0f8bc"
+        },
+        {
+          "queue_index": 384,
+          "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/reviewer.rs",
+          "sha256": "bf80b110a492a275bd8550afe0af9bfc9b858b45faa71340c0f13dd6d5992ee3"
+        },
+        {
+          "queue_index": 388,
+          "source_id": "pr-working:crates/adventuresim-tactical-server/src/bot/offense.rs",
+          "sha256": "eb77ed366461de7b58fa7111ba5a06c2d32e1b47617ff297e2ef0f25d8fae8c3"
+        },
+        {
+          "queue_index": 389,
+          "source_id": "pr-working:crates/adventuresim-tactical-server/src/bot/offense/facts.rs",
+          "sha256": "ab5ef062d89204566f6f01b3c95ed45aecb640aae364883b7becefc6e9e4c854"
+        },
+        {
+          "queue_index": 390,
+          "source_id": "pr-working:crates/adventuresim-tactical-server/src/bot/offense/phase.rs",
+          "sha256": "3319be254a488cfacf2abfcea4c143c419090ebcd9b778b4dabdec7c95b85bb5"
+        },
+        {
+          "queue_index": 391,
+          "source_id": "pr-working:crates/adventuresim-tactical-server/src/bot/offense/ranged.rs",
+          "sha256": "60b6f6c4256b2ef4d61e7c1c1cc052ef163e78deb6cb260504820e365ec76c5b"
+        },
+        {
+          "queue_index": 392,
+          "source_id": "pr-working:crates/adventuresim-tactical-server/src/bot/offense/tactics.rs",
+          "sha256": "7cf8c5d94969b2b6fbdcdf953d7dc70d3923ff6b2990e0a207d87dc67b9e0615"
+        }
+      ],
+      "original_narrative": "050/051P16SignedLengthpending;054/065AIconfig",
+      "current_actual_proof": [
+        "Native052supporting_witnesses/P16SignedLengthclosed",
+        "Native054supporting_contracts/Camera011012",
+        "camera/admission03/contracts.jsonl#CAMERA-ADM03-011",
+        "camera/admission03/contracts.jsonl#CAMERA-ADM03-012"
+      ],
+      "disposition": "historical_pending_closed_by_later_original_receipts",
+      "explicit_current_contract_comparison": "Original052alreadypersonallyconsumedRootexactP16measurement1-107 privatefiniteSIGNED/manualSerde/Default0; f64promotion/abs actualreportports preservedeclaredfinite role, notnonnegativeorprobabilityrestriction. CurrentNative054and065 compareactualrawAiOffense/default/runtimevalidate/install toclamp/timerrecipients, no reversedinstalledbounds assumed. Earlierpendinglowerrefs in050/051/065 are superseded ONLY exactcurrentrole by052/054/067.",
+      "remaining_limits": "Publicrawconfigbroader/PRInfmax/statedrangequestions preserved; actualconfiginstallationdoesnotsealallpublicrawDTOcallpaths. No globalcontrollerarithmetic/laterlensclearance."
+    }
+  ],
+  "genuine_unread_or_unreconciled_lower_routes": [
+    {
+      "id": "P16-world-event-native-envelope",
+      "original": "contract-groups-069.json#bounded-p16-world-event-commit Native36",
+      "actual_pending": "P16Core WorldEventEnvelope::validate/validate_id and exactactor/subject/place admission; currentcalls observedbutbodyunread03",
+      "navigation": "Camera confirms PRCoreworld_event474 belongsnewNativeCamera150 andnotyetread; P16definitionnotinoriginalfourqueues. RegisterdirectnecessaryP16 beforebodyunder054. PRcounterpartalonecannotcloseP16."
+    },
+    {
+      "id": "P16-armor-validator",
+      "original": "contract-groups-048.json#p16-harness-quickstep-native-presentation-admission Native37/38/39",
+      "actual_pending": "ExactP16validate_breastplate lowerpredicate/definitions current03 counterpart notread",
+      "navigation": "Rigarmor-validation-admission-join011 provesPRonly; RootG059 containsPRfixture/nativepipeline actualbody qualification, NOTP16canonicalvalidator. KeepPRgaugeoverflowF049andP16unknownseparate."
+    },
+    {
+      "id": "PR-quest-full-validation-and-assembly",
+      "original": "Native068sampling/075projection-solver/076077existingtests/079developer/081localproblem",
+      "actual_pending": "ExactPRquest_generation::validate and assemblycallerfamily/preflight, fullCase generatedgraph predicates",
+      "navigation": "NowassignedCamera447assembly/448model/449validation inNativeCamera150-v002. Native075modelREG057 actualdefinitionalreadyknown, but fullvalidation/assembly bodiesnotyetreadcurrent03. FirstRoot16actualinvestigation/local_problem definitionscloseexactnames/authorityvalidatorroutesonly, notqg::validate."
+    },
+    {
+      "id": "P16-canonical-place-fixture-and-other-snapshot-edges",
+      "original": "Native069070071P16 typedidentityboundaries",
+      "actual_pending": "PRfull998currentgrammardoesnotproveP16samebody; exactP16definition/materialrolecomparisonneededbeforeleafclearance",
+      "navigation": "No speculativefullDBgraph; typedinputqualifiedsourcecomparisonremainsvalid, canonicalP16syntaxnotcredited."
+    },
+    {
+      "id": "DB-skill-row-snapshot-ingress",
+      "original": "Native074storedrawskillhours/PlayerSkills trait",
+      "actual_pending": "ActualCharacterSkills currentDBdeclaration/fixtureingress finiteadmissionpolicy notpersonallyconsumedhere",
+      "navigation": "No localfinitepromiseinrawtrait/helper. RigcurrentCamera574checks20fieldsbutomittedcraft/terrainfieldsneedactualdeclaration; keepindependentreceiverdependency, do notinventfiniteallstoredstate. No source expansion requested bythisreceipt."
+    },
+    {
+      "id": "independent-suppliers-not-personally-reconciled",
+      "original": "Native052building/furniture/terrain-colliderdelegates; Native081DBgenerationauthorityreceivers",
+      "actual_pending": "Onlyexactadditionaldependencybodyproofs notyetconsumed wherecurrentfunctionusesdeclaredtypedinput, notnewglobalunreadinventory",
+      "navigation": "RootG059acceptancealoneisNOTsemanticbodyproof. Root049/050/051 andRigacceptedcontractIDs maycloseactualfurniture/terrainnativecollider delegates afterexplicitbody-narrativecomparison. No application/nativewholegraphclearance. ExistingNativeinput/outputadmissioncomparisonsremainqualified."
+    }
+  ],
+  "metadata_errata": [
+    {
+      "id": "QUAL004-actual-role",
+      "corrects": "source-qualifications-final-082.jsonl#NATIVE-ADMISSION03-QUAL-004",
+      "registration": "NATIVE-ADMISSION03-REG-004",
+      "actual_role": "ScenePlanPoint actual1-122/currentNative016; NOT namespace/SATS",
+      "qualified_material_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "no_original_mutation": true
+    },
+    {
+      "id": "QUAL009-material-tail",
+      "corrects": "source-qualifications-final-082.jsonl#NATIVE-ADMISSION03-QUAL-009",
+      "registration": "NATIVE-ADMISSION03-REG-009",
+      "original_requested_ranges": [
+        [
+          197,
+          352
+        ]
+      ],
+      "qualified_material_ranges": [
+        [
+          197,
+          350
+        ]
+      ],
+      "exclusions": "351-352 cfgtest/moduleheader contextualonly; no testbody/materialcredit",
+      "proof": "contract-groups-028.json",
+      "no_original_mutation": true
+    },
+    {
+      "id": "REG057-context-endpoints",
+      "registration": "NATIVE-ADMISSION03-REG-057",
+      "actual_role": "Keep required GenerationContext fields including335; VisibleWitness337-341 contextual definition only per075, not independent newadmission/bodycredit",
+      "proof": "contract-groups-075.json#exact-model-dependency-contracts-and-two-alternate-route-gaps",
+      "no_original_mutation": true
+    }
+  ],
+  "root_source_repair_acceptance_authority_retained": true,
+  "new_source_body_reads": 0,
+  "source_edits": 0,
+  "project_execution": 0,
+  "later_lens_credit": false
+}

@@ -1,0 +1,102 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-033",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "election-vote-association-and-current-eligibility",
+      "sources": [
+        {
+          "scope_index": 117,
+          "ranges": [
+            [
+              1,
+              89
+            ]
+          ]
+        }
+      ],
+      "distinction": "Voter and candidate are same character-identity universe but different ballot roles. Currentleader identity and currentaliveeligibility differ facts; livingstatus cannot be permanently baked into ID. A ballot record can name fields without new IDtype per each side of everycomparison.",
+      "uses": "elect6\u201337 filters ballots against actual living snapshot, excludesincumbent andapplies66% versushalf threshold basedonleaderstatus, maxcount/lowestID deterministic. Duplicatevoter policy is not admittedhere; actual uniquevote authority must be evaluated at native source, no assumption fromVec.",
+      "disposition": "Keep identity versus eligibility and ballot association; no universalnewLeaderId that stales or arbitrarypositivityfromu64. Shared unique-vote roster may strengthen actualadmission, but this sourcealone shows no ordinarydoublevote. Do not merge thresholds merelybecause bothnumericfractions.",
+      "acceptance": "Currentleader neednotretainthreshold, deceased leader actualhalf policy andsolesurvivorsystemballot preserve. No nativeelectionexecution or invariantclaimbasedontests."
+    },
+    {
+      "id": "core-module-inventory-not-child-body-credit",
+      "sources": [
+        {
+          "scope_index": 118,
+          "ranges": [
+            [
+              1,
+              138
+            ]
+          ]
+        }
+      ],
+      "distinction": "Core module namespaces reexport owners and purpose-specific records; reexport does not create another value owner or semantic duplicate.",
+      "uses": "Module list andprelude exposeclock/speed/physical/action families; actual childbodies remain originalroles/materialscopes. Namesonly are navigation.",
+      "disposition": "Account exactnamespace body with no new granularity finding. Do not expand every unchanged child solely becausepubmod exists or import their verification.",
+      "acceptance": "Actualconnectedcallee/typeowner ranges must be independentlyread at pinnedrole; no directory/namespaceall-childcoverage."
+    },
+    {
+      "id": "signed-nonnegative-positive-speed-refinements",
+      "sources": [
+        {
+          "scope_index": 119,
+          "ranges": [
+            [
+              1,
+              178
+            ]
+          ]
+        }
+      ],
+      "distinction": "SignedSpeed stores signed scalar velocity/control projection, NonnegativeSpeed magnitude, PositiveSpeed nonzero configuredspeed. PositiveSpeed shares NonnegativeSpeed invariant beneath role and refineszero, demonstrating coherent validation reuse without flattening meaning. All are m/s, not strategicm/min.",
+      "uses": "magnitude90\u201391 andnonnegative_part100\u2013103 are distinctexplicit conversions: absversusforward-onlyclamp. checkedscale/lerp51\u201369 admitresult withoutnewfactor[0,1]policy; extrapolation canremainvalid. Positive conversion107\u2013112 rejectszerobutkeepsstrictlypositive tiny values.",
+      "disposition": "Keep useful refinements, no universalfinitenumberquantity or extraepsilonpositivefloor. A frame-specificvelocity view mayearnpurpose independently ofbounds, but no currentordinaryaxisconfusionprovedhere.",
+      "acceptance": "Preserve signednegativevelocity, zero magnitude, actualnativeoperationorder andfalliblefiniteoutput, explicitweakeningpositive->nonnegative andm/s conversion at strategicunitboundary."
+    },
+    {
+      "id": "mission-identity-namespace-and-asymmetric-roster-authority",
+      "sources": [
+        {
+          "scope_index": 120,
+          "ranges": [
+            [
+              1,
+              106
+            ]
+          ],
+          "qualification": "ActualEOF106; originalregistered114tail absent, no lines107\u2013114 bodycredit."
+        },
+        {
+          "scope_index": 121,
+          "ranges": [
+            [
+              1,
+              96
+            ]
+          ]
+        },
+        {
+          "scope_index": 122,
+          "ranges": [
+            [
+              1,
+              91
+            ]
+          ]
+        }
+      ],
+      "distinction": "MissionId/BattleId/HostileGroupId/OutcomeSourceId are distinct identity namespaces sharing boundedsyntax helper. HostileGroupBinding explicitly distinguishes intentionalunbound encounter fromdurablegroupassociation. TacticalPartyRoster has durablestrategicmembers bounded16; MissionEnemyRoster has capturedhostileIDs nonemptyunique butnottheparty16cap. NonZero countderivesfromroster, notindependentlystoredauthority.",
+      "uses": "identitymacro17\u201360 generates distinctprefix constructors andcommonstorage; transparentSerde derives doNOT routecheckedconstructor, existingadmissiongapnotprovenfixedbytypepresence. Party38\u201348 gatesnonemptyunique<=16; enemy37\u201342 permits>16 andcheckedu32cardinality. Both preservecaptureorder. Sourcefixturesenemyincludes0 whilepartyIDlowerboundnotcheckedhere; no automaticCustodyCharacterIdassumptionfortransientenemy.",
+      "disposition": "Preserve purposenamespace anddifferentrosterlimits; share smalluniqueness/cardinalityimplementationbelowrolesifuseful, neveroneuniversalboundedRosterthatcapsenemies16. Identityconstructorgrammarnotproofnativeauthoritylegitimate; sharedinitial03admissionfindingsusable. Same IDprefix doesnotwarrantstatefularbitrarybodyIDschema.",
+      "acceptance": "Fullcapturedidentityorder/cardinalitydrivelaunchcounts; enemyunboundedbyreceiptpartycap, trueUnboundcannotdefeatpersistentgroup. No importedruntime/serdeacceptanceclearance or newIDbounds; preservestrategic/tacticalauthorityseparation."
+    }
+  ],
+  "new_findings": [
+    "SEGO-INITIAL11-F003",
+    "SEGO-INITIAL11-F004"
+  ],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

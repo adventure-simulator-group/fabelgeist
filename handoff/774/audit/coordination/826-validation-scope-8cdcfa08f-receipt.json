@@ -1,0 +1,123 @@
+{
+  "at": "2026-10-24T00:10:03.177579+00:00",
+  "revision": "8cdcfa08f4e22804c384955c749c5640154f94c7",
+  "tree": "934eb5dd2adbbbd85faa7a1cdb9b3679db71ace6",
+  "base": "6bf03a8d04bf246c996bbbfa17c1925ebd150c38",
+  "source_manifest": "/home/brunosegovia/.codex/worktrees/d215/adventure-simulator/target/pr826-audit/handoff-validation-scope-8cdcfa08f/manifest.json",
+  "source_manifest_sha256": "07271cda952d1f7ab7a028ea2c092c535fef64a9dce1bf1e59efc89351653df3",
+  "verified_committed_paths": [
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/assembly.rs",
+      "sha256": "40d0f30f63f87aebf48b6bd354c40e14c66ff51410ee7586e3d2e59a98dec99c"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group/uniform_buffer.rs",
+      "sha256": "72423b754d3539247d4586dbe72adaa08bdd6ec741db66dcafca6b9147380e22"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/error.rs",
+      "sha256": "5b2fc6f775619321d1b3c76582804b16eab5dd4265aaf978de577279ab8204c5"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "557fb91ec43eb39d8981f605e1d8d35636c612546252ec93e6c15769e89ed192"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "sha256": "3939e013bf718d8d9dc1fffc7ac38cb49410a0c0c3c030801600687fb08f605d"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/error.rs",
+      "sha256": "9ad9d82531693820aff5a33f0b7ee8afdefa9ef4fb790fc87b77977cb9e3fb04"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "febc4863e0972c69efdffea504d3bdc2e11ca9df928c6d03e365c9cd88014d7a"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "sha256": "f2d4fed56c6f544be8a9d7ec807f5cd71d1c2abc29a9235706f364efe88ccc5b"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/shader/error.rs",
+      "sha256": "144e811d92cebbfe99af991eec710ecb229048db20c4c7ec3a109c76941442bc"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/srgb_converter.rs",
+      "sha256": "8bd4662da8129260f8e3b6c657db2321d45ae92bc884f1fab394649fe0bc7b41"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/mod.rs",
+      "sha256": "a77ff3b04d06f2e44f8fa68c52fb5f6f75364646b1a33af6789955b0f6c6c058"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_2d/views.rs",
+      "sha256": "0d8100e52a87510bab94ff9d3cad2d5428152ab3e3d74372376a82df3275881a"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/mod.rs",
+      "sha256": "d8e5f582e90cb905a5451d798eb86e4b43ff9687b58466bd5d0146fc1dac56ab"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_3d/views.rs",
+      "sha256": "d65e7afd1fd3c33a56a8df0661712768e562d6665e7e61eea7f61cd9ccdf4fee"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs",
+      "sha256": "aa6e5dff4b2578cdcd992e69425955b885373bb8172bce6bba1e784c367df692"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/views.rs",
+      "sha256": "cd05d6421bbca3cbc7692ed4fe9c5ff5d730a7da827247ab70f58f15a7d89d98"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/data/gpu/texture/view_error.rs",
+      "sha256": "79e4c931540af7e78e64ccb4819d93997800e554add2de78141df25c11f8040b"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/mod.rs",
+      "sha256": "ea88edf6a0bafded0eb2036e091a1d30a9d027ba247359ee5024983a77cce77c"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "sha256": "989b1f28cf9f2db331771b2d8fd06fe35a9ee86082b89b80d5c501577edb3202"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "a8b50eb10b6b69caf808a921328362cfd47da5e64d56af641f23692d19a86342"
+    },
+    {
+      "path": "crates/fabelgeist-gpu/texture-views.md",
+      "sha256": "fbba26bd3beffcbe4439bff03b6812617c058ec2248827058d9f1e975b670557"
+    }
+  ],
+  "actual_source_read": [
+    {
+      "file": "crates/fabelgeist-gpu/src/globals/validation_scope.rs",
+      "ranges": [
+        [
+          1,
+          113
+        ]
+      ],
+      "sha256": "989b1f28cf9f2db331771b2d8fd06fe35a9ee86082b89b80d5c501577edb3202"
+    }
+  ],
+  "actual_api_body_evidence": "ValidationScope retains Arc<Device> plus SDK ErrorScopeGuard; new returns optional scope according to context.blocking_validation; finish saves actual device.poll wait result, pops native scope, returns Native or Progress containing actual PollError and optional native error. Portable error variants retain actual native types; into_anyhow moves actual cause, not message. No broader callgraph/currentSDK thread/future behavior proof claimed from this helper alone.",
+  "author_report": {
+    "root_call_sites": 18,
+    "peer_780_call_sites": 5,
+    "reviews": "Code/Rule/Comment reviews running, not accepted or independently verified here",
+    "validation": "No compile/runtime/project checks, push or hosted CI reported at receipt time"
+  },
+  "ownership": "Existing #826 GPU/native observation owner and #780 five caller consumers; no transfer to #774 coordinator. Do not duplicate helper or edit their files.",
+  "relations": [
+    "local774:M06 native/fit cause retention",
+    "local774:M15 device/context/snapshot authority",
+    "local774:M16 accepted native product association",
+    "local774:M17 morph/population association",
+    "historical F09 qualification still requires actual supplied source comparison; no automatic alias"
+  ],
+  "disposition": "Material coordination receipt, exact source/hash verification and bounded helper review only. Not final #826 all13/review/CI clearance and not blanket closure of historical #774 findings.",
+  "next_action": "Reconcile final owned helper/caller integration and review evidence with shared #774 native contracts when source-complete; initial #774 frozen scope and remaining lenses continue."
+}

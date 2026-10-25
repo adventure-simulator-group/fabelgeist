@@ -1,0 +1,109 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-057",
+  "at": "2026-10-22T21:49:57.085956+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "dependency-serde_json1.0.151:src/value/de.rs",
+      "sha256": "ceda1bf415aafde89caa83bf275811b70d393717d4e1038e0c61822d2da02993",
+      "actual_compared_ranges": [
+        [
+          121,
+          148
+        ],
+        [
+          169,
+          193
+        ],
+        [
+          313,
+          313
+        ]
+      ],
+      "source_evidence": "Freshactualnewobjectvisitor plusoldnumericmacro/f32invocation; independentlycomparedroles, nofloatsealfromobjectvisitor."
+    },
+    {
+      "source_id": "dependency-serde_json1.0.151:src/map.rs",
+      "sha256": "b5a2fd1ee865e6cfd83ef2da0a2e1057f892465ac7ede8a78a11354a60526f33",
+      "actual_compared_ranges": [
+        [
+          29,
+          36
+        ],
+        [
+          120,
+          129
+        ]
+      ],
+      "source_evidence": "Fresh literal exact native/staticsource, prospectivelyregistered, allcaller/scopequalificationspreserved. No whole dependency graph/whole catalogue credits."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness/museum.rs",
+      "sha256": "35d53d3ede39827789e549ee71207e9a7441cceb825d1f119698459e6d238922",
+      "actual_compared_ranges": [
+        [
+          3,
+          17
+        ],
+        [
+          19,
+          36
+        ]
+      ],
+      "source_evidence": "Fresh literal exact native/staticsource, prospectivelyregistered, allcaller/scopequalificationspreserved. No whole dependency graph/whole catalogue credits."
+    },
+    {
+      "source_id": "native-dependency:serde-saphyr-1.2.0/src/de/error.rs",
+      "sha256": "f814896313ec178ed4f0ee14ab60e358b354814e4019564a42d1f75f2f0d4713",
+      "actual_compared_ranges": [
+        [
+          676,
+          1100
+        ],
+        [
+          1960,
+          1985
+        ],
+        [
+          2227,
+          2270
+        ]
+      ],
+      "source_evidence": "Fresh exact pinned nativecontracts; partial neighboringheaders/tails contextonly, no wholeSDK/parsercredit."
+    },
+    {
+      "source_id": "native-dependency:spacetimedb-sdk-2.6.1/src/db_connection.rs",
+      "sha256": "79c452f092b1123e8a9c4f7ca3c34167290bb97e3a64093ce903f4bf742b2b9a",
+      "actual_compared_ranges": [
+        [
+          187,
+          254
+        ],
+        [
+          410,
+          450
+        ],
+        [
+          727,
+          770
+        ],
+        [
+          1290,
+          1433
+        ]
+      ],
+      "source_evidence": "Fresh exact pinned nativecontracts; partial neighboringheaders/tails contextonly, no wholeSDK/parsercredit."
+    }
+  ],
+  "groups": {
+    "native-object-number-and-static-rosters": "Map lastduplicatewins is explicitnativepolicy, collectedlocallybeforereturn. NativeNumbermacro dispatchesdeserializeAny/specificfloatmethod, notproof finitef64tof32narrowingprotected, Numberimpluncreditedhere. Actualsemanticwrappermustadmitafterparser; no newforeignpatch. Fixed13/16 staticrosters nonempty/orderstable/no arithmetic/indexing; catalogue/harnesscompatibility separateowncontract, no asset/testgraph. Nativeconstantarrays immutable.",
+    "yaml-native-error": "StructuredIO/resolver/externalerror/budget/replaydiagnosticvariant storesactualrawrejectedvalue/nativecount ratherthanalreadyadmittedbusinessvalue. Display/Debug actualhumanrenderport; stdErrorimpl NOsourceoverride, so typedwrappermustretainwholeparsererror ratherthanassumeautomaticcausechain. SerdeError::custom DisplayredactedString is actualSerdeport, keeptypedcausesuntiltraitboundary. maybe_attach_fallback usesnative threadlocalLocation, notbusinessretryclock. Partial676-682/1100/1981-1985/2227-2231/2269-2270 contextonly, no wholeunscopedrenderer/replayfunctioncredit.",
+    "client-native-protocol": "Invoke enqueuesReducerArgs+boxedcallback andreturnsOkqueueing, notservercommit. DispatcherallocatesrequestID thenserializesBEFOREstore_call_info; afterstore disconnect/sendmayfail, no authoredstrongrollbackpromise/SDKpatch. SuccesscacheupdateBEFOREcallback; failuredoesnotapplydbupdate; callbackpoppedonce. NativeResult<Result<(),String>,InternalError> andBSATNStringErrdecode proveactualbusinessStringport, preserveauthoredtypederrorsuntilSDKandparseonceaftertransportasneeded. reducer_name.into/args.into/Args.into generatedReducer actualnativeportconversionswarranted. Unknownrequest\u2192InternalError; unitretassertnativeprotocol notgameentitybounds. Partial410-417/449-450/727/769-770 contextonly, no broaderprocedure/identityimplementationcredit. No inferenceofhosttransactionrollback."
+  },
+  "findings": [],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

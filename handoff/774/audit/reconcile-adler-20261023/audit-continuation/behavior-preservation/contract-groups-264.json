@@ -1,0 +1,36 @@
+{
+  "id": "CONT08-CONTRACT-264",
+  "at": "2026-10-25T15:27:32.367942+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 996,
+      "source_id": "pr-working:crates/adventuresim-core/src/skill.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/skill.rs",
+      "before_sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "after_sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0996-base-8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "diff": "source-evidence/pr-0996.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          1165
+        ]
+      ],
+      "head_body_read_method": "Exact own08 same-body bounded reuse141 plus fresh remaining source/fixture body and complete empty PR diff",
+      "facts": [
+        "Exact own08 source141 same8e728cfb ranges9\u2013117/720\u2013777/892\u2013981/1010\u20131105 reused; fresh1\u20138/118\u2013719/778\u2013891/982\u20131009/1106\u20131165 completes PR body. Actual PR diff empty; no retrospective fullP16 claim.",
+        "Canonical32 skills/order/training IDs/labels, fivepoint curve and asymptote preserved. Finite training_rank hours max0 then h/(h+halfmax); nonfinite hours0; aptitude nonfinite0/clamp0..5/cap. Trained ordinary correlation gate direct>0 and transfer<=direct, intuitive transfer unboundedbydirect, fixedsource iteration/f32sum order unchanged; sixterrain symmetric20%, surgery/knife/tailor15% and otherexactpairs same.",
+        "Actual skill_check1132\u20131165 keeps aptitude in rankcap only, mental headhealth once, physical weighted limbhealth then upper/lower armor then general physical condition. Surgery mental intentionally avoids arm injury performance penalty in existing fixture, healthy raw aptitude remains learning owner; no hidden fatigue or extra movement penalty introduced here. Publicrawtrait nonfinite/overflow behavior retained rather than claimed impossible.",
+        "All119\u2013589 original fixtures read: labels/100percentweights/rankinverse/latentcap/partialcrossing/aptitude-speed/language excess/chunkedmasterymorale/onepassdirectgated transfers/terrain/surgery symmetry; inputs/assertions unchanged, none run. Actual old/new combat875/876 uses these unchanged traits and injury/totalcondition policy; isolatedP16 elapsed types stay separate."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    }
+  ],
+  "next": "1003starting_character1936 then1004names141 and later original roles"
+}

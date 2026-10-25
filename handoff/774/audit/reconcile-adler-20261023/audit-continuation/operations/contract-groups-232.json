@@ -1,0 +1,50 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-232",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/generation_tests.rs",
+      "sha256": "b9ebdeb456f436026036cd6eeb640ee942b80fb5b4bd885d6c9cd78af795defe",
+      "actual_EOF": 395,
+      "actual_compared_ranges": [
+        [
+          1,
+          395
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/generation_tests.rs",
+      "sha256": "8acbe54a829e4f8c3f5e3d2fc5b4efe91415a6ebf0ea601ed3d98c46f410d6e6",
+      "actual_EOF": 394,
+      "actual_compared_ranges": [
+        [
+          1,
+          394
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Wearer-fit state transition, actual mesh indexing and bounded cache fixture",
+      "source_ranges": {
+        "generation_tests.rs": [
+          [
+            1,
+            395
+          ]
+        ]
+      },
+      "disposition": "Complete exact P16 fixture395lines and full actual PR delta consumed. Fixed4vertex triangle indices0/1/2 plus unusedfourth show intended actual referencedgeometrycenter; positions[0] used on fixedfixture, not arbitrarymeshacceptance. Wearer IDs1/2 and bounded smalltopology teststablephysicalLastFit acrosshold/drop/rebuild andrefitnewwearer; knownbadplacement flagsfailure thenactualvalidplacementrecovers. Empty RuntimeBody/GeneratedArmor are explicit testdoubles not acceptednormalmeshcontracts. PRwrapperjoints/layerSelection::admit delta retained; no inferencethateveryrawmesh nowvalidated. Cacheevictionfixture loops0..=CACHED_FIT_LIMIT (actualconstantowner dependency) and assertsmodelcount/oldbodyeviction; noactualcounteroverflow or gameplaycachememoryproof. Tests read notrun, no extra productionhelpercoverage."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-tactical-client/src/player.rs"
+}

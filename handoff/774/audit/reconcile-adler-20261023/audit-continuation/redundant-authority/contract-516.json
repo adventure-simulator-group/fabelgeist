@@ -1,0 +1,83 @@
+{
+  "id": "CONT07-CONTRACT-516",
+  "at": "2026-10-23T23:07:11.188175+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2247,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/sort/mod.rs",
+      "sha256": "2cf6b4446ab00dce84c8b3169d9685d3b2e304b869f4c25d0e4322c7bedf9634",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-compute/src/sort/mod.rs",
+      "actual_EOF": 327,
+      "ranges": [
+        [
+          1,
+          327
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2248,
+      "source_id": "pr-working:crates/fabelgeist-determinism/src/lib.rs",
+      "sha256": "85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-determinism/src/lib.rs",
+      "actual_EOF": 58,
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2249,
+      "source_id": "pr-working:crates/fabelgeist-determinism/src/seed.rs",
+      "sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-determinism/src/seed.rs",
+      "actual_EOF": 213,
+      "ranges": [
+        [
+          1,
+          213
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2250,
+      "source_id": "pr-working:crates/fabelgeist-determinism/src/stream.rs",
+      "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-determinism/src/stream.rs",
+      "actual_EOF": 169,
+      "ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "RadixSort327 determinismlib58 seed213 stream169 fullfreshread. Sortscratchpublicbuffers/privatecapacity andscan mismatch exactexistingRIG-ADMISSION03-F059 source support. Ensure rebuildswholeSelf when grows; defaultcapacity0/1 sortsdeliberatenoop andoddpasscopybackexplicit.",
+    "CONT07-F109 recordsnarrow maintenanceSUGGESTION for independently authoredBITS_PER_PASS8/RADIX256/TILE256 currentcoupled histogramlanecardinality; allcurrentcoherent, no observedbehavioraldefect or newglobaluniqueassertion.",
+    "Determinism Seedoneprivateu64 source, numeric/byte/hash/display/orderports derive samevalue. Domain-separatedStreamId root/contextframe byeachfieldlength preservesfieldboundaries; two APIbyte/numericroutesderive sameframing. CachedBLAKEbaseimmutablederivecontext only, clonedbeforeinputmutation, no cachedroot-specificstate.",
+    "Randomstreamstate advancesintentionaldrawhistory ratherthan retainedroot seedcache; inclusivevshalfopenunitintervals explicitlydifferentpolicies. Weighted_order copiesremainingweights thenzerosdrawnindex, sourceauthoredweightsunchangedanddrawtraceintentional; fixedwidthinteger samplerport retained. No Rand implementation/probabilisticbias proofderivedfrommethodnames, no samplingexecuted."
+  ],
+  "new_local_findings": [
+    "CONT07-F109"
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2252,
+    "start_line": 1
+  },
+  "existing_finding_source_support": [
+    "RIG-ADMISSION03-F059"
+  ]
+}

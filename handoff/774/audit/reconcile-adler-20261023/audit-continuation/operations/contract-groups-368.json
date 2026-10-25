@@ -1,0 +1,80 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-368",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/sites.rs",
+      "sha256": "f1b87ed586b1c651092b75de29d00b1717fdccca5ff4fa689e23a4295d1f119a",
+      "actual_EOF": 617,
+      "actual_compared_ranges": [
+        [
+          1,
+          617
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/sites/provenance.rs",
+      "sha256": "daffad8de81538d7a0bef0700cf95fbfccd01dae12ad483427b9b0246c4f29d2",
+      "actual_EOF": 95,
+      "actual_compared_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests.rs",
+      "sha256": "2e4d80338dc9b886cb077997059b28dc98a2b59c0df1984fa523d7418b1e8095",
+      "actual_EOF": 18,
+      "actual_compared_ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Observer pin and exact site authority remain correlated across aliases and checked opposition arithmetic",
+      "source_ranges": {
+        "sites.rs": [
+          [
+            1,
+            416
+          ]
+        ],
+        "sites/provenance.rs": [
+          [
+            1,
+            95
+          ]
+        ]
+      },
+      "disposition": "Whole sites617/provenance95 personally read. Pins gatewayonly, exactuncorrectedlead checked against typedsiteidentity/coords/case alias, strongestVisited dedup perowner/site. Generatedtitle requires validatedmanifestmatchedsite and currentcase, combateligible ties exactgroup/finale/facts/party; opposition uses checked u64 multiply and positive count/power, returningNone onoverflow/zero. Synthetic enemyidMAX is local summary construction, not automatically persistentCharacterId. combat_available remains true if strength projectionfails, explicit source UXpolicy dependency not actualfailurewithoutbadproducer. Case provenance wrappers collect bothaliases then validated unique canonical authority; manual hasnone, generatedexactone andcommitment. Existing authoritydedup sameprimarykey can only be same actualDBrow, no arbitraryduplicate injection claim. Core activitydistance gate preserves actual site/incident semantics. Exact action reducer chooses lead with allcorrelations; earlier view helper firstselects incompletelead, so shared policy consolidation must retain completecandidatefilter. No current invalidlead witness."
+    },
+    {
+      "contract": "Temporal disclosure intervals and bounded revision allocation preserve update identity",
+      "source_ranges": {
+        "sites.rs": [
+          [
+            282,
+            617
+          ]
+        ]
+      },
+      "disposition": "Exact observer_at requires typedrequestedplace/site and livelead recorded<=minute, correctedwhen correctiontime<=minute. Crossobserver correctionmissing failsclosed; actual correctioncase not separatelychecked but immutableproducerchecksdep. Presence joins historicaloccupancy/context/revision/alivefrontier beforecanonicalStrategicPresence admission. Disclosure parses canonicalbase or precisely8digitpositive revision; checkedadd and <=99999999 exhaustion beforestaleleadmutations, unlike beliefcountnarrowing. Reuse identical activecase/coords/stage returns and coalesces duplicateactive leads; newrevision closesstale theninserts. refresh_clock(...).unwrap_or_default fabricateszeroonerror beforepublication, shared accepted absentclock propagation graph; no fresh runtimeerrorwitness. Visited marking intentionalstageupdate withoutnewrevision, prior knowledge timestamp preserved as lastingexperience; do not globally forceeverydisplaystage torevision. Two temporal fixtures read not run. tests.rs18 only includes fourfixture bodies, each actual original role remains separately inventoried."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/action_authority.rs"
+}

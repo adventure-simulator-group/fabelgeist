@@ -1,0 +1,113 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-074",
+  "at": "2026-10-25T13:46:01.963430+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1228,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap/standalone.rs",
+      "sha256": "f8c439a961994d8cecdb92d5714dc22d3bf156311809819c89c78e0a1cbdd1a5",
+      "personally_read_ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "StandaloneMissionFamily derives from validated MissionId exact domain+coordinate prefixes, rejects empty Animation/Diagnostic suffix. Only Diagnostic receives2000m site; Animation/General zero is realcolocation, notmissing sentinel. Northwardoffset explicitly selects geographicdegree111000m vs syntheticunit1000m; currentcaller passesmatchingcaseframe/distance. Internal ID reparsing/Stringerror extraction is known producer/identitymigration, retainexactwiretags andfixtureplacement, no duplicateMissionId."
+      ]
+    },
+    {
+      "scope_index": 1229,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap/streams.rs",
+      "sha256": "07b827d6de030e024becdf33498ae858f561c957cef249f2bcf024566895b906",
+      "personally_read_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "All17 semanticrandompurpose constants retain StreamId and typedSeed; sitebearing derives lengthframedsiteID andangleTAU. recruiting_role builds actualexclusiveMelee/Ranged andquarter/halfarmor mutuallyexclusive using one sourcechoice, remaining ranks0..3/precision0..1.5; rawbooleans requirements semantics mayrepresent alternatives but currentproducer consistent. No arbitrary contradictory combat style normalrow. Preserve exact purpose/framing/order/randomdraw contract through conversion."
+      ]
+    },
+    {
+      "scope_index": 1230,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_roster.rs",
+      "sha256": "f67d08c1d5b6f22ad63de5ab13e46c5b4f2cd5d7512a7d90de2d1c1cc538a292",
+      "personally_read_ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Canonical HostileGroup::capture_enemy_roster constructs MissionEnemyRoster fromactualcontextIDs and comparescount once. MissionAuthority::capture owns immutableBound snapshot and actual roster/contact/power/drop state. StoredMission::enemy_roster validatesnonempty/distinct admittedIDs and actualcharacterexistence without rereading livegroupcount, so intentionalcurrentgroupdrift cannotchange boundenemyset. Unknown/deletedcharacter errors explicit; alive is intentionallynotrequired forfrozenidentity. Constructor accepts independent site/group/scene/party/observer, but retained actualensurebound graph059 ties sourcebindings; latent constructoradmission gap stays distinct fromcurrentordinarybadcaller claim."
+      ]
+    },
+    {
+      "scope_index": 1231,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_roster/authority_tests.rs",
+      "sha256": "b7a857a5b5c6d5ff38ff46fc5c80fb4a4bf41a4138454c7e089e6099d6f7ae7a",
+      "personally_read_ranges": [
+        [
+          1,
+          231
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full231 authority-test source read notexecuted. Token/featuregated reducers deliberatelycorrupt livegroupcount, snapshotempty/duplicate/missingIDs and assert launch/autoresolve fail before reports, then restoreactualmission andcompare request exactIDs/count. Finale fixturechecks Noneabsent, selected/executed receipt andconflictingparty/source retry. These are static acceptance assets, not proof they currentlypass; no newtest or DBexecution. Malformed rows inside negativefixtures notnormalsupportedcallerexamples."
+      ]
+    },
+    {
+      "scope_index": 1232,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/mod.rs",
+      "sha256": "32f47b926eea8c6d366a26c6d6f6e237595b9c0b44c84eb15b1150e49c980870",
+      "personally_read_ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Strategic module aggregates samelexicalABI fragments intentionally forSDKmacrodiscovery; imports/types/errors+ordinarymodules andcfgtests concat source order inspected. include fragments are notindependentpublic modules so actualtype/errorownership mustrespectsharedscope/generator; source-stringtests not integrationevidence. Noaggregate runtimeconstruction inthisfile; typedStrategicCombatResult reexport exists butunchangedStringreceiversremain knownmigration. Do not addcompatforwardingaliases because rootrulesforbid."
+      ]
+    },
+    {
+      "scope_index": 1233,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/party_readiness.rs",
+      "sha256": "8b1c585d51e630d3195a7f27e41251c155466d7195ede4bac0810b2e39ad19b5",
+      "personally_read_ranges": [
+        [
+          1,
+          198
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Living-party selector sortsactualalive membership-backedcharacters, retainscorpse memberships butexcludesactivity/readiness/travel/combat. It doesnot explicitlycrosscheckCharacter.party_id/uniqueness; nativecanonicalmemberadmission/normalization governsaggregate, no ordinaryduplicate contradiction shownhere. require_ready rejectsempty beforecanonicalconditiongate. Publicreadiness derivescurrentalive/Ready/nosymptomaticcritical andcombatcapability count+power checkedtogether, returnsaggregate only. Missingcondition failsclosed, illnessmissing treatednoillness actualpolicy. Readycompanion recovery/evacuation deliberately permitted whenleaderunready withcanonicalorigin-returnsettlement constraint. Casesiteorigin andjourneyendpointvariants usedinstead arbitrarynearestsettlement; continuation mustmatchcurrentsettlementdestination. Snapshotreadinesscanbestaleuntilrefresh, actualmutatorsgateindependently; no currentunsafepermission claim."
+      ]
+    },
+    {
+      "scope_index": 1234,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/scenario_characters.rs",
+      "sha256": "fe732c13e4aebc3bfbe24b75f8a91f654d37117925eeea8cfdf8766f5eec402e",
+      "personally_read_ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Scenario ensure existingcharacter accepts onlyrequestedcurrentsettlement, elseerror; new CharacterCreationOptions explicitlyPlayer/solo/generatedcarry/nonfield andstableSeed fromactualcharacterID withnoinitialtimeoverride. Existingotherfields intentionallynotreset, no overwriteofunrelatedcurrentactor. This privatehelper alone doesnotauthorizeDBseed; actualdevgateway/tokenoutercaller retained073. Rawidentity/name/location roles areknownownerpropagation, no parallelduplicate semantictypes needed."
+      ]
+    }
+  ],
+  "dependencies": [
+    "Mission snapshot/roster native storage+typed reusable owner and actuallaunch/autoresolve typederror receiving paths remainM58/M59; source-local roster consistency notfullfamily completion.",
+    "Originalnativeauthorityfixtures preserved forlater existingchecks; no DBvalidationcurrent.",
+    "Canonical party membership/location/time readiness and narrowrecovery permissions across actualtravelreducers1237 remainconnectedgraph."
+  ],
+  "discovery": "Seven distinct originalroles accounted; no full lens or wave clearance.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

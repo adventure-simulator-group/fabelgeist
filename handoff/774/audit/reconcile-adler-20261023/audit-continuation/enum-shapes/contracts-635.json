@@ -1,0 +1,18 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-635",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        1396,
+        1397,
+        1398
+      ],
+      "comparison": "Fresh full ragdoll geometry66/coordinator336/muscles275. Ragdolling component owns complete initialized physics definition, spawned parts/bodies, pose mapping/order, muscle targets, elapsed age, scale and pelvis-relative frame. Replicated BodyState Ragdolled is desired tactical body state, while optional client Ragdolling is realized presentation state; missing/inapplicable rig or rejected geometry can leave requested ragdoll unrealized, so do not force them into one authority enum. Normal entry preflights all actual scaled capsules before queueing entities, requires real pelvis seed, then switches pose ownership and inserts initialized component; exit releases parts and restores authored pose ownership. Sparse mappings remain independently optional; fixed definition and seed vectors matched by normal producer. Geometry zip accepts mismatched private slices but spawn indexes require actual matched association; no ordinary mismatch established and no new09 invalid-mode finding from rawindices. Kinematic is actual physics mode selecting native engine variant/controller pelvis, not an unobserved event. MuscleRelease Never/After age is existing enum; bounded reread owner1869:35\u201359/82\u2013105 confirms original034/148 qualification: limp_seconds is meaningful reusable authored decay tuning even when Never, not a field to delete as inactive. age and history remain valid while strength0, and muscle spin effects stay separate from authoritative controller motion. Native PD short-arc/angular kernels and denominator floors preserve existing numerical behavior. Orphan-part sweep and cleanup association are source paths, not runtime results. Fixtures read as source only.",
+      "finding_refs": [],
+      "disposition": "Complete realized-ragdoll component and existing release enum appropriate; desired state, sparse topology, physical authority and inactive authored tuning preserved"
+    }
+  ],
+  "new_findings": [],
+  "limits": "Discovery only.1399resolver was independently full read/accounted608; next1400 resolver/span143. No duplicate body credit, tests, checks, source changes or clearance."
+}

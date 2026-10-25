@@ -1,0 +1,3701 @@
+{
+  "id": "producer-delta-005",
+  "at": "2026-10-24T00:09:30.978339+00:00",
+  "lens": "01producer-propagation",
+  "rows": [
+    {
+      "delta_index": 62,
+      "source_scope_index": 447,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/source_package.rs",
+      "sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+      "effective_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "registration": {
+        "record": "continuation/native/admission03/source-range-registration.jsonl",
+        "sha256": "b64897ba6a74680b53619d22505860bae51451e916fb03fd547a59a7763875fa",
+        "row_1based": 83,
+        "id": "NATIVE-ADMISSION03-REG-083"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "native",
+          "registry": "continuation/native/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "id": "NATIVE-ADM03-FINALQUAL-083",
+            "registration_id": "NATIVE-ADMISSION03-REG-083",
+            "source_id": "physical-p16:crates/adventuresim-world-schema/src/source_package.rs",
+            "snapshot": "physical-p16",
+            "sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+            "actual_EOF": 53,
+            "registered_requested_ranges": [
+              [
+                1,
+                53
+              ]
+            ],
+            "qualified_material_ranges": [
+              [
+                1,
+                53
+              ]
+            ],
+            "context_or_excluded_within_registration": [],
+            "original_registration": {
+              "id": "NATIVE-ADMISSION03-REG-083",
+              "at": "2026-10-22T15:35:32.931763+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+              "source_id": "physical-p16:crates/adventuresim-world-schema/src/source_package.rs",
+              "sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+              "snapshot": "physical-p16",
+              "actual_EOF": 53,
+              "material_ranges": [
+                [
+                  1,
+                  53
+                ]
+              ],
+              "role": "ExactP16 SourcePackageDigest constructor/manualSerde/privatepayload currentRoadManifest source identity, notfromPRsamepath",
+              "actual_caller": "CurrentCamera312RoadPackload/manifestvalidate/nativeRoadLine E7 bounds actualsource",
+              "reason": "Exactdirectowningdefinitions/helper currentP16 necessaryroutes registeredbeforebody; no fullterrain/source graph",
+              "exclusions": "Only thisshortcurrentdefinition/helper, no othermodules/foreignpackageproof/authoritytransfer",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\src\\source_package.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "qualification_history": [
+              {
+                "qualification_file": "camera-support/source-qualifications-011.jsonl",
+                "row_1based": 11,
+                "payload": {
+                  "id": "NATIVE-CAMERA-SUPPORT03-QUAL-083",
+                  "registration_id": "NATIVE-ADMISSION03-REG-083",
+                  "original_registration": {
+                    "id": "NATIVE-ADMISSION03-REG-083",
+                    "at": "2026-10-22T15:35:32.931763+00:00",
+                    "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                    "source_id": "physical-p16:crates/adventuresim-world-schema/src/source_package.rs",
+                    "sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+                    "snapshot": "physical-p16",
+                    "actual_EOF": 53,
+                    "material_ranges": [
+                      [
+                        1,
+                        53
+                      ]
+                    ],
+                    "role": "ExactP16 SourcePackageDigest constructor/manualSerde/privatepayload currentRoadManifest source identity, notfromPRsamepath",
+                    "actual_caller": "CurrentCamera312RoadPackload/manifestvalidate/nativeRoadLine E7 bounds actualsource",
+                    "reason": "Exactdirectowningdefinitions/helper currentP16 necessaryroutes registeredbeforebody; no fullterrain/source graph",
+                    "exclusions": "Only thisshortcurrentdefinition/helper, no othermodules/foreignpackageproof/authoritytransfer",
+                    "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\src\\source_package.rs",
+                    "status": "registered_before_direct_current03_body_analysis"
+                  },
+                  "qualified_material_ranges": [
+                    [
+                      1,
+                      53
+                    ]
+                  ],
+                  "qualification": "Exactregisteredcurrentdirectrole only; no unrelatedsource/tests/nativegraph credit.",
+                  "actual_semantic_refs": [
+                    "contracts-006.json"
+                  ],
+                  "registered_before_body": true,
+                  "global_registry_reconciliation_pending": true,
+                  "later_lens_credit": false
+                }
+              }
+            ],
+            "current_proof_refs": {
+              "actual_semantic_refs": [
+                "contracts-006.json"
+              ]
+            },
+            "body_rereads_for_this_normalization": 0,
+            "semantic_credit_from_metadata": false,
+            "producer_or_owner_or_later_lens_credit": false,
+            "global_reconciliation_pending": true
+          },
+          "registration_id_resolved": "NATIVE-ADMISSION03-REG-083"
+        }
+      ],
+      "producer_trace_and_disposition": "Exact-source own producer evidence reused: PC92 full53line lowercase64hex SourcePackageDigest admission/Serde and actual road/map/capture recipients. Allzero digest is valid leaf, not an unsigned-manifest state discriminator. Actual source digest remains different from scene content/design hash.",
+      "connected_repair_or_remaining_requirement": "M94/M76 retain canonical digest from producer through internal comparisons rather than reparse native text at every call. Preserve wire64hex and separate authorities; full world import/capture context remains outstanding.",
+      "acceptance": "Preserve explicit source unit/frame/authority, valid states and native wire/hash/rounding/order; finish listed connected producer/recipient and inherited admission/operation requirements before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH inherited findings, positive boundaries and explicit connected questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run",
+      "reused_own_same_lens_evidence": {
+        "scope": "full",
+        "reference": "root-pc92-source-package-receivers-001.json",
+        "source_verified_against_recovered_blob": true,
+        "prior_file_review": {
+          "read_ranges": [
+            [
+              1,
+              53
+            ]
+          ],
+          "source_lines": 53,
+          "source_sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+          "body_read_complete": true,
+          "graph_status": "Actual listed source body/ranges read, no whole graph/all13 clearance; source recipes/fixtures and distinct caller paths remain pending."
+        },
+        "qualification": "Actual own earlier producer lens evidence, not a borrowed later-lens verdict or source-read-only proof of complete graph. Any uncovered material newly read this turn."
+      }
+    },
+    {
+      "delta_index": 63,
+      "source_scope_index": 418,
+      "source_id": "physical-p16:crates/adventuresim-terrain/src/digest.rs",
+      "sha256": "80e021f45fedb26ff313fe42e19a49503716be0c710173af5285e572bfe5ce98",
+      "effective_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "registration": {
+        "record": "continuation/native/admission03/source-range-registration.jsonl",
+        "sha256": "b64897ba6a74680b53619d22505860bae51451e916fb03fd547a59a7763875fa",
+        "row_1based": 84,
+        "id": "NATIVE-ADMISSION03-REG-084"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "native",
+          "registry": "continuation/native/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "id": "NATIVE-ADM03-FINALQUAL-084",
+            "registration_id": "NATIVE-ADMISSION03-REG-084",
+            "source_id": "physical-p16:crates/adventuresim-terrain/src/digest.rs",
+            "snapshot": "physical-p16",
+            "sha256": "80e021f45fedb26ff313fe42e19a49503716be0c710173af5285e572bfe5ce98",
+            "actual_EOF": 28,
+            "registered_requested_ranges": [
+              [
+                1,
+                28
+              ]
+            ],
+            "qualified_material_ranges": [
+              [
+                1,
+                28
+              ]
+            ],
+            "context_or_excluded_within_registration": [],
+            "original_registration": {
+              "id": "NATIVE-ADMISSION03-REG-084",
+              "at": "2026-10-22T15:35:32.940569+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+              "source_id": "physical-p16:crates/adventuresim-terrain/src/digest.rs",
+              "sha256": "80e021f45fedb26ff313fe42e19a49503716be0c710173af5285e572bfe5ce98",
+              "snapshot": "physical-p16",
+              "actual_EOF": 28,
+              "material_ranges": [
+                [
+                  1,
+                  28
+                ]
+              ],
+              "role": "ExactP16 currentRoadManifest valid_digest/hex_sha nativeboundary helper; PRproofnotautomaticcounterpart",
+              "actual_caller": "CurrentCamera312RoadPackload/manifestvalidate/nativeRoadLine E7 bounds actualsource",
+              "reason": "Exactdirectowningdefinitions/helper currentP16 necessaryroutes registeredbeforebody; no fullterrain/source graph",
+              "exclusions": "Only thisshortcurrentdefinition/helper, no othermodules/foreignpackageproof/authoritytransfer",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-terrain\\src\\digest.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "qualification_history": [
+              {
+                "qualification_file": "camera-support/source-qualifications-011.jsonl",
+                "row_1based": 12,
+                "payload": {
+                  "id": "NATIVE-CAMERA-SUPPORT03-QUAL-084",
+                  "registration_id": "NATIVE-ADMISSION03-REG-084",
+                  "original_registration": {
+                    "id": "NATIVE-ADMISSION03-REG-084",
+                    "at": "2026-10-22T15:35:32.940569+00:00",
+                    "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                    "source_id": "physical-p16:crates/adventuresim-terrain/src/digest.rs",
+                    "sha256": "80e021f45fedb26ff313fe42e19a49503716be0c710173af5285e572bfe5ce98",
+                    "snapshot": "physical-p16",
+                    "actual_EOF": 28,
+                    "material_ranges": [
+                      [
+                        1,
+                        28
+                      ]
+                    ],
+                    "role": "ExactP16 currentRoadManifest valid_digest/hex_sha nativeboundary helper; PRproofnotautomaticcounterpart",
+                    "actual_caller": "CurrentCamera312RoadPackload/manifestvalidate/nativeRoadLine E7 bounds actualsource",
+                    "reason": "Exactdirectowningdefinitions/helper currentP16 necessaryroutes registeredbeforebody; no fullterrain/source graph",
+                    "exclusions": "Only thisshortcurrentdefinition/helper, no othermodules/foreignpackageproof/authoritytransfer",
+                    "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-terrain\\src\\digest.rs",
+                    "status": "registered_before_direct_current03_body_analysis"
+                  },
+                  "qualified_material_ranges": [
+                    [
+                      1,
+                      28
+                    ]
+                  ],
+                  "qualification": "Exactregisteredcurrentdirectrole only; no unrelatedsource/tests/nativegraph credit.",
+                  "actual_semantic_refs": [
+                    "contracts-006.json"
+                  ],
+                  "registered_before_body": true,
+                  "global_registry_reconciliation_pending": true,
+                  "later_lens_credit": false
+                }
+              }
+            ],
+            "current_proof_refs": {
+              "actual_semantic_refs": [
+                "contracts-006.json"
+              ]
+            },
+            "body_rereads_for_this_normalization": 0,
+            "semantic_credit_from_metadata": false,
+            "producer_or_owner_or_later_lens_credit": false,
+            "global_reconciliation_pending": true
+          },
+          "registration_id_resolved": "NATIVE-ADMISSION03-REG-084"
+        }
+      ],
+      "producer_trace_and_disposition": "P16 digest.rs is byte-identical to PR role43 and earlier full28line producer record; native SHA bytes/streaming Read ports, while helpers return text and valid_digest discards checked owner. Direct exact source-role alias, not an extra independent defect.",
+      "connected_repair_or_remaining_requirement": "Same M94 connected hash/admission/retained package repair as role43; preserve IO cause and native hash bytes. No equivalent digest wrapper per helper.",
+      "acceptance": "Preserve explicit source unit/frame/authority, valid states and native wire/hash/rounding/order; finish listed connected producer/recipient and inherited admission/operation requirements before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH inherited findings, positive boundaries and explicit connected questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run",
+      "reused_own_same_lens_evidence": {
+        "scope": "full",
+        "reference": "producer-delta/contract-groups-004.json#/rows/1",
+        "source_verified_against_recovered_blob": true,
+        "prior_file_review": {
+          "read_ranges": [
+            [
+              1,
+              28
+            ]
+          ],
+          "source_lines": 28,
+          "source_sha256": "80e021f45fedb26ff313fe42e19a49503716be0c710173af5285e572bfe5ce98",
+          "body_read_complete": true,
+          "graph_status": "Actual fullbody read for terrain weather/route/pack identity/error producers and recipients; full connected graphs/all13 still incomplete."
+        },
+        "qualification": "Actual own earlier producer lens evidence, not a borrowed later-lens verdict or source-read-only proof of complete graph. Any uncovered material newly read this turn."
+      }
+    },
+    {
+      "delta_index": 64,
+      "source_scope_index": 443,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+      "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+      "effective_ranges": [
+        [
+          1504,
+          1610
+        ]
+      ],
+      "registration": {
+        "record": "continuation/native/admission03/source-range-registration.jsonl",
+        "sha256": "b64897ba6a74680b53619d22505860bae51451e916fb03fd547a59a7763875fa",
+        "row_1based": 85,
+        "id": "NATIVE-ADMISSION03-REG-085"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "native",
+          "registry": "continuation/native/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "id": "NATIVE-ADM03-FINALQUAL-085",
+            "registration_id": "NATIVE-ADMISSION03-REG-085",
+            "source_id": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+            "snapshot": "physical-p16",
+            "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+            "actual_EOF": 4796,
+            "registered_requested_ranges": [
+              [
+                1503,
+                1610
+              ]
+            ],
+            "qualified_material_ranges": [
+              [
+                1504,
+                1610
+              ]
+            ],
+            "context_or_excluded_within_registration": [
+              [
+                1503,
+                1503
+              ]
+            ],
+            "original_registration": {
+              "id": "NATIVE-ADMISSION03-REG-085",
+              "at": "2026-10-22T15:37:20.274675+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+              "source_id": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+              "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+              "snapshot": "physical-p16",
+              "actual_EOF": 4796,
+              "material_ranges": [
+                [
+                  1503,
+                  1610
+                ]
+              ],
+              "role": "Actual LandUseFraction/Profile declaration+constructors directlycalledscoped329manualDeserialize1618-1633; requireactualsum/fieldpredicate noterrorstringinference",
+              "actual_caller": "Camera329 currentP16WorldLib scopedLandUseProfileDeserialize Self::new1631",
+              "reason": "Necessary canonicaldirectadmission definition registeredbeforebody; no full4796WorldLib expansion",
+              "exclusions": "Only exactLandUseFraction/Profile/closedintensity metadata+methods, no otherworldsourcebody roles",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\src\\lib.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "qualification_history": [
+              {
+                "qualification_file": "camera-support/source-qualifications-011.jsonl",
+                "row_1based": 13,
+                "payload": {
+                  "id": "NATIVE-CAMERA-SUPPORT03-QUAL-085",
+                  "registration_id": "NATIVE-ADMISSION03-REG-085",
+                  "original_registration": {
+                    "id": "NATIVE-ADMISSION03-REG-085",
+                    "at": "2026-10-22T15:37:20.274675+00:00",
+                    "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                    "source_id": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+                    "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+                    "snapshot": "physical-p16",
+                    "actual_EOF": 4796,
+                    "material_ranges": [
+                      [
+                        1503,
+                        1610
+                      ]
+                    ],
+                    "role": "Actual LandUseFraction/Profile declaration+constructors directlycalledscoped329manualDeserialize1618-1633; requireactualsum/fieldpredicate noterrorstringinference",
+                    "actual_caller": "Camera329 currentP16WorldLib scopedLandUseProfileDeserialize Self::new1631",
+                    "reason": "Necessary canonicaldirectadmission definition registeredbeforebody; no full4796WorldLib expansion",
+                    "exclusions": "Only exactLandUseFraction/Profile/closedintensity metadata+methods, no otherworldsourcebody roles",
+                    "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\src\\lib.rs",
+                    "status": "registered_before_direct_current03_body_analysis"
+                  },
+                  "qualified_material_ranges": [
+                    [
+                      1504,
+                      1610
+                    ]
+                  ],
+                  "qualification": "1503blank excluded, LandUseFraction/Profile/intensity partiallyoverlapsoriginal3291610-1710 soactualcompleteintensityclosure suppliedbyoriginalrange; no otherWorldLibtypes.",
+                  "actual_semantic_refs": [
+                    "contracts-008.json"
+                  ],
+                  "registered_before_body": true,
+                  "global_registry_reconciliation_pending": true,
+                  "later_lens_credit": false
+                }
+              }
+            ],
+            "current_proof_refs": {
+              "actual_semantic_refs": [
+                "contracts-008.json"
+              ]
+            },
+            "body_rereads_for_this_normalization": 0,
+            "semantic_credit_from_metadata": false,
+            "producer_or_owner_or_later_lens_credit": false,
+            "global_reconciliation_pending": true
+          },
+          "registration_id_resolved": "NATIVE-ADMISSION03-REG-085"
+        }
+      ],
+      "producer_trace_and_disposition": "New exact P16 land-use ranges compose checked components then erase UnitBasisPoints into LandUseFraction privateu16; exact adopted RIG-INITIAL06-F036 and F019 support. LandUseProfile enforces exact four-component10000sum with widened additions; sum\u226440000 fitsu32. Its correlated aggregate is not replaceable by one scalar fraction. HumanLandUseIntensity is derived policy; registered range ends within intensity match, not whole function credit.",
+      "connected_repair_or_remaining_requirement": "Compose existing UnitBasisPoints within useful land-use role and carry typed four-component profile through consumers; retain zero/inclusive10000, schema shape, managed/builtup thresholds and separate intensity authority. Finish actual native SATS admission routes from adopted03 evidence; no fresh03/06 baseline replay or arbitrary permille merge.",
+      "acceptance": "Preserve explicit source unit/frame/authority, valid states and native wire/hash/rounding/order; finish listed connected producer/recipient and inherited admission/operation requirements before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH inherited findings, positive boundaries and explicit connected questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run"
+    },
+    {
+      "delta_index": 65,
+      "source_scope_index": 443,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+      "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+      "effective_ranges": [
+        [
+          33,
+          33
+        ]
+      ],
+      "registration": {
+        "record": "continuation/native/admission03/source-range-registration.jsonl",
+        "sha256": "b64897ba6a74680b53619d22505860bae51451e916fb03fd547a59a7763875fa",
+        "row_1based": 86,
+        "id": "NATIVE-ADMISSION03-REG-086"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "native",
+          "registry": "continuation/native/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "id": "NATIVE-ADM03-FINALQUAL-086",
+            "registration_id": "NATIVE-ADMISSION03-REG-086",
+            "source_id": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+            "snapshot": "physical-p16",
+            "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+            "actual_EOF": 4796,
+            "registered_requested_ranges": [
+              [
+                33,
+                33
+              ]
+            ],
+            "qualified_material_ranges": [
+              [
+                33,
+                33
+              ]
+            ],
+            "context_or_excluded_within_registration": [],
+            "original_registration": {
+              "id": "NATIVE-ADMISSION03-REG-086",
+              "at": "2026-10-22T15:40:20.753157+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+              "source_id": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+              "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+              "snapshot": "physical-p16",
+              "actual_EOF": 4796,
+              "material_ranges": [
+                [
+                  33,
+                  33
+                ]
+              ],
+              "role": "ExactUnitBasisPoints/BASIS_POINTS_PER_WHOLE reexport connectsNative085LandUse constructor namedbound toactualP16basis_points Native043 admission proof",
+              "actual_caller": "Native085LandUseFraction1513/LandUseProfile1575",
+              "reason": "Directnamedcanonicalconstant/leafedge registeredbeforesemanticbodycomparison, notname-onlyinference",
+              "exclusions": "No otherWorldLibmodule/reexports/materialsourcecredit",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\src\\lib.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "qualification_history": [
+              {
+                "qualification_file": "camera-support/source-qualifications-011.jsonl",
+                "row_1based": 14,
+                "payload": {
+                  "id": "NATIVE-CAMERA-SUPPORT03-QUAL-086",
+                  "registration_id": "NATIVE-ADMISSION03-REG-086",
+                  "original_registration": {
+                    "id": "NATIVE-ADMISSION03-REG-086",
+                    "at": "2026-10-22T15:40:20.753157+00:00",
+                    "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                    "source_id": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+                    "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+                    "snapshot": "physical-p16",
+                    "actual_EOF": 4796,
+                    "material_ranges": [
+                      [
+                        33,
+                        33
+                      ]
+                    ],
+                    "role": "ExactUnitBasisPoints/BASIS_POINTS_PER_WHOLE reexport connectsNative085LandUse constructor namedbound toactualP16basis_points Native043 admission proof",
+                    "actual_caller": "Native085LandUseFraction1513/LandUseProfile1575",
+                    "reason": "Directnamedcanonicalconstant/leafedge registeredbeforesemanticbodycomparison, notname-onlyinference",
+                    "exclusions": "No otherWorldLibmodule/reexports/materialsourcecredit",
+                    "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\src\\lib.rs",
+                    "status": "registered_before_direct_current03_body_analysis"
+                  },
+                  "qualified_material_ranges": [
+                    [
+                      33,
+                      33
+                    ]
+                  ],
+                  "qualification": "Exactregisteredcurrentdirectrole only; no unrelatedsource/tests/nativegraph credit.",
+                  "actual_semantic_refs": [
+                    "contracts-008.json"
+                  ],
+                  "registered_before_body": true,
+                  "global_registry_reconciliation_pending": true,
+                  "later_lens_credit": false
+                }
+              }
+            ],
+            "current_proof_refs": {
+              "actual_semantic_refs": [
+                "contracts-008.json"
+              ]
+            },
+            "body_rereads_for_this_normalization": 0,
+            "semantic_credit_from_metadata": false,
+            "producer_or_owner_or_later_lens_credit": false,
+            "global_reconciliation_pending": true
+          },
+          "registration_id_resolved": "NATIVE-ADMISSION03-REG-086"
+        }
+      ],
+      "producer_trace_and_disposition": "Single qualified line33 reexports canonical basis-point constant, signed and unit types. No runtime primitive operation or new owner in this line; no neighboring module body credit.",
+      "connected_repair_or_remaining_requirement": "Consume existing canonical signed/unit owners as appropriate and preserve neutral shared feature boundaries. No duplicate constant/alias introduced to silence a type mismatch.",
+      "acceptance": "Preserve explicit source unit/frame/authority, valid states and native wire/hash/rounding/order; finish listed connected producer/recipient and inherited admission/operation requirements before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH inherited findings, positive boundaries and explicit connected questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run"
+    },
+    {
+      "delta_index": 66,
+      "source_scope_index": 2532,
+      "source_id": "physical-p16:crates/fabelgeist-determinism/src/stream.rs",
+      "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+      "effective_ranges": [
+        [
+          12,
+          28
+        ],
+        [
+          105,
+          115
+        ]
+      ],
+      "registration": {
+        "record": "continuation/native/admission03/source-range-registration.jsonl",
+        "sha256": "b64897ba6a74680b53619d22505860bae51451e916fb03fd547a59a7763875fa",
+        "row_1based": 87,
+        "id": "NATIVE-ADMISSION03-REG-087"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "native",
+          "registry": "continuation/native/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "id": "NATIVE-ADM03-FINALQUAL-087",
+            "registration_id": "NATIVE-ADMISSION03-REG-087",
+            "source_id": "physical-p16:crates/fabelgeist-determinism/src/stream.rs",
+            "snapshot": "physical-p16",
+            "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+            "actual_EOF": 169,
+            "registered_requested_ranges": [
+              [
+                11,
+                29
+              ],
+              [
+                105,
+                117
+              ]
+            ],
+            "qualified_material_ranges": [
+              [
+                12,
+                28
+              ],
+              [
+                105,
+                115
+              ]
+            ],
+            "context_or_excluded_within_registration": [
+              [
+                11,
+                11
+              ],
+              [
+                29,
+                29
+              ],
+              [
+                116,
+                117
+              ]
+            ],
+            "original_registration": {
+              "id": "NATIVE-ADMISSION03-REG-087",
+              "at": "2026-10-22T15:41:41.431633+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+              "source_id": "physical-p16:crates/fabelgeist-determinism/src/stream.rs",
+              "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+              "snapshot": "physical-p16",
+              "actual_EOF": 169,
+              "material_ranges": [
+                [
+                  11,
+                  29
+                ],
+                [
+                  105,
+                  117
+                ]
+              ],
+              "role": "Exactweighted_index/errorvocabulary directlycalledcurrentP16 names330 generation; Rig069actualindex/below only excludesweighted, RootPRRNGnotautomaticP16credit",
+              "actual_caller": "Camera330 generate_personal_name_from_catalog293/313/325",
+              "reason": "Actualdirectmissingadmission/selectedindex/error contract registeredbeforebody; no RNGwholefile/foreignsamplingstatisticalproof",
+              "exclusions": "weighted_order118+excluded; otherhelpersremainactualRig069boundedproof, no siblingRNG graph",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\fabelgeist-determinism\\src\\stream.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "qualification_history": [
+              {
+                "qualification_file": "camera-support/source-qualifications-011.jsonl",
+                "row_1based": 15,
+                "payload": {
+                  "id": "NATIVE-CAMERA-SUPPORT03-QUAL-087",
+                  "registration_id": "NATIVE-ADMISSION03-REG-087",
+                  "original_registration": {
+                    "id": "NATIVE-ADMISSION03-REG-087",
+                    "at": "2026-10-22T15:41:41.431633+00:00",
+                    "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                    "source_id": "physical-p16:crates/fabelgeist-determinism/src/stream.rs",
+                    "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+                    "snapshot": "physical-p16",
+                    "actual_EOF": 169,
+                    "material_ranges": [
+                      [
+                        11,
+                        29
+                      ],
+                      [
+                        105,
+                        117
+                      ]
+                    ],
+                    "role": "Exactweighted_index/errorvocabulary directlycalledcurrentP16 names330 generation; Rig069actualindex/below only excludesweighted, RootPRRNGnotautomaticP16credit",
+                    "actual_caller": "Camera330 generate_personal_name_from_catalog293/313/325",
+                    "reason": "Actualdirectmissingadmission/selectedindex/error contract registeredbeforebody; no RNGwholefile/foreignsamplingstatisticalproof",
+                    "exclusions": "weighted_order118+excluded; otherhelpersremainactualRig069boundedproof, no siblingRNG graph",
+                    "resolved_path": "SNAPSHOTS\\p16\\crates\\fabelgeist-determinism\\src\\stream.rs",
+                    "status": "registered_before_direct_current03_body_analysis"
+                  },
+                  "qualified_material_ranges": [
+                    [
+                      12,
+                      28
+                    ],
+                    [
+                      105,
+                      115
+                    ]
+                  ],
+                  "qualification": "117nextweighted_ordermethoddoc excluded; no weighted_order/newforeignstatisticalgraph.",
+                  "actual_semantic_refs": [
+                    "contracts-008.json"
+                  ],
+                  "registered_before_body": true,
+                  "global_registry_reconciliation_pending": true,
+                  "later_lens_credit": false
+                }
+              }
+            ],
+            "current_proof_refs": {
+              "actual_semantic_refs": [
+                "contracts-008.json"
+              ]
+            },
+            "body_rereads_for_this_normalization": 0,
+            "semantic_credit_from_metadata": false,
+            "producer_or_owner_or_later_lens_credit": false,
+            "global_reconciliation_pending": true
+          },
+          "registration_id_resolved": "NATIVE-ADMISSION03-REG-087"
+        }
+      ],
+      "producer_trace_and_disposition": "SamplingError preserves exact empty/zero-total/overflow classes; actual DeterministicRng weighted_index directly delegates u64 weights to rand WeightedIndex and returns native dense position. This is concrete generic numerical distribution boundary, not a business identity. InvalidWeight unreachable is justified by nonnegative u64; pinned nonexhaustive error is separate version assumption.",
+      "connected_repair_or_remaining_requirement": "Keep canonical SamplingError through callers, project semantic weights into actual generic sampler once, map returned dense index immediately into candidate from same ordered collection. Preserve pinned deterministic draws/order; name-specific Sampling(String) erasure in role81 remains connected repair.",
+      "acceptance": "Preserve explicit source unit/frame/authority, valid states and native wire/hash/rounding/order; finish listed connected producer/recipient and inherited admission/operation requirements before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH inherited findings, positive boundaries and explicit connected questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run"
+    },
+    {
+      "delta_index": 67,
+      "source_scope_index": 2719,
+      "source_id": "physical-p16:crates/adventuresim-core/src/world_event.rs",
+      "sha256": "10007dfcca53443d2794c0e38d8e9d741588f79ba8f61163c84d2281e7b40fb4",
+      "effective_ranges": [
+        [
+          1,
+          151
+        ],
+        [
+          245,
+          398
+        ]
+      ],
+      "registration": {
+        "record": "continuation/native/admission03/source-range-registration.jsonl",
+        "sha256": "b64897ba6a74680b53619d22505860bae51451e916fb03fd547a59a7763875fa",
+        "row_1based": 88,
+        "id": "NATIVE-ADMISSION03-REG-088"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "native",
+          "registry": "continuation/native/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "id": "NATIVE-ADM03-FINALQUAL-088",
+            "registration_id": "NATIVE-ADMISSION03-REG-088",
+            "source_id": "physical-p16:crates/adventuresim-core/src/world_event.rs",
+            "snapshot": "physical-p16",
+            "sha256": "10007dfcca53443d2794c0e38d8e9d741588f79ba8f61163c84d2281e7b40fb4",
+            "actual_EOF": 620,
+            "registered_requested_ranges": [
+              [
+                1,
+                151
+              ],
+              [
+                245,
+                398
+              ]
+            ],
+            "qualified_material_ranges": [
+              [
+                1,
+                151
+              ],
+              [
+                245,
+                398
+              ]
+            ],
+            "context_or_excluded_within_registration": [],
+            "original_registration": {
+              "id": "NATIVE-ADMISSION03-REG-088",
+              "at": "2026-10-22T15:44:50.116808+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json; RootG060061boundedremainingclosure",
+              "source_id": "physical-p16:crates/adventuresim-core/src/world_event.rs",
+              "sha256": "10007dfcca53443d2794c0e38d8e9d741588f79ba8f61163c84d2281e7b40fb4",
+              "snapshot": "physical-p16",
+              "actual_EOF": 620,
+              "material_ranges": [
+                [
+                  1,
+                  151
+                ],
+                [
+                  245,
+                  398
+                ]
+              ],
+              "role": "ActualP16WorldEventEnvelope validate/validate_id/actor/subjects/place/payload +actualfood-dose/consequence/planner/replay directclosure forNative069 transaction andcurrentCamera474PR counterpart comparison; excludesotherplanners153-244/test400+",
+              "actual_caller": "OriginalNative069 P16world_event commit validation +Native070/071actualP16Placefactories; currentPRCamera474definition joinsneedexplicitcomparison",
+              "reason": "Exactdirectgenuineremainingcanonicalcontractregisteredbeforebody; no unrelatedDB/membership/fullSDKgraph",
+              "exclusions": "No unrelatedWorldEventplanners/tests orPlaceexistingtests; fullonlynecessarydefinitions/ctor/codecs, no repairauthoritytransfer",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\world_event.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "qualification_history": [
+              {
+                "qualification_file": "camera-support/source-qualifications-011.jsonl",
+                "row_1based": 16,
+                "payload": {
+                  "id": "NATIVE-CAMERA-SUPPORT03-QUAL-088",
+                  "registration_id": "NATIVE-ADMISSION03-REG-088",
+                  "original_registration": {
+                    "id": "NATIVE-ADMISSION03-REG-088",
+                    "at": "2026-10-22T15:44:50.116808+00:00",
+                    "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json; RootG060061boundedremainingclosure",
+                    "source_id": "physical-p16:crates/adventuresim-core/src/world_event.rs",
+                    "sha256": "10007dfcca53443d2794c0e38d8e9d741588f79ba8f61163c84d2281e7b40fb4",
+                    "snapshot": "physical-p16",
+                    "actual_EOF": 620,
+                    "material_ranges": [
+                      [
+                        1,
+                        151
+                      ],
+                      [
+                        245,
+                        398
+                      ]
+                    ],
+                    "role": "ActualP16WorldEventEnvelope validate/validate_id/actor/subjects/place/payload +actualfood-dose/consequence/planner/replay directclosure forNative069 transaction andcurrentCamera474PR counterpart comparison; excludesotherplanners153-244/test400+",
+                    "actual_caller": "OriginalNative069 P16world_event commit validation +Native070/071actualP16Placefactories; currentPRCamera474definition joinsneedexplicitcomparison",
+                    "reason": "Exactdirectgenuineremainingcanonicalcontractregisteredbeforebody; no unrelatedDB/membership/fullSDKgraph",
+                    "exclusions": "No unrelatedWorldEventplanners/tests orPlaceexistingtests; fullonlynecessarydefinitions/ctor/codecs, no repairauthoritytransfer",
+                    "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\world_event.rs",
+                    "status": "registered_before_direct_current03_body_analysis"
+                  },
+                  "qualified_material_ranges": [
+                    [
+                      1,
+                      151
+                    ],
+                    [
+                      245,
+                      398
+                    ]
+                  ],
+                  "qualification": "Exactregisteredcurrentdirectrole only; no unrelatedsource/tests/nativegraph credit.",
+                  "actual_semantic_refs": [
+                    "contracts-009.json"
+                  ],
+                  "registered_before_body": true,
+                  "global_registry_reconciliation_pending": true,
+                  "later_lens_credit": false
+                }
+              }
+            ],
+            "current_proof_refs": {
+              "actual_semantic_refs": [
+                "contracts-009.json"
+              ]
+            },
+            "body_rereads_for_this_normalization": 0,
+            "semantic_credit_from_metadata": false,
+            "producer_or_owner_or_later_lens_credit": false,
+            "global_reconciliation_pending": true
+          },
+          "registration_id_resolved": "NATIVE-ADMISSION03-REG-088"
+        }
+      ],
+      "producer_trace_and_disposition": "Own earlier complete620line producer proof matches exact P16 source hash and covers both registered ranges. WorldEventEnvelope validation checks revision, source/payload/actor/subjects association and bounded dose/immune/fraction relationships, but primitive leaves remain in retained Core product despite a distinct native database mirror. M31/M29/M30 already record source identities, disease/place, episode/carrier/dose/fractions and early error text; no ordinary forged commit claimed.",
+      "connected_repair_or_remaining_requirement": "Carry semantic identity/quantity/cause through actual request/event/plan/commit graph, not only validation return. Preserve actor/subject/source associations, source-order and native dose quantization. Do not equate event ID/episode/HMAC/Seed or water carrier digest/food lot, and do not claim table primitive fields exempt the preceding Core model.",
+      "acceptance": "Preserve explicit source unit/frame/authority, valid states and native wire/hash/rounding/order; finish listed connected producer/recipient and inherited admission/operation requirements before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH inherited findings, positive boundaries and explicit connected questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run",
+      "reused_own_same_lens_evidence": {
+        "scope": "full",
+        "reference": "ledger.json#/lenses/producer-propagation/file_reviews/crates~1adventuresim-core~1src~1world_event.rs",
+        "source_verified_against_recovered_blob": true,
+        "prior_file_review": {
+          "read_ranges": [
+            [
+              1,
+              620
+            ]
+          ],
+          "source_lines": 620,
+          "source_sha256": "10007dfcca53443d2794c0e38d8e9d741588f79ba8f61163c84d2281e7b40fb4",
+          "body_read_complete": true,
+          "graph_status": "Connected families/lens remain incomplete; body coverage and local inventory are distinct.",
+          "local_discovery": "complete WITH findings, candidates, intentional boundaries and explicit outgoing frontier",
+          "disposition": "Complete core event source and existingfixtures read. M31 foodwater path erases alreadytyped DiseaseId/StrategicPlaceId before core envelope/request/plan/consequence application; core derivesSerde buthasown separateactualpersistedDBmirror, so internal String isnotautomaticallynativeboundary. M29 shared semantic identity/quantity frontier extends eventactor/subjects/episode/carrier/digest/dose/immune/fraction; exactownerfitmustpreserve roles (Seed versusepisodeID, waterdigestcarrier versusfoodlot). WorldEventEnvelope validates revision,IDs/nonzeroactor/subjects uniqueness/order,source/payload/actorassociation anddose/immune/fractionrelations before nativecommit; no ordinaryforged/replayedmutationclaim. Core WorldEventError concrete retainsvariants but actualcommit helper erasescauseM30. Native dosequantization f32->f64 integer fixedwire positive/zero andfloatlimitcandidatePC41 needs exact sourceendpointanalysis; not substitute medicinalcomponentunits forinfectiondose. Reputation/case functions introduceotheroutgoing source/ID/amountpaths that remainuntraced; no completeevent-family verdict."
+        },
+        "qualification": "Actual own earlier producer lens evidence, not a borrowed later-lens verdict or source-read-only proof of complete graph. Any uncovered material newly read this turn."
+      }
+    },
+    {
+      "delta_index": 68,
+      "source_scope_index": 2720,
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_place.rs",
+      "sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+      "effective_ranges": [
+        [
+          1,
+          720
+        ]
+      ],
+      "registration": {
+        "record": "continuation/native/admission03/source-range-registration.jsonl",
+        "sha256": "b64897ba6a74680b53619d22505860bae51451e916fb03fd547a59a7763875fa",
+        "row_1based": 89,
+        "id": "NATIVE-ADMISSION03-REG-089"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "native",
+          "registry": "continuation/native/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "id": "NATIVE-ADM03-FINALQUAL-089",
+            "registration_id": "NATIVE-ADMISSION03-REG-089",
+            "source_id": "physical-p16:crates/adventuresim-core/src/strategic_place.rs",
+            "snapshot": "physical-p16",
+            "sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+            "actual_EOF": 998,
+            "registered_requested_ranges": [
+              [
+                1,
+                720
+              ]
+            ],
+            "qualified_material_ranges": [
+              [
+                1,
+                720
+              ]
+            ],
+            "context_or_excluded_within_registration": [],
+            "original_registration": {
+              "id": "NATIVE-ADMISSION03-REG-089",
+              "at": "2026-10-22T15:44:50.129094+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json; RootG060061boundedremainingclosure",
+              "source_id": "physical-p16:crates/adventuresim-core/src/strategic_place.rs",
+              "sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+              "snapshot": "physical-p16",
+              "actual_EOF": 998,
+              "material_ranges": [
+                [
+                  1,
+                  720
+                ]
+              ],
+              "role": "ActualP16canonicalPlace/Fixture/CaseSite constructors/manualSerde/nativefeatures/publicvariant routes directtypedlowerNative069070071; no PRautomaticcounterpartcredit ortest722+",
+              "actual_caller": "OriginalNative069 P16world_event commit validation +Native070/071actualP16Placefactories; currentPRCamera474definition joinsneedexplicitcomparison",
+              "reason": "Exactdirectgenuineremainingcanonicalcontractregisteredbeforebody; no unrelatedDB/membership/fullSDKgraph",
+              "exclusions": "No unrelatedWorldEventplanners/tests orPlaceexistingtests; fullonlynecessarydefinitions/ctor/codecs, no repairauthoritytransfer",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\strategic_place.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "qualification_history": [
+              {
+                "qualification_file": "camera-support/source-qualifications-011.jsonl",
+                "row_1based": 17,
+                "payload": {
+                  "id": "NATIVE-CAMERA-SUPPORT03-QUAL-089",
+                  "registration_id": "NATIVE-ADMISSION03-REG-089",
+                  "original_registration": {
+                    "id": "NATIVE-ADMISSION03-REG-089",
+                    "at": "2026-10-22T15:44:50.129094+00:00",
+                    "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json; RootG060061boundedremainingclosure",
+                    "source_id": "physical-p16:crates/adventuresim-core/src/strategic_place.rs",
+                    "sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+                    "snapshot": "physical-p16",
+                    "actual_EOF": 998,
+                    "material_ranges": [
+                      [
+                        1,
+                        720
+                      ]
+                    ],
+                    "role": "ActualP16canonicalPlace/Fixture/CaseSite constructors/manualSerde/nativefeatures/publicvariant routes directtypedlowerNative069070071; no PRautomaticcounterpartcredit ortest722+",
+                    "actual_caller": "OriginalNative069 P16world_event commit validation +Native070/071actualP16Placefactories; currentPRCamera474definition joinsneedexplicitcomparison",
+                    "reason": "Exactdirectgenuineremainingcanonicalcontractregisteredbeforebody; no unrelatedDB/membership/fullSDKgraph",
+                    "exclusions": "No unrelatedWorldEventplanners/tests orPlaceexistingtests; fullonlynecessarydefinitions/ctor/codecs, no repairauthoritytransfer",
+                    "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\strategic_place.rs",
+                    "status": "registered_before_direct_current03_body_analysis"
+                  },
+                  "qualified_material_ranges": [
+                    [
+                      1,
+                      720
+                    ]
+                  ],
+                  "qualification": "Exactregisteredcurrentdirectrole only; no unrelatedsource/tests/nativegraph credit.",
+                  "actual_semantic_refs": [
+                    "contracts-009.json"
+                  ],
+                  "registered_before_body": true,
+                  "global_registry_reconciliation_pending": true,
+                  "later_lens_credit": false
+                }
+              }
+            ],
+            "current_proof_refs": {
+              "actual_semantic_refs": [
+                "contracts-009.json"
+              ]
+            },
+            "body_rereads_for_this_normalization": 0,
+            "semantic_credit_from_metadata": false,
+            "producer_or_owner_or_later_lens_credit": false,
+            "global_reconciliation_pending": true
+          },
+          "registration_id_resolved": "NATIVE-ADMISSION03-REG-089"
+        }
+      ],
+      "producer_trace_and_disposition": "Combined own earlier ranges1-180/210-315 with fresh181-209/316-720, same frozen hash. StrategicPlaceId and FixtureId encode distinct referents; service/chapter/outbreak/fireplace factories validate actual association. Native hex/colon/version/canonical integer parsing is format boundary. decode validates StrategicIdentityComponent then returns String, and composite factories accept implInto<String> and readmit; outbreak_id returns text before semantic consumers. Enum public variant admission concerns are already inherited03, not retriggering that baseline.",
+      "connected_repair_or_remaining_requirement": "Retain existing component/place/fixture/organization/location/outbreak/time owners through composite factories and consumers; separate raw decoding from checked decoded component and preserve exact format/Unicode/canonical decimal behavior. Preserve coarse settlement vs exact venue and chapter institutional identity vs selected physical service venue. Public constructor/Serde aggregate repair consumes adopted03 evidence; no duplicate equivalent owner or compatibility encoding.",
+      "acceptance": "Preserve explicit source unit/frame/authority, valid states and native wire/hash/rounding/order; finish listed connected producer/recipient and inherited admission/operation requirements before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH inherited findings, positive boundaries and explicit connected questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run",
+      "reused_own_same_lens_evidence": {
+        "scope": "partial",
+        "reference": "ledger.json#/lenses/producer-propagation/file_reviews/crates~1adventuresim-core~1src~1strategic_place.rs",
+        "source_verified_against_recovered_blob": true,
+        "prior_file_review": {
+          "read_ranges": [
+            [
+              1,
+              180
+            ],
+            [
+              210,
+              315
+            ]
+          ],
+          "source_lines": 998,
+          "source_sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+          "body_read_complete": false,
+          "graph_status": "Actual source-read ranges only. Full bodies do not close connected families or any lens. Remaining manifest/capability, native actor/health/fixture and other frontiers remain explicit."
+        },
+        "qualification": "Actual own earlier producer lens evidence, not a borrowed later-lens verdict or source-read-only proof of complete graph. Any uncovered material newly read this turn."
+      }
+    },
+    {
+      "delta_index": 69,
+      "source_scope_index": 45,
+      "source_id": "physical-p16:crates/adventuresim-core/Cargo.toml",
+      "sha256": "308714b71f7effc69b5f0d0314884b560472372f1746b1101147414253715b42",
+      "effective_ranges": [
+        [
+          9,
+          12
+        ],
+        [
+          29,
+          29
+        ]
+      ],
+      "registration": {
+        "record": "continuation/native/admission03/source-range-registration.jsonl",
+        "sha256": "b64897ba6a74680b53619d22505860bae51451e916fb03fd547a59a7763875fa",
+        "row_1based": 90,
+        "id": "NATIVE-ADMISSION03-REG-090"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "native",
+          "registry": "continuation/native/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "id": "NATIVE-ADM03-FINALQUAL-090",
+            "registration_id": "NATIVE-ADMISSION03-REG-090",
+            "source_id": "physical-p16:crates/adventuresim-core/Cargo.toml",
+            "snapshot": "physical-p16",
+            "sha256": "308714b71f7effc69b5f0d0314884b560472372f1746b1101147414253715b42",
+            "actual_EOF": 43,
+            "registered_requested_ranges": [
+              [
+                9,
+                13
+              ],
+              [
+                29,
+                29
+              ]
+            ],
+            "qualified_material_ranges": [
+              [
+                9,
+                12
+              ],
+              [
+                29,
+                29
+              ]
+            ],
+            "context_or_excluded_within_registration": [
+              [
+                13,
+                13
+              ]
+            ],
+            "original_registration": {
+              "id": "NATIVE-ADMISSION03-REG-090",
+              "at": "2026-10-22T15:44:50.129656+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json; RootG060061boundedremainingclosure",
+              "source_id": "physical-p16:crates/adventuresim-core/Cargo.toml",
+              "sha256": "308714b71f7effc69b5f0d0314884b560472372f1746b1101147414253715b42",
+              "snapshot": "physical-p16",
+              "actual_EOF": 43,
+              "material_ranges": [
+                [
+                  9,
+                  13
+                ],
+                [
+                  29,
+                  29
+                ]
+              ],
+              "role": "ExactP16 optionalruntime/Corefeature edge forCaseSite derive; P16workspace/lock actualNative043 resolves2.6.1; PRCoreedge077notautomaticP16credit",
+              "actual_caller": "OriginalNative069 P16world_event commit validation +Native070/071actualP16Placefactories; currentPRCamera474definition joinsneedexplicitcomparison",
+              "reason": "Exactdirectgenuineremainingcanonicalcontractregisteredbeforebody; no unrelatedDB/membership/fullSDKgraph",
+              "exclusions": "No unrelatedWorldEventplanners/tests orPlaceexistingtests; fullonlynecessarydefinitions/ctor/codecs, no repairauthoritytransfer",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\Cargo.toml",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "qualification_history": [
+              {
+                "qualification_file": "camera-support/source-qualifications-011.jsonl",
+                "row_1based": 18,
+                "payload": {
+                  "id": "NATIVE-CAMERA-SUPPORT03-QUAL-090",
+                  "registration_id": "NATIVE-ADMISSION03-REG-090",
+                  "original_registration": {
+                    "id": "NATIVE-ADMISSION03-REG-090",
+                    "at": "2026-10-22T15:44:50.129656+00:00",
+                    "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json; RootG060061boundedremainingclosure",
+                    "source_id": "physical-p16:crates/adventuresim-core/Cargo.toml",
+                    "sha256": "308714b71f7effc69b5f0d0314884b560472372f1746b1101147414253715b42",
+                    "snapshot": "physical-p16",
+                    "actual_EOF": 43,
+                    "material_ranges": [
+                      [
+                        9,
+                        13
+                      ],
+                      [
+                        29,
+                        29
+                      ]
+                    ],
+                    "role": "ExactP16 optionalruntime/Corefeature edge forCaseSite derive; P16workspace/lock actualNative043 resolves2.6.1; PRCoreedge077notautomaticP16credit",
+                    "actual_caller": "OriginalNative069 P16world_event commit validation +Native070/071actualP16Placefactories; currentPRCamera474definition joinsneedexplicitcomparison",
+                    "reason": "Exactdirectgenuineremainingcanonicalcontractregisteredbeforebody; no unrelatedDB/membership/fullSDKgraph",
+                    "exclusions": "No unrelatedWorldEventplanners/tests orPlaceexistingtests; fullonlynecessarydefinitions/ctor/codecs, no repairauthoritytransfer",
+                    "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\Cargo.toml",
+                    "status": "registered_before_direct_current03_body_analysis"
+                  },
+                  "qualified_material_ranges": [
+                    [
+                      9,
+                      12
+                    ],
+                    [
+                      29,
+                      29
+                    ]
+                  ],
+                  "qualification": "Dependencyheader13 contextonly.",
+                  "actual_semantic_refs": [
+                    "contracts-009.json"
+                  ],
+                  "registered_before_body": true,
+                  "global_registry_reconciliation_pending": true,
+                  "later_lens_credit": false
+                }
+              }
+            ],
+            "current_proof_refs": {
+              "actual_semantic_refs": [
+                "contracts-009.json"
+              ]
+            },
+            "body_rereads_for_this_normalization": 0,
+            "semantic_credit_from_metadata": false,
+            "producer_or_owner_or_later_lens_credit": false,
+            "global_reconciliation_pending": true
+          },
+          "registration_id_resolved": "NATIVE-ADMISSION03-REG-090"
+        }
+      ],
+      "producer_trace_and_disposition": "P16 Core feature/dependency ranges match already-read PR role56 field-for-field; full manifest hash differs outside material scope. Optional SDK feature boundary remains actual build metadata, no runtime semantic operation.",
+      "connected_repair_or_remaining_requirement": "Preserve conditional SpacetimeDB vocabulary support and lowest shared owners; eventual existing hosted gates validate actual new revision. No inference that whole P16/PR manifests are identical.",
+      "acceptance": "Preserve explicit source unit/frame/authority, valid states and native wire/hash/rounding/order; finish listed connected producer/recipient and inherited admission/operation requirements before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH inherited findings, positive boundaries and explicit connected questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run"
+    },
+    {
+      "delta_index": 70,
+      "source_scope_index": 411,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+      "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+      "effective_ranges": [
+        [
+          205,
+          209
+        ],
+        [
+          306,
+          323
+        ],
+        [
+          540,
+          890
+        ],
+        [
+          2103,
+          2105
+        ]
+      ],
+      "registration": {
+        "record": "continuation/native/admission03/source-range-registration.jsonl",
+        "sha256": "b64897ba6a74680b53619d22505860bae51451e916fb03fd547a59a7763875fa",
+        "row_1based": 91,
+        "id": "NATIVE-ADMISSION03-REG-091"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "native",
+          "registry": "continuation/native/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "id": "NATIVE-ADM03-FINALQUAL-091",
+            "registration_id": "NATIVE-ADMISSION03-REG-091",
+            "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+            "snapshot": "physical-p16",
+            "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+            "actual_EOF": 3450,
+            "registered_requested_ranges": [
+              [
+                205,
+                232
+              ],
+              [
+                306,
+                324
+              ],
+              [
+                540,
+                894
+              ],
+              [
+                2103,
+                2105
+              ]
+            ],
+            "qualified_material_ranges": [
+              [
+                205,
+                209
+              ],
+              [
+                306,
+                323
+              ],
+              [
+                540,
+                890
+              ],
+              [
+                2103,
+                2105
+              ]
+            ],
+            "context_or_excluded_within_registration": [
+              [
+                210,
+                232
+              ],
+              [
+                324,
+                324
+              ],
+              [
+                891,
+                894
+              ]
+            ],
+            "original_registration": {
+              "id": "NATIVE-ADMISSION03-REG-091",
+              "at": "2026-10-22T15:49:55.551898+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+              "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+              "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+              "snapshot": "physical-p16",
+              "actual_EOF": 3450,
+              "material_ranges": [
+                [
+                  205,
+                  232
+                ],
+                [
+                  306,
+                  324
+                ],
+                [
+                  540,
+                  894
+                ],
+                [
+                  2103,
+                  2105
+                ]
+              ],
+              "role": "Actualselectedwholeparent sender/receiver spawn_connected_players/spawn_connected_player andfixedplayer_collider; AttackFacing declaration/closedCameraFacingIntent directCamera308input context. Camera307-310 completebatchbeforecommands claim requiresactualpostpreparearmor/appearance recipient, no nativeforwarderexemption.",
+              "actual_caller": "ExactCamera307PreparedInventory/309projection_equipment/310PreparedPlayerSpawns::project actualparent spawn_connected_player",
+              "reason": "Genuineactualretainedpreparation\u2192recipient admission contract registeredbeforebody; no entireplayer_projection/newnativegraph",
+              "exclusions": "Allotherparentmovement/join/reconnect/tests/sourcecontracts excluded. Nativegeneratedrowshortbody only,no generatedsourceedit/APIownership transfer.",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-server\\src\\player_projection.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "qualification_history": [
+              {
+                "qualification_file": "camera-support/source-qualifications-011.jsonl",
+                "row_1based": 19,
+                "payload": {
+                  "id": "NATIVE-CAMERA-SUPPORT03-QUAL-091",
+                  "registration_id": "NATIVE-ADMISSION03-REG-091",
+                  "original_registration": {
+                    "id": "NATIVE-ADMISSION03-REG-091",
+                    "at": "2026-10-22T15:49:55.551898+00:00",
+                    "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                    "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+                    "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+                    "snapshot": "physical-p16",
+                    "actual_EOF": 3450,
+                    "material_ranges": [
+                      [
+                        205,
+                        232
+                      ],
+                      [
+                        306,
+                        324
+                      ],
+                      [
+                        540,
+                        894
+                      ],
+                      [
+                        2103,
+                        2105
+                      ]
+                    ],
+                    "role": "Actualselectedwholeparent sender/receiver spawn_connected_players/spawn_connected_player andfixedplayer_collider; AttackFacing declaration/closedCameraFacingIntent directCamera308input context. Camera307-310 completebatchbeforecommands claim requiresactualpostpreparearmor/appearance recipient, no nativeforwarderexemption.",
+                    "actual_caller": "ExactCamera307PreparedInventory/309projection_equipment/310PreparedPlayerSpawns::project actualparent spawn_connected_player",
+                    "reason": "Genuineactualretainedpreparation\u2192recipient admission contract registeredbeforebody; no entireplayer_projection/newnativegraph",
+                    "exclusions": "Allotherparentmovement/join/reconnect/tests/sourcecontracts excluded. Nativegeneratedrowshortbody only,no generatedsourceedit/APIownership transfer.",
+                    "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-server\\src\\player_projection.rs",
+                    "status": "registered_before_direct_current03_body_analysis"
+                  },
+                  "qualified_material_ranges": [
+                    [
+                      205,
+                      209
+                    ],
+                    [
+                      306,
+                      323
+                    ],
+                    [
+                      540,
+                      890
+                    ],
+                    [
+                      2103,
+                      2105
+                    ]
+                  ],
+                  "qualification": "ValidatedPlayerInput211-232 incidentalread/excluded; nextjoinattribute892-894 excluded. AttackFacingHeader204/CameraHeader305 separatelyprospective094. Exactactualspawnfunctionends890, notnextjoin.",
+                  "actual_semantic_refs": [
+                    "contracts-010.json"
+                  ],
+                  "registered_before_body": true,
+                  "global_registry_reconciliation_pending": true,
+                  "later_lens_credit": false
+                }
+              }
+            ],
+            "current_proof_refs": {
+              "actual_semantic_refs": [
+                "contracts-010.json"
+              ]
+            },
+            "body_rereads_for_this_normalization": 0,
+            "semantic_credit_from_metadata": false,
+            "producer_or_owner_or_later_lens_credit": false,
+            "global_reconciliation_pending": true
+          },
+          "registration_id_resolved": "NATIVE-ADMISSION03-REG-091"
+        }
+      ],
+      "producer_trace_and_disposition": "P16 native player projection retains typed AttackFacing contacttick and native targetEntity/Vec3; intent enum classifies guard/downed modifier. PreparedPlayerSpawns admission precedes any ECS mutation, then body_mass.kilograms is erased into Limbs.body_weight_kg and raw skill/health/attribute/condition values persist through scaling/application. Transform position projection is actual Bevy port. Inventory reserves entity mapping, preserves typed admitted quantity/mass/geometry but copies raw catalog/placement/occupancy IDs and ordinals into topology. Generated schema and source projection are distinct; actual raw quantities remain M01/M51/M89/M07/M10 family edges. Enemy health/attribute scale can exceed1 intentionally.",
+      "connected_repair_or_remaining_requirement": "Keep accepted physical/skill/condition and identity products through projection and internal state; convert only at physics/mesh/SDK actual ports. Preserve batch-before-project guarantee, attachment entity remapping, deliberate zero-quantity Empty state, shared topology contracts and non-unit enemy scaling. Reconcile P16 variant against merged/current source rather than assume this source already integrated; no new ordinary failure inferred.",
+      "acceptance": "Preserve explicit source unit/frame/authority, valid states and native wire/hash/rounding/order; finish listed connected producer/recipient and inherited admission/operation requirements before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH inherited findings, positive boundaries and explicit connected questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run"
+    },
+    {
+      "delta_index": 71,
+      "source_scope_index": 2721,
+      "source_id": "physical-p16:crates/adventuresim-stdb-client/src/connected_player_type.rs",
+      "sha256": "01f3bc878d9996682dfdf6b694f614d358d3d5acaa0375b2ca10c027fa464390",
+      "effective_ranges": [
+        [
+          1,
+          114
+        ]
+      ],
+      "registration": {
+        "record": "continuation/native/admission03/source-range-registration.jsonl",
+        "sha256": "b64897ba6a74680b53619d22505860bae51451e916fb03fd547a59a7763875fa",
+        "row_1based": 92,
+        "id": "NATIVE-ADMISSION03-REG-092"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "native",
+          "registry": "continuation/native/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "id": "NATIVE-ADM03-FINALQUAL-092",
+            "registration_id": "NATIVE-ADMISSION03-REG-092",
+            "source_id": "physical-p16:crates/adventuresim-stdb-client/src/connected_player_type.rs",
+            "snapshot": "physical-p16",
+            "sha256": "01f3bc878d9996682dfdf6b694f614d358d3d5acaa0375b2ca10c027fa464390",
+            "actual_EOF": 114,
+            "registered_requested_ranges": [
+              [
+                1,
+                114
+              ]
+            ],
+            "qualified_material_ranges": [
+              [
+                1,
+                114
+              ]
+            ],
+            "context_or_excluded_within_registration": [],
+            "original_registration": {
+              "id": "NATIVE-ADMISSION03-REG-092",
+              "at": "2026-10-22T15:49:55.560549+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+              "source_id": "physical-p16:crates/adventuresim-stdb-client/src/connected_player_type.rs",
+              "sha256": "01f3bc878d9996682dfdf6b694f614d358d3d5acaa0375b2ca10c027fa464390",
+              "snapshot": "physical-p16",
+              "actual_EOF": 114,
+              "material_ranges": [
+                [
+                  1,
+                  114
+                ]
+              ],
+              "role": "ActualnativeConnectedPlayer publicrowdeclaration/directpayload ingress consumedCamera310; bounds/physics/authoritynotfromsendercomment",
+              "actual_caller": "ExactCamera307PreparedInventory/309projection_equipment/310PreparedPlayerSpawns::project actualparent spawn_connected_player",
+              "reason": "Genuineactualretainedpreparation\u2192recipient admission contract registeredbeforebody; no entireplayer_projection/newnativegraph",
+              "exclusions": "Allotherparentmovement/join/reconnect/tests/sourcecontracts excluded. Nativegeneratedrowshortbody only,no generatedsourceedit/APIownership transfer.",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-client\\src\\connected_player_type.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "qualification_history": [
+              {
+                "qualification_file": "camera-support/source-qualifications-011.jsonl",
+                "row_1based": 20,
+                "payload": {
+                  "id": "NATIVE-CAMERA-SUPPORT03-QUAL-092",
+                  "registration_id": "NATIVE-ADMISSION03-REG-092",
+                  "original_registration": {
+                    "id": "NATIVE-ADMISSION03-REG-092",
+                    "at": "2026-10-22T15:49:55.560549+00:00",
+                    "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                    "source_id": "physical-p16:crates/adventuresim-stdb-client/src/connected_player_type.rs",
+                    "sha256": "01f3bc878d9996682dfdf6b694f614d358d3d5acaa0375b2ca10c027fa464390",
+                    "snapshot": "physical-p16",
+                    "actual_EOF": 114,
+                    "material_ranges": [
+                      [
+                        1,
+                        114
+                      ]
+                    ],
+                    "role": "ActualnativeConnectedPlayer publicrowdeclaration/directpayload ingress consumedCamera310; bounds/physics/authoritynotfromsendercomment",
+                    "actual_caller": "ExactCamera307PreparedInventory/309projection_equipment/310PreparedPlayerSpawns::project actualparent spawn_connected_player",
+                    "reason": "Genuineactualretainedpreparation\u2192recipient admission contract registeredbeforebody; no entireplayer_projection/newnativegraph",
+                    "exclusions": "Allotherparentmovement/join/reconnect/tests/sourcecontracts excluded. Nativegeneratedrowshortbody only,no generatedsourceedit/APIownership transfer.",
+                    "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-client\\src\\connected_player_type.rs",
+                    "status": "registered_before_direct_current03_body_analysis"
+                  },
+                  "qualified_material_ranges": [
+                    [
+                      1,
+                      114
+                    ]
+                  ],
+                  "qualification": "Exactregisteredcurrentdirectrole only; no unrelatedsource/tests/nativegraph credit.",
+                  "actual_semantic_refs": [
+                    "contracts-010.json"
+                  ],
+                  "registered_before_body": true,
+                  "global_registry_reconciliation_pending": true,
+                  "later_lens_credit": false
+                }
+              }
+            ],
+            "current_proof_refs": {
+              "actual_semantic_refs": [
+                "contracts-010.json"
+              ]
+            },
+            "body_rereads_for_this_normalization": 0,
+            "semantic_credit_from_metadata": false,
+            "producer_or_owner_or_later_lens_credit": false,
+            "global_reconciliation_pending": true
+          },
+          "registration_id_resolved": "NATIVE-ADMISSION03-REG-092"
+        }
+      ],
+      "producer_trace_and_disposition": "Full114line generated ConnectedPlayer native SATS record and query columns personally read, not hand editable. Schema carries nested Character/skills/limbs plus raw scale/blood/mass/strategic condition fields; this is actual generated wire, not an application admission product. Column strings are literal SDK identifiers.",
+      "connected_repair_or_remaining_requirement": "Repair source schema/projection owners where required, regenerate through official workflow, and admit a semantic tactical spawn product at SDK ingress. Preserve strategic/tactical authority boundary and meaningful scale vs unitfraction and blood current/max association. Never edit generated member/column code by hand.",
+      "acceptance": "Preserve explicit source unit/frame/authority, valid states and native wire/hash/rounding/order; finish listed connected producer/recipient and inherited admission/operation requirements before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH inherited findings, positive boundaries and explicit connected questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run"
+    },
+    {
+      "delta_index": 72,
+      "source_scope_index": 2722,
+      "source_id": "physical-p16:crates/adventuresim-stdb-client/src/connected_player_item_type.rs",
+      "sha256": "250d23b8d767b72622ccdaa26a5e3032d7dce28807f900206651c7cd3fda5aac",
+      "effective_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "registration": {
+        "record": "continuation/native/admission03/source-range-registration.jsonl",
+        "sha256": "b64897ba6a74680b53619d22505860bae51451e916fb03fd547a59a7763875fa",
+        "row_1based": 93,
+        "id": "NATIVE-ADMISSION03-REG-093"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "native",
+          "registry": "continuation/native/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "id": "NATIVE-ADM03-FINALQUAL-093",
+            "registration_id": "NATIVE-ADMISSION03-REG-093",
+            "source_id": "physical-p16:crates/adventuresim-stdb-client/src/connected_player_item_type.rs",
+            "snapshot": "physical-p16",
+            "sha256": "250d23b8d767b72622ccdaa26a5e3032d7dce28807f900206651c7cd3fda5aac",
+            "actual_EOF": 29,
+            "registered_requested_ranges": [
+              [
+                1,
+                29
+              ]
+            ],
+            "qualified_material_ranges": [
+              [
+                1,
+                29
+              ]
+            ],
+            "context_or_excluded_within_registration": [],
+            "original_registration": {
+              "id": "NATIVE-ADMISSION03-REG-093",
+              "at": "2026-10-22T15:49:55.566688+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+              "source_id": "physical-p16:crates/adventuresim-stdb-client/src/connected_player_item_type.rs",
+              "sha256": "250d23b8d767b72622ccdaa26a5e3032d7dce28807f900206651c7cd3fda5aac",
+              "snapshot": "physical-p16",
+              "actual_EOF": 29,
+              "material_ranges": [
+                [
+                  1,
+                  29
+                ]
+              ],
+              "role": "ActualnativeConnectedPlayerItem publicrowdeclaration/rawappearance/placement metadata consumedCamera307/309; no generatedbindingsedit andno underlyingwholeSDKgraph",
+              "actual_caller": "ExactCamera307PreparedInventory/309projection_equipment/310PreparedPlayerSpawns::project actualparent spawn_connected_player",
+              "reason": "Genuineactualretainedpreparation\u2192recipient admission contract registeredbeforebody; no entireplayer_projection/newnativegraph",
+              "exclusions": "Allotherparentmovement/join/reconnect/tests/sourcecontracts excluded. Nativegeneratedrowshortbody only,no generatedsourceedit/APIownership transfer.",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-client\\src\\connected_player_item_type.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "qualification_history": [
+              {
+                "qualification_file": "camera-support/source-qualifications-011.jsonl",
+                "row_1based": 21,
+                "payload": {
+                  "id": "NATIVE-CAMERA-SUPPORT03-QUAL-093",
+                  "registration_id": "NATIVE-ADMISSION03-REG-093",
+                  "original_registration": {
+                    "id": "NATIVE-ADMISSION03-REG-093",
+                    "at": "2026-10-22T15:49:55.566688+00:00",
+                    "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                    "source_id": "physical-p16:crates/adventuresim-stdb-client/src/connected_player_item_type.rs",
+                    "sha256": "250d23b8d767b72622ccdaa26a5e3032d7dce28807f900206651c7cd3fda5aac",
+                    "snapshot": "physical-p16",
+                    "actual_EOF": 29,
+                    "material_ranges": [
+                      [
+                        1,
+                        29
+                      ]
+                    ],
+                    "role": "ActualnativeConnectedPlayerItem publicrowdeclaration/rawappearance/placement metadata consumedCamera307/309; no generatedbindingsedit andno underlyingwholeSDKgraph",
+                    "actual_caller": "ExactCamera307PreparedInventory/309projection_equipment/310PreparedPlayerSpawns::project actualparent spawn_connected_player",
+                    "reason": "Genuineactualretainedpreparation\u2192recipient admission contract registeredbeforebody; no entireplayer_projection/newnativegraph",
+                    "exclusions": "Allotherparentmovement/join/reconnect/tests/sourcecontracts excluded. Nativegeneratedrowshortbody only,no generatedsourceedit/APIownership transfer.",
+                    "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-client\\src\\connected_player_item_type.rs",
+                    "status": "registered_before_direct_current03_body_analysis"
+                  },
+                  "qualified_material_ranges": [
+                    [
+                      1,
+                      29
+                    ]
+                  ],
+                  "qualification": "Exactregisteredcurrentdirectrole only; no unrelatedsource/tests/nativegraph credit.",
+                  "actual_semantic_refs": [
+                    "contracts-010.json"
+                  ],
+                  "registered_before_body": true,
+                  "global_registry_reconciliation_pending": true,
+                  "later_lens_credit": false
+                }
+              }
+            ],
+            "current_proof_refs": {
+              "actual_semantic_refs": [
+                "contracts-010.json"
+              ]
+            },
+            "body_rereads_for_this_normalization": 0,
+            "semantic_credit_from_metadata": false,
+            "producer_or_owner_or_later_lens_credit": false,
+            "global_reconciliation_pending": true
+          },
+          "registration_id_resolved": "NATIVE-ADMISSION03-REG-093"
+        }
+      ],
+      "producer_trace_and_disposition": "Generated ConnectedPlayerItem29lines holds native inventoryrowID/quantity/catalog/item/placement/occupancy/condition/appearance. Optional weapon vs holder appearances have actual independent source semantics; do not discard one or conflate with selected current weapon. Actual empty quantity is represented by upstream PreparedInventoryItem enum, not automatically rejected SDK wire.",
+      "connected_repair_or_remaining_requirement": "Retain canonical inventory/catalog/placement and quantity/geometry relationship in accepted application projection through topology/fit/native rendering; consume #780 owner contracts at eventual integration. Schema changes only owning source+regenerate, no handmade client types or speculative same-role aliases.",
+      "acceptance": "Preserve explicit source unit/frame/authority, valid states and native wire/hash/rounding/order; finish listed connected producer/recipient and inherited admission/operation requirements before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH inherited findings, positive boundaries and explicit connected questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run"
+    },
+    {
+      "delta_index": 73,
+      "source_scope_index": 411,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+      "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+      "effective_ranges": [
+        [
+          204,
+          204
+        ],
+        [
+          305,
+          305
+        ]
+      ],
+      "registration": {
+        "record": "continuation/native/admission03/source-range-registration.jsonl",
+        "sha256": "b64897ba6a74680b53619d22505860bae51451e916fb03fd547a59a7763875fa",
+        "row_1based": 94,
+        "id": "NATIVE-ADMISSION03-REG-094"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "native",
+          "registry": "continuation/native/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "id": "NATIVE-ADM03-FINALQUAL-094",
+            "registration_id": "NATIVE-ADMISSION03-REG-094",
+            "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+            "snapshot": "physical-p16",
+            "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+            "actual_EOF": 3450,
+            "registered_requested_ranges": [
+              [
+                203,
+                204
+              ],
+              [
+                305,
+                305
+              ]
+            ],
+            "qualified_material_ranges": [
+              [
+                204,
+                204
+              ],
+              [
+                305,
+                305
+              ]
+            ],
+            "context_or_excluded_within_registration": [
+              [
+                203,
+                203
+              ]
+            ],
+            "original_registration": {
+              "id": "NATIVE-ADMISSION03-REG-094",
+              "at": "2026-10-22T15:54:09.664877+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+              "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+              "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+              "snapshot": "physical-p16",
+              "actual_EOF": 3450,
+              "material_ranges": [
+                [
+                  203,
+                  204
+                ],
+                [
+                  305,
+                  305
+                ]
+              ],
+              "role": "Exact attached derives on directAttackFacing/CameraFacingIntent definitions091 must enumerate ALLdeclared Component/Default/Serde/Reflect routes, notassumeheaderabsent",
+              "actual_caller": "ExactCamera307PreparedInventory/309projection_equipment/310PreparedPlayerSpawns::project actualparent spawn_connected_player",
+              "reason": "Directdefinition attachedattributes completion registeredBEFOREbodyanalysis, no newfunctiongraph",
+              "exclusions": "No otherparentdefinitions/functions/tests or currentValidatedPlayerInput bodycredit",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-server\\src\\player_projection.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "qualification_history": [
+              {
+                "qualification_file": "camera-support/source-qualifications-011.jsonl",
+                "row_1based": 22,
+                "payload": {
+                  "id": "NATIVE-CAMERA-SUPPORT03-QUAL-094",
+                  "registration_id": "NATIVE-ADMISSION03-REG-094",
+                  "original_registration": {
+                    "id": "NATIVE-ADMISSION03-REG-094",
+                    "at": "2026-10-22T15:54:09.664877+00:00",
+                    "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                    "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+                    "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+                    "snapshot": "physical-p16",
+                    "actual_EOF": 3450,
+                    "material_ranges": [
+                      [
+                        203,
+                        204
+                      ],
+                      [
+                        305,
+                        305
+                      ]
+                    ],
+                    "role": "Exact attached derives on directAttackFacing/CameraFacingIntent definitions091 must enumerate ALLdeclared Component/Default/Serde/Reflect routes, notassumeheaderabsent",
+                    "actual_caller": "ExactCamera307PreparedInventory/309projection_equipment/310PreparedPlayerSpawns::project actualparent spawn_connected_player",
+                    "reason": "Directdefinition attachedattributes completion registeredBEFOREbodyanalysis, no newfunctiongraph",
+                    "exclusions": "No otherparentdefinitions/functions/tests or currentValidatedPlayerInput bodycredit",
+                    "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-server\\src\\player_projection.rs",
+                    "status": "registered_before_direct_current03_body_analysis"
+                  },
+                  "qualified_material_ranges": [
+                    [
+                      204,
+                      204
+                    ],
+                    [
+                      305,
+                      305
+                    ]
+                  ],
+                  "qualification": "203priorAttackFacingdoc contextonly; actual204Component DebugCloneCopy,305CameraIntent DebugCloneCopyDefaultPartialEqEq. NoSerde/Reflectdeclared; DefaultFree corresponds306-310actualenum. Thesecompleteactualroutes incontracts010, notnewworkflow.",
+                  "actual_semantic_refs": [
+                    "contracts-010.json"
+                  ],
+                  "registered_before_body": true,
+                  "global_registry_reconciliation_pending": true,
+                  "later_lens_credit": false
+                }
+              }
+            ],
+            "current_proof_refs": {
+              "actual_semantic_refs": [
+                "contracts-010.json"
+              ]
+            },
+            "body_rereads_for_this_normalization": 0,
+            "semantic_credit_from_metadata": false,
+            "producer_or_owner_or_later_lens_credit": false,
+            "global_reconciliation_pending": true
+          },
+          "registration_id_resolved": "NATIVE-ADMISSION03-REG-094"
+        }
+      ],
+      "producer_trace_and_disposition": "Only derive attributes204/305 are actual qualified material. They attach Component/Debug/Clone/Copy and default enum trait implementations to AttackFacing/CameraFacingIntent, whose bodies are role70. No field, constructor, scalar conversion or separate semantic role here.",
+      "connected_repair_or_remaining_requirement": "Retain these trait/framework requirements; do not count incidental declaration context as another inspected function.",
+      "acceptance": "Preserve explicit source unit/frame/authority, valid states and native wire/hash/rounding/order; finish listed connected producer/recipient and inherited admission/operation requirements before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH inherited findings, positive boundaries and explicit connected questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run"
+    },
+    {
+      "delta_index": 74,
+      "source_scope_index": 2723,
+      "source_id": "pr-working:crates/adventuresim-stdb-client/Cargo.toml",
+      "sha256": "cf3964f3ac12941d5266ff1285c0ce08d8a608eaf93a4a4840126288b937534c",
+      "effective_ranges": [
+        [
+          11,
+          11
+        ]
+      ],
+      "registration": {
+        "record": "continuation/native/admission03/source-range-registration.jsonl",
+        "sha256": "b64897ba6a74680b53619d22505860bae51451e916fb03fd547a59a7763875fa",
+        "row_1based": 95,
+        "id": "NATIVE-ADMISSION03-REG-095"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "native",
+          "registry": "continuation/native/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "id": "NATIVE-ADM03-FINALQUAL-095",
+            "registration_id": "NATIVE-ADMISSION03-REG-095",
+            "source_id": "pr-working:crates/adventuresim-stdb-client/Cargo.toml",
+            "snapshot": "pr-working",
+            "sha256": "cf3964f3ac12941d5266ff1285c0ce08d8a608eaf93a4a4840126288b937534c",
+            "actual_EOF": 14,
+            "registered_requested_ranges": [
+              [
+                11,
+                11
+              ]
+            ],
+            "qualified_material_ranges": [
+              [
+                11,
+                11
+              ]
+            ],
+            "context_or_excluded_within_registration": [],
+            "original_registration": {
+              "id": "NATIVE-ADMISSION03-REG-095",
+              "at": "2026-10-22T17:03:02.633639+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+              "source_id": "pr-working:crates/adventuresim-stdb-client/Cargo.toml",
+              "sha256": "cf3964f3ac12941d5266ff1285c0ce08d8a608eaf93a4a4840126288b937534c",
+              "snapshot": "pr-working",
+              "actual_EOF": 14,
+              "material_ranges": [
+                [
+                  11,
+                  11
+                ]
+              ],
+              "role": "Exact generated PR client SDK dependency edge to already-read bounded SDK2.6.1 native callback/namespace contracts; no unrelated package algorithm",
+              "actual_caller": "Camera supplier482\u2013488 generated reducer/table transport imports spacetimedb_sdk::__codegen",
+              "reason": "Necessary precise imported/native callback version link registered before body analysis; not inferred from installed folder",
+              "exclusions": "Only exact dependency ranges; no full SDK/native algorithm graph or semantics/other-lens credit",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-client\\Cargo.toml",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "qualification_history": [
+              {
+                "qualification_file": "camera-support/source-qualifications-018.jsonl",
+                "row_1based": 1,
+                "payload": {
+                  "registration_id": "NATIVE-ADMISSION03-REG-095",
+                  "source_id": "pr-working:crates/adventuresim-stdb-client/Cargo.toml",
+                  "sha256": "cf3964f3ac12941d5266ff1285c0ce08d8a608eaf93a4a4840126288b937534c",
+                  "actual_EOF": 14,
+                  "original_requested_ranges": [
+                    [
+                      11,
+                      11
+                    ]
+                  ],
+                  "qualified_material_ranges": [
+                    [
+                      11,
+                      11
+                    ]
+                  ],
+                  "context_only_ranges": [],
+                  "admission_proof": "contracts-017.json#generated-client-raw-transport-versus-reducer-admission",
+                  "other_lens_credit": false
+                }
+              }
+            ],
+            "current_proof_refs": {
+              "admission_proof": "contracts-017.json#generated-client-raw-transport-versus-reducer-admission"
+            },
+            "body_rereads_for_this_normalization": 0,
+            "semantic_credit_from_metadata": false,
+            "producer_or_owner_or_later_lens_credit": false,
+            "global_reconciliation_pending": true
+          },
+          "registration_id_resolved": "NATIVE-ADMISSION03-REG-095"
+        }
+      ],
+      "producer_trace_and_disposition": "Generated-client Cargo dependency explicitly inherits workspace SpacetimeDB SDK version. Single manifest-line adapter capability, not application code.",
+      "connected_repair_or_remaining_requirement": "Keep generated client on exact source schema/SDK; no hand-maintained API forwarding compatibility layer or inferred source validation from a dependency declaration.",
+      "acceptance": "Preserve explicit source unit/frame/authority, valid states and native wire/hash/rounding/order; finish listed connected producer/recipient and inherited admission/operation requirements before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH inherited findings, positive boundaries and explicit connected questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run"
+    },
+    {
+      "delta_index": 75,
+      "source_scope_index": 497,
+      "source_id": "pr-working:Cargo.lock",
+      "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+      "effective_ranges": [
+        [
+          10436,
+          10466
+        ]
+      ],
+      "registration": {
+        "record": "continuation/native/admission03/source-range-registration.jsonl",
+        "sha256": "b64897ba6a74680b53619d22505860bae51451e916fb03fd547a59a7763875fa",
+        "row_1based": 96,
+        "id": "NATIVE-ADMISSION03-REG-096"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "native",
+          "registry": "continuation/native/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "id": "NATIVE-ADM03-FINALQUAL-096",
+            "registration_id": "NATIVE-ADMISSION03-REG-096",
+            "source_id": "pr-working:Cargo.lock",
+            "snapshot": "pr-working",
+            "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+            "actual_EOF": 13102,
+            "registered_requested_ranges": [
+              [
+                10436,
+                10467
+              ]
+            ],
+            "qualified_material_ranges": [
+              [
+                10436,
+                10466
+              ]
+            ],
+            "context_or_excluded_within_registration": [
+              [
+                10467,
+                10467
+              ]
+            ],
+            "original_registration": {
+              "id": "NATIVE-ADMISSION03-REG-096",
+              "at": "2026-10-22T17:03:02.647739+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+              "source_id": "pr-working:Cargo.lock",
+              "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+              "snapshot": "pr-working",
+              "actual_EOF": 13102,
+              "material_ranges": [
+                [
+                  10436,
+                  10467
+                ]
+              ],
+              "role": "Exact generated PR client SDK dependency edge to already-read bounded SDK2.6.1 native callback/namespace contracts; no unrelated package algorithm",
+              "actual_caller": "Camera supplier482\u2013488 generated reducer/table transport imports spacetimedb_sdk::__codegen",
+              "reason": "Necessary precise imported/native callback version link registered before body analysis; not inferred from installed folder",
+              "exclusions": "Only exact dependency ranges; no full SDK/native algorithm graph or semantics/other-lens credit",
+              "resolved_path": "SNAPSHOTS\\pr-working\\Cargo.lock",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "qualification_history": [
+              {
+                "qualification_file": "camera-support/source-qualifications-018.jsonl",
+                "row_1based": 2,
+                "payload": {
+                  "registration_id": "NATIVE-ADMISSION03-REG-096",
+                  "source_id": "pr-working:Cargo.lock",
+                  "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+                  "actual_EOF": 13102,
+                  "original_requested_ranges": [
+                    [
+                      10436,
+                      10467
+                    ]
+                  ],
+                  "qualified_material_ranges": [
+                    [
+                      10436,
+                      10466
+                    ]
+                  ],
+                  "context_only_ranges": [
+                    [
+                      10467,
+                      10467
+                    ]
+                  ],
+                  "admission_proof": "contracts-017.json#generated-client-raw-transport-versus-reducer-admission",
+                  "other_lens_credit": false
+                }
+              }
+            ],
+            "current_proof_refs": {
+              "admission_proof": "contracts-017.json#generated-client-raw-transport-versus-reducer-admission"
+            },
+            "body_rereads_for_this_normalization": 0,
+            "semantic_credit_from_metadata": false,
+            "producer_or_owner_or_later_lens_credit": false,
+            "global_reconciliation_pending": true
+          },
+          "registration_id_resolved": "NATIVE-ADMISSION03-REG-096"
+        }
+      ],
+      "producer_trace_and_disposition": "Exact SDK2.6.1 lock entry/checksum supplies native dependency provenance. This adds relevant package slice to prior registered lock fragments, not a whole13102line lock read or runtime boundary result.",
+      "connected_repair_or_remaining_requirement": "Use pinned native implementation for SATS/query/callback cause proof; preserve distinct queued request vs committed reducer result and generated binding ownership.",
+      "acceptance": "Preserve explicit source unit/frame/authority, valid states and native wire/hash/rounding/order; finish listed connected producer/recipient and inherited admission/operation requirements before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH inherited findings, positive boundaries and explicit connected questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run"
+    },
+    {
+      "delta_index": 76,
+      "source_scope_index": 2724,
+      "source_id": "physical-p16:crates/fabelgeist-armor/src/lib.rs",
+      "sha256": "80124b8fa3d698044166b5f4226391835bde877e6e3e55904a8e6ab149a5fdcd",
+      "effective_ranges": [
+        [
+          86,
+          171
+        ]
+      ],
+      "registration": {
+        "record": "continuation/native/admission03/source-range-registration.jsonl",
+        "sha256": "b64897ba6a74680b53619d22505860bae51451e916fb03fd547a59a7763875fa",
+        "row_1based": 97,
+        "id": "NATIVE-ADMISSION03-REG-097"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "native",
+          "registry": "continuation/native/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "id": "NATIVE-ADM03-FINALQUAL-097",
+            "registration_id": "NATIVE-ADMISSION03-REG-097",
+            "source_id": "physical-p16:crates/fabelgeist-armor/src/lib.rs",
+            "snapshot": "physical-p16",
+            "sha256": "80124b8fa3d698044166b5f4226391835bde877e6e3e55904a8e6ab149a5fdcd",
+            "actual_EOF": 171,
+            "registered_requested_ranges": [
+              [
+                86,
+                171
+              ]
+            ],
+            "qualified_material_ranges": [
+              [
+                86,
+                171
+              ]
+            ],
+            "context_or_excluded_within_registration": [],
+            "original_registration": {
+              "id": "NATIVE-ADMISSION03-REG-097",
+              "at": "2026-10-22T17:06:24.330863+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json; Root explicit pending P16 armor closure instruction",
+              "source_id": "physical-p16:crates/fabelgeist-armor/src/lib.rs",
+              "sha256": "80124b8fa3d698044166b5f4226391835bde877e6e3e55904a8e6ab149a5fdcd",
+              "snapshot": "physical-p16",
+              "actual_EOF": 171,
+              "material_ranges": [
+                [
+                  86,
+                  171
+                ]
+              ],
+              "role": "Exact directly called P16 armor raw authoring defaults/validation/codec gate, distinct from current PR Rig011 proof",
+              "actual_caller": "Original Native443 P16 quickstep/harness armor lower dependency Native048; Root G060/G061 explicit pending directdefinition obligation",
+              "reason": "Necessary currentP16 callee registered before current admission body, no automaticPRcounterpart credit",
+              "exclusions": "Unrelated presets, GPU/body/native algorithm or full armor graph excluded; no implementation/laterlens coverage",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\fabelgeist-armor\\src\\lib.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "qualification_history": [
+              {
+                "qualification_file": "camera-support/source-qualifications-022.jsonl",
+                "row_1based": 1,
+                "payload": {
+                  "registration_id": "NATIVE-ADMISSION03-REG-097",
+                  "source_id": "physical-p16:crates/fabelgeist-armor/src/lib.rs",
+                  "sha256": "80124b8fa3d698044166b5f4226391835bde877e6e3e55904a8e6ab149a5fdcd",
+                  "actual_EOF": 171,
+                  "original_requested_ranges": [
+                    [
+                      86,
+                      171
+                    ]
+                  ],
+                  "qualified_material_ranges": [
+                    [
+                      86,
+                      171
+                    ]
+                  ],
+                  "context_only_ranges": [],
+                  "admission_proof": "p16-armor-admission-021.json",
+                  "limits": "Unrelated presets, GPU/body/native algorithm or full armor graph excluded; no implementation/laterlens coverage",
+                  "later_lens_credit": false
+                }
+              }
+            ],
+            "current_proof_refs": {
+              "admission_proof": "p16-armor-admission-021.json"
+            },
+            "body_rereads_for_this_normalization": 0,
+            "semantic_credit_from_metadata": false,
+            "producer_or_owner_or_later_lens_credit": false,
+            "global_reconciliation_pending": true
+          },
+          "registration_id_resolved": "NATIVE-ADMISSION03-REG-097"
+        }
+      ],
+      "producer_trace_and_disposition": "Armor encode/decode validate raw design then actual Postcard byte codec; native DesignError::Encoding discards concrete serializer cause. Physical P16 validators use unit wrappers but returnunit and retain public raw designs. validate_breastplate calls anime.validate before outer gauge1..20 check; exact inherited RIGADM03F049/NATIVE-CAMERA-ADM03F007 overflow route is immediately usable. Hashing uses deliberate encodedrecipe byte provenance, distinct schema/generator versions.",
+      "connected_repair_or_remaining_requirement": "Keep accepted design and context/error through actual GPU/mesh/native authoring paths, retaining native codec cause where needed. Repair gauge admission/arithmetic once across shared validator and consumers per inherited finding, preserve first-error order and hashes. No claim raw public source design already means accepted recipe; honor #780 source geometry ownership.",
+      "acceptance": "Preserve explicit source unit/frame/authority, valid states and native wire/hash/rounding/order; finish listed connected producer/recipient and inherited admission/operation requirements before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH inherited findings, positive boundaries and explicit connected questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run"
+    },
+    {
+      "delta_index": 77,
+      "source_scope_index": 2725,
+      "source_id": "physical-p16:crates/fabelgeist-armor/src/breastplate_design.rs",
+      "sha256": "5754de117641f6ec7b40dd69802d0fddedf3d2e9a2608945b8c26b33171f05f6",
+      "effective_ranges": [
+        [
+          1,
+          128
+        ]
+      ],
+      "registration": {
+        "record": "continuation/native/admission03/source-range-registration.jsonl",
+        "sha256": "b64897ba6a74680b53619d22505860bae51451e916fb03fd547a59a7763875fa",
+        "row_1based": 98,
+        "id": "NATIVE-ADMISSION03-REG-098"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "native",
+          "registry": "continuation/native/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "id": "NATIVE-ADM03-FINALQUAL-098",
+            "registration_id": "NATIVE-ADMISSION03-REG-098",
+            "source_id": "physical-p16:crates/fabelgeist-armor/src/breastplate_design.rs",
+            "snapshot": "physical-p16",
+            "sha256": "5754de117641f6ec7b40dd69802d0fddedf3d2e9a2608945b8c26b33171f05f6",
+            "actual_EOF": 206,
+            "registered_requested_ranges": [
+              [
+                1,
+                128
+              ]
+            ],
+            "qualified_material_ranges": [
+              [
+                1,
+                128
+              ]
+            ],
+            "context_or_excluded_within_registration": [],
+            "original_registration": {
+              "id": "NATIVE-ADMISSION03-REG-098",
+              "at": "2026-10-22T17:06:24.340323+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json; Root explicit pending P16 armor closure instruction",
+              "source_id": "physical-p16:crates/fabelgeist-armor/src/breastplate_design.rs",
+              "sha256": "5754de117641f6ec7b40dd69802d0fddedf3d2e9a2608945b8c26b33171f05f6",
+              "snapshot": "physical-p16",
+              "actual_EOF": 206,
+              "material_ranges": [
+                [
+                  1,
+                  128
+                ]
+              ],
+              "role": "Exact directly called P16 armor raw authoring defaults/validation/codec gate, distinct from current PR Rig011 proof",
+              "actual_caller": "Original Native443 P16 quickstep/harness armor lower dependency Native048; Root G060/G061 explicit pending directdefinition obligation",
+              "reason": "Necessary currentP16 callee registered before current admission body, no automaticPRcounterpart credit",
+              "exclusions": "Unrelated presets, GPU/body/native algorithm or full armor graph excluded; no implementation/laterlens coverage",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\fabelgeist-armor\\src\\breastplate_design.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "qualification_history": [
+              {
+                "qualification_file": "camera-support/source-qualifications-022.jsonl",
+                "row_1based": 2,
+                "payload": {
+                  "registration_id": "NATIVE-ADMISSION03-REG-098",
+                  "source_id": "physical-p16:crates/fabelgeist-armor/src/breastplate_design.rs",
+                  "sha256": "5754de117641f6ec7b40dd69802d0fddedf3d2e9a2608945b8c26b33171f05f6",
+                  "actual_EOF": 206,
+                  "original_requested_ranges": [
+                    [
+                      1,
+                      128
+                    ]
+                  ],
+                  "qualified_material_ranges": [
+                    [
+                      1,
+                      128
+                    ]
+                  ],
+                  "context_only_ranges": [],
+                  "admission_proof": "p16-armor-admission-021.json",
+                  "limits": "Unrelated presets, GPU/body/native algorithm or full armor graph excluded; no implementation/laterlens coverage",
+                  "later_lens_credit": false
+                }
+              }
+            ],
+            "current_proof_refs": {
+              "admission_proof": "p16-armor-admission-021.json"
+            },
+            "body_rereads_for_this_normalization": 0,
+            "semantic_credit_from_metadata": false,
+            "producer_or_owner_or_later_lens_credit": false,
+            "global_reconciliation_pending": true
+          },
+          "registration_id_resolved": "NATIVE-ADMISSION03-REG-098"
+        }
+      ],
+      "producer_trace_and_disposition": "Breastplate designs retain quantized Permille/Millimeters but raw catalogString, shape bounds and public mutations; defaults are actual authored recipe admission. Some scales valid above1000 (neck/waist/side); other fields fraction-like. Profile fields have different zero/positive policy and independent shaping meaning. This is M19/M16/accepted armor-design graph, not blanket unitinterval conversion.",
+      "connected_repair_or_remaining_requirement": "Carry canonical catalog identity and validated chart/physical/design contract through derived mesh/fit/export, preserving quantized wire/hash precision, valid >1 sizing, zero recession/ridge and feature roles. Reuse canonical physical owners while keeping true encoded units distinct; coordinate with #780, no parallel equivalent types.",
+      "acceptance": "Preserve explicit source unit/frame/authority, valid states and native wire/hash/rounding/order; finish listed connected producer/recipient and inherited admission/operation requirements before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH inherited findings, positive boundaries and explicit connected questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run"
+    },
+    {
+      "delta_index": 78,
+      "source_scope_index": 2726,
+      "source_id": "physical-p16:crates/fabelgeist-armor/src/plate_fluting.rs",
+      "sha256": "42c3b5a6c8d36617915977082f2a591e7e363910aa7b7b209d0f0168d774fbf7",
+      "effective_ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "registration": {
+        "record": "continuation/native/admission03/source-range-registration.jsonl",
+        "sha256": "b64897ba6a74680b53619d22505860bae51451e916fb03fd547a59a7763875fa",
+        "row_1based": 99,
+        "id": "NATIVE-ADMISSION03-REG-099"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "native",
+          "registry": "continuation/native/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "id": "NATIVE-ADM03-FINALQUAL-099",
+            "registration_id": "NATIVE-ADMISSION03-REG-099",
+            "source_id": "physical-p16:crates/fabelgeist-armor/src/plate_fluting.rs",
+            "snapshot": "physical-p16",
+            "sha256": "42c3b5a6c8d36617915977082f2a591e7e363910aa7b7b209d0f0168d774fbf7",
+            "actual_EOF": 150,
+            "registered_requested_ranges": [
+              [
+                1,
+                100
+              ]
+            ],
+            "qualified_material_ranges": [
+              [
+                1,
+                99
+              ]
+            ],
+            "context_or_excluded_within_registration": [
+              [
+                100,
+                100
+              ]
+            ],
+            "original_registration": {
+              "id": "NATIVE-ADMISSION03-REG-099",
+              "at": "2026-10-22T17:06:24.350618+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json; Root explicit pending P16 armor closure instruction",
+              "source_id": "physical-p16:crates/fabelgeist-armor/src/plate_fluting.rs",
+              "sha256": "42c3b5a6c8d36617915977082f2a591e7e363910aa7b7b209d0f0168d774fbf7",
+              "snapshot": "physical-p16",
+              "actual_EOF": 150,
+              "material_ranges": [
+                [
+                  1,
+                  100
+                ]
+              ],
+              "role": "Exact directly called P16 armor raw authoring defaults/validation/codec gate, distinct from current PR Rig011 proof",
+              "actual_caller": "Original Native443 P16 quickstep/harness armor lower dependency Native048; Root G060/G061 explicit pending directdefinition obligation",
+              "reason": "Necessary currentP16 callee registered before current admission body, no automaticPRcounterpart credit",
+              "exclusions": "Unrelated presets, GPU/body/native algorithm or full armor graph excluded; no implementation/laterlens coverage",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\fabelgeist-armor\\src\\plate_fluting.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "qualification_history": [
+              {
+                "qualification_file": "camera-support/source-qualifications-022.jsonl",
+                "row_1based": 3,
+                "payload": {
+                  "registration_id": "NATIVE-ADMISSION03-REG-099",
+                  "source_id": "physical-p16:crates/fabelgeist-armor/src/plate_fluting.rs",
+                  "sha256": "42c3b5a6c8d36617915977082f2a591e7e363910aa7b7b209d0f0168d774fbf7",
+                  "actual_EOF": 150,
+                  "original_requested_ranges": [
+                    [
+                      1,
+                      100
+                    ]
+                  ],
+                  "qualified_material_ranges": [
+                    [
+                      1,
+                      99
+                    ]
+                  ],
+                  "context_only_ranges": [
+                    [
+                      100,
+                      100
+                    ]
+                  ],
+                  "admission_proof": "p16-armor-admission-021.json",
+                  "limits": "Unrelated presets, GPU/body/native algorithm or full armor graph excluded; no implementation/laterlens coverage",
+                  "later_lens_credit": false
+                }
+              }
+            ],
+            "current_proof_refs": {
+              "admission_proof": "p16-armor-admission-021.json"
+            },
+            "body_rereads_for_this_normalization": 0,
+            "semantic_credit_from_metadata": false,
+            "producer_or_owner_or_later_lens_credit": false,
+            "global_reconciliation_pending": true
+          },
+          "registration_id_resolved": "NATIVE-ADMISSION03-REG-099"
+        }
+      ],
+      "producer_trace_and_disposition": "FluteCount is publicu16 wrapper, PlateFluting raw public chart fractions/physical depth; validate owns range/start/end/fade relationship. columns consumes base_segmentsusize and computes actual ordered chart samples/f32 profile grid, sorts/dedups native numeric values. Existing exact accepted/raw admission questions matter before this kernel; no new current badnormal generator inferred from arbitrary count/baseSegments0.",
+      "connected_repair_or_remaining_requirement": "Retain admitted feature count/span/fade/depth and grid topology through all callers; numerical column samples need chart/frame semantics before native buffer projection. Preserve crests/lands/tolerance/order and artifact-avoidance policy. Whole publication/error/admission repair consumes inherited findings, not arbitrary caps or duplicate aggregate.",
+      "acceptance": "Preserve explicit source unit/frame/authority, valid states and native wire/hash/rounding/order; finish listed connected producer/recipient and inherited admission/operation requirements before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH inherited findings, positive boundaries and explicit connected questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run"
+    },
+    {
+      "delta_index": 79,
+      "source_scope_index": 2727,
+      "source_id": "physical-p16:crates/fabelgeist-armor/src/anime_design.rs",
+      "sha256": "3fd27205e209b9133d640381c16458c180e205625a017b93138e363d14b04b86",
+      "effective_ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "registration": {
+        "record": "continuation/native/admission03/source-range-registration.jsonl",
+        "sha256": "b64897ba6a74680b53619d22505860bae51451e916fb03fd547a59a7763875fa",
+        "row_1based": 100,
+        "id": "NATIVE-ADMISSION03-REG-100"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "native",
+          "registry": "continuation/native/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "id": "NATIVE-ADM03-FINALQUAL-100",
+            "registration_id": "NATIVE-ADMISSION03-REG-100",
+            "source_id": "physical-p16:crates/fabelgeist-armor/src/anime_design.rs",
+            "snapshot": "physical-p16",
+            "sha256": "3fd27205e209b9133d640381c16458c180e205625a017b93138e363d14b04b86",
+            "actual_EOF": 56,
+            "registered_requested_ranges": [
+              [
+                1,
+                56
+              ]
+            ],
+            "qualified_material_ranges": [
+              [
+                1,
+                56
+              ]
+            ],
+            "context_or_excluded_within_registration": [],
+            "original_registration": {
+              "id": "NATIVE-ADMISSION03-REG-100",
+              "at": "2026-10-22T17:06:24.359557+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json; Root explicit pending P16 armor closure instruction",
+              "source_id": "physical-p16:crates/fabelgeist-armor/src/anime_design.rs",
+              "sha256": "3fd27205e209b9133d640381c16458c180e205625a017b93138e363d14b04b86",
+              "snapshot": "physical-p16",
+              "actual_EOF": 56,
+              "material_ranges": [
+                [
+                  1,
+                  56
+                ]
+              ],
+              "role": "Exact directly called P16 armor raw authoring defaults/validation/codec gate, distinct from current PR Rig011 proof",
+              "actual_caller": "Original Native443 P16 quickstep/harness armor lower dependency Native048; Root G060/G061 explicit pending directdefinition obligation",
+              "reason": "Necessary currentP16 callee registered before current admission body, no automaticPRcounterpart credit",
+              "exclusions": "Unrelated presets, GPU/body/native algorithm or full armor graph excluded; no implementation/laterlens coverage",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\fabelgeist-armor\\src\\anime_design.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "qualification_history": [
+              {
+                "qualification_file": "camera-support/source-qualifications-022.jsonl",
+                "row_1based": 4,
+                "payload": {
+                  "registration_id": "NATIVE-ADMISSION03-REG-100",
+                  "source_id": "physical-p16:crates/fabelgeist-armor/src/anime_design.rs",
+                  "sha256": "3fd27205e209b9133d640381c16458c180e205625a017b93138e363d14b04b86",
+                  "actual_EOF": 56,
+                  "original_requested_ranges": [
+                    [
+                      1,
+                      56
+                    ]
+                  ],
+                  "qualified_material_ranges": [
+                    [
+                      1,
+                      56
+                    ]
+                  ],
+                  "context_only_ranges": [],
+                  "admission_proof": "p16-armor-admission-021.json",
+                  "limits": "Unrelated presets, GPU/body/native algorithm or full armor graph excluded; no implementation/laterlens coverage",
+                  "later_lens_credit": false
+                }
+              }
+            ],
+            "current_proof_refs": {
+              "admission_proof": "p16-armor-admission-021.json"
+            },
+            "body_rereads_for_this_normalization": 0,
+            "semantic_credit_from_metadata": false,
+            "producer_or_owner_or_later_lens_credit": false,
+            "global_reconciliation_pending": true
+          },
+          "registration_id_resolved": "NATIVE-ADMISSION03-REG-100"
+        }
+      ],
+      "producer_trace_and_disposition": "BreastplateConstruction already owns Solid vs Anime payload. AnimeDesign still raw lamecount plus checked-unit wrappers, with cross-field overlap/lift/gauge requirement. Raw gauge*2 before admitted bound is exact RIGADM03F049/NATIVE-CAMERA-ADM03F007, not new unique discovery. Positive chart/physical fields do not guarantee relationship individually.",
+      "connected_repair_or_remaining_requirement": "Close accepted gauge/design aggregate and necessary caller signatures together; use checked/widened physical calculation at admission and preserve valid lap geometry/first-error policy. Keep decorative fluting independent from articulated construction; no fake boolean or compatibility fallback.",
+      "acceptance": "Preserve explicit source unit/frame/authority, valid states and native wire/hash/rounding/order; finish listed connected producer/recipient and inherited admission/operation requirements before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH inherited findings, positive boundaries and explicit connected questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run"
+    },
+    {
+      "delta_index": 80,
+      "source_scope_index": 2728,
+      "source_id": "physical-p16:crates/fabelgeist-armor/src/design.rs",
+      "sha256": "26c72636cd1c9cff2ca9eb5c41bfea3d714d0820824272c2770feb4d9c234c34",
+      "effective_ranges": [
+        [
+          1,
+          22
+        ],
+        [
+          33,
+          66
+        ]
+      ],
+      "registration": {
+        "record": "continuation/native/admission03/source-range-registration.jsonl",
+        "sha256": "b64897ba6a74680b53619d22505860bae51451e916fb03fd547a59a7763875fa",
+        "row_1based": 101,
+        "id": "NATIVE-ADMISSION03-REG-101"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "native",
+          "registry": "continuation/native/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "id": "NATIVE-ADM03-FINALQUAL-101",
+            "registration_id": "NATIVE-ADMISSION03-REG-101",
+            "source_id": "physical-p16:crates/fabelgeist-armor/src/design.rs",
+            "snapshot": "physical-p16",
+            "sha256": "26c72636cd1c9cff2ca9eb5c41bfea3d714d0820824272c2770feb4d9c234c34",
+            "actual_EOF": 166,
+            "registered_requested_ranges": [
+              [
+                1,
+                22
+              ],
+              [
+                33,
+                66
+              ]
+            ],
+            "qualified_material_ranges": [
+              [
+                1,
+                22
+              ],
+              [
+                33,
+                66
+              ]
+            ],
+            "context_or_excluded_within_registration": [],
+            "original_registration": {
+              "id": "NATIVE-ADMISSION03-REG-101",
+              "at": "2026-10-22T17:07:15.689815+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+              "source_id": "physical-p16:crates/fabelgeist-armor/src/design.rs",
+              "sha256": "26c72636cd1c9cff2ca9eb5c41bfea3d714d0820824272c2770feb4d9c234c34",
+              "snapshot": "physical-p16",
+              "actual_EOF": 166,
+              "material_ranges": [
+                [
+                  1,
+                  22
+                ],
+                [
+                  33,
+                  66
+                ]
+              ],
+              "role": "Actual direct Millimeters/Permille primitive backing/unit adapters and BracerDesign raw declaration/Serde/default consumed by registered P16 encode/decode/validate, exact new directcallees only",
+              "actual_caller": "Native097 lib encode95/decode100/validate146 and Native098\u2013100 design fields",
+              "reason": "Necessary actualleafroute/body registered before analysis, no rawunit guarantee from imports",
+              "exclusions": "Milliradians23\u201331, Bracerlayout/count68\u2013104, Morph/GeneratedArmor/Error variants107+ excluded; no unrelated/nativegraph",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\fabelgeist-armor\\src\\design.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "qualification_history": [
+              {
+                "qualification_file": "camera-support/source-qualifications-022.jsonl",
+                "row_1based": 5,
+                "payload": {
+                  "registration_id": "NATIVE-ADMISSION03-REG-101",
+                  "source_id": "physical-p16:crates/fabelgeist-armor/src/design.rs",
+                  "sha256": "26c72636cd1c9cff2ca9eb5c41bfea3d714d0820824272c2770feb4d9c234c34",
+                  "actual_EOF": 166,
+                  "original_requested_ranges": [
+                    [
+                      1,
+                      22
+                    ],
+                    [
+                      33,
+                      66
+                    ]
+                  ],
+                  "qualified_material_ranges": [
+                    [
+                      1,
+                      22
+                    ],
+                    [
+                      33,
+                      66
+                    ]
+                  ],
+                  "context_only_ranges": [],
+                  "admission_proof": "p16-armor-admission-021.json",
+                  "limits": "Milliradians23\u201331, Bracerlayout/count68\u2013104, Morph/GeneratedArmor/Error variants107+ excluded; no unrelated/nativegraph",
+                  "later_lens_credit": false
+                }
+              }
+            ],
+            "current_proof_refs": {
+              "admission_proof": "p16-armor-admission-021.json"
+            },
+            "body_rereads_for_this_normalization": 0,
+            "semantic_credit_from_metadata": false,
+            "producer_or_owner_or_later_lens_credit": false,
+            "global_reconciliation_pending": true
+          },
+          "registration_id_resolved": "NATIVE-ADMISSION03-REG-101"
+        }
+      ],
+      "producer_trace_and_disposition": "Armor Millimeters/Permille wrappers carry quantized native design units; public backing does not prove per-role design bounds. Permille can represent legitimate sizing>1000, so cannot globally substitute bounded unitfraction. BracerDesign uses distinct coverage/offset/clearance/wall and optional fluting; no relationship seal merely from field names. Source basis remains meaningful for hashes/export.",
+      "connected_repair_or_remaining_requirement": "Join #780 canonical quantized design/physical/chart owner work and inherited type-ownership/admission findings. Preserve sum coverage+offset\u22641000 and physical ranges, named catalog identity, zero decorative features and fixed wire precision. No equivalent unit wrapper introduced in local consumer or lossy metre roundtrip for encoded hashes.",
+      "acceptance": "Preserve explicit source unit/frame/authority, valid states and native wire/hash/rounding/order; finish listed connected producer/recipient and inherited admission/operation requirements before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH inherited findings, positive boundaries and explicit connected questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run"
+    },
+    {
+      "delta_index": 81,
+      "source_scope_index": 2168,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/person_names.rs",
+      "sha256": "e41326d6c8ae20b958581c0027d3b5bdd79a58faf43a142e446f52dc4a8f70ec",
+      "effective_ranges": [
+        [
+          1,
+          849
+        ]
+      ],
+      "registration": {
+        "record": "continuation/native/admission03/source-range-registration.jsonl",
+        "sha256": "b64897ba6a74680b53619d22505860bae51451e916fb03fd547a59a7763875fa",
+        "row_1based": 102,
+        "id": "NATIVE-ADMISSION03-REG-102"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "native",
+          "registry": "continuation/native/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "id": "NATIVE-ADM03-FINALQUAL-102",
+            "registration_id": "NATIVE-ADMISSION03-REG-102",
+            "source_id": "pr-working:crates/adventuresim-world-schema/src/person_names.rs",
+            "snapshot": "pr-working",
+            "sha256": "e41326d6c8ae20b958581c0027d3b5bdd79a58faf43a142e446f52dc4a8f70ec",
+            "actual_EOF": 849,
+            "registered_requested_ranges": [
+              [
+                1,
+                849
+              ]
+            ],
+            "qualified_material_ranges": [
+              [
+                1,
+                849
+              ]
+            ],
+            "context_or_excluded_within_registration": [],
+            "original_registration": {
+              "id": "NATIVE-ADMISSION03-REG-102",
+              "at": "2026-10-22T17:14:58.499940+00:00",
+              "authority": "043/054; Root explicit currentPR direct canonical name dependency instruction",
+              "source_id": "pr-working:crates/adventuresim-world-schema/src/person_names.rs",
+              "sha256": "e41326d6c8ae20b958581c0027d3b5bdd79a58faf43a142e446f52dc4a8f70ec",
+              "snapshot": "pr-working",
+              "actual_EOF": 849,
+              "material_ranges": [
+                [
+                  1,
+                  849
+                ]
+              ],
+              "role": "Exact direct PRcanonical privateRenderedPersonalName admission and actualidentity reference/rendergate counterpart; no PR credit fromP16hash",
+              "actual_caller": "AssignedPR497 name_identity render-before-store, PR499NameIdentityJson",
+              "reason": "No actualPRcanonicalcurrent03supplier exists; register before comparison/bodyanalysis to exactP16Native008 actualdefinition proof",
+              "exclusions": "No newcatalogueassets/build/schema/runtimeauthoritygraph coverage frominclude/expect. Exact canonical definition/current-use only, no laterlens or implementation.",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-world-schema\\src\\person_names.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "qualification_history": [
+              {
+                "qualification_file": "camera-support/source-qualifications-030.jsonl",
+                "row_1based": 1,
+                "payload": {
+                  "registration_id": "NATIVE-ADMISSION03-REG-102",
+                  "source_id": "pr-working:crates/adventuresim-world-schema/src/person_names.rs",
+                  "sha256": "e41326d6c8ae20b958581c0027d3b5bdd79a58faf43a142e446f52dc4a8f70ec",
+                  "actual_EOF": 849,
+                  "qualified_material_ranges": [
+                    [
+                      1,
+                      849
+                    ]
+                  ],
+                  "original_requested_ranges": [
+                    [
+                      1,
+                      849
+                    ]
+                  ],
+                  "proof": "contracts-028.json#direct-current-pr-rendered-name-definition",
+                  "method": "Actualcompletebodycomparison029 plusactualpriorNative008definition/currentPRcalleecomparison; nothash-only",
+                  "later_lens_credit": false
+                }
+              }
+            ],
+            "current_proof_refs": {
+              "proof": "contracts-028.json#direct-current-pr-rendered-name-definition"
+            },
+            "body_rereads_for_this_normalization": 0,
+            "semantic_credit_from_metadata": false,
+            "producer_or_owner_or_later_lens_credit": false,
+            "global_reconciliation_pending": true
+          },
+          "registration_id_resolved": "NATIVE-ADMISSION03-REG-102"
+        }
+      ],
+      "producer_trace_and_disposition": "Full849line names module and existing fixtures personally read. Semantic family/form/surname IDs exist but their macro wraps publicString; shared catalogue stores String so generation constructs owners only at final identity and rendering extracts them again before helpers. RenderedPersonalName is checked at direct display boundary. NameStableSeed/get returns canonicalSeed (not primitive leak); separate family/form/surname stream order preserves prevalence independent of added forms. SamplingError typed at native sampler becomes NameCatalogError::Sampling(error.to_string) before internal generation. Context already uses typed Sex/Culture/Religion/year/social/education, absent evidence modifiers deliberately not invented.",
+      "connected_repair_or_remaining_requirement": "Retain canonical IDs and accepted catalogue/identity/reference relationships through generation/render helpers, reusing lowest shared build/runtime schema owner rather than duplicated wrappers. Preserve historical unresolved evidence (empty candidate list valid), authored full name unparsed, sex-attested surname selection, native everyday vs viewer register, exact deterministic streams/frequencies and rendered bounds. Carry actual SamplingError cause and catalogue digest owner; do not change unsupported repertoire policy or invent ethnic/social modifiers. Existing full fixtures source-only, no added tests.",
+      "acceptance": "Preserve explicit source unit/frame/authority, valid states and native wire/hash/rounding/order; finish listed connected producer/recipient and inherited admission/operation requirements before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH inherited findings, positive boundaries and explicit connected questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run"
+    },
+    {
+      "delta_index": 82,
+      "source_scope_index": 2170,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/person_names/identity_validation.rs",
+      "sha256": "d1d7a7cff2bd6d44336c622d4f9e451f72c6166a16eb2702d128d32adc27525b",
+      "effective_ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "registration": {
+        "record": "continuation/native/admission03/source-range-registration.jsonl",
+        "sha256": "b64897ba6a74680b53619d22505860bae51451e916fb03fd547a59a7763875fa",
+        "row_1based": 103,
+        "id": "NATIVE-ADMISSION03-REG-103"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "native",
+          "registry": "continuation/native/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "id": "NATIVE-ADM03-FINALQUAL-103",
+            "registration_id": "NATIVE-ADMISSION03-REG-103",
+            "source_id": "pr-working:crates/adventuresim-world-schema/src/person_names/identity_validation.rs",
+            "snapshot": "pr-working",
+            "sha256": "d1d7a7cff2bd6d44336c622d4f9e451f72c6166a16eb2702d128d32adc27525b",
+            "actual_EOF": 169,
+            "registered_requested_ranges": [
+              [
+                1,
+                169
+              ]
+            ],
+            "qualified_material_ranges": [
+              [
+                1,
+                169
+              ]
+            ],
+            "context_or_excluded_within_registration": [],
+            "original_registration": {
+              "id": "NATIVE-ADMISSION03-REG-103",
+              "at": "2026-10-22T17:14:58.509153+00:00",
+              "authority": "043/054; Root explicit currentPR direct canonical name dependency instruction",
+              "source_id": "pr-working:crates/adventuresim-world-schema/src/person_names/identity_validation.rs",
+              "sha256": "d1d7a7cff2bd6d44336c622d4f9e451f72c6166a16eb2702d128d32adc27525b",
+              "snapshot": "pr-working",
+              "actual_EOF": 169,
+              "material_ranges": [
+                [
+                  1,
+                  169
+                ]
+              ],
+              "role": "Exact direct PRcanonical privateRenderedPersonalName admission and actualidentity reference/rendergate counterpart; no PR credit fromP16hash",
+              "actual_caller": "AssignedPR497 name_identity render-before-store, PR499NameIdentityJson",
+              "reason": "No actualPRcanonicalcurrent03supplier exists; register before comparison/bodyanalysis to exactP16Native008 actualdefinition proof",
+              "exclusions": "No newcatalogueassets/build/schema/runtimeauthoritygraph coverage frominclude/expect. Exact canonical definition/current-use only, no laterlens or implementation.",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-world-schema\\src\\person_names\\identity_validation.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "qualification_history": [
+              {
+                "qualification_file": "camera-support/source-qualifications-030.jsonl",
+                "row_1based": 2,
+                "payload": {
+                  "registration_id": "NATIVE-ADMISSION03-REG-103",
+                  "source_id": "pr-working:crates/adventuresim-world-schema/src/person_names/identity_validation.rs",
+                  "sha256": "d1d7a7cff2bd6d44336c622d4f9e451f72c6166a16eb2702d128d32adc27525b",
+                  "actual_EOF": 169,
+                  "qualified_material_ranges": [
+                    [
+                      1,
+                      169
+                    ]
+                  ],
+                  "original_requested_ranges": [
+                    [
+                      1,
+                      169
+                    ]
+                  ],
+                  "proof": "contracts-028.json#direct-current-pr-rendered-name-definition",
+                  "method": "Actualcompletebodycomparison029 plusactualpriorNative008definition/currentPRcalleecomparison; nothash-only",
+                  "later_lens_credit": false
+                }
+              }
+            ],
+            "current_proof_refs": {
+              "proof": "contracts-028.json#direct-current-pr-rendered-name-definition"
+            },
+            "body_rereads_for_this_normalization": 0,
+            "semantic_credit_from_metadata": false,
+            "producer_or_owner_or_later_lens_credit": false,
+            "global_reconciliation_pending": true
+          },
+          "registration_id_resolved": "NATIVE-ADMISSION03-REG-103"
+        }
+      ],
+      "producer_trace_and_disposition": "Identity.validate checks all stored metadata even authored display bypasses surname rendering. Resolved family/nativeform/culture/everyday association is actual invariant. UnresolvedHistorical permits empty candidate list and checks any supplied family IDs; this is proven by existing fixture, not an invalid-empty hypothesis. Recorded/authored text is temporarily admitted via RenderedPersonalName and discarded before later construction; public identity may mutate between validate calls. Existing alladmission03 evidence remains usable, no normal generated inconsistent name claimed.",
+      "connected_repair_or_remaining_requirement": "Retain accepted identity/reference/text products through rendering and persistence, avoiding repeated temporary checked-to-raw use while keeping historical uncertainty/authored metadata policy. Preserve errors for missing family/surname and mismatched form, not parse authored names or demand nonempty ambiguous candidates. Seal actual retained admission separately with inherited03 findings.",
+      "acceptance": "Preserve explicit source unit/frame/authority, valid states and native wire/hash/rounding/order; finish listed connected producer/recipient and inherited admission/operation requirements before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH inherited findings, positive boundaries and explicit connected questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run"
+    },
+    {
+      "delta_index": 83,
+      "source_scope_index": 465,
+      "source_id": "physical-p16:crates/strategic-web/src/templates/settlement/character_skills.rs",
+      "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+      "effective_ranges": [
+        [
+          2054,
+          2054
+        ]
+      ],
+      "registration": {
+        "record": "continuation/native/admission03/source-range-registration.jsonl",
+        "sha256": "b64897ba6a74680b53619d22505860bae51451e916fb03fd547a59a7763875fa",
+        "row_1based": 104,
+        "id": "NATIVE-ADMISSION03-REG-104"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "native",
+          "registry": "continuation/native/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "id": "NATIVE-ADM03-FINALQUAL-104",
+            "registration_id": "NATIVE-ADMISSION03-REG-104",
+            "source_id": "physical-p16:crates/strategic-web/src/templates/settlement/character_skills.rs",
+            "snapshot": "physical-p16",
+            "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+            "actual_EOF": 3812,
+            "registered_requested_ranges": [
+              [
+                2053,
+                2054
+              ]
+            ],
+            "qualified_material_ranges": [
+              [
+                2054,
+                2054
+              ]
+            ],
+            "context_or_excluded_within_registration": [
+              [
+                2053,
+                2053
+              ]
+            ],
+            "original_registration": {
+              "id": "NATIVE-ADMISSION03-REG-104",
+              "at": "2026-10-22T17:22:16.817070+00:00",
+              "authority": "043/054",
+              "source_id": "physical-p16:crates/strategic-web/src/templates/settlement/character_skills.rs",
+              "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+              "snapshot": "physical-p16",
+              "actual_EOF": 3812,
+              "material_ranges": [
+                [
+                  2053,
+                  2054
+                ]
+              ],
+              "role": "Exact attachedderive attributes immediatelybeforeActivityEffectRates existingassigned347 struct2055; no unrelated wholetemplate source",
+              "actual_caller": "Camera347 scoped2055\u20132235/2287\u20132355 admissionallroutes",
+              "reason": "Attribute newmaterialregistrationbeforebody; do notinferDefault/serdefromstructname",
+              "exclusions": "Otherunassignedtemplatehelpers/callers/unrelatedrows excluded",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\strategic-web\\src\\templates\\settlement\\character_skills.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "qualification_history": [
+              {
+                "qualification_file": "camera-support/source-qualifications-034.jsonl",
+                "row_1based": 1,
+                "payload": {
+                  "registration_id": "NATIVE-ADMISSION03-REG-104",
+                  "source_id": "physical-p16:crates/strategic-web/src/templates/settlement/character_skills.rs",
+                  "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+                  "actual_EOF": 3812,
+                  "original_requested_ranges": [
+                    [
+                      2053,
+                      2054
+                    ]
+                  ],
+                  "qualified_material_ranges": [
+                    [
+                      2054,
+                      2054
+                    ]
+                  ],
+                  "context_only_ranges": [
+                    [
+                      2053,
+                      2053
+                    ]
+                  ],
+                  "admission_proof": "contracts-033.json#scoped-schedule-preview-native-rates-and-saved-state-assumption",
+                  "later_lens_credit": false
+                }
+              }
+            ],
+            "current_proof_refs": {
+              "admission_proof": "contracts-033.json#scoped-schedule-preview-native-rates-and-saved-state-assumption"
+            },
+            "body_rereads_for_this_normalization": 0,
+            "semantic_credit_from_metadata": false,
+            "producer_or_owner_or_later_lens_credit": false,
+            "global_reconciliation_pending": true
+          },
+          "registration_id_resolved": "NATIVE-ADMISSION03-REG-104"
+        }
+      ],
+      "producer_trace_and_disposition": "Only one derive attribute2054 is qualified material. Full samehash template body already read, but no other source contract or arithmetic is added by this declaration attribute itself.",
+      "connected_repair_or_remaining_requirement": "No repair for attribute syntax. Preserve existing profession preview/weighted reward and source-authority findings, without granting an additional body/other-lens verdict.",
+      "acceptance": "Preserve explicit source unit/frame/authority, valid states and native wire/hash/rounding/order; finish listed connected producer/recipient and inherited admission/operation requirements before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH inherited findings, positive boundaries and explicit connected questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run"
+    },
+    {
+      "delta_index": 84,
+      "source_scope_index": 2729,
+      "source_id": "physical-p16:crates/strategic-web/src/spacetimedb/client/sats.rs",
+      "sha256": "dbb97caa3f3bb18aa862aacce19d0d76f82f7760e82a389f9347698d24031906",
+      "effective_ranges": [
+        [
+          1,
+          540
+        ]
+      ],
+      "registration": {
+        "record": "continuation/native/admission03/source-range-registration.jsonl",
+        "sha256": "b64897ba6a74680b53619d22505860bae51451e916fb03fd547a59a7763875fa",
+        "row_1based": 105,
+        "id": "NATIVE-ADMISSION03-REG-105"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "native",
+          "registry": "continuation/native/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "id": "NATIVE-ADM03-FINALQUAL-105",
+            "registration_id": "NATIVE-ADMISSION03-REG-105",
+            "source_id": "physical-p16:crates/strategic-web/src/spacetimedb/client/sats.rs",
+            "snapshot": "physical-p16",
+            "sha256": "dbb97caa3f3bb18aa862aacce19d0d76f82f7760e82a389f9347698d24031906",
+            "actual_EOF": 540,
+            "registered_requested_ranges": [
+              [
+                1,
+                540
+              ]
+            ],
+            "qualified_material_ranges": [
+              [
+                1,
+                540
+              ]
+            ],
+            "context_or_excluded_within_registration": [],
+            "original_registration": {
+              "id": "NATIVE-ADMISSION03-REG-105",
+              "at": "2026-10-22T17:24:20.987806+00:00",
+              "authority": "043/054 directrequiredcallee",
+              "source_id": "physical-p16:crates/strategic-web/src/spacetimedb/client/sats.rs",
+              "sha256": "dbb97caa3f3bb18aa862aacce19d0d76f82f7760e82a389f9347698d24031906",
+              "snapshot": "physical-p16",
+              "actual_EOF": 540,
+              "material_ranges": [
+                [
+                  1,
+                  540
+                ]
+              ],
+              "role": "ExactactualSATS query decoder directP16caller344; RootfreshPR003 fullproofsupportsactualvariantcomparison, no blanketSDK/nativesemantics",
+              "actual_caller": "Camera344 query_sats137\u2192decode_sats_query_response",
+              "reason": "Necessary currentP16 decoder route registeredbeforeactualbodycomparison/currentreceiveranalysis, no PRhash/verdictcarry",
+              "exclusions": "No SQLserver/native SDKwholegraph; sourceformatsandactualgenericreceiveronly, no laterlenscredit",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\strategic-web\\src\\spacetimedb\\client\\sats.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "qualification_history": [
+              {
+                "qualification_file": "camera-support/source-qualifications-037.jsonl",
+                "row_1based": 1,
+                "payload": {
+                  "registration_id": "NATIVE-ADMISSION03-REG-105",
+                  "source_id": "physical-p16:crates/strategic-web/src/spacetimedb/client/sats.rs",
+                  "sha256": "dbb97caa3f3bb18aa862aacce19d0d76f82f7760e82a389f9347698d24031906",
+                  "actual_EOF": 540,
+                  "qualified_material_ranges": [
+                    [
+                      1,
+                      540
+                    ]
+                  ],
+                  "original_requested_ranges": [
+                    [
+                      1,
+                      540
+                    ]
+                  ],
+                  "admission_proof": "lower-dependency-qualification-036.json#P16querynativeformatdecoder",
+                  "actual_source_comparison": "sats-counterpart-comparison-035.json plusactualRoot003narrative/currentP16344contract",
+                  "later_lens_credit": false
+                }
+              }
+            ],
+            "current_proof_refs": {
+              "admission_proof": "lower-dependency-qualification-036.json#P16querynativeformatdecoder"
+            },
+            "body_rereads_for_this_normalization": 0,
+            "semantic_credit_from_metadata": false,
+            "producer_or_owner_or_later_lens_credit": false,
+            "global_reconciliation_pending": true
+          },
+          "registration_id_resolved": "NATIVE-ADMISSION03-REG-105"
+        }
+      ],
+      "producer_trace_and_disposition": "Exact P16 SATS540line hash matches own complete producer/native projection evidence PC93. Actual positional JSON, one-key options, identity U256 and hexpayload decoding are native format adapters; generated enums are mapped to canonical owners and calendarminute retained. Generic query API formats typed projection/JSON causes too early: existing M96. No normal malformed server payload claimed from permissive native schema alone.",
+      "connected_repair_or_remaining_requirement": "Keep native schema decoding at true transport boundary, structured SDK/JSON/projection causes through application until final HTTP presentation, and typed admitted projection thereafter. Preserve schema/product cardinality and source member order; do not hand-edit generated clients or turn required native tuples into duplicate app records.",
+      "acceptance": "Preserve explicit source unit/frame/authority, valid states and native wire/hash/rounding/order; finish listed connected producer/recipient and inherited admission/operation requirements before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH inherited findings, positive boundaries and explicit connected questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run",
+      "reused_own_same_lens_evidence": {
+        "scope": "full",
+        "reference": "root-pc93-sdk-native-projection-001.json",
+        "source_verified_against_recovered_blob": true,
+        "prior_file_review": {
+          "read_ranges": [
+            [
+              1,
+              540
+            ]
+          ],
+          "source_lines": 540,
+          "source_sha256": "dbb97caa3f3bb18aa862aacce19d0d76f82f7760e82a389f9347698d24031906",
+          "body_read_complete": true,
+          "graph_status": "Actual bodies complete, graph/invariant/later lenses remain incomplete; native client generated owners are not hand-editable."
+        },
+        "qualification": "Actual own earlier producer lens evidence, not a borrowed later-lens verdict or source-read-only proof of complete graph. Any uncovered material newly read this turn."
+      }
+    },
+    {
+      "delta_index": 85,
+      "source_scope_index": 1075,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/browser_session/descendants.rs",
+      "sha256": "4ee78100f46e24040c48bd9007e4a8892b04b81c6b351f77d1eb9fa701246a16",
+      "effective_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "registration": {
+        "record": "continuation/native/admission03/source-range-registration.jsonl",
+        "sha256": "b64897ba6a74680b53619d22505860bae51451e916fb03fd547a59a7763875fa",
+        "row_1based": 106,
+        "id": "NATIVE-ADMISSION03-REG-106"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "native",
+          "registry": "continuation/native/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "id": "NATIVE-ADM03-FINALQUAL-106",
+            "registration_id": "NATIVE-ADMISSION03-REG-106",
+            "source_id": "pr-working:crates/adventuresim-stdb-module/src/browser_session/descendants.rs",
+            "snapshot": "pr-working",
+            "sha256": "4ee78100f46e24040c48bd9007e4a8892b04b81c6b351f77d1eb9fa701246a16",
+            "actual_EOF": 95,
+            "registered_requested_ranges": [
+              [
+                1,
+                95
+              ]
+            ],
+            "qualified_material_ranges": [
+              [
+                1,
+                95
+              ]
+            ],
+            "context_or_excluded_within_registration": [],
+            "original_registration": {
+              "id": "NATIVE-ADMISSION03-REG-106",
+              "at": "2026-10-22T17:53:22.804185+00:00",
+              "authority": "043/054 directrequiredcallee",
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/browser_session/descendants.rs",
+              "sha256": "4ee78100f46e24040c48bd9007e4a8892b04b81c6b351f77d1eb9fa701246a16",
+              "snapshot": "pr-working",
+              "actual_EOF": 95,
+              "material_ranges": [
+                [
+                  1,
+                  95
+                ]
+              ],
+              "role": "Exact descendant-grant validation/current observer/adulthood/age helper bodies directly included and called by assigned Camera491 browser_session",
+              "actual_caller": "browser_session.rs366,442,450,454\u2013455,486 and existing tests533\u2013555",
+              "reason": "Real required grant/selected observer lower gate; register before actual source-body comparison. No speculative callers.",
+              "exclusions": "No relationship/birth/calendar implementation graph or extra source credit by include name",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\browser_session\\descendants.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "qualification_history": [
+              {
+                "qualification_file": "camera-support/source-qualification-055.json",
+                "row_1based": 1,
+                "payload": {
+                  "registration_id": "NATIVE-ADMISSION03-REG-106",
+                  "qualified_material_ranges": [
+                    [
+                      1,
+                      95
+                    ]
+                  ],
+                  "actual_proof": "contracts-054.json#pr-browser-grant-provenance-and-selected-observer-admission",
+                  "source_read_status": "fresh_actual_full_directhelper_body_after_registration",
+                  "source_only": true,
+                  "global_reconciliation_pending": true
+                }
+              }
+            ],
+            "current_proof_refs": {
+              "actual_proof": "contracts-054.json#pr-browser-grant-provenance-and-selected-observer-admission"
+            },
+            "body_rereads_for_this_normalization": 0,
+            "semantic_credit_from_metadata": false,
+            "producer_or_owner_or_later_lens_credit": false,
+            "global_reconciliation_pending": true
+          },
+          "registration_id_resolved": "NATIVE-ADMISSION03-REG-106"
+        }
+      ],
+      "producer_trace_and_disposition": "Fresh95line descendant helper confirms typed StrategicMinute for adulthood/observer/descendant frontier, with selected living observer grant ownership checks. Owner_key&String, characteru64 and returned ageu16 remain semantic through pure logic before actual table lookup. Missing birth record fallback to stored age is a distinct source-authority question; this source does not prove it is forbidden backward compatibility or ordinary missing birth. Errors early String before native reducer boundary, shared M30.",
+      "connected_repair_or_remaining_requirement": "Carry browser owner/character identity and age/observed frontier contracts through current grant/view callers, keep native table accessor projections at final ports. Preserve selected observer non-disclosure, noselected/dead observer descendant-frontier policy and signed birth/adulthood arithmetic. Resolve missing-birth authority with actual producers before changing behavior; no compatibility shim invented.",
+      "acceptance": "Preserve explicit source unit/frame/authority, valid states and native wire/hash/rounding/order; finish listed connected producer/recipient and inherited admission/operation requirements before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH inherited findings, positive boundaries and explicit connected questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run"
+    },
+    {
+      "delta_index": 86,
+      "source_scope_index": 974,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/sampling.rs",
+      "sha256": "3c679c4e5177ee4462d6286d81cdd3e3cfaa9b6e2d91e844d3d45b8e2f666a44",
+      "effective_ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "registration": {
+        "record": "continuation/native/admission03/source-range-registration.jsonl",
+        "sha256": "b64897ba6a74680b53619d22505860bae51451e916fb03fd547a59a7763875fa",
+        "row_1based": 107,
+        "id": "NATIVE-ADMISSION03-REG-107"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "native",
+          "registry": "continuation/native/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "id": "NATIVE-ADM03-FINALQUAL-107",
+            "registration_id": "NATIVE-ADMISSION03-REG-107",
+            "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/sampling.rs",
+            "snapshot": "pr-working",
+            "sha256": "3c679c4e5177ee4462d6286d81cdd3e3cfaa9b6e2d91e844d3d45b8e2f666a44",
+            "actual_EOF": 213,
+            "registered_requested_ranges": [
+              [
+                1,
+                132
+              ]
+            ],
+            "qualified_material_ranges": [
+              [
+                1,
+                131
+              ]
+            ],
+            "context_or_excluded_within_registration": [
+              [
+                132,
+                132
+              ]
+            ],
+            "original_registration": {
+              "id": "NATIVE-ADMISSION03-REG-107",
+              "at": "2026-10-22T18:02:24.232474+00:00",
+              "authority": "043/054 directrequiredcallee, Root direct instruction after no current03receipt",
+              "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/sampling.rs",
+              "sha256": "3c679c4e5177ee4462d6286d81cdd3e3cfaa9b6e2d91e844d3d45b8e2f666a44",
+              "snapshot": "pr-working",
+              "actual_EOF": 213,
+              "material_ranges": [
+                [
+                  1,
+                  132
+                ]
+              ],
+              "role": "Directassembly choose/order/canonical_context completeproduction1\u2013132; existingtests133+excluded",
+              "actual_caller": "AssignedCamera447 assembly.rs5canonical_context/13solve_variables/29\u201330boundindices/40\u201393choose/85shuffle",
+              "reason": "Actuallyrequired directadmission/index/empty/duplicate gate; prospectivebefore bodyanalysis, no previouslens/hashcredit",
+              "exclusions": "Onlyregisteredmaterialfunctions; no speculativecallergraph/cataloguevalidationwholefile or tests outside ranges",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-core\\src\\quest_generation\\sampling.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "qualification_history": [
+              {
+                "qualification_file": "camera-support/support-and-lower-qualification-061.json",
+                "row_1based": 1,
+                "payload": {
+                  "registration_id": "NATIVE-ADMISSION03-REG-107",
+                  "qualified_material_ranges": [
+                    [
+                      1,
+                      132
+                    ]
+                  ],
+                  "proof": "contracts-060.json#pr-quest-assembly-actual-normal-dnf-and-manifest-gates",
+                  "exclusions": "tests133\u2013213 excluded"
+                }
+              },
+              {
+                "qualification_file": "camera-support/source-qualification-066.json",
+                "row_1based": 1,
+                "payload": {
+                  "registration_id": "NATIVE-ADMISSION03-REG-107",
+                  "qualified_material_ranges": [
+                    [
+                      1,
+                      131
+                    ]
+                  ],
+                  "context_only_ranges": [
+                    [
+                      132,
+                      132
+                    ]
+                  ],
+                  "proof": "contracts-060.json#pr-quest-assembly-actual-normal-dnf-and-manifest-gates",
+                  "qualification": "Completedproductionfunctions1\u2013131;132blankreadcontext only, originalregistered1\u2013132 retained."
+                }
+              }
+            ],
+            "current_proof_refs": {
+              "proof": "contracts-060.json#pr-quest-assembly-actual-normal-dnf-and-manifest-gates"
+            },
+            "body_rereads_for_this_normalization": 0,
+            "semantic_credit_from_metadata": false,
+            "producer_or_owner_or_later_lens_credit": false,
+            "global_reconciliation_pending": true
+          },
+          "registration_id_resolved": "NATIVE-ADMISSION03-REG-107"
+        }
+      ],
+      "producer_trace_and_disposition": "Exact weighted solver body chooses/canonicalizes candidateIDs, sorts in native lexical order, checks duplicates and distinguishes choose error vs weighted_order successful empty. Canonical module/relation/factor/bridge owners are constructed only in trace/error after raw strings pass internal choose/weighted_order; Candidate still retains raw id/reason/bridge. SamplingError is correctly kept in GenerationError here. Seed derivation receives actual8byte seed and domain/module/relation UTF8 bytes at native deterministic boundary.",
+      "connected_repair_or_remaining_requirement": "Complete M46 catalogue/solver accepted candidate and identifier propagation through producers and returned trace/choice, preserving lexicalordering, allzero/empty semantics, typed sampler cause and exact stream bytes. Native generic candidate index is dense position, not a substituted domain identity; no arbitrary enum for ordinal or changed sort based on enum ordering.",
+      "acceptance": "Preserve explicit source unit/frame/authority, valid states and native wire/hash/rounding/order; finish listed connected producer/recipient and inherited admission/operation requirements before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH inherited findings, positive boundaries and explicit connected questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run"
+    },
+    {
+      "delta_index": 87,
+      "source_scope_index": 975,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/solver.rs",
+      "sha256": "5d9b71ab4620264dce7604d0c9662f52009a887d00225927ef217087e0f10ba2",
+      "effective_ranges": [
+        [
+          1,
+          216
+        ],
+        [
+          591,
+          597
+        ]
+      ],
+      "registration": {
+        "record": "continuation/native/admission03/source-range-registration.jsonl",
+        "sha256": "b64897ba6a74680b53619d22505860bae51451e916fb03fd547a59a7763875fa",
+        "row_1based": 108,
+        "id": "NATIVE-ADMISSION03-REG-108"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "native",
+          "registry": "continuation/native/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "id": "NATIVE-ADM03-FINALQUAL-108",
+            "registration_id": "NATIVE-ADMISSION03-REG-108",
+            "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/solver.rs",
+            "snapshot": "pr-working",
+            "sha256": "5d9b71ab4620264dce7604d0c9662f52009a887d00225927ef217087e0f10ba2",
+            "actual_EOF": 979,
+            "registered_requested_ranges": [
+              [
+                1,
+                217
+              ],
+              [
+                591,
+                598
+              ]
+            ],
+            "qualified_material_ranges": [
+              [
+                1,
+                216
+              ],
+              [
+                591,
+                597
+              ]
+            ],
+            "context_or_excluded_within_registration": [
+              [
+                217,
+                217
+              ],
+              [
+                598,
+                598
+              ]
+            ],
+            "original_registration": {
+              "id": "NATIVE-ADMISSION03-REG-108",
+              "at": "2026-10-22T18:02:24.250728+00:00",
+              "authority": "043/054 directrequiredcallee, Root direct instruction after no current03receipt",
+              "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/solver.rs",
+              "sha256": "5d9b71ab4620264dce7604d0c9662f52009a887d00225927ef217087e0f10ba2",
+              "snapshot": "pr-working",
+              "actual_EOF": 979,
+              "material_ranges": [
+                [
+                  1,
+                  217
+                ],
+                [
+                  591,
+                  598
+                ]
+              ],
+              "role": "Directsolve_variables+SolvedVariables and deterministic_witness_order exactindexconstruction; unrelatedcandidatebuilders/assemblyhelperbodies excluded",
+              "actual_caller": "AssignedCamera447 assembly.rs5canonical_context/13solve_variables/29\u201330boundindices/40\u201393choose/85shuffle",
+              "reason": "Actuallyrequired directadmission/index/empty/duplicate gate; prospectivebefore bodyanalysis, no previouslens/hashcredit",
+              "exclusions": "Onlyregisteredmaterialfunctions; no speculativecallergraph/cataloguevalidationwholefile or tests outside ranges",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-core\\src\\quest_generation\\solver.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "qualification_history": [
+              {
+                "qualification_file": "camera-support/support-and-lower-qualification-061.json",
+                "row_1based": 2,
+                "payload": {
+                  "registration_id": "NATIVE-ADMISSION03-REG-108",
+                  "qualified_material_ranges": [
+                    [
+                      1,
+                      217
+                    ],
+                    [
+                      591,
+                      598
+                    ]
+                  ],
+                  "proof": "contracts-060.json#pr-quest-assembly-actual-normal-dnf-and-manifest-gates",
+                  "exclusions": "218\u2013590/599\u2013979 notbodycovered; otherhelpers/fixtures no blanketcoverage"
+                }
+              },
+              {
+                "qualification_file": "camera-support/source-qualification-066.json",
+                "row_1based": 2,
+                "payload": {
+                  "registration_id": "NATIVE-ADMISSION03-REG-108",
+                  "qualified_material_ranges": [
+                    [
+                      1,
+                      216
+                    ],
+                    [
+                      591,
+                      597
+                    ]
+                  ],
+                  "context_only_ranges": [
+                    [
+                      217,
+                      217
+                    ],
+                    [
+                      598,
+                      598
+                    ]
+                  ],
+                  "proof": "contracts-060.json#pr-quest-assembly-actual-normal-dnf-and-manifest-gates",
+                  "qualification": "217/598blankcontext; candidatehelpers218\u2013590/599\u2013979excluded."
+                }
+              }
+            ],
+            "current_proof_refs": {
+              "proof": "contracts-060.json#pr-quest-assembly-actual-normal-dnf-and-manifest-gates"
+            },
+            "body_rereads_for_this_normalization": 0,
+            "semantic_credit_from_metadata": false,
+            "producer_or_owner_or_later_lens_credit": false,
+            "global_reconciliation_pending": true
+          },
+          "registration_id_resolved": "NATIVE-ADMISSION03-REG-108"
+        }
+      ],
+      "producer_trace_and_disposition": "Own complete979line solver producer evidence and M46 source graph match exact source hash covering1-216/591-597. Earlier fresh roles28/29 complete candidate conversion routes. Root M46 records late typed SiteKind/Circumstance/ThreatId etc from primitive admitted catalogue, IDs/weights/bridges and trace state. No blanket family completion from fullbody-read status; actual context/assembly/projection/native recipient obligations remain.",
+      "connected_repair_or_remaining_requirement": "Same M46 shared accepted catalogue/candidate/semantic reference repair through solver and actual assembly/validation recipients; preserve enumeration, lexical/deterministic stream order, hard-zero reasons and source provenance. Do not replay full baseline or create separate type per helper.",
+      "acceptance": "Preserve explicit source unit/frame/authority, valid states and native wire/hash/rounding/order; finish listed connected producer/recipient and inherited admission/operation requirements before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH inherited findings, positive boundaries and explicit connected questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run",
+      "reused_own_same_lens_evidence": {
+        "scope": "full",
+        "reference": "ledger.json#/lenses/producer-propagation/file_reviews/crates~1adventuresim-core~1src~1quest_generation~1solver.rs",
+        "source_verified_against_recovered_blob": true,
+        "prior_file_review": {
+          "read_ranges": [
+            [
+              1,
+              979
+            ]
+          ],
+          "source_lines": 979,
+          "source_sha256": "5d9b71ab4620264dce7604d0c9662f52009a887d00225927ef217087e0f10ba2",
+          "body_read_complete": true,
+          "graph_status": "Exact source-read ranges only; complete file body is not connected family/lens completion. Remaining investigation route/result/projection/fixture, custody/dialogue, catalogue and wider producer frontiers stay open."
+        },
+        "qualification": "Actual own earlier producer lens evidence, not a borrowed later-lens verdict or source-read-only proof of complete graph. Any uncovered material newly read this turn."
+      }
+    },
+    {
+      "delta_index": 88,
+      "source_scope_index": 2730,
+      "source_id": "physical-p16:crates/strategic-web/src/routes/coordinates.rs",
+      "sha256": "8849bcd5cb1c2d0379d33b28294cd3a7acc41eca8661f8ec451dc0f5878a93a9",
+      "effective_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "registration": {
+        "record": "continuation/native/admission03/source-range-registration.jsonl",
+        "sha256": "b64897ba6a74680b53619d22505860bae51451e916fb03fd547a59a7763875fa",
+        "row_1based": 109,
+        "id": "NATIVE-ADMISSION03-REG-109"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "native",
+          "registry": "continuation/native/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "id": "NATIVE-ADM03-FINALQUAL-109",
+            "registration_id": "NATIVE-ADMISSION03-REG-109",
+            "source_id": "physical-p16:crates/strategic-web/src/routes/coordinates.rs",
+            "snapshot": "physical-p16",
+            "sha256": "8849bcd5cb1c2d0379d33b28294cd3a7acc41eca8661f8ec451dc0f5878a93a9",
+            "actual_EOF": 17,
+            "registered_requested_ranges": [
+              [
+                1,
+                17
+              ]
+            ],
+            "qualified_material_ranges": [
+              [
+                1,
+                17
+              ]
+            ],
+            "context_or_excluded_within_registration": [],
+            "original_registration": {
+              "id": "NATIVE-ADMISSION03-REG-109",
+              "at": "2026-10-22T18:04:51.138568+00:00",
+              "authority": "043/054 actualdirectcallee",
+              "source_id": "physical-p16:crates/strategic-web/src/routes/coordinates.rs",
+              "sha256": "8849bcd5cb1c2d0379d33b28294cd3a7acc41eca8661f8ec451dc0f5878a93a9",
+              "snapshot": "physical-p16",
+              "actual_EOF": 17,
+              "material_ranges": [
+                [
+                  1,
+                  17
+                ]
+              ],
+              "role": "Exactcurrentcallee input/parser/primitiveconversionadmission, notmodulewholegraph",
+              "actual_caller": "Assigned341 planned_travel_call560/588/731 andpersisted_route_position681",
+              "reason": "Prospectivebeforeboundedbodyanalysis, no source/hash/verdictcredit",
+              "exclusions": "Onlyregisteredranges; no unrelatedrouter/URLtemplate/tests/canonicalserverauthoritygraph",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\strategic-web\\src\\routes\\coordinates.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "qualification_history": [
+              {
+                "qualification_file": "camera-support/source-qualifications-063.json",
+                "row_1based": 1,
+                "payload": {
+                  "registration_id": "NATIVE-ADMISSION03-REG-109",
+                  "qualified_material_ranges": [
+                    [
+                      1,
+                      17
+                    ]
+                  ],
+                  "proof": "contracts-062.json#p16-web-route-shared-parser-and-current-travel-admission"
+                }
+              }
+            ],
+            "current_proof_refs": {
+              "proof": "contracts-062.json#p16-web-route-shared-parser-and-current-travel-admission"
+            },
+            "body_rereads_for_this_normalization": 0,
+            "semantic_credit_from_metadata": false,
+            "producer_or_owner_or_later_lens_credit": false,
+            "global_reconciliation_pending": true
+          },
+          "registration_id_resolved": "NATIVE-ADMISSION03-REG-109"
+        }
+      ],
+      "producer_trace_and_disposition": "Actual P16 web coordinate helpers admit WGS84 E7 from raw components and immediately return raw f64 tuple, or admit degreecoordinate and return raw E7tuple, plus staticstr errors. Native comments alone do not establish everycaller endpoint. Actual located callers include route/mod, foraging, vicinity and selected_terrain, already connected to M37/M93 geography graph; P16 caller variants remain to reconcile where not samehash.",
+      "connected_repair_or_remaining_requirement": "Carry canonical Wgs84Coordinate through internal route/location/forage products and project only at actual JSON/native source/SQL kernel. Preserve latitude/longitude ordering vs EPSG3034 frames, E7 quantization/rounding and actual precision need. Structured coordinate admission failure to final HTTP classification, not generic internal tuple compatibility helper.",
+      "acceptance": "Preserve explicit source unit/frame/authority, valid states and native wire/hash/rounding/order; finish listed connected producer/recipient and inherited admission/operation requirements before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH inherited findings, positive boundaries and explicit connected questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run"
+    },
+    {
+      "delta_index": 89,
+      "source_scope_index": 2731,
+      "source_id": "physical-p16:crates/strategic-web/src/routes/party_actions.rs",
+      "sha256": "061c7eda69f59c154573d983af84afe85c6aae215d4b4385473bd2331fa701ac",
+      "effective_ranges": [
+        [
+          1,
+          266
+        ]
+      ],
+      "registration": {
+        "record": "continuation/native/admission03/source-range-registration.jsonl",
+        "sha256": "b64897ba6a74680b53619d22505860bae51451e916fb03fd547a59a7763875fa",
+        "row_1based": 110,
+        "id": "NATIVE-ADMISSION03-REG-110"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "native",
+          "registry": "continuation/native/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "id": "NATIVE-ADM03-FINALQUAL-110",
+            "registration_id": "NATIVE-ADMISSION03-REG-110",
+            "source_id": "physical-p16:crates/strategic-web/src/routes/party_actions.rs",
+            "snapshot": "physical-p16",
+            "sha256": "061c7eda69f59c154573d983af84afe85c6aae215d4b4385473bd2331fa701ac",
+            "actual_EOF": 355,
+            "registered_requested_ranges": [
+              [
+                1,
+                267
+              ]
+            ],
+            "qualified_material_ranges": [
+              [
+                1,
+                266
+              ]
+            ],
+            "context_or_excluded_within_registration": [
+              [
+                267,
+                267
+              ]
+            ],
+            "original_registration": {
+              "id": "NATIVE-ADMISSION03-REG-110",
+              "at": "2026-10-22T18:04:51.150536+00:00",
+              "authority": "043/054 actualdirectcallee",
+              "source_id": "physical-p16:crates/strategic-web/src/routes/party_actions.rs",
+              "sha256": "061c7eda69f59c154573d983af84afe85c6aae215d4b4385473bd2331fa701ac",
+              "snapshot": "physical-p16",
+              "actual_EOF": 355,
+              "material_ranges": [
+                [
+                  1,
+                  267
+                ]
+              ],
+              "role": "Exactcurrentcallee input/parser/primitiveconversionadmission, notmodulewholegraph",
+              "actual_caller": "Assigned341 typedPartyAction execute/request/approve admission andnativefinalreducerargs",
+              "reason": "Prospectivebeforeboundedbodyanalysis, no source/hash/verdictcredit",
+              "exclusions": "Onlyregisteredranges; no unrelatedrouter/URLtemplate/tests/canonicalserverauthoritygraph",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\strategic-web\\src\\routes\\party_actions.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "qualification_history": [
+              {
+                "qualification_file": "camera-support/source-qualifications-063.json",
+                "row_1based": 2,
+                "payload": {
+                  "registration_id": "NATIVE-ADMISSION03-REG-110",
+                  "qualified_material_ranges": [
+                    [
+                      1,
+                      267
+                    ]
+                  ],
+                  "proof": "contracts-062.json#p16-web-route-shared-parser-and-current-travel-admission"
+                }
+              },
+              {
+                "qualification_file": "camera-support/source-qualification-066.json",
+                "row_1based": 3,
+                "payload": {
+                  "registration_id": "NATIVE-ADMISSION03-REG-110",
+                  "qualified_material_ranges": [
+                    [
+                      1,
+                      266
+                    ]
+                  ],
+                  "context_only_ranges": [
+                    [
+                      267,
+                      267
+                    ]
+                  ],
+                  "proof": "contracts-062.json#p16-web-route-shared-parser-and-current-travel-admission",
+                  "qualification": "Productionenum+implends266;267blankcontext; existingtests268\u2013355excluded."
+                }
+              }
+            ],
+            "current_proof_refs": {
+              "proof": "contracts-062.json#p16-web-route-shared-parser-and-current-travel-admission"
+            },
+            "body_rereads_for_this_normalization": 0,
+            "semantic_credit_from_metadata": false,
+            "producer_or_owner_or_later_lens_credit": false,
+            "global_reconciliation_pending": true
+          },
+          "registration_id_resolved": "NATIVE-ADMISSION03-REG-110"
+        }
+      ],
+      "producer_trace_and_disposition": "Combines own samehash ranges20-95/200-260 with fresh1-19/96-199/261-266: full material1-266. PartyAction is explicit payloadenum, but retained settlement/case-site/character/role/contract/mission/item/method/revision leaves remain raw until reducer_call encodes actual native reducer name and positional JSON args. Summary and label strings are genuine presentation; canonical reducer tokens are true dispatchwire. Actual M58mission, M37case/place and M10/M07identity/capacity and action-method owners still need upstream use.",
+      "connected_repair_or_remaining_requirement": "Carry typed action payload leaves through queuing/leader approval/summary and execution until reducer_call final JSON adapter; keep native method tuple/positional args here, not throughout app. Preserve save-role flag role semantics and party authority; typed actionkind does not finish identifiers/amount/revision migration. No new ordinary authorization or wire-shape regression asserted.",
+      "acceptance": "Preserve explicit source unit/frame/authority, valid states and native wire/hash/rounding/order; finish listed connected producer/recipient and inherited admission/operation requirements before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH inherited findings, positive boundaries and explicit connected questions; no family/lens clearance",
+      "repair": "not started; initial discovery gate",
+      "validation": "not run",
+      "reused_own_same_lens_evidence": {
+        "scope": "partial",
+        "reference": "ledger.json#/lenses/producer-propagation/file_reviews/crates~1strategic-web~1src~1routes~1party_actions.rs",
+        "source_verified_against_recovered_blob": true,
+        "prior_file_review": {
+          "read_ranges": [
+            [
+              20,
+              95
+            ],
+            [
+              200,
+              260
+            ]
+          ],
+          "source_lines": 355,
+          "source_sha256": "061c7eda69f59c154573d983af84afe85c6aae215d4b4385473bd2331fa701ac",
+          "body_read_complete": false,
+          "graph_status": "Actual source bodies/ranges read; connected lineage, inventory, mission and UI source/lens inventory incomplete."
+        },
+        "qualification": "Actual own earlier producer lens evidence, not a borrowed later-lens verdict or source-read-only proof of complete graph. Any uncovered material newly read this turn."
+      }
+    }
+  ],
+  "baseline": "Adopted040/042 and completed03/06 remain usable immediately. Own exact fingerprint/range producer evidence reused explicitly; missing ranges read without full baseline replay.",
+  "cross_lens_support": [
+    "RIG-INITIAL06-F036 land-use checked-leaf composition retained with producer evidence; no other-lens clearance.",
+    "RIG-ADMISSION03-F049 and NATIVE-CAMERA-ADM03-F007 raw gauge validation arithmetic retained; no duplicate unique finding."
+  ],
+  "limits": "No fresh test/project check/source edit/plan/CI/publication. No automatic family completion or final common-revision acceptance; new extensions and unresolved connected paths still outstanding."
+}

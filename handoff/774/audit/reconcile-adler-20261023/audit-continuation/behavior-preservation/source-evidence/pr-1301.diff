@@ -1,0 +1,15 @@
+--- PRbase/crates/adventuresim-tactical-client/Cargo.toml
++++ frozen/crates/adventuresim-tactical-client/Cargo.toml
+@@ -14,8 +14,12 @@
+ # See src/lib.rs - only used by crates/adventuresim-tactical-brp-generator.
+ remote-types = ["debug"]
+ 
+ [dependencies]
++fabelgeist-geometry.workspace = true
++derive_more = { version = "2.1.1", default-features = false, features = ["debug", "display", "from", "into", "deref"] }
++strum = { version = "0.27.2", features = ["derive"] }
++fabelgeist-rig.workspace = true
+ thiserror.workspace = true
+ adventuresim-character-creator = { path = "../adventuresim-character-creator", default-features = false }
+ fabelgeist-armor = { path = "../fabelgeist-armor" }
+ 

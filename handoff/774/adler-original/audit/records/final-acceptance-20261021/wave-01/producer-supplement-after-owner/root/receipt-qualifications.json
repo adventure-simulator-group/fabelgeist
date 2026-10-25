@@ -1,0 +1,79 @@
+{
+  "id": "ROOT-PPS-RECEIPT-QUALIFICATION-043",
+  "lens": "audit-producer-propagation",
+  "assigned_indices": [],
+  "source_proofs": [],
+  "timestamp": "2026-10-21T21:39:03.507595+00:00",
+  "kind": "evidence-scope qualification; no source coverage increment",
+  "qualifications": [
+    {
+      "record": "ROOT-PPS-CAMERA-WEAPON-PHYSICAL-PACKET-040/root camera-weapon-physical-receiver-packet.json",
+      "source": "crates/adventuresim-weapon-model/src/construction/mod.rs",
+      "original_read_range": [
+        1,
+        160
+      ],
+      "correct_scope": "Partial prefix1\u2013160 of230 total; informal full160 labels are superseded. Actual helper body tail161\u2013230 was not source proof040 alone.",
+      "current_complete_body_proof": "ROOT-PPS-CAMERA-WEAPON-SHAPE-PACKET-041 sourceproof1\u2013230 joins actual fresh prefix and tail at same current SHA. No new cell count; no retroactive owner-fit/other-lens coverage."
+    },
+    {
+      "record": "ROOT-PPS-CAMERA-WEAPON-SHAPE-PACKET-041",
+      "source": "crates/adventuresim-weapon-model/src/construction/solids.rs",
+      "original_read_ranges": [
+        [
+          1,
+          118
+        ],
+        [
+          280,
+          389
+        ]
+      ],
+      "correct_scope": "Exact scoped partial ranges, not whole389.",
+      "current_complete_body_proof": "ROOT-PPS-WEAPON-SHARED-HELPER-OWNERSHIP-042 adds actual115\u2013289 to produce complete389 current body proof; unrelated whole-file/source/validation clearance not implied."
+    },
+    {
+      "record": "ROOT-PPS-MOTOR-TARGETING-001",
+      "source": "physical-p16:crates/adventuresim-tactical-client/src/player/acquisition.rs",
+      "original_read_range": [
+        1,
+        345
+      ],
+      "correct_scope": "Exact partial prefix1\u2013345 of409 lines, never wholeEOF. Any informal full345 label is superseded; original source/hash/range receipt preserved.",
+      "pending_current_complete_body_proof": "Native tactical-combat64 packet reading actual346\u2013409 material recipients; source closure pending its explicit source-backed receipt. Camera owns whole acquisition function/receiving graph. No retroactive coverage or family clearance."
+    },
+    {
+      "record": "ROOT-PPS-SIMULATION-CORE-GENERATED-PARTIAL-047",
+      "source": "pr-working:crates/adventuresim-strategic-sim/src/live_core/encounter_policy.rs",
+      "original_read_range": [
+        290,
+        346
+      ],
+      "correct_scope": "Actual sourceEOF330; fresh command290\u2013358 emitted290\u2013330. Correct exactreceivingbody range290\u2013330, containing full generated_method_skill_fit301\u2013312 and generated_defeat_decision; requestedrange beyondEOF is not extra coverage. Original receipt retained; corrected source proof below authoritative.",
+      "scope_status": "No missing operational body in selected boundedreceivers; whole encounter_policy other ranges not claimed."
+    },
+    {
+      "record": "ROOT-PPS-SIMULATION-CORE-GENERATED-PARTIAL-047",
+      "kind": "finding-reference qualification, not source-coverage change",
+      "correct_references": {
+        "CAM-PROP-F012": "LiveRunner::call erases CoreLoopError into String and bootstrap reconstructs Other; separate FailureRecorder clone retains public artifact classification.",
+        "CAM-OWNER-F012": "GeneratedDialogueTopic stable_id text is retained in PublicDialogueAttemptKey before internal cache/equality and actual SDK wire."
+      },
+      "supersedes": "Root047 topic-cache role/gap sentences that incorrectly call it CAM-PROP-F012. Both remedies remain separate, exact current source bodies and fingerprints preserved."
+    },
+    {
+      "record": "ROOT-PPS-SIMULATION-POLICY-WIRE-RECEIVERS-049",
+      "source": "pr-working:crates/adventuresim-strategic-sim/src/live_core/fixture_policy.rs",
+      "correct_scope": "Actual full file133 lines, already correctly recorded1\u2013133 in source_proofs. ROOT-SIMULATION-POLICY-F001 location96\u2013137 must read96\u2013133; informal full137 labels superseded. Full formatter body was emitted/read; no source tail or additional coverage inferred.",
+      "correct_read_ranges": [
+        [
+          96,
+          133
+        ]
+      ]
+    }
+  ],
+  "source_repair": "frozen_until_all13_initial_inventories",
+  "validation": "not_executed",
+  "updated_at": "2026-10-21T22:14:24.906917+00:00"
+}

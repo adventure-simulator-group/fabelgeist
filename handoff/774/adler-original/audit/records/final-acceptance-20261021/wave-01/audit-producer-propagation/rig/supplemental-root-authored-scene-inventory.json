@@ -1,0 +1,3069 @@
+[
+  {
+    "path": "assets/tactical-scenes/massive-city.json",
+    "snapshot": "pr-working6533",
+    "source_sha256": "8a933bdb05ecbca28be516dc72b36be2e608c501c0deec7e142661264f730c3e",
+    "bytes": 17767723,
+    "source_lines": 1,
+    "coverage_method": "All JSON bytes decoded via stdlib JSON. Every object key/field and array entry traversed into identical-role structural inventory. This is structured authored-source inventory, not a manual full literal read, runtime validation or fixture-prefix exemption. Explicit coordinator authorization2026-10-21.",
+    "roles": {
+      "$": {
+        "occurrences": 1,
+        "representations": {
+          "object": 1
+        }
+      },
+      "$.absolute_elevation_metres": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.absolute_minute": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.buildings": {
+        "occurrences": 1,
+        "representations": {
+          "array": 1
+        },
+        "array_lengths_and_occurrences": {
+          "10": 1
+        }
+      },
+      "$.buildings[]": {
+        "occurrences": 10,
+        "representations": {
+          "object": 10
+        }
+      },
+      "$.buildings[].base_elevation_metres": {
+        "occurrences": 10,
+        "representations": {
+          "number": 10
+        }
+      },
+      "$.buildings[].centre_metres": {
+        "occurrences": 10,
+        "representations": {
+          "array": 10
+        },
+        "array_lengths_and_occurrences": {
+          "2": 10
+        }
+      },
+      "$.buildings[].centre_metres[]": {
+        "occurrences": 20,
+        "representations": {
+          "number": 20
+        }
+      },
+      "$.buildings[].id": {
+        "occurrences": 10,
+        "representations": {
+          "integer": 10
+        }
+      },
+      "$.buildings[].orientation": {
+        "occurrences": 10,
+        "representations": {
+          "number": 10
+        }
+      },
+      "$.buildings[].program": {
+        "occurrences": 10,
+        "representations": {
+          "object": 10
+        }
+      },
+      "$.buildings[].program.archetype": {
+        "occurrences": 10,
+        "representations": {
+          "string": 10
+        }
+      },
+      "$.buildings[].program.church_program": {
+        "occurrences": 10,
+        "representations": {
+          "null": 9,
+          "object": 1
+        }
+      },
+      "$.buildings[].program.church_program.aisle_width_cells": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.buildings[].program.church_program.aisles": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.buildings[].program.church_program.apse_sides": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.buildings[].program.church_program.bay_length_cells": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.buildings[].program.church_program.choir_bays": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.buildings[].program.church_program.liturgical_east": {
+        "occurrences": 1,
+        "representations": {
+          "string": 1
+        }
+      },
+      "$.buildings[].program.church_program.material": {
+        "occurrences": 1,
+        "representations": {
+          "string": 1
+        }
+      },
+      "$.buildings[].program.church_program.nave_bays": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.buildings[].program.church_program.nave_width_cells": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.buildings[].program.church_program.transept_bays": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.buildings[].program.domestic_heating": {
+        "occurrences": 10,
+        "representations": {
+          "string": 1,
+          "null": 9
+        }
+      },
+      "$.buildings[].program.footprint": {
+        "occurrences": 10,
+        "representations": {
+          "object": 10
+        }
+      },
+      "$.buildings[].program.footprint.rectangle": {
+        "occurrences": 10,
+        "representations": {
+          "object": 10
+        }
+      },
+      "$.buildings[].program.footprint.rectangle.depth": {
+        "occurrences": 10,
+        "representations": {
+          "integer": 10
+        }
+      },
+      "$.buildings[].program.footprint.rectangle.width": {
+        "occurrences": 10,
+        "representations": {
+          "integer": 10
+        }
+      },
+      "$.buildings[].program.roof_demonstrator": {
+        "occurrences": 10,
+        "representations": {
+          "null": 10
+        }
+      },
+      "$.buildings[].program.roof_pitch_degrees": {
+        "occurrences": 10,
+        "representations": {
+          "number": 10
+        }
+      },
+      "$.buildings[].program.seed": {
+        "occurrences": 10,
+        "representations": {
+          "object": 10
+        }
+      },
+      "$.buildings[].program.seed.word": {
+        "occurrences": 10,
+        "representations": {
+          "integer": 10
+        }
+      },
+      "$.buildings[].program.service_size": {
+        "occurrences": 10,
+        "representations": {
+          "null": 9,
+          "string": 1
+        }
+      },
+      "$.buildings[].program.storey_height_metres": {
+        "occurrences": 10,
+        "representations": {
+          "number": 10
+        }
+      },
+      "$.buildings[].program.storeys": {
+        "occurrences": 10,
+        "representations": {
+          "array": 10
+        },
+        "array_lengths_and_occurrences": {
+          "1": 3,
+          "2": 3,
+          "3": 4
+        }
+      },
+      "$.buildings[].program.storeys[]": {
+        "occurrences": 21,
+        "representations": {
+          "object": 21
+        }
+      },
+      "$.buildings[].program.storeys[].rooms": {
+        "occurrences": 21,
+        "representations": {
+          "array": 21
+        },
+        "array_lengths_and_occurrences": {
+          "5": 21
+        }
+      },
+      "$.buildings[].program.storeys[].rooms[]": {
+        "occurrences": 105,
+        "representations": {
+          "object": 105
+        }
+      },
+      "$.buildings[].program.storeys[].rooms[].kind": {
+        "occurrences": 105,
+        "representations": {
+          "string": 105
+        }
+      },
+      "$.buildings[].program.storeys[].rooms[].needs_exterior": {
+        "occurrences": 105,
+        "representations": {
+          "bool": 105
+        }
+      },
+      "$.buildings[].program.storeys[].rooms[].preferred_cells": {
+        "occurrences": 105,
+        "representations": {
+          "integer": 105
+        }
+      },
+      "$.buildings[].program.storeys[].rooms[].preferred_neighbours": {
+        "occurrences": 105,
+        "representations": {
+          "array": 105
+        },
+        "array_lengths_and_occurrences": {
+          "0": 63,
+          "1": 42
+        }
+      },
+      "$.buildings[].program.storeys[].rooms[].preferred_neighbours[]": {
+        "occurrences": 42,
+        "representations": {
+          "string": 42
+        }
+      },
+      "$.buildings[].program.timber_frame_style": {
+        "occurrences": 10,
+        "representations": {
+          "string": 9,
+          "null": 1
+        }
+      },
+      "$.buildings[].program.upper_storey_projection_metres": {
+        "occurrences": 10,
+        "representations": {
+          "number": 10
+        }
+      },
+      "$.buildings[].program.usage": {
+        "occurrences": 10,
+        "representations": {
+          "string": 10
+        }
+      },
+      "$.buildings[].program.vertical_connections": {
+        "occurrences": 10,
+        "representations": {
+          "array": 10
+        },
+        "array_lengths_and_occurrences": {
+          "0": 3,
+          "1": 7
+        }
+      },
+      "$.buildings[].program.vertical_connections[]": {
+        "occurrences": 7,
+        "representations": {
+          "object": 7
+        }
+      },
+      "$.buildings[].program.vertical_connections[].highest_storey": {
+        "occurrences": 7,
+        "representations": {
+          "integer": 7
+        }
+      },
+      "$.buildings[].program.vertical_connections[].kind": {
+        "occurrences": 7,
+        "representations": {
+          "string": 7
+        }
+      },
+      "$.buildings[].program.vertical_connections[].landing_room": {
+        "occurrences": 7,
+        "representations": {
+          "string": 7
+        }
+      },
+      "$.buildings[].program.vertical_connections[].lowest_storey": {
+        "occurrences": 7,
+        "representations": {
+          "integer": 7
+        }
+      },
+      "$.buildings[].program.wall_style": {
+        "occurrences": 10,
+        "representations": {
+          "string": 10
+        }
+      },
+      "$.compounds": {
+        "occurrences": 1,
+        "representations": {
+          "array": 1
+        },
+        "array_lengths_and_occurrences": {
+          "231": 1
+        }
+      },
+      "$.compounds[]": {
+        "occurrences": 231,
+        "representations": {
+          "object": 231
+        }
+      },
+      "$.compounds[].access": {
+        "occurrences": 231,
+        "representations": {
+          "array": 231
+        },
+        "array_lengths_and_occurrences": {
+          "5": 231
+        }
+      },
+      "$.compounds[].access[]": {
+        "occurrences": 1155,
+        "representations": {
+          "object": 1155
+        }
+      },
+      "$.compounds[].access[].end_metres": {
+        "occurrences": 1155,
+        "representations": {
+          "array": 1155
+        },
+        "array_lengths_and_occurrences": {
+          "2": 1155
+        }
+      },
+      "$.compounds[].access[].end_metres[]": {
+        "occurrences": 2310,
+        "representations": {
+          "number": 2310
+        }
+      },
+      "$.compounds[].access[].half_width_metres": {
+        "occurrences": 1155,
+        "representations": {
+          "number": 1155
+        }
+      },
+      "$.compounds[].access[].start_metres": {
+        "occurrences": 1155,
+        "representations": {
+          "array": 1155
+        },
+        "array_lengths_and_occurrences": {
+          "2": 1155
+        }
+      },
+      "$.compounds[].access[].start_metres[]": {
+        "occurrences": 2310,
+        "representations": {
+          "number": 2310
+        }
+      },
+      "$.compounds[].boundary": {
+        "occurrences": 231,
+        "representations": {
+          "object": 231
+        }
+      },
+      "$.compounds[].boundary.gate": {
+        "occurrences": 231,
+        "representations": {
+          "object": 231
+        }
+      },
+      "$.compounds[].boundary.gate.centre_metres": {
+        "occurrences": 231,
+        "representations": {
+          "array": 231
+        },
+        "array_lengths_and_occurrences": {
+          "2": 231
+        }
+      },
+      "$.compounds[].boundary.gate.centre_metres[]": {
+        "occurrences": 462,
+        "representations": {
+          "number": 462
+        }
+      },
+      "$.compounds[].boundary.gate.height_metres": {
+        "occurrences": 231,
+        "representations": {
+          "number": 231
+        }
+      },
+      "$.compounds[].boundary.gate.hinge": {
+        "occurrences": 231,
+        "representations": {
+          "string": 231
+        }
+      },
+      "$.compounds[].boundary.gate.orientation": {
+        "occurrences": 231,
+        "representations": {
+          "number": 231
+        }
+      },
+      "$.compounds[].boundary.gate.width_metres": {
+        "occurrences": 231,
+        "representations": {
+          "number": 231
+        }
+      },
+      "$.compounds[].boundary.walls": {
+        "occurrences": 231,
+        "representations": {
+          "array": 231
+        },
+        "array_lengths_and_occurrences": {
+          "3": 231
+        }
+      },
+      "$.compounds[].boundary.walls[]": {
+        "occurrences": 693,
+        "representations": {
+          "object": 693
+        }
+      },
+      "$.compounds[].boundary.walls[].end_metres": {
+        "occurrences": 693,
+        "representations": {
+          "array": 693
+        },
+        "array_lengths_and_occurrences": {
+          "2": 693
+        }
+      },
+      "$.compounds[].boundary.walls[].end_metres[]": {
+        "occurrences": 1386,
+        "representations": {
+          "number": 1386
+        }
+      },
+      "$.compounds[].boundary.walls[].height_metres": {
+        "occurrences": 693,
+        "representations": {
+          "number": 693
+        }
+      },
+      "$.compounds[].boundary.walls[].start_metres": {
+        "occurrences": 693,
+        "representations": {
+          "array": 693
+        },
+        "array_lengths_and_occurrences": {
+          "2": 693
+        }
+      },
+      "$.compounds[].boundary.walls[].start_metres[]": {
+        "occurrences": 1386,
+        "representations": {
+          "number": 1386
+        }
+      },
+      "$.compounds[].boundary.walls[].thickness_metres": {
+        "occurrences": 693,
+        "representations": {
+          "number": 693
+        }
+      },
+      "$.compounds[].court": {
+        "occurrences": 231,
+        "representations": {
+          "object": 231
+        }
+      },
+      "$.compounds[].court.centre_metres": {
+        "occurrences": 231,
+        "representations": {
+          "array": 231
+        },
+        "array_lengths_and_occurrences": {
+          "2": 231
+        }
+      },
+      "$.compounds[].court.centre_metres[]": {
+        "occurrences": 462,
+        "representations": {
+          "number": 462
+        }
+      },
+      "$.compounds[].court.dimensions_metres": {
+        "occurrences": 231,
+        "representations": {
+          "array": 231
+        },
+        "array_lengths_and_occurrences": {
+          "2": 231
+        }
+      },
+      "$.compounds[].court.dimensions_metres[]": {
+        "occurrences": 462,
+        "representations": {
+          "number": 462
+        }
+      },
+      "$.compounds[].court.orientation": {
+        "occurrences": 231,
+        "representations": {
+          "number": 231
+        }
+      },
+      "$.compounds[].front_building_id": {
+        "occurrences": 231,
+        "representations": {
+          "integer": 231
+        }
+      },
+      "$.compounds[].id": {
+        "occurrences": 231,
+        "representations": {
+          "integer": 231
+        }
+      },
+      "$.compounds[].plot": {
+        "occurrences": 231,
+        "representations": {
+          "object": 231
+        }
+      },
+      "$.compounds[].plot.centre_metres": {
+        "occurrences": 231,
+        "representations": {
+          "array": 231
+        },
+        "array_lengths_and_occurrences": {
+          "2": 231
+        }
+      },
+      "$.compounds[].plot.centre_metres[]": {
+        "occurrences": 462,
+        "representations": {
+          "number": 462
+        }
+      },
+      "$.compounds[].plot.dimensions_metres": {
+        "occurrences": 231,
+        "representations": {
+          "array": 231
+        },
+        "array_lengths_and_occurrences": {
+          "2": 231
+        }
+      },
+      "$.compounds[].plot.dimensions_metres[]": {
+        "occurrences": 462,
+        "representations": {
+          "number": 462
+        }
+      },
+      "$.compounds[].plot.orientation": {
+        "occurrences": 231,
+        "representations": {
+          "number": 231
+        }
+      },
+      "$.compounds[].rear_building_id": {
+        "occurrences": 231,
+        "representations": {
+          "integer": 231
+        }
+      },
+      "$.distant_buildings": {
+        "occurrences": 1,
+        "representations": {
+          "array": 1
+        },
+        "array_lengths_and_occurrences": {
+          "4475": 1
+        }
+      },
+      "$.distant_buildings[]": {
+        "occurrences": 4475,
+        "representations": {
+          "object": 4475
+        }
+      },
+      "$.distant_buildings[].archetype": {
+        "occurrences": 4475,
+        "representations": {
+          "string": 4475
+        }
+      },
+      "$.distant_buildings[].base_elevation_metres": {
+        "occurrences": 4475,
+        "representations": {
+          "number": 4475
+        }
+      },
+      "$.distant_buildings[].centre_metres": {
+        "occurrences": 4475,
+        "representations": {
+          "array": 4475
+        },
+        "array_lengths_and_occurrences": {
+          "2": 4475
+        }
+      },
+      "$.distant_buildings[].centre_metres[]": {
+        "occurrences": 8950,
+        "representations": {
+          "number": 8950
+        }
+      },
+      "$.distant_buildings[].id": {
+        "occurrences": 4475,
+        "representations": {
+          "integer": 4475
+        }
+      },
+      "$.distant_buildings[].orientation": {
+        "occurrences": 4475,
+        "representations": {
+          "number": 4475
+        }
+      },
+      "$.distant_buildings[].prosperity": {
+        "occurrences": 4475,
+        "representations": {
+          "string": 4475
+        }
+      },
+      "$.distant_buildings[].seed": {
+        "occurrences": 4475,
+        "representations": {
+          "object": 4475
+        }
+      },
+      "$.distant_buildings[].seed.word": {
+        "occurrences": 4475,
+        "representations": {
+          "integer": 4475
+        }
+      },
+      "$.distant_buildings[].service_size": {
+        "occurrences": 4475,
+        "representations": {
+          "null": 4030,
+          "string": 445
+        }
+      },
+      "$.distant_buildings[].usage": {
+        "occurrences": 4475,
+        "representations": {
+          "string": 4244,
+          "null": 231
+        }
+      },
+      "$.establishments": {
+        "occurrences": 1,
+        "representations": {
+          "array": 1
+        },
+        "array_lengths_and_occurrences": {
+          "907": 1
+        }
+      },
+      "$.establishments[]": {
+        "occurrences": 907,
+        "representations": {
+          "object": 907
+        }
+      },
+      "$.establishments[].building_id": {
+        "occurrences": 907,
+        "representations": {
+          "integer": 907
+        }
+      },
+      "$.establishments[].business_id": {
+        "occurrences": 907,
+        "representations": {
+          "object": 907
+        }
+      },
+      "$.establishments[].business_id.key": {
+        "occurrences": 907,
+        "representations": {
+          "object": 907
+        }
+      },
+      "$.establishments[].business_id.key.ordinal": {
+        "occurrences": 907,
+        "representations": {
+          "integer": 907
+        }
+      },
+      "$.establishments[].business_id.key.usage": {
+        "occurrences": 907,
+        "representations": {
+          "string": 907
+        }
+      },
+      "$.establishments[].business_id.settlement_id": {
+        "occurrences": 907,
+        "representations": {
+          "string": 907
+        }
+      },
+      "$.establishments[].operator_character_id": {
+        "occurrences": 907,
+        "representations": {
+          "integer": 907
+        }
+      },
+      "$.establishments[].operator_name": {
+        "occurrences": 907,
+        "representations": {
+          "string": 907
+        }
+      },
+      "$.establishments[].shop_name": {
+        "occurrences": 907,
+        "representations": {
+          "null": 203,
+          "object": 704
+        }
+      },
+      "$.establishments[].shop_name.proprietor": {
+        "occurrences": 704,
+        "representations": {
+          "string": 704
+        }
+      },
+      "$.establishments[].shop_name.trade": {
+        "occurrences": 704,
+        "representations": {
+          "string": 704
+        }
+      },
+      "$.gardens": {
+        "occurrences": 1,
+        "representations": {
+          "array": 1
+        },
+        "array_lengths_and_occurrences": {
+          "245": 1
+        }
+      },
+      "$.gardens[]": {
+        "occurrences": 245,
+        "representations": {
+          "object": 245
+        }
+      },
+      "$.gardens[].access": {
+        "occurrences": 245,
+        "representations": {
+          "array": 245
+        },
+        "array_lengths_and_occurrences": {
+          "3": 245
+        }
+      },
+      "$.gardens[].access[]": {
+        "occurrences": 735,
+        "representations": {
+          "object": 735
+        }
+      },
+      "$.gardens[].access[].end_metres": {
+        "occurrences": 735,
+        "representations": {
+          "array": 735
+        },
+        "array_lengths_and_occurrences": {
+          "2": 735
+        }
+      },
+      "$.gardens[].access[].end_metres[]": {
+        "occurrences": 1470,
+        "representations": {
+          "number": 1470
+        }
+      },
+      "$.gardens[].access[].half_width_metres": {
+        "occurrences": 735,
+        "representations": {
+          "number": 735
+        }
+      },
+      "$.gardens[].access[].start_metres": {
+        "occurrences": 735,
+        "representations": {
+          "array": 735
+        },
+        "array_lengths_and_occurrences": {
+          "2": 735
+        }
+      },
+      "$.gardens[].access[].start_metres[]": {
+        "occurrences": 1470,
+        "representations": {
+          "number": 1470
+        }
+      },
+      "$.gardens[].beds": {
+        "occurrences": 245,
+        "representations": {
+          "array": 245
+        },
+        "array_lengths_and_occurrences": {
+          "2": 245
+        }
+      },
+      "$.gardens[].beds[]": {
+        "occurrences": 490,
+        "representations": {
+          "object": 490
+        }
+      },
+      "$.gardens[].beds[].centre_metres": {
+        "occurrences": 490,
+        "representations": {
+          "array": 490
+        },
+        "array_lengths_and_occurrences": {
+          "2": 490
+        }
+      },
+      "$.gardens[].beds[].centre_metres[]": {
+        "occurrences": 980,
+        "representations": {
+          "number": 980
+        }
+      },
+      "$.gardens[].beds[].dimensions_metres": {
+        "occurrences": 490,
+        "representations": {
+          "array": 490
+        },
+        "array_lengths_and_occurrences": {
+          "2": 490
+        }
+      },
+      "$.gardens[].beds[].dimensions_metres[]": {
+        "occurrences": 980,
+        "representations": {
+          "number": 980
+        }
+      },
+      "$.gardens[].beds[].orientation": {
+        "occurrences": 490,
+        "representations": {
+          "number": 490
+        }
+      },
+      "$.gardens[].cultivated_bounds": {
+        "occurrences": 245,
+        "representations": {
+          "object": 245
+        }
+      },
+      "$.gardens[].cultivated_bounds.centre_metres": {
+        "occurrences": 245,
+        "representations": {
+          "array": 245
+        },
+        "array_lengths_and_occurrences": {
+          "2": 245
+        }
+      },
+      "$.gardens[].cultivated_bounds.centre_metres[]": {
+        "occurrences": 490,
+        "representations": {
+          "number": 490
+        }
+      },
+      "$.gardens[].cultivated_bounds.dimensions_metres": {
+        "occurrences": 245,
+        "representations": {
+          "array": 245
+        },
+        "array_lengths_and_occurrences": {
+          "2": 245
+        }
+      },
+      "$.gardens[].cultivated_bounds.dimensions_metres[]": {
+        "occurrences": 490,
+        "representations": {
+          "number": 490
+        }
+      },
+      "$.gardens[].cultivated_bounds.orientation": {
+        "occurrences": 245,
+        "representations": {
+          "number": 245
+        }
+      },
+      "$.gardens[].front_building_id": {
+        "occurrences": 245,
+        "representations": {
+          "integer": 245
+        }
+      },
+      "$.gardens[].owner": {
+        "occurrences": 245,
+        "representations": {
+          "integer": 245
+        }
+      },
+      "$.gardens[].plants": {
+        "occurrences": 245,
+        "representations": {
+          "array": 245
+        },
+        "array_lengths_and_occurrences": {
+          "1": 245
+        }
+      },
+      "$.gardens[].plants[]": {
+        "occurrences": 245,
+        "representations": {
+          "object": 245
+        }
+      },
+      "$.gardens[].plants[].centre_metres": {
+        "occurrences": 245,
+        "representations": {
+          "array": 245
+        },
+        "array_lengths_and_occurrences": {
+          "2": 245
+        }
+      },
+      "$.gardens[].plants[].centre_metres[]": {
+        "occurrences": 490,
+        "representations": {
+          "number": 490
+        }
+      },
+      "$.gardens[].plants[].id": {
+        "occurrences": 245,
+        "representations": {
+          "integer": 245
+        }
+      },
+      "$.gardens[].plants[].orientation": {
+        "occurrences": 245,
+        "representations": {
+          "number": 245
+        }
+      },
+      "$.gardens[].plants[].scale": {
+        "occurrences": 245,
+        "representations": {
+          "number": 245
+        }
+      },
+      "$.gardens[].plants[].specimen": {
+        "occurrences": 245,
+        "representations": {
+          "string": 245
+        }
+      },
+      "$.gardens[].plot": {
+        "occurrences": 245,
+        "representations": {
+          "object": 245
+        }
+      },
+      "$.gardens[].plot.centre_metres": {
+        "occurrences": 245,
+        "representations": {
+          "array": 245
+        },
+        "array_lengths_and_occurrences": {
+          "2": 245
+        }
+      },
+      "$.gardens[].plot.centre_metres[]": {
+        "occurrences": 490,
+        "representations": {
+          "number": 490
+        }
+      },
+      "$.gardens[].plot.dimensions_metres": {
+        "occurrences": 245,
+        "representations": {
+          "array": 245
+        },
+        "array_lengths_and_occurrences": {
+          "2": 245
+        }
+      },
+      "$.gardens[].plot.dimensions_metres[]": {
+        "occurrences": 490,
+        "representations": {
+          "number": 490
+        }
+      },
+      "$.gardens[].plot.orientation": {
+        "occurrences": 245,
+        "representations": {
+          "number": 245
+        }
+      },
+      "$.generation_version": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.grounding": {
+        "occurrences": 1,
+        "representations": {
+          "object": 1
+        }
+      },
+      "$.grounding.embedment": {
+        "occurrences": 1,
+        "representations": {
+          "number": 1
+        }
+      },
+      "$.grounding.placement_digest": {
+        "occurrences": 1,
+        "representations": {
+          "array": 1
+        },
+        "array_lengths_and_occurrences": {
+          "32": 1
+        }
+      },
+      "$.grounding.placement_digest[]": {
+        "occurrences": 32,
+        "representations": {
+          "integer": 32
+        }
+      },
+      "$.grounding.property_bindings": {
+        "occurrences": 1,
+        "representations": {
+          "array": 1
+        },
+        "array_lengths_and_occurrences": {
+          "4254": 1
+        }
+      },
+      "$.grounding.property_bindings[]": {
+        "occurrences": 4254,
+        "representations": {
+          "object": 4254
+        }
+      },
+      "$.grounding.property_bindings[].members": {
+        "occurrences": 4254,
+        "representations": {
+          "array": 4254
+        },
+        "array_lengths_and_occurrences": {
+          "1": 4023,
+          "2": 231
+        }
+      },
+      "$.grounding.property_bindings[].members[]": {
+        "occurrences": 4485,
+        "representations": {
+          "integer": 4485
+        }
+      },
+      "$.grounding.property_bindings[].property": {
+        "occurrences": 4254,
+        "representations": {
+          "integer": 4254
+        }
+      },
+      "$.grounding.source_digest": {
+        "occurrences": 1,
+        "representations": {
+          "array": 1
+        },
+        "array_lengths_and_occurrences": {
+          "32": 1
+        }
+      },
+      "$.grounding.source_digest[]": {
+        "occurrences": 32,
+        "representations": {
+          "integer": 32
+        }
+      },
+      "$.grounding.surfaces": {
+        "occurrences": 1,
+        "representations": {
+          "array": 1
+        },
+        "array_lengths_and_occurrences": {
+          "4254": 1
+        }
+      },
+      "$.grounding.surfaces[]": {
+        "occurrences": 4254,
+        "representations": {
+          "object": 4254
+        }
+      },
+      "$.grounding.surfaces[].clipping_outlines": {
+        "occurrences": 4254,
+        "representations": {
+          "array": 4254
+        },
+        "array_lengths_and_occurrences": {
+          "2": 3513,
+          "3": 741
+        }
+      },
+      "$.grounding.surfaces[].clipping_outlines[]": {
+        "occurrences": 9249,
+        "representations": {
+          "array": 9249
+        },
+        "array_lengths_and_occurrences": {
+          "4": 5274,
+          "6": 169,
+          "8": 298,
+          "9": 13,
+          "10": 237,
+          "11": 216,
+          "12": 3031,
+          "13": 10,
+          "16": 1
+        }
+      },
+      "$.grounding.surfaces[].clipping_outlines[][]": {
+        "occurrences": 65875,
+        "representations": {
+          "array": 65875
+        },
+        "array_lengths_and_occurrences": {
+          "2": 65875
+        }
+      },
+      "$.grounding.surfaces[].clipping_outlines[][][]": {
+        "occurrences": 131750,
+        "representations": {
+          "number": 131750
+        }
+      },
+      "$.grounding.surfaces[].floor_bearings": {
+        "occurrences": 4254,
+        "representations": {
+          "array": 4254
+        },
+        "array_lengths_and_occurrences": {
+          "1": 4023,
+          "2": 231
+        }
+      },
+      "$.grounding.surfaces[].floor_bearings[]": {
+        "occurrences": 4485,
+        "representations": {
+          "object": 4485
+        }
+      },
+      "$.grounding.surfaces[].floor_bearings[].building": {
+        "occurrences": 4485,
+        "representations": {
+          "integer": 4485
+        }
+      },
+      "$.grounding.surfaces[].floor_bearings[].elevation": {
+        "occurrences": 4485,
+        "representations": {
+          "number": 4485
+        }
+      },
+      "$.grounding.surfaces[].floor_bearings[].regions": {
+        "occurrences": 4485,
+        "representations": {
+          "array": 4485
+        },
+        "array_lengths_and_occurrences": {
+          "1": 4023,
+          "3": 231,
+          "12": 231
+        }
+      },
+      "$.grounding.surfaces[].floor_bearings[].regions[]": {
+        "occurrences": 7488,
+        "representations": {
+          "object": 7488
+        }
+      },
+      "$.grounding.surfaces[].floor_bearings[].regions[].Architectural": {
+        "occurrences": 4023,
+        "representations": {
+          "object": 4023
+        }
+      },
+      "$.grounding.surfaces[].floor_bearings[].regions[].Architectural.centre": {
+        "occurrences": 4023,
+        "representations": {
+          "array": 4023
+        },
+        "array_lengths_and_occurrences": {
+          "2": 4023
+        }
+      },
+      "$.grounding.surfaces[].floor_bearings[].regions[].Architectural.centre[]": {
+        "occurrences": 8046,
+        "representations": {
+          "number": 8046
+        }
+      },
+      "$.grounding.surfaces[].floor_bearings[].regions[].Architectural.orientation": {
+        "occurrences": 4023,
+        "representations": {
+          "number": 4023
+        }
+      },
+      "$.grounding.surfaces[].floor_bearings[].regions[].Architectural.origin": {
+        "occurrences": 4023,
+        "representations": {
+          "array": 4023
+        },
+        "array_lengths_and_occurrences": {
+          "2": 4023
+        }
+      },
+      "$.grounding.surfaces[].floor_bearings[].regions[].Architectural.origin[]": {
+        "occurrences": 8046,
+        "representations": {
+          "number": 8046
+        }
+      },
+      "$.grounding.surfaces[].floor_bearings[].regions[].Architectural.vertices": {
+        "occurrences": 4023,
+        "representations": {
+          "array": 4023
+        },
+        "array_lengths_and_occurrences": {
+          "4": 48,
+          "6": 169,
+          "8": 298,
+          "9": 13,
+          "10": 237,
+          "11": 216,
+          "12": 3031,
+          "13": 10,
+          "16": 1
+        }
+      },
+      "$.grounding.surfaces[].floor_bearings[].regions[].Architectural.vertices[]": {
+        "occurrences": 44971,
+        "representations": {
+          "array": 44971
+        },
+        "array_lengths_and_occurrences": {
+          "2": 44971
+        }
+      },
+      "$.grounding.surfaces[].floor_bearings[].regions[].Architectural.vertices[][]": {
+        "occurrences": 89942,
+        "representations": {
+          "number": 89942
+        }
+      },
+      "$.grounding.surfaces[].floor_bearings[].regions[].Scene": {
+        "occurrences": 3465,
+        "representations": {
+          "object": 3465
+        }
+      },
+      "$.grounding.surfaces[].floor_bearings[].regions[].Scene.vertices": {
+        "occurrences": 3465,
+        "representations": {
+          "array": 3465
+        },
+        "array_lengths_and_occurrences": {
+          "4": 3465
+        }
+      },
+      "$.grounding.surfaces[].floor_bearings[].regions[].Scene.vertices[]": {
+        "occurrences": 13860,
+        "representations": {
+          "array": 13860
+        },
+        "array_lengths_and_occurrences": {
+          "2": 13860
+        }
+      },
+      "$.grounding.surfaces[].floor_bearings[].regions[].Scene.vertices[][]": {
+        "occurrences": 27720,
+        "representations": {
+          "number": 27720
+        }
+      },
+      "$.grounding.surfaces[].limits": {
+        "occurrences": 4254,
+        "representations": {
+          "object": 4254
+        }
+      },
+      "$.grounding.surfaces[].limits.contact_tolerance_metres": {
+        "occurrences": 4254,
+        "representations": {
+          "number": 4254
+        }
+      },
+      "$.grounding.surfaces[].limits.maximum_displacement_metres": {
+        "occurrences": 4254,
+        "representations": {
+          "number": 4254
+        }
+      },
+      "$.grounding.surfaces[].limits.maximum_grade": {
+        "occurrences": 4254,
+        "representations": {
+          "number": 4254
+        }
+      },
+      "$.grounding.surfaces[].mesh": {
+        "occurrences": 4254,
+        "representations": {
+          "object": 4254
+        }
+      },
+      "$.grounding.surfaces[].mesh.contact_tolerance_metres": {
+        "occurrences": 4254,
+        "representations": {
+          "number": 4254
+        }
+      },
+      "$.grounding.surfaces[].mesh.member_building_ids": {
+        "occurrences": 4254,
+        "representations": {
+          "array": 4254
+        },
+        "array_lengths_and_occurrences": {
+          "1": 4023,
+          "2": 231
+        }
+      },
+      "$.grounding.surfaces[].mesh.member_building_ids[]": {
+        "occurrences": 4485,
+        "representations": {
+          "integer": 4485
+        }
+      },
+      "$.grounding.surfaces[].mesh.positions": {
+        "occurrences": 4254,
+        "representations": {
+          "array": 4254
+        },
+        "array_lengths_and_occurrences": {
+          "19": 39,
+          "21": 88,
+          "23": 213,
+          "24": 13,
+          "25": 13,
+          "31": 1,
+          "34": 9,
+          "37": 119,
+          "38": 85,
+          "39": 3024,
+          "40": 3,
+          "48": 81,
+          "64": 105,
+          "66": 7,
+          "67": 7,
+          "89": 216,
+          "164": 3,
+          "168": 228
+        }
+      },
+      "$.grounding.surfaces[].mesh.positions[]": {
+        "occurrences": 203710,
+        "representations": {
+          "array": 203710
+        },
+        "array_lengths_and_occurrences": {
+          "3": 203710
+        }
+      },
+      "$.grounding.surfaces[].mesh.positions[][]": {
+        "occurrences": 611130,
+        "representations": {
+          "number": 611130
+        }
+      },
+      "$.grounding.surfaces[].mesh.property_id": {
+        "occurrences": 4254,
+        "representations": {
+          "integer": 4254
+        }
+      },
+      "$.grounding.surfaces[].mesh.retaining_triangles": {
+        "occurrences": 4254,
+        "representations": {
+          "array": 4254
+        },
+        "array_lengths_and_occurrences": {
+          "0": 4023,
+          "10": 3,
+          "12": 228
+        }
+      },
+      "$.grounding.surfaces[].mesh.retaining_triangles[]": {
+        "occurrences": 2766,
+        "representations": {
+          "array": 2766
+        },
+        "array_lengths_and_occurrences": {
+          "3": 2766
+        }
+      },
+      "$.grounding.surfaces[].mesh.retaining_triangles[][]": {
+        "occurrences": 8298,
+        "representations": {
+          "integer": 8298
+        }
+      },
+      "$.grounding.surfaces[].mesh.support_triangles": {
+        "occurrences": 4254,
+        "representations": {
+          "array": 4254
+        },
+        "array_lengths_and_occurrences": {
+          "7": 39,
+          "9": 88,
+          "11": 213,
+          "12": 22,
+          "13": 13,
+          "16": 85,
+          "17": 119,
+          "18": 81,
+          "19": 3025,
+          "20": 3,
+          "26": 105,
+          "28": 7,
+          "29": 7,
+          "35": 216,
+          "72": 231
+        }
+      },
+      "$.grounding.surfaces[].mesh.support_triangles[]": {
+        "occurrences": 93538,
+        "representations": {
+          "array": 93538
+        },
+        "array_lengths_and_occurrences": {
+          "3": 93538
+        }
+      },
+      "$.grounding.surfaces[].mesh.support_triangles[][]": {
+        "occurrences": 280614,
+        "representations": {
+          "integer": 280614
+        }
+      },
+      "$.grounding.surfaces[].regions": {
+        "occurrences": 4254,
+        "representations": {
+          "array": 4254
+        },
+        "array_lengths_and_occurrences": {
+          "2": 3513,
+          "3": 741
+        }
+      },
+      "$.grounding.surfaces[].regions[]": {
+        "occurrences": 9249,
+        "representations": {
+          "object": 9249
+        }
+      },
+      "$.grounding.surfaces[].regions[].centre_metres": {
+        "occurrences": 9249,
+        "representations": {
+          "array": 9249
+        },
+        "array_lengths_and_occurrences": {
+          "2": 9249
+        }
+      },
+      "$.grounding.surfaces[].regions[].centre_metres[]": {
+        "occurrences": 18498,
+        "representations": {
+          "number": 18498
+        }
+      },
+      "$.grounding.surfaces[].regions[].dimensions_metres": {
+        "occurrences": 9249,
+        "representations": {
+          "array": 9249
+        },
+        "array_lengths_and_occurrences": {
+          "2": 9249
+        }
+      },
+      "$.grounding.surfaces[].regions[].dimensions_metres[]": {
+        "occurrences": 18498,
+        "representations": {
+          "number": 18498
+        }
+      },
+      "$.grounding.surfaces[].regions[].orientation": {
+        "occurrences": 9249,
+        "representations": {
+          "number": 9249
+        }
+      },
+      "$.grounding.surfaces[].treatment": {
+        "occurrences": 4254,
+        "representations": {
+          "string": 4023,
+          "object": 231
+        }
+      },
+      "$.grounding.surfaces[].treatment.compound": {
+        "occurrences": 231,
+        "representations": {
+          "string": 231
+        }
+      },
+      "$.landform": {
+        "occurrences": 1,
+        "representations": {
+          "null": 1
+        }
+      },
+      "$.latitude_microdegrees": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.longitude_microdegrees": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.lunar_phase_minute": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.parishes": {
+        "occurrences": 1,
+        "representations": {
+          "array": 1
+        },
+        "array_lengths_and_occurrences": {
+          "14": 1
+        }
+      },
+      "$.parishes[]": {
+        "occurrences": 14,
+        "representations": {
+          "object": 14
+        }
+      },
+      "$.parishes[].church_building_id": {
+        "occurrences": 14,
+        "representations": {
+          "integer": 14
+        }
+      },
+      "$.parishes[].programme": {
+        "occurrences": 14,
+        "representations": {
+          "object": 14
+        }
+      },
+      "$.parishes[].programme.church_scale": {
+        "occurrences": 14,
+        "representations": {
+          "string": 14
+        }
+      },
+      "$.parishes[].programme.id": {
+        "occurrences": 14,
+        "representations": {
+          "integer": 14
+        }
+      },
+      "$.parishes[].programme.population": {
+        "occurrences": 14,
+        "representations": {
+          "integer": 14
+        }
+      },
+      "$.parishes[].programme.prominence": {
+        "occurrences": 14,
+        "representations": {
+          "string": 14
+        }
+      },
+      "$.parishes[].rectory_building_id": {
+        "occurrences": 14,
+        "representations": {
+          "integer": 14
+        }
+      },
+      "$.parishes[].residences": {
+        "occurrences": 14,
+        "representations": {
+          "array": 14
+        },
+        "array_lengths_and_occurrences": {
+          "224": 1,
+          "225": 1,
+          "226": 1,
+          "228": 1,
+          "233": 3,
+          "235": 1,
+          "241": 1,
+          "243": 2,
+          "245": 1,
+          "247": 1,
+          "259": 1
+        }
+      },
+      "$.parishes[].residences[]": {
+        "occurrences": 3315,
+        "representations": {
+          "object": 3315
+        }
+      },
+      "$.parishes[].residences[].building_id": {
+        "occurrences": 3315,
+        "representations": {
+          "integer": 3315
+        }
+      },
+      "$.parishes[].residences[].residents": {
+        "occurrences": 3315,
+        "representations": {
+          "integer": 3315
+        }
+      },
+      "$.parishes[].school_building_id": {
+        "occurrences": 14,
+        "representations": {
+          "null": 13,
+          "integer": 1
+        }
+      },
+      "$.playable": {
+        "occurrences": 1,
+        "representations": {
+          "object": 1
+        }
+      },
+      "$.playable.depth": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.playable.environment": {
+        "occurrences": 1,
+        "representations": {
+          "array": 1
+        },
+        "array_lengths_and_occurrences": {
+          "81": 1
+        }
+      },
+      "$.playable.environment[]": {
+        "occurrences": 81,
+        "representations": {
+          "object": 81
+        }
+      },
+      "$.playable.environment[].canopy_bps": {
+        "occurrences": 81,
+        "representations": {
+          "integer": 81
+        }
+      },
+      "$.playable.environment[].crossing_bps": {
+        "occurrences": 81,
+        "representations": {
+          "integer": 81
+        }
+      },
+      "$.playable.environment[].cultivation_bps": {
+        "occurrences": 81,
+        "representations": {
+          "integer": 81
+        }
+      },
+      "$.playable.environment[].hilly_bps": {
+        "occurrences": 81,
+        "representations": {
+          "integer": 81
+        }
+      },
+      "$.playable.environment[].surface": {
+        "occurrences": 81,
+        "representations": {
+          "string": 81
+        }
+      },
+      "$.playable.environment[].water_bps": {
+        "occurrences": 81,
+        "representations": {
+          "integer": 81
+        }
+      },
+      "$.playable.environment[].wetland_bps": {
+        "occurrences": 81,
+        "representations": {
+          "integer": 81
+        }
+      },
+      "$.playable.heights_metres": {
+        "occurrences": 1,
+        "representations": {
+          "array": 1
+        },
+        "array_lengths_and_occurrences": {
+          "81": 1
+        }
+      },
+      "$.playable.heights_metres[]": {
+        "occurrences": 81,
+        "representations": {
+          "number": 81
+        }
+      },
+      "$.playable.spacing_metres": {
+        "occurrences": 1,
+        "representations": {
+          "number": 1
+        }
+      },
+      "$.playable.width": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.properties": {
+        "occurrences": 1,
+        "representations": {
+          "null": 1
+        }
+      },
+      "$.scene_key": {
+        "occurrences": 1,
+        "representations": {
+          "string": 1
+        }
+      },
+      "$.schema_version": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.seed": {
+        "occurrences": 1,
+        "representations": {
+          "object": 1
+        }
+      },
+      "$.seed.word": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.source": {
+        "occurrences": 1,
+        "representations": {
+          "object": 1
+        }
+      },
+      "$.source.id": {
+        "occurrences": 1,
+        "representations": {
+          "string": 1
+        }
+      },
+      "$.source.kind": {
+        "occurrences": 1,
+        "representations": {
+          "string": 1
+        }
+      },
+      "$.streets": {
+        "occurrences": 1,
+        "representations": {
+          "array": 1
+        },
+        "array_lengths_and_occurrences": {
+          "917": 1
+        }
+      },
+      "$.streets[]": {
+        "occurrences": 917,
+        "representations": {
+          "object": 917
+        }
+      },
+      "$.streets[].corners_metres": {
+        "occurrences": 1,
+        "representations": {
+          "array": 1
+        },
+        "array_lengths_and_occurrences": {
+          "4": 1
+        }
+      },
+      "$.streets[].corners_metres[]": {
+        "occurrences": 4,
+        "representations": {
+          "array": 4
+        },
+        "array_lengths_and_occurrences": {
+          "2": 4
+        }
+      },
+      "$.streets[].corners_metres[][]": {
+        "occurrences": 8,
+        "representations": {
+          "number": 8
+        }
+      },
+      "$.streets[].end_metres": {
+        "occurrences": 916,
+        "representations": {
+          "array": 916
+        },
+        "array_lengths_and_occurrences": {
+          "2": 916
+        }
+      },
+      "$.streets[].end_metres[]": {
+        "occurrences": 1832,
+        "representations": {
+          "number": 1832
+        }
+      },
+      "$.streets[].half_width_metres": {
+        "occurrences": 916,
+        "representations": {
+          "number": 916
+        }
+      },
+      "$.streets[].shape": {
+        "occurrences": 917,
+        "representations": {
+          "string": 917
+        }
+      },
+      "$.streets[].start_metres": {
+        "occurrences": 916,
+        "representations": {
+          "array": 916
+        },
+        "array_lengths_and_occurrences": {
+          "2": 916
+        }
+      },
+      "$.streets[].start_metres[]": {
+        "occurrences": 1832,
+        "representations": {
+          "number": 1832
+        }
+      },
+      "$.streets[].surface": {
+        "occurrences": 917,
+        "representations": {
+          "string": 917
+        }
+      },
+      "$.vista": {
+        "occurrences": 1,
+        "representations": {
+          "object": 1
+        }
+      },
+      "$.vista.lods": {
+        "occurrences": 1,
+        "representations": {
+          "array": 1
+        },
+        "array_lengths_and_occurrences": {
+          "3": 1
+        }
+      },
+      "$.vista.lods[]": {
+        "occurrences": 3,
+        "representations": {
+          "object": 3
+        }
+      },
+      "$.vista.lods[].depth": {
+        "occurrences": 3,
+        "representations": {
+          "integer": 3
+        }
+      },
+      "$.vista.lods[].environment": {
+        "occurrences": 3,
+        "representations": {
+          "array": 3
+        },
+        "array_lengths_and_occurrences": {
+          "441": 1,
+          "1681": 1,
+          "2601": 1
+        }
+      },
+      "$.vista.lods[].environment[]": {
+        "occurrences": 4723,
+        "representations": {
+          "object": 4723
+        }
+      },
+      "$.vista.lods[].environment[].canopy_bps": {
+        "occurrences": 4723,
+        "representations": {
+          "integer": 4723
+        }
+      },
+      "$.vista.lods[].environment[].crossing_bps": {
+        "occurrences": 4723,
+        "representations": {
+          "integer": 4723
+        }
+      },
+      "$.vista.lods[].environment[].cultivation_bps": {
+        "occurrences": 4723,
+        "representations": {
+          "integer": 4723
+        }
+      },
+      "$.vista.lods[].environment[].hilly_bps": {
+        "occurrences": 4723,
+        "representations": {
+          "integer": 4723
+        }
+      },
+      "$.vista.lods[].environment[].surface": {
+        "occurrences": 4723,
+        "representations": {
+          "string": 4723
+        }
+      },
+      "$.vista.lods[].environment[].water_bps": {
+        "occurrences": 4723,
+        "representations": {
+          "integer": 4723
+        }
+      },
+      "$.vista.lods[].environment[].wetland_bps": {
+        "occurrences": 4723,
+        "representations": {
+          "integer": 4723
+        }
+      },
+      "$.vista.lods[].heights_metres": {
+        "occurrences": 3,
+        "representations": {
+          "array": 3
+        },
+        "array_lengths_and_occurrences": {
+          "441": 1,
+          "1681": 1,
+          "2601": 1
+        }
+      },
+      "$.vista.lods[].heights_metres[]": {
+        "occurrences": 4723,
+        "representations": {
+          "number": 4723
+        }
+      },
+      "$.vista.lods[].level": {
+        "occurrences": 3,
+        "representations": {
+          "integer": 3
+        }
+      },
+      "$.vista.lods[].origin_east_metres": {
+        "occurrences": 3,
+        "representations": {
+          "number": 3
+        }
+      },
+      "$.vista.lods[].origin_north_metres": {
+        "occurrences": 3,
+        "representations": {
+          "number": 3
+        }
+      },
+      "$.vista.lods[].spacing_metres": {
+        "occurrences": 3,
+        "representations": {
+          "number": 3
+        }
+      },
+      "$.vista.lods[].width": {
+        "occurrences": 3,
+        "representations": {
+          "integer": 3
+        }
+      },
+      "$.weather": {
+        "occurrences": 1,
+        "representations": {
+          "object": 1
+        }
+      },
+      "$.weather.atmosphere": {
+        "occurrences": 1,
+        "representations": {
+          "object": 1
+        }
+      },
+      "$.weather.atmosphere.dew_point_deci_c": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.atmosphere.high_cloud": {
+        "occurrences": 1,
+        "representations": {
+          "null": 1
+        }
+      },
+      "$.weather.atmosphere.instability_bps": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.atmosphere.lift_bps": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.atmosphere.low_cloud": {
+        "occurrences": 1,
+        "representations": {
+          "object": 1
+        }
+      },
+      "$.weather.atmosphere.low_cloud.base_metres": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.atmosphere.low_cloud.coverage_bps": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.atmosphere.low_cloud.form": {
+        "occurrences": 1,
+        "representations": {
+          "string": 1
+        }
+      },
+      "$.weather.atmosphere.low_cloud.optical_density_bps": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.atmosphere.low_cloud.top_metres": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.atmosphere.middle_cloud": {
+        "occurrences": 1,
+        "representations": {
+          "null": 1
+        }
+      },
+      "$.weather.atmosphere.relative_humidity_bps": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.atmosphere.sea_level_pressure_deci_hpa": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.atmosphere.wind_direction_degrees": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.atmosphere.wind_shear_bps": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.cell_latitude": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.cell_longitude": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.ground_moisture_bps": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.intensity_bps": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.interval_start_minute": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.precipitation": {
+        "occurrences": 1,
+        "representations": {
+          "string": 1
+        }
+      },
+      "$.weather.rules_version": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.snow_cover_bps": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.temperature_deci_c": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.wind_speed_bps": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.yards": {
+        "occurrences": 1,
+        "representations": {
+          "array": 1
+        },
+        "array_lengths_and_occurrences": {
+          "4744": 1
+        }
+      },
+      "$.yards[]": {
+        "occurrences": 4744,
+        "representations": {
+          "object": 4744
+        }
+      },
+      "$.yards[].corners_metres": {
+        "occurrences": 4744,
+        "representations": {
+          "array": 4744
+        },
+        "array_lengths_and_occurrences": {
+          "4": 4744
+        }
+      },
+      "$.yards[].corners_metres[]": {
+        "occurrences": 18976,
+        "representations": {
+          "array": 18976
+        },
+        "array_lengths_and_occurrences": {
+          "2": 18976
+        }
+      },
+      "$.yards[].corners_metres[][]": {
+        "occurrences": 37952,
+        "representations": {
+          "number": 37952
+        }
+      },
+      "$.yards[].surface": {
+        "occurrences": 4744,
+        "representations": {
+          "string": 4744
+        }
+      }
+    },
+    "object_field_shapes": {
+      "$": {
+        "[\"schema_version\",\"generation_version\",\"seed\",\"scene_key\",\"source\",\"latitude_microdegrees\",\"longitude_microdegrees\",\"absolute_minute\",\"lunar_phase_minute\",\"absolute_elevation_metres\",\"playable\",\"landform\",\"streets\",\"yards\",\"parishes\",\"compounds\",\"gardens\",\"buildings\",\"distant_buildings\",\"establishments\",\"grounding\",\"properties\",\"vista\",\"weather\"]": 1
+      },
+      "$.buildings[]": {
+        "[\"id\",\"program\",\"centre_metres\",\"base_elevation_metres\",\"orientation\"]": 10
+      },
+      "$.buildings[].program": {
+        "[\"archetype\",\"usage\",\"service_size\",\"seed\",\"footprint\",\"storey_height_metres\",\"storeys\",\"vertical_connections\",\"wall_style\",\"timber_frame_style\",\"upper_storey_projection_metres\",\"roof_pitch_degrees\",\"roof_demonstrator\",\"church_program\",\"domestic_heating\"]": 10
+      },
+      "$.buildings[].program.church_program": {
+        "[\"liturgical_east\",\"nave_bays\",\"transept_bays\",\"choir_bays\",\"apse_sides\",\"aisles\",\"bay_length_cells\",\"nave_width_cells\",\"aisle_width_cells\",\"material\"]": 1
+      },
+      "$.buildings[].program.footprint": {
+        "[\"rectangle\"]": 10
+      },
+      "$.buildings[].program.footprint.rectangle": {
+        "[\"width\",\"depth\"]": 10
+      },
+      "$.buildings[].program.seed": {
+        "[\"word\"]": 10
+      },
+      "$.buildings[].program.storeys[]": {
+        "[\"rooms\"]": 21
+      },
+      "$.buildings[].program.storeys[].rooms[]": {
+        "[\"kind\",\"preferred_cells\",\"needs_exterior\",\"preferred_neighbours\"]": 105
+      },
+      "$.buildings[].program.vertical_connections[]": {
+        "[\"kind\",\"lowest_storey\",\"highest_storey\",\"landing_room\"]": 7
+      },
+      "$.compounds[]": {
+        "[\"id\",\"front_building_id\",\"rear_building_id\",\"plot\",\"court\",\"access\",\"boundary\"]": 231
+      },
+      "$.compounds[].access[]": {
+        "[\"start_metres\",\"end_metres\",\"half_width_metres\"]": 1155
+      },
+      "$.compounds[].boundary": {
+        "[\"walls\",\"gate\"]": 231
+      },
+      "$.compounds[].boundary.gate": {
+        "[\"hinge\",\"centre_metres\",\"orientation\",\"width_metres\",\"height_metres\"]": 231
+      },
+      "$.compounds[].boundary.walls[]": {
+        "[\"start_metres\",\"end_metres\",\"height_metres\",\"thickness_metres\"]": 693
+      },
+      "$.compounds[].court": {
+        "[\"centre_metres\",\"dimensions_metres\",\"orientation\"]": 231
+      },
+      "$.compounds[].plot": {
+        "[\"centre_metres\",\"dimensions_metres\",\"orientation\"]": 231
+      },
+      "$.distant_buildings[]": {
+        "[\"id\",\"prosperity\",\"archetype\",\"usage\",\"service_size\",\"seed\",\"centre_metres\",\"base_elevation_metres\",\"orientation\"]": 4475
+      },
+      "$.distant_buildings[].seed": {
+        "[\"word\"]": 4475
+      },
+      "$.establishments[]": {
+        "[\"building_id\",\"business_id\",\"operator_character_id\",\"operator_name\",\"shop_name\"]": 907
+      },
+      "$.establishments[].business_id": {
+        "[\"settlement_id\",\"key\"]": 907
+      },
+      "$.establishments[].business_id.key": {
+        "[\"usage\",\"ordinal\"]": 907
+      },
+      "$.establishments[].shop_name": {
+        "[\"proprietor\",\"trade\"]": 704
+      },
+      "$.gardens[]": {
+        "[\"owner\",\"front_building_id\",\"plot\",\"cultivated_bounds\",\"beds\",\"access\",\"plants\"]": 245
+      },
+      "$.gardens[].access[]": {
+        "[\"start_metres\",\"end_metres\",\"half_width_metres\"]": 735
+      },
+      "$.gardens[].beds[]": {
+        "[\"centre_metres\",\"dimensions_metres\",\"orientation\"]": 490
+      },
+      "$.gardens[].cultivated_bounds": {
+        "[\"centre_metres\",\"dimensions_metres\",\"orientation\"]": 245
+      },
+      "$.gardens[].plants[]": {
+        "[\"id\",\"specimen\",\"centre_metres\",\"orientation\",\"scale\"]": 245
+      },
+      "$.gardens[].plot": {
+        "[\"centre_metres\",\"dimensions_metres\",\"orientation\"]": 245
+      },
+      "$.grounding": {
+        "[\"source_digest\",\"placement_digest\",\"embedment\",\"surfaces\",\"property_bindings\"]": 1
+      },
+      "$.grounding.property_bindings[]": {
+        "[\"property\",\"members\"]": 4254
+      },
+      "$.grounding.surfaces[]": {
+        "[\"mesh\",\"floor_bearings\",\"regions\",\"clipping_outlines\",\"limits\",\"treatment\"]": 4254
+      },
+      "$.grounding.surfaces[].floor_bearings[]": {
+        "[\"building\",\"regions\",\"elevation\"]": 4485
+      },
+      "$.grounding.surfaces[].floor_bearings[].regions[]": {
+        "[\"Architectural\"]": 4023,
+        "[\"Scene\"]": 3465
+      },
+      "$.grounding.surfaces[].floor_bearings[].regions[].Architectural": {
+        "[\"vertices\",\"centre\",\"origin\",\"orientation\"]": 4023
+      },
+      "$.grounding.surfaces[].floor_bearings[].regions[].Scene": {
+        "[\"vertices\"]": 3465
+      },
+      "$.grounding.surfaces[].limits": {
+        "[\"maximum_grade\",\"maximum_displacement_metres\",\"contact_tolerance_metres\"]": 4254
+      },
+      "$.grounding.surfaces[].mesh": {
+        "[\"property_id\",\"member_building_ids\",\"positions\",\"support_triangles\",\"retaining_triangles\",\"contact_tolerance_metres\"]": 4254
+      },
+      "$.grounding.surfaces[].regions[]": {
+        "[\"centre_metres\",\"dimensions_metres\",\"orientation\"]": 9249
+      },
+      "$.grounding.surfaces[].treatment": {
+        "[\"compound\"]": 231
+      },
+      "$.parishes[]": {
+        "[\"programme\",\"church_building_id\",\"rectory_building_id\",\"school_building_id\",\"residences\"]": 14
+      },
+      "$.parishes[].programme": {
+        "[\"id\",\"population\",\"prominence\",\"church_scale\"]": 14
+      },
+      "$.parishes[].residences[]": {
+        "[\"building_id\",\"residents\"]": 3315
+      },
+      "$.playable": {
+        "[\"width\",\"depth\",\"spacing_metres\",\"heights_metres\",\"environment\"]": 1
+      },
+      "$.playable.environment[]": {
+        "[\"canopy_bps\",\"wetland_bps\",\"cultivation_bps\",\"water_bps\",\"hilly_bps\",\"crossing_bps\",\"surface\"]": 81
+      },
+      "$.seed": {
+        "[\"word\"]": 1
+      },
+      "$.source": {
+        "[\"kind\",\"id\"]": 1
+      },
+      "$.streets[]": {
+        "[\"shape\",\"corners_metres\",\"surface\"]": 1,
+        "[\"shape\",\"start_metres\",\"end_metres\",\"half_width_metres\",\"surface\"]": 916
+      },
+      "$.vista": {
+        "[\"lods\"]": 1
+      },
+      "$.vista.lods[]": {
+        "[\"level\",\"spacing_metres\",\"width\",\"depth\",\"origin_east_metres\",\"origin_north_metres\",\"heights_metres\",\"environment\"]": 3
+      },
+      "$.vista.lods[].environment[]": {
+        "[\"canopy_bps\",\"wetland_bps\",\"cultivation_bps\",\"water_bps\",\"hilly_bps\",\"crossing_bps\",\"surface\"]": 4723
+      },
+      "$.weather": {
+        "[\"rules_version\",\"interval_start_minute\",\"cell_latitude\",\"cell_longitude\",\"temperature_deci_c\",\"wind_speed_bps\",\"precipitation\",\"intensity_bps\",\"ground_moisture_bps\",\"snow_cover_bps\",\"atmosphere\"]": 1
+      },
+      "$.weather.atmosphere": {
+        "[\"relative_humidity_bps\",\"dew_point_deci_c\",\"sea_level_pressure_deci_hpa\",\"wind_direction_degrees\",\"wind_shear_bps\",\"instability_bps\",\"lift_bps\",\"low_cloud\",\"middle_cloud\",\"high_cloud\"]": 1
+      },
+      "$.weather.atmosphere.low_cloud": {
+        "[\"form\",\"coverage_bps\",\"optical_density_bps\",\"base_metres\",\"top_metres\"]": 1
+      },
+      "$.yards[]": {
+        "[\"corners_metres\",\"surface\"]": 4744
+      }
+    },
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-003"
+    ],
+    "limits": "Later admission/aggregate/rawnumber/string lenses must independently classify field roles and all distinct policies; source numeric values are preserved, not executed/probed."
+  },
+  {
+    "path": "assets/tactical-scenes/sparse-woodland.json",
+    "snapshot": "pr-working6533",
+    "source_sha256": "ec245bc726f75c0c6c4a7ca485e9ae037d9feec085e906b246400f00fbaf98c7",
+    "bytes": 665840,
+    "source_lines": 1,
+    "coverage_method": "All JSON bytes decoded via stdlib JSON. Every object key/field and array entry traversed into identical-role structural inventory. This is structured authored-source inventory, not a manual full literal read, runtime validation or fixture-prefix exemption. Explicit coordinator authorization2026-10-21.",
+    "roles": {
+      "$": {
+        "occurrences": 1,
+        "representations": {
+          "object": 1
+        }
+      },
+      "$.absolute_elevation_metres": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.absolute_minute": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.buildings": {
+        "occurrences": 1,
+        "representations": {
+          "array": 1
+        },
+        "array_lengths_and_occurrences": {
+          "0": 1
+        }
+      },
+      "$.compounds": {
+        "occurrences": 1,
+        "representations": {
+          "array": 1
+        },
+        "array_lengths_and_occurrences": {
+          "0": 1
+        }
+      },
+      "$.distant_buildings": {
+        "occurrences": 1,
+        "representations": {
+          "array": 1
+        },
+        "array_lengths_and_occurrences": {
+          "0": 1
+        }
+      },
+      "$.establishments": {
+        "occurrences": 1,
+        "representations": {
+          "array": 1
+        },
+        "array_lengths_and_occurrences": {
+          "0": 1
+        }
+      },
+      "$.gardens": {
+        "occurrences": 1,
+        "representations": {
+          "array": 1
+        },
+        "array_lengths_and_occurrences": {
+          "0": 1
+        }
+      },
+      "$.generation_version": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.grounding": {
+        "occurrences": 1,
+        "representations": {
+          "null": 1
+        }
+      },
+      "$.landform": {
+        "occurrences": 1,
+        "representations": {
+          "null": 1
+        }
+      },
+      "$.latitude_microdegrees": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.longitude_microdegrees": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.lunar_phase_minute": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.parishes": {
+        "occurrences": 1,
+        "representations": {
+          "array": 1
+        },
+        "array_lengths_and_occurrences": {
+          "0": 1
+        }
+      },
+      "$.playable": {
+        "occurrences": 1,
+        "representations": {
+          "object": 1
+        }
+      },
+      "$.playable.depth": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.playable.environment": {
+        "occurrences": 1,
+        "representations": {
+          "array": 1
+        },
+        "array_lengths_and_occurrences": {
+          "81": 1
+        }
+      },
+      "$.playable.environment[]": {
+        "occurrences": 81,
+        "representations": {
+          "object": 81
+        }
+      },
+      "$.playable.environment[].canopy_bps": {
+        "occurrences": 81,
+        "representations": {
+          "integer": 81
+        }
+      },
+      "$.playable.environment[].crossing_bps": {
+        "occurrences": 81,
+        "representations": {
+          "integer": 81
+        }
+      },
+      "$.playable.environment[].cultivation_bps": {
+        "occurrences": 81,
+        "representations": {
+          "integer": 81
+        }
+      },
+      "$.playable.environment[].hilly_bps": {
+        "occurrences": 81,
+        "representations": {
+          "integer": 81
+        }
+      },
+      "$.playable.environment[].surface": {
+        "occurrences": 81,
+        "representations": {
+          "string": 81
+        }
+      },
+      "$.playable.environment[].water_bps": {
+        "occurrences": 81,
+        "representations": {
+          "integer": 81
+        }
+      },
+      "$.playable.environment[].wetland_bps": {
+        "occurrences": 81,
+        "representations": {
+          "integer": 81
+        }
+      },
+      "$.playable.heights_metres": {
+        "occurrences": 1,
+        "representations": {
+          "array": 1
+        },
+        "array_lengths_and_occurrences": {
+          "81": 1
+        }
+      },
+      "$.playable.heights_metres[]": {
+        "occurrences": 81,
+        "representations": {
+          "number": 81
+        }
+      },
+      "$.playable.spacing_metres": {
+        "occurrences": 1,
+        "representations": {
+          "number": 1
+        }
+      },
+      "$.playable.width": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.properties": {
+        "occurrences": 1,
+        "representations": {
+          "null": 1
+        }
+      },
+      "$.scene_key": {
+        "occurrences": 1,
+        "representations": {
+          "string": 1
+        }
+      },
+      "$.schema_version": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.seed": {
+        "occurrences": 1,
+        "representations": {
+          "object": 1
+        }
+      },
+      "$.seed.word": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.source": {
+        "occurrences": 1,
+        "representations": {
+          "object": 1
+        }
+      },
+      "$.source.id": {
+        "occurrences": 1,
+        "representations": {
+          "string": 1
+        }
+      },
+      "$.source.kind": {
+        "occurrences": 1,
+        "representations": {
+          "string": 1
+        }
+      },
+      "$.streets": {
+        "occurrences": 1,
+        "representations": {
+          "array": 1
+        },
+        "array_lengths_and_occurrences": {
+          "0": 1
+        }
+      },
+      "$.vista": {
+        "occurrences": 1,
+        "representations": {
+          "object": 1
+        }
+      },
+      "$.vista.lods": {
+        "occurrences": 1,
+        "representations": {
+          "array": 1
+        },
+        "array_lengths_and_occurrences": {
+          "3": 1
+        }
+      },
+      "$.vista.lods[]": {
+        "occurrences": 3,
+        "representations": {
+          "object": 3
+        }
+      },
+      "$.vista.lods[].depth": {
+        "occurrences": 3,
+        "representations": {
+          "integer": 3
+        }
+      },
+      "$.vista.lods[].environment": {
+        "occurrences": 3,
+        "representations": {
+          "array": 3
+        },
+        "array_lengths_and_occurrences": {
+          "441": 1,
+          "1681": 1,
+          "2601": 1
+        }
+      },
+      "$.vista.lods[].environment[]": {
+        "occurrences": 4723,
+        "representations": {
+          "object": 4723
+        }
+      },
+      "$.vista.lods[].environment[].canopy_bps": {
+        "occurrences": 4723,
+        "representations": {
+          "integer": 4723
+        }
+      },
+      "$.vista.lods[].environment[].crossing_bps": {
+        "occurrences": 4723,
+        "representations": {
+          "integer": 4723
+        }
+      },
+      "$.vista.lods[].environment[].cultivation_bps": {
+        "occurrences": 4723,
+        "representations": {
+          "integer": 4723
+        }
+      },
+      "$.vista.lods[].environment[].hilly_bps": {
+        "occurrences": 4723,
+        "representations": {
+          "integer": 4723
+        }
+      },
+      "$.vista.lods[].environment[].surface": {
+        "occurrences": 4723,
+        "representations": {
+          "string": 4723
+        }
+      },
+      "$.vista.lods[].environment[].water_bps": {
+        "occurrences": 4723,
+        "representations": {
+          "integer": 4723
+        }
+      },
+      "$.vista.lods[].environment[].wetland_bps": {
+        "occurrences": 4723,
+        "representations": {
+          "integer": 4723
+        }
+      },
+      "$.vista.lods[].heights_metres": {
+        "occurrences": 3,
+        "representations": {
+          "array": 3
+        },
+        "array_lengths_and_occurrences": {
+          "441": 1,
+          "1681": 1,
+          "2601": 1
+        }
+      },
+      "$.vista.lods[].heights_metres[]": {
+        "occurrences": 4723,
+        "representations": {
+          "number": 4723
+        }
+      },
+      "$.vista.lods[].level": {
+        "occurrences": 3,
+        "representations": {
+          "integer": 3
+        }
+      },
+      "$.vista.lods[].origin_east_metres": {
+        "occurrences": 3,
+        "representations": {
+          "number": 3
+        }
+      },
+      "$.vista.lods[].origin_north_metres": {
+        "occurrences": 3,
+        "representations": {
+          "number": 3
+        }
+      },
+      "$.vista.lods[].spacing_metres": {
+        "occurrences": 3,
+        "representations": {
+          "number": 3
+        }
+      },
+      "$.vista.lods[].width": {
+        "occurrences": 3,
+        "representations": {
+          "integer": 3
+        }
+      },
+      "$.weather": {
+        "occurrences": 1,
+        "representations": {
+          "object": 1
+        }
+      },
+      "$.weather.atmosphere": {
+        "occurrences": 1,
+        "representations": {
+          "object": 1
+        }
+      },
+      "$.weather.atmosphere.dew_point_deci_c": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.atmosphere.high_cloud": {
+        "occurrences": 1,
+        "representations": {
+          "null": 1
+        }
+      },
+      "$.weather.atmosphere.instability_bps": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.atmosphere.lift_bps": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.atmosphere.low_cloud": {
+        "occurrences": 1,
+        "representations": {
+          "object": 1
+        }
+      },
+      "$.weather.atmosphere.low_cloud.base_metres": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.atmosphere.low_cloud.coverage_bps": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.atmosphere.low_cloud.form": {
+        "occurrences": 1,
+        "representations": {
+          "string": 1
+        }
+      },
+      "$.weather.atmosphere.low_cloud.optical_density_bps": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.atmosphere.low_cloud.top_metres": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.atmosphere.middle_cloud": {
+        "occurrences": 1,
+        "representations": {
+          "null": 1
+        }
+      },
+      "$.weather.atmosphere.relative_humidity_bps": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.atmosphere.sea_level_pressure_deci_hpa": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.atmosphere.wind_direction_degrees": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.atmosphere.wind_shear_bps": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.cell_latitude": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.cell_longitude": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.ground_moisture_bps": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.intensity_bps": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.interval_start_minute": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.precipitation": {
+        "occurrences": 1,
+        "representations": {
+          "string": 1
+        }
+      },
+      "$.weather.rules_version": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.snow_cover_bps": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.temperature_deci_c": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.weather.wind_speed_bps": {
+        "occurrences": 1,
+        "representations": {
+          "integer": 1
+        }
+      },
+      "$.yards": {
+        "occurrences": 1,
+        "representations": {
+          "array": 1
+        },
+        "array_lengths_and_occurrences": {
+          "0": 1
+        }
+      }
+    },
+    "object_field_shapes": {
+      "$": {
+        "[\"schema_version\",\"generation_version\",\"seed\",\"scene_key\",\"source\",\"latitude_microdegrees\",\"longitude_microdegrees\",\"absolute_minute\",\"lunar_phase_minute\",\"absolute_elevation_metres\",\"playable\",\"landform\",\"streets\",\"yards\",\"parishes\",\"compounds\",\"gardens\",\"buildings\",\"distant_buildings\",\"establishments\",\"grounding\",\"properties\",\"vista\",\"weather\"]": 1
+      },
+      "$.playable": {
+        "[\"width\",\"depth\",\"spacing_metres\",\"heights_metres\",\"environment\"]": 1
+      },
+      "$.playable.environment[]": {
+        "[\"canopy_bps\",\"wetland_bps\",\"cultivation_bps\",\"water_bps\",\"hilly_bps\",\"crossing_bps\",\"surface\"]": 81
+      },
+      "$.seed": {
+        "[\"word\"]": 1
+      },
+      "$.source": {
+        "[\"kind\",\"id\"]": 1
+      },
+      "$.vista": {
+        "[\"lods\"]": 1
+      },
+      "$.vista.lods[]": {
+        "[\"level\",\"spacing_metres\",\"width\",\"depth\",\"origin_east_metres\",\"origin_north_metres\",\"heights_metres\",\"environment\"]": 3
+      },
+      "$.vista.lods[].environment[]": {
+        "[\"canopy_bps\",\"wetland_bps\",\"cultivation_bps\",\"water_bps\",\"hilly_bps\",\"crossing_bps\",\"surface\"]": 4723
+      },
+      "$.weather": {
+        "[\"rules_version\",\"interval_start_minute\",\"cell_latitude\",\"cell_longitude\",\"temperature_deci_c\",\"wind_speed_bps\",\"precipitation\",\"intensity_bps\",\"ground_moisture_bps\",\"snow_cover_bps\",\"atmosphere\"]": 1
+      },
+      "$.weather.atmosphere": {
+        "[\"relative_humidity_bps\",\"dew_point_deci_c\",\"sea_level_pressure_deci_hpa\",\"wind_direction_degrees\",\"wind_shear_bps\",\"instability_bps\",\"lift_bps\",\"low_cloud\",\"middle_cloud\",\"high_cloud\"]": 1
+      },
+      "$.weather.atmosphere.low_cloud": {
+        "[\"form\",\"coverage_bps\",\"optical_density_bps\",\"base_metres\",\"top_metres\"]": 1
+      }
+    },
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-003"
+    ],
+    "limits": "Later admission/aggregate/rawnumber/string lenses must independently classify field roles and all distinct policies; source numeric values are preserved, not executed/probed."
+  }
+]

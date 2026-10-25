@@ -1,0 +1,1764 @@
+﻿2026-10-20T23:20:11.6762761Z Current runner version: '2.338.0'
+2026-10-20T23:20:11.6796643Z ##[group]Runner Image Provisioner
+2026-10-20T23:20:11.6798029Z Hosted Compute Agent
+2026-10-20T23:20:11.6799358Z Version: 20261015.610
+2026-10-20T23:20:11.6800433Z Commit: 267fdb4e8bbec4ab5ea31367f3a00d5c480c7656
+2026-10-20T23:20:11.6801746Z Build Date: 2026-10-14T17:06:54Z
+2026-10-20T23:20:11.6802922Z Worker ID: {59e1b3f5-992e-4f9e-9a46-0a45f863a389}
+2026-10-20T23:20:11.6804251Z Region: eastus
+2026-10-20T23:20:11.6805204Z Cloud: Azure
+2026-10-20T23:20:11.6806130Z ##[endgroup]
+2026-10-20T23:20:11.6808422Z ##[group]Operating System
+2026-10-20T23:20:11.6809782Z Ubuntu
+2026-10-20T23:20:11.6810810Z 24.04.5
+2026-10-20T23:20:11.6811767Z LTS
+2026-10-20T23:20:11.6812590Z ##[endgroup]
+2026-10-20T23:20:11.6813698Z ##[group]Runner Image
+2026-10-20T23:20:11.6814693Z Image: ubuntu-24.04
+2026-10-20T23:20:11.6815693Z Version: 20261018.339.1
+2026-10-20T23:20:11.6817916Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261018.339/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-20T23:20:11.6821015Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261018.339
+2026-10-20T23:20:11.6822791Z ##[endgroup]
+2026-10-20T23:20:11.6824837Z ##[group]GITHUB_TOKEN Permissions
+2026-10-20T23:20:11.6827709Z Contents: read
+2026-10-20T23:20:11.6829174Z Metadata: read
+2026-10-20T23:20:11.6830199Z ##[endgroup]
+2026-10-20T23:20:11.6833180Z Secret source: Actions
+2026-10-20T23:20:11.6834725Z Cache mode: write
+2026-10-20T23:20:11.6836435Z Prepare workflow directory
+2026-10-20T23:20:11.7400304Z Prepare all required actions
+2026-10-20T23:20:11.7471574Z Getting action download info
+2026-10-20T23:20:11.9587048Z Download action repository 'actions/checkout@v7' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-10-20T23:20:12.0644820Z Download action repository 'dtolnay/rust-toolchain@master' (SHA:683b588c487a69d01f6c6ddf40f036ff682cc2c8)
+2026-10-20T23:20:12.1457961Z Download action repository 'Swatinem/rust-cache@v2' (SHA:d1527c8f67ef9af357290475d4af4b0fab8f12e0)
+2026-10-20T23:20:12.3063542Z Download action repository 'actions/upload-artifact@v7' (SHA:cf430e030ddbb5b0abf93d22962f4752f3646cd9)
+2026-10-20T23:20:12.3801936Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-20T23:20:12.6701370Z Complete job name: rust-quality
+2026-10-20T23:20:12.7947914Z ##[group]Run actions/checkout@v7
+2026-10-20T23:20:12.7949208Z with:
+2026-10-20T23:20:12.7949821Z   ref: 3216f21d76ce802c55b96b1bebdac9b183c50e7e
+2026-10-20T23:20:12.7950626Z   fetch-depth: 2
+2026-10-20T23:20:12.7951296Z   repository: adventure-simulator-group/fabelgeist
+2026-10-20T23:20:12.7959949Z   token: ***
+2026-10-20T23:20:12.7960485Z   ssh-strict: true
+2026-10-20T23:20:12.7961025Z   ssh-user: git
+2026-10-20T23:20:12.7961569Z   persist-credentials: true
+2026-10-20T23:20:12.7962191Z   clean: true
+2026-10-20T23:20:12.7962742Z   sparse-checkout-cone-mode: true
+2026-10-20T23:20:12.7963531Z   fetch-tags: false
+2026-10-20T23:20:12.7964085Z   show-progress: true
+2026-10-20T23:20:12.7964668Z   lfs: false
+2026-10-20T23:20:12.7965163Z   submodules: false
+2026-10-20T23:20:12.7965714Z   set-safe-directory: true
+2026-10-20T23:20:12.7966368Z   allow-unsafe-pr-checkout: false
+2026-10-20T23:20:12.7967310Z env:
+2026-10-20T23:20:12.7967830Z   CARGO_TERM_COLOR: always
+2026-10-20T23:20:12.7968662Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-20T23:20:12.7969309Z ##[endgroup]
+2026-10-20T23:20:12.8998249Z Syncing repository: adventure-simulator-group/fabelgeist
+2026-10-20T23:20:12.9002296Z ##[group]Getting Git version info
+2026-10-20T23:20:12.9003885Z Working directory is '/home/runner/work/fabelgeist/fabelgeist'
+2026-10-20T23:20:12.9006034Z [command]/usr/bin/git version
+2026-10-20T23:20:12.9113165Z git version 2.55.0
+2026-10-20T23:20:12.9137477Z ##[endgroup]
+2026-10-20T23:20:12.9148949Z Temporarily overriding HOME='/home/runner/work/_temp/f3e6536b-7aa5-4f53-ba3b-719d66f9d801' before making global git config changes
+2026-10-20T23:20:12.9154444Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-20T23:20:12.9157236Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/fabelgeist/fabelgeist
+2026-10-20T23:20:12.9219160Z Deleting the contents of '/home/runner/work/fabelgeist/fabelgeist'
+2026-10-20T23:20:12.9223984Z ##[group]Determining repository object format
+2026-10-20T23:20:12.9232969Z ##[endgroup]
+2026-10-20T23:20:12.9235350Z ##[group]Initializing the repository
+2026-10-20T23:20:12.9237622Z [command]/usr/bin/git init /home/runner/work/fabelgeist/fabelgeist
+2026-10-20T23:20:12.9371262Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-20T23:20:12.9374147Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-20T23:20:12.9377120Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-20T23:20:12.9380034Z hint: call:
+2026-10-20T23:20:12.9381980Z hint:
+2026-10-20T23:20:12.9383619Z hint: 	git config --global init.defaultBranch <name>
+2026-10-20T23:20:12.9385862Z hint:
+2026-10-20T23:20:12.9387772Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-20T23:20:12.9391106Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-20T23:20:12.9393784Z hint:
+2026-10-20T23:20:12.9395181Z hint: 	git branch -m <name>
+2026-10-20T23:20:12.9396667Z hint:
+2026-10-20T23:20:12.9398478Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-20T23:20:12.9401780Z Initialized empty Git repository in /home/runner/work/fabelgeist/fabelgeist/.git/
+2026-10-20T23:20:12.9407385Z [command]/usr/bin/git remote add origin https://github.com/adventure-simulator-group/fabelgeist
+2026-10-20T23:20:12.9456240Z ##[endgroup]
+2026-10-20T23:20:12.9457781Z ##[group]Disabling automatic garbage collection
+2026-10-20T23:20:12.9460386Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-20T23:20:12.9498240Z ##[endgroup]
+2026-10-20T23:20:12.9500110Z ##[group]Setting up auth
+2026-10-20T23:20:12.9503420Z Removing SSH command configuration
+2026-10-20T23:20:12.9510181Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-20T23:20:12.9549049Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-20T23:20:12.9979027Z Removing HTTP extra header
+2026-10-20T23:20:12.9985463Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-20T23:20:13.0039774Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-20T23:20:13.0278171Z Removing includeIf entries pointing to credentials config files
+2026-10-20T23:20:13.0284595Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-20T23:20:13.0331082Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-20T23:20:13.0574081Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-16a5aa3b-ee1f-4b27-887f-f2b822d5d271.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-20T23:20:13.0623929Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/fabelgeist/fabelgeist/.git.path /home/runner/work/_temp/git-credentials-16a5aa3b-ee1f-4b27-887f-f2b822d5d271.config
+2026-10-20T23:20:13.0670287Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/fabelgeist/fabelgeist/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-16a5aa3b-ee1f-4b27-887f-f2b822d5d271.config
+2026-10-20T23:20:13.0738014Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-16a5aa3b-ee1f-4b27-887f-f2b822d5d271.config
+2026-10-20T23:20:13.0782316Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-16a5aa3b-ee1f-4b27-887f-f2b822d5d271.config
+2026-10-20T23:20:13.0823891Z ##[endgroup]
+2026-10-20T23:20:13.0824878Z ##[group]Fetching the repository
+2026-10-20T23:20:13.0830800Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=2 origin 3216f21d76ce802c55b96b1bebdac9b183c50e7e
+2026-10-20T23:20:22.1051081Z From https://github.com/adventure-simulator-group/fabelgeist
+2026-10-20T23:20:22.1052335Z  * branch            3216f21d76ce802c55b96b1bebdac9b183c50e7e -> FETCH_HEAD
+2026-10-20T23:20:22.1064022Z [command]/usr/bin/git rev-parse --verify --quiet 3216f21d76ce802c55b96b1bebdac9b183c50e7e^{object}
+2026-10-20T23:20:22.1103584Z 3216f21d76ce802c55b96b1bebdac9b183c50e7e
+2026-10-20T23:20:22.1108705Z ##[endgroup]
+2026-10-20T23:20:22.1109524Z ##[group]Determining the checkout info
+2026-10-20T23:20:22.1110447Z ##[endgroup]
+2026-10-20T23:20:22.1136416Z [command]/usr/bin/git sparse-checkout disable
+2026-10-20T23:20:22.1181601Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-20T23:20:22.1226195Z ##[group]Checking out the ref
+2026-10-20T23:20:22.1230338Z [command]/usr/bin/git checkout --progress --force 3216f21d76ce802c55b96b1bebdac9b183c50e7e
+2026-10-20T23:20:23.3141198Z Updating files:  10% (587/5865)
+2026-10-20T23:20:23.3196365Z Updating files:  11% (646/5865)
+2026-10-20T23:20:23.3236033Z Updating files:  12% (704/5865)
+2026-10-20T23:20:23.3283374Z Updating files:  13% (763/5865)
+2026-10-20T23:20:23.3327842Z Updating files:  14% (822/5865)
+2026-10-20T23:20:23.3367744Z Updating files:  15% (880/5865)
+2026-10-20T23:20:23.3406417Z Updating files:  16% (939/5865)
+2026-10-20T23:20:23.3453471Z Updating files:  17% (998/5865)
+2026-10-20T23:20:23.3493737Z Updating files:  18% (1056/5865)
+2026-10-20T23:20:23.3536149Z Updating files:  19% (1115/5865)
+2026-10-20T23:20:23.3580308Z Updating files:  20% (1173/5865)
+2026-10-20T23:20:23.3623009Z Updating files:  21% (1232/5865)
+2026-10-20T23:20:23.3669035Z Updating files:  22% (1291/5865)
+2026-10-20T23:20:23.3726239Z Updating files:  23% (1349/5865)
+2026-10-20T23:20:23.3791079Z Updating files:  24% (1408/5865)
+2026-10-20T23:20:23.3838333Z Updating files:  25% (1467/5865)
+2026-10-20T23:20:23.3908723Z Updating files:  26% (1525/5865)
+2026-10-20T23:20:23.3951003Z Updating files:  27% (1584/5865)
+2026-10-20T23:20:23.3996635Z Updating files:  28% (1643/5865)
+2026-10-20T23:20:23.4024913Z Updating files:  29% (1701/5865)
+2026-10-20T23:20:23.4054202Z Updating files:  30% (1760/5865)
+2026-10-20T23:20:23.4081934Z Updating files:  31% (1819/5865)
+2026-10-20T23:20:23.4108066Z Updating files:  32% (1877/5865)
+2026-10-20T23:20:23.4133178Z Updating files:  33% (1936/5865)
+2026-10-20T23:20:23.4157328Z Updating files:  34% (1995/5865)
+2026-10-20T23:20:23.4181542Z Updating files:  35% (2053/5865)
+2026-10-20T23:20:23.4206112Z Updating files:  36% (2112/5865)
+2026-10-20T23:20:23.4231604Z Updating files:  37% (2171/5865)
+2026-10-20T23:20:23.4267320Z Updating files:  38% (2229/5865)
+2026-10-20T23:20:23.4301303Z Updating files:  39% (2288/5865)
+2026-10-20T23:20:23.4326265Z Updating files:  40% (2346/5865)
+2026-10-20T23:20:23.4355901Z Updating files:  41% (2405/5865)
+2026-10-20T23:20:23.4382874Z Updating files:  42% (2464/5865)
+2026-10-20T23:20:23.4407837Z Updating files:  43% (2522/5865)
+2026-10-20T23:20:23.4434003Z Updating files:  44% (2581/5865)
+2026-10-20T23:20:23.4483313Z Updating files:  45% (2640/5865)
+2026-10-20T23:20:23.4543156Z Updating files:  46% (2698/5865)
+2026-10-20T23:20:23.4596210Z Updating files:  47% (2757/5865)
+2026-10-20T23:20:23.4663623Z Updating files:  48% (2816/5865)
+2026-10-20T23:20:23.4722598Z Updating files:  49% (2874/5865)
+2026-10-20T23:20:23.4776612Z Updating files:  50% (2933/5865)
+2026-10-20T23:20:23.4828125Z Updating files:  51% (2992/5865)
+2026-10-20T23:20:23.4873716Z Updating files:  52% (3050/5865)
+2026-10-20T23:20:23.4920559Z Updating files:  53% (3109/5865)
+2026-10-20T23:20:23.4963204Z Updating files:  54% (3168/5865)
+2026-10-20T23:20:23.5011780Z Updating files:  55% (3226/5865)
+2026-10-20T23:20:23.5059207Z Updating files:  56% (3285/5865)
+2026-10-20T23:20:23.5139708Z Updating files:  57% (3344/5865)
+2026-10-20T23:20:23.5169355Z Updating files:  58% (3402/5865)
+2026-10-20T23:20:23.5268483Z Updating files:  59% (3461/5865)
+2026-10-20T23:20:23.5301912Z Updating files:  60% (3519/5865)
+2026-10-20T23:20:23.5369237Z Updating files:  61% (3578/5865)
+2026-10-20T23:20:23.5439211Z Updating files:  62% (3637/5865)
+2026-10-20T23:20:23.5467880Z Updating files:  63% (3695/5865)
+2026-10-20T23:20:23.5519383Z Updating files:  64% (3754/5865)
+2026-10-20T23:20:23.5589196Z Updating files:  65% (3813/5865)
+2026-10-20T23:20:23.5649341Z Updating files:  66% (3871/5865)
+2026-10-20T23:20:23.5712631Z Updating files:  67% (3930/5865)
+2026-10-20T23:20:23.5751726Z Updating files:  68% (3989/5865)
+2026-10-20T23:20:23.5789044Z Updating files:  69% (4047/5865)
+2026-10-20T23:20:23.5834006Z Updating files:  70% (4106/5865)
+2026-10-20T23:20:23.5891847Z Updating files:  71% (4165/5865)
+2026-10-20T23:20:23.6059695Z Updating files:  72% (4223/5865)
+2026-10-20T23:20:23.6184376Z Updating files:  73% (4282/5865)
+2026-10-20T23:20:23.6977057Z Updating files:  74% (4341/5865)
+2026-10-20T23:20:23.7013529Z Updating files:  75% (4399/5865)
+2026-10-20T23:20:23.7058855Z Updating files:  76% (4458/5865)
+2026-10-20T23:20:23.7099022Z Updating files:  77% (4517/5865)
+2026-10-20T23:20:23.7144247Z Updating files:  78% (4575/5865)
+2026-10-20T23:20:23.7190288Z Updating files:  79% (4634/5865)
+2026-10-20T23:20:23.7235657Z Updating files:  80% (4692/5865)
+2026-10-20T23:20:23.7277076Z Updating files:  81% (4751/5865)
+2026-10-20T23:20:23.7321027Z Updating files:  82% (4810/5865)
+2026-10-20T23:20:23.7371872Z Updating files:  83% (4868/5865)
+2026-10-20T23:20:23.7428083Z Updating files:  84% (4927/5865)
+2026-10-20T23:20:23.7487876Z Updating files:  85% (4986/5865)
+2026-10-20T23:20:23.7542490Z Updating files:  86% (5044/5865)
+2026-10-20T23:20:23.7604821Z Updating files:  87% (5103/5865)
+2026-10-20T23:20:23.7630376Z Updating files:  88% (5162/5865)
+2026-10-20T23:20:23.7657513Z Updating files:  89% (5220/5865)
+2026-10-20T23:20:23.7756348Z Updating files:  90% (5279/5865)
+2026-10-20T23:20:23.7930641Z Updating files:  91% (5338/5865)
+2026-10-20T23:20:23.7981386Z Updating files:  92% (5396/5865)
+2026-10-20T23:20:23.8017746Z Updating files:  93% (5455/5865)
+2026-10-20T23:20:23.8072152Z Updating files:  94% (5514/5865)
+2026-10-20T23:20:23.8150888Z Updating files:  95% (5572/5865)
+2026-10-20T23:20:23.8194583Z Updating files:  96% (5631/5865)
+2026-10-20T23:20:23.8240124Z Updating files:  97% (5690/5865)
+2026-10-20T23:20:23.8283721Z Updating files:  98% (5748/5865)
+2026-10-20T23:20:23.8368655Z Updating files:  99% (5807/5865)
+2026-10-20T23:20:23.8369455Z Updating files: 100% (5865/5865)
+2026-10-20T23:20:23.8370009Z Updating files: 100% (5865/5865), done.
+2026-10-20T23:20:23.8435031Z Note: switching to '3216f21d76ce802c55b96b1bebdac9b183c50e7e'.
+2026-10-20T23:20:23.8435544Z 
+2026-10-20T23:20:23.8435860Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-10-20T23:20:23.8436367Z changes and commit them, and you can discard any commits you make in this
+2026-10-20T23:20:23.8436832Z state without impacting any branches by switching back to a branch.
+2026-10-20T23:20:23.8437124Z 
+2026-10-20T23:20:23.8437317Z If you want to create a new branch to retain commits you create, you may
+2026-10-20T23:20:23.8437742Z do so (now or later) by using -c with the switch command. Example:
+2026-10-20T23:20:23.8437994Z 
+2026-10-20T23:20:23.8438099Z   git switch -c <new-branch-name>
+2026-10-20T23:20:23.8438485Z 
+2026-10-20T23:20:23.8438896Z Or undo this operation with:
+2026-10-20T23:20:23.8439196Z 
+2026-10-20T23:20:23.8439342Z   git switch -
+2026-10-20T23:20:23.8439558Z 
+2026-10-20T23:20:23.8439941Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-10-20T23:20:23.8440480Z 
+2026-10-20T23:20:23.8440821Z HEAD is now at 3216f21 Apply hosted formatter output to terrain contracts
+2026-10-20T23:20:23.8574232Z ##[endgroup]
+2026-10-20T23:20:23.8669756Z [command]/usr/bin/git log -1 --format=%H
+2026-10-20T23:20:23.8682936Z 3216f21d76ce802c55b96b1bebdac9b183c50e7e
+2026-10-20T23:20:23.9039864Z ##[group]Run dtolnay/rust-toolchain@master
+2026-10-20T23:20:23.9040176Z with:
+2026-10-20T23:20:23.9040383Z   toolchain: nightly-2026-07-13
+2026-10-20T23:20:23.9040640Z   components: rustfmt, clippy
+2026-10-20T23:20:23.9040897Z   targets: wasm32-unknown-unknown
+2026-10-20T23:20:23.9041139Z env:
+2026-10-20T23:20:23.9041315Z   CARGO_TERM_COLOR: always
+2026-10-20T23:20:23.9041543Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-20T23:20:23.9041765Z ##[endgroup]
+2026-10-20T23:20:23.9103892Z ##[start-action display=Parse toolchain version;id=__dtolnay_rust-toolchain.parse]
+2026-10-20T23:20:23.9163472Z ##[group]Run if [[ -z $toolchain ]]; then
+2026-10-20T23:20:23.9163854Z [36;1mif [[ -z $toolchain ]]; then[0m
+2026-10-20T23:20:23.9164387Z [36;1m  # GitHub does not enforce `required: true` inputs itself. https://github.com/actions/runner/issues/1070[0m
+2026-10-20T23:20:23.9164956Z [36;1m  echo "'toolchain' is a required input" >&2[0m
+2026-10-20T23:20:23.9165248Z [36;1m  exit 1[0m
+2026-10-20T23:20:23.9165614Z [36;1melif [[ $toolchain =~ ^stable' '[0-9]+' '(year|month|week|day)s?' 'ago$ ]]; then[0m
+2026-10-20T23:20:23.9166035Z [36;1m  if [[ Linux == macOS ]]; then[0m
+2026-10-20T23:20:23.9166563Z [36;1m    echo "toolchain=1.$((($(date -v-$(sed 's/stable \([0-9]*\) \(.\).*/\1\2/' <<< $toolchain) +%s)/60/60/24-16569)/7/6))" >> $GITHUB_OUTPUT[0m
+2026-10-20T23:20:23.9167066Z [36;1m  else[0m
+2026-10-20T23:20:23.9167508Z [36;1m    echo "toolchain=1.$((($(date --date "${toolchain#stable }" +%s)/60/60/24-16569)/7/6))" >> $GITHUB_OUTPUT[0m
+2026-10-20T23:20:23.9167972Z [36;1m  fi[0m
+2026-10-20T23:20:23.9168271Z [36;1melif [[ $toolchain =~ ^stable' 'minus' '[0-9]+' 'releases?$ ]]; then[0m
+2026-10-20T23:20:23.9169046Z [36;1m  echo "toolchain=1.$((($(date +%s)/60/60/24-16569)/7/6-${toolchain//[^0-9]/}))" >> $GITHUB_OUTPUT[0m
+2026-10-20T23:20:23.9169574Z [36;1melif [[ $toolchain =~ ^1\.[0-9]+$ ]]; then[0m
+2026-10-20T23:20:23.9170135Z [36;1m  echo "toolchain=1.$((i=${toolchain#1.}, c=($(date +%s)/60/60/24-16569)/7/6, i+9*i*(10*i<=c)+90*i*(100*i<=c)))" >> $GITHUB_OUTPUT[0m
+2026-10-20T23:20:23.9170627Z [36;1melse[0m
+2026-10-20T23:20:23.9170824Z [36;1m  delimiter=EOF[0m
+2026-10-20T23:20:23.9171122Z [36;1m  while [[ $toolchain == *$delimiter* ]]; do delimiter+=_; done[0m
+2026-10-20T23:20:23.9171613Z [36;1m  printf 'toolchain<<%s\n%s\n%s\n' "$delimiter" "$toolchain" "$delimiter" >> $GITHUB_OUTPUT[0m
+2026-10-20T23:20:23.9172022Z [36;1mfi[0m
+2026-10-20T23:20:23.9345262Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-20T23:20:23.9345604Z env:
+2026-10-20T23:20:23.9345791Z   CARGO_TERM_COLOR: always
+2026-10-20T23:20:23.9346029Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-20T23:20:23.9346273Z   toolchain: nightly-2026-07-13
+2026-10-20T23:20:23.9346521Z ##[endgroup]
+2026-10-20T23:20:23.9471038Z ##[end-action id=__dtolnay_rust-toolchain.parse;outcome=success;conclusion=success;duration_ms=36]
+2026-10-20T23:20:23.9475492Z ##[start-action display=Set $CARGO_HOME;id=__dtolnay_rust-toolchain.__run]
+2026-10-20T23:20:23.9509405Z ##[group]Run echo CARGO_HOME=${CARGO_HOME:-"$HOME/.cargo"} >> $GITHUB_ENV
+2026-10-20T23:20:23.9509868Z [36;1mecho CARGO_HOME=${CARGO_HOME:-"$HOME/.cargo"} >> $GITHUB_ENV[0m
+2026-10-20T23:20:23.9560560Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-20T23:20:23.9560892Z env:
+2026-10-20T23:20:23.9561085Z   CARGO_TERM_COLOR: always
+2026-10-20T23:20:23.9561329Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-20T23:20:23.9561561Z ##[endgroup]
+2026-10-20T23:20:23.9640108Z ##[end-action id=__dtolnay_rust-toolchain.__run;outcome=success;conclusion=success;duration_ms=16]
+2026-10-20T23:20:23.9642293Z ##[start-action display=Install rustup if needed;id=__dtolnay_rust-toolchain.__run_2]
+2026-10-20T23:20:23.9691349Z ##[group]Run if ! command -v rustup &>/dev/null; then
+2026-10-20T23:20:23.9691879Z [36;1mif ! command -v rustup &>/dev/null; then[0m
+2026-10-20T23:20:23.9692785Z [36;1m  curl --proto '=https' --tlsv1.2 --retry 10 --retry-connrefused --location --silent --show-error --fail https://sh.rustup.rs | sh -s -- --default-toolchain none -y[0m
+2026-10-20T23:20:23.9693525Z [36;1m  echo "$CARGO_HOME/bin" >> $GITHUB_PATH[0m
+2026-10-20T23:20:23.9693806Z [36;1mfi[0m
+2026-10-20T23:20:23.9744393Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-20T23:20:23.9744737Z env:
+2026-10-20T23:20:23.9744934Z   CARGO_TERM_COLOR: always
+2026-10-20T23:20:23.9745189Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-20T23:20:23.9745434Z   CARGO_HOME: /home/runner/.cargo
+2026-10-20T23:20:23.9745673Z ##[endgroup]
+2026-10-20T23:20:23.9822488Z ##[end-action id=__dtolnay_rust-toolchain.__run_2;outcome=success;conclusion=success;duration_ms=17]
+2026-10-20T23:20:23.9824643Z ##[start-action display=Install rustup if needed on windows;id=__dtolnay_rust-toolchain.__run_3]
+2026-10-20T23:20:23.9831426Z ##[end-action id=__dtolnay_rust-toolchain.__run_3;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-20T23:20:23.9843786Z ##[start-action display=rustup toolchain install nightly-2026-07-13;id=__dtolnay_rust-toolchain.__run_4]
+2026-10-20T23:20:23.9867297Z ##[group]Run set -f  # split targets and components on commas and whitespace, without glob expansion
+2026-10-20T23:20:23.9868022Z [36;1mset -f  # split targets and components on commas and whitespace, without glob expansion[0m
+2026-10-20T23:20:23.9868461Z [36;1mflags=()[0m
+2026-10-20T23:20:23.9869149Z [36;1mfor t in ${targets//,/ }; do flags+=(--target "$t"); done[0m
+2026-10-20T23:20:23.9869570Z [36;1mfor c in ${components//,/ }; do flags+=(--component "$c"); done[0m
+2026-10-20T23:20:23.9870062Z [36;1mif [[ $toolchain == nightly && -n $components ]]; then flags+=(--allow-downgrade); fi[0m
+2026-10-20T23:20:23.9870488Z [36;1mlog=$(mktemp)[0m
+2026-10-20T23:20:23.9870716Z [36;1mtrap 'rm -f "$log"' EXIT[0m
+2026-10-20T23:20:23.9870981Z [36;1mfor attempt in 1 2 3 4 5; do[0m
+2026-10-20T23:20:23.9871548Z [36;1m  if rustup toolchain install "$toolchain" "${flags[@]}" --profile minimal --no-self-update --force-non-host 2>&1 | tee "$log"; then[0m
+2026-10-20T23:20:23.9872110Z [36;1m    break[0m
+2026-10-20T23:20:23.9872309Z [36;1m  else[0m
+2026-10-20T23:20:23.9872502Z [36;1m    status=$?[0m
+2026-10-20T23:20:23.9872707Z [36;1m  fi[0m
+2026-10-20T23:20:23.9872990Z [36;1m  if [[ $attempt == 5 ]] || ! grep -Fq 'checksum failed for ' "$log" \[0m
+2026-10-20T23:20:23.9873543Z [36;1m      || ! grep -Fq 'this is likely due to an ongoing update of the official release server' "$log"; then[0m
+2026-10-20T23:20:23.9873995Z [36;1m    exit "$status"[0m
+2026-10-20T23:20:23.9874223Z [36;1m  fi[0m
+2026-10-20T23:20:23.9874572Z [36;1m  echo "Retrying rustup toolchain install in 30 seconds (retry $attempt of 4)" >&2[0m
+2026-10-20T23:20:23.9874985Z [36;1m  sleep 30[0m
+2026-10-20T23:20:23.9875184Z [36;1mdone[0m
+2026-10-20T23:20:23.9925502Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-20T23:20:23.9925842Z env:
+2026-10-20T23:20:23.9926035Z   CARGO_TERM_COLOR: always
+2026-10-20T23:20:23.9926282Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-20T23:20:23.9926543Z   CARGO_HOME: /home/runner/.cargo
+2026-10-20T23:20:23.9926795Z   toolchain: nightly-2026-07-13
+2026-10-20T23:20:23.9927044Z   targets: wasm32-unknown-unknown
+2026-10-20T23:20:23.9927297Z   components: rustfmt, clippy
+2026-10-20T23:20:23.9927544Z   RUSTUP_PERMIT_COPY_RENAME: 1
+2026-10-20T23:20:23.9927770Z ##[endgroup]
+2026-10-20T23:20:24.0361263Z info: syncing channel updates for nightly-2026-07-13-x86_64-unknown-linux-gnu
+2026-10-20T23:20:24.1497362Z info: latest update on 2026-07-13 for version 1.99.0-nightly (77cf889bc 2026-07-12)
+2026-10-20T23:20:24.1498293Z info: downloading 6 components
+2026-10-20T23:20:34.7670650Z 
+2026-10-20T23:20:34.7745094Z   nightly-2026-07-13-x86_64-unknown-linux-gnu installed - rustc 1.99.0-nightly (77cf889bc 2026-07-12)
+2026-10-20T23:20:34.7746210Z 
+2026-10-20T23:20:34.7946973Z ##[end-action id=__dtolnay_rust-toolchain.__run_4;outcome=success;conclusion=success;duration_ms=10810]
+2026-10-20T23:20:34.7954512Z ##[start-action display=rustup default nightly-2026-07-13;id=__dtolnay_rust-toolchain.__run_5]
+2026-10-20T23:20:34.7974718Z ##[group]Run rustup default "$toolchain" --force-non-host
+2026-10-20T23:20:34.7975123Z [36;1mrustup default "$toolchain" --force-non-host[0m
+2026-10-20T23:20:34.8024995Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-20T23:20:34.8025335Z env:
+2026-10-20T23:20:34.8025526Z   CARGO_TERM_COLOR: always
+2026-10-20T23:20:34.8025766Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-20T23:20:34.8026016Z   CARGO_HOME: /home/runner/.cargo
+2026-10-20T23:20:34.8026267Z   toolchain: nightly-2026-07-13
+2026-10-20T23:20:34.8026505Z ##[endgroup]
+2026-10-20T23:20:34.8136443Z info: using existing install for nightly-2026-07-13-x86_64-unknown-linux-gnu
+2026-10-20T23:20:34.8143317Z info: default toolchain set to nightly-2026-07-13-x86_64-unknown-linux-gnu
+2026-10-20T23:20:34.8143873Z 
+2026-10-20T23:20:34.8211922Z   nightly-2026-07-13-x86_64-unknown-linux-gnu unchanged - rustc 1.99.0-nightly (77cf889bc 2026-07-12)
+2026-10-20T23:20:34.8213567Z info: note that the toolchain 'nightly-2026-07-13-x86_64-unknown-linux-gnu' is currently in use (overridden by '/home/runner/work/fabelgeist/fabelgeist/rust-toolchain.toml')
+2026-10-20T23:20:34.8214868Z 
+2026-10-20T23:20:34.8231327Z ##[end-action id=__dtolnay_rust-toolchain.__run_5;outcome=success;conclusion=success;duration_ms=27]
+2026-10-20T23:20:34.8234318Z ##[start-action display=Create cachekey;id=__dtolnay_rust-toolchain.rustc-version]
+2026-10-20T23:20:34.8256241Z ##[group]Run DATE=$(rustc +"$toolchain" --version --verbose | sed -ne 's/^commit-date: \(20[0-9][0-9]\)-\([01][0-9]\)-\([0-3][0-9]\)$/\1\2\3/p')
+2026-10-20T23:20:34.8257284Z [36;1mDATE=$(rustc +"$toolchain" --version --verbose | sed -ne 's/^commit-date: \(20[0-9][0-9]\)-\([01][0-9]\)-\([0-3][0-9]\)$/\1\2\3/p')[0m
+2026-10-20T23:20:34.8258050Z [36;1mHASH=$(rustc +"$toolchain" --version --verbose | sed -ne 's/^commit-hash: //p')[0m
+2026-10-20T23:20:34.8259081Z [36;1mecho "cachekey=$(echo $DATE$HASH | head -c12)" >> $GITHUB_OUTPUT[0m
+2026-10-20T23:20:34.8304551Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-20T23:20:34.8305027Z env:
+2026-10-20T23:20:34.8326237Z   CARGO_TERM_COLOR: always
+2026-10-20T23:20:34.8326686Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-20T23:20:34.8327151Z   CARGO_HOME: /home/runner/.cargo
+2026-10-20T23:20:34.8327657Z   toolchain: nightly-2026-07-13
+2026-10-20T23:20:34.8328050Z ##[endgroup]
+2026-10-20T23:20:34.8660966Z ##[end-action id=__dtolnay_rust-toolchain.rustc-version;outcome=success;conclusion=success;duration_ms=42]
+2026-10-20T23:20:34.8663246Z ##[start-action display=Disable incremental compilation;id=__dtolnay_rust-toolchain.__run_6]
+2026-10-20T23:20:34.8683279Z ##[group]Run if [ -z "${CARGO_INCREMENTAL+set}" ]; then
+2026-10-20T23:20:34.8683650Z [36;1mif [ -z "${CARGO_INCREMENTAL+set}" ]; then[0m
+2026-10-20T23:20:34.8683994Z [36;1m  echo CARGO_INCREMENTAL=0 >> $GITHUB_ENV[0m
+2026-10-20T23:20:34.8684272Z [36;1mfi[0m
+2026-10-20T23:20:34.8731191Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-20T23:20:34.8731536Z env:
+2026-10-20T23:20:34.8731727Z   CARGO_TERM_COLOR: always
+2026-10-20T23:20:34.8731978Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-20T23:20:34.8732227Z   CARGO_HOME: /home/runner/.cargo
+2026-10-20T23:20:34.8732467Z ##[endgroup]
+2026-10-20T23:20:34.8804427Z ##[end-action id=__dtolnay_rust-toolchain.__run_6;outcome=success;conclusion=success;duration_ms=14]
+2026-10-20T23:20:34.8806907Z ##[start-action display=Enable colors in Cargo output;id=__dtolnay_rust-toolchain.__run_7]
+2026-10-20T23:20:34.8828157Z ##[group]Run if [ -z "${CARGO_TERM_COLOR+set}" ]; then
+2026-10-20T23:20:34.8828758Z [36;1mif [ -z "${CARGO_TERM_COLOR+set}" ]; then[0m
+2026-10-20T23:20:34.8829299Z [36;1m  echo CARGO_TERM_COLOR=always >> $GITHUB_ENV[0m
+2026-10-20T23:20:34.8829783Z [36;1mfi[0m
+2026-10-20T23:20:34.8878271Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-20T23:20:34.8878822Z env:
+2026-10-20T23:20:34.8879026Z   CARGO_TERM_COLOR: always
+2026-10-20T23:20:34.8879454Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-20T23:20:34.8879708Z   CARGO_HOME: /home/runner/.cargo
+2026-10-20T23:20:34.8879950Z   CARGO_INCREMENTAL: 0
+2026-10-20T23:20:34.8880163Z ##[endgroup]
+2026-10-20T23:20:34.8950692Z ##[end-action id=__dtolnay_rust-toolchain.__run_7;outcome=success;conclusion=success;duration_ms=14]
+2026-10-20T23:20:34.8953927Z ##[start-action display=Enable Cargo sparse registry;id=__dtolnay_rust-toolchain.__run_8]
+2026-10-20T23:20:34.8974747Z ##[group]Run # implemented in 1.66, stabilized in 1.68, made default in 1.70
+2026-10-20T23:20:34.8975256Z [36;1m# implemented in 1.66, stabilized in 1.68, made default in 1.70[0m
+2026-10-20T23:20:34.8975963Z [36;1mif [ -z "${CARGO_REGISTRIES_CRATES_IO_PROTOCOL+set}" -o -f "/home/runner/work/_temp"/.implicit_cargo_registries_crates_io_protocol ]; then[0m
+2026-10-20T23:20:34.8976737Z [36;1m  if rustc +"$toolchain" --version --verbose | grep -q '^release: 1\.6[89]\.'; then[0m
+2026-10-20T23:20:34.8977350Z [36;1m    touch "/home/runner/work/_temp"/.implicit_cargo_registries_crates_io_protocol || true[0m
+2026-10-20T23:20:34.8977898Z [36;1m    echo CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse >> $GITHUB_ENV[0m
+2026-10-20T23:20:34.8978415Z [36;1m  elif rustc +"$toolchain" --version --verbose | grep -q '^release: 1\.6[67]\.'; then[0m
+2026-10-20T23:20:34.8979257Z [36;1m    touch "/home/runner/work/_temp"/.implicit_cargo_registries_crates_io_protocol || true[0m
+2026-10-20T23:20:34.8979776Z [36;1m    echo CARGO_REGISTRIES_CRATES_IO_PROTOCOL=git >> $GITHUB_ENV[0m
+2026-10-20T23:20:34.8980119Z [36;1m  fi[0m
+2026-10-20T23:20:34.8980309Z [36;1mfi[0m
+2026-10-20T23:20:34.9024312Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-20T23:20:34.9024649Z env:
+2026-10-20T23:20:34.9024844Z   CARGO_TERM_COLOR: always
+2026-10-20T23:20:34.9025109Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-20T23:20:34.9025353Z   CARGO_HOME: /home/runner/.cargo
+2026-10-20T23:20:34.9025595Z   CARGO_INCREMENTAL: 0
+2026-10-20T23:20:34.9025818Z   toolchain: nightly-2026-07-13
+2026-10-20T23:20:34.9026058Z ##[endgroup]
+2026-10-20T23:20:34.9331493Z ##[end-action id=__dtolnay_rust-toolchain.__run_8;outcome=success;conclusion=success;duration_ms=37]
+2026-10-20T23:20:34.9334657Z ##[start-action display=Work around spurious network errors in curl 8.0;id=__dtolnay_rust-toolchain.__run_9]
+2026-10-20T23:20:34.9353917Z ##[group]Run # https://rust-lang.zulipchat.com/#narrow/stream/246057-t-cargo/topic/timeout.20investigation
+2026-10-20T23:20:34.9354679Z [36;1m# https://rust-lang.zulipchat.com/#narrow/stream/246057-t-cargo/topic/timeout.20investigation[0m
+2026-10-20T23:20:34.9355300Z [36;1mif rustc +"$toolchain" --version --verbose | grep -q '^release: 1\.7[01]\.'; then[0m
+2026-10-20T23:20:34.9355774Z [36;1m  echo CARGO_HTTP_MULTIPLEXING=false >> $GITHUB_ENV[0m
+2026-10-20T23:20:34.9356090Z [36;1mfi[0m
+2026-10-20T23:20:34.9402450Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-20T23:20:34.9402791Z env:
+2026-10-20T23:20:34.9402984Z   CARGO_TERM_COLOR: always
+2026-10-20T23:20:34.9403231Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-20T23:20:34.9403479Z   CARGO_HOME: /home/runner/.cargo
+2026-10-20T23:20:34.9403727Z   CARGO_INCREMENTAL: 0
+2026-10-20T23:20:34.9403952Z   toolchain: nightly-2026-07-13
+2026-10-20T23:20:34.9404190Z ##[endgroup]
+2026-10-20T23:20:34.9589811Z ##[end-action id=__dtolnay_rust-toolchain.__run_9;outcome=success;conclusion=success;duration_ms=25]
+2026-10-20T23:20:34.9593935Z ##[start-action display=rustc +nightly-2026-07-13 --version --verbose;id=__dtolnay_rust-toolchain.__run_10]
+2026-10-20T23:20:34.9613045Z ##[group]Run rustc +"$toolchain" --version --verbose
+2026-10-20T23:20:34.9613405Z [36;1mrustc +"$toolchain" --version --verbose[0m
+2026-10-20T23:20:34.9659389Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-20T23:20:34.9659889Z env:
+2026-10-20T23:20:34.9660089Z   CARGO_TERM_COLOR: always
+2026-10-20T23:20:34.9660329Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-20T23:20:34.9660584Z   CARGO_HOME: /home/runner/.cargo
+2026-10-20T23:20:34.9660961Z   CARGO_INCREMENTAL: 0
+2026-10-20T23:20:34.9661191Z   toolchain: nightly-2026-07-13
+2026-10-20T23:20:34.9661441Z ##[endgroup]
+2026-10-20T23:20:34.9828834Z rustc 1.99.0-nightly (77cf889bc 2026-07-12)
+2026-10-20T23:20:34.9829576Z binary: rustc
+2026-10-20T23:20:34.9830036Z commit-hash: 77cf889bc178ddb44d6a1c78e5a820b5abb31d8d
+2026-10-20T23:20:34.9830583Z commit-date: 2026-07-12
+2026-10-20T23:20:34.9830977Z host: x86_64-unknown-linux-gnu
+2026-10-20T23:20:34.9831392Z release: 1.99.0-nightly
+2026-10-20T23:20:34.9831780Z LLVM version: 22.1.8
+2026-10-20T23:20:34.9845410Z ##[end-action id=__dtolnay_rust-toolchain.__run_10;outcome=success;conclusion=success;duration_ms=25]
+2026-10-20T23:20:34.9958236Z ##[group]Run Swatinem/rust-cache@v2
+2026-10-20T23:20:34.9958784Z with:
+2026-10-20T23:20:34.9959012Z   prefix-key: v0-rust
+2026-10-20T23:20:34.9959234Z   add-job-id-key: true
+2026-10-20T23:20:34.9959468Z   add-rust-environment-hash-key: true
+2026-10-20T23:20:34.9959761Z   cache-targets: true
+2026-10-20T23:20:34.9959981Z   cache-all-crates: false
+2026-10-20T23:20:34.9960216Z   cache-workspace-crates: false
+2026-10-20T23:20:34.9960448Z   save-if: true
+2026-10-20T23:20:34.9960646Z   cache-provider: github
+2026-10-20T23:20:34.9960861Z   cache-bin: true
+2026-10-20T23:20:34.9961057Z   lookup-only: false
+2026-10-20T23:20:34.9961256Z   cmd-format: {0}
+2026-10-20T23:20:34.9961440Z env:
+2026-10-20T23:20:34.9961624Z   CARGO_TERM_COLOR: always
+2026-10-20T23:20:34.9961854Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-20T23:20:34.9962093Z   CARGO_HOME: /home/runner/.cargo
+2026-10-20T23:20:34.9962614Z   CARGO_INCREMENTAL: 0
+2026-10-20T23:20:34.9962833Z ##[endgroup]
+2026-10-20T23:20:45.9842194Z ##[group]Cache Configuration
+2026-10-20T23:20:45.9842792Z Cache Provider:
+2026-10-20T23:20:45.9843158Z     github
+2026-10-20T23:20:45.9843495Z Workspaces:
+2026-10-20T23:20:45.9843875Z     /home/runner/work/fabelgeist/fabelgeist
+2026-10-20T23:20:45.9844383Z Cache Paths:
+2026-10-20T23:20:45.9844757Z     /home/runner/.cargo/bin
+2026-10-20T23:20:45.9845197Z     /home/runner/.cargo/.crates.toml
+2026-10-20T23:20:45.9845687Z     /home/runner/.cargo/.crates2.json
+2026-10-20T23:20:45.9846151Z     /home/runner/.cargo/registry
+2026-10-20T23:20:45.9846557Z     /home/runner/.cargo/git
+2026-10-20T23:20:45.9847045Z     /home/runner/work/fabelgeist/fabelgeist/target
+2026-10-20T23:20:45.9847573Z Restore Key:
+2026-10-20T23:20:45.9848011Z     v0-rust-rust-quality-Linux-x64-209b4f59
+2026-10-20T23:20:45.9848511Z Cache Key:
+2026-10-20T23:20:45.9849342Z     v0-rust-rust-quality-Linux-x64-209b4f59-41bde587
+2026-10-20T23:20:45.9849895Z .. Prefix:
+2026-10-20T23:20:45.9850270Z   - v0-rust-rust-quality-Linux-x64
+2026-10-20T23:20:45.9850763Z .. Environment considered:
+2026-10-20T23:20:45.9851190Z   - Rust Versions:
+2026-10-20T23:20:45.9851825Z     - 1.99.0-nightly x86_64-unknown-linux-gnu 77cf889bc178ddb44d6a1c78e5a820b5abb31d8d
+2026-10-20T23:20:45.9852747Z     - 1.99.1 x86_64-unknown-linux-gnu 58cf8f9c35b355199727627d07ae34a4e2846d67
+2026-10-20T23:20:45.9853378Z   - CARGO_HOME
+2026-10-20T23:20:45.9853702Z   - CARGO_INCREMENTAL
+2026-10-20T23:20:45.9854044Z   - CARGO_TERM_COLOR
+2026-10-20T23:20:45.9854396Z .. Lockfiles considered:
+2026-10-20T23:20:45.9854940Z   - /home/runner/work/fabelgeist/fabelgeist/.cargo/config.toml
+2026-10-20T23:20:45.9855635Z   - /home/runner/work/fabelgeist/fabelgeist/Cargo.lock
+2026-10-20T23:20:45.9856543Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-building-generator/Cargo.toml
+2026-10-20T23:20:45.9857640Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-core/Cargo.toml
+2026-10-20T23:20:45.9858944Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-dialogue/Cargo.toml
+2026-10-20T23:20:45.9860039Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-plant-generator/Cargo.toml
+2026-10-20T23:20:45.9861733Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-procedural-materials/Cargo.toml
+2026-10-20T23:20:45.9862963Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-procedural-textures/Cargo.toml
+2026-10-20T23:20:45.9864101Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-puzzles/Cargo.toml
+2026-10-20T23:20:45.9865170Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-stdb-client/Cargo.toml
+2026-10-20T23:20:45.9866303Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-stdb-module/Cargo.toml
+2026-10-20T23:20:45.9867395Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-strategic-sim/Cargo.toml
+2026-10-20T23:20:45.9868823Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-brp-generator/Cargo.toml
+2026-10-20T23:20:45.9870433Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client/.cargo/config.toml
+2026-10-20T23:20:45.9871596Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client/Cargo.toml
+2026-10-20T23:20:45.9873056Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-core/Cargo.toml
+2026-10-20T23:20:45.9874286Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-netcode/Cargo.toml
+2026-10-20T23:20:45.9875604Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-server-dispatcher/Cargo.toml
+2026-10-20T23:20:45.9876960Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-server/Cargo.toml
+2026-10-20T23:20:45.9878052Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-terrain/Cargo.toml
+2026-10-20T23:20:45.9879498Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-texture-studio/Cargo.toml
+2026-10-20T23:20:45.9880789Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-weapon-model-browser/Cargo.toml
+2026-10-20T23:20:45.9902129Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-weapon-model/Cargo.toml
+2026-10-20T23:20:45.9903179Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-world-import/Cargo.toml
+2026-10-20T23:20:45.9903968Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-world-schema/Cargo.toml
+2026-10-20T23:20:45.9904574Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-animation/Cargo.toml
+2026-10-20T23:20:45.9905113Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-armor/Cargo.toml
+2026-10-20T23:20:45.9905632Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-bvh/Cargo.toml
+2026-10-20T23:20:45.9906129Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-cloth/Cargo.toml
+2026-10-20T23:20:45.9906639Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-color/Cargo.toml
+2026-10-20T23:20:45.9907157Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-compute/Cargo.toml
+2026-10-20T23:20:45.9907713Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-determinism/Cargo.toml
+2026-10-20T23:20:45.9908237Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-fbx/Cargo.toml
+2026-10-20T23:20:45.9908997Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-fs/Cargo.toml
+2026-10-20T23:20:45.9909524Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-garment-code/Cargo.toml
+2026-10-20T23:20:45.9910128Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-garment-fit/Cargo.toml
+2026-10-20T23:20:45.9910672Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-gpu/Cargo.toml
+2026-10-20T23:20:45.9911178Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-math/Cargo.toml
+2026-10-20T23:20:45.9911669Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-mesh/Cargo.toml
+2026-10-20T23:20:45.9912196Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-physics/Cargo.toml
+2026-10-20T23:20:45.9912719Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-rig/Cargo.toml
+2026-10-20T23:20:45.9913240Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-rust-quality/Cargo.toml
+2026-10-20T23:20:45.9913977Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-shell/Cargo.toml
+2026-10-20T23:20:45.9914470Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-timer/Cargo.toml
+2026-10-20T23:20:45.9914976Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-xpbd/Cargo.toml
+2026-10-20T23:20:45.9915461Z   - /home/runner/work/fabelgeist/fabelgeist/crates/strategic-web/Cargo.toml
+2026-10-20T23:20:45.9915911Z   - /home/runner/work/fabelgeist/fabelgeist/rust-toolchain.toml
+2026-10-20T23:20:45.9916472Z ##[endgroup]
+2026-10-20T23:20:45.9916592Z 
+2026-10-20T23:20:45.9916677Z ... Restoring cache ...
+2026-10-20T23:20:46.0413160Z No cache found.
+2026-10-20T23:20:46.0533912Z ##[group]Run curl -sSf https://install.spacetimedb.com | sh -s -- -y
+2026-10-20T23:20:46.0534471Z [36;1mcurl -sSf https://install.spacetimedb.com | sh -s -- -y[0m
+2026-10-20T23:20:46.0534879Z [36;1mecho "$HOME/.local/bin" >> "$GITHUB_PATH"[0m
+2026-10-20T23:20:46.0535302Z [36;1m"$HOME/.local/bin/spacetime" version install "$SPACETIMEDB_VERSION"[0m
+2026-10-20T23:20:46.0535793Z [36;1m"$HOME/.local/bin/spacetime" version use "$SPACETIMEDB_VERSION"[0m
+2026-10-20T23:20:46.0586564Z shell: /usr/bin/bash -e {0}
+2026-10-20T23:20:46.0586828Z env:
+2026-10-20T23:20:46.0587028Z   CARGO_TERM_COLOR: always
+2026-10-20T23:20:46.0587287Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-20T23:20:46.0587555Z   CARGO_HOME: /home/runner/.cargo
+2026-10-20T23:20:46.0587806Z   CARGO_INCREMENTAL: 0
+2026-10-20T23:20:46.0588026Z   CACHE_ON_FAILURE: false
+2026-10-20T23:20:46.0588254Z ##[endgroup]
+2026-10-20T23:20:46.2359701Z Downloading installer...
+2026-10-20T23:20:46.4824001Z The SpacetimeDB command line tool will now be installed:
+2026-10-20T23:20:46.4824777Z 	CLI configuration directory: /home/runner/.config/spacetime/
+2026-10-20T23:20:46.4825443Z 	`spacetime` binary: /home/runner/.local/bin/spacetime
+2026-10-20T23:20:46.4826238Z 	directory for installed SpacetimeDB versions: /home/runner/.local/share/spacetime/bin
+2026-10-20T23:20:46.4827119Z 	database directory: /home/runner/.local/share/spacetime/data
+2026-10-20T23:20:46.4873013Z Downloading latest version...
+2026-10-20T23:20:47.4297554Z The `spacetime` command has been installed as /home/runner/.local/bin/spacetime
+2026-10-20T23:20:47.4298157Z 
+2026-10-20T23:20:47.4298760Z The install process is complete; check out our quickstart guide to get started!
+2026-10-20T23:20:47.4299497Z 	<https://spacetimedb.com/docs/>
+2026-10-20T23:20:48.5468289Z ##[group]Run sudo apt-get update && sudo apt-get install --no-install-recommends -y mold libasound2-dev libudev-dev libwayland-dev libx11-dev libxcursor-dev libxinerama-dev libxkbcommon-dev libxkbcommon-x11-dev libxrandr-dev libxi-dev libvulkan1 mesa-vulkan-drivers
+2026-10-20T23:20:48.5470516Z [36;1msudo apt-get update && sudo apt-get install --no-install-recommends -y mold libasound2-dev libudev-dev libwayland-dev libx11-dev libxcursor-dev libxinerama-dev libxkbcommon-dev libxkbcommon-x11-dev libxrandr-dev libxi-dev libvulkan1 mesa-vulkan-drivers[0m
+2026-10-20T23:20:48.5523751Z shell: /usr/bin/bash -e {0}
+2026-10-20T23:20:48.5524000Z env:
+2026-10-20T23:20:48.5524208Z   CARGO_TERM_COLOR: always
+2026-10-20T23:20:48.5524458Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-20T23:20:48.5524715Z   CARGO_HOME: /home/runner/.cargo
+2026-10-20T23:20:48.5524964Z   CARGO_INCREMENTAL: 0
+2026-10-20T23:20:48.5525182Z   CACHE_ON_FAILURE: false
+2026-10-20T23:20:48.5525400Z ##[endgroup]
+2026-10-20T23:20:48.6239510Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-10-20T23:20:48.6610661Z Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+2026-10-20T23:20:48.6627532Z Get:6 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
+2026-10-20T23:20:48.6629187Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+2026-10-20T23:20:48.6675791Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+2026-10-20T23:20:48.6706407Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+2026-10-20T23:20:48.7921745Z Get:7 https://packages.microsoft.com/ubuntu/24.04/prod noble/main arm64 Packages [565 kB]
+2026-10-20T23:20:48.8059852Z Get:8 https://packages.microsoft.com/ubuntu/24.04/prod noble/main amd64 Packages [626 kB]
+2026-10-20T23:20:48.8461049Z Get:9 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1397 kB]
+2026-10-20T23:20:48.8537377Z Get:10 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1704 kB]
+2026-10-20T23:20:48.9544908Z Get:11 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Packages [1145 kB]
+2026-10-20T23:20:48.9600813Z Get:12 http://azure.archive.ubuntu.com/ubuntu noble-security/main Translation-en [231 kB]
+2026-10-20T23:20:48.9626405Z Get:13 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1222 kB]
+2026-10-20T23:20:51.5576689Z Fetched 7272 kB in 1s (9520 kB/s)
+2026-10-20T23:20:52.5568494Z Reading package lists...
+2026-10-20T23:20:52.5943513Z Reading package lists...
+2026-10-20T23:20:52.7775549Z Building dependency tree...
+2026-10-20T23:20:52.7782818Z Reading state information...
+2026-10-20T23:20:52.9110437Z libvulkan1 is already the newest version (1.3.275.0-1build1).
+2026-10-20T23:20:52.9111076Z libvulkan1 set to manually installed.
+2026-10-20T23:20:52.9111665Z The following additional packages will be installed:
+2026-10-20T23:20:52.9112393Z   libpthread-stubs0-dev libwayland-bin libwayland-server0 libxau-dev
+2026-10-20T23:20:52.9112931Z   libxcb-xkb-dev libxcb-xkb1 libxcb1-dev libxdmcp-dev libxext-dev
+2026-10-20T23:20:52.9113996Z   libxfixes-dev libxkbcommon-x11-0 libxrender-dev x11proto-dev
+2026-10-20T23:20:52.9114574Z   xorg-sgml-doctools xtrans-dev
+2026-10-20T23:20:52.9119616Z Suggested packages:
+2026-10-20T23:20:52.9120133Z   libasound2-doc libwayland-doc libx11-doc libxcb-doc libxext-doc
+2026-10-20T23:20:52.9352243Z The following NEW packages will be installed:
+2026-10-20T23:20:52.9355352Z   libasound2-dev libpthread-stubs0-dev libudev-dev libwayland-bin
+2026-10-20T23:20:52.9355907Z   libwayland-dev libwayland-server0 libx11-dev libxau-dev libxcb-xkb-dev
+2026-10-20T23:20:52.9356651Z   libxcb-xkb1 libxcb1-dev libxcursor-dev libxdmcp-dev libxext-dev
+2026-10-20T23:20:52.9357482Z   libxfixes-dev libxi-dev libxinerama-dev libxkbcommon-dev libxkbcommon-x11-0
+2026-10-20T23:20:52.9358404Z   libxkbcommon-x11-dev libxrandr-dev libxrender-dev mesa-vulkan-drivers mold
+2026-10-20T23:20:52.9359809Z   x11proto-dev xorg-sgml-doctools xtrans-dev
+2026-10-20T23:20:52.9563320Z 0 upgraded, 27 newly installed, 0 to remove and 45 not upgraded.
+2026-10-20T23:20:52.9563767Z Need to get 22.4 MB of archives.
+2026-10-20T23:20:52.9564113Z After this operation, 127 MB of additional disk space will be used.
+2026-10-20T23:20:52.9564519Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-10-20T23:20:53.0722408Z Get:2 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 libasound2-dev amd64 1.2.11-1ubuntu0.3 [115 kB]
+2026-10-20T23:20:53.1360254Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libpthread-stubs0-dev amd64 0.4-1build3 [4746 B]
+2026-10-20T23:20:53.1505123Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 libudev-dev amd64 255.4-1ubuntu8.18 [22.0 kB]
+2026-10-20T23:20:53.1652233Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libwayland-server0 amd64 1.22.0-2.1build1 [33.9 kB]
+2026-10-20T23:20:53.1802355Z Get:6 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xorg-sgml-doctools all 1:1.11-1.1 [10.9 kB]
+2026-10-20T23:20:53.1946834Z Get:7 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 x11proto-dev all 2023.2-1 [602 kB]
+2026-10-20T23:20:53.2176483Z Get:8 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxau-dev amd64 1:1.0.9-1build6 [9570 B]
+2026-10-20T23:20:53.2321444Z Get:9 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxdmcp-dev amd64 1:1.1.3-0ubuntu6 [26.5 kB]
+2026-10-20T23:20:53.2465889Z Get:10 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xtrans-dev all 1.4.0-1 [68.9 kB]
+2026-10-20T23:20:53.2616828Z Get:11 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxcb1-dev amd64 1.15-1ubuntu2 [85.8 kB]
+2026-10-20T23:20:53.2767189Z Get:12 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 libx11-dev amd64 2:1.8.7-1ubuntu0.1 [732 kB]
+2026-10-20T23:20:53.2960485Z Get:13 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxcb-xkb1 amd64 1.15-1ubuntu2 [32.3 kB]
+2026-10-20T23:20:53.3108898Z Get:14 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxcb-xkb-dev amd64 1.15-1ubuntu2 [42.5 kB]
+2026-10-20T23:20:53.3255992Z Get:15 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxrender-dev amd64 1:0.9.10-1.1build1 [26.3 kB]
+2026-10-20T23:20:53.3475424Z Get:16 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxfixes-dev amd64 1:6.0.0-2build1 [12.1 kB]
+2026-10-20T23:20:53.3621794Z Get:17 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxcursor-dev amd64 1:1.2.1-1build1 [31.8 kB]
+2026-10-20T23:20:53.3769540Z Get:18 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxext-dev amd64 2:1.3.4-1build2 [83.5 kB]
+2026-10-20T23:20:53.3921454Z Get:19 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxi-dev amd64 2:1.8.1-1build1 [194 kB]
+2026-10-20T23:20:53.4792107Z Get:20 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxinerama-dev amd64 2:1.1.4-3build1 [7988 B]
+2026-10-20T23:20:53.4941642Z Get:21 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxkbcommon-dev amd64 1.6.0-1build1 [56.3 kB]
+2026-10-20T23:20:53.5322266Z Get:22 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxkbcommon-x11-0 amd64 1.6.0-1build1 [14.5 kB]
+2026-10-20T23:20:53.5489788Z Get:23 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxrandr-dev amd64 2:1.5.2-2build1 [26.4 kB]
+2026-10-20T23:20:53.5675670Z Get:24 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 mesa-vulkan-drivers amd64 25.2.8-0ubuntu0.24.04.4 [17.5 MB]
+2026-10-20T23:20:53.7500928Z Get:25 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 mold amd64 2.30.0+dfsg-1build1 [2529 kB]
+2026-10-20T23:20:53.7790478Z Get:26 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libwayland-bin amd64 1.22.0-2.1build1 [20.6 kB]
+2026-10-20T23:20:53.7941608Z Get:27 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libwayland-dev amd64 1.22.0-2.1build1 [71.3 kB]
+2026-10-20T23:20:53.8104107Z Get:28 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxkbcommon-x11-dev amd64 1.6.0-1build1 [5586 B]
+2026-10-20T23:20:54.0757441Z Fetched 22.4 MB in 1s (25.8 MB/s)
+2026-10-20T23:20:54.1010348Z Selecting previously unselected package libasound2-dev:amd64.
+2026-10-20T23:20:54.1284155Z (Reading database ... 
+2026-10-20T23:20:54.1284649Z (Reading database ... 5%
+2026-10-20T23:20:54.1285147Z (Reading database ... 10%
+2026-10-20T23:20:54.1285629Z (Reading database ... 15%
+2026-10-20T23:20:54.1286092Z (Reading database ... 20%
+2026-10-20T23:20:54.1286558Z (Reading database ... 25%
+2026-10-20T23:20:54.1287014Z (Reading database ... 30%
+2026-10-20T23:20:54.1287508Z (Reading database ... 35%
+2026-10-20T23:20:54.1287979Z (Reading database ... 40%
+2026-10-20T23:20:54.1288435Z (Reading database ... 45%
+2026-10-20T23:20:54.1289185Z (Reading database ... 50%
+2026-10-20T23:20:54.1329594Z (Reading database ... 55%
+2026-10-20T23:20:54.2948254Z (Reading database ... 60%
+2026-10-20T23:20:54.4822009Z (Reading database ... 65%
+2026-10-20T23:20:54.5945279Z (Reading database ... 70%
+2026-10-20T23:20:54.6893377Z (Reading database ... 75%
+2026-10-20T23:20:54.8532469Z (Reading database ... 80%
+2026-10-20T23:20:54.9734023Z (Reading database ... 85%
+2026-10-20T23:20:55.0425968Z (Reading database ... 90%
+2026-10-20T23:20:55.1198294Z (Reading database ... 95%
+2026-10-20T23:20:55.1199149Z (Reading database ... 100%
+2026-10-20T23:20:55.1199593Z (Reading database ... 214410 files and directories currently installed.)
+2026-10-20T23:20:55.1237985Z Preparing to unpack .../00-libasound2-dev_1.2.11-1ubuntu0.3_amd64.deb ...
+2026-10-20T23:20:55.1299936Z Unpacking libasound2-dev:amd64 (1.2.11-1ubuntu0.3) ...
+2026-10-20T23:20:55.1666954Z Selecting previously unselected package libpthread-stubs0-dev:amd64.
+2026-10-20T23:20:55.1805281Z Preparing to unpack .../01-libpthread-stubs0-dev_0.4-1build3_amd64.deb ...
+2026-10-20T23:20:55.1810919Z Unpacking libpthread-stubs0-dev:amd64 (0.4-1build3) ...
+2026-10-20T23:20:55.2015059Z Selecting previously unselected package libudev-dev:amd64.
+2026-10-20T23:20:55.2150290Z Preparing to unpack .../02-libudev-dev_255.4-1ubuntu8.18_amd64.deb ...
+2026-10-20T23:20:55.2156878Z Unpacking libudev-dev:amd64 (255.4-1ubuntu8.18) ...
+2026-10-20T23:20:55.2488085Z Selecting previously unselected package libwayland-server0:amd64.
+2026-10-20T23:20:55.2622320Z Preparing to unpack .../03-libwayland-server0_1.22.0-2.1build1_amd64.deb ...
+2026-10-20T23:20:55.2640366Z Unpacking libwayland-server0:amd64 (1.22.0-2.1build1) ...
+2026-10-20T23:20:55.2852113Z Selecting previously unselected package xorg-sgml-doctools.
+2026-10-20T23:20:55.2985101Z Preparing to unpack .../04-xorg-sgml-doctools_1%3a1.11-1.1_all.deb ...
+2026-10-20T23:20:55.2992997Z Unpacking xorg-sgml-doctools (1:1.11-1.1) ...
+2026-10-20T23:20:55.3236711Z Selecting previously unselected package x11proto-dev.
+2026-10-20T23:20:55.3370953Z Preparing to unpack .../05-x11proto-dev_2023.2-1_all.deb ...
+2026-10-20T23:20:55.3376794Z Unpacking x11proto-dev (2023.2-1) ...
+2026-10-20T23:20:55.3912539Z Selecting previously unselected package libxau-dev:amd64.
+2026-10-20T23:20:55.4049426Z Preparing to unpack .../06-libxau-dev_1%3a1.0.9-1build6_amd64.deb ...
+2026-10-20T23:20:55.4055910Z Unpacking libxau-dev:amd64 (1:1.0.9-1build6) ...
+2026-10-20T23:20:55.4275017Z Selecting previously unselected package libxdmcp-dev:amd64.
+2026-10-20T23:20:55.4411598Z Preparing to unpack .../07-libxdmcp-dev_1%3a1.1.3-0ubuntu6_amd64.deb ...
+2026-10-20T23:20:55.4417853Z Unpacking libxdmcp-dev:amd64 (1:1.1.3-0ubuntu6) ...
+2026-10-20T23:20:55.4633184Z Selecting previously unselected package xtrans-dev.
+2026-10-20T23:20:55.4773853Z Preparing to unpack .../08-xtrans-dev_1.4.0-1_all.deb ...
+2026-10-20T23:20:55.4780408Z Unpacking xtrans-dev (1.4.0-1) ...
+2026-10-20T23:20:55.5036869Z Selecting previously unselected package libxcb1-dev:amd64.
+2026-10-20T23:20:55.5175044Z Preparing to unpack .../09-libxcb1-dev_1.15-1ubuntu2_amd64.deb ...
+2026-10-20T23:20:55.5181387Z Unpacking libxcb1-dev:amd64 (1.15-1ubuntu2) ...
+2026-10-20T23:20:55.5415124Z Selecting previously unselected package libx11-dev:amd64.
+2026-10-20T23:20:55.5554315Z Preparing to unpack .../10-libx11-dev_2%3a1.8.7-1ubuntu0.1_amd64.deb ...
+2026-10-20T23:20:55.5561904Z Unpacking libx11-dev:amd64 (2:1.8.7-1ubuntu0.1) ...
+2026-10-20T23:20:55.5884876Z Selecting previously unselected package libxcb-xkb1:amd64.
+2026-10-20T23:20:55.6021969Z Preparing to unpack .../11-libxcb-xkb1_1.15-1ubuntu2_amd64.deb ...
+2026-10-20T23:20:55.6028269Z Unpacking libxcb-xkb1:amd64 (1.15-1ubuntu2) ...
+2026-10-20T23:20:55.6238298Z Selecting previously unselected package libxcb-xkb-dev:amd64.
+2026-10-20T23:20:55.6377178Z Preparing to unpack .../12-libxcb-xkb-dev_1.15-1ubuntu2_amd64.deb ...
+2026-10-20T23:20:55.6383559Z Unpacking libxcb-xkb-dev:amd64 (1.15-1ubuntu2) ...
+2026-10-20T23:20:55.6604928Z Selecting previously unselected package libxrender-dev:amd64.
+2026-10-20T23:20:55.6742337Z Preparing to unpack .../13-libxrender-dev_1%3a0.9.10-1.1build1_amd64.deb ...
+2026-10-20T23:20:55.6748287Z Unpacking libxrender-dev:amd64 (1:0.9.10-1.1build1) ...
+2026-10-20T23:20:55.6970177Z Selecting previously unselected package libxfixes-dev:amd64.
+2026-10-20T23:20:55.7105084Z Preparing to unpack .../14-libxfixes-dev_1%3a6.0.0-2build1_amd64.deb ...
+2026-10-20T23:20:55.7112832Z Unpacking libxfixes-dev:amd64 (1:6.0.0-2build1) ...
+2026-10-20T23:20:55.7324583Z Selecting previously unselected package libxcursor-dev:amd64.
+2026-10-20T23:20:55.7459364Z Preparing to unpack .../15-libxcursor-dev_1%3a1.2.1-1build1_amd64.deb ...
+2026-10-20T23:20:55.7465097Z Unpacking libxcursor-dev:amd64 (1:1.2.1-1build1) ...
+2026-10-20T23:20:55.7722832Z Selecting previously unselected package libxext-dev:amd64.
+2026-10-20T23:20:55.7857150Z Preparing to unpack .../16-libxext-dev_2%3a1.3.4-1build2_amd64.deb ...
+2026-10-20T23:20:55.7863748Z Unpacking libxext-dev:amd64 (2:1.3.4-1build2) ...
+2026-10-20T23:20:55.8167529Z Selecting previously unselected package libxi-dev:amd64.
+2026-10-20T23:20:55.8304423Z Preparing to unpack .../17-libxi-dev_2%3a1.8.1-1build1_amd64.deb ...
+2026-10-20T23:20:55.8310895Z Unpacking libxi-dev:amd64 (2:1.8.1-1build1) ...
+2026-10-20T23:20:55.8626337Z Selecting previously unselected package libxinerama-dev:amd64.
+2026-10-20T23:20:55.8762165Z Preparing to unpack .../18-libxinerama-dev_2%3a1.1.4-3build1_amd64.deb ...
+2026-10-20T23:20:55.8768475Z Unpacking libxinerama-dev:amd64 (2:1.1.4-3build1) ...
+2026-10-20T23:20:55.8984442Z Selecting previously unselected package libxkbcommon-dev:amd64.
+2026-10-20T23:20:55.9119933Z Preparing to unpack .../19-libxkbcommon-dev_1.6.0-1build1_amd64.deb ...
+2026-10-20T23:20:55.9125964Z Unpacking libxkbcommon-dev:amd64 (1.6.0-1build1) ...
+2026-10-20T23:20:55.9359212Z Selecting previously unselected package libxkbcommon-x11-0:amd64.
+2026-10-20T23:20:55.9494827Z Preparing to unpack .../20-libxkbcommon-x11-0_1.6.0-1build1_amd64.deb ...
+2026-10-20T23:20:55.9502142Z Unpacking libxkbcommon-x11-0:amd64 (1.6.0-1build1) ...
+2026-10-20T23:20:55.9710693Z Selecting previously unselected package libxrandr-dev:amd64.
+2026-10-20T23:20:55.9845255Z Preparing to unpack .../21-libxrandr-dev_2%3a1.5.2-2build1_amd64.deb ...
+2026-10-20T23:20:55.9852276Z Unpacking libxrandr-dev:amd64 (2:1.5.2-2build1) ...
+2026-10-20T23:20:56.0083637Z Selecting previously unselected package mesa-vulkan-drivers:amd64.
+2026-10-20T23:20:56.0218262Z Preparing to unpack .../22-mesa-vulkan-drivers_25.2.8-0ubuntu0.24.04.4_amd64.deb ...
+2026-10-20T23:20:56.0225033Z Unpacking mesa-vulkan-drivers:amd64 (25.2.8-0ubuntu0.24.04.4) ...
+2026-10-20T23:20:56.3382548Z Selecting previously unselected package mold.
+2026-10-20T23:20:56.3525642Z Preparing to unpack .../23-mold_2.30.0+dfsg-1build1_amd64.deb ...
+2026-10-20T23:20:56.3532053Z Unpacking mold (2.30.0+dfsg-1build1) ...
+2026-10-20T23:20:56.4327159Z Selecting previously unselected package libwayland-bin.
+2026-10-20T23:20:56.4470218Z Preparing to unpack .../24-libwayland-bin_1.22.0-2.1build1_amd64.deb ...
+2026-10-20T23:20:56.4476090Z Unpacking libwayland-bin (1.22.0-2.1build1) ...
+2026-10-20T23:20:56.4705173Z Selecting previously unselected package libwayland-dev:amd64.
+2026-10-20T23:20:56.4847564Z Preparing to unpack .../25-libwayland-dev_1.22.0-2.1build1_amd64.deb ...
+2026-10-20T23:20:56.4855237Z Unpacking libwayland-dev:amd64 (1.22.0-2.1build1) ...
+2026-10-20T23:20:56.5115662Z Selecting previously unselected package libxkbcommon-x11-dev:amd64.
+2026-10-20T23:20:56.5255398Z Preparing to unpack .../26-libxkbcommon-x11-dev_1.6.0-1build1_amd64.deb ...
+2026-10-20T23:20:56.5262117Z Unpacking libxkbcommon-x11-dev:amd64 (1.6.0-1build1) ...
+2026-10-20T23:20:56.5709021Z Setting up mesa-vulkan-drivers:amd64 (25.2.8-0ubuntu0.24.04.4) ...
+2026-10-20T23:20:56.5728284Z Setting up libwayland-server0:amd64 (1.22.0-2.1build1) ...
+2026-10-20T23:20:56.5744619Z Setting up libxkbcommon-dev:amd64 (1.6.0-1build1) ...
+2026-10-20T23:20:56.5760942Z Setting up libpthread-stubs0-dev:amd64 (0.4-1build3) ...
+2026-10-20T23:20:56.5777521Z Setting up mold (2.30.0+dfsg-1build1) ...
+2026-10-20T23:20:56.5793147Z Setting up libxcb-xkb1:amd64 (1.15-1ubuntu2) ...
+2026-10-20T23:20:56.5814596Z Setting up xtrans-dev (1.4.0-1) ...
+2026-10-20T23:20:56.5832093Z Setting up libwayland-bin (1.22.0-2.1build1) ...
+2026-10-20T23:20:56.5849342Z Setting up libxkbcommon-x11-0:amd64 (1.6.0-1build1) ...
+2026-10-20T23:20:56.5866866Z Setting up libudev-dev:amd64 (255.4-1ubuntu8.18) ...
+2026-10-20T23:20:56.5883630Z Setting up xorg-sgml-doctools (1:1.11-1.1) ...
+2026-10-20T23:20:56.5900508Z Setting up libasound2-dev:amd64 (1.2.11-1ubuntu0.3) ...
+2026-10-20T23:20:56.5916569Z Setting up libwayland-dev:amd64 (1.22.0-2.1build1) ...
+2026-10-20T23:20:56.5979231Z Processing triggers for sgml-base (1.31) ...
+2026-10-20T23:20:56.6089271Z Setting up x11proto-dev (2023.2-1) ...
+2026-10-20T23:20:56.6108359Z Setting up libxau-dev:amd64 (1:1.0.9-1build6) ...
+2026-10-20T23:20:56.6131372Z Processing triggers for libc-bin (2.39-0ubuntu8.9) ...
+2026-10-20T23:20:56.6453337Z Processing triggers for man-db (2.12.0-4build2) ...
+2026-10-20T23:20:56.6474245Z Not building database; man-db/auto-update is not 'true'.
+2026-10-20T23:20:56.6485077Z Setting up libxdmcp-dev:amd64 (1:1.1.3-0ubuntu6) ...
+2026-10-20T23:20:56.6511938Z Setting up libxcb1-dev:amd64 (1.15-1ubuntu2) ...
+2026-10-20T23:20:56.6532415Z Setting up libxcb-xkb-dev:amd64 (1.15-1ubuntu2) ...
+2026-10-20T23:20:56.6550060Z Setting up libx11-dev:amd64 (2:1.8.7-1ubuntu0.1) ...
+2026-10-20T23:20:56.6567456Z Setting up libxfixes-dev:amd64 (1:6.0.0-2build1) ...
+2026-10-20T23:20:56.6587098Z Setting up libxext-dev:amd64 (2:1.3.4-1build2) ...
+2026-10-20T23:20:56.6607054Z Setting up libxi-dev:amd64 (2:1.8.1-1build1) ...
+2026-10-20T23:20:56.6625979Z Setting up libxrender-dev:amd64 (1:0.9.10-1.1build1) ...
+2026-10-20T23:20:56.6644871Z Setting up libxkbcommon-x11-dev:amd64 (1.6.0-1build1) ...
+2026-10-20T23:20:56.6663516Z Setting up libxcursor-dev:amd64 (1:1.2.1-1build1) ...
+2026-10-20T23:20:56.6683600Z Setting up libxrandr-dev:amd64 (2:1.5.2-2build1) ...
+2026-10-20T23:20:56.6702168Z Setting up libxinerama-dev:amd64 (2:1.1.4-3build1) ...
+2026-10-20T23:20:57.3433422Z 
+2026-10-20T23:20:57.3434063Z Running kernel seems to be up-to-date.
+2026-10-20T23:20:57.3434372Z 
+2026-10-20T23:20:57.3434479Z No services need to be restarted.
+2026-10-20T23:20:57.3434667Z 
+2026-10-20T23:20:57.3434774Z No containers need to be restarted.
+2026-10-20T23:20:57.3434949Z 
+2026-10-20T23:20:57.3435084Z No user sessions are running outdated binaries.
+2026-10-20T23:20:57.3435298Z 
+2026-10-20T23:20:57.3435506Z No VM guests are running outdated hypervisor (qemu) binaries on this host.
+2026-10-20T23:20:58.1903666Z ##[group]Run cargo fmt --all -- --check
+2026-10-20T23:20:58.1904276Z [36;1mcargo fmt --all -- --check[0m
+2026-10-20T23:20:58.1905104Z [36;1mcargo fmt --manifest-path crates/adventuresim-character-creator/Cargo.toml -- --check[0m
+2026-10-20T23:20:58.1906166Z [36;1mcargo fmt --manifest-path crates/fabelgeist-mhr/Cargo.toml -- --check[0m
+2026-10-20T23:20:58.1907149Z [36;1mcargo fmt --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml -- --check[0m
+2026-10-20T23:20:58.1960760Z shell: /usr/bin/bash -e {0}
+2026-10-20T23:20:58.1961011Z env:
+2026-10-20T23:20:58.1961205Z   CARGO_TERM_COLOR: always
+2026-10-20T23:20:58.1961452Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-20T23:20:58.1961696Z   CARGO_HOME: /home/runner/.cargo
+2026-10-20T23:20:58.1961944Z   CARGO_INCREMENTAL: 0
+2026-10-20T23:20:58.1962159Z   CACHE_ON_FAILURE: false
+2026-10-20T23:20:58.1962375Z ##[endgroup]
+2026-10-20T23:21:12.5391776Z ##[group]Run python3 -m unittest scripts.tests.test_dev_stack.WorkflowTests.test_binding_diff_detects_changed_and_extra_files
+2026-10-20T23:21:12.5392685Z [36;1mpython3 -m unittest scripts.tests.test_dev_stack.WorkflowTests.test_binding_diff_detects_changed_and_extra_files[0m
+2026-10-20T23:21:12.5447060Z shell: /usr/bin/bash -e {0}
+2026-10-20T23:21:12.5447483Z env:
+2026-10-20T23:21:12.5447818Z   CARGO_TERM_COLOR: always
+2026-10-20T23:21:12.5448240Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-20T23:21:12.5448925Z   CARGO_HOME: /home/runner/.cargo
+2026-10-20T23:21:12.5449417Z   CARGO_INCREMENTAL: 0
+2026-10-20T23:21:12.5449833Z   CACHE_ON_FAILURE: false
+2026-10-20T23:21:12.5450251Z ##[endgroup]
+2026-10-20T23:21:12.7165579Z .
+2026-10-20T23:21:12.7165889Z ----------------------------------------------------------------------
+2026-10-20T23:21:12.7166256Z Ran 1 test in 0.001s
+2026-10-20T23:21:12.7166407Z 
+2026-10-20T23:21:12.7166480Z OK
+2026-10-20T23:21:12.7355858Z ##[group]Run python3 -m unittest scripts.tests.test_building_review_boundary
+2026-10-20T23:21:12.7356432Z [36;1mpython3 -m unittest scripts.tests.test_building_review_boundary[0m
+2026-10-20T23:21:12.7406569Z shell: /usr/bin/bash -e {0}
+2026-10-20T23:21:12.7406818Z env:
+2026-10-20T23:21:12.7407183Z   CARGO_TERM_COLOR: always
+2026-10-20T23:21:12.7407428Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-20T23:21:12.7407675Z   CARGO_HOME: /home/runner/.cargo
+2026-10-20T23:21:12.7407917Z   CARGO_INCREMENTAL: 0
+2026-10-20T23:21:12.7408133Z   CACHE_ON_FAILURE: false
+2026-10-20T23:21:12.7408348Z ##[endgroup]
+2026-10-20T23:21:12.8428704Z ...
+2026-10-20T23:21:12.8429365Z ----------------------------------------------------------------------
+2026-10-20T23:21:12.8429939Z Ran 3 tests in 0.043s
+2026-10-20T23:21:12.8430178Z 
+2026-10-20T23:21:12.8430306Z OK
+2026-10-20T23:21:12.8533200Z ##[group]Run python3 scripts/dev_stack.py verify-bindings
+2026-10-20T23:21:12.8533644Z [36;1mpython3 scripts/dev_stack.py verify-bindings[0m
+2026-10-20T23:21:12.8581401Z shell: /usr/bin/bash -e {0}
+2026-10-20T23:21:12.8581648Z env:
+2026-10-20T23:21:12.8581843Z   CARGO_TERM_COLOR: always
+2026-10-20T23:21:12.8582087Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-20T23:21:12.8582353Z   CARGO_HOME: /home/runner/.cargo
+2026-10-20T23:21:12.8582621Z   CARGO_INCREMENTAL: 0
+2026-10-20T23:21:12.8582836Z   CACHE_ON_FAILURE: false
+2026-10-20T23:21:12.8583054Z ##[endgroup]
+2026-10-20T23:25:09.9512451Z SpacetimeDB client bindings match the current module schema.
+2026-10-20T23:25:09.9513159Z [startup] phase='database client binding verification' duration=236.996s cache=miss
+2026-10-20T23:25:09.9661926Z ##[group]Run cargo test --package adventuresim-world-schema --all-features
+2026-10-20T23:25:09.9662504Z [36;1mcargo test --package adventuresim-world-schema --all-features[0m
+2026-10-20T23:25:09.9663041Z [36;1mcargo test --package fabelgeist-gpu --lib data::gpu::buffer::readback::tests[0m
+2026-10-20T23:25:09.9713567Z shell: /usr/bin/bash -e {0}
+2026-10-20T23:25:09.9713822Z env:
+2026-10-20T23:25:09.9714014Z   CARGO_TERM_COLOR: always
+2026-10-20T23:25:09.9714257Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-20T23:25:09.9714500Z   CARGO_HOME: /home/runner/.cargo
+2026-10-20T23:25:09.9714747Z   CARGO_INCREMENTAL: 0
+2026-10-20T23:25:09.9714970Z   CACHE_ON_FAILURE: false
+2026-10-20T23:25:09.9715198Z ##[endgroup]
+2026-10-20T23:25:10.2516887Z [1m[92m   Compiling[0m proc-macro2 v1.0.107
+2026-10-20T23:25:10.2518961Z [1m[92m   Compiling[0m quote v1.0.47
+2026-10-20T23:25:10.2519943Z [1m[92m   Compiling[0m unicode-ident v1.0.24
+2026-10-20T23:25:10.2520673Z [1m[92m   Compiling[0m libc v0.2.189
+2026-10-20T23:25:10.3550082Z [1m[92m   Compiling[0m cfg-if v1.0.4
+2026-10-20T23:25:10.4330236Z [1m[92m   Compiling[0m version_check v0.9.5
+2026-10-20T23:25:10.8092566Z [1m[92m   Compiling[0m getrandom v0.3.4
+2026-10-20T23:25:11.3786719Z [1m[92m   Compiling[0m serde_core v1.0.229
+2026-10-20T23:25:11.9558375Z [1m[92m   Compiling[0m syn v2.0.119
+2026-10-20T23:25:12.3050025Z [1m[92m   Compiling[0m generic-array v0.14.7
+2026-10-20T23:25:12.5131842Z [1m[92m   Compiling[0m autocfg v1.5.1
+2026-10-20T23:25:12.5338912Z [1m[92m   Compiling[0m zerocopy v0.8.56
+2026-10-20T23:25:13.3200208Z [1m[92m   Compiling[0m typenum v1.20.1
+2026-10-20T23:25:13.8410196Z [1m[92m   Compiling[0m heck v0.5.0
+2026-10-20T23:25:13.9771930Z [1m[92m   Compiling[0m num-traits v0.2.19
+2026-10-20T23:25:14.4580430Z [1m[92m   Compiling[0m rand_core v0.9.5
+2026-10-20T23:25:15.0610044Z [1m[92m   Compiling[0m syn v3.0.4
+2026-10-20T23:25:17.4420259Z [1m[92m   Compiling[0m serde v1.0.229
+2026-10-20T23:25:18.0500082Z [1m[92m   Compiling[0m rustversion v1.0.23
+2026-10-20T23:25:18.7570594Z [1m[92m   Compiling[0m shlex v2.0.1
+2026-10-20T23:25:19.0503357Z [1m[92m   Compiling[0m find-msvc-tools v0.1.11
+2026-10-20T23:25:19.6349995Z [1m[92m   Compiling[0m cc v1.4.4
+2026-10-20T23:25:19.7860065Z [1m[92m   Compiling[0m ppv-lite86 v0.2.21
+2026-10-20T23:25:20.2769023Z [1m[92m   Compiling[0m block-buffer v0.10.4
+2026-10-20T23:25:20.4230628Z [1m[92m   Compiling[0m crypto-common v0.1.7
+2026-10-20T23:25:21.7040937Z [1m[92m   Compiling[0m getrandom v0.4.3
+2026-10-20T23:25:21.9619286Z [1m[92m   Compiling[0m either v1.18.0
+2026-10-20T23:25:22.2670345Z [1m[92m   Compiling[0m itertools v0.12.1
+2026-10-20T23:25:24.3960520Z [1m[92m   Compiling[0m digest v0.10.7
+2026-10-20T23:25:26.1907369Z [1m[92m   Compiling[0m rand_chacha v0.9.0
+2026-10-20T23:25:26.7950171Z [1m[92m   Compiling[0m blake3 v1.8.7
+2026-10-20T23:25:26.8930336Z [1m[92m   Compiling[0m arrayvec v0.7.8
+2026-10-20T23:25:27.2000171Z [1m[92m   Compiling[0m itoa v1.0.18
+2026-10-20T23:25:27.4410147Z [1m[92m   Compiling[0m nohash-hasher v0.2.0
+2026-10-20T23:25:27.4700156Z [1m[92m   Compiling[0m thiserror v1.0.69
+2026-10-20T23:25:27.5400094Z [1m[92m   Compiling[0m anyhow v1.0.104
+2026-10-20T23:25:27.9650066Z [1m[92m   Compiling[0m bitflags v2.13.1
+2026-10-20T23:25:28.3191533Z [1m[92m   Compiling[0m rand v0.9.5
+2026-10-20T23:25:28.7490780Z [1m[92m   Compiling[0m castaway v0.2.4
+2026-10-20T23:25:29.0670520Z [1m[92m   Compiling[0m approx v0.3.2
+2026-10-20T23:25:29.2050537Z [1m[92m   Compiling[0m cpufeatures v0.3.1
+2026-10-20T23:25:29.2190133Z [1m[92m   Compiling[0m constant_time_eq v0.4.2
+2026-10-20T23:25:29.2560268Z [1m[92m   Compiling[0m humantime v2.4.0
+2026-10-20T23:25:29.4070028Z [1m[92m   Compiling[0m ryu v1.0.23
+2026-10-20T23:25:29.6390217Z [1m[92m   Compiling[0m serde_derive v1.0.229
+2026-10-20T23:25:29.7575691Z [1m[92m   Compiling[0m keccak v0.1.6
+2026-10-20T23:25:29.8252796Z [1m[92m   Compiling[0m zmij v1.0.23
+2026-10-20T23:25:30.2471326Z [1m[92m   Compiling[0m heck v0.4.1
+2026-10-20T23:25:30.7270059Z [1m[92m   Compiling[0m convert_case v0.4.0
+2026-10-20T23:25:30.9510216Z [1m[92m   Compiling[0m sha3 v0.10.9
+2026-10-20T23:25:31.4390527Z [1m[92m   Compiling[0m lean_string v0.5.3
+2026-10-20T23:25:32.1768741Z [1m[92m   Compiling[0m decorum v0.3.1
+2026-10-20T23:25:32.8269966Z [1m[92m   Compiling[0m uuid v1.26.0
+2026-10-20T23:25:33.4680024Z [1m[92m   Compiling[0m chrono v0.4.45
+2026-10-20T23:25:33.8220121Z [1m[92m   Compiling[0m serde_json v1.0.151
+2026-10-20T23:25:34.0280734Z [1m[92m   Compiling[0m bytemuck v1.25.2
+2026-10-20T23:25:34.2899947Z [1m[92m   Compiling[0m second-stack v0.3.5
+2026-10-20T23:25:34.4360039Z [1m[92m   Compiling[0m hex v0.4.3
+2026-10-20T23:25:34.8020100Z [1m[92m   Compiling[0m spacetimedb-lib v2.6.1
+2026-10-20T23:25:35.2540352Z [1m[92m   Compiling[0m bytes v1.12.1
+2026-10-20T23:25:36.3449142Z [1m[92m   Compiling[0m smallvec v1.15.2
+2026-10-20T23:25:36.6200146Z [1m[92m   Compiling[0m log v0.4.34
+2026-10-20T23:25:36.8610172Z [1m[92m   Compiling[0m memchr v2.8.3
+2026-10-20T23:25:36.9669983Z [1m[92m   Compiling[0m cpufeatures v0.2.17
+2026-10-20T23:25:37.0201024Z [1m[92m   Compiling[0m sha2 v0.10.9
+2026-10-20T23:25:39.0833822Z [1m[92m   Compiling[0m rand_xoshiro v0.7.0
+2026-10-20T23:25:41.2280134Z [1m[92m   Compiling[0m enum-as-inner v0.6.1
+2026-10-20T23:25:41.6150415Z [1m[92m   Compiling[0m thiserror-impl v1.0.69
+2026-10-20T23:25:42.0710097Z [1m[92m   Compiling[0m derive_more v0.99.20
+2026-10-20T23:25:42.7760927Z [1m[92m   Compiling[0m spacetimedb-primitives v2.6.1
+2026-10-20T23:25:43.2650127Z [1m[92m   Compiling[0m ethnum v1.5.3
+2026-10-20T23:25:44.0120727Z [1m[92m   Compiling[0m spacetimedb-bindings-macro v2.6.1
+2026-10-20T23:25:44.8570171Z [1m[92m   Compiling[0m strum_macros v0.28.0
+2026-10-20T23:25:49.4390907Z [1m[92m   Compiling[0m fabelgeist-determinism v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-determinism)
+2026-10-20T23:25:55.3502073Z [1m[92m   Compiling[0m strum v0.28.0
+2026-10-20T23:25:55.8834019Z [1m[92m   Compiling[0m spacetimedb-sats v2.6.1
+2026-10-20T23:26:00.3692270Z [1m[92m   Compiling[0m adventuresim-world-schema v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-world-schema)
+2026-10-20T23:26:15.3399878Z [1m[92m    Finished[0m `test` profile [optimized] target(s) in 1m 05s
+2026-10-20T23:26:15.3535807Z [1m[92m     Running[0m unittests src/lib.rs (target/debug/deps/adventuresim_world_schema-0f0b6d9dc81323a8)
+2026-10-20T23:26:15.3548489Z 
+2026-10-20T23:26:15.3548997Z running 84 tests
+2026-10-20T23:26:15.3561483Z test basis_points::tests::basis_point_units_own_bounds_conversions_and_scaling ... ok
+2026-10-20T23:26:15.3563007Z test bestiary::tests::bestiary_correlations_are_symmetric_nonrecursive_and_direct_gated ... ok
+2026-10-20T23:26:15.3564200Z test bestiary::tests::bestiary_direct_fields_reject_nonfinite_negative_or_overmastery_values ... ok
+2026-10-20T23:26:15.3565231Z test calendar::tests::age_derived_birth_years_and_bounds ... ok
+2026-10-20T23:26:15.3566275Z test calendar::tests::serialization_validates_year_and_preserves_minute_units ... ok
+2026-10-20T23:26:15.3567244Z test calendar::tests::epoch_and_year_boundaries ... ok
+2026-10-20T23:26:15.3567932Z test coordinates::tests::coordinate_pair_converts_degrees_without_order_ambiguity ... ok
+2026-10-20T23:26:15.3569086Z test coordinates::tests::coordinate_pair_rejects_an_invalid_component ... ok
+2026-10-20T23:26:15.3569981Z test coordinates::tests::coordinate_pairs_round_trip_between_e7_and_microdegrees ... ok
+2026-10-20T23:26:15.3570835Z test coordinates::tests::degree_construction_preserves_rounding ... ok
+2026-10-20T23:26:15.3571668Z test coordinates::tests::longitude_units_enforce_wgs84_bounds ... ok
+2026-10-20T23:26:15.3572563Z test coordinates::tests::travel_geometry_boundary_keeps_primitive_e7_wire_shape ... ok
+2026-10-20T23:26:15.3573864Z test coordinates::tests::e7_to_microdegree_conversion_preserves_integer_truncation ... ok
+2026-10-20T23:26:15.3574809Z test coordinates::tests::latitude_units_enforce_wgs84_bounds ... ok
+2026-10-20T23:26:15.3575750Z test coordinates::tests::unbounded_coordinate_preserves_abstract_coordinate_units ... ok
+2026-10-20T23:26:15.3576863Z test coordinates::tests::unbounded_coordinate_rejects_non_finite_and_unrepresentable_units ... ok
+2026-10-20T23:26:15.3577963Z test demographics::tests::demographic_values_roundtrip_with_stable_catalog_ids ... ok
+2026-10-20T23:26:15.3579212Z test language::tests::common_language_ties_are_stable_and_nonrecursive ... ok
+2026-10-20T23:26:15.3580156Z test language::tests::common_oral_language_caps_direct_and_correlated_fluency ... ok
+2026-10-20T23:26:15.3581145Z test demographics::tests::typed_sex_draw_preserves_the_existing_binary_draw ... ok
+2026-10-20T23:26:15.3582040Z test language::tests::correlations_are_identity_and_symmetric ... ok
+2026-10-20T23:26:15.3582827Z test language::tests::descriptors_cover_every_stable_language ... ok
+2026-10-20T23:26:15.3583599Z test language::tests::inference_is_exact_and_geographic ... ok
+2026-10-20T23:26:15.3584542Z test language::tests::final_location_reinitializes_oral_identity_without_granting_literacy ... ok
+2026-10-20T23:26:15.3585654Z test language::tests::language_scaling_is_safe_for_missing_or_invalid_proficiency ... ok
+2026-10-20T23:26:15.3586688Z test language::tests::party_choices_are_order_independent_and_snapshot_linear ... ok
+2026-10-20T23:26:15.3587668Z test language::tests::yiddish_people_are_bilingual_with_weaker_local_german ... ok
+2026-10-20T23:26:15.3620291Z test person_names::identity_validation::tests::authored_display_still_validates_hereditary_metadata ... ok
+2026-10-20T23:26:15.3621724Z test person_names::identity_validation::tests::native_render_rejects_missing_family_and_mismatched_valid_references ... ok
+2026-10-20T23:26:15.3623287Z test person_names::identity_validation::tests::unresolved_names_preserve_evidence_but_reject_missing_candidates ... ok
+2026-10-20T23:26:15.3640293Z test person_names::tests::attested_feminine_surname_form_is_selected_without_a_suffix_rule ... ok
+2026-10-20T23:26:15.3641444Z test person_names::tests::authored_names_are_not_parsed ... ok
+2026-10-20T23:26:15.3642426Z test person_names::tests::adding_a_form_does_not_change_family_prevalence ... ok
+2026-10-20T23:26:15.3643858Z test person_names::tests::culture_and_period_select_the_baseline_without_invented_modifiers ... ok
+2026-10-20T23:26:15.3645639Z test person_names::tests::generated_name_has_resolved_family_and_stable_rendering ... ok
+2026-10-20T23:26:15.3654773Z test person_names::tests::henne_can_remain_historically_unresolved ... ok
+2026-10-20T23:26:15.3656810Z test person_names::tests::hans_and_johannes_share_one_family_while_hans_dominates_everyday_use ... ok
+2026-10-20T23:26:15.3658271Z test person_names::tests::register_rendering_does_not_mutate_the_native_everyday_projection ... ok
+2026-10-20T23:26:15.3659667Z test person_names::tests::rendered_names_reject_unvalidated_wire_and_authored_text ... ok
+2026-10-20T23:26:15.3660676Z test person_names::tests::register_specific_forms_render_from_one_family ... ok
+2026-10-20T23:26:15.3661444Z test person_names::tests::repertoire_fragments_extend_the_matching_sex_group ... ok
+2026-10-20T23:26:15.3662581Z test person_names::tests::validation::tests::derivation_frequency_must_match_its_repertoire_entry ... ok
+2026-10-20T23:26:15.3663931Z test person_names::tests::validation::tests::overlapping_selectors_are_ambiguous_but_adjacent_periods_are_not ... ok
+2026-10-20T23:26:15.3665137Z test person_names::tests::validation::tests::stable_ids_reject_human_facing_spellings ... ok
+2026-10-20T23:26:15.3666312Z test person_names::tests::validation::tests::repertoire_family_groups_use_sex_keys_and_require_correct_coverage ... ok
+2026-10-20T23:26:15.3667583Z test playable_bounds_tests::playable_bounds_include_requested_landmarks_and_reject_external_points ... ok
+2026-10-20T23:26:15.3669045Z test person_names::tests::compiled_catalog_is_valid_and_source_backed ... ok
+2026-10-20T23:26:15.3670114Z test settlement_buildings::tests::global_business_identity_includes_its_settlement_scope ... ok
+2026-10-20T23:26:15.3671313Z test settlement_buildings::tests::empty_and_extreme_populations_are_bounded_and_shortfalls_are_explicit ... ok
+2026-10-20T23:26:15.3672545Z test settlement_buildings::tests::business_ordinals_are_stable_coordinates_not_iteration_positions ... ok
+2026-10-20T23:26:15.3673933Z test settlement_buildings::tests::capacities_cover_each_eligible_catchment_without_an_unnecessary_last_building ... ok
+2026-10-20T23:26:15.3675205Z test settlement_buildings::tests::parish_growth_is_deterministic_and_does_not_duplicate_cathedrals ... ok
+2026-10-20T23:26:15.3676282Z test settlement_name_tests::settlement_names_are_bounded_and_reject_controls ... ok
+2026-10-20T23:26:15.3677213Z test settlement_buildings::tests::specialist_presence_is_owned_by_the_economy ... ok
+2026-10-20T23:26:15.3678085Z test tests::adding_direct_hours_repairs_poisoned_canonical_field ... ok
+2026-10-20T23:26:15.3679107Z test tests::drought_history_rejects_impossible_twenty_year_counts ... ok
+2026-10-20T23:26:15.3679877Z test tests::elevations_parse_into_bounded_values_and_bands ... ok
+2026-10-20T23:26:15.3680623Z test tests::geologic_unit_identifiers_are_bounded_source_values ... ok
+2026-10-20T23:26:15.3681492Z test tests::historical_context_enforces_direct_fractions_and_wetland_convergence ... ok
+2026-10-20T23:26:15.3682354Z test tests::external_settlement_text_is_bounded_and_nul_free ... ok
+2026-10-20T23:26:15.3683163Z test tests::historical_vegetation_wire_rejects_invalid_dependent_fields ... ok
+2026-10-20T23:26:15.3684014Z test tests::hydrology_wire_values_cannot_bypass_bounded_constructors ... ok
+2026-10-20T23:26:15.3684539Z test tests::industry_profiles_are_nonempty_bounded_unique_and_canonical ... ok
+2026-10-20T23:26:15.3685171Z test tests::land_use_profiles_are_exhaustive_and_derive_intensity ... ok
+2026-10-20T23:26:15.3685982Z test tests::forest_cover_cannot_attach_zero_density_to_woodland ... ok
+2026-10-20T23:26:15.3686795Z test tests::language_codes_are_parsed_into_a_closed_representation ... ok
+2026-10-20T23:26:15.3687368Z test tests::industry_profile_serde_rejects_constructor_bypasses ... ok
+2026-10-20T23:26:15.3687880Z test tests::maximal_industry_diversity_keeps_the_strongest_bounded_specializations ... ok
+2026-10-20T23:26:15.3688395Z test tests::old_world_metadata_cannot_default_new_identity_fields ... ok
+2026-10-20T23:26:15.3689246Z test settlement_buildings::tests::parish_programmes_keep_population_roles_and_physical_scale_separate ... ok
+2026-10-20T23:26:15.3689872Z test tests::raw_route_terrain_validation_is_panic_free_and_rechecks_wrappers ... ok
+2026-10-20T23:26:15.3690545Z test tests::pdsi_is_bounded_and_classifies_hydroclimate ... ok
+2026-10-20T23:26:15.3690970Z test tests::potential_vegetation_is_bounded_and_has_stable_ties ... ok
+2026-10-20T23:26:15.3691454Z test tests::religion_correlations_are_identity_symmetric_and_non_recursive ... ok
+2026-10-20T23:26:15.3691949Z test tests::religion_minutes_split_evenly_with_stable_remainders ... ok
+2026-10-20T23:26:15.3692423Z test tests::route_terrain_context_rejects_semantic_contradictions ... ok
+2026-10-20T23:26:15.3692905Z test tests::religion_direct_field_validation_rejects_each_invalid_shape ... ok
+2026-10-20T23:26:15.3693371Z test tests::soil_uncertainty_and_percentages_are_bounded ... ok
+2026-10-20T23:26:15.3693791Z test tests::source_markdown_is_nonempty_nul_free_and_bounded ... ok
+2026-10-20T23:26:15.3694219Z test tests::religious_status_derives_the_single_church_religion ... ok
+2026-10-20T23:26:15.3694702Z test tests::tree_species_profiles_are_nonempty_unique_and_canonically_ranked ... ok
+2026-10-20T23:26:15.3695233Z test tests::spatial_grid_sizes_cover_only_the_canonical_range_and_increment ... ok
+2026-10-20T23:26:15.3695724Z test tests::spatial_grid_wire_values_cannot_bypass_invariants ... ok
+2026-10-20T23:26:15.3708035Z test tests::route_terrain_wire_rejects_bounds_order_and_duplicates ... ok
+2026-10-20T23:26:15.3708767Z 
+2026-10-20T23:26:15.3709419Z test result: ok. 84 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+2026-10-20T23:26:15.3710018Z 
+2026-10-20T23:26:15.3715421Z [1m[92m   Doc-tests[0m adventuresim_world_schema
+2026-10-20T23:26:16.3673238Z 
+2026-10-20T23:26:16.3673975Z running 0 tests
+2026-10-20T23:26:16.3674345Z 
+2026-10-20T23:26:16.3674867Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-20T23:26:16.3675489Z 
+2026-10-20T23:26:16.6235948Z [1m[92m Downloading[0m crates ...
+2026-10-20T23:26:16.6857280Z [1m[92m  Downloaded[0m async-recursion v1.1.1
+2026-10-20T23:26:16.6895723Z [1m[92m  Downloaded[0m async-channel v2.5.0
+2026-10-20T23:26:16.6909345Z [1m[92m  Downloaded[0m allocator-api2 v0.2.21
+2026-10-20T23:26:16.6934073Z [1m[92m  Downloaded[0m hexf-parse v0.2.1
+2026-10-20T23:26:16.6940502Z [1m[92m  Downloaded[0m document-features v0.2.12
+2026-10-20T23:26:16.6953108Z [1m[92m  Downloaded[0m litemap v0.8.3
+2026-10-20T23:26:16.6975331Z [1m[92m  Downloaded[0m aho-corasick v1.1.5
+2026-10-20T23:26:16.7026524Z [1m[92m  Downloaded[0m bytemuck_derive v1.12.0
+2026-10-20T23:26:16.7042051Z [1m[92m  Downloaded[0m parking_lot_core v0.9.12
+2026-10-20T23:26:16.7063726Z [1m[92m  Downloaded[0m async-task v4.7.1
+2026-10-20T23:26:16.7089320Z [1m[92m  Downloaded[0m ashpd v0.11.1
+2026-10-20T23:26:16.7156438Z [1m[92m  Downloaded[0m ash v0.38.0+1.3.281
+2026-10-20T23:26:16.7310421Z [1m[92m  Downloaded[0m async-fs v2.2.0
+2026-10-20T23:26:16.7321912Z [1m[92m  Downloaded[0m async-executor v1.14.0
+2026-10-20T23:26:16.7341752Z [1m[92m  Downloaded[0m async-signal v0.2.14
+2026-10-20T23:26:16.7356857Z [1m[92m  Downloaded[0m async-net v2.0.0
+2026-10-20T23:26:16.7369680Z [1m[92m  Downloaded[0m async-process v2.5.0
+2026-10-20T23:26:16.7388302Z [1m[92m  Downloaded[0m async-broadcast v0.7.2
+2026-10-20T23:26:16.7405398Z [1m[92m  Downloaded[0m async-lock v3.4.2
+2026-10-20T23:26:16.7429701Z [1m[92m  Downloaded[0m async-io v2.6.0
+2026-10-20T23:26:16.7462018Z [1m[92m  Downloaded[0m quinn v0.11.11
+2026-10-20T23:26:16.7495461Z [1m[92m  Downloaded[0m tower v0.5.3
+2026-10-20T23:26:16.7595806Z [1m[92m  Downloaded[0m ordered-float v5.5.0
+2026-10-20T23:26:16.7613354Z [1m[92m  Downloaded[0m concurrent-queue v2.5.0
+2026-10-20T23:26:16.7630585Z [1m[92m  Downloaded[0m futures-lite v2.6.1
+2026-10-20T23:26:16.7646790Z [1m[92m  Downloaded[0m crossbeam-utils v0.8.22
+2026-10-20T23:26:16.7673853Z [1m[92m  Downloaded[0m icu_normalizer_data v2.3.0
+2026-10-20T23:26:16.7694983Z [1m[92m  Downloaded[0m bit-set v0.9.1
+2026-10-20T23:26:16.7709839Z [1m[92m  Downloaded[0m futures-io v0.3.34
+2026-10-20T23:26:16.7719912Z [1m[92m  Downloaded[0m http-body-util v0.1.5
+2026-10-20T23:26:16.7740019Z [1m[92m  Downloaded[0m litrs v1.0.0
+2026-10-20T23:26:16.7769986Z [1m[92m  Downloaded[0m pin-project-lite v0.2.17
+2026-10-20T23:26:16.7827937Z [1m[92m  Downloaded[0m gpu-descriptor v0.3.2
+2026-10-20T23:26:16.7839339Z [1m[92m  Downloaded[0m byteorder-lite v0.1.0
+2026-10-20T23:26:16.7851274Z [1m[92m  Downloaded[0m errno v0.3.14
+2026-10-20T23:26:16.7868588Z [1m[92m  Downloaded[0m libloading v0.8.9
+2026-10-20T23:26:16.7891617Z [1m[92m  Downloaded[0m hyper v1.11.1
+2026-10-20T23:26:16.7958723Z [1m[92m  Downloaded[0m event-listener-strategy v0.5.4
+2026-10-20T23:26:16.7969418Z [1m[92m  Downloaded[0m gpu-allocator v0.28.0
+2026-10-20T23:26:16.8002257Z [1m[92m  Downloaded[0m hashbrown v0.17.1
+2026-10-20T23:26:16.8070548Z [1m[92m  Downloaded[0m parking v2.2.1
+2026-10-20T23:26:16.8084047Z [1m[92m  Downloaded[0m zerovec-derive v0.11.6
+2026-10-20T23:26:16.8107056Z [1m[92m  Downloaded[0m dlib v0.5.3
+2026-10-20T23:26:16.8121199Z [1m[92m  Downloaded[0m downcast-rs v1.2.1
+2026-10-20T23:26:16.8142375Z [1m[92m  Downloaded[0m endi v1.1.1
+2026-10-20T23:26:16.8157350Z [1m[92m  Downloaded[0m fastrand v2.5.0
+2026-10-20T23:26:16.8176415Z [1m[92m  Downloaded[0m futures-channel v0.3.34
+2026-10-20T23:26:16.8200207Z [1m[92m  Downloaded[0m half v2.7.1
+2026-10-20T23:26:16.8226167Z [1m[92m  Downloaded[0m hyper-util v0.1.20
+2026-10-20T23:26:16.8285440Z [1m[92m  Downloaded[0m icu_locale_core v2.3.0
+2026-10-20T23:26:16.8352470Z [1m[92m  Downloaded[0m idna v1.1.0
+2026-10-20T23:26:16.8386582Z [1m[92m  Downloaded[0m idna_adapter v1.2.2
+2026-10-20T23:26:16.8395506Z [1m[92m  Downloaded[0m image v0.25.10
+2026-10-20T23:26:16.8485180Z [1m[92m  Downloaded[0m lock_api v0.4.14
+2026-10-20T23:26:16.8497477Z [1m[92m  Downloaded[0m option-ext v0.2.0
+2026-10-20T23:26:16.8505699Z [1m[92m  Downloaded[0m piper v0.2.5
+2026-10-20T23:26:16.8521440Z [1m[92m  Downloaded[0m presser v0.3.1
+2026-10-20T23:26:16.8537852Z [1m[92m  Downloaded[0m proc-macro-crate v3.5.0
+2026-10-20T23:26:16.8551062Z [1m[92m  Downloaded[0m async-trait v0.1.92
+2026-10-20T23:26:16.8586987Z [1m[92m  Downloaded[0m bit-vec v0.9.1
+2026-10-20T23:26:16.8603010Z [1m[92m  Downloaded[0m blocking v1.7.0
+2026-10-20T23:26:16.8614879Z [1m[92m  Downloaded[0m cfg_aliases v0.2.2
+2026-10-20T23:26:16.8624312Z [1m[92m  Downloaded[0m directories v6.0.0
+2026-10-20T23:26:16.8638224Z [1m[92m  Downloaded[0m dirs-sys v0.5.0
+2026-10-20T23:26:16.8649065Z [1m[92m  Downloaded[0m displaydoc v0.2.7
+2026-10-20T23:26:16.8668327Z [1m[92m  Downloaded[0m event-listener v5.4.2
+2026-10-20T23:26:16.8685436Z [1m[92m  Downloaded[0m foldhash v0.1.5
+2026-10-20T23:26:16.8697502Z [1m[92m  Downloaded[0m foldhash v0.2.0
+2026-10-20T23:26:16.8709582Z [1m[92m  Downloaded[0m futures-macro v0.3.34
+2026-10-20T23:26:16.8719480Z [1m[92m  Downloaded[0m futures-task v0.3.34
+2026-10-20T23:26:16.8731709Z [1m[92m  Downloaded[0m glow v0.17.0
+2026-10-20T23:26:16.8776738Z [1m[92m  Downloaded[0m hashbrown v0.16.1
+2026-10-20T23:26:16.8826028Z [1m[92m  Downloaded[0m hyper-rustls v0.27.9
+2026-10-20T23:26:16.8839977Z [1m[92m  Downloaded[0m icu_provider v2.3.1
+2026-10-20T23:26:16.8866039Z [1m[92m  Downloaded[0m lru-slab v0.1.2
+2026-10-20T23:26:16.8874353Z [1m[92m  Downloaded[0m parking_lot v0.12.5
+2026-10-20T23:26:16.8898537Z [1m[92m  Downloaded[0m percent-encoding v2.3.2
+2026-10-20T23:26:16.8907175Z [1m[92m  Downloaded[0m rustc-hash v2.1.3
+2026-10-20T23:26:16.8920154Z [1m[92m  Downloaded[0m atomic-waker v1.1.2
+2026-10-20T23:26:16.8940166Z [1m[92m  Downloaded[0m equivalent v1.0.2
+2026-10-20T23:26:16.8941601Z [1m[92m  Downloaded[0m gpu-descriptor-types v0.2.0
+2026-10-20T23:26:16.8948975Z [1m[92m  Downloaded[0m icu_collections v2.3.0
+2026-10-20T23:26:16.9010843Z [1m[92m  Downloaded[0m indexmap v2.14.1
+2026-10-20T23:26:16.9053301Z [1m[92m  Downloaded[0m khronos-egl v6.0.0
+2026-10-20T23:26:16.9071897Z [1m[92m  Downloaded[0m yoke v0.8.3
+2026-10-20T23:26:16.9089099Z [1m[92m  Downloaded[0m http-body v1.1.0
+2026-10-20T23:26:16.9099827Z [1m[92m  Downloaded[0m icu_properties v2.3.0
+2026-10-20T23:26:16.9130311Z [1m[92m  Downloaded[0m mio v1.2.2
+2026-10-20T23:26:16.9188970Z [1m[92m  Downloaded[0m pkg-config v0.3.34
+2026-10-20T23:26:16.9203716Z [1m[92m  Downloaded[0m once_cell v1.21.4
+2026-10-20T23:26:16.9228236Z [1m[92m  Downloaded[0m ordered-stream v0.2.0
+2026-10-20T23:26:16.9240143Z [1m[92m  Downloaded[0m socket2 v0.6.5
+2026-10-20T23:26:16.9257467Z [1m[92m  Downloaded[0m unicode-xid v0.2.6
+2026-10-20T23:26:16.9270166Z [1m[92m  Downloaded[0m form_urlencoded v1.2.2
+2026-10-20T23:26:16.9277641Z [1m[92m  Downloaded[0m futures-core v0.3.34
+2026-10-20T23:26:16.9290894Z [1m[92m  Downloaded[0m tinyvec_macros v0.1.1
+2026-10-20T23:26:16.9298389Z [1m[92m  Downloaded[0m pollster v0.4.0
+2026-10-20T23:26:16.9310725Z [1m[92m  Downloaded[0m utf8_iter v1.0.4
+2026-10-20T23:26:16.9320680Z [1m[92m  Downloaded[0m subtle v2.6.1
+2026-10-20T23:26:16.9331961Z [1m[92m  Downloaded[0m tokio-macros v2.7.2
+2026-10-20T23:26:16.9342346Z [1m[92m  Downloaded[0m codespan-reporting v0.13.1
+2026-10-20T23:26:16.9414806Z [1m[92m  Downloaded[0m httparse v1.10.1
+2026-10-20T23:26:16.9438909Z [1m[92m  Downloaded[0m hashbrown v0.15.5
+2026-10-20T23:26:16.9486443Z [1m[92m  Downloaded[0m icu_properties_data v2.3.0
+2026-10-20T23:26:16.9596127Z [1m[92m  Downloaded[0m ipnet v2.12.1
+2026-10-20T23:26:16.9612408Z [1m[92m  Downloaded[0m signal-hook-registry v1.4.8
+2026-10-20T23:26:16.9623880Z [1m[92m  Downloaded[0m tinyvec v1.12.0
+2026-10-20T23:26:16.9649140Z [1m[92m  Downloaded[0m toml_parser v1.1.3+spec-1.1.0
+2026-10-20T23:26:16.9671730Z [1m[92m  Downloaded[0m wgpu-naga-bridge v29.0.4
+2026-10-20T23:26:16.9680016Z [1m[92m  Downloaded[0m zerofrom-derive v0.1.7
+2026-10-20T23:26:16.9689776Z [1m[92m  Downloaded[0m zune-core v0.5.3
+2026-10-20T23:26:16.9711780Z [1m[92m  Downloaded[0m base64 v0.22.1
+2026-10-20T23:26:16.9749186Z [1m[92m  Downloaded[0m chacha20 v0.10.2
+2026-10-20T23:26:16.9772040Z [1m[92m  Downloaded[0m futures-util v0.3.34
+2026-10-20T23:26:16.9899158Z [1m[92m  Downloaded[0m libm v0.2.16
+2026-10-20T23:26:17.0004326Z [1m[92m  Downloaded[0m raw-window-handle v0.6.2
+2026-10-20T23:26:17.0021813Z [1m[92m  Downloaded[0m reqwest v0.12.28
+2026-10-20T23:26:17.0075151Z [1m[92m  Downloaded[0m synstructure v0.13.2
+2026-10-20T23:26:17.0085005Z [1m[92m  Downloaded[0m url v2.5.8
+2026-10-20T23:26:17.0110201Z [1m[92m  Downloaded[0m wayland-protocols v0.32.13
+2026-10-20T23:26:17.0192323Z [1m[92m  Downloaded[0m zbus_names v4.3.4
+2026-10-20T23:26:17.0207197Z [1m[92m  Downloaded[0m moxcms v0.8.1
+2026-10-20T23:26:17.0306876Z [1m[92m  Downloaded[0m png v0.18.1
+2026-10-20T23:26:17.0346566Z [1m[92m  Downloaded[0m rand v0.10.2
+2026-10-20T23:26:17.0382778Z [1m[92m  Downloaded[0m static_assertions v1.1.0
+2026-10-20T23:26:17.0396335Z [1m[92m  Downloaded[0m tower-http v0.6.11
+2026-10-20T23:26:17.0486150Z [1m[92m  Downloaded[0m wayland-client v0.31.15
+2026-10-20T23:26:17.0505473Z [1m[92m  Downloaded[0m wgpu v29.0.4
+2026-10-20T23:26:17.0644882Z [1m[92m  Downloaded[0m icu_normalizer v2.3.0
+2026-10-20T23:26:17.0738378Z [1m[92m  Downloaded[0m pp-rs v0.2.1
+2026-10-20T23:26:17.0754566Z [1m[92m  Downloaded[0m regex v1.13.1
+2026-10-20T23:26:17.0808930Z [1m[92m  Downloaded[0m wgpu-core-deps-windows-linux-android v29.0.4
+2026-10-20T23:26:17.0817403Z [1m[92m  Downloaded[0m quinn-proto v0.11.17
+2026-10-20T23:26:17.0882056Z [1m[92m  Downloaded[0m regex-syntax v0.8.11
+2026-10-20T23:26:17.0947618Z [1m[92m  Downloaded[0m rustls v0.23.43
+2026-10-20T23:26:17.1062164Z [1m[92m  Downloaded[0m scopeguard v1.2.0
+2026-10-20T23:26:17.1073780Z [1m[92m  Downloaded[0m potential_utf v0.1.6
+2026-10-20T23:26:17.1084322Z [1m[92m  Downloaded[0m renderdoc-sys v1.1.0
+2026-10-20T23:26:17.1093414Z [1m[92m  Downloaded[0m rustix v1.1.4
+2026-10-20T23:26:17.1353836Z [1m[92m  Downloaded[0m tower-service v0.3.3
+2026-10-20T23:26:17.1361159Z [1m[92m  Downloaded[0m wgpu-core v29.0.4
+2026-10-20T23:26:17.1452514Z [1m[92m  Downloaded[0m naga v29.0.4
+2026-10-20T23:26:17.1654424Z [1m[92m  Downloaded[0m rand_core v0.10.1
+2026-10-20T23:26:17.1672439Z [1m[92m  Downloaded[0m regex-automata v0.4.18
+2026-10-20T23:26:17.1810508Z [1m[92m  Downloaded[0m strum v0.27.2
+2026-10-20T23:26:17.1818996Z [1m[92m  Downloaded[0m tracing-core v0.1.36
+2026-10-20T23:26:17.1845132Z [1m[92m  Downloaded[0m quinn-udp v0.5.15
+2026-10-20T23:26:17.1862339Z [1m[92m  Downloaded[0m tracing-attributes v0.1.31
+2026-10-20T23:26:17.1887679Z [1m[92m  Downloaded[0m wgpu-hal v29.0.4
+2026-10-20T23:26:17.1993905Z [1m[92m  Downloaded[0m rustls-pki-types v1.15.1
+2026-10-20T23:26:17.2018394Z [1m[92m  Downloaded[0m quick-xml v0.41.0
+2026-10-20T23:26:17.2076024Z [1m[92m  Downloaded[0m yoke-derive v0.8.2
+2026-10-20T23:26:17.2087215Z [1m[92m  Downloaded[0m tokio-rustls v0.26.4
+2026-10-20T23:26:17.2106994Z [1m[92m  Downloaded[0m toml_datetime v1.1.1+spec-1.1.0
+2026-10-20T23:26:17.2118967Z [1m[92m  Downloaded[0m profiling v1.0.18
+2026-10-20T23:26:17.2130583Z [1m[92m  Downloaded[0m wayland-sys v0.31.11
+2026-10-20T23:26:17.2142345Z [1m[92m  Downloaded[0m sync_wrapper v1.0.2
+2026-10-20T23:26:17.2150290Z [1m[92m  Downloaded[0m want v0.3.1
+2026-10-20T23:26:17.2159150Z [1m[92m  Downloaded[0m zerofrom v0.1.8
+2026-10-20T23:26:17.2167821Z [1m[92m  Downloaded[0m rand_pcg v0.10.2
+2026-10-20T23:26:17.2182139Z [1m[92m  Downloaded[0m slab v0.4.12
+2026-10-20T23:26:17.2194625Z [1m[92m  Downloaded[0m stable_deref_trait v1.2.1
+2026-10-20T23:26:17.2203150Z [1m[92m  Downloaded[0m strum_macros v0.27.2
+2026-10-20T23:26:17.2226020Z [1m[92m  Downloaded[0m rustc-hash v1.1.0
+2026-10-20T23:26:17.2235032Z [1m[92m  Downloaded[0m serde_repr v0.1.21
+2026-10-20T23:26:17.2254637Z [1m[92m  Downloaded[0m spirv v0.4.0+sdk-1.4.341.0
+2026-10-20T23:26:17.2266581Z [1m[92m  Downloaded[0m zcheapstr v1.1.0
+2026-10-20T23:26:17.2283038Z [1m[92m  Downloaded[0m tokio v1.53.1
+2026-10-20T23:26:17.2724352Z [1m[92m  Downloaded[0m wayland-scanner v0.31.11
+2026-10-20T23:26:17.2744413Z [1m[92m  Downloaded[0m zbus_macros v5.19.0
+2026-10-20T23:26:17.2759567Z [1m[92m  Downloaded[0m zeroize v1.9.0
+2026-10-20T23:26:17.2774592Z [1m[92m  Downloaded[0m rfd v0.15.4
+2026-10-20T23:26:17.2821451Z [1m[92m  Downloaded[0m rustls-webpki v0.103.15
+2026-10-20T23:26:17.2851427Z [1m[92m  Downloaded[0m toml_edit v0.25.13+spec-1.1.0
+2026-10-20T23:26:17.2889579Z [1m[92m  Downloaded[0m winnow v1.0.4
+2026-10-20T23:26:17.2983142Z [1m[92m  Downloaded[0m zbus v5.19.0
+2026-10-20T23:26:17.3075836Z [1m[92m  Downloaded[0m urlencoding v2.1.3
+2026-10-20T23:26:17.3086447Z [1m[92m  Downloaded[0m wayland-backend v0.3.17
+2026-10-20T23:26:17.3125226Z [1m[92m  Downloaded[0m tower-layer v0.3.3
+2026-10-20T23:26:17.3134997Z [1m[92m  Downloaded[0m wgpu-types v29.0.4
+2026-10-20T23:26:17.3172072Z [1m[92m  Downloaded[0m serde_urlencoded v0.7.1
+2026-10-20T23:26:17.3188429Z [1m[92m  Downloaded[0m tinystr v0.8.4
+2026-10-20T23:26:17.3208499Z [1m[92m  Downloaded[0m untrusted v0.9.0
+2026-10-20T23:26:17.3225193Z [1m[92m  Downloaded[0m zvariant v5.15.0
+2026-10-20T23:26:17.3293050Z [1m[92m  Downloaded[0m zvariant_derive v5.15.0
+2026-10-20T23:26:17.3304472Z [1m[92m  Downloaded[0m zerovec v0.11.8
+2026-10-20T23:26:17.3362505Z [1m[92m  Downloaded[0m writeable v0.6.4
+2026-10-20T23:26:17.3383368Z [1m[92m  Downloaded[0m zune-jpeg v0.5.15
+2026-10-20T23:26:17.3417177Z [1m[92m  Downloaded[0m webpki-roots v1.0.9
+2026-10-20T23:26:17.3447721Z [1m[92m  Downloaded[0m try-lock v0.2.5
+2026-10-20T23:26:17.3456722Z [1m[92m  Downloaded[0m zvariant_utils v4.2.0
+2026-10-20T23:26:17.3475557Z [1m[92m  Downloaded[0m termcolor v1.4.1
+2026-10-20T23:26:17.3487919Z [1m[92m  Downloaded[0m zerocopy-derive v0.8.56
+2026-10-20T23:26:17.3580225Z [1m[92m  Downloaded[0m tracing v0.1.44
+2026-10-20T23:26:17.3737348Z [1m[92m  Downloaded[0m ring v0.17.14
+2026-10-20T23:26:17.4145740Z [1m[92m  Downloaded[0m zerotrie v0.2.5
+2026-10-20T23:26:17.4184239Z [1m[92m  Downloaded[0m linux-raw-sys v0.12.1
+2026-10-20T23:26:17.4794188Z [1m[92m  Downloaded[0m pxfm v0.1.30
+2026-10-20T23:26:17.5035807Z [1m[92m  Downloaded[0m polling v3.11.0
+2026-10-20T23:26:17.5604786Z [1m[92m   Compiling[0m libc v0.2.189
+2026-10-20T23:26:17.5605811Z [1m[92m   Compiling[0m serde_core v1.0.229
+2026-10-20T23:26:17.5606834Z [1m[92m   Compiling[0m pin-project-lite v0.2.17
+2026-10-20T23:26:17.5607522Z [1m[92m   Compiling[0m syn v3.0.4
+2026-10-20T23:26:17.6324200Z [1m[92m   Compiling[0m syn v2.0.119
+2026-10-20T23:26:19.8520719Z [1m[92m   Compiling[0m smallvec v1.15.2
+2026-10-20T23:26:20.1300171Z [1m[92m   Compiling[0m bitflags v2.13.1
+2026-10-20T23:26:20.5754031Z [1m[92m   Compiling[0m equivalent v1.0.2
+2026-10-20T23:26:20.6466085Z [1m[92m   Compiling[0m futures-core v0.3.34
+2026-10-20T23:26:20.8100446Z [1m[92m   Compiling[0m hashbrown v0.17.1
+2026-10-20T23:26:21.3159986Z [1m[92m   Compiling[0m serde v1.0.229
+2026-10-20T23:26:21.6940406Z [1m[92m   Compiling[0m stable_deref_trait v1.2.1
+2026-10-20T23:26:21.7480075Z [1m[92m   Compiling[0m parking_lot_core v0.9.12
+2026-10-20T23:26:21.9180111Z [1m[92m   Compiling[0m futures-io v0.3.34
+2026-10-20T23:26:22.0763662Z [1m[92m   Compiling[0m once_cell v1.21.4
+2026-10-20T23:26:22.1209960Z [1m[92m   Compiling[0m scopeguard v1.2.0
+2026-10-20T23:26:22.2030799Z [1m[92m   Compiling[0m lock_api v0.4.14
+2026-10-20T23:26:22.4829982Z [1m[92m   Compiling[0m parking v2.2.1
+2026-10-20T23:26:22.6910025Z [1m[92m   Compiling[0m zerocopy v0.8.56
+2026-10-20T23:26:22.7062484Z [1m[92m   Compiling[0m memchr v2.8.3
+2026-10-20T23:26:23.6470582Z [1m[92m   Compiling[0m synstructure v0.13.2
+2026-10-20T23:26:24.4750298Z [1m[92m   Compiling[0m parking_lot v0.12.5
+2026-10-20T23:26:25.5860180Z [1m[92m   Compiling[0m errno v0.3.14
+2026-10-20T23:26:25.7490076Z [1m[92m   Compiling[0m libloading v0.8.9
+2026-10-20T23:26:25.9940001Z [1m[92m   Compiling[0m cfg_aliases v0.2.2
+2026-10-20T23:26:26.0590112Z [1m[92m   Compiling[0m signal-hook-registry v1.4.8
+2026-10-20T23:26:26.5570025Z [1m[92m   Compiling[0m litemap v0.8.3
+2026-10-20T23:26:26.7890046Z [1m[92m   Compiling[0m crossbeam-utils v0.8.22
+2026-10-20T23:26:27.2062305Z [1m[92m   Compiling[0m libm v0.2.16
+2026-10-20T23:26:27.6940139Z [1m[92m   Compiling[0m winnow v1.0.4
+2026-10-20T23:26:29.6859872Z [1m[92m   Compiling[0m writeable v0.6.4
+2026-10-20T23:26:30.0490242Z [1m[92m   Compiling[0m slab v0.4.12
+2026-10-20T23:26:30.2855594Z [1m[92m   Compiling[0m num-traits v0.2.19
+2026-10-20T23:26:30.3110311Z [1m[92m   Compiling[0m icu_normalizer_data v2.3.0
+2026-10-20T23:26:30.4829876Z [1m[92m   Compiling[0m utf8_iter v1.0.4
+2026-10-20T23:26:30.4980158Z [1m[92m   Compiling[0m rustix v1.1.4
+2026-10-20T23:26:30.6360256Z [1m[92m   Compiling[0m icu_properties_data v2.3.0
+2026-10-20T23:26:31.3989991Z [1m[92m   Compiling[0m fastrand v2.5.0
+2026-10-20T23:26:31.7190033Z [1m[92m   Compiling[0m linux-raw-sys v0.12.1
+2026-10-20T23:26:33.5570201Z [1m[92m   Compiling[0m percent-encoding v2.3.2
+2026-10-20T23:26:35.2011130Z [1m[92m   Compiling[0m concurrent-queue v2.5.0
+2026-10-20T23:26:35.6660207Z [1m[92m   Compiling[0m toml_parser v1.1.3+spec-1.1.0
+2026-10-20T23:26:37.4430348Z [1m[92m   Compiling[0m event-listener v5.4.2
+2026-10-20T23:26:37.7840080Z [1m[92m   Compiling[0m indexmap v2.14.1
+2026-10-20T23:26:38.9090116Z [1m[92m   Compiling[0m atomic-waker v1.1.2
+2026-10-20T23:26:39.0139954Z [1m[92m   Compiling[0m toml_datetime v1.1.1+spec-1.1.0
+2026-10-20T23:26:39.4320769Z [1m[92m   Compiling[0m toml_edit v0.25.13+spec-1.1.0
+2026-10-20T23:26:42.0743609Z [1m[92m   Compiling[0m event-listener-strategy v0.5.4
+2026-10-20T23:26:42.2139928Z [1m[92m   Compiling[0m futures-lite v2.6.1
+2026-10-20T23:26:44.4350037Z [1m[92m   Compiling[0m thiserror v2.0.20
+2026-10-20T23:26:44.9340074Z [1m[92m   Compiling[0m raw-window-handle v0.6.2
+2026-10-20T23:26:45.2400175Z [1m[92m   Compiling[0m proc-macro-crate v3.5.0
+2026-10-20T23:26:45.2627859Z [1m[92m   Compiling[0m form_urlencoded v1.2.2
+2026-10-20T23:26:45.5420828Z [1m[92m   Compiling[0m mio v1.2.2
+2026-10-20T23:26:46.5100006Z [1m[92m   Compiling[0m socket2 v0.6.5
+2026-10-20T23:26:47.6221905Z [1m[92m   Compiling[0m allocator-api2 v0.2.21
+2026-10-20T23:26:47.7490216Z [1m[92m   Compiling[0m foldhash v0.2.0
+2026-10-20T23:26:47.9920099Z [1m[92m   Compiling[0m naga v29.0.4
+2026-10-20T23:26:48.1180597Z [1m[92m   Compiling[0m hashbrown v0.16.1
+2026-10-20T23:26:48.5729980Z [1m[92m   Compiling[0m ring v0.17.14
+2026-10-20T23:26:48.7394337Z [1m[92m   Compiling[0m zerofrom-derive v0.1.7
+2026-10-20T23:26:48.9970400Z [1m[92m   Compiling[0m serde_derive v1.0.229
+2026-10-20T23:26:49.0940092Z [1m[92m   Compiling[0m yoke-derive v0.8.2
+2026-10-20T23:26:50.0240143Z [1m[92m   Compiling[0m zerovec-derive v0.11.6
+2026-10-20T23:26:55.5150086Z [1m[92m   Compiling[0m displaydoc v0.2.7
+2026-10-20T23:26:59.3135264Z [1m[92m   Compiling[0m zerocopy-derive v0.8.56
+2026-10-20T23:26:59.3389072Z [1m[92m   Compiling[0m tokio-macros v2.7.2
+2026-10-20T23:27:01.5100871Z [1m[92m   Compiling[0m zerofrom v0.1.8
+2026-10-20T23:27:01.6530279Z [1m[92m   Compiling[0m yoke v0.8.3
+2026-10-20T23:27:01.8669895Z [1m[92m   Compiling[0m zerovec v0.11.8
+2026-10-20T23:27:02.7090066Z [1m[92m   Compiling[0m tinystr v0.8.4
+2026-10-20T23:27:02.9229851Z [1m[92m   Compiling[0m icu_locale_core v2.3.0
+2026-10-20T23:27:03.8731202Z [1m[92m   Compiling[0m potential_utf v0.1.6
+2026-10-20T23:27:04.0250557Z [1m[92m   Compiling[0m zerotrie v0.2.5
+2026-10-20T23:27:04.5010126Z [1m[92m   Compiling[0m icu_provider v2.3.1
+2026-10-20T23:27:05.1420655Z [1m[92m   Compiling[0m icu_collections v2.3.0
+2026-10-20T23:27:05.2730175Z [1m[92m   Compiling[0m zvariant_utils v4.2.0
+2026-10-20T23:27:06.0540043Z [1m[92m   Compiling[0m icu_normalizer v2.3.0
+2026-10-20T23:27:06.5920193Z [1m[92m   Compiling[0m icu_properties v2.3.0
+2026-10-20T23:27:07.6572717Z [1m[92m   Compiling[0m bytemuck_derive v1.12.0
+2026-10-20T23:27:08.8610034Z [1m[92m   Compiling[0m idna_adapter v1.2.2
+2026-10-20T23:27:08.9849896Z [1m[92m   Compiling[0m thiserror-impl v2.0.20
+2026-10-20T23:27:12.6390276Z [1m[92m   Compiling[0m enumflags2_derive v0.7.12
+2026-10-20T23:27:14.9770126Z [1m[92m   Compiling[0m enumflags2 v0.7.12
+2026-10-20T23:27:15.1880157Z [1m[92m   Compiling[0m zvariant_derive v5.15.0
+2026-10-20T23:27:15.3086402Z [1m[92m   Compiling[0m bytemuck v1.25.2
+2026-10-20T23:27:15.6580034Z [1m[92m   Compiling[0m idna v1.1.0
+2026-10-20T23:27:15.9250022Z [1m[92m   Compiling[0m zcheapstr v1.1.0
+2026-10-20T23:27:16.1407945Z [1m[92m   Compiling[0m tokio v1.53.1
+2026-10-20T23:27:16.4835794Z [1m[92m   Compiling[0m futures-macro v0.3.34
+2026-10-20T23:27:18.5610548Z [1m[92m   Compiling[0m async-io v2.6.0
+2026-10-20T23:27:18.6170530Z [1m[92m   Compiling[0m pkg-config v0.3.34
+2026-10-20T23:27:18.7966296Z [1m[92m   Compiling[0m bit-vec v0.9.1
+2026-10-20T23:27:19.1607982Z [1m[92m   Compiling[0m termcolor v1.4.1
+2026-10-20T23:27:19.7191330Z [1m[92m   Compiling[0m unicode-xid v0.2.6
+2026-10-20T23:27:19.8270009Z [1m[92m   Compiling[0m ash v0.38.0+1.3.281
+2026-10-20T23:27:20.0267621Z [1m[92m   Compiling[0m futures-task v0.3.34
+2026-10-20T23:27:20.2101017Z [1m[92m   Compiling[0m async-task v4.7.1
+2026-10-20T23:27:20.4760115Z [1m[92m   Compiling[0m unicode-width v0.2.2
+2026-10-20T23:27:20.6942913Z [1m[92m   Compiling[0m endi v1.1.1
+2026-10-20T23:27:20.7550160Z [1m[92m   Compiling[0m codespan-reporting v0.13.1
+2026-10-20T23:27:20.8910748Z [1m[92m   Compiling[0m wayland-sys v0.31.11
+2026-10-20T23:27:21.1468031Z [1m[92m   Compiling[0m pp-rs v0.2.1
+2026-10-20T23:27:22.0409998Z [1m[92m   Compiling[0m bit-set v0.9.1
+2026-10-20T23:27:22.2260548Z [1m[92m   Compiling[0m futures-util v0.3.34
+2026-10-20T23:27:22.3020380Z [1m[92m   Compiling[0m url v2.5.8
+2026-10-20T23:27:23.4910104Z [1m[92m   Compiling[0m half v2.7.1
+2026-10-20T23:27:25.2870200Z [1m[92m   Compiling[0m tracing-attributes v0.1.31
+2026-10-20T23:27:25.3450138Z [1m[92m   Compiling[0m http v1.5.0
+2026-10-20T23:27:27.7900045Z [1m[92m   Compiling[0m async-channel v2.5.0
+2026-10-20T23:27:28.0400223Z [1m[92m   Compiling[0m polling v3.11.0
+2026-10-20T23:27:28.5020139Z [1m[92m   Compiling[0m tracing-core v0.1.36
+2026-10-20T23:27:29.6840090Z [1m[92m   Compiling[0m spirv v0.4.0+sdk-1.4.341.0
+2026-10-20T23:27:32.5900193Z [1m[92m   Compiling[0m rustc-hash v1.1.0
+2026-10-20T23:27:32.6650448Z [1m[92m   Compiling[0m arrayvec v0.7.8
+2026-10-20T23:27:32.9125738Z [1m[92m   Compiling[0m zeroize v1.9.0
+2026-10-20T23:27:33.0521054Z [1m[92m   Compiling[0m foldhash v0.1.5
+2026-10-20T23:27:33.1440275Z [1m[92m   Compiling[0m hexf-parse v0.2.1
+2026-10-20T23:27:33.1625220Z [1m[92m   Compiling[0m rustls-pki-types v1.15.1
+2026-10-20T23:27:33.3285746Z [1m[92m   Compiling[0m hashbrown v0.15.5
+2026-10-20T23:27:34.2060713Z [1m[92m   Compiling[0m http-body v1.1.0
+2026-10-20T23:27:36.2000151Z [1m[92m   Compiling[0m wgpu-types v29.0.4
+2026-10-20T23:27:37.0569868Z [1m[92m   Compiling[0m tracing v0.1.44
+2026-10-20T23:27:37.4069937Z [1m[92m   Compiling[0m piper v0.2.5
+2026-10-20T23:27:37.7020122Z [1m[92m   Compiling[0m wgpu-hal v29.0.4
+2026-10-20T23:27:38.5320762Z [1m[92m   Compiling[0m dlib v0.5.3
+2026-10-20T23:27:38.6350162Z [1m[92m   Compiling[0m wayland-backend v0.3.17
+2026-10-20T23:27:38.8812745Z [1m[92m   Compiling[0m futures-channel v0.3.34
+2026-10-20T23:27:39.1830066Z [1m[92m   Compiling[0m gpu-descriptor-types v0.2.0
+2026-10-20T23:27:39.5110952Z [1m[92m   Compiling[0m getrandom v0.2.17
+2026-10-20T23:27:40.6610155Z [1m[92m   Compiling[0m untrusted v0.9.0
+2026-10-20T23:27:40.7790127Z [1m[92m   Compiling[0m presser v0.3.1
+2026-10-20T23:27:40.9020044Z [1m[92m   Compiling[0m httparse v1.10.1
+2026-10-20T23:27:47.2350302Z [1m[92m   Compiling[0m gpu-allocator v0.28.0
+2026-10-20T23:27:49.0620652Z [1m[92m   Compiling[0m wgpu-naga-bridge v29.0.4
+2026-10-20T23:27:50.0359979Z [1m[92m   Compiling[0m gpu-descriptor v0.3.2
+2026-10-20T23:27:50.5040486Z [1m[92m   Compiling[0m blocking v1.7.0
+2026-10-20T23:27:51.1090125Z [1m[92m   Compiling[0m getrandom v0.3.4
+2026-10-20T23:27:51.3820563Z [1m[92m   Compiling[0m zvariant v5.15.0
+2026-10-20T23:27:56.5750816Z [1m[92m   Compiling[0m async-lock v3.4.2
+2026-10-20T23:27:57.4780119Z [1m[92m   Compiling[0m ordered-float v5.5.0
+2026-10-20T23:27:57.4981233Z [1m[92m   Compiling[0m quick-xml v0.41.0
+2026-10-20T23:27:57.8600136Z [1m[92m   Compiling[0m renderdoc-sys v1.1.0
+2026-10-20T23:27:58.0190425Z [1m[92m   Compiling[0m wayland-client v0.31.15
+2026-10-20T23:27:58.1929781Z [1m[92m   Compiling[0m downcast-rs v1.2.1
+2026-10-20T23:27:58.2710068Z [1m[92m   Compiling[0m scoped-tls v1.0.1
+2026-10-20T23:27:58.3550034Z [1m[92m   Compiling[0m simd-adler32 v0.3.10
+2026-10-20T23:27:58.7100081Z [1m[92m   Compiling[0m try-lock v0.2.5
+2026-10-20T23:27:58.8139638Z [1m[92m   Compiling[0m rustls v0.23.43
+2026-10-20T23:27:58.9860180Z [1m[92m   Compiling[0m profiling v1.0.18
+2026-10-20T23:27:59.0410492Z [1m[92m   Compiling[0m tower-service v0.3.3
+2026-10-20T23:28:00.3440059Z [1m[92m   Compiling[0m wayland-scanner v0.31.11
+2026-10-20T23:28:07.8520212Z [1m[92m   Compiling[0m want v0.3.1
+2026-10-20T23:28:10.4310083Z [1m[92m   Compiling[0m zbus_names v4.3.4
+2026-10-20T23:28:10.4910021Z [1m[92m   Compiling[0m rand_core v0.9.5
+2026-10-20T23:28:11.9050210Z [1m[92m   Compiling[0m rustls-webpki v0.103.15
+2026-10-20T23:28:12.5310116Z [1m[92m   Compiling[0m async-signal v0.2.14
+2026-10-20T23:28:12.8830338Z [1m[92m   Compiling[0m ppv-lite86 v0.2.21
+2026-10-20T23:28:13.3540154Z [1m[92m   Compiling[0m wgpu-core v29.0.4
+2026-10-20T23:28:14.2060096Z [1m[92m   Compiling[0m adler2 v2.0.1
+2026-10-20T23:28:14.3770144Z [1m[92m   Compiling[0m subtle v2.6.1
+2026-10-20T23:28:14.5360023Z [1m[92m   Compiling[0m litrs v1.0.0
+2026-10-20T23:28:15.1230032Z [1m[92m   Compiling[0m crc32fast v1.5.1
+2026-10-20T23:28:15.9590346Z [1m[92m   Compiling[0m document-features v0.2.12
+2026-10-20T23:28:17.7490115Z [1m[92m   Compiling[0m rand_chacha v0.9.0
+2026-10-20T23:28:18.4716577Z [1m[92m   Compiling[0m async-process v2.5.0
+2026-10-20T23:28:18.5400743Z [1m[92m   Compiling[0m hyper v1.11.1
+2026-10-20T23:28:20.6570007Z [1m[92m   Compiling[0m zbus_macros v5.19.0
+2026-10-20T23:28:28.5700321Z [1m[92m   Compiling[0m wgpu-core-deps-windows-linux-android v29.0.4
+2026-10-20T23:28:28.6330166Z [1m[92m   Compiling[0m async-executor v1.14.0
+2026-10-20T23:28:29.3800158Z [1m[92m   Compiling[0m async-trait v0.1.92
+2026-10-20T23:28:32.1059964Z [1m[92m   Compiling[0m serde_repr v0.1.21
+2026-10-20T23:28:35.2640231Z [1m[92m   Compiling[0m async-recursion v1.1.1
+2026-10-20T23:28:37.9680124Z [1m[92m   Compiling[0m async-broadcast v0.7.2
+2026-10-20T23:28:38.2700284Z [1m[92m   Compiling[0m wgpu v29.0.4
+2026-10-20T23:28:38.7830104Z [1m[92m   Compiling[0m uuid v1.26.0
+2026-10-20T23:28:39.5023823Z [1m[92m   Compiling[0m ordered-stream v0.2.0
+2026-10-20T23:28:39.9040454Z [1m[92m   Compiling[0m sync_wrapper v1.0.2
+2026-10-20T23:28:39.9933030Z [1m[92m   Compiling[0m base64 v0.22.1
+2026-10-20T23:28:40.0135958Z [1m[92m   Compiling[0m serde_json v1.0.151
+2026-10-20T23:28:40.2131918Z [1m[92m   Compiling[0m ipnet v2.12.1
+2026-10-20T23:28:40.2978928Z [1m[92m   Compiling[0m tower-layer v0.3.3
+2026-10-20T23:28:40.5509949Z [1m[92m   Compiling[0m tower v0.5.3
+2026-10-20T23:28:40.6450218Z [1m[92m   Compiling[0m hyper-util v0.1.20
+2026-10-20T23:28:41.7580098Z [1m[92m   Compiling[0m wayland-protocols v0.32.13
+2026-10-20T23:28:43.5599951Z [1m[92m   Compiling[0m tokio-rustls v0.26.4
+2026-10-20T23:28:43.9050699Z [1m[92m   Compiling[0m rand v0.9.5
+2026-10-20T23:28:45.1750120Z [1m[92m   Compiling[0m miniz_oxide v0.9.1
+2026-10-20T23:28:47.2559998Z [1m[92m   Compiling[0m async-fs v2.2.0
+2026-10-20T23:28:48.6520085Z [1m[92m   Compiling[0m async-net v2.0.0
+2026-10-20T23:28:50.0870307Z [1m[92m   Compiling[0m webpki-roots v1.0.9
+2026-10-20T23:28:50.2089820Z [1m[92m   Compiling[0m rfd v0.15.4
+2026-10-20T23:28:50.4594628Z [1m[92m   Compiling[0m static_assertions v1.1.0
+2026-10-20T23:28:50.5169963Z [1m[92m   Compiling[0m option-ext v0.2.0
+2026-10-20T23:28:50.5920038Z [1m[92m   Compiling[0m dirs-sys v0.5.0
+2026-10-20T23:28:51.6300107Z [1m[92m   Compiling[0m zbus v5.19.0
+2026-10-20T23:29:00.6560572Z [1m[92m   Compiling[0m ashpd v0.11.1
+2026-10-20T23:29:03.0090126Z [1m[92m   Compiling[0m serde_urlencoded v0.7.1
+2026-10-20T23:29:03.3280055Z [1m[92m   Compiling[0m hyper-rustls v0.27.9
+2026-10-20T23:29:03.8070506Z [1m[92m   Compiling[0m flate2 v1.1.10
+2026-10-20T23:29:08.1350110Z [1m[92m   Compiling[0m tower-http v0.6.11
+2026-10-20T23:29:08.8930464Z [1m[92m   Compiling[0m miniz_oxide v0.8.9
+2026-10-20T23:29:10.8830993Z [1m[92m   Compiling[0m fdeflate v0.3.7
+2026-10-20T23:29:12.0173317Z [1m[92m   Compiling[0m http-body-util v0.1.5
+2026-10-20T23:29:12.3890116Z [1m[92m   Compiling[0m aho-corasick v1.1.5
+2026-10-20T23:29:16.2990765Z [1m[92m   Compiling[0m zune-core v0.5.3
+2026-10-20T23:29:16.6370740Z [1m[92m   Compiling[0m regex-syntax v0.8.11
+2026-10-20T23:29:20.2970160Z [1m[92m   Compiling[0m pollster v0.4.0
+2026-10-20T23:29:20.4550346Z [1m[92m   Compiling[0m urlencoding v2.1.3
+2026-10-20T23:29:20.6900397Z [1m[92m   Compiling[0m pxfm v0.1.30
+2026-10-20T23:29:24.9740203Z [1m[92m   Compiling[0m strum_macros v0.27.2
+2026-10-20T23:29:25.8280032Z [1m[92m   Compiling[0m moxcms v0.8.1
+2026-10-20T23:29:34.9422627Z [1m[92m   Compiling[0m regex-automata v0.4.18
+2026-10-20T23:29:35.7680210Z [1m[92m   Compiling[0m zune-jpeg v0.5.15
+2026-10-20T23:29:37.9828468Z [1m[92m   Compiling[0m reqwest v0.12.28
+2026-10-20T23:29:38.1167416Z [1m[92m   Compiling[0m png v0.18.1
+2026-10-20T23:29:41.6630605Z [1m[92m   Compiling[0m directories v6.0.0
+2026-10-20T23:29:41.9890008Z [1m[92m   Compiling[0m byteorder-lite v0.1.0
+2026-10-20T23:29:42.3530334Z [1m[92m   Compiling[0m image v0.25.10
+2026-10-20T23:29:48.7850650Z [1m[92m   Compiling[0m fabelgeist-fs v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-fs)
+2026-10-20T23:29:50.0260441Z [1m[92m   Compiling[0m strum v0.27.2
+2026-10-20T23:29:50.1350121Z [1m[92m   Compiling[0m regex v1.13.1
+2026-10-20T23:29:51.2080404Z [1m[92m   Compiling[0m fabelgeist-math v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-math)
+2026-10-20T23:29:51.8421316Z [1m[92m   Compiling[0m fabelgeist-color v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-color)
+2026-10-20T23:29:52.7661279Z [1m[92m   Compiling[0m fabelgeist-timer v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-timer)
+2026-10-20T23:29:58.3365310Z [1m[92m   Compiling[0m fabelgeist-gpu v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-gpu)
+2026-10-20T23:29:59.8364490Z [1m[92m    Finished[0m `test` profile [optimized] target(s) in 3m 43s
+2026-10-20T23:29:59.8580049Z [1m[92m     Running[0m unittests src/lib.rs (target/debug/deps/fabelgeist_gpu-517bace026343db8)
+2026-10-20T23:29:59.8596057Z 
+2026-10-20T23:29:59.8596226Z running 3 tests
+2026-10-20T23:29:59.8600146Z test data::gpu::buffer::readback::tests::readback_excludes_gpu_allocation_padding ... ok
+2026-10-20T23:29:59.8601281Z test data::gpu::buffer::readback::tests::readback_copies_unaligned_bytes_and_preserves_bits ... ok
+2026-10-20T23:29:59.8602391Z test data::gpu::buffer::readback::tests::readback_rejects_partial_and_zero_sized_elements ... ok
+2026-10-20T23:29:59.8603008Z 
+2026-10-20T23:29:59.8603422Z test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 10 filtered out; finished in 0.00s
+2026-10-20T23:29:59.8603808Z 
+2026-10-20T23:29:59.8825283Z ##[group]Run cargo test --locked --package fabelgeist-rust-quality --test bevy_version_guard
+2026-10-20T23:29:59.8825964Z [36;1mcargo test --locked --package fabelgeist-rust-quality --test bevy_version_guard[0m
+2026-10-20T23:29:59.8876377Z shell: /usr/bin/bash -e {0}
+2026-10-20T23:29:59.8876626Z env:
+2026-10-20T23:29:59.8876820Z   CARGO_TERM_COLOR: always
+2026-10-20T23:29:59.8877065Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-20T23:29:59.8877324Z   CARGO_HOME: /home/runner/.cargo
+2026-10-20T23:29:59.8877572Z   CARGO_INCREMENTAL: 0
+2026-10-20T23:29:59.8877795Z   CACHE_ON_FAILURE: false
+2026-10-20T23:29:59.8878013Z ##[endgroup]
+2026-10-20T23:30:00.1514929Z [1m[92m Downloading[0m crates ...
+2026-10-20T23:30:00.3111534Z [1m[92m  Downloaded[0m toml_datetime v0.7.5+spec-1.1.0
+2026-10-20T23:30:00.3129224Z [1m[92m  Downloaded[0m same-file v1.0.6
+2026-10-20T23:30:00.3167529Z [1m[92m  Downloaded[0m serde_spanned v1.1.1
+2026-10-20T23:30:00.3181600Z [1m[92m  Downloaded[0m toml_writer v1.1.2+spec-1.1.0
+2026-10-20T23:30:00.3195098Z [1m[92m  Downloaded[0m walkdir v2.5.0
+2026-10-20T23:30:00.3250194Z [1m[92m  Downloaded[0m winnow v0.7.15
+2026-10-20T23:30:00.3314008Z [1m[92m  Downloaded[0m toml v0.9.12+spec-1.1.0
+2026-10-20T23:30:00.3456965Z [1m[92m   Compiling[0m proc-macro2 v1.0.107
+2026-10-20T23:30:00.3457659Z [1m[92m   Compiling[0m aho-corasick v1.1.5
+2026-10-20T23:30:00.3460721Z [1m[92m   Compiling[0m syn v3.0.4
+2026-10-20T23:30:00.3599376Z [1m[92m   Compiling[0m winnow v1.0.4
+2026-10-20T23:30:00.9719695Z [1m[92m   Compiling[0m toml_parser v1.1.3+spec-1.1.0
+2026-10-20T23:30:02.6720143Z [1m[92m   Compiling[0m regex-automata v0.4.18
+2026-10-20T23:30:04.1740502Z [1m[92m   Compiling[0m quote v1.0.47
+2026-10-20T23:30:04.8161216Z [1m[92m   Compiling[0m serde_spanned v1.1.1
+2026-10-20T23:30:04.9530252Z [1m[92m   Compiling[0m toml_datetime v0.7.5+spec-1.1.0
+2026-10-20T23:30:05.4380094Z [1m[92m   Compiling[0m winnow v0.7.15
+2026-10-20T23:30:07.8260699Z [1m[92m   Compiling[0m same-file v1.0.6
+2026-10-20T23:30:08.0100469Z [1m[92m   Compiling[0m toml_writer v1.1.2+spec-1.1.0
+2026-10-20T23:30:08.2910133Z [1m[92m   Compiling[0m toml v0.9.12+spec-1.1.0
+2026-10-20T23:30:08.4531104Z [1m[92m   Compiling[0m walkdir v2.5.0
+2026-10-20T23:30:09.3490051Z [1m[92m   Compiling[0m regex v1.13.1
+2026-10-20T23:30:10.4239962Z [1m[92m   Compiling[0m syn v2.0.119
+2026-10-20T23:30:13.7031439Z [1m[92m   Compiling[0m semver v1.0.28
+2026-10-20T23:30:14.6959363Z [1m[92m   Compiling[0m serde_derive v1.0.229
+2026-10-20T23:30:15.6930005Z [1m[92m   Compiling[0m thiserror-impl v2.0.20
+2026-10-20T23:30:22.9970340Z [1m[92m   Compiling[0m thiserror v2.0.20
+2026-10-20T23:30:26.4646253Z [1m[92m   Compiling[0m serde v1.0.229
+2026-10-20T23:30:26.8039645Z [1m[92m   Compiling[0m fabelgeist-rust-quality v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-rust-quality)
+2026-10-20T23:30:35.3069992Z [1m[92m    Finished[0m `test` profile [optimized] target(s) in 35.38s
+2026-10-20T23:30:35.3181210Z [1m[92m     Running[0m ../adventuresim-tactical-client/build.rs (target/debug/deps/bevy_version_guard-186e08aeb22d8165)
+2026-10-20T23:30:35.3193519Z 
+2026-10-20T23:30:35.3193712Z running 8 tests
+2026-10-20T23:30:35.3197490Z test tests::duplicates_take_precedence_over_invalid_versions ... ok
+2026-10-20T23:30:35.3198374Z test tests::invalid_selected_version_retains_its_parse_source_and_context ... ok
+2026-10-20T23:30:35.3199434Z test tests::missing_engine_has_a_structured_actionable_error ... ok
+2026-10-20T23:30:35.3200139Z test tests::malformed_wire_fields_remain_string_only ... ok
+2026-10-20T23:30:35.3200653Z test tests::selected_version_keeps_prerelease_and_build_components ... ok
+2026-10-20T23:30:35.3201294Z test tests::only_exact_bevy_names_select_the_engine ... ok
+2026-10-20T23:30:35.3201906Z test tests::selected_versions_keep_the_backport ... ok
+2026-10-20T23:30:35.3202346Z test tests::stable_fix_versions_require_removal_with_the_selected_version ... ok
+2026-10-20T23:30:35.3202976Z 
+2026-10-20T23:30:35.3203244Z test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-20T23:30:35.3203583Z 
+2026-10-20T23:30:35.3402898Z ##[group]Run cargo test --locked --package fabelgeist-fbx --lib array_encoding_tests::array_encoding_preserves_actual_main_payload_and_error_behavior -- --exact --nocapture
+2026-10-20T23:30:35.3404127Z [36;1mcargo test --locked --package fabelgeist-fbx --lib array_encoding_tests::array_encoding_preserves_actual_main_payload_and_error_behavior -- --exact --nocapture[0m
+2026-10-20T23:30:35.3454688Z shell: /usr/bin/bash -e {0}
+2026-10-20T23:30:35.3454935Z env:
+2026-10-20T23:30:35.3455130Z   CARGO_TERM_COLOR: always
+2026-10-20T23:30:35.3455383Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-20T23:30:35.3455632Z   CARGO_HOME: /home/runner/.cargo
+2026-10-20T23:30:35.3455874Z   CARGO_INCREMENTAL: 0
+2026-10-20T23:30:35.3456093Z   CACHE_ON_FAILURE: false
+2026-10-20T23:30:35.3456311Z ##[endgroup]
+2026-10-20T23:30:35.6130086Z [1m[92m Downloading[0m crates ...
+2026-10-20T23:30:35.8300777Z [1m[92m  Downloaded[0m num_enum v0.7.6
+2026-10-20T23:30:35.8371237Z [1m[92m  Downloaded[0m unicode-segmentation v1.13.3
+2026-10-20T23:30:35.8399577Z [1m[92m  Downloaded[0m derive_more-impl v2.1.1
+2026-10-20T23:30:35.8450349Z [1m[92m  Downloaded[0m num_enum_derive v0.7.6
+2026-10-20T23:30:35.8462115Z [1m[92m  Downloaded[0m derive_more v2.1.1
+2026-10-20T23:30:35.8585077Z [1m[92m  Downloaded[0m convert_case v0.10.0
+2026-10-20T23:30:35.8707565Z [1m[92m   Compiling[0m unicode-segmentation v1.13.3
+2026-10-20T23:30:35.8708427Z [1m[92m   Compiling[0m syn v2.0.119
+2026-10-20T23:30:35.8709445Z [1m[92m   Compiling[0m crc32fast v1.5.1
+2026-10-20T23:30:35.8864045Z [1m[92m   Compiling[0m simd-adler32 v0.3.10
+2026-10-20T23:30:36.3272855Z [1m[92m   Compiling[0m convert_case v0.10.0
+2026-10-20T23:30:36.5789860Z [1m[92m   Compiling[0m miniz_oxide v0.9.1
+2026-10-20T23:30:36.7900030Z [1m[92m   Compiling[0m serde v1.0.229
+2026-10-20T23:30:37.4720033Z [1m[92m   Compiling[0m flate2 v1.1.10
+2026-10-20T23:30:41.7009559Z [1m[92m   Compiling[0m strum_macros v0.27.2
+2026-10-20T23:30:41.7010314Z [1m[92m   Compiling[0m derive_more-impl v2.1.1
+2026-10-20T23:30:41.7011275Z [1m[92m   Compiling[0m num_enum_derive v0.7.6
+2026-10-20T23:30:44.9647654Z [1m[92m   Compiling[0m num_enum v0.7.6
+2026-10-20T23:30:48.9239993Z [1m[92m   Compiling[0m strum v0.27.2
+2026-10-20T23:30:51.0859111Z [1m[92m   Compiling[0m derive_more v2.1.1
+2026-10-20T23:30:51.1473598Z [1m[92m   Compiling[0m fabelgeist-rig v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-rig)
+2026-10-20T23:30:51.3807205Z [1m[92m   Compiling[0m fabelgeist-fbx v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-fbx)
+2026-10-20T23:30:51.9546692Z [1m[92m    Finished[0m `test` profile [optimized] target(s) in 16.57s
+2026-10-20T23:30:51.9652266Z [1m[92m     Running[0m unittests src/lib.rs (target/debug/deps/fabelgeist_fbx-356ce801c494b95b)
+2026-10-20T23:30:51.9667725Z 
+2026-10-20T23:30:51.9668185Z running 1 test
+2026-10-20T23:30:51.9735136Z test array_encoding_tests::array_encoding_preserves_actual_main_payload_and_error_behavior ... ok
+2026-10-20T23:30:51.9735916Z 
+2026-10-20T23:30:51.9736371Z test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.01s
+2026-10-20T23:30:51.9736769Z 
+2026-10-20T23:30:51.9935139Z ##[group]Run cargo test --locked --package fabelgeist-fbx
+2026-10-20T23:30:51.9935581Z [36;1mcargo test --locked --package fabelgeist-fbx[0m
+2026-10-20T23:30:51.9984790Z shell: /usr/bin/bash -e {0}
+2026-10-20T23:30:51.9985033Z env:
+2026-10-20T23:30:51.9985227Z   CARGO_TERM_COLOR: always
+2026-10-20T23:30:51.9985478Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-20T23:30:51.9985725Z   CARGO_HOME: /home/runner/.cargo
+2026-10-20T23:30:51.9985973Z   CARGO_INCREMENTAL: 0
+2026-10-20T23:30:51.9986195Z   CACHE_ON_FAILURE: false
+2026-10-20T23:30:51.9986433Z ##[endgroup]
+2026-10-20T23:30:52.2698204Z [1m[92m   Compiling[0m fabelgeist-fbx v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-fbx)
+2026-10-20T23:30:52.9639179Z [1m[92m    Finished[0m `test` profile [optimized] target(s) in 0.92s
+2026-10-20T23:30:52.9749612Z [1m[92m     Running[0m unittests src/lib.rs (target/debug/deps/fabelgeist_fbx-356ce801c494b95b)
+2026-10-20T23:30:52.9764150Z 
+2026-10-20T23:30:52.9764419Z running 2 tests
+2026-10-20T23:30:52.9766447Z test animation::tests::scalar_channels_interpolate_at_small_and_large_time_scales ... ok
+2026-10-20T23:30:52.9831785Z test array_encoding_tests::array_encoding_preserves_actual_main_payload_and_error_behavior ... ok
+2026-10-20T23:30:52.9832624Z 
+2026-10-20T23:30:52.9833100Z test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+2026-10-20T23:30:52.9833746Z 
+2026-10-20T23:30:52.9837353Z [1m[92m   Doc-tests[0m fabelgeist_fbx
+2026-10-20T23:30:53.0120166Z 
+2026-10-20T23:30:53.0120601Z running 0 tests
+2026-10-20T23:30:53.0120853Z 
+2026-10-20T23:30:53.0121139Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-20T23:30:53.0121498Z 
+2026-10-20T23:30:53.0350661Z ##[group]Run cargo test --package fabelgeist-rust-quality
+2026-10-20T23:30:53.0351148Z [36;1mcargo test --package fabelgeist-rust-quality[0m
+2026-10-20T23:30:53.0351576Z [36;1mcargo run --package fabelgeist-rust-quality -- check .[0m
+2026-10-20T23:30:53.0402498Z shell: /usr/bin/bash -e {0}
+2026-10-20T23:30:53.0402753Z env:
+2026-10-20T23:30:53.0402979Z   CARGO_TERM_COLOR: always
+2026-10-20T23:30:53.0403230Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-20T23:30:53.0403480Z   CARGO_HOME: /home/runner/.cargo
+2026-10-20T23:30:53.0403763Z   CARGO_INCREMENTAL: 0
+2026-10-20T23:30:53.0403974Z   CACHE_ON_FAILURE: false
+2026-10-20T23:30:53.0404191Z ##[endgroup]
+2026-10-20T23:30:53.2900663Z [1m[92m   Compiling[0m fabelgeist-rust-quality v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-rust-quality)
+2026-10-20T23:31:01.4683778Z [1m[92m    Finished[0m `test` profile [optimized] target(s) in 8.39s
+2026-10-20T23:31:01.4791605Z [1m[92m     Running[0m unittests src/main.rs (target/debug/deps/fabelgeist_rust_quality-1d4f80d5520b9204)
+2026-10-20T23:31:01.4805520Z 
+2026-10-20T23:31:01.4806047Z running 41 tests
+2026-10-20T23:31:01.4830555Z test analyze::tests::debt_can_shrink_but_cannot_grow_past_its_ceiling ... ok
+2026-10-20T23:31:01.4831722Z test analyze::tests::epsilon_provenance_crosses_reexports_test_files_and_macro_definitions ... ok
+2026-10-20T23:31:01.4837969Z test analyze::tests::machine_precision_requires_exact_audited_exceptions ... ok
+2026-10-20T23:31:01.4841740Z test analyze::tests::included_production_and_test_fragments_keep_exact_exception_locations ... ok
+2026-10-20T23:31:01.4843078Z test analyze::tests::precision_scan_includes_test_files_without_changing_production_metrics ... ok
+2026-10-20T23:31:01.4844167Z test analyze::tests::stale_exceptions_fail ... ok
+2026-10-20T23:31:01.4844880Z test analyze::tests::standalone_build_outputs_are_excluded ... ok
+2026-10-20T23:31:01.4845880Z test analyze::tests::independent_crates_and_modules_with_matching_names_need_no_exception ... ok
+2026-10-20T23:31:01.4846815Z test analyze::tests::test_files_are_not_production ... ok
+2026-10-20T23:31:01.4847627Z test calendar_flow::tests::accepts_owned_operations_and_plain_durations ... ok
+2026-10-20T23:31:01.4849887Z test float_epsilon::imports::tests::a_shared_fragment_is_resolved_in_every_caller_and_reported_once ... ok
+2026-10-20T23:31:01.4852153Z test calendar_flow::tests::rejects_unwrapped_calendar_arithmetic ... ok
+2026-10-20T23:31:01.4853300Z test float_epsilon::imports::tests::cyclic_globs_terminate_without_hiding_resolvable_names ... ok
+2026-10-20T23:31:01.4854751Z test float_epsilon::imports::tests::blocks_and_macro_bodies_shadow_names_without_leaking ... ok
+2026-10-20T23:31:01.4856302Z test float_epsilon::imports::tests::explicit_crate_aliases_and_same_name_prelude_imports_resolve ... ok
+2026-10-20T23:31:01.4859567Z test float_epsilon::imports::tests::included_bindings_stay_in_their_module_block_and_crate ... ok
+2026-10-20T23:31:01.4865895Z test float_epsilon::imports::tests::binary_and_integration_test_roots_do_not_inherit_library_bindings ... ok
+2026-10-20T23:31:01.4867123Z test float_epsilon::imports::tests::literal_fragments_share_aliases_with_the_including_module ... ok
+2026-10-20T23:31:01.4869275Z test float_epsilon::imports::tests::module_files_and_explicit_paths_use_their_own_child_directories ... ok
+2026-10-20T23:31:01.4870807Z test float_epsilon::imports::tests::macro_bodies_follow_literal_includes_in_their_own_scope ... ok
+2026-10-20T23:31:01.4872315Z test float_epsilon::imports::tests::nested_fragments_and_their_modules_resolve_from_the_fragment_source ... ok
+2026-10-20T23:31:01.4873534Z test float_epsilon::imports::tests::qualified_reexports_and_module_globs_keep_their_provenance ... ok
+2026-10-20T23:31:01.4874637Z test analyze::tests::cargo_target_paths_and_dependency_renames_preserve_import_identity ... ok
+2026-10-20T23:31:01.4875756Z test float_epsilon::imports::tests::recursive_includes_terminate_without_hiding_inherited_aliases ... ok
+2026-10-20T23:31:01.4877214Z test float_epsilon::imports::tests::restricted_aliases_follow_module_and_crate_visibility ... ok
+2026-10-20T23:31:01.4878397Z test float_epsilon::imports::tests::text_custom_and_nonliteral_macros_do_not_inherit_include_semantics ... ok
+2026-10-20T23:31:01.4879803Z test float_epsilon::imports::tests::unrelated_crates_can_bind_the_same_terminal_name ... ok
+2026-10-20T23:31:01.4880909Z test float_epsilon::imports::tests::value_namespace_items_do_not_shadow_imported_modules ... ok
+2026-10-20T23:31:01.4881936Z test float_epsilon::imports::tests::unrelated_modules_do_not_share_private_aliases ... ok
+2026-10-20T23:31:01.4882929Z test float_epsilon::tests::ignores_comments_strings_and_adjacent_float_boundaries ... ok
+2026-10-20T23:31:01.4883875Z test float_epsilon::tests::covers_tests_macros_qualified_paths_and_aliases ... ok
+2026-10-20T23:31:01.4884705Z test float_epsilon::tests::checks_imports_in_macro_definitions_and_assertion_arguments ... ok
+2026-10-20T23:31:01.4885288Z test float_epsilon::tests::macro_import_occurrences_count_source_identifiers_once ... ok
+2026-10-20T23:31:01.4885946Z test float_epsilon::tests::rejects_float_globs_before_bare_expressions_and_assertions_can_hide_epsilon ... ok
+2026-10-20T23:31:01.4886880Z test float_epsilon::tests::precision_constants_have_exact_associated_owners ... ok
+2026-10-20T23:31:01.4887361Z test scan::tests::path_prefixes_are_explicit ... ok
+2026-10-20T23:31:01.4890107Z test float_epsilon::tests::rejects_globs_through_grouped_and_chained_float_module_aliases ... ok
+2026-10-20T23:31:01.4893774Z test scan::tests::raw_strings_and_debug_derived_locals_cannot_drive_branches ... ok
+2026-10-20T23:31:01.4894701Z test scan::tests::tests_are_excluded_from_metrics_and_semantics ... ok
+2026-10-20T23:31:01.4895594Z test manifests::tests::checks_workspace_and_standalone_lint_policy ... ok
+2026-10-20T23:31:01.4896162Z test scan::tests::semantic_context_does_not_ban_ordinary_values ... ok
+2026-10-20T23:31:01.4896441Z 
+2026-10-20T23:31:01.4896707Z test result: ok. 41 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+2026-10-20T23:31:01.4897054Z 
+2026-10-20T23:31:01.4901225Z [1m[92m     Running[0m ../adventuresim-tactical-client/build.rs (target/debug/deps/bevy_version_guard-186e08aeb22d8165)
+2026-10-20T23:31:01.4914772Z 
+2026-10-20T23:31:01.4915066Z running 8 tests
+2026-10-20T23:31:01.4920444Z test tests::invalid_selected_version_retains_its_parse_source_and_context ... ok
+2026-10-20T23:31:01.4921394Z test tests::duplicates_take_precedence_over_invalid_versions ... ok
+2026-10-20T23:31:01.4922183Z test tests::missing_engine_has_a_structured_actionable_error ... ok
+2026-10-20T23:31:01.4922909Z test tests::malformed_wire_fields_remain_string_only ... ok
+2026-10-20T23:31:01.4923686Z test tests::only_exact_bevy_names_select_the_engine ... ok
+2026-10-20T23:31:01.4924439Z test tests::selected_version_keeps_prerelease_and_build_components ... ok
+2026-10-20T23:31:01.4925092Z test tests::selected_versions_keep_the_backport ... ok
+2026-10-20T23:31:01.4925570Z test tests::stable_fix_versions_require_removal_with_the_selected_version ... ok
+2026-10-20T23:31:01.4925893Z 
+2026-10-20T23:31:01.4926140Z test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-20T23:31:01.4926476Z 
+2026-10-20T23:31:01.7471439Z [1m[92m   Compiling[0m proc-macro2 v1.0.107
+2026-10-20T23:31:01.7472315Z [1m[92m   Compiling[0m quote v1.0.47
+2026-10-20T23:31:02.5921597Z [1m[92m   Compiling[0m syn v3.0.4
+2026-10-20T23:31:06.9381955Z [1m[92m   Compiling[0m serde_derive v1.0.229
+2026-10-20T23:31:10.8724841Z [1m[92m   Compiling[0m serde v1.0.229
+2026-10-20T23:31:11.2129406Z [1m[92m   Compiling[0m fabelgeist-rust-quality v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-rust-quality)
+2026-10-20T23:31:19.5082893Z [1m[92m    Finished[0m `dev` profile [optimized] target(s) in 17.97s
+2026-10-20T23:31:19.5210261Z [1m[92m     Running[0m `target/debug/fabelgeist-rust-quality check .`
+2026-10-20T23:31:27.1712838Z crates/adventuresim-tactical-client/src/animation/diagnostics.rs::log_animation_diagnostics@cfg(not(target_family="wasm")): function grew to 141 lines above its 140-line ceiling
+2026-10-20T23:31:27.1714651Z crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs: production file grew to 2718 lines above its 2717-line ceiling
+2026-10-20T23:31:27.1715820Z crates/adventuresim-tactical-client/src/animation_viewer/capture.rs: production file grew to 893 lines above its 884-line ceiling
+2026-10-20T23:31:27.1716828Z crates/adventuresim-tactical-client/src/animation_viewer/capture.rs::drive_sequence: function grew to 274 lines above its 269-line ceiling
+2026-10-20T23:31:27.1717823Z crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass.rs: production file grew to 712 lines above its 708-line ceiling
+2026-10-20T23:31:27.1719123Z crates/adventuresim-tactical-client/src/strategic_scene/status.rs::update_status: new function debt is 101 lines (limit 100)
+2026-10-20T23:31:27.1720181Z crates/adventuresim-tactical-server-dispatcher/examples/inspect-city-grounding.rs::Inspection::terrace_comparison: new function debt is 101 lines (limit 100)
+2026-10-20T23:31:27.1721630Z rust-quality-baseline.toml: crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts.rs is now below the file limit; remove its debt entry
+2026-10-20T23:31:27.1722853Z rust-quality-baseline.toml: crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter.rs is now below the file limit; remove its debt entry
+2026-10-20T23:31:27.1723926Z rust-quality-baseline.toml: crates/adventuresim-tactical-core/src/scene_input.rs is now below the file limit; remove its debt entry
+2026-10-20T23:31:27.1724646Z semantic-value census: 1855 repeated candidate(s), advisory only
+2026-10-20T23:31:27.1725583Z   "2": 3558 occurrence(s) (crates/fabelgeist-gpu/src/globals/wgpu_context/blitter.rs:125, crates/fabelgeist-gpu/src/globals/wgpu_context/blitter.rs:288, crates/fabelgeist-mesh/src/wireframe.rs:35)
+2026-10-20T23:31:27.1726772Z   "0.5": 2666 occurrence(s) (crates/fabelgeist-mesh/src/gpu.rs:51, crates/fabelgeist-mesh/src/gpu.rs:52, crates/fabelgeist-mesh/src/gpu.rs:267)
+2026-10-20T23:31:27.1727843Z   "3": 2244 occurrence(s) (crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs:56, crates/fabelgeist-mesh/src/wireframe.rs:45, crates/fabelgeist-mesh/src/wireframe.rs:113)
+2026-10-20T23:31:27.1729299Z   "4": 1398 occurrence(s) (crates/fabelgeist-gpu/src/globals/wgpu_context/blitter.rs:257, crates/fabelgeist-gpu/src/globals/wgpu_context/blitter.rs:313, crates/fabelgeist-mesh/src/data.rs:43)
+2026-10-20T23:31:27.1730367Z   "2.0": 1309 occurrence(s) (crates/fabelgeist-mesh/src/gpu.rs:51, crates/fabelgeist-mesh/src/gpu.rs:52, crates/fabelgeist-mesh/src/gpu.rs:427)
+2026-10-20T23:31:27.1731407Z   "8": 705 occurrence(s) (crates/adventuresim-puzzles/src/ordered_sigils.rs:40, crates/adventuresim-puzzles/src/puzzles.rs:627, crates/adventuresim-texture-studio/src/document.rs:75)
+2026-10-20T23:31:27.1732524Z   "5": 573 occurrence(s) (crates/adventuresim-puzzles/src/analysis.rs:72, crates/adventuresim-puzzles/src/analysis.rs:193, crates/adventuresim-puzzles/src/lib.rs:4)
+2026-10-20T23:31:27.1733607Z   "6": 525 occurrence(s) (crates/fabelgeist-mesh/src/gpu.rs:44, crates/adventuresim-puzzles/src/logic_grid.rs:30, crates/adventuresim-puzzles/src/resource_allocation.rs:22)
+2026-10-20T23:31:27.1734780Z   "7": 386 occurrence(s) (crates/adventuresim-puzzles/src/resource_allocation.rs:55, crates/adventuresim-puzzles/src/resource_allocation.rs:124, crates/adventuresim-core/src/disease.rs:1032)
+2026-10-20T23:31:27.1735936Z   "9": 379 occurrence(s) (crates/adventuresim-puzzles/src/analysis.rs:108, crates/adventuresim-core/src/disease.rs:1886, crates/adventuresim-core/src/local_problem.rs:237)
+2026-10-20T23:31:27.1737046Z   "10": 357 occurrence(s) (crates/fabelgeist-animation/src/skeleton/auto_rigger.rs:53, crates/adventuresim-core/src/disease.rs:1052, crates/adventuresim-core/src/disease.rs:1942)
+2026-10-20T23:31:27.1738325Z   "3.0": 339 occurrence(s) (crates/fabelgeist-mesh/src/gpu.rs:428, crates/fabelgeist-animation/src/skeleton/auto_rigger.rs:257, crates/adventuresim-texture-studio/src/document.rs:189)
+2026-10-20T23:31:27.1739676Z   "60": 337 occurrence(s) (crates/adventuresim-core/src/disease.rs:1217, crates/adventuresim-core/src/disease.rs:1241, crates/adventuresim-core/src/disease.rs:1242)
+2026-10-20T23:31:27.1740760Z   "12": 295 occurrence(s) (crates/fabelgeist-mesh/src/gpu.rs:238, crates/adventuresim-puzzles/src/logic_grid.rs:43, crates/adventuresim-texture-studio/src/scene/geometry.rs:11)
+2026-10-20T23:31:27.1742026Z   "0.08": 291 occurrence(s) (crates/fabelgeist-animation/src/skeleton/auto_rigger.rs:145, crates/adventuresim-texture-studio/src/scene/geometry.rs:10, crates/adventuresim-texture-studio/src/scene/environment.rs:28)
+2026-10-20T23:31:27.1743294Z   "0.01": 278 occurrence(s) (crates/adventuresim-texture-studio/src/document.rs:181, crates/adventuresim-core/src/survival.rs:21, crates/adventuresim-core/src/durability.rs:261)
+2026-10-20T23:31:27.1744583Z   "0.001": 266 occurrence(s) (crates/adventuresim-character-creator/src/outfit.rs:11, crates/adventuresim-procedural-textures/src/leaf/profile.rs:65, crates/adventuresim-procedural-textures/src/leaf/profile.rs:162)
+2026-10-20T23:31:27.1746046Z   "0.25": 261 occurrence(s) (crates/fabelgeist-animation/src/animation/mod.rs:104, crates/fabelgeist-animation/src/animation/mod.rs:107, crates/fabelgeist-animation/src/animation/mod.rs:110)
+2026-10-20T23:31:27.1747226Z   "11": 250 occurrence(s) (crates/adventuresim-core/src/strategic_economy.rs:9, crates/adventuresim-core/src/physiology.rs:610, crates/adventuresim-core/src/physiology.rs:733)
+2026-10-20T23:31:27.1748312Z   "16": 221 occurrence(s) (crates/fabelgeist-mesh/src/data.rs:17, crates/adventuresim-core/src/disease.rs:1890, crates/adventuresim-core/src/item_catalog_surface.rs:19)
+2026-10-20T23:31:27.1749218Z   ... run the census subcommand for all candidates
+2026-10-20T23:31:27.2834694Z ##[error]Process completed with exit code 1.
+2026-10-20T23:31:27.2943369Z ##[group]Run actions/upload-artifact@v7
+2026-10-20T23:31:27.2943675Z with:
+2026-10-20T23:31:27.2943897Z   name: constraint-validation-39514318905-1
+2026-10-20T23:31:27.2944220Z   path: target/constraint-validation/
+2026-10-20T23:31:27.2944492Z   if-no-files-found: error
+2026-10-20T23:31:27.2944725Z   compression-level: 6
+2026-10-20T23:31:27.2944937Z   overwrite: false
+2026-10-20T23:31:27.2945148Z   include-hidden-files: false
+2026-10-20T23:31:27.2945373Z   archive: true
+2026-10-20T23:31:27.2945557Z env:
+2026-10-20T23:31:27.2945736Z   CARGO_TERM_COLOR: always
+2026-10-20T23:31:27.2945963Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-20T23:31:27.2946208Z   CARGO_HOME: /home/runner/.cargo
+2026-10-20T23:31:27.2946454Z   CARGO_INCREMENTAL: 0
+2026-10-20T23:31:27.2946663Z   CACHE_ON_FAILURE: false
+2026-10-20T23:31:27.2946879Z ##[endgroup]
+2026-10-20T23:31:27.4440014Z ##[error]No files were found with the provided path: target/constraint-validation/. No artifacts will be uploaded.
+2026-10-20T23:31:27.4654246Z ##[group]Run actions/upload-artifact@v4
+2026-10-20T23:31:27.4654573Z with:
+2026-10-20T23:31:27.4654858Z   name: rig-contracts-3216f21d76ce802c55b96b1bebdac9b183c50e7e
+2026-10-20T23:31:27.4655236Z   path: target/rig-contracts/
+2026-10-20T23:31:27.4655483Z   if-no-files-found: warn
+2026-10-20T23:31:27.4655711Z   compression-level: 6
+2026-10-20T23:31:27.4655922Z   overwrite: false
+2026-10-20T23:31:27.4656131Z   include-hidden-files: false
+2026-10-20T23:31:27.4656351Z env:
+2026-10-20T23:31:27.4656532Z   CARGO_TERM_COLOR: always
+2026-10-20T23:31:27.4656770Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-20T23:31:27.4657153Z   CARGO_HOME: /home/runner/.cargo
+2026-10-20T23:31:27.4657583Z   CARGO_INCREMENTAL: 0
+2026-10-20T23:31:27.4657935Z   CACHE_ON_FAILURE: false
+2026-10-20T23:31:27.4658284Z ##[endgroup]
+2026-10-20T23:31:27.6394854Z (node:15528) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-20T23:31:27.6396222Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-20T23:31:27.6416780Z ##[warning]No files were found with the provided path: target/rig-contracts/. No artifacts will be uploaded.
+2026-10-20T23:31:27.6669712Z Post job cleanup.
+2026-10-20T23:31:27.7616811Z [command]/usr/bin/git version
+2026-10-20T23:31:27.7666937Z git version 2.55.0
+2026-10-20T23:31:27.7705330Z Temporarily overriding HOME='/home/runner/work/_temp/8f7980cc-62c2-47f8-bde9-e6ea6ec287d2' before making global git config changes
+2026-10-20T23:31:27.7706588Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-20T23:31:27.7712113Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/fabelgeist/fabelgeist
+2026-10-20T23:31:27.7748240Z Removing SSH command configuration
+2026-10-20T23:31:27.7755175Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-20T23:31:27.7796124Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-20T23:31:27.8143785Z Removing HTTP extra header
+2026-10-20T23:31:27.8151630Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-20T23:31:27.8235640Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-20T23:31:27.8521127Z Removing includeIf entries pointing to credentials config files
+2026-10-20T23:31:27.8529079Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-20T23:31:27.8571103Z includeif.gitdir:/home/runner/work/fabelgeist/fabelgeist/.git.path
+2026-10-20T23:31:27.8572346Z includeif.gitdir:/home/runner/work/fabelgeist/fabelgeist/.git/worktrees/*.path
+2026-10-20T23:31:27.8573416Z includeif.gitdir:/github/workspace/.git.path
+2026-10-20T23:31:27.8574306Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-20T23:31:27.8581668Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/fabelgeist/fabelgeist/.git.path
+2026-10-20T23:31:27.8617360Z /home/runner/work/_temp/git-credentials-16a5aa3b-ee1f-4b27-887f-f2b822d5d271.config
+2026-10-20T23:31:27.8657801Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/fabelgeist/fabelgeist/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-16a5aa3b\-ee1f\-4b27\-887f\-f2b822d5d271\.config
+2026-10-20T23:31:27.8700703Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/fabelgeist/fabelgeist/.git/worktrees/*.path
+2026-10-20T23:31:27.8740421Z /home/runner/work/_temp/git-credentials-16a5aa3b-ee1f-4b27-887f-f2b822d5d271.config
+2026-10-20T23:31:27.8751175Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/fabelgeist/fabelgeist/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-16a5aa3b\-ee1f\-4b27\-887f\-f2b822d5d271\.config
+2026-10-20T23:31:27.8814010Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-10-20T23:31:27.8835966Z /github/runner_temp/git-credentials-16a5aa3b-ee1f-4b27-887f-f2b822d5d271.config
+2026-10-20T23:31:27.8850820Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-16a5aa3b\-ee1f\-4b27\-887f\-f2b822d5d271\.config
+2026-10-20T23:31:27.8893083Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-20T23:31:27.8927512Z /github/runner_temp/git-credentials-16a5aa3b-ee1f-4b27-887f-f2b822d5d271.config
+2026-10-20T23:31:27.8938044Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-16a5aa3b\-ee1f\-4b27\-887f\-f2b822d5d271\.config
+2026-10-20T23:31:27.9001064Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-20T23:31:27.9271040Z Removing credentials config '/home/runner/work/_temp/git-credentials-16a5aa3b-ee1f-4b27-887f-f2b822d5d271.config'
+2026-10-20T23:31:27.9433049Z Cleaning up orphan processes
+2026-10-20T23:31:27.9879644Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

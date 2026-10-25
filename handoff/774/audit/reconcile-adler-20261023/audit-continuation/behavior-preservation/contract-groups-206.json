@@ -1,0 +1,60 @@
+{
+  "id": "CONT08-CONTRACT-206",
+  "at": "2026-10-25T14:25:27.703575+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 798,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs",
+      "before_sha256": "2d8ba1f7658b0a709143467f73dc6b3f0a0eab31ad0a36a6a7436028b0ba4d7f",
+      "after_sha256": "2d8ba1f7658b0a709143467f73dc6b3f0a0eab31ad0a36a6a7436028b0ba4d7f",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0798-base-2d8ba1f7658b0a709143467f73dc6b3f0a0eab31ad0a36a6a7436028b0ba4d7f",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/2d8ba1f7658b0a709143467f73dc6b3f0a0eab31ad0a36a6a7436028b0ba4d7f",
+      "diff": "source-evidence/pr-0798.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          448
+        ]
+      ],
+      "facts": [
+        "Full448 and actual empty diff. Actual scalp bake preserves bust/scalpmaplocalframe/groompositions+attributes source, sixkernelcompilecomposition, SIZE2048/native4byte packing, chain sidehalf\u21921/rowstride>=64/offsetsum and readback rows removespadding.",
+        "Allocation\u2192clear topmost/shadow\u2192draw\u2192bare\u21924alternatingrow/columnblur\u2192finish\u2192twochainsmiphalves\u2192submit order unchanged. Exact .002step/.008reach/.025shadow/.0015block/.0008bare/.1..75blend/.5strandremain and quarter-shade/.9height/locknoise parameters retained; no newrig/type behavior at thisimmutable recipient.",
+        "Longest clear\u2192foldeddispatch\u2192submit\u2192firstwordf32bitdefault0 and sequentialnonnegativearc reduction retained. New lower GpuGroom materialpopulation/admission remains lateroriginalscope; no inferredguard/cardinality proof from hostbufferlayout, noGPU/readback execution."
+      ],
+      "disposition": "Own08 old/new comparison accounted with concrete lower2179/2332/2336 and frame-kernel receiver; retained API limits explicit.",
+      "acceptance": "Preserve exact packing, first-error, membership and floating operation order plus existing fixture oracles; no tests or checks run."
+    },
+    {
+      "scope_index": 799,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/bake/wgsl.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/hair/gpu/bake/wgsl.rs",
+      "before_sha256": "7965432924278f1a7cbcf9a47a295a9c2b9fe4103783e8d641f54dbbd9bc70ec",
+      "after_sha256": "7965432924278f1a7cbcf9a47a295a9c2b9fe4103783e8d641f54dbbd9bc70ec",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0799-base-7965432924278f1a7cbcf9a47a295a9c2b9fe4103783e8d641f54dbbd9bc70ec",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/7965432924278f1a7cbcf9a47a295a9c2b9fe4103783e8d641f54dbbd9bc70ec",
+      "diff": "source-evidence/pr-0799.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          400
+        ]
+      ],
+      "facts": [
+        "Full400 WGSL and actual empty diff. Actual receiver798 exactmatching nameduniforms/nativeStrandGpu fields and foldeditem flattening preserve12height/12direction/8shade bitquantization, nonzero sentinel, highestpacked atomicwinner, native clamp/round/turnwrap and lowbiasnoise/lock weights.",
+        "Map length<=1e-7/closedrim1 gating, fixedpiececeil .002sampling, strictshadowreach, drawifminheight<reach otherwiseblockshade, inclusivepixelsteploop/sizebounds retained. Baretopmost0+shadow0/blurclampedneighbors/mean, finishsmoothskin+directionRGB/barealpha and integerfourtexel mips unchanged.",
+        "LONGEST native f32 lengthsum bitmax same; customNaN/Inf/zero-point externalbuffer conditions remain retained/API-only, not proof of changedtypeddata or ordinary corruption. No shadercompiler/device/testrun."
+      ],
+      "disposition": "Own08 old/new comparison accounted with concrete lower2179/2332/2336 and frame-kernel receiver; retained API limits explicit.",
+      "acceptance": "Preserve exact packing, first-error, membership and floating operation order plus existing fixture oracles; no tests or checks run."
+    }
+  ],
+  "next": "800 GPUfield545 then801+; native/changed hair readers later"
+}

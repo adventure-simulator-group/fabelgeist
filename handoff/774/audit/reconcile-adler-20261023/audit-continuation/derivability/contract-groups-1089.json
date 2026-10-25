@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1089",
+  "at": "2026-10-25T17:44:19.719918+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1220,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/governance.rs",
+  "sha256": "d5eb2f18906eb28ba2703b665b769c50113ed55b73f572896659d17492443e92",
+  "actual_compared_ranges": [
+    [
+      1111,
+      1490
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "RecruitmentOfferBindingFields1113\u20131124 already Clone/Copy borrowed aggregate. No handwritten trait/codec. Live binding1126\u20131183/contextual offer status1233\u20131248 depend current clock/leader/NPC presence; selected field predicates differ whole-record Eq. Join admission and actual merge asset/custody/stake policy1266\u20131490 not structural conversion. RoleRequirements::default existing, no hand Default."
+  ],
+  "first_unfinished": {
+    "scope_index": 1220,
+    "line": 1491
+  },
+  "execution": "none"
+}

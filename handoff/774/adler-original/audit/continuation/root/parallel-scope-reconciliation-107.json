@@ -1,0 +1,78 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-107",
+  "at": "2026-10-22T20:28:06.553322+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-025.json",
+    "sha256": "51d3b1872542468e34bc3cfb182459a7a3f48cf1d788b8672fad3cdb547e364d"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-024.json",
+    "sha256": "94d83a814f1749e84f767515a75508a8e1562cf9a6c3e64fe6c1518580e4c812"
+  },
+  "new_variants": [],
+  "new_overlays": [
+    {
+      "id": "CONT-OWNER-RANGE-EXTENSION-202",
+      "at": "2026-10-22T20:28:06.553322+00:00",
+      "source_id": "pinned-registry:spacetimedb-bindings-macro-2.6.1/src/sats.rs",
+      "sha256": "bf26e6331c7cf9a560ecec507b5e06b11bc77460dec17ac0d553cff5278a5bc4",
+      "material_ranges": [
+        [
+          728,
+          752
+        ]
+      ],
+      "audit_owner": "rig",
+      "reason": "Actual direct enumvariant_data structuralSATSrestriction requiredbyexistingderive69-80 andWorldEventcanonicalpayloadownership comparison.",
+      "scope_registration": [
+        {
+          "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+          "sha256": "ca5cfe2fa9c272d97a28a40db242c072139529a100664926ffcaa56b56cb0768",
+          "row_1based": 17,
+          "id": "RIG-INITIAL06-REG-017",
+          "original_record": {
+            "id": "RIG-INITIAL06-REG-017",
+            "at": "2026-10-22T20:23:07.335713+00:00",
+            "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+            "source_id": "pinned-registry:spacetimedb-bindings-macro-2.6.1/src/sats.rs",
+            "snapshot": "pinned-current-dependency",
+            "resolved_path": "audit\\continuation\\camera\\admission03\\dependency-snapshots\\spacetimedb-bindings-macro-2.6.1\\sats.rs",
+            "sha256": "bf26e6331c7cf9a560ecec507b5e06b11bc77460dec17ac0d553cff5278a5bc4",
+            "actual_EOF": 752,
+            "material_ranges": [
+              [
+                728,
+                752
+              ]
+            ],
+            "material_caller": "Existingglobal023/files2562 sats_type_from_derive69\u201380 calls variant_data; scoped P16DBWorldEvent persistedmirrors vsCorecanonicalenums actualownership/SATSderivationbarrier comparison",
+            "reason": "Exact directly called enumvariant structural restriction before body; same already pinned dependency source, no newforeignpackage/SDK graph",
+            "exclusions": "Only exact variant_data helper728\u2013752; outside currentexisting material notcredited, no deriveSerialize638\u2013727/otherhelpers/package",
+            "status": "prospectively_registered_before_body_analysis; existingvariant newrange pendingglobal"
+          }
+        }
+      ],
+      "limits": "Only exact variant_data helper728\u2013752; outside currentexisting material notcredited, no deriveSerialize638\u2013727/otherhelpers/package",
+      "source_qualifications": "No 638-727 Serialize helpers/newpackage/runtime/sourceexecution coverage; alloldrolesretained."
+    }
+  ],
+  "total_variants": 2777,
+  "total_overlays": 202,
+  "registered_rows": 1,
+  "input_pins": [
+    {
+      "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+      "sha256": "ca5cfe2fa9c272d97a28a40db242c072139529a100664926ffcaa56b56cb0768",
+      "captured_rows": 18,
+      "selected_ids": [
+        "RIG-INITIAL06-REG-017"
+      ]
+    }
+  ],
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through201-before025.jsonl",
+    "sha256": "095f36acf5008bf42d63533c77e544f7c3aecf822994eb557f866c21e37363b2",
+    "through": 201
+  },
+  "limits": "Metadata-only exact25line SDKvariant_data helper onexistingpinnedsource, no nativepackage/otherhelpers expansion. ActualRoot108current03manualcomparison separate; allold2777variantroles preserved. Source/validation/all13initialfreeze unchanged."
+}

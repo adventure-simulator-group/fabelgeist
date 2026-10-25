@@ -1,0 +1,261 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-596",
+  "at": "2026-10-25T16:08:52.965256+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 934,
+      "source_id": "pr-working:crates/adventuresim-core/src/investigation.rs",
+      "sha256": "670a2ae0df206f175978278ad2644e91d75c22a88cfa1ef89759171da672147b",
+      "actual_EOF": 1154,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/investigation.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/investigation.rs",
+        "sha256": "670a2ae0df206f175978278ad2644e91d75c22a88cfa1ef89759171da672147b",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 37029,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 619,
+            "read_ranges": [
+              [
+                1,
+                180
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-CUSTODY-OBJECTIVES-087"
+            ],
+            "read_status": "scoped_definition_only",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/investigation.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 620,
+            "read_ranges": [
+              [
+                1,
+                180
+              ],
+              [
+                315,
+                360
+              ],
+              [
+                720,
+                825
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-INVESTIGATION-MODEL-CAPABILITY-088"
+            ],
+            "read_status": "scoped_definition_and_affected_receivers_only",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/investigation.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 638,
+            "read_ranges": [
+              [
+                115,
+                290
+              ],
+              [
+                625,
+                725
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-INVESTIGATION-SITES-CLAIMS-092"
+            ],
+            "read_status": "fresh-current-lens-scoped-receiver-read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/investigation.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 87,
+            "read_ranges": [
+              [
+                1,
+                115
+              ],
+              [
+                290,
+                410
+              ],
+              [
+                460,
+                520
+              ],
+              [
+                625,
+                725
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-QUEST-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/investigation.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera",
+          "native"
+        ],
+        "audit_owner": "root",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-KNOWLEDGE-IDENTITY-032",
+            "json_pointer": "/source_proofs/0",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/investigation.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                290
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/investigation.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/investigation.rs",
+              "sha256": "670a2ae0df206f175978278ad2644e91d75c22a88cfa1ef89759171da672147b",
+              "read_ranges": [
+                [
+                  1,
+                  290
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CASE-RECEIVERS-029",
+            "json_pointer": "/related_current_sources/0",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/investigation.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                821
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/investigation.rs",
+              "sha256": "670a2ae0df206f175978278ad2644e91d75c22a88cfa1ef89759171da672147b",
+              "read_ranges": [
+                [
+                  1,
+                  821
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/investigation.rs",
+              "scope": "All reached production adapters, stable IDs, pipeline stages, typed inference, support thresholds, native compound ID encoding and exact callback recipients; no whole1154 fixture claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016",
+            "json_pointer": "/related_current_reads/0",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/investigation.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                821
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/investigation.rs",
+              "sha256": "670a2ae0df206f175978278ad2644e91d75c22a88cfa1ef89759171da672147b",
+              "read_ranges": [
+                [
+                  1,
+                  821
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/investigation.rs",
+              "scope": "All reached production adapters, stable IDs, pipeline stages, typed inference, support thresholds, native compound ID encoding and exact callback recipients; no whole1154 fixture claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1333,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1154
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "DomainKnowledgeSubject / DomainProposition / DomainKnowledgeSource / DomainVisibilityRule / DomainBelief",
+          "lines": [
+            [
+              115,
+              115
+            ],
+            [
+              122,
+              122
+            ],
+            [
+              128,
+              128
+            ],
+            [
+              132,
+              132
+            ],
+            [
+              138,
+              138
+            ]
+          ],
+          "disposition": "KEEP five explicit empty local trait opt-ins; no existing matching derive; imported definitions separately pending."
+        }
+      ],
+      "existing_derives": [
+        "stage/provenance enums structural snake_caseSerde cfgSpacetimeType22\u201337",
+        "stable_id! wrappers structuralSerde76",
+        "knowledge adapter vocabulary structural111\u2013168",
+        "BasisPoints structuralSerde292",
+        "all observation/recollection/claim/evidence/provenance/belief/destination/lead/sharing/pipeline records structuralSerde as declared",
+        "visible inference/support records structural"
+      ],
+      "absence_basis": "Full1154 personally consumed591\u2013596. Native checked identities/adapter/observer-time envelope, confidence/text/record admission, report pipeline, compound IDs, public inference and all source fixtures. No other handtrait/codec; existing mechanical wire traits already derive."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Observer-safe investigation semantics and mechanical wire",
+      "disposition": "Retain explicit identity/time/provenance/admission and inference policy; no raw construction or Serde substitution for semantic mapping. No new issue, tests or later-lens clearance."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 935,
+    "source_id": "pr-working:crates/adventuresim-core/src/investigation_action.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

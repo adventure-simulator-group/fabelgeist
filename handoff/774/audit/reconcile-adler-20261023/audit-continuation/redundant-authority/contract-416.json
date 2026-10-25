@@ -1,0 +1,98 @@
+{
+  "id": "CONT07-CONTRACT-416",
+  "at": "2026-10-23T21:31:12.547798+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1823,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source/presented.rs",
+      "sha256": "62b9ee8ef4e79762a0461d366d99a44e77dded7f0a362ea105da1515af8db4ee",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source/presented.rs",
+      "actual_EOF": 248,
+      "ranges": [
+        [
+          1,
+          248
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1824,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source/region.rs",
+      "sha256": "aab2deff4bbdbd96050f2c2016de6e735105d4d6643e4ec5854262eac1ab2bc3",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source/region.rs",
+      "actual_EOF": 146,
+      "ranges": [
+        [
+          1,
+          146
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1825,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/transport.rs",
+      "sha256": "09a9c25e0a7dafb032f9ea8aff1047088315596a4ffc23bcda809a40bd5574e8",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/transport.rs",
+      "actual_EOF": 115,
+      "ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1826,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/transport/tests.rs",
+      "sha256": "f1626212844a10fa14c660515f8ee6d36ce40b28dbd366ce85dac26e3db59243",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/transport/tests.rs",
+      "actual_EOF": 98,
+      "ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1827,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/location.rs",
+      "sha256": "a11423ff0d43b8b2f1167c4fe16aa9b53f3da611fa697c38fb90105d69178f1d",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/location.rs",
+      "actual_EOF": 46,
+      "ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "ROOT-OWNER-FOUNDATION-059",
+    "NATIVE-OWNER-ROOT-SUPPORT-DEPENDENCIES-009",
+    "ROOT-OWNER-GARDEN-SUPPORT-057"
+  ],
+  "facts": [
+    "1823 presented geographic source calls the same shared subdivision/height-morph/boundary-stitch helpers as actual presentation, retains fine playable triangles and iterates every supplied vista ring. Ring extent is recomputed for validation then production, but no independent cached extent field stored; coherent inputs do not change between passes. Current source lacks selected-render-prefix argument; known M64/F080 configuration-selection limitations remain distinct, no default failure or blanket interpolation defect inferred.",
+    "1823 explicit malformed offset/nonexpanding rejection and complete-coverage/source-diagonal assertions are source-only fixtures, not passed runtime checks. Height-only vista fixture environment[] deliberately differs from full scene catalogue admission; no narrowing to full environment cardinality authorized by this audit.",
+    "1824 maximum-grade selection temporarily copies cumulative area into a record, then overwrites covered_area at69-71 with final total before returning. This closes a stale-area candidate; selected maximum triangle and required/covered area are different facts. Partial footprint coverage remains explicit Some with covered<required; zero intersection returnsNone.",
+    "1825 binary foundation encoding derives topology from six-vertex cells; human documents retain explicit topology and validate it. Before encoding, self.validate checks exact same canonical table used by reconstruction; manual altered indices reject instead of silently restoring. Repeated validation is contract checking, not independent authoritative state.1826 fixtures preserve native bytes/members/cut faces and reject changed/incomplete cells without execution.",
+    "1827 successful checked scene position versus rejected raw coordinate attempt are disjoint enum roles. attempted_metres is an explicit diagnostic projection from original attempt, not a fallback current usable geometry.",
+    "No new07finding; source-specific findings/coverage qualifiers remain, all13 and overlays incomplete."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1828,
+    "start_line": 1
+  }
+}

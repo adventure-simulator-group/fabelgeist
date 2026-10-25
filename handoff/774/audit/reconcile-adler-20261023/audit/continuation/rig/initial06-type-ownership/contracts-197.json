@@ -1,0 +1,22 @@
+{
+  "id": "RIG-INITIAL06-GROUP-197",
+  "at": "2026-10-23T06:02:54.713187+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-063.json",
+  "groups": {
+    "generic-yaml-codec-versus-first-party-invariants": {
+      "comparison": "Fresh exact serde-saphyr1.2.0 api84\u201399/136\u2013141 invokes target T::deserialize with default/options; with_deserializer120\u2013147 constructs nativeconfig/events and enforces singledocument. Options typed-versus-typeless flag distinction actual248\u2013264/default499\u2013527: reject_non_finite_typeless_float true does not constrain concretef32/f64. Scalar path and parse_yaml12_float exactranges actually accept YAML.nan/\u00b1.inf explicitly while decimaloverflowfallback rejects nonfinite. These are generic codec policies, not alternative first-party finitegeometry/amount/config owners. Canonical checked leaves or owningconfigaggregate must enforce intended semantic units/sign/bounds; do not patch a generic library to globally reject validnativefloat or assume parserDefault establishes gameplayvalidity. Raw/effective scalar/location preservesdiagnostics, not anotherstoredcatalogidentity. Reached propertiesbranch only partial623 and uninvokedroboticsconverter remain explicitlyuncredited.",
+      "disposition": "Keep generic YAML nativecodec and first-party semantic admission/owner distinct; no dependency patch or genericfloat waiver."
+    },
+    "serde-f32-and-json-number-native-representation": {
+      "comparison": "Fresh serde_core1.0.229 exact primitivevisitor/macro/f32registration reads generic numberconversion: f64visitor casts to f32 and preservesNaNsign understd, no semanticfinite/positive/nonzero predicate. Fresh serde_json1.0.151 Number exact535\u2013580/582\u2013600/602\u2013618 dispatches nativeunsigned/signed/f64 and optionalarbitraryprecision route. Number is genericJSON representation owner, not equipmentdimension, UnitInterval, f64manufacturing Ratio or SourcePackageDigest. Underflow/overflow afterf64\u2192f32 mustbe handled by actualfirst-partycontract ratherthan assumingrawJSONfiniteness; genericcodec cannot know positiveequipmentaxesversusvalidzeroCuboid. Preserve existing current03 actualequipment/main counterexamples, no new defectcount or runtimeclaim from this ownership pass. No directJSONtextparser or allprimitivevisitor branches beyondranges credit.",
+      "disposition": "Preserve generic numericcodec and precise first-party checkedquantity/aggregate owners."
+    }
+  },
+  "source_fact_refs": [
+    "contracts-001.json",
+    "contracts-171.json",
+    "contracts-187.json"
+  ],
+  "limits": "Seven exact existingdependencyvariants materialranges freshlyread. UTF8decodererror before deserializerbody produced no credit; successful explicitUTF8reread supplied remainingfive bodies before packet. No wholeforeign/robotics/properties/helpergraph, execution/edits/newtests/newscope/otherlens."
+}

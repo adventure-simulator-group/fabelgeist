@@ -1,0 +1,84 @@
+{
+  "id": "CONT07-CONTRACT-424",
+  "at": "2026-10-23T21:39:49.168910+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1857,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/surfaces.rs",
+      "sha256": "064e2fe3fc9294f655bfeaf2cd691d7277e6ad428a603ad1dbbf10aa42c18993",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/surfaces.rs",
+      "actual_EOF": 164,
+      "ranges": [
+        [
+          1,
+          164
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1858,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat.rs",
+      "sha256": "6da9d5558329053c0ceaadbcb7a19730884fc55bbc50cdd90af9b9305346b48c",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/combat.rs",
+      "actual_EOF": 290,
+      "ranges": [
+        [
+          1,
+          290
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1859,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat/attack_key.rs",
+      "sha256": "0c195d5b16f4846e5d0e043e5864a0b65328387495a88af8a48719234aacd063",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/combat/attack_key.rs",
+      "actual_EOF": 23,
+      "ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "ROOT-OWNER-SCENE-SOURCE-056",
+    "CAM-OWN-CONFIG-CHILDREN-062",
+    "CAM-OWN-SERVER-RESOLUTION-NETWORK-064"
+  ],
+  "facts": [
+    "1857 street/yard source patches derive from developed graph/lots; surface priority exhaustive match has no independent ordinal/roster field. Corridor versus market shapes own different data; containment and validity are different predicates. Market finite-only admission permits broader quads than ScenePlanPolygon; no tightening inferred from generic convex helper name. Geometric tolerances and material priority are separate policies.",
+    "1858 lunge selection derives gap once from range and current runtime thresholds. MeleeLunge variant owns movement mode, arrival outcome distinguishes absent/unneeded/cannot-arrive from valid elapsed timing. contact_timing derives contact and delay from authored windup/arrival; these are different timestamps/offsets, not interchangeable current facts.",
+    "1858 conservative acceleration from supplied motor is an intentionally conservative minimum-strength motor bound; lunge arrival retains movement-family-specific prediction (quickstep ignores gap after mode selection). Actual predictor versus physical motion source/caller calibration remains separate source obligation; cannot declare physical equivalence from fixture expectations. No additional config/global defect asserted without exact same-policy evidence.",
+    "1859 MeleeAttackKey exactEOF23 supersedes archived narrative29 navigation. Original request occurrence identity permits everyu64 including0, independent of delayed contact/sample coordinates. Opaque encoded/to_le_bytes getters do not recompute identity from current animation clock.",
+    "Fixtures source-only; no execution. No new07finding or all13/overlay clearance.",
+    "1860 declaration excerpt1-180 freshly compared preserves physical/config/presentation/animation different policies. Source already in baseline, remainder not reread; do not restart source merely because adjacent to first unfinished."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1871,
+    "start_line": 1
+  },
+  "fresh_partial_support": [
+    {
+      "scope_index": 1860,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "5d114988a64595879b04e6f151d2a184cdf8f893f2f2b17a9987a3faf933d4ab",
+      "ranges": [
+        [
+          1,
+          180
+        ]
+      ],
+      "status": "supplementary exact config declaration excerpt only; baseline source already accounted, no fresh whole-source or new-unique credit"
+    }
+  ]
+}

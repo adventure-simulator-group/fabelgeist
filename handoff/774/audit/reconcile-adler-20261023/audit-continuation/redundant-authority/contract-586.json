@@ -1,0 +1,109 @@
+{
+  "id": "CONT07-CONTRACT-586",
+  "at": "2026-10-24T00:20:11.805751+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2538,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_dormers.rs",
+      "sha256": "6484f99b8bdfc8cd1fc1f9aae444f6a56feaee41546a24d97109c317bba4c5f1",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/generator/roof_dormers.rs",
+      "actual_EOF": 305,
+      "ranges": [
+        [
+          1,
+          305
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2539,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_drainage.rs",
+      "sha256": "78f6495882663da6c57047c052bf85c818f6640300a5c9e3819a1958e3393f1f",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/generator/roof_drainage.rs",
+      "actual_EOF": 265,
+      "ranges": [
+        [
+          1,
+          265
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2540,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_edge_binding.rs",
+      "sha256": "710d88030ba0cda4005e228f397aaa523d571bdbc64cd00a5c234ee5861ff4a7",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/generator/roof_edge_binding.rs",
+      "actual_EOF": 164,
+      "ranges": [
+        [
+          1,
+          164
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2541,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_enclosure_material.rs",
+      "sha256": "38b955313e7d9f09e6b15e3fb0e46497a149df2db2fa417ffec671c9ad130999",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/generator/roof_enclosure_material.rs",
+      "actual_EOF": 18,
+      "ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2542,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_finalization.rs",
+      "sha256": "c02cf2fd7b6a594dd75307d1b2164471415a1ed28c01a8b1ee5008268d27b35a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/generator/roof_finalization.rs",
+      "actual_EOF": 138,
+      "ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2543,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_internal_cut.rs",
+      "sha256": "fa5481795fb308912be246d67e10a7a5deeadc1fa2f2ba4051255e7ed52d23e3",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/generator/roof_internal_cut.rs",
+      "actual_EOF": 143,
+      "ranges": [
+        [
+          1,
+          143
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "PR dormer generator retains one DormerLayout for actual recipe/cheek/seam calculations, but independently reauthors TransverseGable scale2.20 for attach_to_parent63\u201369 versus DormerLayout14\u201316. Current agrees; same childwidth should derive from retainedlayout/recipe before authoring drift can separate parentcut/eavebinding from actual covering. Maintenance population only, not currentbadgeometry.",
+    "PR extend_ridge moves selected rear ridge points parallel to roof axis, updates matchededgeendpoints, and leaves plane intact because same-height ridge extension stays inoriginalgableplane. Stored catchment/surfacebounds from originalpolygon need actual finalization consumers before stalegeometry promotion. Actual rear-gable removal coordinates both weather solid and supportinterface deletion162\u2013165, positive cleanup example.",
+    "PR finalize_roof_drainage rebuilds owned networks and gutters from currentfaces/edges, updates catchment channels/tangent/outward/outletstation and route+void outlet together. Initial facebounds/centre/extents and pre-existing supportinterface membership aren't universally rebuilt bythisbody; exact downstreamuse/cleanup obligation remains.",
+    "PR roof_edge_binding0x6000|edgeindex and roof_drainage0x6000|faceindex*8+slot share solid/interface namespace within oneassembly. A coincidentprimaryedgeindex0 andface0floor alias; finalize removesonlypriorRoofGutter, leavesRoofFlashing. Exact crosssource support sentroot for sharedallocator finding; no ordinarycurated alias or newunique count asserted.",
+    "PR roof_finalization removes orphan actualRoofEdgeTreatment solids AND matchinginterfaces, clearsmatchingedgeflashing, and refreshes survivingtreatmentinterfacebounds61\u201378. It cannot clean an interface whose solid was removedbeforeitsorphan collection nor automaticallyallRoofGutter/RoofFlashing provenance; pendingcuttingdeletionqualifier remains. Later roof_editing2753 will determine F006 exact edit callpath, no premature retraction.",
+    "PR roof_internal_cut updates retainededgegraph and emits two physicalcapsegments with supportinterface fornewsegment; finalization refreshes originalsegmentinterface, so intermediate oldboundsalone isn't finaldefect. Three-dimensionalcut predicate and topology/physicalcap geometry shareacceptedcut.",
+    "PR roof_enclosure_material is canonical resolved-wall precedence TimberInfill,RubbleMasonry,Masonry. Dormer append_enclosures226\u2013233 androofassemblies59\u201367 separatelyrestateless-specific TimberelseMasonry; requiredsamepolicyforrubblechildneeds actualauthoredproduct/intent before promotion. RoofContacts broad yawbounds versus exactorientedgeometry remains distinct conservative relation, not requiredbyteequality."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2544,
+    "start_line": 1
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "id": "RIG-INITIAL06-GROUP-009",
+  "at": "2026-10-22T19:13:40.680666+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "numpy-format-owner": {
+      "sources": [
+        "pr-working:crates/fabelgeist-numpy-storage/Cargo.toml",
+        "pr-working:crates/fabelgeist-numpy-storage/src/npz.rs",
+        "pr-working:crates/fabelgeist-numpy-storage/src/npy.rs"
+      ],
+      "comparison": "Actual manifest24, NPZ1\u201369 and NPY1\u2013186 freshly read. NumPy storage owns Npz/NPY Dtype/NpyArray, native array shape usize dimensions and raw little-endian payload. MHR PoseCorrectives/model (contracts007) consume named source arrays and explicitly own model-specific rank/semantic channel projections; no application metre/frame, Rig ordinal or checked finite value is certified by NpyArray. Dtype F32/F64/I32/I64/U8/Bool is format element representation, different from FBX Prop tagged scalar/array syntax even where bit widths match. NPZ names/keys preserve member strings and optional .npy suffix, not normalized FBX object or shared rig identity. to_f32/to_i64/to_bool and Burn Tensor uploads are explicit native precision/device ports, not checked domain constructors. The numpy manifest depends on Burn and byte/archive libraries without game Core/Building/Rig; do not move native tensors into neutral semantic leaf owners. Public shape/dtype and crate-visible bytes are not an immutable shape/data admission certificate. Same code serves mapped/owned archives without a duplicate higher application parser; this ownership comparison does not clear arithmetic, payload or constructor defects."
+    },
+    "zip-format-code-distinct-from-fbx": {
+      "sources": [
+        "pr-working:crates/fabelgeist-numpy-storage/src/zip.rs"
+      ],
+      "comparison": "Fresh full232. ArchiveData/Entry/ZipArchive own mapped-versus-owned bytes, central/local directory offsets, u16 compression method and u64 encoded lengths. Actual ZIP compression0 is stored and8 is raw DeflateDecoder; FBX encoding0/1 is u32 and uses a zlib wrapper. Equal decompression algorithms do not make wire enum values or encoded authority interchangeable. ZIP member offsets/counts also differ from GPU byte offsets/element counts and rig ordinals. The actual NPZ current caller delegates this single ZipArchive, which is a coherent format helper below Npz; comments mention a Torch consumer, but its external body/dependency was not inferred or credited. No necessity for a generic project-wide compression type or moving this helper into game Core is established. Source parsing partial/error/length semantics remain separate audit findings, not a type-ownership exemption."
+    }
+  },
+  "new_findings": [],
+  "limits": "Only scoped material ranges; NPZ70\u2013186 and NPY187\u2013260 not read or credited. No entire NumPy/lib/README/Torch/foreign SDK expansion. Source edits/execution/later-lens credit zero."
+}

@@ -1,0 +1,163 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-966",
+  "at": "2026-10-25T17:23:18.828787+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1133,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/action_authority.rs",
+      "sha256": "156f3a249b74dd3ae2a235aefc6e0f85ddb501d26506d2d0fd280954b6268290",
+      "actual_EOF": 1018,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/action_authority.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/investigation/tests/action_authority.rs",
+        "sha256": "156f3a249b74dd3ae2a235aefc6e0f85ddb501d26506d2d0fd280954b6268290",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 42887,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 632,
+            "read_ranges": [
+              [
+                375,
+                685
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-INVESTIGATION-PROJECTIONS-090",
+              "CAM-OWN-INVESTIGATION-ACTIONS-091"
+            ],
+            "read_status": "scoped_existing_fixture_only_rest_unread",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/investigation/tests/action_authority.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 637,
+            "read_ranges": [
+              [
+                1,
+                1018
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-CONTAINER-FOOD-FIXTURES-093"
+            ],
+            "read_status": "fresh-current-lens-full-source-read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/investigation/tests/action_authority.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CASE-RECEIVERS-029",
+            "json_pointer": "/current_sources/12",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/action_authority.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1018
+              ]
+            ],
+            "source_context": {
+              "packet_obligation": 13,
+              "assigned_camera_index": 638,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/action_authority.rs",
+              "sha256": "156f3a249b74dd3ae2a235aefc6e0f85ddb501d26506d2d0fd280954b6268290",
+              "read_ranges": [
+                [
+                  1,
+                  1018
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/investigation/tests/action_authority.rs",
+              "read_status": "full current frozen body; packet7 shares independently verified identical bytes with packet6",
+              "role": "existing-authority-fixtures",
+              "disposition": "Whole existing1018-line fixture body read, unchanged and unexecuted. Inputs/assertions pin replay-before-mutation, exact pattern evidence, terminal clipped-time handling, zero-duration referral, coordinates in both modes, seed privacy and original populations.",
+              "trace_refs": [
+                "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016#existing-authority-fixtures"
+              ],
+              "authority": "Camera716 explicit per-cell reconciliation and whole DB repair authority unchanged"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016",
+            "json_pointer": "/source_reads/12",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/action_authority.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1018
+              ]
+            ],
+            "source_context": {
+              "packet_obligation": 13,
+              "assigned_camera_index": 638,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/action_authority.rs",
+              "sha256": "156f3a249b74dd3ae2a235aefc6e0f85ddb501d26506d2d0fd280954b6268290",
+              "read_ranges": [
+                [
+                  1,
+                  1018
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/investigation/tests/action_authority.rs",
+              "read_status": "full current frozen body; packet7 shares independently verified identical bytes with packet6",
+              "role": "existing-authority-fixtures",
+              "disposition": "Whole existing1018-line fixture body read, unchanged and unexecuted. Inputs/assertions pin replay-before-mutation, exact pattern evidence, terminal clipped-time handling, zero-duration referral, coordinates in both modes, seed privacy and original populations.",
+              "trace_refs": [
+                "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016#existing-authority-fixtures"
+              ],
+              "authority": "Camera716 explicit per-cell reconciliation and whole DB repair authority unchanged"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1339,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1018
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Whole native fixture file personally consumed across964\u2013966. No handwritten trait implementation, type codec or manual record serialization. Tail761\u20131018 covers exact generated testimony/site authority, both coordinate modes and boundaries, public case projection correlation, immutable journal subject, typed action/replay/private receipt order, referred contact coded error. Fixture references are assertions about other source and confer no new coverage; no fixtures executed."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Investigation action authority fixture derivability",
+      "disposition": "No mechanical trait boilerplate. Preserve explicit semantic fixtures; no execution, unrelated lens clearance or child-source coverage."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1134,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/bestiary_and_corrections.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

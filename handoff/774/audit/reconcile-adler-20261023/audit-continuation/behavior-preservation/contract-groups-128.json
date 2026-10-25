@@ -1,0 +1,117 @@
+{
+  "id": "CONT08-CONTRACT-128",
+  "at": "2026-10-25T12:33:36.245573+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 440,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/calendar.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-world-schema/src/calendar.rs",
+      "before_sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "after_sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0440-base-64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "diff": "source-evidence/p16-0440.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          698
+        ]
+      ],
+      "facts": [
+        "Full698 plus actual empty diff, including all existing fixtures. PositiveCalendarYear/try_from signed integer wire and StrategicMinute fullu64 owner unchanged. Saturating versus checked additions/subtractions, day multiplication before clamp, elapsed saturation, ceil days, inclusive/exclusive iteration endpoints and MAX iterator filters retain exact policy.",
+        "Calendar age i128/u128 conversions/caps, signed birth anniversary exclusive end, within-day modulo and overnight half-open windows, zero interval None, year cap and nonleap epoch remain unchanged. Read fixtures include signed age/negative birth, MIN/MAX bounds, day wrap and serde integer shape; no run. Existing terminal recipient defects are carried separately, not repaired by unchanged clock owner."
+      ],
+      "disposition": "Exact scoped own08 comparison accounted WITH retained qualifications; unchanged owner bodies do not clear materially affected remaining recipients.",
+      "acceptance": "Preserve precise signed coordinate and calendar arithmetic, original wire shape/admission, cap/round/truncation/order and boundary inclusion. Retain specific existing terminal/API qualifications and fixture inputs/tolerances. No tests/checks."
+    },
+    {
+      "scope_index": 441,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/coordinates.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-world-schema/src/coordinates.rs",
+      "before_sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+      "after_sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0441-base-9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+      "diff": "source-evidence/p16-0441.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          512
+        ]
+      ],
+      "facts": [
+        "Full512+empty diff including existing fixtures. Abstract UnboundedCoordinateE7 stays distinct from WGS84, scaled finite/raw range checked before round. Degree bounds inclusive\u00b190/180, E7/microdegree typed Deserializes, longitude/latitude getter order and native tuple adapters unchanged. E7\u2192microdegree truncation towardzero for negative coordinates preserved; direct degree conversion rounds, wire fixture keeps raw E7 keys. No blanket clipping or geographic restriction imposed on abstract coordinate APIs."
+      ],
+      "disposition": "Exact scoped own08 comparison accounted WITH retained qualifications; unchanged owner bodies do not clear materially affected remaining recipients.",
+      "acceptance": "Preserve precise signed coordinate and calendar arithmetic, original wire shape/admission, cap/round/truncation/order and boundary inclusion. Retain specific existing terminal/API qualifications and fixture inputs/tolerances. No tests/checks."
+    },
+    {
+      "scope_index": 442,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/language.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-world-schema/src/language.rs",
+      "before_sha256": "1475b920cad83e1f040a2c19627f288508d660a9d771bd72cf8993fa34b9a05f",
+      "after_sha256": "1475b920cad83e1f040a2c19627f288508d660a9d771bd72cf8993fa34b9a05f",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0442-base-1475b920cad83e1f040a2c19627f288508d660a9d771bd72cf8993fa34b9a05f",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/1475b920cad83e1f040a2c19627f288508d660a9d771bd72cf8993fa34b9a05f",
+      "diff": "source-evidence/p16-0442.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          214,
+          243
+        ]
+      ],
+      "facts": [
+        "Exact214\u2013243+empty complete diff; rest756 file excluded. Common oral language uses effective caps max0/min and coefficient clamp, total_cmp with lower-index tie break; nonfinite effect inputs zero then shared-language clamp unchanged. Existing social producer/recipient policy remains separate, no fresh full language clearance."
+      ],
+      "disposition": "Exact scoped own08 comparison accounted WITH retained qualifications; unchanged owner bodies do not clear materially affected remaining recipients.",
+      "acceptance": "Preserve precise signed coordinate and calendar arithmetic, original wire shape/admission, cap/round/truncation/order and boundary inclusion. Retain specific existing terminal/API qualifications and fixture inputs/tolerances. No tests/checks."
+    },
+    {
+      "scope_index": 443,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-world-schema/src/lib.rs",
+      "before_sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+      "after_sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0443-base-a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+      "diff": "source-evidence/p16-0443.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          33,
+          33
+        ],
+        [
+          70,
+          180
+        ],
+        [
+          1504,
+          1710
+        ],
+        [
+          2670,
+          2735
+        ]
+      ],
+      "facts": [
+        "Exact33,70\u2013180,1504\u20131710,2670\u20132735 and empty actual diff; no full4796 credit. Stable religion ID/order/correlation, explicit bounded source text trim/NUL check, land-use fraction/profile constructor+custom serde aggregate sum, intensity threshold order, signed elevation bounds/bands and EdgeProgressPermille inclusive1000 custom wire unchanged. Adjacent unfinished language/watercourse definitions are scoped context, no broad schema proof."
+      ],
+      "disposition": "Exact scoped own08 comparison accounted WITH retained qualifications; unchanged owner bodies do not clear materially affected remaining recipients.",
+      "acceptance": "Preserve precise signed coordinate and calendar arithmetic, original wire shape/admission, cap/round/truncation/order and boundary inclusion. Retain specific existing terminal/API qualifications and fixture inputs/tolerances. No tests/checks."
+    }
+  ],
+  "next": "444person_names849 full then445error34/446identity169/447source53."
+}

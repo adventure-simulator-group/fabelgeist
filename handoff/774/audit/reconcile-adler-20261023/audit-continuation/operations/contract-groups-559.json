@@ -1,0 +1,56 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-559",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/strategic-web/src/routes/dialogue.rs",
+      "sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+      "actual_EOF": 1897,
+      "actual_compared_ranges": [
+        [
+          1,
+          1897
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/routes/dialogue/claims.rs",
+      "sha256": "6ce1fead82db25ebeebc1f64944e44bf410b5ea3b28b9f46480cd04128130197",
+      "actual_EOF": 127,
+      "actual_compared_ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Social actions retain exact request identity, duration and target across authoritative reducer retry.",
+      "evidence": "Full dialogue1897 and claims127 personally consumed including fixtures. NpcChatRequest retains checked SocialDuration/SocialActionId; receipt key actor:action, existingreceipt checks targetkind/targetid/requestedduration before success and before available_social_npc. Current social_npc_in_scope runs earlier, including currentsettlement/navigability/life: receipt retry does not waive currentscope authorization. Reducer success followed by projectionErr mayreturnHTTPfailure aftercommittedmutation; receipt authoritative retry contract remains. Romanceactions no genericactionid supplied; no exactly-once guarantee inferred.",
+      "qualifications": "No DB/API run or collision actor. Source order is not atomic snapshot; reducer remains authority for races. Started session absent projection explicitly SessionProjectionMissing, contactunavailable classified typedReducerErrorCode independentlyofprose. Distinguish errorcause mapping from successfulmutation rollback promise.",
+      "acceptance": "Preserve payload-matched receipts and current scope authorization, typed errorcause at actual reducer boundary, exact commandexpectedrevision/catalogue digest and availability protocol."
+    },
+    {
+      "contract": "Dialogue projection retains session/event/claim relationships and exact prompt membership without inventing evidence.",
+      "evidence": "build_view SQL owner/sessionfilters plus actorparticipantcheck; claims sortedsequence/order and matched sequence/order/exactdisplaytext. sourcejson/fragmentsjson parse failures defaultempty, malformed retainedrow proof not supplied. Prompt selection retains openonly and lexicallylastid; require actual producer uniqueness rather than assume chronology. Answer validates parsed exactsession:prompt tag beforecall. assessment_strength clamped0..1 doesnotsanitizeNaN; backendproducer finitecontract pending, no ordinarybadrow promoted.",
+      "qualifications": "Projection decodes/sorts data but doesnotenforceall aggregate authoringconstraints. Nativecharacter ids remainu64; syntheticNPCactorstrings receive no new persistentowner assumption. claimoptionalresolution directlymapsactualrealizeddelta.",
+      "acceptance": "Sourcebackend current claims correlate beforedisclosure; stable typedwiretag and exact identity/membership through actual recipients. Malformed admittedrow needs explicitcause policy at source owner, not guessed default semantics."
+    },
+    {
+      "contract": "Revision strings encode their listed inputs unambiguously; cache dependency completeness needs actual recipient proof.",
+      "evidence": "npc_social_revision length-prefixes fieldname/value and optiontags; no delimitercollision amonglistedinputs. about_topics also dependsonuses_familiar_address, and romantic_actions onselfstatus/currentcommitment, absentfrom revision inputs; source omission alone notproof of staleconsumer because actualrevisionreceiver not yettraced. Timestampmicrosecondsessionnonce usesfullu128 display ratherthan new_idu64cast, no uniquenessguarantee proven byclock alone.",
+      "qualifications": "Potential cachedependency/collision questions retained only; no indexed exactarchivealias returned, which is not semanticdedup proof. No current duplicate nonce/twochat race/browsercache behavior asserted.",
+      "acceptance": "If actual recipient skips onrevision, owner mustinclude every semantic dependency; otherwise no invented universalcontentdigest requirement."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/strategic-web/src/routes/foraging.rs"
+}

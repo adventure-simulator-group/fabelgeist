@@ -1,0 +1,134 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-279",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pinned-sdk-2.6.1:db_connection.rs",
+      "sha256": "79c452f092b1123e8a9c4f7ca3c34167290bb97e3a64093ce903f4bf742b2b9a",
+      "actual_EOF": 1624,
+      "actual_compared_ranges": [
+        [
+          1,
+          1624
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pinned-sdk-2.6.1:error.rs",
+      "sha256": "e98badf5f0eaff8bfe959e31b3ed9e4a6ad5cf5ec4040bfe806f74dc0c692d38",
+      "actual_EOF": 104,
+      "actual_compared_ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pinned-sdk-2.6.1:lib.rs",
+      "sha256": "8de4cda1540f853eb47c888806c1529d3a7b2ed9e928d8fa01304f7d525e8161",
+      "actual_EOF": 76,
+      "actual_compared_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pinned-sdk-2.6.1:subscription.rs",
+      "sha256": "5b1c6b0def7c80c6afb1659ff676de3c9414173452a374041d4c9f27f760e729",
+      "actual_EOF": 566,
+      "actual_compared_ranges": [
+        [
+          1,
+          566
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Native connection cache publication precedes row callbacks and mutation APIs enqueue work",
+      "source_ranges": {
+        "db_connection.rs": [
+          [
+            1,
+            870
+          ],
+          [
+            1200,
+            1624
+          ]
+        ],
+        "lib.rs": [
+          [
+            1,
+            76
+          ]
+        ]
+      },
+      "disposition": "All four complete exact pinned bodies personally read, not executed. Parsed transaction/committed reducer update applies the complete DbUpdate to locked client cache, releases cache then invokes row callbacks; pending callback/subscription/reducer mutations enqueue for processing before/after WebSocket messages. Successful invoke_reducer_with_callback means queued, not committed; actual callback separates Committed, real module rejectionString and internal failure. This supports first-party terminal submission/cause distinctions previously supplied NATIVE-PS-F038 at audit/records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/findings.jsonl#37; no archived ownership transfer or lens coverage imported. Single connection advancer is explicit documented precondition; multiple parallel advancers can deadlock native receive locks, no current first-party misuse proven. frame_tick drains until queue empty with no per-frame work cap; unbounded producer/work starvation requires real supported input, not a new generic resource finding."
+    },
+    {
+      "contract": "Connection lifecycle and pending operation failures retain native nontransactional seams",
+      "source_ranges": {
+        "db_connection.rs": [
+          [
+            140,
+            570
+          ],
+          [
+            581,
+            814
+          ],
+          [
+            870,
+            1200
+          ]
+        ]
+      },
+      "disposition": "Connecting/Connected/Ended gates connection callbacks and ensures one terminal callback. Identity token lifecycle becomes Connected before identity/connection-ID assertions and stores; mismatch is native protocol assertion, not a demonstrated server response. End sets send channelNone before callback and subscription disconnect hook. Pending Subscribe registers/start mutates handle before checking live send channel; reducer/procedure record callback before send presence check, so disconnected Err can retain pending registered state/callback. Caller must distinguish dispatch/ack/current connection and not retry blindly; no actual first-party failed-state leak proved here. Builder missing URI/database and malformed URI intentionally panic native preconditions, runtime/WebSocket initial I/O has typed FailedToConnect cause. Server parse errors become terminal SDKError; procedure return decode/unit reducer wire assertion can panic on native protocol violation. No claim of backend transaction rollback from client cache behavior or any live connection."
+    },
+    {
+      "contract": "Native subscription cancellation has ordered state, but disconnect does not itself end handles",
+      "source_ranges": {
+        "subscription.rs": [
+          [
+            1,
+            566
+          ]
+        ]
+      },
+      "disposition": "Pending->Sent->Applied/Ended/Error status and unsubscribe_called jointly govern handle activity. unsubscribe sends pending mutation before setting flag/callback, preserving state on queue-send Err. Cancel-before-start skips Subscribe and unregisters with one end callback; applied/error/end take callbacks once. Actual on_disconnect is a no-op: it does not clear manager/client cache or mark Applied handles ended, despite introductory comment. Thus retaining a handle alone is not authoritative proof of live connection. Need actual first-party use after disconnect without connection freshness guard before promoting ordinary stale data/active status; no such witness here. Native IntoQueries clones or moves explicit strings and fixed arrays without numeric truncation; tests are compile-shape source fixtures only, not run."
+    },
+    {
+      "contract": "Canonical SDK cause representation and global identifier counters retain boundary qualifications",
+      "source_ranges": {
+        "error.rs": [
+          [
+            1,
+            104
+          ]
+        ],
+        "db_connection.rs": [
+          [
+            1596,
+            1624
+          ]
+        ]
+      },
+      "disposition": "SDK Error/InternalError are Clone; InternalError stores optional Arc cause, Display prints it and deprecated cause() returns it, while source() explicitly returnsNone. This limits standard source-chain traversal inside the pinned SDK and does not justify early first-party to_string before retained state. Real module reducer rejection is BSATN String at actual native wire, distinct from immediate SDKError and callbackInternalError. Preserve actual canonical SDK types at first-party ports; no handwritten binding/dependency edits or invented Eq. NEXT_REQUEST_ID/NEXT_QUERY_SET_ID use global AtomicU32 fetch_add wrapping, with no in-flight uniqueness reservation on wrap; subscription registration rejects duplicate IDs. This is theoretical native lifetime/in-flight strengthening unless an actual supported request volume/collision is established, not an ordinary session collision. Concurrent cloning shares state intentionally; atomic ID acquisition alone does not prove aggregate callback lifetime."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pinned-sdk:spacetimedb-sats2.6.1/src/timestamp.rs"
+}

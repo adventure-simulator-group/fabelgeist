@@ -1,0 +1,11 @@
+--- 6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/plants.rs
++++ 13fc9dcc71ab879de364117e5462310673e43210:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/plants.rs
+@@ -1,7 +1,7 @@
+ use super::super::view_camera::{CaptureCameraResult, SceneCameraView};
+ use super::*;
+-use crate::camera::authored_metres;
++use crate::camera::config::authored_metres;
+ use adventuresim_building_generator::spatial_geometry::{Position, SpatialDirection};
+ use adventuresim_tactical_core::scene_coordinates::Scene;
+ impl CapturePose {
+     pub(in crate::tactical_scene_viewer) fn accepts_plant(

@@ -1,0 +1,40 @@
+{
+  "revision": "13fc9dcc71ab879de364117e5462310673e43210",
+  "purpose": "Actual city source-to-GPU projections and preservation obligations; read-only source evidence, not a completed lens or validation run.",
+  "contracts": [
+    {
+      "contract": "Native geometry page offsets and vertex indices",
+      "trace": "Geometry::insert admits generated native Mesh attributes by assertion, remaps each indexed triangle into pages. A default page separately limits Vec4 words and u32 indices to64MiB. Three Vec4 words represent one unique vertex. Slice.start/count refer to index words, not unique vertices; source triangle order is preserved. The missing-count estimate overcounts repeated corners conservatively. Each new page fits a triangle. These facts bound per-page vertex IDs, index offsets and counts well below u32; do not flag those casts from syntax alone. Decoded shape assertions are M66."
+    },
+    {
+      "contract": "Cluster address and repeated owner semantics",
+      "trace": "RangeGroups combines ranges keyed(index start,index count,flags), memoizes owner lists by retained Arc-data identity, sorts without dedup, and preserves duplicate component draws. Each range has ceil(index_count/192) clusters. Compact shader stores placement*cluster_count+cluster; vertex shader divides/modulos by the same count to find owner and local index. Final partial cluster discards lanes beyond range index count. Existing fixtures explicitly require duplicate owners and264 capacity for two LOD ranges/two placements of66 clusters each."
+    },
+    {
+      "contract": "Component/native role encoding",
+      "trace": "Identity transform+zeroUV returns native zero flag; nonidentity component key includes exact transform/UV bits and checked record index<=u32MAX>>10. Component records use levels.y=2; selector skips them; vertex receiver uses flag512 and index>>10. Native bitencoding is actual ABI, while Part semantic-role/fade preservation is M67."
+    },
+    {
+      "contract": "Source population is bounded but does not itself finish every composed layout proof",
+      "trace": "TacticalSceneInput.validate_source->urban.validate admits <=64 primary and <=32768 distant placements (16384 lots*2); RegionalCityInput retains that proof. Component populations, repeated material-owner memberships, clusters per source mesh, combined batch scratch/selection bytes and postclip terrain growth are distinct. RangeGroups uses assertion/expect for composed u32 addresses/capacity. Scratch checks actual visibility byte size against device max binding; no ordinary overflow/binding failure witness established yet. Do not infer unlimited building placements or claim these source bounds prove every native buffer."
+    },
+    {
+      "contract": "Frame and view ownership",
+      "trace": "Compute clip is clip_from_world*world_from_city; camera is inverse city transform of root camera; far plane is transpose city frame projection, while vertex transforms through world_from_city and inverse-transpose normals. Culling coordinates therefore agree; no city-vs-world mismatch alleged. History slots key retained native view IDs and are capped at64; draw slots are per camera-group enumeration and use separate scratch storage. Scratch cache checks exact scene.buildings asset ID and sufficient slot capacity before reuse. Zero-scene clears views/scratch. Camera-group buffers are cleared in command order, not all by queue writes before draws."
+    },
+    {
+      "contract": "Replacement and publication",
+      "trace": "Assembly waits until scene streaming finishes, keeps candidate frame in unpublished queue, publishes exact root marker only after pack/upload, leaves previous scene/readiness on assembly failure and waits for new render readiness after success. Existing tests assert old asset/frame/readiness retention and new exact-root success/failure. Preserve this behavior; a unit status owner alone is not evidence of stale replacement publication."
+    },
+    {
+      "contract": "Actual native surface projections",
+      "trace": "CityMaterial packs native Bevy StandardMaterial values into ShaderType-compatible uniform lanes, converts color to linear and retains image handles. Draw command binds native buffers and uses16-byte draw-indirect offsets. These are actual framework/shader ports. Complete source material-policy coverage and any unsupported native UV transform/alpha cases remain untraced; do not invent a rendering regression from narrow current selection."
+    }
+  ],
+  "remaining": [
+    "Trace remaining component/frame/view source bounds and combined native address/device-capacity proofs; no arbitrary memory cap or per-lane wrappers",
+    "Trace source appearance ID->canonical Seed without accepting internal rawu64 APIs; ordinary building versus furniture roles differ",
+    "Postclip presentation vertex capacity: source<=u32 proof does not by itself bound clipped triangle multiplication",
+    "Other terrain/native producer and acceptance paths and all earlier PC frontiers; remaining12 lenses still pending"
+  ]
+}

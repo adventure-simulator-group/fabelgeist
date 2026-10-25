@@ -1,0 +1,41 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-639",
+  "at": "2026-10-25T16:19:53.776144+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 954,
+  "source_id": "pr-working:crates/adventuresim-core/src/material.rs",
+  "sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "From<u64> / From<Milliliters|Microliters> for u64",
+      "lines": [
+        [
+          108,
+          118
+        ],
+        [
+          192,
+          202
+        ]
+      ],
+      "disposition": "KEEP small native constructor/extraction; no existing owning Core From/Into derive"
+    }
+  ],
+  "analysis": [
+    "Seven local material extension traits12\u201318 are empty Clone+Debug+Eq marker requirements; no existing matching derive. Measures/IDs already derive structural traits.",
+    "From<u64> for Milliliters108\u2013112 and Microliters192\u2013196, reverse u64 extraction114\u2013118/198\u2013202 are tiny native wrappers; keep without adding unavailable owning Core From/Into dependency. Checked unit conversions/mass and rounded lattice admissions are inherent semantic functions."
+  ],
+  "first_unfinished": {
+    "scope_index": 954,
+    "line": 221
+  },
+  "execution": "none"
+}

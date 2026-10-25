@@ -1,0 +1,24 @@
+{
+  "id": "SEGOVB-04-TERRAIN-BUILD-TILE-NEGATION-CANDIDATE-001",
+  "source_id": "pr-working:crates/adventuresim-terrain/src/builder.rs",
+  "sha256": "39502f30860a433c74e3d1309365d46fda323b7406ee627123dfcd50630442a1",
+  "ranges": [
+    [
+      26,
+      42
+    ],
+    [
+      514,
+      528
+    ]
+  ],
+  "counterexample": "Public build(bounds[-32768,0,-32767,1]) finite orderedpassesgate, sourcewesti16MIN reachesfilenameWabs via-west523, debugoverflow beforeanyfilesystemneeded. Source geographicinvalidinput rejectedbadly, notordinaryvalidWGScoordinate failure.",
+  "qualification": "No run. Aliascomparisonpending. NativeWGSbuilderboundsdistinctfrom fullabstractweatheri32coordinate lattice. This doesnotjustify narrowingweather orclampinginvalidbuilderbounds.",
+  "acceptance": "Canonicalgeographic buildbounds admission/widened tilemagnitude beforeformat; typedstructuredfailure forinvalidrawinput, preserve realnegativehemispheres and exacttile/rastercoverage.",
+  "new_unique_global": "notdetermined",
+  "alias_search": {
+    "by": "coordinator",
+    "scope": "1002 recovered finding-record wrappers",
+    "result": "No indexed exact elevation_path / infer_settlement_economy candidate. Search evidence only, not exhaustive semantic no-alias proof."
+  }
+}

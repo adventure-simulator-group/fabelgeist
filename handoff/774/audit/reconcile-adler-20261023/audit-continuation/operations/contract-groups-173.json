@@ -1,0 +1,193 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-173",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/equipment_law.rs",
+      "sha256": "4a28fc949987aabb9f0ee687dac1381cdfc8423ee40c431715c89d6d6863e3b0",
+      "actual_EOF": 81,
+      "actual_compared_ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "method": "Entire P16 literal body personally read; full PR textual diff consumed and typed-error/fallible inventory changes analyzed. Both helper pairs completely compared, not hash-only."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/filth.rs",
+      "sha256": "2688d57af608f66bdca8ba271a0d9283be2467514b3545e140014b5a5ef9b2fe",
+      "actual_EOF": 769,
+      "actual_compared_ranges": [
+        [
+          1,
+          769
+        ]
+      ],
+      "method": "Entire P16 literal body personally read; full PR textual diff consumed and typed-error/fallible inventory changes analyzed. Both helper pairs completely compared, not hash-only."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/filth/blood_attempts.rs",
+      "sha256": "c62050a86c8ae93213b5e6dfe2ec5137f050ff790ee91b2889f477e69b9c7f7e",
+      "actual_EOF": 157,
+      "actual_compared_ranges": [
+        [
+          1,
+          157
+        ]
+      ],
+      "method": "Entire P16 literal body personally read; full PR textual diff consumed and typed-error/fallible inventory changes analyzed. Both helper pairs completely compared, not hash-only."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/filth/exposure_windows.rs",
+      "sha256": "f83042cfd787c6df04d003db5af5c1ba3e7b3d1fe04a5077969d3f08bd3d2ea4",
+      "actual_EOF": 27,
+      "actual_compared_ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "method": "Entire P16 literal body personally read; full PR textual diff consumed and typed-error/fallible inventory changes analyzed. Both helper pairs completely compared, not hash-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/equipment_law.rs",
+      "sha256": "0b9934bea4ea2409d1927ae01c670626d26a700fc2a8c268e9aa8d21c9faa90e",
+      "actual_EOF": 81,
+      "actual_compared_ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "method": "Entire P16 literal body personally read; full PR textual diff consumed and typed-error/fallible inventory changes analyzed. Both helper pairs completely compared, not hash-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/filth.rs",
+      "sha256": "5b1b42cf0757533e9b4591a203615729ea9ebd91da1891cadabb8bde74dec69a",
+      "actual_EOF": 769,
+      "actual_compared_ranges": [
+        [
+          1,
+          769
+        ]
+      ],
+      "method": "Entire P16 literal body personally read; full PR textual diff consumed and typed-error/fallible inventory changes analyzed. Both helper pairs completely compared, not hash-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/filth/blood_attempts.rs",
+      "sha256": "c62050a86c8ae93213b5e6dfe2ec5137f050ff790ee91b2889f477e69b9c7f7e",
+      "actual_EOF": 157,
+      "actual_compared_ranges": [
+        [
+          1,
+          157
+        ]
+      ],
+      "method": "Entire P16 literal body personally read; full PR textual diff consumed and typed-error/fallible inventory changes analyzed. Both helper pairs completely compared, not hash-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/filth/exposure_windows.rs",
+      "sha256": "f83042cfd787c6df04d003db5af5c1ba3e7b3d1fe04a5077969d3f08bd3d2ea4",
+      "actual_EOF": 27,
+      "actual_compared_ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "method": "Entire P16 literal body personally read; full PR textual diff consumed and typed-error/fallible inventory changes analyzed. Both helper pairs completely compared, not hash-only."
+    }
+  ],
+  "dependency_reads": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/filth.rs",
+      "sha256": "a9e459f3c532b5661b495beff45dbdabd7946cf34bacf8e05f0d852d0f36e446",
+      "ranges": [
+        [
+          15,
+          180
+        ]
+      ],
+      "coverage": "fresh critical dependency only, no new whole role credit"
+    }
+  ],
+  "groups": [
+    {
+      "id": "Equipment compliance mutation and cause distinctions",
+      "locations": "equipment_law1-81",
+      "trace": "Item lookup is bound to character_and_id. Restrictions require actual settlement policy and presented named privilege. No policy/outside settlement intentionally permits. enforce removes every result Err, including missing data errors, then fallibly refreshes capabilities and strategic condition if any removed. No direct arithmetic or array indexing here. Equating unavailable validation with prohibited item can change equipment on malformed represented state; current normal broken reference was not established. Later refresh failure requires native transaction/catch trace before claiming committed partial state.",
+      "disposition": "No new arithmetic defect. Retain explicit error-cause and inventory/condition propagation dependencies, including exact P16 typed-result delta.",
+      "dependencies": [
+        "character equipment mutation and capability refresh",
+        "organization privilege and settlement policy",
+        "CAM-PROP-F006/local774:F05/M30"
+      ],
+      "acceptance": "Authorized ordinary equipment behavior stays legible. Rejection must not commit partial logical equip state; decide unavailable legality policy from canonical error owner before narrowing all Err to forbidden."
+    },
+    {
+      "id": "Filth admission, accumulation and healing route predictions",
+      "locations": "filth79-349; fresh Core filth63-79,135-168",
+      "trace": "Normal deposit clips to remaining MAX_FILTH100; total saturatingu16 sum and min preserve cap even for raw overfull rows. Travel accrual widensu64*8 to u128 and returns remainder<1440, so next boundary1440-remainder is safe for actual writer. Raw remainder1441 weakness is existing NATIVE-INITIAL05-F049. Native dirty needed sum and Core raw deposit totals remain ROOT-INITIAL04-F051 strengthening: this writer supplies cap100 but all alternate raw row construction is not globally certified. Healing per_day includes positive.01 plus nonnegative terms and positive projectile factor at ordinary inputs; ceil cast may saturate at giant represented damage, no current admitted overflow asserted. Source episode parse can fail after deposit writes; no partial committed state claim without actual transaction boundary. Deposit_now fabricates epoch0 on missing clock, extension of CAM-PPS-F003.",
+      "disposition": "Existing remainder/total/chronology findings supported, not counted again. Do not refine amount or signed injury values by merely seeing u16/f32; use canonical total and actual damage owners.",
+      "dependencies": [
+        "audit/continuation/native/initial05-aggregate-states/findings.jsonl#50",
+        "audit/continuation/root/initial04-invariant-operations/findings.jsonl#50",
+        "CAM-PPS-F003",
+        "Native injury healing and canonical region/health owner"
+      ],
+      "acceptance": "Admitted remainder and total stay coherent, deposition retains private provenance and compatible disease snapshots. Preserve exact chunk accumulation, current capped meter policy and finite successful healing-route endpoints."
+    },
+    {
+      "id": "Blood exposure work and persisted frontier",
+      "locations": "filth/blood_attempts1-157; exposure_windows1-27; fresh Core filth81-132",
+      "trace": "to<=from returns before work. Deposit decoding and active compatible route check precede loop. Every minute incurs bounded-work check before attempt. Current interval uses from+1 and savedcursor+1, and only actual compatible disease routes are enumerated. Core windows already exclude from and merge inclusive windows. Existing terminal loss at Core infectious end is ROOT-INITIAL04-F050, not rediscovered. Native helper persists to unconditionally after each disease, which admits stale cursor rewind counterexample. Failure after one disease cursor update but before later one needs actual transaction/error catch proof; no live partial state claim. Exact checkpoint seeds preserve deterministic values, not by themselves consumption uniqueness.",
+      "disposition": "One newly qualified public helper cursor transition record. Existing inclusive endpoint and plan binding retained. No tests or actual disease outcomes executed.",
+      "dependencies": [
+        "SEGOVB-04-BLOOD-CURSOR-001",
+        "audit/continuation/root/initial04-invariant-operations/findings.jsonl#49",
+        "NATIVE-INITIAL05-F044",
+        "Core acquisition dedup and native reducer rollback policy"
+      ],
+      "acceptance": "Preview remains read-only; successful commit advances frontier monotonically only through actual committed prefix. Preserve bounded work and actual disease-specific compatibility, excluding already settled minutes."
+    },
+    {
+      "id": "Washing budgets and tagged resource settlement",
+      "locations": "filth359-711",
+      "trace": "Soap fraction multiplication uses checked_mul and missing fraction becomes zero availability. take_units chooses min(available,wanted) before subtraction; used<=wanted protects native remaining subtract. Priorities derive exactly from subjects before sorting, so find.unwrap is protected for unique admitted subject sets. Duplicate/mixed-party input is exact existing NATIVE-INITIAL05-F050; Core repeated tagged resource allocation is ROOT-INITIAL04-F052. Preflight checks each tagged physical soap before first consume, but repeated same key can still pass independently; total coherent allocation is aggregate concern. Deposit removal checks owner/amount then checked_sub and cleans private snapshots/provenance at zero. Native no-tactical persistence respected. u32 summary and preview sum require whole bounded party/resource admission; no small ordinaryparty overflow witness.",
+      "disposition": "Support existing native subject/resource binding plus Core duplicate identity and total findings. Do not assert valid single-party producer repeats an ID or successfully commits double washing. Missing availability defaults are separate admission policy from actual arithmetic failure.",
+      "dependencies": [
+        "audit/continuation/native/initial05-aggregate-states/findings.jsonl#51",
+        "audit/continuation/root/initial04-invariant-operations/findings.jsonl#51",
+        "ROOT-INITIAL04-F051",
+        "Inventory fraction recipient, actual party supplier and SDK rollback"
+      ],
+      "acceptance": "Whole admitted plan conserves each tagged resource exactly once, binds unique subjects to the matching shared party, and removes only their own existing deposits. Keep personal-first/risk priority, exact fractions, and Personal versus Party namespace."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-BLOOD-CURSOR-001",
+      "kind": "Representable public helper monotonic cursor contract strengthening",
+      "source_variants": [
+        "physical-p16",
+        "pr-working"
+      ],
+      "locations": "filth/blood_attempts16-44,96-138",
+      "case": "Retain a checkpoint evaluated_through20 and compatible foreign infectious blood deposited at5. Call public blood_exposure_attempts_through with from0,to10,persist_checkpointtrue and sufficient work. Initial active-blood gate succeeds. Startmax(from+1,oldcheckpoint+1)=21, so no new window exists through10. Nevertheless helper writes evaluated_through10. A later call from10,to20 can emit attempts11..20 again. This is two bounded static calls over representable source state, not an executed reducer or claimed ordinary caller; actual current matching disease commit advances monotonically.",
+      "operation": "Accepted earlier interval replaces already-later persisted cursor instead of preserving monotonicity or rejecting stale request. Stable absolute seed prevents changing the random outcome but does not prove no duplicate attempt delivery.",
+      "connected_repair": "Make canonical exposure checkpoint transition monotone and bind replay/commit interval to its retained frontier; reject stale intervals or preserve max frontier with deliberate current evidence policy. Preserve preview purity and terminal clipped commit.",
+      "dependencies": [
+        "Native disease clip_elapsed_for_disease_planned1874-1885",
+        "Core blood window exclusive-from contract",
+        "Whole internal caller/transaction analysis"
+      ],
+      "acceptance": "An accepted stale/repeated interval cannot reduce evaluated_through or cause already-settled minutes to be emitted as new work. Ordinary split versus single intervals and preview/commit remain equivalent.",
+      "unique_count": "Not assigned; root reconciliation required."
+    }
+  ],
+  "status": "Eight source roles compared; whole lens and connected dependencies remain incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/food/authority_tests.rs"
+}

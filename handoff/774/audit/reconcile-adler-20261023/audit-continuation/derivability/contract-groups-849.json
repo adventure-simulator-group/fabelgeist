@@ -1,0 +1,48 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-849",
+  "at": "2026-10-25T17:00:37.976023+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1063,
+  "source_id": "pr-working:crates/adventuresim-puzzles/src/puzzles.rs",
+  "sha256": "e3eb46b050e02df31df84a6d18ded142d748383d0e9611c55bc720d086bbbfbe",
+  "actual_compared_ranges": [
+    [
+      301,
+      660
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "Default",
+      "type": "TruthfulWitnessSpec",
+      "lines": [
+        [
+          350,
+          359
+        ]
+      ],
+      "disposition": "KEEP enabled-family/irredundancy policy"
+    },
+    {
+      "trait": "Default",
+      "type": "RuneTransformationSpec",
+      "lines": [
+        [
+          609,
+          620
+        ]
+      ],
+      "disposition": "KEEP bounded puzzle complexity/ambiguity/repetition policy"
+    }
+  ],
+  "analysis": [
+    "TruthfulWitnessSpec Default350\u2013359 enables path/witness and irredundancy, false unique-liar; RuneTransformationSpec609\u2013620 sets nonzero gate/route/example/candidate policy and mixed repeats. Standard derive differs, preserve manualpolicy. All witness/rune/spec/private/public declarations structural/Serde already. Native truth evaluation/claim prose/generation/solution/redundancy and coupled admission semantic, not derive targets."
+  ],
+  "first_unfinished": {
+    "scope_index": 1063,
+    "line": 661
+  },
+  "execution": "none"
+}

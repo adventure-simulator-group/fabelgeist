@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-521",
+  "at": "2026-10-25T15:56:36.286294+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 910,
+  "source_id": "pr-working:crates/adventuresim-core/src/developer_quest.rs",
+  "sha256": "c81518557455da223c56b59f0003647eac72633ee5d4e681786aad20fa31de78",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Fresh developerquest1\u2013220 exact source consumed. Diagnostics/context/definition already structural+Serde (snakecaseDiagnosticTier, denyunknowncontext/definition). from_generated drops generatedauthoritycontext while moving explicit authorablefields; inherent mapping not manualtrait. parse_definition_json adds payload limit/structureddiagnostics beforeexistingSerde; recursivebounds inspectsderivedValue not handwrittenSerialize. No handtrait/codec prefix, relationbodyunfinished. Earlier accidental oversized source output truncated; no beyond220credit.",
+  "first_unfinished": {
+    "scope_index": 910,
+    "line": 221
+  },
+  "execution": "none"
+}

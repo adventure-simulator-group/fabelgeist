@@ -1,0 +1,54 @@
+{
+  "id": "CONT07-CONTRACT-373",
+  "at": "2026-10-23T20:01:18.415510+00:00",
+  "lens": "audit-redundant-authority",
+  "members": [
+    {
+      "scope_index": 1603,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor/raster.rs",
+      "sha256": "ee16efd8a79ab3116e35ecd6f0e7ac5eb6a5e48c573e33e84eba57b4c5634913",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor/raster.rs",
+      "actual_EOF": 976,
+      "ranges": [
+        [
+          1,
+          976
+        ]
+      ],
+      "read_kind": "fresh full exact source in three bounded untruncated reads"
+    }
+  ],
+  "contracts": [
+    {
+      "source_index": 1603,
+      "disposition": "accounted exact07 selector/raster/entropy/native/fixture roles with F076 preserved",
+      "facts": [
+        "Actual render_tree_card filters branches/leaves through same TreeBakeCard selector then emits lower-detail geometry and rasterizes; confirms F076 foreign-sector population reaches actual image/provenancebounds. Per-tile depth array and pixels are distinct temporary visibility/result stages, coordinated writes retain first sample on exact depthtie. Repeatedearlydepthguard andwriteguard agree, not separately mutable authority.",
+        "Stratified leaf sampling sorts source shootID+ordinal then applies one stable per-shoot phase/stride/source-group entropy; retained set is intentional view/LODrepresentation, not currentsource leaftruth. Per-group sampling may reuse same biologicalleaf in perpendicularcards intentionally. Shape/card dimensions and imagecoverage both derive same selector but independent sampling/opticalscales deliberately approximate source, no automatic expected equality.",
+        "Exact nativegeometry roles: project_to_tile returns pixelX/Y plus physicalsigneddepth, not homogeneous scenevector. Positions/normals/UV/colors are finalMesh inputs; colorRGBactually contains shade/selector not pigment. baked_leaf_color explicitlyignores thresholdblue for tint, preserving validnativefields; fixedbakedlight versus currentruntimecelestiallighting represent deliberate layeredrendering, not allstagesmustlive-update.",
+        "Fresh fullfixtures include runtime projection flattening right/up (594-607) into scaled dimensionlessbasis. Preserve this meaningful nonunit case; do not claim TreeLeaf directions universallyunit ornormalize arbitrary fixture members. Actual production leaf and projectedfixture payloads have different admitted roles. FNVsourcefingerprint limitation remains diagnostic/testcomparison, not provennormalcacheguard.",
+        "Full976 body includes 96/192grid occupancy referencekernels, actualrasteralphareference, allbeech/oak/coarse/sparsefixture/multiazimuth/semanticsourcecolour cases, stable originalseed/scene/camera vectors. These are independentoracles with intentionallydifferent grids and approximations, not productiontruth. No testwriter/check/testexecution or fixture sourcegraph completion beyond readroles."
+      ]
+    }
+  ],
+  "personally_consumed_prior_narratives": [
+    "RIG-OWNER-TREE-IMPOSTOR-048 complete exact record, including scaled-basis qualification and exact FNV narrowing policy"
+  ],
+  "existing_local_finding_supported": [
+    "CONT07-F076 complete raster body analyzed, proofunchanged"
+  ],
+  "new_local_findings": [],
+  "identity_count_accounting": {
+    "new_original_variant_ids": [
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor/raster.rs"
+    ],
+    "already_covered_fresh_reanalysis_ids": [],
+    "new_this_contract": 1,
+    "cumulative_new_original_variants": 107,
+    "cumulative_original_unique": 1865,
+    "count_basis": "exactsource_idunion"
+  },
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true
+}

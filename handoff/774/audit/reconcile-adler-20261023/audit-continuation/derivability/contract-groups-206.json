@@ -1,0 +1,119 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-206",
+  "at": "2026-10-25T13:38:31.470288+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 406,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration.rs",
+      "sha256": "5ebb42e36e764cd3adee88c336b2976f42db557494a436e8fa2eef2f79fdef61",
+      "actual_EOF": 649,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-tactical-server/src/iteration.rs",
+        "owner": "native",
+        "sha256": "5ebb42e36e764cd3adee88c336b2976f42db557494a436e8fa2eef2f79fdef61",
+        "base_sha256": "812c3b491db93ba51220e73ebe4aef93934ff80abeb3f7d4e2af796c598ce1b7",
+        "state": "modified",
+        "bytes": 24141,
+        "audit_owner": "native",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                490,
+                535
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-MELEE-001",
+              "CAM-PROP-REFERENCE-GEOMETRY-001",
+              "CAM-PROP-CONCENTRATION-001"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 42,
+            "read_ranges": [
+              [
+                1,
+                649
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-ITERATION-001",
+              "NATIVE-OWNER-F007",
+              "NATIVE-OWNER-F008"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-server/src/iteration.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 398,
+            "read_ranges": [
+              [
+                1,
+                649
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-ITERATION-001",
+              "NATIVE-OWNER-F007",
+              "NATIVE-OWNER-F008"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-server/src/iteration.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          649
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "No local handwritten trait or serializer; module functions only.",
+      "absence_basis": "All649 actual lines personally read including complete fixture functions. Explicit harness app construction, native outcome classification, selected source combatant\u2192tactical fields, checked measurement and defaults are semantic projection. No child clock/equipment/logging coverage from module declarations."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Deterministic tactical harness assembly and outcome projection",
+      "disposition": "No handwritten structural/wire candidate; retain semantic source\u2192transient conversion and concrete app setup.",
+      "acceptance": "Preserve checked result types, selected source fields, fixed clock/seed/native event contracts and defaults. Existing fixture/source mismatch is historical qualification only; no execution, successful replay or other-lens clearance claimed."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 407,
+    "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration/equipment.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

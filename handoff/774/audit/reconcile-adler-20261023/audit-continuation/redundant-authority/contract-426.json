@@ -1,0 +1,83 @@
+{
+  "id": "CONT07-CONTRACT-426",
+  "at": "2026-10-23T21:41:56.542951+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1879,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory/chronology.rs",
+      "sha256": "bc1144d088c13835018209779eecddba0f5a94957c7987fa4b8c7be902db9fb9",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/inventory/chronology.rs",
+      "actual_EOF": 76,
+      "ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1880,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory/ordering.rs",
+      "sha256": "a16a4fd249e9a9fa97fa44588caa57dc7a15e35ef78bfd5e194267419a507f20",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/inventory/ordering.rs",
+      "actual_EOF": 130,
+      "ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1881,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory/timing.rs",
+      "sha256": "d02da5117e785f6425ae9d21c2d48a30f0fb7818e22df987fa787f88a3cbab04",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/inventory/timing.rs",
+      "actual_EOF": 17,
+      "ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1882,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/lib.rs",
+      "sha256": "244fd713d736e5e7da01d379afdcae5c77cd5705016504d882221057490eef26",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/lib.rs",
+      "actual_EOF": 159,
+      "ranges": [
+        [
+          1,
+          159
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "CAM-OWN-TACTICAL-CONFIG-INVENTORY-061 selected inventory/chronology matrix",
+    "CAM-OWN-CONFIG-CHILDREN-062",
+    "ROOT-OWNER-PRELUDE-012"
+  ],
+  "facts": [
+    "1879 equipment command sequence and authoritative mutation revision are independent chronologies: input ordering half-window versus replicated state update. EquipmentSequence defaultFIRST1, wrapped0 requires an actual predecessor; EquipmentRevision initial0. Shared u32/wrapping does not make them duplicate authority, and simulation sample clock remains different.",
+    "1880 EquipmentRootOrder derived per call from current topology/catalogue placement and location, uses stable authored identity/fit-zone ordering rather than remapped entity allocation. Channel/depth/requirement-index are correlated placement claims with explicit lookup checks, no cached second root-order field. Unknown/mismatched requirement yields optional fit zone; producer/admission relationship remains separate from07 current ordering drift. Full130fixture preserves reversed remap intent without execution.",
+    "1881 InventoryView passes current equipped weapon inertia and explicit absence into canonical Core melee timing; unarmed0 is intentional argument policy, not independently cached timing. Actual per-hand selection versus held cache F032 distinction remains baseline.",
+    "1882 module/prelude imports and reexports expose canonical owners, no duplicate stored state defined. Current PR chronology exports must survive older P16 integration; hashes or source union do not prove compilation. Existing ROOT012 source union obligation preserved.",
+    "Exact1877 supplementary1-180 and baseline179/F032 narrative were compared425 only; no restart or new credit from that inventory excerpt. No new07finding; no checks/all13/overlay clearance."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1883,
+    "start_line": 1
+  }
+}

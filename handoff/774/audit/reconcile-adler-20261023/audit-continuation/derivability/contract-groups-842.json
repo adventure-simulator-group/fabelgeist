@@ -1,0 +1,90 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-842",
+  "at": "2026-10-25T16:59:40.953369+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1057,
+      "source_id": "pr-working:crates/adventuresim-procedural-materials/src/shaders/tactical_tree_leaf_card.wgsl",
+      "sha256": "46a5f6da85cac6f612bdbeae41a1aa0cbee85b88205509e331ad526ca6fb146c",
+      "actual_EOF": 284,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-procedural-materials/src/shaders/tactical_tree_leaf_card.wgsl",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-procedural-materials/src/shaders/tactical_tree_leaf_card.wgsl",
+        "sha256": "46a5f6da85cac6f612bdbeae41a1aa0cbee85b88205509e331ad526ca6fb146c",
+        "bytes": 10701,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-root-receivers-005.json",
+            "ranges": [
+              [
+                1,
+                284
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-SUPP-RNG-PLANT-001"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 275,
+            "read_ranges": [
+              [
+                1,
+                284
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-TREE-LEAF-046"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-procedural-materials/src/shaders/tactical_tree_leaf_card.wgsl"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 402,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          284
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Full WGSL consumed: conditional imports/uniform+sampler bindings, displacement/vertex/output transport and conditional shadow/prepass/forward fragment sampling/shading functions. No derivable trait/serializer machinery."
+    }
+  ],
+  "groups": [
+    "Host material structural bindings already derive in1055; shader has explicit render semantics, no analogous derivability issue. This source-specific non-applicability is not a shader check/render execution or numeric clearance."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1058,
+    "source_id": "pr-working:crates/adventuresim-puzzles/Cargo.toml"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

@@ -1,0 +1,95 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-368",
+  "at": "2026-10-23T12:47:20.320333+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/main.rs",
+      "sha256": "41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9",
+      "scope072_index": 819,
+      "actual_EOF": 667,
+      "scoped_ranges_compared": [
+        [
+          1,
+          667
+        ]
+      ],
+      "actual05_comparison": "Fresh whole source and original fixtures; requested/installed model state, validated entry, outfit layering and complete fit/finish publication traced."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/model_controls.rs",
+      "sha256": "f52b873a70ee6fd3ac34fc78e3acb63fac9b6466d973114ca313fe066105b5ae",
+      "scope072_index": 820,
+      "actual_EOF": 40,
+      "scoped_ranges_compared": [
+        [
+          1,
+          40
+        ]
+      ],
+      "actual05_comparison": "Fresh whole source and original fixtures; requested/installed model state, validated entry, outfit layering and complete fit/finish publication traced."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/outfit.rs",
+      "sha256": "4d3281fb80e63eeb57bf3caaec77e63eb33d75c62e6ec5d7053e2fd76ebd95f2",
+      "scope072_index": 821,
+      "actual_EOF": 104,
+      "scoped_ranges_compared": [
+        [
+          1,
+          104
+        ]
+      ],
+      "actual05_comparison": "Fresh whole source and original fixtures; requested/installed model state, validated entry, outfit layering and complete fit/finish publication traced."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/parametric_equipment.rs",
+      "sha256": "fb8ed7e496fe124cf6ea6c4deb962b9602cf62f5b516d362b5e50ddca9829c49",
+      "scope072_index": 822,
+      "actual_EOF": 478,
+      "scoped_ranges_compared": [
+        [
+          1,
+          478
+        ]
+      ],
+      "actual05_comparison": "Fresh whole source and original fixtures; requested/installed model state, validated entry, outfit layering and complete fit/finish publication traced."
+    }
+  ],
+  "groups": [
+    {
+      "id": "main entry and model replacement preserve local admission",
+      "comparison": "819 complete667 including original GPU fixtures read. Production main loads admitted CharacterLod/model and CatalogueDesigns/ItemCatalog, decodes and validates recipe before review/export/generation/studio. save/load revalidate recipe. BodyModel privately stores Mhr+lod+correctives together; reload builds complete replacement before assignment, marks dirty only on success and restores requested selectors on failure. Existing CameraF050 sameLOD corrective cache dependency still applies downstream, not closed by dirty notification. ModelConfig/native shape body remains separate exact dependency."
+    },
+    {
+      "id": "schedule and companion products",
+      "comparison": "819 systems order reload before regenerate, drape poll/hair refresh after regenerate, mail refresh after poll; armory and wardrobe chain after reload before regenerate. This supplies ordering only, no blanket Bevy/native callback execution or cache identity proof. GeneratedCharacter private positions/normals/joints/device product is built by separately read generation source. placement_coverage divides by region_count; actual normal Loadout gate requires nonempty authored surface but exact nonempty regions must come from catalogue validation, not inferred from Vec type. Public helper not externally exposed; no invented raw arbitrary caller defect."
+    },
+    {
+      "id": "controls have separate requested and installed model state",
+      "comparison": "820 LOD slider uses same imported MIN/MAX as CharacterLod admission; formatter expect locally uses slider bounds, but native UI value guarantees and exact imported constant-width predicate remain lower dependencies. Corrective checkbox changes requested state, actual reload compares both selectors and commits all model fields. No independent immutable body certificate from controls."
+    },
+    {
+      "id": "outfit layering retains selected input ordering",
+      "comparison": "821 normal loadout delegates actual Inventory.loadout, source364 compared. Clothing uses generated positions/normals/global joints with same model faces/skin/names, actual lower geometry admission remains necessary. drape_inputs reverses sorted inner-to-outer selection, accumulates standoff only covered under-plate channels, clones matching saved drape with same InventoryItemId and then reverses output back. Each layer gets outermost cloth spacing plus its half thickness; this is intentional relationship not equal standoff for every article. lining only rigid pieces and their same generated armor, no independently supplied IDs."
+    },
+    {
+      "id": "parametric fit/finish and dependency order",
+      "comparison": "822 complete478 including originals read. fitted_design dispatches actual Underlayer/TrunkHose or device fit then assemble with same ordered morph names/model joints/UV domain, character skeletal correction afterward. fit resolves same FittedPiece selection/design; finish first constructs and laces then trims, returning complete Finish only if all fallible stages succeed. Nonsteel uses Solid regardless raw decoration/construction, intentional material policy. Lacing couples constructed geometry to requested tiling cord using zip, requiring underlying constructed lacing contract rather than accepting arbitrary pair. Trim returns updated geometry with its pervertex UV vector."
+    },
+    {
+      "id": "whole outfit publication and fixtures",
+      "comparison": "822 selected builds LayerPlan from exact loadout.fitted order, allocates same length optional results, fits in plan order with only already finished supports, then rejects any missing result before returning full vector. Already fresh equipment_layers765 gives private DAG order/ancestor invariants; support context errors are not unchecked indexing proof from name. Actual SelectedArmor public(super) fields could pair independently inside crate but normal factory copies samepiece into corresponding Finish. Original ignored GPU tests compare nonempty topology, pervertex arrays, morph row lengths, finite geometry, construction/trim component ranges; tests/source helper paths read only, no GPU/test run, no proof from assertions alone. Fixture uses lod1 despite current admitted creator interval, so cannot claim it established present normal model validity."
+    }
+  ],
+  "new_unique_findings": [],
+  "existing_finding_support": [
+    "CAMERA-INITIAL07-F050 corrective model cache dependency normal producer support"
+  ],
+  "remaining_dependency_obligations": [
+    "Exact imported MIN/MAX_LOD constants; catalogue surface region membership; independently queued native/model admission."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

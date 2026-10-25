@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1140",
+  "at": "2026-10-25T17:53:24.071581+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1245,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/advancement.rs",
+  "sha256": "4d29377483597d2c70b29a228fcbda60ed1f81614ae46c891cb9d833c18da188",
+  "actual_compared_ranges": [
+    [
+      1,
+      260
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "No handwritten trait/codec/type. Native movement/travel preview/settlement and in-plan variants preserve lifecycle segmentation/disease/injury/clock/nativecondition context, error/terminal contracts and exact elapsed; semantic variants not generic derive boilerplate. Include lifecycle independently inventoried, no child body credit."
+  ],
+  "first_unfinished": {
+    "scope_index": 1245,
+    "line": 261
+  },
+  "execution": "none"
+}

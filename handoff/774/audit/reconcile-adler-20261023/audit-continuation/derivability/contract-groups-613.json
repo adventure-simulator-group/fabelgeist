@@ -1,0 +1,57 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-613",
+  "at": "2026-10-25T16:13:18.529395+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 941,
+  "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation.rs",
+  "sha256": "df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "Display + Error",
+      "type": "CatalogValidationError",
+      "lines": [
+        [
+          58,
+          93
+        ]
+      ],
+      "disposition": "KEEP source-aware iterative/conditional diagnostic formatter and error marker; no exact existing derive for computed multiline rendering."
+    },
+    {
+      "trait": "Deserialize",
+      "type": "StrictValue",
+      "lines": [
+        [
+          139,
+          146
+        ]
+      ],
+      "disposition": "KEEP custom strict visitor admission rather than raw Value delegate."
+    },
+    {
+      "trait": "Visitor",
+      "type": "StrictValueVisitor",
+      "lines": [
+        [
+          150,
+          203
+        ]
+      ],
+      "disposition": "KEEP recursive finite numeric and duplicate key policy, exact custom errors and owned/borrowed string/map/sequence routes."
+    }
+  ],
+  "analysis": "Fresh item_catalog_validation1\u2013220: diagnostic records structural. CatalogValidationError Display58\u201391 KEEP contextual multi-diagnostic rendering with source-coordinate lookup, conditional file/source branches and blank-line spacing; empty Error93 supports that necessary custom formatter, not literal boilerplate. StrictValue Deserialize139\u2013146/Visitor150\u2013203 KEEP recursive finite-number gate and duplicate mapping-key rejection before recursive child value; transparent raw Value derive cannot express this strict policy. No source execution; document validation body incomplete.",
+  "first_unfinished": {
+    "scope_index": 941,
+    "line": 221
+  },
+  "execution": "none"
+}

@@ -1,0 +1,71 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-022",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "committed-policy-effective-defense-and-stochastic-facts",
+      "sources": [
+        {
+          "scope_index": 83,
+          "ranges": [
+            [
+              1,
+              444
+            ]
+          ]
+        }
+      ],
+      "distinction": "CommittedThreatFacts describes action-relative work, current vulnerability and seeded choice sample, not a forecast oracle. Decision carries selected policy plus explanatory observations. WeaponDefenseAlignment retains attempted versus effective defense and actual continuous engagement; these are different historical facts even if same response type.",
+      "uses": "choice62\u2013110 weighs sunk work versus benefit; finish_trade_probability differs from expected_intercept_benefit which can exceed1 because vulnerability factor1+incapacity+exposure. Alignment131\u2013162 logistic sample -> engagement scales only effective precision. scaled_for_performance253\u2013270 scales Block effectiveness or Parry precision or Dodge reflex once, leaving raw reflex unchanged for Parry. factor273\u2013283 applies existing formula, no blanket defender-double-scaling conclusion.",
+      "disposition": "Preserve attempted/effective/history and independent random sample versus probability. Share UnitInterval only for actual bounded probabilities/engagement; do not force expected benefit into interval from name. Shield lateral frame is normalized half-body width distinct from scalar surface coordinate0\u20131; BodySideBoth means no single resting coordinate, not malformed side.",
+      "acceptance": "Any compact stage view must retain attempted work cost separately from effective contact, seeded samples and signed practical-skill margin; no outcome-foreknowledge, policy rewrite or extra penalty. Existing total-incapacity/single-fatigue rule remains authoritative."
+    },
+    {
+      "id": "metabolic-workload-purpose-versus-common-energy-storage",
+      "sources": [
+        {
+          "scope_index": 84,
+          "ranges": [
+            [
+              1,
+              263
+            ]
+          ]
+        },
+        {
+          "scope_index": 85,
+          "ranges": [
+            [
+              1,
+              46
+            ]
+          ]
+        }
+      ],
+      "distinction": "CombatActionWorkload is useful metabolic-energy role, not redundant f32 wrapper. Mechanical collision/delivered energy and metabolic cost are distinct though both Joules; mechanical_efficiency explicitly connects them. Mass, inertia, work, power and duration have different dimensions. One fatigue pool accepts all action/movement workload; no per-muscle or oxygen debt owner implied.",
+      "uses": "workload25\u201358 computes physical action mechanical work then divides efficiency into metabolic_joules; apply89\u201397 converts via endurance-dependent capacity into bounded fatigue. recover99\u2013109 uses power*time/capacity. movement64\u201388 computes fatigue rate, not fatigue total or mechanical energy; stationary effort0 remains real. Parameter validator23\u201344 enforcespositive family, efficiency<=1 and ordered actiontime window.",
+      "disposition": "Retain purpose of workload record and explicit metabolic/mechanical conversion; share numeric invariants below roles without flatteningenergy into fatigue fraction or creating peraction duplicate cost pools. CombatActionWork finite variants represent real action classes. Raw temporary physics arithmetic belongs whole kernel, not permission to keep unrelated retained masses/inertia/config quantities universally f32 forever.",
+      "acceptance": "Preserve single visible fatigue source, peraction chargeonce and steady/recovery rules, legitimatezero work/rest and total-incapacityperformance downstream. No unsupported newpositive speed bound at lower-levelNonnegativeSpeed; zero sustainable denominator robustness is separate admission/operation question, not silently changed policy."
+    },
+    {
+      "id": "recoverability-is-availability-at-snapshot-not-infinite-duration",
+      "sources": [
+        {
+          "scope_index": 86,
+          "ranges": [
+            [
+              1,
+              115
+            ]
+          ]
+        }
+      ],
+      "distinction": "RecoveryTime After(AnimationElapsed) versus CannotRecover is meaningful availability at current performance. It is not another independent time unit nor permanent combatant capability. Total incapacitation input can exceed1 while output performance is UnitInterval; do not share same bounded owner for both.",
+      "uses": "zero base recovery returns actualAfterZERO evenperformance0; positivebase/performance0 returnsCannotRecover, finite division overflow remainsElapsedError. IntoOption serializes trueabsence without maxfloat/Inf duration sentinel. Encumbrance contribution and actual physical mass remain distinct mechanisms.",
+      "disposition": "Preserve result availability sum and common span owner beneath available case; do not collapseCannotRecover into0 or MAX, no permanentCapability type. Sourcefixturespositive total-incapacity semantics and cutoff remain current policy, not proof execution.",
+      "acceptance": "No hidden additional fatigue multiplier; restore current snapshot availability from same bounded performance; distinguish arithmetic failure from policyunavailability, truezero recovery and positive wait."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

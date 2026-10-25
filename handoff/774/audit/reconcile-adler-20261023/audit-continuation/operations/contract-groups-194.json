@@ -1,0 +1,169 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-194",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/settlement_population.rs",
+      "sha256": "99cd12b58bafddf20c526c07061a1c822636fc87670178ddb36eda2587275fcc",
+      "actual_EOF": 759,
+      "actual_compared_ranges": [
+        [
+          1,
+          759
+        ]
+      ],
+      "method": "Whole P16 population, draft and persistence bodies/fixtures personally read across bounded chunks; full actual PR textual comparisons consumed, including two Result signature deltas. Not hash-only."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/settlement_population/resident_drafts.rs",
+      "sha256": "0bdbeb8d3d35fb200d35d06429d177a9311b5e71207f89a3644fadcd6e72d959",
+      "actual_EOF": 585,
+      "actual_compared_ranges": [
+        [
+          1,
+          585
+        ]
+      ],
+      "method": "Whole P16 population, draft and persistence bodies/fixtures personally read across bounded chunks; full actual PR textual comparisons consumed, including two Result signature deltas. Not hash-only."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/settlement_population/resident_persistence.rs",
+      "sha256": "40ec2a78bdcbb5225ff5558a6bb8f186af189dc527eef024048495ec10df0e94",
+      "actual_EOF": 299,
+      "actual_compared_ranges": [
+        [
+          1,
+          299
+        ]
+      ],
+      "method": "Whole P16 population, draft and persistence bodies/fixtures personally read across bounded chunks; full actual PR textual comparisons consumed, including two Result signature deltas. Not hash-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/settlement_population.rs",
+      "sha256": "99cd12b58bafddf20c526c07061a1c822636fc87670178ddb36eda2587275fcc",
+      "actual_EOF": 759,
+      "actual_compared_ranges": [
+        [
+          1,
+          759
+        ]
+      ],
+      "method": "Whole P16 population, draft and persistence bodies/fixtures personally read across bounded chunks; full actual PR textual comparisons consumed, including two Result signature deltas. Not hash-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/settlement_population/resident_drafts.rs",
+      "sha256": "0bdbeb8d3d35fb200d35d06429d177a9311b5e71207f89a3644fadcd6e72d959",
+      "actual_EOF": 585,
+      "actual_compared_ranges": [
+        [
+          1,
+          585
+        ]
+      ],
+      "method": "Whole P16 population, draft and persistence bodies/fixtures personally read across bounded chunks; full actual PR textual comparisons consumed, including two Result signature deltas. Not hash-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/settlement_population/resident_persistence.rs",
+      "sha256": "577af433807bf7c8a4cc22f46f82ed318d2d365ca79e61a66eaaf6d1b408c5e7",
+      "actual_EOF": 299,
+      "actual_compared_ranges": [
+        [
+          1,
+          299
+        ]
+      ],
+      "method": "Whole P16 population, draft and persistence bodies/fixtures personally read across bounded chunks; full actual PR textual comparisons consumed, including two Result signature deltas. Not hash-only."
+    }
+  ],
+  "groups": [
+    {
+      "id": "Draft generation, bounds and identity",
+      "locations": "resident_drafts1-585; settlement_population272-459",
+      "trace": "Actual immutable draft built with every business Some(BusinessId), so business grouping unwraps valid. start<len protects directindex, first ofslice alwayssameusage, differingposition>0 guarantees end>start; start+offset<=len. Fixed as_chunks_mut4 demographics zips exactfour leaves; remainder preserved separatechunks of1..3 and allhouseholds<=4, closing actual family plan cardinality. Draftvalidate rejects duplicate character/business IDs before persistence and surname join. Organizationchapterunwrap is backed by organizations_for_chapter; authored API contract stillowner dependency. Sexchoose actualclosednonemptyvariants and complexion/features index4 into arrays4; fresh deterministicindex usesNonZero andsample<length. UpperhalfID OR preserves intentionalstable identity space, not signed ordering. Stablehashcollision not handled by reprobing, rejected duplicatewithinplan; preexistingdifferentprofile reuse needs fullidentityadmission graph, not new numeric witness.",
+      "disposition": "No new loop/index operation defect. Preserve exact firstbusinessservice and incomplete-family demographic policies.",
+      "dependencies": [
+        "Canonical deterministic draw and BusinessId owner",
+        "Core building demand cardinality/population and organization chapter iterator contract",
+        "Existing resident identity/component admission and stable-seed owners"
+      ],
+      "acceptance": "Every successful draft generation terminates with unique coherent resident/business identities and supported family cardinality. Actual array selections stay within fixed source lengths without changing draw order."
+    },
+    {
+      "id": "Persistence and whole publication",
+      "locations": "resident_persistence1-299; settlement_population427-460",
+      "trace": "Planning final demographics precedes birth year/name/personality/fullpersistentNPC. Initialage defaults8/15/30/68 and completefamilies52/48/24/21, birthyear Option fails beforeidentitywrites ifunsupported. Projectionid exactlycharacterid same row; ordinary identity/profile/personality joins. Reuse requiresactualsamehome then ensuresroles/operator; no inferredwholecomponentvalidation from profilealone. Identity/name/NPC policy thenprofile/roles/presence/business/explanation; fallible later calls propagate but exact outerResult conversion/catches determine commit. Fullpopulation ensure formsfamilies, role/representative update then actual bind_generated_households, connecting conserved named/abstractcensus193. No defaultclock invented during materialization, initialepoch0 explicitsourcegeneration.",
+      "disposition": "No new numerical persistence defect. Structured-to-string PR return changes join existing cause propagation graph, no whole current component closure claimed.",
+      "dependencies": [
+        "CAM-PROP-F006",
+        "local774:F05",
+        "local774:M30",
+        "Character/name generated identity and socialrole receivers",
+        "SDK outer reducers and actual allcaller catches",
+        "SEGOVB-INITIAL04-CONTRACT-193 population conservation"
+      ],
+      "acceptance": "Accepted population publication creates one full ordinary Character graph with exact initial demographics, roles, presence, business and census provenance. Failure cannot publish a completed partial population or consume retry identity."
+    },
+    {
+      "id": "Presence and historical durations",
+      "locations": "settlement_population469-571; resident_persistence241-264; fresh strategic_presence280-335/calendar345-364",
+      "trace": "Historical helper uses actualoutbreaksuppression and truealiveatminute for typedpresence, independent from mutablecontext/healthflags; durationhelper intentionallydoesnotrequireobserverfrontier, samehistoricalsuppression. Normal native scheduleDay360..1200, Evening720..1380, Early240..960, Provider0..1440 allfitu16/day. Canonicalwindow rejectsstart/end>1440; suppressionexpliciterror; remainingmath guardedcontainswindow beforeunsignedsubtract, supportswrappedmidnight withbounded1440+end. It returns elapsedavailability not guaranteedabsoluteclockheadroom atMAX, recipientmustuseactualcheckedtimepolicy. Currentcachedhelper explicitlyuses latestflags, not silentlyclaimedhistorical. Agebandjoinscacheddisplayage; lifecyclecacheconsistency remains separateauthoritydependency. Gatewayprojectionrequiresactualgateway and explicitprofilecolumns; no arbitrarypublicprivatewhole-row leak inferred.",
+      "disposition": "No new finite interval defect. Preserve overnight/full-day schedule endpoints and historical versus current helper distinctions.",
+      "dependencies": [
+        "Canonical DailyPresenceWindow/StrategicMinute owner",
+        "Actual callers constructing absoluteend from availableduration",
+        "Outbreak historical suppression and life chronology alreadyread188/189"
+      ],
+      "acceptance": "Accepted scheduling preserves exact endpoint and suppression semantics; no raw schedule arithmetic publishes negative/wrapped duration. Absence/invalidstate remains unavailable, not epoch or zeroed historical facts."
+    },
+    {
+      "id": "Source fixture evidence",
+      "locations": "settlement_population573-759; resident_drafts484-585",
+      "trace": "All inline fixtures read, notrun: wrapped/daytimeavailability, public-squarealias, suppressedschedulepreservation, completeexplanationroundtrip, explicitgatewayfields, organizationrepresentativebinding, immutablehistoricalprojection, stablecompletefamily and commonsurname. Separateauthority_tests module notreadhere, no credit.",
+      "disposition": "Whole04 remains incomplete.",
+      "dependencies": [
+        "All13 initialinventorygate"
+      ],
+      "acceptance": "Preserve existing semantic sourcecontracts; eventual passing evidence requires authorizedexecution."
+    }
+  ],
+  "findings": [],
+  "status": "Six original source roles personally compared. Whole04 and all untraced recipients/overlays incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/simulation.rs",
+  "fresh_dependencies": [
+    {
+      "path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/source/physical-p16-unscoped-dependency/crates/adventuresim-core/src/strategic_presence.rs",
+      "sha256": "2eeea5c9831e10b7c5d51d0d3f61b0093ce8c682bd0994d2c94de50aa3354a52",
+      "actually_read_ranges": [
+        [
+          280,
+          335
+        ]
+      ],
+      "coverage": "Critical bodies only; no new whole original role credit."
+    },
+    {
+      "path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/source/physical-p16-unscoped-dependency/crates/fabelgeist-determinism/src/stream.rs",
+      "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+      "actually_read_ranges": [
+        [
+          41,
+          77
+        ]
+      ],
+      "coverage": "Critical bodies only; no new whole original role credit."
+    },
+    {
+      "path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/source/physical-p16-unscoped-dependency/crates/adventuresim-world-schema/src/calendar.rs",
+      "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "actually_read_ranges": [
+        [
+          345,
+          364
+        ]
+      ],
+      "coverage": "Critical interval body only; no new whole original role credit."
+    }
+  ]
+}

@@ -1,0 +1,347 @@
+{
+  "id": "CAMERA-INITIAL07-LOCK-SOURCE-FACTS-012",
+  "at": "2026-10-22T19:09:43.202493+00:00",
+  "purpose": "ExhaustiveactualTOMLmetadatafieldclassification +selectedactualbuildownerentries, NOhumanfullliteralreadclaim/NOsemanticRustcoverage",
+  "records": [
+    {
+      "source_id": "physical-p16:Cargo.lock",
+      "sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+      "top_level_fields": [
+        "version",
+        "package"
+      ],
+      "package_fields": [
+        "checksum",
+        "dependencies",
+        "name",
+        "source",
+        "version"
+      ],
+      "lock_format_version": 4,
+      "selected_build_owner_packages": [
+        {
+          "name": "adventuresim-building-generator",
+          "version": "0.1.0",
+          "dependencies": [
+            "ab_glyph",
+            "adventuresim-procedural-textures",
+            "adventuresim-world-schema",
+            "bevy",
+            "bevy_egui",
+            "bevy_mod_outline",
+            "bevy_panorbit_camera",
+            "clap",
+            "earcut",
+            "fabelgeist-determinism",
+            "fabelgeist-geometry",
+            "geo",
+            "postcard",
+            "serde",
+            "serde_json",
+            "thiserror 2.0.20"
+          ]
+        },
+        {
+          "name": "bevy_reflect",
+          "version": "0.19.1",
+          "dependencies": [
+            "assert_type_match",
+            "bevy_platform",
+            "bevy_ptr",
+            "bevy_reflect_derive",
+            "bevy_utils",
+            "derive_more 2.1.1",
+            "disqualified",
+            "downcast-rs 2.0.2",
+            "erased-serde",
+            "foldhash 0.2.0",
+            "glam 0.32.1",
+            "indexmap 2.14.1",
+            "inventory",
+            "petgraph 0.8.3",
+            "serde",
+            "smallvec",
+            "smol_str",
+            "thiserror 2.0.20",
+            "uuid",
+            "variadics_please 1.1.0",
+            "wgpu-types"
+          ]
+        },
+        {
+          "name": "fabelgeist-geometry",
+          "version": "0.1.0",
+          "dependencies": [
+            "bevy_math",
+            "bevy_reflect",
+            "serde",
+            "thiserror 2.0.20"
+          ]
+        },
+        {
+          "name": "spacetimedb-sats",
+          "version": "2.6.1",
+          "dependencies": [
+            "anyhow",
+            "arrayvec",
+            "bitflags 2.13.1",
+            "bytemuck",
+            "bytes",
+            "bytestring",
+            "chrono",
+            "decorum",
+            "derive_more 0.99.20",
+            "enum-as-inner",
+            "ethnum",
+            "hex",
+            "itertools 0.12.1",
+            "lean_string",
+            "rand 0.9.5",
+            "second-stack",
+            "serde",
+            "sha3",
+            "smallvec",
+            "spacetimedb-bindings-macro",
+            "spacetimedb-memory-usage",
+            "spacetimedb-metrics",
+            "spacetimedb-primitives",
+            "thiserror 1.0.69",
+            "uuid"
+          ]
+        }
+      ]
+    },
+    {
+      "source_id": "pr-working:Cargo.lock",
+      "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+      "top_level_fields": [
+        "version",
+        "package"
+      ],
+      "package_fields": [
+        "checksum",
+        "dependencies",
+        "name",
+        "source",
+        "version"
+      ],
+      "lock_format_version": 4,
+      "selected_build_owner_packages": [
+        {
+          "name": "adventuresim-building-generator",
+          "version": "0.1.0",
+          "dependencies": [
+            "ab_glyph",
+            "adventuresim-procedural-textures",
+            "adventuresim-world-schema",
+            "bevy",
+            "bevy_egui",
+            "bevy_mod_outline",
+            "bevy_panorbit_camera",
+            "clap",
+            "earcut",
+            "fabelgeist-determinism",
+            "fabelgeist-geometry",
+            "geo",
+            "postcard",
+            "serde",
+            "serde_json",
+            "thiserror 2.0.20"
+          ]
+        },
+        {
+          "name": "bevy_reflect",
+          "version": "0.19.1",
+          "dependencies": [
+            "assert_type_match",
+            "bevy_platform",
+            "bevy_ptr",
+            "bevy_reflect_derive",
+            "bevy_utils",
+            "derive_more 2.1.1",
+            "disqualified",
+            "downcast-rs 2.0.2",
+            "erased-serde",
+            "foldhash 0.2.0",
+            "glam 0.32.1",
+            "indexmap 2.14.1",
+            "inventory",
+            "petgraph 0.8.3",
+            "serde",
+            "smallvec",
+            "smol_str",
+            "thiserror 2.0.20",
+            "uuid",
+            "variadics_please 1.1.0",
+            "wgpu-types"
+          ]
+        },
+        {
+          "name": "fabelgeist-geometry",
+          "version": "0.1.0",
+          "dependencies": [
+            "bevy_math",
+            "bevy_reflect",
+            "serde",
+            "thiserror 2.0.20"
+          ]
+        },
+        {
+          "name": "spacetimedb-sats",
+          "version": "2.6.1",
+          "dependencies": [
+            "anyhow",
+            "arrayvec",
+            "bitflags 2.13.1",
+            "bytemuck",
+            "bytes",
+            "bytestring",
+            "chrono",
+            "decorum",
+            "derive_more 0.99.20",
+            "enum-as-inner",
+            "ethnum",
+            "hex",
+            "itertools 0.12.1",
+            "lean_string",
+            "rand 0.9.5",
+            "second-stack",
+            "serde",
+            "sha3",
+            "smallvec",
+            "spacetimedb-bindings-macro",
+            "spacetimedb-memory-usage",
+            "spacetimedb-metrics",
+            "spacetimedb-primitives",
+            "thiserror 1.0.69",
+            "uuid"
+          ]
+        }
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/Cargo.lock",
+      "sha256": "60cf80c50552791fe98d6c50b3a730b7c0f04bdfa993ec003a781538683e6d72",
+      "top_level_fields": [
+        "version",
+        "package"
+      ],
+      "package_fields": [
+        "checksum",
+        "dependencies",
+        "name",
+        "source",
+        "version"
+      ],
+      "lock_format_version": 4,
+      "selected_build_owner_packages": [
+        {
+          "name": "bevy_reflect",
+          "version": "0.19.1",
+          "dependencies": [
+            "assert_type_match",
+            "bevy_platform",
+            "bevy_ptr",
+            "bevy_reflect_derive",
+            "bevy_utils",
+            "derive_more 2.1.1",
+            "disqualified",
+            "downcast-rs 2.0.2",
+            "erased-serde",
+            "foldhash 0.2.0",
+            "glam",
+            "indexmap",
+            "inventory",
+            "petgraph",
+            "serde",
+            "smallvec",
+            "smol_str",
+            "thiserror 2.0.20",
+            "uuid",
+            "variadics_please 1.1.0",
+            "wgpu-types 29.0.4"
+          ]
+        },
+        {
+          "name": "fabelgeist-geometry",
+          "version": "0.1.0",
+          "dependencies": [
+            "bevy_math",
+            "bevy_reflect",
+            "serde",
+            "thiserror 2.0.20"
+          ]
+        },
+        {
+          "name": "fabelgeist-mhr",
+          "version": "0.1.0",
+          "dependencies": [
+            "anyhow",
+            "burn",
+            "fabelgeist-fbx",
+            "fabelgeist-fs",
+            "fabelgeist-numpy-storage",
+            "fabelgeist-rig"
+          ]
+        },
+        {
+          "name": "spacetimedb-sats",
+          "version": "2.6.1",
+          "dependencies": [
+            "anyhow",
+            "arrayvec",
+            "bitflags 2.13.1",
+            "bytemuck",
+            "bytes",
+            "chrono",
+            "decorum",
+            "derive_more 0.99.20",
+            "enum-as-inner",
+            "ethnum",
+            "hex",
+            "itertools 0.12.1",
+            "lean_string",
+            "rand 0.9.5",
+            "second-stack",
+            "sha3",
+            "smallvec",
+            "spacetimedb-bindings-macro",
+            "spacetimedb-primitives",
+            "thiserror 1.0.69",
+            "uuid"
+          ]
+        }
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-mhr/Cargo.lock",
+      "sha256": "45961a0c74b57fb81e9429abc14d387a4e4a00ba18a771c17b0fd5e4ea09eaf4",
+      "top_level_fields": [
+        "version",
+        "package"
+      ],
+      "package_fields": [
+        "checksum",
+        "dependencies",
+        "name",
+        "source",
+        "version"
+      ],
+      "lock_format_version": 4,
+      "selected_build_owner_packages": [
+        {
+          "name": "fabelgeist-mhr",
+          "version": "0.1.0",
+          "dependencies": [
+            "anyhow",
+            "burn",
+            "fabelgeist-fbx",
+            "fabelgeist-fs",
+            "fabelgeist-numpy-storage",
+            "fabelgeist-rig"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-579",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        1257,
+        1258,
+        1259
+      ],
+      "comparison": "Fresh full445 weapon_instance,78 appearance,152 evaluation. Existing WeaponHolderKind BladeSheath/HaftLoop match selects exact catalogscabbard/weapon_loop231\u2013234, None means polearmno bodyholder valid. Weapon and holder durable recipes separately keyed stable physicalobject; replace validates exact chassis and canonical EvaluatedWeapon/EvaluatedHolder, authenticated full recipe+every persistedfield1259:71\u2013105, no unchecked secondderivedauthority at current read boundary. Fitted holder is independent snapshot, actualcomment249\u2013251 explicitly no silentrewrite after weaponchange; do not derive it from current weapon or erase meaningful fittedhistory. Initialmelee checks CatalogItemKind Weapon&&melee148/174 and no defaultdesignNonevalid unsupportedtemplate, independently capable hybridmelee/ranged stillvalid. Exactquantity1/stableobject requirement beforeperinstanceinitialization, no sourceactorization inferred from private future seam. Connectedappearance returnsNone for missing/ambiguous physicalrow, no instance or invalid recipe; fitted_holder_mass ResultOption distinguishes legitimateunfitted from corruptfittedErr388\u2013389. Do not fabricate default to erase malformed authentication. Tacticaltransport shared ConnectedWeaponAppearance common product used both weapon andholder; receiverfields distinguishexpectedrecipe. Existing ConnectedPlayerItem twooptionalappearances actualwriters independentcalls415\u2013424 read earlier: possible exclusivecatalog applicability question retained for actual recipient/canonical capability closure, NOT promoted merely from twooptionals. No proof generic item can never legitimately carry both customcapabilities, nor currentbothnormal. Read-only sourcefixtures mutate hashes/recipes intentionally; no execution. Rootlocal774:F40 canonicalresolvedcomponentidentity default_holder panic remains independent sourcevariant obligation, this native successfulcanonical route does not retire it.",
+      "finding_refs": [
+        "SEGO-INITIAL09-F043"
+      ],
+      "disposition": "Current recipe authentication and independent fitted snapshot coherent; appearance applicability remains qualified recipient question"
+    }
+  ],
+  "new_findings": [],
+  "limits": "Discovery only. Next1260 world_actor1353; no runtime verification or clearance."
+}

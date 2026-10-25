@@ -1,0 +1,130 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-407",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/state/publication.rs",
+      "sha256": "b6746424e6fc5ccd0bdf97a25b61b2643ab2b19661ffd5e8f0fccc936b822d4e",
+      "actual_EOF": 107,
+      "actual_compared_ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/target_speed.rs",
+      "sha256": "6fd2a1c9a3a33667760a393c13375e52b1d5405bc665617b8ec84f44a9430663",
+      "actual_EOF": 58,
+      "actual_compared_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/terminal.rs",
+      "sha256": "87307931b63413a77180b12610949cf5a3545ff101c8fa2ff2589c50b720b378",
+      "actual_EOF": 59,
+      "actual_compared_ranges": [
+        [
+          1,
+          59
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts.rs",
+      "sha256": "bd69d05aa06177aadb3c0a7e2e2e42f1e86fccf3ae5fc389bf5755bb6911f5dc",
+      "actual_EOF": 564,
+      "actual_compared_ranges": [
+        [
+          1,
+          564
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/approach.rs",
+      "sha256": "2c19e2ae2a9bad27291f92cec00c346ba03f1254289e441714f84016a5e37e7e",
+      "actual_EOF": 76,
+      "actual_compared_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/flight_projection.rs",
+      "sha256": "522eaadd0e7580f987c7a1d37d5687abf202baca0b78bdc2ae9247d3de39424c",
+      "actual_EOF": 256,
+      "actual_compared_ranges": [
+        [
+          1,
+          256
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/foot_clearance.rs",
+      "sha256": "fbee9961d5150f7a221c942cab5c5288e3efdca4d36e920ab5476a2ed9be3b82",
+      "actual_EOF": 395,
+      "actual_compared_ranges": [
+        [
+          1,
+          395
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/run_reach.rs",
+      "sha256": "5c01b29f63732c34ba8e0fc73277f220ccb1ee6fc67f243a9c06ba5743093b92",
+      "actual_EOF": 276,
+      "actual_compared_ranges": [
+        [
+          1,
+          276
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Publication and budget admission",
+      "evidence": "state/publication.rs:1-107; target_speed.rs:1-58; terminal.rs:1-59",
+      "disposition": "Entire local memory replaces component only after checked target and settle points; transform mutation remains outside that guarantee. Configured speed products admitted before FootTargetSpeeds returned. Terminal seeded state preserves visible shift on terrain lookup failure without claiming prepared ownership; resolves packet406 dependency."
+    },
+    {
+      "contract": "Cadence, latch and target lifecycle",
+      "evidence": "terrain_contacts.rs:1-564; terrain_contacts/approach.rs:1-76",
+      "disposition": "Raw support controls exhaustion reset; acquired contact clears plan metadata jointly; missed acquisition can retire plan at lobe exit. Measured owner speed checked after nonzero time and continuity gate. Collapsed approach windows are deliberate step function, small windows checked ratio. Exclusive support preserves one selected confidence rather than asserting both contacts."
+    },
+    {
+      "contract": "Joint motion and clearance search",
+      "evidence": "terrain_contacts/flight_projection.rs:1-256",
+      "disposition": "Finite completed target check surrounds each sampled terrain correction. Fixed 64 samples,12 refinements plus bounded disk search. If no searched point satisfies budget, implementation intentionally returns least-discontinuous clearance candidate, so returned target does not universally promise strict motion budget. Zero elapsed may therefore clear an existing penetration; preserve explicit priority rather than inventing a strict zero-motion postcondition. No native run or global-optimum guarantee established. Huge finite step products can exceed native range, but configured checked product and ordinary cadence producer distinguish normal path from raw helper API."
+    },
+    {
+      "contract": "Terrain floor, datum and run reach projection",
+      "evidence": "terrain_contacts/foot_clearance.rs:1-395; terrain_contacts/run_reach.rs:1-276",
+      "disposition": "Completed terrain+sole+signedclearance admitted as scene elevation; no positive-height restriction. XZ admitted before support lookup, weighted target checked before retention. Missing terrain returns optional support/no fabricated height. Run retarget resamples after projection and accepts only reach+motion fit. Planned stance intersection uses bounded projection then deliberate entry-only fallback for cliff-like no-shared-footprint case; later release latch owns divergence. No claim finite iteration proves exact convex optimum. Existing captured and small-window fixtures personally read, not executed."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "8 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/tests.rs"
+}

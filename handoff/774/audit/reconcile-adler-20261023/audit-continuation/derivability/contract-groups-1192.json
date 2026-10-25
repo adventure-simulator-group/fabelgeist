@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1192",
+  "at": "2026-10-25T18:05:26.779948+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1281,
+  "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/generated_cases.rs",
+  "sha256": "73138f7fd9ee10974b6eb14acf7a18a5adb75129cb936b74159c0de5397cd584",
+  "actual_compared_ranges": [
+    [
+      2041,
+      2380
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Only inherent generated case native followup/safe travel/provision/recovery/window wait/witness selection. No handwritten trait/custom codec/type. Current route origin, prospective clock, typed readiness outcomes and exact owner/site pins synthesize actions/recovery keys. Witness priority sorts selected timestamp+id and deduplicates normalized name+location, not whole source Ord/Hash semantics. Existing closed request aggregate constructors not unchecked conversion derives; no execution.",
+  "first_unfinished": {
+    "scope_index": 1281,
+    "line": 2381
+  },
+  "execution": "none"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-034",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "morale-event-projection-contributions-and-thresholds",
+      "sources": [
+        {
+          "scope_index": 123,
+          "ranges": [
+            [
+              1,
+              527
+            ]
+          ]
+        }
+      ],
+      "distinction": "Durable MoraleEventKind vocabulary is a subset of projected MoraleSourceKind, which also includes current derived cleanliness/religion/power/ally facts. These are different roles despite mirrored eventvariants. Signed net morale, nonnegative rawpositive/rawnegativeeffectmagnitudes, cumulativeincapacity and bounded performance/probability differ scales. StrategicIncapacitation is an explicit contribution family; total may exceed1 while status projects thresholds.",
+      "uses": "resolve260\u2013267 aggregates same-sign effects then subtracts willmitigatednegative. Event->source94\u2013118 maps semantic observation to contributorcategory, not retentionofanotherindependentstatus. Pain327\u2013334 usesnormalizedhealthdeficit andWill; blood336\u2013342 convertsrelativebloodloss toincapacity using.30threshold, notbloodfraction itself. fatigue349\u2013350/hunger355\u2013359/thirst364\u2013368 use different inputunits andcanexceed1. Fervor output boundedwhilepressureinputisunbounded.",
+      "disposition": "Keep event versus live-source authority; common eventcategory could be owned once belowsourceprojection only ifactualwire/recipientpurpose preserved, notblindmergeenums. Do not collapse morale, healthdamage, bloodvolume, caloriebalance, waterbalance and incapacitation intoUnitIntervaloronegenericf32role. Formula/nativehelperalone doesnotjustifykeeping semanticAPIrawforever, but noactualnormalunitmixup shownhere. Combatliveperformance remainsdistinct fromstrategiccheck_multiplier.",
+      "acceptance": "Preserve signedmorale andnegative energy/waterreserves, >=1incapacity threshold, nooverflowclampofallcontributions, actualsourceprivacy anddurable versustacticalstateboundary. User single-fatigue/total-incapacitycombat rule retained; commentmentioningbreathexhaustion isnotauthorityfornewpool. No testsornewpenaltyintroduced."
+    },
+    {
+      "id": "npc-candidate-snapshot-and-pure-policy-facets",
+      "sources": [
+        {
+          "scope_index": 124,
+          "ranges": [
+            [
+              1,
+              296
+            ]
+          ]
+        }
+      ],
+      "distinction": "NpcCandidate owns characteridentity pluspinnedpolicyseed snapshot; repeatedsameidentitywithdifferentseed isconflict, nottwo independentcandidates. Dayindex is absolutecalendar daynotelapsedminute. NpcHouseOffer rank is sortablecomfortprojection, notitselfhousingidentity; initialversusrecurringmoney differ economicpurpose butsamecurrencyunit. Courtship eligibility facets can simultaneouslyhold, while selected Formal/Informal/Ineligible isexclusivepolicyresult.",
+      "uses": "stable_candidate_order89\u2013120 rejectsconflictseed then stablehashranks/caps16, preservingpinnedassociation. initialschedule126\u2013135 deterministiclabor+socialunits. npc_courtship_route53\u201370 gatescommoneligibilitythenformalprecedence/fallbackinformal. best_affordable_house140\u2013154 includesoneperiodreserve and deterministicpreference, doesnotmutatefunds.",
+      "disposition": "Keep smallsnapshot anddecision/readmodelboundaries; no permanentEligibleNpcCharacterId fromcurrentrelationshipfacts, no arbitraryenumforgenericnumericrank or duplicatedpositivecostvalidatorperfield. Meaningfulpersonpolicyseedrole couldreuseSeed beneathpurpose ifactualcaller confusionseen; sourcealone isnotordinarywrongseedproof. Numeric extreme reserve saturation remainsanoperationqualification, notinventedordinaryhousingfundcreation.",
+      "acceptance": "Preserve conflictfailclosed, identicalsnapshotdedup, permutation-independentchoice andtieID, conservativeinitialschedule, realcourtshipfallback andcurrentreservepolicy. ActualDBfreshness/transactions andseedproducers remainfutureown11."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

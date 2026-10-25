@@ -1,0 +1,123 @@
+{
+  "id": "CONT07-CONTRACT-520",
+  "at": "2026-10-23T23:13:14.589964+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2266,
+      "source_id": "pr-working:crates/fabelgeist-garment-fit/src/lib.rs",
+      "sha256": "c2d2a25fb2e44a2eb4de8c6133fcd8bd6e5d6d4f6a431de752cd43c33b74479b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-garment-fit/src/lib.rs",
+      "actual_EOF": 715,
+      "ranges": [
+        [
+          1,
+          715
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2268,
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/cuboid.rs",
+      "sha256": "1fe1e6483da91ee1bd681df6ff788ec97d680ac453c450069a30111c66dc40ed",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-geometry/src/cuboid.rs",
+      "actual_EOF": 126,
+      "ranges": [
+        [
+          1,
+          126
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2269,
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/error.rs",
+      "sha256": "78064ad3e76e6e39580db42af5da259e24a922d69fbe0953704cb9715f26a5c3",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-geometry/src/error.rs",
+      "actual_EOF": 95,
+      "ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2270,
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/length.rs",
+      "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-geometry/src/length.rs",
+      "actual_EOF": 40,
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2271,
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/lib.rs",
+      "sha256": "4be1dea1bfca250604d52c9c8ea026aac5e3608d4d8cf35168f0cdc60ff4a7ab",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-geometry/src/lib.rs",
+      "actual_EOF": 16,
+      "ranges": [
+        [
+          1,
+          16
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2272,
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/measurement.rs",
+      "sha256": "72ee58eb8ae01af4b7f17ef81f007dfa63c7dc818a1ed71ce5bbba0707236e70",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-geometry/src/measurement.rs",
+      "actual_EOF": 104,
+      "ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 787,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/placement.rs",
+      "sha256": "7e744958c7df65097784318b313e51c658edae89fde9e0f80ba70ddce4fcaa81",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/garment/placement.rs",
+      "actual_EOF": 76,
+      "ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "RIG-ADMISSION03-F066",
+    "RIG-ADMISSION03-F088"
+  ],
+  "facts": [
+    "Fit retains unposed base_positions/pivots/pose separately from evolving simulated particle positions: explicit temporal/rest versus live roles. set_pose resets particles and frames together; placed_positions intentionally returns pre-clearance layout, not current simulation.",
+    "Actual creator placement787:53\u201361 installs wearer host BVH via set_body then combined wearer+obstacle device mesh via set_collision_mesh. These are distinct recovery versus simulation obstacle roles, so different geometry alone does not establish redundant authority. General public replacement/cloth mutation remains conditional whole-product coherence, no ordinary failure promoted.",
+    "Garment sampler computes stitch segment counts to fixed point and derives edge maps after skipped-panel filtering, maintaining actual panel_index/edge_map association. Duplicate names/raw EdgeSpec admission remains adopted RIG-ADMISSION03-F066; no extra unique07finding.",
+    "CuboidDimensions owns private admitted axis leaves; arrays/native vectors and tuple serialization derive from same leaves. PositiveLength, SignedLength, Area own one scalar each, admission reused by deserialize and scaled operations; no independent current extent/cache roster found. Geometry errors keep typed roles rather than reclassifying text."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2274,
+    "start_line": 1
+  }
+}

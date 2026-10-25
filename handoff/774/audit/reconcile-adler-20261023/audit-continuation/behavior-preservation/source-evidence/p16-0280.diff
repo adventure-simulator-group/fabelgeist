@@ -1,0 +1,13 @@
+--- p16base/crates/adventuresim-stdb-module/src/strategic/dialogue_sessions.rs
++++ catalog-p16head/crates/adventuresim-stdb-module/src/strategic/dialogue_sessions.rs
+@@ -6,9 +6,9 @@
+     conversation_id: String,
+     npc_actor_id: String,
+     location_id: String,
+     catalog_revision: String,
+-) -> Result<(), String> {
++) -> StrategicOperationResult<()> {
+     require_strategic_gateway(ctx)?;
+     require_dialogue_revision(&catalog_revision)?;
+     crate::character::require_living_character(ctx, character_id)?;
+     let character = ctx

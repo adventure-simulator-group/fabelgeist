@@ -1,0 +1,146 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-349",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_fit.rs",
+      "sha256": "a15e1319cc1730ca71c4b6e36a50f3514e43c62b5c006ac28115aefb620c02e3",
+      "actual_EOF": 46,
+      "actual_compared_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation.rs",
+      "sha256": "df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+      "actual_EOF": 2053,
+      "actual_compared_ranges": [
+        [
+          1,
+          2053
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_material.rs",
+      "sha256": "823eb461e0534843b71a2b8199e6428fd9a558cf9bc1387beedf87500bf71f8a",
+      "actual_EOF": 17,
+      "actual_compared_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_numeric.rs",
+      "sha256": "a3591804f6c9134439dd3d27e42827d15a3e84c016e675123cc100e69e994f93",
+      "actual_EOF": 49,
+      "actual_compared_ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+      "sha256": "9cb076d4f2ff85b5932981983e2eeea82850c8b40b647948ca400bd4d00aad51",
+      "actual_EOF": 185,
+      "actual_compared_ranges": [
+        [
+          1,
+          185
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_surface.rs",
+      "sha256": "1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b",
+      "actual_EOF": 219,
+      "actual_compared_ranges": [
+        [
+          1,
+          219
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Catalog validation rejects source/typed mismatches before publishing generated runtime input",
+      "source_ranges": {
+        "item_catalog_validation.rs": [
+          [
+            1,
+            2053
+          ]
+        ],
+        "item_catalog_validation_numeric.rs": [
+          [
+            1,
+            49
+          ]
+        ],
+        "item_catalog_validation_material.rs": [
+          [
+            1,
+            17
+          ]
+        ]
+      },
+      "disposition": "Whole2053 line validator plus66numeric/material lines and all fixtures personally read. StrictValue rejects duplicate keys and nonfinite JSON numbers; aggregate validator reports document/source/item limits, IDs/unknown fields/mode relationships and typed-schema conversion, then truncates diagnostics before Result publication. Integer-bound narrowing failures delegated to actual typed serde decode; bool/string absent policy explicit. finite_in uses f64 bounds small enough for f32 maximum; positive_f32_in explicitly tests stored f32 positivity and finiteness to catch underflow. Mechanical weapon skill9sum small if valid normalized input, invalid astronomical f64 sums reject. Diagnostic coordinates best-effort source scans are not semantic source identities. Diagnostic length cap applied after traversal is a resource-bound/admission dependency, not an ordinary memory failure claim. Physical dimensions/grip/tangent checks only f64 finiteness may lose positivity/finiteness during actual f32 storage or norm operations; preserve adopted03 baseline and exact source-format/consumer bounds dependency, not a new untraced runtime finding."
+    },
+    {
+      "contract": "Equipment occupancy, anatomical spans and fit zones remain coherent before arithmetic consumers",
+      "source_ranges": {
+        "item_catalog_fit.rs": [
+          [
+            1,
+            46
+          ]
+        ],
+        "item_catalog_validation_occupancy.rs": [
+          [
+            1,
+            185
+          ]
+        ],
+        "item_catalog_validation_surface.rs": [
+          [
+            1,
+            219
+          ]
+        ]
+      },
+      "disposition": "All450 lines personally read including fixtures. conflicts_with respects same location/channel, singleton-or-order and whole-location versus disjoint fit zones. Validator checks typed zone belongs to limb, singleton order0, duplicate/conflicting occupancies, parent/layer precedence typed decoding. No current-candidate parent reservation accounting here; that is actual Inventory attach finding SEGOVB04ATTACHMENTRESERVATION001 packet337 and cannot be waived by catalog admission. Surface totals bounded<=MAX segments, contiguous ordered region chain, protected part membership and positive storedf32coverage<=1. Authored anchors closed. Tiny positive subnormal coverage intentionally admitted; downstream geometric arithmetic still must preserve valid contracts or reject. No global forced epsilon nor nonzero coverage ban assumed."
+    },
+    {
+      "contract": "Catalog food bounds qualify earlier numerical API candidates",
+      "source_ranges": {
+        "item_catalog_validation.rs": [
+          [
+            1200,
+            1288
+          ]
+        ]
+      },
+      "disposition": "Fresh source shows food flavors<=1000 and nutrition/value/growth<=1e6, so FlavorProfile MAX example remains arbitrary represented API; no claim this reaches ordinary validated catalog. cooking_minutes is accepted through typed schema integer width without explicit smaller bound in this validator, but actual current recipes and fireplace caller must still be traced before promoting huge-duration precision cases. Book skill subset quality policy joins adoptedRIG06F033/local774M23, not fullSkillrosterreplacement."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "6 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-core/src/knowledge.rs"
+}

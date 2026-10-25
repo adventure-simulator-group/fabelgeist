@@ -1,0 +1,52 @@
+{
+  "id": "CONT07-CONTRACT-624",
+  "at": "2026-10-24T00:45:51.357131+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2718,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/coordinates/bounds.rs",
+      "sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-world-schema/src/coordinates/bounds.rs",
+      "actual_EOF": 49,
+      "ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2719,
+      "source_id": "physical-p16:crates/adventuresim-core/src/world_event.rs",
+      "sha256": "10007dfcca53443d2794c0e38d8e9d741588f79ba8f61163c84d2281e7b40fb4",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/world_event.rs",
+      "actual_EOF": 620,
+      "ranges": [
+        [
+          1,
+          151
+        ],
+        [
+          245,
+          398
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "WGS84 rectangle privately retains checked ordered corners and derives native west/south/east/north projection; inclusive degenerate bounds are valid explicit contract, anti-meridian crossing excluded. No parallel current bound coordinates stored.",
+    "WorldEventEnvelope source/payload IDs and actor/subject associations represent intentional cross-reference constraints, validated by source-specific pattern checks. Local duplicate/ordered subject detectors are transient checking state, not retained competing event authority. Public struct/Serde alone do not guarantee validate, so inherited admission graph remains relevant; actual canonical reducer call boundary must be checked before normal bypass claim. Event place is jurisdiction, not observer visibility or disclosure authority. Schema/ruleset provenance and historical consequences remain independent snapshots. Retry decision uses exact envelope identity and makes no claim proposed event passed admission when used standalone."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2720,
+    "start_line": 1
+  }
+}

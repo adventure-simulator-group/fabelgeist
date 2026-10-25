@@ -1,0 +1,39 @@
+{
+  "id": "RIG-INITIAL06-GROUP-241",
+  "at": "2026-10-23T07:12:41.050111+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-067.json",
+  "groups": {
+    "creator-catalogue-view-and-selection-product": {
+      "comparison": "Fresh equipment_catalog146 ItemCatalog holds canonical ItemDefinition list plus tool-specific CatalogDesigns. It is editable/export source catalogue with authored design lookup, distinct from compiled immutable game catalogue access; reexports actual Core CatalogItem/CatalogPlacement, not duplicated definitions. EquipmentItemSelection borrows admitted catalogue ID strings and intentionally selects duplicate records sharing identity, not another globally unique ItemId type or acceptance of every arbitrary catalogue. Item/placement/design/default-at roles stay distinct. material and is_wearable consume canonical equipment material/placement surface rather than parallel text whitelist. validate_armor_recipes enforces feature support, not universal schema validation or accepted immutable seal because items public; calling load/new doesn't magically certify all source fields. No second canonical equipment/recipe owner demonstrated; lower schema/catalogue validation remains actual separate proof. F025 existing closed policy roster repair preserved, no arbitrary consolidation of filter search text into durable ID.",
+      "disposition": "Keep creator catalogue+design view and borrowed export selection above canonical shared schema/item/placement owners."
+    },
+    "presentation-equipment-protocol-versus-combat-authority": {
+      "comparison": "Fresh strategic_scene equipment150 consumes canonical EquipmentAppearance/PresentationId/AppearanceAnchor, maps IDs into transient Bevy Entity, and stores Wardrobe presentation snapshot+spawnedentities. This is legitimate protocol-to-ECS projection, not new DB inventory authority. ItemProperties/TacticalEquipmentPhysical literal raw dimensions/grip/anchor and explicit headlength0 are display-only (comment no striking volume); F034 shared physical API migration must preserve this zero-valid role rather than impose positive head/bodymass cap. Catalogue definition lookup and equipment existence gate before construction, caller filter_map missing parent drops only appearance occupancy and does not prove complete real gameplay placement. Channels/order/requirement/capacity map same typed context while presentation occupancy string uses scoped renderer identity. Weapon/HolderAppearance recipe/version/hash are separate native generation adapter roles, no automatic current recipe acceptance or hash authority from equalsbits. held_slot projects actual Held channel+left/righthand to EquipSlot; distinct taxonomy and transientpose kept.",
+      "disposition": "Keep presentation-only protocol/ECS equipment separate from live combat/inventory authority; propagate canonical zero-valid physical product where appropriate."
+    },
+    "building-generator-module-wiring": {
+      "comparison": "Fresh generator.rs124 imports canonical model/spatial types and declares/includes generator subunits. No bespoke duplicate type declaration or conflicting shared owner appears in this wiring source. Generic CuboidDimensions/PlanDimensions/Position/Radians imports support existing F001 lower-geometry placement finding, while architecture Room/Roof/Opening/StructuralNode/GeometryOwner identifiers remain meaningfully feature-specific. Included modules share lexical scope, so wiring establishes dependency reachability only, not body analysis or whole graph closure. Explicit module boundaries and public reexports AllocationFailure/ReservationFailure do not imply compatibility aliases. Child sources remain independently queued and incomplete until actual current06 comparison.",
+      "disposition": "No new ownership conflict in module wiring; preserve canonical feature model and existing lower-geometry dependency finding, no include-body credit."
+    },
+    "city-shader-native-layout-shared-host": {
+      "comparison": "Fresh tactical_city shader109 compares actual fresh231 host Building and DrawRange definitions: same Buildingtransform/bounds/levels/uv_offset and native rangegeometry/instances ABI. Surface packed color/properties/UV scales and CityFrame world/normal/handedness matrices are GPU layout, not duplicate accepted game geometry type. Native vertex p/n/t threeVec4 packs UV in w and tangenthandedness, range flags componentbit512/shift10 are host-owned layout contract. Buildingowner/rendercluster/sourcerange ordinals differ from durable SceneBuildingId, and y levels fading bitcastsf32 are metric native coefficients rather than enum UnitInterval. Keep single host layout authority and explicit WGSL representation, no foreignpatch or forcing Rustnominal wrappers into storage bytes. Normals/tangents/city reflection and camera matrices have distinct frame roles; generic shaders do not own canonical ScenePosition. Prior231 full shadercitycull separately compared; focused host assembly/compute files still incomplete. No imported Bevy PBR body/GPU execution credit.",
+      "disposition": "Keep native city rendering ABI under one host authority; preserve frame/unit/ordinal distinctions and source wrapper projections at actual port."
+    },
+    "gltf-morph-channel-wire-product": {
+      "comparison": "Fresh export morphs163 consumes canonical RiggedMesh/RiggedShell/RiggedMorphTarget products, validates identical orderednames across all exportedprimitives and per-vertexfinite deltas. Morph names are authored channel text, not RigJointName grammar or CharacterId; glTF channel index is export ordinal. Body export optionality and shell channel count are true protocol collection structure, not another game accepted body owner. Native Value JSON/accessor indexes/VEC3/count/componentconstants are actual wire boundary. Positiondelta versus normaldelta differ geometric meaning despite same3float shape; arrays appropriate for serialization after canonical exportgate. Generic metadata UVdomain remains shared constant, no newowner. Validator and write separatepublicwithinmodule APIs do not bythemselves seal all callers; no unseenparentcall or productiongate inference. Originaltests read only, no encoding/run/newassertions.",
+      "disposition": "Keep morph export correlation/ordering in glTF adapter over canonical source products; native accessors/text remain wire representations."
+    }
+  },
+  "supporting_existing_findings": [
+    "RIG-INITIAL06-F001",
+    "RIG-INITIAL06-F025",
+    "RIG-INITIAL06-F034"
+  ],
+  "source_fact_refs": [
+    "contracts-231.json",
+    "contracts-235.json",
+    "contracts-237.json"
+  ],
+  "limits": "Five fresh complete scoped bodies, no included/imported-helper or fullhostassembly/compute coverage. No source edits/runtime/GPU/tests/export execution/new material/later-lens credit."
+}

@@ -1,0 +1,191 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-337",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair_preview.rs",
+      "sha256": "800207ff944cfc7487b00bfbaa888dbe254ec85340094e9104c392b54b14ea78",
+      "actual_EOF": 343,
+      "actual_compared_ranges": [
+        [
+          1,
+          343
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair_preview/assets.rs",
+      "sha256": "1945aa84edf49348310989955b6f814cc19ae8cceaf87d85400f4bce8cf9a296",
+      "actual_EOF": 225,
+      "actual_compared_ranges": [
+        [
+          1,
+          225
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory.rs",
+      "sha256": "0f820bca06e27b164da010e95dc7d3500a79a6feb0b7be9411ed8a41e88feb18",
+      "actual_EOF": 442,
+      "actual_compared_ranges": [
+        [
+          1,
+          442
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory/loadout.rs",
+      "sha256": "8b3ada636d68eaae16cf4ca2bab097cd918be93a52452d34dc3e2648add51691",
+      "actual_EOF": 110,
+      "actual_compared_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory/occupancy.rs",
+      "sha256": "dbd62cb0c402bcb0903b4bcebdc159c2d2f35f266e4dff77c359796db40231b8",
+      "actual_EOF": 287,
+      "actual_compared_ranges": [
+        [
+          1,
+          287
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory/tests.rs",
+      "sha256": "3c8c66c5b49199d343845589bf635cd68c05dbd740656a1e33bdbc7c0534f4cd",
+      "actual_EOF": 239,
+      "actual_compared_ranges": [
+        [
+          1,
+          239
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Hair preview accepts asynchronous work only for the requested body/style before drawing, with checked skin port",
+      "source_ranges": {
+        "hair_preview.rs": [
+          [
+            1,
+            343
+          ]
+        ],
+        "hair_preview/assets.rs": [
+          [
+            1,
+            225
+          ]
+        ]
+      },
+      "disposition": "Both complete bodies read. Worker captures owned BodyHead matching bodyArc and groom, collect stores that provenance, placed(groom,body) filters exactstyle+Arcidentity beforedraw. Replacinganotherworkerhandle detachesoldwork; sourcecomment saysleftfinish/dropped and no synchronouscancelpromise. No staleoldresultpublishedbythatreplacement identified. Dirty/dragging/emptywalk gates defer actualnewdraw; meshlabels onlydesign/form but bodyregenerationdespawnsCharacterMesh peractualstudio_generationprior330. Assetbuilderchecksheadordinalu16 beforemeshattributes, everyvertexweight1; GPUgeometrypositions intentionallyzeros inBevymesh withNoFrustumCulling becauseactualpositionsreadbyshader. NativeGpuGeometryattribute/cardinality stillowningproducerdependency. mip_image assumescanonicalnonemptylodschain; emptyfallback1x1pluszeroMipCountwouldbeinvalidbutactualGpuLodsavailability mustbeprovenbeforepromoting. HairpigmentNaNsameadoptedF017, no newordinaryshaderfailure/run."
+    },
+    {
+      "contract": "Inventory mutation must allocate fresh identity or reject without publication",
+      "source_ranges": {
+        "inventory.rs": [
+          [
+            1,
+            442
+          ]
+        ],
+        "inventory/tests.rs": [
+          [
+            1,
+            239
+          ]
+        ]
+      },
+      "disposition": "Both fullsource andall239fixturelines read. Exactexisting NATIVE-INITIAL05-F064#73: unique validMAX-1/MAX articleIDs acceptedbyvalidate; add mapsid+1beforemax. Checkedoverflowcanpanic, uncheckedwrap candidatesMAX/0 chooseexistingMAX andpushduplicate. No needhugecollection; noactualUIhighID/run. Publicget_mut/Serdepermitcase; preservefullu64includingzero, explicitallocatorcapacityerrorbeforerecordpush, no wrapping/saturationcollision. wear snapshots allitems andrestoreson non-resolvablefiterror; occupieddisplacementprogressdependsvaliduniqueIDs/currentconflicts, currentfixturesestablishintendedsourcepolicyonly. take_off deactivatesrequestedwearerthenactualunsupporteddependentsuntilnone; unrelatedInvalid maystopdrain deliberatelyrawinvalidinventorynotcertifiedaccepted. Remove thenretainsallmatchingIDs; validuniqueIDownerimportant. shift intentionalwrapping_subfrom0usedonlyboundscheckedtarget, no underflowdefect. Article.validate checksactualdesign/decor/construction andsettledsemanticrecord; loadout.fit separatelycatalog-dependent. No hiddenper-itemphysicalmass semantics imposed onauthoringdisplay."
+    },
+    {
+      "contract": "An accepted loadout and attachment reservation graph must preserve aggregate fit after current mutation",
+      "source_ranges": {
+        "inventory/loadout.rs": [
+          [
+            1,
+            110
+          ]
+        ],
+        "inventory/occupancy.rs": [
+          [
+            1,
+            287
+          ]
+        ]
+      },
+      "disposition": "Both completebodies read. loadout factorycallsfitfirst andresolveactualcatalog/family, stabledrapedlayer sortpreservesinventoryorder; publicLoadoutvectors allowbypassdocumentedfit, exactadopted RIG-ADMISSION03-F020#20. Newconditionalordinary-sizedcatalogcase in finding-attachment-reservation.json: capacity1point andonechildtworequirementsgetsreservedindices0/1 because supportonlyseesalreadyplacedusage andattachincrementslocaledgeswithoutrecheckingofferedcapacity. FreshCoreequip216..278 confirmsacceptsuniqueedgekeysbutdoesnotknowcatalogpointcapacity. Actualauthoredmailvoidershasoneparentrequirement, no normaldatasetbadoutfitclaim. WornGraphpendingloopstrictlyshrinksorreturnsUnsupported, so nobroadinfiniteattachmentloopassertion. Candidatebody andparents takenfromactualresolvedselection, garmentlocationsderivepatternclosedvariants, unsupportedgroupErrorspreservecause. children_onu16narrow/count edgeincrementcapacityarithmeticforenormousparentrequirementsisseparateuniversalcapacityquestion, not sourcewitnesspremise. NativeGraphfitchecksbodyconflict/cycle/parentkeys; canonicalacceptedgraphencapsulationremainsadoptedbroaderownerdependency. No sourcefixes orprojectexecution."
+    }
+  ],
+  "findings": [
+    {
+      "id": "NATIVE-INITIAL05-F064",
+      "archive_file": "audit/continuation/native/initial05-aggregate-states/findings.jsonl",
+      "archive_line": 73,
+      "disposition": "same exact next-ID operation failure; fresh04evidence",
+      "no_new_unique_count": true
+    },
+    {
+      "id": "RIG-ADMISSION03-F020",
+      "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+      "archive_line": 20,
+      "disposition": "same adopted Loadout fit encapsulation gap",
+      "no_new_unique_count": true
+    },
+    {
+      "id": "SEGOVB-04-ATTACHMENT-RESERVATION-001",
+      "file": "finding-attachment-reservation.json",
+      "disposition": "source-backed conditional modifiedcatalog capacity failure; canonical alias pending"
+    }
+  ],
+  "fresh_dependencies": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment.rs",
+      "sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+      "actual_EOF": 1182,
+      "personally_read_ranges": [
+        [
+          208,
+          330
+        ]
+      ],
+      "structured_records_personally_read": null,
+      "whole_role_credit": false
+    },
+    {
+      "source_id": "pr-working:content/items/catalog.yaml",
+      "sha256": "87e0f51292d42ab62beeabc9f2624f635c27acf8b28ae3d8c2931eb9297f491b",
+      "actual_EOF": 5632,
+      "personally_read_ranges": [],
+      "structured_records_personally_read": {
+        "complete_records_indices_zero_based": [
+          23,
+          180
+        ],
+        "record_ids": [
+          "arming_doublet",
+          "mail_voiders"
+        ]
+      },
+      "whole_role_credit": false
+    }
+  ],
+  "status": "6 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-character-creator/src/inventory_acquire.rs"
+}

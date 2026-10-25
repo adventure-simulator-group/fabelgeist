@@ -1,0 +1,38 @@
+{
+  "id": "NATIVE-CAMERA-SUPPORT03-CONTRACTS-054",
+  "authority": "ROOT-ADM-SUPPORT-AUTHORITY-054",
+  "lens": "audit-admission-contracts",
+  "groups": {
+    "pr-browser-grant-provenance-and-selected-observer-admission": {
+      "camera_indices": [
+        491
+      ],
+      "ranges": {
+        "491": [
+          [
+            1,
+            567
+          ]
+        ]
+      },
+      "invariant": "Ownerkey is64lowercasehex, ordinary character exclusivegrant has exactly one typed provenancearm, selection requirescurrentowned/accessgranted livingadult; publicDBrecord is not sealed proof of all correlations.",
+      "all_admission_routes": [
+        "BrowserGrantOrigin closed2SpacetimeType; publicprivate-table rows28–84 rawu64/String/Optionprovenance/timestamp admitbadcombinations via literals/native table route. valid_grant_provenance45–54 onlyarmSome/Nonecorrelation, notnonemptyclaimString/nonzeroparent/existence byitself. Owner predicate93–98 actual64bytes lowercasehex,0allhex valid.",
+        "grant_internal104–159 validatesowner, actualstartingclaim requestkey membership+matchingcharacter/owner, existingnon-temporarycharacter, thenexactexistingretry(origin/request/Noneparent) orinsertmatchingprovenance/scanid. Publicreducer256 strategicgateway before internal. Doesnotindependentlyrequirealive/adult atgrant; selectionlaterdoes.",
+        "adultgrant163–238 actualfrozenlineagechild claim, validowner, actualcharacter/time, established<=currenttime andnotselfsource, livingnon-temporaryadult withmissingage→0, exactsourceparentgrantowner+armconsistency, exactretry orinsert. Ituses frozenbirthclaimauthoritativeowner ratherthan user-supplied lineageargs; rawsourceclaimtable stillbroader.",
+        "Developmentadoption269 requiresdevelopmentgateway+validowner+nonemptyactualscenarioindex, per-scenariocurrentnon-temporaryprimary, deterministicowner:slugaccessID/stable numeric scan, exactconflictchecks beforeinsert. Deliberatelysharednonexclusiveauthority, no compatibilityshim. Loopmaywriteearlierentrybeforelatererror, no localall-preflight/rollbackclaim.",
+        "select319 requiresgateway/validowner, ordinarysameowner+validarm ORactualowner-scopeddevelopmentaccess, currentcharacter/time/alive/adult (unknownage→0), descendantactualvisibilitygate beforeupsert. Clear392 gateway+validowner; clear_dead240 internaldeletesallselectionrowsmatchingdeadcharacter.",
+        "backendview415 actualgatewayidentity==sender beforeanyroster; ordinarygrant arm/alive/adult/currenttime filters, descendantadulthood/frontier; developmentrows onlyifcapabilityenabled+aliveadult. Selectedflag bymatchingowner/character row. Doesnotreverifyeveryoriginalclaim/canonicalownerkey/nativeprovenance onallrawtableinputs; normalwritergrantchecksnotprivateproof.",
+        "Direct registeredREG106 descendants.rs1–95 freshlyread AFTERprospective registration: validate2 actualbirth→checkedat_signed_birth_age orErr; selectedalivecharacterclock ifpresent elseNone; helper44 adulthood<=selectedminute.unwrap_or(descendantfrontier). Viewobserver52 additionallyactualselectedordinarygrant sameowner+alive; absent/dead/notordinarygrant→None successor-recovery. Viewage85 actualbirth age or intentionalfallbackstoredcharacter.age_years whenmissingbirth. Exactmissing/None/frontier behavior retained; nosyntheticzeroexceptexplicitparentunknownagefallback.",
+        "All original browser567 inline tests508–567 readsource-only: exclusiveprovenancearms/frontier equality/futurehidden/deadselectionfallback/shareddevelopmentownerIDs. No execution."
+      ],
+      "counterexample_or_intentional_evidence": [
+        "Public BrowserCharacterGrant maybe malformed, private table accessor isnotprivateRustconstruction; semantic ordinarygrantwriter binds actualclaims andsourceparent, viewonlyvalidates subset. No currentbadwriter or missingauthorityexploitasserted.",
+        "Developeraccess intentionallydoesnotrequireexclusiveordinarygrant; viewselectedobserver helper requiresordinarygrant to defineobserver andotherwiseusesdescendantfrontier. Preserve actualdifference rather than inventing blanketownership requirement."
+      ],
+      "connected_repair": "Use canonical browser-ownerkey/provenance sum+boundgrant/selection structures through currentactualgate; rawpersisted/nativeingress readmission under exactclaims, preserve adult-observerfrontier/recovery/development capability and gatewayauthority. Rootrepairownership retained.",
+      "supporting_source": "NATIVE-ADMISSION03-REG-106 pr-working:crates/adventuresim-stdb-module/src/browser_session/descendants.rs SHA4ee78100f46e24040c48bd9007e4a8892b04b81c6b351f77d1eb9fa701246a16 actualEOF95/material1–95; no relationship/calendarwholegraphcredit."
+    }
+  },
+  "not_part_of_native443_or_root_batches": true
+}

@@ -1,0 +1,638 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1160",
+  "at": "2026-10-25T17:59:45.628780+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1265,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_event.rs",
+      "sha256": "9403e2e3d8bc995c0483da0502427442f1c526ee1b513db2a9b5beac3078a5b0",
+      "actual_EOF": 1188,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_event.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/world_event.rs",
+        "sha256": "9403e2e3d8bc995c0483da0502427442f1c526ee1b513db2a9b5beac3078a5b0",
+        "bytes": 43772,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/bounded-policy-sources.json",
+            "ranges": [
+              [
+                1,
+                462
+              ],
+              [
+                941,
+                998
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-BOUNDED-POLICY-RECEIVERS-001"
+            ]
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/case-extra-receiver-sources.json",
+            "ranges": [
+              [
+                1,
+                1188
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-CASE-CUSTODY-001",
+              "CAM-PROP-BOUNDED-POLICY-RECEIVERS-001"
+            ]
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+            "ranges": [
+              [
+                301,
+                350
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": []
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                462
+              ],
+              [
+                941,
+                998
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-BOUNDED-POLICY-RECEIVERS-001"
+            ]
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                1188
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-CASE-CUSTODY-001",
+              "CAM-PROP-BOUNDED-POLICY-RECEIVERS-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 316,
+            "read_ranges": [
+              [
+                1,
+                1188
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-WORLD-EVENT-083"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/world_event.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CASE-RECEIVERS-029",
+            "json_pointer": "/related_current_sources/22",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/world_event.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                45
+              ],
+              [
+                156,
+                818
+              ],
+              [
+                861,
+                977
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_event.rs",
+              "sha256": "9403e2e3d8bc995c0483da0502427442f1c526ee1b513db2a9b5beac3078a5b0",
+              "read_ranges": [
+                [
+                  1,
+                  45
+                ],
+                [
+                  156,
+                  818
+                ],
+                [
+                  861,
+                  977
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/world_event.rs",
+              "scope": "Whole reached case event callback, canonical semantic/preflight order, persistence, fingerprint and mutation/native rows; final977 infection branch is a bounded prefix already closed by FOOD012 exact infection trace, not a whole1188 claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016",
+            "json_pointer": "/related_current_reads/22",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/world_event.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                45
+              ],
+              [
+                156,
+                818
+              ],
+              [
+                861,
+                977
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_event.rs",
+              "sha256": "9403e2e3d8bc995c0483da0502427442f1c526ee1b513db2a9b5beac3078a5b0",
+              "read_ranges": [
+                [
+                  1,
+                  45
+                ],
+                [
+                  156,
+                  818
+                ],
+                [
+                  861,
+                  977
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/world_event.rs",
+              "scope": "Whole reached case event callback, canonical semantic/preflight order, persistence, fingerprint and mutation/native rows; final977 infection branch is a bounded prefix already closed by FOOD012 exact infection trace, not a whole1188 claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/camera/findings.jsonl",
+            "receipt": "row-4",
+            "json_pointer": "/supplier_finding/locations/1",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/world_event.rs",
+            "read_ranges_as_recorded": [
+              [
+                941,
+                999
+              ],
+              [
+                220,
+                227
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_event.rs",
+              "sha256": "9403e2e3d8bc995c0483da0502427442f1c526ee1b513db2a9b5beac3078a5b0",
+              "ranges": [
+                [
+                  941,
+                  999
+                ],
+                [
+                  220,
+                  227
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/camera/traces.jsonl",
+            "receipt": "CONT-CAMERA-PP-009",
+            "json_pointer": "/exact_source_proofs/4",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/world_event.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1188
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_event.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/world_event.rs",
+              "sha256": "9403e2e3d8bc995c0483da0502427442f1c526ee1b513db2a9b5beac3078a5b0",
+              "actual_lines": 1188,
+              "read_ranges": [
+                [
+                  1,
+                  1188
+                ]
+              ],
+              "role": "Whole persisted SDK schema, native commit/receipt replay, semantic/preflight/order checks, all actual effect adapters and all inline fixtures. Prior Camera029 and Native012/016 partial ranges consumed before missing source refresh.",
+              "fresh_missing_ranges": [
+                [
+                  46,
+                  155
+                ],
+                [
+                  819,
+                  860
+                ],
+                [
+                  1010,
+                  1188
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/camera/traces.jsonl",
+            "receipt": "CONT-CAMERA-PP-009",
+            "json_pointer": "/findings/0/locations/1",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/world_event.rs",
+            "read_ranges_as_recorded": [
+              [
+                941,
+                999
+              ],
+              [
+                220,
+                227
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_event.rs",
+              "sha256": "9403e2e3d8bc995c0483da0502427442f1c526ee1b513db2a9b5beac3078a5b0",
+              "ranges": [
+                [
+                  941,
+                  999
+                ],
+                [
+                  220,
+                  227
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/native/source-reads.json",
+            "receipt": "row-1",
+            "json_pointer": "/4",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/world_event.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1188
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_event.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/world_event.rs",
+              "sha256": "9403e2e3d8bc995c0483da0502427442f1c526ee1b513db2a9b5beac3078a5b0",
+              "actual_lines": 1188,
+              "read_ranges": [
+                [
+                  1,
+                  1188
+                ]
+              ],
+              "role": "Whole persisted SDK schema, native commit/receipt replay, semantic/preflight/order checks, all actual effect adapters and all inline fixtures. Prior Camera029 and Native012/016 partial ranges consumed before missing source refresh.",
+              "fresh_missing_ranges": [
+                [
+                  46,
+                  155
+                ],
+                [
+                  819,
+                  860
+                ],
+                [
+                  1010,
+                  1188
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/native/findings.json",
+            "receipt": "row-1",
+            "json_pointer": "/0/locations/1",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/world_event.rs",
+            "read_ranges_as_recorded": [
+              [
+                941,
+                999
+              ],
+              [
+                220,
+                227
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_event.rs",
+              "sha256": "9403e2e3d8bc995c0483da0502427442f1c526ee1b513db2a9b5beac3078a5b0",
+              "ranges": [
+                [
+                  941,
+                  999
+                ],
+                [
+                  220,
+                  227
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/native/world5-final-packet.json",
+            "receipt": "NATIVE-CONT-WORLD-AUTHORITY-FINAL-029",
+            "json_pointer": "/findings/0/locations/1",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/world_event.rs",
+            "read_ranges_as_recorded": [
+              [
+                941,
+                999
+              ],
+              [
+                220,
+                227
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_event.rs",
+              "sha256": "9403e2e3d8bc995c0483da0502427442f1c526ee1b513db2a9b5beac3078a5b0",
+              "ranges": [
+                [
+                  941,
+                  999
+                ],
+                [
+                  220,
+                  227
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 560,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1188
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "Persisted event data Clone Debug Eq PartialEq Serialize Deserialize SpacetimeType",
+        "WorldEventReceipt Clone Debug table",
+        "ConsequenceOrder Clone Copy Debug Eq PartialEq",
+        "WorldEventRequest Clone Debug Serialize",
+        "WorldEventFingerprintDomain Clone Copy"
+      ],
+      "absence_basis": "Full exact role consumed across1157\u20131160. No manual trait or custom codec; inherent common-envelope/stable-domain accessors plus explicit source\u2192persisted enum representation adapter. Canonical consequence validation/planners/current recipient preflight, selected immutable fields, checked quantization and versioned fingerprint bytes remain semantic. Already derived Serde/structural equality/ordering used where suitable. Native/source fixtures1001\u20131188 read not run; child authority fixture separate."
+    },
+    {
+      "scope_index": 1266,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/fixtures/core-loop-failure-v9.json",
+      "sha256": "e5e30261e86b2ae438c1570fff8ceda66ea00e258d8e0647e8d53496706da220",
+      "actual_EOF": 119,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-strategic-sim/fixtures/core-loop-failure-v9.json",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-strategic-sim/fixtures/core-loop-failure-v9.json",
+        "sha256": "e5e30261e86b2ae438c1570fff8ceda66ea00e258d8e0647e8d53496706da220",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 3992,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 657,
+            "read_ranges": [
+              [
+                1,
+                119
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SIM-FAILURE-SECURITY-FIXTURES-103"
+            ],
+            "read_status": "fresh-current-lens-full-source-read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/fixtures/core-loop-failure-v9.json"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-SIMULATION-CORE-GENERATED-PARTIAL-047",
+            "json_pointer": "/source_proofs/10",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/fixtures/core-loop-failure-v9.json",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                119
+              ]
+            ],
+            "source_context": {
+              "index": 658,
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/fixtures/core-loop-failure-v9.json",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/fixtures/core-loop-failure-v9.json",
+              "sha256": "e5e30261e86b2ae438c1570fff8ceda66ea00e258d8e0647e8d53496706da220",
+              "read_ranges": [
+                [
+                  1,
+                  119
+                ]
+              ],
+              "mode": "Fresh actual source read and exact variant/role reconciliation; source proof only, not percell accounting",
+              "roles": [
+                "Full exact failure-v9 JSON119 lines and actual include_str/Serde Value equality fixture failure_security171\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153196 plus production FailureRecorder.write/FailureArtifact. JSON is genuine golden wire; preserve keys, version9/numeric widths/enum strings/count/zero/fixturevalues/all existing assertions. Not a runtime execution or acceptance verdict."
+              ],
+              "pending_receivers": [
+                "Connected simulation cycle/settlement/survival/expedition/generated/travel producer and actual policy consumers remain assigned in30 packet; exact receipt will close only after actual bodies reconciled."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-SIMULATION-OBSERVATION-RECEIVER-CLOSURE-050",
+            "json_pointer": "/source_proofs/27",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/fixtures/core-loop-failure-v9.json",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                119
+              ]
+            ],
+            "source_context": {
+              "index": 658,
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/fixtures/core-loop-failure-v9.json",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/fixtures/core-loop-failure-v9.json",
+              "sha256": "e5e30261e86b2ae438c1570fff8ceda66ea00e258d8e0647e8d53496706da220",
+              "read_ranges": [
+                [
+                  1,
+                  119
+                ]
+              ],
+              "actual_line_count": 119,
+              "supplier_trace": "ROOT047/048/049",
+              "disposition": "Supplier producer/retained-state/operation/actual receiving-body inventory accounted with findings; Camera must explicitly consume before716 credit.",
+              "source_roles": [
+                "Full exact failure-v9 JSON119 lines and actual include_str/Serde Value equality fixture failure_security171\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153196 plus production FailureRecorder.write/FailureArtifact. JSON is genuine golden wire; preserve keys, version9/numeric widths/enum strings/count/zero/fixturevalues/all existing assertions. Not a runtime execution or acceptance verdict."
+              ],
+              "actual_receiver_closure": "Root047/048/049 source facts plus full Rig036 survival/expedition/economy and Native022 cycle/travel/recovery receipts close the prior fifteen shared receiving obligations. No blanket source or native exemption."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/current_sources/27",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/fixtures/core-loop-failure-v9.json",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                119
+              ]
+            ],
+            "source_context": {
+              "index": 658,
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/fixtures/core-loop-failure-v9.json",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/fixtures/core-loop-failure-v9.json",
+              "sha256": "e5e30261e86b2ae438c1570fff8ceda66ea00e258d8e0647e8d53496706da220",
+              "read_ranges": [
+                [
+                  1,
+                  119
+                ]
+              ],
+              "actual_line_count": 119,
+              "supplier_trace": "ROOT047/048/049",
+              "disposition": "Supplier producer/retained-state/operation/actual receiving-body inventory accounted with findings; Camera must explicitly consume before716 credit.",
+              "source_roles": [
+                "Full exact failure-v9 JSON119 lines and actual include_str/Serde Value equality fixture failure_security171\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153196 plus production FailureRecorder.write/FailureArtifact. JSON is genuine golden wire; preserve keys, version9/numeric widths/enum strings/count/zero/fixturevalues/all existing assertions. Not a runtime execution or acceptance verdict."
+              ],
+              "actual_receiver_closure": "Root047/048/049 source facts plus full Rig036 survival/expedition/economy and Native022 cycle/travel/recovery receipts close the prior fifteen shared receiving obligations. No blanket source or native exemption."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/additional_actual_source_proofs/10",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/fixtures/core-loop-failure-v9.json",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                119
+              ]
+            ],
+            "source_context": {
+              "index": 658,
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/fixtures/core-loop-failure-v9.json",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/fixtures/core-loop-failure-v9.json",
+              "sha256": "e5e30261e86b2ae438c1570fff8ceda66ea00e258d8e0647e8d53496706da220",
+              "read_ranges": [
+                [
+                  1,
+                  119
+                ]
+              ],
+              "mode": "Fresh actual source read and exact variant/role reconciliation; source proof only, not percell accounting",
+              "roles": [
+                "Full exact failure-v9 JSON119 lines and actual include_str/Serde Value equality fixture failure_security171\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153196 plus production FailureRecorder.write/FailureArtifact. JSON is genuine golden wire; preserve keys, version9/numeric widths/enum strings/count/zero/fixturevalues/all existing assertions. Not a runtime execution or acceptance verdict."
+              ],
+              "pending_receivers": [
+                "Connected simulation cycle/settlement/survival/expedition/generated/travel producer and actual policy consumers remain assigned in30 packet; exact receipt will close only after actual bodies reconciled."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1359,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full literal JSON failure fixture schema9 category/reason/metrics/trace read. Data-only, no handwritten implementation or derive site; current report DTO/body remains separate. Fixture presence not a reproduced run."
+    }
+  ],
+  "groups": [
+    "World event schema structural derives already active; no new derivability finding. Explicit native semantics and fixed fingerprint framing cannot be replaced with arbitrary derives.",
+    "Strategic simulation JSON failure fixture is data-only and preserves observed wire keys/null/array/number forms; no derive declaration inside it."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1267,
+    "source_id": "pr-working:crates/adventuresim-strategic-sim/src/lifecycle/runner.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

@@ -1,0 +1,96 @@
+{
+  "id": "CONT07-CONTRACT-526",
+  "at": "2026-10-23T23:18:09.864472+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2306,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/parameters.rs",
+      "sha256": "e8ddc101f1ef8295f3ab1943b4cae0257e483fd9fb67e2255bf614c1e51557e2",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-hair/src/parameters.rs",
+      "actual_EOF": 140,
+      "ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2307,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/rng.rs",
+      "sha256": "84f8d24277715741f39370e332b06b8a111193ae2d3e8602e115b1f6410913bd",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-hair/src/rng.rs",
+      "actual_EOF": 168,
+      "ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2308,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/strands.rs",
+      "sha256": "5a3bb021b299493d92f25c9aca9d2fc24fd46c9f0fa66c97aa5845996f6f6f29",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-hair/src/strands.rs",
+      "actual_EOF": 448,
+      "ranges": [
+        [
+          1,
+          448
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2310,
+      "source_id": "pr-working:crates/fabelgeist-math/src/lib.rs",
+      "sha256": "bd588528cad05e62401905c31645e928a15b1175985219d9d79d21b2b2e81510",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-math/src/lib.rs",
+      "actual_EOF": 17,
+      "ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2311,
+      "source_id": "pr-working:crates/fabelgeist-math/src/units.rs",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-math/src/units.rs",
+      "actual_EOF": 120,
+      "ranges": [
+        [
+          1,
+          120
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "RIG-ADMISSION03-F070",
+    "RIG-PPS-F004"
+  ],
+  "facts": [
+    "Counts own oneusizeeach andHairSeed onecanonicalSeed; no extra wordcache. HairSeed explicit signed i32 projection thenu64signextension atHairdo guides required to preserve native RNGmeaning; underlyingcanonicalSeed useszeroextendedu32 intentionallyasstorage, do not substitutegetterto_u64 forsignextendedport.",
+    "Strands.len derivesroot_uv count; parallelpublicarrays andguide_map can diverge throughdirectmutation exactRIG-ADMISSION03-F070. push/extend invalidate map, select createsfreshwithoutmap; resampled keepsordinalmembership whilepreservingroot/identity/cardinality (samepointsclone), coherent explicitmapreuse.",
+    "CurveSampler.set coordinatelyrebuilds positions/lengths/tangents/normals. Publicpositionsindependentmutation canleavecachedarclength/frame valuesold evenifarraylengthsagree; strengthen existingF070 acceptedwholecurveproductcriterion beyondonlycardinality, no newuniqueassertion. ActualClump/Curl buildsfreshsamplers beforedeformation, ordinarypathpositive.",
+    "Rng sequentialSplitMix64 state andStream key+counter representrandomhistory, notduplicated seedauthority. Hash/unit/signed3 currentsharedWGSLREG021 matcheswordconstants/rotation/24-bitprojection; noalgorithmexecution orallfloatbitidentityclaim.",
+    "Sharedmathunits explicitlydistinguishunitswithoutnumericalpolicy; signed/ratio/acceleration wrappersinglevalues do notpromisebounds. TurnsPerMetre vsRadiansPerMetre differentunits, notduplicateconcurrentfacts; Look conversion occursnumericalgraph alreadyRIG-PPS-F004."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2315,
+    "start_line": 1
+  }
+}

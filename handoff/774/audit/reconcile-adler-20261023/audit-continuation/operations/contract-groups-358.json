@@ -1,0 +1,38 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-358",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_place.rs",
+      "sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+      "actual_EOF": 998,
+      "actual_compared_ranges": [
+        [
+          1,
+          998
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Strategic identity encoding preserves bounded composition, exact associations and canonical numeric roundtrips",
+      "source_ranges": {
+        "strategic_place.rs": [
+          [
+            1,
+            998
+          ]
+        ]
+      },
+      "disposition": "Whole998lines includingallfixtures personallyread infourchunks. Component privateASCII1..256 bytes, nonnestedplace variants bounded atmost3components; hexencoded lengths below4096. Fixture containsoneplace plusboundedextra IDs, doublednestedencoding bounded belowdeclaredMAXFIXTURE. encode len*2 uses onlythese boundedvalues, nibbleindexes0..15; decoder testsnonempty/evenlength andbounds beforechunks, checkedlowerhex UTF8 andcomponentreadmission. Numbersparseu64 thenroundtriprejectleadingzero/plus/overflow; MAXallowedexact, no clockarithmetic inidentity. Constructors enforce physicalservice/chapter/source/fireplaceassociations; privateCaseSite serdechecked. Publicfixtureenumliteralcanbypassassociation butparserreanalyzesandrejects; existingadopted03/aggregateingress remainsdependency, notnewlypromotedremovedfireplacefinding. Exactsettlementvsvenuevsfixtureandjourneydeparture/movement rolesintentional, no canonicalownerforcedontoabstractpositions. PreservechurchTemplebridge andphysicalchapterco-location distinctions, no stringaliases introduced."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "1 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-core/src/strategic_schedule.rs"
+}

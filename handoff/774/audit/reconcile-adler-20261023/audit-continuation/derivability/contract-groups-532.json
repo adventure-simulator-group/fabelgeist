@@ -1,0 +1,105 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-532",
+  "at": "2026-10-25T15:58:05.301955+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 910,
+      "source_id": "pr-working:crates/adventuresim-core/src/developer_quest.rs",
+      "sha256": "c81518557455da223c56b59f0003647eac72633ee5d4e681786aad20fa31de78",
+      "actual_EOF": 2492,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/developer_quest.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/developer_quest.rs",
+        "sha256": "c81518557455da223c56b59f0003647eac72633ee5d4e681786aad20fa31de78",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 98762,
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 148,
+            "read_ranges": [
+              [
+                1,
+                114
+              ],
+              [
+                270,
+                554
+              ],
+              [
+                1018,
+                1783
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-DEVELOPER-QUEST-005"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/developer_quest.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_owner": "native",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1643,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          126
+        ],
+        [
+          269,
+          569
+        ],
+        [
+          1018,
+          1783
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "DiagnosticTier structural snake_case Serde27\u201328",
+        "DeveloperQuestDiagnostic structuralSerde34",
+        "DeveloperGenerationContext/Definition structuralSerde deny_unknown_fields42\u201355",
+        "DeclaredIdSets Default431"
+      ],
+      "absence_basis": "Every exact registered range plus listed containing-body context personally analyzed. No handtrait/codec in those contracts; existing record Serde already derives. Native definition projection/ID-set classifier and namespace/compile gates retain semantic authority. Full source was additionally consumed in521\u2013532, with supplementary schema/fixture observations; those extra lines are not registration coverage.",
+      "actual_personally_consumed_source_ranges": [
+        [
+          1,
+          2492
+        ]
+      ],
+      "scope_qualification": "Reached-contract registration union is1\u2013114,270\u2013554,1018\u20131783, not whole2492. Required containing-body context115\u2013126/269/555\u2013569 is included. Other personally consumed lines retained as supplementary source observations only; no expanded inventory role or blanket full-file coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Developer quest graph validation versus mechanical wire",
+      "disposition": "Preserve explicit error path/tier, typed authority sets, validation before semantic namespace rewriting, and server-owned generated IDs/seed. No raw construction derive or serialization substitution for graph logic. schema_json is curated editor metadata/constructor content, not duplicated record serializer. No new finding."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 911,
+    "source_id": "pr-working:crates/adventuresim-core/src/dialogue_boundary.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

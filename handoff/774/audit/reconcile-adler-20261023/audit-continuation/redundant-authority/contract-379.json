@@ -1,0 +1,209 @@
+{
+  "id": "CONT07-CONTRACT-379",
+  "at": "2026-10-23T20:26:44.619559+00:00",
+  "lens": "audit-redundant-authority",
+  "members": [
+    {
+      "scope_index": 1653,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/pending.rs",
+      "sha256": "d23d3716ef9b634a101ce7e70d7f0b1e6be43de6e38ccf32c015ffacfb804aa2",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/vista/pending.rs",
+      "actual_EOF": 83,
+      "ranges": [
+        [
+          1,
+          83
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1654,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/pigment.rs",
+      "sha256": "46de07541d21c23ef7533675e901fb632dbe0b7d321900d053603c56426f559d",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/vista/pigment.rs",
+      "actual_EOF": 192,
+      "ranges": [
+        [
+          1,
+          192
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1655,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/pigment/tests.rs",
+      "sha256": "ce37914d95bcac68d8f6c18eaf640503b932b3ede8b79a839c15ca86d2ccf3c8",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/vista/pigment/tests.rs",
+      "actual_EOF": 236,
+      "ranges": [
+        [
+          1,
+          236
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1657,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/regional.rs",
+      "sha256": "2e65532ed7e9acac69d98e68480149db8e0cd282b93caf96ea82ebf63c397b01",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/vista/regional.rs",
+      "actual_EOF": 56,
+      "ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1658,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/strategic.rs",
+      "sha256": "8534f53749dd9918cd0c3a9549561eab6825e7edb7b8908db60da2a8639ee64a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/vista/strategic.rs",
+      "actual_EOF": 190,
+      "ranges": [
+        [
+          1,
+          190
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1659,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/strategic/colors.rs",
+      "sha256": "db6776dd0ba46be63553e5964b3f8e913e35b2378966be4f62067b9284f9550d",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/vista/strategic/colors.rs",
+      "actual_EOF": 68,
+      "ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1660,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets.rs",
+      "sha256": "0c1abe95c96378d50acffc88477c5694fd8a715b32de66f586bdb4eac30f46c5",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/vista/streets.rs",
+      "actual_EOF": 168,
+      "ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1661,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/activity.rs",
+      "sha256": "30fdd1c0dc0b3569a4f38a70bca296cf20ec370c5487a0411c18011987fec1cf",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/vista/streets/activity.rs",
+      "actual_EOF": 91,
+      "ranges": [
+        [
+          1,
+          91
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    }
+  ],
+  "contracts": [
+    {
+      "source_index": 1653,
+      "disposition": "accounted exact07 immutable source/cache/selected-prefix/materialpolicy andfixture roles; no new07finding",
+      "facts": [
+        "PendingVista storeslatestunreadybundle; exactscene digest ready predicate determines take-and-trigger, no independentreadybool. Observer1636requiresGroundinadditionterrain/environment; ifreadytriggeroccursbeforeGround itrestashesbundle viaacceptfalse, so no demonstratedlostqueue onthatorder. Matchinglatestbundle only is explicitboundedqueuepolicy, notparallelcurrenttruth. Fullonce/unrelatedscene83fixture consumed, notrun."
+      ]
+    },
+    {
+      "source_index": 1654,
+      "disposition": "accounted exact07 immutable source/cache/selected-prefix/materialpolicy andfixture roles; no new07finding",
+      "facts": [
+        "VistaVertexColors private immutable sourceLodborrow+weathercapturedbyvalue buildsSampleColors once; no mutable source toinvalidate. Playablepigment versusregionalweathercolor canbe separatelyprovided butactualproducer usesenvironment.weather, no normalcohortmismatch shown.",
+        "Alpha storesgeometriccoverage intentionally differentfromRGBpigment/opacity, so preservingVistaalpha duringRGBseam isintentional. Terrainheight transition onecell andpigmentfourcells are distinct spatialmeanings, no forceequal policy. SourceclosedTacticalSurface->sward mapping exhaustive, nottextclassification."
+      ]
+    },
+    {
+      "source_index": 1655,
+      "disposition": "accounted exact07 immutable source/cache/selected-prefix/materialpolicy andfixture roles; no new07finding",
+      "facts": [
+        "Full236fixturelines consumed includingignored12fixtureexternalmanifest acceptance. Uncachedcolor referenceintentionally duplicatesnumericinterpolation asbehaviororacle, no secondproductionauthority. Nonzeroorigin125/-275, thresholdsample/weather/coarser/playable matrices/nativebitcomparisons preservedconceptually; no tests/inputload."
+      ]
+    },
+    {
+      "source_index": 1657,
+      "disposition": "accounted exact07 immutable source/cache/selected-prefix/materialpolicy andfixture roles; no new07finding",
+      "facts": [
+        "Regionalmesh consumes immutableadmittedRegionalTerrain currentvertexOption availability tobothposition/colorandtriangleindex emission. Missingposition0 isunreferenced placeholder, notfabricatedphysicalheight. Actualexacttriangles[A,B,C]/[B,D,C] match1619geographicsurface lookupdiagonal and northnegativeZ; rawsourceelevation finiteintegernativeconversion. No retainedindependentgrid/layoutmetadata inthisadapter."
+      ]
+    },
+    {
+      "source_index": 1658,
+      "disposition": "accounted exact07 immutable source/cache/selected-prefix/materialpolicy andfixture roles; no new07finding",
+      "facts": [
+        "StrategicBackdrop storesprivate canonicalsampledterrain+selectedLODprefix+foregroundsource; PreparedBackdrop prebuilds nativechunks fromsame cohort thenconsumescompleteproductintospawn. weather_surface explicitlysceneryreference, notSceneTerraincomponentor tacticalauthorityinstallation.",
+        "Actualheight_at uses selectedprefix andsamecoarserseam/clippedtriangle policy aspreparednativechunks, distinctfromActiveVistaSurface F080. Sourceoutsideunrenderedprefix returnsNone, actual1636existingfixture tests thisspecificowneronly. Immutableprivate sourceprevents stalegridmutation. No sourcefullinputmetadataadmission clearancefromkernelchecks."
+      ]
+    },
+    {
+      "source_index": 1659,
+      "disposition": "accounted exact07 immutable source/cache/selected-prefix/materialpolicy andfixture roles; no new07finding",
+      "facts": [
+        "Foregroundcolor suppliedfromsamePreparedBackdrop generation; boundary_color usesactualanti-diagonal barycentricSceneTerrain policy, notglobalRGBcache. EdgeColor pigment+blendweight localderivedscratchpervertex, no independentlyretainedclassification. SourceforegroundRGB+coverage intentionallyblendedtogether forstrategicwaterboundary, unlike playablepigmentpreservesVistaalpha; distinctdocumentedpurpose. Nativeattributes checkedbeforewrite, actualcallbacksignature notforcedmetadataauthority."
+      ]
+    },
+    {
+      "source_index": 1660,
+      "disposition": "accounted exact07 immutable source/cache/selected-prefix/materialpolicy andfixture roles; no new07finding",
+      "facts": [
+        "CityGroundAssets prepares/stores nativepaving output andseparateTrafficMasks fromstreetnetwork; neutralfocusedmaptraffic intentionalpresentation policy untilsharedbakescheduled, notfallbackpretendingcanonicaltraffic. Scene uses neutralonlywhenstreamingresourceexists, thenretains canonicalstreets/preparedtrafficforfuturebake.",
+        "Eachuploadedkind determinesyard/streetmarker andmaterialsameoperation; no textreclassification. Tilemask BTreeMap ensuresonebakepernative tile, mesh nativekind/shape remaincachedsourcecohort. Deeper PreparedCityGround, streams/mask lifecyclepending; no wholecacheinvalidationclearance fromthiscaller.",
+        "Sourcecriticalnewnativeasset creation extendsdemandconsumergraph butF042 exactcelestialhandledmaterialtypesnotautomaticallyincludesCityGroundMaterial; no inferreduniversalcelestialprojectionfinding."
+      ]
+    },
+    {
+      "source_index": 1661,
+      "disposition": "accounted exact07 immutable source/cache/selected-prefix/materialpolicy andfixture roles; no new07finding",
+      "facts": [
+        "ActivityWear retains immutable furnituregrouprefs selectedthroughsourcepartitionlookup; coverage/currentwear computedperpointfromcanonicalfootprint orientation/extent andkind. No copiedindependentposecache, privategroup listcannotoutlive mutableborrow. Wear+dampness aredifferent authoredmaterialobservations, maxcompositionnot duplicatecurrentfact.",
+        "Footprintfeather positiveinterior rule meansboundarywear0 intentionally; originalrotatedfootprintfixture sourcefull91read, noexecution. RawVec2 API existingtypedpointpropagation question remains otherlens, no actualcurrentwrongcoordinateclaim."
+      ]
+    }
+  ],
+  "personally_consumed_prior_narratives": [
+    "RIG-OWNER-STRATEGIC-CACHE-CLIP-061",
+    "ROOT-OWNER-VISTA-EXTENTS-050",
+    "ROOT-OWNER-VISTA-SURFACE-051",
+    "ROOT-OWNER-VISTA-DETAILS-052"
+  ],
+  "new_local_findings": [],
+  "identity_count_accounting": {
+    "new_original_variant_ids": [
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/pending.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/pigment.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/pigment/tests.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/regional.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/strategic.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/strategic/colors.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/activity.rs"
+    ],
+    "already_covered_fresh_reanalysis_ids": [],
+    "new_this_contract": 8,
+    "cumulative_new_original_variants": 162,
+    "cumulative_original_unique": 1920,
+    "count_basis": "exact source_id union"
+  },
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true
+}

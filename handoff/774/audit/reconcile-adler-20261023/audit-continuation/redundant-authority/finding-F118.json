@@ -1,0 +1,33 @@
+{
+  "id": "CONT07-F118",
+  "lens": "audit-redundant-authority",
+  "classification": "source-confirmed stale asynchronous response overwrites current evidence selection; static UI operation proof",
+  "title": "An evidence inspection response reselects an item the player has left",
+  "sources": {
+    "2419": [
+      [
+        112,
+        134
+      ],
+      [
+        141,
+        177
+      ],
+      [
+        180,
+        200
+      ]
+    ]
+  },
+  "fact": "selectEvidence owns selectedId, active portrait, stage description and conversation. The inspection POST captures the clicked evidence id, but its completion unconditionally calls selectEvidence(updated,button) without checking selectedId or a selection generation. The canonical returned inspection record and current user selection are distinct authorities.",
+  "counterexample": "Select evidence A, click an A inspection topic to start its POST, select B before that response arrives, then receive valid A response. The completion reselects A, replacing B description and conversation and active portrait despite the latest selection B. All operations are direct existing event handlers; no malformed response, failed request or missing backend gate is needed. No browser/DB execution or actual incident claimed.",
+  "limits": [
+    "Concurrency of multiple A inspections may also permit older data replacement, but record-revision/backend receipt ordering has not been traced and is not accepted here.",
+    "Unmount only aborts event listeners and request does not receive that signal; whether detached callbacks affect a later current page is a separate lifecycle question, not asserted by this minimum witness.",
+    "Root/global dedup pending; no other-lens coverage or global unique increment claimed."
+  ],
+  "suggested_connected_remedy": "Update the evidence record by stable id independently, then repaint the detail only if the response still belongs to the current selection/generation. Keep latest user selection authoritative and preserve valid historical inspection receipts.",
+  "acceptance_contract": "A response for an earlier selected evidence item cannot change the user current selection or repaint its stage as another item.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

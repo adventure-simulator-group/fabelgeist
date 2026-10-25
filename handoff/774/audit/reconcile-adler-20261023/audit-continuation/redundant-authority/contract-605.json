@@ -1,0 +1,76 @@
+{
+  "id": "CONT07-CONTRACT-605",
+  "at": "2026-10-24T00:29:42.151433+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2619,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/besagew.rs",
+      "sha256": "c3d0aae65c57d8a1406448595b81bbfa2c44b45caa68ff39a849da5189bca7db",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/besagew.rs",
+      "actual_EOF": 47,
+      "ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2620,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/radial_fluting.rs",
+      "sha256": "54b0aee7ee7d1790d7538a1ecfaacd1d17d20de9dd6bd49124546eb087f854b7",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/radial_fluting.rs",
+      "actual_EOF": 49,
+      "ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2621,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/joint_extension.rs",
+      "sha256": "998bb87a75985df4a4018b59e368d6422593f3d390e85572ad6ac914fd1396fb",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/joint_extension.rs",
+      "actual_EOF": 51,
+      "ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2622,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/pauldron.rs",
+      "sha256": "5badf1272e5eb85a11a05f6a16f1826a3ae4aaa23f1ab42408fbd48fad2d92ec",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/pauldron.rs",
+      "actual_EOF": 141,
+      "ranges": [
+        [
+          1,
+          141
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Besagew placement, radius and relief are independently authored controls, with optional radial fluting validated at its own owner. RadialFluting shares width/depth policy constants with PlateFluting but uses distinct complete-circle count/radius limits and derives sample columns from current spoke count. Equal wrapper names do not make radial and carrier chart policies interchangeable.",
+    "JointExtension derives terminal length from current lame count and terminal_share, and coordinates hem-rounding relation in same validator. Its terminal_share is intentionally irrelevant at one plate. Pauldron front/rear wings are independent morphology; outline and design constraints reuse declared range owners where present, and gauge thickness specialized range is explicit. Current bodies add no evidence of duplicated retained geometry or stale design labels; adopted RIG-ADMISSION03-F052 placement/admission evidence remains distinct and is not cleared by parameter validators."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2623,
+    "start_line": 1
+  }
+}

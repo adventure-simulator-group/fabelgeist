@@ -1,0 +1,211 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-166",
+  "at": "2026-10-25T13:10:19.660864+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 322,
+      "source_id": "physical-p16:crates/adventuresim-strategic-sim/src/live_core/policy.rs",
+      "sha256": "d056fbef7a8fa3486dd75f7f51b2cb3cc942a71163499480d0c52023c76930ba",
+      "actual_EOF": 598,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-strategic-sim/src/live_core/policy.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-strategic-sim/src/live_core/policy.rs",
+        "sha256": "d056fbef7a8fa3486dd75f7f51b2cb3cc942a71163499480d0c52023c76930ba",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 23763,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 446,
+            "read_ranges": [
+              [
+                315,
+                380
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SIM-PROFILE-BOOTSTRAP-059"
+            ],
+            "read_status": "scoped_complete_live_schedule_and_crime_reallocation_receivers",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-strategic-sim/src/live_core/policy.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-SIMULATION-CORE-GENERATED-PARTIAL-047",
+            "json_pointer": "/source_proofs/6",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-strategic-sim/src/live_core/policy.rs",
+            "read_ranges_as_recorded": [
+              [
+                315,
+                380
+              ]
+            ],
+            "source_context": {
+              "index": 595,
+              "source_id": "physical-p16:crates/adventuresim-strategic-sim/src/live_core/policy.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/adventuresim-strategic-sim/src/live_core/policy.rs",
+              "sha256": "d056fbef7a8fa3486dd75f7f51b2cb3cc942a71163499480d0c52023c76930ba",
+              "read_ranges": [
+                [
+                  315,
+                  380
+                ]
+              ],
+              "mode": "Fresh actual source read and exact variant/role reconciliation; source proof only, not percell accounting",
+              "roles": [
+                "Fresh P16 policy315\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153380 matches same current PR body exactly; actual schedule read1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153598 and role reconciliation308 proves this exact bounded obligation, not whole frozen cell by hash."
+              ],
+              "pending_receivers": [
+                "Connected simulation cycle/settlement/survival/expedition/generated/travel producer and actual policy consumers remain assigned in30 packet; exact receipt will close only after actual bodies reconciled."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-SIMULATION-OBSERVATION-RECEIVER-CLOSURE-050",
+            "json_pointer": "/source_proofs/17",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-strategic-sim/src/live_core/policy.rs",
+            "read_ranges_as_recorded": [
+              [
+                315,
+                380
+              ]
+            ],
+            "source_context": {
+              "index": 595,
+              "source_id": "physical-p16:crates/adventuresim-strategic-sim/src/live_core/policy.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/adventuresim-strategic-sim/src/live_core/policy.rs",
+              "sha256": "d056fbef7a8fa3486dd75f7f51b2cb3cc942a71163499480d0c52023c76930ba",
+              "read_ranges": [
+                [
+                  315,
+                  380
+                ]
+              ],
+              "actual_line_count": 598,
+              "supplier_trace": "ROOT047/048/049",
+              "disposition": "Supplier producer/retained-state/operation/actual receiving-body inventory accounted with findings; Camera must explicitly consume before716 credit.",
+              "source_roles": [
+                "Fresh P16 policy315\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153380 matches same current PR body exactly; actual schedule read1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153598 and role reconciliation308 proves this exact bounded obligation, not whole frozen cell by hash."
+              ],
+              "actual_receiver_closure": "Root047/048/049 source facts plus full Rig036 survival/expedition/economy and Native022 cycle/travel/recovery receipts close the prior fifteen shared receiving obligations. No blanket source or native exemption."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/current_sources/17",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-strategic-sim/src/live_core/policy.rs",
+            "read_ranges_as_recorded": [
+              [
+                315,
+                380
+              ]
+            ],
+            "source_context": {
+              "index": 595,
+              "source_id": "physical-p16:crates/adventuresim-strategic-sim/src/live_core/policy.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/adventuresim-strategic-sim/src/live_core/policy.rs",
+              "sha256": "d056fbef7a8fa3486dd75f7f51b2cb3cc942a71163499480d0c52023c76930ba",
+              "read_ranges": [
+                [
+                  315,
+                  380
+                ]
+              ],
+              "actual_line_count": 598,
+              "supplier_trace": "ROOT047/048/049",
+              "disposition": "Supplier producer/retained-state/operation/actual receiving-body inventory accounted with findings; Camera must explicitly consume before716 credit.",
+              "source_roles": [
+                "Fresh P16 policy315\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153380 matches same current PR body exactly; actual schedule read1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153598 and role reconciliation308 proves this exact bounded obligation, not whole frozen cell by hash."
+              ],
+              "actual_receiver_closure": "Root047/048/049 source facts plus full Rig036 survival/expedition/economy and Native022 cycle/travel/recovery receipts close the prior fifteen shared receiving obligations. No blanket source or native exemption."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/additional_actual_source_proofs/6",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-strategic-sim/src/live_core/policy.rs",
+            "read_ranges_as_recorded": [
+              [
+                315,
+                380
+              ]
+            ],
+            "source_context": {
+              "index": 595,
+              "source_id": "physical-p16:crates/adventuresim-strategic-sim/src/live_core/policy.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/adventuresim-strategic-sim/src/live_core/policy.rs",
+              "sha256": "d056fbef7a8fa3486dd75f7f51b2cb3cc942a71163499480d0c52023c76930ba",
+              "read_ranges": [
+                [
+                  315,
+                  380
+                ]
+              ],
+              "mode": "Fresh actual source read and exact variant/role reconciliation; source proof only, not percell accounting",
+              "roles": [
+                "Fresh P16 policy315\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153380 matches same current PR body exactly; actual schedule read1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153598 and role reconciliation308 proves this exact bounded obligation, not whole frozen cell by hash."
+              ],
+              "pending_receivers": [
+                "Connected simulation cycle/settlement/survival/expedition/generated/travel producer and actual policy consumers remain assigned in30 packet; exact receipt will close only after actual bodies reconciled."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1293,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          244,
+          382
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Requested315\u2013380 plus complete owning functions live_skills244\u2013322, crime reallocation324\u2013336, live_schedule338\u2013365, schedule allocation367\u2013382 consumed. No local types/manual traits/serializers.",
+      "necessary_signature_extension": "244\u2013314 and381\u2013382 close owning function context and iterator body.",
+      "coverage_limit": "Bounded244\u2013382 only, not full598. Exploratory205\u2013242/384\u2013415 excluded."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "native simulated skills and live schedule projection",
+      "disposition": "No derivability finding. live_skills copies selected profile fields into SDK types, supplies identity, initializes oral/written and terrain values explicitly; live_schedule quantizes minutes, excludes locked professions and redirects crime to labor. These semantic/default projections are not mechanical whole-struct From. Keep generated SDK types untouched.",
+      "qualification": "No simulator execution, policy/aggregate clearance or unreviewed source coverage."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 323,
+    "source_id": "physical-p16:crates/adventuresim-strategic-sim/src/profile.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

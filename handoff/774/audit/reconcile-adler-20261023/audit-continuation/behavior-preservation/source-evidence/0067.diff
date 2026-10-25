@@ -1,0 +1,239 @@
+diff --git a/crates/adventuresim-core/src/autoresolve/melee_round/mod.rs b/crates/adventuresim-core/src/autoresolve/melee_round/mod.rs
+index 2baf681e1..59ef5d94a 100644
+--- a/crates/adventuresim-core/src/autoresolve/melee_round/mod.rs
++++ b/crates/adventuresim-core/src/autoresolve/melee_round/mod.rs
+@@ -98,11 +98,11 @@ pub(super) fn resolve_melee_turn(
+         attacker_incapacitation_performance,
+         attack_interval,
+         attack_timing,
+         contact_batch,
+         recorder,
+-    );
++    )?;
+     Ok(())
+ }
+ 
+ #[expect(
+     clippy::too_many_arguments,
+@@ -122,11 +122,13 @@ fn record_melee_result(
+     performance: UnitInterval,
+     interval: crate::combat::RecoveryTime,
+     timing: ScheduledMeleeTiming,
+     batch: MeleeContactBatch,
+     recorder: &mut BattleRecorder,
+-) {
++) -> BattleResolutionResult<()> {
++    let center_separation = SignedLength::from_metres(contact.actual_measure_metres.metres()
++        + HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES)?;
+     let effect = apply_attack_result(attacker, defender, result, part);
+     recorder.record_attack(
+         "main",
+         round,
+         attacker.id,
+@@ -144,12 +146,11 @@ fn record_melee_result(
+             surface_coordinate: exchange.contact.surface_coordinate,
+             armor_layer_chain: autoresolve_armor_layer_chain(&defender.equipment, exchange.contact),
+             scheduled_contact_measure_metres: contact.scheduled_measure_metres,
+             ideal_contact_measure_metres: contact.ideal_measure_metres,
+             actual_contact_measure_metres: contact.actual_measure_metres,
+-            actual_center_separation_metres: contact.actual_measure_metres
+-                + HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES,
++            actual_center_separation_metres: center_separation,
+             contact_classification: contact.classification,
+             contact_lever_arm_metres: contact.lever_arm_metres,
+             contact_energy_fraction: contact.energy_fraction,
+             measure_accuracy_multiplier: contact.measure_accuracy_multiplier,
+             contact_invalidation_cause: contact.invalidation_cause,
+@@ -170,10 +171,11 @@ fn record_melee_result(
+             attacker_incapacitation_performance: performance,
+             attack_interval_seconds: interval,
+         }),
+     );
+     record_contact_timeline(recorder, attacker, defender.id, timing, batch);
++    Ok(())
+ }
+ 
+ fn record_contact_timeline(
+     recorder: &mut BattleRecorder,
+     attacker: &Combatant,
+@@ -205,11 +207,11 @@ fn record_contact_timeline(
+     reason = "defense commitment joins exact scheduled and sampled response facts"
+ )]
+ fn apply_defender_response(
+     defender: &mut Combatant,
+     attacker_id: u64,
+-    engagement_distance: f32,
++    engagement_distance: SignedLength,
+     scheduled_before: Option<ScheduledMeleeTiming>,
+     phase: MeleeDefenderPhase,
+     decision: AutoresolveMeleeDefenderDecision,
+     response: DefenderResponse,
+     effective_response: DefenderResponse,
+@@ -274,11 +276,11 @@ fn apply_defender_response(
+ )]
+ fn record_response_timeline(
+     recorder: &mut BattleRecorder,
+     defender: &Combatant,
+     attacker_id: u64,
+-    distance: f32,
++    distance: SignedLength,
+     readiness: DefenderReadiness,
+     phase: MeleeDefenderPhase,
+     decision: AutoresolveMeleeDefenderDecision,
+     response: DefenderResponse,
+     incoming: ScheduledMeleeTiming,
+@@ -375,26 +377,26 @@ fn prepare_melee_exchange(
+         .melee_attack_scheduled_measure_metres
+         .unwrap_or(attacker.melee_engagement_distance_metres);
+     let actual_measure = attacker
+         .melee_engagement_distance_metres
+         .min(defender.melee_engagement_distance_metres)
+-        .max(0.0);
+-    let ideal_measure = mobility::preferred_melee_measure(attacker, parameters);
++        .max(SignedLength::ZERO);
++    let ideal_measure = mobility::preferred_melee_measure(attacker, parameters)?;
+     let equipment = attacker.equipment.for_melee();
+     let contact_at_time = resolve_melee_contact_at_time(MeleeContactAtTimeFacts {
+         scheduled_measure_metres: scheduled_measure,
+         actual_measure_metres: actual_measure,
+         ideal_measure_metres: ideal_measure,
+-        effective_reach_metres: melee_effective_reach(attacker),
++        effective_reach_metres: melee_effective_reach(attacker)?,
+         grip_to_tip_metres: equipment.weapon_grip_to_tip(),
+         total_length_metres: equipment.weapon_total_length(),
+         striking_head_length_metres: equipment.weapon_striking_head_length(),
+         distal_headed: equipment.weapon.is_some_and(|weapon| weapon.distal_headed),
+         attack_style: equipment.weapon_preferred_melee_style(),
+         body_material: equipment.weapon_body_material(),
+         striking_material: equipment.weapon_striking_material(),
+-    });
++    })?;
+     let precision = autoresolve_hit_precision(random, parameters);
+     let reaction_sample = random.unit_f32();
+     let defender_timing = defender
+         .melee_attack_started_at_seconds
+         .zip(defender.melee_attack_contact_at_seconds)
+@@ -458,100 +460,100 @@ mod tests {
+     #[test]
+     fn short_generated_sword_recovers_from_haft_only_measure() {
+         let (fighter, _) = crate::autoresolve::melee_iteration_roster().unwrap();
+         let parameters = crate::combat::EMBEDDED_AUTORESOLVE_PARAMETERS;
+         assert_eq!(
+-            movement_intent(&fighter.combatant, 0.01, parameters),
++            movement_intent(&fighter.combatant, SignedLength::from_metres(0.01).unwrap(), parameters).unwrap(),
+             MeleeMovementAction::Retreat
+         );
+-        let preferred = preferred_melee_measure(&fighter.combatant, parameters);
++        let preferred = preferred_melee_measure(&fighter.combatant, parameters).unwrap();
+         assert_eq!(
+-            movement_intent(&fighter.combatant, preferred, parameters),
++            movement_intent(&fighter.combatant, preferred, parameters).unwrap(),
+             MeleeMovementAction::Hold
+         );
+     }
+ 
+     #[test]
+     fn exact_reach_boundary_is_attackable_but_outside_measure_closes() {
+         let parameters = crate::combat::EMBEDDED_AUTORESOLVE_PARAMETERS;
+         let mut fighter = Combatant::new(1);
+         fighter.equipment.melee_weapon = Some(CombatWeapon {
+             melee: true,
+-            melee_reach: 1.0,
++            melee_reach: fabelgeist_geometry::SignedLength::from_metres(1.0).unwrap(),
+             ..CombatWeapon::default()
+         });
+         fighter.equipment.weapon = fighter.equipment.melee_weapon;
+-        let reach = melee_effective_reach(&fighter);
++        let reach = melee_effective_reach(&fighter).unwrap();
+         assert_eq!(
+-            movement_intent(&fighter, reach, parameters),
++            movement_intent(&fighter, reach, parameters).unwrap(),
+             MeleeMovementAction::Hold
+         );
+         assert_eq!(
+-            movement_intent(&fighter, reach + 0.01, parameters),
++            movement_intent(&fighter, SignedLength::from_metres(reach.metres() + 0.01).unwrap(), parameters).unwrap(),
+             MeleeMovementAction::Close
+         );
+     }
+ 
+     #[test]
+     fn committed_short_weapon_tracks_while_long_weapon_seeks_measure() {
+         let parameters = crate::combat::EMBEDDED_AUTORESOLVE_PARAMETERS;
+         let mut short = Combatant::new(1);
+         short.equipment.melee_weapon = Some(CombatWeapon {
+             melee: true,
+-            melee_reach: 1.0,
++            melee_reach: fabelgeist_geometry::SignedLength::from_metres(1.0).unwrap(),
+             ..CombatWeapon::default()
+         });
+         short.equipment.weapon = short.equipment.melee_weapon;
+         short.melee_attack_started_at_seconds = Some(BattleTime::ZERO);
+         let mut long = Combatant::new(2);
+         long.equipment.melee_weapon = Some(CombatWeapon {
+             melee: true,
+-            melee_reach: 2.0,
++            melee_reach: fabelgeist_geometry::SignedLength::from_metres(2.0).unwrap(),
+             ..CombatWeapon::default()
+         });
+         long.equipment.weapon = long.equipment.melee_weapon;
+         assert_eq!(
+-            movement_intent(&short, 1.2, parameters),
++            movement_intent(&short, SignedLength::from_metres(1.2).unwrap(), parameters).unwrap(),
+             MeleeMovementAction::Close
+         );
+         assert_eq!(
+-            movement_intent(&long, 0.9, parameters),
++            movement_intent(&long, SignedLength::from_metres(0.9).unwrap(), parameters).unwrap(),
+             MeleeMovementAction::Retreat
+         );
+     }
+ 
+     #[test]
+     fn distal_headed_weapon_seeks_the_center_of_its_authored_head_band() {
+         let parameters = crate::combat::EMBEDDED_AUTORESOLVE_PARAMETERS;
+         let mut polearm = Combatant::new(2);
+         polearm.equipment.melee_weapon = Some(CombatWeapon {
+             melee: true,
+-            melee_reach: 2.0,
+-            grip_to_tip_m: 1.9,
+-            total_length_m: 2.2,
+-            striking_head_length_m: 0.16,
++            melee_reach: fabelgeist_geometry::SignedLength::from_metres(2.0).unwrap(),
++            grip_to_tip_m: fabelgeist_geometry::SignedLength::from_metres(1.9).unwrap(),
++            total_length_m: fabelgeist_geometry::SignedLength::from_metres(2.2).unwrap(),
++            striking_head_length_m: fabelgeist_geometry::SignedLength::from_metres(0.16).unwrap(),
+             distal_headed: true,
+             ..CombatWeapon::default()
+         });
+         polearm.equipment.weapon = polearm.equipment.melee_weapon;
+-        let preferred = preferred_melee_measure(&polearm, parameters);
+-        let reach = melee_effective_reach(&polearm);
+-        let expected = preferred_melee_striking_measure(reach, 1.9, 0.16, true, 0.7);
+-        assert!((preferred - expected).abs() < 1.0e-6);
++        let preferred = preferred_melee_measure(&polearm, parameters).unwrap();
++        let reach = melee_effective_reach(&polearm).unwrap();
++        let expected = preferred_melee_striking_measure(reach, SignedLength::from_metres(1.9).unwrap(), SignedLength::from_metres(0.16).unwrap(), true, 0.7).unwrap();
++        assert!((preferred.metres() - expected.metres()).abs() < 1.0e-6);
+         assert_eq!(
+-            movement_intent(&polearm, 1.8, parameters),
++            movement_intent(&polearm, SignedLength::from_metres(1.8).unwrap(), parameters).unwrap(),
+             MeleeMovementAction::Retreat
+         );
+         assert_eq!(
+-            movement_intent(&polearm, preferred, parameters),
++            movement_intent(&polearm, preferred, parameters).unwrap(),
+             MeleeMovementAction::Hold
+         );
+ 
+         let opponent = Combatant::new(1);
+         assert!(
+-            mobility::maximum_melee_pair_surface_separation(&opponent, &polearm, parameters)
+-                >= reach - 1.0e-5
++            mobility::maximum_melee_pair_surface_separation(&opponent, &polearm, parameters).unwrap().metres()
++                >= reach.metres() - 1.0e-5
+         );
+     }
+ 
+     #[test]
+     fn movement_and_recovery_gate_one_exact_attack_start() {

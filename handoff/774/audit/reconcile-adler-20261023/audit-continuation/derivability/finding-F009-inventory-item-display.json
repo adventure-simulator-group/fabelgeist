@@ -1,0 +1,27 @@
+{
+  "id": "SEGOVB-INITIAL10-F009",
+  "classification": "source-backed optional maintenance suggestion",
+  "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory.rs",
+  "sha256": "0f820bca06e27b164da010e95dc7d3500a79a6feb0b7be9411ed8a41e88feb18",
+  "ranges": [
+    [
+      23,
+      26
+    ],
+    [
+      364,
+      368
+    ]
+  ],
+  "problem": "Nongeneric InventoryItemId manually formats a literal # followed by its u64 despite existing derive_more Display feature in owning crate.",
+  "equivalent_implementation": "Add derive_more::Display and exact #[display(\"#{_0}\")] to InventoryItemId, remove only handwritten Display364\u2013368.",
+  "source_proof": [
+    "Owning681 full79 and lock680 previously personally consumed: existing derive_more2.1.1/display; no dependency change.",
+    "Pinned display.rs1\u201382/198\u2013232/398\u2013438/499\u2013552 personally consumed: struct field0 becomes &_0; prefixed literal uses core::write!, not transparent field formatter delegation; nongeneric newtype adds no generic bounds. Additional scoped range fresh-dependency-registration-419.json, same verified package/member as401."
+  ],
+  "acceptance": [
+    "Preserve leading #, default decimal u64, fmt receiver/result, and formatting behavior under outer flags: explicit prefixed write! continues to ignore outer width/precision just like old implementation.",
+    "Keep raw u64 identity, public tuple field, derived ordering/hash/equality/transparent Serde and visibility untouched. No admission/conversion or Error trait introduced.",
+    "Optional mechanical cleanup only; related to F008 existing Display derive family, no runtime defect/global unique issue count; no compiler/macro expansion/tests executed."
+  ]
+}

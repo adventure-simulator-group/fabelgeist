@@ -1,0 +1,24 @@
+{
+  "id": "RIG-INITIAL06-GROUP-322",
+  "at": "2026-10-23T08:56:57.604919+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "interior-lighting-native-payload": {
+      "comparison": "InteriorField/material/exposure owners are reexported, while GpuBuilding and GpuField are local ShaderType upload products. Actual lanes are world bounds, local transform, origin/cell metres, dimensions/sample offset, storey height, irradiance and interpolation factor, not one common RGBA concept. from_field is the real host packing port; sample_at performs native cell/index math and returns native irradiance. selection Entity/Mat4 tracks GPU residency and change detection, not durable building identity. Existing raw daylight/weather propagation is not repaired by inventing per-lane Rust semantic owners inside WGSL ABI. Canonical CELL_SIZE_METRES is reused.",
+      "disposition": "legitimate renderer upload/cached-selection products; no competing source owner established"
+    },
+    "camera-analytic-filter": {
+      "comparison": "FocusSample composes canonical Position<Scene> and SceneVelocity; SweetSpotSample separates scene target from ScreenError and CameraViewMetrics holds dimensionless Ratio. damp_focus unpacks only for analytic horizontal/vertical damping then admits complete replacement position and velocity. ResponseShapingTime controls convergence, AnimationElapsed is elapsed input, UnitInterval weights profile interpolation, SignedLength retains signed offsets. NDC ScreenWindow/Error are distinct from scene metres and degrees. This supports prior F039 rule: signed blend velocity must not borrow unrelated animation quantity; no new consolidation of elapsed versus shaping-time roles or Ratio versus probability. Original fixtures exercise filter behavior, not additional production owners.",
+      "disposition": "coherent composed frame/quantity products and true numerical filter ports"
+    },
+    "ground-triangle-geographic-kernel": {
+      "comparison": "GroundTriangle privately composes three canonical Position<Scene> leaves, adding ordered finite nondegenerate projected-plane meaning. This aggregate is distinct from CollisionCuboid and arbitrary point arrays. Native f64 clipping/intersection/height arithmetic preserves geographic precision and quantizes represented points before re-admitting triangles; lengths/area/roundoff have different units. ScenePlanPoint projects into PlanarBounds; points getter is actual numerical-port projection. No duplicate generic finite vector leaf is justified, and forcing engineering f32 diagnostics would erase intentional precision. SourceCutRegions and PlanarQueryIndex are imported owners; called module bodies receive no credit here.",
+      "disposition": "meaningful private scene surface aggregate over canonical geometry; legitimate precision-sensitive math"
+    }
+  },
+  "supporting_existing_findings": [
+    "F039"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit."
+}

@@ -1,0 +1,59 @@
+{
+  "id": "CONT07-CONTRACT-661",
+  "at": "2026-10-24T01:34:16.843622+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2107,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/blades.rs",
+      "sha256": "fcc04f50403bdcd25927bf4e6412ffdea4fc6c18a6c193a8e224b049e3477171",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/model/blades.rs",
+      "actual_EOF": 241,
+      "ranges": [
+        [
+          1,
+          113
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2136,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/blades.rs",
+      "sha256": "3fb5785ee55629d966055979c2414e4b1f7daba4e1599cd0afc575285a407e39",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/blades.rs",
+      "actual_EOF": 275,
+      "ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2144,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/melee.rs",
+      "sha256": "7b1ffa336f641cd42556a1104809cad88c913948710a3aa426b5f5f37302e616",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/validation/melee.rs",
+      "actual_EOF": 240,
+      "ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Axe omitted-root question: model/blades.rs14 caps outer outline root at0.055 while66 taper origin uses width*0.18 without cap. Dimension and melee validators read allow omitted root and do not cap width to0.055/0.18; explicit root remains optional and bounded relativewidth. This is an actual differing default computation, not current accepted normal geometry failure.",
+    "The two expressions feed outer outline vs thickness taper coordinate. Same intended physical datum/virtual taper policy and whole constructive Solid::shaped_plate witness remain unproven; do not choose either expression as canonical by arithmetic alone. Preserve bounded source question for geometry-policy review, no new accepted07 finding or runtimeclaim."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": null
+}

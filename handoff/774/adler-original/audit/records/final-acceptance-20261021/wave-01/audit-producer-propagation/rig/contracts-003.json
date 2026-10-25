@@ -1,0 +1,166 @@
+[
+  {
+    "id": "ARMOR-METADATA-01",
+    "source_cells": [
+      136
+    ],
+    "status": "source-read",
+    "disposition": "non-applicable",
+    "evidence": "Cargo.toml1-26 supplies canonical geometry/rig lower dependencies and native GPU/serialization dependencies. It carries no application quantity or primitive getter; edges agree with Creator lock local package records."
+  },
+  {
+    "id": "ARMOR-LENGTH-01",
+    "source_cells": [
+      138,
+      43,
+      40,
+      42,
+      97
+    ],
+    "status": "incomplete",
+    "canonical_owner": "Discrete authored Millimeters(u16) design.rs5; continuous finite SignedLength in shared geometry; distinct representations with a direct owning conversion",
+    "producer": [
+      "Design structs retain Millimeters fields and authored default u16 literals; GPU-facing BracerDesign retains its role until actual native extraction. No f32 extraction precedes signed_length conversion.",
+      "signed_length9-10 passes the internal bounded u16 leaf straight to SignedLength::from_millimetres, whose body measurement.rs59-60 performs exact f32::from(u16)/1000.0; no application caller receives the raw intermediate."
+    ],
+    "operations": [
+      "skirt_span416/446 carries converted SignedLength directly into JointHeightAnchor; scaled_by(3.0) computes typed length in canonical owner64-65 then rechecks finite product, without a caller metres extraction",
+      "record_upright237/238 is the actual uniform projection from SignedLength to f32 Word::F. Embedded UPRIGHT83-92 consumes params offsets in native rest-frame joint-height calculations. Ratio similarly projects only at239 into shader reach coefficient85.",
+      "dispatch Word::F190-192 -> PassParameter::Number f32->f64 -> KernelBatch::dispatch250-289 -> fast::write_uniform350 or ComputePass::record92-97 packs actual f32 little-endian word. No continuous-length readmission or application retained raw offset occurs after this point."
+    ],
+    "disposition": "intentional proven boundary for the specific signed_length\u2192skirt_span\u2192record_upright/native uniform path; remaining public Millimeters::metres/Permille::unit/Milliradians::radians and public tuple-field consumers are still pending full actual receiver inventory.",
+    "remaining": [
+      "Every materially distinct length/angle/fraction getter and .0 editor/serde use; broad rg inventory is not coverage",
+      "Authored raw offset constants candidate RIG-PP-003",
+      "Scaling3.0 factor is policy to assess independently under required later lenses; this lens proves no same-owner escape in that path."
+    ]
+  },
+  {
+    "id": "ARMOR-CONSTRUCTION-01",
+    "source_cells": [
+      137
+    ],
+    "status": "incomplete",
+    "producer": "Construction/Tiling/Plate/Lacing authored/serde records14-24,68-72,135-155,248-253",
+    "primitive_inventory": [
+      "Construction::name27-32 returns presentation labels; actual UI receivers pending",
+      "Plate dimensional/policy fields are raw f32 and hole_pairs u32; validate180-200 checks mutable records but getters widest_trim204, max_hole_radius210, holes228 emit native scalars/Vec coordinate rows",
+      "Tiling and Lacing constructors retain authored raw metre/color/fraction profiles; Tiling::validate118-127 and Lacing::validate276-285 are scalar checks",
+      "No named checked leaf is unwrapped/re-admitted inside the read file; actual native tessellation/trim and UI/schema receivers must establish final disposition"
+    ],
+    "fixture_evidence": "Existing tests310-374 use authored defaults/mutation and direct numerical assertions; no source/read/run equivalence inferred.",
+    "receivers_pending": [
+      "trim::narrowed and tiling plate embedding actual coordinate kernels",
+      "All Construction::name/plate holes/max radius editor or serialization receivers"
+    ]
+  },
+  {
+    "id": "ARMOR-ERROR-01",
+    "source_cells": [
+      139
+    ],
+    "status": "incomplete",
+    "producer": "GenerateError9-33 propagates canonical RigSkinError, GPU readback and design/shell failures by typed variants",
+    "primitive_inventory": [
+      "SabatonTrimExceedsFoot native f32 lengths20-21 retained only for error reporting in this record; actual error construction and display receivers pending",
+      "Gpu Arc<str>32 is native backend error text, not a branch-classified application status in this file"
+    ],
+    "receivers_pending": [
+      "Native footwear cutaway failure producer and callers",
+      "Generation typed error propagation through Creator/runtime"
+    ]
+  },
+  {
+    "id": "CREATOR-UNIFORM-01",
+    "source_cells": [
+      97,
+      42
+    ],
+    "status": "actual-joint-and-length-uniform-path-closed-other-callers-pending",
+    "producer": "RigJointParameter enum binds typed shader parameter roles to external WGSL field spelling; RigPassParameters::insert_joint73-79 converts canonical ordinal exactly at native32-bit uniform insert",
+    "state": "Word::Joint retains role+ordinal until dispatch186-188; Word::F holds actual projected shader scalar190-192. PassParameters retains external binding names and native parameter variants.",
+    "native_endpoints": [
+      "device_garment_kernel dispatch155-229 creates literal WGSL struct members and reflected storage bindings then calls KernelBatch dispatch",
+      "parameters/parameter.rs From<f32> converts to native Number(f64); From<u32> becomes Unsigned. fast::write_uniform350-355 or ComputePass::record92-104 emits exact f32/u32 little-endian words and WGPU receives queue.write_buffer/create_buffer_init.",
+      "Actual embedded UPRIGHT83-92 and SUPPORT53 consume joint indices and offsets; all remaining embedded device kernels must be individually read before claiming broad closure."
+    ],
+    "boundary_disposition": "intentional proven boundary for the concrete native ABI conversions, including parameter.to_string into a literal reflected WGSL field; no fallback reconstruction of domain identity occurs."
+  },
+  {
+    "id": "CREATOR-UPRIGHT-01",
+    "source_cells": [
+      40,
+      43
+    ],
+    "status": "source-read-core-path-closed-consumers-pending",
+    "producer": "UprightSpan131-149 owns JointHeightAnchor {RigJointName,SignedLength} and JointReachTarget {RigJointName,Ratio}; skirt_span411-461 returns this typed aggregate",
+    "operations": [
+      "Fauld waist_rise native u16 leaf converts once via owning signed_length416; padded thickness multiplies through canonical scaled_by446; top/bottom zero retain typed ZERO",
+      "record_fitted_skirt65 forwards whole span to record_upright205-244, which resolves typed joint names against source rig before native Word::Joint/F handoff",
+      "UPRIGHT shader83-114 computes resulting frame and its fit-failure word; callers record_fit_status139/275-289 transfer that native failure into part status"
+    ],
+    "candidate_refs": [
+      "RIG-PP-003"
+    ],
+    "receivers_pending": [
+      "Other torso/gorget/tube span producers",
+      "DevicePart status readback and fitting failure receiving caller"
+    ]
+  },
+  {
+    "id": "CREATOR-SUPPORT-01",
+    "source_cells": [
+      40
+    ],
+    "status": "incomplete",
+    "producer": "record_region_support168-177 retains one RigJointTable<u32> of shader region-bit masks; enum membership converts u32 only for bitwise GPU support encoding173",
+    "native_endpoint": "BufferUpload::from_elements(owned.as_native_slice())177, SUPPORT shader owned[joint_indices] and weight sum53-61; mask is external GPU bit representation, not joint ordinal or canonical region identity.",
+    "receivers_pending": [
+      "Wearer owned_joints type/actual producer and BodySurface upload",
+      "BufferUpload actual element-to-byte adapter and support-consuming kernels"
+    ]
+  },
+  {
+    "id": "CREATOR-CANDIDATE-01",
+    "source_cells": [
+      41,
+      43,
+      44
+    ],
+    "status": "incomplete",
+    "meaning": "Explicit presence for nearest candidate/cursor/band/envelope, represented in native WGSL",
+    "producer": [
+      "BAND band_bounds30-100 sets present only with supporting samples; fallback cursor/candidate flags gate payload assignments and use89-97",
+      "DRAPE_STATIONS envelope24-38 excludes unsupported samples with absent payload, caller59-66 gates access",
+      "Station nearest-height search82-107 gates best payload by candidate_present and preserves last-distance/slot order; total0 or no cursor emits candidate_status atomic flag109/114"
+    ],
+    "state_receivers": [
+      "Fauld caller band.present274 gates band.lo/hi native fit writes278-279",
+      "record_candidate_status124 runs after stations dispatch and before DRAPE_FINISH125; CANDIDATE_STATUS106-108 folds native failure into fit",
+      "DRAPE_FINISH297 and WRAP376 gate all downstream cage payload operations; record_fit_status139 propagates existing fit word into part status"
+    ],
+    "primitive_disposition": "WGSL bool/u32/f32 fields are actual shader-native representations. Explicit status bridge is retained; no Rust application primitive sentinel/admission path observed in these read bodies.",
+    "receivers_pending": [
+      "Torso/tube/chausses other candidate producers/consumers",
+      "Part shell/readback/status actual receiver",
+      "Other code that handles candidate_status/FIT_FAILED payload"
+    ]
+  },
+  {
+    "id": "RIG-PP-003",
+    "status": "actionable-candidate",
+    "disposition": "migration gap",
+    "location": "pr-working:crates/adventuresim-character-creator/src/device_garment_skirt.rs41,43 -> skirt_span420,431",
+    "scenario": "Authored continuous offset policy constants FAULD_DROP_M and TASSET_RISE_M remain primitive f32 producer/storage; the consumer admits SignedLength only inside span construction. The checked offset contract starts after its internal producer, although the resulting span retains it correctly.",
+    "rule": "Producer-propagation lens; primitive authored quantity owner should emit and retain existing checked leaf rather than late caller admission.",
+    "smallest_connected_repair": "Retain checked SignedLength at the authored offset policy owner and consume it directly in skirt_span; coordinate a clean canonical constant/literal admission mechanism without unwrap/expect or unchecked forwarding constructor. Review all sibling span producers before final repair.",
+    "dependencies": [
+      "Shared SignedLength const checked from_metres API",
+      "Creator skirt_span and sibling torso/gorget/tube span producers",
+      "Do not change scaling arithmetic, frame policy or shader ABI"
+    ],
+    "acceptance": "Authored offset producers carry checked continuous lengths through every span constructor; numerical extraction occurs only in actual Word::F uniform/native calculation. No late from_metres at an internal scalar constant receiver.",
+    "coordinator_notified": true,
+    "validation": "not executed"
+  }
+]

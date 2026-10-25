@@ -1,0 +1,157 @@
+{
+  "id": "CONT-CAMERA-OWNER-NUMERIC-001",
+  "at": "2026-10-22T02:34:15.527481+00:00",
+  "lens": "audit-existing-type-owners",
+  "scope": "Seven exact queued numeric definition/config role variants; all newly reached observations retained individually. Other source reads are candidate definitions only until their own use-role comparisons.",
+  "per_source_fit": {
+    "43": {
+      "owner_definitions": [
+        [
+          "PositiveLength",
+          "fabelgeist-geometry/src/length.rs",
+          18,
+          30
+        ],
+        [
+          "UnitInterval",
+          "adventuresim-core/src/unit_interval.rs",
+          18,
+          29
+        ],
+        [
+          "AnimationElapsed",
+          "adventuresim-core/src/elapsed.rs",
+          24,
+          35
+        ],
+        [
+          "PositiveSpeed",
+          "adventuresim-core/src/linear_speed.rs",
+          106,
+          125
+        ]
+      ],
+      "role": "CombatFatigueParameters all serde fields and validate23-45",
+      "comparison": "Attack/defense travel finite>0 admitted at31-36: PositiveLength exact f32metre numeric leaf, not signed offset or native float waiver. Efficiency finite(0,1] at25/39 reuses UnitInterval leaf plus strictpositive role, preserving firsterror. Positive action times and dodge speed already typed AnimationElapsed/PositiveSpeed; duration ordering remains aggregate. Energy-per-endurance, power-per-endurance, power-per-kg and endurance attributes are distinct missing numeric/purpose owners, not Ratio or BodyMassKg. All field collections/Serde record included.",
+      "receivers": "CAM-PPS-CONFIG-001 -> CAM-PPS-AUTORESOLVE-003/CAM-PPS-CORE-TRAITS-005 and exact prior CAM-OWN-BUILD-022/current numeric kernels; preserve single visible fatigue pool.",
+      "repair": "Canonical PositiveLength/UnitInterval source leaves across config, generated text and actual fatigue consumers; keep zero/ordering/firsterror and missing unit policies explicit."
+    },
+    "47": {
+      "owner_definitions": [
+        [
+          "PositiveLength",
+          "fabelgeist-geometry/src/length.rs",
+          18,
+          30
+        ],
+        [
+          "Area",
+          "fabelgeist-geometry/src/measurement.rs",
+          86,
+          106
+        ],
+        [
+          "ContactPrecision",
+          "adventuresim-core/src/combat/weapon_contact.rs",
+          84,
+          113
+        ]
+      ],
+      "role": "WeaponContactParameters serde record6-12/validate14-31 and actual precision_for_design12-73/handling_accuracy77-80 receiver",
+      "comparison": "reference_control_length finite>0 metres exactly reuses PositiveLength. Reference areas are finite>0 square millimetres; Area is finite nonnegative f32 square metres, so unit/zero mismatch and no silent arithmetic conversion. unarmed_precision finite>=0 unbounded, exact existing ContactPrecision concentration owner (not UnitInterval/accuracy); constructor panic versus config fallible validation must preserve actual source failure semantics after agreed admission. Complete receiver converts recipe f64 metres to mm then actual area ratio, emits checked ContactPrecision; handling fraction is changed output, not same-owner reconstruction.",
+      "receivers": "CAM-PPS-CONFIG-001/CAM-PPS-CONCENTRATION-002 actual weapon_contact precision and Core equipment/composite receiving graph; prior same-role config/scalar matrices carry with exact distinctions.",
+      "repair": "Keep control length/ContactPrecision through parameter state and complete consumer; retain actual mm equations/rounding and error ordering. Canonical area owner may need correct unit operations or missing millimetre representation; no equivalent wrapper invented here."
+    },
+    "52": {
+      "owner_definitions": [
+        [
+          "AnimationElapsed",
+          "adventuresim-core/src/elapsed.rs",
+          1,
+          131
+        ],
+        [
+          "Ratio",
+          "fabelgeist-math/src/units.rs",
+          16,
+          20
+        ]
+      ],
+      "role": "AnimationElapsed retained elapsed seconds, constructor/arithmetic/native adapters/serde",
+      "comparison": "Finite nonnegative f32seconds including +/-zero owns elapsed observations, typedmin/max/add/sub/absdiff. Native Duration conversion and actual from_seconds/Serde are real admission/width ports. capped_by_seconds raw maximum is an admitted elapsed-cap role after its explicit constructor, not absolute StrategicMinute or signed BattleTime. checked_scale factor accepts allf32, Ratio all-f32 unit leaf exact reusable distinct factor; UnitInterval would reject valid extrapolation and change failure policy. Getter/native_duration projections remain at actual operations.",
+      "receivers": "CAM-PPS-CORE-TRAITS-005 and canonical cap ROOT053/CAM053 exact producer/receiver equations; prior CAM-OWN-SCALE-001 bounds/dependency conclusion retained only for this seconds/factor contract.",
+      "repair": "Retain canonical AnimationElapsed through admittedcap callers; reuse neutral Ratio for actual generic factors without extra finite/bound restriction or changed multiply/error order."
+    },
+    "69": {
+      "owner_definitions": [
+        [
+          "NonnegativeSpeed/SignedSpeed/PositiveSpeed",
+          "adventuresim-core/src/linear_speed.rs",
+          1,
+          178
+        ],
+        [
+          "Ratio",
+          "fabelgeist-math/src/units.rs",
+          16,
+          20
+        ]
+      ],
+      "role": "All scalar speed wrappers, normalization/arithmetic/conversion/Serde and factor params",
+      "comparison": "NonnegativeSpeed finite>=0m/s; SignedSpeed finite signed includingnegativeclosing/zero; PositiveSpeed finite>0. Existing admitted roles exact, not movement metres/minute or acceleration. Same-unit magnitude/nonnegativepart/min/max preserve admitted set. checked_scale/checked_lerp factor rawallf32 has exact Ratio unit leaf; not UnitInterval because negative/extrapolation/nonfinite currently reaches checked changed-output failure. Actual f32 lerp order fixed.",
+      "receivers": "CAM-PPS-CORE-TRAITS-005 plus ROOT053/CAM053 realcanonical speed recipients; prior scalar/config/scale matrix exact for these same contracts, no whole tactical movement fit inferred.",
+      "repair": "Generic factor retains Ratio until actual ordered scale/lerp equation; preserve signedzero, normalization and changed-output errors."
+    },
+    "107": {
+      "owner_definitions": [
+        [
+          "UnitInterval",
+          "adventuresim-core/src/unit_interval.rs",
+          1,
+          58
+        ]
+      ],
+      "role": "UnitInterval full checked numeric definition and Serde/native projection",
+      "comparison": "Finite dimensionless f32[0,1] including endpoints andsignedzero; try_from/Serde performs actual admission. max preserves guaranteed state. Reusable numeric leaf for proved bounded samples/fractions only; not unbounded concentration, rates, impairment>1, raw public NaN or extrapolation. Raw constructor/getter at owner admission/native operation is warranted.",
+      "receivers": "CAM-PPS-CORE-TRAITS-005 and source-covered config bounded fraction validations; original scalar contract carries exactly with current raw-vs-admitted policy retained.",
+      "repair": "Reuse same leaf in admitted normalized roles; no duplicate probability wrapper or unproved narrowing; role authority/aggregate admission stays separate."
+    },
+    "328": {
+      "owner_definitions": [
+        [
+          "PositiveLength",
+          "fabelgeist-geometry/src/length.rs",
+          1,
+          40
+        ]
+      ],
+      "role": "PositiveLength full scalar definition, GeometryError and Deserialize admission",
+      "comparison": "Finite strictlypositive f32metres no frame/datum; negative and +/-zero rejected; exact existing runtime admitted positive dimensions/clearances leaf. Not SignedLength signed/zero, recipe f64 authored unit, or tactical/global point. Constructor and native metres accessor are actual owner boundaries; no missing primitive semantic retained fields inside definition.",
+      "receivers": "ROOT053/CAM053 canonical shared geometry and current config source validates finite>0; prior scalar/config exactnumeric proof retained.",
+      "repair": "Reuse canonical definition after actual positive role admission and preserve existing aggregate validation/firstfailure; no new frame or duplicated length owner."
+    },
+    "331": {
+      "owner_definitions": [
+        [
+          "Metres/Ratio/Acceleration and frequency units",
+          "fabelgeist-math/src/units.rs",
+          1,
+          120
+        ]
+      ],
+      "role": "All numerical unit wrappers, scalar/fixedarray records, Serialize/Deserialize and from/get methods",
+      "comparison": "All-f32 unit-only owners deliberately have no finite/sign/bounds checks. Ratio admits arbitrary factors; Metres signed distance is weaker than checked SignedLength/PositiveLength. Acceleration scalar and model-frame vector are m/s2, no automatic scene-frame proof. Radians/TurnsPerMetre and PerMetre distinct units, not probability/rate seconds. Transparent Serde exactly preserves scalar/fixedarray representation; constructors/getters actual unit operations. No exact general kg/Joule/Watt/inertia owner exists in this complete units source.",
+      "receivers": "CAM-PPS-CORE-TRAITS-005 exact generic numerical factor/acceleration recipients; previous scalar/config distinctions preserved, not inferred from representation.",
+      "repair": "Reuse correct neutral unit leaf with application role validation retained; never weaken existing checked scalar or introduce arbitrary finite policy."
+    }
+  },
+  "prior_semantic_basis": [
+    "CAM-OWN-SCALAR-DEFINITIONS-001",
+    "CAM-OWN-CONFIG-001",
+    "CAM-OWN-SCALE-001",
+    "CAM-OWN-BUILD-022"
+  ],
+  "dependency_fit": "Core depends on neutral geometry without default engine features; math neutral unit owner is lower than application. Core->tactical/building dependency unacceptable; source f64 width remains separate. No equivalent local wrappers.",
+  "remaining_design": "Missing units/role-admission/representation policies remain findings; not unread owner definitions for these seven exact roles.",
+  "acceptance": "Canonical owner retained through entire connected config/state/API graph to actual equations/native ports; preserve all original inputs, signed/zero/nonfinite/error/numeric order, no source/tests now."
+}

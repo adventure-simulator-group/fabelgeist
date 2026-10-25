@@ -1,0 +1,13 @@
+--- p16base/crates/adventuresim-stdb-module/src/strategic/governance.rs
++++ catalog-p16head/crates/adventuresim-stdb-module/src/strategic/governance.rs
+@@ -169,9 +169,9 @@
+ pub fn approve_party_action_request(
+     ctx: &ReducerContext,
+     leader_id: u64,
+     request_id: u64,
+-) -> StrategicCombatResult<()> {
++) -> StrategicOperationResult<()> {
+     require_strategic_gateway(ctx)?;
+     crate::character::require_living_character(ctx, leader_id)?;
+     if let Some(resolved) = ctx.db.resolved_party_action().id().find(request_id) {
+         if resolved.approved_by != leader_id {

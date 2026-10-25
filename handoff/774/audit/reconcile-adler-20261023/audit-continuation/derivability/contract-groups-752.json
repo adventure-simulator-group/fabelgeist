@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-752",
+  "at": "2026-10-25T16:41:46.312182+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 988,
+  "source_id": "pr-working:crates/adventuresim-core/src/settlement_economy.rs",
+  "sha256": "5ebaaf60d766322d2dc8bbd0cf1a54b0c790793a11d1d3f7b98e139861a3c54e",
+  "actual_compared_ranges": [
+    [
+      1,
+      440
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Settlement economy221\u2013440 explicit stock tag/category/service/food/book/travel provision policies, fixture profile constructor and service+stock/navigation/rest assertions contain no type/handwritten trait/codec. Runtime capabilities/classification not replaceable by record derive; fixtures source-only."
+  ],
+  "first_unfinished": {
+    "scope_index": 988,
+    "line": 441
+  },
+  "execution": "none"
+}

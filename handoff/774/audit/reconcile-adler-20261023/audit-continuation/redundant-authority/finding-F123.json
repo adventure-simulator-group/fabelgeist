@@ -1,0 +1,87 @@
+{
+  "id": "CONT07-F123",
+  "contract": "CONT07-CONTRACT-648",
+  "at": "2026-10-24T01:05:47.970674+00:00",
+  "title": "Injury application leaves cached total incapacitation stale for later same-update combat consumers",
+  "classification": "source-confirmed consequence/cache ordering defect; simultaneous gameplay occurrence not executed",
+  "sources": [
+    {
+      "scope_index": 2032,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/consequence.rs",
+      "sha256": "9e767c76aa28c3742a0d11658983b2ce4abfd2fb63bc89962d5f1c02b3e396d0",
+      "ranges": [
+        [
+          272,
+          308
+        ]
+      ]
+    },
+    {
+      "scope_index": 2030,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/condition.rs",
+      "sha256": "543fe525702b8245d56a704a028a74138144789cf48c888b58704897bb6be7bf",
+      "ranges": [
+        [
+          63,
+          99
+        ]
+      ]
+    },
+    {
+      "scope_index": 2026,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat.rs",
+      "sha256": "847551347ed20961db50cd3ef65998a772b1d732f26b4810f4ccb725685547ba",
+      "ranges": [
+        [
+          499,
+          508
+        ]
+      ]
+    },
+    {
+      "scope_index": 2035,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/ingress.rs",
+      "sha256": "7b8e51061494a9d8a04960207b16657e3494be1831663d62e911f8a690429d3a",
+      "ranges": [
+        [
+          274,
+          303
+        ]
+      ]
+    },
+    {
+      "scope_index": 2040,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/melee.rs",
+      "sha256": "fe64843450cc6ba428fd3c9c1fec3a5fcb5b65b3cbf3a5c21997548d3a355dd6",
+      "ranges": [
+        [
+          147,
+          159
+        ],
+        [
+          361,
+          366
+        ]
+      ]
+    },
+    {
+      "scope_index": 1892,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/player/combat_state.rs",
+      "sha256": "bfc02321b1d2716ffaf92d38902b547713a76a9de7a350ece7f35449e9dddf37",
+      "ranges": [
+        [
+          48,
+          99
+        ]
+      ]
+    }
+  ],
+  "producer_and_recipient": "Condition updates cached total before pending contacts. Injury application then changes defender limbs, acute trauma and imbalance without updating total. Later same-update completion admission and performance use only cached total; readiness derives from that cache.",
+  "static_witness": "Two due contacts processed after Condition can apply damage to an actor before another completion involving that actor. After first result, state.acute_trauma and limbs reflect injury but state.incapacitation remains pre-hit. Subsequent guard/performance therefore observes old total until next Condition. Threshold crossing is one consequence, but stale performance exists for any nonzero added total. No simulated fight or deterministic test run.",
+  "normal_qualification": "One next Condition recomputes all sources, so this is bounded between updates/contacts. charge_work explicitly maintains total atomically for fatigue changes, and does not establish injury synchronization. Event order/due contact construction traced; no assertion every fight has simultaneous due contacts or observed exploit.",
+  "connected_repair": "Make consequence application coordinate injury/trauma/imbalance and derived total before any subsequent authority/performance consumer, using one canonical calculation and necessary limb/will/blood state. Keep transient Bevy authority, do not persist tactical tick state or create a second readiness boolean.",
+  "acceptance": "After accepted injury/imbalance consequence, all later same-update authority and performance reads agree with canonical source total; crossing cutoff prevents next ordinary action. Preserve limb-specific injury intent, fatigue charge, wheel100percent cutoff, and one general fatigue contribution.",
+  "dedup": "Distinct from Native05F029 raw public fatigue/total mutation and root M89 injury unit propagation; coordinator previously found no exact same-tick alias. Global union pending.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

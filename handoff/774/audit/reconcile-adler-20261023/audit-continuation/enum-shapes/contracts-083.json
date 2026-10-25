@@ -1,0 +1,19 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-083",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        2168,
+        2169,
+        2170,
+        2171
+      ],
+      "comparison": "Fresh full849/34/169/53 exact bodies. GivenNameResolution already owns Resolved family/form, UnresolvedHistorical evidence/candidates, and Authored full_name. Authored early-return rendering does NOT make surname metadata invalid: inherited_surname exposes it, validate explicitly checks it and test134-142 proves valid authored display plus hereditary metadata. Keep native culture and selector provenance; no forced payload removal. Empty historical candidate list intentionally allowed, recorded form remains valid evidence; never require false family certainty. Sex-specific surnameforms take precedence over unsexed commonforms, supporting previous qualified None applicability. Independent NameGenerationContext culture/religion/education/social/geography are authored context, not mutuallyexclusive modes; unused inference modifiers are consciously absent, not proof that metadata should be erased. NameCatalogError already owns error payloads; Sampling String erasure remains other-lens scope. SourcePackageDigest checked adapter has no semantic flag.",
+      "disposition": "Already proper name resolution variants; meaningful authored/inactive metadata preserved; no new09finding",
+      "finding_refs": []
+    }
+  ],
+  "new_findings": [],
+  "limits": "Only source/tests read, no runtime generation/catalogchecks/test invocation/repairs/plan/clearance. Authored source data and untraced actual callers remain separate coverage obligations."
+}

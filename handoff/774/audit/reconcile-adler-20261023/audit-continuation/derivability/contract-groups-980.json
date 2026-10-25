@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-980",
+  "at": "2026-10-25T17:25:29.305026+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1143,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/npc_causal.rs",
+  "sha256": "3e8edab2fcd4988c3443a07ef35041bc7c9522ab9e6e025317b29608a41de263",
+  "actual_compared_ranges": [
+    [
+      1,
+      350
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "NpcPolicyDecisionPhase/Outcome already Clone/Copy/Debug/PartialEq/Eq/SpacetimeType; receipt and schedule rows Clone/Debug/table. Phase stable_id inherent const classifier33\u201341 part of receipt identity, not missing runtime serialization derive. Native stable cohort/saved schedule/housing classification and idempotent receipt semantics, no manual traits/codecs. Romance include independent role.",
+  "first_unfinished": {
+    "scope_index": 1143,
+    "line": 351
+  },
+  "execution": "none"
+}

@@ -1,0 +1,646 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1199",
+  "at": "2026-10-25T18:07:13.734230+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1286,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/quest_coverage.rs",
+      "sha256": "3d43a767b929a84550f716de78fab88ac13f0dd845501e3f7b62dc1b6ede9dc5",
+      "actual_EOF": 260,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/quest_coverage.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-strategic-sim/src/live_core/quest_coverage.rs",
+        "sha256": "3d43a767b929a84550f716de78fab88ac13f0dd845501e3f7b62dc1b6ede9dc5",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 9425,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 674,
+            "read_ranges": [
+              [
+                1,
+                260
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SIM-PRESENCE-COVERAGE-113"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/quest_coverage.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-SIMULATION-CORE-GENERATED-PARTIAL-047",
+            "json_pointer": "/source_proofs/20",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/live_core/quest_coverage.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                260
+              ]
+            ],
+            "source_context": {
+              "index": 664,
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/quest_coverage.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/quest_coverage.rs",
+              "sha256": "3d43a767b929a84550f716de78fab88ac13f0dd845501e3f7b62dc1b6ede9dc5",
+              "read_ranges": [
+                [
+                  1,
+                  260
+                ]
+              ],
+              "mode": "Fresh complete actual source body; generated461\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153930 aggregate output truncation repaired by870\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153925 and900\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01531380 current rereads; all other chunks complete",
+              "roles": [
+                "Full quest_coverage1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153260 actual CoreLoopReport metrics/finalagent/evidence predicates and typed firstfailure QuestCoverageMetric/Failure -> native JSON artifact/fs/Display read.",
+                "Public report wire models used as retained application acceptance state; boolean/count/identity fields cannot be blanket exempted by Serialize derivation. Typed metric survives validation; diagnostic writer encodes metric for real JSON but serde/io failures flattened into String before CLI Box rather than preserved FailureReportError. Existing good typed reportwriter operation+secondarycause contract may be reused without duplicate error.",
+                "Keep exact firstfailure check order, reported-or-safelyabandoned policy, at least2 attempts and saturation consistency, terminal location/alive/critical distinction and exact golden. No tests executed/new tests or acceptance PASS."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-SIMULATION-OBSERVATION-RECEIVER-CLOSURE-050",
+            "json_pointer": "/source_proofs/29",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/live_core/quest_coverage.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                260
+              ]
+            ],
+            "source_context": {
+              "index": 664,
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/quest_coverage.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/quest_coverage.rs",
+              "sha256": "3d43a767b929a84550f716de78fab88ac13f0dd845501e3f7b62dc1b6ede9dc5",
+              "read_ranges": [
+                [
+                  1,
+                  260
+                ]
+              ],
+              "actual_line_count": 260,
+              "supplier_trace": "ROOT047/048/049",
+              "disposition": "Supplier producer/retained-state/operation/actual receiving-body inventory accounted with findings; Camera must explicitly consume before716 credit.",
+              "source_roles": [
+                "Full quest_coverage1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153260 actual CoreLoopReport metrics/finalagent/evidence predicates and typed firstfailure QuestCoverageMetric/Failure -> native JSON artifact/fs/Display read.",
+                "Public report wire models used as retained application acceptance state; boolean/count/identity fields cannot be blanket exempted by Serialize derivation. Typed metric survives validation; diagnostic writer encodes metric for real JSON but serde/io failures flattened into String before CLI Box rather than preserved FailureReportError. Existing good typed reportwriter operation+secondarycause contract may be reused without duplicate error.",
+                "Keep exact firstfailure check order, reported-or-safelyabandoned policy, at least2 attempts and saturation consistency, terminal location/alive/critical distinction and exact golden. No tests executed/new tests or acceptance PASS."
+              ],
+              "actual_receiver_closure": "Root047/048/049 source facts plus full Rig036 survival/expedition/economy and Native022 cycle/travel/recovery receipts close the prior fifteen shared receiving obligations. No blanket source or native exemption."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/current_sources/29",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/live_core/quest_coverage.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                260
+              ]
+            ],
+            "source_context": {
+              "index": 664,
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/quest_coverage.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/quest_coverage.rs",
+              "sha256": "3d43a767b929a84550f716de78fab88ac13f0dd845501e3f7b62dc1b6ede9dc5",
+              "read_ranges": [
+                [
+                  1,
+                  260
+                ]
+              ],
+              "actual_line_count": 260,
+              "supplier_trace": "ROOT047/048/049",
+              "disposition": "Supplier producer/retained-state/operation/actual receiving-body inventory accounted with findings; Camera must explicitly consume before716 credit.",
+              "source_roles": [
+                "Full quest_coverage1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153260 actual CoreLoopReport metrics/finalagent/evidence predicates and typed firstfailure QuestCoverageMetric/Failure -> native JSON artifact/fs/Display read.",
+                "Public report wire models used as retained application acceptance state; boolean/count/identity fields cannot be blanket exempted by Serialize derivation. Typed metric survives validation; diagnostic writer encodes metric for real JSON but serde/io failures flattened into String before CLI Box rather than preserved FailureReportError. Existing good typed reportwriter operation+secondarycause contract may be reused without duplicate error.",
+                "Keep exact firstfailure check order, reported-or-safelyabandoned policy, at least2 attempts and saturation consistency, terminal location/alive/critical distinction and exact golden. No tests executed/new tests or acceptance PASS."
+              ],
+              "actual_receiver_closure": "Root047/048/049 source facts plus full Rig036 survival/expedition/economy and Native022 cycle/travel/recovery receipts close the prior fifteen shared receiving obligations. No blanket source or native exemption."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/additional_actual_source_proofs/20",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/live_core/quest_coverage.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                260
+              ]
+            ],
+            "source_context": {
+              "index": 664,
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/quest_coverage.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/quest_coverage.rs",
+              "sha256": "3d43a767b929a84550f716de78fab88ac13f0dd845501e3f7b62dc1b6ede9dc5",
+              "read_ranges": [
+                [
+                  1,
+                  260
+                ]
+              ],
+              "mode": "Fresh complete actual source body; generated461\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153930 aggregate output truncation repaired by870\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153925 and900\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01531380 current rereads; all other chunks complete",
+              "roles": [
+                "Full quest_coverage1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153260 actual CoreLoopReport metrics/finalagent/evidence predicates and typed firstfailure QuestCoverageMetric/Failure -> native JSON artifact/fs/Display read.",
+                "Public report wire models used as retained application acceptance state; boolean/count/identity fields cannot be blanket exempted by Serialize derivation. Typed metric survives validation; diagnostic writer encodes metric for real JSON but serde/io failures flattened into String before CLI Box rather than preserved FailureReportError. Existing good typed reportwriter operation+secondarycause contract may be reused without duplicate error.",
+                "Keep exact firstfailure check order, reported-or-safelyabandoned policy, at least2 attempts and saturation consistency, terminal location/alive/critical distinction and exact golden. No tests executed/new tests or acceptance PASS."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1365,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          260
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "std::fmt::Display + std::error::Error",
+          "type": "QuestCoverageFailure",
+          "lines": [
+            88,
+            98
+          ],
+          "disposition": "OPTIONAL_F002_SITE: existing thiserror #[error(\"quest coverage acceptance failed: metric={}\", .metric.as_str())] equivalent exact write!+sourceNone. Keep private payload/inherent checked usage/stable key; proofREG1171/REG1199."
+        }
+      ],
+      "existing_derives": [
+        "QuestCoverageEvidence Clone Debug PartialEq Serialize Deserialize deny_unknown_fields",
+        "QuestCoverageMetric/QuestCoverageFailure Clone Copy Debug Eq PartialEq"
+      ],
+      "absence_basis": "Full260 consumed. Only mechanical Display+empty Error candidate above; const metric key classifier and ordered validation/current final-agent policy remain explicit. Native failure artifact projection selects public fields, caps trace, adds schema/reason/current report context then derived Serde/create_new I/O, not unchecked From. No execution."
+    },
+    {
+      "scope_index": 1287,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/report.rs",
+      "sha256": "73996e2153ad432112dc56113c74b29200ad3ab6dbb85e236343407ccbec39d7",
+      "actual_EOF": 172,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/report.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-strategic-sim/src/live_core/report.rs",
+        "sha256": "73996e2153ad432112dc56113c74b29200ad3ab6dbb85e236343407ccbec39d7",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 6140,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 650,
+            "read_ranges": [
+              [
+                1,
+                172
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SIM-CLI-REPORT-101"
+            ],
+            "read_status": "fresh-current-lens-full-source-read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/report.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-SIMULATION-CORE-GENERATED-PARTIAL-047",
+            "json_pointer": "/source_proofs/8",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/live_core/report.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                172
+              ]
+            ],
+            "source_context": {
+              "index": 652,
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/report.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/report.rs",
+              "sha256": "73996e2153ad432112dc56113c74b29200ad3ab6dbb85e236343407ccbec39d7",
+              "read_ranges": [
+                [
+                  1,
+                  172
+                ]
+              ],
+              "mode": "Fresh actual source read and exact variant/role reconciliation; source proof only, not percell accounting",
+              "roles": [
+                "Full report1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153172: Serde wire model also retained/mutated internal CoreLoopMetrics and FinalAgentState/CoreLoopReport used downstream acceptance/summary, so public-wire label does not waive raw runtime counter/quantity/time/identity state.",
+                "Canonical Seed stays typed. Final serialization raw scalar representation valid boundary after faithful typed application state; no behavior changes to metric counters/saturatedgold/report source IDs/truncation."
+              ],
+              "pending_receivers": [
+                "Connected simulation cycle/settlement/survival/expedition/generated/travel producer and actual policy consumers remain assigned in30 packet; exact receipt will close only after actual bodies reconciled."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-SIMULATION-OBSERVATION-RECEIVER-CLOSURE-050",
+            "json_pointer": "/source_proofs/21",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/live_core/report.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                172
+              ]
+            ],
+            "source_context": {
+              "index": 652,
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/report.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/report.rs",
+              "sha256": "73996e2153ad432112dc56113c74b29200ad3ab6dbb85e236343407ccbec39d7",
+              "read_ranges": [
+                [
+                  1,
+                  172
+                ]
+              ],
+              "actual_line_count": 172,
+              "supplier_trace": "ROOT047/048/049",
+              "disposition": "Supplier producer/retained-state/operation/actual receiving-body inventory accounted with findings; Camera must explicitly consume before716 credit.",
+              "source_roles": [
+                "Full report1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153172: Serde wire model also retained/mutated internal CoreLoopMetrics and FinalAgentState/CoreLoopReport used downstream acceptance/summary, so public-wire label does not waive raw runtime counter/quantity/time/identity state.",
+                "Canonical Seed stays typed. Final serialization raw scalar representation valid boundary after faithful typed application state; no behavior changes to metric counters/saturatedgold/report source IDs/truncation."
+              ],
+              "actual_receiver_closure": "Root047/048/049 source facts plus full Rig036 survival/expedition/economy and Native022 cycle/travel/recovery receipts close the prior fifteen shared receiving obligations. No blanket source or native exemption."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/current_sources/21",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/live_core/report.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                172
+              ]
+            ],
+            "source_context": {
+              "index": 652,
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/report.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/report.rs",
+              "sha256": "73996e2153ad432112dc56113c74b29200ad3ab6dbb85e236343407ccbec39d7",
+              "read_ranges": [
+                [
+                  1,
+                  172
+                ]
+              ],
+              "actual_line_count": 172,
+              "supplier_trace": "ROOT047/048/049",
+              "disposition": "Supplier producer/retained-state/operation/actual receiving-body inventory accounted with findings; Camera must explicitly consume before716 credit.",
+              "source_roles": [
+                "Full report1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153172: Serde wire model also retained/mutated internal CoreLoopMetrics and FinalAgentState/CoreLoopReport used downstream acceptance/summary, so public-wire label does not waive raw runtime counter/quantity/time/identity state.",
+                "Canonical Seed stays typed. Final serialization raw scalar representation valid boundary after faithful typed application state; no behavior changes to metric counters/saturatedgold/report source IDs/truncation."
+              ],
+              "actual_receiver_closure": "Root047/048/049 source facts plus full Rig036 survival/expedition/economy and Native022 cycle/travel/recovery receipts close the prior fifteen shared receiving obligations. No blanket source or native exemption."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/additional_actual_source_proofs/8",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/live_core/report.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                172
+              ]
+            ],
+            "source_context": {
+              "index": 652,
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/report.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/report.rs",
+              "sha256": "73996e2153ad432112dc56113c74b29200ad3ab6dbb85e236343407ccbec39d7",
+              "read_ranges": [
+                [
+                  1,
+                  172
+                ]
+              ],
+              "mode": "Fresh actual source read and exact variant/role reconciliation; source proof only, not percell accounting",
+              "roles": [
+                "Full report1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153172: Serde wire model also retained/mutated internal CoreLoopMetrics and FinalAgentState/CoreLoopReport used downstream acceptance/summary, so public-wire label does not waive raw runtime counter/quantity/time/identity state.",
+                "Canonical Seed stays typed. Final serialization raw scalar representation valid boundary after faithful typed application state; no behavior changes to metric counters/saturatedgold/report source IDs/truncation."
+              ],
+              "pending_receivers": [
+                "Connected simulation cycle/settlement/survival/expedition/generated/travel producer and actual policy consumers remain assigned in30 packet; exact receipt will close only after actual bodies reconciled."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1353,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          172
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "CoreLoopMetrics Clone Debug Default PartialEq Eq Serialize Deserialize deny_unknown_fields",
+        "FinalAgentState/CoreLoopReport Clone Debug PartialEq Serialize Deserialize deny_unknown_fields"
+      ],
+      "absence_basis": "Full172 public report/schema only; no handwritten trait/custom codec/function. Appropriate structural/wire/default derives present; retain exact fields/Serde unknown-field rejection."
+    },
+    {
+      "scope_index": 1288,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/run_error.rs",
+      "sha256": "5f8680ad8019206c22009e97209b468c4b8148340f16a0e939d5100f2fb53500",
+      "actual_EOF": 28,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/run_error.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-strategic-sim/src/live_core/run_error.rs",
+        "owner": "camera",
+        "sha256": "5f8680ad8019206c22009e97209b468c4b8148340f16a0e939d5100f2fb53500",
+        "base_sha256": null,
+        "state": "new",
+        "bytes": 834,
+        "audit_owner": "camera",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                28
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-SIM-001"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 328,
+            "read_ranges": [
+              [
+                1,
+                28
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SIM-CONTROL-OBSERVATION-096"
+            ],
+            "read_status": "fresh-current-lens-full-source-read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/run_error.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-SIMULATION-CORE-GENERATED-PARTIAL-047",
+            "json_pointer": "/source_proofs/14",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/live_core/run_error.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                28
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/run_error.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/run_error.rs",
+              "sha256": "5f8680ad8019206c22009e97209b468c4b8148340f16a0e939d5100f2fb53500",
+              "read_ranges": [
+                [
+                  1,
+                  28
+                ]
+              ],
+              "mode": "Fresh source-only bounded actual receiver/fixture proof",
+              "roles": [
+                "Full run error enum: operation and secondary report failure retained separately, concrete serde_json/io causes preserved to final Display. This good path is not flattened reducer callback gap."
+              ],
+              "pending_receivers": []
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/additional_actual_source_proofs/14",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/live_core/run_error.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                28
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/run_error.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/run_error.rs",
+              "sha256": "5f8680ad8019206c22009e97209b468c4b8148340f16a0e939d5100f2fb53500",
+              "read_ranges": [
+                [
+                  1,
+                  28
+                ]
+              ],
+              "mode": "Fresh source-only bounded actual receiver/fixture proof",
+              "roles": [
+                "Full run error enum: operation and secondary report failure retained separately, concrete serde_json/io causes preserved to final Display. This good path is not flattened reducer callback gap."
+              ],
+              "pending_receivers": []
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "CoreLoopRunError/FailureReportError Debug thiserror::Error; transparent/from/explicit source attributes"
+      ],
+      "absence_basis": "Full28 already thiserror-derived run error distinctions. Explicit operation transparent delegates and failure report exposes operation source while displays both; encoding transparent vs I/O write prefix already encoded. No hand trait or boilerplate gap; do not alter sources."
+    },
+    {
+      "scope_index": 1289,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/schema_types.rs",
+      "sha256": "1652605409faa40d7ba5189405b89e55e69d935fdc07478507e9639da63b6bff",
+      "actual_EOF": 101,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/schema_types.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-strategic-sim\\src\\live_core\\schema_types.rs",
+        "sha256": "1652605409faa40d7ba5189405b89e55e69d935fdc07478507e9639da63b6bff",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 101,
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/additional_actual_source_proofs/54",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/live_core/schema_types.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                101
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/schema_types.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/schema_types.rs",
+              "sha256": "1652605409faa40d7ba5189405b89e55e69d935fdc07478507e9639da63b6bff",
+              "read_ranges": [
+                [
+                  1,
+                  101
+                ]
+              ],
+              "actual_line_count": 101,
+              "mode": "fresh current producer-supplement actual material source bodies; no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-036",
+            "json_pointer": "/additional_fresh_sources/19",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/live_core/schema_types.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                101
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/schema_types.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/schema_types.rs",
+              "sha256": "1652605409faa40d7ba5189405b89e55e69d935fdc07478507e9639da63b6bff",
+              "read_ranges": [
+                [
+                  1,
+                  101
+                ]
+              ],
+              "actual_line_count": 101,
+              "mode": "fresh current producer-supplement actual material source bodies; no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full101 native const SDK/core closed enum adapters and source fixtures. No handwritten trait/custom codec/type. Preserve exhaustive status/body/intervention/surgery variant mapping at generated boundary; no enabled conversion derive/new dependency. Fixtures read not run."
+    }
+  ],
+  "groups": [
+    "F002 optional maintenance family extended to one nongeneric metric error with exact existing thiserror expression/sourceNone proof; not a correctness defect or unique global count.",
+    "Report schemas/run errors already derive appropriate contracts; native SDK adapters remain explicit."
+  ],
+  "findings": [
+    "SEGOVB-INITIAL10-F002"
+  ],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1290,
+    "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/settlement.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

@@ -1,0 +1,27 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1152",
+  "at": "2026-10-25T17:58:09.195932+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1260,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor.rs",
+  "sha256": "a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95",
+  "actual_compared_ranges": [
+    [
+      1,
+      350
+    ]
+  ],
+  "existing_derives": [
+    "CharacterContextKind Clone Copy Debug PartialEq Eq SpacetimeType",
+    "CharacterContextMembership/PartyContextContactAuthority/ContextualContactReceipt Clone Debug + table",
+    "BackendContextCharacter Clone Debug SpacetimeType"
+  ],
+  "trait_inventory": [],
+  "analysis": "CharacterContextKind/row/backend projection already derive structural/table/SpacetimeType traits. Only inherent is_open is interval predicate, not a trait. Native backend joins visibility/current presence, revisions, contact and emergency-treatment state; explicit public projection/redaction is not mechanical From. Context membership ordering intentionally selects ordinal only, not whole-row Ord. No handwritten trait/custom codec in this slice.",
+  "first_unfinished": {
+    "scope_index": 1260,
+    "line": 351
+  },
+  "execution": "none"
+}

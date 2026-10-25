@@ -1,0 +1,176 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-314",
+  "at": "2026-10-23T07:37:28.610333+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_clearance/wgsl.rs",
+      "sha256": "08f1bb2b6a69e5ee4c8253d36d3f91c6bdba0eb1348ec54fab5e4ba100c11801",
+      "scope069_index": 721,
+      "actual_EOF": 444,
+      "scoped_ranges_compared": [
+        [
+          1,
+          444
+        ]
+      ],
+      "actual05_comparison": "Fresh complete exact source in bounded displays; own host/shader layout, support cardinality, frame/status propagation, coif reductions and extremity multi-stage binding analysis; all original fixtures read not executed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_coif.rs",
+      "sha256": "462aea2bd0f7f1a5dc8b365a394bacdaa8f01919a15bd385494f52b7044cf32e",
+      "scope069_index": 722,
+      "actual_EOF": 488,
+      "scoped_ranges_compared": [
+        [
+          1,
+          488
+        ]
+      ],
+      "actual05_comparison": "Fresh complete exact source in bounded displays; own host/shader layout, support cardinality, frame/status propagation, coif reductions and extremity multi-stage binding analysis; all original fixtures read not executed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_coif_sections.wgsl",
+      "sha256": "41acdba876e1f3728bb30194a1f7a2d5adeb2234f30e27a9eb472a1173a4352a",
+      "scope069_index": 723,
+      "actual_EOF": 47,
+      "scoped_ranges_compared": [
+        [
+          1,
+          47
+        ]
+      ],
+      "actual05_comparison": "Fresh complete exact source in bounded displays; own host/shader layout, support cardinality, frame/status propagation, coif reductions and extremity multi-stage binding analysis; all original fixtures read not executed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_equipment.rs",
+      "sha256": "5bf6b375e4fd7df25eda09134cfbd116ea893e21f87a040af51a1aef467c4d12",
+      "scope069_index": 724,
+      "actual_EOF": 98,
+      "scoped_ranges_compared": [
+        [
+          1,
+          98
+        ]
+      ],
+      "actual05_comparison": "Fresh complete exact source in bounded displays; own host/shader layout, support cardinality, frame/status propagation, coif reductions and extremity multi-stage binding analysis; all original fixtures read not executed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_extremities.rs",
+      "sha256": "0e277141754711abaee5c1cd2d1452918f562aa332c657717d7495c401289d0e",
+      "scope069_index": 725,
+      "actual_EOF": 248,
+      "scoped_ranges_compared": [
+        [
+          1,
+          248
+        ]
+      ],
+      "actual05_comparison": "Fresh complete exact source in bounded displays; own host/shader layout, support cardinality, frame/status propagation, coif reductions and extremity multi-stage binding analysis; all original fixtures read not executed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_frames.rs",
+      "sha256": "e209739488d454a1565af4a6f3663940c07b0b56ce228bf1fff65297eafd8a2d",
+      "scope069_index": 730,
+      "actual_EOF": 246,
+      "scoped_ranges_compared": [
+        [
+          1,
+          246
+        ]
+      ],
+      "actual05_comparison": "Fresh complete exact source in bounded displays; own host/shader layout, support cardinality, frame/status propagation, coif reductions and extremity multi-stage binding analysis; all original fixtures read not executed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_frames/landmarks.rs",
+      "sha256": "b68bd1cb5d9f044f3e820b516978d27fd2bf32d5c0d36e83a0e9d666aec574d1",
+      "scope069_index": 731,
+      "actual_EOF": 387,
+      "scoped_ranges_compared": [
+        [
+          1,
+          387
+        ]
+      ],
+      "actual05_comparison": "Fresh complete exact source in bounded displays; own host/shader layout, support cardinality, frame/status propagation, coif reductions and extremity multi-stage binding analysis; all original fixtures read not executed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_frames/passes.rs",
+      "sha256": "bee5ccb765304e55b8ae48d21ddbab2fac860e6b753520065e742768362c992e",
+      "scope069_index": 732,
+      "actual_EOF": 341,
+      "scoped_ranges_compared": [
+        [
+          1,
+          341
+        ]
+      ],
+      "actual05_comparison": "Fresh complete exact source in bounded displays; own host/shader layout, support cardinality, frame/status propagation, coif reductions and extremity multi-stage binding analysis; all original fixtures read not executed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_frames/tests.rs",
+      "sha256": "10bca4c1bb7cc62d88939a0f0420714d8f441a19fd156e102deeced8ae0ec21c",
+      "scope069_index": 733,
+      "actual_EOF": 153,
+      "scoped_ranges_compared": [
+        [
+          1,
+          153
+        ]
+      ],
+      "actual05_comparison": "Fresh complete exact source in bounded displays; own host/shader layout, support cardinality, frame/status propagation, coif reductions and extremity multi-stage binding analysis; all original fixtures read not executed."
+    }
+  ],
+  "groups": [
+    {
+      "id": "clearance input row bounds do not prove cross-section cardinality",
+      "comparison": "SECTIONS gathers per-station support, sorts exact xz and deduplicates before monotone-chain hull. Capacity checked before sample and hull writes. Empty count→unique0 enters two halfloops and subtracts hull1 despite0 at300; one unique point yields final hull0 then center/f32(hull) at306. There is no count/unique/hull status rejection before these operations. This is new F061 shader-stage API/degenerate-input gap, not an executed GPU hang or finalbadmesh claim. Actual frame FINISH732 clamps one finite xz point envelope to positive minimumradius for ordinary limb, so a valid positive frame is not itself positive-area section proof. Zero support may already mark frame failure; pipeline still records latersections and CPU only checks after submit. Normal MHR regional support/cardinality and full lower final-part checks remain qualified."
+    },
+    {
+      "id": "section output and carrier interpolation share current layout",
+      "comparison": "13stations/66words imported from exact host720 into generated shader and scratch sizing;64 radial slots+2center. Sampling band>=16 includes current supported points, fallback nearest primary thenextra list occurrences, exact repeats removed. Hull pair orientation and bounded write then radial intersections define currentsection; angular cubic weights wrap64 indices, blend adjacent station with first<=STATIONS−2, so first+1 inbounds given finite station. Actual raw frame division/styles may nonfinite absent prerequisites; no arbitrary all-public config proof. Support bits include region andextra separately, numeric countOneBits threshold does not establish unique geometry, F061 preserves this distinction."
+    },
+    {
+      "id": "frame producer explicitly checks actual output status",
+      "comparison": "DeviceFrame has public Buffer+status and raw read does not imply validatedframe; read_frame records4passes, submits, checks status then reads. RecordFrame resolves exact landmark slots and included rig family from same host names, uploads9ordered reduction sentinels, samebody positions/skin/joints, frame16words andstatus4bytes. Body extrema→orientation→ownedbounds→finish same parameter set, current source constants inject matching failurebits/threshold/minradius. Unknown statusbits not rejected by check_status; known3failure bits checked in deterministic order. Native scratch initialization/read extent and kernel execution remain actual lower obligations."
+    },
+    {
+      "id": "orientation and finite geometry preserve intended regional rules",
+      "comparison": "Landmarks Rule numeric0..7 and fixed6 slots matchshader; everyusedordinal checked u32 conversion, unusedzero notdecoded identity. Exact firstduplicate joint lookup and allmatching skin families distinct. Thumb uses separate thumb-prefix skins and quaternion-derived dorsal direction; its direct normalization lacks early coincidencefallback but FINISH checks axesdot andall15finitewords/positiveextents. Elbow bend-plane and knee/shoulder centers region-specific; normalizes with fail(Coincident)+fallback to allow downstream failurepath, no accepted invented orientation claim. Bounds considers owned threshold and regionaxialbands, FINISH flags empty/nonfinite extents; no mincardinality3 orglobalnormalhuman rig guarantee."
+    },
+    {
+      "id": "coif reductions bind stage data before publication",
+      "comparison": "Coif currentTorso+Neck support_indices union sorted/dedup then all faces touching selectedvertex produce triples; read body fromsameDeviceWearer, actualheadframe and queriedneck/jaw/head ordinals. Workbuffer explicit ordered sentinel initialization forwidth/depth/queries andcount slots0. Landmark stage sets3boundaryheights; NECKatomics requireanyactualsection;BOUNDARY verifies all3reduction counts beforederivingsectionheights/flapwidth;SECTIONS queries2flaps×sections×2edges;DRAPE verifieseachquerycount, finite37words,positiveneckwidth/front-backrelation,strictlyincreasingheightperflap before writesfit. Allhostcounts/bindings mirrorcurrentParams, not independent retainedCPU drape. Actualframe status reused so coifmissing support raisesfailure in finalcheck."
+    },
+    {
+      "id": "coif fixed layout has current supplier and limits",
+      "comparison": "Previously own264 literal nativecoif_drape prefix1–12 defines importedCOIF_DRAPE_SECTIONS/WORDS; sourcecurrent sections5 makes7+2*5*3=37words andwork28+2*(2*5*2)=68. Current722 hardcoded37 andsection offsets agree now; policyduplication belongs separateown13/CameraF052, no currentbufferdisagreement asserted. CoifCarrier readsstatus0 thenfirstshellcarrier range andtriangles; publicpositions/indexfields remainbroadraw product andnativeDevicePart shell bounds contractunreadhere. fitted_coif_carrier actualrecordcreatesexactoneframe entry soframes[0] locallysafe, checksframebeforecarrierread. Nativehost-float/orderedfloat/accessor helpers notbodycreditfrominsertion."
+    },
+    {
+      "id": "exact triangle sections and reductions",
+      "comparison": "723 uses3edge boolean crossings ofsameheight, so closedtriangle0or2crossings (never3finite boolean transitions); twoends arefilledbeforevalidtrue, invalidsectionunusedbyreduce_depth. Vertex-on-plane usesstrict> conventionconsistently,denominatornonzero onactualcrossing. Reducerclipssegment toactualtwo lateralbands andonlyoutwarddepth beyondcenter, countsactualacceptedsegments, notnearestpointpresenceproxy. Raw nonfinite/extreme edge interpolation remains sourceinput numericprecondition; no blanketfiniteproof frombooleanbound."
+    },
+    {
+      "id": "studio body realization correspondence",
+      "comparison": "vertex_texcoords usesfullbodypackedskinrowcount andcurrentface/UVfacezip, assignscorners actualbodyrow andUVrow; latercorneroverwrites seamintent choosesoneanatomicalUV pervertex. InputMHR sameindices/UVmembership mustactuallyhold, no genericzipproof. StudioFitBodyborrowsmodeltopology/skin/names andgenerated wearer positions/normals/joints/device; morphs Realization fromsameeachsample/name/device. Normal generatedchannels ownfreshDeviceBody as703proven, same-countmutablepublicAPIstillCameraF051. No model reload/topologyuniversalclearance."
+    },
+    {
+      "id": "extremity fit uses actual carrier partitions and layer checks",
+      "comparison": "Design/region matchdispatch rejectswrongcombination. Mitten recordsseparatethumbframe, setsclearancecount tothumbshell.start excludingthumb andcuffend fromshell0; normalnativeshell_count>=1/partitionorder remains exactlowergeneratorcontract, not inventedproof. Boot firstthickensmeasuresactualbounds, fitsfoot+legskin envelope, remeasures, fitsbothfixedMail/PaddedChausses+slices+hems andanklefairing. BootLayerskeepslegframe/garmentparts/hems together withsamefixed2orderedparts. layer_checks retainsactualpartstatushandles andrequires0 onreadbeforeDeviceFitpublish; no ignoringsyntheticunderlayerfailure. Nativefoot envelope/fairing/partbinding helpers stillqueued."
+    },
+    {
+      "id": "fixtures and previous static signature observation",
+      "comparison": "Readfull existinglandmarkpackingfixture expected6words/Rulecodes/unfamiliar_twist policy, andsyntheticelbowframefixturesunequalbones/rotatedarms/collinearrejection; noGPU/testexecution. Personallyconsumed Rigadmission03CONTRACT221 fullactualsource narrative: it alreadyrecords suspended_waist ->DevicePiece withskin.append?357. Our312 isindependentstatic source support, no newunique/compiler-runclaim/repairownershiptransfer."
+    }
+  ],
+  "new_unique_findings": [
+    "NATIVE-INITIAL05-F061"
+  ],
+  "remaining_dependency_obligations": [
+    "Normal MHR support/hull cardinality and complete native part finalization remain qualified; no normal GPU/publication behavior asserted.",
+    "Native body/part/scratch/status initialization and foot-envelope helpers retain actual source obligations; no foreign graph expanded."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

@@ -1,0 +1,85 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-240",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/player.rs",
+      "sha256": "ebf883ac714ec8f48c9377495da01713b01e9f4ba9e7bd5e4edda78dc320ee68",
+      "actual_EOF": 650,
+      "actual_compared_ranges": [
+        [
+          1,
+          650
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+      "sha256": "e3b88b223ae8d99d6fbcb634fbb1dd3990f9f42f4440309a341f3da3b8c0a0ce",
+      "actual_EOF": 122,
+      "actual_compared_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/player.rs",
+      "sha256": "7950d432247add4cf942e8eaf9a0dfeed6199326e4518094a1d616d1cd89a645",
+      "actual_EOF": 640,
+      "actual_compared_ranges": [
+        [
+          1,
+          640
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Tactical component mutation, skill/body projections and fatigue boundary",
+      "source_ranges": {
+        "player.rs": [
+          [
+            1,
+            650
+          ]
+        ]
+      },
+      "disposition": "Complete exact P16player650 and fullactualPRdelta consumed. TacticalStats physical_skill_condition returns1 explicitly because fatigue/burden already enterlivecombatincapacitation, preservingonepenaltyauthority. Limbsapply_damage max0/minremaining preventsordinaryoverdamage andreturnsappliedamount; invalidrawhealth/NaNnotadmitted here, needsactualprojection/clinicalstateowner. Sevenboundedhealthdeficits sum<=7, rawfinite negativeMAX canoverflowaggregatebutinvalidhealthrange notnormalstate. Defaultskillsreligion sums sevenknownstartingfamilyfields, ordinaryboundedhours safe; genericrawfamily finiteMAX graph Root04F016 remains. Bestiary retainscategoryfamilies, Cooking/Herbalism/terrainzero intenttacticalavailabilitypolicy, notforcedstudytypealias. TacticalPlayerViewer borrows fullactualattributes/body/essentials/inventory/skills product; get_for_attack picksactualhand; configureAttackCurve delegatesoneequipment/skillauthority. Underlyingrawf32admission/curvecomputedresult remainsactualownerdependency, not fullcalleecoverage. P16CharacterDimensionstypedfinite butsignedzero/negative allowed, PRrawdefaultdelta retained; no blanketpositiveanatomycap without actualproducerrole. CharacterIdu64 displayseed produceshue0..359,saturation.28..46,value.90..98finite includinginclusiveendpoints. RawsyntheticID0/MAX are notautomaticpersistentauthority defects. Fixtures readnotrun."
+    },
+    {
+      "contract": "Scene point/displacement preservation through translation and projections",
+      "source_ranges": {
+        "scene_coordinates.rs": [
+          [
+            1,
+            122
+          ]
+        ]
+      },
+      "disposition": "ScenePlanPoint andPlanDisplacement privatefiniteVec2, signedcoordinates/zero valid. Translation re-admitscomputedaddition beforepublishingSelf, overflowingfiniteinput returnscanonicalgeometryerror. Deserializechecksactualwholepoint; From<Position<Scene>> keepsfiniteXZ withsameframe/unit. OffsetFromOrigin semanticpointtodisplacementexplicit, notarbitrarydegreeconversion. Moduleexportsactualdatum/frame/polygonowners only; siblingbodiesunreadnotcredited. PRdeltaformat/orderonlypersonallyconsumed. No newordinaryoperationdefect/sourceedits/projectexecution."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [
+    {
+      "path": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+      "actually_read_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "coverage": "Fresh fullcomparison of already supplied prior612 completedrole; no secondcredit."
+    }
+  ],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings.rs"
+}

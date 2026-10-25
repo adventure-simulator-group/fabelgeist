@@ -1,0 +1,84 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1148",
+  "at": "2026-10-25T17:54:47.148386+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1252,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/settlement_rest.rs",
+      "sha256": "f63df87344c6f358a0bcaa63481d349415e8e5481acb42031232d17cf20db125",
+      "actual_EOF": 651,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/settlement_rest.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\time\\settlement_rest.rs",
+        "sha256": "f63df87344c6f358a0bcaa63481d349415e8e5481acb42031232d17cf20db125",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "native",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 651,
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-TIME-PACKET-011",
+            "json_pointer": "/source_reads/12",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/time/settlement_rest.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                651
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/settlement_rest.rs",
+              "sha256": "f63df87344c6f358a0bcaa63481d349415e8e5481acb42031232d17cf20db125",
+              "read_ranges": [
+                [
+                  1,
+                  651
+                ]
+              ],
+              "method": "P16 whole actual body plus complete textual reversePR delta, or exact byteidentity correspondence; both pinned hashes retained",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/time/settlement_rest.rs"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          651
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "SettlementRestProvision structural Clone/Copy/Debug/PartialEq/Eq."
+      ],
+      "absence_basis": "Full651lines1147\u20131148 consumed. No handtrait/codec. Exact public service/residence/private downtime admission and sponsor/currentparty/quote/provision native effects, validated injury/disease/elapsed/recovery/training/clock; wrapped departure/day reintegration policy. Final351\u2013651 conditional payment/needs/currentlife/language/reward and temporarycompanion healing. Context-sensitive native state policy not From/Default boilerplate."
+    }
+  ],
+  "groups": [
+    "KEEP checked rest admission/current authority and provision/payment/error/subjective clock distinctions; no new derive finding."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1253,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/stationary.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

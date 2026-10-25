@@ -1,0 +1,67 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-370",
+  "at": "2026-10-23T12:48:00.795865+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/preview.rs",
+      "sha256": "c028a72d0f62e5d1f79d76d09e35a549de03dcbba566a0258e69fe8248023c09",
+      "scope072_index": 823,
+      "actual_EOF": 193,
+      "scoped_ranges_compared": [
+        [
+          1,
+          193
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source; preview face/skin/material column binding, translation-only basis admission and independently scoped review projection compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/proportions.rs",
+      "sha256": "aa675179f3ddceae5646814bfc455eb8f45c96da71051a95324bd2e381ac92af",
+      "scope072_index": 824,
+      "actual_EOF": 73,
+      "scoped_ranges_compared": [
+        [
+          1,
+          73
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source; preview face/skin/material column binding, translation-only basis admission and independently scoped review projection compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/review_export.rs",
+      "sha256": "e9ae7ed8089bca0317e77661168325bad4467de6bdc6ab5c08696808b15205f0",
+      "scope072_index": 825,
+      "actual_EOF": 125,
+      "scoped_ranges_compared": [
+        [
+          1,
+          125
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source; preview face/skin/material column binding, translation-only basis admission and independently scoped review projection compared."
+    }
+  ],
+  "groups": [
+    {
+      "id": "preview consumes coordinated surface rows",
+      "comparison": "823 spawn_clothing uses same shell faces/positions/normals and whole-model skin arrays; correctness depends on actual clothing generator maintaining body-indexed shell correspondence, not independently guaranteed by public shell. animation skin_mesh is fallible before each current spawn. spawn_armor uses surface.component index and plate/trim index ranges against same GeneratedArmor, selecting current component material or plate material, independently supplied trim texcoords require same vertex count. Normal finish source822 couples trim UV and modified geometry. Partial spawn on later error is possible, but no new retained-scene transactional promise or proven normal failing mesh claimed; parent caller publication remains separate. BodySkin positions/faces/indices/weights copied from same generated model and rebuilt rig required before entity command."
+    },
+    {
+      "id": "portable proportion basis explicitly checks representational scope",
+      "comparison": "824 model_parameters allocates actual model parameter count and resolves each portable proportion named column; missing name returnsErr. joint_bases creates exactly num_joints rows sharing same reference proportion; each proportion column must have matching native limit \u00b1canonical limit, translation channels are cm\u2192metres, rotation/scale coefficients must all equal zero orErr. This prevents silently encoding affine channels as translation-only basis. Column and matrix dimensions/native finite coefficients remain actual MHR parser/model contract dependency, not established by wrappers alone. Complete result local until allrows pass."
+    },
+    {
+      "id": "review records intentionally fit independently",
+      "comparison": "825 body JSON pairs current generated arrays with same model topology/skin/names and source recipe/version. ReviewSelection Body returns after body record; Catalog enumerates bound placements with their current placed design, Recipe resolves each worn catalogue article and same-family own/default design. review_record fits item with empty morph/layer support and retains exact selected placement/design; recipe frame is independently derived same recipe/placement/body. This is independent mesh review output, not complete equipped/loadout fit or stable all-outfit publication seal. Per-file output can remain on subsequent error; no promised atomic directory transaction. Item/placement IDs used for filenames require canonical catalogue grammar, not inferred from raw String; no actual unsafe admitted ID proof here. No source writes/runtime performed."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Native MHR parameter/table dimension and finite policies remain separately queued source contracts; preview parent scene-publication semantics separate."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

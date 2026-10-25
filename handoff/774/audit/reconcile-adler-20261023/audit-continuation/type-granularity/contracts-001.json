@@ -1,0 +1,146 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-001",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "native-gpu-error-contract",
+      "sources": [
+        {
+          "scope_index": 0,
+          "ranges": [
+            [
+              398,
+              428
+            ],
+            [
+              752,
+              853
+            ]
+          ]
+        }
+      ],
+      "distinction": "ErrorFilter and Error variants distinguish OOM, validation and internal causes; ErrorScopeGuard owns a dispatch device/index and explicit pop lifetime. ErrorSource retains native boxed error, distinct from Display description.",
+      "uses": "Device callback accepts Error; native source() returns its retained cause and Display emits selected presentation. Sampler/QuerySet handles denote resource kind, preventing handle substitution even without numeric validation.",
+      "disposition": "Keep native kind/cause/ownership and resource-handle distinctions. No redundant purpose wrapper proven. Application stage/context should wrap the existing cause where needed, not stringify or invent a second native error taxonomy.",
+      "acceptance": "Any later connected application error repair preserves native classification, source chain, device association, explicit scope completion and meaningful handler lifetime. No full unregistered guard pop body or GPU run credit."
+    },
+    {
+      "id": "type-erased-native-error-adapter",
+      "sources": [
+        {
+          "scope_index": 1,
+          "ranges": [
+            [
+              32,
+              87
+            ],
+            [
+              138,
+              190
+            ],
+            [
+              780,
+              810
+            ]
+          ]
+        },
+        {
+          "scope_index": 2,
+          "ranges": [
+            [
+              1,
+              40
+            ]
+          ]
+        }
+      ],
+      "distinction": "Anyhow std-error path retains concrete E/vtable/downcast; ad-hoc MessageError<M> adapts printable M to StdError without reconstructing an original cause. Transparent wrapper has native trait/layout purpose, not redundant game-role naming.",
+      "uses": "new/from_boxed versus msg/construct_from_adhoc distinguish typed source from formatted text. TypeId check controls downcast; no_backtrace is native unavailable observation, not a gameplay value.",
+      "disposition": "Keep native type-erasure and adapter distinctions. Caller formatting before msg loses an original typed error; actual application callers need independent11 review before alias/finding. No blanket assertion that anyhow erases all causes or that every wrapper needs numeric validation.",
+      "acceptance": "Connected application wrappers retain actual native source and contextual owner; avoid adding universal error/quantity framework or dependency source repair."
+    },
+    {
+      "id": "native-ecs-error-boundary",
+      "sources": [
+        {
+          "scope_index": 3,
+          "ranges": [
+            [
+              1468,
+              1483
+            ]
+          ]
+        },
+        {
+          "scope_index": 6,
+          "ranges": [
+            [
+              40,
+              105
+            ],
+            [
+              395,
+              415
+            ]
+          ]
+        },
+        {
+          "scope_index": 7,
+          "ranges": [
+            [
+              1,
+              187
+            ]
+          ]
+        },
+        {
+          "scope_index": 8,
+          "ranges": [
+            [
+              70,
+              82
+            ]
+          ]
+        }
+      ],
+      "distinction": "BevyError owns boxed source and independent Severity; ErrorContext separates system, run-condition, command and observer context with appropriate native name/tick. ErrorHandler function alias plus FallbackErrorHandler resource have actual ECS registration/selection meaning.",
+      "uses": "App returns optional fallback; FallbackErrorHandler default chooses match_severity and severity selects handler. Native Result alias defaults BevyError but permits explicit E, avoiding forced wider errors. ErrorContext kind() prose is logging output from variant, not branch authority.",
+      "disposition": "Keep native callback/resource, error/context and severity distinctions. Do not merge source classification with logging severity or require every context to carry last_run. Native deprecated DefaultErrorHandler alias is external framework compatibility evidence only; no application alias use or SDK repair authorized.",
+      "acceptance": "Application boundary may adapt exact native error and context while retaining cause. Default severity Panic is source-backed; no assertion that all handlers panic. No actual callback/observer execution or unregistered internal error body credit."
+    },
+    {
+      "id": "native-asset-identity-and-failure",
+      "sources": [
+        {
+          "scope_index": 4,
+          "ranges": [
+            [
+              1,
+              129
+            ]
+          ],
+          "qualification": "Registered endpoint159 exceeds exactEOF129; every actual scoped line read, no nonexistent line credit."
+        },
+        {
+          "scope_index": 5,
+          "ranges": [
+            [
+              2010,
+              2160
+            ],
+            [
+              2340,
+              2510
+            ]
+          ]
+        }
+      ],
+      "distinction": "Typed AssetId<A> prevents asset-category substitution; UntypedAssetId keeps native runtime type information at heterogeneous dispatch. AssetPath, loader type, source error and wait state are different contracts even when some share string storage.",
+      "uses": "Failed internal event forwards path/error to both typed and untyped events; AssetLoaderError retains Arc<BevyError> with accessor. WaitForAssetError separates never-loaded from own failure and dependency failure with cause. AssetEvent loaded-with-dependencies differs Added/Modified/Unused identity history.",
+      "disposition": "Keep resource type/identity and source-versus-dependency failure distinctions. Presentation description and stable AssetPath are not interchangeable just because both serialize text. No extra enum merely renaming arbitrary asset indices; no redundant native wrappers proved.",
+      "acceptance": "Later actual application streaming/readiness graph must retain relevant identity, failure source and dependency classification through status; native event confirms cause availability, not that all application consumers preserve it. No asset load/hot reload run or whole server body credit."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

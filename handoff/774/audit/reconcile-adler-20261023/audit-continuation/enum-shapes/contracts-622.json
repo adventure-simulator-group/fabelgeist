@@ -1,0 +1,27 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-622",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        1357,
+        1358,
+        1359
+      ],
+      "comparison": "Fresh full body_response490, target140, body_values211. BodyObservation already owns observation tick and velocity. Missing previous observation means no measured deceleration, not a fabricated zero velocity; current fallback FULL is explicit policy. Same-tick and changed/discontinuous-source predicates are local observations, not additional carried choices. Repeated fixed tool samples have zero elapsed; gameplay render delta remains independent of replicated sample tick. Posture transition, any active action, non-grounded body, raised guard or source discontinuity reset the response while preserving new authoritative observation. Pitch/roll and angular velocity/targets are independently meaningful continuous spring state, not exclusive payload variants. Private copy-advance returns complete successful state before ECS publication. Numerical kernels unwrap finite signed body-frame values only for actual vector/spring arithmetic and re-admit outputs, preserving degree/radian conversions and cap margins. Parent-space pelvis response and inverse leg compensation are a coherent mathematical pair; no missing semantic enum. Tests inspected as source only, including bounded startup/steady-state response.",
+      "finding_refs": [],
+      "disposition": "Existing optional observation owner appropriate; independent continuous response/history preserved"
+    },
+    {
+      "indices": [
+        1360,
+        1361
+      ],
+      "comparison": "Fresh full clock36/dive152. ProceduralAnimationClock Option<FixedAnimationStep{tick,delta}> already owns complete tool override; None means gameplay render clock. Dive consumer matches existing DiveToDowned{direction,..}; payload is relevant only in that variant, no shadow dive Boolean. Bounded continuous influence and directional quaternion math are native interpolation policy; zero influence deliberately restores authored contact and guard-independent bind reference is retained. Fixtures are source evidence, not execution.",
+      "finding_refs": [],
+      "disposition": "Complete optional clock and existing dive payload variant fit their consumers"
+    }
+  ],
+  "new_findings": [],
+  "limits": "Discovery only. Next1362 height; landing-history trace remains pending sample_state. No repairs/execution/clearance."
+}

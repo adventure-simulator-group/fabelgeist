@@ -1,0 +1,102 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-086",
+  "at": "2026-10-23T01:21:05.184493+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/incapacitation_tests.rs",
+      "sha256": "82fefbb149fc497e21bc9a6807ba2c59a7ede49ce15681838342a37fdd4a6527",
+      "actual_compared_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "source_evidence": "ActualPR bytes read/compared with alreadyliteralread fullP16 body; identicaljustifications only after fresh PRentrypoint/lookup/predicatecontext below, no hash-onlyverdictcarry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/joint_melee.rs",
+      "sha256": "7373a905f23ab3075cfb464c0a936ce1ebc33ba6c5c6ad23866b1a1479c5b983",
+      "actual_compared_ranges": [
+        [
+          1,
+          329
+        ]
+      ],
+      "source_evidence": "ActualPR bytes read/compared with alreadyliteralread fullP16 body; identicaljustifications only after fresh PRentrypoint/lookup/predicatecontext below, no hash-onlyverdictcarry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/armor.rs",
+      "sha256": "9a5f5b89b21f9f10d774f35eb8c9f2cc2c73ebd4a21faf917bae8cd0b428561c",
+      "actual_compared_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "source_evidence": "ActualPR bytes read/compared with alreadyliteralread fullP16 body; identicaljustifications only after fresh PRentrypoint/lookup/predicatecontext below, no hash-onlyverdictcarry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/assignment.rs",
+      "sha256": "edaab496e73d7ae22b10743303627d76c5526cdff566e72e60f563dcbc2c77f9",
+      "actual_compared_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "source_evidence": "ActualPR bytes read/compared with alreadyliteralread fullP16 body; identicaljustifications only after fresh PRentrypoint/lookup/predicatecontext below, no hash-onlyverdictcarry."
+    }
+  ],
+  "groups": {
+    "PR-assignment-context": "FreshPR preferredmode1143-1149 rangediffcanranged, side_defeated1233-1235 emptyorall. Active melee/ranged conditions thereforedisjoint, residualactive loopdedups. rankderivedprefixindex from actualenumeratedattacker (currentPRscheduling fullRoot020) andsaturating_sub1, modulo requires at leastonelivingdefender. Actualbyteidenticaljoint checks beforeeachwindow andaftercontacts before recursivecontinue; no normalemptydefenderpanic. Directinvalidprivatehelperargumentsnotnewpubliccounter.",
+    "PR-joint-time-index-and-error": "SametypedBattleTime/AnimationElapsed owners throughwindow/native64Hzstepquantization. actualpublicPR637-649 owns bothVecs/localRNG/recorder,725-734 publishesonlyOk; internalcontact/schedule/movementmutations canprecedeErr butremain unpublishedlocalbattle, no newrollbackmechanism required. No sideVecresizes during sortedcontactdispatch, ordinalsremain valid. F027same lossyattackID makes duplicatebatchmembers/order, canonicalwholeidentity repair stillneeded. Nearbycontactwindowtolerance versusexactsimultaneousbatches differentdeliberatepolicies; preserve ordering anddraws.",
+    "PR-armor-index-guarantees": "FreshPRitem_catalog1-130 performs OnceLockownedparse/project ofweights/dimensions/coverage andsortsitems only, never reordersremovesarmorplacements; returnsimmutableborrow. PreviouslyactualPRfrozenassetbrigandine662-702oneworn andvambrace3835-3883left/right valid0/1. ActualPRarmorbodyonlyreadsthoseinstallednameddefinitions witherrorsformissingitem/equipment. Thus no currentoutofbounds fromcurrentdata; catalogue-bound handles P14remain semanticpropagationneed. Surface selection/geometryintersection evidence stages preserved, RootF007coverageconstructor separate.",
+    "PR-existing-combat-oracles": "Actualidentical86sourcefixtures showfatigue/generalincap sameperformance, no fatigue movementspeedpenalty, burden throughwheelwithoutphysicalskilldoublecount. CurrentPRactualphysicaloverride1 independentlyreadRoot085. No fixtureprooftransferredtoarbitraryproductionroster or testexecution. Existingtests only, no edits/newassertions.",
+    "PR-source-support-limits": "FreshPRcatalogue1-130 andautoresolve637-653/705-735/1143-1150/1233-1236 supportonly, nofullfilecredit; ammunitionaggregate .sum source requiresitsseparatewholebattle capacity/historycontract, notproofallsummary arithmetic safe. P16projectionaddsstructuredgeometryerrors, butsamejointownership coversadditionalErr withoutborrowedstatecommit. Identicalbodygroupingnototherlenscredit or blanketoldverdict."
+  },
+  "support_only": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog.rs",
+      "ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "no_full_file_credit": true
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve.rs",
+      "ranges": [
+        [
+          637,
+          653
+        ],
+        [
+          705,
+          735
+        ],
+        [
+          1143,
+          1150
+        ],
+        [
+          1233,
+          1236
+        ]
+      ],
+      "no_full_file_credit": true
+    }
+  ],
+  "findings": [],
+  "related_findings": [
+    "ROOT-INITIAL04-F027",
+    "ROOT-INITIAL04-F007"
+  ],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

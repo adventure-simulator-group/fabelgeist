@@ -1,0 +1,251 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-253",
+  "at": "2026-10-25T14:14:03.708507+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 503,
+      "source_id": "pr-working:assets/shaders/tactical_city.wgsl",
+      "sha256": "b9f68613f166dd35f4ef5de3e5ccc51a46aa330079aea84b1ef20d6073a4185f",
+      "actual_EOF": 109,
+      "requested_registration": {
+        "source_id": "pr-working:assets/shaders/tactical_city.wgsl",
+        "snapshot": "pr-working",
+        "path": "assets/shaders/tactical_city.wgsl",
+        "sha256": "b9f68613f166dd35f4ef5de3e5ccc51a46aa330079aea84b1ef20d6073a4185f",
+        "bytes": 5223,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-root-receivers-011.json",
+            "ranges": [
+              [
+                1,
+                109
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-SUPP-STRATEGIC-005"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 462,
+            "read_ranges": [
+              [
+                1,
+                109
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-GRAPHICS-CITY-SHADER-069"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/assets/shaders/tactical_city.wgsl"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 124,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          109
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "WGSL source, no Rust trait/Serde derive grammar.",
+      "absence_basis": "Full109-line shader consumed: native Building/Surface/DrawRange/CityFrame/CityVertex layouts and vertex/prepass/fragment functions, explicit GPU binding and PBR/UV/normal/frame semantics. Native shader records require matching producer layouts, not Rust derives in this file. Rust producer/imported shader bodies separately uncredited."
+    },
+    {
+      "scope_index": 504,
+      "source_id": "pr-working:assets/shaders/tactical_city_cull.wgsl",
+      "sha256": "4d432edb3c8b72dfcd163fa412e19aa2ee5603f621de9e0fae55fc7e7e46132f",
+      "actual_EOF": 80,
+      "requested_registration": {
+        "source_id": "pr-working:assets/shaders/tactical_city_cull.wgsl",
+        "snapshot": "pr-working",
+        "path": "assets/shaders/tactical_city_cull.wgsl",
+        "sha256": "4d432edb3c8b72dfcd163fa412e19aa2ee5603f621de9e0fae55fc7e7e46132f",
+        "bytes": 4843,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-root-receivers-011.json",
+            "ranges": [
+              [
+                1,
+                80
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-SUPP-STRATEGIC-005"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 463,
+            "read_ranges": [
+              [
+                1,
+                80
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-GRAPHICS-CITY-SHADER-069"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/assets/shaders/tactical_city_cull.wgsl"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 125,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "WGSL compute source, no Rust trait/Serde implementation.",
+      "absence_basis": "Full80-line shader consumed: Building/ViewParameters/DrawArgs/DrawRange native storage layouts, select_buildings and compact_ranges compute kernels, atomics/view/LOD policy. No derive-equivalent Rust body, layout/operation correctness belongs independently scoped native consumers and lenses."
+    },
+    {
+      "scope_index": 505,
+      "source_id": "pr-working:assets/shaders/tactical_city_ground.wgsl",
+      "sha256": "3bc0e8bdfb4aea730fbca506f80fd06afd9f410c658869396cc616d6c35c6a21",
+      "actual_EOF": 189,
+      "requested_registration": {
+        "source_id": "pr-working:assets/shaders/tactical_city_ground.wgsl",
+        "snapshot": "pr-working",
+        "path": "assets/shaders/tactical_city_ground.wgsl",
+        "sha256": "3bc0e8bdfb4aea730fbca506f80fd06afd9f410c658869396cc616d6c35c6a21",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 10215,
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+            "row": 107,
+            "read_ranges": [
+              [
+                1,
+                189
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-PAVING-055"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/assets/shaders/tactical_city_ground.wgsl"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root"
+        ],
+        "audit_owner": "root",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-PAVING-TRAFFIC-019",
+            "json_pointer": "/source_proofs/10",
+            "source_id_as_recorded": "pr-working:assets/shaders/tactical_city_ground.wgsl",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                189
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:assets/shaders/tactical_city_ground.wgsl",
+              "path": "SNAPSHOTS/pr-working/assets/shaders/tactical_city_ground.wgsl",
+              "sha256": "3bc0e8bdfb4aea730fbca506f80fd06afd9f410c658869396cc616d6c35c6a21",
+              "read_ranges": [
+                [
+                  1,
+                  189
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1043,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          189
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "WGSL material source, no Rust traits/serialization.",
+      "absence_basis": "Full189-line shader consumed: CityGroundParameters uniform layout, cell_hash/ground_noise/fieldstones/height_normal/fragment functions and native prepass/PBR bindings. Explicit noise, world/material projections and shading semantic operations, not trait boilerplate. No whole imported PBR/native producer coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Shader native layouts and semantic kernels",
+      "disposition": "No Rust implementation to derive in these exact WGSL source roles. Source-backed complete declarations/functions enumerated, not extension-only exclusion.",
+      "acceptance": "Preserve actual native layout/producer binding relationship and shader semantics; no shader compile/render/runtime/other-lens clearance or source change."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 506,
+    "source_id": "pr-working:assets/shaders/tactical_cloud_composite.wgsl"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

@@ -1,0 +1,31 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-071",
+  "at": "2026-10-23T00:33:59.387012+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/inventory_measurement.rs",
+      "sha256": "2ffeb2e6b78a2111a09dbe9f788673605eb597afe037e375f8f3c413bafe6011",
+      "actual_compared_ranges": [
+        [
+          1,
+          804
+        ]
+      ],
+      "source_evidence": "Fresh fullP16body1-404/405-804 inclalloriginal1-210andwhole804role, notPRverdictcarry. Existingtestsreadonly."
+    }
+  ],
+  "groups": {
+    "fixed-point-admission-and-operations": "ItemQuantityNonZeroU32 serdevalidpositive native0rejected/ONEminimum1, fullu32valid. ConsumableFractionMicrosprivate0..1m includingZERO, allself valuesexactf32integer<=2^24. Ratio u128 1m*arbitraryu64fits thenDivCeilpositive, capWHOLEbeforeu32exact; numerator>denominatorintentionallywholecap. scale_floor u64whole*u32<=1m fitsu128, quotient<=whole soasu64narrowexact. try_scaled_floor nativef32factorfinite0..1 gate, productfinite<=1m andfloorreadmits; preserveexistingf32roundingpolicy ratherthanclaimexactrealproductfloor. checked_sub andchecked_mul retainrange orNone; whole_divided_by assertspositivepartsprecondition (typedNonZero inputpropagationcandidate), parts>1m returns0correctfloor, notstrictpositivefraction.",
+    "whole-measurement-state": "validate rejectszerocapacity, depletable/bulktare, checkedtare+fullmass/valueoverflowbeforeprofileOk. Publicmutableprofile/rowproducts alwaysrevalidated byeffective_totals. BulkrequiresquantityONE+measuredSome, unopenedhasnoinstancebasis andusesimmutable standardbasis; measuredrequiresONE/instancebasis/capacitybound, usesperobjectbasis notcurrentdefinitionscaling. Emptyamount0 legitimatecomputedtotals: containerretainstare, depletablezero; actualliveobjectdepletionrecipientpolicy separate. Definedstockkindvsinstancebasis/history distinct stages notduplicateauthority.",
+    "computed-totals-and-proration": "Allunit+sums/multiplyquantity checked nativeu64 withtypedOverflow; masssuccesslocaldroppedifvaluelaterfails, no externalpartialcommit/retryclock. prorated_floor gatescapacitypositive andamount<=capacity, full*amount u128max(twoU64product)<2^128 thenquotient<=full =>finalu64exact. CompareF017/022: THISwidensBEFOREmultiply/division, no earlysaturationloss. Capturedintegerbasis/value andderivedremainingextent shouldstaycanonicalsemanticunits throughrecipients, rawu64fieldsstillpropagationgapalreadyotherlenses.",
+    "pricing-factor-composition": "Lineintrinsicvaluescheckedfoldrejectsoverflow, positivefactornumerator/denominatorbeforeGCD. Cancelacrosscurrentratio BEFOREcheckedu128products, thenline/denominatorGCD, checkedscaledproduct, quotient/remainder andsingleFloor/Ceil directionthenfinalTryu64. GCDrightremainderstrictdecreases, allusedgcddivisors>0 because positivefactors/denom andgcd(0,denom)=denom. Factor/line/intermediatecapacityerrorsdeclaredordinaryrejection, do notrequireinfalliblearbitraryrationalmathjustbecausepossiblelatercancellation. Emptyvalues0/emptyfactors1ratio safe. ZeroFactor explicitlyINVALID notfreeitempolicy; intrinsicvalue0 stillpermitted. Merchantbuyfloor/vendsceil preservepartitionincentives/direction, notnormalizeallratio<=1.",
+    "source-oracles-and-scope": "Allexistingfraction/row/tare/immutablebasis/bulklot/overflow/partition/aggregateroundingoraclesreadsourceonly, no execution/newtests/assertions/helpers. Moduleintro sayspersistent-schema-notimplemented, but do notinferabsenceofactualconsumers fromcomment: freshactualDBfood/medicine/stockproducersmustdetermineuseandCommentReviewupdate. No blanketnativeboundarybecauseframework-independent mathmodule; .get/u64widening onlylegitimateattheseactualmultiply/divisionkernels, notdownstreamstorageindirection."
+  },
+  "findings": [],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

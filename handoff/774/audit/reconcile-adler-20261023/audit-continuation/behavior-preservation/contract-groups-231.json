@@ -1,0 +1,35 @@
+{
+  "id": "CONT08-CONTRACT-231",
+  "at": "2026-10-25T14:54:53.560946+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 873,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/mod.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/autoresolve/melee_round/mod.rs",
+      "before_sha256": "ff8212f9397bcdb91ecad5bf5d474f740cca0a308043ac2bab5f9e811edce1b8",
+      "after_sha256": "3ada1de8aa9e1322565a5f1ae9b5882e0beba1d5ad024cc4705f7eb35ba0982b",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0873-base-ff8212f9397bcdb91ecad5bf5d474f740cca0a308043ac2bab5f9e811edce1b8",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/3ada1de8aa9e1322565a5f1ae9b5882e0beba1d5ad024cc4705f7eb35ba0982b",
+      "diff": "source-evidence/pr-0873.diff",
+      "diff_sha256": "39e1427223dcbe6aa59d46019956cbe9e436831a3ca9b34769c55ce502154dc0",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          595
+        ]
+      ],
+      "head_body_read_method": "own0067fullbodyreuse+completevariant/freshcriticalrangesinfacts; entire395lineactualPRdiff consumed.",
+      "facts": [
+        "PR595body accounted byown0067full597+completeinversevariantdiff, fresh1\u2013110/205\u2013274/362\u2013453; entire395lineactualPRdiff. PreparedMeleeExchange/DefenderReadiness ownformerlyseparatelocals; sameactualdefender snapshot recovery value (capturedcurrentfield398\u2013405) retainedaftercommitwhichdoesnotmutaterecovery. Recordingresponse/transform order andsuccessfulassignment/cancelclears/defensivework preserved.",
+        "Attackinterval computedbeforepowreset/random/statework aschecked900RecoveryTime insteadlaterrawduration/performance telemetry. Samefinitepositive numericresult andtypedunavailable atperformance0; zerobase after0 explicit900policy, no freshordinaryzero-weapon fixture assumed. EarlytypedErrnowpropagatesbefore/aftermutation accordingexplicitstate, wholefailedbattle discardsownedvectors; no claimretriableprivateatomicity.",
+        "ActualCanceledSameWeapon onlyphase-derived scheduledcontacts; productioncontactsstartnonnegative/advancepositivespans, so private871oppositesignMAXgap hypothetical doesnotestablishordinaryloss. Contactsample/RNGreaction/alignment/flanking/bodyregion/canonicalmaterial/native0.8centerfields sameordering. PRrecord_melee_resultstillvoid/rawdistance unlikeP16checkedcentergeometry, no isolatedGeometryErr projection asPRfailure. Originalmovement/recovery thresholdfixtures read viaexactcommonbody andfullvariant, notrun."
+      ],
+      "disposition": "Own08 actual old/new source comparison accounted, with retained exact-source/API qualifications and remaining connected scope stated.",
+      "acceptance": "Retain canonical source identity, ordinal/wire/native geometry, first errors and original fixture oracles. No tests, checks, exports or GPU execution."
+    }
+  ],
+  "next": "874scheduling391 then875model363/876power168/877threat187/878timeline139"
+}

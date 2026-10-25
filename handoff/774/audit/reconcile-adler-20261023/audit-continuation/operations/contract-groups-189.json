@@ -1,0 +1,182 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-189",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/chronology.rs",
+      "sha256": "9bd03249bc0fbc1de28571a08035a777f3ab8fe1ddd0ac177d6e32b3693ee621",
+      "actual_EOF": 200,
+      "actual_compared_ranges": [
+        [
+          1,
+          200
+        ]
+      ],
+      "method": "Whole literal P16 body personally read; entire PR textual diff consumed and signature deltas assessed, including empty actual helper comparisons; no hash-only credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/family.rs",
+      "sha256": "39967c3fc01c7e182d648f23a06e4a8a214c51ea7425f4672318d891fc2178e7",
+      "actual_EOF": 267,
+      "actual_compared_ranges": [
+        [
+          1,
+          267
+        ]
+      ],
+      "method": "Whole literal P16 body personally read; entire PR textual diff consumed and signature deltas assessed, including empty actual helper comparisons; no hash-only credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/lifecycle.rs",
+      "sha256": "e07c9d7949a4086798ee405ba1deac19e4adcbb4e5dc5cf618eba028b229415d",
+      "actual_EOF": 138,
+      "actual_compared_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "method": "Whole literal P16 body personally read; entire PR textual diff consumed and signature deltas assessed, including empty actual helper comparisons; no hash-only credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/mod.rs",
+      "sha256": "e256eb33fd8ea25a8ef2d424cb1638ec08da0f6177bd5d6562cde1212a4b5b49",
+      "actual_EOF": 217,
+      "actual_compared_ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "method": "Whole literal P16 body personally read; entire PR textual diff consumed and signature deltas assessed, including empty actual helper comparisons; no hash-only credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/newborn_residence.rs",
+      "sha256": "4057e287f3a5f3e79a9925db6a3b0769662f356fc27a8a8f9ea82a4db3b4affc",
+      "actual_EOF": 21,
+      "actual_compared_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "method": "Whole literal P16 body personally read; entire PR textual diff consumed and signature deltas assessed, including empty actual helper comparisons; no hash-only credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/chronology.rs",
+      "sha256": "ee9606893c2011c97cecde3bb8bef19e0b6354b96c165b66695c8f9e2b104646",
+      "actual_EOF": 200,
+      "actual_compared_ranges": [
+        [
+          1,
+          200
+        ]
+      ],
+      "method": "Whole literal P16 body personally read; entire PR textual diff consumed and signature deltas assessed, including empty actual helper comparisons; no hash-only credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/family.rs",
+      "sha256": "39967c3fc01c7e182d648f23a06e4a8a214c51ea7425f4672318d891fc2178e7",
+      "actual_EOF": 267,
+      "actual_compared_ranges": [
+        [
+          1,
+          267
+        ]
+      ],
+      "method": "Whole literal P16 body personally read; entire PR textual diff consumed and signature deltas assessed, including empty actual helper comparisons; no hash-only credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/lifecycle.rs",
+      "sha256": "e07c9d7949a4086798ee405ba1deac19e4adcbb4e5dc5cf618eba028b229415d",
+      "actual_EOF": 138,
+      "actual_compared_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "method": "Whole literal P16 body personally read; entire PR textual diff consumed and signature deltas assessed, including empty actual helper comparisons; no hash-only credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/mod.rs",
+      "sha256": "3a963760e8bdf9dbe54464488f72d3dd2c976d3a2da5705a5cb30dec2f9265b1",
+      "actual_EOF": 217,
+      "actual_compared_ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "method": "Whole literal P16 body personally read; entire PR textual diff consumed and signature deltas assessed, including empty actual helper comparisons; no hash-only credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/newborn_residence.rs",
+      "sha256": "4057e287f3a5f3e79a9925db6a3b0769662f356fc27a8a8f9ea82a4db3b4affc",
+      "actual_EOF": 21,
+      "actual_compared_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "method": "Whole literal P16 body personally read; entire PR textual diff consumed and signature deltas assessed, including empty actual helper comparisons; no hash-only credit."
+    }
+  ],
+  "groups": [
+    {
+      "id": "Personal chronology and signed birth arithmetic",
+      "locations": "relationship/chronology1-200; family57-114; fresh calendar176-250",
+      "trace": "Life requires actual character, signed birth occurred and death strictly later than observer. canonical_now requires actual clock. Earliest boundary is strict start<boundary<end, across birthday, reserved engagement, active pregnancy, marriage effective/resolution and pending inheritance. Native advance rejects reverse date, advances exactly boundary then resumes only if NPC policy still exists, respecting adult authority transfer. Calendar age uses i128 subtraction to nonnegativeu128 and boundedu16 cap; age-derived signed birth deliberately clampsi64 storage, matching documented cap rather than unchecked cast. Annual boundary checked arithmetic fits supported coordinate types. No source integer wrap. Recursive advance has one frame per intervening birthday and lifecycle event; arbitrary represented distant target can cause unbounded stack/work despite monotone progress. Actual daily NPC coordinator caps one day; other materialization catch-up callers need explicit supported span/work proof before ordinary reachability claim.",
+      "disposition": "Qualified helper work-budget strengthening; no new ordinary clock overflow.",
+      "dependencies": [
+        "Canonical StrategicMinute/signed birth owner",
+        "npc_causal daily frontier cap previously personally traced",
+        "All advance_npc_personal_time callers and lifecycle recursion cardinality",
+        "CAM-PROP-F006/local774:F05/local774:M30 structured Result integration"
+      ],
+      "acceptance": "Accepted time advance preserves monotonicity and exact event boundaries with bounded resource use; transferred browser authority stops remaining NPC advancement. Missing clocks stay unavailable, and real epoch0 remains valid."
+    },
+    {
+      "id": "Family and household mutation",
+      "locations": "relationship/family1-56,116-267",
+      "trace": "Seed plan rejects more than4 before zip; full four-member shape guards family[0..3] indexing and exactly10 kinship edges. Empty family returnsNone; shorter families intentionally create roles without derived parent/sibling edges. ensure_kinship is stable tuple-id idempotence; household selection removes old membership only after same-household early return. Whole family identity/uniqueness/roles remain caller admission, not inferred from independent IDs. Father lookup requires true male personality, exact personal frontier and alive status. Conflict intervals use inclusive start and exclusive resolution. Dowry piecewise returns0/15/45/100 with no arithmetic overflow.",
+      "disposition": "No new operation defect from indexing/zip; preserve whole family roster admission and actual demographic plan.",
+      "dependencies": [
+        "Settlement population family roster admission",
+        "Canonical kinship/household role owners",
+        "Social role failure and SDK rollback semantics"
+      ],
+      "acceptance": "Accepted household formation preserves one membership and coherent unique relatives. Preserve exact supported family shape and interval endpoints."
+    },
+    {
+      "id": "Global lifecycle queue and caught failures",
+      "locations": "relationship/mod60-154; lifecycle1-138; newborn_residence1-21",
+      "trace": "Collects all due events, sorts (minute,wedding-before-birth,id), removes unprocessable before truncating limit; count<=limit. Wedding processability permits relevant participant death or both actual clocks at frontier. Birth requires actual mother frontier. Failure IDs stable and error safely limited by512 Unicode scalars. Quarantine marks active pregnancy ended and deletes only matching active/reservation indexes. Birth validates before mutation; unexpected commit error propagates to outer reducer, not caught. Wedding error IS caught then commitment cancelled and failure retained: actual marriage helper must prove all expected errors occur before any retained side effects. Newborn housing explicitly ancillary and inherit_parent_home_at error ignored; residence helper must similarly prove no partial mutation on error. These are unresolved exact failure-path dependencies, not assumed SDK rollback for caught inner error.",
+      "disposition": "No clean failure atomicity claim for caught wedding/housing paths until exact callee bodies traced. Queue stable order is explicit, not dependency-free parallel semantics. Whole-due vector allocation precedes limit: memory budget remains caller/world cardinality qualification.",
+      "dependencies": [
+        "relationship/marriage.rs settle_due_weddings before/after mutation",
+        "residence inherit_parent_home_at before/after mutation",
+        "relationship/reproduction.rs validate_due_birth/settle_due_births",
+        "SDK outer reducer error semantics"
+      ],
+      "acceptance": "Rejected event cannot retain a partial wedding/child/housing allocation while recording successful quarantine/cancellation. One deterministic queue preserves same-minute precedence and limits actual processing without silently dropping deferred events."
+    }
+  ],
+  "findings": [],
+  "status": "Ten original source roles personally compared; exact caught-callee contracts remain dependencies. Whole04 incomplete.",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/relationship/reproduction.rs",
+  "source_edits": false,
+  "project_execution": "none",
+  "fresh_dependency": {
+    "path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/source/physical-p16-unscoped-dependency/crates/adventuresim-world-schema/src/calendar.rs",
+    "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+    "actually_read_ranges": [
+      [
+        176,
+        250
+      ]
+    ],
+    "coverage": "Fresh critical bodies only; no whole original role credit."
+  }
+}

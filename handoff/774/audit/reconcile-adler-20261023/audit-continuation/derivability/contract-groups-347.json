@@ -1,0 +1,187 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-347",
+  "at": "2026-10-25T15:00:08.970056+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 683,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview.rs",
+      "sha256": "8c21b357f6f90a1c9c297c9e1c4306e63872daa3ccb32e060651f5df878b7ba3",
+      "actual_EOF": 699,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-character-creator/src/animation_preview.rs",
+        "owner": "rig",
+        "sha256": "8c21b357f6f90a1c9c297c9e1c4306e63872daa3ccb32e060651f5df878b7ba3",
+        "base_sha256": "9e28461336b977bb9ad77c98dbbea4f5ef724cece653d381a05df365424c198b",
+        "state": "modified",
+        "bytes": 23013,
+        "audit_owner": "rig",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/sources.json",
+            "ranges": [
+              [
+                1,
+                699
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-PREVIEW-01"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 137,
+            "read_ranges": [
+              [
+                1,
+                699
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-CLOTH-PREVIEW-024"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-character-creator/src/animation_preview.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          699
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Default",
+          "type": "SimulationSettings",
+          "lines": [
+            83,
+            99
+          ],
+          "disposition": "KEEP semantic defaults: true self collision, nonzero thickness/gravity/stiffness/margins/work budgets differ from field defaults. Builtin Default derive changes behavior; direct derive dependencies have no equivalent field-default policy configured."
+        }
+      ],
+      "existing_derives": [
+        "WalkPreview Resource/Default21",
+        "SimulationSettings Clone/Debug36",
+        "PreviewSkeleton/BodySkin/ClothSkin Component51/56/64",
+        "BodyMotion Default77"
+      ],
+      "absence_basis": "Entire exact source consumed in1\u2013240/241\u2013480/481\u2013699. Native Bevy setup/rebuild/deformation, checked cloth constructor, foreign Name/RigJointName orphan adapter379\u2013384, MHR/Bevy native representation/precision mappings386\u2013418, skin/normals kernels420\u2013465 are semantic functions, not boilerplate traits. Fixtures467\u2013699 read not run."
+    },
+    {
+      "scope_index": 684,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview/binding.rs",
+      "sha256": "1d37cdfbe3438b86643502d8f147cec1c22cfb04ba2ccdf09da1c30aacac7152",
+      "actual_EOF": 58,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview/binding.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-character-creator/src/animation_preview/binding.rs",
+        "owner": "rig",
+        "sha256": "1d37cdfbe3438b86643502d8f147cec1c22cfb04ba2ccdf09da1c30aacac7152",
+        "base_sha256": null,
+        "state": "new",
+        "bytes": 1917,
+        "audit_owner": "rig",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/sources.json",
+            "ranges": [
+              [
+                1,
+                58
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-PREVIEW-01"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 138,
+            "read_ranges": [
+              [
+                1,
+                58
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-CLOTH-PREVIEW-024"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-character-creator/src/animation_preview/binding.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full exact source: ClothBinding runtime payload enum, skin_mesh15\u201351 checked native joint narrowing/top-four selection/weight normalization and skin53\u201358 Bevy borrowed handle mapping. No handwritten trait/codec; do not add serialization merely to replace runtime classifier."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "animation preview defaults and native binding adapters",
+      "disposition": "Retain semantic SimulationSettings Default and native adapter functions. Existing structural/framework traits already derive.",
+      "acceptance": "No field-default derive changing simulation values; no orphan impl/dependency expansion, no test run or other-lens correctness claim."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 685,
+    "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview/cloth_motion.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

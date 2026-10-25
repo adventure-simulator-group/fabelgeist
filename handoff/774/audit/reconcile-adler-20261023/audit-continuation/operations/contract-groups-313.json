@@ -1,0 +1,122 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-313",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/resolved_shapes.rs",
+      "sha256": "485156188b8c858094e576418d153b0e315f06c01ef25685a6e11eb97e60a56b",
+      "actual_EOF": 447,
+      "actual_compared_ranges": [
+        [
+          1,
+          447
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/room_index.rs",
+      "sha256": "09a150e0b0d2873609095c1d8e6f9cf8a4e2117df74ded1787a03d6f647f23cb",
+      "actual_EOF": 45,
+      "actual_compared_ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/walls.rs",
+      "sha256": "0ccc94972996dae71d762e7019f9814a02a26ff12a2eabe8709f7c791c8b9930",
+      "actual_EOF": 353,
+      "actual_compared_ranges": [
+        [
+          1,
+          353
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/plan_geometry.rs",
+      "sha256": "a767ca4e45d2c04ddf94d1f23452ecbb3a5c6c864bc8ce63fc673e6f39e5b92b",
+      "actual_EOF": 341,
+      "actual_compared_ranges": [
+        [
+          1,
+          341
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/roof_tessellation.rs",
+      "sha256": "1b6392b23903162a4016dd207491880b8fc6d4b6242e1fe516eb8c92ce18634d",
+      "actual_EOF": 426,
+      "actual_compared_ranges": [
+        [
+          1,
+          426
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Shared resolved envelopes preserve admitted leaves but do not silently establish raw shape/support coherence",
+      "source_ranges": {
+        "model/resolved_shapes.rs": [
+          [
+            1,
+            447
+          ]
+        ],
+        "model/room_index.rs": [
+          [
+            1,
+            45
+          ]
+        ],
+        "model/walls.rs": [
+          [
+            1,
+            353
+          ]
+        ]
+      },
+      "disposition": "All three complete bodies read. ResolvedSolid::new moves admitted CollisionCuboid identity/position/dimensions/three angles and cuboid_envelope reconstructs exactly those leaves; deserialize routes raw envelope fields through from_metres before existence. Shape payloads, support refs and owner identity remain separate aggregate contracts, including annular radius/order/fall and sectional depth/sign. No raw payload is inferred validated by the envelope. RoomIndex from_ordinal uses checked u16 narrowing with original ordinal error, while from_serialized is lossless and makes no collection-membership promise. OpeningProfile height Segmental adds raw spring+rise; arbitrary extremes need admission/actual generated consumer proof, not presumed leaf guarantees. Structural thickness predicate fortified >=1.20 alone accepts infinity, but the actual audit finite checks already read290 apply separately; this predicate is not promoted as standalone admission. Roles/enums/ID declarations contain no additional mutation/arithmetic. Slot/source identity repair remains connected to actual callers, not primitive-width replacement."
+    },
+    {
+      "contract": "Convex topology evaluates orientation/area in widened offset coordinates and re-admits mapped polygons",
+      "source_ranges": {
+        "plan_geometry.rs": [
+          [
+            1,
+            341
+          ]
+        ]
+      },
+      "disposition": "Whole production and fixture body read. ArchitecturalPlanPoint admits finite Vec2 and serde repeats admission. Polygon checks >=3, nonzero positive signed area, exact duplicate positions and every point against each oriented boundary edge; no reordering of authored input. cross and offset signed_area use f64 after converting finite f32, avoiding native f32 subtraction/product overflow and preserving tiny nonzero f32 triangles. try_map builds local mapped list then re-runs complete polygon admission. Hull sorts geometrically signed-zero-equal coordinates, removes exact duplicates, handles0/1/2 separately and monotonically pops under len>=2; constructed area path is derived by monotone hull. Fixture cases for concave/clockwise/duplicates/collinear, exact contacts, smallest subnormal triangle, collapsed mapping and large-offset area were fully read, not executed."
+    },
+    {
+      "contract": "Roof tessellation is a native accepted-face consumer with bounded index-loop guards, explicit holes and material-side semantics",
+      "source_ranges": {
+        "roof_tessellation.rs": [
+          [
+            1,
+            426
+          ]
+        ]
+      },
+      "disposition": "Whole426lines read in two chunks. Empty polygon remove-collinear loop has no find candidate, so its modulo expression is never evaluated; <=3 stops before remove. boundary-notch branch requires exactly2 touches, proving cutout.len>=2 before modulo; corner fallback requires an actual outer/cutout matching point before outer neighbors. Remaining holes are handed to earcut with cumulative vertex starts; triangle indices are dependency-produced, not arbitrary public index buffers. Enclosure explicitly rejects <3 points before polygon0. Residual geo ring nonempty/closed requirement remains actual residual/dependency contract; no empty-ring witness or library semantic clearance by hash. Native normal/cross/distance/UV arithmetic and u32 capacity require accepted face geometry; raw RoofFace currently exposes floats, so zero plane/nonfinite or huge coordinates are not assumed admitted semantic roof. Existing boundary cutouts, opposite interior offset and isolated boundary edges are intentional, not a general polygon XOR defect. Full UV orientation matrix and closed square-with-hole prism fixture read only; closure/winding/area assertions are acceptance descriptions, not passing results."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "5 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-building-generator/src/signs.rs"
+}

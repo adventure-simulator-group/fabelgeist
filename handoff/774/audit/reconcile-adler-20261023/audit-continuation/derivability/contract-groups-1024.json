@@ -1,0 +1,80 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1024",
+  "at": "2026-10-25T17:31:58.065491+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1189,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/settlement_population/resident_drafts.rs",
+      "sha256": "0bdbeb8d3d35fb200d35d06429d177a9311b5e71207f89a3644fadcd6e72d959",
+      "actual_EOF": 585,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/settlement_population/resident_drafts.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/settlement_population/resident_drafts.rs",
+        "sha256": "0bdbeb8d3d35fb200d35d06429d177a9311b5e71207f89a3644fadcd6e72d959",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 18955,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 768,
+            "read_ranges": [
+              [
+                1,
+                585
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-POPULATION-ROLE-CLOSURE-121"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/settlement_population/resident_drafts.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1414,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          585
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "ResidentDraft Clone",
+        "DefaultPresence/StrategicServiceEndpoint Clone/Copy"
+      ],
+      "absence_basis": "Whole resident planning source across1023\u20131024 read. No handwritten trait/codec. Inherent construction performs seeded identity/demography and representation/default conversion; ordinal-service/profession/context classifiers and checked household/name/draft joins semantic. Existing Serde business owner called, not new handwritten serializer. Fixtures484\u2013585 read not run."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Deterministic resident draft derivability",
+      "disposition": "Existing structural derives; preserve seeded semantic constructors, family admission and explicit runtime classifiers without adding Serde."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1190,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/settlement_population/resident_persistence.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

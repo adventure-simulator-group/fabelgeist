@@ -1,0 +1,57 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-QUALIFICATION-200",
+  "at": "2026-10-23T04:41:56.930316+00:00",
+  "source_id": "physical-p16:crates/adventuresim-core/src/physiology.rs",
+  "source_sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+  "source_qualification": {
+    "record": "continuation/native/initial05-aggregate-states/source-qualifications.jsonl",
+    "sha256": "fe787242382187e37a112c255d8665a43cb44161ef3f8564667dcea0bd428582",
+    "id": "NATIVE-INITIAL05-QUAL060",
+    "row_1based": 60
+  },
+  "raw_source_qualification": {
+    "id": "NATIVE-INITIAL05-QUAL060",
+    "proof_ref": "contract-groups-195.json",
+    "source_id": "physical-p16:crates/adventuresim-core/src/physiology.rs",
+    "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+    "original_scoped_ranges": [
+      [
+        1,
+        790
+      ],
+      [
+        850,
+        935
+      ]
+    ],
+    "effective_material_ranges": [
+      [
+        1,
+        787
+      ],
+      [
+        851,
+        929
+      ]
+    ],
+    "context_exclusions": "788 blank;789-790 next disease_meter_state header only, no791-849 body;850 blank;930-935 observer-noise docs/attributes only, no936+ body. PR independent full1169 source compared. Original raw ranges preserved, no global shrinking or unrelated expansion.",
+    "actual_EOF": 1169
+  },
+  "fresh_actual_boundary_comparison": {
+    "ranges": [
+      [
+        789,
+        790
+      ],
+      [
+        850,
+        935
+      ]
+    ],
+    "facts": "789-790 is disease_meter_state signature only.851-928 actual PresenceSpan/ChartEntry/cadence/quantization bodies.850/929 blanks and930-935 observer-noise docs/attrs; no791-849 or936+ body displayed/credited."
+  },
+  "qualification": "Original raw scope ranges retained. Actual material1-787/851-929 only; context headers/docs do not award called body or whole function coverage. No source scope expansion/shrinking, new semantic coverage or whole-physiology clearance. Root122 support724-790 includes only header context after787, already no whole-source credit.",
+  "all_lenses_mandatory": true,
+  "source_edits": 0,
+  "project_execution": 0
+}

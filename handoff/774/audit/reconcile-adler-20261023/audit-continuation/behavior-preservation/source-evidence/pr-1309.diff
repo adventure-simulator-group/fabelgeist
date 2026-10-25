@@ -1,0 +1,100 @@
+--- PRbase/crates/adventuresim-tactical-client/examples/runtime_equipment_bench.rs
++++ frozen/crates/adventuresim-tactical-client/examples/runtime_equipment_bench.rs
+@@ -46,10 +46,14 @@
+         ("mail_coif", "worn"),
+     ] {
+         let armor = pollster::block_on(runtime_equipment::generate(
+             &body,
+-            item,
+-            placement,
++            adventuresim_core::equipment_assets::CatalogPlacement::find(
++                adventuresim_core::item_catalog::catalog(),
++                item,
++                placement,
++            )
++            .ok_or_else(|| anyhow::anyhow!("unknown equipment placement"))?,
+             &bracer,
+             &breastplate,
+             &[],
+         ))?;
+@@ -147,10 +151,14 @@
+         ] {
+             let started = Instant::now();
+             let result = pollster::block_on(runtime_equipment::generate(
+                 &body,
+-                item,
+-                placement,
++                adventuresim_core::equipment_assets::CatalogPlacement::find(
++                    adventuresim_core::item_catalog::catalog(),
++                    item,
++                    placement,
++                )
++                .ok_or_else(|| anyhow::anyhow!("unknown equipment placement"))?,
+                 &bracer,
+                 &breastplate,
+                 &[],
+             ));
+@@ -227,10 +235,14 @@
+                 .to_array();
+         }
+         let armor = pollster::block_on(runtime_equipment::generate(
+             &body,
+-            "gorget",
+-            "worn",
++            adventuresim_core::equipment_assets::CatalogPlacement::find(
++                adventuresim_core::item_catalog::catalog(),
++                "gorget",
++                "worn",
++            )
++            .ok_or_else(|| anyhow::anyhow!("unknown equipment placement"))?,
+             &bracer,
+             &breastplate,
+             &[],
+         ))?;
+@@ -274,10 +286,14 @@
+         for item in ["puffed_sleeve", "puffed_hose"] {
+             for side in ["left", "right"] {
+                 let armor = pollster::block_on(runtime_equipment::generate(
+                     &body,
+-                    item,
+-                    side,
++                    adventuresim_core::equipment_assets::CatalogPlacement::find(
++                        adventuresim_core::item_catalog::catalog(),
++                        item,
++                        side,
++                    )
++                    .ok_or_else(|| anyhow::anyhow!("unknown equipment placement"))?,
+                     &bracer,
+                     &breastplate,
+                     &[],
+                 ))
+@@ -350,9 +366,11 @@
+             &fit_body,
+             &wearer,
+             &[],
+             &design,
+-            "left",
++            adventuresim_character_creator::armor_frames::FittingPlacement::Lateral(
++                adventuresim_character_creator::armor_frames::Side::Left,
++            ),
+             &[],
+         )?;
+         assert!(piece.endpoints.is_empty());
+         let part = piece.base;
+@@ -394,10 +412,14 @@
+     let breastplate = load_breastplate_design(None)?;
+     let fit = |item, layers| {
+         pollster::block_on(runtime_equipment::generate(
+             &body,
+-            item,
+-            "left",
++            adventuresim_core::equipment_assets::CatalogPlacement::find(
++                adventuresim_core::item_catalog::catalog(),
++                item,
++                "left",
++            )
++            .ok_or_else(|| anyhow::anyhow!("unknown equipment placement"))?,
+             &bracer,
+             &breastplate,
+             layers,
+         ))

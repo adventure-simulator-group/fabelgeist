@@ -1,0 +1,66 @@
+{
+  "id": "SEGO-INITIAL09-REGISTRATION-036B",
+  "reason": "Trace correlated armor contact report state through producer and report consumers; prior scoped roles only",
+  "roles": [
+    {
+      "scope_index": 857,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve.rs",
+      "sha256": "cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+      "ranges": [
+        [
+          405,
+          435
+        ]
+      ],
+      "coverage_limit": "Partial trace support only unless complete scoped body read"
+    },
+    {
+      "scope_index": 867,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_iteration/evidence.rs",
+      "sha256": "204c03d01cb76d4603c9c42a010a5ccf300f65abe20d62ab307212fe2fac19bc",
+      "ranges": [
+        [
+          55,
+          92
+        ]
+      ],
+      "coverage_limit": "Partial trace support only unless complete scoped body read"
+    },
+    {
+      "scope_index": 871,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/commitment.rs",
+      "sha256": "52eb21ff762fa1bb6d55c4237bf1d1d66638a7929d996eb94074726727b563f6",
+      "ranges": [
+        [
+          126,
+          186
+        ]
+      ],
+      "coverage_limit": "Partial trace support only unless complete scoped body read"
+    },
+    {
+      "scope_index": 2060,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration/logging/resolution.rs",
+      "sha256": "a61ef59cb4da06988229325123ef72662197b3c568ea9822b2d27ee6cb1d7616",
+      "ranges": [
+        [
+          1,
+          167
+        ]
+      ],
+      "coverage_limit": "Partial trace support only unless complete scoped body read"
+    },
+    {
+      "scope_index": 2010,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal.rs",
+      "sha256": "29a2443a5b6c08cb12ec620c470751f9f02b01152f0cdfce51f49395aaa84170",
+      "ranges": [
+        [
+          197,
+          259
+        ]
+      ],
+      "coverage_limit": "Partial trace support only unless complete scoped body read"
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "at": "2026-10-23T20:59:54.958658+00:00",
+  "id": "pc95-corpse-snapshot-source-001",
+  "reads": {
+    "crates/adventuresim-stdb-module/src/surgery.rs": [
+      [
+        335,
+        373
+      ]
+    ],
+    "crates/adventuresim-stdb-module/src/strategic/encounters.rs": [
+      [
+        887,
+        1085
+      ]
+    ],
+    "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs": [
+      [
+        170,
+        255
+      ]
+    ],
+    "crates/adventuresim-stdb-module/src/tactical.rs": [
+      [
+        1120,
+        1220
+      ]
+    ],
+    "crates/adventuresim-stdb-module/src/character.rs": [
+      [
+        340,
+        413
+      ]
+    ],
+    "crates/adventuresim-stdb-module/src/world_actor.rs": [
+      [
+        315,
+        440
+      ]
+    ],
+    "crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs": [
+      [
+        1,
+        188
+      ]
+    ],
+    "crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs": [
+      [
+        1030,
+        1105
+      ]
+    ],
+    "crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs": [
+      [
+        740,
+        785
+      ]
+    ],
+    "crates/strategic-web/src/medical.rs": [
+      [
+        260,
+        305
+      ]
+    ],
+    "crates/strategic-web/src/routes/dialogue.rs": [
+      [
+        1380,
+        1475
+      ]
+    ]
+  },
+  "contract": "Actual completed enemy physical snapshot and corpse permission dialogue source codecs",
+  "coverage_limit": "Exact slices only, all source graph/lenses remain incomplete; actual dialogue full producer/vote/codec receivers still pending.",
+  "disposition": "F45 available enemy log BodyInjury product lost by native corpse receiver updating health/blood only; allies-only outcome commit and canonical corpse construction prove path. Native historical contact_stress copies fracture_damage whereas battle log contact_force derives energyJ, confirmed combat calculate_damage and fracture formula; explicit observed/unavailable energy needed in M97/M89, not assume one unit owner fits both. CorpsePermissionTopicId correctly distinguishes arbitrary outer topic versus precise corpse coordinate and scope but approach retainsstr until canonical PermissionPetitionApproach reparse. Existing parser fixture usesrequest (not accepted permissionapproach), so fixture demonstrates coordinate parse rather than whole permission grant admission. Ordinary body snapshot/permission and exactretry/clock guards preserved.",
+  "finding_traces": {
+    "M97": {
+      "source": [
+        "crates/adventuresim-core/src/combat.rs:405-468",
+        "crates/adventuresim-core/src/autoresolve.rs:542-579",
+        "crates/adventuresim-stdb-module/src/surgery.rs:278-294,354-356",
+        "crates/adventuresim-stdb-module/src/corpse.rs:1053-1065",
+        "crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs:82-113,161-168"
+      ],
+      "trace": "Actual log contact_force is energyJ from attack_force; durable fallback fracture_damage is a healthdamage-derived severity (max(blunt-.threshold,0)*.65) and cannot be physical energy observation. Retain distinct observed contact energy or unobserved/historical provenance, no reinterpretation/zero fabrication. Corpse permission parser retains approach&str before grant reparses canonical Approach, same-owner migration; preserve precise outer text decoding/native topic format."
+    },
+    "M98": {
+      "source": [
+        "crates/strategic-web/src/medical.rs:137-176",
+        "crates/adventuresim-stdb-module/src/character.rs:343-396"
+      ],
+      "trace": "Full medical sanitize actualbody now consumed, valid explicitgap shape distinct malformed7arrays; character death missingclock source confirmed existing CAM-PPS-F003, distinct from corpse permission topic clockfallback, related not collapsed by broadclass."
+    }
+  },
+  "frontier": {
+    "file": "crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs:1090",
+    "work": "PC96 actual source-ref/authority-receipt codec, dialogue prompt/vote retained products and clinical pending body graph; every earlier PC01-95 remains mandatory."
+  }
+}

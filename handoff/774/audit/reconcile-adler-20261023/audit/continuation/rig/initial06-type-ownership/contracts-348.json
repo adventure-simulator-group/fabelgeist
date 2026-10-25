@@ -1,0 +1,25 @@
+{
+  "id": "RIG-INITIAL06-GROUP-348",
+  "at": "2026-10-23T09:21:51.919514+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "combat-consequence-transient-and-durable-authority": {
+      "comparison": "Actual transient Limbs/TacticalCombatState/Wounds mutate in Bevy, while canonical CharacterId/BodyPart and tactical provenance identify bounded accumulated strategic consequences. Native Entity is not CharacterId; EquipSlot and actual armor surface item identity determine contact, not slot name alone. Private record_equipment_contact accepts raw persisted item u64 after TacticalInventoryItemId projection into Core mission receipt DTO; no competing locally declared inventory wrapper found in this body and no creator-local identity equivalence inferred. Whole P16 body compared to fresh PR308 with no textual or current-role difference. BodyPart mapping supports F009; mutating imbalance/trauma without total recompute remains Native aggregate-phase observation, not a second ownership finding. No tactical tick state is persisted here.",
+      "disposition": "shared combat/body/character owners with transient state versus bounded consequence authority preserved"
+    },
+    "outbreak-original-fixture-owner-composition": {
+      "comparison": "Original fixtures use canonical Seed, DiseaseId/TransmissionVector, OutbreakSource/Remediation, RouteClass, CaseId/OutcomeFactId/StrategicMinute and EvaluationState. Fixture-generated raw character/episode IDs are asserted unique/nonzero in specimen courses; test code does not create competing identity type or certify all public generated cases. Canonical catalog site membership and exact remediation fact identity are deliberately distinct from human public testimony. Cases with identical presentation but different hidden truth demonstrate authority separation; no collapse of source/remediation/witness/actor keys suggested. Read original tests only, no execution or new cases.",
+      "disposition": "existing tests compose canonical generation/case/disease owners without duplicate definitions"
+    },
+    "airborne-motion-frame-and-quantity-port": {
+      "comparison": "AnimationElapsed/NonnegativeSpeed and ScenePlanPoint/FootClearanceFloor retain checked time/speed/terrain meanings; raw previous_owner is rig-local offset, desired/start_world are world positions, rig_origin/rotation is explicit transform. Lerp/grid/disk search, Euclidean scores and speed*time budget are real numerical kernels; they are not equivalent to forwarding unchanged typed metadata. Signed pose displacement differs nonnegative step budget; typed scene XZ is re-admitted at clearance callback and checked_foot_target gates outputs. Actual raw frame API still belongs connected F034 geometry propagation review, with source validation/exception policy preserved; do not substitute a Scene position for previous_owner or bound probability for arbitrary progress scores. Original examples read only.",
+      "disposition": "checked animation/terrain owners around actual framed numerical projection; F034 limits retained"
+    }
+  },
+  "supporting_existing_findings": [
+    "F009",
+    "F034"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit."
+}

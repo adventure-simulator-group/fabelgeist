@@ -1,0 +1,43 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-721",
+  "lens": "audit-enum-shapes",
+  "groups": [],
+  "shared_material_reads": [
+    {
+      "shared_index": 32,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/helmet/shape.rs",
+      "sha256": "97e23604f5ed995bc4d619d8e37747acc42671ba34e7236a8184b1e3d175a35d",
+      "ranges": [
+        [
+          1,
+          539
+        ]
+      ],
+      "contract": "contracts-721.json",
+      "status": "fresh exact registered complete shader body read and reanalyzed09",
+      "disposition": "Actual helmet WGSL emits Slot/VertexKind/PostMap/CheekRow constants from canonical host owners. Native packed coord payload interpreted by specific vertexkind, CHEEK_SHELL shader pass and post-map code; no unknown authored code producer established. Multiple helmet controls are shared authored design tuning; no shape merge across currently inactive style controls from shader alone. Actual hinge source exists but only visor application is host contract, not all shells required hinge. Native numerical conditional predicates and fixed geometry indices preserved, noGPUrun.",
+      "frozen_unique_credit": false,
+      "other_lens_credit": false,
+      "execution": "none"
+    },
+    {
+      "shared_index": 33,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/wgsl/common.rs",
+      "sha256": "ffd989fed5f4bc512ee53fc408db1d2ecb6bcd81464b5c3eecc8ce4e4eef71e0",
+      "ranges": [
+        [
+          1,
+          446
+        ]
+      ],
+      "contract": "contracts-721.json",
+      "status": "fresh exact registered complete shader body read and reanalyzed09",
+      "disposition": "Actual RANDOM/NOISE/MATH native kernels have temporary predicates and explicit numerical fallback vectors; no carried gameplay flag. Head ABI selects sampled field vs analytic mannequin through native header w; host representation owner remains separate contract. Grid outside extent returns declared reach by bounded field policy, not evidence all misses are physical measured distances. Walker retains advancing interpolation history and complete frame payload, real arc indices not enumchoices; no redundant initialized flag. STRAND actual groupi32 ABI/absence/parting policy remains existing own09 obligations, not cleared by native layout.",
+      "frozen_unique_credit": false,
+      "other_lens_credit": false,
+      "execution": "none"
+    }
+  ],
+  "new_findings": [],
+  "limits": "Native body source only, no blanket numerical exemption for host APIs, no runtime/SDK repair or crosslensclearance."
+}

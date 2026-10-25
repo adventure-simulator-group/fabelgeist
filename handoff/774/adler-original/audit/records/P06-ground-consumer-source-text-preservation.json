@@ -1,0 +1,34 @@
+{
+  "recorded_at": "2026-10-21T00:52:52.078291+00:00",
+  "base": "807ab138a2dcbee4707095b87731bf7a063a7af7",
+  "head": "5b44a561bd7543d4edadfc65265bf0255819688b",
+  "file": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass.rs",
+  "unchanged_item_text_hashes": {
+    "pub(crate) struct InstancedGrassPlugin;": "c1864c2f1c97eb8c54ab02ccb576c41660f9d800823e76cd7464fb3372ae317b",
+    "impl Plugin for InstancedGrassPlugin {": "785bdb200bd6a8c50dff7ded90f8d3e6aac6140be67522cede29f2cc5cc22238",
+    "/// Marks scenes whose instanced sward has been generated.": "2926c4339a5981ef3b7a79721b46a38c353b4efaaa4560952fd27b70bc427bbc",
+    "/// Every gameplay/viewer camera drives": "581dee4b2001b546eb4fda92e720ceda241255fc8f50632c574d2464f515ce4f",
+    "/// Smoothing state for the grass interaction uniforms.": "8fd961148e467e3e08c8681f09f6891c10b4196f0b42f43b735ba1178f69b947",
+    "fn update_instanced_grass_interaction(": "511ca54ab565e7aa3739fcdf593e8014377bf48fcaf5ee62cbece36a4e321ff9",
+    "/// Number of tuft columns/rows": "57f30e414885cb6bd2e8eb3ce8aed6747145a071d90344a858300f7d4a87cb1a",
+    "/// Eidolon fade bands per tier:": "1f2aaf70dd93715b2e102600f9ce72e16b5d9d1dae9de5adbfd4a9055041441e",
+    "fn configured_tier_visibility_range(": "7c9e52641fd52b343f3c07dc7d5b1b5dafe25fa70d90dc81ec1a1ba5580d5b8d",
+    "const TIERS:": "879e2d46ab5be3c89c31d6b870e30b6b86dff2be0182c842a28f99ec3ad7ea02",
+    "/// Maximum blade reach above a tuft root:": "d3f540423b5776a8624de0f6bddfd1af94d3aab2dacf01bc620bd6c5c1261a08",
+    "/// Tight bounds over a batch": "e569887982f0f40c0ceffae1571713328f82d22e4fdbbacf27c2114b3e560b61",
+    "/// Site sampling shared by playable terrain": "c4c9c2062dcdf7c63065f4b05179653a6002386da292632855bd9eab5b3e8a9b",
+    "/// The command buffer and asset stores": "ec1083369fcb56beab16f95cd7aeca57e3fe705964efc9ca782872923bcd26be",
+    "/// Instance batches keyed by LOD tier,": "e6f70e55d6f778a1ca04ea6a74eeee0d023238027737162aa397461b5db40570",
+    "/// The playable scene's authoritative terrain,": "059754e083d86dd9a4b964c9d152650ff48217dbe3bba02f910ef17f3bf038cd",
+    "impl TuftPlacement for ScenePlacement": "e85c8efe68b27700f38c9026f43f8bbc1cafcf964d2b3321ff25c6e654b3a9b7",
+    "/// Grass rejects any site steeper": "8b020fddc9aea1d11ba82baf55a9e43dea5cb586bd0634a7a946268425a8a3da",
+    "/// The scene-wide pigment": "5823d63cc2e667d37156498883ac1d6615e91d7502740ddc07c6836a04f6417f",
+    "/// Walks the jittered placement": "ce68e18c913af81adaefb81e32a2cce745c35944a5818f9195688ed7baf3e963",
+    "#[cfg(test)]\nmod tests {": "8b6a935340b5b779f79b6cf927961255d47cbe6fa4fd29bde7116f5400dd8f7e"
+  },
+  "changed_items": [
+    "/// Instanced counterpart of the grass portion",
+    "pub(in crate::presentation) fn prepare_scene_tufts("
+  ],
+  "coverage": "Text identity after reordering only, including the unchanged existing tests and native loops; no Rust parsing, compilation or runtime execution."
+}

@@ -1,0 +1,222 @@
+{
+  "id": "CONT07-CONTRACT-360",
+  "at": "2026-10-23T19:27:49.133626+00:00",
+  "lens": "audit-redundant-authority",
+  "members": [
+    {
+      "scope_index": 1522,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/prepared.rs",
+      "sha256": "93f6d71ef4483adfa946c8c19da9692b9843eb84629a32210c1652a3978b3e4d",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/buildings/prepared.rs",
+      "actual_EOF": 54,
+      "ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "read_kind": "fresh exact scoped source; streaming original partial role plus separately registered extension, never full272/fixtures credit"
+    },
+    {
+      "scope_index": 1523,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/signs.rs",
+      "sha256": "57739c962cf2f6d39add14a9e57aac70c6d418dc2a57972bd12080a7135dc4b3",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/buildings/signs.rs",
+      "actual_EOF": 155,
+      "ranges": [
+        [
+          1,
+          155
+        ]
+      ],
+      "read_kind": "fresh exact scoped source; streaming original partial role plus separately registered extension, never full272/fixtures credit"
+    },
+    {
+      "scope_index": 1524,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/streaming.rs",
+      "sha256": "b8091bd1fe336c7162f6fcc4729bdd1e16cadf288fafe8ad4092029e2ea1fcc4",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/buildings/streaming.rs",
+      "actual_EOF": 272,
+      "ranges": [
+        [
+          175,
+          245
+        ]
+      ],
+      "read_kind": "fresh exact scoped source; streaming original partial role plus separately registered extension, never full272/fixtures credit"
+    },
+    {
+      "scope_index": 1525,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/closure_meshes.rs",
+      "sha256": "39104be92a09f4e09bc38db7353d77a82f5fe5457067c9c6c08da3d88a46e41f",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/closure_meshes.rs",
+      "actual_EOF": 148,
+      "ranges": [
+        [
+          1,
+          148
+        ]
+      ],
+      "read_kind": "fresh exact scoped source; streaming original partial role plus separately registered extension, never full272/fixtures credit"
+    },
+    {
+      "scope_index": 1526,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/cloud_bake_assets.rs",
+      "sha256": "e5ae55fc95ea907b2d01ae26ffd4b4dd1334a1db7befee2d9f8add866f6ed5be",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/cloud_bake_assets.rs",
+      "actual_EOF": 56,
+      "ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "read_kind": "fresh exact scoped source; streaming original partial role plus separately registered extension, never full272/fixtures credit"
+    },
+    {
+      "scope_index": 1528,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/clouds/noise.rs",
+      "sha256": "be3ebae3349fed391089881f331e4d441b3028d0f2b882bc7b80b9020e51c6fc",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/clouds/noise.rs",
+      "actual_EOF": 138,
+      "ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "read_kind": "fresh exact scoped source; streaming original partial role plus separately registered extension, never full272/fixtures credit"
+    },
+    {
+      "scope_index": 1529,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/clouds/streams.rs",
+      "sha256": "2331da03edfee132b8f78ada82f67e4f5e56f8f4845fccd28a54fea442641428",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/clouds/streams.rs",
+      "actual_EOF": 13,
+      "ranges": [
+        [
+          1,
+          13
+        ]
+      ],
+      "read_kind": "fresh exact scoped source; streaming original partial role plus separately registered extension, never full272/fixtures credit"
+    }
+  ],
+  "contracts": [
+    {
+      "source_index": 1522,
+      "disposition": "accounted exact07 source roles with explicit source/caller limits",
+      "facts": [
+        "Worker mesh batches are a prepared stage while GeneratedBuildingRecipe supplies plan/collision/openings/interior. They encode different representation purposes; this installer does not define a second independent building generator. Resulting compiled snapshot is constructed once with chosen program and fixed identity transforms.",
+        "The actual provided recipe/program/venue mesh context correlation remains existing admission/aggregate dependency; source split does not certify it. Preserve mandatory tail overlay51-54 including actual levels cache insertion/return."
+      ]
+    },
+    {
+      "source_index": 1523,
+      "disposition": "accounted exact07 source roles with explicit source/caller limits",
+      "facts": [
+        "PresentedSign captures mission brand/site/origin and owns optional live lettering child. Board and nearby lettering are distinct native detail levels, selected using one site/mount and one captured sign. Lettering None/Some entity is resource ownership history, not a separately authored sign-content truth.",
+        "Exact own-lens prior CONTRACT245 personally consumed: business name is immutable mission branding, not live operator name; lower cache keys captured name/font/finish/emblem/height, while mount/origin belong per-instance transforms. Current near/far hysteresis uses separate load/release thresholds intentionally. No live rename/repaint promise inferred from mutable raw component fields.",
+        "All shown lettering create/remove paths update entity token together with queued spawn/despawn. Arbitrary outside child deletion or future sign mutation remains unproved; no normal stale lettering claim."
+      ]
+    },
+    {
+      "source_index": 1524,
+      "disposition": "accounted exact07 source roles with explicit source/caller limits",
+      "facts": [
+        "Original175-245 includes complete CityBuildingAssets.spawn178-232 plus partial present234-245; no fullpresent/queue credit from original scope alone. New exact REG003 closes immediate queue definition/mutation and consumer tail, with fixtures99-167 excluded.",
+        "Pending.total is original work population; placements is remaining work, completed derives processed difference. Success and terminal failure both remove an attempted entry, while pending asset is requeued. Failure string separately records partial unavailability. These are historical progress/remaining/failure facts, not competing successful-geometry counts. finished means queue drained, not every planned building succeeded.",
+        "focus caches last reprioritization location with explicit10m approximate-policy invalidation; placement payloads immutable in actual queue operations. Time budget64ms is scheduler yielding, distinct from logical simulation/sample rate. Prior full incidental display grants no context/fixture/source completion.",
+        "Spawn copies same actual placement transform into root and pending GPU placement for one static-publication cohort. Current program/material/geometry source contracts remain distinct and failed cache/generator operations propagate. New present-tail calls same spawn, then clears temporary plans/release_unused only when queue drained. No dynamic root-edit/resynchronization or whole-scene success guarantee inferred."
+      ]
+    },
+    {
+      "source_index": 1525,
+      "disposition": "accounted exact07 source roles with explicit source/caller limits",
+      "facts": [
+        "Separate door/glass/shutter caches distinguish native geometry by exact admitted dimension bits and leaf kind; placement Transform is independent mutable entity state and not a mesh-cache dependency. Fixed Operable choice is part of this cache purpose.",
+        "Window miss calls single compile_window_leaf owner then caches its material parts. Original fixtures compare sharing versus independent placement transform and glass/shutter distinctions. Native compiler admission/finite/mesh metadata remains prior exact obligations, no new07 duplicate authority."
+      ]
+    },
+    {
+      "source_index": 1526,
+      "disposition": "accounted exact07 source roles with explicit source/caller limits",
+      "facts": [
+        "Offline bake format has one azimuth/elevation/channel owner and derives texture extents; image constructor and dimension assertion consume those constants. Bytes versus Image are source/native encoded stages, not independently selected weather facts in this helper.",
+        "Prebaked resource is an explicit caller-selected initial image override; initial_image picks that or procedural function. This source alone does not prove weather/seed/wind provenance of supplied bytes, or production never inserts it. Keep fixed-art cohort and warm-start constraints for actual caller/main clouds analysis; no broad actual producer exemption from comment."
+      ]
+    },
+    {
+      "source_index": 1528,
+      "disposition": "accounted exact07 source roles with explicit source/caller limits",
+      "facts": [
+        "Cloud lattice axes and CloudDensityWarp denote different coordinate/displacement roles. The interpolation evaluates eight lattice samples operation-locally with actual seeded per-purpose noise; no independently retained density cache here.",
+        "cloud_seed derives scene/time-period/lat/lon once from same SceneEnvironment. Actual period360 and native signed lattice word casts retain deterministic context, not alternative current geography. The exact seed omits wind; this supports existing conditional F041 only when joined to bake/request/shader paths, no separate new unique defect.",
+        "ActiveCloudLayerOrdinal is filtered active-layer position, deliberately distinct from profile identity. Named streams are consumed from one sibling owner, not reauthored as raw strings here."
+      ]
+    },
+    {
+      "source_index": 1529,
+      "disposition": "accounted exact07 source roles with explicit source/caller limits",
+      "facts": [
+        "Every constant names one distinct deterministic random-purpose domain. They are intentionally different independent entropy contexts, not duplicate defaults/aliases. No retained current-authority cache or alternate stream roster is constructed in this source."
+      ]
+    }
+  ],
+  "personally_consumed_prior_narratives": [
+    "audit/continuation/rig/admission03/contract-groups.jsonl#RIG-ADMISSION03-CONTRACT-444",
+    "audit/continuation/rig/admission03/root-support/contracts.jsonl#RIG-ROOT-ADM03-154",
+    "audit/continuation/rig/admission03/root-support/contracts.jsonl#RIG-ROOT-ADM03-156",
+    "audit/continuation/camera/initial07-redundant-authority/contracts.jsonl#CAMERA-INITIAL07-CONTRACT-245"
+  ],
+  "new_material_roles": [
+    {
+      "registration": "CONT07-REG-003",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/streaming.rs",
+      "sha256": "b8091bd1fe336c7162f6fcc4729bdd1e16cadf288fafe8ad4092029e2ea1fcc4",
+      "ranges": [
+        [
+          7,
+          97
+        ],
+        [
+          169,
+          174
+        ],
+        [
+          246,
+          272
+        ]
+      ],
+      "disposition": "Fresh07 queue/history/scheduler/caller analysis complete for exact new ranges. Original99-167 fixtures and unrelated outside material excluded. New methods close earlier native assembly gating dependency; finished denotes queue drainage including reported terminal failure, not total successful geometry.",
+      "coverage": "Existing source variant; proposed new range overlay/role requires global all-lens reconciliation, no extra old-universe source count."
+    }
+  ],
+  "source_qualifications": [
+    "CONT07-SOURCE-QUAL-001: large multi-file truncation/incidentalfullstreaming output gives no coverage. Cloud1527 remains incomplete/unread; no bulk semantic credit from displayed fragments.",
+    "Streaming175-245 exact oldrole retained, only registered REG003 ranges additionally analyzed; original tests99-167 excluded."
+  ],
+  "existing_findings_supported": [
+    "CAMERA-INITIAL07-F041 exact seed dependency only; complete bake/shader graph remains prior source-qualified finding"
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "identity_count_accounting": {
+    "new_original_variant_ids": [
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/prepared.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/signs.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/streaming.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/closure_meshes.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/cloud_bake_assets.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/clouds/noise.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/clouds/streams.rs"
+    ],
+    "already_covered_fresh_reanalysis_ids": [],
+    "new_this_contract": 7,
+    "cumulative_new_original_variants": 33,
+    "cumulative_original_unique": 1791,
+    "count_basis": "Exact source_id union against Adler saved07coverage1758, not number of fresh-read rows"
+  }
+}

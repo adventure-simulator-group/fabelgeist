@@ -1,0 +1,106 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-326",
+  "at": "2026-10-23T07:52:21.973205+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/extents.rs",
+      "sha256": "7a667b7bb903784bfd856046539b87174d517867f7b5992e22988980b69e78d6",
+      "scope070_index": 2849,
+      "actual_EOF": 166,
+      "scoped_ranges_compared": [
+        [
+          19,
+          150
+        ]
+      ],
+      "qualified_material_ranges": [
+        [
+          20,
+          51
+        ],
+        [
+          53,
+          149
+        ]
+      ],
+      "context_only_ranges": [
+        [
+          19,
+          19
+        ],
+        [
+          52,
+          52
+        ],
+        [
+          150,
+          150
+        ]
+      ],
+      "actual05_comparison": "Fresh exact registered direct role only; complete current method/declaration relationship analysis, omitted neighboring helpers and caller bodies uncredited."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/sectioned_blade.rs",
+      "sha256": "ec1bc1f7fb4d26f6cd8dcf78ad5a89ea5f5767b292cbb91d2599232c7d2eb1da",
+      "scope070_index": 2850,
+      "actual_EOF": 66,
+      "scoped_ranges_compared": [
+        [
+          1,
+          18
+        ],
+        [
+          31,
+          59
+        ]
+      ],
+      "qualified_material_ranges": [
+        [
+          1,
+          18
+        ],
+        [
+          31,
+          57
+        ]
+      ],
+      "context_only_ranges": [
+        [
+          58,
+          59
+        ]
+      ],
+      "actual05_comparison": "Fresh exact registered direct role only; complete current method/declaration relationship analysis, omitted neighboring helpers and caller bodies uncredited."
+    }
+  ],
+  "groups": [
+    {
+      "id": "shape axial seat is an operation-specific projection",
+      "comparison": "Shape::range matches each current shape to its axial y seat interval, not a three-dimensional geometry bound. LoftedBlade uses0..length and does not examine width/thickness/belly; mountheads Axe/Beak/Pick/Hammer deliberately0..0. SpatialTube rejects no points then computes actual y min/max; GuardAssembly rejects empty nodes then actual node-y min/max; Tube useslastpoint.y with nonempty check, not entire path min/max, an actual distinct contract. Pommel/profile helpers referenced but excluded151+ not body credit. Correct range interpretation must survive geometry/placement/current model consumers, not assume all-axis20m bound from axis endpoints."
+    },
+    {
+      "id": "attachment identity and seat relation",
+      "comparison": "HeelCenter only accepted genericBlade and delegates its heel_center, other variants returnErr. GuardAssembly chooses required anchor_node and exact named point from its own nodes; no arbitrary firstnode fallback or unrelated ID. Other shapes use supplied range Base/Center/Top orOrigin0, returning axial point; raw suppliedrange need be actual selected Shape::range from caller to establish binding. This method itself does not seal otherwise-valid independent range and shape, enforce ordered intervals or prove midpoint arithmetic finite. Actual current placement/anchors/model caller graph remains separate current05 source obligations, not transferred from Root04."
+    },
+    {
+      "id": "lofted schema role is raw correlated recipe input",
+      "comparison": "BladePlan closed3 and BladeCrossSection closed5 havecamelCaseSerde. LoftedBladeParameters public Metres dimensions/curvature/ricasso, Ratio taper/single_edge/belly, Counts samples andoptionalFuller/Point, ordinary derivedSerde denyunknown andoptionalabsentdefault. No defaultwholeparameterstruct/manualvalidate/sealedacceptedaggregate in1–18/31–57. Present optional decoder helper referenced but omitted19–30/60+ bodies not inspected, so no claimednull/fieldvalidation behavior. Publicconstruction remainsraw input, no allrelationship guarantee fromcheckedscalar names."
+    },
+    {
+      "id": "capacity and connected computed-physical qualification",
+      "comparison": "Actual direct declarations make belly independent from basewidth,length andsection, and axial range ignoresbelly bydesign. This supports Root pending acceptedrecipe→derivedphysical→forgequote investigation only as exact source facts; own05 has not yet compared full modelshape/profile/derive/quote graph or proven finalacceptance of1e20belly. No new unique computedmass/inertia/quotefinding or normalcataloguefailure asserted. Keep canonical axial attachment semantics separate from actual generatedvolume/bounds/mass/stock capacity, preserving unit/phase distinctions."
+    },
+    {
+      "id": "scope precision and current frozen frontier",
+      "comparison": "All global070 exact new roles personally compared, no bytes outside raw ranges. Extents impl19/blank52/closing150 context; Sectioned blank58/nextdoc59 context, no nextSpatialTube body60+. Frozen PR6533 unchanged despite parent notice PRmerged andnewmain; merged-source reconciliation later separate. No project compiler/tests/fixtures/runs or nativegraph expansion."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Actual full current weapon profile/model/placement/physical/forgequote source roles independently queued; do not inherit Root operation verdict or imply all-axis extent guarantee."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

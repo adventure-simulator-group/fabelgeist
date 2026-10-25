@@ -1,0 +1,29 @@
+{
+  "id": "RIG-INITIAL06-GROUP-297",
+  "at": "2026-10-23T08:30:56.432591+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "autoresolve-report-measurement-roles": {
+      "comparison": "Causal adapter consumes canonical MeleeContactTelemetry/MeleeTimelineEvent/Kind and emits report-specific Measurement role markers AutoresolveSeconds, ContactMetres, CenterSeparationMetres, MovementMetres/Speed, performance and power. Report measurement wrappers own aggregation/error evidence, not second gameplay elapsed or physical distance semantics; from_elapsed/from_speed retain canonical source meaning. String distribution keys are explicit report-output diagnostics from enums, not newly retained gameplay discriminants. Complete P16 body/current-role delta compared: typed lengths retained to from_length/from_absolute_displacement, while PR raw lengths call from_native; real movement inequality still performs metre vs speed*time arithmetic. Supports F034 canonical physical/source propagation without erasing distinct report metric labels or changing thresholds/signed absolute conversion.",
+      "disposition": "Report metric roles legitimate; existing physical quantity propagation F034 supported."
+    },
+    "connected-equipment-native-to-combat": {
+      "comparison": "P16 adapter consumes generated ConnectedPlayerItem wire row but does not own canonical recipe/geometry definitions. Version/catalog/hash checks delegate decode/design_hash/derive then canonical ParametricWeaponCombatGeometry with neutral SignedLength re-admission for three different lengths. Weapon and holder appearance retain distinct product meaning/versions; native32-byte hash extraction and recipe wire adapters are legitimate boundaries, but expect/assert do not establish universal upstream validation. Armor maps EquipmentBodyPart to ArmorSlot/Side and canonical authored coverage per bodypart; exact seven coarse location mirror remains F009 ownership graph, not a reason to collapse fine body/coverage taxonomies. Derived physical output source guarantees remain separately qualified, no Result-based safety claim.",
+      "disposition": "Canonical geometry/product reuse at explicit generated-wire boundary; supports F009/F034 existing graphs only."
+    },
+    "relationship-authority-orchestrator": {
+      "comparison": "DB relationship module explicitly separates canonical exclusive commitment/kinship/pregnancy/ceremony facts from soft asynchronous social affinity. Reuses Core courtship algorithms/strategic-state vocabulary and world clocks/NameStableSeed; importing these does not make DB contextual authority a duplicate Core pure planner. Global DueLifecycleEvent queue sorts complete stable keys, excludes unprocessable events before truncation and dispatches wedding/birth; DB-specific effective/event IDs differ from elapsed clock. Typed preflight precedes birth writes here; per-mother alternatives and raw table admission stay separate existing findings. Complete P16 source/current roles compared, only return carrier StrategicOperationResult versus PR String differs. Includes are module boundaries, not body credit for all included files/tests.",
+      "disposition": "Coherent DB authority orchestration over shared planners/vocabulary; error-carrier migration separate."
+    },
+    "consumable-amount-db-adapter": {
+      "comparison": "InventoryItemAmount and PartyItemAmount represent personal versus party row association for same canonical remaining fraction; they reuse ConsumableFractionMicros throughout consuming APIs/min/sub operations, projecting get only at native DB field writes and checking persisted raw read at adapter. Distinct row keys/holder authority prevent blindly merging tables or aliasing their IDs. WHOLE/ZERO and checked_sub preserve extensive consumable-fraction semantics, not permyriad BPs or material microunits; same integer scale is insufficient equivalence. Transfer moves existing amount authority between holder tables, not independently derived duplicate material. Fixed smithing stock roster membership is catalogue policy/string concern for later lens; no new fraction owner or semantically wrong generic UnitInterval introduced. Original fixtures only read.",
+      "disposition": "Coherent canonical fraction operations plus DB holder-association adapters; no new ownership finding."
+    }
+  },
+  "supporting_existing_findings": [
+    "F034",
+    "F009"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit."
+}

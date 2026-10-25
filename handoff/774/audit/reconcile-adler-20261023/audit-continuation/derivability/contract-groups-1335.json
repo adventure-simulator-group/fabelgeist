@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1335",
+  "at": "2026-10-25T18:31:43.812450+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1387,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/foot_clearance.rs",
+  "sha256": "fbee9961d5150f7a221c942cab5c5288e3efdca4d36e920ab5476a2ed9be3b82",
+  "actual_compared_ranges": [
+    [
+      1,
+      300
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "FootClearanceFloor/FootDescent use existing structural derives. Only inherent minimum-height/apply and semantic descent selection plus free checked current terrain/run/settle/ankle-toe clearance policies. No handwritten trait/codec; physical additive arithmetic/error categories/current terrain adapter not mechanical derive projection.",
+  "first_unfinished": {
+    "scope_index": 1387,
+    "line": 301
+  },
+  "execution": "none"
+}

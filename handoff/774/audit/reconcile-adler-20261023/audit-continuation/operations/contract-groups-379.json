@@ -1,0 +1,110 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-379",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/departure_policy.rs",
+      "sha256": "1859c9e05a96c7365a50d26980e7a2dfbdf5040106f5aa5131b56b86005d9596",
+      "actual_EOF": 204,
+      "actual_compared_ranges": [
+        [
+          1,
+          204
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/discovery_policy.rs",
+      "sha256": "ce9a63997e69ca2ab6dd04b3f95c73180ee30527716047bd527cc290f9fdc4f4",
+      "actual_EOF": 391,
+      "actual_compared_ranges": [
+        [
+          1,
+          391
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/encounter_policy.rs",
+      "sha256": "7d3199ead47d5700c22743f7a862eabfccaeb9b3027af9131908f1fea2d5884c",
+      "actual_EOF": 330,
+      "actual_compared_ranges": [
+        [
+          1,
+          330
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/events.rs",
+      "sha256": "ad1df9028c6cd6b2b5b676aa9b7c3c48445f6e0db3eb11646f639b19b217b80e",
+      "actual_EOF": 215,
+      "actual_compared_ranges": [
+        [
+          1,
+          215
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Departure wait construction is bounded and distinguishes forecast horizon from executable wait",
+      "source_ranges": {
+        "departure_policy.rs": [
+          [
+            1,
+            204
+          ]
+        ]
+      },
+      "disposition": "Complete 204 lines read. Seven-day hourly search has at most168 sampled waits plus8 daily starts, sorted/dedup; day offsets0..7 make raw multiply by1440 safe. Forecast wait up to10080 minutes differs intentionally from representable immediate wait<=1440; both floor60, no zero-duration wait. Saturating calendar addition nearMAX can collapse trial dates, related ROOT04F019 forecast terminal API dependency; ordinary100year config does not reachMAX. Deferral enums carry actual readiness/itinerary/recovery fields; bitwise/raw primitive policy owners remain accepted03/06 questions, no new arithmetic failure. Actual route and provisioning consumers next roles, not inferred cleared from policy declarations."
+    },
+    {
+      "contract": "Discovery rotation and fairness avoid modulo-zero through position witnesses",
+      "source_ranges": {
+        "discovery_policy.rs": [
+          [
+            1,
+            391
+          ]
+        ]
+      },
+      "disposition": "All391 lines read. Contact identity includes resident/conversation/location, backoff compares full fingerprint and strict official<retry date. Candidate rotation positionSome implies len>0 and index+1<=len, so modulo denominator nonzero and no usize overflow for a material Vec; empty returnsNone. Same proof for fair_open_case_index modulo when cursor found; empty returns0 as caller-index convention, actual caller must guard before indexing. Stable sorted contacts/cases and latest changed/unresolved referrals preserve public semantics; case-open HashSet naming not enough to infer incorrect branch. Progress fingerprint excludes timestamps/IDs where intended semantic state tracked; no unsupported claim that every cosmetic change must reset backoff. Daily presence delegates valid closed window owner; sourceclock policy pending producer. No execution."
+    },
+    {
+      "contract": "Public encounter assessment handles accumulation failure and avoids hidden authority",
+      "source_ranges": {
+        "encounter_policy.rs": [
+          [
+            1,
+            330
+          ]
+        ]
+      },
+      "disposition": "All330 lines read. Protective expedition choices ordered detour/run/surrender/attack onlyifnot evacuating. Narrative selection parses public presentation, uniquely matches authored choice, rejects checks/combat, sums personality axes sign fits each[-1,1]; actual bounded catalog personality cardinality pending inherited owner, no huge allocation overflow promoted. Public contract assessment rejects unknowncount/nonpositive difficulty/zeropower; checkedu64 party sum and checked safety margin produce explicit ineligible reasons. ready_count native cast relies actual population<=32, unlike arbitrary gigantic slice. Fingerprint centipoint rounding intentionally quantized and carries exactcombatpower; actual threshold/backoff semantics pending consumers, not automatically precision defect. Generatedmethodskillfit clamp100000 bounds final cast, but raw layambush sum canoverflow for arbitrary finiteMAX profile; initial admitted profile limits require actual owner beforeordinarypromotion. No fabricated replacement readiness or new hidden combat impairment."
+    },
+    {
+      "contract": "Event semantic identity is retained internally and projected only at diagnostic wire boundary",
+      "source_ranges": {
+        "events.rs": [
+          [
+            1,
+            215
+          ]
+        ]
+      },
+      "disposition": "Entire215 lines read. Closed event kind/subject/payload constructors retain named party/case/item/character/encounter identity; semantic key clones kind/subject +agent, detail intentionally not identity. into_public formats only sequence/agent/kind/detail actualreportDTO, no arithmetic/mutation/indexing. Public raw primitive IDs and detail strings are final wire roles; earlier producers still need canonical leaves. No arbitrary event kind/subject correspondence asserted safe until actual constructors/callers; aggregate lens shared dependency."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-strategic-sim/src/live_core/expedition.rs"
+}

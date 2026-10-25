@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-388",
+  "at": "2026-10-25T15:13:41.750412+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 767,
+  "source_id": "pr-working:crates/adventuresim-character-creator/src/export.rs",
+  "sha256": "ee364aaa0d304eb120d6f91216c6da3e186f5e20809e28ffa74f5864e568d72d",
+  "actual_compared_ranges": [
+    [
+      1,
+      250
+    ]
+  ],
+  "existing_derives": [
+    "BufferBuilder Default68"
+  ],
+  "trait_inventory": [],
+  "analysis": "Actual first250 lines: borrowed RiggedSocket/SurfaceUvLayout records54\u201366, BufferBuilder native aligned GLB buffer-view writing74\u201392, native endian/transform math94\u2013150, checked rig landmark/native ray/skin-weight helpers152\u2013250. No manual Rust trait in this slice; JSON view construction/native layout is explicit semantic exporter logic, not hand-written Serialize trait. Remaining251\u20131841 unread, child modules separately pending.",
+  "first_unfinished": {
+    "scope_index": 767,
+    "line": 251
+  },
+  "execution": "none"
+}

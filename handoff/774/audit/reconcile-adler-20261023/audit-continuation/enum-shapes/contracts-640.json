@@ -1,0 +1,48 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-640",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        1415,
+        1416,
+        1417,
+        1418
+      ],
+      "comparison": "Fresh full frame_clock58/global_bones59/overlay80/readiness32. Native Bevy fixed clock explicitly requires nonzero rounded Duration, distinct from valid zero elapsed at each scenario first sample. Simulation tick continues across scenario boundaries; absolute-first flag is an immediate native progression decision, no extra retained initialization state. Global bone serializer retains exact target identity plus human name placeholder; unnamed display label is not used as canonical bone identity. It converts typed scenario/time/action and transforms at real output adapter. Overlay local predicates choose optional visible bones and nominal support visualization, not proof rendered terrain support. Readiness is warmup plus two actual motion-ready observations; presentation_is_settled delegates authored_pose_is_ready (612), so do not call this proof inertialized pose settled. Counter0 is real count, not unknown.",
+      "finding_refs": [],
+      "disposition": "Existing adapters, optional observations and immediate native clock policy appropriate; readiness qualification retained"
+    },
+    {
+      "indices": [
+        1419
+      ],
+      "comparison": "Fresh full repeated_evaluation214. Optional snapshot owns complete expected scenario/frame/bones/event counters/LegIk diagnostics. Persistent validity Boolean is failure history independent of current baseline and correctly ANDs each repeated comparison. Missing/extra key converted to infinite measured deltas is new diagnosticF397; current bool result still rejects mismatch. Actual yaw comparison172\u2013179 consumes unconditional numbers and extends F390 missing observation propagation. Both-sidesNone optional target/support is matching absence rather than observed0; OptionSome0 remains a real observation. Fixture changed-diagnostics test201\u2013212 only asserts struct inequality, not the repeated_leg_ik_matches function, so no test-execution or complete comparison-verification claim.",
+      "finding_refs": [
+        "SEGO-INITIAL09-F397",
+        "SEGO-INITIAL09-F390"
+      ],
+      "disposition": "Qualified structural mismatch payload gap; complete baseline and independent permanent failure history retained"
+    },
+    {
+      "indices": [
+        1420,
+        1421
+      ],
+      "comparison": "Fresh full root_motion136/subject_motion126. CaptureGround Terrain|AuthoredPlane{actual elevation} already owns ground source; invalid observed plane rejects instead of silently substituting terrain. Each captured bone has independently optional terrain clearance when query unavailable. Fixture root initial origin is explicit authored scenario datum, not unknown geographic position. CaptureMotion owns orientation/world velocity/ground contact/elapsed at actual controller admission; action/posture state updates occur in order. begin_capture_action receives broad frame plus separately optional attack start frame, chosen only for AttackLive in parent1412, and uses existing AttackSpec/DodgeSpec/BlockSpec with actual admitted payloads. Exact neighboring-payload opportunity remains pending actual PlannedFrame/scenario construction, not promoted from helper signature alone; guard/direction/clock remain meaningful outside attack. Quickstep direction checked by existing spec; normal planned nonzero direction remains to reconcile at planner role. Tests/Bevy functions inspected only, no execution.",
+      "finding_refs": [],
+      "disposition": "Existing ground-source and controller products appropriate; whole planned action schedule remains bounded pending producer trace"
+    }
+  ],
+  "new_findings": [
+    "SEGO-INITIAL09-F397"
+  ],
+  "open_traces": [
+    {
+      "id": "SEGO-INITIAL09-OPEN-640-ACTION",
+      "trace": "1412:315\u2013320/412\u2013417 ->1421:65\u2013125 ->actual PlannedFrame/scenario plan producers later inventory",
+      "question": "Assess actual attack-start scheduling Option versus frame.action and scenario feature without forcing independent movement/guard/clock fields into attack payload."
+    }
+  ],
+  "limits": "Discovery only. Next1422 harness511. No execution/repair/checks/clearance."
+}

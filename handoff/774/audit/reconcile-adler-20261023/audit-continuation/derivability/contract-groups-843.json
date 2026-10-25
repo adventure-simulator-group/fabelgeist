@@ -1,0 +1,354 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-843",
+  "at": "2026-10-25T16:59:53.881750+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1058,
+      "source_id": "pr-working:crates/adventuresim-puzzles/Cargo.toml",
+      "sha256": "776ef3b34040bd18cba056db05a10463f6838cbaef84a75f4d669ffe3966683f",
+      "actual_EOF": 15,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-puzzles/Cargo.toml",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-puzzles/Cargo.toml",
+        "sha256": "776ef3b34040bd18cba056db05a10463f6838cbaef84a75f4d669ffe3966683f",
+        "bytes": 298,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "root",
+            "record": "wave-01/audit-producer-propagation/root/additional-sources-030.json",
+            "ranges": [
+              [
+                1,
+                15
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "ROOT-PP-PUZZLE-SEED-030"
+            ]
+          },
+          {
+            "shard": "root",
+            "record": "wave-01/audit-producer-propagation/root/unchanged-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                15
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "ROOT-PP-PUZZLE-SEED-030"
+            ]
+          }
+        ],
+        "audit_owner": "root",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 4,
+            "read_ranges": [
+              [
+                1,
+                15
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-METADATA-001"
+            ],
+            "read_status": "full_stdlib_native_format_metadata",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-puzzles/Cargo.toml"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-PUZZLE-SEED-009",
+            "json_pointer": "/source_proofs/0",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-puzzles/Cargo.toml",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                15
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-puzzles/Cargo.toml",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-puzzles/Cargo.toml",
+              "sha256": "776ef3b34040bd18cba056db05a10463f6838cbaef84a75f4d669ffe3966683f",
+              "read_ranges": [
+                [
+                  1,
+                  15
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 403,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Full manifest: Serde/JSON/clap/determinism available; no thiserror/general conversion/format derive dependency. No source implementation."
+    },
+    {
+      "scope_index": 1059,
+      "source_id": "pr-working:crates/adventuresim-puzzles/src/choices.rs",
+      "sha256": "903776fd76d202ee0e8047523cff9ae9812cfa700bdfa466a68e066c19a69f0d",
+      "actual_EOF": 6,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-puzzles/src/choices.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-puzzles/src/choices.rs",
+        "sha256": "903776fd76d202ee0e8047523cff9ae9812cfa700bdfa466a68e066c19a69f0d",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 193,
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+            "row": 37,
+            "read_ranges": [
+              [
+                1,
+                6
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-PUZZLE-024"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-puzzles/src/choices.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root"
+        ],
+        "audit_owner": "root",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-BOUNDARY-METADATA-028",
+            "json_pointer": "/source_proofs/4",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-puzzles/src/choices.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                6
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-puzzles/src/choices.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-puzzles/src/choices.rs",
+              "sha256": "903776fd76d202ee0e8047523cff9ae9812cfa700bdfa466a68e066c19a69f0d",
+              "read_ranges": [
+                [
+                  1,
+                  6
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1021,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          6
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Full choices module declarations/reexports only, no implementation or child coverage."
+    },
+    {
+      "scope_index": 1060,
+      "source_id": "pr-working:crates/adventuresim-puzzles/src/lib.rs",
+      "sha256": "710b7464b874f4a7d13e47772786ff780a13d4b4689a613d6f7fbc0efa2b5f28",
+      "actual_EOF": 19,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-puzzles/src/lib.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-puzzles/src/lib.rs",
+        "sha256": "710b7464b874f4a7d13e47772786ff780a13d4b4689a613d6f7fbc0efa2b5f28",
+        "bytes": 463,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "root",
+            "record": "wave-01/audit-producer-propagation/root/additional-sources-030.json",
+            "ranges": [
+              [
+                1,
+                19
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "ROOT-PP-PUZZLE-SEED-030"
+            ]
+          },
+          {
+            "shard": "root",
+            "record": "wave-01/audit-producer-propagation/root/unchanged-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                19
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "ROOT-PP-PUZZLE-SEED-030"
+            ]
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/bounded-policy-sources.json",
+            "ranges": [
+              [
+                1,
+                19
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-BOUNDED-POLICY-RECEIVERS-001"
+            ]
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                19
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-BOUNDED-POLICY-RECEIVERS-001"
+            ]
+          }
+        ],
+        "audit_owner": "root",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 100,
+            "read_ranges": [
+              [
+                1,
+                19
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-PUZZLE-024"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-puzzles/src/lib.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-PUZZLE-SEED-009",
+            "json_pointer": "/source_proofs/1",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-puzzles/src/lib.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                19
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-puzzles/src/lib.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-puzzles/src/lib.rs",
+              "sha256": "710b7464b874f4a7d13e47772786ff780a13d4b4689a613d6f7fbc0efa2b5f28",
+              "read_ranges": [
+                [
+                  1,
+                  19
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 404,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Full crate root constants/modules/reexports only; no handtrait/codec or childbody coverage."
+    }
+  ],
+  "groups": [
+    "Existing native Serde/clap derives available for owning puzzles scope; do not add cleanup dependencies or credit unreached child bodies."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1061,
+    "source_id": "pr-working:crates/adventuresim-puzzles/src/logic_grid.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

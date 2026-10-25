@@ -1,0 +1,123 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-856",
+  "at": "2026-10-25T17:01:55.987866+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1073,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/alcohol.rs",
+      "sha256": "c572b0014c6114020ee98d99a3cdfa1579b25a815ade34656bfeb8b6a421d1dc",
+      "actual_EOF": 677,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/alcohol.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\alcohol.rs",
+        "sha256": "c572b0014c6114020ee98d99a3cdfa1579b25a815ade34656bfeb8b6a421d1dc",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 677,
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CLINICAL-RECEIVERS-045",
+            "json_pointer": "/additional_actual_source_proofs/10",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/alcohol.rs",
+            "read_ranges_as_recorded": [
+              [
+                565,
+                605
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/alcohol.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/alcohol.rs",
+              "sha256": "c572b0014c6114020ee98d99a3cdfa1579b25a815ade34656bfeb8b6a421d1dc",
+              "actual_lines": 677,
+              "read_ranges": [
+                [
+                  565,
+                  605
+                ]
+              ],
+              "requested_range_limits": [
+                [
+                  565,
+                  605
+                ]
+              ],
+              "proof_mode": "Fresh actual bounded current clinical receiver/owner body. Effective range clipped to actualEOF. No whole unrelated file/role credit."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-035",
+            "json_pointer": "/fresh_current_additional_source_reads/10",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/alcohol.rs",
+            "read_ranges_as_recorded": [
+              [
+                565,
+                605
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/alcohol.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/alcohol.rs",
+              "sha256": "c572b0014c6114020ee98d99a3cdfa1579b25a815ade34656bfeb8b6a421d1dc",
+              "actual_lines": 677,
+              "read_ranges": [
+                [
+                  565,
+                  605
+                ]
+              ],
+              "requested_range_limits": [
+                [
+                  565,
+                  605
+                ]
+              ],
+              "proof_mode": "Fresh actual bounded current clinical receiver/owner body. Effective range clipped to actualEOF. No whole unrelated file/role credit."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          677
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "AlcoholConsumption CloneDebug+SpacetimeDB table macro; local StackClone already"
+      ],
+      "absence_basis": "Full source native alcohol property/ledger/availability/selection/consumption/evening/morale/hydration/disinfectant operations plus source fixture only; no manual trait/codec."
+    }
+  ],
+  "groups": [
+    "Partial855 retained. Native DB queries/transactions and measured consumption/chronology/personality policy are semantic, no equivalent structural derive. Source-string assertions661\u2013677 read only, no test/build/DB execution; rest_ledger child remains separate material."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1074,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/browser_session.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

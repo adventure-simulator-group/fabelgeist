@@ -1,0 +1,23 @@
+{
+  "id": "NATIVE-ADMISSION03-CONTRACT-GROUPS-008",
+  "lens": "audit-admission-contracts",
+  "groups": {
+    "calibration-admitted-spans-and-measurements": {
+      "indices": [
+        162,
+        168,
+        176
+      ],
+      "invariant": "Retained authored/physical phase and signed calibration positions finite; private ContactPhaseSpan nonempty strictlyincreasingphysical samples, singletonvalid/reverseauthoredvalid. Measured stride/slip finite>=0; unavailablecalibration None separate actualidentity curve.",
+      "all_admission_routes": "AuthoredContactSample/PhysicalContactSample/ContactPhaseFit publicsuper typed fields; FootTrajectorySample rawnativeVec3 explicitly broader. ContactOrientation private direction/checkedoffset, onlyfit tests signeddisplacement then readmits computedphaseoffset. PhaseMappingSample/FittedContactSpan/ContactPhaseSpan private fields noSerde/Reflect/Default/publicrawmutable; ContactPhaseSpannew takes checkedfirst establishingnonempty and testschecked physicaldifference>0 for everyremaining beforeliteral; only FittedContactSpanfit usesnew after preservesactualfirst/lastendpoint. Native intermediate inversion results call checkedCycleDelta/CyclePhase/SignedLength/NonnegativeLength. AuthoredLocomotionCalibration typedstride/optionalcurve, literal only after actualcheckedfitoutputs or combatfootrange fallbackzero slip/Nonecurve. CharacterLocomotionStrides fields measurements typedaggregate/offsetrawVec3/definitionArc; solefactory currentcalibrate, noSerde/Reflect/Default. CalibrationAxis closed2, component selects raw x/z then SignedLength::from_metres before retainedsignedposition; other axes do not imply fullVec3finite. Native ContactSegments explicitly checks fullsampleposition.is_finite beforeFootTrajectorySample, allphase/source projections readmitted.",
+      "actual_receiver_and_source": "Full contact447/phase434/stride297 bodies read including originalcontact226–447 andstride239–297 fixtures. Actualgraph native BakedClip samples→positionfinite guard→lowheight/sourcecontactsegments→orientation/phasefit→spannew→AuthoredPhaseCurve checkedseamcurrent169→stridecheckedresidual/rangetest→cache. StanceDirection productionDecreasing vs cfgtestIncreasing closedoutputs; reverse sampledseam and signedunwrapped coordinates deliberate. minimum/maxwindow positiveconfig leaves do notprove ordering; config aggregate later05, actualclamp relation not scalaradmissionclaim. Native min/maxfold Inf sentinels neverbecome retainedcheckedlength before checkedfactory.",
+      "representable_counterexamples": "Duplicate/reversed physicalcoordinates rejectednew; empty cannotbeContactPhaseSpan because first argumentrequired; singletonvalid. Nonfinite rawtrajectory rejected actual contactproducer, raw publicFootTrajectorySample can stillbeconstructed directly then lowheight kernel returnsrawsupportedbool/Error, not checkedposition. Empty/missingfoot, clipduration0/fewerthan4samples, allcontacts/no displacement, wrongdirection oroutofrange measurement returnsNone (or checkederror), no false defaultmeasurement. Native arbitrary offset can remainraw untilsample/admission; cachealloffsetcomparison exact and Arc identity check not rigprovenanceguarantee. ContactPhaseFit public trajectories mayarbitrary counts, 05correlationseparate.",
+      "finding_support": "No new local refined constructor bypass demonstrated. Existing raw source/type propagation/aggregateconfig findings retain original proof; slipbudgetwarning is currentrepresentability downstream policy, not intrinsicNonnegativeLength bound. No false assertion all fits belowbudget.",
+      "connected_repair": "continuation/native/connected-repair-map.json exact whole-function claims, existing Native/Root role ownership only; no new implementation claim or transferredfunction.",
+      "acceptance": "Every genuinelyrefined constructor/decode/literal route enforces finite/sign/nonempty/strictphysicalordering and preserves reverse/singleton/emptyidentity/None/error policies; rawinputandoriginalfixtureingress remain original. Arithmetic04/cachegraph05 notcleared.",
+      "dependencies": "Current canonicalleaf actual Native001 + Root ROOT-ADM-GEOMETRY-001 SignedLength/PositiveLength and current Native005 curve/inputs; Rig current037 tableallorderedTs/032 exactnames no membership guarantee.",
+      "later_lens_credit": false
+    }
+  },
+  "later_lens_credit": false
+}

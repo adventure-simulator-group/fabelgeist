@@ -1,0 +1,160 @@
+--- PRbase/crates/adventuresim-stdb-module/src/character/weapon_carry.rs
++++ frozen/crates/adventuresim-stdb-module/src/character/weapon_carry.rs
+@@ -0,0 +1,157 @@
++//! Physical carry-kit assembly for a generated character loadout.
++
++use super::*;
++use adventuresim_core::item_references::{
++    BELT_ID, BLADE_ATTACHMENT_POINT_ID, BLADE_SHEATH_ID, HAFT_LOOP_ID, WEAPON_CARRY_HIP_PLACEMENTS,
++    WORN_PLACEMENT_ID,
++};
++
++/// Adds the physical carry kit implied by a generated loadout. A suitable
++/// weapon already authored in a hand stays there; a suitable sidearm that was
++/// not initially equipped is placed inside the generated sheath.
++pub(super) fn provision_generated_weapon_carry(
++    ctx: &ReducerContext,
++    character_id: u64,
++) -> Result<(), String> {
++    let sheathable: Vec<_> = ctx
++        .db
++        .inventory_item()
++        .character_id()
++        .filter(character_id)
++        .filter(|inventory| {
++            adventuresim_core::item_catalog::is_sheathable_weapon(&inventory.item_id)
++        })
++        .collect();
++    if sheathable.is_empty() {
++        return Ok(());
++    }
++    if sheathable.len() > 2 {
++        return Err(format!(
++            "Generated loadout has {} sheathable weapons but the authored belt kit carries at most two",
++            sheathable.len()
++        ));
++    }
++
++    let belt =
++        add_inventory_item(ctx, character_id, BELT_ID, 1).ok_or("Could not add generated belt")?;
++    let belt_placement = authored_placement_index(ctx, BELT_ID, WORN_PLACEMENT_ID)?;
++    equip_equipment_internal(
++        ctx,
++        character_id,
++        belt,
++        belt_placement,
++        Vec::new(),
++        false,
++        false,
++    )?;
++
++    for (weapon, hip) in sheathable.iter().zip(WEAPON_CARRY_HIP_PLACEMENTS) {
++        let holder_id = match adventuresim_weapon_model::recommended_holder(&weapon.item_id) {
++            Some(adventuresim_weapon_model::WeaponHolderKind::BladeSheath) => BLADE_SHEATH_ID,
++            Some(adventuresim_weapon_model::WeaponHolderKind::HaftLoop) => HAFT_LOOP_ID,
++            None => {
++                return Err(format!(
++                    "Sheathable weapon {} has no procedural holder",
++                    weapon.item_id
++                ));
++            }
++        };
++        let holder = add_inventory_item(ctx, character_id, holder_id, 1)
++            .ok_or_else(|| format!("Could not add generated {holder_id}"))?;
++        crate::weapon_instance::fit_personal_holder(ctx, character_id, holder, weapon.id)?;
++        let holder_placement = authored_placement_index(ctx, holder_id, hip)?;
++        equip_equipment_internal(
++            ctx,
++            character_id,
++            holder,
++            holder_placement,
++            vec![EquipmentAttachmentTargetSelection {
++                requirement_index: 0,
++                parent_inventory_item_id: belt,
++                attachment_point_id: hip.into(),
++            }],
++            false,
++            false,
++        )?;
++        place_unheld_weapon_in_sheath(ctx, character_id, weapon, holder)?;
++    }
++    Ok(())
++}
++
++pub(super) fn select_sheath_compatible_parent_placement(
++    placements: &[crate::item::PersistedEquipmentPlacement],
++) -> Option<u16> {
++    placements
++        .iter()
++        .position(|placement| {
++            placement.parents.len() == 1
++                && placement.parents[0].channel == EquipmentChannel::Containment
++                && placement.parents[0].order == 0
++        })
++        .and_then(|index| u16::try_from(index).ok())
++}
++
++fn place_unheld_weapon_in_sheath(
++    ctx: &ReducerContext,
++    character_id: u64,
++    weapon: &crate::item::InventoryItem,
++    sheath: u64,
++) -> Result<(), String> {
++    if ctx
++        .db
++        .character_equipped_item()
++        .inventory_item_id()
++        .find(weapon.id)
++        .is_some()
++    {
++        return Ok(());
++    }
++    let placement = sheath_compatible_parent_placement_index(ctx, &weapon.item_id)?;
++    equip_equipment_internal(
++        ctx,
++        character_id,
++        weapon.id,
++        placement,
++        vec![EquipmentAttachmentTargetSelection {
++            requirement_index: 0,
++            parent_inventory_item_id: sheath,
++            attachment_point_id: BLADE_ATTACHMENT_POINT_ID.into(),
++        }],
++        false,
++        false,
++    )
++}
++
++fn authored_placement_index(
++    ctx: &ReducerContext,
++    item_id: &str,
++    placement_id: &str,
++) -> Result<u16, String> {
++    let definition = ctx
++        .db
++        .item()
++        .id()
++        .find(item_id.to_owned())
++        .ok_or_else(|| format!("Generated carry kit item {item_id} is missing"))?;
++    definition
++        .equipment_placements
++        .iter()
++        .position(|placement| placement.id == placement_id)
++        .and_then(|index| u16::try_from(index).ok())
++        .ok_or_else(|| format!("{item_id} lacks authored placement {placement_id}"))
++}
++
++fn sheath_compatible_parent_placement_index(
++    ctx: &ReducerContext,
++    item_id: &str,
++) -> Result<u16, String> {
++    let definition = ctx
++        .db
++        .item()
++        .id()
++        .find(item_id.to_owned())
++        .ok_or_else(|| format!("Generated sidearm {item_id} is missing"))?;
++    select_sheath_compatible_parent_placement(&definition.equipment_placements).ok_or_else(|| {
++        format!("Sheathable sidearm {item_id} lacks a single containment parent placement")
++    })
++}

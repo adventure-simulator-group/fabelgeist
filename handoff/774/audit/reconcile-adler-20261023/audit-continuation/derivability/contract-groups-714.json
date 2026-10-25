@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-714",
+  "at": "2026-10-25T16:36:19.656215+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 979,
+  "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/tests/routes_and_evidence.rs",
+  "sha256": "1e63a6243b28e6299494477083e5ed5bed233a8a73c76fafded2475553a0ce10",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Route/evidence fixture1\u2013220 source asserts exact large-u64 witness identity, projection pipeline, native method mapping, contact-root idempotence/successors, unmatched/duplicate witness routes and terminal contact. No type/trait/codec implementation; fixture context semantic adaptation not mechanical derive. Read only, no execution."
+  ],
+  "first_unfinished": {
+    "scope_index": 979,
+    "line": 221
+  },
+  "execution": "none"
+}

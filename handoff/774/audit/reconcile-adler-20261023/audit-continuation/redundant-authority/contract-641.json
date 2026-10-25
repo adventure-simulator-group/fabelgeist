@@ -1,0 +1,111 @@
+{
+  "id": "CONT07-CONTRACT-641",
+  "at": "2026-10-24T00:56:49.449273+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2828,
+      "source_id": "physical-p16:crates/adventuresim-puzzles/Cargo.toml",
+      "sha256": "776ef3b34040bd18cba056db05a10463f6838cbaef84a75f4d669ffe3966683f",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-puzzles/Cargo.toml",
+      "actual_EOF": 15,
+      "ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2829,
+      "source_id": "physical-p16:crates/adventuresim-puzzles/src/lib.rs",
+      "sha256": "710b7464b874f4a7d13e47772786ff780a13d4b4689a613d6f7fbc0efa2b5f28",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-puzzles/src/lib.rs",
+      "actual_EOF": 19,
+      "ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2830,
+      "source_id": "physical-p16:crates/adventuresim-puzzles/src/choices.rs",
+      "sha256": "903776fd76d202ee0e8047523cff9ae9812cfa700bdfa466a68e066c19a69f0d",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-puzzles/src/choices.rs",
+      "actual_EOF": 6,
+      "ranges": [
+        [
+          1,
+          6
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2831,
+      "source_id": "physical-p16:crates/adventuresim-puzzles/src/choices/sigil.rs",
+      "sha256": "938e02bc3b641badd397f25bab13110ca2a7bb2cac9f7a1e93c722478f0b89a5",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-puzzles/src/choices/sigil.rs",
+      "actual_EOF": 83,
+      "ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "read_kind": "same exact hash/range own-lens source proof reused with fresh P16 owner comparison",
+      "reuse_reference": "CONT07-CONTRACT-600"
+    },
+    {
+      "scope_index": 2832,
+      "source_id": "physical-p16:crates/adventuresim-puzzles/src/choices/witness_path.rs",
+      "sha256": "363a096f49e88a04b938d910c9e90e311dd1a25cf9eca34c0f5e79881c07bd8f",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-puzzles/src/choices/witness_path.rs",
+      "actual_EOF": 75,
+      "ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "read_kind": "same exact hash/range own-lens source proof reused with fresh P16 owner comparison",
+      "reuse_reference": "CONT07-CONTRACT-600"
+    },
+    {
+      "scope_index": 2833,
+      "source_id": "physical-p16:crates/adventuresim-puzzles/src/puzzles.rs",
+      "sha256": "e3eb46b050e02df31df84a6d18ded142d748383d0e9611c55bc720d086bbbfbe",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-puzzles/src/puzzles.rs",
+      "actual_EOF": 1131,
+      "ranges": [
+        [
+          1,
+          944
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "ROOT-ADM-F008 complete record including additional_predicate_qualification"
+  ],
+  "facts": [
+    "2828\u20132830 crate dependency boundary and canonical fixed vocabulary modules/version constants inventoried. Versions label puzzle rule compatibility, not derived from arbitrary source count.",
+    "2831/2832 same exact SHA as personally fully read PR source2595/2596 in CONT07-CONTRACT-600; independently apply 07 semantics to P16 scoped prefix. Enum-owned labels/parse/display are coordinated native boundaries; no divergent authority introduced by identical P16 variant.",
+    "2833 fully read1\u2013944: tagged PuzzleAuthority/Projection/Submission retain kind with correct payload; kind() derives variant rather than independently stored tag. GenerationRequest seed/spec is replay provenance, not equivalent to current edited clues. Puzzle check trusts stored private-answer fields; derived Deserialize/public mutation can bypass generator validation, exact adopted ROOT-ADM-F008 support, no new unique ordinary game failure.",
+    "Truthful witness validates statements against private solution/liar, proves unique path and optional unique liar; optional liar ambiguity intentional. Rune stores solution derivable from laws/route/query and validates equality. Public mutation/deserialization leaves that invariant unowned outside validate; same aggregate admission repair as ROOT-ADM-F008. Normal factories run validate before return.",
+    "Rune explicit spec repeated-operation/route policy omitted in validate840\u2013885 while generator obeys; supplier ROOT-ADM-F008 exact additional predicate qualification consumed and independently confirmed. No ordinary invalid generator or runtime claim. Human-readable rule_text and apply pair mappings currently agree but should share operation owner if maintained; no mismatching string classification shown."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2836,
+    "start_line": 1
+  }
+}

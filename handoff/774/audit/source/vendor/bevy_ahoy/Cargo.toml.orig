@@ -1,0 +1,81 @@
+[package]
+name = "bevy_ahoy"
+authors = ["Jan Hohenheim <jan@hohenheim.ch>"]
+version = "0.2.0"
+edition = "2024"
+license = "MIT OR Apache-2.0 "
+description = "A fun 3D Kinematic Character Controller for Bevy + Avian + BEI."
+readme = "readme.md"
+repository = "https://github.com/janhohenheim/bevy_ahoy"
+keywords = ["kcc", "character", "controller", "source", "quake"]
+categories = ["game-development"]
+include = ["/src", "/license*", "/examples"]
+
+[features]
+default = ["pickup"]
+serialize = ["dep:serde", "avian3d/serialize", "bevy_math/serialize", "avian_pickup?/serialize"]
+pickup = ["dep:avian_pickup"]
+
+[dependencies]
+avian3d = { version = "0.7", default-features = false, features = ["parry-f32", "3d", "f32"] }
+bevy_ecs = { version = "0.19", default-features = false }
+bevy_app = { version = "0.19", default-features = false }
+bevy_derive = { version = "0.19", default-features = false }
+bevy_utils = { version = "0.19", default-features = false }
+bevy_math = { version = "0.19", default-features = false }
+bevy_reflect = { version = "0.19", default-features = false }
+bevy_transform = { version = "0.19", default-features = false }
+bevy_time = { version = "0.19", default-features = false }
+bevy_enhanced_input = { version = "0.26", default-features = false }
+tracing = { version = "0.1", default-features = false }
+avian_pickup = { version = "0.6", default-features = false, optional = true }
+serde = { version = "1", default-features = false, features = ["derive"], optional = true }
+
+[dev-dependencies]
+bevy = { version = "0.19", features = ["track_location", "dynamic_linking", "file_watcher"] }
+bevy_trenchbroom = { version = "0.14.0-rc", features = ["avian_f32"] }
+bevy_mod_mipmap_generator = "0.2"
+avian3d = "0.7.0"
+bevy_framepace = "0.22.0"
+bevy_fix_cursor_unlock_web = "0.4"
+wasm-bindgen = "=0.2.108"
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+getrandom = { version = "0.3", features = ["wasm_js"] }
+
+[package.metadata.bevy_cli.unstable]
+#web-multi-threading = true
+
+[profile.dev]
+opt-level = 1
+
+[profile.dev.package."*"]
+opt-level = 3
+
+[lints.rust]
+# missing_docs = "warn"
+unused_qualifications = "warn"
+
+[lints.clippy]
+too_many_arguments = "allow"
+type_complexity = "allow"
+needless_lifetimes = "allow"
+doc_markdown = "warn"
+manual_let_else = "warn"
+match_same_arms = "warn"
+redundant_closure_for_method_calls = "warn"
+redundant_else = "warn"
+semicolon_if_nothing_returned = "warn"
+undocumented_unsafe_blocks = "warn"
+unwrap_or_default = "warn"
+nonstandard_macro_braces = "warn"
+ptr_as_ptr = "warn"
+ptr_cast_constness = "warn"
+ref_as_ptr = "warn"
+too_long_first_doc_paragraph = "allow"
+allow_attributes = "warn"
+allow_attributes_without_reason = "warn"
+
+[package.metadata.docs.rs]
+rustdoc-args = ["-Zunstable-options", "--generate-link-to-definition"]
+all-features = true

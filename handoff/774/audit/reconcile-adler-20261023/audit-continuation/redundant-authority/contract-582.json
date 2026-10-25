@@ -1,0 +1,95 @@
+{
+  "id": "CONT07-CONTRACT-582",
+  "at": "2026-10-24T00:16:47.825155+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2519,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/openings.rs",
+      "sha256": "14199ccf21d392bf19b46f9cfe2acb7675b248c2034bb65d04f9ace610aacc03",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/openings.rs",
+      "actual_EOF": 217,
+      "ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2520,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/readiness.rs",
+      "sha256": "da0f087a671bf4958225ba9cd45f834cff0b0d651c9ab03c1ebcc9242a01b1e0",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/readiness.rs",
+      "actual_EOF": 301,
+      "ranges": [
+        [
+          66,
+          83
+        ],
+        [
+          104,
+          107
+        ],
+        [
+          113,
+          156
+        ],
+        [
+          169,
+          221
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2521,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/buildings.rs",
+      "sha256": "1ff4992f7b174c833e18baa1f5d3e7cdbb1c213ddd52e06d87d50d921d7c3cb3",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-client/src/tactical_scene_viewer/buildings.rs",
+      "actual_EOF": 78,
+      "ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2522,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/city_layout/compound.rs",
+      "sha256": "8d64dedb165f7ed83c658f1f3126c264e7d67aef759ccaeed83843d99190c86b",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/city_layout/compound.rs",
+      "actual_EOF": 93,
+      "ranges": [
+        [
+          37,
+          49
+        ],
+        [
+          58,
+          67
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "P16 building review fixtures use actual canonical door/window compilation and datum conversion; retained closed pose is historical desired fixture input and transform_open derives hinge orbit from it. Diagnostic Open/Closed selection does not introduce a competing tactical motor state.",
+    "P16 opening target Door uses first compiled exterior leaf while glazing/shutter/barred selector uses typed window leaf/bars policy; fixed glazing follows actual closedLeadedGlazing opening plus host wall criteria. Selection is diagnostic sample choice, not identity assignment to all doors.",
+    "P16 readiness compares actual instancecounts and GPUmesh/material assets against fixture requirements, validates enum-owned material choices and physical transmission. Scope stops at221, no omitted later readiness logic credited; counts/readiness are independent observations rather than duplicate current geometry.",
+    "P16 distant placements exclude playable IDs to avoid duplicate physical building presentation; supplied distant list membership uniqueness still requires upstream admission. Boundary fixture uses GateDatum once for leaf descriptor/transform and canonical ReviewLeafPose; no independent hand-reconstructed gate geometry.",
+    "P16 PropertySide owns left/rightsign mapping; CityGate hinge/centre/orientation/dimensions are separate authored physical inputs, not closed-pose derivatives. Actual gate door producer remains required recipient beyond this exact definition scope. No native scene/browser/GPU run."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2523,
+    "start_line": 1
+  }
+}

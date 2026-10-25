@@ -1,0 +1,251 @@
+{
+  "run": 39430479607,
+  "job": 118653923352,
+  "head": "82528917d5de0b9391b6e608ca5db8ba4a8c9271",
+  "steps": [
+    {
+      "name": "Set up job",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 1
+    },
+    {
+      "name": "Run actions/checkout@v7",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 2
+    },
+    {
+      "name": "Install pinned Rust toolchain",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 3
+    },
+    {
+      "name": "Cache Rust build artifacts",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 4
+    },
+    {
+      "name": "Install pinned SpacetimeDB CLI",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 5
+    },
+    {
+      "name": "Install configured Linux linker",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 6
+    },
+    {
+      "name": "Check formatting",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 7
+    },
+    {
+      "name": "Test generated bindings verifier",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 8
+    },
+    {
+      "name": "Check building review presentation boundary",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 9
+    },
+    {
+      "name": "Verify generated SpacetimeDB bindings",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 10
+    },
+    {
+      "name": "Test shared schema and GPU readback boundaries",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 11
+    },
+    {
+      "name": "Test resolved Bevy guard",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 12
+    },
+    {
+      "name": "Test checked FBX array encoding",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 13
+    },
+    {
+      "name": "Test existing FBX object-name consumers",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 14
+    },
+    {
+      "name": "Check semantic values and Rust growth",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 15
+    },
+    {
+      "name": "Check calendar API ownership",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 16
+    },
+    {
+      "name": "Lint tactical client WASM target",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 17
+    },
+    {
+      "name": "Test native and WASM deterministic draws",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 18
+    },
+    {
+      "name": "Run Clippy with warnings denied",
+      "status": "completed",
+      "conclusion": "failure",
+      "number": 19
+    },
+    {
+      "name": "Test constraint graph and shell consumers",
+      "status": "completed",
+      "conclusion": "skipped",
+      "number": 20
+    },
+    {
+      "name": "Upload constraint validation evidence",
+      "status": "completed",
+      "conclusion": "failure",
+      "number": 21
+    },
+    {
+      "name": "Record rig contract revision",
+      "status": "completed",
+      "conclusion": "skipped",
+      "number": 22
+    },
+    {
+      "name": "Test shared rig contracts",
+      "status": "completed",
+      "conclusion": "skipped",
+      "number": 23
+    },
+    {
+      "name": "Test autoresolve battle-time consumers",
+      "status": "completed",
+      "conclusion": "skipped",
+      "number": 24
+    },
+    {
+      "name": "Test MHR rig admission",
+      "status": "completed",
+      "conclusion": "skipped",
+      "number": 25
+    },
+    {
+      "name": "Test creator rig family contracts",
+      "status": "completed",
+      "conclusion": "skipped",
+      "number": 26
+    },
+    {
+      "name": "Test tactical animation and audio contracts",
+      "status": "completed",
+      "conclusion": "skipped",
+      "number": 27
+    },
+    {
+      "name": "Test existing animation report consumers",
+      "status": "completed",
+      "conclusion": "skipped",
+      "number": 28
+    },
+    {
+      "name": "Test tactical equipment contracts",
+      "status": "completed",
+      "conclusion": "skipped",
+      "number": 29
+    },
+    {
+      "name": "Test shared animation value contracts",
+      "status": "completed",
+      "conclusion": "skipped",
+      "number": 30
+    },
+    {
+      "name": "Test canonical combat configuration",
+      "status": "completed",
+      "conclusion": "skipped",
+      "number": 31
+    },
+    {
+      "name": "Test server configuration startup",
+      "status": "completed",
+      "conclusion": "skipped",
+      "number": 32
+    },
+    {
+      "name": "Test authoritative maneuver consumers",
+      "status": "completed",
+      "conclusion": "skipped",
+      "number": 33
+    },
+    {
+      "name": "Export semantic family baseline snapshot",
+      "status": "completed",
+      "conclusion": "skipped",
+      "number": 34
+    },
+    {
+      "name": "Verify required rig contract execution",
+      "status": "completed",
+      "conclusion": "skipped",
+      "number": 35
+    },
+    {
+      "name": "Upload rig contract evidence",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 36
+    },
+    {
+      "name": "Post Cache Rust build artifacts",
+      "status": "completed",
+      "conclusion": "skipped",
+      "number": 71
+    },
+    {
+      "name": "Post Run actions/checkout@v7",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 72
+    },
+    {
+      "name": "Complete job",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 73
+    }
+  ],
+  "firstFailure": {
+    "gate": "Run Clippy with warnings denied",
+    "code": "E0277",
+    "file": "crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement.rs",
+    "line": 140,
+    "message": "Native route fixture divides f32 by NonnegativeSpeed",
+    "repair": "11d956e9f24e5173f400b731ebfb771b8c7878bd",
+    "scope": "Project the configured speed only in the final distance/speed/tick-count fixture equation. Preserve operation order, count rounding and existing assertions."
+  },
+  "acceptance": "No full PASS: native all-target compilation stopped before behavioral selections. Earlier individually passing gates apply to 82528917d only."
+}

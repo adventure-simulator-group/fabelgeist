@@ -1,0 +1,172 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1259",
+  "at": "2026-10-25T18:19:04.912000+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1326,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/loading.rs",
+      "sha256": "eacc5fba1f6e67621c9d3e473d7556c5cf66ba140e3f1c80431b5568de9fda07",
+      "actual_EOF": 390,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/loading.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/animation/loading.rs",
+        "owner": "native",
+        "sha256": "eacc5fba1f6e67621c9d3e473d7556c5cf66ba140e3f1c80431b5568de9fda07",
+        "base_sha256": "ca4a62281d9dc3618e6f92775bd873d2c3920366202955f26a1f5cd4b51a4f27",
+        "state": "modified",
+        "bytes": 13401,
+        "audit_owner": "native",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [],
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 129,
+            "read_ranges": [
+              [
+                1,
+                390
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-ANIMATION-LOAD-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/loading.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 472,
+            "read_ranges": [
+              [
+                1,
+                390
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-ANIMATION-LOAD-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/loading.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          390
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Free/current Bevy request/poll/rig/target/grip systems and inherent library rebuild; no type or handwritten trait/codec. Native AssetPath adapter selects workspace source only off wasm and owns input; not a mechanical From replacement."
+    },
+    {
+      "scope_index": 1327,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/loading/motion.rs",
+      "sha256": "6240a63d570d51843113c28182afebe0b156ee558ae60ef960acbe737c308eb6",
+      "actual_EOF": 175,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/loading/motion.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/animation/loading/motion.rs",
+        "owner": "native",
+        "sha256": "6240a63d570d51843113c28182afebe0b156ee558ae60ef960acbe737c308eb6",
+        "base_sha256": "f3701d07bcad1ffbafe47017c3cbc2d3f5487f4641189de9703dcb495634ac0f",
+        "state": "modified",
+        "bytes": 6631,
+        "audit_owner": "native",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [],
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 130,
+            "read_ranges": [
+              [
+                1,
+                175
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-ANIMATION-LOAD-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/loading/motion.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 473,
+            "read_ranges": [
+              [
+                1,
+                175
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-ANIMATION-LOAD-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/loading/motion.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          175
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "MotionLoad, MotionLoadState and MotionClipAdmission have no handwritten traits/codecs. Inherent native async request/poll/revision association and full single-motion admission distinguish pending/unavailable/ready with current canonical target and duration/catalog checks."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Contextual native loading/admission and target identity effects require current resources and fallible state machine semantics rather than generic conversion derives.",
+      "disposition": "NO_HANDWRITTEN_TRAIT_OR_CODEC",
+      "qualification": "No async/asset/server/system execution; child module proof here is its actual full source, not parent import."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1328,
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/mod.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

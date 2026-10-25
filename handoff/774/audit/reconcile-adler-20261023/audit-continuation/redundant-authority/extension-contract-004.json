@@ -1,0 +1,27 @@
+{
+  "id": "CONT07-EXTENSION-CONTRACT-004",
+  "at": "2026-10-24T01:35:11.936428+00:00",
+  "lens": "audit-redundant-authority",
+  "facts": [
+    "Personally read exact KernelBatch dispatch230\u2013338 and batch lifecycle339\u2013406. dispatch Result and consuming submit traced in CONT07-CONTRACT-662. No normal reachable failed BVH state established; no run or other-lens credit."
+  ],
+  "disposition": "bounded-dispatch-and-lifecycle-source-question-not-promoted",
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "sources": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274",
+      "ranges": [
+        [
+          230,
+          406
+        ]
+      ],
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/redundant-authority/recovered-new-material/dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274",
+      "registration": "CONT07-REG-036",
+      "read_kind": "fresh personally read exact registeredsource ranges"
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "at": "2026-10-25T16:42:59.224038+00:00",
+  "rows": [
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/settlement_population/authority_tests.rs",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/settlement_population/authority_tests.rs",
+      "sha256": "3d35f13b4f3e263e8f175c10c010bf9361228812c3ab76d55199b371c33dc0b5",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/registered-3d35f13b4f3e263e8f175c10c010bf9361228812c3ab76d55199b371c33dc0b5",
+      "line_count": 113,
+      "base_sha256": "3d35f13b4f3e263e8f175c10c010bf9361228812c3ab76d55199b371c33dc0b5",
+      "reason": "Actual1188 settlement_population.rs422\u2013423 declares authority-tests child. Existing fixture materially specifies source/identity/binding behavior; absent original2853 and current shared161 metadata, register before semantic body read.",
+      "index": 161,
+      "ranges": [
+        [
+          1,
+          113
+        ]
+      ],
+      "registration_evidence": "behavior-preservation/source-registration-007.json",
+      "provenance_verification": "Exact pinned PR/base git bytes and recovered object independently checked by coordinator; metadata only.",
+      "lenses": {
+        "producer-propagation": "Only bounded newly registered directly reached child body pending; adopted baseline and completed snapshots retained.",
+        "existing-type-owners": "Only bounded newly registered directly reached child body pending; adopted baseline and completed snapshots retained.",
+        "admission-contracts": "Only bounded newly registered directly reached child body pending; adopted baseline and completed snapshots retained.",
+        "invariant-operations": "Only bounded newly registered directly reached child body pending; adopted baseline and completed snapshots retained.",
+        "aggregate-states": "Only bounded newly registered directly reached child body pending; adopted baseline and completed snapshots retained.",
+        "type-ownership": "Only bounded newly registered directly reached child body pending; adopted baseline and completed snapshots retained.",
+        "redundant-authority": "Only bounded newly registered directly reached child body pending; adopted baseline and completed snapshots retained.",
+        "behavior-preservation": "Only bounded newly registered directly reached child body pending; adopted baseline and completed snapshots retained.",
+        "enum-shapes": "Only bounded newly registered directly reached child body pending; adopted baseline and completed snapshots retained.",
+        "derivability": "Only bounded newly registered directly reached child body pending; adopted baseline and completed snapshots retained.",
+        "type-granularity": "Only bounded newly registered directly reached child body pending; adopted baseline and completed snapshots retained.",
+        "magic-strings": "Only bounded newly registered directly reached child body pending; adopted baseline and completed snapshots retained.",
+        "magic-numbers": "Only bounded newly registered directly reached child body pending; adopted baseline and completed snapshots retained."
+      }
+    }
+  ],
+  "registry_count": 162,
+  "qualification": "Direct authority-test child of actual scoped module. No baseline denominator change, no semantic coverage from provenance, no new execution."
+}

@@ -1,0 +1,28 @@
+--- p16base/crates/adventuresim-stdb-module/src/capability/combatant.rs
++++ catalog-p16head/crates/adventuresim-stdb-module/src/capability/combatant.rs
+@@ -7,9 +7,9 @@
+     character_id: u64,
+     strategic_incapacitation: f32,
+     strategic_pain: f32,
+     strategic_blood_loss: f32,
+-) -> Result<Combatant, String> {
++) -> StrategicOperationResult<Combatant> {
+     let attributes = ctx
+         .db
+         .character_attributes()
+         .character_id()
+@@ -40,12 +40,10 @@
+         .character_id()
+         .find(character_id)
+         .ok_or("Character condition not found")?;
+     let fatigue = fatigue_incapacitation(stats.fatigue_by_parts(&attributes, &limbs));
+-    let equipment = StrategicEquipment::load(ctx, character_id);
+-    let combat_equipment = equipment
+-        .combat_equipment()
+-        .map_err(|error| error.to_string())?;
++    let equipment = StrategicEquipment::load(ctx, character_id)?;
++    let combat_equipment = equipment.combat_equipment();
+     let (starting_incapacitation, starting_blood_fraction) = derive_combat_starting_condition(
+         strategic_incapacitation,
+         strategic_pain,
+         strategic_blood_loss,

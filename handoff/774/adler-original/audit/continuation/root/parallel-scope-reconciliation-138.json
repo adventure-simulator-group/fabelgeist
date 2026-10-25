@@ -1,0 +1,202 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-138",
+  "at": "2026-10-22T21:48:27.454755+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-036.json",
+    "sha256": "e235ed590e540c5f9eaaba6a112083e5043bc66293147dfa64391fa1f9482929"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-035.json",
+    "sha256": "cf6b82c5a6f9fd63ac810a21211e89f30c9bedf46255bd3ea19276f1324122dd"
+  },
+  "new_variants": [
+    {
+      "source_id": "dependency-serde_json1.0.151:src/map.rs",
+      "sha256": "b5a2fd1ee865e6cfd83ef2da0a2e1057f892465ac7ede8a78a11354a60526f33",
+      "path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\serde_json-1.0.151\\src\\map.rs",
+      "snapshot": "pinned-cargo",
+      "actual_line_count": 1181,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          29,
+          36
+        ],
+        [
+          120,
+          129
+        ]
+      ],
+      "audit_owner": "camera",
+      "scope_registration": [
+        {
+          "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+          "sha256": "3800ec25ed78d5b3bfcd2889531e186163457785416bfd61ee83da653735c1a7",
+          "row_1based": 17,
+          "id": "CAMERA-INITIAL07-REG017",
+          "original_record": {
+            "registration_id": "CAMERA-INITIAL07-REG017",
+            "at": "2026-10-22T21:44:00.383127+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "dependency-serde_json1.0.151:src/map.rs",
+            "snapshot": "pinned-cargo",
+            "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\serde_json-1.0.151\\src\\map.rs",
+            "sha256": "b5a2fd1ee865e6cfd83ef2da0a2e1057f892465ac7ede8a78a11354a60526f33",
+            "actual_EOF": 1181,
+            "material_ranges": [
+              [
+                29,
+                36
+              ],
+              [
+                120,
+                130
+              ]
+            ],
+            "reason": "Actual Map backing alternatives and insert replacement delegate used by directly called Value parser",
+            "exclusions": "Only direct duplicate-key accumulation/insertion contract, no whole serde/package/foreign graph; same pinned native dependency already scoped. Navigation symbols only before registration.",
+            "status": "prospectively_registered_before_body_analysis"
+          }
+        }
+      ],
+      "scope_limits": "OnlyMapbacking29-36 andinsert120-129;130blankexcluded, nofullmap/dependencygraph.",
+      "source_lens_credit": "none from scope metadata"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness/museum.rs",
+      "sha256": "35d53d3ede39827789e549ee71207e9a7441cceb825d1f119698459e6d238922",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-client\\src\\animation_viewer\\harness\\museum.rs",
+      "snapshot": "pr-working",
+      "actual_line_count": 69,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          3,
+          17
+        ],
+        [
+          19,
+          36
+        ]
+      ],
+      "audit_owner": "native",
+      "scope_registration": [
+        {
+          "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+          "sha256": "587999f70195c85cc8453cab05d04f8c5f37dce1491b0b625e3249b682f82d19",
+          "row_1based": 10,
+          "id": "NATIVE-INITIAL05-REG010",
+          "original_record": {
+            "id": "NATIVE-INITIAL05-REG010",
+            "at": "2026-10-22T21:45:05.221873+00:00",
+            "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+            "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness/museum.rs",
+            "snapshot": "pr-working",
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-client\\src\\animation_viewer\\harness\\museum.rs",
+            "sha256": "35d53d3ede39827789e549ee71207e9a7441cceb825d1f119698459e6d238922",
+            "actual_EOF": 69,
+            "material_ranges": [
+              [
+                3,
+                17
+              ],
+              [
+                19,
+                36
+              ]
+            ],
+            "material_caller": "Scoped full PR animation_viewer/harness.rs ArmorHarness::item_ids lines38-39 directly uses both static item lists, placements feeds ordered compatible-parent occupancy fixture spawn.",
+            "reason": "Exact direct static producer needed for current whole harness/parent-order comparison. Navigation established only declarations/endpoints; body not yet read.",
+            "exclusions": "Introduction1-2, blank18/37 and test module38-69 excluded; no individual catalogue asset expansion.",
+            "status": "prospectively registered before body analysis; global pending"
+          }
+        }
+      ],
+      "scope_limits": "Onlystaticorderedlists3-17/19-36;introduction1-2/blank18,37/tests38-69excluded. Noindividualassetdependencygraph.",
+      "source_lens_credit": "none from scope metadata"
+    }
+  ],
+  "new_overlays": [
+    {
+      "id": "CONT-OWNER-RANGE-EXTENSION-223",
+      "at": "2026-10-22T21:48:27.454755+00:00",
+      "source_id": "dependency-serde_json1.0.151:src/value/de.rs",
+      "sha256": "ceda1bf415aafde89caa83bf275811b70d393717d4e1038e0c61822d2da02993",
+      "material_ranges": [
+        [
+          121,
+          148
+        ]
+      ],
+      "audit_owner": "camera",
+      "reason": "Direct Value::deserialize object visit_map policy for authored duplicate keys versus source-map first path receiver",
+      "scope_registration": [
+        {
+          "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+          "sha256": "3800ec25ed78d5b3bfcd2889531e186163457785416bfd61ee83da653735c1a7",
+          "row_1based": 16,
+          "id": "CAMERA-INITIAL07-REG016",
+          "original_record": {
+            "registration_id": "CAMERA-INITIAL07-REG016",
+            "at": "2026-10-22T21:44:00.383127+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "dependency-serde_json1.0.151:src/value/de.rs",
+            "snapshot": "pinned-cargo",
+            "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\serde_json-1.0.151\\src\\value\\de.rs",
+            "sha256": "ceda1bf415aafde89caa83bf275811b70d393717d4e1038e0c61822d2da02993",
+            "actual_EOF": 1507,
+            "material_ranges": [
+              [
+                121,
+                148
+              ]
+            ],
+            "reason": "Direct Value::deserialize object visit_map policy for authored duplicate keys versus source-map first path receiver",
+            "exclusions": "Only direct duplicate-key accumulation/insertion contract, no whole serde/package/foreign graph; same pinned native dependency already scoped. Navigation symbols only before registration.",
+            "status": "prospectively_registered_before_body_analysis"
+          }
+        }
+      ],
+      "limits": "Only direct duplicate-key accumulation/insertion contract, no whole serde/package/foreign graph; same pinned native dependency already scoped. Navigation symbols only before registration.",
+      "source_qualifications": "Only nativeordinaryobjectvisitor121-148, preserveoldseparatefloatroleandalloldbodies; nofloatadmissionclaimfrommapvisitor."
+    }
+  ],
+  "total_variants": 2787,
+  "total_overlays": 223,
+  "mandatory_scope_qualifications": [
+    {
+      "record": "continuation/root/parallel-scope-qualification-130.json",
+      "sha256": "5dc4e5cd771612c7e050ab4af544411523317ae4b57738f1fb20f493685a50fc"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-117.json",
+      "sha256": "f3b80648900716939057b20776d756a6e37001f6910378da1a1bbaea230d348b"
+    }
+  ],
+  "registered_rows": 3,
+  "input_pins": [
+    {
+      "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+      "sha256": "3800ec25ed78d5b3bfcd2889531e186163457785416bfd61ee83da653735c1a7",
+      "captured_rows": 17,
+      "selected_ids": [
+        "CAMERA-INITIAL07-REG016",
+        "CAMERA-INITIAL07-REG017"
+      ]
+    },
+    {
+      "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+      "sha256": "587999f70195c85cc8453cab05d04f8c5f37dce1491b0b625e3249b682f82d19",
+      "captured_rows": 10,
+      "selected_ids": [
+        "NATIVE-INITIAL05-REG010"
+      ]
+    }
+  ],
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through222-before036.jsonl",
+    "sha256": "af445c2147cdd915f00132adc1b3f95703f6e5681b47bcbf35d96e77abf2dd0f",
+    "through": 222
+  },
+  "limits": "Two new variants nativeMap andPRmuseumstaticlists, oneexpandednativeValueobjectvisitorrole overlay223. Allpriorqualifications SDK117/Bevy130 retained; nofloatrolecredit orindividualassetgraph."
+}

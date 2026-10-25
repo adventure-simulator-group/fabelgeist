@@ -1,0 +1,13 @@
+--- p16base/crates/adventuresim-stdb-module/src/strategic/party_readiness.rs
++++ catalog-p16head/crates/adventuresim-stdb-module/src/strategic/party_readiness.rs
+@@ -19,9 +19,9 @@
+     character_ids.sort_unstable();
+     character_ids
+ }
+ 
+-pub(crate) fn require_party_ready(ctx: &ReducerContext, party_id: &str) -> Result<(), String> {
++pub(crate) fn require_party_ready(ctx: &ReducerContext, party_id: &str) -> crate::StrategicOperationResult<()> {
+     let character_ids = living_party_member_ids(ctx, party_id);
+     if character_ids.is_empty() {
+         return Err("Party has no living members".into());
+     }

@@ -1,0 +1,30 @@
+{
+  "id": "NATIVE-ADMISSION03-CONTRACT-GROUPS-023",
+  "lens": "audit-admission-contracts",
+  "groups": {
+    "strategic-clock-day-and-raw-itinerary-admission": {
+      "indices": [
+        111
+      ],
+      "invariant": "StrategicMinuteOfDay is private0..1439 clockposition; absolute StrategicMinute allu64 is different. Travel/itinerary/health/fatigue inputs/results are raw records and native primitive calculations, not finite/bounded acceptedstate.",
+      "all_admission_routes": "Fresh full860 including originaltests476–860. StrategicMinuteOfDay privateu16 onlynew40–46(<MINUTES_PER_DAY1440), from_hour_minute49–55 hour<24/minute<60, from_absolute58–60 actualcanonicalminute_of_day modulo1440. NoDefault/Serde/Reflect/uncheckedFrom/rawmutgetter. Consumersnightwindow operateadmittedclockminute; missingunsupported walkingallocation returnsNone. Public TravelFatigueInputs/ItineraryMember/ItinerarySegment/ItineraryForecast fields rawf32/u64 plus typedDailySchedule andclosedsegmentkind; Clone/Copy only, noinputSerde/reflection/validationnew; all rawliterals representbroaderinput. forecast checkswalkingwindowrange1..1440 andnonemptymembers beforeproducingSome, boundedsegmentcount512/truncated flag—not a validatedfinite-fatigue token. Rawcalories/capacity processednative max/div, updatesrawmembers thenrawforecast; no refinedfiniteleaf admission. Absoluteofficial_minute397–399 wrapsrawmicroelapsed only into allu64StrategicMinute via saturation. Lunarphase350–355 modulo42524positiveconstant, rawillumination357 trig; actualcelestialfactory uses these, no phasewrapper admission.",
+      "counterexample_or_qualification": "Raw fatigue/health helpers may acceptnegative/NaN/Inf andreturnrawnativevalues; callerpolicy/refinedsource strengthening staysseparate. Itinerary memberorder/segmentconservation and clockauthority05/11 not cleared. No accidental bound<=1 fatigueinference from phraseboundedorder. DefaultDailySchedule broadraw perRoot021. Canonical minute0/MAX valid; nativeelapsednonnegative!=clocknonzero. Existingtests include0/futureepoch/MAX/empty/truncated/yearbaseline/mixedpartitions, all source-only unchanged.",
+      "connected_repair": "Existing Native strategic_time/clock/itinerary whole-function claims; canonicalREG006 and Rootschedule021 actualroutes consumed; no authoritytransfer.",
+      "acceptance": "Privateclockminute routeintact; preserve rawrejectedinputs, elapsed0, optionalfailure/truncation/saturation, signedbirth/walltime distinction and existingnativeequations/errororder.",
+      "later_lens_credit": false
+    },
+    "schedule-raw-training-and-validated-allocation-boundary": {
+      "indices": [
+        110
+      ],
+      "invariant": "Raw schedules/traininghours/outcomes and weaponweights are mutable/decoded primitive inputs; separately private ValidatedSchedule is the acceptedquarterhour/day allocation. Do notmistake rawoutputrecords for sealedfinite/budget invariants.",
+      "all_admission_routes": "Fresh entire1363 (initialtruncation531–750 reread) including alltests685–1363. SkillHours publicf32 fields/religion/bestiary records, Default0/Serde denyunknown broad; is_finite110–120 predicate only, decode notautomaticallygated. LeisureOutcome/ActivityOutcomeInputs/ActivityOutcome/ActivityTrainingProfile/CombatTrainingProfile publicfields withderivedDefault/Serde; rawinput/output remainsrepresentable. CombatTrainingProfile::weights actualfinitefilter/clamp0..1 eachrawcomponent; from_equipped_hands rawmaxcollectthenbalancefiniteor1fallback, no checkedleaf constructor. SocializingSociability closedDefaultNeutral; SocializingTrainingWeights publicu16fields rawbudgetrecord, actualfactoryclosedpersonalityenum→authored4000..6000charm/remainder splits10000; no standalone privateboundedguarantee. RestorativeLeisureSpan publictypedclocks butnoacceptedorderingtoken. Trainingaward passesnativecompletedfloatstoactualSkillcallee; primitivesstayraw ratherthan uncheckedfiniteowner. ActualRootcurrent03 fullallocation364 witness schedule-admission021 SHAe0396a6916280ef550e6786b1bb126e2c8ce61fec343390c3aa9566aa3e11571 personallyconsumed: standaloneActivityMinutesmultiple15incl0/65535 no daycap; privateValidatedSchedule onlyTryFrom all10quarterhour+total<=1440, noSerdeDefaultReflect; rawDailySchedulepubu16/Default/Serde broad; OrganizationAllocation/Plan publicstatebypassROOTF005 retained.",
+      "counterexample_or_qualification": "No inferred rawSkillHoursfinite guarantee or organizationDBmembership; publicOrganizationScheduledzero/blank andDailySchedulePlanaggregateoverflow remain RootF005 support, not duplicateNativefinding. Actualschedulefunctions acceptDailySchedule ratherthanprivateValidatedSchedule, so currentsource signature cannot enforce aggregateadmission bytypename. No currentproductioncallerarray/orgtuplecorrelation claimed. Existingtests validatequarterhour/day/blankorgtrim and checkrawprofileNaNsanitization; no tests executedadded/changed. Weights/provenance/aggregate05 and nativefloatingresult04 remainopen.",
+      "connected_repair": "Existing Rootallocation112/RootF005 and Native schedule/training/fatigue whole-function claims; constantswitness022 joined actualRootconstructorpredicates.",
+      "acceptance": "Propagate acceptedallocation wherecontractrequiresit while retainingexplicitrawtransport/source records and legitimate0; preserve quarterhour/day/orgerrororder, independentauthorizedDBmembership and currentredistribution/seedselection semantics.",
+      "supplier_evidence": "continuation/root/admission03/schedule-admission-021.json",
+      "later_lens_credit": false
+    }
+  },
+  "later_lens_credit": false
+}

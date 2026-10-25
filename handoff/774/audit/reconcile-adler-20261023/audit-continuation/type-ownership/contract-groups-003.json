@@ -1,0 +1,69 @@
+{
+  "id": "SEGO-CONT06-NEW-MATERIAL-003",
+  "at": "2026-10-25T07:01:05.652371+00:00",
+  "lens": "audit-type-ownership",
+  "receipts": [
+    {
+      "extension_index": 1,
+      "source_id": "merged774:crates/adventuresim-weapon-model-browser/src/lib.rs",
+      "sha256": "c29071eeb95db76a0909330a53328dd39f1f2d2f1dddfcecff7c448fcffe344b",
+      "personally_read_ranges": [
+        [
+          1,
+          250
+        ]
+      ],
+      "ownership_comparison": "Weaponbrowser Request variantsretain canonicalRecipe/Detail/WeaponDesign/HolderDesign fromauthoritativelibrary until actualJSON/WASM boundary. Catalog versions/preset slices are views ofsamecanonicalconstants, not ownedsecondarycatalogue. RequestError composescanonicalCodec/Generate/Validationcauses; Construction(String) reflects lowerunfinishedcausefamily PC90/M84, no independentbrowserphysicalvalidator. Diagnostic recipe reread only locates originalparsefailure, notacceptedfallback. NativewasmResultString isactualexternalprojection, notreason toleave underlyingpureconstructionerrorsString. Original3fixtures source-readonly. Newmergedhelperpin scope isexact250, notallbrowsercrate.",
+      "status": "WITH existingfindings/qualifiedcontracts; no clearance"
+    },
+    {
+      "extension_index": 2,
+      "source_id": "native-dependency:bevy_render-0.19.1/src/storage.rs",
+      "sha256": "dcce6f3140c253231a106b1343c0dfa5e78e3175a78e9e78863e65ee3764b35a",
+      "personally_read_ranges": [
+        [
+          1,
+          231
+        ]
+      ],
+      "ownership_comparison": "Pinned BevyShaderBuffer isnative CPUassetdescriptor/data andGpuShaderBuffer extractedresource. App CityFrame typedshaderpayloads and nativeBuffer handles have different authority/lifecycle; do not replace nativebackendownerwith fabelgeistGPUBuffer or treattwo backend facades as semanticduplicate byname. Actualprepare_asset selects data-length ordescriptor size, reusesmatchingnativebuffer onlyunder size/usage/label/COPY_DST conditions, otherwiseallocates andoptionallycopies. Resourceidentity/cachegeneration isactual07lifecycledependency, not a secondstableapplicationID; counts/bytes/nativewrappers remain finaluploadinterface. No foreignframeworksoundness orallwgpuownership clearance from this231linebody.",
+      "status": "WITH existingfindings/qualifiedcontracts; no clearance"
+    },
+    {
+      "extension_index": 3,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/streaming.rs",
+      "sha256": "b8091bd1fe336c7162f6fcc4729bdd1e16cadf288fafe8ad4092029e2ea1fcc4",
+      "personally_read_ranges": [
+        [
+          7,
+          97
+        ],
+        [
+          169,
+          174
+        ],
+        [
+          246,
+          272
+        ]
+      ],
+      "ownership_comparison": "PendingCityBuildings islocal queue/lifecycle view overcanonical DistantBuildingPlacement andoptional actualSceneEstablishment, notsecondacceptedplacementauthority. BuildingAssets fields referenceengine assets/canonical material/cache owners; finalqueueprocessing passescanonicalplacement unchangedto actualspawn. FocusVec2 numericalcameraprioritization notsceneheight orgeographicidentity. failureString isretainedavailabilitydiagnostic, its cause/finalport policy belongsproducer/error audit, not a newerrorownerjustforstatus. total vsqueuelen accounting and softfailureterminal semantics separate07/09concerns; privatequeue itself no clonecanonicalbuilding schema.",
+      "status": "WITH existingfindings/qualifiedcontracts; no clearance"
+    },
+    {
+      "extension_index": 4,
+      "source_id": "native-dependency:bevy_render-0.19.1/src/render_resource/uniform_buffer.rs",
+      "sha256": "09c699b99ca5712b61dc38ce3703155701999ab75801a5f38172475c23b73d1c",
+      "personally_read_ranges": [
+        [
+          1,
+          149
+        ]
+      ],
+      "ownership_comparison": "Pinned BevyUniformBuffer<T> ownsT+encasescratch+optionalnativeBuffer andlabel/usagedirtystate; genericT retainsapplicationtypedshaderstructure untilnativewrite. Backend buffer isengine resource, notduplicateapplicationacceptedmodel. ActualsetchangesT; write_buffer repacks and eitherreusesnativebuffer orrecreatesforlabel/usageschange. FreshGPUallocationidentity mustbecomparedbycacheowner ifretained, notequatedto stableCPUtype. Nativebufferbytes/alignment belongexplicitport. Scoped145\u2013149 stopsmidIntoBindingexpect, so no wholetrait/nativeframeworkclaim; full129\u2013142 writingbody actuallycompared.",
+      "status": "WITH existingfindings/qualifiedcontracts; no clearance"
+    }
+  ],
+  "new_unique_findings": [],
+  "limits": "Exactnewmaterial only, incompleteforeigntraittail notcredited aswhole. No sourceedit/test/build/CI."
+}

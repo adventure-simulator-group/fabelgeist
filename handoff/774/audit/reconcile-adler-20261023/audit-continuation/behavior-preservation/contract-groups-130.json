@@ -1,0 +1,153 @@
+{
+  "id": "CONT08-CONTRACT-130",
+  "at": "2026-10-25T12:35:20.168234+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 452,
+      "source_id": "physical-p16:crates/fabelgeist-geometry/src/measurement.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/fabelgeist-geometry/src/measurement.rs",
+      "before_sha256": "7424133b695eecdc9d04383ff3021b7f902952c2c24354e06ca31f104642c471",
+      "after_sha256": "c84b2c054d772b9b8037209e1d8542238c397c5dc0148ca5f68c86ef5fc9b9b2",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0452-base-7424133b695eecdc9d04383ff3021b7f902952c2c24354e06ca31f104642c471",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/c84b2c054d772b9b8037209e1d8542238c397c5dc0148ca5f68c86ef5fc9b9b2",
+      "diff": "source-evidence/p16-0452.diff",
+      "diff_sha256": "222ea935294afadc76e529cc38b68c5b1aad26ea76a75b745e448cfb47537dc0",
+      "head_body_read_ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "facts": [
+        "Full107 plus complete13-line actual diff. New SignedLength.negated performs native unary negation and retains signedzero/finite closure; other finite signed admission/min/max/millimetre division/scaled-by checks and Area negative/finite policy unchanged. Positive\u2192signed conversion preserves same scalar. Existing CAM-PPS-F001 fixtures cannot use removed nativeabs/comparison implicitly; no compatibility operator added or compiler result claimed."
+      ],
+      "disposition": "Exact scoped own08 comparison accounted WITH qualifications; no full graph clearance.",
+      "acceptance": "Preserve explicit finite versus native unit policies, unary negation signedzero, startup/admission/error order, gateway identity, navigation/cookie/source contracts and existing fixture input/count/status assertions. No tests/checks/source changes."
+    },
+    {
+      "scope_index": 453,
+      "source_id": "physical-p16:crates/fabelgeist-math/Cargo.toml",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/fabelgeist-math/Cargo.toml",
+      "before_sha256": "6aaf0cb94d1603d0d6cdd07f1bee8021c3c29c841d01d144143faa4be39a6321",
+      "after_sha256": "6aaf0cb94d1603d0d6cdd07f1bee8021c3c29c841d01d144143faa4be39a6321",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0453-base-6aaf0cb94d1603d0d6cdd07f1bee8021c3c29c841d01d144143faa4be39a6321",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/6aaf0cb94d1603d0d6cdd07f1bee8021c3c29c841d01d144143faa4be39a6321",
+      "diff": "source-evidence/p16-0453.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "facts": [
+        "Full17 manifest and empty diff. Same serde/bytemuck and optionalwgpu29 features, default empty; no change to numerical precision/native capability inferred from manifest alone."
+      ],
+      "disposition": "Exact scoped own08 comparison accounted WITH qualifications; no full graph clearance.",
+      "acceptance": "Preserve explicit finite versus native unit policies, unary negation signedzero, startup/admission/error order, gateway identity, navigation/cookie/source contracts and existing fixture input/count/status assertions. No tests/checks/source changes."
+    },
+    {
+      "scope_index": 454,
+      "source_id": "physical-p16:crates/fabelgeist-math/src/units.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/fabelgeist-math/src/units.rs",
+      "before_sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "after_sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0454-base-0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "diff": "source-evidence/p16-0454.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          120
+        ]
+      ],
+      "facts": [
+        "Full120+empty diff. Numerical units deliberately permit all nativef32 scalars/arrays and transparent serde without finite/application bounds. Unit getters/projectors unchanged; no silent finite restriction or coordinateframe reinterpretation introduced by this owner."
+      ],
+      "disposition": "Exact scoped own08 comparison accounted WITH qualifications; no full graph clearance.",
+      "acceptance": "Preserve explicit finite versus native unit policies, unary negation signedzero, startup/admission/error order, gateway identity, navigation/cookie/source contracts and existing fixture input/count/status assertions. No tests/checks/source changes."
+    },
+    {
+      "scope_index": 455,
+      "source_id": "physical-p16:crates/strategic-web/AGENTS.md",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/strategic-web/AGENTS.md",
+      "before_sha256": "4ebb7231eb7131504bdc30dc8105b0fdb2538d387f983876b2330319dd4432b0",
+      "after_sha256": "4ebb7231eb7131504bdc30dc8105b0fdb2538d387f983876b2330319dd4432b0",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0455-base-4ebb7231eb7131504bdc30dc8105b0fdb2538d387f983876b2330319dd4432b0",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/4ebb7231eb7131504bdc30dc8105b0fdb2538d387f983876b2330319dd4432b0",
+      "diff": "source-evidence/p16-0455.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "facts": [
+        "Full39+empty diff. Frozen strategic UI guidance consumed as audit evidence only, not authority to change scope or run project/browser validation. No executable behavior change."
+      ],
+      "disposition": "Exact scoped own08 comparison accounted WITH qualifications; no full graph clearance.",
+      "acceptance": "Preserve explicit finite versus native unit policies, unary negation signedzero, startup/admission/error order, gateway identity, navigation/cookie/source contracts and existing fixture input/count/status assertions. No tests/checks/source changes."
+    },
+    {
+      "scope_index": 456,
+      "source_id": "physical-p16:crates/strategic-web/src/main.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/strategic-web/src/main.rs",
+      "before_sha256": "43acd82de75c8823ed2a925e424704a87b8db7ee297b56d2f33f4e79fa9f97d9",
+      "after_sha256": "43acd82de75c8823ed2a925e424704a87b8db7ee297b56d2f33f4e79fa9f97d9",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0456-base-43acd82de75c8823ed2a925e424704a87b8db7ee297b56d2f33f4e79fa9f97d9",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/43acd82de75c8823ed2a925e424704a87b8db7ee297b56d2f33f4e79fa9f97d9",
+      "diff": "source-evidence/p16-0456.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          762
+        ]
+      ],
+      "facts": [
+        "Full762 and empty actual diff including existing navigation fixtures. Startup session/token config\u2192DB/live\u2192terrain admission\u2192gateway registration digest/3or0 then router/listener order unchanged. Shared terrain Optional startup downgrade remains warning and None; same deployment identity passed to gateway.",
+        "Negotiated GET/POST metadata, local/hard-boundary precedence, bounded five-redirect internalGET loop and cookie replace/clear carry-through remain. Original success/error statuses,16MiB fragment bound, missing marker/UTF8 handling and profile selection order preserve retained behavior. Existing fixtures cover redirect target and cookie clearing source-only; noHTTP/browser/session execution."
+      ],
+      "disposition": "Exact scoped own08 comparison accounted WITH qualifications; no full graph clearance.",
+      "acceptance": "Preserve explicit finite versus native unit policies, unary negation signedzero, startup/admission/error order, gateway identity, navigation/cookie/source contracts and existing fixture input/count/status assertions. No tests/checks/source changes."
+    },
+    {
+      "scope_index": 457,
+      "source_id": "physical-p16:crates/strategic-web/src/regional_source.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/strategic-web/src/regional_source.rs",
+      "before_sha256": "f28f23acfa4b9fd6796919c3595d47febaa151dd36c3e586a21d0b7160c861ba",
+      "after_sha256": "f28f23acfa4b9fd6796919c3595d47febaa151dd36c3e586a21d0b7160c861ba",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0457-base-f28f23acfa4b9fd6796919c3595d47febaa151dd36c3e586a21d0b7160c861ba",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/f28f23acfa4b9fd6796919c3595d47febaa151dd36c3e586a21d0b7160c861ba",
+      "diff": "source-evidence/p16-0457.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "facts": [
+        "Full29+empty diff. NativeTerrainPack load and Final-only condition before planner creation; failure logs and disables both map/routing identically. No new compatibilityfallback or runtime claim."
+      ],
+      "disposition": "Exact scoped own08 comparison accounted WITH qualifications; no full graph clearance.",
+      "acceptance": "Preserve explicit finite versus native unit policies, unary negation signedzero, startup/admission/error order, gateway identity, navigation/cookie/source contracts and existing fixture input/count/status assertions. No tests/checks/source changes."
+    }
+  ],
+  "next": "458routes930 actual scopedfull then459quests2102; no prior lens verdict transfer."
+}

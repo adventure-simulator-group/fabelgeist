@@ -1,0 +1,54 @@
+{
+  "id": "SEGOVB-04-ROUTE-INTERPOLATION-QUALIFICATION-001",
+  "related_packet": 262,
+  "disposition": "No ordinary validated-route saturating-product finding. Raw representable view API strengthening remains distinct.",
+  "fresh_source_evidence": [
+    {
+      "source_id": "physical-p16:crates/strategic-web/src/spacetimedb/types.rs",
+      "sha256": "df37c376e240735c231aaeca1737d1a0392643d37ab962f902a7d02df42ece02",
+      "ranges": [
+        [
+          653,
+          688
+        ]
+      ],
+      "credit": "critical support only; no additional original role credit"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/travel_planning.rs",
+      "sha256": "72e17030fb5f5e7f0337b78091c7ab5eddcac318c91f5a3ba7a246a3a7ba860b",
+      "ranges": [
+        [
+          1,
+          238
+        ]
+      ],
+      "credit": "critical support only; no additional original role credit"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/journey_camp.rs",
+      "sha256": "ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d",
+      "ranges": [
+        [
+          150,
+          221
+        ]
+      ],
+      "credit": "critical support only; no additional original role credit"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+      "sha256": "3c9ffa24338de25378c4f5b46c684ed6e4dbe34e70b4edff6badc1df3f025340",
+      "ranges": [
+        [
+          1273,
+          1378
+        ]
+      ],
+      "credit": "critical support only; no additional original role credit"
+    }
+  ],
+  "proof": "PartyJourneyRouteView::from copies raw minutes/points unchanged, so projection itself does not admit the aggregate. Actual P16 validate_journey_route_payload137\u2013238 requires2..512points, positive minutes<=2000000, valid WGS84, each segment positive<=100000m, and coherent physical/declared distance and spans. Therefore sum of rounded geometric lengths<=51100000m; multiplying by min(minute,minutes)<=2000000 is at most102200000000000, safely below u64MAX. The MAX-duration counterexample in packet262 cannot pass this actual route admission. Fresh journey_camp persistence copies route body and encounters redirect validates new route before insertion. This does not prove every possible schema import or synthetic direct view construction valid.",
+  "source_edits": false,
+  "project_execution": "none"
+}

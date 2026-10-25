@@ -1,0 +1,20 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-236",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        79,
+        80,
+        82
+      ],
+      "comparison": "Exact P16 combat1137, config122 and contact_timing57 read fully, including source tests without running them. Public AttackResult already owns attacker-versus-defender payload; ToAttacker physical_contact Boolean beside contact_force is a pending split between avoided and intercepted contact, requiring remaining melee-resolution producers. Positive force is NOT guaranteed by contact tag: ranged interception can retain zero scaled force. ToDefender armor impact None is a genuine coverage gap, not incomplete data. AttackResult scalar multiplication preserves impact classification while scaling energies; this materially qualifies F125: historical Penetrated may carry zero after legitimate zero scaling or underflow, so its earlier strictly-positive payload must not be imposed on all scaled observations. Public negative/nonfinite scalar multiplication is separate numeric invariant work, no ordinary failure claimed. DefenderResponse already owns Block effectiveness, Parry reflex/precision and Dodge reflex; independent reflex and precision must remain independent. Common energy and durable health damage are different provenance; exact damage apportionment uses weighted blunt contribution. Zero energy produces no effective contact in resolver, while armor-absorbed contact can retain positive stress with zero health damage. General starting condition removes recomputed pain/blood terms once. Configuration aggregates enforce additional positive/ordered bounds by explicit validate after field deserialization; no aggregate admission clearance is inferred from derives. ContactTimingOffset is signed finite difference with positive/later, negative/earlier and zero/simultaneous meanings, not a positive elapsed duration. Duration conversion is actual nonnegative authoritative clock adapter and preserves ordered subtraction elsewhere.",
+      "disposition": "F125 positivity qualification; existing response payloads and signed timing preserved",
+      "finding_refs": [
+        "SEGO-INITIAL09-F125"
+      ]
+    }
+  ],
+  "new_findings": [],
+  "limits": "Discovery only; no execution, fixes, checks, implementation plan or lens clearance."
+}

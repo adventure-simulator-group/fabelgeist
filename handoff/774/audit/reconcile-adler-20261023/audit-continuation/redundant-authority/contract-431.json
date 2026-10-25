@@ -1,0 +1,53 @@
+{
+  "id": "CONT07-CONTRACT-431",
+  "at": "2026-10-23T21:50:01.080119+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1897,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene.rs",
+      "sha256": "2661ce950659807c47c0de4fdc769ba1ba79825c47ba2985fcec32d7e4f38390",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene.rs",
+      "actual_EOF": 553,
+      "ranges": [
+        [
+          1,
+          553
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1898,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/admission.rs",
+      "sha256": "c77986f9f9ff85cd6b4359792d8c28838b437942db2e61c92dc4104856e849cb",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene/admission.rs",
+      "actual_EOF": 98,
+      "ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "ROOT-OWNER-TERRAIN-GRID-021 full narrative",
+    "ROOT-PPS-GROUND-SAMPLE-CONTRACTS-023 full narrative; source_proofs excluded during bounded display"
+  ],
+  "facts": [
+    "1897 SceneTerrain private sample buffer owns width and scale; depth is derived from cardinality. coarse_stride is rendering policy, not a second collision/sample truth. Refined constructs an admitted replacement and coarse height differs deliberately as a coarse approximation; it does not imply every presentation/readback recipient is coherent.",
+    "1897 rewrite_heights collects all replacement samples and only assigns at270 after every callback succeeds. No partial published buffer from its failure path. Owned geometry is rejected by both rewrite_heights and constrain_max_grade, preventing these sampled-grid mutations from silently changing owned support.",
+    "1897 mesh row-major source and collider transpose use the same retained sample buffer/dimensions; full source fixture compares asymmetric3x2 rays versus query but was not executed. TerrainGenerator period is noise-index-space frequency policy, whereas grid_scale is physical spacing; do not merge their units or force same value.",
+    "1898 raw wire delegates one validate before admission; stride divisibility and finite geometry dimension/height checks are coordinated. Default flat2x2 metre surface is explicit framework source, not missing geographic terrain fabricated as zero. Owned surface versus header-grid consistency needs actual property_support/query read before any paired-authority conclusion."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1899,
+    "start_line": 1
+  }
+}

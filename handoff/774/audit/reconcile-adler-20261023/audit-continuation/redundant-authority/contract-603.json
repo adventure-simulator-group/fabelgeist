@@ -1,0 +1,106 @@
+{
+  "id": "CONT07-CONTRACT-603",
+  "at": "2026-10-24T00:29:03.384392+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2610,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/helmets.rs",
+      "sha256": "7d1c8a8edd1deaaf9419984a9301b0fc7f3679b8e2f45ad8492a63d3c9df9a42",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/helmets.rs",
+      "actual_EOF": 414,
+      "ranges": [
+        [
+          1,
+          221
+        ],
+        [
+          249,
+          275
+        ],
+        [
+          295,
+          380
+        ],
+        [
+          385,
+          385
+        ],
+        [
+          392,
+          414
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2611,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/helmet_crown.rs",
+      "sha256": "78c793cfcebd43b9f958c3b20296c89543dcc3eb0daf9b65f3ed2d67405e0a2f",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/helmet_crown.rs",
+      "actual_EOF": 34,
+      "ranges": [
+        [
+          1,
+          34
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2612,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/helmets_buffe.rs",
+      "sha256": "3f85d9c18b5a393816c723c1e4e62c623a2d5d5d878ef19b9c5cc61c5fb5d519",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/helmets_buffe.rs",
+      "actual_EOF": 64,
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2613,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/visor_breaths.rs",
+      "sha256": "bf67732e56b2c3559623ec840f391fcfcaf6a1eaeaf35ecc9d7a35988d69f59b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/visor_breaths.rs",
+      "actual_EOF": 149,
+      "ranges": [
+        [
+          1,
+          149
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2614,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/helmets_buffe_courses.rs",
+      "sha256": "53819c919b26e8d78494cceda4e24c061f1c136148d78f3436b293d368b15746",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/helmets_buffe_courses.rs",
+      "actual_EOF": 47,
+      "ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "HelmetKind is a catalogue choice that constructs a corresponding payload enum; fit and crown are derived by matching the payload, rather than independently stored kind tags. Shared fit validation reads that derived fit. Independent face/neck/crown/visor controls describe genuinely separate construction geometry. Coif and close-helmet branches personally completed through prospective REG029, no other-lens inheritance.",
+    "Visor breaths uses current sides/count/dimensions to create holes, while validator computes the projected slot spans from those same dimensions. Precision differs f32 admission versus f64 realization, requiring actual boundary witness before a disagreement finding. No second mutable slot-position cache found here. Buffe course boundaries are authored independent seams, with second boundary irrelevant at two plates by documented construction; no need to force all unused fields to derive."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2615,
+    "start_line": 1
+  }
+}

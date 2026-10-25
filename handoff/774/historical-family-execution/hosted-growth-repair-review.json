@@ -1,0 +1,15 @@
+{
+  "failed_run": 39419583848,
+  "failed_job": 118616894322,
+  "earliest_contract": [
+    "capture_frame: 286 > 282",
+    "guard_step_liveness_metrics: 112 > 111"
+  ],
+  "fix": "Extract repeated-evaluation state and comparison into its owning module, with the two unchanged existing tests. Extract the unchanged liveness-applicability predicate into its metric owner.",
+  "source_review": "Code and Rule review by the single implementation agent: comparison helpers and moved tests are text-identical; original view/event/skeleton timing and all thresholds remain unchanged. New state-recording method reads the same event count once. Liveness predicate is unchanged. No ceiling or suppression changed.",
+  "moved_helpers_text_identical": true,
+  "moved_tests_text_identical": true,
+  "comment_review": "omitted",
+  "local_project_checks": "none",
+  "uncommitted_P02": "Excluded from this repair commit and hosted revision."
+}

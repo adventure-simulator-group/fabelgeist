@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1080",
+  "at": "2026-10-25T17:42:59.778879+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1217,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs",
+  "sha256": "aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576",
+  "actual_compared_ranges": [
+    [
+      351,
+      730
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "BackendDialogueEvent/Prompt/TopicOption already Clone/Debug/SpacetimeType. No handwritten trait/codec. Viewer-scoped expansion392\u2013539 adds owner and omits storage gateway/private fields; contextual 1\u2192many not direct From derive. Live dialogue authority550\u2013658 reconstructs typed strategic presence with exact error/coded errors and validates persistent NPC/party/place/time/organization; native location navigation/category policy660\u2013695. Fixtures697 onward read only, no execution or referenced-body credit."
+  ],
+  "first_unfinished": {
+    "scope_index": 1217,
+    "line": 731
+  },
+  "execution": "none"
+}

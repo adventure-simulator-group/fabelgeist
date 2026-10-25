@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1208",
+  "at": "2026-10-25T18:08:43.698927+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1292,
+  "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/survival.rs",
+  "sha256": "9b69053053efb67e000a8aeafdaf2b7a89678136f4459cf592a6e7e9f391e1ad",
+  "actual_compared_ranges": [
+    [
+      1,
+      240
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Native bounded grams/encumbrance/equipment-ready and inherent LiveRunner current party/inventory/custody/root/row/weight/water/carried-load/capacity graph only. No handwritten trait/custom codec/type. Exact amount measurement and public custody cycle/depth/unique checks preserve bespoke invariants; no raw From/Default. Current owner/catalog joins and explicit failure sentinels semantic, not derived traits.",
+  "first_unfinished": {
+    "scope_index": 1292,
+    "line": 241
+  },
+  "execution": "none"
+}

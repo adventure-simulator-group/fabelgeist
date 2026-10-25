@@ -1,0 +1,78 @@
+{
+  "recorded_at": "2026-10-21T05:54:01.960794+00:00",
+  "head": "a0b1c4c681cedbb11fac99282836640acdfcbf25",
+  "source_plan": "P06-hosted-a0b1-model-ownership-plan.json",
+  "moved_from": "crates/adventuresim-core/src/autoresolve.rs",
+  "owner": "crates/adventuresim-core/src/autoresolve/model.rs",
+  "sections": [
+    {
+      "item": "CombatBody",
+      "sha256": "421c72456c9ae30fb4065010bb81938e87695cfc571f71208af00a235703e496",
+      "byte_identical": true
+    },
+    {
+      "item": "CombatEssentials",
+      "sha256": "accd64dd3e0e52cb676028ffa8b2233a8ff0e26a8d6505edab4de1f5ec55eec8",
+      "byte_identical": true
+    },
+    {
+      "item": "CombatSkills",
+      "sha256": "630fda80654071d9a53cf6c5b4af589feeab17bb33bc82e6c907747158d8ee78",
+      "byte_identical": true
+    },
+    {
+      "item": "CombatArmor",
+      "sha256": "070862a282203ca641f14dda951687075e44874065105143da503769732afad3",
+      "byte_identical": true
+    },
+    {
+      "item": "CombatWeapon and CombatEquipment",
+      "sha256": "eb0b3212e8d5bc5703a67e034ba378023dd643121ab9f8759c817c382ebd8fb4",
+      "byte_identical": true
+    },
+    {
+      "item": "CombatBody implementations",
+      "sha256": "c2a76d930bca1df1b83a0f4d01d8ef8fc75d26c98b38b60d10fac9efb592e27a",
+      "byte_identical": true
+    },
+    {
+      "item": "CombatEssentials implementation",
+      "sha256": "0e11b1d0e18e01526cd1b86a8aaef7f5299f3bc05d9ea6ffd6c1f9c1c00f578e",
+      "byte_identical": true
+    },
+    {
+      "item": "CombatSkills implementation",
+      "sha256": "a3ad634133d9b04f67ada40f623e469576d49c16223cc39c7abf2d976cb54397",
+      "byte_identical": true
+    },
+    {
+      "item": "CombatArmor implementation",
+      "sha256": "012fc87ffb96730955005f20d024b91c3b6aa95398a1668249074750e59b29cc",
+      "byte_identical": true
+    },
+    {
+      "item": "CombatEquipment implementations",
+      "sha256": "4fb24a9458aba09346756f3ef451cf9261b0d6214c36c6e375b8e9be98be4c9a",
+      "byte_identical": true
+    }
+  ],
+  "existing_test_module_byte_identical": true,
+  "test_sha256": "e35cd5daa8c89dd407df9dede2d3d55d692611d35a06e95454b24002a261297b",
+  "public_reexport_unchanged": true,
+  "owning_import_change": "BestiaryHours is imported by model.rs with BestiaryCategory; parent retains BestiaryCategory. Serialize is imported at its new derive owner.",
+  "static_source_only": true,
+  "validation_pending": "Hosted formatting, semantic/growth, native/Wasm lint and existing selected tests/artifacts/official reductions still pending. No acceptance claim.",
+  "repair_commit": "8f2b901881f8aa8035a03cd99dbfefb7bbdf8926",
+  "source_review": {
+    "code": "Canonical model owner, actual definitions/impls copied exactly; existing public reexport and tests preserved. No known new source/caller gap.",
+    "rules": "Records precede impls; no new wrappers, duplicate owners, tuning, compatibility path, tests, suppressions, baselines or broader scopes. Static review only, not independent/whole-PR clearance."
+  },
+  "hosted_quality_followup": {
+    "head": "8f2b901881f8aa8035a03cd99dbfefb7bbdf8926",
+    "run": 39552331390,
+    "job": 119064104970,
+    "formatting": "success",
+    "semantic_growth": "success",
+    "family_accepted": false
+  }
+}

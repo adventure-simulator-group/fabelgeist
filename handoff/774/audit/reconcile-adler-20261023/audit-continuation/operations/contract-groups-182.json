@@ -1,0 +1,74 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-182",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/inventory_amount.rs",
+      "sha256": "535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6",
+      "actual_EOF": 241,
+      "actual_compared_ranges": [
+        [
+          1,
+          241
+        ]
+      ],
+      "method": "Full P16 literal source and fixtures personally read; complete PR textual comparison empty and independent semantic counterpart assessment, not hash-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/inventory_amount.rs",
+      "sha256": "535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6",
+      "actual_EOF": 241,
+      "actual_compared_ranges": [
+        [
+          1,
+          241
+        ]
+      ],
+      "method": "Full P16 literal source and fixtures personally read; complete PR textual comparison empty and independent semantic counterpart assessment, not hash-only."
+    }
+  ],
+  "dependency_reads": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/inventory_measurement.rs",
+      "sha256": "2ffeb2e6b78a2111a09dbe9f788673605eb597afe037e375f8f3c413bafe6011",
+      "ranges": [
+        [
+          20,
+          105
+        ]
+      ],
+      "coverage": "Fresh critical owner only; no new whole role credit"
+    }
+  ],
+  "groups": [
+    {
+      "id": "Fixed-point consumption and actual numeric invariant",
+      "locations": "inventory_amount1-161; fresh Core inventory_measurement28-105",
+      "trace": "Initialization writes canonical WHOLE. Persisted reads call try_new and expect, so raw native values above one whole panic rather than return a decode failure; this is admission policy, not an operation breaking an admitted fraction. Zero requested consumption intentionally succeeds without a row. Positive requests use min(request, available), proving consumed<=available before checked_sub expect. The actual private fraction admits0..1000000, and subtraction of a smaller admitted leaf preserves that bound. Successful full consumption deletes amount and backing inventory row; partial consumption stores exact remaining integer amount. Return value is actual consumed amount, which callers must respect when requesting more than availability. No float arithmetic or casts lose quantity here.",
+      "disposition": "No new arithmetic failure from admitted fractions. Retain native decode/cause and whole physical object/food association findings; full removal cleanup is a caller responsibility until complete source graph proves it.",
+      "dependencies": [
+        "Canonical ConsumableFractionMicros admission and explicit zero policy",
+        "Native inventory container/food payload cleanup callers",
+        "local774:M29 and native schema decoding owners"
+      ],
+      "acceptance": "Successful consumption returns and removes exactly the lesser admitted request/available quantity. Native invalid amount must be handled under the canonical decode policy, and no complete logical consumption may leave stale physical material authority."
+    },
+    {
+      "id": "Scope transfer and retained amount association",
+      "locations": "inventory_amount163-241",
+      "trace": "Transfer loads the source amount, deletes it, and inserts identical raw fraction under destination row. It performs no arithmetic and does not itself establish destination item, row singleton quantity, custody or absence of prior amount; those are required caller/aggregate contracts. Raw invalid fraction can move unchanged until later admitted read, so transfer is not a new guarantee certificate. Personal and Party namespaces remain separate even for same numeric row ID. Fixtures only classify measured definitions using fixed values and were read, not run.",
+      "disposition": "Existing aggregate and producer propagation dependencies retained; no new valid-input arithmetic counterexample. Native transaction atomicity is required for delete/insert but not asserted merely by a comment.",
+      "dependencies": [
+        "Actual inventory transfer callers and SDK reducer/catch policy",
+        "Local M29 food/material relationship",
+        "Generated native client decode and whole state owner"
+      ],
+      "acceptance": "Accepted transfer preserves the exact remaining fraction and binds it to one valid destination physical row in the correct scope, with atomic logical settlement. Preserve true zero and singleton measured-item policy."
+    }
+  ],
+  "findings": [],
+  "status": "Two source roles personally compared; whole lens and connected dependencies remain incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/inventory_container.rs"
+}

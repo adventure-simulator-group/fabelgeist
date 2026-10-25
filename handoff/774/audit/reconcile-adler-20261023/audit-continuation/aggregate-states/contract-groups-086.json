@@ -1,0 +1,47 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-086",
+  "at": "2026-10-25T14:53:46.281409+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1276,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/expedition.rs",
+      "sha256": "a77ae88e526acb661515b4069d678cd7b7e42f278d4e8fc4cb2f1a317440246a",
+      "personally_read_ranges": [
+        [
+          1,
+          1273
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Expedition observations join sorted actual party-member IDs to bounded simulator roster and current public Character bysameidentity; unknown roster/character fails. Missing condition retains None failclosed for recovery, while clockZERO/survivalDefault/hunger0/illnessfalse collapse missing projection with real values. These fields drive separate policies; preserve explicit observation availability instead of primitive default. Actual normal missing projection witness not assumed; complete producer dependency retained.",
+        "Supply observation uses canonical OperationalCustody and actual carried rows before summing attached FoodLot nutrition and contained water; rejects invalid custody through unavailable/skip paths. Personal/party lot optional foreign keys remain already-known material association contract, not new lotdoublecount assertion absent illegal dual attachment producer.",
+        "Diagnostic before/after association matches Character ID but missing after falls back before, making unchanged an implied missing-state sentinel. Exact owning observation outcome should distinguish Removed/Unavailable/Observed; aggregate gap qualified, actual membership death/removal receiver evidence needed before claim of normal fabricatedsurvival. Global supply changes deliberately repeated per member event are diagnostic context, not additional consumption accounting.",
+        "Rest actor is existing Actionable vs PassiveNoActionable enum, selecting current ready companion/leader; passive gate requires living leader, known conditions, no critical and one-day supplies. Actual caller passes persistedcamp true for camp OR actual case-site valid resting context, so do not impose misleading journey-only interpretation solely from booleanparametername. Native authoritative reducer still validates actual location.",
+        "Public return destination favors authoritative journey origin/destinationSettlement then unique same-site public pin origins or actually observed activity origin. Multiple distinct pin origins deliberatelyunavailable. Idle fallback excludes active journey/contracts/open generated cases and checks current ready state, supplies/departure/thermal unless knownactivityroute, then verifies actual living returned party before claiming Returned.",
+        "Authority surrender binds actual public action to party/site/controlledinstigator, requires unique affordableaction and currentlivingmember, verifiesactiondisappears andpartystayssite then recordsobservedreturnorigin. Fine prequote retained untilactualoperation evidence; no concurrentreprice bug alleged. Recovery reselects actor/observations eachrest, checks unresolved encounter/campcoherence/supplies/thermal, bounded2rests thenactualevacuationroute. Evacuated onlyafter actual currentsettlement+nocamp+livingmemberproof; stale before snapshot useddiagnosticonly here, notsame F006 whole-row write."
+      ]
+    },
+    {
+      "scope_index": 1277,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/expedition_policy.rs",
+      "sha256": "3445a120138cc90a66de9186ddcbd2e3fb8da430e9e6e506883baa6cc071c7e9",
+      "personally_read_ranges": [
+        [
+          1,
+          240
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Observation struct admits independent life/condition/illness/quantities/clock, but actual factory joins actualidentity; missingfields distinction covered1276. SettlementRestSponsor carries purse/reserve/spendable/patientcontribution/quote/treasury/stake: checked atomic affordableplan required at producer before execute, producer not read yet. No arbitraryspendability invariants asserted beyond realfuturecalculation.",
+        "Recovery outcomes and actor payload enums existing positive type boundaries; retain separate Returned vsEvacuated and passiveleader vsactionable actor. role String and Character/Agentpair require canonicalrosteridentity owner from currentfactory, not asecondCharacter type.",
+        "expedition_party_can_resume requires nonemptyliving set and all livingready/asymptomatic/notcritical, dead ignoredintentionally. Supplies predicate requires living>0 plus both actualnutrition andwaterthresholds; NaNfailclosed bycomparison. Passive gate knowncondition+noncritical+livingleader+actualsupplies+offsettlementcontext. Inputs stillindependentbooleans/payloads needcheckedcontextnotgenericmaxbranding.",
+        "expedition_elapsed_delta subtracts maximaoverbefore/aftermembers; preserves currentpublicparty-maxmetric, but unequal membership identitysets and absentafterbeforemax fallback can hide unavailabletime. Exactelapsedobservation shouldbind actual roster/change semantics; no new ordinarylostelapsedclaim without actualdeath/leavepaths. observedactivityorigin lookup keyedactualparty/site pair is semanticidentity snapshot, not genericglobalcache."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "Two full original roles source-backed, qualified observation availability/context/sponsor contracts retained. Lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

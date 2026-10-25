@@ -1,0 +1,200 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-590",
+  "at": "2026-10-25T16:07:57.331381+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 933,
+      "source_id": "pr-working:crates/adventuresim-core/src/inventory_measurement.rs",
+      "sha256": "2ffeb2e6b78a2111a09dbe9f788673605eb597afe037e375f8f3c413bafe6011",
+      "actual_EOF": 804,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/inventory_measurement.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/inventory_measurement.rs",
+        "sha256": "2ffeb2e6b78a2111a09dbe9f788673605eb597afe037e375f8f3c413bafe6011",
+        "bytes": 26593,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                804
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-TRADE-QUANTITY-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+            "row": 25,
+            "read_ranges": [
+              [
+                1,
+                155
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-AUTHORED-016",
+              "ROOT-OWNER-FRAMES-004"
+            ],
+            "read_status": "exact_reached_contract_ranges",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/inventory_measurement.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 172,
+            "read_ranges": [
+              [
+                1,
+                804
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-ITEM-026"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/inventory_measurement.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 180,
+            "read_ranges": [
+              [
+                1,
+                804
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-ITEM-026"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/inventory_measurement.rs"
+          },
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 15,
+            "read_ranges": [
+              [
+                1,
+                210
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-CATALOG-008"
+            ],
+            "read_status": "owner-definition-prefix-read-further-affected-operations-pending",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/inventory_measurement.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root",
+          "camera",
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-038",
+            "json_pointer": "/additional_actual_source_proofs/20",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/inventory_measurement.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                116
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/inventory_measurement.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/inventory_measurement.rs",
+              "sha256": "2ffeb2e6b78a2111a09dbe9f788673605eb597afe037e375f8f3c413bafe6011",
+              "read_ranges": [
+                [
+                  1,
+                  116
+                ]
+              ],
+              "actual_line_count": 804,
+              "scope": "Exact reached material bodies; range endpoints use actual EOF. No inferred whole unrelated source proof."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 320,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          804
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "TryFrom<u32>",
+          "type": "ConsumableFractionMicros",
+          "lines": [
+            [
+              104,
+              110
+            ]
+          ],
+          "disposition": "KEEP exact checked bounded fraction constructor/error; derived raw construction bypasses."
+        },
+        {
+          "trait": "From<ConsumableFractionMicros> for u32",
+          "lines": [
+            [
+              112,
+              116
+            ]
+          ],
+          "disposition": "KEEP small native extraction; no ready owning Into derive or justified dependency."
+        }
+      ],
+      "existing_derives": [
+        "ItemQuantity structural transparent NonZeroU32 Serialize Deserialize9\u201313",
+        "fraction structural Default31",
+        "measurement kind/profile/basis/row/totals/error/pricing records structural as declared"
+      ],
+      "absence_basis": "Full804 personally consumed587\u2013590, includes exact integer basis/rounding/arithmetic policies and all existing source fixtures. No other handtrait/codec; schema/admission and pricing semantics remain explicit."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Measured inventory checked arithmetic and wire",
+      "disposition": "Retain exact per-object basis, bounded fraction, checked native errors and rounding directions; structural traits already derive, no new cleanup finding or execution."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 934,
+    "source_id": "pr-working:crates/adventuresim-core/src/investigation.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

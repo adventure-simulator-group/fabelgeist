@@ -1,0 +1,198 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-308",
+  "at": "2026-10-25T14:38:37.469458+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 606,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_wall_opening.rs",
+      "sha256": "660dfa713c666751b218e80dbb4137ab1288791fc49c65f2b813f3cb57e4108e",
+      "actual_EOF": 416,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_wall_opening.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\roof_wall_opening.rs",
+        "sha256": "660dfa713c666751b218e80dbb4137ab1288791fc49c65f2b813f3cb57e4108e",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "root",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 416,
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-WALL-SOURCE-CLOSURE-039",
+            "json_pointer": "/supplier_reconciliation/verified_exact_proofs/10",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/generator/roof_wall_opening.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                416
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_wall_opening.rs",
+              "sha256": "660dfa713c666751b218e80dbb4137ab1288791fc49c65f2b813f3cb57e4108e",
+              "read_ranges": [
+                [
+                  1,
+                  416
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-029",
+            "json_pointer": "/additional_fresh_sources/10",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/generator/roof_wall_opening.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                416
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_wall_opening.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/generator/roof_wall_opening.rs",
+              "sha256": "660dfa713c666751b218e80dbb4137ab1288791fc49c65f2b813f3cb57e4108e",
+              "read_ranges": [
+                [
+                  1,
+                  416
+                ]
+              ],
+              "scope": "Only actual material source/receiving functions in these ranges; no whole-file credit outside listed ranges"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          416
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "RectangularRoofWindow Clone5\u201326"
+      ],
+      "absence_basis": "Full source personally consumed1\u2013230/231\u2013416. WindowNodes28\u201332/WindowSolids33\u201339 are native private records with no manual traits; RectangularRoofWindow inherent build41\u201349/local_size50\u201356/nodes57\u2013128/solids129\u2013226/ornaments227\u2013287/opening288\u2013372/wall373\u2013415. All checked native geometry/source/frame/materialization and multi-record mapping, no handwritten trait/codec. Existing Clone already structural."
+    },
+    {
+      "scope_index": 607,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_wall_opening/surfaces.rs",
+      "sha256": "6629b1c563e91250df52b20f9165459f9e5d413ec424f2f2cc246839c7ac94ea",
+      "actual_EOF": 274,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_wall_opening/surfaces.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\roof_wall_opening\\surfaces.rs",
+        "sha256": "6629b1c563e91250df52b20f9165459f9e5d413ec424f2f2cc246839c7ac94ea",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "root",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 274,
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-WALL-SOURCE-CLOSURE-039",
+            "json_pointer": "/supplier_reconciliation/verified_exact_proofs/11",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/generator/roof_wall_opening/surfaces.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                274
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_wall_opening/surfaces.rs",
+              "sha256": "6629b1c563e91250df52b20f9165459f9e5d413ec424f2f2cc246839c7ac94ea",
+              "read_ranges": [
+                [
+                  1,
+                  274
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-029",
+            "json_pointer": "/additional_fresh_sources/11",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/generator/roof_wall_opening/surfaces.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                274
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_wall_opening/surfaces.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/generator/roof_wall_opening/surfaces.rs",
+              "sha256": "6629b1c563e91250df52b20f9165459f9e5d413ec424f2f2cc246839c7ac94ea",
+              "read_ranges": [
+                [
+                  1,
+                  274
+                ]
+              ],
+              "scope": "Only actual material source/receiving functions in these ranges; no whole-file credit outside listed ranges"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          274
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Entire inherent implementation read1\u2013150/151\u2013274. void5\u201351/reveals52\u2013137/mouths138\u2013175/closures176\u2013218/bearings219\u2013273 checked native source/window geometry and contextual selected record construction. No handwritten trait/type/codec; impl is inherent and semantic."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "roof window native assembly records and geometry",
+      "disposition": "No handwritten trait boilerplate in full exact roles. Keep native checked geometry, contextual record mapping and selected closure/material classification; existing Clone adequate.",
+      "acceptance": "Preserve private intermediate records and semantic methods. No new serializer/derive/native index API; source reading does not establish operation/aggregate correctness."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 608,
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/room_allocation.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

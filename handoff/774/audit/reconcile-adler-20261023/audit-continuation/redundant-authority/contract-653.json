@@ -1,0 +1,77 @@
+{
+  "id": "CONT07-CONTRACT-653",
+  "at": "2026-10-24T01:14:44.612481+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2381,
+      "source_id": "pr-working:crates/strategic-web/src/routes/settlements/rest_preview.rs",
+      "sha256": "f545d695b666086cb43166e8c7d28a2290272758191042c37530967a71184a21",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/routes/settlements/rest_preview.rs",
+      "actual_EOF": 233,
+      "ranges": [
+        [
+          137,
+          194
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1073,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/alcohol.rs",
+      "sha256": "c572b0014c6114020ee98d99a3cdfa1579b25a815ade34656bfeb8b6a421d1dc",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/alcohol.rs",
+      "actual_EOF": 677,
+      "ranges": [
+        [
+          396,
+          408
+        ],
+        [
+          432,
+          502
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 853,
+      "source_id": "pr-working:crates/adventuresim-core/src/alcohol.rs",
+      "sha256": "ead3354da78110069cabd335496a7e9ee16125ac302d7dece1d3684b0a1824ef",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/alcohol.rs",
+      "actual_EOF": 776,
+      "ranges": [
+        [
+          20,
+          56
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2407,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/rest.rs",
+      "sha256": "63dcebbc01df68859b94ad46c77ca3a6d20ca1727213d550f050ce39caa4e947",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/templates/settlement/rest.rs",
+      "actual_EOF": 594,
+      "ranges": [
+        [
+          106,
+          162
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Alcohol preview exact recipient compared with real nightly owner: preview means available nonTemperate personal/shared supply, actual process_rest_evenings uses admitted interval evenings, already-evaluated ledger and existing consumption before target remainder. Tooltip explicitly says during nightly rest, not that every current daytime/healing action consumes; do not promote generic nightly eligibility as proven current-rest consumption falsehood without concrete selected interval/ledger recipient. Any exact per-rest consumption prediction must derive canonical ledger/interval plan, not promote boolean availability to guaranteed event.",
+    "Neutral recent-heavy policy changes target HEAVY versus MODEST but both positive, so omission of heavy history alone does not establish will-drink Boolean error. Temperate early return matches preview. Settled tavern purchase can supply actual drinking beyond carried inventory, demonstrating available stock versus final consumption are distinct facts. Close heavy-history-specific redundant-Boolean argument; retain wording/preview precision question with actual trace, no accepted new defect/no execution."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": null
+}

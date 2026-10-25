@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1092",
+  "at": "2026-10-25T17:44:44.798926+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1221,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/hostile_negotiation.rs",
+  "sha256": "9fc4780022d9229014f92e14ea895c8d0a07a7aca3cbb61dbe87957cc6190c7e",
+  "actual_compared_ranges": [
+    [
+      181,
+      560
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "No handtrait/codec. Native ViewContext/ReducerContext queries preserve different DB accessor types and existing typed ObjectiveExpression/OutcomeFact Serde; duplication of semantic DB joins not derive boilerplate. Public negotiation projection omits private group/case details after current cap/mission/language/spokesman checks. exact_hostile_negotiation_authority407\u2013516 and retry533\u2013543 validate selected immutable request identity and current context, not whole-row Eq/From."
+  ],
+  "first_unfinished": {
+    "scope_index": 1221,
+    "line": 561
+  },
+  "execution": "none"
+}

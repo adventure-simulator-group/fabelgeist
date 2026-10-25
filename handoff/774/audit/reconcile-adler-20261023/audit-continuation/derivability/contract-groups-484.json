@@ -1,0 +1,420 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-484",
+  "at": "2026-10-25T15:47:37.748353+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 881,
+      "source_id": "pr-working:crates/adventuresim-core/src/bestiary.rs",
+      "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+      "actual_EOF": 1558,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/bestiary.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/bestiary.rs",
+        "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+        "bytes": 54113,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "root",
+            "record": "wave-01/audit-producer-propagation/root/additional-sources-029.json",
+            "ranges": [
+              [
+                1,
+                1558
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "ROOT-PP-PHYSICAL-RECEIVERS-029"
+            ]
+          },
+          {
+            "shard": "root",
+            "record": "wave-01/audit-producer-propagation/root/unchanged-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                1558
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "ROOT-PP-PHYSICAL-RECEIVERS-029"
+            ]
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+            "ranges": null,
+            "source_read_status": null,
+            "trace_refs": []
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                140
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-STRATEGIC-BATTLE-001"
+            ]
+          }
+        ],
+        "audit_owner": "root",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 93,
+            "read_ranges": [
+              [
+                1,
+                1558
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-BESTIARY-022"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/bestiary.rs"
+          },
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 417,
+            "read_ranges": [
+              [
+                1,
+                1558
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-BESTIARY-022",
+              "ROOT-OWNER-NATIVE-DEPENDENCY-CLOSURE-082"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/bestiary.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-CATALOGUE-ROLE-005",
+            "json_pointer": "/source_proofs/0",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/bestiary.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1558
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/bestiary.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/bestiary.rs",
+              "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+              "read_ranges": [
+                [
+                  1,
+                  1558
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CASE-RECEIVERS-029",
+            "json_pointer": "/related_current_sources/10",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/bestiary.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                122
+              ],
+              [
+                484,
+                752
+              ],
+              [
+                822,
+                1010
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/bestiary.rs",
+              "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+              "read_ranges": [
+                [
+                  1,
+                  122
+                ],
+                [
+                  484,
+                  752
+                ],
+                [
+                  822,
+                  1010
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/bestiary.rs",
+              "scope": "Actual ThreatId/catalogue profile compilation, report/evidence score reduction and typed ranking. Camera canonical compile_profile authority unchanged; no full1558 or unrelated physical-family clearance."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-QUEST-KNOWLEDGE-050",
+            "json_pointer": "/additional_actual_source_proofs/17",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/bestiary.rs",
+            "read_ranges_as_recorded": [
+              [
+                480,
+                515
+              ],
+              [
+                685,
+                713
+              ],
+              [
+                865,
+                910
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/bestiary.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/bestiary.rs",
+              "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+              "read_ranges": [
+                [
+                  480,
+                  515
+                ],
+                [
+                  685,
+                  713
+                ],
+                [
+                  865,
+                  910
+                ]
+              ],
+              "actual_line_count": 1558,
+              "role": "Bounded typed profile immutablecache, investigability origin, description likelihood actual typed query; no full compile_profile claim",
+              "mode": "Fresh exact producer-supplement source-body read; only listed ranges, no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-037",
+            "json_pointer": "/fresh_current_source_reads/11",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/bestiary.rs",
+            "read_ranges_as_recorded": [
+              [
+                480,
+                515
+              ],
+              [
+                685,
+                713
+              ],
+              [
+                865,
+                910
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/bestiary.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/bestiary.rs",
+              "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+              "read_ranges": [
+                [
+                  480,
+                  515
+                ],
+                [
+                  685,
+                  713
+                ],
+                [
+                  865,
+                  910
+                ]
+              ],
+              "actual_line_count": 1558,
+              "role": "Bounded typed profile immutablecache, investigability origin, description likelihood actual typed query; no full compile_profile claim",
+              "mode": "Fresh exact producer-supplement source-body read; only listed ranges, no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016",
+            "json_pointer": "/related_current_reads/10",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/bestiary.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                122
+              ],
+              [
+                484,
+                752
+              ],
+              [
+                822,
+                1010
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/bestiary.rs",
+              "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+              "read_ranges": [
+                [
+                  1,
+                  122
+                ],
+                [
+                  484,
+                  752
+                ],
+                [
+                  822,
+                  1010
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/bestiary.rs",
+              "scope": "Actual ThreatId/catalogue profile compilation, report/evidence score reduction and typed ranking. Camera canonical compile_profile authority unchanged; no full1558 or unrelated physical-family clearance."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 280,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1558
+        ]
+      ],
+      "source_read_receipts": [
+        "contract-groups-478.json",
+        "contract-groups-479.json",
+        "contract-groups-480.json",
+        "contract-groups-481.json",
+        "contract-groups-482.json",
+        "contract-groups-483.json"
+      ],
+      "trait_inventory": [
+        {
+          "trait": "FromStr",
+          "type": "ThreatId",
+          "lines": [
+            108,
+            117
+          ],
+          "disposition": "KEEP lexical+catalogue membership checked admission; no existing raw From/TryFrom/String derive equivalent."
+        },
+        {
+          "trait": "Debug",
+          "type": "ThreatId / ReportDescription / EvidenceKind",
+          "lines": [
+            [
+              119,
+              123
+            ],
+            [
+              232,
+              236
+            ],
+            [
+              282,
+              286
+            ]
+          ],
+          "disposition": "KEEP canonical unquoted ID write_str; builtin structural Debug changes output, no ready owning formatter derive; no extra scaffolding/dependency for small impls."
+        },
+        {
+          "trait": "Serialize",
+          "type": "ThreatId",
+          "lines": [
+            124,
+            128
+          ],
+          "disposition": "KEEP fixed length+bytes\u2192borrowed str native representation coding. Structural derive changes wire; owned String conversion changes allocation/API."
+        },
+        {
+          "trait": "Deserialize",
+          "type": "ThreatId",
+          "lines": [
+            129,
+            134
+          ],
+          "disposition": "KEEP owned String\u2192checked catalogue-member parse with custom errors. No existing TryFrom<String> to derive through without adding new API."
+        },
+        {
+          "trait": "Serialize",
+          "type": "ReportDescription",
+          "lines": [
+            237,
+            241
+          ],
+          "disposition": "OPTIONAL exact F003 existing Serde Serialize transparent delegates borrowed ThreatId serializer identically; same found source/remedy as prior P16 variant, independently analyzed PR support."
+        },
+        {
+          "trait": "Deserialize",
+          "type": "ReportDescription",
+          "lines": [
+            242,
+            247
+          ],
+          "disposition": "KEEP lexical try_new and exact invalid description ID error; transparent ThreatId decoder imposes different catalogue membership admission."
+        }
+      ],
+      "existing_derives": [
+        "ThreatId/EvidenceKind structural equality/order/hash/copy derives",
+        "ReportDescription Clone Copy PartialEq Eq Hash",
+        "Native enum/profile/score/marginal/diagnostic records already structural derived, InnateProtection/ImplementedCombatLore Default"
+      ],
+      "absence_basis": "All1558 exact PR lines personally consumed across478\u2013483 plus1321\u20131558 tail, not inherited equal-hash coverage. Native catalogue profile compilation, stable borrowed allocation, likelihood/ranking/diagnostics/evidence-limited projection and source fixtures are semantic; only exact F003 optional codec forwarding candidate. No tests/catalogue checks executed, child report-quality/catalog fixtures not credited."
+    }
+  ],
+  "groups": [
+    {
+      "disposition": "F003_SAME_EXACT_SERIALIZER_REMEDY_WITH_FRESH_PR_SOURCE_SUPPORT",
+      "contracts": "Preserve syntax-vs-catalogue membership/error distinction, native fixed-buffer string representation and unquoted Debug. No new unique defect count or other-lens verdict transfer."
+    }
+  ],
+  "findings": [
+    "SEGOVB-INITIAL10-F003"
+  ],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 882,
+    "source_id": "pr-working:crates/adventuresim-core/src/bestiary/error.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

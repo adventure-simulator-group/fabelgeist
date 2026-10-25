@@ -1,0 +1,100 @@
+{
+  "id": "ROOT-PPS-SIMULATION-NATIVE-SDK-QUALIFICATION-048",
+  "lens": "audit-producer-propagation",
+  "assigned_indices": [],
+  "assigned_camera_indices": [],
+  "source_proofs": [
+    {
+      "source_id": "pinned-sdk-2.6.1:error.rs",
+      "path": "CARGO_REGISTRY/spacetimedb-sdk-2.6.1/src/error.rs",
+      "sha256": "e98badf5f0eaff8bfe959e31b3ed9e4a6ad5cf5ec4040bfe806f74dc0c692d38",
+      "read_ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "mode": "Fresh actual pinned native SDK error/type/callback bodies; bounded scopes only"
+    },
+    {
+      "source_id": "pinned-sdk-2.6.1:lib.rs",
+      "path": "CARGO_REGISTRY/spacetimedb-sdk-2.6.1/src/lib.rs",
+      "sha256": "8de4cda1540f853eb47c888806c1529d3a7b2ed9e928d8fa01304f7d525e8161",
+      "read_ranges": [
+        [
+          35,
+          65
+        ]
+      ],
+      "mode": "Fresh actual pinned native SDK error/type/callback bodies; bounded scopes only"
+    },
+    {
+      "source_id": "pinned-sdk-2.6.1:db_connection.rs",
+      "path": "CARGO_REGISTRY/spacetimedb-sdk-2.6.1/src/db_connection.rs",
+      "sha256": "79c452f092b1123e8a9c4f7ca3c34167290bb97e3a64093ce903f4bf742b2b9a",
+      "read_ranges": [
+        [
+          715,
+          805
+        ],
+        [
+          930,
+          975
+        ],
+        [
+          1138,
+          1180
+        ]
+      ],
+      "mode": "Fresh actual pinned native SDK error/type/callback bodies; bounded scopes only"
+    },
+    {
+      "source_id": "pinned-sdk-2.6.1:subscription.rs",
+      "path": "CARGO_REGISTRY/spacetimedb-sdk-2.6.1/src/subscription.rs",
+      "sha256": "5b1c6b0def7c80c6afb1659ff676de3c9414173452a374041d4c9f27f760e729",
+      "read_ranges": [
+        [
+          140,
+          190
+        ]
+      ],
+      "mode": "Fresh actual pinned native SDK error/type/callback bodies; bounded scopes only"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/encounter_policy.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/encounter_policy.rs",
+      "sha256": "7d3199ead47d5700c22743f7a862eabfccaeb9b3027af9131908f1fea2d5884c",
+      "read_ranges": [
+        [
+          290,
+          330
+        ]
+      ],
+      "mode": "Correct exactbody emittedby actual290\u2013358 source read, supersedes root047 metadataoverrun only; full methodskillfit and defeatpredicate, notwholemodule"
+    }
+  ],
+  "qualification": {
+    "record": "ROOT-PPS-SIMULATION-CORE-GENERATED-PARTIAL-047",
+    "source": "pr-working:crates/adventuresim-strategic-sim/src/live_core/encounter_policy.rs",
+    "original_read_range": [
+      290,
+      346
+    ],
+    "correct_scope": "Actual sourceEOF330; fresh command290\u2013358 emitted290\u2013330. Correct exactreceivingbody range290\u2013330, containing full generated_method_skill_fit301\u2013312 and generated_defeat_decision; requestedrange beyondEOF is not extra coverage. Original receipt retained; corrected source proof below authoritative.",
+    "scope_status": "No missing operational body in selected boundedreceivers; whole encounter_policy other ranges not claimed."
+  },
+  "producer_to_receiver": [
+    "Actual pinnedSDK Error is Clone Debug/non_exhaustive with Disconnected/FailedToConnect/Internal/SubscriptionError variants; InternalError Clone contains optionalArc dynError+Send+Sync. Both are concrete retained causes before application .to_string in bootstrap/policy. They do not derive Eq/PartialEq; current CoreLoopError/ReducerCallFailure Eq derives must be reconciled with concrete cause payload instead of inventing lossy String reason just to retain traits.",
+    "SDK invoke_reducer_with_callback746\u2013761 invokes FnOnce<Result<Result<(),String>,InternalError>>; inner serverrejection String is true native wire and parse_reducer_error onceat applicationingress is justified. Outer native InternalError distinct from immediatecrate::Error dispatch and from mpsc::RecvTimeoutError Timeout/Disconnected. Native invoke just queues typed args/callback and returns crate::Result<()>, so actual generated dispatch path does not require flattening the cause.",
+    "SDK builder950 native crate::Result, on_connect_error1156\u20131172 and subscription.on_error176\u2013180 own Clone native crate::Error. Typed causes can be retained in callbacks/channel/CoreLoopError and projected to privacy-safe public reason/Display only at finalboundary. InternalError source() returnsNone while deprecatedcause() exposes Arc; retaining concrete payload preserves inspectable SDK context without falsely claiming a full source() chain guaranteedby SDK.",
+    "Fresh root047 bootstrap/LiveRunner::call/native callback proof and priorCAM-OWN-SIM-SDK-ERROR-098 exact source reconcile the same actual bound contracts; raw error cause is existing F006/returnedCoreLoopError erasure remedy, not new duplicate types. No SDK/generatedbindings edits or source changes."
+  ],
+  "exact_connected_repair": "Camera existing whole CoreLoopError/ReducerCallFailure/nativecallback/channel/applicationhelper/FailureRecorder/runerror graph consumes concrete SDK error variants. Preserve Clone via actualSDK contract; remove or appropriately narrow Eq bounds where no semantic equality exists, preserve existing assertion purposes without new tests. Keep native rejectedunknownservertext and knownReducerErrorCode; explicit timeout vs disconnect; final sanitizedprojection separatefrom typedcause.",
+  "remaining_actual_receiver": [
+    "Root047 shared simulation Rig10/Native5 queues still pending; source qualification and SDKcause proof do not close all30 or Camera716."
+  ],
+  "acceptance": "Correct actualsource ranges; concrete typed causes retained through internal state/helper/callback, existing reducercode/replan/privacy/deploymentboundary behavior preserved. No checks/newtests or validation PASS.",
+  "source_repair": "frozen_until_all13_initial_inventories",
+  "validation": "not_executed",
+  "timestamp": "2026-10-21T22:02:15.203864+00:00"
+}

@@ -1,0 +1,108 @@
+{
+  "id": "CONT07-CONTRACT-570",
+  "at": "2026-10-24T00:08:53.340643+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2461,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+      "sha256": "896ecc0389806812fad940c671d539b4c767e5a2e38d8a5865403c65b5377579",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+      "actual_EOF": 244,
+      "ranges": [
+        [
+          1,
+          244
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2462,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+      "sha256": "b25c00d6c145fc8ff6ba17b58925569f5377ec0ff736dd1ff61b53d6199d2a68",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+      "actual_EOF": 390,
+      "ranges": [
+        [
+          1,
+          390
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2463,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/observation.rs",
+      "sha256": "b1dc9323bda01dd3f71ebf003ffe6190ac56ea73ea489ddf3a3f40498c51eab5",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-tactical-client/src/animation_viewer/report/observation.rs",
+      "actual_EOF": 203,
+      "ranges": [
+        [
+          1,
+          203
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2464,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+      "sha256": "fc63aaa5df83ab829486d1421eda4b014bf7be462cc7451b0b2c28d19c862e99",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+      "actual_EOF": 618,
+      "ranges": [
+        [
+          1,
+          618
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2465,
+      "source_id": "report-p17:crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+      "sha256": "95852ba679486fb361ff90d203788f00fd951c87d215420de1e4931d6911226c",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+      "actual_EOF": 155,
+      "ranges": [
+        [
+          1,
+          155
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2466,
+      "source_id": "report-p17:crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+      "sha256": "ab520d3fbb8ff15b6554a7ae16e036426dea29b02082af86a99ce8de78c02fe7",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+      "actual_EOF": 148,
+      "ranges": [
+        [
+          1,
+          148
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "P17 report completeness compares exact finished frame order/scenario/frame identity against selected plan and requires every REPORT_BONES entry; artifact gate requires nonempty expected-view files. This closes normal missing-selected-scenario concern in the preceding metric consumers, while image nonempty alone cannot prove semantic visual correctness.",
+    "P17 Observation separates NotApplicable/Unavailable/Measured in both serialization and required/optional predicates; range and peak aggregates are constructed through coordinated methods. No cached redundant primitive beside the wrapped quality fraction or actual measurement.",
+    "P17 full validation assembly derives report flags from actual frames and one validation_passed predicate feeds both exit and QualityScore.acceptance_passed, preventing an independently maintained acceptance conjunction there. categories/weighted quality intentionally cover a narrower rubric than overall acceptance and may disagree without authority defect.",
+    "P17 score weight sum16+8+4+2+1, catastrophic override31, normalization31, retained maximum31 and HTML denominator31 currently agree. These are independently restated rubric policy values; maintainability population retained, no existing drift or false acceptance asserted. Planned sample_hz comes from canonical locomotion_sample_rate; HTML64Hz literal remains separate diagnostic-display copy pending accepted sample-rate variability.",
+    "P17 sample fields retain expected plan, actual presentation, optional IK observations and serialized diagnostics distinctly. Actual action payload serialization derives label and sequence from one typed event; owner/name/target strings at report boundary do not themselves compete with native identity.",
+    "P17 authored angular and height wrappers retain one native scalar, delegate finite/nonnegative admission and re-admit arithmetic; radians/metres views derive from stored value. Role wrappers over shared quantities are not duplicate runtime authority. No repairs or test execution."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2468,
+    "start_line": 1
+  }
+}

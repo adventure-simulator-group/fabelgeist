@@ -1,0 +1,32 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-145",
+  "at": "2026-10-23T03:34:55.649488+00:00",
+  "lens": "audit-aggregate-states",
+  "prospective_registration": "source-range-registration.jsonl#NATIVE-INITIAL05-REG034",
+  "source_members": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/material.rs",
+      "sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+      "actual_EOF": 1869,
+      "scoped_ranges_compared": [
+        [
+          74,
+          106
+        ]
+      ],
+      "actual05_comparison": "Fresh exact P16 body AFTER prospective REG034, no PR/hash-only carry. Milliliters private u64 with Default/ZERO/new allword including0/MAX; checked_add/sub directly delegate u64 checked operations returning Option before Self. Zero valid accumulating or empty measured liquid amount; graph independently requires positive exterior and bounds measured<=exterior.",
+      "source_body_proof": "Fresh registered P16 actual lines74-106 only."
+    }
+  ],
+  "contract_groups": [
+    {
+      "id": "container-volume-native-kernel-closure",
+      "comparison": "Actual141 P16 used_volume startsZERO then exact checked_add; accepted graph per-parent sum<=native u64 capacity. Removing old edge cannot increase destination sum; error from used_volume after remove unreachable from controlled admitted graph, so source supports preserving insertion without hypothetical destructive failure. checked_add(child_volume) None fails fits and restoresoldparent, exact fit <= valid. Empty graph/default/empty measured liquid retained as intentional. Only actual native word operation closed; no generic arbitrary caller graph/storage mutation guarantee."
+    }
+  ],
+  "new_unique_findings": [],
+  "global_scope_status": "prospective new existing-variant material range pending Root reconciliation; no globalledger mutation or other lenscredit",
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

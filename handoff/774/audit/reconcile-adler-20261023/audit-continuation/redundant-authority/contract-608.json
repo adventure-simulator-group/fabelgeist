@@ -1,0 +1,156 @@
+{
+  "id": "CONT07-CONTRACT-608",
+  "at": "2026-10-24T00:32:01.269474+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2629,
+      "source_id": "pr-working:crates/fabelgeist-garment-code/src/pattern/spec.rs",
+      "sha256": "091a579552af6da77a2bbcf091a6a7afddf4784dd6f488460940b9eb9fa77ee9",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-garment-code/src/pattern/spec.rs",
+      "actual_EOF": 582,
+      "ranges": [
+        [
+          1,
+          141
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2630,
+      "source_id": "pr-working:crates/fabelgeist-garment-code/src/pattern/core.rs",
+      "sha256": "78a40a867edc2528c4d5bd02bd24b48e21b4e8fdf0e70e4c0cac759b680efa50",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-garment-code/src/pattern/core.rs",
+      "actual_EOF": 442,
+      "ranges": [
+        [
+          1,
+          14
+        ],
+        [
+          67,
+          99
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2631,
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/garment/mod.rs",
+      "sha256": "d5124bc81c37905a779feea7e56a120ed5fadda9448cad8cf907a61c938b1da6",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-cloth/src/garment/mod.rs",
+      "actual_EOF": 455,
+      "ranges": [
+        [
+          1,
+          453
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2632,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "actual_EOF": 138,
+      "ranges": [
+        [
+          1,
+          135
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2633,
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/topology.rs",
+      "sha256": "41dff2a972cd895174727de04e1407c5594a27e1682b4928dff8480db68e07da",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-cloth/src/topology.rs",
+      "actual_EOF": 1,
+      "ranges": [
+        [
+          1,
+          1
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2634,
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/triangulate/mod.rs",
+      "sha256": "18e60b537352a1753963980da26dd94705dee8a4b44232dece7c90fa07d8416b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-cloth/src/triangulate/mod.rs",
+      "actual_EOF": 413,
+      "ranges": [
+        [
+          1,
+          410
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2635,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "sha256": "1c55bd7318aad5de90e1269947be86e50e89d12439d37c0bba301f30d05a7668",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs",
+      "actual_EOF": 88,
+      "ranges": [
+        [
+          1,
+          88
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2636,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "actual_EOF": 209,
+      "ranges": [
+        [
+          1,
+          209
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2280,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "f795df445833d7fae4fca22e42c07b01eb3b7f09e4033708bb68673597149204",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "actual_EOF": 187,
+      "ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "RIG-INITIAL06-F003",
+    "RIG-ADMISSION03-F057-SUPPLEMENT-001"
+  ],
+  "facts": [
+    "PatternSpec stores insertion-order named panels plus optional explicit panel_order, and merge replaces same-name panel bodies while appending stitches. Meaning/order validation and serialization consumers remain required before claiming these orders must coincide. Edge curvature uses one payload plus explicit mirroring; local curvature coordinates are not a cached world curve.",
+    "GarmentMesh's material coordinates intentionally retain flat rest provenance distinct from current placed/simulated positions. Build coordinates seam subdivision counts to a fixed point before triangulation, derives constraints/masses once, and explicitly unfolds seam bends so initial separated placement is not mistaken for sewn rest gap. No stale-current-rest claim from those two spaces. Public vector coherence remains adopted admission/shared ShellMesh ownership findings; RIG-INITIAL06-F003 personally consumed, source07 analysis independent.",
+    "Panel edge-chain indices preserve original outline winding and shared endpoints, while output triangles orient independently. boundary_count derives from actual edge-chain maximum rather than stored competing count. Claimed simple polygon is caller precondition; no normal valid-input failure established merely from empty/raw malformed polygons or public mutability. Garment build has no blanket downstream proof of all mesh invariants.",
+    "BufferDefinition stores one UsageSelection, derives native flags at allocation, and explicit capabilities accumulate intentionally. Default general allocation versus new unspecified map to same final general policy until first explicit selection; no contradictory stored use flags.",
+    "ComputeShader retains public source/module/error product and PartialEq compares code only. This exact support belongs to inherited RIG-ADMISSION03-F057-SUPPLEMENT-001 mutable compiled identity, not a new unique cache finding. Reflection generates interface layouts from same source but compacts noncontiguous bind-group indexes into a dense vector while storing explicit indexes only in reflected metadata; actual pipeline positional layout consumption supplies new conditional F120 candidate. Multiple-uniform aggregation and image sampler/access translation are separate recipient questions, not cleared by source reflection."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2637,
+    "start_line": 1
+  }
+}

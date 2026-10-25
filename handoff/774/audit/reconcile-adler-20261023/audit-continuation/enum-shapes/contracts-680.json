@@ -1,0 +1,20 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-680",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        1604,
+        1605
+      ],
+      "comparison": "Fresh full impostor_assets444 and lod402, including complete source fixtures. PreparedTreeImpostorUsage and TreeLeafRepresentation are existing meaningful enums. TreeLod is a u8 newtype, TreeTrunkLod is a unit marker, neither is an existing finite enum; raw finite LOD selection remains a connected candidate pending actual spawn/override producers. Wire species tag is a codec, unknown tags simply unmatched. Decoding does not validate bake version until runtime assert; wrong-version API file can panic, but actual authored compressed asset bytes/version have not been inspected, no ordinary stale-asset claim. Runtime preserves stored hash/version; no falsified-ready claim. Independent benchmark hide flags retained; optional leaf preference may remain meaningful while automaticLOD active, no forced correlated sum without producer trace. Trunk Has<MidTrunk> selects detailed/mid policy; fixtures intentionally default detailed without either marker, actual spawn trace pending. Camera nonPerspective reference focal policy distinct from prior camera metric findings; no ordinary first-party projection mismatch. Native VisibilityRange MAX means no artificial distance limit, not missing physical measurement. Loading handle Option/asset lookup absence native waiting policy, not false readiness. F453/F454 semantics preserved through prepared records. Source fixtures and compressed assets not executed.",
+      "finding_refs": [
+        "SEGO-INITIAL09-F453",
+        "SEGO-INITIAL09-F454"
+      ],
+      "disposition": "Existing usage/leaf enums and independent axes positive; finiteLOD/trunk candidates carried to producer trace"
+    }
+  ],
+  "new_findings": [],
+  "limits": "No execution/repair/clearance. Next1606 materials629; no child body credit from imports."
+}

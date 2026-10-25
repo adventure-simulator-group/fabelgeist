@@ -1,0 +1,67 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-320",
+  "at": "2026-10-23T07:43:51.927173+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_garment_torso.rs",
+      "sha256": "458442ee3b24c55c84a9ac0fbf3c4ec8c2923ff2b934b0dd2833c40b2ce89027",
+      "scope070_index": 739,
+      "actual_EOF": 379,
+      "scoped_ranges_compared": [
+        [
+          1,
+          379
+        ]
+      ],
+      "actual05_comparison": "Fresh entire exact host+embeddedWGSL in paired bounded displays; torso/tube carrier ownership, ordered sections, ring count/index/angle interpolation and synthetic nested part acceptance compared. No GPU/compiler/test execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_garment_tube.rs",
+      "sha256": "f3a62a48644dc5a0e6e24709857dc95742ba1eaafa24535bb77ca0aa61bd3106",
+      "scope070_index": 740,
+      "actual_EOF": 483,
+      "scoped_ranges_compared": [
+        [
+          1,
+          483
+        ]
+      ],
+      "actual05_comparison": "Fresh entire exact host+embeddedWGSL in paired bounded displays; torso/tube carrier ownership, ordered sections, ring count/index/angle interpolation and synthetic nested part acceptance compared. No GPU/compiler/test execution."
+    }
+  ],
+  "groups": [
+    {
+      "id": "torso fit keeps cage sample dimensions and tags aligned",
+      "comparison": "TorsoGarment TryFrom accepts exactly4kinds,device_word0..3sameWGSLnames; nofloatruntimekindcastfromrawauthoredString. Frameprefix16,8scalarwords,17×7sectionrowsderive143wordallocation,generatedlayoutsameoffsets. Head/Torsoframes+typedjointheight spans fromsamewearer;setupborrowsneck/waist/armpitactualjointslots anddesignnumericvalues, supportfixed2Torso/Hips soown734bitshiftsbounded. Eachcandidate section obtainsBANDpresent oratomicfailure, reducecandidateflag→fitfailure,torso_vertexreturnzeroonfitfailure andrecord_fit_statuscopiesintopartstatus. Actualtopologyshapebuilderreceivesfittedbodylayout, exactlowernativecontrolboundsstillseparate."
+    },
+    {
+      "id": "torso cage and seam identities",
+      "comparison": "cage_at searchesheightwithin17rows,clampsupper<=16andlower=max(upper,1)−1, handlesequalheightwitht0. Panel-localreadsactualfront/backpanelcarrierrows;shoulderband/flanksbridgeexactcorrespondingpanelpoints, noindependentlyresampledseam. Strongtypedkinddecidesmailchestlooseness/paddedquilting andrigidflare intentionallydifferentpolicy; hiddenv0.6blendingconstantsunexaminedown13until05done. Nativepanelrowconstants andactualpartpositions/morph topologyretainlowerrequirements, notallpublicrawfitsealed."
+    },
+    {
+      "id": "tube fit actual current chain plus skin support",
+      "comparison": "TubeRig onlyArmforMail/QuiltedSleeveotherwiseLeg privateconversion calledcurrent734dispatchfourkinds/737syntheticMail/PaddedChausses, notarbitrarypublickindpromise. SameSide anchorsUparm/Lowarm/Wrist orUpleg/Lowleg/FootandWholeArm/WholeLegframe. TUBE_SETUPcopiesframe15words, explicitlyfailure0, sets3actualjointpoints andringcount0. TUBE_FITguardscarrierID, derivescurrentchainHermitecurve andsupportsection atstation, flagspart.status ifBANDabsent,otherwisederivesenclosingellipse,quiltandreserveshape andoptionalcapturedarmholeseam. Current supportone regionbit so<=32. Actualjointcurve degeneracy/finalpartnumericacceptanceremainslowerinputcontract; no normalMHRbadshapeclaimed."
+    },
+    {
+      "id": "sewing ring has capacity and producer topology obligation",
+      "comparison": "record_ring checksindices.len asu32<=96beforeupload,recordsactualsameindicescount/pointbufferfit. RING_SOURCEcomputesmeanandstableanglesort, writesringcountmatchingn;RING_AT modulo n reliesnonemptyactualhem/armholeproducer. armhole andhem builtfromsameimportedtorsoACROSS/ALONG/ARMPIT/SHOULDER topologyconstants, actualspecifiedcarrierordinals andpanel/band/flankorder; no arbitrary callerindices membershipprovedhere ornormalemptyringclaim. Nativeconstvalues/countcapacity,positiveSHOULDERandARMPIT<=ALONG remain actualdirectsupplierobligations. Countcastbeforerangecheck latentu32capacitypreconditionqualified, no enormousallocationcountercaseexecuted."
+    },
+    {
+      "id": "nested failed part status is distinct from frames",
+      "comparison": "ActualTorso739returnschecksVecempty butmarksitsownpart.status fromupright/candidate failure, evenifhead/rawTorsoframespassed. ActualTube740returnschecksVecempty butcandidatefailurewritesitsownpart.status; itsattachedsyntheticTorso alsoonlyframesretained. Skirt737likewiseuseslegs/torso geometry+frames anddropsownpartstatus; contrastBoot725explicitlayer_checksrequiresnestedpartstatus0. Thus earlier318potentialdroppednonemptyDeviceCheckisnotsupportedbycurrentbuilders,correctedhere: checksactuallyempty. Part-statuspropagationquestionremains; noguaranteedsuccessfulbadskirt/normalhumanassetknown, outerpart.finishcouldrejectdegenerategeometry. Preserveexactindependentfailurechannelsbeforewhole-outputclaim; directnativefinishandnormalmodelsnotyetreadforthisclosure."
+    },
+    {
+      "id": "normal channel alignment and endpoint limits",
+      "comparison": "TorsoandTubeuseonlysameDeviceWearerhost/devicecurrentproduct, maintainingCameraF051qualificationifpublicRealizationcachemismatched. Sameper-pieceRINGindicesnormalgenerationnotprivatecachedbodyselection. Layerstexture/material/rigskinstatusattainedlaterduringDeviceFitread/assemble;recordingdoesnotitselfmeanacceptedCPUasset. Torso nooriginalfixtures,Tube noinlinefixtures;fullrequestedsourcecompletednotnewtestexecution. No transferfromprioradmissionverdict."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "NativeDevicePart.finish/recordednestedpartstatusandnormalmodelrecipepathneededbeforeclassifyweakenedskirt/sleevewhole-resultacceptance.",
+    "Exactnativegarmenttopologyconstants/shape-builderindicesandRINGnonemptycapacity/membershipproducerproofnotinferredfromnames."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

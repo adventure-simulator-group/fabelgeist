@@ -1,0 +1,113 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-981",
+  "at": "2026-10-25T17:25:36.678798+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1143,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/npc_causal.rs",
+      "sha256": "3e8edab2fcd4988c3443a07ef35041bc7c9522ab9e6e025317b29608a41de263",
+      "actual_EOF": 635,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/npc_causal.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/npc_causal.rs",
+        "sha256": "3e8edab2fcd4988c3443a07ef35041bc7c9522ab9e6e025317b29608a41de263",
+        "bytes": 22032,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                635
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-DURABLE-LIFECYCLE-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 260,
+            "read_ranges": [
+              [
+                1,
+                635
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-NPC-028"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/npc_causal.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 184,
+            "read_ranges": [
+              [
+                1,
+                635
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-NPC-028"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/npc_causal.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 462,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          635
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "NpcPolicyDecisionPhase/Outcome Clone/Copy/Debug/PartialEq/Eq/SpacetimeType",
+        "NpcPolicyDecisionReceipt and NpcCausalSchedule Clone/Debug/table"
+      ],
+      "absence_basis": "Complete source across980\u2013981 consumed. No handwritten trait/codec; stable phase ID is inherent const vocabulary for durable receipt key. Native cohort frontier, idempotent schedule/housing/romance classification, directional roles and scheduled authorization/advance are semantic decisions, not derivable field projections. Full fixtures512\u2013635 read not run; romance include independently scoped."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "NPC causal policy derivability",
+      "disposition": "Structural record traits already derived; explicit authorization/causal decisions retained, no new lens10 finding."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1144,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/npc_causal/romance_candidates.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

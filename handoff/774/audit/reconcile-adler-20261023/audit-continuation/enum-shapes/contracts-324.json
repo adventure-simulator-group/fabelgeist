@@ -1,0 +1,94 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-324",
+  "lens": "audit-enum-shapes",
+  "source_extension_registration": "registered-material-324A.json",
+  "extensions": [
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-tactical-client/src/equipment/slot_selection.rs",
+      "registration": "SEGO-INITIAL09-REGISTRATION-324A-1",
+      "sha256": "95cb7d00f5f9c53287ed626304bd1914c958f7ee38933a8906a354ca12610678",
+      "ranges": [
+        [
+          1,
+          243
+        ]
+      ],
+      "comparison": "Slothelpers confirm activeproductF258 and meaningfullastinputhistory, plusdeliberatepureinactivefixture"
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-tactical-client/src/equipment/readiness.rs",
+      "registration": "SEGO-INITIAL09-REGISTRATION-324A-2",
+      "sha256": "81632fbe7f7562ccfcfbdbeda4eb587bfcbb4fb62d60ad8c9e550837a1c968bb",
+      "ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "comparison": "Readiness checks failurebeforevisibility/resolved, intentionalfixturecoexistence masksfailure; productionmarkerwritersstillpending"
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-stdb-module/src/strategic/dialogue_policy.rs",
+      "registration": "SEGO-INITIAL09-REGISTRATION-324A-3",
+      "sha256": "0b4667798ab18d21ca3e177acf453f643f39fd813f40d9dc55f2bf23fec06c01",
+      "ranges": [
+        [
+          1,
+          14
+        ]
+      ],
+      "comparison": "Persisted prompt mode/resolution parsed intoexistingtwoindependentpolicyowners; no newbool/tagfinding"
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-stdb-module/src/strategic/contracts.rs",
+      "registration": "SEGO-INITIAL09-REGISTRATION-324A-4",
+      "sha256": "082a7174a1ca9b578bf1a52852a7d09d952c4af3c6d0705ee7b5442692175e33",
+      "ranges": [
+        [
+          1,
+          384
+        ]
+      ],
+      "comparison": "Contractlifecycle existingRIGF002 support plus trueDialogue/ownedSimulation provenanceF259; consumedhistory retained, no ordinaryforgery"
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-stdb-module/src/strategic/tactical_enemy_fixture.rs",
+      "registration": "SEGO-INITIAL09-REGISTRATION-324A-5",
+      "sha256": "241e5f1c12555a8ebde110fc10e4e426601efc263879c408aa57d5be05b395ec",
+      "ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "comparison": "Fixture add_basic_clothing separatecoverage augmentation, not mutuallyexclusiveauthoredloadout; normaltypedfixtureparse androsterlength check"
+    },
+    {
+      "source_id": "physical-p16-commit039329:crates/adventuresim-stdb-module/src/strategic/inventory_trade/streams.rs",
+      "registration": "SEGO-INITIAL09-REGISTRATION-324A-6",
+      "sha256": "f0317997a922b05065564f3a5b4963d424f0efd3a2c4ed70dbb72a1de6c9569e",
+      "ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "comparison": "Lootpresence intrinsicRNGboolean and optionalpositivequantity product; maximum>0 is calleradmission obligation, no enumforrawdraw"
+    }
+  ],
+  "groups": [
+    {
+      "indices": [
+        2593
+      ],
+      "comparison": "Full143 exactP16runtime cache adaptive reread for newreadinessconnection. body/design optionalpartialinitialization plusfailedterminal flag preservematerial partialassets; actualgenerationstate/markerwriters notinthisbody. Cachedmodel Result storesfailureascompletedproduct, pendingOptionownsavailability, is_preparing namedpredicate. No new phasefinding until actualgenerationproducerread; doNOT clearOPEN317markers fromfixtureorreadinessalone.",
+      "disposition": "Connected productionmarker graph stillopen",
+      "finding_refs": []
+    }
+  ],
+  "new_findings": [
+    "SEGO-INITIAL09-F258",
+    "SEGO-INITIAL09-F259"
+  ],
+  "limits": "15 extra registered/read sources stayoutside2853 denominator. Six new helpers are distinctcommitted039329 variants, NEVER dirtysnapshotbyteverification. No execution, edits, checks/tests, repairplan or clearance."
+}

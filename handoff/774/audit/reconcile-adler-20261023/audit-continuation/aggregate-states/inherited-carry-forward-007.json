@@ -1,0 +1,674 @@
+{
+  "at": "2026-10-25T16:08:02.160447+00:00",
+  "rows": [
+    {
+      "scope_index": 1411,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/weighted.rs",
+      "sha256": "8453166436911f4394c507ec05f4e3bf3f52d0bb92cb9f388bb0cecbe64ceb7c",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-038.json",
+          "ranges": [
+            [
+              1,
+              71
+            ]
+          ],
+          "comparison": "Coalesce only samecliphandle/layer/sampletime tolerance/locomotionphase. Newentry mirroredweight either0orweight; merge computes BOTHchecked totals beforeeitherwrite, so relation0<=mirrored<=total preserved on normalgeneratedentries. same_sample tolerance intentionally not exact identity quotient; no transitivity promise. ClipTime finite signed and handle durationchecked independently, meaning withinclip relation relies sample producer and finalbounded sampling. RawWeightedClip fields may be independently constructed inparent; no blanket nativeAPIseal.",
+          "scope_qualifications": "Fresh full actual source body personally read forcurrent05 producer/retainedstate/mutation/recipient correlation; importedchildren onlycoveredifexplicitmembers. No execution or oldverdictcarry."
+        }
+      ]
+    },
+    {
+      "scope_index": 1412,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+      "sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-054.json",
+          "ranges": [
+            [
+              1,
+              1021
+            ]
+          ],
+          "comparison": "Private CaptureSequence correlates plan/index/view, admission, one in-flight screenshot, simulation tick and same-frame samples. new69-131 initializes all state with nonempty plan and settle>=1; complete147-163 moves all arrays from the same sequence. drive190-465 stages per-scenario reset and actual playback/body/ground state, then admits checked fixture position and readiness before applied=true; early native writes are not whole-operation rollback. capture_frame527-797 requires Open/applied/not-inflight, subject/playback/semantic readiness, first-view-only sample/global-bone capture from same frame, actual support gates before push, then one screenshot callback accumulates fingerprints and advances view, then frame, then completed output. No native callback execution/guaranteed successful file write inferred. visual_fingerprint799-821 requires native 4-byte image layout, length checks precede sample reads. jitter_frames823-898 intentionally EXCLUDES FullRagdoll, derives segments from actual transitions, strips pelvis translation intentionally, creates parent-relative bones and preserves scenario/frame/time. All-ragdoll yields empty jitter intentionally, so F016 must distinguish inapplicable evidence from invalid/missing applicable series. Parent-relative arithmetic itself does not establish finite pose. Original fixtures916-1021 read only; no execution. Direct plan/callback and VIEWS cardinality helper contracts remain pending exact own-source comparisons.",
+          "scope_qualifications": "Actual whole frozen body personally read for05 before compaction; all original fixtures source-only, no tests executed."
+        }
+      ]
+    },
+    {
+      "scope_index": 1413,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs",
+      "sha256": "be3851ecaa6b17fc8df5be03a931a840d86dde66294c07bb268dfe7aaa9cae4b",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-055.json",
+          "ranges": [
+            [
+              1,
+              168
+            ]
+          ],
+          "comparison": "CaptureAdmission Open/Rejected(payload)/Terminated is single retained driving authority. All four actual gates save the specific error before returning None; can_drive_frame119-124 requires Open, notapplied, notinflight, index<plan.len. Required authored IK rejects missing bilateral observations; disabled/unowned IK with no solve targets intentionally retains cadence rather than inventing flight. reject_capture147-154 emits failure then terminal state, run condition blocks later drive/capture; file-write failure logged does not reopen. This closes actual plan indexing and rejected\u2192drive consumer gaps in054; native event delivery remains external boundary.",
+          "scope_qualifications": "Fresh full source personally read; truncated repeated-evaluation/report-parent middle was separately reread before credit. Existing fixtures only read, no execution."
+        }
+      ]
+    },
+    {
+      "scope_index": 1414,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/capture_schedule.rs",
+      "sha256": "fc43df34f82478bf3b387906033df195b64b4cdbc32c6b9c4e53415a51ee1308",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-055.json",
+          "ranges": [
+            [
+              1,
+              57
+            ]
+          ],
+          "comparison": "Actual plugin declares PreUpdate drive then look freeze, PostUpdate camera before propagate/overlays after propagate, Last inspection\u2192harness readiness\u2192events\u2192rejection\u2192capture chained. Capture additionally requires harness ready and admission Open. This is source-backed intended schedule ordering only, not native executor proof or transactional rollback; readiness cannot revive Rejected/Terminated.",
+          "scope_qualifications": "Fresh full source personally read; truncated repeated-evaluation/report-parent middle was separately reread before credit. Existing fixtures only read, no execution."
+        }
+      ]
+    },
+    {
+      "scope_index": 1415,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/frame_clock.rs",
+      "sha256": "d37afe5c70931612e23068f7982db7bac0b7aedbd2dfd726c6981aff6863b81f",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-055.json",
+          "ranges": [
+            [
+              1,
+              58
+            ]
+          ],
+          "comparison": "Native fixed clock uses f64 reciprocal and Duration try_from_secs_f64 then rejects native zero before Time creation, preserving rounding distinct from f32 pose interval. Tick first absolute sample retains0, all later samples wrapping_next including scenario frame0; capture elapsed resets to0 per scenario but sample tick remains sequence-wide. Typed clock identities intentionally distinct, no monotonic unbounded tick guarantee. Original45-58 fixture read only.",
+          "scope_qualifications": "Fresh full source personally read; truncated repeated-evaluation/report-parent middle was separately reread before credit. Existing fixtures only read, no execution."
+        }
+      ]
+    },
+    {
+      "scope_index": 1416,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/global_bones.rs",
+      "sha256": "974eb0a6fc0c028f246576cd03e2ba83b772d47befe3a2593663c1d38339dd68",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-055.json",
+          "ranges": [
+            [
+              1,
+              59
+            ]
+          ],
+          "comparison": "GlobalBoneFrame captures scenario/frame/time/action+subject world transform and same-subject bones; bind.owner filter excludes foreign rigs; sort by(name,target ID) before emitting preserves deterministic association, no parallel arrays. Raw native translation/quaternion/scale serialized unvalidated; diagnostic trace is not a finite canonical pose seal or unique-name promise.",
+          "scope_qualifications": "Fresh full source personally read; truncated repeated-evaluation/report-parent middle was separately reread before credit. Existing fixtures only read, no execution."
+        }
+      ]
+    },
+    {
+      "scope_index": 1417,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/overlay.rs",
+      "sha256": "52776510686b004cc99d1cc9373424cffdfbad85172cc116f47bb8b15a13f0aa",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-056.json",
+          "ranges": [
+            [
+              1,
+              80
+            ]
+          ],
+          "comparison": "Overlay uses actual fixed nonempty VIEWS and clamps view index; single subject + owner-filtered role map prevents cross-character edges. Missing bones are skipped for visualization, not claimed complete pose. Support from checked locomotion weights colors feet, not aggregate flight truth or gameplay penalty. Same-role duplicates collapse in map; actual rig assignment/roster gate separate. No raw native transform finite seal here.",
+          "scope_qualifications": "Fresh full frozen body personally read for05, all original fixtures source-only."
+        }
+      ]
+    },
+    {
+      "scope_index": 1418,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/readiness.rs",
+      "sha256": "2e535e01db3e5692c7f0955fab779a341ffe7d4edb246f4a987e288231223868",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-055.json",
+          "ranges": [
+            [
+              1,
+              32
+            ]
+          ],
+          "comparison": "Private warmup decrements before frame admission; first frame requiring authored motion resets motion_ready_frames on either unavailable motion or unsettled presentation, then needs2 consecutive ready observations. Later scenario frames do not reapply first-frame gate; capture already requires actual current playback. Missing motion request is intentional procedural/no-authored case, not automatic error.",
+          "scope_qualifications": "Fresh full source personally read; truncated repeated-evaluation/report-parent middle was separately reread before credit. Existing fixtures only read, no execution."
+        }
+      ]
+    },
+    {
+      "scope_index": 1419,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+      "sha256": "6255135aec06f6ce010b7bb960723b059db57684bf009fa48ad2fe9a8e754d23",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-055.json",
+          "ranges": [
+            [
+              1,
+              214
+            ]
+          ],
+          "comparison": "Repeated snapshot binds same scenario+frame, complete bone map, contact/landing sequence,event count and IK diagnostic product at view0. Later views conjunct sticky validity with actual snapshot equality/tolerances; both-way key membership check precedes expect lookup. IK None/None matches but None/Some fails; finite numeric differences tested <= tolerances there. Bone numeric predicate uses > tolerances, so NaN deltas can evade repeated_bone_mismatch; separate report finite-transform gate rejects nonfinite raw bones, no normal whole-verdict false-pass claimed. Native quaternion rotation assumes canonical rotation, nonunit finite inputs are not validated here. Original182-214 fixtures source-only.",
+          "scope_qualifications": "Fresh full source personally read; truncated repeated-evaluation/report-parent middle was separately reread before credit. Existing fixtures only read, no execution."
+        }
+      ]
+    },
+    {
+      "scope_index": 1420,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+      "sha256": "40836a3c9a7e347f98f9ecf51aca3df955494d854e67f805e1cff8e54d02ec8a",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-056.json",
+          "ranges": [
+            [
+              1,
+              136
+            ]
+          ],
+          "comparison": "CaptureGround Terrain vs AuthoredPlane retains actual elevation authority. collect_bones filters matching owner and declared REPORT_BONES, stores role with transform and optional same-position terrain clearance; missing terrain remains None, authored disabled IK never falls back to terrain after invalid plane. Initial and per-frame root position complete XYZ readmitted before return; transform scale retained deliberately. Quickstep vertical is one actual fixture trajectory, ragdoll root independent lowering. Native duplicate role map overwrite is not sealed role-uniqueness proof; complete roster presence separately checked, current rig-role uniqueness remains separate.",
+          "scope_qualifications": "Fresh full frozen body personally read for05, all original fixtures source-only."
+        }
+      ]
+    },
+    {
+      "scope_index": 1421,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/subject_motion.rs",
+      "sha256": "863b3c4fafe43198495f75878f9544b5af7fd3cccd198a88c0cc37042c390981",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-056.json",
+          "ranges": [
+            [
+              1,
+              126
+            ]
+          ],
+          "comparison": "CaptureMotion is a raw native tuple, admitted at SkeletonLocomotionInput before projection. Body rotation ownership suppresses ordinary facing during posture transitions. Current ordered writes can precede later fallible posture advance; no rollback claim. begin_capture_action matches same planned frame/tick/attack start; valid private catalogue provides nonzero quickstep directions, current fixed contact durations. Saturating tick/contact is intentional clock operation but atMAX can collapse positive action interval; no normal finite catalogue reachesMAX. All expectations depend on actual admitted scenario state, not blanket public SkeletonState validity.",
+          "scope_qualifications": "Fresh full frozen body personally read for05, all original fixtures source-only."
+        }
+      ]
+    },
+    {
+      "scope_index": 1422,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness.rs",
+      "sha256": "ed20b1e997850b7b95cc52c88c55fad7855c2cf9c7a8e08ec3f610656517ee13",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-057.json",
+          "ranges": [
+            [
+              1,
+              511
+            ]
+          ],
+          "comparison": "ArmorHarness closed selected variant produces explicit ordered catalogue item roster, at most one conflicting waist option, optional deliberate underlayer chain. placements resolves same catalogue ItemDefinition and every placement; spawn preserves ItemOf wearer even when topology attaches to previously spawned item, retains actual same item+placement+entity tuples. Parent readiness recomputes expected placement count, each actual item visual state, sticky failure + separate readiness/wait count (timeout suspended during device preparation), no harness intentionally immediately ready. Anime cache validates full recipe before storing, current actual recipe gate proof prior03 navigation only until05canonical cell. Artifacts capture fixture plan before asynchronous rendering, not evidence all parts rendered. Native count equality not full roster identity by itself; normal spawn is same iterator. Tests325-511 fully source-read only, including graph-equip expectation (not runtime evidence). Museum lists exact newly registered direct producers below, not whole catalog asset proof.",
+          "scope_qualifications": "Fresh complete frozen source personally read for05, all original inline fixtures read only."
+        }
+      ]
+    },
+    {
+      "scope_index": 1423,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness/material.rs",
+      "sha256": "082b2d608e351444908c81cc624ab3627828ff0ec19111f32e708ac8f21caad3",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-057.json",
+          "ranges": [
+            [
+              1,
+              29
+            ]
+          ],
+          "comparison": "Material texture report keeps handle identity/path with optional loaded image descriptor fields. Missing texture versus unloaded referenced texture vs loaded native image distinct; normal/occlusion identity comparison OptionN/A when either absent. Pure diagnostic JSON projection, not pixel/format/mipmap admission or a redundant gameplay material owner.",
+          "scope_qualifications": "Fresh complete frozen source personally read for05, all original inline fixtures read only."
+        }
+      ]
+    },
+    {
+      "scope_index": 1424,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness/readiness.rs",
+      "sha256": "64c3ae627a9e6e8b449c355a123aa9007228513e88cc07c9d3ec6f6783ecff34",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-057.json",
+          "ranges": [
+            [
+              1,
+              285
+            ]
+          ],
+          "comparison": "EquipmentVisualStatus explicitly binds placeholder root item, resolved/failed flags, every part.item matching that item and actual handles. Failed dominates, unresolved/missing loading. Each present mesh scanned with WeightSummary; requested morph count compares mesh names count and actual finite weight-vector count, optional zero-morph valid. Source material and every referenced texture loaded, nonempty skin joints with joint_names length equality, mesh having named morphs requires morph component. Final >=1 part and optional complete requested name roster with count. Does NOT prove joint-name/entity order/membership, vertex/joint-index or position/weight array alignment merely from lengths; owning production binding/generation roles remain separate cells, no automatic seal. Summary preserves source/render material distinction and actual optional resources. Original162-285 fixtures source-read only.",
+          "scope_qualifications": "Fresh complete frozen source personally read for05, all original inline fixtures read only."
+        }
+      ]
+    },
+    {
+      "scope_index": 1425,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness/skinning.rs",
+      "sha256": "f9807d42e32e69b0b93111a10c857c336aef6267956556595625cbcf95d475b9",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-057.json",
+          "ranges": [
+            [
+              1,
+              48
+            ]
+          ],
+          "comparison": "WeightSummary.from_mesh accepts exact Float32x4 joint weight attribute and scans each vertex4 coefficients, rejecting nonfinite/negative and abs(sum-1)>1e-4. Sum overflowInf rejected; finite MAX cannot masquerade normalized; empty vertices invalid; missing/wrong attributeNone. Public summary fields can fabricate diagnostic values but actual readiness immediately consumes returned fresh scan. No joint-index/mesh-position alignment or current rig provenance guarantee from weight normalization alone, legitimate zero components retained.",
+          "scope_qualifications": "Fresh complete frozen source personally read for05, all original inline fixtures read only."
+        }
+      ]
+    },
+    {
+      "scope_index": 1426,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness/topology.rs",
+      "sha256": "2a13ec33b49d92daf80c15f8c4220d8ea184e6aad88dd7ccc4d7d6d3c341e59c",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-057.json",
+          "ranges": [
+            [
+              1,
+              66
+            ]
+          ],
+          "comparison": "Topology helper enumerates each actual placement body occupancy with unique formatted local index ID and corresponding requirement index, capacity0; then parent requirements find only PREVIOUS equipped definitions satisfying optional location/channel/order/positive capacity/accepted tags, retaining exact parent entity+attachment point. Thus construction-order DAG no forward/self parent normal path. It does not reserve parent capacity slots across children and index asu16 requires catalogue bounded cardinality; direct authored catalog admission/capacity source proof remains own future cells, no normal overcapacity claim. Same wearer kept by parent spawn, attachment identity distinct. No entire arbitrary EquipmentGraph acceptance inferred.",
+          "scope_qualifications": "Fresh complete frozen source personally read for05, all original inline fixtures read only."
+        }
+      ]
+    },
+    {
+      "scope_index": 1427,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/inspection.rs",
+      "sha256": "c3de8aecc1b589906a434397d0d78e51dc0b78c77453936e6f8c904a97a1bb7a",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-057.json",
+          "ranges": [
+            [
+              1,
+              67
+            ]
+          ],
+          "comparison": "CaptureInspection stores original orbit_degrees/diffuse flag/alpha as prepared JSON and computes native quaternion. publish writes that prepared config only after plan admission; material inspection intentionally changes visual metallic/roughness/alpha on item-qualified render parts, does not refit armor or gameplay protection. Public mutable orbit/diffuse fields are not a sealed immutable report config; no actual caller mutation or promised live config snapshot claim. Native quaternion finite/unit handling and arbitrary orbit CLI admission not inferred from constructor name.",
+          "scope_qualifications": "Fresh complete frozen source personally read for05, all original inline fixtures read only."
+        }
+      ]
+    },
+    {
+      "scope_index": 1428,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/mod.rs",
+      "sha256": "40cfb0af104c5b99efdf25346bf83168023b20c4305655f392ef49dcca1ab584",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-057.json",
+          "ranges": [
+            [
+              1,
+              179
+            ]
+          ],
+          "comparison": "CaptureOptions is raw crate-visible full product, not accepted capture config. run creates admitted nonempty CaptureSequence before publishing inspection/proportion artefacts, invalidates prior four report outputs, installs same config/body proportions/harness into one app and same fixed clock. Physics simulation disabled but presentation enabled intentionally; same production animation/equipment/camera plugins used with fixture defaults. Passed fixed_clock/config are accepted boundary preconditions, no validation implied by resource insertion. App scheduling/native execution not performed.",
+          "scope_qualifications": "Fresh complete frozen source personally read for05, all original inline fixtures read only."
+        }
+      ]
+    },
+    {
+      "scope_index": 1429,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/acceptance_limits.rs",
+      "sha256": "df0755d84bee3dcbea4124ffdf5f53bb89e513796b87e1577bdfafbdf7fd17f0",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-058.json",
+          "ranges": [
+            [
+              1,
+              220
+            ]
+          ],
+          "comparison": "Acceptance limits dispatch on same source-admitted metadata and intentionally differ for physical questions: world plant slip vs root-relative foot/knee continuity, loop seam vs nonrepeat transition, raised airborne quickstep exemption, terrain relief allowance. Bounds are fixed authored finite scalars; not configurable min/max record requiring admission here. cadence_contacts_valid binds actual CadenceContact frames, successor ContactSequence, alternating lead foot, adjusted root distances and exact4 contacts; no scenario intentionally N/A. Positive actual 2m/s step-distance caller avoidsF017. No deriving every metric solely from identity or pretending its numerical thresholds are new geometry invariants.",
+          "scope_qualifications": "Fresh full frozen source personally read for05, metrics2050 in four consecutive bounded displays, existing fixtures source only."
+        }
+      ]
+    },
+    {
+      "scope_index": 1430,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/body_response_validation.rs",
+      "sha256": "b3292ab6c13201b261d597d9aa15c5e07143c7503fd78ecb229aab8c7bb967ca",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-058.json",
+          "ranges": [
+            [
+              1,
+              133
+            ]
+          ],
+          "comparison": "BodyResponseValidation derives response+sway together from same frame slice and selected scenario. Actual same-scenario adjacent lean deltas checked, final rest selected from same scenario, specific expected min/max ranges gate actual ramp/turn/stop. Chest/head lateral ranges use body_local; absent scenario intentionally omitted, missing/no finite lateral samples fold to0, so this helper alone is not completeness admission. Normal report separately requires all17 bones+finite transforms/full planned frames; native body rotation/root inputs still producer-precondition, no universal finite-derived-math assertion.",
+          "scope_qualifications": "Fresh full frozen source personally read for05, metrics2050 in four consecutive bounded displays, existing fixtures source only."
+        }
+      ]
+    },
+    {
+      "scope_index": 1431,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/bones.rs",
+      "sha256": "1178bf380da9126c00678608493b9d252af9746d853d347d5f334d451586b5bb",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-056.json",
+          "ranges": [
+            [
+              1,
+              138
+            ]
+          ],
+          "comparison": "Actual REPORT_BONES contains17 distinct closed roles with unique labels and a reduced acyclic parent map: pelvis root, chest arms/head, bilateral thigh-shin-foot-toe. This is reduced report topology, intentionally not full authored skeleton hierarchy. CapturedBones private BTreeMap pairs each role/sample, FromIterator accepts overwrite semantics, ordered lexical report-label iteration preserves floating fold/tie order. Serializer rejects unsupported roles. Test-only mutation absent production; normal root collector filters supported matching-owner roles, report requires all17. No parallel label/pose arrays or automatic full-rig membership seal.",
+          "scope_qualifications": "Fresh full frozen body personally read for05, all original fixtures source-only."
+        }
+      ]
+    },
+    {
+      "scope_index": 1432,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/html.rs",
+      "sha256": "48cf5febbcb02887e500a960eb52ab06b5abfc9f55e4bdbf236319f5d89da684",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-058.json",
+          "ranges": [
+            [
+              1,
+              99
+            ]
+          ],
+          "comparison": "HTML projects same manifest frame/scenario/score product. It explicitly displays independent quality-percent versus acceptance pass/fail. Frame screenshots selected from current view slug and scenario identity, empty frame list show() handles no capture rather than fabricating frame. Playback modulo empty list may becomeNaN diagnostic UI state but no indexing unchecked Rust state; no separate gameplay invariant. Raw labels interpolated into HTML/JS strings, normal catalogue labels are source-defined safe known labels; arbitrary raw report product is not an HTML-safety sealed input. describe() rejects unsupported bone role. No current injected label/caller/runtime claim.",
+          "scope_qualifications": "Fresh full frozen source personally read for05, metrics2050 in four consecutive bounded displays, existing fixtures source only."
+        }
+      ]
+    },
+    {
+      "scope_index": 1433,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+      "sha256": "aa04ddf1b466365d8e27a43076eab1904f9d1d4abfd1715e2af1578f5d4e5636",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-058.json",
+          "ranges": [
+            [
+              1,
+              2050
+            ]
+          ],
+          "comparison": "Fresh ALL2050 incl original1284-2050 fixtures source-read only. scenario_metrics groups SAME ScenarioMetadata then preserves capture order; typed output metrics all from grouped input, explicit warmup first terrain cycle, continuity skips initial0\u21921; repeatable loop seam selects wrapped adjacency, excludes legs intentionally (stateful plants separately measured). Worst displacement/rotation binds bone+from/to actual offending pair atomically. guard liveness intervals close on actual contact change, derives swing side by support gains, checks bilateral support swap+actual travel+clearance gain; no completed interval yields0failed when required, while authored/nonrepeat stationary cases N/A. phase peak series pairs pelvis/canonical normalized phase, splitswraps, rejects no full postwarmup cycle. Contact sole/toe readers use actual required bilateral IK when solver/targets own support, absence cannot silently become flight; FK-only phase contact fallback intentional distinct input owner. Ordinary transition validation pairs optional plan/solve metadata and distinguishes frozen plan/atomic acquisition/owned airborne replanning, preserves run vs walk budgets. Root/body-local math assumes producer admitted root+rotation; raw FrameSample leaves finite alone do not prove unit rotation or arithmetic closure. Some absent metric series fold0/Inf by observer policy; full report source roster/finiteness/completeness must remain independent. Source canonical collectors054-056 establish normal root position/readiness, not every arbitrary raw report. Remaining unknowns kept per actual lower math/physics/producer source cells, no whole foreign native exemption.",
+          "scope_qualifications": "Fresh full frozen source personally read for05, metrics2050 in four consecutive bounded displays, existing fixtures source only."
+        }
+      ]
+    },
+    {
+      "scope_index": 1434,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/catastrophic_contacts.rs",
+      "sha256": "ad414c150521528e44dbcc6acc18f8631e8d868339839a74e49be89c99b04865",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-058.json",
+          "ranges": [
+            [
+              1,
+              65
+            ]
+          ],
+          "comparison": "Catastrophic displacement accumulates nonnegative actual pair elapsed only for same scenario and applicable procedural solver. Measures horizontal hip-to-foot distance not vertical fall, resets on nonapplicability or non-displaced pair; missing bone pairs not evidence but complete report roster separately gates them. Fixed0.65m/0.1s physical policy not joint-limit owner. Original48-65 fixture read only.",
+          "scope_qualifications": "Fresh full frozen source personally read for05, metrics2050 in four consecutive bounded displays, existing fixtures source only."
+        }
+      ]
+    },
+    {
+      "scope_index": 1435,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height_peaks.rs",
+      "sha256": "629837c2166162e41ef076b43d5c7f4e41714ad0da7c193423ff758e251a0cac",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-058.json",
+          "ranges": [
+            [
+              1,
+              50
+            ]
+          ],
+          "comparison": "Prominent height peaks requires >=3 paired(phase,height) observations, indexes previous/current/next cyclically from SAME slice; circular nearest windows use phase difference rem_euclid1 and two passing centers0.25/0.75. Insufficient/flat series returns false/0, not complete. Caller metrics::visual_height_peaks splits after wraps, demands phase span>=0.8, normalizes each phase modulo1 and pairs actual same-frame pelvis height before helper, so ordering/seam input contract established for actual normal wrapped capture. No raw arbitrary float-series admission claimed.",
+          "scope_qualifications": "Fresh full frozen source personally read for05, metrics2050 in four consecutive bounded displays, existing fixtures source only."
+        }
+      ]
+    },
+    {
+      "scope_index": 1436,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/support_slip.rs",
+      "sha256": "6bfdf963fc4f4564695be1a4a716194532e1afdb9afbbc602cf13373eb463352",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-058.json",
+          "ranges": [
+            [
+              1,
+              55
+            ]
+          ],
+          "comparison": "Supported slip uses paired before/after body rotations and each side min support, only procedural plant+support>=.9+body turn<=.5; actual XZ distance checked finite before maximum then checked NonnegativeLength. Missing side positions skipped only diagnostic helper; whole report roster gate separately requires them. Slip is adjacent displacement while planted drift later uses interval anchor and effectively full support; deliberate release/body-turn exemptions differ, not duplicated incompatible authorities.",
+          "scope_qualifications": "Fresh full frozen source personally read for05, metrics2050 in four consecutive bounded displays, existing fixtures source only."
+        }
+      ]
+    },
+    {
+      "scope_index": 1437,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+      "sha256": "46e0169bf601414d1b5ab885a9fa69b0c32436dd3fb1269d28e06e18b5cde1bc",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-055.json",
+          "ranges": [
+            [
+              1,
+              234
+            ]
+          ],
+          "comparison": "Report completion consumes one completed capture. Actual completeness102-111 requires equal frame/plan lengths, positional zip same scenario/frame and REPORT_BONES membership in EVERY frame. Actual artifacts113-123 requires every VIEWS slug exists and native metadata length>0; proves neither valid PNG pixels nor current file provenance beyond source naming/callback. Empty slices vacuous locally, but normal private capture constructor enforces nonempty plan. Actual writing serializes global trace then manifest then HTML then returns actual validation verdict, errors stop success; partial files possible, no atomic bundle publication promise. Prior report invalidation removes four known outputs, unrelated files preserved; original125-234 fixtures only read.",
+          "scope_qualifications": "Fresh full source personally read; truncated repeated-evaluation/report-parent middle was separately reread before credit. Existing fixtures only read, no execution."
+        }
+      ]
+    },
+    {
+      "scope_index": 1438,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+      "sha256": "71dab9d14d4296c98d6828de5f19e3998f8b3716a32f4bb28d665196edb9c376",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-055.json",
+          "ranges": [
+            [
+              1,
+              352
+            ]
+          ],
+          "comparison": "Raw serialized report product has typed scenario/clock/speed/phase/support leaves alongside raw diagnostic vectors and metadata. VIEWS12-13 actual nonempty fixed3 distinct enum cases, same slug factory supplies screenshot names and artifact readers; closes054 view length precondition. required_ik_support247-252 zip preserves bilateral presence or explicit unavailable error, not missing\u2192zero. has_finite_bone_transforms292-297 checks every actual captured position/quaternion component, does not enforce nonempty/full required roster (separate completeness), quaternion unit norm, root arrays or diagnostic fields. PresentationEventSample advances_from302-307 requires payload order AND checked nonbackward tick, custom serialization keeps same source event tuple and labels. Raw report records not an accepted-state sealed model; normal factory/report gates carry aggregate validity.",
+          "scope_qualifications": "Fresh full source personally read; truncated repeated-evaluation/report-parent middle was separately reread before credit. Existing fixtures only read, no execution."
+        }
+      ]
+    },
+    {
+      "scope_index": 1439,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/presentation_events.rs",
+      "sha256": "96bc4db93aefaea58374be6eba6a7eed668bfaebc77e74a40c1516b2fdf420e5",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-056.json",
+          "ranges": [
+            [
+              1,
+              48
+            ]
+          ],
+          "comparison": "Presentation event validation checks adjacent same-scenario/same-stream events advance by payload+tick, scans all earlier entries to reject duplicate(owner,scenario,payload), then requires exact4contact events for CadenceContact and1landing for AirborneLanding only if corresponding frames exist. Scenario absence intentionally N/A. Adjacent check is not a per-stream history map; interleaved other stream can separate same-stream ordering checks. Actual collector still pending, so do not infer current normal reordered events or a complete global stream admission seal.",
+          "scope_qualifications": "Fresh full frozen body personally read for05, all original fixtures source-only."
+        }
+      ]
+    },
+    {
+      "scope_index": 1440,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+      "sha256": "927e13d910b8e3b7dc6a9cc58ef2e936172b4ec9188948ffd5d1a524d4b89185",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-054.json",
+          "ranges": [
+            [
+              1,
+              792
+            ]
+          ],
+          "comparison": "build_completed_report6-593 takes all fields from one CompletedCapture, computes scenario metrics, jitter projection and separate finite-transform/scenario-complete/artifact-written checks. Per-kind continuity, ground penetration exemptions (Dive/GetUp upright sole policy inapplicable), guard/support/landing/liveness/contact cadence preserve actual observer meanings and absence cases. Bouncy validity529-537 compares finite deflection/max and inactive rest; it does not exercise accepted extreme spring frequency F013 or prove private spring finite. validation_passed595-630 conjuncts independent finite/completeness/artifact gates, jitter completeness+zero unacceptable events and view-distinctness. Thus F016 standalone false completeness does not establish a normal capture false acceptance. quality_score632-685 computes independent five-category score with weights16/8/4/2/1 (max31), catastrophic/liveness cases dominate31; quality_percent requires scenario+artifact completeness but is deliberately not equivalent to full acceptance. Hard-stop Option absence and no-stop scenarios intentional, not automatically missing evidence. Original700-792 fixtures read only: constructed empty jitter does not pass when scenario completeness false. Exact scenario metrics, finite-transform method and completeness/artifact helper bodies are not credited by call names.",
+          "scope_qualifications": "Actual whole frozen body personally read for05 before compaction; all original fixtures source-only, no tests executed."
+        }
+      ]
+    },
+    {
+      "scope_index": 1441,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs",
+      "sha256": "256fd3e5455eea95b629cf6ee1f856cb2149bb522d91b81d8bd9820c801161e6",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-056.json",
+          "ranges": [
+            [
+              1,
+              1409
+            ]
+          ],
+          "comparison": "Actual full1409 incl original fixtures personally read. PlannedFrame keeps scenario/frame/speed/time/direction/camera/action/guard/lead together, but pub(super) raw fields not an accepted plan seal. Fixed catalogue enumerates coherent kind/body transitions, quicksteps only +/-X nonzero, stationary actions may useZERO direction, steady speeds2/3.75/5.5 and guard1/2 with finite positive cycle constants. Per-scenario time frame/hz and sequential iterator index match. Steady functions65-95/906-931 derive duration from step length divided by signed speed and unchecked cycles then ceil-as-usize+1; finiteZERO speed is representable but invalid divisor and can overflow last_frame despite Result return. Normal actual catalogue avoids this. Downed body parameter selects fixture speed; posture helper ignores _start intentionally because metadata sole execution authority, current callers match. Transition capture intentionally stops before endpoint ownership handoff, not missing final endpoint proof. Existing tests1054-1409 read only; file existence fixture not executed.",
+          "scope_qualifications": "Fresh full frozen body personally read for05, all original fixtures source-only."
+        }
+      ]
+    },
+    {
+      "scope_index": 1442,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/admission.rs",
+      "sha256": "7d0001581edb1446088662238b20c1f4e4d2f8f30f69d47aac54402e9af2dc80",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-056.json",
+          "ranges": [
+            [
+              1,
+              43
+            ]
+          ],
+          "comparison": "Typed authored catalogue boundary rejects invalid elapsed/angle/speed by panic with explicit authoring failure; this is not a fallible external raw gameplay factory. canonical sprint combines fixed equal strength4, capacities1 and current burden94.9 via actual tactical_sprint_speed. Panic cleanup already required by repository style; no duplicate invariant finding merely for constant-backed expectations. No default fallback silently replaces invalid authored inputs.",
+          "scope_qualifications": "Fresh full frozen body personally read for05, all original fixtures source-only."
+        }
+      ]
+    },
+    {
+      "scope_index": 1443,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/plan_families.rs",
+      "sha256": "8e07b8a223fec8cbfa46b35aedc1732f3ff056c3000abf8db68f322517119d66",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-056.json",
+          "ranges": [
+            [
+              1,
+              190
+            ]
+          ],
+          "comparison": "Actual family producers bind same authored ScenarioId with finite fixed speeds, directions, lead-foot and reversal flag. Raised/RightSupport families propagate fallible step-length duration, flatten only after all child Results admitted. Attack families permit ZERO direction only with stationary ZERO speed, moving diagonal normalized. Current calls use positive1/2 guard speeds and cycles1/2, no zero-divisor normal construction. Family labels and semantic execution compared against053 metadata and actual subject-motion consumer, not string-only authority.",
+          "scope_qualifications": "Fresh full frozen body personally read for05, all original fixtures source-only."
+        }
+      ]
+    },
+    {
+      "scope_index": 1444,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/quickstep.rs",
+      "sha256": "33077519d29facefe510e67394af05f51874b1324ce3b4a8de4f27b657852e9c",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-056.json",
+          "ranges": [
+            [
+              1,
+              183
+            ]
+          ],
+          "comparison": "Quickstep builds speeds for exactly72 then indexes0..72, same length provenance (not two independently authored arrays). Default config + fixed mass93.9/biological70/leg strength4/agility4 feed force/target, positive sample rate; stores checked SignedSpeed each iteration. Contact/action/push/release/landing identities have distinct physical roles, not arbitrary equal clocks; source fixtures expect25push/11release/22landing but not run. Raw frame_count API canrequest huge work, no new capacity bound inferred. Action tick denominator only used inside frame<action_ticks, zero action cannot divide there; landing expect requires actual default trajectory, not every possible runtime config (function always Default).",
+          "scope_qualifications": "Fresh full frozen body personally read for05, all original fixtures source-only."
+        }
+      ]
+    },
+    {
+      "scope_index": 1445,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/terrain_policy.rs",
+      "sha256": "ef089759439d79d013473eda445c12a1f4ee725f5aee47be890a3983a8a492a2",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-056.json",
+          "ranges": [
+            [
+              1,
+              40
+            ]
+          ],
+          "comparison": "Terrain policy derived from same ScenarioMetadata: startup skips per-frame toggle override deliberately; Toggle enables only frames16..79, Absent disabled. RaisedStop allows flight while ordinary raised scenarios require zero flight. Not stale duplicate terrain authorities: startup, per-frame and validation questions differ.",
+          "scope_qualifications": "Fresh full frozen body personally read for05, all original fixtures source-only."
+        }
+      ]
+    },
+    {
+      "scope_index": 1446,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/setup.rs",
+      "sha256": "ca7571cd25d303d7ef2ca543a07674e3ba3ba58b4a9abb8bb3f234f03507f9cb",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-056.json",
+          "ranges": [
+            [
+              1,
+              94
+            ]
+          ],
+          "comparison": "Actual setup generates bounded100x100 scene with flat/hill height0/30 and period200, admits origin terrain elevation and completed finite root before spawning same terrain+capture subject. Subject identity/default skeleton/collider/controller bind once; optional explicit checked proportions inserted on same subject. Body proportions artifact uses explicit product or deterministic default-character seed; no assumed decoder/general asset gate. Commands deferred/native generation lower details remain actual ports, not tested here.",
+          "scope_qualifications": "Fresh full frozen body personally read for05, all original fixtures source-only."
+        }
+      ]
+    },
+    {
+      "scope_index": 1447,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/view.rs",
+      "sha256": "1ec7bad7a491c5c78bfefb2ee24f87039f35d5fc22fcca5aec8ab879f69a79d8",
+      "proofs": [
+        {
+          "packet": "audit/continuation/native/initial05-aggregate-states/contract-groups-056.json",
+          "ranges": [
+            [
+              1,
+              74
+            ]
+          ],
+          "comparison": "Three camera cases exhaust actual view enum and derive from same subject; gameplay resets default base+offset every frame to avoid offset accumulation with physics disabled. Side/front focus offsets nonzero before look_at; optional armor review override and inspection orbit separate presentation policy. Owner+Head role selects actual subject bone. Labels only applied frame; no frame advance. Native transform/quaternion/armor helper admission not proved by camera rendering; no general finite native transform guarantee.",
+          "scope_qualifications": "Fresh full frozen body personally read for05, all original fixtures source-only."
+        }
+      ]
+    }
+  ],
+  "disposition": "Actualsame-lens priorfullrange evidence adopted, insidehistorical1472. No baseline reread orcountincrease; originaldispositionsqualifications/findingspreserved.",
+  "first_unfinished": 1448,
+  "prior_carry_forward": "inherited-carry-forward-006.json"
+}

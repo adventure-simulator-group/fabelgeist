@@ -1,0 +1,119 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-196",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/smithing.rs",
+      "sha256": "428e697ec583b24ab798b6dadd2c67abf251e6359ed5b26a9d4819f93e266ce3",
+      "actual_EOF": 119,
+      "actual_compared_ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "method": "Whole P16 literal body and complete PR textual diff personally consumed, checked producer rename and Result differences assessed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/smithing.rs",
+      "sha256": "aecea90ad65fd73946a24653499fdfe07a626491543cb20c57f5e70ae82e4d49",
+      "actual_EOF": 119,
+      "actual_compared_ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "method": "Whole P16 literal body and complete PR textual diff personally consumed, checked producer rename and Result differences assessed."
+    }
+  ],
+  "groups": [
+    {
+      "id": "Inventory fraction consumption and forge mutation",
+      "locations": "smithing1-119; fresh Core smithing1-78",
+      "trace": "Available sums remaining fractions using u32 saturation, adequate compare because quoted requirement itselfu32; it only answers at least requirement, not exactunbounded inventorytotal. Consume sortedrowIDs, requestmin(remaining,whole) admits fraction; previously personallyread inventory_amount consumes<=request, so consumed<=remaining and subtraction safe. Native preflights each unique BTreeMap stock requirement before anyconsume; no duplicate mapkey overdraw. Actual authority/place/service/chassis and boundedrecipebytes before materials. Thenconsume, waittime andcreate stableweapon/replace design; everyResult propagates, but actual callers/catches and outertransactions determine rollback for lateerror/incompletewait. PR uses add_inventory_item_checked versus P16fallibleadd, existingcause integrationdependency. Some submittedrawamountrow invalid may panic in downstream expect, admission gap alreadyinventory_amount182; no acceptedwriter createsit here.",
+      "disposition": "No new integerunderflow/available-total defect. Do notrequire exactu64total when only bounded requirement comparison needed.",
+      "dependencies": [
+        "SEGOVB-INITIAL04-CONTRACT-182 actual inventory fraction owner",
+        "Weapon instance recipe admission and replacement",
+        "Time interval injury/disease termination and outer transaction/callercatches",
+        "CAM-PROP-F006/local774:F05/local774:M30"
+      ],
+      "acceptance": "Accepted forge consumes exact admitted material fractions and publishes requested design with stable object identity, or fails without retaining partial materials/time/weapon. Preserve deterministic stockrow order and rounded-up per-material policy."
+    },
+    {
+      "id": "Computed quote numerical contracts",
+      "locations": "Core smithing19-48; fresh weapon derive1-47/recipevalidation1-150/model71-96/mesh68-124",
+      "trace": "Quote invokes derive_properties and derive_material_masses through Construction::new, which actuallycalls recipevalidate; source validation limits96components,64KiBcanonicalrecipe and manufacturedfinite dimensions1e-6..20 plus boundedresolution. Material requirement uses f64 mass/unit*1e6 thenceil, rejectsnonfinite/>u32MAX before cast; per-stock sumcheckedu32. Core duration calculates60+ceil(f32mass*120)asu64+components*12 before later materialrequirement checks. No supplied realisticnormaloverflow witnessed; fullacceptedphysicalmass/frame/integration bound is not proven from onlyvalidator excerpts, so leave numericalproducer dependency open ratherthanclaim hugefinitef32MAX design is accepted. Materialtotalf32 += has samewholeconstructionbound dependency. Fresh derive material f64->f32 and grouping doesnot independentlyreadmit mass, sameconnectedphysicalownergraph. Sharedstockoverflowfixture source read, notrun.",
+      "disposition": "Qualified derivedmass/time strengthening boundary; no newlyconfirmedordinaryforgeoverflow or unsupported giganticaccepteddesign.",
+      "dependencies": [
+        "Whole canonical Construction physical integration/mesh accepted derived mass owner",
+        "Fixed material density/forge unit masses and all recipe shape limits",
+        "Core ForgeQuote computed minutes/material quantities publication"
+      ],
+      "acceptance": "Whole accepted quote must preserve finite physical materialmass, representable totalduration and per-stock requirements after derivation/aggregation, or reject beforematerial/time mutation. Preserve valid tiny manufacturedparts and intended ceil policy without arbitraryglobalmasscap."
+    }
+  ],
+  "findings": [],
+  "status": "Two original source roles personally compared; critical numerical producer dependencies incomplete, whole04 incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/social.rs",
+  "fresh_dependencies": [
+    {
+      "path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/source/physical-p16-unscoped-dependency/crates/adventuresim-core/src/smithing.rs",
+      "sha256": "83f6b2eb7d945187bca6dc9f0fe78cbab0d25c292ce4c4096af94b4eb89a298b",
+      "actually_read_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "coverage": "Fresh criticalbody reanalysis only; no new whole original role credit."
+    },
+    {
+      "path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/source/physical-p16-unscoped-dependency/crates/adventuresim-weapon-model/src/derive.rs",
+      "sha256": "c21331b47fbf9aff7837343abc27e7f572acb622fd7baaf8a86a3dfb0fc92edd",
+      "actually_read_ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "coverage": "Fresh criticalbody reanalysis only; no new whole original role credit."
+    },
+    {
+      "path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/source/physical-p16-unscoped-dependency/crates/adventuresim-weapon-model/src/recipe/validation.rs",
+      "sha256": "e40db02777c0f7401b0e90bc493f420be7630091f469a9baa7f0ef1a6f7c965a",
+      "actually_read_ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "coverage": "Fresh criticalbody reanalysis only; no new whole original role credit."
+    },
+    {
+      "path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/source/physical-p16-unscoped-dependency/crates/adventuresim-weapon-model/src/model/mod.rs",
+      "sha256": "485c06d11de0a974d67d404c21cde555b41f4126f6a3ffdac7cf5ba7727dc8ad",
+      "actually_read_ranges": [
+        [
+          71,
+          96
+        ]
+      ],
+      "coverage": "Fresh criticalbody reanalysis only; no new whole original role credit."
+    },
+    {
+      "path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/source/physical-p16-unscoped-dependency/crates/adventuresim-weapon-model/src/mesh.rs",
+      "sha256": "13432d88e00f3227259bb5b938b0a72a40e300fa4cec4f0d92b020d07eca2418",
+      "actually_read_ranges": [
+        [
+          68,
+          124
+        ]
+      ],
+      "coverage": "Fresh criticalbody reanalysis only; no new whole original role credit."
+    }
+  ]
+}

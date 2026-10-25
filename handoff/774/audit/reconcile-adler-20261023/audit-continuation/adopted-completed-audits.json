@@ -1,0 +1,266 @@
+{
+  "id": "adopt-adler-completed-03-06-20261023",
+  "at": "2026-10-23T22:49:53.616598+00:00",
+  "authority": "Direct user: start from Adler completed admission/type-ownership audits, carrying findings and evidence forward instead of requiring fresh exhaustive reread before usefulness.",
+  "baseline_scope": "072:2853 exactsourcevariantroles+246 mandatoryrangeoverlays; keep originals, qualifications, deferrals and findings.",
+  "source_refs": {
+    "admission-contracts": [
+      {
+        "path": "audit/continuation/root/admission03-progress-067.json",
+        "sha256": "81914886d757470ee9f9b02f2a0a711219cc5a77eeff5c7e746a6a034ede4743"
+      }
+    ],
+    "type-ownership": [
+      {
+        "path": "audit/continuation/rig/initial06-type-ownership/completion-483.json",
+        "sha256": "0544592d568a90c5a9633a007b4eb1e4d3f09c28af35972e398bbe9cbd72f74d"
+      },
+      {
+        "path": "audit/continuation/rig/initial06-type-ownership/reference-qualification-484.json",
+        "sha256": "be69b363c25440220bf74e33acac3209f9a4da13a20a64106705da25a1da420b"
+      }
+    ]
+  },
+  "findings_reference": "adler-finding-records.json plus assignments/*/crosswalk.json; original records/aliases/withdrawals preserved, no bulk duplicate promotion or bare-ID merge.",
+  "adoption": "Initial discovery complete WITH_FINDINGS for original completed scope; immediately usable evidence and repair input. No fresh exhaustive read prerequisite.",
+  "current_delta": {
+    "from": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "to": "13fc9dcc71ab879de364117e5462310673e43210",
+    "mechanically_changed_paths": 38,
+    "already_covered_exact_variants": [],
+    "requires_bounded_delta_reconciliation": [
+      {
+        "path": "crates/adventuresim-character-creator/Cargo.lock",
+        "current_sha256": "5753b3fa224b8d7e052c5ab7c6a7420f0c22cbcdb9303d7ae9d2980421ac6a27",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "crates/adventuresim-character-creator/src/animation_preview/binding.rs",
+        "current_sha256": "80cd2b04543c35e3ad7d0cae1d5fd89eb5a92e78d68204e990a93a4672d84d65",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "crates/adventuresim-character-creator/src/clothing.rs",
+        "current_sha256": "d3bce4f4d9a53afc7ea141c5edf1163e85f55cb1b455b976b3bd5e329902ce33",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "crates/adventuresim-character-creator/src/clothing/validation.rs",
+        "current_sha256": "2a753a0c1f67e4c3c7f6ee4560557063c65d99202ef7073ecfaa93260bc95415",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "crates/adventuresim-character-creator/src/device_fit.rs",
+        "current_sha256": "937f4a7860d38a7b490464615e476551a565f2119242b8e30ea3aeaf7c8307d7",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "crates/adventuresim-character-creator/src/device_frames/tests.rs",
+        "current_sha256": "b178ed9f64a000436dc816d4e811966de89e28293321d599b16158c6d981f12a",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "crates/adventuresim-character-creator/src/device_garment.rs",
+        "current_sha256": "895213b60ba9bc4762eeefb0a1b73958013e271dd9a8818448ffbb3caaf62973",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "crates/adventuresim-character-creator/src/device_garment_skirt.rs",
+        "current_sha256": "3acbc3c2ff55ab00d9db818a502874cedb6878b2e93d4a880cfbb864332affa0",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "crates/adventuresim-character-creator/src/device_garment_torso.rs",
+        "current_sha256": "1e18fa755a6820a35e6fbd3ac25599f1f43e0b80f583d1dbe944f8584c8187c8",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "crates/adventuresim-character-creator/src/export.rs",
+        "current_sha256": "884384793bf2b01712fd7d56d337b05c1a761b4b5ae86b1a13acf1e9e7048bb7",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "crates/adventuresim-character-creator/src/export/shell.rs",
+        "current_sha256": "e7b3318bdb4f7567653217c780160f0aeaf9576b753bf473591aab010f0bc232",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "crates/adventuresim-character-creator/src/garment/dressing.rs",
+        "current_sha256": "d9e49185a0d535f4dc1b7fb63850c927d5f59577fedf5d5f87ca8fc8b1e84a8a",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "crates/adventuresim-character-creator/src/hair_preview/render_test.rs",
+        "current_sha256": "68d980d533f30f094dc511d8e0eef78f92090b3d51d9754c28e57f190b80c864",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "crates/adventuresim-character-creator/src/main.rs",
+        "current_sha256": "076c2d6f80214f1546520c29f4a7d418a7e2d53f55708d2b7081841273769a5f",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "crates/adventuresim-character-creator/src/wardrobe_tab.rs",
+        "current_sha256": "ec1437075d1383eeae19ee3e2643e4d918de6a2032fe1e1ba83135d5f2353a0f",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "crates/adventuresim-stdb-module/src/character.rs",
+        "current_sha256": "71b78cf8e840ef25e8815d6a43935afbf4e391defb60df1ee3e89568273a0cf5",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "crates/adventuresim-stdb-module/src/character/weapon_carry.rs",
+        "current_sha256": "cb5f4c039d6cedda16a83650c94f72bdb0e12e45903dce4a835e8057b7ef2fbe",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/Cargo.toml",
+        "current_sha256": "2423c1f83aebd66d9432b5b8317ec10a6bf7b0824db9246e2e9b08041653b863",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/examples/armor_browser_probe.rs",
+        "current_sha256": "e84ff19544c1f4e8c6fbae3b322e5a342baf49981fd56e6b9c5f57ef1924a201",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/camera.rs",
+        "current_sha256": "7ee2de1823310c9341f42ddb4d1f016a619b7038b0f69aa4f1a316f22032026a",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/camera/collision/tests.rs",
+        "current_sha256": "92f47bc1cf69d262c09d215bc35adf19d01216f98fd5fb35f2aceab0aa870e0c",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/camera/values.rs",
+        "current_sha256": "a2f64c5b11f5551f2c7baae14dcb819408c25c075a3594694b06cf7ab40f1eaa",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/equipment.rs",
+        "current_sha256": "189c2e7491ed6395765d58dcd3ed3b115bc06895e114e26cb7a9954ed14464a5",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/equipment/grab_world.rs",
+        "current_sha256": "4b5e698d92f04c27f1c98dd09a71ddcab3ef0f38fec5bf5072dd917a1df5844b",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers.rs",
+        "current_sha256": "aa37d6dd277f36960419f7eb6c96b50130f26dc152aef57d605af98dc99a66a4",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/strategic_scene/views.rs",
+        "current_sha256": "4bbc1929ef5a2b7b59aa29f7513940adb88c8804fa243ada08430f3c057540a0",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/rooms.rs",
+        "current_sha256": "c042af2ce9602f7b34f3fbcb6ea10836f4f4f7c3cec6b1bed5a5c7d1bc9087e1",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/manifest.rs",
+        "current_sha256": "d5ced13275995ed15eb02c87b8889992a0e5a2070e752a05c3bed45505651f92",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/triangle_census.rs",
+        "current_sha256": "7f564603c19a4d7f46601c6c56251a3d2177c3cf8854811bac529e6f3228c8ad",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs.rs",
+        "current_sha256": "be10078a6ca459afe85ee55e84fc78ff7a0bc1c81c2172d6c17fb5f6c6030fa4",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/fungi.rs",
+        "current_sha256": "016e6c5593957fe9efed109b0de5a2f2b1e5f79b90f0f10f0bbe673f9f582b5a",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/plant_lods.rs",
+        "current_sha256": "2e175079130faa55ba0f0cff4ba918e88b7ef0a1e3239b534a55c644fccd6a0f",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/plants.rs",
+        "current_sha256": "2b72637010370a048795eb7eab6228aafe8fc1a9b240b32a0cb9b9338b116895",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "crates/fabelgeist-mhr/src/model.rs",
+        "current_sha256": "40ffb38f7e31078dc362350d86467b2a82568d14153ad3e7eef940961b828f84",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "crates/fabelgeist-mhr/src/model/rig.rs",
+        "current_sha256": "bbc58fc45ff9a4337c0d9cca24cec87ef3a6165d041e2b7c3c56c57825c1824c",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "crates/fabelgeist-mhr/src/model_def/tests.rs",
+        "current_sha256": "d80611df9dffc2c832cb7a11f6aca369a90a3c6b53c5fe7f2afad3eb8770685f",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "rust-quality-baseline.toml",
+        "current_sha256": "096c47ee96a9514cacdde1ed23c78518cfdbafff851f41989f7c617af9f02ac3",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      },
+      {
+        "path": "rust-quality.toml",
+        "current_sha256": "596414de1f529bf660c72374ab78b2479ef444a374b64ca7f77cb1294b17ad02",
+        "baseline_matching_source_roles": [],
+        "disposition": "Bounded changed-source/removal and affected connected-contract reconciliation required; no blanket fresh whole-file inventory."
+      }
+    ],
+    "new_extensions_registry": "audit-continuation/source-extensions.json",
+    "new_extensions_count_at_adoption": 26,
+    "qualification": "Metadata identifies delta work, not semantic verdict. Changed connected contracts can affect unchanged receivers. Extensions need only missing03/06 comparison; baseline2853roles/246overlays never reset."
+  },
+  "validation": "No clearance of open findings or final repaired revision; carry baseline then revalidate affected contracts/deltas and final common revision. No new executionplan/repairs/checks."
+}

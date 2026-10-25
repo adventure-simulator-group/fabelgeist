@@ -1,0 +1,111 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-164",
+  "at": "2026-10-25T13:09:01.055353+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 320,
+      "source_id": "physical-p16:crates/adventuresim-strategic-sim/src/investigation_eval/report.rs",
+      "sha256": "9973408d3a3ebff65189a41a0537488dcf4ba9f88b667672e09543fc90318db4",
+      "actual_EOF": 1659,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-strategic-sim/src/investigation_eval/report.rs",
+        "snapshot": "physical-p16",
+        "path": "SNAPSHOTS\\p16\\crates\\adventuresim-strategic-sim\\src\\investigation_eval\\report.rs",
+        "sha256": "9973408d3a3ebff65189a41a0537488dcf4ba9f88b667672e09543fc90318db4",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 1659,
+        "producer_reached_contract_observations": [
+          {
+            "record": "continuation/camera/traces.jsonl",
+            "receipt": "CONT-CAMERA-PP-007",
+            "json_pointer": "/new_receiver_proofs/2",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-strategic-sim/src/investigation_eval/report.rs",
+            "read_ranges_as_recorded": [
+              [
+                1130,
+                1205
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-strategic-sim/src/investigation_eval/report.rs",
+              "sha256": "9973408d3a3ebff65189a41a0537488dcf4ba9f88b667672e09543fc90318db4",
+              "read_ranges": [
+                [
+                  1130,
+                  1205
+                ]
+              ],
+              "role": "Existing OutbreakWaterFlow replay/material conservation/privacy fixture consumers; read only, no execution/assertion changes."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/root/pure8-packet.json",
+            "receipt": "CONT-ROOT-PP-PURE8-001",
+            "json_pointer": "/fresh_or_reconciled_receiver_reads/2",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-strategic-sim/src/investigation_eval/report.rs",
+            "read_ranges_as_recorded": [
+              [
+                1130,
+                1205
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-strategic-sim/src/investigation_eval/report.rs",
+              "sha256": "9973408d3a3ebff65189a41a0537488dcf4ba9f88b667672e09543fc90318db4",
+              "read_ranges": [
+                [
+                  1130,
+                  1205
+                ]
+              ],
+              "role": "Existing OutbreakWaterFlow replay/material conservation/privacy fixture consumers; read only, no execution/assertion changes."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1114,
+          1229
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Requested1130\u20131205 plus complete owning test-function boundaries1114\u20131185/1187\u20131202/1204\u20131229 consumed. These are fixture functions, no local types or manual traits/serializer.",
+      "necessary_signature_extension": "Read1114\u20131129 and1206\u20131229 to complete signatures/bodies at registered range edges.",
+      "coverage_limit": "Only bounded1114\u20131229 material covered; not full1659-line report. Exploratory1085\u20131113/1231\u20131240 excluded."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "outbreak/food-water replay fixture and public-case/route-class assertions",
+      "disposition": "No derivability cleanup. Native OutbreakWaterFlow operations and typed event checks are calls into existing owners; fixture itself has no handwritten mechanical implementation. JSON call delegates existing public report type.",
+      "qualification": "Fixture source read only, not test result or fullreport/lower-owner coverage."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 321,
+    "source_id": "physical-p16:crates/adventuresim-strategic-sim/src/live_core/bootstrap.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

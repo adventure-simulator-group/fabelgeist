@@ -1,0 +1,45 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-466",
+  "lens": "audit-enum-shapes",
+  "groups": [],
+  "extension_registration": "registration-466A.json",
+  "extension_dispositions": [
+    {
+      "extension_index": 34,
+      "ranges": [
+        [
+          510,
+          552
+        ],
+        [
+          724,
+          769
+        ]
+      ],
+      "finding_refs": [
+        "SEGO-INITIAL09-F303",
+        "SEGO-INITIAL09-F304"
+      ],
+      "comparison": "Bounded shader exact native result/control-state trace. Ahead search and leader selection have different values/fallbacks/remedies; separate obligations, no global dedup by sentinel keyword. Existing groupbucket/20bit identity findings remain independent. Native found flag may explicitly encode local sum at WGSL port; raw native numerical kernels otherwise legitimate."
+    },
+    {
+      "extension_index": 35,
+      "ranges": [
+        [
+          820,
+          890
+        ]
+      ],
+      "finding_refs": [
+        "SEGO-INITIAL09-F305"
+      ],
+      "comparison": "Bounded native tie capture-state observation distinct configured tie parameter; explicit capture discriminator preserves uncaptured/no-tie states. No PartingGroupcodec alias."
+    }
+  ],
+  "new_findings": [
+    "SEGO-INITIAL09-F303",
+    "SEGO-INITIAL09-F304",
+    "SEGO-INITIAL09-F305"
+  ],
+  "limits": "Parent CROSS003 own09 disposition, reported06 source support independently compared only listed ranges. No GPU/device/test execution; no runtime defect demonstrated, no shared extension or lens clearance."
+}

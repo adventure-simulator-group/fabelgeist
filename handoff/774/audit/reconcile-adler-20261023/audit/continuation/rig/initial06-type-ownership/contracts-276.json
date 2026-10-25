@@ -1,0 +1,30 @@
+{
+  "id": "RIG-INITIAL06-GROUP-276",
+  "at": "2026-10-23T08:04:48.623106+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "scene-elevation-range-and-surface-hit": {
+      "comparison": "Fresh queries170 owns SceneElevationRange private ordered min/max SupportElevation, allowing equal bounds for flat nonempty surface, distinct from positive physical thickness. Required query Result versus optional absence is purpose-specific observation, not two competing elevation owners. F023 lower equivalent Elevation<Scene> can replace dedicatedleaf while range/context remains SceneTerrain. Native heightfield index/cellstride and triangle interpolation are actual numerical port; coarse render surface versus full support query explicitly differ, not duplicate authoritative geometry. SurfaceHit keeps correlated height+normal from same triangle, avoiding unrelated bilinearvalue. NormalDir3 differs from arbitrary displacement, sampledgridheight versus ownedtriangle source have legitimate capabilities. No universal native height acceptance or body-query correctness inferred from called SurfaceHit predicate.",
+      "disposition": "Keep ordered scene elevation range and correlated surface-hit context, reuse lower scene-frame leaf without generic positive-height bound."
+    },
+    "fitting-rest-rig-versus-animated-rig": {
+      "comparison": "Fresh rig190 uses canonical CharacterProportions/JointProportionBasis and RigJointTable<GltfNodeOrdinal>; private GltfNodeOrdinal is native glTF graphnamespace, not duplicate canonical RigJointOrdinal. FittingRig prepares rest transforms independent of animation pose; RigNode nativeTransform and parentassetrelation differ from AuthoredRigJoint and runtime skeleton state. Actual scoped animation/skeletal_proportions1409 previously full033 plus fresh145–168 comparison: both preserve neutral footheight but animation converts globalcorrection to pelvislocal through parentrotation/scale; fit137–159 adds world-Ycorrection to descendant globaloffsets. Same intent does not authorize blind code/type merge across frames; potential shared rest-alignment policy projection can preserve one meaning, different prepared graphcapability remains. Source references/basis finite gate do not seal whole asset/countprovenance. No CPU/GPU fitting run or new aggregate correctness claim.",
+      "disposition": "Reuse canonical rig/proportion meaning; preserve glTF/native-node versus canonical-joint namespace and rest/animated frame distinction."
+    },
+    "authoritative-posture-facing-projection": {
+      "comparison": "Fresh P16 posture_facing162 and complete actual PR counterpart/current-role comparison(no delta) borrow one TacticalCombatConfig snapshot with canonical sampletick/elapsed/BodyFacingTurn/SignedHalfTurns/DownedFacingStep and AttackFacing authority. RootTransform and skeleton pose are different but correlated presentation/gameplay products; authoredtransition owns direction during handoff and root counteryaw preserves body worldfacing. NativeQuat/Transform/physicsRotation are actual backendport, not distinct strategicposition records or persistentstate. Deadline remaining SampleSpan converted via locomotionsamplerate is not frame tick or wallclock. CameraFacingIntent is player input purpose distinct from BodyState/DiveDirection. No universal timing/serde/atomicmutation guarantee inferred from comments or whole actual counterpart equality.",
+      "disposition": "Keep authored posture, attackdeadline and camera intent authority distinct with canonical temporal/angle types and explicit native rootprojection."
+    },
+    "active-defense-authority-and-condition": {
+      "comparison": "Fresh P16 active_defense186 and complete actual PR counterpart/current-role comparison(no delta) distinguish ValidatedMeleeAttack, AuthorizedMeleeAttack and PreparedMeleeDefense across prepare/commit. Similar attackdata are staged authority/capability products, not duplicate ID owner. DefenderCondition groups raw totalincapacitation and canonical UnitInterval performance; total may exceed1 while performancebounded, cannot replace both with samefraction. Attack reportedprecision deliberately finitebroader than probability, contact_sample different purpose. Actual charge_work contributes WeaponDefense to one general fatigue/totalincapacitation graph, no extra pool/movement penalty introduced; transient tactical authority remains Bevy. Prepared response carries timing/trade alternative, then committed canceled/transformed attackkeys preserve identity. No actual interleaving/result or called work/performance predicate proof beyond existing actual definitions.",
+      "disposition": "Retain staged attack/defense authority and total-versus-performance meaning; reuse canonical temporal/value leaves and single transient work owner."
+    }
+  },
+  "supporting_existing_findings": [
+    "F023",
+    "F032"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit.",
+  "supporting_focused_source": "Source1409 priorfull contracts033 plus fresh exact145–168; no new wholefile/count credit. Camera07 informed of shared neutral-rest policy candidate with frame distinctions."
+}

@@ -1,0 +1,34 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-136",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        2434
+      ],
+      "inspection_method": "structured entire-data schema inspection, not prose line-by-line",
+      "comparison": "Full12847-line TOML bytes parsed, all2063 records inspected structurally as209 file-ceiling(path,ceiling),485 function-ceiling(path,item,ceiling),1369 diagnostic(rule,path,item,fingerprint,occurrences). Each table exactly one uniform complete required-field shape. Six rule values share same meaningful payload; no conditional options/flags to transfer into variants. Top-level separate tables already distinguish record roles. Arbitrary diagnostic item/path/fingerprint vocabulary is reference evidence, not gameplay mode. Ceilings and occurrences are scalar counts, not enum indices. This file records existing violations and does not excuse, close or prove completeness of any referenced body. No lint/project check or source execution. Exact structured evidence savedstructured-data-136.json.",
+      "disposition": "Baseline data-schema role accounted by identical justification; every referenced diagnostic/source remains independently accountable",
+      "finding_refs": []
+    },
+    {
+      "indices": [
+        2435,
+        2436
+      ],
+      "ranges": {
+        "2435": [
+          [
+            282,
+            331
+          ]
+        ]
+      },
+      "comparison": "Fresh Ahoy282\u2013331/552 exact material range and P17orientation147 full at90a422a. Ahoy CharacterLook yaw/pitch independent numeric channels, preserves existing roll when applying look, drops roll only explicit to_quat; no exclusive orientation mode inferred. ControllerState only declaration/orientation field at331 is reached; tail not credited. P17 Radians/PlanDirection/RigidRotation/SpatialDirection are admitted single products with frame phantom and exact native values, not tags beside conditional payload. GeometryError variants carry cause already where shown; full error owner not read from import. Numeric normalization/signedzero/reflection/mutation and report P16/P17 difference obligations remain unresolved, no numerical-lens clearance or inheritance from PR variant.",
+      "disposition": "No newly established enum shape gap in exact ranges; numeric and variant qualifications preserved",
+      "finding_refs": []
+    }
+  ],
+  "new_findings": [],
+  "limits": "No execution/repair/checks/plan/clearance. Next2437 P17 bouncy_bones492."
+}

@@ -1,0 +1,38 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-027",
+  "at": "2026-10-22T20:20:18.568271+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/equipment/armor.rs",
+      "sha256": "1eb52192b9ef4b1d23b4a696a3f4b370baf3076b3184e4b576ec681f426e47f1",
+      "actual_compared_ranges": [
+        [
+          1,
+          94
+        ]
+      ],
+      "source_evidence": "Fresh own1-39 ROOT026 +fresh40-94 current04, closesexistingglobal023/files101 whole94role. RigREG016 duplicate, notnewscope."
+    }
+  ],
+  "groups": {
+    "mapping-and-selection": "equipment_body_part40-50 exhaustiveclosed7variant mapping, no indexing/narrowing. outermost_wearable86-94 filters sameBodyPart thenmaxby(channel.order,piece.order,inventoryID), deliberateoutermost/tiepolicy, no orderarithmetic. ActualEquipmentChannel.order body notimplicitlyread; metadataweightresultnotownershipright.",
+    "aggregation": "Rawmatchingpieces enter nativeunion1-(1-current)*(1-clampedcoverage), resistance+=max0,padding+=max0, weightedflex+=clampedflex*resistance, ROMminclamped0..1 thendivide ifresistance>0 else0. For admittedfinite0..1coverage/ROM each union/minbounded; weights finite operands alone doNOTprovefinite sums orratioF011. NaNclampdoesnotrejectNaN; floatmax/min maydiscardNaNs inotherchannels, notvalid-inputgate. Nativeiterationarbitrarycount no cataloguemax imposedhere; two finiteMAXenoughcounterexample. LayeredArmorDefault0ROM differsfunctioninitializerROM1 intentionallydistinctrawdefaultvsneutralfold, no assertedalias/coherencebugwithoutactualconsumerpolicy. ResultisrawpublicDTO not privateacceptedtoken; strongerwholegraphpublication needed.",
+    "scope-correction": "RigQUAL010 correctlymarksREG016P16equipmentarmor1-39 duplicateofalreadyglobalfull94. Root026 sourcebodyanalysis1-39actualcorrect, butRoot104 wordingfournewsource-specificroles overcountsnewglobalmaterial: THREEnew(ShellPlan132/P16Capability45/PRProtection39) plusONEexistingP16partialbodycompare. No newP16source/overlay/01-02queue entry fromREG016. Current03existingfull94acceptance preserved; no new03gateclaim fromhelpersuntiltheiroriginalsourceproof."
+  },
+  "findings": [
+    {
+      "id": "ROOT-INITIAL04-F011",
+      "class": "public_API_finite_operand_overflow_counterexample; existingphysicalcontact/protectionrepairgraph, no_current_badasset_or_run_claim",
+      "source": "physical-p16:crates/adventuresim-core/src/equipment/armor.rs",
+      "operation": "aggregate_layered_armor53-82 sums finite resistance/padding and resistance-weighted flexibility without checkedpublication or stablemean/totaladmission.",
+      "counterexample": "Two matching-body-part public WearableProtection records each resistance=f32::MAX, flexibility=1, padding=0, coverage=1 andrange_of_motion=1 produce result.resistance=Inf, weighted_flexibility=Inf, result.flexibility=Inf/Inf=NaN. Alloperands finite, nonnegative/proportions0..1; no negative/nonfiniteinput or hugeallocationneeded. No performedrun/currentauthoredordinaryassetclaim.",
+      "acceptance": "Propagate actualcanonicalphysical/protection values through coherent aggregation and readmit computed totals/weightedmean before publishing acceptedprotection. Reject representationaloverflow with structured error or use appropriate stable arithmetic while still checking final totals; no Inf\u2192arbitrarycap or NaN\u2192default. Preserve zero-resistance\u21920flexibility, coverage union, min-ROM, samebodypart filtering andactualouter-layer sort/ties. Different layer/sample/whole-aggregate facts remain distinct; join existingphysical/contact graph ratherthan extrauniqueunrelatedmathrewrite."
+    }
+  ],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

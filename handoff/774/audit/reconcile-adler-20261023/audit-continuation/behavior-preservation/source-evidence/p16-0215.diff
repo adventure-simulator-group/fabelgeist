@@ -1,0 +1,35 @@
+--- p16base/crates/adventuresim-stdb-module/src/foraging.rs
++++ catalog-p16head/crates/adventuresim-stdb-module/src/foraging.rs
+@@ -467,9 +467,9 @@
+ fn acting_checks(
+     ctx: &ReducerContext,
+     character_id: u64,
+     mixture: LocalTerrainMixture,
+-) -> Result<(u16, u16), String> {
++) -> crate::StrategicOperationResult<(u16, u16)> {
+     let attributes = ctx
+         .db
+         .character_attributes()
+         .character_id()
+@@ -492,9 +492,9 @@
+         .character_stats()
+         .character_id()
+         .find(character_id)
+         .ok_or("Character stats not found")?;
+-    let equipment = StrategicEquipment::load(ctx, character_id);
++    let equipment = StrategicEquipment::load(ctx, character_id)?;
+     let check = |skill| {
+         skills.skill_check_by_parts(
+             skill,
+             &attributes,
+@@ -796,9 +796,9 @@
+     source_ids: Vec<String>,
+     requested_minutes: u64,
+     attempt_generation: u64,
+     attestation: ForageEnvironmentAttestation,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     // Authentication must precede even replay lookup: otherwise a caller can
+     // use receipt/readiness differences as a character-state oracle.
+     crate::strategic::require_strategic_gateway(ctx)?;
+     if !valid_request_id(&request_id) {

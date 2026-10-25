@@ -1,0 +1,50 @@
+{
+  "id": "RIG-INITIAL06-PENDING-061",
+  "at": "2026-10-22T21:53:49.844137+00:00",
+  "closed": "StrategicTime1017/156 whole current06 roles via061",
+  "supporting_partials": [
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "actual_read_ranges": [
+        [
+          530,
+          570
+        ]
+      ],
+      "material_used": [
+        [
+          537,
+          570
+        ]
+      ],
+      "remaining": "Other full1586source roles"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs",
+      "new_actual_read_ranges": [
+        [
+          804,
+          854
+        ]
+      ],
+      "remaining": "Other1029source roles plus earlier060snapshot"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/journey_camp.rs",
+      "actual_read_ranges": [
+        [
+          611,
+          636
+        ]
+      ],
+      "material_used": [
+        [
+          616,
+          629
+        ]
+      ],
+      "remaining": "Other full908roles"
+    }
+  ],
+  "prior_pending": "Sky/Bestiary/DBinventory_container/browser_runtime and all other exact scope still incomplete"
+}

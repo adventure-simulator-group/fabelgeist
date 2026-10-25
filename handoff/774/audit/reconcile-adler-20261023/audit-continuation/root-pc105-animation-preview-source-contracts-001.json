@@ -1,0 +1,128 @@
+{
+  "at": "2026-10-23T21:54:07.114308+00:00",
+  "id": "pc105-animation-preview-source-contracts-001",
+  "reads": {
+    "crates/adventuresim-character-creator/AGENTS.md": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/fabelgeist-armor/AGENTS.md": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/animation_preview.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/animation_preview/binding.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/animation_preview/cloth_motion.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/animation_preview/cloth_render.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/animation_preview/colliders.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/fabelgeist-rig/src/skin.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/fabelgeist-math/src/units.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-core/src/elapsed.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/fabelgeist-geometry/src/length.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/fabelgeist-geometry/src/measurement.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/preview.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/drape_preview.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/studio_ui.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/studio_generation.rs": [
+      [
+        1,
+        10000
+      ]
+    ]
+  },
+  "contract": "Complete cloth preview source, actual generator/UI/nativeMesh ports and low canonical unit/rig operations; independently reconcile supplied cloth findings",
+  "coverage_limit": "Five changed preview bodies plus actual unchanged producers and source rules read; graph remains incomplete at drape worker/clothing/rig export sources/currentvariants. No lens clearance or actual simulation/visual acceptance.",
+  "disposition": "F49 exact suppliedRIG03F009/Native05F060 malformedCloth topology accepted, F50 suppliedRIG03F010/RIG06F032 weight/nativeVEC4policy+competingoperation owner, F51 suppliedCamera07F048 posehistorysourceassociation; all independentlysourceconfirmed with APIonly qualifications retained. M104 sourceunit/settings loss exactRIGOWNERF010. Currentordinaryrebuild alwaysnewrig and ArmorSkin absentnormalspawn positivequalificationF51. preserve all8 influences forclothphysics, nativeBevyVEC4 distinctoutput, exportedlabels/nativeu16 actualfinalports. RigJointCount explicitlyonlybound notinstanceidentity; no inventingequal-countproof. Preview manualtop4 vscanonicalcombined duplicates/zero differences requireexplicitdecision, notblindcanonicalcopy. Nativefull-f64MHRstate->Bevyf32quaternion/vector istrueadapter, retain source units/frame beforeit; no blanketScene owner forbodymodelspace. Color/roughness/metals/nativeAssetHandles areframeworkports but retainedmaterial/cache identities and semantic internalerrors still needconnectedproducerproof. Readrulesrequirebodyvisibleevidencebeforefuturegeometryshapeacceptance; this audit makesno shape repair/claim and executesnoartisticgate.",
+  "finding_traces": {
+    "M16": {
+      "source": [
+        "animation_preview/colliders.rs",
+        "animation_preview/cloth_motion.rs",
+        "preview.rs",
+        "drape_preview.rs"
+      ],
+      "trace": "Cloth/combinedbody topology/population/rawoffsetu32 retained internally; currentboundedMHR/clothsources requirecanonicaladmittedmesh/index/layout association before native Mesh/SurfaceContacts/BVH. Native rawfaces/Vec3 numerical buffers canbefinalkernelports onlyafteracceptedsourcecontract, notproxyproofallpublicBodySkinfieldsassociated. Generatedpreview realBodySkin columnscomefromsameMHR/generatedproducer whilepublicAPIweakenough; actualfitting/sourceowner780mustcoordinatewholefunctions once."
+    },
+    "M06": {
+      "source": [
+        "crates/adventuresim-character-creator/src/studio_generation.rs",
+        "crates/adventuresim-character-creator/src/drape_preview.rs",
+        "crates/adventuresim-character-creator/src/animation_preview.rs"
+      ],
+      "trace": "Wholeproducer pipeline retains anyhow errors and maps owningGPU/materialcauses through Error::msg+context before finalstudio.status format. Keep structured native/material/fitting reasons untilnativeUI port, originalfuture780/826 receiving contracts mustfinish; nosourcefix or claim those later headsstilldefective. Successsourcepreparation beforedespawn positive; laternativeMeshfailpartialspawn actualpolicyneedsfulloperationlens not inferredruntimebadasset."
+    }
+  },
+  "frontier": {
+    "file": "crates/adventuresim-character-creator/src/armor_design_input.rs",
+    "work": "PC105 complete animation preview and real UI/generation recipients with aliases; PC106 remaining armor design/recipe/material/armory producers and new drape-worker/clothing/source receiver paths. All original pending cells preserved, no repair/plan/project checks before all13 inventories."
+  }
+}

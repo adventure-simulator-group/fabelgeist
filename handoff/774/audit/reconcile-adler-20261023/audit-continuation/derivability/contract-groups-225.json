@@ -1,0 +1,544 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-225",
+  "at": "2026-10-25T13:51:38.041605+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 443,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+      "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+      "actual_EOF": 4796,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-world-schema/src/lib.rs",
+        "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 172137,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 102,
+            "read_ranges": [
+              [
+                70,
+                180
+              ],
+              [
+                1610,
+                1710
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-CONDITION-011",
+              "CAM-OWN-ERROR-012",
+              "CAM-OWN-WEATHER-013"
+            ],
+            "read_status": "partial",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-world-schema/src/lib.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 392,
+            "read_ranges": [
+              [
+                2670,
+                2735
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-ROUTE-SOURCE-054"
+            ],
+            "read_status": "scoped_existing_EdgeProgressPermille_owner",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-world-schema/src/lib.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-CANONICAL-SPATIAL-CLOCK-CLOSURE-053",
+            "json_pointer": "/source_proofs/11",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+            "read_ranges_as_recorded": [
+              [
+                70,
+                180
+              ],
+              [
+                1610,
+                1710
+              ],
+              [
+                2670,
+                2735
+              ]
+            ],
+            "source_context": {
+              "index": 453,
+              "source_id": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/adventuresim-world-schema/src/lib.rs",
+              "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+              "read_ranges": [
+                [
+                  70,
+                  180
+                ],
+                [
+                  1610,
+                  1710
+                ],
+                [
+                  2670,
+                  2735
+                ]
+              ],
+              "role": "fresh current clock/angle/frame/velocity owner source, worldlib explicitly scoped; actual receiving contract disposition pending",
+              "timestamp": "2026-10-21T22:37:14.128714+00:00"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CONDITION-WEATHER-009",
+            "json_pointer": "/current_sources/4",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+            "read_ranges_as_recorded": [
+              [
+                70,
+                180
+              ],
+              [
+                1635,
+                1695
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-world-schema/src/lib.rs",
+              "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+              "ranges": [
+                [
+                  70,
+                  180
+                ],
+                [
+                  1635,
+                  1695
+                ]
+              ],
+              "read_kind": "fresh_actual_supplement_body"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CANONICAL-SPATIAL-CLOCK-053",
+            "json_pointer": "/current_sources/11",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+            "read_ranges_as_recorded": [
+              [
+                70,
+                180
+              ],
+              [
+                1610,
+                1710
+              ],
+              [
+                2670,
+                2735
+              ]
+            ],
+            "source_context": {
+              "index": 453,
+              "source_id": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/adventuresim-world-schema/src/lib.rs",
+              "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+              "read_ranges": [
+                [
+                  70,
+                  180
+                ],
+                [
+                  1610,
+                  1710
+                ],
+                [
+                  2670,
+                  2735
+                ]
+              ],
+              "role": "fresh current clock/angle/frame/velocity owner source, worldlib explicitly scoped; actual receiving contract disposition pending",
+              "timestamp": "2026-10-21T22:37:14.128714+00:00"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1135,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved",
+        "admission03_increment077_role_observations": [
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 85,
+            "registration_id": "NATIVE-ADMISSION03-REG-085",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-085",
+              "at": "2026-10-22T15:37:20.274675+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+              "source_id": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+              "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+              "snapshot": "physical-p16",
+              "actual_EOF": 4796,
+              "material_ranges": [
+                [
+                  1503,
+                  1610
+                ]
+              ],
+              "role": "Actual LandUseFraction/Profile declaration+constructors directlycalledscoped329manualDeserialize1618-1633; requireactualsum/fieldpredicate noterrorstringinference",
+              "actual_caller": "Camera329 currentP16WorldLib scopedLandUseProfileDeserialize Self::new1631",
+              "reason": "Necessary canonicaldirectadmission definition registeredbeforebody; no full4796WorldLib expansion",
+              "exclusions": "Only exactLandUseFraction/Profile/closedintensity metadata+methods, no otherworldsourcebody roles",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\src\\lib.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADM03-FINALQUAL-085",
+                "registration_id": "NATIVE-ADMISSION03-REG-085",
+                "source_id": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+                "snapshot": "physical-p16",
+                "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+                "actual_EOF": 4796,
+                "registered_requested_ranges": [
+                  [
+                    1503,
+                    1610
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    1504,
+                    1610
+                  ]
+                ],
+                "context_or_excluded_within_registration": [
+                  [
+                    1503,
+                    1503
+                  ]
+                ],
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-085",
+                  "at": "2026-10-22T15:37:20.274675+00:00",
+                  "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                  "source_id": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+                  "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+                  "snapshot": "physical-p16",
+                  "actual_EOF": 4796,
+                  "material_ranges": [
+                    [
+                      1503,
+                      1610
+                    ]
+                  ],
+                  "role": "Actual LandUseFraction/Profile declaration+constructors directlycalledscoped329manualDeserialize1618-1633; requireactualsum/fieldpredicate noterrorstringinference",
+                  "actual_caller": "Camera329 currentP16WorldLib scopedLandUseProfileDeserialize Self::new1631",
+                  "reason": "Necessary canonicaldirectadmission definition registeredbeforebody; no full4796WorldLib expansion",
+                  "exclusions": "Only exactLandUseFraction/Profile/closedintensity metadata+methods, no otherworldsourcebody roles",
+                  "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\src\\lib.rs",
+                  "status": "registered_before_direct_current03_body_analysis"
+                },
+                "qualification_history": [
+                  {
+                    "qualification_file": "camera-support/source-qualifications-011.jsonl",
+                    "row_1based": 13,
+                    "payload": {
+                      "id": "NATIVE-CAMERA-SUPPORT03-QUAL-085",
+                      "registration_id": "NATIVE-ADMISSION03-REG-085",
+                      "original_registration": {
+                        "id": "NATIVE-ADMISSION03-REG-085",
+                        "at": "2026-10-22T15:37:20.274675+00:00",
+                        "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                        "source_id": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+                        "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+                        "snapshot": "physical-p16",
+                        "actual_EOF": 4796,
+                        "material_ranges": [
+                          [
+                            1503,
+                            1610
+                          ]
+                        ],
+                        "role": "Actual LandUseFraction/Profile declaration+constructors directlycalledscoped329manualDeserialize1618-1633; requireactualsum/fieldpredicate noterrorstringinference",
+                        "actual_caller": "Camera329 currentP16WorldLib scopedLandUseProfileDeserialize Self::new1631",
+                        "reason": "Necessary canonicaldirectadmission definition registeredbeforebody; no full4796WorldLib expansion",
+                        "exclusions": "Only exactLandUseFraction/Profile/closedintensity metadata+methods, no otherworldsourcebody roles",
+                        "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\src\\lib.rs",
+                        "status": "registered_before_direct_current03_body_analysis"
+                      },
+                      "qualified_material_ranges": [
+                        [
+                          1504,
+                          1610
+                        ]
+                      ],
+                      "qualification": "1503blank excluded, LandUseFraction/Profile/intensity partiallyoverlapsoriginal3291610-1710 soactualcompleteintensityclosure suppliedbyoriginalrange; no otherWorldLibtypes.",
+                      "actual_semantic_refs": [
+                        "contracts-008.json"
+                      ],
+                      "registered_before_body": true,
+                      "global_registry_reconciliation_pending": true,
+                      "later_lens_credit": false
+                    }
+                  }
+                ],
+                "current_proof_refs": {
+                  "actual_semantic_refs": [
+                    "contracts-008.json"
+                  ]
+                },
+                "body_rereads_for_this_normalization": 0,
+                "semantic_credit_from_metadata": false,
+                "producer_or_owner_or_later_lens_credit": false,
+                "global_reconciliation_pending": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                1504,
+                1610
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\src\\lib.rs",
+            "actual_EOF": 4796,
+            "bytes": 172137
+          },
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 86,
+            "registration_id": "NATIVE-ADMISSION03-REG-086",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-086",
+              "at": "2026-10-22T15:40:20.753157+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+              "source_id": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+              "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+              "snapshot": "physical-p16",
+              "actual_EOF": 4796,
+              "material_ranges": [
+                [
+                  33,
+                  33
+                ]
+              ],
+              "role": "ExactUnitBasisPoints/BASIS_POINTS_PER_WHOLE reexport connectsNative085LandUse constructor namedbound toactualP16basis_points Native043 admission proof",
+              "actual_caller": "Native085LandUseFraction1513/LandUseProfile1575",
+              "reason": "Directnamedcanonicalconstant/leafedge registeredbeforesemanticbodycomparison, notname-onlyinference",
+              "exclusions": "No otherWorldLibmodule/reexports/materialsourcecredit",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\src\\lib.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADM03-FINALQUAL-086",
+                "registration_id": "NATIVE-ADMISSION03-REG-086",
+                "source_id": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+                "snapshot": "physical-p16",
+                "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+                "actual_EOF": 4796,
+                "registered_requested_ranges": [
+                  [
+                    33,
+                    33
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    33,
+                    33
+                  ]
+                ],
+                "context_or_excluded_within_registration": [],
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-086",
+                  "at": "2026-10-22T15:40:20.753157+00:00",
+                  "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                  "source_id": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+                  "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+                  "snapshot": "physical-p16",
+                  "actual_EOF": 4796,
+                  "material_ranges": [
+                    [
+                      33,
+                      33
+                    ]
+                  ],
+                  "role": "ExactUnitBasisPoints/BASIS_POINTS_PER_WHOLE reexport connectsNative085LandUse constructor namedbound toactualP16basis_points Native043 admission proof",
+                  "actual_caller": "Native085LandUseFraction1513/LandUseProfile1575",
+                  "reason": "Directnamedcanonicalconstant/leafedge registeredbeforesemanticbodycomparison, notname-onlyinference",
+                  "exclusions": "No otherWorldLibmodule/reexports/materialsourcecredit",
+                  "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\src\\lib.rs",
+                  "status": "registered_before_direct_current03_body_analysis"
+                },
+                "qualification_history": [
+                  {
+                    "qualification_file": "camera-support/source-qualifications-011.jsonl",
+                    "row_1based": 14,
+                    "payload": {
+                      "id": "NATIVE-CAMERA-SUPPORT03-QUAL-086",
+                      "registration_id": "NATIVE-ADMISSION03-REG-086",
+                      "original_registration": {
+                        "id": "NATIVE-ADMISSION03-REG-086",
+                        "at": "2026-10-22T15:40:20.753157+00:00",
+                        "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                        "source_id": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+                        "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+                        "snapshot": "physical-p16",
+                        "actual_EOF": 4796,
+                        "material_ranges": [
+                          [
+                            33,
+                            33
+                          ]
+                        ],
+                        "role": "ExactUnitBasisPoints/BASIS_POINTS_PER_WHOLE reexport connectsNative085LandUse constructor namedbound toactualP16basis_points Native043 admission proof",
+                        "actual_caller": "Native085LandUseFraction1513/LandUseProfile1575",
+                        "reason": "Directnamedcanonicalconstant/leafedge registeredbeforesemanticbodycomparison, notname-onlyinference",
+                        "exclusions": "No otherWorldLibmodule/reexports/materialsourcecredit",
+                        "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\src\\lib.rs",
+                        "status": "registered_before_direct_current03_body_analysis"
+                      },
+                      "qualified_material_ranges": [
+                        [
+                          33,
+                          33
+                        ]
+                      ],
+                      "qualification": "Exactregisteredcurrentdirectrole only; no unrelatedsource/tests/nativegraph credit.",
+                      "actual_semantic_refs": [
+                        "contracts-008.json"
+                      ],
+                      "registered_before_body": true,
+                      "global_registry_reconciliation_pending": true,
+                      "later_lens_credit": false
+                    }
+                  }
+                ],
+                "current_proof_refs": {
+                  "actual_semantic_refs": [
+                    "contracts-008.json"
+                  ]
+                },
+                "body_rereads_for_this_normalization": 0,
+                "semantic_credit_from_metadata": false,
+                "producer_or_owner_or_later_lens_credit": false,
+                "global_reconciliation_pending": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                33,
+                33
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\src\\lib.rs",
+            "actual_EOF": 4796,
+            "bytes": 172137
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          33,
+          33
+        ],
+        [
+          70,
+          180
+        ],
+        [
+          1503,
+          1710
+        ],
+        [
+          2670,
+          2735
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Deserialize",
+          "type": "LandUseFraction",
+          "lines": [
+            1526,
+            1541
+          ],
+          "disposition": "KEEP named WireFraction derive plus checked basis-point constructor and exact error."
+        },
+        {
+          "trait": "Deserialize",
+          "type": "LandUseProfile",
+          "lines": [
+            1618,
+            1634
+          ],
+          "disposition": "KEEP derived named WireProfile then aggregate sum=10000 validation; raw fieldwise derive admits invalid totals."
+        },
+        {
+          "trait": "Deserialize",
+          "type": "ElevationMeters",
+          "lines": [
+            1670,
+            1690
+          ],
+          "disposition": "KEEP named WireElevation then signed range validation with value/min/max diagnostic."
+        },
+        {
+          "trait": "Deserialize",
+          "type": "EdgeProgressPermille",
+          "lines": [
+            2706,
+            2718
+          ],
+          "disposition": "KEEP derived named wire view then checked constructor and exact contextual error; transparent derive changes named-record wire and bypasses bound."
+        }
+      ],
+      "existing_derives": "OfficialReligion/ReligionHours structural/native Serde/schema derive already; fraction/profile/elevation/progress Serialize already derives named fields; all four private deserialization views already derive mechanical writing.",
+      "absence_basis": "Exact registered material ranges consumed, not full4796-line module. Religion names/labels/index/correlation, hydrology predicates, intensity/band policies and constructor checks remain semantic inherent code. LanguageCode definition at1703\u20131710 only has existing checked conversion Serde annotation; its unrequested body is uncredited."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Named validated world-schema wire views",
+      "disposition": "Keep explicit semantic admission around existing derives; no mechanical hand-serializer replacement in scoped slices.",
+      "acceptance": "Preserve record field wire shape, signed elevation range and messages, individual fraction bounds and aggregate total, exact progress errors. No fieldwise/transparent bypass or whole-file claim."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 444,
+    "source_id": "physical-p16:crates/adventuresim-world-schema/src/person_names.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

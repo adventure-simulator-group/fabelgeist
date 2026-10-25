@@ -1,0 +1,125 @@
+{
+  "id": "NATIVE-PP-ERRORS-004",
+  "read_files": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "2f56c5185ec61241a7e4607eef02ebb4051e24dee918f5200585d586a4d971a8",
+      "read_ranges": [
+        [
+          1,
+          866
+        ]
+      ],
+      "read_status": "full"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_iteration/error.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "9864f16e67033ea8f14d686f25f2b71c78ff6e8866be6f8459df6384c4c5b647",
+      "read_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "read_status": "full"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_iteration/evidence.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "204c03d01cb76d4603c9c42a010a5ccf300f65abe20d62ab307212fe2fac19bc",
+      "read_ranges": [
+        [
+          1,
+          448
+        ]
+      ],
+      "read_status": "full"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/armor.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "9a5f5b89b21f9f10d774f35eb8c9f2cc2c73ebd4a21faf917bae8cd0b428561c",
+      "read_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "read_status": "full"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/timeline.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "8be8fb9671dfce44ce30fa2a7738cc1ff52df15d2ee5517e8eef0aa1733c3d1a",
+      "read_ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "read_status": "full"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/error.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "e3bd3bd8fb753b33e583e5cba64967ca07539dd8b4b0032a2153a330b59a01df",
+      "read_ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "read_status": "full"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/authored_weapon.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "446d7c751bfec9680b1aaf74efb82a38f44b145076a521b5bd5c0ea14844003c",
+      "read_ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "read_status": "full"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/threat.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "58a5e53d2fdf5283f4e7ba8a58f1335f894bb6b4ab4524f3684f92bbca8dc106",
+      "read_ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "read_status": "full"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+      "read_ranges": [
+        [
+          620,
+          779
+        ]
+      ],
+      "read_status": "partial_file_whole_resolve_battle_classify_and_round_functions"
+    }
+  ],
+  "contracts": [
+    "Roster -> build_from_spec -> authored_equipment -> from_authored_melee_definition retains typed MeleeIterationError::Weapon/Timing/name causes; original missing item/projection/placement/protection variants remain distinct. Exact valid roster5 opponents and authored sample/order untouched.",
+    "from_authored_melee_definition uses checked canonical timing and checked_add; typed AuthoredMeleeWeaponError Timing/Recipe cause preserved to MeleeIterationError. Physical fields remain original PR raw producer and frozenP16 owned camera, no PR physical clearance.",
+    "Authored threat ranged sidearm producer propagates MissingSidearmDefinition or Sidearm(AuthoredMeleeWeaponError) via ?; no silent knife/default substitution or String erasure. Threat original temporal fields admitted AnimationElapsed -> typed constructor.",
+    "Acceptance evidence original RecoveryTime values retained through producer/native report conversion; capability enum flattened to static strings before retained evidence, linked PP016 rather than a second repair.",
+    "resolve_battle whole entrypoint -> initialize/side/opening/round each ? -> BattleResolutionResult; terminal BattleTime checked/new derived value; final typed errors reach native runner -> IterationError variants/main. Pure battle internals still require fresh camera full-body proof, not inferred from signatures."
+  ],
+  "initial_pending_history": [
+    "Camera Core battle timing/physical producer graph proof and server projection tick receiver evidence"
+  ],
+  "pending": [],
+  "reconciliation": "All initially pending receiving source bodies read or linked to exact fresh current-wave shared source proof in unchanged-receivers-005/shared-source-links-006/server-receivers-002. Current concrete defects remain in progress.json; no repair/runtime acceptance."
+}

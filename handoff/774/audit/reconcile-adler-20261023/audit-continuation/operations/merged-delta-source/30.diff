@@ -1,0 +1,10 @@
+--- 6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/fungi.rs
++++ 13fc9dcc71ab879de364117e5462310673e43210:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/fungi.rs
+@@ -1,6 +1,6 @@
+ use super::*;
+-use crate::camera::authored_metres;
++use crate::camera::config::authored_metres;
+ use adventuresim_plant_generator::fungus::FungusSpecies;
+ 
+ pub(in crate::tactical_scene_viewer) const FUNGUS_REVIEW_VIEWS: [CaptureViewSpec; 7] = [
+     v!(

@@ -1,0 +1,42 @@
+{
+  "id": "RIG-INITIAL06-GROUP-176",
+  "at": "2026-10-23T05:35:44.265343+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-061.json",
+  "groups": {
+    "botanical-habitat-approximation": {
+      "comparison": "Actual habitat94 keeps caller-supplied PlantGround coarse botanical surface and PlantHabitat raw canopy/cultivation/moisture/snow fractions plus one-based seasonal day. Fungus and flower species reuse canonical species; unsuitable ground, snow, moisture and season predicates yield occurrence weights. These are scene approximations, explicitly not strategic foraging forecasts. Coarse ground differs complete routing/TacticalSurface vocabularies; occurrence weights differ physical mass, skill weights and accepted probabilities. Raw input fields are not a checked fraction certificate. Keep low botanical approximation here, without WorldDB dependency or a second flora species/calendar owner.",
+      "disposition": "Preserve canonical species and distinct botanical approximation; no competing owner established."
+    },
+    "scene-transport-versus-routing-authority": {
+      "comparison": "Actual terrain_samples109 distinguishes ImportedPackage(SourcePackageDigest) from synthetic fixture text. EnvironmentalSample carries raw basis-point snapshot fields and TacticalSurface transport classification; dispatcher adapts routing cells, tactical consumers do not own terrain runtime updates. Grid/Vista transport fields do not seal cardinality or finite geometry through derived Serde. VistaLevelIndex deliberately admits every u8 including17: ring order/count belongs to the owning scene, not a seven-level CharacterLod enum. Relative heights/origin and routing surface authorities remain distinct. Share exact checked unit BP and source digest only where their already-established contracts apply; do not merge different surface taxonomies or raw transport with accepted SceneTerrain.",
+      "disposition": "Keep transport vocabulary and source provenance distinctions; preserve exact existing BP/digest migration candidates."
+    },
+    "native-export-and-arch-geometry-ports": {
+      "comparison": "Actual export shell80 receives canonical RiggedShell/MHR skin/table geometry, writes glTF accessors, buffer view and component constants. Views tuple contains codec buffer/accessor ordinals, not catalog or rig identities. Explicit body-skin reuse when a shell has no own skin is authored codec behavior. Actual glazing93 uses strip coordinates, interpolation, native normals, dot/cross and UV repeat to construct lead geometry; these numerical intermediates are real ports, not a second authored Arch or checked Position owner. Preserve linear color conversion and existing canonical cloth composition candidate; no new globally positive native rectangle/corner type inferred.",
+      "disposition": "Keep native codec/numerical ports; reuse canonical upstream rig/cloth/geometry definitions."
+    },
+    "visual-wear-is-not-physical-durability": {
+      "comparison": "Actual activity91 borrows canonical FurnitureGroup/Footprint from spatial query, filters AABB then local footprint coverage and0.9m feathering. Vendor/Receiving/Horse/Domestic/Workshop select render wear/dampness pairs, combined by componentwise maxima and coverage. This is ground vertex appearance, not armor durability, water authority or hidden gameplay impairment. Existing ScenePlanPoint/PlanExtents/orientation support rotated footprint fixture; no independent scene/frame vocabulary.",
+      "disposition": "Retain visual wear/dampness meaning and shared furniture footprint owner."
+    },
+    "dive-decision-and-native-velocity": {
+      "comparison": "Actual dive_launch101 retains correlated DiveDirection/DiveTrajectory as DiveLaunch. Yaw uses shared Radians and speed canonical NonnegativeSpeed until Quat/local-axis engine velocity projection. GroundedSlide preserves whole current velocity; other launches replace XZ while retaining vertical component. This trajectory distinction is not compass direction or second duration owner. Existing neutral angle-location migration remains relevant, engine vector projection legitimate. Original source fixtures read only; no execution or movement/fatigue policy change.",
+      "disposition": "Preserve canonical speed/angle owners and correlated dive choice; native velocity port justified."
+    },
+    "outfit-and-anatomical-mail-projections": {
+      "comparison": "Actual outfit104 consumes CharacterRecipe inventory and EquipmentCatalog into canonical Loadout; canonical MHR mesh/skin/joint states feed clothing generation. Drape inputs retain InventoryItemId association, compute under-plate standoff by reverse outer-garment pass then restore order; lining composes generated armor. This is not physical-object identity or a second catalog. Existing Shell/GarmentMesh canonical cloth composition candidate remains. Actual mail_regions94 uses canonical RigJointName/Part and placement side to FitRegion frames; UnderlayerDesign fraction lengths and absolute patch widths remain different roles. Plane normals are deliberately unnormalized half-space coefficients, not canonical unit SpatialDirection. Native array/vector clipping ports stay local; coarse fit anatomy differs fine rig parts and combat coverage.",
+      "disposition": "Reuse canonical loadout/rig/design owners; retain different identity, anatomy, standoff and clipping roles."
+    }
+  },
+  "source_fact_refs": [
+    "contracts-003.json",
+    "contracts-005.json",
+    "contracts-024.json",
+    "contracts-097.json",
+    "contracts-133.json",
+    "contracts-139.json",
+    "contracts-162.json"
+  ],
+  "limits": "Eight actual source bodies freshly read completely, including contained original fixtures. No new source, execution, tests, source edits or other-lens credit."
+}

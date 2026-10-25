@@ -1,0 +1,139 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-206",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs",
+      "sha256": "aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576",
+      "actual_EOF": 781,
+      "actual_compared_ranges": [
+        [
+          1,
+          781
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_sessions.rs",
+      "sha256": "bf32ce83dd633973a32cabdb638590e85dca6b4b06eec2a45d135f6c1c138cf0",
+      "actual_EOF": 351,
+      "actual_compared_ranges": [
+        [
+          1,
+          351
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs",
+      "sha256": "aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576",
+      "actual_EOF": 781,
+      "actual_compared_ranges": [
+        [
+          1,
+          781
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_sessions.rs",
+      "sha256": "86473c2872a35a61a69775dc2578440eeefe4b620a5414c4aa044ca98bacf412",
+      "actual_EOF": 351,
+      "actual_compared_ranges": [
+        [
+          1,
+          351
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "id": "Retained schema and observer projection cardinality",
+      "locations": "dialogue_schema.rs1-540,697-781",
+      "trace": "Pure projection copies retained event sequenceu32, revisionu64, min/maxu32 and timestampi64 without arithmetic; raw row declarations do not prove aggregate construction or capacity. Party/session viewer expansion is one row per current player member/participant; same-party local chat skips the second audience iteration. All public views gate strategic gateway before table reads. No local checked numeric operation to repair in these pure clones. Whole-table fanout remains a real work-budget/retention dependency: output collection has no cap in these views, so client pagination is not assumed server-side bounded input. Parsed session ID accepts maximum160 bytes, no control characters, exact dialogue tag/u64 owner/nonempty nonce including colons; splitn3 uses no unsafe slicing. State parsers exact closed codes. All fixtures read without execution.",
+      "disposition": "No new numeric mutation finding. Retained schema exposes exact event/revision/custody owner fields for205 and ROOT04 F033; projection caps require actual authority policy, not guessed limits.",
+      "dependencies": [
+        "SEGOVB-04-DIALOGUE-EVENT-SEQUENCE-001",
+        "ROOT-INITIAL04-F033",
+        "Actual retained chat/session lifetime and generated gateway/client bindings",
+        "Canonical prompt/ballot admission"
+      ],
+      "acceptance": "Schema and generated bindings encode canonical distinct coordinates at actual ports. View fanout follows deliberate retention/work policy and preserves observer scope; no per-row narrowing or fabricated authority."
+    },
+    {
+      "id": "Live presence and session initial construction",
+      "locations": "dialogue_schema.rs549-695; dialogue_sessions.rs1-215",
+      "trace": "Live mutation requires existing actor party/settlement, at least one persistent NPC, and actual personal clock (missing is error). Canonical place selected only after navigation. Fresh Core validated_venue_selection requires coarse settlement basis and exact same-settlement venue; are_co_present compares exact frontier and place. Start uses PairwiseSoft; fresh enforce_temporal_scope calls canonical_now and requires actor time, deliberately does not read/advance target clock. Actual player/NPC roles validated from embedded catalogue before construction. New session revision0 is intentional initial value. NPC role min>1 explicitly rejects; first binds requestedNPC, later chooses unused colocated NPC. It writes session/player before subsequent missing NPC/cardinality/presence errors, so outer transaction/catch evidence still required; no successful partial commit claimed. Existing session retry compares conversation/settlement/location/catalogue but omits requested npc_actor_id; require_live checks stored participant, not requested identity. Two valid NPCs with same conversation/place could therefore have same session retry silently retain original NPC; current source identifies immutable request equality question, not numeric operations defect or proved ordinary reachable pair.",
+      "disposition": "Clock fallback in dialogue_effects205 is not on this start/live path; preserve distinct caller evidence. Exact start retry and atomicity dependencies remain qualified.",
+      "dependencies": [
+        "Actual native session retry caller and same-conversation NPC availability",
+        "SDK reducer rollback and outer catches",
+        "Canonical persistent NPC/party identity and role cardinality",
+        "Existing generated/local problem witness capability"
+      ],
+      "acceptance": "Successful start publishes a complete exact actor/party/place/frontier participant graph at revision0; retry follows explicit immutable request coordinates. Missing actor time or later child error cannot publish a usable partial session. Preserve intended actor-local chronology."
+    },
+    {
+      "id": "Greeting/referral event append and child effects",
+      "locations": "dialogue_sessions.rs216-351",
+      "trace": "Greeting event ID uses full usize turn_index text while sequence narrows tou32, connecting205 capacity qualification; actual embedded catalogue boundedness required before ordinary oversized greeting claim. Greeting source refs collected per authored fragment while runtime resolve can expand, same source-alignment dependency as205. Greeting effects pass no testimony event and no pre-issued objective bindings; actual admitted on_start effects must be traced rather than assuming they contain unsupported effects. Surface_problem runs ordinary discovery, exact delivery authority, then appends count-derivedu32 event and persists rumor knowledge/capability/options. These are fallible after session/events, no catches here. Actual P16/PR differences are only public reducer result types; no arithmetic behavior delta.",
+      "disposition": "No additional unique event bug; extends205 event append/source expansion graph and native typed-error integration.",
+      "dependencies": [
+        "205 canonical event append/source alignment",
+        "Actual embedded greeting effects and validator admission",
+        "CAM-PPS-F006/local774:F05/M30 error boundary",
+        "Outer transaction/catch graph and ordinary rumor authority"
+      ],
+      "acceptance": "All greeting/referral event coordinates are distinct and representable with correct source projection, and any allowed greeting effect has valid required authority. Successful session creation includes coherent rumor/witness options; rejection retains no usable partial graph."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/source/physical-p16-unscoped-dependency/crates/adventuresim-core/src/strategic_presence.rs",
+      "sha256": "2eeea5c9831e10b7c5d51d0d3f61b0093ce8c682bd0994d2c94de50aa3354a52",
+      "actually_read_ranges": [
+        [
+          45,
+          93
+        ],
+        [
+          338,
+          354
+        ]
+      ],
+      "coverage": "Fresh dependency body only; no additional full original role credit."
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/source/physical-p16/crates/adventuresim-stdb-module/src/relationship/model.rs",
+      "sha256": "91e0b874352ecb65b64568b5149fbf1bd8a1103dbb836c2a5639cca239ab0043",
+      "actually_read_ranges": [
+        [
+          1,
+          116
+        ]
+      ],
+      "coverage": "Fresh dependency body only; no additional full original role credit."
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/source/physical-p16/crates/adventuresim-stdb-module/src/relationship/chronology.rs",
+      "sha256": "9bd03249bc0fbc1de28571a08035a777f3ab8fe1ddd0ac177d6e32b3693ee621",
+      "actually_read_ranges": [
+        [
+          20,
+          50
+        ]
+      ],
+      "coverage": "Fresh dependency body only; no additional full original role credit."
+    }
+  ],
+  "status": "4 original roles personally compared; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/strategic/encounters.rs"
+}

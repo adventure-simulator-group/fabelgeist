@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1219",
+  "at": "2026-10-25T18:10:21.482470+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1294,
+  "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/tests/recovery_and_cases.rs",
+  "sha256": "ef87ad4e9c4d24ebf86edbdf12067ecbb06855d80bd109c8d88da8d9fc18c684",
+  "actual_compared_ranges": [
+    [
+      1,
+      340
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Only native/source test functions and fixed observation fixture literals for off-settlement/public bounded recovery, passive actor/current camp gating and elapsed/outcome sequencing. No handwritten trait/custom codec/local type. Existing clone/default/enum structure/equality calls not implementations; source assertions not current execution or imported production coverage. No tests run.",
+  "first_unfinished": {
+    "scope_index": 1294,
+    "line": 341
+  },
+  "execution": "none"
+}

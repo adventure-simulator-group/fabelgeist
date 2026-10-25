@@ -1,0 +1,60 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-420",
+  "at": "2026-10-23T13:32:22.593960+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/food.rs",
+      "sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+      "scope072_index": 927,
+      "actual_EOF": 848,
+      "scoped_ranges_compared": [
+        [
+          1,
+          848
+        ]
+      ],
+      "actual05_comparison": "Fresh full actual source and every original fixture; heat timing, nutrition/microbial survival provenance, catalog projection, flavor aggregate and retained lot components compared."
+    }
+  ],
+  "groups": [
+    {
+      "id": "heat outcome is a correlated method and timing projection",
+      "comparison": "doneness31-48 computes target=max(rawtarget,1), progress clamped0..2 and derives calorie/kill/penalty in one function. Public DonenessOutcome fields can be independently fabricated and doneness_nutrition_factor trusts their relationship; accepted output needs one owner if retained/decoded. method wrapper deliberately treats wet stew as safe plateau and roast as smoking/drying, while PanFry/Bake use destructive curve; different late policies are intentional, not stale duplicates."
+    },
+    {
+      "id": "large native duration rounding can cross discrete readiness branch",
+      "comparison": "Qualified API observation: targetu32MAX, elapsedtarget-1 has f64 ratio below1 but f32 progress rounds1, enters ready branch withkill1/penalty0 although docs say anyearly is worse. target+1 likewise rawlate penalty0. No execution or normal current cooking target claim. Existing peer dedup requested; no new unique finding counted yet. Preserve exact elapsed ordering for discrete tier semantics independently of approximate displayprogress, actual rawtarget0 fallback1 remains explicit policy."
+    },
+    {
+      "id": "contamination policy deliberately bounds growth rather than rejecting all overflow",
+      "comparison": "contamination_at rejects nonfinite anchor/growth toMAX, negativegrowth clamps0, widens f64 product withu64minutes then exponentmin80 and maxloadcap1e9. Maximum finitef32*maximumu64 fitsf64, so no late-widening overflow here. Partialcooking rawnonfinite\u2192MAX, killnonfinite\u21920; cooked method constants positive, same survivalratio propagates contributionloads. Arbitrary rawtotalconcentration and contributionvector do not prove sumload equality; normal DB foodlot provenance supplier must establish commonmass/anchor and use samefraction. Actual safe inputs preserve ordering and boundedconcentration."
+    },
+    {
+      "id": "flavor and nutrition components require admitted aggregate operations",
+      "comparison": "FlavorProfile rawpublic fivefloats/ordinarySerde/new no gate; valid only finite>=0. scaled sanitizesfactor but mayoverflow finite component*factor; add_assign independently mutates each component without whole computed admission. Normal ingredientmass<=25 cooking gate and actual catalogvalues may bound common use, but not raw API. Final flavorquality rejects invalidprofile to0 and fixed3/4 requiredflavors include absent0 rather than droppingmissing; scores each0..5 so fixedsum<=20 safe and divisor always3or4. Bake chooses stronger sweet/savory deliberately. This is canonical food physical/provenance capacity graph, no normal badmeal or separate unique numeric finding asserted."
+    },
+    {
+      "id": "cooking duration preserves safety and checked whole native sum",
+      "comparison": "cooking_duration rejects empty safety list and nonfinite/nonpositive or>25mass, takes maximum safety, bounded batchsqrt and checked setup+safety+batch. Expertise only reduces overhead after same baseline and adds back exactsafety checked, preserving ingredientminimum. preparation factor rejects invalidfraction then ceil/max1; nativeu32->f32 precision remains policy capacity, no arbitraryminimumfoodsize. chefquality1..5/clamp/floor and fatigue-free foodquality distinct from unbounded skill experience; current qualitymultiplier>1 intentional valuepolicy."
+    },
+    {
+      "id": "mass dilution and remaining fraction have exact purpose",
+      "comparison": "microbial_concentration invalidload/mass returns0 by explicit current policy, valid ratio clips1e9; it is not proof invalid incoming cookedproduct admitted safely elsewhere. retained_component requires bothfinite, clampsretainedfraction0..1 then scales nonnegativevalue, preserving bounded component. travel and explicit meal consumption reject nonfinite balances/availability to0, cap by available; explicitmeal fullness target3000 distinct traveldeficitonly. Cookedmeal terminalidentity guard prevents repeated nutrition/value multiplier, actual unknown item IDs still needcatalog caller."
+    },
+    {
+      "id": "immutable food catalog projection depends on actual startup schema gate",
+      "comparison": "Lazy FOOD_CATALOG derives every field from current item capability and weight, maps closedclass strings elseunreachable. Actual build850/851 scoped in382 and catalog validation receipts separately hold mandatoryfoodclass/numeric gates; this function itself is immutable projection, not secondindependent authoring store. No currentfoodclass membership inferred solely fromunreachable. Original557-848 allfixtures freshlyread sourceonly, including deterministicload, contaminationextremes, duration, ingredientterminal, flavor, portionconservation, donenessmethods and provenance ratio; no testsrun/additions."
+    }
+  ],
+  "new_unique_findings": [],
+  "qualified_observations": [
+    "Large allowed target duration readiness branch after f32 narrowing, exact peer dedup pending; raw FlavorProfile computed mutation capacity, normal bounds unresolved."
+  ],
+  "remaining_dependency_obligations": [
+    "Actual normal DB foodlot component/mass/concentration binding and recipe-duration producer bounds; exact catalogue semantic gate already source-specific in earlier receipts, no blanket caller admission."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

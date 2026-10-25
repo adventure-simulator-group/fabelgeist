@@ -1,0 +1,55 @@
+{
+  "id": "CONT07-CONTRACT-420",
+  "at": "2026-10-23T21:34:27.916206+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1844,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/single/tests.rs",
+      "sha256": "d219a1f527a2ea6d2eb2e0d0a4fb9a8dfbae19fca579ccc36b91fcc6d2685775",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/single/tests.rs",
+      "actual_EOF": 454,
+      "ranges": [
+        [
+          1,
+          454
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1845,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/stairs.rs",
+      "sha256": "98fff0a77a3fffd4da7a5753553311a5899c2a620dd707bd04db0fca4016bc8a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/stairs.rs",
+      "actual_EOF": 318,
+      "ranges": [
+        [
+          1,
+          318
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "RIG-OWNER-SUPPORT-MESH-APRON-064",
+    "ROOT-OWNER-GARDEN-SUPPORT-057"
+  ],
+  "facts": [
+    "1844 existing fixtures require all-doorway support, preserve natural garden/court and exact source-only exterior, reject impossible approaches/outside bearing, and remove coplanar recessed doorway overlap. Deliberately changed private region/outlines create negative fixtures, not normal application mutation evidence. All454 lines consumed; no fixtures executed.",
+    "1845 CourtStair retains scene flight endpoints and plot-local projections. new256-279 projects both from the same flight/property; no public CourtStair mutation path. shift_floor97-104 computes all three translated heights before assigning, preserving flight/local coordinates, riser count and going while coordinating floor/top/bottom elevation. Private basis mesh therefore reuses unchanged local cuts and grid coordinates; earlier1816 zip-topology question narrowed by actual producer, no ordinary truncation case proved.",
+    "1845 height_at uses the same retained flight riser_count/local endpoint span that local_cuts237-252 uses to partition treads. Landing patch precedes flight and deliberately shares selected floor. The descriptor public SupportStairFlight and private derived CourtStair are different API storage roles; no actual independent mismatch producer established.",
+    "1845 engineering maximum rise applies stricter grade/going/riser/landing constraints and can return0/unavailable or negative after contact margin. Actor maximum step height remains independent policy, not an alternative authority to unify. Scene versus architectural flights retain distinct frames.",
+    "Existing main_height .ok() can suppress GeometryResult from this exact height_at205-235; arithmetic overflow case and required support consumer are concrete operation/error graph obligations, no blanket07duplicate-field finding.",
+    "No new07finding; no checks or13-lens/overlay clearance."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1846,
+    "start_line": 1
+  }
+}

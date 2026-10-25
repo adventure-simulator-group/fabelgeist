@@ -1,0 +1,185 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-750",
+  "at": "2026-10-25T16:41:32.119523+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 987,
+      "source_id": "pr-working:crates/adventuresim-core/src/road_encounter_catalog.rs",
+      "sha256": "62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+      "actual_EOF": 2689,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/road_encounter_catalog.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/road_encounter_catalog.rs",
+        "sha256": "62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+        "bytes": 102348,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "root",
+            "record": "wave-01/audit-producer-propagation/root/additional-sources-026.json",
+            "ranges": [
+              [
+                1,
+                350
+              ]
+            ],
+            "source_read_status": "partial",
+            "trace_refs": [
+              "ROOT-PP-CATALOGUE-026"
+            ]
+          },
+          {
+            "shard": "root",
+            "record": "wave-01/audit-producer-propagation/root/unchanged-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                350
+              ]
+            ],
+            "source_read_status": "partial",
+            "trace_refs": [
+              "ROOT-PP-CATALOGUE-026"
+            ]
+          },
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/supplemental-catalog-sources.json",
+            "ranges": [
+              [
+                351,
+                2689
+              ]
+            ],
+            "source_read_status": "assigned_tail_full",
+            "trace_refs": [
+              "NATIVE-SUPP-CATALOG-001"
+            ]
+          }
+        ],
+        "audit_owner": "root",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 106,
+            "read_ranges": [
+              [
+                1,
+                1260
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-ROAD-026"
+            ],
+            "read_status": "explicit_partial",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/road_encounter_catalog.rs"
+          },
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 343,
+            "read_ranges": [
+              [
+                1,
+                2689
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-ROUTE-FRAMES-AND-FIXTURES-074"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/road_encounter_catalog.rs"
+          },
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 433,
+            "read_ranges": [
+              [
+                1,
+                2689
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-ROAD-026",
+              "ROOT-OWNER-ROUTE-FRAMES-AND-FIXTURES-074",
+              "ROOT-OWNER-CLIENT-SOURCE-CLOSURE-083"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/road_encounter_catalog.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-CATALOGUE-ROLE-005",
+            "json_pointer": "/source_proofs/8",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/road_encounter_catalog.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                2689
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/road_encounter_catalog.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/road_encounter_catalog.rs",
+              "sha256": "62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+              "read_ranges": [
+                [
+                  1,
+                  2689
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 354,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          2689
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "All road catalogue/presentation/effect/requirement/check/transition/vocabulary/source records derive Serde+structural traits with explicit wire attrs; native outcome enum structural already derive"
+      ],
+      "absence_basis": "Entire2689line exact module personally consumed737\u2013750: schema, semantic validation, native combat classification/payload/virtue/weighted runtime selection and every fixture. No handwritten trait or codec. Generated include22 separate, no source-body credit."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Road encounter derivability",
+      "disposition": "No handtrait target. Keep native coupled validation, typed shared-system backing, scoped outcomes and selection; all field serialization already derived. Fixtures source-read only, no execution."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 988,
+    "source_id": "pr-working:crates/adventuresim-core/src/settlement_economy.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

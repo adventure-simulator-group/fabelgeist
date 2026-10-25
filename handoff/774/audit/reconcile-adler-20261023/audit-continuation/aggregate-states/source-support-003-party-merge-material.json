@@ -1,0 +1,143 @@
+{
+  "id": "SEGO-INITIAL05-F003",
+  "at": "2026-10-25T13:11:28.264733+00:00",
+  "title": "Preserve existing food material when merging party inventories",
+  "priority": "P2",
+  "classification": "Source-backed retained aggregate custody/material reset defect; normal supported producer sequence, not executed",
+  "lenses": [
+    "aggregate-states"
+  ],
+  "locations": [
+    {
+      "file": "crates/adventuresim-stdb-module/src/strategic/governance.rs",
+      "start": 1456,
+      "end": 1473
+    },
+    {
+      "file": "crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "start": 497,
+      "end": 518
+    }
+  ],
+  "contract_trace": "Canonical item::requires_stable_object admits every food/measured unit as an individual physical object even without durability. Partial travel consumption retains row quantity1 and shrinks its lot nutrition/mass/value and canonical fraction. accept_party_join_request instead classifies transfer solely by repairable; non-repairable foods are passed by item_id+quantity to a grant factory and old inventory row is deleted. Factory constructs NEW physical object, WHOLE fraction, full canonical food nutrition/mass/value, new age and contamination. Thus valid partially consumed food is replenished by a successful merge and existing history/medicine/provenance is not transferred.",
+  "counterexample": "A source-party leader with no active quest and a partly consumed carried travel_ration joins an open party at the same synchronized settlement/site. Catalog travel_ration has food capability with2500kcal and no durability; native Item default repairable=false and projection only sets true for durability. Normal consume_travel_food_to_zero ratio<0.999999 retains the quantity-one row with reduced material/fraction. Valid merge satisfies normal checks and calls fresh factory for quantity1: a whole2500kcal ration is created for recipient regardless of residual source material. Same mechanism resets age/contamination even for unconsumed aged food. No malformed row, MAX bound, runtime transaction or observed shipped actor asserted.",
+  "repair": "Transfer existing canonical stable physical objects and their custody/subtrees for all requires_stable_object categories, preserving exact carried-row/food-lot/material identity, remaining fraction, contamination, medicine and provenance. Restrict fungible quantity merging to genuinely fungible definitions. Use checked transfer results through the connected merge transaction rather than swallowed grant failures, and do not recreate food/material to simulate a custody transfer. Consume existing physical-object custody and measured-material owners; reconcile all receiving signatures together. No compatibility adapter or duplicate food owner.",
+  "dependencies": [
+    "Shared inventory_container object_for_row/rehome_subtree and carried-row identity owners; exact subtree/lot state behavior must be source-closed before repair",
+    "Adjacent existing own09 F193 food attachment and F196 medicinal carrier shape findings, not duplicate defects",
+    "Adler CAMERA-ADM03-F029 factory source-binding admission contract is distinct but shared factory dependency; retain its evidence",
+    "Initial all13 discovery gate; no source fixes or newtests"
+  ],
+  "acceptance": "A successful merge preserves exact food/material residual quantities, nutrition, age, contamination, provenance, medicine and physical nesting/custody; no fresh grant/whole restoration occurs. Durable equipment identity and genuine fungible quantity semantics remain correct. Any failed transfer aborts without deleting source material or partially publishing recipient state. Existing tests only after connected repair batch.",
+  "sources": [
+    {
+      "scope_index": 1220,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/governance.rs",
+      "sha256": "d5eb2f18906eb28ba2703b665b769c50113ed55b73f572896659d17492443e92",
+      "ranges": [
+        [
+          1383,
+          1475
+        ]
+      ]
+    },
+    {
+      "scope_index": 1225,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+      "ranges": [
+        [
+          274,
+          280
+        ],
+        [
+          472,
+          561
+        ],
+        [
+          2970,
+          3112
+        ]
+      ]
+    },
+    {
+      "scope_index": 1136,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/item.rs",
+      "sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+      "ranges": [
+        [
+          1,
+          70
+        ],
+        [
+          78,
+          298
+        ],
+        [
+          322,
+          385
+        ]
+      ]
+    },
+    {
+      "scope_index": 1118,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/inventory_amount.rs",
+      "sha256": "535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6",
+      "ranges": [
+        [
+          40,
+          105
+        ]
+      ]
+    },
+    {
+      "scope_index": 1106,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/lot_inventory.rs",
+      "sha256": "28b22445ed307bc12de78b72d95df5b4325ba47ad3403f45292bb0c5b6efb87b",
+      "ranges": [
+        [
+          104,
+          178
+        ]
+      ]
+    },
+    {
+      "scope_index": 1102,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/consumption.rs",
+      "sha256": "6774eac9e912e8d500d0d9912545c2051fcc102d969f024be6dd157b22dea910",
+      "ranges": [
+        [
+          193,
+          310
+        ]
+      ]
+    },
+    {
+      "scope_index": 525,
+      "source_id": "pr-working:content/items/catalog.yaml",
+      "sha256": "87e0f51292d42ab62beeabc9f2624f635c27acf8b28ae3d8c2931eb9297f491b",
+      "ranges": [
+        [
+          3736,
+          3782
+        ]
+      ]
+    },
+    {
+      "scope_index": 946,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_references.rs",
+      "sha256": "e794dc0ede51c9d53d64155ee9ce8d551347ec8f659e2461c0b3d5d31b34cb6b",
+      "ranges": [
+        [
+          39,
+          39
+        ]
+      ]
+    }
+  ],
+  "source_evidence": "reconcile-adler-20261023/audit-continuation/aggregate-states/source-support-003-party-merge-material.json",
+  "merged_confirmation": "git diff --stat6533..13fc returned no changes across governance/inventory_trade/foodconsumption/lot_inventory/item/inventory_amount; no introduced774regression claim.",
+  "deduplication": "Targeted existing root163 and Adler1002 record lookup found no exact transfer-recreates-material mechanism. Own09 owner explicitly confirms F193/F196/F231 adjacent, no exact alias. Personally inspected CAMERA-ADM03-F029: latent factory binding with mismatched row/item, distinct counterexample/remedy. CAMERA-INITIAL07-F029 stale recruitment projection is unrelated. No global uniqueness assertion beyond compared records.",
+  "repair_status": "not_started_initial_discovery_gate",
+  "validation": "not_run; source only"
+}

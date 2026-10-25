@@ -1,0 +1,42 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-127",
+  "at": "2026-10-25T17:50:23.077676+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1601,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor/card_mesh.rs",
+      "sha256": "b05ac342df292a30117ec56a148a282b51c6fe49d23f3b6f26b68059e092c416",
+      "personally_read_ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full54 card mesh port read ahead. TreeCardGeometry groups center/right/up/positive physical width-height and UV bounds but raw fields permit zero/parallel spanning axes, related inherited branch/card frame admission. Final native append emits matching4 position/normal/UV vertices and6 indices from same base; zero-normal fallback does not prove valid accepted card frame. Source generator ordering/cardinality and accepted native index capacity remain actual bake owner prerequisites. UV y reversal is deliberate image coordinate convention; no arbitrary quantization."
+      ]
+    },
+    {
+      "scope_index": 1602,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor/orientation.rs",
+      "sha256": "0832c7f01271afcbd8d65ccc61ac2a3b0837c605f1d6239b8ece5dddc7fb64bd",
+      "personally_read_ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full56 orientation helper read ahead. Group/right uses matching depth1 branch endpoint radial axis, explicit X fallback for absent/nearly vertical source is current visual direction policy, distinct from missing biological proof. Macro cluster sums same group/range depth2 directions weighted by lengths, falls back to that canonical radial when resultant is small. Group range membership and represented source cluster remain parent aggregate contract; raw tuple alone not proof, no ordinary invalid generated source claim. Subcluster phase canonical seed+key only at actual deterministic kernel."
+      ]
+    }
+  ],
+  "findings": [],
+  "qualified_connected_requirements": [
+    "1600 impostor source personally read1\u2013240 only, not counted or source-complete. Preserve separate active range receipt."
+  ],
+  "discovery": "2 newly accounted original roles; other reads support already counted historical roles. Lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

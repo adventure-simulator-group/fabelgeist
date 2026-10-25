@@ -1,0 +1,104 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-485",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/guard_footwork.rs",
+      "sha256": "6ee51d617e6768c1552325294a976d780baa694c28386d909d913ef01475aea0",
+      "actual_EOF": 153,
+      "actual_compared_ranges": [
+        [
+          1,
+          153
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/guard_geometry.rs",
+      "sha256": "c0b137fbc417c7f671619a3cc9cc4b76cd30973682db603b40b27a6729ef5f2f",
+      "actual_EOF": 123,
+      "actual_compared_ranges": [
+        [
+          1,
+          123
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/posture_transition.rs",
+      "sha256": "bc8baae81a0a5a732df8dba8928b78d85c6b941c193ec50a31780d1a5b43f816",
+      "actual_EOF": 158,
+      "actual_compared_ranges": [
+        [
+          1,
+          158
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/projection.rs",
+      "sha256": "1c3d107a1b048fc5397ff0bd4ce896e703fd748296193bf90bea403fe7af7bab",
+      "actual_EOF": 272,
+      "actual_compared_ranges": [
+        [
+          1,
+          272
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/raised_locomotion.rs",
+      "sha256": "a2f784e17dfc1ae6b606c9688428b0a9596f4a1b0da358f5a59eacb6494bdfe9",
+      "actual_EOF": 145,
+      "actual_compared_ranges": [
+        [
+          1,
+          145
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/turn_deadline.rs",
+      "sha256": "bb92ce4b2c2252c6c68cc37955cba5f4d2c90ccdab05a4456a632a7f4adadc4e",
+      "actual_EOF": 432,
+      "actual_compared_ranges": [
+        [
+          1,
+          432
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Guard contact arithmetic and actual observation bounds",
+      "evidence": "All153+123+272+145 lines personally read. Projection checks transformed velocities/norms/acceleration before writes and caps elapsed1s for guard displacement. Guard integrates private plans, finite phase admitted before plan assignment, but contact identity writes precede last phase admission. No concrete ordinary failure route after these writes established. Public snapshot extreme contacts/config reach remain conditional, not proof retained invalid ordinary state. Direction intent normalization preserves explicit planted policy. Guard geometry arithmetic re-admits completed NonnegativeLength, including overflow rejection for extreme SignedLength."
+    },
+    {
+      "contract": "Posture handoff bounded geometry",
+      "evidence": "All158 lines: duration maxONE, typed phase, recovery clamp and checked smoothstep UnitInterval; yaw total bounded byPI and incremental fraction clamp. Runtime handoff start versus grounded1/airborne.92 requires coherent config ordering; no authored/config violation witness asserted."
+    },
+    {
+      "contract": "Turn completed operation violates zero-time observation under admitted tiny positive duration",
+      "evidence": "Full turn_deadline1\u2013432 independently personally read; native_radians_per_second mayInf for subnormal positive duration, productInf*elapsedZERO givesNaN, .min(PI) choosesPI, allowing yaw delta despite elapsedZERO. Exact retained defect already root local774:F53; no duplicate finding. tracking_residual may similarly maskNaN to0. Existing fixtures209\u2013432 cover1e-10 duration and zero/zero deadline, not subnormal positive+elapsedZERO. Public/API conditional, normal authored config and ordinary runtime trigger not claimed. Acceptance zero elapsed leaves yaw unchanged for every admitted finite positive duration; preserve valid duration domain and completed bounded turn semantics."
+    }
+  ],
+  "findings": [
+    {
+      "id": "local774:F53",
+      "disposition": "exact-existing-contract support from fresh04 full source read",
+      "new_unique": false
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "6 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-core/src/animation/tests.rs"
+}

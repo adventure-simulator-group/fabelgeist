@@ -1,0 +1,35 @@
+{
+  "id": "CONT07-F088",
+  "at": "2026-10-23T20:46:41.295425+00:00",
+  "classification": "maintenance/target-evidence strengthening; no observed wronghost result",
+  "title": "Benchmark target description and host matcher independently own the target chip contract",
+  "sources": [
+    {
+      "scope_index": 1699,
+      "sha256": "f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1",
+      "ranges": [
+        [
+          2345,
+          2354
+        ],
+        [
+          2401,
+          2463
+        ],
+        [
+          2555,
+          2576
+        ]
+      ],
+      "coverage": "source freshpartial1-2700; remainder notyetread"
+    }
+  ],
+  "earliest_failed_contract": "One declared benchmark target mustownthepolicyusedtoclaimhostmatchandconclusiveacceptance; helpercomparesseparatelyauthoredliteralsratherthan declaredtargetdescriptor.",
+  "counterexample": "Changebenchmark_target_hardware.chip toanothergenerationwhilekeepinghostmatcherunchanged; reportnamesnewtargetbutmatchesoldApple M5 literals, sooldgenerationcanqualifyundernewdescriptor. Currentchipstringsagree; sourceeditnotexecuted.",
+  "evidence_limit": "Currentdescriptoralso names13-inchbasefanlessmodel/8GPUcores/16GiB, buthostonlyobservesOS,architecture,chipname,GPUnameandmemory thenmatchescontainsApple M5 andmemory>=16. No formfactor/cooling/core observation. Thisdoesnotproveaparticularrealhardwaremisclassified; sourcecannotestablishexactbase-Airidentityfromrecordedfields. Ifintendedtarget-classisbroader, defineitexplicitlyandseparateexactdescriptorfromclassclaim. No externalhardwarefactsasserted.",
+  "actual_recipient": "target_acceptance_passes2347 useshost_matches_target gate, andreport2555 labelsconclusivetargetresult. Targetdescriptionandmatchpolicycanthusdriftwithoutcompilerobligation.",
+  "connected_repair": "Declarecanonicaltarget-classpredicate/identitybesidethetargetdescriptor andderivecomparisonfromit. Captureallobservationsneededforclaimedprecision; unavailableorinsufficienttargetevidencemustremainunknown/comparative. Preservecurrenttimingthresholdandindependentrelease/GPUtimestampgates.",
+  "acceptance": "Updatingtargetidentitycannotleaveoldchipmatchsilentlyaccepted; exacthardwareorbroaderclassclaimmatchesactualobservedfieldsandexplicitpolicy. Currentdescriptivemetadata/timingbytesonlychangeasintended. No tests added or executed.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

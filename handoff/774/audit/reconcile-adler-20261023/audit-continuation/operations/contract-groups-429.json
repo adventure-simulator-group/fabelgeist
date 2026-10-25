@@ -1,0 +1,122 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-429",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/scene.rs",
+      "sha256": "2881b50dfcd55e6d008b3852ea37e34b90130da2739fc846e6b9e8d0f2282d49",
+      "actual_EOF": 69,
+      "actual_compared_ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/tests.rs",
+      "sha256": "32f0edc7da00b969eea03422e474149cba6574f2d986745a29222fd64b5da6f2",
+      "actual_EOF": 467,
+      "actual_compared_ranges": [
+        [
+          1,
+          467
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/travel_fixtures.rs",
+      "sha256": "d17bb98218acfd8b7ed02a7eb8e2013209bf849a6a04910ef510e3e04c950c96",
+      "actual_EOF": 204,
+      "actual_compared_ranges": [
+        [
+          1,
+          204
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/venue.rs",
+      "sha256": "5e4b722af6525a9d5d8be612acd50c57eedaeb97c3886fb264a0e73796cf5c0a",
+      "actual_EOF": 164,
+      "actual_compared_ranges": [
+        [
+          1,
+          164
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/wasm.rs",
+      "sha256": "0a41df378f9ee30c826e6902365d1400622895612dc9f55b337a3bbe0085880d",
+      "actual_EOF": 73,
+      "actual_compared_ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/wasm_error.rs",
+      "sha256": "4ccc83fc48a4ceaffaaea93ec7387dc43ffc32996324f04e6dbd84852e4273a4",
+      "actual_EOF": 23,
+      "actual_compared_ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/worker_products.rs",
+      "sha256": "c3f678338ff7c06487580632000b48d3948022da0a3c8845056df88a34efab63",
+      "actual_EOF": 67,
+      "actual_compared_ranges": [
+        [
+          1,
+          67
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/cover_mask.rs",
+      "sha256": "5d2662fa8f5c9fad7ea8d6428397a79a7df3bba69053a7b778d29b31ea74bfb6",
+      "actual_EOF": 37,
+      "actual_compared_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Prepared worker receiver and scene binding",
+      "analysis": "Worker generate finishes pure matching job product before CBOR encoding. Receive acquires valid staged ticket before decode; exact job/product variant and program/document+graphics match guard all assignment. Building site dedup by program and facade append are one infallible receiver branch after decode; repeated received same job can append duplicate facade/venue, but bounded legitimate unique job scheduling and exact active consumer handling apply, no actual duplicate job failure asserted. Raw decoded geometry correspondence/finite arrays are inherited admission boundary, not authenticated merely by matching program. Prepared scene built locally, validates every requested placement against primary/distant canonical input, installs interior and ensures all primaries represented before returning; no partial active scene on error."
+    },
+    {
+      "contract": "Venue mesh and fixture correspondence",
+      "analysis": "PreparedBatch serializes raw arrays from actual recipe_mesh and rehydrates unchanged native attributes/indices, optional absent tangent preserved. Actual producer geometry dimensions/policy upstream; malformed CBOR representation admission is existing03 scope. All467 generation tests and204 travel fixture source read: exact ticket/owner/mismatch/stale rejection, clone isolation, recipe/interior/tangent preservation, cancellation retaining active and distinct grounded destination seeds; no test executed or fixture output created. Fixtures marked ignored/write files remain evidence only and no authorization to run."
+    },
+    {
+      "contract": "WASM error ownership and cover mask sampling",
+      "analysis": "Bridge decodes typed tickets/owner documents then delegates canonical owner methods; typed preparation errors named at JS exception boundary, no state mutation in conversion. Coverage mask maps finite admitted ScenePlanPoint through ground dimensions and clamps to texture border; zero dimensions/empty image require grass_cover_mask_pixels producer guarantee before width-1/index arithmetic. No arbitrary raw mask caller is exposed; actual producer frontier remains."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "8 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass.rs"
+}

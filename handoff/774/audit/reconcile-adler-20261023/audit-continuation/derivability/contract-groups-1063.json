@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1063",
+  "at": "2026-10-25T17:40:27.263197+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1209,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/custody_objectives.rs",
+  "sha256": "7274d8bedc95fa40cee64bda7b7dda0c32b6d02aa01e44e754f77e1bd171bc5b",
+  "actual_compared_ranges": [
+    [
+      1111,
+      1490
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "CaseOutcomeSource1113\u20131137 is borrowed inherent nonempty parser with outcome:-prefix stripping and fallback DomainEvent; fact_coordinate merges variants; retain semantics/no runtime Serde or owned FromStr. No handwritten trait/codec. Finale sorting uses selected priority/id, not whole record Ord. mission_candidate_from_capability1263\u20131282 mostly moves fields but synthesizes id from mission/index and adds mission_id; not single-input derive. Hostile objective classification, generated site/finale/manifest correlation and bound mission validation contextual, existing typed Serde owns wire."
+  ],
+  "first_unfinished": {
+    "scope_index": 1209,
+    "line": 1491
+  },
+  "execution": "none"
+}

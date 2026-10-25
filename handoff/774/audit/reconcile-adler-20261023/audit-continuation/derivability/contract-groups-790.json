@@ -1,0 +1,200 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-790",
+  "at": "2026-10-25T16:50:56.744178+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1009,
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_inventory.rs",
+      "sha256": "d271b63418f6ef51f276ab1e383bb534724f08ae106ffd7285f530e0308fef3e",
+      "actual_EOF": 455,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/strategic_inventory.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/strategic_inventory.rs",
+        "sha256": "d271b63418f6ef51f276ab1e383bb534724f08ae106ffd7285f530e0308fef3e",
+        "bytes": 13773,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+            "ranges": null,
+            "source_read_status": null,
+            "trace_refs": []
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                455
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-TRADE-QUANTITY-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 200,
+            "read_ranges": [
+              [
+                1,
+                455
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-ITEM-026"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/strategic_inventory.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 178,
+            "read_ranges": [
+              [
+                1,
+                455
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-ITEM-026"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/strategic_inventory.rs"
+          },
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 124,
+            "read_ranges": [
+              [
+                1,
+                220
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-COURTSHIP-040"
+            ],
+            "read_status": "partial_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/strategic_inventory.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 15,
+            "read_ranges": [
+              [
+                1,
+                230
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-STRATEGIC-002"
+            ],
+            "read_status": "exact_owner_and_receiving_bodies_read_remaining_unclaimed",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/strategic_inventory.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera",
+          "rig",
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 372,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          455
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Display + Error",
+          "type": "PaymentPlanError/MerchantProviderError/UnknownMerchantService/TradeRequestError",
+          "lines": [
+            [
+              102,
+              113
+            ],
+            [
+              142,
+              154
+            ],
+            [
+              188,
+              194
+            ],
+            [
+              329,
+              338
+            ]
+          ],
+          "disposition": "OPTIONAL F002 literal thiserror equivalent/source None"
+        },
+        {
+          "trait": "TryFrom<u64>/TryFrom<u32>",
+          "type": "MerchantProviderId/TradeQuantity",
+          "lines": [
+            [
+              125,
+              133
+            ],
+            [
+              206,
+              213
+            ]
+          ],
+          "disposition": "KEEP nonzero narrowing and concrete error mapping"
+        },
+        {
+          "trait": "TryFrom<&str>",
+          "type": "MerchantStorefrontRoute",
+          "lines": [
+            [
+              340,
+              358
+            ]
+          ],
+          "disposition": "KEEP semantic closed service-to-storefront/location pair map"
+        }
+      ],
+      "existing_derives": [
+        "All value/request/error structural traits already derived"
+      ]
+    }
+  ],
+  "groups": [
+    "Complete source consumed including fixtures360\u2013455; partial789 retained. Four literal source-less error implementations exact equivalent existing owning thiserror2.0.20; optional maintenance only. Keep all literals and source None.",
+    "Preserve validated provider/quantity narrowing and concrete error order, parallel-vector/nonempty parsing, personal-first funding policy and closed route mapping with distinct location vocabulary. No available generic derive replaces semantic mapping; do not add wire traits/runtime serialization. Fixtures source read not run."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1010,
+    "source_id": "pr-working:crates/adventuresim-core/src/strategic_place.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

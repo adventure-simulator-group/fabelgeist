@@ -1,0 +1,124 @@
+{
+  "id": "CONT07-CONTRACT-364",
+  "at": "2026-10-23T19:41:27.467652+00:00",
+  "lens": "audit-redundant-authority",
+  "members": [
+    {
+      "scope_index": 1561,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/view_culling.rs",
+      "sha256": "6411bfc2ee44c3d991461d3817be5580974b682de88df4337e4beb492766407c",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/view_culling.rs",
+      "actual_EOF": 167,
+      "ranges": [
+        [
+          1,
+          167
+        ]
+      ],
+      "read_kind": "fresh full exact source and critical existing/native source comparison"
+    },
+    {
+      "scope_index": 1562,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_understory.rs",
+      "sha256": "99e5f51d7e539f2618ce3e0fa233173442b3f4bbefffb3df4fc0203ad2f22fd3",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_understory.rs",
+      "actual_EOF": 322,
+      "ranges": [
+        [
+          1,
+          322
+        ]
+      ],
+      "read_kind": "fresh full exact source and critical existing/native source comparison"
+    },
+    {
+      "scope_index": 1563,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/layers.rs",
+      "sha256": "0e61965bb7febc3e4d4ebcb0aee7aefd10c0985e79dd8d912e9bf332a3566fdc",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/ground_scatter/layers.rs",
+      "actual_EOF": 18,
+      "ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "read_kind": "fresh full exact source and critical existing/native source comparison"
+    }
+  ],
+  "contracts": [
+    {
+      "source_index": 1561,
+      "disposition": "accounted with exact caller/native ownership limits",
+      "facts": [
+        "Each camera gets one owned UniformBuffer and binding, keyed by render Entity. prepare retains only actual active query members and updates current view/frustum from one snapshot; cull looks up actual current view identity. Grass material actually disables prepass, so selected output can be reset/reused immediately before same camera main pass.",
+        "Prospectively registered native REG0041-149 freshly consumed, fixed CameraCullData actual33full1-18 refreshed. UniformBuffer::set does not set changed; unchanged label/usage write_buffer reuses existing nativeBuffer via queue.write_buffer. Caller never changes descriptor. Thus current per-camera binding remains pointed at updated allocation; arbitrary label/usage mutation would require rebuilding binding but is not actual caller. No blanket stale-binding finding.",
+        "Host WORKGROUP64 andMAX65535 agree fresh cull509 native workgroup/address flattening, source draws count is actual indirect-buffer bytes not separate authored population. Each camera command stream resets counts before selecting pages, geometry offsets preserved. Prior native allocator/admission/capacity/overflow concerns remain; this source alone does not prove all underlying page data. Missing/uncompiled pipelines return without compute; no runtime hot-reload failure/old-other-camera presentation asserted or cleared."
+      ]
+    },
+    {
+      "source_index": 1562,
+      "disposition": "accounted with exact caller/native ownership limits",
+      "facts": [
+        "One immutable species presentation supplies native branch/card/leaf handles, copied uniforms and shader texture handles at construction. Cambered versus card geometry and their distinct bands intentionally represent different distance levels; same texture calibration copied into separate snapshot materials, no dynamic original-material hot reload promise. Bark colour fallback is explicit missing native source policy distinct from missing geometry skip.",
+        "The three species loop and exhaustive species_index select fixed native batching; representation roster is another current-agreeing closed enum maintenance occurrence related toF074, not an independent current visual defect or automatic merge of unrelated enums. Branch and leaf spans different authored policies. CPU frustum disabled; fixed fitted_batch_aabb margin alone does not certify native GPU shrub culling; backend-specific source obligations retained.",
+        "Actual shrub_instance projects checked Position<Scene> plus uniform scale/yaw at native InstanceData boundary, preserves seed-word derivation. Root and legacy per-entity renderer deliberately differ normal tilt, not competing current placement truth. Original mesh/material source identities are immutable cache cohort in this path; no render reproduction claimed."
+      ]
+    },
+    {
+      "source_index": 1563,
+      "disposition": "accounted with exact caller/native ownership limits",
+      "facts": [
+        "GroundScatterLayer labels six semantically different rendered categories for intentional selection/visibility. GroundScatterPresented marks initial lifecycle, while GrassInteractor selects actual locally controlled moving entity; no duplicated scalar or independently recomputed current gameplay identity. Each marker is intentionally separate from native geometry components, not an authority defect alone."
+      ]
+    }
+  ],
+  "fresh_support_reads": [
+    {
+      "scope_index": 33,
+      "sha256": "bedf4e9e3cb681d6cd4ef75b146537e8e2c4876cad464addd82ba0bc5cdc83ab",
+      "ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "coverage": "already covered original variant; current critical structure reanalysis only"
+    }
+  ],
+  "new_material_roles": [
+    {
+      "registration": "CONT07-REG-004",
+      "source_id": "native-dependency:bevy_render-0.19.1/src/render_resource/uniform_buffer.rs",
+      "sha256": "09c699b99ca5712b61dc38ce3703155701999ab75801a5f38172475c23b73d1c",
+      "ranges": [
+        [
+          1,
+          149
+        ]
+      ],
+      "disposition": "Fresh07 exact native UniformBuffer source consumed. Actual fixed CameraCullData and no label/usage mutation preserve allocation on ordinary writes; closes specific per-camera binding suspicion. DynamicUniformBuffer149+ unrelated and no module-wide credit.",
+      "coverage": "new native source/range outside old2853; global all-lens inventory pending, no extra old-universe variant count"
+    }
+  ],
+  "source_qualifications": [
+    "REG004 range1-149 includes only ordinary UniformBuffer implementation and start of unused IntoBinding impl; no claim full405 or dynamic buffer audited. Full actual set/write/binding definitions consumed."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "identity_count_accounting": {
+    "new_original_variant_ids": [
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_understory.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/layers.rs"
+    ],
+    "already_covered_fresh_reanalysis_ids": [
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/view_culling.rs"
+    ],
+    "new_this_contract": 2,
+    "cumulative_new_original_variants": 67,
+    "cumulative_original_unique": 1825,
+    "count_basis": "Exact source_id union against Adler saved07coverage1758, not number of fresh-read rows"
+  }
+}

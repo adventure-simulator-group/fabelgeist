@@ -1,0 +1,60 @@
+{
+  "id": "CONT07-EXTENSION-CONTRACT-006",
+  "at": "2026-10-24T01:47:32.286915+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/viewer/walk_rendering.rs",
+      "sha256": "a521f1cc3330dab17536f0ebba8613bb5458a5440ecb1ae254ef565f2107045b",
+      "ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/redundant-authority/recovered-new-material/a521f1cc3330dab17536f0ebba8613bb5458a5440ecb1ae254ef565f2107045b",
+      "registration": "CONT07-REG-039",
+      "read_kind": "fresh personally read exact registered source ranges"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/timber.rs",
+      "sha256": "10ebf86610fc1cb874862c7b0251c39d8de75bc476fa97a569a6cd5ece7ecb3c",
+      "ranges": [
+        [
+          1450,
+          1495
+        ],
+        [
+          1535,
+          1615
+        ],
+        [
+          2255,
+          2310
+        ]
+      ],
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/redundant-authority/recovered-new-material/10ebf86610fc1cb874862c7b0251c39d8de75bc476fa97a569a6cd5ece7ecb3c",
+      "registration": "CONT07-REG-040",
+      "read_kind": "fresh personally read exact registered source ranges"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/roofs.rs",
+      "sha256": "cb1b28e1acae9488d9a5022e46476dc3693e8947fe3e30f1444769d4015fcc5f",
+      "ranges": [
+        [
+          485,
+          530
+        ]
+      ],
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/redundant-authority/recovered-new-material/cb1b28e1acae9488d9a5022e46476dc3693e8947fe3e30f1444769d4015fcc5f",
+      "registration": "CONT07-REG-041",
+      "read_kind": "fresh personally read exact registered source ranges"
+    }
+  ],
+  "facts": [
+    "All exact prospective registered ranges personallyread; CONST07-CONTRACT666/F131 use actual explicitrun vs roofreconstruction. No file/render/GPU execution."
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "other_lens_credit": false
+}

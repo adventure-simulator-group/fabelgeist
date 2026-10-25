@@ -1,0 +1,82 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-275",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pinned-registry:avian3d-0.7.0/src/physics_transform/transform.rs",
+      "sha256": "5020a25a60cbe8b42d37cadf31c24a6d24dcde07df2c8f156ee45ff81e9c450b",
+      "actual_EOF": 1275,
+      "actual_compared_ranges": [
+        [
+          1,
+          1275
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Native position and rotation initialization has explicit reserved sentinel semantics",
+      "source_ranges": {
+        "transform.rs": [
+          [
+            1,
+            141
+          ],
+          [
+            726,
+            910
+          ],
+          [
+            1123,
+            1275
+          ]
+        ]
+      },
+      "disposition": "Complete1275-line pinned body personally read. Position::PLACEHOLDER is VectorMAX and3D Rotation placeholder is Quaternion(MAX,MAX,MAX,MAX); native insertion treats exact equality as uninitialized and resolves from hierarchy/default. Finite alone therefore does not distinguish a legitimate first-party MAX position from this reserved native placeholder. Actual ordinary current position at that endpoint is unproved, so retain canonical-to-native representability dependency rather than promoting a current teleport defect or globally capping coordinates. init hook prepares local copies, traverses ChildOf ancestors, composes global transform, then synchronizes configured directions and writes only originally placeholder components. Bevy hierarchy acyclicity/required GlobalTransform and invertible parent transform are actual native prerequisites; no first-party cycle/missing GlobalTransform/singular parent witness established. Numeric composition/reparent/narrowing can overflow or lose unit rotation without readmission; actual native physical port owns that policy."
+    },
+    {
+      "contract": "Native rotation operations rely on normalization, and computed results need actual port policy",
+      "source_ranges": {
+        "transform.rs": [
+          [
+            142,
+            725
+          ],
+          [
+            911,
+            1122
+          ]
+        ]
+      },
+      "disposition": "2D public sin/cos construction and derivedDeserialize do not enforce normalization in release; from_sin_cos only debug_asserts tolerance. Scalar angle trig is checked only by that native assertion. try_normalize checks reciprocal finitepositive before scaling; fast_renormalize explicitly assumes near-unit, add_angle_fast may overflow magnitude and produce invalid output for extreme raw angle. nlerp intentionally returns start for opposite midpoint nonnormalizable path. 3D wrapper delegates quaternion inverse/lerp/slerp, MulAssign and fast first-order normalization with no bespoke readmission. Rotation*Dir uses Dir::new_unchecked after rotation and precision narrowing, so raw mutable/nonunit native Rotation can violate native direction invariant. These are exact native API strengthening dependencies requiring actual first-party admitted rotation/angle and receiver witness before promotion; no malformed native quaternion or ordinary simulation execution asserted. Preserve signed angles, handedness and native approximation/fallback policy only where explicitly intended by the owning first-party operation. Nativedeprecated forwarding methods are pinned evidence, not a first-party compatibility permission."
+    },
+    {
+      "contract": "Ease and transform conversion preserve native kernel boundary distinction",
+      "source_ranges": {
+        "transform.rs": [
+          [
+            76,
+            122
+          ],
+          [
+            700,
+            725
+          ],
+          [
+            1040,
+            1122
+          ]
+        ]
+      },
+      "disposition": "Position easing interpolates raw vectors through an unbounded-sampling Curve; Rotation easing delegates slerp. Finite endpoints do not alone prove overflow-free linear difference/interpolation or normalized extrapolated quaternion. Public From<Transform/GlobalTransform/Quat/DQuat> copies or narrows native representation, without independent first-party finite/orthonormal aggregate admission. Native2D extracted Euler angle and quaternion half-angle conversion differ from3D identity field mapping intentionally. Fixed vector indexing is dimension controlled; no collection-count defect found. Native examples read, not run; no build/test/GPU/physics execution."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "1 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pinned-registry:avian3d-0.7.0/src/spatial_query/ray_caster.rs"
+}

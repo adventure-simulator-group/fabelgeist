@@ -1,0 +1,142 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-076",
+  "at": "2026-10-23T00:51:15.672159+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/encounter/choice.rs",
+      "sha256": "3a327aeb8ec9f72d67960b0cdc94f7ece677c4a963d5ce8e1db7af3fd8025206",
+      "actual_compared_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "source_evidence": "Fresh complete exact current body and source-only existing tests; operation guarantees compared to native adapters."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/encounter/receipt.rs",
+      "sha256": "79edfeebdc4b5bdd4dfd8272b5b15981bf986c1acdcc4bca4b92d3fe3022b1b1",
+      "actual_compared_ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "source_evidence": "Fresh complete exact current body and source-only existing tests; operation guarantees compared to native adapters."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/equipment/timing.rs",
+      "sha256": "2d07455dadf2a1893ef4a3867f0b5ada5170e81c3a279d347ee86c1cc6ab4dfd",
+      "actual_compared_ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "source_evidence": "Fresh complete exact current body and source-only existing tests; operation guarantees compared to native adapters."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_physical_serde.rs",
+      "sha256": "f260cac7fddd136d2fd754e6f147a3fcecaa67eb107b87d506121e3c60016671",
+      "actual_compared_ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "source_evidence": "Fresh complete exact current body and source-only existing tests; operation guarantees compared to native adapters."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/lib.rs",
+      "sha256": "fd09a838f8cfdd2da3d48800fe56d9bbfad7e9ad5556ba696be7908b4a000c2a",
+      "actual_compared_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "source_evidence": "Fresh complete exact current body and source-only existing tests; operation guarantees compared to native adapters."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "db3686060ebd8ce533fe48c88685c5643b024b8a92b2b617d97481196988f3e0",
+      "actual_compared_ranges": [
+        [
+          1,
+          178
+        ]
+      ],
+      "source_evidence": "Fresh complete exact current body and source-only existing tests; operation guarantees compared to native adapters."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/mission.rs",
+      "sha256": "998416982a504559c519dabf8fecf7612eb946283441b9644c073ac500a62e62",
+      "actual_compared_ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "source_evidence": "Fresh complete exact current body and source-only existing tests; operation guarantees compared to native adapters."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/mission/enemy_roster.rs",
+      "sha256": "c83ace93cc95cb243c86bf6bc02bea9954953b433db0ab7790ea890ac7251642",
+      "actual_compared_ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "source_evidence": "Fresh complete exact current body and source-only existing tests; operation guarantees compared to native adapters."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/mission/roster.rs",
+      "sha256": "2b4baf6c921fd489d497a5f002c8ee5a84e48014c6932e1bd4153754501759dd",
+      "actual_compared_ranges": [
+        [
+          1,
+          91
+        ]
+      ],
+      "source_evidence": "Fresh complete exact current body and source-only existing tests; operation guarantees compared to native adapters."
+    }
+  ],
+  "groups": {
+    "choices-receipts": "Closed five choices parse only exact stable tokens; find over fixed array returns Option rather than indexing, errors before publication. Opaque encounter identity has two domain-separated 64-bit words preserving seed/roll_index framing, native fixed-width hex emits128 bits rather than truncating a full identity like F027. Hash collision freedom not promised. Retry matcher compares all four supplied fields without mutation/clock; raw string choice identity remains producer/primitive propagation obligation, not a false native-boundary waiver.",
+    "cadence": "Nonfinite inertia explicitly .3 fallback; finite negative clipped0, nonnegative ratio inertia/(inertia+.45) bounded0..1. Adding fixed .45 to hugef32 rounds at high magnitudes, does not overflow atMAX; small inputs denominatorpositive. base_cycle .24..64 orunarmed.36, style<=1.18/contactshare .55/.56, all published elapsed finitepositive throughcheckedconstructor. Existing exact operation order/policies and style cadence preserved; inertia Unit/precision owner propagation remains P16, not separate wrapper in this helper.",
+    "speeds": "Nonnegative and signed finite private leaves, positive nested rejects\u00b1zero; no derivedDefault onPositive. max/min choose existing admitted value; SignedSpeed negation/abs finite inclMAX (unlike signed integerMIN), nonnegative_part intentional forward-only projection. checked_scale and checked_lerp re-admit computed result and return typedOverflow/Negative on violation; arbitrary factor is extrapolation API, no automatic[0,1] assumption or clamp introduced. Native float Serde TryFrom checks final leaf; conversioninto f32 warranted there but not arbitrary retained state. Existing operation order follows native kernel; ordinary rejection valid.",
+    "geometry-serde": "Local authored X/Y/Z f32 array is actual format boundary. Exactly3 axes then CuboidDimensions constructor checks portable geometry; computed typed value retained after parse. Serializer extracts only atformat. Original concrete GeometryError rendered into serde native error at actual deserializer, not erased across authored helper graph.",
+    "party-vs-enemy-rosters": "Both private owned vectors, constructors rejectempty/duplicates preserving callerorder; enemy count checkedu32 beforepublication, party <=16bound beforecountconversion. Borrowed IDs immutable or consumeSelf; no mutation caninvalidate countproof, so accessor expects justified. Enemy doesnotinherit party16 cap, acceptsfullNonZeroU32 count andIDs0..u64MAX; opaque ID validity/existence separate. SameSnapshot IDs and derivedcount notcompetingauthorities. No tacticaltickstate persisted by these durable roster identities.",
+    "mission-ids-and-module-root": "Mission ID factory performs bounded canonicalASCII/prefix checks before Self, closed binding/victor/resolution enums differ by gameplay meaning. Transparent derivedDeserialize bypasses factory per earlier admission graph; no claim that new() seals all entrypoints. No computed numeric mutation in declarations. Receipt limits distinguish participants/injuries/contacts/ammunition rather than one universalcap. lib.rs modules/reexports contain no arithmetic or state mutation; cfgtest validation modules not inferred to be production gate merely because exported names exist."
+  },
+  "partial_source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/essential.rs",
+      "actual_read_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "status": "raw fatigue division/public trait preconditions unresolved; not complete04 credit"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/leadership.rs",
+      "actual_read_ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "status": "threshold usize multiplication and ballot uniqueness actual caller bounds pending; no current failure claimed"
+    }
+  ],
+  "findings": [],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

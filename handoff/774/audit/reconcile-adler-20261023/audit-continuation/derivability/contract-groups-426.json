@@ -1,0 +1,100 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-426",
+  "at": "2026-10-25T15:31:45.805359+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 822,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/parametric_equipment.rs",
+      "sha256": "fb8ed7e496fe124cf6ea6c4deb962b9602cf62f5b516d362b5e50ddca9829c49",
+      "actual_EOF": 478,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-character-creator/src/parametric_equipment.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-character-creator/src/parametric_equipment.rs",
+        "owner": "rig",
+        "sha256": "fb8ed7e496fe124cf6ea6c4deb962b9602cf62f5b516d362b5e50ddca9829c49",
+        "base_sha256": "c6db12bab9fa20225792bf49caf8c403ce7a5073c3dc502ad9601e35e48e539d",
+        "state": "modified",
+        "bytes": 17943,
+        "audit_owner": "rig",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/sources.json",
+            "ranges": [
+              [
+                1,
+                478
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-GARMENT-04"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 62,
+            "read_ranges": [
+              [
+                1,
+                478
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-CATALOG-008",
+              "RIG-OWNER-CREATOR-010",
+              "RIG-OWNER-FIT-011"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-character-creator/src/parametric_equipment.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          478
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "Finish/SelectedTrim/SelectedLacing Clone"
+      ],
+      "absence_basis": "Full native parametric design dispatch, borrowed fitted placements, checked geometry assembly/support ordering, trim/lacing/material finish and ignored native integration fixtures consumed. No handwritten trait/codec; From conversions are called native semantic owners, not implementations in this role. Tests only read, never run."
+    }
+  ],
+  "groups": [
+    {
+      "disposition": "NO_HANDWRITTEN_TRAIT_OR_CODEC",
+      "contracts": "Retain checked geometry/error/selected-family/native finish semantics and borrowed lifetimes."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 823,
+    "source_id": "pr-working:crates/adventuresim-character-creator/src/preview.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

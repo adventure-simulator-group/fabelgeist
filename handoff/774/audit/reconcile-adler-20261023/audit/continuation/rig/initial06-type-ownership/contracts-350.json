@@ -1,0 +1,25 @@
+{
+  "id": "RIG-INITIAL06-GROUP-350",
+  "at": "2026-10-23T09:22:58.135095+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "foundation-fixture-diagnostic-unit-owners": {
+      "comparison": "Original fixtures retain CityPropertyId/SceneBuildingId, FoundationEmbedment, SupportConstraint/Boundary/DiagnosticUnit and typed ScenePlanPoint/Elevation. Square metre shortfall and cubic metre volume differ positive length embedment; no universal positive scalar substitution. GeographicSurface source versus bounded replacement terrain is deliberately separate authority and tests compare unchanged exterior relief/closed oriented cells. Raw synthetic triangles are fixture input to real constructor, not second geometry owner. Existing member membership/treatment records remain canonical, no fixture-local aliases or competing IDs. Read only original assertions.",
+      "disposition": "canonical property/support/diagnostic contracts consumed by source-only fixtures"
+    },
+    "gate-and-ground-relative-pose-authority": {
+      "comparison": "BoundarySupportElement and CityBoundaryPose tie Wall/WallCap to GroundRelative and GatePost to GateRelative; plan_metres intentionally drops only Ydatum for common SceneXZ. Packing binds relativeY to same zero before grading, explicit transform not identity of datums. CityBoundaryMember composes CuboidDimensions and BuildingOrientation; door requires strictly positive LeafDimensions, normalized PlanDirection, signed yaw/openangle and OpeningAssemblyId distinct from property ID despite deterministic allocation. Existing checked Building/Door owners are retained through result, no second leaf-dimension or gate frame owner. Repeated datum vocabulary joins F026; zero-valid Cuboid must not replace positive Leaf. Only exact1-124/181-266 read, CityBoundary impl125-180 excluded.",
+      "disposition": "explicit datum/element products and canonical checked door/geometry owners; F026 shared datum vocabulary"
+    },
+    "dormer-assembly-versus-resolved-geometry": {
+      "comparison": "RoofAssemblyId/GeometryOwnerId/ResolvedItemId are distinct ownership namespaces even when arithmetic allocates all from dormer ordinal. DormerLayout supplies one recipe/local inward/tangent/extent product; construction resolves canonical RoofAssembly/ChildKind/Phase/Enclosure/SpatialBounds<Architectural>/ResolvedVoid rather than redeclaring their shapes. Actual polygon/edge/ridge/parentcut operations use native vectors and update changed geometry, so not unchanged typed→raw forwarding exception. Raw roof recipes/retained faces still join connected F001 canonical accepted geometry migration; preserve rejected raw evidence and per-role positive/zero choices. Material infill versus structural support node ownership remains explicit. No independent roof identity/type definition introduced here; called roof-cut/valley/layout bodies not credited from invocation.",
+      "disposition": "canonical roof/geometry ownership products; actual geometry operations remain connected F001 scope"
+    }
+  },
+  "supporting_existing_findings": [
+    "F001",
+    "F026"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit."
+}

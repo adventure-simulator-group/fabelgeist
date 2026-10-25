@@ -1,0 +1,127 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-147",
+  "at": "2026-10-25T12:58:11.133021+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 288,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/journey_camp.rs",
+      "sha256": "ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d",
+      "actual_EOF": 908,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/journey_camp.rs",
+        "snapshot": "physical-p16",
+        "path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\strategic\\journey_camp.rs",
+        "sha256": "ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "native",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 908,
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-TIME-PACKET-011",
+            "json_pointer": "/source_reads/21",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-stdb-module/src/strategic/journey_camp.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                908
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/journey_camp.rs",
+              "sha256": "ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d",
+              "read_ranges": [
+                [
+                  1,
+                  908
+                ]
+              ],
+              "method": "P16 whole actual body plus complete textual reversePR delta, or exact byteidentity correspondence; both pinned hashes retained",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/strategic/journey_camp.rs"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 133,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-ENCOUNTER-033",
+            "json_pointer": "/current_sources/5",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row259/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                328,
+                370
+              ],
+              [
+                612,
+                628
+              ],
+              [
+                860,
+                890
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                328,
+                370
+              ],
+              [
+                612,
+                628
+              ],
+              [
+                860,
+                890
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          908
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Entire material range1\u2013908 personally read; full range retained by earlier registration despite later narrow supplement. Source contains only journey/camp/time/training/position/guard functions, no local type or manual trait/serializer."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "journey camp projection and local time/state transitions",
+      "disposition": "No derivability finding. Keep segment coalescing, subset journey-state mutation, camp-versus-interruption identity proof, canonical spatial interpolation and capped training projection; these are semantic relationships and operations rather than derive boilerplate. No default/From replacement prescribed.",
+      "qualification": "Existing arithmetic/clock/training concerns remain outside this verdict; full908 scope read does not clear other lenses."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 289,
+    "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

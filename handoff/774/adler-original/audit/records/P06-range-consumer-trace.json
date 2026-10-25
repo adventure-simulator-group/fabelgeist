@@ -1,0 +1,57 @@
+{
+  "head": "3544d8e99f1d9f765a813cc71b56f089e31c5118",
+  "observed_at": "2026-10-20T16:34:29.105167+00:00",
+  "status": "Static producer/consumer trace; no source implementation. P04 complete hosted acceptance remains prerequisite.",
+  "existing_range_candidate": {
+    "file": "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source.rs",
+    "lines": "19-31",
+    "owner": "GeographicHeightRange",
+    "decision": "Do not fabricate GeographicHeightControl points to reuse it: it binds extrema to exact footprint/source intersection locations. Scene-wide elevation extrema need checked SupportElevation endpoints without invented source locations."
+  },
+  "concrete_range_consumers": [
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/presentation/residency.rs",
+      "functions": [
+        "TreePresentationCache::bark_for_terrain",
+        "RetainedTreePresentations::activate"
+      ],
+      "current": "Activation mutates old-scene retention before constructing the next image/range. It publishes separate Option<Image> and raw Vec2; present_pending_trees expects the image.",
+      "migration": "Admit image plus checked range before swapping active cache; retain one coherent image/range binding. Missing required support/range must not preserve previous-scene materials as the active scene."
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/weather.rs",
+      "functions": [
+        "apply_active_scene_weather",
+        "weather_material",
+        "update_weather_occlusion_map",
+        "weather_occlusion_image"
+      ],
+      "current": "Apply clears particles and occlusion first. Three material layers pack min/max independently. Update assigns image before publishing tree signature.",
+      "migration": "One checked range accompanies the successfully built image into all native uniform/image encoders. Reject unavailable range before creating new weather assets. Publish signature only on successful same-scene update."
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/manifest.rs",
+      "functions": [
+        "TerrainSummary::new"
+      ],
+      "current": "Summary retains min/max as f32. Setup calls it before scene commands.",
+      "migration": "Retain SupportElevation fields through Serde and make unavailable required bounds a setup failure before scene publication."
+    }
+  ],
+  "heightmap_absence_frontier": {
+    "rust": "presentation/terrain.rs:40-88",
+    "current": "terrain_heightmap_image replaces absent height with the minimum, and encoded_terrain_heightmap_image always writes alpha=255.",
+    "consumers": [
+      "crates/adventuresim-procedural-materials/src/shaders/tactical_tree_bark.wgsl:63-104",
+      "assets/shaders/tactical_weather.wgsl:31-52"
+    ],
+    "finding": "Both shaders decode red/green unconditionally, so changing only alpha would not make unsupported texels explicit. Do not claim an alpha marker fixes this chain.",
+    "pre_edit_requirement": "Choose and implement a complete producer-to-shader absence contract or reject an incomplete required image before publishing it. Preserve all existing supported-texel interpolation/quantization and optional visual authority. Do not merely rewrap the fabricated minimum as SupportElevation."
+  },
+  "all_twenty_original_exits_preserved": true,
+  "source_hashes_rechecked": {
+    "published_families": 58,
+    "P04": 20
+  },
+  "remaining_work": "P04 artifact/nonempty/baseline acceptance; then finish caller/fixture traces and implement the complete P06 family."
+}

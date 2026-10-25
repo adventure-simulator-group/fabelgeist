@@ -1,0 +1,23 @@
+error: unused `std::result::Result` that must be used
+   --> crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter.rs:580:13
+    |
+580 | /             spawn(
+581 | |                 &mut commands,
+582 | |                 &mut meshes,
+583 | |                 &terrain,
+...   |
+586 | |                 &assets,
+587 | |             );
+    | |_____________^
+    |
+    = note: this `Result` may be an `Err` variant, which should be handled
+    = note: `-D unused-must-use` implied by `-D warnings`
+    = help: to override `-D warnings` add `#[allow(unused_must_use)]`
+help: use `let _ = ...` to ignore the resulting value
+    |
+580 |             let _ = spawn(
+    |             +++++++
+
+error: could not compile `adventuresim-tactical-client` (lib test) due to 1 previous error
+warning: build failed, waiting for other jobs to finish...
+error: could not compile `adventuresim-tactical-client` (bin "animation-viewer" test) due to 1 previous error

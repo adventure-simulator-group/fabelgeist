@@ -1,0 +1,120 @@
+{
+  "recorded_at": "2026-10-21T02:39:28.934423+00:00",
+  "head": "350c73c1978f78c732c45727236b2cf65bd4e041",
+  "mode": "Focused implementation-agent receiving-body recheck of earlier original exits while P06 hosted validation runs. No new full audit wave, independent review, code edits or test execution.",
+  "result": "No new migration gap identified in the named original paths. Earlier accepted runtime evidence remains historical at 82cb2a3ac; this source-only check does not upgrade it to an exact-current-head execution pass.",
+  "families": [
+    {
+      "family": "P01",
+      "owner": "fabelgeist_determinism::Seed",
+      "trace": "movement_audio.rs locomotion/grounded-impact/understory producers -> Seed parameters on spawn_spatial_variant/spawn_rustle/spawn_spatial_sound -> sound_seed -> StreamId child/rng -> Bevy audio. Position<Scene> remains checked until native seed bit framing or Transform.",
+      "evidence": [
+        "crates/adventuresim-tactical-client/src/movement_audio.rs"
+      ],
+      "exit_check": "Both event producers and every named application helper retain Seed. No to_u64 projection remains in this file. CharacterId -> root seed and event sequence/native position context framing are deliberate derivation ports.",
+      "source_hashes": {
+        "crates/adventuresim-tactical-client/src/movement_audio.rs": "f5c454510c3069982a265c36de6013d01d6c00c12aff6c90c05b60ddcb610292"
+      }
+    },
+    {
+      "family": "P02",
+      "owner": "adventuresim_core::battle_time::BattleTime",
+      "trace": "Configured elapsed -> round/window BattleTime -> Combatant optional attack contacts and recovery coordinate -> ScheduledMeleeTiming -> scheduled_side_contacts_in_window/recovering_response -> ContactTimingOffset::between_contacts or timeline tick encoding.",
+      "evidence": [
+        "crates/adventuresim-core/src/battle_time.rs",
+        "crates/adventuresim-core/src/autoresolve.rs",
+        "crates/adventuresim-core/src/autoresolve/joint_melee.rs",
+        "crates/adventuresim-core/src/autoresolve/melee_round/scheduling.rs",
+        "crates/adventuresim-core/src/autoresolve/melee_defense.rs",
+        "crates/adventuresim-core/src/combat/contact_timing.rs"
+      ],
+      "exit_check": "Named scheduling/defense fields and parameters retain BattleTime. Remaining seconds in inspected bodies feed direct round/tick quantization, a completed reaction-time or effectiveness ratio, or signed contact subtraction. Checked owner operations reject unrepresentable retained coordinates/elapsed; native transient comparison remains intentional. Negative -0.1 fixture admission remains.",
+      "coverage_limit": "Current reads cover the original named coordinate path and receiving bodies, not a new whole-autoresolve architecture audit or unrelated physical fields.",
+      "source_hashes": {
+        "crates/adventuresim-core/src/battle_time.rs": "989db0ee4ad72276f3923b7d005480e50b6c618e04d0b7623602bf0de0d2a350",
+        "crates/adventuresim-core/src/autoresolve.rs": "a86042aa90ddf2e25b3ecd39ef5fa4d8f11700c85e0800d1d53159c1481fe6a3",
+        "crates/adventuresim-core/src/autoresolve/joint_melee.rs": "7373a905f23ab3075cfb464c0a936ce1ebc33ba6c5c6ad23866b1a1479c5b983",
+        "crates/adventuresim-core/src/autoresolve/melee_round/scheduling.rs": "9c56fb8232e356e6e204ba7c1065597c6063b0b25572d6f0e7cb131b2a7eb320",
+        "crates/adventuresim-core/src/autoresolve/melee_defense.rs": "6c64790c60c4ad2b52d4e3a18e312b8be73cb714ec27aa194f9a345d17eda293",
+        "crates/adventuresim-core/src/combat/contact_timing.rs": "3b347473e5083f9fd02f59949b49f45eb7bf03e75c288b167cf003e2acc6ca89"
+      }
+    },
+    {
+      "family": "P03",
+      "owner": "animation::PositiveAnimationDuration and AnimationSampleRate/AnimationSampleSpan",
+      "trace": "ManeuverTimingConfig typed YAML/serde leaves -> server posture transition duration selection -> AnimationSampleSpan::from_positive_duration(duration, rate) -> actual multiply/round/min-one/as-u64 saturation.",
+      "evidence": [
+        "crates/adventuresim-tactical-core/src/combat_config/maneuvers.rs",
+        "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+        "crates/adventuresim-tactical-core/src/animation/sample_tick.rs",
+        "crates/adventuresim-tactical-server/src/player_projection.rs"
+      ],
+      "exit_check": "Roll, dive, backward dive, slide, get-up and quickstep durations remain checked through the sample conversion API. The native saturating product conversion is the specified count boundary, not an internal erased-duration helper.",
+      "coverage_limit": "The checked duration definition location was found using rg after an initial search in the shared elapsed file did not locate it. Current constructor-path text review still uses the earlier admitted-owner evidence; do not call this a fresh exhaustive reflection/admission audit.",
+      "source_hashes": {
+        "crates/adventuresim-tactical-core/src/combat_config/maneuvers.rs": "619803fcb9f24448df76fd87b28028c86c520edd9b41dbc7b29033c8b432234f",
+        "crates/adventuresim-tactical-core/src/animation/measurement.rs": "3e29916a9d570f6e0d12ffb54541ee018fb068902a4e5b6c0f744db9971d9ba9",
+        "crates/adventuresim-tactical-core/src/animation/sample_tick.rs": "ce44941a09ab6edf1bfe96d5617ad84d777c4bc3e0c8735d65ed6b369d727990",
+        "crates/adventuresim-tactical-server/src/player_projection.rs": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331"
+      }
+    },
+    {
+      "family": "P04",
+      "owner": "ResponseRate, PhaseCorrectionRate, PhaseErrorLimit, AuthoredCadenceCap, CoalescedEventBudget and AnimationEventSpan",
+      "trace": "AnimationPlaybackConfig -> typed exponential response and cadence selection -> checked phase/error records and event coalescing/height history -> native lerp, clamp/trigonometric arithmetic or final diagnostic formatting.",
+      "evidence": [
+        "crates/adventuresim-tactical-core/src/combat_config/playback.rs",
+        "crates/adventuresim-tactical-core/src/animation/phase_response.rs",
+        "crates/adventuresim-tactical-core/src/animation/event_span.rs",
+        "crates/adventuresim-tactical-client/src/animation/presentation.rs",
+        "crates/adventuresim-tactical-client/src/animation/presentation/attack.rs",
+        "crates/adventuresim-tactical-client/src/animation/presentation/cadence.rs",
+        "crates/adventuresim-tactical-client/src/animation/presentation/events.rs",
+        "crates/adventuresim-tactical-client/src/animation/procedural/height.rs"
+      ],
+      "exit_check": "The inspected original policy fields are bespoke. Event budgets consume typed spans, offset iteration stays typed, and cadence selection receives checked speed and distance. Remaining inspected fraction/rate/time projections belong to complete native lerp/clamp/phase correction formulas or logging; no same-quantity primitive parameter forwarding was found on these paths.",
+      "coverage_limit": "This is the original P04 retained-policy trace, not clearance of P19 per-foot influence or P20 continuation fields.",
+      "source_hashes": {
+        "crates/adventuresim-tactical-core/src/combat_config/playback.rs": "6eac571d575402a1ccbcdda6ad103850b9f52fed3f9bc602d558ea5629d23fdd",
+        "crates/adventuresim-tactical-core/src/animation/phase_response.rs": "924c663fe54edaaedc6f31a0d905cb5e72fe3e1e4cb918fbaad959e06d060fd5",
+        "crates/adventuresim-tactical-core/src/animation/event_span.rs": "671ba3d11fc6a9fb01961f027b9eed9180186ecfa28eb0edc35735ca71ec341a",
+        "crates/adventuresim-tactical-client/src/animation/presentation.rs": "6a067389a1cdcbddd0dd3814f95e17664351794be139353572edd19928a18171",
+        "crates/adventuresim-tactical-client/src/animation/presentation/attack.rs": "aa611d89cd2327ddfd98bca611569e00b454764aee36d9a05553ab0c2ba94f5d",
+        "crates/adventuresim-tactical-client/src/animation/presentation/cadence.rs": "9d7d6ca4239a97970517ad7b8b388d8173ce2cba9872f725316af92899489e9f",
+        "crates/adventuresim-tactical-client/src/animation/presentation/events.rs": "e8b15deac3874c9457efc9dec7ac27b1b4eca56b6577a0352fe6cf3c1c896238",
+        "crates/adventuresim-tactical-client/src/animation/procedural/height.rs": "b9328929e65c3617acb6340dc0db4ed3db4b260b76b791e7cd1fb8ed1b3cd441"
+      }
+    },
+    {
+      "family": "P05",
+      "owner": "AnimationElapsed",
+      "trace": "FrameSample -> JitterFrame.time_seconds -> dt -> checked abs_diff/max interval -> native scalar/vector/angular derivative division.",
+      "evidence": [
+        "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+        "crates/adventuresim-tactical-client/src/animation/jitter.rs"
+      ],
+      "exit_check": "Capture constructs JitterFrame with the checked frame time directly. dt returns AnimationElapsed, preserving the 1/1000 floor and 1/64 fallback. seconds() is applied at the derivative division rather than an application helper.",
+      "source_hashes": {
+        "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+        "crates/adventuresim-tactical-client/src/animation/jitter.rs": "aa9bc30e0fc0897f1fd272a8702ca8bfef43e3dc14846a71d4b6666a1b25f39e"
+      }
+    },
+    {
+      "family": "P07",
+      "owner": "AngularMagnitudeDegrees",
+      "trace": "Both knee-facing cap producers -> constrain_knee_pole_to_foot_facing(maximum_offset: AngularMagnitudeDegrees) -> radians inside native atan2/clamp/sin_cos and vector normalization.",
+      "evidence": [
+        "crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation.rs"
+      ],
+      "exit_check": "Both application calls pass the authored angle directly. No BodyAngularMagnitude reconstruction remains on this original path. The separately accepted native disk-search maximum_step coefficient is not reclassified as retained state.",
+      "source_hashes": {
+        "crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation.rs": "9b4f94526e80364851a02b320c51009e4b036671cd9c143cc299771d4da5fbfd"
+      }
+    }
+  ],
+  "limits": [
+    "Search matches are discovery, not standalone proof. Original path observations are supported by the actual receiving bodies described above and prior focused evidence.",
+    "No current whole-PR or whole-codebase getter clearance. All original twenty exits remain, P06 remains unaccepted, P08-P20 remain unfinished.",
+    "Some broad source commands were capped in tool output; no truncated output is treated as exhaustive coverage."
+  ]
+}

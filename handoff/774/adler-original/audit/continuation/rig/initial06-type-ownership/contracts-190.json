@@ -1,0 +1,44 @@
+{
+  "id": "RIG-INITIAL06-GROUP-190",
+  "at": "2026-10-23T05:54:21.718360+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-062.json",
+  "groups": {
+    "p16-mission-roster-captured-snapshot": {
+      "comparison": "Fresh mission_roster101 independently compared actual PR182 same canonical MissionEnemyRoster/EnemyRosterError and DB contextual errors. Group live count checked only capture, persisted exact IDs re-admitted/existence-checked without rereading group size. Live membership and immutable captured combat/loot authority stay distinct; raw storage vector not reason for second roster schema. Observer/party/case/site/group/version each have different namespace/provenance. F040 character identity support, no new finding.",
+      "disposition": "Keep canonical roster and DB snapshot authority/context."
+    },
+    "p16-physical-full-design-memo": {
+      "comparison": "Fresh memo106 actual PR182 currentrole comparison confirms fullD keys/equality, fixed64-entry retention and canonical DerivedProperties. Native Mutex/VecDeque local cache, not accepted finitephysical owner or caller-digest trust. Failedconstruct not retained; name edits can change cache key without physical delta. Actual existing tests source-only, no runtimecache/resultguarantee. Preserve existing typed physical output repair separately.",
+      "disposition": "Preserve canonical manufacturing design/result and local bounded full-key memo."
+    },
+    "p16-clock-authority-and-family-propagation": {
+      "comparison": "Fresh clock127 initializes/refreshed official WorldClock using canonical calculated StrategicMinute from epoch/native timestamp, distinct private personal CharacterTime. Family NPC selection uses active marriage/household/kinship and party difference, capped32; elapsed durationu64 differs absolute minute and identity. Each related personal target advances through existing stationary lifecycle, not overwrite with official worldclock. DB authority belongs here; pure calendar calculation stays low. Saturating_add does not establish unlimited operation progress, existing operation findings retained. No duplicate timeline owner or hidden tactical tick persistence.",
+      "disposition": "Preserve official/personal time authorities and canonical absolute minute leaf."
+    },
+    "p16-standalone-and-codec-counterparts": {
+      "comparison": "Fresh standalone112 and weapon codec111 explicitly compared actual PR183 fullbody/roles. StandaloneMissionFamily is validated mission namespace policy with geographic versus synthetic distance scale, not another complete ID or geographic coordinate wrapper. Weapon versus holder envelopes carry distinct canonical design/version constants and genuine wire validation, not compatibilityaliases or independentmanufacturing schemas. Parse versus publicdecode validation distinction retained; no general acceptedstate from Result. Sourceoriginalfixtures only, no execution.",
+      "disposition": "Keep canonical identity/manufacturing owners and actual bootstrap/codec boundaries."
+    },
+    "p16-catalog-default-design-factory": {
+      "comparison": "Fresh qualified catalog1\u20133/74\u201387 only reuses canonical WeaponDesign and parses fixed gameplay JSON once, finds complete catalog_id match then clones. This is gameplay chassis registration owner, not another recipe schema or accepted finite physical property token. Successful deserialization/default_design only supplies design; actual validation/construction remains canonical weapon kernel, no helpername clearance. Source body does not promise arbitrary input catalog IDs exist. Excluded catalog roles4\u201373/88+ and asset body not read/credited here.",
+      "disposition": "Preserve gameplay registration factory and canonical recipe/validation owners, exact narrow scope."
+    },
+    "p16-shutter-aperture-numerical-light-projection": {
+      "comparison": "Fresh shutters1\u201379 exact role uses canonical OpeningAssemblyId/building ID and SceneWindow tangent plus actual replicated GlobalTransform to compute projected openness. ShutterLight's contributions/native LightSample and openness cache are lighting output, not semantic dooropen/closedauthority, geometrydimension or secondary gameplayvisibility penalty. Dot/abs/clamp relation owns native aperture coefficient; accepted unit leaf could be reused without treating directional/lightVec4 lanes asRGBA or imposing allintensity<=1 globally. Matching by opening ID and retaining canonicalorientation geometry avoids newopeningowner. Excludedtests80+ not credited.",
+      "disposition": "Keep shared opening/geometry owner and native light projection/cache."
+    },
+    "p16-disposable-quest-fixture-authority": {
+      "comparison": "Fresh quest_fixture105 requires owned run, distinct configured leaders in that run and actualparty leader association; idempotent binding matches same run/leaders. It refreshes pure projected capability/condition and checks power safety before private fixture creation. SimulationQuestFixtureAuthority is fixture provenance, not complete gameplay quest authority or second character identity; Seedpolicyentropy differs IDs, powers are ratio-scale capability not BodyMass or amount. Discovery/accept/travel/fight/report remain ordinary surfaces by source intent; no reducer/run executed, no publicdatabase reset or newtest.",
+      "disposition": "Preserve isolated fixture provenance and canonical gameplay identity/power/Seed owners."
+    }
+  },
+  "source_fact_refs": [
+    "contracts-003.json",
+    "contracts-177.json",
+    "contracts-182.json",
+    "contracts-183.json",
+    "contracts-188.json"
+  ],
+  "limits": "Six full exact P16 bodies and two qualified ranges1\u20133/74\u201387 catalog,1\u201379 shutters freshly read. Explicit actual PR/currentrole comparisons where cited; no excludedtail/hash-only credit. Source-only, noexecution/edits/newtests/newscope/otherlens."
+}

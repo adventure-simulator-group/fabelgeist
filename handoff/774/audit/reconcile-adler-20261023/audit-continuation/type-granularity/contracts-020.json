@@ -1,0 +1,108 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-020",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "threat-catalogue-identity-versus-open-syntax-roles",
+      "sources": [
+        {
+          "scope_index": 75,
+          "ranges": [
+            [
+              1,
+              137
+            ],
+            [
+              139,
+              191
+            ],
+            [
+              210,
+              294
+            ],
+            [
+              300,
+              306
+            ],
+            [
+              311,
+              338
+            ],
+            [
+              345,
+              460
+            ],
+            [
+              484,
+              803
+            ],
+            [
+              805,
+              836
+            ]
+          ],
+          "qualification": "Exact frozen75 plus overlays004/005/023/178/204/208 union only; not full1558. Incidental192\u2013200 uncredited; historical397\u2013467 is explicitly qualified EOF460. Every nested original registration role/qualification retained in source-075-registered-overlay-context.json."
+        },
+        {
+          "scope_index": 76,
+          "ranges": [
+            [
+              1,
+              51
+            ]
+          ]
+        }
+      ],
+      "distinction": "Threat catalogue membership is an authority distinction beyond syntactic key grammar. ReportDescription and EvidenceKind are distinct open vocabularies even though both wrap ThreatId for its compact syntax storage. ThreatId::try_new intentionally admits syntax; FromStr/Serde additionally check authored catalogue. The immutable process cache compiles known catalogue IDs coherently.",
+      "uses": "Threat profile484\u2013711 consumes catalogue identity; helpers730\u2013744 construct open evidence/report keys through syntax-only factories. UnknownThreatId native error51 and fixtures validate membership route only. Typed combat versus investigation hypotheses and implemented combat lore represent different facts. HabitatRelation777\u2013803 validates bridge applicability; normal constructors coherently bind explanation and habitat.",
+      "disposition": "Preserve explicit prior CONT-CAMERA-OWNER-THREAT-ADMISSION-QUALIFICATION-006: do not narrow syntax constructor or raw source namespace to runtime catalogue membership. Add granularity support to the existing threat identity/producer obligations: shared syntactic leaf beneath distinct open ReportDescription/EvidenceKind and catalogue-admitted Threat identity prevents a syntactic evidence key being treated as a runtime threat. No new unique count or ordinary bad catalogue claim. Distinct open vocabulary role wrappers earn meaning; no enum limited to current constants.",
+      "qualification_refs": [
+        "archive:camera/owner-fit-delta/findings#CONT-CAMERA-OWNER-THREAT-ADMISSION-QUALIFICATION-006",
+        "archive:CAM-PROP-F006",
+        "archive:CAM-PPS-INCIDENT-036",
+        "archive:CAM-PPS-MISSION-BOOTSTRAP-046",
+        "archive:CONT-CAMERA-OWNER-REACHED-PP-F001",
+        "archive:CONT-CAMERA-OWNER81-F001"
+      ],
+      "acceptance": "Retain lexical/direct-compile namespace, syntax grammar and catalogue membership as distinct guarantees, exact typed runtime admission, open report/evidence strings and authored ordering. Common syntax validation shared below roles; no duplicate storage/caches or unsupported new bounds. Implemented lore remains mechanical observation; investigation remains explicit unimplemented hypotheses."
+    },
+    {
+      "id": "anatomical-part-set-side-and-weight-roles",
+      "sources": [
+        {
+          "scope_index": 77,
+          "ranges": [
+            [
+              1,
+              179
+            ]
+          ]
+        }
+      ],
+      "distinction": "BodyPart closed anatomy differs from BitFlags BodyParts set; explicit bit values implement native protocol. BodySide includes Both as a real symmetric policy. LimbWeights represents a four-limb blend, not four independent generic fractions: normalization is a relational operation.",
+      "uses": "arm(side,primary) chooses .75/.25 or symmetric .5/.5, paired limb constructors sum1, by_part returns0 for nonlimbs. Default allzero normalized would be nonfinite but actual shown named constructors are coherent; actual caller of general normalize remains pending.",
+      "disposition": "Preserve part versus set, left/right/both and weighted mixture distinctions. Do not manufacture one type per limb numeric field or reject Both primary without policy evidence. API normalization concern is bounded source observation; no ordinary bad caller or new granularity finding.",
+      "acceptance": "Any eventual normalized-weight owner must preserve real zero weights and full mixture semantics; share numeric invariant without conflating anatomy selection or body health/physical weight. No test execution."
+    },
+    {
+      "id": "capability-score-algorithms-versus-requirement-thresholds",
+      "sources": [
+        {
+          "scope_index": 78,
+          "ranges": [
+            [
+              1,
+              554
+            ]
+          ]
+        }
+      ],
+      "distinction": "Measured capability scores, rounded0\u20135 recommendation ratings, minimum requirements and signed marginal command contribution have distinct roles. Bounded complementary party aggregation and unbounded diminishing-return aggregation are different algorithms, not redundant validators. Independent weapon and armor capability axes are simultaneous facts.",
+      "uses": "evaluate242\u2013348 derives measured scores from traits/equipment/skills; meets185\u2013200 compares rounded scores to u8 minima. armor_tiers221\u2013239 returns cumulative quarter/half/three-quarter/full facts; fixtures457\u2013491 include shield-only quarter and progressively nested coverage. Command marginal contribution may be signed, unlike nonnegative generic contribution70\u201373.",
+      "disposition": "Keep request thresholds distinct from measurements; reuse actual common bounded-score invariant below roles if needed, but do not force all unbounded/signed aggregation into one0\u20135 owner. Armor tuple can become meaningful named ArmorCapabilities record without exclusive enum or changing cumulative policy; current destructuring immediately names each field and no actual positional mixup proved. Broad CharacterCapabilities remains a coherent read model, not canonical complete character state.",
+      "acceptance": "Preserve current rating rounding, distinct party algorithms and negative command marginal contribution, zero/independent capability predicates and real armor policy. No extra bounds on skill scores or new exclusive weapon category; fixtures are source evidence only."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

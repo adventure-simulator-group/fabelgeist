@@ -1,0 +1,2675 @@
+{
+  "id": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008",
+  "at": "2026-10-22T03:12:36.683645+00:00",
+  "lens": "audit-existing-type-owners",
+  "groups": [
+    {
+      "role": "paired_native_shader_and_botanical_source",
+      "comparison": "Actual pairedmaterialbindings/nativeuniformWGSL fields and shader vertex/fragment/image consumers require native scalar/vector/texture representations; Rust owners cannot import intoWGSL. Retain checked sourceleaves until exact uniformprojection, not primitiveforwarding before actualprebindinghelper. Height16bit65535 versusBPS10000 versuscm/int fields distinctquantization. Rustmaterialrequest roughness/alpha/AO may fit UnitInterval only matchingadmittedfraction, strength>1 fits Ratio, mixedrelief Vec4 needs named heterogeneousrecord before nativebinding. Grain_tile_metres is length; directreciprocal to native frequency warranted, PerMetre allf32 numericalleaf differs temporalrate/Ratio. SceneElevationRange typedto finalVec4, Seedcache and tree_signature mustretain existing entropyowner, scenedigest differs importedpackage. Actual celestialrender\u2212Z mismatch doesnot follow from cloudsin/-cos formulaalone. Botanical JSON77 is actual authoringsource withassetorigin/minYnegative and strictsourceSeed/revision/hullorder; normalizedScene or positiveelevation would mislabel sourceframe. Rigidprojection must preservef32ordering/collinear rounding through actual acceptedScenePolygon path, not re-hull/narrowbounds. Shaderabsentmask/sentinel/numericpolicy and sourcehull admission/behavior remain laterlenses, no nativeport exemption for applicationstate.",
+      "source_dispositions": [
+        {
+          "source_id": "pr-working:assets/shaders/tactical_city_ground.wgsl",
+          "sha256": "3bc0e8bdfb4aea730fbca506f80fd06afd9f410c658869396cc616d6c35c6a21",
+          "lens": "audit-existing-type-owners",
+          "discovery": "accounted_with_findings",
+          "owner_definition_use_refs": [
+            "ROOT-OWNER-WEATHER-GPU-020",
+            "ROOT-OWNER-TREE-030",
+            "ROOT-OWNER-RIGID-HULL-058",
+            "ROOT-OWNER-GARDEN-ROOT-066",
+            "ROOT-OWNER-NATIVE-DEPENDENCY-CLOSURE-082"
+          ],
+          "current_producer_role_refs": [
+            "ROOT-PPS-WEATHER-NOISE-GPU-006",
+            "ROOT-PPS-GARDEN-HULL-021",
+            "ROOT-PPS-INTERIOR-LOD-033"
+          ],
+          "exact_current_source_proofs": [
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+              "row": 107,
+              "read_ranges": [
+                [
+                  1,
+                  189
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-PAVING-055"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/assets/shaders/tactical_city_ground.wgsl"
+            }
+          ],
+          "exact_current_role_observations": {
+            "producer_reached_contract_observations": [
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+                "receipt": "ROOT-PPS-PAVING-TRAFFIC-019",
+                "json_pointer": "/source_proofs/10",
+                "source_id_as_recorded": "pr-working:assets/shaders/tactical_city_ground.wgsl",
+                "read_ranges_as_recorded": [
+                  [
+                    1,
+                    189
+                  ]
+                ],
+                "source_context": {
+                  "source_id": "pr-working:assets/shaders/tactical_city_ground.wgsl",
+                  "path": "SNAPSHOTS/pr-working/assets/shaders/tactical_city_ground.wgsl",
+                  "sha256": "3bc0e8bdfb4aea730fbca506f80fd06afd9f410c658869396cc616d6c35c6a21",
+                  "read_ranges": [
+                    [
+                      1,
+                      189
+                    ]
+                  ]
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              }
+            ],
+            "expanded_producer_contract_observations": []
+          },
+          "semantic_disposition": "Actual pairedmaterialbindings/nativeuniformWGSL fields and shader vertex/fragment/image consumers require native scalar/vector/texture representations; Rust owners cannot import intoWGSL. Retain checked sourceleaves until exact uniformprojection, not primitiveforwarding before actualprebindinghelper. Height16bit65535 versusBPS10000 versuscm/int fields distinctquantization. Rustmaterialrequest roughness/alpha/AO may fit UnitInterval only matchingadmittedfraction, strength>1 fits Ratio, mixedrelief Vec4 needs named heterogeneousrecord before nativebinding. Grain_tile_metres is length; directreciprocal to native frequency warranted, PerMetre allf32 numericalleaf differs temporalrate/Ratio. SceneElevationRange typedto finalVec4, Seedcache and tree_signature mustretain existing entropyowner, scenedigest differs importedpackage. Actual celestialrender\u2212Z mismatch doesnot follow from cloudsin/-cos formulaalone. Botanical JSON77 is actual authoringsource withassetorigin/minYnegative and strictsourceSeed/revision/hullorder; normalizedScene or positiveelevation would mislabel sourceframe. Rigidprojection must preservef32ordering/collinear rounding through actual acceptedScenePolygon path, not re-hull/narrowbounds. Shaderabsentmask/sentinel/numericpolicy and sourcehull admission/behavior remain laterlenses, no nativeport exemption for applicationstate.",
+          "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#paired_native_shader_and_botanical_source",
+          "source_or_other_lens_credit": "none"
+        },
+        {
+          "source_id": "pr-working:assets/shaders/tactical_interior_lighting.wgsl",
+          "sha256": "92d6043b6367ed1a9ce3159c5e749bbff8eb7b5b528dd26ae9cd17592fada2d4",
+          "lens": "audit-existing-type-owners",
+          "discovery": "accounted_with_findings",
+          "owner_definition_use_refs": [
+            "ROOT-OWNER-WEATHER-GPU-020",
+            "ROOT-OWNER-TREE-030",
+            "ROOT-OWNER-RIGID-HULL-058",
+            "ROOT-OWNER-GARDEN-ROOT-066",
+            "ROOT-OWNER-NATIVE-DEPENDENCY-CLOSURE-082"
+          ],
+          "current_producer_role_refs": [
+            "ROOT-PPS-WEATHER-NOISE-GPU-006",
+            "ROOT-PPS-GARDEN-HULL-021",
+            "ROOT-PPS-INTERIOR-LOD-033"
+          ],
+          "exact_current_source_proofs": [
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+              "row": 86,
+              "read_ranges": [
+                [
+                  1,
+                  100
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-INTERIOR-LIGHT-042"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/assets/shaders/tactical_interior_lighting.wgsl"
+            }
+          ],
+          "exact_current_role_observations": {
+            "producer_reached_contract_observations": [
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+                "receipt": "ROOT-PPS-INTERIOR-LOD-033",
+                "json_pointer": "/source_proofs/4",
+                "source_id_as_recorded": "pr-working:assets/shaders/tactical_interior_lighting.wgsl",
+                "read_ranges_as_recorded": [
+                  [
+                    1,
+                    100
+                  ]
+                ],
+                "source_context": {
+                  "source_id": "pr-working:assets/shaders/tactical_interior_lighting.wgsl",
+                  "path": "SNAPSHOTS/pr-working/assets/shaders/tactical_interior_lighting.wgsl",
+                  "sha256": "92d6043b6367ed1a9ce3159c5e749bbff8eb7b5b528dd26ae9cd17592fada2d4",
+                  "read_ranges": [
+                    [
+                      1,
+                      100
+                    ]
+                  ]
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              }
+            ],
+            "expanded_producer_contract_observations": []
+          },
+          "semantic_disposition": "Actual pairedmaterialbindings/nativeuniformWGSL fields and shader vertex/fragment/image consumers require native scalar/vector/texture representations; Rust owners cannot import intoWGSL. Retain checked sourceleaves until exact uniformprojection, not primitiveforwarding before actualprebindinghelper. Height16bit65535 versusBPS10000 versuscm/int fields distinctquantization. Rustmaterialrequest roughness/alpha/AO may fit UnitInterval only matchingadmittedfraction, strength>1 fits Ratio, mixedrelief Vec4 needs named heterogeneousrecord before nativebinding. Grain_tile_metres is length; directreciprocal to native frequency warranted, PerMetre allf32 numericalleaf differs temporalrate/Ratio. SceneElevationRange typedto finalVec4, Seedcache and tree_signature mustretain existing entropyowner, scenedigest differs importedpackage. Actual celestialrender\u2212Z mismatch doesnot follow from cloudsin/-cos formulaalone. Botanical JSON77 is actual authoringsource withassetorigin/minYnegative and strictsourceSeed/revision/hullorder; normalizedScene or positiveelevation would mislabel sourceframe. Rigidprojection must preservef32ordering/collinear rounding through actual acceptedScenePolygon path, not re-hull/narrowbounds. Shaderabsentmask/sentinel/numericpolicy and sourcehull admission/behavior remain laterlenses, no nativeport exemption for applicationstate.",
+          "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#paired_native_shader_and_botanical_source",
+          "source_or_other_lens_credit": "none"
+        },
+        {
+          "source_id": "pr-working:assets/shaders/tactical_weather.wgsl",
+          "sha256": "5c0a4dc16844e0840b502186ec82a5b7b8398061d2fd4d68226c8bffebd47636",
+          "lens": "audit-existing-type-owners",
+          "discovery": "accounted_with_findings",
+          "owner_definition_use_refs": [
+            "ROOT-OWNER-WEATHER-GPU-020",
+            "ROOT-OWNER-TREE-030",
+            "ROOT-OWNER-RIGID-HULL-058",
+            "ROOT-OWNER-GARDEN-ROOT-066",
+            "ROOT-OWNER-NATIVE-DEPENDENCY-CLOSURE-082"
+          ],
+          "current_producer_role_refs": [
+            "ROOT-PPS-WEATHER-NOISE-GPU-006",
+            "ROOT-PPS-GARDEN-HULL-021",
+            "ROOT-PPS-INTERIOR-LOD-033"
+          ],
+          "exact_current_source_proofs": [
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+              "row": 85,
+              "read_ranges": [
+                [
+                  1,
+                  317
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-WEATHER-GPU-020"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/assets/shaders/tactical_weather.wgsl"
+            },
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+              "row": 413,
+              "read_ranges": [
+                [
+                  1,
+                  317
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-WEATHER-GPU-020",
+                "ROOT-OWNER-NATIVE-DEPENDENCY-CLOSURE-082"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/assets/shaders/tactical_weather.wgsl"
+            },
+            {
+              "supplier": "native",
+              "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+              "row": 147,
+              "read_ranges": [
+                [
+                  1,
+                  317
+                ]
+              ],
+              "contract_refs": [
+                "NATIVE-OWNER-ENVIRONMENT-004"
+              ],
+              "read_status": null,
+              "resolved_path": "SNAPSHOTS/pr-working/assets/shaders/tactical_weather.wgsl"
+            }
+          ],
+          "exact_current_role_observations": {
+            "producer_reached_contract_observations": [
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+                "receipt": "ROOT-PPS-WEATHER-NOISE-GPU-006",
+                "json_pointer": "/source_proofs/2",
+                "source_id_as_recorded": "pr-working:assets/shaders/tactical_weather.wgsl",
+                "read_ranges_as_recorded": [
+                  [
+                    1,
+                    317
+                  ]
+                ],
+                "source_context": {
+                  "source_id": "pr-working:assets/shaders/tactical_weather.wgsl",
+                  "path": "SNAPSHOTS/pr-working/assets/shaders/tactical_weather.wgsl",
+                  "sha256": "5c0a4dc16844e0840b502186ec82a5b7b8398061d2fd4d68226c8bffebd47636",
+                  "read_ranges": [
+                    [
+                      1,
+                      317
+                    ]
+                  ]
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              }
+            ],
+            "expanded_producer_contract_observations": []
+          },
+          "semantic_disposition": "Actual pairedmaterialbindings/nativeuniformWGSL fields and shader vertex/fragment/image consumers require native scalar/vector/texture representations; Rust owners cannot import intoWGSL. Retain checked sourceleaves until exact uniformprojection, not primitiveforwarding before actualprebindinghelper. Height16bit65535 versusBPS10000 versuscm/int fields distinctquantization. Rustmaterialrequest roughness/alpha/AO may fit UnitInterval only matchingadmittedfraction, strength>1 fits Ratio, mixedrelief Vec4 needs named heterogeneousrecord before nativebinding. Grain_tile_metres is length; directreciprocal to native frequency warranted, PerMetre allf32 numericalleaf differs temporalrate/Ratio. SceneElevationRange typedto finalVec4, Seedcache and tree_signature mustretain existing entropyowner, scenedigest differs importedpackage. Actual celestialrender\u2212Z mismatch doesnot follow from cloudsin/-cos formulaalone. Botanical JSON77 is actual authoringsource withassetorigin/minYnegative and strictsourceSeed/revision/hullorder; normalizedScene or positiveelevation would mislabel sourceframe. Rigidprojection must preservef32ordering/collinear rounding through actual acceptedScenePolygon path, not re-hull/narrowbounds. Shaderabsentmask/sentinel/numericpolicy and sourcehull admission/behavior remain laterlenses, no nativeport exemption for applicationstate.",
+          "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#paired_native_shader_and_botanical_source",
+          "source_or_other_lens_credit": "none"
+        },
+        {
+          "source_id": "pr-working:content/tactical/garden-hazel-envelope.json",
+          "sha256": "1743fa13a7526af557706f78d50f5d61e3f8bcd8f82d5b1b2f3a0e6e1370bc65",
+          "lens": "audit-existing-type-owners",
+          "discovery": "accounted_with_findings",
+          "owner_definition_use_refs": [
+            "ROOT-OWNER-WEATHER-GPU-020",
+            "ROOT-OWNER-TREE-030",
+            "ROOT-OWNER-RIGID-HULL-058",
+            "ROOT-OWNER-GARDEN-ROOT-066",
+            "ROOT-OWNER-NATIVE-DEPENDENCY-CLOSURE-082"
+          ],
+          "current_producer_role_refs": [
+            "ROOT-PPS-WEATHER-NOISE-GPU-006",
+            "ROOT-PPS-GARDEN-HULL-021",
+            "ROOT-PPS-INTERIOR-LOD-033"
+          ],
+          "exact_current_source_proofs": [
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+              "row": 114,
+              "read_ranges": [
+                [
+                  1,
+                  77
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-RIGID-HULL-058"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/content/tactical/garden-hazel-envelope.json"
+            }
+          ],
+          "exact_current_role_observations": {
+            "producer_reached_contract_observations": [
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+                "receipt": "ROOT-PPS-GARDEN-HULL-021",
+                "json_pointer": "/source_proofs/3",
+                "source_id_as_recorded": "pr-working:content/tactical/garden-hazel-envelope.json",
+                "read_ranges_as_recorded": [
+                  [
+                    1,
+                    77
+                  ]
+                ],
+                "source_context": {
+                  "source_id": "pr-working:content/tactical/garden-hazel-envelope.json",
+                  "path": "SNAPSHOTS/pr-working/content/tactical/garden-hazel-envelope.json",
+                  "sha256": "1743fa13a7526af557706f78d50f5d61e3f8bcd8f82d5b1b2f3a0e6e1370bc65",
+                  "read_ranges": [
+                    [
+                      1,
+                      77
+                    ]
+                  ]
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              }
+            ],
+            "expanded_producer_contract_observations": []
+          },
+          "semantic_disposition": "Actual pairedmaterialbindings/nativeuniformWGSL fields and shader vertex/fragment/image consumers require native scalar/vector/texture representations; Rust owners cannot import intoWGSL. Retain checked sourceleaves until exact uniformprojection, not primitiveforwarding before actualprebindinghelper. Height16bit65535 versusBPS10000 versuscm/int fields distinctquantization. Rustmaterialrequest roughness/alpha/AO may fit UnitInterval only matchingadmittedfraction, strength>1 fits Ratio, mixedrelief Vec4 needs named heterogeneousrecord before nativebinding. Grain_tile_metres is length; directreciprocal to native frequency warranted, PerMetre allf32 numericalleaf differs temporalrate/Ratio. SceneElevationRange typedto finalVec4, Seedcache and tree_signature mustretain existing entropyowner, scenedigest differs importedpackage. Actual celestialrender\u2212Z mismatch doesnot follow from cloudsin/-cos formulaalone. Botanical JSON77 is actual authoringsource withassetorigin/minYnegative and strictsourceSeed/revision/hullorder; normalizedScene or positiveelevation would mislabel sourceframe. Rigidprojection must preservef32ordering/collinear rounding through actual acceptedScenePolygon path, not re-hull/narrowbounds. Shaderabsentmask/sentinel/numericpolicy and sourcehull admission/behavior remain laterlenses, no nativeport exemption for applicationstate.",
+          "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#paired_native_shader_and_botanical_source",
+          "source_or_other_lens_credit": "none"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-procedural-materials/src/lib.rs",
+          "sha256": "3d5a061b676b7715c8db2c3687f4feadd02dd94e6e1cd51dded341c287c43396",
+          "lens": "audit-existing-type-owners",
+          "discovery": "accounted_with_findings",
+          "owner_definition_use_refs": [
+            "ROOT-OWNER-WEATHER-GPU-020",
+            "ROOT-OWNER-TREE-030",
+            "ROOT-OWNER-RIGID-HULL-058",
+            "ROOT-OWNER-GARDEN-ROOT-066",
+            "ROOT-OWNER-NATIVE-DEPENDENCY-CLOSURE-082"
+          ],
+          "current_producer_role_refs": [
+            "ROOT-PPS-WEATHER-NOISE-GPU-006",
+            "ROOT-PPS-GARDEN-HULL-021",
+            "ROOT-PPS-INTERIOR-LOD-033"
+          ],
+          "exact_current_source_proofs": [
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+              "row": 54,
+              "read_ranges": [
+                [
+                  1,
+                  174
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-TREE-030"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-procedural-materials/src/lib.rs"
+            }
+          ],
+          "exact_current_role_observations": {
+            "producer_reached_contract_observations": [
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+                "receipt": "ROOT-PPS-WEATHER-NOISE-GPU-006",
+                "json_pointer": "/source_proofs/9",
+                "source_id_as_recorded": "pr-working:crates/adventuresim-procedural-materials/src/lib.rs",
+                "read_ranges_as_recorded": [
+                  [
+                    1,
+                    174
+                  ]
+                ],
+                "source_context": {
+                  "source_id": "pr-working:crates/adventuresim-procedural-materials/src/lib.rs",
+                  "path": "SNAPSHOTS/pr-working/crates/adventuresim-procedural-materials/src/lib.rs",
+                  "sha256": "3d5a061b676b7715c8db2c3687f4feadd02dd94e6e1cd51dded341c287c43396",
+                  "read_ranges": [
+                    [
+                      1,
+                      174
+                    ]
+                  ]
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              }
+            ],
+            "expanded_producer_contract_observations": []
+          },
+          "semantic_disposition": "Actual pairedmaterialbindings/nativeuniformWGSL fields and shader vertex/fragment/image consumers require native scalar/vector/texture representations; Rust owners cannot import intoWGSL. Retain checked sourceleaves until exact uniformprojection, not primitiveforwarding before actualprebindinghelper. Height16bit65535 versusBPS10000 versuscm/int fields distinctquantization. Rustmaterialrequest roughness/alpha/AO may fit UnitInterval only matchingadmittedfraction, strength>1 fits Ratio, mixedrelief Vec4 needs named heterogeneousrecord before nativebinding. Grain_tile_metres is length; directreciprocal to native frequency warranted, PerMetre allf32 numericalleaf differs temporalrate/Ratio. SceneElevationRange typedto finalVec4, Seedcache and tree_signature mustretain existing entropyowner, scenedigest differs importedpackage. Actual celestialrender\u2212Z mismatch doesnot follow from cloudsin/-cos formulaalone. Botanical JSON77 is actual authoringsource withassetorigin/minYnegative and strictsourceSeed/revision/hullorder; normalizedScene or positiveelevation would mislabel sourceframe. Rigidprojection must preservef32ordering/collinear rounding through actual acceptedScenePolygon path, not re-hull/narrowbounds. Shaderabsentmask/sentinel/numericpolicy and sourcehull admission/behavior remain laterlenses, no nativeport exemption for applicationstate.",
+          "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#paired_native_shader_and_botanical_source",
+          "source_or_other_lens_credit": "none"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-procedural-materials/src/shaders/tactical_tree_bark.wgsl",
+          "sha256": "226829eae04e17626eeda3721fcbe33fc5c2d51b0a73ed9c81112fe87f7dc653",
+          "lens": "audit-existing-type-owners",
+          "discovery": "accounted_with_findings",
+          "owner_definition_use_refs": [
+            "ROOT-OWNER-WEATHER-GPU-020",
+            "ROOT-OWNER-TREE-030",
+            "ROOT-OWNER-RIGID-HULL-058",
+            "ROOT-OWNER-GARDEN-ROOT-066",
+            "ROOT-OWNER-NATIVE-DEPENDENCY-CLOSURE-082"
+          ],
+          "current_producer_role_refs": [
+            "ROOT-PPS-WEATHER-NOISE-GPU-006",
+            "ROOT-PPS-GARDEN-HULL-021",
+            "ROOT-PPS-INTERIOR-LOD-033"
+          ],
+          "exact_current_source_proofs": [
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+              "row": 114,
+              "read_ranges": [
+                [
+                  1,
+                  517
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-TREE-030"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-procedural-materials/src/shaders/tactical_tree_bark.wgsl"
+            }
+          ],
+          "exact_current_role_observations": {
+            "producer_reached_contract_observations": [
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+                "receipt": "ROOT-PPS-WEATHER-NOISE-GPU-006",
+                "json_pointer": "/source_proofs/3",
+                "source_id_as_recorded": "pr-working:crates/adventuresim-procedural-materials/src/shaders/tactical_tree_bark.wgsl",
+                "read_ranges_as_recorded": [
+                  [
+                    1,
+                    517
+                  ]
+                ],
+                "source_context": {
+                  "source_id": "pr-working:crates/adventuresim-procedural-materials/src/shaders/tactical_tree_bark.wgsl",
+                  "path": "SNAPSHOTS/pr-working/crates/adventuresim-procedural-materials/src/shaders/tactical_tree_bark.wgsl",
+                  "sha256": "226829eae04e17626eeda3721fcbe33fc5c2d51b0a73ed9c81112fe87f7dc653",
+                  "read_ranges": [
+                    [
+                      1,
+                      517
+                    ]
+                  ]
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              }
+            ],
+            "expanded_producer_contract_observations": []
+          },
+          "semantic_disposition": "Actual pairedmaterialbindings/nativeuniformWGSL fields and shader vertex/fragment/image consumers require native scalar/vector/texture representations; Rust owners cannot import intoWGSL. Retain checked sourceleaves until exact uniformprojection, not primitiveforwarding before actualprebindinghelper. Height16bit65535 versusBPS10000 versuscm/int fields distinctquantization. Rustmaterialrequest roughness/alpha/AO may fit UnitInterval only matchingadmittedfraction, strength>1 fits Ratio, mixedrelief Vec4 needs named heterogeneousrecord before nativebinding. Grain_tile_metres is length; directreciprocal to native frequency warranted, PerMetre allf32 numericalleaf differs temporalrate/Ratio. SceneElevationRange typedto finalVec4, Seedcache and tree_signature mustretain existing entropyowner, scenedigest differs importedpackage. Actual celestialrender\u2212Z mismatch doesnot follow from cloudsin/-cos formulaalone. Botanical JSON77 is actual authoringsource withassetorigin/minYnegative and strictsourceSeed/revision/hullorder; normalizedScene or positiveelevation would mislabel sourceframe. Rigidprojection must preservef32ordering/collinear rounding through actual acceptedScenePolygon path, not re-hull/narrowbounds. Shaderabsentmask/sentinel/numericpolicy and sourcehull admission/behavior remain laterlenses, no nativeport exemption for applicationstate.",
+          "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#paired_native_shader_and_botanical_source",
+          "source_or_other_lens_credit": "none"
+        }
+      ]
+    },
+    {
+      "role": "sign_architectural_geometry_and_output",
+      "comparison": "Existing Position<Architectural>/SpatialDirection<Architectural>/PlanDimensions/PlanExtents/RigidRotation correctsourcegeometry where actualfinite/normalization/positivepolicy established; publicrawSignSite fields/derivedSerde do not provepolicy from successfulfixture. SignBoard centreArchitectural differs rebasedPresentedSignorigin/nativeGlobalTransform, no genericSceneframealias. Whole source/site/supportselection/board/cache/render/clientorigin APIs must retain canonicalowners; actual Mesh/Transform/Image/ab_glyph callbacks/normalizedemblempoints/rgba8sRGB/pixels are true nativeports. SignMount/SignDetail/TradeEmblem already exactclosedroles; letteringbool visibilitystate laterenum. SceneBuildingId supplied to EstablishmentId is physicalsourceauthority; BusinessIdcomposite differs, rig lower canonicalidentity/brandingowner must govern, not mutablehumantradeString. ShopNamepossessivebrand not RenderedPersonalName. Texturepaintphysical paneldimensions differ pixelheight/cachekey; missingglyph/nooutlinedink/noactivecamera explicitstate laterlenses, preserve no-cameraunload/48/60hysteresis. Lettering171\u2013195 actualpaint_emblem sourceclosure086 records normalizedglyphspace, notmetres. Preserve draworder/contact.001/intersection.005/firstsupportedmount, cache64, colors/kerning/split and originalcases. Rootwholegeometry/output, Rigwholebrand/source contract, no competingrepair.",
+      "source_dispositions": [
+        {
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/signs.rs",
+          "sha256": "a289edd3ee387aec2db5dc5cd65b84398c199844256bdba3f6cf1d3a8bb307a8",
+          "lens": "audit-existing-type-owners",
+          "discovery": "accounted_with_findings",
+          "owner_definition_use_refs": [
+            "ROOT-OWNER-SIGN-AND-TIMBER-078",
+            "ROOT-OWNER-SUPPORT-RANGE-CLOSURE-086"
+          ],
+          "current_producer_role_refs": [
+            "ROOT-PPS-SIGN-RENDER-038"
+          ],
+          "exact_current_source_proofs": [
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+              "row": 155,
+              "read_ranges": [
+                [
+                  1,
+                  164
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-SIGN-AND-TIMBER-078"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/signs.rs"
+            },
+            {
+              "supplier": "rig",
+              "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+              "row": 182,
+              "read_ranges": [
+                [
+                  1,
+                  164
+                ]
+              ],
+              "contract_refs": [
+                "RIG-OWNER-SIGN-IDENTITY-077"
+              ],
+              "read_status": "full_current_lens_source_read",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/signs.rs"
+            }
+          ],
+          "exact_current_role_observations": {
+            "producer_reached_contract_observations": [
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+                "receipt": "ROOT-PPS-SIGN-RENDER-038",
+                "json_pointer": "/source_proofs/1",
+                "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/signs.rs",
+                "read_ranges_as_recorded": [
+                  [
+                    1,
+                    164
+                  ]
+                ],
+                "source_context": {
+                  "source_id": "pr-working:crates/adventuresim-building-generator/src/signs.rs",
+                  "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/signs.rs",
+                  "sha256": "a289edd3ee387aec2db5dc5cd65b84398c199844256bdba3f6cf1d3a8bb307a8",
+                  "read_ranges": [
+                    [
+                      1,
+                      164
+                    ]
+                  ]
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              }
+            ],
+            "expanded_producer_contract_observations": []
+          },
+          "semantic_disposition": "Existing Position<Architectural>/SpatialDirection<Architectural>/PlanDimensions/PlanExtents/RigidRotation correctsourcegeometry where actualfinite/normalization/positivepolicy established; publicrawSignSite fields/derivedSerde do not provepolicy from successfulfixture. SignBoard centreArchitectural differs rebasedPresentedSignorigin/nativeGlobalTransform, no genericSceneframealias. Whole source/site/supportselection/board/cache/render/clientorigin APIs must retain canonicalowners; actual Mesh/Transform/Image/ab_glyph callbacks/normalizedemblempoints/rgba8sRGB/pixels are true nativeports. SignMount/SignDetail/TradeEmblem already exactclosedroles; letteringbool visibilitystate laterenum. SceneBuildingId supplied to EstablishmentId is physicalsourceauthority; BusinessIdcomposite differs, rig lower canonicalidentity/brandingowner must govern, not mutablehumantradeString. ShopNamepossessivebrand not RenderedPersonalName. Texturepaintphysical paneldimensions differ pixelheight/cachekey; missingglyph/nooutlinedink/noactivecamera explicitstate laterlenses, preserve no-cameraunload/48/60hysteresis. Lettering171\u2013195 actualpaint_emblem sourceclosure086 records normalizedglyphspace, notmetres. Preserve draworder/contact.001/intersection.005/firstsupportedmount, cache64, colors/kerning/split and originalcases. Rootwholegeometry/output, Rigwholebrand/source contract, no competingrepair.",
+          "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#sign_architectural_geometry_and_output",
+          "source_or_other_lens_credit": "none"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/signs/lettering.rs",
+          "sha256": "123925e6214be34a423b07c88829feb1e52d9f177de4a3f4347116e34e2a4764",
+          "lens": "audit-existing-type-owners",
+          "discovery": "accounted_with_findings",
+          "owner_definition_use_refs": [
+            "ROOT-OWNER-SIGN-AND-TIMBER-078",
+            "ROOT-OWNER-SUPPORT-RANGE-CLOSURE-086"
+          ],
+          "current_producer_role_refs": [
+            "ROOT-PPS-SIGN-RENDER-038"
+          ],
+          "exact_current_source_proofs": [
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+              "row": 164,
+              "read_ranges": [
+                [
+                  1,
+                  170
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-SIGN-AND-TIMBER-078"
+              ],
+              "read_status": "affected_ranges",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/signs/lettering.rs"
+            },
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+              "row": 178,
+              "read_ranges": [
+                [
+                  1,
+                  195
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-SUPPORT-AND-RANGE-CLOSURE-086"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/signs/lettering.rs"
+            }
+          ],
+          "exact_current_role_observations": {
+            "producer_reached_contract_observations": [
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+                "receipt": "ROOT-PPS-SIGN-RENDER-038",
+                "json_pointer": "/source_proofs/8",
+                "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/signs/lettering.rs",
+                "read_ranges_as_recorded": [
+                  [
+                    1,
+                    195
+                  ]
+                ],
+                "source_context": {
+                  "source_id": "pr-working:crates/adventuresim-building-generator/src/signs/lettering.rs",
+                  "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/signs/lettering.rs",
+                  "sha256": "123925e6214be34a423b07c88829feb1e52d9f177de4a3f4347116e34e2a4764",
+                  "read_ranges": [
+                    [
+                      1,
+                      195
+                    ]
+                  ]
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              }
+            ],
+            "expanded_producer_contract_observations": []
+          },
+          "semantic_disposition": "Existing Position<Architectural>/SpatialDirection<Architectural>/PlanDimensions/PlanExtents/RigidRotation correctsourcegeometry where actualfinite/normalization/positivepolicy established; publicrawSignSite fields/derivedSerde do not provepolicy from successfulfixture. SignBoard centreArchitectural differs rebasedPresentedSignorigin/nativeGlobalTransform, no genericSceneframealias. Whole source/site/supportselection/board/cache/render/clientorigin APIs must retain canonicalowners; actual Mesh/Transform/Image/ab_glyph callbacks/normalizedemblempoints/rgba8sRGB/pixels are true nativeports. SignMount/SignDetail/TradeEmblem already exactclosedroles; letteringbool visibilitystate laterenum. SceneBuildingId supplied to EstablishmentId is physicalsourceauthority; BusinessIdcomposite differs, rig lower canonicalidentity/brandingowner must govern, not mutablehumantradeString. ShopNamepossessivebrand not RenderedPersonalName. Texturepaintphysical paneldimensions differ pixelheight/cachekey; missingglyph/nooutlinedink/noactivecamera explicitstate laterlenses, preserve no-cameraunload/48/60hysteresis. Lettering171\u2013195 actualpaint_emblem sourceclosure086 records normalizedglyphspace, notmetres. Preserve draworder/contact.001/intersection.005/firstsupportedmount, cache64, colors/kerning/split and originalcases. Rootwholegeometry/output, Rigwholebrand/source contract, no competingrepair.",
+          "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#sign_architectural_geometry_and_output",
+          "source_or_other_lens_credit": "none"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/signs/mounting.rs",
+          "sha256": "b8304693c8e6698aff2016270d56d35725376c70af25d607855709aac82e0123",
+          "lens": "audit-existing-type-owners",
+          "discovery": "accounted_with_findings",
+          "owner_definition_use_refs": [
+            "ROOT-OWNER-SIGN-AND-TIMBER-078",
+            "ROOT-OWNER-SUPPORT-RANGE-CLOSURE-086"
+          ],
+          "current_producer_role_refs": [
+            "ROOT-PPS-SIGN-RENDER-038"
+          ],
+          "exact_current_source_proofs": [
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+              "row": 157,
+              "read_ranges": [
+                [
+                  1,
+                  132
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-SIGN-AND-TIMBER-078"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/signs/mounting.rs"
+            }
+          ],
+          "exact_current_role_observations": {
+            "producer_reached_contract_observations": [
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+                "receipt": "ROOT-PPS-SIGN-RENDER-038",
+                "json_pointer": "/source_proofs/3",
+                "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/signs/mounting.rs",
+                "read_ranges_as_recorded": [
+                  [
+                    1,
+                    132
+                  ]
+                ],
+                "source_context": {
+                  "source_id": "pr-working:crates/adventuresim-building-generator/src/signs/mounting.rs",
+                  "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/signs/mounting.rs",
+                  "sha256": "b8304693c8e6698aff2016270d56d35725376c70af25d607855709aac82e0123",
+                  "read_ranges": [
+                    [
+                      1,
+                      132
+                    ]
+                  ]
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              }
+            ],
+            "expanded_producer_contract_observations": []
+          },
+          "semantic_disposition": "Existing Position<Architectural>/SpatialDirection<Architectural>/PlanDimensions/PlanExtents/RigidRotation correctsourcegeometry where actualfinite/normalization/positivepolicy established; publicrawSignSite fields/derivedSerde do not provepolicy from successfulfixture. SignBoard centreArchitectural differs rebasedPresentedSignorigin/nativeGlobalTransform, no genericSceneframealias. Whole source/site/supportselection/board/cache/render/clientorigin APIs must retain canonicalowners; actual Mesh/Transform/Image/ab_glyph callbacks/normalizedemblempoints/rgba8sRGB/pixels are true nativeports. SignMount/SignDetail/TradeEmblem already exactclosedroles; letteringbool visibilitystate laterenum. SceneBuildingId supplied to EstablishmentId is physicalsourceauthority; BusinessIdcomposite differs, rig lower canonicalidentity/brandingowner must govern, not mutablehumantradeString. ShopNamepossessivebrand not RenderedPersonalName. Texturepaintphysical paneldimensions differ pixelheight/cachekey; missingglyph/nooutlinedink/noactivecamera explicitstate laterlenses, preserve no-cameraunload/48/60hysteresis. Lettering171\u2013195 actualpaint_emblem sourceclosure086 records normalizedglyphspace, notmetres. Preserve draworder/contact.001/intersection.005/firstsupportedmount, cache64, colors/kerning/split and originalcases. Rootwholegeometry/output, Rigwholebrand/source contract, no competingrepair.",
+          "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#sign_architectural_geometry_and_output",
+          "source_or_other_lens_credit": "none"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/signs/rendering.rs",
+          "sha256": "94edb28991714767ff162deb2178ac55612468b458451a7d2ec1f004e85c5c6c",
+          "lens": "audit-existing-type-owners",
+          "discovery": "accounted_with_findings",
+          "owner_definition_use_refs": [
+            "ROOT-OWNER-SIGN-AND-TIMBER-078",
+            "ROOT-OWNER-SUPPORT-RANGE-CLOSURE-086"
+          ],
+          "current_producer_role_refs": [
+            "ROOT-PPS-SIGN-RENDER-038"
+          ],
+          "exact_current_source_proofs": [
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+              "row": 158,
+              "read_ranges": [
+                [
+                  1,
+                  358
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-SIGN-AND-TIMBER-078"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/signs/rendering.rs"
+            }
+          ],
+          "exact_current_role_observations": {
+            "producer_reached_contract_observations": [
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+                "receipt": "ROOT-PPS-SIGN-RENDER-038",
+                "json_pointer": "/source_proofs/4",
+                "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/signs/rendering.rs",
+                "read_ranges_as_recorded": [
+                  [
+                    1,
+                    358
+                  ]
+                ],
+                "source_context": {
+                  "source_id": "pr-working:crates/adventuresim-building-generator/src/signs/rendering.rs",
+                  "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/signs/rendering.rs",
+                  "sha256": "94edb28991714767ff162deb2178ac55612468b458451a7d2ec1f004e85c5c6c",
+                  "read_ranges": [
+                    [
+                      1,
+                      358
+                    ]
+                  ]
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              }
+            ],
+            "expanded_producer_contract_observations": []
+          },
+          "semantic_disposition": "Existing Position<Architectural>/SpatialDirection<Architectural>/PlanDimensions/PlanExtents/RigidRotation correctsourcegeometry where actualfinite/normalization/positivepolicy established; publicrawSignSite fields/derivedSerde do not provepolicy from successfulfixture. SignBoard centreArchitectural differs rebasedPresentedSignorigin/nativeGlobalTransform, no genericSceneframealias. Whole source/site/supportselection/board/cache/render/clientorigin APIs must retain canonicalowners; actual Mesh/Transform/Image/ab_glyph callbacks/normalizedemblempoints/rgba8sRGB/pixels are true nativeports. SignMount/SignDetail/TradeEmblem already exactclosedroles; letteringbool visibilitystate laterenum. SceneBuildingId supplied to EstablishmentId is physicalsourceauthority; BusinessIdcomposite differs, rig lower canonicalidentity/brandingowner must govern, not mutablehumantradeString. ShopNamepossessivebrand not RenderedPersonalName. Texturepaintphysical paneldimensions differ pixelheight/cachekey; missingglyph/nooutlinedink/noactivecamera explicitstate laterlenses, preserve no-cameraunload/48/60hysteresis. Lettering171\u2013195 actualpaint_emblem sourceclosure086 records normalizedglyphspace, notmetres. Preserve draworder/contact.001/intersection.005/firstsupportedmount, cache64, colors/kerning/split and originalcases. Rootwholegeometry/output, Rigwholebrand/source contract, no competingrepair.",
+          "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#sign_architectural_geometry_and_output",
+          "source_or_other_lens_credit": "none"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/signs/rendering/materials.rs",
+          "sha256": "9ad3e5e6a49eaf7525c9b74221e9b123aaba4c2c95546f0672f327035749e1d1",
+          "lens": "audit-existing-type-owners",
+          "discovery": "accounted_with_findings",
+          "owner_definition_use_refs": [
+            "ROOT-OWNER-SIGN-AND-TIMBER-078",
+            "ROOT-OWNER-SUPPORT-RANGE-CLOSURE-086"
+          ],
+          "current_producer_role_refs": [
+            "ROOT-PPS-SIGN-RENDER-038"
+          ],
+          "exact_current_source_proofs": [
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+              "row": 159,
+              "read_ranges": [
+                [
+                  1,
+                  84
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-SIGN-AND-TIMBER-078"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/signs/rendering/materials.rs"
+            }
+          ],
+          "exact_current_role_observations": {
+            "producer_reached_contract_observations": [
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+                "receipt": "ROOT-PPS-SIGN-RENDER-038",
+                "json_pointer": "/source_proofs/5",
+                "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/signs/rendering/materials.rs",
+                "read_ranges_as_recorded": [
+                  [
+                    1,
+                    84
+                  ]
+                ],
+                "source_context": {
+                  "source_id": "pr-working:crates/adventuresim-building-generator/src/signs/rendering/materials.rs",
+                  "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/signs/rendering/materials.rs",
+                  "sha256": "9ad3e5e6a49eaf7525c9b74221e9b123aaba4c2c95546f0672f327035749e1d1",
+                  "read_ranges": [
+                    [
+                      1,
+                      84
+                    ]
+                  ]
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              }
+            ],
+            "expanded_producer_contract_observations": []
+          },
+          "semantic_disposition": "Existing Position<Architectural>/SpatialDirection<Architectural>/PlanDimensions/PlanExtents/RigidRotation correctsourcegeometry where actualfinite/normalization/positivepolicy established; publicrawSignSite fields/derivedSerde do not provepolicy from successfulfixture. SignBoard centreArchitectural differs rebasedPresentedSignorigin/nativeGlobalTransform, no genericSceneframealias. Whole source/site/supportselection/board/cache/render/clientorigin APIs must retain canonicalowners; actual Mesh/Transform/Image/ab_glyph callbacks/normalizedemblempoints/rgba8sRGB/pixels are true nativeports. SignMount/SignDetail/TradeEmblem already exactclosedroles; letteringbool visibilitystate laterenum. SceneBuildingId supplied to EstablishmentId is physicalsourceauthority; BusinessIdcomposite differs, rig lower canonicalidentity/brandingowner must govern, not mutablehumantradeString. ShopNamepossessivebrand not RenderedPersonalName. Texturepaintphysical paneldimensions differ pixelheight/cachekey; missingglyph/nooutlinedink/noactivecamera explicitstate laterlenses, preserve no-cameraunload/48/60hysteresis. Lettering171\u2013195 actualpaint_emblem sourceclosure086 records normalizedglyphspace, notmetres. Preserve draworder/contact.001/intersection.005/firstsupportedmount, cache64, colors/kerning/split and originalcases. Rootwholegeometry/output, Rigwholebrand/source contract, no competingrepair.",
+          "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#sign_architectural_geometry_and_output",
+          "source_or_other_lens_credit": "none"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/signs/site.rs",
+          "sha256": "ff6ffec8966e6dae1ea4b333d7a0fbf39637384e0353f08c33cd4191e80e53de",
+          "lens": "audit-existing-type-owners",
+          "discovery": "accounted_with_findings",
+          "owner_definition_use_refs": [
+            "ROOT-OWNER-SIGN-AND-TIMBER-078",
+            "ROOT-OWNER-SUPPORT-RANGE-CLOSURE-086"
+          ],
+          "current_producer_role_refs": [
+            "ROOT-PPS-SIGN-RENDER-038"
+          ],
+          "exact_current_source_proofs": [
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+              "row": 156,
+              "read_ranges": [
+                [
+                  1,
+                  173
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-SIGN-AND-TIMBER-078"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/signs/site.rs"
+            }
+          ],
+          "exact_current_role_observations": {
+            "producer_reached_contract_observations": [
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+                "receipt": "ROOT-PPS-SIGN-RENDER-038",
+                "json_pointer": "/source_proofs/2",
+                "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/signs/site.rs",
+                "read_ranges_as_recorded": [
+                  [
+                    1,
+                    173
+                  ]
+                ],
+                "source_context": {
+                  "source_id": "pr-working:crates/adventuresim-building-generator/src/signs/site.rs",
+                  "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/signs/site.rs",
+                  "sha256": "ff6ffec8966e6dae1ea4b333d7a0fbf39637384e0353f08c33cd4191e80e53de",
+                  "read_ranges": [
+                    [
+                      1,
+                      173
+                    ]
+                  ]
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              }
+            ],
+            "expanded_producer_contract_observations": []
+          },
+          "semantic_disposition": "Existing Position<Architectural>/SpatialDirection<Architectural>/PlanDimensions/PlanExtents/RigidRotation correctsourcegeometry where actualfinite/normalization/positivepolicy established; publicrawSignSite fields/derivedSerde do not provepolicy from successfulfixture. SignBoard centreArchitectural differs rebasedPresentedSignorigin/nativeGlobalTransform, no genericSceneframealias. Whole source/site/supportselection/board/cache/render/clientorigin APIs must retain canonicalowners; actual Mesh/Transform/Image/ab_glyph callbacks/normalizedemblempoints/rgba8sRGB/pixels are true nativeports. SignMount/SignDetail/TradeEmblem already exactclosedroles; letteringbool visibilitystate laterenum. SceneBuildingId supplied to EstablishmentId is physicalsourceauthority; BusinessIdcomposite differs, rig lower canonicalidentity/brandingowner must govern, not mutablehumantradeString. ShopNamepossessivebrand not RenderedPersonalName. Texturepaintphysical paneldimensions differ pixelheight/cachekey; missingglyph/nooutlinedink/noactivecamera explicitstate laterlenses, preserve no-cameraunload/48/60hysteresis. Lettering171\u2013195 actualpaint_emblem sourceclosure086 records normalizedglyphspace, notmetres. Preserve draworder/contact.001/intersection.005/firstsupportedmount, cache64, colors/kerning/split and originalcases. Rootwholegeometry/output, Rigwholebrand/source contract, no competingrepair.",
+          "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#sign_architectural_geometry_and_output",
+          "source_or_other_lens_credit": "none"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/signs/tests.rs",
+          "sha256": "ad6bce5bad8931acd16b45167800018bc3b227a3744703c3f8667ee4a4ebdca9",
+          "lens": "audit-existing-type-owners",
+          "discovery": "accounted_with_findings",
+          "owner_definition_use_refs": [
+            "ROOT-OWNER-SIGN-AND-TIMBER-078",
+            "ROOT-OWNER-SUPPORT-RANGE-CLOSURE-086"
+          ],
+          "current_producer_role_refs": [
+            "ROOT-PPS-SIGN-RENDER-038"
+          ],
+          "exact_current_source_proofs": [
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+              "row": 160,
+              "read_ranges": [
+                [
+                  1,
+                  123
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-SIGN-AND-TIMBER-078"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/signs/tests.rs"
+            }
+          ],
+          "exact_current_role_observations": {
+            "producer_reached_contract_observations": [
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+                "receipt": "ROOT-PPS-SIGN-RENDER-038",
+                "json_pointer": "/source_proofs/6",
+                "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/signs/tests.rs",
+                "read_ranges_as_recorded": [
+                  [
+                    1,
+                    123
+                  ]
+                ],
+                "source_context": {
+                  "source_id": "pr-working:crates/adventuresim-building-generator/src/signs/tests.rs",
+                  "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/signs/tests.rs",
+                  "sha256": "ad6bce5bad8931acd16b45167800018bc3b227a3744703c3f8667ee4a4ebdca9",
+                  "read_ranges": [
+                    [
+                      1,
+                      123
+                    ]
+                  ]
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              }
+            ],
+            "expanded_producer_contract_observations": []
+          },
+          "semantic_disposition": "Existing Position<Architectural>/SpatialDirection<Architectural>/PlanDimensions/PlanExtents/RigidRotation correctsourcegeometry where actualfinite/normalization/positivepolicy established; publicrawSignSite fields/derivedSerde do not provepolicy from successfulfixture. SignBoard centreArchitectural differs rebasedPresentedSignorigin/nativeGlobalTransform, no genericSceneframealias. Whole source/site/supportselection/board/cache/render/clientorigin APIs must retain canonicalowners; actual Mesh/Transform/Image/ab_glyph callbacks/normalizedemblempoints/rgba8sRGB/pixels are true nativeports. SignMount/SignDetail/TradeEmblem already exactclosedroles; letteringbool visibilitystate laterenum. SceneBuildingId supplied to EstablishmentId is physicalsourceauthority; BusinessIdcomposite differs, rig lower canonicalidentity/brandingowner must govern, not mutablehumantradeString. ShopNamepossessivebrand not RenderedPersonalName. Texturepaintphysical paneldimensions differ pixelheight/cachekey; missingglyph/nooutlinedink/noactivecamera explicitstate laterlenses, preserve no-cameraunload/48/60hysteresis. Lettering171\u2013195 actualpaint_emblem sourceclosure086 records normalizedglyphspace, notmetres. Preserve draworder/contact.001/intersection.005/firstsupportedmount, cache64, colors/kerning/split and originalcases. Rootwholegeometry/output, Rigwholebrand/source contract, no competingrepair.",
+          "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#sign_architectural_geometry_and_output",
+          "source_or_other_lens_credit": "none"
+        }
+      ]
+    },
+    {
+      "role": "wall_opening_complete_sources",
+      "comparison": "Canonical ArchitecturalPosition/Elevation/PlanDirection/SpatialBounds/lengths/angle exact existingnumeric leaves for declaredframe sourcewall/opening/shape; checked envelope alone doesnotadmit rawprofilepayload. Root complete churchdoor30\u2013388/artillerygun32\u2013EOF actualsourcefunctions old036 and Rig029 resttower389\u2013872 prove sourcespecific signed/zero/optional policies. ZeroOpenMilitaryclosure not LeafDimensionspositive; sillabsoluteelevation differs relativerise. Wall_solid performs actual cuboid/bounds/packedID operations but rawpoint/length arguments must not erase checkedsource across internalAPI; wall_void retains rawsectionalsizes/depthsign before meaningfulshapeconsumers. Typedshape fields/sourceframe must originateat owning literal/authoringadmission, no repeated unchanged re-admission. ArtilleryTargetIdu64MAX placeholder is unboundstate not realID/nativecodec; laterenum/aggreview required. StructuralIDbitpacking is actual identitycodec, sourceordinal/namespace retained until nativewordoperation. No sharedfunction sourcecoverage inferredoutside exactreceipts; native31 currentremainingwholegenerator supply separate.",
+      "source_dispositions": [
+        {
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/wall_openings.rs",
+          "sha256": "b193dcfbc5c217956be084a3a209210d25e9577770e14850470461292970ebbc",
+          "lens": "audit-existing-type-owners",
+          "discovery": "accounted_with_findings",
+          "owner_definition_use_refs": [
+            "ROOT-OWNER-RESOLVED-SHAPE-PORTS-075",
+            "ROOT-OWNER-SIGN-AND-TIMBER-078"
+          ],
+          "current_producer_role_refs": [
+            "ROOT-PPS-RESOLVED-GEOMETRY-036",
+            "ROOT-PPS-WALL-SOURCE-CLOSURE-039"
+          ],
+          "exact_current_source_proofs": [
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+              "row": 141,
+              "read_ranges": [
+                [
+                  230,
+                  270
+                ],
+                [
+                  290,
+                  335
+                ],
+                [
+                  580,
+                  612
+                ],
+                [
+                  820,
+                  885
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-RESOLVED-SHAPE-PORTS-075"
+              ],
+              "read_status": "affected_ranges",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/audit/wall_openings.rs"
+            }
+          ],
+          "exact_current_role_observations": {
+            "producer_reached_contract_observations": [
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+                "receipt": "ROOT-PPS-RESOLVED-GEOMETRY-036",
+                "json_pointer": "/source_proofs/6",
+                "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/audit/wall_openings.rs",
+                "read_ranges_as_recorded": [
+                  [
+                    230,
+                    270
+                  ],
+                  [
+                    290,
+                    335
+                  ],
+                  [
+                    580,
+                    612
+                  ],
+                  [
+                    820,
+                    885
+                  ]
+                ],
+                "source_context": {
+                  "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/wall_openings.rs",
+                  "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/audit/wall_openings.rs",
+                  "sha256": "b193dcfbc5c217956be084a3a209210d25e9577770e14850470461292970ebbc",
+                  "read_ranges": [
+                    [
+                      230,
+                      270
+                    ],
+                    [
+                      290,
+                      335
+                    ],
+                    [
+                      580,
+                      612
+                    ],
+                    [
+                      820,
+                      885
+                    ]
+                  ]
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              }
+            ],
+            "expanded_producer_contract_observations": []
+          },
+          "semantic_disposition": "Canonical ArchitecturalPosition/Elevation/PlanDirection/SpatialBounds/lengths/angle exact existingnumeric leaves for declaredframe sourcewall/opening/shape; checked envelope alone doesnotadmit rawprofilepayload. Root complete churchdoor30\u2013388/artillerygun32\u2013EOF actualsourcefunctions old036 and Rig029 resttower389\u2013872 prove sourcespecific signed/zero/optional policies. ZeroOpenMilitaryclosure not LeafDimensionspositive; sillabsoluteelevation differs relativerise. Wall_solid performs actual cuboid/bounds/packedID operations but rawpoint/length arguments must not erase checkedsource across internalAPI; wall_void retains rawsectionalsizes/depthsign before meaningfulshapeconsumers. Typedshape fields/sourceframe must originateat owning literal/authoringadmission, no repeated unchanged re-admission. ArtilleryTargetIdu64MAX placeholder is unboundstate not realID/nativecodec; laterenum/aggreview required. StructuralIDbitpacking is actual identitycodec, sourceordinal/namespace retained until nativewordoperation. No sharedfunction sourcecoverage inferredoutside exactreceipts; native31 currentremainingwholegenerator supply separate.",
+          "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#wall_opening_complete_sources",
+          "source_or_other_lens_credit": "none"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/artillery_openings.rs",
+          "sha256": "cf9a03acb280fa5d4e7397456d4ace1bcba402e898af3539d8301c5661c6deaa",
+          "lens": "audit-existing-type-owners",
+          "discovery": "accounted_with_findings",
+          "owner_definition_use_refs": [
+            "ROOT-OWNER-RESOLVED-SHAPE-PORTS-075",
+            "ROOT-OWNER-SIGN-AND-TIMBER-078"
+          ],
+          "current_producer_role_refs": [
+            "ROOT-PPS-RESOLVED-GEOMETRY-036",
+            "ROOT-PPS-WALL-SOURCE-CLOSURE-039"
+          ],
+          "exact_current_source_proofs": [
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+              "row": 143,
+              "read_ranges": [
+                [
+                  75,
+                  165
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-RESOLVED-SHAPE-PORTS-075"
+              ],
+              "read_status": "affected_ranges",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/generator/artillery_openings.rs"
+            }
+          ],
+          "exact_current_role_observations": {
+            "producer_reached_contract_observations": [
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+                "receipt": "ROOT-PPS-RESOLVED-GEOMETRY-036",
+                "json_pointer": "/source_proofs/8",
+                "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/generator/artillery_openings.rs",
+                "read_ranges_as_recorded": [
+                  [
+                    1,
+                    552
+                  ]
+                ],
+                "source_context": {
+                  "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/artillery_openings.rs",
+                  "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/generator/artillery_openings.rs",
+                  "sha256": "cf9a03acb280fa5d4e7397456d4ace1bcba402e898af3539d8301c5661c6deaa",
+                  "read_ranges": [
+                    [
+                      1,
+                      552
+                    ]
+                  ]
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              }
+            ],
+            "expanded_producer_contract_observations": []
+          },
+          "semantic_disposition": "Canonical ArchitecturalPosition/Elevation/PlanDirection/SpatialBounds/lengths/angle exact existingnumeric leaves for declaredframe sourcewall/opening/shape; checked envelope alone doesnotadmit rawprofilepayload. Root complete churchdoor30\u2013388/artillerygun32\u2013EOF actualsourcefunctions old036 and Rig029 resttower389\u2013872 prove sourcespecific signed/zero/optional policies. ZeroOpenMilitaryclosure not LeafDimensionspositive; sillabsoluteelevation differs relativerise. Wall_solid performs actual cuboid/bounds/packedID operations but rawpoint/length arguments must not erase checkedsource across internalAPI; wall_void retains rawsectionalsizes/depthsign before meaningfulshapeconsumers. Typedshape fields/sourceframe must originateat owning literal/authoringadmission, no repeated unchanged re-admission. ArtilleryTargetIdu64MAX placeholder is unboundstate not realID/nativecodec; laterenum/aggreview required. StructuralIDbitpacking is actual identitycodec, sourceordinal/namespace retained until nativewordoperation. No sharedfunction sourcecoverage inferredoutside exactreceipts; native31 currentremainingwholegenerator supply separate.",
+          "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#wall_opening_complete_sources",
+          "source_or_other_lens_credit": "none"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/church_tower.rs",
+          "sha256": "df907859d166a03a1af47f3fc6eea6f877d6880366789f4633e2eef2f0215110",
+          "lens": "audit-existing-type-owners",
+          "discovery": "accounted_with_findings",
+          "owner_definition_use_refs": [
+            "ROOT-OWNER-RESOLVED-SHAPE-PORTS-075",
+            "ROOT-OWNER-SIGN-AND-TIMBER-078"
+          ],
+          "current_producer_role_refs": [
+            "ROOT-PPS-RESOLVED-GEOMETRY-036",
+            "ROOT-PPS-WALL-SOURCE-CLOSURE-039"
+          ],
+          "exact_current_source_proofs": [
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+              "row": 142,
+              "read_ranges": [
+                [
+                  30,
+                  195
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-RESOLVED-SHAPE-PORTS-075"
+              ],
+              "read_status": "affected_ranges",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/generator/church_tower.rs"
+            }
+          ],
+          "exact_current_role_observations": {
+            "producer_reached_contract_observations": [
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+                "receipt": "ROOT-PPS-RESOLVED-GEOMETRY-036",
+                "json_pointer": "/source_proofs/7",
+                "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/generator/church_tower.rs",
+                "read_ranges_as_recorded": [
+                  [
+                    1,
+                    430
+                  ]
+                ],
+                "source_context": {
+                  "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/church_tower.rs",
+                  "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/generator/church_tower.rs",
+                  "sha256": "df907859d166a03a1af47f3fc6eea6f877d6880366789f4633e2eef2f0215110",
+                  "read_ranges": [
+                    [
+                      1,
+                      430
+                    ]
+                  ]
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              },
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+                "receipt": "ROOT-PPS-WALL-SOURCE-CLOSURE-039",
+                "json_pointer": "/supplier_reconciliation/verified_exact_proofs/20",
+                "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/generator/church_tower.rs",
+                "read_ranges_as_recorded": [
+                  [
+                    389,
+                    872
+                  ]
+                ],
+                "source_context": {
+                  "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/church_tower.rs",
+                  "sha256": "df907859d166a03a1af47f3fc6eea6f877d6880366789f4633e2eef2f0215110",
+                  "read_ranges": [
+                    [
+                      389,
+                      872
+                    ]
+                  ]
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              },
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+                "receipt": "RIG-PPS-029",
+                "json_pointer": "/additional_fresh_sources/20",
+                "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/generator/church_tower.rs",
+                "read_ranges_as_recorded": [
+                  [
+                    389,
+                    872
+                  ]
+                ],
+                "source_context": {
+                  "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/church_tower.rs",
+                  "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/generator/church_tower.rs",
+                  "sha256": "df907859d166a03a1af47f3fc6eea6f877d6880366789f4633e2eef2f0215110",
+                  "read_ranges": [
+                    [
+                      389,
+                      872
+                    ]
+                  ],
+                  "scope": "Only actual material source/receiving functions in these ranges; no whole-file credit outside listed ranges"
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              }
+            ],
+            "expanded_producer_contract_observations": []
+          },
+          "semantic_disposition": "Canonical ArchitecturalPosition/Elevation/PlanDirection/SpatialBounds/lengths/angle exact existingnumeric leaves for declaredframe sourcewall/opening/shape; checked envelope alone doesnotadmit rawprofilepayload. Root complete churchdoor30\u2013388/artillerygun32\u2013EOF actualsourcefunctions old036 and Rig029 resttower389\u2013872 prove sourcespecific signed/zero/optional policies. ZeroOpenMilitaryclosure not LeafDimensionspositive; sillabsoluteelevation differs relativerise. Wall_solid performs actual cuboid/bounds/packedID operations but rawpoint/length arguments must not erase checkedsource across internalAPI; wall_void retains rawsectionalsizes/depthsign before meaningfulshapeconsumers. Typedshape fields/sourceframe must originateat owning literal/authoringadmission, no repeated unchanged re-admission. ArtilleryTargetIdu64MAX placeholder is unboundstate not realID/nativecodec; laterenum/aggreview required. StructuralIDbitpacking is actual identitycodec, sourceordinal/namespace retained until nativewordoperation. No sharedfunction sourcecoverage inferredoutside exactreceipts; native31 currentremainingwholegenerator supply separate.",
+          "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#wall_opening_complete_sources",
+          "source_or_other_lens_credit": "none"
+        }
+      ]
+    },
+    {
+      "role": "support_diagnostic_actual_ports",
+      "comparison": "Freshcontacts102/gardens142/composition105 and newvalidate37\u2013140 actualbodies compared to exactoriginalfull nineteen-source diagnosticowner matrix+native37 expandedtrace. Imported SourcePackageDigest exact, input_digest is distinctscenecontentauthority; CLI rawbuilding/propertyIDs should admit existing SceneBuildingId/CityPropertyId once before appfilters, not .0 comparisons. RadiusCLI negative/nonfinite acceptedpolicy mustnotblindPositiveLength. CornerSupportProbe peels checkedpositivecontacttolerance into retainedrawf32 before exact native ray/Parry/cylinderqueries; preserveexistingPositiveLength to actualnative operation. GardenRegionOutline rawVecpoints retained then sameScenePolygonre-admission, carryexactScenePlanPoint/rigidpolygonthrough producer/storage/helper. Actualproperty-relative contactpolygon can be empty/degenerate, strictpositiveScenePolygonnot universal. Full regionclipping/nearest distance kernel nativef64 precision/signedzero preserved, no f32narrowing. DiagnosticMetres/Area reuse at exactf64 reportrole; cubicvolume needs distinctunit, notArea/ClearanceVolume geometrybounds. Composition repeats samepointadmission before source/plan lookup, retainoneowner; typedfailure/report success shape remains lateraggregate. FinalJSONcapture/log/CLIerrors genuineoutput, internalsourcecauses and terracere-decoding Value not boundary. Newvalidate TerrainStages sourceIDtyped/inputdigestraw confirmssamegap, HostInstant seconds nativeelapsed notsimulationclock. Preserve support accept/reject, Optionmissingmeasurements, exactbinding sourceelevation/grid/holes, originaltiming/sourceorder and fulloriginalmalformedcases; calibrated/live-renderer claim notinferred from nativeplanningreport.",
+      "source_dispositions": [
+        {
+          "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare-city-terrain.rs",
+          "sha256": "7a0b3a8a4149fccbcca7de846096d3935ba19c76ec08656385cb421b19a70bf7",
+          "lens": "audit-existing-type-owners",
+          "discovery": "accounted_with_findings",
+          "owner_definition_use_refs": [
+            "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069",
+            "ROOT-OWNER-OUTPUT-AND-SOURCE-ENDPOINTS-073",
+            "ROOT-OWNER-DISPATCH-SOURCE-070",
+            "ROOT-OWNER-SUPPORT-RANGE-CLOSURE-086"
+          ],
+          "current_producer_role_refs": [
+            "ROOT-PPS-TERRAIN-DISPATCH-WEB-037",
+            "ROOT-PPS-SUPPORT-DIAGNOSTIC-020"
+          ],
+          "exact_current_source_proofs": [
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+              "row": 288,
+              "read_ranges": [
+                [
+                  1,
+                  349
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/compare-city-terrain.rs"
+            },
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+              "row": 375,
+              "read_ranges": [
+                [
+                  1,
+                  349
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069",
+                "ROOT-OWNER-CLOSURE-SUPPORT-HOME-080"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/compare-city-terrain.rs"
+            }
+          ],
+          "exact_current_role_observations": {
+            "producer_reached_contract_observations": [
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+                "receipt": "ROOT-PPS-TERRAIN-DISPATCH-WEB-037",
+                "json_pointer": "/source_proofs/14",
+                "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare-city-terrain.rs",
+                "read_ranges_as_recorded": [
+                  [
+                    45,
+                    98
+                  ],
+                  [
+                    117,
+                    145
+                  ]
+                ],
+                "source_context": {
+                  "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare-city-terrain.rs",
+                  "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/compare-city-terrain.rs",
+                  "sha256": "7a0b3a8a4149fccbcca7de846096d3935ba19c76ec08656385cb421b19a70bf7",
+                  "read_ranges": [
+                    [
+                      45,
+                      98
+                    ],
+                    [
+                      117,
+                      145
+                    ]
+                  ],
+                  "scope": "Actual complete-context captured purpose/digest/terrain constructor and final report write; other inspect/building bodies not claimed",
+                  "supplier_trace_ref": "../native/traces.jsonl#NATIVE-PS-ROOT-TERRAIN-SOURCE-PACKET-015"
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              },
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+                "receipt": "NATIVE-PS-ROOT-TERRAIN-SOURCE-PACKET-015",
+                "json_pointer": "/related_current_reads/14",
+                "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare-city-terrain.rs",
+                "read_ranges_as_recorded": [
+                  [
+                    45,
+                    98
+                  ],
+                  [
+                    117,
+                    145
+                  ]
+                ],
+                "source_context": {
+                  "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare-city-terrain.rs",
+                  "sha256": "7a0b3a8a4149fccbcca7de846096d3935ba19c76ec08656385cb421b19a70bf7",
+                  "read_ranges": [
+                    [
+                      45,
+                      98
+                    ],
+                    [
+                      117,
+                      145
+                    ]
+                  ],
+                  "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/compare-city-terrain.rs",
+                  "scope": "Actual complete-context captured purpose/digest/terrain constructor and final report write; other inspect/building bodies not claimed"
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              }
+            ],
+            "expanded_producer_contract_observations": []
+          },
+          "semantic_disposition": "Freshcontacts102/gardens142/composition105 and newvalidate37\u2013140 actualbodies compared to exactoriginalfull nineteen-source diagnosticowner matrix+native37 expandedtrace. Imported SourcePackageDigest exact, input_digest is distinctscenecontentauthority; CLI rawbuilding/propertyIDs should admit existing SceneBuildingId/CityPropertyId once before appfilters, not .0 comparisons. RadiusCLI negative/nonfinite acceptedpolicy mustnotblindPositiveLength. CornerSupportProbe peels checkedpositivecontacttolerance into retainedrawf32 before exact native ray/Parry/cylinderqueries; preserveexistingPositiveLength to actualnative operation. GardenRegionOutline rawVecpoints retained then sameScenePolygonre-admission, carryexactScenePlanPoint/rigidpolygonthrough producer/storage/helper. Actualproperty-relative contactpolygon can be empty/degenerate, strictpositiveScenePolygonnot universal. Full regionclipping/nearest distance kernel nativef64 precision/signedzero preserved, no f32narrowing. DiagnosticMetres/Area reuse at exactf64 reportrole; cubicvolume needs distinctunit, notArea/ClearanceVolume geometrybounds. Composition repeats samepointadmission before source/plan lookup, retainoneowner; typedfailure/report success shape remains lateraggregate. FinalJSONcapture/log/CLIerrors genuineoutput, internalsourcecauses and terracere-decoding Value not boundary. Newvalidate TerrainStages sourceIDtyped/inputdigestraw confirmssamegap, HostInstant seconds nativeelapsed notsimulationclock. Preserve support accept/reject, Optionmissingmeasurements, exactbinding sourceelevation/grid/holes, originaltiming/sourceorder and fulloriginalmalformedcases; calibrated/live-renderer claim notinferred from nativeplanningreport.",
+          "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#support_diagnostic_actual_ports",
+          "source_or_other_lens_credit": "none"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/capture.rs",
+          "sha256": "3f691c1bd9644eff005d95abba6f62c0c89a8b0ed2ad2f54112a4b19321140f3",
+          "lens": "audit-existing-type-owners",
+          "discovery": "accounted_with_findings",
+          "owner_definition_use_refs": [
+            "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069",
+            "ROOT-OWNER-OUTPUT-AND-SOURCE-ENDPOINTS-073",
+            "ROOT-OWNER-DISPATCH-SOURCE-070",
+            "ROOT-OWNER-SUPPORT-RANGE-CLOSURE-086"
+          ],
+          "current_producer_role_refs": [
+            "ROOT-PPS-TERRAIN-DISPATCH-WEB-037",
+            "ROOT-PPS-SUPPORT-DIAGNOSTIC-020"
+          ],
+          "exact_current_source_proofs": [
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+              "row": 289,
+              "read_ranges": [
+                [
+                  1,
+                  36
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/capture.rs"
+            },
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+              "row": 376,
+              "read_ranges": [
+                [
+                  1,
+                  36
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069",
+                "ROOT-OWNER-CLOSURE-SUPPORT-HOME-080"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/capture.rs"
+            }
+          ],
+          "exact_current_role_observations": {
+            "producer_reached_contract_observations": [
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+                "receipt": "ROOT-PPS-TERRAIN-DISPATCH-WEB-037",
+                "json_pointer": "/source_proofs/16",
+                "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/capture.rs",
+                "read_ranges_as_recorded": [
+                  [
+                    1,
+                    36
+                  ]
+                ],
+                "source_context": {
+                  "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/capture.rs",
+                  "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/capture.rs",
+                  "sha256": "3f691c1bd9644eff005d95abba6f62c0c89a8b0ed2ad2f54112a4b19321140f3",
+                  "read_ranges": [
+                    [
+                      1,
+                      36
+                    ]
+                  ]
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              },
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+                "receipt": "NATIVE-PS-ROOT-TERRAIN-SOURCE-PACKET-015",
+                "json_pointer": "/source_reads/0",
+                "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/capture.rs",
+                "read_ranges_as_recorded": [
+                  [
+                    1,
+                    36
+                  ]
+                ],
+                "source_context": {
+                  "packet_obligation": 1,
+                  "assigned_root_index": 115,
+                  "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/capture.rs",
+                  "sha256": "3f691c1bd9644eff005d95abba6f62c0c89a8b0ed2ad2f54112a4b19321140f3",
+                  "read_ranges": [
+                    [
+                      1,
+                      36
+                    ]
+                  ],
+                  "method": "Fresh exact frozen source bodies/ranges, including existing fixtures where in scope; PR/P16 source_package/digest byteidentity independently pinned. No source execution.",
+                  "disposition": "accounted with concrete retained source/coordinate/error/measurement roles and actual receivers; bounded scope retained for template/worldschema, no wholefile inference",
+                  "owner_proof_refs": [
+                    {
+                      "supplier": "root",
+                      "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+                      "row": 289,
+                      "read_ranges": [
+                        [
+                          1,
+                          36
+                        ]
+                      ],
+                      "contract_refs": [
+                        "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069"
+                      ],
+                      "read_status": "full",
+                      "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/capture.rs"
+                    },
+                    {
+                      "supplier": "root",
+                      "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+                      "row": 376,
+                      "read_ranges": [
+                        [
+                          1,
+                          36
+                        ]
+                      ],
+                      "contract_refs": [
+                        "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069",
+                        "ROOT-OWNER-CLOSURE-SUPPORT-HOME-080"
+                      ],
+                      "read_status": "full",
+                      "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/capture.rs"
+                    }
+                  ],
+                  "original_producer_refs": []
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              }
+            ],
+            "expanded_producer_contract_observations": []
+          },
+          "semantic_disposition": "Freshcontacts102/gardens142/composition105 and newvalidate37\u2013140 actualbodies compared to exactoriginalfull nineteen-source diagnosticowner matrix+native37 expandedtrace. Imported SourcePackageDigest exact, input_digest is distinctscenecontentauthority; CLI rawbuilding/propertyIDs should admit existing SceneBuildingId/CityPropertyId once before appfilters, not .0 comparisons. RadiusCLI negative/nonfinite acceptedpolicy mustnotblindPositiveLength. CornerSupportProbe peels checkedpositivecontacttolerance into retainedrawf32 before exact native ray/Parry/cylinderqueries; preserveexistingPositiveLength to actualnative operation. GardenRegionOutline rawVecpoints retained then sameScenePolygonre-admission, carryexactScenePlanPoint/rigidpolygonthrough producer/storage/helper. Actualproperty-relative contactpolygon can be empty/degenerate, strictpositiveScenePolygonnot universal. Full regionclipping/nearest distance kernel nativef64 precision/signedzero preserved, no f32narrowing. DiagnosticMetres/Area reuse at exactf64 reportrole; cubicvolume needs distinctunit, notArea/ClearanceVolume geometrybounds. Composition repeats samepointadmission before source/plan lookup, retainoneowner; typedfailure/report success shape remains lateraggregate. FinalJSONcapture/log/CLIerrors genuineoutput, internalsourcecauses and terracere-decoding Value not boundary. Newvalidate TerrainStages sourceIDtyped/inputdigestraw confirmssamegap, HostInstant seconds nativeelapsed notsimulationclock. Preserve support accept/reject, Optionmissingmeasurements, exactbinding sourceelevation/grid/holes, originaltiming/sourceorder and fulloriginalmalformedcases; calibrated/live-renderer claim notinferred from nativeplanningreport.",
+          "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#support_diagnostic_actual_ports",
+          "source_or_other_lens_credit": "none"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/capture_export.rs",
+          "sha256": "e65174baeec670a652bbab20759b78eee8e4298bb06332eaf027a7ef6f28c509",
+          "lens": "audit-existing-type-owners",
+          "discovery": "accounted_with_findings",
+          "owner_definition_use_refs": [
+            "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069",
+            "ROOT-OWNER-OUTPUT-AND-SOURCE-ENDPOINTS-073",
+            "ROOT-OWNER-DISPATCH-SOURCE-070",
+            "ROOT-OWNER-SUPPORT-RANGE-CLOSURE-086"
+          ],
+          "current_producer_role_refs": [
+            "ROOT-PPS-TERRAIN-DISPATCH-WEB-037",
+            "ROOT-PPS-SUPPORT-DIAGNOSTIC-020"
+          ],
+          "exact_current_source_proofs": [
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+              "row": 290,
+              "read_ranges": [
+                [
+                  1,
+                  21
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/capture_export.rs"
+            },
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+              "row": 377,
+              "read_ranges": [
+                [
+                  1,
+                  21
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069",
+                "ROOT-OWNER-CLOSURE-SUPPORT-HOME-080"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/capture_export.rs"
+            }
+          ],
+          "exact_current_role_observations": {
+            "producer_reached_contract_observations": [
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+                "receipt": "ROOT-PPS-TERRAIN-DISPATCH-WEB-037",
+                "json_pointer": "/source_proofs/17",
+                "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/capture_export.rs",
+                "read_ranges_as_recorded": [
+                  [
+                    1,
+                    21
+                  ]
+                ],
+                "source_context": {
+                  "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/capture_export.rs",
+                  "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/capture_export.rs",
+                  "sha256": "e65174baeec670a652bbab20759b78eee8e4298bb06332eaf027a7ef6f28c509",
+                  "read_ranges": [
+                    [
+                      1,
+                      21
+                    ]
+                  ]
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              },
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+                "receipt": "NATIVE-PS-ROOT-TERRAIN-SOURCE-PACKET-015",
+                "json_pointer": "/source_reads/1",
+                "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/capture_export.rs",
+                "read_ranges_as_recorded": [
+                  [
+                    1,
+                    21
+                  ]
+                ],
+                "source_context": {
+                  "packet_obligation": 2,
+                  "assigned_root_index": 116,
+                  "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/capture_export.rs",
+                  "sha256": "e65174baeec670a652bbab20759b78eee8e4298bb06332eaf027a7ef6f28c509",
+                  "read_ranges": [
+                    [
+                      1,
+                      21
+                    ]
+                  ],
+                  "method": "Fresh exact frozen source bodies/ranges, including existing fixtures where in scope; PR/P16 source_package/digest byteidentity independently pinned. No source execution.",
+                  "disposition": "accounted with concrete retained source/coordinate/error/measurement roles and actual receivers; bounded scope retained for template/worldschema, no wholefile inference",
+                  "owner_proof_refs": [
+                    {
+                      "supplier": "root",
+                      "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+                      "row": 290,
+                      "read_ranges": [
+                        [
+                          1,
+                          21
+                        ]
+                      ],
+                      "contract_refs": [
+                        "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069"
+                      ],
+                      "read_status": "full",
+                      "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/capture_export.rs"
+                    },
+                    {
+                      "supplier": "root",
+                      "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+                      "row": 377,
+                      "read_ranges": [
+                        [
+                          1,
+                          21
+                        ]
+                      ],
+                      "contract_refs": [
+                        "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069",
+                        "ROOT-OWNER-CLOSURE-SUPPORT-HOME-080"
+                      ],
+                      "read_status": "full",
+                      "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/capture_export.rs"
+                    }
+                  ],
+                  "original_producer_refs": []
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              }
+            ],
+            "expanded_producer_contract_observations": []
+          },
+          "semantic_disposition": "Freshcontacts102/gardens142/composition105 and newvalidate37\u2013140 actualbodies compared to exactoriginalfull nineteen-source diagnosticowner matrix+native37 expandedtrace. Imported SourcePackageDigest exact, input_digest is distinctscenecontentauthority; CLI rawbuilding/propertyIDs should admit existing SceneBuildingId/CityPropertyId once before appfilters, not .0 comparisons. RadiusCLI negative/nonfinite acceptedpolicy mustnotblindPositiveLength. CornerSupportProbe peels checkedpositivecontacttolerance into retainedrawf32 before exact native ray/Parry/cylinderqueries; preserveexistingPositiveLength to actualnative operation. GardenRegionOutline rawVecpoints retained then sameScenePolygonre-admission, carryexactScenePlanPoint/rigidpolygonthrough producer/storage/helper. Actualproperty-relative contactpolygon can be empty/degenerate, strictpositiveScenePolygonnot universal. Full regionclipping/nearest distance kernel nativef64 precision/signedzero preserved, no f32narrowing. DiagnosticMetres/Area reuse at exactf64 reportrole; cubicvolume needs distinctunit, notArea/ClearanceVolume geometrybounds. Composition repeats samepointadmission before source/plan lookup, retainoneowner; typedfailure/report success shape remains lateraggregate. FinalJSONcapture/log/CLIerrors genuineoutput, internalsourcecauses and terracere-decoding Value not boundary. Newvalidate TerrainStages sourceIDtyped/inputdigestraw confirmssamegap, HostInstant seconds nativeelapsed notsimulationclock. Preserve support accept/reject, Optionmissingmeasurements, exactbinding sourceelevation/grid/holes, originaltiming/sourceorder and fulloriginalmalformedcases; calibrated/live-renderer claim notinferred from nativeplanningreport.",
+          "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#support_diagnostic_actual_ports",
+          "source_or_other_lens_credit": "none"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/contacts.rs",
+          "sha256": "d1dc987945cf487f097125d544dd536513a1e62e2cec5c21e898698e8e1883f8",
+          "lens": "audit-existing-type-owners",
+          "discovery": "accounted_with_findings",
+          "owner_definition_use_refs": [
+            "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069",
+            "ROOT-OWNER-OUTPUT-AND-SOURCE-ENDPOINTS-073",
+            "ROOT-OWNER-DISPATCH-SOURCE-070",
+            "ROOT-OWNER-SUPPORT-RANGE-CLOSURE-086"
+          ],
+          "current_producer_role_refs": [
+            "ROOT-PPS-TERRAIN-DISPATCH-WEB-037",
+            "ROOT-PPS-SUPPORT-DIAGNOSTIC-020"
+          ],
+          "exact_current_source_proofs": [
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+              "row": 291,
+              "read_ranges": [
+                [
+                  1,
+                  102
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/contacts.rs"
+            },
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+              "row": 378,
+              "read_ranges": [
+                [
+                  1,
+                  102
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069",
+                "ROOT-OWNER-CLOSURE-SUPPORT-HOME-080"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/contacts.rs"
+            }
+          ],
+          "exact_current_role_observations": {
+            "producer_reached_contract_observations": [
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+                "receipt": "ROOT-PPS-TERRAIN-DISPATCH-WEB-037",
+                "json_pointer": "/source_proofs/18",
+                "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/contacts.rs",
+                "read_ranges_as_recorded": [
+                  [
+                    1,
+                    102
+                  ]
+                ],
+                "source_context": {
+                  "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/contacts.rs",
+                  "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/contacts.rs",
+                  "sha256": "d1dc987945cf487f097125d544dd536513a1e62e2cec5c21e898698e8e1883f8",
+                  "read_ranges": [
+                    [
+                      1,
+                      102
+                    ]
+                  ]
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              },
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+                "receipt": "NATIVE-PS-ROOT-TERRAIN-SOURCE-PACKET-015",
+                "json_pointer": "/source_reads/2",
+                "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/contacts.rs",
+                "read_ranges_as_recorded": [
+                  [
+                    1,
+                    102
+                  ]
+                ],
+                "source_context": {
+                  "packet_obligation": 3,
+                  "assigned_root_index": 117,
+                  "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/contacts.rs",
+                  "sha256": "d1dc987945cf487f097125d544dd536513a1e62e2cec5c21e898698e8e1883f8",
+                  "read_ranges": [
+                    [
+                      1,
+                      102
+                    ]
+                  ],
+                  "method": "Fresh exact frozen source bodies/ranges, including existing fixtures where in scope; PR/P16 source_package/digest byteidentity independently pinned. No source execution.",
+                  "disposition": "accounted with concrete retained source/coordinate/error/measurement roles and actual receivers; bounded scope retained for template/worldschema, no wholefile inference",
+                  "owner_proof_refs": [
+                    {
+                      "supplier": "root",
+                      "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+                      "row": 291,
+                      "read_ranges": [
+                        [
+                          1,
+                          102
+                        ]
+                      ],
+                      "contract_refs": [
+                        "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069"
+                      ],
+                      "read_status": "full",
+                      "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/contacts.rs"
+                    },
+                    {
+                      "supplier": "root",
+                      "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+                      "row": 378,
+                      "read_ranges": [
+                        [
+                          1,
+                          102
+                        ]
+                      ],
+                      "contract_refs": [
+                        "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069",
+                        "ROOT-OWNER-CLOSURE-SUPPORT-HOME-080"
+                      ],
+                      "read_status": "full",
+                      "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/contacts.rs"
+                    }
+                  ],
+                  "original_producer_refs": []
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              }
+            ],
+            "expanded_producer_contract_observations": []
+          },
+          "semantic_disposition": "Freshcontacts102/gardens142/composition105 and newvalidate37\u2013140 actualbodies compared to exactoriginalfull nineteen-source diagnosticowner matrix+native37 expandedtrace. Imported SourcePackageDigest exact, input_digest is distinctscenecontentauthority; CLI rawbuilding/propertyIDs should admit existing SceneBuildingId/CityPropertyId once before appfilters, not .0 comparisons. RadiusCLI negative/nonfinite acceptedpolicy mustnotblindPositiveLength. CornerSupportProbe peels checkedpositivecontacttolerance into retainedrawf32 before exact native ray/Parry/cylinderqueries; preserveexistingPositiveLength to actualnative operation. GardenRegionOutline rawVecpoints retained then sameScenePolygonre-admission, carryexactScenePlanPoint/rigidpolygonthrough producer/storage/helper. Actualproperty-relative contactpolygon can be empty/degenerate, strictpositiveScenePolygonnot universal. Full regionclipping/nearest distance kernel nativef64 precision/signedzero preserved, no f32narrowing. DiagnosticMetres/Area reuse at exactf64 reportrole; cubicvolume needs distinctunit, notArea/ClearanceVolume geometrybounds. Composition repeats samepointadmission before source/plan lookup, retainoneowner; typedfailure/report success shape remains lateraggregate. FinalJSONcapture/log/CLIerrors genuineoutput, internalsourcecauses and terracere-decoding Value not boundary. Newvalidate TerrainStages sourceIDtyped/inputdigestraw confirmssamegap, HostInstant seconds nativeelapsed notsimulationclock. Preserve support accept/reject, Optionmissingmeasurements, exactbinding sourceelevation/grid/holes, originaltiming/sourceorder and fulloriginalmalformedcases; calibrated/live-renderer claim notinferred from nativeplanningreport.",
+          "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#support_diagnostic_actual_ports",
+          "source_or_other_lens_credit": "none"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/gardens.rs",
+          "sha256": "a661575cb030eb98630e010d43a9abba58071c261328a6e344d886f323ae2d51",
+          "lens": "audit-existing-type-owners",
+          "discovery": "accounted_with_findings",
+          "owner_definition_use_refs": [
+            "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069",
+            "ROOT-OWNER-OUTPUT-AND-SOURCE-ENDPOINTS-073",
+            "ROOT-OWNER-DISPATCH-SOURCE-070",
+            "ROOT-OWNER-SUPPORT-RANGE-CLOSURE-086"
+          ],
+          "current_producer_role_refs": [
+            "ROOT-PPS-TERRAIN-DISPATCH-WEB-037",
+            "ROOT-PPS-SUPPORT-DIAGNOSTIC-020"
+          ],
+          "exact_current_source_proofs": [
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+              "row": 292,
+              "read_ranges": [
+                [
+                  1,
+                  142
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/gardens.rs"
+            },
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+              "row": 379,
+              "read_ranges": [
+                [
+                  1,
+                  142
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069",
+                "ROOT-OWNER-CLOSURE-SUPPORT-HOME-080"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/gardens.rs"
+            }
+          ],
+          "exact_current_role_observations": {
+            "producer_reached_contract_observations": [
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+                "receipt": "ROOT-PPS-TERRAIN-DISPATCH-WEB-037",
+                "json_pointer": "/source_proofs/19",
+                "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/gardens.rs",
+                "read_ranges_as_recorded": [
+                  [
+                    1,
+                    142
+                  ]
+                ],
+                "source_context": {
+                  "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/gardens.rs",
+                  "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/gardens.rs",
+                  "sha256": "a661575cb030eb98630e010d43a9abba58071c261328a6e344d886f323ae2d51",
+                  "read_ranges": [
+                    [
+                      1,
+                      142
+                    ]
+                  ]
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              },
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+                "receipt": "NATIVE-PS-ROOT-TERRAIN-SOURCE-PACKET-015",
+                "json_pointer": "/source_reads/3",
+                "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/gardens.rs",
+                "read_ranges_as_recorded": [
+                  [
+                    1,
+                    142
+                  ]
+                ],
+                "source_context": {
+                  "packet_obligation": 4,
+                  "assigned_root_index": 118,
+                  "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/gardens.rs",
+                  "sha256": "a661575cb030eb98630e010d43a9abba58071c261328a6e344d886f323ae2d51",
+                  "read_ranges": [
+                    [
+                      1,
+                      142
+                    ]
+                  ],
+                  "method": "Fresh exact frozen source bodies/ranges, including existing fixtures where in scope; PR/P16 source_package/digest byteidentity independently pinned. No source execution.",
+                  "disposition": "accounted with concrete retained source/coordinate/error/measurement roles and actual receivers; bounded scope retained for template/worldschema, no wholefile inference",
+                  "owner_proof_refs": [
+                    {
+                      "supplier": "root",
+                      "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+                      "row": 292,
+                      "read_ranges": [
+                        [
+                          1,
+                          142
+                        ]
+                      ],
+                      "contract_refs": [
+                        "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069"
+                      ],
+                      "read_status": "full",
+                      "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/gardens.rs"
+                    },
+                    {
+                      "supplier": "root",
+                      "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+                      "row": 379,
+                      "read_ranges": [
+                        [
+                          1,
+                          142
+                        ]
+                      ],
+                      "contract_refs": [
+                        "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069",
+                        "ROOT-OWNER-CLOSURE-SUPPORT-HOME-080"
+                      ],
+                      "read_status": "full",
+                      "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/gardens.rs"
+                    }
+                  ],
+                  "original_producer_refs": []
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              }
+            ],
+            "expanded_producer_contract_observations": []
+          },
+          "semantic_disposition": "Freshcontacts102/gardens142/composition105 and newvalidate37\u2013140 actualbodies compared to exactoriginalfull nineteen-source diagnosticowner matrix+native37 expandedtrace. Imported SourcePackageDigest exact, input_digest is distinctscenecontentauthority; CLI rawbuilding/propertyIDs should admit existing SceneBuildingId/CityPropertyId once before appfilters, not .0 comparisons. RadiusCLI negative/nonfinite acceptedpolicy mustnotblindPositiveLength. CornerSupportProbe peels checkedpositivecontacttolerance into retainedrawf32 before exact native ray/Parry/cylinderqueries; preserveexistingPositiveLength to actualnative operation. GardenRegionOutline rawVecpoints retained then sameScenePolygonre-admission, carryexactScenePlanPoint/rigidpolygonthrough producer/storage/helper. Actualproperty-relative contactpolygon can be empty/degenerate, strictpositiveScenePolygonnot universal. Full regionclipping/nearest distance kernel nativef64 precision/signedzero preserved, no f32narrowing. DiagnosticMetres/Area reuse at exactf64 reportrole; cubicvolume needs distinctunit, notArea/ClearanceVolume geometrybounds. Composition repeats samepointadmission before source/plan lookup, retainoneowner; typedfailure/report success shape remains lateraggregate. FinalJSONcapture/log/CLIerrors genuineoutput, internalsourcecauses and terracere-decoding Value not boundary. Newvalidate TerrainStages sourceIDtyped/inputdigestraw confirmssamegap, HostInstant seconds nativeelapsed notsimulationclock. Preserve support accept/reject, Optionmissingmeasurements, exactbinding sourceelevation/grid/holes, originaltiming/sourceorder and fulloriginalmalformedcases; calibrated/live-renderer claim notinferred from nativeplanningreport.",
+          "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#support_diagnostic_actual_ports",
+          "source_or_other_lens_credit": "none"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/export-city-scene.rs",
+          "sha256": "2b6ea6abaeb692db9921b48233e4e180f82d6db8b98c0b1d291d7d17e09ea770",
+          "lens": "audit-existing-type-owners",
+          "discovery": "accounted_with_findings",
+          "owner_definition_use_refs": [
+            "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069",
+            "ROOT-OWNER-OUTPUT-AND-SOURCE-ENDPOINTS-073",
+            "ROOT-OWNER-DISPATCH-SOURCE-070",
+            "ROOT-OWNER-SUPPORT-RANGE-CLOSURE-086"
+          ],
+          "current_producer_role_refs": [
+            "ROOT-PPS-TERRAIN-DISPATCH-WEB-037",
+            "ROOT-PPS-SUPPORT-DIAGNOSTIC-020"
+          ],
+          "exact_current_source_proofs": [
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+              "row": 293,
+              "read_ranges": [
+                [
+                  1,
+                  176
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/export-city-scene.rs"
+            },
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+              "row": 380,
+              "read_ranges": [
+                [
+                  1,
+                  176
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069",
+                "ROOT-OWNER-CLOSURE-SUPPORT-HOME-080"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/export-city-scene.rs"
+            }
+          ],
+          "exact_current_role_observations": {
+            "producer_reached_contract_observations": [
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+                "receipt": "ROOT-PPS-TERRAIN-DISPATCH-WEB-037",
+                "json_pointer": "/source_proofs/20",
+                "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/export-city-scene.rs",
+                "read_ranges_as_recorded": [
+                  [
+                    1,
+                    176
+                  ]
+                ],
+                "source_context": {
+                  "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/export-city-scene.rs",
+                  "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/export-city-scene.rs",
+                  "sha256": "2b6ea6abaeb692db9921b48233e4e180f82d6db8b98c0b1d291d7d17e09ea770",
+                  "read_ranges": [
+                    [
+                      1,
+                      176
+                    ]
+                  ]
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              },
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+                "receipt": "NATIVE-PS-ROOT-TERRAIN-SOURCE-PACKET-015",
+                "json_pointer": "/source_reads/4",
+                "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/export-city-scene.rs",
+                "read_ranges_as_recorded": [
+                  [
+                    1,
+                    176
+                  ]
+                ],
+                "source_context": {
+                  "packet_obligation": 5,
+                  "assigned_root_index": 119,
+                  "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/export-city-scene.rs",
+                  "sha256": "2b6ea6abaeb692db9921b48233e4e180f82d6db8b98c0b1d291d7d17e09ea770",
+                  "read_ranges": [
+                    [
+                      1,
+                      176
+                    ]
+                  ],
+                  "method": "Fresh exact frozen source bodies/ranges, including existing fixtures where in scope; PR/P16 source_package/digest byteidentity independently pinned. No source execution.",
+                  "disposition": "accounted with concrete retained source/coordinate/error/measurement roles and actual receivers; bounded scope retained for template/worldschema, no wholefile inference",
+                  "owner_proof_refs": [
+                    {
+                      "supplier": "root",
+                      "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+                      "row": 293,
+                      "read_ranges": [
+                        [
+                          1,
+                          176
+                        ]
+                      ],
+                      "contract_refs": [
+                        "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069"
+                      ],
+                      "read_status": "full",
+                      "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/export-city-scene.rs"
+                    },
+                    {
+                      "supplier": "root",
+                      "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+                      "row": 380,
+                      "read_ranges": [
+                        [
+                          1,
+                          176
+                        ]
+                      ],
+                      "contract_refs": [
+                        "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069",
+                        "ROOT-OWNER-CLOSURE-SUPPORT-HOME-080"
+                      ],
+                      "read_status": "full",
+                      "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/export-city-scene.rs"
+                    }
+                  ],
+                  "original_producer_refs": []
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              }
+            ],
+            "expanded_producer_contract_observations": []
+          },
+          "semantic_disposition": "Freshcontacts102/gardens142/composition105 and newvalidate37\u2013140 actualbodies compared to exactoriginalfull nineteen-source diagnosticowner matrix+native37 expandedtrace. Imported SourcePackageDigest exact, input_digest is distinctscenecontentauthority; CLI rawbuilding/propertyIDs should admit existing SceneBuildingId/CityPropertyId once before appfilters, not .0 comparisons. RadiusCLI negative/nonfinite acceptedpolicy mustnotblindPositiveLength. CornerSupportProbe peels checkedpositivecontacttolerance into retainedrawf32 before exact native ray/Parry/cylinderqueries; preserveexistingPositiveLength to actualnative operation. GardenRegionOutline rawVecpoints retained then sameScenePolygonre-admission, carryexactScenePlanPoint/rigidpolygonthrough producer/storage/helper. Actualproperty-relative contactpolygon can be empty/degenerate, strictpositiveScenePolygonnot universal. Full regionclipping/nearest distance kernel nativef64 precision/signedzero preserved, no f32narrowing. DiagnosticMetres/Area reuse at exactf64 reportrole; cubicvolume needs distinctunit, notArea/ClearanceVolume geometrybounds. Composition repeats samepointadmission before source/plan lookup, retainoneowner; typedfailure/report success shape remains lateraggregate. FinalJSONcapture/log/CLIerrors genuineoutput, internalsourcecauses and terracere-decoding Value not boundary. Newvalidate TerrainStages sourceIDtyped/inputdigestraw confirmssamegap, HostInstant seconds nativeelapsed notsimulationclock. Preserve support accept/reject, Optionmissingmeasurements, exactbinding sourceelevation/grid/holes, originaltiming/sourceorder and fulloriginalmalformedcases; calibrated/live-renderer claim notinferred from nativeplanningreport.",
+          "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#support_diagnostic_actual_ports",
+          "source_or_other_lens_credit": "none"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/gate_approach/profile.rs",
+          "sha256": "295b5ee27be5fa2ea6691f4a7480b8859677db039c092a44be4524b8fcfc9ff5",
+          "lens": "audit-existing-type-owners",
+          "discovery": "accounted_with_findings",
+          "owner_definition_use_refs": [
+            "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069",
+            "ROOT-OWNER-OUTPUT-AND-SOURCE-ENDPOINTS-073",
+            "ROOT-OWNER-DISPATCH-SOURCE-070",
+            "ROOT-OWNER-SUPPORT-RANGE-CLOSURE-086"
+          ],
+          "current_producer_role_refs": [
+            "ROOT-PPS-TERRAIN-DISPATCH-WEB-037",
+            "ROOT-PPS-SUPPORT-DIAGNOSTIC-020"
+          ],
+          "exact_current_source_proofs": [
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+              "row": 298,
+              "read_ranges": [
+                [
+                  1,
+                  48
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/gate_approach/profile.rs"
+            },
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+              "row": 385,
+              "read_ranges": [
+                [
+                  1,
+                  48
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069",
+                "ROOT-OWNER-CLOSURE-SUPPORT-HOME-080"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/gate_approach/profile.rs"
+            }
+          ],
+          "exact_current_role_observations": {
+            "producer_reached_contract_observations": [
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+                "receipt": "NATIVE-PS-DOORS-002",
+                "json_pointer": "/extra_receivers/2",
+                "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/gate_approach/profile.rs",
+                "read_ranges_as_recorded": [
+                  [
+                    1,
+                    48
+                  ]
+                ],
+                "source_context": {
+                  "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/gate_approach/profile.rs",
+                  "sha256": "295b5ee27be5fa2ea6691f4a7480b8859677db039c092a44be4524b8fcfc9ff5",
+                  "ranges": [
+                    [
+                      1,
+                      48
+                    ]
+                  ],
+                  "scope": "wholeactual JSON/numerical inspection receiver"
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              }
+            ],
+            "expanded_producer_contract_observations": []
+          },
+          "semantic_disposition": "Freshcontacts102/gardens142/composition105 and newvalidate37\u2013140 actualbodies compared to exactoriginalfull nineteen-source diagnosticowner matrix+native37 expandedtrace. Imported SourcePackageDigest exact, input_digest is distinctscenecontentauthority; CLI rawbuilding/propertyIDs should admit existing SceneBuildingId/CityPropertyId once before appfilters, not .0 comparisons. RadiusCLI negative/nonfinite acceptedpolicy mustnotblindPositiveLength. CornerSupportProbe peels checkedpositivecontacttolerance into retainedrawf32 before exact native ray/Parry/cylinderqueries; preserveexistingPositiveLength to actualnative operation. GardenRegionOutline rawVecpoints retained then sameScenePolygonre-admission, carryexactScenePlanPoint/rigidpolygonthrough producer/storage/helper. Actualproperty-relative contactpolygon can be empty/degenerate, strictpositiveScenePolygonnot universal. Full regionclipping/nearest distance kernel nativef64 precision/signedzero preserved, no f32narrowing. DiagnosticMetres/Area reuse at exactf64 reportrole; cubicvolume needs distinctunit, notArea/ClearanceVolume geometrybounds. Composition repeats samepointadmission before source/plan lookup, retainoneowner; typedfailure/report success shape remains lateraggregate. FinalJSONcapture/log/CLIerrors genuineoutput, internalsourcecauses and terracere-decoding Value not boundary. Newvalidate TerrainStages sourceIDtyped/inputdigestraw confirmssamegap, HostInstant seconds nativeelapsed notsimulationclock. Preserve support accept/reject, Optionmissingmeasurements, exactbinding sourceelevation/grid/holes, originaltiming/sourceorder and fulloriginalmalformedcases; calibrated/live-renderer claim notinferred from nativeplanningreport.",
+          "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#support_diagnostic_actual_ports",
+          "source_or_other_lens_credit": "none"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/support_regions.rs",
+          "sha256": "89663c0241fc8675658795b9b0c80bf2361fbde5982a3c363b64c297a322aacc",
+          "lens": "audit-existing-type-owners",
+          "discovery": "accounted_with_findings",
+          "owner_definition_use_refs": [
+            "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069",
+            "ROOT-OWNER-OUTPUT-AND-SOURCE-ENDPOINTS-073",
+            "ROOT-OWNER-DISPATCH-SOURCE-070",
+            "ROOT-OWNER-SUPPORT-RANGE-CLOSURE-086"
+          ],
+          "current_producer_role_refs": [
+            "ROOT-PPS-TERRAIN-DISPATCH-WEB-037",
+            "ROOT-PPS-SUPPORT-DIAGNOSTIC-020"
+          ],
+          "exact_current_source_proofs": [
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+              "row": 303,
+              "read_ranges": [
+                [
+                  1,
+                  168
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/support_regions.rs"
+            },
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+              "row": 390,
+              "read_ranges": [
+                [
+                  1,
+                  168
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069",
+                "ROOT-OWNER-CLOSURE-SUPPORT-HOME-080"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/support_regions.rs"
+            }
+          ],
+          "exact_current_role_observations": {
+            "producer_reached_contract_observations": [
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+                "receipt": "ROOT-PPS-TERRAIN-DISPATCH-WEB-037",
+                "json_pointer": "/source_proofs/21",
+                "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/support_regions.rs",
+                "read_ranges_as_recorded": [
+                  [
+                    1,
+                    168
+                  ]
+                ],
+                "source_context": {
+                  "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/support_regions.rs",
+                  "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/support_regions.rs",
+                  "sha256": "89663c0241fc8675658795b9b0c80bf2361fbde5982a3c363b64c297a322aacc",
+                  "read_ranges": [
+                    [
+                      1,
+                      168
+                    ]
+                  ]
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              },
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+                "receipt": "NATIVE-PS-ROOT-TERRAIN-SOURCE-PACKET-015",
+                "json_pointer": "/source_reads/5",
+                "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/support_regions.rs",
+                "read_ranges_as_recorded": [
+                  [
+                    1,
+                    168
+                  ]
+                ],
+                "source_context": {
+                  "packet_obligation": 6,
+                  "assigned_root_index": 120,
+                  "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/support_regions.rs",
+                  "sha256": "89663c0241fc8675658795b9b0c80bf2361fbde5982a3c363b64c297a322aacc",
+                  "read_ranges": [
+                    [
+                      1,
+                      168
+                    ]
+                  ],
+                  "method": "Fresh exact frozen source bodies/ranges, including existing fixtures where in scope; PR/P16 source_package/digest byteidentity independently pinned. No source execution.",
+                  "disposition": "accounted with concrete retained source/coordinate/error/measurement roles and actual receivers; bounded scope retained for template/worldschema, no wholefile inference",
+                  "owner_proof_refs": [
+                    {
+                      "supplier": "root",
+                      "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+                      "row": 303,
+                      "read_ranges": [
+                        [
+                          1,
+                          168
+                        ]
+                      ],
+                      "contract_refs": [
+                        "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069"
+                      ],
+                      "read_status": "full",
+                      "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/support_regions.rs"
+                    },
+                    {
+                      "supplier": "root",
+                      "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+                      "row": 390,
+                      "read_ranges": [
+                        [
+                          1,
+                          168
+                        ]
+                      ],
+                      "contract_refs": [
+                        "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069",
+                        "ROOT-OWNER-CLOSURE-SUPPORT-HOME-080"
+                      ],
+                      "read_status": "full",
+                      "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/support_regions.rs"
+                    }
+                  ],
+                  "original_producer_refs": []
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              }
+            ],
+            "expanded_producer_contract_observations": []
+          },
+          "semantic_disposition": "Freshcontacts102/gardens142/composition105 and newvalidate37\u2013140 actualbodies compared to exactoriginalfull nineteen-source diagnosticowner matrix+native37 expandedtrace. Imported SourcePackageDigest exact, input_digest is distinctscenecontentauthority; CLI rawbuilding/propertyIDs should admit existing SceneBuildingId/CityPropertyId once before appfilters, not .0 comparisons. RadiusCLI negative/nonfinite acceptedpolicy mustnotblindPositiveLength. CornerSupportProbe peels checkedpositivecontacttolerance into retainedrawf32 before exact native ray/Parry/cylinderqueries; preserveexistingPositiveLength to actualnative operation. GardenRegionOutline rawVecpoints retained then sameScenePolygonre-admission, carryexactScenePlanPoint/rigidpolygonthrough producer/storage/helper. Actualproperty-relative contactpolygon can be empty/degenerate, strictpositiveScenePolygonnot universal. Full regionclipping/nearest distance kernel nativef64 precision/signedzero preserved, no f32narrowing. DiagnosticMetres/Area reuse at exactf64 reportrole; cubicvolume needs distinctunit, notArea/ClearanceVolume geometrybounds. Composition repeats samepointadmission before source/plan lookup, retainoneowner; typedfailure/report success shape remains lateraggregate. FinalJSONcapture/log/CLIerrors genuineoutput, internalsourcecauses and terracere-decoding Value not boundary. Newvalidate TerrainStages sourceIDtyped/inputdigestraw confirmssamegap, HostInstant seconds nativeelapsed notsimulationclock. Preserve support accept/reject, Optionmissingmeasurements, exactbinding sourceelevation/grid/holes, originaltiming/sourceorder and fulloriginalmalformedcases; calibrated/live-renderer claim notinferred from nativeplanningreport.",
+          "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#support_diagnostic_actual_ports",
+          "source_or_other_lens_credit": "none"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/support_regions/distance.rs",
+          "sha256": "ad44e57b22e6d7a14addd6a5cc842d77eb50c41fa224bd3ff8ae272390959d73",
+          "lens": "audit-existing-type-owners",
+          "discovery": "accounted_with_findings",
+          "owner_definition_use_refs": [
+            "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069",
+            "ROOT-OWNER-OUTPUT-AND-SOURCE-ENDPOINTS-073",
+            "ROOT-OWNER-DISPATCH-SOURCE-070",
+            "ROOT-OWNER-SUPPORT-RANGE-CLOSURE-086"
+          ],
+          "current_producer_role_refs": [
+            "ROOT-PPS-TERRAIN-DISPATCH-WEB-037",
+            "ROOT-PPS-SUPPORT-DIAGNOSTIC-020"
+          ],
+          "exact_current_source_proofs": [
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+              "row": 304,
+              "read_ranges": [
+                [
+                  1,
+                  89
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/support_regions/distance.rs"
+            },
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+              "row": 391,
+              "read_ranges": [
+                [
+                  1,
+                  89
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069",
+                "ROOT-OWNER-CLOSURE-SUPPORT-HOME-080"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/support_regions/distance.rs"
+            }
+          ],
+          "exact_current_role_observations": {
+            "producer_reached_contract_observations": [
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+                "receipt": "ROOT-PPS-TERRAIN-DISPATCH-WEB-037",
+                "json_pointer": "/source_proofs/22",
+                "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/support_regions/distance.rs",
+                "read_ranges_as_recorded": [
+                  [
+                    1,
+                    89
+                  ]
+                ],
+                "source_context": {
+                  "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/support_regions/distance.rs",
+                  "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/support_regions/distance.rs",
+                  "sha256": "ad44e57b22e6d7a14addd6a5cc842d77eb50c41fa224bd3ff8ae272390959d73",
+                  "read_ranges": [
+                    [
+                      1,
+                      89
+                    ]
+                  ]
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              },
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+                "receipt": "NATIVE-PS-ROOT-TERRAIN-SOURCE-PACKET-015",
+                "json_pointer": "/source_reads/6",
+                "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/support_regions/distance.rs",
+                "read_ranges_as_recorded": [
+                  [
+                    1,
+                    89
+                  ]
+                ],
+                "source_context": {
+                  "packet_obligation": 7,
+                  "assigned_root_index": 121,
+                  "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/support_regions/distance.rs",
+                  "sha256": "ad44e57b22e6d7a14addd6a5cc842d77eb50c41fa224bd3ff8ae272390959d73",
+                  "read_ranges": [
+                    [
+                      1,
+                      89
+                    ]
+                  ],
+                  "method": "Fresh exact frozen source bodies/ranges, including existing fixtures where in scope; PR/P16 source_package/digest byteidentity independently pinned. No source execution.",
+                  "disposition": "accounted with concrete retained source/coordinate/error/measurement roles and actual receivers; bounded scope retained for template/worldschema, no wholefile inference",
+                  "owner_proof_refs": [
+                    {
+                      "supplier": "root",
+                      "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+                      "row": 304,
+                      "read_ranges": [
+                        [
+                          1,
+                          89
+                        ]
+                      ],
+                      "contract_refs": [
+                        "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069"
+                      ],
+                      "read_status": "full",
+                      "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/support_regions/distance.rs"
+                    },
+                    {
+                      "supplier": "root",
+                      "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+                      "row": 391,
+                      "read_ranges": [
+                        [
+                          1,
+                          89
+                        ]
+                      ],
+                      "contract_refs": [
+                        "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069",
+                        "ROOT-OWNER-CLOSURE-SUPPORT-HOME-080"
+                      ],
+                      "read_status": "full",
+                      "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/support_regions/distance.rs"
+                    }
+                  ],
+                  "original_producer_refs": []
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              }
+            ],
+            "expanded_producer_contract_observations": []
+          },
+          "semantic_disposition": "Freshcontacts102/gardens142/composition105 and newvalidate37\u2013140 actualbodies compared to exactoriginalfull nineteen-source diagnosticowner matrix+native37 expandedtrace. Imported SourcePackageDigest exact, input_digest is distinctscenecontentauthority; CLI rawbuilding/propertyIDs should admit existing SceneBuildingId/CityPropertyId once before appfilters, not .0 comparisons. RadiusCLI negative/nonfinite acceptedpolicy mustnotblindPositiveLength. CornerSupportProbe peels checkedpositivecontacttolerance into retainedrawf32 before exact native ray/Parry/cylinderqueries; preserveexistingPositiveLength to actualnative operation. GardenRegionOutline rawVecpoints retained then sameScenePolygonre-admission, carryexactScenePlanPoint/rigidpolygonthrough producer/storage/helper. Actualproperty-relative contactpolygon can be empty/degenerate, strictpositiveScenePolygonnot universal. Full regionclipping/nearest distance kernel nativef64 precision/signedzero preserved, no f32narrowing. DiagnosticMetres/Area reuse at exactf64 reportrole; cubicvolume needs distinctunit, notArea/ClearanceVolume geometrybounds. Composition repeats samepointadmission before source/plan lookup, retainoneowner; typedfailure/report success shape remains lateraggregate. FinalJSONcapture/log/CLIerrors genuineoutput, internalsourcecauses and terracere-decoding Value not boundary. Newvalidate TerrainStages sourceIDtyped/inputdigestraw confirmssamegap, HostInstant seconds nativeelapsed notsimulationclock. Preserve support accept/reject, Optionmissingmeasurements, exactbinding sourceelevation/grid/holes, originaltiming/sourceorder and fulloriginalmalformedcases; calibrated/live-renderer claim notinferred from nativeplanningreport.",
+          "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#support_diagnostic_actual_ports",
+          "source_or_other_lens_credit": "none"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/validate-city-support.rs",
+          "sha256": "92a90abaa4886c7e192fa799d406c9261c1879de3c97af39490d53c1dca4b707",
+          "lens": "audit-existing-type-owners",
+          "discovery": "accounted_with_findings",
+          "owner_definition_use_refs": [
+            "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069",
+            "ROOT-OWNER-OUTPUT-AND-SOURCE-ENDPOINTS-073",
+            "ROOT-OWNER-DISPATCH-SOURCE-070",
+            "ROOT-OWNER-SUPPORT-RANGE-CLOSURE-086"
+          ],
+          "current_producer_role_refs": [
+            "ROOT-PPS-TERRAIN-DISPATCH-WEB-037",
+            "ROOT-PPS-SUPPORT-DIAGNOSTIC-020"
+          ],
+          "exact_current_source_proofs": [],
+          "exact_current_role_observations": {
+            "producer_reached_contract_observations": [
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+                "receipt": "ROOT-PPS-TERRAIN-DISPATCH-WEB-037",
+                "json_pointer": "/source_proofs/15",
+                "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/validate-city-support.rs",
+                "read_ranges_as_recorded": [
+                  [
+                    37,
+                    140
+                  ]
+                ],
+                "source_context": {
+                  "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/validate-city-support.rs",
+                  "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/validate-city-support.rs",
+                  "sha256": "92a90abaa4886c7e192fa799d406c9261c1879de3c97af39490d53c1dca4b707",
+                  "read_ranges": [
+                    [
+                      37,
+                      140
+                    ]
+                  ],
+                  "scope": "Actual prepared capture reader/source matching\u2192Composition.accepted\u2192report/stdFS and required false returnsErr; closed main59\u2013140, preceding CLI fields partial",
+                  "supplier_trace_ref": "../native/traces.jsonl#NATIVE-PS-ROOT-TERRAIN-SOURCE-PACKET-015"
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              },
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+                "receipt": "NATIVE-PS-ROOT-TERRAIN-SOURCE-PACKET-015",
+                "json_pointer": "/related_current_reads/15",
+                "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/validate-city-support.rs",
+                "read_ranges_as_recorded": [
+                  [
+                    37,
+                    140
+                  ]
+                ],
+                "source_context": {
+                  "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/validate-city-support.rs",
+                  "sha256": "92a90abaa4886c7e192fa799d406c9261c1879de3c97af39490d53c1dca4b707",
+                  "read_ranges": [
+                    [
+                      37,
+                      140
+                    ]
+                  ],
+                  "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/validate-city-support.rs",
+                  "scope": "Actual prepared capture reader/source matching\u2192Composition.accepted\u2192report/stdFS and required false returnsErr; closed main59\u2013140, preceding CLI fields partial"
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              }
+            ],
+            "expanded_producer_contract_observations": []
+          },
+          "semantic_disposition": "Freshcontacts102/gardens142/composition105 and newvalidate37\u2013140 actualbodies compared to exactoriginalfull nineteen-source diagnosticowner matrix+native37 expandedtrace. Imported SourcePackageDigest exact, input_digest is distinctscenecontentauthority; CLI rawbuilding/propertyIDs should admit existing SceneBuildingId/CityPropertyId once before appfilters, not .0 comparisons. RadiusCLI negative/nonfinite acceptedpolicy mustnotblindPositiveLength. CornerSupportProbe peels checkedpositivecontacttolerance into retainedrawf32 before exact native ray/Parry/cylinderqueries; preserveexistingPositiveLength to actualnative operation. GardenRegionOutline rawVecpoints retained then sameScenePolygonre-admission, carryexactScenePlanPoint/rigidpolygonthrough producer/storage/helper. Actualproperty-relative contactpolygon can be empty/degenerate, strictpositiveScenePolygonnot universal. Full regionclipping/nearest distance kernel nativef64 precision/signedzero preserved, no f32narrowing. DiagnosticMetres/Area reuse at exactf64 reportrole; cubicvolume needs distinctunit, notArea/ClearanceVolume geometrybounds. Composition repeats samepointadmission before source/plan lookup, retainoneowner; typedfailure/report success shape remains lateraggregate. FinalJSONcapture/log/CLIerrors genuineoutput, internalsourcecauses and terracere-decoding Value not boundary. Newvalidate TerrainStages sourceIDtyped/inputdigestraw confirmssamegap, HostInstant seconds nativeelapsed notsimulationclock. Preserve support accept/reject, Optionmissingmeasurements, exactbinding sourceelevation/grid/holes, originaltiming/sourceorder and fulloriginalmalformedcases; calibrated/live-renderer claim notinferred from nativeplanningreport.",
+          "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#support_diagnostic_actual_ports",
+          "source_or_other_lens_credit": "none"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/validate_city_support/composition.rs",
+          "sha256": "b74d49e84b2fe053e0b981b3ab55a309e07d56e7de1b2beb4f816ff563932620",
+          "lens": "audit-existing-type-owners",
+          "discovery": "accounted_with_findings",
+          "owner_definition_use_refs": [
+            "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069",
+            "ROOT-OWNER-OUTPUT-AND-SOURCE-ENDPOINTS-073",
+            "ROOT-OWNER-DISPATCH-SOURCE-070",
+            "ROOT-OWNER-SUPPORT-RANGE-CLOSURE-086"
+          ],
+          "current_producer_role_refs": [
+            "ROOT-PPS-TERRAIN-DISPATCH-WEB-037",
+            "ROOT-PPS-SUPPORT-DIAGNOSTIC-020"
+          ],
+          "exact_current_source_proofs": [
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+              "row": 306,
+              "read_ranges": [
+                [
+                  1,
+                  105
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/validate_city_support/composition.rs"
+            },
+            {
+              "supplier": "root",
+              "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+              "row": 393,
+              "read_ranges": [
+                [
+                  1,
+                  105
+                ]
+              ],
+              "contract_refs": [
+                "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069",
+                "ROOT-OWNER-CLOSURE-SUPPORT-HOME-080"
+              ],
+              "read_status": "full",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/validate_city_support/composition.rs"
+            }
+          ],
+          "exact_current_role_observations": {
+            "producer_reached_contract_observations": [
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+                "receipt": "ROOT-PPS-TERRAIN-DISPATCH-WEB-037",
+                "json_pointer": "/source_proofs/23",
+                "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/validate_city_support/composition.rs",
+                "read_ranges_as_recorded": [
+                  [
+                    1,
+                    105
+                  ]
+                ],
+                "source_context": {
+                  "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/validate_city_support/composition.rs",
+                  "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/validate_city_support/composition.rs",
+                  "sha256": "b74d49e84b2fe053e0b981b3ab55a309e07d56e7de1b2beb4f816ff563932620",
+                  "read_ranges": [
+                    [
+                      1,
+                      105
+                    ]
+                  ]
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              },
+              {
+                "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+                "receipt": "NATIVE-PS-ROOT-TERRAIN-SOURCE-PACKET-015",
+                "json_pointer": "/source_reads/7",
+                "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/validate_city_support/composition.rs",
+                "read_ranges_as_recorded": [
+                  [
+                    1,
+                    105
+                  ]
+                ],
+                "source_context": {
+                  "packet_obligation": 8,
+                  "assigned_root_index": 122,
+                  "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/validate_city_support/composition.rs",
+                  "sha256": "b74d49e84b2fe053e0b981b3ab55a309e07d56e7de1b2beb4f816ff563932620",
+                  "read_ranges": [
+                    [
+                      1,
+                      105
+                    ]
+                  ],
+                  "method": "Fresh exact frozen source bodies/ranges, including existing fixtures where in scope; PR/P16 source_package/digest byteidentity independently pinned. No source execution.",
+                  "disposition": "accounted with concrete retained source/coordinate/error/measurement roles and actual receivers; bounded scope retained for template/worldschema, no wholefile inference",
+                  "owner_proof_refs": [
+                    {
+                      "supplier": "root",
+                      "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+                      "row": 306,
+                      "read_ranges": [
+                        [
+                          1,
+                          105
+                        ]
+                      ],
+                      "contract_refs": [
+                        "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069"
+                      ],
+                      "read_status": "full",
+                      "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/validate_city_support/composition.rs"
+                    },
+                    {
+                      "supplier": "root",
+                      "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+                      "row": 393,
+                      "read_ranges": [
+                        [
+                          1,
+                          105
+                        ]
+                      ],
+                      "contract_refs": [
+                        "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069",
+                        "ROOT-OWNER-CLOSURE-SUPPORT-HOME-080"
+                      ],
+                      "read_status": "full",
+                      "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-server-dispatcher/examples/validate_city_support/composition.rs"
+                    }
+                  ],
+                  "original_producer_refs": []
+                },
+                "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+              }
+            ],
+            "expanded_producer_contract_observations": []
+          },
+          "semantic_disposition": "Freshcontacts102/gardens142/composition105 and newvalidate37\u2013140 actualbodies compared to exactoriginalfull nineteen-source diagnosticowner matrix+native37 expandedtrace. Imported SourcePackageDigest exact, input_digest is distinctscenecontentauthority; CLI rawbuilding/propertyIDs should admit existing SceneBuildingId/CityPropertyId once before appfilters, not .0 comparisons. RadiusCLI negative/nonfinite acceptedpolicy mustnotblindPositiveLength. CornerSupportProbe peels checkedpositivecontacttolerance into retainedrawf32 before exact native ray/Parry/cylinderqueries; preserveexistingPositiveLength to actualnative operation. GardenRegionOutline rawVecpoints retained then sameScenePolygonre-admission, carryexactScenePlanPoint/rigidpolygonthrough producer/storage/helper. Actualproperty-relative contactpolygon can be empty/degenerate, strictpositiveScenePolygonnot universal. Full regionclipping/nearest distance kernel nativef64 precision/signedzero preserved, no f32narrowing. DiagnosticMetres/Area reuse at exactf64 reportrole; cubicvolume needs distinctunit, notArea/ClearanceVolume geometrybounds. Composition repeats samepointadmission before source/plan lookup, retainoneowner; typedfailure/report success shape remains lateraggregate. FinalJSONcapture/log/CLIerrors genuineoutput, internalsourcecauses and terracere-decoding Value not boundary. Newvalidate TerrainStages sourceIDtyped/inputdigestraw confirmssamegap, HostInstant seconds nativeelapsed notsimulationclock. Preserve support accept/reject, Optionmissingmeasurements, exactbinding sourceelevation/grid/holes, originaltiming/sourceorder and fulloriginalmalformedcases; calibrated/live-renderer claim notinferred from nativeplanningreport.",
+          "contract_ref": "CONT-ROOT-OWNER-RENDER-DIAGNOSTIC-008#support_diagnostic_actual_ports",
+          "source_or_other_lens_credit": "none"
+        }
+      ]
+    }
+  ],
+  "limits": "Exact source-backed canonical owner comparisons, prior same-lens source matrices and current producer/use receiverfacts personally reconciled. No hash/readcount clearances, otherlens/source/CI acceptance."
+}

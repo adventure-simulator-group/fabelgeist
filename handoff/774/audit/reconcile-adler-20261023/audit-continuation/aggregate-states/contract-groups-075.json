@@ -1,0 +1,46 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-075",
+  "at": "2026-10-25T13:47:32.016766+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1235,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/tests/authority_trade_dialogue.rs",
+      "sha256": "32c5e6e23e6687a365a8b7a7920e5a7dc0a6d6cc722250448159318a90f60899",
+      "personally_read_ranges": [
+        [
+          1,
+          761
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full761 existing testsource read, no execution. Behavioral fixtures cover burden/readinessmultipliers, exactincident stableIDs/groupidentity, chargedarrest andprivategateway fields, exacthostilecandidate/capture/lootpayload validation, receipt source/party terminalownership and knowledgeboundtravel/dialogue. Stringsource assertions are implementation-shape checks and do not prove DBatomicity or all normalbadstates. Native ABI scalar fixtures intentionallyraw for boundary examples; propagate actualowningfixtures/contracts instead of extractingnewtypesbacktoraw solely tomatchstrings.",
+        "Specific static stale assertions retained for later existingfixture repair: missionbinding assertion218 expects outcome_entropy initializer inside ensure_bound substring while actualconstructor now1230 MissionAuthority::capture; storefront572 expects let problem_minute = StrategicMinute::new( while actual1225:2591\u20132596 reads typedpersonalclock directly. Do not reintroducerawconstructor or duplicateentropy toplease textassertion. Exact historicalbaselinefailure list must be reconciled when checks laterauthorized; no execution/count/introduced774failure assertednow. Tests216\u2013217 explicitly require bound-only reuse and terminalreplayfailclosed, qualifying earlier073 autoresolve report retry question: no desired success-terminalreuse behavior invented."
+      ]
+    },
+    {
+      "scope_index": 1236,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/travel_planning.rs",
+      "sha256": "72e17030fb5f5e7f0337b78091c7ab5eddcac318c91f5a3ba7a246a3a7ba860b",
+      "personally_read_ranges": [
+        [
+          1,
+          346
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Whole346 route+coordinategraph/admission/distance body read. Hybridencode/decode preservegeographicWGS84bounded versusintentionalabstractunboundedE7, but admittedframe discardedfromStrategicPositionE7 pair and nativehelperscarrybool+tworawaxes; existingcanonical coordinateowner/framepropagation findingapplies, notanewlocalwrapper. Actualterrainroutepayload requires everypointvalidWGS84 androutegeometry/endpoints/distance/time; this closes072 question whetheractualterrainroutesmaybeabstract. Actual caller must supply onlygeographicterrainroute, later1237 ownschoice.",
+        "Gateway terrain schema3+digest bound, weather version/currentfloorinterval/ratios/Clearzero invariants,2..512points,1..256spans,distance1..2M,time1..2M admission reviewed. Everyphysicalsegment1..100000m, geometrytotal within5%+250m, duration nofaster7500m/hr. Spans exactcontiguouscoverage, positive duration, summedterrainweights1000 (urban0), multiplier<=1000, check<=5000; thus terrain_training_exposure conservation satisfied foradmittednormalroute. Publicnativefieldsindependentcanmutateaftervalidation, retain validatedcompleteRoute product throughstorage/receivers rather than boolpassedcheck+rawclone.",
+        "Returnleg separatelyplanned andsamegatewaydigest/weather snapshot, reconstructsboundscheck with explicitNonefurtherreturn; laterreturndepartureweathercheck mustrevalidateactualclock. Dijkstra stopsatfirstnextsettlement, correctlyrelaxesboundednonnegativeedges withsaturation atrepresentationlimit; realzero-distance origin omitted. Journeytime minimum1 intentionalnativezero-distancepolicy, questspeeddivisordistinct. Distance nonfinitegeo returnsu64MAX sentinel andabstractcast saturates; typed fallibleDistance/admissioncause migrationneeded, no ordinarynan fromcheckedWGS84route. No arbitraryMAXoverflow normalclaim."
+      ]
+    }
+  ],
+  "dependencies": [
+    "Actualtravelreducers routeRequired vsabstractfallback, synchronized departureweather/coordinates andreturnleg/clamp semantics1237; no skipactualreceivers.",
+    "Existing test fixtures retained, source-stringstale expectations separate from runtimebehavior andhistorical baselinevalidation.",
+    "No sourcefixes/checks beforeall13initialdiscovery."
+  ],
+  "discovery": "Two distinctoriginalroles accounted with explicit stale-fixture/source qualifications; fulllensincomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

@@ -1,0 +1,27 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-129",
+  "at": "2026-10-25T12:46:47.645129+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_ROLE_INCOMPLETE",
+  "scope_index": 271,
+  "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+  "sha256": "a1005d38cb2af372af21abdfbba3af8f2209de2fa20a31d3d084792d49acbf46",
+  "actual_compared_ranges": [
+    [
+      1401,
+      2100
+    ]
+  ],
+  "trait_inventory": [],
+  "existing_derives": "ErrantryChallengeNamespace1806\u20131810 Clone/Copy/Eq/PartialEq. ErrantryChallengeId1812\u20131816 borrowed parse-only record no manual trait; no serializer anywhere1401\u20132100.",
+  "semantic_contracts": "Actual puzzle deterministic validation/check/receipt outcome, road challenge native requirements/checks/costs/personality/combat transitions, exact retry/issuer/contract gate, bounded lexical challenge-ID parser and demo versus normal acceptance functions consumed. Native serde delegates retained; constructor/context/borrowed parse semantics not derivable rawwire.",
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 271,
+    "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+    "next_line": 2101,
+    "actual_EOF": 2815
+  },
+  "execution": "none",
+  "limits": "Prior127\u2013128 actual1\u20131400; full2815 changedrole pending2101\u20132815; no completion or other-lens transfer."
+}

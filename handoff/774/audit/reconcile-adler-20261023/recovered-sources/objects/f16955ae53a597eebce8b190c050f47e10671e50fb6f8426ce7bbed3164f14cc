@@ -1,0 +1,81 @@
+//! Checked rig ordinals at the native 32-bit GPU uniform boundary.
+
+use anyhow::Result;
+use derive_more::Display;
+use fabelgeist_gpu::prelude::PassParameters;
+use fabelgeist_rig::{RigJointOrdinal, RigJointPart};
+
+/// Joint-bearing fields in the fitting shaders' uniform ABI. These roles are
+/// parameter bindings, distinct from the authored names of their joint values.
+#[derive(Clone, Copy, Display)]
+pub(crate) enum RigJointParameter {
+    #[display("{}", RigJointPart::Lowarm)]
+    Lowarm,
+    #[display("{}", RigJointPart::Wrist)]
+    Wrist,
+    #[display("hip")]
+    Hip,
+    #[display("knee")]
+    Knee,
+    #[display("ankle")]
+    Ankle,
+    #[display("{}", RigJointPart::Neck)]
+    Neck,
+    #[display("{}", RigJointPart::Jaw)]
+    Jaw,
+    #[display("{}", RigJointPart::Head)]
+    Head,
+    #[display("left_eye")]
+    LeftEye,
+    #[display("right_eye")]
+    RightEye,
+    #[display("{}", RigJointPart::Ball)]
+    Ball,
+    #[display("crown")]
+    Crown,
+    #[display("anchor0")]
+    ProximalAnchor,
+    #[display("anchor1")]
+    IntermediateAnchor,
+    #[display("anchor2")]
+    DistalAnchor,
+    #[display("top_joint")]
+    TopJoint,
+    #[display("bottom_joint")]
+    BottomJoint,
+    #[display("reach_joint")]
+    ReachJoint,
+    #[display("waist")]
+    Waist,
+    #[display("armpit")]
+    Armpit,
+    #[display("joint0")]
+    TorsoSpine0,
+    #[display("joint1")]
+    TorsoNeck,
+    #[display("joint2")]
+    TorsoLeftClavicle,
+    #[display("joint3")]
+    TorsoRightClavicle,
+    #[display("joint4")]
+    TorsoLeftUpperArm,
+    #[display("joint5")]
+    TorsoRightUpperArm,
+    #[display("joint6")]
+    TorsoHead,
+    #[display("joint7")]
+    TorsoLeftEye,
+    #[display("joint8")]
+    TorsoRightEye,
+}
+
+pub(crate) trait RigPassParameters {
+    fn insert_joint(&mut self, parameter: RigJointParameter, joint: RigJointOrdinal) -> Result<()>;
+}
+
+impl RigPassParameters for PassParameters {
+    fn insert_joint(&mut self, parameter: RigJointParameter, joint: RigJointOrdinal) -> Result<()> {
+        self.insert(parameter.to_string(), u32::try_from(joint)?);
+        Ok(())
+    }
+}

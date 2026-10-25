@@ -1,0 +1,69 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-637",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+      "sha256": "a0aef58d11a9181ab559caf6b1f989eb84d5deded64ae19cbf885a011b1f6450",
+      "actual_EOF": 120,
+      "actual_compared_ranges": [
+        [
+          1,
+          120
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2681"
+    },
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+      "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+      "actual_EOF": 407,
+      "actual_compared_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2682"
+    },
+    {
+      "source_id": "report-p17:Cargo.lock",
+      "sha256": "7478839fc1c520db3c24b75b8f0364f5109b1e8f5fa43fa5a576202468258a20",
+      "actual_EOF": 13101,
+      "actual_compared_ranges": [
+        [
+          1434,
+          1443
+        ],
+        [
+          2307,
+          2366
+        ],
+        [
+          2660,
+          2702
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2686"
+    }
+  ],
+  "groups": [
+    {
+      "contract": "P17 scene/support arithmetic re-admission and exact native dependency pins",
+      "evidence": "Personally read coordinates1\u2013120/grounding1\u2013110 and lock1434\u20131443/2307\u20132366/2660\u20132702. Point translation computes native sum then fallible point reconstruction; displacement accepts finite signed coordinates. SupportElevation max selects admitted operand; translated finite sum readmitted with elevation role/Y error. Serde both routes through checked finite constructor. Position<Scene>\u2192plan projection takes finite XZ from canonical position owner.",
+      "qualifications": [
+        "P17 pin remains distinct from PR/P16/merged even where counterpart bodies similar. Tests read as source only, not executed. Module/reexport lists do not grant imported helper coverage.",
+        "Lock pins Bevy/internal/reflect/derive0.19.1 and exact checksums/dependencies; provenance only, no native reflection runtime coverage inferred."
+      ],
+      "acceptance": "Preserve signed/zero physical coordinates and finite computed outputs with structured axis/role errors; do not require addition infallible at finite extremes."
+    }
+  ],
+  "findings": [],
+  "status": "Qualified material ranges personally analyzed; whole04 remains incomplete.",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/world_actor/presence.rs",
+  "source_edits": false,
+  "project_execution": "none"
+}

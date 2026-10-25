@@ -1,0 +1,137 @@
+{
+  "id": "CONT-ROOT-RIG-OWNER-CLAIMS-RECONCILIATION-014",
+  "at": "2026-10-22T03:47:49.360721+00:00",
+  "status": "exact whole-function ownership reconciled; source freeze remains",
+  "prior_claim_pins": [
+    {
+      "record": "records\\parallel-ownership\\camera_targeting-claims.json",
+      "sha256": "a3abbf99c8a909359155223f2c32145edc985d6c1dbeeef4aafa747829d75556"
+    },
+    {
+      "record": "records\\parallel-ownership\\native_reports-claims.json",
+      "sha256": "d3d70a94e655bf2149866786c65fb68c26d2dd935425b4b177db1c62b3dbd8e1"
+    },
+    {
+      "record": "records\\parallel-ownership\\rig_garments-claims.json",
+      "sha256": "dc8cd207f817478e08854ab7703b357000cc5deee5905d922e99a8dc2ed67d64"
+    },
+    {
+      "record": "records\\parallel-ownership\\root-claims.json",
+      "sha256": "8866397f9b55ef55ac35a1cfdccff7948fcda0ea5fa9bed74051f9ee4c9529ea"
+    }
+  ],
+  "added_claims": [
+    {
+      "claim_index": 426,
+      "path": "crates/fabelgeist-compute/src/sort/mod.rs",
+      "functions": [
+        "RadixSort::record"
+      ],
+      "finding": "F001"
+    },
+    {
+      "claim_index": 427,
+      "path": "crates/adventuresim-core/src/alcohol.rs",
+      "functions": [
+        "ethanol_ml",
+        "water_content_ml",
+        "properties_valid",
+        "emergency_hydration_ml",
+        "units_for_target",
+        "consumable_units",
+        "tavern_units_affordable",
+        "evening_id",
+        "evening_boundary",
+        "next_evening_boundary_after",
+        "EveningIds::next",
+        "checked_interval",
+        "crossed_evenings",
+        "RestEvenings::next",
+        "rest_evenings",
+        "TravelEveningSegments::next",
+        "travel_evening_segments",
+        "qualifying_heavy",
+        "hydration_after_expected_drinking",
+        "surgery_control_bonus",
+        "best_disinfectant"
+      ],
+      "finding": "F003"
+    },
+    {
+      "claim_index": 428,
+      "path": "crates/strategic-web/src/routes/settlements/rest_preview.rs",
+      "functions": [
+        "consumable_fraction",
+        "soap_uses",
+        "calculate_rest_supply_availability",
+        "calculate_soap_rest_preview"
+      ],
+      "finding": "F003"
+    },
+    {
+      "claim_index": 429,
+      "path": "crates/adventuresim-character-creator/src/device_extremities.rs",
+      "functions": [
+        "record_boot"
+      ],
+      "finding": "F004"
+    },
+    {
+      "claim_index": 430,
+      "path": "crates/adventuresim-character-creator/src/device_footwear_fit.rs",
+      "functions": [
+        "record_section_fit",
+        "record_ankle_fairing",
+        "fit_source"
+      ],
+      "finding": "F004"
+    },
+    {
+      "claim_index": 431,
+      "path": "crates/fabelgeist-armor/src/gpu/helmet/surface.rs",
+      "functions": [
+        "latitudes",
+        "CoordSurface::vertex",
+        "CoordSurface::coord",
+        "CoordSurface::connect",
+        "CoordSurface::full_dome",
+        "CoordSurface::styled_dome",
+        "CoordSurface::fan_dome",
+        "CoordSurface::shell"
+      ],
+      "finding": "F005"
+    },
+    {
+      "claim_index": 432,
+      "path": "crates/fabelgeist-armor/src/gpu/helmet/parts.rs",
+      "functions": [
+        "HelmetParts::parts",
+        "morion",
+        "kettle_hat",
+        "brimmed"
+      ],
+      "finding": "F005"
+    },
+    {
+      "claim_index": 433,
+      "path": "crates/fabelgeist-armor/src/gpu/helmet/burgonet.rs",
+      "functions": [
+        "burgonet"
+      ],
+      "finding": "F005"
+    }
+  ],
+  "existing_claims_preserved": [
+    "Rig KernelBatch::copy_buffer claim272",
+    "Rig soap_rest_preview424 and forecast425",
+    "Native door/window predicates native-exact128",
+    "Camera WorldGrabTargets pointed/visible claim1",
+    "Native canonical SignedLength/scaled_by native-exact018 and Radians max/direction native-exact023"
+  ],
+  "neutral_Radians_dependency": "Root coordinates relocating existing Radians from adventuresim-building-generator/src/spatial_geometry/orientation.rs to lowest coherent neutral geometry owner. Native max/direction whole-function scope remains; do not duplicate angle wrapper or add Armor->generator cycle. Exact destination/API synthesis follows all13 discovery.",
+  "limits": "No new source or role analysis, no implementation authorization before all13; whole claims intentionally include later necessary signature/record propagation, requiring source-scope extension before any unregistered body analysis.",
+  "claim_result": {
+    "record": "records\\parallel-ownership\\rig_garments-claims.json",
+    "sha256": "91fe8e223f734ea2a0c701343105cfbac295137f59342baa41ff3640179d3c60"
+  }
+}

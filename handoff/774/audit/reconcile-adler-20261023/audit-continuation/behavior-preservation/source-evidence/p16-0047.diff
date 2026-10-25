@@ -1,0 +1,29 @@
+--- p16base/crates/adventuresim-core/build/combat_resolution.rs
++++ catalog-p16head/crates/adventuresim-core/build/combat_resolution.rs
+@@ -111,13 +111,13 @@
+              CombatResolutionParameters {{ fatigue: {fatigue}, contact: {contact}, armed_attack_energy_transfer: {:?}_f32, \
+              stagger_resistance_joules_per_kg: {:?}_f32 }};\n\
+              pub const EMBEDDED_AUTORESOLVE_PARAMETERS: AutoresolveParameters = \
+              AutoresolveParameters {{ combat_round_seconds: match crate::elapsed::AnimationElapsed::from_seconds({:?}_f32) {{ Ok(elapsed) => elapsed, Err(_) => panic!(\"invalid embedded duration\") }}, formation_spacing_metres: \
+-             {:?}_f32, reference_melee_attack_seconds: match crate::elapsed::AnimationElapsed::from_seconds({:?}_f32) {{ Ok(elapsed) => elapsed, Err(_) => panic!(\"invalid embedded duration\") }}, \
++             match fabelgeist_geometry::SignedLength::from_metres({:?}_f32) {{ Ok(length) => length, Err(_) => panic!(\"invalid embedded length\") }}, reference_melee_attack_seconds: match crate::elapsed::AnimationElapsed::from_seconds({:?}_f32) {{ Ok(elapsed) => elapsed, Err(_) => panic!(\"invalid embedded duration\") }}, \
+              minimum_movement_speed_metres_per_second: match crate::linear_speed::PositiveSpeed::from_metres_per_second({:?}_f32) {{ Ok(speed) => speed, Err(_) => panic!(\"invalid embedded speed\") }}, \
+              guarded_movement_speed_metres_per_second: match crate::linear_speed::PositiveSpeed::from_metres_per_second({:?}_f32) {{ Ok(speed) => speed, Err(_) => panic!(\"invalid embedded speed\") }}, \
+              melee_lunge_speed_metres_per_second: match crate::linear_speed::PositiveSpeed::from_metres_per_second({:?}_f32) {{ Ok(speed) => speed, Err(_) => panic!(\"invalid embedded speed\") }}, \
+-             melee_lunge_maximum_travel_metres: {:?}_f32, \
++             melee_lunge_maximum_travel_metres: match fabelgeist_geometry::SignedLength::from_metres({:?}_f32) {{ Ok(length) => length, Err(_) => panic!(\"invalid embedded length\") }}, \
+              reference_ground_drive_force_newtons: {:?}_f32, \
+              reference_leg_strength: {:?}_f32, gravity_metres_per_second_squared: {:?}_f32, \
+              traction_coefficient: {:?}_f32, \
+              minimum_attack_interval_seconds: match crate::elapsed::AnimationElapsed::from_seconds({:?}_f32) {{ Ok(elapsed) => elapsed, Err(_) => panic!(\"invalid embedded duration\") }}, minimum_melee_input_reflex: {:?}_f32, \
+@@ -126,9 +126,9 @@
+              melee_dodge_reaction_chance: {:?}_f32, \
+              melee_initiative_delay_min_seconds: match crate::elapsed::AnimationElapsed::from_seconds({:?}_f32) {{ Ok(elapsed) => elapsed, Err(_) => panic!(\"invalid embedded duration\") }}, \
+              melee_initiative_delay_max_seconds: match crate::elapsed::AnimationElapsed::from_seconds({:?}_f32) {{ Ok(elapsed) => elapsed, Err(_) => panic!(\"invalid embedded duration\") }}, \
+              melee_cadence_jitter_seconds: match crate::elapsed::AnimationElapsed::from_seconds({:?}_f32) {{ Ok(elapsed) => elapsed, Err(_) => panic!(\"invalid embedded duration\") }}, \
+-             long_weapon_measure_threshold_metres: {:?}_f32, \
++             long_weapon_measure_threshold_metres: match fabelgeist_geometry::SignedLength::from_metres({:?}_f32) {{ Ok(length) => length, Err(_) => panic!(\"invalid embedded length\") }}, \
+              melee_measure_reach_fraction: {:?}_f32, \
+              minimum_hit_precision: {:?}_f32, maximum_hit_precision: {:?}_f32, \
+              outnumbered_flanking: {:?}_f32, ranged_defense_input_reflex: {:?}_f32 }};\n",
+             resolution.armed_attack_energy_transfer,

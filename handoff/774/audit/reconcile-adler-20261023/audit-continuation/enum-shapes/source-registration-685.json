@@ -1,0 +1,17 @@
+{
+  "id": "SEGO-INITIAL09-REG685",
+  "index": 46,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/terrain/landform_product.rs",
+  "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "git_blob": "925a0e9c5cec210a02f748bb9439779e7f6f1670",
+  "sha256": "5f34b8da039a49d218521a208782d301f7095b7e0092698b5309f3d3b0a369c4",
+  "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/enum-shapes/source-objects/5f34b8da039a49d218521a208782d301f7095b7e0092698b5309f3d3b0a369c4",
+  "ranges": [
+    [
+      1,
+      17
+    ]
+  ],
+  "reason": "Actual existing PreparedTerrainLandform owner reexported terrain1626:18 and earlier complete preparation pipeline; compare with spawn_base_and_fault1634:151\u2013159/173\u2013179 independent optional recipe+patch to verify whether prepared product retains complete relation or contract is erased before renderer. This is owner definition for concrete candidate, not exported sibling adjacency.",
+  "status": "registered before body read; no coverage yet"
+}

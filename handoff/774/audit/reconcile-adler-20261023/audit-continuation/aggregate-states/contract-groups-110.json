@@ -1,0 +1,117 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-110",
+  "at": "2026-10-25T17:03:52.108269+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1508,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/assembly.rs",
+      "sha256": "cbda2d52d625c9e1eb7fbb5d5aec2690066609512d42c9e95dfad4291ae59890",
+      "personally_read_ranges": [
+        [
+          1,
+          355
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full355 GPU assembly/lifecycle read. Exact CityPublication root/frame retained on pending candidate; missing candidate root discards pending, empty candidate clears only its owner and publishes exact root. Nonempty builds complete packed/uploaded scene before replacing resident scene and deleting old anchors. Candidate failure marks that root while old frame/buffers/READY remain; old resident ready is not candidate ready. No false general scene atomicity claimed from one path.",
+        "Native Building ShaderType is real GPU encoding record, component flags/index bounds belong actual ABI. M67 semantic Part representation/overlay/fade must survive to encoder; F36 combined counts/layout must fail before publication rather than panic/truncate native counters. upload prechecks all materials under exclusive World before allocation/spawn; no demonstrated ordinary later missing-material race. Frame, geometry pages, building/selection buffers and batch capacity are associated native outputs, not just independently valid handles. Source does not prove current device binding limits, retain #826 dependency."
+      ]
+    },
+    {
+      "scope_index": 1509,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/assembly/input.rs",
+      "sha256": "f034c1a0aa3a41421c9cf823b2fa3c3b491889188a8e4ecc228a50d8e96c3399",
+      "personally_read_ranges": [
+        [
+          1,
+          153
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full153 GPU input groups read. Pending candidate publication binds root and frame; placement owns transform/appearance/compiled geometry. Primary ID versus distant appearance payload deliberately distinct. Prototype key Arc compiled identity plus palette infill AssetId relies on palette contract that infill uniquely identifies appearance; geometry and material palette intentionally independent. M67 representation bitfield and F433 compiled source association remain canonical dependencies.",
+        "Group::from_parts keeps first transform per root; this would discard distinct child transforms if callers supplied them with local_transform identity. Actual production props source + full1533 furniture producer now traced: every generated furniture draw child has Transform::IDENTITY, so all same-root GlobalTransforms coincide. No ordinary collapsed prop geometry claim. General private Part caller invariant should be explicit or admitted, not invent runtime bug from fixture-only arbitrary transforms."
+      ]
+    },
+    {
+      "scope_index": 1510,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/assembly/packing.rs",
+      "sha256": "73f096fbf7bd766dea82037bb3b7f9f83b1e3a20a5ef36355ff36dc6b9990cc1",
+      "personally_read_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full75 pack kernel read. Geometry deduplicates by actual Mesh AssetId, component transform/UV by exact bit keys, owners list captured once per placement group and shared with material/range groups. Per-level bit mask/flags and float fade bits only in final native Building/DrawRange are legitimate. M67 owns semantic pre-encoding; F36 covers aggregate owner offsets/counts/capacity and cause propagation. Component records share building array but are tagged native record kind; do not treat all array entries as world buildings or make one bespoke type per padding lane."
+      ]
+    },
+    {
+      "scope_index": 1511,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/assembly/props.rs",
+      "sha256": "58055c79f3fdfbfcee3824dd3008ebe3b966a6697615b1e1fcf8f0f4efb80ff4",
+      "personally_read_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full50 props adapter read, joined with actual1533 producer. Only static vista outdoor furniture enters packed scenery; interactive/interior pieces remain independent. Part material chooses actual StandardMaterial or InteriorMaterialSource, geometry owner is direct parent with associated fade. Native GlobalTransform is actual common identity-child pose for production furniture; full source positively resolves different-child-transform concern, no new defect. Despawn only these consumed child/prop roots after successful assembly, not arbitrary SceneFurniture."
+      ]
+    },
+    {
+      "scope_index": 1512,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/assembly/ranges.rs",
+      "sha256": "93018a75b7998c586b48974ab837dc5cefa3d9bf9af497c987bda989e6840615",
+      "personally_read_ranges": [
+        [
+          1,
+          134
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full134 range batching and existing fixtures read. Exact F36: independent per-page geometry bounds do not establish combined owner offset/narrowing/addition and cluster-product capacity. Current asserts/expects can panic before structured AssemblyError; preserve all duplicate owner draws and deterministic range ordering, no dedup-as-fix. Pointer identity for Arc lists is retained alive in owners and deliberately shares same combination, not externally serialized identity.",
+        "Lists reuse matching multiset of group indices and keep duplicates; sort_unstable owner indices preserves multiplicity. Native DrawRange geometry/instances lane roles are ABI, keep raw packed lanes only here. Existing overlapping-prototype and1000placement fixtures establish intended sharing arithmetic by source, no execution."
+      ]
+    },
+    {
+      "scope_index": 1513,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/assembly/tests.rs",
+      "sha256": "98a39ca62ce098e89154d81e8e8a1f955c7d8b33909c59ce4737664c4ddc23ca",
+      "personally_read_ranges": [
+        [
+          1,
+          449
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full449 existing assembly fixtures read in two chunks. Same compiled component pose shared across building placements, representation/overlay bits maintain shadow policy, canonical geometry dedup and ranges preserve every draw. Scene versus RegionalMap buffers/frames/reset remain owner-separated. Conditional REGIONAL_MAP_CITY_INPUT branch verifies exact root failure versus resident readiness and reanchor without geometry upload; none executed and conditional branch not claimed covered by previous generic CI. Static-outdoor filter and known fade policy source asserted, no new tests."
+      ]
+    },
+    {
+      "scope_index": 1533,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/furniture.rs",
+      "sha256": "07988f23128ecaaf0ea6916b865309979ba36c6f62650f7171667f470f848cf9",
+      "personally_read_ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full127 furniture producer read ahead of frontier to resolve actual props grouping assumption. Mesh batches generated from same FurnitureKey recipe, share root transform with identity children, semantic materials selected from item palette. No per-child native transform discrepancy. Canonical FurnitureKey/furniture identity and location variant retained; native Mesh/Transform/VisibilityRange are actual sinks, but outdoor fade policy raw Range remains M67 pre-encoding contract. Vista replacement despawns old roots then spawns same input identities at typed positions/orientation native conversion. No furniture generation/render run."
+      ]
+    }
+  ],
+  "findings": [
+    "F36 complete city draw-capacity admission",
+    "M67 semantic representation/overlay/fade before GPU encoding",
+    "SEGO-INITIAL09-F433 compiled source association"
+  ],
+  "ruled_out_source_hypothesis": "Same-root prop child transforms differ and Group loses them: actual1533 production children all identity, so transforms coincide. General API invariant retained, no ordinary current defect.",
+  "discovery": "Seven full original roles, including ahead furniture producer, accounted; lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

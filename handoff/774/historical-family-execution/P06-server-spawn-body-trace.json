@@ -1,0 +1,37 @@
+{
+  "head": "a15f24ad44fc22f86e1e1fd9f2ae47b6bb0ba860",
+  "observed_at": "2026-10-20T17:14:42.973433+00:00",
+  "status": "Concrete server control-flow/body trace; no implementation or runtime acceptance.",
+  "source_evidence": [
+    "player_projection.rs:535-604 connected queue drain, role/LoadingPlayer lookup and enemy creation",
+    "player_projection.rs:736-748 character-seeded X/Z draw then terrain/default-height lookup",
+    "player_projection.rs:2026-2032 cylinder and native AABB lower-bound offset",
+    "main.rs:645-690 Result-returning server startup calls scene_obstacles::spawn before terrain publication",
+    "scene_obstacles.rs:6-48 raw sample/zero fallback and per-obstacle entity commands",
+    "scene_coordinates/spatial.rs:37-109 Scene position and architectural collision-centre contracts"
+  ],
+  "authority_selection": "Wait for no authoritative terrain before draining the connected queue. Treat multiple authoritative terrain components as an explicit invalid authority state rather than selecting an arbitrary first surface; preserve the actual single-scene normal path.",
+  "batch_admission": [
+    {
+      "step": "Recipient selection",
+      "requirement": "Preserve old missing-LoadingPlayer behavior: warn/omit that row before support admission. A row that previously did not reach geometry must not now abort the batch for an irrelevant missing support. Keep actual recipient selection explicit (existing loading entity versus enemy) rather than Option<Entity> plus a separate role boolean."
+    },
+    {
+      "step": "Support and position",
+      "requirement": "For every applicable row, reproduce the exact character-derived stream, two range_f32 draws, point and collider offset. Retain canonical ScenePlanPoint, SupportElevation and final Position<Scene>; do not resample. Native AABB offset admission belongs at its framework port. Keep X/Z bits and the existing Y addition order; do not route through a generic vector addition that changes signed-zero coordinates."
+    },
+    {
+      "step": "Publish",
+      "requirement": "Finish all required support/position admissions before queueing any enemy or player entity mutations. Preserve original row/entity ordering. Carry admitted recipient and position to the existing component projection rather than querying support again."
+    }
+  ],
+  "focused_extraction": "Extract the new connected-spawn admission/queue responsibility into a focused child module before expanding the oversized player_projection root. Move the old wrapper and support/RNG calculation there; keep unrelated existing attribute/equipment projection coherent and avoid a wholesale move solely for line counts. Existing public system can be reexported from its owner; do not add a forwarding compatibility function.",
+  "obstacle_admission": "Use a named prepared spawn record and admit the entire required obstacle batch before its command loop. on_server_started already returns Bevy Result, so propagate a structured support/geometry rejection with ?. Reuse the exact point/grid offset and actual collider/height-offset computation; no default-zero placement.",
+  "frame_ownership": "Position<Scene> is the existing final scene-coordinate owner. CollisionCentreDatum is specifically an architectural-origin/floor/building transform; do not force actor spawn through it or introduce an equivalent actor-position wrapper. GroundRelative is a frame marker, not itself an existing support-to-world converter. Admit the completed native point calculation through canonical checked leaves/position.",
+  "error_channel": "Keep required support and geometry failures structured through the system result. The previously inspected locked Bevy severity policy terminates this failed system; do not rely on AppExit alone, silently discard a failed projection or submit a fabricated mission result. No new live failure scenario has been executed.",
+  "limits": [
+    "No new tests/cases/helpers or local Rust/project commands.",
+    "Existing attribute/fixture admission failures outside support remain distinct; do not claim a terrain admission refactor validates every character property.",
+    "P04 full exact-head acceptance is still prerequisite; P06 source has not changed."
+  ]
+}

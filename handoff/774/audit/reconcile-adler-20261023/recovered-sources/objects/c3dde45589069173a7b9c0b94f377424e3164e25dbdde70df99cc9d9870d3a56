@@ -1,0 +1,1897 @@
+use super::{AppState, SocialActionId, SocialDuration};
+use crate::spacetimedb::{
+    AffinityBand, BackendCharacterRelationshipStatus, BackendDialogueEvent,
+    BackendDialogueParticipant, BackendDialoguePrompt, BackendDialogueSession,
+    BackendDialogueTopicOption, BackendDialogueWitnessClaim, BackendSettlementResident,
+    BackendSettlementResidentRelationship, BackendSocialChatReceipt, CharacterTime, CourtshipKind,
+    FamiliarityBand, MoraleBand, SettlementCategory, SettlementResidentPresence, SettlementView,
+    SocialChatOutcome, SocialChatTargetKind, SpacetimeError, calendar_countdown_days,
+    calendar_minute, npc_age_band_id, npc_presentation_id,
+};
+use crate::{session::Session, spacetimedb::sql_string_literal};
+use adventuresim_core::{
+    courtship::{CourtshipRejectionCode, parse_courtship_rejection},
+    dialogue_boundary::{PublicDialogueStartError, PublicDialogueStartOutcome},
+    reducer_error::ReducerErrorCode,
+};
+use adventuresim_world_schema::calendar::StrategicMinute;
+use axum::{
+    Json,
+    extract::{Path, State},
+    http::StatusCode,
+};
+use serde::{Deserialize, Serialize, Serializer};
+use serde_json::json;
+
+mod claims;
+use claims::{ClaimView, claim_view, witness_approach};
+mod router;
+pub use router::routes;
+
+#[derive(Clone, Serialize)]
+struct DialogueParticipantView {
+    id: String,
+    session_id: String,
+    role: String,
+    character_id: Option<u64>,
+    actor_id: String,
+    display_name: String,
+}
+
+impl From<BackendDialogueParticipant> for DialogueParticipantView {
+    fn from(participant: BackendDialogueParticipant) -> Self {
+        let BackendDialogueParticipant {
+            id,
+            session_id,
+            role,
+            character_id,
+            actor_id,
+            display_name,
+            owner_character_id: _,
+        } = participant;
+        Self {
+            id,
+            session_id,
+            role,
+            character_id,
+            actor_id,
+            display_name,
+        }
+    }
+}
+
+#[derive(Serialize)]
+struct NpcView {
+    id: String,
+    name: String,
+    initials: String,
+    description: String,
+    is_default: bool,
+    service_id: String,
+}
+
+fn serialize_affinity_band<S>(value: &AffinityBand, serializer: S) -> Result<S::Ok, S::Error>
+where
+    S: Serializer,
+{
+    serializer.serialize_str(match value {
+        AffinityBand::Hostile => "hostile",
+        AffinityBand::Reserved => "reserved",
+        AffinityBand::Warm => "warm",
+        AffinityBand::Trusted => "trusted",
+    })
+}
+
+fn serialize_familiarity_band<S>(value: &FamiliarityBand, serializer: S) -> Result<S::Ok, S::Error>
+where
+    S: Serializer,
+{
+    serializer.serialize_str(match value {
+        FamiliarityBand::New => "new",
+        FamiliarityBand::Known => "known",
+        FamiliarityBand::Familiar => "familiar",
+        FamiliarityBand::WellKnown => "well_known",
+    })
+}
+
+fn serialize_morale_band<S>(value: &MoraleBand, serializer: S) -> Result<S::Ok, S::Error>
+where
+    S: Serializer,
+{
+    serializer.serialize_str(match value {
+        MoraleBand::Uncertain => "uncertain",
+        MoraleBand::Distressed => "distressed",
+        MoraleBand::Guarded => "guarded",
+        MoraleBand::Settled => "settled",
+    })
+}
+
+fn serialize_optional_social_outcome<S>(
+    value: &Option<SocialChatOutcome>,
+    serializer: S,
+) -> Result<S::Ok, S::Error>
+where
+    S: Serializer,
+{
+    match value {
+        Some(SocialChatOutcome::Positive) => serializer.serialize_some("positive"),
+        Some(SocialChatOutcome::Mixed) => serializer.serialize_some("mixed"),
+        Some(SocialChatOutcome::Negative) => serializer.serialize_some("negative"),
+        None => serializer.serialize_none(),
+    }
+}
+
+fn serialize_optional_courtship_kind<S>(
+    value: &Option<CourtshipKind>,
+    serializer: S,
+) -> Result<S::Ok, S::Error>
+where
+    S: Serializer,
+{
+    match value {
+        Some(CourtshipKind::Formal) => serializer.serialize_some("formal"),
+        Some(CourtshipKind::Informal) => serializer.serialize_some("informal"),
+        None => serializer.serialize_none(),
+    }
+}
+
+#[derive(Clone, Copy, Debug, Deserialize, Serialize, PartialEq, Eq)]
+#[serde(rename_all = "snake_case")]
+enum RomanceAction {
+    FormalCourtship,
+    InformalCourtship,
+    ScheduleWedding,
+    CancelWedding,
+}
+
+#[derive(Serialize)]
+struct NpcSocialView {
+    resident_character_id: String,
+    name: String,
+    #[serde(serialize_with = "serialize_affinity_band")]
+    affinity: AffinityBand,
+    #[serde(serialize_with = "serialize_familiarity_band")]
+    familiarity: FamiliarityBand,
+    #[serde(serialize_with = "serialize_morale_band")]
+    morale: MoraleBand,
+    #[serde(serialize_with = "serialize_optional_social_outcome")]
+    last_outcome: Option<SocialChatOutcome>,
+    #[serde(serialize_with = "serialize_optional_courtship_kind")]
+    courtship_kind: Option<CourtshipKind>,
+    courtship_exposed: bool,
+    wedding_countdown_days: Option<u64>,
+    romantic_actions: Vec<RomanceAction>,
+    social_revision: String,
+    about_topics: Vec<NpcAboutTopic>,
+    trait_impression_available: bool,
+}
+
+#[derive(Serialize)]
+struct NpcAboutTopic {
+    id: &'static str,
+    question: &'static str,
+    answer: String,
+}
+
+const fn affinity_revision_tag(value: AffinityBand) -> &'static str {
+    match value {
+        AffinityBand::Hostile => "Hostile",
+        AffinityBand::Reserved => "Reserved",
+        AffinityBand::Warm => "Warm",
+        AffinityBand::Trusted => "Trusted",
+    }
+}
+
+const fn familiarity_revision_tag(value: FamiliarityBand) -> &'static str {
+    match value {
+        FamiliarityBand::New => "New",
+        FamiliarityBand::Known => "Known",
+        FamiliarityBand::Familiar => "Familiar",
+        FamiliarityBand::WellKnown => "WellKnown",
+    }
+}
+
+const fn morale_revision_tag(value: MoraleBand) -> &'static str {
+    match value {
+        MoraleBand::Uncertain => "Uncertain",
+        MoraleBand::Distressed => "Distressed",
+        MoraleBand::Guarded => "Guarded",
+        MoraleBand::Settled => "Settled",
+    }
+}
+
+const fn courtship_revision_tag(value: CourtshipKind) -> &'static str {
+    match value {
+        CourtshipKind::Formal => "Formal",
+        CourtshipKind::Informal => "Informal",
+    }
+}
+
+fn npc_social_revision(
+    character_id: u64,
+    affinity: AffinityBand,
+    familiarity: FamiliarityBand,
+    morale: MoraleBand,
+    wedding_countdown_days: Option<u64>,
+    courtship_kind: Option<CourtshipKind>,
+    courtship_exposed: bool,
+) -> String {
+    fn append_field(revision: &mut String, name: &str, value: &str) {
+        use std::fmt::Write as _;
+        write!(revision, "|{}#{name}={}#{value}", name.len(), value.len())
+            .expect("writing to a String cannot fail");
+    }
+
+    let wedding_countdown_days =
+        wedding_countdown_days.map_or_else(|| "none".to_owned(), |days| format!("some:{days}"));
+    let courtship_kind = courtship_kind.map_or("none".to_owned(), |kind| {
+        format!("some:{}", courtship_revision_tag(kind))
+    });
+    let mut revision = "dialogue-social-revision:v1".to_owned();
+    append_field(&mut revision, "character_id", &character_id.to_string());
+    append_field(&mut revision, "affinity", affinity_revision_tag(affinity));
+    append_field(
+        &mut revision,
+        "familiarity",
+        familiarity_revision_tag(familiarity),
+    );
+    append_field(&mut revision, "morale", morale_revision_tag(morale));
+    append_field(
+        &mut revision,
+        "wedding_countdown_days",
+        &wedding_countdown_days,
+    );
+    append_field(&mut revision, "courtship_kind", &courtship_kind);
+    append_field(
+        &mut revision,
+        "courtship_exposed",
+        if courtship_exposed { "1" } else { "0" },
+    );
+    revision
+}
+
+#[derive(Serialize)]
+struct NpcRomanceActionResult {
+    ok: bool,
+    message: String,
+    view: NpcSocialView,
+}
+
+#[derive(Deserialize)]
+struct NpcChatRequest {
+    requested_minutes: SocialDuration,
+    action_id: SocialActionId,
+}
+
+#[derive(Serialize)]
+struct ConversationView {
+    session_id: String,
+    revision: u64,
+    catalog_revision: String,
+    participants: Vec<DialogueParticipantView>,
+    events: Vec<EventView>,
+    topics: Vec<TopicView>,
+    open_prompt: Option<PromptView>,
+    order_errantry_offer: bool,
+}
+
+#[derive(Deserialize)]
+struct AcceptOrderErrantryRequest {
+    session_id: String,
+    action_id: String,
+}
+
+#[derive(Serialize)]
+struct AcceptOrderErrantryResponse {
+    redirect: &'static str,
+}
+
+async fn accept_order_errantry(
+    State(state): State<AppState>,
+    session: Session,
+    Json(request): Json<AcceptOrderErrantryRequest>,
+) -> Result<Json<AcceptOrderErrantryResponse>, StatusCode> {
+    let character_id = session.character_id_u64().ok_or(StatusCode::UNAUTHORIZED)?;
+    state
+        .db
+        .call(
+            "accept_order_errantry",
+            &[
+                json!(character_id),
+                json!(request.session_id),
+                json!(request.action_id),
+            ],
+        )
+        .await
+        .map_err(|error| {
+            tracing::warn!(%error, character_id, "Order errantry acceptance rejected");
+            StatusCode::UNPROCESSABLE_ENTITY
+        })?;
+    Ok(Json(AcceptOrderErrantryResponse {
+        redirect: "/quests",
+    }))
+}
+#[derive(Serialize)]
+struct EventView {
+    sequence: u32,
+    speaker_role: String,
+    speaker_name: String,
+    speaker_is_player: bool,
+    fragments: Vec<FragmentView>,
+}
+#[derive(Serialize)]
+struct FragmentView {
+    fragment: adventuresim_dialogue::ResolvedFragment,
+    source: Option<EditSource>,
+    claim: Option<ClaimView>,
+}
+#[derive(Serialize)]
+struct TopicView {
+    id: String,
+    label: String,
+    category: adventuresim_dialogue::TopicCategory,
+    source: Option<EditSource>,
+}
+#[derive(Serialize)]
+struct PromptView {
+    id: String,
+    mode: String,
+    min_choices: u32,
+    max_choices: u32,
+    choices: Vec<ChoiceView>,
+}
+#[derive(Serialize)]
+struct ChoiceView {
+    id: String,
+    label: String,
+    source: Option<EditSource>,
+}
+#[derive(Serialize)]
+struct EditSource {
+    file: String,
+    line: usize,
+    column: usize,
+    edit_url: String,
+}
+
+fn edit_source(source: adventuresim_dialogue::SourceRef) -> Option<EditSource> {
+    let edit_url = adventuresim_dialogue::github_edit_url(
+        "adventure-simulator-group/fabelgeist",
+        option_env!("ADVENTURESIM_SOURCE_REF").unwrap_or("main"),
+        &source,
+    )?;
+    Some(EditSource {
+        file: source.file,
+        line: source.line,
+        column: source.column,
+        edit_url,
+    })
+}
+
+fn npc_location_is_navigable(
+    profile: &adventuresim_world_schema::SettlementEconomyProfile,
+    category: &SettlementCategory,
+    settlement_id: &str,
+    location_id: &str,
+) -> bool {
+    let has_keep = matches!(
+        category,
+        SettlementCategory::Town | SettlementCategory::City | SettlementCategory::Capital
+    );
+    adventuresim_core::settlement_economy::npc_location_is_navigable(
+        profile,
+        has_keep,
+        settlement_id,
+        location_id,
+    )
+}
+
+mod presence;
+use presence::npc_presence_contains;
+
+fn npc_matches_location_binding(
+    npc: &BackendSettlementResident,
+    settlement_id: &str,
+    location_id: &str,
+    profile: &adventuresim_world_schema::SettlementEconomyProfile,
+) -> bool {
+    if npc.organization_id.is_empty() {
+        return npc.conversation_id != "organization-representative";
+    }
+    let Some(organization) = adventuresim_core::organization::organization(&npc.organization_id)
+    else {
+        return false;
+    };
+    let Some(chapter) = organization.chapter(settlement_id) else {
+        return false;
+    };
+    let expected_id = adventuresim_core::organization::organization_representative_id(
+        settlement_id,
+        &organization.id,
+    );
+    adventuresim_core::organization::chapter_effective_location_id(organization, chapter, profile)
+        == location_id
+        && adventuresim_core::organization::exact_representative_fields_match(
+            npc.character_id,
+            expected_id,
+            &npc.home_settlement_id,
+            settlement_id,
+            &npc.organization_id,
+            &organization.id,
+            &npc.conversation_id,
+        )
+}
+
+#[cfg(test)]
+mod npc_navigation_tests {
+    use super::{
+        AffinityBand, BackendSettlementResident, CourtshipKind, CourtshipRejectionCode,
+        FamiliarityBand, MoraleBand, NpcChatRequest, NpcSocialView, RomanceAction,
+        SocialChatOutcome, npc_location_is_navigable, npc_matches_location_binding,
+        npc_presence_contains, npc_social_revision, romantic_rejection_message,
+    };
+    use crate::spacetimedb::{AgeBand, SettlementCategory};
+
+    fn npc(id: u64, organization_id: &str, conversation_id: &str) -> BackendSettlementResident {
+        BackendSettlementResident {
+            character_id: id,
+            home_settlement_id: "viabundus-0".into(),
+            name: "Greta Test".into(),
+            age_band: AgeBand::Adult,
+            presentation: adventuresim_stdb_client::Presentation::Woman,
+            height: "average".into(),
+            build: "sturdy".into(),
+            hair: "brown hair".into(),
+            facial_hair: "none visible".into(),
+            complexion: "fair".into(),
+            visible_features: "work-worn hands".into(),
+            clothing: "working clothes".into(),
+            profession: "merchant".into(),
+            household_kind: "market household".into(),
+            local_role: "market steward".into(),
+            service_id: "merchants".into(),
+            organization_id: organization_id.into(),
+            conversation_id: conversation_id.into(),
+        }
+    }
+
+    #[test]
+    fn browser_npc_description_uses_presentation_not_private_sex() {
+        let source = include_str!("dialogue.rs");
+        let endpoint = source
+            .rsplit_once("async fn location_npcs(")
+            .map(|(_, tail)| tail)
+            .and_then(|tail| tail.split("async fn build_view").next())
+            .expect("NPC endpoint");
+        assert!(endpoint.contains("npc_presentation_id(npc.presentation)"));
+        assert!(endpoint.contains("character_is_alive_as_observed"));
+        assert!(endpoint.contains("alive_npc_ids.contains"));
+        assert!(!endpoint.contains("npc.sex"));
+    }
+
+    #[test]
+    fn templeless_settlement_cannot_enumerate_hidden_npcs() {
+        let profile = adventuresim_world_schema::SettlementEconomyProfile::stage_placeholder();
+        assert!(npc_location_is_navigable(
+            &profile,
+            &SettlementCategory::Hamlet,
+            "fixture-no-orgs",
+            "inn"
+        ));
+        assert!(!npc_location_is_navigable(
+            &profile,
+            &SettlementCategory::Hamlet,
+            "fixture-no-orgs",
+            "church"
+        ));
+        assert!(!npc_location_is_navigable(
+            &profile,
+            &SettlementCategory::Hamlet,
+            "fixture-no-orgs",
+            "armoury"
+        ));
+        assert!(!npc_location_is_navigable(
+            &profile,
+            &SettlementCategory::Hamlet,
+            "fixture-no-orgs",
+            "keep"
+        ));
+    }
+
+    #[test]
+    fn chapter_navigation_accepts_only_the_authored_settlement_location_pair() {
+        let profile = adventuresim_world_schema::SettlementEconomyProfile::stage_placeholder();
+        assert!(npc_location_is_navigable(
+            &profile,
+            &SettlementCategory::City,
+            "viabundus-0",
+            "organization-merchant-guild"
+        ));
+        assert!(!npc_location_is_navigable(
+            &profile,
+            &SettlementCategory::City,
+            "viabundus-0",
+            "organization-hunt-pale-lantern"
+        ));
+        assert!(!npc_location_is_navigable(
+            &profile,
+            &SettlementCategory::City,
+            "viabundus-0",
+            "organization-not-authored"
+        ));
+    }
+
+    #[test]
+    fn service_location_accepts_default_visitor_and_only_exact_local_representatives() {
+        let mut profile = adventuresim_world_schema::SettlementEconomyProfile::stage_placeholder();
+        profile.services = vec![adventuresim_world_schema::SettlementService::Market];
+        let representative_id = adventuresim_core::organization::organization_representative_id(
+            "viabundus-0",
+            "merchant_guild",
+        );
+        let provider = npc(101, "", "service-professions");
+        let visitor = npc(102, "", "local-resident");
+        let representative = npc(
+            representative_id,
+            "merchant_guild",
+            "organization-representative",
+        );
+        assert!(npc_matches_location_binding(
+            &provider,
+            "viabundus-0",
+            "market",
+            &profile
+        ));
+        assert!(npc_matches_location_binding(
+            &visitor,
+            "viabundus-0",
+            "market",
+            &profile
+        ));
+        assert!(npc_matches_location_binding(
+            &representative,
+            "viabundus-0",
+            "market",
+            &profile
+        ));
+
+        for spoofed in [
+            npc(101, "merchant_guild", "organization-representative"),
+            npc(
+                representative_id,
+                "weaponsmith_guild",
+                "organization-representative",
+            ),
+            npc(representative_id, "", "organization-representative"),
+        ] {
+            assert!(!npc_matches_location_binding(
+                &spoofed,
+                "viabundus-0",
+                "market",
+                &profile
+            ));
+        }
+        let mut wrong_settlement = representative;
+        wrong_settlement.home_settlement_id = "viabundus-2337".into();
+        assert!(!npc_matches_location_binding(
+            &wrong_settlement,
+            "viabundus-0",
+            "market",
+            &profile
+        ));
+    }
+
+    #[test]
+    fn conversation_projection_does_not_reappend_problem_referrals() {
+        let source = include_str!("dialogue.rs");
+        let build_view = source
+            .rsplit_once("async fn build_view(")
+            .unwrap()
+            .1
+            .split("struct StartRequest")
+            .next()
+            .unwrap();
+        assert!(build_view.contains("backend_dialogue_events"));
+        assert!(!build_view.contains("backend_local_problem_rumors"));
+        assert!(!build_view.contains("events.push"));
+    }
+
+    #[test]
+    fn browser_presence_check_supports_wrapped_daily_windows() {
+        assert!(npc_presence_contains(
+            1_200,
+            120,
+            adventuresim_world_schema::calendar::StrategicMinute::new(1_380)
+        ));
+        assert!(npc_presence_contains(
+            1_200,
+            120,
+            adventuresim_world_schema::calendar::StrategicMinute::new(60)
+        ));
+        assert!(!npc_presence_contains(
+            1_200,
+            120,
+            adventuresim_world_schema::calendar::StrategicMinute::new(600)
+        ));
+        assert!(!npc_presence_contains(
+            480,
+            1_020,
+            adventuresim_world_schema::calendar::StrategicMinute::new(1_020)
+        ));
+    }
+
+    #[test]
+    fn social_transport_serializes_closed_types_as_stable_wire_discriminants() {
+        let view = NpcSocialView {
+            resident_character_id: "42".into(),
+            name: "Anna".into(),
+            affinity: AffinityBand::Trusted,
+            familiarity: FamiliarityBand::WellKnown,
+            morale: MoraleBand::Settled,
+            last_outcome: Some(SocialChatOutcome::Positive),
+            courtship_kind: Some(CourtshipKind::Formal),
+            courtship_exposed: false,
+            wedding_countdown_days: None,
+            romantic_actions: vec![RomanceAction::ScheduleWedding],
+            social_revision: "42:test".into(),
+            about_topics: vec![],
+            trait_impression_available: false,
+        };
+        let value = serde_json::to_value(view).unwrap();
+        assert_eq!(value["affinity"], "trusted");
+        assert_eq!(value["familiarity"], "well_known");
+        assert_eq!(value["morale"], "settled");
+        assert_eq!(value["last_outcome"], "positive");
+        assert_eq!(value["courtship_kind"], "formal");
+        assert_eq!(value["romantic_actions"][0], "schedule_wedding");
+    }
+
+    #[test]
+    fn social_revision_has_a_fixed_typed_vector() {
+        assert_eq!(
+            npc_social_revision(
+                42,
+                AffinityBand::Trusted,
+                FamiliarityBand::WellKnown,
+                MoraleBand::Settled,
+                Some(365),
+                Some(CourtshipKind::Formal),
+                false,
+            ),
+            "dialogue-social-revision:v1|12#character_id=2#42|8#affinity=7#Trusted|11#familiarity=9#WellKnown|6#morale=7#Settled|22#wedding_countdown_days=8#some:365|14#courtship_kind=11#some:Formal|17#courtship_exposed=1#0"
+        );
+        assert_eq!(
+            npc_social_revision(
+                42,
+                AffinityBand::Hostile,
+                FamiliarityBand::New,
+                MoraleBand::Uncertain,
+                None,
+                None,
+                true,
+            ),
+            "dialogue-social-revision:v1|12#character_id=2#42|8#affinity=7#Hostile|11#familiarity=3#New|6#morale=9#Uncertain|22#wedding_countdown_days=4#none|14#courtship_kind=4#none|17#courtship_exposed=1#1"
+        );
+    }
+
+    #[test]
+    fn social_request_parsing_enforces_duration_and_action_id_invariants() {
+        let valid: NpcChatRequest = serde_json::from_value(serde_json::json!({
+            "requested_minutes": 60,
+            "action_id": "chat-19af-2"
+        }))
+        .unwrap();
+        assert_eq!(valid.requested_minutes.minutes(), 60);
+        assert_eq!(valid.action_id.as_str(), "chat-19af-2");
+        assert!(
+            serde_json::from_value::<NpcChatRequest>(serde_json::json!({
+                "requested_minutes": 17,
+                "action_id": "chat-19af-2"
+            }))
+            .is_err()
+        );
+        assert!(
+            serde_json::from_value::<NpcChatRequest>(serde_json::json!({
+                "requested_minutes": 60,
+                "action_id": "chat:19af"
+            }))
+            .is_err()
+        );
+    }
+
+    #[test]
+    fn romantic_rejections_use_stable_codes_instead_of_prose_matching() {
+        assert_eq!(
+            romantic_rejection_message(CourtshipRejectionCode::FatherApproval),
+            "My family would not bless a formal courtship."
+        );
+        let source = include_str!("dialogue.rs");
+        let mapper = source
+            .split("fn romantic_rejection_message")
+            .nth(1)
+            .and_then(|tail| tail.split("async fn npc_romance_action").next())
+            .expect("typed romance rejection mapper");
+        assert!(!mapper.contains("contains("));
+        assert!(source.contains("parse_courtship_rejection(&error_text)"));
+    }
+
+    #[test]
+    fn npc_chat_http_retry_checks_receipt_before_current_presence() {
+        let source = include_str!("dialogue.rs");
+        let handler = source
+            .rsplit("async fn chat_with_npc")
+            .next()
+            .and_then(|tail| tail.split("async fn build_view").next())
+            .expect("NPC chat handler");
+        let receipt = handler
+            .find("backend_social_chat_receipts")
+            .expect("receipt lookup");
+        let presence = handler
+            .find("available_social_npc")
+            .expect("presence lookup");
+        assert!(receipt < presence);
+        assert!(
+            handler.contains("receipt.target_kind != SocialChatTargetKind::SettlementResident")
+        );
+        assert!(handler.contains("receipt.target_id != resident_character_id"));
+        assert!(
+            handler.contains("receipt.requested_minutes != request.requested_minutes.minutes()")
+        );
+    }
+}
+
+async fn location_npcs(
+    State(state): State<AppState>,
+    Path((settlement_id, location_id)): Path<(String, String)>,
+    session: Session,
+) -> Result<Json<Vec<NpcView>>, StatusCode> {
+    let location_id = crate::location_urls::npc_location(&location_id).to_owned();
+    let character_id = session.character_id_u64().ok_or(StatusCode::UNAUTHORIZED)?;
+    let character = state
+        .db
+        .query_one_sats_into::<adventuresim_stdb_client::Character, crate::spacetimedb::CharacterView>(
+            &crate::spacetimedb::character_by_id(character_id),
+        )
+        .await
+        .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
+        .ok_or(StatusCode::UNAUTHORIZED)?;
+    if character.current_settlement_id.as_deref() != Some(settlement_id.as_str()) {
+        return Err(StatusCode::FORBIDDEN);
+    }
+    let settlement = state
+        .db
+        .query_one_sats_into::<adventuresim_stdb_client::Settlement, SettlementView>(
+            &crate::spacetimedb::settlement_by_id(&settlement_id),
+        )
+        .await
+        .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
+        .ok_or(StatusCode::NOT_FOUND)?;
+    if !npc_location_is_navigable(
+        &settlement.economy,
+        &settlement.category,
+        &settlement_id,
+        &location_id,
+    ) {
+        return Err(StatusCode::NOT_FOUND);
+    }
+    let npcs = state
+        .db
+        .query_sats::<BackendSettlementResident>(&format!(
+            "SELECT * FROM backend_settlement_residents WHERE home_settlement_id = {}",
+            sql_string_literal(&settlement_id)
+        ))
+        .await
+        .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?;
+    let presences = state
+        .db
+        .query_sats::<SettlementResidentPresence>(&format!(
+            "SELECT * FROM settlement_resident_presence WHERE settlement_id = {}",
+            sql_string_literal(&settlement_id)
+        ))
+        .await
+        .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?;
+    let mut alive_npc_ids = std::collections::HashSet::new();
+    for npc in &npcs {
+        let alive = super::data::character_is_alive_as_observed(
+            &state,
+            npc.character_id,
+            character_id,
+        )
+        .await
+        .unwrap_or_else(|error| {
+            tracing::warn!(%error, resident_character_id = npc.character_id, observer_character_id = character_id, "could not project resident life state");
+            true
+        });
+        if alive {
+            alive_npc_ids.insert(npc.character_id);
+        }
+    }
+    let minute = state
+        .db
+        .query_one_sats::<CharacterTime>(&crate::spacetimedb::character_time_by_character_id(
+            character_id,
+        ))
+        .await
+        .ok()
+        .flatten()
+        .map_or(StrategicMinute::new(720), |t| calendar_minute(&t.minutes));
+    let mut views = presences.into_iter().filter(|presence| presence.settlement_id == settlement_id && presence.location_id == location_id && npc_presence_contains(presence.start_minute, presence.end_minute, minute)).filter_map(|presence| {
+        let npc = npcs.iter().find(|npc| {
+            npc.character_id == presence.character_id
+                && alive_npc_ids.contains(&npc.character_id)
+                && npc_matches_location_binding(npc, &settlement_id, &location_id, &settlement.economy)
+        })?;
+        let facial = if npc.facial_hair == "none visible" { String::new() } else { format!(", with {}", npc.facial_hair) };
+        Some(NpcView { id: npc.character_id.to_string(), name: npc.name.clone(), initials: npc.name.split_whitespace().filter_map(|part| part.chars().next()).take(2).collect(), description: format!("{} is a {} {} person with {} presentation, a {} build, {}{}, and a {} complexion. Visible details include {}. They wear {}. Occupation: {}. Household kind: {}. Local role: {}.", npc.name, npc.height, npc_age_band_id(npc.age_band), npc_presentation_id(npc.presentation), npc.build, npc.hair, facial, npc.complexion, npc.visible_features, npc.clothing, npc.profession, npc.household_kind, npc.local_role), is_default: presence.is_default, service_id: npc.service_id.clone() })
+    }).collect::<Vec<_>>();
+    views.sort_by_key(|view| (!view.is_default, view.name.clone()));
+    Ok(Json(views))
+}
+
+async fn social_npc_in_scope(
+    state: &AppState,
+    character_id: u64,
+    settlement_id: &str,
+    location_id: &str,
+    resident_character_id: u64,
+) -> Result<BackendSettlementResident, StatusCode> {
+    let character = state
+        .db
+        .query_one_sats_into::<adventuresim_stdb_client::Character, crate::spacetimedb::CharacterView>(
+            &crate::spacetimedb::character_by_id(character_id),
+        )
+        .await
+        .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
+        .ok_or(StatusCode::UNAUTHORIZED)?;
+    if character.current_settlement_id.as_deref() != Some(settlement_id) {
+        return Err(StatusCode::FORBIDDEN);
+    }
+    let settlement = state
+        .db
+        .query_one_sats_into::<adventuresim_stdb_client::Settlement, SettlementView>(
+            &crate::spacetimedb::settlement_by_id(settlement_id),
+        )
+        .await
+        .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
+        .ok_or(StatusCode::NOT_FOUND)?;
+    if !npc_location_is_navigable(
+        &settlement.economy,
+        &settlement.category,
+        settlement_id,
+        location_id,
+    ) {
+        return Err(StatusCode::NOT_FOUND);
+    }
+    let npc = state
+        .db
+        .query_one_sats::<BackendSettlementResident>(
+            &crate::spacetimedb::settlement_resident_by_character_id(resident_character_id),
+        )
+        .await
+        .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
+        .filter(|npc| {
+            npc.home_settlement_id == settlement_id
+                && npc_matches_location_binding(
+                    npc,
+                    settlement_id,
+                    location_id,
+                    &settlement.economy,
+                )
+        })
+        .ok_or(StatusCode::NOT_FOUND)?;
+    if !super::data::character_is_alive_as_observed(
+        state,
+        resident_character_id,
+        character_id,
+    )
+    .await
+    .unwrap_or_else(|error| {
+        tracing::warn!(%error, resident_character_id, observer_character_id = character_id, "could not project resident life state");
+        true
+    }) {
+        return Err(StatusCode::NOT_FOUND);
+    }
+    Ok(npc)
+}
+
+async fn available_social_npc(
+    state: &AppState,
+    character_id: u64,
+    settlement_id: &str,
+    location_id: &str,
+    resident_character_id: u64,
+) -> Result<BackendSettlementResident, StatusCode> {
+    let npc = social_npc_in_scope(
+        state,
+        character_id,
+        settlement_id,
+        location_id,
+        resident_character_id,
+    )
+    .await?;
+    let minute = state
+        .db
+        .query_one_sats::<CharacterTime>(&crate::spacetimedb::character_time_by_character_id(
+            character_id,
+        ))
+        .await
+        .ok()
+        .flatten()
+        .map_or(StrategicMinute::new(720), |t| calendar_minute(&t.minutes));
+    let present = state
+        .db
+        .query_sats::<SettlementResidentPresence>(
+            &crate::spacetimedb::settlement_resident_presence_by_character_id(
+                resident_character_id,
+            ),
+        )
+        .await
+        .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
+        .into_iter()
+        .any(|presence| {
+            presence.settlement_id == settlement_id
+                && presence.location_id == location_id
+                && npc_presence_contains(presence.start_minute, presence.end_minute, minute)
+        });
+    present.then_some(npc).ok_or(StatusCode::CONFLICT)
+}
+
+async fn npc_social_view(
+    state: &AppState,
+    character_id: u64,
+    npc: BackendSettlementResident,
+    last_outcome: Option<SocialChatOutcome>,
+) -> Result<NpcSocialView, StatusCode> {
+    let relationship = state
+        .db
+        .query_one_sats::<BackendSettlementResidentRelationship>(&format!(
+            "SELECT * FROM backend_settlement_resident_relationships WHERE observer_character_id = {character_id} AND resident_character_id = {}",
+            npc.character_id
+        ))
+        .await
+        .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?;
+    let status = state
+        .db
+        .query_one_sats::<BackendCharacterRelationshipStatus>(
+            &crate::spacetimedb::character_relationship_status_by_character_id(character_id),
+        )
+        .await
+        .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
+        .filter(|status| status.character_id == character_id);
+    let active_commitment = active_commitment_with(state, character_id, npc.character_id).await?;
+    let actor_minute = state
+        .db
+        .query_one_sats::<CharacterTime>(&crate::spacetimedb::character_time_by_character_id(
+            character_id,
+        ))
+        .await
+        .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
+        .map_or(StrategicMinute::ZERO, |t| calendar_minute(&t.minutes));
+    let courting_this_npc = status
+        .as_ref()
+        .is_some_and(|status| status.courtship_partner_id == Some(npc.character_id));
+    let mut romantic_actions = Vec::new();
+    if active_commitment.is_some() {
+        romantic_actions.push(RomanceAction::CancelWedding);
+    } else if courting_this_npc {
+        romantic_actions.push(RomanceAction::ScheduleWedding);
+    } else if status
+        .as_ref()
+        .is_none_or(|status| status.spouse_id.is_none() && status.courtship_partner_id.is_none())
+    {
+        romantic_actions.extend([
+            RomanceAction::FormalCourtship,
+            RomanceAction::InformalCourtship,
+        ]);
+    }
+    let courtship_kind = courting_this_npc
+        .then(|| status.as_ref().and_then(|status| status.courtship_kind))
+        .flatten();
+    let courtship_exposed = courting_this_npc
+        && status
+            .as_ref()
+            .is_some_and(|status| status.courtship_exposed);
+    let wedding_countdown_days = active_commitment.as_ref().map(|commitment| {
+        calendar_countdown_days(actor_minute, commitment.wedding_effective_minute.as_ref())
+    });
+    let affinity = relationship
+        .as_ref()
+        .map_or(AffinityBand::Reserved, |row| row.affinity_band);
+    let familiarity = relationship
+        .as_ref()
+        .map_or(FamiliarityBand::New, |row| row.familiarity_band);
+    let morale = relationship
+        .as_ref()
+        .map_or(MoraleBand::Uncertain, |row| row.morale_band);
+    let familiar_address = relationship
+        .as_ref()
+        .is_some_and(|row| row.uses_familiar_address);
+    let object = if familiar_address { "thee" } else { "you" };
+    let affinity_words = match affinity {
+        AffinityBand::Hostile => "with open enmity",
+        AffinityBand::Reserved => "with reserve",
+        AffinityBand::Warm => "with warmth",
+        AffinityBand::Trusted => "as one dear and trusted",
+    };
+    let familiarity_words = match familiarity {
+        FamiliarityBand::New => format!("scarcely know {object}"),
+        FamiliarityBand::Known => format!("know {object} somewhat"),
+        FamiliarityBand::Familiar => format!("know {object} well"),
+        FamiliarityBand::WellKnown => format!("know {object} as an old companion"),
+    };
+    let morale_words = match morale {
+        MoraleBand::Uncertain => "I cannot well name my present humour.",
+        MoraleBand::Distressed => "My spirit is sorely troubled.",
+        MoraleBand::Guarded => "My spirit is wary, yet I endure.",
+        MoraleBand::Settled => "My spirit rests in good order.",
+    };
+    let pledge = if let Some(days) = wedding_countdown_days {
+        format!("Our wedding day shall come in {days} days.")
+    } else if courtship_kind.is_some() {
+        if familiar_address {
+            "Our courtship yet stands, as thou knowest.".to_owned()
+        } else {
+            "Our courtship yet stands, as you know.".to_owned()
+        }
+    } else {
+        format!("I have no pledge that I may declare to {object}.")
+    };
+    let about_topics = vec![
+        NpcAboutTopic {
+            id: "regard",
+            question: if familiar_address {
+                "How stand I in thy regard?"
+            } else {
+                "How stand I in your regard?"
+            },
+            answer: format!("I hold {object} {affinity_words}."),
+        },
+        NpcAboutTopic {
+            id: "familiarity",
+            question: if familiar_address {
+                "How well knowest thou me?"
+            } else {
+                "How well do you know me?"
+            },
+            answer: format!("I {familiarity_words}."),
+        },
+        NpcAboutTopic {
+            id: "morale",
+            question: if familiar_address {
+                "How fares thy spirit?"
+            } else {
+                "How fares your spirit?"
+            },
+            answer: morale_words.to_owned(),
+        },
+        NpcAboutTopic {
+            id: "pledge",
+            question: if familiar_address {
+                "Art thou pledged to another?"
+            } else {
+                "Are you pledged to another?"
+            },
+            answer: pledge,
+        },
+    ];
+    let social_revision = npc_social_revision(
+        npc.character_id,
+        affinity,
+        familiarity,
+        morale,
+        wedding_countdown_days,
+        courtship_kind,
+        courtship_exposed,
+    );
+    Ok(NpcSocialView {
+        resident_character_id: npc.character_id.to_string(),
+        name: npc.name,
+        affinity,
+        familiarity,
+        morale,
+        last_outcome,
+        courtship_kind,
+        courtship_exposed,
+        wedding_countdown_days,
+        romantic_actions,
+        social_revision,
+        about_topics,
+        trait_impression_available: false,
+    })
+}
+
+async fn active_commitment_with(
+    state: &AppState,
+    actor_id: u64,
+    target_id: u64,
+) -> Result<Option<BackendCharacterRelationshipStatus>, StatusCode> {
+    let status = state
+        .db
+        .query_one_sats::<BackendCharacterRelationshipStatus>(
+            &crate::spacetimedb::character_relationship_status_by_character_id(actor_id),
+        )
+        .await
+        .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?;
+    Ok(status.filter(|row| {
+        row.character_id == actor_id
+            && row.wedding_commitment_id.is_some()
+            && row.wedding_partner_id == Some(target_id)
+    }))
+}
+
+fn romantic_rejection_message(code: CourtshipRejectionCode) -> &'static str {
+    match code {
+        CourtshipRejectionCode::Affinity => "I care for thee, yet am not ready for such a bond.",
+        CourtshipRejectionCode::FatherApproval => "My family would not bless a formal courtship.",
+        CourtshipRejectionCode::FormalRoute => {
+            "I cannot consent unless we pursue the proper course."
+        }
+        CourtshipRejectionCode::MutualAttraction => "I care for thee, but not as a lover.",
+        CourtshipRejectionCode::ExclusiveCommitment => {
+            "I cannot plight my troth whilst one of us is already pledged."
+        }
+        CourtshipRejectionCode::AlreadyMarried => {
+            "I cannot consent whilst one of us is already wed."
+        }
+        CourtshipRejectionCode::CoLocation => "We must meet before we speak of such a bond.",
+        CourtshipRejectionCode::IneligibleCharacter => "I cannot enter such a courtship.",
+        CourtshipRejectionCode::CloseRelative => "Our blood lies too near for courtship.",
+        CourtshipRejectionCode::ActiveCourtshipRequired => {
+            "We must first be courting ere we appoint a wedding."
+        }
+        CourtshipRejectionCode::CeremonySettlementRequired => {
+            "We must first agree where the ceremony shall be held."
+        }
+        CourtshipRejectionCode::ResidenceRequired => "We must have a fitting home ere we wed.",
+    }
+}
+
+async fn npc_romance_action(
+    State(state): State<AppState>,
+    Path((settlement_id, location_id, resident_character_id, action)): Path<(
+        String,
+        String,
+        String,
+        RomanceAction,
+    )>,
+    session: Session,
+) -> Result<Json<NpcRomanceActionResult>, StatusCode> {
+    let location_id = crate::location_urls::npc_location(&location_id).to_owned();
+    let character_id = session.character_id_u64().ok_or(StatusCode::UNAUTHORIZED)?;
+    let resident_character_id = resident_character_id
+        .parse::<u64>()
+        .map_err(|_| StatusCode::BAD_REQUEST)?;
+    let npc = available_social_npc(
+        &state,
+        character_id,
+        &settlement_id,
+        &location_id,
+        resident_character_id,
+    )
+    .await?;
+    let (reducer, args, success) = match action {
+        RomanceAction::FormalCourtship => (
+            "begin_formal_courtship",
+            vec![json!(character_id), json!(resident_character_id)],
+            "Yea. Let us seek my family's blessing and proceed openly.",
+        ),
+        RomanceAction::InformalCourtship => (
+            "begin_informal_courtship",
+            vec![json!(character_id), json!(resident_character_id)],
+            "Yea. We shall keep this between ourselves.",
+        ),
+        RomanceAction::ScheduleWedding => (
+            "schedule_wedding",
+            vec![json!(character_id), json!(resident_character_id)],
+            "Then is it settled: one year from this day.",
+        ),
+        RomanceAction::CancelWedding => {
+            let Some(commitment) =
+                active_commitment_with(&state, character_id, resident_character_id).await?
+            else {
+                let view = npc_social_view(&state, character_id, npc, None).await?;
+                return Ok(Json(NpcRomanceActionResult {
+                    ok: false,
+                    message: "There is no wedding betwixt us to forswear.".into(),
+                    view,
+                }));
+            };
+            (
+                "cancel_wedding",
+                vec![
+                    json!(character_id),
+                    json!(
+                        commitment
+                            .wedding_commitment_id
+                            .expect("projected active commitment has an id")
+                    ),
+                ],
+                "I understand. The wedding shall not go forward.",
+            )
+        }
+    };
+    let result = state.db.call(reducer, &args).await;
+    let (ok, message) = match result {
+        Ok(()) => (true, success.to_owned()),
+        Err(error) => {
+            let error_text = error.to_string();
+            if let Some(rejection) = parse_courtship_rejection(&error_text) {
+                (false, romantic_rejection_message(rejection.code).to_owned())
+            } else {
+                tracing::warn!(
+                    character_id,
+                    resident_character_id,
+                    ?action,
+                    error = %error_text,
+                    "romantic action rejected"
+                );
+                (false, "I cannot make that promise at this hour.".into())
+            }
+        }
+    };
+    let view = npc_social_view(&state, character_id, npc, None).await?;
+    Ok(Json(NpcRomanceActionResult { ok, message, view }))
+}
+
+async fn npc_social(
+    State(state): State<AppState>,
+    Path((settlement_id, location_id, resident_character_id)): Path<(String, String, String)>,
+    session: Session,
+) -> Result<Json<NpcSocialView>, StatusCode> {
+    let location_id = crate::location_urls::npc_location(&location_id).to_owned();
+    let character_id = session.character_id_u64().ok_or(StatusCode::UNAUTHORIZED)?;
+    let resident_character_id = resident_character_id
+        .parse::<u64>()
+        .map_err(|_| StatusCode::BAD_REQUEST)?;
+    let npc = available_social_npc(
+        &state,
+        character_id,
+        &settlement_id,
+        &location_id,
+        resident_character_id,
+    )
+    .await?;
+    Ok(Json(
+        npc_social_view(&state, character_id, npc, None).await?,
+    ))
+}
+
+async fn chat_with_npc(
+    State(state): State<AppState>,
+    Path((settlement_id, location_id, resident_character_id)): Path<(String, String, String)>,
+    session: Session,
+    Json(request): Json<NpcChatRequest>,
+) -> Result<Json<NpcSocialView>, StatusCode> {
+    let location_id = crate::location_urls::npc_location(&location_id).to_owned();
+    let character_id = session.character_id_u64().ok_or(StatusCode::UNAUTHORIZED)?;
+    let resident_character_id = resident_character_id
+        .parse::<u64>()
+        .map_err(|_| StatusCode::BAD_REQUEST)?;
+    let npc = social_npc_in_scope(
+        &state,
+        character_id,
+        &settlement_id,
+        &location_id,
+        resident_character_id,
+    )
+    .await?;
+    let receipt_id = format!("{character_id}:{}", request.action_id.as_str());
+    if let Some(receipt) = state
+        .db
+        .query_one_sats::<BackendSocialChatReceipt>(&format!(
+            "SELECT * FROM backend_social_chat_receipts WHERE id = {} AND actor_id = {character_id}",
+            sql_string_literal(&receipt_id)
+        ))
+        .await
+        .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
+    {
+        if receipt.target_kind != SocialChatTargetKind::SettlementResident
+            || receipt.target_id != resident_character_id.to_string()
+            || receipt.requested_minutes != request.requested_minutes.minutes()
+        {
+            return Err(StatusCode::CONFLICT);
+        }
+        return Ok(Json(
+            npc_social_view(&state, character_id, npc, Some(receipt.outcome)).await?,
+        ));
+    }
+    let npc = available_social_npc(
+        &state,
+        character_id,
+        &settlement_id,
+        &location_id,
+        resident_character_id,
+    )
+    .await?;
+    state
+        .db
+        .call(
+            "spend_time_with_settlement_resident",
+            &[
+                json!(character_id),
+                json!(resident_character_id),
+                json!(request.requested_minutes.minutes()),
+                json!(request.action_id.as_str()),
+            ],
+        )
+        .await
+        .map_err(|_| StatusCode::CONFLICT)?;
+    let receipt = state
+        .db
+        .query_one_sats::<BackendSocialChatReceipt>(&format!(
+            "SELECT * FROM backend_social_chat_receipts WHERE id = {} AND actor_id = {character_id}",
+            sql_string_literal(&receipt_id)
+        ))
+        .await
+        .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
+        .ok_or(StatusCode::SERVICE_UNAVAILABLE)?;
+    Ok(Json(
+        npc_social_view(&state, character_id, npc, Some(receipt.outcome)).await?,
+    ))
+}
+
+async fn build_view(
+    state: &AppState,
+    character_id: u64,
+    session_id: &str,
+) -> Result<ConversationView, StatusCode> {
+    let session = state
+        .db
+        .query_one_sats::<BackendDialogueSession>(&format!(
+            "SELECT * FROM backend_dialogue_sessions WHERE id = {} AND owner_character_id = {character_id}",
+            sql_string_literal(session_id),
+        ))
+        .await
+        .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
+        .ok_or(StatusCode::NOT_FOUND)?;
+    let mut participants = state
+        .db
+        .query_sats::<BackendDialogueParticipant>(&format!(
+            "SELECT * FROM backend_dialogue_participants WHERE session_id = {} AND owner_character_id = {character_id}",
+            sql_string_literal(session_id),
+        ))
+        .await
+        .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?;
+    if !participants
+        .iter()
+        .any(|p| p.character_id == Some(character_id))
+    {
+        return Err(StatusCode::FORBIDDEN);
+    }
+    participants.sort_by(|a, b| a.id.cmp(&b.id));
+    let names: std::collections::BTreeMap<_, _> = participants
+        .iter()
+        .map(|p| (p.role.clone(), p.display_name.clone()))
+        .collect();
+    let mut claims = state
+        .db
+        .query_sats::<BackendDialogueWitnessClaim>(&format!(
+            "SELECT * FROM backend_dialogue_witness_claims WHERE session_id = {} AND observer_character_id = {character_id}",
+            sql_string_literal(session_id),
+        ))
+        .await
+        .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?;
+    claims.sort_by_key(|claim| (claim.event_sequence, claim.claim_order));
+    let mut events = state
+        .db
+        .query_sats::<BackendDialogueEvent>(&format!(
+            "SELECT * FROM backend_dialogue_events WHERE session_id = {} AND owner_character_id = {character_id}",
+            sql_string_literal(session_id),
+        ))
+        .await
+        .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?;
+    events.sort_by_key(|event| event.sequence);
+    let events: Vec<_> = events
+        .into_iter()
+        .map(|event| {
+            let fragments: Vec<adventuresim_dialogue::ResolvedFragment> =
+                serde_json::from_str(&event.fragments_json).unwrap_or_default();
+            let sources: Vec<Option<adventuresim_dialogue::SourceRef>> =
+                serde_json::from_str(&event.source_refs_json).unwrap_or_default();
+            let speaker_is_player = participants
+                .iter()
+                .find(|p| p.role == event.speaker_role)
+                .is_some_and(|p| p.character_id.is_some());
+            EventView {
+                sequence: event.sequence,
+                speaker_name: names
+                    .get(&event.speaker_role)
+                    .cloned()
+                    .unwrap_or_else(|| "Unknown participant".into()),
+                speaker_is_player,
+                speaker_role: event.speaker_role,
+                fragments: fragments
+                    .into_iter()
+                    .enumerate()
+                    .map(|(index, fragment)| {
+                        let claim = match &fragment {
+                            adventuresim_dialogue::ResolvedFragment::Claim {
+                                value,
+                                claim_order,
+                            } => claim_view(event.sequence, *claim_order, value, &claims),
+                            _ => None,
+                        };
+                        FragmentView {
+                            fragment,
+                            source: sources.get(index).cloned().flatten().and_then(edit_source),
+                            claim,
+                        }
+                    })
+                    .collect(),
+            }
+        })
+        .collect();
+    let mut topics = state
+        .db
+        .query_sats::<BackendDialogueTopicOption>(&format!(
+            "SELECT * FROM backend_dialogue_topic_options WHERE session_id = {} AND owner_character_id = {character_id}",
+            sql_string_literal(session_id),
+        ))
+        .await
+        .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?;
+    topics.sort_by(|a, b| a.id.cmp(&b.id));
+    let topics = topics
+        .into_iter()
+        .map(|topic| TopicView {
+            category: adventuresim_dialogue::category_for_topic(
+                &session.conversation_id,
+                &topic.topic_id,
+            )
+            .unwrap_or_default(),
+            id: topic.topic_id,
+            label: topic.label,
+            source: serde_json::from_str::<Option<adventuresim_dialogue::SourceRef>>(
+                &topic.source_ref_json,
+            )
+            .ok()
+            .flatten()
+            .and_then(edit_source),
+        })
+        .collect();
+    let mut prompts = state
+        .db
+        .query_sats::<BackendDialoguePrompt>(&format!(
+            "SELECT * FROM backend_dialogue_prompts WHERE session_id = {} AND owner_character_id = {character_id}",
+            sql_string_literal(session_id),
+        ))
+        .await
+        .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?;
+    prompts.retain(|prompt| prompt.state == "open");
+    prompts.sort_by(|a, b| a.id.cmp(&b.id));
+    let open_prompt = prompts.pop().map(|prompt| {
+        let choices: Vec<adventuresim_dialogue::Choice> =
+            serde_json::from_str(&prompt.choices_json).unwrap_or_default();
+        let sources: Vec<Option<adventuresim_dialogue::SourceRef>> =
+            serde_json::from_str(&prompt.source_refs_json).unwrap_or_default();
+        PromptView {
+            id: prompt.id,
+            mode: prompt.mode,
+            min_choices: prompt.min_choices,
+            max_choices: prompt.max_choices,
+            choices: choices
+                .into_iter()
+                .enumerate()
+                .map(|(index, choice)| ChoiceView {
+                    id: choice.id,
+                    label: choice.label,
+                    source: sources.get(index).cloned().flatten().and_then(edit_source),
+                })
+                .collect(),
+        }
+    });
+    let expected_order_representative =
+        adventuresim_core::organization::organization_representative_id(
+            &session.settlement_id,
+            "order_saint_george",
+        )
+        .to_string();
+    let order_errantry_offer = session.conversation_id == "organization-representative"
+        && participants.iter().any(|participant| {
+            participant.character_id.is_none()
+                && participant.actor_id == expected_order_representative
+        });
+    Ok(ConversationView {
+        session_id: session.id,
+        revision: session.revision,
+        catalog_revision: session.catalog_revision,
+        participants: participants.into_iter().map(Into::into).collect(),
+        events,
+        topics,
+        open_prompt,
+        order_errantry_offer,
+    })
+}
+
+#[derive(Deserialize)]
+struct StartRequest {
+    npc_actor_id: String,
+    location_id: String,
+}
+
+fn classify_public_dialogue_start_reducer_error(
+    error: SpacetimeError,
+) -> Result<
+    PublicDialogueStartOutcome<ConversationView>,
+    PublicDialogueStartError<SpacetimeError, StatusCode>,
+> {
+    if error.reducer_code() == Some(ReducerErrorCode::DialogueContactUnavailable) {
+        Ok(PublicDialogueStartOutcome::ContactUnavailable)
+    } else {
+        Err(PublicDialogueStartError::Reducer(error))
+    }
+}
+
+async fn start_public_dialogue(
+    state: &AppState,
+    character_id: u64,
+    session_id: &str,
+    conversation_id: &str,
+    npc_actor_id: &str,
+    location_id: &str,
+) -> Result<
+    PublicDialogueStartOutcome<ConversationView>,
+    PublicDialogueStartError<SpacetimeError, StatusCode>,
+> {
+    if let Err(error) = state
+        .db
+        .call(
+            "start_dialogue",
+            &[
+                json!(character_id),
+                json!(session_id),
+                json!(conversation_id),
+                json!(npc_actor_id),
+                json!(location_id),
+                json!(adventuresim_dialogue::CATALOG_DIGEST),
+            ],
+        )
+        .await
+    {
+        return classify_public_dialogue_start_reducer_error(error);
+    }
+
+    match build_view(state, character_id, session_id).await {
+        Ok(view) => Ok(PublicDialogueStartOutcome::Started(view)),
+        Err(StatusCode::NOT_FOUND) => Err(PublicDialogueStartError::SessionProjectionMissing),
+        Err(status) => Err(PublicDialogueStartError::Projection(status)),
+    }
+}
+
+async fn start(
+    State(state): State<AppState>,
+    session: Session,
+    Json(request): Json<StartRequest>,
+) -> Result<Json<ConversationView>, StatusCode> {
+    let character_id = session.character_id_u64().ok_or(StatusCode::UNAUTHORIZED)?;
+    let npc_actor_id = request
+        .npc_actor_id
+        .parse::<u64>()
+        .map_err(|_| StatusCode::BAD_REQUEST)?;
+    let npc = state
+        .db
+        .query_one_sats::<BackendSettlementResident>(
+            &crate::spacetimedb::settlement_resident_by_character_id(npc_actor_id),
+        )
+        .await
+        .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
+        .ok_or(StatusCode::BAD_REQUEST)?;
+    let settlement = state
+        .db
+        .query_one_sats_into::<adventuresim_stdb_client::Settlement, SettlementView>(
+            &crate::spacetimedb::settlement_by_id(&npc.home_settlement_id),
+        )
+        .await
+        .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
+        .ok_or(StatusCode::BAD_REQUEST)?;
+    if !npc_matches_location_binding(
+        &npc,
+        &npc.home_settlement_id,
+        &request.location_id,
+        &settlement.economy,
+    ) {
+        return Err(StatusCode::NOT_FOUND);
+    }
+    if !npc_location_is_navigable(
+        &settlement.economy,
+        &settlement.category,
+        &npc.home_settlement_id,
+        &request.location_id,
+    ) {
+        return Err(StatusCode::NOT_FOUND);
+    }
+    let conversation = npc.conversation_id;
+    // Selecting an NPC starts a fresh encounter. Historical sessions remain
+    // available for prior-interaction facts but never become an indefinite live view.
+    let nonce = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map_or(0, |d| d.as_micros());
+    let session_id = format!("dialogue:{character_id}:{nonce}");
+    match start_public_dialogue(
+        &state,
+        character_id,
+        &session_id,
+        &conversation,
+        &request.npc_actor_id,
+        &request.location_id,
+    )
+    .await
+    {
+        Ok(PublicDialogueStartOutcome::Started(view)) => Ok(Json(view)),
+        Ok(PublicDialogueStartOutcome::ContactUnavailable) => Err(StatusCode::CONFLICT),
+        Err(PublicDialogueStartError::SessionProjectionMissing) => {
+            tracing::warn!(
+                character_id,
+                npc_actor_id = %request.npc_actor_id,
+                session_id,
+                "started dialogue session was absent from the owner projection"
+            );
+            Err(StatusCode::SERVICE_UNAVAILABLE)
+        }
+        Err(PublicDialogueStartError::Reducer(error)) => {
+            tracing::warn!(
+                %error,
+                character_id,
+                npc_actor_id = %request.npc_actor_id,
+                location_id = %request.location_id,
+                "start_dialogue reducer rejected an NPC encounter"
+            );
+            Err(StatusCode::CONFLICT)
+        }
+        Err(PublicDialogueStartError::Projection(status)) => Err(status),
+    }
+}
+async fn view(
+    State(state): State<AppState>,
+    Path(session_id): Path<String>,
+    session: Session,
+) -> Result<Json<ConversationView>, StatusCode> {
+    let character_id = session.character_id_u64().ok_or(StatusCode::UNAUTHORIZED)?;
+    Ok(Json(build_view(&state, character_id, &session_id).await?))
+}
+
+#[derive(Deserialize)]
+struct TopicRequest {
+    session_id: String,
+    topic_id: String,
+    action_id: String,
+    expected_revision: u64,
+}
+async fn topic(
+    State(state): State<AppState>,
+    session: Session,
+    Json(request): Json<TopicRequest>,
+) -> Result<Json<ConversationView>, StatusCode> {
+    let character_id = session.character_id_u64().ok_or(StatusCode::UNAUTHORIZED)?;
+    state
+        .db
+        .call(
+            "choose_dialogue_topic",
+            &[
+                json!(character_id),
+                json!(&request.session_id),
+                json!(request.topic_id),
+                json!(request.action_id),
+                json!(request.expected_revision),
+                json!(adventuresim_dialogue::CATALOG_DIGEST),
+            ],
+        )
+        .await
+        .map_err(|_| StatusCode::CONFLICT)?;
+    Ok(Json(
+        build_view(&state, character_id, &request.session_id).await?,
+    ))
+}
+#[derive(Deserialize)]
+struct AnswerRequest {
+    session_id: String,
+    prompt_row_id: String,
+    choice_ids: Vec<String>,
+    action_id: String,
+    expected_revision: u64,
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+struct DialogueSessionId<'a>(&'a str);
+
+impl<'a> DialogueSessionId<'a> {
+    fn parse(value: &'a str) -> Option<Self> {
+        value
+            .strip_prefix("dialogue:")
+            .filter(|identity| !identity.is_empty() && !identity.contains(":prompt:"))?;
+        Some(Self(value))
+    }
+}
+
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+struct DialoguePromptRowId<'a> {
+    session_id: DialogueSessionId<'a>,
+    prompt_id: &'a str,
+}
+
+impl<'a> DialoguePromptRowId<'a> {
+    fn parse(value: &'a str) -> Option<Self> {
+        let (session_id, prompt_id) = value.split_once(":prompt:")?;
+        if prompt_id.is_empty() || prompt_id.contains(":prompt:") {
+            return None;
+        }
+        Some(Self {
+            session_id: DialogueSessionId::parse(session_id)?,
+            prompt_id,
+        })
+    }
+}
+
+fn dialogue_prompt_row_belongs_to_session(prompt_row_id: &str, session_id: &str) -> bool {
+    let Some(prompt) = DialoguePromptRowId::parse(prompt_row_id) else {
+        return false;
+    };
+    DialogueSessionId::parse(session_id).is_some_and(|session| prompt.session_id == session)
+}
+
+async fn answer(
+    State(state): State<AppState>,
+    session: Session,
+    Json(request): Json<AnswerRequest>,
+) -> Result<Json<ConversationView>, StatusCode> {
+    let character_id = session.character_id_u64().ok_or(StatusCode::UNAUTHORIZED)?;
+    if !dialogue_prompt_row_belongs_to_session(&request.prompt_row_id, &request.session_id) {
+        return Err(StatusCode::BAD_REQUEST);
+    }
+    state
+        .db
+        .call(
+            "answer_dialogue_prompt",
+            &[
+                json!(character_id),
+                json!(request.prompt_row_id),
+                json!(serde_json::to_string(&request.choice_ids).unwrap()),
+                json!(request.action_id),
+                json!(request.expected_revision),
+                json!(adventuresim_dialogue::CATALOG_DIGEST),
+            ],
+        )
+        .await
+        .map_err(|_| StatusCode::CONFLICT)?;
+    Ok(Json(
+        build_view(&state, character_id, &request.session_id).await?,
+    ))
+}
+#[derive(Deserialize)]
+struct JoinRequest {
+    session_id: String,
+    role: String,
+    action_id: String,
+    expected_revision: u64,
+}
+async fn join(
+    State(state): State<AppState>,
+    session: Session,
+    Json(request): Json<JoinRequest>,
+) -> Result<Json<ConversationView>, StatusCode> {
+    let character_id = session.character_id_u64().ok_or(StatusCode::UNAUTHORIZED)?;
+    state
+        .db
+        .call(
+            "join_dialogue_session",
+            &[
+                json!(character_id),
+                json!(&request.session_id),
+                json!(request.role),
+                json!(request.action_id),
+                json!(request.expected_revision),
+                json!(adventuresim_dialogue::CATALOG_DIGEST),
+            ],
+        )
+        .await
+        .map_err(|_| StatusCode::CONFLICT)?;
+    Ok(Json(
+        build_view(&state, character_id, &request.session_id).await?,
+    ))
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn dialogue_participant_projection_explicitly_omits_owner_authority() {
+        let view = DialogueParticipantView::from(BackendDialogueParticipant {
+            id: "participant:1".into(),
+            session_id: "dialogue:7:test".into(),
+            role: "witness".into(),
+            character_id: Some(7),
+            actor_id: "resident:11".into(),
+            display_name: "Marta".into(),
+            owner_character_id: 7,
+        });
+        assert_eq!(view.id, "participant:1");
+        assert_eq!(view.session_id, "dialogue:7:test");
+        assert_eq!(view.role, "witness");
+        assert_eq!(view.character_id, Some(7));
+        assert_eq!(view.actor_id, "resident:11");
+        assert_eq!(view.display_name, "Marta");
+    }
+
+    pub(super) fn claim(text: &str, order: u32) -> BackendDialogueWitnessClaim {
+        BackendDialogueWitnessClaim {
+            observer_character_id: 7,
+            session_id: "dialogue:7:test".into(),
+            resident_character_id: 11,
+            event_sequence: 4,
+            claim_order: order,
+            challenge_token: format!("opaque-{order}"),
+            displayed_text: text.into(),
+            charm_response: Some(format!("Charm {order}")),
+            command_response: None,
+            bluff_response: Some(format!("Bluff {order}")),
+            assessment_direction: "likely_true".into(),
+            assessment_strength: 0.5,
+            resolution: None,
+        }
+    }
+
+    #[test]
+    fn structured_claim_projection_requires_exact_event_order_and_text() {
+        let rows = vec![claim("alone", 0), claim("a creature as tall as a tree", 1)];
+        assert!(claim_view(4, 0, "alone", &rows).is_some());
+        assert!(claim_view(4, 1, "a creature as tall as a tree", &rows).is_some());
+        assert!(claim_view(3, 0, "alone", &rows).is_none());
+        assert!(claim_view(4, 1, "alone", &rows).is_none());
+        assert!(claim_view(4, 0, "different text", &rows).is_none());
+    }
+
+    #[test]
+    fn prompt_row_ids_require_an_exact_session_tag() {
+        assert!(dialogue_prompt_row_belongs_to_session(
+            "dialogue:7:request:prompt:choice:answer",
+            "dialogue:7:request"
+        ));
+        assert!(!dialogue_prompt_row_belongs_to_session(
+            "dialogue:7:request-spoof:prompt:choice:answer",
+            "dialogue:7:request"
+        ));
+        assert!(!dialogue_prompt_row_belongs_to_session(
+            "dialogue:7:request:event:choice",
+            "dialogue:7:request"
+        ));
+        assert!(!dialogue_prompt_row_belongs_to_session(
+            "7:request:prompt:choice:answer",
+            "dialogue:7:request"
+        ));
+        assert!(!dialogue_prompt_row_belongs_to_session(
+            "dialogue:7:request:prompt:",
+            "dialogue:7:request"
+        ));
+        assert!(!dialogue_prompt_row_belongs_to_session(
+            "dialogue:7:request:prompt:choice:prompt:spoof",
+            "dialogue:7:request"
+        ));
+        assert!(!dialogue_prompt_row_belongs_to_session(
+            "dialogue:7:request:prompt:choice",
+            "7:request"
+        ));
+    }
+
+    #[test]
+    fn dialogue_contact_race_classification_ignores_detail_wording() {
+        for detail in [
+            "The contact stepped away",
+            "Completely different presentation text",
+        ] {
+            let wire = adventuresim_core::reducer_error::coded_reducer_error(
+                ReducerErrorCode::DialogueContactUnavailable,
+                detail,
+            );
+            assert!(matches!(
+                classify_public_dialogue_start_reducer_error(SpacetimeError::Spacetime(wire)),
+                Ok(PublicDialogueStartOutcome::ContactUnavailable)
+            ));
+        }
+        assert!(matches!(
+            classify_public_dialogue_start_reducer_error(SpacetimeError::Spacetime(
+                "uncoded reducer failure".into()
+            )),
+            Err(PublicDialogueStartError::Reducer(_))
+        ));
+    }
+}

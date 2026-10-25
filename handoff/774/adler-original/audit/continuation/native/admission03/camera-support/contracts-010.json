@@ -1,0 +1,100 @@
+{
+  "id": "NATIVE-CAMERA-SUPPORT03-CONTRACTS-010",
+  "authority": "ROOT-ADM-SUPPORT-AUTHORITY-054",
+  "lens": "audit-admission-contracts",
+  "groups": {
+    "p16-inventory-observation-scalar-admission-and-raw-dependent-metadata": {
+      "camera_indices": [
+        307
+      ],
+      "ranges": {
+        "307": [
+          [
+            1,
+            112
+          ]
+        ]
+      },
+      "invariant": "Native zero quantity is explicitEmpty; positive count and selected checked geometry leaves are admitted before projection. This does not seal all raw item metadata/aggregate or native mass/weapon fields.",
+      "all_admission_routes": [
+        "Full112 fresh. PreparedInventoryItem publicsuperEmpty(rawrow)/Admitted{rawrow,checkedQuantity,PreparedGeometry}; observe33 usescanonicalquantitynew andreturnsEmpty BEFOREgeometry. Actual073/074 qtyprivateNonZero count/default1/transparentSerde/opaqueReflect routes provencontracts002. Quantity0 notgenericError orfake1. PreparedGeometrypubsuperfields rawmassf32/OptionPhysical/OptionWeapon; noSerdeDefaultReflect/retainedprivatefinite-mass guarantee.",
+        "observe48 parametricWeapon optionalactual309 first; mass usesderivedmass elseholdermass elseincomingitem.weight raw, no finite/sign gate onplainweight. Equipmentlookupactualauthoredcatalog; instance updates CuboidDimensions axisfromcheckedlengths andcheckedgrip, rawanchor kernel negates total-grip. FinalTacticalEquipmentPhysicalliteral preservescheckedfinite signed/zero-capable lengths/rawanchor; Camera033 actualaggregate is_valid notcalledhere, so cannotcall thisrecord universallystrictpositive/gripcorrelatedvalid. Lowerauthoredcatalogvalidation separate, notassumedfromlookupSome.",
+        "WeaponbranchrequiresEquipmentSome andstrikingmaterialSome else typedMissing; stores raw9skillweightarray/baseprecision orconditionedprecision, mass/inertia/etc remainactualnative/rawproperties. Noninstance reach checkedSignedLength::from_metres; derivedreach currentParametric new. CanonicalP16ParametricGeometry actualCamera079 onlynew finite+mass/lengthpositive/griprange/headrange/inertia/balance/precisionnonnegative, publicfields broaderF021; thisactualcallusesnew via309, notrawpublicliteral. Camera080 precisioncataloglookup andContactPrecisionF008 sourcepanicqual retained.",
+        "Preparedrawitem retains selectedplacement/occupancies/protectedparts/appearance atreturn109; observe doesNOTprecompute/project_armor or alltopology/appearance fields laterconsumedin091. No current nativeSDK rowsemanticdecoderseal: direct093 publicquantity/OptionString/Vecoccupancy/Vecprotectedparts/Optionappearances are rawsafeconstruction routes. Laterrequirements cannotbe inferredfromvariantAdmitted."
+      ],
+      "counterexample_or_qualification": "F004 incompleteprepared-batch dependentmetadata gate below. No newuniquefinitequantitybypass; rawmass/array/physicalaggregate aredeclaredbroader notassumedchecked. No actualmalformedcurrentserverrow or runtimefailure claimed.",
+      "connected_repair": "Prepare complete physical/equipment/appearance/topology productonce, retaincheckedleaves/ownedtypederrors throughactualrecipient. ExistingRoot/Camera projection claims unchanged; do notpatchviarepeatedget/.into churn orsilentlyskipinvalidmetadata.",
+      "acceptance": "PreservezeroEmpty/nativeattachmentmath/sourceerrors; allfinaldependentmetadata admitBEFORE anyentitycommands ifcompletebatchpromise retained."
+    },
+    "p16-equipment-recipe-geometry-and-late-trusted-metadata-admission": {
+      "camera_indices": [
+        309
+      ],
+      "ranges": {
+        "309": [
+          [
+            1,
+            176
+          ]
+        ]
+      },
+      "invariant": "Recipe/nativeobservation must pass explicitversion/catalog/hash/derivedgeometry gates; projection helper names/expect strings are not rawmetadata validation.",
+      "all_admission_routes": [
+        "Full176 fresh. StructuredEquipmentProjectionError retainsGeometry/nativeCodec andtypedvariantpayloads/currentrawitemid/errors. projected_parametric_weapon missingappearance+knownparametricdefault→MissingRecipe, absentnonparametric→None. parametric53 checksgeneratorversion FIRST→decodeactualrecipe→exactcatalogID→exactdesignhashbytecomparison→derive_propertiesResult→eachSignedLength constructor→ParametricWeaponCombatGeometry::newOption→typedCombatGeometry. Canonicalgeometrypredicate actualCamera079 consumed, no nativewire/derivedpropertiesalgorithmfullpackageclaimfrommethodname.",
+        "projected_weapon/holder_appearance81/95 copiesversion/recipe andtry_into[hasharray].expect; exactlengthcheckonlyimplicitinconversion, failurepanics. Holder_mass111 assertsversion, decodeexpect/catalogasserteq/hashasserteq/deriveexpect thenrawf32mass; unlikeweaponpathnotfallibletypederror. Theseare actualrawsource boundarychecks, no localpositive/finitefallback or invalidcheckedSelf construction fromassertbecausepanicsfirst. Errorpath cleanuplater06 stillrecordactualroute.",
+        "Armor131: emptyprotectedparts→None (notArmorError), elseauthoreddefinition/equipment/selectedplacement expects, firstbodypart mapsclosedslot and7coveragegeometry fromactualprotection; rawROM/coverage/resistance/padding/flexibility copied, nativechannelorderor0default. No newcheckedArmorItemfactory/Serde/Reflect; missingplacement/data canpanic evenafterprepareditemobserveOk. Actuallateparent091call869 followsentitycommands."
+      ],
+      "counterexample_or_qualification": "No authoringcataloguecompletevalidationcreditfromexpectlabels. Source-level F004latepreparationgap and existingContactPrecision/typederrorF008 support; holderunwrap/APIcleanupdistinctnativecodecerrorroute preserved. Nocurrentbadrow/runtimeclaim.",
+      "connected_repair": "Singlefallibleprepareallrequiredrecipe/appearance/armor metadata andretainactualtypedcauses toconsumer; no generatedbindingshandedits or newrawsuccessfallback.",
+      "acceptance": "Preserveversion→decode→identity→hash→derive→geometry order, absentlegitimatenonparametricgeometry, emptyprotectedpartssemantics andnativefieldroleunits."
+    },
+    "p16-facing-frame-policy-and-native-transform-recipient": {
+      "camera_indices": [
+        308
+      ],
+      "ranges": {
+        "308": [
+          [
+            1,
+            162
+          ]
+        ]
+      },
+      "invariant": "Facing helpers use checked time/angle/step operands, while Transform/Quat/worldvelocity observations remain declared native input/output; not a private valid rigid-pose token.",
+      "all_admission_routes": [
+        "Full162 fresh. AuthoritativeFacingpubsuperfields rawnativeQuat/worldVec3/closedCameraIntent/OptionalAttackborrow/checkedTick/Elapsed/sameimmutableConfigborrow; noSerdeDefaultReflect orcheckedpublicrawfactory. Posturetransitionownsbodyfacing locks andsetsresting; downedAlign usesfallibleconfiguredangularspeed; Aim/releasesector statehelpers typedHalfTurns/Step, Ragdolledskip explicit. Advance skeleton.downedmotion canoccurbeforelaterrotationerror, nottransactionalguarantee.",
+        "Direct075/076actualP16Turn/Downeddefinitions factories/manualSerde/privatepolicy andwire sanitation consumedcontracts002, notPRhashcredit. AttackFacingdirect091205-209 publiccrateEntity/rawVec3target +checkedcontactTick; saturating tickspan→actualP16sample_rate elapsed native059/sharedCamera010, deadlineeffective maxremaining/frame, missingdirection/zerointerval no-turn. No name-based actualtargetEntity/currentphysicsmembership proof.",
+        "advance_projected_posture usesalreadyinstalledlocomotion_sample_tick, advancesstate andtransition facing thenclosedpace→GuardedMode. Finalnativequat product136 normalize andassignment toTransform andphysicsRotation.0 isactualframeworkport, notcreationofcheckedRigidRotation. Prospective081actual3DRotation publicQuat/DerefMut/rawFrom/optionalordinarySerde/Reflect provesnativeoperationdoesnotaddfinite/unitvalidation. No zero/scaledQuat constructor narrowing inventedfromorientationword.",
+        "Direct091 CameraIntent306-323 closedFree/Aim/DownedAlign and actualfrom_input prioritizesdownedalign thenraisedguard. OtherRegistered091ValidatedPlayerInput211-232 isincidentalcontextonly, notadditionaladmissioncredit. ConfigactualCamera011/012 validate/install versuspublicrawDTO distinct, rawarbitrarypassedConfignotsealedbytypedborrow."
+      ],
+      "counterexample_or_qualification": "No newcheckedscalarbypass; zero/signed/fullwordclock policies andrawnativeframe/facing-source strengthening remain. Nativequatfinite/unit/currentness/after-math state notuniversallyproven byResult, andopaquecheckedleaf doesnotcertifyrawTransform.",
+      "connected_repair": "Existing Native facing/state/projection propagation claims; typedoperands retained untilactualnativekernel andrawobservationgate explicit. No physicsmass/typepolicy change/userdecision inferred.",
+      "acceptance": "Preserveposturelock/roll-release/rest/Ragdolled behavior, exactnativequatproducts/FPorder/checkerrors, sharedconfigsnapshot andsource-specificrawnormalization."
+    },
+    "p16-prepared-spawn-batch-and-actual-postprepare-recipient-gap": {
+      "camera_indices": [
+        310
+      ],
+      "ranges": {
+        "310": [
+          [
+            1,
+            119
+          ]
+        ]
+      },
+      "invariant": "Prepare promises the complete applicable player batch before entity commands; leaf admission works, but raw retained metadata still has dependent requirements executed after publication begins.",
+      "all_admission_routes": [
+        "Full119 fresh. PreparedPlayerSpawns privateVec onlyprepare factory/noSerdeDefaultReflect/publicmutator. AdmittedPlayerpubsuperrawrow/recipient/checkedScenePosition/nativeCollider/items/checkedBodyMass; canbeconstructedwithinparentvisibility, not publicAPI token. prepare iteratesapplicableplayers: EnemyfixturelookupactualnamedSomeelseMissing; nonenemyloadingEntity exactcharacteridelsewarn+SKIP, preservinginapplicableobservationpolicy. No fakeLoadingfallback.",
+        "Eachapplicableplayer fixedplayer_collider→SeedStream playerIDnativecontext→twoactualrange(-5,5) nativecoordinates→ScenePlanPoint::try_from→terrain.required_height_at→SignedLengthAABBoffset→completedPosition, thenBodyMass::try_new actual20..300finite (Camera096P16full1-405 actualdefinition), thenALLitemobservations collectResultVec beforeprivateSelf. Canonicalscenequery missingheightError fromNative052REG029/RootG040PRnotautomaticP16fullTerrainproof; currentoperationstypedinputboundaries. Nonnormalsourceposition rejectedactualpoint/Position completedgate, notfixed0elevation.",
+        "project104 consumesprivateVec thenspawn_connected_player; actualdirect091540-559 collectspreparationBEFOREproject. Fixedcollider0912103-2105 nativecylinder(radiusimportedconstant,1.9), no blanketforeigncylinderproof/numericalpositivityfromconstructorname. Offset115 usesactualnativeAABBminY thencheckedSignedLength (finitesigned) notstrictpositiveassert. Exactradiusconstant/nativewholealgorithm notnewsourcecredithere.",
+        "Actualrecipient091562-890 freshcompletebody: chooses/spawnsEnemy entity thenrawskills/attrs/limbs/stats; BodyMassgetter onlymassfield ischecked, otherrawf32remainbroader. Entitycommands728/736/758 and allitementityreservations782-784 precedeappearance/hashlength799-800, topology830/837/841 expectations andarmor869 projection. No equality/nonzero/uniqueinventoryID/parentmembership/placement preflight inprepareoritemobserve. DuplicateinventoryIDs BTreeMapcollectoverwritesmapentries; zeroEmptyitems stillreserveentitybeforecontinue. Thesearecurrentraw/nativeworkflow details, notsuccessfulvalidatedaggregateclaims.",
+        "RawSDKdefinitions092actualConnectedPlayerfull114: publicfields bodymass/health/conditionf32 andrawnestedrows, generatedSerde-native derive, no customsemanticconstructor. PublicConnectedPlayerItem093full29 directfieldsquantityu32/selectedplacementOptionString/occupanciesVec/protectedpartsVec/appearancesOption andrawitem; safe literal/mutation can omitplacement/parentetc. Columnmetadata/tablestructuralaliases do notaddvalidation. Theseexactgeneratedbindingsreadonly; neveredited/norallSDKdecodednestedleavesclaimed."
+      ],
+      "counterexample_or_qualification": "NATIVE-CAMERA-SUPPORT03-F004: representablepositivequantitynonweaponrawrow withprotectedpart andselected_placement_id=None maypassPreparedInventoryItemobserve (noarmorprojection) thenlateprojected_armor placementexpect AFTERentitycommands. Sameforunvalidatedoccupancylocation/attachmentparent/point/hashlength paths. Actualserver-currentbadrownotclaimed; thisislatentalternateadmission/preparation-incompleteboundary. Rawquantities/zeroEmpty/bodymasschecksnotfaulted.",
+      "connected_repair": "Complete preparation of all required dependent armor/appearance/topology once, representpreparedphysicalproductsoinfallibleprojectrequiresnocataloguelookup/rawexpect oradmission. Retainstructuredtypederrors andbatchcheck-before-publication. ExistingRoot/Camera wholefunctionrepairauthority unchanged, no newcodeownershiptransfer.",
+      "acceptance": "Allapplicablesources fullyadmitbeforeanyCommands; preservelegitimateabsent/nonparametric/zeroquantity/inapplicablenonloading policies, exactnativeframe/dose/physiqueunits anderrororder, no fallbackinvalidstate/newtests."
+    }
+  },
+  "not_part_of_native443_or_root_batches": true
+}

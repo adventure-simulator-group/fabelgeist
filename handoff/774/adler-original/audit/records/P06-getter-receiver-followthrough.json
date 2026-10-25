@@ -1,0 +1,57 @@
+{
+  "recorded_at": "2026-10-21T00:56:02.860070+00:00",
+  "head": "5b44a561bd7543d4edadfc65265bf0255819688b",
+  "mode": "Focused source receiver follow-through; no new full audit wave, agent, test or project tool.",
+  "paths": [
+    {
+      "path": "crates/adventuresim-core/src/combat/config.rs",
+      "receiver": "AutoresolveParameters::validate",
+      "classification": "Duration array retains AnimationElapsed and positivity uses AnimationElapsed::is_zero; reviewed partial-review primitive extraction is removed."
+    },
+    {
+      "path": "crates/adventuresim-core/src/combat/fatigue.rs",
+      "receiver": "combat_action_workload; recover_combat_fatigue",
+      "classification": "Typed duration reaches complete owned energy/recovery formula. seconds() feeds intrinsic clamp, division, multiplication; it is not a primitive argument forwarded to another application operation. Existing test comparison projects seconds for the observable scalar comparison."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/jitter.rs",
+      "receiver": "dt; derivative; vector_derivative; angular difference derivative",
+      "classification": "JitterFrame retains checked elapsed, dt returns a checked interval with original abs-diff/floor/fallback, and seconds are extracted only at scalar/vector derivative division."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/foot_clearance.rs",
+      "receiver": "FootClearanceFloor::minimum_height/apply; ordinary_terrain_target; toe_aware_clearance_floor; transition_toe_clearance_with_rotation_margin; transition_clearance_floor; terrain_clearance_floor",
+      "classification": "Support elevations, absolute ankle minimum, signed clearance and elapsed remain distinct. Getters participate in completed native sums, sole/toe maximum, angular margin, y correction and lerp. checked_scene_elevation admits a newly calculated sum rather than re-admitting an unchanged support hit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/settle.rs",
+      "receiver": "Terrain callback uses; terminal ankle/toe clearance predicates; contact tolerance comparison",
+      "classification": "Callbacks carry ScenePlanPoint -> Option<SupportElevation>; metres are consumed at native vector y correction or completed clearance/tolerance predicate."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/settle/planning.rs",
+      "receiver": "projected_capture_point; plan_settle_landing",
+      "classification": "Signed COM height and checked tuning lengths reach their own native inverted-pendulum/vector construction calculations before extraction."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation.rs",
+      "receiver": "advance_airborne_foot_rotation",
+      "classification": "AnimationElapsed and signed angular speed reach the quaternion limiting operation; unit projection participates in the actual angular step product/slerp coefficient."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/movement_audio.rs",
+      "receiver": "spatial variants/rustle/proximity/seed helpers",
+      "classification": "New repair retains Position<Scene> through application helpers. Vec3 leaves reach only native distance, bit framing or Bevy Transform. Seed remains typed."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/weather_audio.rs",
+      "receiver": "rain_mix",
+      "classification": "Newly found f32 argument from UnitBasisPoints::as_unit_f32 removed. Existing owner reaches complete gain calculation."
+    }
+  ],
+  "limits": [
+    "Not a clear verdict for all 4310 lexical getter candidates, all migrated PR paths, pending P08-P20 or the whole codebase. Earlier focused-source misses remain recorded.",
+    "Source only; current hosted validation is still in progress. No claim that every aggregate raw field or admission route is migrated.",
+    "The initial rg command included a nonexistent terrain_contacts/settle.rs path and exited 2. Correct settle.rs and settle/planning.rs were located with rg --files, searched and read afterwards; no failed search is treated as exhaustive."
+  ]
+}

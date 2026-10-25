@@ -1,0 +1,38 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-466",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+      "sha256": "f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1",
+      "actual_EOF": 4477,
+      "actual_compared_ranges": [
+        [
+          1,
+          4477
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Complete native capture source operations",
+      "analysis": "Full4477line body personally read across1\u2013850/851\u20131660/1661\u20132440/2441\u20133210/3211\u20133890/3891\u20134477, including fixtures. Source viewer setup takes single-use data before falliblepreparation, queuesgeometry asprogresses; failure isterminalcapture setup, not retryablelivegameplaytransaction. Freshoutput rejects preexistingdirectory; earlierinputcopy/reportwrites mayremainafterlaterbadviewselection, intentionalcapturefailureevidence notgameplaystate. Camera clamp margin max(gridscale,.5) needs terrain physicalhalfextent\u2265margin; verysmall validterrain API potential reversedclamp bounds remains pendingexactSceneInputadmission, no currentfixture/runclaim. Environmentconfig overrides parsef32 thenmutatepluginfields; ordinarydefaultconfigurationseparatefrominvalidcustomenvnativekernel reachability."
+    },
+    {
+      "contract": "Benchmark accumulation and retained triangle consumer",
+      "analysis": "Benchmark timing pushes one observation before checking sample count, so sample_frames0 still yieldsnonemptyvector; percentile private callerssortnonempty. Finitediagnosticvaluesfiltered, fixedmodeindicesgetchecked andfixedu32warmup decrementsguarded; means/FPS assumespositiveelapsedTimeReal. Exact TreeLeafTriangleCount query sumsCPUsceneinventory byrepresentation into JSON andMarkdown comparison; adds full04support to candidate443 actual75%card mesh count mismatch, no duplicate/globalnewcount. Performance sumsperpathpercentiles and accepts anynonemptyelapsed_gpu subset asGPUelapsed; actualdiagnosticscoverage/requiredpath/timestamp policy remains conditional evidencequestion, not provenordinaryfalseacceptance. Isolationattribution uses typedbaselineindex andsamemode labels onlypresentation."
+    },
+    {
+      "contract": "Capture phase, readback and final acceptance",
+      "analysis": "Phaseguards correlate Screenshot callbacks to currentview andkind; no increment whileinflight. Lightingprimes retry through separate boundedconvergence owner; screenshotstablepair retries\u22648 andhashpresence/strictpairgate ratherthan fabricatedready. Final pendingmanifest finalized against actualpostreadbackcapture records; no GPUverification performed in audit. Temporal profiles intentionallyskipsettling/readbackidentity andrequireactualtemporalprefix; do notmistake them forstablecaptureproof. ForcedLOD/diagnosticvisibility, materialshadowmutations intentionallysharedcapturecontrols, failureswriteexplicitfailuremarker/AppExitError. Actualsourcefixtureexpectations distinctfrom executedacceptance."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "1 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/cameras.rs"
+}

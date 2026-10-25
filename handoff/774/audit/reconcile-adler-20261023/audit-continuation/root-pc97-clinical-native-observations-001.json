@@ -1,0 +1,130 @@
+{
+  "at": "2026-10-23T21:13:16.046084+00:00",
+  "id": "pc97-clinical-native-observations-001",
+  "reads": {
+    "crates/strategic-web/src/routes/data.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs": [
+      [
+        650,
+        800
+      ]
+    ],
+    "crates/strategic-web/src/routes/settlements/encumbrance.rs": [
+      [
+        270,
+        335
+      ]
+    ],
+    "crates/strategic-web/src/medical/administrations.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-stdb-module/src/time/mod.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-stdb-module/src/time/clock.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/strategic-web/src/routes/dialogue/claims.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-stdb-module/src/disease.rs": [
+      [
+        140,
+        185
+      ],
+      [
+        290,
+        337
+      ],
+      [
+        457,
+        550
+      ],
+      [
+        600,
+        735
+      ]
+    ],
+    "crates/adventuresim-core/src/physiology.rs": [
+      [
+        840,
+        985
+      ]
+    ],
+    "crates/adventuresim-world-schema/src/basis_points.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/strategic-web/src/templates/settlement/character_skills.rs": [
+      [
+        530,
+        655
+      ]
+    ],
+    "crates/strategic-web/src/templates/settlement/character_health.rs": [
+      [
+        620,
+        875
+      ]
+    ]
+  },
+  "contract": "Required clinical observation availability, deliberately observer-safe unknown death and canonical public measurement leaves",
+  "coverage_limit": "Only actual recorded bodies/ranges; full clinical/private-model/rest/training/source production and all13remainincomplete.",
+  "disposition": "Data project_alive_as_observed deliberately hides unknown/future death by alive=true on missingobserver/deathhistory, with existingintent/assertions; do notpromote todeathauthoritybypass or silently switchtofuture mutable state. Retain known/unavailable semantics where needed, reducers independentlyrevalidate. Actualasobserved mutablefacts failclosed onsubjectahead, cacheSomeNonewinsknownabsent positiveproof; cacheidentitycause retainedasString M96. Medical patientclockmissing/queryfails explicitly unavailable positiveproof; authorizedadministrationquery failure alone becomesempty list M98. get_character_capability ignoresrefresh and failedquery\u2192None, thenactualsurgery0 and defaultActivityPreviewRates produce measuredlookingfallback M98/M51. M102 exact NATIVE-OWNER-F013 signedunitBPSleaf throughrealSVG consumers; no broadunsignedfraction fornegativehumour or arbitraryscalarhealth. Existingactiveadministration filters stopped/expiredinterval and versionprofile, preservesno-observation privacy, no inferreddiagnosis.",
+  "finding_traces": {
+    "M98": {
+      "source": [
+        "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs:707-780",
+        "crates/strategic-web/src/routes/settlements/encumbrance.rs:296-314",
+        "crates/strategic-web/src/templates/settlement/character_skills.rs:574-599"
+      ],
+      "trace": "Actual backendchartquery and patientclock requiredfailure returnMedicalPresentation.unavailable:true correctly; authorizedmedicationquery failure .unwrap_or_default stillfabricates emptyhistory; capability refreshignored/querydefaultsNone feedssurgery0andactivitypreviews numericdefaults. Keepoptional self-versusobservedhistory privacy predicate and genuine empty/noeligibleprofile distinct."
+    },
+    "M48": {
+      "source": [
+        "crates/strategic-web/src/routes/dialogue.rs:795-823,901-937,958-978",
+        "crates/strategic-web/src/routes/data.rs"
+      ],
+      "trace": "Exactdata source confirmslife-only unknown/futuredeathavailability deliberate, whereasactualpersonalminute neededforpresence becomes fabricatednoon/ZERO onmissing/failedclock in dialoguehelpers. Preserve observeddeathprivacy/availability while distinctmissingtime andrealnoon/epoch handledexplicitly; no ordinarymissingrow claim. StandardCharacterTimeinitializedbyrealofficialclock, missingrownot initializationdefault."
+    },
+    "M96": {
+      "source": [
+        "crates/strategic-web/src/routes/data.rs:81-90",
+        "crates/strategic-web/src/routes/dialogue/claims.rs"
+      ],
+      "trace": "ActualCaseSiteId checkedSDKadmission errorformattedintoSpacetimeString insidepurecharacterloader; preservecanonicalPlaceIdentitycause. ClaimChallengeApproach parser\u2192nativeSDK stable_id isrealreducerencoding, not unfinishedgetterhop, and WitnessClaimResolution alreadytypedexplicitpresence survivesreceiver."
+    },
+    "M102": {
+      "source": [
+        "crates/adventuresim-core/src/physiology.rs:906-928",
+        "crates/adventuresim-world-schema/src/basis_points.rs",
+        "crates/adventuresim-stdb-module/src/disease.rs:457-545,600-672",
+        "crates/strategic-web/src/templates/settlement/character_health.rs:683-865"
+      ],
+      "trace": "Exactsign/rounding/precision ofhumour quantization matchesSignedUnitBasisPoints; trueconfidence/likelihoodUnitBasisPoints fit, rawfeedback and publicdisplay fraction arithmetic onlyatactualSVG/CSS. Existingadmissionderive bypassnotcleared. Differentialusespublicdefinitionpatterns notprivatecause, preservecannotdiagnosehiddenepisodes."
+    }
+  },
+  "frontier": {
+    "file": "crates/adventuresim-core/src/physiology.rs:246",
+    "work": "PC97 finish actual private/public clinical physical producer operations and unread medical/native body recipients, then olderpending graph cells; all13 discovery unchanged."
+  }
+}

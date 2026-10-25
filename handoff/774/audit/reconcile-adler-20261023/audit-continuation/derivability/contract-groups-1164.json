@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1164",
+  "at": "2026-10-25T18:00:19.010136+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1268,
+  "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/bootstrap.rs",
+  "sha256": "e58eadc935d9bd93c40262b170bc85c9e2d26c0b42ee490e882e0dd96f65be55",
+  "actual_compared_ranges": [
+    [
+      341,
+      680
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Native live bootstrap still no manual trait/custom codec/local type: unique run authority, exact subscribed public/backend surfaces, generated character/profile configuration and ordinary join commands, quest lane selection/provenance, current character-clock baselines. Identity-bound fixture/lane state cannot be arbitrary default or field-only conversion; selected actual receiver keys and current DB checks retained. Calls only inspected, not executed.",
+  "first_unfinished": {
+    "scope_index": 1268,
+    "line": 681
+  },
+  "execution": "none"
+}

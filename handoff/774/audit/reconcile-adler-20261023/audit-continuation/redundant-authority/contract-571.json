@@ -1,0 +1,64 @@
+{
+  "id": "CONT07-CONTRACT-571",
+  "at": "2026-10-24T00:09:25.125111+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2467,
+      "source_id": "report-p17:crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "sha256": "cd6f17bf2bc0925f53292c3a04e552698ba572ae7127aa3ce31430296ca420a4",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "actual_EOF": 110,
+      "ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2468,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/clothing.rs",
+      "sha256": "04f07439908559bf5787f569d0eb67cc016e246004677827f0b9d6f693a76de9",
+      "origin": "git:cbbbca08c89a8768926799371f54cf6057312e5e:crates/adventuresim-character-creator/src/clothing.rs",
+      "actual_EOF": 708,
+      "ranges": [
+        [
+          1,
+          708
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2469,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/clothing/validation.rs",
+      "sha256": "f1e1fe557065da98b1e80397aeb190dfacdbeaa1d9ab5c240094e27f8cfb7adf",
+      "origin": "git:cbbbca08c89a8768926799371f54cf6057312e5e:crates/adventuresim-character-creator/src/clothing/validation.rs",
+      "actual_EOF": 62,
+      "ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "P17 measurement wrapper single native scalar delegates checked_nonnegative and positive-duration admission; sample_span returns derived elapsed and preserves explicit overflow. No cached unit labels/copies compete with scalar.",
+    "Rig-quality garment factory derives PBR from canonical clothing_material::pbr and offset from outermost channel, then retains public material/placement/PBR/offset fields in GarmentSpecification. These derivations can be independently edited via public API; recipient policy must distinguish intended authored overrides from required same-material provenance before promoting inconsistency. Ordinary from_catalog factory is coordinated.",
+    "Rig-quality clothing masks/chain bounds/adjacency/occluded-face sets are local derived values computed for one immutable input call; split-vertex weld and normals are separate geometry properties, not a long-lived dependency cache. Repeated skin weighting is same immutable scan policy, no current disagreement established.",
+    "Rig-quality body validation checks coordinated vertex extents, joint table count and packed skin joint count before index use. Count equality does not by itself establish rig name/order correspondence; adopted admission/identity findings retain scope. Placeholder output validation admits finite indexed topology and intentionally does not impose armor export quality contract, as authored fixtures state. No generic quality-gate inheritance."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2470,
+    "start_line": 1
+  }
+}

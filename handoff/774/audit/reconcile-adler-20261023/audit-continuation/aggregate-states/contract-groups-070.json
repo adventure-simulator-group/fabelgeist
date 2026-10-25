@@ -1,0 +1,31 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-070",
+  "at": "2026-10-25T13:22:37.278223+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1224,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/incidents.rs",
+      "sha256": "9358dd5b0a17f5f01f321c614d3c3309139134a24febfb634a9e6fa19eb0d622",
+      "personally_read_ranges": [
+        [
+          1,
+          703
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full incident creation/projection/activity/arrest/lifecycle helpers read. Actual creation validates threat, actualparty+expected settlement/site and no pending incident before source idempotence, binds case/site/hostilegroup/party/live member location together with propagated errors. Native source schema source_id/kind/site/group relationship remains independently representable; actual constructor shown coherent. Settlement imported WGS84 versus synthetic unbounded coordinates handled distinctly, then actual current case-site coordinates override when available. Frame boolean with payload coordinates remains existing canonical location-owner migration dependency, no fresh mismatch proved. Enemycount max2 uses usize\u2192i32\u2192u32 canary; realistic bounded membership magnitude not proved to reach wrap, so no ordinary overflow allegation.",
+        "Activity risks yield an actual closed literal set in priority order; fallback match to AuthorityArrest is safe for these shown producers but canonical typed outcome should own corresponding title/threat/difficulty/kind. Retained perparty+actor+minute entropy makes same action risks reproducible; native hashed sample0..1 and string source purpose/framing preserved. Missing personalclock usesZERO, but normal time-action producer invariants and canonical time-family admission must be traced, not assumed currentordinaryzero. Charge-based arrest requires actual unsettled matching actor+settlement provenance before publishing; count0 propagates error. Reputation events and offense records share semantic source, actual already-existing source receipt owners should be reused.",
+        "Gateway action view checks incidentPending+Arrest, actual owningparty/site+member+livingcharacter and matching unsettled charges; fine derives currentcharges and personal currency sum. affordable is same-snapshot advisory display, surrender recomputes charges/funds and uses checked consumingcurrency; no stale display\u2192spending authority bypass. Surrender also checks sender authority, exact instigator/incidentparty/membership/currentsite; public reducer here does not independently require living character unlike view, so actual death/party transition admission is a qualified receiving question, not execution/security finding.",
+        "Surrender settles charges then marks incidentResolved, preserving propagated errors. Hostile-group completion separately marks incident and records resisting-authority offense only for arrest; actual callers must distinguish paying surrender from groupcombat/withdrawal completion. This file alone does not settle whether lingering currentcase/hostilegroup yields unwanted combat; no defect without actual encounter consumer. finish helper accepts any IncidentStatus, but shown normal callers useResolved; no terminal\u2192pending mutation through this helper. Structured incident identifiers/value aliases, native key duplication and typederror propagation are existing migration work rather than duplicate findings."
+      ]
+    }
+  ],
+  "dependencies": [
+    "Canonical source receipt/threat/case/site/coordinate frame and personalclock owners across actual time/action producers; initial all13 discovery continues.",
+    "Actual reputation settlement and currency checked owners, shared hostile-resolution transaction and encounter consumers; do not infer paid-arrest cleanup semantics from one helper."
+  ],
+  "discovery": "One distinct original role accounted; WITH known migration dependencies and explicit source limits, full lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

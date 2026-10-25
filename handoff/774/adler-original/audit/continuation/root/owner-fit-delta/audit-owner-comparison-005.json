@@ -1,0 +1,92 @@
+{
+  "id": "CONT-ROOT-OWNER-AUDIT-005",
+  "at": "2026-10-22T03:04:53.119902+00:00",
+  "lens": "audit-existing-type-owners",
+  "groups": [
+    {
+      "role": "resolved_bounds_and_native_sat",
+      "source_proofs": [
+        {
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/resolved_geometry_helpers.rs",
+          "sha256": "e6f71c899743f84ee65814398d45e0b9a98d21945a3d5cf6b483a47a368a742c",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\audit\\resolved_geometry_helpers.rs",
+          "read_ranges": [
+            [
+              1,
+              445
+            ]
+          ],
+          "actual_EOF": 445,
+          "source_read": "fresh exact role/bodycomparison"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/solid_overlap.rs",
+          "sha256": "e61d932304ccb07e313798a4bd6cafd3c7003cf995bb29550db5cfcdf3558d24",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\solid_overlap.rs",
+          "read_ranges": [
+            [
+              1,
+              118
+            ]
+          ],
+          "actual_EOF": 118,
+          "source_read": "fresh exact role/bodycomparison"
+        }
+      ],
+      "comparison": "resolved_solid_bounds returns raw(Vec3,Vec3) derived from canonical Position<Architectural>/CuboidDimensions/Radians; result crosses repeated internal containment/overlap/bond consumers. Exact existing SpatialBounds<Architectural> fits ordered minima/maxima, incl degenerate extents; preserve overflow diagnosis rather than silently narrow after rawarithmetic. Architectural successfulpoints/signedmetre tolerance reusableleaves; inverse rotated triangles/localvectors are separate solidlocalframe, notScene. Actual SAT cross/dot/normalization and fixed3vertex reduction may use native scratch inside equation; functionprivacy does not exempt typed API or retained pointarray/boundtuple. Signed tolerance intentionally negative on containment sampling, PositiveLength would reject supportedvalue. Canonical PlanDirection and Radians fit exact admittedaxes only; raw arbitrarydirection input must preserve its sourceadmission policy. GeometricID lookups already typed; packed native sourceindex distinct from ID. Preserve15axis iteration/order and 8/4/8 samplegrid, zero-axis filtering, actual fixturethreecases without newtests. Existing ROOT-PPS-RESOLVED-GEOMETRY-036 sourcegap plus ROOT-OWNER-RESOLVED-SHAPE-PORTS-075 remainsconnectedrepair."
+    },
+    {
+      "role": "contact_metrics_refinement",
+      "source_proofs": [
+        {
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/bonding_metrics.rs",
+          "sha256": "7a82b60c27bca633d25fee62377aba66012d2b6d2c2edc065b52c38639721e22",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\audit\\bonding_metrics.rs",
+          "read_ranges": [
+            [
+              1,
+              126
+            ]
+          ],
+          "actual_EOF": 126,
+          "source_read": "fresh exact role/bodycomparison"
+        }
+      ],
+      "comparison": "MeasuredArea finite nonnegative exact overlaparea; SignedLength penetration currently max0 therefore numeric nonnegative refinement possible but donot invent equivalentowner. Contactmin/max are finite Position<Architectural> sampledplanes and mayreverse under toleratedgap: ordered SpatialBounds mismatch. Keep them namedpairedplanes and orderonly inside fits comparison; donot forceadmission or normalizegeometry. Bond threshold minimumarea/maximum penetration rawfields should reuse Area/nonnegative or signedlength according actualsourcepolicy and zeroallowance, not inferthresholdpositive merely audit compares>0. Existing typed result admission includes arithmetic error; native sorting scalar overlaps+axisordinal actualnumeric reduction, laterenum/operations review independent. Exact2.5cm contact and .005sqm area tolerance, signedzero/order and firsterror remain."
+    },
+    {
+      "role": "audit_complete_receiver",
+      "source_proofs": [
+        {
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/resolved_geometry.rs",
+          "sha256": "f0fcbc815b3c695713f9dd8055470b78b871e583aad689aa45ce562c1f20fd4a",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\audit\\resolved_geometry.rs",
+          "read_ranges": [
+            [
+              1,
+              514
+            ]
+          ],
+          "actual_EOF": 514,
+          "source_read": "fresh exact role/bodycomparison"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/shared_helpers.rs",
+          "sha256": "76e7f6c63abfedfdacaf9045369ed282f14c8eb113b868127679ab236368ee36",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\audit\\shared_helpers.rs",
+          "read_ranges": [
+            [
+              85,
+              134
+            ]
+          ],
+          "actual_EOF": 171,
+          "source_read": "fresh exact role/bodycomparison"
+        }
+      ],
+      "comparison": "New overlay007 proves whole514-line receiver rather than former1\u201370 prefix. Canonical Position/SpatialBounds/CuboidDimensions/Radians/Area survive sources but are peeled into rawtuple helper APIs; keep owners into complete helperoperations. Identity sets and wall/opening/member ownership compare exact existing IDs, native output messageformatting may project numericwords only there. Timber maxsection/endpoint radius and drainageoutwarddrop are lengths/elevationdifferences, not rawunitless Ratio. Source typed section doesnot guarantee absentmap_or0 is measured zero; laterstate/behaviorlens preserves qualification. Rootsharedhelper point-in-polygon and roofouter/cutoutprojection use Architectural planpoints; arbitrary concave/cutout lists do NOT match strictconvex PlanPolygon. Reuse framed pointleaf/explicit polygonshape where policy supports, preserve inside/outside empty/edge/raycrossing arithmetic, no re-hull. Direction::ALL discretevocabulary already exists; raw directionvector used at mathboundary distinct from length. AuditIssue.code staticstrings classify prior to output and should closedcause owner (laterstrings); messageString is humancontext. Unrelated sharedhelper135\u2013171 explicitlyexcluded. Existing schema_version raw2 and bondcount/membership predicates require laterenum/aggregate/admission analysis; no blanketsourceclearance."
+    }
+  ],
+  "source_read_qualification": "Initial oversized read truncated bond/solid/fullreceiver; reread fullbond/solid and exact receiver1\u201370,71\u2013300,301\u2013514 after explicit overlay007. Shared121\u2013134 reread after008; no credit for accidentally displayed unrelatedtails.",
+  "limits": "Owner lens only; all13 sourcefreeze and producerfollowups remain."
+}

@@ -1,0 +1,22 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-611",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        1326,
+        1327,
+        1328
+      ],
+      "comparison": "Fresh full loading390, motion175 and mod810. New F387 grip state distributed across four collections; current transitions and revision cleanup coherent. MotionClipAdmission proper Pending/Unavailable/Ready payload. MotionLoadState task-completion is a separate axis: PendingTask versus ReadyOptionSource. poll OptionOption has three valid outcomes, no new finding merely renaming nested Option. Actual observe_source_revision91\u2013107 uses source identity OR exact full AssetPath source/path/label, even initially without handle. AssetServer remains authority; no automatic retry. Preserve failure and source history. Source/child-clip invalid duration/shortness/targets refuse availability; empty canonical targets is Pending. BaseRigLoad has proper Unrequested/LoadingSource/FailedSource/ReadySourceScene states. ECS attached and target-bound enrollment are independent of clip availability. Canonical targets use actual Name paths and AuthoredRigJoint at native adapter277\u2013300. Module exports63\u201391 navigation only. Hand-ownership/offhand observations420\u2013428 are independent predicates; all four combinations valid. Actual WeaponHandling::TwoHanded plus empty left slot determines offhand use; occupied offhand selects unarmed pack448\u2013451 intentionally. ClipLayer and WeaponGrip existing enums retained. Polearm positive skill weight versus Hilt is actual derived selection, no enum for arbitrary array index. BoneKick actual producer482\u2013488 carries server-confirmed recipient/bodypart/velocity facts; presentation only, no tactical persistence. ResolvedAnchor ClipMirror and TimelineDirection are independent: opposite-quickstep reversed timeline is not mirroring. Native visibility610\u2013633 based ownership, no ready/collision inference. append_resolved_sample585 drops temporary span vectors but actual normal caller untraced beyond helper; no ordinary lost continuation claim. Fixture tests source only. No execution or repair.",
+      "finding_refs": [
+        "SEGO-INITIAL09-F387"
+      ],
+      "disposition": "Qualified grip state owner finding; motion request history and independent policies preserved"
+    }
+  ],
+  "new_findings": [
+    "SEGO-INITIAL09-F387"
+  ],
+  "limits": "Discovery only. Next1329 playback_contributions43,1330 state155,1331 posebuffer1892. Prior writer syntax error occurred before any mutation; no duplicate coverage/finding."
+}

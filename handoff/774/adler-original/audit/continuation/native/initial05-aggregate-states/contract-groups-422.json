@@ -1,0 +1,49 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-422",
+  "at": "2026-10-23T13:33:47.525155+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/herbalism.rs",
+      "sha256": "501c6cf8ba05522213c175784f28e6ddecd14aaab72a490fcb4bfa846eccb203",
+      "scope072_index": 930,
+      "actual_EOF": 405,
+      "scoped_ranges_compared": [
+        [
+          1,
+          405
+        ]
+      ],
+      "actual05_comparison": "Fresh full actual production and original fixtures; authority-question, plan-time, effects and public preview relationships independently compared."
+    }
+  ],
+  "groups": [
+    {
+      "id": "pure preparation authority is caller-supplied evidence, not authenticated permission",
+      "comparison": "Public PreparationPlanAuthority holds checked coordinates plus independent snapshot/provenance/current time/duration/terminal/rights decision, booleans and action/revision/name. build_preparation_plan checks provided custody/revision/transition/tool and rights.kind Allowed; it does not compare rights question digest/revision to actual coordinates/snapshot. Generic PrivateRightsDecision<()> alone cannot bind this plan object. Raw API can combine foreign allowed decision with otherwise valid coordinates, but pure module does not claim to authenticate persistence. Actual authoritative adapter consistency/replan remains precise lower obligation; no authorization exploit or bad normal writer asserted. Existing admission03camera-support039 consumed for exact prior source facts, then own05 full930 fresh analysis, no prior verdict carry."
+    },
+    {
+      "id": "question digest frames exact actor object operation place",
+      "comparison": "preparation_rights_question146-157 creates Character(actor), Object(id), Alter, Place(place) through canonical RightsQuestion::try_new. Decision159-184 carries actual framed question digest, supplied custody bool and revision; domain markers uninhabited so no arbitrary domain payload branch. This establishes identity association within decision construction but planner only tests kind. Do not strip provenance just because it is unused here or infer DB ownership from typed ID."
+    },
+    {
+      "id": "plan timing and completion effects are correlated before publication",
+      "comparison": "build_plan input uses same coordinates/provenance/snapshot/requested duration and terminal boundary. Closure always emits AttemptWait with original requested u64 duration and only permits CommitPreparation when actual checked time permits completion. Terminal clipping must not invent completion; original fixture335-405 source demonstrates wait-only shape. Preview duration min(u32MAX) is display-bound u32 while actual effect waits full request; ordinary physical helper yields small duration. Generic preview/API long duration can display cap but no claim preview is executable authority. Lower canonical build_plan/time admission independently earlier scoped, not re-proved from name here."
+    },
+    {
+      "id": "material and operation payloads retain open membership dependencies",
+      "comparison": "MedicinalMaterialComponent profile String/versionu16, presentation expectedrevision and process/action marker types do not seal actual profile-version membership, material conservation or custody. Empty/closed marker enums are ownership vocabulary, not proof all records describe one actual lot. Actual material receipt and DB operation must retain full corresponding result; no hidden local fallback added."
+    },
+    {
+      "id": "ordinary physical preparation timing is bounded by actual fixed policy",
+      "comparison": "Cut base10, Grind20; finite check clamped0..5 else0, grinding tool halves Grind only; multiplier1-.06check remains.7..1, ceil positive. Actual outputs7..20 without tool or Grind7..10 with tool, no arbitrary positive-float divisor. Raw RequestedDuration can be larger because generic plan API separate; do not infer all duration inputs came from helper. All314-405 original tests read only, no execution or new cases."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Exact current DB preparation adapter must bind question digest/actor/object/place and revision/snapshot together, hydrate terminal boundary and replan before commit; raw pure authority is not permission."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

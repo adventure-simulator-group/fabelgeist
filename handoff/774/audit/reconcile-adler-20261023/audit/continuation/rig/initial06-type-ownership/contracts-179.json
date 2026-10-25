@@ -1,0 +1,44 @@
+{
+  "id": "RIG-INITIAL06-GROUP-179",
+  "at": "2026-10-23T05:39:30.961372+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-061.json",
+  "groups": {
+    "physical-support-heightmap-native-encoding": {
+      "comparison": "Fresh heightmap96 retains complete TerrainContactHeightmap(image,SceneElevationRange), obtains required canonical elevation range and checks dimensions before per-texel ScenePlanPoint/SupportElevation query. Checked support survives until normalized16-bit RGBA encoding; channel quantization, image dimensions and byte layout are real native ports. Finite range guard and0.001 encoding floor have texture meaning, not positive ground elevation. SupportElevation owner candidate F023 still applies; do not substitute bounded WGS altitude or quantized BP for signed scene support.",
+      "disposition": "Keep paired image/range and canonical support values to native encoding boundary."
+    },
+    "open-review-label-versus-authored-scenario-identity": {
+      "comparison": "Fresh metadata115 admits arbitrary open labels while retaining optional canonical ScenarioId/features, authored path uses same identity. Repeatability and SolverUse describe review execution policy, not attack body state or elapsed time. Comparison/serialization deliberately use label; owned copy preserves all prepared metadata. Open-label feature parsing is an extension boundary, not permission to create a second canonical authored scenario enum or force all labels into the closed roster. Preserve BodyState/MotionId/PostureTransitionKind/DiveDirection references.",
+      "disposition": "Keep open labels and canonical optional identity distinct; preserve review-specific execution metadata."
+    },
+    "furniture-finish-source-fixtures": {
+      "comparison": "Fresh finish tests86 exercise canonical FurnitureKey/FinishableFurnitureKind/Variant/WoodState and BuildingLodMaterial::FurnitureWood. Natural/handled/repaired/painted appearance preserves physical envelope/support/collider/clearance while changing native material, with triangle winding source checks. These fixtures introduce no independent finish taxonomy or geometry owner. Source-only test evidence, no claim executed or universally valid recipe based on tests.",
+      "disposition": "Preserve canonical furniture finish and physical geometry owners."
+    },
+    "export-compaction-preserves-canonical-rig-association": {
+      "comparison": "Fresh compact104 constructs one used-vertex set and applies identical remap to positions, normals, texcoords, plate edges, faces, PackedRigSkin<8>, weights and morph deltas. CompactShell is owned export scratch backing for borrowed RiggedShell, not another authored mesh/rig schema. Actual skin select stays canonical; eight raw weight channels and exact source/body skin fallback preserve existing F032 normalization/top-four policy distinction, not new ordinals or an eight-to-four implicit cast. Morph Target owns exported name/delta arrays for lifetime, not competing animation target identity.",
+      "disposition": "Keep local export scratch representation and canonical rig selection; preserve existing cloth/weight propagation findings."
+    },
+    "pose-buffer-proportions-and-physics-ports": {
+      "comparison": "Fresh proportions103 applies SkeletalJointOffset to newly sampled canonical RigJointTable<LocalPose> matched with canonical joint entity table. Offset is native local skeletal translation, not absolute ScenePosition or normalized direction. Fixture checks fresh motion sampling does not accumulate offsets, source only. Fresh physics_pose98 exposes same canonical joint ordinal/role/parent/poses to ragdoll; pin_joint updates both samples, drops inertial offset/velocities, hold_joint holds next. PoseOwnership chooses physics versus authored mutation, not durable custody. Returning to authored clears plan for transition. PositiveAnimationDuration sample interval remains typed until real finite-difference kernel; Affine3A is actual engine projection. No competing rig topology/pose schema.",
+      "disposition": "Keep canonical rig and duration owners, with explicit animation/physics mutation boundary."
+    },
+    "botanical-authoring-parameters": {
+      "comparison": "Fresh flower102 owns canonical corolla and leaf arrangement topology, FlowerParameters authored dimensions/metres, ratios, counts, tilt/radians and Pigments. Explicit per-field finite/bounds validation precedes geometry generation; public raw DTO/Serde does not certify already-validated state. Petal width ratio may1.5, cup signed\u22120.4..1.5, stamens0valid, so blanket UnitInterval/positive-length substitutions are wrong. Seed/PlantLod/PlantMesh reused canonically, no building generator or strategic ecology dependency needed. Shared checked numeric leaves may compose here without erasing botanical field bounds/topology.",
+      "disposition": "Preserve botanical authoring owner and exact differing units/bounds; real geometry kernel remains local."
+    },
+    "camera-history-is-one-camera-state-owner": {
+      "comparison": "Fresh rig_history105 retains observation-dependent CameraPoseHistory with checked Position<Scene>, SceneVelocity, SignedLength/SignedSpeed, BoomRecovery and native subject Entity. Blend UnitInterval and SignedBlendVelocity are distinct dimensionless value versus signed derivative/sec; camera F039 error-context move remains applicable. Profile advance prepares blend/profile/velocity before committing; observation reset is separate and keyed subject/teleport distance. This camera history is not combat actor state, RNG clock or duplicate positive animation duration. Preserve shared canonical geometry/speed/fraction owners and camera policy.",
+      "disposition": "Keep camera observation/filter owner and checked canonical leaves; signed derivative remains separate role."
+    }
+  },
+  "source_fact_refs": [
+    "contracts-001.json",
+    "contracts-005.json",
+    "contracts-083.json",
+    "contracts-165.json",
+    "contracts-176.json"
+  ],
+  "limits": "Eight complete current PR source bodies incl existing contained fixtures read, no execution/new tests/source edits/new scope or later-lens credit."
+}

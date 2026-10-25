@@ -1,0 +1,127 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-092",
+  "at": "2026-10-23T01:42:10.860299+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/wounds.rs",
+      "sha256": "8db111805100afa261ac984d5fb0e0e191bfc0160a2792179af7c5ffab0b2d0d",
+      "actual_compared_ranges": [
+        [
+          1,
+          134
+        ]
+      ],
+      "source_evidence": "Fresh complete literal PR bodies, currencyP16 byte-identical grouped with independent same6-ID/stdSeedcontext. P16 capability026 joins PRsamebody with actual currentBody/Equipment contexts, no otherlenscredit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/capability.rs",
+      "sha256": "877f8932ea920a91c610829b96a637ad6d361189a28f41d464376763ca8d160c",
+      "actual_compared_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "source_evidence": "Fresh complete literal PR bodies, currencyP16 byte-identical grouped with independent same6-ID/stdSeedcontext. P16 capability026 joins PRsamebody with actual currentBody/Equipment contexts, no otherlenscredit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/melee_resolution.rs",
+      "sha256": "5dd8e24f1b117b07079d9bbd53930a23740ac4970336b315e88a11642e2d0635",
+      "actual_compared_ranges": [
+        [
+          1,
+          123
+        ]
+      ],
+      "source_evidence": "Fresh complete literal PR bodies, currencyP16 byte-identical grouped with independent same6-ID/stdSeedcontext. P16 capability026 joins PRsamebody with actual currentBody/Equipment contexts, no otherlenscredit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/item_references.rs",
+      "sha256": "e794dc0ede51c9d53d64155ee9ce8d551347ec8f659e2461c0b3d5d31b34cb6b",
+      "actual_compared_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "source_evidence": "Fresh complete literal PR bodies, currencyP16 byte-identical grouped with independent same6-ID/stdSeedcontext. P16 capability026 joins PRsamebody with actual currentBody/Equipment contexts, no otherlenscredit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/item_references/gameplay.rs",
+      "sha256": "5ea6b74abe83e50e450510c6e28499ad7597e7dddf14a93428184b5ece767263",
+      "actual_compared_ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "source_evidence": "Fresh complete literal PR bodies, currencyP16 byte-identical grouped with independent same6-ID/stdSeedcontext. P16 capability026 joins PRsamebody with actual currentBody/Equipment contexts, no otherlenscredit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_currency.rs",
+      "sha256": "837f9fd6f0198b1141b6908e9a329a770104cb67be25e2234764977af3db85df",
+      "actual_compared_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "source_evidence": "Fresh complete literal PR bodies, currencyP16 byte-identical grouped with independent same6-ID/stdSeedcontext. P16 capability026 joins PRsamebody with actual currentBody/Equipment contexts, no otherlenscredit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_currency.rs",
+      "sha256": "837f9fd6f0198b1141b6908e9a329a770104cb67be25e2234764977af3db85df",
+      "actual_compared_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "source_evidence": "Fresh complete literal PR bodies, currencyP16 byte-identical grouped with independent same6-ID/stdSeedcontext. P16 capability026 joins PRsamebody with actual currentBody/Equipment contexts, no otherlenscredit."
+    }
+  ],
+  "support_ranges": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-determinism/src/stream.rs",
+      "ranges": [
+        [
+          50,
+          69
+        ]
+      ],
+      "scope": "partial supporting nativeindex contract only"
+    }
+  ],
+  "groups": {
+    "wound-producers-and-time": "Finite nonnegativecut .5/60 andblunt<=.015/60 do not overflow forfiniteMAXinput; thresholds4/8/6joules deliberate. NaNcut.max0 orcomparisonfalse can discardinvaliddiagnostic, rawAPI not admissionseal. acuteheadtrauma1.25*MAX overflowsInf, so computedimpairment readmission belongs retainedinjuryowner, notblanket allintermediatesfinite. Main F031 checksactual rate-sum*zero. Allfunctions pureownedreturn, no hiddenmutation/DB tacticalpersistence.",
+    "capability-branches": "HoldingSideNone ->NoStrikingSide; fixed1/2armarrays safe; both requires bothfunctional, intentional controllingarm policy. rawhealthNaN<=0false wouldallow attack; existing F009 traitaggregate admission graph, not new normalinjuryclaim. Actualdefaultbody fixed7index conversion alreadychecked; PR andP16sameinterface contexts retain equipmentselection concernCameraF009 distinct.",
+    "contact-resolution-receiver": "InvalidatedMiss early returnszero/no physicalcontact. Otherwise measure-adjusted precision propagates F029computedaccuracy; rawNaNattack is not matched by range..0 and falls to calculate_damage, so earlyclassification alone is not universal successmeasurementseal. Avoidedcontact multiplies energyfraction andaccuracyclamp; actual force/attribute andratio admissions remain physicalP16ownergraph. No new unique normalcase claimed. Pure function no clock/statecommit.",
+    "references-and-currency": "ItemIDs constants/staticarrays only; carryIDs30-37 distinctfromfood39+, preserve priorqualification. Runtime referencevalidator buildsownedlist from canonicalcurrencies,interventionpreparations andquestmonsterloot, delegates typedmissing-ID list; duplicate refs do not cause arithmetic/index sideeffects here. Doesnotassert allothercatalogueconsumers validated. Currency uses canonical itemkind checks, displayreadonlystring, static6 nonempty IDs. Native deterministicindex receives6 NonZeroU64 andsamplesbelow bound, no zeroindexpanic; purpose seed/order unchanged. No second currencyroster or exchange-ratefeature added. P16samecurrency source/context verified.",
+    "source-tests": "Existing woundfixture indices[0] follows length1assert from explicitproducer, elapsed0/10/20 tests source-read only. Existing currency fixture checks stable assignment/cataloguenames; no new tests/assertions/helpers/execution."
+  },
+  "findings": [
+    {
+      "id": "ROOT-INITIAL04-F031",
+      "kind": "representable_public_API_computed_blood_fraction_NaN",
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/wounds.rs",
+      "locations": [
+        [
+          22,
+          32
+        ]
+      ],
+      "case": "Bloodloss0 and two CombatWound values with each blood_fraction_per_second=f32MAX (nonnegativefinite rawpublicAPI) and valid AnimationElapsedZERO. f32sum overflowsInf; Inf*0 producesNaN, addition/clamp preservesNaN; helper returns it. Source-only representableAPIcounterexample; no ordinary bounded clinicalflow/gameplay/run asserted.",
+      "operation": "Nonnegative finite rates and validzero elapsed do not preserve accumulated retained blood fraction. Clamp after arithmetic is not computed-value admission. Raw public input fraction and Serde wound fields also unsealed.",
+      "connected_repair": "Retain canonical blood-loss fraction and actual nonnegative blood-volume-fraction-per-time rate through woundproducer and timeadvance; check nativeordered accumulation/product before publishing successful fraction, or explicit validzero-time identity before unnecessary arithmetic. Ordinary structured rejection valid for nonrepresentable work. Preserve open/internal trauma, additive wounds, thresholdpolicy and single wheel injury contribution; do not equate rate with unitfraction merely because namecontainsfraction or addfatiguepool.",
+      "acceptance": "Successful bleeding advance publishes finite0..1; zero elapsed with admitted priorbloodloss cannot fabricateNaN. Rejected advance leaves retainedstate unchanged at actual mutatingcaller. Adapt existing fixtures only, no addedtests/assertions/helpers.",
+      "deduplication": "No Camera07duplicate; distinct blood injury accumulation graph from fatigue recoveryF030, shared computedfraction admission discipline.",
+      "contract_ref": "ROOT-INITIAL04-CONTRACT-092"
+    }
+  ],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

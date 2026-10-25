@@ -1,0 +1,35 @@
+--- p16base/crates/adventuresim-stdb-module/src/strategic/hostile_surrender.rs
++++ catalog-p16head/crates/adventuresim-stdb-module/src/strategic/hostile_surrender.rs
+@@ -171,9 +171,9 @@
+ 
+ fn resolve_hostile_surrender(
+     ctx: &ReducerContext,
+     request: SurrenderRequest,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     require_strategic_character_authority(ctx, request.actor_id)?;
+     if request.action_id.is_empty() || request.action_id.len() > 160 {
+         return Err("Hostile surrender action ID is invalid".into());
+     }
+@@ -328,9 +328,9 @@
+     spokesman_id: u64,
+     context_ref: String,
+     expected_revision: u32,
+     action_id: String,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     resolve_hostile_surrender(
+         ctx,
+         SurrenderRequest {
+             actor_id,
+@@ -358,9 +358,9 @@
+     context_ref: String,
+     expected_revision: u32,
+     accept: bool,
+     action_id: String,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     resolve_hostile_surrender(
+         ctx,
+         SurrenderRequest {
+             actor_id,

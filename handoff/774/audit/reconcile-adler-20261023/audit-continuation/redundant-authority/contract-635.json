@@ -1,0 +1,122 @@
+{
+  "id": "CONT07-CONTRACT-635",
+  "at": "2026-10-24T00:51:27.685508+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2767,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/components.rs",
+      "sha256": "0d82f83e694489be2b70f9208306217b283d1a8f11a5e174d80c8838b98109cd",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/components.rs",
+      "actual_EOF": 87,
+      "ranges": [
+        [
+          1,
+          87
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2768,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/plate_face.rs",
+      "sha256": "7c7d222066ebe81219e45b4ac4086acc9de7da36c7633f662027be299d93ba71",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/plate_face.rs",
+      "actual_EOF": 16,
+      "ranges": [
+        [
+          1,
+          16
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2769,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/plate_mount.rs",
+      "sha256": "6b0650a1f0aa61c043d101edb7ed5f577b7291820201c1e5c4583559ab52f3f9",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/plate_mount.rs",
+      "actual_EOF": 58,
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2770,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/limb_build.rs",
+      "sha256": "3bb6b57ab917ceaf61262074dfeb2f9b648b2f2fa845226fa795edc3878f0220",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/gpu/limb_build.rs",
+      "actual_EOF": 46,
+      "ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2771,
+      "source_id": "pr-working:crates/fabelgeist-garment-code/src/math.rs",
+      "sha256": "d781d59f49579995bc80f718a955f5ffcf9f7ec7842382831c43d91af451ab61",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-garment-code/src/math.rs",
+      "actual_EOF": 460,
+      "ranges": [
+        [
+          7,
+          8
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2772,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/identity.rs",
+      "sha256": "9e6bb30bdee39ecc35561aa4a286e46a7645129f179f7734fcba0e78d433dc48",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-hair/src/identity.rs",
+      "actual_EOF": 64,
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2773,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/armor.rs",
+      "sha256": "3aeb6961c084a063132b1d1302d006c8cbf59cacaf960081e799b7ce46d37930",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/combat/armor.rs",
+      "actual_EOF": 138,
+      "ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "ROOT-INITIAL04-F008"
+  ],
+  "facts": [
+    "ArmorComponent role/name/trim_name currently agree in all12 variants, with trim suffix manually mirrored per variant. PlateFace records generated topological face provenance; it should not be guessed from skinweights/displayrole. PlateMount course,parent,incoming,motion,follow are independent mechanical roles, with driven endpoint deliberately independent from course order. Public row0 flaw independently confirmed as ROOT-INITIAL04-F008 support, no new unique.",
+    "Limb entry dispatches by current design; special Pauldron carrier status read precedes accepted readback in synchronous build. recording API returns pendingpart with required later submit/status lifecycle; don't import synchronous accepted proof to arbitrary raw record callers. Existing RIG-ADMISSION03-F052 pending-device admission qualifier remains. Native garment math arrays are numerical f64 formats, not spare unchecked bespoke replacements.",
+    "PartingGroup private positive group IDs can only be built through nonnegative i32 GPU words/default0 in current API, so no purported public u32MAX overflow constructor. Negative sentinel is confined explicit GPU adapter and Unassigned; F111 clamp issue still concerns admitted Assigned3+ versus mapping capacity, not impossible private group. strand identity separate current collection ordinal.",
+    "P16 armor-energy channels are one coordinated partition; impact outcome also reflects independent attack/deflection result, not derivable from transmitted energy alone. Debug/fixture conservation evidence remains source-only. Actual resistance delegates ContactPrecision owner and padding consumes shared budget once; no new direct per-channel mutable gameplay penalty inferred."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2774,
+    "start_line": 1
+  }
+}

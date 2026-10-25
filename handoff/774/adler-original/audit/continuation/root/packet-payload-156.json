@@ -1,0 +1,105 @@
+{
+  "packet_number": 156,
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/archery.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Original full owner/producer scoped ranges and actualEOF verified before body. Fresh literal complete currentPR source in bounded untruncated slices, independent04 complete scalar/computed-proportion/native-budget comparison. No P16 or model-child body credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/blades.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          275
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Original full owner/producer scoped ranges and actualEOF verified before body. Fresh literal complete currentPR source in bounded untruncated slices, independent04 complete scalar/computed-proportion/native-budget comparison. No P16 or model-child body credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/crossbow.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          87
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Original full owner/producer scoped ranges and actualEOF verified before body. Fresh literal complete currentPR source in bounded untruncated slices, independent04 complete scalar/computed-proportion/native-budget comparison. No P16 or model-child body credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/firearm.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Original full owner/producer scoped ranges and actualEOF verified before body. Fresh literal complete currentPR source in bounded untruncated slices, independent04 complete scalar/computed-proportion/native-budget comparison. No P16 or model-child body credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/furniture.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Original full owner/producer scoped ranges and actualEOF verified before body. Fresh literal complete currentPR source in bounded untruncated slices, independent04 complete scalar/computed-proportion/native-budget comparison. No P16 or model-child body credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/guards.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          153
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Original full owner/producer scoped ranges and actualEOF verified before body. Fresh literal complete currentPR source in bounded untruncated slices, independent04 complete scalar/computed-proportion/native-budget comparison. No P16 or model-child body credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/shields.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Original full owner/producer scoped ranges and actualEOF verified before body. Fresh literal complete currentPR source in bounded untruncated slices, independent04 complete scalar/computed-proportion/native-budget comparison. No P16 or model-child body credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/union.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Original full owner/producer scoped ranges and actualEOF verified before body. Fresh literal complete currentPR source in bounded untruncated slices, independent04 complete scalar/computed-proportion/native-budget comparison. No P16 or model-child body credit."
+    }
+  ],
+  "groups": {
+    "operation-and-error-sequencing": "Each helper is pure borrowed-input validation, returns classified RecipeError at earliest failed require and does not allocate/publish geometry. Existing full Recipe dispatcher and other admission layers must all succeed before Construction. Checked value getters plus predicate establish only actual local constraints; a finite leaf wrapper alone is not full physical construction. No new tests/projectexecution or public mutation to recover from these errors.",
+    "distinct-bounds": "Parent positive accepts1e-6..20metres, bounded accepts signedabs<=20; ratios commonlyabs<=128, anglesabs<=3600degrees, sampling/cardinality upper256. These are different domains, not all positive/dimensionless probability. Several sample/count checks impose only upperbound; existing count owner and downstream minimum/clamp or shape relation decides whether0 is accepted. Do not invent universal3minimum or ban legitimate zero optional feature/radius/offset. None preserves authored downstream policy and is not a backwards compatibility fallback.",
+    "archery-and-crossbow": "Bow validates principal lengths/limb sections/stringradius, signed grip/reflex/recurve/brace/loop dimensions and bounded tip/upper ratios, optional backing/horn and sample requests. Arrow/bolt primaryshaft/head/fletching/nock lengths positive, optional detail and fletchingcount capped, offsets/buttdimensions bounded. Quiver wall/strap positive but mouth/base/lining/cover/strapdrop are signedbounded at this stage; actual moving/fit relational checks belong separate ranged admission. Crossbow many stock/prod/lock/stirrup/spanning dimensions bounded, principal length/stringradius positive; no proof those signed field values all become accepted solids.",
+    "firearm": "Firearm validates positive overalllength and barrel/band counts<=256, bounded stock/barrel/bore/wall/lock dimensions, octagonal ratioabs<=128 and detail limits. Multi-barrel physical gaps and moving lock clearance are separate complete recipe constraints, not supplied by this scalar helper. Leadball positive radius andsamplecap. Pouch positivewidth/height/wall, signeddepth/flap/loop geometry and explicitdegreeanglecap, so angle must not propagate as metres/radians interchangeably.",
+    "blade-families": "Blade dimensions positive, optional curvature signedmetres and form ratiosabs<=128 then actual validate_form. Section/diamond blade positiveprincipal dimensions and bounded taper. Axe/spear/fork/partisan/glaive/beak/bill/hammer each distinguishes dimensional root/tip/crown/curvature from shape ratios and other optional flags; positive ownsection versus signed authoredgeometry preserved. These bounded arithmetic predicates cannot prove every model formula respects supportedworldextent without actual producer/placement comparison. No blanket fivepoint/probability owner for taper/beard/belly/acuteness ratios.",
+    "correlated-guard-and-wheel": "Wheel checks computed positive diameter/2-seatheight then positive dimensions and face/rim/seat strict relations. Mortised guard admits positive dimensions, exact mortise/bevel clearances, nonnegativesweep, terminalscale1..2 and strictlypositive bevelratio<1. All operands bounded at actual successful gate, so these finite-small sums/products do not exhibit arbitraryMAX arithmeticoverflow. Correlated dimensions need accepted configuration, not separately positive wrappers. Other guard families cap spatial dimensions/angles/sampling; guardassembly caps members/plates512 but node/path/closure validity belongs graph check.",
+    "furniture-and-shields": "Box all threepositive extents. Socket/pommel profiles/counts upperbounded here, full profile monotonicity/volume/stockwall checks elsewhere. Circular grip/collar/sleeve/mace optional radialsegments explicit3..256 while some ornamental/flange/wrap counts onlyupperbound. Anatomy grip limits still separate scalarmanufacturing gate. Shields validate positive mainradius/width/height/thickness and straps/grip, signedcurves/fittingoffsets, bounded roundness/taper ratios, angledegrees andedge/ringdetail; final fit/material/topology assembly remains separate accepted whole product.",
+    "union-specific-followup": "Bentbar/spatialtube validate positive radius, centerline dimensions/coordinates and samplebudgets; spatialtube requires2..512points. Loftedblade validates positive principal dimensions, boundedcurvature, ricasso in[0,length), taper>0 and belly>-1, sample<=256. This local predicate does NOT impose sameabs<=128 upperbound used for other ratios. Do not infer an admitted MAXratio or a bad mass result without actual Ratio owner plus other melee/form/placement/model gates; specifically trace this difference before closing earlier forgequote144 duration/capacity concern. Shaft member length/radius positive andsampling upperbound, separate fullshaft anatomical rule in Recipe::validate remains required.",
+    "limits": "Eight additional exactPR roles566->574, findings60 unchanged. No newunique defect until actual complete accepted producer/consumer witness; no includedmodel/otheradmission layer, P16 source or other-lens credit. Current0672848+245/306queue with all233/231/230/226/224/priorqualifiers. All thirteen initial audits then handover163; implementation deferred."
+  },
+  "findings": []
+}

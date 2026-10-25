@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-717",
+  "at": "2026-10-25T16:36:41.585061+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 980,
+  "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/tests/solver_and_generation.rs",
+  "sha256": "ad5412d471d6177851e63bed5f4986db65b6d3ef02f3f604b0517a5fb3f60c9f",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Solver/generation fixture1\u2013220 contains assertions for exact replay/counterfactual causes, ambiguous safe descriptions, conditional likelihoods, hardzero/bridged exceptional authored contexts, truth/site coherence, reachable bridge authority and both routes. No type/trait/codec implementations; native assertions/graph traversal are source only, not execution."
+  ],
+  "first_unfinished": {
+    "scope_index": 980,
+    "line": 221
+  },
+  "execution": "none"
+}

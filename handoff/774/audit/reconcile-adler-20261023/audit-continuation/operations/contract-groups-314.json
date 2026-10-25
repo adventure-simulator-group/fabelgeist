@@ -1,0 +1,183 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-314",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/signs.rs",
+      "sha256": "a289edd3ee387aec2db5dc5cd65b84398c199844256bdba3f6cf1d3a8bb307a8",
+      "actual_EOF": 164,
+      "actual_compared_ranges": [
+        [
+          1,
+          164
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/signs/emblems.rs",
+      "sha256": "22775a6695c6acd7655402ff33352ffc6e70a648f70dcf0e29b7d7cce474cf2e",
+      "actual_EOF": 86,
+      "actual_compared_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/signs/lettering.rs",
+      "sha256": "123925e6214be34a423b07c88829feb1e52d9f177de4a3f4347116e34e2a4764",
+      "actual_EOF": 195,
+      "actual_compared_ranges": [
+        [
+          1,
+          195
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/signs/mounting.rs",
+      "sha256": "b8304693c8e6698aff2016270d56d35725376c70af25d607855709aac82e0123",
+      "actual_EOF": 132,
+      "actual_compared_ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/signs/rendering.rs",
+      "sha256": "94edb28991714767ff162deb2178ac55612468b458451a7d2ec1f004e85c5c6c",
+      "actual_EOF": 358,
+      "actual_compared_ranges": [
+        [
+          1,
+          358
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/signs/rendering/materials.rs",
+      "sha256": "9ad3e5e6a49eaf7525c9b74221e9b123aaba4c2c95546f0672f327035749e1d1",
+      "actual_EOF": 84,
+      "actual_compared_ranges": [
+        [
+          1,
+          84
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/signs/site.rs",
+      "sha256": "ff6ffec8966e6dae1ea4b333d7a0fbf39637384e0353f08c33cd4191e80e53de",
+      "actual_EOF": 173,
+      "actual_compared_ranges": [
+        [
+          1,
+          173
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/signs/tests.rs",
+      "sha256": "ad6bce5bad8931acd16b45167800018bc3b227a3744703c3f8667ee4a4ebdca9",
+      "actual_EOF": 123,
+      "actual_compared_ranges": [
+        [
+          1,
+          123
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Texture extent, RGBA byte capacity and pixel offsets must agree before image allocation",
+      "source_ranges": {
+        "signs/lettering.rs": [
+          [
+            1,
+            195
+          ]
+        ],
+        "signs/rendering/materials.rs": [
+          [
+            1,
+            84
+          ]
+        ]
+      },
+      "disposition": "Complete lettering and material bodies read. Exact same source-backed counterexample as audit/continuation/native/initial05-aggregate-states/findings.jsonl#60 (NATIVE-INITIAL05-F059): public paint finite positive size(1,1024) computes width1024,height1048576 then u32 width*height*4=2^32 before usize cast. Checked-overflow execution would panic; wrapping arithmetic creates zero bytes before pixel writes. No allocation or execution attempted. Accepted generated panel dimensions are bounded by actual site width1.35,height.28..=.62; ordinary sign failure not claimed. Connected remedy/acceptance: checked native dimension/byte-count and pixel-offset relation or fallible unsupported-size rejection before allocation; preserve ordinary two-line/font/cache behavior. Native painting scales and pixel clipping remain qualified by supported size/font input; empty ink bounds and glyph assertion are separate text-admission contracts, not a newly demonstrated arithmetic defect from normal names. lines is always length1or2 before len-1. Paint cache64-entry clear policy is deliberate; image/material asset lifetime is separate from hash-map length."
+    },
+    {
+      "contract": "Sign site and mounting operations follow physical support and dimensional policy rather than merely shared IDs",
+      "source_ranges": {
+        "signs/site.rs": [
+          [
+            1,
+            173
+          ]
+        ],
+        "signs/mounting.rs": [
+          [
+            1,
+            132
+          ]
+        ]
+      },
+      "disposition": "Both full bodies read. for_plan selects actual external entrance/host or first workplace passage and matching wall; panel width fixed1.35, height capped.62 and rejects below.28. It seeks a complete planar cuboid structural face, two authored plate orientations, .015 edge margin and .12 hanger reserve. lower>upper excludes reversed mounting interval before contact selection. is_supported finds actual source solid and validates whole backplate; zero/missing/nonstructural source rejects. Board rotation/projection and supports use full authored solid rotation for AABB overlap, enforce pedestrian clearance and validate mounting, but raw public SignSite fields are not privately admitted aggregate guarantees. No general arbitrary outward/quaternion/NaN acceptance claim is inferred. Maximum physical projection follows authored panel size and .12 offset; constant1.5 is policy acceptance in fixture. Fixed axis-aligned structural_face conditions make the simple tangent/outward plate extent test applicable on normal generated sources."
+    },
+    {
+      "contract": "Render instance and pictogram operations retain bounded fixed topology and correct dependent choices",
+      "source_ranges": {
+        "signs.rs": [
+          [
+            1,
+            164
+          ]
+        ],
+        "signs/emblems.rs": [
+          [
+            1,
+            86
+          ]
+        ],
+        "signs/rendering.rs": [
+          [
+            1,
+            358
+          ]
+        ],
+        "signs/tests.rs": [
+          [
+            1,
+            123
+          ]
+        ]
+      },
+      "disposition": "All four complete bodies including fixtures read. ShopSign validates trade against usage and derives mount/finish from establishment seed; it does not independently validate all public ShopName glyphs. Emblem segment endpoints are fixed distinct authored coordinates, so denominator is nonzero; polygon loop empty would execute no modulo and actual polygons are fixed4/6/8 vertices. Render compile creates shared unit box/quad geometry, puts dimensions in transforms and creates1or2 lettering faces according to mount; paint unwrap is guarded by the same paint.is_some loop bound. Bracket hanger/length positivity follows actual mounting reserve; arbitrary raw site does not establish that precondition. f32MAX visibility range is an intentional distant-board sentinel, not arithmetic overflow evidence. Fixtures for physical mounting, two mounts, projection, shared render assets, long German names, two fonts and complete alpha channel read only, not executed. No ordinary generated sign defect or render clearance claimed."
+    }
+  ],
+  "findings": [
+    {
+      "disposition": "same existing finding; personally analyzed lens04 support",
+      "archive_key": "audit/continuation/native/initial05-aggregate-states/findings.jsonl#60",
+      "id": "NATIVE-INITIAL05-F059",
+      "no_new_unique_count": true
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "8 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-building-generator/src/solid_overlap.rs"
+}

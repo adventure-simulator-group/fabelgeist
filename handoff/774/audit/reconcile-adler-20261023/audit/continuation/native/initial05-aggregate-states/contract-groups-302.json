@@ -1,0 +1,107 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-302",
+  "at": "2026-10-23T07:21:02.788563+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview.rs",
+      "sha256": "8c21b357f6f90a1c9c297c9e1c4306e63872daa3ccb32e060651f5df878b7ba3",
+      "scope068_index": 683,
+      "actual_EOF": 699,
+      "scoped_ranges_compared": [
+        [
+          1,
+          699
+        ]
+      ],
+      "actual05_comparison": "Fresh complete body, including all existing inline fixtures in parent; current aggregate constructor, skin-row, topology, prior/current pose, and simulation/render recipient comparison. No test execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview/binding.rs",
+      "sha256": "1d37cdfbe3438b86643502d8f147cec1c22cfb04ba2ccdf09da1c30aacac7152",
+      "scope068_index": 684,
+      "actual_EOF": 58,
+      "scoped_ranges_compared": [
+        [
+          1,
+          58
+        ]
+      ],
+      "actual05_comparison": "Fresh complete body, including all existing inline fixtures in parent; current aggregate constructor, skin-row, topology, prior/current pose, and simulation/render recipient comparison. No test execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview/cloth_motion.rs",
+      "sha256": "6ffc24ed612481adda0151e6c87d8c0980ecbe05f9c1cbcfccab08174af16d61",
+      "scope068_index": 685,
+      "actual_EOF": 201,
+      "scoped_ranges_compared": [
+        [
+          1,
+          201
+        ]
+      ],
+      "actual05_comparison": "Fresh complete body, including all existing inline fixtures in parent; current aggregate constructor, skin-row, topology, prior/current pose, and simulation/render recipient comparison. No test execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview/cloth_render.rs",
+      "sha256": "d691d43dfb3aa93344f65824b6c08ab7addcacf92e003099dde936d8b26e47ab",
+      "scope068_index": 686,
+      "actual_EOF": 68,
+      "scoped_ranges_compared": [
+        [
+          1,
+          68
+        ]
+      ],
+      "actual05_comparison": "Fresh complete body, including all existing inline fixtures in parent; current aggregate constructor, skin-row, topology, prior/current pose, and simulation/render recipient comparison. No test execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview/colliders.rs",
+      "sha256": "2b26b6da1361090bfe1dbefbc45cba4a9d6dd1bc13b22ca18e351e6ef3018718",
+      "scope068_index": 687,
+      "actual_EOF": 26,
+      "scoped_ranges_compared": [
+        [
+          1,
+          26
+        ]
+      ],
+      "actual05_comparison": "Fresh complete body, including all existing inline fixtures in parent; current aggregate constructor, skin-row, topology, prior/current pose, and simulation/render recipient comparison. No test execution."
+    }
+  ],
+  "groups": [
+    {
+      "id": "cloth geometry is a correlated private product",
+      "comparison": "ClothSkin::new118–148 checks weighted indices and weights row counts equal positions. current and previous clone the same positions and unique undirected edges derive each submitted face. It does not check face indices against positions. A finite one-vertex unweighted cloth with face[0,1,2] is accepted, then public weld_seams at cloth_render24 indexes render_vertices[1] and panics. Physics edge indexing165–171 and surface_normals also rely on admitted topology. New F060 is API-only; no normal drape producer malformed faces or run established. Own checked mesh topology at admission and derive edges/render seam map from it, preserve empty/nondegenerate policy as actually required rather than invent mandatory closed surfaces."
+    },
+    {
+      "id": "weighted binding and native skin layout",
+      "comparison": "Weighted constructor rejects unequal row lengths, retaining eight joint indices per row with weights. skin_mesh separately zips supplied indices/weights, selects strongest four by weight then ordinal, checked u16 conversion before native attributes, normalizes chosen sum or selects first fallback for nonpositive total. Raw public weight arrays and independent Mesh can still violate numeric/row semantics; no type-name finite, normalized-weight, same-rig or native vertex-count seal is inferred. The current parent checks retained joint_count equals matrices.len for cloth deformation; BodySkin public positions/faces/skin/weights remains broader. Normal input producers and lower native storage contracts remain explicit, not executed."
+    },
+    {
+      "id": "actual rig reconstruction and captured dependency",
+      "comparison": "prepare assigns graph and node from same loaded first clip. ready requires player/graph/node; public start_or_resume expects node when player has no active animation and therefore requires actual ready precondition. rebuild clears prior entity graph and constructs skeleton hierarchy from current generated joint states and model skeleton names/parents; topological parent membership and acyclicity remain model-supplier requirements. Binding matrices collect joint.zip(inverse_bindposes); missing GlobalTransform causes whole collection failure before deform. Zip itself does not prove equal lengths. No absent normal ready caller or malformed rig claimed."
+    },
+    {
+      "id": "cross-frame collider identity is more than row count",
+      "comparison": "Own fresh parent312–319 and colliders1–26 concatenate body then armor Query order and reuse previous positions only by first rig Entity plus aggregate vertex length. Same-count armor replacement/order/topology change can bind old rows to unrelated current faces. cloth_motion61–78/111–118 uses those rows in swept surface interpolation. Normal rebuild changes rig and resets history, ordinary coherent animation intentionally retains it. Personally consumed Camera F048 immutable row/CONTRACT249; this is independent05 support of that existing graph, no new unique."
+    },
+    {
+      "id": "simulation and garment seams preserve distinct roles",
+      "comparison": "All garment targets collect before mutation; unweighted binding without ignore-weights yields None and aborts whole update. Physics ignore-weights deliberately supplies no skeletal target while preserving cloth motion. OutfitContacts concatenates cloth followed by pinned body using same offsets, preserves previous state for contact velocity correction, substeps at least1 and outer frame dt capped1/30. Repeated Query ordering/native BVH result membership are required lower contracts, not proved from names. Rest lengths intentionally come from draped positions, not animated targets. Welding maps exact position bits, drops collapsed faces and selects the corresponding skin rows; render duplicates positions/normals through original seam map while simulation uses unique vertices. ±0 exact-bit difference intentional current operation."
+    },
+    {
+      "id": "existing tests and publication limits",
+      "comparison": "All parent existing tests read: eight influence opposite-leg contribution, draped rest length, unweighted rest-shape motion, two-garment separation without injected contact velocity, retained animated body CCD history. These support intended roles but were not executed and do not validate raw public face admission or shape-replacement history. SimulationSettings are public and do not seal numeric ranges; no arbitrary all-parameter success promised. Native collision/BVH/Bevy methods and underlying generated model ordering are not blanket cleared. BodyMotion writes current end after update, clears absent body, render mesh updated only if asset exists."
+    }
+  ],
+  "new_unique_findings": [
+    "NATIVE-INITIAL05-F060"
+  ],
+  "support_existing_findings": [
+    "CAMERA-INITIAL07-F048"
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

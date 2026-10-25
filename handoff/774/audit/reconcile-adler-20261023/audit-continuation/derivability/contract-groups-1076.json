@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1076",
+  "at": "2026-10-25T17:42:24.030577+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1216,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_provenance.rs",
+  "sha256": "f9a27db833d675b23a449676ecfd6d878c0357f2a5190f6a649341766c5ee33c",
+  "actual_compared_ranges": [
+    [
+      351,
+      730
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "No handtrait/codec. dialogue_fact_context368 onward constructs FactContext by DB participant count/presence, NPC/player social roles/services/age/sex/location/clothing, presented organization/current religion, party leader and representative membership/promotion/dues; selected reverse occupancy sort583\u2013594 differs whole-record Ord. Runtime facts are derived semantic joins and privacy/current-context classifiers, not mechanical serialization nor missing From."
+  ],
+  "first_unfinished": {
+    "scope_index": 1216,
+    "line": 731
+  },
+  "execution": "none"
+}

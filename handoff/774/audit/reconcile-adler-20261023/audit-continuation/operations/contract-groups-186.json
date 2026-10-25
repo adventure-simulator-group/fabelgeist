@@ -1,0 +1,96 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-186",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/npc_causal.rs",
+      "sha256": "f148788fb9f35b6fd5762cb3905c229568da28a9fc3b0556b662fa5ec10b6532",
+      "actual_EOF": 635,
+      "actual_compared_ranges": [
+        [
+          1,
+          635
+        ]
+      ],
+      "method": "Whole P16 literal module/helper and fixtures personally read; actual complete PR textual diff consumed and sole reducer return-error owner delta analyzed. Exact helper comparison empty, not hash-only."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/npc_causal/romance_candidates.rs",
+      "sha256": "6957bd242c23a68763c5e05b3d1dfc3277adedadb0338b05613bc915c1f982e3",
+      "actual_EOF": 28,
+      "actual_compared_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "method": "Whole P16 literal module/helper and fixtures personally read; actual complete PR textual diff consumed and sole reducer return-error owner delta analyzed. Exact helper comparison empty, not hash-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/npc_causal.rs",
+      "sha256": "3e8edab2fcd4988c3443a07ef35041bc7c9522ab9e6e025317b29608a41de263",
+      "actual_EOF": 635,
+      "actual_compared_ranges": [
+        [
+          1,
+          635
+        ]
+      ],
+      "method": "Whole P16 literal module/helper and fixtures personally read; actual complete PR textual diff consumed and sole reducer return-error owner delta analyzed. Exact helper comparison empty, not hash-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/npc_causal/romance_candidates.rs",
+      "sha256": "6957bd242c23a68763c5e05b3d1dfc3277adedadb0338b05613bc915c1f982e3",
+      "actual_EOF": 28,
+      "actual_compared_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "method": "Whole P16 literal module/helper and fixtures personally read; actual complete PR textual diff consumed and sole reducer return-error owner delta analyzed. Exact helper comparison empty, not hash-only."
+    }
+  ],
+  "groups": [
+    {
+      "id": "NPC cohort clock ordering and scheduled advancement",
+      "locations": "npc_causal1-172,464-510",
+      "trace": "Scheduler authentication precedes refresh/global lifecycle effects. Cohort only includes alive NPCs with actual time row and time<official target; missing rows omitted, no epoch default. It sorts by personal time then ID, retains one earliest frontier and truncates64. All selected policy decisions occur before any selected member time advances; later peer effects can still observe earlier policy mutations, a stable order rather than a claim of full simultaneous independence. Target=min(official, personal+one saturated day) is greater than personal because personal<official and saturation cannot fall below officialMAX. At exact personalMAX, eligibility false, so no zero-progress loop. Lifecycle processed separately with limit64 before cohort, keeping wake-up clock separate from causal time.",
+      "disposition": "No new clock wrap, arithmetic nonprogress or queue indexing defect. Loader collects all candidates before truncation; full arbitrary-population memory bound is not established by selected batch size alone, no normal scale failure claimed.",
+      "dependencies": [
+        "Native time refresh/advance_stationary_character_to and global lifecycle settlement",
+        "Actual NPC policy population and schedule loader bounds",
+        "SDK scheduler transaction/caught-error policy"
+      ],
+      "acceptance": "Successful tick uses the stable personal frontier, advances each selected NPC by a positive actual interval of at most one day, and does not duplicate a phase on retry. Preserve lifecycle processing independent of player login and scheduler jitter."
+    },
+    {
+      "id": "Policy decisions, age and receipt invariants",
+      "locations": "npc_causal174-462; romance_candidates1-28",
+      "trace": "Schedule considers zero allocation plus missing organizations before installing actual initial policy; prior Initialized/Preserved receipt prevents overwriting later player/editor choices. Authoritative effective age guards adult schedule; dependent Ineligible receipt does not permanently block a later adult day. Housing and romance inspect retained age_years, so consistent age refresh remains relationship/time dependency; no current mismatch witness established. Per actor/day/closed phase receipt is inserted only if absent; tuple formatting is injective for fixed numeric/closed phase fields. Romance helper excludes self, checks present actor-relative NPC policy, then canonical stable candidate ordering can reject conflict. Opposite-sex roles normalize female/male independent of actor ordering; no numeric index or unchecked native narrowing. Fallible housing/courtship can precede later phase failure, requiring actual outer transaction/catches before partial-state allegation.",
+      "disposition": "No new invariant-operation defect. Preserve existing relationship authority, age, unique candidate and aggregate contracts; raw saved schedule validity is not certified by this receiver.",
+      "dependencies": [
+        "Canonical relationship effective age and retained refresh",
+        "Core initial NPC schedule and stable_candidate_order",
+        "Native residence/courtship whole operation and error causes",
+        "Saved ScheduleAllocation admission"
+      ],
+      "acceptance": "Accepted daily phases retain canonical age/eligibility, stable candidate identity and exact once-only receipt after coherent mutation. Rejection cannot consume a phase clock or publish only part of the logical policy decision."
+    },
+    {
+      "id": "Existing source fixtures",
+      "locations": "npc_causal512-635",
+      "trace": "Every source fixture read, including bounded cohort, frontier order, all decisions before advancement, required effective-age schedule, private scheduler gate and directional courtship roles. These assertions and small fixed examples were not executed; most are source-string contracts rather than DB state validation.",
+      "disposition": "Source acceptance evidence only. Whole lens and connected native recipients remain incomplete.",
+      "dependencies": [
+        "All13 initial inventory gate and later authorized validation"
+      ],
+      "acceptance": "Preserve specified policy order, receipt lifetime, adult schedule and closed scheduler authority while resolving actual source findings."
+    }
+  ],
+  "findings": [],
+  "status": "Four source roles personally compared; whole lens/overlays/connected dependencies incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/organization.rs"
+}

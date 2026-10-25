@@ -1,0 +1,112 @@
+--- p16base/crates/adventuresim-stdb-module/src/time/advancement.rs
++++ catalog-p16head/crates/adventuresim-stdb-module/src/time/advancement.rs
+@@ -6,9 +6,9 @@
+ pub fn advance_character_time(
+     ctx: &ReducerContext,
+     character_id: u64,
+     minutes: u64,
+-) -> Result<bool, String> {
++) -> StrategicOperationResult<bool> {
+     crate::character::require_living_character(ctx, character_id)?;
+     ensure_character_time(ctx, character_id)?;
+     let mut character_time = ctx
+         .db
+@@ -76,9 +76,9 @@
+     ctx: &ReducerContext,
+     character_id: u64,
+     minutes: u64,
+     plan: &crate::disease::PartyDiseaseIntervalPlan,
+-) -> Result<bool, String> {
++) -> StrategicOperationResult<bool> {
+     crate::character::require_living_character(ctx, character_id)?;
+     ensure_character_time(ctx, character_id)?;
+     let mut character_time = ctx
+         .db
+@@ -184,9 +184,9 @@
+ 
+ /// Commit a terminal injury or disease event that falls exactly on the
+ /// character's current strategic minute. This intentionally grants no elapsed
+ /// travel time, condition use, filth, or training.
+-pub fn settle_travel_boundary(ctx: &ReducerContext, character_id: u64) -> Result<bool, String> {
++pub fn settle_travel_boundary(ctx: &ReducerContext, character_id: u64) -> StrategicOperationResult<bool> {
+     let character = ctx
+         .db
+         .character()
+         .id()
+@@ -201,9 +201,9 @@
+ pub fn advance_travel_time(
+     ctx: &ReducerContext,
+     character_id: u64,
+     mut minutes: u64,
+-) -> Result<bool, String> {
++) -> StrategicOperationResult<bool> {
+     while minutes > 0 {
+         let chunk = minutes.min(crate::filth::next_travel_dirt_boundary(ctx, character_id));
+         let before = ctx
+             .db
+@@ -232,9 +232,9 @@
+     ctx: &ReducerContext,
+     character_id: u64,
+     mut minutes: u64,
+     plan: &crate::disease::PartyDiseaseIntervalPlan,
+-) -> Result<bool, String> {
++) -> StrategicOperationResult<bool> {
+     while minutes > 0 {
+         let chunk = minutes.min(crate::filth::next_travel_dirt_boundary(ctx, character_id));
+         let before = ctx
+             .db
+@@ -266,9 +266,9 @@
+ pub fn advance_investigation_time(
+     ctx: &ReducerContext,
+     character_id: u64,
+     minutes: u64,
+-) -> Result<bool, String> {
++) -> StrategicOperationResult<bool> {
+     let mut remaining = minutes;
+     while remaining > 0 {
+         let safe = preview_travel_time(ctx, character_id, remaining)?;
+         if safe == 0 {
+@@ -302,9 +302,9 @@
+ pub(crate) fn synchronize_party_activity_time(
+     ctx: &ReducerContext,
+     member_ids: &[u64],
+     leader_id: u64,
+-) -> Result<Option<StrategicMinute>, String> {
++) -> StrategicOperationResult<Option<StrategicMinute>> {
+     if !member_ids.contains(&leader_id) {
+         return Err("Party leader is not a living activity participant".into());
+     }
+     if member_ids.iter().any(|member_id| {
+@@ -341,9 +341,9 @@
+ /// Validate co-location before a shared strategic action. Party members retain
+ /// independent subjective clocks; shared activity never ages one participant
+ /// merely to match another.
+ #[reducer]
+-pub fn synchronize_party_for_activity(ctx: &ReducerContext, leader_id: u64) -> Result<(), String> {
++pub fn synchronize_party_for_activity(ctx: &ReducerContext, leader_id: u64) -> StrategicOperationResult<()> {
+     crate::strategic::require_strategic_character_authority(ctx, leader_id)?;
+     let leader = crate::character::require_living_character(ctx, leader_id)?;
+     let party_id = leader
+         .party_id
+@@ -417,9 +417,9 @@
+ pub fn advance_character_wait_time(
+     ctx: &ReducerContext,
+     character_id: u64,
+     minutes: u64,
+-) -> Result<bool, String> {
++) -> StrategicOperationResult<bool> {
+     crate::character::require_living_character(ctx, character_id)?;
+     ensure_character_time(ctx, character_id)?;
+     let mut time = ctx
+         .db
+@@ -502,9 +502,9 @@
+     ctx: &ReducerContext,
+     character_id: u64,
+     minutes: u64,
+     plan: &crate::disease::PartyDiseaseIntervalPlan,
+-) -> Result<bool, String> {
++) -> StrategicOperationResult<bool> {
+     crate::character::require_living_character(ctx, character_id)?;
+     ensure_character_time(ctx, character_id)?;
+     let mut time = ctx
+         .db

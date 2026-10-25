@@ -1,0 +1,122 @@
+{
+  "id": "CONT07-CONTRACT-438",
+  "at": "2026-10-23T21:53:15.269246+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1925,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/candidates.rs",
+      "sha256": "3d43e5f1ea3eaa2b4ef34c3b21965f23981802c64eea068ee61ae184c69e6a00",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/furniture/candidates.rs",
+      "actual_EOF": 143,
+      "ranges": [
+        [
+          1,
+          143
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1926,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/candidates/composition.rs",
+      "sha256": "05750ce7d6a8f3afd88276d9baebd4bc1d7f523692648055c76682c740f901c1",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/furniture/candidates/composition.rs",
+      "actual_EOF": 24,
+      "ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1927,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/candidates/frontage.rs",
+      "sha256": "41fde4d65e80d763b05b87610fd7abd7b749f080370869c1d57eebb153b30131",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/furniture/candidates/frontage.rs",
+      "actual_EOF": 71,
+      "ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1928,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/candidates/market.rs",
+      "sha256": "dd69ac02f15fd9ea319e4936ca043f3d44bb7c3c17ee086a3bddefa939c70236",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/furniture/candidates/market.rs",
+      "actual_EOF": 208,
+      "ranges": [
+        [
+          1,
+          208
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1929,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/collision.rs",
+      "sha256": "f62042f52b90927aa161dcd0af4e4fd714c15b0e1732e8e93a7a2cff98aed060",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/furniture/collision.rs",
+      "actual_EOF": 29,
+      "ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1930,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/footprint.rs",
+      "sha256": "2d944f76903a993e6124e546880e4e4b294c89ab1967f5f89b23e9413919ac11",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/furniture/footprint.rs",
+      "actual_EOF": 122,
+      "ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1931,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/ground.rs",
+      "sha256": "0309759636f548b7fc109f9743cbb1dd6a5a7ad5d3f41e24ef4a1521ef83b9b5",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/furniture/ground.rs",
+      "actual_EOF": 97,
+      "ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "1925 LocalItem retains key plus static recipe returned from that exact key in new; offsets and bounds are then derived from the same recipes. LocalCandidate private fields have no separate mutation path here. Candidate public-to-parent fields still need placement recipient traces; no key/recipe drift demonstrated through this producer.",
+    "1926 four Vendor composition outcomes and RNG bound4 currently agree; wildcard is a defined fourth outcome. No current cardinality mismatch or independent documented equal-probability contract beyond authored distribution. Exhaustive group-kind match is one dispatch owner; repeated CargoStack/Barrel entries are intended multiple items.",
+    "1927 group_limit and candidate kind call the same kind helper; no duplicate BuildingUse roster for classification in these two consumers. Frontage fractions/slots are search alternatives; accepted-group limit1/2 differs intentionally from20 candidate positions.",
+    "1928 MarketFrame centre/orientation/bounds derive once from the same corners and edge clearances, retained as one immutable local transform. Row y/direction/index encode different placement and identity roles. Customer aisles and stall separation are different clearance facts. row_depth is maximum of exact CanvasStall variant reservation recipes; actual all-item footprint checks remain downstream. .ok() on market edge clearance is candidate rejection/error-policy question, not duplicate authority.",
+    "1929 collider composes all cuboids from one recipe key at native boundary; open canvas/water omitted intentionally per physical contract. 1930 footprint privately retains admitted centre/extents/orientation and recomputes corners; no stored corner cache can drift. Zero extents and strict SAT contact policy remain deliberate original accepted geometry.",
+    "1931 explicit Playable/Vista scope prevents straddling furniture from silently acquiring physics. Height fallback uses first two vista rings, additional source support for known F080/M64 dependency on selected presentation cohort, not a newly merged defect. allows_activity uses ground substrate in playable space and conservative four-corner water/wetland cutoff on vista; these resolutions and thresholds serve different evidence roles and no equality policy proven."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1932,
+    "start_line": 1
+  }
+}

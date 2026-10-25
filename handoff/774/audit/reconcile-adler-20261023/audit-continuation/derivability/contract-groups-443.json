@@ -1,0 +1,118 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-443",
+  "at": "2026-10-25T15:38:05.316657+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 856,
+      "source_id": "pr-working:crates/adventuresim-core/src/autopsy.rs",
+      "sha256": "590a02732db6f33532c882ce0d6a6686de3f4bad9e3368242999cc3c30f9fd35",
+      "actual_EOF": 648,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/autopsy.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/autopsy.rs",
+        "owner": "camera",
+        "sha256": "590a02732db6f33532c882ce0d6a6686de3f4bad9e3368242999cc3c30f9fd35",
+        "base_sha256": "07253c6ff084cda0fe1827018c679855dc62731b269dfc14f43c9fe309555de6",
+        "state": "modified",
+        "bytes": 21661,
+        "audit_owner": "camera",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                648
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-AUTOPSY-001"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 116,
+            "read_ranges": [
+              [
+                1,
+                648
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-CORPSE-016"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/autopsy.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 117,
+            "read_ranges": [
+              [
+                1,
+                648
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-CORPSE-016"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/autopsy.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": 261,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          648
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "CorpseLocation/DecompositionBand Clone Copy Debug PartialEq Eq",
+        "BodyInjury Clone Copy Debug PartialEq",
+        "PostCombatBody Clone Debug PartialEq",
+        "SystemicPathologySnapshot Clone Debug PartialEq Eq Serialize Deserialize",
+        "AutopsyEvidenceContext Clone Copy Debug"
+      ],
+      "absence_basis": "Full source personally consumed: time/condition classification, semantic combat-output snapshot projection, bounded deterministic resolver, observation quality/content policy and source fixtures. No handwritten trait/codec. Derived snapshot wire already mechanical; selective information projection and human report classification are gameplay semantics, not new From/Display/Serde deriving candidates. Tests read only."
+    }
+  ],
+  "groups": [
+    {
+      "disposition": "NO_HANDWRITTEN_TRAIT_OR_CODEC",
+      "contracts": "Retain deliberate evidence/identity projection, quality/admission/native semantics; no source edits/fixture execution."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 857,
+    "source_id": "pr-working:crates/adventuresim-core/src/autoresolve.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

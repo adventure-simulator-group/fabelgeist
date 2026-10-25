@@ -1,0 +1,116 @@
+[
+  {
+    "trace_ref": "ROOT-PP-CLIENT-DIAGNOSTICS-019",
+    "path": "crates/adventuresim-tactical-client/src/main.rs",
+    "sha256": "11642eae7fcc7b877302b99cb6eb0cb62ee45c7fe0df07541fb06607c159f875",
+    "read_ranges": [
+      [
+        572,
+        609
+      ]
+    ],
+    "disposition": "Root actual exported wasm Result<(),String> directly delegates queue_json. Terminal serde decode diagnostic; no typed reconstruction/prose branch."
+  },
+  {
+    "trace_ref": "native/progress.json source18 / contracts#playback-state/#pose-backend",
+    "path": "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs",
+    "sha256": "4544835a041e7c35f25b60d0b13e06ff22ea4ecc0efc90efdda1cd6963fb9638",
+    "read_ranges": [
+      [
+        1,
+        1892
+      ]
+    ],
+    "disposition": "Native fresh full canonical display/playback owner plus actual readiness/freeze/sample receivers."
+  },
+  {
+    "trace_ref": "native/progress.json source22 / contracts#playback-state",
+    "path": "crates/adventuresim-tactical-client/src/animation/pose_buffer/display_history.rs",
+    "sha256": "671c08c8e47aac129b38a9cc107630319a1fa9a2e9eb29bd1128272dcf15e268",
+    "read_ranges": [
+      [
+        1,
+        17
+      ]
+    ],
+    "disposition": "Actual has_presented_pose14\u201316 typed display-state predicate, source-linked readiness receiver."
+  },
+  {
+    "trace_ref": "native/progress.json source108 / contracts#capture-harness-observation",
+    "path": "crates/adventuresim-tactical-client/src/animation_viewer/harness/readiness.rs",
+    "sha256": "64c3ae627a9e6e8b449c355a123aa9007228513e88cc07c9d3ec6f6783ecff34",
+    "read_ranges": [
+      [
+        1,
+        285
+      ]
+    ],
+    "disposition": "Native owns actual EquipmentVisualStatus::state58\u2013131 query/visualenum/fixtures. Failed generation marker distinct from locally invalid WeightSummary; consumes same rig owning failure payload after gate."
+  },
+  {
+    "trace_ref": "native/scene-unchanged-002.json#read_files",
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_readiness.rs",
+    "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_readiness.rs",
+    "sha256": "8f349e6bcd0e513f6a77a8b70f6957051ba93b126b1d2f6a6fe384e2ee035ab3",
+    "read_ranges": [
+      [
+        1,
+        160
+      ]
+    ],
+    "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "disposition": "Native full current-wave source proof; rig independently read actual Observation::check50\u2013105. Narrow actual for_building(instance.id.0)89 receiver; rig owns whole check API adaptation per root transfer. No broader lens clearance."
+  },
+  {
+    "trace_ref": "native/scene-unchanged-003.json#read_files",
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/readiness.rs",
+    "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/readiness.rs",
+    "sha256": "da0f087a671bf4958225ba9cd45f834cff0b0d651c9ab03c1ebcc9242a01b1e0",
+    "read_ranges": [
+      [
+        1,
+        301
+      ]
+    ],
+    "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "disposition": "Native full current-wave source proof; rig independently read Observation::check90\u2013230. Narrow actual for_building typed building/window/door ID strips176/193/218. Rig whole check API adaptation per root; native has no competing claim."
+  },
+  {
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/boundaries/batching.rs",
+    "snapshot": "pr-working",
+    "path": "crates/adventuresim-tactical-client/src/presentation/buildings/boundaries/batching.rs",
+    "read_status": "full",
+    "ranges": [
+      [
+        1,
+        163
+      ]
+    ],
+    "observed_sha256": "847dc0610fa3630451d5a8b0ce95bf807fd422350e0155d3c953a2e780e576bb",
+    "trace_refs": [
+      "ROOT-PP-GEOMETRY-002"
+    ],
+    "discovery_status": "incomplete",
+    "remaining": "Enumerate callers and resolve native-vs-domain retained paths; geometrical owner/receiver reads do not alone close connected terrain, packing and observer traces.",
+    "disposition": "Root full actual source proof reused narrowly for material for_building typed buildingID.0 receivers64/123. Root RETAINS whole BoundaryBatches::insert_boundary/project_pending; consumes canonical Seed/material API owned by rig, no competing boundary claim. Other root geometry/coordinate repairs remain separate."
+  },
+  {
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/boundaries/projection.rs",
+    "snapshot": "pr-working",
+    "path": "crates/adventuresim-tactical-client/src/presentation/buildings/boundaries/projection.rs",
+    "read_status": "full",
+    "ranges": [
+      [
+        1,
+        153
+      ]
+    ],
+    "observed_sha256": "9e1ea40e6edc73ed03f1e87f93011ea6c61f31947c641df1681f66a687886ac4",
+    "trace_refs": [
+      "ROOT-PP-GEOMETRY-002"
+    ],
+    "discovery_status": "incomplete",
+    "remaining": "Enumerate callers and resolve native-vs-domain retained paths; geometrical owner/receiver reads do not alone close connected terrain, packing and observer traces.",
+    "disposition": "Root full actual source proof reused narrowly for material for_building typed buildingID.0 receivers64/123. Root RETAINS whole BoundaryBatches::insert_boundary/project_pending; consumes canonical Seed/material API owned by rig, no competing boundary claim. Other root geometry/coordinate repairs remain separate."
+  }
+]

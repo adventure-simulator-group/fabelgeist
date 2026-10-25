@@ -1,0 +1,82 @@
+{
+  "id": "ROOT-ADM-NEWPARALLEL-098",
+  "at": "2026-10-22T19:57:10.122686+00:00",
+  "lens": "audit-admission-contracts",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/components.rs",
+      "sha256": "0d82f83e694489be2b70f9208306217b283d1a8f11a5e174d80c8838b98109cd",
+      "actual_read_ranges": [
+        [
+          1,
+          87
+        ]
+      ],
+      "registration": "RIG-INITIAL06-REG-009",
+      "scope_limits": "Only this tiny direct type-definition source; no broader new family/foreign graph"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/plate_face.rs",
+      "sha256": "7c7d222066ebe81219e45b4ac4086acc9de7da36c7633f662027be299d93ba71",
+      "actual_read_ranges": [
+        [
+          1,
+          16
+        ]
+      ],
+      "registration": "RIG-INITIAL06-REG-010",
+      "scope_limits": "Only this tiny direct type-definition source; no broader new family/foreign graph"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/plate_mount.rs",
+      "sha256": "6b0650a1f0aa61c043d101edb7ed5f577b7291820201c1e5c4583559ab52f3f9",
+      "actual_read_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "registration": "RIG-INITIAL06-REG-011",
+      "scope_limits": "Only this tiny direct type-definition source; no broader new family/foreign graph"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/limb_build.rs",
+      "sha256": "3bb6b57ab917ceaf61262074dfeb2f9b648b2f2fa845226fa795edc3878f0220",
+      "actual_read_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "registration": "RIG-INITIAL06-REG-012",
+      "scope_limits": "No broad new geometry/foreign/feature graph"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-garment-code/src/math.rs",
+      "sha256": "d781d59f49579995bc80f718a955f5ffcf9f7ec7842382831c43d91af451ab61",
+      "actual_read_ranges": [
+        [
+          7,
+          8
+        ]
+      ],
+      "registration": "RIG-INITIAL06-REG-013",
+      "scope_limits": "All numeric helper/Rotation/curve bodies except exact aliases7\u20138 excluded"
+    }
+  ],
+  "actual_source_specific_admission": {
+    "components": "Closed role serde/display tags preserve represented enum. Public descriptive hinge/material and mesh ranges are raw external records, require actual producer finite/frame/mesh relationships; no hidden private token or validated aggregate established. Raw material and topology records already scope propagation inventory, no unsupported normal invalid record claim.",
+    "plate-face": "Closed topology enum, all represented values admitted and no bypass.",
+    "plate-mount": "Course and relationship records do not certify collection ordering, parent membership or unique distal driver. row accepts0 despite row-selection requiring nonempty extent: same F008 graph, not extra bug count. Preserve arbitrary valid course identities, do not assert every representable course must already exist absent enclosing assembly.",
+    "limb-wrapper": "Fallible actual recipes/frame validation and result forwarding, not a private admission shortcut in wrapper. Native status-buffer length proof remains actual producer responsibility; no normal empty-buffer assertion.",
+    "garment-aliases": "Aliases name source arrays only, no constructor or codec closure. They are not certified physical/geometric values; actual producer ownership context needed, precision retained."
+  },
+  "finding_refs": [
+    "ROOT-INITIAL04-F008 same checked-grid projection graph, separately compared constructor/admission role"
+  ],
+  "disposition": "Exact five newly registered roles compared WITH_FINDINGS; no implementation/final clearance or other lens verdict",
+  "repair": "frozen",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0
+}

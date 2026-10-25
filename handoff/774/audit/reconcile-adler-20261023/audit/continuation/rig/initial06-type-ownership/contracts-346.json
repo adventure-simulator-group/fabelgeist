@@ -1,0 +1,25 @@
+{
+  "id": "RIG-INITIAL06-GROUP-346",
+  "at": "2026-10-23T09:17:14.295101+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "melee-iteration-report-composition": {
+      "comparison": "CLI runner uses canonical Seed and separate tactical/autoresolve seed counts, shared Core MeleeIterationBuild/roster and TacticalDuelResolution; it composes existing Measurement<WinRate>, wall time and simulated elapsed measurement APIs instead of independently computing means/rates. AcceptanceAudit/MatchupCausalAudit are serialized observational evidence, not alternative gameplay state or authorization. BattleAttackOutcome/ArmorImpactOutcome/contact classifications remain canonical enum users. Error owner IterationError retains report path/source; JSON output is presentation boundary. No runner/batch/report files executed.",
+      "disposition": "coherent reference-runner evidence over shared combat/measurement owners"
+    },
+    "ranged-shot-staged-authority": {
+      "comparison": "RangedPerformances checked UnitInterval attacker/defender differs raw incapacitation and flanking/precision; PreparedRangedDefense borrows canonical TacticalPlayerView/DefenderResponse. RangedAmmunition retains native Entity plus optional CoreItemQuantity, actual absence means exhausted stack versus quantity0. ValidatedRangedShot→AuthorizedRangedShot stages preserve server authority; combat clock/duration remains distinct from DBminute/sampletick. Complete P16335 versus fresh PR325 delta admits native separation/positions to SignedLength/Position before canonical facts and propagates geometry failure; supports F034 while retaining raw rejected diagnostic/classification order deliberately. Other raw yaw/flanking/DTO semantics are not automatically solved by P16. Shared BodyPart supports F009.",
+      "disposition": "canonical staged shot/quantity authority; F034 accepted geometry propagation and F009 user"
+    },
+    "p17-height-report-frame-quantities": {
+      "comparison": "ScenarioHeightMetrics uses canonical BoneRole, SignedLengthRange, HeightDistance, SignedLength, AnimationElapsed and Observation. Controller/root-relative/body-local height meanings remain different even when underlying shared signed length is appropriate; absolute range is nonnegative while contact-to-passing gain is signed. CyclePhase samples versus scenario frame ordinal/time are distinct clocks. Native subtraction/extrema/phase-window/peak calculations are actual measurement ports; missing bone/no completed cycle/NotApplicable are not zero samples. No competing canonical height/elapsed/bone owner; lower HeightSample/peak helpers not credited from calls.",
+      "disposition": "canonical observation/quantity products with explicit measurement frame/absence semantics"
+    }
+  },
+  "supporting_existing_findings": [
+    "F009",
+    "F034"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit."
+}

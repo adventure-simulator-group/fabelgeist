@@ -1,0 +1,148 @@
+{
+  "id": "CONT07-CONTRACT-583",
+  "at": "2026-10-24T00:18:11.092779+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2523,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/city_layout/compound/boundary.rs",
+      "sha256": "d9fb76fe3c22007ad7491c759dc3d5f4d6a2e9725cb73b08f6a349eade427d5e",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/city_layout/compound/boundary.rs",
+      "actual_EOF": 266,
+      "ranges": [
+        [
+          1,
+          124
+        ],
+        [
+          181,
+          266
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2524,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+      "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+      "actual_EOF": 407,
+      "ranges": [
+        [
+          68,
+          110
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2525,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/defaults.rs",
+      "sha256": "970a41a87d4738f8b9edc7a55d80caa78aed0bca9622fee03d034b297626f591",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/combat_config/defaults.rs",
+      "actual_EOF": 26,
+      "ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2526,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+      "sha256": "12d9a293dfa9ba0ecf15b2410b1301587ca902296fd26db8ffd25601ca07626d",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+      "actual_EOF": 262,
+      "ranges": [
+        [
+          1,
+          48
+        ],
+        [
+          68,
+          102
+        ],
+        [
+          116,
+          218
+        ],
+        [
+          246,
+          258
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2527,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_coordinates/window.rs",
+      "sha256": "9e148e80284c8a960dc0fe0495783563bae67ec6bbf07abbdf6f82ff8edf5601",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/scene_coordinates/window.rs",
+      "actual_EOF": 136,
+      "ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2528,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings/identity.rs",
+      "sha256": "53af66cb68d475328494f071fc1fc64701c6c2fbd3204ffb79a82bbfd318a7b0",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/scene_input/buildings/identity.rs",
+      "actual_EOF": 40,
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2529,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/doors.rs",
+      "sha256": "676d9b173c594a21fd92761c7737e160d1c19c5c17a5efd8cadd784c51cb6c33",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-server/src/doors.rs",
+      "actual_EOF": 672,
+      "ranges": [
+        [
+          1,
+          36
+        ],
+        [
+          49,
+          246
+        ],
+        [
+          248,
+          389
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "P16 boundary descriptor owns member pose variants and derives support element identity from same tagged payload. Gate-relative versus ground-relative elevations remain explicit through packing/datum handoff, not independently guessed per downstream list order. Distinct property/opening namespaces require admitted encoding capacity, no injectivity claim from bitmask alone.",
+    "P16 SupportElevation one finite scalar and translation readmits overflow. Canonical combat defaults parse one embeddedYAML through LazyLock then validate, so config Default projections share authored authority; no second handwritten default population here.",
+    "P16 CollisionCentreDatum owns one checked architecturalorigin/scenecentre/orientation and derives native transforms. SceneDoorPose/SceneWindowPose privately pair native quaternion product with leaf scalar yaw; preserve original product instead of recomputing equivalent trig in renderer/physics. Accessors return copies so external mutation cannot desynchronize retained pose.",
+    "P16 fresh actual right-hinge gate producer2523hinge equation and server2529spawn_door156 establish independently recomputed doorwaycentre is shifted by fullwidth for Right. Ordinary architectural compiler remains correct Left hinge. See F119 source-conditional actual producer/receiver proof; curatedRightgeneration and actual simulation occurrence unproved.",
+    "P16 DoorController derived target geometry and replicated SceneDoor initialize together, yet both receive same incorrectRight recomputation; peractor grab/passages read that shiftedcentre. Physical pose itself uses correct closedcentre/hinge from SceneDoorPose. Diagnostic report_unseated_doors289\u2013294 also assumes localnegativeXhinge, independently misdiagnosing Right. No nativephysics or gameplay run.",
+    "P16 exemption grant/revoke coordinates collidermask with semantic passagehistory and motor target derives from remaining grantedusers. Desired motor versus actual dynamic rotation remains orthogonal current state, no unconditional copycollapse. Earlier CON464 ordinarygeometry qualification remains valid only for the traced left-hinge construction."
+  ],
+  "new_local_findings": [
+    "CONT07-F119"
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2530,
+    "start_line": 1
+  }
+}

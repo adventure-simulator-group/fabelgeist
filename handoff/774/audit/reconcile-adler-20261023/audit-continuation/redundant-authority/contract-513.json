@@ -1,0 +1,64 @@
+{
+  "id": "CONT07-CONTRACT-513",
+  "at": "2026-10-23T23:05:05.307935+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2235,
+      "source_id": "pr-working:crates/fabelgeist-color/src/lib.rs",
+      "sha256": "2aa390bfe12f98f358c698461b399a3f3f02d3dfc2a2edf6be3c761b88d556fa",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-color/src/lib.rs",
+      "actual_EOF": 24,
+      "ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2236,
+      "source_id": "pr-working:crates/fabelgeist-color/src/space.rs",
+      "sha256": "127a0d4e4f1d78bbdb1eaf0f6bd6ec6ac4e841d6b3cd7b287fc90d914ab25a49",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-color/src/space.rs",
+      "actual_EOF": 356,
+      "ranges": [
+        [
+          1,
+          356
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2237,
+      "source_id": "pr-working:crates/fabelgeist-color/src/transfer.rs",
+      "sha256": "81b5c5f4a55d8191a178ea71fc618c968db91c2b601fa7b72e0cadf466ecad62",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-color/src/transfer.rs",
+      "actual_EOF": 271,
+      "ranges": [
+        [
+          1,
+          271
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Colorlib24 Space356 Transfer271 personally fullread. ColorSpaceprimaries/transfer/to_linear/to_gamma are exhaustive matches; white_point derivesprimaries.white. Different primaries sharingindividualstandardchromaticities are independent standarddefinitions, not retainedduplicate label/value state. CustomColorPrimaries ownsactual coordinates.",
+    "ColorPrimaries.from_xyz recomputes inversefromitsownforwardmatrix; singularidentityfallback existingadmissionpolicy concern, no independentlystoredinverse. Bradfordprecomputedconstantinverse is fixedalgorithmcoefficient, no mutablecachedsource.",
+    "TransferFunctionvariantdispatch delegates actualcanonical standalonesRGB/BT709/PQ/HLG functions. HDRclamps andHLGmax-onlyencode versusclampeddecode are explicitrange/numericalpolicies, not proven07authoritydefect. PQconstants sharedbothdirections. HLG_B/C comments show mathematicalderivation but representedrounded standardcoefficients; no currentincorrectcoefficientproof or empiricalroundtripclaim.",
+    "Existingcolorroundtripfixtures read/unrun, no externalstandardverification or physical calibrationclaim."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2239,
+    "start_line": 1
+  }
+}

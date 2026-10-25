@@ -1,0 +1,117 @@
+{
+  "id": "CONT07-CONTRACT-630",
+  "at": "2026-10-24T00:48:33.998966+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2740,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/catalog.rs",
+      "sha256": "0f579abd98b3de2924ebba3a1addc74b37c30c098af4667ae23b6fdaaef398e2",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/catalog.rs",
+      "actual_EOF": 131,
+      "ranges": [
+        [
+          1,
+          2
+        ],
+        [
+          74,
+          87
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2741,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/assignment.rs",
+      "sha256": "edaab496e73d7ae22b10743303627d76c5526cdff566e72e60f563dcbc2c77f9",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/autoresolve/melee_round/assignment.rs",
+      "actual_EOF": 72,
+      "ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2742,
+      "source_id": "pinned-registry:spacetimedb-2.6.1/src/lib.rs",
+      "sha256": "b4c9d8460c2b511a8ddd6bac50546cb06ab9e83daab5df6007605e4b65c65a00",
+      "origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spacetimedb-2.6.1/src/lib.rs",
+      "actual_EOF": 1817,
+      "ranges": [
+        [
+          1,
+          34
+        ],
+        [
+          37,
+          41
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2743,
+      "source_id": "physical-p16:crates/adventuresim-core/src/quest_catalog_validation/demographic.rs",
+      "sha256": "e34eb575d8091df0f4e9d8242066c7734b986d888d7a54c51aaaf1681a53ed34",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/quest_catalog_validation/demographic.rs",
+      "actual_EOF": 79,
+      "ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2744,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_references.rs",
+      "sha256": "e794dc0ede51c9d53d64155ee9ce8d551347ec8f659e2461c0b3d5d31b34cb6b",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/item_references.rs",
+      "actual_EOF": 76,
+      "ranges": [
+        [
+          12,
+          27
+        ],
+        [
+          30,
+          37
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2745,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/personality/generation.rs",
+      "sha256": "7341d3b9b18f9637f05016688ed33225a49ec7596151813d96b8804c4e42ca84",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-stdb-module/src/personality/generation.rs",
+      "actual_EOF": 204,
+      "ranges": [
+        [
+          1,
+          204
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "PR gameplay immutable catalogue role same semantic design/default lookup as P16, exact source variant personally inspected. Assignment target priority recomputes active melee/ranged/remaining from same combatant observations, deduplicates target indices, and derives flanking from source attacker rank; this is same2741REG056 duplicate inventory role, not extra source/defect credit. Empty target precondition needs actual caller, no new finding from debug_assert alone.",
+    "Pinned SDK reexports native SATS derive/codec owners, no generic Serde guarantee inferred. P16 demographic quest selector delegates to canonical Sex::FromStr, empty selector intentionally means wildcard. Medication and equipment ID constants centralize authored vocabulary; actual content/consumer contracts still decide source role rather than matching string content.",
+    "P16 personality random axis list0..12 plus apply_axis is handwritten roster/classification population; actual canonical MutablePersonalityAxis13 identified by root01 remains an owner-reuse dependency, no07 body-credit imported. Stable-seed wrapper calls random_personality then overwrites demographic outputs with separate named streams. The consumed older demographic RNG draws are deterministic history, so removing them changes behavior sequence; duplicate distribution policy is presently equal but independently authored and needs shareddistribution extraction preserving RNG order. Sex and public presentation explicitly distinct facts; attraction consumes only presentation, not a stale copy to derive automatically."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2746,
+    "start_line": 1
+  }
+}

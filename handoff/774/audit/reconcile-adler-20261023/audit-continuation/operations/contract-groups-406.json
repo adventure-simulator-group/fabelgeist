@@ -1,0 +1,106 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-406",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/raised_footwork.rs",
+      "sha256": "2debf0e3594941b0920d795bbb04740691602b4dfc6df95066770b0e156eb15b",
+      "actual_EOF": 498,
+      "actual_compared_ranges": [
+        [
+          1,
+          498
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/reach.rs",
+      "sha256": "1cc9f3d9d7158bd2ad9c143ad3256ce97afd1e58516d4f968a224dbfb1e52a70",
+      "actual_EOF": 148,
+      "actual_compared_ranges": [
+        [
+          1,
+          148
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/settle.rs",
+      "sha256": "82541741fb7abc29a8018c22de3a815a496f10c8a19000345a9b5c708720a9c8",
+      "actual_EOF": 373,
+      "actual_compared_ranges": [
+        [
+          1,
+          373
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/settle/planning.rs",
+      "sha256": "f5003b3bf06fa6b565747e7a1e37a08ca9ed66aeb64d6d702ca90268078203c6",
+      "actual_EOF": 297,
+      "actual_compared_ranges": [
+        [
+          1,
+          297
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/solver.rs",
+      "sha256": "a677e882ad829a28f90793efb5ccfadcef1512255ef4b1c5105e9f8365e9f543",
+      "actual_EOF": 564,
+      "actual_compared_ranges": [
+        [
+          1,
+          564
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/state.rs",
+      "sha256": "bc1f1722e87fddf61d7200058af9bb729170ce3431ff1b2b344da00847d5f80b",
+      "actual_EOF": 479,
+      "actual_compared_ranges": [
+        [
+          1,
+          479
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Raised step topology and numeric publication",
+      "evidence": "raised_footwork.rs:1-498",
+      "disposition": "State identifies one supporting foot through swing. Stationary turn begins exactly one swing, advances checked interval, alternates next foot at completion. Finite final target validation surrounds native reach adjustments; adjusted target does not assert actual rendered support. keep_swing_ahead and interpolation are native kernels with subsequent target validation, not independently admitted durable geometry."
+    },
+    {
+      "contract": "Reach operation and analytic solve",
+      "evidence": "reach.rs:1-148; solver.rs:1-564",
+      "disposition": "ReachLimit intentionally delays native arithmetic until full geometry operation. Checked measured segment lengths; analytic solver rejects short limbs and inverted/NaN distance bounds before clamp, then rejects nonfinite knee/end. This differs from pose-buffer small-limb clamp alias NATIVE-INITIAL05-F011. Partial live hierarchy rotation is sequential and not transactional. Existing normal-size, unreachable, straight and twist-chain fixtures personally read but not run. Huge native intermediate overflow alone is not promoted if final admission rejects/sanitizes it."
+    },
+    {
+      "contract": "Stop capture, cancellation and terminal convergence",
+      "evidence": "settle.rs:1-373; settle/planning.rs:1-297",
+      "disposition": "Capture requires an observed swing foot; root is only COM fallback. Candidate capture and landing checked before seed/support/settle publication. Checked elapsed/progress advances copied state. Restart retains acquired contacts and seeds unacquired from last rendered endpoints. Terminal idle requires both ankle and toe terrain evidence; support/plan cleanup and absolute pelvis shift transfer prevent repeated accumulation. Seeded versus prepared TerminalContacts semantics remain next-body dependency."
+    },
+    {
+      "contract": "Owner observation and memory clearing",
+      "evidence": "state.rs:1-479; fresh coordinator snippets mod.rs:1015-1050,1540-1595,1660-1785",
+      "disposition": "Zero elapsed holds owner history. Planar speed admitted before discontinuity clearing; first pelvis sample deliberately adopts desired while later zero elapsed holds. finish_terrain_release clears plants, endpoint caches and plan start/phase metadata but leaves left/right_planned_contact; coordinator can prefer retained contact in a later approach. This is a retained-plan lifecycle question needing exact re-enable/cadence producer proof and canonical expected ownership; no ordinary stale-contact defect promoted solely from omission. Publication validator is next original role. Diagnostics reprojects release targets natively, no claim it re-admits arithmetic."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "6 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/state/publication.rs"
+}

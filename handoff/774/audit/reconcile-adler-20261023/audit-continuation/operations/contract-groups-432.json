@@ -1,0 +1,110 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-432",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter.rs",
+      "sha256": "f62cff728e5975471e4fdf4e7860b6c8bc7a5cca3029e579b2fbdace6fde82b4",
+      "actual_EOF": 964,
+      "actual_compared_ranges": [
+        [
+          1,
+          964
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/assets.rs",
+      "sha256": "f665b74f46d6c4bbc34a478c6c53616af25118ee90528ceb68edb558a807bca2",
+      "actual_EOF": 68,
+      "actual_compared_ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/batching.rs",
+      "sha256": "8c3a2661fde2fbe6cdd22710e282ee606e4a3126071315d4d202d85c211305cf",
+      "actual_EOF": 129,
+      "actual_compared_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/capture.rs",
+      "sha256": "62a7640d999653991c48ac18f49aef2c03981b53739cdb02e46983582bb71b11",
+      "actual_EOF": 122,
+      "actual_compared_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/geometry.rs",
+      "sha256": "e5e98d3e8ea4894a4d531ed56439fd85dee6fa6f6945c5f724a330d83f6531ca",
+      "actual_EOF": 58,
+      "actual_compared_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/mesh.rs",
+      "sha256": "9f5f7ea3b29228456efef67b2ec04fa48dc8b5950f5561aa912185781d4f6932",
+      "actual_EOF": 257,
+      "actual_compared_ranges": [
+        [
+          1,
+          257
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/placement.rs",
+      "sha256": "8837d5ffdc23783fd82a7946e6b46deea41b1c779cc09adf842577cdd7c6b992",
+      "actual_EOF": 78,
+      "actual_compared_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Authored litter recipe operation bounds",
+      "analysis": "Actual producer fixes56leaves,8twigs,2..3plants and5..7rosette leaves; native random coefficients bound length/radius/offset and repeated indexes. Twig main endpoints separated by2long (.15..29m), so direction normalization denominator nonzero; fork direction mixes perpendicular vectors with nonzero factors. Mesh helpers accept structurally admitted positions/radii but equal twig endpoints or zero/collinear leaf spans can produce NaN native normals: internal aggregate prerequisite, not actual authored failure. Leaf camber seat subtracts finite9vertex minimum and fixedburial; actual current recipe small. Whole964 source including fixtures personally read, no tests run. Fixture twig expected sides uses hash parity while producer uses named stream; exact equality is not proven by source inspection and no failure claimed."
+    },
+    {
+      "contract": "Litter retained cache and batch publication",
+      "analysis": "All missing mesh families are generated to local PreparedFamily before installing any retained handle vector, preventing partial retained cache on fallible recipe. Source batch transform relative to fixed24mcell origin; source missing returnsOk intentionally, no assertion actual retained handles missing. Spawn merges into local batch map and queues anchors/diagnostics/meshes only after all fallible merges succeed. Leaf count increments before source handle lookup so missing-asset diagnostics can count attempted placements; actual source residency/lifecycle required for ordinary mismatch."
+    },
+    {
+      "contract": "Checked litter placement and diagnostic capture",
+      "analysis": "Jittered ScenePlanPoint, terrain height/normal, cover/slope and completed position including offset are admitted before retaining root. Scale/yaw finite bounded, terrain normal owner supplies normalization. Closest capture pairs handle zero cutoff/maxpairs early, sort deterministic horizontal separation and preserve actual roots distinct from batch origins. API-only representable tiny positive separation with ordinary root1m saturates floor-to-i32 cell then cell_x+1 can overflow; default.55 and actual local terrain roots do not establish that trigger. Connect to finite-coordinate/native-lattice representation policy rather than global coordinate narrowing. Proximity radius depends3.2/positive grid scale; tiny admitted scale can produce excessive signed neighborhood radius/work; ordinary ground scale not this witness. No native run."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "7 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/loose_stone.rs"
+}

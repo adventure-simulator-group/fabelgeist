@@ -1,0 +1,106 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-431",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/culling.rs",
+      "sha256": "965ddf1af38c60ebc28657a7b9261fb5384998a97d57606ea70e49bbf2a6f5a2",
+      "actual_EOF": 54,
+      "actual_compared_ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/diagnostics.rs",
+      "sha256": "137a4589cc0b7945de4fb4d552dd9dab6a3e4f0d42f426b4d5d439881a0f7bb9",
+      "actual_EOF": 47,
+      "actual_compared_ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/material.rs",
+      "sha256": "254f470bded28494465ba373831b3e8c80ce627e4480f65c9a5b49e05988b459",
+      "actual_EOF": 88,
+      "actual_compared_ranges": [
+        [
+          1,
+          88
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/streams.rs",
+      "sha256": "d2d6a5f0c533722ba0ce88a029935857b9e7a23ea1bb3a30dbd2844af3336ae8",
+      "actual_EOF": 7,
+      "actual_compared_ranges": [
+        [
+          1,
+          7
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/variation.rs",
+      "sha256": "26eeca7140343b37a83e417dd24a51470b41e153827cac511230b030e80a96cf",
+      "actual_EOF": 24,
+      "actual_compared_ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_understory.rs",
+      "sha256": "99e5f51d7e539f2618ce3e0fa233173442b3f4bbefffb3df4fc0203ad2f22fd3",
+      "actual_EOF": 322,
+      "actual_compared_ranges": [
+        [
+          1,
+          322
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/layers.rs",
+      "sha256": "0e61965bb7febc3e4d4ebcb0aee7aefd10c0985e79dd8d912e9bf332a3566fdc",
+      "actual_EOF": 18,
+      "actual_compared_ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Grass culling metadata and native material projection",
+      "analysis": "Metadata reads actual mesh positions/root pairs, derives conservative radius with fixed deformation envelopes plus width/wind/maximum push; extreme finite maximum_push can overflow radius and NaN admitted maximum remains admission qualification, no current normal asset failure. Current authored width/density/wind/push are bounded small. Batch fixture tests one ordinary envelope; exact shader envelope correspondence remains shader source boundary, not proven by fixture. Uniform adapter copies all five material vectors without primitive recomputation; thin double-sided ribbons and MSAA coverage policy explicit."
+    },
+    {
+      "contract": "Deterministic tuft and shrub instance operations",
+      "analysis": "TuftVariation consumes all deterministic draw slots before any rejection; fixed unit RNG produces bounded jitter/yaw; shader_seed narrowing intentionally selects low bits and shifted seed leaves coverage low byte. Understory actual positions re-admitted before batch emission; yawTAU and scale.72..1.30 bounded, species index match exhaustive. Empty species skipped before AABB, missing required asset group skips species before publication. Common branch/cambered/card instances share one immutable Arc and explicit fade bands. Drops normal tilt intentionally/plumb shrub contract, not erroneous transform loss. Leaf uniforms copied from canonical source; fallback bark color for missing resident standard material is explicit presentation fallback, not tactical authority."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "7 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter.rs"
+}

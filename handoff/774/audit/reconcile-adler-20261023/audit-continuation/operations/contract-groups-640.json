@@ -1,0 +1,52 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-640",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+      "sha256": "44e7ffb24f89b628a6aa80e5d207018770c558bef8aafacf8e9e6dfa91962bcb",
+      "actual_EOF": 4404,
+      "actual_compared_ranges": [
+        [
+          1593,
+          1644
+        ],
+        [
+          2656,
+          3327
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2704"
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Capture configure/settle/readback transitions and published screenshot receipt",
+      "evidence": "Personally read exact physical-P16 viewer1593\u20131644/2656\u20133327. Initializes local view0/configure/empty traces. Guard prevents additional request while readback in flight or view>=len. Configure mutates visual state before fallible camera placement; rejection ends capture path. Settling increments only frames<target, firsttarget saturating*4. Prime readback retains same view and increments bounded budget; warmup/screenshot increments view after callback. Stable retries capped at8. Final manifest snapshot constructed before callback, then finalized from captured records.",
+      "qualifications": [
+        "Additional exact capture_state133\u2013211 personally read from same pinned body c9727fc74c74134d8b6f7b5beb407f9cea87d594ee426c04f3c3b93789ce7bb2: raw pixel means finite0..255 from f64 accumulation, stable latest pair, exhaustion samples>=8. This closes ordinary prime u8+1 premise, not whole capture_state file credit.213\u2013220 incidental partial next function not credited.",
+        "Callbacks check current state phase/view but carry no distinct run-generation identity; ordinary single in-flight path satisfies sequential use, no actual replaced-state/late callback failure demonstrated.",
+        "save_to_disk is synchronous native callback with logged failure rather than Result; exact existing589 failed-current-write/stalePNG evidence still applies to this supplied variant. No new duplicate defect or successful image-write claim.",
+        "Configure side effects before camera rejection are diagnostic tool shutdown behavior, not automatically recoverable gameplay corruption. Native geometry/asset receiver requirements remain separate."
+      ],
+      "acceptance": "Keep bounded retries, exact capture/view identity and actual successful current screenshot publication as receipt authority; retained error policy must not accept stale output. Preserve intentional hash wrapping and explicit empty/unavailable readback sentinels."
+    }
+  ],
+  "findings": [],
+  "status": "Qualified material ranges personally analyzed; whole04 remains incomplete.",
+  "first_unfinished": "physical-p16:crates/strategic-web/src/routes/settlements/rest.rs",
+  "source_edits": false,
+  "project_execution": "none",
+  "fresh_dependency": {
+    "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_state.rs",
+    "sha256": "c9727fc74c74134d8b6f7b5beb407f9cea87d594ee426c04f3c3b93789ce7bb2",
+    "actual_compared_ranges": [
+      [
+        133,
+        211
+      ]
+    ],
+    "scope": "bounded new helper support within existing original role, not duplicate whole-file credit"
+  }
+}

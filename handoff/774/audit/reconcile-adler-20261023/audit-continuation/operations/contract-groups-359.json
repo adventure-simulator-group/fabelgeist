@@ -1,0 +1,127 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-359",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_schedule.rs",
+      "sha256": "ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+      "actual_EOF": 1363,
+      "actual_compared_ranges": [
+        [
+          1,
+          1363
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/threat_escalation.rs",
+      "sha256": "87ab25a438699ec031fa507447c9108ccd3830f95cb5c6281eb6be1d4695fc47",
+      "actual_EOF": 593,
+      "actual_compared_ranges": [
+        [
+          1,
+          593
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/world_event.rs",
+      "sha256": "10007dfcca53443d2794c0e38d8e9d741588f79ba8f61163c84d2281e7b40fb4",
+      "actual_EOF": 620,
+      "actual_compared_ranges": [
+        [
+          1,
+          620
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/tests/armor_harness.rs",
+      "sha256": "264aac03ab4bce2ffa47c2532cb1f092ed5717c1e5abac65af784125b1a90e0d",
+      "actual_EOF": 170,
+      "actual_compared_ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Schedule progression separates proportional training and realized leisure spans",
+      "source_ranges": {
+        "strategic_schedule.rs": [
+          [
+            1,
+            1363
+          ]
+        ]
+      },
+      "disposition": "Entire1363lines/allfixturesread. Proportionalcumulativeshare and end-of-day realized Leisure spans are both explicitfixturepolicies. Withlabor480andinterval0..720 these yield480versus240minutes; retain as consumer/authoritypolicyquestion pendingactualrecipient, notautomaticdefectfromdifferentpurpose. Span dayloop checksnextday<=current atMAX. Settlementleisure rates fromu64duration/rawu16minutes remainfinite forfinitefatigue (products<=~1e23); currentfatigueInfwouldyieldNaNdelta, admissionpolicydependency notordinarywitness. Morale onlyaftercarriedfatigueclearance, baseline/labor/sharedfatiguereservoir authoritative; no separate fatiguepool introduced. Activityeconomic rounding intentionallynotchunkinvariant (explicit38versus30fixture), notregression. socializingweights sumexact10000 and bounded13combatweights<=1 before normalization; arbitrary allzero publicprofile denominator0 is an inputcontract question, no persistedNaN proof without directtrainingreceiver. Organizationtraining publishedwrittenawards canoverflowarbitraryrawwork/weight; validatedorganizationweights<=1 and normalboundedlifehours qualify MAXexample. Joins adopted NATIVEOWNERF003/F014 quantitativeowners while preserving rawbroaderinput exclusions."
+    },
+    {
+      "contract": "Threat escalation wide arithmetic, endpoint progress and reported power cap",
+      "source_ranges": {
+        "threat_escalation.rs": [
+          [
+            1,
+            593
+          ]
+        ]
+      },
+      "disposition": "Whole593linesincludingfixturesread. Sharedliteral limits freshdependencyread: minimum1000,max300000, MAXSCALE3000000; count<=30 makes u64group product<=2.7e13, i64difficultyproduct<=~6.45e15. asymptotic_step remaining<=65535, rate<=10000 product+9999<=655359999fitsu32; ceilstep positivewhileremaining, loopsbounded65535ordinal. is_publicthreshold and hearingdistance product<=450000; zero population checkedbeforeilog2. normalizedpower mayclipactualroundedscale consumption; exact represented APIcandidate saved separately, noactualmaxprogressrun. Scheduledpublic clock saturation is terminalpolicydependency, notforecastnonterminationalias. Candidate truncation oldestfirst stable ties retainsduplicateactualpayloads intentionallyasfixture, noidentitydedupassumption."
+    },
+    {
+      "contract": "World-event plans preserve exact retry equality and private versus observed authority",
+      "source_ranges": {
+        "world_event.rs": [
+          [
+            1,
+            620
+          ]
+        ]
+      },
+      "disposition": "Whole620linesincludingfixturesread. Canonical participants sort/dedupbattlefirst withlivingfallback onlywhenempty, trueemptyset allowed. Planbuilder emits local vectors; publicparticipant rawduplicatesmayduplicateconsequences ifcallerbypassesnormalizer, aggregatecallerdependency notactualduplicatefamewitness. Envelope checksrevision/IDs/nonzeroactor/subjectcount<=64 andsortedunique subjects, then exactsource/actor/payloadcorrelation. Protectedinfectiondose<=raw andfixedbps limits beforeOk; nohiddenevent\u2192observation/rightsgrant shortcut. classify retry exactequality before domainstate deliberatelypure; newApply doesnotitselfvalidate proposed soactualmutatingreceiver mustvalidate. Generic192byteevent-ID acceptance differsStrategicPlaceId4096 (adopted producer/ownergraph), no narrowing actualstrategicplace. f32dose\u2192f64microunits conversion usesrounded u64MAXboundary; preserve material endpoint numericalpolicyquestion noordinarydosewitness."
+    },
+    {
+      "contract": "Armor integration fixtures distinguish anatomy and topology without execution",
+      "source_ranges": {
+        "tests/armor_harness.rs": [
+          [
+            1,
+            170
+          ]
+        ]
+      },
+      "disposition": "All170linesread. Fixturesintent22-piececompleteharness, duplicateconflicts, wholelimbversusdisjointfitzones/padding, pauldron/spaulderreplacement and independentgorgetcoverage. Smallordinal+100and+10safe, graphid0syntheticfixture intentionalnotpersistentnonzeroownerforced. No tests/build/checksexecuted; actualcatalogmembership/EquipmentGraphcontracts separatealreadyread dependencies."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-ESCALATION-POWER-ACCOUNTING-CANDIDATE-001",
+      "disposition": "qualified API accounting candidate, current receiver/policy pending"
+    }
+  ],
+  "fresh_dependencies": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/threat_escalation_limits.rs",
+      "sha256": "f6fd77cd38865e477731cf06914d6e576b6498e4b2847c2a586368b378073929",
+      "ranges": [
+        [
+          1,
+          8
+        ]
+      ],
+      "coverage_credit": false
+    }
+  ],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-plant-generator/src/flower/geometry.rs"
+}

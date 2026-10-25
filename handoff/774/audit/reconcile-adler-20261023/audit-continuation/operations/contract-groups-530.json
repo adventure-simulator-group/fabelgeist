@@ -1,0 +1,46 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-530",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/name_catalog_schema.rs",
+      "sha256": "c50dcf6eef9aa348c8c259b105a9734f1e25ee2e57a043ee484a3892e9795dfa",
+      "actual_EOF": 199,
+      "actual_compared_ranges": [
+        [
+          1,
+          199
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/name_catalog_validation.rs",
+      "sha256": "555b21fb6dddac260f0a951252041fd40a0d3e02dd8bb0d649fda9a528e0ed77",
+      "actual_EOF": 576,
+      "actual_compared_ranges": [
+        [
+          1,
+          576
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Name selector/index relationships checked before runtimeembedding",
+      "evidence": "Fullschema199/validation576. Wholecatalogmustresolvedfragments, nonemptysources/families/forms/surnames/repertoires, IDuniqueness, compatiblefamilysex/culture/register/forms andhereditarycommonersurnamecoverage. Closedinclusiveyearintervalsoverlaprejected; adjacent1550/1551distinctandtraditiondistinctintentional. Lookupmapslocalvalidationbuffers rejectedwithoutpublishingpartialcatalog. Free textnotauthority; stableIDs separatehistoricalspellings. Publicschema rawfrequencies notyetadmittedtoselection totals."
+    },
+    {
+      "contract": "Frequency arithmetic requires runtime sampler join",
+      "evidence": "Perfamilyformtotal checked_add315\u2013318 catchesu64overflow; family/surnameselectorpositiveindividualu64weights checkedbut nottotaledhere. Need actualruntimeweightedchooserbeforepromotingcounterexample; validindividualMAXweights do notaloneprovepanic orbadselection. Derivationschild retainsfrequency/provenance relationships, notcoveredbyparentdeclaration. Existingfixtures syntacticshaperejections/selector/frequencydisagreement sourceassertionsonly; no cataloguebuildexecuted."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-world-schema/src/name_catalog_validation/derivations.rs"
+}

@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-497",
+  "at": "2026-10-25T15:53:07.504762+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 891,
+  "source_id": "pr-working:crates/adventuresim-core/src/combat.rs",
+  "sha256": "7d00629a7da937cf41b5bc49a86df7119cc7054743dce1f70ac2507a7aba59b0",
+  "actual_compared_ranges": [
+    [
+      1,
+      880
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Fresh661\u2013880 native combat matchup fixtures, borrowed Matchup/ownedAvoidedMatchup local records, real authored-character/equipment construction and physical/health assertions. No new handwritten trait/codec beyond earlier MatchupCombatant PlayerBody. Source only, no fixture execution; finalmatchup body continues.",
+  "first_unfinished": {
+    "scope_index": 891,
+    "line": 881
+  },
+  "execution": "none"
+}

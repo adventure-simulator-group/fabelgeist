@@ -1,0 +1,143 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-651",
+  "at": "2026-10-25T16:21:55.696951+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 958,
+      "source_id": "pr-working:crates/adventuresim-core/src/morale.rs",
+      "sha256": "f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+      "actual_EOF": 527,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/morale.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/morale.rs",
+        "sha256": "f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 19555,
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 7,
+            "read_ranges": [
+              [
+                276,
+                330
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-STRATEGIC-001"
+            ],
+            "read_status": "whole actual fervor_fraction289\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153302/fervor_event_occurs305\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153307 and related exact bodies; other morale file roles not read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/morale.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 28,
+            "read_ranges": [
+              [
+                1,
+                145
+              ],
+              [
+                276,
+                330
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-STRATEGIC-002"
+            ],
+            "read_status": "exact_owner_and_receiving_bodies_read_remaining_unclaimed",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/morale.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 63,
+            "read_ranges": [
+              [
+                1,
+                145
+              ],
+              [
+                180,
+                330
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-ITERATION-001",
+              "NATIVE-OWNER-F008"
+            ],
+            "read_status": "specified actual owner and receiving bodies read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/morale.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_owner": "native",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1585,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          527
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "From<MoraleEventKind>",
+          "type": "MoraleSourceKind",
+          "lines": [
+            [
+              94,
+              119
+            ]
+          ],
+          "disposition": "KEEP explicit variant mapping into larger source vocabulary, no existing enum mapping derive"
+        },
+        {
+          "trait": "Display",
+          "type": "IncapacitationStatus",
+          "lines": [
+            [
+              204,
+              208
+            ]
+          ],
+          "disposition": "KEEP necessary small as_str formatter, no owning general Display derive"
+        }
+      ],
+      "existing_derives": [
+        "Structural/Serde/conditional SpacetimeType on vocabularies; StrategicIncapacitation Default already derive"
+      ],
+      "absence_basis": "Full527lines native morale/incapacitation calculations and all fixture bodies personally consumed649\u2013651, no other handwritten traits/codecs."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Morale",
+      "disposition": "Retain semantic vocabulary conversion/classification and necessary small formatter; numeric gameplay policies are not derivability candidates. Fixtures read only."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 959,
+    "source_id": "pr-working:crates/adventuresim-core/src/npc_policy.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

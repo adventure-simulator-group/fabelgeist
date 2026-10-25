@@ -1,0 +1,52 @@
+{
+  "id": "CONT07-F083",
+  "at": "2026-10-23T20:36:10.800447+00:00",
+  "classification": "conditional ViewSpec API/cache dependency strengthening; no normal projection-only producer demonstrated",
+  "title": "Cached strategic views ignore projection-only replacements",
+  "sources": [
+    {
+      "scope_index": 1679,
+      "sha256": "dca6bf2178d031e1dbc40c3af8a9024bbf5d730cddf00ac542845500227f737c",
+      "ranges": [
+        [
+          49,
+          86
+        ],
+        [
+          154,
+          176
+        ],
+        [
+          188,
+          215
+        ],
+        [
+          219,
+          248
+        ]
+      ]
+    },
+    {
+      "scope_index": 1696,
+      "sha256": "ccf553eb553150d9800d83d4f17b763f19de8547e3b57b46a9486a0782c330a9",
+      "ranges": [
+        [
+          24,
+          30
+        ],
+        [
+          93,
+          101
+        ]
+      ]
+    }
+  ],
+  "earliest_failed_contract": "Current accepted cached ViewSpec projection must match retained frame/capture projection and image content. Cache validity compares only rect/transform/equipment, leaving separately retained projection outsideidentity.",
+  "counterexample": "Create a cached frame for one key, rectangle, transform and equipment with valid perspective FOV42degrees. Resubmit same values but valid FOV60degrees; signature unchanged, no frame recreation and Frame.projection remains42. If already captured, old image stayscomplete; if pending, start_capture usesold42. Liveviewadapterwouldwritecurrent60.",
+  "actual_recipient": "Frame.start_capture inserts self.projection into nativecamera242; completedFrame.show displaysretainedimagewithoutreading spec.projection.",
+  "qualification": "Raw meaningful ViewSpec API replacement only. Currentportraitconstructor usesfixeddefaultFOV andactualstreetroot/FOVnormaltransitionnotfullyprovedhere; no ordinaryUI/runtimefailure or renderedreproduction. Layersarealsooutsidekey butnumericlayerreassignmentcanlegitimatelypreservesameimage, so no blanketlayersmustrecapture claim.",
+  "connected_repair": "Bind cacheidentity to all actual pixel-affecting projection parameters orenforceone immutable logicalprojection perkey throughownedrequestconstruction; preserve crop-onlystreetreuse, nativecamera pooling andcurrentappearance/equipment invalidation.",
+  "acceptance": "ChangingonlyvalidFOV/projection cannotreuseoldprojection/imageunderreportedcurrentrequest; unchangedprojectionandcrop-onlyscroll retainscurrentreuse. No tests added or executed.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

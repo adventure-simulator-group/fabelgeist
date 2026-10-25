@@ -1,0 +1,124 @@
+{
+  "id": "CONT07-CONTRACT-565",
+  "at": "2026-10-24T00:06:35.533594+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2438,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+      "sha256": "eb2b6cb3cb56cc6209f7a15a8b3dd72bf75cee67562c2b59cf0300223cac0c4d",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+      "actual_EOF": 947,
+      "ranges": [
+        [
+          1,
+          947
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2439,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs",
+      "sha256": "6ea36de3b468aa2874ddb8b81039b2a85c7f77cc6beca0d15c2f957985cb4106",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs",
+      "actual_EOF": 195,
+      "ranges": [
+        [
+          1,
+          195
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2440,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/capture/global_bones.rs",
+      "sha256": "442ea977df5466ad973589f48a61e9166674c05f541f174dd0e54bb7e319b47e",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-tactical-client/src/animation_viewer/capture/global_bones.rs",
+      "actual_EOF": 59,
+      "ranges": [
+        [
+          1,
+          59
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2441,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+      "sha256": "a4cd3203c13ad00470f001d622f3c1097fcb28954a8c1e93766a53ddfa472441",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+      "actual_EOF": 263,
+      "ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2442,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+      "sha256": "9b77b6040fcf91aa02261a284189f50a43a59f05ba0e8e4d719966b21a0685bd",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+      "actual_EOF": 140,
+      "ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2443,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/capture/sample.rs",
+      "sha256": "c3cbd6ab4893272cb488013c9d3837632ed6c9c44b105af9e6d36b705fdb194b",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-tactical-client/src/animation_viewer/capture/sample.rs",
+      "actual_EOF": 132,
+      "ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2444,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/mod.rs",
+      "sha256": "de154a56960ffb19516e463e4fdd5bed4d85b09923ed552f3773729ac8ad56e7",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-tactical-client/src/animation_viewer/mod.rs",
+      "actual_EOF": 179,
+      "ranges": [
+        [
+          1,
+          179
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "P17 CaptureSequence keeps one plan/index and coordinated applied/in-flight/view counters; can_drive_frame prevents replaying motion while screenshot callbacks advance views. Admission rejection is terminal and differs from bounded readiness waits. All scoped bodies read, including tests as source only.",
+    "P17 repeated-evaluation baseline is explicitly a historical observation of the first view, keyed by full scenario/frame; subsequent views compare equal bone keysets, pose deltas, contact/landing/events and IK state. Cumulative validity cannot recover after mismatch. No assertion of execution or image quality from this source review.",
+    "P17 fixture drives planned look every render, retains actual semantic-route selected/requested paths and emits skeleton action/phase observations. Planned speed and expected body direction remain expected input, not proof of actual motion; sample recipient/acceptance consumer must preserve that role.",
+    "P17 capture-ground enum distinguishes terrain observation from authored no-IK root plane. Terrain footprint failure remains an optional clearance observation; invalid retained signed clearance is explicit GeometryResult failure. Full-ragdoll and quickstep fixture roots are authored diagnostics, not tactical server authority.",
+    "P17 Bouncy telemetry is aggregate over rigs while frame subject is single; ordinary viewer installs one CaptureSubject, but extra rigs and aggregate-to-subject association remain conditional instrumentation dependency, not proven current multiple-subject mismatch.",
+    "P17 capture samples preserve local raised-footwork contact-sequence ownership even uninitialized, and use explicit cadence fallback only when ordinary IK ownership not required; missing required IK weight rejects rather than fabricating flight. Root/desired/bone observations are orthogonal facts.",
+    "P17 global bone report filters AuthoredBindTransform.owner against subject and preserves target identity plus optional display name; stable sort is display order, not identity replacement. Exact P17 wrappers and call sites considered independently from PR variants; no other-lens verdict transferred.",
+    "P17 run invalidates previous report, installs explicit diagnostic combatconfig and fixed clock, and opts out authoritative tactical simulation; diagnostic default mirror and scenario selection remain audit inventory obligations, not live gameplay execution evidence."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2445,
+    "start_line": 1
+  }
+}

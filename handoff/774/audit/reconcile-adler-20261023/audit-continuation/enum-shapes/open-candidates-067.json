@@ -1,0 +1,71 @@
+{
+  "contract_ref": "contracts-067.json",
+  "qualified_dispositions": [
+    {
+      "subject": "CharacterMotionSnapshot.grounded bool",
+      "source": {
+        "scope_index": 2067,
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+        "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+        "ranges": [
+          [
+            1722,
+            1740
+          ],
+          [
+            2681,
+            2710
+          ]
+        ]
+      },
+      "disposition": "Actualrecord freezes native controller boundary position/quaternion/velocity/contact flag after collision, distinct from presentationGroundContact (which also considers activequickstep). No new09finding from replacing rawflag alone; do not conflate these facts. No ordinaryclientrollbackreader established. Any later applicationconsumer must explicitlyadmit typedcontact at actualuse."
+    },
+    {
+      "subject": "MissionOpeningAwareness.party_has_surprise",
+      "source": {
+        "scope_index": 2067,
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+        "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+        "ranges": [
+          [
+            347,
+            354
+          ],
+          [
+            726,
+            728
+          ]
+        ]
+      },
+      "support": {
+        "scope_index": 857,
+        "source_id": "pr-working:crates/adventuresim-core/src/autoresolve.rs",
+        "sha256": "cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+        "ranges": [
+          [
+            625,
+            655
+          ]
+        ]
+      },
+      "disposition": "Retained Boolean policy candidate; coreBattleOpening hasNormal/AlliesSurprise/EnemiesSurprise. False cannot be assumed Normal until strategicproducermeaning traced; component currentlyinspection-only. No ordinarycombat producerloss claimed; leave sharedownerfit incomplete."
+    },
+    {
+      "subject": "Armor mask/geometry and durableanchor shape",
+      "source_roles": [
+        2067,
+        2070,
+        2071
+      ],
+      "disposition": "Normalprojection derives mask from protected_body_parts andgeometry fromauthoredplacement.protection. PreparedPlayerSpawns admitsrecipient/terrainpose only and passesrawConnectedPlayer; strategic snapshot admission stillneeds fulltrace. Existingfixturemasktrue/geometryNone intentionallyscalar. No forceallgeometry orordinary malformed-snapshot claim."
+    },
+    {
+      "subject": "QuickstepPush inactive history",
+      "source_roles": [
+        2067,
+        1501
+      ],
+      "disposition": "Capture/reconnect copies completepush; cancellation andexpiry semantics preservehistoricalstart/direction/origin. Never convert toactive=historySome ordeleteinactivepayload. Actualphysicsactuator invariants remain separatelypending."
+    }
+  ]
+}

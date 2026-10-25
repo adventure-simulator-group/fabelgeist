@@ -1,0 +1,55 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-091",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "equipment-selection-order-protocol-and-render-identity-contracts",
+      "sources": [
+        {
+          "scope_index": 328,
+          "ranges": [
+            [
+              1,
+              1764
+            ]
+          ]
+        },
+        {
+          "scope_index": 329,
+          "ranges": [
+            [
+              1,
+              141
+            ]
+          ]
+        },
+        {
+          "scope_index": 330,
+          "ranges": [
+            [
+              1,
+              64
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "local774:M07",
+        "local774:M10",
+        "SEGO-INITIAL09-F174"
+      ],
+      "disposition": "Exact existing selection-depth and admitted catalogue propagation support; meaningful cache/version/frame distinctions retained.",
+      "trace": "GrabSelection328217\u2013226 already owns Slot location/depth versus Hand/SceneItem/Door/Window. Slot depth passes preview-list index379\u2013381 then raw EquipmentAction depth; sequence397\u2013405 is request ordering, expected_revision is authority version, and expected destination Entity guards current target association, all different roles despite same integer widths. M10 exact granularity support, valid depth0 retained. M07 canonical definition lookup267\u2013280 and530\u2013532 produces existing catalogue identity then presentation keeps native/raw identities; final HUD icon labels are display. Mesh cache keys185\u2013189 differ icon keys192\u2013199 by source/renderer/version/size/supersampling; not redundant identical-purpose record. Weapon and holder cache maps are separate identity namespaces despite same structural key. Recipe/hash/version authenticated before warm-hit732\u2013830; native mesh attribute projection763\u2013778/808\u2013824 is actual engine port. Generic CachedWeapon is useful shared render product (parts and local anchor), not proof weapon and holder recipes have one construction authority. Authored bind orientation correction955\u2013988 removes bind roll through relative transform while equipment_location_bone1059\u20131083 maps equipment location to semantic bone; bone role, equipment location and native Entity cannot be collapsed. Child330 subtracts generated local grip or local physical anchor before real Bevy transform insertion.",
+      "qualifications": [
+        "Full1764+141+64 lines personally read, source tests only, no rendering, asset IO, Bevy app or request execution. Child declarations do not credit runtime_equipment/skin/icons bodies.",
+        "Raw vector/quaternion engine fields are not automatically exempt from semantic frame ownership: complete bind correction is a numerical adapter, but application retention of local grip/anchor versus scene position remains a meaningful frame distinction. No observed frame mix-up established in these functions.",
+        "329 uses explicit TargetingRange::Bounded pickup2metres; camera direction/actor origin/candidate position are distinct targeting inputs. Local ray visibility kernel84\u201399 deliberately rejects coincident/invalid direction, no all-clear camera-F02 alias.",
+        "Source tests preserve independent replication arrival order and cache reauthentication before warm hits, not executed validation. Holder missing/corrupt/unsupported stays visually absent while generic weapon fallback remains current explicit presentation policy; no compatibility implementation authorized.",
+        "UI colour alpha, pixels, icon grid indices and material shader scalar fields are actual rendering boundaries; no unsupported universal bound or enum for arbitrary indices. M10 requirement ordinal/capacity remains separate from HUD selection depth; no current oversized list/truncation witness."
+      ],
+      "acceptance": "Keep admitted catalogue/placement and distinct depth/ordinal/capacity/order owners through actual internal session/action/topology receivers, project only at real native lookup/transport ports. Preserve current expected-target checks, zero index, source-specific caches, signed local anchors, wearer/attachment mapping and render recovery semantics."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

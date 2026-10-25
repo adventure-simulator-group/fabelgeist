@@ -1,0 +1,36 @@
+{
+  "id": "RIG-INITIAL06-GROUP-160",
+  "at": "2026-10-23T05:08:18.535426+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-061.json",
+  "groups": {
+    "camera-scene-frame-and-door-datum-products": {
+      "comparison": "Fresh full camera placement78 and viewer buildings76. SceneCameraView composes Position<Scene>, target and LookingAt with SpatialDirection<Scene> versus Fixed RigidRotation. LookingAt checks forward/upcross before retaining; final Bevy transform owns exactlook-at arithmetic. These are useful viewroles, not duplicate acceptedposition/rotationdefinitions; genericgeometry higherowner still F001. Boundary viewer obtains canonical GateDatum leafpose before spawning SceneDoor/native Transform, keepsbuilding/opening IDs and typedleafdimensions/tangent/outward; F026 redundantdatumretention graph remains, no flattening distinct Gate versus Building datums. Distantplacements exclude actualplayable SceneBuildingIds, different logical viewsource without anotherphysicalbuildingidentity. Spawning perbuilding ECS/physics remains transient, not strategicDBstate. No lowercompiler/gate or overallpublication proof inferred from Result.",
+      "disposition": "Keep canonical geometry/opening/datum owners and useful camera/render products; apply existing dependency/datum findings only exact roles."
+    },
+    "fixture-and-review-observations": {
+      "comparison": "Fresh full leisure authorityfixtures81 and reviewer85. Fixture uses canonical StrategicMinute and actual persisted conception checkpoint fields, pairedobserver IDs and receipts; scheduledtrialordinal differs clock/characterID/Seed, no newdefinition introduced. Readonly originalreducerfixture is not an executedtest or generalacceptedtableproof. Reviewer AttributeContext/SkillContext/Packet/Index are final JSONreport projections: armaverage versus endurance/instinct and trained primaryweapon/dodge/block/will/balance ranks, not independentlyauthored CharacterAttributes/Skills or gameplayparallelpenalty. Primaryskillreport uses actualmeleeweapon weighted skill path, no normalizationto probability because float. Filenames/descriptions/readableseeds-count metadata are externalreportroles, no competing authoritative build/schema.",
+      "disposition": "Keep final observation/report products distinct from authoritative simulation/DB data, canonical clocks and skill vocabulary reused."
+    },
+    "canonical-shape-validation-and-procedural-roof-geometry": {
+      "comparison": "Fresh full crossbowvalidator87, roof_child_enclosure78 and counters80. Crossbow consumes canonicalrecipequantity/count values with shape-specific positive/bounded/sampling predicates; prod-tip abs128 distinct UnitInterval. Roof helper composes canonical RoofAssembly/ResolvedItemId/GeometryOwnerId/StructuralNodeId/RoofMaterial with newlycomputed facepolygons and checked Architectural SpatialBounds. Roofparentheight fallback to parentbase is actual currentgeometrypolicy, no compatibilityschema purpose inferred. Bitpartition identityallocation and rawretainedroof/walldimension/error contracts remain existing connectedmodelgeometry/operationgraph, not another arbitraryowner introduced by helpers. Counterwidth/height/signedlocalposition arithmetic genuinely computes newgeometry; sharecheckedleafinput propagation where unchanged but retain actual numericaloperations and correct sign/zero intermediates. No new scalar per dimension or flattening different owner IDs.",
+      "disposition": "Keep canonical shape/roof/material/identity definitions and true geometry computations; exact existing raw-retention and ID-allocation findings remain separately qualified."
+    },
+    "native-vista-pigment-versus-colour": {
+      "comparison": "Fresh full strategic vista colors68. EdgeColor Vec4 pigment and vista_weight are local numerical interpolation state, actual shader vertexpayload combines foreground RGB AND grasscoverage in fourthlane. Thus this mesharray is not automatically canonical hostRGBA-opacity F005. Native gridindices/barycentricfractions describe sampledmesh interpolation, not mapcoordinates/characterLOD. Existingterrain/source dimensions prerequisite kept explicit; final MeshATTRIBUTE_COLOR writing is actual native boundary. Lerpgradient purpose distinct retainedphysical pigmentowner, no duplicatepubliccolortype.",
+      "disposition": "Keep explicit native vertex-payload/interpolation contract; do not impose canonical alpha-opacity on coverage metadata."
+    },
+    "clothing-placement-and-exposure-source-provenance": {
+      "comparison": "Fresh full garmentplacement76 and exposure_sources77. Garment placement requires canonical RigJointName L/R_UPLEG in canonical table, movespattern by native floor/hip coordinates while fittedsurface startswhereworn; no bodyrescaling or alternate anatomicaljoint owner. Shared cloth/fit/BVH own numericparticles/triangleinterfaces, garment/body topologies are distinct products and F003composition graph remains. DB SettlementExposureSource composes DiseaseId/StrategicMinute with rawobservedintensity, ID/provenance scopedbool; source ID or scopedflag doesnot mean acceptedclinicalstate or unitfraction. Outbreaksort(start,id), scopedproblem sort/truncate/filter and mitigation UnitBasisPoints<10000 are exact sharedowner reuse; intensiveexposuref32 remains different from contaminantmicrounits/DoseMilliunits or mitigationBPs. Parsing disease preserves structuredsource until external Result<String>; no duplicate DiseaseId or clock. Existingcodec/rawrecords findings notclosed by this projection.",
+      "disposition": "Keep canonical rig/cloth/disease/time/fraction owners and distinct physical/provenance products; no inferred allsource clinical admission."
+    }
+  },
+  "source_fact_refs": [
+    "contracts-005.json",
+    "contracts-097.json",
+    "contracts-138.json",
+    "contracts-155.json",
+    "contracts-156.json"
+  ],
+  "limits": "10 exact full PR bodies/containedoriginalfixtures freshlyread. New061 puzzle roles pending separate current06 comparison; no automatic credit from metadata. No source edits/project execution/newtests or otherlens."
+}

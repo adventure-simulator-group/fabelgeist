@@ -1,0 +1,24 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-388",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        683,
+        684,
+        685,
+        686,
+        687
+      ],
+      "comparison": "Full683699 in three bounded chunks;68458/685201/68668/68726 full. Loaded graph/node shape F277, actual prepare producer coherent. ClothBinding already owns Weighted{indices,weights}|Unweighted, and may retain weighted binding while selected physics ignores it. ClothMotion Skinned/Simulated is meaningful evaluator history: switches reset previous positions to prevent invented velocity, not duplicate current user preference. Cloth render seam map Option itself owns optional remap, no redundant welded flag. Walk physics and ignore_cloth_weights settings require actual UI transition trace before deciding mode shape; ignore selection while not simulating can be useful retained preference. Nested targets Option distinguishes unavailable weighted data from unweighted target absence, current whole-outfit fail-retain path explicit and no ordinary partial update proven. Body motion includes rig identity+previous geometry and uses rest fallback on identity/length change, aggregate association trace separate. self_collision gates coupled surface contacts, while body discrete projection remains independently active; never rename it global all-collision disabled or merge with F087/F088 merely by words. Cloth contact history/zero dt fixtures source only.",
+      "finding_refs": [
+        "SEGO-INITIAL09-F277"
+      ],
+      "disposition": "Loaded clip pair strengthening; actual weighted/unweighted and evaluator-history ownership retained, UI mode trace open"
+    }
+  ],
+  "new_findings": [
+    "SEGO-INITIAL09-F277"
+  ],
+  "limits": "No simulation, renderer, Bevy schedules/tests/checks or code execution. Native eight-influence algorithm roles not converted by keyword."
+}

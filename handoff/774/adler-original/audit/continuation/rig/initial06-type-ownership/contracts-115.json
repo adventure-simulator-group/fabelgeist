@@ -1,0 +1,20 @@
+{
+  "id": "RIG-INITIAL06-GROUP-115",
+  "at": "2026-10-23T02:33:54.222801+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "cloud-texture-and-celestial-native-ports": {
+      "comparison": "Fresh cloud_composite20/moon65/stars61 full WGSL. These are actual native shader entry layouts, texture/sampler/View imports, varying IO and numerical transforms. No first-party accepted host domain object is retained in them. Cloud viewportXY pixel origin andZW size->UV equation differs from worldpoint/metredistance. Moon world normal/direction/exposure/earthshine/radiance and sampled sRGB-decodedlinear reflectance are distinct from one canonical color or UnitInterval; stars equatorial_to_world matrix, physicalpixelradius, apparentmagnitude logflux and color share nativevector slots only at shaderABI. StarVertex versus VertexOutput keep input/output stage semantics, not competing accepted star model owner. Reuse Bevy native View/Vertex declarations at this real API boundary; do not import generichost finite wrappers into WGSL or flatten actual checked values prematurely before upload. Host construction/admission/packing proofs remain separate current source roles, no whole renderermath/foreignSDK correctness inferred. Existing color F005 hostretention remains unaffected by true nativewire.",
+      "disposition": "Native shader codec/math role; distinct units/frame/meaning retained in analysis, no new competing bespoke host owner."
+    },
+    "grass-shared-eidolon-bindings-and-overloaded-wire-color": {
+      "comparison": "Fresh grass_cull37. Imports canonical pinned Eidolon bindings source/instance/batch/indirect/camera instead of defining another duplicate InstanceUniforms structure (prior F021 shared SDK declarations retained separately). batch_id nativeu32MAX sentinel and boundscheck belong shader ABI, not canonical game object identity. actual world_from_local*position is matrix numericport. Batch.color.rgb tint versus alpha cullingradius is deliberate custom ABI policy described26, so wholevec4 is not canonical RGBA-color semantic owner or UnitInterval alpha; upstreamhost must keep radius separate untilpacking rather than generalColorforcingradius<=1. Actual indirect counts/offsets/capacity require producer/scheduling correlates from Native05 and other lens, not methodname/inboundsfromthisalone. No new shader-only first-party bespoke type needed merely to wrap native vector.",
+      "disposition": "Reuse shared imported native layout, keep host tint/radius semantic distinction until explicit packing; no invented probability/colorbound or storagecapacity proof."
+    },
+    "aggregate-bark-abi-versus-host-material": {
+      "comparison": "Fresh tree_aggregate_bark49. Extension surfacevec4 has RGBlinearbasecolor plus roughnessw, notRGBA and not whole authored EquipmentMaterial. This actual typed WGSL uniform is canonical ABI counterpart to host binding, not a duplicated whole host material owner. PBRnative normal/worldposition/roughnessmicrovariation/defaultdeferredforward outputs are real numerical/API ports. Keep actual host canonical color/roughness meanings beforepacking; no gamma/metallic/materialpalette policy established solelyfromshader. No Root/Native sourcebodysource credit or inherited numericverdict fromshaderfieldnames.",
+      "disposition": "Native material binding shape justified; preserve exact physical/presentation components separately upstream."
+    }
+  },
+  "limits": "Five actual complete nativeWGSL source bodies only. Hostrender packing/admission graphs and numerical/aggregate correctness remain separate exact source obligations; no blanket native exemption or shaderexecution."
+}

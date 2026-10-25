@@ -1,0 +1,69 @@
+{
+  "id": "CONT07-F074",
+  "classification": "maintenance strengthening; no current enum order mismatch",
+  "title": "Grass enum membership and numeric batch indices have independent rosters",
+  "sources": [
+    {
+      "scope_index": 1550,
+      "sha256": "d375436ca9d226ccb6fbc5b65afcaf94a6b9c3e4bfa90fc1016da8cb958a7281",
+      "ranges": [
+        [
+          339,
+          388
+        ]
+      ]
+    },
+    {
+      "scope_index": 1551,
+      "sha256": "950c6a30f2beb4beaf5cdcc2e7b4cf410f6beb5c993bffc23fd8f99e918941a2",
+      "ranges": [
+        [
+          6,
+          29
+        ],
+        [
+          46,
+          55
+        ],
+        [
+          181,
+          196
+        ]
+      ]
+    },
+    {
+      "scope_index": 1554,
+      "sha256": "4ebc106478d263a859403c114c4711598dd570927f2706abf5e7123bc37a9c91",
+      "ranges": [
+        [
+          57,
+          73
+        ],
+        [
+          219,
+          240
+        ],
+        [
+          315,
+          325
+        ]
+      ]
+    },
+    {
+      "scope_index": 1555,
+      "sha256": "55a8f28f05846eea9e2cd7460a1a1aaecb83c64af31573ed82a2bb2f5bdaf196",
+      "ranges": [
+        [
+          21,
+          33
+        ]
+      ]
+    }
+  ],
+  "disagreement": "GrassSpecies declaration,ALL array and asusize index jointly define storage mapping; GrassCommunity declaration,ALL and positional weight/modulation arrays jointly define selection mapping. Adding/reordering enum orALL without updating remaining independent mapping can index wrong selected native batch/species or panic. TIERS also repeats GrassMeshLod membership while tier_index supplies positions. Current all order/count values agree.",
+  "qualification": "Distinct local roster invariant from materials F071. Broad CAMERA-INITIAL07-F011 wording is not automatic global merge; QUAL205 limits original specific owner rosters. Authored species weight/morphology policies intentionally distinct and must not be collapsed into equality. No observed current runtime defect, no globally unique total asserted.",
+  "connected_repair": "Canonical closed-enum membership/iteration and explicit enum-keyed mappings for batch and community weights; derive length/index access consistently. Preserve exact iteration/RNG order and authored weighting.",
+  "acceptance": "One canonical membership/index owner prevents independent roster/order changes; existing mappings and current seeds/mesh output preserved. No added/executed tests.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

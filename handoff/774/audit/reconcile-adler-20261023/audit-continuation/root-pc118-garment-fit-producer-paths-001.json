@@ -1,0 +1,65 @@
+{
+  "at": "2026-10-23T22:40:30.076857+00:00",
+  "id": "pc118-garment-fit-producer-paths-001",
+  "reads": {
+    "crates/adventuresim-character-creator/src/device_garment.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/device_garment/candidates.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/device_garment_kernel.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/device_garment_torso.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/device_garment_tube.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/device_garment_skirt.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/device_boot_layers.rs": [
+      [
+        1,
+        10000
+      ]
+    ]
+  },
+  "contract": "Garment admitted design and rig anchors through upright/torso/tube/skirt fit and native binding/section/ring/flag layouts",
+  "coverage_limit": "Seven full bodies personally read; connected GPU shape producers/stations/check recipient still pending, no operation/aggregate or all13 clearance. Tests read but not run.",
+  "disposition": "UprightSpan retains RigJointName/SignedLength/Ratio through native dispatch; Word::Joint retains ordinal until RigPassParameters. TorsoGarment uses checked four-kind projection and f32 discriminant only actualWGSL device_word, no untyped retained application state. TubeRig actual entry dispatch guarantees supportedkind; From fallbackLeg not a normal unsupported-kind failure. Bound/Word/Access construct actual dynamic WGSL bindings/uniform schema, raw native carriers allowed at that precise port; raw words/counts entering record_upright,record_ring and GarmentSlices before dispatch still need M16 associated layouts/populations. Actual native BAND presence handles none and orderednearest ties, returnsexplicit present before copying bounds; INFINITY is MAX_FINITE arithmetic identity, preserve semantics. record_region_support lacks adjacent record_any <=32 gate: exact archived admission candidate, actual currentcallers1\u20132regions, noordinaryshift overflow asserted. record_ring only upper96 count check, normalarmhole/hem canonicalproducer nonempty; finish source matching topology before genericemptyAPI defect promotion. Pending dependency-status question: sleeve copies torso frames and reads torso carriers for sewing ring without explicit torso part.status; skirt similarly copies leg/torso frames while borrowed parts statuses not joined; must establish failed candidate reachable with valid upstream frames and receiving DeviceRecording admission before promotion. Keep this an unresolved source-backed question, not an accepted duplicate finding. BootLayers normalordered2hem pairs coherent source, GarmentSlices count derives fixed SAMPLES*triangle*3 plus prefix; native layout association and checked population reuse M16/#780/#826. Physical gap sums currently extracted directly into Word::F actual uniformport; preserve legitimatezero and unrestricted Ratio extension. Typed error loss through anyhow torso-kind/mismatch/shape/ring capacity belongs M06/M30 not competing error enums.",
+  "finding_traces": {
+    "M16": {
+      "source": [
+        "device_garment.rs:172-238",
+        "device_garment_tube.rs:326-354,444-482",
+        "device_boot_layers.rs:20-62"
+      ],
+      "trace": "Region masks, fit-word lengths, sewing-ring indices and flagged slice population retain primitive application relationships before native packing. Canonical carrier layout must agree with fabelgeist-armor torso producer; fixed two-layer hems constructed together is positive ordinary association, not universal public API proof."
+    }
+  },
+  "frontier": {
+    "file": "crates/fabelgeist-armor/src/gpu/garment_torso.rs",
+    "work": "PC118 full garment application/dispatch bodies read. Next PC119 native shape/schema+station and DeviceRecording failure dependency proof, then remaining producer graph. Discovery incomplete across all13; no implementation plan/repairs/checks."
+  }
+}

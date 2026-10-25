@@ -1,0 +1,107 @@
+{
+  "id": "CONT07-CONTRACT-453",
+  "at": "2026-10-23T22:09:10.794555+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1986,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/gate_approach.rs",
+      "sha256": "9974d8b635e383425cfd2734cdc847418a58a4b3d4e28c61974f90c5a2c8749f",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/gate_approach.rs",
+      "actual_EOF": 122,
+      "ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1987,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/gate_approach/profile.rs",
+      "sha256": "295b5ee27be5fa2ea6691f4a7480b8859677db039c092a44be4524b8fcfc9ff5",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/gate_approach/profile.rs",
+      "actual_EOF": 48,
+      "ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1988,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/solutions.rs",
+      "sha256": "f238069f199c6cab4d3ae9214f735d423c261228a14182ae11c812ce2edcd428",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/solutions.rs",
+      "actual_EOF": 169,
+      "ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1989,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/solutions/quantities.rs",
+      "sha256": "1475ceeaa960729b38d723bc4c6f67ce42ec888798dd0e095b5b490073d0b379",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/solutions/quantities.rs",
+      "actual_EOF": 207,
+      "ranges": [
+        [
+          1,
+          207
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1990,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/source.rs",
+      "sha256": "b273838e62fad2b7929676b8fc9099581cc0b60cf77abcdbb24b63a124864282",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/source.rs",
+      "actual_EOF": 56,
+      "ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1991,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/support_observations.rs",
+      "sha256": "cda65f6ad918673728bba9694b99ec598bde424978c0f896351fbfbe149e995c",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/support_observations.rs",
+      "actual_EOF": 71,
+      "ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "1986/1987 source-gate/front-floor and independent gate/court trial are alternatives rather than simultaneous installed floors. Endpoint pass booleans explicitly exclude full geometry, lateral support, gate sweep, collision and traversal acceptance. Six longitudinal points retain proposed elevations and intervals; no accepted physical path is published from their endpoint feasibility alone.",
+    "1988 comparison limits/stair dimensions are explicitly provisional modelling assumptions, not copied calibrated runtime policy. Level/Terraced are independent candidates compiled against same checked level inputs. JSON candidate-index redecoding by1983 is prior ROOT-PP-013 retained representation gap, not itself evidence candidates drift in current fixed ordered construction.",
+    "1989 cut and fill are separate signed-region integrals, not duplicate net volume; original source fixture preserves .25 each rather than cancellation. Perimeter estimate is optional with missing support represented None, not zero work. Maximum displacement and grading rejection are observations from same actual source/support intersections; report does not certify wall capacity.",
+    "1990 InspectionSource explicitly requests actual terrain support first, then searches all supplied vista rings for diagnostic observation. This is broader source lookup than selected presentation cohort; it must not be treated as physical runtime fallback or arbitrary lowLOD clearance. Document and package provenance checks retain exact distinct identities.",
+    "1991 apparent exterior-label/door enumeration question is CLOSED by fresh supplemental551 doors.rs119-207: compile_operable_doors filters inside_roomSome/outside_roomNone and operableDoorLeaf; it does not enumerate internal room doors. Compiler hinge=solidcentre-tangent*width/2 also proves1983 threshold reconstruction recovers actual closedcentre, so no arbitrary right-hinge discrepancy in that source route. Source551 reread has no new unique original credit."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1992,
+    "start_line": 1
+  }
+}

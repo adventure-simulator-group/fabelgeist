@@ -1,0 +1,149 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1022",
+  "at": "2026-10-25T17:31:49.793313+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1188,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/settlement_population.rs",
+      "sha256": "99cd12b58bafddf20c526c07061a1c822636fc87670178ddb36eda2587275fcc",
+      "actual_EOF": 759,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/settlement_population.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/settlement_population.rs",
+        "sha256": "99cd12b58bafddf20c526c07061a1c822636fc87670178ddb36eda2587275fcc",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 27326,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 767,
+            "read_ranges": [
+              [
+                1,
+                759
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-POPULATION-ROLE-CLOSURE-121"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/settlement_population.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-DIALOGUE-040",
+            "json_pointer": "/related_current_sources/4",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/settlement_population.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                120
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/settlement_population.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/settlement_population.rs",
+              "sha256": "99cd12b58bafddf20c526c07061a1c822636fc87670178ddb36eda2587275fcc",
+              "actual_lines": 759,
+              "read_ranges": [
+                [
+                  1,
+                  120
+                ]
+              ],
+              "proof_mode": "fresh actual current supplement bounded material source body, no execution",
+              "role": "Actual ResolvedSettlementResident joins typed AgeBand/Sex with native stored presentation/profile String, no invented typed NPC profession"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-033",
+            "json_pointer": "/fresh_current_additional_source_reads/4",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/settlement_population.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                120
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/settlement_population.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/settlement_population.rs",
+              "sha256": "99cd12b58bafddf20c526c07061a1c822636fc87670178ddb36eda2587275fcc",
+              "actual_lines": 759,
+              "read_ranges": [
+                [
+                  1,
+                  120
+                ]
+              ],
+              "proof_mode": "fresh actual current supplement bounded material source body, no execution",
+              "role": "Actual ResolvedSettlementResident joins typed AgeBand/Sex with native stored presentation/profile String, no invented typed NPC profession"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1413,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          759
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Deref",
+          "type": "ResolvedSettlementResident",
+          "lines": [
+            65,
+            71
+          ],
+          "disposition": "KEEP_SMALL_MANUAL: exact Target SettlementResidentProfile and borrowed &profile. Module1072 manifest personally analyzed854 has no equivalent Deref derive dependency; no dependency/API expansion solely this projection."
+        }
+      ],
+      "existing_derives": [
+        "SettlementResidentProfile/ResolvedSettlementResident/Presence/SeedExplanation/BusinessOperator Clone/Debug",
+        "BackendSettlementResident Clone/Debug/SpacetimeType",
+        "PersistedGenerationExplanation Clone/Debug/PartialEq/Eq/Serialize/Deserialize",
+        "PopulationLocation/ResidentEntropyStream Clone/Copy"
+      ],
+      "absence_basis": "Entire source across1020\u20131022 consumed. One small manual Deref inventoried/retained. Typed observer/private presentation/presence joins, borrowed nonempty organization location parser/context mapping, seeded stream/identity and existing Serde calls semantic. Fullfixtures573\u2013759 read not run, declared children independent."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Resolved resident dereference and settlement projection derivability",
+      "disposition": "Keep necessary small Deref without new dependency. Native structural/Serde derives already used; preserve borrowed classifier and explicit private/public authority mappings."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1189,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/settlement_population/resident_drafts.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

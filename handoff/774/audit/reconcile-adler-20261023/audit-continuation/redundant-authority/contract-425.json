@@ -1,0 +1,128 @@
+{
+  "id": "CONT07-CONTRACT-425",
+  "at": "2026-10-23T21:40:43.889986+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1871,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/doors.rs",
+      "sha256": "daf461a37ebe8f9ef72ac67aa98842c02bd8239ca43087f5c4d285f70df1ca34",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/doors.rs",
+      "actual_EOF": 132,
+      "ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1872,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/erosional_terrain.rs",
+      "sha256": "c95efbf7c798d1e7570da38a0082bd99661cc4958f1dcb6818126dc30faf2d88",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/erosional_terrain.rs",
+      "actual_EOF": 395,
+      "ranges": [
+        [
+          1,
+          395
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1873,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/erosional_terrain/basalt.rs",
+      "sha256": "fefc6bc76814a799129733d42c9a58b2fc8eb417a549d35c106dfe48b12fa6c0",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/erosional_terrain/basalt.rs",
+      "actual_EOF": 18,
+      "ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1874,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/erosional_terrain/carbonate.rs",
+      "sha256": "50c4644d1c77c5c6ee85b83372994d7100c8294dcc5553574a20503748885416",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/erosional_terrain/carbonate.rs",
+      "actual_EOF": 35,
+      "ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1875,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/erosional_terrain/granite.rs",
+      "sha256": "edac5e0f451e979b94a408567152ae143aed8f04ec056c874bda7e0d5377575a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/erosional_terrain/granite.rs",
+      "actual_EOF": 65,
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1876,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/erosional_terrain/slump.rs",
+      "sha256": "075f69b1e924975c15a53ab61cb95e2da98e849aad132968872ab0b214771b19",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/erosional_terrain/slump.rs",
+      "actual_EOF": 30,
+      "ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "NATIVE-OWNER-DOORS-002",
+    "ROOT-OWNER-TERRAIN-KERNEL-063",
+    "RIG-OWNER-EROSION-RECIPES-065",
+    "CAMERA-INITIAL07-CONTRACT-179",
+    "CAMERA-INITIAL07-F032"
+  ],
+  "facts": [
+    "1871 door/window grab shares one predicate by forwarding window call to door policy. Exemptions retain one ECS set per character, grant/revoke that same set, collision hook reads either side to filter pair. This is independent actor-specific passage authority, not global door-open state; input intent and exemption timing require server source, no fabricated duplicate field finding.",
+    "1872 erosion derives lattice/sample margin and landform field from one quantized recipe, collar and accepted terrain. Tangent/collar/native coordinates recomputed from immutable recipe, not separately mutable cached classification. Existing geographic terrain versus static procedural erosion are deliberately source/candidate stages; geology input does not itself assert mapped fractures or dynamic slide simulation.",
+    "1873-1876 kind dispatch is exhaustive in parent; child functions generate static dimensional shape from exact seed/stream and authored catalogues. Pockets/fragments arrays are intentional per-feature records, not parallel rosters for one item. Joint cell indices are deterministic entropy coordinates; relief/observed source heights/retained fragment heights have distinct physical roles.",
+    "1872 floor/roof/front/debris fields are combined into single output implicit surface; final field drives same extracted patch representation. No retained second heightfield in these bodies. Actual terrain/recipe and final mesh owners/admission remain independent source obligations. Full395 fixtures including both resolutions/thread determinism source read only, not executed.",
+    "No new07finding, no checks or13-lens/overlay clearance. Firstunfinished skipped already baseline1860-1870; supplementary1860:1-180 excerpt recorded424 without whole-source credit.",
+    "Reconsumed exact baseline inventory179/F032 narrative: drop shield ownership-removal hook omission already found, not a new07record. Weapon selection scans current hand whereas shield getter trusts cache. Current UI item-text dependency candidate remains separate pending actual ItemQuery/mutator proof."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1879,
+    "start_line": 1
+  },
+  "fresh_partial_support": [
+    {
+      "scope_index": 1877,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory.rs",
+      "sha256": "513ea2b3aa9c0322422e9cea57e10c00c00fe2046f10ce6d9d0cf6460c93957e",
+      "ranges": [
+        [
+          1,
+          180
+        ]
+      ],
+      "status": "fresh declaration/cache-constructor support only; baseline full source already accounted; no full fresh or new unique credit"
+    }
+  ]
+}

@@ -1,0 +1,722 @@
+{
+  "id": "NATIVE-OWNER-ROOT-DEPENDENCIES-008",
+  "lens": "audit-existing-type-owners",
+  "scope": "Root requested exact eight shared dependency cells only; root source/coverage unchanged, no full root file or overall lens clearance inferred. Current ownproof and explicit same-lens peer proof reused narrowly; prior producer notverdict.",
+  "root_contracts_sha256": "a7aa2ea51f97bcf604db672f0e2259cd1d128de305ad0dc28ed25d08ba2f0b99",
+  "rows": [
+    {
+      "root_contract": "ROOT-OWNER-RATIO-003",
+      "status": "narrow current owner/receiving fit accounted with findings",
+      "current_proofs": [
+        "root/ROOT-OWNER-RATIO-003 actual Ratio/measurement/dependency definitions",
+        "rig/RIG-OWNER-GARMENT-NATIVE-031 exact actual receiving topoffset",
+        "native canonical whole SignedLength::scaled_by claim and NATIVE-OWNER-CANONICAL-SHARED-001"
+      ],
+      "exact_scopes": [
+        {
+          "_proof_file": "rig/coverage.jsonl",
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/device_garment_skirt.rs",
+          "observed_sha256": "963e22ca61e7f29b6424e65db9f7d987fca66e0e9543944b1584d9873ec8e285",
+          "read_ranges": [
+            [
+              1,
+              461
+            ]
+          ],
+          "read_status": "full-source-read-current-lens"
+        }
+      ],
+      "closure": "Skirt source446 wall.signed_length().scaled_by(3.0) retains checked metre result into actual garment construction; full461 read currentrig. Ratio allf32 matches permissive dimensionless factor, including3/negative/nonfinite until product admission; UnitInterval narrows. Geometry->math no cycle/mandatoryBevy fromroot definitionproof. Untraced lower garmentgenerators are not required to establish this exact factor-unit/checked-result fit; rig source031 broader graph remains independently scoped.",
+      "unread_materially_affected_body_for_this_dependency": [],
+      "remaining_design": "Operations/derivability/ownership/granularity still must preserve multiplication-before-finite-error and exact original bits. No sourceclearance."
+    },
+    {
+      "root_contract": "ROOT-OWNER-SDK-CLOCK-019",
+      "status": "narrow clock/presence consumers accounted with findings",
+      "current_proofs": [
+        "native/NATIVE-OWNER-STRATEGIC-002/003/004",
+        "native/NATIVE-OWNER-SDK-001 and sdk-output-port.json",
+        "native/NATIVE-OWNER-TIME-FIXTURES-001",
+        "root/ROOT-OWNER-SDK-CLOCK-019 exact pinnedTimestamp2.6.1 definition",
+        "camera/CAM-OWN-SHARED-QUEST-WORLD-ACTOR-089",
+        "rig/RIG-OWNER-WORLD-DIGEST-CALENDAR-066"
+      ],
+      "exact_scopes": [
+        {
+          "_proof_file": "native/coverage.jsonl",
+          "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/clock.rs",
+          "observed_sha256": "25673af055bc146c82eb0fcf5bcbde2db09174cc6bec4e4dc2ae081150e3a25c",
+          "read_ranges": [
+            [
+              1,
+              127
+            ]
+          ],
+          "source_read_status": "full_source_read_with_P16_PR_delta_where_applicable"
+        },
+        {
+          "_proof_file": "native/coverage.jsonl",
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/model.rs",
+          "observed_sha256": "8b5882561331877cca6e022666a6fc03c813375df88bcdda95752cddd3cd1a1e",
+          "read_ranges": [
+            [
+              1,
+              98
+            ]
+          ],
+          "source_read_status": "full_source_read"
+        },
+        {
+          "_proof_file": "native/coverage.jsonl",
+          "source_id": "physical-p16:crates/adventuresim-stdb-module/src/world_actor.rs",
+          "observed_sha256": "232be94a5acf0de9c374f0c16d546051e2d007c1005510b0adb7f3c0d41b28f6",
+          "read_ranges": [
+            [
+              1,
+              1353
+            ]
+          ],
+          "source_read_status": "full_source_read_with_P16_PR_delta_where_applicable"
+        },
+        {
+          "_proof_file": "native/coverage.jsonl",
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor/presence.rs",
+          "observed_sha256": "39cd6d057c070e586f5701d068b930beaafe12dc00d68465ffd460ede664c5ea",
+          "read_ranges": [
+            [
+              1,
+              196
+            ]
+          ],
+          "source_read_status": "full allproduction/fixtures currentlens read"
+        },
+        {
+          "_proof_file": "native/additional-sources.jsonl",
+          "source_id": "pr-working:crates/adventuresim-world-schema/src/calendar.rs",
+          "observed_sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+          "read_ranges": [
+            [
+              1,
+              698
+            ]
+          ],
+          "read_status": "full_source_read"
+        },
+        {
+          "_proof_file": "native/additional-sources.jsonl",
+          "source_id": "pr-working:crates/adventuresim-world-schema/src/person_names.rs",
+          "observed_sha256": "e41326d6c8ae20b958581c0027d3b5bdd79a58faf43a142e446f52dc4a8f70ec",
+          "read_ranges": [
+            [
+              55,
+              105
+            ]
+          ],
+          "read_status": "specified_actual_owner_and_recipient_bodies_read"
+        },
+        {
+          "_proof_file": "native/additional-sources.jsonl",
+          "source_id": "pr-working:crates/adventuresim-core/src/strategic_presence/context.rs",
+          "observed_sha256": "e8fa0d3cc0b66a908ad8f44642c1cf2e09f9d6d5e8ac341e7201f7aea959995e",
+          "read_ranges": [
+            [
+              1,
+              55
+            ]
+          ],
+          "read_status": "full_source_read"
+        },
+        {
+          "_proof_file": "native/additional-sources.jsonl",
+          "source_id": "pr-working:crates/adventuresim-core/src/strategic_presence.rs",
+          "observed_sha256": "2eeea5c9831e10b7c5d51d0d3f61b0093ce8c682bd0994d2c94de50aa3354a52",
+          "read_ranges": [
+            [
+              1,
+              662
+            ]
+          ],
+          "read_complete": true
+        }
+      ],
+      "closure": "SDKTimestamp signedi64UTCmicrosecond wallclock and ctx.timestamp retained native source; StrategicMinute all-u64 gameabsolute personal/world chronology distinct, elapsed0/fullu64 notRequestedDurationpositive/quarterhour/SDKepoch. FreshfullStrategicPresence662 nowextends root1–120 prefix throughactual scheduled/residence/case/context constructors91–213, DailyWindow291–337, coPresence340–342, errors345–363 and originalfixtures. Exactobserver+personalfrontier andplace equality; futureevidence rejected; end1440 valid unlikeMinuteOfDay. RawdurableCharacterIdall-u64 andcontextu32revision different fromnonzeroCustody/wrappingEquipmentRevision. NameStableSeed/FormSelectionSeed actualsamewordrole vs newlymintedCharacterId hash role distinguished.",
+      "unread_materially_affected_body_for_this_dependency": [],
+      "remaining_design": "Native F004/F005 and relative-duration/presence availability/closederror policy; no forceabsolutepoint for spans, no epoch0fabrication, no full DB/module clearance."
+    },
+    {
+      "root_contract": "ROOT-OWNER-WEATHER-GPU-020",
+      "status": "narrow actual unit/CPU/GPU output fit accounted with findings",
+      "current_proofs": [
+        "native/NATIVE-OWNER-WEATHER-001 full Coreweather958/field61/streams11",
+        "native/NATIVE-OWNER-CLOUD-003 fullcloud/noise/nativeWGSL",
+        "native/NATIVE-OWNER-CELESTIAL-002 and ENVIRONMENT004",
+        "native/NATIVE-OWNER-CELESTIAL-FRAME-005/F035",
+        "camera/CAM-OWN-WEATHER-013",
+        "root/ROOT-OWNER-WEATHER-GPU-020",
+        "rig/RIG-OWNER-TREE-025 and root/ROOT-OWNER-TREE-RETAINED-047",
+        "rig/RIG-OWNER-TREE-LEAF-046",
+        "rig/RIG-OWNER-WOOD-MESH-047",
+        "rig/RIG-OWNER-TREE-IMPOSTOR-048"
+      ],
+      "exact_scopes": [
+        {
+          "_proof_file": "native/coverage.jsonl",
+          "source_id": "pr-working:crates/adventuresim-core/src/weather.rs",
+          "observed_sha256": "62c3d0b44fa30ce15dab8e231cc5ef90e631e633d9ef4ea34091c5c8c3f3fde9",
+          "read_ranges": [
+            [
+              1,
+              958
+            ]
+          ],
+          "source_read_status": "full allproduction/fixtures currentlens read"
+        },
+        {
+          "_proof_file": "native/additional-sources.jsonl",
+          "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/weather.rs",
+          "observed_sha256": "840dfc691065cd3c90f2f8bc9db2630ece62cc61ed5a2793e802ed3739d2b88e",
+          "read_ranges": [
+            [
+              1,
+              402
+            ]
+          ],
+          "read_complete": true
+        },
+        {
+          "_proof_file": "native/coverage.jsonl",
+          "source_id": "pr-working:crates/adventuresim-core/src/weather/field.rs",
+          "observed_sha256": "8f11cdffeb39e9e0ca929c9cf3ac853b89c6d926c5bdd4d42c0ec9208e36cede",
+          "read_ranges": [
+            [
+              1,
+              61
+            ]
+          ],
+          "source_read_status": "full allproduction/fixtures currentlens read"
+        },
+        {
+          "_proof_file": "native/additional-sources.jsonl",
+          "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/procedural.rs",
+          "observed_sha256": "9374a31dd00faa7d347212451bf0f2ff87b5b97246e068ec2db7894cc021b695",
+          "read_ranges": [
+            [
+              1,
+              31
+            ]
+          ],
+          "read_complete": true
+        },
+        {
+          "_proof_file": "native/additional-sources.jsonl",
+          "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/weather.rs",
+          "observed_sha256": "840dfc691065cd3c90f2f8bc9db2630ece62cc61ed5a2793e802ed3739d2b88e",
+          "read_ranges": [
+            [
+              1,
+              402
+            ]
+          ],
+          "read_complete": true
+        },
+        {
+          "_proof_file": "native/additional-sources.jsonl",
+          "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/environment.rs",
+          "observed_sha256": "b6c219d19f45e18cf058bfa3ec4a06e826e50c2ae83d122e8d421f418dc31dbc",
+          "read_ranges": [
+            [
+              1,
+              577
+            ]
+          ],
+          "read_complete": true
+        },
+        {
+          "_proof_file": "native/additional-sources.jsonl",
+          "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/clouds.rs",
+          "observed_sha256": "ed0d069d3ad4096d18a89716b34158f0db25d84009ea752a90e7beb367de52c4",
+          "read_ranges": [
+            [
+              1,
+              1692
+            ]
+          ],
+          "read_complete": true
+        },
+        {
+          "_proof_file": "native/additional-sources.jsonl",
+          "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/clouds/noise.rs",
+          "observed_sha256": "be3ebae3349fed391089881f331e4d441b3028d0f2b882bc7b80b9020e51c6fc",
+          "read_ranges": [
+            [
+              1,
+              138
+            ]
+          ],
+          "read_complete": true
+        },
+        {
+          "_proof_file": "native/additional-sources.jsonl",
+          "source_id": "pr-working:assets/shaders/tactical_weather.wgsl",
+          "observed_sha256": "5c0a4dc16844e0840b502186ec82a5b7b8398061d2fd4d68226c8bffebd47636",
+          "read_ranges": [
+            [
+              1,
+              317
+            ]
+          ],
+          "read_complete": true
+        },
+        {
+          "_proof_file": "native/additional-sources.jsonl",
+          "source_id": "pr-working:assets/shaders/tactical_clouds.wgsl",
+          "observed_sha256": "a04c3a457fc4e9bdf80cb0bb2eca4eb2364d8d3b5233f9942c740594b3084e66",
+          "read_ranges": [
+            [
+              1,
+              177
+            ]
+          ],
+          "read_complete": true
+        }
+      ],
+      "closure": "Core emittedBPS bounded owners exactafter actualproducer; publicWeatherSnapshot u16/rawSerde remains broader and bps helper deliberately UnitBasisPoints.saturating thenas_unit_f32. GPU uniform/mask/heightmapdecoded65535 vsBPS10000 semantics actualshader317 andhost402 read. CloudForm becomesretained numericprofile thenCPUdispatch F033: existingenumfits, actualGPUpack later. Densitycan1.4 and cloudoptical1.35, notUnitInterval; AGLbase0valid vspositivethickness derivednormalizer. Coref64weatherabstractall-i32/all-i16 differsgeographicWGScheckedsubset. Actualcelestialrendernorth−Z vs canonicalScene+north+Z mismatch explicitlypreserved (F035), do notlabelScene direction/velocity orflipvectors.",
+      "unread_materially_affected_body_for_this_dependency": [],
+      "remaining_design": "Root whole Weather state/material andSceneDigest/extent owners retained; native cloud/sky exactclaims only. Treebranch/modelshape andretainedSeed tree_signature root/rig currentproof govern those disjoint paths; this index doesnotclear tree or fullweather/graphics modules.",
+      "disjoint_peer_dependency_limit": "Freshcurrentrig exactscopedconfirmation: historicalTREE025 partialsource note supersededby geometry366 SHA07ca0c32d3efa1bfee78bcf7c4e3a48c1a09b563519446793b09be9c1582d666 +skeleton1358 SHA01e01e3d4c8c4c8a5d0b5d91248c5b715bbfdb40722c4f36ed15395b95a35683 andTREE-LEAF046/WOOD-MESH047/TREE-IMPOSTOR048. No unprovedbranchsourcebody remains. Exactbranch frame objectlocal+Yup asset-definedorigin, notuniversalY0/Scene; genericfinitepoint requires actualadmissionpolicy; radius0/negative/NaN normalization cannotnarrow toPositiveLength. AllfloatMetresunit fitsbroadnormalizer ifpolicyretained. Root030 canopy normalization/root020 exactCPUocclusion recipient retainownership; scaledleafbasis strictDirectionmismatch048 separate. Source-backedadmission/frame/groupdesign findingsremain, notwhole treeclearance."
+    },
+    {
+      "root_contract": "ROOT-OWNER-BESTIARY-022",
+      "status": "narrow native physical/report recipients accounted with concrete owner mismatches",
+      "current_proofs": [
+        "root/ROOT-OWNER-BESTIARY-022 own fullBestiary/armor/validator bodies",
+        "camera/CAM-OWN-COMBAT-PHYSICAL-002/COMBAT-FRACTIONS-003/COMBAT-RECEIVERS-004",
+        "camera/CAM-OWN-CORE-BUILD-COMPOSITE-067/CORE-COMBAT-UNION-068/AUTORESOLVE-RECONCILIATION-086",
+        "native/NATIVE-OWNER-REPORT-001/002/ITERATION001/BOT001",
+        "native/NATIVE-OWNER-PHYSIOLOGY-001"
+      ],
+      "exact_scopes": [
+        {
+          "_proof_file": "native/additional-sources.jsonl",
+          "source_id": "pr-working:crates/adventuresim-core/src/linear_speed.rs",
+          "observed_sha256": "db3686060ebd8ce533fe48c88685c5643b024b8a92b2b617d97481196988f3e0",
+          "read_ranges": [
+            [
+              1,
+              178
+            ]
+          ],
+          "read_status": "full_source_read"
+        },
+        {
+          "_proof_file": "native/coverage.jsonl",
+          "source_id": "pr-working:crates/adventuresim-core/src/physiology.rs",
+          "observed_sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+          "read_ranges": [
+            [
+              1,
+              1169
+            ]
+          ],
+          "source_read_status": "full source read allproduction andexistingfixtures"
+        },
+        {
+          "_proof_file": "native/coverage.jsonl",
+          "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration.rs",
+          "observed_sha256": "5ebb42e36e764cd3adee88c336b2976f42db557494a436e8fa2eef2f79fdef61",
+          "read_ranges": [
+            [
+              1,
+              649
+            ]
+          ],
+          "source_read_status": "full source read"
+        },
+        {
+          "_proof_file": "native/coverage.jsonl",
+          "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration.rs",
+          "observed_sha256": "812c3b491db93ba51220e73ebe4aef93934ff80abeb3f7d4e2af796c598ce1b7",
+          "read_ranges": [
+            [
+              1,
+              648
+            ]
+          ],
+          "source_read_status": "full source via same-wave complete counterpart and complete exact reverse PR delta"
+        },
+        {
+          "_proof_file": "native/coverage.jsonl",
+          "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs",
+          "observed_sha256": "e8b238c454b79527cff117b2acc8ad4b32214dfd7fb3714b9949c725daf7460d",
+          "read_ranges": [
+            [
+              1,
+              319
+            ]
+          ],
+          "source_read_status": "full_source_read"
+        },
+        {
+          "_proof_file": "native/coverage.jsonl",
+          "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs",
+          "observed_sha256": "682408c513c94a29855ef855be8d4e16dad21a2de2e3349ff61dea8f87a43d0a",
+          "read_ranges": [
+            [
+              1,
+              325
+            ]
+          ],
+          "source_read_status": "full source via same-wave complete counterpart plus complete exact P16-to-PR reverse delta"
+        },
+        {
+          "_proof_file": "native/additional-sources.jsonl",
+          "source_id": "native-dependency:bevy_ecs-0.19.1/src/observer/runner.rs",
+          "observed_sha256": "e8a6dca4f1ae317b6653d6f1c5fdf175fdb6ed42a5d4a6125730bc9e716f43dd",
+          "read_ranges": [
+            [
+              1,
+              150
+            ]
+          ],
+          "source_read_status": "exact material owner and receiving body ranges read; not whole unrelated module"
+        }
+      ],
+      "closure": "Actualnativecommand/physicalreport/server/botreceivers and Corephysical kernels source-read currentPR/P16 union. ContactPrecision finite>=0 exactconcentration distinct signedfiniteReportedPrecision. Generalnonhuman/weapon/carriedmasspositivewide mismatches BodyMassKg20..300; integerMaterialMilligrams quantizes andwrongacceptedset. Per-minuteu32speed notbitexactreplacement f32m/s; encounter/training scales may65535/1000 and>1, so boundedBPS/UnitIntervalwrong. EnergyJoules/Power/inertia/rates missingproperunit owners fromactualfullmathunits/physicaldefs; notmissingrecipientread. Existingcanonicalbestiary semanticenums fitclosedmechanics, rejectedrawkeys/displaylabels/reporttextdistinct. Nativef64statistics distinctrole/precision; no genericgeometryf32narrowing.",
+      "unread_materially_affected_body_for_this_dependency": [],
+      "remaining_design": "Camera whole physical source owns concentration/energy/generalunit contracts; native owns observer/readback/reportwholefunctions and consumesagreednames/units. Exactnew ownerplacement/invalid API normalization/error/operation design remains, no bestiary moduleclearance."
+    },
+    {
+      "root_contract": "ROOT-OWNER-ORG-POLICY-025",
+      "status": "narrow skill/religion/bestiary/terrain namespace owners and training recipients accounted",
+      "current_proofs": [
+        "native/NATIVE-OWNER-STRATEGIC-004/F006",
+        "native/NATIVE-OWNER-TRAINING-001",
+        "native/NATIVE-OWNER-HARNESS-001/REPORT002 for canonicalvocabularydefinitions",
+        "root/ROOT-OWNER-ORG-POLICY-025 exactauthoringvalidator subset",
+        "camera/CAM-OWN-CONTINUITY-014"
+      ],
+      "exact_scopes": [
+        {
+          "_proof_file": "native/additional-sources.jsonl",
+          "source_id": "pr-working:crates/adventuresim-core/src/skill.rs",
+          "observed_sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+          "read_ranges": [
+            [
+              700,
+              735
+            ],
+            [
+              1010,
+              1095
+            ]
+          ],
+          "source_read_status": "additional exact native training kernel ranges freshly reread; prior current-lens definition ranges retained"
+        },
+        {
+          "_proof_file": "native/additional-sources.jsonl",
+          "source_id": "pr-working:crates/adventuresim-world-schema/src/bestiary.rs",
+          "observed_sha256": "0a8870d89db5190ae5b70aaffd93d7511b144e4861f37ffd649c62f464a3d2b7",
+          "read_ranges": [
+            [
+              1,
+              112
+            ],
+            [
+              140,
+              285
+            ]
+          ],
+          "read_status": "specified actual owner and receiving bodies read"
+        },
+        {
+          "_proof_file": "native/additional-sources.jsonl",
+          "source_id": "pr-working:crates/adventuresim-world-schema/src/lib.rs",
+          "observed_sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+          "read_ranges": [
+            [
+              1825,
+              1888
+            ]
+          ],
+          "source_read_status": "exact bounded definition"
+        },
+        {
+          "_proof_file": "native/additional-sources.jsonl",
+          "source_id": "pr-working:crates/adventuresim-core/src/book.rs",
+          "observed_sha256": "1b4aac417b1f0ea794ff7f2832552b2ce1561a7d2cbede9129b274e29dc394ef",
+          "read_ranges": [
+            [
+              1,
+              345
+            ]
+          ],
+          "read_status": "specified_actual_owner_and_recipient_bodies_read"
+        }
+      ],
+      "all_skill_read_ranges": [
+        [
+          1,
+          160
+        ],
+        [
+          700,
+          824
+        ],
+        [
+          1010,
+          1165
+        ]
+      ],
+      "closure": "Actual Skillenum1–117 (inclTerrainPlains/Forest/Hills/Wetlands/Urban/Snow) canonicalidentity, notscalarcheckscore. OfficialReligion fullenum/ALL/religion_id/from_id/index and ReligionHours/Minutes actualworldschemalib1–330/2990–3080, BestiaryCategory13way enum/id/from_id/index source1–112/140–285 read. Exactexistingnamespace forsuccessfultraining selectors; organization terrainwhitelist plains/forest/hills/urban narrower thanCoreall6, preservevalidator subset and religion/bestiaryrequiredleaf relationship. Fixedskill excludesparameterizedreligion/bestiary. PlayerSkills/SkillHours/ReligionHours are histories, notgenericscalarreal/effectivehours. ActualTrainingGain accepted/excess, rank5Inf and normalizerwideAPI preserved; noUnitIntervalhours orattributes. Weighttol permitsindividualslightly>1, allf32Ratio unitcandidate only, aggregateadmission separate.",
+      "unread_materially_affected_body_for_this_dependency": [],
+      "remaining_design": "Openprofessions/servicecategory/organizationID authoringgrammar/builddependency andcheckedaggregate design remain rootsource-backedmissingowner/policy questions. No inferunknownlabelbelongsclosenamespace, no fullrootcatalogue clearance. Authoredvalidator weight math remains f64; math::Ratio(f32) is runtimeunit candidate only and cannot narrow authoredf64 validation/serialization precision."
+    },
+    {
+      "root_contract": "ROOT-OWNER-DIAGNOSTIC-SCRIPT-035",
+      "status": "narrow actual DiagnosticInputStatus/DiagnosticRecord/nativewriter receiving graph accounted",
+      "current_proofs": [
+        "native/NATIVE-OWNER-ANIMATION-DIAGNOSTIC-001",
+        "native/NATIVE-OWNER-REPORT-002",
+        "native/NATIVE-OWNER-ANIMATION-LEAVES-002/003",
+        "root/ROOT-OWNER-DIAGNOSTIC-SCRIPT-035 whole876",
+        "root/ROOT-OWNER-CLIENT-ENTRY-036 exactCLIroles"
+      ],
+      "exact_scopes": [
+        {
+          "_proof_file": "native/coverage.jsonl",
+          "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/diagnostics.rs",
+          "observed_sha256": "255ebbf963270d5128375972f1059af2843fa7da821834bcb5df88014a122a35",
+          "read_ranges": [
+            [
+              1,
+              312
+            ]
+          ],
+          "source_read_status": "full allproduction/existingfixtures currentlens read"
+        },
+        {
+          "_proof_file": "native/coverage.jsonl",
+          "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/diagnostic_record.rs",
+          "observed_sha256": "5141597330c799f5d0ca0312cb48602fb6dd20520737d18c46429dcf21829330",
+          "read_ranges": [
+            [
+              1,
+              117
+            ]
+          ],
+          "source_read_status": "full allproduction/existingfixtures currentlens read"
+        },
+        {
+          "_proof_file": "native/additional-sources.jsonl",
+          "source_id": "pr-working:crates/adventuresim-core/src/elapsed.rs",
+          "observed_sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+          "read_ranges": [
+            [
+              1,
+              131
+            ]
+          ],
+          "read_status": "full_source_read"
+        },
+        {
+          "_proof_file": "native/coverage.jsonl",
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+          "observed_sha256": "62a3215d6f52174d7351776d55c5f7f07adf340abada8e8aff653d674f389095",
+          "read_ranges": [
+            [
+              1,
+              135
+            ]
+          ],
+          "source_read_status": "full allproduction/existingfixtures currentlens read"
+        },
+        {
+          "_proof_file": "native/coverage.jsonl",
+          "source_id": "report-p17:crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+          "observed_sha256": "95852ba679486fb361ff90d203788f00fd951c87d215420de1e4931d6911226c",
+          "read_ranges": [
+            [
+              1,
+              155
+            ]
+          ],
+          "source_read_status": "full_source_read",
+          "read_complete": true
+        }
+      ],
+      "closure": "DiagnosticInputStatus command_elapsed_seconds f32>=[signed]0 maps existingAnimationElapsed; positivecommandlength and0<=offset<duration relation separatePositiveDuration/aggregate. commandkindstatus terminalrecordtext distinct actualkinddispatch helper undernativewholeclaim; WeaponGuardState exactboolrole, signeddegrees exactSignedAngleDegrees. Actualdiagnostics312 mapsBevyglobal/local transforms andtypedanimation values ->sortedDiagnosticBone181 ->AnimationDiagnosticRecord ->log.write186; record117 serde_json::to_value75 ->writer83 actualterminalJSON/file. f64elapsed60/ready/sample/warmup notnarrowed; cappedu64Unixmicroclock andbeforeepoch->0 distinctfromSDKTimestamp/gameclock. Terrainclearance105–107 maynegative/0, notPositiveLength; optionalNone trulyretained. Actualtypedserde/ioavailable finalwriterlogged; scriptconstructor/internalearlyString causeunderlatererrorrepair.",
+      "unread_materially_affected_body_for_this_dependency": [],
+      "remaining_design": "Firsttick==elapsed0, pairedtiming options/guardkindshape, originalframewriterpanic/defaultfileclone .ok andbeforeepoch0 are explicit state/operation/behavior questions, not unreadreceivingbody. Native wholeScript helpers+DiagnosticStatus claim remains, no script/CLI acceptance."
+    },
+    {
+      "root_contract": "ROOT-OWNER-SCHEDULE-046",
+      "status": "narrow planned-vs-realized consumer graph accounted with PP035/missing organization-owner findings",
+      "current_proofs": [
+        "native/NATIVE-OWNER-SCHEDULE-001/STRATEGIC004",
+        "native/NATIVE-OWNER-TIME-FIXTURES-001",
+        "camera/CAM-OWN-SIM-PROFILE-BOOTSTRAP-059",
+        "root/ROOT-OWNER-SCHEDULE-046 own full364+PRdelta",
+        "native/NATIVE-OWNER-SDK-001"
+      ],
+      "exact_scopes": [
+        {
+          "_proof_file": "native/coverage.jsonl",
+          "source_id": "pr-working:crates/adventuresim-core/src/strategic_schedule.rs",
+          "observed_sha256": "ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+          "read_ranges": [
+            [
+              1,
+              1363
+            ]
+          ],
+          "source_read_status": "full_source_read_with_P16_PR_delta_where_applicable"
+        },
+        {
+          "_proof_file": "native/additional-sources.jsonl",
+          "source_id": "pr-working:crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+          "observed_sha256": "031ee090102b5cc2ed9889b336ac1144ef7eb705cacc6fee37cbe8e7f6bafd0e",
+          "read_ranges": [
+            [
+              1,
+              364
+            ]
+          ],
+          "read_status": "full_source_read"
+        },
+        {
+          "_proof_file": "native/coverage.jsonl",
+          "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/activities.rs",
+          "observed_sha256": "04dc828b86ab6bc354e9242ef33f6d1d75902cc5d9fad656c5192540167ec18a",
+          "read_ranges": [
+            [
+              1,
+              445
+            ]
+          ],
+          "source_read_status": "full_source_and_exact_reverse_pr_delta_read"
+        },
+        {
+          "_proof_file": "native/coverage.jsonl",
+          "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/schedule.rs",
+          "observed_sha256": "6cbe8772bb5c9f5bd4f48d7dffa099df1b8a39a8a1cf69a83bc4a5ad0b938c73",
+          "read_ranges": [
+            [
+              1,
+              741
+            ]
+          ],
+          "source_read_status": "full_source_read_with_P16_PR_delta_where_applicable"
+        },
+        {
+          "_proof_file": "native/coverage.jsonl",
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/model.rs",
+          "observed_sha256": "8b5882561331877cca6e022666a6fc03c813375df88bcdda95752cddd3cd1a1e",
+          "read_ranges": [
+            [
+              1,
+              98
+            ]
+          ],
+          "source_read_status": "full_source_read"
+        }
+      ],
+      "closure": "ActivityMinutes fullu16 multiples15 incl0, ValidatedSchedule allquarterhours<=1440 dailybudget; effective_at redistributes readingunchanged/unavailable->leisure withoutbudgetincrease then erasesvalidated result PP035. ActualDBimmediateactivities179–203/248–348 clipinjury/disease toarbitraryminutesincl0 before DailySchedule purecoreconsumers: cannot requirequarterhour/positiveRequestedDuration/absoluteStrategicMinute. Nativeprofilegenerator10min allocations andcameraactual live_schedule338–368 rounds/15*15+crime->labor+remainderleisure beforeSDKconfigure, sokeepdistinctpreference/planned/realizedroles. OrganizationAllocation.parse trimsnonempty rawID andpublicScheduled0 relation; no exactbespokeOrganizationID proven thatpreservesallcurrentacceptednonemptyvalues andDBeligibility. This issource-backedmissingowner/authoritydesign, notunread time/schedule orpureallocator. Actualskill/religion/bestiarybehavior above025 andtypedP16StrategicEquipmentError/StrategicOperationError->nativeSDK Display current001; exactPRdeltaonlyactivity_training_profile change readroot.",
+      "unread_materially_affected_body_for_this_dependency": [],
+      "remaining_design": "Do notreusecatalogmembership torequirepresentcatalogrow atdeserialization, inventequivalentscheduletype oruncheckedpublicadapter. Wholepureallocator/native+DBcamera ownership remains. Preservezero/reading/eligibility/RNGdraw/clip/firstfailure and existingfixtures; expect/error andaggregate shape laterlenses."
+    },
+    {
+      "root_contract": "ROOT-OWNER-MOVEMENT-FIXTURES-061",
+      "status": "narrow current config/physics/projection owner fit accounted with failures/observation policy findings",
+      "current_proofs": [
+        "root/ROOT-OWNER-MOTOR-013/MOTOR-CLOSURE-072 actualfullPR/P16motor/quickstep",
+        "camera/CAM-OWN-TACTICAL-CONFIG-INVENTORY-061/CONFIG-CHILDREN-062",
+        "camera/CAM-OWN-SERVER-PLAYER-PROJECTION-066/CORE-BUILD-COMPOSITE-067/CORE-COMBAT-UNION-068/AUTORESOLVE-RECONCILIATION-086",
+        "native/NATIVE-OWNER-QUICKSTEP-CLOSURE-006/MOVEMENT-SPEED-001/CORE-STATE-008",
+        "native/NATIVE-OWNER-CAPTURE-001/REPORT-METRICS-005/HARNESS-006"
+      ],
+      "exact_scopes": [
+        {
+          "_proof_file": "native/coverage.jsonl",
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+          "observed_sha256": "2bdf24f3de20d1901bfc475d799d3a07781d9c5e22733caaea0d2365250edd0f",
+          "read_ranges": [
+            [
+              1,
+              522
+            ]
+          ],
+          "source_read_status": "full_source_read",
+          "read_complete": true
+        },
+        {
+          "_proof_file": "native/coverage.jsonl",
+          "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/quickstep.rs",
+          "observed_sha256": "760ecbcf0a6723b9624547541159758a8e9e117606b3c827969cbd9733645aab",
+          "read_ranges": [
+            [
+              1,
+              190
+            ]
+          ],
+          "source_read_status": "full_source_read"
+        },
+        {
+          "_proof_file": "native/coverage.jsonl",
+          "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/quickstep.rs",
+          "observed_sha256": "33077519d29facefe510e67394af05f51874b1324ce3b4a8de4f27b657852e9c",
+          "read_ranges": [
+            [
+              1,
+              183
+            ]
+          ],
+          "source_read_status": "full source via same-wave complete counterpart plus complete exact P16-to-PR reverse delta"
+        },
+        {
+          "_proof_file": "native/coverage.jsonl",
+          "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation_viewer/harness.rs",
+          "observed_sha256": "301ac4dfe279a9dde47a582987736d16158cea960a0398b2a59f57a63859511d",
+          "read_ranges": [
+            [
+              1,
+              511
+            ]
+          ],
+          "source_read_status": "full_source_read"
+        },
+        {
+          "_proof_file": "native/additional-sources.jsonl",
+          "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness.rs",
+          "observed_sha256": "ed20b1e997850b7b95cc52c88c55fad7855c2cf9c7a8e08ec3f610656517ee13",
+          "read_ranges": [
+            [
+              1,
+              511
+            ]
+          ],
+          "read_status": "Full P16 511 read plus complete exact reverse PR delta; exact both1–250 reread; review_camera157–196 byte-identical"
+        }
+      ],
+      "closure": "Actualfixed-clock/controlmovement outputs typedNonnegativeSpeed into camera-ownedmotor, currentPR/P16rootphysics andcamera fullconfiguration/projection allsource proof. Rawattributes/health>1/massgeneral/velocityinvalidnative observations wider thanUnitInterval/BodyMassKg/finiteSceneVelocity guarantees. ExistingPosition/ScenePlanPoint/SupportElevation andsignedmetreoffset exactsuccessfultypedinputs tofixturehelpers/controller/Transform/Collider; nativegrounding fixture pendinghelperretention is ROOTPP008 andprematureJSON ROOTPP013, notunreadrealmotor. Fixed1/64Duration seconds/64Hzcountbudget/braking/arrival order remainsnativeclockrole anddiscretecountseparatefromgameStrategicMinute/AnimationSampleSpan. Actualquickstep/capture/frame/model/report currentunion fulltrace resolves effect/optional-tick/source-frame unitreceivers; P16motor2optionaltick projections andP17repeat_snapshotclock actualPP012 remainunimplemented source/integration, notinventoryproof failure.",
+      "unread_materially_affected_body_for_this_dependency": [],
+      "remaining_design": "Root ownswholeWalker/acceptance/JSONrepair; camera motor source; nativeP17/IK/report receivesagreedchecked output. Realinvalid SDKstate mustremainfailedevidence, no fabricatedfinite0. No full movement fixture/rootmodule clearance or acceptance/hostedrun claim."
+    }
+  ],
+  "still_unread_materially_affected_bodies_in_requested_native_dependency_scope": [],
+  "clearance": "None. All source-backed findings, missing owner/mismatch/design and later13-lens questions remain mandatory. P16/P17 source/integration unfinished.",
+  "source_changes": "none",
+  "validation": "none",
+  "new_presence_definition_extension": {
+    "path": "crates/adventuresim-core/src/strategic_presence.rs",
+    "sha256": "2eeea5c9831e10b7c5d51d0d3f61b0093ce8c682bd0994d2c94de50aa3354a52",
+    "read_ranges": [
+      [
+        1,
+        662
+      ]
+    ],
+    "scope": "Current-lens original owner/actualconstructor/window/error/fixture extension read, no new source ownership inferred."
+  },
+  "shared_update": "Rig explicit same-lens scopedowner-fit reconciliation received for root020 after initialindex; oldpending preservedonlyinchronologicalcontracts, currentdependencyhasnoreadbodygap.",
+  "frame_qualification_final": "F035 proved celestial only; cloudwind geographical from/to heading meaning remains source-backed unresolvedownership/behavior question, no mismatchassertion fromsimilartrigonometry."
+}

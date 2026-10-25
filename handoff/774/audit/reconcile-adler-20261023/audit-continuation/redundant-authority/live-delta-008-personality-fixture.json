@@ -1,0 +1,29 @@
+{
+  "id": "CONT07-LIVE-DELTA-008",
+  "at": "2026-10-24T02:49:16.656593+00:00",
+  "sources": [
+    {
+      "registry_index": 59,
+      "source_id": "pr-working:crates/adventuresim-core/src/starting_character/personality_tests.rs",
+      "sha256": "356a76affb4adbbe85d8052029acca07959e184be169391115f50c499b0127cd",
+      "ranges": [
+        [
+          1,
+          33
+        ]
+      ],
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/356a76affb4adbbe85d8052029acca07959e184be169391115f50c499b0127cd",
+      "registration_evidence": "aggregate-states/source-registration-001.json",
+      "read_kind": "fresh personally read exact registered33line fixture after registration"
+    }
+  ],
+  "facts": [
+    "Existing fixture compares canonical Presentation3/Inclination4 lower-case Serde vocabularies and StartingCharacterSpec roundtrip/name projection. Fixed expected text is fixture oracle, not independently maintained runtime source of personality truth. No source07 authority defect found in exact fixture; future canonical enum changes require fixture update, no claim exhaustive every future enum variant.",
+    "Read only existing test source, no execution, new tests, runtime/codec checks or source edits."
+  ],
+  "discovery": "additional registered fixture accounted WITH existing07 findings preserved",
+  "original_variant_increment": 0,
+  "other_lens_credit": false,
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

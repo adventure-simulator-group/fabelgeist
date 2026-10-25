@@ -1,0 +1,68 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-020",
+  "at": "2026-10-22T20:04:38.695117+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+      "sha256": "6807ada697c587ffd96f625c61692de55a4ae1548d7dcd9e5d2d539e5f6187c0",
+      "actual_compared_ranges": [
+        [
+          1,
+          234
+        ]
+      ],
+      "source_fact_evidence": "Fresh fullPRmobility226/scheduling391 AND wholeactualP16variantdiff compared to freshlyreadPR, all new functions and changedbodies personallyconsumed. Camera027substantive source/caller narrative independentlycompared for04 semantic-owner routing; no07verdict transfer."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/scheduling.rs",
+      "sha256": "170846de4c534120087f3f12c2fd365b8f2103c97d270ff28d71bee179d6e147",
+      "actual_compared_ranges": [
+        [
+          1,
+          391
+        ]
+      ],
+      "source_fact_evidence": "Fresh fullPRmobility226/scheduling391 AND wholeactualP16variantdiff compared to freshlyreadPR, all new functions and changedbodies personallyconsumed. Camera027substantive source/caller narrative independentlycompared for04 semantic-owner routing; no07verdict transfer."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+      "sha256": "201e0aa26a4ceec81c0caa799acc2dae96ad3d1600ed6184aef8f671e3becf1c",
+      "actual_compared_ranges": [
+        [
+          1,
+          226
+        ]
+      ],
+      "source_fact_evidence": "Fresh fullPRmobility226/scheduling391 AND wholeactualP16variantdiff compared to freshlyreadPR, all new functions and changedbodies personallyconsumed. Camera027substantive source/caller narrative independentlycompared for04 semantic-owner routing; no07verdict transfer."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/scheduling.rs",
+      "sha256": "9c56fb8232e356e6e204ba7c1065597c6063b0b25572d6f0e7cb131b2a7eb320",
+      "actual_compared_ranges": [
+        [
+          1,
+          391
+        ]
+      ],
+      "source_fact_evidence": "Fresh fullPRmobility226/scheduling391 AND wholeactualP16variantdiff compared to freshlyreadPR, all new functions and changedbodies personallyconsumed. Camera027substantive source/caller narrative independentlycompared for04 semantic-owner routing; no07verdict transfer."
+    }
+  ],
+  "groups": {
+    "selected-owner-arithmetic": "Actual melee_effective_reach adds armreach to BASEequipment.weapon_reach, movement_intent also BASEhead/reach while preferred_melee_measure reads selected meleegrip/head/distal. PRandP16 bothsameownershiproute; P16canonicalSignedLength/readmission cannotrepair wrongsource. Camera027 actualnormalthreat rangedprimary/knifesidearm andammo-drivenMeleeswitchsourcefacts personallycompared: support CAMERA-INITIAL07-F009 sameconnectedgraph, not extraunique04finding. ALL geometry/movement/targeting/workload/contact reader selection mustshareonesemantic implement. No executedoutcomeclaim.",
+    "length-arithmetic-and-native-kernel": "PRsurfacedistance min/max rawfloat, constant-centre-offset add andsubtract donewithnativefloats; nativeintegrate_opposed_movement Result isactualport but bodyindependentrole, no universalfinite/atomicguaranteeinferred. P16privateMeleePairMovement preview stagesallreturnedvalues, callscheckedSignedLength forcentre offset+maximum andpostintegration surface distances beforeSelf. Nonnegativeclamp after subtract intentionallysurface policy; do notapplyblankettosignedaxisvelocity. Reach/maxselection P16readmitscomputedreach thenselectsfiniteadmittedlengths, preferredfallback reach*fraction readmits evenfiniteproductoverflow. Lunge threshold rawsum usedONLYcomparison, notpublishedascheckedlength; actualadmittedroles/policy matter, no manufacturedinvalidtokenclaim becauseguardtemporarilyexceedsf32.",
+    "phase-and-time-arithmetic": "available_attack_start maxofadmittedBattletimes selectsfinitevalue theninclusiveendcomparison. initialize delay rawlerp/scaling thenAnimationElapsedreadmission and jitter.checked_scale checkedBEFOREeachactor install; positive/timeunit sourceowners notinterchangeable. No peractor partialinitialschedule afterbadsecondspan. round.saturating_sub(1) intentionalround0/1start0; usize-to-f32 mayloseprecision atlargeordinal, productreadmitsBattleTime sooverflowrejects, no exacttickordinalguaranteeinferred. windowend/readiness/contact/recovery allchecked_add beforetimingcommit. Existingcurrentattack windowend<= inclusiveguardandcapturedstart/contact generationmatcherpreserved.",
+    "mutation-and-failure-boundaries": "advance checksintervaltime before pairmutation. Targetchange thenresetsBOTHtarget/distances/velocities BEFOREfalliblepreview; ifpreviewfailslocalpaircanretainrebind/reset. This is concrete calleeorder, not provedexternallypublishedbattlefailure/retry or unique bugwithoutactualhigherretentioncontract. P16preview result staging doesNOTmakeenclosingpairupdateatomic. initialize batch changesprioractors/RNGbeforelateractorerror; schedulingbatchcancommitpriorattackersbeforelatererror. These scopes donotguarantee wholebattle atomicrollback; actualcaller lifetime/abort/retry decideslogicaltransaction and remains higher-sourceinventory, avoid gratuitous wholebattlecloning. Single scheduler computes fallibletimes/jitter before engagement+timingcommit; expectedNone paths intentionallycommitengagement butreturnnoattack, not failure. No unsupported atomicity promise.",
+    "indexes-order-and-observations": "Initializer enumeratesactualallies/enemies to(source-side,index) thenonlysortsindexmetadata, slicesnotresized soindexesremaininbounds. schedule windowindex0..len thenprivatecallee; attackerindex fromactualenumeration. targetindex dependsactualmelee_assignment/nondefeateddefendercaller contract notsoleu64admission; no normaloutofboundsclaimwithoutthatbody. Currentgenerationmatcherchecksstart/contact beforetake_side_turn resolves. Scheduledmemberids/history and AttackStartTrace before/aftertime are observations, notduplicatecurrentmutableauthority. PairdistancewritesuseSAMEcomputedvalue/eachownvelocity. MeleeEngagement observe associatesdistancewithtargetandusesexplicit minpolicy, not universalprior-equalityinvariant. NativeTickconversion actualcallee independent, no primitiveu64wrapassertionfromcallname."
+  },
+  "prior_finding_support": [
+    "CAMERA-INITIAL07-F009 normal hybrid selected implement mismatch, source/operation independently compared",
+    "Higher mutable failure scope remains explicit callee ordering evidence, not new unsupported externallyobserved defect"
+  ],
+  "findings": [],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

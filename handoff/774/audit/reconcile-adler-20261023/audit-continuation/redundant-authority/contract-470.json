@@ -1,0 +1,65 @@
+{
+  "id": "CONT07-CONTRACT-470",
+  "at": "2026-10-23T22:26:54.859381+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2076,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/stdb.rs",
+      "sha256": "ab24f2abcf0306df9967ba4f53671ead170142f7fd1a0697bf116389584da5b8",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/stdb.rs",
+      "actual_EOF": 191,
+      "ranges": [
+        [
+          1,
+          191
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2077,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/terrain_collision.rs",
+      "sha256": "faee49ad384b0820c1a89f3956a9a356ba1df53ce2f8bcc29047e8c99c2c3ce5",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/terrain_collision.rs",
+      "actual_EOF": 75,
+      "ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2078,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/windows.rs",
+      "sha256": "1558b154ebeb2ec83990f857600744dc6086859d467f5cfbaa974c04e6f3859d",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/windows.rs",
+      "actual_EOF": 294,
+      "ranges": [
+        [
+          1,
+          294
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "2076 full191 readiness is handshake-completed identity sampled once from actual conn.try_identity, not proof SDK can rotate identity inside same connection. Deferred initial resource and actual conn identity are lifetime-specific; no reconnect identity mutation source shown. Mailboxes are pending observations drained with mem::take, not competing connected-player authority.",
+    "2076 terminal callbacks preserve nested Ok(Ok)/Ok(Err)/Err, queue success distinct from reducer acceptance. Retry lifecycle permits one pending frozen submission; result mailbox has no explicit ticket but no concurrent/replaced submissions admitted by actual2065 state. Cross-attempt stale result requires actual duplicate/transport callback evidence before finding.",
+    "2077 full75 spawns recipe/prepared patch before SceneTerrain Add so callback sees same immutable cohort. Optional prepared product takes precedence; colliders_with_terrain validation contract remains actual patch owner obligation, not silently considered raw input equivalent. Temporary SceneTerrainPatch removed after independent colliders built, so source snapshot vs installed physics product roles differ; no ordinary hot terrain replacement producer shown.",
+    "2077 landform insertion positively supports root F52 normal codec recipient; no owning-lens credit or assertion default decode works. Dump reconstruction without prepared patch explicitly regenerates from retained recipe and same terrain; current core collider selector physical Owned path previously traced, not replaced by material grid.",
+    "2078 full294: open bool is desired catch state, current_angle is animation progress; Transform derives each fixed update from immutable hinge/closed quaternion and current angle, not competing desired/actual truth. All fields private and admitted together. Fixed opening centre for interaction is doorway aperture, not moving leaf centre. No external geometry update path proved. Existing barred-window pose fixture read only, not run."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2079,
+    "start_line": 1
+  }
+}

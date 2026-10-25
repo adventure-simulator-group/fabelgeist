@@ -1,0 +1,23 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-621",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        1356
+      ],
+      "comparison": "Fresh full procedural parent1813. Optional ProceduralLookState carries actual prior base rotation; JumpAnticipation retains base/applied pose, independently eased overall/pelvis amounts and evaluation tick for idempotent repeated samples. Charging is derived from existing JumpAnticipation, quickstep suppresses both amounts; guarded charging intentionally retains torso response without pelvis lowering. No redundant carried charging Boolean. FixedTickPoseCache optional tick identifies tool-only retained complete post-procedural pose; absent fixed clock clears cache, zero tracked bones is a legitimate observed empty snapshot. Continuous whole-body mirror weight is not binary ClipMirror: reflect/lerp endpoints, parent globals and zero-weight no-op are real mathematical policy. Missing topology or nonfinite transformed geometry skips a local contribution rather than asserting a complete rig. Height state advance commits only successful result; quickstep updates history but skips application. Guarded run pelvis and spine rotations are inverse local transform pair with neutral direction absence. Landing plant independently solves actual left/right chains and may legitimately acquire one side when the other chain is missing; do not collapse both feet into mandatory paired payload. Its tick/owner-position/resync owner is declared in later sample_state and remains a specific pending child trace, not cleared by these use sites. Existing history must survive recovery, same-tick observations and legitimate resynchronization. Optional two-bone solution is valid no-solution distinct from Err. Native local predicates and sparse rig role absence do not require enums. Fixtures cover authored translation, landing, anatomical look and mirror policies as source evidence only; no test executed and no child module body credit.",
+      "finding_refs": [],
+      "disposition": "Existing action and optional component owners appropriate; connected landing-history owner pending separate child review"
+    }
+  ],
+  "new_findings": [],
+  "open_traces": [
+    {
+      "id": "SEGO-INITIAL09-OPEN-621-LANDING",
+      "trace": "1356:558\u2013579 and623\u2013628 -> height::clear_landing_foot_plants and sample_state::LocomotionHeightState",
+      "question": "Are plant observation tick/position/resync options correlated lifecycle payload while independent foot targets may be partial? Inspect exact child definitions and transitions before disposition."
+    }
+  ],
+  "limits": "Discovery only; full parent read does not clear child bodies or pending landing owner. Next1357 body_response."
+}

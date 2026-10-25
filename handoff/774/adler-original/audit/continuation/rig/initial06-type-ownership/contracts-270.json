@@ -1,0 +1,33 @@
+{
+  "id": "RIG-INITIAL06-GROUP-270",
+  "at": "2026-10-23T07:58:09.059136+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "catalogue-layer-selection-and-fit-dependency": {
+      "comparison": "Fresh layers193 retains actual canonical CatalogPlacement rather than copying item/placement strings. LayerSelection adds lexical Eq/Ord/Hash value semantics from canonical pair, a useful cache-key view not independently authored catalogue truth. OutfitPlan composes canonical LayerPlan with sorted/deduped selections; ancestors/supports map actual plan ordinals back to same retained records. FitKey keeps body shape and recursively required lower layers, distinct from inventory Entity ID and catalogue pair. Failure of one owner outfit is retained as Err rather than silently dropping invalid selection, and next_fit propagates lower error. Actual canonical LayerPlan remains lower clothing fit owner; cache/outfit grouping is runtime adapter, no need second topology owner. No universal support graph/cycle proof from called methods.",
+      "disposition": "Keep canonical catalogue records and LayerPlan as authority; local value-key/cache dependency view earns its role."
+    },
+    "garment-region-versus-rig-topology": {
+      "comparison": "Fresh regions162 maps fifteen garment regions to canonical RigJointName families and typed RigJointOrdinal selections. Proximal/distal garment fit anchors differ from coarse seven BodyPart/EquipmentBodyPart F009, clinical limbs, and complete rig topology. RegionRig stores selection policy and context, not a second skeleton. Exact axilla excludes twist family while arm/head/waist deliberately include certain helpers; names remain canonical but namespace membership is a caller policy. waist_surface_joint is already one shared owner for socket export and cloth fitting. Do not replace every family query with global BoneRole equality or merge ordinal and name. Original tests source only, no asset membership/current deformation correctness inferred.",
+      "disposition": "Retain garment-specific region selection purpose under canonical rig names/ordinals, separate from coarse body taxonomy."
+    },
+    "member-local-wood-finish": {
+      "comparison": "Fresh PR finish193 and exact P16 material1–29/54–88 actual counterpart comparison(no delta) keep FurnitureWoodSurface Handled/Replacement/EndGrain/Painted as render treatment, distinct from canonical physical wood material or item quality. WearFace normal plus normalized two-edge contact region uses local coordinates, not Color or scene bounds. face frame tuple holds centre/size/rotation/normal different roles; F001 canonical typed frames/lengths can improve retained boundary, while actual member UV/grain/native mesh generation is genuine numerical projection. P16 boards30–53/wornface89+/handledtail are outside its bounded roles and receive no credit from whole counterpart diff; PR full includes them. Useful paint/wear state must stay with furniture source, not be conflated with replacement schema compatibility.",
+      "disposition": "Keep member-local finish and surface-treatment purpose; reuse canonical lower geometry before native UV/mesh ports."
+    },
+    "observer-context-time-authority": {
+      "comparison": "Fresh PR presence196 and complete P16 counterpart/current-role comparison(no delta) retain actual observer/actor, contextmembership revision and StrategicMinute. Presence interval is entered-inclusive/left-exclusive with ordered endpoints; optional left means ongoing, not zero duration. Context membership, party visibility, canonical CaseSite place and provenance alias relations are distinct authorities, not same String ID. projected claim tuple membershipid+revision can eventually compose canonical authority product, but this file does not establish competing owner definition. Leader clock supplies actual view frontier; no global wallclock swap. Lifetime birth signed conversion versus strategicunsigned minute preserves historical negativebirth distinction. Coordinates exactE7 bind actual site/lead, not scene metres. Stringified canonical place at wire lookup remains boundary, retaining typed place inside comparisons is appropriate. No all-observer visibility inferred from one observer projection.",
+      "disposition": "Keep temporal interval, observer frontier, context revision and exact-place provenance authority distinct; reuse canonical IDs/time owners."
+    },
+    "p16-preparation-fixture-variant": {
+      "comparison": "Personally compared full P16 authority_tests207 against fresh PR1101 in269. Actual differences: StrategicOperationResult versus String result carrier; P16 add_inventory_item versus PR add_inventory_item_checked. All request digest/conservation/replay generation assertions and distinct actor/row/lot/object/revision purposes are unchanged and explicitly compared. Cannot treat checked-suffix difference as proof membership gate or replace PR with staleP16; canonical grant/admission graph remains actual definition elsewhere. Test reducer source only, no execution or runtime preservation claim.",
+      "disposition": "Preserve exact fixture variant error/grant routes; share semantic authority reasoning only for unchanged actual contracts."
+    }
+  },
+  "supporting_existing_findings": [
+    "F001",
+    "F009"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit."
+}

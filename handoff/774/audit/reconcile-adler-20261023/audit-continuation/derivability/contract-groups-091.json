@@ -1,0 +1,86 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-091",
+  "at": "2026-10-25T12:32:45.437051+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 219,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/inventory_amount.rs",
+      "sha256": "535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6",
+      "actual_EOF": 241,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/inventory_amount.rs",
+        "snapshot": "physical-p16",
+        "path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\inventory_amount.rs",
+        "sha256": "535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Read-only source assignment; whole-function repair ownership remains in authoritative claims.",
+        "scope_limits": "Explicit material contracts/ranges and necessary signature dependencies only; no implied whole-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/expanded-producer-delta-map-049.json",
+        "actual_line_count": 241,
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 72,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-FILTH-LAW-AMOUNT-015",
+            "json_pointer": "/current_sources/5",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row195/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                241
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                241
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": true,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          241
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "Clone/Debug and public table macros InventoryItemAmount15\u201321,PartyItemAmount25\u201331"
+      ],
+      "absence_basis": "Fullsource table leaves already structural/native derived; checked persisted fraction adapter, classify/initialize/consume/transfer functions and fixtures only. Contextual two-table identity transfer not raw From; no manual trait/serializer."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Inventory measured fraction persistence",
+      "disposition": "No handwritten trait cleanup; retain checked amount adapter and state transfer semantics.",
+      "acceptance": "Preserve fraction admission and identity/table distinction; no native-index exposure or generated-client edits."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 220,
+    "source_id": "physical-p16:crates/adventuresim-stdb-module/src/inventory_container.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

@@ -1,0 +1,52 @@
+{
+  "id": "CONT07-F097",
+  "at": "2026-10-23T22:20:34.398337+00:00",
+  "classification": "source-confirmed conditional diagnostic classification disagreement; no seed occurrence or run claimed",
+  "title": "Shield contacts are counted as weapon contacts in per-combatant autoresolve summaries",
+  "sources": [
+    {
+      "scope_index": 2014,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/mod.rs",
+      "sha256": "5a603f0c5055543157a0dd1d47bc979a6109569d0e61cf088f5ca7a99ca495bd",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/mod.rs",
+      "ranges": [
+        [
+          194,
+          240
+        ]
+      ]
+    },
+    {
+      "scope_index": 2017,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs",
+      "sha256": "682408c513c94a29855ef855be8d4e16dad21a2de2e3349ff61dea8f87a43d0a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs",
+      "ranges": [
+        [
+          248,
+          267
+        ]
+      ]
+    },
+    {
+      "scope_index": 865,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "sha256": "2f56c5185ec61241a7e4607eef02ebb4051e24dee918f5200585d586a4d971a8",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "ranges": [
+        [
+          28,
+          105
+        ]
+      ]
+    }
+  ],
+  "earliest_failed_contract": "The global and per-defender report classify the same blocked contact independently. Global identity-based implement classification distinguishes a shield; the per-defender predicate treats any successful Block/Parry as a weapon contact.",
+  "counterexample": "A coherent BattleLogEntry with defender_response Block, outcome Blocked, and defender_contact_item_id equal to the buckler id rather than the equipped arming-sword id increments shield_contacts globally but effective_weapon_contacts for that defender. Actual normal roster includes Shield Militiaman with arming sword and Some(buckler). No seed was run and no claim that any particular run produced this event.",
+  "actual_recipient": "2014 record_autoresolve_combatant_causal writes per-defender effective_weapon_contacts;2017 record_autoresolve_implement writes global weapon_defense_contacts or shield_contacts for the same log entries, both retained in iteration report.",
+  "qualification": "The source predicates prove conditional misattribution, and normal roster admits shield use. Exact Core blocked-shield event producer/occurrence remains a dependency before asserting normal-run occurrence. Physical combat resolution is not implicated by a report-classification error.",
+  "connected_repair": "Classify defensive contact once using actual defender implement identity and share that classification between total and per-combatant summaries; keep shield and weapon contacts distinct.",
+  "acceptance": "A blocked buckler contact increments shield-specific totals and never effective weapon contacts; a weapon block increments corresponding weapon counters consistently. No execution or new tests in this audit.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

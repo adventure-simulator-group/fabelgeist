@@ -1,0 +1,30 @@
+{
+  "canonical_reference": "audit/continuation/native/initial05-aggregate-states/findings.jsonl#row29",
+  "line": 30,
+  "record": {
+    "id": "NATIVE-INITIAL05-F028",
+    "lens": "audit-aggregate-states",
+    "classification": "finite degenerate market quad admitted and contains every point",
+    "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/surfaces.rs",
+    "sha256": "064e2fe3fc9294f655bfeaf2cd691d7277e6ad428a603ad1dbbf10aa42c18993",
+    "source_ranges": [
+      [
+        75,
+        91
+      ],
+      [
+        141,
+        156
+      ]
+    ],
+    "relationship": "Market footprint admission must establish a bounded polygon whose containment can support actual street connectivity, beyond four independently finite points.",
+    "source_counterexample": "CityStreetPatch::Market with corners_metres=[Vec2::ZERO;4] and legal surface passes is_valid. convex_quad_contains computes zero edge cross on allfouredges, skips each and returns true for arbitrary finite point. CityGarden::validate_access uses streets.any(street.contains(access[0].start)) and can therefore treat this degenerate acceptedrawmarket as a street connection. No new cases/tests/execution.",
+    "actual_path": "Actual public shape predicate and raw SceneInput urban validation delegation accept the invalid aggregate. Concrete garden connectivity consumer identified; no currentauthored badmarket, normal citygenerator or installed runtime claim. UrbanGroundLookup broadphase restricts candidates to ownbucket, so no wholeworld urban-surface conclusion.",
+    "connected_repair": "Join city plan polygon admission/market-yard footprint and garden access geometry graph. Root retains repair. Use compatible checked polygon or complete fixedquad topology gate before containment; preserve intended winding/edgecontact policy.",
+    "acceptance": "A finite point/line/repeated-corner degenerate quad cannot certify bounded market coverage or street connectivity. Normal rectangular market/reservation footprints and touching-edge tolerance preserved; no index safety substitute or blanket strictpositive width on unrelated native boundaries.",
+    "proof_ref": "contract-groups-084.json",
+    "repair": "frozen",
+    "validation": "not_established"
+  },
+  "disposition": "Exact same allZERO market predicate/containment/garden access receiver; fullsource and fullarchive record personallyread. Broadphasebucket prevents wholeworldterrainclaim. No newunique count."
+}

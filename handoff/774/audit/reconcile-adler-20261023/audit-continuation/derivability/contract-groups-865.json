@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-865",
+  "at": "2026-10-25T17:03:37.922511+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1079,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/character.rs",
+  "sha256": "806a50bc71cade3ffdf93f52a62693f7d02d4d55a52e1cce7e5983b894ec28cf",
+  "actual_compared_ranges": [
+    [
+      761,
+      1160
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Native equipment restore/refresh, registered temporary character creation/scaling and durable-row cascade functions only in consumed range. No own type/manual trait/codec. Explicit DB authority/order/lifecycle semantics are not mechanical derivability; no deletion or other DB action executed."
+  ],
+  "first_unfinished": {
+    "scope_index": 1079,
+    "line": 1161
+  },
+  "execution": "none"
+}

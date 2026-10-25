@@ -1,0 +1,28 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-142",
+  "at": "2026-10-25T18:30:13.768102+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1636,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista.rs",
+      "sha256": "b571c37d64c20535df90dc5b14ebddd2cc22010885764fbeae66c78ad6970d6c",
+      "personally_read_ranges": [
+        [
+          1,
+          1187
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Vista observer matches playable scene by digest, accepts pending policy, prepares every visible LOD fallibly before updating ActiveVistaSurface and deferred-despawning old entities. Prepared LODs retain own/coarser/inner extent/scenery together. Dependent near-detail city-ground/scatter publication remains child-source trace; no assumption this facade alone proves all detail failures atomic.",
+        "Grass topology coverage deliberately suppresses authored urban surface, uses boundary-clamped authoritative grass before smooth12m stitch to regional density. Missing visual vista sample maps to no sward, not physical support0. Final shader weather vec4 is native binding. Clear-weather helper is explicit synthetic sample, not missing live observed weather. All VistaLod parallel arrays/extent/order remain owning input/admission contracts M66/M70/M72, public fields do not prove them.",
+        "Existing source fixtures cover regional missing-source triangle removal and absolute elevation/winding, strategic rendered-ring support only and no tactical SceneTerrain/SceneId authority, coarse playable-hole clipping, exact shared boundary vertex reuse, fine-to-coarse height/color morph, substrate color with independent sward alpha, road suppression, snow palette/sward, angular tree range, chunking and furniture support at actual triangle barycentres. Full1187 consumed, fixtures not run and renderer not calibrated."
+      ]
+    }
+  ],
+  "findings": [],
+  "qualified_connected_requirements": [],
+  "discovery": "1 newly accounted original roles; other reads support already counted historical roles. Lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

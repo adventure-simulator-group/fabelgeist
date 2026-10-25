@@ -1,0 +1,104 @@
+--- PRbase/crates/adventuresim-strategic-sim/src/live_core/error.rs
++++ frozen/crates/adventuresim-strategic-sim/src/live_core/error.rs
+@@ -1,6 +1,8 @@
++pub type CoreLoopResult<T> = Result<T, CoreLoopError>;
++
+ #[derive(Clone, Copy, Debug, Eq, PartialEq)]
+-enum ReducerOperation {
++pub enum ReducerOperation {
+     AbandonDefeatedQuest,
+     AbandonUnsafeActiveContract,
+     AbandonUnsafeQuest,
+     AcceptPartyJoinRequest,
+@@ -211,9 +213,9 @@
+     TimedOut,
+ }
+ 
+ #[derive(Clone, Debug, Eq, PartialEq)]
+-struct ReducerCallFailure {
++pub struct ReducerCallFailure {
+     operation: ReducerOperation,
+     kind: ReducerCallFailureKind,
+ }
+ 
+@@ -251,15 +253,16 @@
+     }
+ }
+ 
+ #[derive(Clone, Debug, Eq, PartialEq)]
+-enum CoreLoopError {
++pub enum CoreLoopError {
+     Reducer(ReducerCallFailure),
+     Operation {
+         operation: ReducerOperation,
+         detail: String,
+     },
+     Other(String),
++    AuthoredThreat(AuthoredThreatError),
+ }
+ 
+ impl CoreLoopError {
+     fn reducer_dispatch(operation: ReducerOperation, detail: impl Into<String>) -> Self {
+@@ -276,9 +279,9 @@
+ 
+     const fn reducer_failure(&self) -> Option<&ReducerCallFailure> {
+         match self {
+             Self::Reducer(failure) => Some(failure),
+-            Self::Operation { .. } | Self::Other(_) => None,
++            Self::Operation { .. } | Self::Other(_) | Self::AuthoredThreat(_) => None,
+         }
+     }
+ 
+     fn operation(operation: ReducerOperation, detail: impl Into<String>) -> Self {
+@@ -291,9 +294,9 @@
+     const fn operation_kind(&self) -> Option<ReducerOperation> {
+         match self {
+             Self::Reducer(failure) => Some(failure.operation),
+             Self::Operation { operation, .. } => Some(*operation),
+-            Self::Other(_) => None,
++            Self::Other(_) | Self::AuthoredThreat(_) => None,
+         }
+     }
+ 
+     const fn reducer_code(&self) -> Option<ReducerErrorCode> {
+@@ -325,9 +328,35 @@
+             Self::Operation { operation, detail } => {
+                 write!(formatter, "{} failed: {detail}", operation.as_str())
+             }
+             Self::Other(detail) => formatter.write_str(detail),
+-        }
+-    }
+-}
+-
+-impl std::error::Error for CoreLoopError {}
++            Self::AuthoredThreat(error) => std::fmt::Display::fmt(error, formatter),
++        }
++    }
++}
++
++impl std::error::Error for CoreLoopError {
++    fn source(&self) -> Option<&(dyn std::error::Error + 'static)> {
++        match self {
++            Self::AuthoredThreat(error) => Some(error),
++            Self::Reducer(_) | Self::Operation { .. } | Self::Other(_) => None,
++        }
++    }
++}
++
++impl From<AuthoredThreatError> for CoreLoopError {
++    fn from(error: AuthoredThreatError) -> Self {
++        Self::AuthoredThreat(error)
++    }
++}
++
++impl From<String> for CoreLoopError {
++    fn from(message: String) -> Self {
++        Self::Other(message)
++    }
++}
++
++impl From<&str> for CoreLoopError {
++    fn from(message: &str) -> Self {
++        Self::Other(message.to_owned())
++    }
++}

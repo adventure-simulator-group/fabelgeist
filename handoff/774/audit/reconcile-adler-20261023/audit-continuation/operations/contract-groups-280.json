@@ -1,0 +1,58 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-280",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pinned-sdk:spacetimedb-sats2.6.1/src/timestamp.rs",
+      "sha256": "9a2b59b755254767182009ea99cc689199e310845668b3343faf52ca6139de0c",
+      "actual_EOF": 343,
+      "actual_compared_ranges": [
+        [
+          1,
+          343
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Canonical native timestamp admits all signed microseconds but conversion has endpoint limits",
+      "source_ranges": {
+        "timestamp.rs": [
+          [
+            1,
+            141
+          ],
+          [
+            238,
+            343
+          ]
+        ]
+      },
+      "disposition": "Complete343-line pinned body personally read including property fixtures, not run. from_micros_since_unix_epoch accepts all i64, preserving legitimate pre-epoch values. to_duration_since_unix_epoch negates negative micros before u64 cast; MIN cannot be negated in i64, so this native representable endpoint panics with overflow checks or wraps in unchecked release before producing duration. to_system_time calls that conversion, and platform checked_add/sub further enforce representability. from_system_time explicitly rejects every pre-epoch time despite signed timestamp range, not a symmetric conversion guarantee. Duration->Timestamp checks u128 micros narrows via try_into before publication. Display calls fallible chrono/RFC3339 conversion then unwrap; native i64 endpoints can exceed Chrono date range. These are actual native API/representation strengthening dependencies at first-party timestamp formatting/conversion ports, not a current wall-clock/player-timeline failure. Preserve pre-epoch signed support and declared platform precision; do not globally conflate strategic calendar clock with Unix timestamp."
+    },
+    {
+      "contract": "Timestamp arithmetic prepares checked result before assignment; native Duration conversion remains dependency",
+      "source_ranges": {
+        "timestamp.rs": [
+          [
+            119,
+            239
+          ],
+          [
+            294,
+            343
+          ]
+        ]
+      },
+      "disposition": "time_duration_since uses checked signed subtraction then canonical TimeDuration and nonnegative duration conversion. checked_add/sub TimeDuration use checked i64 arithmetic; operator Add/Sub deliberately unwrap and assignment evaluates that result before replacing retained timestamp, so arithmetic rejection leaves old value except panic unwinding policy. checked_add/sub_duration first calls TimeDuration::from_duration; huge stdDuration admission/error policy of that constructor is not proven by the checked name here and remains separate native dependency. Current first-party callers must choose checked native operation and representable scheduling outcome where their contract promises no panic, retaining actual signed/zero semantics. Existing source fixtures cover some arithmetic and current-system-time, not every native endpoint; no new tests or execution."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "1 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:.github/workflows/rust-quality.yml"
+}

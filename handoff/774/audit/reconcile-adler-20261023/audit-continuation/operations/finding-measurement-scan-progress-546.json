@@ -1,0 +1,29 @@
+{
+  "id": "SEGOVB-04-MEASUREMENT-SCAN-PROGRESS-CANDIDATE-001",
+  "source_id": "pr-working:crates/fabelgeist-garment-code/src/measure/mod.rs",
+  "sha256": "dbbbf373f7069a15074d0e348f36707aa24f9125146cc3cb60579a75fd5e3452",
+  "ranges": [
+    [
+      131,
+      162
+    ],
+    [
+      191,
+      210
+    ],
+    [
+      252,
+      283
+    ],
+    [
+      421,
+      464
+    ]
+  ],
+  "counterexample": "Finite translated mesh floor1e9cm, topfloor+128cm passes height>50 and step=.256cm. Finite hip landmarks yfloor+64cm give hip_joint that same value; waist from hip+height*.01 and to hip+height*.18 both round to same f32y. scan whiley<=to holds and y+=step leaves y unchanged forever. Section computation returns finite vectors or empty but does not change loop guard. Source-level admitted API counterexample, no run.",
+  "qualification": "Large translation with ordinary128cm span; no actual current anatomical asset/caller incidence. API documentation says floor wherever and no centering required. Need canonical relative-coordinate iteration or explicit representable-progress error, not arbitrary geographic/world clamp. Exact archive alias pending, no global unique count.",
+  "connected_contract": "Enumerate bounded scan sample indices in relative height frame or detect representable advancement before loops; coordinate body/landmark frame consistently. Cover upward/downward scan, split_below, underbust, split_two_legs and neck_base; preserve fixed relative resolution/fallback level policies.",
+  "acceptance": "Every accepted nonempty finite body with positive height scan terminates within explicit sample bound or structured error; translation must not silently consume progress. Normal cm units, anthropometric level selection and fallback semantics preserved.",
+  "related_accepted_finding": "audit/continuation/rig/admission03/findings.jsonl#RIG-ADMISSION03-F064",
+  "dedup_disposition": "Extends connected scan-progress family with all-finite translated-coordinate arithmetic proof; prior record rawInf admission counterexample differs, no new unique global count."
+}

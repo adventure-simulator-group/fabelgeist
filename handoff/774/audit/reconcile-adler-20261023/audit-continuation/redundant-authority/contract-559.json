@@ -1,0 +1,52 @@
+{
+  "id": "CONT07-CONTRACT-559",
+  "at": "2026-10-23T23:45:06.077040+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2418,
+      "source_id": "pr-working:crates/strategic-web/static/party-trade.js",
+      "sha256": "8bf14d47ad93735cea07acc1e20ad479d0edb2abffc2fd4cd3a6b2b1545c570f",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/static/party-trade.js",
+      "actual_EOF": 677,
+      "ranges": [
+        [
+          375,
+          455
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2419,
+      "source_id": "pr-working:crates/strategic-web/static/physical-evidence.js",
+      "sha256": "9691fa30e24bdd7bfaa57d3728a118b080721270ae7e3883e7d8fd1db25a7878",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/static/physical-evidence.js",
+      "actual_EOF": 214,
+      "ranges": [
+        [
+          1,
+          214
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Partytrade exact375\u2013455 scoped fragment only personallyread; mapdraft\u2192nativeparallelkeys/values maintains oneMapiterationorder, temporarydraft isuserintent distinctactualinventory. Available/current/target DOMcounts boundamounts locally, actualDBcommit remains authoritative. Broaderdraftreset/liveprojection lifecycle notclearedfromboundedfragment.",
+    "Physicalevidence full214body source proof yieldsF118 latestselectedId vsunconditionaloldPOSTcompletionrepaint. Stableitemupdate isindependent fromcurrentselection andcanbevalidwithoutreselect; normal eventoperation sequence explicit, no browserexecution.",
+    "Physicalevidence activeportrait state derivesbuttonidentity insamecurrentstrip; arrowkeys onlyfocus intentionallynotselection. Backenddeductions/supportbands/provenance areobservationsdisplayed not inferredunderlyingprivatecase; no diagnosis/actualresult classificationfromhumanwording.",
+    "No revisionguard forconcurrentsameitemPOSTresults couldregressinspectionlist, but actualbackendreceipt/revisionproof remainsdependency andnotacceptedF118symptom. Listenerabort andoldmountcallback relation likewiseuntraced."
+  ],
+  "new_local_findings": [
+    "CONT07-F118"
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2420,
+    "start_line": 1
+  }
+}

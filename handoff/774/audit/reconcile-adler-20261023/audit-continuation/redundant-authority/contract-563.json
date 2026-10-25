@@ -1,0 +1,65 @@
+{
+  "id": "CONT07-CONTRACT-563",
+  "at": "2026-10-24T00:05:21.958512+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2431,
+      "source_id": "pr-working:crates/strategic-web/tests/startup-deadline.cjs",
+      "sha256": "adf96c3faaada273cd2b0d0f73fd1c5eb7bf75aa6a9dea92ca9e40f70cbc9c74",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/tests/startup-deadline.cjs",
+      "actual_EOF": 9,
+      "ranges": [
+        [
+          1,
+          9
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2432,
+      "source_id": "pr-working:crates/strategic-web/tests/startup-fixtures.cjs",
+      "sha256": "3fe66637ca232035be76155934eb77978356cc9f82a33c4654f85d2e9d54b948",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/tests/startup-fixtures.cjs",
+      "actual_EOF": 85,
+      "ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2433,
+      "source_id": "pr-working:crates/strategic-web/tests/strategic-scene.browser.cjs",
+      "sha256": "d81e56d4369d714a8cb955a4da905fcda52f0596641fc14329768b4fd5f74c91",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/tests/strategic-scene.browser.cjs",
+      "actual_EOF": 551,
+      "ranges": [
+        [
+          1,
+          551
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Deadline wrapper clears timer but does not cancel underlying work; this is diagnostic execution control, not independent gameplay authority.",
+    "Startup fixtures select explicit A/B captures and validate environment source, origin and scale plus city identity/source; frozen fixture profile overrides are diagnostic inputs, not production admission evidence.",
+    "Browser harness has explicit mock-bridge versus real-renderer modes. Hardware acceptance requires a real nonfallback adapter and actual screenshot detail; mock acknowledgments cannot prove GPU behavior.",
+    "Warm-navigation oracle intentionally asserts no generation/equipment reload in immutable fixture world. It does not establish dynamic scene input invalidation, so F086 remains qualified.",
+    "Readiness, canvas identity, command state and screenshots observe different contracts; retained fixture values and layout measurements are not duplicate current gameplay authority. Browser-source review only; no harness, browser, codec, DB or tests executed."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2434,
+    "start_line": 1
+  }
+}

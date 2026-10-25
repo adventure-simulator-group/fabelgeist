@@ -1,0 +1,114 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-655",
+  "dimension": "shared-live-source-extensions",
+  "rows": [
+    {
+      "index": 0,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/materials/palette.rs",
+      "sha256": "0ce1ea507bc49a06edff5175cc0638a0cc8e5cf7c3e33258fc41b01e5d97faa1",
+      "actual_compared_ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "actual_EOF": 69,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/materials/palette.rs",
+        "sha256": "0ce1ea507bc49a06edff5175cc0638a0cc8e5cf7c3e33258fc41b01e5d97faa1",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "ranges": [
+          [
+            1,
+            69
+          ]
+        ],
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/0ce1ea507bc49a06edff5175cc0638a0cc8e5cf7c3e33258fc41b01e5d97faa1",
+        "registration_evidence": "redundant-authority/prospective-source-registration-001.json",
+        "reason": "Immediate BuildingPalette get owning definition consumed by scoped assembly/input.rs79-107. Must verify whether the prototype-key TimberInfill material assetID uniquely identifies the complete material palette. This is a first-party helper body, not blanket materials/SDK expansion. Exclude unrelated fixture/helper material if actual body contains it.",
+        "lenses": {
+          "producer-propagation": "newmaterial reconciliation pending; no inheritedcoverage",
+          "existing-type-owners": "newmaterial reconciliation pending; no inheritedcoverage",
+          "admission-contracts": "newmaterial reconciliation pending; no inheritedcoverage",
+          "invariant-operations": "newmaterial reconciliation pending; no inheritedcoverage",
+          "aggregate-states": "newmaterial reconciliation pending; no inheritedcoverage",
+          "type-ownership": "newmaterial reconciliation pending; no inheritedcoverage",
+          "redundant-authority": "newmaterial reconciliation pending; no inheritedcoverage",
+          "behavior-preservation": "newmaterial reconciliation pending; no inheritedcoverage",
+          "enum-shapes": "newmaterial reconciliation pending; no inheritedcoverage",
+          "derivability": "newmaterial reconciliation pending; no inheritedcoverage",
+          "type-granularity": "newmaterial reconciliation pending; no inheritedcoverage",
+          "magic-strings": "newmaterial reconciliation pending; no inheritedcoverage",
+          "magic-numbers": "newmaterial reconciliation pending; no inheritedcoverage"
+        },
+        "status": "Prospective registered07byowner; coordinator exactbytes verified. Historical2853counts unchanged; currentextra role must be accounted separately acrossall13."
+      },
+      "evidence": "SEGOVB-INITIAL04-CONTRACT-655",
+      "method": "Every exact registered material range personally read and analyzed for04 in its stated sourcevariant/context; no imported lens coverage.",
+      "status": "PERSONALLY_READ_WITH_FINDINGS"
+    },
+    {
+      "index": 1,
+      "source_id": "merged774:crates/adventuresim-weapon-model-browser/src/lib.rs",
+      "sha256": "c29071eeb95db76a0909330a53328dd39f1f2d2f1dddfcecff7c448fcffe344b",
+      "actual_compared_ranges": [
+        [
+          1,
+          250
+        ]
+      ],
+      "actual_EOF": 250,
+      "registration": {
+        "source_id": "merged774:crates/adventuresim-weapon-model-browser/src/lib.rs",
+        "sha256": "c29071eeb95db76a0909330a53328dd39f1f2d2f1dddfcecff7c448fcffe344b",
+        "revision": "13fc9dcc71ab879de364117e5462310673e43210",
+        "ranges": [
+          [
+            1,
+            250
+          ]
+        ],
+        "registration_evidence": "local774:PC90/M84, actual received source read recorded in file_reviews",
+        "reason": "Immediate authoring->Request::execute->WASMtext receiving graph, production and original fixtures; no blanket browsercrate expansion.",
+        "lenses": {
+          "producer-propagation": "producerbodyread recorded, full connected pass incomplete",
+          "existing-type-owners": "newmaterial reconciliation pending",
+          "admission-contracts": "newmaterial reconciliation pending",
+          "invariant-operations": "newmaterial reconciliation pending",
+          "aggregate-states": "newmaterial reconciliation pending",
+          "type-ownership": "newmaterial reconciliation pending",
+          "redundant-authority": "newmaterial reconciliation pending",
+          "behavior-preservation": "newmaterial reconciliation pending",
+          "enum-shapes": "newmaterial reconciliation pending",
+          "derivability": "newmaterial reconciliation pending",
+          "type-granularity": "newmaterial reconciliation pending",
+          "magic-strings": "newmaterial reconciliation pending",
+          "magic-numbers": "newmaterial reconciliation pending"
+        },
+        "status": "New reached local role; actualread not retrospective prospective-registration credit.",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/c29071eeb95db76a0909330a53328dd39f1f2d2f1dddfcecff7c448fcffe344b"
+      },
+      "evidence": "SEGOVB-INITIAL04-CONTRACT-655",
+      "method": "Every exact registered material range personally read and analyzed for04 in its stated sourcevariant/context; no imported lens coverage.",
+      "status": "PERSONALLY_READ_WITH_FINDINGS"
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Deterministic palette native material selection",
+      "evidence": "Live0 exact palette1\u201369 read. All match arms clone actual selected Handle; finish-dependent civilian wall, timber/infill/tile and furniture surface enum indexing retain native vocabulary. No arithmetic or retained mutation apart from native handle clone.",
+      "qualifications": "Prototype/cache key based only on infill identity does not prove whole palette identity; this source confirms palette can also select timber/tile/assets independently. Existing authority07 concern remains; no new04 duplicate defect or actual wrong drawn building. Furniture surface ordinal requires canonical bounded enum/array cohort, not raw index assumption.",
+      "acceptance": "Actual prototype/cache key identifies complete material authority or explicitly rebinds all selected part materials; no gameplay mesh/GPU run."
+    },
+    {
+      "contract": "Browser weapon request to authoritative generated result",
+      "evidence": "Live1 merged13fc browserlib1\u2013250 read including existingfixtures, no execution. Closed request/unknownfields, parser end check before execute. Exact Model/ValidateModel/Compose delegates authoritative library and propagates errors; Generate encodes accepted design then generates mesh/materials from same input before local JSON output. Diagnostic reparse only error context never executes invalid recipe.",
+      "qualifications": "Imported library native derived finite/geometry/index/physical laws remain earlier own04 scope evidence; transport delegation not automatic arithmetic success. serde_json native nonfinite\u2192null policy requires actual library result validation, no normal bad recipe promoted here.",
+      "acceptance": "Structured actual recipe/generation/material errors preserve exact accepted recipe/mesh/mass correspondence, no substitute or compatibility fallback; output finite/cohort constraints owned by kernel."
+    }
+  ],
+  "findings": [],
+  "first_unfinished_live_index": 2,
+  "status": "incomplete WITH_FINDINGS",
+  "execution": "none"
+}

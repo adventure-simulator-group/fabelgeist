@@ -1,0 +1,99 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-252",
+  "at": "2026-10-25T14:13:41.184737+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 502,
+      "source_id": "pr-working:assets/equipment/procedural/manifest.json",
+      "sha256": "7c9d975e49e5b775696c4120b075383ce2915b619761f7142d3feec1e35d0f10",
+      "actual_EOF": 694,
+      "requested_registration": {
+        "source_id": "pr-working:assets/equipment/procedural/manifest.json",
+        "snapshot": "pr-working",
+        "path": "assets/equipment/procedural/manifest.json",
+        "owner": "root",
+        "sha256": "7c9d975e49e5b775696c4120b075383ce2915b619761f7142d3feec1e35d0f10",
+        "base_sha256": "85e4e70817b318a29c047d17e6b6b1b8565549174e08f724b5b92e478d387034",
+        "state": "modified",
+        "bytes": 23266,
+        "audit_owner": "root",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [],
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 74,
+            "read_ranges": [
+              [
+                1,
+                694
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-AUTHORED-016"
+            ],
+            "read_status": "full_native_JSON_document_and_connected_schema_roles",
+            "resolved_path": "SNAPSHOTS/pr-working/assets/equipment/procedural/manifest.json"
+          },
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 351,
+            "read_ranges": [
+              [
+                1,
+                694
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-AUTHORED-016",
+              "ROOT-OWNER-CLOSURE-INDEX-079"
+            ],
+            "read_status": "full_native_JSON_document_and_connected_schema_roles",
+            "resolved_path": "SNAPSHOTS/pr-working/assets/equipment/procedural/manifest.json"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Complete exact JSON decoded/parsed, all object/array/scalar nodes traversed and every object schema enumerated in manifest-source-enumeration-252.json. Declarative-data analysis, not line-by-line Rust body or consumer validation.",
+      "actual_compared_ranges": [
+        [
+          1,
+          694
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "Non-Rust procedural equipment manifest, data only.",
+      "absence_basis": "Root assets/lod/mhr_release/schema_version;58 asset objects use only either armor-identity/version plus coverage/file/item/material/morph/placement/UV/triangles fields or corresponding nonarmor fields. Complete parsed node enumeration59dicts/1list/343strings/173integers/58floats has no Rust implementation body. Producer/native wire/runtime validity remain separate, uncredited."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Complete generated equipment manifest value records",
+      "disposition": "No hand trait/serializer body in data source; producer writer/canonical schema ownership separate.",
+      "acceptance": "Do not infer generated asset completeness/semantic authority or source conformance from manifest enumeration. No consumer/body or runtime claim."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 503,
+    "source_id": "pr-working:assets/shaders/tactical_city.wgsl"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

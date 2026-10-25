@@ -1,0 +1,96 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-119",
+  "at": "2026-10-22T20:48:43.575138+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-027.json",
+    "sha256": "f932f1a45ce4eb56d1f53f82b857f80f6ca61048981bad7937107c97d0de0e48"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-026.json",
+    "sha256": "0d0ea539f12bd3155fedb7e3147065cfd54476ce4e766dc697dfca3be4f76c19"
+  },
+  "new_variants": [],
+  "new_overlays": [
+    {
+      "id": "CONT-OWNER-RANGE-EXTENSION-205",
+      "at": "2026-10-22T20:48:43.575138+00:00",
+      "source_id": "physical-p16:crates/adventuresim-core/src/food.rs",
+      "sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+      "material_ranges": [
+        [
+          156,
+          170
+        ],
+        [
+          195,
+          215
+        ],
+        [
+          247,
+          307
+        ]
+      ],
+      "audit_owner": "camera",
+      "reason": "Existing scoped food::definition309-311 reads FOOD_CATALOG; exact direct immutable catalogue projection and retained FoodDefinition/FoodClass/FlavorProfile construction needed for current07 cache dependencies and string classification owner comparison",
+      "scope_registration": [
+        {
+          "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+          "sha256": "84831e550dbcffdd6a77adb82affe28e5237bed133b16cefe5ec1e28ce2bee47",
+          "row_1based": 9,
+          "id": "CAMERA-INITIAL07-REG009",
+          "original_record": {
+            "id": "CAMERA-INITIAL07-REG009",
+            "at": "2026-10-22T20:39:29.554952+00:00",
+            "authority": "CONT-ROOT-PARALLEL-INITIAL-AUDITS-081",
+            "source_id": "physical-p16:crates/adventuresim-core/src/food.rs",
+            "sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+            "actual_EOF": 848,
+            "material_ranges": [
+              [
+                156,
+                170
+              ],
+              [
+                195,
+                215
+              ],
+              [
+                247,
+                307
+              ]
+            ],
+            "material_caller": "Existing scoped food::definition309-311 reads FOOD_CATALOG; exact direct immutable catalogue projection and retained FoodDefinition/FoodClass/FlavorProfile construction needed for current07 cache dependencies and string classification owner comparison",
+            "exclusions": "No doneness1-155, preparation180-194, flavor operations216-246, food operation339+ or tests; original scoped constants/CookingMethod/309-338 remain separate",
+            "chronology": "Premature companion1-350 display included unscoped context; only preexisting exact ranges were eligible and all other display is explicitly uncredited. This registration precedes fresh requested bounded reread/current07 analysis.",
+            "status": "prospectively registered new material ranges on existing variant; global pending"
+          }
+        }
+      ],
+      "limits": "No doneness1-155, preparation180-194, flavor operations216-246, food operation339+ or tests; original scoped constants/CookingMethod/309-338 remain separate",
+      "source_qualifications": "Exact97actualnewlines (15+21+61); Root035/118 narrative99count typo correctedhere, exactsource ranges/proofs unchanged. Earlierprematurecompaniondisplay explicitlyuncredited. OtheroldFoodrolesretained."
+    }
+  ],
+  "total_variants": 2781,
+  "total_overlays": 205,
+  "registered_rows": 1,
+  "input_pins": [
+    {
+      "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+      "sha256": "84831e550dbcffdd6a77adb82affe28e5237bed133b16cefe5ec1e28ce2bee47",
+      "captured_rows": 9,
+      "selected_ids": [
+        "CAMERA-INITIAL07-REG009"
+      ]
+    }
+  ],
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through204-before027.jsonl",
+    "sha256": "aea3d6af852fcefa1bf48179fbd7c00f95dc3dba33368f193711a08a4ae5e426",
+    "through": 204
+  },
+  "mandatory_existing_role_qualification": {
+    "record": "continuation/root/parallel-scope-qualification-117.json",
+    "sha256": "f3b80648900716939057b20776d756a6e37001f6910378da1a1bbaea230d348b"
+  },
+  "limits": "Metadata-only existingP16Food directclass/flavor/data/cacheconstructor roles97lines, exactrequestedbounds+alloldrolesretained. Root118actual03manualproof separate. SDK117 unit/data expandedROLE qualificationmandatory. All13source/validation freeze."
+}

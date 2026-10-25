@@ -1,0 +1,65 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-069",
+  "at": "2026-10-23T00:30:24.557007+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/foraging.rs",
+      "sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+      "actual_compared_ranges": [
+        [
+          1,
+          1278
+        ]
+      ],
+      "source_evidence": "Fresh entirecurrentPR body in foursequentialboundedreads1-330/331-660/661-990/991-1278. No P16hashverdictcarry. Existingtestsreadonly."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/foraging/sampling.rs",
+      "sha256": "66d67a552e4a0f212e7a776678140af4965c40239a052e0f845c73143537d6e0",
+      "actual_compared_ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "source_evidence": "FreshcurrentPRfull25body earlierdisplay, waitedforactualPRcaller/resourceboundsbeforecredit; nowactualresolve/stealthpositiveupperconfirmed."
+    }
+  ],
+  "groups": {
+    "current-bounded-yield-operation": "Actual15currentPRstaticresourcesallmin1or2/max<=6ordered, no custompublicresourcefedresolve. Request60..1440wholehours, 1..5uniqueSourceIDs, eachavailableresourcesslicenonempty. Mixturefouru16<=1000checks shortcircuitbeforesum4000, thenexacttotal1000. Product2300*1440*1500*1000*1750<=8.694e15fitsu64, denominatormin480e9/max36e12 withpositivecounts, expected<=18112/discovered<=19/base<=6/yieldbonus<=1500/finalquantity<=171, no premature-saturationloss oru16fallbackunderactualbounds. NativeRNGupper1000/1001/range1..6NonZeroexpectguaranteed, streams3fixedindependentnames/lengthframedsource+item/localRNG owned; no deterministicdrawschange.",
+    "partial-operations-and-policies": "Partialstealth/trainingelapsed0..u64MAX deliberatelynotForageDuration. DCafterfirsthour saturatingwideu16thenmultiply75/finalmin4500 preserveintendedcap; actualnativeformatnotunitinterval/whole. Trainingelapsedf32/60*share<=1000 finitebelow~3.1e20 evenMAXelapsed, normalizedfixed4sharesconservewithinrounding; invalidmixturezeroarray explicitpolicy. habitatcustomresourcebiomesfoldsat thenmin1000bounded, resourceavailabilitydistinctfromsearchbudgetweights. AllstageslocalbeforeOk, no externallyretainedretryclockmutation.",
+    "canonical-rights-and-planner": "PrivateForageLicenseDecision matchesactor/source andquestiondigest/Harvest/Global atconstruction. SortednonemptyuniqueSourceIDs alignedbindings impliesknownmax5enum, anydeniedfeedsillegalattemptinstead ofgrantdenial intentionaldoctrine. Publicpreviewcontainsrequestonly, noprivateenvironment/rights/DC/yield. GenericpositiveRequestedDuration remainsbroaderthanspecificwholehourrequest; actualPR1minuteAPIcounterF026 independentlyconfirmed byfreshPRgenericRequestedDuration319-335/resolve_time374-411/build_plan602-636. No actualbadDBrequest/runtimeclaim, nocurrentyieldarithmeticdefect.",
+    "completion-and-source-failure": "Actualgenericbuild_plan requirementsallpassbeforesinglecalculate, checkedclockend/terminalties/ClockExhausted separatescompletion. Forageownedresolutionclearsyieldonpartialwhileexposurekept, zeroelapsednoCommit. Positiveelapsed+None resultomitsCommit despitecomment, wholeadaptercorrelationgapalreadyF026qualification, no fabricatedtime/actorwrites. No claimactualDBtransaction frompurehelper. Existingtests determinism/reversedsourceorder/resourceclassification/partialexposure/source-rightsdigestsourceonly, no newtests/assertions/helpers."
+  },
+  "partial_support": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_action.rs",
+      "sha256": "4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+      "actual_compared_ranges": [
+        [
+          319,
+          335
+        ],
+        [
+          374,
+          411
+        ],
+        [
+          602,
+          636
+        ]
+      ],
+      "whole_source_status": "INCOMPLETE_other_PR1209_roles_unread"
+    }
+  ],
+  "findings": [],
+  "prior_finding_support": [
+    "F026 currentPRsource/APIcorrelationnowindependentlyactualconfirmed, no secondfindingrecord"
+  ],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

@@ -1,0 +1,239 @@
+{
+  "id": "CONT08-CONNECTED-ANIMATION-001",
+  "at": "2026-10-25T17:32:12.892246+00:00",
+  "old_source": {
+    "path": "crates/adventuresim-tactical-client/src/animation/mod.rs",
+    "revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+    "sha256": "6d49798ace24ad67f2e32ad5917bbea0ecdd07d5ea261eed815a0e497e88b564",
+    "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-animation-mod-base-6d49798ace24ad67f2e32ad5917bbea0ecdd07d5ea261eed815a0e497e88b564",
+    "actual_read_ranges": [
+      [
+        100,
+        337
+      ],
+      [
+        510,
+        595
+      ],
+      [
+        675,
+        690
+      ]
+    ]
+  },
+  "ahead_full_body_reads": [
+    {
+      "scope_index": 1329,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/playback_contributions.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation/playback_contributions.rs",
+      "before_sha256": null,
+      "after_sha256": "5c10fad61699ffe32bde91d9f48b833a2e6c42d30f7c77189f0da2a73a2823b1",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/5c10fad61699ffe32bde91d9f48b833a2e6c42d30f7c77189f0da2a73a2823b1",
+      "diff": "source-evidence/pr-1329.diff",
+      "diff_sha256": "edc74ee8d19eec34037a819d131731978959c43588b40bf930aa8cc8c82a89e1",
+      "actual_body_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "status": "Fullheadbody/fulladdeddiffactuallyread; connected oldproducer/materialrecipient reconciliation pending, no rolecomplete credit yet."
+    },
+    {
+      "scope_index": 1330,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/playback_state.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation/playback_state.rs",
+      "before_sha256": null,
+      "after_sha256": "e9898cf619d1bdfe9c8ad70bd80b0600961abfda3e5cd8158330df18b2c9424d",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/e9898cf619d1bdfe9c8ad70bd80b0600961abfda3e5cd8158330df18b2c9424d",
+      "diff": "source-evidence/pr-1330.diff",
+      "diff_sha256": "249efbcdc880b3f3cdbb6ea75a8506ea9c9156cbcbe16d0b1d36d121c596ed59",
+      "actual_body_ranges": [
+        [
+          1,
+          155
+        ]
+      ],
+      "status": "Fullheadbody/fulladdeddiffactuallyread; connected oldproducer/materialrecipient reconciliation pending, no rolecomplete credit yet."
+    },
+    {
+      "scope_index": 1333,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/calibration_inputs.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation/pose_buffer/calibration_inputs.rs",
+      "before_sha256": null,
+      "after_sha256": "bc7371531895550fdec30c4a70a75f549a9cf24c209efbef405f831df198b58a",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/bc7371531895550fdec30c4a70a75f549a9cf24c209efbef405f831df198b58a",
+      "diff": "source-evidence/pr-1333.diff",
+      "diff_sha256": "4160ee96f72926e90b4c5edfd6fb88e05dc28b5ad81b98dd4f22746854cd6049",
+      "actual_body_ranges": [
+        [
+          1,
+          59
+        ]
+      ],
+      "status": "Fullheadbody/fulladdeddiffactuallyread; connected oldproducer/materialrecipient reconciliation pending, no rolecomplete credit yet."
+    },
+    {
+      "scope_index": 1341,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/phase_calibration/curve.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation/pose_buffer/phase_calibration/curve.rs",
+      "before_sha256": null,
+      "after_sha256": "5b1c1ef5eef21306ecadd36217f88b1c00be40518fea94696a27498347562f65",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/5b1c1ef5eef21306ecadd36217f88b1c00be40518fea94696a27498347562f65",
+      "diff": "source-evidence/pr-1341.diff",
+      "diff_sha256": "aafe282a8c91545cd2ef615b98625a56a7bc11a4cf4123d94445c26d5324c1ab",
+      "actual_body_ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "status": "Fullheadbody/fulladdeddiffactuallyread; connected oldproducer/materialrecipient reconciliation pending, no rolecomplete credit yet."
+    },
+    {
+      "scope_index": 1399,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/resolver.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation/resolver.rs",
+      "before_sha256": null,
+      "after_sha256": "1b0873cd746e039bdbc6d22d4f55b28ffad8141f68f43fbdb9fb3be25eb7eeb0",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/1b0873cd746e039bdbc6d22d4f55b28ffad8141f68f43fbdb9fb3be25eb7eeb0",
+      "diff": "source-evidence/pr-1399.diff",
+      "diff_sha256": "85590afe399f3aac58f6b52da8a4539c209ef24b737bad3f6da94777abdea1d7",
+      "actual_body_ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "status": "Fullheadaddedsourceactuallyread; exactspan143/sourcecallersampling andtypedcoordinateproducer checks pending; no originalrolecompletecredityet."
+    }
+  ],
+  "remaining_trace_obligations": [
+    "1311 cadence changes configuration/clip invalidation: actual calibrationproducer1331/1334/1340/1348 and consuming1352; keep rig/sourcepopulation and immutableoffset policy.",
+    "1312 bind predicate exactoldproducer532\u2013540\u2192new1329is_bind proven; actualcurrentplanassembly1328 and grips joining muststillberead.",
+    "1330 carriedplayback thresholds changedliterals toconfig; compare actualnativeconfig/defaults and newcurrentmovement_speedproducer1328 before ordinarybehaviorclaim.",
+    "1341 periodiccurve stronger seamadmission musttrace actualfitspans/periodicsmoothing and rejection/fallback cachepolicy, notequateabsentwithidentity."
+  ],
+  "more_actual_old_read_ranges": [
+    [
+      1,
+      99
+    ],
+    [
+      689,
+      775
+    ],
+    [
+      1225,
+      1344
+    ]
+  ],
+  "further_obligations": [
+    "1318/19 nativeassetchange detection/sourcefailure andclip/source recovery1326/27\u2192actualbank/rig1331 andplugin1328 order.",
+    "1320typedIncomingAttackTangent/UnitInterval producer clamp andactualframe_seconds/sample_values.",
+    "1321/22 successfultypedJSONallnativeSerde shapes; Q022IOfailurepolicyopen.",
+    "1408 GroundContact Airborne serialization exact!is_grounded nativecanonicalstate relation."
+  ],
+  "additional_resolved_source_facts": [
+    "1326/27 actualfullbodies andoldnewdiffread386: sourceidentity retainsAssetPath evenfirstNoHandle; pollgatesnativeLoaded/Failed/Loading, childcliploadstatechecked beforeoldbytes admission; no perframefile retry.",
+    "1326frame_seconds nowownedframeu16/finitivenativeHz division\u2192ClipTime; validordinarynumericorder unchanged; actual1407head finite signedtime/nonnegdurationbody read.",
+    "Whole loaded library rebuilt onlyfromactualadmittedclip records; unavailableoldrevisionremovedbeforepoll. Actual1318scheduler/cacheconsumer1331 remainspending.",
+    "1328full810andfull1613linediff consumed387. Actualresolvebody\u2192gripjoin\u2192into_playbackadmission\u2192commit verified.",
+    "1399full217linehead/addeddiff body consumed. Mirrorfraction computedbeforegripjoin andretainedinsideResolvedBodyPlan, reproducingoldbody-onlymirrorfold; fullplanweightadmission occursafterjoin. No ungroundedmirror-dilutionfinding.",
+    "1329zero-weighttopology kept throughis_bind/readiness/cadence, exactoldproducerpredicate532\u2013540; bind1312comparisonclosedatnativecurrentassembler.",
+    "1330default hysteresis actualnativeConfig1866 and previouslyown526 YAML213\u2013215 equaloldliteral.05initial/.03deactivate/.08activate, inclusivevalidateorder checked.",
+    "1330movement_speed actual1758evaluation97speed=state.animation_speed() and148movement_speed=speed; native1767:61\u201385 sameoldstate2256\u20132274 horizontalnormanddowned.8floor forfiniteinput. No normalspeedsourcechange."
+  ],
+  "ahead_partial_native_reads": [
+    {
+      "scope_index": 1758,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+      "before_sha256": "0239efe06a84d543607284f7b655c1350249a595b8f5b70255fdbf6e0e464697",
+      "after_sha256": "7b026fd31eb9c09c84b446dbb0b71faea9717f93c027226dfbe357c5150dd704",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1758-base-0239efe06a84d543607284f7b655c1350249a595b8f5b70255fdbf6e0e464697",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/7b026fd31eb9c09c84b446dbb0b71faea9717f93c027226dfbe357c5150dd704",
+      "diff": "source-evidence/pr-1758.diff",
+      "diff_sha256": "2f5c4079981a05f254625118020630e4242984fed2ad0396abb347f33d729b8b",
+      "actual_ranges": [
+        [
+          1,
+          165
+        ]
+      ],
+      "status": "Partialheadbody only; full111xlocomotion/actionevaluation lateroriginalfrontier."
+    },
+    {
+      "scope_index": 1767,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "before_sha256": "ce2ac88da3f6719c53fe2980e255b7142d41011e3e95453b4ace4dc89ee44c73",
+      "after_sha256": "6aef5ced10b1d430e513c990cd005b5e6ff4bdf8c98505b3dccd48d17cb6ac62",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1767-base-ce2ac88da3f6719c53fe2980e255b7142d41011e3e95453b4ace4dc89ee44c73",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/6aef5ced10b1d430e513c990cd005b5e6ff4bdf8c98505b3dccd48d17cb6ac62",
+      "diff": "source-evidence/pr-1767.diff",
+      "diff_sha256": "92e60e70df4c72b5a279d9003dc42afa6b1fc2d6d46b433e9bfca76e878056cd",
+      "actual_ranges": [
+        [
+          1,
+          267
+        ]
+      ],
+      "full_diff_read": true,
+      "old_moved_source": "pr-core-animation-state-base-47c04943f11bc1d221e680cfdf8a44b05c9face66c7aa14279e6d7eee807aa7b",
+      "old_moved_ranges": [
+        [
+          2235,
+          2286
+        ]
+      ],
+      "status": "Fullhead/diffread, additionaloldmovedguardstep producer+config/gaitrecipient contracts pending; no completecredit."
+    },
+    {
+      "scope_index": 1866,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/playback.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/combat_config/playback.rs",
+      "before_sha256": null,
+      "after_sha256": "6eac571d575402a1ccbcdda6ad103850b9f52fed3f9bc602d558ea5629d23fdd",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/6eac571d575402a1ccbcdda6ad103850b9f52fed3f9bc602d558ea5629d23fdd",
+      "diff": "source-evidence/pr-1866.diff",
+      "diff_sha256": "d41b50200c01a241aba01330cb87663e6a865a24c11077404bab39e0d7eb1fb1",
+      "actual_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "full_diff_read": true,
+      "status": "Fulladdedbody read; actualparentconfig admission andcoupledcadence materialconnections lateroriginalfrontier; no completecredit."
+    }
+  ],
+  "own390_to394_resolution": {
+    "receipt": "contract-groups-390.json through394",
+    "actual1331": "wholehead1\u20131892/diff1\u20132750 andall18childbodies consumed, sourcecomparison accountedWITHQ023",
+    "actual_plugin1355": "whole109head+23diff read; chain refreshrevisions\u2192collectload\u2192presented\u2192target/humanoidbind/cache\u2192ragdoll\u2192capture\u2192semanticroute\u2192evaluate\u2192posebuffer\u2192referencecalibrate\u2192actorcalibrate\u2192visibility\u2192events. This resolvespreviousorderingquestionwithout assumingengineexecution.",
+    "calibration": "Actual1350for_actor usescurrentArc/offsetsnapshot;1311 rejectsconfigmismatch;1318invalidatespriorreference/actor andbank. Validfiniteoldfitnativeorder preserved;strongerinvalidfitadmission sourcequalified."
+  }
+}

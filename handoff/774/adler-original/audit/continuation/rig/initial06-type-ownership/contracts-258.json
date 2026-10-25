@@ -1,0 +1,18 @@
+{
+  "id": "RIG-INITIAL06-GROUP-258",
+  "at": "2026-10-23T07:40:40.326352+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-070.json",
+  "groups": {
+    "lofted-blade-source-units-and-topology": {
+      "comparison": "Fresh exact sectioned_blade1–18/31–57 defines canonical BladePlan(Straight/Leaf/Cleaver), BladeCrossSection(Diamond/Fullered/Hexagonal/Lenticular/Recessed) and raw public LoftedBladeParameters. Plan versus transverse section are different topology roles, not duplicate shape or weapon-class enums merely sharing a word. Canonical f64 Metres covers length/width/thickness/curvature/ricasso, Ratio taper/single_edge/belly dimensionless coefficients and Count samples remain different units; do not impose generic UnitInterval on belly or positiveLength on all signed/zero-capable source measures without actual role predicate. Optional fuller/point with deserialize_present is legitimate authoring wire behavior, not compatibility fallback or proof of called decoder. Shape source product belongs weapon recipe; computed geometry/mesh bounds/axial seat range253 and physical output231 are derived stages, not independent canonical definitions to collapse. Finite input leaf does not guarantee model width/inertia finite, preserve Root current operation/native-output graph without borrowing its verdict or claiming full accepted witness. No19–30 or60+ other products, whole66, P16, custom decoder/model/caller body credit from this bounded declaration.",
+      "disposition": "Keep canonical authored blade plan/section/product and correct model units distinct from derived ranges, mesh and physical outputs; no new competing owner."
+    }
+  },
+  "source_fact_refs": [
+    "contracts-239.json",
+    "contracts-248.json",
+    "contracts-253.json"
+  ],
+  "limits": "One exact new source declaration role freshly compared with mandatory242 exclusions; no whole66 or unseen decoder/model/operations/P16 credit. No edits/execution/newscope/later-lens credit."
+}

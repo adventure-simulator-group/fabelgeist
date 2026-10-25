@@ -1,0 +1,733 @@
+{
+  "id": "OWN02-DELTA-CONTRACT-001",
+  "at": "2026-10-24T01:57:10.004748+00:00",
+  "lens": "audit-existing-type-owners",
+  "baseline": "Adopted ROOT040/0422560variants+59overlays WITH_FINDINGS; no baseline replay",
+  "queue": "continuation/bounded01-02-newmaterial-queue-087.json",
+  "queue_sha256": "841f3e99adf9df5a25c44585ca5d726a7ae09d15f02f87eda9fbc2fe80160f21",
+  "rows": [
+    {
+      "delta_index": 0,
+      "source_scope_index": 2693,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source.rs",
+      "sha256": "ff887ab06cf0892fa9f624f587e493319a93fc570898a890fb117a382061e3b3",
+      "effective_ranges": [
+        [
+          1,
+          179
+        ]
+      ],
+      "registration": {
+        "record": "continuation/root/admission03/source-range-registration.jsonl",
+        "sha256": "42db551c1765fc0c264eb972d5c17b6f69671f476ee3aab27cc97a0e5bac76f4",
+        "row_1based": 23,
+        "id": "ROOT-ADM-REG-023"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "root",
+          "registry": "continuation/root/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "registration_id": "ROOT-ADM-REG-023",
+            "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source.rs",
+            "sha256": "ff887ab06cf0892fa9f624f587e493319a93fc570898a890fb117a382061e3b3",
+            "effective_material_ranges": [
+              [
+                1,
+                179
+              ]
+            ],
+            "qualifications": [],
+            "status": "pure_existing_actual_role_range_normalization_not_source_or_otherlens_credit"
+          },
+          "registration_id_resolved": "ROOT-ADM-REG-023"
+        }
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": {
+        "own07_exact_body_proof": [
+          "CONT07-CONTRACT-617"
+        ],
+        "fresh02_reanalysis": "personally reread0/1/2/3/5/6 exactsourcebodies and relevantowner definitions; own07exact floorbody/ranges reusedfor4/7; producerpacket narrative consumed only as independent source navigation, no01verdicttransfer"
+      },
+      "owner_fit_disposition": "existing-owner-reuse-positive-plus-physical-leaf-propagation",
+      "owner_fit_reasoning": "GeographicHeightControl already binds ScenePlanPoint and SupportElevation (source28\u201331), fitting finite scene-local horizontalpoint and signed finite elevation, validzero preserved. ScenePlanPoint definition1907:23\u201363 and SupportElevation1803:73\u2013109 are exact owners, not geographicdegrees or positive-only height. from_vista_lod103\u2013135 extracts rawwidth/depth/spacing/origin/heights from existing VistaLod; retain admitted grid/cohort owner obligations M64, not invent three primitive aliases. boundarysegment tolerance47 is exact contact PositiveLength from SupportLimits1835:41, through banks/sections actualdistance kernel (own07source1815 full and root supportingproof). Preserve that existing leaf until actual math projection; DVec2/Vec3 at triangle broadphase/determinant boundary retain explicit precision/frame justification. Raw boundary_extension_factor dimensionless condition estimate differs grade limit, no sameowner by bothf64.",
+      "definition_and_receiver_evidence": [
+        {
+          "scope_index": 1907,
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+          "sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+          "ranges": [
+            [
+              23,
+              63
+            ]
+          ]
+        },
+        {
+          "scope_index": 1803,
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+          "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+          "ranges": [
+            [
+              73,
+              109
+            ]
+          ]
+        },
+        {
+          "scope_index": 1835,
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/policy.rs",
+          "sha256": "2a2a18dafb072f8878e496462df0257b5bdaa9481895595affbee001b0e52e46",
+          "ranges": [
+            [
+              35,
+              57
+            ]
+          ]
+        }
+      ],
+      "related_findings": [
+        "local774:M64"
+      ],
+      "discovery": "accounted WITH inheritedfindings/exact owner questions; notclear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true
+    },
+    {
+      "delta_index": 1,
+      "source_scope_index": 2694,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/members.rs",
+      "sha256": "9e11219c566b928235ef911905fcfbb6f5ee39eaae0b88b00c7852dda97892bc",
+      "effective_ranges": [
+        [
+          1,
+          52
+        ]
+      ],
+      "registration": {
+        "record": "continuation/root/admission03/source-range-registration.jsonl",
+        "sha256": "42db551c1765fc0c264eb972d5c17b6f69671f476ee3aab27cc97a0e5bac76f4",
+        "row_1based": 24,
+        "id": "ROOT-ADM-REG-024"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "root",
+          "registry": "continuation/root/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "registration_id": "ROOT-ADM-REG-024",
+            "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/members.rs",
+            "sha256": "9e11219c566b928235ef911905fcfbb6f5ee39eaae0b88b00c7852dda97892bc",
+            "effective_material_ranges": [
+              [
+                1,
+                52
+              ]
+            ],
+            "qualifications": [],
+            "status": "pure_existing_actual_role_range_normalization_not_source_or_otherlens_credit"
+          },
+          "registration_id_resolved": "ROOT-ADM-REG-024"
+        }
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": {
+        "own07_exact_body_proof": [
+          "CONT07-CONTRACT-618"
+        ],
+        "fresh02_reanalysis": "personally reread0/1/2/3/5/6 exactsourcebodies and relevantowner definitions; own07exact floorbody/ranges reusedfor4/7; producerpacket narrative consumed only as independent source navigation, no01verdicttransfer"
+      },
+      "owner_fit_disposition": "existing-owners-fit-already",
+      "owner_fit_reasoning": "PropertyMembers retains Vec<SceneBuildingId> in constructor, accessor and serde. Existing identity is not arrayindex; diagnosticusize index/first positions do not fit SceneBuildingId. Constructor rejects zero andduplicates, preserves order. No local mirror identity type needed, no canonicalsort. Itemidentity syntax extraction .0 only gatesactualzero, not wrongowner.",
+      "definition_and_receiver_evidence": [
+        {
+          "scope_index": 2694,
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/members.rs",
+          "sha256": "9e11219c566b928235ef911905fcfbb6f5ee39eaae0b88b00c7852dda97892bc",
+          "ranges": [
+            [
+              1,
+              52
+            ]
+          ]
+        }
+      ],
+      "related_findings": [],
+      "discovery": "accounted WITH inheritedfindings/exact owner questions; notclear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true
+    },
+    {
+      "delta_index": 2,
+      "source_scope_index": 1846,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface.rs",
+      "sha256": "dd84d03806822c09a5bd0e299647d2b4454050ad009a1add640a462320bafd20",
+      "effective_ranges": [
+        [
+          1,
+          157
+        ]
+      ],
+      "registration": {
+        "record": "continuation/root/admission03/source-range-registration.jsonl",
+        "sha256": "42db551c1765fc0c264eb972d5c17b6f69671f476ee3aab27cc97a0e5bac76f4",
+        "row_1based": 25,
+        "id": "ROOT-ADM-REG-025"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "root",
+          "registry": "continuation/root/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "registration_id": "ROOT-ADM-REG-025",
+            "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface.rs",
+            "sha256": "dd84d03806822c09a5bd0e299647d2b4454050ad009a1add640a462320bafd20",
+            "effective_material_ranges": [
+              [
+                1,
+                157
+              ]
+            ],
+            "qualifications": [],
+            "status": "pure_existing_actual_role_range_normalization_not_source_or_otherlens_credit"
+          },
+          "registration_id_resolved": "ROOT-ADM-REG-025"
+        }
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": {
+        "own07_exact_body_proof": [
+          "CONT07-CONTRACT-421"
+        ],
+        "fresh02_reanalysis": "personally reread0/1/2/3/5/6 exactsourcebodies and relevantowner definitions; own07exact floorbody/ranges reusedfor4/7; producerpacket narrative consumed only as independent source navigation, no01verdicttransfer"
+      },
+      "owner_fit_disposition": "existing-contextual-owner-positive-plus-native-port-qualification",
+      "owner_fit_reasoning": "Current mesh/floor/CityPlotBounds/SupportLimits/treatment carry existingsemanticowners. contains92\u2013100 accepts ScenePlanPoint thenextracts only for actualperpdot math. intersects_disc105 takes rawVec2/f32 directlyinto f64 distance query: potential typedScenePlanPoint + nonnegative physicalradius would need caller admission (zero may be meaningful), so do not blindlyuse positivecontact tolerance or SupportElevation. rejection136\u2013152 raw measured/permitted constructorfeeds units-tagged SupportViolation; DiagnosticMetres admits finite signed, DiagnosticArea finite>=0, DiagnosticCount>=0, GeographicGrade finite>=0, so PositiveLength is not generalreplacement. Existing M64 physicalcontacttol mesh storage counterpart fits PositiveLength because decoder strictlypositive and equalitychecks SupportLimits.",
+      "definition_and_receiver_evidence": [
+        {
+          "scope_index": 1835,
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/policy.rs",
+          "sha256": "2a2a18dafb072f8878e496462df0257b5bdaa9481895595affbee001b0e52e46",
+          "ranges": [
+            [
+              35,
+              57
+            ]
+          ]
+        },
+        {
+          "scope_index": 1828,
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/measurement.rs",
+          "sha256": "6bf7e931e120e7f023858ffebeedc30845b61f861c39ec75d03c500564192bc1",
+          "ranges": [
+            [
+              5,
+              39
+            ],
+            [
+              233,
+              245
+            ]
+          ]
+        },
+        {
+          "scope_index": 1907,
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+          "sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+          "ranges": [
+            [
+              23,
+              63
+            ]
+          ]
+        }
+      ],
+      "related_findings": [
+        "local774:M64"
+      ],
+      "discovery": "accounted WITH inheritedfindings/exact owner questions; notclear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true
+    },
+    {
+      "delta_index": 3,
+      "source_scope_index": 2695,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/validation.rs",
+      "sha256": "b3b0b91b5ad6af9f24f0166a723369ea8b37babe7d809934f513a2c0da87b91b",
+      "effective_ranges": [
+        [
+          1,
+          157
+        ]
+      ],
+      "registration": {
+        "record": "continuation/root/admission03/source-range-registration.jsonl",
+        "sha256": "42db551c1765fc0c264eb972d5c17b6f69671f476ee3aab27cc97a0e5bac76f4",
+        "row_1based": 26,
+        "id": "ROOT-ADM-REG-026"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "root",
+          "registry": "continuation/root/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "registration_id": "ROOT-ADM-REG-026",
+            "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/validation.rs",
+            "sha256": "b3b0b91b5ad6af9f24f0166a723369ea8b37babe7d809934f513a2c0da87b91b",
+            "effective_material_ranges": [
+              [
+                1,
+                157
+              ]
+            ],
+            "qualifications": [],
+            "status": "pure_existing_actual_role_range_normalization_not_source_or_otherlens_credit"
+          },
+          "registration_id_resolved": "ROOT-ADM-REG-026"
+        }
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": {
+        "own07_exact_body_proof": [
+          "CONT07-CONTRACT-421",
+          "CONT07-CONTRACT-618"
+        ],
+        "fresh02_reanalysis": "personally reread0/1/2/3/5/6 exactsourcebodies and relevantowner definitions; own07exact floorbody/ranges reusedfor4/7; producerpacket narrative consumed only as independent source navigation, no01verdicttransfer"
+      },
+      "owner_fit_disposition": "concrete-existing-owner-migration-support",
+      "owner_fit_reasoning": "Measured supportgrade at122 is rawf32 returned by mesh1829:214\u2013223, compared to SupportGrade positivef32 limit then wrapped GeographicGrade onlyonerror125. Existing GeographicGrade1828:233\u2013245 fits nonnegativefinite observation, including flat0; SupportGrade1835:6\u201332 is engineering positivepolicy and cannotreplace flatmeasurement. Preserve measured owner fromproducer through comparison and diagnostic, making invalid/nonfinite path structured ratherthan uncheckedconstructorunwrap. Widening f32 result to existingf64owner neednot silentlychange mathprecision; retain cross/normal/topology rejection. Error property+members alreadytyped, no Stringpolicy untilSerde.",
+      "definition_and_receiver_evidence": [
+        {
+          "scope_index": 1829,
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/mesh.rs",
+          "sha256": "d126f49c7be7d94e3c1e6bd19e6479542f155aaee7fedfccaa1c471706eed66e",
+          "ranges": [
+            [
+              212,
+              223
+            ]
+          ]
+        },
+        {
+          "scope_index": 1828,
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/measurement.rs",
+          "sha256": "6bf7e931e120e7f023858ffebeedc30845b61f861c39ec75d03c500564192bc1",
+          "ranges": [
+            [
+              233,
+              245
+            ]
+          ]
+        },
+        {
+          "scope_index": 1835,
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/policy.rs",
+          "sha256": "2a2a18dafb072f8878e496462df0257b5bdaa9481895595affbee001b0e52e46",
+          "ranges": [
+            [
+              6,
+              32
+            ]
+          ]
+        }
+      ],
+      "related_findings": [
+        "local774:M64"
+      ],
+      "discovery": "accounted WITH inheritedfindings/exact owner questions; notclear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true
+    },
+    {
+      "delta_index": 4,
+      "source_scope_index": 2696,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+      "sha256": "25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+      "effective_ranges": [
+        [
+          1,
+          299
+        ],
+        [
+          314,
+          323
+        ]
+      ],
+      "registration": {
+        "record": "continuation/root/admission03/source-range-registration.jsonl",
+        "sha256": "42db551c1765fc0c264eb972d5c17b6f69671f476ee3aab27cc97a0e5bac76f4",
+        "row_1based": 27,
+        "id": "ROOT-ADM-REG-027"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "root",
+          "registry": "continuation/root/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "registration_id": "ROOT-ADM-REG-027",
+            "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+            "sha256": "25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+            "effective_material_ranges": [
+              [
+                1,
+                299
+              ],
+              [
+                314,
+                323
+              ]
+            ],
+            "qualifications": [],
+            "status": "pure_existing_actual_role_range_normalization_not_source_or_otherlens_credit"
+          },
+          "registration_id_resolved": "ROOT-ADM-REG-027"
+        }
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": {
+        "own07_exact_body_proof": [
+          "CONT07-CONTRACT-421",
+          "CONT07-CONTRACT-618"
+        ],
+        "fresh02_reanalysis": "personally reread0/1/2/3/5/6 exactsourcebodies and relevantowner definitions; own07exact floorbody/ranges reusedfor4/7; producerpacket narrative consumed only as independent source navigation, no01verdicttransfer"
+      },
+      "owner_fit_disposition": "existing-frame-owners-positive-native-f64-kernel-qualification",
+      "owner_fit_reasoning": "FloorBearing bindings use SceneBuildingId, FloorRegion and SupportElevation. Geometry intersection/clipping works with f64 DVec2; ScenePlanPoint is finitef32 scene point and ArchitecturalPlanPoint differentframe, so directreplacement would narrowprecision oreraseprojection. FloorRegionCoverage rawabsent/wrong_area and representative(DVec2,f64) onlyfeed sameadmission/DiagnosticArea or DiagnosticMetres, exactareas zero-valid anddistance sign varies. Existing diagnostic quantities are useful returned semanticviews, not blanketreplace everypolynomialtemporary. Orderedfloor binding/admitted member tests remain inherited03/04 findings; no sourceclearance.",
+      "definition_and_receiver_evidence": [
+        {
+          "scope_index": 1828,
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/measurement.rs",
+          "sha256": "6bf7e931e120e7f023858ffebeedc30845b61f861c39ec75d03c500564192bc1",
+          "ranges": [
+            [
+              5,
+              39
+            ]
+          ]
+        },
+        {
+          "scope_index": 2697,
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor/region.rs",
+          "sha256": "0776d212c25f4a233acb887f1fa0e5318c494cff1121dfb5125e6f5105d3d409",
+          "ranges": [
+            [
+              14,
+              53
+            ]
+          ]
+        }
+      ],
+      "related_findings": [],
+      "discovery": "accounted WITH inheritedfindings/exact owner questions; notclear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true
+    },
+    {
+      "delta_index": 5,
+      "source_scope_index": 2697,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor/region.rs",
+      "sha256": "0776d212c25f4a233acb887f1fa0e5318c494cff1121dfb5125e6f5105d3d409",
+      "effective_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "registration": {
+        "record": "continuation/root/admission03/source-range-registration.jsonl",
+        "sha256": "42db551c1765fc0c264eb972d5c17b6f69671f476ee3aab27cc97a0e5bac76f4",
+        "row_1based": 28,
+        "id": "ROOT-ADM-REG-028"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "root",
+          "registry": "continuation/root/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "registration_id": "ROOT-ADM-REG-028",
+            "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor/region.rs",
+            "sha256": "0776d212c25f4a233acb887f1fa0e5318c494cff1121dfb5125e6f5105d3d409",
+            "effective_material_ranges": [
+              [
+                1,
+                78
+              ]
+            ],
+            "qualifications": [],
+            "status": "pure_existing_actual_role_range_normalization_not_source_or_otherlens_credit"
+          },
+          "registration_id_resolved": "ROOT-ADM-REG-028"
+        }
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": {
+        "own07_exact_body_proof": [
+          "CONT07-CONTRACT-421",
+          "CONT07-CONTRACT-618"
+        ],
+        "fresh02_reanalysis": "personally reread0/1/2/3/5/6 exactsourcebodies and relevantowner definitions; own07exact floorbody/ranges reusedfor4/7; producerpacket narrative consumed only as independent source navigation, no01verdicttransfer"
+      },
+      "owner_fit_disposition": "different-existing-frames-fit-already",
+      "owner_fit_reasoning": "FloorRegionWire Scene vertices Vec<ScenePlanPoint>; Architectural vertices Vec<ArchitecturalPlanPoint> with typedcentre/origin/BuildingOrientation. Existing ArchitecturalPlanProjection is explicit framehandoff. Bothmetres doesnotjustify ownermerge; serde reconstructs appropriate PlanPolygon then ScenePlanPolygon fromcheckedtypedinputs. Retained admission carries provenance, not a raw duplicatepointowner.",
+      "definition_and_receiver_evidence": [
+        {
+          "scope_index": 2697,
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor/region.rs",
+          "sha256": "0776d212c25f4a233acb887f1fa0e5318c494cff1121dfb5125e6f5105d3d409",
+          "ranges": [
+            [
+              1,
+              78
+            ]
+          ]
+        },
+        {
+          "scope_index": 1907,
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+          "sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+          "ranges": [
+            [
+              1,
+              39
+            ]
+          ]
+        }
+      ],
+      "related_findings": [],
+      "discovery": "accounted WITH inheritedfindings/exact owner questions; notclear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true
+    },
+    {
+      "delta_index": 6,
+      "source_scope_index": 1846,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface.rs",
+      "sha256": "dd84d03806822c09a5bd0e299647d2b4454050ad009a1add640a462320bafd20",
+      "effective_ranges": [
+        [
+          158,
+          177
+        ]
+      ],
+      "registration": {
+        "record": "continuation/root/admission03/source-range-registration.jsonl",
+        "sha256": "42db551c1765fc0c264eb972d5c17b6f69671f476ee3aab27cc97a0e5bac76f4",
+        "row_1based": 29,
+        "id": "ROOT-ADM-REG-029"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "root",
+          "registry": "continuation/root/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "registration_id": "ROOT-ADM-REG-029",
+            "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface.rs",
+            "sha256": "dd84d03806822c09a5bd0e299647d2b4454050ad009a1add640a462320bafd20",
+            "effective_material_ranges": [
+              [
+                158,
+                177
+              ]
+            ],
+            "qualifications": [],
+            "status": "pure_existing_actual_role_range_normalization_not_source_or_otherlens_credit"
+          },
+          "registration_id_resolved": "ROOT-ADM-REG-029"
+        }
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": {
+        "own07_exact_body_proof": [
+          "CONT07-CONTRACT-421"
+        ],
+        "fresh02_reanalysis": "personally reread0/1/2/3/5/6 exactsourcebodies and relevantowner definitions; own07exact floorbody/ranges reusedfor4/7; producerpacket narrative consumed only as independent source navigation, no01verdicttransfer"
+      },
+      "owner_fit_disposition": "existing-owners-preserved-through-aggregate-producer",
+      "owner_fit_reasoning": "support_surface158\u2013177 retains typedmesh, FloorBearing, regions, limits, treatment and validates beforepublication. No separateprimitiveAPI to narrow. constructionerror maps typed FloorBearing cause into contextualdiagnostic. Scopedrole only158\u2013177; not credit unrelated filecallerpath from group.",
+      "definition_and_receiver_evidence": [
+        {
+          "scope_index": 1846,
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface.rs",
+          "sha256": "dd84d03806822c09a5bd0e299647d2b4454050ad009a1add640a462320bafd20",
+          "ranges": [
+            [
+              158,
+              177
+            ]
+          ]
+        }
+      ],
+      "related_findings": [],
+      "discovery": "accounted WITH inheritedfindings/exact owner questions; notclear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true
+    },
+    {
+      "delta_index": 7,
+      "source_scope_index": 2696,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+      "sha256": "25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+      "effective_ranges": [
+        [
+          305,
+          311
+        ]
+      ],
+      "registration": {
+        "record": "continuation/root/admission03/source-range-registration.jsonl",
+        "sha256": "42db551c1765fc0c264eb972d5c17b6f69671f476ee3aab27cc97a0e5bac76f4",
+        "row_1based": 30,
+        "id": "ROOT-ADM-REG-030"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "root",
+          "registry": "continuation/root/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "registration_id": "ROOT-ADM-REG-030",
+            "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+            "sha256": "25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+            "effective_material_ranges": [
+              [
+                305,
+                311
+              ]
+            ],
+            "qualifications": [
+              {
+                "id": "ROOT-ADM-QUAL-REG-030",
+                "registration_id": "ROOT-ADM-REG-030",
+                "at": "2026-10-22T14:41:20.768826+00:00",
+                "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+                "effective_material_ranges": [
+                  [
+                    305,
+                    311
+                  ]
+                ],
+                "original_prospective_ranges": [
+                  [
+                    300,
+                    313
+                  ]
+                ],
+                "qualification": "Actualusedproductionedgekey305\u2013311material; cfgtestmod300\u2013301 andcomments303\u2013304/313contextnotbodycredit. REG0271\u2013299/314\u2013323unchanged; no fictionaltestexemption."
+              }
+            ],
+            "status": "pure_existing_actual_role_range_normalization_not_source_or_otherlens_credit"
+          },
+          "registration_id_resolved": "ROOT-ADM-REG-030"
+        }
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": {
+        "own07_exact_body_proof": [
+          "CONT07-CONTRACT-421",
+          "CONT07-CONTRACT-618"
+        ],
+        "fresh02_reanalysis": "personally reread0/1/2/3/5/6 exactsourcebodies and relevantowner definitions; own07exact floorbody/ranges reusedfor4/7; producerpacket narrative consumed only as independent source navigation, no01verdicttransfer"
+      },
+      "owner_fit_disposition": "justified-native-bit-key-not-semantic-id",
+      "owner_fit_reasoning": "edge_coordinate_key305\u2013311 converts exactnativef32pointcoordinates to u32bits for BTreeMap equality in exteriorperimeter, explicitly unifying signedzeros. These are privatebitkeys, not buildingID/ScenePlanPoint ordinals/serializedvertexformat. Retain actualequalitypolicy instead of using newUnsignedIndex or rejecting-0. Mandatory effective305\u2013311 excludes testmodule/comment ranges300\u2013304/312\u2013313; no testbodycredit.",
+      "definition_and_receiver_evidence": [
+        {
+          "scope_index": 2696,
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+          "sha256": "25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+          "ranges": [
+            [
+              305,
+              311
+            ]
+          ]
+        }
+      ],
+      "related_findings": [],
+      "discovery": "accounted WITH inheritedfindings/exact owner questions; notclear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true
+    }
+  ],
+  "supporting_actual_sources": [
+    {
+      "scope_index": 1835,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/policy.rs",
+      "sha256": "2a2a18dafb072f8878e496462df0257b5bdaa9481895595affbee001b0e52e46",
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ]
+    },
+    {
+      "scope_index": 1828,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/measurement.rs",
+      "sha256": "6bf7e931e120e7f023858ffebeedc30845b61f861c39ec75d03c500564192bc1",
+      "ranges": [
+        [
+          1,
+          50
+        ],
+        [
+          220,
+          261
+        ]
+      ]
+    },
+    {
+      "scope_index": 1803,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+      "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+      "ranges": [
+        [
+          1,
+          52
+        ],
+        [
+          70,
+          113
+        ]
+      ]
+    },
+    {
+      "scope_index": 1907,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+      "sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+      "ranges": [
+        [
+          1,
+          89
+        ]
+      ]
+    },
+    {
+      "scope_index": 1829,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/mesh.rs",
+      "sha256": "d126f49c7be7d94e3c1e6bd19e6479542f155aaee7fedfccaa1c471706eed66e",
+      "ranges": [
+        [
+          208,
+          229
+        ]
+      ]
+    }
+  ],
+  "source_scope_qualification": "Source supportingbodies already07inventoried exact frozen variants; no new globalmaterialrole fromfreshreread. Formal02owner application independent.",
+  "frontier": {
+    "accounted_delta_roles": 8,
+    "total": 312,
+    "first_unfinished_delta_index": 8
+  },
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

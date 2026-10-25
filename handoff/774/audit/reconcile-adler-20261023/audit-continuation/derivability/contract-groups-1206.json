@@ -1,0 +1,26 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1206",
+  "at": "2026-10-25T18:08:30.656739+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1291,
+  "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/settlement_activity.rs",
+  "sha256": "d63da6e7d914ed703ad1850a7f61871078405ae1ed305e011d36cb54e8f45636",
+  "actual_compared_ranges": [
+    [
+      1,
+      340
+    ]
+  ],
+  "existing_derives": [
+    "PublicNpcCandidate Clone Debug PartialEq Eq",
+    "ActivityPlanDiagnostic/ActivityExecutionDiagnostic Clone Copy Debug"
+  ],
+  "trait_inventory": [],
+  "analysis": "PublicNpcCandidate already derives Clone Debug PartialEq Eq; borrowed diagnostic records Clone Copy Debug. Only native string classifiers/SDK\u2192canonical service/category/profile adapters, current provider/navigation selectors and bounded diagnostic formatting. No handwritten trait/custom codec. Public economy uses canonical stage placeholder then selected real fields, synthesized provenance and validate gate, not Serde bridge/default conversion. Stable semantic key/classifier retains const/native choice rather than added runtime Serde. Exact selected tuple comparison uses existing equality.",
+  "first_unfinished": {
+    "scope_index": 1291,
+    "line": 341
+  },
+  "execution": "none"
+}

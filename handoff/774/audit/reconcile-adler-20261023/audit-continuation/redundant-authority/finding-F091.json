@@ -1,0 +1,39 @@
+{
+  "id": "CONT07-F091",
+  "at": "2026-10-23T21:11:57.948188+00:00",
+  "classification": "maintenance: current41 variants/list entries agree; no current parse failure asserted",
+  "title": "SemanticPose enum and manual ALL roster independently determine accepted parser identities",
+  "sources": [
+    {
+      "scope_index": 1778,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/semantic.rs",
+      "sha256": "bd7fae5f4804c3a1827174d3b17e17391688e8a3308bba7ecc68333100c7ac45",
+      "ranges": [
+        [
+          3,
+          50
+        ],
+        [
+          932,
+          975
+        ],
+        [
+          1026,
+          1071
+        ],
+        [
+          1123,
+          1132
+        ]
+      ]
+    }
+  ],
+  "earliest_failed_contract": "Every SemanticPose has a canonical as_str identity that FromStr should resolve. The exhaustive enum/as_str match and manually sized ALL list independently determine those identities, while FromStr only searches ALL.",
+  "counterexample": "Add a new enum variant and its required exhaustive as_str/fallback cases while leaving ALL at41 entries. The typed variant serializes and prints its canonical as_str token, but token.parse::<SemanticPose>() rejects it. Existing tests of required counts do not tie the enum population to ALL. This is a future-edit counterexample; current41 entries agree and no edit/test was executed.",
+  "actual_recipient": "SemanticPose::from_str1126-1130 is the direct parser observer; the independently maintained ALL roster gates lookup despite an exhaustive as_str match.",
+  "connected_repair": "Derive complete variant iteration from the enum and use that canonical roster for parsing, preserving explicit custom as_str spellings. Keep the deliberate HUMANOID_REQUIRED30 non-attack subset and its authored/mirrored semantics separate.",
+  "acceptance": "Adding a semantic pose cannot leave its canonical as_str token silently unparseable. Current stable strings, Serde representations, deterministic order, mirror/fallback behavior and required subset remain unchanged unless deliberately revised.",
+  "related_limits": "Serde snake_case names and custom pack strings such as swing/thrust/offhand are distinct existing ports; this finding does not authorize unifying or changing those encodings. Separate source graph from disease F011 and other roster findings; global deduplication pending.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

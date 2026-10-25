@@ -1,0 +1,57 @@
+{
+  "recorded_at": "2026-10-20T23:39:49.632283+00:00",
+  "base": "3216f21d76ce802c55b96b1bebdac9b183c50e7e",
+  "run": 39514318905,
+  "job": 118942705370,
+  "earliest_contract": "Check semantic values and Rust growth",
+  "prior_gate_successes": [
+    "formatting",
+    "generated bindings",
+    "shared schema and GPU boundary tests",
+    "Bevy guard",
+    "checked FBX encoding and existing FBX consumer tests"
+  ],
+  "findings_repaired": [
+    "DiagnosticTransform owns its exact Bevy Transform -> JSON field conversion.",
+    "Sole tuning selectors move beside their clearance consumers; existing facade re-exports preserve canonical ownership without a duplicate implementation.",
+    "CaptureSequence admits an initial root as one operation, preserving scale, failure handling and reset order. CaptureGround owns bone sampling under its explicit plane/terrain authority.",
+    "Grass placement has a focused cover/slope/jitter module with identical numerical and RNG bodies; mesh tests remain with meshes and existing instanced placement consumers retain the same facade.",
+    "Status error formatting is isolated at the actual serialized status boundary, preserving scene -> asset -> city -> equipment precedence.",
+    "TerrainStages owns loading and exact provenance validation; old CLI errors and check order remain.",
+    "Exactly three officially obsolete file-debt entries removed; all other ceilings and entries unchanged."
+  ],
+  "source_code_and_rule_review": "All repair diffs/new module and connected callers inspected. No remaining actionable repair-source issue found. Hosted formatting, growth, compilation and execution still required; not an independent or new full bespoke-audit wave.",
+  "exact_text_body_comparisons": {
+    "grass": {
+      "cell_allows_grass": true,
+      "ground_allows_grass_patch_with_spacing": true,
+      "grass_patch_transform": true,
+      "grass_patch_placement_with_spacing": true
+    },
+    "sole": {
+      "measured_ankle_sole_offset_metres": true,
+      "sole_contact_tolerance_metres": true
+    }
+  },
+  "baseline_evidence": "P06-hosted-3216-baseline-retirement.json",
+  "source_files": {
+    "crates/adventuresim-tactical-client/src/animation/diagnostic_record.rs": "5141597330c799f5d0ca0312cb48602fb6dd20520737d18c46429dcf21829330",
+    "crates/adventuresim-tactical-client/src/animation/diagnostics.rs": "255ebbf963270d5128375972f1059af2843fa7da821834bcb5df88014a122a35",
+    "crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs": "49ba486ffbc63c2fae3b3d988182063ccdbfe02c81760aaac30bbc9d7d59434a",
+    "crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts.rs": "bd69d05aa06177aadb3c0a7e2e2e42f1e86fccf3ae5fc389bf5755bb6911f5dc",
+    "crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/foot_clearance.rs": "fbee9961d5150f7a221c942cab5c5288e3efdca4d36e920ab5476a2ed9be3b82",
+    "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+    "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs": "40836a3c9a7e347f98f9ecf51aca3df955494d854e67f805e1cff8e54d02ec8a",
+    "crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass.rs": "d375436ca9d226ccb6fbc5b65afcaf94a6b9c3e4bfa90fc1016da8cb958a7281",
+    "crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass/placement.rs": "d16bd96cb1443180658a7961e14da85b6f03d0a0a89b11a86c3a8a5054bc9bd8",
+    "crates/adventuresim-tactical-client/src/strategic_scene/status.rs": "1ac60dfc9e48db2d8717ff144d5b340d9f5cf2f9a158a8a7dcb1c966f17afdb4",
+    "crates/adventuresim-tactical-server-dispatcher/examples/inspect-city-grounding.rs": "a3f981ab45024c01871eb5257c9064a6b9f5d04b8dd36f80fba16b1f84a66e02",
+    "crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/source.rs": "3857fd7a0512043b9bda8229f651d780b9d3651326de876c802afbf6d6b96189",
+    "rust-quality-baseline.toml": "52472f41e9cdc5f82ccebba8283f26cd7bfa351992f08e6cb5dbf27dfaa25c83"
+  },
+  "limits": [
+    "No local Rust/project/runtime/formatter command.",
+    "No new tests/cases/assertions/helpers or altered fixture values.",
+    "These repairs do not clear later camera/report/rig/equipment/continuation families or certify P06 acceptance."
+  ]
+}

@@ -1,0 +1,96 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-254",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-terrain/src/digest.rs",
+      "sha256": "80e021f45fedb26ff313fe42e19a49503716be0c710173af5285e572bfe5ce98",
+      "actual_EOF": 28,
+      "actual_compared_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-terrain/src/road_pack.rs",
+      "sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+      "actual_EOF": 344,
+      "actual_compared_ranges": [
+        [
+          1,
+          344
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-terrain/src/digest.rs",
+      "sha256": "80e021f45fedb26ff313fe42e19a49503716be0c710173af5285e572bfe5ce98",
+      "actual_EOF": 28,
+      "actual_compared_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-terrain/src/road_pack.rs",
+      "sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+      "actual_EOF": 344,
+      "actual_compared_ranges": [
+        [
+          1,
+          344
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Bounded road binary decode and checked deployment identity",
+      "source_ranges": {
+        "road_pack.rs": [
+          [
+            1,
+            344
+          ]
+        ]
+      },
+      "disposition": "Full exact common bodies semantically analyzed for both variants; actual textual comparison consumed. Manifest<=4096 bytes, payload<=16M+250k, roads<=50000, points<=1M; checked count accumulation bounds every Vec capacity before loop. Manifest expectedfinalterrain source/maskdigest matched before payload; contenthash then canonical full-f64 geometrydigest then coordinate-in-sourcebounds and checked WGS84E7 conversion. Native byte cursors use split_at_checked before try_into and only advance after successful fixedarray decode; rejects truncation/unknownkind/trailingbytes/count disagreement. Sizeproduct computed after fixedpoint/line caps safeusize32/64, line count castu32<=1M. Atleast2points before bounds reductions, so checkedboundsminmax neverempty. Empty whole road set remains meaningful if canonical matchingterrain allows, no forcedpositivecount. Full precision source geometry and E7 resident positions are distinct intentional roles, no abstracti32coordinates forced into this specifically WGS84 package."
+    },
+    {
+      "contract": "Writer arithmetic, hash streaming and failure disposition",
+      "source_ranges": {
+        "road_pack.rs": [
+          [
+            110,
+            174
+          ],
+          [
+            244,
+            344
+          ]
+        ],
+        "digest.rs": [
+          [
+            1,
+            28
+          ]
+        ]
+      },
+      "disposition": "Builder checked_total before capacity/products, validates each actualpayload before creatingdeployment outputs; exact kindtags and fullf64order preserved. read_bounded combines metadata gate with take(limit+1) and postread length, preventing filesize race from defeating capacity. These constantlimits cannot overflow+1. GeometryDigestWriter reports exact consumed slice length and SHAupdate; streaming native read buffer1MiB then updates onlyreturnedread range per Read contract. Writer createspack thenmanifest separately; I/Oerror canleavepartialdeployment and loader detects mismatch, no atomic replacepromise or authorization to deploy assumed. Typed source digest reused; no new operation defect, filegeneration/fixtureexecutionnone."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-terrain/src/lib.rs"
+}

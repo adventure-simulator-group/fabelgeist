@@ -1,0 +1,26 @@
+{
+  "id": "RIG-INITIAL06-GROUP-363",
+  "at": "2026-10-23T09:29:59.756104+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "runtime-equipment-catalog-and-body-input": {
+      "comparison": "RuntimeCatalogItem composes canonical CatalogItem reference with one clothing eligibility classification; it does not copy schema/item records. RuntimeBody owns MHR mesh/UV/nativepositions plus canonical PackedRigSkin8/RigJointTable/DeviceBody necessary async fitting, fitting inputs borrow subsets and canonical CatalogPlacement. Creator FittingPlacement side→ForearmSide is actual construction-specific orientation, not proof that broad equipment/rig/clinicalside names mean identical owner. Device Fitted/Realization and canonical GeneratedArmor/Design/PartRecipe define actual products; layers are generated armor authority, no raw cloned design DTO. F003 sharedcloth/mesh opportunities preserve distinct UVtopology and native-device resources rather than force inappropriate all-bodymesh one type. Current bodyvalidate is shape relation only, not whole finite admission; no exemption inferred from RuntimeBody name.",
+      "disposition": "canonical catalogue/design/rig composition with explicit owned worker input/native fitting subsets"
+    },
+    "volumetric-presentation-source-versus-upload": {
+      "comparison": "PendingScenes borrows canonical SceneId/SceneTerrain/Environment/Ground/LandformRecipe/SceneTerrainPatch. Prepared patch from local producer and regenerated remote recipe path are distinct inputs; actual scene mesh/material handles are presentation products with ScenePresentationOf ownership. Patch mesh buffers become native attributes only at upload; ScenePlanPoint/TransitionCollar remain canonical through detail selection. NativeUV/gridtriangles and triangle-count wrappers are actual rendering arithmetic, not another terrain/schema owner. Raw material Vec4.x depth-cutout flag not color. No called terrain_patch/material kernel admission proof inferred from return type; original single-cliff-draw fixture read only.",
+      "disposition": "canonical terrain/patch/recipe authority retained to native asset construction"
+    },
+    "development-gallery-typed-scenario-vocabulary": {
+      "comparison": "Gallery dispatch uses canonical PuzzleKind fivevariants, ErrantryLaunch, TemplateFamily and Seed, preserving puzzle kind versus flat bounded call ordinal. Character IDs are actual durable DBwords, deliberately distinct primary actors, not localordinalidentity even though allocated arithmetically. Slug/category/route/description are development scenario wirepresentation; no competing quest/case/outbreak/character model is declared. Fixed language-hours fixture remains raw DBcharacter skill input and supports existing F028/F034 accepted scalar propagation, not alternative canonical limit. Full P16 current role independently compared with PR312, actual complete textual delta empty; no helper graph inferred. Source only, no gallery population executed.",
+      "disposition": "canonical scenario kind/launch/seed vocabulary over bounded development registrations"
+    }
+  },
+  "supporting_existing_findings": [
+    "F003",
+    "F028",
+    "F034"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit."
+}

@@ -1,0 +1,208 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1106",
+  "at": "2026-10-25T17:46:55.104981+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1225,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+      "actual_EOF": 3250,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+        "sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+        "bytes": 120281,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+            "ranges": null,
+            "source_read_status": null,
+            "trace_refs": []
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                665,
+                760
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-MISSION-001"
+            ]
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                3250
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-INVENTORY-TRADE-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 301,
+            "read_ranges": [
+              [
+                1,
+                3250
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-TRADE-MISSION-050"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 334,
+            "read_ranges": [
+              [
+                1,
+                3250
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-TRADE-MISSION-050"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-TRADE-MISSION-042",
+            "json_pointer": "/current_sources/1",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                3250
+              ]
+            ],
+            "source_context": {
+              "index": 285,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+              "sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+              "read_ranges": [
+                [
+                  1,
+                  3250
+                ]
+              ],
+              "read_mode": "Fresh complete P16 inventory_trade1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01533250 joined actual018 fresh1688\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01531840/2300\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01532365/2460\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01533055 with newly fresh1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01531687/1841\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01532299/2366\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01532459/3056\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01533250; whole exact PR reverse delta read, common actual role bodies reconciled, not fresh fullPR claim. Battle rewards full34 freshbody and complete empty PR/P16 diff."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/camera/traces.jsonl",
+            "receipt": "CONT-CAMERA-PP-009",
+            "json_pointer": "/exact_receiver_proofs/3",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+            "read_ranges_as_recorded": [
+              [
+                700,
+                790
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+              "sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+              "actual_lines": 3250,
+              "read_ranges": [
+                [
+                  700,
+                  790
+                ]
+              ],
+              "role": "Fresh actual mission entropy byte framing, canonical Seed derivation, sorted candidate weighted sampler and typed state error recipient. Whole related graph consumed narrowly from Camera042 exact producer proof."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/native/receiver-reads.json",
+            "receipt": "row-1",
+            "json_pointer": "/3",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+            "read_ranges_as_recorded": [
+              [
+                700,
+                790
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+              "sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+              "actual_lines": 3250,
+              "read_ranges": [
+                [
+                  700,
+                  790
+                ]
+              ],
+              "role": "Fresh actual mission entropy byte framing, canonical Seed derivation, sorted candidate weighted sampler and typed state error recipient. Whole related graph consumed narrowly from Camera042 exact producer proof."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 534,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          3250
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Full3250lines1098\u20131106 personally consumed. No handwritten trait/codec. Three native command aggregates HostileBattleCommit927,HostileResolutionCommit939,StorefrontTradeExecution2506. Semantic checked custody/value/ownership/request/cohort/provider/live authority/state/fact/payment/native mutation; existing typed Serde parsers used. Selected identity/order and canonical seeded bytes differ derived Eq/Ord/Hash. Final3011\u20133250 native party removal/stake/disband guards and cleanup, not derivable conversion."
+    }
+  ],
+  "groups": [
+    "KEEP checked representation/value/custody/native authority logic; no new dependency/Serde to replace classifiers, no raw derive bypass of canonical request parsers. Fixtures only read, not executed; no other-lens coverage."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1226,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/journey_camp.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

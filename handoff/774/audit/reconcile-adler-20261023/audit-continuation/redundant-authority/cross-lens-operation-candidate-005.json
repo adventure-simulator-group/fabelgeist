@@ -1,0 +1,25 @@
+{
+  "id": "CONT07-CROSS-LENS-005",
+  "at": "2026-10-23T22:24:36.638675+00:00",
+  "kind": "iteration timeout counter / report behavior candidate",
+  "status": "exact archived CAMERA-INITIAL07-F034 alias/source support per coordinator; no new unique defect",
+  "source": {
+    "scope_index": 2055,
+    "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration.rs",
+    "sha256": "812c3b491db93ba51220e73ebe4aef93934ff80abeb3f7d4e2af796c598ce1b7",
+    "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/iteration.rs",
+    "ranges": [
+      [
+        42,
+        104
+      ],
+      [
+        633,
+        648
+      ]
+    ]
+  },
+  "observation": "On no-defeat path loop performs maximum_ticks app.update calls, but final_tick remains maximum_ticks and result reports final_tick+1 ticks and seconds. Defeat branch sets zero-based last tick correctly. Source timeout fixture only checks tactical_duel_resolution bool mapping. No actual timeout run executed.",
+  "validation_status": "not_run",
+  "parent_resolution": "Coordinator identified exact prior iteration/clock/runner timeout-count finding. Retain freshly read2055 support; no runtime occurrence or coverage transfer."
+}

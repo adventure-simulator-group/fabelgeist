@@ -1,0 +1,45 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-084",
+  "at": "2026-10-25T14:50:50.934927+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1271,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/departure_policy.rs",
+      "sha256": "1859c9e05a96c7365a50d26980e7a2dfbdf5040106f5aa5131b56b86005d9596",
+      "personally_read_ranges": [
+        [
+          1,
+          204
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "DepartureReadiness and TravelProvisionDecision already payload-bearing enums separating ready, ready itinerary, safe-window wait and deferred reason. Preserve semantic case-site recovery duration even current cycle consumer ignores one projection; do not collapse positive policy shape into boolean. Leaves schedulewalkingminutes/travelatnight/wait/recovery counts remain primitive API migrations needing canonical duration/itinerary owner, not duplicate wrappers per helper.",
+        "safe_departure_wait_minutes returns only immediateUnsafe+delayedSafe and admitted60..day wait. Generated search boundedseven days with actual walking-time predicate; combines hourly waits/daily starts sorted+deduped. forecast bound differs representable single-day cap intentionally, retain distinction. Correlated safety evidence still input booleans independent of actual schedule/window; checked validated proposal would bind forecast and exact itinerary, but current producer/callee closure pending, no ordinary unsafe execution claimed.",
+        "Reason enums own structured stable label mapping, Display only final labeling. Reserve day/unit caps/encumbrance/wetness/thermal policy facts remain explicit authored numbers, not hidden sentinel. SettlementDepartureWait groups related actor/agent/case/schedule, needs actual identity/schedule-duration checked owner per existing migration, not raw immediate rewrap."
+      ]
+    },
+    {
+      "scope_index": 1272,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/discovery_policy.rs",
+      "sha256": "ce9a63997e69ca2ab6dd04b3f95c73180ee30527716047bd527cc290f9fdc4f4",
+      "personally_read_ranges": [
+        [
+          1,
+          391
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Contact identity includes actual resident Character/conversation/location, fingerprint includes settlement, contactset and active symptoms. Backoff compares complete fingerprint and official time, previous_contact only reused when fingerprint same. This is intentionally frozen attempt snapshot versus fresh live state, not duplicate mutable authority; caller canonical ordering must be preserved to avoid false inequality.",
+        "Stable contact rotation sorts concrete policy preference then restricts inn if present else overview. Modulo only inside Option.position Some branch so empty candidates cannot divide by zero; returns None via nth. fair_open_case_index similarly position on empty cannot produce Some, but returns0 for empty and receiver must reject empty beforeindexing. Nonempty checked selection product could encode this without alleging direct helper panic.",
+        "Referral projection retains SDK lead owner/case/id/summary/witness/expected/current/correction/time; selection filters actual owner, nonemptycase/witness, uncorrected and deterministic newestchanged or unresolved. Absence/failure represented Option; no ordinary unsanitized knowledge claim from raw Strings alone. Canonical CaseId/LeadId/correction/referral owners need retain across internal snapshot/adapters, known source-family propagation.",
+        "PublicDialogueProgressFingerprint semantics omit rawclock/rowIDs deliberately compares meaningful case/lead/action/outcome/site changes; duration bounds/confidence/coordinate pair/site state tuple still unchecked aggregate copied from public authority. Need canonical checked action range/coordinate/place/knowledge products, not free extra booleans. No-progress gating equality remains actual intended policy.",
+        "Closure attribution explicit enum distinguishes StillOpen, immediate-own transition and external resolution; if missing after/cancelled/other status returnsStillOpen deliberately naming subset policy, actual consumer must be traced before flagging wrong terminal credit. Source-backed intake/purpose/topic enums map stable text only at declared boundary; unknown topic returnsNone, not silently invented default. Native NPC daily window helper uses actual StrategicMinute contains_daily_window rather than manual rawrange."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "Two complete original roles with qualified aggregate contracts, positive enum shapes and ruled-out empty-modulo hypothesis. Lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

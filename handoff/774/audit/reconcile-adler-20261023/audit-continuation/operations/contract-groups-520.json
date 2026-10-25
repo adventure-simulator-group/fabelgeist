@@ -1,0 +1,123 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-520",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/bin/materialize-real-world-scene.rs",
+      "sha256": "afd12b3197f8d638eb98f7bca4386601ab1cdf16966b04fb2c7c705d5100f5f2",
+      "actual_EOF": 102,
+      "actual_compared_ranges": [
+        [
+          1,
+          102
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/main.rs",
+      "sha256": "de12026f8d2b3c6409d0ff52f053b48b2caf54e3af425d2abdc2e7a3ec6b7eb5",
+      "actual_EOF": 346,
+      "actual_compared_ranges": [
+        [
+          1,
+          346
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/regional_terrain.rs",
+      "sha256": "22a41ec7f9d8c0ac2b542f0651aca53f528fe22448aa0ee8bcd52969265f6900",
+      "actual_EOF": 57,
+      "actual_compared_ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/scene_input.rs",
+      "sha256": "03e1948b1e2d2492d4f2062ef4aebb1e6dc293f6e228bede4d15710785306b57",
+      "actual_EOF": 978,
+      "actual_compared_ranges": [
+        [
+          1,
+          978
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/scene_input/establishments.rs",
+      "sha256": "b7ca5ef8c7f9a34070cc1ad19fe19a3cdc9915fd5d10cd6c2d2ee3b51ce519a1",
+      "actual_EOF": 42,
+      "actual_compared_ranges": [
+        [
+          1,
+          42
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/settlement_buildings.rs",
+      "sha256": "cd7c7620ecad6eea71eb5e453d882bce444f9308ab4f6d2cee08423609964585",
+      "actual_EOF": 42,
+      "actual_compared_ranges": [
+        [
+          1,
+          42
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/terrain_sampling.rs",
+      "sha256": "be0e11404dadb950d9b751312555425b25e836bc3e3b0063664512290012f8c8",
+      "actual_EOF": 38,
+      "actual_compared_ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Dispatcher native port lifecycle arithmetic",
+      "evidence": "Full main346: CLIbase_port isu16 unboundedthrough65535, requeston_insert allocator148\u2013151 incrementsbeforelaunch/provision/claimauthorization. base65535 firstpending validmissionoverflowsdebugorwrapsnextport0release beforefirstspawn. Existingnormaldefault6000 delayssameexhaustion, noexecutionclaimed. Allocationbeforefailedrequestconsumescandidateport; actualretrypolicy/portreuse separateexplicitdecision. Claimchildspawnonlyafterauthorizesuccess, failure revokesunusedclaim, gatewaytokenremoved. OrdinaryDB tacticalrequest strategiccapturedroster validated; transienttickstatenotpersisted."
+    },
+    {
+      "contract": "Whole imported terrain producer narrows derived arithmetic cases",
+      "evidence": "Full scene_input978: bounded101\u00b2playable1m;3fixedvista41\u00b2/50m,17\u00b2/250m,51\u00b2/1000m; allactualorigin_east/north0 at437\u2013438, so new nonzero-vista-framecandidate isAPI/source-conditional only. Signedsourcei16relativeelevationdifference staysfinitef32; \u00b1hillydetailbounded. Weather intentionallyabstracti32microdegreegrid/signedi16elevation, explicitWGS admission onlygeographicpackcoordinates; preserveRIGPPS019 qualification. Nearestfault projectionboundedWGSf64, length\u00b2>=1 gatebeforeunitaxis, nearestcanonicalorigin+LODchangesresolutiononly. Quantizedrecipefinalvalidationrejectsbadnormal/dimensions."
+    },
+    {
+      "contract": "Immutable document and operator binding operation qualification",
+      "evidence": "Full materializefn312\u2013335 exactexistingbytes accepted, mismatcherror, temporarywrite+rename prevents partialbodypublication forserialcaller; fixedtempname/existencecheck isnotconcurrency-safe compare-and-create promise, noactualconcurrentdifferentinputsamekeycallerestablished. Fullestablishments42 builds/removeslocaloperator map byexactsettlement+businesskey; duplicate/missing/extra rejectionbeforepublishingvector; completebinding sortstablebuildingID. Profile42 derivescityseed fromsettlementidentity ratherthanmission, fixtureoperatoridentitydistinctpersistentownership."
+    },
+    {
+      "contract": "Regional and environment projection boundedness",
+      "evidence": "Full regional57/terrain_sampling38 +materialize102. Regional65\u00b2fixedcapture with explicitmissingcellsNone; canonicalElevationMetersreadmission preserves supportedgeographic elevationbound notglobalabstractweatherbound. u8percent*100 fitsu16 evenraw255, but validbasispointmeaning<=10000 reliesactualCell admission; downstreamscenevalidate rejectsoutofrange, nooverflowclaim. Crossingwater retainedaslandcrossingintentional. Existingfixtureimports/nativeWGSroundtrip/sameplacemissionidentity fullreadsourceassertionsonly."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-DISPATCHER-PORT-OVERFLOW-CANDIDATE-001",
+      "disposition": "pending exactarchivealias; concrete nativeCLI route, no run"
+    },
+    {
+      "id": "SEGOVB-04-VISTA-ORIGIN-FRAME-CANDIDATE-001",
+      "disposition": "nonzeroorigin API witness, actualproducerall0 qualifier"
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "7 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/scene_input/geological_landforms.rs"
+}

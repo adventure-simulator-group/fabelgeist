@@ -1,0 +1,13 @@
+--- p16base/crates/adventuresim-stdb-module/src/time/camp_rest.rs
++++ catalog-p16head/crates/adventuresim-stdb-module/src/time/camp_rest.rs
+@@ -20,9 +20,9 @@
+     ctx: &ReducerContext,
+     character_id: u64,
+     requested_minutes: u64,
+     shelter: FieldShelter,
+-) -> Result<(), String> {
++) -> StrategicOperationResult<()> {
+     crate::strategic::require_strategic_character_authority(ctx, character_id)?;
+     crate::strategic::require_character_no_unresolved_encounter(ctx, character_id)?;
+     crate::character::require_living_character(ctx, character_id)?;
+     if requested_minutes == 0 {

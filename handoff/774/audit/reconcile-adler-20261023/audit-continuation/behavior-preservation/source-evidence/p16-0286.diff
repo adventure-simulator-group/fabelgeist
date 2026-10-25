@@ -1,0 +1,24 @@
+--- p16base/crates/adventuresim-stdb-module/src/strategic/incidents.rs
++++ catalog-p16head/crates/adventuresim-stdb-module/src/strategic/incidents.rs
+@@ -260,9 +260,9 @@
+ fn maybe_trigger_religious_incident(
+     ctx: &ReducerContext,
+     party_id: &str,
+     settlement: &Settlement,
+-) -> Result<Option<IncidentId>, String> {
++) -> crate::StrategicOperationResult<Option<IncidentId>> {
+     if ctx
+         .db
+         .strategic_incident()
+         .party_id()
+@@ -329,9 +329,9 @@
+ pub(crate) fn maybe_trigger_activity_incident(
+     ctx: &ReducerContext,
+     character_id: u64,
+     risks: crate::time::ActivityRisks,
+-) -> Result<Option<IncidentId>, String> {
++) -> crate::StrategicOperationResult<Option<IncidentId>> {
+     let character = ctx
+         .db
+         .character()
+         .id()

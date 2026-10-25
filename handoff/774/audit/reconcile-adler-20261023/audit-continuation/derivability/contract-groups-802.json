@@ -1,0 +1,38 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-802",
+  "at": "2026-10-25T16:53:18.188003+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1015,
+  "source_id": "pr-working:crates/adventuresim-core/src/strategic_state.rs",
+  "sha256": "b704a73eded4ae15345f15781c8f117d919e7f97e047e08e31bb068c912072f8",
+  "actual_compared_ranges": [
+    [
+      1,
+      300
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "Display + Error",
+      "type": "StateParseError",
+      "lines": [
+        [
+          234,
+          239
+        ]
+      ],
+      "disposition": "OPTIONAL F002 exact payload text via existing thiserror error(\"{0}\"); preserve source None/outerflags ignored"
+    }
+  ],
+  "analysis": [
+    "State records already structural derives. Lifecycle and flattened mission binding/resolution parse functions are semantic cross-field validation preserving contradictions/errors, not mechanical construction/Serde derives. CustodyVersion inherentnew/get simple but no handtrait.",
+    "StateParseError234\u2013239 writes staticstr payload directly and empty Error. Existing thiserror #[error(\"{0}\")] formats same borrowedstr without outer flags, source None; optional F002 family, no transparent/source/from attribute or extra payload semantics."
+  ],
+  "first_unfinished": {
+    "scope_index": 1015,
+    "line": 301
+  },
+  "execution": "none"
+}

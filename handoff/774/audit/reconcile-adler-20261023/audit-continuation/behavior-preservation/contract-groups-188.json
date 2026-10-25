@@ -1,0 +1,83 @@
+{
+  "id": "CONT08-CONTRACT-188",
+  "at": "2026-10-25T13:57:53.377963+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 730,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_frames.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/device_frames.rs",
+      "before_sha256": "694e7eb6b24b6bb522e96a9933ed93d8359a75ca68a1fb12c6b4882df4e2a45e",
+      "after_sha256": "e209739488d454a1565af4a6f3663940c07b0b56ce228bf1fff65297eafd8a2d",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0730-base-694e7eb6b24b6bb522e96a9933ed93d8359a75ca68a1fb12c6b4882df4e2a45e",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/e209739488d454a1565af4a6f3663940c07b0b56ce228bf1fff65297eafd8a2d",
+      "diff": "source-evidence/pr-0730.diff",
+      "diff_sha256": "ac72e846ae4325bd11fbe089e78745c5d1285dc320b6d4506137144c357cb040",
+      "head_body_read_ranges": [
+        [
+          1,
+          246
+        ]
+      ],
+      "facts": [
+        "Full246 body and entire actual PR diff consumed across prior frontier. Frame16-word layout, failure bits1/2/4 and Coincident\u2192NoEnvelope\u2192Invalid precedence preserved. read_async projects first15 words without self-check; ordinary read_frame_async dispatches\u2192submits\u2192checks\u2192reads. No blanket public direct-read validity proof.",
+        "Wearer upload now enforces packed bound=name count, lower2179 enforces actual global count/rows. Thumb prefix membership and all 0/1 words preserve order. Typed landmark.device_word checkedu32 and side.device_sign feed same ABI. Reduction sentinels/top/side floors/six bounds, four dispatch sizes and .30/.018 constants preserved; no GPU run."
+      ],
+      "disposition": "Own08 old/new comparison accounted with concrete lower2179/2332/2336 and frame-kernel receiver; retained API limits explicit.",
+      "acceptance": "Preserve exact packing, first-error, membership and floating operation order plus existing fixture oracles; no tests or checks run."
+    },
+    {
+      "scope_index": 731,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_frames/landmarks.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/device_frames/landmarks.rs",
+      "before_sha256": "9cdf217b2d17f8124af6b511dd44edd17135bd0b7a35905b86a836d1462ea13a",
+      "after_sha256": "b68bd1cb5d9f044f3e820b516978d27fd2bf32d5c0d36e83a0e9d666aec574d1",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0731-base-9cdf217b2d17f8124af6b511dd44edd17135bd0b7a35905b86a836d1462ea13a",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/b68bd1cb5d9f044f3e820b516978d27fd2bf32d5c0d36e83a0e9d666aec574d1",
+      "diff": "source-evidence/pr-0731.diff",
+      "diff_sha256": "f83e51d987eb4877e72475dde28cea2cb09c6922e811e578d6200cf255328ace",
+      "head_body_read_ranges": [
+        [
+          1,
+          387
+        ]
+      ],
+      "facts": [
+        "Full387 and entire actual diff personally consumed. Rule discriminants0..7 retained; six slots Joint checkedu32/Unused0 preserve native padding. Central sign+1/Paired side sign identical. First exact lookup and unrestricted owner_twist membership retained.",
+        "Exact region lookup/error order preserved: eyes before central/limb pairs; shoulder/knee extra joint before limb eyes; hand wrist\u2192middle_null then pinky/index; foot foot\u2192ball; thumb1/null/3 with no eyes. Head[head,jaw,left,right,head,unused]. Added fixture arrays/codes and twisted membership read, not run; no all-recipient clearance."
+      ],
+      "disposition": "Own08 old/new comparison accounted with concrete lower2179/2332/2336 and frame-kernel receiver; retained API limits explicit.",
+      "acceptance": "Preserve exact packing, first-error, membership and floating operation order plus existing fixture oracles; no tests or checks run."
+    },
+    {
+      "scope_index": 732,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_frames/passes.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/device_frames/passes.rs",
+      "before_sha256": "bee5ccb765304e55b8ae48d21ddbab2fac860e6b753520065e742768362c992e",
+      "after_sha256": "bee5ccb765304e55b8ae48d21ddbab2fac860e6b753520065e742768362c992e",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0732-base-bee5ccb765304e55b8ae48d21ddbab2fac860e6b753520065e742768362c992e",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/bee5ccb765304e55b8ae48d21ddbab2fac860e6b753520065e742768362c992e",
+      "diff": "source-evidence/pr-0732.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          341
+        ]
+      ],
+      "facts": [
+        "Full341 plus actual empty diff. Concrete WGSL receiver preserves binding0..8 uniform count/rule/sixwords/side/pad and rules0..7, ordered native float reductions, sum order8weights and inclusive .30support. Strict x>0/x<0 floor sides; \u00b1zero excluded.",
+        "Retains normalized1e-6 fallback/status, unchecked thumb normalization later finite/orthonormal validation, elbow .045 band/.85 cop ratio, thumb .008 radii, limb .55 band, shoulder .48 length, knee outward flip and .001 strict orthogonality. Finite native3.4e38 cutoff and positive extents; API malformed/extreme behavior retained, no runtime/native execution."
+      ],
+      "disposition": "Own08 old/new comparison accounted with concrete lower2179/2332/2336 and frame-kernel receiver; retained API limits explicit.",
+      "acceptance": "Preserve exact packing, first-error, membership and floating operation order plus existing fixture oracles; no tests or checks run."
+    }
+  ],
+  "next": "733 frame tests153 then734 garment290+"
+}

@@ -1,0 +1,34 @@
+{
+  "id": "RIG-INITIAL06-GROUP-255",
+  "at": "2026-10-23T07:32:59.640111+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-069.json",
+  "groups": {
+    "vista-clipping-native-triangle-and-iterator": {
+      "comparison": "Fresh clip173 PreparedTriangle retains native Vec3 triangle plus XZ bounds, ClippedTriangles has allocation-free Interior Option or Boundary iterator with exact size. It is numerical clipping/preparation product, not independent accepted terrain/support type. Actual boundary work converts to f64 then re-evaluates height at represented f32XZ to preserve plane; direct substitution of GroundTriangle or generic3Dbounds must preserve vertical faces, source order, precision and rectangle edge policy. F001 generic geometry below features may share exact kernel, not merge contracts blindly. Local bounds + triangle correlation is purposeful cached numerical representation. Original tests read only, no runtime mesh/GPU/assertions executed; actual cross>0 filter not complete finite validity certificate from wrapper or constructor name. Old245 owner/vista caller now actual body joined; no imported DVec helpers/general package credit.",
+      "disposition": "Keep native clipping/cache/iterator purpose and precision contract; share generic machinery only without losing vertical-face and ordering semantics."
+    },
+    "locomotion-observation-streams-and-clock": {
+      "comparison": "Fresh events174 keeps Entity owner, authoritative observed AnimationSampleTick and typed Contact/Landing payload sequences. ContactSequence and LandingSequence are distinct stream identities even equal u64; encoded_sequence is explicit native tracing/audio seed projection, not collapsing internal types or recreating sampletime. Cursor stores paired prior sequences, meaningful last-observed state rather than second authoritative gait planner. CoalescedContact includes exact sequence+foot, offsets parity and maximum_coalesced_events policy independent absolute tick. Owner remains transient client presentation consuming canonical SkeletonState, not strategic persistence or duplicate game clock. same_stream checks enum variant purpose, advances_from uses canonical sequence arithmetic. Missing initial observation deliberately initializes cursor without inventing historical contacts. No unseen events_since/predecessor arithmetic guarantee from method names; canonical lower sequence definitions separately scoped. Native trace flat output is warranted boundary, no compatibility alias.",
+      "disposition": "Keep typed independent event streams and observation time/product, canonical sequence policy lower and client cursor local."
+    },
+    "underlayer-cut-plan-native-topology": {
+      "comparison": "Fresh CutPlan156 captures body-specific host f64 SurfaceCut topology into nine-word GPU point table, shellindices, vertexsource mapping and pointcount. These are native packed table/mesh ordinals, not another accepted UnderlayerDesign or canonical world geometry identity. Source bodytriangle and UVtriangle indexes plus f32 barycentric bits deliberately distinct lanes despiteu32, one POINT_WORDS layout owner. Two layers and duplicated cutedge vertices preserve shading normals; cannot substitute generic ClothMesh and discard point/UV/source correspondence, F003 generic cloth leaf sharing remains separate actualproduct comparison. FittingPlacement/RegionFrame/Wearer canonical feature frames preserved; from_cut trusts supplied source relationships and public fields remain rawABI, no constructor seal inferred. Incidence packs offsets then ascending triangles percorner, not set membership or stable RigJoint identity; duplicates percorner intentional. No GPU/device/helperbody/test execution, called surfacecut validation not credited by name.",
+      "disposition": "Keep body-bound cut/topology GPU plan and one layout authority separate from canonical underlayer design and general mesh products."
+    },
+    "name-authoring-catalogue-and-evidence-authority": {
+      "comparison": "Fresh P16 name_catalog_schema199 defines raw strict authoring documents: sources, observed counts, family/form/surname identities, derivations, sampling frequencies and repertoire fragments. Frequency u64 is relative sampling weight, distinct from observed_count/sample_size census units; same bits do not justify shared quantity policy or probability clamp. Given familySex, formCulture/register, SurnameClass, broad NameReligiousTradition and positive CalendarYear have different meaning from CharacterId, personal display name or precise OfficialReligion. String IDs at raw authoring boundary preserve rejected lexical evidence; accepted compiled name IDs/provenance belong actual lower catalogue/runtime owners, not inferred from serde deny_unknown_fields. Repertoire fragments intentionally contribute reviewed slices into one built repertoire, legitimate source structure rather than compatibility duplicate runtime paths. BTreeMap Sex and optional sex have explicit grouping/matching purpose; no duplicate Sex/Culture enum in this file. Default documentempty is rawinput only, not certified productioncatalogue. No build/render/candidate helper credit or samepath PRcarry; P16actual199 independently read.",
+      "disposition": "Keep raw evidence/authoring schema in WorldSchema, distinct relative weights, observed counts and compiled runtime identity/selection products."
+    }
+  },
+  "supporting_existing_findings": [
+    "RIG-INITIAL06-F001",
+    "RIG-INITIAL06-F003"
+  ],
+  "source_fact_refs": [
+    "contracts-245.json",
+    "contracts-248.json",
+    "contracts-250.json"
+  ],
+  "limits": "Four fresh complete current source bodies including exact independently scoped P16schema. No helper/whole feature/count-derived coverage, source edits/tests/GPU/build/execution/newscope/other-lens credit."
+}

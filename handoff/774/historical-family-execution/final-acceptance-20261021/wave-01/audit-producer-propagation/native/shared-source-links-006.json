@@ -1,0 +1,1301 @@
+{
+  "id": "NATIVE-PP-SHARED-006",
+  "camera_sources": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve.rs",
+      "observed_sha256": "cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+      "read_ranges": [
+        [
+          1,
+          2878
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-FRACTION-001",
+        "CAM-PROP-FATIGUE-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/authored_weapon.rs",
+      "observed_sha256": "446d7c751bfec9680b1aaf74efb82a38f44b145076a521b5bd5c0ea14844003c",
+      "read_ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-CLOCK-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/classification.rs",
+      "observed_sha256": "7699fe2b1452a7aff4551999b62c6ed6764dc5dddabf8bce8d8d74e8bf1ebd78",
+      "read_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-SPEED-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/error.rs",
+      "observed_sha256": "e3bd3bd8fb753b33e583e5cba64967ca07539dd8b4b0032a2153a330b59a01df",
+      "read_ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-SPEED-001",
+        "CAM-PROP-FRACTION-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/incapacitation_tests.rs",
+      "observed_sha256": "82fefbb149fc497e21bc9a6807ba2c59a7ede49ce15681838342a37fdd4a6527",
+      "read_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-DEFENSE-001",
+        "CAM-PROP-EVIDENCE-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/joint_melee.rs",
+      "observed_sha256": "7373a905f23ab3075cfb464c0a936ce1ebc33ba6c5c6ad23866b1a1479c5b983",
+      "read_ranges": [
+        [
+          1,
+          329
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-DEFENSE-001",
+        "CAM-PROP-EVIDENCE-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_defense.rs",
+      "observed_sha256": "6c64790c60c4ad2b52d4e3a18e312b8be73cb714ec27aa194f9a345d17eda293",
+      "read_ranges": [
+        [
+          1,
+          221
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-DEFENSE-001",
+        "CAM-PROP-EVIDENCE-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_exchange.rs",
+      "observed_sha256": "24f36a32ff70fea580b9c7b902884edc25bf7c01b0d6feb3e03b35f257c93935",
+      "read_ranges": [
+        [
+          1,
+          293
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-DEFENSE-001",
+        "CAM-PROP-EVIDENCE-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "observed_sha256": "2f56c5185ec61241a7e4607eef02ebb4051e24dee918f5200585d586a4d971a8",
+      "read_ranges": [
+        [
+          1,
+          866
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-DEFENSE-001",
+        "CAM-PROP-EVIDENCE-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_iteration/error.rs",
+      "observed_sha256": "9864f16e67033ea8f14d686f25f2b71c78ff6e8866be6f8459df6384c4c5b647",
+      "read_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-DEFENSE-001",
+        "CAM-PROP-EVIDENCE-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_iteration/evidence.rs",
+      "observed_sha256": "204c03d01cb76d4603c9c42a010a5ccf300f65abe20d62ab307212fe2fac19bc",
+      "read_ranges": [
+        [
+          1,
+          448
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-DEFENSE-001",
+        "CAM-PROP-EVIDENCE-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/armor.rs",
+      "observed_sha256": "9a5f5b89b21f9f10d774f35eb8c9f2cc2c73ebd4a21faf917bae8cd0b428561c",
+      "read_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-SPEED-001",
+        "CAM-PROP-DEFENSE-001",
+        "CAM-PROP-EVIDENCE-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/timeline.rs",
+      "observed_sha256": "8be8fb9671dfce44ce30fa2a7738cc1ff52df15d2ee5517e8eef0aa1733c3d1a",
+      "read_ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-SPEED-001",
+        "CAM-PROP-DEFENSE-001",
+        "CAM-PROP-EVIDENCE-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_movement.rs",
+      "observed_sha256": "086c2055231445836bac21e3ffa931c0909cd95def8d4fa7e4f041a2fe629e86",
+      "read_ranges": [
+        [
+          1,
+          389
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-SPEED-001",
+        "CAM-PROP-DEFENSE-001",
+        "CAM-PROP-EVIDENCE-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/commitment.rs",
+      "observed_sha256": "52eb21ff762fa1bb6d55c4237bf1d1d66638a7929d996eb94074726727b563f6",
+      "read_ranges": [
+        [
+          1,
+          239
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-SPEED-001",
+        "CAM-PROP-DEFENSE-001",
+        "CAM-PROP-EVIDENCE-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+      "observed_sha256": "201e0aa26a4ceec81c0caa799acc2dae96ad3d1600ed6184aef8f671e3becf1c",
+      "read_ranges": [
+        [
+          1,
+          226
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-SPEED-001",
+        "CAM-PROP-DEFENSE-001",
+        "CAM-PROP-EVIDENCE-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/mod.rs",
+      "observed_sha256": "3ada1de8aa9e1322565a5f1ae9b5882e0beba1d5ad024cc4705f7eb35ba0982b",
+      "read_ranges": [
+        [
+          1,
+          595
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-SCHEDULING-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/scheduling.rs",
+      "observed_sha256": "9c56fb8232e356e6e204ba7c1065597c6063b0b25572d6f0e7cb131b2a7eb320",
+      "read_ranges": [
+        [
+          1,
+          391
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-SCHEDULING-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/model.rs",
+      "observed_sha256": "20d6bb98602db1d3dbc649b575e54c27fb766279d064deed4a13fcc0c695af72",
+      "read_ranges": [
+        [
+          1,
+          363
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-CONDITION-001",
+        "CAM-PROP-EQUIPMENT-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/power.rs",
+      "observed_sha256": "76922a00bc1d4bf13c6d972aaba83258551ce853fff438f2edc3f0d295ae025a",
+      "read_ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-CONDITION-001",
+        "CAM-PROP-EQUIPMENT-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/threat.rs",
+      "observed_sha256": "58a5e53d2fdf5283f4e7ba8a58f1335f894bb6b4ab4524f3684f92bbca8dc106",
+      "read_ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-CONDITION-001",
+        "CAM-PROP-EQUIPMENT-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/timeline.rs",
+      "observed_sha256": "4e83c1f6cda9e4f7a8f9a19ac6c54119c67701f6d4dae37641c5e6b7b94b753d",
+      "read_ranges": [
+        [
+          1,
+          139
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-CONDITION-001",
+        "CAM-PROP-EQUIPMENT-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory.rs",
+      "observed_sha256": "513ea2b3aa9c0322422e9cea57e10c00c00fe2046f10ce6d9d0cf6460c93957e",
+      "read_ranges": [
+        [
+          1,
+          862
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-TACTICAL-INVENTORY-001",
+        "CAM-PROP-EQUIPMENT-001",
+        "CAM-PROP-CONCENTRATION-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/ingress/timing.rs",
+      "observed_sha256": "8e06350841fdbea99a6cf45ab7c1aca53485273d5b07a064c11ee956cee446f7",
+      "read_ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-SERVER-INGRESS-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+      "observed_sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "read_ranges": [
+        [
+          1,
+          3497
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-PLAYER-PROJECTION-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+      "observed_sha256": "40f9695ff7352badc2fff5fb1cc7a15d68a36ea48dcfd36083f2c7c5145096e9",
+      "read_ranges": [
+        [
+          1,
+          162
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-PLAYER-PROJECTION-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve.rs",
+      "observed_sha256": "0b6aef0b8e1be9846beaae48cc8f7130333b0b4634acbd0b2f8b393ee40d5cef",
+      "read_ranges": [
+        [
+          1,
+          2879
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-FRACTION-001",
+        "CAM-PROP-FATIGUE-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/authored_weapon.rs",
+      "observed_sha256": "d51000403c3e70e523d5bdfe690114fcf0781449dabb10a52ee3dc006b00f5ca",
+      "read_ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-FRACTION-001",
+        "CAM-PROP-FATIGUE-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/error.rs",
+      "observed_sha256": "877b773ae83bec290966d406d2aae3f84f7e5d804970e4f7771faa63e7b1d318",
+      "read_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-FRACTION-001",
+        "CAM-PROP-FATIGUE-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_defense.rs",
+      "observed_sha256": "6fffe49da3ec9f55c7b6dfcdeb723ef065569b78b004db991367d44329ee7fe9",
+      "read_ranges": [
+        [
+          1,
+          221
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-DEFENSE-001",
+        "CAM-PROP-EVIDENCE-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_exchange.rs",
+      "observed_sha256": "cfc25332b52f4fc560e46cefc37fe47517c27237a47cd1d54f512161635b229b",
+      "read_ranges": [
+        [
+          1,
+          293
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-DEFENSE-001",
+        "CAM-PROP-EVIDENCE-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "observed_sha256": "e1dac77a2c5ef7c2bb50b886c9b7340c83f2fcee27fe767788e48463ad6f737c",
+      "read_ranges": [
+        [
+          1,
+          866
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-DEFENSE-001",
+        "CAM-PROP-EVIDENCE-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_iteration/error.rs",
+      "observed_sha256": "a434a6844f7fc1634be9cab2e144ae9a6e7bc9b09a93c1b72b0bdca38140c197",
+      "read_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-DEFENSE-001",
+        "CAM-PROP-EVIDENCE-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_iteration/evidence.rs",
+      "observed_sha256": "a806a6dd4779dabe9e140cdc109d4450a5d400c0460b862e157ad4f73b58c345",
+      "read_ranges": [
+        [
+          1,
+          447
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-DEFENSE-001",
+        "CAM-PROP-EVIDENCE-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/timeline.rs",
+      "observed_sha256": "aeeb06c19efd75896544fd2d7d89f4e664f10d8c005772ccc8516d69e27f1126",
+      "read_ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-SPEED-001",
+        "CAM-PROP-DEFENSE-001",
+        "CAM-PROP-EVIDENCE-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_movement.rs",
+      "observed_sha256": "3fcb38f4034fe1eccf1d7d99ee3310fed62812d16ef25d547e79e009e4425c33",
+      "read_ranges": [
+        [
+          1,
+          392
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-SPEED-001",
+        "CAM-PROP-DEFENSE-001",
+        "CAM-PROP-EVIDENCE-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+      "observed_sha256": "6807ada697c587ffd96f625c61692de55a4ae1548d7dcd9e5d2d539e5f6187c0",
+      "read_ranges": [
+        [
+          1,
+          234
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-SPEED-001",
+        "CAM-PROP-DEFENSE-001",
+        "CAM-PROP-EVIDENCE-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/mod.rs",
+      "observed_sha256": "4d44aec14335abdea2ad0899a2d41cf09c7b5677fcb850b2ede69174596d3a34",
+      "read_ranges": [
+        [
+          1,
+          597
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-SCHEDULING-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/scheduling.rs",
+      "observed_sha256": "170846de4c534120087f3f12c2fd365b8f2103c97d270ff28d71bee179d6e147",
+      "read_ranges": [
+        [
+          1,
+          391
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-SCHEDULING-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/model.rs",
+      "observed_sha256": "b1b76643680707125e6bd040b60703127a2ed09cc460e226b2c4f08c90724ffe",
+      "read_ranges": [
+        [
+          1,
+          364
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-CONDITION-001",
+        "CAM-PROP-EQUIPMENT-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/power.rs",
+      "observed_sha256": "7469ca1e1a2a0c7bfa49292adac667ebbf5323f3dfd5f0e39e368e18f118d2a7",
+      "read_ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-CONDITION-001",
+        "CAM-PROP-EQUIPMENT-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/threat.rs",
+      "observed_sha256": "bf72fdd14fdc1fc1e4196b4c65172f6c71d0658f4bad6896cb41495acf889798",
+      "read_ranges": [
+        [
+          1,
+          190
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-CONDITION-001",
+        "CAM-PROP-EQUIPMENT-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/timeline.rs",
+      "observed_sha256": "97e87014b1ece1247d03e8e2a7e1e36db3c28ccae7b17b95dd7857ca13075406",
+      "read_ranges": [
+        [
+          1,
+          139
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-MELEE-001",
+        "CAM-PROP-CLOCK-001",
+        "CAM-PROP-CONDITION-001",
+        "CAM-PROP-EQUIPMENT-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory.rs",
+      "observed_sha256": "a1b3b6e0f7f1d9884a53f8306a3e0e9e6c1a8deb26e2b13fb163f73edd39900d",
+      "read_ranges": [
+        [
+          1,
+          858
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-TACTICAL-INVENTORY-001",
+        "CAM-PROP-EQUIPMENT-001",
+        "CAM-PROP-CONCENTRATION-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+      "observed_sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+      "read_ranges": [
+        [
+          1,
+          3450
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-PLAYER-PROJECTION-001"
+      ],
+      "evidence": "../camera/coverage.jsonl",
+      "scope": "Fresh same-wave full source body evidence; actual physical closure findings remain open"
+    }
+  ],
+  "rig_sources": [
+    {
+      "evidence": "../rig/supplemental-root-receivers-004.json",
+      "source_id": "pr-working-receiver:crates/fabelgeist-determinism/src/seed.rs",
+      "observed_sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "read_ranges": [
+        [
+          1,
+          213
+        ]
+      ],
+      "trace_refs": [
+        "RIG-SUPP-RNG-PLANT-001"
+      ]
+    },
+    {
+      "evidence": "../rig/supplemental-root-receivers-004.json",
+      "source_id": "pr-working-receiver:crates/fabelgeist-determinism/src/stream.rs",
+      "observed_sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+      "read_ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "trace_refs": [
+        "RIG-SUPP-RNG-PLANT-001"
+      ]
+    },
+    {
+      "evidence": "../rig/supplemental-root-receivers-004.json",
+      "source_id": "pr-working-receiver:crates/fabelgeist-determinism/src/lib.rs",
+      "observed_sha256": "85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+      "read_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "trace_refs": [
+        "RIG-SUPP-RNG-PLANT-001"
+      ]
+    },
+    {
+      "evidence": "../rig/supplemental-root-receivers-004.json",
+      "source_id": "pr-working-receiver:crates/adventuresim-plant-generator/src/species.rs",
+      "observed_sha256": "ee7ccc523ddb649b30adf8e75f5de0476d5a743c622ef0b271a5a7c2df758ab2",
+      "read_ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "trace_refs": [
+        "RIG-SUPP-RNG-PLANT-001"
+      ]
+    },
+    {
+      "evidence": "../rig/supplemental-root-receivers-004.json",
+      "source_id": "pr-working-receiver:crates/adventuresim-plant-generator/src/mesh.rs",
+      "observed_sha256": "399bccce261a43c8d5333f82c29055d43c4d8200a896856fe0a020f5fdbc83b7",
+      "read_ranges": [
+        [
+          1,
+          164
+        ]
+      ],
+      "trace_refs": [
+        "RIG-SUPP-RNG-PLANT-001"
+      ]
+    },
+    {
+      "evidence": "../rig/supplemental-root-receivers-004.json",
+      "source_id": "pr-working-receiver:crates/adventuresim-plant-generator/src/lib.rs",
+      "observed_sha256": "50117dba957760185e51e46b06b652846a6682f7f18bdcd993e40bcf2f6a34c6",
+      "read_ranges": [
+        [
+          1,
+          13
+        ]
+      ],
+      "trace_refs": [
+        "RIG-SUPP-RNG-PLANT-001"
+      ]
+    },
+    {
+      "evidence": "../rig/supplemental-root-receivers-004.json",
+      "source_id": "pr-working-receiver:crates/adventuresim-plant-generator/src/flower/mod.rs",
+      "observed_sha256": "83c15bd86ae01aa5de6426169bfd4477ce693e0219aef61c0f9090fd25475432",
+      "read_ranges": [
+        [
+          1,
+          102
+        ]
+      ],
+      "trace_refs": [
+        "RIG-SUPP-RNG-PLANT-001"
+      ]
+    },
+    {
+      "evidence": "../rig/supplemental-root-receivers-004.json",
+      "source_id": "pr-working-receiver:crates/adventuresim-plant-generator/src/fungus/mod.rs",
+      "observed_sha256": "cf0b28024bc4799fa267dfb4e1c5a544a3d1f46a3c423e98e84650479629ab20",
+      "read_ranges": [
+        [
+          1,
+          121
+        ]
+      ],
+      "trace_refs": [
+        "RIG-SUPP-RNG-PLANT-001"
+      ]
+    },
+    {
+      "evidence": "../rig/supplemental-root-receivers-004.json",
+      "source_id": "pr-working-receiver:crates/adventuresim-plant-generator/src/flower/geometry.rs",
+      "observed_sha256": "dafe7238b919cf1a908c2b419957324da29f30e3f3b505be20f54d8303161cc8",
+      "read_ranges": [
+        [
+          1,
+          261
+        ]
+      ],
+      "trace_refs": [
+        "RIG-SUPP-RNG-PLANT-001"
+      ]
+    },
+    {
+      "evidence": "../rig/supplemental-root-receivers-004.json",
+      "source_id": "pr-working-receiver:crates/adventuresim-plant-generator/src/fungus/geometry.rs",
+      "observed_sha256": "1fe40d73dc9b9cf308f312393f3f43f960f26dd8c4bb6542c386970789f37c45",
+      "read_ranges": [
+        [
+          1,
+          225
+        ]
+      ],
+      "trace_refs": [
+        "RIG-SUPP-RNG-PLANT-001"
+      ]
+    },
+    {
+      "evidence": "../rig/supplemental-root-receivers-004.json",
+      "source_id": "pr-working-receiver:crates/adventuresim-plant-generator/src/habitat.rs",
+      "observed_sha256": "7f13a680943fdde1dbb0d8e39762bbc58003d47bc2937621fee8b6d61a390bc7",
+      "read_ranges": [
+        [
+          1,
+          94
+        ]
+      ],
+      "trace_refs": [
+        "RIG-SUPP-RNG-PLANT-001"
+      ]
+    },
+    {
+      "evidence": "../rig/supplemental-root-receivers-004.json",
+      "source_id": "pr-working-receiver:crates/adventuresim-plant-generator/src/parameters.rs",
+      "observed_sha256": "35fbc88c4b1f0ad37667c3884bfc1839cc97fec15ecffe725aba5f1e096b52fe",
+      "read_ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "trace_refs": [
+        "RIG-SUPP-RNG-PLANT-001"
+      ]
+    },
+    {
+      "evidence": "../rig/supplemental-root-receivers-004.json",
+      "source_id": "pr-working-receiver:crates/adventuresim-plant-generator/src/fungus/geometry/attachment.rs",
+      "observed_sha256": "712cc0f7284686c4c69a730cd7f1be8f0f4207aa9c3f67249f2bd943fce2bc32",
+      "read_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "trace_refs": [
+        "RIG-SUPP-RNG-PLANT-001"
+      ]
+    },
+    {
+      "evidence": "../rig/supplemental-root-receivers-004.json",
+      "source_id": "pr-working-receiver:crates/adventuresim-plant-generator/src/flower/tests.rs",
+      "observed_sha256": "6c3cbd784899ccc09ffaabf648c7e39314e3c52f23e23d35553e08fc1a6fe9ba",
+      "read_ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "trace_refs": [
+        "RIG-SUPP-RNG-PLANT-001"
+      ]
+    },
+    {
+      "evidence": "../rig/supplemental-root-receivers-004.json",
+      "source_id": "pr-working-receiver:crates/adventuresim-plant-generator/src/fungus/tests.rs",
+      "observed_sha256": "9f28109140452b041e8384e12e077229fb93d33f95d9daf8d400b6c3829e18d9",
+      "read_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "trace_refs": [
+        "RIG-SUPP-RNG-PLANT-001"
+      ]
+    },
+    {
+      "evidence": "../rig/supplemental-root-receivers-004.json",
+      "source_id": "pr-working-receiver:crates/adventuresim-plant-generator/src/lod_tests.rs",
+      "observed_sha256": "61629eb0962893806bfe10ea6ac6da724bada40435a910e83b5891512f86dd1c",
+      "read_ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "trace_refs": [
+        "RIG-SUPP-RNG-PLANT-001"
+      ]
+    },
+    {
+      "evidence": "../rig/supplemental-root-receivers-004.json",
+      "source_id": "pr-working-receiver:crates/adventuresim-tactical-core/src/marching_tetrahedra/height_surface/tests.rs",
+      "observed_sha256": "3437832bcc3bd88d508e7b5ecc06146e4202ba88eb2ce9c4fd23f8fe785a860a",
+      "read_ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "trace_refs": [
+        "RIG-SUPP-RNG-PLANT-001"
+      ]
+    },
+    {
+      "evidence": "../rig/supplemental-root-receivers-005.json",
+      "source_id": "pr-working-receiver:assets/config/tactical-graphics.yaml",
+      "observed_sha256": "b922faa3643a9e55508cbf50304273912d9be0b7e0282d271f1b243c75c40307",
+      "read_ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "trace_refs": [
+        "RIG-SUPP-RNG-PLANT-001"
+      ]
+    },
+    {
+      "evidence": "../rig/supplemental-root-receivers-005.json",
+      "source_id": "pr-working-receiver:crates/adventuresim-procedural-materials/src/shaders/tactical_tree_leaf_card.wgsl",
+      "observed_sha256": "46a5f6da85cac6f612bdbeae41a1aa0cbee85b88205509e331ad526ca6fb146c",
+      "read_ranges": [
+        [
+          1,
+          284
+        ]
+      ],
+      "trace_refs": [
+        "RIG-SUPP-RNG-PLANT-001"
+      ]
+    },
+    {
+      "evidence": "../rig/supplemental-root-receivers-005.json",
+      "source_id": "pr-working-receiver:crates/adventuresim-tactical-core/src/erosional_terrain/basalt.rs",
+      "observed_sha256": "fefc6bc76814a799129733d42c9a58b2fc8eb417a549d35c106dfe48b12fa6c0",
+      "read_ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "trace_refs": [
+        "RIG-SUPP-LANDFORM-001"
+      ]
+    },
+    {
+      "evidence": "../rig/supplemental-root-receivers-005.json",
+      "source_id": "pr-working-receiver:crates/adventuresim-tactical-core/src/erosional_terrain/carbonate.rs",
+      "observed_sha256": "50c4644d1c77c5c6ee85b83372994d7100c8294dcc5553574a20503748885416",
+      "read_ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "trace_refs": [
+        "RIG-SUPP-LANDFORM-001"
+      ]
+    },
+    {
+      "evidence": "../rig/supplemental-root-receivers-005.json",
+      "source_id": "pr-working-receiver:crates/adventuresim-tactical-core/src/erosional_terrain/granite.rs",
+      "observed_sha256": "edac5e0f451e979b94a408567152ae143aed8f04ec056c874bda7e0d5377575a",
+      "read_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "trace_refs": [
+        "RIG-SUPP-LANDFORM-001"
+      ]
+    },
+    {
+      "evidence": "../rig/supplemental-root-receivers-005.json",
+      "source_id": "pr-working-receiver:crates/adventuresim-tactical-core/src/erosional_terrain/slump.rs",
+      "observed_sha256": "075f69b1e924975c15a53ab61cb95e2da98e849aad132968872ab0b214771b19",
+      "read_ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "trace_refs": [
+        "RIG-SUPP-LANDFORM-001"
+      ]
+    },
+    {
+      "evidence": "../rig/supplemental-root-receivers-005.json",
+      "source_id": "pr-working-receiver:crates/adventuresim-plant-generator/src/flower/presets.rs",
+      "observed_sha256": "5bd7f6a511df726897d0e5034dc6980b3bc00e6f070c5bf2cdcb38d3ef4278ee",
+      "read_ranges": [
+        [
+          1,
+          155
+        ]
+      ],
+      "trace_refs": [
+        "RIG-SUPP-RNG-PLANT-001"
+      ]
+    },
+    {
+      "evidence": "../rig/supplemental-root-receivers-005.json",
+      "source_id": "pr-working-receiver:crates/adventuresim-plant-generator/src/fungus/presets.rs",
+      "observed_sha256": "1d21f3820377085f2c30323fc825c3eda9faa8c98ed17a8790b266ea4811b542",
+      "read_ranges": [
+        [
+          1,
+          113
+        ]
+      ],
+      "trace_refs": [
+        "RIG-SUPP-RNG-PLANT-001"
+      ]
+    },
+    {
+      "evidence": "../rig/supplemental-root-receivers-005.json",
+      "source_id": "pr-working-receiver:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry.rs",
+      "observed_sha256": "07ca0c32d3efa1bfee78bcf7c4e3a48c1a09b563519446793b09be9c1582d666",
+      "read_ranges": [
+        [
+          249,
+          366
+        ]
+      ],
+      "trace_refs": [
+        "RIG-SUPP-TREE-001"
+      ]
+    },
+    {
+      "evidence": "../rig/additional-sources-006.json",
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation.rs",
+      "observed_sha256": "df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+      "read_ranges": [
+        [
+          1,
+          2053
+        ]
+      ],
+      "trace_refs": [
+        "RIG-CATALOG-VALIDATION-01"
+      ]
+    },
+    {
+      "evidence": "../rig/additional-sources-006.json",
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_numeric.rs",
+      "observed_sha256": "a3591804f6c9134439dd3d27e42827d15a3e84c016e675123cc100e69e994f93",
+      "read_ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "trace_refs": [
+        "RIG-CATALOG-VALIDATION-01"
+      ]
+    },
+    {
+      "evidence": "../rig/additional-sources-006.json",
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_material.rs",
+      "observed_sha256": "823eb461e0534843b71a2b8199e6428fd9a558cf9bc1387beedf87500bf71f8a",
+      "read_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "trace_refs": [
+        "RIG-CATALOG-VALIDATION-01"
+      ]
+    },
+    {
+      "evidence": "../rig/additional-sources-006.json",
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+      "observed_sha256": "9cb076d4f2ff85b5932981983e2eeea82850c8b40b647948ca400bd4d00aad51",
+      "read_ranges": [
+        [
+          1,
+          185
+        ]
+      ],
+      "trace_refs": [
+        "RIG-CATALOG-VALIDATION-01"
+      ]
+    },
+    {
+      "evidence": "../rig/additional-sources-006.json",
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_surface.rs",
+      "observed_sha256": "1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b",
+      "read_ranges": [
+        [
+          1,
+          219
+        ]
+      ],
+      "trace_refs": [
+        "RIG-CATALOG-VALIDATION-01"
+      ]
+    },
+    {
+      "evidence": "../rig/additional-sources-006.json",
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_fit.rs",
+      "observed_sha256": "a15e1319cc1730ca71c4b6e36a50f3514e43c62b5c006ac28115aefb620c02e3",
+      "read_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "trace_refs": [
+        "RIG-CATALOG-VALIDATION-01"
+      ]
+    },
+    {
+      "evidence": "../rig/additional-sources-006.json",
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_surface.rs",
+      "observed_sha256": "9f49d61c21b245ad0793daea4f28f1f74769c76680ef383553454b688c9f6cbd",
+      "read_ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "trace_refs": [
+        "RIG-CATALOG-VALIDATION-01"
+      ]
+    }
+  ],
+  "contracts": [
+    {
+      "id": "pure-roster-battle",
+      "meaning": "Native roster/build/battle typed causes and actual physical/timing event producers",
+      "evidence": [
+        "native/unchanged-native-errors-004.json",
+        "../camera/traces.jsonl#CAM-PROP-MELEE-001",
+        "../camera/traces.jsonl#CAM-PROP-CLOCK-001",
+        "../camera/traces.jsonl#CAM-PROP-EVIDENCE-001"
+      ],
+      "closure": "Fresh complete source text and exact P16 overlays read by camera, native entrypoint/error/runner/audit receivers all228 source reads. Required Movement Some fields prove PP017; P02 typed Weapon/Timing/Recipe/Sidearm/Battle causes retain structure through native IterationError/run/main. Physical producer gaps tracked camera, no false source-complete implementation claim."
+    },
+    {
+      "id": "rng-and-plant",
+      "evidence": [
+        "../rig/supplemental-root-traces.jsonl#RIG-SUPP-RNG-PLANT-001",
+        "../root/traces.jsonl#ROOT-PP-AUDIO-003"
+      ],
+      "closure": "Seed retained to actual StreamId framed bytes/native RNG; PlantLod/Species retained to actual native mesh/into_bevy. Native numerical phase is new quantity; no same-Seed roundtrip. Native renderer typed motion-event sequence projections end at actual hash context and tracing."
+    },
+    {
+      "id": "projection-clock",
+      "evidence": [
+        "native/unchanged-receivers-005.json",
+        "../camera/traces.jsonl#CAM-PROP-PLAYER-PROJECTION-001",
+        "../camera/traces.jsonl#CAM-PROP-SERVER-INGRESS-001"
+      ],
+      "closure": "Tick/span retained through authoritative action/posture/facing/replicated skeleton/reconnect. Native time quantization and native tracing outputs actual body ports. PP029 skill aggregate loss recorded separately; no whole player family exemption."
+    },
+    {
+      "id": "upstream-impulse",
+      "evidence": [
+        "../camera/findings.jsonl#CAM-PROP-F015"
+      ],
+      "closure": "Camera earliest hit_velocity_change -> authoritative_impact -> retained ApplyMeleeAttackResult raw world Vec3 -> actual consequence/native LinearVelocity/network gap; use canonical SceneVelocity, no duplicate owner. Native bouncy spring offset/velocity is a different rotational spring numerical state and typed Radians telemetry reports its magnitude."
+    }
+  ],
+  "limits": "Only producer lens source evidence. No repair, compile, runtime, test, validation or other-lens acceptance implied."
+}

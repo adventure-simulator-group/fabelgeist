@@ -1,0 +1,75 @@
+--- PRbase/crates/adventuresim-core/src/combat/wounds.rs
++++ frozen/crates/adventuresim-core/src/combat/wounds.rs
+@@ -1,7 +1,8 @@
+ use serde::{Deserialize, Serialize};
+ 
+ use crate::body::BodyPart;
++use crate::elapsed::AnimationElapsed;
+ 
+ /// A persistent source of blood loss created by tissue trauma. The flow rate
+ /// is a fraction of normal full blood volume per second.
+ #[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize)]
+@@ -20,15 +21,15 @@
+ #[must_use]
+ pub fn advance_combat_bleeding(
+     blood_loss_fraction: f32,
+     wounds: &[CombatWound],
+-    seconds: f32,
++    seconds: AnimationElapsed,
+ ) -> f32 {
+     let flow = wounds
+         .iter()
+         .map(|wound| wound.blood_fraction_per_second.max(0.0))
+         .sum::<f32>();
+-    (blood_loss_fraction + flow * seconds.max(0.0)).clamp(0.0, 1.0)
++    (blood_loss_fraction + flow * seconds.seconds().max(0.0)).clamp(0.0, 1.0)
+ }
+ 
+ #[must_use]
+ pub fn wounds_from_applied_health_damage(
+@@ -88,10 +89,23 @@
+     fn contact_creates_flow_without_instant_blood_loss() {
+         let wounds = wounds_from_applied_health_damage(BodyPart::LeftArm, 0.4, 0.0, 0.0);
+         assert_eq!(wounds.len(), 1);
+         assert_eq!(wounds[0].kind, CombatWoundKind::Open);
+-        assert_eq!(advance_combat_bleeding(0.0, &wounds, 0.0), 0.0);
+-        assert!(advance_combat_bleeding(0.0, &wounds, 10.0) > 0.0);
++        assert_eq!(
++            advance_combat_bleeding(
++                0.0,
++                &wounds,
++                crate::elapsed::AnimationElapsed::from_seconds(0.0).unwrap()
++            ),
++            0.0
++        );
++        assert!(
++            advance_combat_bleeding(
++                0.0,
++                &wounds,
++                crate::elapsed::AnimationElapsed::from_seconds(10.0).unwrap()
++            ) > 0.0
++        );
+     }
+ 
+     #[test]
+     fn protected_sub_joule_blunt_contact_is_not_an_internal_bleed() {
+@@ -104,9 +118,17 @@
+             body_part: BodyPart::Chest,
+             kind: CombatWoundKind::Open,
+             blood_fraction_per_second: 0.001,
+         };
+-        let one = advance_combat_bleeding(0.0, &[wound], 20.0);
+-        let two = advance_combat_bleeding(0.0, &[wound, wound], 20.0);
++        let one = advance_combat_bleeding(
++            0.0,
++            &[wound],
++            crate::elapsed::AnimationElapsed::from_seconds(20.0).unwrap(),
++        );
++        let two = advance_combat_bleeding(
++            0.0,
++            &[wound, wound],
++            crate::elapsed::AnimationElapsed::from_seconds(20.0).unwrap(),
++        );
+         assert_eq!(two, one * 2.0);
+     }
+ }

@@ -1,0 +1,12 @@
+--- PRbase/crates/adventuresim-building-generator/Cargo.toml
++++ frozen/crates/adventuresim-building-generator/Cargo.toml
+@@ -19,8 +19,9 @@
+     "dep:bevy_panorbit_camera",
+ ]
+ 
+ [dependencies]
++fabelgeist-geometry = { workspace = true, features = ["reflect", "bevy-math"] }
+ ab_glyph = { workspace = true, optional = true }
+ adventuresim-world-schema.workspace = true
+ adventuresim-procedural-textures = { workspace = true, optional = true }
+ bevy.workspace = true

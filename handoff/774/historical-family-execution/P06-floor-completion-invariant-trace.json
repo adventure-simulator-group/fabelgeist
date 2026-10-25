@@ -1,0 +1,41 @@
+{
+  "head": "82cb2a3acccc852bba6a7ef9c706c337ba9fe765",
+  "observed_at": "2026-10-20T18:01:24.761197+00:00",
+  "status": "Pre-edit receiver/operation trace; source evidence, not execution.",
+  "completed_floor_invariant": {
+    "owner": "terrain_contacts/foot_clearance.rs::FootClearanceFloor::apply, lines 29-40; ordinary_terrain_target, lines 49-53",
+    "evidence": [
+      "SignedLength::from_metres rejects only nonfinite leaves; finite extreme signed values are admitted.",
+      "InverseKinematicsConfig retains signed clearances and sole_contact_margin_metres as SignedLength; TacticalCombatConfig::validate has no narrower bounds for these fields.",
+      "FootClearanceFloor::apply computes the complete surface+sole+clearance sum, then uses max with target.y before checked_foot_target; ordinary_terrain_target similarly takes max of its complete floor before checking the final target.",
+      "In contrast, terrain_minimum_ankle_y and transition_minimum_ankle_y admit their complete computed floor before flight_projection takes max with target.y."
+    ],
+    "inference": "IEEE f32 overflow or cancellation involving nonfinite intermediates can leave a nonfinite completed floor, which max may hide behind a finite target. This is a static arithmetic-contract finding, not a reproduced runtime incident.",
+    "decision": "Admit/check the complete floor before applying target.max in both direct floor paths. Use the existing owning AnimationValueError::Overflow and floor aggregate. This intentionally repairs rejection of invalid completed arithmetic; do not describe it as solely a representation-preserving refactor.",
+    "preservation": "Preserve surface+sole+clearance and height+sole-margin expression order, final lerp/max order for finite inputs, signed/zero floor values and the existing return/error channel. Do not check individual sole/toe constituents before their complete existing sole-first/toe-second maximum. Do not add clamps, arbitrary lower bounds or zero fallbacks.",
+    "coverage_limit": "Existing tests can be adapted; no new extreme-input case/assertion is authorized. No local numerical or runtime probe was run."
+  },
+  "normal_fixture_decision": {
+    "owner": "orientation.rs::slope_aligned_world_rotation and procedural.rs::slope_alignment_is_idempotent_across_repeated_evaluation",
+    "evidence": "Only two production forwarders pass terrain normals into slope_aligned_world_rotation. Its complete body is normalization, angle/arc/quaternion math and returns the final native rotation; it does not forward to another application query or retain an untyped normal. The existing steep-normal fixture calls this kernel twice with one Vec3::normalize output and has two assertions.",
+    "locked_dependency_evidence": [
+      "bevy_math 0.19.1 direction.rs:563-564 delegates Dir3::new to new_and_length; lines 587-596 compute a finite-positive length and component division value/length.",
+      "glam 0.32.1 f32/vec3.rs:626-630 Vec3::normalize multiplies by length_recip; lines 641-647 try_normalize similarly multiply by a checked reciprocal. Lines 1422-1428 scalar division performs per-component division.",
+      "Consequently replacing the original fixture normalization with Dir3::new is not proven bit-identical, and wrapping its already-normalized output would introduce an extra normalization. The earlier planning statement that checked admission on the raw vector simply preserves the same two normalizations was insufficient."
+    ],
+    "decision": "Keep Dir3 through the application alignment forwarders. Project its native vector exactly at their call to the existing complete slope_aligned_world_rotation numerical kernel. Keep that kernel input native and its original try_normalize/arithmetic unchanged; it is a verified numeric endpoint, not a private application forwarder. This preserves all production vector bits and leaves the existing raw numerical-kernel fixture and both assertions unchanged, without an unchecked constructor or extra normalization.",
+    "scope_limit": "This native-kernel classification does not permit a raw-normal field/parameter in the outer alignment forwarders or another application helper. Document the world normal/local sole-axis handoff at the actual numerical owner as needed."
+  },
+  "source_sha256": {
+    "crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/foot_clearance.rs": "f415f0b21d2e4e0f5405bee3ad976e8d9c4f6e109d33ad1cc298559fdcf73df6",
+    "crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/flight_projection.rs": "0c69e9b3f96ecc69732fe01816cf2e56939f4a81f0216fc66495e0ab026f0975",
+    "crates/adventuresim-tactical-core/src/combat_config.rs": "abdd31b1d6a68165f7f89995c7f3f367bc146f23df320959089986943cfdc9ba",
+    "crates/adventuresim-building-generator/src/spatial_geometry/measurement.rs": "4d7b1086c60599c025995b6be5ed2c8ced26487b87a2f78e67ed061e205c08fd",
+    "crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation.rs": "ff4aaee32aae4083fc2d3ce6a8bc5f80a46be340a8e2ff965e2666dabffe9ae2",
+    "crates/adventuresim-tactical-client/src/animation/procedural.rs": "a2bbd73a58bd3f225510bc8261ac443c39a96ae24b79da6b9ce5e056679849ac",
+    "crates/adventuresim-tactical-core/src/scene.rs": "3c124cb1f252af95932cb2db1f6fc9ba9b4b9b21a78d5bbbb2060d978a7aad55",
+    "crates/adventuresim-tactical-core/src/city_layout/grounding/surface_hit.rs": "29e7ac48ff04161afcda422e4e4119946499ce6aad77e614c110b982b283ca8f"
+  },
+  "no_source_changes": true,
+  "no_new_tests_or_local_project_execution": true
+}

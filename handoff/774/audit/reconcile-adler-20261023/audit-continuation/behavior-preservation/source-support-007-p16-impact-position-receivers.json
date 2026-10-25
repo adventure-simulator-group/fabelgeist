@@ -1,0 +1,100 @@
+{
+  "id": "CONT08-SUPPORT-007-P16-IMPACT-POSITION-RECEIVERS",
+  "at": "2026-10-25T12:05:49.595577+00:00",
+  "classification": "Source-confirmed cfg(test) receiving migration; native-operation support candidate; no compiler/run/unique-count claim",
+  "source": {
+    "scope_index": 381,
+    "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat.rs",
+    "base": "a120390947c89b703dc74c4255a13c035d054c50",
+    "head": "039329518e264f19206cf5b0b98d177433f40c17",
+    "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-server/src/combat.rs",
+    "before_sha256": "847551347ed20961db50cd3ef65998a772b1d732f26b4810f4ccb725685547ba",
+    "after_sha256": "a21f436f16e7c331c844e120198460cd485a9342d6d9c41ff79fc039c913e0c5",
+    "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0381-base-847551347ed20961db50cd3ef65998a772b1d732f26b4810f4ccb725685547ba",
+    "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/a21f436f16e7c331c844e120198460cd485a9342d6d9c41ff79fc039c913e0c5",
+    "diff": "source-evidence/p16-0381.diff",
+    "diff_sha256": "64626fd7dcafa037bdeaf4aecfe52bbc1cf881e589e46bba600a0e263f5d40b0"
+  },
+  "owner": {
+    "scope_index": 42,
+    "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+    "body_ranges_personally_consumed": [
+      [
+        1,
+        140
+      ]
+    ],
+    "own_lens_prior": "CONT08-CONTRACT-011 exact scope42 baseline; full current140-line body personally re-read now",
+    "contract": "Private frame-bearing Vec3 wrapper, explicit .metres75; no implicit native conversion/Deref in actual declaration/method body."
+  },
+  "before": "hit_velocity_change secondargument nativeVec3, oldphysicalinputs samefinitevectors.",
+  "after": "Changed secondargument Position<Scene>351; unchanged existing fixtures stillcallVec3::ZERO1095/1132/1156. Actualbody368 also retains Vec3 defender - Position attacker with noexplicitprojection.",
+  "trigger": "cfg(test) actual existing impact/quartermetre/parryfixtures; nativebody compileoperation separate from any gameplayinput.",
+  "limits": [
+    "No Rust compiler invocation or captured diagnostic; no first/onlyfailure assertion.",
+    "No runtime/normalbranch result claimed while source migration remainsincomplete.",
+    "Exact fixture argument contract mismatch provenwithout requiringnative trait lookup; bodyoperation needs explicit frame/native port rather than inferredimplicitconversion.",
+    "Other-lens/globaldedup pending; related typedreceiving migration onlynotautomaticallysame exactfinding."
+  ],
+  "connected_remedy": "Keep Scene Position throughauthoritativeAPI; explicitlyproject .metres withincomplete nativeimpactkernel,admit original fixturelocations as Position::ORIGIN/from_metres, retainphysical expected3.86/.23..=.27/recoilheading. Do notaddcompatibilityoperators/implicitfrom argumentpaths.",
+  "acceptance": "Originalimpact/quartermetre/parryinputs/count/assertions unchanged; futureauthorizedrelevanttestbuild plusoriginalphysicsassertions. No newtests/checks/repairs.",
+  "additional_exact_receivers": [
+    {
+      "source": {
+        "scope_index": 386,
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/contact.rs",
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-server/src/combat/contact.rs",
+        "before_sha256": "d36c444c66fafb2943291079bf5edcb5cb16e0890b1a078d655e838510cbac95",
+        "after_sha256": "c92333b6813f028d894f8de669a20b823341813213103079ddb3c038388e44d6",
+        "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0386-base-d36c444c66fafb2943291079bf5edcb5cb16e0890b1a078d655e838510cbac95",
+        "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/c92333b6813f028d894f8de669a20b823341813213103079ddb3c038388e44d6",
+        "diff": "source-evidence/p16-0386.diff",
+        "diff_sha256": "4895524f1b2c6f8fc472f39bee7885114fa907bcc6ef3c4b9c8a016d61e6de75"
+      },
+      "caller": "source381 authoritative_impact145\u2013146",
+      "receiver": "source386 canonical_impact_surface4\u20138 firstargumentVec3",
+      "proof": "Actualcaller passes newPosition<Scene> without.metres to unchanged nativeVec3receivingAPI; explicitconversion notimplicitfunctionargumentcoercion.",
+      "repair": "PreserveScenePositionuntilcomplete ownedimpact/kernel entry,thenexplicitnative .metres projection orchange completekernel signaturewithsameinnernative operation; no compatibilityAPI."
+    },
+    {
+      "source": {
+        "scope_index": 396,
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/melee/outcome.rs",
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-server/src/combat/melee/outcome.rs",
+        "before_sha256": "b1df703eee8ffb66e22145a48e714ea090151771043a2c85b99905acb930c2f4",
+        "after_sha256": "b1df703eee8ffb66e22145a48e714ea090151771043a2c85b99905acb930c2f4",
+        "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0396-base-b1df703eee8ffb66e22145a48e714ea090151771043a2c85b99905acb930c2f4",
+        "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/b1df703eee8ffb66e22145a48e714ea090151771043a2c85b99905acb930c2f4",
+        "diff": "source-evidence/p16-0396.diff",
+        "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "caller": "emit_melee_outcome39\u201349,argument42",
+      "receiver": "381 authoritative_impact128 attacker_position:Position<Scene>",
+      "retained_actual_input": "attacker_transform.translation:Vec3",
+      "repair": "PassalreadyadmittedSceneobservationoradmitwholeactualnativeframeworkposebeforepublication; no implicitcompatibility API."
+    },
+    {
+      "source": {
+        "scope_index": 399,
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ranged/outcome.rs",
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-server/src/combat/ranged/outcome.rs",
+        "before_sha256": "f45632053e10a52d5ea4a1ecf1259f323c55fa091f9de58a92e8894815c55cc8",
+        "after_sha256": "666e7ae0d0aaeeed9b53efc70bf96befd2ffbbfdc84adf176db63126431658f5",
+        "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0399-base-f45632053e10a52d5ea4a1ecf1259f323c55fa091f9de58a92e8894815c55cc8",
+        "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/666e7ae0d0aaeeed9b53efc70bf96befd2ffbbfdc84adf176db63126431658f5",
+        "diff": "source-evidence/p16-0399.diff",
+        "diff_sha256": "df1056d7aff47242af8f48a5a91057a4b8f992e8e0aeb567aa5088754df1d0a3"
+      },
+      "caller": "RangedContact.publish35\u201346,argument39",
+      "receiver": "381 authoritative_impact128 attacker_position:Position<Scene>",
+      "retained_actual_input": "attacker_transform.translation:Vec3",
+      "repair": "PassalreadyadmittedSceneobservationoradmitwholeactualnativeframeworkposebeforepublication; no implicitcompatibility API."
+    }
+  ]
+}

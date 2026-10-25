@@ -1,0 +1,50 @@
+{
+  "id": "RIG-INITIAL06-GROUP-007",
+  "at": "2026-10-22T19:05:22.240688+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "fbx-host-source-to-shared-rig": {
+      "sources": [
+        "pr-working:crates/fabelgeist-mhr/src/character.rs",
+        "pr-working:crates/fabelgeist-mhr/src/character/skin.rs"
+      ],
+      "comparison": "Fresh full315/113 actual sources. Character owns model FBX-loading aggregate while canonical shared Rig owns labels/ordinal/table/packedmembership. Actual native FBX ObjectIDs resolve through joint_of_object HashMap into RigJointOrdinal, source tables retain exact rig order, nativeFP vertex/UV/triangle data are framework/modelport records not checked metregeometry. Blendshapenames retain FbxObjectName because native shapeidentity differs exactRigjointname; do not merge different namespaceowners basedonString. Dynamic private SkinInfluence has f64 raw-source weights before width8 truncate/normalize versus shared RigInfluences<W> fixedf32nativearray; canonical joint retained in both, no independently maintained jointlabeltype. Raw skinweights/fullbody invariants not certified by typeownership, native NaN/clamp/shape defects remain owning admission/operations findings."
+    },
+    "model-parameter-parser-and-fixtures": {
+      "sources": [
+        "pr-working:crates/fabelgeist-mhr/src/model_def.rs",
+        "pr-working:crates/fabelgeist-mhr/src/model_def/tests.rs"
+      ],
+      "comparison": "Fresh full348/143 actual bodies. Parser currentformat owns ModelParameterName/ParameterSetName, typedchannelrow/column and ParameterTransform using alreadycompared layout. Actual parse_expression preservesexistingparam-name precedence beforejointreference, fromauthoredtext admits RigJointName then actualSkeletonlookup and JointChannel, stableinsertedcolumn. Theseare different namespaces/indexspaces despite strings/usize. Section/limit/sourceformat vocabulary belongs MHR parser, not genericRig or runtimecliplayer. Actual host Contribution namedrecord row/column/weight retains source roles. Existingtests sourceonly reuse canonical typedSkeleton, row/column/params; no competing public owner introduced byfixturehelpers. No .into/callcount stamp or changedtest/oracle."
+    },
+    "mhr-native-tensor-ownership": {
+      "sources": [
+        "pr-working:crates/fabelgeist-mhr/src/correctives.rs",
+        "pr-working:crates/fabelgeist-mhr/src/model.rs",
+        "pr-working:crates/fabelgeist-mhr/src/skel_state.rs"
+      ],
+      "comparison": "Fresh full188/626/302 including originalSkelStatefixturetail. Mhr/MhrConfig/MhrOutput and PoseCorrectives own nativebackend/modelrecipe; LOD4..6 is MHRruntimeassetpolicy, not SceneVista/renderingLOD ordinal. Pose/model/blendshape parameters/sparseNNdimensions/vertexindices different from rigjointordinal, preserveexactscalarunits/channels and model-specificcounts. Actual typedRigparents→PrefixMultiplicationLevel source/targetRigJointOrdinal lists→checkednativei32 Burnupload is realnativeport; jointindices and vertexindices separate despite sameTensor<Int>. MHR centimetre vertex outputs/XYZW+uniformscale skeletonstate differ checked metreScene/Architectural positions and genericEulerdegreesTRS. BurnTensor rank3 doesnot establish semanticshape/finiteunitquaternion byitself, nor should checkedNativeGeometry owner be borrowed toassert rawtensorvaluesvalid. Prefix multiplication relation is modelalgorithm state, genericRigTable onlyordinalcolumn nothierarchyseal. Modelnativefields shape aliases belongMHRowner, no lowRig->Burn/Tacticalcycle. Actual publicrawtensor API/refinement/collectioncorrelation/FP correctness belongsotherlenses, no blanketprivatehelper waiver."
+    },
+    "rig-quality-native-upload-variant": {
+      "sources": [
+        "rig-quality:crates/fabelgeist-mhr/src/model.rs",
+        "rig-quality:crates/fabelgeist-mhr/src/model/tensor_upload.rs"
+      ],
+      "comparison": "Actual complete612-line counterpart body/delta compared with freshPR626 and full33helper body freshlyread. Only ownership-relevant change moves same checked RigJointOrdinal→i32 source/target orderedupload into private model::tensor_upload::fk_levels. MHR nativeadapter owns Burn tensor types, sharedRig owns underlyingordinal/Table; no duplicatecanonical owner/new semanticbounds. Returnpairs are native source/target tensors, bothroles retained; naming/granularity/correlation review separate, notreason to move Burntypes into neutralRig. Same loader/config/nativeoutputs/differentstates asactualPR body specificallycompared; not hash/priorverdict carry."
+    },
+    "mhr-docs-and-dependency-metadata": {
+      "sources": [
+        "pr-working:crates/fabelgeist-mhr/README.md",
+        "pr-working:crates/fabelgeist-mhr/Cargo.lock"
+      ],
+      "comparison": "README154 personallyread asdescription/reference notdefinitionauthority: canonicalRig label/ordinal and nativeMHRchannel/cm tensor roles matched actualsource, externalBodyModelTask/ParameterInfo/task/example/performance statements not treatedactualcurrentRustimplementation evidence or additionaltypeowner. Actualsource626 computesnormals despiteREADME154 oldnogenerationstatement; no behavioral/docsrepairclaimed in06. Lock7093 parsedread-onlysinglefileTOML: exactversion4 plus661package records andgeneratedCargoheader; no authoredRustdomainowner or alternativetypeconstructors. Selectedpackageedges actualMHR->FBX/Rig/Burn, FBX->Rig, Rig->Serde/strum/derive andpinnedBurn revision matchscopedmanifests; no reverseRig->MHR/engine. Thuslock has no additionaltypeownershiprepair; packageversion/ABI provenance preserved, not blanketnativeSDKcontractclearance."
+    }
+  },
+  "new_findings": [],
+  "actual_precision_and_frame_comparison": "contracts006 actualregisteredTransform comparison remainsmandatory; model outputs cm versus checkedGeometrymetres preserved.",
+  "source_edits": 0,
+  "project_execution": 0,
+  "new_tests": 0,
+  "later_lens_credit": false,
+  "limits": "Every source-specific currentrole above analyzed, no wholeexternalFBX/Burn/NPZ or unrelatedcharactercreator/gamegraphcredit. Current03sourcefacts not priorverdict; new06actualreads/delta and invariant/owner/dependency comparison authoritative here."
+}

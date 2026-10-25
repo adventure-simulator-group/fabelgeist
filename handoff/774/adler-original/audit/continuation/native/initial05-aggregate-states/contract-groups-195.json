@@ -1,0 +1,126 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-195",
+  "at": "2026-10-23T04:39:16.187010+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/physiology.rs",
+      "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+      "scope058_index": 128,
+      "actual_EOF": 1169,
+      "scoped_ranges_compared": [
+        [
+          1,
+          790
+        ],
+        [
+          850,
+          935
+        ]
+      ],
+      "actual05_comparison": "Fresh PR physiology full1-315/316-665/666-935/936-1169 and item_refs full76, complete actual P16/PR diffs empty; personally compared ONLY exact P16 scope union. P16 physiology789-790 next function header and930-935 next observer-noise attributes/docs are context only, NO excluded state/terminal/noise bodies. P16 item_refs39+ excluded. No hash/verdict carry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/physiology.rs",
+      "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+      "scope058_index": 964,
+      "actual_EOF": 1169,
+      "scoped_ranges_compared": [
+        [
+          1,
+          1169
+        ]
+      ],
+      "actual05_comparison": "Fresh PR physiology full1-315/316-665/666-935/936-1169 and item_refs full76, complete actual P16/PR diffs empty; personally compared ONLY exact P16 scope union. P16 physiology789-790 next function header and930-935 next observer-noise attributes/docs are context only, NO excluded state/terminal/noise bodies. P16 item_refs39+ excluded. No hash/verdict carry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/item_references.rs",
+      "sha256": "e794dc0ede51c9d53d64155ee9ce8d551347ec8f659e2461c0b3d5d31b34cb6b",
+      "scope058_index": 946,
+      "actual_EOF": 76,
+      "scoped_ranges_compared": [
+        [
+          1,
+          76
+        ]
+      ],
+      "actual05_comparison": "Fresh PR physiology full1-315/316-665/666-935/936-1169 and item_refs full76, complete actual P16/PR diffs empty; personally compared ONLY exact P16 scope union. P16 physiology789-790 next function header and930-935 next observer-noise attributes/docs are context only, NO excluded state/terminal/noise bodies. P16 item_refs39+ excluded. No hash/verdict carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_references.rs",
+      "sha256": "e794dc0ede51c9d53d64155ee9ce8d551347ec8f659e2461c0b3d5d31b34cb6b",
+      "scope058_index": 2744,
+      "actual_EOF": 76,
+      "scoped_ranges_compared": [
+        [
+          1,
+          10
+        ],
+        [
+          12,
+          27
+        ],
+        [
+          30,
+          37
+        ]
+      ],
+      "actual05_comparison": "Fresh PR physiology full1-315/316-665/666-935/936-1169 and item_refs full76, complete actual P16/PR diffs empty; personally compared ONLY exact P16 scope union. P16 physiology789-790 next function header and930-935 next observer-noise attributes/docs are context only, NO excluded state/terminal/noise bodies. P16 item_refs39+ excluded. No hash/verdict carry."
+    }
+  ],
+  "contract_groups": [
+    {
+      "id": "canonical leaf admission and fixed dimensions",
+      "comparison": "BodyMassKg private finite20..300, constant DEFAULT70 and estimated blood*70 within1400..21000, no Serde/Reflect/raw setter. Dose private0..8000 including Default/ZERO, integer TryFrom checked; rounded standard doses finite>=0, multiply/round then bound before native cast. Zero dose intentionally representable, actual initiating reducer may requirepositive separately. Meter10/Region7/Humour4 explicit ALL arrays and repr discriminants index fixed arrays; columns/rows match exactly. BodyRegion native slug hyphen versus persistence snake names are deliberate distinct adapters, closed exact lookup not alias."
+    },
+    {
+      "id": "private meters versus lossy public humours",
+      "comparison": "MeterVector is public raw array, not sealed bounded state. from_entries sanitizes nonfinite then per-add clamps[-1,2], add_bounded and scaled likewise readmit final bounds; fixed ALL indexing safe, duplicate meter entries accumulate in source order with saturation, not promised order-independent algebra. from_const private only authored static values, assigns exact keyed slots; uniqueness/source values must be checked actual tables, not inferred from const helper. Humours uses explicit10x4 finite matrix then clamps[-1,1]; temperature and inflammation identical rows deliberately many-to-one public view. Regional projection maps same seven meter rows to same seven public rows. Treatment selection must remain private-meter-owned; never invert humours or add hidden parallel impairment. Raw pub tuple outside[-1,2] not guaranteed safe by this type."
+    },
+    {
+      "id": "curve record and interpolation contract",
+      "comparison": "CurvePoint raw minute/loss and MeterCurve raw static points/regional weights do not seal strictly increasing times or finite values. Empty curve returns0; endpoints flat with finite_or_zero; zero/backward span returnsright sanitized, actual middle uses left f64 + f32(right-left) widened late. Independently confirms Root019 API signed +/-MAX interpolation overflow, actual disease authored tables Root018 bounded0..0.72 and strict times are separate current producer evidence still05 unread. No <=1 probability cap for signed generic curve invented. P16 new Root019408-446 actual role compared; P16 disease_meter_state789+ body is outside scope/context header, not automatically covered."
+    },
+    {
+      "id": "medication identity and versioned profile table",
+      "comparison": "Fresh exact MEDICATION_IDS14 declaration has14 distinct identities, each index0..13 in INTERVENTION_PROFILES corresponds to exactly one same ID/currentversion1. Routes oral for hydration/willow/poppy/sage and topical for comfrey/honey, durations180..720 positive; vectors use actual listed Meter keys and finite bounded deltas, adverse nonnegative or ZERO. Profile lookup exactID+version, current lookupmaxversion separate purpose; no parallel independently ordered IDs/effect arrays at runtime. These definitions are immutable public constants, not evidence raw caller-constructed InterventionProfile is valid or that every catalogue item exists; build gameplay reference validation body remains separate."
+    },
+    {
+      "id": "administration interval and whole-row dependencies",
+      "comparison": "Administration public raw record contains dose owner but no whole accepted seal. effect_at resolves exact preparation+version; unknownprofile or route mismatch or beforestart returnsZERO. End=min(stopped or authoredend, authoredend), half-open now>=end inactive; stop<start yields no active interval rather than underflow. Dose<=8 standard times sensitivity[.75,1.25] <=10 and adversefactor<=.25 keep scales finite, vectors re-admit bounded output. Patient and region are retained metadata not read by effect_at; actual caller must select correct patient and regional placement, no arbitrary crosspatient defect from pure combiner. Future stopped_at extends only up to profile duration, u64 saturation at clock capacity remains source-specific exhaustion policy, no ordinary badadmin claim. Native179 persisted adapter closes only ruleset+dose, not the whole clinical record."
+    },
+    {
+      "id": "phenotype and baseline keyed aggregate",
+      "comparison": "Ten raw samples in [.72,1.28] yield finite positive mean, dividing SAME array gives approximate mean1, not generic normalized probabilities. Fixed count10 avoids MAX sum; baseline variation about+/-.02. Keyed hash frames fixed-length keyversion/character/episode/discriminator after fixed domain, native SHA256 digest prefix length32 supports8-byte extraction; no whole foreign crypto/SDK source proof or security-strength claim. Secret/key version identities caller-owned, not provenance guaranteed by scalar wrappers."
+    },
+    {
+      "id": "PR-only state combination and terminal search",
+      "comparison": "PR disease_meter_state maps curve.meter index to SAME phenotype slot and accumulates with[-1,2] cap; raw curves/phenotype not validated by this signature. Combined diseases then actual administrations add_bounded in supplied order, preserving typed bounded result for admitted normal inputs; no promise all signed clipped operations commute. Terminal picks deterministic lowest Meter among >=1, not largest loss. first_terminal sorts/dedups structural boundaries and scans windows2, checksleft, then right and binary searches while elapsed>1. Correctness requires piecewise-linear/appropriate boundary partition and terminal monotonic-on-window behavior; arbitrary callback is not automatically such a proof. Singleton list returnsNone: retain explicit minimum-two/nonzero-interval caller obligation before claiming missed normalterminal. These PR791-849 implementations are NOT P16 credited."
+    },
+    {
+      "id": "presence history and public chart shapes",
+      "comparison": "PresenceSpan rawpublic/Serde may encode unordered intervals or band>5; canonical creates ordered observer/patient pair without sorting identities and start=min clocks, bandmin5; close setsend=max(min clocks,start). Directional observer/patient intentional, equal IDs not rejected here. Contains uses inclusive endpoints, no lost half-open policy assumption. Repeatedclose may replaceend, so durable historical immutability is actual DB lifecycle writer contract. ChartEntry Reading carries fixed4 humour columns and knownintervention identities; Gap payloadfrom/to raw needs producer order. Daily cadence independent band by design; quantization improvesband only, finite sanitization/bounds/clamped integer arithmetic keeps all outputs[-10000,10000]. P16 source850-929 actual roles,930-935 context only."
+    },
+    {
+      "id": "PR-only smooth observer noise",
+      "comparison": "Observation noise hashes observer/patient/day/region/humour coordinates into native key input, interpolates current/next day by finite in-dayfraction and band-clamped amplitude table length6. Discriminator region0..6*4+humour0..3 fits0..27, no saturation alias. Deliberate presentation-only signal never changes private meters/treatment/death. Patient/day XOR folding is not asserted injective identity, no attack/receipt uniqueness guarantee invented. Actual clinical interpretation and secret authority remain caller contract. P16937+ excluded."
+    },
+    {
+      "id": "original fixtures and item constants",
+      "comparison": "All PR physiology961-1169 original fixtures read source-only: leaf bounds, dose roundtrip, lossy humour example, keyed relative mean, profile version interval, terminal chunk example, asymmetric presence chronology, daily cadence/quantization/noise and relationship gates. No execution or added tests. P16 fixture961+ excluded. Item refs PR full76 includes gameplay-ID19 roster and declaration-only validator reexport; carry placement IDs and currency6 are separate purposes, not one dense inventory tuple. P16 only exact currency1-10/meds12-27/carry30-37, no gameplay reexport/function implementation credit."
+    }
+  ],
+  "new_unique_findings": [],
+  "supporting_existing_findings": [
+    "Root019 late-widened signed curve interpolation API witness independently compared; actual authored disease producer constants remain separately unread05."
+  ],
+  "remaining_dependency_obligations": [
+    "Actual disease constant producer Root018/new1881-2091 and full clinical patient/region selection; normal terminal structural-boundary/min-two contract; durable presence writers. Raw DTO versus accepted meter state distinction preserved."
+  ],
+  "scope_qualifications": [
+    "P16 actual union1-790/850-935 compared with material ending787/929;789-790 and930-935 context only, no inferred body. PR1-1169 full. Root019 new role consumed, Root018 diseaseconstants still05 unread."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

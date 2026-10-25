@@ -1,0 +1,62 @@
+{
+  "id": "RIG-INITIAL06-GROUP-012",
+  "at": "2026-10-22T19:24:52.297532+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "xpbd-mass-and-projection-numerical-owners": {
+      "sources": [
+        "pr-working:crates/fabelgeist-xpbd/Cargo.toml",
+        "pr-working:crates/fabelgeist-xpbd/src/dynamics/mass.rs",
+        "pr-working:crates/fabelgeist-xpbd/src/dynamics/projection.rs",
+        "pr-working:crates/fabelgeist-xpbd/src/dynamics/constraint.rs"
+      ],
+      "comparison": "Fresh actual XPBD manifest21, mass1\u2013160 including overlay098, projection1\u2013200 and dynamics constraint40; exact NormalSpeedCorrection201\u2013206 separately prospectively registered005 then freshly read. XPBD owns particle kg, inverse kg, areal kg/m\u00b2, effective inverse response, substep-scaled compliance, kg\u00b7m multiplier, signed constraint violation, projection depth/gradient and position/normal-speed corrections. Equal f32 storage or inverse-kg units do not merge effective response with one particle mass or scaled compliance; actual operations produce and consume distinct equation terms. These constructors intentionally preserve native float words and expose separate validity/activity policy; they are not equivalent to bounded clinical BodyMass or finite checked SignedLength/UnitInterval/linear-speed owners. BarycentricWeight, ClippingFraction and MassResponseShare are affine/projection roles without a universal [0,1] admission predicate; do not borrow probability/BasisPoints. PositionCorrection returns metres along a normal, NormalSpeedCorrection returns speed along a normal; same multiplication shape is not semantic equivalence. The coherent owner is low XPBD dynamics, shared by cloth/contact callers without depending upwards on tactical Core/Building/clinical systems. Native numerical/admission gaps remain other-lens findings, no blanket private-helper waiver. Mass161+ original test-module declaration excluded."
+    },
+    "xpbd-particle-packing-and-shared-gpu-boundary": {
+      "sources": [
+        "pr-working:crates/fabelgeist-xpbd/src/particles.rs",
+        "pr-working:crates/fabelgeist-xpbd/src/particles/packed.rs"
+      ],
+      "comparison": "Fresh Particles1\u2013169 and packed100. XPBD owns particle position+inverse mass record, velocity+padding record and their collections because the solver deliberately interleaves these exact native words. Shared GPU owns borrowed NoUninit BufferUpload, byte length/address and generic buffers (010); no independent GPU extent owner here. ParticlePositions enforces equal source position/mass cardinality and emits its actual native upload; ParticleVelocities is a different record/product and cannot stand in for positions. Neither record is a framed Building Position or checked Core speed, nor does Pod/readback imply finite numerical state. Particles retains native buffers, host inverse masses and u32 count/capacity, with source correlation owned by its write/read operations; public buffers do not establish an immutable accepted aggregate or rig membership. Preserve signed-zero pinned inverse mass and raw native readback, no model cm/metre conversion silently introduced. Trailing tests170+ excluded."
+    },
+    "xpbd-incidence-coloring-and-constraint-owner": {
+      "sources": [
+        "pr-working:crates/fabelgeist-xpbd/src/constraint.rs",
+        "pr-working:crates/fabelgeist-xpbd/src/incidence.rs",
+        "pr-working:crates/fabelgeist-xpbd/src/constraint/address.rs",
+        "pr-working:crates/fabelgeist-xpbd/src/coloring.rs"
+      ],
+      "comparison": "Fresh complete ConstraintSet292 and exact incidence1\u2013140/address32/coloring1\u2013151. Solver ParticleIndex, original ConstraintIndex, reordered ConstraintSlot, schedule ConstraintColor, counts and nonzero ConstraintArity have distinct address spaces/meanings, not one universal usize/RigJointOrdinal owner. ConstraintEdges fixed pair records refine ConstraintIncidence complete immutable arity records; Coloring owns greedy arrival-order permutation and color ranges, while ConstraintSet owns shader/attachments/lambdas and their correlated reordered domain. Existing conversions at native u32 upload/dispatch are actual ports, and typed address admission alone does not establish membership in a specific particle buffer. Raw attachment labels identify extensible shader buffers and diagnostic labels are projected through canonical GPU BufferLabel; no global game-string vocabulary or duplicate shader owner. Empty records/sets/count0 are intentional; arity0 rejected, variable-arity coloring remains separate API. Compliance/rest lengths currently raw numeric fields are propagation/refinement concerns, not proof of an equivalent competing type owner. Exact source-body comparisons preserve correlation and native narrowing issues without awarding aggregate/admission clearance. Incidence141+/Coloring152+ test declarations excluded."
+    },
+    "xpbd-solver-and-native-shader-stage": {
+      "sources": [
+        "pr-working:crates/fabelgeist-xpbd/src/solver.rs",
+        "pr-working:crates/fabelgeist-xpbd/src/wgsl.rs"
+      ],
+      "comparison": "Fresh full Solver280 and WGSL301. SolverSettings, Solver and SubstepHook own numerical integration scheduling, native seconds/substeps, gravity acceleration, exponential drag and speed cap; KernelBatch/Context/Buffer remain canonical lower GPU/Compute identities. Core AnimationElapsed and positive animation duration have checked runtime animation contracts, whereas this raw numerical solver currently preserves arbitrary native float ingress/operations; identical seconds do not justify making generic XPBD depend on game Core or silently changing semantics through a checked constructor. Solver already emits shared native Params and shader kernels consume exact particle/mass/compliance/slot layout. XpbdSolve WGSL result is an equation-stage value with denominator threshold, not a duplicate admitted host projection record or game outcome owner. Existing MHR cm vertices must be scaled on actual adapter ingress; no mixing with scene/architectural datums based on Vec3. No ownership defect from maintaining actual host/native equation representations, and no later operation/admission verdict."
+    },
+    "xpbd-original-fixture-owner-evidence": {
+      "sources": [
+        "pr-working:crates/fabelgeist-xpbd/src/constraint/tests.rs",
+        "pr-working:crates/fabelgeist-xpbd/tests/fixtures/constraint-native.json"
+      ],
+      "comparison": "Fresh original constraint tests111 and fixture47. Tests use canonical arity/incidence/index/count/constraint owners and shared GPU buffers, intentionally preserve unknown particle u32MAX without falsely asserting live membership, and observe native reordered/uploaded words/error strings/empty slots. Fixture is raw source evidence, not an independently maintained accepted constraint type. Do not alter its bytes/cases to accommodate new types; no tests executed, fixtures changed or new assertions authored."
+    }
+  },
+  "new_findings": [],
+  "registered_tail": {
+    "registration": "RIG-INITIAL06-REG-005",
+    "source_id": "pr-working:crates/fabelgeist-xpbd/src/dynamics/projection.rs",
+    "sha256": "5bb8e91c0567547ebdbb72da14d8b7e9384b3caded29267f1f3d96ac49ececf3",
+    "actual_EOF": 206,
+    "actual_fresh_ranges": [
+      [
+        201,
+        206
+      ]
+    ],
+    "comparison": "NormalSpeedCorrection is a private f32 native numerical role with along(normal) \u2192 math Vec3; unlike PositionCorrection its correction unit is speed, so retain distinct XPBD owner and role. Direct callers163/189 already scoped; registration occurred before tail body analysis.",
+    "scope_status": "existing variant; exact new range global reconciliation pending"
+  },
+  "limits": "No source/project execution/new tests/other-lens clearance. Whole initial06 still incomplete."
+}

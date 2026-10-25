@@ -1,0 +1,183 @@
+{
+  "id": "CONT08-CONTRACT-013",
+  "at": "2026-10-25T09:03:10.047620+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 58,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "before_sha256": "2f56c5185ec61241a7e4607eef02ebb4051e24dee918f5200585d586a4d971a8",
+      "after_sha256": "e1dac77a2c5ef7c2bb50b886c9b7340c83f2fcee27fe767788e48463ad6f737c",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0058-base-2f56c5185ec61241a7e4607eef02ebb4051e24dee918f5200585d586a4d971a8",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/e1dac77a2c5ef7c2bb50b886c9b7340c83f2fcee27fe767788e48463ad6f737c",
+      "diff": "source-evidence/p16-0058.diff",
+      "diff_sha256": "67bc33dc45821d1c6f8c06a7338c594c5855db6cf8551c9ec42015d9b938a0c5",
+      "head_body_read_ranges": [
+        [
+          1,
+          866
+        ]
+      ],
+      "facts": [
+        "Full866-line body and complete diff consumed. Authored roster defaults, stable hash IDs, canonical weapon lookup/errors, shield side and repeated armor placement occurrence modulo placement count remain unchanged. Armor/per-part overwrite policy and accumulated weight remain old behavior; no new aggregate finding inferred.",
+        "Changed runtime helper dependency is authored weapon projection (already own51); this file runtime body unchanged. Test wrappers update same reach/measure observations; ordinary roster never invokes cfg(test) only helpers. All existing bounded reproducibility, event/contact timing, armor/gap and fatigue-cadence fixture bodies consumed unexecuted.",
+        "Concrete source migration obligation at862: contact.surface_measure_metres<=0.000_1 still primitive observation after evidence60 field becomes SignedLength; owner452 supplies no PartialOrd<f32>. Separate source-support001 saves exact proof/acceptance, no compiler run or duplicate count."
+      ],
+      "disposition": "Source-local comparison accounted WITH findings/qualifications; connected graph remains unfinished.",
+      "acceptance": "Retain ordered samples, finite physical values and checked result owners; observe .metres only at actual numerical/native boundary, preserve current fixture expectation rather than add primitive comparison compatibility. No checks/tests/repair."
+    },
+    {
+      "scope_index": 60,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_iteration/evidence.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/autoresolve/melee_iteration/evidence.rs",
+      "before_sha256": "204c03d01cb76d4603c9c42a010a5ccf300f65abe20d62ab307212fe2fac19bc",
+      "after_sha256": "a806a6dd4779dabe9e140cdc109d4450a5d400c0460b862e157ad4f73b58c345",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0060-base-204c03d01cb76d4603c9c42a010a5ccf300f65abe20d62ab307212fe2fac19bc",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/a806a6dd4779dabe9e140cdc109d4450a5d400c0460b862e157ad4f73b58c345",
+      "diff": "source-evidence/p16-0060.diff",
+      "diff_sha256": "86e11a1e7d5066823fcef3b7283551ab2d9a4cc433030b6f988547747f37d960",
+      "head_body_read_ranges": [
+        [
+          1,
+          447
+        ]
+      ],
+      "facts": [
+        "Full447 body+entire diff consumed. Replaces iterator flat_map/map with ordered nested for-push collecting Result, retaining three weapon order, five contact-band samples, polearm six samples, native arithmetic/clamps and authored incident energies. Same center=surface+0.8 arithmetic now checked before retaining.",
+        "Failures from finite owner operations propagate as MeleeIterationError before returning complete report; no assertion of unchanged malformed/nonfinite report behavior. Authored canonical roster finite default witnesses keep meaningful normal inputs, actual derived recipe admitted geometry still Q002.",
+        "Changed public evidence fields are SignedLength. Actual own full452 transparent Serialize and f32 inner/accessor retained; JSON observation remains numeric for admitted finite values. Broader protocol/native schema not cleared. Existing fmt/debug owner representation can differ intentionally. Fatigue workload/defense matrices/order and capability diagnostics unchanged."
+      ],
+      "disposition": "Source-local comparison accounted WITH findings/qualifications; connected graph remains unfinished.",
+      "acceptance": "Retain ordered samples, finite physical values and checked result owners; observe .metres only at actual numerical/native boundary, preserve current fixture expectation rather than add primitive comparison compatibility. No checks/tests/repair."
+    },
+    {
+      "scope_index": 61,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/armor.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/armor.rs",
+      "before_sha256": "9a5f5b89b21f9f10d774f35eb8c9f2cc2c73ebd4a21faf917bae8cd0b428561c",
+      "after_sha256": "9a5f5b89b21f9f10d774f35eb8c9f2cc2c73ebd4a21faf917bae8cd0b428561c",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0061-base-9a5f5b89b21f9f10d774f35eb8c9f2cc2c73ebd4a21faf917bae8cd0b428561c",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/9a5f5b89b21f9f10d774f35eb8c9f2cc2c73ebd4a21faf917bae8cd0b428561c",
+      "diff": "source-evidence/p16-0061.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "facts": [
+        "Full76 and empty diff. Canonical brigandine/vambrace evidence uses known literal placement indices, same armor0.4/gap0.95 and mirrored0.9/0.4 sequence and surface containment. No generic unchecked placement guarantee inferred from fixture-only canonical catalogue; no generated evidence run."
+      ],
+      "disposition": "Source-local comparison accounted WITH findings/qualifications; connected graph remains unfinished.",
+      "acceptance": "Retain ordered samples, finite physical values and checked result owners; observe .metres only at actual numerical/native boundary, preserve current fixture expectation rather than add primitive comparison compatibility. No checks/tests/repair."
+    },
+    {
+      "scope_index": 62,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/timeline.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/timeline.rs",
+      "before_sha256": "8be8fb9671dfce44ce30fa2a7738cc1ff52df15d2ee5517e8eef0aa1733c3d1a",
+      "after_sha256": "aeeb06c19efd75896544fd2d7d89f4e664f10d8c005772ccc8516d69e27f1126",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0062-base-8be8fb9671dfce44ce30fa2a7738cc1ff52df15d2ee5517e8eef0aa1733c3d1a",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/aeeb06c19efd75896544fd2d7d89f4e664f10d8c005772ccc8516d69e27f1126",
+      "diff": "source-evidence/p16-0062.diff",
+      "diff_sha256": "e93f66eab84988e38edcf36802977a4478175c1ea585a16e755b62592da3e57c",
+      "head_body_read_ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "facts": [
+        "Full151+entire diff. Only simultaneous fixture-held distance0.4 now checked SignedLength; forward/reversed SEED1 comparison, first polearm contact slice, cancellation search seeds1..=64 and event filtering/membership collection retain exact order. No seed search executed and no success inferred from assertions."
+      ],
+      "disposition": "Source-local comparison accounted WITH findings/qualifications; connected graph remains unfinished.",
+      "acceptance": "Retain ordered samples, finite physical values and checked result owners; observe .metres only at actual numerical/native boundary, preserve current fixture expectation rather than add primitive comparison compatibility. No checks/tests/repair."
+    },
+    {
+      "scope_index": 63,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_movement.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/autoresolve/melee_movement.rs",
+      "before_sha256": "086c2055231445836bac21e3ffa931c0909cd95def8d4fa7e4f041a2fe629e86",
+      "after_sha256": "3fcb38f4034fe1eccf1d7d99ee3310fed62812d16ef25d547e79e009e4425c33",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0063-base-086c2055231445836bac21e3ffa931c0909cd95def8d4fa7e4f041a2fe629e86",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/3fcb38f4034fe1eccf1d7d99ee3310fed62812d16ef25d547e79e009e4425c33",
+      "diff": "source-evidence/p16-0063.diff",
+      "diff_sha256": "9e8d61265ddd5db2a580fa6d1957c5b4840d341985ffeb95508e5514b8a17a88",
+      "head_body_read_ranges": [
+        [
+          1,
+          392
+        ]
+      ],
+      "facts": [
+        "Reuse earlier own08 full392-line movement body/diff and actual authored low speed40/source50 trace. Source-local comparison accounted WITH unresolved CONT08-Q001: early axis displacement admission can reject analytical extreme finite API input before old final clamp. Ordinary embedded guarded/lunge caps2/5.5 exclude that witness; no ordinary movement regression claimed."
+      ],
+      "disposition": "Source-local comparison accounted WITH findings/qualifications; connected graph remains unfinished.",
+      "acceptance": "Retain ordered samples, finite physical values and checked result owners; observe .metres only at actual numerical/native boundary, preserve current fixture expectation rather than add primitive comparison compatibility. No checks/tests/repair."
+    },
+    {
+      "scope_index": 450,
+      "source_id": "physical-p16:crates/fabelgeist-geometry/src/length.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/fabelgeist-geometry/src/length.rs",
+      "before_sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+      "after_sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0450-base-7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+      "diff": "source-evidence/p16-0450.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "facts": [
+        "Full40 and empty P16 diff. PositiveLength derives PartialOrd only against itself; finite first, negative then zero admission preserves signed-zero rejection and subnormal positive acceptance. Transparent serde and exact f32 native accessor unchanged. Does not supply SignedLength comparison."
+      ],
+      "disposition": "Source-local comparison accounted WITH findings/qualifications; connected graph remains unfinished.",
+      "acceptance": "Retain ordered samples, finite physical values and checked result owners; observe .metres only at actual numerical/native boundary, preserve current fixture expectation rather than add primitive comparison compatibility. No checks/tests/repair."
+    },
+    {
+      "scope_index": 451,
+      "source_id": "physical-p16:crates/fabelgeist-geometry/src/lib.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/fabelgeist-geometry/src/lib.rs",
+      "before_sha256": "4be1dea1bfca250604d52c9c8ea026aac5e3608d4d8cf35168f0cdc60ff4a7ab",
+      "after_sha256": "4be1dea1bfca250604d52c9c8ea026aac5e3608d4d8cf35168f0cdc60ff4a7ab",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0451-base-4be1dea1bfca250604d52c9c8ea026aac5e3608d4d8cf35168f0cdc60ff4a7ab",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/4be1dea1bfca250604d52c9c8ea026aac5e3608d4d8cf35168f0cdc60ff4a7ab",
+      "diff": "source-evidence/p16-0451.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          16
+        ]
+      ],
+      "facts": [
+        "Full16 and empty diff. Geometry lib contains cuboid/error/length/measurement modules and exports canonical SignedLength/Area; actual owner measurement452 full107 consumed again, cuboid2491 full previously consumed; no hidden same-crate primitive comparison implementation found in actual defining modules. No compile invocation."
+      ],
+      "disposition": "Source-local comparison accounted WITH findings/qualifications; connected graph remains unfinished.",
+      "acceptance": "Retain ordered samples, finite physical values and checked result owners; observe .metres only at actual numerical/native boundary, preserve current fixture expectation rather than add primitive comparison compatibility. No checks/tests/repair."
+    }
+  ],
+  "source_support": [
+    "CONT08-SUPPORT-001-P16-SIGNED-COMPARISON"
+  ],
+  "next": "Original64/65 then P16 remaining state/physical owner graph; reuse own exact66\u201369 body/diff only with dependencies explicit. Q001\u2013Q004 remain.246overlays/live71/merged38 unstarted."
+}

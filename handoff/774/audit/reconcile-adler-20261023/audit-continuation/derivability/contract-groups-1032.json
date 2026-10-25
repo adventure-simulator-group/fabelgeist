@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1032",
+  "at": "2026-10-25T17:33:24.342230+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1195,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/social.rs",
+  "sha256": "a09342196732b00b8520e9a446aa9fdef60e8fd44a439032ebdadc21e6e8e4c5",
+  "actual_compared_ranges": [
+    [
+      1111,
+      1490
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Native witness approach resolution/typed error parse/personal state update/private claim release; new PhysiologyPresenceSpan/SocialBelief/Interaction/Address/AutomaticSocialChat/Cooldown records already Clone/Debug/table. Gateway contextual views filter current authority; no handwritten trait/codec. Fixed IDs and selected replay semantics preserve explicit representation.",
+  "first_unfinished": {
+    "scope_index": 1195,
+    "line": 1491
+  },
+  "execution": "none"
+}

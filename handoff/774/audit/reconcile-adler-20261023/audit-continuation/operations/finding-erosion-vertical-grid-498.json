@@ -1,0 +1,102 @@
+{
+  "id": "SEGOVB-04-EROSION-VERTICAL-GRID-OVERFLOW-CANDIDATE-001",
+  "source_id": "pr-working:crates/adventuresim-tactical-core/src/erosional_terrain.rs",
+  "sha256": "c95efbf7c798d1e7570da38a0082bd99661cc4958f1dcb6818126dc30faf2d88",
+  "ranges": [
+    [
+      29,
+      75
+    ]
+  ],
+  "dependencies": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene.rs",
+      "path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/dependencies-498/scene.rs",
+      "sha256": "2661ce950659807c47c0de4fdc769ba1ba79825c47ba2985fcec32d7e4f38390",
+      "actual_compared_ranges": [
+        [
+          1,
+          175
+        ]
+      ],
+      "purpose": "Fresh exact dependency bodies/ranges for source-qualified verticalgrid failure; provenance not originalrole coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/admission.rs",
+      "path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/dependencies-498/scene/admission.rs",
+      "sha256": "c77986f9f9ff85cd6b4359792d8c28838b437942db2e61c92dc4104856e849cb",
+      "actual_compared_ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "purpose": "Fresh exact dependency bodies/ranges for source-qualified verticalgrid failure; provenance not originalrole coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/queries.rs",
+      "path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/dependencies-498/scene/queries.rs",
+      "sha256": "feacac20255eb9787f14ee21a2b7955e72d5be7b618755698965657402efc08c",
+      "actual_compared_ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "purpose": "Fresh exact dependency bodies/ranges for source-qualified verticalgrid failure; provenance not originalrole coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain.rs",
+      "path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/dependencies-498/volumetric_terrain.rs",
+      "sha256": "7623a9336cbe4a4c30650bd451893f1769952e1d29b6cd4c18e6c4f23780887e",
+      "actual_compared_ranges": [
+        [
+          1,
+          155
+        ],
+        [
+          157,
+          220
+        ]
+      ],
+      "purpose": "Fresh exact dependency bodies/ranges for source-qualified verticalgrid failure; provenance not originalrole coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain/recipe.rs",
+      "path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/dependencies-498/volumetric_terrain/recipe.rs",
+      "sha256": "fcaf87702a89d958728884e2576a2f981d6a15f491e9fab4586e483f9527df2f",
+      "actual_compared_ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "purpose": "Fresh exact dependency bodies/ranges for source-qualified verticalgrid failure; provenance not originalrole coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain/support.rs",
+      "path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/dependencies-498/volumetric_terrain/support.rs",
+      "sha256": "bba6cc80f38ff3d02d8c7fced6c2f8b6a18271b18b4d115a260a97453c2c3923",
+      "actual_compared_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "purpose": "Fresh exact dependency bodies/ranges for source-qualified verticalgrid failure; provenance not originalrole coverage."
+    }
+  ],
+  "admitted_witness": "SceneTerrain::from_heightmap(2,2,1.0,vec![-f32::MAX;4]) passes finite heights/dimension/extent admission; actual clamped triangle queries return -MAX with unit normal (all height differences0). Use existing sandstone test recipe fields origin0/tangent[10000,0]/relief600/half_length1200/half_width1000/collar250/Detail and valid immutable surface recipe. Detail voxel_cm50 ->spacing.5; recipe validates independent physicalextent with origin0. Patch radius14.5, side59; scan only3481 bounded samples.",
+  "failure": "minimum=-MAX, bottom calculation divides by.5 ->-Infinity; top remains finite-MAX, top-bottom=Infinity. Cast saturates to usizeMAX, then +1 overflow BEFORE height96 rejection. Debug panics; unchecked release wrapping makes0 before later native handling. No execution performed.",
+  "qualification": "Actual public terrain_landform_patch ->recipevalidate ->erosionpatch source path; admitted finite API state with extreme height. Current ordinary world elevations/fixtures and installed runtime trigger not asserted. No large allocation required to reach first overflow. Parent indexed1002 records found no exact alias, not exhaustive semantic dedup. Fault branch has similar vertical expression but its full simulation path notclosed here, keep related conditional dependency.",
+  "remedy_contract": "Admit complete finite representable vertical native lattice/count before cast/add and beforework; structured bounded-grid/numeric rejection for unrepresentable extraction while preserving finite signed physical terrain domain.",
+  "acceptance": [
+    "No panic or wrapped zero lattice for finite input terrain and valid recipe",
+    "Native count checks precede usize cast/add and allocation",
+    "Normal twoLOD erosion topology/winding/transitioncollar and deterministic output preserved",
+    "Do not silently clampphysical elevations or substitute anotherterrain"
+  ],
+  "execution": "none",
+  "new_unique_count": null,
+  "additional_qualification": "Fresh packet503 reads actual TacticalSceneInput validate_grid sourceheight bound [-12000,12000]; -MAX witness is standalone public SceneTerrain/landform API only, not admitted production scene input."
+}

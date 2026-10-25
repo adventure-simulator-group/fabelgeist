@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-530",
+  "at": "2026-10-25T15:57:46.343831+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 910,
+  "source_id": "pr-working:crates/adventuresim-core/src/developer_quest.rs",
+  "sha256": "c81518557455da223c56b59f0003647eac72633ee5d4e681786aad20fa31de78",
+  "actual_compared_ranges": [
+    [
+      1,
+      2200
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Fresh1981\u20132200 source fixtures cover schema values, parser limits/errors, replay determinism, observer namespace disjointness, duplicate paths, unsupported challenge authority and atomic witness bindings. Existing derived Serde exercised by source fixtures; no new type/trait/codec, nothing executed. Last binding fixture continues.",
+  "first_unfinished": {
+    "scope_index": 910,
+    "line": 2201
+  },
+  "execution": "none"
+}

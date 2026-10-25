@@ -1,0 +1,66 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-085",
+  "at": "2026-10-25T14:51:58.058383+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1273,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/encounter_policy.rs",
+      "sha256": "7d3199ead47d5700c22743f7a862eabfccaeb9b3027af9131908f1fea2d5884c",
+      "personally_read_ranges": [
+        [
+          1,
+          330
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Protective expedition choice checks actual available choices in detour/run/surrender order and excludes attack during evacuation. Narrative presentation parsed as canonical EncounterPresentation; only available uniquely authored globalchoice ID with no checks/noStartCombat and positive personality fit selected, else actualavailableignore. Visible/eligible alternatives and selectedchoice all derived in one factory, but public struct independently allows incoherent lists/reason/choice; qualify aggregate migration, not ordinary ignored-public-availability exploit.",
+        "PublicContractAssessment has eligible/reason/optionalcount/powers together. Factory fail-closes missingcount, invaliddifficulty, missingoppositionpower, checked party sum overflow and unavailable safety margin; typed rejection variants with available checked evidence could remove fabricated0placeholders. Existing valid authoritative powers and positive ready list produce eligibility. Need actual owning enum finding dedup with09, no zero-power ordinary acceptance allegation.",
+        "Combat fingerprint sorts character IDs and deliberately quantizes public continuous skills to centipoints for meaningful-change retry; heavy/halfarmor OR intentional groupedarmored concept, melee/ranged not mutuallyexclusive. Row weights/nonnumeric saturating casts lose invalid input but publicauthority admission trace determines ordinary reachability. Defeat suppression requires actual availablecombat+identicalpreviousfingerprint; baseline semantics preserved."
+      ]
+    },
+    {
+      "scope_index": 1274,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/error.rs",
+      "sha256": "d3c463510dc48c5dcaf3e13310352dfaede3f8be29c90146ebca5dd2bf289214",
+      "personally_read_ranges": [
+        [
+          1,
+          362
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "ReducerOperation closed enum retains operation identity, contextual travel classification explicit. FailureKind Dispatch/Rejected/TimedOut groups kind payload meaningfully; rejected code derived from exact received String once at decoder boundary and retained alongside original diagnosis, not independent arbitrary copiedcode mutation (privatefields+factory). Native SDK cause already stringified before this constructor remains unfinished source-to-recipient cause retention.",
+        "CoreLoopError carries Reducer/Operation/OtherString/AuthoredThreat. AuthoredThreat keeps actual source; operation generic prose and Other are explicit remaining structured-error migration channels. Incoming String/&str conversion intentionally convenient but loses semantics until actual source producers fixed; do not replace all errors with global shared file or derive string-to-cause reparser. Public constructors private, no ordinary variant mismatch except representable public enum fields; source contract recorded for later repair reconciliation.",
+        "CoreLoopError Display exactmessages and source policy part of error contract; AuthoredThreat source Some while allString variants None deliberate today. Blankettransparent derive would alter chain semantics. No new derive verdict from aggregate lens."
+      ]
+    },
+    {
+      "scope_index": 1275,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/events.rs",
+      "sha256": "ad1df9028c6cd6b2b5b676aa9b7c3c48445f6e0db3eb11646f639b19b217b80e",
+      "personally_read_ranges": [
+        [
+          1,
+          215
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Event payload relates kind, subject and detail; semantic key uses typed subject, outgoingpublicwire intentionally drops private subject and emits sequence/agent/kind/detail. Constructors accept any kind for eachsubject so API represents mismatched combinations; actual inspected coreloop/direct/generatedcallers use correct combinations, no ordinary wrong-quest coverage claimed. Actual parent consumer closure must decide payload-bearing variants or constrained factory methods preserving semantic event identity.",
+        "Same event subject+kind cloned into semantic key and publicwire from one payload, so not independently recomputedauthority. AgentID/sequence originate emitter, monotonic/truncation contract requires actual event insertion receiver. ID families primitiveString/u64 and policy detail records currently formattedbeforepublicwire, canonical owners should propagate through internal events rather than reparse. No mismatchedpublicJSON claim solely because serializedsubjectomission (explicit publicsafeport)."
+      ]
+    }
+  ],
+  "findings": [
+    "SEGO-INITIAL09-F374 (same assessment product remedy; additional own05 support)",
+    "SEGO-INITIAL09-F376 (same event payload association remedy; additional own05 support)"
+  ],
+  "cross_lens_reconciliation": {
+    "at": "2026-10-25T14:52:15.506441+00:00",
+    "owner_reply": "Own09 exact existing F374/contracts585 and F376/contracts586 confirmed. Own05 personally read full1273/1275 and actual1268/1270 producers supports same qualified API migration, no duplicate finding.",
+    "qualification": "Travel legitimately has multiple family subjects, so no global eventkind\u2192single subject rule; preserve diagnostic detail independent of semantic identity. Actual current writers coherent. ReducerCallFailureKind positive payload enum, upstream SDK cause retention separate."
+  },
+  "discovery": "Three full original roles read; aggregate/API strengthening and source-cause propagation retained, ordinary invalid-path claims qualified. Lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

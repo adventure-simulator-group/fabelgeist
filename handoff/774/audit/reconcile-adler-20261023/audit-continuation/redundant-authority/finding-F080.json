@@ -1,0 +1,99 @@
+{
+  "id": "CONT07-F080",
+  "at": "2026-10-23T20:18:07.150282+00:00",
+  "classification": "source-backed configured LOD cohort disagreement; no rendered execution",
+  "title": "Retained vista height sampling morphs toward a ring omitted by the one-ring renderer",
+  "sources": [
+    {
+      "scope_index": 1530,
+      "sha256": "e2ec96c28d8458610bba86df77c1adceae1cdfe0e71ab972e227c362f72f0fe1",
+      "ranges": [
+        [
+          242,
+          249
+        ]
+      ]
+    },
+    {
+      "scope_index": 1636,
+      "sha256": "b571c37d64c20535df90dc5b14ebddd2cc22010885764fbeae66c78ad6970d6c",
+      "ranges": [
+        [
+          114,
+          151
+        ]
+      ]
+    },
+    {
+      "scope_index": 1656,
+      "sha256": "c3c5dda2b43208a48d70060c29d876025c47aca6e4fe836ea002b2ec651ca44d",
+      "ranges": [
+        [
+          20,
+          39
+        ]
+      ]
+    },
+    {
+      "scope_index": 1674,
+      "sha256": "b487f7c3b762586f17bebd06fd0a7cae7d415743566df637800b4056cc3441ac",
+      "ranges": [
+        [
+          29,
+          35
+        ],
+        [
+          93,
+          115
+        ]
+      ]
+    },
+    {
+      "scope_index": 1645,
+      "sha256": "724bf4201d7a9163847a097d79c1b60de6d72e529328bb507431b22e0e05661e",
+      "ranges": [
+        [
+          93,
+          119
+        ]
+      ]
+    },
+    {
+      "scope_index": 1964,
+      "sha256": "0238db91b3a926b53a353da8892a2e0ff17018d131529261be5a4cdf2cb8e405",
+      "ranges": [
+        [
+          22,
+          36
+        ],
+        [
+          287,
+          303
+        ],
+        [
+          384,
+          449
+        ]
+      ]
+    },
+    {
+      "scope_index": 1626,
+      "sha256": "e641530bea571c2b122e60d817a9ae562934f67c7488eae746bc1366af605599",
+      "ranges": [
+        [
+          265,
+          286
+        ]
+      ]
+    }
+  ],
+  "earliest_failed_contract": "Retained surface query and actual mesh must share the exact presented LOD/coarser cohort. Observer selects configuredvisiblelods forpreparation butActiveVistaSurface stores2 fullbundleentries independently.",
+  "counterexample": "Current low-quality preset setsmaximum_lods1. Validtwo-ringbundle finewidth5 spacing4 height12 andcoarsewidth5 spacing8 height38, bothorigin0; playableterrainextent2. Preparedfirstandonlyringhascoarser=None, sofineboundaryvertex at(8,0) emits12. ActiveVistaSurface retainsbothrings, queryat(8,0) hasmorphweight1 andfullyoutsideplayableseam, yielding38. A detailpatchcentredatplayableorigin contains(8,0) atits fullfine-weightboundary; sourcecoarseheightoutsideplayable isNone, so replacementdetailpositionuses38. Sameinputs,currentsettinganddistinctnormalconstructionpaths, no arbitrarypostconstructionmutation required.",
+  "actual_recipient": "terrain_detail_patch_mesh callsActiveVistaSurface.presented_height_at at270 andemits resultingfineheight into nativepositions286. At outsideplayablecoarseheightNone, itfallsbacktothatfinevalue, sooriginalrenderedringanddetailmesh canconsume differentcohorts. Sourceonly, nocamera/renderexecution.",
+  "qualification": "Finite representable validmetadata example and actualpreset/observer paths, not suppliedlivefixture/imagefailure or runtime reproduction. Originalone-ringrenderer maylegitimatelyomitcoarser; repair mustbindretainedquerytoactualselectedmeshpolicy, notsilentlyforceextrarenders. Generalcontinuousheightfieldversustriangle distinctionis separatequalifiedobservation below, not neededforprimaryproof.",
+  "secondary_surface_policy_observation": "Evenwhenringcohortsagree, directnative_sample_vista_height isbilinear while actual emittedquad usesindices[0,2,1]/[0,3,2]. Fora finite nonplanar cella=b=d0,c8 and(u,v)=(.75,.25), bilinear1.5 differsactualtriangle2 awayfromseam/morph. Existing1642fixture explicitlyexpectssampledheightfieldpolicy forgrass. Thus do notautomaticallyretire intentional smoothLODqueries; decidewhichconsumers promiseactualrenderplane (canonicalhelper sampled_vista_triangle_height exists) andkeepdeliberateapproximationnamed. No seconduniquefindingorblanketgrassfailureclaim.",
+  "connected_repair": "Publish one accepted presented-surface descriptor containingactualvisiblelods/coarser/seam policy and derive sampler plusmesh/scenery decisions fromit. Preserve maximumLODconfig, prepared-before-old-retirement, nativegeometry/ownedterrain priority and explicitcontinuousversustrianglequerypurpose.",
+  "acceptance": "One-ringpreset cannot samplecoarsermorph omittedfromactualmeshing; sameboundaries/nativevertices useidenticalcohortacrossretainedquery/detail/render. Existing multi-ring/owned/zero-ring policies retainedexplicitly; exacttriangleconsumers useactualplane while intentionalcontinuousqueries staydocumented. No tests added or executed.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

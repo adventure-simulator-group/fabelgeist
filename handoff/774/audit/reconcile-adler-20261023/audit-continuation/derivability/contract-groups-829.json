@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-829",
+  "at": "2026-10-25T16:57:29.846888+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1034,
+  "source_id": "pr-working:crates/adventuresim-dialogue/src/lib.rs",
+  "sha256": "bd30bf8d21bb5152ad8cfdc81e7ff99fc9629f6f3c5d359c156aa4b1e21cd284",
+  "actual_compared_ranges": [
+    [
+      1021,
+      1400
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "All consumed dialogue fixture source covers typed fact/derived wire, greeting/source spans, organization/referral effects and reachability helper graph. No handwritten trait, codec or newly declared type. Borrowed/owned test helpers express scenario policy, no derive replacement; fixtures not executed."
+  ],
+  "first_unfinished": {
+    "scope_index": 1034,
+    "line": 1401
+  },
+  "execution": "none"
+}

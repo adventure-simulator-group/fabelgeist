@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-738",
+  "at": "2026-10-25T16:40:05.158161+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 987,
+  "source_id": "pr-working:crates/adventuresim-core/src/road_encounter_catalog.rs",
+  "sha256": "62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Road/rest catalogue prefix1\u2013220 records already derive structural/Serde with explicit tagged/denyunknown/default policies. EncounterChoice::requires_treatment is shared-system semantic membership predicate; no handwritten trait/codec. Runtime generated include22 separate, no implied source credit. Combat outcome native parser begins220."
+  ],
+  "first_unfinished": {
+    "scope_index": 987,
+    "line": 221
+  },
+  "execution": "none"
+}

@@ -1,0 +1,213 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-025",
+  "at": "2026-10-25T09:06:19.497475+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1101,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/authority_tests.rs",
+      "sha256": "f42fe8c6e10d816198aba42f752d418582a0bf4268aa0a21ba9b6e2116e3dab3",
+      "personally_read_ranges": [
+        [
+          1,
+          207
+        ]
+      ],
+      "method": "Fresh whole bounded source body, fixtures if present source-only",
+      "aggregate_trace_and_disposition": "Whole207 existing authority fixture source consumed, not run or extended. It constructs actual actor/inventory/lot/object/place/custody/revision/action/generation request, asserts material conservation and terminal interruption/completion cursor, replays same request without extra clock/revision change and rejects conflicting generation. Raw fixture inputs intentionally stage severe blood loss for interrupted path; digest constants are real wire-contract fixtures, not default authority. These are existing checks for later validation, not proof actual reducers now pass."
+    },
+    {
+      "scope_index": 202,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/authority_tests.rs",
+      "sha256": "59669208fa577a62c9b73b3fab2c57202b442a12ef0447e846cf25451d48b8aa",
+      "personally_read_ranges": [],
+      "method": "Entire freshPRbody and complete exact preservedP16diff consumed; identical body regions compared in actual role, not hash-only acceptance",
+      "aggregate_trace_and_disposition": "Same actual aggregate contract as PR1101. Actual P16diff food-1101-to-202.diff retained; only Result aliases/fallible fixture inventory API where present, no wholesale recovery or source/compilation acceptance. CAM-PROP-F006 mandatory partial error propagation remains."
+    },
+    {
+      "scope_index": 1102,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/consumption.rs",
+      "sha256": "6774eac9e912e8d500d0d9912545c2051fcc102d969f024be6dd157b22dea910",
+      "personally_read_ranges": [
+        [
+          1,
+          369
+        ]
+      ],
+      "method": "Fresh whole bounded source body, fixtures if present source-only",
+      "aggregate_trace_and_disposition": "Whole369 food consumption source: personal ownership is checked against actual inventory actor; lot/needs and contamination read by same identities. Wanted portion bounded by actual meal/travel policy and requested kcal, ratio derived same lot then exposure/medicine/provenance adjusted before needs/material mutation. Full consumption removes physical/container/amount/inventory metadata; partial consumption uses one retained ratio for material fields and canonical microfraction with explicit minimum-nonzero policy. Party candidates come actual same-party rows, excludes installed fireplace roots, orders created minute+rowID; personal follows party and own rows. Actual lot/needs/provenance/micros validity depends loaders/schema, not raw table guarantee; missing personal lot errors are omitted while discovering candidates, exposing existing required-observation distinction. Food balance can be positive for explicit meal and is capped zero for travel, intentional separate behavior. Exposure source/actor/lot/dose are correlated in normal call; episode/event provenance depends actual world-event source. No stale-needs/medicine writer claim without reading actual lower effects. Existing transaction failure assumptions preserved."
+    },
+    {
+      "scope_index": 203,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/consumption.rs",
+      "sha256": "27d71249019722ede09f0961c7c4880a6acf19f99cdb0ab909eafa7bd1370bfc",
+      "personally_read_ranges": [],
+      "method": "Entire freshPRbody and complete exact preservedP16diff consumed; identical body regions compared in actual role, not hash-only acceptance",
+      "aggregate_trace_and_disposition": "Same actual aggregate contract as PR1102. Actual P16diff food-1102-to-203.diff retained; only Result aliases/fallible fixture inventory API where present, no wholesale recovery or source/compilation acceptance. CAM-PROP-F006 mandatory partial error propagation remains."
+    },
+    {
+      "scope_index": 1103,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "sha256": "05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+      "personally_read_ranges": [
+        [
+          1,
+          868
+        ]
+      ],
+      "method": "Fresh whole bounded source body, fixtures if present source-only",
+      "aggregate_trace_and_disposition": "Whole868 cooking source consumed in two bounded reads. Ingredient ID/fraction vector equality and uniqueness/positive<=available checked before zip; actor or current-party inventory membership and non-equipped condition checked. Canonical fraction leaf retained through selection, though scope is erased/re-admitted inside pure helper (exact CAM-PROP-F017). Each ingredient finite/nonnegative material leaves checked; actual Core927:371\u2013410 rejects empty safety/nonfinite/nonpositive/>25kg aggregate before mutation, discharging unbounded mass-sum admission. Nutrient/value/flavor/contribution cohorts and parallel source vectors still rely same producers, not leaf checks. Water contribution sum uses checked Microliters and <=public volume; stew requires contained water. Source adds exactly direct child contents, unlike stale doc105\u2013108 all-depth claim. Vessel/loose station and immutable return custody preflight from exact actor/fixture, actual current object gate now closed by1104. Selected ingredient material is consumed after preflight; later fraction mutation/DB insert can fail, so comment all-above-preflight does not establish standalone rollback, actual reducer transaction required. Dish snapshot preserves paired ingredient/contribution/medicinal columns produced from same traversal/BTreeMap and captured same clock/actor/fixture, but raw schema exposes independent vectors. Retrieve first validates canonical dish/station/object fixture, original destination and existing party, then actual elapsed/doneness derives output. New lot picks exactly one personal/party pointer; stable meal object attached to exact vessel, contamination contribution conservation checked, existing medicine triples zipped; stronger malformed-persisted-vector guarantee not established. Preview uses same duration kernel but does not apply Cut/Ground safety factor from commit branch, retained exact source policy question for other-lens reconciliation, no new runtime incident."
+    },
+    {
+      "scope_index": 204,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "sha256": "da8832af71a29edfd807274456fa4ee5890834beec5b80ef726e55b8399eaf7b",
+      "personally_read_ranges": [],
+      "method": "Entire freshPRbody and complete exact preservedP16diff consumed; identical body regions compared in actual role, not hash-only acceptance",
+      "aggregate_trace_and_disposition": "Same actual aggregate contract as PR1103. Actual P16diff food-1103-to-204.diff retained; only Result aliases/fallible fixture inventory API where present, no wholesale recovery or source/compilation acceptance. CAM-PROP-F006 mandatory partial error propagation remains."
+    },
+    {
+      "scope_index": 1104,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/fireplace_custody.rs",
+      "sha256": "91a13115f15cf32eabd8971f881e1eb15a9177e089cc8e72d8c7ef0495cdb168",
+      "personally_read_ranges": [
+        [
+          1,
+          656
+        ]
+      ],
+      "method": "Fresh whole bounded source body, fixtures if present source-only",
+      "aggregate_trace_and_disposition": "Whole656 fireplace custody source consumed. Canonical fixture parser rejects non-fireplace, station key recomputed from actual character/fixture/optional vessel ID, item/custody presence paired, referenced object item and actual root fixture validated. Dish requires existing station, equal character/fixture and valid carried return custody. This discharges suspected remote-moved vessel retrieval: cooking retrieval calls validate_persisted_dish_fixture before output; actual station gate checks object still at fixture, and retrieve_container refuses while dish exists. Current camp leave gates compare exact journey identity and membership set, all stored stations validated; no unrelated stale-camp shortcut. Cleanup prevalidates all return plans before deletes, preserves original extant party else personal estate else explicit Abandon, then rehomes same physical subtree; abandonment intentionally keeps installed station. Placement removes carried root row and stores exact immutable source while stable contained edges persist. Removal recreates root row then changes location/rehome/merge under actual transaction. Persisted custody mirror versus canonical OperationalCustody is exact RIG-INITIAL06-F015, not a new owner copy. Dish/station return-custody equality is not validated directly but normal factory copies same immutable source; qualify whole-snapshot association rather than assuming a normal foreign-party transfer."
+    },
+    {
+      "scope_index": 205,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/fireplace_custody.rs",
+      "sha256": "91a13115f15cf32eabd8971f881e1eb15a9177e089cc8e72d8c7ef0495cdb168",
+      "personally_read_ranges": [],
+      "method": "Entire freshPRbody and complete exact preservedP16diff consumed; identical body regions compared in actual role, not hash-only acceptance",
+      "aggregate_trace_and_disposition": "Same actual aggregate contract as PR1104. Actual P16diff food-1104-to-205.diff retained; only Result aliases/fallible fixture inventory API where present, no wholesale recovery or source/compilation acceptance. CAM-PROP-F006 mandatory partial error propagation remains."
+    },
+    {
+      "scope_index": 1106,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/lot_inventory.rs",
+      "sha256": "28b22445ed307bc12de78b72d95df5b4325ba47ad3403f45292bb0c5b6efb87b",
+      "personally_read_ranges": [
+        [
+          1,
+          534
+        ]
+      ],
+      "method": "Fresh whole bounded source body, fixtures if present source-only",
+      "aggregate_trace_and_disposition": "Whole534 lot inventory consumed. Stable food object verifies actual inventory row quantity exactly1 and object item/location correspondence; food material unit quantity parameter is distinct from that physical row cardinality and must not be forced equal. Creation forms one personal/party pointer, singleton ingredient identity/amount and same lot contamination key; personal takes independent actor/row/item/unit arguments while party erases stable-object failure intoNone, existing cause distinction. Canonical normal callers must bind these facts; public API does not verify supplied item/actor against actual backing row before material construction. Retain increments checked material revision before scaling all retained material columns. Split validates positive taken<=original (cross-scope move helpers rely caller), clones exact snapshot and recomputes complementary source/child ingredient quantities, concentration shared while source loads/medicine scaled; no ordinary conservation loss inferred. Full transfer changes inventory pointer while keeping historical source/clock. raw APIs do not themselves enforce distinct source/destination or unique lot-per-row association; native table has no unique pointer field. Delete removes medicine, private provenance, contamination and lot together. Digest zips independently stored contribution IDs/loads and omits unmatched tails; accepted paired provenance collection is actual missing aggregate seal, not a hash collision or bad normal construction proof."
+    },
+    {
+      "scope_index": 207,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/lot_inventory.rs",
+      "sha256": "28b22445ed307bc12de78b72d95df5b4325ba47ad3403f45292bb0c5b6efb87b",
+      "personally_read_ranges": [],
+      "method": "Entire freshPRbody and complete exact preservedP16diff consumed; identical body regions compared in actual role, not hash-only acceptance",
+      "aggregate_trace_and_disposition": "Same actual aggregate contract as PR1106. Actual P16diff food-1106-to-207.diff retained; only Result aliases/fallible fixture inventory API where present, no wholesale recovery or source/compilation acceptance. CAM-PROP-F006 mandatory partial error propagation remains."
+    },
+    {
+      "scope_index": 1107,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/mod.rs",
+      "sha256": "80bfa29d162de3dce0554d867093029ba6a5a3b02e405cafd0863a80692c0e7f",
+      "personally_read_ranges": [
+        [
+          1,
+          84
+        ]
+      ],
+      "method": "Fresh whole bounded source body, fixtures if present source-only",
+      "aggregate_trace_and_disposition": "Whole84 module assembly imports canonical shared owners and includes actual food modules in one Spacetime scope. Includes/FOOD_SOURCE/tests submodule declarations are not additional body coverage. All referenced child files remain separate exact cells; existing fixture aggregation has no new tests."
+    },
+    {
+      "scope_index": 208,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/mod.rs",
+      "sha256": "80bfa29d162de3dce0554d867093029ba6a5a3b02e405cafd0863a80692c0e7f",
+      "personally_read_ranges": [],
+      "method": "Entire freshPRbody and complete exact preservedP16diff consumed; identical body regions compared in actual role, not hash-only acceptance",
+      "aggregate_trace_and_disposition": "Same actual aggregate contract as PR1107. Actual P16diff food-1107-to-208.diff retained; only Result aliases/fallible fixture inventory API where present, no wholesale recovery or source/compilation acceptance. CAM-PROP-F006 mandatory partial error propagation remains."
+    },
+    {
+      "scope_index": 1108,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/model.rs",
+      "sha256": "b1ed41d6a51aaf7bcd77c4e36ad928b0ef533216ddc9efb1aa3a0f78a97c12d9",
+      "personally_read_ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "method": "Fresh whole bounded source body, fixtures if present source-only",
+      "aggregate_trace_and_disposition": "Whole151 schema: FoodLot personal/party Option pointers intended exactly-one, ingredient identity/quantity columns, material totals/revision, contamination key and timestamp are separate raw native fields. FireplaceStation item/object/custody alternatives and FireplaceDish immutable clock/method/duration/destination/provenance/medicinal columns rely actual factories and validators, not derive/table seal. IngredientPreparationReceipt combines action/result/interrupted/revisions and request binding; attempt state completed+next_generation is server cursor, actual producer1105/1109 next unfinished. Public inspectable food versus private microbial/pathogen state deliberately different authority/privacy; do not infer hidden contamination from public provenance or reconstruct historical cooked content from current catalogue."
+    },
+    {
+      "scope_index": 209,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/model.rs",
+      "sha256": "b1ed41d6a51aaf7bcd77c4e36ad928b0ef533216ddc9efb1aa3a0f78a97c12d9",
+      "personally_read_ranges": [],
+      "method": "Entire freshPRbody and complete exact preservedP16diff consumed; identical body regions compared in actual role, not hash-only acceptance",
+      "aggregate_trace_and_disposition": "Same actual aggregate contract as PR1108. Actual P16diff food-1108-to-209.diff retained; only Result aliases/fallible fixture inventory API where present, no wholesale recovery or source/compilation acceptance. CAM-PROP-F006 mandatory partial error propagation remains."
+    }
+  ],
+  "supporting_original_ranges": [
+    {
+      "index": 927,
+      "ranges": [
+        [
+          360,
+          486
+        ]
+      ],
+      "contract": "Actual aggregate mass gate positive finite<=25kg before cooking mutation; skill clamp and flavor fallback distinct local numerical policies, original05 source baseline retained."
+    }
+  ],
+  "qualified_questions": [
+    {
+      "id": "SEGO-INITIAL05-Q009",
+      "source": "1106:60\u2013102/105\u2013146/281\u2013326/349\u2013441",
+      "relationship": "Food snapshot must match actual actor/item/backing inventory and distinct transfer target",
+      "disposition": "Independent supplied actor/item/row arguments permit metadata for another valid item/actor; source==destination split can express ambiguous lot-per-row. Normal actual item producers/transfer gates remain to be traced before ordinary defect claim. Derive coherent source from actual backing row and carry checked destination/amount in one accepted operation; material units differ quantity-one object cardinality."
+    },
+    {
+      "id": "SEGO-INITIAL05-Q010",
+      "source": "1108:12\u201320/48\u201353/130\u2013150;1106:444\u2013456;1103:393\u2013403/776\u2013780",
+      "relationship": "Ingredient/provenance/medicine parallel columns must identify every same-index payload before zip/hash",
+      "disposition": "Raw native schema allows different lengths, digest/medicine iteration omits unmatched tail; normal singleton/paired traversal/BTreeMap builders coherent. Accepted collection owner or coherent loader needed without treating every public table literal as observed bad data. Preserve exact recipe ordering, payload versions, public/private authority and intentional duplicate ingredient identities."
+    },
+    {
+      "id": "SEGO-INITIAL05-Q011",
+      "source": "1103:243\u2013271/563\u2013598;1104:62\u201378;1108:105\u2013106/122\u2013123",
+      "relationship": "Dish immutable return custody versus actual station immutable source",
+      "disposition": "Normal snapshot copies station source, retrieval validates station object/fixture and own destination but no direct return-custody equality. Determine whether independent snapshot is intentionally authoritative before adding redundant comparisons; no current unauthorized transfer or stale object claim."
+    }
+  ],
+  "other_lens_source_leads": [
+    {
+      "lens": "comment-review",
+      "source": "1103:105\u2013108/150\u2013151",
+      "observation": "All nesting depths doc contradicts actual direct-child policy; review/fix later, no source change now."
+    },
+    {
+      "lens": "redundant-authority/behavior-preservation",
+      "source": "1103:382\u2013390 versus855\u2013859",
+      "observation": "Commit adjusts safety for Cut/Ground, preview uses raw definition cooking minutes. Actual consumer/intent and baseline must be reconciled before unique defect claim."
+    }
+  ],
+  "aliases": [
+    "CAM-PROP-F006",
+    "CAM-PROP-F017",
+    "RIG-INITIAL06-F015",
+    "Existing required-observation/typed-cause family"
+  ],
+  "connected_acceptance": [
+    "Food lot snapshot binds actual same backing item/custody/material and unique destination; expose canonical accepted aggregate or load it coherently, retain actual SDK table/wire boundary.",
+    "Paired contribution/ingredient/medicine collections do not silently truncate authoritative payloads in digest/selection; preserve actual ordering and intentional repeated source identities.",
+    "Fireplace station/dish/vessel/current camp and original destination remain one coherent custody graph with preflight and actual reducer rollback; preserve abandoned/staged historical behavior."
+  ],
+  "new_unique_findings": [],
+  "discovery": "14 named original roles compared WITH findings/qualified source questions; remaining preparation/authority/projection/fixtures explicit separate cells",
+  "repair": "not_started",
+  "validation": "not_run"
+}

@@ -1,0 +1,143 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-351",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/life_simulation.rs",
+      "sha256": "de8b909f4a6436e5f21c9828322d80f19905b15764e7f0b54fca2b1f0079457a",
+      "actual_EOF": 552,
+      "actual_compared_ranges": [
+        [
+          1,
+          552
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+      "sha256": "42c0284a19db9d6e763cb9be7bb0c2472dea34f759b13794f37883c42e838474",
+      "actual_EOF": 865,
+      "actual_compared_ranges": [
+        [
+          1,
+          865
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/material.rs",
+      "sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+      "actual_EOF": 1869,
+      "actual_compared_ranges": [
+        [
+          1,
+          1869
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/organization_catalog_validation.rs",
+      "sha256": "45b87fa13f86c8805f2b4f974fd1f629f5da068a07b3b7c4af17115aaa339846",
+      "actual_EOF": 986,
+      "actual_compared_ranges": [
+        [
+          1,
+          986
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/provisioning.rs",
+      "sha256": "438b45a44c51026e751788a6ef9da9c40ee88ae53eac79a64ca0845d5170cd68",
+      "actual_EOF": 118,
+      "actual_compared_ranges": [
+        [
+          1,
+          118
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Life simulation budgets and normalized curricula",
+      "source_ranges": {
+        "life_simulation.rs": [
+          [
+            1,
+            552
+          ]
+        ],
+        "organization_catalog_validation.rs": [
+          [
+            1,
+            986
+          ]
+        ]
+      },
+      "disposition": "Both full bodies and all fixtures read. Three age phases guarded before u16 subtraction, u16 age bounds keep years*MINUTES_PER_YEAR within u64 and real-hour counts finite. Seed draws bounded31 make childhood minutes nonnegative and schedules<=day. Curriculum combines organization emphasis with credentials then normalizes once to one work-hour budget. Public manually constructed organization with two f32MAX weights can make normalized_curriculum totalInf and normalized finite weights0; retained as bounded API strengthening question, not ordinary authored path. Fresh organization validator requires positive finite f64 weights summing1\u00b11e-6, ruling out that MAX witness on valid authored inputs. Validator zip(documents,sources) can skip unmatched documents: admission/resource shape dependency for adopted03, not independently promoted04 defect. Stable leaf vocabularies remain typed-owner migration graph; no roster broad dedup. Language versus native identity and creation-only activity eligibility explicit."
+    },
+    {
+      "contract": "Local consequence wide arithmetic, selected-row caps and chronology",
+      "source_ranges": {
+        "local_problem.rs": [
+          [
+            1,
+            865
+          ]
+        ]
+      },
+      "disposition": "Entire865 lines including fixtures read. u16incidents and step2500 fitu32; fulli32value*severity<=~3.52e17 fitsi64; u16scaled fitsu64 before clipping. Due incidents saturating+1 and mincap intentional. CANDIDATES weights u32*u32 widenedu64 and actual static small authored table. Mitigation monotonic/max and resolve earliest/min intentional. active interval start inclusive/end exclusive; MAX start makes saturated zero-length future problem, endpoint policy not claimed ordinary clock occurrence. adjust_price clampsbps -9999..50000; fullu32base*60000+9999 fitsi64 then explicit u32MAX cap and pricefloor1. Signed mixed per-row aggregate cap question concrete candidate artifact saved; current receiver policy pending. Route Scope::route sorts endpoints but public literal/serde can bypass canonical shape, adopted03/aggregate dependency, not mutation arithmetic finding."
+    },
+    {
+      "contract": "Material exact arithmetic, conservation and source commit validation",
+      "source_ranges": {
+        "material.rs": [
+          [
+            1,
+            1869
+          ]
+        ]
+      },
+      "disposition": "Full1869 lines and all fixtures personally read in six chunks. Measure add/sub checked locally, portions private positive<=whole and prorating uses fullu128 u64*u64 safe, floor then exact remainder conserves bulk/truth. Duplicate sources/outputs rejected per lot and physical object, typed policy explicit bounded1-subunit loss allowance, private component gains/losses exact checked. Receipt construction publishes after all validators. Retry digest sorts sources and frames identities/custody; exact_sources_equal additionally compares full snapshot/preparation/truth so digest omission does not permit mutated-source replay. Commit validator compares fresh same-transaction source identity/custody/revision/amount/preparation/truth before mutation. Actual DB invocation remains dependency. ProcessTiming checked clock advance rejects MAX+positive, explicit Early/Ready/Late. passive_status deliberately permits already-materialized timestamp later than supplied current (actual fixture), so do not invent strictcurrent rejection. Material unit migration joins RIG06F014 and NATIVEOWNERF010 without duplicating scalar owners or treating contaminants as medicinal units."
+    },
+    {
+      "contract": "Material floating admission endpoints and provisioning forecast must retain numerical policy",
+      "source_ranges": {
+        "material.rs": [
+          [
+            20,
+            72
+          ],
+          [
+            145,
+            152
+          ]
+        ],
+        "provisioning.rs": [
+          [
+            1,
+            118
+          ]
+        ]
+      },
+      "disposition": "Both source bodies fully read. Floating mass/component boundary compares against rounded u64MAXasf64=2^64; equality then saturating asu64 aliases mathematical overflow to MAX. Microliters roundedf32 boundary similarly compares to rounded2^64; representable API boundary question, current authored quantities far smaller not proved by this module, no ordinary overflow witness/run. All exact integer material operations separately reject overflow. Provision shared-then-personal min/sub cannot exceedrequest. Living0 intentionally uses1planningmember and signed negative surplus accepted by fixture. Rawfinite MAX calorie sums or targetdays*memberrate can becomeInf and saturating u32 purchase count; numerical API strengthening and current caller budget/cap dependency, not established normal preview failure. Preserve totalcarried food authority and emergencywater separate display roles."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-LOCAL-CONSEQUENCE-CLAMP-ORDER-CANDIDATE-001",
+      "disposition": "qualified policy and actual receiver pending; no global unique count"
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "5 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-core/src/quest_generation/assembly.rs"
+}

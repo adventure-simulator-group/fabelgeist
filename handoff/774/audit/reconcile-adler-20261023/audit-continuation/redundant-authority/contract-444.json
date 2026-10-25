@@ -1,0 +1,95 @@
+{
+  "id": "CONT07-CONTRACT-444",
+  "at": "2026-10-23T21:58:13.501359+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1957,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/tests/occupied.rs",
+      "sha256": "a64ed774e7283e17ea7257d01b3a2973a8f8757069a507280cfd38a3d423e87f",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/tests/occupied.rs",
+      "actual_EOF": 179,
+      "ranges": [
+        [
+          1,
+          179
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1958,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/tests/road.rs",
+      "sha256": null,
+      "origin": "archive-recovered-deleted-base:audit/continuation/deleted-source/pr-working/crates/adventuresim-tactical-core/src/scene_input/tests/road.rs",
+      "actual_EOF": 27,
+      "ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "read_kind": "deleted role: exact recovered base personally compared to retained relocation; no current body",
+      "current_body_coverage": false,
+      "source_state": "deleted",
+      "recovered_base_sha256": "d35e66e32b787fd9b115f5aead54a0f66ea2c69a2a150e3a2816293600f7ce60"
+    },
+    {
+      "scope_index": 1959,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/urban.rs",
+      "sha256": "0636460b78d2af66faa57a8483f4a89a9b99c84cd19c3f7f90615635734fe95b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/urban.rs",
+      "actual_EOF": 20,
+      "ranges": [
+        [
+          1,
+          20
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1960,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/validation.rs",
+      "sha256": "3d97a798029ddc9f195aa209105f64070c55fb0172ef87a515e67fe945c735c9",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/validation.rs",
+      "actual_EOF": 64,
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1961,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_transition_mesh.rs",
+      "sha256": "9bfbec3a8d552438491d80b4939c112bde61108a815c2f3b4ff0129ad796e048",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_transition_mesh.rs",
+      "actual_EOF": 82,
+      "ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "1957 original occupied fixtures retain bound floor/program/position and unchanged distant source; distant support affects scene digest and source topology without creating tactical buildings. Surface versus obstacle-envelope assertions observe different physical representations, not duplicate stored authority. No fixture run.",
+    "1958 is a DELETED role, not a current27-line source. Exact recovered base SHA d35e66e32b787fd9b115f5aead54a0f66ea2c69a2a150e3a2816293600f7ce60 personally read and compared with current moved fixture1953: same seed3918113949425128608, terrain7, road halfwidth4.875, point(-43.5,-39.5) and expected7.0231724 bits; current adds checked point ingress/imports. git ls-tree frozen6533 path returns no entry. Role accounted as deletion/relocation only, no current-body claim or duplicated test count.",
+    "1959 one urban validation dispatch calls placement, compound, garden and parish owners in explicit order. 1960 then performs scene versions/source/grid/urban/branding/home/vista/weather validation. Vista temporary grid clones feed same validate_grid, not independently retained dimensions. previous_level/spacing are only traversal checks; increasingordinal and increasingspacing distinct contracts. This confirms branding/home snapshots cannot normally bypass their current validators via generate.",
+    "1961 render and collider transition meshes both use mesh_components_with_stride_and_transition; same collar predicate dispatches into shared sampled/owned mesh extraction. coarse_stride helper recomputes stored stride from two derived scale getters rather than retaining a second cache; currently admitted subdivision/range behavior needs operations proof before claiming rounding divergence. No concrete current disagreement demonstrated."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1962,
+    "start_line": 1
+  }
+}

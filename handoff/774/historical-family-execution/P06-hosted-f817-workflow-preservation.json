@@ -1,0 +1,14 @@
+{
+  "source_head": "f81712e56aa09105e62d4a72e13305093b945a17",
+  "previous_required": 40,
+  "new_required": 41,
+  "removed": [],
+  "added": [
+    "strategic-bootstrap"
+  ],
+  "creator_vectors_before": 16,
+  "creator_vectors_after": 16,
+  "creator_vectors_unchanged": true,
+  "new_command": "cargo test --locked --package adventuresim-strategic-sim --lib live_core::tests:: -- --test-threads=1",
+  "scope": "Static workflow text metadata only, no project tool/test execution."
+}

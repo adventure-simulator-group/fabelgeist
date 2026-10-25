@@ -1,0 +1,99 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-101",
+  "at": "2026-10-23T02:21:07.862364+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_inventory.rs",
+      "sha256": "d271b63418f6ef51f276ab1e383bb534724f08ae106ffd7285f530e0308fef3e",
+      "actual_compared_ranges": [
+        [
+          1,
+          455
+        ]
+      ],
+      "source_evidence": "Fresh full P16 body; exact paired PR bytes independently compared against actual same ItemQuantity/Storefront/std native contexts. No other-lens verdict transfer."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_inventory.rs",
+      "sha256": "d271b63418f6ef51f276ab1e383bb534724f08ae106ffd7285f530e0308fef3e",
+      "actual_compared_ranges": [
+        [
+          1,
+          455
+        ]
+      ],
+      "source_evidence": "Fresh full P16 body; exact paired PR bytes independently compared against actual same ItemQuantity/Storefront/std native contexts. No other-lens verdict transfer."
+    }
+  ],
+  "support_ranges": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/inventory_measurement.rs",
+      "ranges": [
+        [
+          1,
+          220
+        ]
+      ],
+      "qualification": "Partial fresh support reread only; existing whole04 verdict retained separately, no new whole reread count."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "ranges": [
+        [
+          1,
+          162
+        ],
+        [
+          339,
+          342
+        ],
+        [
+          2142,
+          2205
+        ],
+        [
+          2514,
+          3000
+        ]
+      ],
+      "qualification": "Actual focused consumer functions only; no full3120+ source04 credit."
+    }
+  ],
+  "groups": {
+    "payment-plan-arithmetic": "Nonzero total, personal=min(total,maximum_personal), stake=total-personal establish nonnegative subtraction and exact personal+stake=total without an overflowing sum. Remaining authorized stake check precedes publication; impossible bothzero branch is justified by positive total. CoinAmount private NonZeroU64 field has no arbitrary raw constructor. Public plan variants express sources, not automatic binding to one authorization; actual caller still owns entitlement. Storefront personal-first authorization differs intentionally from pooled-first party purchase helper100; do not merge those policies because both use coin amounts.",
+    "positive-quantity-and-alignment": "TradeQuantity delegates actual ItemQuantity NonZeroU32 admission and has private field, so own get remainspositive. Parse checks vector lengths before zip, builds owned typed rows, and drops partial local vectors on failure. Empty storefront request allowed; empty party offer explicitly rejected. No indexing/narrowing/accumulation in parser. ID existence/ownership, duplicate rows and whole-stock entitlement are actual consumer checks, not claimed by these parsers.",
+    "provider-and-route": "Iterator provider selection consumes at mosttwo values, rejects missing/ambiguous before nonzero ID admission; preserve error precedence. Nonzero alone does not prove resident/service binding. Route exact six service tokens map to closed Storefront and immutable location IDs; no fallback aliases or numeric operations. Error Display is format boundary; concrete typed causes can remain internal.",
+    "actual-transaction-mutations": "Consumer rejects duplicate sale inventory IDs2643-2648, validates per-row stock before subtracting and enforces physical object quantity1/row1 through actual339-341. Party-offer transfer re-fetches source and checks quantity before each mutation9-159, so parser duplicate lines alone do not prove successful double spend. Fungible merge checked_add can validly fall back to a new stack, preserving aggregate quantity without requiring infallible one-row sum. Do not invent a corruption claim from multi-step writes: reducer transaction semantics govern failure rollback.",
+    "propagation-and-cause-gap": "StorefrontTradeExecution already holds typed request, but private execution helper2529-2548 reconstructs four parallel raw vectors and rechecks zero later. This is concrete P16 unfinished propagation, not a real wire/framework boundary. Retain BuyLine/SellLine and TradeQuantity through checking/quoted plans/mutations, extracting native DB fields at actual access/update. Internal route/provider/Core errors are still formatted to strings before canonical operation error, joining mandatory concrete cause graph repair. Source backed migration note for broad refactor; no unique new numeric defect.",
+    "source-tests": "All existing Core tests read, including single-source/personal+stake, zero and insufficient funds, ambiguous/zero provider, route tokens, misaligned/zero trade and empty offer cases. No tests added/run. Whole DB trade source and its untraced helpers remain incomplete independently."
+  },
+  "finding_qualifications": [
+    {
+      "id": "ROOT-INITIAL04-F034-COMMERCE-RECIPIENT-101",
+      "finding": "ROOT-INITIAL04-F034",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "ranges": [
+        [
+          2679,
+          2689
+        ],
+        [
+          2768,
+          2781
+        ]
+      ],
+      "qualification": "Actual buy path calls capped merchant_buy_price then language adjustment before checked u64 line/total, so later checks do not recover unit quote. Food-lot path however narrows returned u64 to u32 with try_from at2775 and rejects saturatedMAX; do not claim actual overpayment from that API-only food helper case. No ordinary authored high-price/lot or runtime claim."
+    }
+  ],
+  "migration_notes": [
+    "Keep typed trade lines/quantities through private commerce execution; remove parallel primitive-vector round trip.",
+    "Preserve concrete Core errors through internal DB helpers until actual reducer formatting."
+  ],
+  "findings": [],
+  "repair": "frozen_initial_audits_then_handover",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

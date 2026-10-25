@@ -1,0 +1,63 @@
+{
+  "id": "SEGOVB-04-RECONNECT-WOUNDS-001",
+  "classification": "actual source-supported loss of transient operation prerequisites during reconnect; no live reconnect/DB run",
+  "source_variants": [
+    "physical-p16",
+    "pr-working"
+  ],
+  "source_ranges": {
+    "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs": [
+      [
+        145,
+        180
+      ],
+      [
+        397,
+        486
+      ],
+      [
+        900,
+        954
+      ],
+      [
+        1707,
+        1778
+      ],
+      [
+        1953,
+        1980
+      ]
+    ],
+    "crates/adventuresim-tactical-server/src/combat/consequence.rs": [
+      [
+        15,
+        34
+      ]
+    ],
+    "crates/adventuresim-tactical-server/src/combat/condition.rs": [
+      [
+        5,
+        17
+      ],
+      [
+        49,
+        53
+      ]
+    ],
+    "crates/adventuresim-tactical-server/src/combat.rs": [
+      [
+        208,
+        215
+      ]
+    ]
+  },
+  "trace": "Normal fresh spawn installs combat_projection_state(TacticalWounds,EquipmentActionState). Disconnect snapshots core+motion+physics but neither queries nor stores TacticalWounds; reconnect inserts snapshot into new client, rebinds item ownership then despawns orphan. Player require list and on_player_added do not recreate TacticalWounds. Consequently restored character has no wounds component even if previously unwounded. apply_melee_attack_result queries Limbs/CombatState/TacticalWounds for BOTH attacker and defender with get_many_mut, returns immediately if either missing. Thus a resolved contact involving restored actor skips damage, imbalance, wound and velocity consequences/receipt in this handler. Condition update treats missing wounds as empty, so prior ongoing bleeding source disappears while accumulated blood fraction is retained.",
+  "qualification": [
+    "No live disconnect, damage/bleed runtime trace or DB result was executed. Actual canonical reconnect producer and exact receiver component requirements establish conditional source failure when that successful reconnect path is used.",
+    "This is transient Bevy state retention; storing tick/wound data in SpacetimeDB would violate architecture. Preserve complete transient wound list on snapshot/restore, not default it and erase existing bleeding.",
+    "Source-wide pinned callsite search plus actual Player require list found no independent global wounds insertion; all relevant constructor/restore bodies personally read. Current P16/PR complete textual delta leaves these snapshot fields unchanged.",
+    "Existing reconnect fixture snapshot omits wounds itself and asserts selected transform/name/authority fields; read only, no fixture execution or claim it covers consequences. Distinct local774:F45 durable enemy corpse injury loss."
+  ],
+  "connected_repair": "Restore the complete transient combat-operation prerequisite state across actual snapshot/rebind, with canonical same-action/receiver ownership and exact wound list retained. Review pending response and any remaining transient facets against their declared reconnect policy, without assuming every omission is an independent defect. Preserve claim-before-deferred-rebind duplicate guard and no durable tactical tick state.",
+  "acceptance": "Successful reconnect preserves prior wound list and continued bleeding under the same declared elapsed-time policy; restored actor remains a valid participant in the actual consequence query as attacker and defender. An originally unwounded actor still has required empty component. Source/receiver failures cannot silently yield broadcast contact with no applied consequence. No default reset of retained wounds; no DB persistence workaround."
+}

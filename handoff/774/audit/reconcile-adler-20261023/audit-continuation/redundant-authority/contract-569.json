@@ -1,0 +1,63 @@
+{
+  "id": "CONT07-CONTRACT-569",
+  "at": "2026-10-24T00:08:12.609412+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2458,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height_peaks.rs",
+      "sha256": "7e8a84b7f3e6b3704d9d6af35807453511541907e3fc780f8c85928cf273e610",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height_peaks.rs",
+      "actual_EOF": 65,
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2459,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/pose.rs",
+      "sha256": "3d5ddade1188ded7f01cd60e2cabe4ccd4fc9e3be625640ad75976ed4016e270",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/pose.rs",
+      "actual_EOF": 188,
+      "ranges": [
+        [
+          1,
+          188
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2460,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/support_slip.rs",
+      "sha256": "7d5cfea52b585b38756a012a33525c2fd8cdde71e1a82a238b6a2a015a0538d7",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/support_slip.rs",
+      "actual_EOF": 47,
+      "ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "P17 height peak count derives peaks.len and phase-window membership from the same selected observations; independent expected two-passing-peaks remains review policy, not duplicate dynamic storage. Neighborhood absence is explicit unavailable.",
+    "P17 pose measurements share one LEGS roster and derive output directly from actual captured transforms; missing/degenerate geometry is unavailable. Body-local hip sign is used as an anatomical-side proxy for signed track/hemisphere; valid ownership of side in BoneRole versus arbitrary crossing/central hip coordinates needs producer admission/intent proof before a new mismatch is asserted.",
+    "P17 support slip derives actual world foot displacement with min adjacent support, excluding intentional turn adaptation and nonprocedural ownership. This differs from full-support anchored drift and body-relative continuity; shared length quantities do not justify merging those independent measurement contracts."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2461,
+    "start_line": 1
+  }
+}

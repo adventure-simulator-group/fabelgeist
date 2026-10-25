@@ -1,0 +1,301 @@
+{
+  "task": "P17 viewer report source implementation",
+  "family_status_authority": "execution-ledger.json",
+  "updated_at": "2026-10-21T09:01:19.944632+00:00",
+  "status": "source-complete local connected increment; not integrated or validated; P17 family retains camera-owned motor dependency",
+  "base": "6fa6a7937",
+  "current_head": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+  "worktree": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/viewer-reports/worktree",
+  "branch": "codex/774-viewer-reports-parallel",
+  "preserved_prior_increments": [
+    "c6fe55e42e90981d9e132fcf1dd6615d17227275 P18",
+    "c4a8ae5f5ae7fbf552795fa266588b4e9186f8d3 neutral geometry"
+  ],
+  "prerequisite": {
+    "commit": "18360adba",
+    "source": "exact canonical SignedLength min/max diff consumed from camera bda1fab71; coordinator already integrated c912fd7a7",
+    "replay_on_root": "unnecessary"
+  },
+  "locally_connected": [
+    "SupportElevation -> CaptureGround::collect_bones -> Option<SignedLength> -> signed clearance/range metrics -> required gates -> JSON and actual HTML",
+    "SignedSpeed + AnimationElapsed -> CaptureSequence::advance_distance ordered f32 kernel -> SignedLength retained root distance -> checked cadence adjusted contact samples",
+    "Existing HeightDistance/AnimationElapsed/CyclePhase/SignedLength -> named private HeightSample and expected height bounds -> ScenarioHeightMetrics -> phase/height/flight/continuity validation and HTML",
+    "BoneRole capture maps -> explicit repeated structural/transform/invalid numeric mismatch variants; Option<LegIkDiagnostics> retained across views",
+    "Typed anatomical/facing/continuity/seam/guard-liveness measurements and explicit NotApplicable/Unavailable/Measured -> ScenarioMetrics -> acceptance and quality categories -> scalar measurement serialization/HTML",
+    "GlobalBoneFrame elapsed and manifest sample rate retain actual shared scalar types through Serde",
+    "Captured SettleProgress and optional body/height/release/yaw observations retain checked leaves and true absence",
+    "Incomplete capture quality is Unavailable(IncompleteCapture); measured quality zero remains a real zero over UnitInterval with unchanged multiply-last percent formula",
+    "Body response native radians -> checked SignedAngleDegrees at FrameSample::capture -> retained optional degrees -> validation/Serde without repeated radians conversion; existing Locomotion capture rejection owns admission errors"
+  ],
+  "source_findings_repaired": [
+    {
+      "kind": "Code",
+      "problem": "CyclePhase is signed/unwrapped; removing original periodic normalization changes height peak input",
+      "repair": "HeightSample::new owns the original rem_euclid(1.0) through existing CyclePhase::wrapped"
+    },
+    {
+      "kind": "Code",
+      "problem": "No qualifying plant-slip/drift samples are intentionally exempt during turns/blended release, unlike missing bone evidence",
+      "repair": "NotApplicable passes when_applicable; Unavailable fails; original 0.5-degree and support thresholds retained"
+    },
+    {
+      "kind": "Rule",
+      "problem": "Anonymous primitive range/height samples and mixed-unit continuity value lose report guarantees",
+      "repair": "private ordered SignedLengthRange, named typed HeightSample/ExpectedVisualHeight, generic quantity-typed ContinuityLocation"
+    },
+    {
+      "kind": "Code",
+      "problem": "Undefined forward motion was fabricated as Vec3::Z for diagnostic forward knee bend",
+      "repair": "Unavailable(NoMotionSamples) for undefined direction; all defined-axis mathematics unchanged"
+    },
+    {
+      "kind": "Code",
+      "problem": "Finite height operands can overflow peak-prominence subtraction",
+      "repair": "checked signed prominence with typed ReportError propagation, no infinite peak admission"
+    },
+    {
+      "kind": "Code",
+      "problem": "Finite body radians may overflow degrees projection during final serialization",
+      "repair": "Admit SignedAngleDegrees once during capture; preserve existing typed Locomotion cause into terminal capture rejection, no new error owner/variant"
+    },
+    {
+      "kind": "Code",
+      "problem": "terrain_run_contacts_are_valid used is_ok_and to erase typed duration admission cause",
+      "repair": "Whole gate now returns AnimationValueResult<bool>; required support/duration errors reach build_completed_report; existing fixture inputs/assertions unchanged"
+    }
+  ],
+  "pending_transfers": [],
+  "shared_dependency": {
+    "owner": "/root/camera_targeting",
+    "function": "physics.rs::apply_character_motor",
+    "status": "camera reconfirmed both exact Option tick logs are uncommitted inside unfinished P16 whole motor graph; no source-complete dependency commit",
+    "source": "skeleton_tick = ?skeleton.map(|skeleton| skeleton.locomotion_sample_tick)"
+  },
+  "fixture_metadata": [
+    {
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+      "base_counts": {
+        "#[test]": 21,
+        "assert!": 66,
+        "assert_eq!": 16,
+        "assert_ne!": 1
+      },
+      "current_counts": {
+        "#[test]": 21,
+        "assert!": 66,
+        "assert_eq!": 16,
+        "assert_ne!": 1
+      }
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+      "base_counts": {
+        "#[test]": 2,
+        "assert!": 1,
+        "assert_eq!": 5,
+        "assert_ne!": 0
+      },
+      "current_counts": {
+        "#[test]": 2,
+        "assert!": 1,
+        "assert_eq!": 5,
+        "assert_ne!": 0
+      }
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+      "base_counts": {
+        "#[test]": 2,
+        "assert!": 7,
+        "assert_eq!": 0,
+        "assert_ne!": 0
+      },
+      "current_counts": {
+        "#[test]": 2,
+        "assert!": 7,
+        "assert_eq!": 0,
+        "assert_ne!": 0
+      }
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+      "base_counts": {
+        "#[test]": 2,
+        "assert!": 3,
+        "assert_eq!": 0,
+        "assert_ne!": 1
+      },
+      "current_counts": {
+        "#[test]": 2,
+        "assert!": 3,
+        "assert_eq!": 0,
+        "assert_ne!": 1
+      }
+    }
+  ],
+  "fixture_limits": "Text metadata only, not test execution or semantic PASS. Existing inputs, order, count and assertions were adapted at type/status boundaries; incomplete-quality/hard-stop absence expectations intentionally use explicit status.",
+  "verification": "Source/Git/rg and stdlib text/JSON/hash metadata only. No Cargo, build, check, tests, fmt, Clippy, metadata, scanners/parsers/generators, runtime/numerical probes or hosted requests executed.",
+  "existing_hosted_selections_not_executed": [
+    "cargo test --locked --package adventuresim-tactical-client --features debug --bin animation-viewer animation_viewer::report:: -- --test-threads=1",
+    "cargo test --locked --package adventuresim-tactical-client --features debug --bin animation-viewer animation_viewer::capture:: -- --test-threads=1",
+    "cargo test --locked --package adventuresim-tactical-core --lib animation:: -- --test-threads=1",
+    "cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client animation:: -- --test-threads=1"
+  ],
+  "remaining_validation": "Coordinator integration, formatting/size cleanup, governing hosted gates and runtime acceptance remain pending; no compile/runtime PASS claimed.",
+  "source_files": [
+    {
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+      "sha256": "9c5be8d431d653b6aa228a29a289297ce2c7453b0bdbffe79b89e34b2fe0e44a"
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs",
+      "sha256": "6ea36de3b468aa2874ddb8b81039b2a85c7f77cc6beca0d15c2f957985cb4106"
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/capture/global_bones.rs",
+      "sha256": "442ea977df5466ad973589f48a61e9166674c05f541f174dd0e54bb7e319b47e"
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+      "sha256": "a4cd3203c13ad00470f001d622f3c1097fcb28954a8c1e93766a53ddfa472441"
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+      "sha256": "9b77b6040fcf91aa02261a284189f50a43a59f05ba0e8e4d719966b21a0685bd"
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/acceptance_limits.rs",
+      "sha256": "cd50789f7bb51a70cba222126924e2bd09537e91732baaeaa87a5a5b764bf5a3"
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/body_response_validation.rs",
+      "sha256": "a884691344036a3d486d17293c4ae0fe2c9bba4860959a5ca861c20b9c691c80"
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/html.rs",
+      "sha256": "c7924b3b009c953e77a4739e70b320b0f98ffad6549111446e57899eaa23a5d5"
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+      "sha256": "3cef877c3d38704abb5e5fed68294fb3344fbdca9dde4da1683b2692922baa85"
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height_peaks.rs",
+      "sha256": "7e8a84b7f3e6b3704d9d6af35807453511541907e3fc780f8c85928cf273e610"
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/support_slip.rs",
+      "sha256": "7d5cfea52b585b38756a012a33525c2fd8cdde71e1a82a238b6a2a015a0538d7"
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+      "sha256": "25e87851259daadd1ae2e89f55ac1fa0183ceda791c29a8fef129859fe0134b6"
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+      "sha256": "25b74df7fda7da38c773f134095af97a0dbc5c30d8c190a1638f09fd99908bce"
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+      "sha256": "e8dacb899db53bbf509ad98f39e757880e928eda751f9c0bcb3e3f6a3994a4df"
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+      "sha256": "95852ba679486fb361ff90d203788f00fd951c87d215420de1e4931d6911226c"
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+      "sha256": "ab520d3fbb8ff15b6554a7ae16e036426dea29b02082af86a99ce8de78c02fe7"
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "sha256": "cd6f17bf2bc0925f53292c3a04e552698ba572ae7127aa3ce31430296ca420a4"
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/capture/sample.rs",
+      "sha256": "c0ba7d024fc9c51ef6252a5d695863e9e652f45c12ea707e50e65280cde50596"
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/biomechanics_validation.rs",
+      "sha256": "9211b4536a6ae6cf42e37da786ff675287b5d917b2231ba82415e9ed4e84109a"
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/continuity_validation.rs",
+      "sha256": "2d2788cbd744673baa618011298af0a711c24b8063a8fe651eb4c15922cd68d0"
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/height_validation.rs",
+      "sha256": "91b2a6613d6dd4c59bbaee174ec7972ddc584dfaefde87adb10b3bb0df228b77"
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/landing_validation.rs",
+      "sha256": "f68a28a4d7d79923b5d9b1d5bec979b4518498f9d3d25a91f89911b2916a95cb"
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/clearance.rs",
+      "sha256": "ef24a6569ba92503d98ad956984ab627e7c5fc41f7429713cbac258a178e57dd"
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/continuity.rs",
+      "sha256": "d231794853b7f8d0c526e543e50e13d15499341746d4d50187f88d2022c5ced3"
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/facing.rs",
+      "sha256": "3c351540f1c379a250a87469a2cc86c4bb2c525b5fc2dbf084ace8e4b1057671"
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/guard_liveness.rs",
+      "sha256": "4e99ffb41426fe317a4a92c09f49f3533cc6c9a8ced6517f4650408aa0a9d45f"
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height.rs",
+      "sha256": "8f241ec4e5db0e46e2abf7905ed43da7112d6720546f2d377171e5fe1944eb57"
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/pose.rs",
+      "sha256": "3d5ddade1188ded7f01cd60e2cabe4ccd4fc9e3be625640ad75976ed4016e270"
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/observation.rs",
+      "sha256": "7fa58b4231c32ba14a3701f5f722531487916897978ef0b6392659996aab71fb"
+    }
+  ],
+  "current_source_hashes": {
+    "crates/adventuresim-tactical-client/src/animation_viewer/report/html.rs": "ad225bb5b1a00479327871963669e407028cc5e4550fe10134be12a2030bacf1",
+    "crates/adventuresim-tactical-client/src/animation_viewer/report/observation.rs": "b1dc9323bda01dd3f71ebf003ffe6190ac56ea73ea489ddf3a3f40498c51eab5",
+    "crates/adventuresim-tactical-client/src/animation_viewer/report/landing_validation.rs": "f68a28a4d7d79923b5d9b1d5bec979b4518498f9d3d25a91f89911b2916a95cb",
+    "crates/adventuresim-tactical-client/src/animation_viewer/report/body_response_validation.rs": "bd29a229e56b7d1e2bf3637893267470180968b4d88e10c970ab9067d78c2439",
+    "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs": "b25c00d6c145fc8ff6ba17b58925569f5377ec0ff736dd1ff61b53d6199d2a68",
+    "crates/adventuresim-tactical-client/src/animation_viewer/report/presentation_events.rs": "96bc4db93aefaea58374be6eba6a7eed668bfaebc77e74a40c1516b2fdf420e5",
+    "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs": "afd630bf1aa3b39007ee568f0428f37e30d43c9b43bd12fc7cd114fca1486c34",
+    "crates/adventuresim-tactical-client/src/animation_viewer/report/continuity_validation.rs": "2d2788cbd744673baa618011298af0a711c24b8063a8fe651eb4c15922cd68d0",
+    "crates/adventuresim-tactical-client/src/animation_viewer/report/acceptance_limits.rs": "cd50789f7bb51a70cba222126924e2bd09537e91732baaeaa87a5a5b764bf5a3",
+    "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs": "896ecc0389806812fad940c671d539b4c767e5a2e38d8a5865403c65b5377579",
+    "crates/adventuresim-tactical-client/src/animation_viewer/report/height_validation.rs": "a40eb11dc1cb1c214bdd2fc118536d9e879075175c3688f4650f680c43bec3d3",
+    "crates/adventuresim-tactical-client/src/animation_viewer/report/bones.rs": "1178bf380da9126c00678608493b9d252af9746d853d347d5f334d451586b5bb",
+    "crates/adventuresim-tactical-client/src/animation_viewer/report/biomechanics_validation.rs": "9211b4536a6ae6cf42e37da786ff675287b5d917b2231ba82415e9ed4e84109a",
+    "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs": "fc63aaa5df83ab829486d1421eda4b014bf7be462cc7451b0b2c28d19c862e99",
+    "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height.rs": "e334517ee92a0081ddfa169ebb5f261d0720373b72c261ebe363b57f9a013576",
+    "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/facing.rs": "3c351540f1c379a250a87469a2cc86c4bb2c525b5fc2dbf084ace8e4b1057671",
+    "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/support_slip.rs": "7d5cfea52b585b38756a012a33525c2fd8cdde71e1a82a238b6a2a015a0538d7",
+    "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/catastrophic_contacts.rs": "ad414c150521528e44dbcc6acc18f8631e8d868339839a74e49be89c99b04865",
+    "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height_peaks.rs": "7e8a84b7f3e6b3704d9d6af35807453511541907e3fc780f8c85928cf273e610",
+    "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/continuity.rs": "d231794853b7f8d0c526e543e50e13d15499341746d4d50187f88d2022c5ced3",
+    "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/pose.rs": "3d5ddade1188ded7f01cd60e2cabe4ccd4fc9e3be625640ad75976ed4016e270",
+    "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/clearance.rs": "ef24a6569ba92503d98ad956984ab627e7c5fc41f7429713cbac258a178e57dd",
+    "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/guard_liveness.rs": "4e99ffb41426fe317a4a92c09f49f3533cc6c9a8ced6517f4650408aa0a9d45f",
+    "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs": "eb2b6cb3cb56cc6209f7a15a8b3dd72bf75cee67562c2b59cf0300223cac0c4d",
+    "crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs": "a4cd3203c13ad00470f001d622f3c1097fcb28954a8c1e93766a53ddfa472441",
+    "crates/adventuresim-tactical-client/src/animation_viewer/capture/subject_motion.rs": "863b3c4fafe43198495f75878f9544b5af7fd3cccd198a88c0cc37042c390981",
+    "crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs": "6ea36de3b468aa2874ddb8b81039b2a85c7f77cc6beca0d15c2f957985cb4106",
+    "crates/adventuresim-tactical-client/src/animation_viewer/capture/sample.rs": "82cdebe827e09b46180dbc08fc0e7fc357f97f993ec554fa82149c8858dbc35d",
+    "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs": "9b77b6040fcf91aa02261a284189f50a43a59f05ba0e8e4d719966b21a0685bd",
+    "crates/adventuresim-tactical-client/src/animation_viewer/capture/global_bones.rs": "442ea977df5466ad973589f48a61e9166674c05f541f174dd0e54bb7e319b47e",
+    "crates/adventuresim-tactical-client/src/animation_viewer/capture/overlay.rs": "52776510686b004cc99d1cc9373424cffdfbad85172cc116f47bb8b15a13f0aa",
+    "crates/adventuresim-tactical-client/src/animation_viewer/capture/readiness.rs": "2e535e01db3e5692c7f0955fab779a341ffe7d4edb246f4a987e288231223868",
+    "crates/adventuresim-tactical-client/src/animation_viewer/capture/frame_clock.rs": "d37afe5c70931612e23068f7982db7bac0b7aedbd2dfd726c6981aff6863b81f",
+    "crates/adventuresim-tactical-client/src/animation_viewer/capture/capture_schedule.rs": "fc43df34f82478bf3b387906033df195b64b4cdbc32c6b9c4e53415a51ee1308"
+  },
+  "source_commit": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+  "final_handoff": "P17-viewer-reports-source-handoff.json"
+}

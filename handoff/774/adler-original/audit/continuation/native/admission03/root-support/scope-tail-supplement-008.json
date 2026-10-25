@@ -1,0 +1,755 @@
+{
+  "id": "NATIVE-ROOTSUPPORT03-TAIL-SUPPLEMENT-008",
+  "authority": "ROOT-ADM-SUPPORT-AUTHORITY-047; Root2026-10-22collectiveownerproofunion correction",
+  "assigned_source_count_unchanged": 16,
+  "tail_obligations": 3,
+  "tail_obligations_accounted": 3,
+  "source_roles": [
+    {
+      "root_queue_index": 100,
+      "source_id": "pr-working:crates/adventuresim-core/src/investigation.rs",
+      "sha256": "670a2ae0df206f175978278ad2644e91d75c22a88cfa1ef89759171da672147b",
+      "source_scope_record": {
+        "source_id": "pr-working:crates/adventuresim-core/src/investigation.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/investigation.rs",
+        "sha256": "670a2ae0df206f175978278ad2644e91d75c22a88cfa1ef89759171da672147b",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 37029,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 619,
+            "read_ranges": [
+              [
+                1,
+                180
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-CUSTODY-OBJECTIVES-087"
+            ],
+            "read_status": "scoped_definition_only",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/investigation.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 620,
+            "read_ranges": [
+              [
+                1,
+                180
+              ],
+              [
+                315,
+                360
+              ],
+              [
+                720,
+                825
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-INVESTIGATION-MODEL-CAPABILITY-088"
+            ],
+            "read_status": "scoped_definition_and_affected_receivers_only",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/investigation.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 638,
+            "read_ranges": [
+              [
+                115,
+                290
+              ],
+              [
+                625,
+                725
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-INVESTIGATION-SITES-CLAIMS-092"
+            ],
+            "read_status": "fresh-current-lens-scoped-receiver-read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/investigation.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 87,
+            "read_ranges": [
+              [
+                1,
+                115
+              ],
+              [
+                290,
+                410
+              ],
+              [
+                460,
+                520
+              ],
+              [
+                625,
+                725
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-QUEST-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/investigation.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera",
+          "native"
+        ],
+        "audit_owner": "root",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-KNOWLEDGE-IDENTITY-032",
+            "json_pointer": "/source_proofs/0",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/investigation.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                290
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/investigation.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/investigation.rs",
+              "sha256": "670a2ae0df206f175978278ad2644e91d75c22a88cfa1ef89759171da672147b",
+              "read_ranges": [
+                [
+                  1,
+                  290
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CASE-RECEIVERS-029",
+            "json_pointer": "/related_current_sources/0",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/investigation.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                821
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/investigation.rs",
+              "sha256": "670a2ae0df206f175978278ad2644e91d75c22a88cfa1ef89759171da672147b",
+              "read_ranges": [
+                [
+                  1,
+                  821
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/investigation.rs",
+              "scope": "All reached production adapters, stable IDs, pipeline stages, typed inference, support thresholds, native compound ID encoding and exact callback recipients; no whole1154 fixture claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016",
+            "json_pointer": "/related_current_reads/0",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/investigation.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                821
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/investigation.rs",
+              "sha256": "670a2ae0df206f175978278ad2644e91d75c22a88cfa1ef89759171da672147b",
+              "read_ranges": [
+                [
+                  1,
+                  821
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/investigation.rs",
+              "scope": "All reached production adapters, stable IDs, pipeline stages, typed inference, support thresholds, native compound ID encoding and exact callback recipients; no whole1154 fixture claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1333,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "fresh_additional_read_ranges": [
+        [
+          822,
+          825
+        ]
+      ],
+      "all_admission_routes_comparison": "Actualblank/cfg(test)/modtests/use_super only; no productiondeclarationornewadmissionroute. Actualunion now1–825;826–1154 unread/excluded, no wholefiletestclaim.",
+      "connected_repair": "Unchangedcontracts002/003/F001–F004; nonewproductiondefectfromtestsourcecount.",
+      "scope_qualification": "Rootcollectiveoriginalownerproofunion correction: priorbodyreceiptpreserved, thesetailrangesnowexplicitlycompared. No otherlens/ownershiptransfer."
+    },
+    {
+      "root_queue_index": 101,
+      "source_id": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+      "sha256": "42c0284a19db9d6e763cb9be7bb0c2472dea34f759b13794f37883c42e838474",
+      "source_scope_record": {
+        "source_id": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/local_problem.rs",
+        "sha256": "42c0284a19db9d6e763cb9be7bb0c2472dea34f759b13794f37883c42e838474",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 29321,
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+            "row": 44,
+            "read_ranges": [
+              [
+                1,
+                260
+              ],
+              [
+                422,
+                660
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-SIGNED-OFFSETS-028"
+            ],
+            "read_status": "explicit_partial_supporting_definitions_receivers",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/local_problem.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 94,
+            "read_ranges": [
+              [
+                1,
+                865
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-LOCAL-PROBLEM-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/local_problem.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root",
+          "native"
+        ],
+        "audit_owner": "root",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-LOCAL-PROBLEM-EFFECTS-031",
+            "json_pointer": "/source_proofs/0",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                305
+              ],
+              [
+                390,
+                660
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/local_problem.rs",
+              "sha256": "42c0284a19db9d6e763cb9be7bb0c2472dea34f759b13794f37883c42e838474",
+              "read_ranges": [
+                [
+                  1,
+                  305
+                ],
+                [
+                  390,
+                  660
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/additional_actual_source_proofs/38",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+            "read_ranges_as_recorded": [
+              [
+                485,
+                515
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/local_problem.rs",
+              "sha256": "42c0284a19db9d6e763cb9be7bb0c2472dea34f759b13794f37883c42e838474",
+              "read_ranges": [
+                [
+                  485,
+                  515
+                ]
+              ],
+              "actual_line_count": 865,
+              "mode": "fresh current producer-supplement actual material source bodies; no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-036",
+            "json_pointer": "/additional_fresh_sources/3",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+            "read_ranges_as_recorded": [
+              [
+                485,
+                515
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/local_problem.rs",
+              "sha256": "42c0284a19db9d6e763cb9be7bb0c2472dea34f759b13794f37883c42e838474",
+              "read_ranges": [
+                [
+                  485,
+                  515
+                ]
+              ],
+              "actual_line_count": 865,
+              "mode": "fresh current producer-supplement actual material source bodies; no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-QUEST-006",
+            "json_pointer": "/related_pure_source",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+            "read_ranges_as_recorded": [
+              [
+                175,
+                210
+              ],
+              [
+                295,
+                332
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+              "sha256": "42c0284a19db9d6e763cb9be7bb0c2472dea34f759b13794f37883c42e838474",
+              "ranges": [
+                [
+                  175,
+                  210
+                ],
+                [
+                  295,
+                  332
+                ]
+              ],
+              "scope": "actualnewpair/Seed/SamplingError producer, notwholeunrelatedpricingowner"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1023,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "fresh_additional_read_ranges": [
+        [
+          661,
+          865
+        ]
+      ],
+      "all_admission_routes_comparison": "Allremainingexistingtestbodies freshread: candidatecurationtail, pre-startperiodicincidents capMAX and severity1..2whole, accumulationbeforeglobalcaps, ambiguoussymptoms/multiplecauses, hardzero/bridgeauthority/cappedordinal, mitigiation/resolutionearliest, normalizedroutes/priceu32saturation, diseasepartitioninvariance/zerointervalNone, explicitdiscoveryfallback, route-onlycauseexclusions/privateentropy/expiredhistory. RawfixtureProblem/Context/Consequence literals intentionalexerciseexistingpurefunctions; no additionalproductionentry/codec/default orsealedowner. Noneoftheseexistingtests executed; no newcases/assertions.",
+      "connected_repair": "Unchangedcontracts002/003/F001–F004; nonewproductiondefectfromtestsourcecount.",
+      "scope_qualification": "Rootcollectiveoriginalownerproofunion correction: priorbodyreceiptpreserved, thesetailrangesnowexplicitlycompared. No otherlens/ownershiptransfer."
+    },
+    {
+      "root_queue_index": 102,
+      "source_id": "pr-working:crates/adventuresim-core/src/organization.rs",
+      "sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+      "source_scope_record": {
+        "source_id": "pr-working:crates/adventuresim-core/src/organization.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/organization.rs",
+        "sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+        "bytes": 45348,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "root",
+            "record": "wave-01/audit-producer-propagation/root/additional-sources-025.json",
+            "ranges": [
+              [
+                1,
+                350
+              ]
+            ],
+            "source_read_status": "partial",
+            "trace_refs": [
+              "ROOT-PP-RECEIVER-CLOSURE-025"
+            ]
+          },
+          {
+            "shard": "root",
+            "record": "wave-01/audit-producer-propagation/root/additional-sources-026.json",
+            "ranges": [
+              [
+                1,
+                1251
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "ROOT-PP-CATALOGUE-026"
+            ]
+          },
+          {
+            "shard": "root",
+            "record": "wave-01/audit-producer-propagation/root/unchanged-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                350
+              ]
+            ],
+            "source_read_status": "partial",
+            "trace_refs": [
+              "ROOT-PP-RECEIVER-CLOSURE-025"
+            ]
+          },
+          {
+            "shard": "root",
+            "record": "wave-01/audit-producer-propagation/root/unchanged-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                1251
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "ROOT-PP-CATALOGUE-026"
+            ]
+          },
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-root-strategic-root-proofs.json",
+            "ranges": [
+              [
+                1,
+                350
+              ]
+            ],
+            "source_read_status": "partial",
+            "trace_refs": [
+              "ROOT-PP-RECEIVER-CLOSURE-025"
+            ]
+          }
+        ],
+        "audit_owner": "root",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 99,
+            "read_ranges": [
+              [
+                1,
+                720
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-CATALOGUE-023"
+            ],
+            "read_status": "explicit_partial",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/organization.rs"
+          },
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 337,
+            "read_ranges": [
+              [
+                1,
+                1251
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-OUTPUT-AND-SOURCE-ENDPOINTS-073"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/organization.rs"
+          },
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 431,
+            "read_ranges": [
+              [
+                1,
+                1251
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-CATALOGUE-023",
+              "ROOT-OWNER-OUTPUT-AND-SOURCE-ENDPOINTS-073",
+              "ROOT-OWNER-CLIENT-SOURCE-CLOSURE-083"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/organization.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 26,
+            "read_ranges": [
+              [
+                335,
+                435
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-STRATEGIC-002"
+            ],
+            "read_status": "exact_owner_and_receiving_bodies_read_remaining_unclaimed",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/organization.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root",
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-CATALOGUE-ROLE-005",
+            "json_pointer": "/source_proofs/3",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/organization.rs",
+            "read_ranges_as_recorded": [
+              [
+                335,
+                435
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/organization.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/organization.rs",
+              "sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+              "read_ranges": [
+                [
+                  335,
+                  435
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-DIALOGUE-040",
+            "json_pointer": "/related_current_sources/9",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/organization.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                100
+              ],
+              [
+                150,
+                226
+              ],
+              [
+                246,
+                318
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/organization.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/organization.rs",
+              "sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+              "actual_lines": 1251,
+              "read_ranges": [
+                [
+                  1,
+                  100
+                ],
+                [
+                  150,
+                  226
+                ],
+                [
+                  246,
+                  318
+                ]
+              ],
+              "proof_mode": "fresh actual current supplement bounded material source body, no execution",
+              "role": "Actual SecondPersonRegister lexical presentation table and StartingProfession ten-variant owner/id/label; local social precedence source ranges only"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/additional_actual_source_proofs/43",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/organization.rs",
+            "read_ranges_as_recorded": [
+              [
+                430,
+                635
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/organization.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/organization.rs",
+              "sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+              "read_ranges": [
+                [
+                  430,
+                  635
+                ]
+              ],
+              "actual_line_count": 1251,
+              "mode": "fresh current producer-supplement actual material source bodies; no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-033",
+            "json_pointer": "/fresh_current_additional_source_reads/9",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/organization.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                100
+              ],
+              [
+                150,
+                226
+              ],
+              [
+                246,
+                318
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/organization.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/organization.rs",
+              "sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+              "actual_lines": 1251,
+              "read_ranges": [
+                [
+                  1,
+                  100
+                ],
+                [
+                  150,
+                  226
+                ],
+                [
+                  246,
+                  318
+                ]
+              ],
+              "proof_mode": "fresh actual current supplement bounded material source body, no execution",
+              "role": "Actual SecondPersonRegister lexical presentation table and StartingProfession ten-variant owner/id/label; local social precedence source ranges only"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-036",
+            "json_pointer": "/additional_fresh_sources/8",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/organization.rs",
+            "read_ranges_as_recorded": [
+              [
+                430,
+                635
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/organization.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/organization.rs",
+              "sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+              "read_ranges": [
+                [
+                  430,
+                  635
+                ]
+              ],
+              "actual_line_count": 1251,
+              "mode": "fresh current producer-supplement actual material source bodies; no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 339,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "fresh_additional_read_ranges": [
+        [
+          636,
+          1251
+        ]
+      ],
+      "all_admission_routes_comparison": "Allremainingexistingtestmodule read: closedmembershipSerdeunknownreject; second-personregister/plurals; authoredrolebranching/openarbitraryskill/professionnames/medicalcurricula/servicechapters/privileges; canonicalstartingprofessioncurriculum andreligion-neutrality/contentauthorship; hierarchy/addressprecedence; deterministicseeds/roleassignment; stablechapterreversebindings/exactrepresentativeidentity/home/conversation inclu64>2^53; physicalservicevenueswithgenuinestand-alonefallback/representativehighbit. Source-string tests1044–1089 include_str othermodules andassert snippets; onlyobservedcallsnotactualforeignbodycoverage. Noproductiondefs/admissionroutes inthistail; fixturesrawmutable contentnotprivilege/currentDBprooftoken. Tests sourceonlynotrun.",
+      "connected_repair": "Unchangedcontracts002/003/F001–F004; nonewproductiondefectfromtestsourcecount.",
+      "scope_qualification": "Rootcollectiveoriginalownerproofunion correction: priorbodyreceiptpreserved, thesetailrangesnowexplicitlycompared. No otherlens/ownershiptransfer."
+    }
+  ],
+  "existing_completion_preserved": "completion-007.json",
+  "root_ownership_retained": true,
+  "source_edits": 0,
+  "project_execution": 0,
+  "later_lens_credit": false
+}

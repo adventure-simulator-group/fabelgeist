@@ -1,0 +1,337 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-852",
+  "at": "2026-10-25T17:01:12.849882+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1065,
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/backend_corpse_type.rs",
+      "sha256": "dd5944235209203975663dc19185603e5716f5e17b824378f5ae0b83243a7c98",
+      "actual_EOF": 81,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-client/src/backend_corpse_type.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-client/src/backend_corpse_type.rs",
+        "sha256": "dd5944235209203975663dc19185603e5716f5e17b824378f5ae0b83243a7c98",
+        "bytes": 3840,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/native-endpoint-sources.json",
+            "ranges": [
+              [
+                1,
+                81
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-CORPSE-WEB-PORT-001"
+            ]
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                81
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-CORPSE-WEB-PORT-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 205,
+            "read_ranges": [
+              [
+                1,
+                81
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-GENERATED-PORTS-077"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-client/src/backend_corpse_type.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 157,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CORPSE-012",
+            "json_pointer": "/current_sources/9",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row633/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                95
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                95
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "continuation_actual_producer_source_proofs": [
+          {
+            "record": "continuation/camera/reached-role-reconciliation/eof-role-qualification-012.json",
+            "json_pointer": "/fresh_source_and_immediate_receiver_proofs/4",
+            "source_id": "pr-working:crates/adventuresim-stdb-client/src/backend_corpse_type.rs",
+            "sha256": "dd5944235209203975663dc19185603e5716f5e17b824378f5ae0b83243a7c98",
+            "read_ranges": [
+              [
+                1,
+                81
+              ]
+            ],
+            "proof": {
+              "source_id": "pr-working:crates/adventuresim-stdb-client/src/backend_corpse_type.rs",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-client\\src\\backend_corpse_type.rs",
+              "sha256": "dd5944235209203975663dc19185603e5716f5e17b824378f5ae0b83243a7c98",
+              "actual_EOF": 81,
+              "fresh_read_ranges": [
+                [
+                  1,
+                  81
+                ]
+              ],
+              "material_role_ranges": [
+                [
+                  1,
+                  81
+                ]
+              ],
+              "proof_mode": "fresh source body and current exact semantic recipient trace review; no execution"
+            },
+            "limits": "Actual source-role proof for producer lens only; no owner-fit or other-lens clearance."
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 409,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "__sdk::InModule",
+          "type": "BackendCorpse",
+          "lines": [
+            [
+              29,
+              31
+            ]
+          ],
+          "disposition": "GENERATED schema/module association, not handwritten cleanup"
+        },
+        {
+          "trait": "__query_builder::HasCols",
+          "type": "BackendCorpse",
+          "lines": [
+            [
+              54,
+              81
+            ]
+          ],
+          "disposition": "GENERATED exact field-name/type query-column mapping; generator owned"
+        }
+      ],
+      "existing_derives": [
+        "BackendCorpse already generated SATS Serialize/Deserialize and ClonePartialEqDebug"
+      ]
+    },
+    {
+      "scope_index": 1066,
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/backend_corpses_table.rs",
+      "sha256": "8ba1ad5097b419d8e42a9c46fb4d35e6e799de447a8be7ec3a8bf1abe0f826f7",
+      "actual_EOF": 112,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-client/src/backend_corpses_table.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-client/src/backend_corpses_table.rs",
+        "sha256": "8ba1ad5097b419d8e42a9c46fb4d35e6e799de447a8be7ec3a8bf1abe0f826f7",
+        "bytes": 3956,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/native-endpoint-sources.json",
+            "ranges": [
+              [
+                1,
+                112
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-CORPSE-WEB-PORT-001"
+            ]
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                112
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-CORPSE-WEB-PORT-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 206,
+            "read_ranges": [
+              [
+                1,
+                112
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-GENERATED-PORTS-077"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-client/src/backend_corpses_table.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-STATE-NATIVE-PORTS-054",
+            "json_pointer": "/current_sources/0",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-client/src/backend_corpses_table.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                112
+              ]
+            ],
+            "source_context": {
+              "index": 195,
+              "source_id": "pr-working:crates/adventuresim-stdb-client/src/backend_corpses_table.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-client/src/backend_corpses_table.rs",
+              "sha256": "8ba1ad5097b419d8e42a9c46fb4d35e6e799de447a8be7ec3a8bf1abe0f826f7",
+              "read_ranges": [
+                [
+                  1,
+                  112
+                ]
+              ],
+              "mode": "Fresh actual whole current source and exact PR/P16 byteidentity where shared; generatedfiles read only, no generation/edit/check."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 410,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "BackendCorpsesTableAccess",
+          "type": "RemoteTables",
+          "lines": [
+            [
+              32,
+              39
+            ]
+          ],
+          "disposition": "GENERATED typed table lookup/lifetime wrapper"
+        },
+        {
+          "trait": "__sdk::Table",
+          "type": "BackendCorpsesTableHandle",
+          "lines": [
+            [
+              44,
+              80
+            ]
+          ],
+          "disposition": "GENERATED Row/EventContext/typed callback adaptation and underlying table delegation"
+        },
+        {
+          "trait": "backend_corpsesQueryTableAccess",
+          "type": "QueryTableAccessor",
+          "lines": [
+            [
+              108,
+              112
+            ]
+          ],
+          "disposition": "GENERATED typed fixed table-name query accessor"
+        }
+      ]
+    }
+  ],
+  "groups": [
+    "Both complete exact generated sources personally consumed, not granted whole generated SDK coverage. Their table/field/module/callback glue is generator output rather than handwritten bespoke boilerplate; no repository manual derive finding. Keep exact names/associated types/lifetimes/boxed callback bounds/errors. Repository guide requires schema source plus generation workflow for binding changes; no edits or generation performed."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1067,
+    "source_id": "pr-working:crates/adventuresim-stdb-client/src/continue_camp_travel_reducer.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

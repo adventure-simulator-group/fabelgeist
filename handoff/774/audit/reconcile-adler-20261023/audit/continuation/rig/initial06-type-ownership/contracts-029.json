@@ -1,0 +1,28 @@
+{
+  "id": "RIG-INITIAL06-GROUP-029",
+  "at": "2026-10-22T20:11:09.458464+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "authored-cut-style-versus-derived-hair-flow": {
+      "sources": [
+        "pr-working:crates/fabelgeist-hair/src/hairdo.rs",
+        "pr-working:crates/fabelgeist-hair/src/haircut.rs",
+        "pr-working:crates/fabelgeist-hair/src/hairstyle.rs",
+        "pr-working:crates/fabelgeist-hair/src/hairdo/tied.rs"
+      ],
+      "comparison": "Fresh exact Hairdo1\u2013710 including original tests, Haircut1\u2013373 only (tests374+ excluded), Hairstyle1\u2013173 and Tied1\u2013111. Hairdo composes existing Follicles/Haircut/Hairstyle rather than a duplicate source model. Cut names an editable starting preset; Haircut lengths and Fringe widths/depth/drop are metres, hemline is signed head-frame height, slope dimensionless signed gradient, clip/fade normalized scalp height and zero-valued strip/dome disable features. These are not all positive lengths or probabilities. Hairstyle Arrangement is authored configuration; private Flow and Tie are derived integration choices, and Tied is a placed head-relative bundle/axis product, not a second independently authored style. Signed part, lift/tie angles and zero volume are intentional normal presets. Generic length/angle leaf propagation should depend on low shared Geometry after F001, preserving source raw Serde/negative/zero policy and true numerical integration ports rather than importing Building or tactical animation. Hairdo guides185\u2013188 and guide_key539\u2013541 hash BOTH halves of u64 seed into native32 key; no truncation-only claim and no forced substitution changing sequence. Current guide ordinal/hash StrandId is distinct stable identity, retained Attachment and GuideMap current index. Tied frame geometric basis is not Armor PartFrame halfextent basis nor MHR bone rotation. Source tests exercise named Presets but do not establish unread preset implementation."
+    },
+    "host-parting-identity-before-shader-packing": {
+      "sources": [
+        "pr-working:crates/fabelgeist-hair/src/ops/interpolate.rs",
+        "pr-working:crates/fabelgeist-hair/src/hairdo.rs",
+        "pr-working:crates/fabelgeist-hair/src/identity.rs"
+      ],
+      "comparison": "Fresh Interpolate1\u2013433 complete plus exact current identity1\u201364 and actual Hairdo producer/comb. Canonical PartingGroup owns Unassigned/Assigned private group identity; only native signed decoder exposes construction, with admitted assigned words0..i32MAX and default assigned0. Parting::group132\u2013164 instead computes raw signed sentinel/int on host and calls from_gpu_word163; Hairdo202/222 and Interpolate263/416 use GPU decoder for host spatial-grid dummy group0. This is earlier-than-port conversion and contradicts native-only adapter intent in identity docs; add coherent host group constructors/factories at existing canonical identity owner and construct typed membership directly, keeping signed GPU representation at real upload/readback boundaries. No duplicate owner/new Core dependency. Native lane50 modulo/51 subtraction needs nonzero lanes; ACTUAL Hairdo::parting129\u2013134 constructs Lanes3 for Braid, comb422\u2013424 consumes that count. This normal route is positive3, not a demonstrated zero-lane runtime caller. Public raw/Serde Parting::Lanes remains a separate admitted configuration and no blanket all callers claim is made. Interpolate current group compatibility, root attachment, guide groups and PointGrid all retain canonical types; near-guide indices/current order remain distinct from stable StrandId. DensityMask Image dimensions/data are sampled numerical texture data: source clamps UV coordinates then indexes caller values, not a checked image product by type; no unrelated admission verdict. Inverse-distance weights are local numerical blend, not general UnitInterval authority. Native seed i32 source and native hash key distinct canonical user u64 seed. Existing split-phase operations and raw physical parameters remain exact earlier propagation candidates."
+    }
+  },
+  "new_findings": [
+    "RIG-INITIAL06-F006"
+  ],
+  "limits": "Fresh source-specific ownership comparison only; no other-lens or whole Hair clearance. Haircut374+ excluded; identity REG014 global reconciliation pending."
+}

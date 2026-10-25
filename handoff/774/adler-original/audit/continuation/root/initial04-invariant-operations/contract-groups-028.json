@@ -1,0 +1,40 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-028",
+  "at": "2026-10-22T20:22:05.426312+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-hair/src/head.rs",
+      "sha256": "5d1dcadadba0fa88cbd668791a3a995a7ef83af5fdbaa3b699b828531f339335",
+      "actual_compared_ranges": [
+        [
+          284,
+          427
+        ]
+      ],
+      "registration": "NATIVE-INITIAL05-REG008",
+      "source_evidence": "Fresh exact prospective newdirect surface_nets production body only. Original1-283 NOTyetRoot04compared, tests429+ excluded; wholeexistingHead cellremainsincomplete."
+    }
+  ],
+  "groups": {
+    "grid-arithmetic-and-addresses": "Publicrawbounds/cell enter difference/division/ceil/asusize/max1 beforeguardF012. Products(nx*ny*nz), n[0]*n[1]*n[2] androwflatten/unflatten/index offsets needcheckedwholeaddresscapacity. Minimum1countsavoiddivisors0 ONLYafteradmission/additionnotwrapped, notuniversalcurrentproof. Validboundedgrid traversal values/found/vertex_of samecount indexing and i,j,kneighbor-gates align; isizecasts399/subtractions400-401 needfitisizebounds, actualnativeu32vertex_of sentinelMAX andpositions.len asu32 requirecount<reservedunavailableword/nativeu32capacity atactualproducer. No currenthugeallocation/runclaimed.",
+    "fixedlocalkernels": "EDGES12 fixed0..7 againstcornersarray8, countsignchanges<=12 and explicitcount0None before /count, exactlocalpositive denominator. Threeaxisconstantarrayindices0..2bound, neighborboundsbeforevalueslookup, atchecksnegative/outofcellbounds beforevertex_of index. Quads onlyifallfourSome andnonsentinel IDs, windingv0sign actualalgorithm. These localproofs dependadmittedgridproducts/width; do not inferglobalallreadySurfacefromlocalfixedarrays.",
+    "finite-results": "SDFfieldcallback unconstrainedfloat, finiteinputcoordsalone donotproveto-be-summedfinitevalues. Signchange va/(va-vb) mayoverflowdenom, pa.lerp/sum/average/Numericalgradient/Newtonstep mayoverflow; g2thresholdandstep<cellskip oftenrejectsnonfiniteupdate butdoesNOTadmitinitialaveragedp. NeedacceptedfiniteSurface publication atactualproducer/recipient whilepreservingzero-gradient/no-crossing/inactivecases. No normalbadSDFclaim ornewexactfloatingalgorithmrequiredfromthisrangealone. FnSyncparallelcallbackmustsatisfyitsownactualfieldcontract, notsolelypositivecell.",
+    "retention-and-scope": "Allarrayslocal, returns(meshpositions,triangles) onlyend; no externallyretainedpartialmesh orretryclockhere. Failurecurrentlypanic/nativeallocation ratherthanResultforbadparamsF012. OriginalHead1-283caller/morph/scalpremap/deformation orSurfaceconstructor notimplicitly04read. Newbodyonlypartialcoverage untilactualoldrolescompared, initial03newrole manualbelow independent."
+  },
+  "findings": [
+    {
+      "id": "ROOT-INITIAL04-F012",
+      "class": "public_API_finite_positive_sampling_operand_counterexample_before_allocation; no_ordinary_Head_asset_or_run_claim",
+      "source": "pr-working:crates/fabelgeist-hair/src/head.rs",
+      "operation": "surface_nets290 derivesceil grid extents byfloatingdivision then asusize saturation/max1, adds1at294andmultipliescountsforranges296/321 withoutcheckedfinite/nativecapacity admission.",
+      "counterexample": "Public surface_nets with finite lo=Vec3::ZERO, hi=Vec3::ONE and finite POSITIVE cell=f32::from_bits(1) gives extent/cell=Inf, castusize::MAX, then n[axis]+1 overflows beforefieldcallback/meshallocation. A literalcell0 alsofails but positivefinitecase shows a checkedPositiveLengthaloneinsufficient. Checked-overflow executionpanics, unchecked-overflowwrapscounts; sourcecounterexampleonly no execution/currentnormalHeadcallerclaim.",
+      "acceptance": "Propagate canonical finitepositive sampling spacing plus actualorderedfinite bounds through publicproducer, then admit computedgridcounts/products/nativeindexwidth before casts/loops/allocation. Structuredrejection of unrepresentablework/capacity isvalid, no arbitrary clamp/default1 healing nonfinite/reversedrawinput. Preserve intentionalatleastonecell/ceil overshoot forvaliddegeneratebounds, emptyextraction fornosurface and nativealgorithm/order. Private numericalkernel mayuseprimitives afteractualwholeproducer provesboundedcounts; do notwrapeverySDFarithmeticintermediate or rewriteunrelatedgeometry."
+    }
+  ],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

@@ -1,0 +1,242 @@
+use adventuresim_tactical_core::prelude::*;
+use bevy::prelude::*;
+use bevy::state::app::StatesPlugin;
+use bevy_replicon::{
+    bytes::Bytes,
+    postcard_utils,
+    prelude::*,
+    shared::replication::registry::{
+        ctx::{SerializeCtx, WriteCtx},
+        rule_fns::RuleFns,
+    },
+};
+
+use crate::FIXED_TIMESTEP_HZ;
+use crate::message::{
+    DebugDumpWorldRequest, DebugGameTimeScaleRequest, DefendRequest, EquipmentActionRequest,
+    JoinRequest, MeleeActionRequest, PlayerInputRequest, RangedActionRequest, ReconnectCapability,
+    SceneVistaBundle, SuccessfulAttackResponse, TacticalCombatConfigSnapshot,
+    TacticalOutcomeResponse,
+};
+
+#[derive(Default)]
+pub struct AdventureSimulatorReplicationPlugin;
+
+impl Plugin for AdventureSimulatorReplicationPlugin {
+    fn build(&self, app: &mut App) {
+        if !app.is_plugin_added::<StatesPlugin>() {
+            app.add_plugins(StatesPlugin);
+        }
+
+        app.insert_resource(Time::<Fixed>::from_hz(FIXED_TIMESTEP_HZ))
+            .add_plugins(RepliconPlugins)
+            .replicate::<Player>()
+            .replicate::<CharacterId>()
+            .replicate::<CharacterDimensions>()
+            .replicate::<Limbs>()
+            .replicate::<Skills>()
+            .replicate::<Stats>()
+            .replicate::<TacticalCombatSide>()
+            .replicate::<TacticalCombatState>()
+            .replicate::<SkeletonState>()
+            .replicate::<CharacterMotionSnapshot>()
+            .replicate::<TacticalAttributes>()
+            .replicate::<Transform>()
+            .replicate::<CharacterLook>()
+            .replicate::<WeaponItem>()
+            .replicate::<ShieldItem>()
+            .replicate::<ArmorItem>()
+            .replicate::<TacticalItemQuantity>()
+            .replicate::<ItemProperties>()
+            .replicate::<EquipmentTopology>()
+            .replicate::<TacticalEquipmentPhysical>()
+            .replicate_once::<WeaponAppearance>()
+            .replicate_once::<WeaponHolderAppearance>()
+            .replicate::<EquipmentActionState>()
+            .replicate::<TacticalSceneItem>()
+            .replicate::<EquipSlot>()
+            .replicate::<ItemOf>()
+            .replicate::<SceneId>()
+            .replicate::<SceneTerrain>()
+            .replicate::<SceneGround>()
+            .replicate::<SceneEnvironment>()
+            .replicate::<SceneObstacle>()
+            .replicate_once::<SceneFurniture>()
+            .replicate_once::<TerrainLandformRecipe>()
+            .replicate_with(RuleFns::new(
+                serialize_scene_building,
+                deserialize_scene_building,
+            ))
+            .replicate_once::<SceneEstablishment>()
+            .replicate_once::<SceneBoundary>()
+            .replicate_once::<SceneGarden>()
+            .replicate::<SceneDoor>()
+            .replicate::<SceneWindow>()
+            .add_client_event::<JoinRequest>(Channel::Ordered)
+            .add_server_event::<ReconnectCapability>(Channel::Ordered)
+            .add_server_event::<SceneVistaBundle>(Channel::Ordered)
+            .add_server_event::<TacticalCombatConfigSnapshot>(Channel::Ordered)
+            .add_client_event::<PlayerInputRequest>(Channel::Unreliable)
+            .add_client_event::<DebugGameTimeScaleRequest>(Channel::Ordered)
+            .add_client_event::<DebugDumpWorldRequest>(Channel::Ordered)
+            .add_client_event::<DefendRequest>(Channel::Ordered)
+            .add_mapped_client_event::<EquipmentActionRequest>(Channel::Ordered)
+            .add_mapped_client_event::<MeleeActionRequest>(Channel::Ordered)
+            .add_mapped_client_event::<RangedActionRequest>(Channel::Ordered)
+            .add_mapped_server_event::<SuccessfulAttackResponse>(Channel::Ordered)
+            .add_server_event::<TacticalOutcomeResponse>(Channel::Ordered);
+
+        // Replicate compact static physics components for client diagnostics.
+        // Building compound colliders remain server-authoritative: the client
+        // derives the visual origin from the replicated program, while sending
+        // every wall/roof collision cuboid can overflow the transport budget.
+        app.replicate_once_filtered::<Collider, Or<(
+            With<Player>,
+            With<Sensor>,
+            With<TacticalSceneItem>,
+            With<SceneObstacle>,
+            With<SceneId>,
+        )>>()
+        .replicate_once_filtered::<RigidBody, Or<(
+            With<Player>,
+            With<TacticalSceneItem>,
+            With<SceneObstacle>,
+            With<SceneId>,
+        )>>()
+        .replicate_once_filtered::<CollisionLayers, Or<(
+            With<TacticalSceneItem>,
+            With<SceneObstacle>,
+            With<SceneId>,
+        )>>();
+    }
+}
+
+fn serialize_scene_building(
+    _ctx: &mut SerializeCtx,
+    building: &SceneBuilding,
+    message: &mut Vec<u8>,
+) -> Result<()> {
+    let json = serde_json::to_vec(building)?;
+    postcard_utils::to_extend_mut(&json, message)?;
+    Ok(())
+}
+
+fn deserialize_scene_building(_ctx: &mut WriteCtx, message: &mut Bytes) -> Result<SceneBuilding> {
+    let json: Vec<u8> = postcard_utils::from_buf(message)?;
+    Ok(serde_json::from_slice(&json)?)
+}
+
+#[cfg(test)]
+mod tests {
+    use adventuresim_building_generator::{BuildingArchetype, BuildingProgram};
+
+    use super::*;
+
+    #[test]
+    fn furniture_recipe_and_location_round_trip_without_mesh_or_collider_payloads() {
+        for key in adventuresim_building_generator::furniture::FurnitureKey::ALL {
+            let instance = SceneFurniture {
+                id: FurnitureInstanceId(u64::MAX),
+                key,
+                location: if key.placement_role()
+                    == adventuresim_building_generator::furniture::FurniturePlacementRole::Interior
+                {
+                    FurnitureLocation::Interior {
+                        building_id: adventuresim_tactical_core::scene_input::SceneBuildingId(u64::MAX - 1),
+                        room_id: adventuresim_tactical_core::scene_input::furniture::RoomIndex::from_serialized(u16::MAX),
+                        storey: adventuresim_tactical_core::scene_input::furniture::StoreyIndex::from_serialized(u16::MAX),
+                    }
+                } else {
+                    FurnitureLocation::Outdoor {
+                        group_id: FurnitureGroupId(u64::MAX - 1),
+                    }
+                },
+            };
+            let mut bytes = Vec::new();
+            postcard_utils::to_extend_mut(&instance, &mut bytes).unwrap();
+            assert_eq!(
+                bevy_replicon::postcard::from_bytes::<SceneFurniture>(&bytes).unwrap(),
+                instance
+            );
+            assert!(
+                bytes.len() < 32,
+                "static furniture must remain a compact recipe reference"
+            );
+        }
+    }
+
+    fn building() -> SceneBuilding {
+        SceneBuilding {
+            id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(7),
+            program: BuildingProgram::fixture(
+                BuildingArchetype::FachwerkMerchantHouse,
+                fabelgeist_determinism::Seed::from_u64(47),
+            ),
+            orientation: BuildingOrientation::from_radians(0.73).unwrap(),
+        }
+    }
+
+    #[test]
+    fn scene_building_json_payload_round_trips_through_postcard() {
+        let building = building();
+        let json = serde_json::to_vec(&building).unwrap();
+        let mut bytes = Vec::new();
+        postcard_utils::to_extend_mut(&json, &mut bytes).unwrap();
+        let decoded_json: Vec<u8> = bevy_replicon::postcard::from_bytes(&bytes).unwrap();
+        let decoded: SceneBuilding = serde_json::from_slice(&decoded_json).unwrap();
+
+        assert_eq!(decoded, building);
+    }
+
+    #[test]
+    fn default_postcard_cannot_decode_internally_tagged_building_programs() {
+        let building = building();
+        let mut bytes = Vec::new();
+        postcard_utils::to_extend_mut(&building, &mut bytes).unwrap();
+
+        assert!(bevy_replicon::postcard::from_bytes::<SceneBuilding>(&bytes).is_err());
+    }
+
+    #[test]
+    fn scene_door_round_trips_through_replication_codec() {
+        let door = SceneDoor {
+            building_id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(7),
+            opening_id: adventuresim_building_generator::OpeningAssemblyId(11),
+            size_metres: adventuresim_building_generator::spatial_geometry::LeafDimensions::from_metres(Vec3::new(1.0, 2.1, 0.07)).unwrap(),
+            doorway_centre_metres: adventuresim_building_generator::spatial_geometry::Position::from_metres(Vec3::new(3.0, 1.05, -2.0)).unwrap(),
+            tangent: adventuresim_building_generator::spatial_geometry::SpatialDirection::from_normalized(Vec3::X).unwrap(),
+            outward: adventuresim_building_generator::spatial_geometry::SpatialDirection::from_normalized(Vec3::NEG_Z).unwrap(),
+        };
+        let mut bytes = Vec::new();
+        postcard_utils::to_extend_mut(&door, &mut bytes).unwrap();
+
+        assert_eq!(
+            bevy_replicon::postcard::from_bytes::<SceneDoor>(&bytes).unwrap(),
+            door
+        );
+    }
+
+    #[test]
+    fn scene_window_round_trips_through_replication_codec() {
+        use adventuresim_building_generator::spatial_geometry::{
+            LeafDimensions, Position, SpatialDirection,
+        };
+        let window = SceneWindow {
+            leaf: adventuresim_building_generator::WindowLeafKind::LeadedGlass,
+            building_id: adventuresim_tactical_core::scene_input::SceneBuildingId::from(7),
+            opening_id: adventuresim_building_generator::OpeningAssemblyId(12),
+            size_metres: LeafDimensions::from_metres(Vec3::new(0.9, 1.0, 0.025)).unwrap(),
+            opening_centre_metres: Position::from_metres(Vec3::new(3.0, 1.5, -2.0)).unwrap(),
+            tangent: SpatialDirection::from_normalized(Vec3::X).unwrap(),
+            outward: SpatialDirection::from_normalized(Vec3::NEG_Z).unwrap(),
+            bars: adventuresim_building_generator::WindowBarPresence::Present,
+        };
+        let mut bytes = Vec::new();
+        postcard_utils::to_extend_mut(&window, &mut bytes).unwrap();
+
+        assert_eq!(
+            bevy_replicon::postcard::from_bytes::<SceneWindow>(&bytes).unwrap(),
+            window
+        );
+    }
+}

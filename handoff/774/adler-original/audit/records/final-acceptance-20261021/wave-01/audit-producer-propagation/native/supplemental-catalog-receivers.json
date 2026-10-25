@@ -1,0 +1,106 @@
+{
+  "read_files": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog_validation/demographic.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-core/src/quest_catalog_validation/demographic.rs",
+      "observed_sha256": "e34eb575d8091df0f4e9d8242066c7734b986d888d7a54c51aaaf1681a53ed34",
+      "read_ranges": [
+        [
+          1,
+          79
+        ]
+      ],
+      "read_status": "full",
+      "trace_refs": [
+        "NATIVE-SUPP-CATALOG-001"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/settlement_population/age.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-core/src/settlement_population/age.rs",
+      "observed_sha256": "31003479452c3c598a403dfeb1cdbfb32d807c7fdf1863fa27c799461c67ab66",
+      "read_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "read_status": "partial_exact_connected_bodies",
+      "trace_refs": [
+        "NATIVE-SUPP-CATALOG-001"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/build.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-core/build.rs",
+      "observed_sha256": "fc42ea1f2234144e94d6bfac86f254cd059799b9f9e5ae6de7f77e3125f19b7c",
+      "read_ranges": [
+        [
+          1,
+          220
+        ]
+      ],
+      "read_status": "partial_exact_connected_bodies",
+      "trace_refs": [
+        "NATIVE-SUPP-CATALOG-001"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog_validation.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-core/src/quest_catalog_validation.rs",
+      "observed_sha256": "738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+      "read_ranges": [
+        [
+          1,
+          70
+        ],
+        [
+          418,
+          440
+        ],
+        [
+          655,
+          760
+        ],
+        [
+          840,
+          920
+        ]
+      ],
+      "read_status": "partial_exact_connected_bodies",
+      "trace_refs": [
+        "NATIVE-SUPP-CATALOG-001"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/bin/content-check.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-core/src/bin/content-check.rs",
+      "observed_sha256": "98447fa524e96dfa1f89ade51017472fae06833cd9ea73014855140c7062f387",
+      "read_ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "read_status": "full",
+      "trace_refs": [
+        "NATIVE-SUPP-CATALOG-001"
+      ]
+    }
+  ],
+  "shared_root_proofs": [
+    "../root/additional-sources-025.json full organization/quest validators +demographic",
+    "../root/additional-sources-026.json organization full1251 +quest1\u2013700/road1\u2013350"
+  ],
+  "shared_camera_proofs": [
+    "../camera/coverage.jsonl physical-p16 strategic/challenges.rs full2815 CAM-PROP-ROAD-DIALOGUE-001",
+    "../camera/coverage.jsonl strategic/mission_bootstrap.rs full2973 CAM-PROP-MISSION-001",
+    "../camera/native-sdk-port.json#CAM-PROP-SIM-SDK-RECEIVER-001 actual dynamic invocation/result, not native firsthand source proof"
+  ],
+  "scope": "Source-backed receiving reuse; every actual source range is explicit, no whole build.rs source claim from prefix220."
+}

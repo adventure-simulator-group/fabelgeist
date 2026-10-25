@@ -1,0 +1,45 @@
+{
+  "id": "SEGO-OWN02-DELTA060061",
+  "at": "2026-10-25T07:31:30.377590+00:00",
+  "lens": "existing-type-owners",
+  "rows": [
+    {
+      "registry_index": 60,
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/geologic_unit_id_type.rs",
+      "sha256": "796887585a245b921b1ab70ea7d393a792dfa12841e0b24fbb615a0b740c4c8f",
+      "ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "personally_read": true,
+      "owner_fit_and_disposition": "Wire GeologicUnitId9-11 corresponds schema GeologicUnitId6-37; schema owns geological identity plus nonempty/trim/control/255-byte admission. Generated public String wire member is transport, not a second semantic authority. Reuse schema owner on actual ingress (registered world_import readmission) and regenerate SDK when schema changes. Do not hand-edit or invent parallel client wrapper; keep existing native admission finding.",
+      "acceptance": "No duplicate owner and no accidental authoring-domain widening; canonical schema native admission still must be repaired under its existing finding.",
+      "repair": "frozen",
+      "validation": "not_run"
+    },
+    {
+      "registry_index": 61,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/choices.rs",
+      "sha256": "32853562a79ddc5ae393bc38780b86583500e079c5ca22109b07f1a479e030c0",
+      "ranges": [
+        [
+          200,
+          225
+        ]
+      ],
+      "personally_read": true,
+      "owner_fit_and_disposition": "Actual guards::section5-13 maps six GuardSection choices to generic construction Section seven variants including DShape. Section can own downstream geometry but does not match smaller raw guard accepted set without widening it. Existing closed GuardSection owns authored choice; preserve explicit mapping until coherent authoring design changes. No candidate primitive in six payload-free variants. GuardTerminal prefix only, no entire enum credit.",
+      "acceptance": "No duplicate owner and no accidental authoring-domain widening; canonical schema native admission still must be repaired under its existing finding.",
+      "repair": "frozen",
+      "validation": "not_run"
+    }
+  ],
+  "definition_bodies_read": [
+    "extension46:1-37",
+    "extension26:1-105",
+    "original2090:1-80"
+  ],
+  "status": "Two new source-role deltas complete; inherited findings retained, no clearance"
+}

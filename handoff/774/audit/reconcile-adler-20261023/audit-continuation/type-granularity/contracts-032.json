@@ -1,0 +1,62 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-032",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "item-source-authored-definition-and-physical-runtime-projection",
+      "sources": [
+        {
+          "scope_index": 113,
+          "ranges": [
+            [
+              1,
+              544
+            ]
+          ]
+        },
+        {
+          "scope_index": 114,
+          "ranges": [
+            [
+              1,
+              18
+            ]
+          ]
+        },
+        {
+          "scope_index": 115,
+          "ranges": [
+            [
+              1,
+              122
+            ]
+          ]
+        }
+      ],
+      "distinction": "Authored catalogue document/source location, semantic item definition, projected generated weapon and actual inventory instance are separate authorities/stages. ItemSourceRef line/column locate authored evidence, not stable item identity. Catalogue digest is revision provenance, not identity or arbitrary string merely because hex. Full cuboid dimensions differ grip-to-tip and anchor local offset.",
+      "uses": "catalog OnceLock loads one immutable projected catalogue, source map separately sorted; authored_document_items42\u201350 restores original source document order while definition53\u201358 uses ID-sortlookup. projection37\u201377 derives actual generated melee mass/inertia/grip/reach/concentration and replaces boxYlength, retaining distinct full versus gripmeasure. project_coverage80\u2013122 derives kind summary from actualplacement surfaces. physicalserde useschecked CuboidDimensions atarrayABI, no retainedbareaxes.",
+      "disposition": "Keep source and runtimeprojection distinction, coherent native error union for Decode/MissingRecipe/Recipe/Geometry, and explicit physicalaxis serdeadapter. One immutable process cache is not a drifting mutable authority merely because fields project. Source map and compiledlookup order aredifferent contracts; no replacebothwithderivedenumOrd or close itemvocabulary to currentfixtureIDs. Exact derivation remainsfutureindividualrecipebodycoverage.",
+      "acceptance": "Source identity/linecolumn preserved through generatedcatalogueprovenance; local axes remain Xwidth/Ylength/Zthickness. Full item length cannot be used asgripreach withoutnamedadapter. Preserve actual projectedgeometry/unitchecks and source-orderwarmup; no tests/builds/recipeexecution claim."
+    },
+    {
+      "id": "item-composition-finite-topology-and-capability-unit-families",
+      "sources": [
+        {
+          "scope_index": 116,
+          "ranges": [
+            [
+              1,
+              623
+            ]
+          ]
+        }
+      ],
+      "distinction": "ItemKind categorizes core item contract while independent Capabilities permit food/alcohol/container/book composition; ingredient can be edible and simpleitem alcoholic. Equipment topology is independent of kind. Fine EquipmentLocation and seven-part combat/health anatomy differ resolution; materialbody versus strikingmaterial differ actualworking surface. Local placement/attachment point IDs are scoped by item/parent, notglobalcatalogIDs. ABV basispoints, disinfection effectiveness, physicalml and net hydration are different roles.",
+      "uses": "ItemKind Weapon owns weapon-specificpayload but melee/ranged are independent capabilities; handling1/2hands differscarriageSheathable/HandOnly. Channelorder explicitnative10steps, occupancy conflicts depend actualsingleton andfitzone, neverdeclarationOrd. EquipmentPhysical usesCuboidDimensionspluslocaloffset; SurfaceUvCoordinate bindsdomain+uv and tangentspairedatattachment. BookTarget closedtypedlanguage/religion/bestiary; terrain/skill sourcekeysremainrawsourceadmission tasks. Food/Flavors andWeaponSkills source records project toactual runtime families alreadyread107/100.",
+      "disposition": "Keep purposeful composition and granular schema records, not giantonekindwithalloptionals or exhaustiveenumforopenauthoredtags/IDs. Sharedquality1\u20135 is a reusable actualsame scale acrossbook/food/durability; avoid duplicatevalidatorperitemfamily. Existing geometry/UVassociation and schema-to-runtime admission obligations retained, no broad primitive exemption for authored records afterruntimeconstruction. Exact seven-part EquipmentBodyPart\u2192BodyPart adapter101 can share semantic owner belowwireformats whereactualwirepurposepermits; no automatic all-anatomy enummerge withfine EquipmentLocation/BodyRegion.",
+      "acceptance": "Preserve genuinecombination capabilities, open authoredvocabularies, realNoneabstractmaterials/fullfitzone, explicitchannelorders and scopeboundIDassociation. Sharednumericinvariants mustkeep physicalenergy/health/fraction/ABV/mass/time/quality distinct; no bounds inventedfromunitnames. No generatedbinding/sourcechange, SDKrepair or claimnativegraphfullyvalidfromserde derives."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

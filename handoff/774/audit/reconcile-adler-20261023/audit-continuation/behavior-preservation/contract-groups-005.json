@@ -1,0 +1,120 @@
+{
+  "id": "CONT08-CONTRACT-005",
+  "at": "2026-10-25T08:22:17.497841+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 4,
+      "source_id": "native-dependency:bevy_asset-0.19.1:event.rs",
+      "sha256": "22ff08ca5948660f8ea0ea2a1a0e9c977b3c9a44bd8c5c538014a9b8200ed0ca",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/22ff08ca5948660f8ea0ea2a1a0e9c977b3c9a44bd8c5c538014a9b8200ed0ca",
+      "read_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "pin": "Exact locked bevy_asset0.19.1 source; shared PR base/head native lock version unchanged.",
+      "actual_native_behavior": [
+        "Native failure event4:10\u201344 carries typed/untyped asset ID, path and Clone AssetLoadError, preserving cause when untyped.",
+        "Native5:2086\u20132102 processes the failure then clones original error/path into untyped event and emits typed failure. Error variants2358\u20132417 include concrete loader/reader/meta/label cases; AssetLoaderError2422\u20132440 retains Arc<BevyError> with explicit accessor.",
+        "Actual receiver1692:88\u2013100 is unchanged from PR base: exact three path filters, last matching failure wins, original cause omitted and only generic path text stored. status_error213\u2013226 preserves scene-before-asset-before-city-before-equipment precedence and projects the new scene error Display only at native JSON output.",
+        "Exact retained RIG-OWNER-F006 source support. Cause erasure was already present at base, so this is carried migration/quality debt, not a newly established behavior regression."
+      ],
+      "range_qualification": "Original4 proof declared1\u2013159, but verified source ends129. Personally read1\u2013129, claim no nonexistent130\u2013159 lines.",
+      "disposition": "Scoped own08 source contract accounted with retained finding/qualification; no asset retry or renderer success clearance.",
+      "acceptance": "Retain original native error/path/identity to final diagnostic boundary; preserve actual path filter and last-failure precedence unless an explicit policy changes it. Do not claim original source chain is missing from the SDK.",
+      "execution": "No asset load, browser or GPU execution."
+    },
+    {
+      "scope_index": 5,
+      "source_id": "native-dependency:bevy_asset-0.19.1:server/mod.rs",
+      "sha256": "90bfda65679fc6cfb046dda1e2e7b5795d39e73778a15d0bc1eb7ef8d3e9bd25",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/90bfda65679fc6cfb046dda1e2e7b5795d39e73778a15d0bc1eb7ef8d3e9bd25",
+      "read_ranges": [
+        [
+          2010,
+          2160
+        ],
+        [
+          2340,
+          2510
+        ]
+      ],
+      "pin": "Exact locked bevy_asset0.19.1 source; shared PR base/head native lock version unchanged.",
+      "actual_native_behavior": [
+        "Native failure event4:10\u201344 carries typed/untyped asset ID, path and Clone AssetLoadError, preserving cause when untyped.",
+        "Native5:2086\u20132102 processes the failure then clones original error/path into untyped event and emits typed failure. Error variants2358\u20132417 include concrete loader/reader/meta/label cases; AssetLoaderError2422\u20132440 retains Arc<BevyError> with explicit accessor.",
+        "Actual receiver1692:88\u2013100 is unchanged from PR base: exact three path filters, last matching failure wins, original cause omitted and only generic path text stored. status_error213\u2013226 preserves scene-before-asset-before-city-before-equipment precedence and projects the new scene error Display only at native JSON output.",
+        "Exact retained RIG-OWNER-F006 source support. Cause erasure was already present at base, so this is carried migration/quality debt, not a newly established behavior regression."
+      ],
+      "range_qualification": "Only exact required ranges consumed, not all2527 native lines.",
+      "disposition": "Scoped own08 source contract accounted with retained finding/qualification; no asset retry or renderer success clearance.",
+      "acceptance": "Retain original native error/path/identity to final diagnostic boundary; preserve actual path filter and last-failure precedence unless an explicit policy changes it. Do not claim original source chain is missing from the SDK.",
+      "execution": "No asset load, browser or GPU execution."
+    },
+    {
+      "scope_index": 1692,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/status.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "before_sha256": "a2e0a09547aeaad4d7dd5fa45ffcea70ef0fd47b1f8e729316a93304560b70f0",
+      "before_status": "present",
+      "after_sha256": "1ac60dfc9e48db2d8717ff144d5b340d9f5cf2f9a158a8a7dcb1c966f17afdb4",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1692-base-a2e0a09547aeaad4d7dd5fa45ffcea70ef0fd47b1f8e729316a93304560b70f0",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/1ac60dfc9e48db2d8717ff144d5b340d9f5cf2f9a158a8a7dcb1c966f17afdb4",
+      "diff": "source-evidence/1692.diff",
+      "diff_sha256": "7d314b82a478f1d992cead5d700d22ece939bf8a4a0ab68d97d154010782a95f",
+      "head_body_read_ranges": [
+        [
+          1,
+          226
+        ]
+      ],
+      "diff_read": "Entire actual short base/head diff personally read.",
+      "contract": "Scene readiness and serialized status error precedence",
+      "actual_old_new": [
+        "All readiness predicates, settled-frame accumulation/reset, waiting-pipeline atomics, asset failure capture/filter and JSON publication remain unchanged.",
+        "status_error extracts old inline option chain. New Arc<PreparationError> becomes Display string at final Status.error; subsequent failure/city/equipment order remains exactly the same.",
+        "Actual new PreparationError1687 full65-line body read. Transparent lower causes and structured building IDs replace prior raw scene strings; literal local variants retain recognizable diagnostics. Actual producer variants and resets need their own old/new source comparisons before claiming whole error-message or lifecycle preservation."
+      ],
+      "disposition": "Bounded local comparison complete; complete connected preparation/lifecycle inventory remains pending.",
+      "existing_finding_support": "RIG-OWNER-F006: unchanged pre-output asset cause omission.",
+      "acceptance": "Preserve same readiness/settled-frame and error priority behavior; compare actual variant producers and final Display messages, not type-name intent. Retain previously valid pending-versus-ready values.",
+      "limits": "Neither a successful status publish nor all scene install failure handling was executed."
+    },
+    {
+      "scope_index": 1687,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/preparation.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "before_sha256": null,
+      "before_status": "absent at exact base",
+      "after_sha256": "5ecd9a8fa01b48aabda78b79670d7f2da23bd8a83d67efa8237d12d0c9a63a2c",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/5ecd9a8fa01b48aabda78b79670d7f2da23bd8a83d67efa8237d12d0c9a63a2c",
+      "diff": "source-evidence/1687.diff",
+      "diff_sha256": "95e25011ffe7a2a5a36d5098a440916666ead4be14e20043483b212725538b19",
+      "head_body_read_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "diff_read": "Full added file read.",
+      "contract": "Retained scene preparation error owner and final Display projection",
+      "actual_comparison": "New typed wrapper retains underlying SceneInput/Generation/Geometry/Backdrop/Support errors, explicit local geometry/position variants, and BevyError Presentation payload. status1692 formats it at the same final JSON option position. Full original producer bodies still need source-level comparisons; no claim from derive alone that every StdError source chain is delegated.",
+      "disposition": "Local new owner body reviewed; connected behavior comparison remains partial.",
+      "next_dependencies": "Actual strategic scene preparation/install producers and their original strings, lower error Displays and retained error reset/retry behavior.",
+      "acceptance": "Maintain actual error identity and observable message/precedence deliberately, including missing data and retry behavior; generic typed error does not prove lifecycle or source-chain correctness.",
+      "execution": "None."
+    }
+  ],
+  "finding_support": [
+    {
+      "existing": "RIG-OWNER-F006",
+      "classification": "Unchanged preexisting asset-cause erasure, no newly introduced08 regression claimed."
+    }
+  ],
+  "next_frontier": "Original15 native direction owner and actual changed receiving math. Partial P16/PR connected sources remain tracked in prior packets. Original2853/246/live extensions/frozen merged38 incomplete."
+}

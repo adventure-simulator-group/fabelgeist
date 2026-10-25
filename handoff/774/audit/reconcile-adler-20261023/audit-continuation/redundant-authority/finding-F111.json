@@ -1,0 +1,68 @@
+{
+  "id": "CONT07-F111",
+  "lens": "audit-redundant-authority",
+  "classification": "source-confirmed public guide-map membership mismatch; no ordinarypreset group>2 claim",
+  "title": "GPU guide maps collapse distinct admitted parting identities into one bucket",
+  "sources": {
+    "CONT07-REG-026": [
+      [
+        9,
+        44
+      ]
+    ],
+    "2301": [
+      [
+        220,
+        261
+      ]
+    ],
+    "2286": [
+      [
+        180,
+        205
+      ],
+      [
+        777,
+        836
+      ]
+    ],
+    "2287": [
+      [
+        322,
+        356
+      ]
+    ],
+    "CONT07-REG-022": [
+      [
+        638,
+        769
+      ],
+      [
+        807,
+        877
+      ]
+    ]
+  },
+  "fact": "PartingGroup admits every nonnegative signedword as distinctidentity. CPU GuideMap uses exactgroup equality whenchoosingleaders. GPU map_slot uses clamp(group+1,0,4), making group3and4(andlarger) thesame slot; map_assign compares clampedslot anddoesnotrecheckactualleadergroup.",
+  "counterexample": "Two wellformed host guide strands of distinct groups3/4 withrootsinsamegridcell, mask1, differentpaths; publicGroom withClump beforeInterpolate andGuides::Host uploadsidentitiesunchanged. CPU preservesseparategroupleaders; GPU atomicMax electsoneslotleader andmap_assign canassignboth tosame guide. Clump reads guide_of andsamplesothergroup path. Noexecution or actualpreset/datacase claimed.",
+  "limits": [
+    "Known nativehairdo braid count3usesgroups0..2; this is explicitpublichostguide/customrecipe ingress.",
+    "GPU approximategridselection maylegitimatelydiffer fromCPU greedyplacement; identityconflation is distinctfromsampling approximation.",
+    "Do notrestrictcanonicalPartingGroup globally tosmallshaderbucketcount."
+  ],
+  "suggested_connected_remedy": "Preserve actual admitted group identity through executable guide-map indexing or admit an explicit representable native map with mapping/provenance; no silentclampaliases.",
+  "acceptance_contract": "DifferentadmittedassignedgroupIDs nevercompeteassamegroup unless anexplicitcrossgroupfallback policy is invoked after no samegroupcandidate; ordinarygroups0..2 preserved.",
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "additional_native_identity_obligations": [
+    {
+      "source": "CONT07-REG-023",
+      "range": [
+        1040,
+        1087
+      ],
+      "fact": "guide_info.w stores computedParting.group asf32; REG022interp_select331 convertsitbacki32. GenericParting::Lanes mayproduceverylargecodes, exactnativeidentityrange notadmitted. Known0..2safe; no runtimewitness asserted."
+    }
+  ],
+  "dedup_qualification": "behavior09 owner confirms distinct from SEGO-INITIAL09-F075 mapreadiness andF076 interpolationstages; nocurrentexactaliaslocated"
+}

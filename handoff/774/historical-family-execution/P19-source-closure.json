@@ -1,0 +1,44 @@
+{
+  "family": "P19",
+  "status": "source-complete; unvalidated",
+  "local_base": "dcf7b49d7",
+  "published_head": "8f2b901881f8aa8035a03cd99dbfefb7bbdf8926",
+  "scope_decision": "The original explicit per-foot influence followup is now included under the authorized twenty-family plan. This closes that followup without claiming all IK or P06 acceptance.",
+  "paths": [
+    {
+      "producer": "FootIkInfluence::from_evaluation",
+      "storage": [
+        "AnimationPlayback",
+        "PlaybackPose",
+        "PoseConformity"
+      ],
+      "receivers": [
+        "conform_upcoming_pose_to_terrain",
+        "procedural::ik::locomotion::apply",
+        "ordinary_terrain_target",
+        "OrdinaryLeg::solve"
+      ],
+      "native_boundaries": [
+        "complete componentwise weighted Vec2 accumulation/normalization",
+        "actual Bevy Vec3 terrain-target lerp and pose solver"
+      ],
+      "guarantee": "UnitInterval left/right leaves retained through application signatures, mirroring and stored state; no Vec2 application retention or repeated admission"
+    }
+  ],
+  "preservation": [
+    "sample source precedence unchanged",
+    "multiply/add and total accumulation order unchanged",
+    "same total-zero behavior and component clamp",
+    "same exclusive combat contact intervals and mirrored component swap",
+    "same disabled-support confidence semantics",
+    "existing fixture inputs, test names and assertion counts retained; no tests added"
+  ],
+  "review": "Read all changed bodies and all global foot_ik_weights/old helper references, including playback target copy, default state, pose sampling and both IK receiving paths. Checked narrowed type visibility against every consumer. Source review only.",
+  "limitations": [
+    "No compiler, project checks or runtime validation run",
+    "P06 support acceptance and P20 continuation remain separate",
+    "Formatting and size-limit reconciliation deferred until source closure/integration"
+  ],
+  "hosted_ci_requested": false,
+  "updated_at": "2026-10-21T07:02:44.846042+00:00"
+}

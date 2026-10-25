@@ -1,0 +1,51 @@
+{
+  "id": "CONT-NATIVE-OWNER-FIT-DELTA-001",
+  "lens": "audit-existing-type-owners",
+  "inputs": [
+    {
+      "record": "continuation/native/owner-fit-delta-queue.json",
+      "sha256": "f9d680ab623cf6df4f9f9f91e4c75b37a623b827847e06c7a51bf8ea017b7bee"
+    },
+    {
+      "record": "continuation/cumulative-source-scope-after-producer.json",
+      "sha256": "7b26edf4b11e70ca00e3c2118a713726489c031be96a9a403207caef8abb2404"
+    },
+    {
+      "record": "records/final-acceptance-20261021/wave-01/audit-existing-type-owners/native/receiver-closure.json",
+      "sha256": "4c2300c1f6e1610a9f2eda47f1816cadb024c358ec1009974eead03bbfef74da"
+    }
+  ],
+  "assigned_variants": 121,
+  "new_variants": 30,
+  "dispositions": 121,
+  "fresh_bounded_definition_use_proofs": 6,
+  "new_materially_reached_source_contracts_outside2473": [],
+  "unread_actual_owner_or_receiver_contracts": [],
+  "first_unread_cell": null,
+  "status": "Exact scoped owner comparison accounted with findings and explicit later design dependencies; source freeze remains.",
+  "records": [
+    {
+      "record": "continuation/native/owner-fit-delta/additional-sources.jsonl",
+      "sha256": "bcd3206f94eda14b6cf13e2a383f6494e84764fa2a44c8a1250a7e0355969e83"
+    },
+    {
+      "record": "continuation/native/owner-fit-delta/contract-witnesses.json",
+      "sha256": "03db122883abf83a800009056ba97ed028ebf6465308adbf6599b422586b77c3"
+    },
+    {
+      "record": "continuation/native/owner-fit-delta/coverage.jsonl",
+      "sha256": "3ce11c571ef8872b3342319e9eb9ae82ad53bd1e4387c18f556d6bd836a13db8"
+    },
+    {
+      "record": "continuation/native/owner-fit-delta/findings.jsonl",
+      "sha256": "421c53bb1b573f54e61c6fcfd12c00522a6aa68edce3f422fca252d758dd8932"
+    }
+  ],
+  "limits": [
+    "121 separate memberships; each actual producer role/partial range remains explicit, no whole-file promotion or grouping of unlike roles.",
+    "Original source/read proofs retained only alongside explicit comparison of actual meaning/unit/frame/authority/bounds/validzero/admission/dependency; no identity/hash/verdict-only acceptance.",
+    "Exact native codec/SDK/framework schemas and rejected raw tokens remain native; earlier first-party retention is independently compared.",
+    "Six historical acceptances, reopened family states, all prior finding/lens support and root claims authority unchanged. No source edit, other lens, check/test/runtime/CI or family/source completion."
+  ],
+  "next": "Hold for root reconciliation and next explicit lens dispatch."
+}

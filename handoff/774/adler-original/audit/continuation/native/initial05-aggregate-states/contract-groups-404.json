@@ -1,0 +1,79 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-404",
+  "at": "2026-10-23T13:16:00.562317+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/battle_time.rs",
+      "sha256": "989db0ee4ad72276f3923b7d005480e50b6c618e04d0b7623602bf0de0d2a350",
+      "scope072_index": 880,
+      "actual_EOF": 95,
+      "scoped_ranges_compared": [
+        [
+          1,
+          95
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source and original book fixtures; finite signed battle coordinate operations, source-backed CLI nonapplicability and book rank/gain/time/correlation relationships compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/bin/content-check.rs",
+      "sha256": "98447fa524e96dfa1f89ade51017472fae06833cd9ea73014855140c7062f387",
+      "scope072_index": 883,
+      "actual_EOF": 36,
+      "scoped_ranges_compared": [
+        [
+          1,
+          36
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source and original book fixtures; finite signed battle coordinate operations, source-backed CLI nonapplicability and book rank/gain/time/correlation relationships compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/book.rs",
+      "sha256": "1b4aac417b1f0ea794ff7f2832552b2ce1561a7d2cbede9129b274e29dc394ef",
+      "scope072_index": 885,
+      "actual_EOF": 529,
+      "scoped_ranges_compared": [
+        [
+          1,
+          529
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source and original book fixtures; finite signed battle coordinate operations, source-backed CLI nonapplicability and book rank/gain/time/correlation relationships compared."
+    }
+  ],
+  "groups": [
+    {
+      "id": "battle coordinate admission and overflow predicates have deliberate policies",
+      "comparison": "880 whole95 private finite f32, signed coordinates including negative and default0, checked Serde via TryFrom. checked_add rejects nonfinite output; elapsed_since rejects negative/unrepresentable span, saturating variant intentionally maps negative overflow to0 but rejects positive overflow. is_within subtracts then compares finite tolerance; overflow correctly cannot be within a finite tolerance. precedes_with_margin overflowing positive sum correctly cannot precede another finite coordinate. These are predicates, not retained invalid coordinate mutation. Does not prove adding every positive tiny elapsed changes a large coordinate or define strict progress for all native precision; actual schedule operations need their own progress contract."
+    },
+    {
+      "id": "content-check command does not establish runtime evidence without execution",
+      "comparison": "883 whole36 has closed CLI targets all/items/encounters and calls embedded encounter validation or item/gameplay reference validation before printing counts/revision/digest. No own aggregate declaration or mutation; source-backed nonapplicability for this wrapper only. Called validators and native catalog creation are separate actual source contracts, not cleared by expect or CLI existence. Command was not run."
+    },
+    {
+      "id": "book band and target family validity belong to one canonical policy",
+      "comparison": "885 whole529 with every inline fixture. rank_band derives (quality\u22121,quality) saturating, while book_shape_is_valid requires quality1..actual family cap and valid terrain string. Ordinary skill targets share closed supported names with their caps; raw Book/BookTarget schema remains broader, so call to rank_band alone is not semantic admission. Current normal catalogue gate and DB study caller are separate exact dependencies. No upper1 rule imposed on SignedPrecision or unrelated values."
+    },
+    {
+      "id": "generic bounded training commits one accepted gain and residual time",
+      "comparison": "885 apply_bounded rejects nonfinite/nonpositive real time and nonfinite rank/aptitude/medium, enforces readable medium and lower/upper eligibility. It projects current direct and candidate effective hours, then binary searches64 to avoid crossing effective ceiling, mutating only after accepted_direct is chosen. This requires supplied hours curve/effective projection be the actual monotone finite direct-hours contract; arbitrary Fn values are not certified. Reports accepted direct-effective gain plus leftover real time with the same reading rate, which is distinct from aptitude training multiplier. Raw public BoundedBookGain can be independently fabricated, not a validity token. Generic infinity ceiling/callback behavior and raw direct hours remain capacity qualifications; no ordinary bad book or training overflow claimed from hypothetical callbacks."
+    },
+    {
+      "id": "written training uses one baseline for changing correlated literacy",
+      "comparison": "885 specialized written branch copies baseline hours, projects only target direct column on that baseline, derives medium correlation/base from the same fixed language family. It analytically integrates the changing medium literacy until saturation, caps desired target-effective hours with the same projection and searches64 if needed, then computes real time consumed through the inverse using same accepted endpoint. Medium rank>=1 and actual readable baseline are necessary positive-divisor conditions, not independent language-name guarantees. Finite intelligence/clamped5 gives bounded5000 ceiling on normal valid language hours; lower raw family arithmetic/Serde gaps remain separate RootF016 source contracts, not closed by this wrapper."
+    },
+    {
+      "id": "candidate identity and fixtures retain exact limits",
+      "comparison": "885 filters usefulness, sorts personal first then lower quality then item ID, dedups adjacent equal IDs and takes first. Ordinary duplicates of the same immutable catalogue book have same quality/personal key grouping; raw BookCandidate can bind unrelated book to item ID, and heterogeneous duplicate IDs need an actual supplier identity contract rather than a guessed universal dedup proof. It returns only one candidate, so nonadjacent inconsistent duplicates do not create a multi-book allocation here. Original315\u2013529 fixtures compare clipping/residual time, personal ordering, correlated bulk/chunk behavior, zero-direct gate and family caps, source only/no execution or new cases."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Actual normal catalogue book semantics, canonical hours curves/correlations and DB candidate bindings remain precise separately queued suppliers; no generic callback proof from name."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

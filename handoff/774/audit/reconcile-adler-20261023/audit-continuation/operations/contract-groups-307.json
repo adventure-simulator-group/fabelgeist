@@ -1,0 +1,153 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-307",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/room_allocation.rs",
+      "sha256": "0af46aaa9d2e8406c02e95802701cab06cb2c9e496138d7589c422b4d53d48c5",
+      "actual_EOF": 249,
+      "actual_compared_ranges": [
+        [
+          1,
+          249
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/room_connections.rs",
+      "sha256": "56032b952a0d288a2ff259db55661d2e252fb865ca77d3df1a2bf8e0a4e4300c",
+      "actual_EOF": 68,
+      "actual_compared_ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/round_towers.rs",
+      "sha256": "960deb25a489575e080a8dd78b759d18ccaccd9ffe4dc235d4a35cb236f770b3",
+      "actual_EOF": 98,
+      "actual_compared_ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Room allocation preserves checked room identities and bounded monotone growth",
+      "source_ranges": {
+        "room_allocation.rs": [
+          [
+            1,
+            249
+          ]
+        ]
+      },
+      "disposition": "All249lines were personally read. Reservations are cloned locally and every reserved RoomIndex is checked against room_seeds length before counts use it. New room indices originate from requirements.enumerate and checked RoomIndex::from_ordinal. Actual footprint_cells bounds width/depth3..32767, so nonnegative generated coordinates end at32766; direct neighbour\u00b11 remains representable. Passage width1/2/4 and centre-based start/end are safe under these actual outer bounds. Seed scores widen i16/u16 coordinates to i32/u64 before differences/ranks. Preferred_cells.max1 prevents division by zero; maximum admitted footprint count32767\u00b2 multiplied by10000 fitsu64. Each growth iteration chooses an unassigned footprint cell then inserts it; no candidate returns typed NoExpansionEdge. Termination and index proofs depend on actual reservations belonging to the footprint, as enforced by the actual heating/stair owners; arbitrary private raw maps are not newly admitted public programmes."
+    },
+    {
+      "contract": "Footprint aggregate rejection must occur before overflowing its own validation arithmetic",
+      "source_ranges": {
+        "room_allocation.rs": [
+          [
+            1,
+            249
+          ]
+        ]
+      },
+      "disposition": "Fresh actual footprint producer dependency layout1..110 exposed SEGOVB-04-COURTYARD-WING-OVERFLOW-001, saved separately. Public Footprint courtyard width10/depth10/wing32768/gate_width1 passes outer dimensions, then u16 wing*2 overflows inside validation. Actual public generate chain and intentionally unbuildable input contract were personally traced. This is typed rejection failing before a returned result, not a claim of a live generated asset or ordinary authored large wing. Global canonical deduplication remains with the coordinator."
+    },
+    {
+      "contract": "Shared room boundary selection validates actual membership before priority ordering",
+      "source_ranges": {
+        "room_connections.rs": [
+          [
+            1,
+            68
+          ]
+        ]
+      },
+      "disposition": "The full68-line body was read. Each wall index comes from enumerate; RoomConnection orders two RoomIndex values and requirement() checked-get rejects absent membership. Required stair circulation sorts ahead of preferred adjacency, with stable connection identity as final key. No unchecked requirement access is introduced at this port. Wall inside/outside source identity remains the derive_walls producer dependency. This contributes actual operation proof rather than importing completed lens03 or06 coverage."
+    },
+    {
+      "contract": "Round tower wall assembly preserves radial interpretation and fallible final native bounds",
+      "source_ranges": {
+        "round_towers.rs": [
+          [
+            1,
+            98
+          ]
+        ]
+      },
+      "disposition": "All98lines were personally read. Tower enumeration bounds the local index and establishes wall source role. Shell uses outer radius, signed difference outer-radius minus wall-thickness and both chord options; the WallLocalFrame cardinal values are only the reference frame, not an instruction to flatten radial geometry. Actual tower/diameter admission must ensure supported shell thickness and extent relationships. World centre/size and crown bond bounds are readmitted; intentional conservative AABB penetration1.10 differs from physical annulus. ID offsets/count casts and circumference require actual bounded derived tower population; no normal overflow or invalid shell witnessed here. No construction, tests, checks, source fixes or plan."
+    }
+  ],
+  "findings": [
+    "SEGOVB-04-COURTYARD-WING-OVERFLOW-001"
+  ],
+  "fresh_dependencies": [
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-building-generator/src/generator/layout.rs",
+      "sha256": "17c4786c8c33fef66d2328d56177c4eec565e6136f3920f66ed1f890575bcd47",
+      "actual_EOF": 267,
+      "personally_read_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "coverage": "Fresh narrow supporting source; no full-role credit inferred."
+    },
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-building-generator/src/model/programme.rs",
+      "sha256": "c2a4f4450a66bd43300b427d5780df19f3191c572e9b52fd5df91f64549cf8c9",
+      "actual_EOF": 279,
+      "personally_read_ranges": [
+        [
+          86,
+          125
+        ]
+      ],
+      "coverage": "Fresh narrow supporting source; no full-role credit inferred."
+    },
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-building-generator/src/model/building_program.rs",
+      "sha256": "2ecfe5491e448871f85d33e15bc04c197311aae741054b4587143531548063a2",
+      "actual_EOF": 66,
+      "personally_read_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "coverage": "Fresh narrow supporting source; no full-role credit inferred."
+    },
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-building-generator/src/workplace/programme.rs",
+      "sha256": "90c8c58e67db25a5a69867225f789144098b2c59469c719f68f0bee98fee0438",
+      "actual_EOF": 123,
+      "personally_read_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "coverage": "Fresh narrow supporting source; no full-role credit inferred."
+    }
+  ],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs"
+}

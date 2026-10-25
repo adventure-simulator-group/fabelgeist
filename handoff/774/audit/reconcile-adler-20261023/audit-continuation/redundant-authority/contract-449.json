@@ -1,0 +1,40 @@
+{
+  "id": "CONT07-CONTRACT-449",
+  "at": "2026-10-23T22:02:55.640834+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1973,
+      "source_id": "pr-working:crates/adventuresim-tactical-netcode/src/client.rs",
+      "sha256": "7efcd68002b4980f4d901f87a84c47dc0f697e35551b4fb3a13bc6ce80a1e770",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-netcode/src/client.rs",
+      "actual_EOF": 1514,
+      "ranges": [
+        [
+          1,
+          1514
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "NATIVE-PS-COMBAT-COMPLETION-TRANSPORT-019 full role narrative excluding source_reads and receipts metadata"
+  ],
+  "facts": [
+    "1973 full1514 personally read in four bounded untruncated chunks. Client config receipt validates and installs runtime snapshot before publishing same typed clone into ECS resource. No failed install publishes mismatched resource in this function; multi-app/global-config questions are separately scoped, not proved here.",
+    "1973 SprintInputState historical shift_down/held_seconds and current latch active are distinct state-machine facts; update prepares next and commits only after checked elapsed addition. Caps jog persistent preference versus selected pace current movement intent are deliberately different; exact-threshold release policy has source fixtures, not executed.",
+    "1973 posture/jump commands retain wrapping sequence plus last requested payload across frames for authoritative receiver deduplication; transient just_pressed/dodge flags describe local edges, not duplicate current server action state. Keyboard roll pending and replicated posture transition are input-history versus observed action state. Need server acceptance chronology before claiming replay/false authority.",
+    "1973 local preparation from/to/progress are presentation interpolation versus discrete requested melee preparation. Helper source1974 still needed for publication-coordination details. Rejected attack preparation retires prior attack edge before return; no previous attack replay by this explicit path.",
+    "1973 ReconnectCredential retains character-bound token across transport lifecycle and announce_join filters exact character. Reconnect token authority differs from PlayerId identity; no merge merely because both travel together. InputTick per-fixed sample is different from jump/posture command sequence, preserving first0 and wrapping0.",
+    "1973 URL normalization is pure contains-scheme adapter invoked for both TLS config and connection; same function prevents duplicated parser authority locally, but actual URL admission/new registered URL role remains open until its exact native recipient and failures are accounted. Native tooling override deliberately replaces sampling while still sending through server path; no gameplay authority transfer."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1974,
+    "start_line": 1
+  }
+}

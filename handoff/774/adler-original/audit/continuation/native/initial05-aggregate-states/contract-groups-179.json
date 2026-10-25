@@ -1,0 +1,873 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-179",
+  "at": "2026-10-23T04:18:36.860949+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/classification.rs",
+      "sha256": "7699fe2b1452a7aff4551999b62c6ed6764dc5dddabf8bce8d8d74e8bf1ebd78",
+      "scope055_index": 52,
+      "actual_EOF": 65,
+      "scoped_ranges_compared": [
+        [
+          1,
+          65
+        ]
+      ],
+      "comparison_group": "requested-movement-vocabulary",
+      "actual05_comparison": "BattleAttackKind closed2 and MeleeMovementAction closed3, Serialize+Display exact stablewords; requested Close/Hold/Retreat intentionally distinct from realized telemetry. target_velocity receives finite NonnegativeSpeed and returns negated/zero/same signedowner, zero valid. No separately retained native velocity or cachedmode. Existing replay spelling fixtures actualreadnotrun.",
+      "source_body_proof": "Fresh actual P16 complete smallsource read; all originalfixturetext included ifpresent."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/classification.rs",
+      "sha256": "7699fe2b1452a7aff4551999b62c6ed6764dc5dddabf8bce8d8d74e8bf1ebd78",
+      "scope055_index": 859,
+      "actual_EOF": 65,
+      "scoped_ranges_compared": [
+        [
+          1,
+          65
+        ]
+      ],
+      "comparison_group": "requested-movement-vocabulary",
+      "actual05_comparison": "CompleteactualP16/PRdiffempty; personalcurrentPRsamebody andeachrole comparison: BattleAttackKind closed2 and MeleeMovementAction closed3, Serialize+Display exact stablewords; requested Close/Hold/Retreat intentionally distinct from realized telemetry. target_velocity receives finite NonnegativeSpeed and returns negated/zero/same signedowner, zero valid. No separately retained native velocity or cachedmode. Existing replay spelling fixtures actualreadnotrun.",
+      "source_body_proof": "Actual complete counterpart source diff/currentsemanticcomparison; PRmass41freshfull; battle_combatants only Result signature delta. No hash/verdict credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/assignment.rs",
+      "sha256": "edaab496e73d7ae22b10743303627d76c5526cdff566e72e60f563dcbc2c77f9",
+      "scope055_index": 64,
+      "actual_EOF": 72,
+      "scoped_ranges_compared": [
+        [
+          1,
+          72
+        ]
+      ],
+      "comparison_group": "melee-assignment-membership",
+      "actual05_comparison": "active helpers enumerate same side slice before filtering, so retained indices belong SAME immutable side. melee_assignment concatenates active preferredmelee and ranged, then inserts remaining active without duplication; however melee+ranged lists can overlap for hybrid combatant (preferredmelee+canranged), so list is not inherentlyunique. No uniqueness promise inferred until actual assignment fairness recipient/currenthybrid producer comparison. rank prefix attackers[..=attacker_index] requires currentindex membership, target modulo requires nonempty defenders (debugassert only). Private crate parent must admit active attacker and nonempty active target; not cleared by debugassert/names. Flanking applies rank>=targetslotcount intentionally, parameters floatpolicy lower.",
+      "source_body_proof": "Fresh actual P16 complete smallsource read; all originalfixturetext included ifpresent."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/assignment.rs",
+      "sha256": "edaab496e73d7ae22b10743303627d76c5526cdff566e72e60f563dcbc2c77f9",
+      "scope055_index": 2741,
+      "actual_EOF": 72,
+      "scoped_ranges_compared": [
+        [
+          1,
+          72
+        ]
+      ],
+      "comparison_group": "melee-assignment-membership",
+      "actual05_comparison": "CompleteactualP16/PRdiffempty; personalcurrentPRsamebody andeachrole comparison: active helpers enumerate same side slice before filtering, so retained indices belong SAME immutable side. melee_assignment concatenates active preferredmelee and ranged, then inserts remaining active without duplication; however melee+ranged lists can overlap for hybrid combatant (preferredmelee+canranged), so list is not inherentlyunique. No uniqueness promise inferred until actual assignment fairness recipient/currenthybrid producer comparison. rank prefix attackers[..=attacker_index] requires currentindex membership, target modulo requires nonempty defenders (debugassert only). Private crate parent must admit active attacker and nonempty active target; not cleared by debugassert/names. Flanking applies rank>=targetslotcount intentionally, parameters floatpolicy lower.",
+      "source_body_proof": "Actual complete counterpart source diff/currentsemanticcomparison; PRmass41freshfull; battle_combatants only Result signature delta. No hash/verdict credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/foraging/sampling.rs",
+      "sha256": "66d67a552e4a0f212e7a776678140af4965c40239a052e0f845c73143537d6e0",
+      "scope055_index": 109,
+      "actual_EOF": 25,
+      "scoped_ranges_compared": [
+        [
+          1,
+          25
+        ]
+      ],
+      "comparison_group": "foraging-bound-draw",
+      "actual05_comparison": "Private ForageDraw closed3purpose tags, same seed/source/item framing derives stable separate stream then NonZeroU64::new(upper).expect. Leaf nativeupper u64 may0; current callers positive1000/1001/authoredpositivewidth were actual Native03 source facts, but current05 parentforaging remains separately unread, so no05lowerclosure solelypriorverdict. No empirical RNG/sample/newcases. Native strict below ownership proof separate actual determinism/native095packet018.",
+      "source_body_proof": "Fresh actual P16 complete smallsource read; all originalfixturetext included ifpresent."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/foraging/sampling.rs",
+      "sha256": "66d67a552e4a0f212e7a776678140af4965c40239a052e0f845c73143537d6e0",
+      "scope055_index": 929,
+      "actual_EOF": 25,
+      "scoped_ranges_compared": [
+        [
+          1,
+          25
+        ]
+      ],
+      "comparison_group": "foraging-bound-draw",
+      "actual05_comparison": "CompleteactualP16/PRdiffempty; personalcurrentPRsamebody andeachrole comparison: Private ForageDraw closed3purpose tags, same seed/source/item framing derives stable separate stream then NonZeroU64::new(upper).expect. Leaf nativeupper u64 may0; current callers positive1000/1001/authoredpositivewidth were actual Native03 source facts, but current05 parentforaging remains separately unread, so no05lowerclosure solelypriorverdict. No empirical RNG/sample/newcases. Native strict below ownership proof separate actual determinism/native095packet018.",
+      "source_body_proof": "Actual complete counterpart source diff/currentsemanticcomparison; PRmass41freshfull; battle_combatants only Result signature delta. No hash/verdict credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_physical_serde.rs",
+      "sha256": "f260cac7fddd136d2fd754e6f147a3fcecaa67eb107b87d506121e3c60016671",
+      "scope055_index": 114,
+      "actual_EOF": 18,
+      "scoped_ranges_compared": [
+        [
+          1,
+          18
+        ]
+      ],
+      "comparison_group": "physical-three-axis-adapter",
+      "actual05_comparison": "P16only18lines Serde adapter receives fixed[f32;3] array (arity enforced nativearraydecoder) then CuboidDimensions::from_metres; serialize emits canonicalaxis order. Complete leaf factory admission must be actualgeometry definition proof, not typename. No independent width/depth/height record or mutablebacking within adapter; local XYZarray nativeboundary intentional. PRfile absent, no falsecounterpartcredit.",
+      "source_body_proof": "Fresh actual P16 complete smallsource read; all originalfixturetext included ifpresent."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/settlement_population/age.rs",
+      "sha256": "31003479452c3c598a403dfeb1cdbfb32d807c7fdf1863fa27c799461c67ab66",
+      "scope055_index": 137,
+      "actual_EOF": 64,
+      "scoped_ranges_compared": [
+        [
+          1,
+          64
+        ]
+      ],
+      "comparison_group": "age-band-current-chronology",
+      "actual05_comparison": "for_years maps allu16 including0/MAX into exact0..12/13..17/18..59/60+ bands; no cachedage/bandpair maintained. stable snake storage vs Pascal deterministiccoordinates purpose-specificdifferentobservers, notduplicate mutable authorities. Derive/Serde vocabulary closed4 but actualmacro expansion notreadhere. Alloriginalboundaryfixtures sourceonly.",
+      "source_body_proof": "Fresh actual P16 complete smallsource read; all originalfixturetext included ifpresent."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/settlement_population/age.rs",
+      "sha256": "31003479452c3c598a403dfeb1cdbfb32d807c7fdf1863fa27c799461c67ab66",
+      "scope055_index": 990,
+      "actual_EOF": 64,
+      "scoped_ranges_compared": [
+        [
+          1,
+          64
+        ]
+      ],
+      "comparison_group": "age-band-current-chronology",
+      "actual05_comparison": "CompleteactualP16/PRdiffempty; personalcurrentPRsamebody andeachrole comparison: for_years maps allu16 including0/MAX into exact0..12/13..17/18..59/60+ bands; no cachedage/bandpair maintained. stable snake storage vs Pascal deterministiccoordinates purpose-specificdifferentobservers, notduplicate mutable authorities. Derive/Serde vocabulary closed4 but actualmacro expansion notreadhere. Alloriginalboundaryfixtures sourceonly.",
+      "source_body_proof": "Actual complete counterpart source diff/currentsemanticcomparison; PRmass41freshfull; battle_combatants only Result signature delta. No hash/verdict credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-dialogue/src/condition_validation.rs",
+      "sha256": "00fbc301066749af85fa86ca0ac2e5ca6be75aba4ac99770a9e4a4b2fd0e3c13",
+      "scope055_index": 169,
+      "actual_EOF": 30,
+      "scoped_ranges_compared": [
+        [
+          1,
+          30
+        ]
+      ],
+      "comparison_group": "dialogue-condition-role-membership",
+      "actual05_comparison": "Recursive All/Any/Not traverses actualownedConditiontree; Fact checks key/value compatibility and every participant role against SAME BTreeMap, accumulatesbotherrors. Always no refs. This helper does not assert whole genericLibrary validity or inspect extra FactValue policies: actual key.authoring_value_is_valid and participant_roles definitions lower/parent source. Rawrecursive depth/cycles safeownership/no explicitdepthcap noted, no invented ordinary stackfailure.",
+      "source_body_proof": "Fresh actual P16 complete smallsource read; all originalfixturetext included ifpresent."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-dialogue/src/condition_validation.rs",
+      "sha256": "00fbc301066749af85fa86ca0ac2e5ca6be75aba4ac99770a9e4a4b2fd0e3c13",
+      "scope055_index": 1033,
+      "actual_EOF": 30,
+      "scoped_ranges_compared": [
+        [
+          1,
+          30
+        ]
+      ],
+      "comparison_group": "dialogue-condition-role-membership",
+      "actual05_comparison": "CompleteactualP16/PRdiffempty; personalcurrentPRsamebody andeachrole comparison: Recursive All/Any/Not traverses actualownedConditiontree; Fact checks key/value compatibility and every participant role against SAME BTreeMap, accumulatesbotherrors. Always no refs. This helper does not assert whole genericLibrary validity or inspect extra FactValue policies: actual key.authoring_value_is_valid and participant_roles definitions lower/parent source. Rawrecursive depth/cycles safeownership/no explicitdepthcap noted, no invented ordinary stackfailure.",
+      "source_body_proof": "Actual complete counterpart source diff/currentsemanticcomparison; PRmass41freshfull; battle_combatants only Result signature delta. No hash/verdict credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-dialogue/src/prompt.rs",
+      "sha256": "ce7a0cb88c92661701e05af8240110971e02624dc1557a91cbb300ae94af94fb",
+      "scope055_index": 171,
+      "actual_EOF": 37,
+      "scoped_ranges_compared": [
+        [
+          1,
+          37
+        ]
+      ],
+      "comparison_group": "dialogue-prompt-bounds-and-choices",
+      "actual05_comparison": "Public serde Prompt can hold min>max, unknownrespondent, duplicatechoiceIDs, or max>choices; defaults both1/FirstResponse only convenience, no accepted seal. EachChoice owns effects and resultturns, no parallelcolumn alignment. Actual compile/runtimeparent validates bound/respondent/duplicate membership before accepted use, remains exactqueuedbody; this declaration alone is rawauthoredinput, not new latentacceptedLibraryfinding bytypename.",
+      "source_body_proof": "Fresh actual P16 complete smallsource read; all originalfixturetext included ifpresent."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-dialogue/src/prompt.rs",
+      "sha256": "ce7a0cb88c92661701e05af8240110971e02624dc1557a91cbb300ae94af94fb",
+      "scope055_index": 1035,
+      "actual_EOF": 37,
+      "scoped_ranges_compared": [
+        [
+          1,
+          37
+        ]
+      ],
+      "comparison_group": "dialogue-prompt-bounds-and-choices",
+      "actual05_comparison": "CompleteactualP16/PRdiffempty; personalcurrentPRsamebody andeachrole comparison: Public serde Prompt can hold min>max, unknownrespondent, duplicatechoiceIDs, or max>choices; defaults both1/FirstResponse only convenience, no accepted seal. EachChoice owns effects and resultturns, no parallelcolumn alignment. Actual compile/runtimeparent validates bound/respondent/duplicate membership before accepted use, remains exactqueuedbody; this declaration alone is rawauthoredinput, not new latentacceptedLibraryfinding bytypename.",
+      "source_body_proof": "Actual complete counterpart source diff/currentsemanticcomparison; PRmass41freshfull; battle_combatants only Result signature delta. No hash/verdict credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/capability/mass.rs",
+      "sha256": "f041c03c0717ed86e0918d7002f19d097d720976ff98ad591ad80a10711add01",
+      "scope055_index": 177,
+      "actual_EOF": 31,
+      "scoped_ranges_compared": [
+        [
+          1,
+          31
+        ]
+      ],
+      "comparison_group": "carried-mass-source-priority",
+      "actual05_comparison": "Both snapshots actualsource: personalrows filteredexactcharacter, fireplace-rooted excluded, first matching foodlot overrides cataloguemass and uses max0. Otherwise catalogueitem lookup skipsunknown, effectivefraction replacesquantity (not multipliedtwice), parametricrecipe mass orfittedholder fallbackitemweight timesquantity thenSUM. P16collectsResult<Vec<Option>> beforefinalsum, propagatesmissingrecipe/leaferrors; PR41 returnsrawf32 andexpectsrecipevalid, so PRP16 differ in admission/errornot mereheader. FreshPR41 read afterglobal050 Root170 qualification; no retrocredit. Raw foodmassInf and finite many products/sums can remain nonfinite; normal food/recipe invariant gates queued separately. Root04F035/F036 physical/materialgraph/earlypanic qualification only, no duplicatecount here.",
+      "source_body_proof": "Fresh actual P16 complete smallsource read; all originalfixturetext included ifpresent."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability/mass.rs",
+      "sha256": "1f6a584fc834b98fd0a39dee168f5b8c461518b712f56906a9de26bd44fe192e",
+      "scope055_index": 2810,
+      "actual_EOF": 41,
+      "scoped_ranges_compared": [
+        [
+          1,
+          41
+        ]
+      ],
+      "comparison_group": "carried-mass-source-priority",
+      "actual05_comparison": "CompleteactualP16/PRdiff examined, actualchanged PR body reread where needed: Both snapshots actualsource: personalrows filteredexactcharacter, fireplace-rooted excluded, first matching foodlot overrides cataloguemass and uses max0. Otherwise catalogueitem lookup skipsunknown, effectivefraction replacesquantity (not multipliedtwice), parametricrecipe mass orfittedholder fallbackitemweight timesquantity thenSUM. P16collectsResult<Vec<Option>> beforefinalsum, propagatesmissingrecipe/leaferrors; PR41 returnsrawf32 andexpectsrecipevalid, so PRP16 differ in admission/errornot mereheader. FreshPR41 read afterglobal050 Root170 qualification; no retrocredit. Raw foodmassInf and finite many products/sums can remain nonfinite; normal food/recipe invariant gates queued separately. Root04F035/F036 physical/materialgraph/earlypanic qualification only, no duplicatecount here.",
+      "source_body_proof": "Actual complete counterpart source diff/currentsemanticcomparison; PRmass41freshfull; battle_combatants only Result signature delta. No hash/verdict credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/corpse/autopsy_context.rs",
+      "sha256": "3b26e430df2bfed7d8872f969645bf2f86aa1792c64fcf0dfdb95834c793c6ab",
+      "scope055_index": 191,
+      "actual_EOF": 25,
+      "scoped_ranges_compared": [
+        [
+          1,
+          25
+        ]
+      ],
+      "comparison_group": "corpse-derived-context",
+      "actual05_comparison": "Builds ALL AutopsyEvidenceContext fields from SAME StrategicCorpse+queriedminute, derives at_scene from actualcorpse_location and decomposition from death/current/handling. No new retained mirror/cache. buried/exhumed chronology precedence andhandling/openingbounds are lower Core/helper/rawpersistedpolicy, not authenticatedby adapter; rawdirectrowcanbroader. Source003 priorlower facts are navigation, no blanket05claim.",
+      "source_body_proof": "Fresh actual P16 complete smallsource read; all originalfixturetext included ifpresent."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/corpse/autopsy_context.rs",
+      "sha256": "3b26e430df2bfed7d8872f969645bf2f86aa1792c64fcf0dfdb95834c793c6ab",
+      "scope055_index": 1091,
+      "actual_EOF": 25,
+      "scoped_ranges_compared": [
+        [
+          1,
+          25
+        ]
+      ],
+      "comparison_group": "corpse-derived-context",
+      "actual05_comparison": "CompleteactualP16/PRdiffempty; personalcurrentPRsamebody andeachrole comparison: Builds ALL AutopsyEvidenceContext fields from SAME StrategicCorpse+queriedminute, derives at_scene from actualcorpse_location and decomposition from death/current/handling. No new retained mirror/cache. buried/exhumed chronology precedence andhandling/openingbounds are lower Core/helper/rawpersistedpolicy, not authenticatedby adapter; rawdirectrowcanbroader. Source003 priorlower facts are navigation, no blanket05claim.",
+      "source_body_proof": "Actual complete counterpart source diff/currentsemanticcomparison; PRmass41freshfull; battle_combatants only Result signature delta. No hash/verdict credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/corpse/draws.rs",
+      "sha256": "3a497fff6699e3e757043e6c8b448fbac0a1fb0c182489a328a9cba84f2776d2",
+      "scope055_index": 192,
+      "actual_EOF": 27,
+      "scoped_ranges_compared": [
+        [
+          1,
+          27
+        ]
+      ],
+      "comparison_group": "corpse-purpose-separated-lattice",
+      "actual05_comparison": "Openingdraw frames corpseID, actorLEbytes,revisionLEbytes,receipt; permissionframesattemptID and distinctpurpose. Both index(BPwhole+1) intentionallyinclude endpoint10000; openingu16safe iffactualconstant10000 fromcanonicaldefs (alreadyactualsharedfacts), permissiondividespositive10000 toinclusive[0,1]. Numericlattice0..10000 notMeasuredQuality/guaranteedauthority; receipt/member/currentcorpserelationship suppliedparent. No fixedoneword nativeconsumptionpromise.",
+      "source_body_proof": "Fresh actual P16 complete smallsource read; all originalfixturetext included ifpresent."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/corpse/draws.rs",
+      "sha256": "3a497fff6699e3e757043e6c8b448fbac0a1fb0c182489a328a9cba84f2776d2",
+      "scope055_index": 1092,
+      "actual_EOF": 27,
+      "scoped_ranges_compared": [
+        [
+          1,
+          27
+        ]
+      ],
+      "comparison_group": "corpse-purpose-separated-lattice",
+      "actual05_comparison": "CompleteactualP16/PRdiffempty; personalcurrentPRsamebody andeachrole comparison: Openingdraw frames corpseID, actorLEbytes,revisionLEbytes,receipt; permissionframesattemptID and distinctpurpose. Both index(BPwhole+1) intentionallyinclude endpoint10000; openingu16safe iffactualconstant10000 fromcanonicaldefs (alreadyactualsharedfacts), permissiondividespositive10000 toinclusive[0,1]. Numericlattice0..10000 notMeasuredQuality/guaranteedauthority; receipt/member/currentcorpserelationship suppliedparent. No fixedoneword nativeconsumptionpromise.",
+      "source_body_proof": "Actual complete counterpart source diff/currentsemanticcomparison; PRmass41freshfull; battle_combatants only Result signature delta. No hash/verdict credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/disease/administration_adapter.rs",
+      "sha256": "980f43c8f979574fcc23678173933bcef9f8fc18e678d0070dc3c8ec1e2a3181",
+      "scope055_index": 194,
+      "actual_EOF": 27,
+      "scoped_ranges_compared": [
+        [
+          1,
+          27
+        ]
+      ],
+      "comparison_group": "persisted-treatment-adapter",
+      "actual05_comparison": "Checks globalruleset exact currentversion BEFORE creating CoreAdministration; Dose::try_new falliblyreadmits actualrawpersisteddose; copies ALL identity/profile/route/region/clock/stopping/sensitivity/adversefrom SAMErow. Does NOT resolve preparation/profileversion, stop>=start, route/region/profile suitability, basispointbounds or patient/currentrowmembership here. These actual relying physiology gates requiredparent; no whole-product seal from checkedDose.",
+      "source_body_proof": "Fresh actual P16 complete smallsource read; all originalfixturetext included ifpresent."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/administration_adapter.rs",
+      "sha256": "980f43c8f979574fcc23678173933bcef9f8fc18e678d0070dc3c8ec1e2a3181",
+      "scope055_index": 1094,
+      "actual_EOF": 27,
+      "scoped_ranges_compared": [
+        [
+          1,
+          27
+        ]
+      ],
+      "comparison_group": "persisted-treatment-adapter",
+      "actual05_comparison": "CompleteactualP16/PRdiffempty; personalcurrentPRsamebody andeachrole comparison: Checks globalruleset exact currentversion BEFORE creating CoreAdministration; Dose::try_new falliblyreadmits actualrawpersisteddose; copies ALL identity/profile/route/region/clock/stopping/sensitivity/adversefrom SAMErow. Does NOT resolve preparation/profileversion, stop>=start, route/region/profile suitability, basispointbounds or patient/currentrowmembership here. These actual relying physiology gates requiredparent; no whole-product seal from checkedDose.",
+      "source_body_proof": "Actual complete counterpart source diff/currentsemanticcomparison; PRmass41freshfull; battle_combatants only Result signature delta. No hash/verdict credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+      "sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+      "scope055_index": 196,
+      "actual_EOF": 50,
+      "scoped_ranges_compared": [
+        [
+          1,
+          50
+        ]
+      ],
+      "comparison_group": "fixture-administration-whole-row",
+      "actual05_comparison": "Actual3tuple source gives paired administered/stopped with samefixtureclock: at6days/stop5,at4/stop3,at2/None; checked750/STANDARD1000/checked1250 then get stored, no ordinaryzero/over8000writer fromthisfixture. Samepatient/preparationoralrehydration/profile1/Oral/NoneRegion/currentruleset/currentphenotype key, variationfallibleBEFOREeachinsert. day_minutes rawu64 multiplication canoverflowarbitraryAPI; actualclinical callerDAY1440 source-specific Rigclinical001 fact, not execution/wholeDBfixtureclearance. NativeDBmultiinsertrollback notindependentlyproved; no claimpartialpublication onerror.",
+      "source_body_proof": "Fresh actual P16 complete smallsource read; all originalfixturetext included ifpresent."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+      "sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+      "scope055_index": 2710,
+      "actual_EOF": 50,
+      "scoped_ranges_compared": [
+        [
+          1,
+          50
+        ]
+      ],
+      "comparison_group": "fixture-administration-whole-row",
+      "actual05_comparison": "CompleteactualP16/PRdiffempty; personalcurrentPRsamebody andeachrole comparison: Actual3tuple source gives paired administered/stopped with samefixtureclock: at6days/stop5,at4/stop3,at2/None; checked750/STANDARD1000/checked1250 then get stored, no ordinaryzero/over8000writer fromthisfixture. Samepatient/preparationoralrehydration/profile1/Oral/NoneRegion/currentruleset/currentphenotype key, variationfallibleBEFOREeachinsert. day_minutes rawu64 multiplication canoverflowarbitraryAPI; actualclinical callerDAY1440 source-specific Rigclinical001 fact, not execution/wholeDBfixtureclearance. NativeDBmultiinsertrollback notindependentlyproved; no claimpartialpublication onerror.",
+      "source_body_proof": "Actual complete counterpart source diff/currentsemanticcomparison; PRmass41freshfull; battle_combatants only Result signature delta. No hash/verdict credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/disease/interval.rs",
+      "sha256": "4384f792f23b407ce0400d31755a84c01e36c464be04edcea9ca39859deda652",
+      "scope055_index": 197,
+      "actual_EOF": 53,
+      "scoped_ranges_compared": [
+        [
+          1,
+          53
+        ]
+      ],
+      "comparison_group": "interval-overlap-of-participant-cursors",
+      "actual05_comparison": "disease_events flatmaps each episode SAMEfrom/to/immunity, no independentlymatched columns. contact_windows uses pair IDs tolookup each start/horizon; start=max knownstarts(defaultpair.start)+1 thenmaxpair.start, end=min knownhorizons(defaultpair.end) thenminpair.end; discardstart>end. Missing one participant intentionally uses knownother+pair, no strictexact-two requirement proven. Inclusive[previous+1,current] avoids normaldoublecount; atMAX saturating+1 repeats endpoint possibility requires actualcaller terminalclockpolicy, no normalreplayclaim. IDs/orderpairvalidation remainsCachedPair source, adapterdoesnot sort or rejectsameID.",
+      "source_body_proof": "Fresh actual P16 complete smallsource read; all originalfixturetext included ifpresent."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/interval.rs",
+      "sha256": "4384f792f23b407ce0400d31755a84c01e36c464be04edcea9ca39859deda652",
+      "scope055_index": 1096,
+      "actual_EOF": 53,
+      "scoped_ranges_compared": [
+        [
+          1,
+          53
+        ]
+      ],
+      "comparison_group": "interval-overlap-of-participant-cursors",
+      "actual05_comparison": "CompleteactualP16/PRdiffempty; personalcurrentPRsamebody andeachrole comparison: disease_events flatmaps each episode SAMEfrom/to/immunity, no independentlymatched columns. contact_windows uses pair IDs tolookup each start/horizon; start=max knownstarts(defaultpair.start)+1 thenmaxpair.start, end=min knownhorizons(defaultpair.end) thenminpair.end; discardstart>end. Missing one participant intentionally uses knownother+pair, no strictexact-two requirement proven. Inclusive[previous+1,current] avoids normaldoublecount; atMAX saturating+1 repeats endpoint possibility requires actualcaller terminalclockpolicy, no normalreplayclaim. IDs/orderpairvalidation remainsCachedPair source, adapterdoesnot sort or rejectsameID.",
+      "source_body_proof": "Actual complete counterpart source diff/currentsemanticcomparison; PRmass41freshfull; battle_combatants only Result signature delta. No hash/verdict credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/filth/exposure_windows.rs",
+      "sha256": "f83042cfd787c6df04d003db5af5c1ba3e7b3d1fe04a5077969d3f08bd3d2ea4",
+      "scope055_index": 201,
+      "actual_EOF": 27,
+      "scoped_ranges_compared": [
+        [
+          1,
+          27
+        ]
+      ],
+      "comparison_group": "blood-window-authority-delegation",
+      "actual05_comparison": "Exact Blood depositarray/disease/from/to delegatesCorefilth; companionany scans canonicalSTARTER_DISEASES filtersBloodsupport then checksnonemptywindows. Does not fabricatewindow frompositivecount/annotation; actualmerged/clippedCorekernel still ownscope. No extra localcache/rowstate; no allpathforeignblood predicate from functionname.",
+      "source_body_proof": "Fresh actual P16 complete smallsource read; all originalfixturetext included ifpresent."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/filth/exposure_windows.rs",
+      "sha256": "f83042cfd787c6df04d003db5af5c1ba3e7b3d1fe04a5077969d3f08bd3d2ea4",
+      "scope055_index": 1100,
+      "actual_EOF": 27,
+      "scoped_ranges_compared": [
+        [
+          1,
+          27
+        ]
+      ],
+      "comparison_group": "blood-window-authority-delegation",
+      "actual05_comparison": "CompleteactualP16/PRdiffempty; personalcurrentPRsamebody andeachrole comparison: Exact Blood depositarray/disease/from/to delegatesCorefilth; companionany scans canonicalSTARTER_DISEASES filtersBloodsupport then checksnonemptywindows. Does not fabricatewindow frompositivecount/annotation; actualmerged/clippedCorekernel still ownscope. No extra localcache/rowstate; no allpathforeignblood predicate from functionname.",
+      "source_body_proof": "Actual complete counterpart source diff/currentsemanticcomparison; PRmass41freshfull; battle_combatants only Result signature delta. No hash/verdict credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/foraging/timing.rs",
+      "sha256": "30193f2454edfb59bb1c74ca3f63056accf4a4540bc7fd16260bdfc8ed5b7cbc",
+      "scope055_index": 216,
+      "actual_EOF": 43,
+      "scoped_ranges_compared": [
+        [
+          1,
+          43
+        ]
+      ],
+      "comparison_group": "forage-terminal-whole-boundary",
+      "actual05_comparison": "Characterclock lookupmissing\u2192Err, no0fallback. injury preview first uses suppliedduration/NONErecovery, disease preview uses injury.elapsed; safe=min injury/disease. Some checkedcurrent+safe ifshorterORterminalevenatfull-duration, otherwiseNone. Bothlowerterminal flags retained not inferredsolelyshortelapsed; zero terminal possiblegenuine. checkedMAXclock error notsaturatingstart; actuallowerpreviewmaymutate? purepreviewmeaningactualcallees pending, no nativecommit guarantee.",
+      "source_body_proof": "Fresh actual P16 complete smallsource read; all originalfixturetext included ifpresent."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/foraging/timing.rs",
+      "sha256": "30193f2454edfb59bb1c74ca3f63056accf4a4540bc7fd16260bdfc8ed5b7cbc",
+      "scope055_index": 1115,
+      "actual_EOF": 43,
+      "scoped_ranges_compared": [
+        [
+          1,
+          43
+        ]
+      ],
+      "comparison_group": "forage-terminal-whole-boundary",
+      "actual05_comparison": "CompleteactualP16/PRdiffempty; personalcurrentPRsamebody andeachrole comparison: Characterclock lookupmissing\u2192Err, no0fallback. injury preview first uses suppliedduration/NONErecovery, disease preview uses injury.elapsed; safe=min injury/disease. Some checkedcurrent+safe ifshorterORterminalevenatfull-duration, otherwiseNone. Bothlowerterminal flags retained not inferredsolelyshortelapsed; zero terminal possiblegenuine. checkedMAXclock error notsaturatingstart; actuallowerpreviewmaymutate? purepreviewmeaningactualcallees pending, no nativecommit guarantee.",
+      "source_body_proof": "Actual complete counterpart source diff/currentsemanticcomparison; PRmass41freshfull; battle_combatants only Result signature delta. No hash/verdict credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/herbalism/ingredient.rs",
+      "sha256": "0da336a33dfe2ce0319629649c1fe2192f15f73e04a7899d12cc9613f2f49156",
+      "scope055_index": 218,
+      "actual_EOF": 21,
+      "scoped_ranges_compared": [
+        [
+          1,
+          21
+        ]
+      ],
+      "comparison_group": "exact-ingredient-deletion-pair",
+      "actual05_comparison": "Consumes suppliedinventory_id andingredientobject_id acrosslot,amount,containment-child,object,inventoryrow; helper notitself compare inventory.object_id==ingredient_id or currentcustody. Exact upstream recipe/ingredient admission MUSTbindpair before destructivehelper, authorizedsource-onlynoactualdeletion. Rawfunctionpubsuper validnumbersnotwholeobjecttoken; parentherbalism/inventoryauthority actual05 remainsunread, so no ordinarywrongdeletefinding.",
+      "source_body_proof": "Fresh actual P16 complete smallsource read; all originalfixturetext included ifpresent."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/herbalism/ingredient.rs",
+      "sha256": "0da336a33dfe2ce0319629649c1fe2192f15f73e04a7899d12cc9613f2f49156",
+      "scope055_index": 1117,
+      "actual_EOF": 21,
+      "scoped_ranges_compared": [
+        [
+          1,
+          21
+        ]
+      ],
+      "comparison_group": "exact-ingredient-deletion-pair",
+      "actual05_comparison": "CompleteactualP16/PRdiffempty; personalcurrentPRsamebody andeachrole comparison: Consumes suppliedinventory_id andingredientobject_id acrosslot,amount,containment-child,object,inventoryrow; helper notitself compare inventory.object_id==ingredient_id or currentcustody. Exact upstream recipe/ingredient admission MUSTbindpair before destructivehelper, authorizedsource-onlynoactualdeletion. Rawfunctionpubsuper validnumbersnotwholeobjecttoken; parentherbalism/inventoryauthority actual05 remainsunread, so no ordinarywrongdeletefinding.",
+      "source_body_proof": "Actual complete counterpart source diff/currentsemanticcomparison; PRmass41freshfull; battle_combatants only Result signature delta. No hash/verdict credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/npc_causal/romance_candidates.rs",
+      "sha256": "6957bd242c23a68763c5e05b3d1dfc3277adedadb0338b05613bc915c1f982e3",
+      "scope055_index": 226,
+      "actual_EOF": 28,
+      "scoped_ranges_compared": [
+        [
+          1,
+          28
+        ]
+      ],
+      "comparison_group": "actor-relative-romance-pool",
+      "actual05_comparison": "Filters settlement residentpresenceexactsettlement, excludesactor, invokesnpc_is_present atSAMEsuppliedminute then requires matchingpolicyrowcharacter, builds CandidatecharacterID+seed fromSAMEjoin. Sourcepresence duplicates may produce repeatedidenticalcandidate but canonicalstable_candidate_order Native171dedups/rejectsconflicts. Actualalive/adult/nonkin/co-locationothereligibility comesseparate policy, not impliedjustpresencehelper.",
+      "source_body_proof": "Fresh actual P16 complete smallsource read; all originalfixturetext included ifpresent."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/npc_causal/romance_candidates.rs",
+      "sha256": "6957bd242c23a68763c5e05b3d1dfc3277adedadb0338b05613bc915c1f982e3",
+      "scope055_index": 1144,
+      "actual_EOF": 28,
+      "scoped_ranges_compared": [
+        [
+          1,
+          28
+        ]
+      ],
+      "comparison_group": "actor-relative-romance-pool",
+      "actual05_comparison": "CompleteactualP16/PRdiffempty; personalcurrentPRsamebody andeachrole comparison: Filters settlement residentpresenceexactsettlement, excludesactor, invokesnpc_is_present atSAMEsuppliedminute then requires matchingpolicyrowcharacter, builds CandidatecharacterID+seed fromSAMEjoin. Sourcepresence duplicates may produce repeatedidenticalcandidate but canonicalstable_candidate_order Native171dedups/rejectsconflicts. Actualalive/adult/nonkin/co-locationothereligibility comesseparate policy, not impliedjustpresencehelper.",
+      "source_body_proof": "Actual complete counterpart source diff/currentsemanticcomparison; PRmass41freshfull; battle_combatants only Result signature delta. No hash/verdict credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/operation_error.rs",
+      "sha256": "f7a676c963f59e4691374c71e9f81caf252350a5c5c8f22da6a977beb97c62d4",
+      "scope055_index": 227,
+      "actual_EOF": 44,
+      "scoped_ranges_compared": [
+        [
+          1,
+          44
+        ]
+      ],
+      "comparison_group": "payload-errors-native-port",
+      "actual05_comparison": "P16 StrategicOperationError closedtypedcauses retain AuthoredThreat/Resolution/Geometry/Timing/Custody transparently; item-specificfailures ownitemString andOperation rawtext escape for currentStringerrors. This is errorpayload variation, notinvalidoptional recordcorrelation; Display atnativeReducerport legitimate, earlytext erasure projectseparate lens. No PRoperation_errorcounterpart exists, no aliascompatibility path invented.",
+      "source_body_proof": "Fresh actual P16 complete smallsource read; all originalfixturetext included ifpresent."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/organization/membership.rs",
+      "sha256": "0d33ff33d3e12486c22e7724790e4c745f5f6e603ec06302c7e9fa161e3597a5",
+      "scope055_index": 229,
+      "actual_EOF": 25,
+      "scoped_ranges_compared": [
+        [
+          1,
+          25
+        ]
+      ],
+      "comparison_group": "current-organization-privilege",
+      "actual05_comparison": "ClockmissingErr; membershipcurrent exactlyActiveAND minute<=paidThrough inclusive. Currentprivilege additionallyqueriesdefinition.has_privilege_at_role(role.id,privilege); helper receivesseparate definition/membership/role, doesnot independently prove sameorganization/roleID binding or enrolledminute<=current. Normalparent selectsboth knownorg/currentrole asactual03Camera139 fact; current05 parentorg remainsownunread, no blanketauthority assurance or arbitraryrawinputexploit.",
+      "source_body_proof": "Fresh actual P16 complete smallsource read; all originalfixturetext included ifpresent."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/organization/membership.rs",
+      "sha256": "0d33ff33d3e12486c22e7724790e4c745f5f6e603ec06302c7e9fa161e3597a5",
+      "scope055_index": 1147,
+      "actual_EOF": 25,
+      "scoped_ranges_compared": [
+        [
+          1,
+          25
+        ]
+      ],
+      "comparison_group": "current-organization-privilege",
+      "actual05_comparison": "CompleteactualP16/PRdiffempty; personalcurrentPRsamebody andeachrole comparison: ClockmissingErr; membershipcurrent exactlyActiveAND minute<=paidThrough inclusive. Currentprivilege additionallyqueriesdefinition.has_privilege_at_role(role.id,privilege); helper receivesseparate definition/membership/role, doesnot independently prove sameorganization/roleID binding or enrolledminute<=current. Normalparent selectsboth knownorg/currentrole asactual03Camera139 fact; current05 parentorg remainsownunread, no blanketauthority assurance or arbitraryrawinputexploit.",
+      "source_body_proof": "Actual complete counterpart source diff/currentsemanticcomparison; PRmass41freshfull; battle_combatants only Result signature delta. No hash/verdict credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/outbreak/patient_chronology.rs",
+      "sha256": "13d2838fd47720c3645d3c0cba3875699b4ad7984159ddeded1b2a23a32f15ee",
+      "scope055_index": 232,
+      "actual_EOF": 37,
+      "scoped_ranges_compared": [
+        [
+          1,
+          37
+        ]
+      ],
+      "comparison_group": "patient-death-payload-correlation",
+      "actual05_comparison": "Cloneinputthen Disease sets died_at/private_terminal and death_kind togetherSome/None, preserving payloadshape. CarrierAttack computes latest beforeprivate terminal(or now), minexistingattack/latest thenmaxsymptoms; if beyondlatest removesbothdeathfields atomically. Nonekind leavesexistingexposureuntouchedrawdiedAt maybecontradictory ifinputinvalid: rawOutbreakExposure notacceptedseal. Atterminal0 saturatingsub1 cannotrepresentstrictpredecessor, so actualgeneratorCorechronology/policy mustsupply feasibleordering; no normaldeath/runclaimfromthishelperalone.",
+      "source_body_proof": "Fresh actual P16 complete smallsource read; all originalfixturetext included ifpresent."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak/patient_chronology.rs",
+      "sha256": "13d2838fd47720c3645d3c0cba3875699b4ad7984159ddeded1b2a23a32f15ee",
+      "scope055_index": 1150,
+      "actual_EOF": 37,
+      "scoped_ranges_compared": [
+        [
+          1,
+          37
+        ]
+      ],
+      "comparison_group": "patient-death-payload-correlation",
+      "actual05_comparison": "CompleteactualP16/PRdiffempty; personalcurrentPRsamebody andeachrole comparison: Cloneinputthen Disease sets died_at/private_terminal and death_kind togetherSome/None, preserving payloadshape. CarrierAttack computes latest beforeprivate terminal(or now), minexistingattack/latest thenmaxsymptoms; if beyondlatest removesbothdeathfields atomically. Nonekind leavesexistingexposureuntouchedrawdiedAt maybecontradictory ifinputinvalid: rawOutbreakExposure notacceptedseal. Atterminal0 saturatingsub1 cannotrepresentstrictpredecessor, so actualgeneratorCorechronology/policy mustsupply feasibleordering; no normaldeath/runclaimfromthishelperalone.",
+      "source_body_proof": "Actual complete counterpart source diff/currentsemanticcomparison; PRmass41freshfull; battle_combatants only Result signature delta. No hash/verdict credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social/admission.rs",
+      "sha256": "69e421c97648b448a374ac32ca30481cb6d0599800f9fbfa88d27dd6fb0f9137",
+      "scope055_index": 262,
+      "actual_EOF": 31,
+      "scoped_ranges_compared": [
+        [
+          1,
+          31
+        ]
+      ],
+      "comparison_group": "social-action-self-pair-admission",
+      "actual05_comparison": "Parsesclosedactionfirst, checks actor==target iffReflect BEFOREfetchpair and validate_social_pair. This establishesprivateaction/is_self correlation for actualrequest; actualliving/co-location/currentauthority is validate_social_pairbody ownqueuedparent, notcreditedfromname. No callerpermissioncheckaddedby parse, no missingclockfallback.",
+      "source_body_proof": "Fresh actual P16 complete smallsource read; all originalfixturetext included ifpresent."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/social/admission.rs",
+      "sha256": "69e421c97648b448a374ac32ca30481cb6d0599800f9fbfa88d27dd6fb0f9137",
+      "scope055_index": 1197,
+      "actual_EOF": 31,
+      "scoped_ranges_compared": [
+        [
+          1,
+          31
+        ]
+      ],
+      "comparison_group": "social-action-self-pair-admission",
+      "actual05_comparison": "CompleteactualP16/PRdiffempty; personalcurrentPRsamebody andeachrole comparison: Parsesclosedactionfirst, checks actor==target iffReflect BEFOREfetchpair and validate_social_pair. This establishesprivateaction/is_self correlation for actualrequest; actualliving/co-location/currentauthority is validate_social_pairbody ownqueuedparent, notcreditedfromname. No callerpermissioncheckaddedby parse, no missingclockfallback.",
+      "source_body_proof": "Actual complete counterpart source diff/currentsemanticcomparison; PRmass41freshfull; battle_combatants only Result signature delta. No hash/verdict credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social/discovery.rs",
+      "sha256": "848aa99d18243a4679c4c3ef1cbe3e9e1556f5c93b1a5cf83cd6c9a04c545198",
+      "scope055_index": 265,
+      "actual_EOF": 47,
+      "scoped_ranges_compared": [
+        [
+          1,
+          47
+        ]
+      ],
+      "comparison_group": "social-discovery-axis-collection",
+      "actual05_comparison": "Self route returnsSelfKnowledge+topicaxisfallbackOutlook; nonselfReflectunreachable reliesonadmitSocialAction exactpair. Listen mayreturnTransparency twice when topic mapsTransparency; outputVec is selectedaxislist, not promisedunique set; actualdiscoveryrecipientmustdedup orintendtwosamples before duplicateawardclaim. Reassureemptyintentional no learning; otheraction-specificaxes distinctsemanticroutes, no paralength fields. Privatehelper arbitraryReflectfalse APIpanic notnewpublicnormalfinding withoutactualcallerproof.",
+      "source_body_proof": "Fresh actual P16 complete smallsource read; all originalfixturetext included ifpresent."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/social/discovery.rs",
+      "sha256": "848aa99d18243a4679c4c3ef1cbe3e9e1556f5c93b1a5cf83cd6c9a04c545198",
+      "scope055_index": 1200,
+      "actual_EOF": 47,
+      "scoped_ranges_compared": [
+        [
+          1,
+          47
+        ]
+      ],
+      "comparison_group": "social-discovery-axis-collection",
+      "actual05_comparison": "CompleteactualP16/PRdiffempty; personalcurrentPRsamebody andeachrole comparison: Self route returnsSelfKnowledge+topicaxisfallbackOutlook; nonselfReflectunreachable reliesonadmitSocialAction exactpair. Listen mayreturnTransparency twice when topic mapsTransparency; outputVec is selectedaxislist, not promisedunique set; actualdiscoveryrecipientmustdedup orintendtwosamples before duplicateawardclaim. Reassureemptyintentional no learning; otheraction-specificaxes distinctsemanticroutes, no paralength fields. Privatehelper arbitraryReflectfalse APIpanic notnewpublicnormalfinding withoutactualcallerproof.",
+      "source_body_proof": "Actual complete counterpart source diff/currentsemanticcomparison; PRmass41freshfull; battle_combatants only Result signature delta. No hash/verdict credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social/draws.rs",
+      "sha256": "788653b52576c63a07a52065f8742eb6b63bc0268cb64ce16441cdea693f8c09",
+      "scope055_index": 266,
+      "actual_EOF": 54,
+      "scoped_ranges_compared": [
+        [
+          1,
+          54
+        ]
+      ],
+      "comparison_group": "social-random-coordinate-product",
+      "actual05_comparison": "ActionDraws private seed/actor/target tuple constructed together and readonly resolution/discovery useSAMEorderedparticipants; axis coordinate addsdiscoverypurpose while actionresolutionpurpose distinct. Testimonypropositionbytes, presentationobserver/subject, claimparticipants fixed2, casualstream separatepurposes. Sameactorsubjectdirection deliberatelyordered, no automatic symmetry/membership/privacy guarantee. inclusive_unit supports1; actualkernel admission/scoring recipients must handle inclusiveendpoint, not inferredprobability<1.",
+      "source_body_proof": "Fresh actual P16 complete smallsource read; all originalfixturetext included ifpresent."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/social/draws.rs",
+      "sha256": "788653b52576c63a07a52065f8742eb6b63bc0268cb64ce16441cdea693f8c09",
+      "scope055_index": 1201,
+      "actual_EOF": 54,
+      "scoped_ranges_compared": [
+        [
+          1,
+          54
+        ]
+      ],
+      "comparison_group": "social-random-coordinate-product",
+      "actual05_comparison": "CompleteactualP16/PRdiffempty; personalcurrentPRsamebody andeachrole comparison: ActionDraws private seed/actor/target tuple constructed together and readonly resolution/discovery useSAMEorderedparticipants; axis coordinate addsdiscoverypurpose while actionresolutionpurpose distinct. Testimonypropositionbytes, presentationobserver/subject, claimparticipants fixed2, casualstream separatepurposes. Sameactorsubjectdirection deliberatelyordered, no automatic symmetry/membership/privacy guarantee. inclusive_unit supports1; actualkernel admission/scoring recipients must handle inclusiveendpoint, not inferredprobability<1.",
+      "source_body_proof": "Actual complete counterpart source diff/currentsemanticcomparison; PRmass41freshfull; battle_combatants only Result signature delta. No hash/verdict credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/battle_combatants.rs",
+      "sha256": "761099a162f432296e633e8d5a6f3e4092c08fb664bebb89dc3be7d725988444",
+      "scope055_index": 270,
+      "actual_EOF": 24,
+      "scoped_ranges_compared": [
+        [
+          1,
+          24
+        ]
+      ],
+      "comparison_group": "allied-combatant-whole-source",
+      "actual05_comparison": "For each SAME memberID refreshcondition falliblythen load_combatant with incapacitation/pain/blood_loss fromSAME returnedcondition, collectResult onlyreturnsfullVecifall succeed. P16typed StrategicOperationResult vsPRStringResult exactoneheaderdiff, no tuplemismatchintroduced. RefreshpotentialDBwrites/nativeatomicity needactuallowerbodies/runtime, no guaranteeallpriorrefreshesrollbackfromVeccollect. DuplicateinputmemberIDs notdeduphere; actualrosterparentowns unique membership.",
+      "source_body_proof": "Fresh actual P16 complete smallsource read; all originalfixturetext included ifpresent."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/battle_combatants.rs",
+      "sha256": "85a9cdeb34de89b6b81a65c512747b50771666aae4d1e6616345a617767a6706",
+      "scope055_index": 1206,
+      "actual_EOF": 24,
+      "scoped_ranges_compared": [
+        [
+          1,
+          24
+        ]
+      ],
+      "comparison_group": "allied-combatant-whole-source",
+      "actual05_comparison": "CompleteactualP16/PRdiff examined, actualchanged PR body reread where needed: For each SAME memberID refreshcondition falliblythen load_combatant with incapacitation/pain/blood_loss fromSAME returnedcondition, collectResult onlyreturnsfullVecifall succeed. P16typed StrategicOperationResult vsPRStringResult exactoneheaderdiff, no tuplemismatchintroduced. RefreshpotentialDBwrites/nativeatomicity needactuallowerbodies/runtime, no guaranteeallpriorrefreshesrollbackfromVeccollect. DuplicateinputmemberIDs notdeduphere; actualrosterparentowns unique membership.",
+      "source_body_proof": "Actual complete counterpart source diff/currentsemanticcomparison; PRmass41freshfull; battle_combatants only Result signature delta. No hash/verdict credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/hostile_negotiation/spokesman.rs",
+      "sha256": "859e2cce6e284240050cd19aadc0485b78d976c29aa738ca1c0c08734696b03d",
+      "scope055_index": 284,
+      "actual_EOF": 27,
+      "scoped_ranges_compared": [
+        [
+          1,
+          27
+        ]
+      ],
+      "comparison_group": "live-hostile-spokesman-membership",
+      "actual05_comparison": "Actualquery restrictssamegroupID, contextHostileGroup, Counterpartyrole, location==case_site, contextvalidatminute, currentcharacteralive AND chronologyaliveatminute. Collectthenunique_lowest_ordinal_spokesman lowerhandlesduplicates/ties. Separate nativeCurrentalive+historicalminute guard intentionalboth; no firstrowfallback. No currentgroup/caseauthority/ordinalgatefromlowerhelpername, exactselectorparentstill ownsource.",
+      "source_body_proof": "Fresh actual P16 complete smallsource read; all originalfixturetext included ifpresent."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/hostile_negotiation/spokesman.rs",
+      "sha256": "859e2cce6e284240050cd19aadc0485b78d976c29aa738ca1c0c08734696b03d",
+      "scope055_index": 1222,
+      "actual_EOF": 27,
+      "scoped_ranges_compared": [
+        [
+          1,
+          27
+        ]
+      ],
+      "comparison_group": "live-hostile-spokesman-membership",
+      "actual05_comparison": "CompleteactualP16/PRdiffempty; personalcurrentPRsamebody andeachrole comparison: Actualquery restrictssamegroupID, contextHostileGroup, Counterpartyrole, location==case_site, contextvalidatminute, currentcharacteralive AND chronologyaliveatminute. Collectthenunique_lowest_ordinal_spokesman lowerhandlesduplicates/ties. Separate nativeCurrentalive+historicalminute guard intentionalboth; no firstrowfallback. No currentgroup/caseauthority/ordinalgatefromlowerhelpername, exactselectorparentstill ownsource.",
+      "source_body_proof": "Actual complete counterpart source diff/currentsemanticcomparison; PRmass41freshfull; battle_combatants only Result signature delta. No hash/verdict credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/surgery/entropy.rs",
+      "sha256": "f685dee9225286b7d1e39515f8c426ab2e04cb37b064c170298794a470e1e7c7",
+      "scope055_index": 302,
+      "actual_EOF": 28,
+      "scoped_ranges_compared": [
+        [
+          1,
+          28
+        ]
+      ],
+      "comparison_group": "dimensionless-depth-contribution",
+      "actual05_comparison": "Private ProjectileDepthContribution sampledonlyStreamId+actor fromcontext.randomSeed, index151/100 yieldslattice0..1.5. readonlypointsextractnativef32forCore scoring, zero/intended1.5valid; explicitly NOT measuredpenetrationlength or[0,1]probability. No uncheckedpublicctor/Serde/setter in28. NativeRNGcurrentSeedboundary actuallowerownsource; no directrandomwordsequence guarantee.",
+      "source_body_proof": "Fresh actual P16 complete smallsource read; all originalfixturetext included ifpresent."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/surgery/entropy.rs",
+      "sha256": "f685dee9225286b7d1e39515f8c426ab2e04cb37b064c170298794a470e1e7c7",
+      "scope055_index": 1240,
+      "actual_EOF": 28,
+      "scoped_ranges_compared": [
+        [
+          1,
+          28
+        ]
+      ],
+      "comparison_group": "dimensionless-depth-contribution",
+      "actual05_comparison": "CompleteactualP16/PRdiffempty; personalcurrentPRsamebody andeachrole comparison: Private ProjectileDepthContribution sampledonlyStreamId+actor fromcontext.randomSeed, index151/100 yieldslattice0..1.5. readonlypointsextractnativef32forCore scoring, zero/intended1.5valid; explicitly NOT measuredpenetrationlength or[0,1]probability. No uncheckedpublicctor/Serde/setter in28. NativeRNGcurrentSeedboundary actuallowerownsource; no directrandomwordsequence guarantee.",
+      "source_body_proof": "Actual complete counterpart source diff/currentsemanticcomparison; PRmass41freshfull; battle_combatants only Result signature delta. No hash/verdict credit."
+    }
+  ],
+  "contract_groups": [
+    {
+      "id": "requested-movement-vocabulary",
+      "comparison": "BattleAttackKind closed2 and MeleeMovementAction closed3, Serialize+Display exact stablewords; requested Close/Hold/Retreat intentionally distinct from realized telemetry. target_velocity receives finite NonnegativeSpeed and returns negated/zero/same signedowner, zero valid. No separately retained native velocity or cachedmode. Existing replay spelling fixtures actualreadnotrun."
+    },
+    {
+      "id": "melee-assignment-membership",
+      "comparison": "active helpers enumerate same side slice before filtering, so retained indices belong SAME immutable side. melee_assignment concatenates active preferredmelee and ranged, then inserts remaining active without duplication; however melee+ranged lists can overlap for hybrid combatant (preferredmelee+canranged), so list is not inherentlyunique. No uniqueness promise inferred until actual assignment fairness recipient/currenthybrid producer comparison. rank prefix attackers[..=attacker_index] requires currentindex membership, target modulo requires nonempty defenders (debugassert only). Private crate parent must admit active attacker and nonempty active target; not cleared by debugassert/names. Flanking applies rank>=targetslotcount intentionally, parameters floatpolicy lower."
+    },
+    {
+      "id": "foraging-bound-draw",
+      "comparison": "Private ForageDraw closed3purpose tags, same seed/source/item framing derives stable separate stream then NonZeroU64::new(upper).expect. Leaf nativeupper u64 may0; current callers positive1000/1001/authoredpositivewidth were actual Native03 source facts, but current05 parentforaging remains separately unread, so no05lowerclosure solelypriorverdict. No empirical RNG/sample/newcases. Native strict below ownership proof separate actual determinism/native095packet018."
+    },
+    {
+      "id": "physical-three-axis-adapter",
+      "comparison": "P16only18lines Serde adapter receives fixed[f32;3] array (arity enforced nativearraydecoder) then CuboidDimensions::from_metres; serialize emits canonicalaxis order. Complete leaf factory admission must be actualgeometry definition proof, not typename. No independent width/depth/height record or mutablebacking within adapter; local XYZarray nativeboundary intentional. PRfile absent, no falsecounterpartcredit."
+    },
+    {
+      "id": "age-band-current-chronology",
+      "comparison": "for_years maps allu16 including0/MAX into exact0..12/13..17/18..59/60+ bands; no cachedage/bandpair maintained. stable snake storage vs Pascal deterministiccoordinates purpose-specificdifferentobservers, notduplicate mutable authorities. Derive/Serde vocabulary closed4 but actualmacro expansion notreadhere. Alloriginalboundaryfixtures sourceonly."
+    },
+    {
+      "id": "dialogue-condition-role-membership",
+      "comparison": "Recursive All/Any/Not traverses actualownedConditiontree; Fact checks key/value compatibility and every participant role against SAME BTreeMap, accumulatesbotherrors. Always no refs. This helper does not assert whole genericLibrary validity or inspect extra FactValue policies: actual key.authoring_value_is_valid and participant_roles definitions lower/parent source. Rawrecursive depth/cycles safeownership/no explicitdepthcap noted, no invented ordinary stackfailure."
+    },
+    {
+      "id": "dialogue-prompt-bounds-and-choices",
+      "comparison": "Public serde Prompt can hold min>max, unknownrespondent, duplicatechoiceIDs, or max>choices; defaults both1/FirstResponse only convenience, no accepted seal. EachChoice owns effects and resultturns, no parallelcolumn alignment. Actual compile/runtimeparent validates bound/respondent/duplicate membership before accepted use, remains exactqueuedbody; this declaration alone is rawauthoredinput, not new latentacceptedLibraryfinding bytypename."
+    },
+    {
+      "id": "carried-mass-source-priority",
+      "comparison": "Both snapshots actualsource: personalrows filteredexactcharacter, fireplace-rooted excluded, first matching foodlot overrides cataloguemass and uses max0. Otherwise catalogueitem lookup skipsunknown, effectivefraction replacesquantity (not multipliedtwice), parametricrecipe mass orfittedholder fallbackitemweight timesquantity thenSUM. P16collectsResult<Vec<Option>> beforefinalsum, propagatesmissingrecipe/leaferrors; PR41 returnsrawf32 andexpectsrecipevalid, so PRP16 differ in admission/errornot mereheader. FreshPR41 read afterglobal050 Root170 qualification; no retrocredit. Raw foodmassInf and finite many products/sums can remain nonfinite; normal food/recipe invariant gates queued separately. Root04F035/F036 physical/materialgraph/earlypanic qualification only, no duplicatecount here."
+    },
+    {
+      "id": "corpse-derived-context",
+      "comparison": "Builds ALL AutopsyEvidenceContext fields from SAME StrategicCorpse+queriedminute, derives at_scene from actualcorpse_location and decomposition from death/current/handling. No new retained mirror/cache. buried/exhumed chronology precedence andhandling/openingbounds are lower Core/helper/rawpersistedpolicy, not authenticatedby adapter; rawdirectrowcanbroader. Source003 priorlower facts are navigation, no blanket05claim."
+    },
+    {
+      "id": "corpse-purpose-separated-lattice",
+      "comparison": "Openingdraw frames corpseID, actorLEbytes,revisionLEbytes,receipt; permissionframesattemptID and distinctpurpose. Both index(BPwhole+1) intentionallyinclude endpoint10000; openingu16safe iffactualconstant10000 fromcanonicaldefs (alreadyactualsharedfacts), permissiondividespositive10000 toinclusive[0,1]. Numericlattice0..10000 notMeasuredQuality/guaranteedauthority; receipt/member/currentcorpserelationship suppliedparent. No fixedoneword nativeconsumptionpromise."
+    },
+    {
+      "id": "persisted-treatment-adapter",
+      "comparison": "Checks globalruleset exact currentversion BEFORE creating CoreAdministration; Dose::try_new falliblyreadmits actualrawpersisteddose; copies ALL identity/profile/route/region/clock/stopping/sensitivity/adversefrom SAMErow. Does NOT resolve preparation/profileversion, stop>=start, route/region/profile suitability, basispointbounds or patient/currentrowmembership here. These actual relying physiology gates requiredparent; no whole-product seal from checkedDose."
+    },
+    {
+      "id": "fixture-administration-whole-row",
+      "comparison": "Actual3tuple source gives paired administered/stopped with samefixtureclock: at6days/stop5,at4/stop3,at2/None; checked750/STANDARD1000/checked1250 then get stored, no ordinaryzero/over8000writer fromthisfixture. Samepatient/preparationoralrehydration/profile1/Oral/NoneRegion/currentruleset/currentphenotype key, variationfallibleBEFOREeachinsert. day_minutes rawu64 multiplication canoverflowarbitraryAPI; actualclinical callerDAY1440 source-specific Rigclinical001 fact, not execution/wholeDBfixtureclearance. NativeDBmultiinsertrollback notindependentlyproved; no claimpartialpublication onerror."
+    },
+    {
+      "id": "interval-overlap-of-participant-cursors",
+      "comparison": "disease_events flatmaps each episode SAMEfrom/to/immunity, no independentlymatched columns. contact_windows uses pair IDs tolookup each start/horizon; start=max knownstarts(defaultpair.start)+1 thenmaxpair.start, end=min knownhorizons(defaultpair.end) thenminpair.end; discardstart>end. Missing one participant intentionally uses knownother+pair, no strictexact-two requirement proven. Inclusive[previous+1,current] avoids normaldoublecount; atMAX saturating+1 repeats endpoint possibility requires actualcaller terminalclockpolicy, no normalreplayclaim. IDs/orderpairvalidation remainsCachedPair source, adapterdoesnot sort or rejectsameID."
+    },
+    {
+      "id": "blood-window-authority-delegation",
+      "comparison": "Exact Blood depositarray/disease/from/to delegatesCorefilth; companionany scans canonicalSTARTER_DISEASES filtersBloodsupport then checksnonemptywindows. Does not fabricatewindow frompositivecount/annotation; actualmerged/clippedCorekernel still ownscope. No extra localcache/rowstate; no allpathforeignblood predicate from functionname."
+    },
+    {
+      "id": "forage-terminal-whole-boundary",
+      "comparison": "Characterclock lookupmissing\u2192Err, no0fallback. injury preview first uses suppliedduration/NONErecovery, disease preview uses injury.elapsed; safe=min injury/disease. Some checkedcurrent+safe ifshorterORterminalevenatfull-duration, otherwiseNone. Bothlowerterminal flags retained not inferredsolelyshortelapsed; zero terminal possiblegenuine. checkedMAXclock error notsaturatingstart; actuallowerpreviewmaymutate? purepreviewmeaningactualcallees pending, no nativecommit guarantee."
+    },
+    {
+      "id": "exact-ingredient-deletion-pair",
+      "comparison": "Consumes suppliedinventory_id andingredientobject_id acrosslot,amount,containment-child,object,inventoryrow; helper notitself compare inventory.object_id==ingredient_id or currentcustody. Exact upstream recipe/ingredient admission MUSTbindpair before destructivehelper, authorizedsource-onlynoactualdeletion. Rawfunctionpubsuper validnumbersnotwholeobjecttoken; parentherbalism/inventoryauthority actual05 remainsunread, so no ordinarywrongdeletefinding."
+    },
+    {
+      "id": "actor-relative-romance-pool",
+      "comparison": "Filters settlement residentpresenceexactsettlement, excludesactor, invokesnpc_is_present atSAMEsuppliedminute then requires matchingpolicyrowcharacter, builds CandidatecharacterID+seed fromSAMEjoin. Sourcepresence duplicates may produce repeatedidenticalcandidate but canonicalstable_candidate_order Native171dedups/rejectsconflicts. Actualalive/adult/nonkin/co-locationothereligibility comesseparate policy, not impliedjustpresencehelper."
+    },
+    {
+      "id": "payload-errors-native-port",
+      "comparison": "P16 StrategicOperationError closedtypedcauses retain AuthoredThreat/Resolution/Geometry/Timing/Custody transparently; item-specificfailures ownitemString andOperation rawtext escape for currentStringerrors. This is errorpayload variation, notinvalidoptional recordcorrelation; Display atnativeReducerport legitimate, earlytext erasure projectseparate lens. No PRoperation_errorcounterpart exists, no aliascompatibility path invented."
+    },
+    {
+      "id": "current-organization-privilege",
+      "comparison": "ClockmissingErr; membershipcurrent exactlyActiveAND minute<=paidThrough inclusive. Currentprivilege additionallyqueriesdefinition.has_privilege_at_role(role.id,privilege); helper receivesseparate definition/membership/role, doesnot independently prove sameorganization/roleID binding or enrolledminute<=current. Normalparent selectsboth knownorg/currentrole asactual03Camera139 fact; current05 parentorg remainsownunread, no blanketauthority assurance or arbitraryrawinputexploit."
+    },
+    {
+      "id": "patient-death-payload-correlation",
+      "comparison": "Cloneinputthen Disease sets died_at/private_terminal and death_kind togetherSome/None, preserving payloadshape. CarrierAttack computes latest beforeprivate terminal(or now), minexistingattack/latest thenmaxsymptoms; if beyondlatest removesbothdeathfields atomically. Nonekind leavesexistingexposureuntouchedrawdiedAt maybecontradictory ifinputinvalid: rawOutbreakExposure notacceptedseal. Atterminal0 saturatingsub1 cannotrepresentstrictpredecessor, so actualgeneratorCorechronology/policy mustsupply feasibleordering; no normaldeath/runclaimfromthishelperalone."
+    },
+    {
+      "id": "social-action-self-pair-admission",
+      "comparison": "Parsesclosedactionfirst, checks actor==target iffReflect BEFOREfetchpair and validate_social_pair. This establishesprivateaction/is_self correlation for actualrequest; actualliving/co-location/currentauthority is validate_social_pairbody ownqueuedparent, notcreditedfromname. No callerpermissioncheckaddedby parse, no missingclockfallback."
+    },
+    {
+      "id": "social-discovery-axis-collection",
+      "comparison": "Self route returnsSelfKnowledge+topicaxisfallbackOutlook; nonselfReflectunreachable reliesonadmitSocialAction exactpair. Listen mayreturnTransparency twice when topic mapsTransparency; outputVec is selectedaxislist, not promisedunique set; actualdiscoveryrecipientmustdedup orintendtwosamples before duplicateawardclaim. Reassureemptyintentional no learning; otheraction-specificaxes distinctsemanticroutes, no paralength fields. Privatehelper arbitraryReflectfalse APIpanic notnewpublicnormalfinding withoutactualcallerproof."
+    },
+    {
+      "id": "social-random-coordinate-product",
+      "comparison": "ActionDraws private seed/actor/target tuple constructed together and readonly resolution/discovery useSAMEorderedparticipants; axis coordinate addsdiscoverypurpose while actionresolutionpurpose distinct. Testimonypropositionbytes, presentationobserver/subject, claimparticipants fixed2, casualstream separatepurposes. Sameactorsubjectdirection deliberatelyordered, no automatic symmetry/membership/privacy guarantee. inclusive_unit supports1; actualkernel admission/scoring recipients must handle inclusiveendpoint, not inferredprobability<1."
+    },
+    {
+      "id": "allied-combatant-whole-source",
+      "comparison": "For each SAME memberID refreshcondition falliblythen load_combatant with incapacitation/pain/blood_loss fromSAME returnedcondition, collectResult onlyreturnsfullVecifall succeed. P16typed StrategicOperationResult vsPRStringResult exactoneheaderdiff, no tuplemismatchintroduced. RefreshpotentialDBwrites/nativeatomicity needactuallowerbodies/runtime, no guaranteeallpriorrefreshesrollbackfromVeccollect. DuplicateinputmemberIDs notdeduphere; actualrosterparentowns unique membership."
+    },
+    {
+      "id": "live-hostile-spokesman-membership",
+      "comparison": "Actualquery restrictssamegroupID, contextHostileGroup, Counterpartyrole, location==case_site, contextvalidatminute, currentcharacteralive AND chronologyaliveatminute. Collectthenunique_lowest_ordinal_spokesman lowerhandlesduplicates/ties. Separate nativeCurrentalive+historicalminute guard intentionalboth; no firstrowfallback. No currentgroup/caseauthority/ordinalgatefromlowerhelpername, exactselectorparentstill ownsource."
+    },
+    {
+      "id": "dimensionless-depth-contribution",
+      "comparison": "Private ProjectileDepthContribution sampledonlyStreamId+actor fromcontext.randomSeed, index151/100 yieldslattice0..1.5. readonlypointsextractnativef32forCore scoring, zero/intended1.5valid; explicitly NOT measuredpenetrationlength or[0,1]probability. No uncheckedpublicctor/Serde/setter in28. NativeRNGcurrentSeedboundary actuallowerownsource; no directrandomwordsequence guarantee."
+    }
+  ],
+  "new_unique_findings": [],
+  "scope_qualifications": [
+    "Currentglobal055 same2825 variants+240overlays capturesREG035/036. Mandatory188 EOF331/no332-338 andQUAL058 outside-union noncredit retained. No additional material fromthisbatch."
+  ],
+  "remaining_dependency_obligations": [
+    "Exactparentclinical/filth/social/custody/organization/autoresolve selector callers remain queued; nativeflags/Result/typename do not establish whole lower contract. Existing prior03actualnarratives cited onlyspecificfacts/navigation, not05verdict."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

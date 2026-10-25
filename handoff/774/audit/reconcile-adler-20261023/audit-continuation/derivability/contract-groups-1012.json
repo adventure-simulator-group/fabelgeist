@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1012",
+  "at": "2026-10-25T17:30:21.463786+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1180,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence.rs",
+  "sha256": "df7d47666e333785437d381321a5e7b85cd6e4c453067c83f8d86ea00a30ce35",
+  "actual_compared_ranges": [
+    [
+      1,
+      350
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Residence offer/holding/primary/charge/occupant/transition table rows Clone/Debug; residence vocab enums Clone/Copy/Debug/PartialEq/Eq/SpacetimeType; BackendCharacterResidenceStatus structural+SpacetimeType already. Inherent const stable_id identity and historical transition folds/contextual observer gateway projection no handtrait/codec. Output redacts billing timestamps for nonowners, not equivalent raw From derive; child declarations independent.",
+  "first_unfinished": {
+    "scope_index": 1180,
+    "line": 351
+  },
+  "execution": "none"
+}

@@ -1,0 +1,106 @@
+/* Essential names stay visible; longer keys open only beside their subject. */
+.interface-key, .region-reading {
+  font-family: var(--font-ui);
+  font-size: .8rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  margin-block: .5rem;
+}
+.interface-key > summary, .region-reading > summary {
+  cursor: pointer;
+  color: var(--text-primary);
+  padding-block: .4rem;
+}
+.interface-key[open] { background: var(--panel-bg); padding: .5rem .75rem; border: 1px solid var(--border-color); }
+.interface-key p + p { margin-top: .5rem; }
+.interface-key dl { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: .5rem .75rem; }
+.interface-key dd { margin: 0; }
+.interface-swatch-key { display: flex; flex-wrap: wrap; gap: .4rem 1rem; margin-block: .5rem; list-style: none; }
+.interface-swatch-key li { display: flex; align-items: center; gap: .4rem; }
+.interface-swatch-key i { width: .9rem; height: .9rem; border: 1px solid #aaa; }
+.region-reading p { padding: .5rem; background: var(--panel-bg); border-left: 2px solid var(--border-accent); }
+.condition-key { position: relative; margin: 0; }
+.condition-key[open] { position: absolute; top: 9rem; right: 1rem; z-index: 90; width: min(28rem, calc(100vw - 2rem)); box-shadow: var(--shadow-lg); }
+.stat-readable-label { display: none; }
+.conversation-tab > .sr-only {
+  position: static; width: auto; height: auto; padding: 0; margin: 0;
+  overflow: visible; clip: auto; white-space: normal;
+  font: .8rem/1.3 var(--font-ui);
+}
+.party-skill-icon-cell { text-align: left; white-space: normal; }
+.party-skill-icon-cell > .stat-icon { vertical-align: middle; }
+.party-attribute-name { font-family: var(--font-ui); font-size: .8rem; }
+.skill-rank-segment > .rank-damage, .attribute-rank-bar > .rank-damage {
+  background-image: repeating-linear-gradient(135deg, transparent 0 3px, #e6dfc5 3px 4px);
+}
+.trade-inventory-table th .inventory-header-label { display: block; font: .75rem/1.3 var(--font-ui); color: var(--text-primary); }
+.trade-inventory-table th button { min-height: 2.5rem; white-space: normal; }
+.trade-inventory-table th.inventory-column-type .inventory-header-label { display: none; }
+.trade-inventory-table col.inventory-column-count,
+.trade-inventory-table col.inventory-column-target,
+.trade-inventory-table col.inventory-column-equipped,
+.trade-inventory-table col.inventory-column-weight,
+.trade-inventory-table col.inventory-column-gold { width: 3.5rem !important; }
+.inventory-column-picker summary { width: auto; min-height: 2.5rem; padding: .5rem; font: .875rem var(--font-ui); }
+.chat-channel-filter { width: auto; min-width: 2.5rem; padding-inline: .4rem; }
+.chat-channel-filter span { font: .75rem var(--font-ui); }
+.settlement-chat-filters { flex-wrap: wrap; }
+.conversation-tab { width: auto; min-width: 3rem; display: inline-flex; align-items: center; gap: .3rem; padding: .4rem .6rem; }
+.conversation-dock-header { flex-wrap: wrap; }
+.conversation-tabs { flex-wrap: wrap; }
+.coating-status { flex-wrap: wrap; }
+.filth-status-label { min-width: 100%; font: .8rem var(--font-ui); }
+.equipment-slot-modal { max-width: min(58rem, calc(100vw - 2rem)); }
+.equipment-slot-modal h2 { padding-right: 2rem; }
+.equipment-slot-modal p { max-width: 45rem; margin-block: .75rem; font: .875rem/1.5 var(--font-ui); }
+.equipment-slot-choice:disabled { opacity: 1; border-style: dashed; }
+.equipment-slot-choice[aria-current="true"]::after { content: "Current"; font: .7rem var(--font-ui); }
+.equipment-slot-modal .equipment-slot-choice-label { display: block; font: .75rem/1.3 var(--font-ui); }
+@media (max-width: 700px) {
+  .equipment-slot-modal .equipment-slot-keyboard { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .equipment-slot-modal .equipment-slot-choice { grid-area: auto; min-height: 5rem; }
+  .condition-key[open] { position: static; width: 100%; }
+}
+
+.inventory-browser-table-frame { width: 100%; min-width: 0; overflow-x: auto; }
+.inventory-browser-table-frame > .trade-inventory-table { width: max-content; min-width: 27rem; }
+.trade-inventory-table th > button { flex-wrap: wrap; gap: .2rem; }
+.trade-inventory-table th .inventory-header-label { width: 100%; }
+.trade-inventory-table td { color: var(--text-secondary); }
+.inventory-column-actions, .inventory-actions-cell, .inventory-actions-header { width: 2.5rem; min-width: 2.5rem; }
+.left-sidebar .encumbrance-inventory-scroll, .right-sidebar .encumbrance-inventory-scroll { padding-inline: 0; margin-inline: 0; direction: ltr; }
+.party-skill-name { white-space: normal; overflow: visible; }
+.party-attribute-name { white-space: normal; overflow: visible; text-overflow: clip; }
+.encumbrance { flex-wrap: wrap; gap: .5rem; }
+.encumbrance-reading { flex-basis: 100%; font: .8rem/1.4 var(--font-ui); }
+.surgery-supply { display: flex; flex-direction: column; gap: .25rem; height: auto; min-height: 4.5rem; }
+.surgery-supply-label { font: .8rem/1.3 var(--font-ui); text-align: center; }
+.surgery-difficulty { flex-wrap: wrap; }
+.surgery-difficulty-reading { flex-basis: 100%; font: .8rem/1.4 var(--font-ui); }
+@media (min-width: 901px) {
+  #strategic-page .main-grid:has([data-candidate-roster]) { grid-template-columns: minmax(18rem, 1fr) minmax(24rem, 1.5fr) minmax(18rem, 1fr); }
+}
+
+.settlement-chat-filters { flex-wrap: nowrap; }
+.conversation-tabs { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: thin; }
+.conversation-tab { flex: 0 0 auto; }
+.conversation-dock-tools { overflow: hidden; }
+.conversation-panel, .dialogue-category-panel { min-height: 3rem; }
+
+@container settlement-chat (max-width: 34rem) {
+  .settlement-chat-layout { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto minmax(3rem, 1fr) minmax(4rem, 1fr) auto; }
+  .settlement-chat-filters { grid-column: 1; grid-row: 1; flex-direction: row; flex-wrap: wrap; gap: .25rem; padding: .3rem; }
+  .conversation-dock-tools, .conversation-dock-header > .conversation-tabs { grid-column: 1; grid-row: 2; }
+  .conversation-panel, .dialogue-category-panel { grid-column: 1; grid-row: 3; }
+  .settlement-chat-messages { grid-column: 1; grid-row: 4; }
+  .settlement-chat-composer { grid-column: 1; grid-row: 5; }
+}
+
+.inventory-browser-toolbar { position: relative; }
+.inventory-browser-toolbar > .interface-key { flex: 0 0 auto; margin: 0; }
+.inventory-browser-toolbar > .interface-key[open] { position: absolute; top: 2.8rem; left: .5rem; right: .5rem; z-index: 60; box-shadow: var(--shadow-lg); }
+.inventory-browser-toolbar > .interface-key > summary { padding: .5rem; }
+.encumbrance { padding-block: .4rem; }
+.encumbrance-reading { margin: 0; }
+
+.interface-key :is(p, dd, dt, li), .region-reading p { font: .875rem/1.5 var(--font-ui); }

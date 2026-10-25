@@ -1,0 +1,128 @@
+{
+  "id": "CONT-ROOT-OWNER-HELPER-DELTA2-041",
+  "at": "2026-10-22T05:44:42.531412+00:00",
+  "lens": "audit-existing-type-owners",
+  "status": "Exact2 new helper/current-role comparisons exhausted WITH_FINDINGS; no new material source/range or producer reopening",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-producer-fixedpoint-010.json",
+    "sha256": "57c0e5956c9ec89f35e67a647105aa6952fe4e1b8f6cc06e9626065979eef761"
+  },
+  "role_overlays": {
+    "record": "continuation/owner-range-extensions.jsonl",
+    "sha256": "87c34e16cbb2481c2aee972800bb4c0cf2c30ad74e486eb304e6c589627fff18"
+  },
+  "roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation/procedural.rs",
+      "material_ranges": [
+        [
+          157,
+          226
+        ],
+        [
+          669,
+          715
+        ]
+      ],
+      "actual_source_read": "Root actual source body read independently during producer review039 and reanalyzed now for owner fit; no producer verdict carry",
+      "producer_and_use": "Constrained local atan2 yaw/pitch -> checked LookDistribution divide -> clamp -> Vec2 -> Option -> owner BTreeMap -> neck/head selection -> native Euler x/y -> original quaternion multiplication/normalize -> Transform. GuardNone distinct from zero offset.",
+      "candidate_definition_comparisons": [
+        "Geometry Radians finite signed unwrapped; matches finite angle unit but cannot represent NaN produced by unchecked native CharacterLook/Quat. Silent finite admission would change existing invalid native behavior.",
+        "SignedAngleDegrees finite signed degrees is wrong native radian representation; roundtrip changes represented values/FP. AngularMagnitudeDegrees nonnegative is wrong signed yaw/pitch role.",
+        "BodyAngle actual client body_values13/43\u201383 is finite signed body-response pitch/roll composition over Radians with BodyAngle error authority. BodyResponseAngles holds pitch/roll, not guarded look yaw/pitch. Numeric similarity not role equivalence.",
+        "LookDistribution is retained positive fractional divisor, not result-angle owner. UnitInterval/Ratio dimensionless wrong unit/purpose. RadiansPerMetre symbol navigation shows angular gradient, wrong dimension; its body is not analyzed or newly scoped. Native Vec2 is two semantic Euler angle components here, not displacement/plan point."
+      ],
+      "disposition": "Missing exact semantic angle-pair result record for the full broad native domain; canonical finite Radians reusable only where actual input contract proves it. Keep mandatory F001 raw producer strengthening. A named result record can own yaw/pitch representation/axis meaning and preserve raw rejected/native behavior without fabricating stronger invariant or duplicating finite-angle owner. Later admission/granularity lenses determine final coherent API.",
+      "acceptance": "Carry actual semantic pair through both whole helper APIs and owner map; expose components at actual original Euler expression only. Preserve gating/atan2/divide-clamp/weights/NaN/FP and quaternion product. No wrap/clamp/reject policy added beyond original."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/elapsed.rs",
+      "material_ranges": [
+        [
+          1,
+          44
+        ],
+        [
+          83,
+          111
+        ]
+      ],
+      "actual_source_read": "Root actual source body independently read039; source-backed new current positive-duration and native ragdoll age comparison now",
+      "producer_and_use": "Bevy Time.delta Duration -> From<Duration> finite nonnegative AnimationElapsed; checked_add retains typed age or Overflow. PositiveDuration TryFrom delegates rawfrom_seconds then is_zero; wraps checked elapsed. Actual muscle config After preserves PositiveDuration until original arithmetic/Serde.",
+      "candidate_definition_comparisons": [
+        "AnimationElapsed finite>=0 relative elapsedseconds, zero legitimate; native Duration maximum u64seconds remains finite in f32. Distinct from absolute simulation/report tick and sample counter.",
+        "PositiveAnimationDuration strict-positive checked subset composes exact same AnimationElapsed; from_elapsed rejects bothzero signs, elapsed getter returnschecked value. Unit/policy/sourceauthority match existing exact owner035; no duplicate duration wrapper needed.",
+        "checked_add does original f32sum then Overflow on nonfinite, returns typed relative elapsed; source failure ordering and age commit preserved. Native serde/f32 primitive projections are real format or math operations only."
+      ],
+      "disposition": "Exact existing canonical owner/subset match; no new producer or owner definition beyond globally scoped contracts."
+    }
+  ],
+  "actual_existing_definition_body_comparisons": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+      "sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+      "fresh_body_ranges_this_owner_pass": [
+        [
+          1,
+          37
+        ]
+      ],
+      "limits": "Already globally scoped exact definitions; no new material role beyond prior owner035 and current two helpers"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+      "sha256": "62a3215d6f52174d7351776d55c5f7f07adf340abada8e8aff653d674f389095",
+      "fresh_body_ranges_this_owner_pass": [
+        [
+          9,
+          14
+        ],
+        [
+          25,
+          31
+        ],
+        [
+          37,
+          53
+        ],
+        [
+          80,
+          94
+        ]
+      ],
+      "limits": "Already globally scoped exact definitions; no new material role beyond prior owner035 and current two helpers"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+      "sha256": "d2eeb3c98817ee0e266094c559b48ef3736dc8b9fcdbcd975a9f47f637213222",
+      "fresh_body_ranges_this_owner_pass": [
+        [
+          29,
+          34
+        ],
+        [
+          126,
+          140
+        ]
+      ],
+      "limits": "Already globally scoped exact definitions; no new material role beyond prior owner035 and current two helpers"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation/procedural/body_values.rs",
+      "sha256": "ac32044bdad9c67748eefca7b1b7db59a7eed439e3182af7581833f49076750b",
+      "fresh_body_ranges_this_owner_pass": [
+        [
+          1,
+          85
+        ]
+      ],
+      "limits": "Already globally scoped exact definitions; no new material role beyond prior owner035 and current two helpers"
+    }
+  ],
+  "source_edits": 0,
+  "project_execution": 0,
+  "new_human_decisions": [],
+  "other_lens_credit": false,
+  "producer_fixedpoint_complete": true,
+  "global_clearance": false
+}

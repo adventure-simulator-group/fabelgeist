@@ -1,0 +1,20 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-363",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        537,
+        538,
+        539,
+        540,
+        541
+      ],
+      "comparison": "537123/538205/539448/54098/541111 full extant source read;539split1-250/251-448. Axle/bell native geometry numerical kernels export typed CollisionCuboid results, preserve physical source identity and exact causes. Bell shape_for_role uses actual ChurchBell/BellAxle roles to choose existing BellShell/CylinderAlongX; other roles Cuboid, no new enum payload absent in these shapes. Collision selection keeps operable doors separate and explicitly selects fixed walls/floors/heating/workplace parts; no blanket all geometry static requirement. Arch actual collision recipient233-265 calls canonical from_solid then complete strips, constructs conservative section boxes, fallback for nonarch envelope; OPEN361 gains this exact receiver, visual mesh caller remains to trace. BuildingCollision ground_floor_contact_bounds returns Option complete bounds with actual sampled contact absence; no redundant initialized flag. Zero-height cuboids explicitly accepted; wire SerializedCuboid raw fields are actual private deserializer DTO, admitted once through checked from_metres, no internal raw bag migration finding. Cuboid corner/edge integers encode fixed topology, not semantic Boolean modes; preserve order for downstream correspondence. Test source inspected only.",
+      "finding_refs": [],
+      "disposition": "Typed optional contacts/native adapters and arch collision consumer; visual arch trace remains open"
+    }
+  ],
+  "new_findings": [],
+  "limits": "No generation, collision math, test/check or source execution; no repair/plan/clearance."
+}

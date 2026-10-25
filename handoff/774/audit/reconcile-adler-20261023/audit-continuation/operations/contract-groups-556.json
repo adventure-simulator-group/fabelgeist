@@ -1,0 +1,128 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-556",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-shell/src/ccd.rs",
+      "sha256": "bd0f3a309967fdd9399aaf5eb558944b9e0c0059b35ae7e143922be675bd0047",
+      "actual_EOF": 394,
+      "actual_compared_ranges": [
+        [
+          1,
+          394
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-shell/src/shell.rs",
+      "sha256": "d5093a237dd5e67f1284d2c3f0be619e94744551815e5cbc26dfc1418450c2c2",
+      "actual_EOF": 408,
+      "actual_compared_ranges": [
+        [
+          1,
+          408
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-shell/src/surface_contact.rs",
+      "sha256": "6bdba5ebaf3c2f90c51ee7a6f35bba9214605cb9ab80cdbf4b9b6a94eef19fa5",
+      "actual_EOF": 623,
+      "actual_compared_ranges": [
+        [
+          1,
+          623
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-shell/src/surface_contact/broad_phase.rs",
+      "sha256": "7e110378e0a6c4c85508d64de1cee18757b4ae6db8c593e1d9301028bdf5ddb7",
+      "actual_EOF": 73,
+      "actual_compared_ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-shell/src/surface_contact/solve.rs",
+      "sha256": "3391f999990a711fa2e38f73c7585057b1101305aab1cef5cf0b52119146d93b",
+      "actual_EOF": 309,
+      "actual_compared_ranges": [
+        [
+          1,
+          309
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-shell/src/topology.rs",
+      "sha256": "98444936697b73035be3e07e0464a3e4a031ad0b1f28084275206b1b8ae7eb91",
+      "actual_EOF": 427,
+      "actual_compared_ranges": [
+        [
+          1,
+          427
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-shell/src/wgsl.rs",
+      "sha256": "e724670ea98957037a3fed9a6057929b2f48be87f2c217e5a01b59649a050ccc",
+      "actual_EOF": 361,
+      "actual_compared_ranges": [
+        [
+          1,
+          361
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-shell/src/mesh.rs",
+      "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+      "actual_EOF": 139,
+      "actual_compared_ranges": [
+        [
+          1,
+          139
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Continuous contacts preserve conservative time, bounded barycentric gradients and fixed/prescribed bodies.",
+      "evidence": "Full CCD394, surface623, broadphase73, solve309 personally consumed including all embedded fixture tails. CCD computes in f64 from f32positions; segment/triangle degeneracy guarded, weights returned as convexsignedcombination. Exhausted budget and nonprogress return lastsafecontact, not None. Finite f32 geometry alone does not overflow these f64 norm/cross intermediary degrees; no blanket overflow finding promoted. solve validates initial positions/masses/cardinality before mutation; gradients and response arithmetic still use existing raw-backed numerical owners.",
+      "qualifications": "Exact archive/root/initial04-invariant-operations/findings.jsonl record_index5 ROOT-INITIAL04-F006 consumed: API activity NaN/divisor/accumulation contracts remain, this receiver provides additional actual gates but not universal numericclosure. No CCD/native/GPU tests executed. Initially intersecting meshes explicitly require untangled input; no inferred layerorder. Static obstacles fixed positions intentional, animated prescribed body requires supplied previous/current channel.",
+      "acceptance": "Preserve conservative lowerbound/budget semantics, finite normalizeddirection fallback and actual contact/resting thresholds, valid zero/pinned responses and signed affinegradients; readmit computed active finite response where actual overflow loses guarantee."
+    },
+    {
+      "contract": "Compiled shell caches/native strides and mutable material/topology form a coherent object.",
+      "evidence": "Full shell408/topology427/WGSL361/mesh139 read. ShellMesh packs each bend into eight f32 values including rest+padding at mesh70; Shell flatten/reorder preserves8 and WGSLstride8 is coherent, suspected4-vs8 mismatch discharged by actualproducer. Mesh new is authoring; Shellnew calls validate before allocations/native indexing. Validate checks finite geometry/rest/weights, all indices/cardinalities/masses and native particlecount. Public Shell latertriangles/particles/material can invalidate caches and bypass validation: exact F083.",
+      "qualifications": "rig/admission03/findings.jsonl record_index89 RIG-ADMISSION03-F083 consumed. Source producer may return authoring mesh with derived invaliddata and Shellnew reject; this is not automatically admitted-statefailure. Topology explicitly skips nonmanifold bending and degeneratequad None; preserve intentionalpolicy.",
+      "acceptance": "One coherent compiledshell replacement/materialapply admission, preserving eightwordlayout, coloring reorder, materialmass rebuild distinction and current validauthoring rejection."
+    },
+    {
+      "contract": "Solver timestep/substep and host correction update have explicit executable and failure policies.",
+      "evidence": "Shell step_interleaved rejects nonfinite/<=0 initialdelta then divides by substepcountmax1 without postdivisioncheck; exact F084 underflow-tozero remains. Interval0 explicitGPU-only validpolicy; intervals>1 snapshot wholeinterval before groups. project_particles sequential positions/velocities writes can leave partialnativepublication if laterwriteErr; conditional native failure, no actual failure exercised. Outer passesmax1 explicit policy; no claim to guarantee convergence after fixedbudget.",
+      "qualifications": "rig/admission03/findings.jsonl record_index92 RIG-ADMISSION03-F084 exact consumed; native solvebody next frontier. Failedstep_interleaved mayleave completedsubsteps bydesign, no rollbackpromise inferred. RIG-OWNER-F013 staticclearance owner match consumed, not an operationdefect byitself. Self-collision fixedpoint accumulation nativecapacity and radius-derived counts need actual owninghost producer inventory later; no normalcollisionoverflow asserted.",
+      "acceptance": "Executable step admitted after arithmetic beforepasses; explicit bounded completion/partialnative errorstate; preserve interval0/noop/current phasing and material/coherent topology policies."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "8 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/fabelgeist-xpbd/src/constraint.rs"
+}

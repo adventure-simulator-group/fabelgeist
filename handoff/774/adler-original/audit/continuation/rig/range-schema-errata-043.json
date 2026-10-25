@@ -1,0 +1,95 @@
+{
+  "id": "RIG-CONT-PPS-RANGE-SCHEMA-ERRATA-043",
+  "applies_to": [
+    "web-request-reconciliation-039.json::fresh_bounded_seam_proofs",
+    "pure-food-recipient-carry-forward-041.json::native028_unfingerprinted_receivers.paths"
+  ],
+  "reason": "PowerShell serialized a single nested range as a flat pair in newly authored fields. Endpoints are unchanged. Consume normalized array-of-range-pairs here; inherited historical source arrays were already nested and remain authoritative.",
+  "normalized_fresh_seam_proofs": [
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/tactical.rs",
+      "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "read_ranges": [
+        [
+          271,
+          490
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/stdb.rs",
+      "sha256": "ab24f2abcf0306df9967ba4f53671ead170142f7fd1a0697bf116389584da5b8",
+      "read_ranges": [
+        [
+          1,
+          100
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+      "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "read_ranges": [
+        [
+          537,
+          874
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection/projection_equipment.rs",
+      "sha256": "2ac9b1b21c4c3c62b6815b0885c43e18995cc9bed66fde7d692bcd7c00a07f81",
+      "read_ranges": [
+        [
+          1,
+          139
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/tactical/request.rs",
+      "sha256": "9d7e1ac4bf3e219258571dc74f93f8adef66cd55dcab6fc2d49edf0c60e4cb7d",
+      "read_ranges": [
+        [
+          1,
+          133
+        ]
+      ]
+    }
+  ],
+  "normalized_prior_native028_unfingerprinted_ranges": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-strategic-sim/src/investigation_eval/report.rs",
+      "read_ranges": [
+        [
+          1130,
+          1205
+        ]
+      ],
+      "status": "prior Native028 range only; fingerprint not supplied; parent must reconcile"
+    },
+    {
+      "source_id": "physical-p16:crates/strategic-web/src/routes/settlements/camp.rs",
+      "read_ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "status": "prior Native028 range only; fingerprint not supplied; parent must reconcile"
+    },
+    {
+      "source_id": "physical-p16:crates/strategic-web/src/templates/settlement/character_skills.rs",
+      "read_ranges": [
+        [
+          2090,
+          2140
+        ]
+      ],
+      "status": "prior Native028 range only; fingerprint not supplied; parent must reconcile"
+    }
+  ],
+  "coverage_change": "none",
+  "source_repair": "none",
+  "validation": "JSON text readback only; no project command"
+}

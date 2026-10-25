@@ -1,0 +1,277 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-666",
+  "at": "2026-10-25T16:23:57.198639+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 963,
+      "source_id": "pr-working:crates/adventuresim-core/src/physical_object.rs",
+      "sha256": "906e67eed5acc9fbf6ab98e2e4bc7df11b8e9742c1ee148092c7d2061f64afab",
+      "actual_EOF": 383,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/physical_object.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/physical_object.rs",
+        "sha256": "906e67eed5acc9fbf6ab98e2e4bc7df11b8e9742c1ee148092c7d2061f64afab",
+        "bytes": 13179,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                150
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-COOKING-SCOPE-001"
+            ]
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                383
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-CUSTODY-FOOD-RECEIVERS-001"
+            ]
+          },
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/supplemental-operation-shared-links.json",
+            "ranges": [
+              [
+                1,
+                150
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-COOKING-SCOPE-001"
+            ]
+          },
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/supplemental-operation-shared-links.json",
+            "ranges": [
+              [
+                1,
+                383
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-CUSTODY-FOOD-RECEIVERS-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 183,
+            "read_ranges": [
+              [
+                1,
+                383
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-CASE-CUSTODY-072"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/physical_object.rs"
+          },
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 19,
+            "read_ranges": [
+              [
+                1,
+                185
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-CATALOG-008",
+              "RIG-OWNER-GRAPH-009"
+            ],
+            "read_status": "affected-physical-ID-definition-read-later-custody-unrelated-not-credited",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/physical_object.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 12,
+            "read_ranges": [
+              [
+                1,
+                383
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-STRATEGIC-002"
+            ],
+            "read_status": "full_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/physical_object.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera",
+          "rig",
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CASE-RECEIVERS-029",
+            "json_pointer": "/related_current_sources/2",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/physical_object.rs",
+            "read_ranges_as_recorded": [
+              [
+                142,
+                201
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/physical_object.rs",
+              "sha256": "906e67eed5acc9fbf6ab98e2e4bc7df11b8e9742c1ee148092c7d2061f64afab",
+              "read_ranges": [
+                [
+                  142,
+                  201
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/physical_object.rs",
+              "scope": "Actual CustodyCharacterId nonzero constructor/getter and distinct opaque party identity; no whole383 claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CONTAINER-CUSTODY-043",
+            "json_pointer": "/current_sources/1",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/physical_object.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                383
+              ]
+            ],
+            "source_context": {
+              "index": 172,
+              "source_id": "pr-working:crates/adventuresim-core/src/physical_object.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/physical_object.rs",
+              "sha256": "906e67eed5acc9fbf6ab98e2e4bc7df11b8e9742c1ee148092c7d2061f64afab",
+              "read_ranges": [
+                [
+                  1,
+                  383
+                ]
+              ],
+              "read_mode": "Fresh full P16 container1451/custody517/Coregraph256/physical383 and exact empty PR/P16 deltas; same actual native-backed schema/dependency contract reconciled per variant, no hash/readcount clearance."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016",
+            "json_pointer": "/related_current_reads/2",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/physical_object.rs",
+            "read_ranges_as_recorded": [
+              [
+                142,
+                201
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/physical_object.rs",
+              "sha256": "906e67eed5acc9fbf6ab98e2e4bc7df11b8e9742c1ee148092c7d2061f64afab",
+              "read_ranges": [
+                [
+                  142,
+                  201
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/physical_object.rs",
+              "scope": "Actual CustodyCharacterId nonzero constructor/getter and distinct opaque party identity; no whole383 claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 342,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          383
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "TryFrom<&str>",
+          "type": "CarriedInventoryScope",
+          "lines": [
+            [
+              33,
+              43
+            ]
+          ],
+          "disposition": "KEEP exact lowercase boundary token+CustodyIdentityError, default Serde enum wire names differ"
+        },
+        {
+          "trait": "Display + Error",
+          "type": "CustodyIdentityError",
+          "lines": [
+            [
+              273,
+              285
+            ]
+          ],
+          "disposition": "OPTIONAL_F002 exact existing thiserror unit-literal derive/source None"
+        }
+      ],
+      "existing_derives": [
+        "Location payloads/union structural+Serde+conditional native SpacetimeType; checked ID/custody records structural already derive"
+      ],
+      "absence_basis": "All383 exact lines personally consumed664\u2013666; native checked identity/custody/transfer/location helpers and every fixture, only listed handwritten traits."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Physical custody identity",
+      "disposition": "Preserve checked nonzero/party canonical/self-containment gates and typed custody classification. Literal error boilerplate optional equivalent derive only; no transparent/raw conversion or changed lowercase token API."
+    }
+  ],
+  "findings": [
+    "F002 custody error additional source support"
+  ],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 964,
+    "source_id": "pr-working:crates/adventuresim-core/src/physiology.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

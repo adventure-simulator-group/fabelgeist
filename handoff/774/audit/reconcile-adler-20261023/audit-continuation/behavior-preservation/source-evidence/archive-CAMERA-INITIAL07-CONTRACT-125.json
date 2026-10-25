@@ -1,0 +1,129 @@
+{
+  "id": "CAMERA-INITIAL07-CONTRACT-125",
+  "at": "2026-10-23T01:04:10.701584+00:00",
+  "lens": "audit-redundant-authority",
+  "members": [
+    {
+      "scope041_index": 230,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/outbreak.rs",
+      "sha256": "463018a13e8d3061fb161e6f5d814acd00f8cb489e3aa43f3cb08def9ea35f27",
+      "actual_EOF": 2111,
+      "material_ranges": [
+        [
+          1,
+          2111
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-041.json#/files/230"
+    },
+    {
+      "scope041_index": 231,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/outbreak/authority_tests.rs",
+      "sha256": "327d9f247ed9c164305e23809fbe5b46f77e8a1f5fb14adb60d01093c5f3324a",
+      "actual_EOF": 212,
+      "material_ranges": [
+        [
+          1,
+          212
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-041.json#/files/231"
+    },
+    {
+      "scope041_index": 232,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/outbreak/patient_chronology.rs",
+      "sha256": "13d2838fd47720c3645d3c0cba3875699b4ad7984159ddeded1b2a23a32f15ee",
+      "actual_EOF": 37,
+      "material_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-041.json#/files/232"
+    },
+    {
+      "scope041_index": 233,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/outbreak/water_time.rs",
+      "sha256": "de713cf1a7816326fcc398a37c9194736867f984202e5efaa22e7ac944bb1390",
+      "actual_EOF": 13,
+      "material_ranges": [
+        [
+          1,
+          13
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-041.json#/files/233"
+    },
+    {
+      "scope041_index": 1148,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak.rs",
+      "sha256": "7231d6f5c0ea33a0f938db9887dab36dff87fdb6341d8bf2099ada481593c41e",
+      "actual_EOF": 2111,
+      "material_ranges": [
+        [
+          1,
+          2111
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-041.json#/files/1148"
+    },
+    {
+      "scope041_index": 1149,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak/authority_tests.rs",
+      "sha256": "327d9f247ed9c164305e23809fbe5b46f77e8a1f5fb14adb60d01093c5f3324a",
+      "actual_EOF": 212,
+      "material_ranges": [
+        [
+          1,
+          212
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-041.json#/files/1149"
+    },
+    {
+      "scope041_index": 1150,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak/patient_chronology.rs",
+      "sha256": "13d2838fd47720c3645d3c0cba3875699b4ad7984159ddeded1b2a23a32f15ee",
+      "actual_EOF": 37,
+      "material_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-041.json#/files/1150"
+    },
+    {
+      "scope041_index": 1151,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak/water_time.rs",
+      "sha256": "de713cf1a7816326fcc398a37c9194736867f984202e5efaa22e7ac944bb1390",
+      "actual_EOF": 13,
+      "material_ranges": [
+        [
+          1,
+          13
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-041.json#/files/1151"
+    }
+  ],
+  "actual_source_proof": "Personally consumed all actual Rig560/561/562/563 fullPR source-specific narratives, CameraADM03-138 exactP16outbreak177 plus133 helper/fixture roles; fresh07 P16outbreak39-156/172-240/570-732/798-848/1030-1098/1114-1171/1315-1409/1422-1650/1689-1889, fullpatientchronology37/watertime13. Complete actual PR/P16diff allfour reviewed: only2Resultaliases main, helpers/fixture body exactcurrentroles compared. Original fulltest/fixture facts reused actualsourceevidence, not execution/verdict.",
+  "contracts": [
+    "OutbreakPatient.health_active explicitly78-80 is pending recovery/death cleanup, not universal historical health. Materialized presence context_suppressed andhealth_suppressed are latest checkpoints. Historical reducer/view1539-1648 reconstruct from actual birth/death, episodecourse andremediation at observerminute, so future cleanup must not erase past observations. Source remediation1507/1511-1535 releases casecontext only and deliberately does not cure disease; actual recovery/death refresh1691-1762 clearshealth checkpoint at currentclock. These differentfacts must not be collapsed into one activeboolean.",
+    "Source remediated_at and water_source.disabled_at refer same actual source availability change; normalsourcecommit1499-1505 updatesboth in one operation and exactreplay1480-1497 checks agreement. Currentcarrierremediation has no water source bycanonicalkind, not missingpairedwater update. This is one correlated native aggregate that should be encapsulated or derived atcodec; no normal partial hostpublication/rollbackfailure established. Immutable generation source/chronology/remediation snapshots are generation history rather than recomputed from latestpatients.",
+    "WaterOutputLot128-142 is explicitly immutable drawidentity with originalvolume/load/anchor/source; ContainerWaterContribution144-155 is remaining physical amount/load. Actual take172-217 decrements remaining attributed volume/load, leaving originaldrawreceipt unchanged; consumption220-238 derives exposure from removedcontribution. Originalamount versusremainingamount are not competing current volumeauthority. Public container total can include unattributed cleanwater; attributed subset need not equalwholepublicvolume. Preserve scale/floor andmicroliter/milliliter distinctions.",
+    "Concentration anchor/growth/time compute currentpathogens on demand; originalroundedintegerload and floatingconcentration differ precision and purpose. Preview682-730 derives heldanchor from selectedremainingload/volume and evolveswith sharedgrowth/anchor; no independent cachedcurrentconcentration. Cooking117 actualcontribution receiver now joined, priorconsumption/PRcontainer120 atualdecrement receiver joined exactroles; no universalfinitefloatproof or assertionnormalintegerroundingexactlyequalsnativefloat.",
+    "Patient private disease outcome versus authored carrier attack is intentionally reconciled in exacthelper37, not two authorities to arbitrarily overwrite. ExistingF012 NoneDeathKind/privatepastterminal path remains independently qualifiedactualgenerator gap, no fresh clearing from thishelper. Typed RealizedAutopsyFinding and privateclinicaltruth versusobserverevidence remain separate purposes; currentpatientvisibility799-846 requires learnedproblem<=observerminute, notcurrentlivenessalone.",
+    "Original authorityfixture212 is deliberately isolated guarded test source, notsecondproduction outbreakgenerator; repeated raw exposure/death/context rewrites are test setup, no normalcachebypass theorem. All fulloriginaltests sourceonly from actualpriorproof, no new cases/assertions/execution. Sourcekind/payload redundantcurrentdiscriminant actualmigrationF026 is separatefrom intentional histories."
+  ],
+  "findings": [
+    "CAMERA-INITIAL07-F026"
+  ],
+  "existing_finding_support": [
+    "CAMERA-INITIAL07-F012"
+  ],
+  "connected_repair_acceptance": "Retain canonical source enum andcoordinated native source availability, derive historicalvisibility atactualobserverclock; encapsulate remainingattribution updates while preservingimmutabledraw/history and cleanunattributedwater. Preserve remediation-versus-cure distinction, currentcleanupcheckpoint, temporalbirth/death and actualrecipe/contaminationunits.",
+  "qualification": "Actual lower canonical disease/course/strategicpresence/material/rights/generatedCase bodies are separate queued roles; source-specific current07 comparison does not confer full those-feature coverage. No observed bad database row/run or transaction rollback claim.",
+  "status": "Exact8 source07 inventories WITH_FINDINGS; historical/currentstate distinctions and source discriminant migration retained"
+}

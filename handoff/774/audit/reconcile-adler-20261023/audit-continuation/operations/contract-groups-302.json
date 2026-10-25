@@ -1,0 +1,98 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-302",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/church_ground.rs",
+      "sha256": "9d5eb0be97cc353483ebe92f8d4580ec238d1c1cf2f0693fe2b1b9888dff5278",
+      "actual_EOF": 287,
+      "actual_compared_ranges": [
+        [
+          1,
+          287
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/church_tower.rs",
+      "sha256": "df907859d166a03a1af47f3fc6eea6f877d6880366789f4633e2eef2f0215110",
+      "actual_EOF": 872,
+      "actual_compared_ranges": [
+        [
+          1,
+          872
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/church_window_schedule.rs",
+      "sha256": "e1d0209b490329bc1f4d7ff5f2e72fbc984538570fc97f2b78d54a51cc30aebb",
+      "actual_EOF": 87,
+      "actual_compared_ranges": [
+        [
+          1,
+          87
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Church ground replacement preserves the final occupied envelope and source support identity",
+      "source_ranges": {
+        "church_ground.rs": [
+          [
+            1,
+            287
+          ]
+        ]
+      },
+      "disposition": "All287lines were personally read. The consumed BuildingPlan is returned unchanged for no church. For the actual frozen church generated in301, ground paving exists, all five apse facet IDs exist, and the apse polygon is nonempty before vertices[0]; expectations remain internal graph assumptions rather than new external admission. Room IDs come only from room():0..4, so five-element vote indexing is bounded. Tile size.15 and CELL_SIZE division use fixed positive constants; the actual frozen nonnegative layout bounds tile counts and i16 cell casts. No claim that arbitrary negative/unbounded external polygons fit this private rasterizer. merge_tiles removes only keys taken from active.keys and terminates each active run with a sentinel row; actual counts do not approach i32MAX. Replacement removes each old floor and its +1 support slot, matching the single-support solid closure in301, then creates checked physical floor patches and updates both church floor lists. Multiple-support duplicate-ID hypotheticals are not ordinary here: actual floor source has one floor_node."
+    },
+    {
+      "contract": "Church tower and door construction owns coherent frame, role and bearing provenance",
+      "source_ranges": {
+        "church_tower.rs": [
+          [
+            1,
+            872
+          ]
+        ]
+      },
+      "disposition": "All872lines were read in ranges1..290,291..585,586..872. Removal of obsolete StoreyWall owners removes solids, surfaces, voids, nodes and support interfaces together; it does not retain an independent compatibility path. Portal dimensions4.50/.90/17.30 with clear1.80\u00d73.20 produce positive jamb/head/spandrel/leaf sizes. Native constructors readmit every computed leaf/bounds and errors propagate to the consuming plan. Both direction branches size the cuboid in the final cardinal frame, unlike later yaw mutation of an already unrotated support. Fixed two jambs, two head bearings, nine sectional slices and exact role IDs have construction bounds proofs. DoorLeaf Operable and TimberLouvre Open bell closures are deliberately different gameplay modes."
+    },
+    {
+      "contract": "Bell stage arithmetic depends on the actual selected tower and preserves explicit native applicability",
+      "source_ranges": {
+        "church_tower.rs": [
+          [
+            390,
+            872
+          ]
+        ]
+      },
+      "disposition": "The complete bell-stage body was personally read. Only towers flagged bell_openings enter the four-face/two-bay construction. Actual tower producer must establish face_span/2>1.15 and wall_height-4.2>8 for positive shaft; this source handles failed computed dimensions through the geometry error rather than proving arbitrary raw SquareTower values valid. No ordinary invalid tower or runaway count is asserted. Fixed stage4.2, sill.45, spring2.10/apex3.35 and four louvre heights retain checked final bounds. Head-bearing/world-above interfaces use actual tangent/outward coordinates. The shared two_centred_arc_radius numerical kernel and SquareTower derivation remain original inventory dependencies, without importing unrelated completed-lens coverage."
+    },
+    {
+      "contract": "Window schedule preserves checked programme counts and per-role authored height meaning",
+      "source_ranges": {
+        "church_window_schedule.rs": [
+          [
+            1,
+            87
+          ]
+        ]
+      },
+      "disposition": "All87lines were personally read. Fixed validated programme4 nave/2 choir yields16 nave+clerestory targets,4 choir,2 transept and4 selected apse facets. Middle apse facet2 intentionally has no scheduled window. ChurchArcade sill9.10 is absolute elevation while spring/apex1.05/2.30 are profile-relative; comparing or adding the wrong datum would be incorrect. Actual window resolver must combine sill with profile values and retain host-frame identity. Fresh schedule confirms every temporary clerestory host from301 is replaced, so transient shared slot0 alone is not a final duplicate-host finding. No generation, source changes, tests or checks."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-building-generator/src/generator/church_windows.rs"
+}

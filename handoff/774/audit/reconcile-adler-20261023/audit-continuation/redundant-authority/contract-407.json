@@ -1,0 +1,86 @@
+{
+  "id": "CONT07-CONTRACT-407",
+  "at": "2026-10-23T21:19:47.641726+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1788,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/raised_locomotion.rs",
+      "sha256": "a2f784e17dfc1ae6b606c9688428b0a9596f4a1b0da358f5a59eacb6494bdfe9",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/animation/state/raised_locomotion.rs",
+      "actual_EOF": 145,
+      "ranges": [
+        [
+          1,
+          145
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1789,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/turn_deadline.rs",
+      "sha256": "bb92ce4b2c2252c6c68cc37955cba5f4d2c90ccdab05a4456a632a7f4adadc4e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/animation/state/turn_deadline.rs",
+      "actual_EOF": 432,
+      "ranges": [
+        [
+          1,
+          432
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1768,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "sha256": "3e29916a9d570f6e0d12ffb54541ee018fb068902a4e5b6c0f744db9971d9ba9",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "actual_EOF": 100,
+      "ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "NATIVE-OWNER-CORE-STATE-008",
+    "CAM-OWN-MOTION-CAPTURE-RECEIVER-120",
+    "NATIVE-OWNER-ANIMATION-LEAVES-001"
+  ],
+  "facts": [
+    "RaisedLocomotionIntent stores normalized direction and speed once; derived velocity is a getter. Current held input may deliberately sustain movement intent at synthetic minimum0.051 when actual motor velocity brakes to zero, and an in-flight footstep retains previous intent. This differs from physical velocity; the stale observed-only comment is not proof they must be collapsed.",
+    "Minimum requested speed0.051 is coupled to stationary threshold0.05 for semantic moving admission. Current values satisfy the relationship; no independent current runtime failure asserted. Exact policy/config ownership remains an all-lens obligation, not automatic duplicate-motion authority.",
+    "BodyFacingTurn retains a speed, half-turn duration or deadline angle/duration policy. Native rate is derived per operation instead of cached separately. The deadline policy may be intentionally reused as a bound; no same-target identity defect asserted from the public advance signature alone.",
+    "Cross-lens XOPS001 records admitted tiny-duration/zero-elapsed arithmetic candidate. It is not a new redundant-authority finding or an executed test. Exact elapsed1-57 and full positive-duration owner support were personally compared.",
+    "Controller yaw, body yaw, dive launch root and downed camera orientation have explicit different frame/convention roles. Actual turn/current/input parameters can be wider than normalized rigid rotations; existing sanitation and failure behavior preserved.",
+    "No app, fixture, compiler or runtime executed. All13 gate and overlay exhaustion remain open."
+  ],
+  "fresh_partial_support": [
+    {
+      "scope_index": 916,
+      "sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+      "ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "status": "exact elapsed admission/getter excerpt only; no full source credit"
+    }
+  ],
+  "cross_lens_candidates": [
+    "CONT07-XOPS-001"
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1790,
+    "start_line": 1
+  }
+}

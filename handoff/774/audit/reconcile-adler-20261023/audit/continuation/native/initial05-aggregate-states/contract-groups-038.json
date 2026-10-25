@@ -1,0 +1,211 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-038",
+  "at": "2026-10-22T21:03:08.965734+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/mod.rs",
+      "sha256": "cd54ed038a4131a947dff4db1a0310069b669800547e2f2b6456566e9c0ec4c4",
+      "scope029_index": 1328,
+      "actual_EOF": 810,
+      "scoped_ranges_compared": [
+        [
+          1,
+          810
+        ]
+      ],
+      "actual05_comparison": "Runtime privately retains source-state/motionkey maps, LoadedClip(handle+checked duration+layer), grip states, canonicaltarget set and library. evaluate_skeletons consumes route trace evaluation+samepack, resolves all body+grip candidates locally, admits complete PlaybackPose before updating retained playback; any append/admission error skips actor beforecommit. ResolvedAnchor binds actualruntimeclip and same catalogue pack/motion anchor through checkedmaplookups, not looseparallelvectors. Mirrored gait endpoint chooses samepack suffixedmotion; reversequickstep whole timeline-direction distinct from geometric mirror. Catalogdeclaredavailability vsactualruntime clip membership closed by loading source justread. All original inline contracts635–807 read source-only; imported external testmodule still separate pending source.",
+      "source_body_proof": "Fresh full actual source body personally read forcurrent05 producer/retainedstate/mutation/recipient correlation; importedchildren onlycoveredifexplicitmembers. No execution or oldverdictcarry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/loading.rs",
+      "sha256": "eacc5fba1f6e67621c9d3e473d7556c5cf66ba140e3f1c80431b5568de9fda07",
+      "scope029_index": 1326,
+      "actual_EOF": 390,
+      "scoped_ranges_compared": [
+        [
+          1,
+          390
+        ]
+      ],
+      "actual05_comparison": "rebuild_loaded_library filters each catalogue pose against SAME MotionKey clip and frame_fits actualcheckedduration, then rebuilds whole map within one mutable system; missingassets omitted intentionally. poll maps readyclip or unavailable and then rebuilds availability; grip processedset onlyafter duration/target admission. Canonical target membership requires nonemptycliptargets subset ofbase, not same bonearray cardinality. bind_animation_target_paths derives native pathID and AuthoredRigJoint together from same names. Loaded duration/frame relation dynamicconfig frequency usedforcomparison; no fixed maxframe brand needed. External ECS tree/DAG validity nativeport, helper traversal no separate visitedset; do not invent corruptednormal hierarchy. Revision/changedasset behavior joined current packet, scheduling guarantee lowerplugin owncell pending.",
+      "source_body_proof": "Fresh full actual source body personally read forcurrent05 producer/retainedstate/mutation/recipient correlation; importedchildren onlycoveredifexplicitmembers. No execution or oldverdictcarry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/loading/motion.rs",
+      "sha256": "6240a63d570d51843113c28182afebe0b156ee558ae60ef960acbe737c308eb6",
+      "scope029_index": 1327,
+      "actual_EOF": 175,
+      "scoped_ranges_compared": [
+        [
+          1,
+          175
+        ]
+      ],
+      "actual05_comparison": "MotionLoad pendingtask→Ready(Optionhandle) encodes pending versus absent distinctly. Path retained separately and native source revision matched actualhandle or identicalrequestedAssetPath, reusesAssetServerhandle authority without arbitrary retry. MotionClipAdmission Pending/Unavailable/Ready closes whole loadedclip admission: sole animation, loadstate/resourcepresent, base target nonempty/matching, source exists, checkedduration and requiredframefit beforeReady(handle,duration,Whole). No library semantic advertised beforeReady. Optional lastframe beyond required allowed, then per-pose availability separatelyfiltered. No decoder/reflect/global sourceforge token promised.",
+      "source_body_proof": "Fresh full actual source body personally read forcurrent05 producer/retainedstate/mutation/recipient correlation; importedchildren onlycoveredifexplicitmembers. No execution or oldverdictcarry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/playback_state.rs",
+      "sha256": "e9898cf619d1bdfe9c8ad70bd80b0600961abfda3e5cd8158330df18b2c9424d",
+      "scope029_index": 1330,
+      "actual_EOF": 155,
+      "scoped_ranges_compared": [
+        [
+          1,
+          155
+        ]
+      ],
+      "actual05_comparison": "BaseRigLoad binds ready source+scene payload withone stage, no readybool+absent scene; source retained evenfailed. Playback from/apply derives guard/ordinarylocomotion hysteresis and allplan/mirror/IK/cadence fields from same presentedpose/evaluation. Default empty plan BindPose with no IK/zero mirror valid. sampling cadence forces Direct whenever extrapolated/continuation topology exists regardless raw bufferedflag, preventing actionsegment phase aliasing. visibility/physics/authored/inertial two-choice roles separate observers, no blanket mutual exclusivity beyondactualstate owner.",
+      "source_body_proof": "Fresh full actual source body personally read forcurrent05 producer/retainedstate/mutation/recipient correlation; importedchildren onlycoveredifexplicitmembers. No execution or oldverdictcarry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/playback_contributions.rs",
+      "sha256": "5c10fad61699ffe32bde91d9f48b833a2e6c42d30f7c77189f0da2a73a2823b1",
+      "scope029_index": 1329,
+      "actual_EOF": 43,
+      "scoped_ranges_compared": [
+        [
+          1,
+          43
+        ]
+      ],
+      "actual05_comparison": "Private three vectors store distinct simple,extrapolated,continuation topologies, preservezero weight entries; admit checks total finiteBlendWeight through allcolumns beforewholeSelf. No requirement vectorlengths equal: independent contribution families, notzipcolumns. Default allEmpty is bindpose. Individual mirrored weight<=total established by actualappend producers; rawchild literals insideallowedmodule broader, not universaladmitpredicate claimed. Further sample/bone cardinality remains posebuffer ownsource.",
+      "source_body_proof": "Fresh full actual source body personally read forcurrent05 producer/retainedstate/mutation/recipient correlation; importedchildren onlycoveredifexplicitmembers. No execution or oldverdictcarry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/weighted.rs",
+      "sha256": "8453166436911f4394c507ec05f4e3bf3f52d0bb92cb9f388bb0cecbe64ceb7c",
+      "scope029_index": 1411,
+      "actual_EOF": 71,
+      "scoped_ranges_compared": [
+        [
+          1,
+          71
+        ]
+      ],
+      "actual05_comparison": "Coalesce only samecliphandle/layer/sampletime tolerance/locomotionphase. Newentry mirroredweight either0orweight; merge computes BOTHchecked totals beforeeitherwrite, so relation0<=mirrored<=total preserved on normalgeneratedentries. same_sample tolerance intentionally not exact identity quotient; no transitivity promise. ClipTime finite signed and handle durationchecked independently, meaning withinclip relation relies sample producer and finalbounded sampling. RawWeightedClip fields may be independently constructed inparent; no blanket nativeAPIseal.",
+      "source_body_proof": "Fresh full actual source body personally read forcurrent05 producer/retainedstate/mutation/recipient correlation; importedchildren onlycoveredifexplicitmembers. No execution or oldverdictcarry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/continuation.rs",
+      "sha256": "8eef3d57c8ab2e84bcf5c759b08a63f26957dd3f847a4810fd6786b9f9f725ac",
+      "scope029_index": 1320,
+      "actual_EOF": 92,
+      "scoped_ranges_compared": [
+        [
+          1,
+          92
+        ]
+      ],
+      "actual05_comparison": "ContinuationSpan stores5 resolved clip/time endpoints+actualreadiness/coordinate/tangent/progress and pairedweight. Each endpointresolved from same requestedpack/fallback context; missingcontact/end fallsbackstart, missingoutgoing fallsbackend, missingfinish fallsbackoutgoing. All fallibleframeSeconds finish beforepush ofwholeSpan; no partialendpoint list committed. Onlystartmirroring usedforwhole continuation; current semanticmirrorpolicy onlyrollposes whileAttackContinuation actualcaller attacksemantics, so no fabricatedattackmirrorinvariant or actualbadassetassertion. Final boneorder/hierarchy/time sampling remains actualposebuffer role.",
+      "source_body_proof": "Fresh full actual source body personally read forcurrent05 producer/retainedstate/mutation/recipient correlation; importedchildren onlycoveredifexplicitmembers. No execution or oldverdictcarry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/resolver.rs",
+      "sha256": "1b0873cd746e039bdbc6d22d4f55b28ffad8141f68f43fbdb9fb3be25eb7eeb0",
+      "scope029_index": 1399,
+      "actual_EOF": 217,
+      "scoped_ranges_compared": [
+        [
+          1,
+          217
+        ]
+      ],
+      "actual05_comparison": "ResolvedBodyPlan captures one resolver borrowedruntime/catalog/pack/calibration, chooses action/base andlowerlayer from actualevaluatedstate; builds candidatevectors locally and admits beforeplayback. Mirror fraction checkedtotals then0ifabsentelsefinite ratio clamp; normalappendproduces0<=mirror<=total. IntoPlayback keepsoneevaluatedIKweightpair and direct/bufferedcadence, not parallel planfields from differentactors. Raw publiccrate AnimationEvaluation can be fabricated independently fromskeleton, butnormalSemanticRoute factory passesonesnapshot. No asserted universal equality of arbitrary resolver/skeleton/evaluation inputs.",
+      "source_body_proof": "Fresh full actual source body personally read forcurrent05 producer/retainedstate/mutation/recipient correlation; importedchildren onlycoveredifexplicitmembers. No execution or oldverdictcarry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/resolver/span.rs",
+      "sha256": "6d417f317e9d6c150d1b588395132d72996b5645a9ede00a68c0f2eeac51e433",
+      "scope029_index": 1400,
+      "actual_EOF": 143,
+      "scoped_ranges_compared": [
+        [
+          1,
+          143
+        ]
+      ],
+      "actual05_comparison": "ResolvedSpan binds bothanchors+frames; samepack/samemotion stablepair, else nearest matchingsemanticreference preferredonendmotion thenstartmotion. reference lookup packindex safe foractualResolvedAnchor fromcheckedcataloglookup. Interpolated endpointweights complementaryfromUnitInterval and checkedscaledbeforeeachappend; localcaller stagingcontains partialfirstappend ifsecondfails butnotpublished. CurveSpan clampscoordinate byactualcurve and pusheswholeafterbothframeTimesadmit. Rawreference framebounds frominternalcatalog stillupstream sourcecontract; originalbuiltin hasnoreferences andallfixedframescoherent.",
+      "source_body_proof": "Fresh full actual source body personally read forcurrent05 producer/retainedstate/mutation/recipient correlation; importedchildren onlycoveredifexplicitmembers. No execution or oldverdictcarry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/sample_values.rs",
+      "sha256": "234c8eb4f9138aba0e0eb5302d52fba73d1c76044ca282b24e442fc693f22afb",
+      "scope029_index": 1407,
+      "actual_EOF": 91,
+      "scoped_ranges_compared": [
+        [
+          1,
+          91
+        ]
+      ],
+      "actual05_comparison": "ClipDuration finite>=0 inclstatic0, ClipTime finite SIGNED/unbounded; independenttypes deliberately donotprove time<=duration. at_phase acceptsfinite unwrappedphase and returns signedfiniteproductorOverflow; consumer controlswrap/clamp. same_sample tolerance comparesclockpositions, notcountprovenance. Serde bothchecksownleaf, notrelatedclip identity. No imposingpositive duration forstaticclips or global unitphase normalization.",
+      "source_body_proof": "Fresh full actual source body personally read forcurrent05 producer/retainedstate/mutation/recipient correlation; importedchildren onlycoveredifexplicitmembers. No execution or oldverdictcarry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/clip_revision.rs",
+      "sha256": "a5a0437f0f85693b6e9a31ae24c43d47025c035cb436d68bcc2015213703c6ec",
+      "scope029_index": 1318,
+      "actual_EOF": 100,
+      "scoped_ranges_compared": [
+        [
+          1,
+          100
+        ]
+      ],
+      "actual05_comparison": "Affected source/clipids map toactualrequestedmotions/grips, remove stale LoadedClip+unavailable/processed markers then invalidate bakedbank/global+peractorstrides/rig caches and rebuild library. No retainedcacheduration survivesactualselectedrevision inthispath. Set ofchangedassets includesremovedhandles; source re-association nativehandlediscoverydoesnot issue retry. Actual cacheinvalidatemethodbodies/schedule ordering remain separate05cells, no count/name clearance.",
+      "source_body_proof": "Fresh full actual source body personally read forcurrent05 producer/retainedstate/mutation/recipient correlation; importedchildren onlycoveredifexplicitmembers. No execution or oldverdictcarry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/clip_revision/events.rs",
+      "sha256": "b9dac06a620f8567a5eeef7aaef43f241262a4a7268577eff9d3714e02445b07",
+      "scope029_index": 1319,
+      "actual_EOF": 78,
+      "scoped_ranges_compared": [
+        [
+          1,
+          78
+        ]
+      ],
+      "actual05_comparison": "Reads changed/failed clip+source events into two differentlytypedAssetIdsets; earlyAssets.is_changed extends bothcurrentassetIDs andretainedruntimehandleIDs toinvalidate beforePostUpdateeventflush. This explicitlyhandlesremovedassets absentfromcurrentstore. Unused/removed/modified allsameinvalidationnavigation, notacceptedphysicalstate. Actual foreignevent timings andpluginordering notinferred asverifiedruntimebehavior.",
+      "source_body_proof": "Fresh full actual source body personally read forcurrent05 producer/retainedstate/mutation/recipient correlation; importedchildren onlycoveredifexplicitmembers. No execution or oldverdictcarry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/bind_pose.rs",
+      "sha256": "18362beeb59c79ca73d1ea84c897ce75b45074c2fd0e099999cabc707f058e12",
+      "scope029_index": 1312,
+      "actual_EOF": 48,
+      "scoped_ranges_compared": [
+        [
+          1,
+          48
+        ]
+      ],
+      "actual05_comparison": "Capture localTransform pairedsameancestorAnimationRigScene.owner withbounded64parentwalk; no ownerfound leavesno capture. Restore onlywhen sameowner playbackBind, thenaddcurrent skeletaltranslationoffset. Frame order and authoredbase presence actualECS provenance precondition, no unchecked crossactorlookup byarrayindex. Public AuthoredBindTransform fields arestagedraw; finiteTransform notpromised bythiscapture; rawscene/sourceadmission owncells.",
+      "source_body_proof": "Fresh full actual source body personally read forcurrent05 producer/retainedstate/mutation/recipient correlation; importedchildren onlycoveredifexplicitmembers. No execution or oldverdictcarry."
+    }
+  ],
+  "groups": {
+    "loaded-library-catalogue-clip-coherence": {
+      "invariant": "Advertisedsemanticclip belongs toactualselectedpack/motion/source, targetsubsetbase and anchorframe fitscheckedloadedduration; revisionsretirecorrespondingcaches.",
+      "establishment": "loading/motion completeReady gate→runtimeclipinsert→rebuild filtersactualkeys/duration, resolvesamecatalog anchor→samekeyclip. BaseRigLoad Ready jointlyowns actualscene/source.",
+      "qualification": "Catalogue rawbuilder broaderthanvalidatedsemanticgraph; builtin currentstructurecoherent. Registrylibraryvalidate_structure logsfailure butsafe lookuphandlesmissing/cycles; no normalinvalidfamilies. Snapshotpublication/scheduling andbonecolumnvalidity continueinlaterexactsourcecells."
+    },
+    "weight-mirror-and-layer-topology": {
+      "invariant": "Foractualweightedcontributions mirroredweight<=total, coalescingexactclip/layer/samplephase preservesonecandidate; sumfinitebeforeplayback.",
+      "actual_proof": "weighted35–70 calculatesbothcheckedtotalsbeforewrite; resolvermirror198–217 andadmitContributions13–29 handletotal/no contribution. Eachfamilyvectorindependent, noequal-lengthrequirement.",
+      "acceptance": "Keeponecheckedwholeplan andactualweightedpair source; preservezero contributions declaredtopology, signednoncyclicClipTime, clamp/wraponlyactualspecificsamplingkernel. NoUnitIntervalbrand forpositiveunboundedBlendWeight."
+    },
+    "revision-versus-published-pose": {
+      "proof": "RevisionEvents28–66 + refresh17–100 explicitlyremoveoldloadedavailabilityandinvalidatebank/strides/rig beforelibraryrebuild. No stale-cachedefectassertedfromcachedurationfieldsalone.",
+      "pending": "Plugin systemordering, actualBakedClipBank/Rig invalidate andnativeasset/currentbone receipts remain ownunread05cells; no wholepipelineclearance.",
+      "acceptance": "Actualpose/history/cache/indexmembership mustbetiedtoactualsamecliprevision+rigboneorder. Thispacketonlyestablishes upstreamsource/available-planpart."
+    }
+  },
+  "new_unique_findings": [],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

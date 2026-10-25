@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1021",
+  "at": "2026-10-25T17:31:36.246072+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1188,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/settlement_population.rs",
+  "sha256": "99cd12b58bafddf20c526c07061a1c822636fc87670178ddb36eda2587275fcc",
+  "actual_compared_ranges": [
+    [
+      351,
+      730
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Entropy stream const mapping, canonical resident/business identity conflict/seed/population and typed scheduled/historical presence functions consumed; no further manual traits/codecs. Built-in serde calls explain existing derive. Fixtures573\u2013730 read not run, no referenced child coverage.",
+  "first_unfinished": {
+    "scope_index": 1188,
+    "line": 731
+  },
+  "execution": "none"
+}

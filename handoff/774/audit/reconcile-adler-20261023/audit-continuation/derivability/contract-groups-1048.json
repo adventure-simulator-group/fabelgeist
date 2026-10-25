@@ -1,0 +1,455 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1048",
+  "at": "2026-10-25T17:35:55.232492+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1204,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "actual_EOF": 1586,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+        "owner": "camera",
+        "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+        "base_sha256": "4ea914dc25746466a505a428c66a72dce7ae7e01ecf51891e71fa7711f3ecd81",
+        "state": "modified",
+        "bytes": 51546,
+        "audit_owner": "camera",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                1586
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-STRATEGIC-BATTLE-001",
+              "CAM-PROP-AUTHORITY-001"
+            ]
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+            "ranges": null,
+            "source_read_status": null,
+            "trace_refs": []
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 283,
+            "read_ranges": [
+              [
+                1,
+                1586
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-AUTHORITY-MODEL-053"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/authority_model.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 362,
+            "read_ranges": [
+              [
+                1,
+                1586
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-AUTHORITY-MODEL-053"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/authority_model.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 101,
+            "read_ranges": [
+              [
+                590,
+                855
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-JOURNEY-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/authority_model.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera",
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-QUEST-IDENTITY-INVENTORY-PARTIAL-051",
+            "json_pointer": "/source_proofs/6",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                185
+              ],
+              [
+                1367,
+                1450
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+              "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+              "read_ranges": [
+                [
+                  1,
+                  185
+                ],
+                [
+                  1367,
+                  1450
+                ]
+              ],
+              "mode": "Fresh bounded actual DB/SDK/typed reconstruction receiver body source",
+              "roles": [
+                "Full existing ValidatedQuestGenerationAuthority/validate_quest_generation_authority producer and actual materialize_hostile_group/hostile_group_authority_row receivers read. Context/manifest replay/binding checks and final aggregate already exist; consumers must use it rather than tuple inversion or duplicate authority wrapper.",
+                "Real stored context supports developer context or ordinary context, actual serde validation/replay causes currently flattened. Preserve legitimate source variants and strict replay failure ordering while carrying concrete causes; no compatibility shim invented from this schema. Source-package/world/catalogue commitments differ, no same-width digest conflation."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-QUEST-IDENTITY-RECEIVER-CLOSURE-052",
+            "json_pointer": "/source_proofs/6",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                185
+              ],
+              [
+                1367,
+                1450
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+              "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+              "read_ranges": [
+                [
+                  1,
+                  185
+                ],
+                [
+                  1367,
+                  1450
+                ]
+              ],
+              "mode": "Fresh bounded actual DB/SDK/typed reconstruction receiver body source",
+              "roles": [
+                "Full existing ValidatedQuestGenerationAuthority/validate_quest_generation_authority producer and actual materialize_hostile_group/hostile_group_authority_row receivers read. Context/manifest replay/binding checks and final aggregate already exist; consumers must use it rather than tuple inversion or duplicate authority wrapper.",
+                "Real stored context supports developer context or ordinary context, actual serde validation/replay causes currently flattened. Preserve legitimate source variants and strict replay failure ordering while carrying concrete causes; no compatibility shim invented from this schema. Source-package/world/catalogue commitments differ, no same-width digest conflation."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CASE-RECEIVERS-029",
+            "json_pointer": "/related_current_sources/18",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                151
+              ],
+              [
+                1240,
+                1370
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+              "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+              "read_ranges": [
+                [
+                  1,
+                  151
+                ],
+                [
+                  1240,
+                  1370
+                ]
+              ],
+              "resolved_path": "RECORDS/final-acceptance-20261021/frozen-inputs.zip!/pr-working/files/crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+              "scope": "Actual successful ValidatedQuestGenerationAuthority producer/replay/error body, native mission payload records and parser; only reached ranges, no whole1586 claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-DIALOGUE-040",
+            "json_pointer": "/related_current_sources/3",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+            "read_ranges_as_recorded": [
+              [
+                132,
+                190
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+              "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+              "actual_lines": 1586,
+              "read_ranges": [
+                [
+                  132,
+                  190
+                ]
+              ],
+              "proof_mode": "fresh actual current supplement bounded material source body, no execution",
+              "role": "ContractAuthority actual typed case::ContractStatus and parsed_state relationship; prior unrelated function tail not whole-body credit"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-QUEST-KNOWLEDGE-050",
+            "json_pointer": "/additional_actual_source_proofs/1",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                185
+              ],
+              [
+                1367,
+                1450
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+              "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+              "read_ranges": [
+                [
+                  1,
+                  185
+                ],
+                [
+                  1367,
+                  1450
+                ]
+              ],
+              "mode": "Fresh bounded actual DB/SDK/typed reconstruction receiver body source",
+              "roles": [
+                "Full existing ValidatedQuestGenerationAuthority/validate_quest_generation_authority producer and actual materialize_hostile_group/hostile_group_authority_row receivers read. Context/manifest replay/binding checks and final aggregate already exist; consumers must use it rather than tuple inversion or duplicate authority wrapper.",
+                "Real stored context supports developer context or ordinary context, actual serde validation/replay causes currently flattened. Preserve legitimate source variants and strict replay failure ordering while carrying concrete causes; no compatibility shim invented from this schema. Source-package/world/catalogue commitments differ, no same-width digest conflation."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-033",
+            "json_pointer": "/fresh_current_additional_source_reads/3",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+            "read_ranges_as_recorded": [
+              [
+                132,
+                190
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+              "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+              "actual_lines": 1586,
+              "read_ranges": [
+                [
+                  132,
+                  190
+                ]
+              ],
+              "proof_mode": "fresh actual current supplement bounded material source body, no execution",
+              "role": "ContractAuthority actual typed case::ContractStatus and parsed_state relationship; prior unrelated function tail not whole-body credit"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016",
+            "json_pointer": "/related_current_reads/18",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                151
+              ],
+              [
+                1240,
+                1370
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+              "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+              "read_ranges": [
+                [
+                  1,
+                  151
+                ],
+                [
+                  1240,
+                  1370
+                ]
+              ],
+              "resolved_path": "RECORDS/final-acceptance-20261021/frozen-inputs.zip!/pr-working/files/crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+              "scope": "Actual successful ValidatedQuestGenerationAuthority producer/replay/error body, native mission payload records and parser; only reached ranges, no whole1586 claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/camera/traces.jsonl",
+            "receipt": "CONT-CAMERA-PP-009",
+            "json_pointer": "/exact_source_proofs/1",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1586
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+              "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+              "actual_lines": 1586,
+              "read_ranges": [
+                [
+                  1,
+                  1586
+                ]
+              ],
+              "role": "Whole native authority schema and admitted context/manifest, flattened contract/mission parser, gateway/route source, actual hostile materialization and native view receiver bodies. Existing Camera033/040/046/050 and Native016 partial roles reconciled, then missing ranges refreshed.",
+              "fresh_missing_ranges": [
+                [
+                  186,
+                  679
+                ],
+                [
+                  766,
+                  1239
+                ],
+                [
+                  1451,
+                  1586
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/native/source-reads.json",
+            "receipt": "row-1",
+            "json_pointer": "/1",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1586
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+              "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+              "actual_lines": 1586,
+              "read_ranges": [
+                [
+                  1,
+                  1586
+                ]
+              ],
+              "role": "Whole native authority schema and admitted context/manifest, flattened contract/mission parser, gateway/route source, actual hostile materialization and native view receiver bodies. Existing Camera033/040/046/050 and Native016 partial roles reconciled, then missing ranges refreshed.",
+              "fresh_missing_ranges": [
+                [
+                  186,
+                  679
+                ],
+                [
+                  766,
+                  1239
+                ],
+                [
+                  1451,
+                  1586
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": 517,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1586
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "All declared authority/table rows Clone/Debug/table, per range inventory1044\u20131048: case/generation/contract/outcome/fact/custody/continuity/finale/receipts/incident/recruitment/party/journey/route/gateway/inventory/battle/mission/hostile/source/recruitment-role/action/vote",
+        "ValidatedQuestGenerationAuthority Clone/Debug; BackendContract Clone/Debug/SpacetimeType",
+        "Closed stages/kinds/statuses/wrappers/endpoints/terrain/loss/route records structural and SpacetimeType as declared; JourneyCampInterval Default"
+      ],
+      "absence_basis": "Every line of full authority_model1586 personally consumed across1044\u20131048. No handwritten trait or Serializer/Deserializer. Explicit checked flattened state parsers preserve exact StateParseError; native authoritative metadata/context/replay validation and fixed SHA commitments not derive-equivalent. Contextual count/power/route/private gateway projection, selected immutable retry equality and runtime vocabulary getters/parsers semantic. Final1461\u20131586 schema and gateway view no new manual impl."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Strategic authority schema and checked representation derivability",
+      "disposition": "All mechanical structural/schema traits already use native derives. Preserve validation/errors, fixed commitment wire and contextual authority projections; no new finding or other-lens clearance."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1205,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/autoresolve.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

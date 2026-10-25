@@ -1,0 +1,1380 @@
+{
+  "at": "2026-10-22T03:39:43.435595+00:00",
+  "fresh_bounded_source_roles": [
+    119,
+    164,
+    165,
+    169,
+    179,
+    181,
+    182,
+    184,
+    185,
+    189,
+    238,
+    452,
+    493,
+    494,
+    503,
+    513
+  ],
+  "semantic_contract_carry_roles": [
+    198,
+    199,
+    212,
+    217,
+    219
+  ],
+  "proofs": [
+    {
+      "index": 119,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/capability/armor.rs",
+      "sha256": "027f27a4294fe1574bcb9c7f376db05904519094f99936be09bcf66d5459b7e0",
+      "read_ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "mode": "fresh_bounded_source_role_comparison",
+      "comparison": "BodyPart, EquipmentChannel, AuthoredArmorCoverage and EquipmentMaterial are already retained through the selected equipment/capability construction. Carry existing admitted equipment and structured load causes through evaluate_character and native receiving calls. Character/inventory identities remain all-u64 observations; PhysicalObjectId nonzero is not a blanket replacement. Channel order max with row order and explicit Containment0 fallback are source policies; protection/padding/flex/ROM are different quantities, not all UnitInterval. Actual SDK query keys are scalar ports, not a reason for internal raw identity forwarding.",
+      "definition_and_use_refs": [
+        "CAM-OWN-DB-CAPABILITY-UNION-076",
+        "CONT-CAMERA-OWNER-PHYSICAL-003 + mandatory errata004"
+      ],
+      "producer_observation_dispositions": [
+        {
+          "observation": {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-STRATEGIC-PROJECTION-007",
+            "json_pointer": "/current_sources/6",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-stdb-module/src/capability/armor.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                103
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-stdb-module/src/capability/armor.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/capability/armor.rs",
+              "sha256": "027f27a4294fe1574bcb9c7f376db05904519094f99936be09bcf66d5459b7e0",
+              "ranges": [
+                [
+                  1,
+                  103
+                ]
+              ],
+              "read_kind": "fresh_actual_supplement_body"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          "disposition": "Compared exact current role against this source-specific owner/recipient matrix; actionable inherited findings preserved, no later-lens or implementation credit.",
+          "comparison_ref": "ROOT-CAMERA21-119"
+        }
+      ],
+      "fresh_source_read": "Fresh actual bounded read already performed before recording; exact source body and producer/recipient policy compared, no execution.",
+      "id": "ROOT-CAMERA21-119"
+    },
+    {
+      "index": 164,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/inventory_amount.rs",
+      "sha256": "535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6",
+      "read_ranges": [
+        [
+          1,
+          241
+        ]
+      ],
+      "mode": "fresh_bounded_source_role_comparison",
+      "comparison": "ConsumableFractionMicros is the exact integer millionths owner, inclusive0..1000000. InventoryItemAmount/PartyItemAmount currently retain raw remaining_fraction_micros, then persisted_fraction re-admits with expect; initialization/update peel get. Under the clean-final-schema requirement, first-party persisted records should retain the checked leaf until actual codec encoding, rather than preserve raw schema as a blanket SDK exemption. Request0 returns0 before lookup; remaining0 deletes row/item; movement copies exact amount after source deletion. Preserve all-u64 row IDs, zero repair sentinel distinctions, min/checked_sub arithmetic and mutation order. UnitInterval/BPS/f32 would change precision or admission. SMITHING_MATERIAL_IDS matches ForgeStock vocabulary but literal ordering and lexical quote-map order remain separate.",
+      "definition_and_use_refs": [
+        "CAM-OWN-OBJECT-CUSTODY-AMOUNT-084",
+        "CAM-OWN-FOOD-CONSUMPTION-020"
+      ],
+      "producer_observation_dispositions": [
+        {
+          "observation": {
+            "delta_observation_index": 72,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-FILTH-LAW-AMOUNT-015",
+            "json_pointer": "/current_sources/5",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row195/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                241
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                241
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          "disposition": "Compared exact current role against this source-specific owner/recipient matrix; actionable inherited findings preserved, no later-lens or implementation credit.",
+          "comparison_ref": "ROOT-CAMERA21-164"
+        }
+      ],
+      "fresh_source_read": "Fresh actual bounded read already performed before recording; exact source body and producer/recipient policy compared, no execution.",
+      "id": "ROOT-CAMERA21-164"
+    },
+    {
+      "index": 165,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "sha256": "1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+      "read_ranges": [
+        [
+          1030,
+          1085
+        ]
+      ],
+      "mode": "fresh_bounded_source_role_comparison",
+      "comparison": "contained_water_ml sums checked u64 volumes and returns raw u64/String. Milliliters is the existing zero-valid water/container leaf; remaining_capacity currently extracts graph.used_volume, adds checked liquid volume, extracts again for capacity subtraction. Retain Milliliters and canonical physical-object/custody causes across internal helpers. Native capacity conversion u32->u64 and actual SDK row encoding are real width/codec ports. Preserve checked overflow, invalid-object first failure, conservative burden-error policy in the load caller, and genuine capacity0; human BodyMassKg and fractional clinical blood volumes are not matching owners.",
+      "definition_and_use_refs": [
+        "CAM-OWN-CONTAINMENT-073",
+        "CAM-OWN-OBJECT-CUSTODY-AMOUNT-084"
+      ],
+      "producer_observation_dispositions": [
+        {
+          "observation": {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-STRATEGIC-PROJECTION-007",
+            "json_pointer": "/current_sources/13",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-stdb-module/src/inventory_container.rs",
+            "read_ranges_as_recorded": [
+              [
+                1030,
+                1085
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-stdb-module/src/inventory_container.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/inventory_container.rs",
+              "sha256": "1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+              "ranges": [
+                [
+                  1030,
+                  1085
+                ]
+              ],
+              "read_kind": "fresh_actual_supplement_body"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          "disposition": "Compared exact current role against this source-specific owner/recipient matrix; actionable inherited findings preserved, no later-lens or implementation credit.",
+          "comparison_ref": "ROOT-CAMERA21-165"
+        }
+      ],
+      "fresh_source_read": "Fresh actual bounded read already performed before recording; exact source body and producer/recipient policy compared, no execution.",
+      "registered_tail": {
+        "overlay": "013",
+        "read_ranges": [
+          [
+            1086,
+            1089
+          ]
+        ],
+        "material_body_ends": 1088
+      },
+      "id": "ROOT-CAMERA21-165"
+    },
+    {
+      "index": 169,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/local_problem.rs",
+      "sha256": "49dfecf1d8b09c88835ef0e2c5d2ffcc8cfd8b6624b3a05e7320e7499a723942",
+      "read_ranges": [
+        [
+          1540,
+          1671
+        ]
+      ],
+      "mode": "fresh_bounded_source_role_comparison",
+      "comparison": "Generated context/manifest and personal StrategicMinute are already checked; keep the validated aggregate and existing Seed/TemplateFamily through generation and materialization. Public versus canonical case IDs, local-problem/receipt/session IDs and numeric character identity are distinct authorities. Contact u64->decimal text reaches a referral API that also accepts arbitrary NPC contact tokens: carry successful numeric identity where established without narrowing every open contact. Official clock fallback elsewhere remains F023; this helper requires the personal clock. Optional generation error->None is bounded candidate rejection, not required operation success. Keep concrete roster/validation/creation/Serde causes to actual SDK Display.",
+      "definition_and_use_refs": [
+        "CAM-OWN-DEVELOPMENT-SCENARIOS-094",
+        "CAM-OWN-GALLERY-041",
+        "CAM-PROP-F011/F022/F023"
+      ],
+      "producer_observation_dispositions": [
+        {
+          "observation": {
+            "delta_observation_index": 77,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-DEVELOPMENT-032",
+            "json_pointer": "/current_sources/5",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row200/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1540,
+                1671
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1540,
+                1671
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          "disposition": "Compared exact current role against this source-specific owner/recipient matrix; actionable inherited findings preserved, no later-lens or implementation credit.",
+          "comparison_ref": "ROOT-CAMERA21-169"
+        }
+      ],
+      "fresh_source_read": "Fresh actual bounded read already performed before recording; exact source body and producer/recipient policy compared, no execution.",
+      "id": "ROOT-CAMERA21-169"
+    },
+    {
+      "index": 179,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/personality.rs",
+      "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+      "read_ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "mode": "fresh_bounded_source_role_comparison",
+      "comparison": "CharacterPersonality contains thirteen signed i16 score axes with neutral0/limit10000; threshold5000, cruel-8000 and deed delta6000 have different score/policy roles. Existing SignedUnitBasisPoints can provide a bounded numeric leaf only after the actual axis admission; raw public table fields do not establish the invariant. Derived Sociability/Outlook/Conviction are lossy observations, not replacements for continuous authoritative scores. Character and projection-character keys refer to the same actor but the SDK index role remains explicit. Event source/deed text, PersonalityAxis and absolute StrategicMinute are distinct roles. Scope ends at160 inside set_score; no full setter-body inference.",
+      "definition_and_use_refs": [
+        "CAM-OWN-SOCIAL-037",
+        "CONT-CAMERA-OWNER-NUMERIC-001"
+      ],
+      "producer_observation_dispositions": [
+        {
+          "observation": {
+            "delta_observation_index": 83,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SOCIAL-027",
+            "json_pointer": "/current_sources/13",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row210/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                160
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                160
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          "disposition": "Compared exact current role against this source-specific owner/recipient matrix; actionable inherited findings preserved, no later-lens or implementation credit.",
+          "comparison_ref": "ROOT-CAMERA21-179"
+        }
+      ],
+      "fresh_source_read": "Fresh actual bounded read already performed before recording; exact source body and producer/recipient policy compared, no execution.",
+      "id": "ROOT-CAMERA21-179"
+    },
+    {
+      "index": 181,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/family.rs",
+      "sha256": "39967c3fc01c7e182d648f23a06e4a8a214c51ea7425f4672318d891fc2178e7",
+      "read_ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "mode": "fresh_bounded_source_role_comparison",
+      "comparison": "Kinship participant keys are all-u64 CharacterId candidates; household keys permit arbitrary source strings and cannot blindly narrow to ASCII strategic components. CharacterBirth uses signed i64 calendar minutes including before epoch, different from unsigned StrategicMinute and SDK UTC microseconds. Age u16 includes newborn0; seeded birth at StrategicMinute::ZERO is deliberate generation epoch. settle_character_age uses authoritative birth to refresh cached age and preserves absent-birth None. Its complete material body ends114; displayed next SeededHouseholdPlan declaration115-126 receives no owner-fit credit in this packet.",
+      "definition_and_use_refs": [
+        "CAM-OWN-RELATIONSHIP-031",
+        "CONT-ROOT-OWNER-BOUNDARY-007"
+      ],
+      "producer_observation_dispositions": [
+        {
+          "observation": {
+            "delta_observation_index": 85,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-RELATIONSHIP-CHRONOLOGY-021",
+            "json_pointer": "/current_sources/5",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row212/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                105
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                105
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          "disposition": "Compared exact current role against this source-specific owner/recipient matrix; actionable inherited findings preserved, no later-lens or implementation credit.",
+          "comparison_ref": "ROOT-CAMERA21-181"
+        }
+      ],
+      "fresh_source_read": "Fresh actual bounded read already performed before recording; exact source body and producer/recipient policy compared, no execution.",
+      "registered_tail": {
+        "overlay": "014",
+        "read_ranges": [
+          [
+            106,
+            126
+          ]
+        ],
+        "material_body_ends": 114,
+        "excluded_next_declaration": [
+          [
+            115,
+            126
+          ]
+        ]
+      },
+      "id": "ROOT-CAMERA21-181"
+    },
+    {
+      "index": 182,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/lifecycle.rs",
+      "sha256": "e07c9d7949a4086798ee405ba1deac19e4adcbb4e5dc5cf618eba028b229415d",
+      "read_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "mode": "fresh_bounded_source_role_comparison",
+      "comparison": "DueLifecycleEvent Wedding/Birth already owns the payload sum and StrategicMinute. stable_key retains explicit (minute, kind rank0/1, id) ordering; deriving enum order without matching it is unsafe. Processability is_ok_and skips missing/future personal frontiers and is not a successful required-clock observation. Lifecycle failure text is truncated to512 only after queue classification at a durable diagnostic sink; preserve structured causes before classification. Quarantine validates pregnancy/activity/reservation ownership before removal, and wedding/birth cancellation, retry and transaction policies remain distinct.",
+      "definition_and_use_refs": [
+        "CAM-OWN-RELATIONSHIP-031",
+        "CAM-PPS-RELATIONSHIP-CHRONOLOGY-021"
+      ],
+      "producer_observation_dispositions": [
+        {
+          "observation": {
+            "delta_observation_index": 86,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-RELATIONSHIP-CHRONOLOGY-021",
+            "json_pointer": "/current_sources/3",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row213/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                138
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                138
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          "disposition": "Compared exact current role against this source-specific owner/recipient matrix; actionable inherited findings preserved, no later-lens or implementation credit.",
+          "comparison_ref": "ROOT-CAMERA21-182"
+        }
+      ],
+      "fresh_source_read": "Fresh actual bounded read already performed before recording; exact source body and producer/recipient policy compared, no execution.",
+      "id": "ROOT-CAMERA21-182"
+    },
+    {
+      "index": 184,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/model.rs",
+      "sha256": "91e0b874352ecb65b64568b5149fbf1bd8a1103dbb836c2a5639cca239ab0043",
+      "read_ranges": [
+        [
+          250,
+          440
+        ]
+      ],
+      "mode": "fresh_bounded_source_role_comparison",
+      "comparison": "Existing CoreCourtshipRoute, CourtshipState and PregnancyState are the exact successful parsed aggregates; raw correlated status/child/resolution fields are admission/aggregate obligations, not a reason for duplicate wrappers. ChildNameSeed and HouseholdPlacementSeed already carry Seed, whereas character/parent/child IDs are durable all-u64 identities. Absolute marriage/leisure endpoints, elapsed counts, u8 remainders and ordinals have separate meaning. Observer insight/deception f32 is not proved UnitInterval. Dowry0 is valid and cannot use nonzero CoinAmount. Last scoped line440 is only the next record attribute; no unseen escrow body credit.",
+      "definition_and_use_refs": [
+        "CAM-OWN-RELATIONSHIP-031",
+        "CAM-PPS-RELATIONSHIP-CHRONOLOGY-021"
+      ],
+      "producer_observation_dispositions": [
+        {
+          "observation": {
+            "delta_observation_index": 88,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-RELATIONSHIP-CHRONOLOGY-021",
+            "json_pointer": "/current_sources/6",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row215/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                250,
+                440
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                250,
+                440
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          "disposition": "Compared exact current role against this source-specific owner/recipient matrix; actionable inherited findings preserved, no later-lens or implementation credit.",
+          "comparison_ref": "ROOT-CAMERA21-184"
+        }
+      ],
+      "fresh_source_read": "Fresh actual bounded read already performed before recording; exact source body and producer/recipient policy compared, no execution.",
+      "id": "ROOT-CAMERA21-184"
+    },
+    {
+      "index": 185,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/newborn_residence.rs",
+      "sha256": "4057e287f3a5f3e79a9925db6a3b0769662f356fc27a8a8f9ea82a4db3b4affc",
+      "read_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "mode": "fresh_bounded_source_role_comparison",
+      "comparison": "inherit_newborn_home is intentionally ancillary after canonical birth. Preserve valid birth/kinship commitment when optional housing is absent or assignment fails; retain meaningful typed optional failure rather than change birth into rollback. Existing character/household/building identities should flow to their actual native row ports. This is a source-backed optional policy, not permission for required operations to discard results.",
+      "definition_and_use_refs": [
+        "CAM-OWN-RELATIONSHIP-031",
+        "CAM-PPS-RELATIONSHIP-CHRONOLOGY-021"
+      ],
+      "producer_observation_dispositions": [
+        {
+          "observation": {
+            "delta_observation_index": 89,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-RELATIONSHIP-CHRONOLOGY-021",
+            "json_pointer": "/current_sources/4",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row216/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                21
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                21
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          "disposition": "Compared exact current role against this source-specific owner/recipient matrix; actionable inherited findings preserved, no later-lens or implementation credit.",
+          "comparison_ref": "ROOT-CAMERA21-185"
+        }
+      ],
+      "fresh_source_read": "Fresh actual bounded read already performed before recording; exact source body and producer/recipient policy compared, no execution.",
+      "id": "ROOT-CAMERA21-185"
+    },
+    {
+      "index": 189,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/reputation.rs",
+      "sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+      "read_ranges": [
+        [
+          85,
+          356
+        ]
+      ],
+      "mode": "fresh_bounded_source_role_comparison",
+      "comparison": "Same current source body as the separately reviewed PR variant: battle-history participants fall back to living members only when empty and preserve ordering; canonical case plus character gives the durable row identity. Severity accepts raw u8 and normalizes clamp1..5, so bounded admission before normalization would narrow0/255. Fame/infamy are integer centipoints with nonnegative event contributions and capped100000 aggregate, not UnitBPS/currency. record_event tests idempotence before origin/projection/native writes and retains structured causes. local_reputation absent aggregate means genuine initial(0,0), not missing measurement; final function is partial in this P16 range.",
+      "definition_and_use_refs": [
+        "CAM-OWN-WORLD-EVENT-083",
+        "CAM-PPS-CASE-RECEIVERS-029",
+        "CAM-PPS-INCIDENT-036"
+      ],
+      "producer_observation_dispositions": [
+        {
+          "observation": {
+            "record": "continuation/camera/receivers.jsonl",
+            "receipt": "row-2",
+            "json_pointer": "",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-stdb-module/src/reputation.rs",
+            "read_ranges_as_recorded": [
+              [
+                253,
+                356
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-stdb-module/src/reputation.rs",
+              "sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+              "read_ranges": [
+                [
+                  253,
+                  356
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          "disposition": "Compared exact current role against this source-specific owner/recipient matrix; actionable inherited findings preserved, no later-lens or implementation credit.",
+          "comparison_ref": "ROOT-CAMERA21-189"
+        },
+        {
+          "observation": {
+            "delta_observation_index": 93,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-INCIDENT-036",
+            "json_pointer": "/current_sources/2",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row220/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                85,
+                350
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                85,
+                350
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          "disposition": "Compared exact current role against this source-specific owner/recipient matrix; actionable inherited findings preserved, no later-lens or implementation credit.",
+          "comparison_ref": "ROOT-CAMERA21-189"
+        }
+      ],
+      "fresh_source_read": "Fresh actual bounded read already performed before recording; exact source body and producer/recipient policy compared, no execution.",
+      "id": "ROOT-CAMERA21-189"
+    },
+    {
+      "index": 198,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/settlement_population.rs",
+      "sha256": "99cd12b58bafddf20c526c07061a1c822636fc87670178ddb36eda2587275fcc",
+      "read_ranges": [
+        [
+          1,
+          759
+        ]
+      ],
+      "mode": "semantic_current_contract_carry",
+      "comparison": "Exact current P16 producer role matches the personally consumed PR population owner matrix: raw level all-i32 normalizes to positive effective population with estimate0 fallback, not a pre-existing count invariant. BusinessId stays checked; profile Profession/AgeBand/Schedule remain typed. Storefront/SettlementVenueKind selected services fit canonical owners; open profession override and organization religion sums are broader. Source-coordinate UTF8 strings feed entropy without being parsed as Seed; prepared Seed and SurnameId remain typed. Daily window exclusive end1440 is valid, unlike MinuteOfDay. Generated-name and SamplingError String loss remain F005/F006. Optional eligibility errors remain noncandidate, not required action errors.",
+      "definition_and_use_refs": [
+        "CAM-OWN-POPULATION-ROLE-CLOSURE-121",
+        "CAM-PPS-POPULATION-024"
+      ],
+      "producer_observation_dispositions": [
+        {
+          "observation": {
+            "delta_observation_index": 102,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-POPULATION-024",
+            "json_pointer": "/current_sources/1",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row229/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                759
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                759
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          "disposition": "Compared exact current role against this source-specific owner/recipient matrix; actionable inherited findings preserved, no later-lens or implementation credit.",
+          "comparison_ref": "ROOT-CAMERA21-198"
+        }
+      ],
+      "carry_basis": "Actual PR/P16 source comparison has no delta on the material roles; personally consumed exact PR owner matrix and current P16 producer narrative. Neither identity nor hash alone supplies fit. No fresh full-body read is claimed.",
+      "id": "ROOT-CAMERA21-198"
+    },
+    {
+      "index": 199,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/settlement_population/resident_drafts.rs",
+      "sha256": "0bdbeb8d3d35fb200d35d06429d177a9311b5e71207f89a3644fadcd6e72d959",
+      "read_ranges": [
+        [
+          1,
+          585
+        ]
+      ],
+      "mode": "semantic_current_contract_carry",
+      "comparison": "Exact current draft role matches PR population proof: ResidentDraft.seed is arbitrary stable UTF8 source coordinate; resident_random hashes its bytes and typed stream, PreparedResident.stable_seed is canonical Seed. next_u64-derived high-bit character identities are newly computed IDs, not previously checked Seed stripping. NameStableSeed from an actual native random word is an admission boundary. Demographic AgeBand thresholds0..12/13..17/18..59/60+ and fallback8/15/30/68 differ from adult courtship16. Keep SurnameId/typed profile through preparation, and generated rendered name/structured sampling/name causes through internal insertion. Physical-description prose has no metre owner.",
+      "definition_and_use_refs": [
+        "CAM-OWN-POPULATION-ROLE-CLOSURE-121",
+        "CAM-PPS-POPULATION-024"
+      ],
+      "producer_observation_dispositions": [
+        {
+          "observation": {
+            "delta_observation_index": 103,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-POPULATION-024",
+            "json_pointer": "/current_sources/2",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row230/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                585
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                585
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          "disposition": "Compared exact current role against this source-specific owner/recipient matrix; actionable inherited findings preserved, no later-lens or implementation credit.",
+          "comparison_ref": "ROOT-CAMERA21-199"
+        }
+      ],
+      "carry_basis": "Actual PR/P16 source comparison has no delta on the material roles; personally consumed exact PR owner matrix and current P16 producer narrative. Neither identity nor hash alone supplies fit. No fresh full-body read is claimed.",
+      "id": "ROOT-CAMERA21-199"
+    },
+    {
+      "index": 212,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social_roles.rs",
+      "sha256": "328d8285856568995cc423bb2ec74bb88bfa690af6e4defcbfc4aa8f9a355415",
+      "read_ranges": [
+        [
+          1,
+          579
+        ]
+      ],
+      "mode": "semantic_current_contract_carry",
+      "comparison": "Exact current role matches PR population proof: membership/role validation retains canonical successful catalogue references, but institution instance, local family, birth family and household are distinct identities. Local family accepts nonempty no-control strings beyond ASCII256 policy; do not silently narrow. InitialSocialRole static keys are matched against actual catalogue definitions; arbitrary provider profession overrides remain open. WrittenLanguage remains typed to creation; OfficialReligion mapping should reuse its exact canonical owner without conflating unknown foreign religion with a known variant. Name/source seed/cause paths remain explicit connected repairs.",
+      "definition_and_use_refs": [
+        "CAM-OWN-POPULATION-ROLE-CLOSURE-121",
+        "CAM-PPS-POPULATION-024"
+      ],
+      "producer_observation_dispositions": [
+        {
+          "observation": {
+            "delta_observation_index": 116,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-POPULATION-024",
+            "json_pointer": "/current_sources/3",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row243/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                579
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                579
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          "disposition": "Compared exact current role against this source-specific owner/recipient matrix; actionable inherited findings preserved, no later-lens or implementation credit.",
+          "comparison_ref": "ROOT-CAMERA21-212"
+        }
+      ],
+      "carry_basis": "Actual PR/P16 source comparison has no delta on the material roles; personally consumed exact PR owner matrix and current P16 producer narrative. Neither identity nor hash alone supplies fit. No fresh full-body read is claimed.",
+      "id": "ROOT-CAMERA21-212"
+    },
+    {
+      "index": 217,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/custody_objectives.rs",
+      "sha256": "7274d8bedc95fa40cee64bda7b7dda0c32b6d02aa01e44e754f77e1bd171bc5b",
+      "read_ranges": [
+        [
+          1225,
+          1305
+        ],
+        [
+          1460,
+          1645
+        ]
+      ],
+      "mode": "semantic_current_contract_carry",
+      "comparison": "Exact current bounded sampling roles match PR custody proof: positive candidate weights50/30/20 and Capture20 feed actual RNG numerical weights, not evidence of reachable zero-total. Canonical AssetId/SubjectId/ObjectiveId should persist through pending maps and internal transitions. CustodyVersion owns all-u32 including initial0 with saturating successor, distinct EquipmentRevision wrapping. Site/Party/Npc source-holder strings<=160 have broader grammar than CaseSiteId/CustodyPartyId; character0 may be accepted whereas CustodyCharacterId is nonzero. Released/Destroyed empty holder and Unattributed empty party are state-specific. Required leader clock fallback remains F023; source-backed eligibility and typed SamplingError cannot be conflated.",
+      "definition_and_use_refs": [
+        "CAM-OWN-CUSTODY-OBJECTIVES-087",
+        "CAM-PPS-TRADE-MISSION-042"
+      ],
+      "producer_observation_dispositions": [
+        {
+          "observation": {
+            "delta_observation_index": 122,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-TRADE-MISSION-042",
+            "json_pointer": "/additional_actual_source_proofs/2",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row248/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1225,
+                1305
+              ],
+              [
+                1460,
+                1645
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1225,
+                1305
+              ],
+              [
+                1460,
+                1645
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": null,
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          "disposition": "Compared exact current role against this source-specific owner/recipient matrix; actionable inherited findings preserved, no later-lens or implementation credit.",
+          "comparison_ref": "ROOT-CAMERA21-217"
+        }
+      ],
+      "carry_basis": "Actual PR/P16 source comparison has no delta on the material roles; personally consumed exact PR owner matrix and current P16 producer narrative. Neither identity nor hash alone supplies fit. No fresh full-body read is claimed.",
+      "id": "ROOT-CAMERA21-217"
+    },
+    {
+      "index": 219,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/development_scenarios.rs",
+      "sha256": "0a3344aa8f11ea2768169b64f3d7b887260bc7fd53e818c8bfff3b55b01ee394",
+      "read_ranges": [
+        [
+          1,
+          340
+        ]
+      ],
+      "mode": "semantic_current_contract_carry",
+      "comparison": "Exact current source roles match PR development proof: slug lowercase/digit/-_1..96 and entry route slash<=256 are distinct namespaces; label/category/prose are open. Subject kind+ID is a sum of generated problem/case/road encounter, not universal CaseId. Durable primary character all-u64 matches CharacterId; stable_hash output scan_id is a newly derived index identity, not Seed retention. Scenario revisionu16 is not equipment/custody revision. Admitted awareness<=6000 can use UnitBasisPoints, provisionsu32 includes0 and uses saturating difference, geographic f64 constants must retain precision. Required clock/typed creation errors remain connected F023/F006.",
+      "definition_and_use_refs": [
+        "CAM-OWN-DEVELOPMENT-SCENARIOS-094",
+        "CAM-PPS-DEVELOPMENT-032"
+      ],
+      "producer_observation_dispositions": [
+        {
+          "observation": {
+            "delta_observation_index": 124,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-DEVELOPMENT-032",
+            "json_pointer": "/current_sources/3",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row250/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                340
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                340
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          "disposition": "Compared exact current role against this source-specific owner/recipient matrix; actionable inherited findings preserved, no later-lens or implementation credit.",
+          "comparison_ref": "ROOT-CAMERA21-219"
+        }
+      ],
+      "carry_basis": "Actual PR/P16 source comparison has no delta on the material roles; personally consumed exact PR owner matrix and current P16 producer narrative. Neither identity nor hash alone supplies fit. No fresh full-body read is claimed.",
+      "id": "ROOT-CAMERA21-219"
+    },
+    {
+      "index": 238,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/scenario_characters.rs",
+      "sha256": "fe732c13e4aebc3bfbe24b75f8a91f654d37117925eeea8cfdf8766f5eec402e",
+      "read_ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "mode": "fresh_bounded_source_role_comparison",
+      "comparison": "ensure_scenario_character accepts arbitrary authored name, broader than only RenderedPersonalName successful outputs. CharacterCreationOptions modes/flags and Some/None clock policy remain typed; Seed::from_u64(character_id) deliberately maps fixture identity into entropy once, with no earlier checked Seed loss. Character all-u64 includes0 and differs physical/custody nonzero IDs. Typed insert creation cause currently returns through String and should join the existing operation error graph; preserve fixture naming/time/default decisions.",
+      "definition_and_use_refs": [
+        "CAM-OWN-DEVELOPMENT-SCENARIOS-094",
+        "CAM-PPS-DEVELOPMENT-032"
+      ],
+      "producer_observation_dispositions": [
+        {
+          "observation": {
+            "delta_observation_index": 138,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-DEVELOPMENT-032",
+            "json_pointer": "/current_sources/2",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row265/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                31
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                31
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          "disposition": "Compared exact current role against this source-specific owner/recipient matrix; actionable inherited findings preserved, no later-lens or implementation credit.",
+          "comparison_ref": "ROOT-CAMERA21-238"
+        }
+      ],
+      "fresh_source_read": "Fresh actual bounded read already performed before recording; exact source body and producer/recipient policy compared, no execution.",
+      "id": "ROOT-CAMERA21-238"
+    },
+    {
+      "index": 452,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/alcohol.rs",
+      "sha256": "c572b0014c6114020ee98d99a3cdfa1579b25a815ade34656bfeb8b6a421d1dc",
+      "read_ranges": [
+        [
+          565,
+          605
+        ]
+      ],
+      "mode": "fresh_bounded_source_role_comparison",
+      "comparison": "best_disinfectant returns inventory ID/catalog ID/effectivenessu16 as distinct roles; actual native ranking index selects the source slice. Required fraction invalid ratio->WHOLE and missing available fraction->0 are explicit existing policies; ConsumableFractionMicros is exact integer owner. Effectiveness malformed/full-u16 producer is not proved UnitBasisPoints. Preserve fireplace eligibility, quantity0, tuple correlation and candidate ordering; raw returned identity/quantity is strengthening, not an already checked leaf silently stripped unless the upstream producer proves it.",
+      "definition_and_use_refs": [
+        "CAM-PPS-CLINICAL-RECEIVERS-045",
+        "CAM-OWN-FOOD-CONSUMPTION-020"
+      ],
+      "producer_observation_dispositions": [
+        {
+          "observation": {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CLINICAL-RECEIVERS-045",
+            "json_pointer": "/additional_actual_source_proofs/10",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/alcohol.rs",
+            "read_ranges_as_recorded": [
+              [
+                565,
+                605
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/alcohol.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/alcohol.rs",
+              "sha256": "c572b0014c6114020ee98d99a3cdfa1579b25a815ade34656bfeb8b6a421d1dc",
+              "actual_lines": 677,
+              "read_ranges": [
+                [
+                  565,
+                  605
+                ]
+              ],
+              "requested_range_limits": [
+                [
+                  565,
+                  605
+                ]
+              ],
+              "proof_mode": "Fresh actual bounded current clinical receiver/owner body. Effective range clipped to actualEOF. No whole unrelated file/role credit."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          "disposition": "Compared exact current role against this source-specific owner/recipient matrix; actionable inherited findings preserved, no later-lens or implementation credit.",
+          "comparison_ref": "ROOT-CAMERA21-452"
+        },
+        {
+          "observation": {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-035",
+            "json_pointer": "/fresh_current_additional_source_reads/10",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/alcohol.rs",
+            "read_ranges_as_recorded": [
+              [
+                565,
+                605
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/alcohol.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/alcohol.rs",
+              "sha256": "c572b0014c6114020ee98d99a3cdfa1579b25a815ade34656bfeb8b6a421d1dc",
+              "actual_lines": 677,
+              "read_ranges": [
+                [
+                  565,
+                  605
+                ]
+              ],
+              "requested_range_limits": [
+                [
+                  565,
+                  605
+                ]
+              ],
+              "proof_mode": "Fresh actual bounded current clinical receiver/owner body. Effective range clipped to actualEOF. No whole unrelated file/role credit."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          "disposition": "Compared exact current role against this source-specific owner/recipient matrix; actionable inherited findings preserved, no later-lens or implementation credit.",
+          "comparison_ref": "ROOT-CAMERA21-452"
+        }
+      ],
+      "fresh_source_read": "Fresh actual bounded read already performed before recording; exact source body and producer/recipient policy compared, no execution.",
+      "id": "ROOT-CAMERA21-452"
+    },
+    {
+      "index": 493,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/bestiary_and_corrections.rs",
+      "sha256": "4237f3b685e3eb38b41d2eabd6b64c89542d97923b84d8b55b7a3f63e8bf5f70",
+      "read_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "mode": "fresh_bounded_source_role_comparison",
+      "comparison": "Three existing complete fixtures use canonical ReportDescription/EvidenceKind and verify paw receipt deduplication, idempotent inspection and observer-safe visible deductions. Persisted diagnostic kind is semantic classification; interpretation is prose, and Eyesight is a stat display label rather than parser authority. Keep original privacy assertions for score/canonical, exact fixtures/inputs/oracles only. Canonical DeductionSupport must remain through application merge before final stable label codec. Line110 is only next test attribute; no unseen fixture credit.",
+      "definition_and_use_refs": [
+        "CAM-PPS-CASE-RECEIVERS-029",
+        "NATIVE-PS-F030"
+      ],
+      "producer_observation_dispositions": [
+        {
+          "observation": {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CASE-RECEIVERS-029",
+            "json_pointer": "/related_current_sources/16",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/bestiary_and_corrections.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                110
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/bestiary_and_corrections.rs",
+              "sha256": "4237f3b685e3eb38b41d2eabd6b64c89542d97923b84d8b55b7a3f63e8bf5f70",
+              "read_ranges": [
+                [
+                  1,
+                  110
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/investigation/tests/bestiary_and_corrections.rs",
+              "scope": "Actual existing support helper fixture and unchanged adjacent inspection fixtures; only bounded body source proof, no full586 claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          "disposition": "Compared exact current role against this source-specific owner/recipient matrix; actionable inherited findings preserved, no later-lens or implementation credit.",
+          "comparison_ref": "ROOT-CAMERA21-493"
+        },
+        {
+          "observation": {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016",
+            "json_pointer": "/related_current_reads/16",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/bestiary_and_corrections.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                110
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/bestiary_and_corrections.rs",
+              "sha256": "4237f3b685e3eb38b41d2eabd6b64c89542d97923b84d8b55b7a3f63e8bf5f70",
+              "read_ranges": [
+                [
+                  1,
+                  110
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/investigation/tests/bestiary_and_corrections.rs",
+              "scope": "Actual existing support helper fixture and unchanged adjacent inspection fixtures; only bounded body source proof, no full586 claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          "disposition": "Compared exact current role against this source-specific owner/recipient matrix; actionable inherited findings preserved, no later-lens or implementation credit.",
+          "comparison_ref": "ROOT-CAMERA21-493"
+        }
+      ],
+      "fresh_source_read": "Fresh actual bounded read already performed before recording; exact source body and producer/recipient policy compared, no execution.",
+      "id": "ROOT-CAMERA21-493"
+    },
+    {
+      "index": 494,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/projection_and_referrals.rs",
+      "sha256": "c66f2f103d7c9e06d5426737e2d87279cd43f0160b834292664ddaa3e55c8390",
+      "read_ranges": [
+        [
+          530,
+          648
+        ]
+      ],
+      "mode": "fresh_bounded_source_role_comparison",
+      "comparison": "Existing root-rumor fixture carries typed ActionId into observer-scoped hash identity; raw .0 used for new namespace derivation differs unchanged same-ID forwarding. Public and canonical case namespaces stay distinct. Residents >2^53 and large observer identities, plus independent hi/lo128-bit authority, must remain bit-exact with no JS Number coercion. Empty prerequisite String encodes an explicit no-prerequisite state. The invalid257-byte pipeline receipt uses an actual ValidationError before early String adapter; adapt its existing oracle to typed cause without new assertions/cases. Preserve both fixture families, seeds, input count and error order.",
+      "definition_and_use_refs": [
+        "CAM-PPS-CASE-RECEIVERS-029",
+        "NATIVE-PS-F032"
+      ],
+      "producer_observation_dispositions": [
+        {
+          "observation": {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CASE-RECEIVERS-029",
+            "json_pointer": "/related_current_sources/17",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/projection_and_referrals.rs",
+            "read_ranges_as_recorded": [
+              [
+                530,
+                648
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/projection_and_referrals.rs",
+              "sha256": "c66f2f103d7c9e06d5426737e2d87279cd43f0160b834292664ddaa3e55c8390",
+              "read_ranges": [
+                [
+                  530,
+                  648
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/investigation/tests/projection_and_referrals.rs",
+              "scope": "Full reached existing testimony fixture561–648 with original two families, seeds, large identities, input count and error assertions; adjacent prefix partial, no full648 claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          "disposition": "Compared exact current role against this source-specific owner/recipient matrix; actionable inherited findings preserved, no later-lens or implementation credit.",
+          "comparison_ref": "ROOT-CAMERA21-494"
+        },
+        {
+          "observation": {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016",
+            "json_pointer": "/related_current_reads/17",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/projection_and_referrals.rs",
+            "read_ranges_as_recorded": [
+              [
+                530,
+                648
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/projection_and_referrals.rs",
+              "sha256": "c66f2f103d7c9e06d5426737e2d87279cd43f0160b834292664ddaa3e55c8390",
+              "read_ranges": [
+                [
+                  530,
+                  648
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/investigation/tests/projection_and_referrals.rs",
+              "scope": "Full reached existing testimony fixture561–648 with original two families, seeds, large identities, input count and error assertions; adjacent prefix partial, no full648 claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          "disposition": "Compared exact current role against this source-specific owner/recipient matrix; actionable inherited findings preserved, no later-lens or implementation credit.",
+          "comparison_ref": "ROOT-CAMERA21-494"
+        }
+      ],
+      "fresh_source_read": "Fresh actual bounded read already performed before recording; exact source body and producer/recipient policy compared, no execution.",
+      "id": "ROOT-CAMERA21-494"
+    },
+    {
+      "index": 503,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/reputation.rs",
+      "sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+      "read_ranges": [
+        [
+          74,
+          179
+        ],
+        [
+          258,
+          361
+        ]
+      ],
+      "mode": "fresh_bounded_source_role_comparison",
+      "comparison": "Current participant source/fallback/sorted pure plan and complete record_event native mutation roles match the P16 comparison: canonical/public case difference, all-u64 character/party identity, raw severity clamp1..5, centipoints nonnegative/capped100000 and exact node/integer-distance roles. Check idempotence before origin and mutation; retain structured WorldEvent/Serde causes until SDK Display. Actual native reputation rows are scalar codec ports, not internal String-error justification. local_reputation absent->(0,0) is meaningful initial accumulated reputation, distinct required observed clock/capability fallback.",
+      "definition_and_use_refs": [
+        "CAM-OWN-WORLD-EVENT-083",
+        "CAM-PPS-CASE-RECEIVERS-029",
+        "CAM-PPS-INCIDENT-036"
+      ],
+      "producer_observation_dispositions": [
+        {
+          "observation": {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CASE-RECEIVERS-029",
+            "json_pointer": "/related_current_sources/24",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/reputation.rs",
+            "read_ranges_as_recorded": [
+              [
+                91,
+                148
+              ],
+              [
+                258,
+                349
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/reputation.rs",
+              "sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+              "read_ranges": [
+                [
+                  91,
+                  148
+                ],
+                [
+                  258,
+                  349
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/reputation.rs",
+              "scope": "Actual final case participant snapshot/native event/aggregate inserts, original fallback ordering and nonnegative centipoint policy; no full440 claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          "disposition": "Compared exact current role against this source-specific owner/recipient matrix; actionable inherited findings preserved, no later-lens or implementation credit.",
+          "comparison_ref": "ROOT-CAMERA21-503"
+        },
+        {
+          "observation": {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016",
+            "json_pointer": "/related_current_reads/24",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/reputation.rs",
+            "read_ranges_as_recorded": [
+              [
+                91,
+                148
+              ],
+              [
+                258,
+                349
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/reputation.rs",
+              "sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+              "read_ranges": [
+                [
+                  91,
+                  148
+                ],
+                [
+                  258,
+                  349
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/reputation.rs",
+              "scope": "Actual final case participant snapshot/native event/aggregate inserts, original fallback ordering and nonnegative centipoint policy; no full440 claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          "disposition": "Compared exact current role against this source-specific owner/recipient matrix; actionable inherited findings preserved, no later-lens or implementation credit.",
+          "comparison_ref": "ROOT-CAMERA21-503"
+        },
+        {
+          "observation": {
+            "record": "continuation/camera/traces.jsonl",
+            "receipt": "CONT-CAMERA-PP-009",
+            "json_pointer": "/exact_receiver_proofs/5",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/reputation.rs",
+            "read_ranges_as_recorded": [
+              [
+                74,
+                179
+              ],
+              [
+                258,
+                361
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/reputation.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/reputation.rs",
+              "sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+              "actual_lines": 440,
+              "read_ranges": [
+                [
+                  74,
+                  179
+                ],
+                [
+                  258,
+                  361
+                ]
+              ],
+              "role": "Fresh actual case participant source/fallback/sorted pure plan, complete actual SDK snapshot/offense/event writes and contribution mutation receiver258-348; additional local_reputation350-360 confirms optional absent aggregate defaults genuine accumulated0, distinct required observation. Only74-179/258-361 read here; broad reputation supplier remains separate."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          "disposition": "Compared exact current role against this source-specific owner/recipient matrix; actionable inherited findings preserved, no later-lens or implementation credit.",
+          "comparison_ref": "ROOT-CAMERA21-503"
+        },
+        {
+          "observation": {
+            "record": "continuation/native/receiver-reads.json",
+            "receipt": "row-1",
+            "json_pointer": "/5",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/reputation.rs",
+            "read_ranges_as_recorded": [
+              [
+                74,
+                179
+              ],
+              [
+                258,
+                361
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/reputation.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/reputation.rs",
+              "sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+              "actual_lines": 440,
+              "read_ranges": [
+                [
+                  74,
+                  179
+                ],
+                [
+                  258,
+                  361
+                ]
+              ],
+              "role": "Fresh actual case participant source/fallback/sorted pure plan, complete actual SDK snapshot/offense/event writes and contribution mutation receiver258-348; additional local_reputation350-360 confirms optional absent aggregate defaults genuine accumulated0, distinct required observation. Only74-179/258-361 read here; broad reputation supplier remains separate."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          "disposition": "Compared exact current role against this source-specific owner/recipient matrix; actionable inherited findings preserved, no later-lens or implementation credit.",
+          "comparison_ref": "ROOT-CAMERA21-503"
+        }
+      ],
+      "fresh_source_read": "Fresh actual bounded read already performed before recording; exact source body and producer/recipient policy compared, no execution.",
+      "id": "ROOT-CAMERA21-503"
+    },
+    {
+      "index": 513,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_policy.rs",
+      "sha256": "0b4667798ab18d21ca3e177acf453f643f39fd813f40d9dc55f2bf23fec06c01",
+      "read_ranges": [
+        [
+          1,
+          13
+        ]
+      ],
+      "mode": "fresh_bounded_source_role_comparison",
+      "comparison": "DialoguePrompt::policies parses stored strings to existing PromptMode/ResolutionPolicy and retains concrete DialoguePolicyParseError. Both typed values are already returned together; no new duplicate policy wrapper needed for this owner lens. Store first-party schema policy/state with canonical types to actual codec, preserve unknown/rejected stored inputs as explicit admission errors, and retain parse cause through prompts/answer to final SDK Display. Actual body1-13 complete; outer impl brace14 gives no extra semantic role. Catalogue hash claim in old dialogue trace is corrected by fresh Rig supplier proof to SHA-256, not blake3; this policy role does not itself establish digest owner fit.",
+      "definition_and_use_refs": [
+        "CAM-OWN-DIALOGUE-DEFINITIONS-044",
+        "CAM-PPS-DIALOGUE-040"
+      ],
+      "producer_observation_dispositions": [
+        {
+          "observation": {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-DIALOGUE-040",
+            "json_pointer": "/related_current_sources/1",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_policy.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                13
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_policy.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/dialogue_policy.rs",
+              "sha256": "0b4667798ab18d21ca3e177acf453f643f39fd813f40d9dc55f2bf23fec06c01",
+              "actual_lines": 14,
+              "read_ranges": [
+                [
+                  1,
+                  13
+                ]
+              ],
+              "proof_mode": "fresh actual current supplement bounded material source body, no execution",
+              "role": "Actual stored String policies decoded back to shared PromptMode/ResolutionPolicy"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          "disposition": "Compared exact current role against this source-specific owner/recipient matrix; actionable inherited findings preserved, no later-lens or implementation credit.",
+          "comparison_ref": "ROOT-CAMERA21-513"
+        },
+        {
+          "observation": {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-033",
+            "json_pointer": "/fresh_current_additional_source_reads/1",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_policy.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                13
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_policy.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/dialogue_policy.rs",
+              "sha256": "0b4667798ab18d21ca3e177acf453f643f39fd813f40d9dc55f2bf23fec06c01",
+              "actual_lines": 14,
+              "read_ranges": [
+                [
+                  1,
+                  13
+                ]
+              ],
+              "proof_mode": "fresh actual current supplement bounded material source body, no execution",
+              "role": "Actual stored String policies decoded back to shared PromptMode/ResolutionPolicy"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          "disposition": "Compared exact current role against this source-specific owner/recipient matrix; actionable inherited findings preserved, no later-lens or implementation credit.",
+          "comparison_ref": "ROOT-CAMERA21-513"
+        }
+      ],
+      "fresh_source_read": "Fresh actual bounded read already performed before recording; exact source body and producer/recipient policy compared, no execution.",
+      "id": "ROOT-CAMERA21-513"
+    }
+  ],
+  "scope_limits": "All original requested ranges preserved. Tails013/014 explicit. Other owner ranges/definitions already scoped and consumed; no new source variant; no producer or later-lens credit."
+}

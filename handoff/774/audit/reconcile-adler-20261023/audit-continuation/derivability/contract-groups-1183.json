@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1183",
+  "at": "2026-10-25T18:04:05.439219+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1279,
+  "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/failure_projection.rs",
+  "sha256": "db839d73026a5d4ecb4ff4ee8e73872b345be0e3c83a09010d9c4868dfc3ce31",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [
+    "CoreLoopFailureCategory/CoreLoopFailureReason/CoreLoopFailureProjection Clone Copy Debug Eq PartialEq"
+  ],
+  "trait_inventory": [],
+  "analysis": "Failure category/reason/projection already derive Clone Copy Debug Eq PartialEq. Const stable key matches and current coded-error/operation-specific public category/reason/message projection are semantic classifiers, not hand Serialize/Display. No manual trait/custom codec in slice; no runtime Serde solely replacing classifier. Previous repeatable-event policy uses selected kind plus existing derived semantic key equality.",
+  "first_unfinished": {
+    "scope_index": 1279,
+    "line": 221
+  },
+  "execution": "none"
+}

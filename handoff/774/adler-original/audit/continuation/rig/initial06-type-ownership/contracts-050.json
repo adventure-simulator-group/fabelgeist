@@ -1,0 +1,32 @@
+{
+  "id": "RIG-INITIAL06-GROUP-050",
+  "at": "2026-10-22T21:19:17.557500+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "backing-versus-direct-and-root-custody": {
+      "sources": [
+        "pr-working:crates/adventuresim-core/src/physical_object.rs",
+        "pr-working:crates/adventuresim-stdb-module/src/object_custody.rs"
+      ],
+      "comparison": "Fresh full PR physical_object 1-383 and DB object_custody 1-501, including original tests. Supporting DB inventory_container 1-155/340-444, fireplace_custody 329-472/490-562 and repair 192-235 were freshly read. Personally consumed Native current03 camera-support/contracts-001 canonical place/fixture definition facts, not its verdict; no whole StrategicPlace998 source credit. PhysicalObjectId is the nonzero typed view of existing InventoryObject.id, not a second ID. Actual inventory_container 30-38 auto_inc u64 and insert100 id0 are native assignment ports; do not require NonZero before assignment. CustodyCharacterId and CustodyPartyId have distinct nonzero/canonical-text policies and namespaces from physical object, lot, process and seed. InventoryLocation is a persisted backing address: Personal/Party/Repair row IDs or fireplace fixture. OperationalCustody is the direct holder, including Container/Place/Fixture, with no row ID. Descendants retain carried backing while direct custody can name a container. Keep these products distinct. ResolvedObjectCustody combines direct ObjectCustody with computed ultimate root, rather than two persisted authorities. Core owns custody meaning and self-containment law; DB resolves membership, row uniqueness, item/owner/quantity, cycles/depth16 and root coherence. Repair escrow row.character_id0 is distinct from personal custody. Checked identity alone does not replace these DB checks or establish legal ownership. Fireplace backing requires Fireplace kind, not every StrategicFixtureId; repair settlement component is not an arbitrary complete StrategicPlaceId. Preserve those purpose restrictions."
+    },
+    "one-canonical-custody-owner-and-typed-backing-leaves": {
+      "sources": [
+        "pr-working:crates/adventuresim-core/src/physical_object.rs",
+        "pr-working:crates/adventuresim-stdb-module/src/object_custody.rs",
+        "pr-working:crates/adventuresim-stdb-module/src/inventory_container.rs"
+      ],
+      "comparison": "F015: DB PersistedOperationalCustody22-30 mirrors all five Core OperationalCustody205-211 states. encode56-74 unwraps every field unchanged, and decode32-54 reconstructs the same checked owners. This is a real transport boundary, but the public persisted model duplicates the canonical owner and flows through application APIs. Use the canonical Core custody with checked optional SDK implementations, or a private wire adapter only at the actual codec. Do not keep a second public retained custody vocabulary. Existing Core optional SDK dependency/feature was read in035; no Core-to-DB-module cycle is needed. Preserve actual SATS unit/single-field restrictions035/Root117: canonical Place/Fixture data variants may need product-variant restructuring, and SDK decode must invoke canonical admission rather than derive private-field bypasses. A naive derive is not proof that this dependency is solved. A separate erasure occurs outside the codec: typed carried_location_for_row373-389 takes Character.get/Party.as_str into raw backing fields, then object_custody117-131/165-194 reconstructs the same leaves. Keep the backing-row product but compose existing checked Character/Party owners through fields and APIs. Fireplace validation329-472 parses canonical Fixture, requires Fireplace kind and current availability; place_fireplace_container524 discards that identity and persists the original String556. Return and retain the typed compatible fixture while preserving membership/current-camp checks. Raw SDK keys, auto-inc assignment and actual serialization are justified ports, not a blanket DB-helper exemption. No actual bad row or runtime failure is claimed."
+    },
+    "containment-is-not-equipment-attachment": {
+      "sources": [
+        "pr-working:crates/adventuresim-core/src/inventory_containers.rs"
+      ],
+      "comparison": "Fresh full Core inventory_containers256 including original tests. Object composes PhysicalObjectId and canonical Milliliters for exterior displacement, optional interior capacity and measured contents. Private ContainmentGraph uses typed IDs and returns typed checked used_volume; this is good existing-owner propagation. Graph construction requires positive exterior volume, while measured zero and Some(zero capacity) remain valid. MaterialVessel positive microlitre capacity is a different process-specific contract. Containment accounts immediate displacement without double-counting grandchildren and validates capacity, cycles and depth16 with deterministic subtree order. It is different from equipment attachment points/channels/anatomical occupancy, RigJointTable hierarchy and spatial bounds indexes. Default empty graph is valid; no Serde/Reflect/public-map escape. Public Object is input data, not a graph-membership token. Test helpers construct canonical IDs/volumes before the graph API and introduce no competing production owner. Preserve reparent restoration, immediate-volume accounting and ordering. Tests were only read."
+    }
+  },
+  "new_findings": [
+    "RIG-INITIAL06-F015"
+  ],
+  "limits": "Whole06 incomplete. Supporting DB inventory1451/fireplace656/repair724 and StrategicPlace998 are not closed source cells. No09/12 or execution."
+}

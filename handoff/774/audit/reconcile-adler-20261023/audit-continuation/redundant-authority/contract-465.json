@@ -1,0 +1,80 @@
+{
+  "id": "CONT07-CONTRACT-465",
+  "at": "2026-10-23T22:24:36.648006+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2054,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/furniture.rs",
+      "sha256": "f3ec5409fb24d23dcf6c786fe44145ef7a58ece8c335ab6eefaa665eb6b48a7b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/furniture.rs",
+      "actual_EOF": 60,
+      "ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2055,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration.rs",
+      "sha256": "812c3b491db93ba51220e73ebe4aef93934ff80abeb3f7d4e2af796c598ce1b7",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/iteration.rs",
+      "actual_EOF": 648,
+      "ranges": [
+        [
+          1,
+          648
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2056,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration/clock.rs",
+      "sha256": "049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/iteration/clock.rs",
+      "actual_EOF": 29,
+      "ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2057,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration/equipment.rs",
+      "sha256": "ca4439b826717b1d61d7efd26d33a4538f66c8fc5527e32d8e7d9768b71e7074",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/iteration/equipment.rs",
+      "actual_EOF": 163,
+      "ranges": [
+        [
+          1,
+          163
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "2054 full60 canonical furniture key produces static collider and layout placement produces Transform; nearby/distant instances intentionally receive distinct collider/replication roles. Vista resource copies group replacement on Add by id and sorts, distant copy on Add; independent component replacement/despawn invalidation still needs actual producer before stale cache finding. F085 shared property identity not cleared.",
+    "2055 full648 fixed64Hz is actual iteration harness owner and2056 full29 derives tactical elapsed from same constant. This positively qualifies2009 fixed64 tick reference for this harness, not general production/default policy. TimeUpdateStrategy fixed and manually advanced Time<()> are distinct Bevy time resources; no unconditional double-advance claim without native runtime proof.",
+    "2055 current total controls actual end-of-update defeat and result. Source timeout counter off-by-one forwarded as CROSS-LENS005, no separate07classification or execution. initial separation4 derives actual fixed positions\u00b12, and event length/count output derive same log on publication.",
+    "2055 combat build projection maps source current fields; starting fear/hunger/thirst/thermal absent from Combatant data here so defaults not proved to contradict enrollment. Standard behavior config uses default while app resource is freshly default, so actual harness agrees; arbitrary caller mutability not normal config discrepancy.",
+    "2057 full163 iterations spawn weapon/shield/armor from roster definition plus retained combat model. Fixed provenance1/2/10+index repeats between actors, but left is Party and right Enemy and actual receipt producer only records Party; no ordinary two-party identifier collision proof. Public bespoke build can have mismatched id/equipment but actual roster coordination and API ownership dependency preserved; no inferred blanket finding.",
+    "2057 armor occurrences choose authored placement cyclically to preserve paired parts; use first protected part for canonical EquipSlot and covered_parts/geometry for all actual covered parts. These are separate slot/surface roles, not a lost coverage claim. All existing duel/equipment fixtures read only; none executed."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2061,
+    "start_line": 1
+  }
+}

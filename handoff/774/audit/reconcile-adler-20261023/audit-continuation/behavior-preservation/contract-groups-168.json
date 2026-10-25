@@ -1,0 +1,107 @@
+{
+  "id": "CONT08-CONTRACT-168",
+  "at": "2026-10-25T13:29:22.431558+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 649,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/room_index.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/model/room_index.rs",
+      "before_sha256": "09a150e0b0d2873609095c1d8e6f9cf8a4e2117df74ded1787a03d6f647f23cb",
+      "after_sha256": "09a150e0b0d2873609095c1d8e6f9cf8a4e2117df74ded1787a03d6f647f23cb",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0649-base-09a150e0b0d2873609095c1d8e6f9cf8a4e2117df74ded1787a03d6f647f23cb",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/09a150e0b0d2873609095c1d8e6f9cf8a4e2117df74ded1787a03d6f647f23cb",
+      "diff": "source-evidence/pr-0649.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "facts": [
+        "Full45 and empty diff. RoomIndex transparent u16 wire/default trait set retained; usize admission uses u16::try_from with Room cause, serialized constructor trusts u16 and projections preserve exact ordinal/display. No new primitive narrowing."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 650,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/walls.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/model/walls.rs",
+      "before_sha256": "0ccc94972996dae71d762e7019f9814a02a26ff12a2eabe8709f7c791c8b9930",
+      "after_sha256": "0ccc94972996dae71d762e7019f9814a02a26ff12a2eabe8709f7c791c8b9930",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0650-base-0ccc94972996dae71d762e7019f9814a02a26ff12a2eabe8709f7c791c8b9930",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/0ccc94972996dae71d762e7019f9814a02a26ff12a2eabe8709f7c791c8b9930",
+      "diff": "source-evidence/pr-0650.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          353
+        ]
+      ],
+      "facts": [
+        "Full353 and empty diff. WallSource/ChurchRange/Stage/material/role/opening/head/closure variant and payload order preserved. Structural thickness inclusive ranges unchanged; FortifiedMasonry >=1.20 has no new finite cap. Opening profile clear height sums segmental spring+rise in same native order; military uses interior height.",
+        "Wall/frame/radial, opening identities/support/source/sectional slices and .025 glazing constant unchanged. Existing public correlated fields are not made coherent merely by unchanged source or shared leaf extraction."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 651,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/plan_geometry.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/plan_geometry.rs",
+      "before_sha256": "a767ca4e45d2c04ddf94d1f23452ecbb3a5c6c864bc8ce63fc673e6f39e5b92b",
+      "after_sha256": "a767ca4e45d2c04ddf94d1f23452ecbb3a5c6c864bc8ce63fc673e6f39e5b92b",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0651-base-a767ca4e45d2c04ddf94d1f23452ecbb3a5c6c864bc8ce63fc673e6f39e5b92b",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/a767ca4e45d2c04ddf94d1f23452ecbb3a5c6c864bc8ce63fc673e6f39e5b92b",
+      "diff": "source-evidence/pr-0651.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          341
+        ]
+      ],
+      "facts": [
+        "Full341 and empty diff. ArchitecturalPlanPoint finite X then Z validation and transparent Vec2 wire unchanged; source errors retain identities. Polygon preserves authored order, finite\u2192length/area\u2192clockwise\u2192duplicate\u2192all-edge convex validation with collinear allowance.",
+        "Hull exact finite sort treats signed zero equal, deduplicates geometric equality and classifies Empty/Point/Segment/Area without epsilon. f64 differences and origin-relative area accumulation preserve tiny-subnormal/large-offset behavior. Existing projection/clockwise/duplicate/contact fixtures read, not run."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 652,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/roof_tessellation.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/roof_tessellation.rs",
+      "before_sha256": "1b6392b23903162a4016dd207491880b8fc6d4b6242e1fe516eb8c92ce18634d",
+      "after_sha256": "1b6392b23903162a4016dd207491880b8fc6d4b6242e1fe516eb8c92ce18634d",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0652-base-1b6392b23903162a4016dd207491880b8fc6d4b6242e1fe516eb8c92ce18634d",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/1b6392b23903162a4016dd207491880b8fc6d4b6242e1fe516eb8c92ce18634d",
+      "diff": "source-evidence/pr-0652.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          426
+        ]
+      ],
+      "facts": [
+        "Full426 and empty diff. Covering UV downhill normal projection/Z fallback and planar tangent abs(y)<.99, native division/order unchanged. Roof cutouts attempt first boundary notch before hole-earcut; triangle winding dot<0 and reversed offset interior preserved. Enclosure residual exterior/interior ring ordering retained.",
+        "Boundary faces appear only for singly used edges under tolerance squared .000004; first collinear-removal and first matching edge/corner cutout traversal retain native operation/tie/order. Exact pitch/azimuth UV and hole12-area/closed-winding fixtures read, not rendered or run."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    }
+  ],
+  "next": "653 signs164 then654+"
+}

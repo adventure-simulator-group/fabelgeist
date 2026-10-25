@@ -1,0 +1,103 @@
+{
+  "id": "RIG-CAMERA-ADM03-COMPLETION-002",
+  "lens": "audit-admission-contracts",
+  "authorities": [
+    "root/admission03/support-authority-053.json",
+    "root/admission03/support-authority-068.json",
+    "root/admission03/support-authority-069.json"
+  ],
+  "original_assignment": 200,
+  "retained_reviewed": 162,
+  "root_retained_not_reviewed_here": 38,
+  "root_retained_camera_queue_indices": [
+    728,
+    729,
+    730,
+    732,
+    733,
+    734,
+    735,
+    736,
+    737,
+    799,
+    801,
+    802,
+    803,
+    804,
+    805,
+    806,
+    807,
+    809,
+    810,
+    811,
+    812,
+    814,
+    815,
+    816,
+    817,
+    818,
+    819,
+    820,
+    821,
+    822,
+    824,
+    825,
+    826,
+    827,
+    828,
+    829,
+    830,
+    831
+  ],
+  "returned_actual_source_refs": [
+    "contracts.jsonl#RIG-CAMERA-ADM03-813",
+    "contracts.jsonl#RIG-CAMERA-ADM03-823"
+  ],
+  "prior160_completion": "completion-001.json immutable; its pins describe exact160-row prefix before append813/823",
+  "original_queue_sha256": "029e06c24f58acf91112f4919f089bf478300320a12bdf4aac4128b1d0128e8a",
+  "pins": {
+    "contracts.jsonl": {
+      "sha256": "5b35993d2b885963ae9871a13ae79bdd707dfecbe4d5e9aff964a57629e01c18",
+      "bytes": 468997,
+      "rows": 162
+    },
+    "coverage.jsonl": {
+      "sha256": "0d0db412b7a4828550a3b95348a8fab3fce3f97c57b6bada01fc545e05147f40",
+      "bytes": 107368,
+      "rows": 162
+    },
+    "findings.jsonl": {
+      "sha256": "9f6475f14a646ef932f96cc6a266c57b145af9c7f5bd575fd5543345bbcd9600",
+      "bytes": 3236,
+      "rows": 2
+    },
+    "qualifications.jsonl": {
+      "sha256": "1c64216e0fcfc1551a45f57a56e1ac4627e8cb9faa9a4f2c3758cfb4d0de9e06",
+      "bytes": 10563,
+      "rows": 13
+    },
+    "additional-contracts.jsonl": {
+      "sha256": "c189bf1e02e6bd0f9b9b5c467b3ff485f569fd8925eab5237ac046d797dfe9f9",
+      "bytes": 2278,
+      "rows": 1
+    },
+    "completion-001.json": {
+      "sha256": "d1c84e7cc362f83207133810674311d0aa6d144ef099a2bfc87b4b1642eb9fc9",
+      "bytes": 3878,
+      "rows": null
+    }
+  },
+  "remaining_retained_source_roles": [],
+  "first_unfinished_retained": null,
+  "findings": "Existing2 supplier findings and all prior qualifications preserved; returned2 raw UI/CSV/ordering qualifications do not add a unique defect. RootExtraF005 Dose and shared SkillRank NaN routes remain exact existing findings, not duplicate counts.",
+  "scope_limits": [
+    "Original Rig802 and Root112 completions unchanged. Camera retains final source/audit acceptance; Root final audit/repair authority.",
+    "Full actual returned body/source-test reads do not establish runtime or passing tests. No source edits/project execution/later-lens credit.",
+    "Source-specific dependencies and raw native/public DTO routes remain exact narrative limits; no blanket lower-graph coverage. NewREG142 earlier-lens/global reconciliation still Root-owned.",
+    "Original200 partition transfer supplies no semantic credit for Root38."
+  ],
+  "supplier_status": "complete exact162 source evidence with findings and qualifications; final Camera acceptance pending",
+  "global_lens_complete": false,
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

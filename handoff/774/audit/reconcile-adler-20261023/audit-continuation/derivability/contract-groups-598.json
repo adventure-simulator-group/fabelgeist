@@ -1,0 +1,54 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-598",
+  "at": "2026-10-25T16:10:21.544425+00:00",
+  "lens": "10 audit-derivability",
+  "status": "BOUNDED_NATIVE_DEPENDENCY_PROOF_NO_WHOLE_ROLE_CREDIT",
+  "source": {
+    "id": "SEGOVB-INITIAL10-REG-598",
+    "at": "2026-10-25T16:09:58.791754+00:00",
+    "source_id": "pinned-registry:spacetimedb-bindings-macro-2.6.1/src/sats.rs",
+    "scope_index": 2562,
+    "sha256": "bf26e6331c7cf9a560ecec507b5e06b11bc77460dec17ac0d553cff5278a5bc4",
+    "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/bf26e6331c7cf9a560ecec507b5e06b11bc77460dec17ac0d553cff5278a5bc4",
+    "actual_EOF": 752,
+    "selected_ranges": [
+      [
+        1,
+        144
+      ],
+      [
+        728,
+        752
+      ]
+    ],
+    "reason": "Direct native SpacetimeType availability enum has a named three-field Unavailable variant. Need actual pinned derive parser/variant_data rule before suggesting existing derive replaces custom named-product bridge935:60\u2013147. Owning Core849 and root497 exact2.6.1 dependency edge verified.",
+    "scope": "Bounded native macro admission/shape proof only; no macro execution or external SDK repair, no full role or other-lens credit."
+  },
+  "actual_compared_ranges": [
+    [
+      1,
+      144
+    ],
+    [
+      728,
+      752
+    ]
+  ],
+  "contract": "SpacetimeDB2.6.1 native derive cannot directly replace public InvestigationActionAvailability named-payload bridge",
+  "analysis": [
+    "sats_type_from_derive54\u201385 sends every enum variant to variant_data71; variant_data728\u2013752 accepts only unit or exactly one-field named/unnamed variants and rejects three named fields. Public Unavailable variant935:53\u201357 has reason/bool/wait fields, so direct native derive is not admitted.",
+    "extract_sats_type98\u2013143 parses only native crate/name attributes; no Serde-style into/try_from adapter attr is supplied at this gate. Existing helper named product and tuple sum935:60\u201375 own deliberate SATS shape; conversions78\u2013113 and delegation116\u2013147 remain necessary without changing public enum/wire API.",
+    "Keep public Serde snake_case enum unchanged; do not eliminate bridge by switching public enum payload or editing generated SDK. Dependencies inspected as exact primary source only; no macro execution or third-party repair."
+  ],
+  "native_dependency_pin": [
+    "original849 CoreCargo existing optional workspace spacetimedb",
+    "original497 Cargo.lock10220\u201310254 exact spacetimedb/bindings-macro2.6.1 checksum/dependency",
+    "original2562 exact recovered object SHA matched before read"
+  ],
+  "finding": "No new finding; provisional question597 discharged as KEEP_NECESSARY_NATIVE_WIRE_BRIDGE",
+  "execution": "none",
+  "first_unfinished": {
+    "scope_index": 935,
+    "line": 221
+  }
+}

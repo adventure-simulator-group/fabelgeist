@@ -1,0 +1,123 @@
+{
+  "id": "CONT07-CONTRACT-613",
+  "at": "2026-10-24T00:41:05.497747+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2659,
+      "source_id": "pr-working:crates/fabelgeist-shell/src/selfcollision.rs",
+      "sha256": "7ead6da2698052b16c3bea193a97bc29ac57b981e987a516cf70928f0d53aab8",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-shell/src/selfcollision.rs",
+      "actual_EOF": 283,
+      "ranges": [
+        [
+          1,
+          283
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2660,
+      "source_id": "pr-working:crates/fabelgeist-bvh/src/gpu/shaders.rs",
+      "sha256": "2022b9f9947af21ed0ada98816b862f6569d1237a5c6d0557c46441a78022e32",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-bvh/src/gpu/shaders.rs",
+      "actual_EOF": 490,
+      "ranges": [
+        [
+          391,
+          490
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2661,
+      "source_id": "pr-working:crates/fabelgeist-shell/src/surface_contact/solve/tests.rs",
+      "sha256": "42ccfda42f41dfade0c7694b313e1ea574e2d1468e850bc03c2d664da867e4aa",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-shell/src/surface_contact/solve/tests.rs",
+      "actual_EOF": 45,
+      "ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2662,
+      "source_id": "pr-working:crates/fabelgeist-xpbd/src/constraint/tests.rs",
+      "sha256": "76a57f6a56d156060a5b815f6b341a9e0d49ad8d84f749fc8d53493131598ab2",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-xpbd/src/constraint/tests.rs",
+      "actual_EOF": 111,
+      "ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2663,
+      "source_id": "pr-working:crates/fabelgeist-physics/tests/fixtures/collider-capacity.txt",
+      "sha256": "ad424c9d6795c485f994b03ac15f11381d6b1b78d241f86fe9522a9b4a8069b2",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-physics/tests/fixtures/collider-capacity.txt",
+      "actual_EOF": 11,
+      "ranges": [
+        [
+          1,
+          11
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2664,
+      "source_id": "pr-working:crates/fabelgeist-shell/tests/fixtures/contact_masses.json",
+      "sha256": "6660cc916030d6d4ac23b18ea228ebdeceeb96802dddc6c503b6b907e07e05e8",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-shell/tests/fixtures/contact_masses.json",
+      "actual_EOF": 4396,
+      "ranges": [
+        [
+          1,
+          4396
+        ]
+      ],
+      "read_kind": "full JSON structural decode; all36 complete compact records personally inspected; no execution"
+    },
+    {
+      "scope_index": 2665,
+      "source_id": "pr-working:crates/fabelgeist-xpbd/tests/fixtures/constraint-native.json",
+      "sha256": "be4aabd75d125b721d7898bef0d725ec40c253ec09cbe3d3f6bd76bed5a88503",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-xpbd/tests/fixtures/constraint-native.json",
+      "actual_EOF": 47,
+      "ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "RIG-ADMISSION03-F089",
+    "RIG-ADMISSION03-F073-SUPPLEMENT-002"
+  ],
+  "facts": [
+    "SelfCollision public radius can diverge from private spacing and built cache through direct mutation; explicit set_radius coordinates spacing and invalidates built. This aliases inherited RIG-ADMISSION03-F089, whose full narrative consumed; no new unique finding. record marks built before fallible GPU record sequence completes, but failed/unsubmitted batch lifetime needs concrete recovery caller before successful stale-grid claim. Hook implementation always rebuilds after integration; direct record(false) contract explicitly requires unchanged cell membership.",
+    "TraversalConfig generates native symbols from one current config, defaults match GpuBvh bindings by explicit contract. Stack depth is a separately selected resource bound, and full stack silently drops branches; actual builder maximum hierarchy depth and final recipients remain required before claiming default64 drops valid normal candidates. Empty/native cardinality and stack0 require admission policy, not speculative ordinary failure.",
+    "Existing collider capacity fixture explicitly records u32 narrowing/wrapping edge outputs; these values are preserved evidence, not acceptance that native capacity is safe. RIG-ADMISSION03-F073-SUPPLEMENT-002 consumed exact same count/executable capacity contract. Constraint fixture distinguishes active/disabled/empty dispatch, empty native word, original-index reorder and preserved error text. No fixtures run or changed.",
+    "Contact-mass JSON source was fully decoded structurally and all36 compact complete records personally inspected (18 VertexTriangle +18 EdgeEdge, paired with/without_velocity). Stored u32 word arrays are native bit snapshots, including signedzero and extreme inverse masses, and corrected/velocity outputs are independent expected evidence. This review does not assert solver correctness from expected snapshots, invoke solver, or transfer executable test PASS. Original4396 formatting lines represented through full semantic JSON decode rather than manually paging original whitespace."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2666,
+    "start_line": 1
+  }
+}

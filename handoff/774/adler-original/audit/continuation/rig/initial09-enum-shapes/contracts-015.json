@@ -1,0 +1,37 @@
+{
+  "id": "RIG-INITIAL09-GROUP-015",
+  "at": "2026-10-23T12:56:57.728277+00:00",
+  "lens": "audit-enum-shapes",
+  "scope": "cumulative-source-scope-parallel-072.json",
+  "groups": {
+    "motion-load-state": {
+      "comparison": "Fresh fullmotion175. MotionLoadState Pending(Task) versus Ready(Option<Handle<Gltf>>) alreadyowns onlyappropriateasyncpayload; Ready(None) retains completedattempt withouttypedhandle andobserve_source_revision canrecoverbyactualpath. Do not eraseFailedsourcehistory orforceallmissingassetsfatal. poll nestedOption deliberatelyrepresentsPending/Unavailable/Handle, no invalidcombinations; standardPoll<Option<Handle>> couldimprovenaming butno mandatorynewbespokeenumidentified. MotionClipAdmission alreadyproperPending/Unavailable/Ready(LoadedClip) localcompleteadmission sum, eachReadyclip hasduration+layer. Sourcehandle stage is notsameasloadedclipstage.",
+      "disposition": "Existing async and admission sums appropriate; preserve stagedavailability/history"
+    },
+    "loaded-grip-state": {
+      "comparison": "Fresh full loading390; native BaseRigLoad transitionUnrequested→Loading(source)→Ready(source,scene) orFailed(source) preservesmeaningfulsourceonfailure. Allmatchesactualpayload. NativeLoadStateenum branch andlocalchangedbool areeventpredicates. collect_loaded_grips315 treatsprocessed/unavailableassets terminal, success369-377 insertsclipandprocessedtogether; revision1318:82-87 removesclip/processed/unavailabletogether. Actualruntimefielddefinitions1328:104-123 separatelyretainrequestedsourcehandle/processedset/unavailableset/readyclipmap. processed is whollyrepresentedbyreadyclipkey; removeit ratherthanmechanicallyenumInitialized. Strongerexplicitpergrip MotionClipAdmission Pending/Unavailable/Ready(LoadedClip) wouldownterminalpayloadandpreventcontradictorysplitstate, reuseexistingexactsum insteadofinventingcompatibilitymirrors. Motion ready/unavailable similarlysplitmaps cancomposeexactadmissionowner whilepreservingseparateMotionLoadtask/sourcehistory. Normalpathscurrentlycoherent, no actualbadasset/runassertion. ECSAnimationRigAttached andRigTargetsBound arestage markers ratherthanduplicateloadedflagforpayload; no automaticnewenumfindingforthem.",
+      "disposition": "F010 redundant processedgrips presence and split admission-state migration"
+    },
+    "playback-policies": {
+      "comparison": "Fresh full155. BaseRigLoad unitUnrequested andLoading/Failedsource/Readysource+scene ispositivevariantpayloadmodel, retainfailurehandleforrevisions. TimelineDirection/OrdinaryLocomotion/PoseOwnership/PoseVisibility/InertialState namecarriedchoicesdistinctfromlocalpredicates. OrdinaryLocomotion Active storeshysteresis history, cannotdeletebasedoncurrentvelocity/candidate; actualthresholdselection118-125 dependspriorstate. sampling_cadence derivesactualBuffered/Direct choice fromplanextrapolated/continuations, not secondmutableflag. Visibility/Ownership/Inertialenumconsumerpayloads inotherfilesremainseparatequeuedroles; currentfiledoesnotestablishtheirwholegraph.",
+      "disposition": "Meaningfulmode/history enums andcorrectBaseRigLoadpayload retained"
+    }
+  },
+  "finding_refs": [
+    "RIG-INITIAL09-F010"
+  ],
+  "limits": "All original scope/context exclusions retained; no whole caller/nativepackage credit.",
+  "partial_current_source_witnesses": [
+    {
+      "scope_index": 1328,
+      "ranges": [
+        [
+          104,
+          123
+        ]
+      ],
+      "role": "LoadedClip andAnimationRuntime actualfielddefinitions forF010 only; firstbroader810 displaytruncated, no whole1328 initial09coverage"
+    }
+  ],
+  "actual_revision_source_ref": "contracts-011.json#/groups/revision-events (fresh1318full100 and1319full78)"
+}

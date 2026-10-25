@@ -1,0 +1,72 @@
+{
+  "head": "82cb2a3acccc852bba6a7ef9c706c337ba9fe765",
+  "observed_at": "2026-10-20T17:49:29.069166+00:00",
+  "status": "Pre-edit receiver-body trace; no P06 implementation or acceptance verdict.",
+  "canonical_owner": "Tactical Core scene_coordinates::ScenePlanPoint",
+  "application_queries": [
+    {
+      "owner": "scene/ground.rs::SceneGround::ground_at",
+      "evidence": "Currently accepts Vec2, computes grid coordinates and forwards the same untyped position to UrbanGroundSurfaces::surface_at.",
+      "decision": "Accept the checked point. Keep it checked for the urban branch and project metres only for actual grid-address calculation."
+    },
+    {
+      "owner": "scene/ground/urban.rs::UrbanGroundSurfaces::{surface_at,overlaps_disk}; UrbanGroundLookup::{surface_at,suppresses_grass,overlaps_disk}",
+      "evidence": "Surfaces is an application forwarder to its retained lookup. Lookup selects semantic material/ownership using bucket and geometric predicates. Vista streets::UrbanGround::suppresses_grass adds another forwarder.",
+      "decision": "Carry ScenePlanPoint through these query/forwarder interfaces. Reuse the existing lowest canonical owner. Do not project in the public forwarder and re-admit in the lookup."
+    },
+    {
+      "owner": "presentation/ground_scatter/cover_mask.rs::CoverageMask::coverage_byte",
+      "evidence": "Body directly computes clamped UVs, integer texel addresses and the mask byte. TuftPlacement::coverage currently forwards Vec2 to it.",
+      "decision": "This body is the actual native texture-sampling calculation, but the checked point should reach it through TuftPlacement and botanical-site helpers. Project once inside this calculation; do not classify its callers as native merely because this receiver is native."
+    },
+    {
+      "owner": "scene_input/furniture/ground.rs::PlacementGround::allows_activity and furniture/placement.rs::accept",
+      "evidence": "The existing checked footprint centre is erased to chain with computed corners; each point is re-admitted separately for the collar and support calls. allows_activity forwards raw coordinates to ground semantics.",
+      "decision": "Admit complete computed corners once, retain the already-checked centre, and use that same checked point through collar, activity and support queries. Keep the native vista grid-address calculation at its actual boundary."
+    },
+    {
+      "owner": "presentation/vista.rs::stitched_vista_topology_coverage and vista/grass.rs::VistaTuftPlacement::coverage",
+      "evidence": "The trait forwards one scene point through a coverage wrapper, urban exclusion and playable-ground lookup before the final native coverage lerp.",
+      "decision": "Keep the point checked through application queries. Preserve the exact native clamp/outside/lerp order. Admit the newly clamped boundary point at that complete coordinate calculation, not by flattening and re-admitting the original point between helpers."
+    }
+  ],
+  "actual_native_kernels": [
+    "Urban SpatialBuckets::at directly quantizes native spatial coordinates into the cached cell key.",
+    "CityStreetPatch::contains computes complete segment/quad containment; CityYardPatch::contains delegates solely to its complete convex-quad kernel.",
+    "CityPlotBounds::contains explicitly implements the f64 rotated-rectangle containment kernel and documents its native port. Its existing checked centre/dimensions owners must not be duplicated.",
+    "CoverageMask texel address math, native noise/finite-difference operations and actual vector/Transform assembly remain numerical endpoints. No permission to retain a naked scene point in a surrounding application record follows from those endpoints."
+  ],
+  "producer_decisions": [
+    "Botanical open_understory_site and grass footprint probes create new offset coordinates. Admit each completed offset result once before checked ground/mask queries; preserve the existing five/nine probe ordering and short-circuit behavior.",
+    "Loose-stone PatchPlacement::new admits the complete source-grid-to-metres point once before urban and terrain queries. Preserve its distinct index*scale-half formula and exact envelope-radius equation.",
+    "Bevy movement/weather audio positions are native GlobalTransform observations: admit their complete X/Z projection once and preserve unavailable support. No origin or zero-height replacement.",
+    "SceneTerrain::refined produces the scene-local point at its grid-to-metres calculation. Keep that point and the canonical sampled elevation through its application callback; the complete callback equation admits its final elevation before native-buffer storage. Keep source-grid SceneTerrain::new coordinates distinct from scene-local points.",
+    "SceneTerrain::rewrite_heights similarly exposes world coordinates and absolute samples to application callbacks. Preserve checked point/elevation there and the existing row order, finite-rejection behavior and publication semantics. Do not turn this into an unchecked alias or preserve raw forwarding just to avoid adapting the few existing callbacks.",
+    "Core authoritative_surface_relief and road_surface_relief must retain the point at their application entry and admit actual computed road probes at their producer. Keep complete local noise/relief scalar equations native. Their client counterparts are cfg(test) formula mirrors; adapt existing cases without adding tests."
+  ],
+  "scope_limits": [
+    "This is the P06 connected scene-point/support family, not a migration of every street/yard serialized field or every raster dimension, density, noise coefficient, radius or material enum.",
+    "Where a preexisting point is already checked, use it directly. Do not create equivalent geometry owners or take over remaining #765 city-family responsibilities.",
+    "The search yielded additional callers, not a claim that every method with a matching name is a defect. Native exclusions above were checked by receiver bodies.",
+    "Existing test-name/assertion inventory is a static preservation aid, not runtime validation. P06 source implementation is still gated on the current baseline-only CI follow-up."
+  ],
+  "source_sha256": {
+    "crates/adventuresim-tactical-core/src/scene/ground.rs": "3dbb0ea8a81599718ff587192e49a670d7dce9255e8f850fe3ea9897be34c033",
+    "crates/adventuresim-tactical-core/src/scene/ground/urban.rs": "e71f739c80030c926c78fedb7899936ea1f79ae5d3da4145b468bbc82aea3dac",
+    "crates/adventuresim-tactical-core/src/city_layout/surfaces.rs": "064e2fe3fc9294f655bfeaf2cd691d7277e6ad428a603ad1dbbf10aa42c18993",
+    "crates/adventuresim-tactical-core/src/city_layout/compound/region.rs": "b9459edfa26900b54302dd7fc9e9c0ccf3db2871e9c7789af6a479af2baf871b",
+    "crates/adventuresim-tactical-core/src/scene.rs": "3c124cb1f252af95932cb2db1f6fc9ba9b4b9b21a78d5bbbb2060d978a7aad55",
+    "crates/adventuresim-tactical-core/src/scene_input.rs": "a14ebebfa341f8931147a923ed0f6c9316e654c4699d53e9a7c79c81f8c4d567",
+    "crates/adventuresim-tactical-core/src/scene_input/furniture/ground.rs": "34bc9a5777d5248a785df288e3e833c0172cc0c5e4ef752f357f3349bfe73423",
+    "crates/adventuresim-tactical-core/src/scene_input/furniture/placement.rs": "f2b0ec3a120136a31de6839f2702379d57c4a3b6ac7f969569fcb2b0870e7afd",
+    "crates/adventuresim-tactical-client/src/presentation/ground_scatter/cover_mask.rs": "0ec55612d54df506ba553efc2a4b229ae339098061afd266439a898ca8f26f1f",
+    "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass.rs": "fbfdf8c1d07f839312ac04bcd70b3d40e40d3367a730b725e1604d0c3d148dcb",
+    "crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants.rs": "5ed415184df7db95824ba1a36e477ce066f0f671b5df8c85ee412eda4fc8912f",
+    "crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass.rs": "3a823de8ff19d46513c0cf666036073364623f453b2757137d41120ac6bcac18",
+    "crates/adventuresim-tactical-client/src/presentation/vista.rs": "46685e628028a9c3bc2d6bbf9fcbb894a96bd35c36df1b01743625f293d9d105",
+    "crates/adventuresim-tactical-client/src/presentation/vista/grass.rs": "0b64d391acfe53f478551c77582de1c5dc512039a0389d67f2d24bc0e68f4da5",
+    "crates/adventuresim-tactical-client/src/presentation/vista/streets.rs": "47e0c0a55635ed06329e777fd9c23f1cea22db6b88104bac054c60314b00e4ad"
+  },
+  "no_source_changes": true,
+  "no_local_project_execution_or_new_tests": true
+}

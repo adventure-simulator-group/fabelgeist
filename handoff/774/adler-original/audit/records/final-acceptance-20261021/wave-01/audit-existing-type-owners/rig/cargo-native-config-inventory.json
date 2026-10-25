@@ -1,0 +1,101 @@
+[
+  {
+    "source_id": "pr-working:crates/adventuresim-character-creator/Cargo.lock",
+    "assigned_index": 101,
+    "observed_sha256": "60cf80c50552791fe98d6c50b3a730b7c0f04bdfa993ec003a781538683e6d72",
+    "expected_sha256": "60cf80c50552791fe98d6c50b3a730b7c0f04bdfa993ec003a781538683e6d72",
+    "bytes": 289478,
+    "lines": 12310,
+    "inventory_method": "EverybyteTOMLdecodedbyPythonstdlibfornativeconfigurationbookkeeping; structuredfieldrolegrouping, notmanualfullSourcecode/probescanner/runtimecheck",
+    "root_keys": [
+      "version",
+      "package"
+    ],
+    "package_rows": 1064,
+    "package_field_keys_counts": {
+      "name": 1064,
+      "version": 1064,
+      "source": 1035,
+      "checksum": 979,
+      "dependencies": 811
+    },
+    "package_field_type_counts": {
+      "name:str": 1064,
+      "version:str": 1064,
+      "source:str": 1035,
+      "checksum:str": 979,
+      "dependencies:list": 811
+    },
+    "all_package_field_roles": {
+      "name": "nativeCargo registry/workspace package identity",
+      "version": "nativeCargo package release identifier",
+      "source": "registry/git source URI/nativeCargo source selector",
+      "checksum": "registry nativecargo integrity hash",
+      "dependencies": "array of nativeCargo package references; optionalversion disambiguates29vs30",
+      "replace": "nativeCargo package replacement reference ifpresent"
+    },
+    "wgpu_versions": [
+      "29.0.4",
+      "30.0.1"
+    ],
+    "fabelgeist_gpu_deps": [
+      "anyhow",
+      "async-lock",
+      "bytemuck",
+      "fabelgeist-color",
+      "fabelgeist-math",
+      "fabelgeist-timer",
+      "futures-channel",
+      "indexmap",
+      "naga 29.0.4",
+      "parking_lot",
+      "pollster",
+      "regex",
+      "serde",
+      "strum 0.27.2",
+      "wasm-bindgen-futures",
+      "web-sys",
+      "wgpu 29.0.4"
+    ]
+  },
+  {
+    "source_id": "pr-working:crates/fabelgeist-mhr/Cargo.lock",
+    "assigned_index": 514,
+    "observed_sha256": "45961a0c74b57fb81e9429abc14d387a4e4a00ba18a771c17b0fd5e4ea09eaf4",
+    "expected_sha256": "45961a0c74b57fb81e9429abc14d387a4e4a00ba18a771c17b0fd5e4ea09eaf4",
+    "bytes": 170674,
+    "lines": 7093,
+    "inventory_method": "EverybyteTOMLdecodedbyPythonstdlibfornativeconfigurationbookkeeping; structuredfieldrolegrouping, notmanualfullSourcecode/probescanner/runtimecheck",
+    "root_keys": [
+      "version",
+      "package"
+    ],
+    "package_rows": 661,
+    "package_field_keys_counts": {
+      "name": 661,
+      "version": 661,
+      "source": 656,
+      "checksum": 600,
+      "dependencies": 494
+    },
+    "package_field_type_counts": {
+      "name:str": 661,
+      "version:str": 661,
+      "source:str": 656,
+      "checksum:str": 600,
+      "dependencies:list": 494
+    },
+    "all_package_field_roles": {
+      "name": "nativeCargo registry/workspace package identity",
+      "version": "nativeCargo package release identifier",
+      "source": "registry/git source URI/nativeCargo source selector",
+      "checksum": "registry nativecargo integrity hash",
+      "dependencies": "array of nativeCargo package references; optionalversion disambiguates29vs30",
+      "replace": "nativeCargo package replacement reference ifpresent"
+    },
+    "wgpu_versions": [
+      "30.0.1"
+    ],
+    "fabelgeist_gpu_deps": []
+  }
+]

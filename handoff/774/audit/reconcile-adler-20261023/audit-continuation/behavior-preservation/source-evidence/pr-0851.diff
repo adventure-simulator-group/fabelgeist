@@ -1,0 +1,72 @@
+--- PRbase/crates/adventuresim-core/build/combat_resolution.rs
++++ frozen/crates/adventuresim-core/build/combat_resolution.rs
+@@ -97,9 +97,9 @@
+         serde_saphyr::from_str(&text).unwrap_or_else(|error| panic!("{}: {error}", path.display()));
+     values.validate(&path);
+     let resolution = values.resolution;
+     let autoresolve = values.autoresolve;
+-    let fatigue = format!("{:?}", resolution.fatigue);
++    let fatigue = fatigue_source(resolution.fatigue);
+     resolution
+         .contact
+         .validate()
+         .expect("valid weapon contact calibration");
+@@ -110,24 +110,24 @@
+             "pub const EMBEDDED_COMBAT_RESOLUTION_PARAMETERS: CombatResolutionParameters = \
+              CombatResolutionParameters {{ fatigue: {fatigue}, contact: {contact}, armed_attack_energy_transfer: {:?}_f32, \
+              stagger_resistance_joules_per_kg: {:?}_f32 }};\n\
+              pub const EMBEDDED_AUTORESOLVE_PARAMETERS: AutoresolveParameters = \
+-             AutoresolveParameters {{ combat_round_seconds: {:?}_f32, formation_spacing_metres: \
+-             {:?}_f32, reference_melee_attack_seconds: {:?}_f32, \
+-             minimum_movement_speed_metres_per_second: {:?}_f32, \
+-             guarded_movement_speed_metres_per_second: {:?}_f32, \
+-             melee_lunge_speed_metres_per_second: {:?}_f32, \
++             AutoresolveParameters {{ combat_round_seconds: match crate::elapsed::AnimationElapsed::from_seconds({:?}_f32) {{ Ok(elapsed) => elapsed, Err(_) => panic!(\"invalid embedded duration\") }}, formation_spacing_metres: \
++             {:?}_f32, reference_melee_attack_seconds: match crate::elapsed::AnimationElapsed::from_seconds({:?}_f32) {{ Ok(elapsed) => elapsed, Err(_) => panic!(\"invalid embedded duration\") }}, \
++             minimum_movement_speed_metres_per_second: match crate::linear_speed::PositiveSpeed::from_metres_per_second({:?}_f32) {{ Ok(speed) => speed, Err(_) => panic!(\"invalid embedded speed\") }}, \
++             guarded_movement_speed_metres_per_second: match crate::linear_speed::PositiveSpeed::from_metres_per_second({:?}_f32) {{ Ok(speed) => speed, Err(_) => panic!(\"invalid embedded speed\") }}, \
++             melee_lunge_speed_metres_per_second: match crate::linear_speed::PositiveSpeed::from_metres_per_second({:?}_f32) {{ Ok(speed) => speed, Err(_) => panic!(\"invalid embedded speed\") }}, \
+              melee_lunge_maximum_travel_metres: {:?}_f32, \
+              reference_ground_drive_force_newtons: {:?}_f32, \
+              reference_leg_strength: {:?}_f32, gravity_metres_per_second_squared: {:?}_f32, \
+              traction_coefficient: {:?}_f32, \
+-             minimum_attack_interval_seconds: {:?}_f32, minimum_melee_input_reflex: {:?}_f32, \
+-             melee_windup_seconds: {:?}_f32, melee_reaction_delay_min_seconds: {:?}_f32, \
+-             melee_reaction_delay_max_seconds: {:?}_f32, melee_reflex_window_seconds: {:?}_f32, \
++             minimum_attack_interval_seconds: match crate::elapsed::AnimationElapsed::from_seconds({:?}_f32) {{ Ok(elapsed) => elapsed, Err(_) => panic!(\"invalid embedded duration\") }}, minimum_melee_input_reflex: {:?}_f32, \
++             melee_windup_seconds: match crate::elapsed::AnimationElapsed::from_seconds({:?}_f32) {{ Ok(elapsed) => elapsed, Err(_) => panic!(\"invalid embedded duration\") }}, melee_reaction_delay_min_seconds: match crate::elapsed::AnimationElapsed::from_seconds({:?}_f32) {{ Ok(elapsed) => elapsed, Err(_) => panic!(\"invalid embedded duration\") }}, \
++             melee_reaction_delay_max_seconds: match crate::elapsed::AnimationElapsed::from_seconds({:?}_f32) {{ Ok(elapsed) => elapsed, Err(_) => panic!(\"invalid embedded duration\") }}, melee_reflex_window_seconds: match crate::elapsed::AnimationElapsed::from_seconds({:?}_f32) {{ Ok(elapsed) => elapsed, Err(_) => panic!(\"invalid embedded duration\") }}, \
+              melee_dodge_reaction_chance: {:?}_f32, \
+-             melee_initiative_delay_min_seconds: {:?}_f32, \
+-             melee_initiative_delay_max_seconds: {:?}_f32, \
+-             melee_cadence_jitter_seconds: {:?}_f32, \
++             melee_initiative_delay_min_seconds: match crate::elapsed::AnimationElapsed::from_seconds({:?}_f32) {{ Ok(elapsed) => elapsed, Err(_) => panic!(\"invalid embedded duration\") }}, \
++             melee_initiative_delay_max_seconds: match crate::elapsed::AnimationElapsed::from_seconds({:?}_f32) {{ Ok(elapsed) => elapsed, Err(_) => panic!(\"invalid embedded duration\") }}, \
++             melee_cadence_jitter_seconds: match crate::elapsed::AnimationElapsed::from_seconds({:?}_f32) {{ Ok(elapsed) => elapsed, Err(_) => panic!(\"invalid embedded duration\") }}, \
+              long_weapon_measure_threshold_metres: {:?}_f32, \
+              melee_measure_reach_fraction: {:?}_f32, \
+              minimum_hit_precision: {:?}_f32, maximum_hit_precision: {:?}_f32, \
+              outnumbered_flanking: {:?}_f32, ranged_defense_input_reflex: {:?}_f32 }};\n",
+@@ -254,4 +254,22 @@
+             path.display()
+         );
+     }
+ }
++
++/// Source emission is the native encoding boundary; preserve the existing f32 literal spellings.
++fn fatigue_source(value: CombatFatigueParameters) -> String {
++    format!(
++        "CombatFatigueParameters {{ mechanical_efficiency: {:?}, capacity_joules_per_endurance: {:?}, recovery_watts_per_endurance: {:?}, aerobic_watts_per_endurance: {:?}, carry_watts_per_kg: {:?}, minimum_endurance: {:?}, minimum_action_seconds: match crate::elapsed::AnimationElapsed::from_seconds({:?}_f32) {{ Ok(elapsed) => elapsed, Err(_) => panic!(\"invalid embedded action duration\") }}, maximum_action_seconds: match crate::elapsed::AnimationElapsed::from_seconds({:?}_f32) {{ Ok(elapsed) => elapsed, Err(_) => panic!(\"invalid embedded action duration\") }}, attack_travel_metres: {:?}, defense_travel_metres: {:?}, dodge_speed_metres_per_second: match crate::linear_speed::PositiveSpeed::from_metres_per_second({:?}_f32) {{ Ok(speed) => speed, Err(_) => panic!(\"invalid embedded dodge speed\") }} }}",
++        value.mechanical_efficiency,
++        value.capacity_joules_per_endurance,
++        value.recovery_watts_per_endurance,
++        value.aerobic_watts_per_endurance,
++        value.carry_watts_per_kg,
++        value.minimum_endurance,
++        value.minimum_action_seconds.seconds(),
++        value.maximum_action_seconds.seconds(),
++        value.attack_travel_metres,
++        value.defense_travel_metres,
++        value.dodge_speed_metres_per_second.metres_per_second(),
++    )
++}

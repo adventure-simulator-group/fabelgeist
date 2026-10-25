@@ -1,0 +1,91 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-116",
+  "at": "2026-10-25T17:41:30.087707+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1549,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/cover_mask.rs",
+      "sha256": "5d2662fa8f5c9fad7ea8d6428397a79a7df3bba69053a7b778d29b31ea74bfb6",
+      "personally_read_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full37 CoverageMask read. Private width/height/pixels and ground extents constructed together from actual grass_cover_mask_pixels producer. Sampling clamps normalized coordinates before final texel index; requires nonzero extents and exact width*height pixel cardinality from owning producer, not private fields alone. Canonical ScenePlanPoint retained until actual sampling math. Final byte is actual texture port precision. Need preserve exact producer dimensions/layout contract under M61, not infer invalid ordinary mask."
+      ]
+    },
+    {
+      "scope_index": 1550,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass.rs",
+      "sha256": "d375436ca9d226ccb6fbc5b65afcaf94a6b9c3e4bfa90fc1016da8cb958a7281",
+      "personally_read_ranges": [
+        [
+          1,
+          1237
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Fresh full1237 source and original fixtures confirm historical070 proof. Parallel position/normal/UV/root/color columns appended in one mesh emitter, optional seed-head four-vertex quads share same base. Configured rows/grid counts require M61/F020 native capacity admission before allocation; normal authored settings coherent, terminal zero-width tip and density0 empty mesh valid. Fractional row monotonicity and cross-LOD fade relationship retained; no executed geometry/shader test."
+      ],
+      "coverage_qualification": "Fresh supporting read only; full historical same-lens source proof already counted, no new role credit."
+    },
+    {
+      "scope_index": 1551,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass/community.rs",
+      "sha256": "950c6a30f2beb4beaf5cdcc2e7b4cf410f6beb5c993bffc23fd8f99e918941a2",
+      "personally_read_ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Fresh full263 confirms historical070. Seed/cell keyed site cache independent of local habitat; neighborhood fixed9 rebuilt before unwrap. Current profile passed to final weighted select preserves hard-zero exclusions; no normalized-sum1 promise. Finite ScenePlanPoint alone does not guarantee floor/cast/native neighbor arithmetic fits i32; exact existing F021 capacity dependency, not new ordinary source regression."
+      ],
+      "coverage_qualification": "Fresh supporting read only; full historical same-lens source proof already counted, no new role credit."
+    },
+    {
+      "scope_index": 1552,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass/placement.rs",
+      "sha256": "d16bd96cb1443180658a7961e14da85b6f03d0a0a89b11a86c3a8a5054bc9bd8",
+      "personally_read_ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Fresh full70 confirms historical070. Same admitted jittered point feeds ground-cover and terrain height/normal gates; any of9 tall-grass samples intentional. Normal positive slope threshold and native Transform preserve same point. Arbitrary raw spacing/jitter admission remains M61; no universal nonnegative world height requirement."
+      ],
+      "coverage_qualification": "Fresh supporting read only; full historical same-lens source proof already counted, no new role credit."
+    },
+    {
+      "scope_index": 1553,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass/streams.rs",
+      "sha256": "c7dec0c3ade3ab3bcab4c7477cd16a656dde75abd939c0f7ecdb56ca96a0dca3",
+      "personally_read_ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Fresh full32 confirms historical070. Named StreamId constants preserve independent deterministic purposes; blade_angle is numerical angle port, inclusive TAU valid. Signed cell-to-word projection is native deterministic replay encoding, not identifier namespace interchange."
+      ],
+      "coverage_qualification": "Fresh supporting read only; full historical same-lens source proof already counted, no new role credit."
+    }
+  ],
+  "findings": [
+    "M61/F020 checked graphics mesh layouts",
+    "F021 native cell capacity"
+  ],
+  "qualified_connected_requirements": [
+    "1550\u20131553 fresh support does not increment already adopted historical role coverage."
+  ],
+  "discovery": "1 newly accounted original roles; other reads support already counted historical roles. Lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-650",
+  "at": "2026-10-25T16:21:37.712352+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 958,
+  "source_id": "pr-working:crates/adventuresim-core/src/morale.rs",
+  "sha256": "f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+  "actual_compared_ranges": [
+    [
+      1,
+      440
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "StrategicIncapacitation total/status/check_multiplier and morale/harmonic ranking/ally/religious/decay/physiology functions221\u2013369 are gameplay calculations, not mechanical conversion or trait implementation. Source fixtures371\u2013440 assert closed Serde vocabulary and morale policies, no new handwritten traits or codecs."
+  ],
+  "first_unfinished": {
+    "scope_index": 958,
+    "line": 441
+  },
+  "execution": "none"
+}

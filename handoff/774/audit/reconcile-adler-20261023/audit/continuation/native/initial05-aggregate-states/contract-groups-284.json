@@ -1,0 +1,53 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-284",
+  "at": "2026-10-23T06:50:49.993953+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/church_windows.rs",
+      "sha256": "bdb9f70337482117ead8e0c4a1a1c6ca6256f77ce1c739e082f2a833c16adfc1",
+      "scope066_index": 596,
+      "actual_EOF": 485,
+      "scoped_ranges_compared": [
+        [
+          1,
+          485
+        ]
+      ],
+      "actual05_comparison": "Fresh complete scoped ChurchWindows helper; actual same wall/profile geometry/frame/ID and result membership comparison plus explicitly partial same-global normal target producers."
+    }
+  ],
+  "groups": [
+    {
+      "id": "whole opening relation from one target",
+      "comparison": "Private ChurchWindowProfile supplied with actual source wall determines jambs/sill/head/spandrel/mullion/transom, sectional void, weather/reveal surfaces, paired glazing, explicit head/wall/tracery bearing interfaces. Same openingid/host_wall/source/frame returned; host_solids replaced by exactly appended hostlist and wall.opening_ids becomes same opening. Two fixed jambs populated from actual two-side loop, not uninitialized default leftovers; section9depths uses denominator8 exactfinite. Glazing and masonry different dimensions/roles intentionally do not impose their equality."
+    },
+    {
+      "id": "replacement and publication preconditions",
+      "comparison": "Old wall hosts removed with actual same-slot SupportInterface convention of wall_solid619; no old ChurchAssembly floor +1 convention transferred. Helpers mutate geometry before fallible setout, so standalone Err partial; actual outer candidate ownership276 prevents published failed build. Multiple windows and slot domains derive current schedule enumeration, not arbitrary public serial admission. Actualprivate profile/static producer finitepositive; no blanket policy for arbitrary walllength/profile mismatch."
+    },
+    {
+      "id": "supported cardinal and oblique frames",
+      "comparison": "Sizes choose localXlength for abs(tangent.x)>.5 then actual yaw=-atan2(tangent.y,tangent.x) at432. Actual scheduled nave/choir/transeptNorthSouth and arcades are tangentX, apse selected0/1/3/4 have absX>.5 via actual five-chord producer1093–1111; centre facet2 tangentY deliberately absent. Thus current normal selected bodies do not reach pre-swapped tangentY plus yaw double-rotation branch; private generalized branch potential not a normal defect. Normal current profile-to-wall relation comes from exact source match1194, missing source returns GenerationError."
+    },
+    {
+      "id": "retained support-transform coherence",
+      "comparison": "Every wall_solid generic underside support is emitted before final yaw rotation of masonry/closure members. Oblique selected apse members rotate physical extent but original generic interface AABB remains pre-rotation; special head-bearing tangent/outward interfaces are separately computed. This extends actual F004 physical/support transform graph, not new unique finding or universal missing-positive-bearing assertion, because audit can accept ANY matching owner/node overlapping interface. No render/audit execution or bad normal final result claimed."
+    },
+    {
+      "id": "normal floor and bay membership producer limits",
+      "comparison": "Fresh partial ChurchAssembly exact target lookup1190–1207 matches source before mutating; actual bay clerestory opening lookup1208–1225 checks source and errors missing, full assignment tail not yet read. Floor precursor already proved in282. Broader current1812 constructor and routes remain incomplete; no source count/coverage or actual lower helper body from these fragments."
+    }
+  ],
+  "new_unique_findings": [],
+  "support_existing_findings": [
+    "NATIVE-INITIAL05-F004"
+  ],
+  "remaining_dependency_obligations": [
+    "ChurchAssembly592 whole1812 still incomplete; partial source evidence below only.",
+    "No native geometry/render/execution claim."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

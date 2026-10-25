@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-734",
+  "at": "2026-10-25T16:39:06.515184+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 985,
+  "source_id": "pr-working:crates/adventuresim-core/src/rights.rs",
+  "sha256": "452c9b104be14352c93d247f83a87de98fa79b10c86d3b51d28eaa252a927b07",
+  "actual_compared_ranges": [
+    [
+      1,
+      660
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Rights consumption receipt/grant/state/assessment records441\u2013602 already structural derives. PermissionGrant::try_new510\u2013543 validates lifecycle/revision/receipt provenance, assess_permission_grant604 onward exact question/replay/collision/validity/mode classification. Semantic admission and mutation evidence not mechanical From/Serde. No new handwritten trait/codec."
+  ],
+  "first_unfinished": {
+    "scope_index": 985,
+    "line": 661
+  },
+  "execution": "none"
+}

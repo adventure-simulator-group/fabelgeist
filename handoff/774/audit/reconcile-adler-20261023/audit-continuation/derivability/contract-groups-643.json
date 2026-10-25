@@ -1,0 +1,26 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-643",
+  "at": "2026-10-25T16:20:24.332087+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 954,
+  "source_id": "pr-working:crates/adventuresim-core/src/material.rs",
+  "sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+  "actual_compared_ranges": [
+    [
+      1,
+      1100
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "SourceLotContribution::from_snapshot895\u2013912 splits checked measure/private truth and preserves revision, ProducedMaterial checked nonempty snapshot; not raw derived conversion. Transformation receipt977\u20131032 enforces unique source/output lots and objects, bulk and private conservation and canonical digest before assembly.",
+    "Canonical digest1057\u20131100 explicitly sorted/field-framed material/custody representation is protocol semantics, not automatic Serialize/Hash substitute. Structural traits already derived; no additional handwritten trait/codec881\u20131100."
+  ],
+  "first_unfinished": {
+    "scope_index": 954,
+    "line": 1101
+  },
+  "execution": "none"
+}

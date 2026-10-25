@@ -1,0 +1,61 @@
+//! Joined timber furniture: empty usable structures scaled to placement envelopes.
+use super::{FurnitureKey, FurnitureKind, builder::Builder};
+use bevy::math::Vec3;
+
+mod bedding;
+mod beds;
+mod cabinets;
+mod seating;
+mod tables;
+#[cfg(test)]
+mod tests;
+mod washing;
+
+pub(super) fn assemble(
+    builder: &mut Builder,
+    key: FurnitureKey,
+) -> Result<(), super::FurnitureRecipeError> {
+    let size = key.interior_spec()?.size_metres.metres();
+    match key.kind {
+        FurnitureKind::DiningTable => tables::trestle(builder, size),
+        FurnitureKind::Bench
+        | FurnitureKind::Chair
+        | FurnitureKind::Stool
+        | FurnitureKind::ChurchBench => seating::assemble(builder, key.kind, size),
+        FurnitureKind::Bed | FurnitureKind::BunkBed | FurnitureKind::WardBed => {
+            beds::assemble(builder, key.kind, size);
+        }
+        FurnitureKind::StorageChest => cabinets::chest(builder, size),
+        FurnitureKind::Cupboard | FurnitureKind::Shelving => {
+            cabinets::standing(builder, key.kind, size);
+        }
+        FurnitureKind::WritingDesk => tables::desk(builder, size),
+        FurnitureKind::Lectern => tables::lectern(builder, size),
+        FurnitureKind::Altar => tables::altar(builder, size),
+        FurnitureKind::BathTub => washing::tub(builder, size),
+        FurnitureKind::WashStand => washing::stand(builder, size),
+        _ => return Err(super::FurnitureRecipeError::MissingRecipe { key }),
+    }
+    Ok(())
+}
+
+/// Four standards remain inset within the envelope; their feet define real ground contacts.
+fn legs(builder: &mut Builder, size: Vec3, height: f32, thickness: f32) {
+    for x in [-1.0, 1.0] {
+        for z in [-1.0, 1.0] {
+            builder.timber(
+                Vec3::new(
+                    x * (size.x - thickness) * 0.5,
+                    height * 0.5,
+                    z * (size.z - thickness) * 0.5,
+                ),
+                Vec3::new(thickness, height, thickness),
+            );
+        }
+    }
+}
+
+/// Close-jointed working boards retain their authored contact/repair treatment.
+fn boards(builder: &mut Builder, centre: Vec3, size: Vec3) {
+    super::finish::boards(builder, centre, size);
+}

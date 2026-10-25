@@ -1,0 +1,370 @@
+diff --git a/crates/adventuresim-character-creator/src/equipment_export.rs b/crates/adventuresim-character-creator/src/equipment_export.rs
+index 955485e5e..88d008f8d 100644
+--- a/crates/adventuresim-character-creator/src/equipment_export.rs
++++ b/crates/adventuresim-character-creator/src/equipment_export.rs
+@@ -1,102 +1,17 @@
+ use super::character_morphs::{
+     CharacterMorphs, MorphDelta, armor_targets, rigged_armor, rigged_clothing,
+ };
+ use super::*;
+ use adventuresim_character_creator::{
+-    item_catalog_schema::EquipmentPlacement, item_design::ItemDesign,
++    equipment_catalog::{CatalogItem, CatalogPlacement, EquipmentItemSelection},
++    item_design::ItemDesign,
++};
++use adventuresim_core::equipment_assets::{
++    EQUIPMENT_MANIFEST_SCHEMA_VERSION, EQUIPMENT_MHR_RELEASE, GLB_EXTENSION,
++    ProceduralEquipmentAsset, ProceduralEquipmentManifest,
+ };
+-
+-pub(super) fn generate_equipment_assets(
+-    output: &std::path::Path,
+-    model: &BodyModel,
+-    recipe: &CharacterRecipe,
+-    catalog: &EquipmentCatalog,
+-    item_filter: &[String],
+-) -> Result<()> {
+-    if !item_filter.is_empty() {
+-        for filter in item_filter {
+-            if !catalog.wearable().any(|item| item.id == *filter) {
+-                anyhow::bail!("unknown procedural equipment item {filter}");
+-            }
+-        }
+-        if output.exists()
+-            && std::fs::read_dir(output)
+-                .with_context(|| format!("reading equipment output {}", output.display()))?
+-                .next()
+-                .is_some()
+-        {
+-            anyhow::bail!(
+-                "filtered equipment export requires a new or empty staging directory: {}",
+-                output.display()
+-            );
+-        }
+-    }
+-    std::fs::create_dir_all(output)
+-        .with_context(|| format!("creating equipment output {}", output.display()))?;
+-    let generated = generate_character(model, recipe)?;
+-    let morphs = CharacterMorphs::generate(model, recipe, &generated)?;
+-    let exporter = EquipmentExporter {
+-        model,
+-        recipe,
+-        generated: &generated,
+-        morphs: &morphs,
+-    };
+-    let mut assets = Vec::new();
+-    let mut generated_files = std::collections::BTreeSet::new();
+-    for item in catalog.wearable() {
+-        if !item_filter.is_empty() && !item_filter.contains(&item.id) {
+-            continue;
+-        }
+-        let equipment = item.equipment.as_ref().expect("filtered equipment");
+-        for placement in &equipment.placements {
+-            if placement.surface.is_empty() {
+-                continue;
+-            }
+-            let asset = if let Some(design) = catalog.placed_design(&item.id, &placement.id) {
+-                exporter
+-                    .armor(output, item, placement, &design)
+-                    .with_context(|| format!("exporting armor {} ({})", item.id, placement.id))?
+-            } else {
+-                anyhow::ensure!(
+-                    !matches!(
+-                        item.kind,
+-                        adventuresim_character_creator::item_catalog_schema::ItemKind::Armor { .. }
+-                    ),
+-                    "armor {} has no parametric generator",
+-                    item.id
+-                );
+-                exporter.garment(output, item, placement)?
+-            };
+-            generated_files.insert(format!("{}--{}.glb", item.id, placement.id));
+-            assets.push(asset);
+-        }
+-    }
+-    for entry in std::fs::read_dir(output)? {
+-        let path = entry?.path();
+-        if path.extension().is_some_and(|extension| extension == "glb")
+-            && path
+-                .file_name()
+-                .and_then(|name| name.to_str())
+-                .is_some_and(|name| !generated_files.contains(name))
+-        {
+-            std::fs::remove_file(&path)
+-                .with_context(|| format!("removing stale generated asset {}", path.display()))?;
+-        }
+-    }
+-    let manifest = serde_json::json!({
+-        "schema_version": 1,
+-        "mhr_release": "v1.0.1",
+-        "lod": model.lod,
+-        "assets": assets,
+-    });
+-    std::fs::write(
+-        output.join("manifest.json"),
+-        serde_json::to_vec_pretty(&manifest)?,
+-    )?;
+-    Ok(())
+-}
+ 
+ struct EquipmentExporter<'a> {
+     model: &'a BodyModel,
+     recipe: &'a CharacterRecipe,
+     generated: &'a GeneratedCharacter,
+@@ -121,23 +36,26 @@ impl EquipmentExporter<'_> {
+         }
+     }
+     fn armor(
+         &self,
+         output: &std::path::Path,
+-        item: &ItemDefinition,
+-        placement: &EquipmentPlacement,
++        selection: CatalogPlacement<'_>,
+         design: &ItemDesign,
+-    ) -> Result<serde_json::Value> {
++    ) -> Result<ProceduralEquipmentAsset> {
+         let model = self.model;
+         let recipe = self.recipe;
+-        let equipment = item.equipment.as_ref().expect("filtered equipment");
++        let item = selection.item();
++        let placement = selection.definition();
++        let equipment = item
++            .equipment
++            .as_ref()
++            .context("filtered equipment is missing its definition")?;
+         let armor = parametric_equipment::fitted_catalog_item(
+             model,
+             self.generated,
+-            item,
++            selection,
+             design,
+-            &placement.id,
+             &self.morphs.samples,
+             &[],
+         )?;
+         let parametric_coverage = match design {
+             ItemDesign::Vambrace(design) => design.coverage.unit(),
+@@ -179,42 +97,49 @@ impl EquipmentExporter<'_> {
+             model.lod,
+             &self.mesh(),
+             &rigged_shells,
+             &[],
+         )?;
+-        Ok(serde_json::json!({
+-            "item_id": item.id,
+-            "placement_id": placement.id,
+-            "file": file_name,
+-            "coverage": parametric_coverage,
+-            "material": equipment.material,
+-            "triangles": faces.len(),
+-            "armor_generator_version": fabelgeist_armor::GENERATOR_VERSION,
+-            "armor_design_hash": armor.design_hash.iter().map(|byte| format!("{byte:02x}")).collect::<String>(),
+-            "morph_targets": armor.morphs.len(),
+-            "surface_uv_domain": armor.surface_domain,
+-        }))
++        Ok(ProceduralEquipmentAsset {
++            item_id: item.id.clone(),
++            placement_id: placement.id.clone(),
++            file: file_name,
++            coverage: parametric_coverage,
++            material: equipment.material,
++            triangles: faces.len(),
++            armor_generator_version: Some(fabelgeist_armor::GENERATOR_VERSION),
++            armor_design_hash: Some(
++                armor
++                    .design_hash
++                    .iter()
++                    .map(|byte| format!("{byte:02x}"))
++                    .collect(),
++            ),
++            morph_targets: armor.morphs.len(),
++            surface_uv_domain: Some(armor.surface_domain.clone()),
++        })
+     }
+     fn garment(
+         &self,
+         output: &std::path::Path,
+-        item: &ItemDefinition,
+-        placement: &EquipmentPlacement,
+-    ) -> Result<serde_json::Value> {
++        selection: CatalogPlacement<'_>,
++    ) -> Result<ProceduralEquipmentAsset> {
+         let model = self.model;
+         let recipe = self.recipe;
++        let item = selection.item();
++        let placement = selection.definition();
+         let generated = self.generated;
+         let morphs = self.morphs;
+         let character = &model.mhr.character;
+-        let equipment = item.equipment.as_ref().expect("filtered equipment");
++        let equipment = item
++            .equipment
++            .as_ref()
++            .context("filtered equipment is missing its definition")?;
+         let specification = GarmentSpecification::from_catalog(
+-            format!("{} · {}", item.display_name, placement.id),
+-            placement,
+-            equipment
+-                .material
+-                .ok_or_else(|| anyhow::anyhow!("item {} has no procedural material", item.id))?,
+-        );
++            format!("{} · {}", item.display_name, placement.id).into(),
++            selection,
++        )?;
+         let clothed = generate_clothing_shells(
+             &[specification],
+             &generated.positions,
+             &generated.normals,
+             &character.mesh.faces,
+@@ -242,39 +167,48 @@ impl EquipmentExporter<'_> {
+             model.lod,
+             &rigged_mesh,
+             &[rigged_shell],
+             &sockets,
+         )?;
+-        Ok(serde_json::json!({
+-            "item_id": item.id,
+-            "placement_id": placement.id,
+-            "file": file_name,
+-            "coverage": placement_coverage(placement),
+-            "material": equipment.material,
+-            "triangles": shell.faces.len(),
+-            "morph_targets": targets.len(),
+-        }))
++        Ok(ProceduralEquipmentAsset {
++            item_id: item.id.clone(),
++            placement_id: placement.id.clone(),
++            file: file_name,
++            coverage: placement_coverage(placement),
++            material: equipment.material,
++            triangles: shell.faces.len(),
++            morph_targets: targets.len(),
++            armor_generator_version: None,
++            armor_design_hash: None,
++            surface_uv_domain: None,
++        })
+     }
+     fn sockets<'a>(
+         &self,
+-        item: &'a ItemDefinition,
++        item: CatalogItem<'a>,
+         rigged_mesh: &RiggedMesh<'_>,
+         rigged_shell: &RiggedShell<'_>,
+     ) -> Result<Vec<RiggedSocket<'a>>> {
+         let character = &self.model.mhr.character;
+-        let equipment = item.equipment.as_ref().expect("filtered equipment");
++        let equipment = item
++            .definition()
++            .equipment
++            .as_ref()
++            .context("filtered equipment is missing its definition")?;
+         let surface_uv_layout = SurfaceUvLayout {
+             domain: MHR_ANATOMICAL_UV_DOMAIN,
+             texcoords: &character.mesh.texcoords,
+             texcoord_faces: &character.mesh.texcoord_faces,
+         };
+         equipment
+             .attachment_points
+             .iter()
+             .filter(|point| point.tangent_direction.is_some())
+             .map(|point| {
+-                let tangent = point.tangent_direction.expect("filtered tangent");
++                let tangent = point
++                    .tangent_direction
++                    .context("filtered attachment tangent is missing")?;
+                 let outward = point
+                     .locations
+                     .iter()
+                     .copied()
+                     .find_map(belt_mount_outward)
+@@ -320,5 +254,90 @@ impl EquipmentExporter<'_> {
+                 })
+             })
+             .collect::<Result<Vec<_>>>()
+     }
+ }
++
++pub(super) fn generate_equipment_assets(
++    output: &std::path::Path,
++    model: &BodyModel,
++    recipe: &CharacterRecipe,
++    catalog: &EquipmentCatalog,
++    selection: &EquipmentItemSelection<'_>,
++) -> Result<()> {
++    if selection.is_filtered()
++        && output.exists()
++        && std::fs::read_dir(output)
++            .with_context(|| format!("reading equipment output {}", output.display()))?
++            .next()
++            .is_some()
++    {
++        anyhow::bail!(
++            "filtered equipment export requires a new or empty staging directory: {}",
++            output.display()
++        );
++    }
++    std::fs::create_dir_all(output)
++        .with_context(|| format!("creating equipment output {}", output.display()))?;
++    let generated = generate_character(model, recipe)?;
++    let morphs = CharacterMorphs::generate(model, recipe, &generated)?;
++    let exporter = EquipmentExporter {
++        model,
++        recipe,
++        generated: &generated,
++        morphs: &morphs,
++    };
++    let mut assets = Vec::new();
++    let mut generated_files = std::collections::BTreeSet::new();
++    for item in catalog.wearable() {
++        if !selection.includes(item) {
++            continue;
++        }
++        for placement in item.placements() {
++            if placement.surface.is_empty() {
++                continue;
++            }
++            let asset = if let Some(design) = catalog.placed_design(placement) {
++                exporter
++                    .armor(output, placement, &design)
++                    .with_context(|| format!("exporting armor {} ({})", item.id, placement.id))?
++            } else {
++                anyhow::ensure!(
++                    !matches!(
++                        item.kind,
++                        adventuresim_character_creator::item_catalog_schema::ItemKind::Armor { .. }
++                    ),
++                    "armor {} has no parametric generator",
++                    item.id
++                );
++                exporter.garment(output, placement)?
++            };
++            generated_files.insert(format!("{}--{}.glb", item.id, placement.id));
++            assets.push(asset);
++        }
++    }
++    for entry in std::fs::read_dir(output)? {
++        let path = entry?.path();
++        if path
++            .extension()
++            .is_some_and(|extension| extension == GLB_EXTENSION)
++            && path
++                .file_name()
++                .and_then(|name| name.to_str())
++                .is_some_and(|name| !generated_files.contains(name))
++        {
++            std::fs::remove_file(&path)
++                .with_context(|| format!("removing stale generated asset {}", path.display()))?;
++        }
++    }
++    let manifest = ProceduralEquipmentManifest {
++        schema_version: EQUIPMENT_MANIFEST_SCHEMA_VERSION,
++        mhr_release: EQUIPMENT_MHR_RELEASE.to_owned(),
++        lod: model.lod,
++        assets,
++    };
++    std::fs::write(
++        output.join("manifest.json"),
++        serde_json::to_vec_pretty(&serde_json::to_value(&manifest)?)?,
++    )?;
++    Ok(())
++}

@@ -1,0 +1,29 @@
+{
+  "id": "CONT07-F104",
+  "at": "2026-10-23T22:49:37.073189+00:00",
+  "classification": "maintenance enum membership/ordinal correlation authority; current13 members align, no wrong current row asserted",
+  "title": "Bestiary membership and correlation axes depend on handwritten rosters and ordinals",
+  "sources": [
+    {
+      "scope_index": 2157,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/bestiary.rs",
+      "sha256": "0a8870d89db5190ae5b70aaffd93d7511b144e4861f37ffd649c62f464a3d2b7",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-world-schema/src/bestiary.rs",
+      "ranges": [
+        [
+          1,
+          285
+        ]
+      ],
+      "range_qualification": "Original1\u2013112/140\u2013285 plus mandatory EXT211113\u2013139 personally consumed; tests286+not read or credited"
+    }
+  ],
+  "earliest_failed_contract": "BestiaryCategory enum, ALL13 roster, explicit index0\u201312 and unlabeled13x13 correlation axes independently encode same category membership/order; id parser and hour iteration rely on ALL instead of exhaustive variant membership.",
+  "counterexample": "Current thirteen mappings and matrix axes agree. Future member added to enum/id/direct accessors but omitted from ALL can serialize/id() successfully while from_id returnsNone and direct_fields_valid/direct_values/effective aggregates skip it. A hand-edited index can silently select another semantic correlation row even when all numeric bounds still hold. Maintenance divergence only.",
+  "actual_recipient": "from_id84\u201386, correlation150, BestiaryHours.direct_values174\u2013178/direct_fields_valid180\u2013186/effective224\u2013241/aggregate_effective250\u2013257.",
+  "qualification": "Correlation values are deliberate authored cross-category transfer policy and direct/effective/max/aggregate knowledge are different quantities. No implication all BestiaryCategory correlations must equal, no semantic truncation to disease family. Archive CAMERA-INITIAL07-F011 disease12 table is related pattern only, not exact same source/repair. All currently read category mappings align; no current wrong knowledge value or executed fixture.",
+  "connected_repair": "Derive closed membership/index from one canonical category inventory and bind authored correlations to semantic category axes so rows cannot drift from ordinal mapping. Preserve all current13 values, nonrecursive direct gating and aggregate denominator behavior. Do not merge semantic knowledge categories.",
+  "acceptance": "All current parser/id/correlation/hour outputs remain identical; taxonomy edits cannot omit a member from parsing, validation or transfer aggregation independently of enum. No new tests/execution in audit.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

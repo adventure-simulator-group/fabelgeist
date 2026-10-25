@@ -1,0 +1,618 @@
+{
+  "id": "SEGOVB-INITIAL10-F002",
+  "classification": "source-backed maintenance suggestion",
+  "source_id": "physical-p16:crates/adventuresim-core/src/bestiary/error.rs",
+  "sha256": "279813fa320c4ce35bbef2229faa4367af4c93d97f074cec46e6984974245b6c",
+  "ranges": [
+    [
+      3,
+      12
+    ]
+  ],
+  "problem": "UnknownThreatId writes one fixed Display literal and separately declares an empty Error impl; existing thiserror derive expresses exactly both mechanical contracts.",
+  "equivalent_implementation": "Keep Clone Copy Debug PartialEq Eq; add thiserror::Error and #[error(\"unknown threat ID\")] to unit struct, removing only the two manual trait impls.",
+  "source_proof": [
+    "Core manifest15 direct thiserror.workspace dependency",
+    "Frozen P16 workspaceCargo158 semver2.0.18, exactlock resolves2.0.20",
+    "fresh-dependency-registration-017.json: expand22\u201372 emits no source method when unit struct has no source; expand126\u2013165/201\u2013220 emits nongeneric Display and Error; attr302\u2013340 fixed literal directly write_str"
+  ],
+  "acceptance": [
+    "Identical public unit type, native concrete error/downcast, source None, exact Display literal including formatting flags; retain current Clone Copy Debug PartialEq Eq",
+    "Existing fixture source14\u201351 read but no tests executed",
+    "No source/API/wire behavior defect claimed and no mandatory replacement of semantic formatters"
+  ],
+  "qualifications": [
+    "Frozen physicalP16 only; counterpart and currentmain dispositions remain pending own lens10",
+    "No global uniqueness count inferred"
+  ],
+  "additional_same_derive_contract_sites": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/disease/identity.rs",
+      "sha256": "bbf3c7a20b95f217815f48c7e830dc75efab9ecf9d7e52a79fd4ad86324388af",
+      "ranges": [
+        [
+          64,
+          74
+        ]
+      ],
+      "type": "ParseDiseaseIdError",
+      "exact_literal": "Unknown disease",
+      "equivalence": "Existing thiserror::Error derive with #[error(\"Unknown disease\")] replaces fixed write_str plus empty Error. Nongeneric unit type remains same native Error with source None. Keep FromStr76\u201384 Serde vocabulary reuse and mapping to this native error."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/elapsed.rs",
+      "sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+      "ranges": [
+        [
+          14,
+          22
+        ],
+        [
+          119,
+          131
+        ]
+      ],
+      "type": "ElapsedError",
+      "equivalence": "Existing thiserror::Error derive with identical per-variant literal #[error] attributes emits exhaustive same write_str branches and no-source Error. Keep all six exact existing message literals and variant/native error identity, no source fields or From added.",
+      "proof": "fresh-dependency-registration-026.json: exact pinned thiserror enum branches and prior017 literal emitter."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/encounter/choice.rs",
+      "sha256": "3a327aeb8ec9f72d67960b0cdc94f7ece677c4a963d5ce8e1db7af3fd8025206",
+      "ranges": [
+        [
+          24,
+          33
+        ]
+      ],
+      "type": "EncounterChoiceParseError",
+      "exact_literal": "Unknown encounter choice",
+      "equivalence": "Existing thiserror::Error derive fixed unit-error contract, same source None, native type and exact literal. Retain FromStr35\u201350 stable_id-based parser."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "db3686060ebd8ce533fe48c88685c5643b024b8a92b2b617d97481196988f3e0",
+      "ranges": [
+        [
+          20,
+          26
+        ],
+        [
+          129,
+          139
+        ]
+      ],
+      "type": "SpeedError",
+      "equivalence": "Existing thiserror::Error derive with four unchanged literal attributes, nongeneric variants and no-source Error; checked speed conversion types/errors unchanged. Uses enum macro proof026."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/mission/enemy_roster.rs",
+      "sha256": "c83ace93cc95cb243c86bf6bc02bea9954953b433db0ab7790ea890ac7251642",
+      "ranges": [
+        [
+          11,
+          27
+        ]
+      ],
+      "type": "EnemyRosterError",
+      "equivalence": "Existing thiserror::Error derive with three unchanged per-variant literals; keep native type/variants, source None and checked roster conversion34\u201344."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/mission/roster.rs",
+      "sha256": "2b4baf6c921fd489d497a5f002c8ee5a84e48014c6932e1bd4153754501759dd",
+      "ranges": [
+        [
+          16,
+          33
+        ]
+      ],
+      "type": "TacticalRosterError",
+      "equivalence": "Existing thiserror::Error derive with three unchanged per-variant literals; keep native type/variants, source None and checked roster conversion35\u201350."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/npc_policy.rs",
+      "sha256": "51c449efd5edf6380249bcc04ebf5a9a38cc9a1f20cab731e2bf80d6b958e18a",
+      "ranges": [
+        [
+          72,
+          85
+        ]
+      ],
+      "type": "ConflictingCandidate",
+      "equivalent_implementation": "derive thiserror::Error and #[error(\"Conflicting NPC policy snapshots for character {0}\")] on the same public tuple struct; remove only manual Display/Error.",
+      "equivalence": "Pinned primary docs037 tuple {0} maps same Display of self.0, macro017 no source field/backtrace emits no-source Error. No generic bounds/native type change. Keep exact character ID/literal and constructor/error path."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/physical_object.rs",
+      "sha256": "906e67eed5acc9fbf6ab98e2e4bc7df11b8e9742c1ee148092c7d2061f64afab",
+      "ranges": [
+        [
+          264,
+          285
+        ]
+      ],
+      "type": "CustodyIdentityError",
+      "equivalence": "Existing thiserror::Error derive with five exact unchanged per-variant literals; same no-source Error/native identity. Keep all custody/ID admission constructors and scope TryFrom."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/social/action_kind.rs",
+      "sha256": "2b9ff5d4ad32e81e8a66e3ad09dc43d0e382c88b117b89b970876d9d3789ce92",
+      "ranges": [
+        [
+          148,
+          158
+        ]
+      ],
+      "type": "ParseSocialActionKindError",
+      "equivalence": "Existing thiserror::Error derive plus exact #[error(\"Unknown social action\")]. Nongeneric public unit struct, same no-source native Error identity and literal write_str semantics per verified017 primary macro. Keep FromStr160\u2013167 reusing canonical Serde vocabulary and mapping native parse error."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/social/witness.rs",
+      "sha256": "14db851b00491a104efa4d272f24ef1285b357a92dbd0f875a109a27033fd735",
+      "ranges": [
+        [
+          99,
+          109
+        ]
+      ],
+      "type": "ParseClaimChallengeApproachError",
+      "equivalence": "Existing thiserror::Error derive plus exact #[error(\"Unknown witness approach\")]. Nongeneric public unit struct, same no-source native Error identity and literal write_str semantics per verified017 primary macro. Keep FromStr111\u2013118 reusing canonical Serde vocabulary and mapping native parse error."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_inventory.rs",
+      "sha256": "d271b63418f6ef51f276ab1e383bb534724f08ae106ffd7285f530e0308fef3e",
+      "ranges": [
+        [
+          96,
+          113
+        ]
+      ],
+      "type": "PaymentPlanError",
+      "equivalence": "Existing thiserror::Error derive with exact literal #[error] attributes. Two exact per-variant message literals; no source field. Nongeneric, unchanged native public type/structural derives/sourceNone; exact017/026 macro proof. Preserve checked quantity/provider TryFrom, payment planning, route and aligned-cohort parsers."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_inventory.rs",
+      "sha256": "d271b63418f6ef51f276ab1e383bb534724f08ae106ffd7285f530e0308fef3e",
+      "ranges": [
+        [
+          135,
+          154
+        ]
+      ],
+      "type": "MerchantProviderError",
+      "equivalence": "Existing thiserror::Error derive with exact literal #[error] attributes. Three exact per-variant message literals; no source field. Nongeneric, unchanged native public type/structural derives/sourceNone; exact017/026 macro proof. Preserve checked quantity/provider TryFrom, payment planning, route and aligned-cohort parsers."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_inventory.rs",
+      "sha256": "d271b63418f6ef51f276ab1e383bb534724f08ae106ffd7285f530e0308fef3e",
+      "ranges": [
+        [
+          185,
+          194
+        ]
+      ],
+      "type": "UnknownMerchantService",
+      "equivalence": "Existing thiserror::Error derive with exact literal #[error] attributes. Unit struct exact literal Unknown merchant storefront; no source field. Nongeneric, unchanged native public type/structural derives/sourceNone; exact017/026 macro proof. Preserve checked quantity/provider TryFrom, payment planning, route and aligned-cohort parsers."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_inventory.rs",
+      "sha256": "d271b63418f6ef51f276ab1e383bb534724f08ae106ffd7285f530e0308fef3e",
+      "ranges": [
+        [
+          323,
+          338
+        ]
+      ],
+      "type": "TradeRequestError",
+      "equivalence": "Existing thiserror::Error derive with exact literal #[error] attributes. Three exact per-variant message literals; no source field. Nongeneric, unchanged native public type/structural derives/sourceNone; exact017/026 macro proof. Preserve checked quantity/provider TryFrom, payment planning, route and aligned-cohort parsers."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_state.rs",
+      "sha256": "b704a73eded4ae15345f15781c8f117d919e7f97e047e08e31bb068c912072f8",
+      "ranges": [
+        [
+          232,
+          239
+        ]
+      ],
+      "type": "StateParseError",
+      "equivalence": "Existing thiserror::Error derive with #[error(\"{0}\")] on same public tuple struct (&static str). Retain exact borrowed static payload/native identity/no-source Error; simple interpolation has no precision/width spec and writes same stored bytes, preserving lack of outer-format padding. Exact verified017/037 formatting macro proof. Do not use #[error(transparent)] which requires inner Error or change to owned String. Keep lifecycle validators and their distinct stored messages."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "268891d7d5556895ace4c6ce33b14953e35d5973bfce9b042e4b9d2dbc721a86",
+      "ranges": [
+        [
+          12,
+          16
+        ],
+        [
+          50,
+          58
+        ]
+      ],
+      "type": "FractionError",
+      "equivalence": "Existing thiserror::Error derive with two exact per-variant error literals unit fraction must be finite / unit fraction must lie in [0, 1]. Nongeneric fieldless enum/no source, same public native error identity and literal formatting. Preserve checked f32 TryFrom and Serde try_from/into, not transparent raw decoding."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/mission_roster.rs",
+      "sha256": "f67d08c1d5b6f22ad63de5ab13e46c5b4f2cd5d7512a7d90de2d1c1cc538a292",
+      "ranges": [
+        [
+          10,
+          34
+        ]
+      ],
+      "type": "MissionRosterError",
+      "equivalence": "Existing owning-module thiserror dependency can derive Error/Display with Invalid #[error(\"{0}\")], GroupCountMismatch #[error(\"Hostile group roster does not match group count\")], MissingCharacter #[error(\"Captured mission enemy {0} is missing\")]. Preserve manual From<EnemyRosterError>16\u201320; add no #[from], #[source] or transparent attribute, so native source remains None. Invalid currently forwards Formatter to EnemyRosterError; exact frozen inner source original121:18\u201325 uses only write_str of three fixed literals and ignores formatting flags, so nested default-format interpolation is equivalent for this source. Keep checked capture/roster methods.",
+      "proof": [
+        "contract-groups-150.json",
+        "Original172 owning manifest direct thiserror dependency, previously personally consumed",
+        "Exact macro source proof017/026/037",
+        "Original121 full earlier lens10 evidence plus fresh bounded18\u201327 source confirmation, SHA c83ace93cc95cb243c86bf6bc02bea9954953b433db0ab7790ea890ac7251642"
+      ],
+      "qualification": "PhysicalP16 exact source and literal-only nested Display; not a blanket rule for forwarded formatters or error-source derivation. No run."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/recipe/validation.rs",
+      "sha256": "e40db02777c0f7401b0e90bc493f420be7630091f469a9baa7f0ef1a6f7c965a",
+      "ranges": [
+        [
+          24,
+          60
+        ]
+      ],
+      "type": "RecipeError",
+      "equivalence": "Existing owning thiserror can derive Error/Display, applying each exact fixed match literal40\u201358 as #[error] on its unit variant and removing only manual Display40\u201359/empty Error60. All ten variants fieldless, source remains None; standard fixed-literal expansion formatter.write_str matches current flag behavior.",
+      "proof": [
+        "contract-groups-222.json",
+        "Original421 full owning Cargo.toml direct thiserror12",
+        "Exact cached pinned thiserror macro proofs017/026/037 already consumed"
+      ],
+      "qualification": "Maintenance site joins F002 connected fixed-message Error derive contract; no new finding ID/global count, no API validation or wire shape change, no run."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/plan_geometry.rs",
+      "sha256": "a767ca4e45d2c04ddf94d1f23452ecbb3a5c6c864bc8ce63fc673e6f39e5b92b",
+      "ranges": [
+        [
+          51,
+          100
+        ]
+      ],
+      "type": "PlanGeometryError",
+      "equivalence": "Existing owning thiserror derives Error/Display plus the exact sole From<GeometryError> constructor. Geometry variant must use #[error(\"{0}\")] Geometry(#[from] GeometryError), NOT #[error(transparent)], retaining source Some(inner cause) rather than forwarding inner source. SolidConstruction uses #[error(\"solid {solid:?}: {cause}\")] and #[source] on cause, no From. Six remaining exact fixed/indexed literals match current branches. Preserve structural/Serialize derives, snake_case wire shape, native type/variant/error identity.",
+      "proof": [
+        "Full source651 consumed; owning manifest528 direct thiserror confirmed",
+        "Fresh original662 canonical GeometryError re-export; original2269 exact78064ad3e76e6e39580db42af5da259e24a922d69fbe0953704cb9715f26a5c3 full95 lines. Its derived Display uses fixed literals and default-format field interpolation; each inner DirectionError branch is fixed literal. Outer formatting flags are ignored, so nested default-format {0} preserves current cause.fmt(f) for this exact inner type.",
+        "Existing pinned macro017/026/037 exact enum/error/source/format generation proof; no arbitrary custom format equivalence presumed"
+      ],
+      "qualification": "Optional maintenance site in F002 connected error derive contract, not runtime defect or new unique count. Keep ArchitecturalPlanPoint checked admission/transparent wire and semantic PlanVertex adapter. No source edits or execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/disease/identity.rs",
+      "sha256": "bbf3c7a20b95f217815f48c7e830dc75efab9ecf9d7e52a79fd4ad86324388af",
+      "ranges": [
+        [
+          65,
+          74
+        ]
+      ],
+      "evidence": "contract-groups-552.json",
+      "optional_equivalent": "#[derive(thiserror::Error)] #[error(\"Unknown disease\")] on the existing nongeneric unit type; existing structural traits retained; no source."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/elapsed.rs",
+      "sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+      "ranges": [
+        [
+          14,
+          22
+        ],
+        [
+          119,
+          131
+        ]
+      ],
+      "evidence": "contract-groups-555.json",
+      "optional_equivalent": "Existing thiserror::Error with exact six unit-variant #[error] messages copied from119\u2013128, source None. Preserve all variant identity/order, structural traits and checked constructor errors."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/encounter/choice.rs",
+      "sha256": "3a327aeb8ec9f72d67960b0cdc94f7ece677c4a963d5ce8e1db7af3fd8025206",
+      "ranges": [
+        [
+          24,
+          33
+        ]
+      ],
+      "evidence": "contract-groups-560.json",
+      "optional_equivalent": "Existing thiserror::Error #[error(\"Unknown encounter choice\")] exact nongeneric unit Display/Error, fixed write_str/sourceNone; retain FromStr native policy."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/investigation_action/vocabulary.rs",
+      "sha256": "8d67cde0fd321af7ee5bae1c5045bc1adeb4fbe118698c40d194878ed01f5b5e",
+      "ranges": [
+        [
+          37,
+          46
+        ],
+        [
+          87,
+          96
+        ]
+      ],
+      "evidence": "contract-groups-604.json",
+      "optional_equivalent": "Existing thiserror::Error fixed #[error(\"Unknown investigation action method\")] / #[error(\"Unknown investigation terrain\")] on two nongeneric unit types, no source; exact FromStr checks/error mapping retained."
+    },
+    {
+      "scope_index": 948,
+      "source_id": "pr-working:crates/adventuresim-core/src/knowledge.rs",
+      "sha256": "eff9843bb7a8c4e0459b990f5684deae4c827ec824b58334789ec8e1cce55ffd",
+      "lines": [
+        [
+          765,
+          818
+        ]
+      ],
+      "evidence": "SEGOVB-INITIAL10-CONTRACT-628",
+      "equivalence": "Nineteen unit variants, fixed literal write_str per variant, empty Error/source None; existing owning Core thiserror2.0.20 can derive exact literal Display+Error. Preserve every literal and ordinary source-less behavior. Optional maintenance, no correctness or new unique count."
+    },
+    {
+      "scope_index": 952,
+      "source_id": "pr-working:crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "db3686060ebd8ce533fe48c88685c5643b024b8a92b2b617d97481196988f3e0",
+      "lines": [
+        [
+          129,
+          139
+        ]
+      ],
+      "evidence": "SEGOVB-INITIAL10-CONTRACT-634",
+      "equivalence": "Four unit variants: exact literals linear speed must be finite / linear speed must be nonnegative / linear speed must be positive / linear speed arithmetic overflowed. Empty Error; owning thiserror2.0.20 derive exact. Optional maintenance only."
+    },
+    {
+      "scope_index": 954,
+      "source_id": "pr-working:crates/adventuresim-core/src/material.rs",
+      "sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+      "lines": [
+        [
+          1307,
+          1382
+        ]
+      ],
+      "evidence": "SEGOVB-INITIAL10-CONTRACT-645",
+      "equivalence": "All arms fixed write_str literals, including InvalidCustody(_) discards payload. Existing thiserror2.0.20 literal #[error] per variant equivalent, ONLY without source/transparent/from; Error::source remains None. No payload formatting/bounds/wire changes. Optional maintenance."
+    },
+    {
+      "scope_index": 956,
+      "source_id": "pr-working:crates/adventuresim-core/src/mission/enemy_roster.rs",
+      "sha256": "c83ace93cc95cb243c86bf6bc02bea9954953b433db0ab7790ea890ac7251642",
+      "type": "EnemyRosterError",
+      "lines": [
+        [
+          18,
+          27
+        ]
+      ],
+      "evidence": "SEGOVB-INITIAL10-CONTRACT-648",
+      "equivalence": "Three unit variants; preserve exact source literal strings and empty Error source None using existing thiserror2.0.20. Optional maintenance."
+    },
+    {
+      "scope_index": 957,
+      "source_id": "pr-working:crates/adventuresim-core/src/mission/roster.rs",
+      "sha256": "2b4baf6c921fd489d497a5f002c8ee5a84e48014c6932e1bd4153754501759dd",
+      "type": "TacticalRosterError",
+      "lines": [
+        [
+          23,
+          33
+        ]
+      ],
+      "evidence": "SEGOVB-INITIAL10-CONTRACT-648",
+      "equivalence": "Three unit variants; preserve exact source literal strings and empty Error source None using existing thiserror2.0.20. Optional maintenance."
+    },
+    {
+      "scope_index": 959,
+      "source_id": "pr-working:crates/adventuresim-core/src/npc_policy.rs",
+      "sha256": "51c449efd5edf6380249bcc04ebf5a9a38cc9a1f20cab731e2bf80d6b958e18a",
+      "lines": [
+        [
+          76,
+          85
+        ]
+      ],
+      "evidence": "SEGOVB-INITIAL10-CONTRACT-652",
+      "equivalence": "Existing thiserror2.0.20 #[error(\"Conflicting NPC policy snapshots for character {0}\")] equals write! with fixed literal and u64 decimal tuple field. Preserve source None, outer flags ignored, and no From/transparent. Optional maintenance."
+    },
+    {
+      "scope_index": 963,
+      "source_id": "pr-working:crates/adventuresim-core/src/physical_object.rs",
+      "sha256": "906e67eed5acc9fbf6ab98e2e4bc7df11b8e9742c1ee148092c7d2061f64afab",
+      "lines": [
+        [
+          273,
+          285
+        ]
+      ],
+      "evidence": "SEGOVB-INITIAL10-CONTRACT-666",
+      "equivalence": "Five unit variants with exact fixed source literals and empty Error/source None; existing thiserror2.0.20 derive equivalent. Optional maintenance, no runtime defect."
+    },
+    {
+      "scope_index": 985,
+      "source_id": "pr-working:crates/adventuresim-core/src/rights.rs",
+      "sha256": "452c9b104be14352c93d247f83a87de98fa79b10c86d3b51d28eaa252a927b07",
+      "lines": [
+        [
+          395,
+          415
+        ]
+      ],
+      "evidence": "SEGOVB-INITIAL10-CONTRACT-733",
+      "equivalence": "Nine unit variants, exact fixed write_str literals and empty Error/source None. Existing owning thiserror2.0.20 derive equivalent. Optional maintenance, no correctness or global count."
+    },
+    {
+      "scope_index": 999,
+      "source_id": "pr-working:crates/adventuresim-core/src/social/action_kind.rs",
+      "sha256": "2b9ff5d4ad32e81e8a66e3ad09dc43d0e382c88b117b89b970876d9d3789ce92",
+      "lines": [
+        [
+          152,
+          158
+        ]
+      ],
+      "evidence": "SEGOVB-INITIAL10-CONTRACT-776",
+      "equivalence": "Unit ParseSocialActionKindError Display fixed Unknown social action and empty Error/source None, existing thiserror2.0.20 equivalent. Keep borrowed vocabulary FromStr. Optional maintenance."
+    },
+    {
+      "scope_index": 1002,
+      "source_id": "pr-working:crates/adventuresim-core/src/social/witness.rs",
+      "sha256": "14db851b00491a104efa4d272f24ef1285b357a92dbd0f875a109a27033fd735",
+      "lines": [
+        [
+          103,
+          109
+        ]
+      ],
+      "evidence": "SEGOVB-INITIAL10-CONTRACT-778",
+      "equivalence": "Unit ParseClaimChallengeApproachError fixed literal Unknown witness approach plus empty Error/source None; existing owning thiserror2.0.20 exact optional maintenance equivalent. Preserve borrowed canonical vocabulary FromStr and concrete error."
+    },
+    {
+      "scope_index": 1009,
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_inventory.rs",
+      "sha256": "d271b63418f6ef51f276ab1e383bb534724f08ae106ffd7285f530e0308fef3e",
+      "lines": [
+        [
+          102,
+          113
+        ],
+        [
+          142,
+          154
+        ],
+        [
+          188,
+          194
+        ],
+        [
+          329,
+          338
+        ]
+      ],
+      "evidence": "SEGOVB-INITIAL10-CONTRACT-790",
+      "equivalence": "PaymentPlanError2unit/MerchantProviderError3unit/UnknownMerchantServiceunit/TradeRequestError3unit: all fixed source literals and empty Error/source None. Existing owning thiserror2.0.20 literal attributes exact optional equivalent. Preserve all checked conversions/route mapping and concrete errors."
+    },
+    {
+      "scope_index": 1010,
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_place.rs",
+      "sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+      "lines": [
+        [
+          437,
+          453
+        ]
+      ],
+      "evidence": "SEGOVB-INITIAL10-CONTRACT-793",
+      "equivalence": "Nine unit PlaceIdentityError variants, exact fixed write_str literals and empty Error/source None; existing owning thiserror2.0.20 exact optional derive equivalent. Canonical protocol/checked Serde adapters remain explicit."
+    },
+    {
+      "scope_index": 1014,
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+      "sha256": "031ee090102b5cc2ed9889b336ac1144ef7eb705cacc6fee37cbe8e7f6bafd0e",
+      "lines": [
+        [
+          87,
+          102
+        ]
+      ],
+      "evidence": "SEGOVB-INITIAL10-CONTRACT-801",
+      "equivalence": "ScheduleParseError five unit variants fixed literal Display plus empty Error/source None; existing thiserror2.0.20 exact optional maintenance. Preserve checked schedule constructors/normalization."
+    },
+    {
+      "scope_index": 1015,
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_state.rs",
+      "sha256": "b704a73eded4ae15345f15781c8f117d919e7f97e047e08e31bb068c912072f8",
+      "lines": [
+        [
+          234,
+          239
+        ]
+      ],
+      "evidence": "SEGOVB-INITIAL10-CONTRACT-803",
+      "equivalence": "StateParseError staticstr payload write_str and empty Error. Existing thiserror2.0.20 #[error(\"{0}\")] matches borrowed message with normal inner display and ignored outer flags; source None, no transparent/source/from. Optional maintenance."
+    },
+    {
+      "scope_index": 1022,
+      "source_id": "pr-working:crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "268891d7d5556895ace4c6ce33b14953e35d5973bfce9b042e4b9d2dbc721a86",
+      "lines": [
+        [
+          50,
+          58
+        ]
+      ],
+      "evidence": "SEGOVB-INITIAL10-CONTRACT-812",
+      "equivalence": "FractionError2unit exact literals unit fraction must be finite / unit fraction must lie in [0, 1], empty Error/source None; existing thiserror2.0.20 optional derive exact. Preserve checked f32 admission and signed-zero semantics."
+    },
+    {
+      "scope_index": 1083,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/character/name_types.rs",
+      "sha256": "698c97ddc6ffa8f8a1765775397dc10013ea5359f32a06b62845cf62ce0a946e",
+      "lines": [
+        [
+          17,
+          41
+        ]
+      ],
+      "evidence": "SEGOVB-INITIAL10-CONTRACT-874",
+      "equivalence": "Existing owning module thiserror2.0.20 exact fixed/interpolated messages with explicit .0.get() for IDs. NameCatalogError exact PR dependency1\u201334 confirms direct delegation ignores outer flags just as normal inner display. Preserve source None: NO transparent/source/from; retain both manual From adapters. Optional maintenance only."
+    },
+    {
+      "scope_index": 1230,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_roster.rs",
+      "sha256": "f67d08c1d5b6f22ad63de5ab13e46c5b4f2cd5d7512a7d90de2d1c1cc538a292",
+      "type": "MissionRosterError",
+      "lines": [
+        [
+          21,
+          34
+        ]
+      ],
+      "evidence": "SEGOVB-INITIAL10-CONTRACT-1119",
+      "equivalence": "Existing owning module thiserror2.0.20: Invalid #[error(\"{0}\")] normal inner Display; GroupCountMismatch exact literal Hostile group roster does not match group count; MissingCharacter #[error(\"Captured mission enemy {0} is missing\")]. Exact PR956 EnemyRosterError18\u201327 write_str confirms ignored outer flags. Preserve source None: no transparent/source/from. Keep manual From16\u201320 and checked context/roster operations. Optional maintenance only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/quest_coverage.rs",
+      "sha256": "3d43a767b929a84550f716de78fab88ac13f0dd845501e3f7b62dc1b6ede9dc5",
+      "ranges": [
+        [
+          73,
+          98
+        ]
+      ],
+      "evidence": "contract-groups-1199.json",
+      "classification": "optional maintenance, same existing-thiserror mechanical Display+sourceNone contract",
+      "equivalent_implementation": "Add thiserror::Error to existing derives; #[error(\"quest coverage acceptance failed: metric={}\", .metric.as_str())]; remove only Display88\u201396 and empty Error98. Keep private field, inherent const new/metric and const metric key classifier.",
+      "proof": "Exact nongeneric struct single metric field neither named source nor annotated; default Error source stays None. Exact Display writes fixed prefix plus const as_str with ordinary inner formatting; explicit thiserror format yields same write! and ignores outer width/precision like current. Owning23-line PR manifest REG1171 already thiserror; exact2.0.20 macro struct body126\u2013165 reused; pinned docs60\u201397 independently consumed for .metric.as_str expression REG1199.",
+      "acceptance": [
+        "Identical message/metric grammar/visibility/public type/sourceNone and existing structural traits.",
+        "No change to validator first-failure ordering, metric classifier, artifact data/native writer.",
+        "No new dependency or runtime codec, no macro/compiler/test run; no unique global count."
+      ]
+    }
+  ],
+  "independently_analyzed_source_variants": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/bestiary/error.rs",
+      "sha256": "279813fa320c4ce35bbef2229faa4367af4c93d97f074cec46e6984974245b6c",
+      "actual_compared_ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "evidence": "contract-groups-485.json",
+      "disposition": "Same fixed-message unit-error contract personally confirmed in PR context; exact owning lock2.0.20 and existing macro proof reused, not P16 coverage transfer."
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "id": "CONT07-CONTRACT-418",
+  "at": "2026-10-23T21:32:55.293439+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1833,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/planar/query.rs",
+      "sha256": "6876c759c1e7a12a44cce57a8c372f1f7dcb4f926b9edc6e1486fc341a489cf6",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/planar/query.rs",
+      "actual_EOF": 156,
+      "ranges": [
+        [
+          1,
+          156
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1834,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/planar/query/tests.rs",
+      "sha256": "544ce48792225f7185f51cc90b4bc2e30be076ddb813b5011a2f3204e5cfba84",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/planar/query/tests.rs",
+      "actual_EOF": 51,
+      "ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1835,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/policy.rs",
+      "sha256": "2a2a18dafb072f8878e496462df0257b5bdaa9481895595affbee001b0e52e46",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/policy.rs",
+      "actual_EOF": 64,
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1836,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/profile.rs",
+      "sha256": "e8662abeffcf5acd766443246d2f7a45d909bc367cb1b2d2e0d13676503506ce",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/profile.rs",
+      "actual_EOF": 260,
+      "ranges": [
+        [
+          1,
+          260
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1837,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/query.rs",
+      "sha256": "f10e81a1d2a2040a7bb9aaaf1cb83951a49f47404a6c2e7ae3db66175b393637",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/query.rs",
+      "actual_EOF": 61,
+      "ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1838,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/selection.rs",
+      "sha256": "c4827110d150c745990de0f5da9e210b9dfd0797122a4cd661ef7353d2142084",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/selection.rs",
+      "actual_EOF": 127,
+      "ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "ROOT-OWNER-FOUNDATION-059",
+    "ROOT-OWNER-SUPPORT-RECEIVERS-060",
+    "ROOT-OWNER-ZERO-LENGTH-007",
+    "ROOT-OWNER-GRADE-008",
+    "ROOT-OWNER-GARDEN-SUPPORT-057",
+    "ROOT-OWNER-SCENE-SOURCE-056"
+  ],
+  "facts": [
+    "1833 immutable producer broadphase retains original bounds and derived nodes, no mutation API. Intersections restores authoritative source ordinal order at150 after candidate traversal; source refs and node addresses are different roles.1834 fixtures preserve inclusive touching/duplicates/empty set, not executed. f64 bounds expansion overflow/negative remains operation issue, not independently stored source truth.",
+    "1835 SupportLimits stores engineering grade/displacement/contact bounds once, getters derive raw native projections. Construction-grade, geographic observed-grade and actor movement limits have different meanings/zero policies. Neither numerical similarity nor shared units makes their policy owners identical.",
+    "1836 SupportProfile first/remainder is one nonempty sequence; ordinates/elevations are different units/roles. stepped allows repeated ordinate for retaining face; checked passage additionally rejects nonpositive run/excess rise. height_at clamps endpoints/interpolates inside, with finite-extreme f64 fallback, not independent duplicated profile policy.",
+    "1836 Empty error.coordinate fabricates ZERO consumed by checked location factory; this is already exact missing diagnostic-coordinate obligation, not newly discovered duplicate current profile. Original0 remains valid. Floor-basis translation deliberately changes only terminal passage landing versus whole court and retains ordinate sequence; counterfactual is not installed plan.",
+    "1837 vertical ceiling and plan point are independent query facts, Unbounded explicit with no infinite position. Actual ceiling permits arithmetic is bound policy, not cached current support. Descending surfaces selected by caller-specific ceiling intentionally differ from highest unbound support.",
+    "1838 source observations are retained separately from selected levels. Candidate builds unbound plan, computes floor shift against source, reconstructs final coordinated plan from shifted levels, binds entry and validates source controls before return. Level versus terraced are ordered candidates with specific recoverable constraints, not simultaneously authoritative results. Input observations remain original data intentionally used to diagnose failures.",
+    "No new07finding; actual shared-edge acceleration-order question, public projection datum API question, required error-loss obligations remain qualified. No checks or13-lens/overlay clearance."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1839,
+    "start_line": 1
+  }
+}

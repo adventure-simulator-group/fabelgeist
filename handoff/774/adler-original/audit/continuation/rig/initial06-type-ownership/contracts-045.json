@@ -1,0 +1,16 @@
+{
+  "id": "RIG-INITIAL06-GROUP-045",
+  "at": "2026-10-22T20:56:03.059945+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "food-pure-policy-owner-and-different-extensive-rates-clocks": {
+      "sources": [
+        "pr-working:crates/adventuresim-core/src/food.rs",
+        "physical-p16:crates/adventuresim-core/src/food.rs"
+      ],
+      "comparison": "FreshcompletePRfood1\u2013848 includingalloriginaltests; actualP16exactscopedunion7\u201310/156\u2013179/195\u2013215/247\u2013338 independentlyfreshread after027. Ownsdeterministicfood-lotspoiling/cooking/meal purepolicy; reducersretaincustody/mutation/authority, noCore->DBorBevycycle. CookingMethod4processstates vsFoodPreparation9persistentpreparationlabels vsFoodClass12ingredientclasses differentconcepts, notmergedbespoketaxonomies. DonenessOutcome4computedfields differentstagefromauthoredFoodDefinition andpersistedFoodLot; progress0..2overcooking intentionallynotUnitInterval whilekillprogress/caloriefactor0..1 andtierpenaltyu8differentroles. FoodDefinition isborrowedcanonicalcatalogueprojection tofoodsubset, id/name/lifetimenativeborrownotnewprovenanceauthority. ActualF010 FlavorProfile195\u2013215+FOOD_CATALOG295\u2013301 copiesunchanged inBOTHPR/P16 againstbothSchemaFlavors definitions044: P16sameexactduplicatecompletevalueprovedwithoutP16unscopedhelpers/tests. FoodClassStringsourceprojectionmatches12closedvariants; lowsharedleafsupportsbuild/runtime notduplicateFoodClassinDB. Allperunit nutrition/mass/value/sourcegrowth vsaggregateflavorpotency/microbialTOTALload/concentrationdivide bymass vsunitlesssurvival distinctquantities. ExistingMilligrams/Microliters exactfixedpoint conservation owners require deliberate rounding/unitboundary; do not forcewholemilligrams onrawfloatflavorkg/rates or usehumanBodyMass bounds. Growthperhour israte, elapsed_minutesu64 amount notabsoluteStrategicMinute; SeedcanonicalallwordidentityandpurposeStreamId RNGalreadyactualcurrent06, useexistingowners notnewfoodSeed. contamination_at nonfiniteanchor/growth=>MAX1e9, negativefloor0/f64exp80cap; cooked_contamination NaNmax0thenfloor1e-9 differentkernelpolicy, do notblindlyreplacearbitraryrawinputwithcheckedfinite leafandchangefallback. RawDoneness/Flavorpublicconstructors notuniversalfiniteproof. Normalnumericworkclamp/scaledcomputedquantityisactualarithmeticnotunchangedAPIbridge, distinctfromFlavor5copygap. Originaltestsreadsourceonly reusecanonicalSeed/FoodClass/Flavor/CookingMethod; no duplicateproductionowners or execution. P16otherops/testsnotcreditedfromPRcompletebody, onlyexactnamedranges."
+    }
+  },
+  "finding_support": "RIG-INITIAL06-F010 actualP16definition+unchangedcopy now independentlyestablished; no newuniquedefect",
+  "limits": "Current06only; nowholeP16Food848or014priorlenses/verdictcarry; Camera009027joinsactualrole only."
+}

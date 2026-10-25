@@ -1,0 +1,88 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-079",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "inventory-physical-identity-measure-and-transaction-quantity-contracts",
+      "sources": [
+        {
+          "scope_index": 287,
+          "ranges": [
+            [
+              1,
+              618
+            ],
+            [
+              1438,
+              1832
+            ],
+            [
+              1834,
+              2363
+            ],
+            [
+              2451,
+              2998
+            ],
+            [
+              3000,
+              3250
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "local774:M29",
+        "local774:M30",
+        "local774:M32",
+        "local774:M33",
+        "SEGO-INITIAL09-F238",
+        "SEGO-INITIAL09-F239",
+        "SEGO-INITIAL05-F003",
+        "SEGO-INITIAL05-F004",
+        "SEGO-INITIAL05-F005"
+      ],
+      "disposition": "Existing physical material, trade-product and custody defects supported; no new unique finding.",
+      "trace": "Personal/party carried-row IDs, physical ObjectId and canonical inventory definition ItemId differ even with shared integer/string storage. Transfer9\u2013159 uses atomic physical subtree before measured fraction/medication/durable/food/fungible paths; complete row count1 is not remaining measured quantity. Value163\u2013272 distinguishes intrinsic item value, remaining lot value, measured share and subtree total. Checked party grant481\u2013561 creates new stable physical objects, whole fractions and new food lots, corroborating root05F003 regrant mechanism after already read merge282. Existing unchecked wrapper472\u2013479 swallows failure, M30 cause contract. Loot1438\u20131556 emptiness means explicitAll(F238); stated selected positive quantities differ durable remainingrowquantity. Deposit/withdraw1560\u20131963 preserve subtrees, measured state and condition, while credit stake is contribution entitlement rather than physical coin. Trade request parsers2149/2226/2267 retain typed TradeQuantity and TradeScope initially; actual implementation2525\u20132548 erases into arrays+Bool(F239). Storefront row operations2691\u20132905 use scope-specific actual inventory and require atomic object moves. Liquidation2003\u20132047 and merchant subtreevaluation2752\u20132767 validate unique rootrowIDs only, matching root05F005 overlapping descendant batch mechanism. Personalpurchase2934\u20132947 merges nondurable/nonfood into an existingrow, matching root05F004 stable container stacking mechanism. Amount, mass, quality, condition, itemcount and currencyunit roles remain distinct.",
+      "qualifications": [
+        "Source all3250 lines personally read including existing source tests, no execution. Root05 normal canonical bottle and partial-food witnesses remain retained external source evidence; this packet does not import unread catalogue/helper body coverage or claim a new regression. ExistingF003/F004/F005 repaired once, not new09 or11 unique counts.",
+        "TradeQuantity(ItemQuantity) can earn an admitted requested-transaction role even with same positive invariant; no redundant-wrapper finding justified merely bydelegatedget. Current actual consumer initially carries typed request then discards it internally, exactF239 rather than demanddifferent arbitrarybounds.",
+        "Monetary balances, maximum authorization, no-op credit, stake and reserve may be0; positive linequantity and active payment have narrower roles. Do not impose positiveCoinAmount on allu64fields. Priceunit, linetotal, aggregatecost/proceeds and signed netdifference are distinct stages. Actualcheckedmul/add andu128ratios remain legitimate numericalkernels; no fabricated overflow where receiveralreadychecks.",
+        "Physical object policy is widerthanrepairability; do not treat FoodLotattachmentF193 ormedicinalcarrierF196 as same defectasgrantreset orbatchoverlap. Stableobjectabsence must remain an actual supported state until canonical admission proves otherwise. Existing storefrontexclusionCurrency/Medication preserved.",
+        "Source test text contains assertions but does not prove whole graph acceptance; no newtests or check run. Internal highleveltransfer APIs are not merelyDBadapters. Isolated temporary-member/disband logic deliberate, not blanketdeletionpermission."
+      ],
+      "acceptance": "Preserve canonical physical object/material identity and custody through every real transaction, explicitAll selection and admitted line/scope product. Existing connected defects and source-backed qualification repaired once after all13 discovery, with exact measured/food/condition histories and payment policies."
+    },
+    {
+      "id": "mission-outcome-identity-selection-and-authority-contract",
+      "sources": [
+        {
+          "scope_index": 287,
+          "ranges": [
+            [
+              619,
+              1436
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "local774:M34",
+        "local774:M43",
+        "local774:M44",
+        "local774:M58"
+      ],
+      "disposition": "Existing complete mission/hostile outcome graph granularity support.",
+      "trace": "Missioncandidate619\u2013718 compares immutable mission/site/group/path/objective/weight/captureversion with livecapabilityand current pendingobjective. OutcomeSeed720\u2013775 derives from stablelexicalcandidateIDs,capabilityIDs,weightsandresolutiontag plusprivateentropy; weightedselectionindex is bounded RNG output, not same as candidateidentityor probability. complete779\u2013854 uses sampledresolutionand captured history, not generic childsuccess as tacticalvictory. Mission terminalstate/status and committedresolution/capture fields must retain their relationM58. HostileBattleCommit927\u2013937 differs battleindependentHostileResolutionCommit939\u2013949; optionalbattle/mission/group/capture pluslootbool needactualapplicabilityunder existingwholeoutcomecontract. Validation968/1213 preventsCaptureTargetKilled reachingunreachablebranches1096/1168; no panicassertionfrom enumalone. Precombat1052\u20131095 onlyDriveOff/Surrender and currentleader/exactcapability, not captureorloot. NativeexistingIDowners1221\u20131227 are constructedthendiscardedbeforeinternalStringstate; role/wireadmissionowner shouldsurvive. Rewarddifficulty1332\u20131346 intentionallyboundmissionnormalizedpower ratherthanlaterliveescalation; currentroster/historyandliveconditiondifferentauthorities.",
+      "qualifications": [
+        "Privateentropy/seed/draw/rollindex and IDs not flattenedevenifwordstorageequal. Exactresolutionenumrepresentationbytes andcandidatelexicalorder remain stablepolicy; no generic universalIDtype.",
+        "No normal outcome/capturepairmismatch claimed. Captured expectedcustodyversion historicalmustnotrecomputeatcommit. Actualknownfailedmissionretainsbindinghistory; typedfinalstate cannoteraseauditfacts. Native CharacterId fullu64, no generalnonzeroassertion.",
+        "Battle lootdistribution uses recordedlivingparticipants1438\u20131556, not currentparty; sourcecaller loadingrecordstilldistinct. Currentmission rewards normalizeddifficulty and moralefloats arenot damageorprobability.",
+        "Precombat accepted withdrawal/surrender is battleindependent andmustnot gainbattleloot/corpses/injury byconsolidating similarlynamedcommitrecords. Source comments are evidence, notexecutionauthorization."
+      ],
+      "acceptance": "Carry canonical mission/outcomesource/battle/case/group/capture identity and applicable outcome payload through authentic source snapshot, deterministic selection, current authority and immutable receipt; preserve battle-independent paths and exact historical provenance."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

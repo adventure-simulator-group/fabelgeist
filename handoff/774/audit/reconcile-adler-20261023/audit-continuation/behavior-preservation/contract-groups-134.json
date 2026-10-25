@@ -1,0 +1,69 @@
+{
+  "id": "CONT08-CONTRACT-134",
+  "at": "2026-10-25T12:39:03.539377+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 464,
+      "source_id": "physical-p16:crates/strategic-web/src/spacetimedb/types.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/strategic-web/src/spacetimedb/types.rs",
+      "before_sha256": "df37c376e240735c231aaeca1737d1a0392643d37ab962f902a7d02df42ece02",
+      "after_sha256": "df37c376e240735c231aaeca1737d1a0392643d37ab962f902a7d02df42ece02",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0464-base-df37c376e240735c231aaeca1737d1a0392643d37ab962f902a7d02df42ece02",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/df37c376e240735c231aaeca1737d1a0392643d37ab962f902a7d02df42ece02",
+      "diff": "source-evidence/p16-0464.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          2523
+        ]
+      ],
+      "facts": [
+        "Full2523 current body and empty actual diff, including all fixtures. Generated SATS types reexported; explicit character/party/casebattle/settlement/route/equipment/catalog/mission projections preserve field identity, actor/case-site admission, raw coordinates, order/capacity and typedenum mappings. Character base projection intentionally starts current_case_siteNone/social0/automaticfalse for enrichment; pending mission identity/addr sentinel and rolepower0 unchanged.",
+        "Catalog physical/capability/durability/native fields copied exactly, separate typed equipment body/location/channel/fit enum mappings unchanged; presentation defaultzero/native flags unchanged. ItemCondition bins\u2192sum clamp and repairable/residual take/skip order preserved; hours adapters retain all source categories and family mapping.",
+        "SATS-to-Serde normalization recursively unwraps Some/None/empty unit arrays by original rules; explicit category/channel unit variant parser and all payload enum mappings retain accepted wire shapes/error behavior. No general proof schema decoder equivalence or native transport execution; actual decoder bodies separately pending.",
+        "Existing fixture bodies preserve gateway fields, WGS coordinate values, typed route/aggregate/default projections, catalog occupancy/parent order/materialskill/durability and personality mapping, nested strict decode and investigationavailability payload. Read only; no passing-tests claim."
+      ],
+      "disposition": "Exact scoped own08 comparison accounted WITH qualifications; no complete transport/generated schema graph clearance.",
+      "acceptance": "Preserve explicit generated-to-presentation field/enum identity, unchanged defaults and enrichment boundaries, wire/error shape, fatigue/schedule arithmetic order and all fixture assertions; no tests/checks/repairs."
+    },
+    {
+      "scope_index": 465,
+      "source_id": "physical-p16:crates/strategic-web/src/templates/settlement/character_skills.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/strategic-web/src/templates/settlement/character_skills.rs",
+      "before_sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+      "after_sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0465-base-38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+      "diff": "source-evidence/p16-0465.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          2054,
+          2054
+        ],
+        [
+          2090,
+          2140
+        ]
+      ],
+      "facts": [
+        "Exact qualified2054 and2090\u20132140 actual material ranges plus necessary signature context2055\u20132089;2053blank context only. Complete actual diff empty. Leisure preview preserves core schedule projection, labor fatigue subtraction after original whole-day outcome, units/divisor and effective redistribution expect. Allocated minute array order unchanged. ActivityEffectRates linearconstructor ends beyond2140; no full3812 file/wholeconstructor/HTML/JS behavior credit."
+      ],
+      "disposition": "Exact scoped own08 comparison accounted WITH qualifications; no complete transport/generated schema graph clearance.",
+      "acceptance": "Preserve explicit generated-to-presentation field/enum identity, unchanged defaults and enrichment boundaries, wire/error shape, fatigue/schedule arithmetic order and all fixture assertions; no tests/checks/repairs.",
+      "signature_context_ranges": [
+        [
+          2055,
+          2089
+        ]
+      ]
+    }
+  ],
+  "next": "466\u2013469 exact pinned native ranges,470+ replication/SATS native receivers."
+}

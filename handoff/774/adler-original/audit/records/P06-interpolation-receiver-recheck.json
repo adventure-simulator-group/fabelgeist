@@ -1,0 +1,33 @@
+{
+  "head": "3ef06860d9a911ccc2ae8e3a0114b5a6e4979666",
+  "recorded_at": "2026-10-21T03:42:31.360203+00:00",
+  "scope": "Fresh focused source-body check of the existing P06 interpolation primitive-exit claim. Not a full audit wave, independent review or runtime verdict.",
+  "traces": [
+    {
+      "file": "crates/adventuresim-tactical-core/src/vista_surface.rs",
+      "path": "presented_vista_vertex_height -> native_presented_vista_vertex_height -> native_presented_height_at -> native_sample_vista_height / native_stitch_vista_height_to_playable_edge",
+      "evidence": "native_sample performs bounds-checked row-major bilinear lerps; native_presented performs LOD weight selection and the actual own/coarse lerp; native_stitch clamps to the playable boundary and performs the actual support/vista seam lerp. These intermediate f32 samples stay inside this compound native calculation, not application storage. Public result admission happens after completion. A nonfinite sampled coarse value remains Some until final rejection rather than selecting own-height fallback."
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/vista_surface.rs",
+      "path": "sampled_vista_triangle_height",
+      "evidence": "Checked point/LOD policy produces clipped cell corners; native sampled corner heights enter the two actual u/v barycentric formulas. Only their completed result becomes SupportElevation. No raw height escapes this query."
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/vista_surface.rs",
+      "path": "VistaVertexGeometry::sample and tangent getters",
+      "evidence": "One centre/four probes produce admitted SupportElevation and finite Displacement<Scene> tangent edges; getters retain those checked types. Existing consumer evidence establishes actual cross-product/normalization endpoints, with distinct original normalization policies."
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/surface.rs",
+      "path": "ActiveVistaSurface::presented_height_at -> shared query -> stitch_vista_height_to_playable_edge",
+      "evidence": "Existing terrain hit stays checked; the vista hit stays SupportElevation through the shared stitch API. Only the stitch numerical kernel extracts metres."
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/pigment.rs",
+      "path": "lod_transition_weight receivers",
+      "evidence": "The production weight goes directly to Vec4::lerp in SampleColors. Other inspected presented_color/presented_height helper receivers are existing fixture/test arithmetic. No retained application height or weight state added here."
+    }
+  ],
+  "verdict": "The previously pending native interpolation receiver check is satisfied for these enumerated paths; no additional actionable source gap confirmed in that check. Existing ownership/admission and runtime limits remain."
+}

@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-444",
+  "at": "2026-10-25T15:38:22.027871+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 857,
+  "source_id": "pr-working:crates/adventuresim-core/src/autoresolve.rs",
+  "sha256": "cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [
+    "Combatant/CombatantStrategicState Clone Debug"
+  ],
+  "trait_inventory": [],
+  "analysis": "Actual initial220 lines consumed: module declarations, Combatant/CombatantStrategicState and native startup/strategic projection/borrowed PlayerInfo/combat view prefix. No handwritten trait/codec yet. Native construction deliberately initializes transient state and clamps fatigue; not structural From. Rest221\u20132878 unread, role incomplete.",
+  "first_unfinished": {
+    "scope_index": 857,
+    "line": 221
+  },
+  "execution": "none"
+}

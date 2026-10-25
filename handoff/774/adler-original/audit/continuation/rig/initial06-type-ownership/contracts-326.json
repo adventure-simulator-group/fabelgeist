@@ -1,0 +1,25 @@
+{
+  "id": "RIG-INITIAL06-GROUP-326",
+  "at": "2026-10-23T09:00:11.478307+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "attack-start-staged-authority": {
+      "comparison": "MeleeRecoverySchedule/MeleeStartTiming/StartedMeleePreparation/Publication are meaningful stages using canonical CombatDuration, AnimationElapsed, AnimationSampleTick, MeleeAnimationTiming, MeleeAttackKey, ReportedPrecision and explicit MeleeLungeArrival; preparation admits complete timing before publication installs movement/authority/contact. CombatInstant is server-native clock distinct from animation sample ordinal. Actual PR scheduled_measure/reach remain raw f32, while P16 complete counterpart changes them to SignedLength and fallible MeleeGeometryResult, admits native transforms as canonical Position before surface math. This directly supports F034 complete quantity propagation and F009 shared coarse BodyPart use, preserving current untargeted/missing-transform fallback and raw-error classification policy. No whole P16 signature replay or DB persistence.",
+      "disposition": "coherent staged transient authority products; F034 quantity migration and F009 taxonomy users"
+    },
+    "pebble-native-presentation-placement": {
+      "comparison": "PatchAssets groups parallel native mesh handles/counts/materials; PatchPlacement contains native asset ordinal/Transform and woodland classification derived from canonical GroundCover/PebbleDensity. Seed/StreamId remain canonical until actual random variant/yaw math; ScenePlanPoint admits grid coordinates before managed-ground and terrain queries. Typed height/direction project only when constructing Bevy transform; physical/native mesh bounds and normalized lighting lanes are not all RGBA/UnitInterval. No copied semantic scene/Seed/rock taxonomy owner; choices are local visual assets, not durable inventory/obstacle identity.",
+      "disposition": "canonical source concepts with native rendering asset/transform boundary"
+    },
+    "pose-report-acceptance-policy": {
+      "comparison": "ScenarioMetadata/ScenarioId/Feature/Kind and canonical ContactSequence, LeadFoot, CyclePhase drive contextual review bounds. Local numeric limits are reference acceptance policy, not alternate animation timing/geometry definitions; metre/degree/cardinality expected-height tuple roles stay separate. cadence_contacts_valid uses canonical successor and lead-foot semantics then explicitly projects step distance/cycles at numerical comparison. PR raw report root-distance/limit APIs support F034 retained report quantity propagation, while no universal probability/strictpositive constraint should be imposed on all f32 values. Only actual helper body analyzed; called sample/model gates receive no credit.",
+      "disposition": "contextual diagnostic acceptance owner and existing F034 report users"
+    }
+  },
+  "supporting_existing_findings": [
+    "F009",
+    "F034"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit."
+}

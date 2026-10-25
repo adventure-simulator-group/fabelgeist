@@ -1,0 +1,66 @@
+{
+  "id": "CONT07-CONTRACT-429",
+  "at": "2026-10-23T21:48:52.616301+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1891,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/player/attack_timing.rs",
+      "sha256": "b12efd1cc517a4644ee8742fcde084e4fec7ecf93bf35234fd1d7ba0b3ffaf31",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/player/attack_timing.rs",
+      "actual_EOF": 41,
+      "ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1892,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/player/combat_state.rs",
+      "sha256": "bfc02321b1d2716ffaf92d38902b547713a76a9de7a350ece7f35449e9dddf37",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/player/combat_state.rs",
+      "actual_EOF": 211,
+      "ranges": [
+        [
+          1,
+          211
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1893,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/player/input_tick.rs",
+      "sha256": "e9d4d32a4beaa8f4a1631034abbb4cdd7db4e43bccd80935b3eb7e7674d4e27f",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/player/input_tick.rs",
+      "actual_EOF": 33,
+      "ranges": [
+        [
+          1,
+          33
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "ROOT-OWNER-ATTACK-014 personally consumed in preceding bounded read",
+    "NATIVE-OWNER-ITERATION-001 personally consumed in preceding bounded read"
+  ],
+  "facts": [
+    "1891 complete preparation/recovery computations derive from supplied weapon, handling and requested continuation role; no independently retained duration proven. Preparation .08-.75 and recovery .08-.55 are distinct phase bounds, not one fact solely because both measure time.",
+    "1892 initial enrollment fields are explicit strategic history; live transient server impairment and its source projection have separate representations. charge_work updates fatigue then total by its delta in one call. Sources.total sums ten causes; source fixtures assert same-tick agreement and no calorie-history double count, but were read only. No full normal-server update ordering or every writer proof has been imported, so source-total divergence remains unpromoted pending actual normal paths.",
+    "1893 InputTick permits initial zero and uses wrapping half-window ordering; EquipmentSequence command admission and EquipmentRevision successful-state-change version are different chronology contracts. Shared u32 representation does not justify merging them."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1894,
+    "start_line": 1
+  }
+}

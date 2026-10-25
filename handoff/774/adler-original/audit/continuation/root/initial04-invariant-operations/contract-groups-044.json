@@ -1,0 +1,45 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-044",
+  "at": "2026-10-22T21:11:06.228906+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/quest_generation/model.rs",
+      "sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+      "actual_compared_ranges": [
+        [
+          1,
+          58
+        ],
+        [
+          99,
+          153
+        ],
+        [
+          171,
+          191
+        ],
+        [
+          320,
+          507
+        ]
+      ],
+      "source_evidence": "Fresh actual every old bounded role plus independent042 Weight289-303/Candidate1191-1198. ClosingGenerationContext320 is context only, not306-319fields. No unscoped othermodel/tests or nearbyheader credit."
+    }
+  ],
+  "groups": {
+    "bounded-open-id-operations": "open_catalog_id privatefixed63bytebuffer+u8len. from_static assertsnonemptybyteLength<=63 beforeloop so indexes0..62 andlenasu8exact; copiesentirevalidUTF8stringbytes, meaning as_str UTF8success follows source&str evenifnotASCII. from_static omits lowerASCIIsyntaxcheckedbytry_new, so constructoradmissiongap already03; no inventedUTF8panicfromnonASCII wholevalidstring. try_new length/syntax gatesbefore[..len]copy, as_str slicesprivateboundedlen. Ordinaryid_type publicString and derivedDeserialize bypasstry_newbounded256syntax; private new.expectfromstaticgeneratedinput dependsactualcaller; preserveexisting03propagation/admissiongraph notnormalbadIDassertion. Open authoredcatalog vocabulary mustremainopen, no forceallIDsclosedenum.",
+    "visible-witness-and-target-copy": "Presenceversion serializesoneprimitive/stringtuple intoJSON thenstableHash; serializationexpectthisfixedtuplehasnofalliblecustomserializer, no arithmetic/transaction/rngconsumption. Hashu64 islossycommitment, not claimedcollisionproof identity; actualtargetmatchesalsocomparesID/demographic/age/sex/profession/settlement/location beforeversion. Displayappearance/labels not automaticallyauthoritativeprivatefact, preserveintentionalsexNone fromvisiblepresentation. Candidatebuildalllocal thenSome; .ok?invaliddemographic returnsNone beforecandidatepublication, notpartiallycommittedUIstate. PublicWitnessCandidate/GeneratedPatternTarget fieldmutations/Serde stillpermitincoherentaggregate, no acceptedsealfromnames.",
+    "age-and-live-observations": "visible_witness_candidate actualageinputlowercase feedsimmutablecatalogue but allowedcircumstancesusesliteralWitnessDemographicChild. IndependentlysupportsCamera07F015 conditionalopen-label/ageauthoritygap; no new04arithmeticfinding/currentwrongNPCassertion. Explicitadult_venuepresenceoverride preserved; do notcollapseadolescent/child/adultconditionswithoutactualagepolicy. retain_navigablewitnesses filtersactualvisibleNPCtab, copieslabel tosamecandidate only, preservesrelativeorder andsourceID; no tuplecolumntruncation/indexing. pattern_target_matches deliberatelymatchingselectedfacts, notwholeproductEq/universalrevisioncomparison.",
+    "diagnostics-and-integer-weights": "FactorTrace rawu32weights finiteinteger; actualWeightcombined widenedu64 beforemultiply read042; diagnostics eligibility/lifecycleindependent andactualproducers124/042reviewed. Datarecordno arithmetic ormismatchingzip. HardzeroSome canrejectwhilezeroWeightrejectswithoutreason, preservevaliddifferentstates. Traceboundedrecord/bytesconstants alone do notenforceVecbound; actualgeneratorowneradmission remainsrelated03aggregategraph, no claimpublicrecordalwaysaccepted. CausalBridge productkeepsid/explanation/event/evidence/action/lead linked, fields rawString orIDs requireactualcomposedadmission andpersistentstoreauthority; notsameasBestiaryCausalBridge4enum. No externalmutation/retryclockin thesefunctions."
+  },
+  "findings": [],
+  "prior_finding_support": [
+    "Existing03ID constructor/decoder and07F015 actualage versusopenlabel owner gap, no new operations failure"
+  ],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

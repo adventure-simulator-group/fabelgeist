@@ -1,0 +1,33 @@
+--- PRbase/crates/adventuresim-character-creator/src/inventory/tests.rs
++++ frozen/crates/adventuresim-character-creator/src/inventory/tests.rs
+@@ -8,9 +8,12 @@
+     inventory.add(Article::Catalog(CatalogArticle::new(item, placement)))
+ }
+ 
+ fn ids<'a>(pieces: &[CatalogPiece<'a>]) -> Vec<&'a str> {
+-    pieces.iter().map(|p| p.item.id.as_str()).collect()
++    pieces
++        .iter()
++        .map(|p| p.selection.item().definition().id.as_str())
++        .collect()
+ }
+ 
+ fn worn(inventory: &Inventory) -> Vec<InventoryItemId> {
+     inventory.worn().map(|item| item.id).collect()
+@@ -133,14 +136,14 @@
+     inventory.wear(morion, &catalog).unwrap();
+     let Article::Catalog(article) = &mut inventory.get_mut(morion).unwrap().article else {
+         unreachable!()
+     };
+-    article.design = catalog.design("barbute");
++    article.design = catalog.design(catalog.item("barbute").unwrap());
+     assert!(inventory.loadout(&catalog).is_err());
+     let Article::Catalog(article) = &mut inventory.get_mut(morion).unwrap().article else {
+         unreachable!()
+     };
+-    article.design = catalog.design("morion");
++    article.design = catalog.design(catalog.item("morion").unwrap());
+     assert!(inventory.loadout(&catalog).is_ok());
+ }
+ 
+ #[test]

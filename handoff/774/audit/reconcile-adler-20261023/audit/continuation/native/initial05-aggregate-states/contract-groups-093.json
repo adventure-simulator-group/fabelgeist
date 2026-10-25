@@ -1,0 +1,135 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-093",
+  "at": "2026-10-23T01:41:07.681275+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "physical-p16:crates/strategic-web/src/templates/recruitment.rs",
+      "sha256": "ac67b736f6b3d39a214a9d95831e20cbdbead9b95d1b5c8d34b11dff58001cd5",
+      "scope045_index": 2800,
+      "actual_EOF": 587,
+      "scoped_ranges_compared": [
+        [
+          19,
+          35
+        ],
+        [
+          325,
+          342
+        ]
+      ],
+      "actual05_comparison": "Fresh exact P16 template declarations19-35 andwarning325-342, includesmandatoryoverlay228. RecruitmentApplicant pairs persistedrequest andcurrentcharacter/capability/profile/partycontribution/medical; RolePanel storescurrentrole plusapplicants. Warning style/text reads ONLY request.meets_requirements, no current recomputation or as-of-application label. Scopeoutside exactblocks uncredited. SamecanonicalCamera07F029 graph with independent05 relationship proof, not newunique defect.",
+      "source_body_proof": "Fresh exact globallyqualified currentrole bodies independently read; no Camera07 verdict/bodycredit transfer."
+    },
+    {
+      "source_id": "physical-p16:crates/strategic-web/src/routes/parties.rs",
+      "sha256": "ab69f73988cfe3ec66925ba43a1060eee98e493f0859e60be2e325e18a89ad96",
+      "scope045_index": 2801,
+      "actual_EOF": 878,
+      "scoped_ranges_compared": [
+        [
+          355,
+          581
+        ]
+      ],
+      "actual05_comparison": "Fresh complete actual request-current panel handler355-581. Party/roles/memberships/requests/saved rows queried separately; exact role-ID filters partitionmembers/applicants, eachcharacter fetchedby SAME actualrequest.character_id. Membercapabilityvectors built from one collectedmember-capabilities list; each scalarprojection length/order matchesthatlist. Applicantprofiles keyedbydeduplicatedactualIDs andboundedlookupchunks, missingprofile default distinctpolicy. Actualfreshcapability/attributes/skills/limbs loaded andcurrentpartycontribution derived, but request.clone retains oldmeetsbool before pairedcurrentrolepanel. Sourceobservation: no recompute here despitecurrentlivevalues. No transactionalwholequerysnapshot or staleauthorization/partyacceptance promise inferred; queryfailure fallsbackempty/None visiblysourcepolicy, not typedvalidity.",
+      "source_body_proof": "Fresh exact globallyqualified currentrole bodies independently read; no Camera07 verdict/bodycredit transfer."
+    }
+  ],
+  "supporting_partial_source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "scope045_index": 269,
+      "actual_EOF": 1586,
+      "credited_exact_role_ranges": [
+        [
+          1518,
+          1531
+        ]
+      ],
+      "whole_source_scope_pending": true,
+      "actual05_comparison": "Actual persisted PartyJoinRequest rawpublictable fields include party/role/character IDs plus cachedbool; no role/capabilityrevision or as-ofbinding. Only exactdefinition read, full1586source remains initial05incomplete.",
+      "source_body_proof": "Fresh exactbounded bodies within alreadyglobalwhole scope; supportingpartialroles only, no sourcecompletion/count.",
+      "incidental_context_not_credited": [
+        [
+          1517,
+          1517
+        ],
+        [
+          1532,
+          1533
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/governance.rs",
+      "sha256": "c557181c6e91e2beb9c7f20a44324af9d5f4e95ee886d4ae1198e7c78d7f6682",
+      "scope045_index": 282,
+      "actual_EOF": 1653,
+      "credited_exact_role_ranges": [
+        [
+          837,
+          900
+        ],
+        [
+          1018,
+          1032
+        ],
+        [
+          1266,
+          1341
+        ]
+      ],
+      "whole_source_scope_pending": true,
+      "actual05_comparison": "Actual complete updaterolebody replacesrequirements afterlegalrole/leader/quantitygates andupdates memberdisplayrole ONLY; no pendingrequestboolchange. Actual requirementsvalidator allowsdifferentathletics/endurance0..5 and weaponprecisionhalfsteps0..rapierbound. request_to_join sameparty/location/leader/activecontract/offer/scope/filledgates, existingrequestduplicate returns before refresh; newrequest refreshescapabilities andstores predicateagainstcurrentrole once. Thus ordinarysuccessfulroleedit canseparate retained requestobservation from current UIinputs. Full1653source stillinitial05incomplete; no otherfunctions grantedcredit.",
+      "source_body_proof": "Fresh exactbounded bodies within alreadyglobalwhole scope; supportingpartialroles only, no sourcecompletion/count.",
+      "incidental_context_not_credited": [
+        [
+          901,
+          902
+        ],
+        [
+          1033,
+          1073
+        ],
+        [
+          1260,
+          1265
+        ],
+        [
+          1342,
+          1345
+        ]
+      ]
+    }
+  ],
+  "comparison_groups": {
+    "snapshot-correlation": "Retainedrequest observation andcurrentrole/profile mismatch, sameactualCamera07F029 graph.",
+    "member-column-alignment": "Allthreepartycapabilitycolumns derive SAMEactualcollectedmemberrows.",
+    "actual-identity-membership": "Role and applicant IDs drive exactfilter/key joins, notsame-countassumption."
+  },
+  "new_unique_findings": [],
+  "supporting_findings": [
+    {
+      "canonical_finding_id": "CAMERA-INITIAL07-F029",
+      "canonical_receipts": [
+        "continuation/camera/initial07-redundant-authority/findings.jsonl",
+        "Camera CONTRACT142/source-reconciliation143"
+      ],
+      "classification": "independent05 correlated current-role/current-profile versus retainedadvisory-boolean support",
+      "unique_new_defect": false,
+      "relationship": "Present-tense recommendation warning and its paired current role/capability should use the same observation/revision, not cached request-time eligibility.",
+      "actual_path": "Source-backed ordinary roleedit changesrequirements while retainedrequestbool survives; web pairs livecurrentrole/refreshedcapability witholdbool. No execution, actualplayerincident, unauthorizedmembership or hardacceptanceclaim.",
+      "connected_repair": "Use samecanonical exactindividual-requirements predicate on currentrole+actualcapability for presentation; remove retainedderivedbool ifno historicalproductpurpose. Partyaggregate contribution intentionallydifferentobserver, do not conflate.",
+      "acceptance": "Role/profile changes reflected in displayedindividualrecommendation under actualcurrentinputs; requestidentity/lifecycle andmanualpartydecision unaffected. Preserve missingprofile/partialquery policy explicitly; no newtransaction/wholegraph claim."
+    }
+  ],
+  "remaining_dependency_obligations": [
+    "P16authority_model269 full1586 andgovernance282 full1653 remainincomplete exceptexactpartialroles; do not countwhole-sourcecompletion. Othernewglobalroles unchanged."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

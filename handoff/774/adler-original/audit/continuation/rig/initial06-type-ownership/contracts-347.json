@@ -1,0 +1,26 @@
+{
+  "id": "RIG-INITIAL06-GROUP-347",
+  "at": "2026-10-23T09:21:07.125220+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "armor-fitting-region-and-rig-label": {
+      "comparison": "Wearer borrows canonical PackedRigSkin<8>, RigJointName/Table/global joints. FitRegion is anatomical fitting/support authority: Shoulder support extends Clavicle while frame owners stay upper arm; hand support excludes thumb deliberately. Local Side projects to actual RigSide::Left/Right for mhr::sided; freshly compared canonical rig/lib63-66 explicitly defines side in authored rig label independent of equipment placement. Thus equipment fitting placement side and rig label side have separate roles despite identical two variants; no automatic consolidation. FittingPlacement preserves Unpaired versus lateral placement and reports misuse, rather than treating all catalog placement IDs as rig names. Skin support threshold is shared shader constant, membership uses canonical classification, and count/column validation precedes native sums. Original fixtures are read only.",
+      "disposition": "canonical rig owner consumed; fitting-side projection preserves distinct placement versus label meaning"
+    },
+    "drape-preview-caller-key-and-native-material": {
+      "comparison": "DrapeWorker<InventoryItemId>, DrapeMesh(InventoryItemId) and request pairs retain creator-local article identity through asynchronous preparation, a concrete existing generic caller-key pattern supporting F047 graph API remedy. Current inventory selection supplies appearance; native mesh upload/weld is an actual Bevy port. MailMaterials keys canonical MailWeave and shared MailMaps; base-color textures are sRGB whereas normal/AO are not. Shared CLOTH_PBR owns ordinary material policy. No independent garment recipe/rig ordinal or mail weave owner is introduced; cache/job binding qualification remains earlier admission03 F044, not local06 ConditionTrend F044.",
+      "disposition": "typed caller key preserved through worker; F047 positive API precedent and F005 actual material port"
+    },
+    "wardrobe-library-and-settled-artifact": {
+      "comparison": "WardrobeLibrary uses canonical LibraryName::try_from then clone/save/replace for stored designs. Showing distinguishes transient Design from Saved(LibraryName); Drape retains GarmentSelection plus optional settled artifact/progress/problems. SettledGarment::capture and Saved.drape.wear own the simulation artifact, while same_simulation guards current recipe equivalence. Single-item DrapeWorker<()> deliberately has one local slot rather than a false durable item ID. Preview clears skin columns for static mesh instead of inventing an animated rig owner. Path/status strings are filesystem/UI diagnostics, not alternative library identity. Actual library/worker helpers receive no untraced body credit.",
+      "disposition": "coherent library-name/selection/artifact owners and intentional single-slot worker key"
+    }
+  },
+  "supporting_existing_findings": [
+    "F005",
+    "F047"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit.",
+  "focused_existing_definition": "pr-working:crates/fabelgeist-rig/src/lib.rs63-66 freshly compared; no new source coverage counted"
+}

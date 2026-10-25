@@ -1,0 +1,62 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-558",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/strategic-web/src/medical.rs",
+      "sha256": "c8ff9c47a5df84de241e85a1466c1e22dcbb7991c868d86d46f9cd4c9fd37651",
+      "actual_EOF": 505,
+      "actual_compared_ranges": [
+        [
+          1,
+          505
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/medical/administrations.rs",
+      "sha256": "44013b88072ffed197f1fb44e9b5de838612f08282374c95e9544cf6ed0fbfd2",
+      "actual_EOF": 28,
+      "actual_compared_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/routes/data.rs",
+      "sha256": "2cba5629aedb862b8c04b750219bef16c9eba8b47116c75b3e8cda4cf21791bb",
+      "actual_EOF": 308,
+      "actual_compared_ranges": [
+        [
+          1,
+          308
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Observer-safe chart arithmetic retains quantized precision and explicit course interval policy.",
+      "evidence": "Full medical505/administrations28 personally read including fixtures. i16humour->f32/10000 finitefullrange safe; unsigned_abs handlesi16MIN. Likelihood min10000 explicitdisplaycap, confidence rawu16outside numericalnormalization no new narrowing. Symptom weights sum only staticdiseasecatalogue, not rawpatientinfection; noprivateinferencestate entered. Concealedelse latest branch is unreachable whenlatest exists because regional_humours same latestmap; currentlyreturnszeros for nochart, no private metric leak. Courseactive uses closedstart/open saturatingend and requires nostopped_at +knownversion.",
+      "qualifications": "No extra medicalguidance, policy change or livebackendbadrow claim. Dose backendexpect only admittedDose invariant plusauthoritativebackendproducer assumption; no independentlymalformedcurrentrow witness. Saturation intentionally preventsu64overflow, terminalminuteMAX exclusiveend behavior connects timelineboundary policy, no ordinarycourseexpiry defect inferred.",
+      "acceptance": "Preserve publicdefinition-only tooltips, signedhumour deviations, halfopen activecourse history and explicit unsupportedversion semantics; actual backend malformedrow handling retainscause when supported."
+    },
+    {
+      "contract": "Shared character reads preserve observer chronology, complete-cache deletion semantics and typed case-site error.",
+      "evidence": "Full data308 read. CompleteSome(None) cache is authoritativeabsence and does not fallback; case-site read remains separatelyauthorizedSQL and typedvalidation mapErr. Futuremutablecharacter fields failclosed through subject<=observer; life-only uses deathhistory and observedtime, with explicit availabilityfallback alive on missing/errorchronology. No arithmetic except microsecondu128->u64new_id truncation and native clockdefault.",
+      "qualifications": "IndependentSQL/cache reads are not one atomicsnapshot; no actualraceactor/DBrun or uniqueIDcollision proven here. new_id timestamp does not itself establish globallyunique semanticcontract; actualreceivingIDowner remains needed rather than inventing randomfallback. Errorprojection availability policy is deliberate, not inferredauthorization.",
+      "acceptance": "Preserve exact case-site rejectioncause, cachecompletion semantics and chronology policies at actual receiving operation; do not misrepresent sourceorder as transactional snapshot or clock as uniquenessproof."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/strategic-web/src/routes/dialogue.rs"
+}

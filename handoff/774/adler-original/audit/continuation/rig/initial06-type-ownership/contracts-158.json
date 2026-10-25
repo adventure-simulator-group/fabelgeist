@@ -1,0 +1,16 @@
+{
+  "id": "RIG-INITIAL06-GROUP-158",
+  "at": "2026-10-23T05:05:50.212573+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-060.json",
+  "groups": {
+    "native-allocator-and-current-camera-view-ownership": {
+      "comparison": "Fresh full pinned Eidolon cull/node119 and current PR view_culling167. Native genericnode consumes canonical allocator/globalcullbuffer/pipeline, pagecompute_capacity and bindgroups; it defines no competing first-party asset/count/camera schema. Those native capacity/dispatchwords are actual GPU operation inputs, not WorldSchema counts or canonical RigJointOrdinal. App GrassPipeline is a type alias specializing the actual native pipeline to TacticalGrassInstancedMaterial, not compatibility owner. GrassViews maps actual Entity to ViewBuffer using the existing native CameraCullData for viewposition/frustum. It retains per-camera uniforms and binding together, refreshes active cameras and discards absent/inactive views; no duplicate CameraCullData mirror. Pipelines reset/select are distinct executionroles, not arbitrary same-ID values. Actual cull binds current view, dispatches reset then select for each allocatorpage before Core3d MainPass afterPrepass. Generic foreignnode absenceofreset cannot support a missingreset finding against this current app route. Grass metadata alpha radius156 is intentional native lane packing, not canonical RGBA opacity. Keep low native ABI owners and useful application-owned per-view lifecycle/resource state; no demand to brand everynative capacity/word as shared gameplaytype. Floatingdispatchceil versus app integerdivceil/largegrid bounds remain operation contracts, no universalcapacitysafety or nativepackage clearance.",
+      "disposition": "Keep actual native ABI definitions and first-party per-camera retained state in their owning rendering layers; explicit reset/select route has source support, no missingreset finding."
+    }
+  },
+  "source_fact_refs": [
+    "contracts-156.json#/groups/native-geometry-colour-and-retained-family-boundaries"
+  ],
+  "limits": "Only exact scoped native119/currentPR167 freshly read. No whole Eidolon/backend/plugin/allocator graph or other-lens credit; no project execution/source edits."
+}

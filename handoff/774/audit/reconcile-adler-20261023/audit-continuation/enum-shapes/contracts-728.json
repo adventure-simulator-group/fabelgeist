@@ -1,0 +1,204 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-728",
+  "lens": "audit-enum-shapes",
+  "groups": [],
+  "shared_material_reads": [
+    {
+      "shared_index": 88,
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/shape_cast/shape_cast.rs",
+      "sha256": "55751d940df916bcdc1526be642b46736efe8223038ea0bbed6cee5530db129e",
+      "ranges": [
+        [
+          1,
+          151
+        ],
+        [
+          272,
+          284
+        ]
+      ],
+      "contract": "contracts-728.json",
+      "status": "fresh exact registered variant ranges read and reanalyzed09",
+      "disposition": "Actual native shape-cast result/options/dispatcher/GJK bodies nowread atregisteredranges. Result<Option<ShapeCastHit>,Unsupported> distinguishes unsupported/nohit/hit. ShapeCastStatus OutOfIterations/Failed may retain meaningful conservative geometry; do not reject every nonConverged status or discard diagnostic witnesses. PenetratingOrWithinTargetDist witness reliability depends compute_geometry option, not status alone. Native GJK nohit carries useful warmstartdirection, notactualcontactnormal; zero witnesses atinitialpenetration are intentionally undefined untilcontact recomputation. Local last_chance/iteration flags numericalalgorithmstate, notselectedgameplaymode. Firstpartycamera adapter must interpret actualadmission/normal/frame contract; no SDKstyle/source repair and no08gateclear.",
+      "frozen_unique_credit": false,
+      "other_lens_credit": false,
+      "execution": "none"
+    },
+    {
+      "shared_index": 89,
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/default_query_dispatcher.rs",
+      "sha256": "dd9873e219688b93f28314df13a405c0c78fb44444344b46e18ba2eb75fbe53d",
+      "ranges": [
+        [
+          437,
+          543
+        ]
+      ],
+      "contract": "contracts-728.json",
+      "status": "fresh exact registered variant ranges read and reanalyzed09",
+      "disposition": "Actual native shape-cast result/options/dispatcher/GJK bodies nowread atregisteredranges. Result<Option<ShapeCastHit>,Unsupported> distinguishes unsupported/nohit/hit. ShapeCastStatus OutOfIterations/Failed may retain meaningful conservative geometry; do not reject every nonConverged status or discard diagnostic witnesses. PenetratingOrWithinTargetDist witness reliability depends compute_geometry option, not status alone. Native GJK nohit carries useful warmstartdirection, notactualcontactnormal; zero witnesses atinitialpenetration are intentionally undefined untilcontact recomputation. Local last_chance/iteration flags numericalalgorithmstate, notselectedgameplaymode. Firstpartycamera adapter must interpret actualadmission/normal/frame contract; no SDKstyle/source repair and no08gateclear.",
+      "frozen_unique_credit": false,
+      "other_lens_credit": false,
+      "execution": "none"
+    },
+    {
+      "shared_index": 90,
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/shape_cast/shape_cast_support_map_support_map.rs",
+      "sha256": "d874526a7a624206fd8ae6e3302db0f51f2d643c53014b8f5d496daa7d1e125c",
+      "ranges": [
+        [
+          1,
+          67
+        ]
+      ],
+      "contract": "contracts-728.json",
+      "status": "fresh exact registered variant ranges read and reanalyzed09",
+      "disposition": "Actual native shape-cast result/options/dispatcher/GJK bodies nowread atregisteredranges. Result<Option<ShapeCastHit>,Unsupported> distinguishes unsupported/nohit/hit. ShapeCastStatus OutOfIterations/Failed may retain meaningful conservative geometry; do not reject every nonConverged status or discard diagnostic witnesses. PenetratingOrWithinTargetDist witness reliability depends compute_geometry option, not status alone. Native GJK nohit carries useful warmstartdirection, notactualcontactnormal; zero witnesses atinitialpenetration are intentionally undefined untilcontact recomputation. Local last_chance/iteration flags numericalalgorithmstate, notselectedgameplaymode. Firstpartycamera adapter must interpret actualadmission/normal/frame contract; no SDKstyle/source repair and no08gateclear.",
+      "frozen_unique_credit": false,
+      "other_lens_credit": false,
+      "execution": "none"
+    },
+    {
+      "shared_index": 91,
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/shape_cast/shape_cast_halfspace_support_map.rs",
+      "sha256": "42943e2a44151982c9c509c9c633cde8b794e4da98ac70a1fd1d99c657aef851",
+      "ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "contract": "contracts-728.json",
+      "status": "fresh exact registered variant ranges read and reanalyzed09",
+      "disposition": "Actual native shape-cast result/options/dispatcher/GJK bodies nowread atregisteredranges. Result<Option<ShapeCastHit>,Unsupported> distinguishes unsupported/nohit/hit. ShapeCastStatus OutOfIterations/Failed may retain meaningful conservative geometry; do not reject every nonConverged status or discard diagnostic witnesses. PenetratingOrWithinTargetDist witness reliability depends compute_geometry option, not status alone. Native GJK nohit carries useful warmstartdirection, notactualcontactnormal; zero witnesses atinitialpenetration are intentionally undefined untilcontact recomputation. Local last_chance/iteration flags numericalalgorithmstate, notselectedgameplaymode. Firstpartycamera adapter must interpret actualadmission/normal/frame contract; no SDKstyle/source repair and no08gateclear.",
+      "frozen_unique_credit": false,
+      "other_lens_credit": false,
+      "execution": "none"
+    },
+    {
+      "shared_index": 92,
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/gjk/gjk.rs",
+      "sha256": "893b9246ae77eb21d8a3f10afaeeb05e36bfdb774ce6e98579f614ac32e57a68",
+      "ranges": [
+        [
+          634,
+          822
+        ]
+      ],
+      "contract": "contracts-728.json",
+      "status": "fresh exact registered variant ranges read and reanalyzed09",
+      "disposition": "Actual native shape-cast result/options/dispatcher/GJK bodies nowread atregisteredranges. Result<Option<ShapeCastHit>,Unsupported> distinguishes unsupported/nohit/hit. ShapeCastStatus OutOfIterations/Failed may retain meaningful conservative geometry; do not reject every nonConverged status or discard diagnostic witnesses. PenetratingOrWithinTargetDist witness reliability depends compute_geometry option, not status alone. Native GJK nohit carries useful warmstartdirection, notactualcontactnormal; zero witnesses atinitialpenetration are intentionally undefined untilcontact recomputation. Local last_chance/iteration flags numericalalgorithmstate, notselectedgameplaymode. Firstpartycamera adapter must interpret actualadmission/normal/frame contract; no SDKstyle/source repair and no08gateclear.",
+      "frozen_unique_credit": false,
+      "other_lens_credit": false,
+      "execution": "none"
+    },
+    {
+      "shared_index": 93,
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/contact/contact_support_map_support_map.rs",
+      "sha256": "fcb9e37067085e862b6a23bfbe73a4bc39ff56ceefc90031f9c0b10766430562",
+      "ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "contract": "contracts-728.json",
+      "status": "fresh exact registered variant ranges read and reanalyzed09",
+      "disposition": "Actual native shape-cast result/options/dispatcher/GJK bodies nowread atregisteredranges. Result<Option<ShapeCastHit>,Unsupported> distinguishes unsupported/nohit/hit. ShapeCastStatus OutOfIterations/Failed may retain meaningful conservative geometry; do not reject every nonConverged status or discard diagnostic witnesses. PenetratingOrWithinTargetDist witness reliability depends compute_geometry option, not status alone. Native GJK nohit carries useful warmstartdirection, notactualcontactnormal; zero witnesses atinitialpenetration are intentionally undefined untilcontact recomputation. Local last_chance/iteration flags numericalalgorithmstate, notselectedgameplaymode. Firstpartycamera adapter must interpret actualadmission/normal/frame contract; no SDKstyle/source repair and no08gateclear.",
+      "frozen_unique_credit": false,
+      "other_lens_credit": false,
+      "execution": "none"
+    },
+    {
+      "shared_index": 94,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/clothing/regions.rs",
+      "sha256": "3819e9e4805a3004655e303c8a9e84b2d28892ea2d2b193ea9d094a31afc8f5a",
+      "ranges": [
+        [
+          104,
+          133
+        ]
+      ],
+      "contract": "contracts-728.json",
+      "status": "fresh exact registered variant ranges read and reanalyzed09",
+      "disposition": "Fresh rig-quality waist_surface_joint actualexisting RigJointMembership namedpolicy, ordinalset derivedfromtyped rigtable. Root/spinebase/thighfamily inclusion actualskinselection, not exclusive bodypartmode. Context differsPR but exactnewrig rolecompared; no crossvariantverdictcarry.",
+      "frozen_unique_credit": false,
+      "other_lens_credit": false,
+      "execution": "none"
+    },
+    {
+      "shared_index": 95,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/boundaries.rs",
+      "sha256": "41530ea3d8197242c6c5cc79ac9a35b31b9df76287a57aae530247553f3e2f2b",
+      "ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "contract": "contracts-728.json",
+      "status": "fresh exact registered variant ranges read and reanalyzed09",
+      "disposition": "Fresh P16boundary producer actualGateDatum and checkedDoor result; collider.into_solid None validemptycompound collision, door placement remainsindependent. Fixedsupport and render share source, optional collider not universal failure. No DB tacticalstate or new09statefield.",
+      "frozen_unique_credit": false,
+      "other_lens_credit": false,
+      "execution": "none"
+    },
+    {
+      "shared_index": 96,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/investigation/claims.rs",
+      "sha256": "19ecf9355e0b4d4745fc425ac8c9f8f38f238fc9bb89dc91d4c2da28d0ec3c3a",
+      "ranges": [
+        [
+          643,
+          655
+        ]
+      ],
+      "contract": "contracts-728.json",
+      "status": "fresh exact registered variant ranges read and reanalyzed09",
+      "disposition": "Fresh P16development rumor wrapper preserves explicit capability+living gates before actualreceipt/action receiver; immediate predicates not retained classifier. No publication/execution or bypassproof inferred fromdebugentrypoint.",
+      "frozen_unique_credit": false,
+      "other_lens_credit": false,
+      "execution": "none"
+    },
+    {
+      "shared_index": 97,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/investigation/model.rs",
+      "sha256": "ce5e06fe7f483ecbd5c30af9a9475686d4c7acf147a8bb8de2e8a9e738211cb4",
+      "ranges": [
+        [
+          1287,
+          1335
+        ]
+      ],
+      "contract": "contracts-728.json",
+      "status": "fresh exact registered variant ranges read and reanalyzed09",
+      "disposition": "Fresh P16notice validates inputs and exactretry compares allactualidentity/payload/time despitehash-basedID. Immutable journal observation not active/pendingstatus; no conditionalpayloadshape or hash-only replay acceptance claim. Current String failure propagation otherlens remains.",
+      "frozen_unique_credit": false,
+      "other_lens_credit": false,
+      "execution": "none"
+    },
+    {
+      "shared_index": 103,
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/shape_cast/shape_cast.rs",
+      "sha256": "55751d940df916bcdc1526be642b46736efe8223038ea0bbed6cee5530db129e",
+      "ranges": [
+        [
+          157,
+          175
+        ],
+        [
+          212,
+          220
+        ]
+      ],
+      "contract": "contracts-728.json",
+      "status": "fresh exact registered variant ranges read and reanalyzed09",
+      "disposition": "Native shape-cast exact documentedvelocity/time-of-impact contract andpositionalexample source read. Actualphysical units andrelativeframe reasoning separate operationlens. No treatingstatus enum as scalar distance or using sourceexample as executedacceptance.",
+      "frozen_unique_credit": false,
+      "other_lens_credit": false,
+      "execution": "none"
+    }
+  ],
+  "new_findings": [],
+  "limits": "Native actualstatus/payload/option semantics preserved; no ordinarycamera failureproved fromthese roles alone, no SDKrepair/sourceedits/runtimeclearance."
+}

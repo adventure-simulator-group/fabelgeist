@@ -1,0 +1,24 @@
+--- p16base/crates/adventuresim-stdb-module/src/outbreak.rs
++++ catalog-p16head/crates/adventuresim-stdb-module/src/outbreak.rs
+@@ -851,9 +851,9 @@
+     generated: &adventuresim_core::quest_generation::GeneratedCase,
+     exposure: &adventuresim_core::quest_generation::OutbreakExposure,
+     settlement_id: &str,
+     death_minute: StrategicMinute,
+-) -> Result<String, String> {
++) -> crate::StrategicOperationResult<String> {
+     use adventuresim_core::{
+         autopsy::SystemicPathologySnapshot,
+         disease::{InfectionEpisode, Symptom, combined_state},
+         physiology::Meter,
+@@ -1026,9 +1026,9 @@
+     ctx: &ReducerContext,
+     generated: &adventuresim_core::quest_generation::GeneratedCase,
+     settlement_id: &str,
+     now_minute: StrategicMinute,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     use adventuresim_core::quest_generation::OutbreakSource;
+ 
+     let Some(outbreak) = &generated.outbreak else {
+         return Ok(());

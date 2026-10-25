@@ -1,0 +1,155 @@
+{
+  "id": "CONT-ROOT-OWNER-NEW-SOURCES-004",
+  "lens": "audit-existing-type-owners",
+  "at": "2026-10-22T03:02:36.358231+00:00",
+  "groups": [
+    {
+      "role": "boundary_descriptor_source",
+      "semantic_comparison": "BoundaryOwnerBinding retains exact CityPropertyId/PropertyMembers/SupportElevation/BoundarySupportElement; BoundaryDescriptorDigest is actual SHA256[32] identity of ordered descriptor fields, not imported SourcePackageDigest. Native to_bits/littleendian hashing is realcodec, no loss to retainedstring. validate requires nonzero property/two owners/nonempty unique allowed elementroles; validate_cells membership plus each required element represented proves nonempty cells for admittedbinding. Infinity reduction downstream therefore not automatically missingmeasurement sentinel. Public typed wrappers do not waive cross-field admission/authority/operation obligations later. Structured BoundaryAdmissionError keeps geometry/support causes and correct expected/actual datums.",
+      "source_proofs": [
+        {
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/binding.rs",
+          "sha256": "9db0cfc4b4c3053884d835faaca49a404c9942f7f0599b3069b89729fd8d7ae3",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\city_layout\\grounding\\enclosure\\binding.rs",
+          "read_ranges": [
+            [
+              1,
+              199
+            ]
+          ],
+          "actual_EOF": 209,
+          "mode": "fresh exact source body read; no project execution"
+        }
+      ]
+    },
+    {
+      "role": "regional_retained_owners",
+      "semantic_comparison": "RegionalEnvironment/Connection retain checked Wgs84CoordinateE7 and RegionalConnectionKind through capacity aggregation/Serde. Actual index/count is native collection size; count errors payload not unrelated clock/ordinal. Adjacentdedup then at least2 points preserves exact geometry policy, not arbitrary source reordering. RegionalTerrain retains SourcePackageDigest/requestMicrodegrees/Scale and Option<RegionalTerrainVertex> holes; absolute ElevationMeters is correctdatum, notscene floor. Scale role differs VistaLevelIndex; fixed spacing outputs30/250/2000/16000/128000 positive finite metres so existing PositiveLength reusableleaf at actual sourceoutput, not new equivalent scale wrapper. Source environmental numeric fields preserve wider raw ingress policy rather than claim fractions bounded from typedvertexname. Fixed65*65vertex count exactly and no fabricatedterrain.",
+      "source_proofs": [
+        {
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/regional_environment.rs",
+          "sha256": "99f2deee42dd6e28ccfc6f469eafe5983c1bade295e1bf5f089a798fca1d8422",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\regional_environment.rs",
+          "read_ranges": [
+            [
+              1,
+              104
+            ]
+          ],
+          "actual_EOF": 104,
+          "mode": "fresh exact source body read; no project execution"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/regional_terrain.rs",
+          "sha256": "07827e19ec2ffdae7d67b51850ae950b1d00fb8fe119a5a75329e24fd7e6f852",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\regional_terrain.rs",
+          "read_ranges": [
+            [
+              1,
+              112
+            ]
+          ],
+          "actual_EOF": 112,
+          "mode": "fresh exact source body read; no project execution"
+        }
+      ]
+    },
+    {
+      "role": "terrain_collars",
+      "semantic_comparison": "TerrainCollarParameters exact existing source owners are ScenePlanPoint/PlanDirection<Scene>/PositiveLength/RuptureWander/CollarWidthVariation/Seed. irregular_ellipse strips every checked geometryleaf into retained rawcollar; exact same owner fits these fields and must persist through internal query APIs, not be treated native by privatecomment. Halfextents>width positive relationship aggregate separate. RuptureWander finite>=0 includeszero; NonnegativeLength is reusable numeric leaf withdistinct engineeringrole/sharedneutralmove, not PositiveLength. CollarWidthVariation<=5000 inclusive0 is stricter semantic role than UnitBasisPoints<=10000, reusable boundedleaf refinement only with own limit. Native derived radial/local/noise scalar/Vec2 actual arithmetic may extract inside equation, but point/helper boundaries and heterogeneous radial tuple must keep explicit roles. Constructor PlanDirection strict normalized is narrower than valid tangent .98..1.02 guard, source wires already stricter admission; preserve exact behavior/no renormalization. Seed/noisepurpose already correct; cachednoise derivability later lens, no currentclearance.",
+      "source_proofs": [
+        {
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/terrain_transition.rs",
+          "sha256": "df252469b9538a750abdbc7646c7cb240e14f41a73eb79e640670ab4be6dda90",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\terrain_transition.rs",
+          "read_ranges": [
+            [
+              1,
+              200
+            ]
+          ],
+          "actual_EOF": 200,
+          "mode": "fresh exact source body read; no project execution"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/terrain_transition/admission.rs",
+          "sha256": "b5fd9a68595105294678fd91c0f3c492e18e5d71d72be01dc8fe7b235f8f25a8",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\terrain_transition\\admission.rs",
+          "read_ranges": [
+            [
+              1,
+              41
+            ]
+          ],
+          "actual_EOF": 41,
+          "mode": "fresh exact source body read; no project execution"
+        }
+      ]
+    },
+    {
+      "role": "regional_percent_ingress",
+      "semantic_comparison": "Cell canopy/wetland/hilly percent rawu8 allows255, conversion multiplies100 into u16 up to25500; cannot assume UnitBasisPoints<=10000 solely builder normallyclamps100. Preserve actual decoder/publicCell supportedsets and explicit admission/normalization policy through EnvironmentalSample; canonicalfraction only after sourcepolicy settled. Cultivation/water/crossing are exact emitted0/10000 booleans and TacticalSurface exhaustive mapping retains closed owner. Cell elevation absolutedatum elsewhere distinct. This is concrete bound mismatch, not permission to leave source primitives indefinitely.",
+      "source_proofs": [
+        {
+          "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/terrain_sampling.rs",
+          "sha256": "be0e11404dadb950d9b751312555425b25e836bc3e3b0063664512290012f8c8",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-server-dispatcher\\src\\terrain_sampling.rs",
+          "read_ranges": [
+            [
+              1,
+              38
+            ]
+          ],
+          "actual_EOF": 38,
+          "mode": "fresh exact source body read; no project execution"
+        }
+      ]
+    },
+    {
+      "role": "regional_clip_simplify_and_maplinks",
+      "semantic_comparison": "NativeTerrainCoordinate/Offset carry continuous f64 east/north at geographicorigin through actual simplify/clip dot/interpolate kernels; ScenePlanPoint(f32) wrongprecision/frame. Wgs84BoundsE7 is actual admitted clamped/geographic querybounds, successful RegionalConnection keeps typedpoints/kind. Spacing PositiveLength source promotedtof64; halfwidth/tolerance f64 metres need exact precision-compatible leaf, not f32 PositiveLength at intermediate computation. Missing owner does not justify narrowing tiny/zero/negative tolerance publicnativekernel acceptedsets. WindowOutput pointscount actualnative capacity arithmetic, later overflowlens independently. Simplification retains nativeoffsets and ordinal pendingedge pairs actual solverindices; stable selection/order preserved. MapLink keeps MapMarker typed place/rank/emphasis; name/label actual human outputprose, href extracts settlement/caseSite canonicalID only at real HTTP querycodec. Rank/priority are closed already; rawclass/state strings are finalCSS/prose, no semantictext redispatch shown. Unknowncategory->Village is explicitpolicy, no inventednew enum.",
+      "source_proofs": [
+        {
+          "source_id": "pr-working:crates/strategic-web/src/routes/map_environment/connection_window.rs",
+          "sha256": "968edda82de32a44122dc6ffba25efcfa61e98e6b758682a89d2fce3324d80b2",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\routes\\map_environment\\connection_window.rs",
+          "read_ranges": [
+            [
+              1,
+              142
+            ]
+          ],
+          "actual_EOF": 142,
+          "mode": "fresh exact source body read; no project execution"
+        },
+        {
+          "source_id": "pr-working:crates/strategic-web/src/routes/map_environment/connection_window/simplification.rs",
+          "sha256": "7f265bbfd36b9d90d4a28c42a8baf7781fc08e3996f2ded82901d573199cfa2f",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\routes\\map_environment\\connection_window\\simplification.rs",
+          "read_ranges": [
+            [
+              1,
+              52
+            ]
+          ],
+          "actual_EOF": 52,
+          "mode": "fresh exact source body read; no project execution"
+        },
+        {
+          "source_id": "pr-working:crates/strategic-web/src/strategic_map/markers.rs",
+          "sha256": "74c56dc2aadba44b69db845d705119d4b89c11c65493a8612304db22fdb5ffd9",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\strategic_map\\markers.rs",
+          "read_ranges": [
+            [
+              1,
+              128
+            ]
+          ],
+          "actual_EOF": 128,
+          "mode": "fresh exact source body read; no project execution"
+        }
+      ]
+    }
+  ],
+  "limits": "Fresh exactscoped bodyreads. No source acceptance or otherlenscredit. Root original179 allocation still tracked separately from native31 supplier."
+}

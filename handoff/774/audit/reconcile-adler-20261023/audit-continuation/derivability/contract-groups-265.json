@@ -1,0 +1,105 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-265",
+  "at": "2026-10-25T14:18:14.762676+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 532,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/resolved_geometry.rs",
+      "sha256": "f0fcbc815b3c695713f9dd8055470b78b871e583aad689aa45ce562c1f20fd4a",
+      "actual_EOF": 514,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/resolved_geometry.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-building-generator/src/audit/resolved_geometry.rs",
+        "sha256": "f0fcbc815b3c695713f9dd8055470b78b871e583aad689aa45ce562c1f20fd4a",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 27559,
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+            "row": 140,
+            "read_ranges": [
+              [
+                1,
+                70
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-RESOLVED-SHAPE-PORTS-075"
+            ],
+            "read_status": "affected_ranges",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/audit/resolved_geometry.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root"
+        ],
+        "audit_owner": "root",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-RESOLVED-GEOMETRY-036",
+            "json_pointer": "/source_proofs/5",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/audit/resolved_geometry.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                70
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/resolved_geometry.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/audit/resolved_geometry.rs",
+              "sha256": "f0fcbc815b3c695713f9dd8055470b78b871e583aad689aa45ce562c1f20fd4a",
+              "read_ranges": [
+                [
+                  1,
+                  70
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1056,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          514
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "No local type/trait/Serde declaration; single semantic audit function.",
+      "absence_basis": "Full514-line exact PR audit_resolved_geometry personally consumed1\u2013260/261\u2013514. It traces typed structural/node/item provenance, support/bonded contacts, overlap exceptions, void subtraction and drainage issues with Result propagation. Semantic geometry classification/issue construction cannot be replaced by structural traits or serialization; helpers/native data definitions separately scoped. No independent geometry validity/pass claim."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Resolved building geometry audit and explicit semantic exceptions",
+      "disposition": "Function-only invariant classification, no trait/Serde boilerplate to derive.",
+      "acceptance": "Preserve typed errors/IDs/units, exact issue/report fields and semantic exception policy. No test/build/runtime or other-lens closure inferred."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 533,
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/resolved_geometry_helpers.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

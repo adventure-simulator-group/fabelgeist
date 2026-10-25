@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-688",
+  "at": "2026-10-25T16:32:14.007069+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 969,
+  "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/assembly.rs",
+  "sha256": "a54013572d9b0b6a8385c70e2aac6dbd516dfd40a72e87ede1c8ab6e9ea48ff7",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Quest assembly generate1\u2013220 is native deterministic variable-solving/choice sequencing, scoped identity and private/public witness claim construction; no record declaration or handwritten trait/codec. Preserve semantic selection/mapping; generated prose not automatic Serialize."
+  ],
+  "first_unfinished": {
+    "scope_index": 969,
+    "line": 221
+  },
+  "execution": "none"
+}

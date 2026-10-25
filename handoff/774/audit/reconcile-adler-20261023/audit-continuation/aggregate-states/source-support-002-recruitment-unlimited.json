@@ -1,0 +1,50 @@
+{
+  "id": "SEGO-INITIAL05-SUPPORT-002-RECRUITMENT",
+  "at": "2026-10-25T12:51:44.423616+00:00",
+  "canonical_finding": "SEGO-INITIAL09-F235",
+  "canonical_ledger": "../enum-shapes/findings.jsonl",
+  "source_members": [
+    {
+      "scope_index": 1220,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/governance.rs",
+      "sha256": "d5eb2f18906eb28ba2703b665b769c50113ed55b73f572896659d17492443e92",
+      "ranges": [
+        [
+          836,
+          879
+        ],
+        [
+          1094,
+          1111
+        ],
+        [
+          1320,
+          1339
+        ],
+        [
+          1343,
+          1380
+        ],
+        [
+          1401,
+          1409
+        ],
+        [
+          1499,
+          1544
+        ],
+        [
+          1605,
+          1628
+        ]
+      ]
+    }
+  ],
+  "counterexample": "Normal GeneralJoin producer1363\u20131373 creates capacityquantity0. Request1320/accept1407/offer1623 consistently treat0 asUnlimited. Accept1520\u20131529 binds actualapplicant membership recruitment_role_id, yielding filled>=1. The owning leader updating this same role with unchangedquantity0 plus permitted metadata passes quantity<=8 and actualparty/role checks but876\u2013878 errors because0<filled. Current API permits editedGeneralJoin fields and no differentpurposeguard, so no inventedmalformedrow orMAXscenario. Also specializededit0 allowed, same capacity meaning. No DBexecution/UIreachability claim.",
+  "classification": "Source-backed normal public API counterexample supporting existing capacity-owner finding; retained code, no introduced774 regression asserted.",
+  "repair": "Carry canonical RecruitmentCapacity::Unlimited versusLimited with actualpositivefiniteupperbound through native admission/edit/fullness/offer. Apply filled-slot lower bound only toLimited, retain specializedcreate1..8 versuseditUnlimitedor1..8 and GeneralJoin0 nativeboundary; keep rolepurpose independent, no newfixedGeneralJoin metadata restriction or compatibilityalias. Reconcile all actual caller/state/receiver signatures before checks.",
+  "acceptance": "An existingfilledUnlimited role can retain Unlimited during edits; Limited cannot shrinkbelowfilled or exceedactualfinitecap. GeneralJoin andspecializedunlimited remainavailablewhilefinitefull closes/rejectsappropriately. Preserve actualmembershipslotdefinition: only incomingapplicantleader assignedrequestedrole, sourcecompanions notallchargedtoone role. Existingtests only later; no source changes/checks now.",
+  "deduplication": "Actual own09 F235 record andqualification640 personally inspected. Same source contract/remedy acrossP16 andPR proof; preserve both exactidentities, union lenses and sourcecounterexample, no second uniquefinding/count. Finitefilledslotguard preservation supersedes blanketraw0<filled wording.",
+  "repair_status": "not_started",
+  "validation": "not_run"
+}

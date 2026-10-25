@@ -1,0 +1,83 @@
+{
+  "id": "CONT08-CONTRACT-327",
+  "at": "2026-10-25T16:34:51.192629+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 1185,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/properties/households.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/residence/properties/households.rs",
+      "before_sha256": "f5c4295a284249b0fad780f6b8331f2dbff6c574f33bec5ba45edd3896ff5d17",
+      "after_sha256": "f5c4295a284249b0fad780f6b8331f2dbff6c574f33bec5ba45edd3896ff5d17",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1185-base-f5c4295a284249b0fad780f6b8331f2dbff6c574f33bec5ba45edd3896ff5d17",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/f5c4295a284249b0fad780f6b8331f2dbff6c574f33bec5ba45edd3896ff5d17",
+      "diff": "source-evidence/pr-1185.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "head_body_read_method": "Fresh full pinned bodies and actualemptyPRdiff, precise population/history/lookup/identity comparison; no source-reading credit fromotherlens.",
+      "facts": [
+        "Fresh full1\u201362; full PR diff empty. Gatewayonlyhousehold/homepopulationDTO initialaggregateBTree(household,property) thenactualcurrentoccupantsjoinedcurrenthouseholdmember, countmaterialized+=1; missingmembershipskip, no claimingfamilymembership=title/permission. Currentlatestpopulation notobserverhistoricalprojection andrawu32aggregate overflowneedsadmittedboundnativepopulation, notordinaryMAXfromschemaalone. Deterministicorder/nativecensusprivacy unchanged."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1186,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/properties/materialization.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/residence/properties/materialization.rs",
+      "before_sha256": "89be43ab5a91d96b96077c6950b9159b25f61165e938395ab54774540711b688",
+      "after_sha256": "89be43ab5a91d96b96077c6950b9159b25f61165e938395ab54774540711b688",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1186-base-89be43ab5a91d96b96077c6950b9159b25f61165e938395ab54774540711b688",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/89be43ab5a91d96b96077c6950b9159b25f61165e938395ab54774540711b688",
+      "diff": "source-evidence/pr-1186.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "head_body_read_method": "Fresh full pinned bodies and actualemptyPRdiff, precise population/history/lookup/identity comparison; no source-reading credit fromotherlens.",
+      "facts": [
+        "Fresh full1\u2013111; full PR diff empty. No registeredmanifest\u2192noop. Namedlocalresidentalreadygeneratedhome skipsforever preservingone-timecensusprovenance aftermoves, othersrequireactualhousehold andgroupBTreehouseholdID. Grouprequiredcheckedu32, chooseavailableaggregate>=required sameactualpropertysettlement sortpropertyIDfirst (notexplicitoriginalfamilyIDmatch), subtractcensus beforeindividualprovenance; eachpersonalreadyoccupantkeepscurrenthomebutreceivesprovenance andcountreduction, otherpersongetsseededhomeNoHoldingatminute0ledger+current. Callerownedgeneration/populationadmission andnativeDBrollbackremainqualified; no ordinarynewfamilyIDassociationdefectpromotedbycategory ornew774regression."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1187,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/view.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/residence/view.rs",
+      "before_sha256": "b481076a43b5a9e15f7ee78deb63fb3e81cf97989061300fa34168d9182c6053",
+      "after_sha256": "b481076a43b5a9e15f7ee78deb63fb3e81cf97989061300fa34168d9182c6053",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1187-base-b481076a43b5a9e15f7ee78deb63fb3e81cf97989061300fa34168d9182c6053",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/b481076a43b5a9e15f7ee78deb63fb3e81cf97989061300fa34168d9182c6053",
+      "diff": "source-evidence/pr-1187.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "head_body_read_method": "Fresh full pinned bodies and actualemptyPRdiff, precise population/history/lookup/identity comparison; no source-reading credit fromotherlens.",
+      "facts": [
+        "Fresh full1\u201357 plusfullPRdiffempty; priorpartial own08 sourceproof retainedandnowcompleted. Candidateholders visiblealways, actualcurrentmatchingholdingoccupants requireadmitted<=theirfrontier, currentprimarydesignated<=frontier, ALLhistoricallegaltransitionaffectedactors andpropertyoccupancyactors included beforeuniqueIDsort. Parent1180 filtersacquired/resolvedlegalholding andcomputeshistoricaloccupancy/active atpersonalminute, so latercurrentmove doesnotomitolderlegitimateoccupant afterall; this freshchild positively closes limitedcandidatepopulation concern, notproofeachactorwebprivacy/no futurefactsoutsidefields. Ownernonprimarypropertiesmanageable/originalcomments valid."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    }
+  ],
+  "next": "1188 settlement_population full pinned old/new source then1189/1190 actualdraft/persistence children"
+}

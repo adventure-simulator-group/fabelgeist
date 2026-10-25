@@ -1,0 +1,7 @@
+{
+  "id": "NATIVE-CAMERA-SUPPORT03-REFERENCE-ERRATUM-046",
+  "qualifies": "contracts-043.json food-consumption group lower-pointer text",
+  "correction": "The contamination kernel reader lower source was incorrectly pointed to pending525/526 in043. Exact source is Camera522 PRfood/lot_inventory.rs, now currentcontracts045actualcontaminationrowlookup→Core013contamination_at. Camera525preparation_authority and526projections areseparate roles anddo notreceiveimplicitcontaminationbodycoverage. Allactualargument/policy/finite-ratio/source/errororder facts unchanged.",
+  "no_extra_coverage": true,
+  "later_lens_credit": false
+}

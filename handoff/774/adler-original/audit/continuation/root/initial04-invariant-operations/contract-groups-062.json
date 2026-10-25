@@ -1,0 +1,112 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-062",
+  "at": "2026-10-22T21:56:36.246368+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/battle_rewards.rs",
+      "sha256": "b01daaf0a320f38062f1772b90da65b1d29e49f85f49a1dcde2d72b539a381b5",
+      "actual_compared_ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "source_evidence": "Fresh full actual current PR body separatelydisplayed andcompared, includingdifferentgeometryrepresentationfromP16. Not pairedhashorverdictcarry; testsreadonly."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/body.rs",
+      "sha256": "febe5d8b193afe3cefa2292965bb42c15d4a5d25aef8a2f3c9fea757b3720317",
+      "actual_compared_ranges": [
+        [
+          1,
+          179
+        ]
+      ],
+      "source_evidence": "Fresh full actual current PR body separatelydisplayed andcompared, includingdifferentgeometryrepresentationfromP16. Not pairedhashorverdictcarry; testsreadonly."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/config.rs",
+      "sha256": "69009bf458abab5d6affbd82ce193c159586c474cff8229b545a3f6c4d5e6677",
+      "actual_compared_ranges": [
+        [
+          1,
+          121
+        ]
+      ],
+      "source_evidence": "Fresh full actual current PR body separatelydisplayed andcompared, includingdifferentgeometryrepresentationfromP16. Not pairedhashorverdictcarry; testsreadonly."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/contact_timing.rs",
+      "sha256": "3b347473e5083f9fd02f59949b49f45eb7bf03e75c288b167cf003e2acc6ca89",
+      "actual_compared_ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "source_evidence": "Fresh full actual current PR body separatelydisplayed andcompared, includingdifferentgeometryrepresentationfromP16. Not pairedhashorverdictcarry; testsreadonly."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/fatigue_config.rs",
+      "sha256": "a899b7bacdfbcbc116a93ff6adc283bfb56bea396687713dc3677ff505522ce9",
+      "actual_compared_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "source_evidence": "Fresh full actual current PR body separatelydisplayed andcompared, includingdifferentgeometryrepresentationfromP16. Not pairedhashorverdictcarry; testsreadonly."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/incapacitation.rs",
+      "sha256": "a38c469cbc09f75a1d55f0050c74c54c9dba3adb5dfe9e13e88142dc10cff7e3",
+      "actual_compared_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "source_evidence": "Fresh full actual current PR body separatelydisplayed andcompared, includingdifferentgeometryrepresentationfromP16. Not pairedhashorverdictcarry; testsreadonly."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/weapon_contact.rs",
+      "sha256": "287ef23a8837049c44a05b856bcef61d536c382a5e3602b6755f434f02c177d5",
+      "actual_compared_ranges": [
+        [
+          1,
+          113
+        ]
+      ],
+      "source_evidence": "Fresh full actual current PR body separatelydisplayed andcompared, includingdifferentgeometryrepresentationfromP16. Not pairedhashorverdictcarry; testsreadonly."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/weapon_contact/tests.rs",
+      "sha256": "fe810f795ff7e4d52786d5c51504c3f2c12154cabdbeb23ba90939923971bfe4",
+      "actual_compared_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "source_evidence": "Fresh full actual current PR body separatelydisplayed andcompared, includingdifferentgeometryrepresentationfromP16. Not pairedhashorverdictcarry; testsreadonly."
+    }
+  ],
+  "groups": {
+    "body-and-participants": "PRlivingbenefitfiltercurrentlivingBTreeSet preservesrecordedorderandduplicates, notsort/dedupoutput; purelocalownedVec. PRBody179 F009 actual0defaultnormalize0/0NaN andfourMAXsumInf\u21920, sameexistingfindingnotnew. Fixedleg/arm/allweights unit-sumfinite, bitflags7fitu8. BODYtrait rawhealth/mass do notproveboundedMAXhealthvalid forPower; earlierhealthqualificationpreserved.",
+    "configuration-vs-computation": "PRgeometrycalibrationrawf32spacing/lunge/longthreshold contrastedP16SignedLength, sameactualconfigpositivefinitegateexplicit. ConfigpublicSerderecord.validateunit doesnotsealwholemutablevalues orcomputedkernel; reaction/initiative/minmaxdurationordering checked, elapsedconfiguredmustnonzeroexceptjitterallowed0..1second. PositiveSpeedalreadycanonical for3movementfields/dodge. Fatigueefficiencypositive<=1, minaction<=maxaction, allworkcalibrationfinitepositive; no secondfatiguepool or arbitrarynewnumericrange. Subcomponentcontactvalidatecallonly no newfullbodycreditfromreference.",
+    "signed-timing-and-recovery": "PRContactTimingOffset fullfinite signedSeconds; differencefiniteBattleTimes checkedresultbeforepublication, namedOverflow causaltype preserved. NativeDurationu64seconds\u2192f32finite legitimateport. PRUnitIntervalperformance onlyafter1\u2212clampedtotal, NaNrejected; zero-recoveryAfterZERO vspositivebaseperformance0CannotRecover distinctsum, positiveoverflowElapsedError. No infinitetime storedasAnimationElapsed, no inventedfalliblemin/max. Encumbrance derivesonewheelcontributionfromexistingcarryingrule, actualtraitimplementationstillmusttrace.",
+    "contact-operation-native-policy": "PRpoint/mmformula/f32narrowing exactlysameP16kernel, onlyhandling equipmentrawf32vsP16SignedLength.metres atactualarithmetic. ComponentroleHeadmax avoidsdoubleheadsum, shaftfallbackintentionalnotunrelatedfurnitureprecision. ContactPrecisionassertfinite>=0; candidateoverflowcase needsactualMetres/configadmissionbeforenewqualifiedfinding, existingRootF014graphnotcleared. precisionMAX concentratedfraction1finite, zeroresistanceInfintentionalnativeunlimitedresistance, notretainedcheckedfinite. Handlingnormmayoverflowbutreciprocalfinite0 underpositiveadmittedreference; no indiscriminate transientInfban/nativekernelrewritetochangepolicy.",
+    "existing-source-oracles": "ActualPRexistingtests numericrecipes/handling/calibration/conditiononce source-readbutneverexecuted. P16usescheckedSignedLengthgeometrytestdata, PR rawlengths currentfixturestage; integrateexistingcaseslaterwithoutnewtests/assertions/helpers. No normalshippedrecipefailureclaimed."
+  },
+  "findings": [],
+  "prior_finding_support": [
+    "F009 duplicate currentPRfreshfullproof",
+    "F014 contactcomputedgraph pending exactnewendpoint qualification"
+  ],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

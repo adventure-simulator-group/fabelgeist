@@ -1,0 +1,32 @@
+{
+  "recorded_at": "2026-10-21T06:10:20.735611+00:00",
+  "source_head": "8f2b901881f8aa8035a03cd99dbfefb7bbdf8926",
+  "family": "P18",
+  "status": "Known pending causal-report follow-through; recorded from actual receiver bodies. No P18 implementation or acceptance and no whole-PR canary clearance.",
+  "source_evidence": [
+    {
+      "path": "crates/adventuresim-tactical-server/src/iteration.rs",
+      "function": "resolve_tactical_server_melee_duel",
+      "contract": "AnimationValueResult<TacticalMeleeOutcome>; its fallible producer is final_center_separation_metres, admitted by NonnegativeLength::from_metres on the actual final transform distance."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs",
+      "function": "run_tactical_batch",
+      "contract": "String result currently maps that AnimationValueError to_string, then run_matchup converts it to generic IterationError::Operation. This is a real pending typed-measurement error propagation gap, not merely I/O formatting."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal.rs",
+      "function": "record_autoresolve_telemetry / record_movement_event",
+      "contract": "Unavailable recovery interval or missing movement speed/time evidence returns generic prose; these are report-contract states to classify alongside the planned typed accumulators."
+    }
+  ],
+  "implementation_closure": [
+    "Keep the original P18 f64 statistics/minimum-observation work and all its exits. Add the typed final-distance failure to that complete native causal-report graph rather than leaving a generic Operation string boundary.",
+    "Use the existing owning IterationResult for run_tactical_batch and retain AnimationValueError as an explicit typed cause through run_matchup/run/main; retain all unrelated I/O/report causes distinctly if that native boundary is unified. Do not replace the error with a boolean or missing measurement.",
+    "Classify missing required recovery/movement evidence with structured report-contract errors while propagating typed timing/speed leaves. The current meaningful failure behavior must remain explicit, never a passing fabricated zero.",
+    "Preserve native tactical tick, autoresolve battle coordinate and monotonic wall-time distinctions, f64 accumulation/averaging order, sample/count order and valid zero. Unit-only f32 math wrappers cannot replace f64 retained statistics.",
+    "Fix the Infinity contact-minimum sentinel in the same complete family with an explicit observed/unobserved state and real audit/serialization consumers, without an adapter restoring sentinels.",
+    "Reuse existing tests/commands when the entire family is source complete. No new tests, assertions, helper fixtures, new agents or full audit wave."
+  ],
+  "current_family_separation": "This specific AnimationValueError comes from final report-distance observation, not the current P02 battle-time error chain or P06 support-query callback. Current exact-head P06/P02 CI may continue while this explicitly assigned later family remains pending. No exit is dropped or reclassified harmless."
+}

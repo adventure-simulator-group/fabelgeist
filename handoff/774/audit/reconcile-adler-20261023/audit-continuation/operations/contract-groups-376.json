@@ -1,0 +1,62 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-376",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_event.rs",
+      "sha256": "9403e2e3d8bc995c0483da0502427442f1c526ee1b513db2a9b5beac3078a5b0",
+      "actual_EOF": 1188,
+      "actual_compared_ranges": [
+        [
+          1,
+          1188
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/fixtures/core-loop-failure-v9.json",
+      "sha256": "e5e30261e86b2ae438c1570fff8ceda66ea00e258d8e0647e8d53496706da220",
+      "actual_EOF": 119,
+      "actual_compared_ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "World occurrence commit binds immutable request before mutable plan reads, validates bounded exact consequences then records receipt last",
+      "source_ranges": {
+        "world_event.rs": [
+          [
+            1,
+            1188
+          ]
+        ]
+      },
+      "disposition": "All1188lines read including168fixturelines. Requestenvelopevalidate+domainseparatedframedSHA beforelookup; exactrequestreplayOkfalse withoutrebuildingmutablerecipients; conflictsreject. Firstcommitbuiltvalidatedenvelope+<=128ordereduniqueconsequences, canonicalsemanticreplan exactequality andtypedfingerprints, u16try_fromlen safe aftercap. Preflightchecksallprevioussubordinatepayloads before apply; ignoresmutableoffensesettled intentional. Effectsactualreputation/offense/outcome/snapshot/infection thenfinalreceipt, reduceratomicity required; no sourceorderpartialcommitclaim. This closes372 directrecord_event replay concern for worldeventcaller: preflightverifiesfullsamepayload, whiledirectothercallersstillpolicydependency. Generatedstable request excludesmutableparticipantset, firstapplication capturescanonicalbattle/livingparticipants andretainsit; no replayrecaptureoflaterparty. Consequencepairlayout first0/1safe evenempty, as_chunks2 exactaftermod2; orderedstrictcharacterids. InfectionmicrounitsfallibleCoreowner beforepublication; immunityclamp0..100*1000 finitefitsu32 forfiniteinputs. NaNrawimmunitycasts0 isadmissionpolicydependency (rawpublicparameter), not finite-operationcounterexample/currentcase. Preservepriorvsnewimmunity distinct meanings, carrier/dose/digest/fraction associations. ExistingCoreworldevent359 personalread retained; no newduplicatefinding/count. AllSDKpersistfields mappedexactly. No runtimeexecution."
+    },
+    {
+      "contract": "Frozen failure fixture describes a diagnostic report, not a fresh failed run",
+      "source_ranges": {
+        "fixtures/core-loop-failure-v9.json": [
+          [
+            1,
+            119
+          ]
+        ]
+      },
+      "disposition": "All119JSONlines personallyread. Schema9 fixturecategoryinvestigation_temporally_unavailable, reasoninvestigation_night_window, operationperform_investigation_action; onequest_decisiontrace sequence1 agent0, allmetricszero andnoagents/coverage. Rawzeroes validtestreportcontent; typedreportdiscriminants/diagnosticmetadataowners lateractualrecipient. This is suppliedfixtureevidenceonly; no claimcurrentnightwindowbug or run, no inferredactualsimulationfromfilename."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-strategic-sim/src/lifecycle/runner.rs"
+}

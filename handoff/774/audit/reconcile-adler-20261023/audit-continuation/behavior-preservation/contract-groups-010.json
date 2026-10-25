@@ -1,0 +1,514 @@
+{
+  "id": "CONT08-CONTRACT-010",
+  "at": "2026-10-25T08:55:02.658032+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 27,
+      "source_id": "native-dependency:wgpu-29.0.4/src/api/buffer.rs",
+      "sha256": "c7d2c13d8031a9416d5562ec970a46470da331544d3a5e15bc8fb7dae2a9de32",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/c7d2c13d8031a9416d5562ec970a46470da331544d3a5e15bc8fb7dae2a9de32",
+      "read_ranges": [
+        [
+          835,
+          880
+        ]
+      ],
+      "facts": [
+        "BufferAsyncError is an Eq/Clone unit error with fixed Display and empty std::Error; retaining it preserves native identity, not a fabricated low-level message chain.",
+        "Actual readback2246 full body and actual empty diff consumed: Mapping keeps native error as source, callback stores Ready/Failed, try_read polls first, returns None pending, repeated failed retains error, Ready copies in recorded order/unmaps/sets Taken, AlreadyRead is distinct. Blocking read awaits channel and separates dropped/mapping/poll errors. Byte extent and alignment unchanged, checked before allocation/encoder writes."
+      ],
+      "disposition": "Exact native error contract accounted with actual firstparty receiving comparison and retained cause finding; no all-GPU lifecycle coverage.",
+      "acceptance": "Preserve native error identity and stage context until native terminal formatting; keep map/poll/dropped callback states distinct, borrowed/owned device policy explicit."
+    },
+    {
+      "scope_index": 28,
+      "source_id": "native-dependency:wgpu-29.0.4/src/api/device.rs",
+      "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "read_ranges": [
+        [
+          685,
+          750
+        ]
+      ],
+      "facts": [
+        "RequestDeviceError Clone native Core/WebGpu variants, Display forwards concrete message, source() forwards native core.source (not necessarily the core error itself); browser String has None.",
+        "Actual WgpuContext2284 full314 and empty diff read. Native failures still discarded into generic anyhow at request_device/request_adapter/create_surface; exact inherited RIG-OWNER-F009, contract RIG-OWNER-NATIVE-CAUSE-023 consumed. This is unchanged migration debt, not new08 regression. Browser OffscreenCanvas JsValue policy remains separate."
+      ],
+      "disposition": "Exact native error contract accounted with actual firstparty receiving comparison and retained cause finding; no all-GPU lifecycle coverage.",
+      "acceptance": "Preserve native error identity and stage context until native terminal formatting; keep map/poll/dropped callback states distinct, borrowed/owned device policy explicit."
+    },
+    {
+      "scope_index": 29,
+      "source_id": "native-dependency:wgpu-29.0.4/src/api/surface.rs",
+      "sha256": "c66e417d97814893f1293cd0f5e5e11443101a7aa3df4ffa0004f49079bb70b5",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/c66e417d97814893f1293cd0f5e5e11443101a7aa3df4ffa0004f49079bb70b5",
+      "read_ranges": [
+        [
+          430,
+          505
+        ]
+      ],
+      "facts": [
+        "CreateSurfaceError Clone nonexhaustive native Hal/Web/RawHandle forms preserve native source policy; web string source None, RawHandle cfg-specific. Actual WgpuContext unchanged request/open path consumed, same inherited RIG-OWNER-F009. No offscreen/browser call executed."
+      ],
+      "disposition": "Exact native error contract accounted with actual firstparty receiving comparison and retained cause finding; no all-GPU lifecycle coverage.",
+      "acceptance": "Preserve native error identity and stage context until native terminal formatting; keep map/poll/dropped callback states distinct, borrowed/owned device policy explicit."
+    },
+    {
+      "scope_index": 30,
+      "source_id": "native-dependency:wgpu-types-29.0.4/src/adapter.rs",
+      "sha256": "27486df080a81f4a668f47b4f68f1eb5b2fc72f14b51175db2fd678e0f5b7085",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/27486df080a81f4a668f47b4f68f1eb5b2fc72f14b51175db2fd678e0f5b7085",
+      "read_ranges": [
+        [
+          175,
+          300
+        ]
+      ],
+      "facts": [
+        "RequestAdapterError nonexhaustive NotFound retains backend diagnostic fields plus EnvNotSet; Display iterates Backend::ALL with first matching explanation; actual WgpuContext still replaces it with generic text unchanged.",
+        "Locked wgpu-types29.0.4 checksum84bf84cd9ca8ca45e2b223a3868f1adf9bfc0c66aeac212e76ee7e40fdadf8f5 is identical base/head. Extra cooperative matrix declarations consumed but no new reached semantic role inferred."
+      ],
+      "disposition": "Exact native error contract accounted with actual firstparty receiving comparison and retained cause finding; no all-GPU lifecycle coverage.",
+      "acceptance": "Preserve native error identity and stage context until native terminal formatting; keep map/poll/dropped callback states distinct, borrowed/owned device policy explicit."
+    },
+    {
+      "scope_index": 31,
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/components.rs",
+      "sha256": "e2053ee2dbf1a837b1a4e80d2d2afa22c0ecc2231bf586041222082971b9cbea",
+      "object": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/e2053ee2dbf1a837b1a4e80d2d2afa22c0ecc2231bf586041222082971b9cbea",
+      "read_ranges": [
+        [
+          1,
+          193
+        ]
+      ],
+      "pin": "Both PR locks retain bevy_eidolon0.5.0 git1a5aff8d4809287e5f5713fb4cf72181b2285fff.",
+      "facts": [
+        "Full native file consumed. CPU InstanceData position Vec3+scale, rotation/index/batch/seed layout matches native WGSL vec4+scalar fields. invalid() retains0xFFFFFFFF batch sentinel; no normalization/aliasing inferred.",
+        "Cull bindings retain explicit groups0/1/2 and BatchMetadata identity/start/end; render binding groups2/3 and vertex instance locations8\u201312 retain exact native shapes. Parent*local instance matrix order, yaw cos/sin and signed scale are unchanged native law. Visibility dithering picks lower/upper band at >=z, round then clamp0..16 with offset; it requires valid nondegenerate bands, not guaranteed by this read.",
+        "Actual firstparty grass1554 old445\u2013514 vshead270\u2013340 and full unchanged batches1555 consumed: centre/height ownership changes native projection only for admitted finite output; same scale1, rotation, index=len, batch0, coverage|seed<<8. Actual understory1562 recipient238\u2013322 +whole diff consumed: root projection, default instance fields, seeded yaw/scale use exact unchanged StreamIds confirmed at ground_scatter/mod82\u201383.",
+        "No automatic finding alias from generic ignored BatchId to actual native BatchMetadata. Native updater, final shader and actual cull execution remain separate unread roles; no graphics/visual/sentinel runtime clearance."
+      ],
+      "disposition": "Bounded native representation/law contract accounted with actual old/new projecting receivers. Materially affected unchanged whole renderer is not cleared.",
+      "acceptance": "Retain exact layout, GPU field order, independent instance identities, seeded draw purposes/order and native frame multiplication; do not conflate invalid sentinel with valid batch0 or infer native allocation limits from raw widths."
+    },
+    {
+      "scope_index": 32,
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/cull/bindings.wgsl",
+      "sha256": "31551b31caac91e5decc47ac147154bba899d469dad8c0113e0a476ae53dc7d4",
+      "object": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/31551b31caac91e5decc47ac147154bba899d469dad8c0113e0a476ae53dc7d4",
+      "read_ranges": [
+        [
+          1,
+          12
+        ]
+      ],
+      "pin": "Both PR locks retain bevy_eidolon0.5.0 git1a5aff8d4809287e5f5713fb4cf72181b2285fff.",
+      "facts": [
+        "Full native file consumed. CPU InstanceData position Vec3+scale, rotation/index/batch/seed layout matches native WGSL vec4+scalar fields. invalid() retains0xFFFFFFFF batch sentinel; no normalization/aliasing inferred.",
+        "Cull bindings retain explicit groups0/1/2 and BatchMetadata identity/start/end; render binding groups2/3 and vertex instance locations8\u201312 retain exact native shapes. Parent*local instance matrix order, yaw cos/sin and signed scale are unchanged native law. Visibility dithering picks lower/upper band at >=z, round then clamp0..16 with offset; it requires valid nondegenerate bands, not guaranteed by this read.",
+        "Actual firstparty grass1554 old445\u2013514 vshead270\u2013340 and full unchanged batches1555 consumed: centre/height ownership changes native projection only for admitted finite output; same scale1, rotation, index=len, batch0, coverage|seed<<8. Actual understory1562 recipient238\u2013322 +whole diff consumed: root projection, default instance fields, seeded yaw/scale use exact unchanged StreamIds confirmed at ground_scatter/mod82\u201383.",
+        "No automatic finding alias from generic ignored BatchId to actual native BatchMetadata. Native updater, final shader and actual cull execution remain separate unread roles; no graphics/visual/sentinel runtime clearance."
+      ],
+      "disposition": "Bounded native representation/law contract accounted with actual old/new projecting receivers. Materially affected unchanged whole renderer is not cleared.",
+      "acceptance": "Retain exact layout, GPU field order, independent instance identities, seeded draw purposes/order and native frame multiplication; do not conflate invalid sentinel with valid batch0 or infer native allocation limits from raw widths."
+    },
+    {
+      "scope_index": 33,
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/cull/resources.rs",
+      "sha256": "bedf4e9e3cb681d6cd4ef75b146537e8e2c4876cad464addd82ba0bc5cdc83ab",
+      "object": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/bedf4e9e3cb681d6cd4ef75b146537e8e2c4876cad464addd82ba0bc5cdc83ab",
+      "read_ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "pin": "Both PR locks retain bevy_eidolon0.5.0 git1a5aff8d4809287e5f5713fb4cf72181b2285fff.",
+      "facts": [
+        "Full native file consumed. CPU InstanceData position Vec3+scale, rotation/index/batch/seed layout matches native WGSL vec4+scalar fields. invalid() retains0xFFFFFFFF batch sentinel; no normalization/aliasing inferred.",
+        "Cull bindings retain explicit groups0/1/2 and BatchMetadata identity/start/end; render binding groups2/3 and vertex instance locations8\u201312 retain exact native shapes. Parent*local instance matrix order, yaw cos/sin and signed scale are unchanged native law. Visibility dithering picks lower/upper band at >=z, round then clamp0..16 with offset; it requires valid nondegenerate bands, not guaranteed by this read.",
+        "Actual firstparty grass1554 old445\u2013514 vshead270\u2013340 and full unchanged batches1555 consumed: centre/height ownership changes native projection only for admitted finite output; same scale1, rotation, index=len, batch0, coverage|seed<<8. Actual understory1562 recipient238\u2013322 +whole diff consumed: root projection, default instance fields, seeded yaw/scale use exact unchanged StreamIds confirmed at ground_scatter/mod82\u201383.",
+        "No automatic finding alias from generic ignored BatchId to actual native BatchMetadata. Native updater, final shader and actual cull execution remain separate unread roles; no graphics/visual/sentinel runtime clearance."
+      ],
+      "disposition": "Bounded native representation/law contract accounted with actual old/new projecting receivers. Materially affected unchanged whole renderer is not cleared.",
+      "acceptance": "Retain exact layout, GPU field order, independent instance identities, seeded draw purposes/order and native frame multiplication; do not conflate invalid sentinel with valid batch0 or infer native allocation limits from raw widths."
+    },
+    {
+      "scope_index": 34,
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/cull/types.wgsl",
+      "sha256": "63c3f55c90686a73788212c94f4d979fd2bc3240dd143c6b5e778d949d68fd65",
+      "object": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/63c3f55c90686a73788212c94f4d979fd2bc3240dd143c6b5e778d949d68fd65",
+      "read_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "pin": "Both PR locks retain bevy_eidolon0.5.0 git1a5aff8d4809287e5f5713fb4cf72181b2285fff.",
+      "facts": [
+        "Full native file consumed. CPU InstanceData position Vec3+scale, rotation/index/batch/seed layout matches native WGSL vec4+scalar fields. invalid() retains0xFFFFFFFF batch sentinel; no normalization/aliasing inferred.",
+        "Cull bindings retain explicit groups0/1/2 and BatchMetadata identity/start/end; render binding groups2/3 and vertex instance locations8\u201312 retain exact native shapes. Parent*local instance matrix order, yaw cos/sin and signed scale are unchanged native law. Visibility dithering picks lower/upper band at >=z, round then clamp0..16 with offset; it requires valid nondegenerate bands, not guaranteed by this read.",
+        "Actual firstparty grass1554 old445\u2013514 vshead270\u2013340 and full unchanged batches1555 consumed: centre/height ownership changes native projection only for admitted finite output; same scale1, rotation, index=len, batch0, coverage|seed<<8. Actual understory1562 recipient238\u2013322 +whole diff consumed: root projection, default instance fields, seeded yaw/scale use exact unchanged StreamIds confirmed at ground_scatter/mod82\u201383.",
+        "No automatic finding alias from generic ignored BatchId to actual native BatchMetadata. Native updater, final shader and actual cull execution remain separate unread roles; no graphics/visual/sentinel runtime clearance."
+      ],
+      "disposition": "Bounded native representation/law contract accounted with actual old/new projecting receivers. Materially affected unchanged whole renderer is not cleared.",
+      "acceptance": "Retain exact layout, GPU field order, independent instance identities, seeded draw purposes/order and native frame multiplication; do not conflate invalid sentinel with valid batch0 or infer native allocation limits from raw widths."
+    },
+    {
+      "scope_index": 35,
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/bindings.wgsl",
+      "sha256": "8fdf638edbf13ddc04a1a8392f3b873ec730f86f085522de471108c623ac129b",
+      "object": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/8fdf638edbf13ddc04a1a8392f3b873ec730f86f085522de471108c623ac129b",
+      "read_ranges": [
+        [
+          1,
+          6
+        ]
+      ],
+      "pin": "Both PR locks retain bevy_eidolon0.5.0 git1a5aff8d4809287e5f5713fb4cf72181b2285fff.",
+      "facts": [
+        "Full native file consumed. CPU InstanceData position Vec3+scale, rotation/index/batch/seed layout matches native WGSL vec4+scalar fields. invalid() retains0xFFFFFFFF batch sentinel; no normalization/aliasing inferred.",
+        "Cull bindings retain explicit groups0/1/2 and BatchMetadata identity/start/end; render binding groups2/3 and vertex instance locations8\u201312 retain exact native shapes. Parent*local instance matrix order, yaw cos/sin and signed scale are unchanged native law. Visibility dithering picks lower/upper band at >=z, round then clamp0..16 with offset; it requires valid nondegenerate bands, not guaranteed by this read.",
+        "Actual firstparty grass1554 old445\u2013514 vshead270\u2013340 and full unchanged batches1555 consumed: centre/height ownership changes native projection only for admitted finite output; same scale1, rotation, index=len, batch0, coverage|seed<<8. Actual understory1562 recipient238\u2013322 +whole diff consumed: root projection, default instance fields, seeded yaw/scale use exact unchanged StreamIds confirmed at ground_scatter/mod82\u201383.",
+        "No automatic finding alias from generic ignored BatchId to actual native BatchMetadata. Native updater, final shader and actual cull execution remain separate unread roles; no graphics/visual/sentinel runtime clearance."
+      ],
+      "disposition": "Bounded native representation/law contract accounted with actual old/new projecting receivers. Materially affected unchanged whole renderer is not cleared.",
+      "acceptance": "Retain exact layout, GPU field order, independent instance identities, seeded draw purposes/order and native frame multiplication; do not conflate invalid sentinel with valid batch0 or infer native allocation limits from raw widths."
+    },
+    {
+      "scope_index": 36,
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/io_types.wgsl",
+      "sha256": "3529f71ec77f88963ee969691ef2dd2f871abf490a8a4beed073b98ff10974b9",
+      "object": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/3529f71ec77f88963ee969691ef2dd2f871abf490a8a4beed073b98ff10974b9",
+      "read_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "pin": "Both PR locks retain bevy_eidolon0.5.0 git1a5aff8d4809287e5f5713fb4cf72181b2285fff.",
+      "facts": [
+        "Full native file consumed. CPU InstanceData position Vec3+scale, rotation/index/batch/seed layout matches native WGSL vec4+scalar fields. invalid() retains0xFFFFFFFF batch sentinel; no normalization/aliasing inferred.",
+        "Cull bindings retain explicit groups0/1/2 and BatchMetadata identity/start/end; render binding groups2/3 and vertex instance locations8\u201312 retain exact native shapes. Parent*local instance matrix order, yaw cos/sin and signed scale are unchanged native law. Visibility dithering picks lower/upper band at >=z, round then clamp0..16 with offset; it requires valid nondegenerate bands, not guaranteed by this read.",
+        "Actual firstparty grass1554 old445\u2013514 vshead270\u2013340 and full unchanged batches1555 consumed: centre/height ownership changes native projection only for admitted finite output; same scale1, rotation, index=len, batch0, coverage|seed<<8. Actual understory1562 recipient238\u2013322 +whole diff consumed: root projection, default instance fields, seeded yaw/scale use exact unchanged StreamIds confirmed at ground_scatter/mod82\u201383.",
+        "No automatic finding alias from generic ignored BatchId to actual native BatchMetadata. Native updater, final shader and actual cull execution remain separate unread roles; no graphics/visual/sentinel runtime clearance."
+      ],
+      "disposition": "Bounded native representation/law contract accounted with actual old/new projecting receivers. Materially affected unchanged whole renderer is not cleared.",
+      "acceptance": "Retain exact layout, GPU field order, independent instance identities, seeded draw purposes/order and native frame multiplication; do not conflate invalid sentinel with valid batch0 or infer native allocation limits from raw widths."
+    },
+    {
+      "scope_index": 37,
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/types.wgsl",
+      "sha256": "9bd27e4a4bb61b319e4ee13ae7e1407be2fdd432471ef6e9aede72e206321d90",
+      "object": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/9bd27e4a4bb61b319e4ee13ae7e1407be2fdd432471ef6e9aede72e206321d90",
+      "read_ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "pin": "Both PR locks retain bevy_eidolon0.5.0 git1a5aff8d4809287e5f5713fb4cf72181b2285fff.",
+      "facts": [
+        "Full native file consumed. CPU InstanceData position Vec3+scale, rotation/index/batch/seed layout matches native WGSL vec4+scalar fields. invalid() retains0xFFFFFFFF batch sentinel; no normalization/aliasing inferred.",
+        "Cull bindings retain explicit groups0/1/2 and BatchMetadata identity/start/end; render binding groups2/3 and vertex instance locations8\u201312 retain exact native shapes. Parent*local instance matrix order, yaw cos/sin and signed scale are unchanged native law. Visibility dithering picks lower/upper band at >=z, round then clamp0..16 with offset; it requires valid nondegenerate bands, not guaranteed by this read.",
+        "Actual firstparty grass1554 old445\u2013514 vshead270\u2013340 and full unchanged batches1555 consumed: centre/height ownership changes native projection only for admitted finite output; same scale1, rotation, index=len, batch0, coverage|seed<<8. Actual understory1562 recipient238\u2013322 +whole diff consumed: root projection, default instance fields, seeded yaw/scale use exact unchanged StreamIds confirmed at ground_scatter/mod82\u201383.",
+        "No automatic finding alias from generic ignored BatchId to actual native BatchMetadata. Native updater, final shader and actual cull execution remain separate unread roles; no graphics/visual/sentinel runtime clearance."
+      ],
+      "disposition": "Bounded native representation/law contract accounted with actual old/new projecting receivers. Materially affected unchanged whole renderer is not cleared.",
+      "acceptance": "Retain exact layout, GPU field order, independent instance identities, seeded draw purposes/order and native frame multiplication; do not conflate invalid sentinel with valid batch0 or infer native allocation limits from raw widths."
+    },
+    {
+      "scope_index": 38,
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/utils.wgsl",
+      "sha256": "e681dfe05b5df31bfba37904eae24631e48be8a91e90910253cba046bdecfcc9",
+      "object": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/e681dfe05b5df31bfba37904eae24631e48be8a91e90910253cba046bdecfcc9",
+      "read_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "pin": "Both PR locks retain bevy_eidolon0.5.0 git1a5aff8d4809287e5f5713fb4cf72181b2285fff.",
+      "facts": [
+        "Full native file consumed. CPU InstanceData position Vec3+scale, rotation/index/batch/seed layout matches native WGSL vec4+scalar fields. invalid() retains0xFFFFFFFF batch sentinel; no normalization/aliasing inferred.",
+        "Cull bindings retain explicit groups0/1/2 and BatchMetadata identity/start/end; render binding groups2/3 and vertex instance locations8\u201312 retain exact native shapes. Parent*local instance matrix order, yaw cos/sin and signed scale are unchanged native law. Visibility dithering picks lower/upper band at >=z, round then clamp0..16 with offset; it requires valid nondegenerate bands, not guaranteed by this read.",
+        "Actual firstparty grass1554 old445\u2013514 vshead270\u2013340 and full unchanged batches1555 consumed: centre/height ownership changes native projection only for admitted finite output; same scale1, rotation, index=len, batch0, coverage|seed<<8. Actual understory1562 recipient238\u2013322 +whole diff consumed: root projection, default instance fields, seeded yaw/scale use exact unchanged StreamIds confirmed at ground_scatter/mod82\u201383.",
+        "No automatic finding alias from generic ignored BatchId to actual native BatchMetadata. Native updater, final shader and actual cull execution remain separate unread roles; no graphics/visual/sentinel runtime clearance."
+      ],
+      "disposition": "Bounded native representation/law contract accounted with actual old/new projecting receivers. Materially affected unchanged whole renderer is not cleared.",
+      "acceptance": "Retain exact layout, GPU field order, independent instance identities, seeded draw purposes/order and native frame multiplication; do not conflate invalid sentinel with valid batch0 or infer native allocation limits from raw widths."
+    },
+    {
+      "scope_index": 2246,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/readback.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-compute/src/readback.rs",
+      "before_sha256": "caaf8c9738e40e94a3dc17914bebeaeda33a6b37bacb74158619c9fca955af76",
+      "after_sha256": "caaf8c9738e40e94a3dc17914bebeaeda33a6b37bacb74158619c9fca955af76",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/2246-base-caaf8c9738e40e94a3dc17914bebeaeda33a6b37bacb74158619c9fca955af76",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/caaf8c9738e40e94a3dc17914bebeaeda33a6b37bacb74158619c9fca955af76",
+      "diff": "source-evidence/2246.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          294
+        ]
+      ],
+      "facts": [
+        "Readback source full294 incl existing fixture bodies; actual empty diff. Native callback lifecycle and checked extent reviewed as above; no device run."
+      ],
+      "disposition": "Bounded local old/new comparison complete; connected kernel/renderer families pending.",
+      "acceptance": "Preserve recorded source-order, finite admitted numerical law and explicit phase/error state. No source edit/check/test/GPU/browser execution."
+    },
+    {
+      "scope_index": 2284,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "before_sha256": "dd7c6c3515b7f79314eccb5a4be41e3ec6856c0c5c26f3788df27473b1f12834",
+      "after_sha256": "dd7c6c3515b7f79314eccb5a4be41e3ec6856c0c5c26f3788df27473b1f12834",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/2284-base-dd7c6c3515b7f79314eccb5a4be41e3ec6856c0c5c26f3788df27473b1f12834",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/dd7c6c3515b7f79314eccb5a4be41e3ec6856c0c5c26f3788df27473b1f12834",
+      "diff": "source-evidence/2284.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          314
+        ]
+      ],
+      "facts": [
+        "Context source full314 incl existing fixture; actual empty diff. Borrowed context blocking_validation=false and absent surface/blitter, owned open platform presentation policy unchanged; same adapter options/features/limits and generic error flattening. submitted_work_done ignores poll outcomes unchanged; no inferred successful work guarantee."
+      ],
+      "disposition": "Bounded local old/new comparison complete; connected kernel/renderer families pending.",
+      "acceptance": "Preserve recorded source-order, finite admitted numerical law and explicit phase/error state. No source edit/check/test/GPU/browser execution."
+    },
+    {
+      "scope_index": 1555,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/batches.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/batches.rs",
+      "before_sha256": "55a8f28f05846eea9e2cd7460a1a1aaecb83c64af31573ed82a2bb2f5bdaf196",
+      "after_sha256": "55a8f28f05846eea9e2cd7460a1a1aaecb83c64af31573ed82a2bb2f5bdaf196",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1555-base-55a8f28f05846eea9e2cd7460a1a1aaecb83c64af31573ed82a2bb2f5bdaf196",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/55a8f28f05846eea9e2cd7460a1a1aaecb83c64af31573ed82a2bb2f5bdaf196",
+      "diff": "source-evidence/1555.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "facts": [
+        "Full86 and empty diff. TIERS/species iteration and mem::take, empty skip, material/mesh/AABB metadata, raw native InstanceMaterialData/color/visibility and defaultTransform unchanged. Actual mesh/culling functions pending."
+      ],
+      "disposition": "Bounded local old/new comparison complete; connected kernel/renderer families pending.",
+      "acceptance": "Preserve recorded source-order, finite admitted numerical law and explicit phase/error state. No source edit/check/test/GPU/browser execution."
+    },
+    {
+      "scope_index": 1566,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/batching.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/batching.rs",
+      "before_sha256": "8c5cc40f23fef96984d6683c97563da0401bb6dba7392842c6cea620e8539164",
+      "after_sha256": "8c3a2661fde2fbe6cdd22710e282ee606e4a3126071315d4d202d85c211305cf",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1566-base-8c5cc40f23fef96984d6683c97563da0401bb6dba7392842c6cea620e8539164",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/8c3a2661fde2fbe6cdd22710e282ee606e4a3126071315d4d202d85c211305cf",
+      "diff": "source-evidence/1566.diff",
+      "diff_sha256": "e79fa50923d37094c92bab579afbd7bdbcac0c25ba5a05895ba4385d9d225487",
+      "head_body_read_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "diff_consumed": true,
+      "disposition": "Partial connected-source proof only; body read is not whole behavior discovery credit.",
+      "facts": [
+        "Litter finite root/typed separation and GPU native projecting bodies consumed; actual predecessor extraction for new placement/capture and full parent spawn/generation recipients remain unfinished.",
+        "Batching now propagates MeshMergeError rather than expect panic; same cell floor/translation arithmetic. Need actual parent error boundary before normal recoverability claim.",
+        "Capture pairs maximum0 returns empty, filters planar distance<=maximum, sorts separation/root coordinates and takes64 at ordinarycaller; raw finite coordinate/cell-index overflow and exact diagnostics admission remain source-conditional questions, not promoted ordinary regression."
+      ]
+    },
+    {
+      "scope_index": 1567,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/capture.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/capture.rs",
+      "before_sha256": null,
+      "after_sha256": "62a7640d999653991c48ac18f49aef2c03981b53739cdb02e46983582bb71b11",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1567-base-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/62a7640d999653991c48ac18f49aef2c03981b53739cdb02e46983582bb71b11",
+      "diff": "source-evidence/1567.diff",
+      "diff_sha256": "10b49bfe1a7f6829cea9e789767005e9951590d586b09ec042e87cfa2bb036df",
+      "head_body_read_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "diff_consumed": true,
+      "disposition": "Partial connected-source proof only; body read is not whole behavior discovery credit.",
+      "facts": [
+        "Litter finite root/typed separation and GPU native projecting bodies consumed; actual predecessor extraction for new placement/capture and full parent spawn/generation recipients remain unfinished.",
+        "Batching now propagates MeshMergeError rather than expect panic; same cell floor/translation arithmetic. Need actual parent error boundary before normal recoverability claim.",
+        "Capture pairs maximum0 returns empty, filters planar distance<=maximum, sorts separation/root coordinates and takes64 at ordinarycaller; raw finite coordinate/cell-index overflow and exact diagnostics admission remain source-conditional questions, not promoted ordinary regression."
+      ]
+    },
+    {
+      "scope_index": 1568,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/geometry.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/geometry.rs",
+      "before_sha256": "e5e98d3e8ea4894a4d531ed56439fd85dee6fa6f6945c5f724a330d83f6531ca",
+      "after_sha256": "e5e98d3e8ea4894a4d531ed56439fd85dee6fa6f6945c5f724a330d83f6531ca",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1568-base-e5e98d3e8ea4894a4d531ed56439fd85dee6fa6f6945c5f724a330d83f6531ca",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/e5e98d3e8ea4894a4d531ed56439fd85dee6fa6f6945c5f724a330d83f6531ca",
+      "diff": "source-evidence/1568.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "diff_consumed": false,
+      "disposition": "Partial connected-source proof only; body read is not whole behavior discovery credit.",
+      "facts": [
+        "Litter finite root/typed separation and GPU native projecting bodies consumed; actual predecessor extraction for new placement/capture and full parent spawn/generation recipients remain unfinished.",
+        "Batching now propagates MeshMergeError rather than expect panic; same cell floor/translation arithmetic. Need actual parent error boundary before normal recoverability claim.",
+        "Capture pairs maximum0 returns empty, filters planar distance<=maximum, sorts separation/root coordinates and takes64 at ordinarycaller; raw finite coordinate/cell-index overflow and exact diagnostics admission remain source-conditional questions, not promoted ordinary regression."
+      ]
+    },
+    {
+      "scope_index": 1570,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/placement.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/placement.rs",
+      "before_sha256": null,
+      "after_sha256": "8837d5ffdc23783fd82a7946e6b46deea41b1c779cc09adf842577cdd7c6b992",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1570-base-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/8837d5ffdc23783fd82a7946e6b46deea41b1c779cc09adf842577cdd7c6b992",
+      "diff": "source-evidence/1570.diff",
+      "diff_sha256": "3f0a7769e1062c5821506343520088c433b1dc5c5d55c03ac61d81e4287b3684",
+      "head_body_read_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "diff_consumed": true,
+      "disposition": "Partial connected-source proof only; body read is not whole behavior discovery credit.",
+      "facts": [
+        "Litter finite root/typed separation and GPU native projecting bodies consumed; actual predecessor extraction for new placement/capture and full parent spawn/generation recipients remain unfinished.",
+        "Batching now propagates MeshMergeError rather than expect panic; same cell floor/translation arithmetic. Need actual parent error boundary before normal recoverability claim.",
+        "Capture pairs maximum0 returns empty, filters planar distance<=maximum, sorts separation/root coordinates and takes64 at ordinarycaller; raw finite coordinate/cell-index overflow and exact diagnostics admission remain source-conditional questions, not promoted ordinary regression."
+      ]
+    },
+    {
+      "scope_index": 1564,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter.rs",
+      "before_sha256": "7158478740e738cb349427b9480f82bbd4c8370bc9d27d5c86a414e4070224f2",
+      "after_sha256": "f62cff728e5975471e4fdf4e7860b6c8bc7a5cca3029e579b2fbdace6fde82b4",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1564-base-7158478740e738cb349427b9480f82bbd4c8370bc9d27d5c86a414e4070224f2",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/f62cff728e5975471e4fdf4e7860b6c8bc7a5cca3029e579b2fbdace6fde82b4",
+      "diff": "source-evidence/1564.diff",
+      "diff_sha256": "a46080f03516dce7ad33ecf525ce95ce6f31295e91e658f294f2b6a1bc16a09b",
+      "head_body_read_ranges": [
+        [
+          1,
+          225
+        ]
+      ],
+      "diff_consumed": false,
+      "disposition": "Partial connected-source proof only; body read is not whole behavior discovery credit.",
+      "facts": [
+        "Litter finite root/typed separation and GPU native projecting bodies consumed; actual predecessor extraction for new placement/capture and full parent spawn/generation recipients remain unfinished.",
+        "Batching now propagates MeshMergeError rather than expect panic; same cell floor/translation arithmetic. Need actual parent error boundary before normal recoverability claim.",
+        "Capture pairs maximum0 returns empty, filters planar distance<=maximum, sorts separation/root coordinates and takes64 at ordinarycaller; raw finite coordinate/cell-index overflow and exact diagnostics admission remain source-conditional questions, not promoted ordinary regression."
+      ]
+    },
+    {
+      "scope_index": 1554,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass.rs",
+      "before_sha256": "fbfdf8c1d07f839312ac04bcd70b3d40e40d3367a730b725e1604d0c3d148dcb",
+      "after_sha256": "4ebc106478d263a859403c114c4711598dd570927f2706abf5e7123bc37a9c91",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1554-base-fbfdf8c1d07f839312ac04bcd70b3d40e40d3367a730b725e1604d0c3d148dcb",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/4ebc106478d263a859403c114c4711598dd570927f2706abf5e7123bc37a9c91",
+      "diff": "source-evidence/1554.diff",
+      "diff_sha256": "4b87657b37c4d783914e6337fc4af241a9aa7d72cae64921fd52e50558c1e55c",
+      "head_body_read_ranges": [
+        [
+          270,
+          340
+        ]
+      ],
+      "diff_consumed": false,
+      "disposition": "Partial connected-source proof only; body read is not whole behavior discovery credit.",
+      "facts": [
+        "Litter finite root/typed separation and GPU native projecting bodies consumed; actual predecessor extraction for new placement/capture and full parent spawn/generation recipients remain unfinished.",
+        "Batching now propagates MeshMergeError rather than expect panic; same cell floor/translation arithmetic. Need actual parent error boundary before normal recoverability claim.",
+        "Capture pairs maximum0 returns empty, filters planar distance<=maximum, sorts separation/root coordinates and takes64 at ordinarycaller; raw finite coordinate/cell-index overflow and exact diagnostics admission remain source-conditional questions, not promoted ordinary regression."
+      ]
+    },
+    {
+      "scope_index": 1562,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_understory.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_understory.rs",
+      "before_sha256": "b789d5cdc51fc742d33da8c5a6687d86550ff5cf3639e13178fdb96ab2bcd8ba",
+      "after_sha256": "99e5f51d7e539f2618ce3e0fa233173442b3f4bbefffb3df4fc0203ad2f22fd3",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1562-base-b789d5cdc51fc742d33da8c5a6687d86550ff5cf3639e13178fdb96ab2bcd8ba",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/99e5f51d7e539f2618ce3e0fa233173442b3f4bbefffb3df4fc0203ad2f22fd3",
+      "diff": "source-evidence/1562.diff",
+      "diff_sha256": "1c5ac957e5fa8c25cf089c9e5d29b6871e9517da135e85555df68cfd81552cf8",
+      "head_body_read_ranges": [
+        [
+          238,
+          322
+        ]
+      ],
+      "diff_consumed": true,
+      "disposition": "Partial connected-source proof only; body read is not whole behavior discovery credit.",
+      "facts": [
+        "Litter finite root/typed separation and GPU native projecting bodies consumed; actual predecessor extraction for new placement/capture and full parent spawn/generation recipients remain unfinished.",
+        "Batching now propagates MeshMergeError rather than expect panic; same cell floor/translation arithmetic. Need actual parent error boundary before normal recoverability claim.",
+        "Capture pairs maximum0 returns empty, filters planar distance<=maximum, sorts separation/root coordinates and takes64 at ordinarycaller; raw finite coordinate/cell-index overflow and exact diagnostics admission remain source-conditional questions, not promoted ordinary regression."
+      ]
+    },
+    {
+      "scope_index": 1573,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/mod.rs",
+      "sha256": "1577f17b44515d9e38cd44b010e81127ddace5a721dfc82688cc46be04c341fa",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/1577f17b44515d9e38cd44b010e81127ddace5a721dfc82688cc46be04c341fa",
+      "head_body_read_ranges": [
+        [
+          74,
+          90
+        ]
+      ],
+      "facts": [
+        "Exact PLACEMENT_YAW=\"visual.understory.yaw\", SCALE=\"visual.understory.scale\" body confirms moved literal purposes retain same stream names, not a RNG reseeding regression."
+      ],
+      "disposition": "Partial source only."
+    }
+  ],
+  "finding_support": [
+    {
+      "id": "RIG-OWNER-F009",
+      "contract": "RIG-OWNER-NATIVE-CAUSE-023",
+      "qualification": "Exact existing finding personally consumed; current native-cause replacement in unchanged WgpuContext confirms migration debt. No new08 defect count/whole-family clearance."
+    }
+  ],
+  "next": "Original39+remaining whole source contracts; finish camera/P16 dependencies and continue metadata inventory, then246overlays/71live/38merged. All incomplete."
+}

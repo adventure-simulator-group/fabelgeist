@@ -1,0 +1,90 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-550",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-hair/src/lib.rs",
+      "sha256": "57c7525f7e70077874384b0491220ff8d9dd427cc3b5e18b8e0f43d5ef5ddff0",
+      "actual_EOF": 187,
+      "actual_compared_ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-hair/src/look.rs",
+      "sha256": "81e8743f737a776691275b86117f5b22c8b318ae88c8985f2dcc12f7280b69d5",
+      "actual_EOF": 469,
+      "actual_compared_ranges": [
+        [
+          1,
+          469
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-hair/src/look/groom.rs",
+      "sha256": "3dffaa4b35a78c1b5f3d8e07b5698d2f273f563741c9250883f74701d5572818",
+      "actual_EOF": 193,
+      "actual_compared_ranges": [
+        [
+          1,
+          193
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-hair/src/look/random.rs",
+      "sha256": "bbc2659794d1758ed6147329c7cc21c8e1a08a726ec80e12426ae397fa13e0b5",
+      "actual_EOF": 50,
+      "actual_compared_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-hair/src/material.rs",
+      "sha256": "20fdf72de21b47f4596eb6538d58a2d89aeb5217a8b797ca53730c769b5d5b1e",
+      "actual_EOF": 225,
+      "actual_compared_ranges": [
+        [
+          1,
+          225
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Valid HairSeed operation overflow alias",
+      "evidence": "Consumed complete accepted RIG-ADMISSION03-F069 wrapper audit/continuation/rig/admission03/findings.jsonl record_index73. HairSeed all-i32 words is legitimate; guide_operations unconditionalseed+9 overflowsMAX beforestack. Other+1..8 branch offsets same family. Look::random masks to nonnegative31bits, which still doesnotproveheadroom9; actualgeneratedMAX occurrence notestablished. Preserveallwords/wrappingdeterminism instead ofrejectingseed."
+    },
+    {
+      "contract": "Normal Look numeric producers and derived counts",
+      "evidence": "All24preset branches and random producers personally read: count12k..120k-ish/points8..256, ordinaryfinitephysicalquantities; randomcurlpointcap256 derives boundedturns andpreservesmincurrentpoint. RawLook serde/quantity owners mayadmitwiderallwordcounts thanpresets; inheritedRIG03F073 executioncapacity notdischargedbydefaults. TypedLook->rawGroom/Op/Guide propagationacceptedRIGOWNERF004/RIGPPSF004; fresh04doesnotauthorizeoldcommentnativekernelwaiver orsourcefix."
+    },
+    {
+      "contract": "Material composition and physical quantity policy",
+      "evidence": "Melaninlogfloor1e-4 andtintclamps areintentional; standardroughness.3/namedshares finite, chiangpolynomial positivein ordinaryunitrange. Rawpublicroughness outside range can make denominatorzero/nonfinite, but noadmittedmaterialcertificate/currentproducerfailure established. Taper0..1ordinaryshape usesexistingrangehelper; noimposedgenericpositivecolorsorprobabilities beyondactualowners. Preservequarterabsorptioneyecalibration andofflinecoefficient distinction."
+    },
+    {
+      "contract": "Measurement progress alias qualification",
+      "evidence": "Coordinator semanticcomparison identifies RIG-ADMISSION03-F064 as related connected scanfamily: rawhipYInf withfiniteheightadmission versus own546all-finiteULPcounterexample. Distinct04 operation support, not identicalcounterexample orduplicateglobalcount. Exact wrapper separatelyconsumed; preserve translation/standingpose/framepolicy and nooriginclamp."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "5 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/fabelgeist-hair/src/ops/clump.rs"
+}

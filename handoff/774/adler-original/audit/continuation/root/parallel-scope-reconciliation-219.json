@@ -1,0 +1,135 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-219",
+  "at": "2026-10-23T06:05:24.952289+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-064.json",
+    "sha256": "c57337d219f15e8f110cb237b0eabde603f88862699860e531ec748d360ca91e"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-063.json",
+    "sha256": "1f2af3459ff8a34d896e54c4f86b4347c4e3b32ccccbc727201b2b1a02929675"
+  },
+  "new_variants": [],
+  "new_overlays": [
+    {
+      "id": "CONT-OWNER-RANGE-EXTENSION-245",
+      "at": "2026-10-23T06:05:24.952289+00:00",
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/studio_ui.rs",
+      "sha256": "ab4430b01df6df4b77ee2e29a491531bd3a5782c92fd16b67a9aaba2d239b394",
+      "material_ranges": [
+        [
+          202,
+          302
+        ]
+      ],
+      "audit_owner": "camera",
+      "reason": null,
+      "scope_registration": [
+        {
+          "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+          "sha256": "b04ecfde86f1d8bfe15cbf330efd3c32db85f7dd37b0df6f3209d52952e12ad0",
+          "row_1based": 43,
+          "id": "CAMERA-INITIAL07-REG043",
+          "original_record": {
+            "id": "CAMERA-INITIAL07-REG043",
+            "at": "2026-10-23T06:00:34.169585+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "pr-working:crates/adventuresim-character-creator/src/studio_ui.rs",
+            "snapshot": "pr-working",
+            "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-character-creator\\src\\studio_ui.rs",
+            "sha256": "ab4430b01df6df4b77ee2e29a491531bd3a5782c92fd16b67a9aaba2d239b394",
+            "actual_EOF": 435,
+            "material_ranges": [
+              [
+                202,
+                302
+              ]
+            ],
+            "actual_material_role": "Direct export_character Some(fitted) UI producer: output function202-302. Determine whether supplied draped garment list is bound to current recipe/loadout after partial failures, because exported mail settings currently associate by ordinal. Symbol-only function/closing boundaries and export call253 located; no new body read/analysis yet.",
+            "excluded_scope": "Original350-430 preserved; no1-201/303-349/431+ or whole source/helper graphs from this registration.",
+            "status": "prospectively_registered_before_body_analysis; global_reconciliation_pending; no_other_lens_credit"
+          }
+        }
+      ],
+      "limits": null,
+      "source_qualifications": "Exact prospective Camera043 exportUIproducer202-302 after literal independent03proof218, old350-430 preserved. No whole435/callee/boundreadyrecipe or other-lens credit. All200/208/210/prior qualifiers retained."
+    }
+  ],
+  "total_variants": 2843,
+  "total_overlays": 245,
+  "mandatory_scope_qualifications": [
+    {
+      "record": "continuation/root/parallel-scope-qualification-130.json",
+      "sha256": "5dc4e5cd771612c7e050ab4af544411523317ae4b57738f1fb20f493685a50fc"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-117.json",
+      "sha256": "f3b80648900716939057b20776d756a6e37001f6910378da1a1bbaea230d348b"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-149.json",
+      "sha256": "97103899514ade32cf1e41c2794fa9c49c0cb8c6c7a2c6a4961b7492de5dc708"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-151.json",
+      "sha256": "670dd53a640b28eef7ad9d57b37f9213e1bca7117d7098691c4b0cd20c2a8f65"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-158.json",
+      "sha256": "fa0e9cc06d04fca0a0e2b5f9a333390a0ba1e71eff846a4e957c46b68b3e940e"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-170.json",
+      "sha256": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-173.json",
+      "sha256": "5763e9e965b4f4c1d402a09eab682de47336885c8d30b3c5b3d157242a496948"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-176.json",
+      "sha256": "9a321e498a00285331d4ec4fb4dc7c3a49d7bb6e3a08a44a79c2e5bf58186270"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-184.json",
+      "sha256": "5e35c8530a11d0f90bc767812758e4c504eb9ca5e776d0d1f17bf14c0853468d"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-188.json",
+      "sha256": "e15ac81028377714ef550a4cbd68546ec0fbd2ab41300f64db2a1c8686cb43ab"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-193.json",
+      "sha256": "fa718d979ab18d0f9bc7ea210e912d4cb8e971c3bbaa8702a602311d515d6e06"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-200.json",
+      "sha256": "0488f5857b999e28c0bfa68767711e5ccd0f5f7624892db7e578d0f680fa8c3c"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-208.json",
+      "sha256": "5fbee9250ddc79b5b7b1d96cf11104a38d4189b50be6afc922a7dad13ebe28c7"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-210.json",
+      "sha256": "e6967f316a6344840b02cf456d957909b3d845736e44be94ebf098ab31189b9b"
+    }
+  ],
+  "registered_rows": 1,
+  "input_pins": [
+    {
+      "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+      "sha256": "b04ecfde86f1d8bfe15cbf330efd3c32db85f7dd37b0df6f3209d52952e12ad0",
+      "captured_rows": 43,
+      "selected_ids": [
+        "CAMERA-INITIAL07-REG043"
+      ]
+    }
+  ],
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through244-before064.jsonl",
+    "sha256": "a73ae9d6549ad3fa18a9f89c1b081508e2d464c98a8ba0e9c9b8b2341fc005a3",
+    "through": 244
+  },
+  "limits": "One existing PRstudioUI newoverlay245,2843variants unchanged;300->301 boundedroles. Old350-430 separate, no whole435/callee/otherlensclearance. All13initial audits thenhandover163."
+}

@@ -1,0 +1,68 @@
+{
+  "id": "CONT07-CONTRACT-591",
+  "at": "2026-10-24T00:22:27.935493+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2559,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation/procedural.rs",
+      "sha256": "8b82644fdbb52e00c1b40a850239bb273c956668c89805efae19800b35f42487",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-client/src/animation/procedural.rs",
+      "actual_EOF": 1813,
+      "ranges": [
+        [
+          157,
+          230
+        ],
+        [
+          669,
+          716
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2560,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model.rs",
+      "sha256": "f4e45aaf2f0f5190009ff9de1d465f436714224bb541e947fe46af32087f2408",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/model.rs",
+      "actual_EOF": 331,
+      "ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2561,
+      "source_id": "pinned-registry:spacetimedb-bindings-macro-2.6.1/src/lib.rs",
+      "sha256": "4ddcdb3edbf28ff93e4d013fa71135ce98698acc219481abaadf9a27005193ff",
+      "origin": "archive:audit/continuation/camera/admission03/dependency-snapshots/spacetimedb-bindings-macro-2.6.1/lib.rs",
+      "actual_EOF": 372,
+      "ranges": [
+        [
+          251,
+          293
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "P16 procedural look computes ownerrotation fromcurrent Transform beforepropagation toavoidlastframeGlobalTransformfeedback. Perbone offsetweights act onlocaldirectionalaction, guardedcameraresidual distributes only neck/head. ProceduralLookState retains priorbasepose as additivehistory; actual reset/changedposeconsumeroutsidecurrentranges remainsnecessarybeforeclaimingnoreplay/staleauthority.",
+    "PR model grid/cell dimensions derive gridunitmetres fromoneCELL_SIZE andGRID_UNITS_PER_CELL; CellDiameter storesonepositivewholecell count andderivesgrid/metres. GridLength storesonepositiveintegerunitextent; noindependentlyretainedmetres. Cellcentre isderivednativeprojection, neighbour boundedintegeroverflow belongs operationlens, not redundantcurrentauthority.",
+    "PR Direction enum4andmanualALL4restatemembership; offset/opposite matchesareexhaustive andcurrentlyagree. Independent generator direction_vector matchesoffsetsemanticsforcardinalplanbasis; recordpopulation forpotentialsharedDirectionprojectionownerwithoutdemanding inward/oppositepurposemapscollapse. No currentwrongdirection.",
+    "PinnedSpacetimebindingsmacro2.6.1 schema_type derivesSATSschema plusnativeSerialize/Deserialize fromsameSatsTypeASTandregistersoneconcretename. Derive entrypointsdonotthemselvesprovebespoke TryFromcustomadmission; actualsatsconversiongeneration followsnextsource, noSDKcompile/schemaexecution."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2562,
+    "start_line": 1
+  }
+}

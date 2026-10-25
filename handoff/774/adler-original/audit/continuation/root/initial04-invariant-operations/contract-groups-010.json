@@ -1,0 +1,163 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-010",
+  "at": "2026-10-22T19:22:44.914058+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "native-dependency:bevy_app-0.19.1/src/app.rs",
+      "sha256": "0240f4b60c9848fcb5386998381c7b8f0be4fef83bfb574b19d818b99fc5e668",
+      "actual_read_ranges": [
+        [
+          1468,
+          1483
+        ]
+      ],
+      "scope_limits": "Only stated exact nativecontract ranges; nextmethod/partialtest/doc context not completeadditionalbody and no foreignSDKgraph clearance."
+    },
+    {
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/bevy_error.rs",
+      "sha256": "ae8feb04751ba67eaa86d03f3b748ef61d2bcdb9292c72dc0273eb353fb24fe2",
+      "actual_read_ranges": [
+        [
+          40,
+          105
+        ],
+        [
+          395,
+          415
+        ]
+      ],
+      "scope_limits": "Only stated exact nativecontract ranges; nextmethod/partialtest/doc context not completeadditionalbody and no foreignSDKgraph clearance."
+    },
+    {
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/handler.rs",
+      "sha256": "800c43a7bcf3956170973151045546484c9546e3bb50635f9fab8cba7fed353d",
+      "actual_read_ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "scope_limits": "Only stated exact nativecontract ranges; nextmethod/partialtest/doc context not completeadditionalbody and no foreignSDKgraph clearance."
+    },
+    {
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/mod.rs",
+      "sha256": "1647c35091db53ccde7cfd43e7b106f40942404b814f599015db776308ddfd3d",
+      "actual_read_ranges": [
+        [
+          70,
+          82
+        ]
+      ],
+      "scope_limits": "Only stated exact nativecontract ranges; nextmethod/partialtest/doc context not completeadditionalbody and no foreignSDKgraph clearance."
+    },
+    {
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/observer/distributed_storage.rs",
+      "sha256": "9a1c51dbb516b0cc08c33d8a5a714041eef55650447b4bb7efaf86ce537952b1",
+      "actual_read_ranges": [
+        [
+          216,
+          275
+        ],
+        [
+          554,
+          583
+        ]
+      ],
+      "scope_limits": "Only stated exact nativecontract ranges; nextmethod/partialtest/doc context not completeadditionalbody and no foreignSDKgraph clearance."
+    },
+    {
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/observer/mod.rs",
+      "sha256": "ebea03dbd974a67dc92c11ae4232a2a25a9e653c6df28eaea70e26a5f964c78a",
+      "actual_read_ranges": [
+        [
+          45,
+          64
+        ]
+      ],
+      "scope_limits": "Only stated exact nativecontract ranges; nextmethod/partialtest/doc context not completeadditionalbody and no foreignSDKgraph clearance."
+    },
+    {
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/observer/runner.rs",
+      "sha256": "e8a6dca4f1ae317b6653d6f1c5fdf175fdb6ed42a5d4a6125730bc9e716f43dd",
+      "actual_read_ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "scope_limits": "Only stated exact nativecontract ranges; nextmethod/partialtest/doc context not completeadditionalbody and no foreignSDKgraph clearance."
+    },
+    {
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/system/function_system.rs",
+      "sha256": "a8c0b778125f2da28ada5005a40c2bc2ab5d783fd9d080aad99361cb55641c3a",
+      "actual_read_ranges": [
+        [
+          570,
+          630
+        ]
+      ],
+      "scope_limits": "Only stated exact nativecontract ranges; nextmethod/partialtest/doc context not completeadditionalbody and no foreignSDKgraph clearance."
+    },
+    {
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/system/observer_system.rs",
+      "sha256": "a5ec50cfa2fdb29a0f86a8bfb1c42a266bbd199da74e8c60c30384bf59409ac6",
+      "actual_read_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "scope_limits": "Only stated exact nativecontract ranges; nextmethod/partialtest/doc context not completeadditionalbody and no foreignSDKgraph clearance."
+    },
+    {
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/world/mod.rs",
+      "sha256": "34963c05abcc51517c1db6cf1a3e1f90ae365409f75a9ceb54d6a892505681b6",
+      "actual_read_ranges": [
+        [
+          3448,
+          3475
+        ]
+      ],
+      "scope_limits": "Only stated exact nativecontract ranges; nextmethod/partialtest/doc context not completeadditionalbody and no foreignSDKgraph clearance."
+    }
+  ],
+  "groups": {
+    "app-registration": {
+      "sources": [
+        "native-dependency:bevy_app-0.19.1/src/app.rs",
+        "native-dependency:bevy_ecs-0.19.1/src/observer/mod.rs"
+      ],
+      "trace": "FreshApp1468-1483 andWorldobserver45-64. Appadd_observer forwards actualIntoObserver toWorld; Worldspawns observer.into_observer. No bespokevalue arithmetic/admission/no transaction/rewind guarantee. Appget_error_handler1482-1483 prefixreadnotclosingbody beyond1483; Worldtrigger63-64 onlysignature/firstcallhead, not wholetriggeralgorithm. Adjacentdocfragment aboutCommandsnotwholeexamplefixturecredit."
+    },
+    "output-adaptation": {
+      "sources": [
+        "native-dependency:bevy_ecs-0.19.1/src/observer/distributed_storage.rs",
+        "native-dependency:bevy_ecs-0.19.1/src/system/function_system.rs",
+        "native-dependency:bevy_ecs-0.19.1/src/system/observer_system.rs"
+      ],
+      "trace": "FreshSystem570-630 +ObserverSystem1-75 +Observerstorage216-275/554-583. ObserverSystem defaultsOut=(), IntoObserverSystem convertsactualIntoSystemOn-event/Out. IntogenericFunctionSystem supportsOutbyIntoResult<Out>; identityOut=T genericdoesnotmagicallyadapt arbitraryResult<(),OwnError> intounitoutput. ExplicitIntoResult handlesResult<T,RunSystemError> andResult<T,BevyError>, notallerrors. Observer::new isIntoObserverSystem<E,B,M> defaultunitOut, nonexclusive assertion; installsactualrunner anderror_handlerNone. IntoObserver genericdelegatesnew, completedObserverpassesownedSelf. Dynamicrunner exactpartialhookcapturesfallback andinitializesread-onlyconditions/registers onlyifentity+eventkeypresent, no fullconstructorpast275credit. SourcehasnativeSystemMeta/Vec/IDs not gamevalueinvariants. RelevantP17observerrepair mustadaptcanonicalownedcause to supportednativeError atactualcallbackboundary orcapturefailureinownreportstate; privatehelpersalone cannotclaimallfallibleResulttypes supported."
+    },
+    "error-box-and-policy": {
+      "sources": [
+        "native-dependency:bevy_ecs-0.19.1/src/error/bevy_error.rs",
+        "native-dependency:bevy_ecs-0.19.1/src/error/handler.rs",
+        "native-dependency:bevy_ecs-0.19.1/src/error/mod.rs",
+        "native-dependency:bevy_ecs-0.19.1/src/world/mod.rs"
+      ],
+      "trace": "FreshBevyError40-105+395-415 boxesactualError+Send+SyncwithSeverityPanic bydefault, retainscauseobjectratherthanforcedString; explicitseveritybuilders delegateowner. Someconstructorheads105/395closingpriorcontext notunseenmethodbodies. NativeResult<T=(),E=BevyError> alias actualframework boundary, no mandatoryprojecterrorstring. Handler187 full hasclosedErrorContextSystem/Observerlast_run snapshotTick, fnpointerpolicy, capturedfailurecontextnotacceptedgameclock. FallbackResource defaults severitymatch (From<E>panicdefault), logs/ignore returnunit anddiscarderror unlessapplicationrecordsitsownedfailure. NativeDeprecatedDefaultErrorHandleralias existsforeignonly, notpermissionforprojectcompatibilityAPIorSDKpatch. Worldfallback3461-3466 readsresourceorDefault; dynamicbundle3448-3455 contextusesnativeunsafejustinitializedID, no firstpartymembershipcertificateclaimed; 3470+ docsnotbody. No numericoperation/mutatingacceptedgamevalue in theseerrorbindings."
+    },
+    "failure-and-trigger-retention": {
+      "source": "native-dependency:bevy_ecs-0.19.1/src/observer/runner.rs",
+      "trace": "Freshrunner1-150: safetyrequirescorrectworld/entity/eventpointer/type/context; nativeunsafe/downcast wrappedinSDKpreconditions notuncheckedprojectSelf. state.last_trigger_id==worldlasttrigger skipsduplicate; otherwiseWRITESlast_trigger_id54 BEFOREconditionevaluation/run. Nativeconsumption intentionalper-trigger semantics, NOTbusinessretryclockacknowledgement. Failedconditionreturnswithoutsystem. run_unsafeFailed(err) invokesperobserverorfallbackErrorHandler withnativecurrentlast_run, THEN queue_deferred122 ifhandlerreturns. Thus native fallibleobserverErr doesnotrollbackWorldmutationsorqueuedcommands; panicdefaultunwindsbeforequeue, nonpanichandlerscontinue. Firstpartyvalidate/stage/commit andretainedfailure/readback mustownlogicalfailuresemantics andretryclocks, not relyonResultorretainednativeTick. No actualfirstpartybadcallback/runidentifiedbythisforeignpacketalone; P17existinghandoffrequirementreinforced. Existingtest126-150 illustrateResult aliaserrorpanic only, notexecuted/newtest/currentproductionclaim."
+    }
+  },
+  "findings": [],
+  "connected_acceptance": "RetainstructuredownedP17failurethroughtheactualsupportedBevycallbackadapter andreport; validate/stageownpartialstateandadvancebusinessretryclocksonlogicalcommit. PreserveSDKtrigger/condition/defaultseverities; no vendoredchange/implicitrollback/format-and-reparseclassification. Exactapplicationproducer/report bodies remainowninitial04cells, no familyclearance.",
+  "disposition": "Tenexactnativecontractscompared, no newprojectdefectfromSDKsemanticsalone",
+  "source_edits": 0,
+  "project_execution": 0,
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "other_lens_credit": false
+}

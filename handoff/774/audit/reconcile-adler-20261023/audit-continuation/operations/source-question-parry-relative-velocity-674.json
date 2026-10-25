@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-04-PARRY-RELATIVE-VELOCITY-QUESTION-674",
+  "status": "source-specific native frame question, ordinary project call route not established",
+  "source_id": "native-dependency:parry3d-0.27.0/src/query/shape_cast/shape_cast.rs",
+  "sha256": "55751d940df916bcdc1526be642b46736efe8223038ea0bbed6cee5530db129e",
+  "actual_additional_compared_ranges": [
+    [
+      152,
+      271
+    ]
+  ],
+  "reason": "Actual current88 wrapper rotates vel2 but subtracts vel1 unrotated; direct API velocity-frame documentation needed before semantic conclusion.",
+  "evidence": "Full152\u2013271 directAPI docs personallyread. pos1/pos2 documentedinitialposition+orientation, vel1/vel2 linearvelocities; no explicitlocalfirst-velocity exception. Translation-onlyexamples do not disambiguaterotatedcaller. Public281\u2013283 formula inverse(pos1.rotation)*vel2-vel1 differsfrominverse*(vel2-vel1) ifbothinputscommonworldframe.",
+  "qualification": "Conditional source-level frame mismatch; actualowningproject wrapper maypretransform vel1 oruseidentityfirstpose. Root08 actualcaller evidence requested. No runtime/ordinarycollision miss or supportedshapepair result witness promoted.",
+  "execution": "none",
+  "camera_recipient_reconciliation": {
+    "source": "behavior-preservation REG002/contract-groups-025; forwarded exactsource fact by qualifications owner",
+    "native_source": "Avian0.7 system_param.rs SHAa568d6d6... registered487\u2013593, actualcall559\u2013566",
+    "fact": "Actual camera cast_shapes caller supplies vel1=Vector::ZERO and vel2=direction.adjust_precision(). Thus native inverseRotation*vel2-vel1 equals inverseRotation*(vel2-vel1) for this actualrecipient.",
+    "disposition": "Concrete camera frame-failure hypothesis discharged. Genericnonzero firstvelocity API question remains unpromoted, outside proven camera effect.",
+    "coverage": "Supplied exact source qualification, no fresh04Avian body-read or other-lens coverage credit."
+  }
+}

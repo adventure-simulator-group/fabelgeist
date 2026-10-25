@@ -1,0 +1,26 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-697",
+  "at": "2026-10-25T16:33:52.798538+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 972,
+  "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/model.rs",
+  "sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+  "actual_compared_ranges": [
+    [
+      1,
+      440
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Quest model221\u2013440 evidence/topics/route/finale/dialogue/weight/generation/witness records already derive structural/Serde; VisibleWitnessCandidateInput structural borrowed view already derives CloneCopyDebug. Native presence commitment intentionally serializes a fixed protocol tuple with normalized age/presentation rather than the whole input record.",
+    "visible_witness_candidate384\u2013425 is safe semantic projection (sex None, authored demographic, circumstances and visible prose), not mechanical From/Serialize. No additional handtrait/codec221\u2013440."
+  ],
+  "first_unfinished": {
+    "scope_index": 972,
+    "line": 441
+  },
+  "execution": "none"
+}

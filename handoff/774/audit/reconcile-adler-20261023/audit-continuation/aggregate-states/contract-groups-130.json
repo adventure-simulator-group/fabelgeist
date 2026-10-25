@@ -1,0 +1,35 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-130",
+  "at": "2026-10-25T17:55:26.732866+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1603,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor/raster.rs",
+      "sha256": "ee16efd8a79ab3116e35ecd6f0e7ac5eb6a5e48c573e33e84eba57b4c5634913",
+      "personally_read_ranges": [
+        [
+          1,
+          976
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full976 raster source and all original source-only fixture bodies read in3 bounded ranges. TreeRasterTarget owns atlas region/pixels/depth together but arbitrary raw dimensions/card coordinates can violate product cardinality; accepted bake layout must prove positive tile size, tile membership, atlas pixels=width*height*4, depth=tile^2 and native products before indexing. Normal fixed64..256 tiles and card-grid factory bound it, no ordinary invalid source or GPU run. Local depth NEG_INFINITY is deliberate native z-buffer initializer consumed only inside finite pixel comparisons, distinct from retained application missing observation.",
+        "Actual local branch/leaf emitters produce matching mesh position/normal/color columns and valid U32 triangles; raster indexes corresponding vertices under that exact proof. Optional noCOLOR deliberately defaults white, mismatched presentCOLOR length is not legitimate optional absence. Native interpolation/tint/shader precision operations belong real numerical raster port, no separate bespoke per-barycentric float demanded. Source fractions/scales and card spanningframe still owning upstream contracts, inherited RIG03F034/F036.",
+        "Per-shoot sampling sorts exact shootID+ordinal, draws fixed phase for stride then wraps once to ceiling; both nonempty shoot and positive stride justified by control path. Actual stride>shoot size selects some shoots stably, not every shoot promised. Projected test helpers intentionally flatten leaf axes and scales into temporary vector space, so do not force those surrogate vectors through a physical leaf-unit-frame constructor. Keep physical accepted leaves checked, expose appropriate separate numerical projection representation when migrating shared type.",
+        "Own09F454 empty coverage fraction/count paired centroid0 and infinite bounds applies actual helper coverage_from_mask/projected_crown_coverage; all range/ratio assertions fail closed for current NaN counterexamples, no false validation pass inferred. Existing fixture47104 sparse-tree seed/currentvariant1, realreview45degree camera vectors, seasonal/weather snapshot, multi-azimuth continuity and pigment assertions read exactly. No replacement fixture, test, software-raster execution or image rendered."
+      ]
+    }
+  ],
+  "findings": [
+    "RIG-ADMISSION03-F034 physical source frame",
+    "RIG-ADMISSION03-F036 accepted bake/layout",
+    "SEGO-INITIAL09-F454 explicit empty alpha coverage"
+  ],
+  "qualified_connected_requirements": [
+    "1604/1605 already full ahead129. Future branch/leaf checked representation must preserve cfg(test) projection surrogates without falsely asserting normalized axes; source-only acceptance limit explicit."
+  ],
+  "discovery": "1 newly accounted original roles; other reads support already counted historical roles. Lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

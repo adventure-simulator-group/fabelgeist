@@ -1,0 +1,130 @@
+{
+  "id": "CAMERA-INITIAL07-CONTRACT-171",
+  "at": "2026-10-23T02:40:55.201176+00:00",
+  "lens": "audit-redundant-authority",
+  "members": [
+    {
+      "scope049_index": 317,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/world_actor.rs",
+      "sha256": "232be94a5acf0de9c374f0c16d546051e2d007c1005510b0adb7f3c0d41b28f6",
+      "actual_EOF": 1353,
+      "material_ranges": [
+        [
+          1,
+          1353
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-049.json#/files/317"
+    },
+    {
+      "scope049_index": 1260,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor.rs",
+      "sha256": "a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95",
+      "actual_EOF": 1353,
+      "material_ranges": [
+        [
+          1,
+          1353
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-049.json#/files/1260"
+    },
+    {
+      "scope049_index": 318,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/world_actor/roster.rs",
+      "sha256": "9b4cde3a9009140eb19a6dab12c897dc30ea527fd5cb976c867d651f62c73a07",
+      "actual_EOF": 28,
+      "material_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-049.json#/files/318"
+    },
+    {
+      "scope049_index": 1264,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor/roster.rs",
+      "sha256": "9b4cde3a9009140eb19a6dab12c897dc30ea527fd5cb976c867d651f62c73a07",
+      "actual_EOF": 28,
+      "material_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-049.json#/files/1264"
+    },
+    {
+      "scope049_index": 2692,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/world_actor/presence.rs",
+      "sha256": "39cd6d057c070e586f5701d068b930beaafe12dc00d68465ffd460ede664c5ea",
+      "actual_EOF": 196,
+      "material_ranges": [
+        [
+          1,
+          196
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-049.json#/files/2692"
+    },
+    {
+      "scope049_index": 1263,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor/presence.rs",
+      "sha256": "39cd6d057c070e586f5701d068b930beaafe12dc00d68465ffd460ede664c5ea",
+      "actual_EOF": 196,
+      "material_ranges": [
+        [
+          1,
+          196
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-049.json#/files/1263"
+    },
+    {
+      "scope049_index": 1261,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor/authority_tests.rs",
+      "sha256": "347470fad13ff5772d20c8221b4f1157d851eab67776ae32614339069ba56d33",
+      "actual_EOF": 49,
+      "material_ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-049.json#/files/1261"
+    },
+    {
+      "scope049_index": 1262,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor/contact_authority_tests.rs",
+      "sha256": "67f3636f0569656541c6b0c20e49646ff86e0cd51031ae2f6e7ba810f7d8d1a5",
+      "actual_EOF": 130,
+      "material_ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-049.json#/files/1262"
+    }
+  ],
+  "actual_source_proof": "Personally consumed actual full Rig626 and Native044 per-source facts, then fresh P16world_actor1-423/424-590/816-938/940-1154 plus view122-290; remaining actual consent/presence production and source tests from exact full626. Fresh complete PRpresence196/roster28 and PRexisting fixtures49/130; actual complete counterpart bodies/deltas explicitly compared (world_actor3carriers, presence/roster unchanged current roles). P16fixtures absent from current scope not read or credited. Focused F031 source proof166 integrated, no repeated fresh body claim.",
+  "contracts": [
+    "Membership interval is the authority for open/closed state; is_open derives left_at absence rather than storing a second status. Interval validity uses entered<=time<left, equal-time interval intentionally empty, and closure writes max(requested,entered) once then preserves history. Current context_members open-roster query differs from observer-time case/hostile presence: historicalclosed membership can still be visible at earlier observerfrontier. Neither storedCharacter.alive nor currentopen flag alone replaces historical birth/death/presence predicates.",
+    "Context.kind, role, contact answer and treatment answer are independent context-specific facts; hostility is not intrinsic Character type. Actual context/Character materialization creates ordinary persistent components then binds identity in roster, road-to-combat rebind preserves actual Character rather than cloning a surrogate. Roster ordinal and context-ID coordinate derive materialization identity but are not enough to authorize current presence or unique speaker after life/closure changes. Exact unique membership and actual current/historicallife gates in159 and164 now have current lower bodies.",
+    "Backend alive is derived differently by purpose: case/hostile uses observerpersonalfrontier birth/death history, road/strategic encounter uses currentCharacter.alive while actualencounteropen. Thus publicalive may intentionally differ from a later-current lifeprojection, not a second mutablelifeauthority. Context visibility also rechecks canonicalplace/observerlead/exactcoordinates/currentcorrection time; no rawrecord grammar or full replay-proof inferred from matching IDs.",
+    "Contact row existence records completed party-context interaction and revisable contact frontier, while encounter party_aware/enemy_aware can also arise independently from initial detection. Actual contact updates bothawareness flags, removesSneak, updates explanation/revision, upsertscontact and appends immutable exact retryreceipt; original fixture explicitly compares this coordinated route. Do not derive everyawareness flag solelyfrom contact existence or delete perception-derived initialawareness. Mission captured contacted_before_combat164 is immutable bind-time evidence, not another currentflag to synchronize afterlaunch.",
+    "Public revision and membership_revision are intentionally different contextual protocols. Case/hostile claims bind membership.revision; road/strategic contact uses contact/encounterrevision as currentinteractionfrontier. Backend204-228 and contact1092-1102 select corresponding source, not an assertion all revisionsalways equal. Resulting_revision inreceipt describes pastevent. Canonical typed claim/cursor products can make distinctions explicit; blindly merging same u32 fields would breakauthorization semantics.",
+    "Emergency treatment is derived live from actualincapacitated status plus exactlimbcut/bandage/procedure and refusal; normal storedtreatmentanswer stays authored consent, not overwrittenby temporaryemergency eligibility. Selftreatment, sameparty preference and exactauthoredcontextclaim have deliberateprecedence. Surgery166 currentpost-waitdecision nowjoins actualreceiver; no privacy/consent equivalence inferred solelyfromco-location. F022 cachedcondition correctness remains lowerdependency, F031actualwoundhealthpublication remains distinct.",
+    "Patient materializer stores seeded cut without limb-healthrefresh, exactF031 confirmed inwholeworld_actor source role; actualview treatment_limb229 reads authoritativeinjury while backendCharacterLimbs readsretainedhealth, so the representations genuinely can diverge onsuccessful Patient creation. No extraunique count. Raw fixture mutations independently setuporacles; they do not erase this ordinaryconstructor path or establish installedchosenencounter/runtime proof.",
+    "Roster deactivation wrapper26 discards clockfailure tovalidZERO beforeclosed-end clamp; authoritative instant cantherefore be lost atactualerrorboundary though intervalremainswellformed. This is existing producer/error migration graph, not proof source lookupactuallyfails (refreshinitializesmissing). Preserve explicitzero fixtures separately and propagate actual sourceerrors torealnativeDisplayport ratherthanfabricatingauthority. Context textdiscriminators support canonicalcodecF010, no newfreeform ID grammar."
+  ],
+  "findings": [],
+  "existing_finding_support": [
+    "CAMERA-INITIAL07-F010",
+    "CAMERA-INITIAL07-F022",
+    "CAMERA-INITIAL07-F031"
+  ],
+  "connected_repair_acceptance": "Keep canonical interval/identity and context-specific claim/cursor owners through actual views/reducers, preserve temporalobserver/life and consent distinctions. Coordinate awareness+contact updates and retain immutable receipts. Fix exact F031 seed publication through injury owner; propagate sourced closure errors, no alias/compatibility layer. All physical/tactical ticks stay transient.",
+  "status": "Exact8 source inventories; prior negotiation/roster/surgery lower contexts explicitly joined, no source/runtime/other-lens clearance"
+}

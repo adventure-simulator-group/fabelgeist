@@ -1,0 +1,128 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-716",
+  "lens": "audit-enum-shapes",
+  "groups": [],
+  "shared_material_reads": [
+    {
+      "shared_index": 0,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/materials/palette.rs",
+      "sha256": "0ce1ea507bc49a06edff5175cc0638a0cc8e5cf7c3e33258fc41b01e5d97faa1",
+      "ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "contract": "contracts-716.json",
+      "disposition": "BuildingLodMaterial Wall/Roof/FurnitureWood owns applicable classifier payload; palette finish is independent material presentation. Multiple material assets differ per slot, TimberInfill handle does not by itself identify whole palette. No new09 sum gap.",
+      "status": "fresh registered exact body/ranges read and reanalyzed09",
+      "execution": "none",
+      "other_lens_credit": false,
+      "frozen_unique_credit": false
+    },
+    {
+      "shared_index": 1,
+      "source_id": "merged774:crates/adventuresim-weapon-model-browser/src/lib.rs",
+      "sha256": "c29071eeb95db76a0909330a53328dd39f1f2d2f1dddfcecff7c448fcffe344b",
+      "ranges": [
+        [
+          1,
+          250
+        ]
+      ],
+      "contract": "contracts-716.json",
+      "disposition": "Request internally tagged operation owns applicable recipe/detail/design/preset payload. RequestError owns applicable typed generation/encoding/JSON causes or explicit diagnostic construction String; actual WASM adapter lowers errors toString. JSON diagnostic reparse never executes malformed request. No new09 conditional shape; root classification/cause erasure obligations retain separate namespace. Source fixtures read only.",
+      "status": "fresh registered exact body/ranges read and reanalyzed09",
+      "execution": "none",
+      "other_lens_credit": false,
+      "frozen_unique_credit": false
+    },
+    {
+      "shared_index": 2,
+      "source_id": "native-dependency:bevy_render-0.19.1/src/storage.rs",
+      "sha256": "dcce6f3140c253231a106b1343c0dfa5e78e3175a78e9e78863e65ee3764b35a",
+      "ranges": [
+        [
+          1,
+          231
+        ]
+      ],
+      "contract": "contracts-716.json",
+      "disposition": "Native ShaderBuffer dataOption is real optional CPU upload; previous GpuShaderBuffer had_data records upload history after take. Native copy_on_resize and creation usage flags independent from CPU data presence; preserve resize-in-place data retention and valid upload reuse, no mechanical enum forbidding combinations. No ordinaryGPU failure/run or source repair claimed.",
+      "status": "fresh registered exact body/ranges read and reanalyzed09",
+      "execution": "none",
+      "other_lens_credit": false,
+      "frozen_unique_credit": false
+    },
+    {
+      "shared_index": 4,
+      "source_id": "native-dependency:bevy_render-0.19.1/src/render_resource/uniform_buffer.rs",
+      "sha256": "09c699b99ca5712b61dc38ce3703155701999ab75801a5f38172475c23b73d1c",
+      "ranges": [
+        [
+          1,
+          149
+        ]
+      ],
+      "contract": "contracts-716.json",
+      "disposition": "Native UniformBuffer bufferOption owns actual allocation state; changed dirtybit covers label/usage mutation both before and after allocation, so all changed/presence combinations meaningful. Native Boolean usage/dirty protocol, no semantic bespoke mode or source change.",
+      "status": "fresh registered exact body/ranges read and reanalyzed09",
+      "execution": "none",
+      "other_lens_credit": false,
+      "frozen_unique_credit": false
+    },
+    {
+      "shared_index": 5,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/streams.rs",
+      "sha256": "eb233a67ab87212ae64dd30075b41f4708529607aea29596bbea32c4a0acc93d",
+      "ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "contract": "contracts-716.json",
+      "disposition": "Named StreamId purpose constants only, distinct deterministic draws. No conditionalpayload or finite ordinal enum; no replay/parity acceptance implied.",
+      "status": "fresh registered exact body/ranges read and reanalyzed09",
+      "execution": "none",
+      "other_lens_credit": false,
+      "frozen_unique_credit": false
+    },
+    {
+      "shared_index": 6,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/loose_stone/streams.rs",
+      "sha256": "80fc6b2fc6f287ef9c214f4492651b73006484371550db1c0ee58649f492d7ee",
+      "ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "contract": "contracts-716.json",
+      "disposition": "Named StreamId purpose constants, VARIANT fixture-only deliberately separate from production streams. No carried Boolean mode or conditionalpayload.",
+      "status": "fresh registered exact body/ranges read and reanalyzed09",
+      "execution": "none",
+      "other_lens_credit": false,
+      "frozen_unique_credit": false
+    },
+    {
+      "shared_index": 7,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/understory/streams.rs",
+      "sha256": "af5f77b3bca6fcfb8ec098008e0b1cb339a495cf5bf3b423ad9c24c325caf916",
+      "ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "contract": "contracts-716.json",
+      "disposition": "Named StreamId purpose constants; COMMUNITY/SPECIMEN/SPECIES separate random purposes, no exclusive morphology enum or cache-key verdict.",
+      "status": "fresh registered exact body/ranges read and reanalyzed09",
+      "execution": "none",
+      "other_lens_credit": false,
+      "frozen_unique_credit": false
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact registered body ranges only; no native SDK style audit/repair, no fixtures executed or finding clearance."
+}

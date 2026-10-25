@@ -1,0 +1,122 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-328",
+  "at": "2026-10-25T14:43:53.134539+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 639,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/lod.rs",
+      "sha256": "a67de5a3238c34c5d18edae89ddc2c51c4fe1dd562189103a6549bb34a88cfac",
+      "actual_EOF": 666,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/lod.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-building-generator/src/lod.rs",
+        "sha256": "a67de5a3238c34c5d18edae89ddc2c51c4fe1dd562189103a6549bb34a88cfac",
+        "bytes": 23374,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-root-receivers-009.json",
+            "ranges": [
+              [
+                1,
+                666
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-SUPP-STRATEGIC-003"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+            "row": 85,
+            "read_ranges": [
+              [
+                78,
+                140
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-SCATTER-041"
+            ],
+            "read_status": "affected_ranges",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/lod.rs"
+          },
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 456,
+            "read_ranges": [
+              [
+                1,
+                666
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-FACADE-LOD-MESH-068"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/lod.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root",
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 205,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          666
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "BuildingLodLevel structural/Serde snake_case49\u201356",
+        "BuildingLodMaterial structural/Serde61\u201393",
+        "LodVertex/LodMesh structural/Serde95\u2013107",
+        "FacadeRunPath structural/Serde internally tagged snake_case162\u2013175",
+        "FacadeRun structural/Serde177\u2013186",
+        "BuildingLod structural/Serde252\u2013257"
+      ],
+      "source_read_receipts": [
+        "actual1\u2013230/231\u2013460/461\u2013666"
+      ],
+      "absence_basis": "Full exact source personally consumed. LodMesh inherent native vertex/winding emission109\u2013159; FacadeRun straight189\u2013198/can_join200\u2013224/join226\u2013249 semantic physical/source grouping; BuildingLod native batching259\u2013272; native facade/round/roof/material/coordinate helpers274\u2013432; winding helper439\u2013456 and five fixtures459\u2013665 read not run. No handwritten trait/codec; mechanical wire/structural code already derives. Preserve existing tag/variant wire representation; no claim of native codec compatibility or other-lens clearance."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "building LOD native semantic representation versus structural codecs",
+      "disposition": "No handwritten trait boilerplate in full source. Existing derives own record/enum coding and structure; semantic native mesh/source/material/geometry mapping remains explicit.",
+      "acceptance": "Preserve existing wire shape, native geometry and source authority; no runtime codec/geometry correctness claim, source edits or execution."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 640,
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/lod/compilation.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

@@ -1,0 +1,148 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-006",
+  "at": "2026-10-22T19:12:08.947659+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/fabelgeist-geometry/src/length.rs",
+      "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+      "actual_read_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "scope_limits": "Onlyexactranges, no samehash counterpart body/otherlens credit; scopedexistingtestbodies readasexisting evidence only, no execution/newcase."
+    },
+    {
+      "source_id": "report-p17:crates/fabelgeist-geometry/src/length.rs",
+      "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+      "actual_read_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "scope_limits": "Onlyexactranges, no samehash counterpart body/otherlens credit; scopedexistingtestbodies readasexisting evidence only, no execution/newcase."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "268891d7d5556895ace4c6ce33b14953e35d5973bfce9b042e4b9d2dbc721a86",
+      "actual_read_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "scope_limits": "Onlyexactranges, no samehash counterpart body/otherlens credit; scopedexistingtestbodies readasexisting evidence only, no execution/newcase."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-determinism/src/seed.rs",
+      "sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "actual_read_ranges": [
+        [
+          1,
+          213
+        ]
+      ],
+      "scope_limits": "Onlyexactranges, no samehash counterpart body/otherlens credit; scopedexistingtestbodies readasexisting evidence only, no execution/newcase."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-determinism/src/stream.rs",
+      "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+      "actual_read_ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "scope_limits": "Onlyexactranges, no samehash counterpart body/otherlens credit; scopedexistingtestbodies readasexisting evidence only, no execution/newcase."
+    },
+    {
+      "source_id": "physical-p16:crates/fabelgeist-determinism/src/seed.rs",
+      "sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "actual_read_ranges": [
+        [
+          1,
+          58
+        ],
+        [
+          72,
+          83
+        ],
+        [
+          114,
+          116
+        ],
+        [
+          170,
+          174
+        ]
+      ],
+      "scope_limits": "Onlyexactranges, no samehash counterpart body/otherlens credit; scopedexistingtestbodies readasexisting evidence only, no execution/newcase."
+    },
+    {
+      "source_id": "physical-p16:crates/fabelgeist-determinism/src/stream.rs",
+      "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+      "actual_read_ranges": [
+        [
+          30,
+          41
+        ],
+        [
+          48,
+          61
+        ],
+        [
+          134,
+          138
+        ]
+      ],
+      "scope_limits": "Onlyexactranges, no samehash counterpart body/otherlens credit; scopedexistingtestbodies readasexisting evidence only, no execution/newcase."
+    }
+  ],
+  "groups": {
+    "positive-leaf-counterparts": {
+      "sources": [
+        "physical-p16:crates/fabelgeist-geometry/src/length.rs",
+        "report-p17:crates/fabelgeist-geometry/src/length.rs"
+      ],
+      "trace": "Each40fresh, independent04exactownerbodycomparison. Sameactualprivatefinite>0contract asPRRoot001: admissionfinitecheck thennegative thenzero, constructors publishonlyafterall; gettercopiesvalue; manualSerdecallsowner. No arithmetic/mutation/operators/privateSelfexceptcanonicalconstructor. Thus no operationinthisexactfilecaninvalidateadmittedvalue, allnativecomputedupstreamoverflow/underflow mustentercanonicalconstructoratitsownnumericalboundary. Samehashalonewasnotcredit: bothactualbodies reread androleequivalenceexplicit; downstreamconsumersdistinct."
+    },
+    "unit-interval-counterpart": {
+      "source": "physical-p16:crates/adventuresim-core/src/unit_interval.rs",
+      "trace": "Each58freshP16: privatefiniteinclusive0..1, negativezero valid; DefaultZERO/staticHALF/ONE valid. max selectsoneadmittedfiniteboundedoperand, noaccumulation. NativefloatoutboundFrom isnotrawinboundunchecked; actualTryFromandSerde sharefinite/rangegate. No mutator/time/index. Ownfileoperations preservebounds; no blanketclamp everyconsumer."
+    },
+    "word-seed-owner": {
+      "source": "pr-working:crates/fabelgeist-determinism/src/seed.rs",
+      "trace": "All213fresh inclscopedexistingtest; Seedall64bitpatterns incl0 valid, no numericpositive/nonzeroauthority implied. wrapping_offset explicitlymodularu64add andxor_wordbitwise preserveallwordspace, no unintendedoverflowcase. from_u64/frombytes/fromstr/display/hash/order retainwordmeaning, exactLE8framing; randomdistribution1word no repairneedsFloatbitmask. finish copiesfirst8offixedBlake3digestbytes via8bytearray andfrom_le_bytes, nativehashwidthcontract separatelyexistingforeigncontext not additionalbodycredit. derivationeachroot/purpose/context fieldlength asu64 fixedLE perfield, losslessusize32/64supportedtargets, no invented128bittargetproblem. StreamIdnew assertnonempty beforeSelf, invalidemptyrawinputpanic documentedconstpurposeentry, notmutablevaluecorruption/drawconsumption. Numericcontext seedwriteseachfixed8byteword framing, seedderivationlocalhasherclonedfromOnceLock base nevermutatesbase orotherstream. unit_f32/inclusive/f64 wrappers delegatealready-scopedbitprojectionowner: actualkernelbody mustbecomparedseparately04, no unitcontractclearancefromsymbol. rng buildsownrandomstate, nointervalnumericvaluecreatedhere. Existingtests verifylengthframing/stablecontext only; no executedresultclaim."
+    },
+    "bounded-integer-and-weighted-sampling": {
+      "source": "pr-working:crates/fabelgeist-determinism/src/stream.rs",
+      "trace": "Full169fresh. next_u64/next_seed useonefixedwidthdrawnativeSplitMix; below NonZeroU64 ensuresvalidpositiveupper forUniform0..upper (nativeUniformactualimplementation ownscopedkernelpending). indexpreconditionlengthnonzero explicitdocandcheckbeforefirstdraw; usize32/64->u64 lossless, sampledvalue<length canconvertback andindexknownslice, choose safeunderactualnonemptyprecondition, noadmittednonemptycollectiontypeinventedhere. RuleReviewwilladdressproductionexpects independently evenwhereinvariantsproveunreachable. boolean2nonzero; shuffleindexrange1..lenreverse +selected<index+1 ensuresbothswapindicesvalid, empty/singleloopnone. weighted_index buildscheckednonemptypositive-sum/nonoverflowWeightedIndexBEFOREsampling; invalidweightsErrdoesnotconsumedraw. weighted_order localremainingcopy, countpositive fixed; initialoverflow/allzero/empty errorbeforefirstdraw; successfulinitialtotalthenonlyzeroesnonnegativeentry, so totalcannotincrease/overflowlater, eachiterationonepositiveentryremovedandloopcountmatches. Remaining[index] selectedbyactualdistribution cardinality; nativeWeightedIndex exactkernelowncellneeded, no arbitraryrawforeignerror blanket. Functiondoesnotmodifycallerweights, returnedindicesstableinputorder/wodraws; no demonstratedpartial-error-RNGconsumption aftervalidfirstsample. unitfloatwrappers delegate nativebitowner; rangeF005 arithmetic independentofparticularunitdraw. ExistingRejectionProbetest constantsadvance2words onlyfixture, no newtests/execution."
+    },
+    "p16-limited-word-sampling": {
+      "sources": [
+        "physical-p16:crates/fabelgeist-determinism/src/seed.rs",
+        "physical-p16:crates/fabelgeist-determinism/src/stream.rs"
+      ],
+      "trace": "ActuallistedP16rangesfresh. Seedselecteddefinition/StreamIdseednumericderivation/finish/nativewordconstructors/rng/From equivalentownrole reasoning above afterreadingtheseexactbodies, notallPRmethods: wrapping_offset/xor/floatprojection/derive63-69/Hash/order/testtailoutsideP16rangesuncredited. Streamselected30-41,48-61,134-138 actualSplitMixconstructor/nextdraw/NonZerobelow/index/nativeUniformadapter; same32/64castanddocumentednonemptyprecondition proof, no PRrange_f32F005 inferredontoout-of-scopeP16method. sample_below uniform validpositiveupper, actualnativekernelglobalcellpending."
+    }
+  },
+  "findings": [
+    {
+      "id": "ROOT-INITIAL04-F005",
+      "class": "representable_public_API_defect; current_gameplay_extreme_bounds_not_established",
+      "source": "pr-working:crates/fabelgeist-determinism/src/stream.rs",
+      "operation": "range_f32 finiteorderedbound check doesnotpreserve finite interval result through unbounded f32subtraction.",
+      "counterexample": "range_f32(-f32::MAX,f32::MAX) passes is_finite andminimum<=maximum92, then maximum-minimum overflows+Inf93. Forunitdraw0 productNaN, forpositivefiniteunitdrawproduct+Inf; resultingpublishedrawf32 isnotfinite/betweenfinitebounds. This doesnotdependontheparticular RNGsequence. No callerwiththeseextremebounds/executedgameplayfailureidentified.",
+      "affected_consumer": "Every actualcaller requestingcheckedfinite interval fromthiscanonical samplingowner mayreceiveunboundednative result despitevalidinputcontract; concretecallgraph/currentordinarybounds remainseparateglobalproducer/consumercells.",
+      "repair_acceptance": "Give actualrangeowner checked finiteordered interval inputs/result semantics withoverflow-safe interpolation or explicit typedrejection beforepublishingbadresult; define destinationendpoint/roundingpolicy fromactualconsumerrequirements, notinventhalfopenmaximumguaranteehere. Preserve accepted existing draws, exactlyoneword sampling wherecurrentlysuccessful, seedderivationbytes/domain strings/stableauthoredorder. Do not clampbadboundstoarbitrarydefault or change unrelatedRNG/hashoutputs. Nativeintervalscalingcomment explicitlydisclaimsdownstreambitwiseguarantee butdoesnotjustifyInf/NaN."
+    }
+  ],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

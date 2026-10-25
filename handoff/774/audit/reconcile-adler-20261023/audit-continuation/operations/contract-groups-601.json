@@ -1,0 +1,86 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-601",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/furniture/builder.rs",
+      "sha256": "502686dec923c61c5544f2249c9ba10f0a1ec2fac5db68afbb55a5426698570d",
+      "actual_EOF": 305,
+      "actual_compared_ranges": [
+        [
+          1,
+          305
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/furniture/finish.rs",
+      "sha256": "dac29dae17db4b4f9d76d11d1b0abef36af636b365631f550a9fa90a4f81f072",
+      "actual_EOF": 193,
+      "actual_compared_ranges": [
+        [
+          1,
+          193
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/lod.rs",
+      "sha256": "a67de5a3238c34c5d18edae89ddc2c51c4fe1dd562189103a6549bb34a88cfac",
+      "actual_EOF": 666,
+      "actual_compared_ranges": [
+        [
+          1,
+          666
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/member_uv.rs",
+      "sha256": "c560af0f6ea1265a0cc35a0bc9c0757094219d2c6bf12f37de47d4ea15460af9",
+      "actual_EOF": 68,
+      "actual_compared_ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Furniture recipe construction error retention and recentering",
+      "evidence": "Wholebuilder305: admitted common signcorners beforemember meshes; firstcollisioncause retained; finish/into_meshes reject beforepublication; finishbounds finite gate excludesempty sentinel, recentresgeometry/colliders/support/clearances and readmits finalowners. Completefinish193 boardcount/pitch/reveal plus woodgrain/endgrain andoctagonal wear replacesface.",
+      "qualifications": [
+        "Internalquad/triangle andworn normals are native rawmesh operations, not independent proof all finiteadmittedgeometry yields finiteUV/normals. Recipe dimensions/currentordinaryassets bound actualcaller; zero/tiny boarddepth/count policy needs caller, no newordinary invalidasset asserted.",
+        "Partially constructed builder afterreject cannot be finished successfully; no false publishedpartialrecipe claim. Zeroextent CuboidDimensions valid, unlike positive LeafDimensions; do not tighten shared owner to repair procedural meshquality."
+      ],
+      "acceptance": "Preserve firstcause and all-or-error recipe boundary, physical/render recenter alignment, authored fullboardreplacement andactualwear topology."
+    },
+    {
+      "contract": "P16 LOD native mesh arithmetic and fa\u00e7ade joining",
+      "evidence": "Wholelod666 personally read includingfixtures. Meshpushappend changeswindingbygeometricnormal; native len asu32/baseindex arithmetic presumes representablemeshcapacity. Straight join checksmaterial/storey/geometricprofiles then unioninterval/dedupsourcewalls; round24segments fixedpositive denominator; roofs use semantic tessellation, renderonlyfacade distinctfrom tacticalcollision.",
+      "qualifications": [
+        "Meshcapacity remains owning nativeport/admission requirement; no actual billionsvertex authoredproducer or separateacceptedfinding claimed. Sourcefixtures finite/winding/index assertions are evidence of intendedcontract, not executed proof.",
+        "Publicraw FacadeRun/LodMesh serde doesnotestablish semanticvalidity; no automaticwholegraphclearance importedfrom accepted03/06. Finiteextreme halfplane/dot/interpolation mayloseprecision but no normal-size generated witness newlypromoted."
+      ],
+      "acceptance": "ActualsuccessfulLOD must fit indexrepresentation and finite attributes; preserve intentionally renderonly material batching and gameplay collision boundary."
+    },
+    {
+      "contract": "Member-local fibre UV projection",
+      "evidence": "Whole68linesread: largestdimension canonicalaxis, endgrainselectstransversebasis, inversequaternion localprojection, fixedpositiveUVscale andpositionphase(dot,length); ordinaryaxis/rotationfixtures readnotrun.",
+      "qualifications": "Nativecentre.norm/dot canoverflow for finiteextreme coordinates; same connected finiteUVphase family previously recorded, no newduplicatecount or ordinaryassetfailure. Unitrotation andchecked finitephysicalproducer are separate prerequisites, no arbitrary originclamp.",
+      "acceptance": "Preserve scale/fibreorientation through rotation and worldpositionrepeatphase while admitting/rejecting derivednonfiniteUV at owning mesh boundary."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-building-generator/src/model/resolved_shapes.rs"
+}

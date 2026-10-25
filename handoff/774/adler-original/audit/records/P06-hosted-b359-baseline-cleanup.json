@@ -1,0 +1,32 @@
+{
+  "recorded_at": "2026-10-21T04:20:56.107004+00:00",
+  "base_head": "f0f825f20f30f74cc6371e6f8754cdfb740ab6f6",
+  "evidence_head": "b359e8e86a7c2d9c4cb90009320f0761ba9c2c19",
+  "evidence_run": 39542147268,
+  "evidence_job": 119032079378,
+  "evidence": "P06-hosted-b359-first-failure.log",
+  "production_equivalence": "git diff b359..f0f shows only the existing cfg(test) source-string whitespace expectation. Production and baseline inputs for the three diagnostics are unchanged.",
+  "removed_exact_entries": [
+    {
+      "group": "files",
+      "path": "crates/adventuresim-stdb-module/src/simulation.rs",
+      "ceiling": 550
+    },
+    {
+      "group": "files",
+      "path": "crates/adventuresim-stdb-module/src/strategic/development_scenarios.rs",
+      "ceiling": 651
+    },
+    {
+      "group": "functions",
+      "path": "crates/adventuresim-stdb-module/src/strategic/development_scenarios.rs",
+      "item": "materialize_gallery_item",
+      "ceiling": 124
+    }
+  ],
+  "all_other_metadata_and_bytes_preserved": true,
+  "baseline_before_sha256": "befb29022493b8bd07604568971a981112ee77233b0b3a5cc80069f0f27e4d87",
+  "baseline_after_sha256": "7b3d9bff163a6ac5c858200082f3367bef6823278773e8d14599e559018f3a72",
+  "effect": "Removes obsolete debt; default 500-file/100-function limits apply at these paths. No ceiling raised and no debt transferred to new modules.",
+  "remaining": "Current-head full gates and relevant further reductions from the official baseline export remain due. No local checker/baseline/parser/project tool ran."
+}

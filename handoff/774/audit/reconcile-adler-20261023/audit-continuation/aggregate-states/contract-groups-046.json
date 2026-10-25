@@ -1,0 +1,51 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-046",
+  "at": "2026-10-25T11:18:52.044474+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1164,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/projections.rs",
+      "sha256": "21ca8c10819955044eb13b938fbd469c82394fafb8353c1b4af33d72b8edc688",
+      "personally_read_ranges": [
+        [
+          1,
+          255
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole255 relationship projections read. Gateway-only returns allrelatedcharacters totrustedgateway, actual HTTPconsumer must filteractivecharacter/observer; no directclienttableprivacy claim. Spouse/courtship/pregnancy choose effective intervals at eachpersonalobserverclock ratherthanlateststatus; exposed uses successfulreceiptdate<=observer, truehistorical disclosure. Courtshippartner/kind/exposed normalconstructor derives one optionalrow, wedding fourOption fields derive onereferencedcommitment. Pregnancy_due is currentpregnancy, pregnancy_child is latestalreadybornchild independently and must NOT be paired into one samepregnancyunion (same own09F349). Wedding lookup uses activeunique participantindex ratherthan history scan; futurefulfilledcommitment deletesindex. Potentialmissing engagement atlaggingpersonalfrontier requires actualceremonycaller timing under1161processable gate; preservequestion notordinarybugclaim. active_courtship_between_view useslateststatus/noobserverminute, receivingcallers mustspecify current-worldauthority or historicalfrontier; actualmodulealone not sufficientprivacy/futureclaim. Courtshipdiscoveries gate receipt<=observerminute then joinpairhistory, no learnedobservertransfer. Raw fields/codedmodes remain existing state-shape migration, normalprojectionassociatedfields coherent."
+    },
+    {
+      "scope_index": 1165,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/reproduction.rs",
+      "sha256": "52318f2d0b66c1d88adaa38059b677829f263cfe6f2033fc92c2c59f6671563c",
+      "personally_read_ranges": [
+        [
+          1,
+          690
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole690 reproduction source read. Pregnancy establishment uses validsettlement and deterministicallycoupled childidentity/name/sex/home from exactmother/father/ordinal/due/place; reservation co-written with Activepregnancy and row. Existing activepregnancy short-circuits regardlessnewfather/time, normalconception gate rejects any conceived<=trial<due; no ordinary conflictingsecondconception established. CandidateID incrementswrap while occupiedcharacters or reserved IDs found in pregnancyhistory; nonzero/identityrangepolicy requires canonical owner and actualcapacity, no realisticwrapwitnessclaimed. Canonical parents require alive/adult/historicalmarriage and opposite sex. Leisureproducer clipsmarriageinterval, usesrestorativeschedule, inserts only uncovered spans atactuallocation; overlap pairs only positivejoint and stabletime order, sameIDsreceipt guard, checkpoint canonicalquantum and ordinal receipt beforepossiblepregnancy in same transaction. Duplicateconceptualoverlaps constrained by percharacter uncoveredinput; raw arbitraryoverlappingrows notordinaryproducer. Trial success includes marriage/sex/age/alive, randomthreshold and no activepregnancyatminute; it is not just randomroll. Moraleuses separate refreshable boundedspouse/residence budgets and canonicalexpiry then updates strategiccondition. Birth requires motherfrontierreacheddue, ordinaryfullCharacter/Newborn options, historicalname seed, policy/continuity/family roles/kinship/household, optionalbedallocation, Born row and releases exactreservation/activeindex together. Unexpectedfalliblebirth commit propagates in1161, contrasting wedding catch. signedbirthrecord clamps u64due to i64MAX and birthidentity/home seeds extracted to rawu64 for laterAPIs: retained chronology/producer migrations; actual supportedclockrange/unit needs explicitcontract, no ordinarycalendarreachesMAX claim. household_at consults marriagehistory before mutablemembership toavoid futuredivorce rewritingbirth. Preflightvalidates state/parents/settlement/reservation, not completegraph; subsequentunexpectedfail transactionabort retains atomicity."
+    },
+    {
+      "scope_index": 1166,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/socializing.rs",
+      "sha256": "9a9ab241262b451da17be5f58496db212b0d767fba0049cd64ee9de105ed927f",
+      "personally_read_ranges": [
+        [
+          1,
+          325
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole325 socializing source read. Affinityat effective date failsclosed onfuturecompactanchor, absencerow meansneutral0. Daily target priority romantic\u2192party\u2192positiveaffinity\u2192local, candidates require aliveatdate and residenthistoricalpresence or limitedcurrentlocationfallback; sorteduniqueIDs and canonicaldaily selector produce stablechoice peravailabilityslice. Receipts carry peractor/day/target cumulative realizedminutes plus minstart/latestend, not necessarily continuous wallspan, so minutes!=end-start can be valid. NoTarget uses actorID impossibletarget and0minutes watermark, same own09F350 explicitvariant migration; realtarget can also receive0allocatedminutes, so do not infer noTarget fromminutes0. nextboundaries include residenthours/birth/death/courtship; schedule iterates days, computes accruedfloor differencing, skipsalreadyappliedend, advancescursor. Sharedparty path intentionally omits duplicatefamiliarity; async nonparty appliesactualfamiliarity, no targetclockadvance. Existing rawschedule/day/identity/affinity/time/cause owners remain propagation obligations. Currentaffinity used in acquaintancespriority evenfor historicalslice may reflect futurecompactanchor; actual updatedanchor and existing selectionpolicy need connectedreceiver proof before new temporalbug. No tests/checks/sourcefix."
+    }
+  ],
+  "connected_questions": [
+    "Q013 wedding latefallible capacity/partialcommit still pending complete1180\u20131184 admissiongraph.",
+    "Historical wedding projection usesactiveparticipantindex; actualcanonicalworldceremony versus bothfrontiers processability mustclose before promoting wronghistoricalsummary.",
+    "Preserve legitimate independent latestbornchild/currentpregnancy and realizedminutes/noncontinuouswallspan semantics."
+  ],
+  "discovery": "Three original roles compared WITH existing migration contracts/qualifications; full lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

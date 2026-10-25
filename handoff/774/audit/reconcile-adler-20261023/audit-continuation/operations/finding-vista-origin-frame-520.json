@@ -1,0 +1,50 @@
+{
+  "id": "SEGOVB-04-VISTA-ORIGIN-FRAME-CANDIDATE-001",
+  "classification": "admitted coordinate frame lost during clipping/seam mutation",
+  "evidence": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/vista_surface.rs",
+      "sha256": "0238db91b3a926b53a353da8892a2e0ff17018d131529261be5a4cdf2cb8e405",
+      "ranges": [
+        [
+          328,
+          378
+        ],
+        [
+          384,
+          426
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/validation.rs",
+      "sha256": "3d97a798029ddc9f195aa209105f64070c55fb0172ef87a515e67fe945c735c9",
+      "ranges": [
+        [
+          34,
+          59
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/scene_input.rs",
+      "sha256": "03e1948b1e2d2492d4f2062ef4aebb1e6dc293f6e228bede4d15710785306b57",
+      "ranges": [
+        [
+          408,
+          444
+        ]
+      ]
+    }
+  ],
+  "counterexample": "Public valid SceneTerrain2x2 spacing1 flat10 =>playablehalfextent(.5,.5). Valid VistaLod3x3 spacing2 origin(2,0) heights0; queryScenePlanPoint(2,0). sampled_vista_triangle_height computeslocal0,cell(1,1),rectangle[0,2]x[0,2], clipsoutlocal\u00b1.5 and returnsNone although world(2,0) liesoutside actualplayable. Seam helper likewise samplesplayableterrain usinglocal instead ofworld, so frameerror affectsblend aswell. No execution claimed.",
+  "qualifications": [
+    "Actual importedproducer personallyread978 hardcodesbothorigins0, so ordinaryimportedroute doesnotwitnessfailure.",
+    "WholeTacticalSceneInput validator permitsfinite origins withoutzero restriction; this is public/APIrepresentable source-conditional contract.",
+    "Currentrenderer meshcaller comparison remainsdependency; APIactualsamplerreceiverclosed, notclaimlivevisualdefect.",
+    "Separatefromexisting459 selectedLODcohort mismatch; sharedvistaownerdoesnotmeanexactduplicate. Exactarchivealiaspending."
+  ],
+  "acceptance": "One explicit scene/world-to-LOD-local transform owns exclusionrectangle and terrainseamquery; preserve meaningfulnonzeroorigins or explicitadmittedcanonicaloriginpolicy, do not silentlyglobalnarrowphysicalcoordinates. Same selectedLODcohort mustfeedmesh/sampler, butdifferentrepaircause than459.",
+  "proof": "fresh frozen source only",
+  "new_unique_global": "not determined"
+}

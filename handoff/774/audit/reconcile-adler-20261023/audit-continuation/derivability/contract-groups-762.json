@@ -1,0 +1,48 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-762",
+  "at": "2026-10-25T16:43:43.921560+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 996,
+  "source_id": "pr-working:crates/adventuresim-core/src/skill.rs",
+  "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+  "actual_compared_ranges": [
+    [
+      1,
+      440
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "PlayerSkills",
+      "type": "tests::PhysiologySkills",
+      "lines": [
+        [
+          338,
+          346
+        ]
+      ],
+      "disposition": "KEEP synthetic single-skill lookup"
+    },
+    {
+      "trait": "PlayerSkills",
+      "type": "tests::SurgerySkills",
+      "lines": [
+        [
+          373,
+          377
+        ]
+      ],
+      "disposition": "KEEP synthetic single-skill lookup"
+    }
+  ],
+  "analysis": [
+    "Skill fixtures221\u2013440 pin authored aptitude weights/training curves/cap/latent hours/mental-vs-physical performance/language training. PhysiologySkills PlayerSkills338\u2013346 and SurgerySkills373\u2013377 gate one specific skill then return0 others, synthetic selector-dependent fixture rather than delegation to f32. KEEP these tiny local implementations; no available matching derive."
+  ],
+  "first_unfinished": {
+    "scope_index": 996,
+    "line": 441
+  },
+  "execution": "none"
+}

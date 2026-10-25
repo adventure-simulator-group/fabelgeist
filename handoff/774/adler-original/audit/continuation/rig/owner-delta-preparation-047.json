@@ -1,0 +1,87 @@
+{
+  "id": "RIG-CONT-OWNER-DELTA-PREPARATION-047",
+  "status": "administrative preparation only; owner lens not opened",
+  "scope": "Use the existing pending queues as per-source membership authority. Do not duplicate the 158-source inventory or award carry credit.",
+  "queue_membership": [
+    {"owner": "rig", "record": "continuation/rig/owner-delta-queue-pending.json", "source_count": 23},
+    {"owner": "camera", "record": "continuation/camera/owner-delta-queue-pending.json", "source_count": 54},
+    {"owner": "native", "record": "continuation/native/owner-delta-queue-pending.json", "source_count": 28},
+    {"owner": "root", "record": "continuation/root/owner-delta-queue-pending.json", "source_count": 53}
+  ],
+  "rig_work_groups": [
+    {
+      "name": "Geometry datum, displacement and numerical receiving signatures",
+      "queue_source_indices": [0, 4, 5],
+      "producer_navigation": ["RIG-PPS-001", "RIG-PPS-019", "RIG-PPS-020"],
+      "owner_comparison_to_schedule": "Existing geometry length/frame owners versus equipment-local grab and prepared-building origins; imported geographic feature quantities remain distinct. Actual definition/use/recipient fit must be compared after the gate."
+    },
+    {
+      "name": "Creator, armor, GPU layout and readback roles",
+      "queue_source_indices": [1, 6, 7, 8, 9, 10],
+      "producer_navigation": ["RIG-PPS-009", "RIG-PPS-019", "RIG-PPS-023"],
+      "owner_comparison_to_schedule": "Compare existing length/angle/fraction, GPU byte/count and native shader-word owners against newly reached footwear/shell thickness, motif, staging/radix and physics shader roles. Native layout alone does not settle retained application roles."
+    },
+    {
+      "name": "Granted and durable identity, DOM and optional observation",
+      "queue_source_indices": [3, 19, 20, 21, 22],
+      "producer_navigation": ["RIG-PPS-021", "RIG-PPS-030", "RIG-PPS-038", "RIG-CONT-PPS-WEB-REQUEST-RECONCILIATION-039"],
+      "owner_comparison_to_schedule": "Compare existing granted/durable character, custody/site and clock owners with actual descendant grant, decimal DOM/JSON identity and evidence/condition recipients. Preserve full u64 and absence/privacy distinctions; no authority equivalence inferred."
+    },
+    {
+      "name": "Alcohol serving, volume, concentration and social effect",
+      "queue_source_indices": [2],
+      "producer_navigation": ["RIG-PPS-036", "RIG-PPS-038"],
+      "owner_comparison_to_schedule": "Compare canonical material/food/clinical volume and fraction owners against integer serving mL, ethanol potency, hydration and morale roles; units and admitted ranges differ."
+    },
+    {
+      "name": "Web request observations, forecasts and structured causes",
+      "queue_source_indices": [11, 12, 13, 14, 15, 16],
+      "producer_navigation": ["RIG-PPS-038", "RIG-CONT-PPS-WEB-REQUEST-RECONCILIATION-039"],
+      "owner_comparison_to_schedule": "Compare existing clock/schedule/capability/quantity and canonical query/custody error owners at newly reached complete helper bodies. Valid absent optional data differs from failed required observation; consume already assigned whole-function ownership."
+    },
+    {
+      "name": "Rest and social presentation leaves",
+      "queue_source_indices": [17, 18],
+      "producer_navigation": ["RIG-PPS-036", "RIG-PPS-038"],
+      "owner_comparison_to_schedule": "Determine actual final text/HTML projection versus retained forecast, food/alcohol and catalogue-revision roles. Same textual representation does not establish same semantic owner."
+    }
+  ],
+  "exact_evidence_lookup": {
+    "per_source_membership": "Each group index is the exact /sources/<index> pointer in continuation/rig/owner-delta-queue-pending.json; this supplies source_id, SHA and requested ranges.",
+    "producer_role_receipts": "For that exact source_id/SHA, continuation/rig/source-scope-reconciliation-044.json::new_variant_identity_and_range_map preserves every record/receipt/json_pointer and role context. Read those exact contexts rather than interpreting the short group label as evidence.",
+    "range_and_navigation_qualification": ["continuation/rig/source-role-qualification-045.json", "continuation/rig/source-role-qualification-046-refresh-delta.json"],
+    "prior_owner_records": "records/final-acceptance-20261021/wave-01/audit-existing-type-owners/<owner>/{coverage,additional-sources}.jsonl; exact contract_refs/current_owner_fit_refs and receiver-closure references identify prior comparisons."
+  },
+  "prior_contract_candidate_examples": [
+    {
+      "pending_ref": "continuation/rig/owner-delta-queue-pending.json#/sources/0",
+      "prior_ref": "records/final-acceptance-20261021/wave-01/audit-existing-type-owners/rig/additional-sources.jsonl#row80",
+      "prior_contract": "RIG-OWNER-CLIENT-EQUIPMENT-026",
+      "candidate_relationship": "PR doors.rs counterpart has exact same path suffix and SHA; compare only the actual can_grab numerical contract newly requested by RIG-PPS-001. Prior metadata range1-90 exceeds real EOF72, so this is a candidate requiring explicit range qualification, never a carry award."
+    },
+    {
+      "pending_source": "physical-p16:crates/adventuresim-core/src/autopsy.rs",
+      "prior_ref": "records/final-acceptance-20261021/wave-01/audit-existing-type-owners/camera/coverage.jsonl#row117",
+      "prior_contract": "CAM-OWN-CORPSE-016",
+      "candidate_relationship": "Same-path/SHA PR counterpart; compare newly reached autopsy role and exact scoped range against prior corpse contract before any carry."
+    },
+    {
+      "pending_source": "physical-p16:crates/adventuresim-stdb-module/src/world_event.rs",
+      "prior_ref": "records/final-acceptance-20261021/wave-01/audit-existing-type-owners/camera/coverage.jsonl#row317",
+      "prior_contract": "CAM-OWN-WORLD-EVENT-083",
+      "candidate_relationship": "Same-path/SHA PR counterpart; world5 newly exposed place/context/episode/cause and unit roles need explicit delta comparison even where prior whole-source metadata exists."
+    },
+    {
+      "pending_source": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry.rs",
+      "prior_ref": "records/final-acceptance-20261021/wave-01/audit-existing-type-owners/rig/additional-sources.jsonl#row26",
+      "prior_contracts": ["RIG-OWNER-FIT-011", "ROOT-OWNER-GEOMETRY-002", "ROOT-OWNER-FRAMES-004"],
+      "candidate_relationship": "Same-path/SHA PR counterpart neutral geometry re-export/frame definition; compare dependency/frame interpretation at newly reached uses."
+    }
+  ],
+  "carry_policy": "No same-contract carry credit has been awarded. Exact path/SHA/contract references are navigation candidates; compare original primitive use, candidate definition/invariant, material role and actual receiver before any disposition. Most new rig roles have no exact same-path/hash prior source comparison; all remain scheduled for the owner lens.",
+  "next": "Wait for Root to open existing-owner delta explicitly after producer reconciliation. Prioritize exact range qualifications and genuinely newly reached primitive-role comparisons; do not start admission or implementation.",
+  "source_analysis_started_for_owner_lens": false,
+  "source_or_authoritative_ledger_edits": 0,
+  "project_commands_or_tests": 0,
+  "overall_lens_clearance": "not awarded"
+}

@@ -1,0 +1,115 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-533",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/coord.rs",
+      "sha256": "e073c60baec3de6c13a0be2aa8462446cd66d5a0c2608643e248fbe421a8063a",
+      "actual_EOF": 304,
+      "actual_compared_ranges": [
+        [
+          1,
+          304
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/footwear.rs",
+      "sha256": "096a17eb2099072d734e2b7bc72caa643585c202de0f2a42e81d0b412c30e48a",
+      "actual_EOF": 310,
+      "actual_compared_ranges": [
+        [
+          1,
+          310
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/helmet/burgonet.rs",
+      "sha256": "acc1803b298a54b442b1bbab582c258c9b9c816641ee7c874a6cc4a92c9272e2",
+      "actual_EOF": 342,
+      "actual_compared_ranges": [
+        [
+          1,
+          342
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/helmet/mod.rs",
+      "sha256": "2175f071cee54f96e323396940b9b68a31b5eac18a6a9e70b63d4afcf7dd7d8e",
+      "actual_EOF": 54,
+      "actual_compared_ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/helmet/parts.rs",
+      "sha256": "0e8b328ee3be07d2cfafe53aaa8fa103c5e8828fdd50dbb0fae6d7f365a90e16",
+      "actual_EOF": 339,
+      "actual_compared_ranges": [
+        [
+          1,
+          339
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/helmet/surface.rs",
+      "sha256": "d6e8b3b39d21c87e2a7c4d51f25b2e9e57b2a884a87b2b8fad17b24b1a2d1087",
+      "actual_EOF": 235,
+      "actual_compared_ranges": [
+        [
+          1,
+          235
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Carrier cardinality, dispatch passes and offsets",
+      "evidence": "CoordShell records and dispatches passes.max(1), converts coordinate counts to u32 and relies on PartBuild aggregate admission for offsets. Current shape producers use one pass; public recipe work-budget and native offset ownership remain pending their actual source. No ordinary overflow or GPU execution claimed."
+    },
+    {
+      "contract": "Footwear denominators and fixed topology",
+      "evidence": "Fixed AROUND40/BOOT_ROWS40/TOE_RINGS8 topology fits native indices. Actual LimbArmorDesign validation admits sabaton count3..8 and boot shaft40..350mm, excluding the zero shaft denominator. Overlap of neighboring lames is deliberate geometry."
+    },
+    {
+      "contract": "Helmet crown and piece construction",
+      "evidence": "generate/record validates design before family dispatch. HelmetParts is local until recipe publication, so a fallible buffe after local marker mutation does not establish retained partial publication. Crown fixed48 rim and12 dome rings; fan rows nonempty and splice offsets fixed. Private connect assumes same nonempty ring cardinality established by these producers; public CoordSurface is only pub(super), not arbitrary external input."
+    },
+    {
+      "contract": "Morph and geometric acceptance boundaries",
+      "evidence": "These carrier bodies alone do not prove body fitting, valid shell output or GPU success. Bracer/breastplate morph-name cardinality candidate remains separate; source numerical review does not invoke or substitute museum/visual acceptance."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [
+    {
+      "path": "dependencies-533/limb_armor.rs",
+      "sha256": "5cc9bda50004b9d57d81c6c253f9e51e1185141f978f731fd9b55809de0f3b55",
+      "actual_EOF": 376,
+      "actual_compared_ranges": [
+        [
+          330,
+          376
+        ]
+      ],
+      "disposition": "Actual validate gate for sabaton count and boot shaft. Partial dependency read only; no original source role credit."
+    }
+  ],
+  "status": "6 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/fabelgeist-armor/src/gpu/limb.rs"
+}

@@ -1,0 +1,62 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-217",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/travel_planning.rs",
+      "sha256": "72e17030fb5f5e7f0337b78091c7ab5eddcac318c91f5a3ba7a246a3a7ba860b",
+      "actual_EOF": 346,
+      "actual_compared_ranges": [
+        [
+          1,
+          346
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/travel_planning.rs",
+      "sha256": "72e17030fb5f5e7f0337b78091c7ab5eddcac318c91f5a3ba7a246a3a7ba860b",
+      "actual_EOF": 346,
+      "actual_compared_ranges": [
+        [
+          1,
+          346
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Route, graph distance and hybrid coordinate operations",
+      "source_ranges": {
+        "travel_planning.rs": [
+          [
+            1,
+            346
+          ]
+        ]
+      },
+      "disposition": "Complete P16 body and full actual PR comparison consumed. Geographic encode/decode uses WGS84; explicit abstract E7 preserves full signed i32 lattice. Abstract decoded coordinates are finite and bounded by i32 E7 representation, so Euclidean difference/square cannot overflow f64 on that admitted path. Geographic haversine checks finiteness and clamps rounding drift to [0,1]. Do not impose WGS84 on abstract coordinates. Dijkstra only replaces strictly shorter nonnegative distances and ends at the first non-source settlement; saturating distance/time arithmetic can collapse represented extreme distances, but actual huge graph reachability/capacity is not established. No ordinary overflow promoted."
+    },
+    {
+      "contract": "Complete route admission and departure/return preservation",
+      "source_ranges": {
+        "travel_planning.rs": [
+          [
+            122,
+            291
+          ]
+        ]
+      },
+      "disposition": "Points2..512, spans1..256, aggregate distance/minutes1..2M; exact positive continuous spans, widened sum of five u16 terrain weights equals1000, urban0, multiplier<=1000/check<=5000. Segment geometry 1..100000 checked-added, endpoints within500m, physical tolerance route.distance/20+250 safely bounded, minimum duration safe under route bounds. Weather version, interval divisibility, bps and Clear/intensity relation checked. Return leg independently revalidated by constructing an ordinary route without nested return payload. Departure/redirect weather intervals rechecked against synchronized actual minute. No new operation defect; downstream raw JourneyRoutePlan storage must use these admission boundaries, acceptance is source proof only, not test execution."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "2 original roles personally compared; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs"
+}

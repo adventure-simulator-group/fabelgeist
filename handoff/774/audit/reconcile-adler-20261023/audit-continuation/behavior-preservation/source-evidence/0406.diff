@@ -1,0 +1,79 @@
+diff --git a/crates/adventuresim-tactical-server/src/iteration.rs b/crates/adventuresim-tactical-server/src/iteration.rs
+index 56c816529..8bb9be91e 100644
+--- a/crates/adventuresim-tactical-server/src/iteration.rs
++++ b/crates/adventuresim-tactical-server/src/iteration.rs
+@@ -1,8 +1,9 @@
+ //! In-process, fixed-step tactical-server melee duel harness.
+ 
+ use fabelgeist_determinism::Seed;
++use fabelgeist_geometry::SignedLength;
+ use std::time::Duration;
+ 
+ use adventuresim_core::{
+     autoresolve::{Combatant, MeleeIterationBuild, body_part_index},
+     combat::HUMANOID_COLLISION_RADIUS_METRES,
+@@ -10,11 +11,11 @@ use adventuresim_core::{
+ #[cfg(test)]
+ use adventuresim_core::{
+     combat::MeleeContactClassification, item_catalog_schema::EquipmentMaterial,
+ };
+ use adventuresim_tactical_core::{
+-    animation::{AnimationValueResult, NonnegativeLength},
++    animation::NonnegativeLength,
+     physics::AdventureSimulatorPhysicsPlugin,
+     prelude::*,
+ };
+ use adventuresim_tactical_netcode::replication::AdventureSimulatorReplicationPlugin;
+ use bevy::{prelude::*, time::TimeUpdateStrategy};
+@@ -45,11 +46,11 @@ const MAX_DUEL_SECONDS: u64 = 180;
+ 
+ pub fn resolve_tactical_server_melee_duel(
+     left: &MeleeIterationBuild,
+     right: &MeleeIterationBuild,
+     seed: Seed,
+-) -> AnimationValueResult<TacticalMeleeOutcome> {
++) -> MeleeGeometryResult<TacticalMeleeOutcome> {
+     let mut app = tactical_iteration_app(seed);
+     let left_entity = spawn_combatant(
+         app.world_mut(),
+         left,
+         TacticalCombatSide::Party,
+@@ -91,11 +92,11 @@ pub fn resolve_tactical_server_melee_duel(
+     Ok(TacticalMeleeOutcome {
+         seed,
+         resolution,
+         simulated_ticks: final_tick + 1,
+         simulated_seconds: TacticalElapsed::from_tick_count(final_tick + 1),
+-        initial_center_separation_metres: 4.0,
++        initial_center_separation_metres: SignedLength::from_metres(4.0)?,
+         final_center_separation_metres,
+         attack_starts: log.attack_starts,
+         resolved_attacks: log.events.len() as u32,
+         events: log.events,
+         decision_events: log.decision_events,
+@@ -329,11 +330,11 @@ mod tests {
+             outcome
+                 .events
+                 .iter()
+                 .any(|event| { event.defender_decision != TacticalDecision::NoDefense })
+         );
+-        assert!(outcome.initial_center_separation_metres > 3.0);
++        assert!(outcome.initial_center_separation_metres.metres() > 3.0);
+         assert!(
+             outcome
+                 .condition_events
+                 .iter()
+                 .any(|event| { event.cause == "fatigue" && event.delta > 0.0 })
+@@ -371,11 +372,11 @@ mod tests {
+         assert!(outcome.decision_events.iter().any(|event| {
+             event.decision == TacticalDecision::Attack
+                 && event.tick > 0
+                 && event
+                     .center_separation_metres
+-                    .is_some_and(|distance| distance < outcome.initial_center_separation_metres)
++                    .is_some_and(|distance| distance.metres() < outcome.initial_center_separation_metres.metres())
+         }));
+     }
+ 
+     #[test]
+     fn production_dodge_observers_cover_a_seeded_melee_sample() {

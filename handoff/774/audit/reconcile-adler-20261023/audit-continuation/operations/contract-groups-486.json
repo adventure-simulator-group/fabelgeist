@@ -1,0 +1,74 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-486",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/tests.rs",
+      "sha256": "48ba1b8005d63740183260c570153bbd903dba12c0fc3615253199a65a70f27e",
+      "actual_EOF": 1969,
+      "actual_compared_ranges": [
+        [
+          1,
+          1969
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/value_error.rs",
+      "sha256": "18c3232bb01109cd7ec857f3c750d2c04ffb869dd52ca42cec82524816c41206",
+      "actual_EOF": 217,
+      "actual_compared_ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/bin/generate_scene_fixtures/heating.rs",
+      "sha256": "b92ee2d412b4ce07eeae5e08de9f482ccb8226d8a4e76b0fe3200e014acae923",
+      "actual_EOF": 160,
+      "actual_compared_ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/grounded/tests.rs",
+      "sha256": "c2dd6fd8bc29ddcbca5a79e0945e04db51766c5a40b72ed8bf5736664da8e16c",
+      "actual_EOF": 216,
+      "actual_compared_ranges": [
+        [
+          1,
+          216
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Actual animation fixture coverage versus untested arithmetic boundaries",
+      "evidence": "Full1969-line tests body personally read in1\u2013660/661\u20131320/1321\u20131969. Ordinary projected velocity2/5.5, guard release/reversal/plannedcontacts80ticks, landedquickstep retainedmomentum, contact/recovery/asymmetrictiming, continuation inheritedtangent, phaseweights/monotoneHermite and attackvelocity/acceleration preservation all explicit assertions. No execution. Do not treat fixture assertions as pass results or extreme/API arithmetic clearance. Historical fixture naming/comment does not authorize compatibility paths."
+    },
+    {
+      "contract": "Structured errors preserve earliest quantity",
+      "evidence": "Full217-line value_error maps individual speed/elapsed/fraction rejections and contact offset quantity; arithmetic overflow remains structured. No mutation/retained arithmetic here."
+    },
+    {
+      "contract": "Fixture placements and no partial grounding publication",
+      "evidence": "Full heating160: fixed9-member list safeindex+1 conversion, checkedcentre/generator/arrangement before returning. Full groundedtests216: sourcefixture real front/rear identity, immutable original, detailpromotion/reorder invariance, missing/duplicate/overlap rejection-beforepublication assertions. These are supplied executable contracts only, not fresh run evidence or proof for all external city inputs."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/homes.rs"
+}

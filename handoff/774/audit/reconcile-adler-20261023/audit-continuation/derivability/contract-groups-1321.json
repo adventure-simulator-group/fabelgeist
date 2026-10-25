@@ -1,0 +1,33 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1321",
+  "at": "2026-10-25T18:27:13.666057+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1375,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/raised_footwork.rs",
+  "sha256": "2debf0e3594941b0920d795bbb04740691602b4dfc6df95066770b0e156eb15b",
+  "actual_compared_ranges": [
+    [
+      1,
+      300
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "Default",
+      "type": "RaisedFootworkState",
+      "lines": [
+        133,
+        148
+      ],
+      "disposition": "PENDING_EXACT_FIELD_DEFAULT_EQUIVALENCE"
+    }
+  ],
+  "analysis": "Guard types already structural traits/default Uninitialized for GuardStepState. Manual RaisedFootworkState Default133\u2013148 sets GuardStepState Uninitialized, ContactSequence ZERO, two UnitInterval ZERO and six None. Candidate for standard Default if exact component Default policies agree; need actual ContactSequence and UnitInterval default source, not assumptions. Other inherent methods target/topology/finite validation/semantic classification/native swing planning.",
+  "first_unfinished": {
+    "scope_index": 1375,
+    "line": 301
+  },
+  "execution": "none"
+}

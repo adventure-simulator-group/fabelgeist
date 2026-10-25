@@ -1,0 +1,25 @@
+{
+  "id": "RIG-INITIAL06-GROUP-325",
+  "at": "2026-10-23T08:59:24.210113+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "review-offset-frame-meaning": {
+      "comparison": "ReviewView correctly retains SceneBuildingId and distinct ReviewTarget::LocalPoint(Position<Architectural>)/PlotPoint(Position<PlotRelative>). Its offset, however, is always Displacement<Architectural> while the declaration expressly gives opening/gable/heating offsets target-local X/Z axes. camera branches multiply the stored x/z by opening/wall tangents/outwards before constructing actual Architectural displacement and applying BuildingGeometryDatum. Those are different frame meanings, not equivalent typed values merely because metres/finite predicates match. The final datum projection and plotpoint height are otherwise intentional and fixture-backed. F046 proposes target-relative offset ownership without changing native basis equations.",
+      "disposition": "F046 wrong frame borrowed for target-relative authored offset"
+    },
+    "creator-inventory-reference-fixtures": {
+      "comparison": "Inventory tests retain canonical InventoryItemId/Article/CatalogArticle and separate catalog, fitted and draped loadout products; garment ClothLayer and pattern construction define conflict/ordering distinct from anatomical coverage. Tests show support/dependent removal, sided attachment, layer displacement, own-design catalogue construction, repeated-ID rejection and roundtrip. Local helper IDs are actual runtime inventory instances versus catalogue item/placement references. No duplicate generic equipment body/channel owner is introduced here; pattern-derived occupancy is contextual, not replaceable by display taxonomy. Source only, no fixtures executed.",
+      "disposition": "original canonical inventory/garment relationship references"
+    },
+    "detail-cuboid-native-render-geometry": {
+      "comparison": "ResolvedSolid and canonical Position/angles supply append_oriented_cuboid. render_cuboid_placement intentionally computes enlarged seam-cover render dimensions and centre shift from source collision dimensions; this is genuinely changed presentation geometry, not unchanged typed→raw→same typed forwarding. Native Quat/Vec3 face generation, normals and member/wall UV math are real mesh ports. SolidRole, WallSourceId, WallMaterialClass and BuildingLodMaterial remain existing canonical concepts; role classification is a predicate, not second enum. Supports F024 preserving canonical collision composition upstream without treating altered render size as same accepted cuboid.",
+      "disposition": "legitimate transformed render geometry and native face/texture math"
+    }
+  },
+  "supporting_existing_findings": [
+    "F024",
+    "F046"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit."
+}

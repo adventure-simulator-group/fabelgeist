@@ -1,0 +1,111 @@
+{
+  "id": "CONT07-CONTRACT-446",
+  "at": "2026-10-23T22:00:11.971397+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1965,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain.rs",
+      "sha256": "7623a9336cbe4a4c30650bd451893f1769952e1d29b6cd4c18e6c4f23780887e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/volumetric_terrain.rs",
+      "actual_EOF": 526,
+      "ranges": [
+        [
+          1,
+          526
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1966,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain/error.rs",
+      "sha256": "e3616e905943b4275f23b767ac43c8a4f19c1661ddcaef93914bbead401ab7a9",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/volumetric_terrain/error.rs",
+      "actual_EOF": 40,
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1967,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain/patch.rs",
+      "sha256": "f51a14125e8e313cd4e2fcfc73efc27b9c219f1804556cbeffaf224dfb4a31f8",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/volumetric_terrain/patch.rs",
+      "actual_EOF": 99,
+      "ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1968,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain/recipe.rs",
+      "sha256": "fcaf87702a89d958728884e2576a2f981d6a15f491e9fab4586e483f9527df2f",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/volumetric_terrain/recipe.rs",
+      "actual_EOF": 217,
+      "ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1969,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain/resistance.rs",
+      "sha256": "775f5d7a035eea6e401828aeceab320737bbaf8286024f65b9e65153a24d7f3b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/volumetric_terrain/resistance.rs",
+      "actual_EOF": 114,
+      "ranges": [
+        [
+          1,
+          114
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1970,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain/support.rs",
+      "sha256": "bba6cc80f38ff3d02d8c7fced6c2f8b6a18271b18b4d115a260a97453c2c3923",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/volumetric_terrain/support.rs",
+      "actual_EOF": 17,
+      "ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "ROOT-OWNER-VOLUMETRIC-068 full narrative; source normalization deliberately distinct, actual overlap consistency independently analyzed"
+  ],
+  "facts": [
+    "1965 full526 consumed in two bounded reads. Simulated offsets and base heights are distinct relative/absolute facts; original and evolved arrays are temporal solver state. Erosion computes all transfers from one prior offsets slice then applies them; no changing source inside per-edge calculation. Parallel source fixture checks1/4thread equality but was not executed.",
+    "1965 height_range explicitly rejects empty offsets and every nonfinite combined height before constructing ordered SceneElevationRange. Infinity reductions are unpublished identities over a proved nonempty input. Mesh/terrain combined collider uses same transition collar as patch and preserves foundation colliders separately.",
+    "1967 SceneTerrainPatch private buffers admitted through one constructor and wire route; consumed TerrainMeshBuffers do not mutate admitted patch. Finite supplied normals are accepted without unit/nonzero requirement, explicitly confirmed by ROOT068 narrative; do not manufacture unit-normal contract from producer docs. Geometry-shading normals can be independent of per-face physical normals.",
+    "1968 raw quantized fields and cached collar cannot be separately authored through Serde: into Quantized serializes source fields, try_from rebuilds collar. No independently mutable public setter, so stale-collar-by-mutation claim closed for inspected normal routes. However validate overlap extent uses raw tangent while actual collar normalizes it; concrete accepted .98 tangent boundary witness pending F095, separate from cache invalidation.",
+    "1969 ScarpResistanceGrid caches edge material samples depending only on immutable recipe, collar, masks and fixed midpoint, not evolving offsets. Masks are unchanged throughout erosion; no omitted offsets invalidation dependency. Cell x/z neighbor options encode actual valid stencil edges, not fabricated zero support.1970 required support at clamped geographic edge keeps structured failure."
+  ],
+  "new_local_findings": [
+    "CONT07-F095"
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1971,
+    "start_line": 1
+  }
+}

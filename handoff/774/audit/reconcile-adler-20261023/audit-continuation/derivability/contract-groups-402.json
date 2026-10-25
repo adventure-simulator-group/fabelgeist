@@ -1,0 +1,28 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-402",
+  "at": "2026-10-25T15:18:53.313276+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 780,
+  "source_id": "pr-working:crates/adventuresim-character-creator/src/garment.rs",
+  "sha256": "d6b09524be811c5e4202be50af529c941a917ff8f31ea61e2a73e4da17dc103e",
+  "actual_compared_ranges": [
+    [
+      241,
+      480
+    ]
+  ],
+  "cumulative_ranges": [
+    [
+      1,
+      480
+    ]
+  ],
+  "trait_inventory": [],
+  "analysis": "Fresh241\u2013480 native seam union/group topology/averaging, normals299\u2013319, orient_faces323\u2013381 semantic component winding and checked transfer_skirt_skin385\u2013461; transfer_skin462+ incomplete. No further handwritten trait/codec in actual slice; preserve native semantic geometry/skin mutation/checks. F008 Display remains only candidate so far.",
+  "first_unfinished": {
+    "scope_index": 780,
+    "line": 481
+  },
+  "execution": "none"
+}

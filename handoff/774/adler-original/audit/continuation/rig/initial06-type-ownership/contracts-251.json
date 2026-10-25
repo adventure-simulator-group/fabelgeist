@@ -1,0 +1,37 @@
+{
+  "id": "RIG-INITIAL06-GROUP-251",
+  "at": "2026-10-23T07:26:15.474947+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-068.json",
+  "groups": {
+    "roof-final-binding-and-source-geometry-owner": {
+      "comparison": "Fresh roof_finalization138 consumes canonical RoofAssembly, ResolvedGeometry, ResolvedSolid, GeometryOwnerId, ResolvedItemId and Architectural SpatialBounds. Treatment identity, owner identity and derived interface identity have separate namespaces even when encoded in u64. Local native segment projection finds orphan treatments, clears exact flashing references, removes associated interfaces, then updates retained interface bounds; this is correlated source geometry maintenance rather than a new independent roof owner. JunctionBond carries paired owners, bounds, area and penetration: square metres, metres and native interpolation coefficient differ, not generic fractions. F024 canonical cuboid composition and F001 generic lower bounds remain applicable, while structural association and source IDs stay architectural. Actual native yaw_bounds derives a new conservative bound, not unchanged source copying or a complete all-angle cuboid AABB promise. Result and wrapper names do not prove mutation atomicity or full support correctness; existing aggregate/operation lenses retain those responsibilities. No normal bad caller or run asserted.",
+      "disposition": "Keep structural roof/interface identity and correlated geometry maintenance in architecture; reuse generic bounds/cuboid owners without erasing relationship policy."
+    },
+    "p16-completion-authority-and-physical-facts": {
+      "comparison": "Fresh P16 melee geometry137 keeps borrowed CompletionActors (looks/transforms/dimensions), CompletionAuthorization (event/authority/CombatInstant), and resulting MeleeCompletionGeometry (checked signed separation/reach, spatial MeleeContactAtTime, intent facts). It deliberately groups source facets rather than importing one broad state owner. Absolute combat time is not sample tick or duration, and MeleeContactAtTime remains spatial descriptor under QUAL052. Canonical physical lengths propagate through melee interaction/preferred measure/contact API, supporting F034 final API rather than raw scalar conversion chains; signed zero and unheaded weapon cases remain valid. Native transform distance yields changed source quantity then readmitted SignedLength. Intent facts combine transient Entity/side/incapacitation observations and explicit authority.permits, not an automatically approved attack token just because checked leaves. Accepted geometry and rejected raw diagnostic evidence remain distinct; no wholesale P16 signature replay. Canonical low physical API may be shared while game authority stays server transient state.",
+      "disposition": "Keep complete borrowed actor/authorization and resulting physical facts products, canonical physical API propagation with exact authority/diagnostic limits."
+    },
+    "neighboring-support-original-fixture": {
+      "comparison": "Fresh neighboring fixture152 uses canonical CitySite/compiled layout, CityPropertyId, SceneBuildingId, GeographicSurface, support policies and BoundedSettlementTerrain. Property519 versus building519 is intentional separate namespace, not evidence they should share one ID type. Exact ground contact geometry versus rectangular reservations remain different concepts; test selects overlapping envelopes with separate occupied support. Native original JSON triangles are source fixture boundary, later checked ScenePlanPoint/elevation queries preserve frames. Reversal comparison tests deterministic source behavior, not generic index identity or full generation proof. Seed42 random identity separate population6500 and building IDs. Original test read only; no compile/generate/test execution or new assertions, no called-helper body credit. Shared lower geometry and SupportElevation findings remain rather than duplicate definitions here.",
+      "disposition": "No competing canonical owner in neighboring support fixture; preserve property/building identities and exact support versus reservation distinction."
+    },
+    "active-vista-presentation-surface": {
+      "comparison": "Fresh vista surface168 ActiveVistaSurface retains nearest two canonical VistaLod sources plus digest/revision/playable half extent and actual GroundSupport. This is renderer query cache, distinct from accepted SceneTerrain or source SceneVistaBundle. Wrapping revision is local cache change marker, not absolute clock or EquipmentSequence ordering; scene digest joins current source identity, not arbitrary package/design hash. VistaTerrain and VistaTerrainMesh both carry VistaLevelIndex but mark broad environmental content versus actual surface meshes, meaningful ECS query roles rather than duplicate source LOD enum. presented_height_at first consumes canonical playable terrain, then only matching-digest vista source and stitch; scene/local displacement/frame conversions remain explicit. F023 same Scene support elevation and F001 lower geometric leaves apply. Native mesh chunk origin/texture/color and triangle count are real presentation port, not gameplay mass or region membership. No presumed validity of retained raw VistaLod public fields, called stitch/mesh helpers separately scoped. Original tests read only.",
+      "disposition": "Keep active surface/cache and distinct ECS terrain markers over canonical source LOD/terrain, preserving digest/frame/elevation roles."
+    }
+  },
+  "supporting_existing_findings": [
+    "RIG-INITIAL06-F001",
+    "RIG-INITIAL06-F023",
+    "RIG-INITIAL06-F024",
+    "RIG-INITIAL06-F034"
+  ],
+  "source_fact_refs": [
+    "contracts-245.json",
+    "contracts-248.json",
+    "contracts-250.json",
+    "qualifications.jsonl#id=RIG-INITIAL06-QUAL-052"
+  ],
+  "limits": "Four fresh complete scoped bodies, source-specific PR/P16 distinctions retained. No new source/helper credit, edits/execution/tests or later-lens coverage."
+}

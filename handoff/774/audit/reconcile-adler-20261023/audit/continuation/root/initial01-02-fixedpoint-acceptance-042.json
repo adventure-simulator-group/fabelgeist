@@ -1,0 +1,31 @@
+{
+  "id": "CONT-ROOT-INITIAL-LENSES01-02-FIXEDPOINT-042",
+  "at": "2026-10-22T05:44:42.531412+00:00",
+  "status": "Current2560/59 exact initial producer and owner inventories exhausted WITH_FINDINGS; admission03 may open",
+  "evidence": [
+    {
+      "record": "continuation/root/producer-fixedpoint-acceptance-040.json",
+      "sha256": "8a9e33950e7bf719ad20c903ee1475c5825e495decbe7c17e623e6ffbd5648fb"
+    },
+    {
+      "record": "continuation/root/current-owner-acceptance-035.json",
+      "sha256": "ea1b73b507d23a07bf726059dd452bae27443c4a553651572c5f6bbb6ba47444"
+    },
+    {
+      "record": "continuation/root/owner-helper-delta2-041.json",
+      "sha256": "29523c4da4036815c8bcc777c284f2fe9551618cfeefef35d37ed6df180a2e7b"
+    }
+  ],
+  "source_scope": {
+    "record": "continuation/cumulative-source-scope-producer-fixedpoint-010.json",
+    "sha256": "57c0e5956c9ec89f35e67a647105aa6952fe4e1b8f6cc06e9626065979eef761"
+  },
+  "role_overlays": {
+    "record": "continuation/owner-range-extensions.jsonl",
+    "sha256": "87c34e16cbb2481c2aee972800bb4c0cf2c30ad74e486eb304e6c589627fff18"
+  },
+  "repair_gate": "closed_until_initial03_13_complete",
+  "no_actual_unread_01_02_role": true,
+  "findings_not_clear": true,
+  "new_human_decisions": []
+}

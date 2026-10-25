@@ -1,0 +1,98 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1304",
+  "at": "2026-10-25T18:25:07.893103+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1368,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion.rs",
+      "sha256": "7e4b80c439d05e7d13d360b80fcda7a4a10e6e8380d0889198f514dce0df962b",
+      "actual_EOF": 526,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion.rs",
+        "owner": "native",
+        "sha256": "7e4b80c439d05e7d13d360b80fcda7a4a10e6e8380d0889198f514dce0df962b",
+        "base_sha256": "17b9ec1eda52fd75f3223b69f3bc027a56f2ce07b8e8e917e10c546a8230e2e5",
+        "state": "modified",
+        "bytes": 19134,
+        "audit_owner": "native",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [],
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 199,
+            "read_ranges": [
+              [
+                1,
+                526
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-IK-TARGETS-002"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 541,
+            "read_ranges": [
+              [
+                1,
+                526
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-IK-TARGETS-002"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          526
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "OrdinaryLocomotionIkState Component Debug Clone Copy Default; PelvisShiftState Debug Clone Copy Default Pending.",
+      "absence_basis": "Full inherent checked pelvis/tick state and native locomotion support/current ownership/terrain solver/root/slope helpers and fixtures. No handwritten trait/codec. Native diagnostic memory construction synthesizes selected current targets/support/cohort values, not From."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Current native IK state/evaluation/terrain support and selected diagnostics are semantic policy with checked physical errors; structural traits already derive.",
+      "disposition": "NO_HANDWRITTEN_TRAIT_OR_CODEC",
+      "qualification": "No fixture/IK/client/system execution or other-lens clearance."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1369,
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion/terrain_leg.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

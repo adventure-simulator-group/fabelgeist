@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-781",
+  "at": "2026-10-25T16:49:34.122179+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1003,
+  "source_id": "pr-working:crates/adventuresim-core/src/starting_character.rs",
+  "sha256": "6fc3cb5410e5f3657ffc30cdb4be97fca0dbd4542238960d0db8d0fcc8ff7192",
+  "actual_compared_ranges": [
+    [
+      661,
+      1100
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Personality generation axis enum already CloneCopy, inherent deterministic domain/value maps and demographic generation semantic, not serialization/classifier derivation. Native skill/leaf requirement matching and training profile/life-simulation assembly preserve cross-type policy. StartingSkills inherent field projections988\u20131064 accept separate written data or omit it for test view; no equivalent available project derive and do not add API conversion traits solely for cleanup. No new handtrait/codec in consumed range."
+  ],
+  "first_unfinished": {
+    "scope_index": 1003,
+    "line": 1101
+  },
+  "execution": "none"
+}

@@ -1,0 +1,157 @@
+{
+  "id": "CONT08-CONTRACT-199",
+  "at": "2026-10-25T14:18:39.312203+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 770,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/glb.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/export/glb.rs",
+      "before_sha256": "99b359ccf03e94e704e08e8f66f7b23c4dcf00a358ac7b1fabd98993530d26f8",
+      "after_sha256": "99b359ccf03e94e704e08e8f66f7b23c4dcf00a358ac7b1fabd98993530d26f8",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0770-base-99b359ccf03e94e704e08e8f66f7b23c4dcf00a358ac7b1fabd98993530d26f8",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/99b359ccf03e94e704e08e8f66f7b23c4dcf00a358ac7b1fabd98993530d26f8",
+      "diff": "source-evidence/pr-0770.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "facts": [
+        "Full38 and empty actual diff. GLB littleendian magic/version2, JSONchunk spacepadding and BINzeropadding to4,12+8+JSON+8+BIN total, parentmkdir thenfilewrite/context retained. u32nativecontainer narrowing onhugepayload retained APIlimit, no actual outputwritten."
+      ],
+      "disposition": "Own08 old/new comparison accounted with concrete lower2179/2332/2336 and frame-kernel receiver; retained API limits explicit.",
+      "acceptance": "Preserve exact packing, first-error, membership and floating operation order plus existing fixture oracles; no tests or checks run."
+    },
+    {
+      "scope_index": 771,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/morphs.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/export/morphs.rs",
+      "before_sha256": "9fc49c72ed7ed5cb15fe29de42688a746af949456c85e4e88bd01c214a7b4d38",
+      "after_sha256": "011541992d2e75b8667bab9997cf8a277922440568411095d1a1f4a20ea22ee7",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0771-base-9fc49c72ed7ed5cb15fe29de42688a746af949456c85e4e88bd01c214a7b4d38",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/011541992d2e75b8667bab9997cf8a277922440568411095d1a1f4a20ea22ee7",
+      "diff": "source-evidence/pr-0771.diff",
+      "diff_sha256": "25a6d9452b146dce633e8235ea559cbde0fc2eb8bd7dd517ac950d6a9e9441e5",
+      "head_body_read_ranges": [
+        [
+          1,
+          163
+        ]
+      ],
+      "facts": [
+        "Full163 and actual complete diff. Runtime unchanged: renderedbody then shells channelorder, exact orderednames equality before nonempty/duplicate/length/finite deltas, emptychannelreturn, defaultzero weights and sharedtargetNames/UVdomainextras. Same perprimitive Position/Normal buffer order/bounds.",
+        "Fixture onlyparalleltypedemptydefaults replacingemptyarrays, still directly focused validate with invalid topology bypassing full779 intentionally. Original mismatchednames\u2192Err/matching\u2192Ok/NaNdeltas\u2192Err oracles unchanged; not executed."
+      ],
+      "disposition": "Own08 old/new comparison accounted with concrete lower2179/2332/2336 and frame-kernel receiver; retained API limits explicit.",
+      "acceptance": "Preserve exact packing, first-error, membership and floating operation order plus existing fixture oracles; no tests or checks run."
+    },
+    {
+      "scope_index": 773,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/shell.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/export/shell.rs",
+      "before_sha256": "6d0c444527f9a25d6aaf8e23e15ab8d973c489f6edb3a75429444c15c4132038",
+      "after_sha256": "6d0c444527f9a25d6aaf8e23e15ab8d973c489f6edb3a75429444c15c4132038",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0773-base-6d0c444527f9a25d6aaf8e23e15ab8d973c489f6edb3a75429444c15c4132038",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/6d0c444527f9a25d6aaf8e23e15ab8d973c489f6edb3a75429444c15c4132038",
+      "diff": "source-evidence/pr-0773.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "facts": [
+        "Full80 and empty actual diff. Writer retains native shell/viewszip, ownskin-vs-bodyaccessor selection, vertex/normal/face/UV count andPBR/sRGBlinear conversion, texturesapply then shelltexturesoverride order.",
+        "Actual source consumer confirms own198769 retained surfaceUV population gap: texcoords.or_else(surface) uses forwarded originalUVs when explicitNone, aftercompact reducesusedvertices. Exact retained source behavior, linked SEGO-INITIAL09-SUPPORT-144-SURFACE-UV, not new08 regression/ordinaryproducer proof/count."
+      ],
+      "disposition": "Own08 old/new comparison accounted with concrete lower2179/2332/2336 and frame-kernel receiver; retained API limits explicit.",
+      "acceptance": "Preserve exact packing, first-error, membership and floating operation order plus existing fixture oracles; no tests or checks run."
+    },
+    {
+      "scope_index": 776,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/sockets.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/export/sockets.rs",
+      "before_sha256": "25beceaf64809a2204bac9287db8b41f8dd1236c99d77b7f826351c0db92cdc4",
+      "after_sha256": "d51e531f136697d43d673cc1e6d16764b2c6fd35661d83d9a46b45a4eb5facdf",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0776-base-25beceaf64809a2204bac9287db8b41f8dd1236c99d77b7f826351c0db92cdc4",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/d51e531f136697d43d673cc1e6d16764b2c6fd35661d83d9a46b45a4eb5facdf",
+      "diff": "source-evidence/pr-0776.diff",
+      "diff_sha256": "f938d76b7ca3deb75d9ed12f1902df8b308ed298e0e7f9990a27bcebf8c15156",
+      "head_body_read_ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "facts": [
+        "Full57 and entire actual diff. Empty sockets do notrequirepelvis; nonempty first exact ROOT lookup nowcanonical typedcause vs oldcustommessage, same firstduplicate. Actual767/774 originaljointnodes precede Skeleton and newlyappended socketnodes, usizeordinal indexes correctoriginalpelvis.",
+        "Same nodeprefix/transformlocalscale/UVdomain/tangent+Y/normal+Z metadata, nodeappendorder and childrenextension, no scene-root flattening. Shape errors aftersocketpushretainpartiallocalvectorstate asbefore; no outputwritten until wholeexport later."
+      ],
+      "disposition": "Own08 old/new comparison accounted with concrete lower2179/2332/2336 and frame-kernel receiver; retained API limits explicit.",
+      "acceptance": "Preserve exact packing, first-error, membership and floating operation order plus existing fixture oracles; no tests or checks run."
+    },
+    {
+      "scope_index": 777,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/textures.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/export/textures.rs",
+      "before_sha256": "94523800edefb10ca1a28ebdf93b14b034f2b22b0900e406857bbfc8a5dbf99b",
+      "after_sha256": "94523800edefb10ca1a28ebdf93b14b034f2b22b0900e406857bbfc8a5dbf99b",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0777-base-94523800edefb10ca1a28ebdf93b14b034f2b22b0900e406857bbfc8a5dbf99b",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/94523800edefb10ca1a28ebdf93b14b034f2b22b0900e406857bbfc8a5dbf99b",
+      "diff": "source-evidence/pr-0777.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "facts": [
+        "Full170 and empty actual diff. Same Standalone embeddedimage buffers vs Shared siblingcontenthash filenames, BTreeMap deterministicfileorder/exactbytes collisioncheck before reuse, NotFoundwrite/otherErrcontext. Partialfilepublication onerror remains retained APIbehavior; no filesystemrun.",
+        "Normal-only keeps authoredPBR, optionalcolor forceswhitefactor and bindscolor/normal/occlusionroles, cutoutMASK.5; shellpointercache pairnormal/metalrough and roughness1 overwrite ordering retained. No inferredimagevalidation or typederrorcause closure from identicalbody."
+      ],
+      "disposition": "Own08 old/new comparison accounted with concrete lower2179/2332/2336 and frame-kernel receiver; retained API limits explicit.",
+      "acceptance": "Preserve exact packing, first-error, membership and floating operation order plus existing fixture oracles; no tests or checks run."
+    },
+    {
+      "scope_index": 778,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/textures/tests.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/export/textures/tests.rs",
+      "before_sha256": "90cfc9e0a63f79f31813537d88c8393fa7a1bee709a91082473d8bd7c5554b5e",
+      "after_sha256": "3443c2f0ebaff8646fa3ac613ba770ea48024c53e850ce0dc8fbad014bc48072",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0778-base-90cfc9e0a63f79f31813537d88c8393fa7a1bee709a91082473d8bd7c5554b5e",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/3443c2f0ebaff8646fa3ac613ba770ea48024c53e850ce0dc8fbad014bc48072",
+      "diff": "source-evidence/pr-0778.diff",
+      "diff_sha256": "21fb8e0fd019eda88539e2394abca6412821db1491235e1f7ca78242c2647690",
+      "head_body_read_ranges": [
+        [
+          1,
+          191
+        ]
+      ],
+      "facts": [
+        "Full191 and complete actual diff. Onlypackedallslots0/bound1/ROOT/Noneparallelfixture changes; same sourcegeometry/UVs/normals/materialinputs andSharedtextures pipeline. Actual normalonly assertions retainedPBR.8/.2/nonwhite/oneimage andexactroleindices0/1/2, threePNGssiblings/fivefiles/twoGLBblobsize/corruptedfileErr oracles read notrun.",
+        "Asset include paths are fixture inputs only; no byte decoding/PNG/export/deletion/network or test performed, no runtime claim."
+      ],
+      "disposition": "Own08 old/new comparison accounted with concrete lower2179/2332/2336 and frame-kernel receiver; retained API limits explicit.",
+      "acceptance": "Preserve exact packing, first-error, membership and floating operation order plus existing fixture oracles; no tests or checks run."
+    }
+  ],
+  "next": "780 garment702 then781 conform324+"
+}

@@ -1,0 +1,322 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-202",
+  "at": "2026-10-25T13:37:04.016044+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 396,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/melee/outcome.rs",
+      "sha256": "b1df703eee8ffb66e22145a48e714ea090151771043a2c85b99905acb930c2f4",
+      "actual_EOF": 129,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/melee/outcome.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-tactical-server/src/combat/melee/outcome.rs",
+        "sha256": "b1df703eee8ffb66e22145a48e714ea090151771043a2c85b99905acb930c2f4",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 4251,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 512,
+            "read_ranges": [
+              [
+                1,
+                129
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SERVER-RESOLUTION-NETWORK-064"
+            ],
+            "read_status": "full_current_lens_source_and_existingfixtures",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-server/src/combat/melee/outcome.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-TACTICAL-RECEIVERS-044",
+            "json_pointer": "/current_sources/58",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-tactical-server/src/combat/melee/outcome.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                129
+              ]
+            ],
+            "source_context": {
+              "packet_obligation": 59,
+              "assigned_camera_index": 607,
+              "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/melee/outcome.rs",
+              "sha256": "b1df703eee8ffb66e22145a48e714ea090151771043a2c85b99905acb930c2f4",
+              "read_ranges": [
+                [
+                  1,
+                  129
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-server/src/combat/melee/outcome.rs",
+              "method": "Fresh full PR body with complete exact preserved P16 textual delta, duplicate active-defense/outcome byte equality; native dependencies only explicitly bounded ranges. All in-file fixture populations read only.",
+              "trace_refs": [
+                "NATIVE-PS-COMBAT-COMPLETION-TRANSPORT-019",
+                "NATIVE-PS-COMBAT-RECEIVER-CLOSURE-020"
+              ],
+              "disposition": "Current source/retained role/operation/actual receiver path inventoried with findings in exact trace paths; no source or family clearance; camera716 explicit accounting unchanged"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-COMBAT-COMPLETION-TRANSPORT-019",
+            "json_pointer": "/source_reads/10",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-tactical-server/src/combat/melee/outcome.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                129
+              ]
+            ],
+            "source_context": {
+              "packet_obligation": 59,
+              "assigned_camera_index": 607,
+              "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/melee/outcome.rs",
+              "sha256": "b1df703eee8ffb66e22145a48e714ea090151771043a2c85b99905acb930c2f4",
+              "read_ranges": [
+                [
+                  1,
+                  129
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-server/src/combat/melee/outcome.rs",
+              "method": "Fresh full PR body with complete exact preserved P16 textual delta, duplicate active-defense/outcome byte equality; native dependencies only explicitly bounded ranges. All in-file fixture populations read only."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-COMBAT-RECEIVER-CLOSURE-020",
+            "json_pointer": "/per_source_closure/58",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-tactical-server/src/combat/melee/outcome.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                129
+              ]
+            ],
+            "source_context": {
+              "packet_obligation": 59,
+              "assigned_camera_index": 607,
+              "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/melee/outcome.rs",
+              "sha256": "b1df703eee8ffb66e22145a48e714ea090151771043a2c85b99905acb930c2f4",
+              "read_ranges": [
+                [
+                  1,
+                  129
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-server/src/combat/melee/outcome.rs",
+              "method": "Fresh full PR body with complete exact preserved P16 textual delta, duplicate active-defense/outcome byte equality; native dependencies only explicitly bounded ranges. All in-file fixture populations read only.",
+              "trace_refs": [
+                "NATIVE-PS-COMBAT-COMPLETION-TRANSPORT-019",
+                "NATIVE-PS-COMBAT-RECEIVER-CLOSURE-020"
+              ],
+              "disposition": "Current source/retained role/operation/actual receiver path inventoried with findings in exact trace paths; no source or family clearance; camera716 explicit accounting unchanged"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1306,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "No local handwritten trait/type implementation.",
+      "absence_basis": "Full native outcome/logging functions read: selected post-contact event plus native network message from multiple live views and impact result. No handwritten Serialize impl; struct literals are selected semantic projection, not generic fieldwriting boilerplate."
+    },
+    {
+      "scope_index": 397,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/protocol.rs",
+      "sha256": "bdc79a977759c6bc89210af417c605af95bdf23d383bcf29a3e1f49552590c6a",
+      "actual_EOF": 86,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/protocol.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-tactical-server/src/combat/protocol.rs",
+        "sha256": "bdc79a977759c6bc89210af417c605af95bdf23d383bcf29a3e1f49552590c6a",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 3135,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 506,
+            "read_ranges": [
+              [
+                1,
+                86
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SERVER-RESOLUTION-NETWORK-064"
+            ],
+            "read_status": "full_current_lens_source_and_existingfixtures",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-server/src/combat/protocol.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-TACTICAL-RECEIVERS-044",
+            "json_pointer": "/current_sources/55",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-tactical-server/src/combat/protocol.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                86
+              ]
+            ],
+            "source_context": {
+              "packet_obligation": 56,
+              "assigned_camera_index": 604,
+              "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/protocol.rs",
+              "sha256": "bdc79a977759c6bc89210af417c605af95bdf23d383bcf29a3e1f49552590c6a",
+              "read_ranges": [
+                [
+                  1,
+                  86
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-server/src/combat/protocol.rs",
+              "method": "Fresh full PR body plus complete preserved P16 textual delta; lunge P16 full body also reread after truncated combined output; P16-only geometry full; duplicate clock/ranged-authority/consequence/defense/timing/work/protocol explicit byte equality.",
+              "trace_refs": [
+                "NATIVE-PS-COMBAT-SERVER-INGRESS-018",
+                "NATIVE-PS-COMBAT-RECEIVER-CLOSURE-020"
+              ],
+              "disposition": "Current source/retained role/operation/actual receiver path inventoried with findings in exact trace paths; no source or family clearance; camera716 explicit accounting unchanged"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-COMBAT-SERVER-INGRESS-018",
+            "json_pointer": "/source_reads/23",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-tactical-server/src/combat/protocol.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                86
+              ]
+            ],
+            "source_context": {
+              "packet_obligation": 56,
+              "assigned_camera_index": 604,
+              "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/protocol.rs",
+              "sha256": "bdc79a977759c6bc89210af417c605af95bdf23d383bcf29a3e1f49552590c6a",
+              "read_ranges": [
+                [
+                  1,
+                  86
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-server/src/combat/protocol.rs",
+              "method": "Fresh full PR body plus complete preserved P16 textual delta; lunge P16 full body also reread after truncated combined output; P16-only geometry full; duplicate clock/ranged-authority/consequence/defense/timing/work/protocol explicit byte equality."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-COMBAT-RECEIVER-CLOSURE-020",
+            "json_pointer": "/per_source_closure/55",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-tactical-server/src/combat/protocol.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                86
+              ]
+            ],
+            "source_context": {
+              "packet_obligation": 56,
+              "assigned_camera_index": 604,
+              "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/protocol.rs",
+              "sha256": "bdc79a977759c6bc89210af417c605af95bdf23d383bcf29a3e1f49552590c6a",
+              "read_ranges": [
+                [
+                  1,
+                  86
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-server/src/combat/protocol.rs",
+              "method": "Fresh full PR body plus complete preserved P16 textual delta; lunge P16 full body also reread after truncated combined output; P16-only geometry full; duplicate clock/ranged-authority/consequence/defense/timing/work/protocol explicit byte equality.",
+              "trace_refs": [
+                "NATIVE-PS-COMBAT-SERVER-INGRESS-018",
+                "NATIVE-PS-COMBAT-RECEIVER-CLOSURE-020"
+              ],
+              "disposition": "Current source/retained role/operation/actual receiver path inventoried with findings in exact trace paths; no source or family clearance; camera716 explicit accounting unchanged"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1303,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "All internal intent/event/component carriers already derive Event/Component and Clone/Copy/Debug as applicable.",
+      "absence_basis": "Entire declarations-only protocol consumed. No handwritten trait or serializer, and no reason to add serde to internal native authority events."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Melee outcome and internal protocol shape",
+      "disposition": "No manual derive candidate. Existing native event derives own structural mechanics; preserve semantic selected payload construction.",
+      "acceptance": "Maintain exact visibility, native entity/result fields, diagnostic versus accepted-action distinction and tactical transient authority; do not expose raw runtime state through unsolicited serialization."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 398,
+    "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ranged.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

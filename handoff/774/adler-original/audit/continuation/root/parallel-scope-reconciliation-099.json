@@ -1,0 +1,342 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-099",
+  "at": "2026-10-22T19:59:35.321379+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-022.json",
+    "sha256": "9e2bdb0fafdb1e217446502936ca5fbb9ca2958f885e41cd7899cc12351430b3"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-021.json",
+    "sha256": "e104221a35dfe28cea04740b0d7fc10f9ff710ff082569b2b5535df621813c42"
+  },
+  "new_variants": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/components.rs",
+      "snapshot": "pr-working",
+      "path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\components.rs",
+      "sha256": "0d82f83e694489be2b70f9208306217b283d1a8f11a5e174d80c8838b98109cd",
+      "bytes": 2685,
+      "actual_line_count": 87,
+      "scope_kind": "materially_reached_parallel_initial_dependency",
+      "audit_owner": "rig",
+      "material_ranges": [
+        [
+          1,
+          87
+        ]
+      ],
+      "scope_limits": "Only this tiny direct type-definition source; no broader new family/foreign graph",
+      "parallel_reached_registrations": [
+        {
+          "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+          "sha256": "2bcd0c77859786aae8eb2d165da3c55abdb2da2ca82bd21b6826eedc0d93a5c5",
+          "row_1based": 9,
+          "id": "RIG-INITIAL06-REG-009",
+          "original_record": {
+            "id": "RIG-INITIAL06-REG-009",
+            "at": "2026-10-22T19:49:05.873969+00:00",
+            "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+            "source_id": "pr-working:crates/fabelgeist-armor/src/components.rs",
+            "snapshot": "pr-working",
+            "sha256": "0d82f83e694489be2b70f9208306217b283d1a8f11a5e174d80c8838b98109cd",
+            "actual_EOF": 87,
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\components.rs",
+            "material_ranges": [
+              [
+                1,
+                87
+              ]
+            ],
+            "material_caller": "Scoped PartLayout/BuiltPart/TileTemplate/GeneratedArmor and TextileColor.material reference these canonical component/face/mount products",
+            "reason": "Exact direct declaration/helper source required to finish current06 owner/dependency comparison, symbol boundaries only before prospective registration",
+            "exclusions": "Only this tiny direct type-definition source; no broader new family/foreign graph",
+            "status": "prospectively_registered_before_body_analysis; new variant global pending"
+          }
+        }
+      ],
+      "producer_inventory_accounting": "bounded01_02_newmaterial_comparison_pending",
+      "admission_discovery": "Root098 actual source-specific new-role comparison, no other lens verdict"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/plate_face.rs",
+      "snapshot": "pr-working",
+      "path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\plate_face.rs",
+      "sha256": "7c7d222066ebe81219e45b4ac4086acc9de7da36c7633f662027be299d93ba71",
+      "bytes": 631,
+      "actual_line_count": 16,
+      "scope_kind": "materially_reached_parallel_initial_dependency",
+      "audit_owner": "rig",
+      "material_ranges": [
+        [
+          1,
+          16
+        ]
+      ],
+      "scope_limits": "Only this tiny direct type-definition source; no broader new family/foreign graph",
+      "parallel_reached_registrations": [
+        {
+          "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+          "sha256": "2bcd0c77859786aae8eb2d165da3c55abdb2da2ca82bd21b6826eedc0d93a5c5",
+          "row_1based": 10,
+          "id": "RIG-INITIAL06-REG-010",
+          "original_record": {
+            "id": "RIG-INITIAL06-REG-010",
+            "at": "2026-10-22T19:49:05.903491+00:00",
+            "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+            "source_id": "pr-working:crates/fabelgeist-armor/src/plate_face.rs",
+            "snapshot": "pr-working",
+            "sha256": "7c7d222066ebe81219e45b4ac4086acc9de7da36c7633f662027be299d93ba71",
+            "actual_EOF": 16,
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\plate_face.rs",
+            "material_ranges": [
+              [
+                1,
+                16
+              ]
+            ],
+            "material_caller": "Scoped PartLayout/BuiltPart/TileTemplate/GeneratedArmor and TextileColor.material reference these canonical component/face/mount products",
+            "reason": "Exact direct declaration/helper source required to finish current06 owner/dependency comparison, symbol boundaries only before prospective registration",
+            "exclusions": "Only this tiny direct type-definition source; no broader new family/foreign graph",
+            "status": "prospectively_registered_before_body_analysis; new variant global pending"
+          }
+        }
+      ],
+      "producer_inventory_accounting": "bounded01_02_newmaterial_comparison_pending",
+      "admission_discovery": "Root098 actual source-specific new-role comparison, no other lens verdict"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/plate_mount.rs",
+      "snapshot": "pr-working",
+      "path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\plate_mount.rs",
+      "sha256": "6b0650a1f0aa61c043d101edb7ed5f577b7291820201c1e5c4583559ab52f3f9",
+      "bytes": 1855,
+      "actual_line_count": 58,
+      "scope_kind": "materially_reached_parallel_initial_dependency",
+      "audit_owner": "rig",
+      "material_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "scope_limits": "Only this tiny direct type-definition source; no broader new family/foreign graph",
+      "parallel_reached_registrations": [
+        {
+          "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+          "sha256": "2bcd0c77859786aae8eb2d165da3c55abdb2da2ca82bd21b6826eedc0d93a5c5",
+          "row_1based": 11,
+          "id": "RIG-INITIAL06-REG-011",
+          "original_record": {
+            "id": "RIG-INITIAL06-REG-011",
+            "at": "2026-10-22T19:49:05.918705+00:00",
+            "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+            "source_id": "pr-working:crates/fabelgeist-armor/src/plate_mount.rs",
+            "snapshot": "pr-working",
+            "sha256": "6b0650a1f0aa61c043d101edb7ed5f577b7291820201c1e5c4583559ab52f3f9",
+            "actual_EOF": 58,
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\plate_mount.rs",
+            "material_ranges": [
+              [
+                1,
+                58
+              ]
+            ],
+            "material_caller": "Scoped PartLayout/BuiltPart/TileTemplate/GeneratedArmor and TextileColor.material reference these canonical component/face/mount products",
+            "reason": "Exact direct declaration/helper source required to finish current06 owner/dependency comparison, symbol boundaries only before prospective registration",
+            "exclusions": "Only this tiny direct type-definition source; no broader new family/foreign graph",
+            "status": "prospectively_registered_before_body_analysis; new variant global pending"
+          }
+        }
+      ],
+      "producer_inventory_accounting": "bounded01_02_newmaterial_comparison_pending",
+      "admission_discovery": "Root098 actual source-specific new-role comparison, no other lens verdict"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/limb_build.rs",
+      "snapshot": "pr-working",
+      "path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\gpu\\limb_build.rs",
+      "sha256": "3bb6b57ab917ceaf61262074dfeb2f9b648b2f2fa845226fa795edc3878f0220",
+      "bytes": 1800,
+      "actual_line_count": 46,
+      "scope_kind": "materially_reached_parallel_initial_dependency",
+      "audit_owner": "rig",
+      "material_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "scope_limits": "No broad new geometry/foreign/feature graph",
+      "parallel_reached_registrations": [
+        {
+          "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+          "sha256": "2bcd0c77859786aae8eb2d165da3c55abdb2da2ca82bd21b6826eedc0d93a5c5",
+          "row_1based": 12,
+          "id": "RIG-INITIAL06-REG-012",
+          "original_record": {
+            "id": "RIG-INITIAL06-REG-012",
+            "at": "2026-10-22T19:52:04.613453+00:00",
+            "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+            "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/limb_build.rs",
+            "snapshot": "pr-working",
+            "sha256": "3bb6b57ab917ceaf61262074dfeb2f9b648b2f2fa845226fa795edc3878f0220",
+            "actual_EOF": 46,
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\gpu\\limb_build.rs",
+            "material_ranges": [
+              [
+                1,
+                46
+              ]
+            ],
+            "material_caller": "Scoped gpu::mod reexports record_limb_armor/generate_limb_armor_on; LimbShape and ExtremityShape are exact2field PartRecipe/design products",
+            "reason": "Direct tiny terminal caller required to compare actual product producer/record recipient before deciding shared owner; navigation showed onlytwo functions, body notread before registration",
+            "exclusions": "No broad new geometry/foreign/feature graph",
+            "status": "prospectively_registered_before_body_analysis; new variant pendingglobal"
+          }
+        }
+      ],
+      "producer_inventory_accounting": "bounded01_02_newmaterial_comparison_pending",
+      "admission_discovery": "Root098 actual source-specific new-role comparison, no other lens verdict"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-garment-code/src/math.rs",
+      "snapshot": "pr-working",
+      "path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-garment-code\\src\\math.rs",
+      "sha256": "d781d59f49579995bc80f718a955f5ffcf9f7ec7842382831c43d91af451ab61",
+      "bytes": 13332,
+      "actual_line_count": 460,
+      "scope_kind": "materially_reached_parallel_initial_dependency",
+      "audit_owner": "rig",
+      "material_ranges": [
+        [
+          7,
+          8
+        ]
+      ],
+      "scope_limits": "All numeric helper/Rotation/curve bodies except exact aliases7\u20138 excluded",
+      "parallel_reached_registrations": [
+        {
+          "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+          "sha256": "2bcd0c77859786aae8eb2d165da3c55abdb2da2ca82bd21b6826eedc0d93a5c5",
+          "row_1based": 13,
+          "id": "RIG-INITIAL06-REG-013",
+          "original_record": {
+            "id": "RIG-INITIAL06-REG-013",
+            "at": "2026-10-22T19:55:23.334800+00:00",
+            "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+            "source_id": "pr-working:crates/fabelgeist-garment-code/src/math.rs",
+            "snapshot": "pr-working",
+            "sha256": "d781d59f49579995bc80f718a955f5ffcf9f7ec7842382831c43d91af451ab61",
+            "actual_EOF": 460,
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-garment-code\\src\\math.rs",
+            "material_ranges": [
+              [
+                7,
+                8
+              ]
+            ],
+            "material_caller": "Current scoped PatternSpec PanelSpec/Curvature fields import V2/V3; exact direct type alias owner and f64 precision comparison",
+            "reason": "Register aliases only before body, symbol navigation only; numeric helpers not needed for alias ownership",
+            "exclusions": "All numeric helper/Rotation/curve bodies except exact aliases7\u20138 excluded",
+            "status": "prospectively_registered_before_body_analysis; new variant pendingglobal"
+          }
+        }
+      ],
+      "producer_inventory_accounting": "bounded01_02_newmaterial_comparison_pending",
+      "admission_discovery": "Root098 actual source-specific new-role comparison, no other lens verdict"
+    }
+  ],
+  "new_overlays": [
+    {
+      "id": "CONT-OWNER-RANGE-EXTENSION-200",
+      "at": "2026-10-22T19:59:35.321379+00:00",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/world_event.rs",
+      "sha256": "9403e2e3d8bc995c0483da0502427442f1c526ee1b513db2a9b5beac3078a5b0",
+      "material_ranges": [
+        [
+          1,
+          300
+        ],
+        [
+          352,
+          460
+        ],
+        [
+          463,
+          811
+        ]
+      ],
+      "audit_owner": "native",
+      "reason": "Actual P16WorldEvent request/persist/fingerprint, apply/order/semanticbinding/preflight direct callee definitions; preserve original directFoodcaller and all old boundedroles.",
+      "scope_registration": [
+        {
+          "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+          "sha256": "6e72c3892dff62585195efed64c776d1478b58d71074aa23bc865ffdf256e9e0",
+          "row_1based": 6,
+          "id": "NATIVE-INITIAL05-REG006",
+          "original_record": {
+            "id": "NATIVE-INITIAL05-REG006",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "at": "2026-10-22T19:53:01.926320+00:00",
+            "source_id": "physical-p16:crates/adventuresim-stdb-module/src/world_event.rs",
+            "snapshot": "physical-p16",
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\world_event.rs",
+            "sha256": "9403e2e3d8bc995c0483da0502427442f1c526ee1b513db2a9b5beac3078a5b0",
+            "actual_EOF": 1188,
+            "material_ranges": [
+              [
+                1,
+                300
+              ],
+              [
+                352,
+                460
+              ],
+              [
+                463,
+                811
+              ]
+            ],
+            "reached_role": "Direct actual callees/record definitions for existing P16commit_world_event301-350: request/persist/fingerprint source identity and stable context; complete apply, consequence unique/order validation, recomputed semantic binding, subordinate preflight. Required05 request-envelope-plan-receipt correlation; existing partial635-657 is not whole preflight proof. Fresh PR1188 supplier narrative is source facts but cannot automatically establish P16callee namespace/body.",
+            "exclusions": "Public other adapters812-940 and unrelated tests1010+ excluded; preserve original301-354/427-465/635-657/941-1009 roles unchanged. No wholemodule/foreigngraph waiver.",
+            "registered_before_body_analysis": true,
+            "scope_status": "existingglobalvariant with genuinely new direct material ranges/roles, pending global reconciliation; no otherlens credit"
+          }
+        }
+      ],
+      "limits": "Public other adapters812-940 and unrelated tests1010+ excluded; preserve original301-354/427-465/635-657/941-1009 roles unchanged. No wholemodule/foreigngraph waiver.",
+      "source_qualifications": "NATIVE-INITIAL05-QUAL006: blankcontext300/811; original1001-1009 fixtureprefixonly, no tests1010+ or adapters812-940."
+    }
+  ],
+  "total_variants": 2772,
+  "total_overlays": 200,
+  "registered_rows": 6,
+  "input_pins": [
+    {
+      "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+      "sha256": "2bcd0c77859786aae8eb2d165da3c55abdb2da2ca82bd21b6826eedc0d93a5c5",
+      "captured_rows": 13,
+      "selected_ids": [
+        "RIG-INITIAL06-REG-009",
+        "RIG-INITIAL06-REG-010",
+        "RIG-INITIAL06-REG-011",
+        "RIG-INITIAL06-REG-012",
+        "RIG-INITIAL06-REG-013"
+      ]
+    },
+    {
+      "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+      "sha256": "6e72c3892dff62585195efed64c776d1478b58d71074aa23bc865ffdf256e9e0",
+      "captured_rows": 6,
+      "selected_ids": [
+        "NATIVE-INITIAL05-REG006"
+      ]
+    }
+  ],
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through199-before022.jsonl",
+    "sha256": "12078e6a38b601bcf35f4426601ec8f4d47e5bc69b5d6c439b369d5cf53fb80e",
+    "through": 199
+  },
+  "limits": "Metadata-only five exact Armorproduct/caller/Garmentaliases and P16WorldEvent directcallees. Root098/100 actual03manual comparison separate. Original roles/source freeze retained, no source edits or project execution; independently compare each new material role."
+}

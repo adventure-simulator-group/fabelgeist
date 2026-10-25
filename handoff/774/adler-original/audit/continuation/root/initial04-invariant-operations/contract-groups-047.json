@@ -1,0 +1,227 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-047",
+  "at": "2026-10-22T21:17:13.955166+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/error.rs",
+      "sha256": "877b773ae83bec290966d406d2aae3f84f7e5d804970e4f7771faa63e7b1d318",
+      "historical_base_sha256": null,
+      "actual_compared_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "source_evidence": "Fresh actual full exact current material error source; tests sourceonly, no invocation."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_iteration/error.rs",
+      "sha256": "a434a6844f7fc1634be9cab2e144ae9a6e7bc9b09a93c1b72b0bdca38140c197",
+      "historical_base_sha256": null,
+      "actual_compared_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "source_evidence": "Fresh actual full exact current material error source; tests sourceonly, no invocation."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/bestiary/error.rs",
+      "sha256": "279813fa320c4ce35bbef2229faa4367af4c93d97f074cec46e6984974245b6c",
+      "historical_base_sha256": null,
+      "actual_compared_ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "source_evidence": "Fresh actual full exact current material error source; tests sourceonly, no invocation."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/error.rs",
+      "sha256": "5e7c0c74cc71452ee3a99374100ae1c8d60941f4b1a563eb4aa6d693440b3c31",
+      "historical_base_sha256": null,
+      "actual_compared_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "source_evidence": "Fresh actual full exact current material error source; tests sourceonly, no invocation."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/person_names/error.rs",
+      "sha256": "d61ede6d1993fc5dd57a526c714ccd91c133b235f1cd8dc86d019b11ae1c479a",
+      "historical_base_sha256": null,
+      "actual_compared_ranges": [
+        [
+          1,
+          34
+        ]
+      ],
+      "source_evidence": "Fresh actual full exact current material error source; tests sourceonly, no invocation."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/clothing/error.rs",
+      "sha256": "3a33f6fd8aaabd68b8be71ea21f472b142fd17f7648bd79551af19b2c8f24297",
+      "historical_base_sha256": null,
+      "actual_compared_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "source_evidence": "Fresh actual full exact current material error source; tests sourceonly, no invocation."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/error.rs",
+      "sha256": "e3bd3bd8fb753b33e583e5cba64967ca07539dd8b4b0032a2153a330b59a01df",
+      "historical_base_sha256": null,
+      "actual_compared_ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "source_evidence": "Fresh actual full exact current material error source; tests sourceonly, no invocation."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_iteration/error.rs",
+      "sha256": "9864f16e67033ea8f14d686f25f2b71c78ff6e8866be6f8459df6384c4c5b647",
+      "historical_base_sha256": null,
+      "actual_compared_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "source_evidence": "Fresh actual full exact current material error source; tests sourceonly, no invocation."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/bestiary/error.rs",
+      "sha256": "279813fa320c4ce35bbef2229faa4367af4c93d97f074cec46e6984974245b6c",
+      "historical_base_sha256": null,
+      "actual_compared_ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "source_evidence": "Fresh actual full exact current material error source; tests sourceonly, no invocation."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/error.rs",
+      "sha256": "d3c463510dc48c5dcaf3e13310352dfaede3f8be29c90146ebca5dd2bf289214",
+      "historical_base_sha256": null,
+      "actual_compared_ranges": [
+        [
+          1,
+          362
+        ]
+      ],
+      "source_evidence": "Fresh actual full exact current material error source; tests sourceonly, no invocation."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/error.rs",
+      "sha256": null,
+      "historical_base_sha256": "5034a63e3f88c50bf298567c52a6ac1e6d2734e6239e7434d5275eb4e757e8d9",
+      "actual_compared_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "source_evidence": "Current source absent. Fresh historical base111lines consumed solely removal evidence, not current error API/construction/operations. Initialreaderassertion expectedNone stopped before any historicalbody; corrected explicitbasehashguard thenfreshread."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/error.rs",
+      "sha256": "0dcc310f1d6919c226afcb66bdbce1186f7417e49c24e6b3b292857980cbb1bb",
+      "historical_base_sha256": null,
+      "actual_compared_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "source_evidence": "Fresh actual full exact current material error source; tests sourceonly, no invocation."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/error.rs",
+      "sha256": "80158c095602a7e448e6da5071281e1c49d757524c199fcd9f193ea44d0c0a04",
+      "historical_base_sha256": null,
+      "actual_compared_ranges": [
+        [
+          1,
+          74
+        ]
+      ],
+      "source_evidence": "Fresh actual full exact current material error source; tests sourceonly, no invocation."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain/error.rs",
+      "sha256": "e3616e905943b4275f23b767ac43c8a4f19c1661ddcaef93914bbead401ab7a9",
+      "historical_base_sha256": null,
+      "actual_compared_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "source_evidence": "Fresh actual full exact current material error source; tests sourceonly, no invocation."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/error.rs",
+      "sha256": "ff23deb907351c2ca0aab6e8e2831f2dfee7c3ec855d91124522d9e0102442e4",
+      "historical_base_sha256": null,
+      "actual_compared_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "source_evidence": "Fresh actual full exact current material error source; tests sourceonly, no invocation."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/person_names/error.rs",
+      "sha256": "d61ede6d1993fc5dd57a526c714ccd91c133b235f1cd8dc86d019b11ae1c479a",
+      "historical_base_sha256": null,
+      "actual_compared_ranges": [
+        [
+          1,
+          34
+        ]
+      ],
+      "source_evidence": "Fresh actual full exact current material error source; tests sourceonly, no invocation."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/error.rs",
+      "sha256": "1e14c8d0441364e441ccc57365bdddfe9c895a633be80ce0bdf91c0f45b95b1a",
+      "historical_base_sha256": null,
+      "actual_compared_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "source_evidence": "Fresh actual full exact current material error source; tests sourceonly, no invocation."
+    }
+  ],
+  "groups": {
+    "closed-errors-no-numeric-operations": "BattleResolutionError PR four concrete cause variants and P16 five inclGeometry; MeleeIterationError actual P16 likewise addsGeometry whilePR othercauses/classifiedunknowninputs preserved. Own declarations/result aliases have no arithmetic/normalization/indexing/retainedmutation/clock, so no operation invariant loss in these sources. Transparent derivingError/Fromwraps same typed lowercause, not recomputing physical values. This doesNOTclear methods that produce those errors orprove input guards occurbefore mutations; actual callerfiles retainseparatelensobligation. Resultaliases idiomatic API naming, no legacy compatibilityforwarders inferred.",
+    "error-raw-rejected-context": "UnknownThreatId unitclosederror/nativeDisplay; actualexistingtests checkdowncast/sourceNone/Serdeerror andvalidbanditroundtrip as sourceonly. NameCatalogError closedreasonswithrawMissingEntryID andSamplingString; no numericaloperation. SamplingString mayeraseavailabletypedlowercause atproducer, actual producer/librarycapabilitymusttrace in laterowner/error lens beforefinding; declarationalone not proofnativeopaqueport. ClothingPieceName isdiagnosticdisplayidentity notcheckedasset/rigjointID, FromString/&str intentionallyallowsdisplayprose. ClothingFaceContext raw3u32 ORIGINALrejectedindices, error notacceptedmeshtriangle certificate. GenerateError rejectsrawf32cutaway/span: invalid/nonfinitevaluesmustremainrepresentableerrorcontext, cannotrequirealreadyadmittedpositivequantities merelybecauseformatunitm. PlateShellFailure singlecollapsedface reason. GPUArcStrnotprovennativewaiver: actualcallback/constructor source determinesavailablecause.",
+    "command-and-scene-cause-preservation": "IterationError IO/serdeJSON/measurement/geometry/timing/performance/reportlowercauses retained, WriteReport pairsPathBuf+typedIOsource; P16exhaustiveMeleeGeometryErrorconversion preservesall4nestedcauses. InvalidSeedCounts carriesrawzero/maxu64 failedinput, no cast/iteration performedhere. ReportMovementObservation closed4kinds andsequencecontextnotamountvalidation. VistaMeshError carriesactualfailedpoint/LOD plustypedGeometry/Support; messagecommentdoesnotprove replacementatomicity. SceneInputError typedloweradmission/collision/door/entrance/terrain/validation/IO/JSON errors plusinteriorbuildingcontext, BoxFromfourlargecauses retainscausewithno domainmutation/math. TerrainRecipeError closedextraction/admissionfailures doesnotitselfguarantee voxelcapacity/normals/parameters guarded atactualproducer. SamecauseDataintoerror is legitimate Fromconversion; no arbitrary forbidden.into blanket.",
+    "strategic-diagnostic-state": "ReducerOperation closedcontexttaxonomy with88-ish operationalcontexts (no exactcountclaim), exhaustiveas_str/is_travel pureselection no numericalindex/ordering/range. These contextnames canbe moredetailedthan actualSDKreducerkey, do notcollapse distinctoperationcontext into reducername withoutactualmeaning. ReducerCallFailure privatekind Dispatchdetail/Rejected{code,detail}/TimedOut; rejectionparse computescodefromoneString before immutableSelfpublication, cachedcodepairedwithsamemessage. parse_reducer_erroractualpolicy/helper stillseparatelyscoped, no inventedcurrentclassificationbug. CoreLoopError retainsoperationcontext andtypedAuthoredThreatcause, OtherString/Operationdetail constructorvaluesremainraw untilactualsourcecapabilityverified. IntoString herecopiesrepresentation, not arithmetic/retainedsemanticquantitycomputation. Displayof ACTION_TIMEOUT observationnotretryclockconsumption; errorconstructorsdo not rollbackormutateretrybudget. Correctretry/backoffcallees requireownfocusedsourceproof, not wavedbythisenumreview.",
+    "deleted-generation-error": "PRgeneration/error.rs is genuinelydeleted (currentSHA null, historicalbase5034...). Read historicalPreparedErrorvariants/nativeCBOR/JSON/lowercauses andBoxFrom onlyas removedAPIevidence; never treat them as current checkedproduct/failurechannels. No actual source mismatch: initial guard compared historicalhash tocurrentnullandstopped, then explicithistoricalbasecheckedbeforebody. Current replacement generation owner elsewhere mustretainactualfailurecontracts initsowncell; no restorecompatibilityalias/fallback fromthisoldmodule."
+  },
+  "findings": [],
+  "prior_finding_support": [
+    "Existing typedlowercause propagation/actualnativeboundary requirements retained; no standalone operations failure inclosed diagnostic declarations"
+  ],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

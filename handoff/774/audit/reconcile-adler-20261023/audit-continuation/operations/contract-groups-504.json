@@ -1,0 +1,114 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-504",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/buildings/identity.rs",
+      "sha256": "53af66cb68d475328494f071fc1fc64701c6c2fbd3204ffb79a82bbfd318a7b0",
+      "actual_EOF": 40,
+      "actual_compared_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/buildings/placement.rs",
+      "sha256": "8d39af4feaf3413ec32ff198193d1f15b9c029ac9be1f9582f00834976ac1bcc",
+      "actual_EOF": 188,
+      "actual_compared_ranges": [
+        [
+          1,
+          188
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/buildings/reservations.rs",
+      "sha256": "94061c8113ad39b5d8311e3078a34d743557bbf36b7e14324f149f08c068bcc3",
+      "actual_EOF": 48,
+      "actual_compared_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/descriptor.rs",
+      "sha256": "2b30929bb687f5865c0fa515cb96763b1b03d4a97522dbc015b02d7cb4558336",
+      "actual_EOF": 103,
+      "actual_compared_ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/detail_obstacles.rs",
+      "sha256": "3f3f41a4aa24cbc26e90b89344ff0efd29cb7949da014bd7df1d6326bae2e702",
+      "actual_EOF": 50,
+      "actual_compared_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/environment.rs",
+      "sha256": "5dc4692893cb46eafc83376730b05121885a310d915bfacc8b824aebd24eee3d",
+      "actual_EOF": 86,
+      "actual_compared_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/establishments.rs",
+      "sha256": "9033f4633d599fd7c5a2d4802c4942993bca3a804ed98f9e88b3e4ea1cdbfbc1",
+      "actual_EOF": 68,
+      "actual_compared_ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Building physical identity and floor datum preserve semantic placement",
+      "evidence": "Full identity40/placement188/reservations48. SceneBuildingIdu64distinctopening/source, allrawu64scalarpatterns locallyvalid; aggregatephysicalmembership nonzero decidedatowninginput. Geometrydatum derivescollisioncentre fromcanonicalbounds, architecturalfloor(notburiedbottom) mapsselectedsignedsupportdatum, checkedtransform. Exactfixturesdistantpromotion/program/negativefloor andburiedslabs/structuralnodes/thresholds preserveauthoredY0. Noexecution, no wrapperidnarrowingunrelatedsyntheticactors."
+    },
+    {
+      "contract": "Obstacle native-grid displacement admitted before ground queries",
+      "evidence": "Full detailobstacles50/reservations48: gridordinalu16*rawspacing thensubtract actualhalfextent, completedScenePlanPoint checkedbeforehandoff; rockpositivecolliderradiuschecked. ReservationallowszeroPlanExtents distinctoccupiedplotpositiveextent, apronexclusion doesnotpickfloor. Nativeextreme arithmetic maystructuredreject, no unsafeuncheckedpointpublication."
+    },
+    {
+      "contract": "Raw scene envelope and immutable presentation snapshot admission qualifications",
+      "evidence": "Full descriptor103/environment86. RawTacticalSceneInputdenyunknownfields andversion29/generation73/32MiB, wholevalidateinvokedload/generation notautomaticderiveDecode. SceneEnvironmentimmutableECS butpublicrawfields\u2014immutablecomponent doesnotestablishweather/provenanceaggregatecontract. Fixture uses checkedWGS/signedElevation/actualnoon/normaltemp100. Preserveadopted03/06rawentryqualifications; no nativecodec result assumed fromJSONonly."
+    },
+    {
+      "contract": "Captured business display identity remains one coherent mission snapshot",
+      "evidence": "Full establishments68 plusdescriptorfixturetests. Exactuniquephysicalbuilding/business/operator, samebusinesssettlementacrosssnapshot, existingbuildingusage, ShopName derivedfromactual RenderedPersonalName+usage checked. Renamingoperatorrequiresfreshbranding, crosssnapshotmissions recapture intentionally; no synchronizinglaterglobalrename intoimmutablemission. BTreeMapbuildingduplicates dependonearlierinputwholevalidation; actualorder proof pending, no newoverwriteordinaryclaim."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "7 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture.rs"
+}

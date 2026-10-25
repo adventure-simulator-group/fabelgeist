@@ -1,0 +1,95 @@
+{
+  "recorded_at": "2026-10-21T05:29:08.876189+00:00",
+  "merge_base": "c20169551087b86c0f639d7e8bbe151b510f410a",
+  "ours": "596fb3b8778c1461a7831ea1adb65262c9caa933",
+  "current_main": "3a50b708381ad00c116445c2c999a49c3943088b",
+  "scope": "Resolve three manifest/module conflicts and new hair name consumers; preserve upstream hair/compute changes and all original goal exits. No hair-shape change, local project check, new test or DB/schema operation.",
+  "conflicts_resolved": {
+    "creator_manifest": "Union the rig/derive_more/thiserror and hair/bytemuck dependencies; one thiserror declaration uses the existing2.0.18 minimum, with the merged lock retaining2.0.20.",
+    "creator_morphs": "Keep imports/reexports first; declare draped and hair once.",
+    "creator_library": "Keep existing item_catalog_schema reexport and garment declarations once, add hair next to peer modules, preserve offline feature gates and new upstream recipe14/hair field."
+  },
+  "connected_name_contract": "MHR Skeleton.names is Vec<RigJointName>. Carry those leaves through BodyHead and borrowed HeadSkin; reuse C_HEAD/L_EYE/R_EYE for exact lookup and retain RigJointName in MissingJoint. No String conversion, new equivalent name type, case change or lookup-order change.",
+  "new_callers": "Both HeadSkin literals (BodyHead placement and sampled hair morphs) consume the typed names directly. All CharacterRecipe literals use ..Default and inherit the new upstream hair=None field; no test modification needed.",
+  "locks": [
+    {
+      "path": "Cargo.lock",
+      "package_count": 1125,
+      "three_way_package_metadata_exact": true,
+      "combined_dependency_fields": [
+        {
+          "package": [
+            "adventuresim-character-creator",
+            "0.1.0",
+            null
+          ],
+          "field": "dependencies",
+          "ours_added": [
+            "derive_more 2.1.1",
+            "fabelgeist-rig",
+            "thiserror 2.0.20"
+          ],
+          "main_added": [
+            "bytemuck",
+            "fabelgeist-hair",
+            "thiserror 2.0.20"
+          ],
+          "removed": []
+        }
+      ],
+      "sha256": "444380b5f38954e091ff2507d66ce4d4532ecaff9e4a80577a9bc7634c31a8f2"
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.lock",
+      "package_count": 1063,
+      "three_way_package_metadata_exact": true,
+      "combined_dependency_fields": [
+        {
+          "package": [
+            "adventuresim-character-creator",
+            "0.1.0",
+            null
+          ],
+          "field": "dependencies",
+          "ours_added": [
+            "derive_more 2.1.1",
+            "fabelgeist-rig",
+            "thiserror 2.0.20"
+          ],
+          "main_added": [
+            "bytemuck",
+            "fabelgeist-hair",
+            "thiserror 2.0.20"
+          ],
+          "removed": []
+        }
+      ],
+      "sha256": "eef6561e5db48c546bcf07d5528402af1b9677920d66230bf19d3b5bb9f9b540"
+    }
+  ],
+  "quality_baseline": {
+    "files": {
+      "records": 209,
+      "exact_three_way_metadata": true
+    },
+    "functions": {
+      "records": 485,
+      "exact_three_way_metadata": true
+    },
+    "findings": {
+      "records": 1369,
+      "exact_three_way_metadata": true
+    }
+  },
+  "quality_registry": "Upstream additions auto-merge; no own scope broadening or ceiling increase. Official current-head gate/export still required.",
+  "remaining_ownership": "P09 must include hair HeadSkin/BodyHead, head_joint and WholeJoint packing; P10/P11 retain their original exits. New unchecked f32 math units need role/precision/admission reuse checks; the P08 preflight now records their actual contracts.",
+  "expected_workflow_sha256": "ef33491ba620cfcf48df57b05d668f0b208104956f7509852e42db3105ae1e29",
+  "validation": "Static Git/TOML/source metadata only. No current-head CI run exists until mergeability is restored. Existing focused Code/Rule source review is not an independent full PR or visual acceptance.",
+  "source_preservation": "P06-upstream-source-deltas.json",
+  "all_nine_error_family_files_unchanged": true,
+  "new_head_skin_names": "All names preserved as RigJointName; MissingJoint retains exact canonical name and C_HEAD/L_EYE/R_EYE constants match upstream spellings.",
+  "merge_commit": "64cafc95febbac5c869c573241e312f181ec0206",
+  "main_is_ancestor": true,
+  "worktree_clean": true,
+  "pr_mergeable": true
+}

@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-626",
+  "at": "2026-10-25T16:15:14.955387+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 948,
+  "source_id": "pr-working:crates/adventuresim-core/src/knowledge.rs",
+  "sha256": "eff9843bb7a8c4e0459b990f5684deae4c827ec824b58334789ec8e1cce55ffd",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Fresh knowledge1\u2013220: ten local extension traits are exactly empty with Clone+Debug+Eq supertraits15\u201324, confirming the earlier explicit knowledge opt-ins are marker contracts. IDs/revision/confidence/envelope/lineage/source/visibility records already derive structural traits with exact native/generic bounds. Checked nonzero/confidence/lineage constructors and public confidence bands semantic; no handtrait/codec. Envelope admission body incomplete.",
+  "first_unfinished": {
+    "scope_index": 948,
+    "line": 221
+  },
+  "execution": "none"
+}

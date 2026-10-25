@@ -1,0 +1,4735 @@
+[
+  {
+    "path": "crates/adventuresim-stdb-module/src/time/advancement.rs",
+    "sha256": "4d29377483597d2c70b29a228fcbda60ed1f81614ae46c891cb9d833c18da188",
+    "revision": "13fc9dcc71ab879de364117e5462310673e43210",
+    "ranges": [
+      [
+        1,
+        145
+      ],
+      [
+        440,
+        582
+      ]
+    ],
+    "slices": [
+      {
+        "range": [
+          1,
+          145
+        ],
+        "lines": [
+          {
+            "line": 1,
+            "text": "// Owns travel, investigation, party synchronization, and neutral wait advancement policy."
+          },
+          {
+            "line": 2,
+            "text": "include!(\"advancement/lifecycle.rs\");"
+          },
+          {
+            "line": 3,
+            "text": ""
+          },
+          {
+            "line": 4,
+            "text": "/// Record time spent travelling without applying recovery, activities, or"
+          },
+          {
+            "line": 5,
+            "text": "/// training. Travel time belongs only to the character's personal clock."
+          },
+          {
+            "line": 6,
+            "text": "pub fn advance_character_time("
+          },
+          {
+            "line": 7,
+            "text": "    ctx: &ReducerContext,"
+          },
+          {
+            "line": 8,
+            "text": "    character_id: u64,"
+          },
+          {
+            "line": 9,
+            "text": "    minutes: u64,"
+          },
+          {
+            "line": 10,
+            "text": ") -> Result<bool, String> {"
+          },
+          {
+            "line": 11,
+            "text": "    crate::character::require_living_character(ctx, character_id)?;"
+          },
+          {
+            "line": 12,
+            "text": "    ensure_character_time(ctx, character_id)?;"
+          },
+          {
+            "line": 13,
+            "text": "    let mut character_time = ctx"
+          },
+          {
+            "line": 14,
+            "text": "        .db"
+          },
+          {
+            "line": 15,
+            "text": "        .character_time()"
+          },
+          {
+            "line": 16,
+            "text": "        .character_id()"
+          },
+          {
+            "line": 17,
+            "text": "        .find(character_id)"
+          },
+          {
+            "line": 18,
+            "text": "        .ok_or_else(|| \"Character time record not found\".to_string())?;"
+          },
+          {
+            "line": 19,
+            "text": "    let starting_minute = character_time.minutes;"
+          },
+          {
+            "line": 20,
+            "text": "    if let Some(first) = first_lifecycle_segment("
+          },
+          {
+            "line": 21,
+            "text": "        ctx,"
+          },
+          {
+            "line": 22,
+            "text": "        character_id,"
+          },
+          {
+            "line": 23,
+            "text": "        starting_minute,"
+          },
+          {
+            "line": 24,
+            "text": "        minutes,"
+          },
+          {
+            "line": 25,
+            "text": "    ) {"
+          },
+          {
+            "line": 26,
+            "text": "        if !advance_character_time(ctx, character_id, first)? {"
+          },
+          {
+            "line": 27,
+            "text": "            return Ok(false);"
+          },
+          {
+            "line": 28,
+            "text": "        }"
+          },
+          {
+            "line": 29,
+            "text": "        return advance_character_time(ctx, character_id, minutes.saturating_sub(first));"
+          },
+          {
+            "line": 30,
+            "text": "    }"
+          },
+          {
+            "line": 31,
+            "text": "    let injury_limit = crate::surgery::preview_injury_boundary("
+          },
+          {
+            "line": 32,
+            "text": "        ctx,"
+          },
+          {
+            "line": 33,
+            "text": "        character_id,"
+          },
+          {
+            "line": 34,
+            "text": "        minutes,"
+          },
+          {
+            "line": 35,
+            "text": "        InjuryRecoveryMinutes::NONE,"
+          },
+          {
+            "line": 36,
+            "text": "    )?"
+          },
+          {
+            "line": 37,
+            "text": "    .elapsed;"
+          },
+          {
+            "line": 38,
+            "text": "    let (elapsed, terminal) ="
+          },
+          {
+            "line": 39,
+            "text": "        crate::disease::clip_elapsed_for_disease(ctx, character_id, injury_limit, false)?;"
+          },
+          {
+            "line": 40,
+            "text": "    let settled ="
+          },
+          {
+            "line": 41,
+            "text": "        crate::surgery::settle_injuries(ctx, character_id, elapsed, InjuryRecoveryMinutes::NONE)?;"
+          },
+          {
+            "line": 42,
+            "text": "    let elapsed = settled.elapsed;"
+          },
+          {
+            "line": 43,
+            "text": "    let interval_end = character_time.minutes.saturating_add_minutes(elapsed);"
+          },
+          {
+            "line": 44,
+            "text": "    character_time.minutes = interval_end;"
+          },
+          {
+            "line": 45,
+            "text": "    ctx.db"
+          },
+          {
+            "line": 46,
+            "text": "        .character_time()"
+          },
+          {
+            "line": 47,
+            "text": "        .character_id()"
+          },
+          {
+            "line": 48,
+            "text": "        .update(character_time);"
+          },
+          {
+            "line": 49,
+            "text": "    crate::condition::apply_weather_exposure("
+          },
+          {
+            "line": 50,
+            "text": "        ctx,"
+          },
+          {
+            "line": 51,
+            "text": "        character_id,"
+          },
+          {
+            "line": 52,
+            "text": "        starting_minute,"
+          },
+          {
+            "line": 53,
+            "text": "        elapsed,"
+          },
+          {
+            "line": 54,
+            "text": "        true,"
+          },
+          {
+            "line": 55,
+            "text": "        ExposureShelter::Field(FieldShelter::Bivouac),"
+          },
+          {
+            "line": 56,
+            "text": "    )?;"
+          },
+          {
+            "line": 57,
+            "text": "    crate::organization::settle_membership_dues(ctx, character_id)?;"
+          },
+          {
+            "line": 58,
+            "text": "    crate::social::settle_shared_party_time(ctx, character_id);"
+          },
+          {
+            "line": 59,
+            "text": "    crate::disease::finish_disease_interval(ctx, character_id, terminal)?;"
+          },
+          {
+            "line": 60,
+            "text": "    settle_lifecycle_after_character_time_write("
+          },
+          {
+            "line": 61,
+            "text": "        ctx,"
+          },
+          {
+            "line": 62,
+            "text": "        character_id,"
+          },
+          {
+            "line": 63,
+            "text": "        interval_end,"
+          },
+          {
+            "line": 64,
+            "text": "    )?;"
+          },
+          {
+            "line": 65,
+            "text": "    advance_married_family_by(ctx, character_id, elapsed)?;"
+          },
+          {
+            "line": 66,
+            "text": "    if terminal.is_some() || !settled.alive {"
+          },
+          {
+            "line": 67,
+            "text": "        return Ok(false);"
+          },
+          {
+            "line": 68,
+            "text": "    }"
+          },
+          {
+            "line": 69,
+            "text": "    crate::condition::apply_travel_condition(ctx, character_id, starting_minute, elapsed, 0)?;"
+          },
+          {
+            "line": 70,
+            "text": "    crate::condition::refresh_character_strategic_condition(ctx, character_id)?;"
+          },
+          {
+            "line": 71,
+            "text": "    crate::capability::refresh_character_capability(ctx, character_id)?;"
+          },
+          {
+            "line": 72,
+            "text": "    Ok(true)"
+          },
+          {
+            "line": 73,
+            "text": "}"
+          },
+          {
+            "line": 74,
+            "text": ""
+          },
+          {
+            "line": 75,
+            "text": "fn advance_character_time_in_plan("
+          },
+          {
+            "line": 76,
+            "text": "    ctx: &ReducerContext,"
+          },
+          {
+            "line": 77,
+            "text": "    character_id: u64,"
+          },
+          {
+            "line": 78,
+            "text": "    minutes: u64,"
+          },
+          {
+            "line": 79,
+            "text": "    plan: &crate::disease::PartyDiseaseIntervalPlan,"
+          },
+          {
+            "line": 80,
+            "text": ") -> Result<bool, String> {"
+          },
+          {
+            "line": 81,
+            "text": "    crate::character::require_living_character(ctx, character_id)?;"
+          },
+          {
+            "line": 82,
+            "text": "    ensure_character_time(ctx, character_id)?;"
+          },
+          {
+            "line": 83,
+            "text": "    let mut character_time = ctx"
+          },
+          {
+            "line": 84,
+            "text": "        .db"
+          },
+          {
+            "line": 85,
+            "text": "        .character_time()"
+          },
+          {
+            "line": 86,
+            "text": "        .character_id()"
+          },
+          {
+            "line": 87,
+            "text": "        .find(character_id)"
+          },
+          {
+            "line": 88,
+            "text": "        .ok_or_else(|| \"Character time record not found\".to_string())?;"
+          },
+          {
+            "line": 89,
+            "text": "    let starting_minute = character_time.minutes;"
+          },
+          {
+            "line": 90,
+            "text": "    if let Some(first) = first_lifecycle_segment("
+          },
+          {
+            "line": 91,
+            "text": "        ctx,"
+          },
+          {
+            "line": 92,
+            "text": "        character_id,"
+          },
+          {
+            "line": 93,
+            "text": "        starting_minute,"
+          },
+          {
+            "line": 94,
+            "text": "        minutes,"
+          },
+          {
+            "line": 95,
+            "text": "    ) {"
+          },
+          {
+            "line": 96,
+            "text": "        if !advance_character_time_in_plan(ctx, character_id, first, plan)? {"
+          },
+          {
+            "line": 97,
+            "text": "            return Ok(false);"
+          },
+          {
+            "line": 98,
+            "text": "        }"
+          },
+          {
+            "line": 99,
+            "text": "        return advance_character_time_in_plan("
+          },
+          {
+            "line": 100,
+            "text": "            ctx,"
+          },
+          {
+            "line": 101,
+            "text": "            character_id,"
+          },
+          {
+            "line": 102,
+            "text": "            minutes.saturating_sub(first),"
+          },
+          {
+            "line": 103,
+            "text": "            plan,"
+          },
+          {
+            "line": 104,
+            "text": "        );"
+          },
+          {
+            "line": 105,
+            "text": "    }"
+          },
+          {
+            "line": 106,
+            "text": "    let injury_limit = crate::surgery::preview_injury_boundary("
+          },
+          {
+            "line": 107,
+            "text": "        ctx,"
+          },
+          {
+            "line": 108,
+            "text": "        character_id,"
+          },
+          {
+            "line": 109,
+            "text": "        minutes,"
+          },
+          {
+            "line": 110,
+            "text": "        InjuryRecoveryMinutes::NONE,"
+          },
+          {
+            "line": 111,
+            "text": "    )?"
+          },
+          {
+            "line": 112,
+            "text": "    .elapsed;"
+          },
+          {
+            "line": 113,
+            "text": "    let (elapsed, terminal) = crate::disease::clip_elapsed_for_disease_in_plan("
+          },
+          {
+            "line": 114,
+            "text": "        ctx,"
+          },
+          {
+            "line": 115,
+            "text": "        character_id,"
+          },
+          {
+            "line": 116,
+            "text": "        injury_limit,"
+          },
+          {
+            "line": 117,
+            "text": "        false,"
+          },
+          {
+            "line": 118,
+            "text": "        plan,"
+          },
+          {
+            "line": 119,
+            "text": "    )?;"
+          },
+          {
+            "line": 120,
+            "text": "    let settled ="
+          },
+          {
+            "line": 121,
+            "text": "        crate::surgery::settle_injuries(ctx, character_id, elapsed, InjuryRecoveryMinutes::NONE)?;"
+          },
+          {
+            "line": 122,
+            "text": "    let elapsed = settled.elapsed;"
+          },
+          {
+            "line": 123,
+            "text": "    character_time.minutes = character_time.minutes"
+          },
+          {
+            "line": 124,
+            "text": "        .saturating_add_minutes(elapsed)"
+          },
+          {
+            "line": 125,
+            "text": "        ;"
+          },
+          {
+            "line": 126,
+            "text": "    ctx.db"
+          },
+          {
+            "line": 127,
+            "text": "        .character_time()"
+          },
+          {
+            "line": 128,
+            "text": "        .character_id()"
+          },
+          {
+            "line": 129,
+            "text": "        .update(character_time);"
+          },
+          {
+            "line": 130,
+            "text": "    crate::organization::settle_membership_dues(ctx, character_id)?;"
+          },
+          {
+            "line": 131,
+            "text": "    crate::social::settle_shared_party_time(ctx, character_id);"
+          },
+          {
+            "line": 132,
+            "text": "    crate::disease::finish_disease_interval(ctx, character_id, terminal)?;"
+          },
+          {
+            "line": 133,
+            "text": "    settle_lifecycle_after_character_time_write("
+          },
+          {
+            "line": 134,
+            "text": "        ctx,"
+          },
+          {
+            "line": 135,
+            "text": "        character_id,"
+          },
+          {
+            "line": 136,
+            "text": "        starting_minute.saturating_add_minutes(settled.elapsed),"
+          },
+          {
+            "line": 137,
+            "text": "    )?;"
+          },
+          {
+            "line": 138,
+            "text": "    advance_married_family_by(ctx, character_id, elapsed)?;"
+          },
+          {
+            "line": 139,
+            "text": "    if terminal.is_some() || !settled.alive {"
+          },
+          {
+            "line": 140,
+            "text": "        return Ok(false);"
+          },
+          {
+            "line": 141,
+            "text": "    }"
+          },
+          {
+            "line": 142,
+            "text": "    crate::condition::apply_travel_condition(ctx, character_id, starting_minute, elapsed, 0)?;"
+          },
+          {
+            "line": 143,
+            "text": "    crate::condition::refresh_character_strategic_condition(ctx, character_id)?;"
+          },
+          {
+            "line": 144,
+            "text": "    crate::capability::refresh_character_capability(ctx, character_id)?;"
+          },
+          {
+            "line": 145,
+            "text": "    Ok(true)"
+          }
+        ]
+      },
+      {
+        "range": [
+          440,
+          582
+        ],
+        "lines": [
+          {
+            "line": 440,
+            "text": "        return advance_character_wait_time(ctx, character_id, minutes.saturating_sub(first));"
+          },
+          {
+            "line": 441,
+            "text": "    }"
+          },
+          {
+            "line": 442,
+            "text": "    let injury_limit = crate::surgery::preview_injury_boundary("
+          },
+          {
+            "line": 443,
+            "text": "        ctx,"
+          },
+          {
+            "line": 444,
+            "text": "        character_id,"
+          },
+          {
+            "line": 445,
+            "text": "        minutes,"
+          },
+          {
+            "line": 446,
+            "text": "        InjuryRecoveryMinutes::new(minutes),"
+          },
+          {
+            "line": 447,
+            "text": "    )?"
+          },
+          {
+            "line": 448,
+            "text": "    .elapsed;"
+          },
+          {
+            "line": 449,
+            "text": "    let (elapsed, terminal) ="
+          },
+          {
+            "line": 450,
+            "text": "        crate::disease::clip_elapsed_for_disease(ctx, character_id, injury_limit, true)?;"
+          },
+          {
+            "line": 451,
+            "text": "    let settled = crate::surgery::settle_injuries("
+          },
+          {
+            "line": 452,
+            "text": "        ctx,"
+          },
+          {
+            "line": 453,
+            "text": "        character_id,"
+          },
+          {
+            "line": 454,
+            "text": "        elapsed,"
+          },
+          {
+            "line": 455,
+            "text": "        InjuryRecoveryMinutes::new(elapsed),"
+          },
+          {
+            "line": 456,
+            "text": "    )?;"
+          },
+          {
+            "line": 457,
+            "text": "    time.minutes = time.minutes"
+          },
+          {
+            "line": 458,
+            "text": "        .saturating_add_minutes(settled.elapsed)"
+          },
+          {
+            "line": 459,
+            "text": "        ;"
+          },
+          {
+            "line": 460,
+            "text": "    ctx.db.character_time().character_id().update(time);"
+          },
+          {
+            "line": 461,
+            "text": "    advance_married_family_by(ctx, character_id, settled.elapsed)?;"
+          },
+          {
+            "line": 462,
+            "text": "    let at_settlement = ctx"
+          },
+          {
+            "line": 463,
+            "text": "        .db"
+          },
+          {
+            "line": 464,
+            "text": "        .character()"
+          },
+          {
+            "line": 465,
+            "text": "        .id()"
+          },
+          {
+            "line": 466,
+            "text": "        .find(character_id)"
+          },
+          {
+            "line": 467,
+            "text": "        .is_some_and(|row| row.current_settlement_id.is_some());"
+          },
+          {
+            "line": 468,
+            "text": "    crate::condition::apply_weather_exposure("
+          },
+          {
+            "line": 469,
+            "text": "        ctx,"
+          },
+          {
+            "line": 470,
+            "text": "        character_id,"
+          },
+          {
+            "line": 471,
+            "text": "        starting_minute,"
+          },
+          {
+            "line": 472,
+            "text": "        settled.elapsed,"
+          },
+          {
+            "line": 473,
+            "text": "        false,"
+          },
+          {
+            "line": 474,
+            "text": "        if at_settlement {"
+          },
+          {
+            "line": 475,
+            "text": "            ExposureShelter::Indoor"
+          },
+          {
+            "line": 476,
+            "text": "        } else {"
+          },
+          {
+            "line": 477,
+            "text": "            ExposureShelter::Field(FieldShelter::Bivouac)"
+          },
+          {
+            "line": 478,
+            "text": "        },"
+          },
+          {
+            "line": 479,
+            "text": "    )?;"
+          },
+          {
+            "line": 480,
+            "text": "    crate::organization::settle_membership_dues(ctx, character_id)?;"
+          },
+          {
+            "line": 481,
+            "text": "    crate::social::settle_shared_party_time(ctx, character_id);"
+          },
+          {
+            "line": 482,
+            "text": "    crate::disease::finish_disease_interval(ctx, character_id, terminal)?;"
+          },
+          {
+            "line": 483,
+            "text": "    settle_lifecycle_after_character_time_write("
+          },
+          {
+            "line": 484,
+            "text": "        ctx,"
+          },
+          {
+            "line": 485,
+            "text": "        character_id,"
+          },
+          {
+            "line": 486,
+            "text": "        starting_minute.saturating_add_minutes(settled.elapsed),"
+          },
+          {
+            "line": 487,
+            "text": "    )?;"
+          },
+          {
+            "line": 488,
+            "text": "    if terminal.is_some() || !settled.alive {"
+          },
+          {
+            "line": 489,
+            "text": "        return Ok(false);"
+          },
+          {
+            "line": 490,
+            "text": "    }"
+          },
+          {
+            "line": 491,
+            "text": "    if at_settlement {"
+          },
+          {
+            "line": 492,
+            "text": "        crate::condition::apply_rest_condition(ctx, character_id, settled.elapsed)?;"
+          },
+          {
+            "line": 493,
+            "text": "    } else {"
+          },
+          {
+            "line": 494,
+            "text": "        crate::condition::apply_elapsed_needs(ctx, character_id, settled.elapsed)?;"
+          },
+          {
+            "line": 495,
+            "text": "        crate::condition::apply_camp_rest_recovery_condition(ctx, character_id, settled.elapsed)?;"
+          },
+          {
+            "line": 496,
+            "text": "    }"
+          },
+          {
+            "line": 497,
+            "text": "    crate::capability::refresh_character_capability(ctx, character_id)?;"
+          },
+          {
+            "line": 498,
+            "text": "    Ok(true)"
+          },
+          {
+            "line": 499,
+            "text": "}"
+          },
+          {
+            "line": 500,
+            "text": ""
+          },
+          {
+            "line": 501,
+            "text": "pub fn advance_character_wait_time_in_plan("
+          },
+          {
+            "line": 502,
+            "text": "    ctx: &ReducerContext,"
+          },
+          {
+            "line": 503,
+            "text": "    character_id: u64,"
+          },
+          {
+            "line": 504,
+            "text": "    minutes: u64,"
+          },
+          {
+            "line": 505,
+            "text": "    plan: &crate::disease::PartyDiseaseIntervalPlan,"
+          },
+          {
+            "line": 506,
+            "text": ") -> Result<bool, String> {"
+          },
+          {
+            "line": 507,
+            "text": "    crate::character::require_living_character(ctx, character_id)?;"
+          },
+          {
+            "line": 508,
+            "text": "    ensure_character_time(ctx, character_id)?;"
+          },
+          {
+            "line": 509,
+            "text": "    let mut time = ctx"
+          },
+          {
+            "line": 510,
+            "text": "        .db"
+          },
+          {
+            "line": 511,
+            "text": "        .character_time()"
+          },
+          {
+            "line": 512,
+            "text": "        .character_id()"
+          },
+          {
+            "line": 513,
+            "text": "        .find(character_id)"
+          },
+          {
+            "line": 514,
+            "text": "        .ok_or(\"Character time record not found\")?;"
+          },
+          {
+            "line": 515,
+            "text": "    let starting_minute = time.minutes;"
+          },
+          {
+            "line": 516,
+            "text": "    if let Some(first) = first_lifecycle_segment("
+          },
+          {
+            "line": 517,
+            "text": "        ctx,"
+          },
+          {
+            "line": 518,
+            "text": "        character_id,"
+          },
+          {
+            "line": 519,
+            "text": "        starting_minute,"
+          },
+          {
+            "line": 520,
+            "text": "        minutes,"
+          },
+          {
+            "line": 521,
+            "text": "    ) {"
+          },
+          {
+            "line": 522,
+            "text": "        if !advance_character_wait_time_in_plan(ctx, character_id, first, plan)? {"
+          },
+          {
+            "line": 523,
+            "text": "            return Ok(false);"
+          },
+          {
+            "line": 524,
+            "text": "        }"
+          },
+          {
+            "line": 525,
+            "text": "        return advance_character_wait_time_in_plan("
+          },
+          {
+            "line": 526,
+            "text": "            ctx,"
+          },
+          {
+            "line": 527,
+            "text": "            character_id,"
+          },
+          {
+            "line": 528,
+            "text": "            minutes.saturating_sub(first),"
+          },
+          {
+            "line": 529,
+            "text": "            plan,"
+          },
+          {
+            "line": 530,
+            "text": "        );"
+          },
+          {
+            "line": 531,
+            "text": "    }"
+          },
+          {
+            "line": 532,
+            "text": "    let injury_limit = crate::surgery::preview_injury_boundary("
+          },
+          {
+            "line": 533,
+            "text": "        ctx,"
+          },
+          {
+            "line": 534,
+            "text": "        character_id,"
+          },
+          {
+            "line": 535,
+            "text": "        minutes,"
+          },
+          {
+            "line": 536,
+            "text": "        InjuryRecoveryMinutes::new(minutes),"
+          },
+          {
+            "line": 537,
+            "text": "    )?"
+          },
+          {
+            "line": 538,
+            "text": "    .elapsed;"
+          },
+          {
+            "line": 539,
+            "text": "    let (elapsed, terminal) = crate::disease::clip_elapsed_for_disease_in_plan("
+          },
+          {
+            "line": 540,
+            "text": "        ctx,"
+          },
+          {
+            "line": 541,
+            "text": "        character_id,"
+          },
+          {
+            "line": 542,
+            "text": "        injury_limit,"
+          },
+          {
+            "line": 543,
+            "text": "        true,"
+          },
+          {
+            "line": 544,
+            "text": "        plan,"
+          },
+          {
+            "line": 545,
+            "text": "    )?;"
+          },
+          {
+            "line": 546,
+            "text": "    let settled = crate::surgery::settle_injuries("
+          },
+          {
+            "line": 547,
+            "text": "        ctx,"
+          },
+          {
+            "line": 548,
+            "text": "        character_id,"
+          },
+          {
+            "line": 549,
+            "text": "        elapsed,"
+          },
+          {
+            "line": 550,
+            "text": "        InjuryRecoveryMinutes::new(elapsed),"
+          },
+          {
+            "line": 551,
+            "text": "    )?;"
+          },
+          {
+            "line": 552,
+            "text": "    time.minutes = time.minutes"
+          },
+          {
+            "line": 553,
+            "text": "        .saturating_add_minutes(settled.elapsed)"
+          },
+          {
+            "line": 554,
+            "text": "        ;"
+          },
+          {
+            "line": 555,
+            "text": "    ctx.db.character_time().character_id().update(time);"
+          },
+          {
+            "line": 556,
+            "text": "    advance_married_family_by(ctx, character_id, settled.elapsed)?;"
+          },
+          {
+            "line": 557,
+            "text": "    crate::organization::settle_membership_dues(ctx, character_id)?;"
+          },
+          {
+            "line": 558,
+            "text": "    crate::social::settle_shared_party_time(ctx, character_id);"
+          },
+          {
+            "line": 559,
+            "text": "    crate::disease::finish_disease_interval(ctx, character_id, terminal)?;"
+          },
+          {
+            "line": 560,
+            "text": "    settle_lifecycle_after_character_time_write("
+          },
+          {
+            "line": 561,
+            "text": "        ctx,"
+          },
+          {
+            "line": 562,
+            "text": "        character_id,"
+          },
+          {
+            "line": 563,
+            "text": "        starting_minute.saturating_add_minutes(settled.elapsed),"
+          },
+          {
+            "line": 564,
+            "text": "    )?;"
+          },
+          {
+            "line": 565,
+            "text": "    if terminal.is_some() || !settled.alive {"
+          },
+          {
+            "line": 566,
+            "text": "        return Ok(false);"
+          },
+          {
+            "line": 567,
+            "text": "    }"
+          },
+          {
+            "line": 568,
+            "text": "    let at_settlement = ctx"
+          },
+          {
+            "line": 569,
+            "text": "        .db"
+          },
+          {
+            "line": 570,
+            "text": "        .character()"
+          },
+          {
+            "line": 571,
+            "text": "        .id()"
+          },
+          {
+            "line": 572,
+            "text": "        .find(character_id)"
+          },
+          {
+            "line": 573,
+            "text": "        .is_some_and(|row| row.current_settlement_id.is_some());"
+          },
+          {
+            "line": 574,
+            "text": "    if at_settlement {"
+          },
+          {
+            "line": 575,
+            "text": "        crate::condition::apply_rest_condition(ctx, character_id, settled.elapsed)?;"
+          },
+          {
+            "line": 576,
+            "text": "    } else {"
+          },
+          {
+            "line": 577,
+            "text": "        crate::condition::apply_elapsed_needs(ctx, character_id, settled.elapsed)?;"
+          },
+          {
+            "line": 578,
+            "text": "        crate::condition::apply_camp_rest_recovery_condition(ctx, character_id, settled.elapsed)?;"
+          },
+          {
+            "line": 579,
+            "text": "    }"
+          },
+          {
+            "line": 580,
+            "text": "    crate::capability::refresh_character_capability(ctx, character_id)?;"
+          },
+          {
+            "line": 581,
+            "text": "    Ok(true)"
+          },
+          {
+            "line": 582,
+            "text": "}"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "path": "crates/adventuresim-stdb-module/src/time/activities.rs",
+    "sha256": "a47b028b15d0e416ae19b84b18f616bff39ea8f7a951526e32996cc70ed48915",
+    "revision": "13fc9dcc71ab879de364117e5462310673e43210",
+    "ranges": [
+      [
+        270,
+        350
+      ]
+    ],
+    "slices": [
+      {
+        "range": [
+          270,
+          350
+        ],
+        "lines": [
+          {
+            "line": 270,
+            "text": "    )?"
+          },
+          {
+            "line": 271,
+            "text": "    .elapsed;"
+          },
+          {
+            "line": 272,
+            "text": "    let (elapsed, terminal) ="
+          },
+          {
+            "line": 273,
+            "text": "        crate::disease::clip_elapsed_for_disease(ctx, character_id, injury_limit, false)?;"
+          },
+          {
+            "line": 274,
+            "text": "    let settled ="
+          },
+          {
+            "line": 275,
+            "text": "        crate::surgery::settle_injuries(ctx, character_id, elapsed, InjuryRecoveryMinutes::NONE)?;"
+          },
+          {
+            "line": 276,
+            "text": "    let elapsed = settled.elapsed;"
+          },
+          {
+            "line": 277,
+            "text": "    let interval_end = starting_minute"
+          },
+          {
+            "line": 278,
+            "text": "        .checked_add_minutes(elapsed)"
+          },
+          {
+            "line": 279,
+            "text": "        .ok_or(\"Character clock overflow\")?;"
+          },
+          {
+            "line": 280,
+            "text": "    character_time.minutes = interval_end;"
+          },
+          {
+            "line": 281,
+            "text": "    ctx.db"
+          },
+          {
+            "line": 282,
+            "text": "        .character_time()"
+          },
+          {
+            "line": 283,
+            "text": "        .character_id()"
+          },
+          {
+            "line": 284,
+            "text": "        .update(character_time);"
+          },
+          {
+            "line": 285,
+            "text": "    let at_settlement = ctx"
+          },
+          {
+            "line": 286,
+            "text": "        .db"
+          },
+          {
+            "line": 287,
+            "text": "        .character()"
+          },
+          {
+            "line": 288,
+            "text": "        .id()"
+          },
+          {
+            "line": 289,
+            "text": "        .find(character_id)"
+          },
+          {
+            "line": 290,
+            "text": "        .is_some_and(|character| character.current_settlement_id.is_some());"
+          },
+          {
+            "line": 291,
+            "text": "    crate::condition::apply_weather_exposure("
+          },
+          {
+            "line": 292,
+            "text": "        ctx,"
+          },
+          {
+            "line": 293,
+            "text": "        character_id,"
+          },
+          {
+            "line": 294,
+            "text": "        starting_minute,"
+          },
+          {
+            "line": 295,
+            "text": "        elapsed,"
+          },
+          {
+            "line": 296,
+            "text": "        false,"
+          },
+          {
+            "line": 297,
+            "text": "        if at_settlement {"
+          },
+          {
+            "line": 298,
+            "text": "            ExposureShelter::Indoor"
+          },
+          {
+            "line": 299,
+            "text": "        } else {"
+          },
+          {
+            "line": 300,
+            "text": "            ExposureShelter::Field(FieldShelter::Bivouac)"
+          },
+          {
+            "line": 301,
+            "text": "        },"
+          },
+          {
+            "line": 302,
+            "text": "    )?;"
+          },
+          {
+            "line": 303,
+            "text": "    crate::social::settle_shared_party_time(ctx, character_id);"
+          },
+          {
+            "line": 304,
+            "text": "    crate::condition::apply_elapsed_needs(ctx, character_id, elapsed)?;"
+          },
+          {
+            "line": 305,
+            "text": "    crate::disease::finish_disease_interval(ctx, character_id, terminal)?;"
+          },
+          {
+            "line": 306,
+            "text": "    settle_lifecycle_after_character_time_write(ctx, character_id, interval_end)?;"
+          },
+          {
+            "line": 307,
+            "text": "    advance_married_family_by(ctx, character_id, elapsed)?;"
+          },
+          {
+            "line": 308,
+            "text": "    if terminal.is_some() || !settled.alive {"
+          },
+          {
+            "line": 309,
+            "text": "        crate::organization::settle_membership_dues(ctx, character_id)?;"
+          },
+          {
+            "line": 310,
+            "text": "        return Ok(());"
+          },
+          {
+            "line": 311,
+            "text": "    }"
+          },
+          {
+            "line": 312,
+            "text": ""
+          },
+          {
+            "line": 313,
+            "text": "    // The activity allocation describes this one interval directly. Applying"
+          },
+          {
+            "line": 314,
+            "text": "    // it over one canonical day makes both linear and saturating effects use"
+          },
+          {
+            "line": 315,
+            "text": "    // the selected number of minutes, while the personal clock advances only"
+          },
+          {
+            "line": 316,
+            "text": "    // by the actual interval (which may have been clipped by an incident)."
+          },
+          {
+            "line": 317,
+            "text": "    let effective_minutes = u16::try_from(elapsed.min(requested_minutes)).unwrap_or(minutes);"
+          },
+          {
+            "line": 318,
+            "text": "    let effective_schedule ="
+          },
+          {
+            "line": 319,
+            "text": "        immediate_activity_schedule(activity, effective_minutes, organization_id);"
+          },
+          {
+            "line": 320,
+            "text": "    let mut skills = ctx"
+          },
+          {
+            "line": 321,
+            "text": "        .db"
+          },
+          {
+            "line": 322,
+            "text": "        .character_skills()"
+          },
+          {
+            "line": 323,
+            "text": "        .character_id()"
+          },
+          {
+            "line": 324,
+            "text": "        .find(character_id)"
+          },
+          {
+            "line": 325,
+            "text": "        .ok_or(\"Character skills not found\")?;"
+          },
+          {
+            "line": 326,
+            "text": "    let profile = activity_training_profile(ctx, character_id)?;"
+          },
+          {
+            "line": 327,
+            "text": "    let excess = apply_training("
+          },
+          {
+            "line": 328,
+            "text": "        ctx,"
+          },
+          {
+            "line": 329,
+            "text": "        character_id,"
+          },
+          {
+            "line": 330,
+            "text": "        &mut skills,"
+          },
+          {
+            "line": 331,
+            "text": "        &effective_schedule,"
+          },
+          {
+            "line": 332,
+            "text": "        MINUTES_PER_DAY,"
+          },
+          {
+            "line": 333,
+            "text": "        profile,"
+          },
+          {
+            "line": 334,
+            "text": "    )?;"
+          },
+          {
+            "line": 335,
+            "text": "    crate::condition::record_mastery_training_morale("
+          },
+          {
+            "line": 336,
+            "text": "        ctx,"
+          },
+          {
+            "line": 337,
+            "text": "        character_id,"
+          },
+          {
+            "line": 338,
+            "text": "        u64::from(effective_minutes),"
+          },
+          {
+            "line": 339,
+            "text": "        excess,"
+          },
+          {
+            "line": 340,
+            "text": "    );"
+          },
+          {
+            "line": 341,
+            "text": "    ctx.db.character_skills().character_id().update(skills);"
+          },
+          {
+            "line": 342,
+            "text": "    let risks = apply_activity_outcomes_without_leisure("
+          },
+          {
+            "line": 343,
+            "text": "        ctx,"
+          },
+          {
+            "line": 344,
+            "text": "        character_id,"
+          },
+          {
+            "line": 345,
+            "text": "        &effective_schedule,"
+          },
+          {
+            "line": 346,
+            "text": "        MINUTES_PER_DAY,"
+          },
+          {
+            "line": 347,
+            "text": "        interval_end,"
+          },
+          {
+            "line": 348,
+            "text": "    )?;"
+          },
+          {
+            "line": 349,
+            "text": "    if matches!(activity, ImmediateActivity::Prayer) {"
+          },
+          {
+            "line": 350,
+            "text": "        crate::condition::record_immediate_prayer_morale(ctx, character_id, effective_minutes)?;"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "path": "crates/adventuresim-stdb-module/src/time/schedule.rs",
+    "sha256": "08c054563be5757fc2da0ce95af4c995e5a8f8d1acf549bc5dbc65f2c3443077",
+    "revision": "13fc9dcc71ab879de364117e5462310673e43210",
+    "ranges": [
+      [
+        228,
+        244
+      ],
+      [
+        312,
+        343
+      ]
+    ],
+    "slices": [
+      {
+        "range": [
+          228,
+          244
+        ],
+        "lines": [
+          {
+            "line": 228,
+            "text": "fn apply_training("
+          },
+          {
+            "line": 229,
+            "text": "    ctx: &ReducerContext,"
+          },
+          {
+            "line": 230,
+            "text": "    character_id: u64,"
+          },
+          {
+            "line": 231,
+            "text": "    skills: &mut CharacterSkills,"
+          },
+          {
+            "line": 232,
+            "text": "    schedule: &ScheduleAllocation,"
+          },
+          {
+            "line": 233,
+            "text": "    elapsed: u64,"
+          },
+          {
+            "line": 234,
+            "text": "    activities: adventuresim_core::strategic_schedule::ActivityTrainingProfile,"
+          },
+          {
+            "line": 235,
+            "text": ") -> Result<f32, String> {"
+          },
+          {
+            "line": 236,
+            "text": "    let attributes = ctx"
+          },
+          {
+            "line": 237,
+            "text": "        .db"
+          },
+          {
+            "line": 238,
+            "text": "        .character_attributes()"
+          },
+          {
+            "line": 239,
+            "text": "        .character_id()"
+          },
+          {
+            "line": 240,
+            "text": "        .find(character_id)"
+          },
+          {
+            "line": 241,
+            "text": "        .ok_or(\"Character attributes not found while applying training\")?;"
+          },
+          {
+            "line": 242,
+            "text": "    let mut hours = SkillHours {"
+          },
+          {
+            "line": 243,
+            "text": "        polearm: skills.polearm_hours,"
+          },
+          {
+            "line": 244,
+            "text": "        axe: skills.axe_hours,"
+          }
+        ]
+      },
+      {
+        "range": [
+          312,
+          343
+        ],
+        "lines": [
+          {
+            "line": 312,
+            "text": "        elapsed,"
+          },
+          {
+            "line": 313,
+            "text": "        prayer_religion,"
+          },
+          {
+            "line": 314,
+            "text": "        schedule.prayer_minutes,"
+          },
+          {
+            "line": 315,
+            "text": "        &attributes,"
+          },
+          {
+            "line": 316,
+            "text": "    );"
+          },
+          {
+            "line": 317,
+            "text": "    if let Some(character) = ctx.db.character().id().find(character_id)"
+          },
+          {
+            "line": 318,
+            "text": "        && let Some(settlement_id) = character.current_settlement_id"
+          },
+          {
+            "line": 319,
+            "text": "        && let Some(settlement) = ctx.db.settlement().id().find(&settlement_id)"
+          },
+          {
+            "line": 320,
+            "text": "    {"
+          },
+          {
+            "line": 321,
+            "text": "        // Ordinary life supplies bounded ambient exposure during the"
+          },
+          {
+            "line": 322,
+            "text": "        // waking two-thirds of actual elapsed settlement time."
+          },
+          {
+            "line": 323,
+            "text": "        let exposure = elapsed as f32 / 60.0 * (2.0 / 3.0);"
+          },
+          {
+            "line": 324,
+            "text": "        for (language, coefficient) in ["
+          },
+          {
+            "line": 325,
+            "text": "            ("
+          },
+          {
+            "line": 326,
+            "text": "                OralLanguage::EastCentral,"
+          },
+          {
+            "line": 327,
+            "text": "                settlement.languages.east_central_bp,"
+          },
+          {
+            "line": 328,
+            "text": "            ),"
+          },
+          {
+            "line": 329,
+            "text": "            ("
+          },
+          {
+            "line": 330,
+            "text": "                OralLanguage::WestCentral,"
+          },
+          {
+            "line": 331,
+            "text": "                settlement.languages.west_central_bp,"
+          },
+          {
+            "line": 332,
+            "text": "            ),"
+          },
+          {
+            "line": 333,
+            "text": "            (OralLanguage::Low, settlement.languages.low_bp),"
+          },
+          {
+            "line": 334,
+            "text": "        ] {"
+          },
+          {
+            "line": 335,
+            "text": "            excess += adventuresim_core::skill::apply_language_training("
+          },
+          {
+            "line": 336,
+            "text": "                skills.oral_languages.direct_mut(language),"
+          },
+          {
+            "line": 337,
+            "text": "                exposure * f32::from(coefficient)"
+          },
+          {
+            "line": 338,
+            "text": "                    / f32::from(adventuresim_world_schema::BASIS_POINTS_PER_WHOLE),"
+          },
+          {
+            "line": 339,
+            "text": "                attributes.instinct,"
+          },
+          {
+            "line": 340,
+            "text": "            )"
+          },
+          {
+            "line": 341,
+            "text": "            .excess_effective_hours;"
+          },
+          {
+            "line": 342,
+            "text": "        }"
+          },
+          {
+            "line": 343,
+            "text": "    }"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "path": "crates/adventuresim-core/src/autoresolve/melee_round/scheduling.rs",
+    "sha256": "9c56fb8232e356e6e204ba7c1065597c6063b0b25572d6f0e7cb131b2a7eb320",
+    "revision": "13fc9dcc71ab879de364117e5462310673e43210",
+    "ranges": [
+      [
+        332,
+        391
+      ]
+    ],
+    "slices": [
+      {
+        "range": [
+          332,
+          391
+        ],
+        "lines": [
+          {
+            "line": 332,
+            "text": "pub(in crate::autoresolve) fn take_side_turns("
+          },
+          {
+            "line": 333,
+            "text": "    attackers: &mut [Combatant],"
+          },
+          {
+            "line": 334,
+            "text": "    defenders: &mut [Combatant],"
+          },
+          {
+            "line": 335,
+            "text": "    round: usize,"
+          },
+          {
+            "line": 336,
+            "text": "    random: &mut DeterministicRng,"
+          },
+          {
+            "line": 337,
+            "text": "    recorder: &mut BattleRecorder,"
+          },
+          {
+            "line": 338,
+            "text": "    parameters: crate::combat::AutoresolveParameters,"
+          },
+          {
+            "line": 339,
+            "text": ") -> BattleResolutionResult<()> {"
+          },
+          {
+            "line": 340,
+            "text": "    for attack in"
+          },
+          {
+            "line": 341,
+            "text": "        schedule_side_melee_attacks(attackers, defenders, round, random, recorder, parameters)?"
+          },
+          {
+            "line": 342,
+            "text": "    {"
+          },
+          {
+            "line": 343,
+            "text": "        if !scheduled_attack_is_current(&attackers[attack.attacker_index], attack.attack_timing) {"
+          },
+          {
+            "line": 344,
+            "text": "            continue;"
+          },
+          {
+            "line": 345,
+            "text": "        }"
+          },
+          {
+            "line": 346,
+            "text": "        let id = attack"
+          },
+          {
+            "line": 347,
+            "text": "            .attack_timing"
+          },
+          {
+            "line": 348,
+            "text": "            .attack_id(attackers[attack.attacker_index].id);"
+          },
+          {
+            "line": 349,
+            "text": "        resolve_melee_turn("
+          },
+          {
+            "line": 350,
+            "text": "            attack.attacker_index,"
+          },
+          {
+            "line": 351,
+            "text": "            attack.target_index,"
+          },
+          {
+            "line": 352,
+            "text": "            attack.flanking,"
+          },
+          {
+            "line": 353,
+            "text": "            attackers,"
+          },
+          {
+            "line": 354,
+            "text": "            defenders,"
+          },
+          {
+            "line": 355,
+            "text": "            round,"
+          },
+          {
+            "line": 356,
+            "text": "            random,"
+          },
+          {
+            "line": 357,
+            "text": "            recorder,"
+          },
+          {
+            "line": 358,
+            "text": "            parameters,"
+          },
+          {
+            "line": 359,
+            "text": "            attack.attack_timing,"
+          },
+          {
+            "line": 360,
+            "text": "            MeleeContactBatch {"
+          },
+          {
+            "line": 361,
+            "text": "                id,"
+          },
+          {
+            "line": 362,
+            "text": "                members: vec![id],"
+          },
+          {
+            "line": 363,
+            "text": "                order: 0,"
+          },
+          {
+            "line": 364,
+            "text": "            },"
+          },
+          {
+            "line": 365,
+            "text": "        )?;"
+          },
+          {
+            "line": 366,
+            "text": "    }"
+          },
+          {
+            "line": 367,
+            "text": "    Ok(())"
+          },
+          {
+            "line": 368,
+            "text": "}"
+          },
+          {
+            "line": 369,
+            "text": ""
+          },
+          {
+            "line": 370,
+            "text": "#[derive(Clone, Copy, Debug)]"
+          },
+          {
+            "line": 371,
+            "text": "pub(in crate::autoresolve) struct ScheduledMeleeAttack {"
+          },
+          {
+            "line": 372,
+            "text": "    pub(in crate::autoresolve) attacker_index: usize,"
+          },
+          {
+            "line": 373,
+            "text": "    pub(in crate::autoresolve) target_index: usize,"
+          },
+          {
+            "line": 374,
+            "text": "    pub(in crate::autoresolve) flanking: f32,"
+          },
+          {
+            "line": 375,
+            "text": "    pub(in crate::autoresolve) attack_timing: ScheduledMeleeTiming,"
+          },
+          {
+            "line": 376,
+            "text": "}"
+          },
+          {
+            "line": 377,
+            "text": ""
+          },
+          {
+            "line": 378,
+            "text": "#[derive(Clone, Debug)]"
+          },
+          {
+            "line": 379,
+            "text": "pub(in crate::autoresolve) struct MeleeContactBatch {"
+          },
+          {
+            "line": 380,
+            "text": "    pub(in crate::autoresolve) id: u64,"
+          },
+          {
+            "line": 381,
+            "text": "    pub(in crate::autoresolve) members: Vec<u64>,"
+          },
+          {
+            "line": 382,
+            "text": "    pub(in crate::autoresolve) order: u32,"
+          },
+          {
+            "line": 383,
+            "text": "}"
+          },
+          {
+            "line": 384,
+            "text": ""
+          },
+          {
+            "line": 385,
+            "text": "pub(in crate::autoresolve) fn scheduled_attack_is_current("
+          },
+          {
+            "line": 386,
+            "text": "    attacker: &Combatant,"
+          },
+          {
+            "line": 387,
+            "text": "    timing: ScheduledMeleeTiming,"
+          },
+          {
+            "line": 388,
+            "text": ") -> bool {"
+          },
+          {
+            "line": 389,
+            "text": "    attacker.melee_attack_started_at_seconds == Some(timing.started_at_seconds)"
+          },
+          {
+            "line": 390,
+            "text": "        && attacker.melee_attack_contact_at_seconds == Some(timing.contact_at_seconds)"
+          },
+          {
+            "line": 391,
+            "text": "}"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "path": "crates/adventuresim-core/src/autoresolve/joint_melee.rs",
+    "sha256": "7373a905f23ab3075cfb464c0a936ce1ebc33ba6c5c6ad23866b1a1479c5b983",
+    "revision": "13fc9dcc71ab879de364117e5462310673e43210",
+    "ranges": [
+      [
+        209,
+        270
+      ]
+    ],
+    "slices": [
+      {
+        "range": [
+          209,
+          270
+        ],
+        "lines": [
+          {
+            "line": 209,
+            "text": "fn resolve_contacts("
+          },
+          {
+            "line": 210,
+            "text": "    attacks: Vec<(ScheduledBattleSide, ScheduledMeleeAttack)>,"
+          },
+          {
+            "line": 211,
+            "text": "    allies: &mut [Combatant],"
+          },
+          {
+            "line": 212,
+            "text": "    enemies: &mut [Combatant],"
+          },
+          {
+            "line": 213,
+            "text": "    round: usize,"
+          },
+          {
+            "line": 214,
+            "text": "    random: &mut DeterministicRng,"
+          },
+          {
+            "line": 215,
+            "text": "    recorder: &mut BattleRecorder,"
+          },
+          {
+            "line": 216,
+            "text": "    parameters: crate::combat::AutoresolveParameters,"
+          },
+          {
+            "line": 217,
+            "text": ") -> BattleResolutionResult<()> {"
+          },
+          {
+            "line": 218,
+            "text": "    let batches = (0..attacks.len())"
+          },
+          {
+            "line": 219,
+            "text": "        .map(|index| contact_batch(&attacks, index, allies, enemies))"
+          },
+          {
+            "line": 220,
+            "text": "        .collect::<Vec<_>>();"
+          },
+          {
+            "line": 221,
+            "text": "    for ((side, attack), batch) in attacks.into_iter().zip(batches) {"
+          },
+          {
+            "line": 222,
+            "text": "        let attacker = match side {"
+          },
+          {
+            "line": 223,
+            "text": "            ScheduledBattleSide::Allies => &allies[attack.attacker_index],"
+          },
+          {
+            "line": 224,
+            "text": "            ScheduledBattleSide::Enemies => &enemies[attack.attacker_index],"
+          },
+          {
+            "line": 225,
+            "text": "        };"
+          },
+          {
+            "line": 226,
+            "text": "        if !scheduled_attack_is_current(attacker, attack.attack_timing)"
+          },
+          {
+            "line": 227,
+            "text": "            || (attacker.is_defeated() && batch.members.len() == 1)"
+          },
+          {
+            "line": 228,
+            "text": "        {"
+          },
+          {
+            "line": 229,
+            "text": "            continue;"
+          },
+          {
+            "line": 230,
+            "text": "        }"
+          },
+          {
+            "line": 231,
+            "text": "        match side {"
+          },
+          {
+            "line": 232,
+            "text": "            ScheduledBattleSide::Allies => resolve_melee_turn("
+          },
+          {
+            "line": 233,
+            "text": "                attack.attacker_index,"
+          },
+          {
+            "line": 234,
+            "text": "                attack.target_index,"
+          },
+          {
+            "line": 235,
+            "text": "                attack.flanking,"
+          },
+          {
+            "line": 236,
+            "text": "                allies,"
+          },
+          {
+            "line": 237,
+            "text": "                enemies,"
+          },
+          {
+            "line": 238,
+            "text": "                round,"
+          },
+          {
+            "line": 239,
+            "text": "                random,"
+          },
+          {
+            "line": 240,
+            "text": "                recorder,"
+          },
+          {
+            "line": 241,
+            "text": "                parameters,"
+          },
+          {
+            "line": 242,
+            "text": "                attack.attack_timing,"
+          },
+          {
+            "line": 243,
+            "text": "                batch,"
+          },
+          {
+            "line": 244,
+            "text": "            ),"
+          },
+          {
+            "line": 245,
+            "text": "            ScheduledBattleSide::Enemies => resolve_melee_turn("
+          },
+          {
+            "line": 246,
+            "text": "                attack.attacker_index,"
+          },
+          {
+            "line": 247,
+            "text": "                attack.target_index,"
+          },
+          {
+            "line": 248,
+            "text": "                attack.flanking,"
+          },
+          {
+            "line": 249,
+            "text": "                enemies,"
+          },
+          {
+            "line": 250,
+            "text": "                allies,"
+          },
+          {
+            "line": 251,
+            "text": "                round,"
+          },
+          {
+            "line": 252,
+            "text": "                random,"
+          },
+          {
+            "line": 253,
+            "text": "                recorder,"
+          },
+          {
+            "line": 254,
+            "text": "                parameters,"
+          },
+          {
+            "line": 255,
+            "text": "                attack.attack_timing,"
+          },
+          {
+            "line": 256,
+            "text": "                batch,"
+          },
+          {
+            "line": 257,
+            "text": "            ),"
+          },
+          {
+            "line": 258,
+            "text": "        }?;"
+          },
+          {
+            "line": 259,
+            "text": "        let attacker = match side {"
+          },
+          {
+            "line": 260,
+            "text": "            ScheduledBattleSide::Allies => &mut allies[attack.attacker_index],"
+          },
+          {
+            "line": 261,
+            "text": "            ScheduledBattleSide::Enemies => &mut enemies[attack.attacker_index],"
+          },
+          {
+            "line": 262,
+            "text": "        };"
+          },
+          {
+            "line": 263,
+            "text": "        attacker.melee_attack_started_at_seconds = None;"
+          },
+          {
+            "line": 264,
+            "text": "        attacker.melee_attack_contact_at_seconds = None;"
+          },
+          {
+            "line": 265,
+            "text": "        attacker.melee_attack_scheduled_measure_metres = None;"
+          },
+          {
+            "line": 266,
+            "text": "    }"
+          },
+          {
+            "line": 267,
+            "text": "    Ok(())"
+          },
+          {
+            "line": 268,
+            "text": "}"
+          },
+          {
+            "line": 269,
+            "text": ""
+          },
+          {
+            "line": 270,
+            "text": "fn schedule_both_sides("
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "path": "crates/adventuresim-core/src/smithing.rs",
+    "sha256": "83f6b2eb7d945187bca6dc9f0fe78cbab0d25c292ce4c4096af94b4eb89a298b",
+    "revision": "13fc9dcc71ab879de364117e5462310673e43210",
+    "ranges": [
+      [
+        1,
+        50
+      ]
+    ],
+    "slices": [
+      {
+        "range": [
+          1,
+          50
+        ],
+        "lines": [
+          {
+            "line": 1,
+            "text": "//! Shared forge quotation, including the inventory representation's limits."
+          },
+          {
+            "line": 2,
+            "text": "use crate::inventory_measurement::ConsumableFractionMicros;"
+          },
+          {
+            "line": 3,
+            "text": "use adventuresim_weapon_model::{WeaponDesign, derive_material_masses, derive_properties};"
+          },
+          {
+            "line": 4,
+            "text": "use serde::Serialize;"
+          },
+          {
+            "line": 5,
+            "text": "use std::collections::BTreeMap;"
+          },
+          {
+            "line": 6,
+            "text": ""
+          },
+          {
+            "line": 7,
+            "text": "const FORGE_MINUTES_BASE: u64 = 60;"
+          },
+          {
+            "line": 8,
+            "text": "const FORGE_MINUTES_PER_KILOGRAM: f32 = 120.0;"
+          },
+          {
+            "line": 9,
+            "text": "const FORGE_MINUTES_PER_COMPONENT: u64 = 12;"
+          },
+          {
+            "line": 10,
+            "text": ""
+          },
+          {
+            "line": 11,
+            "text": "#[derive(Debug, Serialize)]"
+          },
+          {
+            "line": 12,
+            "text": "pub struct ForgeQuote {"
+          },
+          {
+            "line": 13,
+            "text": "    pub minutes: u64,"
+          },
+          {
+            "line": 14,
+            "text": "    pub materials: BTreeMap<String, f32>,"
+          },
+          {
+            "line": 15,
+            "text": "    /// Required inventory fractions, rounded up per construction material."
+          },
+          {
+            "line": 16,
+            "text": "    pub requirements: BTreeMap<String, u32>,"
+          },
+          {
+            "line": 17,
+            "text": "}"
+          },
+          {
+            "line": 18,
+            "text": ""
+          },
+          {
+            "line": 19,
+            "text": "pub fn quote_weapon(design: &WeaponDesign) -> Result<ForgeQuote, String> {"
+          },
+          {
+            "line": 20,
+            "text": "    let physical = derive_properties(design).map_err(|errors| format!(\"{errors:?}\"))?;"
+          },
+          {
+            "line": 21,
+            "text": "    let mut quote = ForgeQuote {"
+          },
+          {
+            "line": 22,
+            "text": "        minutes: FORGE_MINUTES_BASE"
+          },
+          {
+            "line": 23,
+            "text": "            + (physical.mass_kg * FORGE_MINUTES_PER_KILOGRAM).ceil() as u64"
+          },
+          {
+            "line": 24,
+            "text": "            + design.recipe.components.len() as u64 * FORGE_MINUTES_PER_COMPONENT,"
+          },
+          {
+            "line": 25,
+            "text": "        materials: BTreeMap::new(),"
+          },
+          {
+            "line": 26,
+            "text": "        requirements: BTreeMap::new(),"
+          },
+          {
+            "line": 27,
+            "text": "    };"
+          },
+          {
+            "line": 28,
+            "text": "    for mass in derive_material_masses(design).map_err(|errors| format!(\"{errors:?}\"))? {"
+          },
+          {
+            "line": 29,
+            "text": "        let stock = mass"
+          },
+          {
+            "line": 30,
+            "text": "            .material"
+          },
+          {
+            "line": 31,
+            "text": "            .forge_stock()"
+          },
+          {
+            "line": 32,
+            "text": "            .ok_or_else(|| format!(\"No forge stock is traded for {:?}\", mass.material))?;"
+          },
+          {
+            "line": 33,
+            "text": "        let required_micros = (f64::from(mass.mass_kg) / f64::from(stock.unit_mass_kg())"
+          },
+          {
+            "line": 34,
+            "text": "            * f64::from(ConsumableFractionMicros::MICROS_PER_WHOLE))"
+          },
+          {
+            "line": 35,
+            "text": "        .ceil();"
+          },
+          {
+            "line": 36,
+            "text": "        if !required_micros.is_finite() || required_micros > f64::from(u32::MAX) {"
+          },
+          {
+            "line": 37,
+            "text": "            return Err(\"Weapon material requirement is outside the supported range\".into());"
+          },
+          {
+            "line": 38,
+            "text": "        }"
+          },
+          {
+            "line": 39,
+            "text": "        let total = quote"
+          },
+          {
+            "line": 40,
+            "text": "            .requirements"
+          },
+          {
+            "line": 41,
+            "text": "            .entry(stock.item_id().into())"
+          },
+          {
+            "line": 42,
+            "text": "            .or_default();"
+          },
+          {
+            "line": 43,
+            "text": "        *total = total"
+          },
+          {
+            "line": 44,
+            "text": "            .checked_add(required_micros as u32)"
+          },
+          {
+            "line": 45,
+            "text": "            .ok_or(\"Weapon material requirement is outside the supported range\")?;"
+          },
+          {
+            "line": 46,
+            "text": "        *quote.materials.entry(stock.item_id().into()).or_default() += mass.mass_kg;"
+          },
+          {
+            "line": 47,
+            "text": "    }"
+          },
+          {
+            "line": 48,
+            "text": "    Ok(quote)"
+          },
+          {
+            "line": 49,
+            "text": "}"
+          },
+          {
+            "line": 50,
+            "text": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "path": "crates/adventuresim-world-schema/src/basis_points.rs",
+    "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+    "revision": "13fc9dcc71ab879de364117e5462310673e43210",
+    "ranges": [
+      [
+        1,
+        38
+      ],
+      [
+        94,
+        123
+      ]
+    ],
+    "slices": [
+      {
+        "range": [
+          1,
+          38
+        ],
+        "lines": [
+          {
+            "line": 1,
+            "text": "//! Bounded fractions and their conversion to game quantities."
+          },
+          {
+            "line": 2,
+            "text": "use serde::{Deserialize, Serialize};"
+          },
+          {
+            "line": 3,
+            "text": ""
+          },
+          {
+            "line": 4,
+            "text": "/// The basis-point representation of one whole (100%)."
+          },
+          {
+            "line": 5,
+            "text": "pub const BASIS_POINTS_PER_WHOLE: u16 = 10_000;"
+          },
+          {
+            "line": 6,
+            "text": ""
+          },
+          {
+            "line": 7,
+            "text": "/// A validated fraction of one whole, represented in basis points."
+          },
+          {
+            "line": 8,
+            "text": "#[derive("
+          },
+          {
+            "line": 9,
+            "text": "    Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize, Deserialize,"
+          },
+          {
+            "line": 10,
+            "text": ")]"
+          },
+          {
+            "line": 11,
+            "text": "#[cfg_attr(feature = \"spacetimedb\", derive(spacetimedb_lib::SpacetimeType))]"
+          },
+          {
+            "line": 12,
+            "text": "#[cfg_attr(feature = \"spacetimedb\", sats(crate = spacetimedb_lib))]"
+          },
+          {
+            "line": 13,
+            "text": "#[serde(transparent)]"
+          },
+          {
+            "line": 14,
+            "text": "pub struct UnitBasisPoints {"
+          },
+          {
+            "line": 15,
+            "text": "    basis_points: u16,"
+          },
+          {
+            "line": 16,
+            "text": "}"
+          },
+          {
+            "line": 17,
+            "text": ""
+          },
+          {
+            "line": 18,
+            "text": "impl UnitBasisPoints {"
+          },
+          {
+            "line": 19,
+            "text": "    pub const ZERO: Self = Self { basis_points: 0 };"
+          },
+          {
+            "line": 20,
+            "text": "    pub const WHOLE: Self = Self {"
+          },
+          {
+            "line": 21,
+            "text": "        basis_points: BASIS_POINTS_PER_WHOLE,"
+          },
+          {
+            "line": 22,
+            "text": "    };"
+          },
+          {
+            "line": 23,
+            "text": ""
+          },
+          {
+            "line": 24,
+            "text": "    pub const fn new(value: u16) -> Option<Self> {"
+          },
+          {
+            "line": 25,
+            "text": "        if value <= BASIS_POINTS_PER_WHOLE {"
+          },
+          {
+            "line": 26,
+            "text": "            Some(Self {"
+          },
+          {
+            "line": 27,
+            "text": "                basis_points: value,"
+          },
+          {
+            "line": 28,
+            "text": "            })"
+          },
+          {
+            "line": 29,
+            "text": "        } else {"
+          },
+          {
+            "line": 30,
+            "text": "            None"
+          },
+          {
+            "line": 31,
+            "text": "        }"
+          },
+          {
+            "line": 32,
+            "text": "    }"
+          },
+          {
+            "line": 33,
+            "text": ""
+          },
+          {
+            "line": 34,
+            "text": "    pub const fn saturating(value: u16) -> Self {"
+          },
+          {
+            "line": 35,
+            "text": "        Self {"
+          },
+          {
+            "line": 36,
+            "text": "            basis_points: if value > BASIS_POINTS_PER_WHOLE {"
+          },
+          {
+            "line": 37,
+            "text": "                BASIS_POINTS_PER_WHOLE"
+          },
+          {
+            "line": 38,
+            "text": "            } else {"
+          }
+        ]
+      },
+      {
+        "range": [
+          94,
+          123
+        ],
+        "lines": [
+          {
+            "line": 94,
+            "text": "/// A validated signed fraction of one whole, represented in basis points."
+          },
+          {
+            "line": 95,
+            "text": "#[derive("
+          },
+          {
+            "line": 96,
+            "text": "    Clone, Copy, Debug, Default, Eq, Hash, Ord, PartialEq, PartialOrd, Serialize, Deserialize,"
+          },
+          {
+            "line": 97,
+            "text": ")]"
+          },
+          {
+            "line": 98,
+            "text": "#[cfg_attr(feature = \"spacetimedb\", derive(spacetimedb_lib::SpacetimeType))]"
+          },
+          {
+            "line": 99,
+            "text": "#[cfg_attr(feature = \"spacetimedb\", sats(crate = spacetimedb_lib))]"
+          },
+          {
+            "line": 100,
+            "text": "#[serde(transparent)]"
+          },
+          {
+            "line": 101,
+            "text": "pub struct SignedUnitBasisPoints {"
+          },
+          {
+            "line": 102,
+            "text": "    basis_points: i16,"
+          },
+          {
+            "line": 103,
+            "text": "}"
+          },
+          {
+            "line": 104,
+            "text": ""
+          },
+          {
+            "line": 105,
+            "text": "impl SignedUnitBasisPoints {"
+          },
+          {
+            "line": 106,
+            "text": "    pub const MIN: Self = Self {"
+          },
+          {
+            "line": 107,
+            "text": "        basis_points: -(BASIS_POINTS_PER_WHOLE as i16),"
+          },
+          {
+            "line": 108,
+            "text": "    };"
+          },
+          {
+            "line": 109,
+            "text": "    pub const MAX: Self = Self {"
+          },
+          {
+            "line": 110,
+            "text": "        basis_points: BASIS_POINTS_PER_WHOLE as i16,"
+          },
+          {
+            "line": 111,
+            "text": "    };"
+          },
+          {
+            "line": 112,
+            "text": "    pub const ZERO: Self = Self { basis_points: 0 };"
+          },
+          {
+            "line": 113,
+            "text": ""
+          },
+          {
+            "line": 114,
+            "text": "    pub const fn new(value: i16) -> Option<Self> {"
+          },
+          {
+            "line": 115,
+            "text": "        if value >= Self::MIN.basis_points && value <= Self::MAX.basis_points {"
+          },
+          {
+            "line": 116,
+            "text": "            Some(Self {"
+          },
+          {
+            "line": 117,
+            "text": "                basis_points: value,"
+          },
+          {
+            "line": 118,
+            "text": "            })"
+          },
+          {
+            "line": 119,
+            "text": "        } else {"
+          },
+          {
+            "line": 120,
+            "text": "            None"
+          },
+          {
+            "line": 121,
+            "text": "        }"
+          },
+          {
+            "line": 122,
+            "text": "    }"
+          },
+          {
+            "line": 123,
+            "text": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "path": "crates/adventuresim-core/src/item_catalog_validation.rs",
+    "sha256": "df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+    "revision": "13fc9dcc71ab879de364117e5462310673e43210",
+    "ranges": [
+      [
+        526,
+        544
+      ],
+      [
+        682,
+        708
+      ]
+    ],
+    "slices": [
+      {
+        "range": [
+          526,
+          544
+        ],
+        "lines": [
+          {
+            "line": 526,
+            "text": "    match item.get(\"equipment\") {"
+          },
+          {
+            "line": 527,
+            "text": "        Some(value) => validate_equipment(value, &path, kind, errors),"
+          },
+          {
+            "line": 528,
+            "text": "        None if matches!(kind, \"armor\" | \"clothing\") => errors.push("
+          },
+          {
+            "line": 529,
+            "text": "            format!(\"{path}.equipment\"),"
+          },
+          {
+            "line": 530,
+            "text": "            \"armor and clothing require explicit placement and protection mappings\","
+          },
+          {
+            "line": 531,
+            "text": "        ),"
+          },
+          {
+            "line": 532,
+            "text": "        None => {}"
+          },
+          {
+            "line": 533,
+            "text": "    }"
+          },
+          {
+            "line": 534,
+            "text": "    if !matches!(kind, \"weapon\" | \"armor\" | \"shield\" | \"container\") && item.contains_key(\"slot\") {"
+          },
+          {
+            "line": 535,
+            "text": "        errors.push(format!(\"{path}.slot\"), \"kind does not accept a slot\");"
+          },
+          {
+            "line": 536,
+            "text": "    }"
+          },
+          {
+            "line": 537,
+            "text": "    if let Some(value) = item.get(\"capabilities\") {"
+          },
+          {
+            "line": 538,
+            "text": "        if let Some(capabilities) = value.as_object() {"
+          },
+          {
+            "line": 539,
+            "text": "            validate_capabilities(capabilities, &path, kind, errors);"
+          },
+          {
+            "line": 540,
+            "text": "        } else {"
+          },
+          {
+            "line": 541,
+            "text": "            errors.push(format!(\"{path}.capabilities\"), \"must be an object\");"
+          },
+          {
+            "line": 542,
+            "text": "        }"
+          },
+          {
+            "line": 543,
+            "text": "    }"
+          },
+          {
+            "line": 544,
+            "text": "}"
+          }
+        ]
+      },
+      {
+        "range": [
+          682,
+          708
+        ],
+        "lines": [
+          {
+            "line": 682,
+            "text": "    match equipment.get(\"physical\").and_then(Value::as_object) {"
+          },
+          {
+            "line": 683,
+            "text": "        Some(physical) => {"
+          },
+          {
+            "line": 684,
+            "text": "            reject_unknown("
+          },
+          {
+            "line": 685,
+            "text": "                physical,"
+          },
+          {
+            "line": 686,
+            "text": "                &[\"dimensions_m\", \"grip_to_tip_m\", \"anchor_offset_m\"],"
+          },
+          {
+            "line": 687,
+            "text": "                &format!(\"{path}.physical\"),"
+          },
+          {
+            "line": 688,
+            "text": "                errors,"
+          },
+          {
+            "line": 689,
+            "text": "            );"
+          },
+          {
+            "line": 690,
+            "text": "            match physical.get(\"dimensions_m\").and_then(Value::as_array) {"
+          },
+          {
+            "line": 691,
+            "text": "                Some(values)"
+          },
+          {
+            "line": 692,
+            "text": "                    if values.len() == 3"
+          },
+          {
+            "line": 693,
+            "text": "                        && values.iter().all(|value| {"
+          },
+          {
+            "line": 694,
+            "text": "                            value"
+          },
+          {
+            "line": 695,
+            "text": "                                .as_f64()"
+          },
+          {
+            "line": 696,
+            "text": "                                .is_some_and(|value| value.is_finite() && value > 0.0)"
+          },
+          {
+            "line": 697,
+            "text": "                        }) => {}"
+          },
+          {
+            "line": 698,
+            "text": "                _ => errors.push("
+          },
+          {
+            "line": 699,
+            "text": "                    format!(\"{path}.physical.dimensions_m\"),"
+          },
+          {
+            "line": 700,
+            "text": "                    \"expected three finite positive metres\","
+          },
+          {
+            "line": 701,
+            "text": "                ),"
+          },
+          {
+            "line": 702,
+            "text": "            }"
+          },
+          {
+            "line": 703,
+            "text": "            let grip_to_tip = physical"
+          },
+          {
+            "line": 704,
+            "text": "                .get(\"grip_to_tip_m\")"
+          },
+          {
+            "line": 705,
+            "text": "                .and_then(Value::as_f64)"
+          },
+          {
+            "line": 706,
+            "text": "                .unwrap_or(0.0);"
+          },
+          {
+            "line": 707,
+            "text": "            if !grip_to_tip.is_finite() || grip_to_tip < 0.0 {"
+          },
+          {
+            "line": 708,
+            "text": "                errors.push("
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "path": "crates/adventuresim-stdb-module/src/investigation/projections.rs",
+    "sha256": "4277df1f4841a51dafe10f9ef950ca7dec6f434358cc8aa5a98f742766825102",
+    "revision": "13fc9dcc71ab879de364117e5462310673e43210",
+    "ranges": [
+      [
+        776,
+        820
+      ],
+      [
+        913,
+        938
+      ]
+    ],
+    "slices": [
+      {
+        "range": [
+          776,
+          820
+        ],
+        "lines": [
+          {
+            "line": 776,
+            "text": "fn exactly_one_generated_authority("
+          },
+          {
+            "line": 777,
+            "text": "    matches: impl IntoIterator<Item = (String, String, String)>,"
+          },
+          {
+            "line": 778,
+            "text": ") -> Result<Option<(String, String)>, ()> {"
+          },
+          {
+            "line": 779,
+            "text": "    let mut unique = BTreeMap::new();"
+          },
+          {
+            "line": 780,
+            "text": "    for (case_id, manifest, context) in matches {"
+          },
+          {
+            "line": 781,
+            "text": "        if unique"
+          },
+          {
+            "line": 782,
+            "text": "            .insert(case_id, (manifest.clone(), context.clone()))"
+          },
+          {
+            "line": 783,
+            "text": "            .is_some_and(|existing| existing != (manifest, context))"
+          },
+          {
+            "line": 784,
+            "text": "        {"
+          },
+          {
+            "line": 785,
+            "text": "            return Err(());"
+          },
+          {
+            "line": 786,
+            "text": "        }"
+          },
+          {
+            "line": 787,
+            "text": "    }"
+          },
+          {
+            "line": 788,
+            "text": "    let mut unique = unique.into_values();"
+          },
+          {
+            "line": 789,
+            "text": "    let Some(authority) = unique.next() else {"
+          },
+          {
+            "line": 790,
+            "text": "        return Ok(None);"
+          },
+          {
+            "line": 791,
+            "text": "    };"
+          },
+          {
+            "line": 792,
+            "text": "    if unique.next().is_some() {"
+          },
+          {
+            "line": 793,
+            "text": "        return Err(());"
+          },
+          {
+            "line": 794,
+            "text": "    }"
+          },
+          {
+            "line": 795,
+            "text": "    Ok(Some(authority))"
+          },
+          {
+            "line": 796,
+            "text": "}"
+          },
+          {
+            "line": 797,
+            "text": ""
+          },
+          {
+            "line": 798,
+            "text": "fn validated_generated_authority_candidate("
+          },
+          {
+            "line": 799,
+            "text": "    authority: crate::strategic::QuestGenerationAuthority,"
+          },
+          {
+            "line": 800,
+            "text": ") -> Result<(String, String, String), ()> {"
+          },
+          {
+            "line": 801,
+            "text": "    validate_quest_generation_authority(&authority).map_err(|_| ())?;"
+          },
+          {
+            "line": 802,
+            "text": "    Ok(("
+          },
+          {
+            "line": 803,
+            "text": "        authority.case_id,"
+          },
+          {
+            "line": 804,
+            "text": "        authority.manifest_json,"
+          },
+          {
+            "line": 805,
+            "text": "        authority.context_snapshot_json,"
+          },
+          {
+            "line": 806,
+            "text": "    ))"
+          },
+          {
+            "line": 807,
+            "text": "}"
+          },
+          {
+            "line": 808,
+            "text": ""
+          },
+          {
+            "line": 809,
+            "text": "fn generated_authority_view("
+          },
+          {
+            "line": 810,
+            "text": "    ctx: &ViewContext,"
+          },
+          {
+            "line": 811,
+            "text": "    capability: &InvestigationActionCapability,"
+          },
+          {
+            "line": 812,
+            "text": ") -> Result<Option<(String, String)>, ()> {"
+          },
+          {
+            "line": 813,
+            "text": "    match capability.provenance_kind {"
+          },
+          {
+            "line": 814,
+            "text": "        InvestigationProvenanceKind::Manual if capability.generated_case_id.is_empty() => {"
+          },
+          {
+            "line": 815,
+            "text": "            return Ok(None);"
+          },
+          {
+            "line": 816,
+            "text": "        }"
+          },
+          {
+            "line": 817,
+            "text": "        InvestigationProvenanceKind::Generated if !capability.generated_case_id.is_empty() => {}"
+          },
+          {
+            "line": 818,
+            "text": "        _ => return Err(()),"
+          },
+          {
+            "line": 819,
+            "text": "    }"
+          },
+          {
+            "line": 820,
+            "text": "    let mut candidates = Vec::new();"
+          }
+        ]
+      },
+      {
+        "range": [
+          913,
+          938
+        ],
+        "lines": [
+          {
+            "line": 913,
+            "text": "fn generated_investigability("
+          },
+          {
+            "line": 914,
+            "text": "    ctx: &ReducerContext,"
+          },
+          {
+            "line": 915,
+            "text": "    capability: &InvestigationActionCapability,"
+          },
+          {
+            "line": 916,
+            "text": ") -> Option<u8> {"
+          },
+          {
+            "line": 917,
+            "text": "    let (_, manifest_json) = generated_authority_reducer(ctx, capability).ok()??;"
+          },
+          {
+            "line": 918,
+            "text": "    let manifest ="
+          },
+          {
+            "line": 919,
+            "text": "        serde_json::from_str::<adventuresim_core::quest_generation::GeneratedCase>(&manifest_json)"
+          },
+          {
+            "line": 920,
+            "text": "            .ok()?;"
+          },
+          {
+            "line": 921,
+            "text": "    let adventuresim_core::quest_generation::CanonicalCause::Hostile(threat) = manifest.cause"
+          },
+          {
+            "line": 922,
+            "text": "    else {"
+          },
+          {
+            "line": 923,
+            "text": "        return None;"
+          },
+          {
+            "line": 924,
+            "text": "    };"
+          },
+          {
+            "line": 925,
+            "text": "    Some("
+          },
+          {
+            "line": 926,
+            "text": "        adventuresim_core::bestiary::profile(threat)"
+          },
+          {
+            "line": 927,
+            "text": "            .investigation"
+          },
+          {
+            "line": 928,
+            "text": "            .investigability,"
+          },
+          {
+            "line": 929,
+            "text": "    )"
+          },
+          {
+            "line": 930,
+            "text": "}"
+          },
+          {
+            "line": 931,
+            "text": ""
+          },
+          {
+            "line": 932,
+            "text": "fn apply_investigability_to_route_skills("
+          },
+          {
+            "line": 933,
+            "text": "    mut skills: action::SkillContribution,"
+          },
+          {
+            "line": 934,
+            "text": "    investigability: u8,"
+          },
+          {
+            "line": 935,
+            "text": ") -> action::SkillContribution {"
+          },
+          {
+            "line": 936,
+            "text": "    let modifier = i32::from(adventuresim_core::threat_escalation::check_modifier_milli("
+          },
+          {
+            "line": 937,
+            "text": "        investigability,"
+          },
+          {
+            "line": 938,
+            "text": "    )) * 2;"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "path": "crates/adventuresim-stdb-module/src/food/consumption.rs",
+    "sha256": "6774eac9e912e8d500d0d9912545c2051fcc102d969f024be6dd157b22dea910",
+    "revision": "13fc9dcc71ab879de364117e5462310673e43210",
+    "ranges": [
+      [
+        79,
+        96
+      ]
+    ],
+    "slices": [
+      {
+        "range": [
+          79,
+          96
+        ],
+        "lines": [
+          {
+            "line": 79,
+            "text": "        let episode_id = seed.max(fabelgeist_determinism::Seed::from_u64(1));"
+          },
+          {
+            "line": 80,
+            "text": "        let place = crate::foraging::current_strategic_place(ctx, character_id)?;"
+          },
+          {
+            "line": 81,
+            "text": "        crate::world_event::commit_food_water_infection("
+          },
+          {
+            "line": 82,
+            "text": "            ctx,"
+          },
+          {
+            "line": 83,
+            "text": "            exposure_id,"
+          },
+          {
+            "line": 84,
+            "text": "            character_id,"
+          },
+          {
+            "line": 85,
+            "text": "            &place.to_string(),"
+          },
+          {
+            "line": 86,
+            "text": "            carrier_id,"
+          },
+          {
+            "line": 87,
+            "text": "            contribution_digest,"
+          },
+          {
+            "line": 88,
+            "text": "            dose,"
+          },
+          {
+            "line": 89,
+            "text": "            protected_dose,"
+          },
+          {
+            "line": 90,
+            "text": "            immunity,"
+          },
+          {
+            "line": 91,
+            "text": "            prior,"
+          },
+          {
+            "line": 92,
+            "text": "            consumed_fraction_bps,"
+          },
+          {
+            "line": 93,
+            "text": "            \"dysentery\","
+          },
+          {
+            "line": 94,
+            "text": "            episode_id.to_u64(),"
+          },
+          {
+            "line": 95,
+            "text": "            minute,"
+          },
+          {
+            "line": 96,
+            "text": "        )?;"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "path": "crates/adventuresim-core/src/world_event.rs",
+    "sha256": "10007dfcca53443d2794c0e38d8e9d741588f79ba8f61163c84d2281e7b40fb4",
+    "revision": "13fc9dcc71ab879de364117e5462310673e43210",
+    "ranges": [
+      [
+        46,
+        63
+      ],
+      [
+        240,
+        260
+      ]
+    ],
+    "slices": [
+      {
+        "range": [
+          46,
+          63
+        ],
+        "lines": [
+          {
+            "line": 46,
+            "text": "    Party { party_id: String },"
+          },
+          {
+            "line": 47,
+            "text": "}"
+          },
+          {
+            "line": 48,
+            "text": ""
+          },
+          {
+            "line": 49,
+            "text": "#[derive(Clone, Debug, Eq, PartialEq, Ord, PartialOrd, Serialize, Deserialize)]"
+          },
+          {
+            "line": 50,
+            "text": "pub enum WorldEventSubject {"
+          },
+          {
+            "line": 51,
+            "text": "    Character { character_id: u64 },"
+          },
+          {
+            "line": 52,
+            "text": "    Case { canonical_case_id: String },"
+          },
+          {
+            "line": 53,
+            "text": "    LocalProblem { problem_id: String },"
+          },
+          {
+            "line": 54,
+            "text": "}"
+          },
+          {
+            "line": 55,
+            "text": ""
+          },
+          {
+            "line": 56,
+            "text": "#[derive(Clone, Debug, Eq, PartialEq, Serialize, Deserialize)]"
+          },
+          {
+            "line": 57,
+            "text": "pub enum WorldEventPlace {"
+          },
+          {
+            "line": 58,
+            "text": "    Settlement { settlement_id: String },"
+          },
+          {
+            "line": 59,
+            "text": "    Strategic { place_id: String },"
+          },
+          {
+            "line": 60,
+            "text": "}"
+          },
+          {
+            "line": 61,
+            "text": ""
+          },
+          {
+            "line": 62,
+            "text": "#[derive(Clone, Debug, Eq, PartialEq, Serialize, Deserialize)]"
+          },
+          {
+            "line": 63,
+            "text": "pub enum WorldEventPayloadRef {"
+          }
+        ]
+      },
+      {
+        "range": [
+          240,
+          260
+        ],
+        "lines": [
+          {
+            "line": 240,
+            "text": "        });"
+          },
+          {
+            "line": 241,
+            "text": "    }"
+          },
+          {
+            "line": 242,
+            "text": "    consequences"
+          },
+          {
+            "line": 243,
+            "text": "}"
+          },
+          {
+            "line": 244,
+            "text": ""
+          },
+          {
+            "line": 245,
+            "text": "#[derive(Clone, Debug, Eq, PartialEq, Serialize, Deserialize)]"
+          },
+          {
+            "line": 246,
+            "text": "pub struct WorldEventEnvelope {"
+          },
+          {
+            "line": 247,
+            "text": "    pub schema_revision: u16,"
+          },
+          {
+            "line": 248,
+            "text": "    pub id: String,"
+          },
+          {
+            "line": 249,
+            "text": "    pub source: WorldEventSource,"
+          },
+          {
+            "line": 250,
+            "text": "    pub actor: WorldEventActor,"
+          },
+          {
+            "line": 251,
+            "text": "    /// Directed affected entities, in canonical enum/value order."
+          },
+          {
+            "line": 252,
+            "text": "    pub subjects: Vec<WorldEventSubject>,"
+          },
+          {
+            "line": 253,
+            "text": "    /// Canonical occurrence place and legal jurisdiction. This is not proof"
+          },
+          {
+            "line": 254,
+            "text": "    /// that any character observed or learned about the event."
+          },
+          {
+            "line": 255,
+            "text": "    pub place: WorldEventPlace,"
+          },
+          {
+            "line": 256,
+            "text": "    pub occurred_at_minute: StrategicMinute,"
+          },
+          {
+            "line": 257,
+            "text": "    pub payload: WorldEventPayloadRef,"
+          },
+          {
+            "line": 258,
+            "text": "}"
+          },
+          {
+            "line": 259,
+            "text": ""
+          },
+          {
+            "line": 260,
+            "text": "impl WorldEventEnvelope {"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "path": "crates/adventuresim-stdb-module/src/world_event.rs",
+    "sha256": "9403e2e3d8bc995c0483da0502427442f1c526ee1b513db2a9b5beac3078a5b0",
+    "revision": "13fc9dcc71ab879de364117e5462310673e43210",
+    "ranges": [
+      [
+        941,
+        999
+      ]
+    ],
+    "slices": [
+      {
+        "range": [
+          941,
+          999
+        ],
+        "lines": [
+          {
+            "line": 941,
+            "text": "pub(crate) fn commit_food_water_infection("
+          },
+          {
+            "line": 942,
+            "text": "    ctx: &ReducerContext,"
+          },
+          {
+            "line": 943,
+            "text": "    consumption_id: &str,"
+          },
+          {
+            "line": 944,
+            "text": "    character_id: u64,"
+          },
+          {
+            "line": 945,
+            "text": "    strategic_place_id: &str,"
+          },
+          {
+            "line": 946,
+            "text": "    carrier_id: u64,"
+          },
+          {
+            "line": 947,
+            "text": "    contribution_digest: &str,"
+          },
+          {
+            "line": 948,
+            "text": "    dose: f32,"
+          },
+          {
+            "line": 949,
+            "text": "    protected_dose: f32,"
+          },
+          {
+            "line": 950,
+            "text": "    immunity: f32,"
+          },
+          {
+            "line": 951,
+            "text": "    prior_immunity: f32,"
+          },
+          {
+            "line": 952,
+            "text": "    consumed_fraction_bps: u16,"
+          },
+          {
+            "line": 953,
+            "text": "    disease_id: &str,"
+          },
+          {
+            "line": 954,
+            "text": "    episode_id: u64,"
+          },
+          {
+            "line": 955,
+            "text": "    minute: StrategicMinute,"
+          },
+          {
+            "line": 956,
+            "text": ") -> Result<(), String> {"
+          },
+          {
+            "line": 957,
+            "text": "    let envelope = WorldEventEnvelope {"
+          },
+          {
+            "line": 958,
+            "text": "        schema_revision: WORLD_EVENT_SCHEMA_REVISION,"
+          },
+          {
+            "line": 959,
+            "text": "        id: format!(\"food-water-infection:{character_id}:{consumption_id}\"),"
+          },
+          {
+            "line": 960,
+            "text": "        source: WorldEventSource::FoodWaterExposure {"
+          },
+          {
+            "line": 961,
+            "text": "            consumption_id: consumption_id.into(),"
+          },
+          {
+            "line": 962,
+            "text": "        },"
+          },
+          {
+            "line": 963,
+            "text": "        actor: WorldEventActor::Character { character_id },"
+          },
+          {
+            "line": 964,
+            "text": "        subjects: vec![WorldEventSubject::Character { character_id }],"
+          },
+          {
+            "line": 965,
+            "text": "        place: WorldEventPlace::Strategic {"
+          },
+          {
+            "line": 966,
+            "text": "            place_id: strategic_place_id.into(),"
+          },
+          {
+            "line": 967,
+            "text": "        },"
+          },
+          {
+            "line": 968,
+            "text": "        occurred_at_minute: minute,"
+          },
+          {
+            "line": 969,
+            "text": "        payload: WorldEventPayloadRef::FoodWaterInfection {"
+          },
+          {
+            "line": 970,
+            "text": "            carrier_id,"
+          },
+          {
+            "line": 971,
+            "text": "            contribution_digest: contribution_digest.into(),"
+          },
+          {
+            "line": 972,
+            "text": "            dose_microunits: adventuresim_core::world_event::infection_dose_microunits(dose)"
+          },
+          {
+            "line": 973,
+            "text": "                .ok_or(\"Food-water infection dose is invalid\")?,"
+          },
+          {
+            "line": 974,
+            "text": "            protected_dose_microunits: adventuresim_core::world_event::infection_dose_microunits("
+          },
+          {
+            "line": 975,
+            "text": "                protected_dose,"
+          },
+          {
+            "line": 976,
+            "text": "            )"
+          },
+          {
+            "line": 977,
+            "text": "            .ok_or(\"Protected food-water infection dose is invalid\")?,"
+          },
+          {
+            "line": 978,
+            "text": "            immunity_milli: (immunity.clamp(0.0, 100.0) * 1_000.0).round() as u32,"
+          },
+          {
+            "line": 979,
+            "text": "            prior_immunity_milli: (prior_immunity.clamp(0.0, 100.0) * 1_000.0).round() as u32,"
+          },
+          {
+            "line": 980,
+            "text": "            consumed_fraction_bps,"
+          },
+          {
+            "line": 981,
+            "text": "            disease_id: disease_id.into(),"
+          },
+          {
+            "line": 982,
+            "text": "        },"
+          },
+          {
+            "line": 983,
+            "text": "    };"
+          },
+          {
+            "line": 984,
+            "text": "    let consequences = plan_food_water_infection("
+          },
+          {
+            "line": 985,
+            "text": "        episode_id,"
+          },
+          {
+            "line": 986,
+            "text": "        character_id,"
+          },
+          {
+            "line": 987,
+            "text": "        disease_id,"
+          },
+          {
+            "line": 988,
+            "text": "        minute,"
+          },
+          {
+            "line": 989,
+            "text": "        contribution_digest,"
+          },
+          {
+            "line": 990,
+            "text": "    );"
+          },
+          {
+            "line": 991,
+            "text": "    let request = WorldEventRequest::FoodWaterInfection {"
+          },
+          {
+            "line": 992,
+            "text": "        envelope: envelope.clone(),"
+          },
+          {
+            "line": 993,
+            "text": "        episode_id,"
+          },
+          {
+            "line": 994,
+            "text": "    };"
+          },
+          {
+            "line": 995,
+            "text": "    commit_world_event(ctx, request, || {"
+          },
+          {
+            "line": 996,
+            "text": "        (envelope, ConsequenceOrder::FoodWaterInfection, consequences)"
+          },
+          {
+            "line": 997,
+            "text": "    })"
+          },
+          {
+            "line": 998,
+            "text": "    .map(|_| ())"
+          },
+          {
+            "line": 999,
+            "text": "}"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "path": "crates/adventuresim-core/src/autoresolve/melee_defense.rs",
+    "sha256": "6c64790c60c4ad2b52d4e3a18e312b8be73cb714ec27aa194f9a345d17eda293",
+    "revision": "13fc9dcc71ab879de364117e5462310673e43210",
+    "ranges": [
+      [
+        180,
+        195
+      ]
+    ],
+    "slices": [
+      {
+        "range": [
+          180,
+          195
+        ],
+        "lines": [
+          {
+            "line": 180,
+            "text": "        attacker.melee_interval_jitter_seconds = jitter;"
+          },
+          {
+            "line": 181,
+            "text": "        attacker.melee_attack_started_at_seconds = Some(self.started_at_seconds);"
+          },
+          {
+            "line": 182,
+            "text": "        attacker.melee_attack_contact_at_seconds = Some(self.contact_at_seconds);"
+          },
+          {
+            "line": 183,
+            "text": "        attacker.melee_attack_scheduled_measure_metres = Some(distance);"
+          },
+          {
+            "line": 184,
+            "text": "        attacker.melee_recovery_until_seconds = self.recovery_until_seconds;"
+          },
+          {
+            "line": 185,
+            "text": "        attacker.melee_phase_adaptation_delay_seconds = AnimationElapsed::ZERO;"
+          },
+          {
+            "line": 186,
+            "text": "    }"
+          },
+          {
+            "line": 187,
+            "text": ""
+          },
+          {
+            "line": 188,
+            "text": "    pub(super) fn attack_id(self, attacker_id: u64) -> u64 {"
+          },
+          {
+            "line": 189,
+            "text": "        attacker_id.wrapping_shl(32) ^ MeleeTimelineEvent::tick_at(self.started_at_seconds)"
+          },
+          {
+            "line": 190,
+            "text": "    }"
+          },
+          {
+            "line": 191,
+            "text": "}"
+          },
+          {
+            "line": 192,
+            "text": ""
+          },
+          {
+            "line": 193,
+            "text": "#[derive(Clone, Copy, Debug, PartialEq)]"
+          },
+          {
+            "line": 194,
+            "text": "pub(super) enum MeleeDefenderPhase {"
+          },
+          {
+            "line": 195,
+            "text": "    NeutralGuard,"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "path": "crates/adventuresim-core/src/autoresolve.rs",
+    "sha256": "cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+    "revision": "13fc9dcc71ab879de364117e5462310673e43210",
+    "ranges": [
+      [
+        530,
+        560
+      ],
+      [
+        1110,
+        1143
+      ]
+    ],
+    "slices": [
+      {
+        "range": [
+          530,
+          560
+        ],
+        "lines": [
+          {
+            "line": 530,
+            "text": "        let outcome = match result {"
+          },
+          {
+            "line": 531,
+            "text": "            AttackResult::ToAttacker {"
+          },
+          {
+            "line": 532,
+            "text": "                physical_contact: true,"
+          },
+          {
+            "line": 533,
+            "text": "                .."
+          },
+          {
+            "line": 534,
+            "text": "            } => BattleAttackOutcome::Blocked,"
+          },
+          {
+            "line": 535,
+            "text": "            AttackResult::ToAttacker { .. } => BattleAttackOutcome::Missed,"
+          },
+          {
+            "line": 536,
+            "text": "            AttackResult::ToDefender { .. } if effect.health_damage > 0.0 => {"
+          },
+          {
+            "line": 537,
+            "text": "                BattleAttackOutcome::HitHealth"
+          },
+          {
+            "line": 538,
+            "text": "            }"
+          },
+          {
+            "line": 539,
+            "text": "            AttackResult::ToDefender { .. } => BattleAttackOutcome::HitArmor,"
+          },
+          {
+            "line": 540,
+            "text": "        };"
+          },
+          {
+            "line": 541,
+            "text": "        let (raw_cut, raw_blunt) = match result {"
+          },
+          {
+            "line": 542,
+            "text": "            AttackResult::ToDefender {"
+          },
+          {
+            "line": 543,
+            "text": "                cut_damage,"
+          },
+          {
+            "line": 544,
+            "text": "                blunt_damage,"
+          },
+          {
+            "line": 545,
+            "text": "                .."
+          },
+          {
+            "line": 546,
+            "text": "            } => (cut_damage.max(0.0), blunt_damage.max(0.0)),"
+          },
+          {
+            "line": 547,
+            "text": "            _ => (0.0, 0.0),"
+          },
+          {
+            "line": 548,
+            "text": "        };"
+          },
+          {
+            "line": 549,
+            "text": "        let raw_total = raw_cut + raw_blunt;"
+          },
+          {
+            "line": 550,
+            "text": "        let (cut_damage, blunt_damage) = if raw_total > 0.0 {"
+          },
+          {
+            "line": 551,
+            "text": "            ("
+          },
+          {
+            "line": 552,
+            "text": "                effect.health_damage * raw_cut / raw_total,"
+          },
+          {
+            "line": 553,
+            "text": "                effect.health_damage * raw_blunt / raw_total,"
+          },
+          {
+            "line": 554,
+            "text": "            )"
+          },
+          {
+            "line": 555,
+            "text": "        } else {"
+          },
+          {
+            "line": 556,
+            "text": "            (0.0, 0.0)"
+          },
+          {
+            "line": 557,
+            "text": "        };"
+          },
+          {
+            "line": 558,
+            "text": "        self.log.push(BattleLogEntry {"
+          },
+          {
+            "line": 559,
+            "text": "            sequence: self.log.len() as u32,"
+          },
+          {
+            "line": 560,
+            "text": "            phase: phase.to_string(),"
+          }
+        ]
+      },
+      {
+        "range": [
+          1110,
+          1143
+        ],
+        "lines": [
+          {
+            "line": 1110,
+            "text": "    match result {"
+          },
+          {
+            "line": 1111,
+            "text": "        AttackResult::ToAttacker { balance_damage, .. } => {"
+          },
+          {
+            "line": 1112,
+            "text": "            attacker.imbalance += balance_damage.max(0.0);"
+          },
+          {
+            "line": 1113,
+            "text": "            AttackEffect {"
+          },
+          {
+            "line": 1114,
+            "text": "                hit: false,"
+          },
+          {
+            "line": 1115,
+            "text": "                health_damage: 0.0,"
+          },
+          {
+            "line": 1116,
+            "text": "            }"
+          },
+          {
+            "line": 1117,
+            "text": "        }"
+          },
+          {
+            "line": 1118,
+            "text": "        AttackResult::ToDefender {"
+          },
+          {
+            "line": 1119,
+            "text": "            balance_damage,"
+          },
+          {
+            "line": 1120,
+            "text": "            blunt_damage,"
+          },
+          {
+            "line": 1121,
+            "text": "            .."
+          },
+          {
+            "line": 1122,
+            "text": "        } => {"
+          },
+          {
+            "line": 1123,
+            "text": "            defender.imbalance += balance_damage.max(0.0);"
+          },
+          {
+            "line": 1124,
+            "text": "            let damage = health_damage_from_attack(result, part);"
+          },
+          {
+            "line": 1125,
+            "text": "            let applied = defender.body.apply_damage(part, damage);"
+          },
+          {
+            "line": 1126,
+            "text": "            defender.acute_trauma += acute_trauma_incapacitation(part, applied);"
+          },
+          {
+            "line": 1127,
+            "text": "            let (applied_cut, applied_blunt) = apportion_attack_health_damage(result, applied);"
+          },
+          {
+            "line": 1128,
+            "text": "            defender.cut_damage += applied_cut;"
+          },
+          {
+            "line": 1129,
+            "text": "            defender.wounds.extend(wounds_from_applied_health_damage("
+          },
+          {
+            "line": 1130,
+            "text": "                part,"
+          },
+          {
+            "line": 1131,
+            "text": "                applied_cut,"
+          },
+          {
+            "line": 1132,
+            "text": "                applied_blunt,"
+          },
+          {
+            "line": 1133,
+            "text": "                blunt_damage,"
+          },
+          {
+            "line": 1134,
+            "text": "            ));"
+          },
+          {
+            "line": 1135,
+            "text": "            AttackEffect {"
+          },
+          {
+            "line": 1136,
+            "text": "                hit: true,"
+          },
+          {
+            "line": 1137,
+            "text": "                health_damage: applied,"
+          },
+          {
+            "line": 1138,
+            "text": "            }"
+          },
+          {
+            "line": 1139,
+            "text": "        }"
+          },
+          {
+            "line": 1140,
+            "text": "    }"
+          },
+          {
+            "line": 1141,
+            "text": "}"
+          },
+          {
+            "line": 1142,
+            "text": ""
+          },
+          {
+            "line": 1143,
+            "text": "fn preferred_attack_mode(attacker: &Combatant) -> BattleAttackKind {"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "path": "crates/adventuresim-core/src/combat.rs",
+    "sha256": "7d00629a7da937cf41b5bc49a86df7119cc7054743dce1f70ac2507a7aba59b0",
+    "revision": "13fc9dcc71ab879de364117e5462310673e43210",
+    "ranges": [
+      [
+        465,
+        518
+      ]
+    ],
+    "slices": [
+      {
+        "range": [
+          465,
+          518
+        ],
+        "lines": [
+          {
+            "line": 465,
+            "text": "        contact_force: attack_force,"
+          },
+          {
+            "line": 466,
+            "text": "        armor_impact: energy.armor_impact,"
+          },
+          {
+            "line": 467,
+            "text": "    }"
+          },
+          {
+            "line": 468,
+            "text": "}"
+          },
+          {
+            "line": 469,
+            "text": ""
+          },
+          {
+            "line": 470,
+            "text": "/// Convert physical damage energy into the strategic 0-1 body-part health"
+          },
+          {
+            "line": 471,
+            "text": "/// scale. The calibration follows combat.md: roughly 20 J to an unarmored arm"
+          },
+          {
+            "line": 472,
+            "text": "/// is disabling, while larger body regions absorb proportionally more energy."
+          },
+          {
+            "line": 473,
+            "text": "pub fn health_damage_from_attack(result: AttackResult, part: BodyPart) -> f32 {"
+          },
+          {
+            "line": 474,
+            "text": "    let AttackResult::ToDefender {"
+          },
+          {
+            "line": 475,
+            "text": "        cut_damage,"
+          },
+          {
+            "line": 476,
+            "text": "        blunt_damage,"
+          },
+          {
+            "line": 477,
+            "text": "        .."
+          },
+          {
+            "line": 478,
+            "text": "    } = result"
+          },
+          {
+            "line": 479,
+            "text": "    else {"
+          },
+          {
+            "line": 480,
+            "text": "        return 0.0;"
+          },
+          {
+            "line": 481,
+            "text": "    };"
+          },
+          {
+            "line": 482,
+            "text": "    let capacity_joules = match part {"
+          },
+          {
+            "line": 483,
+            "text": "        BodyPart::LeftArm | BodyPart::RightArm => 20.0,"
+          },
+          {
+            "line": 484,
+            "text": "        BodyPart::LeftLeg | BodyPart::RightLeg => 35.0,"
+          },
+          {
+            "line": 485,
+            "text": "        BodyPart::Head => 20.0,"
+          },
+          {
+            "line": 486,
+            "text": "        BodyPart::Chest => 80.0,"
+          },
+          {
+            "line": 487,
+            "text": "        BodyPart::Stomach => 55.0,"
+          },
+          {
+            "line": 488,
+            "text": "    };"
+          },
+          {
+            "line": 489,
+            "text": "    ((cut_damage + blunt_damage * 0.75) / capacity_joules).max(0.0)"
+          },
+          {
+            "line": 490,
+            "text": "}"
+          },
+          {
+            "line": 491,
+            "text": ""
+          },
+          {
+            "line": 492,
+            "text": "/// Partitions clamped limb-health damage according to each attack channel's"
+          },
+          {
+            "line": 493,
+            "text": "/// contribution to the health calculation."
+          },
+          {
+            "line": 494,
+            "text": "#[must_use]"
+          },
+          {
+            "line": 495,
+            "text": "pub fn apportion_attack_health_damage(result: AttackResult, applied: f32) -> (f32, f32) {"
+          },
+          {
+            "line": 496,
+            "text": "    let AttackResult::ToDefender {"
+          },
+          {
+            "line": 497,
+            "text": "        cut_damage,"
+          },
+          {
+            "line": 498,
+            "text": "        blunt_damage,"
+          },
+          {
+            "line": 499,
+            "text": "        .."
+          },
+          {
+            "line": 500,
+            "text": "    } = result"
+          },
+          {
+            "line": 501,
+            "text": "    else {"
+          },
+          {
+            "line": 502,
+            "text": "        return (0.0, 0.0);"
+          },
+          {
+            "line": 503,
+            "text": "    };"
+          },
+          {
+            "line": 504,
+            "text": "    let cut_weight = cut_damage.max(0.0);"
+          },
+          {
+            "line": 505,
+            "text": "    let blunt_weight = blunt_damage.max(0.0) * 0.75;"
+          },
+          {
+            "line": 506,
+            "text": "    let total_weight = cut_weight + blunt_weight;"
+          },
+          {
+            "line": 507,
+            "text": "    if applied <= 0.0 || total_weight <= 0.0 {"
+          },
+          {
+            "line": 508,
+            "text": "        return (0.0, 0.0);"
+          },
+          {
+            "line": 509,
+            "text": "    }"
+          },
+          {
+            "line": 510,
+            "text": "    let applied_cut = applied * cut_weight / total_weight;"
+          },
+          {
+            "line": 511,
+            "text": "    (applied_cut, applied - applied_cut)"
+          },
+          {
+            "line": 512,
+            "text": "}"
+          },
+          {
+            "line": 513,
+            "text": ""
+          },
+          {
+            "line": 514,
+            "text": "#[cfg(test)]"
+          },
+          {
+            "line": 515,
+            "text": "mod tests {"
+          },
+          {
+            "line": 516,
+            "text": "    use super::*;"
+          },
+          {
+            "line": 517,
+            "text": "    use crate::autoresolve::{CombatArmor, CombatEquipment, CombatWeapon};"
+          },
+          {
+            "line": 518,
+            "text": "    use crate::stub::{StubAttributes, StubBody, StubEquipment, StubEssentials, StubSkills};"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "path": "crates/adventuresim-core/src/autoresolve/model.rs",
+    "sha256": "20d6bb98602db1d3dbc649b575e54c27fb766279d064deed4a13fcc0c695af72",
+    "revision": "13fc9dcc71ab879de364117e5462310673e43210",
+    "ranges": [
+      [
+        110,
+        128
+      ]
+    ],
+    "slices": [
+      {
+        "range": [
+          110,
+          128
+        ],
+        "lines": [
+          {
+            "line": 110,
+            "text": ""
+          },
+          {
+            "line": 111,
+            "text": "impl CombatBody {"
+          },
+          {
+            "line": 112,
+            "text": "    pub fn health(&self, part: BodyPart) -> f32 {"
+          },
+          {
+            "line": 113,
+            "text": "        self.health[body_part_index(part)]"
+          },
+          {
+            "line": 114,
+            "text": "    }"
+          },
+          {
+            "line": 115,
+            "text": ""
+          },
+          {
+            "line": 116,
+            "text": "    pub fn apply_damage(&mut self, part: BodyPart, damage: f32) -> f32 {"
+          },
+          {
+            "line": 117,
+            "text": "        let health = &mut self.health[body_part_index(part)];"
+          },
+          {
+            "line": 118,
+            "text": "        apply_clamped_limb_damage(health, damage)"
+          },
+          {
+            "line": 119,
+            "text": "    }"
+          },
+          {
+            "line": 120,
+            "text": ""
+          },
+          {
+            "line": 121,
+            "text": "    pub fn total_damage(&self) -> f32 {"
+          },
+          {
+            "line": 122,
+            "text": "        self.health"
+          },
+          {
+            "line": 123,
+            "text": "            .iter()"
+          },
+          {
+            "line": 124,
+            "text": "            .map(|health| (1.0 - health).max(0.0))"
+          },
+          {
+            "line": 125,
+            "text": "            .sum()"
+          },
+          {
+            "line": 126,
+            "text": "    }"
+          },
+          {
+            "line": 127,
+            "text": "}"
+          },
+          {
+            "line": 128,
+            "text": ""
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "path": "crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+    "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+    "revision": "13fc9dcc71ab879de364117e5462310673e43210",
+    "ranges": [
+      [
+        35,
+        62
+      ]
+    ],
+    "slices": [
+      {
+        "range": [
+          35,
+          62
+        ],
+        "lines": [
+          {
+            "line": 35,
+            "text": "    #[index(btree)]"
+          },
+          {
+            "line": 36,
+            "text": "    pub seed: Seed,"
+          },
+          {
+            "line": 37,
+            "text": "    pub catalog_revision: String,"
+          },
+          {
+            "line": 38,
+            "text": "    pub context_snapshot_json: String,"
+          },
+          {
+            "line": 39,
+            "text": "    pub context_commitment: String,"
+          },
+          {
+            "line": 40,
+            "text": "    pub manifest_json: String,"
+          },
+          {
+            "line": 41,
+            "text": "    pub factor_trace_json: String,"
+          },
+          {
+            "line": 42,
+            "text": "}"
+          },
+          {
+            "line": 43,
+            "text": ""
+          },
+          {
+            "line": 44,
+            "text": "#[derive(Clone, Debug)]"
+          },
+          {
+            "line": 45,
+            "text": "pub(crate) struct ValidatedQuestGenerationAuthority {"
+          },
+          {
+            "line": 46,
+            "text": "    pub context: adventuresim_core::quest_generation::GenerationContext,"
+          },
+          {
+            "line": 47,
+            "text": "    pub manifest: adventuresim_core::quest_generation::GeneratedCase,"
+          },
+          {
+            "line": 48,
+            "text": "}"
+          },
+          {
+            "line": 49,
+            "text": ""
+          },
+          {
+            "line": 50,
+            "text": "const QUEST_GENERATION_CONTEXT_COMMITMENT_VERSION: u16 = 1;"
+          },
+          {
+            "line": 51,
+            "text": ""
+          },
+          {
+            "line": 52,
+            "text": "pub(crate) fn quest_generation_context_commitment(context_json: &str) -> Result<String, String> {"
+          },
+          {
+            "line": 53,
+            "text": "    let value: serde_json::Value ="
+          },
+          {
+            "line": 54,
+            "text": "        serde_json::from_str(context_json).map_err(|_| \"Quest generation context is invalid\")?;"
+          },
+          {
+            "line": 55,
+            "text": "    let canonical_json = serde_json::to_vec(&value)"
+          },
+          {
+            "line": 56,
+            "text": "        .map_err(|_| \"Could not encode canonical quest generation context\")?;"
+          },
+          {
+            "line": 57,
+            "text": "    let mut hasher = Sha256::new();"
+          },
+          {
+            "line": 58,
+            "text": "    for value in ["
+          },
+          {
+            "line": 59,
+            "text": "        b\"adventuresim.quest-generation-context\".as_slice(),"
+          },
+          {
+            "line": 60,
+            "text": "        QUEST_GENERATION_CONTEXT_COMMITMENT_VERSION"
+          },
+          {
+            "line": 61,
+            "text": "            .to_le_bytes()"
+          },
+          {
+            "line": 62,
+            "text": "            .as_slice(),"
+          }
+        ]
+      }
+    ]
+  }
+]

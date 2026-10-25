@@ -1,0 +1,67 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-019",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "purposeful-event-payload-and-clock-projection",
+      "sources": [
+        {
+          "scope_index": 72,
+          "ranges": [
+            [
+              1,
+              139
+            ]
+          ]
+        }
+      ],
+      "distinction": "OneflatretainedMeleeTimelineEvent spansseveraldifferentcontracts withconditionallyrequiredpayloads. Eventkind, phase, availability andchoice aredifferentclassificationaxes, whileeventsequence/nativequantizedtick/BattleTime allhaveordering/time rolesononeclock.",
+      "uses": "ActualMovement/Start/Response/Contact/Terminal producersalreadyreadfillappropriatefields; tick_at clampsnegativebattlecoordinatetoorigin fornativeunsignedprojection androunds64Hz. ActualBattleTime remains signed, so projectiondoesnotjustifyrewritingcoordinateownerpositive. with_terminalbindsresolutiononlyafterat.",
+      "disposition": "ALIAS004 rootM88 wholepayloadrepair withown11 monolithic-record reasoning. Preserve independentaxes/policyhistory andrealoptionaldata; no arbitraryenumpernativeu64tick orseconddifferentclockowner simplybecausefieldnamesmatch. ALIAS001F04fullidentity remainsseparatedependency, no duplicatefinding.",
+      "finding_refs": [
+        "SEGO-INITIAL11-ALIAS004"
+      ],
+      "acceptance": "Variantpayloadsownrequireddata, commonmetadata preserves actualclock/sequence; finalwirerepresentationcanbeexplicitadapter. No ordinarymissingnormalproducerfact orblinddefault0 equalityclaimed."
+    },
+    {
+      "id": "participant-eligibility-is-current-authority-query",
+      "sources": [
+        {
+          "scope_index": 73,
+          "ranges": [
+            [
+              1,
+              31
+            ]
+          ]
+        }
+      ],
+      "distinction": "Recordedparticipationhistory andcurrentlylivingroster aredifferentauthorities; samerepresentedIDs do notmeanlivingstatusshouldbebakedforeverintoaParticipantId wrapper. A typecanpreserveidentitywhileeligibilityisrecomputedat actualcommit.",
+      "uses": "Helperintersectionpreservesrecordedorder/duplicates andfiltersagainstcurrentlivingBTreeSet; sourcefixturesdemonstratebeforebattle/beforeloottiming. ItdoesnotqueryDBorprovelivinginputfresh.",
+      "disposition": "Keep identityversuseligibilityquery distinction. Do notaddpermanentlyLivingCharacterId thatwouldstaleacrosstime orchangednormalizedIDfromstoragealone. Actualnativeproducer freshness/transactions separatelypending11; no newtypegranularityfindingfromrawIDsignature alone.",
+      "acceptance": "Actualcallersmustbindlivingrosteratsameauthoritymoment asbenefitcommit; no staleclone/wrongordinaryrewardclaimwithoutnativebodytrace. No fixtureexecution."
+    },
+    {
+      "id": "battle-clock-coordinate-and-elapsed-span",
+      "sources": [
+        {
+          "scope_index": 74,
+          "ranges": [
+            [
+              1,
+              95
+            ]
+          ]
+        }
+      ],
+      "distinction": "BattleTime ownsfinite signedsecondsrelativetobattleorigin; AnimationElapsed ownsnonnegative spans. Thisdistinctionpreventsdeadline/durationorclock substitution, though both f32. Explicitfrom_elapsed_since_start isameaningfuloriginadapter, not redundantnamewrapper.",
+      "uses": "checked_add takeselapsed; elapsed_since canrejectnegative/unrepresentabledifference; saturating variant intentionallymapsbeforeearliertozero. Predicateskeeprawtransientorderedarithmeticbutdonotretainbadclockvalues. Serde routesTryFromf32, unlikeuncheckednativeDir derives.",
+      "disposition": "Keep coordinateversusspanandsimulationclockversusserverauthority; no unsupported\u22650BattleTimepolicy, wrapmodulo, orunificationwithTimestamp/StrategicMinute. Existingtolerance/marginelapsedvaluescanreuseactualspanownerwithoutnewwrapperpereveryparameterunlessactualmixupshown.",
+      "acceptance": "Preserve negativecoordinatefixtures, finitecheckedresults andoriginalpredicateoverflowsemantics. Actualelapsedownerbody andreceiverscontinueatownroles; no arithmeticexecution ornewbounds introduced."
+    }
+  ],
+  "new_findings": [
+    "SEGO-INITIAL11-ALIAS004"
+  ],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

@@ -1,0 +1,34 @@
+{
+  "id": "RIG-INITIAL06-GROUP-041",
+  "at": "2026-10-22T20:47:08.185509+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "generated-physical-product-versus-runtime-combat-view": {
+      "sources": [
+        "pr-working:crates/adventuresim-core/src/equipment/parametric_weapon.rs"
+      ],
+      "comparison": "Fresh full PR ParametricWeaponCombatGeometry1\u201366 actualdefinition/constructor/use compared with fullEquipment1182 read039 and actualphysicalDerivedProperties/recipe-stage facts in prior current03. Seven publicrawfields include masskg,length/grip/headmetres,inertiakgm2,balance,precision; new checksallfinite, mass/length/grippositive, grip<=length,head0..length,inertia/balance/precisionnonnegative. This is a derived gameplay combat-facing view including precision/condition, not complete samefieldcopy of physical native mesh DerivedProperties (which also carries signedCOM and no precision), nor immutable authored recipe. Retain coherent Core combat view and actual physical source owner; do not force human BodyMass20..300 bounds or UnitInterval on nonnegativebalance/precision. Publicliteral remains unsealed, independent admission finding unaffected. melee_reach_m55\u201357 returns controllinggrip distance unchanged, so canonical length propagation should flow through this view rather than nativeraw copy; earlier owner/producer findings preserved. conditioned_precision60\u201364 computes changed edgecondition quantity against canonical catalogue base, not unchanged .into roundtrip; no newSeed/identifier owner or catalogue membership certificate from raw &str. Native physical projection only at actual boundary, no blanket native exemption."
+    },
+    "protection-fold-versus-authoring-piece": {
+      "sources": [
+        "pr-working:crates/adventuresim-core/src/equipment/armor.rs"
+      ],
+      "comparison": "Fresh PR40\u201394 complements actualPR1\u201339/P16full94 in033. Identity sevenpartmapper40\u201349 is F009duplicate taxonomy, not meaningful boundary adapter. aggregate_layered_armor53\u201381 filterspart, accumulatescoverage union/resistance/padding, resistanceweightedflexibility, minimumrangeofmotion: LayeredArmor genuinely computed across pieces, not duplicate single WearableProtection record; zero resistance sets flexibility0 and emptycoverage0/range1. Keep authoringpiece identity/channel/order authority distinct from collapsed contactaggregate. outermost_wearable84\u201394 chooses oneactualpiece by(channel.order,authoredorder,inventoryID), preservingwear identity/tiebreak. That purpose differs InputAddressMapping selection traversal; no list-order bug inferred merely from OUTSIDE_TO_INSIDE label. Core owns pure shared combat fold, tactical/DB adapt inventory identity at real boundary. Existing rawf32/Serde/publicliteral admission qualifications not erased by clamp kernels."
+    },
+    "lore-is-presentation-not-authoritative-combat-owner": {
+      "sources": [
+        "physical-p16:crates/adventuresim-core/src/bestiary.rs"
+      ],
+      "comparison": "Fresh exact026overlay204 P16implemented_combat_lore397\u2013460 only. Input canonical ThreatProfile.combat retained structured source; output ImplementedCombatLore strengths/weaknesses Englishstrings derived from ranged/protection/innatejoules/trainingmultiplier/morale. Text is presentation product, not replacement authoritative enum/numeric model. Distinct zero/noresistance checks and50morale thresholds are actual facts, no probability reinterpretation. A recipient deriving gameplay facts back from Englishtext would create authority inversion (Camera current07 investigating), but this function alone correctly owns descriptive projection. No whole1558file/sourcecell credit: oldotherroles remain queued until actual06comparison. Originalrequested397\u2013467 preserved in globalregistration; actual helperEOF460,461\u2013467 excluded byRootQUAL054, no nonexistent/helpertail credit."
+    },
+    "global-tiny-owner-joins": {
+      "sources": [
+        "pr-working:crates/adventuresim-core/src/attribute/simple.rs",
+        "pr-working:crates/adventuresim-core/src/combat_style.rs",
+        "pr-working:crates/adventuresim-core/src/equipment/loadout.rs"
+      ],
+      "comparison": "REG018 actualdefinition/currentattribute roles compared037; REG019/020 actualMeleeAttackStyle/Loadout restrictedsubset compared040. New026globalmembership joins exactexistingmanualproofs, not hash-derived semantic carry. Tinycanonicalsharedattribute/combatstyle retained; LoadoutSlot legitimatewidening purpose-scope distinct from24location taxonomy. SDKrole117 qualification consumed: previous183unit variants explicitly excludeddata, new202samehelperbytesWorldEventdata-structure role remains substantive F007evidence035; no newsourcebytes/count or blanket SDK credit."
+    }
+  },
+  "limits": "Whole06incomplete; Equipment/Schema/MeleeResolution pending039 exactotherownerjoins persist. No otherlens or source/repairauthority."
+}

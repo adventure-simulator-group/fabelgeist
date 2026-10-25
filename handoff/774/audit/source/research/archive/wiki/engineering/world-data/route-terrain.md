@@ -1,0 +1,119 @@
+# Strategic route terrain
+
+World schema v26 and inference rules v10 attach a required `RouteTerrain` to
+every imported travel edge. The record is a static strategic fact used for
+travel planning and encounter selection. It never persists tactical positions,
+damage, HP, enemies, or simulation ticks.
+
+Weather is a calculation-only overlay over this immutable package. Version 1
+uses coarse quarter-degree cells and six-hour absolute-time intervals. Route
+cells use their own imported elevation and wetland facts; settlement soil or
+hydrology is never projected onto arbitrary cells. Departure route payloads
+attest the weather rules version, aligned interval, condition, intensity,
+antecedent moisture, and snow cover. Validation rejects unbounded or
+inconsistent snapshots, and the gateway cache distinguishes them.
+Route search, duration, persisted span weights, and `check_millirank` all use
+the same departure overlay; weather is not a post-processing adjustment.
+
+Rain only increases effective Wetlands when the imported normalized weight is
+at least 100/1000. Displaced weights are deterministically renormalized to keep
+the five-member total at 1000. Independent saturation severity allows a
+1000/1000 wetland to become slower without corrupting the mixture.
+
+## Geometry and elevation
+
+Viabundus supplies topology and endpoint coordinates rather than complete road
+polylines. Documented edges therefore retain the endpoint interpolation below.
+Terrain-inferred edges instead sample their canonical A* polyline. The compiler
+chooses `N = min(1000, max(1, ceil(length / grid-cell-size)))` segments,
+yielding a bounded profile of two through 1,001 samples with unique permille
+progress and required 0/1000 endpoints.
+
+Each profile point samples GLO-30 at the center and the eight positions one
+configured canonical-grid cell away. The shared strict reader validates tile
+georeferences and handles nodata consistently with settlement elevation.
+Decoded tiles use a deterministic least-recently-used cache bounded to 64 MiB;
+eviction changes memory use only, never sample values or artifact identity.
+Missing tiles and terminal voids use the explicit sea-level fallback; the build
+report and edge Markdown record that choice.
+
+Consecutive center samples produce ascent, descent, and signed maximum grades.
+Interior projected coordinates use sign-symmetric nearest-integer rounding, so
+reversing an edge yields the exact reversed coordinate sequence.
+The 3x3 neighborhoods produce Horn slope/aspect, mean absolute center-neighbor
+difference (TRI), and relief. Aspect is `Flat` below 10 permille mean slope;
+otherwise a circular mean selects one of eight closed compass directions.
+
+Rules v6 classify a route as:
+
+- `Flat`: maximum slope below 30 permille and relief below 30 m.
+- `Rolling`: below 80 permille and 100 m.
+- `Hilly`: below 150 permille and 300 m.
+- `Mountainous`: everything else.
+
+A center at least 20 m above/below its eight-neighbor mean marks a ridge or
+valley. A likely pass requires opposing high neighbors and lower orthogonal
+neighbors. Adjacent identical detections are deduplicated deterministically.
+
+## Water, seasons, and encounters
+
+EU-Hydro crossings and ferry waterways become canonical nearest facts at zero
+meters. Feature kinds are river, canal, ditch, inland, tidal, and coastal.
+Seasonal rules are deliberately small and exact: ford/ferry facts dominate
+spring flood, autumn mud, and winter ice severity; nearby freshwater can add
+low mud or ice risk; mountainous or 1,000 m routes add medium winter snow. No
+summer-drought route rule exists in v5.
+
+Static encounter tags cover terrain class, steep (at least 150 permille), rough
+(TRI at least 20 m), landforms, bridge/ford/ferry, water banks/shores, and each
+seasonal hazard. Empty collections mean confirmed absence, never unknown.
+Viabundus `slope_multiplier` remains a separate source cost hint and is not DEM
+grade.
+
+Both the offline validator and strategic import reducer recompute profile
+ascent/descent, grade extrema, relief, class, seasonal risks, and encounter
+tags. Malformed or contradictory derived facts are rejected. Collection decoding
+is capped before allocation and canonical uniqueness is defined by logical key
+(progress, feature, hazard, or tag), not by the complete payload.
+
+The official full GLO-30 and EU-Hydro audit remains blocked until their
+authenticated, completely pinned source inventories are available locally.
+Synthetic tests exercise deterministic algorithms and strict boundaries; this
+document does not claim issue #62 complete.
+
+## Native routing skill mixture
+
+The separate native terrain-routing pack (schema 6) retains wetland, canopy, and
+hill coverage independently. Runtime routing cells normalize them to exactly
+1,000 permille: Wetlands receives its area share first, Forest follows canopy
+density over the remaining land, Hills receives the hill-covered share of the
+remaining non-forest ground, and Plains receives the remainder. Urban is part of
+the Terrain skill domain but has zero route weight until an authoritative
+built-up-land source is added; roads are infrastructure over their underlying
+terrain and are never treated as Urban.
+
+Plains, Forest, Hills, Wetlands, and Urban are intuitive mental checks governed
+by Intelligence on the shared rank-zero-to-five curve. Party
+checks use bounded party aggregation, then the cell mixture's dot product.
+Movement speed is multiplied by `1 + check / 10`. The departure profile is in
+the A* cache key and the resulting adjusted spans are validated and persisted,
+so skill can affect route choice while an active journey remains stable.
+
+Actual walking trains every living traveler and conserves exposure across the
+normalized mixture. Non-road movement grants one exposure hour per movement
+hour. Roads still train their underlying terrain, discounted by underlying
+off-road speed divided by 5 km/h: 0.25 open, 0.20 sparse woods, and 0.15 deep
+woods. Camp intervals grant no Terrain training.
+Wetland road exposure is 0.10, from 0.5 km/h divided by 5 km/h.
+
+`terrain-routing-base-v3` is a documented-road-only inference input and cannot
+be served as the final pack. `terrain-routing-v3` is rebuilt after world
+compilation with the accepted inferred polylines. Both manifests carry a
+purpose, road-geometry digest, Jung wetland source digest, and package digest.
+Wetland ground moves at 0.5 km/h unless overridden by water or a road. Schema 6
+uses one flag bit for the canonical EPSG:3035 1 km cultivation classification
+and another for native wetland coverage, so cells remain five bytes. Both bits
+decode to area fractions when cells are coarsened. The manifest validates the
+grid CRS/resolution, HYDE dependency digest, allocator rules version, and
+square/native-cell counts. Runtime sampling is bounded by the existing chunk
+LRU.

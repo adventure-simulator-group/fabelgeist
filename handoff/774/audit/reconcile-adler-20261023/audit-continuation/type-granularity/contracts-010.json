@@ -1,0 +1,92 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-010",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "authored-combat-unit-policy-data",
+      "sources": [
+        {
+          "scope_index": 40,
+          "ranges": [
+            [
+              1,
+              344
+            ]
+          ]
+        }
+      ],
+      "distinction": "Authored schema9 data distinguishes metres/mm\u00b2/joules/watts/mass/time/rate/angle/phase/unitless gain and native sample clocks. Different consumers use reaction, motor, animation and presentation policies even where numbers happen to match.",
+      "uses": "Root/perpart movement and fatigue values differ physical unit from wheel impairment, action duration from interpolation response, phase fractions from absoluteseconds. Actual authored zero values such as unarmedprecision, first-run rotation rate, bounce/flight terms and transmission are meaningful. Signed toe clearance\u22120.009 and visual offset\u22120.95 demonstrate no universal positive-length validator fits allmetre values.",
+      "disposition": "Keep purpose/unit/frame/clock distinctions; share actual scalar predicates below distinct owners where suitable, not one universal positive numeric wrapper. Authored literals are real YAML boundary values, not proof runtime should stayraw. Do not invent bounds simply to justify a type or reject zero/negative values in legitimately signed/disabled roles.",
+      "acceptance": "Actual cfg/build generated/runtime consumers pending11 must retain each existing accepted policy and proper angle/time/phase dimensions. No field decoded merely by unitname is automatically checked; no simulation/gameplay or YAML parser run. Independent mass/limb versus total incapacitation policies remain unchanged."
+    },
+    {
+      "id": "architectural-frame-and-geometric-role",
+      "sources": [
+        {
+          "scope_index": 41,
+          "ranges": [
+            [
+              1,
+              29
+            ]
+          ]
+        },
+        {
+          "scope_index": 42,
+          "ranges": [
+            [
+              1,
+              140
+            ]
+          ],
+          "qualification": "Requested170 exceeds exactEOF140; full existingbody read, no nonexistent lines."
+        },
+        {
+          "scope_index": 43,
+          "ranges": [
+            [
+              1,
+              100
+            ]
+          ],
+          "qualification": "Actual helper tail101\u2013105 is pre-existing mandatory overlay002; freshly read and recorded separately."
+        },
+        {
+          "scope_index": 44,
+          "ranges": [
+            [
+              1,
+              142
+            ]
+          ],
+          "qualification": "Requested151 exceeds exactEOF142; full existingbody read, no nonexistentlines."
+        }
+      ],
+      "distinction": "Position<F> is an affine point, Displacement<F> a signed translation and Elevation<F> datum height; same Vec/f32 storage does not imply same contract. PlanDirection/SpatialDirection bind normalized native orientation to owning frame, distinct from metre quantities. Radians preserves finite unwrapped angle; RigidRotation retains normalized quaternion. PlanDimensions positive size differs PlanExtents nonnegative bounds.",
+      "uses": "translated accepts sameframe Displacement and displacement_to returns Displacement; compile-fail examples showpoint/dimensions and displacement/direction cannot substitute. Elevation::max retains datum. PlanDirection lifts X/Z tospatial sameframe withoutnorth signflip. PlanDimensions half-extents mayunderflowtozero, soPlanExtents deliberatelypermitsdegenerate bounds. LeafDimensions wraps sharedCuboid owner and namesleaflocal axes, while its validation currentlyrechecks samepositivegeometry withLeafDimensions errorrole.",
+      "disposition": "Keep frame/affine/angle/direction and size-versus-extents distinctions even where numeric checks match. No source-backed reason to merge all finite geometry into generic Vec3. LeafDimensions role earns provisional semantic axismeaning; actual leaf/box consumers and canonical Cuboid owner stillneed own11 trace before declaring redundant or flattening it. Repeated numericpredicate can be shared beneath distinct roles without erasing publicmeaning.",
+      "acceptance": "Continue actual firstparty consumers/canonical geometry/errorhelper roles in pinnedinventory; preserve finite signedcoordinates/zero translation, positive physicalsizes, nonnegative point/linebounds and normalized direction/quaternion. No arbitrarynewminimum length, anglewrapping, implicitframeconversion or stronger serde proof than actualcheckedconstructors. No macro/docs examples executed."
+    },
+    {
+      "id": "core-feature-and-owner-dependencies",
+      "sources": [
+        {
+          "scope_index": 45,
+          "ranges": [
+            [
+              1,
+              43
+            ]
+          ]
+        }
+      ],
+      "distinction": "Core depends on shared fabelgeist-geometry, deterministic owner andworld schema; optional SpacetimeDB feature propagates through actual shared owners. Buildtime geometry disables defaultfeatures, reflecting native build/runtime boundary, not a duplicate type owner.",
+      "uses": "Shared dependency topology permits reuse of unit/identity owners, but manifest membership alone proves no exact leaf fit or converter behavior. serde/derive macros are selected tooling, no requirement for handwritten trait impl or enum per numericfield.",
+      "disposition": "No bespoke type definition in manifest; intentional configuration role, no granularity finding. Keep architecture dependencydirection; no new runtime feature or provider required from this metadata.",
+      "acceptance": "Actual type definitions and build consumers independently reviewed at their ownexact source roles; no Cargo resolution/check/build or macro execution."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

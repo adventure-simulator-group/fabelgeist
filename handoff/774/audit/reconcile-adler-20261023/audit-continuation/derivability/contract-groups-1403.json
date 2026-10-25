@@ -1,0 +1,42 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1403",
+  "at": "2026-10-25T18:47:46.236773+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1462,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/collision.rs",
+  "sha256": "e57c0f4f3a2b7f4cb749b5e1ca57628e9e5ef864f1bd4365fe48313a3f426c3e",
+  "actual_compared_ranges": [
+    [
+      1,
+      300
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "GeometryFrame",
+      "type": "CameraView",
+      "lines": [
+        38,
+        38
+      ],
+      "disposition": "KEEP zero-body custom frame marker; existing structural derives do not implement project trait."
+    },
+    {
+      "trait": "Default",
+      "type": "CloseCameraProfile",
+      "lines": [
+        90,
+        103
+      ],
+      "disposition": "KEEP explicit nonzero authored profile dimensions/offsets; field defaults alter policy."
+    }
+  ],
+  "analysis": "KEEP empty custom GeometryFrame CameraView38 native coordinate marker; no existing derive. KEEP CloseCameraProfile Default90\u2013103 explicit nonzero authored lengths/framing offsets. Other records structural derives; native inverse-projection geometry admission, current cast normalization/hit direction, checked endpoints and two-output recovery mutation are semantic kernels. No manual codec.",
+  "first_unfinished": {
+    "scope_index": 1462,
+    "line": 301
+  },
+  "execution": "none"
+}

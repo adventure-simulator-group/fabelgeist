@@ -1,0 +1,26 @@
+{
+  "id": "NATIVE-ADMISSION03-CONTRACT-GROUPS-056",
+  "lens": "audit-admission-contracts",
+  "groups": {
+    "weather-snapshot-raw-admission-versus-actual-generator": {
+      "indices": [
+        115
+      ],
+      "invariant": "WeatherSnapshot captures a rules/time/cell calculation for retention, but its public numeric DTO and ordinary decoding do not establish producer provenance, bounded basis points, a wind-angle range or cloud ordering. Closed precipitation/cloud categories differ from bounded physical quantities.",
+      "all_admission_routes": {
+        "115": "Full958 including originaltests672–958 freshlyread in1–480/481–958. Closed Precipitation30 Serde+optionalSATS/DefaultClear andCloudForm40 ordinarySerde/DefaultStratus onlyclosedvariantadmission; no extra grammar. CloudLayerSnapshot57 publicrawu16coverage/density/base/top withderivedDefault/Serde; AtmosphericSnapshot67 publicrawu16/i32/i16+optionalclouds withderivedSerde andmanualvalidauthoredDefault83. WeatherSnapshot104 publicrawversion/cell/temperature/u16BPfields pluscanonicalStrategicMinute, ordinarySerde/Clone/Copy andmanualDefault123 (minuteZERO/cells0/temp100/noexposure). No checkednew/validate/privatebacking/Reflect/try_from forwhole snapshots; source docswind0..10000/lift±10000 are notenforced byrawfieldorDecoder. Actualweather_at178 takesrawi32lat/lon andi16elevation, derivescells/actual360minuteinterval, currentintervalfactory plus16historywindow, clampsgroundmoisture/snowbeforepublicliteral210. PrivateIntervalWeather255 andprivatecloud_layer571 useonlyrawfields/literals internally, not a separatecheckedadmissionowner. Actualintervalgenerator263 computescorrelatedfield→boundedhumidity/lift/instability/wind/intensity andclosedprecipitation withactualcloudfallback; cloudhelperreturnsNoneatzerocoverage, actualauthoredbase/topcurrentcallerbounds preserved. No decodercallsweather_at orchecks rules_version/cell/provenance automatically. weather_interval_start596 actualcheckedperiod Option.expect; callerinterval comesfromcanonicalminute/positive360, notarbitrarydirectpublicperiodsource. temperature601 rawgeographicintegers andnativeintegerformula, triangle_wave630 rawphase/period nativehelper (onlyauthoredpositive365/24currentcalls), wind_direction639 rawintegergradients→nativeatan2/degreewrap0..359 includingzero gradient. snow_overlay648 clampsofcoveronly, rawunderlying/snow remainnativeu16; snow_training656 clampssnow/roadfraction beforepartitioningrawu32minuteoutput. No new refinedprobability/angle owner createdbythosefunctions. Originaltestsource demonstratesactualreplay/cells/epoch0/season/elevation/moisture/coherence/cloud/rain/snow/monotonicity; no executions/newcases."
+      },
+      "proof_refs": [
+        "contract-groups-055.json",
+        "contract-groups-023.json",
+        "contract-groups-034.json",
+        "../../root/admission03/determinism-admission-023.json"
+      ],
+      "counterexample_or_qualification": "Safe literals/ordinarySerde canrepresent BP65535, winddirection65535, lift i16outside±10000, reversedcloudtop/base, wrongrulesversion andarbitrarycell despitevalidproducerdefaults. Thisisretainedrawsource/missingexisting-owner propagation, not a decoderbypassofcheckedUnitBasisPoints itself andnot a newdeduplicateddefect. weather_atrawlat/lon admitnongeographicwords; currentNative411 canonicalLatitude/Longitude semantics remain separate actualsource owner, no validgeographypromise fromi32parametername. Conceptualextreme arithmetic/clockMAX andrawhelperdivision are later04 crossreferences; no runtimebadcaller demonstrated ornewuserdecision. Currentgeneratoroutputshape/formation doesnotclearallrawdecoder/literalroutes.",
+      "connected_repair": "Existing Native weather/survival/coordinate/sourceidentity claims; usecanonicalbasispoint/signedbasispoint/angle/geographic/time meanings atreal retained/admission boundaries, preservingrawrejectedDTO andnativeformulas. Root/Camera canonicalsource ownership/dedup retained; no newclaimtransfer.",
+      "acceptance": "Preserveworldseed/version/purpose/360minutequantization/16history, closedcloudfamilies/None andzero-valuedweather, actualboundedgeneratorroutes/signedtemperature/geographicframes andoriginalfixtures. Ifsnapshots becomeadmittedtypes, allliteral/default/Serde/source-provenanceroutes mustmatch actualpromises ratherthanblindlycallinginto atretention. No sourceedits/projectexecution/newtests/laterlens.",
+      "later_lens_credit": false
+    }
+  },
+  "later_lens_credit": false
+}

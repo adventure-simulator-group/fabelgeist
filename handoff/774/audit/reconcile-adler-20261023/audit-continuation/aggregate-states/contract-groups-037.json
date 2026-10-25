@@ -1,0 +1,86 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-037",
+  "at": "2026-10-25T11:05:47.209874+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1136,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/item.rs",
+      "sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+      "personally_read_ranges": [
+        [
+          1,
+          957
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole957 item source read. Catalog ItemDefinition projection atomically copies authored equipment occupancy/parents/protection/attachments, matches payload ItemKind then materializes many independent schema leaves. Normal catalog supplies coherent kind fields, but raw Item public fields do not enforce complete union; default unused zero fields deliberate. Food/book/durability share quality projection precedence; actual validated capability combinations required before treating overwrite as bad catalog. Stable-object policy includes food, measured, repairable, medication, melee weapon, capacity or attachment points: not simply itemkind. Shared insertion creates individual quantity1 rows and matching object/condition/weapon/amount/food-lot for stable items, creates stack for fungible items. Foraging helper deliberately calls quantity1 independently to retain concrete unit IDs. add_inventory_item hides checked error via ok/flatten, food refresh ignored; repeated downstream callers must retain source cause, existing migration error family. Credit merges only checked u32 capacity then newstack, but ignores Option from insertion and reports Ok; needs actual failing currency insertion contract before ordinary lostpayment claim. Withdrawal plans all stacks before mutation, stable denomination/id order, bounded takes, insufficient amount no-op. Native u64 total overflow only extreme API collection, no realistic DB witness. change_inventory_item durable branch removes related authorities; measured branch deletes amount/inventory directly and generic positive branch merges any nondurable/nonmeasured kind. This differs full requires_stable_object policy for nonrepairable containers/medications and may leave amount/object/cohort inconsistency on deletion. Actual public reducer route and primary scope/authorization and downstream graph must be reconciled before promoting a new unique issue. Preserve source-backed policy mismatch question; own09 storefront similar kind-based policy question, no assertion current authored stockedcontainer witness. Existing tests assert food prevalidation, individual/stack policy, deterministic atomic money plan and bounded merges, plus actual authored equipment/classification; not run."
+    },
+    {
+      "scope_index": 1137,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/item/authority_tests.rs",
+      "sha256": "ea66e08d18040b2a131cd6064cb78d96819930fa46b7e7026e406baab6785cd3",
+      "personally_read_ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole44 feature-gated authority fixture read. require_dev_bootstrap_token precedes DB catalog agreement checks, exhaustive authored kind mapping checks both persisted and project_definition row. No mutation or alternative Item factory; token guard not generalized to every ordinary reducer."
+    },
+    {
+      "scope_index": 1138,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/lib.rs",
+      "sha256": "6ddb214f1409b1c3451c129b19ff4b795dfebf036c17f48f833af54c01048f2e",
+      "personally_read_ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole93 module root read. Exports all strategic modules; no new runtime aggregate admission. production_source splits at last cfg(test) marker for source assertions; this is test-only string helper, not proof of actual production behavior."
+    },
+    {
+      "scope_index": 1140,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem/effects.rs",
+      "sha256": "8f55ea514db0ec15ae06fb8ad544fcb6f107237239dcbb5e46be81a51cf084e0",
+      "personally_read_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole17 effects include read. Activity is starts_at<=minute with recurring bypass of ends_at, resolved_at frontier, mitigation belowwhole. Raw recurring/ends_at relation intentionally recurrence policy, not universal invalid zeroexpiry. Scaling widens signedvalue*i64 coefficient; mitigation clamped whole and saturated before subtraction, product fitsi64 fori32 values, quotient staysi32. No aggregate arithmetic failure established."
+    },
+    {
+      "scope_index": 1141,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem/incident_draws.rs",
+      "sha256": "ed9f5a25305d6d7aa9443ebebff0695bbe9102ccf307f84a112016f423bd903f",
+      "personally_read_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole62 incident draw helper read. Immutable case ID and ordinal seed each named stream, sorted candidate IDs/sites/circumstance tags supply deterministic selection order. index(length) assumes actual selected cohort nonempty; caller1140/1139 construction must guarantee before operation. Raw stream/ordinal are canonical determinism APIs, purpose-specific cohort migration question elsewhere."
+    },
+    {
+      "scope_index": 1142,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem/inn_contact.rs",
+      "sha256": "3507dc6ed96e62ba936ebe3f306f0bfc853af7c80eca4c40f4c9131033205357",
+      "personally_read_ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole39 inn contact include read. Service must be Inn; resident presence same settlement/current observedtime, profile home settlement and dialogue capability. Combines actual presence and profile authority before rumor eligibility, no mere nonemptycontact assumption. All booleans supplied by owning queries; later enum/rawbool lens independently evaluates shape."
+    }
+  ],
+  "connected_questions": [
+    "change_inventory_item removal/merge uses narrower durable/measured policy than requires_stable_object; establish actual supported producer/consumer before unique defect.",
+    "Shared physical object/inventory exact ownership and cause propagation remain original scope; no neighboring agent source edits."
+  ],
+  "discovery": "Six original roles compared; full lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

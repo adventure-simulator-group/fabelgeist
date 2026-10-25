@@ -1,0 +1,55 @@
+{
+  "packet_number": 107,
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/capability.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          554
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Full P16 literal1-554; actual complete PR diff and changed imports/TestArmor implementation compared with same production Core contexts."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/capability.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          552
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Production bodies and remaining fixtures identical to fully read P16 except removed test-only SignedLength import and raw-float reach fixture; changed PR literal blocks independently read, whole diff compared."
+    }
+  ],
+  "groups": {
+    "unbounded-party-check": "Finite positive contributors are sorted descending and divided by one-based rank; final aggregate intentionally may exceed5. F038 concerns permitted finite MAX inputs producing nonfinite total and masked marginal result. Do not merge this with geometric bounded medical or command policy.",
+    "bounded-medical-and-command": "Medical contributors filtered finitepositive then capped5, complementary fractions with geometric decay maintain intended bounded scalar for actual party sizes; command handles empty/singleton and signed supporter effect around2.5 with final0..5 clamp. Preserve negative command marginal contributions; other marginal helpers explicitly floor0. usize→i32 pow-index narrowing remains an API-capacity admission obligation at impossible-for-current-party large allocations, not a current normal roster failure; no local execution or broad all-capacity proof.",
+    "capabilities": "RoleRequirements numericu8 versus evaluated f32 checks and armor tiers are distinct meanings. rating rounds then clamps0..5 beforeu8cast; successful finite values safe, rawNaN casts0 under Rust behavior but not an admitted measurement. armor tier computes actual component conjunctions, no new cardinality arithmetic. evaluate_capabilities delegates body/skill/equipment/encumbrance guarantees; raw arithmetic can overflow for invalid trait implementations and final clamp does not establish whole-product validity. Precision may exceed1, never arbitrary UnitInterval.",
+    "knowledge-and-existing-fixtures": "Knowledge helpers clamp health before capped skill rank; retain Religion/Bestiary specialized owner semantics and existing learned-hour failure obligations. Existing fixture seven-part indexing match exhaustive and arrayvalid. Full source fixtures read no added/executed cases; no cached DB capability mutation proof from these pure projections."
+  },
+  "findings": [
+    {
+      "id": "ROOT-INITIAL04-F038",
+      "kind": "represented_public_party_check_sum_overflow_and_masked_contribution",
+      "source_id": "physical-p16:crates/adventuresim-core/src/capability.rs",
+      "locations": [
+        [
+          20,
+          34
+        ],
+        [
+          70,
+          74
+        ]
+      ],
+      "case": "aggregate_party_check([f32MAX,f32MAX]) passes its finitepositive filter and computesMAX+MAX/2→Inf. aggregate_party_contribution(&[MAX,MAX],MAX) then computesInf-Inf→NaN and f32::max(0) returns0. Accepted raw API inputs only: actual ordinary skill checks are small; no current normal party failure or executed run claimed.",
+      "operation": "Finite contributors do not establish finite accumulated aggregate. Sanitizing a computed marginal difference hides the failed aggregation as a successful zero contribution.",
+      "connected_repair": "Admit the actual bounded individual check owner at the producer/helper boundary if that is the real contract, and preserve a separate aggregate owner that may exceed5. Otherwise check raw aggregation and reject unrepresentable totals through a concrete cause. Do not clamp aggregate to5 or replace the deliberately different bounded-medical/command formulas.",
+      "acceptance": "Every successful aggregate/marginal result corresponds to admitted contributors and finite successful arithmetic; a failed total cannot become a fabricated zero marginal contribution. Preserve ordering, diminishing returns and distinct policy bounds. Existing tests only.",
+      "deduplication": "Native05 confirmed no exact duplicate; separate from nine-weight normalization NativeF031 and learned-hour F016."
+    }
+  ]
+}

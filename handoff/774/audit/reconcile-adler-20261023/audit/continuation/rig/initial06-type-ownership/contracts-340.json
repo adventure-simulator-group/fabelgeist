@@ -1,0 +1,26 @@
+{
+  "id": "RIG-INITIAL06-GROUP-340",
+  "at": "2026-10-23T09:11:33.259090+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "finalized-resident-persistence": {
+      "comparison": "PreparedResident composes canonical GenerationInput/GeneratedPopulationProfile/AgeBand/Seed for persistence without revising finalized ResidentDraft demographics. Exact age versus coarse AgeBand and historical CalendarYear differ; canonical Sex/name identity/personality owners are reused, and DB CharacterId conversion remains explicit. Presence range end1440 is an exclusive day endpoint, not MinuteOfDay<1440, preserving F020 distinction. Profile prose/local service/conversation keys are display/catalogue references, not independently authored character identity. PR299/P16299 complete body delta changes only two error carrier signatures; actual data, demographics, entropy stream and publication roles otherwise equivalent. No preflight/transaction success inferred from new signatures.",
+      "disposition": "coherent finalized generation→DB adapter over canonical owners"
+    },
+    "support-profile-ordinate-and-elevation": {
+      "comparison": "SupportProfile private first+remainder owns nonempty nondecreasing sequence, with repeated coordinates intentionally retaining steps; checked adds separate passage strict-order/grade policy. ProfileCoordinate is meaningful bound-profile ordinate, distinct from SupportElevation, despite same signed finitef32 predicate. Supporting F001/F023, canonical SignedLength/scene Elevation can supply shared checked numeric backing while preserving ordinate/elevation wrappers and their roles rather than duplicate generic finite checks. height_at actual native interpolation with f64 overflow-safe alternate returns scene elevation; translated floor basis is a probe, not certified changed grade. No collapse of stepped versus walkable profiles. Original tests source-only.",
+      "disposition": "meaningful private sequence/profile roles; shared checked leaf composition candidate"
+    },
+    "character-scalp-native-mesh": {
+      "comparison": "ScalpCap is actual newly fitted native surface buffers/opacity, composed from canonical hair Surface/Head/ScalpMap/HeadPlacement/MeshCollider. Hairline/edge fade, inverse-transpose normals, tangent xyz+handedness w and barycentric skin-clearance probes are real mesh math, not duplicate accepted scene geometry/rig identity. Texture UV and model/bust position frames remain different; opacity is native normalized render channel, not genericcolor vector. Canonical hairline and body geometry are borrowed; no competing source authority. Public raw output is not universally certified by fit name.",
+      "disposition": "canonical hair/body composition with legitimate fitted native mesh/math boundary"
+    }
+  },
+  "supporting_existing_findings": [
+    "F001",
+    "F020",
+    "F023"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit."
+}

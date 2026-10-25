@@ -1,0 +1,96 @@
+{
+  "id": "CONT07-CONTRACT-436",
+  "at": "2026-10-23T21:52:18.617760+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1915,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+      "sha256": "2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+      "actual_EOF": 438,
+      "ranges": [
+        [
+          1,
+          438
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1916,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/buildings/identity.rs",
+      "sha256": "53af66cb68d475328494f071fc1fc64701c6c2fbd3204ffb79a82bbfd318a7b0",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/buildings/identity.rs",
+      "actual_EOF": 40,
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1917,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/buildings/placement.rs",
+      "sha256": "8d39af4feaf3413ec32ff198193d1f15b9c029ac9be1f9582f00834976ac1bcc",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/buildings/placement.rs",
+      "actual_EOF": 188,
+      "ranges": [
+        [
+          1,
+          188
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1918,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/buildings/reservations.rs",
+      "sha256": "94061c8113ad39b5d8311e3078a34d743557bbf36b7e14324f149f08c068bcc3",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/buildings/reservations.rs",
+      "actual_EOF": 48,
+      "ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1919,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/descriptor.rs",
+      "sha256": "2b30929bb687f5865c0fa515cb96763b1b03d4a97522dbc015b02d7cb4558336",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/descriptor.rs",
+      "actual_EOF": 103,
+      "ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "ROOT-OWNER-FURNITURE-CONNECTED-065 full narrative"
+  ],
+  "facts": [
+    "1915 BuildingOrientation has one canonical angle driving forward and inverse helpers. DistantPlacement.occupied_program derives its program from archetype, usage, seed and service_size. TacticalFrom preserves identity, point, elevation and orientation. Prosperity is a separate presentation input.",
+    "1915 GeneratedBuilding publicly pairs placement, plan and collision with raw Serde. Normal prepare_buildings takes a recipe by exact program and installs its plan/collision together. A mismatch through arbitrary public construction is not yet a demonstrated successful application path; recipe lookup and actual publication/recipients remain required.",
+    "1916 SceneBuildingId is all-u64 physical identity, distinct from opening and geometry source. Placement admission explicitly requires nonzero unique identities; broader identity use is not automatically nonzero. The temporary BTreeSet validates uniqueness.",
+    "1917 geometry_datum derives transform from retained collision origin and placement floor each call; GeneratedBuilding does not store a separate world transform. Buried slab bottoms do not select the floor. Original source fixtures were read only.",
+    "1918 reservation centre, extents and orientation describe obstacle exclusion including a 5.5-metre apron. They do not choose a terrain floor. Zero extents are expressly permitted, unlike occupied plots.",
+    "1919 schema29 and generation73 are distinct protocol facts. Descriptor fixtures require fresh ShopName branding after an operator-name change; validate rejects the stale version. Full validation source remains separately queued."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1920,
+    "start_line": 1
+  }
+}

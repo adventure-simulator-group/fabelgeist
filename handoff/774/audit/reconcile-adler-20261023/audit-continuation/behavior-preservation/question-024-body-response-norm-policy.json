@@ -1,0 +1,72 @@
+{
+  "id": "CONT08-Q024",
+  "lens": "08 behavior-preservation",
+  "status": "Source-confirmed finite API behavior difference; intent of norm-range narrowing unresolved. No ordinary movement/runtimeclaim.",
+  "pins": [
+    {
+      "scope_index": 1357,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/body_response.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation/procedural/body_response.rs",
+      "before_sha256": "72e50820afea9b07e9875c07411028e88690a62857221f6980a3441e9d8b94da",
+      "after_sha256": "d307ec89363164d57e5762fea3f35d38adf4cb28c64801233bceacaddd9f5727",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1357-base-72e50820afea9b07e9875c07411028e88690a62857221f6980a3441e9d8b94da",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/d307ec89363164d57e5762fea3f35d38adf4cb28c64801233bceacaddd9f5727",
+      "diff": "source-evidence/pr-1357.diff",
+      "diff_sha256": "38b94d568f8d3d2b9feef269d232f1017c0e5e6deab37e8adf949cb225e7b75d"
+    },
+    {
+      "scope_index": 1358,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/body_response/target.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation/procedural/body_response/target.rs",
+      "before_sha256": null,
+      "after_sha256": "81446933b198eac655968dd876b5bdd007e102f4daad11024f3e92242a34bd20",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/81446933b198eac655968dd876b5bdd007e102f4daad11024f3e92242a34bd20",
+      "diff": "source-evidence/pr-1358.diff",
+      "diff_sha256": "c91332542a53d6f4ae0b25017c1ec8acd72a57271e376d5b847f2878c3ecd534"
+    },
+    {
+      "scope_index": 1359,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/body_values.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation/procedural/body_values.rs",
+      "before_sha256": null,
+      "after_sha256": "ac32044bdad9c67748eefca7b1b7db59a7eed439e3182af7581833f49076750b",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/ac32044bdad9c67748eefca7b1b7db59a7eed439e3182af7581833f49076750b",
+      "diff": "source-evidence/pr-1359.diff",
+      "diff_sha256": "3e27df1f71085410d9b8422672daa9282b1140b998c619644f60cb8daf87eab7"
+    }
+  ],
+  "trigger": {
+    "velocity_metres_per_second": [
+      0,
+      0,
+      "1e20_f32"
+    ],
+    "acceleration_metres_per_second_squared": [
+      0,
+      0,
+      0
+    ],
+    "braking_scale": 1,
+    "config": "Existingdefaultpositive runreferencespeed5.5,steadytravel16degrees,maximumtravel18degrees,maximumresponse30degrees."
+  },
+  "old_new": [
+    "Actualold1357base body_response_target inpr-1357.diff333\u2013393 computes travelpitch(z/5.5*16deg).clamp(-18deg,18deg), speedfraction(length/5.5).clamp0..1; overflowingnativeplanarnormgoesInf\u2192clamp1. Withzeroacceleration, finalpitchfinite18deg andoldimplicit response canadvance.",
+    "New1359:101\u2013108 admits finitecomponentvelocity;111\u2013118 planar_squared rejectsInf asOverflow. New1358:14\u201318 callsitbeforetravelclamp,1357:145\u2013151 catchesErr andpublishesnobodyresponse/retainedstateforthisowner. This changes valid-finitecomponent custombehavior before oldboundedkernel."
+  ],
+  "limits": [
+    "No ordinary producer established for magnitude1e20; gameplay motor likely bounded butthatbound notassumed/creditedhere. Directcurrenttypeconstruction admitsvector andrecipient explicitly rejects derivednorm.",
+    "DistinctfromCONT08-SUPPORT-004 landingcompression multiplication-before-clamp; same general preservewholeboundedkernelpolicy question doesnotproveexactfindingalias.",
+    "No numericalprogram/test/visualrun; mathematicalsourcecomparisononly. Acceptedintent mustchoose whether finitevector alone ismeaningful ornormrepresentability is intended admission."
+  ],
+  "connected_repair_if_unintended": "Keep native ratio/clamp/norm saturation inside the complete bounded body-target kernel until its finite final angles are admitted, or establish an explicit shared vector norm policy at actual producer/recipient boundaries and document deliberate rejection. Retain exact bodyframe and original angle/cap/firstobservation semantics.",
+  "acceptance": "Source-backed comparison of zero/tiny/ordinary/default/extremefinitecomponent cases; preserve currentfinite finalangle outputs orrecordexplicitreviewedrangepolicy. No testsadded/executed.",
+  "coordinator_alias_lookup": "Rootlocal170+Adler1002+currentinvestigatorfindingsmetadata: no exactnormrejectionalias oracceptednarrowingpolicy found. Own09F108 optionalpitch/rollcorrelation distinct. Absenceisnotsemanticuniquenessproof; finitecustomvectorqualificationretained."
+}

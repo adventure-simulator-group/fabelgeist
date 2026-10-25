@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1385",
+  "at": "2026-10-25T18:42:29.874486+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1441,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs",
+  "sha256": "256fd3e5455eea95b629cf6ee1f856cb2149bb522d91b81d8bd9820c801161e6",
+  "actual_compared_ranges": [
+    [
+      1,
+      300
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "PlannedFrame already Debug/Clone; free native authored plan constructors select explicit scenario/frame/speed/time/camera/action/guard/lead policies and checked steady duration. No manual trait/codec. These semantic fixture constructors are not raw Default/From projection.",
+  "first_unfinished": {
+    "scope_index": 1441,
+    "line": 301
+  },
+  "execution": "none"
+}

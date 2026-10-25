@@ -1,0 +1,27 @@
+--- PRbase/crates/adventuresim-character-creator/src/export/morphs.rs
++++ frozen/crates/adventuresim-character-creator/src/export/morphs.rs
+@@ -119,19 +119,19 @@
+             position_deltas: &deltas,
+             normal_deltas: &deltas,
+         }];
+         let mesh = RiggedMesh {
+-            joint_proportions: &[],
++            joint_proportions: &Default::default(),
+             positions: &deltas,
+             normals: &deltas,
+             faces: &[],
+             export_body: true,
+             morph_targets: &body_targets,
+-            joint_indices: &[],
++            joint_indices: &Default::default(),
+             joint_weights: &[],
+-            joint_names: &[],
+-            joint_parents: &[],
+-            global_joint_states: &[],
++            joint_names: &Default::default(),
++            joint_parents: &Default::default(),
++            global_joint_states: &Default::default(),
+         };
+         let mut shell = RiggedShell {
+             surface: None,
+             plate_edges: &[],

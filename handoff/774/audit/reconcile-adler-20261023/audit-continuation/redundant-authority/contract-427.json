@@ -1,0 +1,70 @@
+{
+  "id": "CONT07-CONTRACT-427",
+  "at": "2026-10-23T21:42:28.784530+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1883,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/marching_tetrahedra.rs",
+      "sha256": "f9f54199093c3a25bf9295b11ebeedceb88fe03c44be92ffcfed2c6bf990f335",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/marching_tetrahedra.rs",
+      "actual_EOF": 278,
+      "ranges": [
+        [
+          1,
+          278
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1884,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/marching_tetrahedra/height_surface.rs",
+      "sha256": "7e6ff1e41f864ad664c6996727b8d1b11570d3b5ed8af1201b15347ae59018bc",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/marching_tetrahedra/height_surface.rs",
+      "actual_EOF": 107,
+      "ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1885,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/marching_tetrahedra/height_surface/tests.rs",
+      "sha256": "3437832bcc3bd88d508e7b5ecc06146e4202ba88eb2ce9c4fd23f8fe785a860a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/marching_tetrahedra/height_surface/tests.rs",
+      "actual_EOF": 90,
+      "ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "ROOT-OWNER-TERRAIN-KERNEL-063",
+    "ROOT-OWNER-TERRAIN-FIXTURES-064",
+    "RIG-OWNER-EROSION-RECIPES-065"
+  ],
+  "facts": [
+    "1883 sample_field produces position/value pairs in one ordered collection then unzips, preventing independent producer index drift on actual path. extract_surface resolves both by same lattice identity. Native array addresses and cube/tetrahedron topology are separate from durable identities.",
+    "1883 edge_vertices map derived once from current extraction sources; zero lattice endpoint receives canonical(a,a) key even across different incident edges, nonzero edge key sorts endpoints. This is a coordinated topological identity cache, no mutation of sample geometry after creation. Normal winding derives from extracted linear tetrahedron solid/empty samples; original nonlinear field gradient intentionally not alternate current orientation authority.",
+    "1883 build_surface computes normals from final kept oriented triangles before single patch admission. Vertex geometry/index/normals are different native roles, no separate handwritten terrain shape roster. Zero-snap and midpoint fallback are explicit numeric policy, not unavailable state replacement.",
+    "1884 height trimming computes crossings from shared increasing Y and then reuses same parent tetrahedron and edge-key helpers. This private callback requires identical horizontal coordinates across elevations and shared increasing Y; actual caller relation remains prerequisite, not proved by checking x0 elevations alone. No current caller violation or new07defect asserted.",
+    "1885 dense-versus-trimmed fixture checks six height patterns including near zero snap and nonfinite/overflow rejection. Both routes share topology helpers, equality assertion verifies transformation/order, no local execution or blanket arbitrary-field equivalence.",
+    "No new07finding; all13/overlay gates remain open."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1888,
+    "start_line": 1
+  }
+}

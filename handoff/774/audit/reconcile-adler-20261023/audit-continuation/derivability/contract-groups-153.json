@@ -1,0 +1,168 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-153",
+  "at": "2026-10-25T13:01:41.512875+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 299,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs",
+      "sha256": "0d84cd735fae1cf275ad3e2003b55b209f41cdf0c4dc22c8acdeb1b7809864d2",
+      "actual_EOF": 1029,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs",
+        "owner": "camera",
+        "sha256": "0d84cd735fae1cf275ad3e2003b55b209f41cdf0c4dc22c8acdeb1b7809864d2",
+        "base_sha256": "ff33eb4a42abbfa737b312019fdfc7c457688d66bd84fb81af2364ed30fa9cfe",
+        "state": "modified",
+        "bytes": 39619,
+        "audit_owner": "camera",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                1029
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-TRAVEL-FIXTURES-001"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 83,
+            "read_ranges": [
+              [
+                1,
+                1029
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-TRAVEL-056"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 398,
+            "read_ranges": [
+              [
+                1,
+                1029
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-TRAVEL-056"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-TRAVEL-READINESS-051",
+            "json_pointer": "/current_sources/2",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1029
+              ]
+            ],
+            "source_context": {
+              "index": 83,
+              "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs",
+              "sha256": "0d84cd735fae1cf275ad3e2003b55b209f41cdf0c4dc22c8acdeb1b7809864d2",
+              "read_ranges": [
+                [
+                  1,
+                  1029
+                ]
+              ],
+              "mode": "Fresh complete P16 source bodies and complete exact PR reverse delta/byteidentity; every existing fixture source input/count/order/assertion read, no execution."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-PURE8-SUBSET-PARTIAL-028",
+            "json_pointer": "/additional_actual_read_ranges_before_pause/2",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs",
+            "read_ranges_as_recorded": [
+              [
+                800,
+                858
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs",
+              "sha256": "0d84cd735fae1cf275ad3e2003b55b209f41cdf0c4dc22c8acdeb1b7809864d2",
+              "fingerprint_status": "exact previously recorded source metadata",
+              "read_ranges": [
+                [
+                  800,
+                  858
+                ]
+              ],
+              "mode": "Fresh bounded actual source read before pause; exact ranges only, no fullmodule inference"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": 83,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1029
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "All1029 lines personally consumed in three bounded reads. Only travel/digest/route/arrival/configuration/continuation functions, no local type or manual trait/serializer."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "travel authority transitions and source-framed route snapshot",
+      "disposition": "No derivability cleanup. Keep byte-framed route binding hash22\u201349, checked coordinate/weather route construction, exact disclosed destination and post-sync authority checks, companion evacuation and arrival consequences. Explicit state conversion depends on context and temporal/material authority; raw structural From/Default cannot replace it.",
+      "qualification": "No operation/clock/authority clearance; no runtime/tests or repair."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 300,
+    "source_id": "physical-p16:crates/adventuresim-stdb-module/src/surgery.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

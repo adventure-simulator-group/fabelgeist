@@ -1,0 +1,24 @@
+{
+  "id": "RIG-INITIAL06-GROUP-352",
+  "at": "2026-10-23T09:23:57.487818+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "art-demo-wire-versus-runtime-selection": {
+      "comparison": "DemoCommand typed ExhibitId and tagged finite input deltas are local UI wire commands, not another gameplay AssetId/CharacterId. CurrentExhibit composes canonical ExhibitId/SharedArtDemoResult/WorldAsset handle; DemoStatus serializes preparation observations versus authoritative current request. Rendering/physics plugins are composed, physics disabled intentionally; raw native window/FOV/MSAA and input deltas belong actual platform/presentation boundary. No mirrored owner definition is introduced; camera movement helper body not credited from calls. Original queue/render-error tests read only.",
+      "disposition": "local exhibit command/status lifecycle with canonical exhibit/asset owners"
+    },
+    "authored-stride-calibration-quantity-ownership": {
+      "comparison": "CharacterLocomotionStrides retains canonical AuthoredLocomotionStrides plus rig-definition identity and exact offsets used for measurement; component cache is body-specific rather than duplicate global authored reference. CalibrationAxis is authored trajectory lateral/longitudinal role, deliberately projects native Vec3 component into shared SignedLength; not Axis of world coordinates or a second signed scalar. MotionKey/AnimationPackId/MotionId, ClipDuration/PositiveAnimationDuration/BakedFrameCount/RigJointOrdinal and measured phase curves remain canonical owners. Walking/running contact interval and strafe/skip geometric ranges intentionally have different phase evidence. Initial output truncated139-166; fresh recovery139-166 personally read before this final full accounting. No tests executed.",
+      "disposition": "canonical motion/rig/quantity owners with body-specific measurement cache"
+    },
+    "run-reach-native-frame-and-radius-operations": {
+      "comparison": "ReachLimit optional/native projection remains distinct positive anatomical reach versus motion budget; AnimationElapsed, NonnegativeLength, CycleDelta, ScenePlanPoint and SupportElevation retain their canonical meanings. Actual inverse rig transform, terrain resampling, projected disk intersections and distance constraints are native numerical operations; previous_owner offset and world/root/candidate point must not be conflated. Speed*elapsed budget and signed vertical offset differ phase or probability. F034 connected frame propagation remains applicable, while these actual calculations are not unchanged adapter forwarding. No local owner duplicates introduced; called track/terrain helpers not body credited.",
+      "disposition": "canonical reach/time/phase owners around explicit rig/world numerical projection"
+    }
+  },
+  "supporting_existing_findings": [
+    "F034"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit."
+}

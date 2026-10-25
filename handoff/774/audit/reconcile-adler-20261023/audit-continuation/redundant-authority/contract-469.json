@@ -1,0 +1,103 @@
+{
+  "id": "CONT07-CONTRACT-469",
+  "at": "2026-10-23T22:26:28.862590+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2072,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/scene_obstacles.rs",
+      "sha256": "8d76b7aadada8bae53e9f27cbbb6eca7e0beffb9b25519a98b10edc521476042",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/scene_obstacles.rs",
+      "actual_EOF": 89,
+      "ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2073,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/scene_setup.rs",
+      "sha256": "509b65bb9f1ea69a74c597bd8571a0868c3503a9f6d4d9fd741d75488adf71a3",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/scene_setup.rs",
+      "actual_EOF": 63,
+      "ranges": [
+        [
+          1,
+          63
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2074,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/scene_spawn.rs",
+      "sha256": "377b39cdfd69aee6164a0d9df1f235f810f0211b299e506d97b5bd521719bbaf",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/scene_spawn.rs",
+      "actual_EOF": 33,
+      "ranges": [
+        [
+          1,
+          33
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2075,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/startup.rs",
+      "sha256": "a2f5959d603a1f54ed2b719eb96e15c4101b6834d30aae545d19e8c4c3e46983",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/startup.rs",
+      "actual_EOF": 120,
+      "ranges": [
+        [
+          1,
+          120
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "2072 full89 obstacle batch collects all admitted positions/colliders before publishing commands, preserving atomic failure of required terrain support. Grid ordinal spacing uses input original playable spacing in actual2062:686\u2013690, matching generated obstacle coordinates; current dense physical grid does not redefine obstacle index space. Rock collision sphere is conservative separate geometry policy; no claim exact rendered-vertex inclusion without full recipe proof.",
+    "2073 full63 reconnect vista snapshot derives digest and extents from same immutable TacticalSceneInput; generated furniture callbacks subsequently fill explicit derived lists. actual2062:657\u2013712 computes world bounds from same input playable extent, not arbitrary owned support triangle extent, matching intended playable restriction. Arbitrary nonzero vista origin seam remains separate query/renderer dependency.",
+    "2074 full33 exactly rejects multiple authoritative terrain entities at spawn admission and optional-none is explicit result, not silent choosing first from many. None-path actual callers still required before claiming unsupported spawn accepted.",
+    "2075 full120 validates authored combat config then installs runtime snapshot and returns same config. Fresh actual2062:125\u2013180 confirms inserts returned snapshot resource before plugins; CombatPlugin.init_resource does not imply normal overwrite. Thus normal server startup global/resource agreement is coordinated; F092 explicit with-config API discrepancy remains separately conditional.",
+    "Fresh2062:205\u2013242 actual terminal checks run after CombatSet::Condition (and connected-player/transport result processing), positive qualification for mission total readiness queries2064. This does not order every contact/observer or prove same-tick injury total coherent. Fresh2062:638\u2013726 actual scene digest/environment provenance are generated from same admitted input, closing arbitrary supplied digest mismatch for this ordinary server path.",
+    "Cross-lens005 timeout off-by-one is exact archived CAMERA-INITIAL07-F034 per coordinator, source support only, no new unique defect. F098 neutral weapon Block receipt omission not existing exact root finding; root M89 health units and archive Native05F029 general state aggregate are distinct from pending injury event-order dependency."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2076,
+    "start_line": 1
+  },
+  "supplemental_exact_reads": [
+    {
+      "scope_index": 2062,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/main.rs",
+      "sha256": "a52f98db1a5b753a3b5f3d54348ffa36df35e266644e667489c8a1784508b150",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/main.rs",
+      "ranges": [
+        [
+          125,
+          180
+        ],
+        [
+          205,
+          242
+        ],
+        [
+          638,
+          726
+        ]
+      ],
+      "new_original_credit": false
+    }
+  ]
+}

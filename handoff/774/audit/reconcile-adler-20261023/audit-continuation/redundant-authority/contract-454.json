@@ -1,0 +1,93 @@
+{
+  "id": "CONT07-CONTRACT-454",
+  "at": "2026-10-23T22:10:49.354056+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1992,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/support_regions.rs",
+      "sha256": "89663c0241fc8675658795b9b0c80bf2361fbde5982a3c363b64c297a322aacc",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/support_regions.rs",
+      "actual_EOF": 168,
+      "ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1993,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/support_regions/distance.rs",
+      "sha256": "ad44e57b22e6d7a14addd6a5cc842d77eb50c41fa224bd3ff8ae272390959d73",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/support_regions/distance.rs",
+      "actual_EOF": 89,
+      "ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1994,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/terraces.rs",
+      "sha256": "3fc98886a179f315392a59d9e492821a5d2c5758d61b854f323333dc91ec0d54",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/terraces.rs",
+      "actual_EOF": 203,
+      "ranges": [
+        [
+          1,
+          203
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1995,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/validate-city-support.rs",
+      "sha256": "92a90abaa4886c7e192fa799d406c9261c1879de3c97af39490d53c1dca4b707",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server-dispatcher/examples/validate-city-support.rs",
+      "actual_EOF": 140,
+      "ranges": [
+        [
+          37,
+          140
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1996,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/validate_city_support/composition.rs",
+      "sha256": "b74d49e84b2fe053e0b981b3ab55a309e07d56e7de1b2beb4f816ff563932620",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server-dispatcher/examples/validate_city_support/composition.rs",
+      "actual_EOF": 105,
+      "ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "1992 fixed post versus hinge line are explicitly different boundaries; projected envelope versus nearest actual ground-contact polygon are different observations. Report disclaims final foundation/collision acceptance. Contact-region pose is derived from one collision bounds and placement, not independently stored current geometry.",
+    "1993 between preserves absenceNone versus real touching/crossing0. Degenerate >=3 collinear/repeated polygon handling is forwarded as cross-lens004 with explicit actual ground_contact.points dedup dependency; no ordinary path proof or07finding yet. Current symmetric positive-area fixtures are only source assertions.",
+    "1994 terrace-level flags are derived from same proposed three elevations and source endpoints; candidate outputs are counterfactuals, not installed parallel floors. Exact unique route binding is required and nearby threshold fails. Current JSON candidate index1 is prior retained representation issue, not extra07count.",
+    "1995 exact scoped37-140 only, no full140 claim: capture provenance matches input/package before use; source_preparation explicitly says purpose retained in external capture, not that helper validates CompleteContext. Arbitrarily relabelled capture terrain is not independently verified by matching digest labels alone; no ordinary producer mismatch proved. Support planning report explicitly excludes production/collision/full access/visual/performance acceptance.",
+    "1996 Composition.accepted true follows compact projection::check plus actual unowned-source queries. Newly reached projection helper REG013 full66 personally read closes suspected returned-report-vs-acceptance split: every reconstruction error or unequal geometry returnsErr; only successful exact source/placement reconstruction returns true metadata. No rejected projection becomes accepted. Selected/compiled/projection stages are independent validation facts, not duplicate mutable status."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1997,
+    "start_line": 1
+  }
+}

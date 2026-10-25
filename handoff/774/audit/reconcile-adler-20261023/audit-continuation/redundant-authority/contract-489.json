@@ -1,0 +1,52 @@
+{
+  "id": "CONT07-CONTRACT-489",
+  "at": "2026-10-23T22:46:08.532766+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2152,
+      "source_id": "pr-working:crates/adventuresim-world-import/src/bin/build-strategic-map.rs",
+      "sha256": "04e204bfa41896b53eb82671ad9b0378036a21b7ec54b3fce0e4c285c0b097bb",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-world-import/src/bin/build-strategic-map.rs",
+      "actual_EOF": 1194,
+      "ranges": [
+        [
+          1,
+          1194
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2153,
+      "source_id": "pr-working:crates/adventuresim-world-import/src/bin/build-strategic-map/terrain_features.rs",
+      "sha256": "e4be1391bce49d102c596d622f3dcb646e44ac71555c5ded9028a50f5beeeeaa",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-world-import/src/bin/build-strategic-map/terrain_features.rs",
+      "actual_EOF": 64,
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "2152 full1194 actual Package stores one canonical ordered routing_roads with kinds and native f64 points;2153 full64 projects same vector to both road mask and vector pack. Dropping kind in terrain mask is intentional geometry-only role, vector source retains kind. Current road geometry digest comparison binds final terrain mask to exact same points/order; kind and package payload have separate identity layers.",
+    "Base contract validates DocumentedBase purpose, exact playable bounds, source resolution and current road/wetland provenance before world inference link; world report base digest checked before inferred roads appended. Actual current source cohort explicitly coordinated, no duplicate current road/path inventory inferred from generated outputs alone.",
+    "2152 source sidecar inventory validates unique safe filenames, exact expected URLs and actual required file bytes/length/hash; source metadata and content are expected-versus-observed validation, not competing current facts. Source hash may verify bytes only, not geometry semantics; type/geometry validation follows separately. No source file/network/build execution.",
+    "Cultivation native samples retain source observation vs approximate relief/hill indicators; suppressed terrain.cell errors447 are exact prior RIG-PPS-F007 source-cause finding, not new alias to optional outside data. Surface usable count excludes Water but crossing Road classified passable intentionally. Geologic/terrain training fields preserve distinct authored roles.",
+    "Actual water WKT producer retains separate overlapping polygons and validate_geometry checks no disjointness;2153 copies same rings directly to Features.water. CROSS-LENS006 now has actual upstream admission proof for conditional XOR cancellation, no runtime initialized dataset occurrence and no07finding or other-lens credit. Cultivation uses canonical grid-square polygons, so do not generalize ordinary overlap to its producer.",
+    "Native source f64 points and projected E7 geographic runtime values are distinct precision ports; clipped coordinates do not need exact E7 source replacement. Boundary clipping and simplification expected-versus-prepared source, not immutable upstream observations being silently replaced. Existing source-propagation/typed-cause/geographic-owner obligations retained; full source fixtures read only, none run."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2154,
+    "start_line": 1
+  }
+}

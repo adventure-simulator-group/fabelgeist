@@ -1,0 +1,120 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-270",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pinned-bevy_replicon-0.41.1:src/postcard_utils.rs",
+      "sha256": "4a9f413f61885f1581e0a3ddadb2528459e45bd2ea029a7a08ad3b2ab085d537",
+      "actual_EOF": 243,
+      "actual_compared_ranges": [
+        [
+          1,
+          243
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/message/client_event.rs",
+      "sha256": "aab1a187ebfe12274e2d36a8e87e658429edf99f9570fd9f8381141e6ea7a18b",
+      "actual_EOF": 187,
+      "actual_compared_ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/message/client_message.rs",
+      "sha256": "49ffa8758c206f00ed3ec3250015a7b76ee4fe5f0308151c368078185c7926e2",
+      "actual_EOF": 507,
+      "actual_compared_ranges": [
+        [
+          1,
+          507
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/message/message_fns.rs",
+      "sha256": "bd043879e363b91cda3145415f64244ee5b85707c33bc0bdcea4ecd3e4085f62",
+      "actual_EOF": 209,
+      "actual_compared_ranges": [
+        [
+          1,
+          209
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Sliding postcard buffer is not a transactional read or a generic contiguous-buffer proof",
+      "source_ranges": {
+        "postcard_utils.rs": [
+          [
+            1,
+            243
+          ]
+        ]
+      },
+      "disposition": "Complete243-line pinned body personally read, fixtures included and not run. from_buf constructs native postcard::Deserializer with BufFlavor then directly invokes T::deserialize; it is streaming and intentionally leaves the rest for later fields, not whole-buffer validation. Failed reads can advance the cursor before error; message-level discard policy must be checked at actual caller. BufFlavor::try_take_n checks total remaining>=count then builds unsafe slice from chunk pointer for that count, but generic bytes::Buf does not itself prove all remaining bytes contiguous in current chunk. Actual replication callers here use contiguous Bytes; no first-party chained/noncontiguous buffer or ordinary UB claimed. try_get_u8 is checked and maps short input to typed postcard error. ExtendMutFlavor appends directly and cannot undo already appended bytes after later Serialize error; per-message caller buffer lifetime decides publication. Native compact Entity wire identity is deliberate; no durable character identity should be substituted."
+    },
+    {
+      "contract": "Client event mapping and network decode prepare before FromClient publication",
+      "source_ranges": {
+        "client_event.rs": [
+          [
+            1,
+            187
+          ]
+        ],
+        "client_message.rs": [
+          [
+            1,
+            507
+          ]
+        ],
+        "message_fns.rs": [
+          [
+            1,
+            209
+          ]
+        ]
+      },
+      "disposition": "All three complete pinned bodies personally read. Default client message/event registration uses postcard. Mapped client send clones before Entity mapping, retaining original local event; server receive deserializes complete value before writing FromClient and ignores rejected message with original sender ID. Event adapter drains received wrapper messages before queuing FromClient triggers; local disconnected/listen-server route intentionally bypasses serialization and writes ClientId::Server. First-party semantic admission must therefore exist at actual construction/receiving authority, not only a wire Deserialize. This is fresh supporting boundary evidence for prior native-ingress/Dodge packets, not proof of normal duplicate event frequency or another finding. Registered message/resource IDs justify native unwraps under framework lifecycle; type-erased callbacks have explicit same-generic unsafe precondition and debug TypeId diagnostics, no mismatch witness."
+    },
+    {
+      "contract": "Per-message buffers isolate payload errors, while reusable send context cleanup remains qualified",
+      "source_ranges": {
+        "client_message.rs": [
+          [
+            239,
+            328
+          ],
+          [
+            376,
+            433
+          ]
+        ],
+        "message_fns.rs": [
+          [
+            139,
+            209
+          ]
+        ]
+      },
+      "disposition": "Actual send loop creates a fresh Vec for each message and does not publish it after serialization Err, so partial appended bytes do not leak as a network payload on this route. Actual receive loop owns each Bytes message and drops failed decode before publication, so partially advanced cursor does not poison the next message buffer. Client serialize invokes callback with ? before clearing ctx.invalid_entities; a callback failure after mapping invalid entities could retain that context list, and the next successful serialization would reject/clear it. Actual registered failing custom serializer and context lifetime remain required before promoting an ordinary drop cascade; no such source witness or execution established. Native default From<I> event conversion occurs only after successful decode and is an infallible wrapper, not bespoke admission. Preserve native transport failure/drop behavior and receiver identity; do not treat this source inspection as wire test execution."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pinned-bevy_replicon-0.41.1:src/shared/message/server_event.rs"
+}

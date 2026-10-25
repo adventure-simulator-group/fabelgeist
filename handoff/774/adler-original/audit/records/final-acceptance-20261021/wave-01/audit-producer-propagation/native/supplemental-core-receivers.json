@@ -1,0 +1,216 @@
+{
+  "read_files": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/weather.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-core/src/weather.rs",
+      "observed_sha256": "62c3d0b44fa30ce15dab8e231cc5ef90e631e633d9ef4ea34091c5c8c3f3fde9",
+      "read_ranges": [
+        [
+          1,
+          958
+        ]
+      ],
+      "read_status": "full",
+      "trace_refs": [
+        "NATIVE-SUPP-CORE-WEATHER-001"
+      ],
+      "physical_overlay_status": "no frozen source delta: uses PR source"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/weather/field.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-core/src/weather/field.rs",
+      "observed_sha256": "8f11cdffeb39e9e0ca929c9cf3ac853b89c6d926c5bdd4d42c0ec9208e36cede",
+      "read_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "read_status": "full",
+      "trace_refs": [
+        "NATIVE-SUPP-CORE-WEATHER-001"
+      ],
+      "physical_overlay_status": "no frozen source delta: uses PR source"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/weather/streams.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-core/src/weather/streams.rs",
+      "observed_sha256": "441a11bfce5d076e3dc78875c0f4bfbe8622178c5c1a4cba2c7e0077f5ea2ea8",
+      "read_ranges": [
+        [
+          1,
+          11
+        ]
+      ],
+      "read_status": "full",
+      "trace_refs": [
+        "NATIVE-SUPP-CORE-WEATHER-001"
+      ],
+      "physical_overlay_status": "no frozen source delta: uses PR source"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/survival.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-core/src/survival.rs",
+      "observed_sha256": "63f604eeeca44d35f365c9daded84a61ca19b8c9c3976ead8503a2edbf4d1c57",
+      "read_ranges": [
+        [
+          1,
+          430
+        ]
+      ],
+      "read_status": "full",
+      "trace_refs": [
+        "NATIVE-SUPP-CORE-EXPOSURE-001"
+      ],
+      "physical_overlay_status": "no frozen source delta: uses PR source"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/physiology.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-core/src/physiology.rs",
+      "observed_sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+      "read_ranges": [
+        [
+          1,
+          1169
+        ]
+      ],
+      "read_status": "full",
+      "trace_refs": [
+        "NATIVE-SUPP-CORE-PHYSIOLOGY-001"
+      ],
+      "physical_overlay_status": "no frozen source delta: uses PR source"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/condition.rs",
+      "path": "crates/adventuresim-stdb-module/src/condition.rs",
+      "observed_sha256": "48d1fbefb0cc475a98585e46dc0f4dabdef2c47eaa4bbb1ffb699ba604dc3758",
+      "read_ranges": [
+        [
+          196,
+          425
+        ]
+      ],
+      "read_status": "partial; whole exposure state/position/location/apply functions read",
+      "trace_refs": [
+        "NATIVE-SUPP-CORE-EXPOSURE-001"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/disease.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-core/src/disease.rs",
+      "observed_sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+      "read_ranges": [
+        [
+          1,
+          3842
+        ]
+      ],
+      "read_status": "full",
+      "trace_refs": [
+        "NATIVE-SUPP-CORE-DISEASE-001"
+      ],
+      "physical_overlay_status": "no frozen source delta: uses PR source"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/disease/entropy.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-core/src/disease/entropy.rs",
+      "observed_sha256": "10eb46750c66da9cd03f116270ab91b4a1acad817e28333ac2fca342773e3bd8",
+      "read_ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "read_status": "full",
+      "trace_refs": [
+        "NATIVE-SUPP-CORE-DISEASE-001"
+      ],
+      "physical_overlay_status": "no frozen source delta: uses PR source"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/disease/identity.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-core/src/disease/identity.rs",
+      "observed_sha256": "bbf3c7a20b95f217815f48c7e830dc75efab9ecf9d7e52a79fd4ad86324388af",
+      "read_ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "read_status": "full",
+      "trace_refs": [
+        "NATIVE-SUPP-CORE-DISEASE-001"
+      ],
+      "physical_overlay_status": "no frozen source delta: uses PR source"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/disease.rs",
+      "path": "crates/adventuresim-stdb-module/src/disease.rs",
+      "observed_sha256": "c001a52a7bb957260ae3914ca056d847292760b5911984791143b8a4a1ede2e5",
+      "read_ranges": [
+        [
+          1,
+          190
+        ],
+        [
+          815,
+          870
+        ],
+        [
+          1670,
+          1824
+        ],
+        [
+          1825,
+          2265
+        ]
+      ],
+      "read_status": "partial_exact_connected_bodies",
+      "trace_refs": [
+        "NATIVE-SUPP-CORE-DISEASE-001",
+        "NATIVE-SUPP-CORE-PHYSIOLOGY-001"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/administration_adapter.rs",
+      "path": "crates/adventuresim-stdb-module/src/disease/administration_adapter.rs",
+      "observed_sha256": "980f43c8f979574fcc23678173933bcef9f8fc18e678d0070dc3c8ec1e2a3181",
+      "read_ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "read_status": "full",
+      "trace_refs": [
+        "NATIVE-SUPP-CORE-DISEASE-001",
+        "NATIVE-SUPP-CORE-PHYSIOLOGY-001"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/interval.rs",
+      "path": "crates/adventuresim-stdb-module/src/disease/interval.rs",
+      "observed_sha256": "4384f792f23b407ce0400d31755a84c01e36c464be04edcea9ca39859deda652",
+      "read_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "read_status": "full",
+      "trace_refs": [
+        "NATIVE-SUPP-CORE-DISEASE-001",
+        "NATIVE-SUPP-CORE-PHYSIOLOGY-001"
+      ]
+    }
+  ],
+  "first_unfinished_cell": "contract:InfectionEpisode.id dual identity/entropy disposition pending root"
+}

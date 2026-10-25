@@ -1,0 +1,85 @@
+{
+  "id": "CONT07-CONTRACT-549",
+  "at": "2026-10-23T23:37:05.613377+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2399,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_health.rs",
+      "sha256": "e2d0f9c9b380042b6620943eeb712aacad78d4b258feeff578329ce8891bdb24",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/templates/settlement/character_health.rs",
+      "actual_EOF": 2165,
+      "ranges": [
+        [
+          1,
+          2165
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2400,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_health/notebook.rs",
+      "sha256": "ddcf5b6d32ce9793570df94471b1a5098b3bed2ea8bf83e36cc6f0381915183f",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/templates/settlement/character_health/notebook.rs",
+      "actual_EOF": 27,
+      "ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2401,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_health/segments.rs",
+      "sha256": "75b12a94fe2b1cd0fc29b530c43478d275fd9454c9af1e6cb9a8e388ee797692",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/templates/settlement/character_health/segments.rs",
+      "actual_EOF": 72,
+      "ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2357,
+      "source_id": "pr-working:crates/strategic-web/src/medical.rs",
+      "sha256": "c8ff9c47a5df84de241e85a1466c1e22dcbb7991c868d86d46f9cd4c9fd37651",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/medical.rs",
+      "actual_EOF": 505,
+      "ranges": [
+        [
+          39,
+          51
+        ],
+        [
+          127,
+          227
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Full health2165, notebook27 and segments72 bodies personally inventoried, including all existing source fixtures without execution. New conditionalF115 pins actual stale reference-clock substitution; current patient minute is received by sanitize but discarded before notebook relative-age rendering. No ordinary aged DBrecord production claim.",
+    "Surgery duration/skill and extraction kit threshold delegate to Core owner. Manual difficulty thresholds Stitch2/Splint1 and soap0.04 text are independently authored UI policy populations pending exact reducer/consumption comparison before new current-bug classification. Knownavailableitem count and suppliedselectedalcohol are separate observational inputs, not retainedlocalcache.",
+    "Regional chart humours are assessed observational estimates; physicalhealth current limbs and injury subcomponents differ semantically. segments::PhysicalDamage partitions bounded known injury damage (cut/frostbite/maxbruise-fracture), not independentdamage authority. Humour totals scales/displaytone are rendering, no hidden gameplay penalty inferred.",
+    "BodyRegion displayindex/slug/ALL positional association is manual across health rails, charts, Core typedowner; current seven mapping Left/RightArm0/1 Legs2/3 Chest4 Abdomen5 Head6 agrees inspectedsource and fixedvectors. Canonicalroster maintenance population retained, no automatic alias to allenumrosters.",
+    "Physiology graph geometry 4..96 andx22\u00b118 clipped\u00b13500bps deliberately display scale; exact percenttext retained in readout. Historical medication start/stop vsactiveadministrations distincttime views, notebooklatest disease confidence clearlyobserverestimate. No primitiveequation duplication bug claimed solely both useproportions."
+  ],
+  "new_local_findings": [
+    "CONT07-F115"
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2402,
+    "start_line": 1
+  }
+}

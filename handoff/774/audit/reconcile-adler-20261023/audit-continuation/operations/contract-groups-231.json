@@ -1,0 +1,202 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-231",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/equipment.rs",
+      "sha256": "de5de9948499820d3cad696afbcdc3f1d2473f3abac518c580de6440f3f8dd8a",
+      "actual_EOF": 1764,
+      "actual_compared_ranges": [
+        [
+          1,
+          1764
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/equipment/grab_world.rs",
+      "sha256": "6ae3e67b76458eb1c0db89a23b2a357b20c00fc7b962f50988c3f837ca68f2d2",
+      "actual_EOF": 141,
+      "actual_compared_ranges": [
+        [
+          1,
+          141
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/equipment/placeholder_visual.rs",
+      "sha256": "b875d058a3a33ee1456cd38a321f9ff3823f9794b7a398a3b901160e82a3ff55",
+      "actual_EOF": 64,
+      "actual_compared_ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/equipment/visuals.rs",
+      "sha256": "d5f2d169f12713c33afc9246eadbcc9389bfcdc8d14c17e64168b8a21b629704",
+      "actual_EOF": 75,
+      "actual_compared_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment.rs",
+      "sha256": "c7869ebb6e2c2a67a4c47e9504c0ced6da6566f95fba9320181d49b1142a54fd",
+      "actual_EOF": 1745,
+      "actual_compared_ranges": [
+        [
+          1,
+          1745
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/grab_world.rs",
+      "sha256": "458e3d73d56242705d9f851842b96b9e5b302ecfffac569a0da3a43a5b3bd392",
+      "actual_EOF": 141,
+      "actual_compared_ranges": [
+        [
+          1,
+          141
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/placeholder_visual.rs",
+      "sha256": "43be98d339543f652eed674fbce2d8ceb5f22f1720fcd5758219f0535e494510",
+      "actual_EOF": 63,
+      "actual_compared_ranges": [
+        [
+          1,
+          63
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Grab command chronology and complete authority before send",
+      "source_ranges": {
+        "equipment.rs": [
+          [
+            1,
+            409
+          ]
+        ],
+        "grab_world.rs": [
+          [
+            1,
+            141
+          ]
+        ]
+      },
+      "disposition": "Complete P16 equipment1764+grab141+placeholder64+visuals75 bodies and full actual PR textual deltas consumed. P16increments rawsequence wrapping then sends, missing actionstate invents expectedrevision0; PRrequiresactualactionstate orresets/no-send, captures EquipmentSequence before.next(). Fresh exact PR inventory/chronology.rs proves FIRST1, fullu32 includingwrapped0, halfwindow comparison; actualserver125\u2013160 rejectsmissingstate and compares is_admissible_after plus exactrevision. P16server120\u2013155 samehalfwindow raw chronology; wrap intentional protocol, not terminaluniqueID defect. Clientexpectedrevisionabsence issue is actual closed PR delta/owner propagation, not same sourcevariant. Grab2mfixedpositive range, visibility rejectszero/invalidDir3; rawnative transform bounds remain sceneadmission dependency. Actual hand/slot expectedentities reconstructed atrelease, serverauthority still required, no gameplaymutationtrusted locally."
+    },
+    {
+      "contract": "Physical presentation, authenticated recipe caches and bounded traversal",
+      "source_ranges": {
+        "equipment.rs": [
+          [
+            410,
+            1090
+          ]
+        ],
+        "placeholder_visual.rs": [
+          [
+            1,
+            64
+          ]
+        ],
+        "visuals.rs": [
+          [
+            1,
+            75
+          ]
+        ]
+      },
+      "disposition": "Atlas56labels/8columns/7rows=>index0..55 and finiteUV; unknowniconfallback0 explicit presentation policy. HUD4*7cells bounds joinsquadraticcomparison<=28cells, mapping.locations[0] requires nonempty staticmappingowner not arbitrarydescriptor proof. Cached weapon/holder firstchecksbytecap+generator+decode+designhash BEFOREwarmcache, generatedmesh semantics dependactualcanonicalgenerator. Placeholder rejectsinvalidphysical; validchange removesoldroot and buildsactualruntime/recipepresentation. Corruptweapon usesgenericfallback, corruptholderstaysabsent; these are explicit current sourcepolicies, not a compatibility restoration authorization. Fallback rawfloat dimensions use P16typedCuboid toVec3 versus PRrawVec3, parentis_valid precondition maintained. Attachments walk<=32 with visitedentityset; safe termination but longvalidgraphtruncation remains canonicaldepthpolicy, no ordinary>32inventory chain proved. Bind reparenting requires usable nonzero finitebindscale; admittedrigowner dependency, not newlyproven normal NaN. Visualschedule removesorphans beforegeneration and chainsruntime/skin/placeholder stages."
+    },
+    {
+      "contract": "Actual equipment fixture scope",
+      "source_ranges": {
+        "equipment.rs": [
+          [
+            1091,
+            1764
+          ]
+        ],
+        "visuals.rs": [
+          [
+            53,
+            75
+          ]
+        ]
+      },
+      "disposition": "All listed sourcefixtures readnotrun. Tinyrecipebyteflips needactualnonemptycanonicalencodeddefault (whichconstructorsproduce), fixedentityIDs andphysicalsize do nottestarbitrarynativecapacity. Warmcache reauthentication, orderindependentreplication, orphanremoval andattachmentchain fixtures provide intendedcontracts but no executedclearance. PRtypedjointnamewrapper/catalogplacement improvements actualdelta retained. No new ordinary operationsdefect or generatedbindingedits."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/inventory/chronology.rs",
+      "git": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "actually_read_ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "coverage": "Exact Git source fullcritical chronologybody, no new original rolecredit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/equipment.rs",
+      "git": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "actually_read_ranges": [
+        [
+          125,
+          160
+        ]
+      ],
+      "coverage": "Fresh exactserverreceiver excerpt, no fullrolecredit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/equipment.rs",
+      "git": "039329518e264f19206cf5b0b98d177433f40c17",
+      "actually_read_ranges": [
+        [
+          120,
+          155
+        ]
+      ],
+      "coverage": "Fresh exactP16receiver excerpt, no fullrolecredit."
+    },
+    {
+      "path": "pr-working:crates/adventuresim-tactical-client/src/equipment/visuals.rs",
+      "actually_read_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "coverage": "Already inherited prior612 completed; fresh fullcomparison not credited again."
+    }
+  ],
+  "status": "7 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/generation_tests.rs"
+}

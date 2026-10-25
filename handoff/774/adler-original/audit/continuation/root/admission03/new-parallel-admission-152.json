@@ -1,0 +1,38 @@
+{
+  "id": "ROOT-ADM03-PARALLEL-152",
+  "at": "2026-10-23T01:09:42.417276+00:00",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+      "sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+      "actual_compared_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "source_evidence": "Fresh exact full actual122line body; inherited123-155 nonexistent, originalprovenance retained."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_coordinates/velocity.rs",
+      "sha256": "f961ea0bc8da4a4bb23bba732b32f43172c9ab2aaa83bd4ff8319efb4faaf077",
+      "actual_compared_ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "source_evidence": "Fresh exact full38line body; inherited39-44 nonexistent, originalprovenance retained."
+    }
+  ],
+  "groups": {
+    "scene-point-admission": "ScenePlanPoint privateVec2, native Vec2 constructorchecksfinite x/north y; manualDeserialize funnels throughsamegate; opaqueReflect not scalarfieldreflectionbypass. PlanDisplacement same finiteprivatevector, zero/signedvalid. FromPosition<Scene> copiesfinite x/z fromsame canonical scene frame, dropsheight intentionallyplanprojection withoutnewarithmetic, no need readmission. from origin translation keepspoint/displacementdistinct.",
+    "scene-velocity-admission": "Three publicSignedSpeed leaves each sealedfinite; anyaxistriplevalidincludingrest/reverse. NativeVec3 factory constructs localEast/Up/North checked inXYZorder andErr dropslocalpartialproduct. No uncheckedSerde/Reflectionderivehere; nativeextractionactualXYZvectorport notgenericbusinessretainedstatelicence.",
+    "EOF-only-scope-change": "No new materiallyreachedsourceorrole. ExistingPRpointscope1-155 correcteffective1-122, existingP16velocity1-44 correcteffective1-38; nonexistenttails cannotbeaudited orcredited. Preserve historicalrawreceipts andapplymandatoryqualifications149/151 with117/130."
+  },
+  "findings": [],
+  "status": "exact_existing_admission_roles_reconciled_with_EOF_corrections",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

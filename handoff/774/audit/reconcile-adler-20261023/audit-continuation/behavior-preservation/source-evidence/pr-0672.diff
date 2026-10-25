@@ -1,0 +1,13 @@
+--- PRbase/crates/adventuresim-building-generator/src/spatial_geometry/tests.rs
++++ frozen/crates/adventuresim-building-generator/src/spatial_geometry/tests.rs
+@@ -87,9 +87,9 @@
+     assert_eq!(direction.vector(), input.normalize_or_zero());
+     assert!(matches!(
+         PlanDirection::<Architectural>::from_normalized(Vec2::ZERO),
+         Err(GeometryError::Direction {
+-            source: bevy::math::InvalidDirectionError::Zero
++            source: DirectionError::Zero
+         })
+     ));
+     assert!(serde_json::from_str::<PlanDirection<Architectural>>("[2,0]").is_err());
+     let restored: PlanDirection<Architectural> =

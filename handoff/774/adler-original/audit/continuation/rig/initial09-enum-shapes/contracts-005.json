@@ -1,0 +1,45 @@
+{
+  "id": "RIG-INITIAL09-GROUP-005",
+  "at": "2026-10-23T12:32:03.078519+00:00",
+  "lens": "audit-enum-shapes",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "measured-row": {
+      "comparison": "Fresh actual PRinventory_measurement1-371 including allrow/profile/error/pricepolicyoperations, personally reanalyzed actual prior full804 originalfixture/source facts, complete P16body/currentrole comparison identical. MeasuredInventoryRow quantity +remainingOption +instance_basisOption duplicates one Unopened/Measured choice: effective_totals explicitlyrejects basiswithoutamount, amountwithoutbasis and measuredquantity!=ONE. ConcreteRow sumUnopened{quantity:ItemQuantity}/Measured{remaining_amount:u64,instance_basis:MeasurementBasis} removes pair/singleton contradictions, quantityone implicit inMeasured. Capturedimmutablebasis mustnotbereplacedwithcurrentdefinition; profileBulkLot-only-measured and amount<=capacity remainactualvalidation, not solvedbyrowenumalone. MeasurementKind+Tare fields allow invalidnoncontainer tare; couldcompose ContentsBasis andContainerTareonlyforContainerized asfurther basisrefinement, preserve zero-validcontainer tare/zero remaining. PriceRoundingFloor/Ceil real semanticchoicealreadyenum; ordinaryis_zero/Optionarithmetic return needsno newstate. Originalinvalid-inputtestsremainatrawadmissionboundary, no newtests/execution.",
+      "disposition": "F005 concrete optionalpayload/singletonshape; separatebasis/refinedboundpolicy preserved"
+    },
+    "melee-capability": {
+      "comparison": "Fresh PRfull72 includingoriginalfixture and exact P16production1-45 body/currentrole comparison. MeleeAttackCapability correctlycarries actualdisabledarm onlyDisabledWeaponArm, unitAvailable andNoStrikingSide neednoinactivearm field. is_available is ordinaryprojection fromcanonical sum; BodySideLeft/Right/Both determinesactualarmset and Both legitimate, not contradictorytwoflags. No boolwirecodec or reflectedincomingrepresentation here. Preserve privateoffhandtransfer decision asdistinctauthoredaction.",
+      "disposition": "existing resultenumownsconditionalpayload correctly; P16test46+excluded"
+    },
+    "alcohol-flags": {
+      "comparison": "Fresh PRalcohol1-198 criticaltypes/policies andactualselectorfocused/potable sourcefacts from currentcompletequalified1-198/200-426 narrative. Potable anddisinfectant_focused are independent policyaxes: medicalprioritydoesnotmeanchemicallynondrinkable; preserveboth/notboth possibilities ratherthan forceDrinkORDisinfectsum. had_recent_heavy/target_satisfied/settled are named observedhistory/evaluationpredicates, notfree commandmode withcorrelatedstoredoptionpayload. NightlyMoraleEffect kind+magnitude computed together; satisfiedpositive/unsatisfiednegative is actualoutcomeprojection, notpermission or hiddenpenalty. Iterator lastOption represents bounded/terminalhistory, no additionalinitializedflag. Nativewirepropertybool converts explicitlyatactualadapter, no inferringsemantictruthfromenumordinal. Sourceage/morale/custodycandidate quantitiesdifferentexisting06graph; no forcednewenumperpredicate.",
+      "disposition": "independentaxes/historicalpredicates retained; no demonstratedcontradictoryflagstate"
+    }
+  },
+  "finding_refs": [
+    "RIG-INITIAL09-F005"
+  ],
+  "limits": "All original scope/context exclusions retained; no whole caller/nativepackage credit.",
+  "actual_source_fact_refs": [
+    "../initial06-type-ownership/contracts-051.json",
+    "../initial06-type-ownership/contracts-044.json",
+    "../initial06-type-ownership/contracts-033.json"
+  ],
+  "pending_existing_source_witness": {
+    "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_schema.rs",
+    "scope_index": 939,
+    "fresh_ranges": [
+      [
+        375,
+        455
+      ],
+      [
+        497,
+        618
+      ]
+    ],
+    "remaining09role": "Weapon melee/ranged flags andsharedmode fields; mustcompareactualmodeconsumers andOccupancyRequirementfit_zone/location beforeentire939cell complete. Bothcapabilitiesmaylegitimate; no forcedexclusiveMeleeORRangedsum.",
+    "status": "partialwitnessonly_notwhole09coverage"
+  }
+}

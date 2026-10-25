@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-991",
+  "at": "2026-10-25T17:26:45.387991+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1148,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak.rs",
+  "sha256": "7231d6f5c0ea33a0f938db9887dab36dff87fdb6341d8bf2099ada481593c41e",
+  "actual_compared_ranges": [
+    [
+      1111,
+      1490
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Native exact persisted provenance/retry comparison, patient clock/episode/terminal/corpse/context materialization and source remediation admission consumed. No handwritten trait/codec. Equality intentionally selects immutable provenance while excluding mutable remediation/health/context fields, so deriving whole record comparison changes meaning. Checked ordinal narrowing and context/physiology joins retained.",
+  "first_unfinished": {
+    "scope_index": 1148,
+    "line": 1491
+  },
+  "execution": "none"
+}

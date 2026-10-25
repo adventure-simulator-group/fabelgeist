@@ -1,0 +1,48 @@
+{
+  "id": "RIG-INITIAL06-GROUP-033",
+  "at": "2026-10-22T20:19:52.801817+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "application-cosmetic-policy-versus-model-and-native-pose-products": {
+      "sources": [
+        "pr-working:crates/adventuresim-core/src/character_morph.rs",
+        "pr-working:crates/adventuresim-core/src/character_proportions.rs",
+        "pr-working:crates/adventuresim-core/src/skeletal_fit.rs",
+        "pr-working:crates/adventuresim-tactical-client/src/animation/skeletal_proportions.rs",
+        "pr-working:crates/adventuresim-tactical-client/src/animation/identity_morphs.rs"
+      ],
+      "comparison": "Fresh full Core CharacterMorph73/CharacterProportions208/SkeletalFit132, client SkeletalProportions279 and exact identity_morphs1\u201376 only. Core CharacterProportions is nine selected named MHR cosmetic coefficients with peraxis symmetric finite bounds, reference0, private backing/manualSerde through set and game generated35%-of-limit policy. It is not generic MHR model parameter column/table, RigJointTable, medical body proportion, world length or temporal phase. Core may own game cosmetic selection/policy while lightweight model names/schema remain canonical MHR/Rig; no backend MHR/Burn dependency forced into runtime. IdentityMorph45ordered coefficient basis/namegrammar is different from twelve residualfit target basis and from nine BodyProportion controls; actual Scalar weights may be negative, do not merge with UnitInterval or generic chance. SkeletalFitMorph links to canonical BodyProportion and derives target-relative endpoint weight, no duplicated coefficient vector. JointProportionBasis is an exported local translation/metres-per-coefficient map plus canonicalreference, native geometry metadata rather than new CharacterProportions. Client CharacterSkeletalProportions and SkeletalProportionReference are different ECS roles COMPOSING same canonicalvalue; SkeletalJointBasis has extra finite metadata gate at load51\u201355. BoneReference native Entity/parent/bind/offset is currentinstance projection, not reusable Rigidentity nor shared asset mutation. Applied SkeletalJointOffset is localdisplacement, not position, medical dimension or absolute MHR recipe coefficient. Native Bevy transform/morph access is actual numerical adapter; canonical source proportions are retained until translation/fitting computation. CharacterID\u2192Seed and seeded CharacterMorphWeights currently raw u64/into source projection; shareddeterminism owners003/004 and distinctidentity authority preserved, existing broad API propagation stillneeds exact character-ID owner consumers. identity_morphs recomputes canonicalidentity/proportions then assigns actualnamed native morph slots; source ordinal names map to model-specific targets, no all-morph-target universalID. Tests originalsource read, identity_morphs77+tests excluded. No cache-coherence or admission clearance from these06 comparisons."
+    },
+    "runtime-visual-pipeline-owner-and-native-entity-links": {
+      "sources": [
+        "pr-working:crates/adventuresim-tactical-client/src/equipment/visuals.rs"
+      ],
+      "comparison": "Fresh exact1\u201350 only. Plugin/SystemSet marker types own client Bevy scheduling, not shared gameplay equipment semantics; chain and prepare/generate placement are runtime integration. Orphan query matches nativeEntity reference ItemPlaceholder against actualTacticalEquipmentPhysical presence; native ECS identity/lifecycle is not DB physical-object/inventoryitem ID or Rigordinal. No independently defined bespoke quantity/record owner in this source, no lowercrate canown BevySystemSet without cycle. Existing canonicalresource/item/component APIs called directly; helper bodies and tests51+ not credited. No complete equipmentfeature exemption or early raw ID boundary endorsement."
+    },
+    "building-correlated-reconstruction-uses-existing-application-models": {
+      "sources": [
+        "pr-working:crates/adventuresim-building-generator/src/generator/framed_roofs.rs",
+        "pr-working:crates/adventuresim-building-generator/src/generator/roof_editing.rs",
+        "pr-working:crates/adventuresim-building-generator/src/audit/bearing.rs"
+      ],
+      "comparison": "Fresh framed_roofs1\u201346, roof_editing1\u2013229 and bearing1\u201358 only. These declare no independent competing bespoke value owners: BuildingProgram/Plan/RoofAssembly/ResolvedGeometry/SupportInterface/ResolvedItemId remain building application products, not general Geometry/Rig/scene identities. framed_roofs returns roofs+optional timber after mutating common assembly/geometry inputs; transactional authority belongs owning building orchestration, no conversion to different independent schemas. set_roof_pitch clones assembly+geometry61\u201376 and publishesboth onlyOk, actual pitch15..75DEGREES distinct Radians; native to_radians/tan modifies geometry so re-admission of CHANGED Position/CuboidDimensions/Radians in refresh170\u2013224 is legitimate, not unchanged typed\u2192raw\u2192same typed forwarding. Eave/Valley branch changed length/pitch/elevation preserved. F001 neutral genericgeometry owner still supportsArchitecturalframe parameters without relocating domainroofIDs/pivotpolicy to lowcrate. bearing matches owner+supportnode before overlap query; extracting bounds metres at actual geometric overlap numeric port acceptable, not warranting allhost raw bounds. Surface/drainagecatchment sameid correlation does not make ID separatealiases canonicalowners absent byname; exact itemidentity allocation and update invariants otherlenses own. Excludes roof_editing230+tests/bearing59+tests; no helperbody/sourcecount credit beyond this source."
+    },
+    "combat-concentration-coverage-and-protection-stages": {
+      "sources": [
+        "pr-working:crates/adventuresim-core/src/combat/coverage.rs",
+        "pr-working:crates/adventuresim-core/src/combat/armor.rs",
+        "physical-p16:crates/adventuresim-core/src/combat/armor.rs",
+        "pr-working:crates/adventuresim-core/src/combat/weapon_contact.rs",
+        "physical-p16:crates/adventuresim-core/src/combat/weapon_contact.rs",
+        "physical-p16:crates/adventuresim-core/src/equipment/armor.rs"
+      ],
+      "comparison": "Fresh exact Corecoverage1\u2013142 only; full PR/P16combatArmor138 and weapon_contact113 independently read; P16equipmentArmor94 full, PR direct declarations1\u201339 prospectivelyREG015. Actual paired contact bodies differ: P16 handling_accuracy78 uses typed weapon_grip_to_tip().metres(), PR rawgetter; preserve P16typed canonical length API when final propagation, not copy parentregression. ContactPrecision privatefinite>=0 concentration deliberately permits>1 andzero; concentrated_fraction returns nonlinear unitshare and resistance zero\u2192+Inf intentional, different ReportedPrecisionfinite signed or UnitInterval. ArmorImpact records actual singlecontactspecific surface and threeenergy channels; ContactEnergyResolution derives cut/blunt channels, not a second independent authored owner. WearableProtection one item/location/channel projection, LayeredArmor aggregates multiplelayers, ArmorSurface is actualselectedcontactlayer retaining optional item/material. Shared fields are different stages/authority; no flatten into onebag or physicalgeometryArmorMesh/PBRmaterial. Inventoryitemu64 provenance distinct optional innateprotection None and nativeEntity; actual canonical ID propagation staysconnected to itemsource/API inventory, no blanket integerbrand. Energy joules distinct precision/resistance/coverage values; commonlowquantity owner where contracts agree, do not substitute mass/clinicaldose. AuthoredArmorCoverage stores disconnected finite ordered normalizedspans and region/anchor/laterality/sourceindex underprivateboundedarray with same itemcatalogcapacity. Span is twoendpoint interval, not duplicate single UnitInterval; sourceanatomicalmapping remains combat/Core policy, not genericArmor authoring mesh or Bevy layer. from_span rawbypass existingRoot04F007 remains, no countnewdefect/no repairclearance. equipmentPart\u2192BodyPart is explicitprojection of catalogue versus combat closedtaxonomy; broader declaration/consumer comparison remains whole06 inventory. P16aggregate/outermost94 actualweights/sum/order tie-breaker is derived model; PR40\u201394 helpers EXCLUDED, cannot infer from samebytes. All private/raw/Serde/default/zero/NaN behavior retained; no admission/testexecution credit."
+    }
+  },
+  "new_findings": [],
+  "source_qualifications": [
+    "QUAL010 REG016 duplicate existingP16 full94 scope, notnewvariant; exactcurrentfullread nowdone",
+    "PRREG015 actual1\u201339 only, helpers40\u201394 uncredited"
+  ],
+  "limits": "Source-specific ownership analysis only; exact newmaterial and oldsource variants preserved, rest whole06 incomplete."
+}

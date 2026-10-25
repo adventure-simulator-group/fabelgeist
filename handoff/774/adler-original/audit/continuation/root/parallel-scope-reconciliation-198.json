@@ -1,0 +1,167 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-198",
+  "at": "2026-10-23T04:30:25.369655+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-058.json",
+    "sha256": "93e47bb408cea71ef8c41710dfe61aa5958c957367ff8e834737e034b5398fb3"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-057.json",
+    "sha256": "4abcd94e9ad2df0809aeddf48c6f6178231e465f340dd624a314aa26e6e0329a"
+  },
+  "new_variants": [],
+  "new_overlays": [
+    {
+      "id": "CONT-OWNER-RANGE-EXTENSION-242",
+      "at": "2026-10-23T04:30:25.369655+00:00",
+      "source_id": "physical-p16:crates/adventuresim-core/src/disease.rs",
+      "sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+      "material_ranges": [
+        [
+          1811,
+          2091
+        ]
+      ],
+      "audit_owner": "root",
+      "reason": null,
+      "scope_registration": [
+        {
+          "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+          "sha256": "d14f63fa6b199bec6a2d1adb4fd48197e3d895de40dd40ad67504c3bf11fa5d1",
+          "row_1based": 18,
+          "id": "ROOT-INITIAL04-REG018",
+          "original_record": {
+            "id": "ROOT-INITIAL04-REG018",
+            "at": "2026-10-23T04:27:04.233401+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "physical-p16:crates/adventuresim-core/src/disease.rs",
+            "snapshot": "physical-p16",
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\disease.rs",
+            "sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+            "actual_EOF": 3842,
+            "material_ranges": [
+              [
+                1811,
+                2091
+              ]
+            ],
+            "actual_reach": "Scoped private_meter_state1778-1808 consumes fantastic_meter_curves2093-2101. Need actual immutable CurvePoint arrays/MeterCurve products and directly referenced three regional weight constants to compare computed finite/index/timing guarantees rather than infer from dispatch or prior PR counterpart.",
+            "exclusions": "Only referenced constant suppliers1811-2091. No private_regional_meter_state2162-2212 or other disease helpers/features/tests; previous adjacent prefix displays context only, fresh full direct constants after registration required.",
+            "status": "prospectively_registered_before_new_material_body_analysis"
+          }
+        }
+      ],
+      "limits": "Only referenced constant suppliers1811-2091. No private_regional_meter_state2162-2212 or other disease helpers/features/tests; previous adjacent prefix displays context only, fresh full direct constants after registration required.",
+      "source_qualifications": "Only prospectively registered exact P16 clinical supplier/kernel range, fresh actual Root03proof197. No whole file, private regional projection or other new helper/test credit. All prior mandatory qualifications retained; numerical operations require independent lens comparison."
+    },
+    {
+      "id": "CONT-OWNER-RANGE-EXTENSION-243",
+      "at": "2026-10-23T04:30:25.369655+00:00",
+      "source_id": "physical-p16:crates/adventuresim-core/src/physiology.rs",
+      "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+      "material_ranges": [
+        [
+          408,
+          446
+        ]
+      ],
+      "audit_owner": "root",
+      "reason": null,
+      "scope_registration": [
+        {
+          "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+          "sha256": "d14f63fa6b199bec6a2d1adb4fd48197e3d895de40dd40ad67504c3bf11fa5d1",
+          "row_1based": 19,
+          "id": "ROOT-INITIAL04-REG019",
+          "original_record": {
+            "id": "ROOT-INITIAL04-REG019",
+            "at": "2026-10-23T04:28:19.896822+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "physical-p16:crates/adventuresim-core/src/physiology.rs",
+            "snapshot": "physical-p16",
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\physiology.rs",
+            "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+            "actual_EOF": 1169,
+            "material_ranges": [
+              [
+                408,
+                446
+              ]
+            ],
+            "actual_reach": "Already scoped P16 disease private_meter_state1778-1808 directly calls physiology::piecewise at1795 with actual immutable CurvePoint arrays now prospectively Root018. P16 current scope ends407 and resumes447, leaving exact current interpolation kernel untraced; compare actual finite/index/zero-denominator operation rather than PR/native name assumptions.",
+            "exclusions": "Only direct interpolation kernel/necessary adjacent declaration408-446. Existing physiology ranges remain distinct; no other new clinical/whole1169/tests or additional diagnostics.",
+            "status": "prospectively_registered_before_new_material_body_analysis"
+          }
+        }
+      ],
+      "limits": "Only direct interpolation kernel/necessary adjacent declaration408-446. Existing physiology ranges remain distinct; no other new clinical/whole1169/tests or additional diagnostics.",
+      "source_qualifications": "Only prospectively registered exact P16 clinical supplier/kernel range, fresh actual Root03proof197. No whole file, private regional projection or other new helper/test credit. All prior mandatory qualifications retained; numerical operations require independent lens comparison."
+    }
+  ],
+  "total_variants": 2826,
+  "total_overlays": 243,
+  "mandatory_scope_qualifications": [
+    {
+      "record": "continuation/root/parallel-scope-qualification-130.json",
+      "sha256": "5dc4e5cd771612c7e050ab4af544411523317ae4b57738f1fb20f493685a50fc"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-117.json",
+      "sha256": "f3b80648900716939057b20776d756a6e37001f6910378da1a1bbaea230d348b"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-149.json",
+      "sha256": "97103899514ade32cf1e41c2794fa9c49c0cb8c6c7a2c6a4961b7492de5dc708"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-151.json",
+      "sha256": "670dd53a640b28eef7ad9d57b37f9213e1bca7117d7098691c4b0cd20c2a8f65"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-158.json",
+      "sha256": "fa0e9cc06d04fca0a0e2b5f9a333390a0ba1e71eff846a4e957c46b68b3e940e"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-170.json",
+      "sha256": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-173.json",
+      "sha256": "5763e9e965b4f4c1d402a09eab682de47336885c8d30b3c5b3d157242a496948"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-176.json",
+      "sha256": "9a321e498a00285331d4ec4fb4dc7c3a49d7bb6e3a08a44a79c2e5bf58186270"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-184.json",
+      "sha256": "5e35c8530a11d0f90bc767812758e4c504eb9ca5e776d0d1f17bf14c0853468d"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-188.json",
+      "sha256": "e15ac81028377714ef550a4cbd68546ec0fbd2ab41300f64db2a1c8686cb43ab"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-193.json",
+      "sha256": "fa718d979ab18d0f9bc7ea210e912d4cb8e971c3bbaa8702a602311d515d6e06"
+    }
+  ],
+  "registered_rows": 2,
+  "input_pins": [
+    {
+      "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+      "sha256": "d14f63fa6b199bec6a2d1adb4fd48197e3d895de40dd40ad67504c3bf11fa5d1",
+      "captured_rows": 19,
+      "selected_ids": [
+        "ROOT-INITIAL04-REG018",
+        "ROOT-INITIAL04-REG019"
+      ]
+    }
+  ],
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through241-before058.jsonl",
+    "sha256": "dab119b1cddc825a5ec8518ef65f295fa3868e1ff56b2bbc74418407c12c0a7d",
+    "through": 241
+  },
+  "limits": "Variants unchanged2826; two mandatory overlays242-243 add actual P16 disease1811-2091 constants and physiology408-446 direct interpolation kernel. No other new clinical graph. All prior mandatory qualifications retained; all13 initial audits then handover163."
+}

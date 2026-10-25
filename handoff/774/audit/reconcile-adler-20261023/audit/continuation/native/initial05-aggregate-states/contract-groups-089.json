@@ -1,0 +1,48 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-089",
+  "at": "2026-10-23T01:33:32.863482+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/tests/enclosures.rs",
+      "sha256": "60f9d4a520e0e0be95bad429934bd1f982284d099f5da8fd1cd8222b0ffdfa93",
+      "scope044_index": 1850,
+      "actual_EOF": 309,
+      "scoped_ranges_compared": [
+        [
+          1,
+          309
+        ]
+      ],
+      "actual05_comparison": "Fresh full309 original fixture source-only. Normal projection checks actual gate above front floor, fullpostfootprint spans terraces, eachbase supported bysamefoundation and collision matchesgate-relativeheight. Missing bearings/foreignpropertyreject with actualowner evidence; reversedfoundationtriangleorder gives canonicalrepeat. Decodefixtures reject changedfront/owner/elementtags/gatedatum androundtripacceptedrecord; they do NOT changephysicalcoordinates at SceneBoundary level. Crucially tests263-307 INTENTIONALLY replace allgeneric BoundarySupportMesh cell coordinates with arbitrary valid sameprism for width1,1e-8,0 and bothwindings, decode then consume collider/contactonly. This proves generic mesh/cell arbitraryphysicalgeometry is supported; F027 must be qualified at SceneBoundary correlateddescriptor/source boundary, not blankettightening genericprism/collisioncapability. No nativeproof/testrun from assertions.",
+      "source_body_proof": "Fresh complete existingfixture/helper source, not executed; no newcases/assertions."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement/outdoor.rs",
+      "sha256": "0a214fa18fafd300f3f87c6e6eca9ef295a41ec09420af5aadd17adc4fe5b3d5",
+      "scope044_index": 1854,
+      "actual_EOF": 77,
+      "scoped_ranges_compared": [
+        [
+          1,
+          77
+        ]
+      ],
+      "actual05_comparison": "Fresh full77 existing acceptance helper source-only. OutdoorCollision retains shape+transform+name together in one vector; obstaclegrid point derives SAME inputspacing/terrainextent as actual generation and eachshape offset/yaw fromsame tree/rock recipe. Sourceheight expectation is fixtureprecondition, no productiongeneralgetter guarantee. Furniture position/orientation/key used together anddistantinstances intentionallyhave no serverphysics. Install uses same retainedtriples and supplied intersectionpredicate before spawn; callbackpurpose notnativepolicyproof. No productionauthoritytransfer or persistenttacticalstate, no newtestexecution.",
+      "source_body_proof": "Fresh complete existingfixture/helper source, not executed; no newcases/assertions."
+    }
+  ],
+  "comparison_groups": {
+    "generic-physical-cell-policy": "Thin/zero-contact/bothwinding generic mesh API intentional inactualexistingfixtures.",
+    "descriptor-boundary-qualification": "SceneBoundary top-level sourcecorrelation separate from generic validprism/collider capability.",
+    "retained-shape-transform": "Testworld helper keeps actualrecipe shape andpose together, not runtime/corephysics proof."
+  },
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Wholeinitial05 inventory incomplete; all normal/runtime/native policy claims remainexactlyqualified."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

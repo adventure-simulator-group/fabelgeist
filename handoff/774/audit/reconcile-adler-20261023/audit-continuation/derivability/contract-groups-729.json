@@ -1,0 +1,468 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-729",
+  "at": "2026-10-25T16:38:27.008046+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 982,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/validation.rs",
+      "sha256": "a58991cdececa54b76db9d44b4f5dd1702ef3c8d132e37350fcba62b5bf9e827",
+      "actual_EOF": 1121,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/validation.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/quest_generation/validation.rs",
+        "sha256": "a58991cdececa54b76db9d44b4f5dd1702ef3c8d132e37350fcba62b5bf9e827",
+        "bytes": 48415,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+            "ranges": [
+              [
+                1,
+                1121
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": []
+          },
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/supplemental-quest-sources.json",
+            "ranges": [
+              [
+                1,
+                1121
+              ]
+            ],
+            "source_read_status": "full source incl existing inline fixtures where present",
+            "trace_refs": [
+              "NATIVE-SUPP-QUEST-IDENTITY-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 186,
+            "read_ranges": [
+              [
+                1,
+                1121
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SHARED-QUEST-WORLD-ACTOR-089"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_generation/validation.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 90,
+            "read_ranges": [
+              [
+                1,
+                1121
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-QUEST-002",
+              "NATIVE-OWNER-F015"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_generation/validation.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera",
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-QUEST-IDENTITY-INVENTORY-PARTIAL-051",
+            "json_pointer": "/source_proofs/2",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/quest_generation/validation.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1121
+              ]
+            ],
+            "source_context": {
+              "index": 175,
+              "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/validation.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_generation/validation.rs",
+              "sha256": "a58991cdececa54b76db9d44b4f5dd1702ef3c8d132e37350fcba62b5bf9e827",
+              "read_ranges": [
+                [
+                  1,
+                  1121
+                ]
+              ],
+              "mode": "Fresh complete actual source body; former assigned ranges may be scoped, actual full currentEOF recorded",
+              "roles": [
+                "Fresh full validation1121 actual GeneratedCase relational consumers, errors and proof/chronology/clue/finale/custody/objective checks. Generic Vec<String> accumulates semantic error variants/context internally then GenerationError stores it before pure/DB replay; structured manifest diagnostics must preserve exact error order/location/subject and no flattening until real output.",
+                "Actual pure validators compare checked ObjectiveId/AssetId/SubjectId against stripped String consequents/custody/dialogue slots and decimal CharacterID contact targets, confirming F022 internal gap rather than final serialization. Preserve target-kind/known-source authority distinctions and mixed proposition/subject finale. Unsupported or malformed original inputs must remain rejected evidence, not assumed already valid type.",
+                "Track ordinal/predecessor/next/action/output graph, source/remediation/cause/finale relationships and testimony phrase exact-once/referral/private visibility constraints exceed leaf validity. Scope for later aggregate/admission/state/authority lens, no correctness or clearance from reading validator.",
+                "Validation depends on actual infection episode severity/terminal and native cause/typedcontext pipeline receipts, all accepted zero/negative/uncertainty/saturation/original source branches preserved. No code or new fixture added."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-QUEST-IDENTITY-RECEIVER-CLOSURE-052",
+            "json_pointer": "/source_proofs/2",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/quest_generation/validation.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1121
+              ]
+            ],
+            "source_context": {
+              "index": 175,
+              "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/validation.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_generation/validation.rs",
+              "sha256": "a58991cdececa54b76db9d44b4f5dd1702ef3c8d132e37350fcba62b5bf9e827",
+              "read_ranges": [
+                [
+                  1,
+                  1121
+                ]
+              ],
+              "mode": "Fresh complete actual source body; former assigned ranges may be scoped, actual full currentEOF recorded",
+              "roles": [
+                "Fresh full validation1121 actual GeneratedCase relational consumers, errors and proof/chronology/clue/finale/custody/objective checks. Generic Vec<String> accumulates semantic error variants/context internally then GenerationError stores it before pure/DB replay; structured manifest diagnostics must preserve exact error order/location/subject and no flattening until real output.",
+                "Actual pure validators compare checked ObjectiveId/AssetId/SubjectId against stripped String consequents/custody/dialogue slots and decimal CharacterID contact targets, confirming F022 internal gap rather than final serialization. Preserve target-kind/known-source authority distinctions and mixed proposition/subject finale. Unsupported or malformed original inputs must remain rejected evidence, not assumed already valid type.",
+                "Track ordinal/predecessor/next/action/output graph, source/remediation/cause/finale relationships and testimony phrase exact-once/referral/private visibility constraints exceed leaf validity. Scope for later aggregate/admission/state/authority lens, no correctness or clearance from reading validator.",
+                "Validation depends on actual infection episode severity/terminal and native cause/typedcontext pipeline receipts, all accepted zero/negative/uncertainty/saturation/original source branches preserved. No code or new fixture added."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-QUEST-KNOWLEDGE-050",
+            "json_pointer": "/current_sources/2",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/quest_generation/validation.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1121
+              ]
+            ],
+            "source_context": {
+              "index": 175,
+              "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/validation.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_generation/validation.rs",
+              "sha256": "a58991cdececa54b76db9d44b4f5dd1702ef3c8d132e37350fcba62b5bf9e827",
+              "read_ranges": [
+                [
+                  1,
+                  1121
+                ]
+              ],
+              "mode": "Fresh complete actual source body; former assigned ranges may be scoped, actual full currentEOF recorded",
+              "roles": [
+                "Fresh full validation1121 actual GeneratedCase relational consumers, errors and proof/chronology/clue/finale/custody/objective checks. Generic Vec<String> accumulates semantic error variants/context internally then GenerationError stores it before pure/DB replay; structured manifest diagnostics must preserve exact error order/location/subject and no flattening until real output.",
+                "Actual pure validators compare checked ObjectiveId/AssetId/SubjectId against stripped String consequents/custody/dialogue slots and decimal CharacterID contact targets, confirming F022 internal gap rather than final serialization. Preserve target-kind/known-source authority distinctions and mixed proposition/subject finale. Unsupported or malformed original inputs must remain rejected evidence, not assumed already valid type.",
+                "Track ordinal/predecessor/next/action/output graph, source/remediation/cause/finale relationships and testimony phrase exact-once/referral/private visibility constraints exceed leaf validity. Scope for later aggregate/admission/state/authority lens, no correctness or clearance from reading validator.",
+                "Validation depends on actual infection episode severity/terminal and native cause/typedcontext pipeline receipts, all accepted zero/negative/uncertainty/saturation/original source branches preserved. No code or new fixture added."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-QUEST-KNOWLEDGE-050",
+            "json_pointer": "/additional_actual_source_proofs/12",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/quest_generation/validation.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                165
+              ],
+              [
+                605,
+                718
+              ],
+              [
+                850,
+                888
+              ],
+              [
+                935,
+                990
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/validation.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_generation/validation.rs",
+              "sha256": "a58991cdececa54b76db9d44b4f5dd1702ef3c8d132e37350fcba62b5bf9e827",
+              "read_ranges": [
+                [
+                  1,
+                  165
+                ],
+                [
+                  605,
+                  718
+                ],
+                [
+                  850,
+                  888
+                ],
+                [
+                  935,
+                  990
+                ]
+              ],
+              "actual_line_count": 1121,
+              "role": "Actual canonical target/reference/track authority receiving comparison and final diagnostic-label formatting",
+              "mode": "Fresh exact producer-supplement source-body read; only listed ranges, no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-037",
+            "json_pointer": "/fresh_current_source_reads/6",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/quest_generation/validation.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                165
+              ],
+              [
+                605,
+                718
+              ],
+              [
+                850,
+                888
+              ],
+              [
+                935,
+                990
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/validation.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_generation/validation.rs",
+              "sha256": "a58991cdececa54b76db9d44b4f5dd1702ef3c8d132e37350fcba62b5bf9e827",
+              "read_ranges": [
+                [
+                  1,
+                  165
+                ],
+                [
+                  605,
+                  718
+                ],
+                [
+                  850,
+                  888
+                ],
+                [
+                  935,
+                  990
+                ]
+              ],
+              "actual_line_count": 1121,
+              "role": "Actual canonical target/reference/track authority receiving comparison and final diagnostic-label formatting",
+              "mode": "Fresh exact producer-supplement source-body read; only listed ranges, no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 351,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1121
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Entire1121line exact native validator personally consumed722\u2013729, all graph/trail/outbreak/witness/challenge/referral/bridge/objective relationships and collected diagnostics. No local record/type/trait/codec implementation."
+    },
+    {
+      "scope_index": 983,
+      "source_id": "pr-working:crates/adventuresim-core/src/reducer_error.rs",
+      "sha256": "ec4f9bddc8b7d73ed40bcfbecb23d7b061016ee53bd6fea4a524d05e838691c7",
+      "actual_EOF": 100,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/reducer_error.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/reducer_error.rs",
+        "sha256": "ec4f9bddc8b7d73ed40bcfbecb23d7b061016ee53bd6fea4a524d05e838691c7",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 4018,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 294,
+            "read_ranges": [
+              [
+                1,
+                100
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-DIALOGUE-043"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/reducer_error.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-DIALOGUE-040",
+            "json_pointer": "/current_sources/10",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/reducer_error.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                100
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 529,
+              "source_id": "pr-working:crates/adventuresim-core/src/reducer_error.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/reducer_error.rs",
+              "expected_sha256": "ec4f9bddc8b7d73ed40bcfbecb23d7b061016ee53bd6fea4a524d05e838691c7",
+              "observed_sha256": "ec4f9bddc8b7d73ed40bcfbecb23d7b061016ee53bd6fea4a524d05e838691c7",
+              "read_ranges": [
+                [
+                  1,
+                  100
+                ]
+              ],
+              "proof_mode": "Fresh PR complete body read; identical counterpart whole-source SHA verified when packet supplies paired variant",
+              "disposition": "accounted-current-producer-supplement-receiver-packet"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-032",
+            "json_pointer": "/fresh_current_source_reads/10",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/reducer_error.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                100
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 529,
+              "source_id": "pr-working:crates/adventuresim-core/src/reducer_error.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/reducer_error.rs",
+              "expected_sha256": "ec4f9bddc8b7d73ed40bcfbecb23d7b061016ee53bd6fea4a524d05e838691c7",
+              "observed_sha256": "ec4f9bddc8b7d73ed40bcfbecb23d7b061016ee53bd6fea4a524d05e838691c7",
+              "read_ranges": [
+                [
+                  1,
+                  100
+                ]
+              ],
+              "proof_mode": "Fresh PR complete body read; identical counterpart whole-source SHA verified when packet supplies paired variant",
+              "disposition": "accounted-current-producer-supplement-receiver-packet"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1216,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Display",
+          "type": "ReducerErrorCode",
+          "lines": [
+            [
+              40,
+              44
+            ]
+          ],
+          "disposition": "KEEP small write_str stable token formatter no existing owning Display derive; no std Error added solely cleanup"
+        },
+        {
+          "trait": "FromStr",
+          "type": "ReducerErrorCode",
+          "lines": [
+            [
+              46,
+              63
+            ]
+          ],
+          "disposition": "KEEP exact closed snake_case tokens and Err unit; no available owning enum parser derive and no Serde added solely classifier"
+        }
+      ],
+      "existing_derives": [
+        "ReducerErrorCode structural traits already derive"
+      ],
+      "absence_basis": "Full100line exact role personally consumed728 output, stable code table/format/parser envelope and roundtrip fixture; no other trait/codec, fixtures not run."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Manifest semantic validation",
+      "disposition": "No mechanical trait target, preserve explicit relational validity and concrete owning producer requirements."
+    },
+    {
+      "contract": "Reducer transport code boundary",
+      "disposition": "Necessary small exact stable token parser/formatter remains; avoid adding serialization/Error/dependency solely derive cleanup. Machine prefix remains distinct presentation detail."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 984,
+    "source_id": "pr-working:crates/adventuresim-core/src/reputation.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

@@ -1,0 +1,34 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-051",
+  "at": "2026-10-25T11:35:54.287600+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1189,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/settlement_population/resident_drafts.rs",
+      "sha256": "0bdbeb8d3d35fb200d35d06429d177a9311b5e71207f89a3644fadcd6e72d959",
+      "personally_read_ranges": [
+        [
+          1,
+          585
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole585 residentplanning source read. ResidentDraft::new derives nonzero upperhalfcharacterID from stablecoordinate and sex\u2192presentation pair; typed endpoint/default enums reflatten to OptionString/bool, businessoperator attaches typedBusinessId. Finaldemographics deliberatelyoverwrite complete4-personfamilies before laterunrelateddrafts, matchesfixedmale/female/adultages, returnedfamilyIDs matchactualdrafts. Partialfamily remains unconstrainedrandomdemographics and familyhelper avoidsinventedparentedges. Businessdemand orderedgroups byusage, canonicalservice onlyordinal0 maps matchingservice/location; additionalsameusagebusinesses still have typedbusinessidentity and genericvenue. Organizationdrafts overridecharacterID with canonicalrepresentativeowner, choose effectivechaptervenue; laterprofile bindingvalidatesactualinstitution. validate rejectsduplicatecharacter/business IDs before surnames/persistence, surnameassignment verifieshouseholdmembersknown and deriveshistoricalidentity from first exactbirthyear/sex/seed with inheritedsurname appliedconsistently. No exposure of independentlychanging demographic components; setters privateplanningphase. Structured draftaggregate could retain purpose-specificcoordinate/service/profession/location/ageowners, but do notreplacebusinesskey orseedcoordinate withunrelatednumericSeed asconvenience. Existing tests assert familyfinalization, endpointordinal and inheritedsurnamecohort; notrun. NativeString failure and bodymetadata/semantic tags remain originalmigration findings."
+    },
+    {
+      "scope_index": 1190,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/settlement_population/resident_persistence.rs",
+      "sha256": "577af433807bf7c8a4cc22f46f82ed318d2d365ca79e61a66eaaf6d1b408c5e7",
+      "personally_read_ranges": [
+        [
+          1,
+          299
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole299 residentpersistence source read. PreparedResident::new generatesprofile fromexactdraft seed/context/provider/service/profession/role/age, stabletypedSeed sharedname/personality/policy; exactage remainsdraftoverride otherwiseprofileband representativeage. Actualprivateconstruction ties prepared anddraft; publicseparatetyperepresentability notnormalrecombination. Identity generation resolvescalendarbirthyear, personalname/render/demographics and full NPC creation, stores canonicalnameidentity/policy. insert_profile derivesprojectionID==characterID in same row, repeatedID is boundedviewindex notsecondperson; storedappearance isimmutablegeneratedprofile while live Character/Personality own name/age/sex. Reuse existing requireshomesettlement plusroles/businessassignment; no fullimmutableseed/profile comparison onreuse, so hashcollision samecity/APIchangedcatalog could reuse mismatchedperson, but no ordinary supportedcollision/providerchange witness established and cleanfinalschema no compatibilityshim proposed. Service/profession/provider determineconversation, validbusinesswithoutstrategicendpoint stillprovider; no forcedendpointrequired. Presence dispatchfixedschedulewindow0..1440/knownranges, context/health bothfalse initial and independentlaterchronology. Entire multirow insertion propagatesallfallibleerrors, unlike caughtwedding, transactionabortprotects normalpartialidentity writes. Immutableexplanation serializes originalinput+profile once. Existing typedSeed extraction/name-owning conversions mustbe reconciled canonically with #822 currentmain, no duplicate bespoke type. No tests/checks/fixes."
+    }
+  ],
+  "discovery": "Two original source roles compared WITH existing associations/owner/cause migrations and explicit hash/API qualifications; full lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

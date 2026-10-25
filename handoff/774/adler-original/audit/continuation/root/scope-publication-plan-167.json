@@ -1,0 +1,94 @@
+{
+  "previous_scope": "cumulative-source-scope-parallel-047.json",
+  "next_scope": "cumulative-source-scope-parallel-048.json",
+  "reconciliation_record": "root/parallel-scope-reconciliation-167.json",
+  "reconciliation_id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-167",
+  "admission_record": "root/admission03/new-parallel-admission-166.json",
+  "expected_previous_overlays": 228,
+  "overlay_backup": "owner-range-extensions-through228-before048.jsonl",
+  "scope_increment_key": "parallel_initial_scope_increment167",
+  "ledger_increment_key": "parallel_scope167",
+  "queue_count_key": "048_new_roles",
+  "registries": [
+    {
+      "path": "camera/initial07-redundant-authority/source-range-registration.jsonl",
+      "ids": [
+        "CAMERA-INITIAL07-REG024",
+        "CAMERA-INITIAL07-REG025"
+      ],
+      "supplier": "camera",
+      "effective_ranges": {
+        "CAMERA-INITIAL07-REG024": [
+          [
+            1,
+            80
+          ]
+        ],
+        "CAMERA-INITIAL07-REG025": [
+          [
+            1,
+            80
+          ]
+        ]
+      },
+      "qualifications": {
+        "CAMERA-INITIAL07-REG024": "Only exact80-line challenge authority state and resolution classifiers; no wider strategic or test bodies.",
+        "CAMERA-INITIAL07-REG025": "Only exact80-line challenge authority state and resolution classifiers; no wider strategic or test bodies."
+      }
+    },
+    {
+      "path": "rig/initial06-type-ownership/source-range-registration.jsonl",
+      "ids": [
+        "RIG-INITIAL06-REG-033"
+      ],
+      "supplier": "rig",
+      "effective_ranges": {
+        "RIG-INITIAL06-REG-033": [
+          [
+            2,
+            5
+          ]
+        ]
+      },
+      "qualifications": {
+        "RIG-INITIAL06-REG-033": "Only canonical Core leaf reexport2-5; no personality mutation/generation/schema bodies."
+      }
+    },
+    {
+      "path": "root/initial04-invariant-operations/source-range-registration.jsonl",
+      "ids": [
+        "ROOT-INITIAL04-REG015"
+      ],
+      "supplier": "root",
+      "effective_ranges": {
+        "ROOT-INITIAL04-REG015": [
+          [
+            1707,
+            1752
+          ],
+          [
+            1895,
+            1988
+          ]
+        ]
+      },
+      "qualifications": {
+        "ROOT-INITIAL04-REG015": "Only old P16 selection1707-1752 and begin transition1895-1988;1989 blank excluded. Historical parent context, not proposed replacement for current P20 state. No whole state/private helpers/tests."
+      }
+    }
+  ],
+  "limits": "Three new variants2807 (two challenge sources and old P16 state), one reexport overlay229. Prior source/qualification obligations preserved. Camera026/027 lifecycle roles remain pending separate publication. Audit then handover163, no implementation.",
+  "queue_instructions": "After07 independently compare249 pending exact new-material roles for01/02; historical040/042 preserved, no verdict carry/full replay. Exhaustive initial audits then handover163.",
+  "progress_updates": {
+    "current03": "0482807+229 published roles accounted WITH_FINDINGS; prior047 plus actual challenge/reexport/old transition166. Camera026/027 lifecycle bodies pending separately, not credited.",
+    "historical01_02": "Historical040/042 retained; Camera after07 bounded249-role queue087.",
+    "parallel_assignments": {
+      "root": "04active368 exact/97 packets+G083,33 findings before new048 reconciliation; then08",
+      "native": "05active666/2804 latest29 findings; then10/13",
+      "rig": "06active657 distinct/668 observations latest29 records; then09/12",
+      "camera": "07active683/2804 latest30 records; then01/02 delta249,then11"
+    },
+    "new_scope_frontier": "Captured Camera024/025, Rig033, Root015; Native024 unchanged. Camera026/027 pending exact lifecycle admission. User163 audit then handover, no implementation."
+  },
+  "next_action": "Finishall13exhaustiveinitialaudits thenhandover peruser163; noimplementation, original774/P16/P17/validation futureobligations retained."
+}

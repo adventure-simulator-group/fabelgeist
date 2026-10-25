@@ -1,0 +1,54 @@
+{
+  "id": "CONT07-F082",
+  "at": "2026-10-23T20:31:10.612979+00:00",
+  "classification": "maintenance strengthening; current logical tile and raster spans agree, no presentwrongpixel",
+  "title": "Traffic tile width is independently authored in physical size and raster resolution",
+  "sources": [
+    {
+      "scope_index": 1670,
+      "sha256": "3195a4f45a963f88a33777e7b530ca7f8804383461ac655219685b184c2f428f",
+      "ranges": [
+        [
+          16,
+          20
+        ],
+        [
+          28,
+          51
+        ]
+      ]
+    },
+    {
+      "scope_index": 1671,
+      "sha256": "fad483542b55d8c03320f7821e731f040ab8d531131f55fce69bb448321463ef",
+      "ranges": [
+        [
+          37,
+          59
+        ],
+        [
+          63,
+          97
+        ]
+      ]
+    },
+    {
+      "scope_index": 505,
+      "sha256": "3bc0e8bdfb4aea730fbca506f80fd06afd9f410c658869396cc616d6c35c6a21",
+      "ranges": [
+        [
+          102,
+          113
+        ]
+      ]
+    }
+  ],
+  "earliest_failed_contract": "Logical TrafficTile squareextent must equal rasterinteriorpixels dividedbytexelspermetre. Current TILE_METRES64, TILE_INTERIOR_PIXELS256 andTEXELS_PER_METRE4 independentlyencodeonephysicalspan.",
+  "counterexample": "Changing onlyTILE_METRES to128 stillcompiles: TrafficTile geometry/covering advance128m butfixed256interiorat4px/m rastercoversonly64m. MaterialUVtransform tracks64m encodedspan whilelogicaltilepaving spans128m, readingbeyondintendedworldcoverage inremainingtile. Current64=256/4 exactly; no suchchangeexecuted/currentbadpixelclaimed.",
+  "actual_recipient": "TrafficNetwork::pixels worldpoint97 andTrafficMask::bake transform56 describe64m nativeimageinterior; actualcitygroundshader102-113 samplesitforlogical-tilematerialroadwear whiletrafficcovering/geometryusestile64 separately.",
+  "qualification": "Maintenance sourceeditcounterexample only; no currentdefaultvisualbug or renderedreproduction. Texelrate anddesiredtilewidth arelegitimatelyseparatepolicychoices, pixelcount isderivedrelation ratherthan thirdindependentauthority. Shaderintrinsicnumbers notblanketrequiredderivation; this exactonecontract demonstrated.",
+  "connected_repair": "Own logicalphysicaltilesize and samplingresolution coherently, deriveinteriorpixelcount orderivephysicalspan fromcanonical resolution; enforceexactrepresentability/roundingpolicy atoneconstructionboundary. Keep filtergutters/UVtransform/geometrytiles/rasterbounds tiedtosameowner andpreserve current258x258bytes/nativeUVlayout.",
+  "acceptance": "Permittedsourcepolicyeditscannotproduce differentlogical/rasterphysicalspan; currenttileorigin/gutterworldsamples/materialwear remainidentical. No tests added or executed.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

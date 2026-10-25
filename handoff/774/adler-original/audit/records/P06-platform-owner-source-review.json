@@ -1,0 +1,32 @@
+{
+  "recorded_at": "2026-10-21T03:29:52.292425+00:00",
+  "base_head": "6c8310b60dc039533d1019b6cb649098bc617bf2",
+  "includes_uncommitted_and_untracked": false,
+  "scope": "Connected P06 target-ownership compiler repair, focused implementation-agent Code/Rule/receiver source review; no independent review, Comment Review or full wave.",
+  "source_status": "BELIEVED COMPLETE; exact-head hosted verification pending.",
+  "traces": [
+    {
+      "owner": "presentation/preparation.rs::PreparationError, PreparationResult, ProductKind",
+      "trace": "Native PreparedStrategicScene::generate and PreparedCityGround::from_input plus target-gated generation jobs share the same unconditional error owner. strategic_scene/preparation.rs composes that exact error. Generation child modules import it through their parent; the Wasm exception adapter still renders/code-classifies it at its actual JavaScript boundary.",
+      "preservation": "Moved the complete canonical error body unchanged except module doc. All variants, #[from] sources and cfg(wasm) code mappings are byte-preserved. Ciborium, scene-input, building/interior, geometry and vista error dependencies are available on native targets. No old forwarding alias/module or native generation enablement added."
+    },
+    {
+      "owner": "tactical-server/scene_spawn.rs",
+      "trace": "Existing binary main and feature-gated reflection/iteration lib both declare this same module. player_projection::spawn_admission and authoritative_terrain can resolve their actual shared owner in either target.",
+      "preservation": "Spawn implementation byte-identical; no duplicated types or functions. Library existing feature predicate and stand-in Args fields remain unchanged."
+    }
+  ],
+  "formatting": "6c8310b60/run39538495685/job119020574352 failed formatting only. Applied its sole reported corpse.rs import wrapping hunk exactly after the known source repair was finished. No local formatter run.",
+  "rule_support": [
+    "AGENTS.md clean APIs/canonical schema/transient tactical state/bounded first failed contract",
+    "crates/AGENTS.md canonical type ownership/native receiver coverage/real modules rather than parallel owners"
+  ],
+  "limits": [
+    "Source metadata, Git/rg and git diff --check only; no local project execution.",
+    "No new tests, assertions, fixtures, agents, fourth full wave, gate/ceiling relaxation, generated/DB edits or merge.",
+    "P06 and P02 follow-through unaccepted pending exact-head hosted gates, artifacts and relevant existing test selections; no PR-wide completion."
+  ],
+  "published_head": "6baeb445cbc4a0b9307d7e2557ced3216c3a3adf",
+  "publication": "Committed and pushed; exact-head hosted run39538920174 pending.",
+  "includes_uncommitted_untracked": false
+}

@@ -1,0 +1,92 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-039",
+  "at": "2026-10-22T21:00:06.001157+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/language.rs",
+      "sha256": "1475b920cad83e1f040a2c19627f288508d660a9d771bd72cf8993fa34b9a05f",
+      "actual_compared_ranges": [
+        [
+          1,
+          563
+        ]
+      ],
+      "source_evidence": "Actual fresh complete scoped production1-563; newREG023/024/026 prospectively registered before fresh reads; no565+tests/initializationmodule credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/bestiary.rs",
+      "sha256": "0a8870d89db5190ae5b70aaffd93d7511b144e4861f37ffd649c62f464a3d2b7",
+      "actual_compared_ranges": [
+        [
+          1,
+          285
+        ]
+      ],
+      "source_evidence": "Actual fresh old1-112/140-285 plus prospectivelyREG025113-139. Existingtestprefix272-285 read source only;286+excluded."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/bestiary.rs",
+      "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+      "actual_compared_ranges": [
+        [
+          300,
+          306
+        ],
+        [
+          805,
+          836
+        ]
+      ],
+      "source_evidence": "Fresh exact prospectivelyNativeREG009 enum/directhelperroles only; old other P16Bestiary roles still incomplete04."
+    }
+  ],
+  "groups": {
+    "closed-indexes-and-direct-projection": "Actual OralLanguage eight closed variants ALL8/index0-7/correlation8x8, WrittenLanguage seven ALL7/index0-6/correlation7x7, Bestiary13 ALL13/index0-12/correlation13x13 align now. Matching exhaustive index selects within static arrays; no arbitrary integer constructor. Descriptors English/native/monogram/germanic bool are lossy display metadata (monograms may coincide legitimately). Ordinary enums derive closed serde/optionalSDK, raw numeric Hours products derive no checked whole-value admission. direct_mut returns mutable raw numeric leaf and public fields allow bypass; direct_fields_valid is observation only, not type seal. Distinct Oral/Written/Bestiary taxonomies remain.",
+    "hours-accumulation-and-scaling": "Oral effective raw nonnegative direct weighted sum, Written requires own target direct>0 then weighted sum, Bestiary gates own direct>0 and suppresses each nonfinite contribution before multiplication. All finite nonnegative operands can still overflow accumulation F016. Actual modest direct limit5000 yields at most8*5000/7*5000/13*5000 finite; no normal bad-value claim. Oral/Written add_direct only positive finite delta then caps sum5000; finite overflow +infinity is explicitly min-capped5000, so output finite given current finite value or nonfinite replacement branch. It does not establish nonnegative output from invalid negative retained current value; admit canonical current-hours owner. language_scaled_effect rejects nonfinite operands then multiplies value by clamped[0,1] share: cannot overflow finite signed value, negative effects remain meaningful, do not require all effect magnitudes positive. elapsed training rejects nonfinite->0 and negative->0, multiplying by coefficient[0,1] keeps finite; preserve zero/no-training and transfer target direct gate.",
+    "party-selection-and-failure": "Best common choices ALL nonempty so local max unwrap/unreachable fallback never needs invented language for actualclosedenum. Coefficient division fixed5000>0 and clamp0..1, cap.max0 suppresses NaN as existing behavior; effective nonfinite inputs remain owner-admission concern. Stable tie uses lower language index, candidates sameid/cap/hour from one immutable snapshot, two top slots explicitly exclude ownid in first slot. Unique speaker identity belongs actual aggregate caller; duplicate sameid might self-pair second slot but no current bad roster inferred. Preserve O(L*n), party source order, two-best tie behavior and no random draw changes. All output collected locally before publication; mutable add_direct evaluates RHS before single field assignment, no fallible multi-field/retry side effect here.",
+    "settlement-integer-kernel": "coordinates_in_bounds rejects early then canonical WGS84 microdegree constructors called before arithmetic. i32 microdegrees widened to i64; even whole WGS84 delta*10000 fits i64, fixed denominators positive. x/y clamp0..10000; northern clamp0..10000 widened i128 before square, low rounded<=9000, central10000-low>=1000. east_share clamp500..9500 ensures rounded eastcentral within central, west=central-east nonnegative, three vernacular fields sum10000 exactly and yiddish75<=1000. u16 narrowing safe under these actual integer bounds. is_valid sums threeu16 widened u32 (max196605 safe) and accepts zeroindividualshares, dominant_ties eastthenwest deliberate. Raw public SettlementLanguageProfile Default0 and decoders are not checked aggregate; actual inferred result valid without redundant fallback/reclamp. No external mutation before Result.",
+    "p16-habitat-direct-helpers": "CausalBridge four categorical explanations distinct from evidence. contains_habitat bounded i<slice.len before index, increment cannot exceedlen; current enum discriminants castu8 equality is nativeconst comparison, actualclosed taxonomy not a rawID decoder. required_bridge only Skeleton/OccupiedHouse accepts one of three listed bridges; other combinations None. bridge_evidence exhaustive maps four bridges to staticnonempty evidence slices; AbandonedMine retained even not required by this particular relation. No arithmetic, mutation or retry clock beyond bounded search; do not remove other legitimate bridge variants or equate lossy evidence set with bridge identity. Whole aggregate relation caller777-803 not freshly04compared here."
+  },
+  "findings": [
+    {
+      "id": "ROOT-INITIAL04-F016",
+      "kind": "representable_API_contract_strengthening",
+      "sources": [
+        "pr-working:crates/adventuresim-world-schema/src/language.rs",
+        "pr-working:crates/adventuresim-world-schema/src/bestiary.rs"
+      ],
+      "locations": {
+        "language.rs": [
+          [
+            189,
+            193
+          ],
+          [
+            474,
+            481
+          ]
+        ],
+        "bestiary.rs": [
+          [
+            224,
+            240
+          ],
+          [
+            259,
+            268
+          ]
+        ]
+      },
+      "case": "OralLanguageHours with each direct field f32::MAX passes direct_fields_valid(f32::MAX) yet effective(EastCentral) overflows; BestiaryHours all f32::MAX similarly overflows effective/total_direct. Every scalar finite/nonnegative; rawpublic record API and generic validity maximum permit this. Normal maximum5000 bound makes these fixed-size sums finite, no bad shipped input/runtime asserted.",
+      "connected_repair": "Canonical admitted study-hours/whole-family contract with actual documented bounds propagated through direct_mut replacement, decoding, store, effective/total consumers. Re-admit arithmetic if owner intentionally supports larger finite domain; no arbitrary new mastery cap/UnitInterval on hour sum or silent overflow masking. Retain distinct target direct-study gates and finite negative effect scaling elsewhere.",
+      "acceptance": "Accepted direct hours and actual accumulation contract yield finite meaningful effective/total values or ordinary fallible rejection; no finite-input overflow trusted solely from leaf wrapper.",
+      "deduplication": "Connected existing broad raw-study-hours admission/propagation graph; extra operations witness, not assertion of independent current gameplay defect."
+    }
+  ],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

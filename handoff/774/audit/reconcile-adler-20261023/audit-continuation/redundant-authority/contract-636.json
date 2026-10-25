@@ -1,0 +1,119 @@
+{
+  "id": "CONT07-CONTRACT-636",
+  "at": "2026-10-24T00:51:58.647553+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2774,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/shell_plan.rs",
+      "sha256": "9633486e811f70b72f53994c453b650937f50e40c01021779089fbf4c86159ba",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/gpu/shell_plan.rs",
+      "actual_EOF": 177,
+      "ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2775,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/capability.rs",
+      "sha256": "877f8932ea920a91c610829b96a637ad6d361189a28f41d464376763ca8d160c",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/combat/capability.rs",
+      "actual_EOF": 72,
+      "ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2776,
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment/armor.rs",
+      "sha256": "1eb52192b9ef4b1d23b4a696a3f4b370baf3076b3184e4b576ec681f426e47f1",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/equipment/armor.rs",
+      "actual_EOF": 94,
+      "ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2777,
+      "source_id": "pr-working:crates/adventuresim-core/src/attribute/simple.rs",
+      "sha256": "ee811c460ae3fdb00f99b496a86b5dd9e0f9e060f4d210bb1df16d8cb015f5b6",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/attribute/simple.rs",
+      "actual_EOF": 26,
+      "ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2778,
+      "source_id": "pr-working:crates/adventuresim-core/src/combat_style.rs",
+      "sha256": "061ad83361e2177d953bb8c9b3246f1c654156078edd65e63926ed4dd62c9d77",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/combat_style.rs",
+      "actual_EOF": 18,
+      "ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2779,
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment/loadout.rs",
+      "sha256": "2848f940513dcb82bf20ee25704f89782089ef98a038e7047e1687616e8fb6f1",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/equipment/loadout.rs",
+      "actual_EOF": 39,
+      "ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2780,
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment/parametric_weapon.rs",
+      "sha256": "f62198755e98ea753340c3fdb985f7d576cfbb9a15e33dbf8a8ca4ea1e42e567",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/equipment/parametric_weapon.rs",
+      "actual_EOF": 66,
+      "ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "ShellPlan derives sources/indices/carrier_triangles from one current carrier topology, then faces derives outer/inner/edge sequence from stored counts. Carrier triangulation and thickened shell are deliberately different geometry. Parent-module mutation/native top-bit capacity remain admitted-product questions; normal builder coordinates data, not proof all raw API or >2^31 valid.",
+    "Melee capability derives from selected weapon-side and actual body health. Offhand transfer is explicit independent action, no automatic mirrored state. WearableProtection, aggregate LayeredArmor and actual sampled ArmorSurface have distinct whole-layer versus particular-contact semantics; do not require every scalar coverage equal selected anatomical intersection or collapse sameunitfields. Typed simple attributes/style/loadout restrict actual canonical vocabularies; loadout subset intentionally narrower than general attachment topology.",
+    "ParametricWeaponCombatGeometry is an admitted physical recipe projection with shape bounds and simple scalar checks; raw public fields can bypass coherent recipe provenance, inherited admission/owner contracts remain. melee_reach derives from controllinggrip distance, condition precision intentionally combines instance geometry with catalogue-relative edgecondition. Expect positive catalogue precision is registry precondition needing actual producer before new API claim, not sufficient generic no-panic proof."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2783,
+    "start_line": 1
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "id": "CONT07-CONTRACT-588",
+  "at": "2026-10-24T00:21:14.258536+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2545,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_plan_sampling.rs",
+      "sha256": "50afa2b0cf44d396c140986593eec1d3e893d83361c56178cb7c247b9c9ef559",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/generator/roof_plan_sampling.rs",
+      "actual_EOF": 60,
+      "ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2546,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_split_drainage.rs",
+      "sha256": "3b490e81578cef157900d07954f9fb8d077058299d752879ba933ba0a604576a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/generator/roof_split_drainage.rs",
+      "actual_EOF": 223,
+      "ranges": [
+        [
+          1,
+          223
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2547,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_weather.rs",
+      "sha256": "88c060d0755ae3acb977a20cdfac37a99cfef85d9fb40f4905957a65f51344ac",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/generator/roof_weather.rs",
+      "actual_EOF": 50,
+      "ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2548,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/shed_dormers.rs",
+      "sha256": "0588cb855c05aac8502f65eb1cfa16c891360375def2fa7edff969d8c38e572b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/generator/shed_dormers.rs",
+      "actual_EOF": 163,
+      "ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2549,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/roof_enclosure.rs",
+      "sha256": "f17621933d3d5694bc80282196c95bb2278a5acbc501b3a367fc115eeb1957d4",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/roof_enclosure.rs",
+      "actual_EOF": 63,
+      "ranges": [
+        [
+          1,
+          22
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "PR RoofPlanSampling captures polygon/cutouts/bounds as immutable scratch for one5x5samplingkernel and is shared byprimary/split drainage; actualorigin excludescutouts. roof_weather::contains insteaduses generalpolygon containment andcutouts forphysicaldroprecipient; nominalroofplanehelper omission doesn'tproveallreceiverqueriesignorescuts.",
+    "PR split_eave drainage creates distinctretainedleft/right eave and recessedapron networks fromexistingedgeassociation, derivesgeometry/contactrecords fromone selectedface/edge andskipssamplesempty. Current fixedgutterprofile restatesprimary0.18/0.035/0.11/0.035/drop0.012geometry, but specialapronpurpose meanssharingprofile requiresintentbeforecollapse.",
+    "PR shed_dormers shares canonicalpitch22withDormerLayoutrecipe, but seamheuristic ROOF_BUILDUP0.13independentlyrestates nonflatcoverthickness inroof_resolution16\u201320. Currentagreement; one-sidedcoverthicknessedit canchangeseamdepthvsactualunderside. Actualunderside_height derivesfromface.thickness/normal, so oneprofileowneroractualfaceprojectionwouldremovecompetingauthoredpolicy. Maintenancepopulation retained, no currentfailedseam.",
+    "PR RoofEnclosureFace::new singlepolygon/material/supportproduct startswithinset_walls empty; body1\u201322only, noomittedbooleangeometryorothermethodscredit. Currentfaceconstructor doesn't independentlyreclassify underlyingwallmaterial.",
+    "Allscopedexactrolebodiesreadand sourceconditional/maintenancequestionsretained; no finishedsourceinventoryorall13pass claim."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2550,
+    "start_line": 1
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "id": "RIG-INITIAL06-GROUP-235",
+  "at": "2026-10-23T07:06:06.394720+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-066.json",
+  "groups": {
+    "export-hair-native-asset-product": {
+      "comparison": "Fresh hair export133 owns card geometry, packed canonical rig skin, native eight weights, textures and morphs until borrowed RiggedShell export. Canonical HairDesign/GroomedHair/PlacedHair/HairGeometry and PackedRigSkin remain authoritative, no duplicate runtime rig or hair design declaration. Whole-joint skin derives actual head ordinal and count from generated rig; ordinal validity does not mean same-asset provenance automatically. Native glTF skin arrays and PNG Rgba8 conversion are real wire boundary. Hair pigment linear channel multiplied by atlas shade, explicitly encoded sRGB byte and independent coverage alpha; do not conflate with metric-packed shader Vec4 or HDR radiance. F005 coherent color payload may share conversion at appropriate level, but no blanket all-four-floats owner. OnceLock caches headless device/error process lifetime, not source identity token or accepted body cache. No GPU/export/image execution.",
+      "disposition": "Keep owned export product over canonical hair/rig and explicit native image/mesh adapters; preserve linear/sRGB/coverage distinctions."
+    },
+    "creator-inventory-selection-and-catalogue-owner": {
+      "comparison": "Fresh inventory_acquire138 consumes canonical EquipmentCatalog/ItemDefinition/EquipmentChannel and CatalogArticle; no reimplemented item definition. Display groups use first placement outermost_channel or Accessory fallback and channel.order sorting; that is UI organization, not proof of runtime outer-layer selection equivalence. Wardrobe saved names are user labels, catalogue item/placement IDs are distinct identities, UI search text not accepted ID type. Inventory.add returns local inventory instance identity and wear consumes it; do not replace with catalogue key merely because text/u64 underlying. Article Draped/Settled/Catalog stages deliberately distinguish mutable new cloth, fitted saved garment and catalogue recipe. Actual multiple selected placements remain separate correlated catalogue item+placement products; no copying schema enums or redundant canonical owner introduced. Called wear/resolve/predicate bodies remain their own actual contracts.",
+      "disposition": "Keep UI acquisition and local inventory-instance identity above canonical item/placement/article owners; selection display order is a separate purpose."
+    },
+    "foot-ik-pair-and-canonical-animation-leaves": {
+      "comparison": "Fresh foot_influence124 uses private left/right UnitInterval pair over canonical animation leaf, not two independently checked float wrappers. Both/left/right/none combinations and mirror swap are meaningful bilateral pose influence, not simulation support stance ownership. CyclePhase/CycleDelta distinguish cyclic sampling from elapsed Timeline; BlendWeight allows reduction totals different from bounded per-foot fraction. Vec2 is actual multiply/add/divide scratch, overflow checked, then clamped/re-admitted before retention; this is warranted numerical projection rather than unchanged forwarding. LocomotionProfile contact radius .11 adjusts visual IK only and comments distinguish full simulation stance. Keep product in client presentation with shared checked leaf below; do not move paired foot semantics into generic UnitInterval or merge clock/cycle units. Error AnimationQuantity BlendWeight belongs animation reduction context.",
+      "disposition": "Keep bilateral IK presentation product over canonical animation phase/weight/fraction leaves; real numerical reduction port retained."
+    },
+    "runtime-equipment-example-actual-canonical-ports": {
+      "comparison": "Fresh runtime_equipment_ports147 is a timing probe over canonical CatalogPlacement/ParametricDesign/ArmorGpu/GeneratedArmor/FitBody/Realization/Fitted APIs. It creates authored canonical Millimeters and Permille fields, preserving thickness versus slope ratio and legitimate zero slope; not probability or body mass. Item/placement display strings go through actual CatalogPlacement.find, local name/round/ms are observation roles not durable game identities. topology plus wearer device/joints and fitted domain are borrowed canonical products, separate template and actual realization authorities. Anime default relation remains prior exact Native armor qualification; no unconditional all-defaults-validated promise from constructing example design. Runtime generation and report finite check are actual code paths only, no execution or all generated armor invariant from Result. Scalar slope argument at local probe fixture can become typed to match clean API if actual unchanged forwarding chosen, no new independent canonical Permille owner.",
+      "disposition": "No competing type owner in probe; canonical design/placement/fit products and native timing output remain distinct."
+    },
+    "animation-plugin-transient-state-and-order": {
+      "comparison": "Fresh plugin109 StrategicModel is a presentation-only ECS marker requiring SkeletonState; AnimatedActors query alias intentionally includes Player/StrategicModel, not duplicate durable character schema or combat authority. One TacticalAnimationPlugin installs canonical catalog/runtime/pose/clock/telemetry resources and explicit update/fixed/post ordering, preserving transient Bevy ownership. Diagnostics consume final propagated globals, native/render events distinct from gameplay accepted state. Scheduler method names/order do not establish called body or coherence invariant beyond this source. No strategic DB tactical state relocation, no duplicate new clock owner merely from ProceduralAnimationClock name, no per-type rename to erase meaningful ECS markers. Full original file109 covered independent of producer narrow1–95.",
+      "disposition": "Keep presentation ECS markers/query alias and explicit system installation above canonical transient animation products."
+    }
+  },
+  "supporting_existing_findings": [
+    "RIG-INITIAL06-F005",
+    "RIG-INITIAL06-F032"
+  ],
+  "source_fact_refs": [
+    "contracts-227.json",
+    "contracts-233.json"
+  ],
+  "limits": "Five fresh complete scoped source bodies, no GPU/runtime/export/test execution, no called-body or prior verdict coverage, no new scope/edits/later-lens credit."
+}

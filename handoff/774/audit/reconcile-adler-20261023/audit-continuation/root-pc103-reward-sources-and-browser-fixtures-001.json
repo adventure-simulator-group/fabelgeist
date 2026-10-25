@@ -1,0 +1,77 @@
+{
+  "at": "2026-10-23T21:43:41.235165+00:00",
+  "id": "pc103-reward-sources-and-browser-fixtures-001",
+  "reads": {
+    "crates/adventuresim-stdb-module/src/time/activities.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-stdb-module/src/time/model.rs": [
+      [
+        52,
+        88
+      ]
+    ],
+    "crates/adventuresim-stdb-module/src/reputation.rs": [
+      [
+        258,
+        370
+      ]
+    ],
+    "crates/strategic-web/src/routes/settlements/party/schedule_preview.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/strategic-web/tests/immediate-activity.test.cjs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/strategic-web/tests/schedule-preview.test.cjs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/strategic-web/tests/training-schedule.test.cjs": [
+      [
+        1,
+        10000
+      ]
+    ]
+  },
+  "contract": "Complete actual immediate/scheduled native reward path and independent browser recipients/fixture semantics; F48 context-loss confirmation",
+  "coverage_limit": "Native activities445/Webschedulepreview283 and three browser fixture bodies read only. Remaining main variants, unrelated native activity/schedule/error paths and later lens inventories remain separate, no test/check execution.",
+  "disposition": "F48 now traced native apply_organization_outcomes->reputationrecord_event->Corelocal contributions; actual valid organization Role practicecadence positive, Nativeintervalzero explicit rejection. Actual browser ready response receives SchedulePreview effective/leisure only, so cannotimplicitly supply missing reward data: daily formula has zero rates, immediate modal ignores locality. Existing immediatefixture verifies rawFame2, notlocalprojection; source tests do not prove composite nativeagreement. Canonical ImmediateActivity declared time/model.rs62\u201372 and generated owner is available; local form handmapping Stringandrawminutes stillM52/M53. Sourcepreview alreadyrequires selected+grantedcharacter, actualcurrentlocation and authorizedcasesite before calculation, no localbypass; query errors mapUnavailable ratherthanfabricatedzero positive. Nativecause discarded by map_err beforePreviewError->HTTP is M96 cause-retentiongap, distinctpublicmessage valid. Sourcepreview eligibility samples readtime vs execution samplesactualtime intentionally, not cacheauthoritydefect. Preserve freeapprenticeship despite fakeMAXDOMrewardencoding, stage-specific elapsed clip/death and canonicaldayscale semantics.",
+  "finding_traces": {
+    "M96": {
+      "source": [
+        "crates/strategic-web/src/routes/settlements/party/schedule_preview.rs:60-83,123-177,188-211,237-273"
+      ],
+      "trace": "Actual API enumPreviewError already correct high-level domainvariants, but every source query/CaseSiteadmission error erased into unitUnavailable before actualIntoResponse boundary. Preserve concretecause in internalapplicationerror then render safe generic503 at nativeHTTP port; no request to exposeDB/privatecause publicly. Distinguish actualNotFound/Inactive/LocationChanged and independent sourceerror, avoidduplicatelocaltypedqueryerrorwrappers."
+    },
+    "M51": {
+      "source": [
+        "crates/adventuresim-stdb-module/src/time/activities.rs:209-358,362-444",
+        "crates/strategic-web/static/immediate-activity.js:16-22,45-65"
+      ],
+      "trace": "Native requestedminutes1..24wholehours admittedthen convertedu16schedule, actualelapsedclippedbyinjury/disease maynonwhole and endswhen terminal; performtrainingovercanonicalday applies effectiveintervalallocation, notdaily-clockover24h. Preserve weightedaccrual exactdayproduct vs realminutes and native centipointlocalprojection. F48 requirescanonicalreward projection throughbrowser, no rewardthresholdMAX compatibility, no policytightening oflegitimateelapsedpartialorzero."
+    },
+    "M53": {
+      "source": [
+        "crates/adventuresim-stdb-module/src/time/model.rs:62-72",
+        "crates/strategic-web/src/routes/settlements/party/training_activity.rs:118-139"
+      ],
+      "trace": "Exactexistingnative ImmediateActivity enum Reading/Prayer/CombatTraining/Carousing/Apprenticeship/ProfessionPractice/Labor/Thievery/Raiding; final SDK serdeJSONtag names differfromHTMLsnakecaseformnames. One canonicalenumadapter atnativewire, no interiorStringreclassification or duplicateactivityenums withoutsemanticneed."
+    }
+  },
+  "frontier": {
+    "file": "crates/strategic-web/src/templates/settlement/character_health.rs:1",
+    "work": "PC103 actual reward source+browser fixtures read; PC104 complete clinical/body/stat template receivers, then original pending producer paths and unchanged currentvariants. All13 discovery incomplete, no implementationplan/repair/check."
+  }
+}

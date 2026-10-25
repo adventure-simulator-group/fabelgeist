@@ -1,0 +1,130 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-004",
+  "at": "2026-10-22T19:06:03.219544+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/identity_morphs.rs",
+      "sha256": "340b2018b6091fe33081fc257ab36fc8f65a72011cb81d5fc583239d32807c5d",
+      "actual_read_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "scope_limit": "Exact stated range only; roof_resolution500-590 is PARTIAL of requiredfull738, not fullsourcecoverage. roof_editing newlyprospective Native05REG001/002 beforeRootfreshread, pending018. All other registered017roles."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/lib.rs",
+      "sha256": "9d99fd95ed9ec73c741b282a32784af8c92b4a8d3abcbc8ae15914f94a50f06b",
+      "actual_read_ranges": [
+        [
+          31,
+          43
+        ]
+      ],
+      "scope_limit": "Exact stated range only; roof_resolution500-590 is PARTIAL of requiredfull738, not fullsourcecoverage. roof_editing newlyprospective Native05REG001/002 beforeRootfreshread, pending018. All other registered017roles."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-math/src/transform.rs",
+      "sha256": "db425ac10c79f92ed75f446051d52b90811ab3c5b2c5f28304959c9445182564",
+      "actual_read_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "scope_limit": "Exact stated range only; roof_resolution500-590 is PARTIAL of requiredfull738, not fullsourcecoverage. roof_editing newlyprospective Native05REG001/002 beforeRootfreshread, pending018. All other registered017roles."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_editing.rs",
+      "sha256": "53655cb95df237464c4b34646936dd085323800bf11a21f2f7762de11dd29b17",
+      "actual_read_ranges": [
+        [
+          1,
+          229
+        ]
+      ],
+      "scope_limit": "Exact stated range only; roof_resolution500-590 is PARTIAL of requiredfull738, not fullsourcecoverage. roof_editing newlyprospective Native05REG001/002 beforeRootfreshread, pending018. All other registered017roles."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_geometry.rs",
+      "sha256": "91328984a11b2f161fe96001c235234a6d0ff01037d253cecac5a2dabf59e20e",
+      "actual_read_ranges": [
+        [
+          1,
+          34
+        ],
+        [
+          56,
+          470
+        ]
+      ],
+      "scope_limit": "Exact stated range only; roof_resolution500-590 is PARTIAL of requiredfull738, not fullsourcecoverage. roof_editing newlyprospective Native05REG001/002 beforeRootfreshread, pending018. All other registered017roles."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_resolution.rs",
+      "sha256": "28e7fdd050516198f0b523e4cc1e05f5485f1797fa94776c17e749acd33edc22",
+      "actual_read_ranges": [
+        [
+          500,
+          590
+        ]
+      ],
+      "scope_limit": "Exact stated range only; roof_resolution500-590 is PARTIAL of requiredfull738, not fullsourcecoverage. roof_editing newlyprospective Native05REG001/002 beforeRootfreshread, pending018. All other registered017roles."
+    }
+  ],
+  "groups": {
+    "framework-morph-output": {
+      "source": "pr-working:crates/adventuresim-tactical-client/src/animation/identity_morphs.rs",
+      "trace": "Separatefocused04analysis from03G088: no localarithmeticbespokeconstruction; normalidentity/proportions/fitweight computedbyalready-scopedexternalcanonical kernels, guarantees mustbecheckedthere. NativeMorphWeights actualfloatassignment necessaryframeworkport. namesenumerate potentiallylongerthanweights, butimmutableweights.get(index) check occursimmediatelybeforemutating sameweights[index] andnoresize/callbackintervenes, safe dynamicindex. No fallible? orretryclockconsumption; missingquery/names/weightslots skipnativeupdate retainingoldweights, deliberatecachecoherence Camera07findings separatelymustbefixed, not a numericinvariant conclusion. Removedcomponent setloop andsharednew_morphs boolean areinvalidationoperations, no checkedvaluearithmetic. Exact1-76 only."
+    },
+    "negative-owner-native-transform": {
+      "sources": [
+        "pr-working:crates/fabelgeist-mhr/src/lib.rs",
+        "pr-working:crates/fabelgeist-math/src/transform.rs"
+      ],
+      "trace": "MHR exact31-43 exports only, no numerical/mutation operation. Sharedmath exact1-110 rawTransform doesnotadmitfinite/norm/unitbespoke semantics, basicconstructor copiesnativeVec3/default0/unit3scale. to_mat4 usesEulerdegrees radconversion/sin/cos/RzRyRx andscaledcolumns; unboundednativeinput mayyieldnonfinite andrawnativeMat4 offersnoacceptedgamecertificate. Forcanonical-owner comparison itisnotsemanticallysubstituteforMHR f64quat/uniformscale. Noactual774caller useofthismathTransformestablished, so no speculativeupstreamlibraryrewrite or fourthduplicateTransformowner. look_at56-60 inversefallback observedbut lowernativehelpers111+ notmateriallyselected forcompetingdefinitionrole, no algorithm/bodycredit. No acceptedbespokevalueoperation toproveinbinding/negativecandidate role."
+    },
+    "staged-roof-edit": {
+      "source": "pr-working:crates/adventuresim-building-generator/src/generator/roof_editing.rs",
+      "trace": "Fresh229 afterNativeprospective2registrations. Inputpitch inclusive15..75range rejectsNaN/Inf via contains. positionfind guardsassemblyindex. oldfirstface defaulttarget makesfacelessrequestno-op; epsilonchangegate andoldtan\u22480topologygate intentionalcurrentpolicypreservedpendingmagicnumericslens. Scale finiteinputfactor notautomaticallyfinite; facepoints validatedroof_polygon_bounds afterYupdate; scaledcrossnormal/centres stillraw F003. CloneassemblyANDGeometry thenreconstruct? BEFOREassign75/76 guaranteesoriginalplanunchangedonreturnedErr forstandard Rustownedclone semantics (not SDKtransactionguess). Child/parent/inset/heating reject beforeclones, no-opbeforetopology preserved. source_piece_index.mapplan.roofs[index]137 relieswholegraph provenance; rawout-of-rangepublicgraph notlocallyguarded, sharedgraphadmissiongap, noactualnormalpanicclaim. Perfacebounds/surface/catchment/route updated, edgeYthenweatherrefresh, catchesfinitecentres/dimensions/angles butno allaggregategraphcertificate, F004. Catchment sumVec3/len107 mayoverflowtoInf althoughindividualfinitevertices passedbounds; rawpublicAPIcounterexample four x=1e38 sums>MAX (not assertionallroofcorrelationsvalid), needsderivedevidencecheck ratherthantreatingboundsaswholephysicalproof. No newfindingcountbeyondsharednumericalgraphgap. Native?retainsCollisionError/GenerationError typedcauses withRoofEditConstruction."
+    },
+    "roof-geometric-kernels": {
+      "source": "pr-working:crates/adventuresim-building-generator/src/generator/roof_geometry.rs",
+      "trace": "Allscoped1-34and56-470 fresh; 35-55excluded. roof_plane directindicesrequire>=3 callercontext; roof_polygon_bounds actualguardestablishes3 whencalledbeforeplane, no universalprivatehelperpreconditionclaim. Boundsadmitsfinitepoints/orderonly F003. roof_face_polygons emitsfixed3/4/6vertexauthoredtopologies forclosedroofkind/axis usingnativehalfextents/tan/centre offsets; no localcomputedfiniteadmission, outerresolve_one_roofmustownacceptance. Conicalfixed0..24 index castsbounded anddenominator24nonzero; fixedcorners0..3 safe. same_roof_vertex difference/norm mayoverflow yieldsfalse, no wrappedbespokevalue. Rect/convexclipping loops guardempty beforemodulo; previous(index+len-1)%len structurallysafe fornormallyallocatableRustVecsizes, no fabricatedemptyindexpanic; intersectionsnearzero choosefraction0 currenttolerancepolicy, rawresultcanbenonfiniteforhugefiniteoperands. signed_area onempty iteratorneverindexesmod0 andreturns0, 1/2pointareanumerically0; shoelacemultiplication/sum mayoverfloworcancelNaN. Hullcross/dedup/native total_cmp are rawgeometry, notcheckedconvexpolygonbuilder; lower/upper indiceslength>=2guarded. Convexclip len>=3guardandorientation from signedarea; degeneratezeroorientationcanmakecontainmentvacuous, calleracceptedpolygonmustreject, notmandateallrawhelpershandleconcavityasconvex. raycasting ycross shortcircuit avoidsnormalhorizontaldivision0 viafloor butfiniteness/overflowstillnotproved; signeddenominatorpolicyunchanged. Heightkernels F003, undersideactualmethod implementationowncellpending. Rayintersection denom\u22480 returnsNone, finalparameterchecksboundedge andforwardray, butno finitepoint resultadmissionafterorigin+direction*t. Theseareactualnativekernelintermediates; retainunits/frame and checkpublishedacceptedgraph ratherthanbespoke-wrapper everyloopscalar."
+    },
+    "original-interface-producer": {
+      "source": "pr-working:crates/adventuresim-building-generator/src/generator/roof_resolution.rs",
+      "trace": "Fresh500-590exactrole, NOTfull738. weather ID/sourceedgeorder; half/length/cospolicy generatescheckedCollisionCuboidbeforepush; thenmatching0x9SupportInterface usesorderedfinitebounds atcentre\u00b1authoredXYZ. support_nodes[0] reliesearlierresolution contextNOTreadhere, nolocalcompleteproof. Subsequentgridsnaproundasusizei32 contextrawnativepolicy maynarrow/saturate, actualproducerbounds cellpending. ExactmatchinggeneratedIDs/centres sufficeforF004conditionaleditcomparison, not source-wideclearance."
+    }
+  },
+  "findings": [
+    {
+      "id": "ROOT-INITIAL04-F003",
+      "class": "representable_API_numeric_contract_gap; current_authored_badinput_not_established",
+      "source": "pr-working:crates/adventuresim-building-generator/src/generator/roof_geometry.rs",
+      "operation": "roof_plane unchecked cross-normalization/plane-dot publication and roof_plane_height unchecked normal.y division lose geometric guarantees despite finite polygon vertices.",
+      "case": "roof_polygon_bounds14-32 accepts >=3 finitevertices withoutnoncollinear/planecheck. A collinearfinitepolygon suchas(0,0,0),(1,0,0),(2,0,0) yieldsnormalize_or_zero0 -> RoofPlaneEquationnormal0/constant-0 in1-11; roof_plane_height divideszeroat402 =>NaNforzero numerator. Rawpublicplane normal.y0 alsoadmitsverticalundefinedheight. Noncollinearfinitecrossproductcanoverfloworunderflow aswell. No particularcurrentauthoredroof orsuccessfulwholebuilderclaimed; boundsadmission isnotacceptedroofgraphcertificate.",
+      "consumer": "roof_surface_height_at436-445 publishes Some(height) whenplancontainmentpasseswithoutfinite/height applicability check; rawgraphmayalsopermitdegenerateoutline. reconstruct_roof_pitch93 replacesplane via samekernel.",
+      "acceptance": "Admit derivedplane/normal and explicitlyclassify undefinedheight/degenerateface beforepublishing acceptedroofgeometry; preserve validconcave/cutout/heightsignedzero policies, do notnormalizeinvalidplane tohorizontalfallback or reinterpretNone as0. Nativekernelsmayremainrawinsideowner butcomputedacceptedresult readmitted atactualgraphboundary. Reuse canonicalframedgeometry error/direction/length owners."
+    },
+    {
+      "id": "ROOT-INITIAL04-F004",
+      "class": "source_backed_conditional_accepted_edit_retention_defect; noexecutedrequestclaim",
+      "sources": [
+        "pr-working:crates/adventuresim-building-generator/src/generator/roof_editing.rs",
+        "pr-working:crates/adventuresim-building-generator/src/generator/roof_resolution.rs"
+      ],
+      "operation": "Pitch edit commits changedweather/flashing solids without refreshing their generated support interface bounds.",
+      "trace": "Original weather0x8solid edge_index500-558 and matching0x9supportinterface559-569 are bothat originaledgecentre. set_roof_pitch clonesgraph61-62, scalesfaceandedgeY90/143-144, refresh150-228 movesweather/flashingcentres/sizes/angles andcommitsbothclones75-76 onOk. No support_interfaces updateanywhere1-229; surface.bounds update100 isdifferentcollection/id. A standaloneattached-free KeepEavegable withvalidsuccessfulchangedpitch movesridgeedgeandphysicalweatherwhilematching interface staysatoriginalcentre. Conditionscurrentbuilder/editAPI/sourceIDs explicit; noexecutedasset/request or claimallrequestsreachOk.",
+      "acceptance": "Reconstruct correlatedsupportinterfaces andallotherderivedgeometry alongsideweathering inthesame stagededit, thenatomicallycommitbothassembly/geometry afterallchecks. Reuse originalcanonicaledgephysicalgeneration facts/IDs ratherthanpiecemealduplicateformula; retain topologyreject/no-op/pivot/errororder. No rollback ofunmodifiedoriginal needed becauseexistingclone/commit iscorrect.",
+      "related": "Native05F004 independentfresh04 sourcecomparison, no transferredlensverdict."
+    }
+  ],
+  "source_edits": 0,
+  "project_execution": 0,
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "other_lens_credit": false
+}

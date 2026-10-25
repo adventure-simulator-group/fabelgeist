@@ -1,0 +1,261 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-211",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "sha256": "85c8f2c699beb1c00311678bbe179a5cc75bb33c607051bd967e91c9e6eba749",
+      "actual_EOF": 3250,
+      "actual_compared_ranges": [
+        [
+          1,
+          3250
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+      "actual_EOF": 3250,
+      "actual_compared_ranges": [
+        [
+          1,
+          3250
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "id": "Direct custody transfer and intrinsic valuation",
+      "locations": "inventory_trade.rs1-617,1559-1963",
+      "trace": "Direct personal transfer admits positive quantity, distinct same-party actors and available unequipped source. Any stable object goes through exact rowquantity1 and canonical detach/rehome; measured/medication/durable fallback paths require complete singleton rows, food split fallback validates quantities before subtraction. Fungible destination checked_add failure creates another stack, preserving total rather than truncating. Deposit/withdraw use exact object/subtree valuation and canonical rehome; legacy no-object measured fallback explicitly moves lot and fraction. This confirms that208 party-merge reconstruction does not share the correct normal custody path. Nonfood intrinsic value u32*u32 widens tou64, checked subtree/loot totals reject overflow. Food lot floor asu64 saturates a huge finitef32 value; canonical admitted currency/material capacity remains needed, no ordinaryhugefoodvalue claimed. Per-holder stake/reserve credit uses checked_add; withdrawal cost>stake computes safe topup, transfers exact difference, saturating_sub intentionally consumes all prior stake when topuprequired. All final refreshes fallible; SDK/catch graph still governs atomicity.",
+      "disposition": "No new ordinary subtraction/merge overflow in canonical transfer ports. Preserve208 as specific bypass, and represented value/aggregate qualifications.",
+      "dependencies": [
+        "SEGOVB-04-PARTY-MERGE-MEASURED-001 in208",
+        "local774:M29 and canonical stable object/material custody",
+        "Canonical food value/coin capacity and aggregate ledger",
+        "SDK transaction/catch graph"
+      ],
+      "acceptance": "Every successful transfer preserves exact stable object/remaining fraction/lot/condition identity and value ledger; amount conservation survives row fragmentation. Fail before source destruction or rely on confirmed outer transactional contract, never silently ignore failed child."
+    },
+    {
+      "id": "Mission candidate selection and hostile completion",
+      "locations": "inventory_trade.rs619-1436",
+      "trace": "Current candidates compare every retained capability coordinate, checkedget path/objective progress and exact siteheld capturedsubject/version. Weighted selection sorts byID and hashes current immutable fields; actual weighted_index error returnsNone and Bound mission becomesFailed rather than unsafe remove, but valid index/weight aggregation remain exact RNG dependency. All new state parsed at Bound/Committed/Failed transitions. Hostile completion compares exact receipt coordinates before current state, validates group/site/case/mission or authorized precombat approach, then disposition/roster changes precede fallible fact/custody/incident and outerreceipt. Capture saturated currentversion+1 extends203 same terminal authority graph. OutcomeSource retry compares battle/party/mission/group/resolution but not capture subject/drops/randomgold; exact private producer/immutable source policy needed before ordinary retry-conflict claim. No blanket catch/rollback claim. Bound normalized power drives rewards deliberately, not later strengthened live group. u32power.divceil1000 then min i32MAX safe; maximum_gold=difficulty.max1 asu32*10 canoverflow for huge represented difficulty, and currency combined +=gold canoverflow representeddropMAX; actual mission/difficulty/drop admission requires closure before ordinary failure. Combined duplicate drops saturateu32 and silently discard excess, same canonical accepted aggregate capacity decision. Victory morale finite for all i32, but semantics of signed lower clamp preserved.",
+      "disposition": "No new ordinary mission arithmetic finding; current actual graph confirms209/210 children and explicit represented capacity/retry/custody questions.",
+      "dependencies": [
+        "Actual weighted_index/mission candidate admission and weights",
+        "Packet203 capture custody version owner",
+        "Actual mission snapshot/drop/difficulty admission and bounded threat source201",
+        "Hostile-resolution immutable receipt and SDK/catch semantics"
+      ],
+      "acceptance": "Successful canonical completion samples only exact current admitted candidates, publishes coherent group/fact/custody/receipt, and keeps tactical child unable to choose strategic outcome. Every accepted reward/drop aggregate has representable amount or explicit rejection before publication. Exact immutable retry cannot change capture/rewards."
+    },
+    {
+      "id": "Loot, currency and pool-share arithmetic",
+      "locations": "inventory_trade.rs1438-1557,1697-1832,2287-2474,2957-2997,3000-3250",
+      "trace": "Loot lists align, duplicate IDs reject and every quantity positive<=available; emptylist deliberately selectsall. Value multiplication/addition checked. Livingparticipant helper output requirednonempty beforedivision, participant_countusize->u64 fitscurrent64bit; equalshare+remainder preserves total if actualhelperdedups. Loot removalchecked_sub; party add void adapter ignores checkedchild errors, so no automatic delivery guarantee. All personal/party currency totals/preflights sum widenedu32tou64 without checked aggregate; this needs admitted total capacity, no normal billionsofstacks claim. Transfers take minremaining/stack then subtract safely in stableitem/idorder. Storefront authorization computes checked price*quantity, canonical paymentplan uses personal-first min then safe difference and explicitnonzerofunding; actual request split is intentionaldistinctpolicy from sharedcurrency-first general purchase. Checked receivesu32 narrowing mayreject after inventorywrites, outer SDK semantics required. Temporarycompanion dismissal calls settle_temporary_member_stake which transferscurrency but doesnotreducePartyStake; remove_party_member then rejectsanypositive stake. Thus representedtemporarymemberwithstake cannotcomplete dismissal via thishelper; actualtemporarycompanion contribution reachability remains dependency, not promoted normalcase. Disband requires no positivestakes, pooledassetscurrencyonly and exactreserve match, thenmovesreserve, deletesgroupandcreates solos. Tacticalstate deliberatelynotdeletedhere.",
+      "disposition": "Canonical local arithmetic mostly guarded; retain aggregate capacity, ignored-child-error, temporary-stake and membership lifetime dependencies.",
+      "dependencies": [
+        "Actual living_participant_ids dedup and battle participant writer",
+        "Canonical aggregate currency/pool/stake conservation",
+        "Actual temporary companion classification/contribution/withdrawal contract",
+        "SDK transaction/catch graph and typed native error integration"
+      ],
+      "acceptance": "Deliveredloot/currency and creditedshares conserve exact totals, including reserve. Failed delivery cannot destroyloot or debit source. Valid dismissal must settle the retained stake as well as currency before membership change. Disband preserves all intended assets and strategic/tactical ownership."
+    },
+    {
+      "id": "Batch subtree selection and liquidation conservation",
+      "locations": "inventory_trade.rs1965-2199,2640-2905; fresh inventory_container175-193,295-317,549-592,649-704",
+      "trace": "Liquidation/discard/sales require aligned positive entries and distinct rowIDs, validate perobjectquantity1, quote current subtree totals, and stagebeforemutation. Distinct root rowIDs do not guarantee disjoint subtrees. Childfirst then parent selection can count childtwice yet successfully deleteonce, exact finding below. Rootfirst childsecond would failmissingroot, so operationorder matters and no universaldoubleclaim. Fresh deletion rejects missingroot and prevalidates alldescendants before deleting; detach invokes parentmerge onlywhenempty/nonnested. An extra secondchild keepsparentnonempty and closes successful childfirst witness. Current party offer parser validates alignment/positive lines but not duplicate/overlap; actual transfer rereads state so duplicate overdrawnormallyErr, wholeouteratomicity needed, not same successfuldoublequote. Reject/normalize overlapping roots at canonical accepted batchboundary; do not flatten independentlines byitemID.",
+      "disposition": "Source-static ordinary-size liquidation value defect below; same batch owner also governs storefront sales. No runtime/DB evidence.",
+      "dependencies": [
+        "SEGOVB-04-LIQUIDATION-OVERLAP-001",
+        "Canonical physical object batch selection and subtree value owner",
+        "Actual graph custody/containment admission and mutation order",
+        "SDK transaction/catches"
+      ],
+      "acceptance": "Accepted staged sale/liquidation counts each physical object at mostonce, independent of inputorder. Preserve exact subtree custody/material/value, reject overlap beforemutation or deliberately normalize a nonoverlapping rootset."
+    },
+    {
+      "id": "Storefront bounds, quotes and measured personal purchase",
+      "locations": "inventory_trade.rs2201-2998; fresh canonical strategic_inventory,strategic_economy,settlement_economy; capability/mass and actual catalogue",
+      "trace": "Typed request aligns buys/sells and requires positive quantities; sale duplicateIDs independently reject. Real actor temporal scope required at2550 before laterZERO fallback2596, so acceptedtradeatmissingtime not established. Preliminary stake-funded quote usesZERO fallback2433 before lateractualscope; laterErr rollback stillrequired, no successfulfakeclock assertion. Provider exacthome/service/defaultlocation/presence/uniqueprovider and item/category/bookallowlist validated. Canonical price helpers normalize language and checked line/total arithmetic; hugeu32quote casts saturate atpriceowner, preserveactual sourceprice policy without silentnewprecision. Proceeds costs net with guarded subtraction, totalbalance checkedbeforeinventorymutation. Personal buy merge at2934 excludes onlyequipmentkind andfood; measured/stable-object supplies such as authored softsoap stillmerge rowquantity, violating invariant below. Fresh actual mass helper uses retainedfraction ratherthan rowcount, so merged extraunit not reflected inphysicalmass; final capability has further fallible childparts, no execution claimed. Original itemcreator emits one stableobject/fraction per unit; partybuy uses checked creator and avoids thisshortcut. Actual PR differs typed result/checkedadd_inventory_item adapter call sites, not mergepredicate; full diffconsumed. Existing source fixtures read, not run.",
+      "disposition": "Source-static ordinary-size measured purchase mutation finding below, with accepted final DB flow qualification. Clock fallback caller distinction and actual error causes retained.",
+      "dependencies": [
+        "SEGOVB-04-STOREFRONT-MEASURED-STACK-001",
+        "Canonical measured/stable object creation versus fungible merge owner",
+        "local774:M29 /M27 /material and shared amount owners",
+        "Actual full capability/autoresolve finalrefresh and SDK rollback",
+        "CAM-PPS-F006/local774:F05/M30 native error ownership"
+      ],
+      "acceptance": "Successful purchase delivers each measured/stable unit with its own correct amount/object identity and preserves prior partial fractions. Fungible merge may remain checked but cannot apply to stable objects. Actual final errors propagate; source creation/payment/fanout stay coherent."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-LIQUIDATION-OVERLAP-001",
+      "classification": "Source-static ordinary-size successful value conservation defect; no DB/run.",
+      "source_ids": [
+        "physical-p16:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+        "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs"
+      ],
+      "locations": [
+        [
+          2000,
+          2069
+        ]
+      ],
+      "input": "Valid party-held leather_satchelR (authored base8, containmentcapacity20) contains two whole softsoap objectsA/B (base3each). At permittedmarket, submit distinct rowIDs[A,R], quantities[1,1]. Exact graph construction/run not executed; canonical admitted shape supported by actual authored attachment capacity and stable object helpers.",
+      "operation": "Preflightquotes A3 and subtreeR14 fromoriginalgraph =>17. DeleteAfirst detachesit; BkeepsRnonempty so parentmerge returnswithoutremoval. deleteA succeeds, then deleteR/B succeeds. Credit17 for uniquephysicalvalue14, since onlydistinctrowIDschecked and no subtree-disjoint admission.",
+      "relationship": "Specific operations proof in canonical batch/subtree/material graph, not exact/global unique dedup claim. Merchant sales share overlappingselection shape but have their own quotes.",
+      "dependencies": [
+        "Actual detach/delete/graph custody invariants",
+        "Canonical accepted batch root set",
+        "Party pool reserve/value and error boundary"
+      ],
+      "acceptance": "Each physicalobject valuedonce regardlessinputorder; reject intersecting selected subtrees beforewrites ornormalize explicitdisjointroots. Preservewhole stableobject/material/lot identity and correctproceeds.",
+      "repair_status": "frozen",
+      "validation_status": "not_run"
+    },
+    {
+      "id": "SEGOVB-04-STOREFRONT-MEASURED-STACK-001",
+      "classification": "Source-static ordinary-size mutation violates admitted singleton amount/object invariant; final DB/run not executed, final refresh consequences qualified.",
+      "source_ids": [
+        "physical-p16:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+        "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs"
+      ],
+      "locations": [
+        [
+          2916,
+          2955
+        ]
+      ],
+      "input": "Existing unequipped personal softsoap rowquantity1 with stableobject and admitted remainingfraction (wholeorpartial); legitimate positive buyquantity1 at stocked General storefront. Actual catalogue softsoap Simple/no durability; inventory_amount explicitlymeasured. Actual accepted liveactor/DBtradenotrun.",
+      "operation": "!equipmentkind &&!food predicate acceptssoap, checked_add1 changes rowquantity1->2 withoutnewobject orfraction. Current amount stilloneunit, actual mass helper usesfraction notrowcount, and directstableobject transfers requirequantity1/rowquantity1. It loses correct purchasedamount or causeslaterinvariantrejection. Finalcapabilityrefresh isfallible andwholeacceptedDBresult notclaimedfromstatementorder alone.",
+      "relationship": "Extends canonical measuredamount/stableobject graph local774:M29/M27, distinct storefront mutation bypass from208partymerge. No guessed globalunique count.",
+      "dependencies": [
+        "Actual storefront stock/provider/authenticatedactor",
+        "Canonical individual itemcreator/measurement owner",
+        "Actual full final capability/load_combatant and SDKrollback"
+      ],
+      "acceptance": "Successful purchase cannotmerge measured/stable rows asfungiblestacks; retainexistingpartialfraction andcreate exactnewunit/objectauthority. Failure cannotcharge/debit orretaininvalidrow.",
+      "repair_status": "frozen",
+      "validation_status": "not_run"
+    }
+  ],
+  "fresh_dependencies": [
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/source/physical-p16/crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "sha256": "1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+      "actually_read_ranges": [
+        [
+          175,
+          193
+        ],
+        [
+          295,
+          317
+        ],
+        [
+          549,
+          592
+        ],
+        [
+          649,
+          704
+        ],
+        [
+          1034,
+          1070
+        ]
+      ],
+      "coverage": "Fresh critical body or authored literal only; no additional whole original role credit."
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/source/physical-p16/crates/adventuresim-stdb-module/src/capability.rs",
+      "sha256": "78dedc50a9d6ed96ba7f2bb88a85ff2c1f762296d8c7867acc99ea2e7aed98bd",
+      "actually_read_ranges": [
+        [
+          70,
+          177
+        ],
+        [
+          268,
+          340
+        ]
+      ],
+      "coverage": "Fresh critical body or authored literal only; no additional whole original role credit."
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/source/physical-p16-unscoped-dependency/crates/adventuresim-stdb-module/src/capability/mass.rs",
+      "sha256": "f041c03c0717ed86e0918d7002f19d097d720976ff98ad591ad80a10711add01",
+      "actually_read_ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "coverage": "Fresh critical body or authored literal only; no additional whole original role credit."
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/source/physical-p16-unscoped-dependency/crates/adventuresim-core/src/strategic_economy.rs",
+      "sha256": "0821918d44bc66de59484518b50255c6a75b8001427feaa6ab8309a7a8ec7e5c",
+      "actually_read_ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "coverage": "Fresh critical body or authored literal only; no additional whole original role credit."
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/source/physical-p16-unscoped-dependency/crates/adventuresim-core/src/strategic_inventory.rs",
+      "sha256": "d271b63418f6ef51f276ab1e383bb534724f08ae106ffd7285f530e0308fef3e",
+      "actually_read_ranges": [
+        [
+          1,
+          84
+        ],
+        [
+          226,
+          336
+        ]
+      ],
+      "coverage": "Fresh critical body or authored literal only; no additional whole original role credit."
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/source/physical-p16-unscoped-dependency/crates/adventuresim-core/src/settlement_economy.rs",
+      "sha256": "5ebaaf60d766322d2dc8bbd0cf1a54b0c790793a11d1d3f7b98e139861a3c54e",
+      "actually_read_ranges": [
+        [
+          164,
+          296
+        ]
+      ],
+      "coverage": "Fresh critical body or authored literal only; no additional whole original role credit."
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/source/physical-p16-unscoped-dependency/content/items/catalog.yaml",
+      "sha256": "87e0f51292d42ab62beeabc9f2624f635c27acf8b28ae3d8c2931eb9297f491b",
+      "actually_read_ranges": [
+        [
+          3540,
+          3584
+        ],
+        [
+          4740,
+          4800
+        ]
+      ],
+      "coverage": "Fresh critical body or authored literal only; no additional whole original role credit."
+    }
+  ],
+  "status": "2 original roles personally compared; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/strategic/journey_camp.rs"
+}

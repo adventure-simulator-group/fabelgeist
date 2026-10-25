@@ -1,0 +1,50 @@
+{
+  "id": "CONT07-CONTRACT-548",
+  "at": "2026-10-23T23:35:19.790128+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2397,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_details.rs",
+      "sha256": "20df400f0369e7c2cb2ed08d3bd943f6ec5ac1ce6ee3d4db328401632767f82f",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/templates/settlement/character_details.rs",
+      "actual_EOF": 1065,
+      "ranges": [
+        [
+          1,
+          485
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2398,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_details/summary.rs",
+      "sha256": "8296a4e8146021634980e305ecae90f3794704fc74dd9865c9be8d4de2a57a4e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/templates/settlement/character_details/summary.rs",
+      "actual_EOF": 56,
+      "ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Characterdetails exact1\u2013485only scope read; fullsheet builders shareoneCharacterSheetView\u2192character_sheet_markup rendering owner. Currentpersonalityoptionalprivacy, trainingreligion context religion.or(locationreligion), professesreligionactualpersonalpresence aredifferentfacts. Currentcapability/skills/limbs areindependentobservations withsameidentity suppliedbyroute, no cachehere.",
+    "foraging_open derives actualdialogpresence; cookingfixedNone/false explicitinformationalpolicy. Dialogid/path/selectedmember allsameargument projections. Active/selectedpartypermissionrender branchesdo notthemselvescommitDBauthority.",
+    "Religion_name openstringmanual9labels extendsOfficialReligion7 withwestern_church/old_faith, so notautomaticallyexactsameclosedroster. Catalogue/personalreligion owner comparison mustpreserve distinct broadidentity versus officialobservancepolicy; no wholebio remainderclaim.",
+    "Summaryrail full56body consumesonecomputedicons list; CSSranktiers/displaylabels/tooltips allsameicon, MaskversusMonogram ownsneighboringpayload. No independentlyreclassifiedtextcontrol."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2399,
+    "start_line": 1
+  }
+}

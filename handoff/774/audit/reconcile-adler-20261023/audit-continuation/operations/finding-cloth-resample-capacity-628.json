@@ -1,0 +1,30 @@
+{
+  "id": "SEGOVB-04-CLOTH-RESAMPLE-CAPACITY-CANDIDATE-001",
+  "lens": "04",
+  "source_id": "pr-working:crates/fabelgeist-cloth/src/triangulate/mod.rs",
+  "sha256": "18e60b537352a1753963980da26dd94705dee8a4b44232dece7c90fa07d8416b",
+  "ranges": [
+    [
+      104,
+      121
+    ],
+    [
+      174,
+      198
+    ],
+    [
+      229,
+      242
+    ]
+  ],
+  "contract": "A finite positive target edge does not establish representable subdivision counts or bounded meshing work.",
+  "witness": "Simple finite outline [(0,0),(1,0),(0,1)] and target_edge=1e-30 pass line119. The first unit edge has length/target around1e30, which rounds and saturates on cast to usizeMAX. Line184 computes segments+1 before Vec capacity allocation; this overflows with checked arithmetic or wraps and then enters an impossible huge loop without native work admission.",
+  "qualification": "Representable public API/custom-resolution counterexample only. No authored tiny edge, ordinary garment producer failure, allocation, execution, or global uniqueness claim. Interior row/column conversions and u32 Delaunay indexing are connected capacity obligations, not separately counted failures.",
+  "repair_boundary": "Admit computed subdivision/lattice counts and actual u32 index/work capacity before allocation or iteration; preserve legitimate positive physical scales instead of imposing an arbitrary scale floor.",
+  "acceptance": [
+    "Unit triangle at tiny positive edge returns an explicit structured capacity/work rejection before allocation/iteration.",
+    "Valid ordinary panels retain winding-independent edge numbering and seam chains.",
+    "Representable accepted lattice/boundary counts fit native index and intermediate addition domains."
+  ],
+  "alias_status": "Pending narrow exact supplied-record comparison; no duplicate inferred from shared cloth title."
+}

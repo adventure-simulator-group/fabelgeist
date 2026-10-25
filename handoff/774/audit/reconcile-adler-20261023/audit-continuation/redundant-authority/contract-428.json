@@ -1,0 +1,140 @@
+{
+  "id": "CONT07-CONTRACT-428",
+  "at": "2026-10-23T21:45:38.281087+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1888,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "sha256": "2bdf24f3de20d1901bfc475d799d3a07781d9c5e22733caaea0d2365250edd0f",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "actual_EOF": 522,
+      "ranges": [
+        [
+          1,
+          522
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1889,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics/quickstep.rs",
+      "sha256": "10c98a5fec7f36e1567f37c82b15e65c990d8412f2a1a1a9f67982adaef10223",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/physics/quickstep.rs",
+      "actual_EOF": 81,
+      "ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "NATIVE-OWNER-MOVEMENT-SPEED-001",
+    "ROOT-OWNER-MOTOR-013",
+    "ROOT-OWNER-MOTOR-CLOSURE-072"
+  ],
+  "facts": [
+    "1888 actual ordinary_controller_speed consumes supplied movement configuration for walk/run/guard/prone policy and player facts for calibrated jog/sprint. Intentional effort speed, physical velocity, leg injury/mass effects and fatigue state are different facts. No direct fatigue/total-incapacitation speed multiplier in this source; limb-specific injury policy preserved. Reference public helpers/constants may be separately authored physical policy, but no actual ordinary breath/exhaustion helper recipient found in2853 beyond fixtures/reexports; no unsupported runtime drift finding.",
+    "1888 full522 fixtures verify reference calibration and guard sprint/jog/prone effort/analogue magnitude source contracts only. Do not equate default reference constants with arbitrary configured paces without proving same policy. Source search is navigation, not whole-source coverage.",
+    "1889 clock.elapsed derives authoritative locomotion tick minus push start; clock.action derives duration-rounded samples; bounded recovery intentionally distinct from active dodge and support-duration force envelope. Actuator origin/orientation describe captured launch frame, current transform/velocity are different physical facts.",
+    "Conditional quantization observation: sample_clock51-55 uses round(duration*Hz).max1 as actuator denominator, quickstep_action_contact_ticks73-80 uses max2 then floor(total/2) as symmetric midpoint. For valid5-sample duration those become5 versus midpoint2/full action4. Motor1886 targets next integration step via elapsed+1 at517 and intentionally allows bounded recovery, so numerical discrepancy alone does not establish wrong normal frame/behavior. Preserve pending comparison of actual system-phase/sample ordering; no newF094 or default failure asserted. Current authored0.50s/64Hz yields32/even and agrees.",
+    "Fresh exact normal helper2067:1335-1366 uses supplied duration for contact conversion then starts push from same tick/orientation/origin. It cannot resolve quantization policy alone. Existing F070 diagnostic mismatch and F092 curve-policy discrepancy are separate, no automatic merge.",
+    "No checks executed; all13/overlay gate remains open."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1891,
+    "start_line": 1
+  },
+  "fresh_partial_support": [
+    {
+      "scope_index": 1860,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "5d114988a64595879b04e6f151d2a184cdf8f893f2f2b17a9987a3faf933d4ab",
+      "ranges": [
+        [
+          181,
+          335
+        ]
+      ],
+      "status": "fresh exact support only; no whole-source or additional unique coverage"
+    },
+    {
+      "scope_index": 1886,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics.rs",
+      "sha256": "14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b",
+      "ranges": [
+        [
+          390,
+          460
+        ],
+        [
+          476,
+          800
+        ]
+      ],
+      "status": "fresh exact support only; no whole-source or additional unique coverage"
+    },
+    {
+      "scope_index": 2067,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+      "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "ranges": [
+        [
+          1335,
+          1366
+        ]
+      ],
+      "status": "fresh exact support only; no whole-source or additional unique coverage"
+    },
+    {
+      "scope_index": 1781,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state.rs",
+      "sha256": "48d075954cf0381f63c73815380ed47c37be6c35e30c573b6839e74c21572557",
+      "ranges": [
+        [
+          1818,
+          1835
+        ]
+      ],
+      "status": "fresh exact support only; no whole-source or additional unique coverage"
+    }
+  ],
+  "fresh_baseline_full_support": [
+    {
+      "scope_index": 1865,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/maneuvers.rs",
+      "sha256": "619803fcb9f24448df76fd87b28028c86c520edd9b41dbc7b29033c8b432234f",
+      "ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "status": "fresh tiny duration config declaration; no additional unique coverage"
+    }
+  ],
+  "fresh_navigation_support": [
+    {
+      "scope_index": 526,
+      "ranges": [
+        [
+          110,
+          110
+        ],
+        [
+          178,
+          178
+        ]
+      ],
+      "status": "authored default scalar lines only; not whole-source"
+    }
+  ]
+}

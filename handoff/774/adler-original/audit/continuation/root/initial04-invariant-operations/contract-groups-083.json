@@ -1,0 +1,62 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-083",
+  "at": "2026-10-23T01:14:10.308595+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/contact_geometry.rs",
+      "sha256": "8be98e18f4aa0d7bb6fbc302c7a10e6df912a744927240f6a4618ce41541e75f",
+      "actual_compared_ranges": [
+        [
+          1,
+          488
+        ]
+      ],
+      "source_evidence": "Fresh literal actual currentPR body; separate04 arithmetic and result contracts reasoned, no snapshot verdictcarry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/planar.rs",
+      "sha256": "443ff701ad79a52b06623fc199de7ea1df011b7527ed2ef8056057b9b8fac059",
+      "actual_compared_ranges": [
+        [
+          3,
+          66
+        ]
+      ],
+      "source_evidence": "Fresh literal actual currentPR body; separate04 arithmetic and result contracts reasoned, no snapshot verdictcarry."
+    }
+  ],
+  "groups": {
+    "PR-contact-admission-and-operations": "Rawf32 publicfacts validation rejects nonfinite/negative geometry andnonpositivereach but successfulInvalidatedMiss retains original rejectedrawmeasure diagnostics; canonicaltyped migration mustkeepdiagnosticinput separatefromsuccessfuladmittedmeasure, not erasecause. Current preferredheadedmeasure(mean) returnsInf forlargefinite headstart+reach; P16GeometryResult readmission fixespublication byordinaryerror, not demand for infalliblewidenedmean. Lever/buttdifferences between accepted nonnegativefinite inputs stayfinite; grip>0 establishedbeforeenergydivision, energyclamp/squarebounded. CurrentaccuracyNaN F029confirmed at286-302. Publicintendedshortcut andrawresultSerde do notseal classification/cause tuple.",
+    "PR-contact-policy-preservation": "Currentfulltestsource independentlyread preserves continuousrotational energy/shaftvsheadmaterials/pommelpolicy/inclusiveactualreach, scheduleddistance separatefromauthoredideal. P16geometryAPI adaptationmustretainoriginaltestinputs/order/oracleintent, withnecessarytypedarguments/results only. Raw nonfiniteinput runtimeInvalidGeometry versusnewconstructor rejection requires actualerrorcontractreconciliation, no compatibilityfields. Source-only, no testsadded/executed.",
+    "planar-loop-and-endpoint-guarantees": "clip emptyreturns beforelast access, nonemptyiteratesownedpolygon once andwriteslocalresult; callbackevaluatedinoriginalorder, no sharedstate/retryclock. Crossingpredicate different>=0 signs ensures nonzerodifference forfinitecallbackvalues, includingonezero; allsame-side nointersectiondivision. Nonfinitecallbackvalues oroverflowingf64sidearithmetic are not sealedby thissignature, so finalcalleradmission remains explicit, notcurrentnormalbug claim.",
+    "planar-integer-and-native-numerics": "subtract cornersindex enumerates0..len; index+1<=len fitsusize foractualVecslice, modulusonlyexecutedinside nonemptyloop, nozero-moduloevenemptyoutline. Emptyoutline semanticresult requiresactualvalidatedupstreamconvexoutline, not a freshindexpanic. signed_area empty0, cycle zippedwithfinitefirstiterator/take(len) terminatesincludinglen1, translatedorigin reduceslargeabsolute-coordinatecancellation. Nativef64 cross-products/accumulation stillneed actualinputbounds; finiteDVec2 alone notuniversaloverflowseal. Ifpromotedboundedf32points, pairdifferences/products fitf64; actualscopedcallerproof neededbeforeclaimingalloriginsmeetthatcondition.",
+    "planar-topology-and-scope": "subtract fullintersectionearlyreturnkeepsunrelated/zeroarea sourcepolygonoriginaltopology beforeoutsidepartition. Convexwinding/wholecoverageunion/finalsurfacemember+grade validation iscallercontract, not inferredfromfunctionnames orsumareas. Only3-66 registered;67blank/68NEXT distance_outside doccontextuncredited,69+excluded. WholeAPI outputsrawnativepolygons at numericalkernelport, notnew authoritativecheckedscenegeometry orblanketframeerasurelicence."
+  },
+  "finding_qualifications": [
+    {
+      "id": "ROOT-INITIAL04-F029-CURRENT-PR-083",
+      "finding": "ROOT-INITIAL04-F029",
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/contact_geometry.rs",
+      "sha256": "8be98e18f4aa0d7bb6fbc302c7a10e6df912a744927240f6a4618ce41541e75f",
+      "ranges": [
+        [
+          140,
+          147
+        ],
+        [
+          286,
+          302
+        ]
+      ],
+      "qualification": "Fresh currentPR exactpublicresolver firstfinite/nonnegativegate thenrawratio confirms same smallestpositive subnormalreach/zeroactual+ideal+grip ->0/0NaNaccuracy returnedcontact. P16typedgeometry integration doesnotclose thiscurrentrootcause. Current humanoid/template bound qualification unchanged; no execution/currentnormalfailureclaim."
+    }
+  ],
+  "findings": [],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false,
+  "bookkeeping_note": "First attempted writer failed Python syntax before execution; this corrected writer is the only publication, no duplicate receipts."
+}

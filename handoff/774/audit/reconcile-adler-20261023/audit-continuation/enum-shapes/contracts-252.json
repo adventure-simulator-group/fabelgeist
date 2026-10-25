@@ -1,0 +1,32 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-252",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        128
+      ],
+      "ranges": {
+        "128": [
+          [
+            1,
+            407
+          ],
+          [
+            447,
+            790
+          ],
+          [
+            850,
+            935
+          ]
+        ]
+      },
+      "comparison": "Exact P16 physiology registered1\u2013407,447\u2013790,850\u2013935 of1169 read; deliberately omitted bodies remain uncredited. Meter, BodyRegion, Humour and InterventionRoute already actual finite vocabularies; fixed array indexing/enum ordering represent canonical ABI and deterministic terminal ties. Private meters and public humours are deliberately many-to-one, cannot reconstruct disease/cause or select treatment from matching public reading. DoseMilliunits0 valid, bounded0..8000 fixed-point; mass20..300 checked identity independent of dose/route. Administration route beside optional region is pending applicability candidate but actual normal producer/regional consumers unread; do not assert Topical iffSome or discard site history without trace. Exact profile version is pinned for durable replay, latest lookup only new course; route mismatch/unknown profile/future administration currently yields zero effect intentionally, separate admission question. Stopped_at Option already fully represents active/ended course, and PresenceSpan ended_at Option similarly represents history with no redundant active flag; do not mechanically add an enum. Effects may have negative helpful meter deltas, adverse effects separate and zero permitted; source clamps are actual numerical policy. Intervention relationship is immediate same-actor or shared-party/coarse-location predicate, not canonical place proof; existing exact-place/authority findings remain usable, no new ordinary co-location error claim from direct API alone. ChartEntry Reading/Gap owns correct observation payload, gap has no fabricated measurements. Historical capability band is pinned so later skill cannot sharpen old chart; observation cadence independent of band while precision differs. HMAC phenotype secret remains private, discriminator uses actual Meter order; this source read is not cryptographic validation or generic hash-equivalence clearance. Terminal Meter::min uses canonical order, distinct from disease vital-largest selection, never globally merge those policies.",
+      "disposition": "Existing payload-owning observations, optional lifecycle history and private/public distinction preserved; route/region trace open",
+      "finding_refs": []
+    }
+  ],
+  "new_findings": [],
+  "limits": "Discovery only; no execution, fixes, checks, implementation plan or lens clearance."
+}

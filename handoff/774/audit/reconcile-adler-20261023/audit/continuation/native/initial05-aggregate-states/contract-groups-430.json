@@ -1,0 +1,69 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-430",
+  "at": "2026-10-23T13:39:15.264191+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/investigation.rs",
+      "sha256": "670a2ae0df206f175978278ad2644e91d75c22a88cfa1ef89759171da672147b",
+      "scope072_index": 934,
+      "actual_EOF": 1154,
+      "scoped_ranges_compared": [
+        [
+          1,
+          825
+        ]
+      ],
+      "material_effective": [
+        [
+          1,
+          821
+        ]
+      ],
+      "context_only": [
+        [
+          822,
+          825
+        ]
+      ],
+      "actual05_comparison": "Fresh every actual union byte1-825 from owner and producer roles, production and embedded adapter fixture included, later main fixtures excluded."
+    }
+  ],
+  "groups": [
+    {
+      "id": "observer evidence adapter binds the same subject through one private product",
+      "comparison": "adapt_evidence_knowledge192-243 checks nonzeroobserver and canonical case/evidence/source IDs, uses SAME evidenceID in KnowledgeSubject, proposition and belief, learned_at twice and actual observerclock, fullconfidence/privatevisibility/revision1. Fallible envelope admission precedes private AdaptedEvidenceKnowledge construction; no mutable payload access. String persisted ID retained separately from deterministic numeric projection, expressly not replacementDBprimarykey. Hash frames lengths/domain, truncates SHA8 and max1 intentional adaptercoordinate; comment requires persistence collisioncheck before join. No actualcollision/run inferred or universal64bituniqueness promised."
+    },
+    {
+      "id": "knowledge raw declarations do not establish chronology or referential membership",
+      "comparison": "Observation/Recollection/Claim/Evidence/Belief/BeliefRevision/Lead/SharingReceipt public fields and ordinarySerde permit independent IDs, relation links, owner, confidence, time and provenance. Constructors for AtomicProposition bound text and CanonicalEvent cap64/unique propositionIDs but publicfields/codecs bypass; stable ID privateString derivedSerde similarlybroader thannew ASCIIbounded256. Canonical leaf admission and DB counterpartmembership remain separate. DestinationKnowledge variants keep required location+pin and visitedtime together, but raw geographic i32s are not WGS84admission."
+    },
+    {
+      "id": "report pipeline creates linked stages locally and preserves omitted testimony semantics",
+      "comparison": "process_report builds observation ID/event/proposition and conditionedconfidence, memory references exactobservation withattenuation, andclaim references exactrecollection, samecase/proposition andspecificspeaker/receipt. Errors discard local unpublished records. DisclosureOmit returns actual observation+memory withoutclaim deliberately; other disclosure modes retain stage-specifictext and transmissionfidelity, not a witness-wide truth oracle. Canonical truth absent from InferenceInput bypurpose. Native receipt identity supplied byauthority caller, notauthenticated by String."
+    },
+    {
+      "id": "compound identity encoding is framed before bounded ID admission",
+      "comparison": "compound_id eachpart byte length plus delimiter, collision-free printable framing for actualparts, unlike unframedcolonconcatenation. Every constructed observation/memory/claim thenchecked boundedIDnew, so expansion canreturnstructuredInvalidId rather than silentlytruncate; no promise everyarbitraryinput fits. Textbounds512 and IDbounds256 have different roles; raw PipelineInput validleaves alone donotpromise whole accepted result. No callerpartialmutation inthispurepipeline."
+    },
+    {
+      "id": "confidence scaling and qualitative projections require canonical lower ratios",
+      "comparison": "BasisPoints wraps canonical UnitBasisPoints; new delegates itsrange and constantschecked. Scaledusesnativecanonicalfloor then saturation; from_ratio denominator0 mapsdefaultbyexplicitpolicy. Exact underlying rawSerde/SATS gap retained from earlieradmission, no assumption typename seals all. Qualitativedeductions usesfirst score astop and takes6; normalrankedordered supplier required, rawSafeInference publicvec mayunsorted/duplicated. No extraunknown posterior probabilities exposed; qualitativeStrong7500/Plausible3000meaning intentionallyrelative score, not calibratedposterior."
+    },
+    {
+      "id": "evidence identity dedup is local but does not authenticate matching contents",
+      "comparison": "infer_threats rejects>32 BEFORE sort/dedup, stable sort by evidenceID then dedup sameID, passes evidencekindlist to actualregionalranker. Different raw kinds under sameID canchoosefirst byinputorder; normalpersistedimmutable evidencebinding mustprevent conflictingcontents. Pure signature notsealedfact collection and no normal duplicatecorruption claimed. Reportprovenancelabelbound512 plus explicitregionpriorlabel; rankeractualcanonicalmembership/scorepolicy remains precise lowercontract, not function-name guarantee."
+    },
+    {
+      "id": "range and original fixture limits",
+      "comparison": "Fresh1-825 includes complete inline evidence-adapter tests245-290, source-only.822blank/823cfgtest/824module/825import are context, no826-1154 mainfixtures credited. Originalownerpartialranges and producer1-821 merge to1-825; no whole1154 claim or unrelatedhelper/DBgraph. No execution or source/testchanges."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Actual persisted evidence row identity/collision and observerclock gate; regional ranker order and immutable evidence-kind identity; canonical lower leaf admission."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

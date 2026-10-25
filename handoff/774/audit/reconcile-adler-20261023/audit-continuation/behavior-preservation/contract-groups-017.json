@@ -1,0 +1,105 @@
+{
+  "id": "CONT08-CONTRACT-017",
+  "at": "2026-10-25T09:10:19.742045+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 86,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/incapacitation.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/combat/incapacitation.rs",
+      "before_sha256": "a38c469cbc09f75a1d55f0050c74c54c9dba3adb5dfe9e13e88142dc10cff7e3",
+      "after_sha256": "a38c469cbc09f75a1d55f0050c74c54c9dba3adb5dfe9e13e88142dc10cff7e3",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0086-base-a38c469cbc09f75a1d55f0050c74c54c9dba3adb5dfe9e13e88142dc10cff7e3",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/a38c469cbc09f75a1d55f0050c74c54c9dba3adb5dfe9e13e88142dc10cff7e3",
+      "diff": "source-evidence/p16-0086.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "facts": [
+        "Full115+empty diff. RecoveryTime After0 remains available even at zero performance; positive base with zero performance remains CannotRecover, serialized Option null differs from numeric0. Performance1-clamp(total) and checked recovery divide/overflow unchanged, encumbrance remains1-existing penalty. All fixtures consumed unexecuted; external derived UnitInterval/native exposure paths separate."
+      ],
+      "disposition": "Source-local08 comparison accounted WITH connected native design/config dependencies pending.",
+      "acceptance": "Preserve absent recovery vszero span, successful native scalar operation order, recipe identity/selection precedence and original fixture inputs/count; no early normalization/primitive alias/new test/check."
+    },
+    {
+      "scope_index": 87,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/weapon_contact.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/combat/weapon_contact.rs",
+      "before_sha256": "287ef23a8837049c44a05b856bcef61d536c382a5e3602b6755f434f02c177d5",
+      "after_sha256": "6490cee01f9eeb43f5cb7201d193a93cb59f9e053ba093d3689c94008a24d140",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0087-base-287ef23a8837049c44a05b856bcef61d536c382a5e3602b6755f434f02c177d5",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/6490cee01f9eeb43f5cb7201d193a93cb59f9e053ba093d3689c94008a24d140",
+      "diff": "source-evidence/p16-0087.diff",
+      "diff_sha256": "b258fe8eba4e2c81e4a14733e532263f2d067fab36d1fdd44b812653eac12d05",
+      "head_body_read_ranges": [
+        [
+          1,
+          113
+        ]
+      ],
+      "facts": [
+        "Full113+entire diff. handling_accuracy changes only grip physical value extraction at original max0/divide kernel. Recipe precision still selects maximum Head surface, falls back recipe shaft then first Structure/Grip shaft, not summed score; mm conversion remains f64*1000 thenf32 before square/product. ContactPrecision assert finite/nonnegative, concentration p/(1+p), zero resistance\u2192+Inf unchanged.",
+        "Actual admitted recipe footprint/derive_properties remains Q002 and downstream API evidence, so do not infer all native design inputs valid or safe subnormal area."
+      ],
+      "disposition": "Source-local08 comparison accounted WITH connected native design/config dependencies pending.",
+      "acceptance": "Preserve absent recovery vszero span, successful native scalar operation order, recipe identity/selection precedence and original fixture inputs/count; no early normalization/primitive alias/new test/check."
+    },
+    {
+      "scope_index": 88,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/weapon_contact/tests.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/combat/weapon_contact/tests.rs",
+      "before_sha256": "fe810f795ff7e4d52786d5c51504c3f2c12154cabdbeb23ba90939923971bfe4",
+      "after_sha256": "1f06000f7544b5eef15b06fbce033930014e96dc50812d8b9dadfd3c2b850af9",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0088-base-fe810f795ff7e4d52786d5c51504c3f2c12154cabdbeb23ba90939923971bfe4",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/1f06000f7544b5eef15b06fbce033930014e96dc50812d8b9dadfd3c2b850af9",
+      "diff": "source-evidence/p16-0088.diff",
+      "diff_sha256": "392783b7693c1cd4ea46cdf99e3ab20803778e3546f981f4e967087b07ff1e6c",
+      "head_body_read_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "facts": [
+        "Full111+entire diff. Existing fixture input grip and parametric lengths now checked SignedLength with same values, no new scenario/assertion/order. Canonical per-weapon precision, duplicate furniture/idempotence, thickness effect and monotonic resistance expectations retained source-only. Does not show project fixture executions passed."
+      ],
+      "disposition": "Source-local08 comparison accounted WITH connected native design/config dependencies pending.",
+      "acceptance": "Preserve absent recovery vszero span, successful native scalar operation order, recipe identity/selection precedence and original fixture inputs/count; no early normalization/primitive alias/new test/check."
+    },
+    {
+      "scope_index": 89,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/weapon_contact_config.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/combat/weapon_contact_config.rs",
+      "before_sha256": "ad51483d70e3e95165e16c92b3d3e270e381db2c9aa9135056cb6484e3e1b287",
+      "after_sha256": "ad51483d70e3e95165e16c92b3d3e270e381db2c9aa9135056cb6484e3e1b287",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0089-base-ad51483d70e3e95165e16c92b3d3e270e381db2c9aa9135056cb6484e3e1b287",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/ad51483d70e3e95165e16c92b3d3e270e381db2c9aa9135056cb6484e3e1b287",
+      "diff": "source-evidence/p16-0089.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "facts": [
+        "Full32+empty diff. Strict finite-positive reference/control areas validation precedes finite-nonnegative unarmed precision; zero unarmed remains accepted, same field order/messages. Actual full embedded content40/build47 connects ordinary values, public literal/custom design consumption not globally cleared."
+      ],
+      "disposition": "Source-local08 comparison accounted WITH connected native design/config dependencies pending.",
+      "acceptance": "Preserve absent recovery vszero span, successful native scalar operation order, recipe identity/selection precedence and original fixture inputs/count; no early normalization/primitive alias/new test/check."
+    }
+  ],
+  "next": "Original90 composite386,91courtship1153 and subsequent physiological/shared owners; all inventory/overlay/live/merged limits persist."
+}

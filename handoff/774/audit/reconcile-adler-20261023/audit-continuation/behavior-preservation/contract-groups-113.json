@@ -1,0 +1,83 @@
+{
+  "id": "CONT08-CONTRACT-113",
+  "at": "2026-10-25T12:07:47.003872+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 385,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/consequence.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-server/src/combat/consequence.rs",
+      "before_sha256": "9e767c76aa28c3742a0d11658983b2ce4abfd2fb63bc89962d5f1c02b3e396d0",
+      "after_sha256": "9e767c76aa28c3742a0d11658983b2ce4abfd2fb63bc89962d5f1c02b3e396d0",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0385-base-9e767c76aa28c3742a0d11658983b2ce4abfd2fb63bc89962d5f1c02b3e396d0",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/9e767c76aa28c3742a0d11658983b2ce4abfd2fb63bc89962d5f1c02b3e396d0",
+      "diff": "source-evidence/p16-0385.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          308
+        ]
+      ],
+      "facts": [
+        "Fresh full308 and emptyP16diff. Applytransientdamage andnativevelocity precede partyconsequence/equipmentcontacts thenpostconsequenceMeleeAttackResolved; missing pairreturnsbeforeeffects. Sameactualcut/bluntapportion,overkillclamp,acuteTrauma/woundproducer andboundedammunition/contactreceipt aggregation preserved.",
+        "Existing weapon-vs-shield Block provenance mismatch (require_shield fromresponse136 vsneutralweaponblock actual387) retainedrelated07 question, notnew08 regression. Inventory-IDcoherence/multiplerowfirst selection remainactualunchangedauthority limits; noDBreceipt/rollbackrun."
+      ],
+      "disposition": "Own08 exact scoped source comparison accounted WITH actualreceiving gap and retainedprovenance qualifications.",
+      "acceptance": "Preserveactualmutation/publicationorder,receiptunits/overkill/wounds, RNGdraworder,defensewindowendpoints andoriginalfixtures;explicitnativeprojection atactualowningkernel. No checks/tests/source repairs."
+    },
+    {
+      "scope_index": 386,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/contact.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-server/src/combat/contact.rs",
+      "before_sha256": "d36c444c66fafb2943291079bf5edcb5cb16e0890b1a078d655e838510cbac95",
+      "after_sha256": "c92333b6813f028d894f8de669a20b823341813213103079ddb3c038388e44d6",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0386-base-d36c444c66fafb2943291079bf5edcb5cb16e0890b1a078d655e838510cbac95",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/c92333b6813f028d894f8de669a20b823341813213103079ddb3c038388e44d6",
+      "diff": "source-evidence/p16-0386.diff",
+      "diff_sha256": "4895524f1b2c6f8fc472f39bee7885114fa907bcc6ef3c4b9c8a016d61e6de75",
+      "head_body_read_ranges": [
+        [
+          1,
+          161
+        ]
+      ],
+      "facts": [
+        "Fresh full161 plus24-line diff. Initialcontact nativeRNG draws contactsample thenalignment atsamepositions; missingattackerweaponreach zero nowtyped. Forcedbodypart overrideslocation withsampleclampnext_down andactualarmor lookup, samecaller-reportedprecision trust/nativecontactkernel.",
+        "Actual unchanged canonical_impact_surface4\u201349 retainsVec3 attackerargument; changedparent381146 passesPosition<Scene>. Added exactreceiving support007 withdefiningargument/actualcaller; noimplicitconversion/compilerresult. Nativeboxray/normal fallback semantics unchanged, wholephysicalframe correctness notinferred."
+      ],
+      "disposition": "Own08 exact scoped source comparison accounted WITH actualreceiving gap and retainedprovenance qualifications.",
+      "acceptance": "Preserveactualmutation/publicationorder,receiptunits/overkill/wounds, RNGdraworder,defensewindowendpoints andoriginalfixtures;explicitnativeprojection atactualowningkernel. No checks/tests/source repairs."
+    },
+    {
+      "scope_index": 387,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/defense.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-server/src/combat/defense.rs",
+      "before_sha256": "68cb46b9efe6c4f44ba41fe4386c02fa7000314c52d6e10b7d33fa9742290d8e",
+      "after_sha256": "68cb46b9efe6c4f44ba41fe4386c02fa7000314c52d6e10b7d33fa9742290d8e",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0387-base-68cb46b9efe6c4f44ba41fe4386c02fa7000314c52d6e10b7d33fa9742290d8e",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/68cb46b9efe6c4f44ba41fe4386c02fa7000314c52d6e10b7d33fa9742290d8e",
+      "diff": "source-evidence/p16-0387.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          255
+        ]
+      ],
+      "facts": [
+        "Fresh full255 includingoriginalfixtures andemptydiff. Prepare defense choosesrequestedmeleedodge first, actualreciprocaldefense/trade-preparedcommit onlyactualauthority afterpreparation; passiveblock onlyraisedneutralanditem. Generalnow-minus-set vsmelee-set-minus-incoming timing distinctandintentional, bothzero-window1 andinclusivewindow preserveedgepolicy.",
+        "Native windowconversionerrorbefore responsepublication unchanged; phase/sameweapon/offhandguards andexisting early/late/pre-attack/afterwindowfixture/raiseditem/offhandchoice assertions retaininputs. No inferred actualdefense probability/visibility/runtimecheck; unchangedsource retainsbroader07provenance findings separately."
+      ],
+      "disposition": "Own08 exact scoped source comparison accounted WITH actualreceiving gap and retainedprovenance qualifications.",
+      "acceptance": "Preserveactualmutation/publicationorder,receiptunits/overkill/wounds, RNGdraworder,defensewindowendpoints andoriginalfixtures;explicitnativeprojection atactualowningkernel. No checks/tests/source repairs."
+    }
+  ],
+  "next": "388ingress1217 then389attackstart292; actualremaining sourcegraph pending."
+}

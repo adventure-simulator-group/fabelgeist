@@ -1,0 +1,59 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-079",
+  "at": "2026-10-25T14:34:59.421973+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1257,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/weapon_instance.rs",
+      "sha256": "0366036a85f92aec26b1e205aa69edeb41afe565c118d2d5335e5cbb2ee4e983",
+      "personally_read_ranges": [
+        [
+          1,
+          445
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Weapon/holder persisted identity, canonical recipe, generator version, digest and rounded geometry are correlated; private checked constructors evaluate once, public replacement validates actual physical-object/catalog membership before upsert. Evaluation1259 reconstructs and compares every projection, so independent stored columns do not by themselves prove an unauthenticated cache consumer.",
+        "Gateway native appearance DTO projects recipe and rounded dimensions after evaluation. Whole-module views require tactical gateway and actual carried Personal/Party objects. Optional geometry/appearance conflates unsupported, missing, corrupt causes (existing M81/M82/F46 receiving dependencies), not a new proven ordinary fallback regression.",
+        "fit_personal_holder requires actual holder custody, resolves weapon by inventory-row location and evaluates design; explicit same-character weapon ownership absent in helper, but public reducer/caller checks need tracing before promoting authorization issue. Polearm rejection and correct catalog holder kind deliberate.",
+        "fitted_holder_mass uses Result<Option>: unfitted/missing no-instance legitimately None, catalog/recipe mismatch Err. Delete clears both weapon and holder projections. Existing source tests for corruption/design variation read, not run."
+      ]
+    },
+    {
+      "scope_index": 1258,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/weapon_instance/appearance.rs",
+      "sha256": "f6b8605a22c9db0d93d4152347ac800118d90203a6f9d6976e716755dd1b7094",
+      "personally_read_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Connected appearance resolves exactly one Personal inventory object with same row/item, retrieves matching physical-object instance, authenticates whole correlated persisted projection through evaluate_instance/holder before returning SDK DTO. Duplicate or absent object/instance and failed evaluation all yield None; internal semantic unavailable/cause distinction pending existing M81/M82.",
+        "Holder restricts catalog to scabbard/weapon_loop before object/evaluation. Snapshot cloning bytes/mass/length/grip from authenticated same instance is coherent; no recipe/cache disagreement allegation. Raw row ID/catalog String remain boundary-to-owner propagation requirements, no invented owner replacement."
+      ]
+    },
+    {
+      "scope_index": 1259,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/weapon_instance/evaluation.rs",
+      "sha256": "6307923392138203a738fb32c47fe530f7f57ff0c417f2091e5440345d1a752b",
+      "personally_read_ranges": [
+        [
+          1,
+          152
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "from_evaluation creates recipe/version/digest and scaled mass/length/grip together from one EvaluatedWeapon or EvaluatedHolder. Transport recipe length checked before record construction; positive mass/length quantized min1, zero grip permitted deliberately.",
+        "evaluate_instance and evaluate_holder_instance check current generator version, exact32byte hash, bounded recipe, canonical decode and expected catalog; re-encode/reconstruct then structural equality authenticates ALL persisted projections. Canonical encoding rejects alternate whitespace recipe even if decode would accept; this is explicit byte-authentication policy, not assumed compatibility requirement.",
+        "physical_object_id retained in reconstructed comparison so not proven globally authenticated from recipe alone; actual parent replacement and physical-object lookup supply object/catalog binding. Existing seven independent mutation fixtures per instance plus wrong-catalog fixtures read, not executed. Structured error preservation/Optional unsupported distinctions use existing owning-family records; no duplicate new finding."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "Three complete original source roles accounted WITH existing dependencies/qualifications. Lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

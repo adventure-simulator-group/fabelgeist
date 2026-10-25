@@ -1,0 +1,193 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1179",
+  "at": "2026-10-25T18:03:33.216876+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1276,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/expedition.rs",
+      "sha256": "a77ae88e526acb661515b4069d678cd7b7e42f278d4e8fc4cb2f1a317440246a",
+      "actual_EOF": 1273,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/expedition.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-strategic-sim/src/live_core/expedition.rs",
+        "sha256": "a77ae88e526acb661515b4069d678cd7b7e42f278d4e8fc4cb2f1a317440246a",
+        "bytes": 53745,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+            "ranges": null,
+            "source_read_status": null,
+            "trace_refs": []
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                1273
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-SIM-SDK-RECEIVER-001",
+              "CAM-PROP-SIM-OBSERVATION-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 320,
+            "read_ranges": [
+              [
+                1,
+                1273
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SIM-CONTROL-OBSERVATION-096"
+            ],
+            "read_status": "fresh-current-lens-full-source-read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/expedition.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-SIMULATION-OBSERVATION-RECEIVER-CLOSURE-050",
+            "json_pointer": "/source_proofs/3",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/live_core/expedition.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1273
+              ]
+            ],
+            "source_context": {
+              "index": 303,
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/expedition.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/expedition.rs",
+              "sha256": "a77ae88e526acb661515b4069d678cd7b7e42f278d4e8fc4cb2f1a317440246a",
+              "read_ranges": [
+                [
+                  1,
+                  1273
+                ]
+              ],
+              "actual_line_count": 1273,
+              "supplier_trace": "RIG-PPS-036",
+              "disposition": "Supplier producer/retained-state/operation/actual receiving-body inventory accounted with findings; Camera must explicitly consume before716 credit.",
+              "source_roles": [],
+              "actual_receiver_closure": "Root047/048/049 source facts plus full Rig036 survival/expedition/economy and Native022 cycle/travel/recovery receipts close the prior fifteen shared receiving obligations. No blanket source or native exemption."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/current_sources/3",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/live_core/expedition.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1273
+              ]
+            ],
+            "source_context": {
+              "index": 303,
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/expedition.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/expedition.rs",
+              "sha256": "a77ae88e526acb661515b4069d678cd7b7e42f278d4e8fc4cb2f1a317440246a",
+              "read_ranges": [
+                [
+                  1,
+                  1273
+                ]
+              ],
+              "actual_line_count": 1273,
+              "supplier_trace": "RIG-PPS-036",
+              "disposition": "Supplier producer/retained-state/operation/actual receiving-body inventory accounted with findings; Camera must explicitly consume before716 credit.",
+              "source_roles": [],
+              "actual_receiver_closure": "Root047/048/049 source facts plus full Rig036 survival/expedition/economy and Native022 cycle/travel/recovery receipts close the prior fifteen shared receiving obligations. No blanket source or native exemption."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-036",
+            "json_pointer": "/fresh_current_source_reads/0",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/live_core/expedition.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1273
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/expedition.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/expedition.rs",
+              "sha256": "a77ae88e526acb661515b4069d678cd7b7e42f278d4e8fc4cb2f1a317440246a",
+              "read_ranges": [
+                [
+                  1,
+                  1273
+                ]
+              ],
+              "actual_line_count": 1273,
+              "mode": "fresh current producer-supplement actual material source bodies; no execution",
+              "camera_assigned_index": 303,
+              "expected_sha256": "a77ae88e526acb661515b4069d678cd7b7e42f278d4e8fc4cb2f1a317440246a",
+              "fingerprint_matches_assignment": true
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 564,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1273
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "AuthoritySurrenderOutcome Clone Copy Debug PartialEq Eq"
+      ],
+      "absence_basis": "Full1273 independently consumed1176\u20131179. Only inherent/native live party/current-agent/custody/supply observation, bounded recovery/evacuation, surrender/idle return and diagnostic operations, no handwritten trait/custom codec. Exact selected sort/key/semantic conditions and dynamic field aggregation not mechanical From/Default. Current public outcomes validated after commands; map/retain provenance cleanup semantic. No commands/network executed."
+    }
+  ],
+  "groups": [
+    "Expedition current-authority and public proof workflows stay explicit; structural outcome derive already applied. No new derivability candidate."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1277,
+    "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/expedition_policy.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

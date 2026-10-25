@@ -1,0 +1,67 @@
+{
+  "id": "NATIVE-ROOT-ROOF-PRODUCER-PROGRESS-001",
+  "at": "2026-10-22T04:32:24.284075+00:00",
+  "lens": "audit-producer-propagation",
+  "assigned_original_six": 6,
+  "accounted_original_six": 6,
+  "fresh_connected_helper_source_variants": 20,
+  "fresh_total_source_variants": 26,
+  "local_registration_rows": 28,
+  "new_variants_vs_scope007": [
+    "pr-working:crates/adventuresim-building-generator/src/generator/church_apse.rs",
+    "pr-working:crates/adventuresim-building-generator/src/generator/defense_geometry.rs",
+    "pr-working:crates/adventuresim-building-generator/src/generator/dormer_layout.rs",
+    "pr-working:crates/adventuresim-building-generator/src/generator/roof_child_enclosure.rs",
+    "pr-working:crates/adventuresim-building-generator/src/generator/roof_contacts.rs",
+    "pr-working:crates/adventuresim-building-generator/src/generator/roof_dormers.rs",
+    "pr-working:crates/adventuresim-building-generator/src/generator/roof_drainage.rs",
+    "pr-working:crates/adventuresim-building-generator/src/generator/roof_edge_binding.rs",
+    "pr-working:crates/adventuresim-building-generator/src/generator/roof_enclosure_material.rs",
+    "pr-working:crates/adventuresim-building-generator/src/generator/roof_finalization.rs",
+    "pr-working:crates/adventuresim-building-generator/src/generator/roof_internal_cut.rs",
+    "pr-working:crates/adventuresim-building-generator/src/generator/roof_outlets.rs",
+    "pr-working:crates/adventuresim-building-generator/src/generator/roof_plan_sampling.rs",
+    "pr-working:crates/adventuresim-building-generator/src/generator/roof_split_drainage.rs",
+    "pr-working:crates/adventuresim-building-generator/src/generator/roof_weather.rs",
+    "pr-working:crates/adventuresim-building-generator/src/generator/shed_dormers.rs",
+    "pr-working:crates/adventuresim-building-generator/src/roof_enclosure.rs"
+  ],
+  "new_variant_count": 17,
+  "existing_source_new_role_variants": [
+    "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+    "pr-working:crates/adventuresim-building-generator/src/geometry_index.rs",
+    "pr-working:crates/adventuresim-building-generator/src/model/resolved_shapes.rs"
+  ],
+  "original_six_scope_limits": "roof_geometry1-34/56-470 only,35-55 unrelatedfixture excluded. gable_enclosure original actual RoofFace fixture included unchanged/unexecuted.",
+  "mandatory_narrowing_qualifications": [
+    "local-source-scope-extensions.jsonl#NATIVE-ROOF-SCOPE-QUALIFICATION-001",
+    "local-source-scope-extensions.jsonl#NATIVE-ROOF-SCOPE-QUALIFICATION-002"
+  ],
+  "other_exclusions": [
+    "roof_child_enclosure43-78 unrelated bond_front_wall",
+    "shed_dormers39+ unrelated fixtures",
+    "defense_geometry10+ unrelated functions"
+  ],
+  "remaining_actual_unread_assigned_or_registered_material_roles": [],
+  "next_unread_native_cell": null,
+  "root_required_next": [
+    "Globally reconcile exact local source/range registry and qualifications before producer gate",
+    "Join exact26 fresh source traces with Root directfive and RIG027 receiver proofs",
+    "Perform owner-fit delta for new17 variants/extended material roles before admission; preserve all13 source freeze"
+  ],
+  "findings": 2,
+  "source_edits": 0,
+  "project_commands_builds_tests_scanners_runtime_CI": 0,
+  "human_decision_required": [],
+  "authority": "Root original five audit and exact function authority unchanged. Native read-only supplier, no claim transfers or authoritative ledger mutations.",
+  "payload_sha256": {
+    "coverage.jsonl": "b93ff682afcdc943edd5cf6c0559e36da7a5d26a3b75a896b48c50e942a515a3",
+    "traces.jsonl": "31902c0d6712c739a439eeab3c9fcbc35745e5a55936ee332a66070b38464e85",
+    "findings.jsonl": "d5169f63b6e290d0e376e2b38abf03ad3fd82f6791acacf6e9a078b470fd5be6",
+    "additional-sources.jsonl": "f8feb58e982dc0904bb5221854afcf6f0da7a358dcf1bc13c06c16c3005abecc",
+    "local-source-scope-extensions.jsonl": "7aaccfe5b940d343c3b7308befd1978ab58a6d8cc574a029f458c7d353488a2a",
+    "receiver-joins-001.json": "850e5846807ae5abda5832acd6a45be4ab256b8e071a6050846216b0242f1675"
+  },
+  "status": "six-source supplier exhausted with findings and connected helper roles traced; global gate awaits Root manifest reconciliation",
+  "source_family_other_lens_implementation_clearance": "none"
+}

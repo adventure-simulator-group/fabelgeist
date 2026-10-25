@@ -1,0 +1,37 @@
+#[cfg(test)]
+mod healing_tests {
+    use super::{
+        CaseAuthority, CaseFinaleAuthority, CaseStatus, CaseSiteAuthority, CaseSiteId,
+        FinaleExecutionKind, FinaleStatus, HostileGroupAuthority, HostileGroupDisposition,
+        HostileResolutionKind, IncidentStatus, JourneyCaseSiteEndpoint, JourneyEndpoint,
+        JourneySettlementEndpoint, LocalChatMessage, MissionApproachCapability,
+        MissionAttemptStatus, MissionAuthority, MissionOutcomeCandidate, QuestGenerationAuthority,
+        PartyRecruitmentRole, RecruitmentOffer, RecruitmentOfferBindingFields, RecruitmentOfferId,
+        RecruitmentOfferStatus, RecruitmentRolePurpose, RecruitmentSourceId, RoleRequirements,
+        STRATEGIC_SOURCE, activity_incident_source_id, autoresolve_drop, autoresolve_enemy,
+        carrying_capacity_multiplier_for_condition,
+        case_refs_have_exact_dialogue_provenance, destination_hostile_archetype,
+        generated_case_site_combat_eligible, generated_case_site_hostile_resolution_eligible,
+        generated_dialogue_action_matches,
+        generated_dialogue_producer_recipient, generated_scene_key,
+        generated_witness_visible_description, hostile_group_authority_row,
+        hostile_resolution_for_objective, incident_group_matches,
+        ordinary_generated_site_distance_m,
+        mission_candidate_from_capability, npc_conversation_authority_matches,
+        player_participant_ids, project_local_chat_message, quest_encounter_archetype,
+        quest_generation_context_commitment, quest_influence_case_site_id,
+        is_general_join_role, recruitment_offer_binding_fields_are_live,
+        refreshed_recruitment_offer_status,
+        renewed_recruitment_offer_expiry, sample_mission_candidate,
+        settlement_activity_stage_error,
+        simulation_quest_provisioning_economy, validate_quest_generation_authority,
+        validated_generated_dialogue_manifest,
+    };
+    use adventuresim_core::encounter::EncounterArchetype;
+    use adventuresim_world_schema::calendar::StrategicMinute;
+    use std::collections::HashSet;
+
+    include!("tests/combat_party.rs");
+    include!("tests/authority_trade_dialogue.rs");
+    include!("tests/generated_world.rs");
+}

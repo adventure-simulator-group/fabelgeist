@@ -1,0 +1,40 @@
+{
+  "id": "RIG-INITIAL06-GROUP-026",
+  "at": "2026-10-22T20:03:14.380484+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "scoped-documentation-only": {
+      "sources": [
+        "pr-working:crates/fabelgeist-hair/src/lib.rs"
+      ],
+      "comparison": "Fresh exactlib1\u201390 comments only; explicitRustdefinition-location N/A for this boundedsourcecell. Documentation describes runtime Hair/Groom/render/GPU ownership but doesnot establish those calleddeclarations; no reexportgraph/bodycoverage. Accidental91\u2013187display excludedQUAL009 beforefresh1\u201390reread. Other actual Hair sourcecells independentlyrecorded, no wholerepository/docsclaimclearance."
+    },
+    "recipe-profiling-and-random-draw-roles": {
+      "sources": [
+        "pr-working:crates/fabelgeist-hair/src/groom.rs",
+        "pr-working:crates/fabelgeist-hair/src/rng.rs",
+        "pr-working:crates/fabelgeist-hair/src/look/random.rs"
+      ],
+      "comparison": "Fresh Groom79/RNG168/LookRandom50. Groom owns serial operationstack+points/resampling/cancellation; GrowReport tuple operationname/nativeelapsedms/strandcount diagnostics is not CoreAnimationElapsed or strategicclockauthority. Rng SplitMix64 sequentialstate, Stream key32/counter32 and statelesshash(seed,id) are different algorithms/addressingpurposes: stream counterwrap/nativeGPU parity notcanonicalStreamId purpose string. Local Rng.privatewordu64 retainsnativealgorithmstate,notnewlogicalworldSeedtype. Actual rawseed constructors/all64bits zero valid need explicitcanonicalSeedprojectionupstreamifsharedidentityused; no automaticsequence replacement or Hair\u2192Coredependency. Native signeduseri32seed +salt/hash to32word intentionallydifferentformat fromCoreSeed64 source; keep hash/bitpattern/projection. Hair Rng.index has empty0returned behavior, chance rawthreshold, range/log-range rawquantitypolicies; no checkedpositive/index/probabilityseal inferred. Existing sourceLookRandom passes exactpositive100 and localgrowthweights, then samples physicalmetres/angles/ratios; preservedrawpolicy and draworder. OtheractualHairdo sourcecanonicalSeedcallers pending, so no blanketnativeowner waiver or newSeed findingyet."
+    },
+    "hair-optical-parameters-versus-color": {
+      "sources": [
+        "pr-working:crates/fabelgeist-hair/src/material.rs"
+      ],
+      "comparison": "Fresh HairMaterial225 includingoriginaltests. Featurematerial owns melanin/pheomelanin ratios, longitudinal/azimuthalroughness, cuticletiltradians, IOR, randomvariation, waveformdegreephase/coat andTaper. Opticalabsorption3coefficients perdiameter differs colorRGB and genericColorRGBA; tint/base_color rawRGB3notautomaticallyalphaColorF005. Physical/cosmeticparameters sharef32nativeword but differentunit/bounds; wavephaseDEGREES vs cuticletiltRADIANS explicit. Exactactualabsorption/base_color math preserves shader/offlinemeaning; future neutral angle/unit wrappers mustnotimportCore/Buildingupward. Publicfields/derivedSerde/defaultsnothing finitecertified; no type-name acceptedmaterial claim. Taper shape_range helper body remains separatelyqueued, noreadcreditfromcall. Plainrenderengine/colorports latermustbe comparedactualbeforemerge."
+    },
+    "strand-authority-versus-native-guide-products": {
+      "sources": [
+        "pr-working:crates/fabelgeist-hair/src/strands.rs",
+        "pr-working:crates/fabelgeist-hair/src/gpu/guides.rs",
+        "pr-working:crates/fabelgeist-hair/src/gpu/guides/packed.rs"
+      ],
+      "comparison": "Fresh Strands448/Guides357/Packed93 and postregisteredidentity64. CanonicalStrandId privateu32fullbits/Default0 stableacrossselection differs currentcollectionusizeindex; PartingGroup Unassigned/Assigned(privatePartingGroupId) decodesnativei32negative sentinel onlyatGPUadapter andDefaultAssigned0. Membership identifier is not RigJointOrdinal/Partingindex/nativeBufferbyteoffset. Strands owns commonhostcurve+attributes/GuideMap, Attachment groupssameattributes intentionallyviewperstrand, not independentlymaintainedmodel. Actual select/resample/push preservestableidandgroup while invalidate/reusemapexplicitly; radiusmetres/UVscalp/splinearc factor different fromgameprobability. CurveSampler/Sample carries computedarc/tangent/minimumtwistframe; not equivalent sharedRigidRotation+Position product or ArmorlocalPartFrame. NativeGuide HairdoGpureprC usescode/heterogeneousfieldsand packedsource; canonical hostidentity.word/gpu_word extractedonlyactualStrandGpuupload335\u2013338. GpuGuides versus hostStrands/nodeGuideRoots differentallocation/stageproducts; sharedGPUBuffer/KernelBatch owners reused, noprivate-helper exemption. PackedHairdoUpload transformsHead/Follicle/Haircut/Style source intooneWGSLrecord, optionalflags/nativezero padding; specificdefinitionrolebody ofthosehigherinputs and guide_key stillqueued, nocalled-body/admissioncredit. RootUV/surface andstablegroupauthoritycannotbe substituted withSceneIDs. Newidentitylane(lanes) zero/nonfinite/wordrelationshipsnotautomaticallyprotectedbyprivatebacking; ordinaryoperationsretainotherlensqualification."
+    }
+  },
+  "new_findings": [],
+  "qualification_refs": [
+    "RIG-INITIAL06-QUAL-009"
+  ],
+  "limits": "Actualfresh source-specific owner/producer/nativeconsumer analysis, wholeHair and06incomplete. Higher sourceinputs/GuideMap/Growermod/otherhelpersnotinferredfromname; no otherlens/projectexecution/repair."
+}

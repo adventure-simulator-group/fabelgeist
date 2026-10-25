@@ -1,0 +1,31 @@
+{
+  "id": "RIG-INITIAL06-GROUP-202",
+  "at": "2026-10-23T06:13:41.857804+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-064.json",
+  "groups": {
+    "physics-feature-dependent-math-owner": {
+      "comparison": "Fresh Avian Cargo55–104/364–381, math1–70/single1–85 and Parry math1–48 compare feature-selected 3D/f32 numerical Scalar/Vector/Quat/Dir aliases, f64-to-f32 casts and generic poses/matrices. These aliases choose native arithmetic precision/dimension, not first-party metre/scene-frame/finite/sign/authority contracts. Feature serialize enables native storage; it does not replace game admission. Exact single85 is next impl header only; math69–70/Parry48 partial next docs no unseen body credit. Fresh Camera collision113–188 takes checked CuboidDimensions, Position<Scene>, RigidRotation then projects actual metres/quaternion at native cast; it re-admits UnitInterval and SpatialDirection results. Keep generic native math owner below native solver, shared checked geometry leaf below game callers, and frame-specific camera products at camera. No reason to make dependency import game Core or merge raw native Aabb/Rotation with checked geometry merely by float shape.",
+      "disposition": "Keep native precision/dimension aliases and real numerical adapters; canonical game geometry retains its distinct invariant and frame owner."
+    },
+    "raw-native-rotation-versus-checked-game-orientation": {
+      "comparison": "Fresh transform125–146 is PreSolveDeltaPosition/Rotation plus RotationValue alias and 2D angle docs, not 3D orientation definition. Fresh740–745 actual 3D Rotation is public Quaternion with DerefMut/Reflect and optional Serde;1051–1074/1092–1114 copy native Transform/GlobalTransform/Quat/DQuat components without checked normalization. Native XPBD accumulated rotation and game checked RigidRotation are distinct contracts. Camera collision171–172 uses actual Scene position plus checked view-to-scene quaternion at native cast boundary; no durable game identity/canonical orientation owner transfers into Avian. Preserve public native representation qualifications; no claim native Rotation guarantees unit/finite or all conversions read.",
+      "disposition": "Keep solver rotation/accumulated delta local to Avian and checked frame-bearing first-party orientation at its canonical owner."
+    },
+    "half-extents-native-shape-port": {
+      "comparison": "Fresh Parry Cuboid55–90/110–127 has public half_extents vector, docs positive but new118–120 stores unchanged. SharedShape282–300 directly builds Arc Cuboid using half extents and adds round border radius; this is native shape sharing, not second equivalent owner of first-party finite zero-valid CuboidDimensions or strict-positive LeafDimensions. Camera collision129–135 retains checked full dimensions and projects to actual Collider::cuboid native API (Avian conversion body separately pending); do not infer direct full→half conversion from API name. Native shape must stay low, caller owns full-versus-half unit projection and role admission. Border radius is separate geometric quantity, not a ratio. No foreign patch or wholesale primitive waiver.",
+      "disposition": "Preserve native half-extent/storage shape API and first-party checked full-dimension/leaf contracts; conversion belongs at actual numerical port."
+    },
+    "native-hit-data-versus-accepted-camera-hit": {
+      "comparison": "Fresh RayHitData390–410 is public Entity/distance Scalar/world normal Vector with native reflection/optional Serde and entity remapping. Distance is native travelled length, not UnitInterval; Entity is transient Bevy entity, not durable CharacterId/ResolvedItemId. Camera collision179–186 derives fraction from hit.distance/distance then checked UnitInterval, and checked Scene SpatialDirection from native normal1 of shape hit (actual shape-hit definition remains separate source); camera obstruction61–97 retains typed view and desired/resolved metres while only recording hit presence. These are different products and authorities, not duplicate full hit owners. RayHit EOF410 explicitly excludes nonexistent411–415. No shape-hit proof inferred from ray-hit declaration.",
+      "disposition": "Keep generic native ray hit versus checked camera-specific accepted hit/projection products separate."
+    }
+  },
+  "source_fact_refs": [
+    "contracts-001.json",
+    "contracts-011.json",
+    "contracts-177.json",
+    "fresh supporting source1462 collision113–188; source1703 full97"
+  ],
+  "limits": "Eight exact foreign source-role contracts fresh read and personally compared to actual current first-party geometry/camera recipients. No whole module/package waiver, source edits, execution, other-lens credit or new scope. Adjacent partial docs/headers do not credit missing body."
+}

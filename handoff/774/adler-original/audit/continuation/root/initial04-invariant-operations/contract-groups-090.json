@@ -1,0 +1,101 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-090",
+  "at": "2026-10-23T01:39:13.485031+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/essential.rs",
+      "sha256": "3d1b91f2f3bd1d9ffaeaa98eb8cf921fcbfee807aba9fd8bd16ca762448a10e0",
+      "actual_compared_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "source_evidence": "Fresh complete literal bodies, exact byte-identical currentPR/P16 pair; independently compared trait/stdlib contexts. Governance and attribute support partial only, no wholecaller clearance."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/leadership.rs",
+      "sha256": "0fb805b67bc7cb231e00841a0fc40b44ddd96f52a54c08fe16f434e9435daf53",
+      "actual_compared_ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "source_evidence": "Fresh complete literal bodies, exact byte-identical currentPR/P16 pair; independently compared trait/stdlib contexts. Governance and attribute support partial only, no wholecaller clearance."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/essential.rs",
+      "sha256": "3d1b91f2f3bd1d9ffaeaa98eb8cf921fcbfee807aba9fd8bd16ca762448a10e0",
+      "actual_compared_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "source_evidence": "Fresh complete literal bodies, exact byte-identical currentPR/P16 pair; independently compared trait/stdlib contexts. Governance and attribute support partial only, no wholecaller clearance."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/leadership.rs",
+      "sha256": "0fb805b67bc7cb231e00841a0fc40b44ddd96f52a54c08fe16f434e9435daf53",
+      "actual_compared_ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "source_evidence": "Fresh complete literal bodies, exact byte-identical currentPR/P16 pair; independently compared trait/stdlib contexts. Governance and attribute support partial only, no wholecaller clearance."
+    }
+  ],
+  "support_ranges": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/attribute.rs",
+      "ranges": [
+        [
+          1,
+          151
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/governance.rs",
+      "ranges": [
+        [
+          273,
+          331
+        ],
+        [
+          411,
+          492
+        ]
+      ]
+    }
+  ],
+  "groups": {
+    "strategic-essential-quotient": "Trait admits raw f32 calories and body-adjusted endurance, not proven positive/finite by signature. Actual attribute body multiplies raw endurance by chest health. API zero endurance and zero calories =>NaN raw quotient; max0 penalty becomes0 underRust f32 max semantics rather than propagatingNaN. Large finite endurance*1000 overflowsInf causing0 quotient even finite positivecalories. This joins existing F009 physical aggregate/trait admission graph and F020 ratio arithmetic concerns, not a new normalgame failure. Canonical strategic consumption/capacity ratio and explicit no-capacity policy need preserve distinct strategic daily fatigue versus single combat wheel; CombatEssentials override physicalcondition1 remains intentional and prevents double impairment. No new hiddenpool/movementspeed penalty.",
+    "leadership-tally-contract": "BTreeSet removes duplicate livingIDs; valid voter/candidate membership filters before tally. Tally increments at most votes.len so usize count fits actualslice; threshold crossproducts require actualcardinalitybounds or overflow-safe ratio arithmetic, not universally protected by membershiptype. Whole owned maps local, no mutations to external state. Comparator highestcount then lowestID correct. Incumbent deliberately excluded without threshold maintenance; emptylivingNone and deadleaderhalf policy explicit.",
+    "leadership-input-precondition": "Representable publicAPI votes[(2,3),(2,3)] with living[1,2,3], incumbent1alive yields count2,2*100>=3*66 and challenger3 wins from onlyone distinctvoter. This is an API precondition/suggestion, not observed normalvote duplication: actual P16vote setter302/319 uses same party:voter keyedupdate and normalize discardsinvalidmembers before building ballots470-476. A collection expressing one ballot pervoter would make sharedAPI guarantee clear; alternatively explicit uniqueness admission at publicowner. Preserve duplicate-resolution policy rather than arbitrarily pick/order rewrite. No new required unrelated gameplay feature inferred from this audit.",
+    "fixtures-and-context": "Same Coretraits/attribute layout and stdBTree ordering bothcontexts; same fullbody justified grouping, nothash-only transfer. Existing six leadershipfixtures read, same threshold rounding inclusive66percent andtie semantics preserved. No execution/new tests/assertions/helpers. Actual P16governance maymutateDB before errors; transaction semantics and wholeerror graph belong actualDBboundary audit, not implicitly certified by these partial support ranges."
+  },
+  "finding_qualifications": [
+    {
+      "id": "ROOT-INITIAL04-F009-ESSENTIALS-090",
+      "finding": "ROOT-INITIAL04-F009",
+      "qualification": "Raw physical trait aggregate extends into dailyfatigue denominator; representable zero/MAX endurance cases above. No currentnormal runtime claim, preserve combatphysicalcondition override and separate strategic/combat quantities."
+    }
+  ],
+  "findings": [],
+  "suggestions": [
+    {
+      "kind": "public_API_vote_uniqueness_precondition",
+      "scope": "leadership shared helper, qualified normalDB keyedproducer coherent",
+      "mandatory_migration_repair": false
+    }
+  ],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

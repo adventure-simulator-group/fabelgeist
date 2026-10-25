@@ -1,0 +1,25 @@
+{
+  "failed_head": "13bbd34d16df3062de1ef9f97167f5365d521f99",
+  "failed_run": 39439132880,
+  "failed_job": 118684016902,
+  "gate": "Native Clippy workspace all-target/all-feature matrix",
+  "diagnostic": "unused_imports in server binary",
+  "file": "crates/adventuresim-tactical-server/src/combat/ingress.rs",
+  "line": 12,
+  "names": [
+    "melee_collision_clearance",
+    "melee_target_reachable"
+  ],
+  "root_cause": "The binary facade retained two production re-exports. Collision clearance has only an existing parent fixture consumer; target reachability has only consumers within its own lunge owner.",
+  "source_review": "Searched all server consumers, inspected the bare fixture call at line 938 and lunge-owner implementations, then checked the import-only diff. No helper implementation or test case was removed. These are bounded self Code/Rule checks, not independent whole-PR approval.",
+  "repair_commit": "2ab9bb7b5fb2c85fcd22b7c27badbd2809273f44",
+  "format_followup": "4c8c559fede919be940d0694f020133d0fffb417",
+  "formatter_run": 39440968157,
+  "formatter_job": 118690373871,
+  "repair": "Keep clearance in the existing cfg(test) imports; remove the unused target-reachability facade export. Retain actual functions and direct owner calls. Apply the exact hosted ordering of grouped imports.",
+  "new_tests_cases_assertions_helpers": false,
+  "new_suppressions_or_changed_gates": false,
+  "validation": "Exact-head formatting and bindings passed; shared schema/GPU boundary checks confirmed live. Full native and behavioral acceptance still pending.",
+  "current_run": 39441499527,
+  "current_job": 118692243316
+}

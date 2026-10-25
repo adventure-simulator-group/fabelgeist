@@ -1,0 +1,58 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-469",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/city_capture.rs",
+      "sha256": "0c29ec29fbd66e1990af24207697a0f3c11610bbf2027623f2d4989288e4d7e8",
+      "actual_EOF": 497,
+      "actual_compared_ranges": [
+        [
+          1,
+          497
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/debris_capture.rs",
+      "sha256": "11f7abe75d011a714e08274e5ea65665dcbf233c4b1c2e58649a9bf3955bc44f",
+      "actual_EOF": 225,
+      "actual_compared_ranges": [
+        [
+          1,
+          225
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/fixed_city_cameras.rs",
+      "sha256": "116ed503cb72625c577fd02ecf334fc72a8e6968aee36fe97cf6fdd82ac725df",
+      "actual_EOF": 232,
+      "actual_compared_ranges": [
+        [
+          1,
+          232
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "City camera and fixed capture contract arithmetic",
+      "analysis": "Full497/225/232line bodies read. City search requiresactualclearcorridor/support, returnedcameraeye/target/extentpositions re-admitted; emptybounds expect is guarded byfocusselectedbuilding/centres origin. Rawcorridor division dependspositive distinct endpoints, and noactualdegenerate acceptedroadshown. Fixedcamera load validatesfiniteposes andnonverticalview cross, reviewre-admitspositions; extremefinite endpointdifference canoverflow thisnativevalidator, but downstreamSceneCameraView mayrejectcomputedrotation (exactviewownerpending), so no ordinaryinvalidpublicationclaimed. Contract.apply buildsallcameraresults beforemutatingstate; finalfilewrite canfailafterstateupdate in terminalcapturetool, not persistedgameplay."
+    },
+    {
+      "contract": "Debris selection and bounded physical observations",
+      "analysis": "Debris review admits everyobservedobstacleposition/radius before ranking. Horizontalpairdistance, midpoint, distances andcamera translation re-admitted; terrainrequiredratherthanheight0fallback. Rankingusesboundedscoreterms andfixedclearance/slopegates. Nearestobstaclechosenbycentredistance, not globallysmallestedgeclearance; no exactproducer/cameraobstructionwitnesspromoted. Fallbackazimuthtypedfinite. Allfixture bodies read andsource-only, no actualimagecapture/testexecution."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_capture.rs"
+}

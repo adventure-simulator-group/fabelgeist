@@ -1,0 +1,164 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-241",
+  "at": "2026-10-23T07:26:10.629390+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-069.json",
+    "sha256": "d8e5d9fd9df25d6f1601e66a2392852934dd18fb33698620665eef13ec8b7361"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-068.json",
+    "sha256": "1493adee0b74ddf4839f2feb201a167f4c1b48ae43ed69e932aea9ce70c8d59d"
+  },
+  "new_variants": [
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/extents.rs",
+      "sha256": "7a667b7bb903784bfd856046539b87174d517867f7b5992e22988980b69e78d6",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-weapon-model\\src\\model\\extents.rs",
+      "snapshot": "pr-working",
+      "actual_line_count": 166,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          19,
+          150
+        ]
+      ],
+      "audit_owner": "root",
+      "scope_registration": [
+        {
+          "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+          "sha256": "3b96c74918b7d7cdef3011c6ba5e9e2630c2456b4fa9dd52be797d4e93a08fd2",
+          "row_1based": 21,
+          "id": "ROOT-INITIAL04-REG021",
+          "original_record": {
+            "id": "ROOT-INITIAL04-REG021",
+            "at": "2026-10-23T07:24:19.949620+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/extents.rs",
+            "snapshot": "pr-working",
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-weapon-model\\src\\model\\extents.rs",
+            "sha256": "7a667b7bb903784bfd856046539b87174d517867f7b5992e22988980b69e78d6",
+            "actual_EOF": 166,
+            "material_ranges": [
+              [
+                19,
+                150
+              ]
+            ],
+            "actual_reach": "Actual freshly scoped model/placement.rs121/140 invokes Shape::range and anchors.rs35-37 invokes Shape::attachment_anchor; full exact methods required to compare axial frame admission versus computed lofted blade width and pending forge quote. Signature-only navigation located impl19/attachment21/range53/nexthelper152; no body analysis before this registration.",
+            "exclusions": "Only exact Shape impl19-150 containing direct attachment_anchor and range methods; qualify closing/blank context after literal read. No profile_range1-18/pommel_range152+ helper bodies, unrelatedmodel files/foreigngraph or tests. No full extents source implied.",
+            "status": "prospectively_registered_before_new_material_body_analysis"
+          }
+        }
+      ],
+      "scope_limits": "Exact Shapeimpl19-150raw withcompleteattachment20-51/range53-149;19/150implcontext,52blank. FreshindependentRoot03literal240 afterprospectiveregistration; no1-18/151-166helpers/whole166/foreign/callerbody/P16credit. Actual axialrange is not complete geometrybound, validdegenerate0range preserved. Allolderqualifiers retained, nootherlensverdict.",
+      "source_lens_credit": "none from scope metadata"
+    }
+  ],
+  "new_overlays": [],
+  "total_variants": 2850,
+  "total_overlays": 245,
+  "mandatory_scope_qualifications": [
+    {
+      "record": "continuation/root/parallel-scope-qualification-130.json",
+      "sha256": "5dc4e5cd771612c7e050ab4af544411523317ae4b57738f1fb20f493685a50fc"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-117.json",
+      "sha256": "f3b80648900716939057b20776d756a6e37001f6910378da1a1bbaea230d348b"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-149.json",
+      "sha256": "97103899514ade32cf1e41c2794fa9c49c0cb8c6c7a2c6a4961b7492de5dc708"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-151.json",
+      "sha256": "670dd53a640b28eef7ad9d57b37f9213e1bca7117d7098691c4b0cd20c2a8f65"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-158.json",
+      "sha256": "fa0e9cc06d04fca0a0e2b5f9a333390a0ba1e71eff846a4e957c46b68b3e940e"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-170.json",
+      "sha256": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-173.json",
+      "sha256": "5763e9e965b4f4c1d402a09eab682de47336885c8d30b3c5b3d157242a496948"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-176.json",
+      "sha256": "9a321e498a00285331d4ec4fb4dc7c3a49d7bb6e3a08a44a79c2e5bf58186270"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-184.json",
+      "sha256": "5e35c8530a11d0f90bc767812758e4c504eb9ca5e776d0d1f17bf14c0853468d"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-188.json",
+      "sha256": "e15ac81028377714ef550a4cbd68546ec0fbd2ab41300f64db2a1c8686cb43ab"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-193.json",
+      "sha256": "fa718d979ab18d0f9bc7ea210e912d4cb8e971c3bbaa8702a602311d515d6e06"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-200.json",
+      "sha256": "0488f5857b999e28c0bfa68767711e5ccd0f5f7624892db7e578d0f680fa8c3c"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-208.json",
+      "sha256": "5fbee9250ddc79b5b7b1d96cf11104a38d4189b50be6afc922a7dad13ebe28c7"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-210.json",
+      "sha256": "e6967f316a6344840b02cf456d957909b3d845736e44be94ebf098ab31189b9b"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-220.json",
+      "sha256": "6037ab6a14b7e1f4a3a410940e5c00a6be8dcdff65b6fa058ae908a6df2a225f"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-224.json",
+      "sha256": "686fb52c275d5851977f8d2e2115dc56a0dabf6dede106d49006ba1eb66d1b46"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-226.json",
+      "sha256": "942720ea601333118ce0179bcfb964e2c6a9c51676dfae80e040ce0223e39d4c"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-230.json",
+      "sha256": "d9f907613cbf0616355a5d8a03d71f4f7f4a7a30c5c8e05b7dde8a45568a909c"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-231.json",
+      "sha256": "11d305a8a6be8e3c2d946a34cd6c51fdfbb2c4e3f5a4c2277d39cc6d1e8de231"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-233.json",
+      "sha256": "51dd8e5bad2466d231b06874f05233ab04557a3ac523422b029e6fedca15fefd"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-237.json",
+      "sha256": "9914b78e0deadbb7cad7c53d5c80a67943e1124e585c05f350e05766e29a3f61"
+    }
+  ],
+  "registered_rows": 1,
+  "input_pins": [
+    {
+      "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+      "sha256": "3b96c74918b7d7cdef3011c6ba5e9e2630c2456b4fa9dd52be797d4e93a08fd2",
+      "captured_rows": 21,
+      "selected_ids": [
+        "ROOT-INITIAL04-REG021"
+      ]
+    }
+  ],
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through245-before069.jsonl",
+    "sha256": "0378e32d695512b875a86dd6bb695f10d5f3c8d43d8838fe8ee222cbb02a869a",
+    "through": 245
+  },
+  "limits": "One new exactPRpartialrolevariant2850+245unchangedoverlays;307->308bounded01/02roles. No whole166/otherhelpers/foreign/caller/P16 orother-lenscredit. All237/233/231/230/226/224 andolderqualifiers retained."
+}

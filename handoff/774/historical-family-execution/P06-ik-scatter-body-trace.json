@@ -1,0 +1,82 @@
+{
+  "head": "a15f24ad44fc22f86e1e1fd9f2ae47b6bb0ba860",
+  "observed_at": "2026-10-20T16:53:07.629194+00:00",
+  "status": "Static caller-body and native-endpoint trace; no P06 source implementation. P04 complete exact-head acceptance remains pending.",
+  "ik_paths": [
+    {
+      "files": [
+        "animation/procedural/ik/locomotion.rs",
+        "animation/procedural/ik/locomotion/terrain_leg.rs"
+      ],
+      "current": "Authored foot translation comes from Bevy GlobalTransform; height is re-admitted as SignedLength before ordinary_terrain_target; checked normal is erased through weighted alignment.",
+      "change": "Admit scene plan once from the complete transform observation, pass SupportElevation directly to ordinary_terrain_target, retain Dir3 through both alignment wrappers. Keep the existing try_normalize inside the final slope/arc kernel: deleting it changes operation count/bits."
+    },
+    {
+      "files": [
+        "animation/procedural/ik/terrain_contacts/foot_clearance.rs",
+        "animation/procedural/ik/terrain_contacts/flight_projection.rs",
+        "animation/procedural/ik/terrain_contacts.rs"
+      ],
+      "current": "Terrain absolute support is stored as SignedLength in FootClearanceFloor::Terrain; completed floor callbacks carry Option<SignedLength> through three application functions before max/sphere/disk math.",
+      "change": "Terrain variant retains SupportElevation with its separate SignedLength clearance. Floor callbacks accept ScenePlanPoint and retain FootClearanceFloor to the actual solver. Use a fallible finite native-height projection only where max/chord/disk arithmetic needs the scalar; remove implicit From<SignedLength> application adaptation. Preserve complete sole-first/toe-second max before final admission.",
+      "failure_order": "Keep callback final-height finiteness checks before target.max: a negative overflowing sum must remain an error rather than being hidden by f32::max. Do not validate intermediate constituents earlier than the existing complete native equation."
+    },
+    {
+      "files": [
+        "animation/procedural/ik/settle.rs",
+        "animation/procedural/ik/observation.rs"
+      ],
+      "current": "Terminal support callbacks and sole/raised-support predicates pass native terrain heights between application functions.",
+      "change": "Callbacks use ScenePlanPoint -> Option<SupportElevation>; sole_is_at_contact and raised_support_is_actual retain SupportElevation until their actual ankle-minus-support-minus-sole equation. Missing invalid query point or hit remains false/None, not zero. Preserve preparation mutation order, toe acceptance and every threshold."
+    },
+    {
+      "file": "animation/pose_buffer.rs",
+      "current": "Reference/retained plant support height is used directly to construct or update a complete native affine pose target. Missing support keeps the real authored/reference target.",
+      "change": "Query with checked scene point and retain SupportElevation until the existing Vec3.with_y/max expression. The authored pose fallback is real observed geometry, not a fabricated terrain hit: preserve it and do not report support where absent."
+    },
+    {
+      "file": "animation/ragdoll/drive.rs",
+      "current": "Terrain maximum is reduced as raw f32 in a callback before capsule_terrain_penetration samples three spheres.",
+      "change": "Keep highest SupportElevation through the callback and three-sample interface; project only in height + radius - sample.y. Keep no-hit penetration identity zero (zero displacement), kinematic exclusion, sample order and velocity retention."
+    }
+  ],
+  "scatter_paths": [
+    {
+      "files": [
+        "presentation/ground_scatter/instanced_grass.rs",
+        "presentation/vista/grass.rs",
+        "presentation/ground_scatter/grass/community.rs"
+      ],
+      "current": "One native jitter centre forwards through coverage/height/community; owned hit elevations are erased at both TuftPlacement implementations.",
+      "change": "Admit the completed jitter ScenePlanPoint once and keep it through trait and community APIs. Return checked SupportElevation until InstanceData packing. Keep coverage and community scalar projections inside their actual mask/lattice/nearest-site kernels. GrassCommunityField native lattice/cache internals are an explicit numerical boundary; avoid retyping unrelated species weights.",
+      "preservation": "Exact lattice order, coverage-before-height-before-community, RNG/hash draws and native vista missing-neighbor centre-height calculation remain. Admit sampled vista elevation only after its complete slope calculation."
+    },
+    {
+      "files": [
+        "presentation/ground_scatter/grass.rs",
+        "presentation/ground_scatter/instanced_understory.rs"
+      ],
+      "change": "Completed cell jitter produces one ScenePlanPoint passed through grass helpers and ShrubPlacement; retain SupportElevation and Dir3 until Transform/InstanceData construction. Do not split/recombine world_x/world_z between helpers."
+    },
+    {
+      "files": [
+        "presentation/ground_scatter/plants.rs",
+        "tactical_scene_viewer/capture_state.rs",
+        "tactical_scene_viewer/view_specs/plants.rs",
+        "tactical_scene_viewer/plant_lods.rs"
+      ],
+      "current": "PlantSite -> PlantCaptureAnchor -> SceneCaptureState.plant_focus retain raw Vec3 after terrain support; camera and observation helpers take the root before native framing/distance math.",
+      "change": "Retain Position<Scene> from final root-with-embed calculation through these records and helpers. Scalar/vector projection belongs at actual Transform, camera framing, selection norm comparison and observation distance kernels. Preserve seed priority, x/z bit tie order, species filtering, plant bounds and existing tests. This extends the prior query-only inventory."
+    }
+  ],
+  "fixture_selection_addition": {
+    "command": "cargo test --locked --package adventuresim-tactical-server-dispatcher --example inspect-city-grounding -- --test-threads=1",
+    "basis": "Cargo.toml has no alternative example target/harness gates; examples/inspect-city-grounding.rs owns existing footprint, terrace, gate-approach and support-solution tests with committed Goslar data.",
+    "acceptance": "Proposed existing selection only; require nonempty hosted output, preserve all existing cases/assertions, do not count compilation as execution."
+  },
+  "limits": [
+    "Not every original query candidate body is now claimed traced. Finish remaining callers and the recorded image/const admission decisions before source implementation.",
+    "The 28-degree foot orientation cap remains unchanged; it is not the distinct 40-degree walkable terrain grade.",
+    "No new tests, cases, assertions, fixture helpers, source edits or local project commands."
+  ]
+}

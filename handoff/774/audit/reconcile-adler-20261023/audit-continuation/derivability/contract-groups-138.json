@@ -1,0 +1,188 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-138",
+  "at": "2026-10-25T12:53:49.232656+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 279,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs",
+      "sha256": "aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576",
+      "actual_EOF": 781,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs",
+        "sha256": "aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 25076,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 289,
+            "read_ranges": [
+              [
+                1,
+                781
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-DIALOGUE-043"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-DIALOGUE-040",
+            "json_pointer": "/current_sources/7",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                781
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 525,
+              "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs",
+              "expected_sha256": "aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576",
+              "observed_sha256": "aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576",
+              "read_ranges": [
+                [
+                  1,
+                  781
+                ]
+              ],
+              "proof_mode": "Fresh complete current material body; exact same-byte counterpart role proof only when hash identical"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-032",
+            "json_pointer": "/fresh_current_source_reads/7",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                781
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 525,
+              "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs",
+              "expected_sha256": "aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576",
+              "observed_sha256": "aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576",
+              "read_ranges": [
+                [
+                  1,
+                  781
+                ]
+              ],
+              "proof_mode": "Fresh PR complete body read; identical counterpart whole-source SHA verified when packet supplies paired variant",
+              "disposition": "source-read-remaining-connected-receiver-reconciliation"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-033",
+            "json_pointer": "/fresh_current_source_reads/6",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                781
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 525,
+              "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs",
+              "expected_sha256": "aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576",
+              "observed_sha256": "aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576",
+              "read_ranges": [
+                [
+                  1,
+                  781
+                ]
+              ],
+              "proof_mode": "Fresh complete current material body; exact same-byte counterpart role proof only when hash identical"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1212,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          781
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": {
+        "table_Clone_Debug": [
+          "LocalChatMessage",
+          "DialogueSession",
+          "DialogueParticipant",
+          "DialogueEvent",
+          "DialoguePrompt",
+          "DialogueAction",
+          "DialogueAnswer",
+          "CharacterTopicKnowledge",
+          "DialogueTopicOption",
+          "DialogueInvestigationBinding"
+        ],
+        "native_Clone_Debug_SpacetimeType": [
+          "BackendLocalChatMessage",
+          "BackendDialogueSession",
+          "BackendDialogueParticipant",
+          "BackendDialogueEvent",
+          "BackendDialoguePrompt",
+          "BackendDialogueTopicOption"
+        ],
+        "state_Clone_Copy_Debug_Eq_PartialEq": [
+          "DialogueSessionState",
+          "DialoguePromptState"
+        ]
+      },
+      "absence_basis": "Full schema plus view, authority, parser and fixture bodies consumed. All structural table/native traits already generated; no manual trait or serializer. ParsedDialogueSessionId deliberately borrows nonce; its inherent parse checks length/control characters/domain/numeric owner/nonempty remainder."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "dialogue schema and gateway/viewer-specific projection",
+      "disposition": "Existing derives cover storage/native wire and structural traits. Keep borrowed parser, exact stable-state IDs with their String errors, viewer expansion and safe field selection; these are semantic projection/validation functions. Keep live physical authority checks. A raw representation derive must not bypass checks or expose omitted private fields.",
+      "qualification": "Fixture source read, not executed; no native codec/authority clearance inferred."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 280,
+    "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_sessions.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

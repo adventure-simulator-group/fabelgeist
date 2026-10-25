@@ -1,0 +1,18 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-453",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        920
+      ],
+      "comparison": "Fresh full1182 including source-only fixtures; endpoint1196 qualified to actual EOF. EquipmentGraph body anchors/parent edges preserve many-to-many attachment and capacity semantics; no exclusive single-parent/body mode assumed, graph predicates are local queries and mutations preflight actual conflicts/cycles. WeaponSkillDistribution explicitly supports melee+ranged hybrid weights (not exclusive attack type); validation family booleans are capability requirements. PlayerEquipment separate melee/ranged capability queries and unarmed selected-attack predicate need actual implementation projection trace, no deriving unarmed from zero mass or deleting hybrid capability. Existing F150 monster classification must not impose Bow-only restriction here. Holding side, material, inventory provenance can legitimately be None for abstract aggregate actors; default armor_surface constructs valid contact with neither physical ID nor material. Selected weapon geometry/skills/side context projection is OPEN433 linked trace; do not invent physical inventory from aggregate shield bonus. Numerical elapsed timing methods use typed Result and meaningful defaults. Independent armor and encumbrance attributes common actor context, body part bitset denotes coexistence not exclusive region. InputAddressMapping locations/channel priority many-to-many intentional; key strings native input adapter. Source-only tests confirm hybrid leaf weights, abstract geometry facts, multiple attachment points and graph conflict rollback; not run.",
+      "finding_refs": [
+        "SEGO-INITIAL09-F150"
+      ],
+      "disposition": "Generic hybrid and abstract-context qualifications strengthened; native selected-context trace remains open"
+    }
+  ],
+  "new_findings": [],
+  "limits": "Pinned source only. No execution, repairs or clearance."
+}

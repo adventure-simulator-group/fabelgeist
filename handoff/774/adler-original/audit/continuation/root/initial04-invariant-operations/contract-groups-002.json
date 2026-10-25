@@ -1,0 +1,227 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-002",
+  "at": "2026-10-22T18:56:06.798354+00:00",
+  "lens": "audit-invariant-operations",
+  "scope": "cumulative-source-scope-parallel-016.json",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/measurement.rs",
+      "sha256": "72ee58eb8ae01af4b7f17ef81f007dfa63c7dc818a1ed71ce5bbba0707236e70",
+      "actual_read_ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "actual_EOF": 104,
+      "scope_limits": "Exact listed source role only; no whole called consumer graph or foreign implementation clearance."
+    },
+    {
+      "source_id": "physical-p16:crates/fabelgeist-geometry/src/measurement.rs",
+      "sha256": "c84b2c054d772b9b8037209e1d8542238c397c5dc0148ca5f68c86ef5fc9b9b2",
+      "actual_read_ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "actual_EOF": 107,
+      "scope_limits": "Exact listed source role only; no whole called consumer graph or foreign implementation clearance."
+    },
+    {
+      "source_id": "report-p17:crates/fabelgeist-geometry/src/measurement.rs",
+      "sha256": "7424133b695eecdc9d04383ff3021b7f902952c2c24354e06ca31f104642c471",
+      "actual_read_ranges": [
+        [
+          1,
+          79
+        ]
+      ],
+      "actual_EOF": 102,
+      "scope_limits": "Exact listed source role only; no whole called consumer graph or foreign implementation clearance."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/cuboid.rs",
+      "sha256": "1fe1e6483da91ee1bd681df6ff788ec97d680ac453c450069a30111c66dc40ed",
+      "actual_read_ranges": [
+        [
+          1,
+          126
+        ]
+      ],
+      "actual_EOF": 126,
+      "scope_limits": "Exact listed source role only; no whole called consumer graph or foreign implementation clearance."
+    },
+    {
+      "source_id": "physical-p16:crates/fabelgeist-geometry/src/cuboid.rs",
+      "sha256": "7afef5cd462b579637596de505b962b8eecc1fd818b8c8382d59ec3ab4fc6b7a",
+      "actual_read_ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "actual_EOF": 123,
+      "scope_limits": "Exact listed source role only; no whole called consumer graph or foreign implementation clearance."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+      "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+      "actual_read_ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "actual_EOF": 140,
+      "scope_limits": "Exact listed source role only; no whole called consumer graph or foreign implementation clearance."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/bounds.rs",
+      "sha256": "7760db42bc6a6c39f285ff6b2fdacbf6ff98b481d2385630e6bfbbb56a18a786",
+      "actual_read_ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "actual_EOF": 98,
+      "scope_limits": "Exact listed source role only; no whole called consumer graph or foreign implementation clearance."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs",
+      "sha256": "4ccc1188de7d5f8bdbf63b71160b8557f76fb524ae47f924381325da11198ee8",
+      "actual_read_ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "actual_EOF": 105,
+      "scope_limits": "Exact listed source role only; no whole called consumer graph or foreign implementation clearance."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+      "sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+      "actual_read_ranges": [
+        [
+          1,
+          142
+        ]
+      ],
+      "actual_EOF": 142,
+      "scope_limits": "Exact listed source role only; no whole called consumer graph or foreign implementation clearance."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+      "sha256": "c71c5590f1fb87ae1645a6e4f4ed54a0059d33b821ad0062e098821e1409b899",
+      "actual_read_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "actual_EOF": 28,
+      "scope_limits": "Exact listed source role only; no whole called consumer graph or foreign implementation clearance."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry.rs",
+      "sha256": "c3d39473c3dbc283a06a940bdaab465648c2789ebdf7757262ad128ef3851109",
+      "actual_read_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "actual_EOF": 29,
+      "scope_limits": "Exact listed source role only; no whole called consumer graph or foreign implementation clearance."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/lib.rs",
+      "sha256": "4be1dea1bfca250604d52c9c8ea026aac5e3608d4d8cf35168f0cdc60ff4a7ab",
+      "actual_read_ranges": [
+        [
+          1,
+          16
+        ]
+      ],
+      "actual_EOF": 16,
+      "scope_limits": "Exact listed source role only; no whole called consumer graph or foreign implementation clearance."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/error.rs",
+      "sha256": "78064ad3e76e6e39580db42af5da259e24a922d69fbe0953704cb9715f26a5c3",
+      "actual_read_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "actual_EOF": 95,
+      "scope_limits": "Exact listed source role only; no whole called consumer graph or foreign implementation clearance."
+    }
+  ],
+  "groups": {
+    "signed-length-arithmetic": {
+      "sources": [
+        "pr-working:crates/fabelgeist-geometry/src/measurement.rs",
+        "physical-p16:crates/fabelgeist-geometry/src/measurement.rs",
+        "report-p17:crates/fabelgeist-geometry/src/measurement.rs"
+      ],
+      "contracts": "PR/P16 full and P17 exact1-79 individually freshly displayed and compared. Every signed length finite, negative/zero valid. min/max select admitted finite values; from_millimetres maps bounded u16 exactly to finite f32 then division1000 positive finite denominator. f32 conversion from u16 exact <=65535. scaled_by accepts raw factor at native numerical operation, multiplies then canonical finite admission; MAX*2 rejected, 0*Inf rejected NaN, negative factors remain valid signed results. Tiny subnormal underflow to signed zero remains valid signed value. PrivateSelf conversion from PositiveLength preserves stronger finite invariant. P16 extra negated operation is exact sign inversion on finitef32 (including MAX and signedzero), not abs/minimuminteger overflow. PR/P17 do not define negated; no replay claim. Area in PR/P16 checks finite/nonnegative, no arithmetic/mutators in owner; P17 Area constructor outside1-79 excluded even though premature full display occurred, freshbounded79 reread authoritative.",
+      "disposition": "No invariant break in exact owner operations; downstream sums/area kernels separate."
+    },
+    "cuboid-axis-selection": {
+      "sources": [
+        "pr-working:crates/fabelgeist-geometry/src/cuboid.rs",
+        "physical-p16:crates/fabelgeist-geometry/src/cuboid.rs"
+      ],
+      "contracts": "PR complete file; P16exact1-80 fresh. from_metres first checks all finite and canonicalSignedLength admits fixedarray[0..2], then from_axis_lengths checks each nonnegative BEFORESelf. SignedLength input finite, negativezero accepted matching nonnegativepolicy; fixedindices statically3, no arbitrary dynamicordinal. ZERO array admitted. Getter/map/nativevector projection only copies checked leaves, no norm/volume multiplication here. No mutation or fallible partialcommit. PR customSerde calls sameconstructor; P16Serde outside80 not credited.",
+      "disposition": "No breaking operation; preserve point/line/zeroextents, no positive-only substitution."
+    },
+    "framed-coordinate-arithmetic": {
+      "sources": [
+        "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs"
+      ],
+      "contracts": "All140 fresh. Positiontranslated adds sameframe admitted finitepositions/displacements then Self::from_metres finitecheck; displacement_to subtracts then correspondingfinitecheck. Opposite \u00b1MAX subtraction or MAX+MAX rejects, no uncheckedSelf/no storedpartialresult. Frames remain compiletimeF. Elevationmax selectsadmittedfinite same-datum coordinate, no overflow; constants finite; nativeextraction only getters. Default/serdeconstructor no mutationclock. Zero displacement and signed elevation supported.",
+      "disposition": "Operations preserve published leaf invariants, rejection valid."
+    },
+    "bounds-arithmetic": {
+      "sources": [
+        "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/bounds.rs"
+      ],
+      "contracts": "All98 fresh. new requires checkedfinite sameframe endpoints and lower<=upper axisbyaxis beforeSelf. at(point) degenerate valid. centre native(min+max)*.5 intentionally may overflow though mathematicalmidpoint representable; explicit BoundsCentre finitecheck rejects withoutmutation, no obligation silentlychange evaluationorder. extent(max-min) andplan_half_extents(max-min)*.5 readmit finite/nonnegative; e.g[-MAX,+MAX] rejected. union min/max peraxis selectsfinite endpoints and preserveslower<=upper frombothorderedinputs; including=union(at). overlaps comparisons only, tangency inclusive; getters copy. No mutable/unchecked numerical replacement except justifiedfinite selection inunion.",
+      "disposition": "No invariant-breaking publication; preserve documented native overflow/error classification and zero/tangency policies."
+    },
+    "positive-to-half-extents": {
+      "sources": [
+        "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs"
+      ],
+      "contracts": "All105 fresh. positiveLeafDimensions all3axesfinite>0 via commondimensions then canonicalcuboid; PlanDimensions finitepositiveXZ. half_extents multiplies by exactlypositive.5 =>finite nonnegative, underflowsubnormal0 intentionallyvalidPlanExtents. No increase/norm/division; directprivateSelfconstructor justifieddestination allowszero. PlanExtentsfrom_metres finite>=0, readonly getters; no operationcanintroducenegative.",
+      "disposition": "No break; do not require half-extents remain strictlypositive."
+    },
+    "direction-and-rotation": {
+      "sources": [
+        "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs"
+      ],
+      "contracts": "All142 fresh. Radians finiteconstants/constructor/default0, no anglecomposition. from_vector callsnativeDir admission then recomputes originalnormalize_or_zero, passesresult to from_normalized which again checksDir creation + is_normalized BEFOREnew_unchecked. Hence intermediateoverflow/underflow/zero gives rejection under actual native checks; nativeDir/Vec implementation exactscopedcells independentlypending. Plan spatial lift simplyinserts exact0 component into alreadyunitXZ and frameunchanged; squaredlength mathematicallysame axisorder, no arithmeticgrowth. Rotation acceptsfiniteANDnormalized, no normalizationrepair/composition/state mutation. This comparison doesnotclaim actualforeign norm algorithm examined here.",
+      "disposition": "Owner checks numerical results before acceptedSelf. Actual native normalization kernels remain ownsourcecells, not clearedbythispacket."
+    },
+    "error-and-module-bindings": {
+      "sources": [
+        "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+        "pr-working:crates/adventuresim-building-generator/src/spatial_geometry.rs",
+        "pr-working:crates/fabelgeist-geometry/src/lib.rs",
+        "pr-working:crates/fabelgeist-geometry/src/error.rs"
+      ],
+      "contracts": "All4 bodies fresh. Local finite loops fixed3Veccomponents, rejects firstNonFinite typedrole/axis; no arithmetic, mutationorindex risk. direction_error exhaustively mapsnativeZero/Infinite/NaN to canonicalportablecause; no errorstringbranch. Modulebindings re-exportexistingowner only, no numerical APIs/hiddennormalization. Portableerrors carryrole/axis/directionandformatserialization match no arithmetic. Testmodule declarations not executed/newtestscope.",
+      "disposition": "Exact module/error operations no invariant break; callednative implementations pending."
+    }
+  },
+  "chronology_qualification": "A broad source display hit deleted buildinggeometry length.rs after first3reads and stopped; missingfile receives no read/coverage. P17measurement initial whole display exceeded exact1-79, excess ignored and freshbounded reread authoritative.",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false,
+  "repair": "frozen_all13_initial",
+  "validation": "not_established"
+}

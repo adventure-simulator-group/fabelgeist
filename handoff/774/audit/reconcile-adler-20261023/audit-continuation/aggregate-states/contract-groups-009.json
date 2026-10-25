@@ -1,0 +1,96 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-009",
+  "at": "2026-10-24T02:45:21.143514+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1003,
+      "source_id": "pr-working:crates/adventuresim-core/src/starting_character.rs",
+      "sha256": "6fc3cb5410e5f3657ffc30cdb4be97fca0dbd4542238960d0db8d0fcc8ff7192",
+      "personally_read_ranges": [
+        [
+          1,
+          1936
+        ]
+      ]
+    },
+    {
+      "scope_index": 1004,
+      "source_id": "pr-working:crates/adventuresim-core/src/starting_character/names.rs",
+      "sha256": "feeb666963f06197194f5ee981cf808dfbf3915173ca838aaa04de5b03ab2bf5",
+      "personally_read_ranges": [
+        [
+          1,
+          141
+        ]
+      ]
+    }
+  ],
+  "support_for_inherited_roles": [
+    {
+      "scope_index": 1005,
+      "sha256": "c0b4700f02ec367c49f7a3db0dc7646f19be07fabef65f0945e051ef058e4a60",
+      "fresh_ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "prior_proof": "../../audit/continuation/native/initial05-aggregate-states/contract-groups-074.json",
+      "count": "No distinct-role increment."
+    }
+  ],
+  "new_live_extensions": [
+    {
+      "extension_index": 59,
+      "source_id": "pr-working:crates/adventuresim-core/src/starting_character/personality_tests.rs",
+      "sha256": "356a76affb4adbbe85d8052029acca07959e184be169391115f50c499b0127cd",
+      "personally_read_ranges": [
+        [
+          1,
+          33
+        ]
+      ],
+      "registration": "source-registration-001.json",
+      "trace": "Complete fixture verifies all presentation/inclination Serde combinations retain canonical wire names and a semantic name identity rather than a duplicate display name. It rejects capitalized wire variants. This is source assertion evidence, not an executed or all-route admission guarantee."
+    }
+  ],
+  "groups": [
+    {
+      "relationship": "Request coordinates and normal construction",
+      "source": "1003:317-360/519-641/1377-1488",
+      "trace": "Version, exact 32 lowercase-hex seed and tier-dependent slot bounds are checked before selection. Private profession indexing is bounded by the same roster. Adult/Old preliminary young-style fields are replaced by professional construction before return. ID and settlement selectors use purpose/tier/slot streams; no collision-proof or authority grant is inferred from hashing. Public default_with_id intentionally consumes an externally reserved ID, a distinct route from validated roster requests."
+    },
+    {
+      "relationship": "Profession, organization, role and life requirements",
+      "source": "1003:935-983/1067-1099/1377-1478 plus1005",
+      "trace": "Selector returns an actual catalogue member with matching starting profession and a starting-role value. Assigned role is resolved fallibly; admission and role requirements are combined, conflicting professed religions rejected. Governing attributes are raised before life simulation instead of patching credentials afterward. Successful simulation must satisfy every requirement. A mutable private spec can be partially changed on an error, but its only normal caller owns a local candidate and discards it on Err; no partially returned candidate established."
+    },
+    {
+      "relationship": "Inventory and skill/profile correspondence",
+      "source": "1003:362-377/438-508/527-605/789-933/1025-1064/1101-1279",
+      "trace": "Normal fixed tables pair equipment with intended slots and required ammo; professional kits and supplies are authored together. Combat training profile comes from actual held item definitions and canonical weapon distributions, not background prose. Optional item-definition absence defaults are raw helper policy; no normal unknown authored item proven. Life skill and written-hour outputs are copied field-for-field into the retained record. Default character uses a separate explicit age/calibration; it is not required to match Adult roster age22."
+    },
+    {
+      "relationship": "Personality and demographics",
+      "source": "1003:206-315/643-787/1281-1362",
+      "trace": "Normal random generation selects distinct axes before selecting one value per axis, producing two to four nonneutral traits. Curated professional traits likewise use distinct axes. Sex, presentation and inclination intentionally have independent weighted relationships, not a forced equivalence invariant. Public derived-Serde StartingPersonality can still contain duplicate or opposed traits, and public spec can disagree on age/profession/organization; raw API strengthening is distinct from normal constructor coherence."
+    },
+    {
+      "relationship": "Name lifecycle and display boundary",
+      "source": "1004:14-82;1003:606-640",
+      "trace": "A temporary empty authored identity is private assembly state. Successful generation assigns historical identity after life simulation, using the same sex/age/profession and a naming seed. No success path returns the pending identity. Native everyday name is fallible and uses canonical identity/sex; it does not retain a competing display-name authority. Default name identity is intentionally fixed across caller ID namespaces. Broad public mutation/Serde can still make name projection fail; existing fixtures exercise that error."
+    },
+    {
+      "relationship": "Existing acceptance references",
+      "source": "1003:1491-1936;1004:85-141; extension59",
+      "trace": "All existing fixture bodies read. They assert complete clothing, fixed ages/tier professions, role/religion requirements, finite life hours, deterministic coordinates, differentiated inventories, canonical activity profiles, sheath-kit limits, weighted demographic shapes and semantic name projection/roundtrip/errors. No tests executed or added."
+    }
+  ],
+  "connected_repair": "Retain canonical request identity, age, skill/currency/item leaves and complete profession/role relationships through the accepted candidate and DB installation. Reconcile existing shared naming/organization/personality owners; do not introduce an equivalent local axis type or flatten computed values before the receiving signature. Keep pending assembly data private if the final record becomes admitted.",
+  "acceptance": "Successful retained candidates preserve tier/slot/profession/role requirements, coherent inventory and naming; invalid independent public products are rejected at their actual admission boundary. Preserve deterministic entropy order and intentionally distinct default/roster policies. Existing fixtures only.",
+  "new_unique_findings": [],
+  "discovery": "With inherited migration findings and qualified API limits; no clearance",
+  "repair": "not started",
+  "validation": "not run"
+}

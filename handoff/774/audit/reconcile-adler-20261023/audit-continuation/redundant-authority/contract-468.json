@@ -1,0 +1,65 @@
+{
+  "id": "CONT07-CONTRACT-468",
+  "at": "2026-10-23T22:25:41.718706+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2066,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/openings.rs",
+      "sha256": "e2b631050589329c5b243b414c9ad77d1d394827829ee277f288072d2c460314",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/openings.rs",
+      "actual_EOF": 99,
+      "ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2068,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection/dive_launch.rs",
+      "sha256": "92c5c2966afd08f99f1107fb60067033371cb1a4139a5d3c348ad79f27ee7bd9",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/player_projection/dive_launch.rs",
+      "actual_EOF": 101,
+      "ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2069,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+      "sha256": "40f9695ff7352badc2fff5fb1cc7a15d68a36ea48dcfd36083f2c7c5145096e9",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+      "actual_EOF": 162,
+      "ranges": [
+        [
+          1,
+          162
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "2066 full99 reconstructs current server plan/collision from replicated building.program and same placement Transform, not from potentially mismatched retained GeneratedBuilding collision. This qualifies F094: worker cache inconsistency can remain in client/interior/furniture generation, while normal server opening/collider callback regenerates canonical program and therefore is not automatically a recipient of its wrong retained collision. Corrected source-to-receiver distinction preserved.",
+    "2066 SceneBuilding Add callback constructs collider/openings once; no hot component program replacement producer shown. Door/window partial creation before error could enqueue some native entities, but actual admitted generator output failure path remains unproved and not promoted merely by Result flow.",
+    "2068 full101 differentiates grounded slide preserving existing momentum from a fresh directional dive setting horizontal velocity; trajectory and requested travel direction are orthogonal admitted posture inputs, not competing copies. Vertical velocity remains physics-owned and not a zero/default oversight.",
+    "2069 full162 fixed-root transition ownership suppresses generic controller/velocity turning, then landing/get-up delta updates Transform and physics Rotation together. Desired camera, attack target position and actual body rotation are separate goals/history/current roles. AuthoritativeFacing borrows one immutable config for full solve; shared locomotion sample rate derives attack deadline rather than unrelated clock.",
+    "2069 advance_projected_posture snapshots previous transition to compute exact one-step delta and publishes same normalized rotation to Transform/Rotation. No stale root-physics discrepancy within this coordinated path. Other projection callers/lifecycle and Ragdolled priority still require actual2067 source, not inherited byte/hash clearance."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2072,
+    "start_line": 1
+  }
+}

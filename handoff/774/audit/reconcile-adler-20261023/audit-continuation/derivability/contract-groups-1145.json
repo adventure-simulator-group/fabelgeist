@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1145",
+  "at": "2026-10-25T17:54:24.801587+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1251,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/schedule.rs",
+  "sha256": "08c054563be5757fc2da0ce95af4c995e5a8f8d1acf549bc5dbc65f2c3443077",
+  "actual_compared_ranges": [
+    [
+      351,
+      730
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "No handwritten trait/codec. SkillHours writeback preserves other language/custom skill state; direct_skill_hours_mut441\u2013475 switches semantic native slot, excludes family leaves. TerrainBookSkill/BookTarget snapshot/apply classifiers depend canonicalbook targets/rank/aptitude/transfer rules and mutable family storage, not new Serde or generic AsMut. Reading picks accessible current title/rank context and bounded unusedhours progress; existing canonical helpers. core_schedule728 prefix mechanical selected fields but no handtrait/conversion derive."
+  ],
+  "first_unfinished": {
+    "scope_index": 1251,
+    "line": 731
+  },
+  "execution": "none"
+}

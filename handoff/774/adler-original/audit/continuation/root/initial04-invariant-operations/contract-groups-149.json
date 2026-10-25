@@ -1,0 +1,60 @@
+{
+  "packet_number": 149,
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/scalp_map.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          147
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh literal complete147 after prospective045. Independent current04 operation/result comparison authored separately from Root03 admission228; no peer verdict or hash-only clearance.",
+      "sha256": "717bbedb859bc7b5df413aeea35d20cccbdf1e08dc53f2f8d692b72dc2cc662e",
+      "actual_EOF": 147
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh literal complete138 after prospective046. Independent current04 operation/error/native allocation comparison, no imported kernel or foreign-owner body credit.",
+      "sha256": "f8844fc7362364c5217079615e4459865865020ba4a36f5b25a8997cdd9c8f92",
+      "actual_EOF": 138
+    }
+  ],
+  "groups": {
+    "projection-operations": "fit collects unit scalp directions, sum-normalizes mean with up fallback, then64 axis refinements toward min-dot direction. AXIS_STEPS fixed64, step+1 at most65 safe, norm helper accepts only positive finite length. Empty directions leave up and widest0. Raw scalp distance sum and area products can become nonfinite despite filtered directions, so no claim filtering fully validates Surface. Actual admitted body-scale geometry bounds not compared here; no ordinary invalid map claimed. Axis parallel face uses face fallback, sidecross0; output frame degeneracy needs whole accepted geometry contract, not just finite scalar leaves.",
+    "uv-and-scale": "angle clamps normalized dot before acos. Rim applies .02rad margin then capsPI, normally positive. uv rejects invalid position-direction and reach>1, inverse concentric map uses four exhaustive finite azimuth sectors after rem_euclid, maps square to UV. Extents, coordinate frame, radial scale and normalized texture coordinates are distinct. texel(size) raw native count denominator can be0, no local reject; actual normal native size caller remains separate, not a proven bad exported texture. Finite norm overflow aligns existing F002 operation class, no new unique finding.",
+    "context-and-publication": "One HairGpu constructor owns context provenance: builds fresh source/cache and groomer plus four kernel owners before returning, each fallible constructor propagates ?. Partial failed construction never returns a half-published HairGpu. Headless context opening is explicit. KernelSource compile returns cached Arc kernel or error using same stored context; actual cache/device admission body separate. Mutex serializes groom scratch; poison recovery intentionally consumes guard, safety comment depends on actual reset operations not read here. finish synchronously calls groomer finish while holding lock; no timing/performance proof from documentation.",
+    "native-buffer-relations": "storage raw bytecount.max16 then into native Buffer constructor is minimum allocation policy plus real type port; no arithmetic overflow from max. Underlying device limits/error classification stay native owner. upload retains element layout via BufferUpload::from_elements, empty input replaced by four Default values. Nonempty slice does not prove nonzero bytes for every generic T, but actual native admission can reject; no allocation success/OOB witness or foreign helper patch claimed. Named parameter macro builds one native dictionary, repeated keys follow actual insert behavior; semantic binding completeness and caller names separate obligations.",
+    "limits": "Two new distinct current04 roles528->530, unique findings59 unchanged. All mandatory226/224 and older qualifications retained. No source changes, execution, new tests, transitive source expansion or other-lens clearance. All thirteen initial audits then handover163; implementation deferred."
+  },
+  "findings": [],
+  "id": "ROOT-INITIAL04-CONTRACT-149",
+  "at": "2026-10-23T06:46:27.583764+00:00",
+  "lens": "audit-invariant-operations",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-066.json",
+    "sha256": "f257d6778021af18d781e034a4ca19fbd99c0051c53bdb19f2e8cdb8288e15cd"
+  },
+  "mandatory_overlays": {
+    "record": "continuation/owner-range-extensions.jsonl",
+    "sha256": "0378e32d695512b875a86dd6bb695f10d5f3c8d43d8838fe8ee222cbb02a869a",
+    "through": 245
+  },
+  "mandatory_qualification170": {
+    "record": "continuation/root/parallel-scope-qualification-170.json",
+    "sha256": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c"
+  },
+  "repair": "frozen_initial_audits_then_handover",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

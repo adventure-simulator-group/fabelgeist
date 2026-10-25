@@ -1,0 +1,15 @@
+{
+  "id": "SEGOVB-04-BUILDING-CELL-NEIGHBOR-ENDPOINT-CANDIDATE-001",
+  "source_id": "pr-working:crates/adventuresim-building-generator/src/model.rs",
+  "ranges": [
+    [
+      113,
+      136
+    ]
+  ],
+  "witness": "Public Cell::new(0,i16::MAX).neighbour(Direction::North) adds1ini16; overflow-check buildpanics, uncheckedbuildwrapstoMIN. Allendpointcells arecurrentlyconstructor/Serdeaccepted; no explicitwrapping policy. Finitefullwordgridcoordinates unlike boundednormalgenerator.",
+  "qualification": "Representable publicAPI counterexample only. Actualnormalfootprintwidth/depth<=32767 coordinates0..32766 provideonecellmargin, personallyprovedpacket307, so no ordinarynormal-generatedfailure. Playerbuild/maxendpoint actualcaller stilluntraced here; no UI/runtimeclaim. Separate from litter i32 spatialhash exactNATIVE05F021/RIGROOTSUPPLEMENT002 despite sharedneighborcapacityprinciple.",
+  "repair_boundary": "Checked neighbor/explicitbounded-grid operation policy orwiderkey where appropriate; preservefulli16signedCellincludingzero/negative, do notnarrowgeneralowner toordinaryfootprint or silentlywrap adjacency.",
+  "acceptance": "Everyrepresentable sourceCell endpoint has explicit neighbor-exhaustion/error/widerrepresentation policy; ordinaryfootprintwallgeometry preserves currentdirection/order; no tests executed.",
+  "alias_status": "NoexactCellneighborindexedarchivehit; parentglobaldedupnotasserted."
+}

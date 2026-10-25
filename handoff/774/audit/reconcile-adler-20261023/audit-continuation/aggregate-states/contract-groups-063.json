@@ -1,0 +1,83 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-063",
+  "at": "2026-10-25T12:29:33.794422+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1215,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs",
+      "sha256": "ffaa735d01a814246e3df80b2da9bd1318b5777e34da322aa20f2c17320574fa",
+      "personally_read_ranges": [
+        [
+          1,
+          616
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Whole616 actual topic/prompt admission/voting/effect/source recipient read. Dynamicpromotion overrides exactcanonicalSingle/min1/max1 with catalogrolechoices, requires at least2 options, associates eachtargetrole effect and label coherently. Corpsepermission topic parses exactscope/nonemptyapproach/bodyID, selectedcurrentoption and NPC gate then authoritativepermission, matching spokenresponse/sourcelength andreceipt. Other topic requires knowncurrenttopic, actualcatalog/cardinality/facts andunambiguousresponse; actualturnresolvedfragments+sourcevector shareowner. One emittedClaim event required forReceiveTestimony, zeroorsecondclaimed event rejects; all failures propagate.",
+        "Prompt construction stores same admitted chosenchoices/bounds/mode/currentresolution/respondentrole then sourcevector byactualchoiceorder; native string policy adapter reparsedonanswer, canonicalowners alreadyexist, M99 propagationgap. Actual answering verifies currentgateway/catalog/sessionmember/respondentrole/currentrevision/openprompt, chosenchoices distinct+bounded+allowed and nonMulti exactly1, oneanswer perprompt/character. Allanswercount includes rowswhoseballot JSON maydrop viafilter_map, exact M100 failure-beforepublication strengthening retained; no malformednormalproducer assumed. Voting typedpolicy stillnotone aggregate withmode/bounds; exact source-support001 confirms legal Multi[min2,max2] canresolve singleton forMajority/AllRespondents. M99unionedaggregate lens andexactacceptance, no new globalfindingcount.",
+        "Prompt choices effects execute onlyactual winner fromstoredallowedchoices, actualauthoredresponse foundbygloballyuniquepromptID (corevalidator/build uniquenessguards read), same private source_scope reconstituted. Actual1213 receiver then checks preissuedassociation/currentcustody beforeeffects. Native choices resultturns resolvefragments and separatelysourcevector; prior M100 actualcompletebuild/runtimevalidation excludesTestimony expansion there, so do not re-promote theoretical arbitrary expansion mismatch alreadyqualified. Prompt/answer/session/action/finalresult updated after propagatedeffectsuccess. Concurrentinterleaved session revision/topic mayleave oldprompt open but invalidate preissuedbindings; actualstalechoice handling policy needs actualfamilyreceipt trace, no statecorruption invented.",
+        "Receipt limitations independentlyvisible: choose topic129\u2013132 returnsOk onany existingactionID beforematchingrequestedtopic/actor; answer370\u2013386 compares prompt actionkind butnotnormalizedchosenpayload. Actual desired idempotency contract shouldexplicitlydistinguish exactreplay fromconflicting reuse; no claim current firstwins policy is a newlyintroduced774 regression. M99 acceptedrequest contract mustretain enough tuple to verify any promised exactretry. Native increment/saturatingmix atMAX andeventcountcasts are migrationcounterlimits not ordinaryrunwitness. No tests/checks/sourcechanges."
+      ]
+    }
+  ],
+  "supporting_source_members": [
+    {
+      "scope_index": 1035,
+      "source_id": "pr-working:crates/adventuresim-dialogue/src/prompt.rs",
+      "sha256": "ce7a0cb88c92661701e05af8240110971e02624dc1557a91cbb300ae94af94fb",
+      "ranges": [
+        [
+          1,
+          37
+        ]
+      ]
+    },
+    {
+      "scope_index": 1034,
+      "source_id": "pr-working:crates/adventuresim-dialogue/src/lib.rs",
+      "sha256": "bd30bf8d21bb5152ad8cfdc81e7ff99fc9629f6f3c5d359c156aa4b1e21cd284",
+      "ranges": [
+        [
+          1,
+          60
+        ],
+        [
+          470,
+          582
+        ],
+        [
+          650,
+          768
+        ]
+      ]
+    },
+    {
+      "scope_index": 1030,
+      "source_id": "pr-working:crates/adventuresim-dialogue/src/authoring_schema.rs",
+      "sha256": "5218afbbe83f65f767841fc2de3aea7f09b2b9fff8226085d6ab2ad98f63f6a7",
+      "ranges": [
+        [
+          1,
+          116
+        ]
+      ]
+    },
+    {
+      "scope_index": 1029,
+      "source_id": "pr-working:crates/adventuresim-dialogue/build.rs",
+      "sha256": "cc1742e70ed56b721e25aebb320b2295d621a1f826310a05b1f8771ab968093b",
+      "ranges": [
+        [
+          320,
+          388
+        ]
+      ]
+    }
+  ],
+  "scope_credit": "Supporting originals1029/1030/1034/1035 already own05 accounted; only selectedfresh relevant ranges, not additional role counts.",
+  "canonical_support": "source-support-001-m99-prompt-cardinality.json",
+  "discovery": "One original role accounted WITH actionable M99 conditionaladmission mismatch and retainedM100 qualification; full lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

@@ -1,0 +1,136 @@
+{
+  "id": "RIG-OWNER-NEW-CLAIM-TARGETS-001",
+  "kind": "claim reconciliation metadata only; no new source analysis/claim transfer",
+  "proofs": [
+    "owner-fit-delta/completion-001.json",
+    "owner-fit-delta/findings.jsonl",
+    "owner-fit-delta/repair-ownership-reconciliation-001.json"
+  ],
+  "groups": [
+    {
+      "finding": "F001",
+      "path": "crates/fabelgeist-compute/src/sort/mod.rs",
+      "whole_functions": [
+        "RadixSort::record (233\u2013305)"
+      ],
+      "connected_existing_function": {
+        "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+        "function": "KernelBatch::copy_buffer (319\u2013329)",
+        "claim": "rig_garments-claims.json#/claims/272 existing shared copy graph"
+      },
+      "new_claim_needed": "RadixSort::record exact new target; whole copy caller graph remains existing connected claim, no local conversion adapters."
+    },
+    {
+      "finding": "F003",
+      "path": "crates/adventuresim-core/src/alcohol.rs",
+      "records": [
+        "AlcoholProperties",
+        "EveningIds",
+        "RestEvenings",
+        "TravelEveningSegments",
+        "ScopedAlcoholSupply"
+      ],
+      "whole_functions": [
+        "ethanol_ml95",
+        "water_content_ml105",
+        "properties_valid114",
+        "emergency_hydration_ml119",
+        "units_for_target132",
+        "consumable_units140",
+        "tavern_units_affordable148",
+        "evening_id167",
+        "evening_boundary173",
+        "next_evening_boundary_after180",
+        "EveningIds::next201",
+        "checked_interval213",
+        "crossed_evenings226",
+        "RestEvenings::next253",
+        "rest_evenings272",
+        "TravelEveningSegments::next296",
+        "travel_evening_segments310",
+        "qualifying_heavy318",
+        "hydration_after_expected_drinking335",
+        "surgery_control_bonus379",
+        "best_disinfectant390"
+      ],
+      "limits": "Exact read production bodies1\u2013400 and already readfixture410\u2013426 only; no later fixture body credit. Milliliters only wholeinteger ml, rawinvalidABV>10000\u21920 unchanged; EveningId0 valid distinctabsoluteinstant. No ownerclaim acquired."
+    },
+    {
+      "finding": "F003",
+      "path": "crates/strategic-web/src/routes/settlements/rest_preview.rs",
+      "whole_functions": [
+        "consumable_fraction1",
+        "soap_uses8",
+        "soap_rest_preview17",
+        "calculate_rest_supply_availability85",
+        "calculate_soap_rest_preview182"
+      ],
+      "records": [
+        "RestSupplySources74",
+        "SoapRestPreview actual retained fields"
+      ],
+      "claim_note": "Existing Rig soap_rest_preview claim424 and travel forecast pair425 preserved; reconcile newly reached helper names into whole graph, no new authority inferred. Camera canonical Web aggregate/query adapter ownership remains."
+    },
+    {
+      "finding": "F004",
+      "path": "crates/adventuresim-character-creator/src/device_extremities.rs",
+      "whole_functions": [
+        "record_boot92 (typed computed clearance producer)"
+      ],
+      "connected": [
+        {
+          "path": "crates/adventuresim-character-creator/src/device_footwear_fit.rs",
+          "whole_functions": [
+            "record_section_fit26",
+            "record_ankle_fairing71",
+            "fit_source109"
+          ],
+          "native_recipients": "PassParameters47/86\u2192embedded measured148; actual material body1\u2013283"
+        }
+      ],
+      "claim_note": "Existing ClearenceFit claim290/record_mitten292 do not award boot/footwear whole-function claim. Root reconcile new exact targets; Native canonical measurement/scaled_by native-exact018 retains owner."
+    },
+    {
+      "finding": "F005",
+      "path": "crates/fabelgeist-armor/src/gpu/helmet/surface.rs",
+      "records": [
+        "Latitude::Regular21\u201322",
+        "CoordSurface61"
+      ],
+      "whole_functions": [
+        "latitudes37",
+        "CoordSurface::vertex67",
+        "CoordSurface::coord72",
+        "CoordSurface::connect77",
+        "CoordSurface::full_dome97",
+        "CoordSurface::styled_dome124",
+        "CoordSurface::fan_dome136",
+        "CoordSurface::shell204"
+      ],
+      "read_limit": "Material1\u2013218 only; fixtureheader220\u2013224 navigation, not fixturebody225+ credit. Typed regular angular row and physical crest/gauge unchanged values; native4float coordinatepacket only actual endpoint.",
+      "connected": [
+        {
+          "path": "crates/fabelgeist-armor/src/gpu/helmet/parts.rs",
+          "whole_functions": [
+            "HelmetParts::parts115",
+            "morion141",
+            "kettle_hat154",
+            "brimmed168"
+          ],
+          "proof": "Existing old041 hostphysical graph plus actual151/168\u2013188 call arguments, no unrelated full helpers expansion"
+        },
+        {
+          "path": "crates/fabelgeist-armor/src/gpu/helmet/burgonet.rs",
+          "whole_functions": [
+            "burgonet29"
+          ],
+          "proof": "Actualcrest caller54, existing old041 hostphysical graph"
+        }
+      ],
+      "neutral_owner": "Existing Radians in crates/building-generator/src/spatial_geometry/orientation.rs1\u201333 (actual extent1\u201350 read) must relocate to neutral geometry already depended on by Armor; no Armor\u2192generator cycle/new duplicate. Native existing orientation claim22/native-exact023 is not blanket helmet claim."
+    }
+  ],
+  "source_edits": 0,
+  "authoritative_claim_mutations": 0,
+  "new_lens_credit": false
+}

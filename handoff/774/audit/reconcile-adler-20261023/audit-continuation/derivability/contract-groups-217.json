@@ -1,0 +1,123 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-217",
+  "at": "2026-10-25T13:44:05.321803+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 420,
+      "source_id": "physical-p16:crates/adventuresim-terrain/src/road_pack.rs",
+      "sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+      "actual_EOF": 344,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-terrain/src/road_pack.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-terrain/src/road_pack.rs",
+        "sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 12472,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 371,
+            "read_ranges": [
+              [
+                1,
+                80
+              ],
+              [
+                110,
+                155
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-AUTHORITY-MODEL-053"
+            ],
+            "read_status": "scoped_original_owner_and_actual_source_digest_producer",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-terrain/src/road_pack.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "continuation/camera/sources.jsonl",
+            "receipt": "CONT-CAMERA-SOURCE-566",
+            "json_pointer": "",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-terrain/src/road_pack.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                344
+              ]
+            ],
+            "source_context": {
+              "id": "CONT-CAMERA-SOURCE-566",
+              "index": 566,
+              "source_id": "physical-p16:crates/adventuresim-terrain/src/road_pack.rs",
+              "sha256": "d77eb7c6e596c710a489129e549a0e057e941ac6d77fddc996357228b4d31369",
+              "read_ranges": [
+                [
+                  1,
+                  344
+                ]
+              ],
+              "proof_mode": "Fresh complete actual source read, including original fixture text; source only. Historical exact receiving contracts reconciled separately; bytes alone do not establish receiver closure.",
+              "validation": "none",
+              "source_repair": "frozen_until_all13"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1256,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          344
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "std::io::Write",
+          "type": "GeometryDigestWriter",
+          "lines": [
+            253,
+            262
+          ],
+          "disposition": "KEEP native hash sink: write updates SHA and acknowledges all bytes; flush deliberately no-op. This is a different library interface, not structural Write forwarding into Sha256."
+        }
+      ],
+      "existing_derives": "RoadManifest Deserialize/Serialize deny_unknown_fields and RoadPackError thiserror::Error already derive.",
+      "absence_basis": "All344 actual lines consumed. Fullprecision source bytes/custom road tags, checked capacity/geometry admission and lossy checked E7 representation conversion are semantic external protocol adapters. Native JSON geometry digest delegates Serde through small Write bridge; no handwritten serializer."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Canonical road source bytes, geometry digest and runtime coordinate admission",
+      "disposition": "Retain native Write/hash bridge and custom binary protocol; no mechanical structural or wire implementation replacement.",
+      "acceptance": "Preserve longitude/latitude f64 source bits and order, checked E7 destination, tag/error/capacity behavior, named byte I/O and exact digest bytes. No physical extent narrowing, added serde or execution."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 421,
+    "source_id": "physical-p16:crates/adventuresim-weapon-model/Cargo.toml"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

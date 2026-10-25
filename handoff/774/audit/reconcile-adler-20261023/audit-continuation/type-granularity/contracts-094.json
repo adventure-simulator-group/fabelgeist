@@ -1,0 +1,129 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-094",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "bounded-versus-prevalidated-targeting-kernel",
+      "sources": [
+        {
+          "scope_index": 344,
+          "ranges": [
+            [
+              1,
+              103
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [],
+      "disposition": "Existing semantic range enum prevents unbounded numeric sentinel; complete local ranking kernel is justified.",
+      "trace": "TargetingRange::Bounded(length) versus MovementPrevalidated5\u20138 chooses actual receiver policy29\u201332, no +Inf range sentinel. TargetingCandidate generic payload, scene point and stable key11\u201315 are useful distinct roles. Kernel19\u201353 normalizes camera direction, filters actor range then orders angular error, squared actor distance, stable key; selected value need not know generic actor/camera owners outside this final numerical adapter.",
+      "qualifications": [
+        "Full103 lines read; no targeting/test execution. Max-zero behavior for negative bounded length is existing accepted policy, not authorization to narrow source domain.",
+        "No cursor cone is intentional test77\u201387, behind candidate may win when only candidate. stable_key is tie-breaking identity, not distance/index; equal primitive storage does not justify merging."
+      ],
+      "acceptance": "Preserve explicit range policy and deterministic angular/distance/stable-key ordering; keep actual signed range admission and final native kernel boundaries."
+    },
+    {
+      "id": "authored-angle-magnitude-speed-units-and-common-admission",
+      "sources": [
+        {
+          "scope_index": 345,
+          "ranges": [
+            [
+              1,
+              135
+            ]
+          ]
+        },
+        {
+          "scope_index": 346,
+          "ranges": [
+            [
+              1,
+              53
+            ],
+            [
+              63,
+              100
+            ]
+          ]
+        },
+        {
+          "scope_index": 347,
+          "ranges": [
+            [
+              1,
+              86
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [],
+      "disposition": "Meaningful same-invariant role wrappers; no redundant or universal-unit simplification.",
+      "trace": "AngularMagnitudeDegrees34513 differs AngularSpeedDegrees18, AngularSpeedRadians23, SignedAngleDegrees30 and SignedAngularSpeedDegrees35 in unit/sign/consumer policy. Same finite-nonnegative validator is intentionally shared through measurement::checked_nonnegative34689\u2013100. Native degree\u2192radian conversion at authored_angle50\u201351/90\u201391/101\u2013102 makes units explicit. NonnegativeLength34611 and PositiveLength lower source70\u201373 differ zero contract, while SignedLength elsewhere permits negative offsets. PositiveAnimationDuration34617 composes existing AnimationElapsed with nonzero check45\u201351 rather than reimplementing elapsed. animation mod347 reexports core AnimationElapsed and UnitInterval, no duplicate owners there.",
+      "qualifications": [
+        "Only registered345full135,3461\u201353/63\u2013100,347full86 read.34654\u201362 missing range not credited; namespace reexports do not credit referred modules.",
+        "A wrapper can earn place by units even if bounds same; retain signed versus magnitude versus rate distinction. Finite signed degrees intentionally unwrapped, no arbitrary +/-180 or +/-360 cap. Positive duration must not replace validzero elapsed.",
+        "Different error quantity labels do not alone justify duplicate invariant implementation. Existing shared checker already centralizes finite/nonnegative; actual consumer semantics remain to follow through later roles."
+      ],
+      "acceptance": "Preserve unit/sign/time roles and shared invariant admission without blanket primitive flattening or duplicated owners. Actual application consumers must retain these distinctions until complete native math/serialization ports."
+    },
+    {
+      "id": "body-response-physical-dimensions-versus-unitless-gains",
+      "sources": [
+        {
+          "scope_index": 348,
+          "ranges": [
+            [
+              1,
+              99
+            ],
+            [
+              126,
+              162
+            ],
+            [
+              170,
+              217
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [],
+      "disposition": "Distinct response contracts fit actual equations; no wrapper redundancy from shared f32 validation.",
+      "trace": "ReferenceAcceleration is positive metres/sec\u00b2; ResponseRate is zero-valid inverse seconds; AngularStiffness is inverse seconds\u00b2 mapping radian pose error to angular velocity kick, not physical torque. InertialLeanGain/MuscleTone are unbounded nonnegative purpose gains, not UnitInterval. ImpactCompressionCompliance declared24\u201327 is compression metres per impact metre/sec, time-dimensional compliance but not elapsed time. LookDistribution126\u2013139 is positive fractional divisor, so integer joint count would erase valid fractional inputs. ResponseRate65\u201378 combines elapsed to UnitInterval, valid saturated full-response limit allows internal exponent -Inf while public fraction remains valid.",
+      "qualifications": [
+        "Only3481\u201399/126\u2013162/170\u2013217 read; compliance operations100\u2013125 and163\u2013169 not credited. No PD/integrator/client/test execution.",
+        "Do not cap gains at1 or reinterpret actual PD kick as torque/newton-metres. Signed native angle/acceleration components at component_ratio56 and distribute_radians137 are complete numerical coefficient ports; return f32 alone does not establish useful invariant across all callers. Actual recipients still need own ranges.",
+        "Numeric full-response saturation is mathematical limit within equation; not an absence/unavailable sentinel and not license to retain arbitrary Inf as application quantity."
+      ],
+      "acceptance": "Carry existing purpose coefficients with common underlying numeric validation; preserve zero rate/stiffness, positive reference/divisor, gains above1 and explicit output admission. Do not invent constraints to justify role types."
+    },
+    {
+      "id": "animation-clock-coordinate-versus-sample-count",
+      "sources": [
+        {
+          "scope_index": 349,
+          "ranges": [
+            [
+              1,
+              110
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [],
+      "disposition": "Tick/span distinction prevents actual coordinate-count substitution; preserve source-specific wrap and deadline policies.",
+      "trace": "AnimationSampleTick25 is absolute sampled observation coordinate, AnimationSampleSpan45 is nonnegative count. checked_add takes span and returns coordinate, saturating_sub returns span; these types earn place despite both fullu64. Deadline saturating_add61 differs explicit wrapping_next68 and wrapping_delta71 for consecutive/capture clocks. Span from_positive_duration90\u201395 quantizes seconds\u00d7sample-rate and preserves round/min1/native saturation. Span.half103 may0, so no blanket positive span type.",
+      "qualifications": [
+        "Full110 lines personally read, no arithmetic/test execution. Tick MAX/0 are explicitly supported values; no implicit universal monotonically increasing bound.",
+        "Different operations have deliberate source consumers. Do not split clock families merely because methods differ without actual incompatible epoch/caller proof, and do not replace physical time, player input tick or strategic minute with sample tick.",
+        "Duration product overflow has actual saturation policy, unlike action_clock335 rounded_samples that rejects nonfinite. This source difference alone does not establish bug without actual caller contract; preserve accepted behavior pending operation-lens evidence."
+      ],
+      "acceptance": "Keep coordinates, spans, epochs and seconds separate through actual receivers, preserve checked versus deadline versus wrapping behavior and validzero spans."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

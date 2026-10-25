@@ -1,0 +1,91 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-082",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "captured-enemy-roster-versus-live-planning-cardinality",
+      "sources": [
+        {
+          "scope_index": 292,
+          "ranges": [
+            [
+              1,
+              101
+            ]
+          ]
+        },
+        {
+          "scope_index": 293,
+          "ranges": [
+            [
+              1,
+              231
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "local774:M34",
+        "local774:M58"
+      ],
+      "disposition": "Existing canonical admitted roster used correctly at important boundaries, with retained primitive projection obligation.",
+      "trace": "HostileGroupAuthority.capture_enemy_roster292:36\u201348 admits MissionEnemyRoster and checks live group count exactly once. MissionAuthority.capture53\u201385 captures all combat/loot/binding facts including enemy IDs, private outcome entropy, contacted history and escalation version. enemy_roster88\u2013100 validates captured IDs and referenced characters without comparing later live group size. That is meaningful immutable source authority rather than redundant roster/count state. Current enemy_count can be derived from roster, while live group cardinality can legitimately change independently. Concrete MissionRosterError distinguishes canonical admission, live count mismatch and exact missing CharacterId. Source293 guarded fixtures deliberately mutate live counts and malformed snapshots to exercise this distinction.",
+      "qualifications": [
+        "Existing fixtures read only, not invoked. Malformed arrays and u64MAX missing-character witness are negative fixture facts, not normal producers. Source comments do not confer execution permission.",
+        "Capture returns a raw MissionAuthority whose IDs and numeric scale/power remain scalar; existing M58/M34 whole receiving contract must retain admitted roster and roles. Broad wrapper consolidation must not erase useful exact missing-character cause.",
+        "Source293 finale fixture uses deliberately minimal authority and idempotent calls; no source body credit for externally invoked finale functions beyond already registered/read273 ranges."
+      ],
+      "acceptance": "Retain exact canonical immutable roster across source capture, retained mission, tactical request and autoresolve, allowing later live planning growth while rejecting malformed/missing captured identities."
+    },
+    {
+      "id": "strategic-module-layout-readiness-and-fixture-creation-roles",
+      "sources": [
+        {
+          "scope_index": 294,
+          "ranges": [
+            [
+              1,
+              97
+            ]
+          ],
+          "qualification": "Registered1\u2013105 exceeds actual EOF97; only actual lines1\u201397 credited."
+        },
+        {
+          "scope_index": 295,
+          "ranges": [
+            [
+              1,
+              198
+            ]
+          ]
+        },
+        {
+          "scope_index": 296,
+          "ranges": [
+            [
+              1,
+              31
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "local774:M58",
+        "local774:M59",
+        "local774:M89",
+        "SEGO-INITIAL09-F175"
+      ],
+      "disposition": "Meaningful live readiness, delegated recovery and creation-mode distinctions retained; no new unique finding.",
+      "trace": "Module294 imports existing canonical strategic vocabulary, weather, prompt and resolution owners. Include/module declarations provide namespace evidence only, not credit for child bodies. Actual helper295 living_party_member_ids retains dead durable memberships but excludes dead actors from strategic work. Publicly ready aggregate66\u201393 returns named count/power roles currently as tuple, filters current public incapacity/illness and melee OR ranged, and checks accumulation overflow. Public readiness is not private complete physiological truth or authorization for all activities. Delegated recovery121\u2013198 grants a ready companion protective direction only when leader unready and exact evacuation destination matches contextual site/journey. Authoritative destination is separate from requested destination even with same String representation. Scenario296 constructs CharacterCreationOptions Player with no NPC personality and explicit fixture choices, supporting existing F175; stable actor seed and CharacterId differ despite deterministic same-word derivation.",
+      "qualifications": [
+        "Current producers and predicates coherent. A local boolean result for readiness/election/presence remains a legitimate predicate; do not wrap every ordinary condition or force melee/ranged capabilities exclusive. Count0/power0 aggregate is valid when no ready combatants.",
+        "Ready companion is not party leader; semantic delegation purpose should survive public selector and native receiver under current protected evacuation policy. No broad transfer of leadership or private illness disclosure.",
+        "Source294 reached tactical_enemy_fixture and dialogue_policy are already registered committed P16 extensions, with unknown unrecorded dirty bytes. Those extension bodies remain pending own11 material dimension; no substitute source credit from module include or own09 proof.",
+        "Fixture default initial time None is meaningful default policy; no NPC personality in actual Player producer. No ordinary personality mismatch established."
+      ],
+      "acceptance": "Preserve live versus captured roster, public readiness versus complete private state, explicit protective delegation and creation policy through actual calls; named count/power record can share exact lower numeric owners without inventing bounds."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

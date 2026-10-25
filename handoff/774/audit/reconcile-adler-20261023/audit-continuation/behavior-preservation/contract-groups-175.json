@@ -1,0 +1,227 @@
+{
+  "id": "CONT08-CONTRACT-175",
+  "at": "2026-10-25T13:38:09.080219+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 688,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_design_input.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/armor_design_input.rs",
+      "before_sha256": "900500d6ba57f6a15148256449585d29ee155151c5d3767c10dc1c9e4788db47",
+      "after_sha256": "7491f2bed3feecf76fd4446b7a20ce1470ef026f6deb1409b36798c860497ed1",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0688-base-900500d6ba57f6a15148256449585d29ee155151c5d3767c10dc1c9e4788db47",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/7491f2bed3feecf76fd4446b7a20ce1470ef026f6deb1409b36798c860497ed1",
+      "diff": "source-evidence/pr-0688.diff",
+      "diff_sha256": "7c42ad3735402b8a514ea46ebfcf335477b0feeac89a34f1d15a00d12933370f",
+      "head_body_read_ranges": [
+        [
+          1,
+          400
+        ]
+      ],
+      "facts": [
+        "Full400+entire actual diff. Saved ArmorDesigns serde maps/deny_unknown_fields and override\u2192default precedence preserved for supported left/right/worn placements; actual CatalogPlacement.definition ID supplies former raw argument. Unsupported valid placement now falls through to item default, qualified API expansion; actual armor family dispatch is pending693.",
+        "Parse validates typed family, known canonical item, authored placement and historical construction family in same loop/error order; encode validates before returning bytes. Every nested-control/side-specific/default/wrong-family fixture retained, not run."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 689,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_design_output.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/armor_design_output.rs",
+      "before_sha256": "76a902a4473ed977521ac29b57a0fe40b7aa6961768097e1470fc19c2fbdf5e1",
+      "after_sha256": "76a902a4473ed977521ac29b57a0fe40b7aa6961768097e1470fc19c2fbdf5e1",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0689-base-76a902a4473ed977521ac29b57a0fe40b7aa6961768097e1470fc19c2fbdf5e1",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/76a902a4473ed977521ac29b57a0fe40b7aa6961768097e1470fc19c2fbdf5e1",
+      "diff": "source-evidence/pr-0689.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          118
+        ]
+      ],
+      "facts": [
+        "Full118+empty diff. DesignPaths validates all three designs then resolved distinct paths before sequential writes, preserving relative empty-parent and Windows lower-case identity behavior. No global filesystem transaction promised; exact alias-before-write and reload source fixture read, not executed."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 690,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_frames.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/armor_frames.rs",
+      "before_sha256": "5f97344e7ac010731e5356c2c3b961c62a420d688acfac3f6e5dbeb3432eb7e2",
+      "after_sha256": "f5c8d7cf65f9cdc3472f6944d83c5d8340c2380bf19320be39b2613c3c9bc352",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0690-base-5f97344e7ac010731e5356c2c3b961c62a420d688acfac3f6e5dbeb3432eb7e2",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/f5c8d7cf65f9cdc3472f6944d83c5d8340c2380bf19320be39b2613c3c9bc352",
+      "diff": "source-evidence/pr-0690.diff",
+      "diff_sha256": "11899edf642643a91d5e1901e190130ee53df7c9d4b36f6ffd5376a8f8e6794f",
+      "head_body_read_ranges": [
+        [
+          1,
+          316
+        ]
+      ],
+      "facts": [
+        "Full316+actual diff. Old placement strings map left/right to typed Lateral; all others Unpaired, with same side() message when paired fitter requests it. Signs and every region owner sequence/shoulder-added-clavicle/hand terminal/foot part spelling matched via actual canonical2332\u20132335 bodies.",
+        "support_indices_for retains weight-row length check and sum order/.30 threshold; all-slot unknown membership check moves to packed2336 producer, now also requires exact names count. skin_family712 preserves unrestricted _twist prefix including twisted (not canonical-anatomy repair). Equal count does not establish rig instance/order; API qualifications retained."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 691,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_layer.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/armor_layer.rs",
+      "before_sha256": "0e7139c9d3c0336badc6784b5ab93764b0074cd49e4dbb6c7b13666af3a55cb7",
+      "after_sha256": "5e2b4c7c67044192056d8912377b42a2d69f2dd12eb2bc7dff7d475fd7dcc834",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0691-base-0e7139c9d3c0336badc6784b5ab93764b0074cd49e4dbb6c7b13666af3a55cb7",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/5e2b4c7c67044192056d8912377b42a2d69f2dd12eb2bc7dff7d475fd7dcc834",
+      "diff": "source-evidence/pr-0691.diff",
+      "diff_sha256": "2cb9a0961507d28c258061726d00874e53cac185a0f1fed1a4415ac076722d8e",
+      "head_body_read_ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "facts": [
+        "Full54+actual diff only packed index type. Lower morph first exact name and direct_positions, invalid/no triangles, positions/index/weight cardinality, actual face bounds and error order unchanged; missing morph never substitutes base. Common typed owner still needs matched surface population, no new blanket identity guarantee."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 712,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/clothing/rig_selection.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/clothing/rig_selection.rs",
+      "before_sha256": null,
+      "after_sha256": "ad1d98a61735793cf092069424b3571e3cc44e00b3634d2a38886a37fafc5e9c",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/ad1d98a61735793cf092069424b3571e3cc44e00b3634d2a38886a37fafc5e9c",
+      "diff": "source-evidence/pr-0712.diff",
+      "diff_sha256": "cbbc2907d526cdd5747014bd780ca9b838337348c5f69117c77f9b70b5509a4d",
+      "head_body_read_ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "facts": [
+        "Full41 new body compared against former690 inline exact-or-_twist starts_with. Includes all existing permissive suffixes/case/spacing behavior; added exact/negative fixtures preserve l_uparm_twisted acceptance intentionally, not broad prefix cleanup. Other clothing callers remain later scoped roles."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 2332,
+      "source_id": "pr-working:crates/fabelgeist-rig/src/lib.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-rig/src/lib.rs",
+      "before_sha256": null,
+      "after_sha256": "7e73efb0a5ce824e111c2d28e54a5422b75bdca12e0c7553423dc0dfab8f563b",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/7e73efb0a5ce824e111c2d28e54a5422b75bdca12e0c7553423dc0dfab8f563b",
+      "diff": "source-evidence/pr-2332.diff",
+      "diff_sha256": "eb5bf32f38f8e49f960db88af207ab4648d5bc494096d56f68561e3ca84e78b3",
+      "head_body_read_ranges": [
+        [
+          1,
+          155
+        ]
+      ],
+      "facts": [
+        "Full155 added body (base absent) personally read. RigJointName transparent Cow stores exact scalar labels, unfamiliar/empty/case-sensitive identity retained; specific case-ignore/family_prefix/contains_part queries explicitly separate. index_in first duplicate and require_in retains exact missing label.",
+        "Ordinal usize and checked u32 native encoding, Included\u21921/Excluded\u21920 source adapter retained. Actual690 name/Boolean membership mapping and683 native Name projection compared; all remaining serialization/import/query recipients still pending, not cleared from definition."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 2333,
+      "source_id": "pr-working:crates/fabelgeist-rig/src/mhr.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-rig/src/mhr.rs",
+      "before_sha256": null,
+      "after_sha256": "c5f8425545851f8a1162c1f48129cbc6acdfba3b8a627dd8b17bdd91040a530a",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/c5f8425545851f8a1162c1f48129cbc6acdfba3b8a627dd8b17bdd91040a530a",
+      "diff": "source-evidence/pr-2333.diff",
+      "diff_sha256": "5592ad926194fce29c12c0dc2823059c66c838f28a9cf76242a7906297d8f8ca",
+      "head_body_read_ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "facts": [
+        "Full35 added body (base absent) personally read. MHR membership center/body_world/root or c_ and sided l_/r_ exactly spellings; right_partner only l_ prefix, sided constructs l/r_ + exact typed fragment. Actual690 mapped former sided format output unchanged; recognition alone never proves existence."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 2334,
+      "source_id": "pr-working:crates/fabelgeist-rig/src/names.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-rig/src/names.rs",
+      "before_sha256": null,
+      "after_sha256": "94146b1b91f11d9711a5439e607b357cd8bb2fe828de4763cb432f58b0225554",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/94146b1b91f11d9711a5439e607b357cd8bb2fe828de4763cb432f58b0225554",
+      "diff": "source-evidence/pr-2334.diff",
+      "diff_sha256": "691f684ed91761662259170a97e725bbc419e63bd358fb333f17a22328a21d9f",
+      "head_body_read_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "facts": [
+        "Full78 added body (base absent) personally read. Entire authored constant vocabulary exact scalar spellings and left/right terrain-chain order consumed; actual690 region constants retain former strings including c_spine0/1, wrist and terminal joints. Unused future call sites retain independent comparison obligations."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 2335,
+      "source_id": "pr-working:crates/fabelgeist-rig/src/part.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-rig/src/part.rs",
+      "before_sha256": null,
+      "after_sha256": "bb324df83dafc6706069ecbe3e4fa829c21af0de463166169f96904089a034b7",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/bb324df83dafc6706069ecbe3e4fa829c21af0de463166169f96904089a034b7",
+      "diff": "source-evidence/pr-2335.diff",
+      "diff_sha256": "1ab92cd549945b7bb3248c208e8b06a22f751f1e8f7135d1fae4a166af48268e",
+      "head_body_read_ranges": [
+        [
+          1,
+          135
+        ]
+      ],
+      "facts": [
+        "Full135 added body (base absent) personally read. Every strum fragment spelling consumed, including intentional loleg/loarm versus lowleg/lowarm and upperarm versus uparm distinctions. Actual690 hand/foot/side construction uses exact former spellings/order; no canonicalizing broad replacements."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    }
+  ],
+  "next": "692 armor_metal198 then693 recipes262+"
+}

@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-712",
+  "at": "2026-10-25T16:36:02.979415+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 978,
+  "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/tests/projection_and_limits.rs",
+  "sha256": "8bb989bec981a22f6606c07380d29c36e09c7599dfb4183ac97014095c82ca6a",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Projection/limit fixture1\u2013220 contains source assertions for player-safe text, earned pattern clue producer/consumer prerequisites, exact cohort binding, prelearning pattern secrecy and explicit derived wire serialization checks. No handwritten traits/codecs or type declarations; native fixture algorithms are not run."
+  ],
+  "first_unfinished": {
+    "scope_index": 978,
+    "line": 221
+  },
+  "execution": "none"
+}

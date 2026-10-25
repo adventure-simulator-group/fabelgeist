@@ -1,0 +1,41 @@
+{
+  "id": "ROOT-ADM03-PARALLEL-177",
+  "at": "2026-10-23T03:04:42.037045+00:00",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory_armor.rs",
+      "sha256": "6eccc859a14c75eb9734e96267595d482c3216028bda7e2f4cd113b8312a996b",
+      "registration_id": "CAMERA-INITIAL07-REG032",
+      "actual_compared_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "displayed_blank_context": 79,
+      "source_evidence": "Fresh complete literal production body after prospective registration; trailing blank context excluded from effective role. Exact frozen revision/import context, no other-lens credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/buildings/window.rs",
+      "sha256": "f1d40643528b12fce9e1062c6a2e23e0192c6216cb5a5f645bbc624ef90b5c26",
+      "registration_id": "NATIVE-INITIAL05-REG033",
+      "actual_compared_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "displayed_blank_context": 76,
+      "source_evidence": "Fresh complete literal production body after prospective registration; trailing blank context excluded from effective role. Exact frozen revision/import context, no other-lens credit."
+    }
+  ],
+  "groups": {
+    "p16-armor-receiver": "Actual P16 armor_layer_chain/fold1-78 independently compared: typed BodyPart maps index, covered mask+scalar coverage choose layers, authored geometry used by contains/expect, descending order selects outermost contact, distinct surface projection. Fold combines coverage, raw nonnegative resistance/padding, resistance-weighted flexibility and minimum ROM. Scalar coverage, per-part mask and authored geometry have different roles; neither same fields nor identical PR bytes proves coherent whole ArmorItem or finite computed aggregate. No tests79+blank/80+body or whole inventory credit.",
+    "current-window-decoder": "Actual current PR SceneWindow1-75 has typed LeafDimensions, scene Position/normalized SpatialDirection, canonical building/opening/leaf/bar vocabulary and immutable Bevy component designation. ManualDeserialize gathers native leaves then admits local Self, preserving IDs and concrete GeometryError in SceneWindowError before serde error formatting at actual decode boundary. Admission failure cannot publish a partially constructed component. Independent normalized directions do not establish paired orthogonal opening-frame/product identity; exact producer/receiver coherence remains an obligation, no new normal failure inferred. OpeningAssemblyId tuple wrapping does not prove nonzero is a required policy; no arbitrary ID restriction.",
+    "scope": "Only two direct counterpart/receiver roles; trailing blank armor79/window76 context uncredited. P16 window whole366 and PR armor prior role are separate evidence, no counterpart verdict transfer."
+  },
+  "status": "exact_registered_source_semantic_admission_compared",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

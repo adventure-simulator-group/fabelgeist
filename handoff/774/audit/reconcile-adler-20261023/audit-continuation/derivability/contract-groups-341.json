@@ -1,0 +1,572 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-341",
+  "at": "2026-10-25T14:53:49.330670+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 671,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+      "sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+      "actual_EOF": 142,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+        "owner": "root",
+        "sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+        "base_sha256": "b494250a425b69b4bd7bb609d270493f9dcf2f5af97242517f0b9c85b96c73e5",
+        "state": "modified",
+        "bytes": 5142,
+        "audit_owner": "root",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [],
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 37,
+            "read_ranges": [
+              [
+                1,
+                142
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-FRAMES-004"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs"
+          },
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 168,
+            "read_ranges": [
+              [
+                78,
+                150
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-SCATTER-041"
+            ],
+            "read_status": "affected_ranges",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs"
+          },
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 347,
+            "read_ranges": [
+              [
+                1,
+                142
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-RESOLVED-SHAPE-PORTS-075"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs"
+          },
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 365,
+            "read_ranges": [
+              [
+                1,
+                142
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-FRAMES-004",
+              "ROOT-OWNER-RESOLVED-SHAPE-PORTS-075",
+              "ROOT-OWNER-CLOSURE-INDEX-079"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs"
+          },
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 27,
+            "read_ranges": [
+              [
+                1,
+                142
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-FIT-011",
+              "ROOT-OWNER-GEOMETRY-002",
+              "ROOT-OWNER-FRAMES-004"
+            ],
+            "read_status": "shared-current-lens-full-owner-definition-proof",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 108,
+            "read_ranges": [
+              [
+                1,
+                142
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-IK-STATE-004"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root",
+          "rig",
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-GEOMETRY-OWNERS-004",
+            "json_pointer": "/source_proofs/6",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                142
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+              "sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+              "read_ranges": [
+                [
+                  1,
+                  142
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": 219,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved",
+        "owner81_scope_additions": [
+          {
+            "authority": "continuation/root/owner-delta-scope-authority-029.json",
+            "registration_observations": [
+              {
+                "registry": "continuation/native/owner81/local-owner-source-registrations.jsonl",
+                "row_1based": 1,
+                "supplier": "native",
+                "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+                "sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+                "actual_EOF": 142,
+                "ranges": [
+                  [
+                    1,
+                    87
+                  ],
+                  [
+                    112,
+                    142
+                  ]
+                ],
+                "effective_material_ranges": [
+                  [
+                    1,
+                    87
+                  ],
+                  [
+                    112,
+                    142
+                  ]
+                ],
+                "qualification": null,
+                "original_registration": {
+                  "id": "NATIVE-OWNER81-REG-001",
+                  "registered_at": "2026-10-22T05:03:25.064414+00:00",
+                  "authority": "continuation/root/owner-delta-scope-authority-029.json",
+                  "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+                  "snapshot": "pr-working",
+                  "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+                  "sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+                  "actual_EOF": 142,
+                  "material_ranges": [
+                    [
+                      1,
+                      87
+                    ],
+                    [
+                      112,
+                      142
+                    ]
+                  ],
+                  "actual_use": "Native26 roof source roles; Radians and normalized PlanDirection/SpatialDirection candidates for angle, station direction and coupled plane contrast; exclude unrelated RigidRotation body88-111.",
+                  "why_prior_proof_insufficient": "Current source-use semantic comparison requires actual candidate admission/operations/dependency. Root001/prior Native proof can carry only explicit same-contract semantics; no new producer credit.",
+                  "exclusions": "Only stated candidate definitions/operations/signature dependency; incidental declarations/imports not general module coverage.",
+                  "body_read_yet": false,
+                  "coverage_credit": "none at registration; Root reconciliation and newly reached producer roles pending"
+                },
+                "frozen_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+                "bytes": 5142
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                1,
+                87
+              ],
+              [
+                112,
+                142
+              ]
+            ],
+            "original_range_scope_preserved": true,
+            "limits": "Only exact prospective candidate-definition/constructor/helper/dependency roles, including all exclusions and local qualifications; source bytes/ranges/counts are not owner/producer acceptance.",
+            "producer_followup": "pending exact new-role producer qualification; no credit from current owner packet",
+            "owner_discovery": "supporting exact current owner witnesses separately reconciled in Root supplier acceptance; not inferred here"
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          142
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Deserialize",
+          "type": "Radians",
+          "lines": [
+            34,
+            38
+          ],
+          "disposition": "KEEP checked finite angle/axis/native error while preserving represented unwrapped scalar and transparent wire."
+        },
+        {
+          "trait": "Deserialize",
+          "type": "PlanDirection<F>",
+          "lines": [
+            78,
+            82
+          ],
+          "disposition": "KEEP checked already-normalized native Vec2 admission, canonical native error mapping and F:GeometryFrame without serde F bound; raw Dir/transparent derive bypasses policy."
+        },
+        {
+          "trait": "Deserialize",
+          "type": "RigidRotation",
+          "lines": [
+            103,
+            107
+          ],
+          "disposition": "KEEP finite/unit native quaternion rejection without normalization/repair and transparent native quaternion wire."
+        },
+        {
+          "trait": "Deserialize",
+          "type": "SpatialDirection<F>",
+          "lines": [
+            138,
+            142
+          ],
+          "disposition": "KEEP checked native finite/unit Vec3 admission, canonical typed error/order, no normalization repair or extra serde F bound."
+        }
+      ],
+      "existing_derives": [
+        "Radians structural/Serialize transparent/Reflect opaque/Default11\u201315",
+        "PlanDirection/SpatialDirection structural/Serialize transparent bound empty/skipped PhantomData/Reflect41\u201349/110\u2013118",
+        "RigidRotation structural/Serialize transparent/Reflect opaque86\u201390"
+      ],
+      "absence_basis": "Full actual source consumed. Inherent checked finite/native normalization/from_normalized/lift/getters/constants preserve semantic frame/angle/direction; no equivalent unchecked codec. These small checked Deserialize impls remain necessary under current transparent arrangement; no existing TryFrom native adapter."
+    },
+    {
+      "scope_index": 2270,
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/length.rs",
+      "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+      "actual_EOF": 40,
+      "requested_registration": {
+        "source_id": "pr-working:crates/fabelgeist-geometry/src/length.rs",
+        "snapshot": "pr-working",
+        "path": "crates/fabelgeist-geometry/src/length.rs",
+        "owner": "root",
+        "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+        "base_sha256": null,
+        "state": "new",
+        "bytes": 1383,
+        "audit_owner": "root",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-root-receivers-009.json",
+            "ranges": [
+              [
+                1,
+                40
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-SUPP-STRATEGIC-003"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 54,
+            "read_ranges": [
+              [
+                1,
+                40
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-GEOMETRY-002"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/fabelgeist-geometry/src/length.rs"
+          },
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 158,
+            "read_ranges": [
+              [
+                1,
+                40
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-BOUNDARY-MESH-039"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/fabelgeist-geometry/src/length.rs"
+          },
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 348,
+            "read_ranges": [
+              [
+                1,
+                40
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-RESOLVED-SHAPE-PORTS-075"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/fabelgeist-geometry/src/length.rs"
+          },
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 360,
+            "read_ranges": [
+              [
+                1,
+                40
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-GEOMETRY-002",
+              "ROOT-OWNER-RESOLVED-SHAPE-PORTS-075",
+              "ROOT-OWNER-CLOSURE-INDEX-079"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/fabelgeist-geometry/src/length.rs"
+          },
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 0,
+            "read_ranges": [
+              [
+                1,
+                40
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-LEAF-003",
+              "RIG-OWNER-WEIGHT-002"
+            ],
+            "read_status": "full_current_lens_owner_definition_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/fabelgeist-geometry/src/length.rs"
+          },
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 137,
+            "read_ranges": [
+              [
+                1,
+                40
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-TRIM-043"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/fabelgeist-geometry/src/length.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root",
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-GEOMETRY-OWNERS-004",
+            "json_pointer": "/source_proofs/9",
+            "source_id_as_recorded": "pr-working:crates/fabelgeist-geometry/src/length.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                40
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/fabelgeist-geometry/src/length.rs",
+              "path": "SNAPSHOTS/pr-working/crates/fabelgeist-geometry/src/length.rs",
+              "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+              "read_ranges": [
+                [
+                  1,
+                  40
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": 959,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved",
+        "owner81_scope_additions": [
+          {
+            "authority": "continuation/root/owner-delta-scope-authority-029.json",
+            "registration_observations": [
+              {
+                "registry": "continuation/native/owner81/local-owner-source-registrations.jsonl",
+                "row_1based": 6,
+                "supplier": "native",
+                "source_id": "pr-working:crates/fabelgeist-geometry/src/length.rs",
+                "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+                "actual_EOF": 40,
+                "ranges": [
+                  [
+                    1,
+                    40
+                  ]
+                ],
+                "effective_material_ranges": [
+                  [
+                    1,
+                    40
+                  ]
+                ],
+                "qualification": null,
+                "original_registration": {
+                  "id": "NATIVE-OWNER81-REG-006",
+                  "registered_at": "2026-10-22T05:03:25.083596+00:00",
+                  "authority": "continuation/root/owner-delta-scope-authority-029.json",
+                  "source_id": "pr-working:crates/fabelgeist-geometry/src/length.rs",
+                  "snapshot": "pr-working",
+                  "path": "SNAPSHOTS/pr-working/crates/fabelgeist-geometry/src/length.rs",
+                  "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+                  "actual_EOF": 40,
+                  "material_ranges": [
+                    [
+                      1,
+                      40
+                    ]
+                  ],
+                  "actual_use": "Native26 roof source roles; SignedLength direct geometric scalar candidate; current Root001 exact proof exists, fresh source confirms constructors used in comparison.",
+                  "why_prior_proof_insufficient": "Current source-use semantic comparison requires actual candidate admission/operations/dependency. Root001/prior Native proof can carry only explicit same-contract semantics; no new producer credit.",
+                  "exclusions": "Only stated candidate definitions/operations/signature dependency; incidental declarations/imports not general module coverage.",
+                  "body_read_yet": false,
+                  "coverage_credit": "none at registration; Root reconciliation and newly reached producer roles pending"
+                },
+                "frozen_path": "SNAPSHOTS/pr-working/crates/fabelgeist-geometry/src/length.rs",
+                "bytes": 1383
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                1,
+                40
+              ]
+            ],
+            "original_range_scope_preserved": true,
+            "limits": "Only exact prospective candidate-definition/constructor/helper/dependency roles, including all exclusions and local qualifications; source bytes/ranges/counts are not owner/producer acceptance.",
+            "producer_followup": "pending exact new-role producer qualification; no credit from current owner packet",
+            "owner_discovery": "supporting exact current owner witnesses separately reconciled in Root supplier acceptance; not inferred here"
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Deserialize",
+          "type": "PositiveLength",
+          "lines": [
+            36,
+            40
+          ],
+          "disposition": "KEEP checked finite/negative/zero native scalar admission preserving role/axis/error order and positive subnormal domain, transparent f32 wire. Raw derive weakens admission."
+        }
+      ],
+      "existing_derives": [
+        "PositiveLength structural/PartialOrd/Serialize transparent/optional Reflect opaque10\u201315"
+      ],
+      "absence_basis": "Full exact canonical PR positive-length source consumed as direct replacement owner after deleted roles669/670. Inherent checked constructor18\u201331/native stored getter32\u201334 semantic; no current old-local body credit. Native same representation and legitimate positive domain retained."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "checked native spatial orientation and canonical positive scalar wire",
+      "disposition": "Retain exact native checked deserializers/constructors, empty generic Serde bounds and semantic normalized/angle policy. Mechanical structural/Serialize/Default traits already derive; no raw codec bypass.",
+      "acceptance": "Same native error axis/role/order, no normalization/restriction of valid represented domain, no added serializer/unchecked constructor/native-index exposure. No execution/other-lens coverage."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 672,
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/tests.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

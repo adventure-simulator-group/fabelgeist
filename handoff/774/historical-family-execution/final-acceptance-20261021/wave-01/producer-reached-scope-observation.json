@@ -1,0 +1,34 @@
+{
+  "observed_at": "2026-10-21T22:40:33.852248+00:00",
+  "authority": "Derived explicit-receipt index only; audit-ledger sole discovery/repair/validation authority, exact claims sole repair owner. Does not scan project code or add audit clearance.",
+  "frozen_scope": "wave-01/source-scope-after-owner.json",
+  "frozen_scope_sha256": "3aed5770f149c039b8bde0d67c2381c74f3a8b7494128be7101d6e1911277c55",
+  "record": "wave-01/producer-reached-scope-pending.jsonl",
+  "sha256": "5b8cc0c8be3f920c447927565afce78505e85e12e564cd36fa8b77c0f1a3dc98",
+  "observed_named_source_variants": 865,
+  "named_variants_not_in_frozen_scope": 139,
+  "source_receipts": [
+    {
+      "record": "wave-01/producer-supplement-after-owner/root/traces.jsonl",
+      "sha256": "584fb905de70f71ab23326d48f786ce3c260d59dce67ef064e9e0e1d0a226974"
+    },
+    {
+      "record": "wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+      "sha256": "a232de36c307f3e5d35ba83d040474b5ce803f578711deedcb2c3d04ad6d6807"
+    },
+    {
+      "record": "wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+      "sha256": "0bed9869b4b0f136bed8a047de70b3b9c7f714cdb8bb1ace37bc5b420560a81d"
+    },
+    {
+      "record": "wave-01/producer-supplement-after-owner/native/traces.jsonl",
+      "sha256": "e17479702fc87a468e0d0686d734318a20b997fbcb80b65f1704e908c19003f5"
+    }
+  ],
+  "required_next": "After all producer shard actual queues close, reconcile aliases/fingerprints/material ranges and producer roles; extend authoritative scope and perform owner-fit supplement for newly reached roles before admission lens. A prior samefile/hash source read alone is not owner-fit coverage.",
+  "qualifications": [
+    "wave-01/source-range-errata.json",
+    "wave-01/producer-supplement-after-owner/root/receipt-qualifications.json"
+  ],
+  "gate": "incomplete; source repairs frozen until exhaustive initial13 discovery"
+}

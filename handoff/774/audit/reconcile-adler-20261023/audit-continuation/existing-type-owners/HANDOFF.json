@@ -1,0 +1,4056 @@
+{
+  "id": "OWN02-FINAL-HANDOFF-001",
+  "at": "2026-10-24T02:53:28.545558+00:00",
+  "discovery": "complete WITH_FINDINGS; not clear or repaired",
+  "baseline": "Adopted ROOT040/0422560variants+59overlays; no replay",
+  "current_material_dimensions": {
+    "additional_roles": 312,
+    "mandatory_overlays": 246,
+    "live_extensions_snapshot": 60,
+    "frozen_merged_changed_paths": 38
+  },
+  "qualified_contract_index": [
+    {
+      "file": "contract-groups-001.json",
+      "contract": "OWN02-DELTA-CONTRACT-001",
+      "delta_indices": [
+        0,
+        7
+      ],
+      "qualified_contracts": [
+        {
+          "index": 0,
+          "disposition": "existing-owner-reuse-positive-plus-physical-leaf-propagation",
+          "source": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source.rs",
+          "ranges": [
+            [
+              1,
+              179
+            ]
+          ]
+        },
+        {
+          "index": 1,
+          "disposition": "existing-owners-fit-already",
+          "source": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/members.rs",
+          "ranges": [
+            [
+              1,
+              52
+            ]
+          ]
+        },
+        {
+          "index": 2,
+          "disposition": "existing-contextual-owner-positive-plus-native-port-qualification",
+          "source": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface.rs",
+          "ranges": [
+            [
+              1,
+              157
+            ]
+          ]
+        },
+        {
+          "index": 3,
+          "disposition": "concrete-existing-owner-migration-support",
+          "source": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/validation.rs",
+          "ranges": [
+            [
+              1,
+              157
+            ]
+          ]
+        },
+        {
+          "index": 4,
+          "disposition": "existing-frame-owners-positive-native-f64-kernel-qualification",
+          "source": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+          "ranges": [
+            [
+              1,
+              299
+            ],
+            [
+              314,
+              323
+            ]
+          ]
+        },
+        {
+          "index": 5,
+          "disposition": "different-existing-frames-fit-already",
+          "source": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor/region.rs",
+          "ranges": [
+            [
+              1,
+              78
+            ]
+          ]
+        },
+        {
+          "index": 6,
+          "disposition": "existing-owners-preserved-through-aggregate-producer",
+          "source": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface.rs",
+          "ranges": [
+            [
+              158,
+              177
+            ]
+          ]
+        },
+        {
+          "index": 7,
+          "disposition": "justified-native-bit-key-not-semantic-id",
+          "source": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+          "ranges": [
+            [
+              305,
+              311
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "file": "contract-groups-002.json",
+      "contract": "OWN02-DELTA-CONTRACT-002",
+      "delta_indices": [
+        8,
+        20
+      ],
+      "qualified_contracts": [
+        {
+          "index": 8,
+          "disposition": "native-quantized-wire-distinct-from-admitted-physical-owner",
+          "source": "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain/recipe.rs",
+          "ranges": [
+            [
+              1,
+              217
+            ]
+          ]
+        },
+        {
+          "index": 9,
+          "disposition": "existing-product-and-frame-owners-fit-already",
+          "source": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation/grounding.rs",
+          "ranges": [
+            [
+              1,
+              75
+            ]
+          ]
+        },
+        {
+          "index": 10,
+          "disposition": "existing-supported-product-owners-fit-already",
+          "source": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation/supported.rs",
+          "ranges": [
+            [
+              1,
+              56
+            ]
+          ]
+        },
+        {
+          "index": 11,
+          "disposition": "genuinely-missing-purpose-owner-not-seed-reuse",
+          "source": "physical-p16:crates/adventuresim-core/src/simulation_security.rs",
+          "ranges": [
+            [
+              1,
+              30
+            ]
+          ]
+        },
+        {
+          "index": 12,
+          "disposition": "missing-wall-clock-owner-and-distinct-duration-role",
+          "source": "physical-p16:crates/adventuresim-core/src/strategic_time.rs",
+          "ranges": [
+            [
+              17,
+              17
+            ],
+            [
+              382,
+              394
+            ]
+          ]
+        },
+        {
+          "index": 13,
+          "disposition": "existing-composite-not-scalar-leaf-owner",
+          "source": "physical-p16:crates/adventuresim-stdb-module/src/character.rs",
+          "ranges": [
+            [
+              527,
+              566
+            ]
+          ]
+        },
+        {
+          "index": 14,
+          "disposition": "existing-enum-owner-and-deliberate-stable-codec",
+          "source": "physical-p16:crates/adventuresim-world-schema/src/demographics.rs",
+          "ranges": [
+            [
+              1,
+              41
+            ]
+          ]
+        },
+        {
+          "index": 15,
+          "disposition": "exact-existing-stock-identity-owner-migration-support",
+          "source": "physical-p16:crates/adventuresim-weapon-model/src/recipe/stock.rs",
+          "ranges": [
+            [
+              1,
+              38
+            ]
+          ]
+        },
+        {
+          "index": 16,
+          "disposition": "exact-same-body-distinct-registered-stock-role",
+          "source": "pr-working:crates/adventuresim-weapon-model/src/recipe/stock.rs",
+          "ranges": [
+            [
+              1,
+              38
+            ]
+          ]
+        },
+        {
+          "index": 17,
+          "disposition": "cross-language-wire-vs-session-identity-owner-question",
+          "source": "pr-working:crates/strategic-web/static/dialogue-client.js",
+          "ranges": [
+            [
+              4,
+              72
+            ],
+            [
+              100,
+              108
+            ]
+          ]
+        },
+        {
+          "index": 18,
+          "disposition": "existing-semantic-profile-owner-positive-raw-route-ids-qualified",
+          "source": "pr-working:crates/strategic-web/src/routes/dialogue.rs",
+          "ranges": [
+            [
+              371,
+              387
+            ],
+            [
+              392,
+              423
+            ]
+          ]
+        },
+        {
+          "index": 19,
+          "disposition": "canonical-map-owners-positive-native-pixel-port-qualified",
+          "source": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/protocol.rs",
+          "ranges": [
+            [
+              1,
+              126
+            ]
+          ]
+        },
+        {
+          "index": 20,
+          "disposition": "capture-owners-positive-measurement-and-phase-distinctions",
+          "source": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_state.rs",
+          "ranges": [
+            [
+              1,
+              132
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "file": "contract-groups-003.json",
+      "contract": "OWN02-DELTA-CONTRACT-003",
+      "delta_indices": [
+        21,
+        41
+      ],
+      "qualified_contracts": [
+        {
+          "index": 21,
+          "disposition": "existing-review-product-owners-positive",
+          "source": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review.rs",
+          "ranges": [
+            [
+              1,
+              173
+            ]
+          ]
+        },
+        {
+          "index": 22,
+          "disposition": "existing-camera-owners-erased-before-report-port",
+          "source": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+          "ranges": [
+            [
+              1593,
+              1644
+            ],
+            [
+              2656,
+              3327
+            ]
+          ]
+        },
+        {
+          "index": 23,
+          "disposition": "concrete-existing-duration-and-shelter-owner-match",
+          "source": "physical-p16:crates/strategic-web/src/routes/settlements/rest.rs",
+          "ranges": [
+            [
+              1,
+              21
+            ],
+            [
+              32,
+              91
+            ],
+            [
+              104,
+              158
+            ]
+          ]
+        },
+        {
+          "index": 24,
+          "disposition": "canonical-calendar-alias-not-independent-owner",
+          "source": "physical-p16:crates/adventuresim-core/src/strategic_time.rs",
+          "ranges": [
+            [
+              16,
+              16
+            ]
+          ]
+        },
+        {
+          "index": 25,
+          "disposition": "identity-and-observer-product-owner-migration-question",
+          "source": "physical-p16:crates/strategic-web/src/routes/settlements/encumbrance.rs",
+          "ranges": [
+            [
+              356,
+              410
+            ]
+          ]
+        },
+        {
+          "index": 26,
+          "disposition": "derived-predicate-not-new-enum-owner",
+          "source": "physical-p16:crates/strategic-web/src/routes/settlements/service_quests.rs",
+          "ranges": [
+            [
+              38,
+              44
+            ]
+          ]
+        },
+        {
+          "index": 27,
+          "disposition": "distinct-social-identity-quantity-and-role-owners",
+          "source": "physical-p16:crates/strategic-web/src/routes/settlements/encumbrance.rs",
+          "ranges": [
+            [
+              411,
+              484
+            ]
+          ]
+        },
+        {
+          "index": 28,
+          "disposition": "concrete-existing-closed-enum-owner-match",
+          "source": "pr-working:crates/adventuresim-core/src/quest_generation/solver.rs",
+          "ranges": [
+            [
+              218,
+              287
+            ]
+          ]
+        },
+        {
+          "index": 29,
+          "disposition": "existing-enum-plus-distinct-authored-candidate-identity",
+          "source": "pr-working:crates/adventuresim-core/src/quest_generation/projection.rs",
+          "ranges": [
+            [
+              427,
+              506
+            ]
+          ]
+        },
+        {
+          "index": 30,
+          "disposition": "actual-native-geometry-boundary-positive",
+          "source": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/admission.rs",
+          "ranges": [
+            [
+              1,
+              44
+            ]
+          ]
+        },
+        {
+          "index": 31,
+          "disposition": "fixed-camera-numeric-policy-not-identity",
+          "source": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/surface.rs",
+          "ranges": [
+            [
+              16,
+              17
+            ]
+          ]
+        },
+        {
+          "index": 32,
+          "disposition": "native-scalar-field-kernel-distinct-from-foreign-grid-owner",
+          "source": "pr-working:crates/adventuresim-tactical-client/src/presentation/volumetric.rs",
+          "ranges": [
+            [
+              1,
+              206
+            ]
+          ]
+        },
+        {
+          "index": 33,
+          "disposition": "validated-config-needs-purpose-owners-not-same-shape-reuse",
+          "source": "pr-working:crates/adventuresim-strategic-sim/src/live_core/config.rs",
+          "ranges": [
+            [
+              1,
+              171
+            ]
+          ]
+        },
+        {
+          "index": 34,
+          "disposition": "existing-schedule-owners-before-html-boundary",
+          "source": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+          "ranges": [
+            [
+              2287,
+              2354
+            ]
+          ]
+        },
+        {
+          "index": 35,
+          "disposition": "selected-owner-association-positive",
+          "source": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+          "ranges": [
+            [
+              1235,
+              1247
+            ]
+          ]
+        },
+        {
+          "index": 36,
+          "disposition": "canonical-dose-and-route-retained-to-db-port",
+          "source": "pr-working:crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+          "ranges": [
+            [
+              1,
+              50
+            ]
+          ]
+        },
+        {
+          "index": 37,
+          "disposition": "exact-existing-sample-rate-owner-positive",
+          "source": "physical-p16:crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+          "ranges": [
+            [
+              88,
+              92
+            ]
+          ]
+        },
+        {
+          "index": 38,
+          "disposition": "frequency-vs-sample-rate-admission-distinction",
+          "source": "physical-p16:crates/adventuresim-tactical-core/src/animation/sample_rate.rs",
+          "ranges": [
+            [
+              1,
+              86
+            ]
+          ]
+        },
+        {
+          "index": 39,
+          "disposition": "local-problem-identity-positive-effect-leaves-distinct",
+          "source": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+          "ranges": [
+            [
+              333,
+              389
+            ]
+          ]
+        },
+        {
+          "index": 40,
+          "disposition": "existing-organization-vocabulary-plus-unfinished-id-owners",
+          "source": "pr-working:crates/adventuresim-core/src/organization.rs",
+          "ranges": [
+            [
+              101,
+              149
+            ],
+            [
+              227,
+              245
+            ],
+            [
+              319,
+              334
+            ]
+          ]
+        },
+        {
+          "index": 41,
+          "disposition": "canonical-sex-owner-positive-rejected-input-remains-text",
+          "source": "pr-working:crates/adventuresim-core/src/quest_catalog_validation/demographic.rs",
+          "ranges": [
+            [
+              1,
+              79
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "file": "contract-groups-004.json",
+      "contract": "OWN02-DELTA-CONTRACT-004",
+      "delta_indices": [
+        42,
+        61
+      ],
+      "qualified_contracts": [
+        {
+          "index": 42,
+          "disposition": "literal-fragments-native-dom-port-qualified",
+          "source": "pr-working:crates/strategic-web/src/templates/settlement/travel.rs",
+          "ranges": [
+            [
+              152,
+              153
+            ],
+            [
+              571,
+              604
+            ],
+            [
+              686,
+              694
+            ]
+          ]
+        },
+        {
+          "index": 43,
+          "disposition": "existing-digest-owner-reuse-by-actual-authority",
+          "source": "pr-working:crates/adventuresim-terrain/src/digest.rs",
+          "ranges": [
+            [
+              1,
+              28
+            ]
+          ]
+        },
+        {
+          "index": 44,
+          "disposition": "existing-geographic-bounds-owner-match",
+          "source": "pr-working:crates/adventuresim-terrain/src/terrain_feature.rs",
+          "ranges": [
+            [
+              1,
+              51
+            ]
+          ]
+        },
+        {
+          "index": 45,
+          "disposition": "existing-feature-enum-positive-identity-owner-missing",
+          "source": "pr-working:crates/adventuresim-world-schema/src/terrain_feature.rs",
+          "ranges": [
+            [
+              1,
+              43
+            ]
+          ]
+        },
+        {
+          "index": 46,
+          "disposition": "different-projection-owner-no-false-WGS84-reuse",
+          "source": "pr-working:crates/adventuresim-world-schema/src/geologic_window.rs",
+          "ranges": [
+            [
+              1,
+              36
+            ]
+          ]
+        },
+        {
+          "index": 47,
+          "disposition": "physical-setout-height-existing-leaf-fit-question",
+          "source": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+          "ranges": [
+            [
+              71,
+              75
+            ]
+          ]
+        },
+        {
+          "index": 48,
+          "disposition": "physical-dimensions-role-and-zero-distinction",
+          "source": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+          "ranges": [
+            [
+              94,
+              102
+            ],
+            [
+              104,
+              141
+            ],
+            [
+              151,
+              154
+            ]
+          ]
+        },
+        {
+          "index": 49,
+          "disposition": "existing-building-use-with-narrow-classification",
+          "source": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+          "ranges": [
+            [
+              19,
+              23
+            ],
+            [
+              38,
+              46
+            ],
+            [
+              93,
+              93
+            ]
+          ]
+        },
+        {
+          "index": 50,
+          "disposition": "concrete-existing-architectural-frame-owner-reuse",
+          "source": "pr-working:crates/adventuresim-building-generator/src/model/resolved_networks.rs",
+          "ranges": [
+            [
+              1,
+              192
+            ],
+            [
+              202,
+              209
+            ]
+          ]
+        },
+        {
+          "index": 51,
+          "disposition": "typed-inputs-to-actual-trigonometric-kernel",
+          "source": "pr-working:crates/adventuresim-building-generator/src/geometry_index.rs",
+          "ranges": [
+            [
+              13,
+              39
+            ]
+          ]
+        },
+        {
+          "index": 52,
+          "disposition": "existing-item-quantity-platform-component-positive",
+          "source": "physical-p16:crates/adventuresim-tactical-core/src/inventory/quantity.rs",
+          "ranges": [
+            [
+              1,
+              28
+            ]
+          ]
+        },
+        {
+          "index": 53,
+          "disposition": "canonical-item-quantity-owner-positive",
+          "source": "physical-p16:crates/adventuresim-core/src/inventory_measurement.rs",
+          "ranges": [
+            [
+              1,
+              28
+            ]
+          ]
+        },
+        {
+          "index": 54,
+          "disposition": "checked-turn-owner-positive-existing-operation-defect",
+          "source": "physical-p16:crates/adventuresim-tactical-core/src/animation/state/turn_deadline.rs",
+          "ranges": [
+            [
+              1,
+              208
+            ]
+          ]
+        },
+        {
+          "index": 55,
+          "disposition": "unwrapped-angle-and-time-owners-distinct",
+          "source": "physical-p16:crates/adventuresim-tactical-core/src/animation/state/downed_facing.rs",
+          "ranges": [
+            [
+              1,
+              325
+            ]
+          ]
+        },
+        {
+          "index": 56,
+          "disposition": "dependency-metadata-only",
+          "source": "pr-working:crates/adventuresim-core/Cargo.toml",
+          "ranges": [
+            [
+              9,
+              12
+            ],
+            [
+              29,
+              29
+            ]
+          ]
+        },
+        {
+          "index": 57,
+          "disposition": "pinned-foreign-boundary-metadata-only",
+          "source": "pr-working:Cargo.toml",
+          "ranges": [
+            [
+              178,
+              181
+            ]
+          ]
+        },
+        {
+          "index": 58,
+          "disposition": "locked-package-identity-metadata-only",
+          "source": "pr-working:Cargo.lock",
+          "ranges": [
+            [
+              10219,
+              10255
+            ],
+            [
+              10302,
+              10326
+            ],
+            [
+              10372,
+              10404
+            ]
+          ]
+        },
+        {
+          "index": 59,
+          "disposition": "actual-framework-trait-port-qualified",
+          "source": "pinned-bevy-replicon-0.41.1:src/shared/replication/rules.rs",
+          "ranges": [
+            [
+              153,
+              159
+            ],
+            [
+              273,
+              278
+            ]
+          ]
+        },
+        {
+          "index": 60,
+          "disposition": "actual-native-quaternion-boundary",
+          "source": "pinned-registry:avian3d-0.7.0/src/physics_transform/transform.rs",
+          "ranges": [
+            [
+              740,
+              745
+            ],
+            [
+              1051,
+              1074
+            ],
+            [
+              1092,
+              1114
+            ]
+          ]
+        },
+        {
+          "index": 61,
+          "disposition": "existing-geographic-bounds-owner-positive",
+          "source": "physical-p16:crates/adventuresim-world-schema/src/coordinates/bounds.rs",
+          "ranges": [
+            [
+              1,
+              49
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "file": "contract-groups-005.json",
+      "contract": "OWN02-DELTA-CONTRACT-005",
+      "delta_indices": [
+        62,
+        89
+      ],
+      "qualified_contracts": [
+        {
+          "index": 62,
+          "disposition": "existing-source-digest-owner-positive",
+          "source": "physical-p16:crates/adventuresim-world-schema/src/source_package.rs",
+          "ranges": [
+            [
+              1,
+              53
+            ]
+          ]
+        },
+        {
+          "index": 63,
+          "disposition": "exact-same-digest-body-distinct-frozen-role",
+          "source": "physical-p16:crates/adventuresim-terrain/src/digest.rs",
+          "ranges": [
+            [
+              1,
+              28
+            ]
+          ]
+        },
+        {
+          "index": 64,
+          "disposition": "exact-existing-unit-fraction-leaf-match",
+          "source": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+          "ranges": [
+            [
+              1504,
+              1610
+            ]
+          ]
+        },
+        {
+          "index": 65,
+          "disposition": "canonical-reexport-only",
+          "source": "physical-p16:crates/adventuresim-world-schema/src/lib.rs",
+          "ranges": [
+            [
+              33,
+              33
+            ]
+          ]
+        },
+        {
+          "index": 66,
+          "disposition": "actual-native-weight-distribution-port",
+          "source": "physical-p16:crates/fabelgeist-determinism/src/stream.rs",
+          "ranges": [
+            [
+              12,
+              28
+            ],
+            [
+              105,
+              115
+            ]
+          ]
+        },
+        {
+          "index": 67,
+          "disposition": "existing-identity-and-fraction-reuse-with-dose-unit-limit",
+          "source": "physical-p16:crates/adventuresim-core/src/world_event.rs",
+          "ranges": [
+            [
+              1,
+              151
+            ],
+            [
+              245,
+              398
+            ]
+          ]
+        },
+        {
+          "index": 68,
+          "disposition": "concrete-existing-place-component-owner-match",
+          "source": "physical-p16:crates/adventuresim-core/src/strategic_place.rs",
+          "ranges": [
+            [
+              1,
+              720
+            ]
+          ]
+        },
+        {
+          "index": 69,
+          "disposition": "same-material-dependency-metadata",
+          "source": "physical-p16:crates/adventuresim-core/Cargo.toml",
+          "ranges": [
+            [
+              9,
+              12
+            ],
+            [
+              29,
+              29
+            ]
+          ]
+        },
+        {
+          "index": 70,
+          "disposition": "existing-physical-and-identity-owner-propagation-support",
+          "source": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+          "ranges": [
+            [
+              205,
+              209
+            ],
+            [
+              306,
+              323
+            ],
+            [
+              540,
+              890
+            ],
+            [
+              2103,
+              2105
+            ]
+          ]
+        },
+        {
+          "index": 71,
+          "disposition": "actual-generated-sats-wire-record",
+          "source": "physical-p16:crates/adventuresim-stdb-client/src/connected_player_type.rs",
+          "ranges": [
+            [
+              1,
+              114
+            ]
+          ]
+        },
+        {
+          "index": 72,
+          "disposition": "generated-item-wire-distinct-from-admitted-item",
+          "source": "physical-p16:crates/adventuresim-stdb-client/src/connected_player_item_type.rs",
+          "ranges": [
+            [
+              1,
+              29
+            ]
+          ]
+        },
+        {
+          "index": 73,
+          "disposition": "derive-metadata-only",
+          "source": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+          "ranges": [
+            [
+              204,
+              204
+            ],
+            [
+              305,
+              305
+            ]
+          ]
+        },
+        {
+          "index": 74,
+          "disposition": "native-client-version-metadata-only",
+          "source": "pr-working:crates/adventuresim-stdb-client/Cargo.toml",
+          "ranges": [
+            [
+              11,
+              11
+            ]
+          ]
+        },
+        {
+          "index": 75,
+          "disposition": "locked-sdk-package-slice-only",
+          "source": "pr-working:Cargo.lock",
+          "ranges": [
+            [
+              10436,
+              10466
+            ]
+          ]
+        },
+        {
+          "index": 76,
+          "disposition": "native-armor-codec-and-admitted-design-distinction",
+          "source": "physical-p16:crates/fabelgeist-armor/src/lib.rs",
+          "ranges": [
+            [
+              86,
+              171
+            ]
+          ]
+        },
+        {
+          "index": 77,
+          "disposition": "existing-quantized-leaves-not-unitinterval",
+          "source": "physical-p16:crates/fabelgeist-armor/src/breastplate_design.rs",
+          "ranges": [
+            [
+              1,
+              128
+            ]
+          ]
+        },
+        {
+          "index": 78,
+          "disposition": "count-and-chart-domain-not-business-identity",
+          "source": "physical-p16:crates/fabelgeist-armor/src/plate_fluting.rs",
+          "ranges": [
+            [
+              1,
+              99
+            ]
+          ]
+        },
+        {
+          "index": 79,
+          "disposition": "existing-construction-sum-shape-positive",
+          "source": "physical-p16:crates/fabelgeist-armor/src/anime_design.rs",
+          "ranges": [
+            [
+              1,
+              56
+            ]
+          ]
+        },
+        {
+          "index": 80,
+          "disposition": "quantized-unit-owner-positive-role-bounds-separate",
+          "source": "physical-p16:crates/fabelgeist-armor/src/design.rs",
+          "ranges": [
+            [
+              1,
+              22
+            ],
+            [
+              33,
+              66
+            ]
+          ]
+        },
+        {
+          "index": 81,
+          "disposition": "concrete-existing-name-identity-owners-late-in-pipeline",
+          "source": "pr-working:crates/adventuresim-world-schema/src/person_names.rs",
+          "ranges": [
+            [
+              1,
+              849
+            ]
+          ]
+        },
+        {
+          "index": 82,
+          "disposition": "checked-display-owner-and-historical-absence-distinction",
+          "source": "pr-working:crates/adventuresim-world-schema/src/person_names/identity_validation.rs",
+          "ranges": [
+            [
+              1,
+              169
+            ]
+          ]
+        },
+        {
+          "index": 83,
+          "disposition": "single-derive-line-only",
+          "source": "physical-p16:crates/strategic-web/src/templates/settlement/character_skills.rs",
+          "ranges": [
+            [
+              2054,
+              2054
+            ]
+          ]
+        },
+        {
+          "index": 84,
+          "disposition": "actual-sats-codec-port-with-structured-error-gap",
+          "source": "physical-p16:crates/strategic-web/src/spacetimedb/client/sats.rs",
+          "ranges": [
+            [
+              1,
+              540
+            ]
+          ]
+        },
+        {
+          "index": 85,
+          "disposition": "temporal-identity-owners-and-age-policy-limit",
+          "source": "pr-working:crates/adventuresim-stdb-module/src/browser_session/descendants.rs",
+          "ranges": [
+            [
+              1,
+              95
+            ]
+          ]
+        },
+        {
+          "index": 86,
+          "disposition": "concrete-existing-candidate-reference-owners",
+          "source": "pr-working:crates/adventuresim-core/src/quest_generation/sampling.rs",
+          "ranges": [
+            [
+              1,
+              131
+            ]
+          ]
+        },
+        {
+          "index": 87,
+          "disposition": "exact-existing-quest-enum-owner-migration",
+          "source": "pr-working:crates/adventuresim-core/src/quest_generation/solver.rs",
+          "ranges": [
+            [
+              1,
+              216
+            ],
+            [
+              591,
+              597
+            ]
+          ]
+        },
+        {
+          "index": 88,
+          "disposition": "exact-existing-geographic-owner-before-real-port",
+          "source": "physical-p16:crates/strategic-web/src/routes/coordinates.rs",
+          "ranges": [
+            [
+              1,
+              17
+            ]
+          ]
+        },
+        {
+          "index": 89,
+          "disposition": "existing-action-payload-and-narrow-id-owner-reuse",
+          "source": "physical-p16:crates/strategic-web/src/routes/party_actions.rs",
+          "ranges": [
+            [
+              1,
+              266
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "file": "contract-groups-006.json",
+      "contract": "OWN02-DELTA-CONTRACT-006",
+      "delta_indices": [
+        90,
+        101
+      ],
+      "qualified_contracts": [
+        {
+          "index": 90,
+          "disposition": "missing-local-path-owner-not-generic-game-location",
+          "source": "physical-p16:crates/strategic-web/src/location_urls.rs",
+          "ranges": [
+            [
+              200,
+              203
+            ]
+          ]
+        },
+        {
+          "index": 91,
+          "disposition": "generated-e7-wire-to-existing-geographic-owner",
+          "source": "physical-p16:crates/adventuresim-stdb-client/src/journey_route_point_type.rs",
+          "ranges": [
+            [
+              1,
+              16
+            ]
+          ]
+        },
+        {
+          "index": 92,
+          "disposition": "existing-occupancy-contracts-with-distinct-durable-identities",
+          "source": "pr-working:crates/adventuresim-stdb-module/src/character/occupancy.rs",
+          "ranges": [
+            [
+              1,
+              122
+            ]
+          ]
+        },
+        {
+          "index": 93,
+          "disposition": "existing-numeric-schedule-owner-erased-org-proof-separate",
+          "source": "physical-p16:crates/strategic-web/src/schedule.rs",
+          "ranges": [
+            [
+              1,
+              77
+            ]
+          ]
+        },
+        {
+          "index": 94,
+          "disposition": "exact-existing-activity-leaf-plus-aggregate-qualification",
+          "source": "physical-p16:crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+          "ranges": [
+            [
+              1,
+              282
+            ]
+          ]
+        },
+        {
+          "index": 95,
+          "disposition": "real-reducer-projection-boundary-positive",
+          "source": "physical-p16:crates/adventuresim-stdb-module/src/time/stationary.rs",
+          "ranges": [
+            [
+              195,
+              263
+            ]
+          ]
+        },
+        {
+          "index": 96,
+          "disposition": "saved-numeric-plan-vs-current-eligibility-distinction",
+          "source": "physical-p16:crates/adventuresim-stdb-module/src/time/schedule.rs",
+          "ranges": [
+            [
+              71,
+              193
+            ],
+            [
+              728,
+              741
+            ]
+          ]
+        },
+        {
+          "index": 97,
+          "disposition": "native-clock-and-schedule-schema-boundaries",
+          "source": "physical-p16:crates/adventuresim-stdb-module/src/time/model.rs",
+          "ranges": [
+            [
+              39,
+              56
+            ],
+            [
+              75,
+              81
+            ],
+            [
+              83,
+              98
+            ]
+          ]
+        },
+        {
+          "index": 98,
+          "disposition": "canonical-allocation-granularity-only",
+          "source": "physical-p16:crates/adventuresim-core/src/activity.rs",
+          "ranges": [
+            [
+              28,
+              28
+            ]
+          ]
+        },
+        {
+          "index": 99,
+          "disposition": "canonical-calendar-unit-only",
+          "source": "physical-p16:crates/adventuresim-world-schema/src/calendar.rs",
+          "ranges": [
+            [
+              10,
+              10
+            ]
+          ]
+        },
+        {
+          "index": 100,
+          "disposition": "canonical-temporal-enums-positive-schedule-output-gap",
+          "source": "physical-p16:crates/adventuresim-stdb-module/src/npc_causal.rs",
+          "ranges": [
+            [
+              195,
+              264
+            ]
+          ]
+        },
+        {
+          "index": 101,
+          "disposition": "existing-canonical-leaf-and-schedule-admission-migration",
+          "source": "physical-p16:crates/adventuresim-stdb-module/src/simulation.rs",
+          "ranges": [
+            [
+              349,
+              494
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "file": "contract-groups-007.json",
+      "contract": "OWN02-DELTA-CONTRACT-007",
+      "delta_indices": [
+        102,
+        136
+      ],
+      "qualified_contracts": [
+        {
+          "index": 102,
+          "disposition": "build-codec-versus-admitted-catalogue",
+          "source": "physical-p16:crates/adventuresim-world-schema/build.rs",
+          "ranges": [
+            [
+              1,
+              121
+            ]
+          ]
+        },
+        {
+          "index": 103,
+          "disposition": "concrete-existing-name-id-owner-match-with-build-barrier",
+          "source": "physical-p16:crates/adventuresim-world-schema/src/name_catalog_schema.rs",
+          "ranges": [
+            [
+              1,
+              199
+            ]
+          ]
+        },
+        {
+          "index": 104,
+          "disposition": "accepted-catalogue-product-not-validation-bool",
+          "source": "physical-p16:crates/adventuresim-world-schema/src/name_catalog_validation.rs",
+          "ranges": [
+            [
+              1,
+              410
+            ]
+          ]
+        },
+        {
+          "index": 105,
+          "disposition": "existing-id-leaves-plus-missing-correlated-target-owner",
+          "source": "physical-p16:crates/adventuresim-world-schema/src/name_catalog_validation/derivations.rs",
+          "ranges": [
+            [
+              1,
+              214
+            ]
+          ]
+        },
+        {
+          "index": 106,
+          "disposition": "existing-schedule-owner-before-persistence",
+          "source": "physical-p16:crates/adventuresim-core/src/npc_policy.rs",
+          "ranges": [
+            [
+              126,
+              136
+            ]
+          ]
+        },
+        {
+          "index": 107,
+          "disposition": "attribute-only-reducer-boundary",
+          "source": "physical-p16:crates/adventuresim-stdb-module/src/simulation.rs",
+          "ranges": [
+            [
+              344,
+              347
+            ]
+          ]
+        },
+        {
+          "index": 108,
+          "disposition": "exact-own02-role-reuse",
+          "source": "physical-p16:crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+          "ranges": [
+            [
+              134,
+              198
+            ]
+          ]
+        },
+        {
+          "index": 109,
+          "disposition": "existing-schedule-and-physical-rate-roles",
+          "source": "physical-p16:crates/adventuresim-core/src/strategic_schedule.rs",
+          "ranges": [
+            [
+              20,
+              33
+            ],
+            [
+              186,
+              239
+            ]
+          ]
+        },
+        {
+          "index": 110,
+          "disposition": "attribute-only-same-source",
+          "source": "physical-p16:crates/adventuresim-core/src/strategic_schedule.rs",
+          "ranges": [
+            [
+              185,
+              185
+            ]
+          ]
+        },
+        {
+          "index": 111,
+          "disposition": "attribute-only-same-source",
+          "source": "physical-p16:crates/adventuresim-core/src/strategic_schedule.rs",
+          "ranges": [
+            [
+              184,
+              184
+            ]
+          ]
+        },
+        {
+          "index": 112,
+          "disposition": "existing-selected-weapon-product-before-raw-lookup",
+          "source": "physical-p16:crates/adventuresim-weapon-model/src/catalog.rs",
+          "ranges": [
+            [
+              1,
+              2
+            ],
+            [
+              74,
+              87
+            ]
+          ]
+        },
+        {
+          "index": 113,
+          "disposition": "exact-same-weapon-catalogue-role",
+          "source": "pr-working:crates/adventuresim-weapon-model/src/catalog.rs",
+          "ranges": [
+            [
+              1,
+              2
+            ],
+            [
+              74,
+              87
+            ]
+          ]
+        },
+        {
+          "index": 114,
+          "disposition": "actor-identity-vs-native-pair-index",
+          "source": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/assignment.rs",
+          "ranges": [
+            [
+              1,
+              72
+            ]
+          ]
+        },
+        {
+          "index": 115,
+          "disposition": "existing-bestiary-owners-with-diagnostic-leaf-gap",
+          "source": "physical-p16:crates/adventuresim-core/src/bestiary.rs",
+          "ranges": [
+            [
+              139,
+              191
+            ],
+            [
+              210,
+              294
+            ],
+            [
+              311,
+              338
+            ],
+            [
+              345,
+              366
+            ],
+            [
+              713,
+              744
+            ]
+          ]
+        },
+        {
+          "index": 116,
+          "disposition": "clinical-elapsed-time-not-absolute-calendar",
+          "source": "physical-p16:crates/adventuresim-core/src/disease.rs",
+          "ranges": [
+            [
+              127,
+              159
+            ],
+            [
+              345,
+              353
+            ],
+            [
+              1282,
+              1299
+            ],
+            [
+              1510,
+              1518
+            ],
+            [
+              1556,
+              1559
+            ],
+            [
+              1564,
+              1619
+            ]
+          ]
+        },
+        {
+          "index": 117,
+          "disposition": "authored-disease-parameters-distinct-scales",
+          "source": "physical-p16:crates/adventuresim-core/src/disease.rs",
+          "ranges": [
+            [
+              985,
+              1271
+            ]
+          ]
+        },
+        {
+          "index": 118,
+          "disposition": "exposure-product-association-and-different-quantities",
+          "source": "physical-p16:crates/adventuresim-core/src/disease.rs",
+          "ranges": [
+            [
+              390,
+              437
+            ],
+            [
+              930,
+              984
+            ],
+            [
+              1272,
+              1277
+            ],
+            [
+              2093,
+              2160
+            ],
+            [
+              2214,
+              2271
+            ]
+          ]
+        },
+        {
+          "index": 119,
+          "disposition": "same-disease-evolution-proof-reuse",
+          "source": "physical-p16:crates/adventuresim-core/src/disease.rs",
+          "ranges": [
+            [
+              1519,
+              1530
+            ]
+          ]
+        },
+        {
+          "index": 120,
+          "disposition": "existing-equipment-channel-not-packed-rank",
+          "source": "physical-p16:crates/adventuresim-core/src/item_catalog_schema.rs",
+          "ranges": [
+            [
+              146,
+              190
+            ]
+          ]
+        },
+        {
+          "index": 121,
+          "disposition": "pr-channel-owner-positive",
+          "source": "pr-working:crates/adventuresim-core/src/item_catalog_schema.rs",
+          "ranges": [
+            [
+              146,
+              185
+            ]
+          ]
+        },
+        {
+          "index": 122,
+          "disposition": "canonical-definition-selection-before-performance",
+          "source": "physical-p16:crates/adventuresim-core/src/item_catalog.rs",
+          "ranges": [
+            [
+              53,
+              59
+            ],
+            [
+              74,
+              80
+            ],
+            [
+              111,
+              117
+            ]
+          ]
+        },
+        {
+          "index": 123,
+          "disposition": "attribute-only-schema-codec",
+          "source": "pr-working:crates/adventuresim-core/src/item_catalog_schema.rs",
+          "ranges": [
+            [
+              141,
+              145
+            ]
+          ]
+        },
+        {
+          "index": 124,
+          "disposition": "actual-native-sats-enum-port",
+          "source": "pinned-registry:spacetimedb-bindings-macro-2.6.1/src/sats.rs",
+          "ranges": [
+            [
+              70,
+              80
+            ],
+            [
+              525,
+              637
+            ],
+            [
+              728,
+              752
+            ]
+          ]
+        },
+        {
+          "index": 125,
+          "disposition": "native-reexport-metadata-only",
+          "source": "pinned-registry:spacetimedb-2.6.1/src/lib.rs",
+          "ranges": [
+            [
+              1,
+              34
+            ]
+          ]
+        },
+        {
+          "index": 126,
+          "disposition": "native-traits-distinct-from-serde",
+          "source": "pinned-registry:spacetimedb-2.6.1/src/lib.rs",
+          "ranges": [
+            [
+              37,
+              41
+            ]
+          ]
+        },
+        {
+          "index": 127,
+          "disposition": "existing-food-vocabulary-and-distinct-dose-amount",
+          "source": "physical-p16:crates/adventuresim-core/src/food.rs",
+          "ranges": [
+            [
+              7,
+              8
+            ],
+            [
+              10,
+              10
+            ],
+            [
+              171,
+              179
+            ],
+            [
+              336,
+              338
+            ]
+          ]
+        },
+        {
+          "index": 128,
+          "disposition": "food-attribute-only",
+          "source": "physical-p16:crates/adventuresim-core/src/food.rs",
+          "ranges": [
+            [
+              9,
+              9
+            ]
+          ]
+        },
+        {
+          "index": 129,
+          "disposition": "same-native-sampling-port-own02-reuse",
+          "source": "physical-p16:crates/fabelgeist-determinism/src/stream.rs",
+          "ranges": [
+            [
+              104,
+              115
+            ]
+          ]
+        },
+        {
+          "index": 130,
+          "disposition": "organization-identity-capability-and-reward-distinction",
+          "source": "physical-p16:crates/adventuresim-core/src/organization.rs",
+          "ranges": [
+            [
+              1,
+              36
+            ],
+            [
+              88,
+              157
+            ],
+            [
+              227,
+              246
+            ],
+            [
+              316,
+              388
+            ]
+          ]
+        },
+        {
+          "index": 131,
+          "disposition": "existing-clinical-dose-route-positive-other-meter-contracts",
+          "source": "physical-p16:crates/adventuresim-core/src/physiology.rs",
+          "ranges": [
+            [
+              406,
+              407
+            ],
+            [
+              447,
+              664
+            ]
+          ]
+        },
+        {
+          "index": 132,
+          "disposition": "existing-quest-namespace-owners-not-raw-authoring-runtime",
+          "source": "physical-p16:crates/adventuresim-core/src/quest_catalog.rs",
+          "ranges": [
+            [
+              1,
+              67
+            ],
+            [
+              89,
+              91
+            ],
+            [
+              111,
+              323
+            ],
+            [
+              598,
+              607
+            ],
+            [
+              669,
+              670
+            ],
+            [
+              793,
+              840
+            ]
+          ]
+        },
+        {
+          "index": 133,
+          "disposition": "catalogue-cross-reference-proof-not-scalar-alias",
+          "source": "physical-p16:crates/adventuresim-core/src/quest_catalog_validation.rs",
+          "ranges": [
+            [
+              1,
+              199
+            ],
+            [
+              213,
+              351
+            ],
+            [
+              391,
+              447
+            ],
+            [
+              481,
+              1516
+            ]
+          ]
+        },
+        {
+          "index": 134,
+          "disposition": "same-canonical-demographic-parse-owner",
+          "source": "physical-p16:crates/adventuresim-core/src/quest_catalog_validation/demographic.rs",
+          "ranges": [
+            [
+              1,
+              54
+            ]
+          ]
+        },
+        {
+          "index": 135,
+          "disposition": "existing-quest-key-owners-late-in-candidates",
+          "source": "physical-p16:crates/adventuresim-core/src/quest_generation/model.rs",
+          "ranges": [
+            [
+              1,
+              58
+            ],
+            [
+              99,
+              153
+            ],
+            [
+              171,
+              191
+            ],
+            [
+              506,
+              507
+            ]
+          ]
+        },
+        {
+          "index": 136,
+          "disposition": "same-bestiary-diagnostic-owner-support",
+          "source": "physical-p16:crates/adventuresim-core/src/bestiary.rs",
+          "ranges": [
+            [
+              745,
+              803
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "file": "contract-groups-008.json",
+      "contract": "OWN02-DELTA-CONTRACT-008",
+      "delta_indices": [
+        137,
+        174
+      ],
+      "qualified_contracts": [
+        {
+          "index": 137,
+          "disposition": "canonical-service-owner-before-route-text",
+          "source": "physical-p16:crates/adventuresim-core/src/settlement_economy.rs",
+          "ranges": [
+            [
+              1,
+              112
+            ]
+          ]
+        },
+        {
+          "index": 138,
+          "disposition": "canonical-predicate-positive",
+          "source": "physical-p16:crates/adventuresim-core/src/settlement_economy.rs",
+          "ranges": [
+            [
+              233,
+              250
+            ]
+          ]
+        },
+        {
+          "index": 139,
+          "disposition": "existing-road-mechanics-owner-migration",
+          "source": "physical-p16:crates/adventuresim-core/src/road_encounter_catalog.rs",
+          "ranges": [
+            [
+              1,
+              179
+            ],
+            [
+              396,
+              994
+            ]
+          ]
+        },
+        {
+          "index": 140,
+          "disposition": "existing-reference-namespace-not-generic-asset-string",
+          "source": "physical-p16:crates/adventuresim-core/src/item_references.rs",
+          "ranges": [
+            [
+              12,
+              27
+            ]
+          ]
+        },
+        {
+          "index": 141,
+          "disposition": "multiplier-above-one-and-currency-rate-distinction",
+          "source": "physical-p16:crates/adventuresim-core/src/courtship.rs",
+          "ranges": [
+            [
+              195,
+              240
+            ]
+          ]
+        },
+        {
+          "index": 142,
+          "disposition": "named-aggregate-not-typed-leaf-guarantee",
+          "source": "physical-p16:crates/adventuresim-core/src/courtship.rs",
+          "ranges": [
+            [
+              148,
+              157
+            ]
+          ]
+        },
+        {
+          "index": 143,
+          "disposition": "existing-skill-tag-not-rank-value",
+          "source": "physical-p16:crates/adventuresim-core/src/skill.rs",
+          "ranges": [
+            [
+              9,
+              9
+            ],
+            [
+              720,
+              777
+            ]
+          ]
+        },
+        {
+          "index": 144,
+          "disposition": "skill-training-units-and-admission-distinct",
+          "source": "physical-p16:crates/adventuresim-core/src/skill.rs",
+          "ranges": [
+            [
+              10,
+              117
+            ],
+            [
+              892,
+              981
+            ]
+          ]
+        },
+        {
+          "index": 145,
+          "disposition": "durable-family-identity-at-real-db-port",
+          "source": "physical-p16:crates/adventuresim-stdb-module/src/relationship/family.rs",
+          "ranges": [
+            [
+              106,
+              114
+            ]
+          ]
+        },
+        {
+          "index": 146,
+          "disposition": "attribute-only-native-local-problem",
+          "source": "physical-p16:crates/adventuresim-stdb-module/src/local_problem.rs",
+          "ranges": [
+            [
+              1672,
+              1672
+            ]
+          ]
+        },
+        {
+          "index": 147,
+          "disposition": "same-item-reference-owner-support",
+          "source": "physical-p16:crates/adventuresim-core/src/item_references.rs",
+          "ranges": [
+            [
+              30,
+              37
+            ]
+          ]
+        },
+        {
+          "index": 148,
+          "disposition": "concrete-existing-personality-axis-owner-match",
+          "source": "physical-p16:crates/adventuresim-stdb-module/src/personality/generation.rs",
+          "ranges": [
+            [
+              1,
+              204
+            ]
+          ]
+        },
+        {
+          "index": 149,
+          "disposition": "existing-physical-and-composition-owners",
+          "source": "physical-p16:crates/adventuresim-core/src/material.rs",
+          "ranges": [
+            [
+              1,
+              73
+            ],
+            [
+              204,
+              387
+            ],
+            [
+              452,
+              614
+            ],
+            [
+              707,
+              1197
+            ],
+            [
+              1307,
+              1382
+            ]
+          ]
+        },
+        {
+          "index": 150,
+          "disposition": "clinical-quantity-and-response-owner-distinctions",
+          "source": "physical-p16:crates/adventuresim-core/src/physiology.rs",
+          "ranges": [
+            [
+              55,
+              114
+            ],
+            [
+              188,
+              257
+            ],
+            [
+              447,
+              486
+            ],
+            [
+              656,
+              721
+            ]
+          ]
+        },
+        {
+          "index": 151,
+          "disposition": "same-material-snapshot-contract",
+          "source": "physical-p16:crates/adventuresim-core/src/material.rs",
+          "ranges": [
+            [
+              1253,
+              1306
+            ]
+          ]
+        },
+        {
+          "index": 152,
+          "disposition": "existing-action-and-duration-products-before-native-port",
+          "source": "physical-p16:crates/adventuresim-core/src/strategic_action.rs",
+          "ranges": [
+            [
+              171,
+              412
+            ],
+            [
+              458,
+              715
+            ]
+          ]
+        },
+        {
+          "index": 153,
+          "disposition": "canonical-physical-object-identity-capacity-owner",
+          "source": "physical-p16:crates/adventuresim-core/src/inventory_containers.rs",
+          "ranges": [
+            [
+              1,
+              175
+            ]
+          ]
+        },
+        {
+          "index": 154,
+          "disposition": "reagent-preparation-and-clinical-dose-distinct",
+          "source": "physical-p16:crates/adventuresim-core/src/herbalism.rs",
+          "ranges": [
+            [
+              1,
+              312
+            ]
+          ]
+        },
+        {
+          "index": 155,
+          "disposition": "semantic-equipment-state-to-actual-render-port",
+          "source": "pr-working:crates/adventuresim-tactical-client/src/equipment/visuals.rs",
+          "ranges": [
+            [
+              1,
+              50
+            ]
+          ]
+        },
+        {
+          "index": 156,
+          "disposition": "existing-morph-products-positive-native-asset-port",
+          "source": "pr-working:crates/adventuresim-tactical-client/src/animation/identity_morphs.rs",
+          "ranges": [
+            [
+              1,
+              76
+            ]
+          ]
+        },
+        {
+          "index": 157,
+          "disposition": "mhr-reexport-scope-only",
+          "source": "pr-working:crates/fabelgeist-mhr/src/lib.rs",
+          "ranges": [
+            [
+              31,
+              43
+            ]
+          ]
+        },
+        {
+          "index": 158,
+          "disposition": "generic-math-frame-not-gameplay-position",
+          "source": "pr-working:crates/fabelgeist-math/src/transform.rs",
+          "ranges": [
+            [
+              1,
+              110
+            ]
+          ]
+        },
+        {
+          "index": 159,
+          "disposition": "typed-roof-product-association-positive",
+          "source": "pr-working:crates/adventuresim-building-generator/src/generator/framed_roofs.rs",
+          "ranges": [
+            [
+              1,
+              46
+            ]
+          ]
+        },
+        {
+          "index": 160,
+          "disposition": "existing-angle-leaf-through-roof-setout",
+          "source": "pr-working:crates/adventuresim-building-generator/src/generator/roof_editing.rs",
+          "ranges": [
+            [
+              1,
+              149
+            ]
+          ]
+        },
+        {
+          "index": 161,
+          "disposition": "typed-geometry-operations-and-allocator-namespace",
+          "source": "pr-working:crates/adventuresim-building-generator/src/generator/roof_editing.rs",
+          "ranges": [
+            [
+              150,
+              229
+            ]
+          ]
+        },
+        {
+          "index": 162,
+          "disposition": "concrete-architectural-bounds-fit-to-actual-math",
+          "source": "pr-working:crates/adventuresim-building-generator/src/audit/bearing.rs",
+          "ranges": [
+            [
+              1,
+              58
+            ]
+          ]
+        },
+        {
+          "index": 163,
+          "disposition": "diagnostic-buffer-label-owner-distinct-from-binding-key",
+          "source": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs",
+          "ranges": [
+            [
+              1,
+              28
+            ]
+          ]
+        },
+        {
+          "index": 164,
+          "disposition": "generic-math-reexport-only",
+          "source": "pr-working:crates/fabelgeist-gpu/src/data/mod.rs",
+          "ranges": [
+            [
+              7,
+              13
+            ]
+          ]
+        },
+        {
+          "index": 165,
+          "disposition": "actual-numerical-normal-projection-port",
+          "source": "pr-working:crates/fabelgeist-xpbd/src/dynamics/projection.rs",
+          "ranges": [
+            [
+              201,
+              206
+            ]
+          ]
+        },
+        {
+          "index": 166,
+          "disposition": "native-weighted-distribution-port",
+          "source": "native-rand0.9.5:src/distr/weighted/weighted_index.rs",
+          "ranges": [
+            [
+              1,
+              145
+            ],
+            [
+              358,
+              369
+            ]
+          ]
+        },
+        {
+          "index": 167,
+          "disposition": "native-sampler-trait-port",
+          "source": "native-rand0.9.5:src/distr/uniform.rs",
+          "ranges": [
+            [
+              219,
+              260
+            ],
+            [
+              268,
+              312
+            ],
+            [
+              399,
+              415
+            ]
+          ]
+        },
+        {
+          "index": 168,
+          "disposition": "documented-native-integer-representation",
+          "source": "native-rand0.9.5:src/distr/uniform_int.rs",
+          "ranges": [
+            [
+              71,
+              160
+            ],
+            [
+              280,
+              280
+            ]
+          ]
+        },
+        {
+          "index": 169,
+          "disposition": "native-arithmetic-error-signal",
+          "source": "native-rand0.9.5:src/distr/weighted/mod.rs",
+          "ranges": [
+            [
+              25,
+              60
+            ],
+            [
+              85,
+              115
+            ]
+          ]
+        },
+        {
+          "index": 170,
+          "disposition": "actual-native-widening-arithmetic",
+          "source": "native-rand0.9.5:src/distr/utils.rs",
+          "ranges": [
+            [
+              16,
+              61
+            ]
+          ]
+        },
+        {
+          "index": 171,
+          "disposition": "actual-native-entropy-word",
+          "source": "native-rand0.9.5:src/distr/integer.rs",
+          "ranges": [
+            [
+              49,
+              54
+            ]
+          ]
+        },
+        {
+          "index": 172,
+          "disposition": "native-generic-rng-trait",
+          "source": "native-rand0.9.5:src/rng.rs",
+          "ranges": [
+            [
+              58,
+              58
+            ],
+            [
+              95,
+              103
+            ],
+            [
+              357,
+              357
+            ]
+          ]
+        },
+        {
+          "index": 173,
+          "disposition": "native-doc-derive-slice-only",
+          "source": "native-rand0.9.5:src/distr/uniform.rs",
+          "ranges": [
+            [
+              190,
+              219
+            ]
+          ]
+        },
+        {
+          "index": 174,
+          "disposition": "documented-native-fullrange-convention",
+          "source": "native-rand0.9.5:src/distr/uniform_int.rs",
+          "ranges": [
+            [
+              1,
+              70
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "file": "contract-groups-009.json",
+      "contract": "OWN02-DELTA-CONTRACT-009",
+      "delta_indices": [
+        175,
+        217
+      ],
+      "qualified_contracts": [
+        {
+          "index": 175,
+          "disposition": "canonical-host-shader-tag-positive",
+          "source": "pr-working:crates/fabelgeist-armor/src/gpu/helmet/codes.rs",
+          "ranges": [
+            [
+              1,
+              171
+            ]
+          ]
+        },
+        {
+          "index": 176,
+          "disposition": "existing-dimension-leaves-and-distinct-count",
+          "source": "pr-working:crates/fabelgeist-armor/src/limb_armor.rs",
+          "ranges": [
+            [
+              161,
+              186
+            ]
+          ]
+        },
+        {
+          "index": 177,
+          "disposition": "existing-color-owner-before-material-adapter",
+          "source": "pr-working:crates/fabelgeist-armor/src/puff_and_slash.rs",
+          "ranges": [
+            [
+              11,
+              28
+            ]
+          ]
+        },
+        {
+          "index": 178,
+          "disposition": "existing-coverage-owner-admission-obligation",
+          "source": "pr-working:crates/adventuresim-core/src/combat/coverage.rs",
+          "ranges": [
+            [
+              1,
+              142
+            ]
+          ]
+        },
+        {
+          "index": 179,
+          "disposition": "existing-component-product-not-sufficient-range-proof",
+          "source": "pr-working:crates/fabelgeist-armor/src/components.rs",
+          "ranges": [
+            [
+              1,
+              87
+            ]
+          ]
+        },
+        {
+          "index": 180,
+          "disposition": "existing-face-owner-positive",
+          "source": "pr-working:crates/fabelgeist-armor/src/plate_face.rs",
+          "ranges": [
+            [
+              1,
+              16
+            ]
+          ]
+        },
+        {
+          "index": 181,
+          "disposition": "existing-course-owner-distinct-extent",
+          "source": "pr-working:crates/fabelgeist-armor/src/plate_mount.rs",
+          "ranges": [
+            [
+              1,
+              58
+            ]
+          ]
+        },
+        {
+          "index": 182,
+          "disposition": "typed-shell-plan-to-native-pack",
+          "source": "pr-working:crates/fabelgeist-armor/src/gpu/limb_build.rs",
+          "ranges": [
+            [
+              1,
+              46
+            ]
+          ]
+        },
+        {
+          "index": 183,
+          "disposition": "generic-numerical-array-alias",
+          "source": "pr-working:crates/fabelgeist-garment-code/src/math.rs",
+          "ranges": [
+            [
+              7,
+              8
+            ]
+          ]
+        },
+        {
+          "index": 184,
+          "disposition": "existing-event-identities-before-actual-native-digest",
+          "source": "physical-p16:crates/adventuresim-stdb-module/src/world_event.rs",
+          "ranges": [
+            [
+              1,
+              300
+            ],
+            [
+              352,
+              460
+            ],
+            [
+              463,
+              811
+            ]
+          ]
+        },
+        {
+          "index": 185,
+          "disposition": "existing-strand-versus-index-owner",
+          "source": "pr-working:crates/fabelgeist-hair/src/identity.rs",
+          "ranges": [
+            [
+              1,
+              64
+            ]
+          ]
+        },
+        {
+          "index": 186,
+          "disposition": "energy-owner-leaf-through-contact-product",
+          "source": "physical-p16:crates/adventuresim-core/src/combat/armor.rs",
+          "ranges": [
+            [
+              1,
+              138
+            ]
+          ]
+        },
+        {
+          "index": 187,
+          "disposition": "existing-shell-plan-layout-association",
+          "source": "pr-working:crates/fabelgeist-armor/src/gpu/shell_plan.rs",
+          "ranges": [
+            [
+              1,
+              132
+            ]
+          ]
+        },
+        {
+          "index": 188,
+          "disposition": "generic-grid-capacity-not-gameplay-position",
+          "source": "pr-working:crates/fabelgeist-hair/src/head.rs",
+          "ranges": [
+            [
+              284,
+              427
+            ]
+          ]
+        },
+        {
+          "index": 189,
+          "disposition": "existing-capability-sum-positive",
+          "source": "physical-p16:crates/adventuresim-core/src/combat/capability.rs",
+          "ranges": [
+            [
+              1,
+              45
+            ]
+          ]
+        },
+        {
+          "index": 190,
+          "disposition": "equipment-channel-and-physical-leaves",
+          "source": "pr-working:crates/adventuresim-core/src/equipment/armor.rs",
+          "ranges": [
+            [
+              1,
+              39
+            ]
+          ]
+        },
+        {
+          "index": 191,
+          "disposition": "native-sats-payload-convention",
+          "source": "pinned-registry:spacetimedb-bindings-macro-2.6.1/src/sats.rs",
+          "ranges": [
+            [
+              728,
+              752
+            ]
+          ]
+        },
+        {
+          "index": 192,
+          "disposition": "existing-simple-attribute-owner-positive",
+          "source": "pr-working:crates/adventuresim-core/src/attribute/simple.rs",
+          "ranges": [
+            [
+              1,
+              26
+            ]
+          ]
+        },
+        {
+          "index": 193,
+          "disposition": "existing-attack-style-owner-positive",
+          "source": "pr-working:crates/adventuresim-core/src/combat_style.rs",
+          "ranges": [
+            [
+              1,
+              18
+            ]
+          ]
+        },
+        {
+          "index": 194,
+          "disposition": "justified-restricted-owner-subset",
+          "source": "pr-working:crates/adventuresim-core/src/equipment/loadout.rs",
+          "ranges": [
+            [
+              1,
+              39
+            ]
+          ]
+        },
+        {
+          "index": 195,
+          "disposition": "accepted-weapon-product-before-native-geometry",
+          "source": "pr-working:crates/adventuresim-core/src/equipment/parametric_weapon.rs",
+          "ranges": [
+            [
+              1,
+              66
+            ]
+          ]
+        },
+        {
+          "index": 196,
+          "disposition": "layered-armor-aggregate-and-explicit-order",
+          "source": "pr-working:crates/adventuresim-core/src/equipment/armor.rs",
+          "ranges": [
+            [
+              40,
+              94
+            ]
+          ]
+        },
+        {
+          "index": 197,
+          "disposition": "existing-bestiary-source-kind-support",
+          "source": "physical-p16:crates/adventuresim-core/src/bestiary.rs",
+          "ranges": [
+            [
+              397,
+              460
+            ]
+          ]
+        },
+        {
+          "index": 198,
+          "disposition": "food-nutrition-dose-units-distinct",
+          "source": "physical-p16:crates/adventuresim-core/src/food.rs",
+          "ranges": [
+            [
+              156,
+              170
+            ],
+            [
+              195,
+              215
+            ],
+            [
+              247,
+              307
+            ]
+          ]
+        },
+        {
+          "index": 199,
+          "disposition": "native-ingestion-receiver-contract",
+          "source": "pr-working:crates/adventuresim-stdb-module/src/alcohol.rs",
+          "ranges": [
+            [
+              38,
+              46
+            ]
+          ]
+        },
+        {
+          "index": 200,
+          "disposition": "attribute-only-role",
+          "source": "pr-working:crates/adventuresim-stdb-module/src/alcohol.rs",
+          "ranges": [
+            [
+              47,
+              47
+            ]
+          ]
+        },
+        {
+          "index": 201,
+          "disposition": "bestiary-kind-and-diagnostic-index-distinct",
+          "source": "physical-p16:crates/adventuresim-core/src/bestiary.rs",
+          "ranges": [
+            [
+              300,
+              306
+            ],
+            [
+              805,
+              836
+            ]
+          ]
+        },
+        {
+          "index": 202,
+          "disposition": "existing-language-identities-and-fluency",
+          "source": "pr-working:crates/adventuresim-world-schema/src/language.rs",
+          "ranges": [
+            [
+              1,
+              119
+            ]
+          ]
+        },
+        {
+          "index": 203,
+          "disposition": "same-language-owner-exact-helper",
+          "source": "pr-working:crates/adventuresim-world-schema/src/language.rs",
+          "ranges": [
+            [
+              309,
+              314
+            ]
+          ]
+        },
+        {
+          "index": 204,
+          "disposition": "correlation-leaf-context-resolved",
+          "source": "pr-working:crates/adventuresim-world-schema/src/bestiary.rs",
+          "ranges": [
+            [
+              113,
+              139
+            ]
+          ]
+        },
+        {
+          "index": 205,
+          "disposition": "same-canonical-vocabulary-owner",
+          "source": "pr-working:crates/adventuresim-world-schema/src/language.rs",
+          "ranges": [
+            [
+              531,
+              563
+            ]
+          ]
+        },
+        {
+          "index": 206,
+          "disposition": "native-sampling-index-after-candidate-owner",
+          "source": "physical-p16:crates/adventuresim-core/src/quest_generation/sampling.rs",
+          "ranges": [
+            [
+              1,
+              58
+            ]
+          ]
+        },
+        {
+          "index": 207,
+          "disposition": "solver-existing-candidate-and-variable-owners",
+          "source": "physical-p16:crates/adventuresim-core/src/quest_generation/solver.rs",
+          "ranges": [
+            [
+              1,
+              216
+            ]
+          ]
+        },
+        {
+          "index": 208,
+          "disposition": "elevation-band-category-distinct-measure",
+          "source": "pr-working:crates/adventuresim-world-schema/src/lib.rs",
+          "ranges": [
+            [
+              1692,
+              1701
+            ]
+          ]
+        },
+        {
+          "index": 209,
+          "disposition": "native-weighted-order-boundary",
+          "source": "physical-p16:crates/adventuresim-core/src/quest_generation/sampling.rs",
+          "ranges": [
+            [
+              60,
+              109
+            ]
+          ]
+        },
+        {
+          "index": 210,
+          "disposition": "witness-order-context-specific-weight",
+          "source": "physical-p16:crates/adventuresim-core/src/quest_generation/solver.rs",
+          "ranges": [
+            [
+              591,
+              601
+            ]
+          ]
+        },
+        {
+          "index": 211,
+          "disposition": "existing-weight-and-candidate-product",
+          "source": "physical-p16:crates/adventuresim-core/src/quest_generation/model.rs",
+          "ranges": [
+            [
+              289,
+              308
+            ],
+            [
+              1191,
+              1199
+            ]
+          ]
+        },
+        {
+          "index": 212,
+          "disposition": "existing-hydrology-products-positive",
+          "source": "pr-working:crates/adventuresim-world-schema/src/lib.rs",
+          "ranges": [
+            [
+              1910,
+              1978
+            ]
+          ]
+        },
+        {
+          "index": 213,
+          "disposition": "existing-travel-edge-kind-positive",
+          "source": "pr-working:crates/adventuresim-world-schema/src/lib.rs",
+          "ranges": [
+            [
+              1758,
+              1765
+            ]
+          ]
+        },
+        {
+          "index": 214,
+          "disposition": "solver-demographic-and-circumstance-identity",
+          "source": "physical-p16:crates/adventuresim-core/src/quest_generation/solver.rs",
+          "ranges": [
+            [
+              380,
+              408
+            ]
+          ]
+        },
+        {
+          "index": 215,
+          "disposition": "reputation-amounts-and-context-owner",
+          "source": "physical-p16:crates/adventuresim-stdb-module/src/reputation.rs",
+          "ranges": [
+            [
+              357,
+              360
+            ]
+          ]
+        },
+        {
+          "index": 216,
+          "disposition": "canonical-currency-reference-roster",
+          "source": "physical-p16:crates/adventuresim-core/src/item_references.rs",
+          "ranges": [
+            [
+              1,
+              10
+            ]
+          ]
+        },
+        {
+          "index": 217,
+          "disposition": "planned-duration-versus-realized-overlap",
+          "source": "physical-p16:crates/adventuresim-core/src/strategic_schedule.rs",
+          "ranges": [
+            [
+              171,
+              183
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "file": "contract-groups-010.json",
+      "contract": "OWN02-DELTA-CONTRACT-010",
+      "delta_indices": [
+        218,
+        236
+      ],
+      "qualified_contracts": [
+        {
+          "index": 218,
+          "disposition": "existing-rights-product-and-digest-namespace",
+          "source": "physical-p16:crates/adventuresim-core/src/rights.rs",
+          "ranges": [
+            [
+              1,
+              274
+            ],
+            [
+              296,
+              297
+            ],
+            [
+              719,
+              796
+            ]
+          ]
+        },
+        {
+          "index": 219,
+          "disposition": "energy-per-day-rate-not-body-mass",
+          "source": "physical-p16:crates/adventuresim-core/src/provisioning.rs",
+          "ranges": [
+            [
+              3,
+              3
+            ]
+          ]
+        },
+        {
+          "index": 220,
+          "disposition": "actual-json-object-representation",
+          "source": "dependency-serde_json1.0.151:src/value/de.rs",
+          "ranges": [
+            [
+              121,
+              148
+            ]
+          ]
+        },
+        {
+          "index": 221,
+          "disposition": "actual-native-map-key-protocol",
+          "source": "dependency-serde_json1.0.151:src/map.rs",
+          "ranges": [
+            [
+              29,
+              36
+            ],
+            [
+              120,
+              129
+            ]
+          ]
+        },
+        {
+          "index": 222,
+          "disposition": "existing-catalogue-item-reference-before-harness",
+          "source": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness/museum.rs",
+          "ranges": [
+            [
+              3,
+              17
+            ],
+            [
+              19,
+              36
+            ]
+          ]
+        },
+        {
+          "index": 223,
+          "disposition": "existing-bone-role-to-real-report-codec",
+          "source": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/bones.rs",
+          "ranges": [
+            [
+              6,
+              106
+            ]
+          ]
+        },
+        {
+          "index": 224,
+          "disposition": "mission-identity-and-authority-not-transient-state",
+          "source": "physical-p16:crates/adventuresim-stdb-module/src/tactical.rs",
+          "ranges": [
+            [
+              494,
+              566
+            ]
+          ]
+        },
+        {
+          "index": 225,
+          "disposition": "reduced-report-hierarchy-distinct-owner",
+          "source": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/bones.rs",
+          "ranges": [
+            [
+              108,
+              129
+            ]
+          ]
+        },
+        {
+          "index": 226,
+          "disposition": "existing-anatomical-bone-role-definition",
+          "source": "report-p17:crates/adventuresim-tactical-client/src/animation/procedural/rig.rs",
+          "ranges": [
+            [
+              50,
+              79
+            ]
+          ]
+        },
+        {
+          "index": 227,
+          "disposition": "kinship-tag-and-directed-identity",
+          "source": "physical-p16:crates/adventuresim-stdb-module/src/relationship/model.rs",
+          "ranges": [
+            [
+              60,
+              91
+            ]
+          ]
+        },
+        {
+          "index": 228,
+          "disposition": "actual-renderer-allocation-resource-port",
+          "source": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/allocator/resources.rs",
+          "ranges": [
+            [
+              1,
+              182
+            ]
+          ]
+        },
+        {
+          "index": 229,
+          "disposition": "native-batch-and-byte-layout-owner",
+          "source": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/allocator/core.rs",
+          "ranges": [
+            [
+              1,
+              56
+            ],
+            [
+              84,
+              112
+            ]
+          ]
+        },
+        {
+          "index": 230,
+          "disposition": "actual-native-buffer-array-product",
+          "source": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/allocator/batch_buffer.rs",
+          "ranges": [
+            [
+              1,
+              226
+            ]
+          ]
+        },
+        {
+          "index": 231,
+          "disposition": "native-macro-instantiation-positive",
+          "source": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/allocator/batch_buffer.rs",
+          "ranges": [
+            [
+              228,
+              230
+            ]
+          ]
+        },
+        {
+          "index": 232,
+          "disposition": "native-draw-batch-constructor",
+          "source": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/prepare/batcher.rs",
+          "ranges": [
+            [
+              1,
+              118
+            ]
+          ]
+        },
+        {
+          "index": 233,
+          "disposition": "actual-native-instance-write-port",
+          "source": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/prepare/instance_buffer_updater.rs",
+          "ranges": [
+            [
+              1,
+              152
+            ]
+          ]
+        },
+        {
+          "index": 234,
+          "disposition": "ordered-native-resource-lifecycle",
+          "source": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/prepare/page_prepare_runner.rs",
+          "ranges": [
+            [
+              1,
+              118
+            ]
+          ]
+        },
+        {
+          "index": 235,
+          "disposition": "renderer-prepared-value-not-game-authority",
+          "source": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/prepare/core.rs",
+          "ranges": [
+            [
+              1,
+              47
+            ]
+          ]
+        },
+        {
+          "index": 236,
+          "disposition": "actual-wgpu-capacity-protocol",
+          "source": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/allocator/utils.rs",
+          "ranges": [
+            [
+              1,
+              47
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "file": "contract-groups-011.json",
+      "contract": "OWN02-DELTA-CONTRACT-011",
+      "delta_indices": [
+        237,
+        250
+      ],
+      "qualified_contracts": [
+        {
+          "index": 237,
+          "disposition": "actual-f64-planar-kernel-with-frame-input",
+          "source": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/planar.rs",
+          "ranges": [
+            [
+              3,
+              66
+            ]
+          ]
+        },
+        {
+          "index": 238,
+          "disposition": "actual-distance-kernel-not-world-coordinate-owner",
+          "source": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/planar.rs",
+          "ranges": [
+            [
+              69,
+              83
+            ]
+          ]
+        },
+        {
+          "index": 239,
+          "disposition": "existing-accepted-boundary-product-and-gate-alias",
+          "source": "pr-working:crates/adventuresim-tactical-core/src/scene_input/compounds.rs",
+          "ranges": [
+            [
+              7,
+              100
+            ],
+            [
+              218,
+              252
+            ]
+          ]
+        },
+        {
+          "index": 240,
+          "disposition": "stale-requirement-result-not-new-bool-owner",
+          "source": "physical-p16:crates/strategic-web/src/templates/recruitment.rs",
+          "ranges": [
+            [
+              325,
+              342
+            ]
+          ]
+        },
+        {
+          "index": 241,
+          "disposition": "canonical-party-check-product-before-html",
+          "source": "physical-p16:crates/strategic-web/src/routes/parties.rs",
+          "ranges": [
+            [
+              355,
+              581
+            ]
+          ]
+        },
+        {
+          "index": 242,
+          "disposition": "applicant-identity-association-not-option-ban",
+          "source": "physical-p16:crates/strategic-web/src/templates/recruitment.rs",
+          "ranges": [
+            [
+              19,
+              35
+            ]
+          ]
+        },
+        {
+          "index": 243,
+          "disposition": "exact-existing-personality-axis-owner",
+          "source": "pr-working:crates/adventuresim-stdb-module/src/personality.rs",
+          "ranges": [
+            [
+              54,
+              69
+            ]
+          ]
+        },
+        {
+          "index": 244,
+          "disposition": "existing-dialogue-session-action-and-revision-owners",
+          "source": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_provenance.rs",
+          "ranges": [
+            [
+              181,
+              263
+            ],
+            [
+              265,
+              290
+            ]
+          ]
+        },
+        {
+          "index": 245,
+          "disposition": "canonical-challenge-authority-product",
+          "source": "physical-p16:crates/adventuresim-stdb-module/src/strategic/challenge_state.rs",
+          "ranges": [
+            [
+              1,
+              80
+            ]
+          ]
+        },
+        {
+          "index": 246,
+          "disposition": "samehash-distinct-provenance-challenge",
+          "source": "pr-working:crates/adventuresim-stdb-module/src/strategic/challenge_state.rs",
+          "ranges": [
+            [
+              1,
+              80
+            ]
+          ]
+        },
+        {
+          "index": 247,
+          "disposition": "import-only-owner-location",
+          "source": "pr-working:crates/adventuresim-stdb-module/src/personality.rs",
+          "ranges": [
+            [
+              2,
+              5
+            ]
+          ]
+        },
+        {
+          "index": 248,
+          "disposition": "historical-animation-time-versus-phase-geometry",
+          "source": "physical-p16:crates/adventuresim-tactical-core/src/animation/state.rs",
+          "ranges": [
+            [
+              1707,
+              1752
+            ],
+            [
+              1895,
+              1988
+            ]
+          ]
+        },
+        {
+          "index": 249,
+          "disposition": "existing-personality-axis-and-signed-score-leaf",
+          "source": "physical-p16:crates/adventuresim-stdb-module/src/personality.rs",
+          "ranges": [
+            [
+              161,
+              666
+            ]
+          ]
+        },
+        {
+          "index": 250,
+          "disposition": "exact-existing-axis-fit-and-projection-distinction",
+          "source": "pr-working:crates/adventuresim-stdb-module/src/personality.rs",
+          "ranges": [
+            [
+              1,
+              666
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "file": "contract-groups-012.json",
+      "contract": "OWN02-DELTA-CONTRACT-012",
+      "delta_indices": [
+        251,
+        281
+      ],
+      "qualified_contracts": [
+        {
+          "index": 251,
+          "disposition": "authority-fixture-not-runtime-admission",
+          "source": "physical-p16:crates/adventuresim-stdb-module/src/relationship/authority_tests.rs",
+          "ranges": [
+            [
+              1,
+              75
+            ]
+          ]
+        },
+        {
+          "index": 252,
+          "disposition": "samehash-fixture-provenance",
+          "source": "pr-working:crates/adventuresim-stdb-module/src/relationship/authority_tests.rs",
+          "ranges": [
+            [
+              1,
+              75
+            ]
+          ]
+        },
+        {
+          "index": 253,
+          "disposition": "current-projection-versus-seed-provenance",
+          "source": "physical-p16:crates/adventuresim-stdb-module/src/character/authority_tests.rs",
+          "ranges": [
+            [
+              249,
+              303
+            ]
+          ]
+        },
+        {
+          "index": 254,
+          "disposition": "samehash-resident-projection-fixture",
+          "source": "pr-working:crates/adventuresim-stdb-module/src/character/authority_tests.rs",
+          "ranges": [
+            [
+              249,
+              303
+            ]
+          ]
+        },
+        {
+          "index": 255,
+          "disposition": "character-bodymass-versus-general-itemmass",
+          "source": "pr-working:crates/adventuresim-stdb-module/src/capability/mass.rs",
+          "ranges": [
+            [
+              1,
+              41
+            ]
+          ]
+        },
+        {
+          "index": 256,
+          "disposition": "accepted-item-product-before-wearable-projection",
+          "source": "pr-working:crates/adventuresim-stdb-module/src/capability/armor.rs",
+          "ranges": [
+            [
+              1,
+              103
+            ]
+          ]
+        },
+        {
+          "index": 257,
+          "disposition": "inventory-query-framework-port-and-semantic-result",
+          "source": "pr-working:crates/adventuresim-tactical-core/src/inventory/query.rs",
+          "ranges": [
+            [
+              1,
+              21
+            ]
+          ]
+        },
+        {
+          "index": 258,
+          "disposition": "existing-inventory-and-coverage-owner-through-chain",
+          "source": "pr-working:crates/adventuresim-tactical-core/src/inventory_armor.rs",
+          "ranges": [
+            [
+              1,
+              79
+            ]
+          ]
+        },
+        {
+          "index": 259,
+          "disposition": "existing-mission-product-before-network-codec",
+          "source": "pr-working:crates/adventuresim-tactical-server/src/mission/mod.rs",
+          "ranges": [
+            [
+              159,
+              213
+            ]
+          ]
+        },
+        {
+          "index": 260,
+          "disposition": "mission-enrollment-identity-product",
+          "source": "pr-working:crates/adventuresim-tactical-server/src/mission/enrollment.rs",
+          "ranges": [
+            [
+              1,
+              125
+            ]
+          ]
+        },
+        {
+          "index": 261,
+          "disposition": "receipt-is-qualified-cross-authority-projection",
+          "source": "pr-working:crates/adventuresim-tactical-server/src/mission/receipt.rs",
+          "ranges": [
+            [
+              1,
+              76
+            ]
+          ]
+        },
+        {
+          "index": 262,
+          "disposition": "mesh-export-surface-owner-location",
+          "source": "pr-working:crates/fabelgeist-mesh/src/lib.rs",
+          "ranges": [
+            [
+              1,
+              22
+            ]
+          ]
+        },
+        {
+          "index": 263,
+          "disposition": "native-mesh-association-not-identical-array-wrappers",
+          "source": "pr-working:crates/fabelgeist-mesh/src/data.rs",
+          "ranges": [
+            [
+              1,
+              11
+            ],
+            [
+              41,
+              68
+            ]
+          ]
+        },
+        {
+          "index": 264,
+          "disposition": "validator-tail-only",
+          "source": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+          "ranges": [
+            [
+              61,
+              66
+            ]
+          ]
+        },
+        {
+          "index": 265,
+          "disposition": "existing-playback-leaves-and-ordered-product",
+          "source": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/playback.rs",
+          "ranges": [
+            [
+              26,
+              48
+            ]
+          ]
+        },
+        {
+          "index": 266,
+          "disposition": "existing-positive-capsule-length-owner",
+          "source": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/ragdoll.rs",
+          "ranges": [
+            [
+              61,
+              80
+            ]
+          ]
+        },
+        {
+          "index": 267,
+          "disposition": "samehash-armor-chain-provenance",
+          "source": "physical-p16:crates/adventuresim-tactical-core/src/inventory_armor.rs",
+          "ranges": [
+            [
+              1,
+              78
+            ]
+          ]
+        },
+        {
+          "index": 268,
+          "disposition": "existing-scene-window-codec-positive",
+          "source": "pr-working:crates/adventuresim-tactical-core/src/scene_input/buildings/window.rs",
+          "ranges": [
+            [
+              1,
+              75
+            ]
+          ]
+        },
+        {
+          "index": 269,
+          "disposition": "physical-controller-config-to-real-backend",
+          "source": "physical-p16:crates/adventuresim-tactical-core/src/physics/controller_config.rs",
+          "ranges": [
+            [
+              1,
+              18
+            ]
+          ]
+        },
+        {
+          "index": 270,
+          "disposition": "actual-physics-plugin-parameter-port",
+          "source": "physical-p16:crates/adventuresim-tactical-core/src/physics/plugin.rs",
+          "ranges": [
+            [
+              1,
+              88
+            ]
+          ]
+        },
+        {
+          "index": 271,
+          "disposition": "samehash-physics-plugin-provenance",
+          "source": "pr-working:crates/adventuresim-tactical-core/src/physics/plugin.rs",
+          "ranges": [
+            [
+              1,
+              88
+            ]
+          ]
+        },
+        {
+          "index": 272,
+          "disposition": "existing-report-measurement-owner-before-aggregation",
+          "source": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/report.rs",
+          "ranges": [
+            [
+              1,
+              269
+            ]
+          ]
+        },
+        {
+          "index": 273,
+          "disposition": "typed-decision-to-actual-log-boundary",
+          "source": "physical-p16:crates/adventuresim-tactical-server/src/iteration/logging/decisions.rs",
+          "ranges": [
+            [
+              1,
+              89
+            ]
+          ]
+        },
+        {
+          "index": 274,
+          "disposition": "existing-milliliter-volume-owner",
+          "source": "physical-p16:crates/adventuresim-core/src/material.rs",
+          "ranges": [
+            [
+              74,
+              106
+            ]
+          ]
+        },
+        {
+          "index": 275,
+          "disposition": "canonical-surface-variant-not-new-module-finding",
+          "source": "physical-p16:crates/adventuresim-terrain/src/lib.rs",
+          "ranges": [
+            [
+              59,
+              65
+            ]
+          ]
+        },
+        {
+          "index": 276,
+          "disposition": "signed-morale-and-relative-multiplier-policy",
+          "source": "pr-working:crates/adventuresim-core/src/morale.rs",
+          "ranges": [
+            [
+              331,
+              334
+            ]
+          ]
+        },
+        {
+          "index": 277,
+          "disposition": "reputation-source-reward-owner-at-native-policy",
+          "source": "pr-working:crates/adventuresim-stdb-module/src/reputation.rs",
+          "ranges": [
+            [
+              180,
+              188
+            ]
+          ]
+        },
+        {
+          "index": 278,
+          "disposition": "existing-language-owner-same-contract",
+          "source": "physical-p16:crates/adventuresim-world-schema/src/language.rs",
+          "ranges": [
+            [
+              1,
+              205
+            ]
+          ]
+        },
+        {
+          "index": 279,
+          "disposition": "typed-imported-profile-before-economy-publication",
+          "source": "physical-p16:crates/adventuresim-stdb-module/src/strategic/world_import.rs",
+          "ranges": [
+            [
+              681,
+              717
+            ]
+          ]
+        },
+        {
+          "index": 280,
+          "disposition": "clinical-relative-time-and-response-owner-fit",
+          "source": "physical-p16:crates/adventuresim-core/src/disease.rs",
+          "ranges": [
+            [
+              1811,
+              2091
+            ]
+          ]
+        },
+        {
+          "index": 281,
+          "disposition": "existing-clinical-curve-product",
+          "source": "physical-p16:crates/adventuresim-core/src/physiology.rs",
+          "ranges": [
+            [
+              408,
+              446
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "file": "contract-groups-013.json",
+      "contract": "OWN02-DELTA-CONTRACT-013",
+      "delta_indices": [
+        282,
+        292
+      ],
+      "qualified_contracts": [
+        {
+          "index": 282,
+          "disposition": "sigil-owner-and-bounded-position-contract",
+          "source": "physical-p16:crates/adventuresim-puzzles/src/ordered_sigils.rs",
+          "ranges": [
+            [
+              1,
+              12
+            ],
+            [
+              56,
+              81
+            ]
+          ]
+        },
+        {
+          "index": 283,
+          "disposition": "actual-native-cull-dispatch-port",
+          "source": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/cull/node.rs",
+          "ranges": [
+            [
+              1,
+              119
+            ]
+          ]
+        },
+        {
+          "index": 284,
+          "disposition": "manifest-capability-not-owner-use-proof",
+          "source": "physical-p16:crates/adventuresim-puzzles/Cargo.toml",
+          "ranges": [
+            [
+              1,
+              15
+            ]
+          ]
+        },
+        {
+          "index": 285,
+          "disposition": "rules-version-count-and-search-budget-distinct",
+          "source": "physical-p16:crates/adventuresim-puzzles/src/lib.rs",
+          "ranges": [
+            [
+              1,
+              19
+            ]
+          ]
+        },
+        {
+          "index": 286,
+          "disposition": "existing-choice-owner-reexports",
+          "source": "physical-p16:crates/adventuresim-puzzles/src/choices.rs",
+          "ranges": [
+            [
+              1,
+              6
+            ]
+          ]
+        },
+        {
+          "index": 287,
+          "disposition": "exact-existing-sigil-text-admission",
+          "source": "physical-p16:crates/adventuresim-puzzles/src/choices/sigil.rs",
+          "ranges": [
+            [
+              1,
+              61
+            ]
+          ]
+        },
+        {
+          "index": 288,
+          "disposition": "witness-path-distinct-existing-choice",
+          "source": "physical-p16:crates/adventuresim-puzzles/src/choices/witness_path.rs",
+          "ranges": [
+            [
+              1,
+              53
+            ]
+          ]
+        },
+        {
+          "index": 289,
+          "disposition": "existing-puzzle-sums-and-admitted-authority",
+          "source": "physical-p16:crates/adventuresim-puzzles/src/puzzles.rs",
+          "ranges": [
+            [
+              1,
+              944
+            ]
+          ]
+        },
+        {
+          "index": 290,
+          "disposition": "permutation-product-before-bitmask-utility",
+          "source": "physical-p16:crates/adventuresim-puzzles/src/ordered_sigils.rs",
+          "ranges": [
+            [
+              14,
+              54
+            ],
+            [
+              84,
+              392
+            ]
+          ]
+        },
+        {
+          "index": 291,
+          "disposition": "distinct-grid-index-namespaces-and-accepted-product",
+          "source": "physical-p16:crates/adventuresim-puzzles/src/logic_grid.rs",
+          "ranges": [
+            [
+              1,
+              382
+            ]
+          ]
+        },
+        {
+          "index": 292,
+          "disposition": "provision-identity-versus-weight-capacity-count",
+          "source": "physical-p16:crates/adventuresim-puzzles/src/resource_allocation.rs",
+          "ranges": [
+            [
+              1,
+              358
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "file": "contract-groups-014.json",
+      "contract": "OWN02-DELTA-CONTRACT-014",
+      "delta_indices": [
+        293,
+        311
+      ],
+      "qualified_contracts": [
+        {
+          "index": 293,
+          "disposition": "report-quality-existing-owner",
+          "source": "pr-working:crates/adventuresim-core/src/bestiary/report_quality.rs",
+          "ranges": [
+            [
+              1,
+              39
+            ]
+          ]
+        },
+        {
+          "index": 294,
+          "disposition": "catalogue-fixture-owner-evidence",
+          "source": "pr-working:crates/adventuresim-core/src/bestiary/catalog_tests.rs",
+          "ranges": [
+            [
+              1,
+              33
+            ]
+          ]
+        },
+        {
+          "index": 295,
+          "disposition": "existing-architectural-geometry-before-landing-product",
+          "source": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/landing_policy.rs",
+          "ranges": [
+            [
+              1,
+              62
+            ]
+          ]
+        },
+        {
+          "index": 296,
+          "disposition": "geometry-kernel-and-floor-owner-distinct",
+          "source": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/floors.rs",
+          "ranges": [
+            [
+              1,
+              101
+            ]
+          ]
+        },
+        {
+          "index": 297,
+          "disposition": "spiral-stair-quantity-and-direction-contract",
+          "source": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/keep_core.rs",
+          "ranges": [
+            [
+              1,
+              36
+            ]
+          ]
+        },
+        {
+          "index": 298,
+          "disposition": "bounds-measurement-and-owner-through-bond",
+          "source": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/bearings.rs",
+          "ranges": [
+            [
+              1,
+              69
+            ]
+          ]
+        },
+        {
+          "index": 299,
+          "disposition": "spiral-fixture-observation-boundary",
+          "source": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/tests.rs",
+          "ranges": [
+            [
+              1,
+              221
+            ]
+          ]
+        },
+        {
+          "index": 300,
+          "disposition": "creator-selection-before-egui-port",
+          "source": "pr-working:crates/adventuresim-character-creator/src/studio_ui.rs",
+          "ranges": [
+            [
+              202,
+              302
+            ]
+          ]
+        },
+        {
+          "index": 301,
+          "disposition": "canonical-native-coif-layout-owner",
+          "source": "pr-working:crates/fabelgeist-armor/src/gpu/coif_drape.rs",
+          "ranges": [
+            [
+              1,
+              12
+            ]
+          ]
+        },
+        {
+          "index": 302,
+          "disposition": "fitted-scalp-frame-and-texel-scale-owner",
+          "source": "pr-working:crates/adventuresim-character-creator/src/hair/scalp_map.rs",
+          "ranges": [
+            [
+              1,
+              147
+            ]
+          ]
+        },
+        {
+          "index": 303,
+          "disposition": "existing-gpu-context-parameter-buffer-owners",
+          "source": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+          "ranges": [
+            [
+              1,
+              138
+            ]
+          ]
+        },
+        {
+          "index": 304,
+          "disposition": "canonical-church-programme-dimensions",
+          "source": "pr-working:crates/adventuresim-building-generator/src/model/programme.rs",
+          "ranges": [
+            [
+              216,
+              243
+            ]
+          ]
+        },
+        {
+          "index": 305,
+          "disposition": "programme-validation-and-physical-owner",
+          "source": "pr-working:crates/adventuresim-building-generator/src/church_programme.rs",
+          "ranges": [
+            [
+              24,
+              43
+            ]
+          ]
+        },
+        {
+          "index": 306,
+          "disposition": "existing-elevation-and-span-before-wall-compilation",
+          "source": "pr-working:crates/adventuresim-building-generator/src/generator/internal_partitions.rs",
+          "ranges": [
+            [
+              7,
+              8
+            ],
+            [
+              10,
+              28
+            ]
+          ]
+        },
+        {
+          "index": 307,
+          "disposition": "axial-range-not-complete-geometric-bounds",
+          "source": "pr-working:crates/adventuresim-weapon-model/src/model/extents.rs",
+          "ranges": [
+            [
+              19,
+              150
+            ]
+          ]
+        },
+        {
+          "index": 308,
+          "disposition": "sectioned-blade-existing-recipe-product",
+          "source": "pr-working:crates/adventuresim-weapon-model/src/recipe/sectioned_blade.rs",
+          "ranges": [
+            [
+              1,
+              18
+            ],
+            [
+              31,
+              59
+            ]
+          ]
+        },
+        {
+          "index": 309,
+          "disposition": "retained-mount-not-export-array",
+          "source": "pr-working:crates/adventuresim-weapon-model/src/model/mounts.rs",
+          "ranges": [
+            [
+              1,
+              79
+            ],
+            [
+              133,
+              228
+            ]
+          ]
+        },
+        {
+          "index": 310,
+          "disposition": "existing-location-identity-to-real-uri-port",
+          "source": "pr-working:crates/strategic-web/src/location_urls.rs",
+          "ranges": [
+            [
+              12,
+              49
+            ],
+            [
+              52,
+              78
+            ]
+          ]
+        },
+        {
+          "index": 311,
+          "disposition": "imports-identify-owner-not-trade-body",
+          "source": "pr-working:crates/strategic-web/src/templates/settlement/trade/mod.rs",
+          "ranges": [
+            [
+              3,
+              8
+            ],
+            [
+              25,
+              29
+            ]
+          ]
+        }
+      ]
+    }
+  ],
+  "owner_definitions": "owner-definitions-001.json; support002/003 correct concrete architectural/floatingfraction locators",
+  "additional_indices": [
+    "mandatory-overlay-coverage.json",
+    "live-extension-coverage.json",
+    "frozen-merged-delta-001.json"
+  ],
+  "canonical_report": "REPORT.md",
+  "counts_limit": "Populations overlap; no new globally unique defect count, no addition of source-role/overlay/finding counts.",
+  "critical_limits": [
+    "BodyMassKg20..300 only livingcharacter; not item/forge/general mass",
+    "UnitInterval checked f32fraction differs integer basispoint precision/admission",
+    "RequestedDuration positive request differs validzeroelapsed/quarterhourplan/absoluteclock",
+    "Native port exemptions require actual receiver; namedaggregate not leaf/association guarantee",
+    "Existing07/09 aliases and root M family crosslinks not automatic unique union or cross-lens coverage",
+    "Future source/range additions need bounded delta only"
+  ],
+  "repair": "frozen",
+  "validation": "not_run",
+  "corrections": [
+    "qualification-correction-004.json: actual stream-purpose owners replace earlier inaccurate GPU buffer classification for entries5/6/7/11"
+  ],
+  "current_delta_060_061": "live-extension-delta-060-061.json;62-role snapshot now accounted WITH_FINDINGS"
+}

@@ -1,0 +1,33 @@
+{
+  "id": "RIG-INITIAL06-GROUP-261",
+  "at": "2026-10-23T07:49:42.594128+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-070.json",
+  "groups": {
+    "art-demo-input-orbit-purpose": {
+      "comparison": "Fresh full art_demo/camera179 keeps OrbitView focus/distance/yaw/pitch/limits under CameraSpace Studio or Landscape. Native input pixels, radians, zoom ratios, pan vectors and elapsed seconds have separate units; studio vertical versus landscape horizontal pan is intentional presentation purpose. This local mouse camera is not MHR source topology, player movement authority or a duplicate accepted CameraRig pose solely because it contains angles and a point. There is no goal/approach convergence branch here: Root studio_scene F060 belongs to another actual source. Neutral geometry leaves may be reused where retention is unchanged, while user input and camera projection remain local. No input/render execution.",
+      "disposition": "Keep input/controller presentation owner, reuse appropriate neutral leaves without equating different camera protocols."
+    },
+    "prepared-standing-clearance": {
+      "comparison": "Fresh full exterior_access150 defines StandingClearance<F:GeometryFrame> as prepared SpatialBounds<F> from canonical CollisionCuboid<F> plus frame-specific Elevation<F>. Constructor projects person height/radius and obstruction clearance; is_clear uses XZ segment/slab intersection. This prepared standing-body obstruction query is not a duplicate BoundsIndex or universally shared geometry owner: person dimensions and access interpretation remain interior context. Canonical checked cuboid composition F024 and generic lower frame geometry F001 apply without moving standing policy into a neutral kernel. Original source tests read only, no execution or unseen obstruction definition credit.",
+      "disposition": "Keep purpose-specific clearance product with canonical frame-aware lower geometry."
+    },
+    "export-canonical-rig-versus-wire-capabilities": {
+      "comparison": "Fresh full export validation164 re-admits raw lod:u8 through CharacterLod::try_from, supporting F031 lower shared CharacterLod ownership for MHR/export consumers. Canonical rig meshes, PackedRigSkin, RigJointTable, shells and sockets preserve their actual shared owners before glTF limits. Joint u16 maximum65535 is a wire representation bound, not canonical asset count or cross-asset membership. Parent-before-child, finite data, unique socket IDs and approximately unit finite weight sum are separate export predicates; weight-sum check alone does not prove each individual weight nonnegative. Equal body/shell vertex count permits inherited skin by an intentional topology capability, not backward-schema compatibility. Generic MeshData lacks this exact skin/morph/socket/texture capability set and should not blindly replace it. morphs::validate remains actual separate source241 proof, not called-name coverage.",
+      "disposition": "Reuse canonical rig/LOD owners; retain explicit wire and capability admission at export."
+    },
+    "name-identity-accepted-versus-recorded": {
+      "comparison": "Fresh PR identity_validation169 and complete actual P16 counterpart delta/current-role comparison (no material differences) both validate PersonalNameIdentity against distinct name-family, form and surname catalogue authorities. Resolved forms require family existence, form existence/membership/native culture/Everyday registration. Unresolved historical identity deliberately preserves recorded spelling plus possible family IDs, including an empty candidate list, while rendered names are checked. Authored full-name rendering is not equivalent to resolved catalogue identity; surname IDs still require catalogue membership. FormSelectionSeed is deterministic selection purpose, not a durable character ID or catalogue key. These are useful distinctions under shared canonical name definitions, not independently maintained copies of one predicate. Full original tests inspected as source only. No catalogue compiler acceptance inferred from validation method name.",
+      "disposition": "Keep name identity, catalogue key authorities, historical evidence and rendered display distinct; share the same actual definition across variants by explicit semantic comparison."
+    }
+  },
+  "source_fact_refs": [
+    "Fresh bodies retained immediately before compaction: 1450 full179,629 full150,779 full164,2170 PR full169 and446 P16 full169 actual complete counterpart comparison."
+  ],
+  "supporting_existing_findings": [
+    "F001",
+    "F024",
+    "F031"
+  ],
+  "limits": "Current06 source-role comparison only; no tests, builds, runtime, implementation, other-lens or whole-feature credit."
+}

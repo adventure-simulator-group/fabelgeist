@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-940",
+  "at": "2026-10-25T17:17:32.692740+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1123,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/capabilities.rs",
+  "sha256": "6ef49eb46d226a645094323d9b637c290ec33b94068e634e865f3359188d2673",
+  "actual_compared_ranges": [
+    [
+      1,
+      360
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "InvestigationActionConsequence already Clone/Debug/Serialize/Deserialize with tagged snake_case wire. Prefix capability text/provenance/target admission, contextual native row issuance, observer IDs, route topology/frontier validation and successor filtering consumed. No handwritten trait/codec; existing Serde used for consequence record. Keep graph validation and errors.",
+  "first_unfinished": {
+    "scope_index": 1123,
+    "line": 361
+  },
+  "execution": "none"
+}

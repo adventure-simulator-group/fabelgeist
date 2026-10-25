@@ -1,0 +1,151 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-318",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_design_input.rs",
+      "sha256": "7491f2bed3feecf76fd4446b7a20ce1470ef026f6deb1409b36798c860497ed1",
+      "actual_EOF": 400,
+      "actual_compared_ranges": [
+        [
+          1,
+          400
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_design_output.rs",
+      "sha256": "76a902a4473ed977521ac29b57a0fe40b7aa6961768097e1470fc19c2fbdf5e1",
+      "actual_EOF": 118,
+      "actual_compared_ranges": [
+        [
+          1,
+          118
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_frames.rs",
+      "sha256": "f5c8d7cf65f9cdc3472f6944d83c5d8340c2380bf19320be39b2613c3c9bc352",
+      "actual_EOF": 316,
+      "actual_compared_ranges": [
+        [
+          1,
+          316
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_layer.rs",
+      "sha256": "5e2b4c7c67044192056d8912377b42a2d69f2dd12eb2bc7dff7d475fd7dcc834",
+      "actual_EOF": 54,
+      "actual_compared_ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_metal.rs",
+      "sha256": "ae70b9acd477b6b29e03bd540b451d5e8556222a33a7cbb10babafab1206fbba",
+      "actual_EOF": 198,
+      "actual_compared_ranges": [
+        [
+          1,
+          198
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Design save/load validates connected recipes and paths before writes; actual external I/O is not an implicit transaction",
+      "source_ranges": {
+        "armor_design_input.rs": [
+          [
+            1,
+            400
+          ]
+        ],
+        "armor_design_output.rs": [
+          [
+            1,
+            118
+          ]
+        ]
+      },
+      "disposition": "Both whole production/fixture bodies read. Selection precedence is placement override then shared default; parse validates actual catalogue item/placement, recipe validate and historical family. encode reparses serialized output, so invalid state rejects before writing; unknown object-field check is recursive for objects, with list-specific semantics owned by actual recipe serde. DesignPaths validates all3 recipe bytes and resolves all paths/canonical aliases before any write; fixed3-array enumerate and suffix i+1 are bounded. It writes sequentially, so an external later I/O failure can leave earlier files changed. No documented all-or-nothing I/O guarantee or actual failure scenario is established; do not transfer local validation-before-write into an atomic multi-file claim. Actual alias rejection and successful3-file round-trip fixture source read, not executed. Separate schema/catalogue parsing remains earlier owner-propagation evidence, not new numerical finding."
+    },
+    {
+      "contract": "Wearer region support and lower-layer surfaces retain actual rig membership and indexed-mesh relationships",
+      "source_ranges": {
+        "armor_frames.rs": [
+          [
+            1,
+            316
+          ]
+        ],
+        "armor_layer.rs": [
+          [
+            1,
+            54
+          ]
+        ]
+      },
+      "disposition": "Both complete bodies read. Side sign and FittingPlacement select semantic handedness; Unpaired side returns error. FitRegion lists actual canonical rig parts, with Shoulder support including clavicle and Hand including terminal finger joints. support_indices_for verifies skin/weight rows and actual source joint count against names, then sums only included member weights and applies.30 threshold. Equal counts do not establish same rig instance or numeric weight validity; existing canonical row/identity admission repair remains relevant, not a new inferred normal wearer failure. ArmorLayerSurface chooses matching direct morph positions or explicit missing-target error, rejects index remainder/empty triangles, skin row mismatch and every out-of-range index before borrowed result. It does not independently prove all float normals/weights/positions; generated product admission owns those. No neutral lower realization fallback for missing morph. Shoulder/hand fixture bodies fully read only."
+    },
+    {
+      "contract": "Metal density normalization must preserve computed UVs rather than only finite source perimeters",
+      "source_ranges": {
+        "armor_metal.rs": [
+          [
+            1,
+            198
+          ]
+        ]
+      },
+      "disposition": "Complete body and fixture source read. Finite very small UV chart counterexample in finding-metal-uv-scale.json shows f64 perimeter ratio narrowed too early to f32Inf, then in-place retained UVs becomeNaN/Inf although final correctly scaled UVs are representable. Actual public operation and plate-steel fitted_catalog_item caller freshly read; tiny chart normal producer unproven. This remains public API numerical defect evidence with global alias pending, not a current normal generated asset failure. length converts after native subtraction, so f64 sum does not universally protect extreme opposite operands; that is additional same-operation arithmetic strengthening, no separate finding. Zero texture or nonfinite surface explicitly no-op; preserve policy during repair. Trim delegates actual cut and maps coordinates at constant4 tiles/metre plus origin; valid trim input/result remains owning dependency. Default polished-steel/current palette agreement is supplied Camera07F049 authority evidence distinct from this numerical operation. Full density, trim-perimeter and material fixture sources read, not run."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-METAL-UV-SCALE-001",
+      "path": "finding-metal-uv-scale.json",
+      "global_alias": "pending; no unique count"
+    }
+  ],
+  "fresh_dependencies": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/parametric_equipment.rs",
+      "sha256": "fb8ed7e496fe124cf6ea6c4deb962b9602cf62f5b516d362b5e50ddca9829c49",
+      "actual_compared_ranges": [
+        [
+          1,
+          145
+        ]
+      ],
+      "actual_EOF": 478
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/material.rs",
+      "sha256": "ab288766a2010d8edd2795c541884dda9c55367deaf0105f1a7e8a0574c0f0fe",
+      "actual_compared_ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "actual_EOF": 103
+    }
+  ],
+  "status": "5 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-character-creator/src/armor_recipes.rs"
+}

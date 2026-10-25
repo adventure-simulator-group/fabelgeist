@@ -1,0 +1,86 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-588",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height.rs",
+      "sha256": "e334517ee92a0081ddfa169ebb5f261d0720373b72c261ebe363b57f9a013576",
+      "actual_EOF": 254,
+      "actual_compared_ranges": [
+        [
+          1,
+          254
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height_peaks.rs",
+      "sha256": "7e8a84b7f3e6b3704d9d6af35807453511541907e3fc780f8c85928cf273e610",
+      "actual_EOF": 65,
+      "actual_compared_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/pose.rs",
+      "sha256": "3d5ddade1188ded7f01cd60e2cabe4ccd4fc9e3be625640ad75976ed4016e270",
+      "actual_EOF": 188,
+      "actual_compared_ranges": [
+        [
+          1,
+          188
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/support_slip.rs",
+      "sha256": "7d5cfea52b585b38756a012a33525c2fd8cdde71e1a82a238b6a2a015a0538d7",
+      "actual_EOF": 47,
+      "actual_compared_ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/observation.rs",
+      "sha256": "b1dc9323bda01dd3f71ebf003ffe6190ac56ea73ea489ddf3a3f40498c51eab5",
+      "actual_EOF": 203,
+      "actual_compared_ranges": [
+        [
+          1,
+          203
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "P17height/pose/slip extrema andnativegeometric derivedvalues preservefinitecheckedunits andexplicitunavailablemeaning.",
+      "evidence": "height254/peaks65/pose188/slip47/observation203completebodiespersonallyread. Signedrootrelativeheightbeforeextrema, range/stepabs admittedHeightDistance; hardstopfirststoppedindex guardedthen.saturating_sub1validslice. Cyclewrapsplitindex+1withinactualVec, trailingpartialphase<.8excluded, no completecycleUnavailable. HeightSamplewrapphase viaexistingCyclePhase, peakprominenceheight-maxneighbor checkedSignedLength beforethreshold, missingneighborUnavailable, samplelen>=3beforecircularindex. NativeVecnonzeroentrysize/memorybounds makeindex+len-1representableforactualallocatedsamples; notrawusizeMAX array. Kneeflexionangleconversion checkedAngularMagnitude; hipfootaxis/kneerejection try_normalize None givesdegenerate/undefinedexplicit; kneefinitefloatdotcheckedReportErrorNonFiniteKneeHemisphere (intentionallynotclamp[-1,1] becausefiniteSDKroundingretained). SliplengthcheckedNonnegativeLength andbodyanglecheckedbeforegate.",
+      "qualifications": "No tests/report/native/GPUexecution. Axisnorm/closestpointnative arithmetic mayoverflowforunsupportedextremefinitegeometry, checkedfinalSignedLengthrejects; no requirementinfallibility. MAXsupportseconds usesrawtime subtraction thenmax0 soout-of-orderframescouldlookshort; admittedchronologicalcohort authority remainsouterreportvalidation. Phasewrappedfloatownerandunitquaternions/nativeposition validity actualsourceprerequisites, no shader/physicscoverageinferred.",
+      "acceptance": "Canonicalorderedframecohort andbody/scene coordinateframes, checkedcomputed observations withtypedcause, no loss ofmissingterrain/bone/IK/neighbor evidence. Preservefullsignedheight/grade andexactexistingFPorder; no arbitrarypositiveheight/coordinateclamp."
+    },
+    {
+      "contract": "Observationstate andqualitypercentage encodeavailabilityinstead of sentinelzero or optionalfalsepass.",
+      "evidence": "Observation.Measured accessor excludesNotApplicable/Unavailable; when_applicable exempts onlyNotApplicable andfailsUnavailable. QualityPercent UnitInterval*100 staysfinite0..100 withtransparentcustomSerialize. SignedLengthRange privateconstructor/fromsample+minmaxinclude preservesorderedfinitebounds, VisualHeightPeaks Noneonemptycycles and requiresallcyclescount2+passingwindows, not merelymaximum2.",
+      "qualifications": "No serde/testexecution; enumtagging isJSONreportpresentation, notassumedpostcardnetworkformat. ExistingNATIVE05F016 rawcapturecompleteness remainsseparatebecausecorrectleafObservationcannotprovewholecohort. Constantthresholds areoracles notderivedfromsame solveroutcome.",
+      "acceptance": "RequiredmeasurementsmustbeactualMeasured, unavailablecausedistinctfromnotapplicable, qualitycomputedfromcanonicaldefectcohort andnevergreenfrommissingcapture; source-onlybranchresolutionnotglobalclearance."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "5 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs"
+}

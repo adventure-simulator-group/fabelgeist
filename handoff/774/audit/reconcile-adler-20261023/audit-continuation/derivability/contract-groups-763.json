@@ -1,0 +1,49 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-763",
+  "at": "2026-10-25T16:43:54.377179+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 996,
+  "source_id": "pr-working:crates/adventuresim-core/src/skill.rs",
+  "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+  "actual_compared_ranges": [
+    [
+      1,
+      660
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "PlayerSkills",
+      "type": "tests::ordinary_correlations::Hours",
+      "lines": [
+        [
+          480,
+          489
+        ]
+      ],
+      "disposition": "KEEP synthetic sparse field lookup with default0"
+    },
+    {
+      "trait": "PlayerSkills",
+      "type": "tests::terrain_correlations::Hours",
+      "lines": [
+        [
+          523,
+          532
+        ]
+      ],
+      "disposition": "KEEP synthetic fixed sparse skill constants"
+    }
+  ],
+  "analysis": [
+    "Skill fixture Hours PlayerSkills480\u2013489 selects three stored fields with default0, and unit Hours523\u2013532 selects fixed terrain/balance constants. KEEP semantic sparse lookup fixtures, not field delegation; no available matching derive. Other fixture assertions441\u2013589 check training/correlation semantics, not executed.",
+    "Inherent Skill table and from_training_id591\u2013660 begins canonical vocabulary; no handtrait/codec, do not add Serde solely classifier."
+  ],
+  "first_unfinished": {
+    "scope_index": 996,
+    "line": 661
+  },
+  "execution": "none"
+}

@@ -1,0 +1,42 @@
+{
+  "id": "RIG-INITIAL06-GROUP-206",
+  "at": "2026-10-23T06:19:17.613523+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-065.json",
+  "groups": {
+    "mesh-and-billboard-native-layouts": {
+      "comparison": "Fresh full pebbleWGSL90/billboard95 compare mesh shader linear albedo+ambientscalevec4 with billboard color/lighting/ambient threevec4. These differ rendering algorithm/data meaning, not equivalent complete material owners despite samefirstRGBcolor. Mesh uses transformedactual normals and lighting/shadow cascade; billboard overloads native normal attribute as pebblecentre, reconstructs camera-facing geometricnormal and pixel-derivative coverage. Vertexposition, worldposition, normals, lightdirection, alpha and ambientweights are distinct units/frames at native pipeline; no shader gamecheckedleaf substitution. True host linearcolor may compose canonicalowner beforepacking (F005 existingcandidate), but no equality of mixedvec4or runtimecolor-spaceclaim byfieldname. Nativevertexinstance/drawindex notdurableCharacter/Rigordinal. Keep exact renderlayout requirements, not compatibilityalias or allGPUwaiver.",
+      "disposition": "Preserve distinct native render material/layout algorithms and field meanings; shared semantic hostcolor may retain existingF005 owner."
+    },
+    "furniture-source-and-presentation-stages": {
+      "comparison": "Fresh full stall127 authors Compact/Broad canopy dimensions and real timberbeam/canvas numericalgeometry; sourcevariant is canonicalFurnitureVariant not anotherfurnitureenum. beam midpoint/length+width/quaternion and canvasinterpolation/sag/crossnormals actually computechanged quantities; Builder API propagation for unchangedtyped spec must remain canonicalexistingclaim, but cannot replace new calculatedmemberdimensions with originaloverallCuboid. Access/WorkingSpace labels use existing canonicalclearancekind. Fresh furniturepresentation127 uses canonicalFurnitureKey cache→recipe→nativeMesh andBuildingLodMaterial batches, with placedSceneFurniture/instanceidentity separate fromkey. Palette selects buildingidentity; vista spawn projects typedScenePosition/BuildingOrientation into nativeTransform, actualrenderport. PresentedFurnitureMesh materialmarker andVistaFurniturePresentation lifecyclemarker differ recipegeometry/sceneinstance authority. Fade ranges are displaydistancepolicies, not gameplaypositivebodymeasure/collisionbounds. Actual091/105/147current lowerdefinitions explicitlycompared: canonicalkey/material/frameowners reused, no independent recipe/collider/source type definedhere.",
+      "disposition": "Keep furniture source recipe, placed identity and presentation cache/marker owners distinct over canonical keys/material/geometry."
+    },
+    "vertex-remap-key-not-geometry-owner": {
+      "comparison": "Fresh entire vertex_remap133 includingoriginalfixture. VertexKey owns f32bit-pattern attributes8+basis6 for exactseam-aware dedup; bits canonicalizes signedzero only, notsamepolicy as gamefinitecoordinate/rotation/direction. Tangent/bitangent nativecomputation and pervertexseamassociation preserve indexedUV/normal discontinuities. Sourceordinal/index→remappedordinal are mesh-topology-local differenttables, notRigJointOrdinal or persistentID. u32 nativeindex projection belongs meshalgorithm; HashMapkey is derivedcache not independent authoritativeLodVertex geometry. Originalfixture verifies indexedattributeequivalence/mirroredUVseams sourceonly, no execution. Keep low numericalmesh helper with LodMesh, notglobalbyte-key type or duplicate canonical finitecoordinate.",
+      "disposition": "Keep exact derived mesh-dedup key and numerical tangent policy local to LodMesh, distinct from checked semantic geometry."
+    },
+    "web-scene-request-authority-and-coordinate-port": {
+      "comparison": "Fresh full scene_assets121 accepts optionalrequestsettlementString then authorizesagainst actualsessioncharacter/currentsettlement; this identityauthority differs scenekey/sourcekind/replaySeed and generatedsceneacceptedproduct. Wgs84CoordinateE7 checks source f64pair then extracts latitude/longitude rawE7 to build_imported_scene; these exactunchangedcheckedcoordinate components are concrete canonicalpair propagationcandidate, supporting F012/F018 ratherthan creating another webcoordinateowner. No completecalledprovider/scenevalidation guarantee from thisbody, no speculative provider signature change. build generation actualthread/semaphore/HTTPJson/errorlogging boundary belongsweb, gameplaytypedfailure canretaincontextbefore StatusCode; not merge transportcode withcanonicalcause. Strategic scene minute supplied twice is actualgameclock input, not wallTimestamp orframe count. RequestDTO is realnativeHTTPadapter; canonical actor/place/coordinate types belonglower authorities, captured properties catalogue explicitpost-callboundary.",
+      "disposition": "Keep actual webtransport/session authority separate and propagate existing canonical coordinate product through unchanged first-party paths where actual provider contracts allow."
+    },
+    "coif-layout-definition-only": {
+      "comparison": "Fresh newREG044 coif_drape1–12 declares canonicalfivebodysections and37floatwords (7+2*3*sections), importsown_frame_words/FIT_PROFILE_WORD. This is native coif fitbufferlayout authority, not anatomybodypartcount/gameLength or GPUbyteamount. Existingcoifrecipient scope canimport theseconstants, so no independentlocalcopy needed; actualconstants alone do not prove allserializedprofilefields or buffercontentcorrectness. No13+read/credit, no full72. Typedsourceheight/center/depth remain hostgeometry beforethispacking; constant wordcount is actualnativeport.",
+      "disposition": "Use existing coif layout constants as nativeauthority; keep exact1–12 scope and no unseen profile/helper coverage."
+    }
+  },
+  "source_fact_refs": [
+    "contracts-015.json",
+    "contracts-091.json",
+    "contracts-105.json",
+    "contracts-147.json",
+    "contracts-179.json",
+    "contracts-191.json"
+  ],
+  "supporting_existing_findings": [
+    "RIG-INITIAL06-F005",
+    "RIG-INITIAL06-F012",
+    "RIG-INITIAL06-F018"
+  ],
+  "limits": "Seven source variants freshread withinwhole requested/reached ranges or exactnew065coif1–12. No calledhelper/hostpayload allfield inference, shaderexecution/newtests/sourceedits/otherlenscredit."
+}

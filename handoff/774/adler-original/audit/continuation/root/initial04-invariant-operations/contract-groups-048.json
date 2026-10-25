@@ -1,0 +1,110 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-048",
+  "at": "2026-10-22T21:18:41.447293+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/components.rs",
+      "sha256": "e2053ee2dbf1a837b1a4e80d2d2afa22c0ecc2231bf586041222082971b9cbea",
+      "actual_compared_ranges": [
+        [
+          1,
+          193
+        ]
+      ],
+      "source_evidence": "Fresh exact pinned foreign Rust/WGSL material declaration/receiving kernel source. No packagewide/currentcaller or primaryshaderaudit credit."
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/cull/bindings.wgsl",
+      "sha256": "31551b31caac91e5decc47ac147154bba899d469dad8c0113e0a476ae53dc7d4",
+      "actual_compared_ranges": [
+        [
+          1,
+          12
+        ]
+      ],
+      "source_evidence": "Fresh exact pinned foreign Rust/WGSL material declaration/receiving kernel source. No packagewide/currentcaller or primaryshaderaudit credit."
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/cull/resources.rs",
+      "sha256": "bedf4e9e3cb681d6cd4ef75b146537e8e2c4876cad464addd82ba0bc5cdc83ab",
+      "actual_compared_ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "source_evidence": "Fresh exact pinned foreign Rust/WGSL material declaration/receiving kernel source. No packagewide/currentcaller or primaryshaderaudit credit."
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/cull/types.wgsl",
+      "sha256": "63c3f55c90686a73788212c94f4d979fd2bc3240dd143c6b5e778d949d68fd65",
+      "actual_compared_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "source_evidence": "Fresh exact pinned foreign Rust/WGSL material declaration/receiving kernel source. No packagewide/currentcaller or primaryshaderaudit credit."
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/bindings.wgsl",
+      "sha256": "8fdf638edbf13ddc04a1a8392f3b873ec730f86f085522de471108c623ac129b",
+      "actual_compared_ranges": [
+        [
+          1,
+          6
+        ]
+      ],
+      "source_evidence": "Fresh exact pinned foreign Rust/WGSL material declaration/receiving kernel source. No packagewide/currentcaller or primaryshaderaudit credit."
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/io_types.wgsl",
+      "sha256": "3529f71ec77f88963ee969691ef2dd2f871abf490a8a4beed073b98ff10974b9",
+      "actual_compared_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "source_evidence": "Fresh exact pinned foreign Rust/WGSL material declaration/receiving kernel source. No packagewide/currentcaller or primaryshaderaudit credit."
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/types.wgsl",
+      "sha256": "9bd27e4a4bb61b319e4ee13ae7e1407be2fdd432471ef6e9aede72e206321d90",
+      "actual_compared_ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "source_evidence": "Fresh exact pinned foreign Rust/WGSL material declaration/receiving kernel source. No packagewide/currentcaller or primaryshaderaudit credit."
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/utils.wgsl",
+      "sha256": "e681dfe05b5df31bfba37904eae24631e48be8a91e90910253cba046bdecfcc9",
+      "actual_compared_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "source_evidence": "Fresh exact pinned foreign Rust/WGSL material declaration/receiving kernel source. No packagewide/currentcaller or primaryshaderaudit credit."
+    }
+  ],
+  "groups": {
+    "native-host-and-wire-words": "InstanceData RustpositionVec3+scale packedWGSLvec4 thenrotation/index/batch/seed actualsame32byte fieldroles. invalidbatch sentinel0xFFFFFFFF deliberatewithotherdefault0, with_batch_id copiesrestunchanged; nativePod/Zeroable/Reflectallrawbitroles, not checkedfiniteScene/normalizedrotation/admittedbatchownership. InstanceBufferlengthusize/capacityu32 andComputeSourcecount/capacity remainnativeelements/slots; bytecount/admittedcapacity mustbecheckedatactualhostallocator/dispatchport, no arithmetic performedinthese declarations. Preserve index/batch/seed distinctions andABI; no Rustpurposewrapper insertedintoWGSL/nativeforeignlayouts. CameraCullData6planes fixedarray andviewVec4, GPUindirectinstance_count atomicu32 actualmemoryrole notlogicalrefinedcounttoken. InstanceUniforms sameactualfields cull/render, literalAabbhalfMAX andzero/defaultmatrices are nativeinitialstates, not validRigidRotation certs. LinearRGBA mayHDR andvisibilityRange4distances distinct fromRGBA/unitfraction; no forcedcolorclamp.",
+    "clone-and-extraction": "InstanceMaterialData shared Arc<Vec> pluscolor/visibility/extract copies currentdata/GlobalTransform/Aabb together when anylisted componentChanged, materialdataextraction clonesownedM::Data. No arithmetic/mutation/failurebranch/retryclockhere. ComponentFrom wrappers andnativeIntoColor preserveforeignAPI representation legitimately; they do not prove projectretainedinputs semanticallyadmitted. Filterednativeassetupdates or derivedprojectcacheauthority actualprojectobserver sources separatelyaudited, not inferredhealthy/stalefromthistraitalone.",
+    "instance-matrix-kernel": "WGSL localmatrix computes yaw sin/cos\u00d7uniformscale andtranslation then parent\u00d7local. Nativekernel arithmetic acceptsrawf32 andcanoverflowwithfiniteextremescale/parent; no propertythatallfiniteinputsproducefiniteworldtransform. Actualrenderproduct admission andCPU/GPUcomputedcapacity/finitepolicy belongs coherentprojectproducer andactualnativeport; no claim currentnormalrenderbadinputorforeignSDKrepairneeded. Preserve yawradian/singleuniformscale versusotherprojectEuler/nonuniformtransform meaning andliteralnativecoordinates. Negative/zero scale are not globallybannedfromnativedatamerelybecausesomephysicaldimensionspositive.",
+    "dither-kernel-and-limits": "Distance length/subtraction canoverflowfinitecoordinates, andselectedLODblend width bounds.y-bounds.x canzero/reverse forrawrange. Nativei32roundprojection thenclamp0..16+offset-16/0 cannotitselfestablishvalidinputdomainorfiniteintermediate. Actualhostvisibilityrange/nativebranch sentinelpolicy mustbecomparedinprojectcaller, preserve disabled/zero-fade/orderedwindow actualmeaning ratherthansilentlyclampallwidthstoepsilon orpatchforeignkernel. Outputboundedclaimonlyundermeaningfulnativeinputs; no verifiedcurrentbadwindow/runtime. WGSLbinding/vertexlocations declarefixedactualports, noproduceralgorithm/indexing inbindingfiles, notgroundsfor broaderGPUinspect. No new primaryforeignshaderaudit scope."
+  },
+  "findings": [],
+  "prior_finding_support": [
+    "Project nativebuffer/count/frame/visibility product admission remainsactualhostscope; no blanket foreign raw representation waiver or newnormalfailure"
+  ],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

@@ -1,0 +1,144 @@
+{
+  "id": "CONT08-SUPPORT-004-LANDING-COMPRESSION-CLAMP",
+  "at": "2026-10-25T11:53:58.888266+00:00",
+  "lens": "08 behavior-preservation",
+  "classification": "source-confirmed API-qualified changed behavior; intent reconciliation required; no global unique finding count",
+  "pins": {
+    "before": "3a50b708381ad00c116445c2c999a49c3943088b",
+    "after": "6533e444fa37552927070cc8d8190907fd3b413e"
+  },
+  "before_sources": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/procedural.rs",
+      "sha256": "344e229759ee5afad015b4ff72ecf35eb8cc3b83bf3cfdb6df805db6ede33cc0",
+      "ranges": [
+        [
+          580,
+          602
+        ]
+      ],
+      "comparison": "583\u2013590 multiplies then clamps; wrapper delegates."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "52fc52b4c407472083f24acbc0233ee3ceb4e1f98774490dbdc74b9d1e53ab21",
+      "ranges": [
+        [
+          768,
+          805
+        ]
+      ],
+      "comparison": "780\u2013795 landing validates finite nonnegative gain/bounds/recovery, ordered bounds and nonzero recovery. No finite upper cap on gain."
+    }
+  ],
+  "after_sources": [
+    {
+      "scope_index": 1362,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+      "sha256": "b9328929e65c3617acb6340dc0db4ed3db4b260b76b791e7cd1fb8ed1b3cd441",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/b9328929e65c3617acb6340dc0db4ed3db4b260b76b791e7cd1fb8ed1b3cd441",
+      "actual_body_ranges_consumed": [
+        [
+          140,
+          200
+        ],
+        [
+          305,
+          355
+        ]
+      ],
+      "credit": "Partial cross-variant behavior comparison only; no whole future-role coverage."
+    },
+    {
+      "scope_index": 1764,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+      "sha256": "60c9a6b987e30fcff66d01e8afadaaf41ffde91b9d1285c46bd88ec6a1678a39",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/60c9a6b987e30fcff66d01e8afadaaf41ffde91b9d1285c46bd88ec6a1678a39",
+      "actual_body_ranges_consumed": [
+        [
+          1,
+          90
+        ]
+      ],
+      "credit": "Partial cross-variant behavior comparison only; no whole future-role coverage."
+    },
+    {
+      "scope_index": 1766,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/landing.rs",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/animation/landing.rs",
+      "sha256": "b2c9f208720a6f2a993bcdb8b7752ad4799af0642e19c1d71b8bd29197a005db",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/b2c9f208720a6f2a993bcdb8b7752ad4799af0642e19c1d71b8bd29197a005db",
+      "actual_body_ranges_consumed": [
+        [
+          1,
+          61
+        ]
+      ],
+      "credit": "Partial cross-variant behavior comparison only; no whole future-role coverage."
+    },
+    {
+      "scope_index": 1767,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "sha256": "6aef5ced10b1d430e513c990cd005b5e6ff4bdf8c98505b3dccd48d17cb6ac62",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/6aef5ced10b1d430e513c990cd005b5e6ff4bdf8c98505b3dccd48d17cb6ac62",
+      "actual_body_ranges_consumed": [
+        [
+          35,
+          80
+        ],
+        [
+          235,
+          260
+        ]
+      ],
+      "credit": "Partial cross-variant behavior comparison only; no whole future-role coverage."
+    },
+    {
+      "scope_index": 1774,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+      "sha256": "d2eeb3c98817ee0e266094c559b48ef3736dc8b9fcdbcd975a9f47f637213222",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/d2eeb3c98817ee0e266094c559b48ef3736dc8b9fcdbcd975a9f47f637213222",
+      "actual_body_ranges_consumed": [
+        [
+          101,
+          124
+        ]
+      ],
+      "credit": "Partial cross-variant behavior comparison only; no whole future-role coverage."
+    },
+    {
+      "scope_index": 1864,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/landing.rs",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/combat_config/landing.rs",
+      "sha256": "d2e6f0bf1986b9465dec28c0b29c39db72b5470d50c0d8ce55332f6f8d1c0831",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/d2e6f0bf1986b9465dec28c0b29c39db72b5470d50c0d8ce55332f6f8d1c0831",
+      "actual_body_ranges_consumed": [
+        [
+          1,
+          33
+        ]
+      ],
+      "credit": "Partial cross-variant behavior comparison only; no whole future-role coverage."
+    }
+  ],
+  "actual_witness": {
+    "input": "finite compliance f32::MAX; finite impact2; compression minimum.04 maximum.18; threshold1; positive recovery",
+    "admission": "Current compliance constructor checked_nonnegative, impact canonical nonnegative speed, finite HeightDistance bounds and config bounds order all permit witness. Prior landing validation likewise admits finite nonnegative gain with positive recovery and ordered finite bounds.",
+    "before": "positive f32 overflow is +Inf; clamp returns finite maximum.18",
+    "after": "response_parameters111\u2013115 returns Overflow before122 clamp; height312\u2013332 propagates, actual begin-landing180\u2013184 uses ? before absorption/recovery/foot state."
+  },
+  "limits": [
+    "No numeric/test/runtime/render execution. Source-only f32 reasoning.",
+    "No default tuning, ordinary authored config or gameplay failure claimed. Finite custom/public API witness only.",
+    "Different from Q001/Q004 where old complete retained output was nonfinite: old complete compression here is finite bounded.",
+    "Parent narrow index search found no exact retained alias, not semantic uniqueness proof.",
+    "P16 counterpart348 empty diff does not provide PR behavior clearance; current PR sources only bounded ranges listed."
+  ],
+  "connected_repair": "Preserve finite leaf admission and explicit inverted-bounds errors; clamp native nonnegative product before complete HeightDistance admission, or equivalent overflow-safe saturation, unless an explicit authorized policy changes previously valid finite custom config behavior. No repair performed.",
+  "acceptance": "Preserve existing compression fixtures, threshold endpoints, zero/tiny inputs, finite ordered bounds and final maximum saturation for finite huge gain/impact; verify inversion errors and normal authored defaults. No fixtures or checks added/run.",
+  "status": "Retain qualified changed-contract evidence for dedup/intent; initial08 discovery remains incomplete."
+}

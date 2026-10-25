@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1307",
+  "at": "2026-10-25T18:25:29.575298+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1370,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+  "sha256": "b1645110395d62b1dab020f6328f9b3d3fde6cd3f64b88101d6c66d5e7d8b0e6",
+  "actual_compared_ranges": [
+    [
+      301,
+      600
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Native current rig/owner motion/handoff and settle cancellation/advance; checked raised pelvis correction and actual measured left/right leg/current visible contact synthesis. No handwritten trait/type/codec. Closures combine native terrain/current frame data and selected semantic guard plan, not generic From.",
+  "first_unfinished": {
+    "scope_index": 1370,
+    "line": 601
+  },
+  "execution": "none"
+}

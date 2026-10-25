@@ -1,0 +1,49 @@
+--- p16base/crates/adventuresim-tactical-core/src/player.rs
++++ catalog-p16head/crates/adventuresim-tactical-core/src/player.rs
+@@ -1,5 +1,6 @@
+ use adventuresim_core::prelude::*;
++use fabelgeist_geometry::SignedLength;
+ use bevy::{ecs::system::SystemParam, prelude::*};
+ use bevy_enhanced_input::prelude::Actions;
+ use fabelgeist_determinism::StreamId;
+ use serde::{Deserialize, Serialize};
+@@ -46,22 +47,31 @@
+ /// proportions. The default is measured from the current humanoid rig.
+ #[derive(Component, Serialize, Deserialize, Debug, Reflect, Clone, Copy, PartialEq)]
+ #[reflect(Component)]
+ pub struct CharacterDimensions {
+-    pub leg_length_metres: f32,
+-    pub body_height_metres: f32,
++    pub leg_length_metres: SignedLength,
++    pub body_height_metres: SignedLength,
+     /// Fully extended shoulder-to-hand length. The reference value is the
+     /// `uparm -> lowarm -> wrist` chain measured from the authoritative MHR rig.
+-    pub arm_reach_metres: f32,
++    pub arm_reach_metres: SignedLength,
+ }
+ 
+ impl Default for CharacterDimensions {
+     fn default() -> Self {
+-        Self {
+-            leg_length_metres: 0.840_348,
+-            body_height_metres: 1.9,
+-            arm_reach_metres: adventuresim_core::combat::HUMANOID_REFERENCE_ARM_REACH_METRES,
+-        }
++        const { Self {
++            leg_length_metres: match SignedLength::from_metres(0.840_348) {
++                Ok(value) => value,
++                Err(_) => panic!("authored leg length must be finite"),
++            },
++            body_height_metres: match SignedLength::from_metres(1.9) {
++                Ok(value) => value,
++                Err(_) => panic!("authored body height must be finite"),
++            },
++            arm_reach_metres: match SignedLength::from_metres(adventuresim_core::combat::HUMANOID_REFERENCE_ARM_REACH_METRES) {
++                Ok(value) => value,
++                Err(_) => panic!("authored arm reach must be finite"),
++            },
++        } }
+     }
+ }
+ 
+ /// Transient tactical allegiance. This is authoritative on the tactical

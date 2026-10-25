@@ -1,0 +1,45 @@
+{
+  "id": "SEGOVB-INITIAL10-DEPENDENCIES-185",
+  "purpose": "Exact already-available derive_more::From for nongeneric TacticalAttributes wrapper; no project execution.",
+  "sources": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/Cargo.toml",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/Cargo.toml",
+      "sha256": "a514b1eccfff839c875aaa5148d8299f119beb39ce645dc828e653399b6ef320",
+      "actual_EOF": 44,
+      "ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "saved_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/derivability/dependency-185-tactical-core-Cargo.toml"
+    },
+    {
+      "source_id": "registry:derive_more-impl-2.1.1/src/from.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derive_more-impl-2.1.1/src/from.rs",
+      "sha256": "dbcea1f655618518d366313124b59d50181928e1f0a092ff8796d5accec81fd6",
+      "actual_EOF": 403,
+      "ranges": [
+        [
+          1,
+          322
+        ]
+      ],
+      "package_sha256": "799a97264921d8623a957f6c3b9011f3b5492f557bbb7a5a19b7fa6d06ba8dcb",
+      "package_member_verified_exact": true,
+      "lock_reference": {
+        "scope_index": 39,
+        "sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+        "ranges": [
+          [
+            4317,
+            4353
+          ]
+        ]
+      },
+      "semantics": "Struct default branch189\u2013209 moves exact sole field; expand_fields299\u2013319 omits tuple indexing for one field. Nongeneric wrapper adds no bounds, validation, native errors, borrow or wire changes."
+    }
+  ],
+  "execution": "none"
+}

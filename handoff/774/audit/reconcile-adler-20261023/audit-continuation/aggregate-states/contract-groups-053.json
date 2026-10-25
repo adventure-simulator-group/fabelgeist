@@ -1,0 +1,46 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-053",
+  "at": "2026-10-25T11:39:17.831716+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1192,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/simulation/disease_fixture.rs",
+      "sha256": "af0610c33fb37a1d05d9adba1b25ad6e4d99a40045194429a62acf7c711150fc",
+      "personally_read_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole86 diseasefixture read. Explicitownedrun+matchingconfiguredcharacter+living guard, singleexistinginfectionabsence, canonicalDiseaseId parse beforeprivateepisode creation; disease string storedaftertypedvalidation nativeboundary. Usescanonicalcourse clipping/injuryelapsed/terminal+diseasefinish andlifecycle afterclockwrite. Terminal false/alive checks returnOk preserving writes withoutrefresh orpretendedhealing; unlikegenericErrrollback assumption. HardcodedcontractedZERO pluscurrentclock+incubationrequested presume fresh fixtureclock; actualcallerfreshness onlyconfiguredandnoseededepisode, notrequiretimeZERO, so latefixturecanseedhistoricallyoldinfection ratherthannewcurrentone. This is fixturepolicy/admissionquestion unless actuallatecaller intended; no runtime/publicgameplaybug. Related rootinitialadmission/category chronologymigrations retained."
+    },
+    {
+      "scope_index": 1193,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/simulation/quest_fixture.rs",
+      "sha256": "bd0529ff5891ce948c1a824c58e17062149a9c16c36a0341036cc72f8fcccb58",
+      "personally_read_ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole105 questfixture read. Callerownedrun andtwo distinct claimed leaders inmatchingrun, eachcharacterexists+currentpartyactualleader, existingfixture stableleaderretry refusesdifferentpair. Directparty power refresh/currentlivingcohort and canonicalmargin checkedbeforeseed; typedResult ownsstrategiccombatauthoritywhileprivateclosure returnsString, crosscausegraph structured conversion needscanonicalowner notprose. Seededcontract/generatedcase/nativeparties bind fromsameproducerresult with supplied designatedleader order; no power-based swapping. Canonicalcase storedprivate andpublicprojection1191requires validatedrumorreceipt, so simulator doesnotlearnhiddenquest upfront. Onlydirectparty safetymarginchecked intentionally fixtureopponent concernsdirectpath, no claimgeneratedpartyguaranteedsafe withoutscenarioacceptance. Rawrun/agent/nonce/partyIDs andfixtureflags remain typemigration obligations but actualassociation guards coherent."
+    },
+    {
+      "scope_index": 1194,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/smithing.rs",
+      "sha256": "aecea90ad65fd73946a24653499fdfe07a626491543cb20c57f5e70ae82e4d49",
+      "personally_read_ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole119 smithing read. Decode boundedrecipe then supportedcatalogchassis andcanonicalquote. Exactactor authority/currentforge, eitherliteralsettlementservice ororganizationservice allowed, peringredientfractionavailability preflight thenstableIDsortedconsumption. Nativeamountsum saturatingu32 expressescaprequiredmax; perrowrequest minwhole admittedConsumableFractionMicros andconsumedtypedvalue thenremaining decremented. IngredientID/requestquantity/recipequote count and time stillraw applicationowners, existingnumeric/materialfamily. Wrong-milliunits prose label versusmicros primitive doesnotestablish changedquantityarithmetic, keepcommentreview separate. Afterconsumingingredients waitcompletionfalse returnsErr beforeweapon output; propagatednativeerror transaction rejects allchanges, so do NOT claim dead/interrupted actor receives forgedweapon or properterminalpersistence without owningpolicy. Newphysicalweapon creation requiresstableobject then canonicaldesignreplacement; unknownrecipe/unsupportedno fallback. No tests/checks/sourcefix."
+    }
+  ],
+  "discovery": "Three original source roles compared WITH original identity/material/cause/time migrations; full lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

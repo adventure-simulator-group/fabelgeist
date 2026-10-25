@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-606",
+  "at": "2026-10-25T16:12:01.791342+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 937,
+  "source_id": "pr-working:crates/adventuresim-core/src/item_catalog.rs",
+  "sha256": "de7dd72013aa3af8ae0aae8691011a8aaa2d168db670188bcc1064cac9a23d18",
+  "actual_compared_ranges": [
+    [
+      1,
+      440
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Fresh221\u2013440 existing catalogue source fixtures assert source provenance/ID digest/composition, canonical weapon skill/carry/equipment graph expectations. No new handwritten trait/codec or declared adapter. Source loops not executed; attachment fixture tail unread.",
+  "first_unfinished": {
+    "scope_index": 937,
+    "line": 441
+  },
+  "execution": "none"
+}

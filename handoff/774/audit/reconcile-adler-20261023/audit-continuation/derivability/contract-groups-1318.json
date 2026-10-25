@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1318",
+  "at": "2026-10-25T18:26:47.368235+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1372,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation.rs",
+  "sha256": "9b4f94526e80364851a02b320c51009e4b036671cd9c143cc299771d4da5fbfd",
+  "actual_compared_ranges": [
+    [
+      1,
+      280
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Native knee-pole/foot-facing/weighted body-center/slope world/local projection and beginning bounded airborne foot rotation. No handwritten trait/type/codec in exact slice. Semantic finite normalization/frame/current rig queries/math cannot be replaced by raw From; comments remain supplied intent only.",
+  "first_unfinished": {
+    "scope_index": 1372,
+    "line": 281
+  },
+  "execution": "none"
+}

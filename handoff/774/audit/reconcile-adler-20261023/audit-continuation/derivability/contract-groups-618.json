@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-618",
+  "at": "2026-10-25T16:13:57.019915+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 941,
+  "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation.rs",
+  "sha256": "df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+  "actual_compared_ranges": [
+    [
+      1,
+      1320
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Fresh1101\u20131320 validates normalized weapon skill cohorts and capability kind/quality/numeric/food/flavor/alcohol relationships with structured diagnostic accumulation. Native cross-field admission, no handwritten trait/codec. Alcohol branch incomplete; existing strict visitor/formatter retained.",
+  "first_unfinished": {
+    "scope_index": 941,
+    "line": 1321
+  },
+  "execution": "none"
+}

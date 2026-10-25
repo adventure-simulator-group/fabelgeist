@@ -1,0 +1,34 @@
+{
+  "id": "RIG-ADMISSION03-CALENDAR-JOIN-010",
+  "source_contract": "RIG-ADMISSION03-CONTRACT-578",
+  "actual_definition_ranges": [
+    [
+      28,
+      80
+    ],
+    [
+      82,
+      404
+    ]
+  ],
+  "source_id": "pr-working:crates/adventuresim-world-schema/src/calendar.rs",
+  "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+  "source_body_read_ranges": [
+    [
+      1,
+      350
+    ],
+    [
+      351,
+      698
+    ]
+  ],
+  "shared_adapter": {
+    "record": "continuation/camera/admission03/sats-basispoints-route-001.json",
+    "sha256": "135204893e6a2f2b966eb1c10bf622a05ee5745becf97c36966cd49cdf084d8e"
+  },
+  "semantic_comparison": "Actual PR private named i32year/SpacetimeType/SerdeTryFrom matches concrete named product generator eligibility; derives emit unchecked field literal. Positive-year bypass exact feature-on; StrategicMinute allu64 intentional. Camera P16 current calendar proof compared explicitly; no path/hash-only carry.",
+  "finding_join": "CAMERA-ADM03-F011",
+  "repair": "frozen",
+  "later_lens_credit": false
+}

@@ -1,0 +1,37 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-799",
+  "at": "2026-10-25T16:52:40.997815+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1013,
+  "source_id": "pr-working:crates/adventuresim-core/src/strategic_schedule.rs",
+  "sha256": "ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+  "actual_compared_ranges": [
+    [
+      661,
+      1100
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "PlayerAttributes",
+      "type": "NeutralAttributes",
+      "lines": [
+        [
+          733,
+          740
+        ]
+      ],
+      "disposition": "KEEP uniform synthetic aptitude fixture ignoring selectors"
+    }
+  ],
+  "analysis": [
+    "NeutralAttributes PlayerAttributes733\u2013740 ignores selectors and returns fixed2.5 for both methods. Preserve synthetic trait fixture; no field delegate or available derive equivalent. Native outcome assembly and source fixtures685\u20131100 otherwise no additional handtraits/codecs; not executed."
+  ],
+  "first_unfinished": {
+    "scope_index": 1013,
+    "line": 1101
+  },
+  "execution": "none"
+}

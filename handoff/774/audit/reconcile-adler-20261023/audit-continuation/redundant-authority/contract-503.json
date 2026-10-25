@@ -1,0 +1,78 @@
+{
+  "id": "CONT07-CONTRACT-503",
+  "at": "2026-10-23T22:58:51.088362+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2189,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/limb.rs",
+      "sha256": "e5efa7b1f098c5fd6844c77f4e7f14cd6b1bf626f09208a349deb98166db78aa",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/gpu/limb.rs",
+      "actual_EOF": 478,
+      "ranges": [
+        [
+          1,
+          478
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2190,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/limb/joint_cup.rs",
+      "sha256": "412277a3c18b8e02e997ff34764650af39c0d0229d3fa6f3de23b4edaa9e5718",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/gpu/limb/joint_cup.rs",
+      "actual_EOF": 268,
+      "ranges": [
+        [
+          1,
+          268
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2191,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+      "sha256": "48d91d7bad79387e928424c9c868a5137fc880d3764258c53f82224e65f9c7ec",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+      "actual_EOF": 262,
+      "ranges": [
+        [
+          1,
+          262
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2192,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/metal/finish.rs",
+      "sha256": "644af66b116514a18cfcf826612c00ad8368777bafcdad735c44166fdc55d535",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/gpu/metal/finish.rs",
+      "actual_EOF": 134,
+      "ranges": [
+        [
+          1,
+          134
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Limb478 joint_cup268 exact full source read: all chart construction and shader parameterpacking use same admitteddesign. Spaulder besagew andmainplate distinct parts; explicitcoverage==1000 selects apex vsopen preservingcontinuousformedcrown. Outward tilt axis and actual shader tilt derive samefield.",
+    "Jointcup source inserts DEFAULT_MEDIAL/LATERAL_WRAP from actual JointCupDesign constants before shader compilation, positive shareddefaultauthority. Extension terminalshare/lastmarker derive same loop while wrappededge evaluated through same wrapped_point helper; no different currentedge authority. Raisedcop/transverse flags are derived ports fromenums, not independentretainedflags.",
+    "Metalbake262 andfinish134 freshread: bake resolves actual engravingbytes once then sharesCutimage/ornament andEngravingconfiguration throughsame batch. record_image rejects Height/Slopes format mismatch before GPUdispatch; no path-only stalecache in these bodies.",
+    "DepthMap.uv_scale is actualheightdepth*TILES_PER_METRE; finish shader injectssame Metal::TILES_PER_METRE ratherthan authoredduplicate. Normal/parallax/roughness encode different material outputs, not duplicated currentphysics. ExistingDeterminismcomments are source claims only; no GPUexecution/validation."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2193,
+    "start_line": 1
+  }
+}

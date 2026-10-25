@@ -1,0 +1,153 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-933",
+  "at": "2026-10-25T17:16:24.568779+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1119,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "sha256": "1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+      "actual_EOF": 1451,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/inventory_container.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/inventory_container.rs",
+        "sha256": "1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+        "bytes": 51382,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                1451
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-CUSTODY-FOOD-RECEIVERS-001"
+            ]
+          },
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/supplemental-operation-receivers.json",
+            "ranges": [
+              [
+                1411,
+                1451
+              ]
+            ],
+            "source_read_status": "exact connected ranges; full counterpart or common body proof linked camera",
+            "trace_refs": [
+              "NATIVE-SUPP-OPERATION-001"
+            ]
+          },
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/supplemental-operation-shared-links.json",
+            "ranges": [
+              [
+                1,
+                1451
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-CUSTODY-FOOD-RECEIVERS-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 252,
+            "read_ranges": [
+              [
+                1,
+                1451
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-CONTAINER-FOOD-FIXTURES-093"
+            ],
+            "read_status": "fresh-current-lens-full-source-read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/inventory_container.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CONTAINER-CUSTODY-043",
+            "json_pointer": "/current_sources/2",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/inventory_container.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1451
+              ]
+            ],
+            "source_context": {
+              "index": 237,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/inventory_container.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/inventory_container.rs",
+              "sha256": "1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+              "read_ranges": [
+                [
+                  1,
+                  1451
+                ]
+              ],
+              "read_mode": "Fresh full P16 container1451/custody517/Coregraph256/physical383 and exact empty PR/P16 deltas; same actual native-backed schema/dependency contract reconciled per variant, no hash/readcount clearance."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 452,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1451
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "InventoryObject/InventoryContainment/ContainerLiquid Clone/Debug/table"
+      ],
+      "absence_basis": "Entire exact PR body consumed930\u2013933, including all fixtures790\u2013933. No handwritten trait/codec. Native exact backing, subtree/custody/deletion/merge, checked volume/graph and liquid consumption/capacity/mutation reducers are contextual semantic operations."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Stable inventory derivability",
+      "disposition": "Existing row/native derives cover structural shape. Retain exact object identity, checked typed conversion, custody/error ordering, capacity and linked material state transitions. No raw construction derive or serializer for runtime classifiers; source-only, no checks/execution."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1120,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/actions.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

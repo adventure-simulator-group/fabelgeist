@@ -1,0 +1,50 @@
+--- 6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/examples/armor_browser_probe.rs
++++ 13fc9dcc71ab879de364117e5462310673e43210:crates/adventuresim-tactical-client/examples/armor_browser_probe.rs
+@@ -7,8 +7,23 @@
+     Catalog(&'static str, &'static str),
+     Anime,
+     Wrapped,
+ }
++
++const PROBES: [Probe; 12] = [
++    Probe::Catalog("vambrace", "left"),
++    Probe::Catalog("breastplate", "worn"),
++    Probe::Catalog("gorget", "worn"),
++    Probe::Catalog("sallet", "worn"),
++    Probe::Catalog("mail_standard", "worn"),
++    Probe::Catalog("linen_tunic", "worn"),
++    Probe::Catalog("leather_boot", "left"),
++    Probe::Catalog("puffed_sleeve", "left"),
++    Probe::Catalog("puffed_hose", "left"),
++    Probe::Catalog("pauldron", "left"),
++    Probe::Anime,
++    Probe::Wrapped,
++];
+ 
+ #[cfg(target_family = "wasm")]
+ #[wasm_bindgen::prelude::wasm_bindgen]
+ pub async fn fit_probe(bytes: Vec<u8>) -> Result<String, String> {
+@@ -56,22 +71,9 @@
+     let gpu = adventuresim_character_creator::armor_gpu_async().await?;
+     let errors = capture_errors(gpu);
+     let mut results = Vec::new();
+     for round in 0..2 {
+-        for probe in [
+-            Probe::Catalog("vambrace", "left"),
+-            Probe::Catalog("breastplate", "worn"),
+-            Probe::Catalog("gorget", "worn"),
+-            Probe::Catalog("sallet", "worn"),
+-            Probe::Catalog("mail_standard", "worn"),
+-            Probe::Catalog("linen_tunic", "worn"),
+-            Probe::Catalog("leather_boot", "left"),
+-            Probe::Catalog("puffed_sleeve", "left"),
+-            Probe::Catalog("puffed_hose", "left"),
+-            Probe::Catalog("pauldron", "left"),
+-            Probe::Anime,
+-            Probe::Wrapped,
+-        ] {
++        for probe in PROBES {
+             let (item, placement) = match probe {
+                 Probe::Catalog(item, placement) => (item, placement),
+                 Probe::Anime => ("anime", "worn"),
+                 Probe::Wrapped => ("wrapped_tassets", "worn"),

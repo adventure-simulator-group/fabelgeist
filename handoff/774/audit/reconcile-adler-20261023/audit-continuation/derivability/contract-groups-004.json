@@ -1,0 +1,998 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-004",
+  "at": "2026-10-25T11:15:08.544032+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 20,
+      "source_id": "native-dependency:spacetimedb-2.6.1/src/rt.rs",
+      "sha256": "9dae2fdd25e809c3fae6780569a1e6ce1a9d76d99feaac6a38a884faaa5ebf16",
+      "actual_EOF": 1436,
+      "requested_registration": {
+        "source_id": "native-dependency:spacetimedb-2.6.1/src/rt.rs",
+        "snapshot": "native-dependency",
+        "path": "CARGO_REGISTRY/spacetimedb-2.6.1/src/rt.rs",
+        "sha256": "9dae2fdd25e809c3fae6780569a1e6ce1a9d76d99feaac6a38a884faaa5ebf16",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 54297,
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 85,
+            "read_ranges": [
+              [
+                1,
+                200
+              ],
+              [
+                203,
+                225
+              ],
+              [
+                330,
+                465
+              ],
+              [
+                628,
+                655
+              ],
+              [
+                660,
+                695
+              ],
+              [
+                1025,
+                1065
+              ],
+              [
+                1086,
+                1098
+              ],
+              [
+                1228,
+                1295
+              ],
+              [
+                1374,
+                1393
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-SDK-001"
+            ],
+            "read_status": null,
+            "resolved_path": "CARGO_REGISTRY/spacetimedb-2.6.1/src/rt.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_owner": "native",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-DIALOGUE-040",
+            "json_pointer": "/related_current_sources/20",
+            "source_id_as_recorded": "foreign:spacetimedb-2.6.1/src/rt.rs",
+            "read_ranges_as_recorded": [
+              [
+                200,
+                228
+              ]
+            ],
+            "source_context": {
+              "source_id": "foreign:spacetimedb-2.6.1/src/rt.rs",
+              "resolved_path": "CARGO_REGISTRY/spacetimedb-2.6.1/src/rt.rs",
+              "sha256": "9dae2fdd25e809c3fae6780569a1e6ce1a9d76d99feaac6a38a884faaa5ebf16",
+              "actual_lines": 1436,
+              "read_ranges": [
+                [
+                  200,
+                  228
+                ]
+              ],
+              "role": "True native IntoReducerResult impl for Result<(),E:Display> maps original error to boxed text only at SDK result boundary",
+              "proof_mode": "fresh current actual bounded foreign native body, no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-033",
+            "json_pointer": "/fresh_current_additional_source_reads/20",
+            "source_id_as_recorded": "foreign:spacetimedb-2.6.1/src/rt.rs",
+            "read_ranges_as_recorded": [
+              [
+                200,
+                228
+              ]
+            ],
+            "source_context": {
+              "source_id": "foreign:spacetimedb-2.6.1/src/rt.rs",
+              "resolved_path": "CARGO_REGISTRY/spacetimedb-2.6.1/src/rt.rs",
+              "sha256": "9dae2fdd25e809c3fae6780569a1e6ce1a9d76d99feaac6a38a884faaa5ebf16",
+              "actual_lines": 1436,
+              "read_ranges": [
+                [
+                  200,
+                  228
+                ]
+              ],
+              "role": "True native IntoReducerResult impl for Result<(),E:Display> maps original error to boxed text only at SDK result boundary",
+              "proof_mode": "fresh current actual bounded foreign native body, no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-TIME-PACKET-011",
+            "json_pointer": "/source_reads/43",
+            "source_id_as_recorded": "native-dependency:spacetimedb-2.6.1/src/rt.rs",
+            "read_ranges_as_recorded": [
+              [
+                48,
+                79
+              ],
+              [
+                203,
+                225
+              ],
+              [
+                628,
+                655
+              ],
+              [
+                1025,
+                1065
+              ],
+              [
+                1086,
+                1098
+              ],
+              [
+                1374,
+                1393
+              ]
+            ],
+            "source_context": {
+              "source_id": "native-dependency:spacetimedb-2.6.1/src/rt.rs",
+              "sha256": "9dae2fdd25e809c3fae6780569a1e6ce1a9d76d99feaac6a38a884faaa5ebf16",
+              "read_ranges": [
+                [
+                  48,
+                  79
+                ],
+                [
+                  203,
+                  225
+                ],
+                [
+                  628,
+                  655
+                ],
+                [
+                  1025,
+                  1065
+                ],
+                [
+                  1086,
+                  1098
+                ],
+                [
+                  1374,
+                  1393
+                ]
+              ],
+              "resolved_path": "CARGO_REGISTRY/spacetimedb-2.6.1/src/rt.rs",
+              "method": "Fresh exact pinned native callback/error/timestamp receiving bodies; bounded scope only"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "continuation_actual_producer_source_proofs": [
+          {
+            "record": "continuation/root/foreign-alias-producer-003.json",
+            "json_pointer": "/source_proofs/0",
+            "source_id": "native-dependency:spacetimedb-2.6.1/src/rt.rs",
+            "sha256": "9dae2fdd25e809c3fae6780569a1e6ce1a9d76d99feaac6a38a884faaa5ebf16",
+            "read_ranges": [
+              [
+                200,
+                228
+              ]
+            ],
+            "proof": {
+              "source_id": "native-dependency:spacetimedb-2.6.1/src/rt.rs",
+              "alias_as_recorded": "foreign:spacetimedb-2.6.1/src/rt.rs",
+              "sha256": "9dae2fdd25e809c3fae6780569a1e6ce1a9d76d99feaac6a38a884faaa5ebf16",
+              "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\spacetimedb-2.6.1\\src\\rt.rs",
+              "read_ranges": [
+                [
+                  200,
+                  228
+                ]
+              ],
+              "source_role": "Reducer Result<(),E:Display> is converted to Box<str> by the actual SDK IntoReducerResult implementation, after the application reducer has returned its concrete error. This justifies text conversion at this exact foreign result boundary, and does not justify early String returns from application helpers.",
+              "proof_mode": "Fresh actual bounded body reads by root; identity normalization alone supplied no semantic credit.",
+              "producer_disposition": "exact reached foreign producer/recipient role accounted; application findings retained; no later-lens credit"
+            },
+            "limits": "Actual source-role proof for producer lens only; no owner-fit or other-lens clearance."
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1605,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved",
+        "admission03_increment050_role_observations": [
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 13,
+            "registration_id": "NATIVE-ADMISSION03-REG-013",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-013",
+              "at": "2026-10-22T07:30:17.239093+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "native-dependency:spacetimedb-2.6.1/src/rt.rs",
+              "sha256": "9dae2fdd25e809c3fae6780569a1e6ce1a9d76d99feaac6a38a884faaa5ebf16",
+              "snapshot": "native-dependency",
+              "actual_EOF": 1436,
+              "material_ranges": [
+                [
+                  560,
+                  628
+                ],
+                [
+                  703,
+                  712
+                ],
+                [
+                  1290,
+                  1308
+                ]
+              ],
+              "role": "Direct SerDeArgs Deserialize\u2192ArgsVisitor\u2192typed tuple fields andcomplete with_read_args body usedbyalreadyassignedreducer/viewmacro andrtinvoke methods.",
+              "reason": "Actualrt48/89 delegatesbsatnSerDeArgs andactualhost1061/1285 useswith_read_args; original628 startsmidmacro/1295cutbeforebody, exactdirectadditionalqualificationbeforebodyunder043. No unrelatedSDKgraph.",
+              "exclusions": "No jwt/foreignpackage/customderivegenerator/fullrt1436; actualtuplefielddispatchonly andnativebytesboundary, no generalizedSATSfiniteownerassurance.",
+              "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\spacetimedb-2.6.1\\src\\rt.rs",
+              "status": "registered_before_direct_adapter_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADMISSION03-QUAL-013",
+                "registration_id": "NATIVE-ADMISSION03-REG-013",
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-013",
+                  "at": "2026-10-22T07:30:17.239093+00:00",
+                  "authority": "continuation/root/admission03-discovery-authority-043.json",
+                  "source_id": "native-dependency:spacetimedb-2.6.1/src/rt.rs",
+                  "sha256": "9dae2fdd25e809c3fae6780569a1e6ce1a9d76d99feaac6a38a884faaa5ebf16",
+                  "snapshot": "native-dependency",
+                  "actual_EOF": 1436,
+                  "material_ranges": [
+                    [
+                      560,
+                      628
+                    ],
+                    [
+                      703,
+                      712
+                    ],
+                    [
+                      1290,
+                      1308
+                    ]
+                  ],
+                  "role": "Direct SerDeArgs Deserialize\u2192ArgsVisitor\u2192typed tuple fields andcomplete with_read_args body usedbyalreadyassignedreducer/viewmacro andrtinvoke methods.",
+                  "reason": "Actualrt48/89 delegatesbsatnSerDeArgs andactualhost1061/1285 useswith_read_args; original628 startsmidmacro/1295cutbeforebody, exactdirectadditionalqualificationbeforebodyunder043. No unrelatedSDKgraph.",
+                  "exclusions": "No jwt/foreignpackage/customderivegenerator/fullrt1436; actualtuplefielddispatchonly andnativebytesboundary, no generalizedSATSfiniteownerassurance.",
+                  "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\spacetimedb-2.6.1\\src\\rt.rs",
+                  "status": "registered_before_direct_adapter_body_analysis"
+                },
+                "original_requested_context_ranges": [
+                  [
+                    560,
+                    628
+                  ],
+                  [
+                    703,
+                    712
+                  ],
+                  [
+                    1290,
+                    1308
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    560,
+                    628
+                  ],
+                  [
+                    703,
+                    712
+                  ],
+                  [
+                    1290,
+                    1308
+                  ]
+                ],
+                "qualification": "Directnative SerDeArgs tuplevisitor/with_read_args only; concreteSATSdecoderpolicy authoritative, no Serdeattributevalidation assumed.",
+                "current_admission_proof_refs": [
+                  "contract-groups-038.json#actual-sdk-reducer-view-argument-and-error-admission"
+                ],
+                "frozen_hash_eof_verified": true,
+                "semantics_from_hash_or_ranges": false,
+                "global_reconciliation": "Root authority; raw original registration retained; no globalacceptance from this localqualification",
+                "producer_owner_later_lens_credit": false
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                560,
+                628
+              ],
+              [
+                703,
+                712
+              ],
+              [
+                1290,
+                1308
+              ]
+            ],
+            "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\spacetimedb-2.6.1\\src\\rt.rs",
+            "actual_EOF": 1436,
+            "bytes": 54297
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          200
+        ],
+        [
+          203,
+          225
+        ],
+        [
+          330,
+          465
+        ],
+        [
+          566,
+          695
+        ],
+        [
+          1025,
+          1065
+        ],
+        [
+          1086,
+          1098
+        ],
+        [
+          1228,
+          1295
+        ],
+        [
+          1374,
+          1393
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "IntoVec<T> Vec/Option",
+          "lines": [
+            32,
+            42
+          ],
+          "disposition": "retain generic identityvsOption zero/one-rowcollection conversion, notfieldderive"
+        },
+        {
+          "trait": "IntoReducerResult unit/Result<(),E:Display>",
+          "lines": [
+            213,
+            224
+          ],
+          "disposition": "retain nativeABI unitresult andintentionalto_string Box<str> errorprojection, notSerialize derive"
+        },
+        {
+          "trait": "ViewArg blanket/ ViewReturn Vec/Option/RawQuery/querybuilders",
+          "lines": [
+            333,
+            386
+          ],
+          "disposition": "retain traitbounds andViewResultHeader RowData/RawSql plusOptionas_slice/querybuild semanticwire shape"
+        },
+        {
+          "trait": "ViewKindTrait ViewContext/AnonymousViewContext",
+          "lines": [
+            397,
+            403
+          ],
+          "disposition": "retain associatedfunctiontype selection, notautomaticfieldprojection"
+        },
+        {
+          "trait": "ProductVisitor for ArgsVisitor<A>",
+          "lines": [
+            571,
+            589
+          ],
+          "disposition": "retain ReducerArgs ProductKind, exactA::LEN, anonymousproductname, sequence-onlyinput andexplicitnamedproductreject"
+        },
+        {
+          "trait": "Args for argument tuples",
+          "lines": [
+            598,
+            634
+          ],
+          "disposition": "retain macro implforforeignRusttuple withfieldindexmissingerrors/parametername schema; ordinarySerialize/Deserializederiveonwrapper wouldchange wire shape ornotexpressArgs trait"
+        },
+        {
+          "trait": "Reducer/Procedure/View/AnonymousView genericFunc impl macro",
+          "lines": [
+            637,
+            689
+          ],
+          "disposition": "retain context andtuple unpack/Fncall/output conversions plusassociatedbounds, notderive"
+        }
+      ],
+      "necessary_signature_extension": {
+        "ranges": [
+          [
+            566,
+            627
+          ],
+          [
+            656,
+            659
+          ]
+        ],
+        "reason": "Currentrequested628\u2013655beganinsideArgs schemaandendedinsideProcedure invoke; exactArgs/ProductVisitor semanticwire/bounds pluscompletefunction bodies neededfor10comparison. No broaderforeignmodule credit."
+      }
+    },
+    {
+      "scope_index": 21,
+      "source_id": "native-dependency:spacetimedb-bindings-macro-2.6.1/src/reducer.rs",
+      "sha256": "5d9af3fa69cda0c4377ddc6e3da0ead36b83bcb5f7cda7e53d78534b9bfd0fba",
+      "actual_EOF": 204,
+      "requested_registration": {
+        "source_id": "native-dependency:spacetimedb-bindings-macro-2.6.1/src/reducer.rs",
+        "snapshot": "native-dependency",
+        "path": "CARGO_REGISTRY/spacetimedb-bindings-macro-2.6.1/src/reducer.rs",
+        "sha256": "5d9af3fa69cda0c4377ddc6e3da0ead36b83bcb5f7cda7e53d78534b9bfd0fba",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 7329,
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 83,
+            "read_ranges": [
+              [
+                1,
+                204
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-SDK-001"
+            ],
+            "read_status": null,
+            "resolved_path": "CARGO_REGISTRY/spacetimedb-bindings-macro-2.6.1/src/reducer.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_owner": "native",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-TIME-PACKET-011",
+            "json_pointer": "/source_reads/42",
+            "source_id_as_recorded": "native-dependency:spacetimedb-bindings-macro-2.6.1/src/reducer.rs",
+            "read_ranges_as_recorded": [
+              [
+                105,
+                204
+              ]
+            ],
+            "source_context": {
+              "source_id": "native-dependency:spacetimedb-bindings-macro-2.6.1/src/reducer.rs",
+              "sha256": "5d9af3fa69cda0c4377ddc6e3da0ead36b83bcb5f7cda7e53d78534b9bfd0fba",
+              "read_ranges": [
+                [
+                  105,
+                  204
+                ]
+              ],
+              "resolved_path": "CARGO_REGISTRY/spacetimedb-bindings-macro-2.6.1/src/reducer.rs",
+              "method": "Fresh exact pinned native callback/error/timestamp receiving bodies; bounded scope only"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1603,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          204
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "quoted FnInfo andExplicitNames generatedimpls",
+          "lines": [
+            162,
+            202
+          ],
+          "disposition": "existingreducerattribute emitsfunctionmetadata andnamingpolicy withautomatically_derived marker, nothandwrittenapplicationboilerplate"
+        }
+      ],
+      "existing_derives": "ReducerArgs derivesDefault; parse rejectsduplicate lifecycle/name/type/constgeneric/signature violations, preservedsemanticmacro policy."
+    },
+    {
+      "scope_index": 22,
+      "source_id": "native-dependency:spacetimedb-bindings-macro-2.6.1/src/view.rs",
+      "sha256": "48fc81bd0f4780c85900aac82084c05599116c565c7beecd4d26239cf7d0a78a",
+      "actual_EOF": 364,
+      "requested_registration": {
+        "source_id": "native-dependency:spacetimedb-bindings-macro-2.6.1/src/view.rs",
+        "snapshot": "native-dependency",
+        "path": "CARGO_REGISTRY/spacetimedb-bindings-macro-2.6.1/src/view.rs",
+        "sha256": "48fc81bd0f4780c85900aac82084c05599116c565c7beecd4d26239cf7d0a78a",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 12930,
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 84,
+            "read_ranges": [
+              [
+                190,
+                361
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-SDK-001"
+            ],
+            "read_status": null,
+            "resolved_path": "CARGO_REGISTRY/spacetimedb-bindings-macro-2.6.1/src/view.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_owner": "native",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1604,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          190,
+          361
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "quoted FnInfo implementation",
+          "lines": [
+            335,
+            360
+          ],
+          "disposition": "existingviewattribute generatescontext-selectedInvokeFn,view-kind/arg/primarykey/returnType metadata; retaincodegeneratorsemantics, no ordinaryderive replacement"
+        }
+      ],
+      "semantic_codegen": "implQueryreturn rewrittentoRawQueryandinto_sql; RawQueryconcrete .into wrapping,normalVec/Optionunchangedinference; preservedcontextsignature andtypedprimarykeyassertions."
+    },
+    {
+      "scope_index": 23,
+      "source_id": "native-dependency:spacetimedb-sats-2.6.1/src/timestamp.rs",
+      "sha256": "9a2b59b755254767182009ea99cc689199e310845668b3343faf52ca6139de0c",
+      "actual_EOF": 343,
+      "requested_registration": {
+        "source_id": "native-dependency:spacetimedb-sats-2.6.1/src/timestamp.rs",
+        "snapshot": "native-dependency",
+        "path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\spacetimedb-sats-2.6.1\\src\\timestamp.rs",
+        "sha256": "9a2b59b755254767182009ea99cc689199e310845668b3343faf52ca6139de0c",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "native",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 343,
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-TIME-PACKET-011",
+            "json_pointer": "/source_reads/44",
+            "source_id_as_recorded": "native-dependency:spacetimedb-sats-2.6.1/src/timestamp.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                95
+              ],
+              [
+                210,
+                251
+              ]
+            ],
+            "source_context": {
+              "source_id": "native-dependency:spacetimedb-sats-2.6.1/src/timestamp.rs",
+              "sha256": "9a2b59b755254767182009ea99cc689199e310845668b3343faf52ca6139de0c",
+              "read_ranges": [
+                [
+                  1,
+                  95
+                ],
+                [
+                  210,
+                  251
+                ]
+              ],
+              "resolved_path": "CARGO_REGISTRY/spacetimedb-sats-2.6.1/src/timestamp.rs",
+              "method": "Fresh exact pinned native callback/error/timestamp receiving bodies; bounded scope only"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          95
+        ],
+        [
+          210,
+          262
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "SATS impl_st Timestamp",
+          "lines": [
+            16,
+            16
+          ],
+          "disposition": "retain explicittimestamp AlgebraicType whileSerialize/Deserializeandstructuraltraits alreadyderived; transparentprimitive derive maychangecanonicalspecialtimestampidentity"
+        },
+        {
+          "trait": "Sub<Duration> Timestamp",
+          "lines": [
+            211,
+            217
+          ],
+          "disposition": "retain checked_sub_duration then documentedpanic path, notrawi64fieldSubderive"
+        },
+        {
+          "trait": "AddAssign/SubAssign TimeDuration/Duration",
+          "lines": [
+            219,
+            241
+          ],
+          "disposition": "delegate actualAdd/Subsemantics, notderive rawunit arithmetic aswouldchangeconversion/errorpolicy"
+        },
+        {
+          "trait": "Display Timestamp",
+          "lines": [
+            245,
+            249
+          ],
+          "disposition": "retainRFC3339projection vsnativei64Debug/Serialize"
+        },
+        {
+          "trait": "From<SystemTime> andFrom<Timestamp> SystemTime",
+          "lines": [
+            251,
+            261
+          ],
+          "disposition": "retain systemclockprecision/range conversiondelegation, notstructuralFrom"
+        }
+      ],
+      "necessary_signature_extension": {
+        "ranges": [
+          [
+            252,
+            262
+          ]
+        ],
+        "reason": "Sourceendsrequested251atmanualFrom header; completeactualSystemTime conversionsread toclassifysemantics."
+      }
+    },
+    {
+      "scope_index": 24,
+      "source_id": "native-dependency:spacetimedb-sdk-2.6.1/src/db_connection.rs",
+      "sha256": "79c452f092b1123e8a9c4f7ca3c34167290bb97e3a64093ce903f4bf742b2b9a",
+      "actual_EOF": 1624,
+      "requested_registration": {
+        "source_id": "native-dependency:spacetimedb-sdk-2.6.1/src/db_connection.rs",
+        "snapshot": "native-dependency",
+        "path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\spacetimedb-sdk-2.6.1\\src\\db_connection.rs",
+        "sha256": "79c452f092b1123e8a9c4f7ca3c34167290bb97e3a64093ce903f4bf742b2b9a",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "native",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 1624,
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CASE-RECEIVERS-029",
+            "json_pointer": "/related_current_sources/27",
+            "source_id_as_recorded": "native-dependency:spacetimedb-sdk-2.6.1/src/db_connection.rs",
+            "read_ranges_as_recorded": [
+              [
+                187,
+                254
+              ],
+              [
+                410,
+                450
+              ],
+              [
+                727,
+                770
+              ],
+              [
+                1290,
+                1433
+              ]
+            ],
+            "source_context": {
+              "source_id": "native-dependency:spacetimedb-sdk-2.6.1/src/db_connection.rs",
+              "sha256": "79c452f092b1123e8a9c4f7ca3c34167290bb97e3a64093ce903f4bf742b2b9a",
+              "resolved_path": "CARGO_REGISTRY/spacetimedb-sdk-2.6.1/src/db_connection.rs",
+              "read_ranges": [
+                [
+                  187,
+                  254
+                ],
+                [
+                  410,
+                  450
+                ],
+                [
+                  727,
+                  770
+                ],
+                [
+                  1290,
+                  1433
+                ]
+              ],
+              "scope": "Fresh exact pinned args_bsatn/CallReducer send, native Result String decoder and concrete callback invocation; bounded SDK source proof only."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016",
+            "json_pointer": "/related_current_reads/27",
+            "source_id_as_recorded": "native-dependency:spacetimedb-sdk-2.6.1/src/db_connection.rs",
+            "read_ranges_as_recorded": [
+              [
+                187,
+                254
+              ],
+              [
+                410,
+                450
+              ],
+              [
+                727,
+                770
+              ],
+              [
+                1290,
+                1433
+              ]
+            ],
+            "source_context": {
+              "source_id": "native-dependency:spacetimedb-sdk-2.6.1/src/db_connection.rs",
+              "sha256": "79c452f092b1123e8a9c4f7ca3c34167290bb97e3a64093ce903f4bf742b2b9a",
+              "resolved_path": "CARGO_REGISTRY/spacetimedb-sdk-2.6.1/src/db_connection.rs",
+              "read_ranges": [
+                [
+                  187,
+                  254
+                ],
+                [
+                  410,
+                  450
+                ],
+                [
+                  727,
+                  770
+                ],
+                [
+                  1290,
+                  1433
+                ]
+              ],
+              "scope": "Fresh exact pinned args_bsatn/CallReducer send, native Result String decoder and concrete callback invocation; bounded SDK source proof only."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          187,
+          254
+        ],
+        [
+          410,
+          450
+        ],
+        [
+          727,
+          770
+        ],
+        [
+          1290,
+          1433
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Actualselectednativecall/queue/callback/decoder andParsedMessage declarations containnohandwritten traitimpl. ParsedMessagealreadyderivesDebug; nested reducerresult/nativeerror/statussemanticmappingisnotserializationboilerplate."
+    },
+    {
+      "scope_index": 25,
+      "source_id": "native-dependency:tiny-skia-0.11.4/Cargo.toml",
+      "sha256": "76370c68002a8cf88f605f06e1d645d11045ae2bae97a7d8b490acf47362e6ad",
+      "actual_EOF": 66,
+      "requested_registration": {
+        "source_id": "native-dependency:tiny-skia-0.11.4/Cargo.toml",
+        "snapshot": "native-dependency",
+        "path": "CARGO_REGISTRY/tiny-skia-0.11.4/Cargo.toml",
+        "sha256": "76370c68002a8cf88f605f06e1d645d11045ae2bae97a7d8b490acf47362e6ad",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 1436,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 87,
+            "read_ranges": [
+              [
+                46,
+                47
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-CLIENT-EQUIPMENT-026"
+            ],
+            "read_status": "current-lens-exact-native-encoding-error-owner-ranges-read",
+            "resolved_path": "CARGO_REGISTRY/tiny-skia-0.11.4/Cargo.toml"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-022",
+            "json_pointer": "/fresh_current_source_reads/13",
+            "source_id_as_recorded": "native-dependency:tiny-skia-0.11.4/Cargo.toml",
+            "read_ranges_as_recorded": [
+              [
+                46,
+                47
+              ]
+            ],
+            "source_context": {
+              "assigned_index": 408,
+              "source_id": "native-dependency:tiny-skia-0.11.4/Cargo.toml",
+              "sha256": "76370c68002a8cf88f605f06e1d645d11045ae2bae97a7d8b490acf47362e6ad",
+              "read_ranges": [
+                [
+                  46,
+                  47
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1466,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          46,
+          47
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "ExactmanifestPNGdependency version only, no handwrittenRustimpl oravailablederive claim."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Reducer/view ABI and macro-generated metadata are semantic adapters",
+      "evidence": "NativeSpacetimeDBselectedranges anddirecttraitclosure566\u2013627/656\u2013659personallyread, ReducerArgsmacro204fullandviewselected190\u2013361freshread. CustomArgs/ProductVisitor rejectnamedproduct, representargumenttuplearity/schema/names, nativeviewreturnwritesRowData/RawSql header andOption0/1rows. ReducerErrorDisplaytostring is explicitnativeABI loss, noteliminatedbySerde derive. MacrosalreadygenerateFnInfo/ExplicitNames withtypeassertionsandsemanticlifecycle/context/querypolicy.",
+      "derive_comparison": "ExistingSATSSerialize/Deserialize impltraits/macros andSpacetimeType ownersmustretain nativeproductkind/schema/header. A regularRust recordderive wouldnotimplementtupleArgs/Funcblankettraits orsemanticqueryrewrite; keepnecessarycodegenerator/manualadapter implementations. No independentnew findingfromalreadyacceptederrorcausegap.",
+      "qualification": "Nativepartialsource only, no wholemodule/procmacro packagecoverage; actualgeneratedbindings/schema changes requirecanonicalgeneratorwhenauthorized. No generator/check/reducer executed."
+    },
+    {
+      "contract": "Timestamp wire owner and SDK decoder do not admit mechanical replacement",
+      "evidence": "Timestampactualselectedconstructors/SATSalgebraictype/operator/Display/SystemTime adapters read. Structuraltraits/SATSSerializeandDeserialize alreadyderived. Manualpieceschooseunits/range/precision/panicandRFC3339, distinctfromrawi64. SDKselectedcallback/resultdecode owns nestedcommitted/businessErr/internalErr distinctionsandactualmessage parsing, withParsedMessageDebugalreadyderived.",
+      "qualification": "Knowni64MINnegationoperationsfindingfrompriorlensremainsseparatequalifiedsourcefact, no10repair/retest orduplicatecount. Nativeenumcodec/DBupdate behavior notproved byderive namealone.",
+      "acceptance": "Anyderive suggestionpreservesexactnativewire/algebraictype, callercontext/argumentarity/genericbounds, typederrorandcheckedconversion/panicpolicy; donotaddSerializejusttoreplaceruntimeclassifiers orhidevalidation."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 26,
+    "source_id": "native-dependency:tiny-skia-0.11.4/src/pixmap.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

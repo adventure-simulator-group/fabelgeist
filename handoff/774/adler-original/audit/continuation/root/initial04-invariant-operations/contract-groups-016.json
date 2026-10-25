@@ -1,0 +1,89 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-016",
+  "at": "2026-10-22T19:57:10.122686+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/components.rs",
+      "sha256": "0d82f83e694489be2b70f9208306217b283d1a8f11a5e174d80c8838b98109cd",
+      "actual_read_ranges": [
+        [
+          1,
+          87
+        ]
+      ],
+      "registration": "RIG-INITIAL06-REG-009",
+      "scope_limits": "Only this tiny direct type-definition source; no broader new family/foreign graph"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/plate_face.rs",
+      "sha256": "7c7d222066ebe81219e45b4ac4086acc9de7da36c7633f662027be299d93ba71",
+      "actual_read_ranges": [
+        [
+          1,
+          16
+        ]
+      ],
+      "registration": "RIG-INITIAL06-REG-010",
+      "scope_limits": "Only this tiny direct type-definition source; no broader new family/foreign graph"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/plate_mount.rs",
+      "sha256": "6b0650a1f0aa61c043d101edb7ed5f577b7291820201c1e5c4583559ab52f3f9",
+      "actual_read_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "registration": "RIG-INITIAL06-REG-011",
+      "scope_limits": "Only this tiny direct type-definition source; no broader new family/foreign graph"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/limb_build.rs",
+      "sha256": "3bb6b57ab917ceaf61262074dfeb2f9b648b2f2fa845226fa795edc3878f0220",
+      "actual_read_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "registration": "RIG-INITIAL06-REG-012",
+      "scope_limits": "No broad new geometry/foreign/feature graph"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-garment-code/src/math.rs",
+      "sha256": "d781d59f49579995bc80f718a955f5ffcf9f7ec7842382831c43d91af451ab61",
+      "actual_read_ranges": [
+        [
+          7,
+          8
+        ]
+      ],
+      "registration": "RIG-INITIAL06-REG-013",
+      "scope_limits": "All numeric helper/Rotation/curve bodies except exact aliases7\u20138 excluded"
+    }
+  ],
+  "groups": {
+    "closed-role-and-face-tags": "ArmorComponentRole and PlateFace are closed enum values, serde admits only represented variants; exhaustive name/trim_name produce static display/format strings without reparsing or arithmetic. No independent discriminator table or computed invalid enum here.",
+    "mesh-component-records": "ArmorHinge is explicitly descriptive reference-pose metre origin/axis, not an animated joint. Public raw arrays/derived codec admit nonfinite values; no normalized-axis operation/constructor here and no bad current producer demonstrated. ArmorComponent native Range<usize> requires actual mesh-correlated bounds, not merely integer admission; this record performs no indexing. ArmorComponentMaterial explicitly unlit; public normalized material channels lack local admission, but no current nonfinite or gamma/linear failure asserted. Actual TextileColor byte normalization previously proved, not a color-space transform.",
+    "mount-course-and-selection": "PlateCourse wraps u16 all ordinal bit patterns locally, and PlateParent/PlateMount retain course relationships without collection/order/unique-driven-leaf enforcement. Whole-assembly relation needed at actual producer, not inferred from local record or follow ratio. Permille may validly exceed1000 elsewhere; do not clamp globally. GridEnd opposite is a closed two-state involution; row subtraction F008 requires nonzero extent.",
+    "limb-record-build-port": "record_limb_armor obtains shape then passes its recipe and design unchanged to part.record, except specialized pauldron recording. generate_limb_armor_on validates frame in pauldron branch, uploads frame words, stages batch, records carrier/plates/shells, submits before status read and returns InvalidSurface on nonzero status. This is native side-effect order; local Result is not GPU rollback. Status gpu.read::<u32>(...)?[0] depends actual producer/read-length guarantee not established in46lines; no empty read or bad status allocation claim. Remaining branch obtains shape and forwards exact design/fit to part.build, no independent arithmetic here. Whole producer/kernel validation belongs actual existing recipe/carrier body.",
+    "garment-coordinate-aliases": "V2/V3 are actual [f64;2]/[f64;3] aliases, no admission, arithmetic or guarantee-preserving constructor. Fixed source-coordinate shape alone does not establish finite physical positions/scene frame. No f32 owner replacement or shared proper-rotation policy inferred from aliases. Other math helpers outside7-8 excluded."
+  },
+  "findings": [
+    {
+      "id": "ROOT-INITIAL04-F008",
+      "class": "representable_public_API_counterexample; no_current_zero_row_caller_or_run_identified",
+      "source": "pr-working:crates/fabelgeist-armor/src/plate_mount.rs",
+      "operation": "PlateGridEnd::row computes Last as rows - 1 at line21; rows is unconstrained public u32.",
+      "counterexample": "PlateGridEnd::Last.row(0) underflows: checked-overflow execution panics, unchecked-overflow execution wraps to u32::MAX; First.row(0) returns0 although no row exists. This is source-level public API evidence, not a performed run or actual ordinary zero-grid producer claim.",
+      "acceptance": "Represent an admitted nonempty grid extent and return its first/last in-bound row, propagating the actual canonical grid/count/index owner through producers and consumers; or reject invalid extent at its genuine raw port. Preserve existing valid row ordering and do not invent a fallback row, globally ban intentional empty meshes, or wrap arbitrary unchecked rows into a token."
+    }
+  ],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

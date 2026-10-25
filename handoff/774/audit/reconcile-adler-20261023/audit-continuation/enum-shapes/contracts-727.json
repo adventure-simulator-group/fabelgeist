@@ -1,0 +1,149 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-727",
+  "lens": "audit-enum-shapes",
+  "groups": [],
+  "shared_material_reads": [
+    {
+      "shared_index": 78,
+      "source_id": "pinned-registry:bevy_render-0.19.1/src/view/window/screenshot.rs",
+      "sha256": "f49e4ca4f0929fc51a5c55fc002294c6009ae7a4c1c07dc6ef6c8ff737df0c5b",
+      "ranges": [
+        [
+          125,
+          240
+        ]
+      ],
+      "contract": "contracts-727.json",
+      "status": "fresh exact registered ranges read and reanalyzed09",
+      "disposition": "Native ScreenshotCaptured/Captured represent GPU image delivery, not successful diskencoding/save. save_to_disk FnMut logs encode/format/IO failures and returns unit; do not infer savedreceipt from capturedcomponent. No own09 conditionalpayload defect from this nativeevent alone; actual application acceptance/completion obligations remain separate. NativeSystemState Option owns whole initializedquery, no parallelinitializedflag.",
+      "frozen_unique_credit": false,
+      "other_lens_credit": false,
+      "execution": "none"
+    },
+    {
+      "shared_index": 81,
+      "source_id": "pinned-registry:serde_json-1.0.151/src/value/ser.rs",
+      "sha256": "11f2b7daa1eba826d4086d5497f73729478dd7647bff77deccde5e47b0f126f2",
+      "ranges": [
+        [
+          148,
+          158
+        ]
+      ],
+      "contract": "contracts-727.json",
+      "status": "fresh exact registered ranges read and reanalyzed09",
+      "disposition": "Actual serde Value serializer delegates native f32/f64 toValue::from; real boundary serialization adapter, no businessstateenum. Do not claim Result necessarilyerrors onnonfinite.",
+      "frozen_unique_credit": false,
+      "other_lens_credit": false,
+      "execution": "none"
+    },
+    {
+      "shared_index": 82,
+      "source_id": "pinned-registry:serde_json-1.0.151/src/value/from.rs",
+      "sha256": "ae4b5f93b27e578fa40e3a8d25d0df2032fe40b680cddb15963e47cbd56db613",
+      "ranges": [
+        [
+          27,
+          52
+        ]
+      ],
+      "contract": "contracts-727.json",
+      "status": "fresh exact registered ranges read and reanalyzed09",
+      "disposition": "Actual native From<f32> Number failure maps Value::Null; absentnumber representation mayerase NaN/Inf at JSON boundary. Only f64commentprefix scoped47\u201352, notbodyverification; do not overclaim f64 implementation fromname. Preserve application observation absence/invalidvalue distinctions upstream, no SDKstyle repair.",
+      "frozen_unique_credit": false,
+      "other_lens_credit": false,
+      "execution": "none"
+    },
+    {
+      "shared_index": 83,
+      "source_id": "pinned-registry:glam-0.32.1/src/f32/vec3.rs",
+      "sha256": "28708ec95e5481d1673cbff86f8cafc8d19a50b5ea32fdd030cdbdb9d0601b4c",
+      "ranges": [
+        [
+          1021,
+          1032
+        ]
+      ],
+      "contract": "contracts-727.json",
+      "status": "fresh exact registered ranges read and reanalyzed09",
+      "disposition": "Native glam0.32.1 clamp_length_max immediate comparison/native scaling, not retained flag/mode. Actual NaN/overflow semantics belong affected receiver numerical proof, no 09enum for rawvectoraxes.",
+      "frozen_unique_credit": false,
+      "other_lens_credit": false,
+      "execution": "none"
+    },
+    {
+      "shared_index": 84,
+      "source_id": "pinned-registry:glam-0.33.6/src/f32/vec3.rs",
+      "sha256": "3e72eeb9eddf937d45c43637677046bb2a00027a317770ad8ba72619fc6605fe",
+      "ranges": [
+        [
+          1043,
+          1054
+        ]
+      ],
+      "contract": "contracts-727.json",
+      "status": "fresh exact registered ranges read and reanalyzed09",
+      "disposition": "Native glam0.33.6 clamp_length_max same exposed boundedsource shape, independentversion provenance retained. No automatic other-version/08semanticcredit.",
+      "frozen_unique_credit": false,
+      "other_lens_credit": false,
+      "execution": "none"
+    },
+    {
+      "shared_index": 85,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/city_layout/compiled/property.rs",
+      "sha256": "ae34cb221f0a7fec0c9c65d49e88822262a16c26c965566e735cc95b510741de",
+      "ranges": [
+        [
+          1,
+          55
+        ],
+        [
+          110,
+          203
+        ]
+      ],
+      "contract": "contracts-727.json",
+      "status": "fresh exact registered ranges read and reanalyzed09",
+      "disposition": "Exact P16 compound material preserves PropertySide finiteowner, CityGate hinge/position actualsimultaneousgeometry and completeclearance recipe key. immediate cachecontains predicate no modepayload; genuine street/property/gate coordinates notenumindices. Existing root projection/authority obligations remain.",
+      "frozen_unique_credit": false,
+      "other_lens_credit": false,
+      "execution": "none"
+    },
+    {
+      "shared_index": 86,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/city_layout.rs",
+      "sha256": "d5aacb8a24fecfd5dadee9361c1b6c3d32bd19171bfc0bc984cd8b2efb183c8f",
+      "ranges": [
+        [
+          235,
+          315
+        ]
+      ],
+      "contract": "contracts-727.json",
+      "status": "fresh exact registered ranges read and reanalyzed09",
+      "disposition": "Exact P16 candidate constructor uses typedPropertySide, orientation checked, houseclass retained and immediate rear_court candidate classification. No conditionallymeaningful neighboringpayload or invalid flagproduct established from boundedconstructor; actual candidate policy/owner propagation independent. Seed/selectionkey real randompurposes, not arbitraryenumindices.",
+      "frozen_unique_credit": false,
+      "other_lens_credit": false,
+      "execution": "none"
+    },
+    {
+      "shared_index": 87,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/city_layout/compiled/property/handedness_tests.rs",
+      "sha256": "f41fca98399a19869386e27461d20b58338b534bf26227fd0c2e4e3f5ca1e528",
+      "ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "contract": "contracts-727.json",
+      "status": "fresh exact registered ranges read and reanalyzed09",
+      "disposition": "Source-only both handedness/yaw fixtures exercise independentpassages/geometry andinwardhinge. Allread assertions evidenceintendedcontract, not executed or confirmationphysicalproofpasses. No finding clear.",
+      "frozen_unique_credit": false,
+      "other_lens_credit": false,
+      "execution": "none"
+    }
+  ],
+  "new_findings": [],
+  "limits": "Source/fixture reading only, native ports and version-specific bodies keptdistinct. No browser/GPU/device/projectexecution or SDKrepair."
+}

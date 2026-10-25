@@ -1,0 +1,125 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-364",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/browser_session.rs",
+      "sha256": "58bcbbfa28a430def36a47439a94587ab24f3fbdfe2eeca4b9c58e19a6e0ed4a",
+      "actual_EOF": 567,
+      "actual_compared_ranges": [
+        [
+          1,
+          567
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/browser_session/descendants.rs",
+      "sha256": "4ee78100f46e24040c48bd9007e4a8892b04b81c6b351f77d1eb9fa701246a16",
+      "actual_EOF": 95,
+      "actual_compared_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/actions.rs",
+      "sha256": "00ea04f41c3b01c494fc44e24a3bd5b3720d239de26a71f896d3841e2677fafd",
+      "actual_EOF": 1861,
+      "actual_compared_ranges": [
+        [
+          1,
+          1861
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Browser grant updates preserve provenance and selection publication; development observer date differs by reader",
+      "source_ranges": {
+        "browser_session.rs": [
+          [
+            1,
+            567
+          ]
+        ],
+        "browser_session/descendants.rs": [
+          [
+            1,
+            95
+          ]
+        ]
+      },
+      "disposition": "All662 lines read. Grant writes follow claim owner/character/temporary checks and exactly one provenance arm; idempotent existing grant must match source. Adult grants require living adult, established claim <= own minute, nonself sourceparent and matching sourcegrant. Selection validates owner/access, living age and descendant observer date before one insert/update; clear dead collects before deletes. Shared development access deliberately is not exclusive ownership. Reducer descendant validation uses any alive selected character clock; view selected_living_observer_minute_for_grant instead requires selected ordinary grant. Exact development-only represented state: owner has selected shared development scenario at999 (explicitly allowed without ordinary grant), descendant adulthood1000 and own frontier2000; view falls back to2000 and advertises descendant, reducer uses999 and rejects selection. No DB/runtime witness or ordinary-grant regression claimed. Need one explicit observer-frontier policy shared by read/write without requiring exclusive ownership of scenario. Acceptance: same eligible descendant roster/select behavior for ordinary, shared development, dead and absent selections, retain future-date hiding and successor recovery. Existing fixture source read, not run. No exact supplied alias found by descendant/observer source-token search; not a global uniqueness claim."
+    },
+    {
+      "contract": "Investigation route and effect commits bind authority before time; clipped time remains intentional durable progress",
+      "source_ranges": {
+        "investigation/actions.rs": [
+          [
+            1,
+            1861
+          ]
+        ]
+      },
+      "disposition": "Whole1861 lines personally read. Skill rank clamp and assistance cap2000; weather geographic and unbounded coordinate branches retained. Live prerequisites verify party co-location, no camp/journey/encounter, predecessor success, current leads and target presence before synchronizing. Generated pattern checks current manifest/output/public clue and daytime/victim bindings. InspectSite vertical snapshots framed fields, typed identities, requested positive duration and safe participant preview; final replan validates commit and exact effect members/minutes/resolution before time. Per-member time clipping deliberately preserves exposure/death and writes interrupted attempt with no resolution; errors after writes require actual reducer transaction semantics, no unsupported partial-commit allegation. Completed/interrupted history shapes intentionally differ, malformed history breaks bounded streak; contiguous cursor decreases safely and at most currentversion steps. Follow all actual route_admission/result_provenance/time producers in next roles, do not transfer coverage from Root forageF44. Root04F026 duration and M95 lexical forage are related separate operations, not aliases of this body."
+    },
+    {
+      "contract": "Custody and capability version saturation reach actual mutation and replay boundaries",
+      "source_ranges": {
+        "investigation/actions.rs": [
+          [
+            797,
+            921
+          ],
+          [
+            1113,
+            1147
+          ],
+          [
+            1262,
+            1303
+          ],
+          [
+            1480,
+            1568
+          ],
+          [
+            1724,
+            1861
+          ]
+        ]
+      },
+      "disposition": "New actual support for earlier SEGOVB-04-CUSTODY-VERSION-TERMINAL-CANDIDATE-001: validate_pickup_custody and stale reissue compute current.version.saturating_add(1), pass version to actual record_asset_retrieved/subject_rescued recipients, still pending those full producer bodies. Separate capability terminal contract: reset/reissue/completed/interrupted all saturating_add1; attempt_id is action+actor+expectedversion and replay returns Ok before lookup. At represented capability.versionMAX, a completed failure or interruption records MAX attempt while retaining versionMAX; the next same request returns replayOk and cannot advance that capability, even though seed/progress may have changed. Reset or stale reissue atMAX can likewise change state without changing optimistic version, reissue outcome IDs collide on same version. These are source-backed terminal API counterexamples, no billions-of-actions/current database witness. Need checked revision transition/rejection policy across attempt/reissue/reset/custody owners; acceptance ensures no successful semantic mutation with reused version and replay remains intentional for an already committed request. Keep M44 custody identity dependency distinct from this terminal arithmetic."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-DEVELOPMENT-DESCENDANT-OBSERVER-CANDIDATE-001",
+      "kind": "source-backed development read/write disagreement",
+      "ordinary_runtime_witness": false,
+      "acceptance": "Unify eligibility reader and mutation observer date with explicit shared-scenario policy; preserve nonexclusive development access."
+    },
+    {
+      "id": "SEGOVB-04-CAPABILITY-VERSION-TERMINAL-CANDIDATE-001",
+      "kind": "represented terminal API counterexample",
+      "ordinary_runtime_witness": false,
+      "related": [
+        "SEGOVB-04-CUSTODY-VERSION-TERMINAL-CANDIDATE-001",
+        "local774:M44 shared identity dependency, not exact alias"
+      ],
+      "acceptance": "Reject exhausted revision before mutation or adopt explicit terminal policy across reissue/reset/attempt and replay IDs."
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-stdb-module/src/investigation/actions/result_provenance.rs"
+}

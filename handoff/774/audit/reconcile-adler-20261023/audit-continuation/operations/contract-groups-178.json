@@ -1,0 +1,98 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-178",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/preparation_authority.rs",
+      "sha256": "4f06d127e8d7d358ded01b2d1b7eba9116644b53146a476dd780e98344689613",
+      "actual_EOF": 635,
+      "actual_compared_ranges": [
+        [
+          1,
+          635
+        ]
+      ],
+      "method": "Whole P16 literal body personally read in two complete blocks plus prior fresh loader337-438; actual complete PR textual comparison empty, semantic counterpart examined rather than hash-only credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/preparation_authority.rs",
+      "sha256": "4f06d127e8d7d358ded01b2d1b7eba9116644b53146a476dd780e98344689613",
+      "actual_EOF": 635,
+      "actual_compared_ranges": [
+        [
+          1,
+          635
+        ]
+      ],
+      "method": "Whole P16 literal body personally read in two complete blocks plus prior fresh loader337-438; actual complete PR textual comparison empty, semantic counterpart examined rather than hash-only credit."
+    }
+  ],
+  "dependency_reads": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/material.rs",
+      "sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+      "ranges": [
+        [
+          1,
+          80
+        ],
+        [
+          265,
+          302
+        ]
+      ],
+      "coverage": "Fresh critical conversion/admission owner only, no new whole role credit"
+    }
+  ],
+  "groups": [
+    {
+      "id": "Material snapshot and conservation receipt",
+      "locations": "preparation_authority168-330",
+      "trace": "Mass uses checked Milligrams and nonempty MaterialMeasure. Medicinal potency uses canonical microunits checkedconversion with zeroomitted. Contaminants convert bounded concentration times finite admitted mass using raw roundedu64 cast, newly qualified overflow record. Identity admits nonzero actual lot/object and checked custody. Raw/Cut/Ground only preparation states. Receipt consumes wholeportion1/1 and requires no remainder, preserves sameidentity/measure/private truth, checked revision+1 and exactconservation policy. Thus generation/revision exhaust rejects during preflight before wait, strengthening prior176 note. This snapshot does not include all retained nutrition/value/flavor/provenance shape; existing localM29 whole food graph remains wider.",
+      "disposition": "One represented source conversion strengthening; no claimed ordinary material corruption. Keep canonical receipt semantics and privacy. Whole Core receipt implementation is supplied prior evidence, not personally reaudited by merely reading calls.",
+      "dependencies": [
+        "SEGOVB-04-MATERIAL-CONTAMINANT-NARROW-001",
+        "local774:M29",
+        "Core material receipt and native food associated provenance"
+      ],
+      "acceptance": "All successful native conversions retain units, finite/positive requirements and capacity before receipt construction; checked receipt then conserves precisely those admitted inputs."
+    },
+    {
+      "id": "Immutable request and current authority comparison",
+      "locations": "preparation_authority1-166,337-635",
+      "trace": "Request lengthframes variable scope/place/custody and fixed coordinates. Lottruth comparison includes full ingredient ID vector and full bitwise quantity iterator lengths plus every scalar, quality and timestamp; no zip-truncation in that equality. Materialsource digest sorts medicinal observations; current digest includes time-evaluated contamination separately. Loader binds actual lotrevision!=0/expected, correspondingrow, stableobject and current actor custody, excludes fireplaceroot and permits only legal preparationtransition. Knife/Bludgeon skill owns actualduration and requiredtools. Planner uses checked nonzero identities, canonical coordinates, positiveduration and snapshot/provenance from same authority. Some booleans true because actual prior loader discharged conditions; not automatically forged unchecked externalinput. authority_digest_parts599 maps None terminal toMAX, same bytes asSomeMAX: actual semantic distinction merits hash authority qualification, but actual acceptedplan/effect comparison and terminalMAX end-to-end not yet closed, so no proven auth bypass/new finding asserted. IngredientID/quantity separate frames have no collection count tag; actual membership/shape constraints remain needsevidence, no claimed collision from title/path alone.",
+      "disposition": "No new exact replay forgery or arithmetic failure beyond conversion record. Preserve explicit Option terminal state and whole material/source association during eventual canonical API choice.",
+      "dependencies": [
+        "Core preparation plan/commit comparison and terminal policy",
+        "local774:M29",
+        "Native time and disease boundary ownership"
+      ],
+      "acceptance": "Request and authority encoding should distinguish semantically accepted states where consumer depends on distinction, with exact stable occurrence coordinates; do not require undocumented extra hash changes without source contract proof. Preserve trueZERO, actualMAX and None terminal distinctions."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-MATERIAL-CONTAMINANT-NARROW-001",
+      "kind": "Representable native material conversion strengthening",
+      "source_variants": [
+        "physical-p16",
+        "pr-working"
+      ],
+      "locations": "preparation_authority189-193,216-253; fresh Core material22-45,274-291",
+      "case": "Represented finite positive food lot mass1e9kg is admitted by Milligrams::try_from_kilograms to1e15mg and nonempty MaterialMeasure. Concentration1e9 is actual MAX_CONTAMINATION allowed by bounded Core function. Private load227 computes finite f64 approximately1e24, beyondu64MAX; round asu64 at228 silently saturates toMAX, then NonZeroU64 treats it as valid load. Snapshot/whole preparation receipt preserve that truncated value rather than reject conversion. Source-only represented native material counterexample; no ordinary food batch, full accepted authored product or executed DB failure claimed.",
+      "operation": "Narrowing before checked aggregate admission silently changes a material magnitude that the new canonical retained receipt then treats as authority.",
+      "connected_repair": "Use checked canonical contaminant-load conversion with explicit units and representability before constructing private truth; reject overflow rather than cap at machineMAX. Carry actual measurement/material owners through food native decode, avoiding duplicate float owner. Joins local774:M29/material propagation graph; numerical repair identity needs coordinator reconciliation.",
+      "dependencies": [
+        "local774:M29",
+        "Canonical material contaminant measure owner and native admission",
+        "Core bounded microbial concentration"
+      ],
+      "acceptance": "Accepted private material truth preserves exact representable contaminant magnitude under explicit rounding or rejects before plan/commit. Successful receipt cannot certify a silently machine-saturated source quantity. Preserve no private pathogen identity leakage.",
+      "unique_count": "Not assigned; root reconciliation required."
+    }
+  ],
+  "status": "Two source roles compared; whole lens and connected dependencies remain incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/food/projections.rs"
+}

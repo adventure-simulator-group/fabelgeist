@@ -1,0 +1,27 @@
+{
+  "id": "ROOT-ADM03-PARALLEL-154",
+  "at": "2026-10-23T01:12:46.255797+00:00",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/planar.rs",
+      "sha256": "443ff701ad79a52b06623fc199de7ea1df011b7527ed2ef8056057b9b8fac059",
+      "actual_compared_ranges": [
+        [
+          3,
+          66
+        ]
+      ],
+      "source_evidence": "Fresh literalexact clip/subtract/signed_area3-66;67blank/68nextfunctiondoccontextonly,69+excluded."
+    }
+  ],
+  "groups": {
+    "native-kernel-inputs": "DVec2/f64 polygon vectors and callerFn side are native numericalkernel inputs, not sealed scene/domaincoordinates. Upstream GroundTriangle/convexoutline must establishfinite geometry/winding and finalreceiver admission; helper signature alone doesnotprove it. No new portablef64wrapper mandated justbecausearithmetic usesnative double precision.",
+    "local-output-and-absence": "clip handlesemptyinput returnempty beforelast access, otherwise localVec output no sharedmutation; discardedoriginal geometry and successful emptyintersection have explicit meaning atcaller. subtract cloneslocalinside andintersects completeoutline beforepartition, preservingoriginaltopology forunrelated/zero-area intersections. It mayreturn rawcomputedintersectionpoints, not an admitted support surface. signed_area empty0 is mathematical emptyarea, not observation absence.",
+    "range-and-boundary": "Loopindexing actualcorners range, cyclicnext moduloonlyexecuted whenlen>0. Integernativeindices/len and numericalf64 results are legitimatekernelnative operations; applicationframes/outlinevalidity mustsurvivefirst-partycalls.3-66only, no distancemeasurementhelperread or newotherlenscredit."
+  },
+  "findings": [],
+  "status": "exact_new_native_planar_admission_role_compared_with_caller_preconditions",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

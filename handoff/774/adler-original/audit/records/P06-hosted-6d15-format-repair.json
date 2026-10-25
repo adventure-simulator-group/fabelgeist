@@ -1,0 +1,20 @@
+{
+  "recorded_at": "2026-10-21T00:07:51.528355+00:00",
+  "head": "6d15fdb8c34a1304550dec5a63043061665db005",
+  "run": 39519146947,
+  "job": 118958445002,
+  "evidence": "P06-hosted-6d15-format.log",
+  "action": "Applied exactly the two actual hosted formatting edits; no local formatter, Rust parser or runtime check.",
+  "files": [
+    {
+      "file": "crates/adventuresim-tactical-core/src/scene_ground.rs",
+      "before_sha256": "4a0029fe42d67f827c538c0391a7ce44f91aa82ebcda3154becb51852e4e426a",
+      "after_sha256": "326752c9f0ad95c8f898c8ad0d106eae2395e3a89ec135922c6fd7da8d860622"
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/scene_input.rs",
+      "before_sha256": "fb5dd37ceaef299bd79c764171badab26cb554fa8be4f12a892a752f183e475d",
+      "after_sha256": "bde515fc144669a9902a54886ded6185c84fca86313d86ca7c44ba0626e8ae12"
+    }
+  ]
+}

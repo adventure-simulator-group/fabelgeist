@@ -1,0 +1,58 @@
+{
+  "at": "2026-10-23T22:41:11.600082+00:00",
+  "id": "pc119-garment-native-layout-receivers-001",
+  "reads": {
+    "crates/fabelgeist-armor/src/gpu/garment_torso.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/fabelgeist-armor/src/gpu/garment.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/device_garment_skirt/stations.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/device_piece.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/device_fit.rs": [
+      [
+        174,
+        227
+      ]
+    ],
+    "crates/fabelgeist-armor/src/gpu/part.rs": [
+      [
+        235,
+        286
+      ]
+    ]
+  },
+  "contract": "Actual torso carrier topology/armhole indices and native design-slot projections; optional/failed candidate state through DeviceRecording staging and final acceptance",
+  "coverage_limit": "Four full new bodies plus exact receiver rereads. Missing dependent-failure witness remains an unresolved question; no validation or lens clearance.",
+  "disposition": "Actual canonical torso_topology emits front/back panels, then shoulder bands then flank patches in exactorder used by armhole/hem. Native coords encode actual tag/front/row/column beforeupload, so tagged float4 is actualshaderABI, not application gameplayfloats requiring arbitrary perword classes. Torso phase0panels/phase1seams realdependency notindependentdispatch. record_garment_torso and tube validate design beforePartRecipe; canonicalwallthickness stillprojects into coord_shell retained f32 before actualnativepacking (extend M19, not mark nativeboundaryearly). RIG-PP-003 exactauthoredFAULD_DROP/TASSET_RISE constants\u2192lateSignedLength admission reestablished; preserve offset scope and signedscale API, nativeWord::F extraction legitimate. Native DRAPE_STATIONS EnvelopePoint.present prevents unsupportedskinpayload; total0 or nofinitecandidate raisesstatus; fixedsampleties sourcefirst preserve. DeviceRecording checks/frame/part readers onlystage actualretained fields. Intermediate torso.part.status isnotexplicitlypreserved by tube/skirt orchestration, but failures mayalsoinvalidate downstreamgeometry/status: candidate remains pending until concrete accepted-input/finalacceptance source proof. Do not report failure suppression merely missingstatusforwarding. actualtopology constants and ringbuilder make nonemptyring normal; no currentemptyring fault. M06 structured causes must preserve shape/context rather than collapsingallGenerateError::InvalidSurface.",
+  "finding_traces": {
+    "M19": {
+      "source": [
+        "gpu/garment.rs:196-217,244-257",
+        "gpu/garment_torso.rs:158-169"
+      ],
+      "trace": "Canonical wall_thickness\u2192metres passed to internal coord_shell and retained native recipe before actualuniformpacking; carry physicalowner through connected recipe chart/coord construction, share #780 owner."
+    }
+  },
+  "frontier": {
+    "file": "crates/adventuresim-character-creator/src/device_garment_tassets.rs",
+    "work": "PC119 full actual geometry/topology/stations+acceptance recipient read. Next tasset/wrapped/gorget connected stages and unresolved intermediate-failure witness, then entire pending original/overlays; all13 incomplete, no plan/repairs/checks."
+  }
+}

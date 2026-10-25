@@ -1,0 +1,101 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-458",
+  "at": "2026-10-25T15:41:30.719242+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 861,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/incapacitation_tests.rs",
+      "sha256": "82fefbb149fc497e21bc9a6807ba2c59a7ede49ce15681838342a37fdd4a6527",
+      "actual_EOF": 86,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/incapacitation_tests.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/autoresolve/incapacitation_tests.rs",
+        "owner": "camera",
+        "sha256": "82fefbb149fc497e21bc9a6807ba2c59a7ede49ce15681838342a37fdd4a6527",
+        "base_sha256": "75eb7901590a477c16abded96295c26602b15bc971ae29147f51a36efa58eaec",
+        "state": "modified",
+        "bytes": 2688,
+        "audit_owner": "camera",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                86
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-CLOCK-001",
+              "CAM-PROP-MELEE-001",
+              "CAM-PROP-DEFENSE-001",
+              "CAM-PROP-EVIDENCE-001"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 121,
+            "read_ranges": [
+              [
+                1,
+                86
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-AUTORESOLVE-001",
+              "CAM-OWN-CHARACTER-007",
+              "CAM-OWN-CONDITION-011"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/autoresolve/incapacitation_tests.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "All three incapacitation/equivalent performance/movement/encumbrance source fixtures and closures consumed. No handwritten trait/codec or new types; no fixture execution."
+    }
+  ],
+  "groups": [
+    {
+      "disposition": "NO_HANDWRITTEN_TRAIT_IN_FIXTURE_SOURCE",
+      "contracts": "Fixture bodies only source evidence; no gameplay or other-lens verdict credited."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 862,
+    "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/joint_melee.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

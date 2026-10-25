@@ -1,0 +1,23 @@
+{
+  "id": "RIG-CONT-OWNER-DELTA-PREPARATION-CORRECTION-048",
+  "corrects": "continuation/rig/owner-delta-preparation-047.json::prior_contract_candidate_examples/0",
+  "error": "047 incorrectly treated the pending supplier range ending72 as the source EOF. The resulting claim that prior owner range1-90 overruns the source is false.",
+  "source_ids": [
+    "pr-working:crates/adventuresim-tactical-core/src/doors.rs",
+    "physical-p16:crates/adventuresim-tactical-core/src/doors.rs"
+  ],
+  "source_sha256": "daf461a37ebe8f9ef72ac67aa98842c02bd8239ca43087f5c4d285f70df1ca34",
+  "actual_EOF": 132,
+  "source_roles": "can_grab16-46, collision hooks through90, original fixtures91-132",
+  "prior_owner_proof": {
+    "record": "records/final-acceptance-20261021/wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+    "row": 80,
+    "read_ranges": [[1, 90]],
+    "contract": "RIG-OWNER-CLIENT-EQUIPMENT-026",
+    "qualification": "Valid bounded prior range. It does not cover fixtures91-132 or establish whole-file/counterpart semantic equivalence."
+  },
+  "evidence_authority": "Root independently freshly read/hash-verified both exact132-line sources and supplied this correction; this worker claims no independent fresh doors source read.",
+  "source_or_frozen_receipt_edits": 0,
+  "owner_lens_status": "not opened",
+  "owner_credit": "none"
+}

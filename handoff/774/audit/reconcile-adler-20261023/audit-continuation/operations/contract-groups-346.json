@@ -1,0 +1,108 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-346",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/disease.rs",
+      "sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+      "actual_EOF": 3842,
+      "actual_compared_ranges": [
+        [
+          1,
+          3842
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/disease/entropy.rs",
+      "sha256": "10eb46750c66da9cd03f116270ab91b4a1acad817e28333ac2fca342773e3bd8",
+      "actual_EOF": 26,
+      "actual_compared_ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Disease acquisition timeline ordering, bounded work, publication and clock endpoints",
+      "source_ranges": {
+        "disease.rs": [
+          [
+            1,
+            3842
+          ]
+        ],
+        "disease/entropy.rs": [
+          [
+            1,
+            26
+          ]
+        ]
+      },
+      "disposition": "Whole3842 line module and26line entropy personally read in twelve chunks, including all fixtures without execution. Timeline clones initial state, accumulates proposals locally, checks work after increments, sorts simultaneous candidates by character/disease/minute/id, blocks duplicate active disease, and permits new contact sources only next minute. checked_add_minutes and next>minute terminate at MAX. Environmental sources skip known unresolved spans to resolution; constant12-disease catalog bounds incubation/rise/peak/recovery sums far below u64 limits. Stable per-minute seeds preserve split semantics under the same exact IDs/history. No ordinary-sized timeline defect established. Dependencies: source-vector authority, target/immunity scalar admission, initial episode/history uniqueness, callback purity and server transaction publication are separate, not proved by this function."
+    },
+    {
+      "contract": "Terminal represented counters and empty presence intervals need explicit policy",
+      "source_ranges": {
+        "disease.rs": [
+          [
+            482,
+            492
+          ],
+          [
+            600,
+            606
+          ],
+          [
+            650,
+            658
+          ],
+          [
+            733,
+            737
+          ],
+          [
+            772,
+            776
+          ],
+          [
+            795,
+            799
+          ]
+        ]
+      },
+      "disposition": "Bounded API contract candidates, not ordinary gameplay claims: add_bounded_work(work=MAX,amount=1,max=MAX) returns Ok with unchanged MAX; timeline saturating increments likewise cannot prove finite quota at max_work=MAX. Actual server limit/caller not yet traced. add_bounded_work deliberately updates passed counter before returning Err; actual callers must keep it local or explicitly define consumption-on-rejection. elapsed_presence_window from=to=joint_now=MAX, span_start<=MAX,endNone yields Some(MAX,MAX) because saturated from+1; resolve timeline separately rejects to<=from, so no actual extra exposure asserted. Explicit terminal/empty policy must be decided at actual receiver; no duplicate root terminal finding inferred."
+    },
+    {
+      "contract": "Disease curves, combination and regional projection retain authored bounds",
+      "source_ranges": {
+        "disease.rs": [
+          [
+            961,
+            1280
+          ],
+          [
+            1281,
+            1770
+          ],
+          [
+            1771,
+            2410
+          ]
+        ]
+      },
+      "disposition": "Fresh full source includes all12 authored definitions, fantastical meter curves, per-disease static region weights and every fixture. All static phase durations positive and small, authored meter curves ordered. evaluate clamps age using elapsed_since, bounded severity for finite immunity, literal symptom arrays nonempty. Symptom threshold slicing therefore fits current catalog. first_combined_terminal includes structural slope changes and critical event times, dedups/sorts, uses midpoint bisection; interval endpoint conditions explicit. private meters use bounded addition/clamps, region weights positive and normalized, observed symptoms dedup and deterministically seeded. Public raw float parameters may carry NaN/extreme or modified DiseaseDefinition; admission/numerical policy remains inherited03 evidence plus caller dependency, not claimed safe from mere clamp use. No huge episode-vector overflow claim requiring unrepresentable allocation. Preserve hidden/private disease identity and intentionally lossy public humour vocabulary."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-core/src/equipment_assets.rs"
+}

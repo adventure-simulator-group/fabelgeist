@@ -1,0 +1,194 @@
+{
+  "id": "RIG-ADMISSION03-SOURCE-QUALIFICATION-117",
+  "at": "2026-10-22T18:23:04.233408+00:00",
+  "lens": "audit-admission-contracts",
+  "qualifies": "Append-only exact REG139-145 material normalization; original ordered registry untouched",
+  "entries": [
+    {
+      "registration": "RIG-ADMISSION03-REG-139",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/admission.rs",
+      "snapshot": "pr-working",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\city_layout\\grounding\\admission.rs",
+      "sha256": "11bb44acefc12ab10604d09e33f8b1d26fc3958fa916255972ec6ea63e1f6d2f",
+      "actual_eof": 58,
+      "prospective_registered_ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "actual_material_ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "context_or_blank_no_material_credit": [
+        [
+          46,
+          47
+        ]
+      ],
+      "proof": "rig/admission03/root-support/additional-contracts.jsonl#RIG-ROOT-ADM03-ADDITIONAL-001",
+      "qualification": "Prism predicate finite vertices AND sequential sum; paired XZ, ordered heights and at least one strictly positive height. Degenerate/reversed plan allowed; normal arithmetic overflow does not prove full mesh Ok. solid_faces48+ excluded.",
+      "exclusions": "solid_faces48+ and unrelated graph not yet read/credited."
+    },
+    {
+      "registration": "RIG-ADMISSION03-REG-140",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/surface.rs",
+      "snapshot": "pr-working",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-client\\src\\presentation\\regional_map\\surface.rs",
+      "sha256": "bccc776702dc9fffcbe8d608fa0de1f2ab28f6fc601d4186762fa8641fd87022",
+      "actual_eof": 231,
+      "prospective_registered_ranges": [
+        [
+          16,
+          17
+        ]
+      ],
+      "actual_material_ranges": [
+        [
+          16,
+          17
+        ]
+      ],
+      "context_or_blank_no_material_credit": [],
+      "proof": "rig/admission03/root-support/additional-contracts.jsonl#RIG-ROOT-ADM03-ADDITIONAL-002",
+      "qualification": "Only exact fixed positive standoff2 and clipmargin4 constants. Original Root194 requested155-240 qualifies to actual155-231, zero nonexistent232-240 credit. No other surface1-154 credit.",
+      "exclusions": "No surfacepresent1–154 bodyexcept16–17; requested155–240qualifiedtoactualEOF231, no non-existent232–240credit."
+    },
+    {
+      "registration": "RIG-ADMISSION03-REG-141",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/volumetric.rs",
+      "snapshot": "pr-working",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-client\\src\\presentation\\volumetric.rs",
+      "sha256": "91cc6773da28100f122fbaa19b7bbc9a258f808a68f09e61f199d880652266b0",
+      "actual_eof": 280,
+      "prospective_registered_ranges": [
+        [
+          1,
+          207
+        ]
+      ],
+      "actual_material_ranges": [
+        [
+          1,
+          206
+        ]
+      ],
+      "context_or_blank_no_material_credit": [
+        [
+          207,
+          207
+        ]
+      ],
+      "proof": "rig/admission03/root-support/additional-contracts.jsonl#RIG-ROOT-ADM03-ADDITIONAL-003",
+      "qualification": "Actual client SurfaceNetsGrid/extract: count>=2, finite strictly ordered bounds, checked product and finite field values. Zero-radius raw rock min=-0/max0 fails before field and reaches caller expect; fixed positive generator distinct. Tests208+ excluded; Core volumetric is different source.",
+      "exclusions": "Tests208+ andunrelatedCorevolumetric/foreignpackage bodies excluded; originalRoot/Rigroles unchanged."
+    },
+    {
+      "registration": "RIG-ADMISSION03-REG-142",
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/config.rs",
+      "snapshot": "pr-working",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-strategic-sim\\src\\live_core\\config.rs",
+      "sha256": "7e192ef20631845534afb5f4060d45c4253271682e203f89ae3c83dec1b5687e",
+      "actual_eof": 171,
+      "prospective_registered_ranges": [
+        [
+          1,
+          171
+        ]
+      ],
+      "actual_material_ranges": [
+        [
+          1,
+          171
+        ]
+      ],
+      "context_or_blank_no_material_credit": [],
+      "proof": "rig/admission03/camera-support/additional-contracts.jsonl#RIG-CAMERA-ADM03-ADDITIONAL-001",
+      "qualification": "Public raw config/Serde not accepted seal. Actual validate bounds host/database/population/cycles/duration/party and product before run indexing/division. Exact PR actual source; no P16 or whole package credit.",
+      "exclusions": "No tests or bodies after171; no whole simulator package or P16 counterpart credit."
+    },
+    {
+      "registration": "RIG-ADMISSION03-REG-143",
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+      "snapshot": "pr-working",
+      "path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\templates\\settlement\\character_skills.rs",
+      "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+      "actual_eof": 3812,
+      "prospective_registered_ranges": [
+        [
+          2287,
+          2355
+        ]
+      ],
+      "actual_material_ranges": [
+        [
+          2287,
+          2354
+        ]
+      ],
+      "context_or_blank_no_material_credit": [
+        [
+          2355,
+          2355
+        ]
+      ],
+      "proof": "rig/admission03/dependency-qualification-114.json;dependency-qualification-115.json",
+      "qualification": "Actual schedule_special_row invokes reward_delta unconditionally for supplied profession. Whole source excluded outside registered ranges; no source/test credit from navigation.",
+      "exclusions": "No other unrelated template function or tests/JS; no source credit for symbolnavigation at1240/2306."
+    },
+    {
+      "registration": "RIG-ADMISSION03-REG-144",
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+      "snapshot": "pr-working",
+      "path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\templates\\settlement\\character_skills.rs",
+      "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+      "actual_eof": 3812,
+      "prospective_registered_ranges": [
+        [
+          1235,
+          1247
+        ]
+      ],
+      "actual_material_ranges": [
+        [
+          1235,
+          1247
+        ]
+      ],
+      "context_or_blank_no_material_credit": [],
+      "proof": "rig/admission03/dependency-qualification-114.json;dependency-qualification-115.json",
+      "qualification": "Actual choices filter practice_allowed, selected ID restricted to choices; apprenticeship early return0. Native actual allowed cadence>0 predicate plus Camera151 paired normal build closes normal threshold route; public zip/raw API gap remains.",
+      "exclusions": "All other unscoped character_skills HTML factory/template/tests excluded."
+    },
+    {
+      "registration": "RIG-ADMISSION03-REG-145",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+      "snapshot": "pr-working",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\disease\\fixture_administrations.rs",
+      "sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+      "actual_eof": 50,
+      "prospective_registered_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "actual_material_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "context_or_blank_no_material_credit": [],
+      "proof": "rig/admission03/native20-support/clinical-admission-001.json#/exact_join/additional_actual_source",
+      "qualification": "Exact fixture writer checks keyversion/variation; checked750/STANDARD1000/checked1250 dose.get writes actual profile/currentversions. Actual main DAY1440 caller; arbitrary raw day_minutes multiply limitation distinct. No reset/seed execution or other fixture graph.",
+      "exclusions": "Otherdevfixture/authoritytest graphs and allunrelatedsource excluded."
+    }
+  ],
+  "limits": "Hashes/EOF freshly verified as metadata only. All actual source proofs already recorded; no source re-analysis or automatic global source/owner/producer/later-lens credit. Root reconciles global scope and bounded prior-lens qualification before next gate. Original802, Root112, Camera162 completion pins immutable; F086 withdrawal retained.",
+  "source_edits": 0,
+  "project_execution": 0
+}

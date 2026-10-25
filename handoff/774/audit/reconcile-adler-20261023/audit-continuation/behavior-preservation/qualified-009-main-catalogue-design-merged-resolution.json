@@ -1,0 +1,32 @@
+{
+  "id": "CONT08-QUAL-009",
+  "lens": "08 behavior-preservation",
+  "source": {
+    "scope_index": 819,
+    "source_id": "pr-working:crates/adventuresim-character-creator/src/main.rs",
+    "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+    "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/main.rs",
+    "before_sha256": "31040d06aaf28711632268409163f463d038c1dbdb915c8289d1dcbf704810c0",
+    "after_sha256": "41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9",
+    "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0819-base-31040d06aaf28711632268409163f463d038c1dbdb915c8289d1dcbf704810c0",
+    "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9",
+    "diff": "source-evidence/pr-0819.diff",
+    "diff_sha256": "104d83a0cee57fb5eb99f6b615fad948c46d3403ac1a529e90f0c40ea06c4f19"
+  },
+  "classification": "frozen-PR-catalogue-design-receiver-migration-resolved-in-frozen-merged",
+  "actual_frozen_trace": [
+    "819 main199\u2013207: catalog.items.iter supplies &ItemDefinition, catalog.design(item) at204.",
+    "764 ItemCatalog14 items Vec<ItemDefinition>, design81 takes CatalogItem; no implicit reference conversion asserted. Source signature mismatch only, no compiler run."
+  ],
+  "merged": {
+    "before": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "after": "13fc9dcc71ab879de364117e5462310673e43210",
+    "sha256": "076c2d6f80214f1546520c29f4a7d418a7e2d53f55708d2b7081841273769a5f",
+    "object": "source-evidence/merged-main-076c2d6f80214f1546520c29f4a7d418a7e2d53f55708d2b7081841273769a5f",
+    "read": "Entire 13.diff plus actual merged190\u2013214, against own214 full frozenbefore body.",
+    "actual_resolution": "204 catalog.design(catalog.item(&item.id)?) resolves canonical firstmatching record, same old rawID entrypoint rather than invalid rawreference. Original firstduplicate-ID semantics retained, no lastwins claim."
+  },
+  "disposition": "Do not carry frozenPR source mismatch as currentmerged defect; no newunique count or compiler/wholebuild clearance. Exact inherited alias requested from coordinator, unresolvedalias doesnotkeep corrected mergedpath pending.",
+  "acceptance": "Retain canonical admitted CatalogItem at receiver and preserved recipe/default/placement serialization; no source repair/check/test executed."
+}

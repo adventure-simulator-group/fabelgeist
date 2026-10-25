@@ -1,0 +1,42 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-008",
+  "at": "2026-10-22T19:16:52.574540+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs",
+      "sha256": "64c0cb1ac75e094cf6521bf61ea6ad9eef9aa1a1ab63ca34ae3d395d3a66969a",
+      "actual_read_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "registration_id": "RIG-INITIAL06-REG-003",
+      "exclusions": "No tests, unrelated GPU label owners or foreign SDK graph; exact direct definition only"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/mod.rs",
+      "sha256": "7a84c8ef7c760fd6292dac52b88418a52a7e4831a5a3579e05d9fd19e4e856ad",
+      "actual_read_ranges": [
+        [
+          7,
+          13
+        ]
+      ],
+      "registration_id": "RIG-INITIAL06-REG-004",
+      "exclusions": "Other module declarations/reexports excluded; no texture/color implementation graph"
+    }
+  ],
+  "groups": {
+    "buffer-label": "Fresh28AFTERprospectiveRigREG003. Exactnativebufferdiagnostic Stringmeaning permitsanyvalidownedUTF8 spelling; no nonempty/ASCII/key/identifier uniqueness orNULpolicy promisedbyowner. From<String> moveswholevalidString, From<&str> allocatesownedcopy, Clonecopieswholevalidvalue,Eqcomparessameoriginalspelling; outboundborrow<&BufferLabel>\u2192&str exposesnomutablebacking andlifetimeboundensuresnotdangling. No arithmetic/count/narrowing/normalization/uncheckedrawStringconstruction/index/mutation/retryclock. Allocationfailure nottypedpartiallycommittedgameoperation. Existingcompile_faildoctest issourceevidenceonly, no newtest/run. Thisdiagnosticlabel isnotshaderparameterlookupkey/rigjoint/gameID, no requirearbitrarynonemptyadmissionorcollapseotherconcepts. InfallibleFromappropriatetoall-spellingdiagnosticrole.",
+    "gpu-math-reexports": "Fresh exact7-13AFTERprospectiveRigREG004. pubuse canonicalfabelgeist_math::{math,matrix,transform,vector} thenreexportsameitems; no newtype/valueconstructor/codec/mutator/kernel/retainedcopy/APIcompatibilityshim shownhere. Thus nocreatedcompetingTransformdefinitionoruncheckedacceptedgamevalue inthisbindingrole. pubusegpu::* modulecontentsunseenandoutsideexact7-13role, notcoveredbydeclaration. First6lines othermodulesexcluded. MathTransformactualnegativecandidate definitionalreadyRoot002/G088, do not importitswholebody/towardMHRuniformquaternionmeaningmerelyfromexport."
+  },
+  "findings": [],
+  "disposition": "Exactdiagnosticlabel/bindingoperationspreserveactualrole; no breakingoperation/extraadmissionpolicy. No wholeGPU/sourceprimaryusereditscredit.",
+  "source_edits": 0,
+  "project_execution": 0,
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "other_lens_credit": false
+}

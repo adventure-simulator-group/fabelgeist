@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1226",
+  "at": "2026-10-25T18:11:19.826933+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1297,
+  "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/travel.rs",
+  "sha256": "0eaf9c6a3df7a4747e94074b13f2712ff14106e8e8dc1570937a613eb64ae881",
+  "actual_compared_ranges": [
+    [
+      1,
+      340
+    ]
+  ],
+  "existing_derives": [
+    "CampContinuationOutcome Clone Copy Debug Eq PartialEq"
+  ],
+  "trait_inventory": [],
+  "analysis": "CampContinuationOutcome already derives Clone Copy Debug Eq PartialEq. Typed continuation classifier recognizes selected reducer code, returns original other error unchanged; native policy not From. Only inherent LiveRunner current contributions/matchup/cohort/fingerprint and journey provisioning setup. No handwritten trait/custom codec. Contextual PublicPartyCombatant construction checks current life/readiness, selected inventory/quote/cohort identity; no derive replacement.",
+  "first_unfinished": {
+    "scope_index": 1297,
+    "line": 341
+  },
+  "execution": "none"
+}

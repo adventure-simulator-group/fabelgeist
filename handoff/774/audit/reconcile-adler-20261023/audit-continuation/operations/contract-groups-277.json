@@ -1,0 +1,94 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-277",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/system_param.rs",
+      "sha256": "a568d6d6d411e2832b3efb91dfc919770712da09eae38e4a9dff53ffd8d72fea",
+      "actual_EOF": 1293,
+      "actual_compared_ranges": [
+        [
+          1,
+          1293
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Native closest queries update one retained best value and depend on finite native outputs",
+      "source_ranges": {
+        "system_param.rs": [
+          [
+            1,
+            237
+          ],
+          [
+            398,
+            599
+          ],
+          [
+            820,
+            931
+          ]
+        ]
+      },
+      "disposition": "Complete1293-line pinned body personally read, native examples included and not run. Closest ray/shape queries initialize best distance to supplied max, update only on strict smaller hit distance and share best across all collider trees. A hit exactly at max is not selected; actual first-party endpoint inclusion policy remains dependency before an off-by-one finding. NaN returned distance fails strict comparison and may returnNone; closest point computes squared native displacement then compares toInfinity, so overflowed finite displacement could also be discarded. No actual admitted first-party giant geometry or current native NaN hit supplied, therefore no ordinary no-hit defect promoted. Shape output points/normals are transformed and point2 adds direction*time after native cast; finite native leaves do not alone guarantee computed finite result. Acceptance belongs to canonical first-party cast request/output and actual current query producer, preserving native precision and initial penetration applicability."
+    },
+    {
+      "contract": "Bounded output count is separate from traversal cancellation and query failure semantics",
+      "source_ranges": {
+        "system_param.rs": [
+          [
+            238,
+            397
+          ],
+          [
+            600,
+            819
+          ],
+          [
+            932,
+            1263
+          ]
+        ]
+      },
+      "disposition": "Multi-hit wrappers test hits.len()<max_hitsu32 as usize before push, so retained output does not exceed cap, including zero. They do not sort, and native docs explicitly permit omitted nearer hits. Callbacks return bool to one tree traversal, while outer iter_trees().for_each always proceeds to later trees; a callback false does not itself establish global cancellation. No actual first-party callback relying on once-only global stop or multiple-tree witness is established, so this stays a native algorithm contract seam. Missing collider ECS query skips proxy; shape cast unsupported/error becomes no hit, shape intersection nativeErr becomesfalse. This is actual native uncertainty loss and must be distinguished at first-party safety/admission boundary if those unsupported shapes are supported; no unsupported ordinary gameplay shape proven here. AABB intersection does extra tight collider-box test after broadphase; geometric coherence depends on actual collider tree update lifecycle. Proxy unwrap assumes tree-owned proxy IDs valid and framework immutable borrow; no current stale proxy/iteration mutation evidence."
+    },
+    {
+      "contract": "Native ports preserve checked direction but raw origin/config and precision boundaries",
+      "source_ranges": {
+        "system_param.rs": [
+          [
+            176,
+            237
+          ],
+          [
+            350,
+            397
+          ],
+          [
+            507,
+            599
+          ],
+          [
+            740,
+            819
+          ],
+          [
+            1264,
+            1293
+          ]
+        ]
+      },
+      "disposition": "Ray broadphase uses origin.f32 while precise collider query receives active Scalar origin; f64 build could lose range before broadphase. Dir stays native normalized type, with direction.adjust_precision for solver. Broadphase shape AABB narrows through obvhs adapter from packet268/273, and point projections/normal DTOs expose raw mutable native vectors. No bespoke numeric admission occurs in this wrapper; valid first-party position/shape/normal and canonical native-representability policy remains dependency, not blanket approval from the native type names. No persistent tactical state introduced, no source edits/checks/tests/builds or runtime query executed."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "1 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pinned-registry:parry3d-0.27.0/src/math/mod.rs"
+}

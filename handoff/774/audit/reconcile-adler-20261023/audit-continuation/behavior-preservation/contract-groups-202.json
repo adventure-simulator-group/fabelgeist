@@ -1,0 +1,133 @@
+{
+  "id": "CONT08-CONTRACT-202",
+  "at": "2026-10-25T14:21:40.929219+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 785,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/lining.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/garment/lining.rs",
+      "before_sha256": "a2df0c16528d1439dd92a02fa944a31333b02c210ac7d7f0f19cf3ed61255c39",
+      "after_sha256": "693fb7bf790d8bfebd26304241c8dfd0e2b338bc37225a4d0795b0fe754e8b70",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0785-base-a2df0c16528d1439dd92a02fa944a31333b02c210ac7d7f0f19cf3ed61255c39",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/693fb7bf790d8bfebd26304241c8dfd0e2b338bc37225a4d0795b0fe754e8b70",
+      "diff": "source-evidence/pr-0785.diff",
+      "diff_sha256": "a45d2b3a4140f97700245a0075b5eaef0a2879afab17d4ae9cae2d3d591aaf82",
+      "head_body_read_ranges": [
+        [
+          1,
+          227
+        ]
+      ],
+      "facts": [
+        "Full227 and entire actual diff: onlyfixture PackedRigSkin bound1/allslots0 replacesindices, same8vertices/zero weights; lining never consumes skin. Runtime innerfaces only orderedpieces/trianglezip, physicaledge exactbits count/rimoneuse, noface\u2192None preserved.",
+        "Press nearest.05/rimdistance<1e-4/exactdepth>0, standoff and inwardwinding, twoPRESSrounds/eightSPREADprevious-clone/.5nativeaverage and channel<rigid condition unchanged. Existing .12point\u2192-.025press/.05alreadydeep/.6outside/-.2outofreach andno-innerface fixtures readnotrun; invalidface/degenerate normal remains retainedAPI."
+      ],
+      "disposition": "Own08 old/new comparison accounted with concrete lower2179/2332/2336 and frame-kernel receiver; retained API limits explicit.",
+      "acceptance": "Preserve exact packing, first-error, membership and floating operation order plus existing fixture oracles; no tests or checks run."
+    },
+    {
+      "scope_index": 786,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/outfit.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/garment/outfit.rs",
+      "before_sha256": "571784773d4506fa741fed5d4dab85c61bbf9dee836fab1833987b233a4ecdb9",
+      "after_sha256": "571784773d4506fa741fed5d4dab85c61bbf9dee836fab1833987b233a4ecdb9",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0786-base-571784773d4506fa741fed5d4dab85c61bbf9dee836fab1833987b233a4ecdb9",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/571784773d4506fa741fed5d4dab85c61bbf9dee836fab1833987b233a4ecdb9",
+      "diff": "source-evidence/pr-0786.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "facts": [
+        "Full82 and empty actual diff. Outfit replacesinputobstacles with previouslyfinished garments, iterates originalorder, savedwear vs simulationbranch and same previewprefix. Checkpoints appended evenfailed, onlysuccessfulwarnings/garmentprefixretained, firstErrstops; problems prepends error before warnings.",
+        "Savedwear branch has no explicit cancellationcheck here, unlike simulated drape; retained source behavior, worker763 suppresses cancelledpreview/finalpublication. No newlyintroduced silentcancel/data-loss regression asserted; complete savedfit/stages sourcecontracts remain separately read."
+      ],
+      "disposition": "Own08 old/new comparison accounted with concrete lower2179/2332/2336 and frame-kernel receiver; retained API limits explicit.",
+      "acceptance": "Preserve exact packing, first-error, membership and floating operation order plus existing fixture oracles; no tests or checks run."
+    },
+    {
+      "scope_index": 787,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/placement.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/garment/placement.rs",
+      "before_sha256": "45e596ca55969e064f21c58b841d36821c575d9dc3ff7958abb89c2d1b667229",
+      "after_sha256": "7e744958c7df65097784318b313e51c658edae89fde9e0f80ba70ddce4fcaa81",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0787-base-45e596ca55969e064f21c58b841d36821c575d9dc3ff7958abb89c2d1b667229",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/7e744958c7df65097784318b313e51c658edae89fde9e0f80ba70ddce4fcaa81",
+      "diff": "source-evidence/pr-0787.diff",
+      "diff_sha256": "2b102804c5fbc492b025c674f4f81571a5fcef669ae1de8dbd211c00434a4804",
+      "head_body_read_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "facts": [
+        "Full76 and entire actual diff. Private prepare original Fitallocation\u2192pose placement\u2192clearpanels\u2192body\u2192obstaclemesh order. Hip unwrap\u2192typedResult nowstructured error, exact leftthenright names/native samefirstindex. Normal simulate782 calls measured_body780 first requiringbothhiptransforms, so missinghip failure is already caught earlier in ordinary flow; do not invent ordinary newerror path.",
+        "Same floor min/+lateralonlyabs>=.005/averagehipz, no scalingbody, fitted bypasspatterntranslation, collision bodythenobstacles withvertexoffset/faceorder andclearance cm*.01+radius retained. Invalidparallelglobal indexing still sourceconditional; no device execution."
+      ],
+      "disposition": "Own08 old/new comparison accounted with concrete lower2179/2332/2336 and frame-kernel receiver; retained API limits explicit.",
+      "acceptance": "Preserve exact packing, first-error, membership and floating operation order plus existing fixture oracles; no tests or checks run."
+    },
+    {
+      "scope_index": 788,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/settled.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/garment/settled.rs",
+      "before_sha256": "220c79729615b1c64ea18f69f03ca88de45fb64d6adf67eb25c6188542c24d84",
+      "after_sha256": "3dbafb11ea673b81b72c6d8599bf9c1ac4c55b3e456982e39d16d38faef2e42d",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0788-base-220c79729615b1c64ea18f69f03ca88de45fb64d6adf67eb25c6188542c24d84",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/3dbafb11ea673b81b72c6d8599bf9c1ac4c55b3e456982e39d16d38faef2e42d",
+      "diff": "source-evidence/pr-0788.diff",
+      "diff_sha256": "450b2adbf0decb0ff699a3d8b0529eb71757b522796be26a2c10558b7449fae5",
+      "head_body_read_ranges": [
+        [
+          1,
+          308
+        ]
+      ],
+      "facts": [
+        "Full308 and entire actual diff. Only temporaryempty skin default plussuccessfulSkinTransfer fields; normal outputalways overwritten before return. Capture settledstep==of orWorn, UVcount/nearestbindings/validate and BodyTopology vertex+trianglecount wire unchanged.",
+        "Savedfit checks exactcounts not actualfaceidentity, evaluatesbindings then stretch1.25/keepout/underplate/normals/transfer/warnings in sameorder. Broad retained topologyidentity/sourcebounds questions are not new08 regression. Binding sixnativewords, finitegeometry/bindinglimits, smoothnormal\u2192facenormal\u2192Yfallback/tangent\u2192crossX\u2192Zfallback and sourcecorner interpolation order unchanged; no run."
+      ],
+      "disposition": "Own08 old/new comparison accounted with concrete lower2179/2332/2336 and frame-kernel receiver; retained API limits explicit.",
+      "acceptance": "Preserve exact packing, first-error, membership and floating operation order plus existing fixture oracles; no tests or checks run."
+    },
+    {
+      "scope_index": 789,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/settled/packed.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/garment/settled/packed.rs",
+      "before_sha256": "ca95a83317547915bbd839018cd6b1c766ff327327877fc02c6978d1bcaee0f7",
+      "after_sha256": "ca95a83317547915bbd839018cd6b1c766ff327327877fc02c6978d1bcaee0f7",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0789-base-ca95a83317547915bbd839018cd6b1c766ff327327877fc02c6978d1bcaee0f7",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/ca95a83317547915bbd839018cd6b1c766ff327327877fc02c6978d1bcaee0f7",
+      "diff": "source-evidence/pr-0789.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "facts": [
+        "Full78 and empty actual diff. Exact pervalue f32bits/u32words littleendian/base64string shape retains allbitpatterns including signedzero until owningvalidate. Decode rejects malformedbase64/partialrecord then fixed T::WORDS chunk/unpack; noadded implicitfielddefaults or numericserialization drift.",
+        "Actual788 SurfaceBinding6words and2/3vectorrecords sameclient; shape/count/finitepolicy remains in owner. No base64/Serdeexecution/newcompatibilityadapter or allformat clearance."
+      ],
+      "disposition": "Own08 old/new comparison accounted with concrete lower2179/2332/2336 and frame-kernel receiver; retained API limits explicit.",
+      "acceptance": "Preserve exact packing, first-error, membership and floating operation order plus existing fixture oracles; no tests or checks run."
+    }
+  ],
+  "next": "790 settled tests then791+; metadata next"
+}

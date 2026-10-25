@@ -1,0 +1,66 @@
+{
+  "id": "SEGO-INITIAL09-REGISTRATION-038A",
+  "reason": "Trace physics carried quickstep/lunge modes, retained inactive commitment history, rollback ground snapshot through actual producers/receivers",
+  "roles": [
+    {
+      "scope_index": 1501,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/player/quickstep_trace.rs",
+      "sha256": "d4c445ad8881a51294103c9f7ee9ef4024f1a3d64692356dfa8ac21f93604346",
+      "ranges": [
+        [
+          1,
+          128
+        ]
+      ],
+      "coverage_limit": "Trace support only; partial bodies not complete role coverage"
+    },
+    {
+      "scope_index": 2037,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/ingress/lunge.rs",
+      "sha256": "6ce3ba9b4f6c1fef1cd90580466b74bde537c4ec2dac0f1cecec0fcda437c12b",
+      "ranges": [
+        [
+          1,
+          298
+        ]
+      ],
+      "coverage_limit": "Trace support only; partial bodies not complete role coverage"
+    },
+    {
+      "scope_index": 2067,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+      "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "ranges": [
+        [
+          390,
+          472
+        ],
+        [
+          1100,
+          1175
+        ],
+        [
+          1290,
+          1372
+        ],
+        [
+          1550,
+          1715
+        ]
+      ],
+      "coverage_limit": "Trace support only; partial bodies not complete role coverage"
+    },
+    {
+      "scope_index": 1498,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/player.rs",
+      "sha256": "e58cbe13aa543aebd82995383e999d55e0e47b9885396f958282313316f4e37c",
+      "ranges": [
+        [
+          701,
+          802
+        ]
+      ],
+      "coverage_limit": "Trace support only; partial bodies not complete role coverage"
+    }
+  ]
+}

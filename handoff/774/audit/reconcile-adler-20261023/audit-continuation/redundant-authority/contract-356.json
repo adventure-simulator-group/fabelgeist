@@ -1,0 +1,155 @@
+{
+  "id": "CONT07-CONTRACT-356",
+  "at": "2026-10-23T19:10:09.211170+00:00",
+  "lens": "audit-redundant-authority",
+  "members": [
+    {
+      "scope_index": 1496,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/main.rs",
+      "sha256": "11642eae7fcc7b877302b99cb6eb0cb62ee45c7fe0df07541fb06607c159f875",
+      "retrieved_from": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/main.rs",
+      "actual_EOF": 609,
+      "ranges": [
+        [
+          1,
+          609
+        ]
+      ],
+      "fresh_read_limits": "Main470-609 explicitly recovered after first multi-source output truncation; other files full untruncated bodies personally consumed."
+    },
+    {
+      "scope_index": 1497,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/movement_audio.rs",
+      "sha256": "f5c454510c3069982a265c36de6013d01d6c00c12aff6c90c05b60ddcb610292",
+      "retrieved_from": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/movement_audio.rs",
+      "actual_EOF": 370,
+      "ranges": [
+        [
+          1,
+          370
+        ]
+      ],
+      "fresh_read_limits": "Main470-609 explicitly recovered after first multi-source output truncation; other files full untruncated bodies personally consumed."
+    },
+    {
+      "scope_index": 1501,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/player/quickstep_trace.rs",
+      "sha256": "d4c445ad8881a51294103c9f7ee9ef4024f1a3d64692356dfa8ac21f93604346",
+      "retrieved_from": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/player/quickstep_trace.rs",
+      "actual_EOF": 128,
+      "ranges": [
+        [
+          1,
+          128
+        ]
+      ],
+      "fresh_read_limits": "Main470-609 explicitly recovered after first multi-source output truncation; other files full untruncated bodies personally consumed."
+    }
+  ],
+  "contracts": [
+    {
+      "source_index": 1496,
+      "disposition": "accounted full source; no new redundant-authority defect in this entry/adapter role",
+      "facts": [
+        "Native and wasm entry points receive graphics/audio configuration through load/parse then install the chosen instance. Present/window enum adapters are exhaustive projections to native variants; default expectation fixtures are independent authored oracles, not runtime duplicate defaults.",
+        "Headless screenshot extent and schedule pacing are a separate diagnostic workflow, not a second definition of configured desktop window size or tactical logical sample rate. Required-assets list states an explicit preflight subset, not a complete certificate of shader/asset semantic validity.",
+        "Args.id, LocalCharacterId and AdventureSimulatorClient.player_id are copied at startup; fresh actual browser_runtime196-285 EnterTactical updates all three in the connection-admission branch. InitialTacticalMode is startup intent, BrowserMode current renderer context; Args retains native ingress/config choices. No blanket no-multi-command/reentrant-client guarantee is inferred from this adapter; current browser command scheduling remains its own previously covered role.",
+        "Cursor visibility/grab mode and input ContextActivity are distinct UI/input effects set together in capture/release, not mathematical synonyms. Native focus changes and arbitrary external cursor mutations are not certified by these helpers. No source admission/cause or full configuration clearance from this07 comparison."
+      ]
+    },
+    {
+      "source_index": 1497,
+      "disposition": "accounted full source; temporal edge memory differs current skeleton observation",
+      "facts": [
+        "MovementAudioState.grounded_dive_active is the previous-observation edge latch, not an independently authoritative current posture flag: comparison emits onset only, then updates/inserts the sampled flag. With<Player>/Changed<SkeletonState> narrows the observer to tactical state changes; original fixture verifies nonPlayer display exclusion without defining production policy.",
+        "Wind volume is derived live from current environment and chosen audio config; the per-sink native volume is presentation output, not independently authored wind. UnitBasisPoints saturation and source soundseed native position-bit framing preserve their actual roles. No copied policy defaults live in this source.",
+        "Contact/Landing sequence-derived messages and grounded-slide onset are different temporal observations. Fresh event producer133-173 compares sequence counters then emits event messages; a current grounded-slide edge is not defined by the same counter. No double-impact audio claim without actual sequence/trajectory producer evidence.",
+        "Actual RootG059 qualification withdraws pending wind10000 allegation via strict config threshold; this07 inventory does not award other-lens clearance or invent a new threshold defect."
+      ]
+    },
+    {
+      "source_index": 1501,
+      "disposition": "accounted full source WITH_FINDING CONT07-F070",
+      "facts": [
+        "SkeletonAction and native actuator are distinct presentation versus physical observations; their disagreement is the point of the diagnostic, not an invariant to collapse. Active/Inactive enum retains start tick intentionally in both cases; old observation is temporal history.",
+        "However the cached change predicate omits current quickstep-lunge classification dependency. Exact same-function trigger/receiver proof in CONT07-F070 establishes conditional diagnostic suppression, independently of any normal gameplay desynchronization claim.",
+        "Original RigCAM677 admission narrative is personally reanalyzed here; it described observer-only authority correctly but did not establish a complete07 dependency key. Prior lens verdict is not inherited."
+      ]
+    }
+  ],
+  "personally_consumed_prior_narratives": [
+    "audit/continuation/rig/admission03/root-support/contracts.jsonl#RIG-ROOT-ADM03-147",
+    "audit/continuation/rig/admission03/root-support/contracts.jsonl#RIG-ROOT-ADM03-148",
+    "audit/continuation/rig/admission03/camera-support/contracts.jsonl#RIG-CAMERA-ADM03-677",
+    "audit/continuation/rig/admission03/camera-support/contracts.jsonl#RIG-CAMERA-ADM03-731"
+  ],
+  "fresh_supporting_bodies": [
+    {
+      "scope_index": 1458,
+      "ranges": [
+        [
+          196,
+          285
+        ]
+      ],
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/browser_runtime.rs",
+      "sha256": "afb6d3b0ff97037051e1fae2f1c9340a31fe07a1b34a6bc244d0110010c429d3",
+      "credit": "critical currentID/connection update; no extra source count"
+    },
+    {
+      "scope_index": 1354,
+      "ranges": [
+        [
+          90,
+          174
+        ]
+      ],
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/presentation/events.rs",
+      "sha256": "e8b15deac3874c9457efc9dec7ac27b1b4eca56b6577a0352fe6cf3c1c896238",
+      "credit": "critical event/current-state distinction; no extra source count"
+    },
+    {
+      "scope_index": 1886,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics.rs",
+      "sha256": "14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b",
+      "ranges": [
+        [
+          107,
+          155
+        ]
+      ],
+      "fact": "CharacterMotionSnapshot has independent quickstep_push/melee_lunge; MeleeLungeMovement docs intentionally independent from SkeletonAction, quickstep bool151-155."
+    },
+    {
+      "scope_index": 2067,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+      "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "ranges": [
+        [
+          1722,
+          1739
+        ]
+      ],
+      "fact": "Actual snapshot publication copies quickstep and lunge independently; no universal equivalence gate claimed."
+    }
+  ],
+  "findings": [
+    "CONT07-F070"
+  ],
+  "discovery_status": "three exact previously unread07 source variants personally compared",
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "identity_count_accounting": {
+    "new_original_variant_ids": [
+      "pr-working:crates/adventuresim-tactical-client/src/main.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/movement_audio.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/player/quickstep_trace.rs"
+    ],
+    "already_covered_fresh_reanalysis_ids": [],
+    "new_this_contract": 3,
+    "cumulative_new_original_variants": 6,
+    "cumulative_original_unique": 1764,
+    "count_basis": "Exact source_id union against Adler saved07coverage1758, not number of fresh-read rows"
+  }
+}

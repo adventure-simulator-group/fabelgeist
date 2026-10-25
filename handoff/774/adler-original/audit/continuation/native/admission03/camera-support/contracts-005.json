@@ -1,0 +1,77 @@
+{
+  "id": "NATIVE-CAMERA-SUPPORT03-CONTRACTS-005",
+  "authority": "ROOT-ADM-SUPPORT-AUTHORITY-054",
+  "lens": "audit-admission-contracts",
+  "groups": {
+    "sdk-connection-reducer-callback-boundary": {
+      "camera_indices": [
+        361
+      ],
+      "invariant": "Native SDK owns its transport lifecycle and error callback shape; app bespoke identities/state still require their own admission.",
+      "all_admission_routes": [
+        "Exact715-805/930-975/1138-1180 freshlyread. Queue_mutation728 sends PendingMutation; reducer747-762 accepts concrete Args with Reducer:FromArgs and callback Result<Result<(),String>,InternalError>, queuesactualreducer.into and returnsOk. NativeString innererror is imposed callback ABI; appinternaloperations notthereforemustbeString. try_identity/try_connection_id preserveOption nativeabsence, connection_id unwrap existingprecondition. Procedure780-804 nativeSATS Serialize/Deserialize exact Args/RetVal with SDKexpect, no application constructors/semanticvalidate hook inobservedgenericentry.",
+        "Build951-960 produces typedmoduleconnection afterbuild_impl; docs930 explicitlyno guarantee asynchronousconnected. Existingbuild_impl965-975 onlylogging setup prefix; fullhandshakebodyunread/excluded, no credential/auth/sourcebinding success inferred. Actualon_connect1144-1155/on_connect_error1162-1173 onecallbackregistration storesFnOnce andpanicssecondregistration; on_disconnect1180 signatureonly/no bodycoverage. Auth token callback&str deliberateactualnativeboundary, no tokenprinted/copied."
+      ],
+      "counterexample_or_qualification": "No SDKrawtype checkedapplicationguarantee. Callsites maychoose earlyString erasure beforethisABI unnecessarily; preservetypedappcauses until actualString receiver. Partialbuild/disconnect/currentrange endpoints retained, no blanketSDKgraph.",
+      "connected_repair": "Existing strategic SDK/error-propagation/functionclaims underRoot; actualSDK E:Display/Clone/nativecallback constraints do notforceapplicationinternalerasure.",
+      "acceptance": "Preserve nestedresult/Option/asyncconnection/error order and typedInternalError whereABIallows; no newtests/execution/SDKedits."
+    },
+    "sdk-error-native-cause-container": {
+      "camera_indices": [
+        362
+      ],
+      "invariant": "Diagnostic SDK errors intentionally retain raw messages/rejected names and optional typedcause, not success-state validation.",
+      "all_admission_routes": [
+        "Full104 fresh. Error nonexhaustiveClone with nativeString SubscriptionError, typedInternalError wrappers. InternalErrorprivateString+OptionArc<dynErrorSendSync>; newprivate acceptsmessage, with_cause publicconsumesandstoresactualerrorArc. failed_parse/unknown_name generate diagnostictext atSDK/codegen boundary; Displayformatsmessage+optionalcause. cause()85 exposesoptionaltypedcause but source99-101 returnsNone (preserveactualAPI distinction). NoDeserialize/Default/Reflect/semanticadmitteddata constructor."
+      ],
+      "counterexample_or_qualification": "Rawinvalidunknownname/blankmessage diagnosticallowed; typedcausecanbepreservedthroughClone andwith_cause, no needapp earlyformat. No equivalence claim cause()==source().",
+      "connected_repair": "Existing exactSDKtypederrorgraph, no duplicateerrorwrapper justtoavoidactualnativeStringboundary.",
+      "acceptance": "Keep exactcategory/cause/nestednativepayload/rejectionevidence; producererrorsnotcheckedidentityowners."
+    },
+    "sdk-codegen-reexports-boundary-only": {
+      "camera_indices": [
+        363
+      ],
+      "invariant": "Reexport namespace ties generated code to actual native traits/context; no extra constructor or decoding policy.",
+      "all_admission_routes": [
+        "Exact35-65 fresh. SDK exports nativeConnectionId/Identity/Timestamp/TimeDuration and __codegen __lib/__sats aliases, context/table/error/subscription traits. Actualpublicreexportdoesnotvalidatevalue; no decodeimplementation inthisscope. Closingmodule/list65+unread/contextnotnewmaterial. DistinctSDKnamespace fromruntime spacetimedb macro namespace provenCamera082, notconfused by identicalsuffix_lib."
+      ],
+      "counterexample_or_qualification": "No foreignwholefileclearance or namedProduct applicationpredicate byreexportname alone. Actualnamedrecordmacro separatelypinned003whenneeded.",
+      "connected_repair": "Generated bindings usecodegenSDKatnativeboundary; retainsystem-owned types untilactualnativeABI.",
+      "acceptance": "Preserve exactnamespace/version-specificsource andfeaturecontext."
+    },
+    "sdk-subscription-callback-and-query-state-context": {
+      "camera_indices": [
+        364
+      ],
+      "invariant": "Native subscription builder accumulates queries/callbacks, does not admit application data/state simply by construction.",
+      "all_admission_routes": [
+        "Fresh140-190: errorcallbackprefix140-144 nativectxeventCloneunwrap conditional; privatebuilder fieldscallbacksOption/DbContext. new156-162 defaultNone callbacks andcontextclone; on_applied/on_error overwriteactualslot no appvalidation. on_error callback FnOnce nativecrateError; subscribe181-190 beginsQuerySetID andnativeIntoQueries→SubscriptionState→Handle, exactrequestedprefixonly. Restofsubscribe/publication after190unread andnotclaimedcomplete; no nativeSQLgrammar/authorization inference fromIntoQueries."
+      ],
+      "counterexample_or_qualification": "Callbackerror native concreteCloneableSDKError, no generic requirement toearlyStringapplicationcauses. Builder isnativeworkflowstage notacceptedcontenttoken. No fullSDK/SQL implementationgraph.",
+      "connected_repair": "Existing websubscription/typedSDKerrorfunctionclaims; preserveasyncapplied/errorlifetimepolicy.",
+      "acceptance": "No invented acceptedrows guaranteefromsubscriptionbuilder or on_applied name; exactpartialprefixqualification remains."
+    },
+    "p16-common-language-native-kernel": {
+      "camera_indices": [
+        328
+      ],
+      "ranges": {
+        "328": [
+          [
+            214,
+            243
+          ]
+        ]
+      },
+      "invariant": "Actual native language coefficient computation consumes rawcap/hour records; outputplainf32 is not a new validated unit type.",
+      "all_admission_routes": [
+        "Exact214-243 fresh only. best_common_oral_language_capped compares effective(language) foractualOralLanguage::ALL, clamp capsmax0 andcoefficient0..1, deterministictotal_cmp pluslowerindex tie rule, explicitfallbackEastCentral0. language_scaled_effect rejects nonfinitevalue/shared_language to0 then multipliesfinitevalue*clamped0..1. No new wrapper/constructor/Serde/Reflect/default introduced. Actual ALL/effective/language canonicaldefinitions outside214-243 notclearedhere; currentNative035/074 PRlanguagepolicy notautomaticP16samefilecredit."
+      ],
+      "counterexample_or_qualification": "Declaredplainf32/nativekernel here intentionallybroader source; no allstoredhourfinite guarantee. Negativefinitevalue remainsnegativeaftermultiply, scale0notlearnedabsence distinction retained. DependentALLnonempty/trait effective notassumedvalidfromtype name; iterationfallbackexplicit.",
+      "connected_repair": "Existing language/coefficient/skill hours propagation underRoot; nativekernel getters where warranted, no inventedprobabilityclampupstream.",
+      "acceptance": "Preserve exactcap/clamp/tie/fallback/nonfinite-to-zero native policy and ownsourceexclusions."
+    }
+  },
+  "not_part_of_native443_or_root_batches": true
+}

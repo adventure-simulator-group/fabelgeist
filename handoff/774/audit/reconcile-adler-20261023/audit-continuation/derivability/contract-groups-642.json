@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-642",
+  "at": "2026-10-25T16:20:15.722509+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 954,
+  "source_id": "pr-working:crates/adventuresim-core/src/material.rs",
+  "sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+  "actual_compared_ranges": [
+    [
+      1,
+      880
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "ProcessTiming passive/cooking classification is semantic. RoundingTolerance bounds, duplicate-key ProcessConservationPolicy admission, verify_conservation/checked_sum implement checked conservation policy; no blanket From/Deserialize replacement. material_digest! emits only checked inherent constructor+borrowedbytes, not manual trait. All new types already structural derives; no new handwritten trait661\u2013880."
+  ],
+  "first_unfinished": {
+    "scope_index": 954,
+    "line": 881
+  },
+  "execution": "none"
+}

@@ -1,0 +1,62 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-609",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-bvh/src/gpu/mod.rs",
+      "sha256": "6634431db696f50d97f3a8f405615336895803d2302aca8e7690144b710dae4d",
+      "actual_EOF": 376,
+      "actual_compared_ranges": [
+        [
+          1,
+          376
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-physics/src/mesh.rs",
+      "sha256": "227950fb9466ae2c9f5c59c33322ac2c4f43a1d9eb743669e7f65fb6cdeba9dc",
+      "actual_EOF": 205,
+      "actual_compared_ranges": [
+        [
+          1,
+          205
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "GPU BVH capacity/node representation andrecordingfailure",
+      "evidence": "Complete376lines read. Allocation nodes2*u64capacity\u22121 withmax1 differs node_count/refit2*u32count\u22121. count<=capacitychecked, butself.count replacedbeforefirstdispatch. ensure_capacity buildswholeSelflocalbeforeassignment, so allocationfailure retainsoldself. Refitusesretainedcount; readback slices expectbuffers matchcapacity; packbounds multiplicationhostusize.",
+      "related_exact_records": [
+        "audit/continuation/rig/admission03/findings.jsonl record_index90 RIG-ADMISSION03-F073-SUPPLEMENT-001 exactnodecountarithmetic alias; earliernativeallocation/SDKerrors mayprecede hugecount overflow",
+        "samefile record_index91 RIG-ADMISSION03-F054-SUPPLEMENT-001 exactpublicbuffer/cardinalityadmission; preservearbitrarynativeAabb sentinel domains",
+        "audit/continuation/rig/producer-reached-owner81/findings.jsonl record_index7 RIG-OWNER81-F008 exactoperator-specificcountowner requirement, not unrelatedcount wrapperreuse",
+        "samefile record_index8 RIG-OWNER81-F009 missingauthored-errorowner suggestion, no exactavailabletypedcause lossclaimed"
+      ],
+      "qualifications": [
+        "Countpublishedbeforerecordedbuildsuccess requiresactualKernelBatch rejection/batchretry/consumer policy; no ordinaryvalidGPUfailure or asyncexecution witness proven here. Nativebatch already maycontainprefixpassesafterErr; no rollback inferred fromResult.",
+        "RawAabb min/max nativeformat permits supportedempty/sentinel/nonfinite accordingownpolicy; do not forcefiniteSpatialBounds bytitle."
+      ],
+      "acceptance": "Checked executableindex/count/nativebuffercapacity coherence andactualfailedbuild retainedstate policy, preservegenericzero/max1andtypednativecauses; noGPU/projectexecution."
+    },
+    {
+      "contract": "Triangle collider initial topology andmutablebuffer handoff",
+      "evidence": "Whole205 read. Rejectsemptytriangle/out-of-rangevertex beforeupload, thencasts hostlengthsu32,allocatespackedpositions/indices/bounds, buildsBVH. writepositions comparetruncatedlength beforewrite; recordbounds margin thenBVHrefit/build; nativebufferstayspublic.",
+      "qualifications": [
+        "SameexactF073/F054supplements owncounttruncationandmutableadmittedcohortgap; no duplicatecount. ActualconstructorDOESindexmembershipvalidate, unlike rawTriangleBvh; preserve distinction.",
+        "Surface thickness/frictionraw policy allowsnegative/nonfinite perownerfit F008unit-only leaves; no inferredUnitInterval/PositiveLength contract. Needactualconsumer-specific rejection/admission ifowningphysicsportrequiresit."
+      ],
+      "acceptance": "No oversizedhostlengthaliases acceptedexpectedvertexcount, coherenttopology/position/bounds/BVHidentity throughnativehand-off, preserve actualmembershiperror andfixedvec4/u32formats."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-building-generator/src/furniture.rs"
+}

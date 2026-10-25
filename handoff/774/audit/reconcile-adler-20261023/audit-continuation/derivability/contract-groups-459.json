@@ -1,0 +1,260 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-459",
+  "at": "2026-10-25T15:41:39.696625+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 862,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/joint_melee.rs",
+      "sha256": "7373a905f23ab3075cfb464c0a936ce1ebc33ba6c5c6ad23866b1a1479c5b983",
+      "actual_EOF": 329,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/joint_melee.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/autoresolve/joint_melee.rs",
+        "owner": "camera",
+        "sha256": "7373a905f23ab3075cfb464c0a936ce1ebc33ba6c5c6ad23866b1a1479c5b983",
+        "base_sha256": "c923dc99b1f471c496727999a471de7d8c4dfc0eb2b2b4652753e40f7f5f510e",
+        "state": "modified",
+        "bytes": 10073,
+        "audit_owner": "camera",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                329
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-CLOCK-001",
+              "CAM-PROP-MELEE-001",
+              "CAM-PROP-DEFENSE-001",
+              "CAM-PROP-EVIDENCE-001"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 122,
+            "read_ranges": [
+              [
+                1,
+                329
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-COMBAT-RECEIVERS-004"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/autoresolve/joint_melee.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          329
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full native joint melee round/window recursion, contact ordering/batch attribution, actual contact dispatch/clearing and pair movement functions personally consumed. No handwritten trait/codec or new types; native state/effect semantics not deriving candidates."
+    },
+    {
+      "scope_index": 863,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_defense.rs",
+      "sha256": "6c64790c60c4ad2b52d4e3a18e312b8be73cb714ec27aa194f9a345d17eda293",
+      "actual_EOF": 221,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_defense.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/autoresolve/melee_defense.rs",
+        "owner": "camera",
+        "sha256": "6c64790c60c4ad2b52d4e3a18e312b8be73cb714ec27aa194f9a345d17eda293",
+        "base_sha256": "7b7c49095443da8ce7cd8f440eeba94344d90513339e63fdb9bedbaf338b6661",
+        "state": "modified",
+        "bytes": 8414,
+        "audit_owner": "camera",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                221
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-CLOCK-001",
+              "CAM-PROP-MELEE-001",
+              "CAM-PROP-DEFENSE-001",
+              "CAM-PROP-EVIDENCE-001"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 123,
+            "read_ranges": [
+              [
+                1,
+                221
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-AUTORESOLVE-001",
+              "CAM-OWN-CHARACTER-007",
+              "CAM-OWN-CONDITION-011"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/autoresolve/melee_defense.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 93,
+            "read_ranges": [
+              [
+                1,
+                221
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-AUTORESOLVE-001",
+              "CAM-OWN-CHARACTER-007",
+              "CAM-OWN-CONDITION-011"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/autoresolve/melee_defense.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CORE-MELEE-RECEIVERS-049",
+            "json_pointer": "/current_sources/3",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/autoresolve/melee_defense.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                221
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_defense.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/autoresolve/melee_defense.rs",
+              "sha256": "6c64790c60c4ad2b52d4e3a18e312b8be73cb714ec27aa194f9a345d17eda293",
+              "read_ranges": [
+                [
+                  1,
+                  221
+                ]
+              ],
+              "actual_line_count": 221,
+              "read_kind": "fresh actual body/complete source; no execution",
+              "index": 121,
+              "expected_sha256": "6c64790c60c4ad2b52d4e3a18e312b8be73cb714ec27aa194f9a345d17eda293",
+              "fingerprint_matches": true
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CORE-MELEE-RECEIVER-CLOSURE-024",
+            "json_pointer": "/source_reads/0",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/autoresolve/melee_defense.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                221
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_defense.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/autoresolve/melee_defense.rs",
+              "sha256": "6c64790c60c4ad2b52d4e3a18e312b8be73cb714ec27aa194f9a345d17eda293",
+              "read_ranges": [
+                [
+                  1,
+                  221
+                ]
+              ],
+              "actual_line_count": 221,
+              "read_kind": "fresh actual body/complete source; no execution",
+              "index": 121,
+              "expected_sha256": "6c64790c60c4ad2b52d4e3a18e312b8be73cb714ec27aa194f9a345d17eda293",
+              "fingerprint_matches": true
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": 266,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          221
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "AutoresolveMeleeDefenderDecision/ScheduledMeleeTiming/MeleeDefenderPhase/AutoresolveMeleeReactionTiming Clone Copy Debug PartialEq"
+      ],
+      "absence_basis": "Full semantic precommit/recovery response, checked timing and guard/reflex algorithms, mutable timing commit/native attack identity functions consumed. No handwritten trait/codec; existing structural derives enough, no new conversion/wire API."
+    }
+  ],
+  "groups": [
+    {
+      "disposition": "NO_HANDWRITTEN_TRAIT_OR_CODEC",
+      "contracts": "Retain deliberate timing/state classification and checked result/error propagation."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 864,
+    "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_exchange.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

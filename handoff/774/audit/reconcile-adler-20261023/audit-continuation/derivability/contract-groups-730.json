@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-730",
+  "at": "2026-10-25T16:38:34.726208+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 984,
+  "source_id": "pr-working:crates/adventuresim-core/src/reputation.rs",
+  "sha256": "f440b09e301404f9d1be804764c9be6af087320ea34c8b8a27fd9a4b191b8103",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "ReputationSettlement/Edge/Contribution structural already derive. Module1\u2013220 native population scaling/capped arithmetic, bounded shortest-path terminal spill budget, reaction and charge-fine policy plus fixture prefix; no handwritten trait/codec. These calculations not mechanical From/Serialize."
+  ],
+  "first_unfinished": {
+    "scope_index": 984,
+    "line": 221
+  },
+  "execution": "none"
+}

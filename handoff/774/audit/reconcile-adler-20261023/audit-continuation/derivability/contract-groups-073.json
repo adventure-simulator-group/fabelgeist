@@ -1,0 +1,27 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-073",
+  "at": "2026-10-25T12:14:40.686661+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_ROLE_INCOMPLETE",
+  "scope_index": 190,
+  "source_id": "physical-p16:crates/adventuresim-stdb-module/src/corpse.rs",
+  "sha256": "7c9ccbcd887b073dab9e1e468d3e89b3b491124213383e12957c5e5736f06242",
+  "actual_compared_ranges": [
+    [
+      1,
+      900
+    ]
+  ],
+  "trait_inventory": [],
+  "existing_derives": "All inspected corpse/private pathology/body/injury/family/permission/attempt/receipt rows structural Clone/Debug + table; permission vocabularies and BackendCorpse structural +SpacetimeType; AutopsyFindingKind structural. No handwritten trait1\u2013900.",
+  "semantic_contracts": "Actual observer/access/permission/typedfinding selection, public burial/privacy projection, battle/death/body/pathology persistence and fixture construction consumed. Existing serde_json snapshot write already delegates typed serializer, native mapped error retained. No manual record serializer to replace.",
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 190,
+    "source_id": "physical-p16:crates/adventuresim-stdb-module/src/corpse.rs",
+    "next_line": 901,
+    "actual_EOF": 2122
+  },
+  "execution": "none",
+  "limits": "Fullrole remains pending901\u20132122; existing root corpse findings remain facts, no otherlens clearance."
+}

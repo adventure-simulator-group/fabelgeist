@@ -1,0 +1,187 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-718",
+  "lens": "audit-enum-shapes",
+  "groups": [],
+  "shared_material_reads": [
+    {
+      "shared_index": 21,
+      "source_id": "native-dependency:bevy_replicon-0.41.1/src/shared/replication/registry/rule_fns.rs",
+      "sha256": "07f3f73daff9344750ec08f54bd9acc8abec4a946040369ce1573c2b6a6b1073",
+      "ranges": [
+        [
+          40,
+          145
+        ],
+        [
+          162,
+          225
+        ]
+      ],
+      "contract": "contracts-718.json",
+      "disposition": "Actual native replication/codec source supports existing local774:F52: default component decode\u2192postcard T::deserialize, internally tagged derive requests deserialize_any, postcard returns WontImplement. Native bool0/1 codec legitimate adapter; RuleFns typed function product and actual mode variants not new carried gameplay flag. No SDK style/source change or native execution.",
+      "status": "fresh exact registered ranges read and reanalyzed09",
+      "execution": "none",
+      "other_lens_credit": false,
+      "frozen_unique_credit": false
+    },
+    {
+      "shared_index": 22,
+      "source_id": "native-dependency:bevy_replicon-0.41.1/src/shared/replication/rules.rs",
+      "sha256": "037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+      "ranges": [
+        [
+          1,
+          58
+        ],
+        [
+          262,
+          281
+        ],
+        [
+          890,
+          920
+        ]
+      ],
+      "contract": "contracts-718.json",
+      "disposition": "Actual native replication/codec source supports existing local774:F52: default component decode\u2192postcard T::deserialize, internally tagged derive requests deserialize_any, postcard returns WontImplement. Native bool0/1 codec legitimate adapter; RuleFns typed function product and actual mode variants not new carried gameplay flag. No SDK style/source change or native execution.",
+      "status": "fresh exact registered ranges read and reanalyzed09",
+      "execution": "none",
+      "other_lens_credit": false,
+      "frozen_unique_credit": false
+    },
+    {
+      "shared_index": 23,
+      "source_id": "native-dependency:postcard-1.1.3/src/de/deserializer.rs",
+      "sha256": "20f5ff69404628e4d765f58ceb91b6ac8879ce998aef6dfe49a2fdb2c5f20ac2",
+      "ranges": [
+        [
+          208,
+          236
+        ]
+      ],
+      "contract": "contracts-718.json",
+      "disposition": "Actual native replication/codec source supports existing local774:F52: default component decode\u2192postcard T::deserialize, internally tagged derive requests deserialize_any, postcard returns WontImplement. Native bool0/1 codec legitimate adapter; RuleFns typed function product and actual mode variants not new carried gameplay flag. No SDK style/source change or native execution.",
+      "status": "fresh exact registered ranges read and reanalyzed09",
+      "execution": "none",
+      "other_lens_credit": false,
+      "frozen_unique_credit": false
+    },
+    {
+      "shared_index": 24,
+      "source_id": "native-dependency:serde_derive-1.0.229/src/de/enum_internally.rs",
+      "sha256": "9d898dbc1c46262f695ef7ba1660b2af70de48e07bbac8f44b740326b7c5b303",
+      "ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "contract": "contracts-718.json",
+      "disposition": "Actual native replication/codec source supports existing local774:F52: default component decode\u2192postcard T::deserialize, internally tagged derive requests deserialize_any, postcard returns WontImplement. Native bool0/1 codec legitimate adapter; RuleFns typed function product and actual mode variants not new carried gameplay flag. No SDK style/source change or native execution.",
+      "status": "fresh exact registered ranges read and reanalyzed09",
+      "execution": "none",
+      "other_lens_credit": false,
+      "frozen_unique_credit": false
+    },
+    {
+      "shared_index": 25,
+      "source_id": "native-dependency:bevy_replicon-0.41.1/src/postcard_utils.rs",
+      "sha256": "4a9f413f61885f1581e0a3ddadb2528459e45bd2ea029a7a08ad3b2ab085d537",
+      "ranges": [
+        [
+          120,
+          143
+        ]
+      ],
+      "contract": "contracts-718.json",
+      "disposition": "Actual native replication/codec source supports existing local774:F52: default component decode\u2192postcard T::deserialize, internally tagged derive requests deserialize_any, postcard returns WontImplement. Native bool0/1 codec legitimate adapter; RuleFns typed function product and actual mode variants not new carried gameplay flag. No SDK style/source change or native execution.",
+      "status": "fresh exact registered ranges read and reanalyzed09",
+      "execution": "none",
+      "other_lens_credit": false,
+      "frozen_unique_credit": false
+    },
+    {
+      "shared_index": 26,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/guards.rs",
+      "sha256": "aa9d8fff8668ea79607a4037aced426da5be5f58d5ee3929008ee00c92994267",
+      "ranges": [
+        [
+          1,
+          225
+        ]
+      ],
+      "contract": "contracts-718.json",
+      "disposition": "Actual canonical guard receiver selects Independent/Symmetric/otherwiseOpposed; left/right parameters ignored outside Independent, selected Profile requires shared terminal_profile. Qualified F490/F491 applicability gaps; no normal failed authored weapon proved. Shared width/sweep default fallback and independent side Shared inheritance preserved.",
+      "status": "fresh exact registered ranges read and reanalyzed09",
+      "execution": "none",
+      "other_lens_credit": false,
+      "frozen_unique_credit": false
+    },
+    {
+      "shared_index": 61,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/choices.rs",
+      "sha256": "32853562a79ddc5ae393bc38780b86583500e079c5ca22109b07f1a479e030c0",
+      "ranges": [
+        [
+          200,
+          225
+        ]
+      ],
+      "contract": "contracts-718.json",
+      "disposition": "Canonical GuardMirrorMode Symmetric/Opposed/Independent and GuardSection shape variants actual typed owners; exact present Profile declaration read, full terminal variants separately registered718B. No enum renaming arbitrary numeric geometry indices.",
+      "status": "fresh exact registered ranges read and reanalyzed09",
+      "execution": "none",
+      "other_lens_credit": false,
+      "frozen_unique_credit": false
+    }
+  ],
+  "new_material_owner_reads": [
+    {
+      "id": "SEGO-INITIAL09-REG718-55",
+      "index": 55,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/hilt.rs",
+      "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_blob": "95044a623f95b7636fecae276612e70f37491050",
+      "sha256": "8afb3bf2ceb343de66192b0c257b876deade739f32668e38e70244c3b6036f0b",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/enum-shapes/source-objects/8afb3bf2ceb343de66192b0c257b876deade739f32668e38e70244c3b6036f0b",
+      "ranges": [
+        [
+          1,
+          135
+        ]
+      ],
+      "reason": "Actual shared26 model/guards.rs arm26\u201364/guard66\u2013137 receives GuardParameters, selects Independent/Symmetric beside left/right dimensions/terminals and optional terminal_profile. Need canonical field owner/default admission to qualify payload applicability. Exact direct type definition/default only; no hilt sibling adjacency.",
+      "status": "fresh exact registered owner ranges read; lens09 only",
+      "contract": "contracts-718.json"
+    },
+    {
+      "id": "SEGO-INITIAL09-REG718-56",
+      "index": 56,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/choices.rs",
+      "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "32853562a79ddc5ae393bc38780b86583500e079c5ca22109b07f1a479e030c0",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/32853562a79ddc5ae393bc38780b86583500e079c5ca22109b07f1a479e030c0",
+      "ranges": [
+        [
+          193,
+          200
+        ],
+        [
+          220,
+          282
+        ]
+      ],
+      "reason": "Shared26 actual guard66\u2013137 dispatches Independent/Symmetric plus per-side terminal then Profile requiring TerminalProfile; direct enum owner definitions needed to qualify GuardParameters1\u2013135 payload applicability. Existing shared61 only200\u2013225 does not cover these variants; no firearm/pommel adjacency.",
+      "status": "fresh exact registered owner ranges read; lens09 only",
+      "contract": "contracts-718.json"
+    }
+  ],
+  "new_findings": [
+    "SEGO-INITIAL09-F490",
+    "SEGO-INITIAL09-F491"
+  ],
+  "exact_existing_alias_support": {
+    "local774:F52": "root-pc112-terrain-network-codec-proof-001.json; native registration001; CONT07-CROSS-LENS-003"
+  },
+  "limits": "Bounded actual source review, no nativeSDKrepair, source edits, execution or otherlens acceptance. recipe hilt136blank/137\u2013138context excluded sharedmaterial. Shared choices prior200\u2013225 remains independent."
+}

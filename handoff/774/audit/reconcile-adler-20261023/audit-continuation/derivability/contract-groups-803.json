@@ -1,0 +1,220 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-803",
+  "at": "2026-10-25T16:53:29.610070+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1015,
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_state.rs",
+      "sha256": "b704a73eded4ae15345f15781c8f117d919e7f97e047e08e31bb068c912072f8",
+      "actual_EOF": 573,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/strategic_state.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/strategic_state.rs",
+        "sha256": "b704a73eded4ae15345f15781c8f117d919e7f97e047e08e31bb068c912072f8",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 18329,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 364,
+            "read_ranges": [
+              [
+                1,
+                573
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-AUTHORITY-MODEL-053"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/strategic_state.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-RELATIONSHIP-RECEIVERS-030",
+            "json_pointer": "/related_current_sources/2",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/strategic_state.rs",
+            "read_ranges_as_recorded": [
+              [
+                225,
+                425
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/strategic_state.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/strategic_state.rs",
+              "sha256": "b704a73eded4ae15345f15781c8f117d919e7f97e047e08e31bb068c912072f8",
+              "read_ranges": [
+                [
+                  225,
+                  425
+                ]
+              ],
+              "scope": "Actual reached helpers/codec/parsed state/numeric/hash/RNG definitions only; no full unrelated file credit outside ranges."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-DIALOGUE-040",
+            "json_pointer": "/related_current_sources/8",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/strategic_state.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                95
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/strategic_state.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/strategic_state.rs",
+              "sha256": "b704a73eded4ae15345f15781c8f117d919e7f97e047e08e31bb068c912072f8",
+              "actual_lines": 573,
+              "read_ranges": [
+                [
+                  1,
+                  95
+                ]
+              ],
+              "proof_mode": "fresh actual current supplement bounded material source body, no execution",
+              "role": "Payload-bearing ContractState definition is distinct from the ContractStatus actually extracted in provenance862"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-STATE-NATIVE-PORTS-054",
+            "json_pointer": "/current_sources/5",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/strategic_state.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                573
+              ]
+            ],
+            "source_context": {
+              "index": 563,
+              "source_id": "pr-working:crates/adventuresim-core/src/strategic_state.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/strategic_state.rs",
+              "sha256": "b704a73eded4ae15345f15781c8f117d919e7f97e047e08e31bb068c912072f8",
+              "read_ranges": [
+                [
+                  1,
+                  573
+                ]
+              ],
+              "mode": "Fresh actual whole current source and exact PR/P16 byteidentity where shared; generatedfiles read only, no generation/edit/check."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-031",
+            "json_pointer": "/additional_fresh_sources/2",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/strategic_state.rs",
+            "read_ranges_as_recorded": [
+              [
+                225,
+                425
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/strategic_state.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/strategic_state.rs",
+              "sha256": "b704a73eded4ae15345f15781c8f117d919e7f97e047e08e31bb068c912072f8",
+              "read_ranges": [
+                [
+                  225,
+                  425
+                ]
+              ],
+              "scope": "Actual reached helpers/codec/parsed state/numeric/hash/RNG definitions only; no full unrelated file credit outside ranges."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-033",
+            "json_pointer": "/fresh_current_additional_source_reads/8",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/strategic_state.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                95
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/strategic_state.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/strategic_state.rs",
+              "sha256": "b704a73eded4ae15345f15781c8f117d919e7f97e047e08e31bb068c912072f8",
+              "actual_lines": 573,
+              "read_ranges": [
+                [
+                  1,
+                  95
+                ]
+              ],
+              "proof_mode": "fresh actual current supplement bounded material source body, no execution",
+              "role": "Payload-bearing ContractState definition is distinct from the ContractStatus actually extracted in provenance862"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1251,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          573
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Display + Error",
+          "type": "StateParseError",
+          "lines": [
+            [
+              234,
+              239
+            ]
+          ],
+          "disposition": "OPTIONAL F002 borrowed staticstr message error(\"{0}\") exact/source None, no transparent"
+        }
+      ],
+      "existing_derives": [
+        "All parsed/flat lifecycle records already structural traits derived"
+      ]
+    }
+  ],
+  "groups": [
+    "Full source consumed; partial802 retained. Hand error literal payload formatting equivalent existing thiserror #[error(\"{0}\")] with no outer flags and source None, optional maintenance. No custom trait/codec in remainder or fixtures. Keep native contract/mission/commitment/courtship/marriage/pregnancy cross-field validation and precise error mapping; no raw derive construction or serialization substitute. Fixtures source only, not run."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1016,
+    "source_id": "pr-working:crates/adventuresim-core/src/strategic_state/vocabulary.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

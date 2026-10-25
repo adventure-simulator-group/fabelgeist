@@ -1,0 +1,426 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-040",
+  "at": "2026-10-25T11:48:03.584348+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 128,
+      "source_id": "physical-p16:crates/adventuresim-core/src/physiology.rs",
+      "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+      "actual_EOF": 1169,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-core/src/physiology.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-core/src/physiology.rs",
+        "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 38543,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 10,
+            "read_ranges": [
+              [
+                1,
+                110
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SCALE-001",
+              "CAM-OWN-AUTORESOLVE-001",
+              "CAM-OWN-CONFIG-001"
+            ],
+            "read_status": "partial",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/physiology.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 121,
+            "read_ranges": [
+              [
+                100,
+                175
+              ],
+              [
+                186,
+                248
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-CORPSE-016"
+            ],
+            "read_status": "partial",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/physiology.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 131,
+            "read_ranges": [
+              [
+                315,
+                405
+              ],
+              [
+                665,
+                790
+              ],
+              [
+                850,
+                935
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-DISEASE-017"
+            ],
+            "read_status": "partial",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/physiology.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 28,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-DISEASE-013",
+            "json_pointer": "/current_sources/8",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row118/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                315
+              ],
+              [
+                315,
+                405
+              ],
+              [
+                665,
+                790
+              ],
+              [
+                850,
+                935
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                315
+              ],
+              [
+                315,
+                405
+              ],
+              [
+                665,
+                790
+              ],
+              [
+                850,
+                935
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1092,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved",
+        "admission03_increment077_role_observations": [
+          {
+            "supplier": "camera",
+            "registry": "continuation/camera/admission03/source-range-registration.jsonl",
+            "row_1based": 31,
+            "registration_id": "CAMERA-ADM03-REG029",
+            "original_record": {
+              "id": "CAMERA-ADM03-REG029",
+              "at": "2026-10-22T14:54:30.348761+00:00",
+              "authority": "CONT-ROOT-ADMISSION03-DISCOVERY-AUTHORITY-043",
+              "source_id": "physical-p16:crates/adventuresim-core/src/physiology.rs",
+              "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+              "actual_EOF": 1169,
+              "ranges": [
+                [
+                  406,
+                  407
+                ],
+                [
+                  447,
+                  664
+                ]
+              ],
+              "material_caller": "Original77 regional_humours403-405 partial and Administration/effect_at691-719 actual profile lookup/route/staticloss vectors; direct current_intervention_profile666",
+              "role": "Complete exactregionalhelper and direct intervention route/profile declarations/staticdata/lookup/privateconst constructor; actualPRNative073 suppliercomparison only afterP16read",
+              "exclusions": "No CurvePoint/MeterCurve/piecewise409-445, disease_meter_state789+ body, observation_noise937+ or existingtests961+ newcredit",
+              "status": "registered BEFORE new body analysis"
+            },
+            "local_qualifications": [
+              {
+                "registration_id": "CAMERA-ADM03-REG029",
+                "at": "2026-10-22T18:25:03.942345+00:00",
+                "source_id": "physical-p16:crates/adventuresim-core/src/physiology.rs",
+                "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+                "actual_EOF": 1169,
+                "original_registered_ranges": [
+                  [
+                    406,
+                    407
+                  ],
+                  [
+                    447,
+                    664
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    406,
+                    407
+                  ],
+                  [
+                    447,
+                    664
+                  ]
+                ],
+                "context_only_ranges": [],
+                "role": "Complete exactregionalhelper and direct intervention route/profile declarations/staticdata/lookup/privateconst constructor; actualPRNative073 suppliercomparison only afterP16read",
+                "proof_refs": [
+                  "CAMERA-ADM03-096"
+                ],
+                "qualification": "Exact registered current role limits; reference source contract and original exclusions remain mandatory, no whole-file or included callee credit.",
+                "exclusions": "No CurvePoint/MeterCurve/piecewise409-445, disease_meter_state789+ body, observation_noise937+ or existingtests961+ newcredit",
+                "source_registration_record": "continuation/camera/admission03/source-range-registration.jsonl#CAMERA-ADM03-REG029",
+                "no_source_body_credit_from_metadata": true,
+                "no_global_or_other_lens_credit": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                406,
+                407
+              ],
+              [
+                447,
+                664
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\physiology.rs",
+            "actual_EOF": 1169,
+            "bytes": 38543
+          },
+          {
+            "supplier": "camera",
+            "registry": "continuation/camera/admission03/source-range-registration.jsonl",
+            "row_1based": 50,
+            "registration_id": "CAMERA-ADM03-REG048",
+            "original_record": {
+              "id": "CAMERA-ADM03-REG048",
+              "at": "2026-10-22T17:56:53.827136+00:00",
+              "source_id": "physical-p16:crates/adventuresim-core/src/physiology.rs",
+              "snapshot": "physical-p16",
+              "path": "crates/adventuresim-core/src/physiology.rs",
+              "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+              "actual_EOF": 1169,
+              "material_ranges": [
+                [
+                  55,
+                  114
+                ],
+                [
+                  188,
+                  257
+                ],
+                [
+                  447,
+                  486
+                ],
+                [
+                  656,
+                  723
+                ]
+              ],
+              "role": "Exact directP16disease140 DoseMilliunits/error allconstructor/conversion routes; BodyRegion slug/enum closedadmission; InterventionRoute/Profile declaration andexactprofilelookup; Administration directeffect constructor/operation caller contract, no adjacent BodyMass/MeterVector/tabledata/phenotype/quantization expansion",
+              "reason": "CurrentP16main2950body completecounterpartdiff toRigactualPR509supplied; P16canonicalleaf route needsactualbodycomparison ratherthan PR073hash/verdict. ActualP16dosemain/adminadapter132/fixture132/clinicalsource140 joins onlythese neededdefinitions.",
+              "exclusions": "No BodyMass1-54, noMeter115-187/Humour258-446, no14profiledata487-655, no phenotype724+/chart/quantization/tests. Sourcefull1169 notclaimed.",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "later_lens_credit": false
+            },
+            "local_qualifications": [
+              {
+                "registration_id": "CAMERA-ADM03-REG048",
+                "at": "2026-10-22T18:25:03.942345+00:00",
+                "source_id": "physical-p16:crates/adventuresim-core/src/physiology.rs",
+                "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+                "actual_EOF": 1169,
+                "original_registered_ranges": [
+                  [
+                    55,
+                    114
+                  ],
+                  [
+                    188,
+                    257
+                  ],
+                  [
+                    447,
+                    486
+                  ],
+                  [
+                    656,
+                    723
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    55,
+                    114
+                  ],
+                  [
+                    188,
+                    257
+                  ],
+                  [
+                    447,
+                    486
+                  ],
+                  [
+                    656,
+                    721
+                  ]
+                ],
+                "context_only_ranges": [
+                  [
+                    722,
+                    723
+                  ]
+                ],
+                "role": "Exact directP16disease140 DoseMilliunits/error allconstructor/conversion routes; BodyRegion slug/enum closedadmission; InterventionRoute/Profile declaration andexactprofilelookup; Administration directeffect constructor/operation caller contract, no adjacent BodyMass/MeterVector/tabledata/phenotype/quantization expansion",
+                "proof_refs": [
+                  "CAMERA-ADM03-154"
+                ],
+                "qualification": "154 exact Administration/effect body ends721;722-723 next phenotype docs context, no724+ body credit.",
+                "exclusions": "No BodyMass1-54, noMeter115-187/Humour258-446, no14profiledata487-655, no phenotype724+/chart/quantization/tests. Sourcefull1169 notclaimed.",
+                "source_registration_record": "continuation/camera/admission03/source-range-registration.jsonl#CAMERA-ADM03-REG048",
+                "no_source_body_credit_from_metadata": true,
+                "no_global_or_other_lens_credit": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                55,
+                114
+              ],
+              [
+                188,
+                257
+              ],
+              [
+                447,
+                486
+              ],
+              [
+                656,
+                721
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\physiology.rs",
+            "actual_EOF": 1169,
+            "bytes": 38543
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          407
+        ],
+        [
+          447,
+          800
+        ],
+        [
+          850,
+          959
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "TryFrom<u32> for DoseMilliunits",
+          "lines": [
+            96,
+            102
+          ],
+          "disposition": "Retain checked dose maximum with same DoseError; no raw construction derive."
+        },
+        {
+          "trait": "From<DoseMilliunits> for u32",
+          "lines": [
+            104,
+            108
+          ],
+          "disposition": "Retain small native integer extraction adapter, no equivalent existing conversion derive established."
+        },
+        {
+          "trait": "Display for BodyRegion",
+          "lines": [
+            202,
+            206
+          ],
+          "disposition": "Retain stable snake_case runtime view via as_str, separate from serde and hyphenated slug view."
+        },
+        {
+          "trait": "Display for InterventionRoute",
+          "lines": [
+            468,
+            472
+          ],
+          "disposition": "Retain small explicit runtime text boundary; no new serialization introduced solely to replace classifier."
+        }
+      ],
+      "existing_derives": [
+        "BodyMassKg and DoseMilliunits structural traits, dose Default",
+        "BodyMassError and DoseError structural Eq/PartialEq, no manual Error/Display to replace",
+        "Meter/BodyRegion/Humour structural Serialize Deserialize snake_case; BodyRegion conditional SpacetimeType",
+        "MeterVector Clone Copy Debug Default PartialEq already derives zero native array default",
+        "InterventionRoute structural Serialize Deserialize conditional SpacetimeType",
+        "InterventionProfile Clone Copy Debug",
+        "Administration Clone Debug PartialEq",
+        "PresenceSpan/ChartEntry Clone Debug PartialEq Eq Serialize Deserialize"
+      ],
+      "absence_basis": "All registered physiology material plus exact partial-function closures personally read. Other arithmetic, disclosure and observation functions are semantic mappings and native keyed calculations; no hand serializer in these contracts.",
+      "necessary_signature_extension": "Original790 function header closed through800; original935 expect attribute and observer function closed through959. Exploratory802\u2013820/961\u2013975 context not credited as independent contracts.",
+      "coverage_limit": "Selected material only, not full1169 lines or excluded physiology curve/terminal/fixture bodies."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Existing array defaults and wire records already derive. Preserve dose admission/native extraction and separate public labels/slugs, lossy humour projection and private meter computations.",
+      "qualification": "Source-only analysis, not clinical advice or runtime validation. No fixtures executed or source outside stated material credited."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 129,
+    "source_id": "physical-p16:crates/adventuresim-core/src/quest_catalog.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

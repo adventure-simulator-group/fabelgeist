@@ -1,0 +1,108 @@
+{
+  "packet_number": 119,
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/model.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          364
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Full literal P16 model1-364 in two bounded displays plus complete actual PR/P16 diff. All same-body trait contracts independently compared with exact parent118 and canonical body mapping. No child-call blanket credit.",
+      "sha256": "b1b76643680707125e6bd040b60703127a2ed09cc460e226b2c4f08c90724ffe",
+      "actual_EOF": 364
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/model.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          363
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Complete comparative source proof: full literal P16 plus all actual PR difference hunks; PR raw f32 lengths and zero defaults versus P16 SignedLength independently resolved against each actual PlayerEquipment contract, not hash-only carry.",
+      "sha256": "20d6bb98602db1d3dbc649b575e54c27fb766279d064deed4a13fcc0c695af72",
+      "actual_EOF": 363
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          1137
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Actual complete literal1-1137 across five bounded displays (473-512 separately fresh). Full actual PR/P16 diff independently compared; support-only armor1-78 reread in already completed exact role. No native execution or child clearance.",
+      "sha256": "eb7dbfbe0a6f8fa81675d14434401b41bc0949b693b56338129c6c778af82284",
+      "actual_EOF": 1137
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/combat.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          1137
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Complete actual PR/P16 diff and full P16 literal establishes all shared-body operations; independent PR raw reach versus P16 native extraction, intended contact0 versus SignedLengthZERO, fallible actual contact resolution and every fixture delta personally compared. No claim of standalone full PR literal display.",
+      "sha256": "7d00629a7da937cf41b5bc49a86df7119cc7054743dce1f70ac2507a7aba59b0",
+      "actual_EOF": 1137
+    }
+  ],
+  "groups": {
+    "body-mutation-and-aggregate": "CombatBody indexes exact7 via exhaustive parent BodyPart0..6. apply_damage delegates canonical clamp: for finite nonnegative prehealth and damage it returns applied in0..prehealth and resulting nonnegative health. Signed historical/raw health and projection/pain observations require actual canonical body policy, not a blanket UnitInterval rewrite. Public health [-MAX;7] can make total_damage overflow; this is a raw aggregate admission limit, no normal clamped-body producer claim. Seven health entries already within0..1 bound this sum by7. Preserve nonhuman mass and intentional signed health roles.",
+    "snapshot-and-selection": "CombatEquipment for_melee/for_ranged clone then atomically replace selected weapon and holding side, without mutation of original; distinct retained modes/IDs/projectile facts remain. PlayerSkills exhaustive match selects exact training hours, actual Bestiary aggregate delegates canonical category owner; no float addition locally except body total. Legitimate absent weapon native defaults0/None and innate armor no inventory item/material are not missing recipe success fallbacks. CombatEssentials returns physical condition1 intentionally because fatigue/burden already enter total incapacitation; no double-counted hidden penalty.",
+    "armor-and-unit-boundaries": "Armor indexing same7; surface selection requires actual geometry contains(sample), retaining exact item/material/physical facts. Scalar summary coverage and actual geometry remain distinct; no all-layer versus selected-surface conflation. Innate resistance can intentionally represent special physical policies, so do not universally ban infinity on all equipment fields. P16 SignedLength conversion improves native contract but permits signed values; strict positive mode-enabled geometry requires actual physical product, while absent/disabled-mode zero stays valid.",
+    "combat-clamp-and-recovery": "Damage clamp publishes bounded finite result under finite nonnegative prehealth; no unchecked narrowing/indexing. Recovery0.25*nonnegative elapsed plus max0 correctly clips mathematical negative result even if extreme negative intermediate underflows; a clipped intermediate infinity is not automatically an observable defect. derive_combat_starting_condition explicitly defaults maximum-blood-invalid to fraction1 and removes pain/blood already recomputed; preserve or deliberately resolve actual admission policy rather than silently changing it during numeric substitution. Existing fixture asserts the fallback. Total incapacitation may legitimately exceed1; it is not UnitInterval.",
+    "physical-computation-graph": "Public trait inputs feed strength*5, body/inventory mass sum, leverage product, attack energy, resistance and energy splits before final AttackResult. Finite leaves alone do not make these sums/products/ratios finite. Carry canonical admitted physical product and checked computed energy through these consumers; existing F035 carried-mass/F041 balance and F043 applied channels are connected suppliers/recipients, not evidence that their exact repairs alone seal this entire kernel. No current ordinary weapon/body/config overflow or failed game run asserted. Zero-mass private guard and zero attack energy represent explicit no-contact policies.",
+    "result-scaling": "F044 public Mul publishes failed arithmetic with finite inputs. Independently observed armor struct1-19 has exactly resisted/transmitted/penetrated energy fields; scaler updates each plus cut/blunt/balance/contact, retains distinct surface/outcome identity. The remedy must preserve units/relationships and actual zero/negative scale policy rather than silently cap arbitrary factors to1. Raw serde/public fields are admission gaps, not proof of admitted finite results.",
+    "mixed-channel-source-support": "Existing combat fixture974-1000 directly exercises damage helper with force76.5 and precision1, asserting cut38.25/blunt38.25. This supplies an ordinary-size actual source producer of mixed positive channels for F043; it is not an executed fixture or proof that a shipped weapon reached it in a game. Wound/applied health apportionment retains0.75 blunt weighting and residual applied-minus-cut; recorder must consume that canonical result.",
+    "direction-and-observation": "flanking raw vector dot followed by clamp assumes actual direction meaning, not finite raw tuple normalization. No actual unnormalized caller newly proved here. Downstream native admission belongs to its exact source; do not stamp caller-wide safety from clamp or assume NaN comparisons reject. Ranged hit precision clamp and precision coefficients remain separate concepts; precision4 existing fixture must survive.",
+    "all-existing-fixtures": "Every original combat fixture read: physical energy conservation, armor resistance/padding, unarmed mass-sensitive stagger, zero contact, shortened contact, anatomical coverage versus gaps and strategic starting condition. These current small finite fixture windows do not prove extreme arithmetic closure or accepted native state. No source/test/assertion/helper edits and no execution."
+  },
+  "findings": [
+    {
+      "id": "ROOT-INITIAL04-F044",
+      "kind": "finite_attack_result_scaling_publishes_nonfinite_energy_without_readmission",
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat.rs",
+      "locations": [
+        [
+          148,
+          181
+        ]
+      ],
+      "case": "Public AttackResult::ToDefender with finite cut_damage=f32MAX, other energies/balance0 and armor_impactNone, multiplied by finite rhs2, returns cut_damageInf. Public ToAttacker contact_forceMAX or retained finite ArmorImpact energies have the same operation failure. Both operands are representable and nonnegative. API-only strengthening; no current gameplay scaler/caller uses2 at extreme energy and no executed failure claimed.",
+      "operation": "An infallible raw scalar operator bypasses computed-result admission and publishes nonfinite physical energy while retaining the accepted result shape.",
+      "connected_repair": "Use canonical energy/result owners and an explicit checked scale operation or equivalent typed rejection before publishing a scaled AttackResult. Propagate failure through actual consumers and retain correlated contact/armor facts. Preserve valid zero and positive scaling and determine any intentional signed-scaling role from callers; no arbitrary factor<=1 cap, lossy saturation or duplicate generic float wrapper. Carry associated raw force/kernel computations into the same connected physical repair graph.",
+      "acceptance": "A successful scaling operation preserves admitted physical result guarantees, or returns a structured arithmetic failure without committing partial result state. Existing source fixtures only; no new tests/cases/assertions/helpers.",
+      "deduplication": "Native05 confirmed no exact F001-F039 counterpart; distinct operation from weapon balance, armor mean and applied-channel recorder mismatch. Shared canonical physical suppliers must be repaired together, not counted as independent new migration owners.",
+      "contract_ref": "ROOT-INITIAL04-CONTRACT-119"
+    }
+  ],
+  "id": "ROOT-INITIAL04-CONTRACT-119",
+  "at": "2026-10-23T04:12:50.082696+00:00",
+  "lens": "audit-invariant-operations",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-054.json",
+    "sha256": "61dd93a34016dcc5670f4fd6d4aa9c65dc75b8464ff1eadd89374fa786a0fa23"
+  },
+  "mandatory_overlays": {
+    "record": "continuation/owner-range-extensions.jsonl",
+    "sha256": "d54b480e8e385f2416db93d6e6781d2237438cf2d9227fbd3c9ebd82176526a6",
+    "through": 238
+  },
+  "mandatory_qualification170": {
+    "record": "continuation/root/parallel-scope-qualification-170.json",
+    "sha256": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c"
+  },
+  "repair": "frozen_initial_audits_then_handover",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

@@ -1,0 +1,27 @@
+{
+  "id": "SEGOVB-04-VISTA-RETAINED-LOD-COHORT-CANDIDATE-001",
+  "classification": "source-backed selected-configuration and admitted-input counterexample; alias comparison pending",
+  "operation": "vista.rs chooses bundle.lods.take(graphics.maximum_lods), prepares each with coarser from this selectedlist. surface.rs::update always keeps bundle.lods.take(2); presented_height_at always morphs first toward retainedsecond. Config disable_headless_rendering explicitly sets maximum_lods1.",
+  "witness": "Representable nonurban scene: flat0m playable3x3 spacing1 (half1); firstlod5x5 spacing2 height10, second5x5 spacing4 height30, sameorigin0. Rendering selectedfirstonly generates outer x4 vertexheight10 with no coarser. ActiveVistaSurface samples x4 with secondlod weight1 and edgeweight1, returns30. Fixed movingdetailpatch can sample that sameScenePlanPoint x4 within12mradius, publishingheight30 abovefirstmesh10. No build/render/livecapture, no current authoredinput claim.",
+  "consumer": "terrain.rs::terrain_detail_patch_mesh uses ActiveVistaSurface::presented_height_at for highresolution mesh; both are presentation support contracts, no strategic/tacticalDB authority transfer",
+  "qualification": "Preserve actualcamera/detailpatch lifecycle and canonicalownedterrain distinction; example shows sampled nonurban input/selectedmax1, not everyownedmap. Parent may find exactarchivealias; do not sum asglobalnewcount.",
+  "repair_contract": "Retain the actual selected ring/coarser cohort alongside prepared mesh authority, including maximum_lods and absence; query same interpolation/visibility contract.",
+  "acceptance": [
+    "max1 andmax2 with distinct adjacentheight fields match exactemittedmesh vertices/detailpatch outsideplayable",
+    "ordinarytwo-ring boundary and missing-support behavior preserved",
+    "config/headless selection must not retain unrenderedcoarser authority"
+  ],
+  "dependencies": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/vista_surface.rs",
+      "sha256": "0238db91b3a926b53a353da8892a2e0ff17018d131529261be5a4cdf2cb8e405",
+      "read_ranges": [
+        [
+          1,
+          480
+        ]
+      ],
+      "qualification": "full fresh arithmetic dependency read; no role coverage transfer"
+    }
+  ]
+}

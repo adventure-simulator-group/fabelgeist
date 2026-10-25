@@ -1,0 +1,39 @@
+--- p16base/crates/adventuresim-tactical-server/src/iteration/logging/resolution.rs
++++ catalog-p16head/crates/adventuresim-tactical-server/src/iteration/logging/resolution.rs
+@@ -61,21 +61,21 @@
+     attacker_transform: &Transform,
+     defender_transform: &Transform,
+     viewer: &TacticalPlayerViewer<'_, '_>,
+     states: &Query<(&TacticalCombatState, &Limbs)>,
+-) -> TacticalMeleeLogEntry {
++) -> fabelgeist_geometry::GeometryResult<TacticalMeleeLogEntry> {
+     let energy = resolved_energy_log(event.result);
+     let armor_impact = energy.armor_impact;
+-    TacticalMeleeLogEntry {
++    Ok(TacticalMeleeLogEntry {
+         sequence,
+         tick: clock.tick,
+         elapsed_seconds: TacticalElapsed::from_tick_count(clock.tick),
+         attacker: attacker.name.clone(),
+         defender: defender.name.clone(),
+-        center_separation_metres: attacker_transform
++        center_separation_metres: SignedLength::from_metres(attacker_transform
+             .translation
+             .xz()
+-            .distance(defender_transform.translation.xz()),
++            .distance(defender_transform.translation.xz()))?,
+         attacker_decision: TacticalDecision::Attack,
+         defender_decision: defender_decision(event.defender_response),
+         defensive_implement: event.defender_blocking_slot.and_then(|slot| {
+             viewer
+@@ -125,9 +125,9 @@
+         cut_damage_joules: energy.cut,
+         blunt_damage_joules: energy.blunt,
+         attacker_incapacitation: incapacitation_log(viewer, states, event.attacker),
+         defender_incapacitation: incapacitation_log(viewer, states, event.target),
+-    }
++    })
+ }
+ 
+ fn defensive_implement_kind(
+     event: &MeleeAttackResolved,

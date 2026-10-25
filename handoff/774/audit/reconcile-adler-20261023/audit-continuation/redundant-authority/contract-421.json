@@ -1,0 +1,125 @@
+{
+  "id": "CONT07-CONTRACT-421",
+  "at": "2026-10-23T21:35:47.370111+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1846,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface.rs",
+      "sha256": "dd84d03806822c09a5bd0e299647d2b4454050ad009a1add640a462320bafd20",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/surface.rs",
+      "actual_EOF": 177,
+      "ranges": [
+        [
+          1,
+          177
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1847,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor/tests.rs",
+      "sha256": "418f05f73a7de5b68da774e1b2ae4ab2fd20f011803ed19fb013b2e5cf7379b7",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor/tests.rs",
+      "actual_EOF": 185,
+      "ranges": [
+        [
+          1,
+          185
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1848,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface_hit.rs",
+      "sha256": "27d50aec52ef52b5d464e0e14d56fd1099e965784ab7db2198744ec9de96e558",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/surface_hit.rs",
+      "actual_EOF": 37,
+      "ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2695,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/validation.rs",
+      "sha256": "b3b0b91b5ad6af9f24f0166a723369ea8b37babe7d809934f513a2c0da87b91b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/validation.rs",
+      "actual_EOF": 159,
+      "ranges": [
+        [
+          1,
+          157
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2696,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+      "sha256": "25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+      "actual_EOF": 323,
+      "ranges": [
+        [
+          1,
+          299
+        ],
+        [
+          305,
+          311
+        ],
+        [
+          314,
+          323
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2697,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor/region.rs",
+      "sha256": "0776d212c25f4a233acb887f1fa0e5318c494cff1121dfb5125e6f5105d3d409",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor/region.rs",
+      "actual_EOF": 121,
+      "ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "CAM-OWN-SUPPORT-STARTUP-081",
+    "RIG-OWNER-EROSION-RECIPES-065",
+    "ROOT-OWNER-FRAMES-004",
+    "ROOT-ADM-REG-026",
+    "ROOT-ADM-REG-027",
+    "ROOT-ADM-REG-028",
+    "ROOT-ADM-REG-030"
+  ],
+  "facts": [
+    "1846 all support consumers derive owner IDs from mesh rather than storing second property/member list; surface contains uses exact f64 clipping outline while bounded regions provide surrounding ownership diagnostics. admit_generated and wire TryFrom both call validate_encoded, no different ad-hoc current validator at these ports.",
+    "Fresh necessary dependencies2695/2696/2697 personally read exact scope: validate_encoded rejects mismatched mesh versus limits contact tolerance70, region/outlines cardinality72, invalid source/treatment/member graph, vertices outside outlines, excessive grade and floor mismatch. This closes duplicate tolerance authority candidate; lower mesh standalone contract remains separate.",
+    "2696 FloorBearing stores semantic required floor regions/elevation and validates mesh coverage against that exact expected datum. These values intentionally serve semantic requirement versus native realized geometry; derive either blindly from the other would erase validation. Wrong-level and absent areas are union calculations with explicit permitted perimeter/contact bound. Duplicate faces cannot hide a hole. Perimeter derives from current immutable regions, signed zero edge key is comparison-only canonicalization, original coordinates preserved.",
+    "2697 FloorRegion stores original admission authority (scene or architectural vertices+projection) and derived immutable outline. TryFrom always reconstructs outline from that same admission; fields private, immutable outline getter, serialization exports admission only. Different arbitrary-scene versus trusted rigid-projection admission supports intentional rounded bends; no independently editable second current geometry.",
+    "1847 source fixtures preserve signed-zero bytes, complete partition edges, distinct overlap versus partial shared-edge rejection, rounded architectural hull and coverage failure when duplicate triangle replaces missing face. Fixtures unexecuted. Source2695 cfgtest158-159 only incidental header display uncredited;2696 excluded300-304/312-313,2697 tests79+ unread/uncredited.",
+    "1848 SurfaceHit height and normal are independent physical observations, not derivable from each other; finite/effective direction admitted at geometry port. Shared-edge equal-height query-normal tie remains conditional serialized-order question, no new defect established.",
+    "No new07finding; all13/overlay gate open and no execution."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1849,
+    "start_line": 1
+  }
+}

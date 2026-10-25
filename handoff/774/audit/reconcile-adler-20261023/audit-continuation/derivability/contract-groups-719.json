@@ -1,0 +1,76 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-719",
+  "at": "2026-10-25T16:36:59.220585+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 980,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/tests/solver_and_generation.rs",
+      "sha256": "ad5412d471d6177851e63bed5f4986db65b6d3ef02f3f604b0517a5fb3f60c9f",
+      "actual_EOF": 603,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/tests/solver_and_generation.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/quest_generation/tests/solver_and_generation.rs",
+        "sha256": "ad5412d471d6177851e63bed5f4986db65b6d3ef02f3f604b0517a5fb3f60c9f",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 22763,
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 129,
+            "read_ranges": [
+              [
+                1,
+                603
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-QUEST-FIXTURE-004"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_generation/tests/solver_and_generation.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_owner": "native",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1630,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          603
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Entire603line exact fixture personally consumed716\u2013719: deterministic generation/counterfactual, conditional likelihoods/bridges/public opaque IDs/graph resolution/marginal assertions. No local trait/type/codec implementation; no functions or fixtures executed."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Solver generation fixture derivability",
+      "disposition": "No handwritten trait target. Source assertions preserve semantic runtime authority/selection and use existing derives; no execution or cross-lens transfer."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 981,
+    "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/tests/testimony.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

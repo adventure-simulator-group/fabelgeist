@@ -1,0 +1,44 @@
+--- PRbase/crates/adventuresim-tactical-client/src/animation_viewer/setup.rs
++++ frozen/crates/adventuresim-tactical-client/src/animation_viewer/setup.rs
+@@ -1,18 +1,27 @@
+ use super::*;
++use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
+ 
+ pub(super) fn setup_viewer(
+     mut commands: Commands,
+-    sequence: Res<CaptureSequence>,
++    mut sequence: ResMut<CaptureSequence>,
+     proportions: Res<CaptureBodyProportions>,
+     armor: Res<harness::ArmorCapture>,
+ ) -> Result {
+     let default_player = Player::default();
+     let mut generator = TerrainGenerator::new(0xA11C_E5E1.into());
+     generator.period = 200.0;
+     let terrain = generator.generate(100, if sequence.uses_flat_grid() { 0 } else { 30 }, 100)?;
+-    let spawn_height =
+-        terrain.height_at(Vec2::ZERO).unwrap_or_default() + CAPTURE_ROOT_GROUND_OFFSET_METRES;
++    let Some(height) = sequence.admit_terrain_height(&terrain, ScenePlanPoint::ORIGIN) else {
++        return Ok(());
++    };
++    let Some(position) = sequence.admit_scene_position(Vec3::new(
++        0.0,
++        height.metres() + CAPTURE_ROOT_GROUND_OFFSET_METRES,
++        0.0,
++    )) else {
++        return Ok(());
++    };
+     commands.spawn((
+         Name::new(if sequence.uses_flat_grid() {
+             "Animation review flat-grid scene"
+         } else {
+@@ -31,9 +40,9 @@
+             Player::default(),
+             CharacterId(default_tactical_character_id()),
+             CharacterLook::default(),
+             SkeletonState::default(),
+-            Transform::from_xyz(0.0, spawn_height, 0.0),
++            Transform::from_translation(position.metres()),
+             Collider::cylinder(0.4, 1.9),
+             CollisionMargin(0.01),
+             tactical_character_controller(),
+         ))

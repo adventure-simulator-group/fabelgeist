@@ -1,0 +1,344 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-181",
+  "at": "2026-10-23T03:39:48.351987+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-053.json",
+    "sha256": "647458b6631d1e95dc0605d894414a3716fbb0e2c60ed4a6a55057300b3238d4"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-052.json",
+    "sha256": "505a017aa0689a7100624894b037b52b479409ef9a0da1201c9fbd4f3da07fc8"
+  },
+  "new_variants": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/physics/controller_config.rs",
+      "sha256": "56773ae80325116c0e2383940bec1f3f8a05d95d97a2c76596982c717b5dbc62",
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-core\\src\\physics\\controller_config.rs",
+      "snapshot": "physical-p16",
+      "actual_line_count": 18,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "audit_owner": "camera",
+      "scope_registration": [
+        {
+          "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+          "sha256": "9caf3e1779160d137057b290d98ad1aa8c3e6662e41020e429b5a26ca00c8251",
+          "row_1based": 33,
+          "id": "CAMERA-INITIAL07-REG033",
+          "original_record": {
+            "registration_id": "CAMERA-INITIAL07-REG033",
+            "at": "2026-10-23T03:09:39.640919+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "physical-p16:crates/adventuresim-tactical-core/src/physics/controller_config.rs",
+            "snapshot": "physical-p16",
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-core\\src\\physics\\controller_config.rs",
+            "sha256": "56773ae80325116c0e2383940bec1f3f8a05d95d97a2c76596982c717b5dbc62",
+            "actual_EOF": 18,
+            "material_ranges": [
+              [
+                1,
+                18
+              ]
+            ],
+            "reason": "Direct per-step writer of controller fields; determine authored native startup defaults versus actual runtime motor config owner, not infer meanings from call name.",
+            "exclusions": "Only actual direct controller-config assignment / plugin scheduling definitions; no called foreign Ahoy/Bevy package bodies, movement helpers, new tests or runtime execution. Function/attribute symbol navigation only before registration; body not yet analyzed.",
+            "status": "prospectively_registered_before_body_analysis"
+          }
+        }
+      ],
+      "scope_limits": "Exact prospectively registered source role after fresh Root03 proof180; no native library, whole simulation/CLI execution or adjacent material107+ credit. All prior mandatory qualifications retained.",
+      "source_lens_credit": "none from scope metadata"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/physics/plugin.rs",
+      "sha256": "c165c0efe7988bed6982ef9f1fe32fd78cd0fe603c3e5e4581435bad0bde0353",
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-core\\src\\physics\\plugin.rs",
+      "snapshot": "physical-p16",
+      "actual_line_count": 88,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          1,
+          88
+        ]
+      ],
+      "audit_owner": "camera",
+      "scope_registration": [
+        {
+          "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+          "sha256": "9caf3e1779160d137057b290d98ad1aa8c3e6662e41020e429b5a26ca00c8251",
+          "row_1based": 34,
+          "id": "CAMERA-INITIAL07-REG034",
+          "original_record": {
+            "registration_id": "CAMERA-INITIAL07-REG034",
+            "at": "2026-10-23T03:09:39.657727+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "physical-p16:crates/adventuresim-tactical-core/src/physics/plugin.rs",
+            "snapshot": "physical-p16",
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-core\\src\\physics\\plugin.rs",
+            "sha256": "c165c0efe7988bed6982ef9f1fe32fd78cd0fe603c3e5e4581435bad0bde0353",
+            "actual_EOF": 88,
+            "material_ranges": [
+              [
+                1,
+                88
+              ]
+            ],
+            "reason": "Direct actual scheduling owner of scoped motor and native Ahoy controller; qualify whether horizontal velocity has one integration owner or two live producers.",
+            "exclusions": "Only actual direct controller-config assignment / plugin scheduling definitions; no called foreign Ahoy/Bevy package bodies, movement helpers, new tests or runtime execution. Function/attribute symbol navigation only before registration; body not yet analyzed.",
+            "status": "prospectively_registered_before_body_analysis"
+          }
+        }
+      ],
+      "scope_limits": "Exact prospectively registered source role after fresh Root03 proof180; no native library, whole simulation/CLI execution or adjacent material107+ credit. All prior mandatory qualifications retained.",
+      "source_lens_credit": "none from scope metadata"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics/plugin.rs",
+      "sha256": "c165c0efe7988bed6982ef9f1fe32fd78cd0fe603c3e5e4581435bad0bde0353",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\physics\\plugin.rs",
+      "snapshot": "pr-working",
+      "actual_line_count": 88,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          1,
+          88
+        ]
+      ],
+      "audit_owner": "camera",
+      "scope_registration": [
+        {
+          "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+          "sha256": "9caf3e1779160d137057b290d98ad1aa8c3e6662e41020e429b5a26ca00c8251",
+          "row_1based": 35,
+          "id": "CAMERA-INITIAL07-REG035",
+          "original_record": {
+            "registration_id": "CAMERA-INITIAL07-REG035",
+            "at": "2026-10-23T03:09:39.661600+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics/plugin.rs",
+            "snapshot": "pr-working",
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\physics\\plugin.rs",
+            "sha256": "c165c0efe7988bed6982ef9f1fe32fd78cd0fe603c3e5e4581435bad0bde0353",
+            "actual_EOF": 88,
+            "material_ranges": [
+              [
+                1,
+                88
+              ]
+            ],
+            "reason": "Actual current PR scheduling counterpart required independently; no P16/hash-only native pipeline credit.",
+            "exclusions": "Only actual direct controller-config assignment / plugin scheduling definitions; no called foreign Ahoy/Bevy package bodies, movement helpers, new tests or runtime execution. Function/attribute symbol navigation only before registration; body not yet analyzed.",
+            "status": "prospectively_registered_before_body_analysis"
+          }
+        }
+      ],
+      "scope_limits": "Exact prospectively registered source role after fresh Root03 proof180; no native library, whole simulation/CLI execution or adjacent material107+ credit. All prior mandatory qualifications retained.",
+      "source_lens_credit": "none from scope metadata"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/report.rs",
+      "sha256": "732565c70b576d74ef982a5902e2268a5bd2611b296b9319f242562dd26571be",
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-server\\src\\bin\\melee_combat_iteration\\report.rs",
+      "snapshot": "physical-p16",
+      "actual_line_count": 269,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          1,
+          269
+        ]
+      ],
+      "audit_owner": "camera",
+      "scope_registration": [
+        {
+          "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+          "sha256": "9caf3e1779160d137057b290d98ad1aa8c3e6662e41020e429b5a26ca00c8251",
+          "row_1based": 36,
+          "id": "CAMERA-INITIAL07-REG036",
+          "original_record": {
+            "registration_id": "CAMERA-INITIAL07-REG036",
+            "at": "2026-10-23T03:16:33.135719+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/report.rs",
+            "snapshot": "physical-p16",
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-server\\src\\bin\\melee_combat_iteration\\report.rs",
+            "sha256": "732565c70b576d74ef982a5902e2268a5bd2611b296b9319f242562dd26571be",
+            "actual_EOF": 269,
+            "material_ranges": [
+              [
+                1,
+                269
+              ]
+            ],
+            "reason": "Direct retained metric accumulator and finish_means/record_final body called by scoped P16 runner/causal/audit: distinguish ordered accumulation/derived report flags from independently mutable current fact. Only PRreport2015 had actual global source; cannot infer P16 counterpart from prior NativePR facts.",
+            "exclusions": "Exact report work records/accumulator/native output methods, no CLI execution/new reports/generated artifacts/tests or wider roster/simulation graph.",
+            "status": "prospectively_registered_before_body_analysis"
+          }
+        }
+      ],
+      "scope_limits": "Exact prospectively registered source role after fresh Root03 proof180; no native library, whole simulation/CLI execution or adjacent material107+ credit. All prior mandatory qualifications retained.",
+      "source_lens_credit": "none from scope metadata"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration/logging/decisions.rs",
+      "sha256": "1e132304f3127343f18a77a99b9d18205c3057788ce99700525a0d16e27a8768",
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-server\\src\\iteration\\logging\\decisions.rs",
+      "snapshot": "physical-p16",
+      "actual_line_count": 89,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "audit_owner": "camera",
+      "scope_registration": [
+        {
+          "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+          "sha256": "9caf3e1779160d137057b290d98ad1aa8c3e6662e41020e429b5a26ca00c8251",
+          "row_1based": 37,
+          "id": "CAMERA-INITIAL07-REG037",
+          "original_record": {
+            "registration_id": "CAMERA-INITIAL07-REG037",
+            "at": "2026-10-23T03:37:57.839021+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration/logging/decisions.rs",
+            "snapshot": "physical-p16",
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-server\\src\\iteration\\logging\\decisions.rs",
+            "sha256": "1e132304f3127343f18a77a99b9d18205c3057788ce99700525a0d16e27a8768",
+            "actual_EOF": 89,
+            "material_ranges": [
+              [
+                1,
+                89
+              ]
+            ],
+            "reason": "Direct callbacks registered by scoped P16 iteration133-179 record cancellation/transformation/continuation status consumed by current causal report; actual distinction requested intent versus committed lifecycle must compare P16 definitions rather than assume PR2059 equivalence.",
+            "exclusions": "Exact three event-to-output callbacks only; no new foreign/runtime/whole bot graph or execution.",
+            "status": "prospectively_registered_before_body_analysis"
+          }
+        }
+      ],
+      "scope_limits": "Exact prospectively registered source role after fresh Root03 proof180; no native library, whole simulation/CLI execution or adjacent material107+ credit. All prior mandatory qualifications retained.",
+      "source_lens_credit": "none from scope metadata"
+    }
+  ],
+  "new_overlays": [
+    {
+      "id": "CONT-OWNER-RANGE-EXTENSION-237",
+      "at": "2026-10-23T03:39:48.351987+00:00",
+      "source_id": "physical-p16:crates/adventuresim-core/src/material.rs",
+      "sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+      "material_ranges": [
+        [
+          74,
+          106
+        ]
+      ],
+      "audit_owner": "native",
+      "reason": "141 actual graphpreservation proof needs real checkednativeu64volume implementation, no name-only orPRcounterpartcoverage. RegisterBEFOREboundedP16actualbodyanalysis.",
+      "scope_registration": [
+        {
+          "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+          "sha256": "c365626e4452c82aa9683f68c06c78d6f4212cefca583814bc382a04584ce92a",
+          "row_1based": 34,
+          "id": "NATIVE-INITIAL05-REG034",
+          "original_record": {
+            "id": "NATIVE-INITIAL05-REG034",
+            "at": "2026-10-23T03:34:08.300311+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "physical-p16:crates/adventuresim-core/src/material.rs",
+            "snapshot": "physical-p16",
+            "sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+            "actual_EOF": 1869,
+            "material_ranges": [
+              [
+                74,
+                106
+              ]
+            ],
+            "role": "ExactMilliliters declaration/default/ZERO/new/get/is_zero/checked_add/sub, actualdirectP16ContainmentGraph::used_volume58\u201374/insert131\u2013143 arithmetic receiver; sameexistingvariant2746 butnewexactdefinitionroleoutsideearliermaterial047/049ranges.",
+            "reason": "141 actual graphpreservation proof needs real checkednativeu64volume implementation, no name-only orPRcounterpartcoverage. RegisterBEFOREboundedP16actualbodyanalysis.",
+            "exclusions": "No107\u2013203unitconversions/Microliters, noVessel/Timing/Retry/tests; priorP16materialrolesretained.",
+            "status": "prospectively_registered_before_body_analysis"
+          }
+        }
+      ],
+      "limits": "No107\u2013203unitconversions/Microliters, noVessel/Timing/Retry/tests; priorP16materialrolesretained.",
+      "source_qualifications": "Exact prospectively registered source role after fresh Root03 proof180; no native library, whole simulation/CLI execution or adjacent material107+ credit. All prior mandatory qualifications retained."
+    }
+  ],
+  "total_variants": 2825,
+  "total_overlays": 237,
+  "mandatory_scope_qualifications": [
+    {
+      "record": "continuation/root/parallel-scope-qualification-130.json",
+      "sha256": "5dc4e5cd771612c7e050ab4af544411523317ae4b57738f1fb20f493685a50fc"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-117.json",
+      "sha256": "f3b80648900716939057b20776d756a6e37001f6910378da1a1bbaea230d348b"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-149.json",
+      "sha256": "97103899514ade32cf1e41c2794fa9c49c0cb8c6c7a2c6a4961b7492de5dc708"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-151.json",
+      "sha256": "670dd53a640b28eef7ad9d57b37f9213e1bca7117d7098691c4b0cd20c2a8f65"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-158.json",
+      "sha256": "fa0e9cc06d04fca0a0e2b5f9a333390a0ba1e71eff846a4e957c46b68b3e940e"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-170.json",
+      "sha256": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-173.json",
+      "sha256": "5763e9e965b4f4c1d402a09eab682de47336885c8d30b3c5b3d157242a496948"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-176.json",
+      "sha256": "9a321e498a00285331d4ec4fb4dc7c3a49d7bb6e3a08a44a79c2e5bf58186270"
+    }
+  ],
+  "registered_rows": 6,
+  "input_pins": [
+    {
+      "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+      "sha256": "9caf3e1779160d137057b290d98ad1aa8c3e6662e41020e429b5a26ca00c8251",
+      "captured_rows": 37,
+      "selected_ids": [
+        "CAMERA-INITIAL07-REG033",
+        "CAMERA-INITIAL07-REG034",
+        "CAMERA-INITIAL07-REG035",
+        "CAMERA-INITIAL07-REG036",
+        "CAMERA-INITIAL07-REG037"
+      ]
+    },
+    {
+      "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+      "sha256": "c365626e4452c82aa9683f68c06c78d6f4212cefca583814bc382a04584ce92a",
+      "captured_rows": 34,
+      "selected_ids": [
+        "NATIVE-INITIAL05-REG034"
+      ]
+    }
+  ],
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through236-before053.jsonl",
+    "sha256": "5e6bb0b590c8a298ed8dc44a980d39d44f5d21a82449623f405765f23496780c",
+    "through": 236
+  },
+  "limits": "Five new variants2825 and one overlay237, six exact registered roles. Only actual registered controller/scheduler/report/decision/Milliliters roles, no foreign-native/test expansion. Exhaustive all13 initial audits then handover163."
+}

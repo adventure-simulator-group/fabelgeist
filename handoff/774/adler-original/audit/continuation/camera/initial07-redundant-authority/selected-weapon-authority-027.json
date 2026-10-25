@@ -1,0 +1,93 @@
+{
+  "id": "CAMERA-INITIAL07-SELECTED-WEAPON-027",
+  "contract": {
+    "id": "CAMERA-INITIAL07-CONTRACT-025",
+    "at": "2026-10-22T19:50:20.008275+00:00",
+    "lens": "audit-redundant-authority",
+    "members": [
+      {
+        "scope020_index": 66,
+        "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+        "sha256": "6807ada697c587ffd96f625c61692de55a4ae1548d7dcd9e5d2d539e5f6187c0",
+        "actual_EOF": 234,
+        "material_ranges": [
+          [
+            1,
+            234
+          ]
+        ],
+        "scope_record": "continuation/cumulative-source-scope-parallel-020.json#/files/66"
+      },
+      {
+        "scope020_index": 68,
+        "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/scheduling.rs",
+        "sha256": "170846de4c534120087f3f12c2fd365b8f2103c97d270ff28d71bee179d6e147",
+        "actual_EOF": 391,
+        "material_ranges": [
+          [
+            1,
+            391
+          ]
+        ],
+        "scope_record": "continuation/cumulative-source-scope-parallel-020.json#/files/68"
+      },
+      {
+        "scope020_index": 872,
+        "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+        "sha256": "201e0aa26a4ceec81c0caa799acc2dae96ad3d1600ed6184aef8f671e3becf1c",
+        "actual_EOF": 226,
+        "material_ranges": [
+          [
+            1,
+            226
+          ]
+        ],
+        "scope_record": "continuation/cumulative-source-scope-parallel-020.json#/files/872"
+      },
+      {
+        "scope020_index": 874,
+        "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/scheduling.rs",
+        "sha256": "9c56fb8232e356e6e204ba7c1065597c6063b0b25572d6f0e7cb131b2a7eb320",
+        "actual_EOF": 391,
+        "material_ranges": [
+          [
+            1,
+            391
+          ]
+        ],
+        "scope_record": "continuation/cumulative-source-scope-parallel-020.json#/files/874"
+      }
+    ],
+    "actual_source_proof": "Fresh full PR mobility226/scheduling391; complete actual P16 mobility234/scheduling391 body differences personally reviewed. P16 replaces raw lengths with canonical SignedLength, checked GeometryResults and private MeleePairMovement preview result; selected-weapon source choice remains BASE in effective reach and movement intent. Fresh actual current main1-1332 and existing switch fixture2090-2117 support operation context but do NOT complete whole main2878/P162879 source cells.",
+    "retained_relationships": [
+      "Movement intent versus integrated displacement/velocity are requested versus realized physical facts. Per-actor signed velocity contributions are different participants, not duplicate global pair velocity. Centre separation versus surface gap explicitly adds/subtracts canonical two-radius constant, not a second independently authored radius.",
+      "Engagement target associates each retained distance with its counterpart. Observe ignores old distance for a different target, uses current associated distances and an explicit min reconciliation policy. Commit initializes changed target associations; advance pair rebinds both when needed and publishes SAME computed after-distance to both, each own velocity. Distances may differ temporarily after one new association before movement reconciles them; no unqualified equality invariant or normal-stale-distance defect invented.",
+      "Schedule retains start/contact/recovery times as different phase coordinates; jitter/adaptation are sampled or response history, not cached global config copies. Existing current attack returns captured timing; scheduled_attack_is_current compares captured start/contact against retained current generation to ignore invalidated work. Trace stores before/after/readiness as event history with one construction owner, not alternate mutable live schedule.",
+      "Initialization samples delay/jitter once then installs current schedule; schema/numeric policy remains owned canonical elapsed/time leaves. window/round timing derived from same actual parameters at call, no independent round-duration table here.",
+      "AttackStartTrace records request/distance/readiness/window/adaptation and computed timing together. Distinct before/after phases and tick encodings are immutable observations of scheduled operation, not current cache flags.",
+      "Actual melee geometry source selection is inconsistent across retained base/per-mode weapon representations: F009. This explicitly narrows prior CONTRACT023 local-view conclusion; private for_melee exists but these readers bypass it."
+    ],
+    "findings": [
+      "CAMERA-INITIAL07-F009",
+      "CAMERA-INITIAL07-F008 actual stored distal flag receiver support"
+    ],
+    "explicit_dependencies": "Main battle inventory remains pending child commitment/defense/joint/turn mutation bodies and actual main counterpart comparison; lower opposed movement kernels remain separately inventoried. No source coverage from rg search or fixture count.",
+    "connected_repair_acceptance": "Use one explicit selected melee/ranged equipment view through ALL geometry, movement, targeting, workload and contact readers. Prefer remove independent base weapon/holding-side selection from retained loadout or make transient views borrow canonical mode choice. Do not sync extra mutable copies opportunistically or patch only this getter with conversion. Keep genuine alternate weapons/IDs/ammunition history and trait/numeric ports.",
+    "status": "exact listed source07 inventory with concrete selected-owner mismatch"
+  },
+  "finding": {
+    "id": "CAMERA-INITIAL07-F009",
+    "at": "2026-10-22T19:50:20.008275+00:00",
+    "classification": "actual selected-weapon authority mismatch in normal hybrid producer/operation graph; source-backed, not runtime reproduced",
+    "producer": "authored_threat_combatant stores primary weapon at threat54; ranged profile threat139 gives base melee_reach0. equip_threat_weapon164-168 separately stores ranged primary and authored knife melee sidearm. CombatEquipment keeps independent base weapon and per-mode alternatives.",
+    "operation": "Main preferred_attack_mode1143-1148 switches to Melee when current ammunition no longer permits Ranged, without assigning base equipment.weapon to sidearm. Existing source fixture2094-2100 confirms that intended mode transition only.",
+    "actual_receivers": "mobility::melee_effective_reach PR3-5/P16MeleePairMovement tail calls BASE equipment.weapon_reach. movement_intent also reads BASE weapon reach and striking_head_length. But preferred_melee_measure PR121-130 reads melee_weapon grip/head/distal, and attack equations commonly use for_melee selected snapshot. The same melee action therefore combines geometry from primary ranged weapon with sidearm geometry, rather than one chosen implement. For ranged threats base melee_reach explicitly0 while selected sidearm is separately authored melee geometry.",
+    "qualification": "No executed battle, bad content row or particular observed tactical outcome claimed. Normal hybrid initialization and supported ammunition-driven switch are actual source paths. The wrong selected owner is established independently of P16 SignedLength admission; typed unit propagation alone preserves it. Distinct real equipped melee/ranged alternatives are legitimate; the independent base selection plus consumers ignoring mode is the problem.",
+    "connected_repair": "Use one explicit selected melee/ranged equipment view through ALL geometry, movement, targeting, workload and contact readers. Prefer remove independent base weapon/holding-side selection from retained loadout or make transient views borrow canonical mode choice. Do not sync extra mutable copies opportunistically or patch only this getter with conversion. Keep genuine alternate weapons/IDs/ammunition history and trait/numeric ports.",
+    "acceptance": "Every operation in a melee mode reads reach/head/grip/material/skill/holding side from same selected melee implement, including after ammo exhaustion; ranged operations use corresponding ranged owner. Preserve native arithmetic, RNG/ties/attack scheduling, no new compatibility/fallback owner. No new tests/cases/execution performed.",
+    "qualifies_prior": "CAMERA-INITIAL07-CONTRACT-023 selected-mode no-normal-drift statement was local adapter comparison only; current concrete mobility receiver disproves a blanket consumer conclusion. Orthogonal coverage finding disposition remains intact.",
+    "no_other_lens_credit": true
+  },
+  "mandatory_qualification": "qualifications.jsonl#CAMERA-INITIAL07-REFERENCE-QUALIFICATION-025",
+  "limits": "Read-only current07 source/producer/operation/receiver proof; no runtime or later-lens credit."
+}

@@ -1,0 +1,517 @@
+{
+  "id": "NATIVE-PP-SCENE-001",
+  "assignment": "Root additional read-only scene-viewer cluster; root retains repair ownership",
+  "sources": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+      "snapshot": "pr-working",
+      "sha256": "f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1",
+      "lines": 4477,
+      "read_ranges": [
+        [
+          1,
+          4477
+        ]
+      ],
+      "status": "full source read, native camera/capture/analysis/manifest/wire receivers reconciled with concrete findings or boundary",
+      "trace_refs": [
+        "NATIVE-PP-SCENE-001"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/cameras.rs",
+      "snapshot": "pr-working",
+      "sha256": "339321b37e85cb2c1b1e2fcc138cac67330b953e40a94cf2797cdfcee382ae5e",
+      "lines": 224,
+      "read_ranges": [
+        [
+          1,
+          224
+        ]
+      ],
+      "status": "full source read, native camera/capture/analysis/manifest/wire receivers reconciled with concrete findings or boundary",
+      "trace_refs": [
+        "NATIVE-PP-SCENE-001"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/buildings.rs",
+      "snapshot": "pr-working",
+      "sha256": "c8bf873f1396ed17589c6b0fb5c91895a48f20e35fb6e80f7caca42730245af5",
+      "lines": 76,
+      "read_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "status": "full source read, native camera/capture/analysis/manifest/wire receivers reconciled with concrete findings or boundary",
+      "trace_refs": [
+        "NATIVE-PP-SCENE-001"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/camera_obstruction.rs",
+      "snapshot": "pr-working",
+      "sha256": "fef0313045022b4f77f5869639bcddf97b5f81c87ce84c1e95ca7ba0dcf0bbf5",
+      "lines": 97,
+      "read_ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "status": "full source read, native camera/capture/analysis/manifest/wire receivers reconciled with concrete findings or boundary",
+      "trace_refs": [
+        "NATIVE-PP-SCENE-001"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_state.rs",
+      "snapshot": "pr-working",
+      "sha256": "c9727fc74c74134d8b6f7b5beb407f9cea87d594ee426c04f3c3b93789ce7bb2",
+      "lines": 373,
+      "read_ranges": [
+        [
+          1,
+          373
+        ]
+      ],
+      "status": "full source read, native camera/capture/analysis/manifest/wire receivers reconciled with concrete findings or boundary",
+      "trace_refs": [
+        "NATIVE-PP-SCENE-001"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_terrain.rs",
+      "snapshot": "pr-working",
+      "sha256": "e900f86c48e53d3a6ca276cb50c94a1f0630dc8738d0a1f1c56bd8828d55b580",
+      "lines": 54,
+      "read_ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "status": "full source read, native camera/capture/analysis/manifest/wire receivers reconciled with concrete findings or boundary",
+      "trace_refs": [
+        "NATIVE-PP-SCENE-001"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_visibility.rs",
+      "snapshot": "pr-working",
+      "sha256": "327d3a435905a1e7bd3a748bc4cc1b881d82dced9cc1c656d1839620810f6098",
+      "lines": 39,
+      "read_ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "status": "full source read, native camera/capture/analysis/manifest/wire receivers reconciled with concrete findings or boundary",
+      "trace_refs": [
+        "NATIVE-PP-SCENE-001"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/city_capture.rs",
+      "snapshot": "pr-working",
+      "sha256": "0c29ec29fbd66e1990af24207697a0f3c11610bbf2027623f2d4989288e4d7e8",
+      "lines": 497,
+      "read_ranges": [
+        [
+          1,
+          497
+        ]
+      ],
+      "status": "full source read, native camera/capture/analysis/manifest/wire receivers reconciled with concrete findings or boundary",
+      "trace_refs": [
+        "NATIVE-PP-SCENE-001"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/debris_capture.rs",
+      "snapshot": "pr-working",
+      "sha256": "11f7abe75d011a714e08274e5ea65665dcbf233c4b1c2e58649a9bf3955bc44f",
+      "lines": 225,
+      "read_ranges": [
+        [
+          1,
+          225
+        ]
+      ],
+      "status": "full source read, native camera/capture/analysis/manifest/wire receivers reconciled with concrete findings or boundary",
+      "trace_refs": [
+        "NATIVE-PP-SCENE-001"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/fixed_city_cameras.rs",
+      "snapshot": "pr-working",
+      "sha256": "116ed503cb72625c577fd02ecf334fc72a8e6968aee36fe97cf6fdd82ac725df",
+      "lines": 232,
+      "read_ranges": [
+        [
+          1,
+          232
+        ]
+      ],
+      "status": "full source read, native camera/capture/analysis/manifest/wire receivers reconciled with concrete findings or boundary",
+      "trace_refs": [
+        "NATIVE-PP-SCENE-001"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_capture.rs",
+      "snapshot": "pr-working",
+      "sha256": "5b18a1ddb04059c6126b350b2df16288411ef3402b2573d661ab0bafcb582ea5",
+      "lines": 177,
+      "read_ranges": [
+        [
+          1,
+          177
+        ]
+      ],
+      "status": "full source read, native camera/capture/analysis/manifest/wire receivers reconciled with concrete findings or boundary",
+      "trace_refs": [
+        "NATIVE-PP-SCENE-001"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_overlay.rs",
+      "snapshot": "pr-working",
+      "sha256": "dabf3bf9fa2f2c3901d7d9737809119ec7f14c610b352fae3adcd159772bd386",
+      "lines": 64,
+      "read_ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "status": "full source read, native camera/capture/analysis/manifest/wire receivers reconciled with concrete findings or boundary",
+      "trace_refs": [
+        "NATIVE-PP-SCENE-001"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_capture.rs",
+      "snapshot": "pr-working",
+      "sha256": "bce910fe4144f1301ece257fd3e0a1b333d4f4e61ae2908f796f4e4e72faa933",
+      "lines": 241,
+      "read_ranges": [
+        [
+          1,
+          241
+        ]
+      ],
+      "status": "full source read, native camera/capture/analysis/manifest/wire receivers reconciled with concrete findings or boundary",
+      "trace_refs": [
+        "NATIVE-PP-SCENE-001"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture.rs",
+      "snapshot": "pr-working",
+      "sha256": "bcaff9a888ddff154b19d741d428659d595446dbb78e29938811c169810b6738",
+      "lines": 379,
+      "read_ranges": [
+        [
+          1,
+          379
+        ]
+      ],
+      "status": "full source read, native camera/capture/analysis/manifest/wire receivers reconciled with concrete findings or boundary",
+      "trace_refs": [
+        "NATIVE-PP-SCENE-001"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/catalog.rs",
+      "snapshot": "pr-working",
+      "sha256": "e02b7ac3ba7478629a9233a5790f4c54e8f1d2f20d859926fd2c804a87759cd1",
+      "lines": 201,
+      "read_ranges": [
+        [
+          1,
+          201
+        ]
+      ],
+      "status": "full source read, native camera/capture/analysis/manifest/wire receivers reconciled with concrete findings or boundary",
+      "trace_refs": [
+        "NATIVE-PP-SCENE-001"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/finishes.rs",
+      "snapshot": "pr-working",
+      "sha256": "1fe023253ded6f1a52e1aa88b1d0f415c6ee1ee9b9219a26f1edf1e2f122bbde",
+      "lines": 89,
+      "read_ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "status": "full source read, native camera/capture/analysis/manifest/wire receivers reconciled with concrete findings or boundary",
+      "trace_refs": [
+        "NATIVE-PP-SCENE-001"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/rooms.rs",
+      "snapshot": "pr-working",
+      "sha256": "3891936e52f5d84f5970256e12a8cce2b3cf5990b15775b3512bab34ff1e21ac",
+      "lines": 438,
+      "read_ranges": [
+        [
+          1,
+          438
+        ]
+      ],
+      "status": "full source read, native camera/capture/analysis/manifest/wire receivers reconciled with concrete findings or boundary",
+      "trace_refs": [
+        "NATIVE-PP-SCENE-001"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/manifest.rs",
+      "snapshot": "pr-working",
+      "sha256": "90d78c0c708175d63d2b3654ce3d96a08c32444ff581cf53e94f78d5f971bb96",
+      "lines": 941,
+      "read_ranges": [
+        [
+          1,
+          941
+        ]
+      ],
+      "status": "full source read, native camera/capture/analysis/manifest/wire receivers reconciled with concrete findings or boundary",
+      "trace_refs": [
+        "NATIVE-PP-SCENE-001"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/plant_lods.rs",
+      "snapshot": "pr-working",
+      "sha256": "36ec27846639fcd39472f076870256cb3a37ae29dfd489fe49f7e93cbe40d0a7",
+      "lines": 113,
+      "read_ranges": [
+        [
+          1,
+          113
+        ]
+      ],
+      "status": "full source read, native camera/capture/analysis/manifest/wire receivers reconciled with concrete findings or boundary",
+      "trace_refs": [
+        "NATIVE-PP-SCENE-001"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/setup_obstacles.rs",
+      "snapshot": "pr-working",
+      "sha256": "ed251a1127b90eec10478382e61cb9fc193e36c1d7c15104e43dfdefab03d3e4",
+      "lines": 166,
+      "read_ranges": [
+        [
+          1,
+          166
+        ]
+      ],
+      "status": "full source read, native camera/capture/analysis/manifest/wire receivers reconciled with concrete findings or boundary",
+      "trace_refs": [
+        "NATIVE-PP-SCENE-001"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera.rs",
+      "snapshot": "pr-working",
+      "sha256": "17a9a24f5d15cbd9db474bed73f9cecc39d1dddb1af6a7ff2d9d74a83ae13461",
+      "lines": 350,
+      "read_ranges": [
+        [
+          1,
+          350
+        ]
+      ],
+      "status": "full source read, native camera/capture/analysis/manifest/wire receivers reconciled with concrete findings or boundary",
+      "trace_refs": [
+        "NATIVE-PP-SCENE-001"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/landscape.rs",
+      "snapshot": "pr-working",
+      "sha256": "8a9fe4f5dd1a72f306edf38bf29bb147569abd3314d13ff00e9f3fc01fb8e66e",
+      "lines": 122,
+      "read_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "status": "full source read, native camera/capture/analysis/manifest/wire receivers reconciled with concrete findings or boundary",
+      "trace_refs": [
+        "NATIVE-PP-SCENE-001"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/placement.rs",
+      "snapshot": "pr-working",
+      "sha256": "1d7e47c42a77acec3c103a59dbd02b3810eb0fed0afacbc35c1866908cc55e30",
+      "lines": 78,
+      "read_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "status": "full source read, native camera/capture/analysis/manifest/wire receivers reconciled with concrete findings or boundary",
+      "trace_refs": [
+        "NATIVE-PP-SCENE-001"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs.rs",
+      "snapshot": "pr-working",
+      "sha256": "ee9206f01afa3ace0319c0d1098568b83cb983fe7240990836b13da56e045b16",
+      "lines": 1101,
+      "read_ranges": [
+        [
+          1,
+          1101
+        ]
+      ],
+      "status": "full source read, native camera/capture/analysis/manifest/wire receivers reconciled with concrete findings or boundary",
+      "trace_refs": [
+        "NATIVE-PP-SCENE-001"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/fungi.rs",
+      "snapshot": "pr-working",
+      "sha256": "bde10d85a38741896836a0e0bb333b05ab49f3ba3569cd0abadd2210d1781e31",
+      "lines": 83,
+      "read_ranges": [
+        [
+          1,
+          83
+        ]
+      ],
+      "status": "full source read, native camera/capture/analysis/manifest/wire receivers reconciled with concrete findings or boundary",
+      "trace_refs": [
+        "NATIVE-PP-SCENE-001"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/plant_lods.rs",
+      "snapshot": "pr-working",
+      "sha256": "b850100ae1740709302dacd1a36ee787c8fb3f7836ab5cc947c3d3814f923d8c",
+      "lines": 149,
+      "read_ranges": [
+        [
+          1,
+          149
+        ]
+      ],
+      "status": "full source read, native camera/capture/analysis/manifest/wire receivers reconciled with concrete findings or boundary",
+      "trace_refs": [
+        "NATIVE-PP-SCENE-001"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/plants.rs",
+      "snapshot": "pr-working",
+      "sha256": "60f01634eb5a6148da91a0723992f2e1ac569ab9eacfd993328f3c3005be1fe1",
+      "lines": 96,
+      "read_ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "status": "full source read, native camera/capture/analysis/manifest/wire receivers reconciled with concrete findings or boundary",
+      "trace_refs": [
+        "NATIVE-PP-SCENE-001"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/vista_geometry.rs",
+      "snapshot": "pr-working",
+      "sha256": "83f5cbb8ab47d0cbde37aea65663ecbb5ae380088d132a5b909926294fff523d",
+      "lines": 98,
+      "read_ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "status": "full source read, native camera/capture/analysis/manifest/wire receivers reconciled with concrete findings or boundary",
+      "trace_refs": [
+        "NATIVE-PP-SCENE-001"
+      ]
+    }
+  ],
+  "notes": [
+    {
+      "contract": "Full28 frozen source variants and all named unchanged spec/readiness/LOD/view helper callbacks read. Capture -> per-view records/deferred screenshot -> strict manifest validation/final JSON/HTML/AppExit actual receiving bodies inspected; threshold/fold/clock/camera state preserved.",
+      "evidence": [
+        "native/scene-unchanged-002.json",
+        "native/scene-unchanged-003.json",
+        "native/scene-unchanged-004.json",
+        "native/unchanged-receivers-005.json"
+      ]
+    },
+    {
+      "findings": [
+        "NATIVE-PP-020",
+        "NATIVE-PP-021",
+        "NATIVE-PP-022",
+        "NATIVE-PP-023",
+        "NATIVE-PP-024",
+        "NATIVE-PP-025",
+        "NATIVE-PP-026",
+        "NATIVE-PP-027"
+      ],
+      "contract": "Current findings remain source-backed; no blanket native or report exemption and no family/lens clear. Root viewer repair ownership retained; server opening controller transfer separate."
+    }
+  ],
+  "first_unfinished": null,
+  "initial_notes": [
+    {
+      "range": [
+        780,
+        1664
+      ],
+      "contract": "CLI azimuth admitted SignedAngleDegrees then retained SceneSetupData/SceneCaptureState -> actual native Quat1539; typed required terrain queries reject via Bevy setup Result. Positions retained camera state until native Transform."
+    },
+    {
+      "range": [
+        1666,
+        2658
+      ],
+      "contract": "All three benchmark producer/state/reduction/report/markdown paths read; original raw f64 milliseconds/different metric units remain typed migration candidates, real negative GPU attribution preserved. Native sort/sum/division/percentile order actual source."
+    },
+    {
+      "range": [
+        2665,
+        3394
+      ],
+      "contract": "Whole capture_views including deferred screenshot observers read. Typed Position/SignedLength/angles flattened into retained CaptureRecord before validation; lighting uses Infinity and fake pixel defaults pending actual capture_state/manifest proof."
+    },
+    {
+      "range": [
+        3477,
+        3939
+      ],
+      "contract": "Whole build_manifest/final serialization/rejection/index read. Latitude/longitude typed leaves are extracted1609\u201310 into retained i32 state then explicitly reconstructed3869\u201372 before actual celestial math; source-backed propagation gap pending original owner/body proof."
+    },
+    {
+      "range": [
+        3941,
+        4477
+      ],
+      "contract": "All existing fixtures read without edits or execution."
+    }
+  ],
+  "discovery_status": "additional assigned source inventory complete with findings"
+}

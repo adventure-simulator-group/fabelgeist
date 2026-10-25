@@ -1,0 +1,37 @@
+{
+  "id": "NATIVE-CAMERA-SUPPORT03-CONTRACTS-056",
+  "authority": "ROOT-ADM-SUPPORT-AUTHORITY-054",
+  "lens": "audit-admission-contracts",
+  "groups": {
+    "pr-case-id-decoder-and-objective-expression-admission": {
+      "camera_indices": [
+        398
+      ],
+      "ranges": {
+        "398": [
+          [
+            1,
+            921
+          ]
+        ]
+      },
+      "invariant": "Case/Contract/Objective/OutcomeFact/Asset/Subject IDs own exactprefixedlowercaseASCII syntax; ObjectiveExpression intended nonempty DNF with<=16paths/32leaves/uniqueobjectiveIDs/positiveDefeatcount. Raw facts/custody still require external authenticated persistence.",
+      "all_admission_routes": [
+        "idmacro15–48 privateString/new requires length>prefixlen<=160bytes/exactprefix/allbyteslowercaseASCIIletterdigit or : - _ .; six namespacesdistinct, as_str outputonly, noDefaultReflect/rawFrom. HOWEVER transparentderivedDeserialize17–19 writesStringdirectly and bypassesnew; eachnamespace malformedempty/prefix-only/uppercase/nonASCII survivesSerde stringroute. NativeSDKnamespace notneeded for thisindependentSerdeproof.",
+        "Case/Contract/Objective/Path/Requirement/OutcomeFact/Evaluation/Custody publicSerialize/Deserialize ordinaryrawproducts/enums. CaseStatusclosed3 stableIDsopen/completed/failed distinctSerdePascalCase; ContractStatusclosed5 stableReadyToReport readytoreport; neitherstatusassertsauthenticatedtransition. StrategicMinute allu64 intentional. Stringforeignrefs/source/party/quantity remainraw.",
+        "ObjectiveExpression::new336–366 checks nonemptyalternatives,<=16paths,everypathnonempty, globallyuniqueIDs, Defeatcount!=0, totalleaves<=32, thenSelf. Publicalternatives/pathobjectives/requiredcountliteral andderivedDeserialize132–140 bypassallthesechecks, no privateacceptedstate; evaluate368 doesnotreadmitbefore usingvacuous all().",
+        "evaluate filtersfactsbycase+party (not sourceauthentication/factIDdedup), pathprogress ObjectiveImpossible first overridesleaf, positivecounts saturatingfold/minrequired, otherrequirementsrequired1. DNF anyallsatisfied elseallpathsanyimpossible elsepending. match_fact444–574 exactclosedtypedkind+identitypairs/timeactual>=required; no proofparty/source/liveworldcorrelations fromOutcomeFactrecord itself.",
+        "Custodypublicrecord/mapversionu32 apply603–622: sameobject+sourceid returnsfalse BEFOREpayload/case/versionchecks (source-idempotent only), changedsource requireversion==saturating_add1 andsamecase, initialversion0, thenreplace oneobjectkey. No rawholder/sitepartygrammar/authentication or SourceID-boundpayloadseal here. MAXversion saturation allowsMAXsuccessorfornewsource, sourcepolicyretained for laterstate/operationreview, not new03claim.",
+        "All originaltests624–921 freshsource-read: exactstatus IDs, DNFpartial/alternative/challenge/impossible/scopedfacts/custodyversion; noexecution/newtests."
+      ],
+      "counterexample_or_intentional_evidence": [
+        "F012 independentSerde bypass: deserialize emptystring into CaseId succeeds structurally althoughCaseId::new rejects; appliesall6privateStringnamespaces. No actualmalformedrow asserted.",
+        "F013 safeObjectiveExpression{alternatives:[ObjectivePath{objectives:[]}]} bypassesnewEmptyPath andevaluate withnofacts returnsSatisfied viaemptyall; Defeatcount0 literal/Serde similarlySatisfied. ExistingpublicrawCasefield notacceptedDNFseal. No actualproducer/caller exploit claim.",
+        "RepeatedfactIDscancounttwice withinrawslice becauseevaluateauthorship/persistencefilter is separate; donotclaim coreequivalentofauthenticatedfactstore or testsproveallroutes."
+      ],
+      "connected_repair": "SharedcheckeddeserializeforIDsyntax; rawauthoringvsprivatevalidatedObjectiveExpression withsingle all-routevalidator andreadmissionatreliedboundary, preserve sourceidempotence/alternativefailure/typedtime/count policies. Existing rootwhole-record/functionclaims remain, no repairtransfer or familyclearance.",
+      "acceptance": "All admitted IDroutes enforceactualnamespacegrammar; every acceptedexpression satisfiessamebounds asnew andcannotvacuouslycomplete throughrawSerde/publicmutation. Preserve authorized fact persistence separate; no sourceedits/tests authored."
+    }
+  },
+  "not_part_of_native443_or_root_batches": true
+}

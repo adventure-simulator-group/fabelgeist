@@ -1,0 +1,128 @@
+{
+  "id": "CONT07-CONTRACT-618",
+  "at": "2026-10-24T00:43:37.637090+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2694,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/members.rs",
+      "sha256": "9e11219c566b928235ef911905fcfbb6f5ee39eaae0b88b00c7852dda97892bc",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/members.rs",
+      "actual_EOF": 52,
+      "ranges": [
+        [
+          1,
+          52
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2695,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/validation.rs",
+      "sha256": "b3b0b91b5ad6af9f24f0166a723369ea8b37babe7d809934f513a2c0da87b91b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/validation.rs",
+      "actual_EOF": 159,
+      "ranges": [
+        [
+          1,
+          157
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2696,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+      "sha256": "25501a0320c217953b35ee680b8bdeef4045502c4f551171c40cb7101073d29e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor.rs",
+      "actual_EOF": 323,
+      "ranges": [
+        [
+          1,
+          299
+        ],
+        [
+          305,
+          311
+        ],
+        [
+          314,
+          323
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2697,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor/region.rs",
+      "sha256": "0776d212c25f4a233acb887f1fa0e5318c494cff1121dfb5125e6f5105d3d409",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor/region.rs",
+      "actual_EOF": 121,
+      "ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2698,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation/grounding.rs",
+      "sha256": "b6b4c68b580f96661e79986758218aaa58f8ac2b89c2414c58f5978f1c55bd80",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/generation/grounding.rs",
+      "actual_EOF": 78,
+      "ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2699,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation/supported.rs",
+      "sha256": "951ac796fe6192eccfebbeca4317a11c29f0ac3697424ddc46973810d05db06b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/generation/supported.rs",
+      "actual_EOF": 56,
+      "ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2700,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/demographics.rs",
+      "sha256": "396148642d664ea3084057fd95d0f9ca430f445ca1ff2d98c8d028ab573c7b92",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-world-schema/src/demographics.rs",
+      "actual_EOF": 93,
+      "ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "PropertyMembers owns ordered nonzero unique physical membership with private vector and checked Serde. PropertySupportSurface validation compares treatment/member cardinality, mesh and limit tolerance, region/outlines bounds, finite topology/grade and floor bindings. These are connected admission relationships, not evidence every mutable sibling path is sealed (adopted ROOT-ADM-F010 remains).",
+    "FloorBearing validates actual building ID and disjoint conforming regions. Floor datum/coverage checks compare independent measured mesh support with authored expected elevation, preserving tolerance allowance rather than forcing expected from observed geometry. Edge-key zero normalization is specific partition identity policy, not general loss of signed-zero numerical semantics.",
+    "FloorRegion holds cached projected outline and original admission wire provenance privately; every constructor/Deserialize derives outline from admission and no mutable accessor provided. Serializing source admission is deliberate reconstruction authority, not arbitrary duplicate writable geometry. Scene-grounding producer verifies full source/layout equality before selecting support, publishes bound projection then validates. Consumer validates bindings and reconstructs same support from unchanged geographic context; it does not freely reselect property floor. Supported terrain/ground/buildings represent distinct stage products; source-dependent cache mutation risks remain tied to actual visibility and later operations.",
+    "P16 Sex source variant uses one derived shared roster/stable snake-case IDs. stable_variant_id deliberately retains historical deterministic seed spelling; it is not a competing current wire classification to unify by text equality."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2701,
+    "start_line": 1
+  }
+}

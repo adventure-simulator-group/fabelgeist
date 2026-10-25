@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1116",
+  "at": "2026-10-25T17:48:19.355616+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1227,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+  "sha256": "9511a258a4133480d0581e538ae88d41ccff8d90ce6a0658ff71e28267b35eb5",
+  "actual_compared_ranges": [
+    [
+      1821,
+      2200
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "SimulationQuestFixtureSeed1885\u20131890 native result aggregate no handwritten trait. No handwritten codec. Seed/acceptance provisioning explicitly adjusts required economy/services then validates, binds real provider/time/navigation/issuer/currentparty; typed checked ObjectiveExpression and existing Serde preserve wire ownership. materialize_generated_quest2157 onward separately records native private cause/factor/objective JSON through existing serializers; contextual per-authority assignment not mechanical derive."
+  ],
+  "first_unfinished": {
+    "scope_index": 1227,
+    "line": 2201
+  },
+  "execution": "none"
+}

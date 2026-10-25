@@ -1,0 +1,2890 @@
+[
+  {
+    "archive_file": "audit/continuation/camera/initial07-redundant-authority/findings.jsonl",
+    "record_index": 47,
+    "record": {
+      "id": "CAMERA-INITIAL07-F048",
+      "at": "2026-10-23T05:51:37.170669+00:00",
+      "classification": "Qualified geometry/identity dependency omitted from previous collider-pose history reuse",
+      "source_refs": [
+        {
+          "scope062_index": 683,
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview.rs",
+          "sha256": "8c21b357f6f90a1c9c297c9e1c4306e63872daa3ccb32e060651f5df878b7ba3",
+          "actual_EOF": 699,
+          "material_ranges": [
+            [
+              1,
+              699
+            ]
+          ],
+          "scope_record": "continuation/cumulative-source-scope-parallel-062.json#/files/683"
+        },
+        {
+          "scope062_index": 685,
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview/cloth_motion.rs",
+          "sha256": "6ffc24ed612481adda0151e6c87d8c0980ecbe05f9c1cbcfccab08174af16d61",
+          "actual_EOF": 201,
+          "material_ranges": [
+            [
+              1,
+              201
+            ]
+          ],
+          "scope_record": "continuation/cumulative-source-scope-parallel-062.json#/files/685"
+        },
+        {
+          "scope062_index": 687,
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview/colliders.rs",
+          "sha256": "2b26b6da1361090bfe1dbefbc45cba4a9d6dd1bc13b22ca18e351e6ef3018718",
+          "actual_EOF": 26,
+          "material_ranges": [
+            [
+              1,
+              26
+            ]
+          ],
+          "scope_record": "continuation/cumulative-source-scope-parallel-062.json#/files/687"
+        }
+      ],
+      "actual_disagreement": "683312-319 BodyMotion reuses prior positions when first rig Entity and aggregate vertex count match. 687 concatenates current body+armor Query rows and offsets current faces, without matching collider identity/order/topology or shape revision to old rows. Same-count collider replacement/reordering/shape change on stable rig can therefore turn an unrelated old vertex into start of current collider sweep. BodyMotion365-370 stores only rig+positions, so no other invalidation branch closes these dependencies.",
+      "actual_recipient": "685111-118 interpolates old/current by zip into TriangleBvh with current face topology;68561-78 uses same previous rows for continuous surface contacts. This affects generated sweep/collision geometry, not just an unused cache key.",
+      "connected_repair": "Own prior samples with stable ordered collider identity/topology and geometry revision supplied by actual body/armor producers. Reuse only when all source-row correspondence dependencies still match; on membership/shape/rebind change start coherent new geometry history. Preserve temporal pose history across ordinary skeleton animation and update current/previous jointly; avoid recomputing unrelated identity hashes or duplicate mutable owner fields.",
+      "qualification": "Source/API replacement counterexample only. Actual normal full body rebuild178-274 changes rig and resets history. No current GUI hot-edit, installed bad collider or runtime failure claimed. Native05 reports no exact existing graph; previous-pose history itself is intentional.",
+      "contract": "CAMERA-INITIAL07-CONTRACT-249",
+      "status": "Discovery finding; repairs/validation frozen; Root globaldedup pending"
+    },
+    "key": "audit/continuation/camera/initial07-redundant-authority/findings.jsonl#47",
+    "primary_source": "crates/adventuresim-character-creator/src/animation_preview.rs"
+  },
+  {
+    "archive_file": "audit/continuation/camera/initial07-redundant-authority/findings.jsonl",
+    "record_index": 48,
+    "record": {
+      "id": "CAMERA-INITIAL07-F049",
+      "at": "2026-10-23T05:54:24.846847+00:00",
+      "classification": "Maintenance/migration strengthening: independently declared shared polished-steel base default",
+      "source_refs": [
+        {
+          "scope062_index": 692,
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_metal.rs",
+          "sha256": "ae70b9acd477b6b29e03bd540b451d5e8556222a33a7cbb10babafab1206fbba",
+          "actual_EOF": 198,
+          "material_ranges": [
+            [
+              1,
+              198
+            ]
+          ],
+          "scope_record": "continuation/cumulative-source-scope-parallel-062.json#/files/692"
+        },
+        {
+          "scope062_index": 714,
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/clothing_material.rs",
+          "sha256": "bafb2117ada36281130d4dd00bb3862dc6f51840637a74fe1924c5106840668e",
+          "actual_EOF": 16,
+          "material_ranges": [
+            [
+              1,
+              16
+            ]
+          ],
+          "scope_record": "continuation/cumulative-source-scope-parallel-062.json#/files/714"
+        },
+        {
+          "scope062_index": 2206,
+          "source_id": "pr-working:crates/fabelgeist-armor/src/material.rs",
+          "sha256": "ab288766a2010d8edd2795c541884dda9c55367deaf0105f1a7e8a0574c0f0fe",
+          "actual_EOF": 103,
+          "material_ranges": [
+            [
+              1,
+              103
+            ]
+          ],
+          "scope_record": "continuation/cumulative-source-scope-parallel-062.json#/files/2206"
+        }
+      ],
+      "actual_disagreement": "Current7145 PolishedSteel pbr([.769,.776,.776,1],1,.20) and220631-32 Metal default color[.769,.776,.776]/roughness.20 agree. But two editable declarations own the same documented polished-steel base policy. One-sided default edit leaves other unchanged;69295-99 equality test detects drift but source retains duplicate authority.",
+      "actual_recipient": "69225-33 metal(PolishedSteel) takes palette color/roughness then remaining Metal default finish;220627-45 public Metal::default returns independent polished procedural product. Both produce actual retained material values, not only unused duplicate constants.",
+      "connected_repair": "Put common polished base color/roughness in one coherent canonical preset owner and derive both default products from it. Existing dependency direction allows creator palette to consume canonical armor preset or a neutral shared palette, without creating equivalent bespoke material copies. Preserve artist sRGB RGBA, explicit metallic field semantics, rough/oxidized/mail variants and all procedural scratch/engraving fields; full Metal and plain PBR tuple remain different products.",
+      "qualification": "Current source values agree; maintenance/migration strengthening, no observed material mismatch/runtime failure or new shader policy. Rig06 has distinct F005 color/owner graph, no exact default-duplication verdict. Existing test not run.",
+      "contract": "CAMERA-INITIAL07-CONTRACT-250",
+      "status": "Discovery finding; repair/validation frozen; Root globaldedup pending"
+    },
+    "key": "audit/continuation/camera/initial07-redundant-authority/findings.jsonl#48",
+    "primary_source": "crates/adventuresim-character-creator/src/armor_metal.rs"
+  },
+  {
+    "archive_file": "audit/continuation/camera/initial07-redundant-authority/findings.jsonl",
+    "record_index": 49,
+    "record": {
+      "id": "CAMERA-INITIAL07-F050",
+      "at": "2026-10-23T06:07:32.890928+00:00",
+      "classification": "Cache dependency gap: current model corrective configuration versus cached generated body and dependent products",
+      "source_refs": [
+        {
+          "scope063_index": 831,
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/studio_cache.rs",
+          "sha256": "6d7378554d92fcefc39d39434744bdb50dd98358ce1596f571652a65ce4bf013",
+          "actual_EOF": 192,
+          "material_ranges": [
+            [
+              1,
+              192
+            ]
+          ],
+          "scope_record": "continuation/cumulative-source-scope-parallel-063.json#/files/831"
+        },
+        {
+          "scope063_index": 832,
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/studio_generation.rs",
+          "sha256": "7d6baf7df5362f498eb963aa984845e08e31952bec84de19b40620ea8f15dd0b",
+          "actual_EOF": 187,
+          "material_ranges": [
+            [
+              1,
+              187
+            ]
+          ],
+          "scope_record": "continuation/cumulative-source-scope-parallel-063.json#/files/832"
+        },
+        {
+          "scope063_index": 794,
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/generation.rs",
+          "sha256": "eb3d54908cc923b9cd761ca5abaf748d4ad9ed9175289a2d3342d0e2d4c6a4a1",
+          "actual_EOF": 93,
+          "material_ranges": [
+            [
+              1,
+              93
+            ]
+          ],
+          "scope_record": "continuation/cumulative-source-scope-parallel-063.json#/files/794"
+        },
+        {
+          "scope063_index": 819,
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/main.rs",
+          "sha256": "41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9",
+          "actual_EOF": 667,
+          "material_ranges": [
+            [
+              408,
+              455
+            ]
+          ],
+          "scope_record": "continuation/cumulative-source-scope-parallel-063.json#/files/819"
+        },
+        {
+          "scope063_index": 2321,
+          "source_id": "pr-working:crates/fabelgeist-mhr/src/model.rs",
+          "sha256": "08275eee95012fbf2c20c185a7416b977f74c4181ad4362e704fafb847ae2c55",
+          "actual_EOF": 626,
+          "material_ranges": [
+            [
+              29,
+              44
+            ],
+            [
+              153,
+              182
+            ],
+            [
+              413,
+              520
+            ]
+          ],
+          "scope_record": "continuation/cumulative-source-scope-parallel-063.json#/files/2321"
+        }
+      ],
+      "actual_disagreement": "Actual819430-440 successful same-LOD selected_correctives change replaces BodyModel and marks dirty. 83138-43 serializes ONLY model.lod, recipe.proportions, identity and expression; equal key44-47 returns prior GeneratedCharacter and skips cache clearing50-54. Current BodyModel config can therefore differ from producer that owns cached body/fit/lining/drape artifact. Actual model config31-35 and from_files172-182 enable/disable corrective network;79428 delegates current model.forward;2321515-516 conditionally applies actual corrective deformation.",
+      "actual_recipient": "83239-51 consumes cached body for clothing, fitting, lining/drape decisions;83261-67 rebuilds animation rig from current model plus potentially prior generated product, and86-91 publishes preview meshes. 831 drape_changed key uses same insufficient body key136, so model reload does not itself force ready replacement when remaining inputs equal.",
+      "connected_repair": "One model generation/configuration identity must enter body cache key and transitively invalidate fits, lining, drape and preview when successfully replaced. At minimum include actual corrective setting and relevant stable model revision identity, using coherent model owner rather than duplicate editable key policy. Bind completed artifacts to successfully generated key, not consumed dirty flag.",
+      "acceptance": "Static acceptance should cover same-LOD corrective toggle causing new body generation and invalidating dependent drape, while unchanged complete dependencies reuse work. Preserve failed replacement leaving previous valid model, actual partial-drape prefix policy and deliberate render versus skeleton residual distinction.",
+      "qualification": "Source-level normal UI dependency omission. No executed toggle, measured installed neutral-shape difference, corrupt asset or runtime output claim. Some poses may produce equal positions; equality for one output is not complete dependency ownership. No arbitrary external file hotreload guarantee assumed. Native cross-lens dedup pending.",
+      "contract": "CAMERA-INITIAL07-CONTRACT-252",
+      "status": "Discovery finding; repair/validation frozen; Root global dedup pending"
+    },
+    "key": "audit/continuation/camera/initial07-redundant-authority/findings.jsonl#49",
+    "primary_source": "crates/adventuresim-character-creator/src/studio_cache.rs"
+  },
+  {
+    "archive_file": "audit/continuation/camera/initial07-redundant-authority/findings.jsonl",
+    "record_index": 50,
+    "record": {
+      "id": "CAMERA-INITIAL07-F051",
+      "at": "2026-10-23T06:11:12.138273+00:00",
+      "classification": "API/cache ownership strengthening: mutable body realization can retain first-uploaded device truth",
+      "source_refs": [
+        {
+          "scope064_index": 717,
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/device_body.rs",
+          "sha256": "7f528ffbfd597a6199b1ef50c86f045e36ae230acb0b5957c2504f6285a99bd3",
+          "actual_EOF": 26,
+          "material_ranges": [
+            [
+              1,
+              26
+            ]
+          ],
+          "scope_record": "continuation/cumulative-source-scope-parallel-064.json#/files/717"
+        },
+        {
+          "scope064_index": 726,
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/device_fit.rs",
+          "sha256": "5eb9fadd5491db5b34e9ea0b0478355229d88f1b0b9d937911f586dc55a0b710",
+          "actual_EOF": 518,
+          "material_ranges": [
+            [
+              1,
+              518
+            ]
+          ],
+          "scope_record": "continuation/cumulative-source-scope-parallel-064.json#/files/726"
+        },
+        {
+          "scope064_index": 827,
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/runtime_equipment.rs",
+          "sha256": "017eab8f2758a277d6638fde30e9cbcad9ea025d1eff17e92ade4d3bf0bbe960",
+          "actual_EOF": 341,
+          "material_ranges": [
+            [
+              1,
+              341
+            ]
+          ],
+          "scope_record": "continuation/cumulative-source-scope-parallel-064.json#/files/827"
+        }
+      ],
+      "actual_disagreement": "After successful parametric fit/upload for one RuntimeBody, its public positions/normals/joints/topology can be changed without replacing DeviceBody. validate82785-100 accepts same-sized changes. 726Realization.upload54 calls717get_or_upload19-20, returning prior GPU data and never invoking current BodySurface closure, whereas726wearer70-79 borrows CURRENT arrays. Public Realization can likewise pair a reused DeviceBody with different arrays. No clone implementation behavior needed for this counterexample.",
+      "actual_recipient": "827288-297 calls fit_recipe_async using current fit_body/wearer;726132-150 constructs DeviceWearer with cached device AND current host. 720130-145/200 explicitly binds device positions/skin to clearance native kernels while host owners choose current support;726frame98-105 returns computed frame from same combined owner. Dedicated fresh-upload bracer/torso routes are not claimed stale.",
+      "connected_repair": "Make device upload belong to one immutable accepted realization including topology/skin/joints/positions and relevant device identity; expose coordinated replacement that starts empty cache or revision-keyed uploads. Prevent independent public data mutation/reused-cache pairing rather than adding a second equivalent body owner or always uploading every piece.",
+      "acceptance": "Unchanged realization shares upload across pieces; changed shape/topology/skin/joints cannot reuse previous upload; failed upload stays retryable. Keep base versus morph and rigid skin ownership differences explicit.",
+      "qualification": "Representable public/API mutation sequence only, no current tactical/studio producer demonstrated mutating an already-uploaded RuntimeBody, no GPU execution/bad rendered output. Normal generated sample construction initializes fresh DeviceBody and remains positive coherent route. Parent global dedup pending.",
+      "contract": "CAMERA-INITIAL07-CONTRACT-254",
+      "status": "Discovery only; repairs/validation frozen"
+    },
+    "key": "audit/continuation/camera/initial07-redundant-authority/findings.jsonl#50",
+    "primary_source": "crates/adventuresim-character-creator/src/device_body.rs"
+  },
+  {
+    "archive_file": "audit/continuation/camera/initial07-redundant-authority/findings.jsonl",
+    "record_index": 51,
+    "record": {
+      "id": "CAMERA-INITIAL07-F052",
+      "at": "2026-10-23T06:13:25.177275+00:00",
+      "classification": "Maintenance/native-layout strengthening: imported coif section count and duplicated fixed derived layout words",
+      "source_refs": [
+        {
+          "scope064_index": 722,
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/device_coif.rs",
+          "sha256": "462aea2bd0f7f1a5dc8b365a394bacdaa8f01919a15bd385494f52b7044cf32e",
+          "actual_EOF": 488,
+          "material_ranges": [
+            [
+              1,
+              488
+            ]
+          ],
+          "scope_record": "continuation/cumulative-source-scope-parallel-064.json#/files/722"
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/coif_drape.rs",
+          "sha256": "f9ccb3bf0662590f4dd34ea6de4ce89569348359037efc93e3736a9524c3bca1",
+          "actual_EOF": 72,
+          "material_ranges": [
+            [
+              1,
+              12
+            ]
+          ],
+          "registration": "CAMERA-INITIAL07-REG044"
+        }
+      ],
+      "actual_disagreement": "Canonical REG0448/12 sections5, words=7+2*3*sections. 722 imports both and allocates FIT_PROFILE_WORD+COIF_DRAPE_WORDS285, loops sections dynamically, but native DRAPE159 allocates array37 and182/205 validate/copy literal37; host FLAP_HALF_WIDTH27/QUERY_START28 and WGSL corresponding offsets are also derived from currentfive sections. One-sided canonical section-count change leaves manual dependent dimensions unchanged; e.g six sections entails43 words while local array remains37 and loop indexes extend to42.",
+      "actual_recipient": "Actual722record_coif_drape builds five kernels with canonical sections substitution484, fills scratch/layout and returns fit buffer to record_coif247; CoifCarrier extraction and DeviceRecording feed geometry. Thus duplicated expressions are executed native packing policy, not only tests/comments.",
+      "connected_repair": "Derive coif scratch offsets, fit array width and copy/validation ranges from one canonical layout definition, generating native constants/types from it at actual Rust/WGSL adapter. Preserve ordered front/back sections and seven-word boundary; do not create duplicate equivalent coif owners or silently force fixedcount if canonical definition remains configurable.",
+      "acceptance": "Layout shape/count/stride/allocation and native indexing share one owner; currentfive-section profile unchanged. Existing native boundary remains explicit; no project tests/new cases run or authored.",
+      "qualification": "Currentallcountsagree, maintenance/ABI strengthening only. Hypotheticalone-sided policy edit is not installed current out-of-bounds/runtime failure. No13+ profile or48-column lower topology body credit.",
+      "contract": "CAMERA-INITIAL07-CONTRACT-255",
+      "status": "Discovery only; source/validation frozen; Root global dedup pending"
+    },
+    "key": "audit/continuation/camera/initial07-redundant-authority/findings.jsonl#51",
+    "primary_source": "crates/adventuresim-character-creator/src/device_coif.rs"
+  },
+  {
+    "archive_file": "audit/continuation/camera/initial07-redundant-authority/findings.jsonl",
+    "record_index": 52,
+    "record": {
+      "id": "CAMERA-INITIAL07-F053",
+      "at": "2026-10-23T06:15:49.134034+00:00",
+      "classification": "Maintenance/native ABI strengthening: manually mirrored frame-rule encodings",
+      "source_refs": [
+        {
+          "scope064_index": 731,
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/device_frames/landmarks.rs",
+          "sha256": "b68bd1cb5d9f044f3e820b516978d27fd2bf32d5c0d36e83a0e9d666aec574d1",
+          "actual_EOF": 387,
+          "material_ranges": [
+            [
+              1,
+              387
+            ]
+          ],
+          "scope_record": "continuation/cumulative-source-scope-parallel-064.json#/files/731"
+        },
+        {
+          "scope064_index": 732,
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/device_frames/passes.rs",
+          "sha256": "bee5ccb765304e55b8ae48d21ddbab2fac860e6b753520065e742768362c992e",
+          "actual_EOF": 341,
+          "material_ranges": [
+            [
+              1,
+              341
+            ]
+          ],
+          "scope_record": "continuation/cumulative-source-scope-parallel-064.json#/files/732"
+        }
+      ],
+      "actual_disagreement": "731Rule24-33 declares Limb0/Shoulder1/Foot2/Hand3/Head4/Elbow5/Thumb6/Knee7;73253-60 repeats separate WGSL numeric constants. Currenteight agree. A one-sided discriminant change makes native receiver reinterpret currenttypedhost rule as another frame algorithm. Existinghost packing test does not generate shader declarations.",
+      "actual_recipient": "Actual730record199 sends landmarks.rule asu32,732ORIENT/BOUNDS/FINISH branches use mirroredconstants to select requiredjoints and physicalframealgorithm. Separate current representations therefore affect actual frame geometry, not only docs/tests.",
+      "connected_repair": "Generate native frame rule constants from canonical Rust enum/mapping at shader source adapter, as existing730frame_constants already does for FrameFailure. Preserve current0-7 words, six-slotunusedpadding, central/paired sign and distinct frame policies; no newparallel equivalent frame owner.",
+      "acceptance": "Hostrulepacking and native dispatch selectors share one declaration; currentpacking/algorithm ordering unchanged. Conceptualstaticeditcase only; no new/executed tests.",
+      "qualification": "Currentvaluesagree, maintenance/migration gap not runtime reproduced/currentwrongframe. NativeABIboundary itself remains justified; eliminate independenteditable numeric mapping, not numericshaderparameters.",
+      "contract": "CAMERA-INITIAL07-CONTRACT-257",
+      "status": "Discovery only; repair/validation frozen"
+    },
+    "key": "audit/continuation/camera/initial07-redundant-authority/findings.jsonl#52",
+    "primary_source": "crates/adventuresim-character-creator/src/device_frames/landmarks.rs"
+  },
+  {
+    "archive_file": "audit/continuation/camera/initial07-redundant-authority/findings.jsonl",
+    "record_index": 53,
+    "record": {
+      "id": "CAMERA-INITIAL07-F054",
+      "at": "2026-10-23T06:23:13.820357+00:00",
+      "classification": "Maintenance strengthening: duplicated course-span policy controls cached boundary solve and actual plate chart",
+      "source_refs": [
+        {
+          "scope065_index": 2204,
+          "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/wrapped_tassets.rs",
+          "sha256": "e3b42051512367ece0bf95da50fe255586f90159da138fc22385ba5304ba62b9",
+          "actual_EOF": 154,
+          "material_ranges": [
+            [
+              1,
+              154
+            ]
+          ],
+          "scope_record": "continuation/cumulative-source-scope-parallel-065.json#/files/2204"
+        },
+        {
+          "scope065_index": 2203,
+          "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/wrapped_tasset_shape.wgsl",
+          "sha256": "6bf36983d7b2fe90b22fd0e5bccd860aa4e951be3fd90828a85c87438f8f6c40",
+          "actual_EOF": 55,
+          "material_ranges": [
+            [
+              1,
+              55
+            ]
+          ],
+          "scope_record": "continuation/cumulative-source-scope-parallel-065.json#/files/2203"
+        }
+      ],
+      "actual_disagreement": "2204 recipe loop68-84 computes top=1-course/count and bottom=max(1-(course+1+.14)/count,0). Separate record_boundaries119-131 repeats the same expressions/.14 overlap for value1/value2. Current expressions agree. A one-sided overlap/span edit makes precomputed inner_angle use another axial row than actual chart generation.",
+      "actual_recipient": "2204 BOUNDARIES151-152 computes axial from its independently supplied params and stores inner_angle per course/row. 2203 chart_point45 computes actual axial from current chart params, then49 reuses stored inner-angle row to build shaped_point50. Stored solve and observed geometry therefore rely on exact shared source policy.",
+      "connected_repair": "Compute each canonical course span once through shared course-layout function/product and pass it to both PartRecipe chart construction and boundary precompute. Preserve current .14 overlap/clipping, side ordering, native numeric format and intentional per-row solve reuse; do not duplicate another editable course owner.",
+      "acceptance": "Both cache construction and chart consumption derive identical course bounds from one owner; unchanged layout still shares expensive solve across columns. Static conceptual edit evidence only, no new tests or runtime execution.",
+      "qualification": "Current source values agree. Maintenance/migration gap, not an observed bad plate, normal asset failure or executed render. Native05 dedup pending.",
+      "contract": "CAMERA-INITIAL07-CONTRACT-261",
+      "status": "Discovery only; source/validation frozen"
+    },
+    "key": "audit/continuation/camera/initial07-redundant-authority/findings.jsonl#53",
+    "primary_source": "crates/fabelgeist-armor/src/gpu/wrapped_tassets.rs"
+  },
+  {
+    "archive_file": "audit/continuation/camera/initial07-redundant-authority/findings.jsonl",
+    "record_index": 54,
+    "record": {
+      "id": "CAMERA-INITIAL07-F055",
+      "classification": "Saved surface binding loses topology identity at current-wear acceptance gate",
+      "actual_disagreement": "78845-59 claims same body mesh/LOD but BodyTopology stores only vertex and triangle counts. capture107-127 saves triangle ordinals/barycentric/offset against actual original faces. fit185-198 accepts any current body with those counts; same-count permutation/replacement of face entries changes the referent at a saved ordinal while the stored body descriptor remains equal.",
+      "actual_recipient": "788274-303 Wearer.place/frame resolves saved triangle ordinal directly against current BVH and self.faces, computing a different surface origin, normal and tangent. fit199-224 then constrains and publishes that transferred garment, so later clearance cannot recover lost original triangle identity.",
+      "connected_repair": "Retain one canonical body topology identity or ordered connectivity fingerprint with saved bindings and require exact identity on wear. Preserve intended shape/proportion changes on unchanged topology; do not compare mutable positions as topology identity or introduce duplicate topology owners.",
+      "acceptance": "Same connectivity with changed shape remains reusable; equal counts with changed ordinal connectivity is rejected or explicitly rebound from source provenance. Actual installed canonical topology and format ownership must guide representation.",
+      "qualification": "Public API/saved-artifact binding strengthening only. No actual changed installed MHR topology, bad saved asset, rendered displacement or application run demonstrated. Counts are an insufficient identity witness, not an assertion every same-count mesh differs. Prior F048 previous cloth pose cache is a separate source/consumer contract.",
+      "source_refs": [
+        {
+          "scope065_index": 788,
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/settled.rs",
+          "sha256": "3dbafb11ea673b81b72c6d8599bf9c1ac4c55b3e456982e39d16d38faef2e42d",
+          "actual_EOF": 308,
+          "material_ranges": [
+            [
+              1,
+              308
+            ]
+          ],
+          "scope_record": "continuation/cumulative-source-scope-parallel-065.json#/files/788"
+        }
+      ],
+      "contract": "CAMERA-INITIAL07-CONTRACT-266",
+      "at": "2026-10-23T06:37:45.301973+00:00",
+      "status": "Discovery only; source/validation frozen; Root global dedup pending"
+    },
+    "key": "audit/continuation/camera/initial07-redundant-authority/findings.jsonl#54",
+    "primary_source": "crates/adventuresim-character-creator/src/garment/settled.rs"
+  },
+  {
+    "archive_file": "audit/continuation/camera/initial07-redundant-authority/findings.jsonl",
+    "record_index": 55,
+    "record": {
+      "id": "CAMERA-INITIAL07-F056",
+      "classification": "Completed garment stage cache retains prior current label after a selection rename",
+      "actual_disagreement": "792237-252 same_setup omits selection.name while comparing construction/fabric/resolution and geometry; equal stage settings226-228 reuse prior settled DrapedGarment. 79122 assigns name from selection only during fresh from_pattern. 78254-57/64-91 reuses that record and recomputes geometry/normal/skin but never updates name. A valid selection-name-only edit therefore leaves result.name from prior selection although the current checkpoint input stores the new selection.",
+      "actual_recipient": "Actual78658-62 prefixes contact warnings with reused garment.name; actual762269 creates native preview Name from garment.name. These are current garment labels, not declared historical capture names. Finished cache object and current requested label can disagree.",
+      "connected_repair": "Refresh presentation metadata from current selection on every finish, or keep cached physical stage data independent of current label and derive label at actual presentation. Do not rerun physical simulation solely for a name edit.",
+      "acceptance": "Rename-only request reuses valid physical stages but publishes current name consistently in preview and warning label; unchanged dependencies preserve cache reuse and saved-selection capture provenance remains separately intentional.",
+      "qualification": "Source-level API/cache label issue; no normal UI rename interaction or executed preview claimed. Material-only reuse and independent historical drape provenance remain legitimate. Severity and global dedup for handover retained.",
+      "source_refs": [
+        {
+          "scope065_index": 782,
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/drape.rs",
+          "sha256": "c26b0508ccce30c3c2ca164e46327764ca4b133b418b5ea49e008b0a45613421",
+          "actual_EOF": 334,
+          "material_ranges": [
+            [
+              1,
+              334
+            ]
+          ],
+          "scope_record": "continuation/cumulative-source-scope-parallel-065.json#/files/782"
+        },
+        {
+          "scope065_index": 791,
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/shading.rs",
+          "sha256": "8d9236c7e60922d5e12987557077f6554b1061d171f0b4d783576711c71f56b3",
+          "actual_EOF": 70,
+          "material_ranges": [
+            [
+              1,
+              70
+            ]
+          ],
+          "scope_record": "continuation/cumulative-source-scope-parallel-065.json#/files/791"
+        },
+        {
+          "scope065_index": 792,
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/stages.rs",
+          "sha256": "ccbbca63f8954cde1d15934b057edc40dfe382d36c273fed0acd0316f9a2fe2a",
+          "actual_EOF": 352,
+          "material_ranges": [
+            [
+              1,
+              352
+            ]
+          ],
+          "scope_record": "continuation/cumulative-source-scope-parallel-065.json#/files/792"
+        }
+      ],
+      "contract": "CAMERA-INITIAL07-CONTRACT-266",
+      "at": "2026-10-23T06:37:45.301973+00:00",
+      "status": "Discovery only; source/validation frozen; Root global dedup pending"
+    },
+    "key": "audit/continuation/camera/initial07-redundant-authority/findings.jsonl#55",
+    "primary_source": "crates/adventuresim-character-creator/src/garment/drape.rs"
+  },
+  {
+    "archive_file": "audit/continuation/camera/initial07-redundant-authority/findings.jsonl",
+    "record_index": 56,
+    "record": {
+      "id": "CAMERA-INITIAL07-F057",
+      "at": "2026-10-23T06:41:46.678403+00:00",
+      "classification": "Public mutable groom identity can outlive independently retained generated hair products",
+      "source_refs": [
+        {
+          "scope065_index": 804,
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/groom.rs",
+          "sha256": "6be15ac30dc63fd83b87ed48442b9fa9d403bb875737c7bafe13bdc19ac6c4c9",
+          "actual_EOF": 233,
+          "material_ranges": [
+            [
+              1,
+              233
+            ]
+          ],
+          "scope_record": "continuation/cumulative-source-scope-parallel-065.json#/files/804"
+        },
+        {
+          "scope065_index": 807,
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/hair_preview.rs",
+          "sha256": "800207ff944cfc7487b00bfbaa888dbe254ec85340094e9104c392b54b14ea78",
+          "actual_EOF": 343,
+          "material_ranges": [
+            [
+              1,
+              343
+            ]
+          ],
+          "scope_record": "continuation/cumulative-source-scope-parallel-065.json#/files/807"
+        }
+      ],
+      "contract": "CAMERA-INITIAL07-CONTRACT-267",
+      "actual_disagreement": "80429-43 GroomedHair exposes pub groom while on_gpu/head/scalp/map/texture/bounds/longest/drapes remain private values from grow70-93. External safe code can change groom after growth without rebuilding those products. place177-184 copies the changed label into PlacedHair but reuses old private groom buffers. PlacedHair also independently exposes pub groom55 while its private LODs/cap/texture remain unchanged.",
+      "actual_recipient": "807125-142 actual preview cache tests placed.hair.groom and grown.groom for equality with requested Groom, then avoids a fresh grow/place. Thus mutable labels are consumed as producer identity for retained geometry, not merely displayed historical annotation.",
+      "connected_repair": "Keep accepted GroomedHair and PlacedHair producer identity private and immutable with read-only accessors, or provide one coherent replacement operation rebuilding all dependent products. Preserve separate mutable requested HairDesign and cheap pigment/form redraw; do not duplicate equivalent groom IDs or rerun geometry for pigment alone.",
+      "acceptance": "Cached products can only report the groom that produced them; a changed requested groom triggers new growth/placement, while unchanged groom/body and pigment-only edits reuse work. Source-level semantic contract, no new tests or runtime executed.",
+      "qualification": "Public API/cache ownership strengthening only. Normal807 code currently owns Arc<GroomedHair> and does not mutate public groom, so no actual wrong preview, user edit or installed bad asset demonstrated. Private cached bodies are coherent under immutable use; upstream F050 model identity is distinct.",
+      "status": "Discovery only; source/validation frozen; Root global dedup pending"
+    },
+    "key": "audit/continuation/camera/initial07-redundant-authority/findings.jsonl#56",
+    "primary_source": "crates/adventuresim-character-creator/src/hair/groom.rs"
+  },
+  {
+    "archive_file": "audit/continuation/camera/initial07-redundant-authority/findings.jsonl",
+    "record_index": 57,
+    "record": {
+      "id": "CAMERA-INITIAL07-F058",
+      "classification": "Shared catalog default edit omits current preview invalidation for other default-following articles",
+      "source_refs": [
+        {
+          "scope066_index": 814,
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory_article_editor.rs",
+          "sha256": "bfaf8082b9b0e3aba214dbe23016ae3d83f78b3a66f777ea6e2601ddc5475cf9",
+          "actual_EOF": 199,
+          "material_ranges": [
+            [
+              1,
+              199
+            ]
+          ],
+          "scope_record": "continuation/cumulative-source-scope-parallel-066.json#/files/814"
+        },
+        {
+          "scope066_index": 815,
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/item_design.rs",
+          "sha256": "a33bdf3bde70ed5a647c3968c9e9c04dd60402bca585d47a4d2555ce9e3802aa",
+          "actual_EOF": 232,
+          "material_ranges": [
+            [
+              1,
+              232
+            ]
+          ],
+          "scope_record": "continuation/cumulative-source-scope-parallel-066.json#/files/815"
+        }
+      ],
+      "actual_disagreement": "814134-142 successfully calls815set_default121-138 but does not set changed=true;814148 returns false absent another simultaneous design action, and show35 sets dirty only from rebuild&&worn. Actual815default_in105-108 shared vambrace/breastplate defaults and809design_for128-130 None-following semantics mean other worn articles can now resolve a new current design while visible prior fitted output remains.",
+      "actual_recipient": "Actual83232-33 regenerate_mesh returns when studio.dirty=false, so correct 831 fit key comparison/loadout re-resolution is never reached for this isolated edit. Existing source scenario: two worn opposite-side vambraces, selected one with an own design promoted to shared default and other designNone; selected override unchanged intentionally, other current default changes.",
+      "connected_repair": "A successful shared catalog-design replacement must invalidate affected visible loadout and dependent lining/drape products through one current revision/change notification. At minimum mark current preview dirty on successful Make catalog default; retain per-instance own overrides and do not clear them when promoting.",
+      "acceptance": "Promotion leaves selected own instance coherent and rebuilds all affected default-following worn articles; unaffected own overrides and failed set_default do not silently change. Existing cache dependency keys continue to control expensive reuse.",
+      "qualification": "Concrete source-level normal UI trigger and existing allowed opposite-side article state, no executed UI or rendered result claim. Current default values may happen to match; choose a different valid shape to establish dependency. Distinct from F050 model corrective key. Root confirms no exact existing04 finding.",
+      "at": "2026-10-23T06:46:59.311266+00:00",
+      "contract": "CAMERA-INITIAL07-CONTRACT-269",
+      "status": "Discovery only; source/validation frozen; Root global dedup pending"
+    },
+    "key": "audit/continuation/camera/initial07-redundant-authority/findings.jsonl#57",
+    "primary_source": "crates/adventuresim-character-creator/src/inventory_article_editor.rs"
+  },
+  {
+    "archive_file": "audit/continuation/camera/initial07-redundant-authority/findings.jsonl",
+    "record_index": 58,
+    "record": {
+      "id": "CAMERA-INITIAL07-F059",
+      "classification": "Expression coefficient cardinality manually repeated instead of canonical MHR owner",
+      "source_refs": [
+        {
+          "scope066_index": 816,
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/lib.rs",
+          "sha256": "dc0c4f7b59ecd62d3a8a4a6b00c5bfecfc15470df833fe4294e486d1ffa5393c",
+          "actual_EOF": 238,
+          "material_ranges": [
+            [
+              1,
+              238
+            ]
+          ],
+          "scope_record": "continuation/cumulative-source-scope-parallel-066.json#/files/816"
+        }
+      ],
+      "actual_disagreement": "81687 hardcodes EXPRESSION_COUNT72 and uses it for default vector130 and recipe validation145. Existing frozen MHR model18 owns NUM_FACE_EXPRESSION_BLEND_SHAPES72 and forward483-486 checks incoming columns against that canonical constant. One-sided canonical cardinality change can make locally accepted/default recipes fail actual model input contract.",
+      "actual_recipient": "Actual creator generation passes recipe.expression into MHR forward, whose canonical coefficient gate rejects a differing column count; UI/default serialization retains the locally validated count. Direct canonical fabelgeist_mhr reexport40-41 already makes the owner available.",
+      "connected_repair": "Use canonical MHR expression coefficient count in recipe initialization/validation and UI loops, with one exported owner. Keep IdentityGroup semantic partition boundaries separate unless authoritative model metadata actually provides equivalent groups.",
+      "acceptance": "All first-party expression collection cardinality derives the canonical owner, while actual current72 format remains unchanged. Existing tests may detect disagreement but do not own a second policy.",
+      "qualification": "Maintenance/shared schema-policy strengthening; current values agree and no actual model/count mismatch or runtime execution shown. Generic native tensor dimensions remain an appropriate codec boundary. Global roster-family dedup left to Root.",
+      "at": "2026-10-23T06:46:59.311266+00:00",
+      "contract": "CAMERA-INITIAL07-CONTRACT-269",
+      "status": "Discovery only; source/validation frozen; Root global dedup pending"
+    },
+    "key": "audit/continuation/camera/initial07-redundant-authority/findings.jsonl#58",
+    "primary_source": "crates/adventuresim-character-creator/src/lib.rs"
+  },
+  {
+    "archive_file": "audit/continuation/camera/initial07-redundant-authority/findings.jsonl",
+    "record_index": 59,
+    "record": {
+      "id": "CAMERA-INITIAL07-F060",
+      "at": "2026-10-23T06:56:20.682488+00:00",
+      "classification": "Wardrobe completion flag can promote retained preview after failed final garment result",
+      "source_refs": [
+        {
+          "scope066_index": 844,
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/wardrobe_tab.rs",
+          "sha256": "4cd80a0338aaafa8f2b1f80eca296ef22614825d8d1058692fb8c4fe7bbe9595",
+          "actual_EOF": 325,
+          "material_ranges": [
+            [
+              1,
+              325
+            ]
+          ],
+          "scope_record": "continuation/cumulative-source-scope-parallel-066.json#/files/844"
+        }
+      ],
+      "contract": "CAMERA-INITIAL07-CONTRACT-276",
+      "actual_disagreement": "Actual763104-107 sends final successful prefix as preview even on error; failed single garment yields Some(empty). 844235-239 next() on that empty preview leaves earlier drape.garment untouched, while242-244 unconditionally sets drape.finished=true and stores problems. If retained earlier preview has final Settling{step==of}, settled115-120 accepts it with same_simulation despite final outcome.error.",
+      "actual_recipient": "844150-159 save() uses settled() as its ready gate, then captures that retained preview with current input into saved library. The source can therefore describe a failed-finish job as fully settled/ready, distinct from intentional warnings on an otherwise successful garment.",
+      "concrete_precondition": "782 simulation publishes final Settling preview188-189 before finish64-90; final transfer_skin87 can return error after that preview, e.g raw supplied body weights contain no positive influences (actual780509-510). This is a source API/precondition example; no ordinary generated-body input with such weights established. Cancellation is separately suppressed and not used as this witness.",
+      "connected_repair": "Retain explicit final result identity/status separately from preview history; on final failed empty result do not expose retained preview through save-ready accessor. A deliberately saveable physical-only preview requires its own explicit accepted state, not worker-finished boolean. Preserve successful garments from earlier outfit prefix and nonfatal contact warnings.",
+      "acceptance": "Failed final single-garment job cannot be saved as completed accepted result solely because prior preview reached last solver step; successful finished garment with warnings remains usable/saveable. Preview display may remain intentionally visible with explicit incomplete/failed status.",
+      "qualification": "Conditional API/completion strengthening only; no actual ordinary UI failure, corrupt model, worker panic, GPU run or saved bad artifact demonstrated. Raw invalid skin producer is not silently treated as normal first-party generated input. Global dedup/later aggregate and operation conclusions remain Root authority.",
+      "status": "Discovery only; source/validation frozen; Root global dedup pending"
+    },
+    "key": "audit/continuation/camera/initial07-redundant-authority/findings.jsonl#59",
+    "primary_source": "crates/adventuresim-character-creator/src/wardrobe_tab.rs"
+  },
+  {
+    "archive_file": "audit/continuation/native/admission03/camera-support/findings.jsonl",
+    "record_index": 6,
+    "record": {
+      "id": "NATIVE-CAMERA-ADM03-F007",
+      "kind": "support_P16_raw_gauge_validator_overflow_before_admission",
+      "proof": "p16-armor-admission-021.json",
+      "source_id": "physical-p16:crates/fabelgeist-armor/src/anime_design.rs",
+      "ranges": [
+        [
+          43,
+          54
+        ]
+      ],
+      "root_dedup": "Existing RigF049 PR exactcounterpart; P16currentbody independently freshread",
+      "runtime_bad_caller_claim": false,
+      "later_lens_credit": false
+    },
+    "key": "audit/continuation/native/admission03/camera-support/findings.jsonl#6",
+    "primary_source": "physical-p16:crates/fabelgeist-armor/src/anime_design.rs"
+  },
+  {
+    "archive_file": "audit/continuation/native/initial05-aggregate-states/findings.jsonl",
+    "record_index": 5,
+    "record": {
+      "id": "NATIVE-INITIAL05-SUPPORT-RIG-F010",
+      "supports": "RIG-ADMISSION03-F010",
+      "source_id": "pr-working:crates/fabelgeist-rig/src/skin.rs",
+      "sha256": "c1c856dd707201d43249ad4e61576728edf4ff9a2a2d1dbf68f6c980a1c2d206",
+      "ranges": [
+        [
+          22,
+          25
+        ],
+        [
+          70,
+          100
+        ],
+        [
+          163,
+          168
+        ]
+      ],
+      "proof_ref": "contract-groups-017.json#/groups/influence-row-normalization-and-numeric-membership-separation",
+      "classification": "additional_canonical_whole_weight_row_proof_not_new_unique_defect",
+      "counterexample": "Validordinals plus finiteallzero publicweights -> nonempty duplicatecombinedrow sum0 -> weight/sum NaN in strongest_four; no actual normalcaller/runtime/upload claimed.",
+      "repair": "frozen",
+      "validation": "not_established"
+    },
+    "key": "audit/continuation/native/initial05-aggregate-states/findings.jsonl#5",
+    "primary_source": "pr-working:crates/fabelgeist-rig/src/skin.rs"
+  },
+  {
+    "archive_file": "audit/continuation/native/initial05-aggregate-states/findings.jsonl",
+    "record_index": 7,
+    "record": {
+      "id": "NATIVE-INITIAL05-F006",
+      "lens": "audit-aggregate-states",
+      "classification": "representable_zero_query_count_reaches_positive_index_precondition",
+      "source_id": "pr-working:crates/fabelgeist-hair/src/grid.rs",
+      "sha256": "c09704f7670decebc3e4eb9ff4ea525870f197f4302a4e16407c5e298f988996",
+      "source_ranges": [
+        [
+          113,
+          144
+        ]
+      ],
+      "relationship": "k nearest-resultcount must permit kth indexing or zerocount handledbeforek-1. Privatepointgrid cachecorrelation itselfcontrolled.",
+      "representable_counterexample": "PointGrid::new(1).nearest_k(Vec3zero,0,0,acceptall) reachesfound[k-1] onfirst ring becausefound.len>=0; static safeAPIcounterexample, no existingbadgamecaller/run.",
+      "current_caller_qualification": "ActualInterpolate307 neighbors.max1; PointGrid::nearest147 calls1. Do not report normalinterpolationfailure.",
+      "connected_repair": "WholefunctionPointGrid::nearest_k actualparameterboundary; Rootcanonicalclaimreconciliation required beforeimplementation. Returnemptyforzero or retainexplicitpositivecount beforeindex, no broadnewtype/wholegridduplication needed.",
+      "acceptance": "Zero-countpolicy explicit beforek-1, emptygrid retained, samegroupfilter/distanceorder/pointordinal meanings and nativecapacityqualification preserved. No newtests/sourcechanges now.",
+      "proof_ref": "contract-groups-024.json",
+      "repair": "frozen",
+      "validation": "not_established"
+    },
+    "key": "audit/continuation/native/initial05-aggregate-states/findings.jsonl#7",
+    "primary_source": "pr-working:crates/fabelgeist-hair/src/grid.rs"
+  },
+  {
+    "archive_file": "audit/continuation/native/initial05-aggregate-states/findings.jsonl",
+    "record_index": 8,
+    "record": {
+      "id": "NATIVE-INITIAL05-F007",
+      "lens": "audit-aggregate-states",
+      "classification": "finite_capsule_endpoint_combination_unchecked_degenerate_segment",
+      "source_id": "pr-working:crates/fabelgeist-hair/src/head.rs",
+      "sha256": "5d1dcadadba0fa88cbd668791a3a995a7ef83af5fdbaa3b699b828531f339335",
+      "source_ranges": [
+        [
+          50,
+          64
+        ],
+        [
+          145,
+          155
+        ],
+        [
+          271,
+          278
+        ]
+      ],
+      "relationship": "Capsule radius andfiniteendpoints mustestablish validpoint-to-segmentprojection or explicitdegeneratecapsulemeaning before distancepublished.",
+      "representable_counterexample": "PublicHead withneck.a==neck.b andotherwisepositivefiniteradius/finitegeometry: Capsule::distance59 divides0/0, producesNaN; outerHeadfield min/maxmaymaskit, so no unconditionalpanic/normalpresetfailure claimed.",
+      "current_caller_qualification": "Head::mannequin usesdistinctfiniteendpoints, noactualinvalidhead/currentruntimeassertion.",
+      "connected_repair": "HeadCapsule::distance plusactualHeadrawgeometryadmission/relyingCollider; Rootcanonicalfunctionclaimreconciliation beforeimplementation. Representdegenerateaspointcapsule orrejectbeforeprojection consistently; avoidnewphantomowneronlytorecheckineverycaller.",
+      "acceptance": "All safelyacceptedcapsules havewell-definedsigneddistance; preservepointcapsulepolicyexplicitly, signedmetreframe/union/blending andknownvalidmannequin; originaltestsnotrun/no newcases.",
+      "proof_ref": "contract-groups-025.json",
+      "repair": "frozen",
+      "validation": "not_established"
+    },
+    "key": "audit/continuation/native/initial05-aggregate-states/findings.jsonl#8",
+    "primary_source": "pr-working:crates/fabelgeist-hair/src/head.rs"
+  },
+  {
+    "archive_file": "audit/continuation/native/initial05-aggregate-states/findings.jsonl",
+    "record_index": 65,
+    "record": {
+      "id": "NATIVE-INITIAL05-F060",
+      "at": "2026-10-23T07:21:02.788563+00:00",
+      "source_refs": [
+        {
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview.rs",
+          "sha256": "8c21b357f6f90a1c9c297c9e1c4306e63872daa3ccb32e060651f5df878b7ba3",
+          "scope068_index": 683,
+          "actual_EOF": 699,
+          "scoped_ranges_compared": [
+            [
+              1,
+              699
+            ]
+          ],
+          "actual05_comparison": "Fresh complete body, including all existing inline fixtures in parent; current aggregate constructor, skin-row, topology, prior/current pose, and simulation/render recipient comparison. No test execution."
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview/cloth_motion.rs",
+          "sha256": "6ffc24ed612481adda0151e6c87d8c0980ecbe05f9c1cbcfccab08174af16d61",
+          "scope068_index": 685,
+          "actual_EOF": 201,
+          "scoped_ranges_compared": [
+            [
+              1,
+              201
+            ]
+          ],
+          "actual05_comparison": "Fresh complete body, including all existing inline fixtures in parent; current aggregate constructor, skin-row, topology, prior/current pose, and simulation/render recipient comparison. No test execution."
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview/cloth_render.rs",
+          "sha256": "d691d43dfb3aa93344f65824b6c08ab7addcacf92e003099dde936d8b26e47ab",
+          "scope068_index": 686,
+          "actual_EOF": 68,
+          "scoped_ranges_compared": [
+            [
+              1,
+              68
+            ]
+          ],
+          "actual05_comparison": "Fresh complete body, including all existing inline fixtures in parent; current aggregate constructor, skin-row, topology, prior/current pose, and simulation/render recipient comparison. No test execution."
+        }
+      ],
+      "classification": "Public checked-looking cloth constructor admits out-of-range retained topology",
+      "invariant": "Every retained face and derived edge references existing positions/current/previous rows before private state is usable.",
+      "counterexample": "ClothSkin::new(GarmentForm::Skirted, vec![[0.,0.,0.]], vec![], vec![[0,1,2]], ClothBinding::Unweighted) returns Ok. weld_seams at cloth_render.rs24 indexes one-entry render_vertices by1/2; physics edges and normals use same relation.",
+      "qualification": "Source/API only, all individual coordinates and u32 indices representable. No actual malformed normal drape output, installed garment, GUI operation or runtime failure claimed. Existing valid fixtures not run.",
+      "connected_repair": "Admit one canonical indexed cloth geometry product, prove face membership against vertex count before deriving private edges/seam maps, and preserve this relation across welding and retained binding rows. Reject before creating usable Self; do not scatter duplicate checks through physics/render or introduce arbitrary closedness/positive-size rules.",
+      "proof_ref": "contract-groups-302.json",
+      "repair": "frozen",
+      "validation": "not_established"
+    },
+    "key": "audit/continuation/native/initial05-aggregate-states/findings.jsonl#65",
+    "primary_source": "crates/adventuresim-character-creator/src/animation_preview.rs"
+  },
+  {
+    "archive_file": "audit/continuation/native/initial05-aggregate-states/findings.jsonl",
+    "record_index": 67,
+    "record": {
+      "id": "NATIVE-INITIAL05-F060-SUPPORT-308",
+      "supports": "NATIVE-INITIAL05-F060",
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/clothing/fitting.rs",
+      "comparison": "Public ClothingShell raw invalid retained faces reach refit/fitted_surface adjacency before validated_placeholder_faces. Normal generate_clothing_shells checks source face membership before indexing and creates full body-indexed rows; no ordinary generated malformed garment claimed.",
+      "proof_ref": "contract-groups-308.json"
+    },
+    "key": "audit/continuation/native/initial05-aggregate-states/findings.jsonl#67",
+    "primary_source": "pr-working:crates/adventuresim-character-creator/src/clothing/fitting.rs"
+  },
+  {
+    "archive_file": "audit/continuation/native/initial05-aggregate-states/findings.jsonl",
+    "record_index": 68,
+    "record": {
+      "id": "NATIVE-INITIAL05-SUPPORT-CAMERA-F051-312",
+      "supports": "CAMERA-INITIAL07-F051",
+      "peer_contract": "CAMERA-INITIAL07-CONTRACT-254",
+      "source_refs": [
+        {
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/device_fit.rs",
+          "sha256": "5eb9fadd5491db5b34e9ea0b0478355229d88f1b0b9d937911f586dc55a0b710",
+          "scope069_index": 726,
+          "actual_EOF": 518,
+          "scoped_ranges_compared": [
+            [
+              1,
+              518
+            ]
+          ],
+          "actual05_comparison": "Fresh complete exact body in bounded displays, current realization/upload/host/endpoints/skin and runtime supplied-array relationship analysis. Source-only, no GPU/compiler execution."
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/runtime_equipment.rs",
+          "sha256": "017eab8f2758a277d6638fde30e9cbcad9ea025d1eff17e92ade4d3bf0bbe960",
+          "scope069_index": 827,
+          "actual_EOF": 341,
+          "scoped_ranges_compared": [
+            [
+              1,
+              341
+            ]
+          ],
+          "actual05_comparison": "Fresh complete exact body in bounded displays, current realization/upload/host/endpoints/skin and runtime supplied-array relationship analysis. Source-only, no GPU/compiler execution."
+        }
+      ],
+      "actual_comparison": "Own fresh717/726/827 proves independent mutable RuntimeBody host arrays plus first-upload memoization; current public validate checks counts only.",
+      "qualification": "Public/API after successful first upload; no ordinary body mutation/GUI or tactical run inferred. Same exact peer graph, no unique increment.",
+      "proof_ref": "contract-groups-312.json"
+    },
+    "key": "audit/continuation/native/initial05-aggregate-states/findings.jsonl#68",
+    "primary_source": "crates/adventuresim-character-creator/src/device_fit.rs"
+  },
+  {
+    "archive_file": "audit/continuation/native/initial05-aggregate-states/findings.jsonl",
+    "record_index": 69,
+    "record": {
+      "id": "NATIVE-INITIAL05-F061",
+      "at": "2026-10-23T07:37:28.623431+00:00",
+      "classification": "Clearance section stage assumes nondegenerate support hull without admission",
+      "source_refs": [
+        {
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/device_clearance/wgsl.rs",
+          "sha256": "08f1bb2b6a69e5ee4c8253d36d3f91c6bdba0eb1348ec54fab5e4ba100c11801",
+          "scope069_index": 721,
+          "actual_EOF": 444,
+          "scoped_ranges_compared": [
+            [
+              1,
+              444
+            ]
+          ],
+          "actual05_comparison": "Fresh complete exact source in bounded displays; own host/shader layout, support cardinality, frame/status propagation, coif reductions and extremity multi-stage binding analysis; all original fixtures read not executed."
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/device_frames.rs",
+          "sha256": "e209739488d454a1565af4a6f3663940c07b0b56ce228bf1fff65297eafd8a2d",
+          "scope069_index": 730,
+          "actual_EOF": 246,
+          "scoped_ranges_compared": [
+            [
+              1,
+              246
+            ]
+          ],
+          "actual05_comparison": "Fresh complete exact source in bounded displays; own host/shader layout, support cardinality, frame/status propagation, coif reductions and extremity multi-stage binding analysis; all original fixtures read not executed."
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/device_frames/passes.rs",
+          "sha256": "bee5ccb765304e55b8ae48d21ddbab2fac860e6b753520065e742768362c992e",
+          "scope069_index": 732,
+          "actual_EOF": 341,
+          "scoped_ranges_compared": [
+            [
+              1,
+              341
+            ]
+          ],
+          "actual05_comparison": "Fresh complete exact source in bounded displays; own host/shader layout, support cardinality, frame/status propagation, coif reductions and extremity multi-stage binding analysis; all original fixtures read not executed."
+        }
+      ],
+      "invariant": "A section must have a supported nondegenerate hull, or set failure and stop before hull decrement/centroid/radius publication.",
+      "counterexample": "Shader-stage finite frame/positions with no support gives count=unique=hull0, yet unconditionally decrements hull300. One unique xz support point builds hull0 after halves and computes center/0 at306. Frame FINISH can independently clamp one-point envelope topositive extents, so positive frame is insufficient section cardinality proof.",
+      "connected_repair": "Admit/derive supported cross-section as one checked stage result; explicitly handle insufficient unique/hull geometry through existing failure status before unsigned arithmetic/centroid, and prevent dependent fitting from consuming missing/failed section. Preserve sparse-skin nearest-sample policy, genuine minimum-radius policy and no new arbitrary requirement for16uniquevertices.",
+      "qualification": "Source/API shader-stage cardinality case. No executed GPU, watchdog/hang, current ordinary MHR body, successful finalmalformedpart or renderedasset claim. Empty support mayalreadyfailframe, and CPU/finalpartchecks remain separate; shaderstillmusthandle failure-stageinputs coherently.",
+      "proof_ref": "contract-groups-314.json",
+      "peer_dedup": "Root04 andCamera07 reported no exactexistingfinding, noindependentbodycreditfromreplies.",
+      "repair": "frozen",
+      "validation": "not_established"
+    },
+    "key": "audit/continuation/native/initial05-aggregate-states/findings.jsonl#69",
+    "primary_source": "crates/adventuresim-character-creator/src/device_clearance/wgsl.rs"
+  },
+  {
+    "archive_file": "audit/continuation/native/initial05-aggregate-states/findings.jsonl",
+    "record_index": 70,
+    "record": {
+      "id": "NATIVE-INITIAL05-F062",
+      "at": "2026-10-23T08:06:14.775278+00:00",
+      "classification": "Accepted surface UV rows are not remapped with compacted shell vertices",
+      "source_refs": [
+        {
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/export.rs",
+          "sha256": "ee364aaa0d304eb120d6f91216c6da3e186f5e20809e28ffa74f5864e568d72d",
+          "scope071_index": 767,
+          "actual_EOF": 1841,
+          "scoped_ranges_compared": [
+            [
+              1,
+              1841
+            ]
+          ],
+          "actual05_comparison": "Fresh complete export source including all original inline/separate fixtures. Parent767 initial truncated display recovered451-1841 in bounded chunks; no omitted-body credit. Cross-channel vertex remapping, ordered primitive/morph/rig/node references and texture packaging compared."
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/export/compact.rs",
+          "sha256": "4aa7045f30b54218cf1897ee3f74e1d8831a35debb7905ad3365a796e20f7ca9",
+          "scope071_index": 769,
+          "actual_EOF": 104,
+          "scoped_ranges_compared": [
+            [
+              1,
+              104
+            ]
+          ],
+          "actual05_comparison": "Fresh complete export source including all original inline/separate fixtures. Parent767 initial truncated display recovered451-1841 in bounded chunks; no omitted-body credit. Cross-channel vertex remapping, ordered primitive/morph/rig/node references and texture packaging compared."
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/export/shell.rs",
+          "sha256": "6d0c444527f9a25d6aaf8e23e15ab8d973c489f6edb3a75429444c15c4132038",
+          "scope071_index": 773,
+          "actual_EOF": 80,
+          "scoped_ranges_compared": [
+            [
+              1,
+              80
+            ]
+          ],
+          "actual05_comparison": "Fresh complete export source including all original inline/separate fixtures. Parent767 initial truncated display recovered451-1841 in bounded chunks; no omitted-body credit. Cross-channel vertex remapping, ordered primitive/morph/rig/node references and texture packaging compared."
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/export/validation.rs",
+          "sha256": "61a7e389db804f2c17d7e619c27bb5bfc88f873f11e00d05097c85b6121518fb",
+          "scope071_index": 779,
+          "actual_EOF": 164,
+          "scoped_ranges_compared": [
+            [
+              1,
+              164
+            ]
+          ],
+          "actual05_comparison": "Fresh complete export source including all original inline/separate fixtures. Parent767 initial truncated display recovered451-1841 in bounded chunks; no omitted-body credit. Cross-channel vertex remapping, ordered primitive/morph/rig/node references and texture packaging compared."
+        }
+      ],
+      "invariant": "Every exported per-vertex attribute must use the same ordered retained vertex mapping as POSITION.",
+      "counterexample": "A finite valid four-vertex RiggedShell with own four skin rows, surface Some(four UV rows, nonempty valid maps), texcoords None and face[1,2,3] passes validate before compaction. CompactShell selects three geometry/skin rows but rigged.surface retains four original UV rows; Writer emits three POSITION rows and four TEXCOORD_0 rows, with original UV0 bound to original position1.",
+      "connected_repair": "Compact the UV slice carried by surface using the same used-vertex mapping as all other attributes while retaining its texture reference, or represent UV coordinates once in a checked complete compact-shell product. Validate complete output attribute correspondence before serialization; preserve independent shell topology and body-indexed socket computation before compaction.",
+      "qualification": "Source/API accepted input and deterministic code path only; no export/test execution, current authored unused-row armor, rendered error or normal installed failure claim. Explicit texcoords path is already remapped correctly. Valid PNG contents may be supplied; issue is unrelated to PNG decoding.",
+      "proof_ref": "contract-groups-338.json",
+      "peer_dedup": "Root04/Camera07 exact existing-proof queries sent; replies pending at publication.",
+      "repair": "frozen",
+      "validation": "not_established"
+    },
+    "key": "audit/continuation/native/initial05-aggregate-states/findings.jsonl#70",
+    "primary_source": "crates/adventuresim-character-creator/src/export.rs"
+  },
+  {
+    "archive_file": "audit/continuation/native/initial05-aggregate-states/findings.jsonl",
+    "record_index": 71,
+    "record": {
+      "id": "NATIVE-INITIAL05-F063",
+      "at": "2026-10-23T12:32:51.963432+00:00",
+      "classification": "Hair distance field triangle count exceeds packed identity capacity",
+      "source_refs": [
+        {
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/field.rs",
+          "sha256": "1f537b363a614847b1ddf760ac719c5ed099171646ce606649e8b7ca79390264",
+          "scope071_index": 800,
+          "actual_EOF": 545,
+          "scoped_ranges_compared": [
+            [
+              1,
+              545
+            ]
+          ],
+          "actual05_comparison": "Fresh complete host and generated field shader1-280/281-545, followed source-specific packing and flood/readback relation analysis. No GPU allocation or execution."
+        }
+      ],
+      "invariant": "Every admitted local triangle ordinal must fit the reserved20bit lane, independently of quantized distance priority.",
+      "counterexample": "NearMesh::upload returns filtered faces.len asu32 without the documented million-triangle capacity check. SEED401 stores(near<<20)|t and FLOOD_START424 masks low20 before+1. At t=1<<20, decoded ordinal is0 and the high bit also modifies distance rank; that source triangle can be replaced by unrelated triangle0 during field flood/finish. The ordinal is a valid u32 and faces can otherwise be finite/index-valid.",
+      "connected_repair": "Admit the complete filtered NearMesh count against the existing packed triangle lane before recording, or widen/replace the native mark representation while preserving distance priority and triangle identity. Keep zero-mark sentinel distinct and ensure every flood candidate refers to the same filtered face collection.",
+      "qualification": "Conditional representable source API/native capacity case through public BodySurface\u2192GroomedHair::place. No actual normal MHR mesh overcapacity, GPU allocation/dispatch, field output or rendered failure claim. Normal producer face bound remains separate; this is not a requirement to reject ordinary feasible body topology or change geometric reach.",
+      "proof_ref": "contract-groups-352.json",
+      "peer_dedup": "Exact Root04/Camera07 existing-proof queries sent; replies pending at publication.",
+      "repair": "frozen",
+      "validation": "not_established"
+    },
+    "key": "audit/continuation/native/initial05-aggregate-states/findings.jsonl#71",
+    "primary_source": "crates/adventuresim-character-creator/src/hair/gpu/field.rs"
+  },
+  {
+    "archive_file": "audit/continuation/native/initial05-aggregate-states/findings.jsonl",
+    "record_index": 72,
+    "record": {
+      "id": "NATIVE-INITIAL05-F064",
+      "at": "2026-10-23T12:41:22.177840+00:00",
+      "classification": "Inventory add cannot preserve unique stable identity at admitted u64 boundary",
+      "source_refs": [
+        {
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory.rs",
+          "sha256": "0f820bca06e27b164da010e95dc7d3500a79a6feb0b7be9411ed8a41e88feb18",
+          "scope072_index": 809,
+          "actual_EOF": 442,
+          "scoped_ranges_compared": [
+            [
+              1,
+              442
+            ]
+          ],
+          "actual05_comparison": "Fresh complete Inventory/loadout/occupancy and original239-line fixture body. Article selection binding, unique identity allocation, fallible wear rollback, dependency progress and fit-result exposure compared."
+        }
+      ],
+      "invariant": "Adding an article to an inventory with unique valid IDs must allocate a fresh ID or return an explicit failure before mutation.",
+      "counterexample": "Inventory::validate accepts unique article IDs[u64MAX-1,u64MAX] with otherwise valid articles; public get_mut/serde can represent them. add maps each id.0+1 before max: checks-on overflows onMAX+1; checks-off candidates[MAX,0] chooseMAX and push a second item under existingMAX ID. This is not hypothetical extra allocation or a huge collection.",
+      "connected_repair": "Own next-ID admission/allocator capacity coherently at the inventory mutation boundary and return explicit failure before adding when the chosen monotonic policy is exhausted. Preserve existing valid identities and article order; do not wrap/saturate into an occupied ID or add compatibility aliases. Broader input schema can remain editable pending current whole-record validation policy.",
+      "qualification": "Representable accepted unique-ID API case with two articles, source-derived debug/release distinction only. No runtime/test execution, ordinary UI lifetime reaching high IDs or actual corrupt recipe claimed. InventoryItemId full-u64 meaning and zero raw structural admission retained; no arbitrary smaller gameplay cap.",
+      "proof_ref": "contract-groups-364.json",
+      "peer_dedup": "Camera07 reports no exact prior; Root04 exact existing-proof response pending at publication. Rig03F020 is separate documented Loadout fit encapsulation bypass.",
+      "repair": "frozen",
+      "validation": "not_established"
+    },
+    "key": "audit/continuation/native/initial05-aggregate-states/findings.jsonl#72",
+    "primary_source": "crates/adventuresim-character-creator/src/inventory.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 8,
+    "record": {
+      "id": "RIG-ADMISSION03-F009",
+      "classification": "latent_cloth_topology_constructor_admits_out_of_range_faces",
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview.rs",
+      "sha256": "8c21b357f6f90a1c9c297c9e1c4306e63872daa3ccb32e060651f5df878b7ba3",
+      "ranges": [
+        [
+          117,
+          149
+        ],
+        [
+          440,
+          449
+        ]
+      ],
+      "invariant": "Retained ClothSkin faces/derived edges used as position indices by safe render/simulation operations.",
+      "all_routes": "Private ClothSkin has sole public new; only weighted row count checked; raw faces/positions retained, no face-index admission.",
+      "counterexample": "One position and unweighted face[0,1,2] returns Ok from new. Public weld_seams then indexes render_vertices[1] (cloth_render21\u201325), or native normals indexes positions[1]. Static safe-API bypass; no actual malformed current producer/runtime claimed.",
+      "connected_remedy": "Establish finite/topology and row correspondence once in owning cloth geometry admission, retain private accepted storage and reuse proof across weld/render/simulation; ensure face indices refer to supplied positions before deriving edges. Do not reject intentional empty/unweighted geometry without actual policy.",
+      "acceptance": "No safely admitted ClothSkin can contain an out-of-range face/edge; preserve current first count error and valid topology/seam behavior.",
+      "proposal_targets": [
+        "crates/adventuresim-character-creator/src/animation_preview.rs::ClothSkin::new"
+      ],
+      "repair": "frozen_initial_all13",
+      "validation": "not_run"
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#8",
+    "primary_source": "pr-working:crates/adventuresim-character-creator/src/animation_preview.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 9,
+    "record": {
+      "id": "RIG-ADMISSION03-F010",
+      "classification": "native_skin_weight_normalization_does_not_admit_finite_nonnegative_correlated_rows",
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview/binding.rs",
+      "sha256": "1d37cdfbe3438b86643502d8f147cec1c22cfb04ba2ccdf09da1c30aacac7152",
+      "ranges": [
+        [
+          7,
+          12
+        ],
+        [
+          15,
+          50
+        ]
+      ],
+      "invariant": "Native adapter advertises/publishes four strongest normalized skin weights; README1161\u20131164 identifies actual four normalized runtime influences.",
+      "all_routes": "Public raw weights beside validated PackedRigSkin, skin_mesh accepts arbitrary slice, zip truncates mismatched rows, total normalization only condition>0; chosen ordinal u16 admission is separate and real.",
+      "counterexample": "An eight-NaN weight row with valid packed joint indices reaches totalNaN, assigns only first1, leaves other retained weights NaN and returns Ok with native Mesh attribute. PositiveInfinity can also produce Inf/Inf; no actual malformed generated caller/runtime asserted.",
+      "connected_remedy": "Own finite nonnegative weight row and row-count admission coherently before native normalization/upload; preserve deterministic strongest-four tie order and intentional zero-total policy after explicit decision, no generic positive-allweights assumption. Avoid per-consumer duplicate validations once owner is retained.",
+      "acceptance": "Native output rows finite/nonnegative and normalized under explicit zero-total policy, aligned to positions/indices; rejected bad value keeps cause. Exact input/source predicates may discharge trusted internal callers but raw public API must not silently certify malformed input.",
+      "proposal_targets": [
+        "crates/adventuresim-character-creator/src/animation_preview/binding.rs::ClothBinding",
+        "crates/adventuresim-character-creator/src/animation_preview/binding.rs::skin_mesh"
+      ],
+      "repair": "frozen_initial_all13",
+      "validation": "not_run"
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#9",
+    "primary_source": "pr-working:crates/adventuresim-character-creator/src/animation_preview/binding.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 10,
+    "record": {
+      "id": "RIG-ADMISSION03-F011",
+      "classification": "public_clothing_shell_topology_bypasses_late_refit_admission",
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/clothing.rs",
+      "sha256": "01a1b2449b801b5bc0597ad35ddb9a5cef1bc7f86612b1c02efcb50c6b18e049",
+      "ranges": [
+        [
+          45,
+          51
+        ]
+      ],
+      "recipient_source_id": "pr-working:crates/adventuresim-character-creator/src/clothing/fitting.rs",
+      "recipient_sha256": "c994568e769cacd263045e2683b6750382cc6834f28a6f3059b6bad839cea628",
+      "recipient_ranges": [
+        [
+          5,
+          28
+        ],
+        [
+          32,
+          49
+        ]
+      ],
+      "invariant": "Fitted shell topology references existing retained positions; refit exposes typed OutOfRangeFace admission helper.",
+      "all_routes": "ClothingShell fields public, no validated constructor seal; generate function checks faces before math, but refit only checks new row counts then indexes existing public faces before validator.",
+      "counterexample": "Public shell with three matching position/normal rows and face[0,1,3], then refit same three rows, reaches relax_concavities indexingneighbors[3] before OutOfRangeFace helper. Static latent API bypass, no current malformed generated caller/runtime claim.",
+      "connected_remedy": "Keep accepted shell geometry/topology coherent and private, with checked source admission before indexed math; separate raw authoring DTO from retained fitted shell as needed. Preserve existing placeholder policy (no area/winding/continuous-clearance quality gate) and exact first count/source error.",
+      "acceptance": "Every safely admitted shell/refit retains valid vertex slots and correspondence, with malformed external data rejected before native indexing; no repeated validation in each numerical kernel.",
+      "proposal_targets": [
+        "crates/adventuresim-character-creator/src/clothing.rs::ClothingShell",
+        "crates/adventuresim-character-creator/src/clothing/fitting.rs::ClothingShell::refit"
+      ],
+      "repair": "frozen_initial_all13",
+      "validation": "not_run"
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#10",
+    "primary_source": "pr-working:crates/adventuresim-character-creator/src/clothing.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 11,
+    "record": {
+      "id": "RIG-ADMISSION03-F012",
+      "classification": "candidate_native_clearance_empty_support_not_admitted_before_hull_kernel",
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_clearance/wgsl.rs",
+      "sha256": "08f1bb2b6a69e5ee4c8253d36d3f91c6bdba0eb1348ec54fab5e4ba100c11801",
+      "ranges": [
+        [
+          179,
+          244
+        ],
+        [
+          258,
+          306
+        ]
+      ],
+      "invariant": "SECTIONS hull construction/center requires nonempty supported sample set; absent anatomical envelope should reject with actual source frame/surface error, not feed invalid kernel precondition.",
+      "all_routes": "Actual GpuBody new allows allzero raw weights; host record_clearance_fit builds no min-support gate, records SECTIONS+FIT. Allzero support selection leaves count0 through gather/dedup; hull loop has unconditional decrement and later center division. Actual frame FINISH sets NoEnvelope, but actual device_fit only checks status after batch completion.",
+      "counterexample": "Conceptual otherwise shape-consistent nonempty body with allzero skin weights has no selected region samples; no early status-count branch in actual SECTIONS prevents empty hull processing. Static admission precondition gap; no GPU execution/hang/driver behavior claimed, numerical/operational consequences require later04 proof.",
+      "connected_remedy": "Reject empty/degenerate sample set at owning section stage with existing source error before hull numerical work; do not globally prohibit allzero weights in unrelated preview/unweighted APIs, or rely only on deferred host frame error. Preserve capacity cap, source sample ordering and valid sparse-body policy.",
+      "acceptance": "Every section entering hull/center math meets explicit required sample/hull precondition or carries intended error; later native operations reviewed separately, no overall clearance.",
+      "proposal_targets": [
+        "crates/adventuresim-character-creator/src/device_clearance/wgsl.rs::SECTIONS"
+      ],
+      "repair": "frozen_initial_all13",
+      "validation": "not_run"
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#11",
+    "primary_source": "pr-working:crates/adventuresim-character-creator/src/device_clearance/wgsl.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 12,
+    "record": {
+      "id": "RIG-ADMISSION03-F013",
+      "classification": "candidate_garment_region_mask_missing_arity_admission",
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_garment.rs",
+      "sha256": "33088136dedaa0cf15c3541ea4c9c3c2dd930c7cc1e4f8bb63c09c66680ccf6f",
+      "ranges": [
+        [
+          161,
+          198
+        ]
+      ],
+      "invariant": "One u32 bit per listed region requires list arity<=32 before native index shifts.",
+      "all_routes": "pub(crate) record_region_support accepts arbitrary region slice, enumerates bit and performs <<bit without gate; actual adjacent record_any_region_support in device_foot_sections47 checks regions.len<=32 for corresponding native mask role.",
+      "counterexample": "A33-entry slice of valid closed FitRegion values can reach bit32 before any rejection; typed closed elements do not bound container length. Static API admission candidate, current actual production callers still being compared, no bad caller/runtime or later arithmetic-lens claim.",
+      "connected_remedy": "Represent or check bounded region-mask arity once at owning bitmask preparation, preserve empty-list policy and all32bits; no global NonEmptyCount or region membership narrowing.",
+      "acceptance": "Every list converted to one-wordmask meets actual capacity, or preserves clear original error before shift; current bounded authored callers continue same words/order.",
+      "proposal_targets": [
+        "crates/adventuresim-character-creator/src/device_garment.rs::DeviceWearer::record_region_support"
+      ],
+      "repair": "frozen_initial_all13",
+      "validation": "not_run"
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#12",
+    "primary_source": "pr-working:crates/adventuresim-character-creator/src/device_garment.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 13,
+    "record": {
+      "id": "RIG-ADMISSION03-F014",
+      "classification": "latent_admission_precondition_candidate",
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_gorget_bib.rs",
+      "source_ranges": [
+        [
+          49,
+          57
+        ]
+      ],
+      "contract_refs": [
+        "RIG-ADMISSION03-CONTRACT-237",
+        "RIG-ADMISSION03-CONTRACT-184"
+      ],
+      "invariant": "Native layer triangulation needs all face indices inside position slice before host indexing.",
+      "representable_counterexample": "Public raw ArmorLayerSurface literal with three positions and face[0,1,3]; record_bib_measure indexes before any local rejection. Checked from_generated factory already rejects this, so no actual malformed generated caller or runtime failure claimed.",
+      "connected_remedy_proposal": "Either admit a checked topology-bearing layer view once at coherent source boundary or validate relying raw view before host indexing; preserve zero/degenerate/empty policies actually accepted elsewhere, no arbitrary quality gate.",
+      "acceptance": "All routes to this relying operation establish topology bounds or return a source error before indexing; existing valid canonical-frame layers and support sampling remain unchanged.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "later_lens_credit": false
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#13",
+    "primary_source": "pr-working:crates/adventuresim-character-creator/src/device_gorget_bib.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 14,
+    "record": {
+      "id": "RIG-ADMISSION03-F015",
+      "classification": "source_admission_gate_gap_static",
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/validation.rs",
+      "source_ranges": [
+        [
+          12,
+          50
+        ],
+        [
+          144,
+          161
+        ]
+      ],
+      "contract_refs": [
+        "RIG-ADMISSION03-CONTRACT-265",
+        "RIG-ADMISSION03-CONTRACT-270",
+        "RIG-ADMISSION03-CONTRACT-277"
+      ],
+      "invariant": "Geometry serialized as accepted rigged body output requires finite native position/normal values; raw input views are not proof.",
+      "representable_counterexample": "Otherwise valid nonzero one-joint body, emptyfaces, alignedskin1, identityjointstate, no morphs/shells/sockets, bodyposition or normal containingNaN. validate omits bodyfloat checks; export writes those exactf32bytes658\u2013664. No executed output, rendererfailure or actualbadmodel claimed.",
+      "additional_limit": "Globaljointstates also lack localfinite/unitcheck; exactTransformconversion/receiverpolicy stillpending, so not asserted as same complete counterexample.",
+      "connected_remedy_proposal": "Admit coherent finite body geometry/pose nativeview at authoritative input boundary before byte serialization; reuse same canonical geometry/skinowner across other actual recipients. Preserve signedcoordinates, zero components and legitimate emptyfaces/shellonly exports, no forceunitnormal absentpolicy.",
+      "acceptance": "All public routes reaching serialized body payload reject nonfinite geometry before bytes/output effects, actualvalidgeneratedbody and firsterrorpolicy preserved.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "later_lens_credit": false
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#14",
+    "primary_source": "pr-working:crates/adventuresim-character-creator/src/export/validation.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 15,
+    "record": {
+      "id": "RIG-ADMISSION03-F016",
+      "classification": "concrete_private_owner_deserialization_bypass_static",
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/settled.rs",
+      "source_ranges": [
+        [
+          89,
+          103
+        ],
+        [
+          138,
+          169
+        ],
+        [
+          184,
+          199
+        ],
+        [
+          274,
+          289
+        ]
+      ],
+      "contract_refs": [
+        "RIG-ADMISSION03-CONTRACT-288",
+        "RIG-ADMISSION03-CONTRACT-289",
+        "RIG-ADMISSION03-CONTRACT-290"
+      ],
+      "invariant": "Private SettledDrape requires nonempty aligned finite cloth/binding arrays, bounded face and body-triangle references established by existing validate.",
+      "representable_counterexample": "Structurallywellformed wholewidthpackedbinding withtriangleu32MAX andbody.triangles1, matchingcurrentinputbodycounts. DerivedDeserialize privatelyconstructsSelf withoutvalidate; publicwear checkscounts onlybeforeplace\u2192frame\u2192triangle lookup. Samecodec admitsNaN/Infbits; noactualpayloadgeneration/test/runtimefailureclaimed.",
+      "connected_remedy_proposal": "Authoritative checked SettledDrape construction shared bycapture andmanualDeserialize; keep rawdecodeintermediate private andcall existingvalidate beforeadmittingSelf. Preserve exactcompactschema, sourceerrororder, actualfinite/signedoffset/barycentricpolicy and intentionalwarning-onlycontactquality.",
+      "acceptance": "Everycanonicalcreationrouteestablishessameactualpredicate; invalidwhole-recordsemanticbits rejectedduringdecodebeforeprivateSelf reacheswear/indexing, existingvalidroundtrip/capture/wearunchanged.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "later_lens_credit": false
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#15",
+    "primary_source": "pr-working:crates/adventuresim-character-creator/src/garment/settled.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 16,
+    "record": {
+      "id": "RIG-ADMISSION03-F017",
+      "classification": "concrete_private_bounded_owner_constructor_bypass_static",
+      "source_ids": [
+        "pr-working:crates/adventuresim-character-creator/src/hair.rs",
+        "pr-working:crates/adventuresim-character-creator/src/hair/shape.rs"
+      ],
+      "source_ranges": {
+        "hair.rs": [
+          [
+            37,
+            79
+          ],
+          [
+            97,
+            117
+          ]
+        ],
+        "hair/shape.rs": [
+          [
+            89,
+            115
+          ],
+          [
+            136,
+            145
+          ],
+          [
+            188,
+            203
+          ]
+        ]
+      },
+      "contract_refs": [
+        "RIG-ADMISSION03-CONTRACT-293",
+        "RIG-ADMISSION03-CONTRACT-297"
+      ],
+      "invariant": "PrivateHairPigmentshares/dye andHairShapeknobs mustlieintheirexplicitclosedranges; checkedSerdealreadyrejectsNaN.",
+      "representable_counterexample": "HairPigment.new(NaN,0) orvalidpigment.dyed([NaN,0,0]); HairShape.default.with_knobs(ShapeKnobswithanyNaN). f32clampdoesnotrejectNaN, soinvalidprivateSelfiscreateddespitecheckeddecode. NoactualbadUI/runtimeclaimed.",
+      "connected_remedy_proposal": "Oneauthoritativefiniteadmissionpolicyforcanonicalprivatevalues, checkedsetters/constructorspropagatefailurebeforeclamp/nativeprojection. Preserveintentionalfiniteoutofrangeclampingwheredocumented, explicitInfpolicy, signedoffsets/validzero/>1ranges; no silentdefaultorblindnormalization.",
+      "acceptance": "Allcanonicalcreation/decode/setterroutesexcluderepresentableNaNwhilevalidfiniteUIandnamed/defaultcataloguepathsretainmeaning; lowerprivatebackingnotre-exposed.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "later_lens_credit": false
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#16",
+    "primary_source": "crates/adventuresim-character-creator/src/hair.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 17,
+    "record": {
+      "id": "RIG-ADMISSION03-F018",
+      "classification": "native_packed_identity_admission_candidate_static",
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/field.rs",
+      "source_ranges": [
+        [
+          48,
+          49
+        ],
+        [
+          161,
+          193
+        ],
+        [
+          369,
+          425
+        ]
+      ],
+      "contract_refs": [
+        "RIG-ADMISSION03-CONTRACT-296",
+        "RIG-ADMISSION03-CONTRACT-300"
+      ],
+      "invariant": "Native mark assigns EXACT20lowbits to triangleidentity, thus everyparticipatingtriangleordinal mustfitthatdomain beforepacking.",
+      "representable_counterexample": "PublicBodySurface with2^20+1validneartriangles canproduceNearMesh.triangles>2^20; no sourceboundcheckbeforeSEED ORt andFLOOD_START masks20bits. Ordinal2^20 overlapsdistancefield anddecodesaslow20bit0. NoactualGPUexecution, driverbehavior, downstreamphysicsbugorrealmodelclaimed.",
+      "connected_remedy_proposal": "Admitnativeboundedtrianglecount/index atlowestcoherentNearMesh/packedmarkadapter orchangeactualformatwithcoherentproducer+consumercontract. Do notimpose20bitlimitonbroadergeometryidentity orsilentlytruncate/droptriangles.",
+      "acceptance": "EverytriangleID enteringnativepackrepresentableanddecodespreservingidentity, exactzeroabsent/nearest+1/distance/tie/sourcepolicy preserved.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "later_lens_credit": false
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#17",
+    "primary_source": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/field.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 18,
+    "record": {
+      "id": "RIG-ADMISSION03-F019",
+      "classification": "private_affine_constructor_admission_candidate_static",
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/placement.rs",
+      "source_ranges": [
+        [
+          38,
+          48
+        ],
+        [
+          51,
+          104
+        ],
+        [
+          118,
+          157
+        ],
+        [
+          186,
+          219
+        ]
+      ],
+      "contract_refs": [
+        "RIG-ADMISSION03-CONTRACT-304"
+      ],
+      "invariant": "HeadPlacement providesinversebust_point/normal/directionoperations relyingfiniteinvertiblepositiveper-axisscale.",
+      "representable_counterexample": "Onefinitehead-supportedvertex withalignedskin/actualHead+Eyesnames/states andnoncoincidenteyes, ordinaryfinitepositivebustdimensions: HeadExtentSomewidth=depth0, fitreturnsprivateSelfscale0. Constructoronlyrejectsabsentheadvertices/invalidfacing, noextentpositivitycheck. Noactualbadmodel/runtimeorGPUexecutionclaimed.",
+      "connected_remedy_proposal": "AdmitcoherentfiniteinvertibleHeadPlacement fromactualmeasuredextents/canonicalbustbeforeconstructingprivateSelf; rejectdegenerateheadextentwithsourceerror, preserveidentitycallerordinal/openrigidentity andvalidsignedtranslation/positiveanisotropicscale. No default/normalizingfallback.",
+      "acceptance": "Allcanonicalmapconstructionroutesprovidefinitepositiveinvertiblescale; malformedsourcecannotreachinverse-nativeportasalreadymappedSelf; exactvalidframe/units/errorpolicy preserved.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "later_lens_credit": false
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#18",
+    "primary_source": "pr-working:crates/adventuresim-character-creator/src/hair/placement.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 19,
+    "record": {
+      "id": "RIG-ADMISSION03-F020",
+      "classification": "latent_accepted_record_literal_admission_bypass",
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory/loadout.rs",
+      "source_ranges": [
+        [
+          10,
+          43
+        ],
+        [
+          45,
+          108
+        ]
+      ],
+      "contract_refs": [
+        "RIG-ADMISSION03-CONTRACT-308",
+        "RIG-ADMISSION03-CONTRACT-056"
+      ],
+      "invariant": "Loadout expresslydescribesvalidatedfit-togetherwornarticles; canonicalfactorycallsInventory.fit beforeconstruction.",
+      "representable_counterexample": "PublicLoadout literal orvector mutation adds twoCatalogPieces usingotherwisevalidsameCatalogPlacement butdifferentInventoryItemIds, bypassingallnonconflict/attachmentfitfactorychecks. No needfabricateprivateCatalogPlacement orclaimedactualbadcaller/runtime.",
+      "connected_remedy_proposal": "MakeacceptedLoadoutbackingprivate andconstructonlythroughcanonicalfit/buildroute, exposeimmutablepieceviews/iterators. PreserveintentionalemptyDefault, stablelayerorder, editableInventory/rawArticleediting asappropriateseparateinputs; no duplicatedfitchecks at everyconsumer.",
+      "acceptance": "AllcanonicalacceptedLoadoutcreationroutesestablishdocumentedfitpredicate; externalrawliterals/mutationscannotfabricateacceptednonconflictrecord, exactvalidfactorybehavior unchanged.",
+      "pending_dependency": "CanonicalEquipmentGraph.equip actualcurrentadmissionpredicate requestedfromCamera421; no graphclearancefromoldproof.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "later_lens_credit": false
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#19",
+    "primary_source": "pr-working:crates/adventuresim-character-creator/src/inventory/loadout.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 47,
+    "record": {
+      "id": "RIG-ADMISSION03-F048",
+      "contract_refs": [
+        "RIG-ADMISSION03-CONTRACT-585"
+      ],
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/body.rs",
+      "invariant": "Uploaded body vertex/attribute buffers and joint/face counts match the host admission that native correspondence consumes",
+      "routes": "GpuBody.new checks row/cardinality/face membership and uploads those arrays; all returned Buffer/count fields public permit caller mutation/literal without re-establishing correlation.",
+      "counterexample": "Caller can change vertex_count to another u32 or replace one attribute Buffer on otherwise admitted GpuBody, then Correspondence.record uses changed count/buffers and gathers nearest-index attributes with no correlation gate. Source-representable; no GPUexecution, actual mismatch or native robust-buffer behavior claimed.",
+      "connected_repair": "Seal immutable uploaded body fields/counts and expose owning native binding operation; keep raw BodySurface as explicit upload candidate admitted once with canonical source/frame/skin policy. Preserve actual native byte/dispatch ports and zero-count helper policies separately.",
+      "acceptance": "All reachable creation/mutation/reconstruction routes preserve body buffer/count/joint provenance before dispatch; no broad native DTO exemption or repeated perconsumer checks.",
+      "repair": "frozen",
+      "later_lens_credit": false
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#47",
+    "primary_source": "pr-working:crates/fabelgeist-armor/src/gpu/body.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 48,
+    "record": {
+      "id": "RIG-ADMISSION03-F049",
+      "source_id": "pr-working:crates/fabelgeist-armor/src/anime_design.rs",
+      "registration_refs": [
+        "RIG-ADMISSION03-REGISTER-049",
+        "RIG-ADMISSION03-REGISTER-052"
+      ],
+      "contract_refs": [
+        "RIG-ADMISSION03-CONTRACT-587",
+        "RIG-ADMISSION03-ADDITIONAL-049",
+        "RIG-ADMISSION03-ADDITIONAL-052"
+      ],
+      "invariant": "Invalid raw breastplate gauge reaches structured admission rejection before arithmetic requiring an admitted bounded gauge",
+      "routes": "validate_breastplate calls anime.validate(design.wall_thickness)119 before wall thickness range check137. Anime.validate50 multiplies rawu16 gauge by2.",
+      "counterexample": "Default otherwise-valid Anime controls with raw Millimeters(u16::MAX): all earlier Anime scalar checks pass, gauge*2 overflowsu16 before outer invalid gauge rejection. Rust debug overflow panic source proof; release wrapping differs, no project/runtime execution claimed.",
+      "connected_repair": "Represent admitted gauge/required lap distance coherently and use checked/widened unit calculation at raw admission boundary; preserve actual validation first-error order and structured DesignError rather than inserting a compatibility fallback or changing all millimetre range.",
+      "acceptance": "Every raw u16gauge reaches the intended structured result in allbuildprofiles; valid gauge/lift boundary semantics retained.",
+      "repair": "frozen",
+      "later_lens_credit": false
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#48",
+    "primary_source": "pr-working:crates/fabelgeist-armor/src/anime_design.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 49,
+    "record": {
+      "id": "RIG-ADMISSION03-F050",
+      "contract_refs": [
+        "RIG-ADMISSION03-CONTRACT-588"
+      ],
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/chart.rs",
+      "invariant": "Chart topology is representable and has the rows/columns required by its boundary before calculating indices",
+      "routes": "Crate-visible raw PlateChart literal/fields; layout not fallible and invokes last_row/indices before PartBuild admission. No owning gridconstructor exists here.",
+      "counterexample": "Representable PlateChart with boundaryApex and rows0 reaches self.rows-1 at118, debug underflow before structured geometry rejection. Raw around0/noncyclic empty stride also undermines stride-1/modulo; no existing malformed caller/runtime claimed. Reviewed footwear fixedpositive counts are safe.",
+      "connected_repair": "Admit meaningful ChartGrid/row-column/topology relation and nativeu32capacity before arithmetic; keep raw authoring assembly separate from immutable admitted chart/layout. Preserve legitimate empty outergeometry cases and boundaryspecific apex/cap semantics, no fake row/fallback/clamp.",
+      "acceptance": "All literal/builder/call routes checked before grid/index math; actual native casts reflect proven widths and fixed rendererports remain exact.",
+      "repair": "frozen",
+      "later_lens_credit": false
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#49",
+    "primary_source": "pr-working:crates/fabelgeist-armor/src/gpu/chart.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 50,
+    "record": {
+      "id": "RIG-ADMISSION03-F050-SUPPLEMENT-001",
+      "parent_finding": "RIG-ADMISSION03-F050",
+      "contract_ref": "RIG-ADMISSION03-CONTRACT-594",
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/helmet/surface.rs",
+      "same_contract_extension": "CoordSurface::connect raw pairedring slices require matching nonemptylength before rowtopology indexing; empty upper/periodicfalse computeslen-1 at81, orshortlowerindexes87/88. Actual full_dome/fan/Burgonet knownfixedring routes valid; this is latent rawhelperadmission precondition, no malformedcurrentcaller/runtime. Preserve Defaultempty construction before connecting; owning admitted RingPair/topologyoperation can establish boundaryspecific requirements once.",
+      "new_defect_count": false,
+      "repair": "frozen",
+      "later_lens_credit": false
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#50",
+    "primary_source": "pr-working:crates/fabelgeist-armor/src/gpu/helmet/surface.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 51,
+    "record": {
+      "id": "RIG-ADMISSION03-F051",
+      "lens": "audit-admission-contracts",
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/staging.rs",
+      "source_locations": "gpu/staging.rs22..56",
+      "finding": "Staged handle carries only ordinal and can be admitted to unrelated StagedResults, causing index or wrong-buffer/type interpretation before a structured gate. Actual normal pipeline stages/reads together; latent cross-session route, no demonstrated current misuse.",
+      "connected_repair_acceptance": "Tie handle/results provenance or validate identity/index/native byte shape before decoding; preserve valid empty Staging and padding/truncation semantics.",
+      "status": "source_backed_conceptual_counterexample_no_execution",
+      "repair": "not_started_frozen"
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#51",
+    "primary_source": "pr-working:crates/fabelgeist-armor/src/gpu/staging.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 52,
+    "record": {
+      "id": "RIG-ADMISSION03-F052",
+      "lens": "audit-admission-contracts",
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/pauldron.rs",
+      "source_locations": "gpu/pauldron.rs23..27/65..196",
+      "finding": "Public DevicePauldronCarrier.record_plates accepts fresh raw design without the validation done by record. lower_lames255 can reach Permille1000*u16(i+1) overflow before divide at192, whereas actual validshape limits3..7. Public buffers also carry no matching original-design evidence.",
+      "connected_repair_acceptance": "Use one actual admitted Pauldron input for record/record_plates or check each public admission and correlation. Preserve structured errors/relative>1 quantities and native pending status; no fallback/newtests.",
+      "status": "source_backed_conceptual_counterexample_no_execution",
+      "repair": "not_started_frozen"
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#52",
+    "primary_source": "pr-working:crates/fabelgeist-armor/src/gpu/pauldron.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 53,
+    "record": {
+      "id": "RIG-ADMISSION03-F053",
+      "lens": "audit-admission-contracts",
+      "source_id": "pr-working:crates/fabelgeist-armor/src/surface_grid.rs",
+      "source_locations": [
+        "surface_grid.rs76..106",
+        "tiling/mod.rs49..90",
+        "tiling/surface.rs118..198/201..208"
+      ],
+      "finding": "Public raw grid dimensions/index relationships unadmitted. regular columns0/nonemptyvertices performs modulo0; dimension-spanninggrid withindexu32MAX passes is_spanning then indexes source arrays before rejection. realized swaps arbitrary morph rows without readmission. Actual curated generators/tests coherent; latent representable bypass, no badasset/runtime assertion.",
+      "connected_repair_acceptance": "Admit positive spanning dimensions, checkedproduct/cardinality and all vertex/morph/weight membership before indexing; separate mutable/empty builder fromaccepted grid. Preserve nonspanning skip/NoSurfaceGrid, signed extrapolation/unclamped carriercolumn. JoinsF014 rawGeneratedArmor family.",
+      "repair": "not_started_frozen",
+      "validation": "not_executed"
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#53",
+    "primary_source": "pr-working:crates/fabelgeist-armor/src/surface_grid.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 54,
+    "record": {
+      "id": "RIG-ADMISSION03-F010-SUPPLEMENT-001",
+      "extends": "RIG-ADMISSION03-F010",
+      "source_id": "pr-working:crates/fabelgeist-armor/src/skin.rs",
+      "source_locations": [
+        [
+          5,
+          49
+        ]
+      ],
+      "finding": "Raw SkinShare share/weights bypass finite admission; NaNshare passes<=0 andInf weights normalize intoNaN. Typed ordinals not weightproof. Zero total returnsfirstskin deliberately. Sameweight-admission family, no newdefectcount.",
+      "repair": "not_started_frozen",
+      "validation": "not_executed"
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#54",
+    "primary_source": "pr-working:crates/fabelgeist-armor/src/skin.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 55,
+    "record": {
+      "id": "RIG-ADMISSION03-F014-SUPPLEMENT-001",
+      "extends": "RIG-ADMISSION03-F014",
+      "source_id": "pr-working:crates/fabelgeist-armor/src/trim.rs",
+      "source_locations": [
+        "trim.rs84..95",
+        "trim/edges.rs49..75/175..202",
+        "trim/split.rs36..68/196..249"
+      ],
+      "finding": "Actualpublic trimmed gate admits finitepositiveband andmatchingnonemptyfacecount, but not sourceindex/attribute/morph/component membership; Rims/Split indexrawsource before rejection. Surface-grid F053 joins same rawGeneratedArmor family. Knownfixtures/generators coherent; no actualbadasset/GPUrun claimed.",
+      "connected_repair_acceptance": "One coherent checked geometry admission before indexing, preserve bandvalidity/first-error/no-faces/already-trimmed policies and intentional zero/unlaced/emptybuilder states.",
+      "repair": "not_started_frozen",
+      "validation": "not_executed"
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#55",
+    "primary_source": "pr-working:crates/fabelgeist-armor/src/trim.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 59,
+    "record": {
+      "id": "RIG-ADMISSION03-F057",
+      "lens": "audit-admission-contracts",
+      "source_id": "pr-working:crates/fabelgeist-compute/src/kernel/mod.rs",
+      "source_locations": [
+        [
+          39,
+          52
+        ],
+        [
+          74,
+          144
+        ]
+      ],
+      "finding": "Kernelnew rejects declaredzero workgroups, but publicworkgroup_size mutableaftercheckedconstruction; zero[0] reachesgroups_for divisionbeforegate. Publicpipeline/entrypointalsoindependentlymutablewhileprivateFastPathretainsoldcompiledschema. Cachehitkeyonlysourcecodeignoresnewcontext; noactualmisuse/SDKruntimeassertion.",
+      "connected_repair_acceptance": "Keepcompiledkernelmetadata/context/schema oneadmittedcoherentidentity orvalidateatmutation/dispatch; preserveitems0/zerogridlegitimateno-op andrawWGSLAPI. Actualdevicecontextauthoritymustnotderivefromsourcehashalone.",
+      "repair": "not_started_frozen",
+      "validation": "not_executed"
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#59",
+    "primary_source": "pr-working:crates/fabelgeist-compute/src/kernel/mod.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 60,
+    "record": {
+      "id": "RIG-ADMISSION03-F058",
+      "lens": "audit-admission-contracts",
+      "source_id": "pr-working:crates/fabelgeist-compute/src/kernel/fast.rs",
+      "source_locations": [
+        [
+          320,
+          379
+        ]
+      ],
+      "finding": "write_uniform ignoresreflectedUniformMember.size andsilentlyskipspayloadwhenoffset+encodedwidth>blocklen thenreturnsOk. Conceptualvalid4xf32block16bytes,lastmemberoffset12/size4 suppliedVec4 yieldsputend28>16,leaveszero andOk despitecommentunsupportedshouldreported. NoGPUexecution/newtest/invalidreflectionneeded; allotherfieldsvalid.",
+      "connected_repair_acceptance": "Validateeachparameterencodedshape/widthagainstreflectedmemberbeforewrite, returnstructurederrorratherthansilentlyskip; preserveactualpadding/nativef64tof32projectionandopenFPvalueswhereintended. Underlyingreflectionmustretainrequiredshapeevidence; no blanketfinite/probabilitygate.",
+      "repair": "not_started_frozen",
+      "validation": "not_executed"
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#60",
+    "primary_source": "pr-working:crates/fabelgeist-compute/src/kernel/fast.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 61,
+    "record": {
+      "id": "RIG-ADMISSION03-F059",
+      "lens": "audit-admission-contracts",
+      "source_id": "pr-working:crates/fabelgeist-compute/src/sort/mod.rs",
+      "source_locations": [
+        [
+          144,
+          195
+        ],
+        [
+          233,
+          302
+        ]
+      ],
+      "finding": "SortScratch storesprivatecapacity/scan butpublickey/value/histogramBuffers mutable. Replaceonewithshortnativebuffer afternew; record checks capacityandINPUTbuffers butnotreplacedscratchbuffer beforewriting, so invalidtargetshape admittedto native dispatch (SDKmayreject; noactualrun). new capacityMAX alsohas RADIX*ceil(capacity/256) u32widthoverflowafterearlierallocations; earlierresourceerrorpossible andno currentbadcallerclaimed.",
+      "connected_repair_acceptance": "Encapsulateadmittedscratchbuffer/capacity/layoutidentity orvalidateallactualscratchtargets beforedispatch; checkednativehistogramelementproduct/structuredfailure whereprojectioncannotfit. Preserve0/1sortno-op,allwordScanElementCount andwrappingSUMpolicy; noarbitrarygameplaycap/fallback/newtests.",
+      "repair": "not_started_frozen",
+      "validation": "not_executed"
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#61",
+    "primary_source": "pr-working:crates/fabelgeist-compute/src/sort/mod.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 67,
+    "record": {
+      "id": "RIG-ADMISSION03-F058-SUPPLEMENT-001",
+      "extends": "RIG-ADMISSION03-F058",
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+      "source_locations": [
+        [
+          29,
+          131
+        ]
+      ],
+      "finding": "Actualslowbindingadapterignoresunsupported/missinguniforms andANYUnsigned variant(includingordinaryu32count) viawildcard128; wrongencodedwidthlikewisequietlyleaveszero. Suppliedparameterdoesnotmeanencodedvalue, sharedF058schemaadmission. NativeSDKcannotrecoveromittedhostuniformbytes; noGPUrunclaimed.",
+      "connected_repair_acceptance": "One coherentschema-awarecheckedpackingpolicy acrossfast/slowpaths; preserveintentionalnativepadding/optionaldefaultpolicyifexplicitlychosen, butsuppliedunsupportedvaluerequiresdefinedadmission/error.",
+      "repair": "not_started_frozen",
+      "validation": "not_executed"
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#67",
+    "primary_source": "pr-working:crates/fabelgeist-gpu/src/data/gpu/bind_group.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 68,
+    "record": {
+      "id": "RIG-ADMISSION03-F065",
+      "lens": "audit-admission-contracts",
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "source_locations": [
+        [
+          15,
+          37
+        ],
+        [
+          127,
+          164
+        ]
+      ],
+      "finding": "Bufferpubliclogicalsize/usagemutableindependentofnativeArc. Enlargepublicsizeafternew; write_atcanpasslogicalcheckwhileactualallocationtoosmall, orwritealwaysforwardsoversizeUploadwithoutlocalboundscheck. Noactualbadcaller/SDKpanicassertion; earliestmissinglogical/nativeadmissiongateexplicit.",
+      "connected_repair_acceptance": "Encapsulateactualallocation/extent/usageidentity orreadactualnativeextentforadmission; routeallcheckedqueuewrites throughsame overflow/fitpredicate. Preservetypedallwordbytequantitiesandexplicit4byteemptybindingpolicy.",
+      "repair": "not_started_frozen",
+      "validation": "not_executed"
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#68",
+    "primary_source": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 70,
+    "record": {
+      "id": "RIG-ADMISSION03-F057-SUPPLEMENT-001",
+      "extends": "RIG-ADMISSION03-F057",
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "source_locations": [
+        [
+          13,
+          32
+        ],
+        [
+          60,
+          73
+        ],
+        [
+          164,
+          184
+        ]
+      ],
+      "finding": "PublicComputePipeline shader/layout/reflection/cache/pipeline independentlymutable; compileearlypipelineSome andentrypoint-onlysharedcache canretainoldnativepipelineafterpublicshader/modulechange. ComputeShaderrawcode/modulelikewiseunsealedADD090. Samecompiledidentityfamily, notnewcount; noactualbadcaller/SDKrun.",
+      "connected_repair_acceptance": "Onecoherentadmittedcompiledidentity/context/interface andcachekeypolicy; separatependingdefinition fromexecutablepipeline, no staleacceptedcachehit fromsource/entrypointalone.",
+      "repair": "not_started_frozen",
+      "validation": "not_executed"
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#70",
+    "primary_source": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 71,
+    "record": {
+      "id": "RIG-ADMISSION03-F067",
+      "source_ids": [
+        "pr-working:crates/fabelgeist-hair/src/gpu/guides.rs",
+        "pr-working:crates/fabelgeist-hair/src/hairdo.rs",
+        "pr-working:crates/fabelgeist-hair/src/haircut.rs",
+        "pr-working:crates/fabelgeist-hair/src/hairdo/tied.rs"
+      ],
+      "source_locations": {
+        "gpu/guides.rs": "record_hairdo_guides longest -> ceil cast -> max301 +2",
+        "haircut.rs": [
+          [
+            145,
+            174
+          ],
+          [
+            295,
+            319
+          ]
+        ],
+        "hairdo/tied.rs": [
+          [
+            33,
+            57
+          ]
+        ]
+      },
+      "finding": "Raw Haircut length fields/ordinary Serde/scaled allow +Inf. Actual GPU guide path casts infinite ceil to u32::MAX then +2 before upload, overflowing instead of rejecting authored length. Actual non-Bun Tied path while s<length has no finite/progress/resource admission; infinite length never becomes reached, and finite f32 accumulation can stop increasing. Resource allocation can fail earlier; no runtime reproduction asserted. Known presets have finite small lengths.",
+      "connected_repair_acceptance": "Keep raw authoring if useful, admit finite representable bounded executable guide extent once before CPU/GPU paths and perform checked size arithmetic. Preserve signed hemline, zero optional dome, raw seed and closed style choices; no arbitrary probability restriction. Root reconciles whole-function claims later.",
+      "repair": "not_started_frozen",
+      "validation": "not_executed"
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#71",
+    "primary_source": "crates/fabelgeist-hair/src/gpu/guides.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 72,
+    "record": {
+      "id": "RIG-ADMISSION03-F068",
+      "source_ids": [
+        "pr-working:crates/fabelgeist-hair/src/gpu/mod.rs",
+        "pr-working:crates/fabelgeist-hair/src/gpu/guides.rs"
+      ],
+      "contract_refs": [
+        "RIG-ADMISSION03-CONTRACT-679",
+        "RIG-ADMISSION03-CONTRACT-673"
+      ],
+      "finding": "GpuGroom/GpuGuides public declared counts/points/native buffers can diverge after construction. read_strands indexes native readback by retained count/points and attribute[s] without size/correlation admission. A valid one-strand groom mutated strands2 then read reaches absent second positions/attributes. No runtime claim; native buffer/errors may occur earlier.",
+      "connected_repair_acceptance": "Encapsulate admitted paired count/point/buffer shape or readmit complete source at native ingress/readback; preserve zero/empty collection policy explicitly.",
+      "repair": "not_started_frozen",
+      "validation": "not_executed"
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#72",
+    "primary_source": "crates/fabelgeist-hair/src/gpu/mod.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 73,
+    "record": {
+      "id": "RIG-ADMISSION03-F069",
+      "source_ids": [
+        "pr-working:crates/fabelgeist-hair/src/look/groom.rs",
+        "pr-working:crates/fabelgeist-hair/src/parameters.rs"
+      ],
+      "contract_refs": [
+        "RIG-ADMISSION03-CONTRACT-681",
+        "RIG-ADMISSION03-CONTRACT-693"
+      ],
+      "finding": "HairSeed admits every i32 bit pattern, but Look.groom guide_operations computes seed+9 unconditionally and other branches +1..8. i32MAX is legitimate stored seed yet arithmetic overflows before producing stack. Known seed1 presets work.",
+      "connected_repair_acceptance": "Use coherent deterministic seed derivation or explicitly wrapping word arithmetic, preserve allwordcanonicalSeed and existing intended RNG sequence; do not clamp/reject valid seed.",
+      "repair": "not_started_frozen",
+      "validation": "not_executed"
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#73",
+    "primary_source": "crates/fabelgeist-hair/src/look/groom.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 74,
+    "record": {
+      "id": "RIG-ADMISSION03-F070",
+      "source_ids": [
+        "pr-working:crates/fabelgeist-hair/src/strands.rs",
+        "pr-working:crates/fabelgeist-hair/src/ops/mod.rs",
+        "pr-working:crates/fabelgeist-hair/src/ops/clump.rs",
+        "pr-working:crates/fabelgeist-hair/src/ops/curl.rs",
+        "pr-working:crates/fabelgeist-hair/src/ops/displace.rs",
+        "pr-working:crates/fabelgeist-hair/src/ops/orient.rs",
+        "pr-working:crates/fabelgeist-hair/src/ops/settle.rs",
+        "pr-working:crates/fabelgeist-hair/src/ops/shrinkwrap.rs",
+        "pr-working:crates/fabelgeist-hair/src/ops/trim.rs"
+      ],
+      "contract_refs": [
+        "RIG-ADMISSION03-CONTRACT-695",
+        "RIG-ADMISSION03-CONTRACT-688",
+        "RIG-ADMISSION03-CONTRACT-684",
+        "RIG-ADMISSION03-CONTRACT-685",
+        "RIG-ADMISSION03-CONTRACT-686",
+        "RIG-ADMISSION03-CONTRACT-689",
+        "RIG-ADMISSION03-CONTRACT-690",
+        "RIG-ADMISSION03-CONTRACT-691",
+        "RIG-ADMISSION03-CONTRACT-692"
+      ],
+      "finding": "Strands at-least2/equalpointcount/parallelattributes/guideordinal invariant is open through public fields and Defaultpoints0. new/push do not seal later mutation. Default or points0 enters par_chunks_mut(0); mismatched arrays/GuideMap literal stale ordinals index before gate; CurveSampler Defaultempty or new(singlepoint) similarly unadmitted. PublicSettle.equilibrium emptyrest computesn-1 beforegate. Legitimate wellformedemptycollection remains separate.",
+      "connected_repair_acceptance": "One coherent admitted curve collection and sampler/guide-map provenance API, complete shape/ordinal gate before executable operations; preserve raw authoring ifneeded, emptycollection and duplicateIDs/parting tags.",
+      "repair": "not_started_frozen",
+      "validation": "not_executed"
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#74",
+    "primary_source": "crates/fabelgeist-hair/src/strands.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 75,
+    "record": {
+      "id": "RIG-ADMISSION03-F071",
+      "source_ids": [
+        "pr-working:crates/fabelgeist-hair/src/ops/interpolate.rs"
+      ],
+      "contract_refs": [
+        "RIG-ADMISSION03-CONTRACT-687"
+      ],
+      "finding": "Public/ordinarySerde Parting::Lanes count0 reaches group clamp(0,-1); count abovei32MAX castsnegative/overflow beforegate. Current Hairdo braidproducesknown3; rawplane doesnotpromiseunitnormal.",
+      "connected_repair_acceptance": "Admit nonzero representable lane count for executablepartition and preserve None/knownclosedtag semantics; no arbitraryplane normalization requirement.",
+      "repair": "not_started_frozen",
+      "validation": "not_executed"
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#75",
+    "primary_source": "crates/fabelgeist-hair/src/ops/interpolate.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 76,
+    "record": {
+      "id": "RIG-ADMISSION03-F072",
+      "source_ids": [
+        "pr-working:crates/fabelgeist-hair/src/ops/interpolate.rs"
+      ],
+      "contract_refs": [
+        "RIG-ADMISSION03-CONTRACT-687"
+      ],
+      "finding": "DensityMask::Image positive width/height without values cardinality/product admission; Image{width1,height1,valuesempty}.at indexes0. Zero dimensions deliberatelymeanuniform1.",
+      "connected_repair_acceptance": "Checked image-grid admission with cardinality/extent arithmetic, preserve deliberatezero-dimension/no-mask policy and rawauthoring diagnostic data.",
+      "repair": "not_started_frozen",
+      "validation": "not_executed"
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#76",
+    "primary_source": "crates/fabelgeist-hair/src/ops/interpolate.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 77,
+    "record": {
+      "id": "RIG-ADMISSION03-F073",
+      "source_ids": [
+        "pr-working:crates/fabelgeist-hair/src/gpu/grow.rs",
+        "pr-working:crates/fabelgeist-hair/src/groom.rs",
+        "pr-working:crates/fabelgeist-hair/src/ops/interpolate.rs",
+        "pr-working:crates/fabelgeist-hair/src/parameters.rs"
+      ],
+      "contract_refs": [
+        "RIG-ADMISSION03-CONTRACT-673",
+        "RIG-ADMISSION03-CONTRACT-673",
+        "RIG-ADMISSION03-CONTRACT-687",
+        "RIG-ADMISSION03-CONTRACT-693"
+      ],
+      "finding": "Genericusize count owners/default0 admit allword values, while GPU grow casts points.max2/count.max1 to u32 unchecked, then n+1/dispatchcount*points. On64bit points1<<32 becomes0; countu32MAX makesn+1overflow after earlier native buffer work. CPU count*2 attempt sizing also unchecked; earlier allocation may fail, not an unconditionalruntimepanic.",
+      "connected_repair_acceptance": "Admit executable GPU count/point and checked flattenedbyte/dispatch extents once, preserve generic countallwords/CPUzero request meaning and late actual root0/2^20structuredgate.",
+      "repair": "not_started_frozen",
+      "validation": "not_executed"
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#77",
+    "primary_source": "crates/fabelgeist-hair/src/gpu/grow.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 78,
+    "record": {
+      "id": "RIG-ADMISSION03-F074",
+      "source_ids": [
+        "pr-working:crates/fabelgeist-hair/src/gpu/mod.rs",
+        "pr-working:crates/fabelgeist-hair/src/hairdo.rs",
+        "pr-working:crates/fabelgeist-hair/src/ops/interpolate.rs"
+      ],
+      "contract_refs": [
+        "RIG-ADMISSION03-CONTRACT-679",
+        "RIG-ADMISSION03-CONTRACT-673",
+        "RIG-ADMISSION03-CONTRACT-687"
+      ],
+      "finding": "Surface public geometry/topology/channels desync privatecdf/BVH afternew; cleartriangles of valid sampledmesh then sample_at usesoldcdf andindexesnewtriangles. new itself accepts mismatchedchannels/indices beforevalidation(F054sharedtopology). EmptySurface.new islegitimate storage butsample_atcdf.len-1 cannot sampleit.",
+      "connected_repair_acceptance": "Separate rawmutableauthoring from paired admittedsampleableSurface or rebuild/readmit completecachedidentity aftermutation; preserveemptyrawmesh/zeroUVdefaults/orderedtriangleidentity.",
+      "repair": "not_started_frozen",
+      "validation": "not_executed"
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#78",
+    "primary_source": "crates/fabelgeist-hair/src/gpu/mod.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 79,
+    "record": {
+      "id": "RIG-ADMISSION03-F075",
+      "source_id": "pr-working:crates/fabelgeist-hair/src/grid.rs",
+      "source_locations": [
+        [
+          38,
+          47
+        ],
+        [
+          64,
+          96
+        ],
+        [
+          115,
+          145
+        ]
+      ],
+      "finding": "PrivatePointGrid stores rawfiniteorFPpoints in saturatingi32keys; visit_shell addsqueryoffsetwithoutrepresentabilitygate, finitekeyMAX plusring1overflows. Publicnearest_k k0/kMAX reachk-1/k+8beforegate; actualInterpolate clampsneighbor>=1 and knownHairdonearest1, so no badcurrentk0callerassertion.",
+      "connected_repair_acceptance": "Admit supported spatialkey/query extent/nonzero neighbor capacity or perform checked/wider arithmetic; preserve infinite nearestsearchradius intentional behavior, no arbitraryworldcoordinatecap fromtypename.",
+      "repair": "not_started_frozen",
+      "validation": "not_executed"
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#79",
+    "primary_source": "pr-working:crates/fabelgeist-hair/src/grid.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 80,
+    "record": {
+      "id": "RIG-ADMISSION03-F076",
+      "source_ids": [
+        "pr-working:crates/fabelgeist-mhr/src/character/skeleton.rs",
+        "pr-working:crates/fabelgeist-mhr/src/skel_state.rs"
+      ],
+      "contract_refs": [
+        "RIG-ADMISSION03-CONTRACT-700",
+        "RIG-ADMISSION03-CONTRACT-708"
+      ],
+      "finding": "Public Skeleton parallel tables/parents do not seal earlier-parent membership/cardinality/acyclicity. Validraw one-nameSkeleton with parentSome(ordinal0) bind_pose indexesemptyglobal; sameparenttableprefix_multiplication_levels neverreachesNone. Currentparser appendsparent-before-child foracyclicsource, noactualbadassetclaim.",
+      "connected_repair_acceptance": "Admitted skeleton hierarchy builder/private pairedtables and checkedmembership/acyclicity before bind/FK; retain legitimateemptytable/forest/openname/firstduplicate semantics.",
+      "repair": "not_started_frozen",
+      "validation": "not_executed"
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#80",
+    "primary_source": "crates/fabelgeist-mhr/src/character/skeleton.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 81,
+    "record": {
+      "id": "RIG-ADMISSION03-F077",
+      "source_ids": [
+        "pr-working:crates/fabelgeist-mhr/src/model.rs",
+        "pr-working:crates/fabelgeist-mhr/src/model_def.rs"
+      ],
+      "contract_refs": [
+        "RIG-ADMISSION03-CONTRACT-704",
+        "RIG-ADMISSION03-CONTRACT-705"
+      ],
+      "finding": "Mhr public character/parameter_transform canbe mutated independently of privatecachedtensors/counts/FKlevels. Clear meshvertices/faces or appendnameafterconstruct changes methods/forwardreshape dimensions while cachedtensors retainoriginal identity. Privatecachedmembers alone do not seal accepted state.",
+      "connected_repair_acceptance": "Encapsulate compiled modelidentity and authoring metadata, or rebuild/readmit all dependent tensors on complete replacement. Preserve native modelinput shapes/optionalbroadcast and source coefficients.",
+      "repair": "not_started_frozen",
+      "validation": "not_executed"
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#81",
+    "primary_source": "crates/fabelgeist-mhr/src/model.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 82,
+    "record": {
+      "id": "RIG-ADMISSION03-F078",
+      "source_ids": [
+        "pr-working:crates/fabelgeist-mhr/src/model_def.rs"
+      ],
+      "contract_refs": [
+        "RIG-ADMISSION03-CONTRACT-705"
+      ],
+      "finding": "ParameterLimit rawmin/max public and parse_limits accepts reversed/NaNbounds before apply_limits f32clamp. Exact malformedbracketorder findsclosebeforeopen then slicesinvalidrange beforeResult. Recognized minmax orderedinterval isnotadmitted despite documented inclusivebounds.",
+      "connected_repair_acceptance": "Checked recognizedlimit interval/bracket syntax once before retained bound; structurederrors preserve source order/unknownunusedlimit policies. Do not invent positiveweights or finiteallalgebra requirement.",
+      "repair": "not_started_frozen",
+      "validation": "not_executed"
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#82",
+    "primary_source": "crates/fabelgeist-mhr/src/model_def.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 83,
+    "record": {
+      "id": "RIG-ADMISSION03-F079",
+      "source_ids": [
+        "pr-working:crates/fabelgeist-mhr/src/correctives.rs"
+      ],
+      "contract_refs": [
+        "RIG-ADMISSION03-CONTRACT-702"
+      ],
+      "finding": "Public PoseCorrectives file/bytes factory accepts rawnum_joints then subtracts2 aftervalidbasis shape/vertexcheck; num_joints1 underflows before structuredcount rejection. Countproducts hidden/inputs/basis also unchecked. Earlierarchiveerror/allocations mayoccur; no execution claim.",
+      "connected_repair_acceptance": "Admit supported posed-joint count and checked native extents before dependent arithmetic/tensors, retain missingbasisNone andactualshape/sparseindex gates.",
+      "repair": "not_started_frozen",
+      "validation": "not_executed"
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#83",
+    "primary_source": "crates/fabelgeist-mhr/src/correctives.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 84,
+    "record": {
+      "id": "RIG-ADMISSION03-F080",
+      "source_ids": [
+        "pr-working:crates/fabelgeist-mhr/src/character.rs",
+        "pr-working:crates/fabelgeist-mhr/src/model.rs"
+      ],
+      "contract_refs": [
+        "RIG-ADMISSION03-CONTRACT-699",
+        "RIG-ADMISSION03-CONTRACT-704"
+      ],
+      "finding": "Character.from_fbx_bytes fantriangulation checks polygonarity/termination but casts rawi64 indicesu32 without representability/currentvertexmembership. A faceindex3 withonevertex can survivecharacterfactory/positivei32projection and reach Mhrnormal nativevertexselect outsideextent; raw2^32indexwrapsto0. No malformedactualasset/runtimeassertion.",
+      "connected_repair_acceptance": "Checked decodedmesh indexrepresentability/membership and coherentchannels at actualCharacter/compiledmodel ingress; preserve polygonfan/format terminator/optionalUV policy and invalidrawdiagnostics.",
+      "repair": "not_started_frozen",
+      "validation": "not_executed"
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#84",
+    "primary_source": "crates/fabelgeist-mhr/src/character.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 85,
+    "record": {
+      "id": "RIG-ADMISSION03-F010-SUPPLEMENT-002",
+      "extends": "RIG-ADMISSION03-F010",
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/character/skin.rs",
+      "source_locations": [
+        [
+          75,
+          111
+        ]
+      ],
+      "finding": "MHR specific parse_skin rejects<=0 but NaN passes, clampNaN/totalNaN retainNaNweight; PackedRigSkincheckedindices do not validateweights. Mhrnativeprojection onlykeeps weight>1e-5 andthereforedropsNaN influences, which doesnotrestoreintendednormalizedskin. Sameweightadmissionfamily; currentMHRpolicytop8/perinputclamp0..1 preserved.",
+      "connected_repair_acceptance": "Actualfiniteweight admission and coherentpositive finite sum before normalizedretainedweights; preserve intendeddiscardnonpositive/top8/nativejointmembership.",
+      "repair": "not_started_frozen",
+      "validation": "not_executed"
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#85",
+    "primary_source": "pr-working:crates/fabelgeist-mhr/src/character/skin.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 86,
+    "record": {
+      "id": "RIG-ADMISSION03-F027-SUPPLEMENT-001",
+      "extends": "RIG-ADMISSION03-F027",
+      "source_ids": [
+        "pr-working:crates/fabelgeist-mhr/src/character.rs",
+        "pr-working:crates/fabelgeist-mhr/src/character/skin.rs",
+        "pr-working:crates/fabelgeist-mhr/src/math.rs"
+      ],
+      "source_locations": {
+        "character/skin.rs": [
+          [
+            52,
+            60
+          ]
+        ],
+        "math.rs": [
+          [
+            173,
+            220
+          ],
+          [
+            224,
+            252
+          ]
+        ]
+      },
+      "finding": "MHR TransformLink checkslen16 only then affine_inverse singular det fallback0 and decomposition acceptsrawnonfinite/nonuniform/noninvertible matrix; nativeinversebindrecord no finite/invertibleadmission. Rawmath assumptions legitimate, factorymustestablish current admitted inversebindcontract. Sameinversebindfamily, noactualassetfailureclaim.",
+      "connected_repair_acceptance": "Admit valid affine/invertible supportedtransform at actualassetboundary and preserve f64sourceprecision/cm/rawnativealgebra; noidentity/zero fallback maskingrejected source.",
+      "repair": "not_started_frozen",
+      "validation": "not_executed"
+    },
+    "key": "audit/continuation/rig/admission03/findings.jsonl#86",
+    "primary_source": "crates/fabelgeist-mhr/src/character.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/initial06-type-ownership/findings.jsonl",
+    "record_index": 3,
+    "record": {
+      "id": "RIG-INITIAL06-F004",
+      "at": "2026-10-22T19:53:11.961429+00:00",
+      "classification": "ownership_migration_gap",
+      "title": "Share the identical prepared part product beside PartRecipe",
+      "evidence": "contracts-021.json#/groups/common-unfitted-part-product",
+      "canonical_location_proposal": "crates/fabelgeist-armor/src/gpu/recipe.rs",
+      "existing_types": [
+        "gpu::limb::LimbShape",
+        "gpu::extremities::ExtremityShape"
+      ],
+      "actual_definition_ranges": {
+        "gpu/limb.rs": [
+          [
+            257,
+            261
+          ]
+        ],
+        "gpu/extremities.rs": [
+          [
+            15,
+            19
+          ]
+        ]
+      },
+      "actual_consumers": {
+        "gpu/limb_build.rs": [
+          [
+            19,
+            20
+          ],
+          [
+            44,
+            45
+          ]
+        ],
+        "gpu/extremities.rs": [
+          [
+            75,
+            77
+          ]
+        ]
+      },
+      "proposed_connected_repair": "One canonical prepared-part product composing existing PartRecipe+packeddesign values; directly migrate both anatomical producer families and actual consumers, remove old declarations without aliases or deprecatedforwarding. Retain sourcefamily designs/kernels and exact native packing/firsterror behavior.",
+      "repair_claim_proposal_only": [
+        "gpu/recipe.rs shared product",
+        "gpu/limb.rs LimbShape and greave/cuisse/rerebrace/spaulder/shape",
+        "gpu/limb/joint_cup.rs joint_cup",
+        "gpu/extremities.rs ExtremityShape/shape/record_extremity_armor",
+        "gpu/limb_build.rs record_limb_armor/generate_limb_armor_on"
+      ],
+      "limits": "Root retains claims/repairauthority. Additional unrelated family consumers stillinventorypending; no execution/implementation/laterlens credit."
+    },
+    "key": "audit/continuation/rig/initial06-type-ownership/findings.jsonl#3",
+    "primary_source": "crates/fabelgeist-armor/src/gpu/recipe.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/initial06-type-ownership/findings.jsonl",
+    "record_index": 5,
+    "record": {
+      "id": "RIG-INITIAL06-F006",
+      "at": "2026-10-22T20:11:09.458464+00:00",
+      "classification": "ownership_migration_gap",
+      "title": "Construct canonical parting membership on the host before shader encoding",
+      "canonical_owner": "fabelgeist-hair::identity::{PartingGroup,PartingGroupId}",
+      "evidence": "contracts-029.json#/groups/host-parting-identity-before-shader-packing",
+      "exact_sources": {
+        "crates/fabelgeist-hair/src/identity.rs": [
+          [
+            30,
+            64
+          ]
+        ],
+        "crates/fabelgeist-hair/src/ops/interpolate.rs": [
+          [
+            132,
+            164
+          ],
+          [
+            263,
+            263
+          ],
+          [
+            416,
+            416
+          ]
+        ],
+        "crates/fabelgeist-hair/src/hairdo.rs": [
+          [
+            202,
+            202
+          ],
+          [
+            222,
+            222
+          ]
+        ]
+      },
+      "connected_repair": "Add necessary coherent host construction at existing identity owner; construct typed Unassigned/Assigned membership in Parting.group and host grid sites, encode/decode signed words only at actual GPU ports. Preserve default assigned0, assigned identity bound<=i32MAX and all negative native sentinel admission, group comparisons and exact numerical grouping. No compatibility forwarding APIs or duplicate owner. Native lane normal Hairdo path uses count3; no invented normal zero-lane failure.",
+      "dependency": "Existing low Hair identity module already owns all consumers; no new feature/dependency cycle. Root retains claim/repair authority.",
+      "limits": "REG014 pending global membership; concrete body already prospectively registered and read. This is ownership/propagation, not runtime/admission proof."
+    },
+    "key": "audit/continuation/rig/initial06-type-ownership/findings.jsonl#5",
+    "primary_source": "crates/fabelgeist-hair/src/identity.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/initial06-type-ownership/findings.jsonl",
+    "record_index": 46,
+    "record": {
+      "id": "RIG-INITIAL06-F047",
+      "at": "2026-10-23T09:14:18.548129+00:00",
+      "classification": "internal shared API propagation suggestion; no runtime defect claimed",
+      "source_proof": "contracts-343.json#/groups/creator-inventory-id-erasure-at-shared-graph",
+      "sources": [
+        {
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory.rs",
+          "sha256": "0f820bca06e27b164da010e95dc7d3500a79a6feb0b7be9411ed8a41e88feb18"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory/occupancy.rs",
+          "sha256": "dbd62cb0c402bcb0903b4bcebdc159c2d2f35f266e4dff77c359796db40231b8"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-core/src/equipment.rs",
+          "sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215"
+        }
+      ],
+      "actual_comparison": "Creator InventoryItemId marks stable identity within its character inventory. WornGraph calls Core EquipmentGraph through rawu64 keys/parent edges, stripping and rebuilding that same identity internally. Core graph is shared algorithm and does not perform wire/native conversion; creator-local IDs are not automatically DB inventory identities.",
+      "repair": "Make the shared equipment graph/key/edge API preserve a caller-supplied comparable identity type (or equally coherent low shared keyed graph abstraction), keeping creator InventoryItemId and durable DB identity distinct. Propagate complete graph products through support/place/children traversal, do not clone graph logic or add compatibility forwarding APIs.",
+      "targets": [
+        "adventuresim-core/src/equipment.rs: EquipmentGraph, EquipmentGraphPlacement, EquipmentGraphEdge and equip/unequip/has_children/would_cycle",
+        "character-creator/src/inventory/occupancy.rs: WornGraph::support, children_on, place; actual candidate/parent products"
+      ],
+      "acceptance": "Typed creator article identity survives graph operations/returned parent edges; no .0/rebrand roundtrip solely to appease shared API. Existing graph upsert/conflict/cycle/capacity order and all currently validword/zero semantics preserved. Catalogue item/placement references, Entity and DB inventory identity not conflated.",
+      "limits": "Static current API/ownership evidence only; no bad caller/run assertion, no new source or claim transfer. Other graph hardening findings remain separate."
+    },
+    "key": "audit/continuation/rig/initial06-type-ownership/findings.jsonl#46",
+    "primary_source": "pr-working:crates/adventuresim-character-creator/src/inventory.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/initial06-type-ownership/findings.jsonl",
+    "record_index": 47,
+    "record": {
+      "id": "RIG-INITIAL06-F048",
+      "at": "2026-10-23T09:38:16.305836+00:00",
+      "kind": "misplaced-shared-realization-owner",
+      "current_owners": [
+        "character-creator/src/bracer.rs ForearmMorphSample64-74",
+        "character-creator/src/device_torso.rs TorsoSurfaceInput.morphs97 and runtimeconsumer248-260",
+        "character-creator/src/proportions.rs existingactual240 body-probe producer"
+      ],
+      "comparison": "ForearmMorphSample owns whole realized body geometry, exact RigJointTable globalstates and DeviceBody, no forearm-only fields or predicate. Torso and independent proportions/bodyprobe already use exactly same concept, forcing unrelated feature to depend on bracer module. Prior208 forearm role remains valid but newlyread actualtorso shows wider rightfulownership.",
+      "connected_repair": "Move and rename this single product into coherent existing Creator body/fitting layer shared by forearm/torso/proportions/runtimefixtures; retain meaningful specialized SurfaceInput products. Update all actual imports/callers directly, no compatibilityalias or mirroredforwarding API, no Creator-specificGPUbody inlowerRig/Core.",
+      "acceptance": "Every sample keeps exact matched name/positions/normals/globalrigstate/device realization together; native representation/frame/LOD/provenance and failure/order behavior preserved. Existing rawShape/MorphTarget geometry-only products are not automatically identical to this complete realization. No newruntimecorrectnessdefect asserted.",
+      "contract_ref": "contracts-371.json#/groups/body-morph-realization-owned-by-bracer",
+      "status": "source-backed ownership finding; source frozen",
+      "source_refs": [
+        {
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/bracer.rs",
+          "ranges": [
+            [
+              64,
+              74
+            ]
+          ]
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/device_torso.rs",
+          "ranges": [
+            [
+              1,
+              342
+            ]
+          ]
+        }
+      ]
+    },
+    "key": "audit/continuation/rig/initial06-type-ownership/findings.jsonl#47",
+    "primary_source": "crates/adventuresim-character-creator/src/bracer.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/owner-reached-producer-followup/findings.jsonl",
+    "record_index": 5,
+    "record": {
+      "id": "RIG-OWNER-REACHED-PRODUCER-F006",
+      "lens": "audit-producer-propagation",
+      "title": "Computed boot clearance travels as primitive before native Params",
+      "actual_producer_loss_or_missing_retention": "New gauge.clearance + gauge.thickness + margin length passes through record_section_fit/record_ankle_fairing raw signatures before actual Params and FIT/FAIR equation.",
+      "exact_connected_repair_targets": [
+        {
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/device_extremities.rs",
+          "whole_functions": [
+            "DeviceCreator::record_boot (actual impl method record_boot)"
+          ],
+          "ranges": [
+            [
+              92,
+              188
+            ]
+          ]
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-character-creator/src/device_footwear_fit.rs",
+          "whole_functions": [
+            "record_section_fit",
+            "record_ankle_fairing"
+          ],
+          "ranges": [
+            [
+              26,
+              99
+            ]
+          ]
+        }
+      ],
+      "acceptance": "Retain canonical continuous length through host helpers, extract at actual Params/math. Exact sum/order/clearance policy and signed explorations preserved; do not confuse newly computed quantity with an unchanged checked getter. Correct containing impl name to actual owner claims before repair.",
+      "repair_and_acceptance_dependencies": "Root reconciles current whole-function claims, cumulative source extensions, producer gate and necessary owner-fit delta before admission. Initial all13 freeze still active; no source edit, no new tests or project execution.",
+      "status": "finding_carried_or_new_producer_evidence; implementation_not_started; supplier_no_ownership_transfer",
+      "existing_related_finding_refs": [
+        "RIG-PPS-F006",
+        "RIG-OWNER-F015",
+        "Rig owner235 F004"
+      ]
+    },
+    "key": "audit/continuation/rig/owner-reached-producer-followup/findings.jsonl#5",
+    "primary_source": "crates/adventuresim-character-creator/src/device_extremities.rs"
+  },
+  {
+    "archive_file": "audit/continuation/rig/owner-reached-producer-followup/findings.jsonl",
+    "record_index": 7,
+    "record": {
+      "id": "RIG-OWNER-REACHED-PRODUCER-F008",
+      "lens": "audit-producer-propagation",
+      "title": "Helmet native rows do not remedy physical gauge retained-shell loss",
+      "actual_producer_loss_or_missing_retention": "Current raw generated angular rows/native coord4/index format are original mathematical source. Separately actual authored checked Millimeters gauge/crest values still lose owner into shell thickness and host layout before shell_table native words.",
+      "exact_connected_repair_targets": [
+        {
+          "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/helmet/surface.rs",
+          "whole_functions": [
+            "CoordSurface::shell"
+          ],
+          "ranges": [
+            [
+              204,
+              218
+            ]
+          ]
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/coord.rs",
+          "records": [
+            "CoordShell"
+          ],
+          "whole_functions": [
+            "CoordShell::spec"
+          ],
+          "ranges": [
+            [
+              29,
+              81
+            ]
+          ]
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/part.rs",
+          "whole_functions": [
+            "shell_table"
+          ],
+          "ranges": [
+            [
+              347,
+              355
+            ]
+          ]
+        }
+      ],
+      "acceptance": "Retain existing discrete Millimeters or approved checked continuous length through shell/chart/layout until native packing; preserve exact millimetre division and whole authored gauge/topology/frame policies. Existing neutral Radians relocation is owner-source strengthening, not falsely classified same checked producer erasure.",
+      "repair_and_acceptance_dependencies": "Root reconciles current whole-function claims, cumulative source extensions, producer gate and necessary owner-fit delta before admission. Initial all13 freeze still active; no source edit, no new tests or project execution.",
+      "status": "finding_carried_or_new_producer_evidence; implementation_not_started; supplier_no_ownership_transfer",
+      "existing_related_finding_refs": [
+        "RIG-PPS-F006",
+        "RIG-PPS-019",
+        "Rig owner235 F005"
+      ]
+    },
+    "key": "audit/continuation/rig/owner-reached-producer-followup/findings.jsonl#7",
+    "primary_source": "crates/fabelgeist-armor/src/gpu/helmet/surface.rs"
+  },
+  {
+    "archive_file": "audit/continuation/root/initial04-invariant-operations/findings.jsonl",
+    "record_index": 7,
+    "record": {
+      "id": "ROOT-INITIAL04-F008",
+      "class": "representable_public_API_counterexample; no_current_zero_row_caller_or_run_identified",
+      "source": "pr-working:crates/fabelgeist-armor/src/plate_mount.rs",
+      "operation": "PlateGridEnd::row computes Last as rows - 1 at line21; rows is unconstrained public u32.",
+      "counterexample": "PlateGridEnd::Last.row(0) underflows: checked-overflow execution panics, unchecked-overflow execution wraps to u32::MAX; First.row(0) returns0 although no row exists. This is source-level public API evidence, not a performed run or actual ordinary zero-grid producer claim.",
+      "acceptance": "Represent an admitted nonempty grid extent and return its first/last in-bound row, propagating the actual canonical grid/count/index owner through producers and consumers; or reject invalid extent at its genuine raw port. Preserve existing valid row ordering and do not invent a fallback row, globally ban intentional empty meshes, or wrap arbitrary unchecked rows into a token."
+    },
+    "key": "audit/continuation/root/initial04-invariant-operations/findings.jsonl#7",
+    "primary_source": "crates/fabelgeist-armor/src/plate_mount.rs"
+  },
+  {
+    "archive_file": "audit/continuation/root/initial04-invariant-operations/findings.jsonl",
+    "record_index": 9,
+    "record": {
+      "id": "ROOT-INITIAL04-F010",
+      "class": "representable_crate_API_nativeencoding_collision; existingbroaderRigF050capacityrepairgraph, no_actual_ordinary_hugegrid_allocation_or_run_claim",
+      "source": "pr-working:crates/fabelgeist-armor/src/gpu/shell_plan.rs",
+      "operation": "VertexSource::packed26-30 uses bit31 asInner tag but Outer/Inner payloadu32 unrestricted. ShellPlan::new56-62 checksnonempty/triple/membership butnot reservedbit/finalnativeaddresscapacity.",
+      "counterexample": "Representable crate enumvalues Outer(1<<31) andInner(0) bothpack0x80000000, so encodingcannotretainbothdistinct semanticcarrier/wallfacts. No allocation/execution needed. Constructoralsoadds counttoindices89/97 andnarrowssources.len asu3299 thenfirst+1..3, requiringactualnativecapacitybounds; no currentnormalproducer violatingbound identified.",
+      "acceptance": "One admitted coherent carrier/grid/layout owner mustcheck reserved-bit carrier-index range and final source/index/offset/native-countcapacity BEFORE packing andallocation/arithmetic. Propagate that owner through construction/recipients ratherthan silentlymasking highbits, wrapping offsets, independentrawcounts or perconsumerrechecks. Keep actualu32indexspaces distinct fromusizecounts/byteextent and intentionalinnerwalltag, preserveallvalidtopology/order. Join existingRigF050nativegrid/addresscapacity andmeshcoherencerepair; this is additionalconcreteencodingwitness, notdeduplicatedseparateuniquegraph."
+    },
+    "key": "audit/continuation/root/initial04-invariant-operations/findings.jsonl#9",
+    "primary_source": "crates/fabelgeist-armor/src/gpu/shell_plan.rs"
+  },
+  {
+    "archive_file": "audit/continuation/root/initial04-invariant-operations/findings.jsonl",
+    "record_index": 11,
+    "record": {
+      "id": "ROOT-INITIAL04-F012",
+      "class": "public_API_finite_positive_sampling_operand_counterexample_before_allocation; no_ordinary_Head_asset_or_run_claim",
+      "source": "pr-working:crates/fabelgeist-hair/src/head.rs",
+      "operation": "surface_nets290 derivesceil grid extents byfloatingdivision then asusize saturation/max1, adds1at294andmultipliescountsforranges296/321 withoutcheckedfinite/nativecapacity admission.",
+      "counterexample": "Public surface_nets with finite lo=Vec3::ZERO, hi=Vec3::ONE and finite POSITIVE cell=f32::from_bits(1) gives extent/cell=Inf, castusize::MAX, then n[axis]+1 overflows beforefieldcallback/meshallocation. A literalcell0 alsofails but positivefinitecase shows a checkedPositiveLengthaloneinsufficient. Checked-overflow executionpanics, unchecked-overflowwrapscounts; sourcecounterexampleonly no execution/currentnormalHeadcallerclaim.",
+      "acceptance": "Propagate canonical finitepositive sampling spacing plus actualorderedfinite bounds through publicproducer, then admit computedgridcounts/products/nativeindexwidth before casts/loops/allocation. Structuredrejection of unrepresentablework/capacity isvalid, no arbitrary clamp/default1 healing nonfinite/reversedrawinput. Preserve intentionalatleastonecell/ceil overshoot forvaliddegeneratebounds, emptyextraction fornosurface and nativealgorithm/order. Private numericalkernel mayuseprimitives afteractualwholeproducer provesboundedcounts; do notwrapeverySDFarithmeticintermediate or rewriteunrelatedgeometry."
+    },
+    "key": "audit/continuation/root/initial04-invariant-operations/findings.jsonl#11",
+    "primary_source": "crates/fabelgeist-hair/src/head.rs"
+  },
+  {
+    "archive_file": "audit/continuation/root/initial04-invariant-operations/findings.jsonl",
+    "record_index": 12,
+    "record": {
+      "id": "ROOT-INITIAL04-F013",
+      "class": "public_API_native_lane_count_counterexample; no_current_normal_Hairdo_badcount_or_run_claim",
+      "source": "pr-working:crates/fabelgeist-hair/src/ops/interpolate.rs",
+      "operation": "Parting::group157-160 casts rawpublicLanes.count:u32toi32 then subtracts1/usesclamp(0,upper); no validcount admission.",
+      "counterexample": "Public Parting::Lanes{count:0}.group(Vec3::default()) computesclamp(0,-1) whichpanics. count=(1<<31) castsi32::MIN thenminus1overflows, separateuppernativewidthcase. Sourcecounterexamplesonly, no run. NormalHairdoBraid ALWAYSconstructs3, so currentprivateidentity.lane call safeandnotnormalbug.",
+      "acceptance": "Own actual nonempty/native-representable lane-count semantics atParting authoring/configuration producer andretainitthroughgroup/grow/nativeports; or structuredrejectbadrawcount beforecomputedclamp. PreserveNoneabsence, validone-lanegroup0 andnormalbraid3, notcoerce0to1 orforceallstyles3. Integerwidth/range converted onlyatnativeencoding, no signedwrap/fallback. Keepprivate lane arithmeticprimitive when actualcallercount provednonzero; no blanketintegerwrappersforunrelatedquerycounts."
+    },
+    "key": "audit/continuation/root/initial04-invariant-operations/findings.jsonl#12",
+    "primary_source": "crates/fabelgeist-hair/src/ops/interpolate.rs"
+  },
+  {
+    "archive_file": "audit/continuation/root/initial04-invariant-operations/findings.jsonl",
+    "record_index": 14,
+    "record": {
+      "id": "ROOT-INITIAL04-F015",
+      "kind": "representable_public_API_counterexample",
+      "source_id": "pr-working:crates/fabelgeist-hair/src/ops/interpolate.rs",
+      "locations": [
+        [
+          218,
+          234
+        ]
+      ],
+      "case": "DensityMask::Image{width:1,height:1,values:vec![]}.at([0.0,0.0]) computes all indices0 then values[0] panics. Positive dimensions and finite valid UV alone insufficient. No actual bad asset/runtime claimed.",
+      "operation": "Unchecked bilinear lookup assumes width*height cardinality and native index representability. Public raw fields and ordinary derived Deserialize permit malformed complete aggregate.",
+      "connected_repair": "Same existing Rig-admission03 F072 graph: checked canonical density image with overflow-safe dimension/product/storage relation, finite usable channel policy and appropriate nativeUV handling before lookup. Preserve width0 or height0 existing uniform1 policy if intentional final contract; reject malformed positive image rather than fallback fabricated samples. Propagate admitted mask through Interpolate authoring/config/kernel.",
+      "acceptance": "Every accepted positive image has representable complete storage and all bilinear reads within storage for supported UV policy. Test additions prohibited; adapt existing or source/hosted acceptance after all13.",
+      "deduplication": "Supports existing RIG-ADMISSION03-F072, not unique new repairgraph."
+    },
+    "key": "audit/continuation/root/initial04-invariant-operations/findings.jsonl#14",
+    "primary_source": "pr-working:crates/fabelgeist-hair/src/ops/interpolate.rs"
+  },
+  {
+    "archive_file": "audit/continuation/root/initial04-invariant-operations/findings.jsonl",
+    "record_index": 59,
+    "record": {
+      "id": "ROOT-INITIAL04-F060",
+      "kind": "orbit_goal_completion_omits_requested_angle_convergence",
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/studio_scene.rs",
+      "locations": [
+        [
+          85,
+          99
+        ],
+        [
+          254,
+          256
+        ],
+        [
+          310,
+          325
+        ]
+      ],
+      "case": "Start from a settled camera with goalNone. Ordinary TurnLeft/TurnRight builds a goal with exactly current focus/radius and targetyaw offsetPI/4. First approach call changes yaw by only t=1-exp(-9seconds) of requestedturn, then clearsgoal because focus/radius already equal. For a normal small positive frame interval t<1, remaining angle is discarded; atdelta0 it clears withoutany turn. No executed UI or measuredframe claim.",
+      "operation": "The stored goal is a correlated position/distance/orientation target, but completion admits only a partial relation. Individual typed angles/radii would not fix premature termination without whole-pose convergence.",
+      "connected_repair": "Make the canonical orbit-goal operation retain target until every requested component converges, including shortest wrapped yaw and pitch when anglesSome. Keep anglesNone semantics, repeatedturn accumulation from existingtarget, firstcharacter framing and explicit manualpointer/wheel cancellation. Propagate purpose-specific angle/distance/time and frame owners through actual editorcamera/native transform boundary instead of scattering Into conversions.",
+      "acceptance": "A turn-only request from a settled view continues across updates until requested orientation is reached within its appropriate angular tolerance, independently of unchanged focus/radius and normal framepartition. Zero-time update cannot falsely complete an unsatisfied angle request. Use existing fixtures/hosted validation only when implementation resumes; no addedtests/assertions/helpers.",
+      "deduplication": "Camera07 supplied scoped-source navigation and kept only an operation observation, no own07 unique finding. Root independently read fullbody. Native05 and Rig06 existing-proof replies report no exact priorgraph; no additional sourceinspection requested and no peer bodycredit. Distinct from camera frame/degree leaf and cache invalidation findings.",
+      "contract_ref": "ROOT-INITIAL04-CONTRACT-151"
+    },
+    "key": "audit/continuation/root/initial04-invariant-operations/findings.jsonl#59",
+    "primary_source": "pr-working:crates/adventuresim-character-creator/src/studio_scene.rs"
+  },
+  {
+    "archive_file": "audit/records/final-acceptance-20261021/wave-01/audit-existing-type-owners/rig/findings.jsonl",
+    "record_index": 0,
+    "record": {
+      "id": "RIG-OWNER-F001",
+      "lens": "audit-existing-type-owners",
+      "disposition": "exact owner reuse migration gap",
+      "status": "source-backed owner-fit inventory accounted with findings; no repair",
+      "use": {
+        "path": "crates/fabelgeist-rig/src/skin.rs",
+        "lines": [
+          27,
+          35
+        ],
+        "field": "RigSkinError::OutsideRig.joints:usize"
+      },
+      "existing_owner": {
+        "path": "crates/fabelgeist-rig/src/skin.rs",
+        "lines": [
+          6,
+          9,
+          37,
+          55
+        ],
+        "type": "RigJointCount"
+      },
+      "fit": "The failing payload already receives self.joints /joints admitted ordinal extent; private .0 is copied into public usize cause field at111-114/218-221. Same meaning/authority/zero/bounds/representation, no dependency barrier. The failed joint word has a different observation role, so do not blindly change it with the count.",
+      "repair": "Retain RigJointCount in the error field and pass existing count at both constructors; add Display or choose precise derive formatting on existing owner, adapt all existing error pattern/display callers together, no primitive adapter or duplicate count type.",
+      "acceptance": "Count meaning remains typed through owning cause; exact diagnostics/native encoding and existing fixture cases/assertions preserved. No tests added or source repair before all13 initial lenses.",
+      "rules": [
+        "crates/AGENTS semantic fields use existing owners; error retained state is not itself a terminal text port"
+      ],
+      "claim_authority": "Existing rig skin whole owner claims remain; lens assignment transfers no function ownership",
+      "contract_ref": "RIG-OWNER-RIG-001",
+      "inventory_status": "accounted-current-lens-finding",
+      "repair_status": "not-implemented; initial all-thirteen-lens discovery freeze",
+      "historical_status": "source-backed candidate; connected cause receiver review incomplete",
+      "current_receiver_closure": "receiver-closure.json; exact listed contract current_owner_fit_refs"
+    },
+    "key": "audit/records/final-acceptance-20261021/wave-01/audit-existing-type-owners/rig/findings.jsonl#0",
+    "primary_source": "crates/fabelgeist-rig/src/skin.rs"
+  },
+  {
+    "archive_file": "audit/records/final-acceptance-20261021/wave-01/audit-existing-type-owners/rig/findings.jsonl",
+    "record_index": 1,
+    "record": {
+      "id": "RIG-OWNER-F002",
+      "lens": "audit-existing-type-owners",
+      "disposition": "exact existing axis owner match; boundary/strengthening classification retained for coordinator",
+      "status": "source-backed candidate; no repair",
+      "use": {
+        "path": "crates/fabelgeist-mhr/src/math.rs",
+        "lines": [
+          35,
+          44,
+          53,
+          59
+        ],
+        "fields": "axis:usize /order:[usize;3]"
+      },
+      "existing_owner": {
+        "path": "crates/fabelgeist-geometry/src/error.rs",
+        "lines": [
+          8,
+          12
+        ],
+        "type": "CoordinateAxis"
+      },
+      "fit": "Same X/Y/Z set, precision-independent enum. Actual decoder maps six FBX permutations plusdefault; all math/skeleton/skel_state callers source-read. Different from tensorbatch/joint/channel dimension indexes and QuaternionW or skeletonScale channels. Dependency MHR currently lacks sharedgeometry; move/importcanonicalenum if chosen, no equivalent axes owner.",
+      "repair": "If classified required, carry existing CoordinateAxis through native FBX rotation-order decode and host Euler sequence API, project only at actual 3-element array access. Preserve all permutations/default/spherical mapping, exact f64 trigonometry/order and existing fixture inputs/count/assertions. Current actual numeric kernel boundary could justify raw backing, so do not mechanically migrate allusize axis syntax.",
+      "acceptance": "One canonical Cartesian axis owner where semantic sequence crosses APIs, documented actual native indexing distinction, no changed arithmetic or type conflation. All13 freeze.",
+      "contract_ref": "RIG-OWNER-MHR-004",
+      "claim_authority": "Existing whole-function owners remain; no claim/source changes.",
+      "inventory_status": "accounted-current-lens-finding",
+      "repair_status": "not-implemented; initial all-thirteen-lens discovery freeze"
+    },
+    "key": "audit/records/final-acceptance-20261021/wave-01/audit-existing-type-owners/rig/findings.jsonl#1",
+    "primary_source": "crates/fabelgeist-mhr/src/math.rs"
+  },
+  {
+    "archive_file": "audit/records/final-acceptance-20261021/wave-01/audit-existing-type-owners/rig/findings.jsonl",
+    "record_index": 2,
+    "record": {
+      "id": "RIG-OWNER-F003",
+      "lens": "audit-existing-type-owners",
+      "disposition": "exact owner reuse migration gap",
+      "status": "source-backed owner-fit inventory accounted with findings; no repair",
+      "use": {
+        "path": "crates/fabelgeist-mhr/src/model.rs",
+        "lines": [
+          31,
+          35,
+          118,
+          120,
+          154,
+          160,
+          189,
+          197
+        ],
+        "field": "MhrConfig.lod:u8"
+      },
+      "existing_owner": {
+        "path": "crates/adventuresim-character-creator/src/lod.rs",
+        "lines": [
+          6,
+          17,
+          22,
+          25
+        ],
+        "type": "CharacterLod"
+      },
+      "fit": "Both accepted4..6 MHR runtime detail; nonzero finite u8 bound and exact vertex counts agree. Existingowner aboveMHR creates dependencycycle; relocate existing canonical type/policy belowCreator. Distinct native highresolution armor-bake source0..3 must retain its supportedpurpose.",
+      "repair": "Move/reuse existing owner and carry through runtime config/load/retained Creator/export records and all actualcallers once; do not add equivalent MhrLod or raw forwarding constructor. Coordinate distinct bake role fromactualproducer source.",
+      "acceptance": "No repeated raw runtimeLOD admission after typedproducer, same4..6 rejection/default/name/vertex counts and supported highresbake behavior, same existing fixturecases/assertions; no new tests/source edits before all13 passes.",
+      "contract_ref": "RIG-OWNER-LOD-006",
+      "dedup_producer_finding": "RIG-PP-009",
+      "inventory_status": "accounted-current-lens-finding",
+      "repair_status": "not-implemented; initial all-thirteen-lens discovery freeze",
+      "historical_status": "source-backed; connected Creator/bake callers pending",
+      "current_receiver_closure": "receiver-closure.json; exact listed contract current_owner_fit_refs"
+    },
+    "key": "audit/records/final-acceptance-20261021/wave-01/audit-existing-type-owners/rig/findings.jsonl#2",
+    "primary_source": "crates/fabelgeist-mhr/src/model.rs"
+  },
+  {
+    "archive_file": "audit/records/final-acceptance-20261021/wave-01/audit-existing-type-owners/rig/findings.jsonl",
+    "record_index": 17,
+    "record": {
+      "id": "RIG-OWNER-F018",
+      "lens": "audit-existing-type-owners",
+      "contract_ref": "RIG-OWNER-TRIM-043",
+      "kind": "existing-owner-migration-gap",
+      "source": "pr-working:crates/fabelgeist-armor/src/trim.rs",
+      "locations": [
+        "TrimBand.width/period30..35 andvalidate70..81",
+        "trim/split.rs::Split.width23/new53",
+        "trim/finish.rs::Trim.width14/validate76..81"
+      ],
+      "existing_owner": "fabelgeist_geometry::PositiveLength length.rs15/from_metres18..31 exactfinitepositivef32metres",
+      "evidence": "TrimBand alreadyvalidates exactcontractthen retainsrawphysicalfloats throughinternalrecords beforeactualnativeclosest/bisection/texture math. ExistingcheckedPositiveLength fitsvalidsetwithoutnewwrapper. Trim.width addsspecific .003..=.06 bounds, keepit. Native invalidliteralzeroexistingfixture mustremain samecase/assertion viaowningcheckedboundary, no deletedcoverage.",
+      "repair": "Extend existingrigwholeTrimBand/GeneratedArmor::trimmed owner toactualTrim producers andSplit/Rims physicalreceivers, canonicalleafprojectiononlyatrealnumericport. Do notautomaticallytypeallNearest outputfinitewithoutprovinginput/overflowpolicy.",
+      "acceptance": "Samewidth/period arithmetic/errorclassificationandfirstfailure/nativeUVunits/fixtures, no extraassertions ornewtest.",
+      "discovery_status": "actionable source finding; remainingmaterial/periodreceivers explicit",
+      "repair_status": "not-implemented; initial all-thirteen-lens discovery freeze",
+      "validation_status": "notexecuted",
+      "inventory_status": "accounted-current-lens-finding"
+    },
+    "key": "audit/records/final-acceptance-20261021/wave-01/audit-existing-type-owners/rig/findings.jsonl#17",
+    "primary_source": "crates/fabelgeist-armor/src/trim.rs"
+  },
+  {
+    "archive_file": "audit/records/final-acceptance-20261021/wave-01/audit-existing-type-owners/root/findings.jsonl",
+    "record_index": 0,
+    "record": {
+      "id": "ROOT-OWNER-F001",
+      "lens": "audit-existing-type-owners",
+      "disposition": "migration gap with exact existing unit owner",
+      "source_location": "crates/fabelgeist-geometry/src/measurement.rs:64 SignedLength::scaled_by",
+      "candidate_owner": "crates/fabelgeist-math/src/units.rs:20 Ratio",
+      "contract_ref": "ROOT-OWNER-RATIO-003",
+      "repair_owner": "native existing whole canonical method, rig existing caller; camera separate speed/elapsed method sources",
+      "repair_status": "frozen",
+      "validation": "not_run",
+      "acceptance": "Exact existing multiplication order/result finite rejection, factor3 allowed, original cases unchanged; no temporary primitive adapter or duplicate factor wrapper.",
+      "rule": "crates/AGENTS.md semantic values: reuse existing owner; composite API accepts semantic leaves, do not narrow valid inputs."
+    },
+    "key": "audit/records/final-acceptance-20261021/wave-01/audit-existing-type-owners/root/findings.jsonl#0",
+    "primary_source": "crates/fabelgeist-geometry/src/measurement.rs:64"
+  },
+  {
+    "archive_file": "audit/records/final-acceptance-20261021/wave-01/audit-producer-propagation/rig/findings.json",
+    "record_index": 0,
+    "record": {
+      "id": "RIG-PP-001",
+      "status": "actionable-candidate",
+      "disposition": "migration gap",
+      "location": "pr-working:crates/fabelgeist-mhr/src/character/skin.rs104,110 parse_skin",
+      "scenario": "Native cluster object ID was already resolved into RigJointOrdinal at50/83, then projected into an internal raw Vec<u32>104 and re-admitted at110 without an intervening external/framework write. This is an internal checked-leaf-to-primitive-to-owner round trip, not direct raw FBX joint-word decoding.",
+      "rule": "Producer-propagation lens; crates/AGENTS repeated extraction/readmission and composite APIs accept checked leaves",
+      "smallest_connected_repair": "Keep row joints as [RigJointOrdinal;8] after resolution; append through canonical PackedRigSkin::push or another owning typed row constructor with actual source count, retaining sorted weights, all zero slots and row order. No numerical policy change.",
+      "dependencies": [
+        "RigJointOrdinal/PackedRigSkin existing canonical owner",
+        "parse_skin complete row construction and final receiver; no new manifests or tests required"
+      ],
+      "acceptance": "No raw joint-word intermediate or from_native re-admission between typed cluster identity resolution and packed storage; actual fixed-u32 encoding remains solely canonical PackedRigSkin operation. Existing numerical inputs/order/weights and errors reviewed at connected receivers.",
+      "validation": "not executed",
+      "coordinator_notified": true,
+      "evidence_file": "contracts-001.json",
+      "repair_status": "not_started_initial_discovery_freeze"
+    },
+    "key": "audit/records/final-acceptance-20261021/wave-01/audit-producer-propagation/rig/findings.json#0",
+    "primary_source": "crates/fabelgeist-mhr/src/character/skin.rs104"
+  },
+  {
+    "archive_file": "audit/records/final-acceptance-20261021/wave-01/audit-producer-propagation/rig/findings.json",
+    "record_index": 2,
+    "record": {
+      "id": "RIG-PP-003",
+      "status": "actionable-candidate",
+      "disposition": "migration gap",
+      "location": "pr-working:crates/adventuresim-character-creator/src/device_garment_skirt.rs41,43 -> skirt_span420,431",
+      "scenario": "Authored continuous offset policy constants FAULD_DROP_M and TASSET_RISE_M remain primitive f32 producer/storage; the consumer admits SignedLength only inside span construction. The checked offset contract starts after its internal producer, although the resulting span retains it correctly.",
+      "rule": "Producer-propagation lens; primitive authored quantity owner should emit and retain existing checked leaf rather than late caller admission.",
+      "smallest_connected_repair": "Retain checked SignedLength at the authored offset policy owner and consume it directly in skirt_span; coordinate a clean canonical constant/literal admission mechanism without unwrap/expect or unchecked forwarding constructor. Review all sibling span producers before final repair.",
+      "dependencies": [
+        "Shared SignedLength const checked from_metres API",
+        "Creator skirt_span and sibling torso/gorget/tube span producers",
+        "Do not change scaling arithmetic, frame policy or shader ABI"
+      ],
+      "acceptance": "Authored offset producers carry checked continuous lengths through every span constructor; numerical extraction occurs only in actual Word::F uniform/native calculation. No late from_metres at an internal scalar constant receiver.",
+      "coordinator_notified": true,
+      "validation": "not executed",
+      "evidence_file": "contracts-003.json",
+      "repair_status": "not_started_initial_discovery_freeze"
+    },
+    "key": "audit/records/final-acceptance-20261021/wave-01/audit-producer-propagation/rig/findings.json#2",
+    "primary_source": "crates/adventuresim-character-creator/src/device_garment_skirt.rs41"
+  },
+  {
+    "archive_file": "audit/records/final-acceptance-20261021/wave-01/audit-producer-propagation/rig/findings.json",
+    "record_index": 3,
+    "record": {
+      "id": "RIG-PP-004",
+      "status": "reconciled-intentional-owner-implementation",
+      "disposition": "not an actionable producer-propagation gap",
+      "location": "pr-working:crates/adventuresim-character-creator/src/equipment_catalog.rs21,28-31,40-41 EquipmentItemSelection::{admit,includes}",
+      "scenario": "Full owner equipment_catalog.rs18-43 re-read: private ids backing is created only by admit after exact authored filter resolves wearable record. includes takes typed CatalogItem and performs membership wholly inside EquipmentItemSelection. No raw IDs escape this container and no downstream re-admission is required; export292 only consumes includes bool. Record identity is intentionally coarser than CatalogItem pointer identity so every duplicate-ID catalogue record remains selected.",
+      "rule": "Encapsulated validated bespoke container may own primitive backing; producer propagation does not require another nested bespoke identity without an actual naked application API/state edge.",
+      "smallest_connected_repair": "None for this container under current lens.",
+      "dependencies": [
+        "Core canonical CatalogItem identity and duplicate-record policy",
+        "EquipmentItemSelection admission and export loop receiver",
+        "CLI filters remain legitimate original raw boundary and must keep exact unknown-filter error/order"
+      ],
+      "acceptance": "Preserve exact-string match, unknown-filter errors, duplicate-ID selection and export order. CLI filter authoring/parsed input still needs its own current-wave source read.",
+      "coordinator_notified": true,
+      "validation": "not executed",
+      "reconciliation": "Root identified original P14 risk; current-wave full owner and actual export receiver source independently confirm stated distinction. Prior candidate is withdrawn, not waived as legacy debt.",
+      "evidence_file": "contracts-004.json",
+      "final_current_lens_disposition": "intentional owner implementation; candidatewithdrawn"
+    },
+    "key": "audit/records/final-acceptance-20261021/wave-01/audit-producer-propagation/rig/findings.json#3",
+    "primary_source": "crates/adventuresim-character-creator/src/equipment_catalog.rs21"
+  },
+  {
+    "archive_file": "audit/records/final-acceptance-20261021/wave-01/audit-producer-propagation/rig/findings.json",
+    "record_index": 12,
+    "record": {
+      "id": "RIG-CODE-003",
+      "status": "actionable-source-blocker",
+      "location": "pr-working:crates/adventuresim-character-creator/src/garment/dressing.rs97",
+      "source_hash": "a5b190694f00f1dbc5e1895f5b40f65b6c1f7242da45ea844b59a6b6d6932523",
+      "scenario": "Dressing::new takes typed joints from PackedRigSkin::iter (fabelgeist-rig/skin.rs154-155) and uses *joint as usize. RigJointOrdinal is a struct(usize), fabelgeist-rig/lib.rs52; Rust primitive as cast is invalid for this struct.",
+      "smallest_connected_repair": "Preserve joint-column ownership in parts as RigJointTable<bool> and use typed get (or equivalent canonical typed owning operation); preserve existing max_by total_cmp tie and fallback semantics and every existing fixture input/assertion. Re-read actual drape/conform callers.",
+      "dependencies": [
+        "Canonical RigJointOrdinal/PackedRigSkin producer",
+        "Actual drape run78 Dressing caller"
+      ],
+      "acceptance": "Actual clothing module type-checks under hosted source checks with no internal raw ordinal adapter and unchanged bodypart selection/fallback behavior.",
+      "coordinator_notified": true,
+      "validation": "not executed",
+      "evidence_file": "contracts-013.json",
+      "repair_status": "not_started_initial_discovery_freeze"
+    },
+    "key": "audit/records/final-acceptance-20261021/wave-01/audit-producer-propagation/rig/findings.json#12",
+    "primary_source": "crates/adventuresim-character-creator/src/garment/dressing.rs97"
+  }
+]

@@ -1,0 +1,21 @@
+{
+  "id": "RIG-INITIAL06-GROUP-203",
+  "at": "2026-10-23T06:14:50.788655+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-064.json",
+  "groups": {
+    "native-shape-and-query-port": {
+      "comparison": "Fresh Avian Collider633–810 shows cast_ray delegates Parry then returns travelled distance/normal, compound maps each pose+shape to shared native shape, cuboid747–749 actually halves full XYZ extents, roundcuboid similarly halves sizes but not border radius, cylinder/cone half height, capsule uses endpoints±length/2; half_space normalizes_or_zero. This is real representation/numerical conversion, not first-party raw forwarding before the port. Existing202 CameraVolume129–135 checked full CuboidDimensions maps exactly to native Collider full-size parameters before this half-extent conversion. Keep shared checked game dimensions/scene transforms separate from raw native solver shape; no foreign dependency on Building/Core or universal strictpositive inference. Context633–637 closes only tail of preceding pointquery;810 nextsegmentdoc not unseen function proof.",
+      "disposition": "Keep native shape construction and pose conversion as native port; preserve canonical checked first-party input owners."
+    },
+    "native-query-options-and-hit-product": {
+      "comparison": "Fresh ShapeCastConfig407–472 actual public native options with max distance, target separation, penetration booleans. DEFAULT uses Scalar::MAX despite prose saying infinite; target0 intentional; from_max_distance copies arbitrary native scalar. from_target_distance469–472 is partial, no unseen body or guarantee. ShapeHitData576–612 public transient Entity plus travelled length, two world contact points and two outward normals; not equivalent CameraHit(entity, checkedSceneDirection) or CameraSweep(checkedfraction,optionalhit). Fresh system_param111–120/176–225 and446–464/523–595 trace actual query delegates. Ray keeps nearest distance after filter/predicate, shape traversal passes native shapeAabb, poses, direction, cast options into Parry and transforms witnesses/normals to world; no new game validation. Actual Camera collision152–188 creates Dir3, handles zero/invalid delta via explicit nohitfraction1, projects checkedScene/frame pose, then readmits native fraction and normal. Canonical frame/finite/value owners remain first-party; native options/results belong solver. Scalar::MAX sentinel and absence/filter semantics differ finite game accepted-state certification. Shape EOF612 explicitly no613–614; endings572–574/400–405 are previous operation tail only; system_param229/493/597–609 docs do not credit allhits bodies.",
+      "disposition": "Preserve native cast options/results and camera-specific checked projection products as distinct meanings and lifecycle authorities."
+    }
+  },
+  "source_fact_refs": [
+    "contracts-202.json",
+    "fresh source1462 collision113–188 already pinned202"
+  ],
+  "limits": "Three exact foreign source-role sets freshly read; boundary tails/partial docs recorded without wholeforeignmodule clearance. No new finding/source/range, foreign patch, runtime/tests/source edits or other-lens verdict."
+}

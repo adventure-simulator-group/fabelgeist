@@ -1,0 +1,111 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-044",
+  "at": "2026-10-25T11:15:36.147323+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1158,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/leisure_authority_tests.rs",
+      "sha256": "77c26b1c6306f9db87be39935ec5bbc58def37f7d9c796fedf2c0544abda999a",
+      "personally_read_ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole81 guarded existing leisure checkpoint fixture read. Token guard precedes explicit twoCharacter/slice construction. Chunk17/43/71/6 overlap accrual is compared with same canonical conceptionquantum wholeinterval, persisted jointminutes and ordinal retained; swappedpair/repeat cannot add receipts, exact crossings60/120 expected. This is existingdatabase acceptance oracle, not executed or new test. Doesnot assert thosefixturepersons married/pregnancyeligible; checkpoint/receipt accounting deliberately independent actualsuccessfulconception."
+    },
+    {
+      "scope_index": 1159,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/lifecycle.rs",
+      "sha256": "e07c9d7949a4086798ee405ba1deac19e4adcbb4e5dc5cf618eba028b229415d",
+      "personally_read_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole138 lifecycle dispatcher record source read. DueLifecycleEvent owns Weddingparticipant or Birthmother with ID/effective time; stablekey gives weddings beforebirths. Wedding processable if death beforeceremony or bothpersonalfrontiers reached; Birth requires motherfrontier reached. Native errors discarded by processability booleans remain differentiated-cause migration gap, not automatic inconsistent eventrow. Failure storage truncates String512 and statusquarantine independentlyends pregnancy and releases active/reservedchild references only when namesmatch. No healthychild placeholder/compatibility fallback. Wedding and birth use distinct validators/commit error policy; actualparent1161 required for aggregateatomicity."
+    },
+    {
+      "scope_index": 1160,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/marriage.rs",
+      "sha256": "707052669ad21da99362ea13fe18eefef9b2ee79c0cea3da8f4350da05068031",
+      "personally_read_ranges": [
+        [
+          1,
+          481
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole481 marriage source read. Due wedding selects Reserved Engagement by officialclock, checks deaths/effectivebirth age, immutable ceremonysettlement and effective-dated active legalholding; private ignored participantfrontierparameter reflects globalworld eventpolicy. Earliest qualifyingholding chosen; no room/capacity preflight beforefirst writes. Dowry tuple derives Formal/approvedfather/escrow and outcome coherently, paid credits and removesescrow, then creates household, moveseachparticipant and calls fallible move_residence_occupant_at. Last function actually checks propertyroom via occupancy::admit. Only after these fallible moves does code insertkinships/dowryoutcome/marriage/participant and terminalFulfilled commitment. Comment allfalliblevalidationcomplete doesnot describe actualsequence. Parent1161 catches wedding error, cancelscommitment and returns overallOk, so possible accepted-roomfailure can leave previousdowry/household/firstmove writes committed. Exact downstream capacity gate freshly read; ordinary existing fullhouse scenario/provider admission to be established at1180\u20131184 before promoting unique defect. Record Q013 with exactrepair dependency, do not mistake reducertransaction for rollbackwhenerrorcaught. Normal successful path atomicallybinds marriage to commitment/household and participantidentity; resolve_marriage removes only matchinghousehold/currentparticipant rows, ends historicalcommitment and kinship. Actualwidowresolution waitsbothfrontiers, preservingexclusive history. Generic statusparameter onlyactualEnded/Widowed callers here, no arbitraryActive transition witness."
+    },
+    {
+      "scope_index": 1161,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/mod.rs",
+      "sha256": "3a963760e8bdf9dbe54464488f72d3dd2c976d3a2da5705a5cb30dec2f9265b1",
+      "personally_read_ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole217 relationship module/queue source read. Include graph enumerated; 1150\u20131153 and other prior source facts retained. Due queue constructs variantpayloads fromactualrows, orders complete stablekey before processabilityfilter/limit. Wedding branch catches settle_due_weddings error, transitions selectedcommitmentCancelled ResidenceUnavailable and recordscauseString, then continuesandreturnsOk(count). This makes latefallible marriagewrite Q013 material; capture error cannot be assumed transactionabort. Birth branch preflights validate_due_birth beforewrites, quarantines+records onlypreflightfailure and propagates unexpectedcommitfailure, explicitly protects partialchildconstruction. Count means selectedprocessableentries ratherthanalloutcomesSucceeded; no wrong completioncount assertion. Include_string architecturetests are evidence intendedcontracts, not source/runtime substitute."
+    },
+    {
+      "scope_index": 1180,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence.rs",
+      "sha256": "df7d47666e333785437d381321a5e7b85cd6e4c453067c83f8d86ea00a30ce35",
+      "personally_read_ranges": [
+        [
+          548,
+          687
+        ]
+      ],
+      "qualification": "Supporting partial original role; no fullrole credit.",
+      "aggregate_trace_and_disposition": "move_residence_occupant_at checksactiveholding and callsactualfallibleoccupancy admission; surroundingpublicadmissionbody partial only."
+    },
+    {
+      "scope_index": 1183,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/occupancy.rs",
+      "sha256": "181a2ef44cc12c8b3d6393ed41ebe9a8e616923413382af26ffe28b090789d41",
+      "personally_read_ranges": [
+        [
+          44,
+          153
+        ]
+      ],
+      "qualification": "Supporting partial original role; no fullrole credit.",
+      "aggregate_trace_and_disposition": "occupancy::admit checksroom beforeitsownwrites; inheritedparenthome and lookup/recordsupport actualrange read."
+    },
+    {
+      "scope_index": 1184,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/properties.rs",
+      "sha256": "80864f0168cb8abf7dcd17c08ea7405e6124f2968ad6eb83dbca7e0a5aab4e26",
+      "personally_read_ranges": [
+        [
+          265,
+          359
+        ]
+      ],
+      "qualification": "Supporting partial original role; no fullrole credit.",
+      "aggregate_trace_and_disposition": "require_property_room_at checksoccupancyatallfutureeventboundaries withinadmissioninterval and aggregateunmaterialized+namedcount againstpropertycapacity; fullproperty rejects. Neighbourallocation support consumed, notwholefile."
+    }
+  ],
+  "connected_questions": [
+    {
+      "id": "SEGO-INITIAL05-Q013",
+      "relation": "Weddingdowry/household/residence/marriage/terminalcommitment must commit together or reject withoutpartialstate.",
+      "trace": [
+        "1160 writes paidcredit+escrowdelete, household/join before fallible residence move.",
+        "1180:548\u2013571 ->1183:44\u201371 ->1184:265\u2013310 rejects fullproperty.",
+        "1161:105\u2013130 catchesErr, cancels/records, outerOk commits."
+      ],
+      "disposition": "Source-backed caught latefailure gap; next1180\u20131184 establish actual admitted fullproperty/normalceremony scenario before promoting unique ordinary defect. No runtime/check claim.",
+      "connected_repair": "Preflight complete paired housing/currency/finalstate operation beforewrite or allowunexpectedcommitfailure toabort reducer; distinguish expected unavailablehousing cancellation from invalidinfrastructurecause. Own wedding shared function once for lifecycle/aggregate/error families; preserve terminal escrowreturn and effective-dated history.",
+      "acceptance": "No paidcredit/escrowloss/householdmove survives rejectedceremony without consistent completedmarriage; expectedhousingunavailable cancels cleanly; unexpectedcommitErr aborts ratherthancaughtpartialstate."
+    }
+  ],
+  "discovery": "Four original roles plus three partial supporting roles compared; full lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

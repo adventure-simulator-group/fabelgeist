@@ -1,0 +1,13 @@
+{
+  "id": "RIG-INITIAL06-F038-SUPPLEMENT-001",
+  "at": "2026-10-23T09:34:06.277864+00:00",
+  "existing_finding": "RIG-INITIAL06-F038",
+  "classification": "additional native-payload composition suggestion, no new unique correctness defect",
+  "actual_sources": [
+    "contracts-260.json#/groups/shared-procedural-material-native-owner",
+    "contracts-367.json#/groups/instanced-shrub-shared-leaf-calibration"
+  ],
+  "comparison": "Fresh full instanced_understory322 uses three identical LeafCard calibration Vec4 fields in source TacticalTreeLeafCardMaterial (shared procedural-materials lib48-59), instanced Material99-101 and Uniform68-70. From106-114 copies unchanged and actual spawn289-292 copies source calibration, plus distinct shrub shading branch. The Asset/ordinary Material vs InstancedMaterial lifecycles and shading policy legitimately differ; shared calibration meaning does not. Host libfull174 freshly focused reread confirms direct definitions, shader349 directly consumes same3block.",
+  "connected_repair": "Compose canonical LeafCardCalibration block in existing lower adventuresim-procedural-materials owner; both native material adapters reuse this block while shrub-specific shading remains separate. Uniform upload projects canonical block, no duplicated forwarding field roster, no foreign patch or forced union of materials. Preserve binding12/byteoffsets/color-versus-metric lanes and all source/wind/cutout/calibrated values.",
+  "limits": "Current types agree; no runtime drift/finite guarantee or engine execution. No additional source/range or edit authority."
+}

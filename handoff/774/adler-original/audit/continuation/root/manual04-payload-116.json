@@ -1,0 +1,36 @@
+{
+  "packet_number": 116,
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          866
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Full literal P16 source1-866 across four bounded reads; complete actual PR diff and literal changed fixture blocks independently compared. Shared production bodies have same local operations but parent typed length contracts differ as explicitly compared in complete parent diff; no parent-whole coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          866
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Full literal P16 source1-866 across four bounded reads; complete actual PR diff and literal changed fixture blocks independently compared. Shared production bodies have same local operations but parent typed length contracts differ as explicitly compared in complete parent diff; no parent-whole coverage."
+    }
+  ],
+  "groups": {
+    "closed-roster-build": "Actual private purpose builders called with fixed finite authored physical/skill ranks. John comes from default character/native name; five opponents retain named deliberate training/body75/custom hammer adjustments. StartingSkills→CombatSkills copies rawhours and joins religion.total_direct existingF016. Private fixed fixture builder is not an untrusted public arbitrary-float producer; no invented current extreme rank failure.",
+    "identity-and-input-admission": "stable_id is intentional deterministic FNV-style wrapping hash over fixed authored fixture keys, not general unique durable-inventory admission or an arithmetic overflow requiring checked_mul. Authored weapon/shield lookup returns specific errors, shield kind explicitly checked, no broad sword fallback. Preserve exact fixture IDs/RNG domains/seeds; do not substitute actual persistent row identity or claim arbitrary-string collision freedom.",
+    "armor-occurrences-and-indexing": "Occurrence counts only prefix0..index from enumerate, so slice valid. modulo placements.len.max1 avoids zero division but empty placement still returns concrete .getNone error, not a successful fake default. Canonical BodyPart mapping indexes exact7. Repeated IDs intentionally traverse authored placements with occurrence modulo; current per-part armor replacement and aggregate/selected physical protection roles must be compared with actual consumers rather than assumed equivalent.",
+    "local-failure-lifetime": "apply_authored_armor mutates a local CombatEquipment sequentially and can return Err after earlier entries. Its actual production parent owns the unreturned local product and propagates? before Ok, so no ordinary partial accepted equipment publication here. No need make every private helper independently transactional if complete operation discards failure. Raw inventory-weight additions join F035 and canonical admitted measurements, but actual closed roster/embedded content not shown to overflow. UnknownArmor versus known nonarmor continue is a broad-input/private-fixture admission design question, not a normal roster bug.",
+    "shared-physical-factories": "CombatWeapon::from_authored_melee_definition and canonical physical/equipment/timing factories remain actual recipients; their failures are propagated. Existing F041 balance computation and F011 protection aggregation requirements apply through actual common suppliers, no duplicate numerical finding. Body mass75 benchmark policy distinct from biological human admission or nonhuman bounds.",
+    "existing-acceptance-source": "All current fixtures read: terminal bounds/readiness, shorterreach progress, movement/contact scheduling, armor gaps, disabled arm, fatiguecadence and energy partition. HashMap lookup requires actual scheduled occurrence IDs; joins F027 acceptance identity graph. Reading fixture source or complete parent diff is not an executed test/acceptance verdict. No new tests/helpers/assertions, no parent autoresolve2879/2878 or evidence child-wide operations credit."
+  },
+  "findings": []
+}

@@ -1,0 +1,86 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-088",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "context-role-membership-contact-and-treatment-authority",
+      "sources": [
+        {
+          "scope_index": 317,
+          "ranges": [
+            [
+              1,
+              1353
+            ]
+          ]
+        },
+        {
+          "scope_index": 318,
+          "ranges": [
+            [
+              1,
+              28
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "local774:M43",
+        "SEGO-INITIAL09-F248",
+        "SEGO-INITIAL09-F156"
+      ],
+      "disposition": "Existing identity/presence/action propagation support; meaningful role and history distinctions retained.",
+      "trace": "Membership31742\u201361 contains native context kind, character role, ordinal and an entered/optional left interval. Location, contextual identity, membership identity and public contact_ref are different roles, even when Road context currently uses the same text. Case/Hostile public reference is exact_case_context action discriminator, not private case ID. Backend projection71\u201388/202\u2013284 distinguishes membership_revision from current contact revision and public decisions from retained authored decisions; live emergency necessity is not permanently copied permission. ContextualTreatmentClaim762\u2013779 binds public reference and exact membership revision. Contact965\u20131153 checks authority, exact retry tuple, unique current context and source-specific revision before social/awareness changes. Stable field Character349\u2013352 uses full high-bit identity from context+ordinal, not an ordinal substituting CharacterId. Roster closure31818\u201321 preserves first closure and max(entered,minute), so historical membership end is not a recomputed current time.",
+      "qualifications": [
+        "All1353+28 lines personally read; source tests are evidence only. Presence include has its own frozen source role2692, no body credit from include485.",
+        "Contact and treatment are independent permissions; emergency bandage is exact live necessity while explicit refusal remains authoritative. Authored contextual answer precedence over party preference is deliberate.",
+        "Rows for historical case/hostile memberships may remain visible at observer frontier, while live road/strategic memberships require open status. Do not flatten personal/official frontiers or hide identities to force one universal context key.",
+        "No new ordinary revision collision, visibility failure or zero-invalid CharacterId asserted. Existing F248 is claim payload correlation and F156 contextual kind/payload support, not a new granularity count."
+      ],
+      "acceptance": "Carry canonical contextual owners and named claims through native application logic while retaining full identity, public/private reference separation, observer frontier, independent revisions and immutable closure/retry history."
+    },
+    {
+      "id": "world-event-persistence-consequence-and-fingerprint-roles",
+      "sources": [
+        {
+          "scope_index": 319,
+          "ranges": [
+            [
+              1,
+              811
+            ],
+            [
+              941,
+              1009
+            ]
+          ]
+        },
+        {
+          "scope_index": 320,
+          "ranges": [
+            [
+              1130,
+              1205
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "local774:M31",
+        "local774:M32",
+        "local774:M33"
+      ],
+      "disposition": "Retain source-specific identity and quantity migrations; explicit native persistence model is not automatically a redundant owner.",
+      "trace": "PersistedWorldEventEnvelope31996\u2013104 is a SpacetimeType transport projection of core typed event; persist169\u2013265 explicitly maps every category/payload. Request digest is pre-mutable-read input identity, envelope digest finalized event identity, consequence digest ordered effects identity; fingerprint domains268\u2013298 keep those roles separate despite sameSHA256 text. commit301\u2013349 validates both request and built envelope, consequence order and semantic binding481\u2013604 before preflight/execution/receipt. In generated case canonical request excludes later captured participant subjects515\u2013520; final consequence identity is not identical to original request identity. Consequence identities156\u2013166 are tagged and ordered739\u2013810. Raw fame/infamy are signed centipoints, severity is ordinal/clamped1..5, mitigation fraction has bps, dose is microunits and immunity_milli here is0..100000 (0..100 \u00d71000), not a0..1000 unit fraction. Adapter941\u2013999 retains consumed fraction separately from clinical dose and protected dose; M31/M32/M33 remain source owners.",
+      "qualifications": [
+        "Only registered319 ranges1\u2013811/941\u20131009 and3201130\u20131205 personally read. 319812\u2013940/1010\u20131188 are not credited through this role.320 range starts and ends inside test bodies; no surrounding full-file claim.",
+        "Persisted wrappers are actual SDK serialization seam; duplication is not evidence that wire structs should replace core event authority. Native application helpers before that seam still retain existing migration obligations.",
+        "Test source3201138\u20131184 distinguishes clean versus tainted private water authority with equal public projections and conservation/replay semantics; not an executed validation or production purity proof.",
+        "Request/result bool false denotes identical already-committed request, not failure. Explicit consequence count128 and canonical duplicate/order gates are actual consumers; no invented count policy or malformed ordinary event accepted claim."
+      ],
+      "acceptance": "Keep canonical typed event/quantity/identity contracts until actual native persistence/hash ports, preserve domain-separated fingerprint bytes, pre-mutable replay identity versus captured final consequences, exact preflight and privacy. Do not substitute unit fraction for immunity percentage or dose."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

@@ -1,0 +1,21 @@
+diff --git a/crates/adventuresim-character-creator/src/wardrobe_tab.rs b/crates/adventuresim-character-creator/src/wardrobe_tab.rs
+index 0eefa457c..d01b58744 100644
+--- a/crates/adventuresim-character-creator/src/wardrobe_tab.rs
++++ b/crates/adventuresim-character-creator/src/wardrobe_tab.rs
+@@ -218,12 +218,12 @@ pub(super) fn update(
+     };
+     for entity in &garments {
+         scene.commands.entity(entity).despawn();
+     }
+-    if let Some((selection, garment)) = shown {
+-        if let Err(error) = spawn(&mut scene, &mut mail, &selection, garment) {
+-            wardrobe.fit_problems = Some(format!("{error:#}"));
+-        }
++    if let Some((selection, garment)) = shown
++        && let Err(error) = spawn(&mut scene, &mut mail, &selection, garment)
++    {
++        wardrobe.fit_problems = Some(format!("{error:#}"));
+     }
+ }
+ 
+ /// Take the running drape's progress, and show it when the design is shown.

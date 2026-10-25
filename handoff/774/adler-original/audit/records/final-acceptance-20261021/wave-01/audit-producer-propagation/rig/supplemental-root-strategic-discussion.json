@@ -1,0 +1,182 @@
+{
+  "observed_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "comments_read": [
+    {
+      "url": "https://github.com/adventure-simulator-group/fabelgeist/pull/774#discussion_r4279966335",
+      "body": "usize??",
+      "user": {
+        "login": "segovb",
+        "name": "segovb",
+        "email": null,
+        "avatar_url": "PUBLIC_AVATAR_OMITTED",
+        "id": 70238035
+      },
+      "id": 4279966335,
+      "pull_request_review_id": 5524762213,
+      "in_reply_to_id": null,
+      "created_at": "2026-10-15T06:54:05Z",
+      "updated_at": "2026-10-15T06:59:24Z",
+      "review": null,
+      "side": "RIGHT",
+      "line": null,
+      "start_line": null,
+      "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/sockets.rs",
+      "body_html": "<p dir=\"auto\">usize??</p>"
+    },
+    {
+      "url": "https://github.com/adventure-simulator-group/fabelgeist/pull/774#discussion_r4306330108",
+      "body": "String comparison \ud83d\ude32 ",
+      "user": {
+        "login": "segovb",
+        "name": "segovb",
+        "email": null,
+        "avatar_url": "PUBLIC_AVATAR_OMITTED",
+        "id": 70238035
+      },
+      "id": 4306330108,
+      "pull_request_review_id": 5562015491,
+      "in_reply_to_id": null,
+      "created_at": "2026-10-18T08:23:57Z",
+      "updated_at": "2026-10-18T11:32:14Z",
+      "review": null,
+      "side": "RIGHT",
+      "line": null,
+      "start_line": null,
+      "path": "crates/adventuresim-character-creator/src/runtime_equipment.rs",
+      "body_html": "<p dir=\"auto\">String comparison \ud83d\ude32</p>"
+    },
+    {
+      "url": "https://github.com/adventure-simulator-group/fabelgeist/pull/774#discussion_r4306708427",
+      "body": "Stringly typed IDs \ud83d\ude29 ",
+      "user": {
+        "login": "segovb",
+        "name": "segovb",
+        "email": null,
+        "avatar_url": "PUBLIC_AVATAR_OMITTED",
+        "id": 70238035
+      },
+      "id": 4306708427,
+      "pull_request_review_id": 5562015491,
+      "in_reply_to_id": null,
+      "created_at": "2026-10-18T10:42:10Z",
+      "updated_at": "2026-10-18T11:32:15Z",
+      "review": null,
+      "side": "RIGHT",
+      "line": null,
+      "start_line": null,
+      "path": "crates/adventuresim-character-creator/src/runtime_equipment.rs",
+      "body_html": "<p dir=\"auto\">Stringly typed IDs \ud83d\ude29</p>"
+    },
+    {
+      "url": "https://github.com/adventure-simulator-group/fabelgeist/pull/774#discussion_r4308570800",
+      "body": "`item_id: &str, placement_id: &str`\nI hope these are due for bespoke-typing in some other PR",
+      "user": {
+        "login": "segovb",
+        "name": "segovb",
+        "email": null,
+        "avatar_url": "PUBLIC_AVATAR_OMITTED",
+        "id": 70238035
+      },
+      "id": 4308570800,
+      "pull_request_review_id": 5564735273,
+      "in_reply_to_id": null,
+      "created_at": "2026-10-18T20:17:36Z",
+      "updated_at": "2026-10-18T21:21:30Z",
+      "review": null,
+      "side": "RIGHT",
+      "line": null,
+      "start_line": null,
+      "path": "crates/adventuresim-character-creator/src/runtime_equipment/clothing.rs",
+      "body_html": "<p dir=\"auto\"><code class=\"notranslate\">item_id: &amp;str, placement_id: &amp;str</code><br>\nI hope these are due for bespoke-typing in some other PR</p>"
+    },
+    {
+      "url": "https://github.com/adventure-simulator-group/fabelgeist/pull/774#discussion_r4308581700",
+      "body": "Magic string",
+      "user": {
+        "login": "segovb",
+        "name": "segovb",
+        "email": null,
+        "avatar_url": "PUBLIC_AVATAR_OMITTED",
+        "id": 70238035
+      },
+      "id": 4308581700,
+      "pull_request_review_id": 5564735273,
+      "in_reply_to_id": null,
+      "created_at": "2026-10-18T20:20:57Z",
+      "updated_at": "2026-10-18T21:21:30Z",
+      "review": null,
+      "side": "RIGHT",
+      "line": null,
+      "start_line": null,
+      "path": "crates/adventuresim-character-creator/src/runtime_equipment.rs",
+      "body_html": "<p dir=\"auto\">Magic string</p>"
+    },
+    {
+      "url": "https://github.com/adventure-simulator-group/fabelgeist/pull/774#discussion_r4308873636",
+      "body": "*Bruno's Codex instance, writing on Bruno's behalf.*\n\nI have no evidence that another PR owns this migration, so I will not claim\nthat. The existing canonical ItemDefinition and EquipmentPlacement records\nalready provide stronger internal inputs. Raw names are admitted at the public\ncatalogue/CLI or replicated-item boundary; the private clothing request and its\nconsumers can retain those admitted records. The Creator already re-exports the\nshared core schema. I will close the actual callers and preserve body\nvalidation, lookup and material/placement error order, rather than add a second\nunchecked item-ID family.",
+      "user": {
+        "login": "segovb",
+        "name": "segovb",
+        "email": null,
+        "avatar_url": "PUBLIC_AVATAR_OMITTED",
+        "id": 70238035
+      },
+      "id": 4308873636,
+      "pull_request_review_id": 5565103639,
+      "in_reply_to_id": 4308570800,
+      "created_at": "2026-10-18T21:41:25Z",
+      "updated_at": "2026-10-18T21:41:25Z",
+      "review": null,
+      "side": "RIGHT",
+      "line": null,
+      "start_line": null,
+      "path": "crates/adventuresim-character-creator/src/runtime_equipment/clothing.rs",
+      "body_html": "<p dir=\"auto\"><em>Bruno's Codex instance, writing on Bruno's behalf.</em></p>\n<p dir=\"auto\">I have no evidence that another PR owns this migration, so I will not claim<br>\nthat. The existing canonical ItemDefinition and EquipmentPlacement records<br>\nalready provide stronger internal inputs. Raw names are admitted at the public<br>\ncatalogue/CLI or replicated-item boundary; the private clothing request and its<br>\nconsumers can retain those admitted records. The Creator already re-exports the<br>\nshared core schema. I will close the actual callers and preserve body<br>\nvalidation, lookup and material/placement error order, rather than add a second<br>\nunchecked item-ID family.</p>"
+    },
+    {
+      "url": "https://github.com/adventure-simulator-group/fabelgeist/pull/774#discussion_r4308873849",
+      "body": "*Bruno's Codex instance, writing on Bruno's behalf.*\n\nThat string is the compile-time authored document path, but this module also\nduplicates parsing of the authoritative catalogue and uses a production expect.\nCore already owns the validated embedded catalogue and the Creator uses its\nschema. I will reuse that owner and admitted records, preserving current\nlookup/iteration order, rather than merely give the duplicate path a constant\nname. The warmup order must not silently change when replacing the local\nsource-order vector with the core ID-sorted catalogue.",
+      "user": {
+        "login": "segovb",
+        "name": "segovb",
+        "email": null,
+        "avatar_url": "PUBLIC_AVATAR_OMITTED",
+        "id": 70238035
+      },
+      "id": 4308873849,
+      "pull_request_review_id": 5565103997,
+      "in_reply_to_id": 4308581700,
+      "created_at": "2026-10-18T21:41:28Z",
+      "updated_at": "2026-10-18T21:41:29Z",
+      "review": null,
+      "side": "RIGHT",
+      "line": null,
+      "start_line": null,
+      "path": "crates/adventuresim-character-creator/src/runtime_equipment.rs",
+      "body_html": "<p dir=\"auto\"><em>Bruno's Codex instance, writing on Bruno's behalf.</em></p>\n<p dir=\"auto\">That string is the compile-time authored document path, but this module also<br>\nduplicates parsing of the authoritative catalogue and uses a production expect.<br>\nCore already owns the validated embedded catalogue and the Creator uses its<br>\nschema. I will reuse that owner and admitted records, preserving current<br>\nlookup/iteration order, rather than merely give the duplicate path a constant<br>\nname. The warmup order must not silently change when replacing the local<br>\nsource-order vector with the core ID-sorted catalogue.</p>"
+    },
+    {
+      "url": "https://github.com/adventure-simulator-group/fabelgeist/pull/774#discussion_r4314869246",
+      "body": "*Bruno's Codex instance, writing on Bruno's behalf.*\n\n**Carry the joint table through the runtime-body producer.** `RuntimeBody.global_joint_states` still retains `Vec<[f32; 8]>`, so typed lookups are erased in runtime socket generation (`sockets.rs:20,42`), clothing (`clothing.rs:130\u2013131`), tasset fitting (`device_wrapped_tasset.rs:43`) and skin anchoring (`skin_rules.rs:143`). These are application lookups before the GPU/Bevy handoff, not the packed-word boundary. Carry the existing `RigJointTable` through `RuntimeBody`, `Realization`/`Wearer`, clothing inputs and the actual producers, using ordinal-indexed access. This complements the existing comment about `GeneratedCharacter` and the export `.iter().collect()` allocation: one producer migration should remove both kinds of adapter. Keep packed vertex skin attributes native where required; this does not reopen the separately deferred rig-instance/parent aggregate contract. Migration completeness; see [producer/record guidance](https://github.com/adventure-simulator-group/fabelgeist/blob/376ff773b6d126b46a90f3362bedadee71421bb0/crates/AGENTS.md#L36-L57).",
+      "user": {
+        "login": "segovb",
+        "name": "segovb",
+        "email": null,
+        "avatar_url": "PUBLIC_AVATAR_OMITTED",
+        "id": 70238035
+      },
+      "id": 4314869246,
+      "pull_request_review_id": 5571931476,
+      "in_reply_to_id": null,
+      "created_at": "2026-10-19T14:14:47Z",
+      "updated_at": "2026-10-19T20:16:19Z",
+      "review": null,
+      "side": "RIGHT",
+      "line": null,
+      "start_line": null,
+      "path": "crates/adventuresim-character-creator/src/runtime_equipment.rs",
+      "body_html": "<p dir=\"auto\"><em>Bruno's Codex instance, writing on Bruno's behalf.</em></p>\n<p dir=\"auto\"><strong>Carry the joint table through the runtime-body producer.</strong> <code class=\"notranslate\">RuntimeBody.global_joint_states</code> still retains <code class=\"notranslate\">Vec&lt;[f32; 8]&gt;</code>, so typed lookups are erased in runtime socket generation (<code class=\"notranslate\">sockets.rs:20,42</code>), clothing (<code class=\"notranslate\">clothing.rs:130\u2013131</code>), tasset fitting (<code class=\"notranslate\">device_wrapped_tasset.rs:43</code>) and skin anchoring (<code class=\"notranslate\">skin_rules.rs:143</code>). These are application lookups before the GPU/Bevy handoff, not the packed-word boundary. Carry the existing <code class=\"notranslate\">RigJointTable</code> through <code class=\"notranslate\">RuntimeBody</code>, <code class=\"notranslate\">Realization</code>/<code class=\"notranslate\">Wearer</code>, clothing inputs and the actual producers, using ordinal-indexed access. This complements the existing comment about <code class=\"notranslate\">GeneratedCharacter</code> and the export <code class=\"notranslate\">.iter().collect()</code> allocation: one producer migration should remove both kinds of adapter. Keep packed vertex skin attributes native where required; this does not reopen the separately deferred rig-instance/parent aggregate contract. Migration completeness; see <a href=\"https://github.com/adventure-simulator-group/fabelgeist/blob/376ff773b6d126b46a90f3362bedadee71421bb0/crates/AGENTS.md#L36-L57\">producer/record guidance</a>.</p>"
+    }
+  ],
+  "disposition": "Eight matching inline bodies; current strategic/browser/generated-failure candidates have no exact existing inline counterpart. Existing original runtime/rig/catalogue requests deduplicate against original rig discussion-reconciliation, no prior comment resolution treated as current proof. Top-level discussion remains coordinator-owned."
+}

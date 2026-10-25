@@ -1,0 +1,109 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1058",
+  "at": "2026-10-25T17:39:44.462871+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1207,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+      "sha256": "b7631b4632c175df4a0e7531e08f7ac9cb8deaaad24bd17eed0d978f7dc76906",
+      "actual_EOF": 2815,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+        "sha256": "b7631b4632c175df4a0e7531e08f7ac9cb8deaaad24bd17eed0d978f7dc76906",
+        "bytes": 112976,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                2815
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-ROAD-DIALOGUE-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 286,
+            "read_ranges": [
+              [
+                1,
+                2815
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-CHALLENGE-040"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/challenges.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 278,
+            "read_ranges": [
+              [
+                1,
+                2815
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-CHALLENGE-040"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/challenges.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 520,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          2815
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "Structural Clone/Copy/Debug/Eq/PartialEq, native table Clone/Debug, SpacetimeType for closed wire vocabularies and backend projections; see partial1051\u20131057."
+      ],
+      "absence_basis": "Full2815-line source personally consumed in1051\u20131058. No handwritten trait/codec; inherent borrowed ErrantryChallengeId parser1806\u20131839 checks nonempty kind, demo/order namespace, exact arity and numeric character/ordinal; private/public authority projections and selected immutable replay comparisons remain semantic. Final2631\u20132815 contains only native source/catalog assertions, no replacement trait."
+    }
+  ],
+  "groups": [
+    "KEEP semantic borrowed parser, state/replay/effect admission and context-dependent private-to-public projections; existing typed Serde and SpacetimeType own wire representations. Fixtures read only, no execution or referenced-body coverage."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1208,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/combat_error.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

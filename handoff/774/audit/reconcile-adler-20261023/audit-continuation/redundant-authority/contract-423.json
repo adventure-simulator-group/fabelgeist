@@ -1,0 +1,100 @@
+{
+  "id": "CONT07-CONTRACT-423",
+  "at": "2026-10-23T21:39:10.322315+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1852,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement.rs",
+      "sha256": "9a3b4ed5cede2d65e1b880ae2247536fe3478b19fe34207df5ebd6cd96ec6a29",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement.rs",
+      "actual_EOF": 689,
+      "ranges": [
+        [
+          1,
+          689
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1853,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement/gardens.rs",
+      "sha256": "7194841c344f694469815ebb3e0ac44331b6b0dffe29fd41ebfd096e08f0bc3e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement/gardens.rs",
+      "actual_EOF": 227,
+      "ranges": [
+        [
+          1,
+          227
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1854,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement/outdoor.rs",
+      "sha256": "0a214fa18fafd300f3f87c6e6eca9ef295a41ec09420af5aadd17adc4fe5b3d5",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement/outdoor.rs",
+      "actual_EOF": 77,
+      "ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1855,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement/production.rs",
+      "sha256": "5f93404e0fc4e5bcc3c452fd4874298568fb5b933a531c09430b006ebb0e6e17",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement/production.rs",
+      "actual_EOF": 123,
+      "ranges": [
+        [
+          1,
+          123
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1856,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement/single.rs",
+      "sha256": "661dc3873537da23868c5366984c8aeed205db213413a8c3d4634f77e00eca49",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement/single.rs",
+      "actual_EOF": 199,
+      "ranges": [
+        [
+          1,
+          199
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "ROOT-OWNER-MOVEMENT-FIXTURES-061",
+    "ROOT-OWNER-NATIVE-DEPENDENCY-CLOSURE-082"
+  ],
+  "facts": [
+    "1852 full689-line Walker fixture body reads production physics/controller/config at native ports; LastDriveVelocity is a prior system-phase observation, not duplicate final velocity. Drive target is desired position, motor/current position is observed state. Static accepted building geometry and its collider are constructed together; no normal fixture mutator after cache creation proved.",
+    "1852 isolated source fixtures and production export fixtures do not imply a whole city is accepted. Defaults, fixed64Hz/time budget/braking/arrival assertions are source-only evidence; no runtime or application entrypoint executed.",
+    "1853/1855 retain typed source geometry until fixture/native adapters but prematurely build JSON values used for further pass/first-failure control, existing PP013. Boolean per-visit and aggregate pass represent individual versus all-required outcomes, not automatically same fact. Empty observation guards reject selector with no match.",
+    "1853 OccupiedBuilding collider compiles from retained building once; route visits read current same building without normal mutation. OutdoorCollision1854 stores one native shape/transform packet for exact obstacles/furniture, later filtered by spatial region. World/native and source/accepted/scenery-versus-physics roles remain explicit; no duplicate-source current defect established.",
+    "1856 constructed doorway list sorted by identity and checked count against admitted approach regions before zip. Current actual normal generation uses matching sorted order. CENTRELINE_ONLY and SINGLE_TRACK intentionally narrow diagnostics, but report scope remains fixed full-width description: new conditional report-scope F093, no traversal outcome claimed.",
+    "Garden report explicitly labels centreline, compound scope says selected gate; do not blanket merge every selected production fixture or same JSON representation into F093. Exact selector/attempt/completion scope remains remedy dependency.",
+    "No checks executed, all13/overlay gates remain open. Twenty-four local records classified individually; global unique defect count not asserted."
+  ],
+  "new_local_findings": [
+    "CONT07-F093"
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1857,
+    "start_line": 1
+  }
+}

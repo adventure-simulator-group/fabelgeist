@@ -1,0 +1,72 @@
+{
+  "id": "CONT08-CONTRACT-041",
+  "at": "2026-10-25T09:53:18.442130+00:00",
+  "lens": "08behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 141,
+      "source_id": "physical-p16:crates/adventuresim-core/src/skill.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/skill.rs",
+      "before_sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "after_sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0141-base-8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "diff": "source-evidence/p16-0141.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          9,
+          117
+        ],
+        [
+          720,
+          777
+        ],
+        [
+          892,
+          981
+        ],
+        [
+          1010,
+          1105
+        ]
+      ],
+      "read_provenance": "Own08 bodies consumed in preceding context; saved continuation retains proof without claiming another fresh reread.",
+      "facts": [
+        "Actual scoped bodies9\u2013117,720\u2013777,892\u2013981,1010\u20131105 consumed before compaction; exact P16base/head diff empty. Retain MAX_CHECK5, authored Skill max_hours and trained/kind table, hours_for_rank nonfinite\u21920/clamp0..5/rank5\u2192Inf, and governing healthy aptitude rather than injury-adjusted learning.",
+        "Private GoverningAptitudes weights sum100; resolve positive weights in fixed LIMBS order, /100 and finiteclamp0..5. Training multiplier and language/direct admission reject nonfinite/nonpositive realhours; sanitize current invalidhours, cap acceptedgain without destroying already-retained latent above-current-cap hours, preserve excess. Huge raw API inputs are not a new P16regression. No preceding707 rank/following779 helpers/unrelated tests or graph credit."
+      ],
+      "disposition": "Unchanged isolatedP16 scoped behavior comparison accounted; connected recipients/owners remain separately bounded.",
+      "acceptance": "Retain authored caps, finite-input policy, latent training retention/excess, deterministic limb and material order, quote rounding/error precedence; no checks/tests/repairs."
+    },
+    {
+      "scope_index": 142,
+      "source_id": "physical-p16:crates/adventuresim-core/src/smithing.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/smithing.rs",
+      "before_sha256": "83f6b2eb7d945187bca6dc9f0fe78cbab0d25c292ce4c4096af94b4eb89a298b",
+      "after_sha256": "83f6b2eb7d945187bca6dc9f0fe78cbab0d25c292ce4c4096af94b4eb89a298b",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0142-base-83f6b2eb7d945187bca6dc9f0fe78cbab0d25c292ce4c4096af94b4eb89a298b",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/83f6b2eb7d945187bca6dc9f0fe78cbab0d25c292ce4c4096af94b4eb89a298b",
+      "diff": "source-evidence/p16-0142.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "read_provenance": "Own08 bodies consumed in preceding context; saved continuation retains proof without claiming another fresh reread.",
+      "facts": [
+        "Full78 freshly consumed before compaction; actual P16diff empty. Quote derives geometry before computing 60+ceil(mass*120) plus12/component minutes; material mass per stock unit ceils to micro-units, finite/u32 bound then checked sharedstock addition. Same first-error/order and raw materials sum.",
+        "Existing sharedstockoverflow and dagger/sword fixture bodies read source-only. Lower forge_stock/unitmass/derive recipes remain separate dependencies; M81 relationship not automatic alias or ordinary recipe overflow witness."
+      ],
+      "disposition": "Unchanged isolatedP16 scoped behavior comparison accounted; connected recipients/owners remain separately bounded.",
+      "acceptance": "Retain authored caps, finite-input policy, latent training retention/excess, deterministic limb and material order, quote rounding/error precedence; no checks/tests/repairs."
+    }
+  ],
+  "next": "143 social full1909 and144\u2013147 exact unchanged recipient semantics; no whole connectedgraph/lens clearance."
+}

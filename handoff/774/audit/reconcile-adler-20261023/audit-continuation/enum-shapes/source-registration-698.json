@@ -1,0 +1,107 @@
+{
+  "id": "SEGO-INITIAL09-REG698",
+  "entries": [
+    {
+      "id": "SEGO-INITIAL09-REG698-48",
+      "index": 48,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review.rs",
+      "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_blob": "101b34feca545b567c15bde7148c92e977c19fa5",
+      "sha256": "3c564d966106dc282daa68307a9b2fe6bb064582bab74f8a50e64a1aa9650896",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/enum-shapes/source-objects/3c564d966106dc282daa68307a9b2fe6bb064582bab74f8a50e64a1aa9650896",
+      "ranges": [
+        [
+          1,
+          186
+        ]
+      ],
+      "reason": "Actual1699 setup invokes configure/cameras to populate SceneCaptureState building cameras;1700 camera ReviewTarget uses shared GeneratedBuilding/ReviewRequirements/signs owner,1701 readiness receives actualReviewRequirements. Exact connected callee/type/retained-state contract, not directory adjacency. Full own09 support ranges; shared affected ranges will be narrowed from actual definitions.",
+      "status": "registered before body read; no coverage yet"
+    },
+    {
+      "id": "SEGO-INITIAL09-REG698-49",
+      "index": 49,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/heating.rs",
+      "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_blob": "4841b02b42447a05a4f53350ff1481ce3fa10651",
+      "sha256": "132d482c3a2ff8afb67a63fe50cbb2d71d33bafe1e0e82649e14c65ac60a93f2",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/enum-shapes/source-objects/132d482c3a2ff8afb67a63fe50cbb2d71d33bafe1e0e82649e14c65ac60a93f2",
+      "ranges": [
+        [
+          1,
+          156
+        ]
+      ],
+      "reason": "Actual1700 ReviewTarget::Heating target.frame/offset/anchor concrete coordinate and optional payload owner used by ReviewView camera. Exact connected callee/type/retained-state contract, not directory adjacency. Full own09 support ranges; shared affected ranges will be narrowed from actual definitions.",
+      "status": "registered before body read; no coverage yet"
+    },
+    {
+      "id": "SEGO-INITIAL09-REG698-50",
+      "index": 50,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/openings.rs",
+      "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_blob": "67501a9930753b8e42d0f04dd31919afd2d560f2",
+      "sha256": "14199ccf21d392bf19b46f9cfe2acb7675b248c2034bb65d04f9ace610aacc03",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/enum-shapes/source-objects/14199ccf21d392bf19b46f9cfe2acb7675b248c2034bb65d04f9ace610aacc03",
+      "ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "reason": "Actual1700 ReviewView.openings OpeningPose + OpeningTarget frame;1701 plugin directly installs select_pose;1702 spawn_openings concrete scene opening producer. Exact connected callee/type/retained-state contract, not directory adjacency. Full own09 support ranges; shared affected ranges will be narrowed from actual definitions.",
+      "status": "registered before body read; no coverage yet"
+    },
+    {
+      "id": "SEGO-INITIAL09-REG698-51",
+      "index": 51,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/gardens.rs",
+      "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_blob": "d9939d6ab7c6b7b3137de20a0a961a9cbcde5337",
+      "sha256": "5936937971ea96478c9d052b5421c59c54e8866c41c7ed76fee9f3023f04371d",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/enum-shapes/source-objects/5936937971ea96478c9d052b5421c59c54e8866c41c7ed76fee9f3023f04371d",
+      "ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "reason": "Actual1701 Observation retains GardenObservation and check gpu at134/275; need concrete readiness result and material evidence producer. Exact connected callee/type/retained-state contract, not directory adjacency. Full own09 support ranges; shared affected ranges will be narrowed from actual definitions.",
+      "status": "registered before body read; no coverage yet"
+    },
+    {
+      "id": "SEGO-INITIAL09-REG698-52",
+      "index": 52,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/lod.rs",
+      "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_blob": "b7f0eb98d3e3023a31d4cce466fd5d2f379d44d5",
+      "sha256": "4fd2d2aefa94b99bee1c8d2784f8399ed4f70bec9c3dfe9431d737192ef4a0e1",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/enum-shapes/source-objects/4fd2d2aefa94b99bee1c8d2784f8399ed4f70bec9c3dfe9431d737192ef4a0e1",
+      "ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "reason": "Actual1701 plugin installs select after BuildingClosureVisibility; source1700 cameras and1701 three-renderedlevel observation depend on this concrete selector. Exact connected callee/type/retained-state contract, not directory adjacency. Full own09 support ranges; shared affected ranges will be narrowed from actual definitions.",
+      "status": "registered before body read; no coverage yet"
+    },
+    {
+      "id": "SEGO-INITIAL09-REG698-53",
+      "index": 53,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/gpu_readiness.rs",
+      "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_blob": "942902fabe916a0dad6e3e3b8554f5cd3bb5b929",
+      "sha256": "3fc7f599e45d69c79994c4044060d1cb7552f2d501830a6661d033a4fff9441e",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/enum-shapes/source-objects/3fc7f599e45d69c79994c4044060d1cb7552f2d501830a6661d033a4fff9441e",
+      "ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "reason": "Actual1701 plugin installs GpuReadiness and assets_ready118\u2013130 calls contains mesh+materialtexture handles; concrete native observation adapter determines availability versus current accepted readiness. Exact connected callee/type/retained-state contract, not directory adjacency. Full own09 support ranges; shared affected ranges will be narrowed from actual definitions.",
+      "status": "registered before body read; no coverage yet"
+    }
+  ]
+}

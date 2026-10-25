@@ -1,0 +1,107 @@
+{
+  "id": "CONT08-CONTRACT-177",
+  "at": "2026-10-25T13:40:15.768556+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 694,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armory.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/armory.rs",
+      "before_sha256": "974ef42f81b61291952f3f6a1b111c5775447dff09d80768a2e6dea7ccf8091b",
+      "after_sha256": "aa66e0b18f919eb3351635241249df969eeed4c36c36aa302888c320222a54df",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0694-base-974ef42f81b61291952f3f6a1b111c5775447dff09d80768a2e6dea7ccf8091b",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/aa66e0b18f919eb3351635241249df969eeed4c36c36aa302888c320222a54df",
+      "diff": "source-evidence/pr-0694.diff",
+      "diff_sha256": "7cd6cfa82762026b28ec696bf054d9742f3e61909e7bb7bb7b44ffc4122b36d5",
+      "head_body_read_ranges": [
+        [
+          1,
+          485
+        ]
+      ],
+      "facts": [
+        "Full485+actual diff. Exhibits retain immutable actual item/placement snapshots replacing item_id and placement strings. Actual764 wearable requires material and at least one nonempty surface; same filter in exhibits keeps >=1, so new placements[0] access has concrete normal producer guard. Missing/public manually built Exhibit is separate internal misuse.",
+        "Region/source order, staleness/refit/display/arrange/camera operation order unchanged. Fitting uses retained selection instead of first-ID relookup, preserving actual duplicate-record association intentionally. Per-placement missing design now Result rather than prior expect; thread join resumes original panic payload instead of replacing message. Native successful geometry not executed."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 695,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armory_scene.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/armory_scene.rs",
+      "before_sha256": "5d96cbb34290e13ce5c993da3cce44bb26a652f196cbe12116a04cedbb7523cb",
+      "after_sha256": "ece71ad33e583d6908d9ad2db842ffa724b97e8d498a19258602836608b093a3",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0695-base-5d96cbb34290e13ce5c993da3cce44bb26a652f196cbe12116a04cedbb7523cb",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/ece71ad33e583d6908d9ad2db842ffa724b97e8d498a19258602836608b093a3",
+      "diff": "source-evidence/pr-0695.diff",
+      "diff_sha256": "22ab75901858e5bd9a607bd0464dd2954d47f6d57ce6bc814a7a05b07d01fcd9",
+      "head_body_read_ranges": [
+        [
+          1,
+          288
+        ]
+      ],
+      "facts": [
+        "Full288+actual diff. Spawn material/design/name now comes from retained exhibit item/placement; construction\u2192trim\u2192plate\u2192lacing operation and error order unchanged. Visibility/on-body/solo/both-sided routing, ghost .28, bounds/framing and all sourcefixture assertions preserved; no visual run."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 696,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armory_ui.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/armory_ui.rs",
+      "before_sha256": "8d745c06d3da4e652234e2b1cbc13a3f23b7977a5efb079c51aea68ce12bf591",
+      "after_sha256": "5c519edc1b220e1bdb7d874160b997ffb77a98266e5f6c5de49565d4ab5e9ada",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0696-base-8d745c06d3da4e652234e2b1cbc13a3f23b7977a5efb079c51aea68ce12bf591",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/5c519edc1b220e1bdb7d874160b997ffb77a98266e5f6c5de49565d4ab5e9ada",
+      "diff": "source-evidence/pr-0696.diff",
+      "diff_sha256": "d2da37b19cc30f02d1c09ef6e4747e75d20b8a318f8ea323a6facdc68625578b",
+      "head_body_read_ranges": [
+        [
+          1,
+          332
+        ]
+      ],
+      "facts": [
+        "Full332+actual diff. List hover/editor material/ID/placement labels use retained actual selection; design/default update uses same item ID policy through catalogue. Snapshot clone keeps borrow across mutating catalogue operation; no new material/raw-string identity conflation.",
+        "View/frame controls, wrapped stepping, selection, loaded-default revert, validation/status, construction/decoration save controls and world-projected label gating unchanged. Exact ItemDesign default receiver still future765; no file writes/UI actions executed."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 764,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/equipment_catalog.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/equipment_catalog.rs",
+      "before_sha256": "7aa395dbc42198d83449acd56f13d4710f592c43ff6cc0cab66116d258079048",
+      "after_sha256": "da3139ef3625393db9041ad0680dc244b0f81235b86ea4519a87c9299763bdd6",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0764-base-7aa395dbc42198d83449acd56f13d4710f592c43ff6cc0cab66116d258079048",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/da3139ef3625393db9041ad0680dc244b0f81235b86ea4519a87c9299763bdd6",
+      "diff": "source-evidence/pr-0764.diff",
+      "diff_sha256": "91054406708fa2ce11826a0c7eccd0443ee552d49370b82ebffbf8feccbfe6de",
+      "head_body_read_ranges": [
+        [
+          1,
+          146
+        ]
+      ],
+      "facts": [
+        "Full146+actual diff (earlier partial own proof retained). Catalogue file-name ordering/.yaml extension+JSON decode/nonempty load and armor recipe admission unchanged; wearable guarantees actual material plus nonempty surface, closing694 producer bound. Canonical handle lookup preserves first duplicate; export filters retain IDs so all duplicate records with selected spelling included.",
+        "material now reads actual admitted record instead of ID relookup, intentional actual association and same error message. Selection/default/placement source helpers923 and actual688/693 preserve named behavior; general filter consumer/exact765 defaults still independently pending."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    }
+  ],
+  "next": "697 bare_body71 then698+;765 exact default receiver pending"
+}

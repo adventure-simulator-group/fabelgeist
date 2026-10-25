@@ -1,0 +1,13 @@
+--- p16base/crates/adventuresim-stdb-module/src/relationship/chronology.rs
++++ catalog-p16head/crates/adventuresim-stdb-module/src/relationship/chronology.rs
+@@ -138,9 +138,9 @@
+ pub fn advance_npc_personal_time(
+     ctx: &ReducerContext,
+     character_id: u64,
+     target_minute: StrategicMinute,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     if ctx
+         .db
+         .npc_policy()
+         .character_id()

@@ -1,0 +1,100 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-021",
+  "lens": "audit-enum-shapes",
+  "scope_ref": "audit/continuation/cumulative-source-scope-parallel-072.json",
+  "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/tests.rs",
+  "sha256": "48ba1b8005d63740183260c570153bbd903dba12c0fc3615253199a65a70f27e",
+  "actual_eof": 1969,
+  "read_ranges": [
+    [
+      1,
+      1969
+    ]
+  ],
+  "source_recovery": "git show6533e444fa37552927070cc8d8190907fd3b413e:path; exact SHA256 match,76703bytes",
+  "groups": [
+    {
+      "locations": [
+        [
+          1,
+          240
+        ]
+      ],
+      "contract": "Pack fixture fallback, ResolvedPose and ClipMirror",
+      "comparison": "Pack helper keeps named AnimationPackId, optional parent fallback and closed SemanticPose/ResolvedPose. Fallback None is genuine absence; independent clip availability booleans in AttackAnimations183-205 represent independently supported animations, not mutually exclusive lifecycle tags. ClipMirror semantic axis is already enum-owned. No mutable ready flag or inactive payload belongs to an untraced alternate case here. Tests are source assertions, not executed proof.",
+      "disposition": "appropriate fixture construction and existing enums"
+    },
+    {
+      "locations": [
+        [
+          93,
+          146
+        ],
+        [
+          242,
+          605
+        ],
+        [
+          1012,
+          1195
+        ],
+        [
+          1929,
+          1969
+        ]
+      ],
+      "contract": "Grounded/airborne posture, raised guard footwork and jump anticipation",
+      "comparison": "Explicit BodyState/WeaponGuardState/GuardFootworkPlan/JumpAnticipation choices are used by complete source fixtures. Raised guard can intentionally persist airborne while raised movement plants; forcing guard/posture into one exclusive enum would discard valid independent axes. The deserialization test intentionally changes wire body and checks authoritative normalization. Previous/current posture transition retained for dive_landing_facing_delta is meaningful historical observation rather than a duplicated initialized flag. Boolean assertions are queries. No new source-backed state-shape issue beyond existing runtime F009 is established by these cases.",
+      "disposition": "retain current independent axes and meaningful transition history; existing F009 repair must preserve these cases"
+    },
+    {
+      "locations": [
+        [
+          607,
+          1011
+        ],
+        [
+          1197,
+          1367
+        ]
+      ],
+      "contract": "Continuous locomotion contributions and sampling alternatives",
+      "comparison": "Walk/run/strafe/skip contribute independently with continuous weights; pose mirrors are ClipMirror, sampling alternatives are Anchor/Cycle and matched on payload. Test bool vectors are terminal expected primitive observations of mirror equality and monotonicity, not retained application modes. Four quarter values are numerical periodic segments, not a missing closed role enum. GuardedLocomotionMode::Sprint is already a semantic choice.",
+      "disposition": "appropriate closed sampling/guard enums and primitive test observations"
+    },
+    {
+      "locations": [
+        [
+          1369,
+          1655
+        ]
+      ],
+      "contract": "Main attack continuation and full continuation sampling payload",
+      "comparison": "preferred_attack/continuation fixtures call AttackSpec::main(family,false/true), freshly supporting existing RIG-INITIAL09-F008 semantic continuation choice across request API; use canonical MainInitial/MainContinuation/Offhand state with actual payload rather than new local test enum. ContinuationSpan fixture destructures all contact/end/outgoing/finish/start_coordinate/incoming_tangent/ready_phase/progress and compares each; this supports existing F011 named payload migration and proves tests need the complete payload, not a second reduced TimedSampling enum. No unique new finding.",
+      "disposition": "supports existingF008/F011; preserve all fixture inputs/assertions",
+      "finding_refs": [
+        "archive774:continuation/rig/initial09-enum-shapes/findings.jsonl#RIG-INITIAL09-F008",
+        "archive774:continuation/rig/initial09-enum-shapes/findings.jsonl#RIG-INITIAL09-F011",
+        "archive774:continuation/rig/initial09-enum-shapes/finding-supplements.jsonl#RIG-INITIAL09-F011-SUPPORT-018"
+      ]
+    },
+    {
+      "locations": [
+        [
+          1657,
+          1928
+        ]
+      ],
+      "contract": "Quickstep/action lifecycle, authoritative timing and independent attack-curve calibration",
+      "comparison": "Dodge/Block are explicit specs, action phase compares continuous UnitInterval, completion is ActionState::default and is not an independent done boolean. Attack curve handling/tell/follow/overshoot samples are independent continuous physical calibration; no variant should discard coefficients merely because a given probe did not use them. Ordinary test predicates and numerical finite-difference observations carry no additional domain-tag semantics.",
+      "disposition": "appropriate existing action variants; no fresh enum-shape finding"
+    }
+  ],
+  "new_findings": [],
+  "preserved_findings": [
+    "RIG-INITIAL09-F008",
+    "RIG-INITIAL09-F009",
+    "RIG-INITIAL09-F011"
+  ],
+  "acceptance_limit": "Fresh09 analysis accounts this exact1969line source role only; fixtures not executed, no inherited03/05 coverage, no change to runtime finding acceptance or full-lens clearance."
+}

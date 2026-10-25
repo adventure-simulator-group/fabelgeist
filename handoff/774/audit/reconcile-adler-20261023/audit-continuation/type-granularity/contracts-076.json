@@ -1,0 +1,43 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-076",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "native-encounter-cursor-frame-and-clinical-quantity-granularity",
+      "sources": [
+        {
+          "scope_index": 281,
+          "ranges": [
+            [
+              1,
+              1463
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "local774:M37",
+        "local774:M38",
+        "local774:M59",
+        "local774:M89",
+        "local774:M58",
+        "SEGO-INITIAL11-F002",
+        "SEGO-INITIAL09-F231",
+        "SEGO-INITIAL09-F232",
+        "SEGO-INITIAL09-F301"
+      ],
+      "disposition": "Existing encounter/coordinate/clinical migration support and contextual-cursor support; no new unique finding.",
+      "trace": "Encounter terrain adapter1\u201324 intentionally projects Wetland to tactical Open; source terrain owner and tactical supported subset are not competing authorities. Fallback26\u201386 separates position and frame derived from endpoints. Body mass88\u2013177, carried burden, capacity and remaining multiplier are different roles: BodyMassKg not a cap on aggregate carried mass. Fatigue percent189\u2013208 is saturated display/input projection, not physical calorie work or general total incapacitation. Builder259\u2013344 has separate roll index, movement cursor, elapsed cursor, absolute time and E7 axes. Interruption382\u2013618 compares narrative/combat movement boundaries, returns actual requested elapsed and next roll, rescans after partial advancement, then commit620\u2013748 rebinds current roster/capability and awareness. Contextual cursor trace supports F002; native TimeOfDay calculation467\u2013470 supports existing F301 owner reuse, without changing night policy. Surrender751\u2013855 retains owner-tag plus sentinel0(F231); actual preview refreshed before commit and physical carried-row cleanup chosen by real scope. Reconciled stake entitlement858\u2013906 and physical value remain different authorities, exact u128 product/division is a legitimate fixed-width kernel. Actual combat consequences939\u20131015 route contact_stress to repair, cut/blunt damage to clinical injury, blood_loss_fraction to physiology and signed morale event to condition; those quantities cannot be one UnitInterval or Energy type. Selected response and canonical battle result1018\u20131270 are distinct, with successful preview_refreshed nonterminal receipt(F232).",
+      "qualifications": [
+        "Full source1463 lines read, no native execution. All shown normal shape writers are coherent. Awareness has legitimate four-case input; scanner suppressesNeither before committed encounter rather than globally invalidating two independent flags. Sneak may avoid or fight and Attack may end in any canonical battle outcome.",
+        "Camp redirect1273\u20131370 routeNone accepts endpoint return, changes originCamp and deletes persisted route. Fallback26\u201361 cannot resolveCamp and defaults(0,0); ordinary admission plus current coordinate/frame receiver remains parent own05 qualified question, not a new proven runtime coordinate failure. Keep actualzero coordinate distinct from unavailable, no default coordinate claimed to be real geography.",
+        "Root M89/M59 preserve normalized injury fractions versus physical energy, largest single hit/combined injury aggregate and general fatigue. Native morale delta5+enemycount is signed centipoint-event role, not probability or damage. Current no extra movement fatigue penalty invented.",
+        "Living-member enemy roster and immutable captured source history differ. Strategic DB receives bounded resolution/condition, never tactical tick positions/HP. Actual delegated evacuation rejects Attack separately from source encounter availability.",
+        "Travel elapsed delay215\u2013253 changes time without movement and rebuilds forecast; no absolute StrategicMinute substitution for relative progress. Ready-party exception1374\u20131463 preserves actual incapacitated case-site withdrawal policy. No new blanket positive-duration, character0 ban, or routing policy."
+      ],
+      "acceptance": "Preserve complete existing encounter repair contracts with contextual progress/frame leaves, exact carried-row origin, canonical choices and distinct battle/clinical/economic role owners; retain nonterminal retries, partial progression, private roster and deliberate tactical terrain projection."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

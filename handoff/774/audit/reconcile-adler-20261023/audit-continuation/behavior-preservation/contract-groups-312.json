@@ -1,0 +1,87 @@
+{
+  "id": "CONT08-CONTRACT-312",
+  "at": "2026-10-25T16:18:29.425388+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 1136,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/item.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/item.rs",
+      "before_sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+      "after_sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1136-base-68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+      "diff": "source-evidence/pr-1136.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          957
+        ]
+      ],
+      "head_body_read_method": "Fresh full pinned body and complete PR base/head diff; actual authored and materially affected inventory recipients compared, fixtures source-only.",
+      "facts": [
+        "Fresh full1\u2013957; full pinned PR diff empty. Item/InventoryItem persistence schema derives, field order/defaults unchanged; ordinary projection consumes authored ItemDefinition corecatalog own144/159, explicit kind+equipment placements/parents/tags/attachment channels/capacity/order, protection then kind overrides. Weapon balance derived from authored moment/mass/griptotip; direct truth fields retained, not alternate imported P16units. Food\u2192book\u2192durability quality precedence, watercapacity waterskin-only vs generic containercapacity, alcohol fields copied exactly. Initialization time/NPCschedule/physiologykey beforecatalog iteration; surgeryupsert only3canonicalrefs, no DB initialization executed.",
+        "Inventory kind-aware insertion zeroquantity returnsNone beforelookup; foodcanonicaldefinition mismatch errors beforeanyrow; stableobjects forfood/measured/durable/medication/meleeweapons/container/attachment hosts. Individualquantity1 each, row\u2192object\u2192condition\u2192weapon\u2192amount\u2192foodlot, firstIDreturned, foodcapabilityrefreshErrignored. Ordinary fungiblestack otherwise; foragedhelper intentionallyeachunit preserving receipt identity. PublicOptionwrapper discards checkedErr retained, not new774 regression or proof everycaller recovers. NativeDBrollback unresolved, no atomicity from comment.",
+        "Currencies: persisted knownsettlement invalidcurrencyErr, missingsettlement deterministicassignedfallback; equal-value currencytotal allvalidkinds, withdrawalpreflightbeforewrite/sorted(denomination,id), minamountu64 narrowing boundedbyu32stack. Insufficient no mutation; zeroamountemptyplan. Credit0skipvalidation; firstdenominationrow checkedaddition else newstack, errorsdiscarded throughOptionhelper retained. Totalu64aggregateoverflow needsactual admittedpopulation notfabricated ordinaryissue.",
+        "change_inventory livinggate then durabilityboundedhelper; durable removal preflights count, canonicalremovalIDs unequipthenobjectdelete/fallbackconditiondelete, equipmentchangeonlyrefresh. Measured branch sortedrowIDs/quantitysumpreflight, exact unsigned_absi32MIN handling, removefoodlotthenrow+amountdelete, no nativeobject cleanup assertion beyondactual code. Other branch firststackcheckedadd else new, sortedwithdraw/minpreflight; stable non-durable populations remain receiving/caller obligations, no claimed introduced behavior. Preserve actual knownitem/classification/companion contracts alreadyread own297/303, not blanket rawschema seal.",
+        "Sourcefixtures readnotrun: foodprevalidation, ingredientsfungible/medicationindividual, forageunitidentity; halberd1/3triples, handaxehalf, crossbow1.0; deterministicfixedcurrency catalogue/nontrivialdistribution, lexicographicmixedwithdraw4\u2192(9,2),(4,2),6None; MAXcreditNone. Projection equipmentkind/physicalfields, waterskincontainer/swordrepairability/bookquality4, shieldsweightblocktradeoff, durabilityqualities1..5. Exact assertions/sourceguards acceptance preserved."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1137,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/item/authority_tests.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/item/authority_tests.rs",
+      "before_sha256": "ea66e08d18040b2a131cd6064cb78d96819930fa46b7e7026e406baab6785cd3",
+      "after_sha256": "ea66e08d18040b2a131cd6064cb78d96819930fa46b7e7026e406baab6785cd3",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1137-base-ea66e08d18040b2a131cd6064cb78d96819930fa46b7e7026e406baab6785cd3",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/ea66e08d18040b2a131cd6064cb78d96819930fa46b7e7026e406baab6785cd3",
+      "diff": "source-evidence/pr-1137.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "head_body_read_method": "Fresh full pinned body and complete PR base/head diff; actual authored and materially affected inventory recipients compared, fixtures source-only.",
+      "facts": [
+        "Fresh full1\u201344; full PR diff empty. authority-tests feature gated by parent1136, dev bootstrap token first. Exhaustive10authoredkind\u2192CatalogItemKind match compared BOTHactualpersistedrow andproject_definition output, missingrow/errorbeforeterminalkindcoveragecount10. Static read only; no token/DBfixture run, no generatedclient edits."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1138,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/lib.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/lib.rs",
+      "before_sha256": "6ddb214f1409b1c3451c129b19ff4b795dfebf036c17f48f833af54c01048f2e",
+      "after_sha256": "6ddb214f1409b1c3451c129b19ff4b795dfebf036c17f48f833af54c01048f2e",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1138-base-6ddb214f1409b1c3451c129b19ff4b795dfebf036c17f48f833af54c01048f2e",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/6ddb214f1409b1c3451c129b19ff4b795dfebf036c17f48f833af54c01048f2e",
+      "diff": "source-evidence/pr-1138.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "head_body_read_method": "Fresh full pinned body and complete PR base/head diff; actual authored and materially affected inventory recipients compared, fixtures source-only.",
+      "facts": [
+        "Fresh full1\u201393; full PR diff empty. Publicmodule/reexport topology and privatebrowser_session reexport unchanged. cfg(test) production_source uses final newline#[cfg(test)] rsplit, preserves whole source if absent. Source architecture assertions can rely on convention testmodulelast but no execution/semantic body transfer to childmodules; no newly changed behavior."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    }
+  ],
+  "next": "1139 local_problem full pinned old/new source, bounded consecutive bodies"
+}

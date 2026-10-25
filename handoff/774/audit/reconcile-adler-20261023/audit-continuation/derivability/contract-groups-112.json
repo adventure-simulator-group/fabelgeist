@@ -1,0 +1,406 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-112",
+  "at": "2026-10-25T12:40:23.538676+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 256,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/simulation.rs",
+      "sha256": "caa8a155d38c326bf43174ed106f7b885196bcc23fcddb76af341a1acb380e0c",
+      "actual_EOF": 610,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/simulation.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-stdb-module/src/simulation.rs",
+        "owner": "camera",
+        "sha256": "caa8a155d38c326bf43174ed106f7b885196bcc23fcddb76af341a1acb380e0c",
+        "base_sha256": "909ef3cba93d998d407876cc05fd8c4ad9933f39faec7de0ac45dd0893d9bd60",
+        "state": "modified",
+        "bytes": 22300,
+        "audit_owner": "camera",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                610
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-SIMULATION-001",
+              "CAM-PROP-STRATEGIC-PROJECTION-001"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 59,
+            "read_ranges": [
+              [
+                1,
+                610
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SIMULATION-035"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/simulation.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 235,
+            "read_ranges": [
+              [
+                1,
+                610
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SIMULATION-035"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/simulation.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-PURE8-SUBSET-PARTIAL-028",
+            "json_pointer": "/additional_actual_read_ranges_before_pause/7",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-stdb-module/src/simulation.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                58
+              ],
+              [
+                415,
+                495
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-stdb-module/src/simulation.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/simulation.rs",
+              "sha256": "caa8a155d38c326bf43174ed106f7b885196bcc23fcddb76af341a1acb380e0c",
+              "fingerprint_status": "exact previously recorded source metadata",
+              "read_ranges": [
+                [
+                  1,
+                  58
+                ],
+                [
+                  415,
+                  495
+                ]
+              ],
+              "mode": "Fresh bounded actual source read before pause; exact ranges only, no fullmodule inference"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/camera/traces.jsonl",
+            "receipt": "CONT-CAMERA-PP-007",
+            "json_pointer": "/new_receiver_proofs/0",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-stdb-module/src/simulation.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                65
+              ],
+              [
+                256,
+                320
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-stdb-module/src/simulation.rs",
+              "sha256": "caa8a155d38c326bf43174ed106f7b885196bcc23fcddb76af341a1acb380e0c",
+              "read_ranges": [
+                [
+                  1,
+                  65
+                ],
+                [
+                  256,
+                  320
+                ]
+              ],
+              "role": "Native official-span to real-microsecond conversion then actual isolated-world clock epoch and absolute-minute row mutation."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/root/pure8-packet.json",
+            "receipt": "CONT-ROOT-PP-PURE8-001",
+            "json_pointer": "/fresh_or_reconciled_receiver_reads/0",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-stdb-module/src/simulation.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                65
+              ],
+              [
+                256,
+                320
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-stdb-module/src/simulation.rs",
+              "sha256": "caa8a155d38c326bf43174ed106f7b885196bcc23fcddb76af341a1acb380e0c",
+              "read_ranges": [
+                [
+                  1,
+                  65
+                ],
+                [
+                  256,
+                  320
+                ]
+              ],
+              "role": "Native official-span to real-microsecond conversion then actual isolated-world clock epoch and absolute-minute row mutation."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 105,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-025",
+            "json_pointer": "/current_sources/0",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row232/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                610
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                610
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": 59,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved",
+        "admission03_increment077_role_observations": [
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 122,
+            "registration_id": "NATIVE-ADMISSION03-REG-122",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-122",
+              "at": "2026-10-22T18:24:32.536185+00:00",
+              "authority": "043/054; Root direct lower followthrough after completion069; no counts change",
+              "source_id": "physical-p16:crates/adventuresim-stdb-module/src/simulation.rs",
+              "sha256": "caa8a155d38c326bf43174ed106f7b885196bcc23fcddb76af341a1acb380e0c",
+              "snapshot": "physical-p16",
+              "actual_EOF": 610,
+              "material_ranges": [
+                [
+                  348,
+                  495
+                ]
+              ],
+              "role": "Direct isolated fixture saved schedule writer configure_simulation_character complete function; distinguish fixture admission from normal reducer",
+              "actual_caller": "Native033 saved-schedule preview actual saved source writers OR Native008 private embedded name catalogue generation/render",
+              "reason": "Exact remaining lower source contract dispatched Root before admission03 acceptance; registered before body analysis",
+              "exclusions": "Exact registered production roles only; no source edits/tests/runtime/other lenses; no Petnames or quest candidate builder",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\simulation.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADM03-FOLLOWTHROUGH-QUAL-122",
+                "registration_id": "NATIVE-ADMISSION03-REG-122",
+                "source_id": "physical-p16:crates/adventuresim-stdb-module/src/simulation.rs",
+                "sha256": "caa8a155d38c326bf43174ed106f7b885196bcc23fcddb76af341a1acb380e0c",
+                "actual_EOF": 610,
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-122",
+                  "at": "2026-10-22T18:24:32.536185+00:00",
+                  "authority": "043/054; Root direct lower followthrough after completion069; no counts change",
+                  "source_id": "physical-p16:crates/adventuresim-stdb-module/src/simulation.rs",
+                  "sha256": "caa8a155d38c326bf43174ed106f7b885196bcc23fcddb76af341a1acb380e0c",
+                  "snapshot": "physical-p16",
+                  "actual_EOF": 610,
+                  "material_ranges": [
+                    [
+                      348,
+                      495
+                    ]
+                  ],
+                  "role": "Direct isolated fixture saved schedule writer configure_simulation_character complete function; distinguish fixture admission from normal reducer",
+                  "actual_caller": "Native033 saved-schedule preview actual saved source writers OR Native008 private embedded name catalogue generation/render",
+                  "reason": "Exact remaining lower source contract dispatched Root before admission03 acceptance; registered before body analysis",
+                  "exclusions": "Exact registered production roles only; no source edits/tests/runtime/other lenses; no Petnames or quest candidate builder",
+                  "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\simulation.rs",
+                  "status": "registered_before_direct_current03_body_analysis"
+                },
+                "qualified_material_ranges": [
+                  [
+                    349,
+                    494
+                  ]
+                ],
+                "context_and_exclusions": "348 closing attribute context completed by128;495 blank",
+                "actual_current_proof_refs": [
+                  "continuation/native/admission03/camera-lower-followthrough/schedule-contracts-001.json"
+                ],
+                "status": "bounded_actual_current_admission_roles_compared_with_stated_findings_and_qualifications",
+                "counts_credit": "No128 count change; Root global scope reconciliation pending",
+                "producer_owner_credit": false,
+                "repair": "frozen",
+                "validation": "not_run"
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                349,
+                494
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\simulation.rs",
+            "actual_EOF": 610,
+            "bytes": 22300
+          },
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 128,
+            "registration_id": "NATIVE-ADMISSION03-REG-128",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-128",
+              "at": "2026-10-22T18:25:11.981550+00:00",
+              "authority": "043/054; Root lower followthrough after069",
+              "source_id": "physical-p16:crates/adventuresim-stdb-module/src/simulation.rs",
+              "sha256": "caa8a155d38c326bf43174ed106f7b885196bcc23fcddb76af341a1acb380e0c",
+              "snapshot": "physical-p16",
+              "actual_EOF": 610,
+              "material_ranges": [
+                [
+                  344,
+                  347
+                ]
+              ],
+              "role": "Attached reducer and expect attribute only for already read REG122 configure_simulation_character; no broader simulation scope",
+              "actual_caller": "REG121 NPC saved writer / REG122 exact fixture saved writer",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\simulation.rs",
+              "status": "registered_before_direct_current03_body_analysis",
+              "exclusions": "Exact roles only; no tests/source edits/runtime/other lens"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADM03-FOLLOWTHROUGH-QUAL-128",
+                "registration_id": "NATIVE-ADMISSION03-REG-128",
+                "source_id": "physical-p16:crates/adventuresim-stdb-module/src/simulation.rs",
+                "sha256": "caa8a155d38c326bf43174ed106f7b885196bcc23fcddb76af341a1acb380e0c",
+                "actual_EOF": 610,
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-128",
+                  "at": "2026-10-22T18:25:11.981550+00:00",
+                  "authority": "043/054; Root lower followthrough after069",
+                  "source_id": "physical-p16:crates/adventuresim-stdb-module/src/simulation.rs",
+                  "sha256": "caa8a155d38c326bf43174ed106f7b885196bcc23fcddb76af341a1acb380e0c",
+                  "snapshot": "physical-p16",
+                  "actual_EOF": 610,
+                  "material_ranges": [
+                    [
+                      344,
+                      347
+                    ]
+                  ],
+                  "role": "Attached reducer and expect attribute only for already read REG122 configure_simulation_character; no broader simulation scope",
+                  "actual_caller": "REG121 NPC saved writer / REG122 exact fixture saved writer",
+                  "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\simulation.rs",
+                  "status": "registered_before_direct_current03_body_analysis",
+                  "exclusions": "Exact roles only; no tests/source edits/runtime/other lens"
+                },
+                "qualified_material_ranges": [
+                  [
+                    344,
+                    347
+                  ]
+                ],
+                "context_and_exclusions": "Attached reducer/expect attributes for122; closing delimiter348 already contextual122",
+                "actual_current_proof_refs": [
+                  "continuation/native/admission03/camera-lower-followthrough/schedule-contracts-001.json"
+                ],
+                "status": "bounded_actual_current_admission_roles_compared_with_stated_findings_and_qualifications",
+                "counts_credit": "No128 count change; Root global scope reconciliation pending",
+                "producer_owner_credit": false,
+                "repair": "frozen",
+                "validation": "not_run"
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                344,
+                347
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\simulation.rs",
+            "actual_EOF": 610,
+            "bytes": 22300
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          610
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "Clone/Debug/table SimulationRun,SimulationCharacter,SimulationQuestFixtureAuthority",
+        "Clone/Debug/SpacetimeType SimulationQuestFixture91\u2013101"
+      ],
+      "absence_basis": "Fullsource1\u2013310/311\u2013610. All local records table/native derived. Authenticated isolation/freshness/owner/nonce/ranges/clock helpers, public generated-ID sanitization and fixture character/configuration operations semantic functions, no handwritten trait/serializer. Guarded fixture instructions are source evidence only, never authorization to invoke them.",
+      "coverage_limit": "No child disease_fixture/quest_fixture body coverage from module/reference/source strings."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Disposable simulation capability and safe native fixture projection",
+      "disposition": "No new derivabilityfinding; keep semantic authorization, checked coordinate conversions and private/public schema distinction.",
+      "acceptance": "No raw derive bypasses owned-run capability, freshness/range checks or exposes canonical generated quest IDs; no reducers or fixtures executed."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 257,
+    "source_id": "physical-p16:crates/adventuresim-stdb-module/src/simulation/disease_fixture.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

@@ -1,0 +1,40 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-446",
+  "at": "2026-10-25T15:38:52.683243+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 857,
+  "source_id": "pr-working:crates/adventuresim-core/src/autoresolve.rs",
+  "sha256": "cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+  "actual_compared_ranges": [
+    [
+      1,
+      660
+    ]
+  ],
+  "existing_derives": [
+    "Prior444/445 structural derives preserved",
+    "BattleOutcome Clone Debug Serialize",
+    "PendingAttack/AttackEffect Clone Copy",
+    "OpeningVolleyPlan Clone Copy Default",
+    "BattleRecorder Default",
+    "BattleOpening Clone Copy Debug Default PartialEq Eq"
+  ],
+  "trait_inventory": [
+    {
+      "trait": "Display",
+      "type": "BattleAttackOutcome",
+      "lines": [
+        404,
+        413
+      ],
+      "disposition": "KEEP fixed-label small implementation per445; owning849 lacks ready equivalent derive."
+    }
+  ],
+  "analysis": "Fresh441\u2013660 consumed: telemetry/outcome declarations already Serialize, private native plan/recorder defaults derived, semantic record_attack result\u2192classification/applied shares/log mapping and native contact-item selection, plus battle-start prefix. No additional handwritten traits/codecs; deliberate semantic snapshot projection not structural From/Serde. Remaining661\u20132878 unread.",
+  "first_unfinished": {
+    "scope_index": 857,
+    "line": 661
+  },
+  "execution": "none"
+}

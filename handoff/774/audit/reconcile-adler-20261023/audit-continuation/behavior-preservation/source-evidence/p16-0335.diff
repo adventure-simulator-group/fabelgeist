@@ -1,0 +1,26 @@
+--- p16base/crates/adventuresim-tactical-client/src/player/action_clock.rs
++++ catalog-p16head/crates/adventuresim-tactical-client/src/player/action_clock.rs
+@@ -43,18 +43,16 @@
+ impl MeleeAcquisitionTiming {
+     /// A reachable melee surface target owns its movement-assisted delay.
+     pub(super) fn contact_arrival(
+         self,
+-        surface_measure: f32,
+-        reach: f32,
+-        maximum_travel: f32,
+-    ) -> AnimationValueResult<Option<MeleeLungeArrival>> {
+-        let closure = (surface_measure - reach).max(0.0);
+-        if closure > maximum_travel + 1.0e-5 {
++        geometry: MeleeLungeGeometry,
++    ) -> MeleeGeometryResult<Option<MeleeLungeArrival>> {
++        let closure = (geometry.separation.metres() - geometry.interaction_range.metres()).max(0.0);
++        if closure > geometry.maximum_travel.metres() + MELEE_LUNGE_DISTANCE_EPSILON_METRES.metres() {
+             return Ok(None);
+         }
+         let arrival = melee_lunge_arrival(
+-            melee_lunge(surface_measure, reach, 0.0, maximum_travel),
++            melee_lunge(geometry)?,
+             self.forward_speed,
+             self.acceleration,
+             self.quickstep_duration,
+         )?;

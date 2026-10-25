@@ -1,0 +1,1380 @@
+{
+  "owner": "/root/native_reports",
+  "families": [
+    "P18"
+  ],
+  "contributes_to": [
+    "P02 native typed-error preservation"
+  ],
+  "status": "Ownership claims only. P18 and geometry source commits are historical completed increments; P17 current implementation remains active/partial. Family status is authoritative only in execution-ledger.json.",
+  "claims": [
+    {
+      "file": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/error.rs",
+      "items": [
+        "IterationError",
+        "IterationResult",
+        "new report/measurement error enums and owning results"
+      ],
+      "requirements": [
+        "retain Preparation/MeleeIterationError and Resolution/BattleResolutionError",
+        "typed AnimationValueError, I/O, JSON, argument and required-evidence causes to main"
+      ]
+    },
+    {
+      "file": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/mod.rs",
+      "items": [
+        "MatchupSummary",
+        "TacticalCausalSummary",
+        "TacticalCombatantCausal",
+        "AutoresolveCausalSummary",
+        "AutoresolveCombatantCausal",
+        "TacticalCausalSummary::finish_means",
+        "TacticalCombatantCausal::finish_means",
+        "AutoresolveCombatantCausal::{record_final,finish_means}",
+        "run",
+        "run_matchup",
+        "record_autoresolve_combatant_causal",
+        "record_tactical_causal",
+        "write_json",
+        "acceptance_audit",
+        "module/import wiring"
+      ],
+      "requirements": [
+        "move cohesive report records/operations into report.rs",
+        "typed report fields and whole connected error propagation"
+      ]
+    },
+    {
+      "file": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/report.rs",
+      "items": [
+        "new canonical report records moved from mod.rs and their operations"
+      ],
+      "requirements": [
+        "retain original scalar field names/units",
+        "Option contact extrema serialize null when unobserved"
+      ]
+    },
+    {
+      "file": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/measurement.rs",
+      "items": [
+        "new canonical finite f64 report measurements/statistics",
+        "semantic unit markers",
+        "typed addition/mean/extrema",
+        "wall clock and throughput operations"
+      ],
+      "requirements": [
+        "no f32 narrowing",
+        "preserve native reduction/averaging expression order",
+        "distinct tactical/autoresolve/wall clock roles",
+        "scalar serialization at boundary"
+      ]
+    },
+    {
+      "file": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs",
+      "items": [
+        "TacticalBatch",
+        "AutoresolveBatch",
+        "run_tactical_batch",
+        "run_autoresolve_batch",
+        "weapon_reach",
+        "record_autoresolve_outcome",
+        "record_final_totals",
+        "record_autoresolve_log",
+        "record_autoresolve_timeline"
+      ],
+      "requirements": [
+        "finish P18 measure producer propagation",
+        "structured native I/O/report causes",
+        "unchanged seed/sample order"
+      ]
+    },
+    {
+      "file": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal.rs",
+      "items": [
+        "record_autoresolve_telemetry",
+        "record_timeline_event",
+        "record_movement_event",
+        "record_response_event",
+        "record_contact_measures",
+        "record_tactical_decisions",
+        "record_combatant_decision",
+        "record_tactical_event",
+        "record_tactical_attacker",
+        "record_tactical_totals",
+        "record_tactical_defender",
+        "module/import wiring"
+      ],
+      "requirements": [
+        "whole typed causal accumulation",
+        "required evidence structured error",
+        "Option minimum",
+        "extract autoresolve responsibility into causal/autoresolve.rs before expansion"
+      ]
+    },
+    {
+      "file": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal/autoresolve.rs",
+      "items": [
+        "autoresolve causal functions moved from causal.rs"
+      ],
+      "requirements": [
+        "typed gameplay elapsed/speed through report accumulator",
+        "preserve local displacement/limit numerical kernel arithmetic"
+      ]
+    },
+    {
+      "file": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/audit.rs",
+      "items": [
+        "build_acceptance_audit",
+        "movement_respects_limits",
+        "swept_contact_contract_holds",
+        "summary_contact_contract_holds"
+      ],
+      "requirements": [
+        "typed limits and explicit unobserved contact handling at real consumers",
+        "propagate checked authored limit admission through the actual acceptance report writer"
+      ]
+    },
+    {
+      "file": "crates/adventuresim-tactical-server/src/iteration/clock.rs",
+      "items": [
+        "new TacticalElapsed",
+        "TacticalElapsed::{from_tick_count,elapsed_since,seconds}"
+      ],
+      "requirements": [
+        "canonical tactical coordinate distinct from autoresolve BattleTime and wall Duration",
+        "preserve f32 tick multiplication and subtraction before f64 accumulation"
+      ]
+    },
+    {
+      "file": "crates/adventuresim-tactical-server/src/iteration.rs",
+      "items": [
+        "resolve_tactical_server_melee_duel simulated_seconds assignment",
+        "clock module export/import wiring"
+      ],
+      "requirements": [
+        "retain existing AnimationValueResult final-distance admission",
+        "produce typed tactical elapsed observation"
+      ]
+    },
+    {
+      "file": "crates/adventuresim-tactical-server/src/iteration/logging.rs",
+      "items": [
+        "TacticalMeleeLogEntry::elapsed_seconds",
+        "TacticalConditionLogEntry::elapsed_seconds",
+        "TacticalWoundLogEntry::elapsed_seconds",
+        "TacticalDecisionLogEntry::elapsed_seconds",
+        "TacticalMeleeOutcome::simulated_seconds",
+        "record_attack_start",
+        "record_defense_resolution",
+        "log_new_wounds",
+        "record_condition_changes"
+      ],
+      "requirements": [
+        "typed tactical elapsed producer fields with identical scalar JSON"
+      ]
+    },
+    {
+      "file": "crates/adventuresim-tactical-server/src/iteration/logging/decisions.rs",
+      "items": [
+        "record_attack_committed_to_defense",
+        "record_attack_transformed_by_defense",
+        "record_continuation_decision"
+      ],
+      "requirements": [
+        "typed tactical elapsed literal/kernel boundary"
+      ]
+    },
+    {
+      "file": "crates/adventuresim-tactical-server/src/iteration/logging/resolution.rs",
+      "items": [
+        "resolved_attack_entry elapsed_seconds assignment"
+      ],
+      "requirements": [
+        "typed tactical elapsed literal/kernel boundary"
+      ]
+    }
+  ],
+  "shared_repairs": [
+    {
+      "functions": [
+        "run_tactical_batch",
+        "run_autoresolve_batch",
+        "run_matchup",
+        "run",
+        "main"
+      ],
+      "families": [
+        "P18",
+        "P02"
+      ],
+      "canonical_contract": "IterationResult preserves existing Preparation and Resolution plus explicit Measurement(AnimationValueError), statistical validation, ReportContract, native I/O and JSON causes; no Operation(String) or primitive adapters. Main already returns the owning result and is read-only unless wiring requires it."
+    }
+  ],
+  "preservation": [
+    "f64 accumulation and averaging order",
+    "f32 tactical tick/subtraction order before promotion",
+    "native count and seed/sample order",
+    "valid signed/real zero",
+    "distinct clocks",
+    "no new tests or local checks"
+  ],
+  "coordination": "Coordinator explicitly transferred native report/error/output functions. Shared gameplay/math owners remain with coordinator; no changes claimed there.",
+  "canonical_contracts": {
+    "statistics": "Measurement<Role> has private finite f64 storage, distinct type-level semantic roles, checked ordered addition/mean and closed extrema operations; scalar Serde only. No new shared gameplay/math owner.",
+    "tactical_clock": "TacticalElapsed originates from server tick-count multiplication in f32, retains typed log/output fields, subtracts in f32, then promotes through Measurement<TacticalSeconds>. Autoresolve uses AnimationElapsed into Measurement<AutoresolveSeconds>; wall uses Duration into Measurement<WallSeconds>.",
+    "absence": "Option<Measurement<Role>> for unobserved tactical/autoresolve contact extrema and attack-performance minimum; measured zero stays Some(ZERO). No sentinel serializer.",
+    "error": "IterationResult retains Preparation, Resolution, AnimationValueError, ElapsedError, MeasurementError, structured ReportContractError, native I/O and serde_json causes through main."
+  },
+  "source_commit": "c6fe55e42e90981d9e132fcf1dd6615d17227275",
+  "evidence": "RECORDS/P18-native-reports-source-complete.json",
+  "additional_tasks": [
+    {
+      "task": "shared-geometry portable canonical scalar/error relocation",
+      "worktree": "LOCAL_COORDINATOR/target/semantic-goal/pr774-parallel/shared-geometry/worktree",
+      "branch": "codex/774-shared-geometry-parallel",
+      "base": "b948c992a",
+      "status": "source-complete local commit; pending integrated-head hosted validation",
+      "contributes_to": [
+        "P08",
+        "P12",
+        "P14",
+        "P16"
+      ],
+      "explicit_transfer": "Coordinator transferred actual shared scalar/error definitions and central manifests/locks plus connected native direction adapters; prior camera const-only edit superseded.",
+      "claims": [
+        {
+          "file": "crates/fabelgeist-geometry/Cargo.toml",
+          "items": [
+            "new neutral crate manifest, optional reflect feature and pinned-compatible dependency constraints"
+          ]
+        },
+        {
+          "file": "crates/fabelgeist-geometry/src/lib.rs",
+          "items": [
+            "canonical scalar/error module declarations/reexports"
+          ]
+        },
+        {
+          "file": "crates/fabelgeist-geometry/src/error.rs",
+          "items": [
+            "GeometryError",
+            "GeometryResult",
+            "GeometryRole",
+            "CoordinateAxis",
+            "new portable DirectionError with exact native Display and serialized classification"
+          ]
+        },
+        {
+          "file": "crates/fabelgeist-geometry/src/length.rs",
+          "items": [
+            "PositiveLength actual definition, admission/getter and checked Deserialize moved unchanged; reflect feature gate"
+          ]
+        },
+        {
+          "file": "crates/fabelgeist-geometry/src/measurement.rs",
+          "items": [
+            "SignedLength and Area actual definitions/admission/Serde moved",
+            "existing two compile-fail examples moved with canonical crate import only",
+            "SignedLength::from_metres const",
+            "SignedLength::from_millimetres(u16) infallible ordinary fn preserving exact f32::from(value)/1000.0",
+            "SignedLength::scaled_by(f32) exact product then canonical finite admission",
+            "optional opaque Reflect gate"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-building-generator/src/spatial_geometry.rs",
+          "items": [
+            "actual scalar/error reexports from canonical crate; remove relocated module declarations"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-building-generator/src/spatial_geometry/length.rs",
+          "items": [
+            "remove actual definitions after relocation"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-building-generator/src/spatial_geometry/measurement.rs",
+          "items": [
+            "remove actual definitions after relocation"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+          "items": [
+            "finite native Vec3 validation helper",
+            "new single native InvalidDirectionError -> portable DirectionError/GeometryError adapter"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+          "items": [
+            "PlanDirection::{from_vector,from_normalized}",
+            "SpatialDirection::{from_vector,from_normalized} native error propagation only"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-building-generator/src/spatial_geometry/tests.rs",
+          "items": [
+            "normalized_directions_reject_bad_decoding_and_preserve_normalization_arithmetic existing Zero error pattern type only; identical fixture/inputs/assertions/order"
+          ]
+        },
+        {
+          "file": "Cargo.toml",
+          "items": [
+            "new workspace member and dependency registration; no external version change"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-building-generator/Cargo.toml",
+          "items": [
+            "canonical geometry direct dependency with reflect feature"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-core/Cargo.toml",
+          "items": [
+            "canonical geometry direct dependency without mandatory Bevy"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-core/Cargo.toml",
+          "items": [
+            "canonical geometry direct dependency"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/Cargo.toml",
+          "items": [
+            "canonical geometry direct dependency"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-server/Cargo.toml",
+          "items": [
+            "canonical geometry direct dependency"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-character-creator/Cargo.toml",
+          "items": [
+            "canonical geometry direct path dependency"
+          ]
+        },
+        {
+          "file": "crates/fabelgeist-armor/Cargo.toml",
+          "items": [
+            "canonical geometry direct dependency",
+            "canonical fabelgeist-rig direct dependency required by delegated packed-skin owner"
+          ]
+        },
+        {
+          "file": "Cargo.lock",
+          "items": [
+            "exact package/edge metadata for new geometry path package and agreed direct dependencies using current pinned packages only"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-character-creator/Cargo.lock",
+          "items": [
+            "exact package/edge metadata for geometry/core/armor/Creator dependencies using current pinned packages only"
+          ]
+        }
+      ],
+      "agreements": {
+        "camera": "consume fabelgeist_geometry directly; neutral errors remain the same actual type reexported by building-generator; from_metres is const",
+        "rig_garments": "owns Millimeters::signed_length and Creator fitting functions; consume ordinary fn SignedLength::from_millimetres and checked scaled_by; avoid central manifests/locks",
+        "root": "retains shared AnimationQuantity enum and final integration/hosted validation"
+      },
+      "required_preservation": [
+        "valid scalar values incl signed zero",
+        "admission bounds/role/axis and error ordering",
+        "Serde scalar/error shapes",
+        "native direction classification/Display/serialized labels",
+        "moved existing compile-fail semantics",
+        "armor exact division and f32 conversion",
+        "unchanged external lock package identities/versions/checksums"
+      ],
+      "source_commit": "c4a8ae5f5ae7fbf552795fa266588b4e9186f8d3",
+      "evidence": "RECORDS/shared-geometry-source-complete.json"
+    },
+    {
+      "task": "P17 viewer observations and actual report consumers",
+      "family": "P17",
+      "worktree": "SNAPSHOTS/report-p17",
+      "branch": "codex/774-viewer-reports-parallel",
+      "base": "6fa6a7937",
+      "status": "Preserved local90a increment, discovery reopened concrete remaining PP012 tick snapshot and other connected report producer gaps; shared P16 motor remains unfinished/unintegrated. Family status only execution-ledger.json.",
+      "claims": [
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/observation.rs",
+          "items": [
+            "new canonical report Observation<T>/UnavailableReason",
+            "ExpectedVisualHeight",
+            "HeightSample",
+            "HeightPeaks",
+            "ReportError/ReportResult preserving animation/geometry causes"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+          "items": [
+            "observation module/reexports; write_completed_capture receiving body read; no I/O policy change"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+          "items": [
+            "ScenarioMetrics maximum_pelvis_vertical_step_metres and named visual_height_peaks",
+            "AnimationCaptureValidation hard_stop_maximum_pelvis_step_metres",
+            "ScenarioHeightMetrics canonical named record; flattened scalar field names retained in serialization"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "items": [
+            "scenario_metrics whole shared producer",
+            "root_relative_vertical_range",
+            "root_relative_vertical_step",
+            "hard_stop_pelvis_vertical_step",
+            "controller_vertical_range",
+            "contact_to_passing_height_gain",
+            "visual_height_peaks",
+            "phase_height_range",
+            "phase_validation_frames",
+            "maximum_no_support_seconds",
+            "move cohesive height calculations to metrics/height.rs",
+            "existing hard-stop/root-relative-step/peak fixtures API adaptation only",
+            "terrain_run_contacts_are_valid typed duration receiver",
+            "existing hard-stop fixture and guard-height-snap fixture operands only"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height.rs",
+          "items": [
+            "canonical moved height responsibility and typed observation producers listed in metrics claim",
+            "ScenarioHeightMetrics::measure complete height producer responsibility"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height_peaks.rs",
+          "items": [
+            "prominent_height_peaks named typed sample/measurement contract; explicit missing-neighbor reduction state"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/acceptance_limits.rs",
+          "items": [
+            "expected_visual_height named checked authored bounds/peak expectation"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "items": [
+            "build_completed_report whole shared receiver/error propagation and observation gates",
+            "extract phase-height validation responsibility before growth",
+            "all existing callers of changed height measurement producers",
+            "existing validation fixture Option->NotApplicable field only; same input semantics and assertion count"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/height_validation.rs",
+          "items": [
+            "phase_owned_height_valid named typed expected bounds and observations at actual gate"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/html.rs",
+          "items": [
+            "review_html actual height/observation presentation including explicit unavailable/not-applicable/measured status; no sentinel restoration"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+          "items": [
+            "RepeatedBoneMismatch explicit structural/typed transform/invalid measurement variants",
+            "RepeatedEvaluationSnapshot::matches",
+            "CaptureSequence::record_repeated_evaluation",
+            "repeated_bone_mismatch",
+            "existing missing/extra bone fixture unchanged inputs/assertions",
+            "RepeatedEvaluationSnapshot::locomotion_sample_tick field plus first-view initialization, whole matches comparison/log projection and connected capture/repeated_evaluation_valid validation receivers; metadata-only exact claim clarification authorized by root during read-only discovery"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/clearance.rs",
+          "items": [
+            "move minimum_flight_sole_clearance, contact_sole_clearance_range, minimum_toe_clearance, foot_terrain_relief, minimum_foot_clearance; ScenarioClearanceMetrics::measure; typed signed clearance observations and named range"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/pose.rs",
+          "items": [
+            "move minimum_signed_foot_track, minimum_inter_foot_separation, minimum_knee_flexion, frame_minimum_knee_flexion, minimum_knee_hemisphere, maximum_knee_foot_yaw_offset, minimum_knee_bend; named ScenarioPoseMetrics and report-owned finite KneeHemisphereDot"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/facing.rs",
+          "items": [
+            "move maximum_facing_error, maximum_facing_tracking_excess, maximum_guard_facing_error, final_facing_error, maximum_dive_axis_motion_error; typed observations through ScenarioFacingMetrics"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/continuity.rs",
+          "items": [
+            "move scenario_metrics continuity accumulation responsibility, LoopSeamMetrics::measure, loop_seam, maximum_planted_foot_drift; typed ScenarioContinuityMetrics and generic typed ContinuityLocation; typed slip/drift observations"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/guard_liveness.rs",
+          "items": [
+            "move GuardStepLivenessMetrics canonical owner/is_required/measurement; replace semantic required boolean and absent minima with Observation<GuardStepLivenessMetrics>"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "items": [
+            "whole scenario_metrics producer across P17 metric families; remove moved metric responsibilities; all existing affected fixture operands only, identical inputs/count/order/assertions"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+          "items": [
+            "all ScenarioMetrics metric fields typed/grouped; ContinuityLocation quantity type; FrameSample optional body response/height/yaw observations and typed clearance; final serialization adapters"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+          "items": [
+            "all build_completed_report and quality_score receiving metric/capture bodies, complete required absence gates; extract validation responsibilities before growth"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/body_response_validation.rs",
+          "items": [
+            "body_response_validation, lean_range, body_lateral_range; named typed range and absence required failure"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+          "items": [
+            "capture_frame whole report observation projection: preserve optional body response/height/IK diagnostic state; no camera code/solver state edits; existing fixture read only"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/observation.rs",
+          "items": [
+            "P17 absence reasons and canonical report finite KneeHemisphereDot; named signed clearance range, expected bounds; no duplicate shared physical units"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+          "items": [
+            "preserve Option<LegIkDiagnostics> through record_repeated_evaluation/snapshot/matches/repeated_leg_ik_matches; existing fixtures unchanged inputs/count/assertions"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/html.rs",
+          "items": [
+            "all actual typed observation presentation; no primitive sentinel serializer; typed ContinuityLocation formatter"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/acceptance_limits.rs",
+          "items": [
+            "actual typed expected displacement/angle bounds and vertical_range_limit typed relief consumer; existing numerical thresholds unchanged"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+          "items": [
+            "CaptureGround::collect_bones complete actual signed clearance producer and GeometryResult propagation; all other CaptureGround/root-motion/admission methods remain root-owned"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs",
+          "items": [
+            "CaptureSequence::admit_ik_support complete Option<LegIkDiagnostics> parameter/required absence contract; all other admission functions remain root-owned"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/support_slip.rs",
+          "items": [
+            "supported_foot_slip Observation<NonnegativeLength>, explicit required missing bones and no qualifying plant, same distance/body-turn/support numerical order and thresholds; P17/P19 shared report repair"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+          "items": [
+            "NonnegativeLength::{min,max} only, root explicit transfer; direct native f32 extrema preserving invariant and signed-zero policy"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+          "items": [
+            "AngularMagnitudeDegrees::{min,max} only, root explicit transfer; direct native f32 extrema preserving invariant and signed-zero policy"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/continuity_validation.rs",
+          "items": [
+            "extracted continuity_within_review_bounds from build_completed_report; typed expected/observed bounds, missing required evidence fails"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/biomechanics_validation.rs",
+          "items": [
+            "extracted biomechanics_within_review_bounds from build_completed_report; typed pose/facing/height/contact/seam/plant gates with same scenario exclusions and thresholds"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/landing_validation.rs",
+          "items": [
+            "landing_response_valid extracted from build_completed_report; optional measured compression required where landing gate applies; typed max sample and frame knee admission errors retained"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/capture/sample.rs",
+          "items": [
+            "extract actual FrameSample::capture constructor and named CaptureSample record from capture_frame; preserve all ordered native vector/scalar projections and optional observations; no gameplay/IK/camera source changes"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/capture/global_bones.rs",
+          "items": [
+            "GlobalBoneFrame::capture time_seconds field retains actual AnimationElapsed; no global bone identity/layout/vector edits"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+          "items": [
+            "drive_sequence complete connected P06/P17/P20 function transfer; CaptureSequence::scenario_distance field/init/reset; preserve distance + speed*delta native f32 order and typed GeometryError terminal rejection; no terrain/action/continuation policy change"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/observation.rs",
+          "items": [
+            "QualityPercent over existing UnitInterval, scalar percent serialization retaining multiply-last order; incomplete capture quality is explicit Unavailable(IncompleteCapture), while measured quality0 remains real0"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+          "items": [
+            "SignedAngleDegrees::{min,max} only, exact root transfer, native finite f32 extrema preserving signed zero; other methods remain owned separately"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+          "items": [
+            "HeightDistance::{min,max} only, exact root transfer, closed delegation to actual NonnegativeLength native extrema; other methods remain owned separately"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs",
+          "items": [
+            "CaptureSequence::advance_distance new cohesive signed distance numerical admission/terminal error ownership extracted from approved drive_sequence transfer; takes canonical SignedSpeed/AnimationElapsed and stores SignedLength"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/observation.rs",
+          "items": [
+            "HeightSample::{new,phase,height} private wrapped-phase admission",
+            "SignedLengthRange::{from_sample,include,minimum,maximum} private ordered finite bounds",
+            "KneeHemisphereDot::{from_native,min,value}",
+            "QualityPercent::{from_fraction,percent} and scalar percent Serialize",
+            "Observation::{measured,when_applicable} and explicit availability reasons; owning ReportResult/ReportError"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/acceptance_limits.rs",
+          "items": [
+            "ExpectedScenarioBounds::for_scenario",
+            "ExpectedVisualHeight::{for_scenario,minimum_range,maximum_range,peak_count} actual named owner replaces old free constructor",
+            "foot_continuity_limit, knee_continuity_limit, loop_seam_position_limit, planted_drift_limit, supported_foot_slip_limit, inter_foot_separation_limit typed authored factories",
+            "vertical_range_limit typed observed relief receiver",
+            "cadence_contacts_valid checked signed adjusted samples from typed retained distance"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/body_response_validation.rs",
+          "items": [
+            "BodyResponseValidation::measure replaces old free constructor",
+            "LeanRange::measure replaces old free lean_range; closed LeanComponent selector",
+            "body_lateral_range typed signed extrema and nonnegative range"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/guard_liveness.rs",
+          "items": [
+            "GuardStepLivenessMetrics::{measure,is_required} replaces old free constructor",
+            "GuardHalfStep::measure whole half-step evidence",
+            "SwingSupport::between named typed support selection"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/continuity.rs",
+          "items": [
+            "ScenarioContinuityMetrics::measure",
+            "LoopSeamMetrics::{measure,between} replaces old free loop_seam",
+            "maximum_planted_foot_drift"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/observation.rs",
+          "items": [
+            "VisualHeightPeaks::{from_cycles,maximum_count,each_cycle_has_two_passing_peaks} owns aggregate count/each-cycle predicate separately from single-cycle HeightPeaks; native old aggregation/order retained"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/mod.rs",
+          "items": [
+            "BodyAngle unused import removal only after sample body angle retention becomes canonical checked SignedAngleDegrees; no root/camera functions transferred"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/capture/sample.rs",
+          "items": [
+            "CaptureSampleResult owning existing RejectedCaptureAdmission; FrameSample::capture admits native body radians-to-degrees once into SignedAngleDegrees; existing typed Locomotion/Geometry capture rejection, no new error variant"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+          "items": [
+            "terrain_run_contacts_are_valid whole typed AnimationValueResult<bool> contract and existing fixtures; propagate required support/duration failures through build_completed_report rather than is_ok_and cause erasure"
+          ]
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation/bouncy_bones.rs",
+          "items": [
+            "BouncyBones::maximum_deflection_radians native ordered spring-length admission and checked radians extrema",
+            "BouncyBonesTelemetry definition and Default actual retained per-frame measurement/error owner",
+            "apply_bouncy_bones whole connected telemetry source function; preserve spring coupling/integration/clamping, counts, rig order, ragdoll/frozen/transform logic and zero reset; retain typed errors to capture rejection"
+          ],
+          "agreement": "No existing exact claim overlaps. Camera explicitly confirmed no overlap and requested claim on 2026-10-21. Parent informed; first active connected P17 trace owns complete function."
+        },
+        {
+          "file": "crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+          "items": [
+            "Radians::max addition only: direct native max on finite private leaves, preserving bounds/errors/Serde/signed-zero; other Radians operations untouched"
+          ],
+          "agreement": "No prior claim on Radians impl; camera explicitly confirmed no overlap. Own historical direction native error adapters unchanged."
+        },
+        {
+          "file": "crates/adventuresim-tactical-client/src/animation/bouncy_bones.rs",
+          "items": [
+            "BouncyBonesTelemetry::include owns native per-rig count/typed ordered maximum aggregation, extracted from complete apply_bouncy_bones transfer without dynamics changes"
+          ]
+        }
+      ],
+      "agreements": {
+        "root": "Explicit transfers preserved; root also confirmed exact bouncy native producer/telemetry/apply and Radians::max first-active trace, no competing ownership; existing Locomotion/Geometry errors suffice for body degrees",
+        "camera": "Camera owns all apply_character_motor P16/P17 repair, including both Option skeleton_tick log fields. Native reports must not edit physics.rs; camera also owns P18 weapon_reach and Measurement<WeaponReachMetres> follow-through.",
+        "rig": "identity/layout owners untouched; use existing BoneRole"
+      },
+      "requirements": [
+        "No sentinel minimum or missing stopped frame can impersonate measurement in touched graph",
+        "typed expected height bounds and named checked phase/height samples reach validation",
+        "explicit required absence fails; NotApplicable is distinct",
+        "real negative/zero height and current numerical order/thresholds retained",
+        "structural mismatch explicit rather than infinities",
+        "no new tests/cases/assertions/helpers/doctests or local project checks"
+      ],
+      "shared_repairs": [
+        {
+          "owner": "/root/camera_targeting",
+          "file": "crates/adventuresim-tactical-core/src/physics.rs",
+          "function": "apply_character_motor",
+          "families": [
+            "P16",
+            "P17"
+          ],
+          "contract": "Preserve optional skeleton tick in both logs with Option projection; camera owns whole connected lunge function and reports source proof."
+        },
+        {
+          "owner": "/root/native_reports",
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+          "function": "CaptureGround::collect_bones",
+          "families": [
+            "P06",
+            "P17"
+          ],
+          "contract": "Root explicit transfer: preserve typed SupportElevation authority, retain Option absence, admit actual signed clearance once into canonical SignedLength and propagate portable GeometryError through capture rejection; P06 remains pending integrated revalidation."
+        },
+        {
+          "owner": "/root/native_reports",
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs",
+          "function": "CaptureSequence::admit_ik_support",
+          "families": [
+            "P06",
+            "P17",
+            "P19"
+          ],
+          "contract": "Root explicit transfer: absent IK diagnostics return authoritative cadence only where procedural support is not required; otherwise retain typed missing support error, preserving Option through capture/snapshot/receiver."
+        },
+        {
+          "owner": "/root/native_reports",
+          "file": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+          "function": "drive_sequence and scenario_distance retained state",
+          "families": [
+            "P06",
+            "P17",
+            "P20"
+          ],
+          "contract": "Root explicit whole-function transfer for typed signed distance accumulation/report propagation only; preserve existing terrain/action/continuation contracts and native arithmetic order."
+        }
+      ],
+      "dependencies": [
+        {
+          "source_commit": "18360adba",
+          "source": "exact geometry diff consumed from camera bda1fab71; root already integrated c912fd7a7",
+          "contract": "canonical SignedLength min/max; no competing owner edit; root need not replay prerequisite commit"
+        }
+      ],
+      "head": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "source_commit": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "source_increment_status": "Historical90a local report/capture increment preserved; current discovery identifies required connected repair gaps. Not current family completion, integration, validation or all-lens clearance.",
+      "evidence": "../P17-viewer-reports-source-handoff.json"
+    }
+  ],
+  "current_task": "Read-only all13 initial discovery; first lens producer propagation; P17 and shared P16/P18 native error chain remain gated",
+  "current_worktree": "SNAPSHOTS/report-p17",
+  "family_status_authority": "../execution-ledger.json",
+  "exclusions": [
+    "fabelgeist-geometry/src/measurement.rs::SignedLength::{min,max}: explicitly transferred to camera owner; c4a relocation commit remains unchanged",
+    "adventuresim-tactical-core/src/physics.rs::apply_character_motor: camera owns complete P16/P17 implementation including both optional skeleton_tick logs",
+    "native runner::weapon_reach and Measurement<WeaponReachMetres> physical conversion remain camera-owned first-traced leaf; native owner consumes checked result and owns complete run_duel/run/error orchestration. Coordinate explicit transfer before any helper change."
+  ],
+  "shared_observer_error_transfer": {
+    "authorization": "Root explicit whole-function reconciliation 2026-10-21 during discovery; metadata only, source gate remains closed",
+    "owner": "/root/native_reports",
+    "families": [
+      "P16",
+      "P18"
+    ],
+    "files_and_functions": {
+      "crates/adventuresim-tactical-server/src/iteration/logging.rs": [
+        "record_attack_start (whole function, physical and TacticalElapsed payloads)",
+        "record_resolved_attack (whole function, physical and TacticalElapsed payloads)",
+        "IterationLog retained typed failure state and directly connected observer callbacks as required by one coherent error-readback contract"
+      ],
+      "crates/adventuresim-tactical-server/src/iteration/logging/resolution.rs": [
+        "resolved_attack_entry (whole typed physical/elapsed report construction receiver)"
+      ],
+      "crates/adventuresim-tactical-server/src/iteration.rs": [
+        "resolve_tactical_server_melee_duel (whole observer failure readback/typed result receiver)",
+        "tactical_iteration_app observer registration and retained error initialization"
+      ],
+      "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/error.rs": [
+        "IterationError and whole report-contract cause receivers"
+      ],
+      "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs": [
+        "run_tactical_batch and connected typed iteration error receiving bodies"
+      ],
+      "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/mod.rs": [
+        "run_matchup/run connected error receivers"
+      ],
+      "crates/adventuresim-tactical-server/src/bin/melee-combat-iteration.rs": [
+        "main typed native command result port"
+      ]
+    },
+    "dependency": "Camera retains original Core contact/autoresolve checked physical producers/leaf errors. Frozen P16 physical delta and earlier P18 c6fe55e are evidence; later implementation must consume coherent final checked contracts, never partial P16 source. Camera motor remains shared P17 dependency. Root clarification: runner::weapon_reach and Measurement<WeaponReachMetres> remain camera-owned leaf; native run orchestration consumes its agreed checked result.",
+    "status": "Exact transferred ownership only; no source edits authorized before all13 discovery gate",
+    "finding": "NATIVE-PP-018 / native/framework-port.json"
+  },
+  "discovery_repair_claims": {
+    "authorization": "Root explicit2026-10-21 first-traced whole-function transfer during all13 initial discovery; metadata only, no source edits before gate",
+    "finding_refs": [
+      "NATIVE-PP-026",
+      "NATIVE-PP-030"
+    ],
+    "families": [
+      "P06 connected architectural geometry producer preservation",
+      "native authoritative opening/controller consumers"
+    ],
+    "files_and_functions": {
+      "crates/adventuresim-building-generator/src/doors.rs": [
+        "door_from_solid complete function; preserve canonical Position<Architectural> from existing ResolvedSolid without primitive extraction/re-admission"
+      ],
+      "crates/adventuresim-tactical-server/src/doors.rs": [
+        "DoorController complete retained geometry fields",
+        "spawn_door complete native collider/joint/controller producer",
+        "door_joint complete final native RevoluteJoint adapter",
+        "door_motor complete final AngularMotor adapter",
+        "update_door_passages complete controller/motor receiving body",
+        "report_unseated_doors complete retained controller geometry diagnostic receiver",
+        "tests::closing_motor_is_weaker_than_automatic_opening existing fixture",
+        "tests::grabbed_inside_door_is_exempt_until_clear_of_the_exterior existing fixture",
+        "tests::authoritative_inside_grab_grants_collision_exemption existing fixture",
+        "tests::door_remains_seated_and_upright_after_a_character_scale_collision existing fixture"
+      ],
+      "crates/adventuresim-tactical-server/src/windows.rs": [
+        "WindowController complete retained geometry/current angle fields",
+        "spawn_window complete collider/controller producer",
+        "animate_windows complete typed retained current angle/native Transform receiver",
+        "tests::only_an_inside_actor_can_toggle_the_window_catch existing fixture",
+        "tests::converted_barred_window_keeps_collider_hinge_and_inward_swing existing fixture"
+      ]
+    },
+    "preservation": [
+      "Reuse canonical frame-specific Position and Radians; no duplicate owner",
+      "Keep actual native geometry/rotation order, signed angles/realzero/subnormal behavior",
+      "Preserve native AngleMotor/RevoluteJoint/Transform endpoint values",
+      "Existing fixture inputs/count/order/assertions only; no new cases/helpers/assertions/doctests",
+      "Whole connected error contracts must reach actual native framework receiver without String erasure"
+    ],
+    "exclusions": [
+      "Viewer building_review ReviewLeafPose repair remains root-owned unless root explicitly transfers",
+      "Core coordinate/rotation/polygon/cuboid and canonical scalar definitions remain existing owners",
+      "No fixes, source commits or integration while all13 discovery is gated"
+    ],
+    "status": "Exact ownership only; implementation not started"
+  },
+  "shared_equipment_failure_dependency": {
+    "owner": "/root/rig_garments",
+    "native_receiver": "crates/adventuresim-tactical-client/src/animation_viewer/harness/readiness.rs::EquipmentVisualStatus::{state,summary} plus EquipmentVisualState/query and existing connected harness/capture receivers",
+    "contract": "Native retains its exact whole harness readiness ownership. Consume canonical retained typed generation failure payload from rig once defined; retain locally observed invalid skin/readiness causes distinctly, Missing/Loading vs Failed vs Ready. No competing cache/generation fixes.",
+    "evidence": "final-acceptance-20261021/wave-01/audit-producer-propagation/native/progress.json source108, full285 SHA64c3ae627a9e6e8b449c355a123aa9007228513e88cc07c9d3ec6f6783ecff34",
+    "status": "Dependency recorded; all13 source freeze remains active"
+  },
+  "shared_impact_animation_transfer": {
+    "authorization": "Root explicit first-trace whole-function transfer2026-10-21, metadata only during all13 freeze",
+    "families": [
+      "P16",
+      "P17",
+      "connected impact and animation producers/receivers"
+    ],
+    "finding_ref": "CAM-PROP-F015; native source15/185 actual receiver proof",
+    "files_and_functions": {
+      "crates/adventuresim-tactical-client/src/animation/mod.rs": [
+        "on_successful_attack complete external impact ingress/scaling/message producer"
+      ],
+      "crates/adventuresim-tactical-client/src/animation/bouncy_bones.rs": [
+        "BoneKick complete retained physical payload",
+        "kick_bones complete physical impulse -> rotational spin/native spring numerical conversion"
+      ]
+    },
+    "dependency": "Camera owns original hit_velocity_change/authoritative_impact/internal result and agreed network/SceneVelocity physical leaf contracts. Native consumes checked world delta-v, preserves it through scaled BoneKick until actual cross-product/spin operation; no primitive adapter or duplicate physical/angular owner. Existing rotational Spring offset/velocity math remains native numerical representation. Coordinate real API edge once repairs authorized.",
+    "preservation": [
+      "Original impact scaling/cross-product order, gain/transmission/parent-chain count/order and zero policy",
+      "Native bone/rig identity and per-bone response",
+      "Actual network values and clock/render authority",
+      "No new tests/cases/assertions/helpers/doctests or local checks"
+    ],
+    "status": "Exact ownership only; source repair not started"
+  },
+  "shared_strategic_pure_producer_claims": {
+    "authorization": "Root assigned bounded pure strategic_action/rights/material receiver queue and explicitly directed pureCore producers whole where first-traced during read-only discovery2026-10-21. Metadata only; no source edits before all13 gate. Camera confirmed no prior resolve_time/material or whole pure quest assembly repair claim.",
+    "finding_refs": [
+      "NATIVE-PP-033",
+      "NATIVE-PP-034",
+      "CAM-PROP-F022 earliest pure producer",
+      "NATIVE-PP-032 additional assembly/validation edges"
+    ],
+    "family_status": "Additional connected source requirements only; execution-ledger.json remains sole family status, prior P18/geometry/P17 commits preserved.",
+    "files_and_functions": {
+      "crates/adventuresim-core/src/strategic_action.rs": [
+        "RequestedDuration canonical positive requested-minute owner; retain existing constructor/zero policy",
+        "TimeResolution retained requested-duration field and resolve_time whole function",
+        "AuthoritativeActionPlan time/public_plan receivers, build_plan whole callback owner and validate_commit whole equality/error receiver",
+        "Existing same-input/time fixture adaptations required by final typed APIs only"
+      ],
+      "crates/adventuresim-core/src/herbalism.rs": [
+        "PreparationPlanEffect::AttemptWait requested duration and PreparationPublicPreview duration application retention",
+        "build_preparation_plan whole function with original positive requested / optional clipped elapsed policy",
+        "Existing same-input preparation fixture adaptations only"
+      ],
+      "crates/adventuresim-core/src/foraging.rs": [
+        "ForagePlanEffect::AttemptSearch requested duration and ForagePublicPreview duration application retention",
+        "build_forage_plan whole function including required effect/callback and legitimate elapsed0 policy",
+        "Existing same-input foraging fixture adaptations only"
+      ],
+      "crates/adventuresim-core/src/investigation_action.rs": [
+        "InvestigationPlanEffect::AttemptPartyInterval duration contract and build_investigation_plan whole callback receiver, reconcile authoritative requested duration vs newly computed resolution cost without changing action policy",
+        "Existing same-input planning_adapter fixtures only"
+      ],
+      "crates/adventuresim-core/src/material.rs": [
+        "Milligrams/Microliters/MaterialComponentMicrounits canonical checked unit operations needed for original same-value typed composite retention, no duplicate owners",
+        "MaterialMeasure whole retained fields/try_new/ZERO/checked_add/checked_sub plus Portion::split_measure whole invariant-preserving arithmetic",
+        "ExtensiveComponent whole magnitude payload and PrivateMaterialTruth::{try_new,split,components,contaminants} whole typed aggregate operations",
+        "MaterialVessel capacity/accepts and RoundingTolerance whole required material measure receivers",
+        "ConservationReceipt / verify_conservation / checked_sum whole typed arithmetic receivers",
+        "PrivateMaterialSnapshot/MaterialRemainder/SourceLotContribution/ProducedMaterial/ProcessConservationPolicy/MaterialTransformationReceipt affected retained checked measure/component fields and whole connected constructors/accessors",
+        "canonical_input_digest / verify_private_conservation / verify_extensive_values / validate_material_commit whole actual reduction/hash/commit receiving bodies",
+        "classify_material_retry / exact_sources_equal whole typed receipt receiving bodies, same identity/sort/hash values",
+        "Existing material fixtures with unchanged input/count/order/assertions only; no new helpers/cases"
+      ],
+      "crates/adventuresim-core/src/quest_generation/assembly.rs": [
+        "generate whole typed AssetId/SubjectId production + retained custody/finale/consequence/dialogue contract across all affected families",
+        "generate_outbreak whole Seed/episode identity and retained exposure contract across all affected families"
+      ],
+      "crates/adventuresim-core/src/quest_generation/model.rs": [
+        "GeneratedActionConsequence whole asset/subject payload owner",
+        "GeneratedFinale whole actual mixed subject/proposition/asset payload contract, coordinate final enum/owner lens result; do not blanket SubjectId replacement",
+        "GeneratedDialogueProducer whole retained asset/objective payload owner",
+        "GeneratedCase.custody field and directly connected typed custody initialization/serialization receivers only; other model fields remain existing first-trace owners",
+        "OutbreakExposure.episode_id and whole connected checked identity/entropy retention field contract as PP032; preserve exact genuine identity semantics until later owner/granularity reconciliation"
+      ],
+      "crates/adventuresim-core/src/quest_generation/validation.rs": [
+        "validate whole actual generated-case receiving/error contract, consume final typed Asset/Subject/Objective and checked Seed identity representations together, preserving existing witness/demographic rules",
+        "validate_track_trails stays unchanged unless final owned whole validate API requires a connected receiver change; coordinate any newly reached overlap first"
+      ]
+    },
+    "exclusions": [
+      "Camera retains whole DB time/condition/food/preparation/foraging/investigation/custody_objectives and canonical StrategicOperationError/F006/F022 caller repair ownership; native consumes and supplies agreed pure checked APIs, never competing DB patches",
+      "Camera retains whole visible_witness_candidate/visible_witness_presence_version/pattern_target_matches and original F011 age/presentation API repair; native whole assembly/validate consume agreed checked field contract together",
+      "Rights foundations full source read is evidence only, no repair transfer needed without new source-backed first trace",
+      "Core case::{CaseId,AssetId,SubjectId,ObjectiveId} are existing canonical owners, not new duplicate wrappers; pure foundation changes need exact additional claim if later admission/ownership lens requires them",
+      "No source edits/checks/CI/new tests/cases/assertions/helpers/doctests during all13 initial discovery"
+    ]
+  },
+  "shared_validated_schedule_claim": {
+    "authorization": "Root explicitly confirmed C001 as PP035 and transferred whole pure effective_at/validated result plus connected Core schedule consumers2026-10-21. Metadata only; no source/validation commands or edits before remaining initial lenses.",
+    "finding": "NATIVE-PP-035",
+    "evidence": "final-acceptance-20261021/wave-01/audit-producer-propagation/native/supplemental-schedule-closure.json",
+    "files_and_functions": {
+      "crates/adventuresim-core/src/strategic_schedule/allocation.rs": [
+        "ValidatedSchedule::effective_at whole function and returned canonical validated schedule representation (existing owner, no duplicate type)",
+        "DailySchedule/ValidatedSchedule exact retained allocation fields, admission/result/operations needed to preserve effective allocation guarantees; existing same-input fixture adaptations only"
+      ],
+      "crates/adventuresim-core/src/strategic_schedule.rs": [
+        "Whole connected pure recovery consumer whose actual numerical operation body is126–237 (exact source pin/hash in supplemental-camera-receivers.json)",
+        "Whole connected pure training consumer whose actual numerical operation body is397–473, preserving reading untouched and org eligibility behavior",
+        "Whole connected pure outcome consumer whose actual numerical operation body is647–683, plus same owner typed schedule signatures/accessors feeding those bodies",
+        "Existing same-input/count/order/assertion source fixtures needed by final checked schedule API only"
+      ]
+    },
+    "exclusions": [
+      "Camera retains all whole DB time/schedule/rest/stationary/activities/advancement functions and original StrategicOperationError/F006 graph; native supplies and consumes agreed checked pure result API",
+      "Actual table/SDK schedule projection is legitimate native boundary and must stay explicit; no primitive application forwarding adapter or unchecked public construction",
+      "Later aggregate/ownership/invariant-operation lenses must reconcile final representation before any source edit",
+      "No duplicate schedule type, additional tests/helpers/assertions/cases/doctests, source commits/checks/CI or family-level completion claim"
+    ]
+  },
+  "canonical_nonnegative_length_transfer": {
+    "authorization": "Root explicit2026-10-21 lens-two metadata-only transfer; source gate closed until all13 initial inventories",
+    "finding_refs": [
+      "ROOT-OWNER-ZERO-LENGTH-007",
+      "ROOT-PP-014"
+    ],
+    "files_and_functions": {
+      "crates/adventuresim-tactical-core/src/animation/measurement.rs": [
+        "Whole existing NonnegativeLength definition/private representation/admission bounds/validzero/Serde/error and every inherent method incl explicitly claimed min/max, moved as actual canonical definition into neutral geometry; callers reexport actual owner, no compatibilityalias/shim"
+      ],
+      "crates/fabelgeist-geometry/src/measurement.rs": [
+        "Whole relocated canonical NonnegativeLength contract at neutral shared owner, including zero/admission/error/Serde/native operation semantics; coordinate final portable error API after all13 lenses",
+        "SignedLength::scaled_by whole existing canonical operation ownership retained; fabelgeist_math::Ratio is current exact unbounded dimensionless input candidate, not UnitInterval"
+      ]
+    },
+    "preservation": [
+      "Existing finite >=0 length values, all valid zero/signedzero/Serde and original error classifications",
+      "Existing SignedLength.scaled_by accepts anyf32 input then admits actual computed length; Ratio constructor accepts everyf32 and preserves factor operation semantics, unlike bounded/positive zoom/plant scale",
+      "No f32/f64 narrowing, arithmetic/order/error or native output change",
+      "Do not duplicate equivalent NonnegativeLength or scale wrapper; final type/portable error/dependency API after all13"
+    ],
+    "exclusions": [
+      "Root keeps SupportLimits/CornerProbe terrain consumers",
+      "Rig keeps property/settlement/apron/garment caller consumers",
+      "No source edit/check/CI or family acceptance from ownership metadata"
+    ]
+  },
+  "diagnostic_script_transfer": {
+    "status": "Root explicitly transferred exact first-traced whole functions during read-only lens-two; metadata only, source remains frozen until all13 initial inventories.",
+    "file": "crates/adventuresim-tactical-client/src/diagnostics.rs",
+    "items": [
+      "InputScript",
+      "ScriptCommand",
+      "ScriptedInput",
+      "DiagnosticPlugin::{new,build,finish}",
+      "validate_script",
+      "drive_scripted_input",
+      "FrameTimingTrace",
+      "FrameTimingRecord",
+      "create_diagnostic_file",
+      "record_frame_timing",
+      "diagnostic_command_pace",
+      "default_attack_observation_seconds"
+    ],
+    "contributes_to": [
+      "P17 actual diagnostic observations/command clock",
+      "P08/P16 shared actual scripted camera/movement input recipients where reached; no automatic family completion"
+    ],
+    "preservation": [
+      "f64 clock/warmup/sample/ready precision; no narrowing into AnimationElapsedf32",
+      "script command order and elapsed0 firsttick behavior",
+      "valid zero and absence versus measured state",
+      "exact existing native handler/output behavior until later lenses reconcile policy",
+      "no new tests/cases/assertions/helpers/source edits or validation commands"
+    ],
+    "discovery_refs": [
+      "audit-producer-propagation/native NATIVE-PP-019",
+      "audit-existing-type-owners/root ROOT-OWNER-DIAGNOSTIC-SCRIPT-035 pending saved proof",
+      "Exact PR diagnostics.rs declarations observed SHA f75fd2dcfa8891b72b801dec9631fdbb68183bdf125fd08f0a614ba420048a17; whole root current-lens proof to link",
+      "Current-lens root/coverage.jsonl complete876 source SHA f75fd2dcfa8891b72b801dec9631fdbb68183bdf125fd08f0a614ba420048a17 and root/contracts.jsonl#ROOT-OWNER-DIAGNOSTIC-SCRIPT-035"
+    ],
+    "ownership_exclusions": "Root/camera retain actual gameplay/camera/motor functions except later exact transfers; this claim owns whole diagnostic script/record producer and its status receiver contract, no competing leaf wrappers.",
+    "connected_claims": [
+      {
+        "file": "crates/adventuresim-tactical-client/src/animation/diagnostics.rs",
+        "items": [
+          "DiagnosticInputStatus declaration and receiving contract only; exact parent transfer, remaining diagnostics functions retain prior owners"
+        ]
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/animation/diagnostic_record.rs",
+        "items": [
+          "Existing DiagnosticInputStatus payload field/serialization receiver as needed for whole transferred source; no unrelated pose/rig ownership transfer"
+        ]
+      }
+    ]
+  },
+  "quest_sampling_solver_transfer": {
+    "authorization": "Root explicit2026-10-21 lens-two first-trace whole pure choose/solver Candidate/SolvedVariables/bridge/canonical ID/error/trace transfer. Metadata only; no source edits before all13 initial inventories.",
+    "files_and_functions": {
+      "crates/adventuresim-core/src/quest_generation/sampling.rs": [
+        "choose whole connected function",
+        "weighted_order whole connected function; preserve RNG byte domain as byte context, not automatically ModuleId",
+        "deterministic_witness_order and canonicalize necessary typed ID/order receivers"
+      ],
+      "crates/adventuresim-core/src/quest_generation/solver.rs": [
+        "SolvedVariables complete retained bridge/factor/role fields",
+        "solve and actual Candidate collection/backtrack/matching/error receivers",
+        "bridge whole original canonical BridgeId assembly/trace receiver and connected solver helper signatures"
+      ],
+      "crates/adventuresim-core/src/quest_generation/model.rs": [
+        "Candidate whole retained ID/bridge/factors/weight/context/error contract",
+        "ModuleId/RelationId/FactorId/BridgeId existing canonical definitions only as needed for connected checked APIs",
+        "SamplingError/GenerationError and sampling trace payload fields needed for exact typed cause/ID retention"
+      ]
+    },
+    "dependencies": [
+      "Consume root owning catalogue admission/error policy; preserve original authored bounds and first failure order",
+      "Camera keeps DB/custody/dialogue/action/F006/F011 receiving bodies and quest_fixture aggregation",
+      "Heterogeneous Candidate.id and weighted_order.domain are distinct roles, no blanket ModuleId replacement"
+    ],
+    "evidence_refs": [
+      "NATIVE-OWNER-QUEST-001",
+      "NATIVE-OWNER-QUEST-002",
+      "NATIVE-OWNER-QUEST-003",
+      "NATIVE-OWNER-F016"
+    ],
+    "preservation": [
+      "Same lexicographic ID/candidate sort/ties/excluded order and RNG streams/draws",
+      "Full integer weight precision, valid0 and typed lower causes",
+      "No extra cases/assertions/helpers/tests/source changes or validation commands"
+    ]
+  },
+  "local_problem_weight_transfer": {
+    "authorization": "Root explicit current-lens first-trace transfer; metadata only untilall13 inventories complete.",
+    "file": "crates/adventuresim-core/src/local_problem.rs",
+    "items": [
+      "generate whole original typedWeight/canonicalID/error/RNG/recipient contract",
+      "Candidate entire plausibility-curation Weight aggregate payload",
+      "GenerationExplanation entire same Weight retained projection and receiving signatures"
+    ],
+    "existing_owner": "quest_generation::Weight actualpairu32/u64product; canonicalplacement reconcile afterall13, no duplicatepair.",
+    "preservation": [
+      "Integeru32/u64product/validzero/hardzerofilter, exactauthoredcandidateorder andweightedRNGdraws",
+      "Originalseedbytecontexts/hashframing/errororder/sourceoutputs",
+      "No sourcefixes/tests/validation commands now"
+    ],
+    "exclusions": [
+      "Root retains adjust_price broad−9999..50000 input and ConsequenceInput/consequence aggregate signedoffset contract",
+      "Camera retains DBoperation/reducererrorreceivinggraph",
+      "No otherpurelocalproblem functiontransfer inferred; coordinate actualoverlapsbeforefutureedit"
+    ],
+    "evidence_refs": [
+      "NATIVE-OWNER-F018",
+      "NATIVE-OWNER-LOCAL-PROBLEM-001"
+    ]
+  },
+  "cycle_delta_ratio_transfer": {
+    "authorization": "RootexplicitfirsttracewholeCycleDelta::checked_lerp duringlens2; metadataonlysourcefrozenuntilall13.",
+    "file": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+    "items": [
+      "CycleDelta::checked_lerp whole checkednative interpolation contract and necessary existingcallers"
+    ],
+    "candidate": "Existing fabelgeist_math::Ratio allf32 fitsunitfactor; UnitIntervalwouldnarrowextrapolation/nonfiniteinputpolicy.",
+    "preservation": "NativeFloatExtlerp arithmeticorder/extrapolation/NaN→postoperationOverflow; samecheckedcycles/privatebound/Serde; sourceunchanged.",
+    "exclusions": [
+      "Camera AnimationElapsed::checked_scale andNonnegativeSpeed::{checked_scale,checked_lerp} remaincamera",
+      "Rootproceduralfoot_influence functions remainroot; anytypedcatalogcycleconstants consumeagreedAPI wholeownerlater"
+    ],
+    "refs": [
+      "ROOT-OWNER-F001/ROOT-OWNER-RATIO-003",
+      "NATIVE-OWNER-ANIMATION-LEAVES-001"
+    ]
+  },
+  "animation_load_cause_transfer": {
+    "authorization": "Rootexplicitwholeconnectedanimationloadstate/asset/ClipDurationcause/revision+harnessreceivergraph firsttrace duringlens2. Metadataonly; sourcefreezeuntilall13.",
+    "files_and_functions": {
+      "crates/adventuresim-tactical-client/src/animation/loading/motion.rs": [
+        "MotionLoad whole struct/request/source/poll/observe_source_revision",
+        "MotionLoadState entire pending/ready/unavailable/cause retainedpayload",
+        "MotionClipAdmission entire enum/admit whole failure/readiness cause contract"
+      ],
+      "crates/adventuresim-tactical-client/src/animation/loading.rs": [
+        "AnimationRuntime::rebuild_loaded_library whole typedload/packvalidation failure retainingreceiver",
+        "request_animation_packs andcollect_loaded_packs whole loadstate producer/receiver contract",
+        "collect_loaded_grips whole asset/clipduration/structuraladmission causecontract",
+        "install_requests necessary connectedloadsystem registration only; rigidentity/targetbinding helpers retainexistingowners"
+      ],
+      "crates/adventuresim-tactical-client/src/animation/playback_state.rs": [
+        "BaseRigLoad entire enum andsource/scene actual retainedcause/readinessreceivers"
+      ],
+      "crates/adventuresim-tactical-client/src/animation/mod.rs": [
+        "AnimationRuntime load-related base_rig/requested_motions/unavailable_motions/clips/requested_grips/processed_grips/unavailable_grips/grips/library fields anddefaultconstruction receivers",
+        "update_rig_visibility andattach readiness requiredconnectedloadresultprojection only; no unrelatedprocedural/skeletalposes transfer"
+      ],
+      "crates/adventuresim-tactical-client/src/animation/clip_revision.rs": [
+        "refresh_animation_revisions whole invalidation/reset/rebuild typedloadstate contract"
+      ],
+      "crates/adventuresim-tactical-client/src/animation/clip_revision/events.rs": [
+        "RevisionEvents/ChangedAnimationAssets/read necessary whole nativeevent/cause vsrevision identity contract; asset_event_id actualframeworkidentity projection remainsnamednativeport"
+      ],
+      "crates/adventuresim-tactical-client/src/animation_viewer/harness/readiness.rs": [
+        "Existing native-owned readiness loadfailure/cause requiredavailability actualreceivers wholefunctions perpriorclaim"
+      ]
+    },
+    "dependencies": [
+      "Consume actual BevyAssetLoadError typednativecause fromrig020proof, do notduplicateframeworkerror",
+      "Retain firstparty structuralreason classifications andClipDuration AnimationValueError untilactualcapture/CLIerrorreceiver",
+      "Rootmotion/proceduralpose exactclaims stayroot; canonicalrigidentity/targetbinding andequipmentfailurecache stayrig; coordinate newlyreachedwholefunction beforefutureedit"
+    ],
+    "preservation": [
+      "Optionalexpectedabsentmotion fallback remainssupported; requiredabsence cannotbecomeunexplainedready",
+      "Existingrevision/readiness/sourcehandle/retryorder retained; no competingpartialrootorP16sourceimport",
+      "All13laterenum/owner/admissionlenses reconcilepayload/state beforeimplementation"
+    ],
+    "refs": [
+      "NATIVE-OWNER-ANIMATION-LOAD-001",
+      "NATIVE-OWNER-F020",
+      "rig/RIG-OWNER-ASSET-CAUSE-020"
+    ]
+  },
+  "fallback_geometry_transfer": {
+    "authorization": "Root explicitly transferred wholefallback root-anchor/bodypart construction andreceivers forF022 discovery/futurerepair; sourcefrozenall13.",
+    "file": "crates/adventuresim-tactical-client/src/animation/fallback.rs",
+    "items": [
+      "LimbAnchor entire localpoint/name role record",
+      "FallbackCapsule entire radius/segment andmesh nativeadapter",
+      "FallbackGeometry entire retainedbodypart/root-anchor record andauthored constructor",
+      "spawn_fallback_t_pose whole root/bodypart construction andactualMesh/Transformreceivers"
+    ],
+    "dependencies": [
+      "ProveactualActorRoot/riglocaldatum beforechoosingcanonicalexistingframe; Scene/Architecturalarenotinterchangeable",
+      "ExistinggenericPosition/Displacement mayneedactualrootframemove/shared; no duplicatevectorwrapper",
+      "Rootprocedural/rootmotion/IK andrigidentity/topology/skin keepwholefunctions exceptlaterexacttransfer"
+    ],
+    "preservation": [
+      "Originalsignednegative/0 anchors, f32literal/arithmeticorder, capsulepositivebounds",
+      "Slashnamesare diagnosticgroup labels notstrictMHRjointmembership",
+      "NativeBevyColor/Transform/Meshports andsame fallbackreadiness behavior; no newtests/checks"
+    ],
+    "refs": [
+      "NATIVE-OWNER-F022",
+      "NATIVE-OWNER-ANIMATION-FALLBACK-001"
+    ]
+  },
+  "jitter_measurement_transfer": {
+    "authorization": "Root explicit wholejitter firsttracegraph underlens2; P17contribution onlynofamilycompletion, sourcefrozenall13.",
+    "files_and_functions": {
+      "crates/adventuresim-tactical-client/src/animation/jitter.rs": [
+        "JitterThresholds/JitterLimit whole per-class physical/relative/noisefloor quantities",
+        "JitterBone/JitterFrame whole observedpose/time/segment records includinginvalidobservation policy",
+        "JitterIncident/JitterValidationSummary whole per-class measurement/bound/severity contracts",
+        "JitterClass/JitterBoneIdentity currentrole/native-report serialization contract",
+        "JitterThresholds::default, validate andserialize_bone wholefunctions",
+        "acquisition_warmup_frames/contact_segment_warmup_frames/thresholds_for_scenario whole originalpolicyhelpers",
+        "analyze_scenario/report/dt/derivative/vector_derivative whole connectednumericalanalysis andreceivers"
+      ],
+      "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs": [
+        "jitter_frames whole actual JitterFrame/JitterBone construction receiver; existingcapture_frame whole claim stays intact"
+      ],
+      "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs": [
+        "AnimationCaptureValidation.jitter_validation existingfield type/serde receivingcontract asneeded"
+      ],
+      "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs": [
+        "build_completed_report whole original JitterValidationSummary receivingfunction, coordinatedwithallpriorP17requirements perexistingwholeclaim",
+        "Existingnative-owned quality/category receivingfunctions onlyasneededfor final checkedjitter API; exactexistingclaimsretainwholefunctions"
+      ],
+      "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs": [
+        "write_completed_capture existingwhole reportserialization receiver asneeded forfinaltypedjitterrecords"
+      ]
+    },
+    "existing_owner_dependencies": [
+      "math::Acceleration allf32 numericunit exactm/s² inclinvalidobservationvalues diagnosticpolicy",
+      "math::Ratio allf32 relativedimensionless/severity (>1/Inf) input/output support; UnitIntervalwouldnarrow",
+      "Angularacceleration/jerk andlinearjerk distinctunitroles noexactowneryetproven",
+      "ActualobservedActorRoot/localframe/finiteness sourceproof required; noforcedScenePosition/RigidRotationrejectedevidence"
+    ],
+    "preservation": [
+      "Currentthresholdvalues/scenariowarmup/segmentcuts/inputcounts/order/assertions untouched",
+      "Originalvector/quaternionderivatives/radianunits/f32order andmedian/thresholdmax/severity sort",
+      "Invalid/nonfinitefiltering diagnosticpolicy inventoriedforlaterlenses, no silentnewaccept/reject/thresholdweakening"
+    ],
+    "refs": [
+      "NATIVE-OWNER-JITTER-001",
+      "NATIVE-OWNER-F023"
+    ]
+  },
+  "animation_sample_failure_transfer": {
+    "authorization": "Root explicit whole sample_plan/update_pose_buffers transfer forALLaffectedP17/P19/P20 families tocohere loadfailure/readiness graph; metadataonlysourcefrozenall13.",
+    "file": "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs",
+    "items": [
+      "sample_plan whole original body including simple/extrapolated/continuation/grip blends andtypedfailure propagation",
+      "update_pose_buffers whole original clock/binding/culling/sampling/terrain/conformity/continuation/update body consumingagreedhelpercontracts",
+      "SampledPlan andrequiredtyped error/readiness receivingstate asneeded forwholefunctions",
+      "Necessarydirectsample_plan/update_pose_buffers caller fixtures adaptedwithsameinputs/count/order/assertions onlyaftergate"
+    ],
+    "exclusions": [
+      "Root retains PoseConformity, conform_upcoming_pose_to_terrain, canonicalContinuationTransition definition/operations; anyhelpercontractchangecoordinatefirst",
+      "Rig keeps canonicalRigJointName/Ordinal/Table andactualbasis/identityproducers; nativeconsumesagreed checkedpayload",
+      "No wholeposebuffer-otherfunctions automatictransfer; existingowners retained exceptpreciseparenttransfer"
+    ],
+    "preservation": [
+      "Currentintegratedpose/conformity/continuation behavior, frameclock/states/errororder/sourceasset/bakedcache andRNGnone unchanged",
+      "Requiredinvalidmeasurementmustretain AnimationValueError ratherthan .ok→None, optionalmissingasset remainsdistinguished",
+      "No sourceedits/check/tests/CIbeforeall13"
+    ],
+    "refs": [
+      "NATIVE-OWNER-ANIMATION-LOAD-001",
+      "NATIVE-OWNER-POSE-BUFFER-002"
+    ],
+    "connected_caller_transfer": {
+      "authorization": "Root confirmed no competing claim; whole sample_character_plan and typed failure/readiness result path for allP17/P19/P20, metadataonly discoveryfreeze",
+      "file": "crates/adventuresim-tactical-client/src/animation/pose_buffer/proportions.rs",
+      "functions": [
+        "sample_character_plan whole function including native offset application after checked sample_plan result",
+        "necessary direct typed failure/readiness result receivers and unchanged fixture adaptations withsameinputs/count/order/assertions aftergate"
+      ],
+      "exclusions": [
+        "Root canonical conformity/continuation helpers retained",
+        "Rig canonical proportions/basis/identity owners retained"
+      ],
+      "policy": "Stride calibration warns/continues deliberately degradedpolicy, do not automatically convert to fatal; actual required capture/readiness obligations separately classified"
+    }
+  },
+  "canonical_basis_point_admission_transfer": {
+    "authorization": "Rootexplicitsharedcanonicalbasis_points.rs wholeadmission/Serde/SATS transfer forALLaffectedfamilies; firstrecordNATIVE-OWNER-STRATEGIC-002. Metadataonlyuntilall13initialinventories.",
+    "file": "crates/adventuresim-world-schema/src/basis_points.rs",
+    "items": [
+      "UnitBasisPoints whole privatebounds/new/checkedops/Serialize/Deserialize/SpacetimeType admission contract",
+      "SignedUnitBasisPoints whole privatebounds/new/checkedops/Serialize/Deserialize/SpacetimeType admission contract",
+      "ExistingBasisPoints error/result conversions and sameinput fixtures onlyasneeded finalcanonicalAPI"
+    ],
+    "dependencies": [
+      "ActualSDKSpacetimeType/SATS admission isseparatefromSerde; customSerde alonecannotclaimSDKvaluebounds",
+      "Root/camera/rig native consumers retainwholefunctions andreuseagreedcanonicalleaf, no equivalent localBPSowner",
+      "PreserveactualSDKtable/wirelayout/spelling/native integerarithmetic, sourceinputadmission/errorfirstfailureorder tobereconciled inlateradmissionlens"
+    ],
+    "refs": [
+      "NATIVE-OWNER-STRATEGIC-002",
+      "NATIVE-OWNER-PHYSIOLOGY-002",
+      "rootcurrentsharedconstructorcomparison"
+    ],
+    "preservation": [
+      "Unsigned0..10000 andsigned−10000..10000; zeroandnegativevalues remainreal",
+      "Do notblanketnarrowpublicrawu16/i16/i32kernels orwrongdenominatorpermille/full-u16cumulativehandlingdamage",
+      "No source/tests/validationcommands beforeall13"
+    ]
+  }
+}

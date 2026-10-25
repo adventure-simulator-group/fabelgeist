@@ -1,0 +1,75 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-134",
+  "at": "2026-10-22T21:29:24.137981+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-034.json",
+    "sha256": "6e6d35282fb6aa314bc2d5839820ea8b50c9a5a661fd9129aabc25773bf1b7a4"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-033.json",
+    "sha256": "b89d0a147a31ed4bc75cc3e280e0efcb249fd44d8aa68c1623dfb38703cff85f"
+  },
+  "new_variants": [],
+  "new_overlays": [
+    {
+      "id": "CONT-OWNER-RANGE-EXTENSION-222",
+      "at": "2026-10-22T21:29:24.137981+00:00",
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_schedule.rs",
+      "sha256": "ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+      "material_ranges": [
+        [
+          171,
+          182
+        ]
+      ],
+      "audit_owner": "camera",
+      "reason": "Direct completion of scoped restorative_leisure_spans151-170 to compare scalar pro-rata leisure minutes vs actual relationship-overlap span projection and retain different-purpose distinction before any authority finding",
+      "scope_registration": [
+        {
+          "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+          "sha256": "df3d3166d0df17e20b3ab04f157c35614b4c12426f66d1fddea2868d35267a43",
+          "row_1based": 15,
+          "id": "CAMERA-INITIAL07-REG015",
+          "original_record": {
+            "id": "CAMERA-INITIAL07-REG015",
+            "at": "2026-10-22T21:24:32.899327+00:00",
+            "authority": "CONT-ROOT-PARALLEL-INITIAL-AUDITS-081",
+            "source_id": "physical-p16:crates/adventuresim-core/src/strategic_schedule.rs",
+            "sha256": "ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+            "actual_EOF": 1363,
+            "material_ranges": [
+              [
+                171,
+                183
+              ]
+            ],
+            "material_caller": "Direct completion of scoped restorative_leisure_spans151-170 to compare scalar pro-rata leisure minutes vs actual relationship-overlap span projection and retain different-purpose distinction before any authority finding",
+            "exclusions": "Only loop/return completion; trailing blank/context qualified after read, no unrelated schedule operations239+",
+            "status": "registered BEFORE new body analysis"
+          }
+        }
+      ],
+      "limits": "Only loop/return completion; trailing blank/context qualified after read, no unrelated schedule operations239+",
+      "source_qualifications": "Only171-182 completeactualrestorative_leisure_spans;183blankexcluded. Actualpro-rata restversuscalendaroverlap reproduction differentpurposes, no duplicateauthority fromcountdifference. Allotheroldrolespreserved; no239+newbody/testscope."
+    }
+  ],
+  "total_variants": 2783,
+  "total_overlays": 222,
+  "registered_rows": 1,
+  "input_pins": [
+    {
+      "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+      "sha256": "df3d3166d0df17e20b3ab04f157c35614b4c12426f66d1fddea2868d35267a43",
+      "captured_rows": 15,
+      "selected_ids": [
+        "CAMERA-INITIAL07-REG015"
+      ]
+    }
+  ],
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through221-before034.jsonl",
+    "sha256": "66b05d1320c7a46a49a56ce64de262f264547e4f5c72388b590e6aedb29f1254",
+    "through": 221
+  },
+  "limits": "Only P16strategic_schedule171-182 completefunctiontail;183blankexcluded. Allpriorqualifiedoldroles preserved, mandatorySDK117/Bevy130 qualifications retained in existingrecords/queue; no other-lenscredit."
+}

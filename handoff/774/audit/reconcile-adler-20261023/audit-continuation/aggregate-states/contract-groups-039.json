@@ -1,0 +1,34 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-039",
+  "at": "2026-10-25T11:08:31.573326+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1143,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/npc_causal.rs",
+      "sha256": "3e8edab2fcd4988c3443a07ef35041bc7c9522ab9e6e025317b29608a41de263",
+      "personally_read_ranges": [
+        [
+          1,
+          635
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole635 NPC causal source read. Scheduler identity must equal database identity, refreshes authoritative clock then processes bounded global due events before earliest-personalfrontier living NPC cohort, stable time/id order capped64. All cohort policy decisions precede any time advancement; prior decisions may still mutate shared housing/romance state, not a fully frozen cohort snapshot claim. Percharacter/day/phase receipt guards idempotence; generic outcome and optionaltarget permits invalid combinations but normal calls pair Schedule/Housing outcomes with None and successful Romance with Some(candidate), no ordinary mismatchedreceipt producer. Daily schedule initialization uses effective age chronology and only initializes adult unallocated schedule once; subsequent saved allocations remain preserved. Housing and romance use Character.age_years instead, potential chronology-owner inconsistency depends actual age refresh and owningcondition/lifecycle path, no newly established premature/ineligible character witness. Romance queries current presence and same settlement, stable NPC-only candidate order, normalizes female/male suitor roles before formal/informal rule and records original candidate identity. Candidate conflict error stringification remains existing cause migration. Day,target,phase primitive representation can use existing owners; no fresh claim that deterministic receipts prevent every counterparty effect. Existing source assertions and role tuple unit cases are intended contract evidence only, not run."
+    },
+    {
+      "scope_index": 1145,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/object_custody.rs",
+      "sha256": "a9bb1a3335b7d10b135f817c54c903577af4b2df12ca9d1c10a9ca52d48b2d5c",
+      "personally_read_ranges": [
+        [
+          1,
+          501
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole501 custody adapter read. Transport enum closed variants decode canonical/nonzero core owners; encoding preserves exact variant and payload. Personal/party backing requires existing actor/party, one unique backing object, matching row owner/item and quantity1. Repair requires canonicalsettlement, zero-character escrow row, same item/order/settlement and quantity1; fireplace requires canonical fireplace kind. Direct containment may override directstorage, but resolver validates every object, depth<=MAX, cycle uniqueness, parentexistence and consistent carried owner, finally returns actual parent root. require_actor_carried_object tests actor.id/party only after resolution; fixture validator compares full exactfixture and reports wrongplace distinct from siblingfixture. Same backing alias check is variant-local: repair/personal share physical inventorytable but normal row/owner requirements constrain crossmode ambiguity; no corrupttable assumption promoted. ResolvedObjectCustody stores direct object custody and ultimate root, distinct legitimate relations, not redundant same fact. carried_destination allows any typed party and only checks personal expectedactor; actual transfer receiver must enforce partyaccess, existing connected caller obligation rather than asserting this syntax helper authorizes ownership. NativeStringResult/error stringify and rawtransportIDs remain migration gaps at actual boundary. Existing variant roundtrip, malformedcanonical, depth and alias multiplicity unit cases not executed."
+    }
+  ],
+  "discovery": "Two original roles compared; neighboring1144 existing same-lens proof retained without replay; lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

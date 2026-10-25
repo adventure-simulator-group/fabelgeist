@@ -1,0 +1,552 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-245",
+  "at": "2026-10-25T14:10:00.966543+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 487,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/system_param.rs",
+      "sha256": "a568d6d6d411e2832b3efb91dfc919770712da09eae38e4a9dff53ffd8d72fea",
+      "actual_EOF": 1293,
+      "requested_registration": {
+        "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/system_param.rs",
+        "snapshot": "pinned-registry",
+        "path": "CARGO_REGISTRY/avian3d-0.7.0/src/spatial_query/system_param.rs",
+        "sha256": "a568d6d6d411e2832b3efb91dfc919770712da09eae38e4a9dff53ffd8d72fea",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 48066,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 593,
+            "read_ranges": [
+              [
+                87,
+                155
+              ],
+              [
+                176,
+                229
+              ],
+              [
+                420,
+                493
+              ],
+              [
+                523,
+                609
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-NATIVE-PHYSICS-PORT-071"
+            ],
+            "read_status": "fresh_scoped_current_lens_actual_native_owner_and_receiving_body",
+            "resolved_path": "CARGO_REGISTRY/avian3d-0.7.0/src/spatial_query/system_param.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-TACTICAL-RECEIVERS-044",
+            "json_pointer": "/additional_actual_source_proofs/43",
+            "source_id_as_recorded": "pinned-avian3d-0.7.0:src/spatial_query/system_param.rs",
+            "read_ranges_as_recorded": [
+              [
+                93,
+                138
+              ],
+              [
+                176,
+                226
+              ]
+            ],
+            "source_context": {
+              "source_id": "pinned-avian3d-0.7.0:src/spatial_query/system_param.rs",
+              "sha256": "a568d6d6d411e2832b3efb91dfc919770712da09eae38e4a9dff53ffd8d72fea",
+              "actual_line_count": 1293,
+              "read_ranges": [
+                [
+                  93,
+                  138
+                ],
+                [
+                  176,
+                  226
+                ]
+              ],
+              "resolved_path": "CARGO_REGISTRY/avian3d-0.7.0/src/spatial_query/system_param.rs",
+              "method": "Fresh exact installed dependency body only at actual receiving callback/byte/physical/network ports; package versions matched existing Cargo.lock, no project execution or whole dependency clearance."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CAMERA-BOUNDARIES-048",
+            "json_pointer": "/current_sources/16",
+            "source_id_as_recorded": "pinned-registry:avian3d-0.7.0/src/spatial_query/system_param.rs",
+            "read_ranges_as_recorded": [
+              [
+                87,
+                155
+              ],
+              [
+                176,
+                229
+              ],
+              [
+                420,
+                493
+              ],
+              [
+                523,
+                609
+              ]
+            ],
+            "source_context": {
+              "index": 625,
+              "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/system_param.rs",
+              "path": "CARGO_REGISTRY/avian3d-0.7.0/src/spatial_query/system_param.rs",
+              "sha256": "a568d6d6d411e2832b3efb91dfc919770712da09eae38e4a9dff53ffd8d72fea",
+              "read_ranges": [
+                [
+                  87,
+                  155
+                ],
+                [
+                  176,
+                  229
+                ],
+                [
+                  420,
+                  493
+                ],
+                [
+                  523,
+                  609
+                ]
+              ],
+              "mode": "Fresh exact assigned native type/feature/cast/collider/hit-result numerical boundary source ranges, plus full cast body523\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153596; not wholeforeignmodule clearance."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-COMBAT-RECEIVER-CLOSURE-020",
+            "json_pointer": "/source_reads/43",
+            "source_id_as_recorded": "pinned-avian3d-0.7.0:src/spatial_query/system_param.rs",
+            "read_ranges_as_recorded": [
+              [
+                93,
+                138
+              ],
+              [
+                176,
+                226
+              ]
+            ],
+            "source_context": {
+              "source_id": "pinned-avian3d-0.7.0:src/spatial_query/system_param.rs",
+              "sha256": "a568d6d6d411e2832b3efb91dfc919770712da09eae38e4a9dff53ffd8d72fea",
+              "actual_line_count": 1293,
+              "read_ranges": [
+                [
+                  93,
+                  138
+                ],
+                [
+                  176,
+                  226
+                ]
+              ],
+              "resolved_path": "CARGO_REGISTRY/avian3d-0.7.0/src/spatial_query/system_param.rs",
+              "method": "Fresh exact installed dependency body only at actual receiving callback/byte/physical/network ports; package versions matched existing Cargo.lock, no project execution or whole dependency clearance."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "continuation_actual_producer_source_proofs": [
+          {
+            "record": "continuation/root/foreign-alias-producer-003.json",
+            "json_pointer": "/source_proofs/2",
+            "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/system_param.rs",
+            "sha256": "a568d6d6d411e2832b3efb91dfc919770712da09eae38e4a9dff53ffd8d72fea",
+            "read_ranges": [
+              [
+                93,
+                138
+              ],
+              [
+                176,
+                226
+              ]
+            ],
+            "proof": {
+              "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/system_param.rs",
+              "alias_as_recorded": "pinned-avian3d-0.7.0:src/spatial_query/system_param.rs",
+              "sha256": "a568d6d6d411e2832b3efb91dfc919770712da09eae38e4a9dff53ffd8d72fea",
+              "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\avian3d-0.7.0\\src\\spatial_query\\system_param.rs",
+              "read_ranges": [
+                [
+                  93,
+                  138
+                ],
+                [
+                  176,
+                  226
+                ]
+              ],
+              "source_role": "cast_ray forwards to the complete native cast_ray_predicate: tree traversal/filter/Entity lookup, concrete collider.cast_ray and closest-hit RayHitData construction. Native Dir/Scalar/Entity and engine-owned None/filter/max-distance behavior are actual framework contracts. Application inputs remain checked until this endpoint; returned raw measurements are admitted according to application policy in their callers.",
+              "proof_mode": "Fresh actual bounded body reads by root; identity normalization alone supplied no semantic credit.",
+              "producer_disposition": "exact reached foreign producer/recipient role accounted; application findings retained; no later-lens credit"
+            },
+            "limits": "Actual source-role proof for producer lens only; no owner-fit or other-lens clearance."
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1325,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          87,
+          155
+        ],
+        [
+          176,
+          229
+        ],
+        [
+          420,
+          493
+        ],
+        [
+          523,
+          609
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "Native query methods, no handwritten trait or serializer in exact material.",
+      "absence_basis": "All registered union personally consumed. Native ray/shape casts preserve borrowed context/config/filter/predicate signatures and build selected hit records after transforms/entity lookup; different default callbacks semantic, not trait boilerplate. Actual shape cast559\u2013566 uses stationary first pose and moving direction; source fact only for this lens, no generic other-lens coverage. Not whole1293-line dependency."
+    },
+    {
+      "scope_index": 488,
+      "source_id": "pinned-registry:parry3d-0.27.0/src/math/mod.rs",
+      "sha256": "f1b05b3e1a27c95127e70c59bc0269e9a191b64f4c8f7b02d0f9e402f1752c8c",
+      "actual_EOF": 314,
+      "requested_registration": {
+        "source_id": "pinned-registry:parry3d-0.27.0/src/math/mod.rs",
+        "snapshot": "pinned-registry",
+        "path": "CARGO_REGISTRY/parry3d-0.27.0/src/math/mod.rs",
+        "sha256": "f1b05b3e1a27c95127e70c59bc0269e9a191b64f4c8f7b02d0f9e402f1752c8c",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 9340,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 599,
+            "read_ranges": [
+              [
+                1,
+                48
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-NATIVE-PHYSICS-PORT-071"
+            ],
+            "read_status": "fresh_scoped_current_lens_actual_native_owner_and_receiving_body",
+            "resolved_path": "CARGO_REGISTRY/parry3d-0.27.0/src/math/mod.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CAMERA-BOUNDARIES-048",
+            "json_pointer": "/current_sources/22",
+            "source_id_as_recorded": "pinned-registry:parry3d-0.27.0/src/math/mod.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                48
+              ]
+            ],
+            "source_context": {
+              "index": 631,
+              "source_id": "pinned-registry:parry3d-0.27.0/src/math/mod.rs",
+              "path": "CARGO_REGISTRY/parry3d-0.27.0/src/math/mod.rs",
+              "sha256": "f1b05b3e1a27c95127e70c59bc0269e9a191b64f4c8f7b02d0f9e402f1752c8c",
+              "read_ranges": [
+                [
+                  1,
+                  48
+                ]
+              ],
+              "mode": "Fresh exact assigned native type/feature/cast/collider/hit-result numerical boundary source ranges, plus full cast body523\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153596; not wholeforeignmodule clearance."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1331,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "Feature-dependent native scalar/vector/pose reexports and constants, no local Rust impl.",
+      "absence_basis": "Scoped1\u201348 plus dim3 declaration49\u201350 consumed. No child vector/matrix/SIMD bodies or whole314-line library credit.",
+      "necessary_signature_extension": {
+        "additional_ranges": [
+          [
+            49,
+            50
+          ]
+        ],
+        "reason": "Registration ends in dimension comment, exact cfg3 dimension completes selected alias contract."
+      }
+    },
+    {
+      "scope_index": 489,
+      "source_id": "pinned-registry:parry3d-0.27.0/src/shape/cuboid.rs",
+      "sha256": "e096c59d8192dc997b7db25e0dcd024eefb5c9f37a00a2338bafd11f39582630",
+      "actual_EOF": 783,
+      "requested_registration": {
+        "source_id": "pinned-registry:parry3d-0.27.0/src/shape/cuboid.rs",
+        "snapshot": "pinned-registry",
+        "path": "CARGO_REGISTRY/parry3d-0.27.0/src/shape/cuboid.rs",
+        "sha256": "e096c59d8192dc997b7db25e0dcd024eefb5c9f37a00a2338bafd11f39582630",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 26406,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 598,
+            "read_ranges": [
+              [
+                55,
+                90
+              ],
+              [
+                110,
+                127
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-NATIVE-PHYSICS-PORT-071"
+            ],
+            "read_status": "fresh_scoped_current_lens_actual_native_owner_and_receiving_body",
+            "resolved_path": "CARGO_REGISTRY/parry3d-0.27.0/src/shape/cuboid.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CAMERA-BOUNDARIES-048",
+            "json_pointer": "/current_sources/21",
+            "source_id_as_recorded": "pinned-registry:parry3d-0.27.0/src/shape/cuboid.rs",
+            "read_ranges_as_recorded": [
+              [
+                55,
+                90
+              ],
+              [
+                110,
+                127
+              ]
+            ],
+            "source_context": {
+              "index": 630,
+              "source_id": "pinned-registry:parry3d-0.27.0/src/shape/cuboid.rs",
+              "path": "CARGO_REGISTRY/parry3d-0.27.0/src/shape/cuboid.rs",
+              "sha256": "e096c59d8192dc997b7db25e0dcd024eefb5c9f37a00a2338bafd11f39582630",
+              "read_ranges": [
+                [
+                  55,
+                  90
+                ],
+                [
+                  110,
+                  127
+                ]
+              ],
+              "mode": "Fresh exact assigned native type/feature/cast/collider/hit-result numerical boundary source ranges, plus full cast body523\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153596; not wholeforeignmodule clearance."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1330,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          55,
+          90
+        ],
+        [
+          110,
+          127
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "Cuboid structural/native optionalSerde/bytemuck/encase/rkyv derives already.",
+      "absence_basis": "All exact material consumed: Cuboid half-extents declaration and pure new direct named constructor. No handwritten trait/Serde; constructor is native unit boundary, deriving From would add API unnecessarily. No admission clearance from existing derives or whole783-line dependency."
+    },
+    {
+      "scope_index": 490,
+      "source_id": "pinned-registry:parry3d-0.27.0/src/shape/shared_shape.rs",
+      "sha256": "7cec2012b2193c9dc60738a2a1ce2b9e873a83f730e6d0d15bfe616eead271c5",
+      "actual_EOF": 715,
+      "requested_registration": {
+        "source_id": "pinned-registry:parry3d-0.27.0/src/shape/shared_shape.rs",
+        "snapshot": "pinned-registry",
+        "path": "CARGO_REGISTRY/parry3d-0.27.0/src/shape/shared_shape.rs",
+        "sha256": "7cec2012b2193c9dc60738a2a1ce2b9e873a83f730e6d0d15bfe616eead271c5",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 26726,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 597,
+            "read_ranges": [
+              [
+                282,
+                300
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-NATIVE-PHYSICS-PORT-071"
+            ],
+            "read_status": "fresh_scoped_current_lens_actual_native_owner_and_receiving_body",
+            "resolved_path": "CARGO_REGISTRY/parry3d-0.27.0/src/shape/shared_shape.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CAMERA-BOUNDARIES-048",
+            "json_pointer": "/current_sources/20",
+            "source_id_as_recorded": "pinned-registry:parry3d-0.27.0/src/shape/shared_shape.rs",
+            "read_ranges_as_recorded": [
+              [
+                282,
+                300
+              ]
+            ],
+            "source_context": {
+              "index": 629,
+              "source_id": "pinned-registry:parry3d-0.27.0/src/shape/shared_shape.rs",
+              "path": "CARGO_REGISTRY/parry3d-0.27.0/src/shape/shared_shape.rs",
+              "sha256": "7cec2012b2193c9dc60738a2a1ce2b9e873a83f730e6d0d15bfe616eead271c5",
+              "read_ranges": [
+                [
+                  282,
+                  300
+                ]
+              ],
+              "mode": "Fresh exact assigned native type/feature/cast/collider/hit-result numerical boundary source ranges, plus full cast body523\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153596; not wholeforeignmodule clearance."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1329,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          282,
+          301
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "Native shape constructor methods, no trait implementation in exact material.",
+      "absence_basis": "Material282\u2013300 and final round_cuboid closure301 consumed. Allocating SharedShape/Arc and dimensional native primitive construction semantic, no derive equivalent. Not whole715-line library.",
+      "necessary_signature_extension": {
+        "additional_ranges": [
+          [
+            301,
+            301
+          ]
+        ],
+        "reason": "Complete reached round_cuboid native constructor body."
+      }
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Spatial query native projections and half-extent constructors",
+      "disposition": "No trait boilerplate in exact material; semantic query/shape native adapters retained. Separate245 support confirms RayHits addition to existing F007, not another finding.",
+      "acceptance": "Preserve caller/callee frames, mapping/signatures/errors and full-versus-half dimensions; no independent native runtime effect or other-lens clearance claimed."
+    }
+  ],
+  "findings": [
+    "SEGOVB-INITIAL10-F007 additional RayHits support245"
+  ],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 491,
+    "source_id": "pinned-sdk-2.6.1:db_connection.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

@@ -1,0 +1,70 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-479",
+  "at": "2026-10-25T15:46:26.284933+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 881,
+  "source_id": "pr-working:crates/adventuresim-core/src/bestiary.rs",
+  "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+  "actual_compared_ranges": [
+    [
+      1,
+      440
+    ]
+  ],
+  "existing_derives": [
+    "Prior478 structural enums/IDs",
+    "InnateProtection Clone Copy Debug Default PartialEq",
+    "CombatProfile/InvestigationProfile/ThreatProfile Clone Copy Debug",
+    "ImplementedCombatLore Clone Debug Default PartialEq Eq"
+  ],
+  "trait_inventory": [
+    {
+      "trait": "ThreatId FromStr/Debug/Serialize/Deserialize",
+      "lines": [
+        108,
+        134
+      ],
+      "disposition": "KEEP per478 native representation/checked catalogue semantics."
+    },
+    {
+      "trait": "Serialize",
+      "type": "ReportDescription",
+      "lines": [
+        237,
+        241
+      ],
+      "disposition": "OPTIONAL exact F003 existing Serialize #[serde(transparent)]; no extra owned conversion. Keep manual lexical Deserialize and unquoted Debug."
+    },
+    {
+      "trait": "Deserialize",
+      "type": "ReportDescription",
+      "lines": [
+        242,
+        247
+      ],
+      "disposition": "KEEP exact lexical try_new and invalid description ID error; transparent inner ThreatId decoder adds different catalogue condition."
+    },
+    {
+      "trait": "Debug",
+      "type": "ReportDescription / EvidenceKind",
+      "lines": [
+        [
+          232,
+          236
+        ],
+        [
+          282,
+          286
+        ]
+      ],
+      "disposition": "KEEP canonical unquoted ID, builtin wrapper Debug differs and owning no ready equivalent formatter derive."
+    }
+  ],
+  "analysis": "Fresh221\u2013440 consumed: exact ReportDescription checked lexical admission/Debug/string Serialize/Deserialize; EvidenceKind lexical wrapper/Debug; native profile records and semantic implemented lore prefix. ReportDescription Serialize237\u2013241 is exact F003 optional existing Serde transparent derive support: inner ThreatId Serialize124\u2013128 calls serialize_str sameborrowed text; keep lexical description Deserialize242\u2013247 because inner ThreatId decode adds catalogue membership. No other candidate; remaining441\u20131558 unread.",
+  "first_unfinished": {
+    "scope_index": 881,
+    "line": 441
+  },
+  "execution": "none"
+}

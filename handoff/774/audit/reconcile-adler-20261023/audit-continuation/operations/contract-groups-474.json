@@ -1,0 +1,30 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-474",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs.rs",
+      "sha256": "ee9206f01afa3ace0319c0d1098568b83cb983fe7240990836b13da56e045b16",
+      "actual_EOF": 1101,
+      "actual_compared_ranges": [
+        [
+          1,
+          1101
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Authored capture controls and temporal sequence",
+      "analysis": "Full1101linebody read. Constbuilders preservecamera/LOD/representation flags, typedfiniteangles/scene coordinates andauthoredfinitepositive distances. CurrentfixedtableFOVs15..80 arevalidperspective; generic SignedAngleDegrees isbroader thanFOV but no badactualconstant. Raw.scale setter noadditionalfinitegate butactualprojectioncontrols fixed .333.. .60; no newordinarynativeoverflow. Enum cameraindexu8 refersownprofilecameraarray; graph requiresactualmatchingfixtureprep, no independentcataloguemembership imposed on syntaxonlyangle/ID. Coldsequence16inward+retreat+16warm andBeech16quartermetresteps intentionallytemporal, strictprefixdriver preserved. Arithmetic onconstantcataloguearrays bounded, no freshmutationfailure."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "1 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/building_review.rs"
+}

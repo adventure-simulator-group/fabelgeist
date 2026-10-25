@@ -1,0 +1,245 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-288",
+  "at": "2026-10-25T14:27:51.724762+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 576,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/spec.rs",
+      "sha256": "a00ea9a2b6d58eddb090e18a78a9ef0c3b205ab9329ea61d2f4f3a7faf8ce2c6",
+      "actual_EOF": 143,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/spec.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-building-generator/src/furniture/spec.rs",
+        "sha256": "a00ea9a2b6d58eddb090e18a78a9ef0c3b205ab9329ea61d2f4f3a7faf8ce2c6",
+        "bytes": 6792,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-root-receivers-007.json",
+            "ranges": [
+              [
+                1,
+                143
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-SUPP-STRATEGIC-001"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 505,
+            "read_ranges": [
+              [
+                1,
+                143
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-FURNITURE-COMPLETE-SOURCE-076"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/furniture/spec.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 177,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          143
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "FurnitureAccessFace Clone/Copy/Debug/Eq/PartialEq/Serialize/Deserialize5\u201311",
+        "InteriorFurnitureSpec Clone/Copy/Debug13\u201318",
+        "FurniturePlacementRole structural126\u2013130"
+      ],
+      "absence_basis": "Entire source read. Inherent access_bounds22\u201350 selects checked side bounds; interior_spec54\u2013122 selects independently-authored envelopes/access with checked dimensions/depth and contextual key errors; placement_role133\u2013142 native classification. No handwritten trait and no derive substitute for semantic tables."
+    },
+    {
+      "scope_index": 577,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/stall.rs",
+      "sha256": "5b82553e30a9eb80b27718205a79b793c11975d8db18ce9d453f9ecafe144515",
+      "actual_EOF": 127,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/stall.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-building-generator/src/furniture/stall.rs",
+        "sha256": "5b82553e30a9eb80b27718205a79b793c11975d8db18ce9d453f9ecafe144515",
+        "bytes": 4219,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-root-receivers-012.json",
+            "ranges": [
+              [
+                1,
+                127
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-SUPP-STRATEGIC-006"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 506,
+            "read_ranges": [
+              [
+                1,
+                127
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-FURNITURE-COMPLETE-SOURCE-076"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/furniture/stall.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 178,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Entire canopy13\u201378, beam80\u201389 and canvas91\u2013127 read: selected native dimensions/support/collider/clearance and cloth geometry functions; no type, handwritten trait or codec."
+    },
+    {
+      "scope_index": 578,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/stall/stock.rs",
+      "sha256": "5f4859c84a4369dc1bb3f94402adb82d1425e024140b61768522778cb2371fb8",
+      "actual_EOF": 73,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/stall/stock.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-building-generator/src/furniture/stall/stock.rs",
+        "sha256": "5f4859c84a4369dc1bb3f94402adb82d1425e024140b61768522778cb2371fb8",
+        "bytes": 2728,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-root-receivers-012.json",
+            "ranges": [
+              [
+                1,
+                73
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-SUPP-STRATEGIC-006"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 507,
+            "read_ranges": [
+              [
+                1,
+                73
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-FURNITURE-COMPLETE-SOURCE-076"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/furniture/stall/stock.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 179,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Entire display5\u201320 and grain_bin22\u201373 read: selected stock placement, material geometry/collision/support native functions; no type/handwritten trait/codec."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "authored furniture specification versus native geometry",
+      "disposition": "Keep semantic selected envelopes/access/role classification and geometry construction; existing derives already own record/enum mechanics. No serialization should be introduced solely to replace runtime classification.",
+      "acceptance": "Preserve native units/errors/context and authored variant selection; no runtime validation or other-lens coverage."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 579,
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/tests.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

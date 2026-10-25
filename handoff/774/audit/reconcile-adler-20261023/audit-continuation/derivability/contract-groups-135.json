@@ -1,0 +1,156 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-135",
+  "at": "2026-10-25T12:52:38.190352+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 276,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+      "sha256": "775c9d22ecc0823474a0e4941da7a73e63c7fe7ca755ffc29cc479d95c611dfe",
+      "actual_EOF": 1095,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+        "sha256": "775c9d22ecc0823474a0e4941da7a73e63c7fe7ca755ffc29cc479d95c611dfe",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 40825,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 291,
+            "read_ranges": [
+              [
+                1,
+                1095
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-DIALOGUE-043"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CASE-RECEIVERS-029",
+            "json_pointer": "/current_sources/6",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1095
+              ]
+            ],
+            "source_context": {
+              "packet_obligation": 7,
+              "assigned_camera_index": 527,
+              "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+              "sha256": "775c9d22ecc0823474a0e4941da7a73e63c7fe7ca755ffc29cc479d95c611dfe",
+              "read_ranges": [
+                [
+                  1,
+                  1095
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+              "read_status": "full current frozen body; packet7 shares independently verified identical bytes with packet6",
+              "role": "dialogue-bindings",
+              "disposition": "Preserved P16 is exact byte-identical to the complete freshly read PR dialogue body. Same actual contracts and receivers as packet6, with no inferred whole-P16 acceptance.",
+              "trace_refs": [
+                "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016#dialogue-bindings"
+              ],
+              "authority": "Camera716 explicit per-cell reconciliation and whole DB repair authority unchanged"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016",
+            "json_pointer": "/source_reads/6",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1095
+              ]
+            ],
+            "source_context": {
+              "packet_obligation": 7,
+              "assigned_camera_index": 527,
+              "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+              "sha256": "775c9d22ecc0823474a0e4941da7a73e63c7fe7ca755ffc29cc479d95c611dfe",
+              "read_ranges": [
+                [
+                  1,
+                  1095
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+              "read_status": "full current frozen body; packet7 shares independently verified identical bytes with packet6",
+              "role": "dialogue-bindings",
+              "disposition": "Preserved P16 is exact byte-identical to the complete freshly read PR dialogue body. Same actual contracts and receivers as packet6, with no inferred whole-P16 acceptance.",
+              "trace_refs": [
+                "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016#dialogue-bindings"
+              ],
+              "authority": "Camera716 explicit per-cell reconciliation and whole DB repair authority unchanged"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1214,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1095
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full 1095-line body consumed across the saved 1\u2013730 reads and current 731\u20131095 continuation. The only local record ReferredTestimonyClaim is a semantic projection carrier, with no handwritten trait or serializer. Remaining bodies are runtime database authority, generated-manifest validation, exact provenance, recipient/objective binding, and topic projection functions; there is no handwritten trait/serialization implementation to replace.",
+      "source_read_receipts": [
+        "Saved pre-compaction personal reads 1\u2013365 and 366\u2013730; current continuation 731\u20131095."
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "contract": "dialogue bindings and public topic projection",
+      "disposition": "No derivability cleanup identified. Keep checked joins, exact case/objective/custody binding, deterministic composite binding IDs, ambiguity errors and public/private projection logic. Existing serde_json calls delegate already-defined wire types rather than implement bespoke serializers. Action-family identifiers are semantic classifiers, not a mechanical representation of the source enum.",
+      "ranges": [
+        [
+          1,
+          1095
+        ]
+      ],
+      "qualification": "No runtime, DB, operation correctness clearance or child-body coverage is asserted."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 277,
+    "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_effects.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

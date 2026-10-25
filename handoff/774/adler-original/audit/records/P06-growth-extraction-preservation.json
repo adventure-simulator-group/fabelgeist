@@ -1,0 +1,43 @@
+{
+  "source_head": "3ef06860d9a911ccc2ae8e3a0114b5a6e4979666",
+  "scope": "Plain text block editor only; no Rust parser/project tool execution. New source modules own existing responsibilities, not forwarding wrappers. Gallery dispatcher treats all four fixed recipes uniformly; public operations precede private recipe helpers.",
+  "blocks": {
+    "approved_action": {
+      "original_sha256": "20392cd0cb16cc4ffbcfa012e186e7dbdf670a12a87fe84c2be3ec8e39b686c1",
+      "preservation": "Complete enum/impl bytes preserved except parent-visible enum and kind/execute methods. No variant, attribute, payload, message or statement change."
+    },
+    "quest_fixture": {
+      "original_sha256": "3e65b2a87618f1d6d8ba3d8aca18237e7715d6df3f6b6d775b1f8c8ea97f4a50",
+      "preservation": "Reducer block including macro, documentation and complete body copied byte-for-byte."
+    },
+    "materialize_autopsy_scenario": {
+      "body_sha256_before_dedent": "e151f79d19da6ad99cf89fae641f67fe0a542b9fbb0dc69419cd15733414f3c8",
+      "preservation": "Exact original recipe statements retained in the same execution order; only indentation, helper call and trailing Ok(()) added."
+    },
+    "materialize_outbreak_scenario": {
+      "body_sha256_before_dedent": "515e9ee99f4d8815825d5c0ffbc748335354853797360b4bc11974867d0fbd18",
+      "preservation": "Exact original recipe statements retained in the same execution order; only indentation, helper call and trailing Ok(()) added."
+    },
+    "materialize_recurring_threat_scenario": {
+      "body_sha256_before_dedent": "3e8ec13d7a055fa5d40f300f5b29ffdfeb05c22df2cfa0b0e7431e5d8fc64027",
+      "preservation": "Exact original recipe statements retained in the same execution order; only indentation, helper call and trailing Ok(()) added."
+    },
+    "gallery": {
+      "original_sha256": "32b0fc903a08f78e841e2f5c4670ea10d6242cf4194c690edd9c41fe79622362",
+      "preservation": "Original constants, index dispatch, other arms, validation and bulk loop preserved; three fixed recipes extracted as context-only operations."
+    },
+    "materialize_static_scenarios": {
+      "body_sha256_before_dedent": "9bf3d0331ee2cc877b7c0798c378557db90ec79e88150e91d59399d74cbe81fe",
+      "preservation": "Existing static-scenario cohort moved intact into a context-only recipe operation; same array, iteration and registration call order."
+    }
+  },
+  "tests": "Only three existing source-reader expressions adapted; no case, assertion, numeric fixture or test helper added.",
+  "post_edit_exact_verification": {
+    "approved_enum_impl_except_required_visibility": true,
+    "quest_reducer_entire_block": true,
+    "all_four_recipe_statement_blocks_except_indentation": true,
+    "dispatch_order_and_other_arms": true,
+    "validation_and_bulk_loop": true,
+    "verification_kind": "Git/stdlib source text and dedent comparison only; no Rust parsing or project execution."
+  }
+}

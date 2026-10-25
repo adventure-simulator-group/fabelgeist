@@ -1,0 +1,36 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-078",
+  "at": "2026-10-23T01:00:01.061217+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/mod.rs",
+      "sha256": "4d44aec14335abdea2ad0899a2d41cf09c7b5677fcb850b2ede69174596d3a34",
+      "actual_compared_ranges": [
+        [
+          1,
+          597
+        ]
+      ],
+      "source_evidence": "Fresh actual1-270/271-597 complete body and source-only existing tests; own public battle mutation lifetime and connected recipients compared."
+    }
+  ],
+  "groups": {
+    "mutation-and-owning-error": "prepare_melee_exchange resets power before later checked contact geometry, samples RNG before later errors; resolve_melee_turn charges attacker work before later defense/readiness error and recording. These helpers do not promise independent rollback. Actual public resolve_battle takes owned Vecs and creates local RNG/recorder (Root075 support638-735); Err drops unpublished battle state. Do not introduce a spurious whole-battle transaction or claim borrowed helpers individually atomic. Maintain source ordering and deterministic sampling; body damage happens only after checked centre-separation construction in record_melee_result.",
+    "timing-and-readiness": "Interval explicit RecoveryTime distinguishes CannotRecover, checked centre-distance and ContactAtTime preserve typed geometry; after_readiness is maxexisting clock/checkedadd so no retained overflowclock. Saturating consecutive-intercept count bounded nativeu8 policy, cancellation clears all three pending fields and schedules adaptation once; FinishTrade decrements saturated count. before/after readiness and phase values in timeline are historical observations of the exacttransition, not independent current authority. charge_defensive_work fixed.5 constructor cannotfail for that literal; no doublecharge from additionalprojection.",
+    "attack-identity-F027-support": "Contact189, response300/291, cancellation/transformation349/350 all compute same lossy timing.attack_id and preserve references as rawu64. These are exact additional recipients for canonical fullactor/occurrence repair F027, not a second rootcause. Native attack_started/contact/recovery tick fields remain observations and must stay distinct from canonical identity. Simultaneous members/order/batch consume original captured batch; donot sort/recompute histories differently during migration.",
+    "geometry-and-selected-weapon": "Prepared actualmeasure minactor surfaces/nonnegative; preferred/effective reach delegatesmobility, selectedgeometry uses for_melee. Existing CameraF009 baseweapon reach helper must be reconciled with selectedgrip/length/style/material graph. Typed publicsurfaces/lengths canretain0 legitimately; no weaponfamily substitution or blanketPositiveLength. Computed ContactAtTime admission failures ordinary; original cancellation/geometry cause preserved through BattleResolutionResult.",
+    "reporting-and-aggregate-stages": "Prepared exchange binds sampled contact/decision/result/performance/duration before publish, but attempted/effective response and captured predefender timing deliberately differ. Owned telemetry contains exact percontact values and typed geometry/performance/RecoveryTime; Option defensefacts exist only when sampledweapondefense. String response/commitment labels represent retained semantic state and remain raw-string propagation obligations for12, not assumed terminal formatting simply because intelemetry.",
+    "source-oracles": "Full existingtests preserve short/long/headed reach behavior, exactinclusive reach, maxseparation, later-ofmovement/recovery attackstart and unavailablewithinwindow None. Tests mutate base+melee projections for setup; this doesnotprove productionprojections coherent. Source-only, no test execution/adaptation/new assertions."
+  },
+  "findings": [],
+  "related_findings": [
+    "ROOT-INITIAL04-F027",
+    "Camera07-F009"
+  ],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

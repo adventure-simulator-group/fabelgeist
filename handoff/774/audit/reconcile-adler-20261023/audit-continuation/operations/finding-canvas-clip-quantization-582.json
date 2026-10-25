@@ -1,0 +1,19 @@
+{
+  "id": "SEGOVB-04-CANVAS-CLIP-QUANTIZATION-CANDIDATE-001",
+  "status": "source-backed ordinary-scale valid geometry API counterexample; no actual browser/CSS/GPU run",
+  "operation": "strategic-scene.js canvasRect checkspositiveCSSclippedextent beforeinwardpixelrounding; x=ceil(left*DPR), width=floor(right*DPR)-x, analogousheight, thenreturnsrectunconditionally.",
+  "witness": "AtDPR1 let full elementleft0.4/right100.4 andoverflowclipancestorleft-99.4/right0.6 (both100pxwidevalidrects), viewportincludesboth. Clippedleft0.4/right0.6 passesright>left, returns x1,width=-1. Thatrect canenterportrait/stage/street orregionalopencommand. NativeCanvasRect width/heightu32 rejectsnegative onserde BrowserCommand beforequeue, rejectingwholeview ratherthanmerely hiding emptyphysicalsliver.",
+  "qualification": [
+    "No observed currentCSSsliver, DOM/browser run or GPUfailure. The APIcounterexample usesnormalfiniteunit-scalegeometry andvalidDPR1, notmalformednativeinput.",
+    "ActualfrozenPRRustprotocol1\u201375 andbrowserqueue175\u2013225 personallyreread; thisisproduceroperationfailure, notneedtoweakenu32receiver.",
+    "Zero-roundedextent alsoexists; receivercamera.apply explicitlydeactivatesextent0, so onlynegativeinvalidcommand effectpromoted.",
+    "Related RIG-ADMISSION03-F087 concernsfullu64identityloss inthesesamefiles, distinctoperation/remedy. Indexedaliasabsence notglobaluniquecount."
+  ],
+  "repair_cluster": "canvas-visible-physical-extent-derivation",
+  "dependencies": [
+    "allcanvasRectconsumersincludingregionalmapviewandcompositor mask",
+    "onepixelrounding/clipowner",
+    "nativeCanvasRectandcompleteviewcommandadmission"
+  ],
+  "acceptance": "Afterinwardpixelrounding, empty/nonpositivephysicalextent producesno viewport/mask primitive; allreturnedextentsvalidu32andsubpixelclippingpreservesfullprojectionoffset. Otherportraits/viewstillpublishwhenonesliverempty. PreserveDPRandlegitimatezeroemptybehavior; no minimumonepixel expansionoutsideclip."
+}

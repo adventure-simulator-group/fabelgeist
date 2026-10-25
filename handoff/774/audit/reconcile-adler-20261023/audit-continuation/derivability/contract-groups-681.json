@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-681",
+  "at": "2026-10-25T16:26:07.323048+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 967,
+  "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog_validation.rs",
+  "sha256": "738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Quest validator prefix contains allowed field/vocabulary constants and native Value shape/unknown-field/ID/closed-mechanic validation helpers. No local record, handwritten trait or codec. Native semantic validation reports source-path errors; derived record decoding would not replace content validation. Child demographic separate original968, no implied body credit."
+  ],
+  "first_unfinished": {
+    "scope_index": 967,
+    "line": 221
+  },
+  "execution": "none"
+}

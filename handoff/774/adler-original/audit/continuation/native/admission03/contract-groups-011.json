@@ -1,0 +1,41 @@
+{
+  "id": "NATIVE-ADMISSION03-CONTRACT-GROUPS-011",
+  "lens": "audit-admission-contracts",
+  "groups": {
+    "body-response-candidate-admission": {
+      "indices": [
+        185,
+        186
+      ],
+      "invariant": "Retained body velocity/acceleration finite in presentationbody frame, anglesfinite signed, angularvelocityfinite, brakingscale0..1; optionalrealobservation remainsdistinct neutraldefault.",
+      "routes": "Methods on checked current sampleState220 use body inverseTransform native vector thenactual BodyLocalVelocity/Accelerationchecked factories before statecandidate. sourceclock fixed/renderDuration typed, copied/clampedcheckedelapsed. reset fields legalZERO; actualtarget builds checked BodyAngle and BodyResponseAngles, maxresponsemagnitude fromfiniteangularcap-minusmargin checked>=0 before privatecap. decelerationBrakingScale actualcheckedfraction after explicitderivednorm/dotfinite gate; travel/inertial changedangle products callcheckedfactories. smooth_acceleration checkednewvector afternative lerp; advance_body_response zeroelapsed returnsunchangedtypedleaves, otherwise finite numerator/denominator/norm checkedbefore typedangularvelocity/angle constructors. No newtype raw backing/Serde/Reflect/default path; BodyObservationliteral copies typedtick/velocity. Complete candidate returned before externalretention.",
+      "intentional": "Tiny positive smoothduration mayyieldnativeoverflowerror, not invalid admittedoutput. Root/native ownerdefinition Radians/SignedLength and187 actualprivatefields checkedroutes consumed. Source rawSkeletonstate/worldtransform maybad; actualbodytransform gate rejectsfinitecontract. Actual response quaternion/nativeoutput remainsrawSDKtransform ratherthan validatedRigidRotation. Full490/140source incl original278–490 tests reviewed unexecuted; originalvalid/raw source input/errororder unchanged.",
+      "repair": "No new local admissionbypass found; F002 rawstate actualreceiver checksretained. Connected existing rawsource/typedbody wholefunctionclaims; originalcap-specificmargin and forward/lateral referenceacceleration rolespreserved. Operation04/failure06 separate.",
+      "acceptance": "Every actual newretained scalar/vector leaf checked; no additional fixed anglecap guarantee beyondintrinsicfinite/signpolicies inferred. Preserve units/bodyframe, observationNone, sign/zero and originalfixture/errorbehavior.",
+      "connected_repair": "Existing connected-repair-map exact whole-function/record authority; no ownershiptransfer, no laterlens sourceacceptance."
+    },
+    "dive-influence-admission": {
+      "indices": [
+        189
+      ],
+      "invariant": "Private DiveInfluence finite0..1; deliberately normalize finite authored factor tointerval. Nativequaternion outputs do not become checkedrotationowners.",
+      "routes": "Private tuple toUnitInterval, onlyfrom_factor explicitly rejectsnonfinite thenfiniteclamp0..1→checkedUnitInterval; noDefault/Serde/Reflect/From/backingmutable route. Actualproducer whole smoothstep factor→factory before nativepelvis kernel. closedDiveDirection branches only; copied posturephasecheckedinterval currentCoreactualproof. Native authored/bindQuat sourcesraw, normalizednative output no new canonicalRigidRotation.",
+      "intentional": "Finitefactor2/-1 intentionallymaps1/0; NaN rejected beforeclamp. Source direct authored/bindscaled/invalidquat remainsbroaderSDK input and operationpolicyseparate. Full152linesincludingexisting90–152 divefixtures read; no newtest/execution.",
+      "repair": "No refinedconstructorbypass. Preserve authored pelvisframe/downed/groundcontact blend and source-nativequat distinctions; existingRoot/Cameratypesnotblanketwrapped.",
+      "acceptance": "All retainedDiveInfluence values satisfyinterval throughoneownedgate, finiteclampintentional with rawinvalidingress unchanged; nounitquatguarantee inferred.",
+      "connected_repair": "Existing connected-repair-map exact whole-function/record authority; no ownershiptransfer, no laterlens sourceacceptance."
+    },
+    "height-response-retention-admission": {
+      "indices": [
+        190
+      ],
+      "invariant": "HeightDistance/Speed checked>=0, signedwave/transitionoffset finite signed, optionalrawworldplant and tickobservations; zero and missinghistorymeaningful.",
+      "routes": "State methods passchangedwave/compensation/elapsed through actualchecked HeightDistance/Speed/AnimationElapsed/SignedLength arithmetic factories, copyunchangedtypedleaves; no new rawbacking constructor/Serde/Reflect. advance_height receivesownedbyvalue candidate, seeds historyonlyfromactualSkeletonobservation, typedZERO resets forquickstep/posturetransition; beginlanding checkedcompression source plus typedabsorption/recovery. groundedwave nativeperiodicmultiply thencheckedHeightDistance; actualrunratio finite beforeclamp→UnitInterval, scaledcheckedsourceheight. Clearplants setsallNone. Nativepelvislocaldelta checkedfinitebeforerawTransformaddition but doesnotclaim resultantTransform finite.",
+      "intentional": "InitialhistoryNone distinct actualtick0/MAX; discontinuoustickmapsnativezeroelapsed explicitly. Runflightonly/unsupportedgroundingzero, lower/raised/two-handed/specialpackpolicies exact original. Config min/maxcompression relation05independent, no typedleaf aggregateproof. Full355lines source read; fixturesresideactual184fullyread butsource184pendingIKdependencies no blanketcoverage.",
+      "repair": "No local refinedadmission bypass; existing rawplant/nativeinput strengthening claim support. Keep rawsource normalization and exact heightframe/numericorder, no gameplaycontrollerheightauthorityshift.",
+      "acceptance": "Every retainedcheckedheight/offset/clock route readmitschangedvalue and preserves signed/zero/None/unsupportedmodepolicy. No blanket checkedgeometry claim fromnativepositionfields.",
+      "connected_repair": "Existing connected-repair-map exact whole-function/record authority; no ownershiptransfer, no laterlens sourceacceptance."
+    }
+  },
+  "later_lens_credit": false
+}

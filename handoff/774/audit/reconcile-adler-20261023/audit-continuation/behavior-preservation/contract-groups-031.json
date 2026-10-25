@@ -1,0 +1,106 @@
+{
+  "id": "CONT08-CONTRACT-031",
+  "at": "2026-10-25T09:34:03.577904+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 121,
+      "source_id": "physical-p16:crates/adventuresim-core/src/mission/enemy_roster.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/mission/enemy_roster.rs",
+      "before_sha256": "c83ace93cc95cb243c86bf6bc02bea9954953b433db0ab7790ea890ac7251642",
+      "after_sha256": "c83ace93cc95cb243c86bf6bc02bea9954953b433db0ab7790ea890ac7251642",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0121-base-c83ace93cc95cb243c86bf6bc02bea9954953b433db0ab7790ea890ac7251642",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/c83ace93cc95cb243c86bf6bc02bea9954953b433db0ab7790ea890ac7251642",
+      "diff": "source-evidence/p16-0121.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "facts": [
+        "Full96+actual empty P16diff. Enemy roster enforces nonempty u32 cardinality then uniqueIDs, preserves original input order and derives count; hostile count intentionally not limited by party receipt16. Private vector makes expect cardinality justified by constructor/no mutator. No generic global ID positivity added or all mission launch recipients cleared."
+      ],
+      "disposition": "Own08 local exactbody/diff accounted; unchanged P16 with retained strategic/authority/caller limits.",
+      "acceptance": "Preserve enemy-vs-party limits/order, canonical serde/status/decay/curve and deterministic source rank framing/precedence; do not infer other-lens clearance. No checks/tests/repairs."
+    },
+    {
+      "scope_index": 122,
+      "source_id": "physical-p16:crates/adventuresim-core/src/mission/roster.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/mission/roster.rs",
+      "before_sha256": "2b4baf6c921fd489d497a5f002c8ee5a84e48014c6932e1bd4153754501759dd",
+      "after_sha256": "2b4baf6c921fd489d497a5f002c8ee5a84e48014c6932e1bd4153754501759dd",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0122-base-2b4baf6c921fd489d497a5f002c8ee5a84e48014c6932e1bd4153754501759dd",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/2b4baf6c921fd489d497a5f002c8ee5a84e48014c6932e1bd4153754501759dd",
+      "diff": "source-evidence/p16-0122.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          91
+        ]
+      ],
+      "facts": [
+        "Full91+emptydiff. Party roster same empty\u2192max16\u2192duplicate validation precedence, retained input order/private vector and derivedNonZero count. Existing inclusivebound/duplicate/source-order fixtures read unexecuted; actual SDK/DB captured membership producer still independent."
+      ],
+      "disposition": "Own08 local exactbody/diff accounted; unchanged P16 with retained strategic/authority/caller limits.",
+      "acceptance": "Preserve enemy-vs-party limits/order, canonical serde/status/decay/curve and deterministic source rank framing/precedence; do not infer other-lens clearance. No checks/tests/repairs."
+    },
+    {
+      "scope_index": 123,
+      "source_id": "physical-p16:crates/adventuresim-core/src/morale.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/morale.rs",
+      "before_sha256": "f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+      "after_sha256": "f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0123-base-f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+      "diff": "source-evidence/p16-0123.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          527
+        ]
+      ],
+      "facts": [
+        "Full527+emptydiff. Canonical morale event/source serde strings, event conversion and strategic status thresholds exact; strategic total sumorder and multiplier law unchanged. Explicit strategic calculations do not introduce new persistent tactical transient state or hidden combat fatigue law.",
+        "Same positive-finite effect filtering/sortdescending/harmonic reduction, will-only negative mitigation, prebonus ally curve and command subtraction; fervor strictroll<chance, age>=duration expiry, blood/pain/fatigue/hunger/thirst equations unchanged. Mastery decay-before-sharedaward exp saturation and fallbackinputs retained. Existing canonicalwire/boundary/curve/mastery fixtures source-only; actual live tactical/strategic callgraph remains separate."
+      ],
+      "disposition": "Own08 local exactbody/diff accounted; unchanged P16 with retained strategic/authority/caller limits.",
+      "acceptance": "Preserve enemy-vs-party limits/order, canonical serde/status/decay/curve and deterministic source rank framing/precedence; do not infer other-lens clearance. No checks/tests/repairs."
+    },
+    {
+      "scope_index": 124,
+      "source_id": "physical-p16:crates/adventuresim-core/src/npc_policy.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/npc_policy.rs",
+      "before_sha256": "51c449efd5edf6380249bcc04ebf5a9a38cc9a1f20cab731e2bf80d6b958e18a",
+      "after_sha256": "51c449efd5edf6380249bcc04ebf5a9a38cc9a1f20cab731e2bf80d6b958e18a",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0124-base-51c449efd5edf6380249bcc04ebf5a9a38cc9a1f20cab731e2bf80d6b958e18a",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/51c449efd5edf6380249bcc04ebf5a9a38cc9a1f20cab731e2bf80d6b958e18a",
+      "diff": "source-evidence/p16-0124.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          296
+        ]
+      ],
+      "facts": [
+        "Full296+emptydiff. NPC courtship common gates then formal-before-informal precedence retained. Candidate input sort identity+seed/conflict rejection/dedup then deterministic rankStreamId+seed framing+IDtie and cap16 preserve permutation law. Initialschedule draw/order and15minquantum retained.",
+        "Housing saturating initial+reserve affordability and max(rank,initial,recurring) selection unchanged, with existing raw u64 terminal saturation policy not newly introduced. Actual database scheduler snapshot/cost enforcement still separate; allfixtures source-consumed unexecuted."
+      ],
+      "disposition": "Own08 local exactbody/diff accounted; unchanged P16 with retained strategic/authority/caller limits.",
+      "acceptance": "Preserve enemy-vs-party limits/order, canonical serde/status/decay/curve and deterministic source rank framing/precedence; do not infer other-lens clearance. No checks/tests/repairs."
+    }
+  ],
+  "next": "Original125 organization1251,126personality202,127physicalObject383,128physiology1169; entire remaining scope explicit."
+}

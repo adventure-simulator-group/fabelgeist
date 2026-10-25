@@ -1,0 +1,190 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-160",
+  "at": "2026-10-23T01:36:49.377542+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-045.json",
+    "sha256": "1a92c50ea71c9b242d2b6c345a407e437d72fcc81405924347b9247f0c75f22c"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-044.json",
+    "sha256": "b9c5935329c18a10a21a8e34265350a0785d30eb08a029f517cf142080fdaae4"
+  },
+  "new_variants": [
+    {
+      "source_id": "physical-p16:crates/strategic-web/src/templates/recruitment.rs",
+      "sha256": "ac67b736f6b3d39a214a9d95831e20cbdbead9b95d1b5c8d34b11dff58001cd5",
+      "path": "SNAPSHOTS\\p16\\crates\\strategic-web\\src\\templates\\recruitment.rs",
+      "snapshot": "physical-p16",
+      "actual_line_count": 587,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          325,
+          342
+        ]
+      ],
+      "audit_owner": "camera",
+      "scope_registration": [
+        {
+          "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+          "sha256": "a606684d1b3b0317b659fbbc852021ba0da5b71765e34bd93880fc868c0d63fe",
+          "row_1based": 20,
+          "id": "CAMERA-INITIAL07-REG020",
+          "original_record": {
+            "registration_id": "CAMERA-INITIAL07-REG020",
+            "at": "2026-10-23T01:32:58.940288+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "physical-p16:crates/strategic-web/src/templates/recruitment.rs",
+            "snapshot": "physical-p16",
+            "resolved_path": "SNAPSHOTS/p16/crates/strategic-web/src/templates/recruitment.rs",
+            "sha256": "ac67b736f6b3d39a214a9d95831e20cbdbead9b95d1b5c8d34b11dff58001cd5",
+            "actual_EOF": 587,
+            "material_ranges": [
+              [
+                325,
+                345
+              ]
+            ],
+            "reason": "Direct actual warning/text recipient of scoped PartyJoinRequest.meets_requirements bool, initialized from capability versus role requirements and not refreshed by actual role update; establish current-versus-historical purpose before redundant authority verdict.",
+            "exclusions": "Only directly referenced applicant warning/text guard; surrounding template/page/handlers and other fields uncredited. rg symbol navigation only before prospective registration; no current body analysis yet.",
+            "status": "prospectively_registered_before_body_analysis"
+          }
+        }
+      ],
+      "scope_limits": "Only325-342 actual applicant class/text guard;343-345 unrelated aggregate/form context excluded. No surrounding template/handler credit.",
+      "source_lens_credit": "none from scope metadata"
+    },
+    {
+      "source_id": "physical-p16:crates/strategic-web/src/routes/parties.rs",
+      "sha256": "ab69f73988cfe3ec66925ba43a1060eee98e493f0859e60be2e325e18a89ad96",
+      "path": "SNAPSHOTS\\p16\\crates\\strategic-web\\src\\routes\\parties.rs",
+      "snapshot": "physical-p16",
+      "actual_line_count": 878,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          355,
+          581
+        ]
+      ],
+      "audit_owner": "camera",
+      "scope_registration": [
+        {
+          "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+          "sha256": "a606684d1b3b0317b659fbbc852021ba0da5b71765e34bd93880fc868c0d63fe",
+          "row_1based": 21,
+          "id": "CAMERA-INITIAL07-REG021",
+          "original_record": {
+            "registration_id": "CAMERA-INITIAL07-REG021",
+            "at": "2026-10-23T01:34:12.473482+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "physical-p16:crates/strategic-web/src/routes/parties.rs",
+            "snapshot": "physical-p16",
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\strategic-web\\src\\routes\\parties.rs",
+            "sha256": "ab69f73988cfe3ec66925ba43a1060eee98e493f0859e60be2e325e18a89ad96",
+            "actual_EOF": 878,
+            "material_ranges": [
+              [
+                355,
+                581
+              ]
+            ],
+            "reason": "Direct complete recruitment_panel_fragment receiver constructs applicants from actual retained PartyJoinRequest; close whether current warning bool is recomputed before template, without assuming a stale stored row reaches display.",
+            "exclusions": "Only direct current bool producer-to-recipient correlation; all surrounding route/template functions and unrelated gameplay excluded. Symbol navigation only before registration.",
+            "status": "prospectively_registered_before_body_analysis"
+          }
+        }
+      ],
+      "scope_limits": "Only355-581 direct recruitment_panel_fragment; no surrounding routes/template code or queriedhelper bodycredit.",
+      "source_lens_credit": "none from scope metadata"
+    }
+  ],
+  "new_overlays": [
+    {
+      "id": "CONT-OWNER-RANGE-EXTENSION-228",
+      "at": "2026-10-23T01:36:49.377542+00:00",
+      "source_id": "physical-p16:crates/strategic-web/src/templates/recruitment.rs",
+      "sha256": "ac67b736f6b3d39a214a9d95831e20cbdbead9b95d1b5c8d34b11dff58001cd5",
+      "material_ranges": [
+        [
+          19,
+          35
+        ]
+      ],
+      "audit_owner": "camera",
+      "reason": "Direct RecruitmentApplicant/RecruitmentRolePanel shapes connecting registered request builder to registered warning/text; no neighboring template logic.",
+      "scope_registration": [
+        {
+          "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+          "sha256": "a606684d1b3b0317b659fbbc852021ba0da5b71765e34bd93880fc868c0d63fe",
+          "row_1based": 22,
+          "id": "CAMERA-INITIAL07-REG022",
+          "original_record": {
+            "registration_id": "CAMERA-INITIAL07-REG022",
+            "at": "2026-10-23T01:34:12.473482+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "physical-p16:crates/strategic-web/src/templates/recruitment.rs",
+            "snapshot": "physical-p16",
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\strategic-web\\src\\templates\\recruitment.rs",
+            "sha256": "ac67b736f6b3d39a214a9d95831e20cbdbead9b95d1b5c8d34b11dff58001cd5",
+            "actual_EOF": 587,
+            "material_ranges": [
+              [
+                19,
+                36
+              ]
+            ],
+            "reason": "Direct RecruitmentApplicant/RecruitmentRolePanel shapes connecting registered request builder to registered warning/text; no neighboring template logic.",
+            "exclusions": "Only direct current bool producer-to-recipient correlation; all surrounding route/template functions and unrelated gameplay excluded. Symbol navigation only before registration.",
+            "status": "prospectively_registered_before_body_analysis"
+          }
+        }
+      ],
+      "limits": "Only direct current bool producer-to-recipient correlation; all surrounding route/template functions and unrelated gameplay excluded. Symbol navigation only before registration.",
+      "source_qualifications": "Only19-35 applicant and rolepanel shapes;36blank excluded, no neighboring template logic."
+    }
+  ],
+  "total_variants": 2802,
+  "total_overlays": 228,
+  "mandatory_scope_qualifications": [
+    {
+      "record": "continuation/root/parallel-scope-qualification-130.json",
+      "sha256": "5dc4e5cd771612c7e050ab4af544411523317ae4b57738f1fb20f493685a50fc"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-117.json",
+      "sha256": "f3b80648900716939057b20776d756a6e37001f6910378da1a1bbaea230d348b"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-149.json",
+      "sha256": "97103899514ade32cf1e41c2794fa9c49c0cb8c6c7a2c6a4961b7492de5dc708"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-151.json",
+      "sha256": "670dd53a640b28eef7ad9d57b37f9213e1bca7117d7098691c4b0cd20c2a8f65"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-158.json",
+      "sha256": "fa0e9cc06d04fca0a0e2b5f9a333390a0ba1e71eff846a4e957c46b68b3e940e"
+    }
+  ],
+  "registered_rows": 3,
+  "input_pins": [
+    {
+      "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+      "sha256": "a606684d1b3b0317b659fbbc852021ba0da5b71765e34bd93880fc868c0d63fe",
+      "captured_rows": 22,
+      "selected_ids": [
+        "CAMERA-INITIAL07-REG020",
+        "CAMERA-INITIAL07-REG021",
+        "CAMERA-INITIAL07-REG022"
+      ]
+    }
+  ],
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through227-before045.jsonl",
+    "sha256": "9a797859c9f5cabb9b9c8850713ccd114e0150f47643698a7a85f8649ca3fe70",
+    "through": 227
+  },
+  "limits": "CameraREG020-022 two new exactbounded variants2802 plus oneoverlay228; all previous source roles and mandatoryqualification158,SDK117,EOF130/149/151 retained. No source/projectexecution or authorization change."
+}

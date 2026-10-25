@@ -1,0 +1,135 @@
+--- PRbase/crates/adventuresim-character-creator/src/device_garment/candidates.rs
++++ frozen/crates/adventuresim-character-creator/src/device_garment/candidates.rs
+@@ -0,0 +1,132 @@
++//! Nearest-sample presence and failure propagation for garment section fits.
++
++use crate::device_frames::DeviceWearer;
++use crate::device_garment_kernel::{Grid, dispatch, read_u32, write};
++use anyhow::Result;
++use fabelgeist_compute::KernelBatch;
++use fabelgeist_gpu::prelude::Buffer;
++
++/// Bounds of a section of the supported skin: bounds of the samples within
++/// `half_width` of the plane, or of the `minimum` nearest to it when too few
++/// are. Samples are body vertices whose support bits meet `mask`, projected
++/// onto `axes` about `center`. Needs `positions` and `support` bound.
++pub(crate) const BAND: &str = r#"
++// Skin samples this near a section plane shape it.
++const SECTION_HALF_WIDTH_M: f32 = 0.018;
++// Samples a section keeps even when too few lie near its plane.
++const MINIMUM_SECTION_SAMPLES: u32 = 12u;
++
++struct Band {
++    present: bool,
++    lo: vec3<f32>,
++    hi: vec3<f32>,
++};
++
++fn project(v: u32, center: vec3<f32>, ax: vec3<f32>, ay: vec3<f32>, az: vec3<f32>) -> vec3<f32> {
++    let d = positions_at(v) - center;
++    return vec3<f32>(host_dot(ax, d), host_dot(ay, d), host_dot(az, d));
++}
++
++fn band_bounds(
++    mask: u32,
++    center: vec3<f32>,
++    ax: vec3<f32>,
++    ay: vec3<f32>,
++    az: vec3<f32>,
++    half_width: f32,
++    minimum: u32,
++) -> Band {
++    var band = Band(false, vec3<f32>(INFINITY), vec3<f32>(-INFINITY));
++    var near = 0u;
++    var total = 0u;
++    let count = arrayLength(&support);
++    for (var v = 0u; v < count; v = v + 1u) {
++        if ((support[v] & mask) == 0u) {
++            continue;
++        }
++        total = total + 1u;
++        let s = project(v, center, ax, ay, az);
++        if (abs(s.y) < half_width) {
++            near = near + 1u;
++            band.present = true;
++            band.lo = min(band.lo, s);
++            band.hi = max(band.hi, s);
++        }
++    }
++    if (near >= minimum || near == total) {
++        return band;
++    }
++    // The nearest by distance from the plane, ties to the lowest vertex.
++    band = Band(false, vec3<f32>(INFINITY), vec3<f32>(-INFINITY));
++    var cursor_present = false;
++    var last_distance: f32;
++    var last: u32;
++    for (var k = 0u; k < min(minimum, total); k = k + 1u) {
++        var candidate_present = false;
++        var best_distance: f32;
++        var best: u32;
++        var best_sample: vec3<f32>;
++        for (var v = 0u; v < count; v = v + 1u) {
++            if ((support[v] & mask) == 0u) {
++                continue;
++            }
++            let s = project(v, center, ax, ay, az);
++            let d = abs(s.y);
++            // This guard preserves the old finite ceiling before presence can
++            // select the first candidate; NaN and infinity never win.
++            if (!(d <= INFINITY)) {
++                continue;
++            }
++            let after = !cursor_present || d > last_distance || (d == last_distance && v > last);
++            let better = !candidate_present || d < best_distance || (d == best_distance && v < best);
++            if (after && better) {
++                candidate_present = true;
++                best_distance = d;
++                best = v;
++                best_sample = s;
++            }
++        }
++        if (!candidate_present) {
++            break;
++        }
++        band.present = true;
++        band.lo = min(band.lo, best_sample);
++        band.hi = max(band.hi, best_sample);
++        cursor_present = true;
++        last_distance = best_distance;
++        last = best;
++    }
++    return band;
++}
++"#;
++
++const CANDIDATE_STATUS: &str = r#"
++@compute @workgroup_size(1)
++fn main() {
++    if (candidate_status[0] != 0u) {
++        fit[FIT_FAILED] = 1.0;
++    }
++}
++"#;
++
++impl DeviceWearer<'_> {
++    /// Fold parallel candidate failures into the fit before its bounds are read.
++    pub(crate) fn record_candidate_status(
++        &self,
++        batch: &mut KernelBatch,
++        candidate_status: &Buffer,
++        fit: &Buffer,
++    ) -> Result<()> {
++        dispatch(
++            self,
++            batch,
++            CANDIDATE_STATUS,
++            &[
++                read_u32("candidate_status", candidate_status),
++                write("fit", fit),
++            ],
++            &[],
++            Grid::Singles(1),
++        )
++    }
++}

@@ -1,0 +1,55 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-599",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_cutting.rs",
+      "sha256": "e2ef028f462708ee81a496944390463c7cdbbab84163bebed8bc335690bb84db",
+      "actual_EOF": 484,
+      "actual_compared_ranges": [
+        [
+          1,
+          484
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/gable_enclosure.rs",
+      "sha256": "dd13cae2d6e503271f19d7b30abc921198c79f954a5a74368982ac567597f2e8",
+      "actual_EOF": 210,
+      "actual_compared_ranges": [
+        [
+          1,
+          210
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Roof cut mutation and derived physical graph",
+      "evidence": "Whole484lines read: eave projection denominator floor, edge split replacewith3 and child split link; cutface projects/clips unique convex hull then area gate, builds paired edge/flashing/interface; valley chooses2largestfalls and updates checked physical centre/dimensions/angles; trim optionallyshortens and updates matching descriptor bounds or marksx0 then retainsnonzero solids.",
+      "qualifications": [
+        "Fresh canonical CuboidDimensions cuboid.rs1\u201395 SHA1fe1e648... explicitly permits zeroextent, so temporary removal sentinel is admitted, not false faileddimension case.",
+        "No blanket mutation atomicity: private helper mutates supplied aggregate before fallible operations, so actual outer plan consuming/cloned call boundary owns error publication. No new ordinary partial-publishedplan claimed from syntax.",
+        "Removed weather solid interface cleanup is not in trim itself; recipient/outer cleanup needed before promoting surviving descriptor ordinary defect. Existing CAMERA07F006/Native05F004 roofpitch physical descriptor drift is connected authority graph but different mutation, not automatic duplicate.",
+        "serial ID packing assumes bounded generated topology; no actual large curatoredgepopulation or same-ID finalasset proven. Preserve typed graph identity ownership rather than arbitrary physicalclamps."
+      ],
+      "acceptance": "Paired physical changes/derived descriptors remain coherent on published geometry, exact private rejection boundary traced before repair; preserve legitimate cutout holes, chosen valleys and no-curated-bisectedridge policy."
+    },
+    {
+      "contract": "Gable enclosure section and pitch update",
+      "evidence": "Whole210lines read: hostselection outerstorey walltop/tangent tolerances, optionalhostspan, maxroofheight, convexunderside halfspace clips and boundary interpolation, adjacentvertexdedup, facingwinding; update replaces recipe polygons bytwo zip slots or scales aboveeave; fullaxis/pitch/eave fixtures readnotrun.",
+      "qualifications": "Native raw RoofPiece/wall/plane arithmetic relies actual generated shape and finite coplanar producer; fallible tessellation/outer validation remain separate. Generic update_pitch closure is not a promise arbitrary rawscale is valid. Exact2enclosure policy and externallymutable vector cardinality remain adopted aggregate/admission obligations; no new actual mismatch promoted.",
+      "acceptance": "Preserve bothridgeaxes, overhang and underside thickness section; no source-only claim of completed closed mesh/render or GPU acceptance."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-building-generator/src/collision.rs"
+}

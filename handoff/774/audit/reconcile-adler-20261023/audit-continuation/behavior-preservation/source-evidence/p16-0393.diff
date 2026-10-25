@@ -1,0 +1,230 @@
+--- p16base/crates/adventuresim-tactical-server/src/combat/melee.rs
++++ catalog-p16head/crates/adventuresim-tactical-server/src/combat/melee.rs
+@@ -2,11 +2,13 @@
+ use super::*;
+ 
+ use active_defense::{commit_active_defense, commit_defense_during_attack, prepare_active_defense};
+ use outcome::emit_melee_outcome;
++use geometry::{CompletionActors, CompletionAuthorization, MeleeCompletionGeometry};
+ 
+ mod active_defense;
+ mod outcome;
++mod geometry;
+ 
+ /// Read-only contact admission; authority is consumed only after defense preparation.
+ struct MeleeCompletion {
+     attack: ValidatedMeleeAttack,
+@@ -25,15 +27,15 @@
+         spatial: &SpatialQuery,
+         scene_items: &Query<Entity, With<TacticalSceneItem>>,
+         config: &TacticalCombatConfig,
+         attack_key: Option<MeleeAttackKey>,
+-        surface_distance: f32,
+-        reach: f32,
++        surface_distance: SignedLength,
++        reach: SignedLength,
+     ) -> Option<Self> {
+         let validated = match validate_melee_intent_cheap(facts) {
+             Ok(validated) => validated,
+             Err(reason) => {
+-                info!(attack_key = attack_key.map(MeleeAttackKey::encoded), attacker = ?facts.attacker, target = ?facts.target, body_part = ?facts.body_part, reason = ?reason, surface_distance_metres = surface_distance, reach_metres = reach, "melee_completion_rejected");
++                info!(attack_key = attack_key.map(MeleeAttackKey::encoded), attacker = ?facts.attacker, target = ?facts.target, body_part = ?facts.body_part, reason = ?reason, surface_distance_metres = surface_distance.metres(), reach_metres = reach.metres(), "melee_completion_rejected");
+                 info!(attack_key = attack_key.map(MeleeAttackKey::encoded), attacker = ?facts.attacker, target = ?facts.target, body_part = ?facts.body_part, outcome = "miss", reason = ?reason, "melee_attack_resolved");
+                 return None;
+             }
+         };
+@@ -45,9 +47,9 @@
+             validated.attacker_position(),
+             validated.target_position(),
+         );
+         if let Err(reason) = validate_melee_line_of_sight(line_of_sight) {
+-            info!(attack_key = attack_key.map(MeleeAttackKey::encoded), attacker = ?facts.attacker, target = ?facts.target, body_part = ?facts.body_part, reason = ?reason, surface_distance_metres = surface_distance, reach_metres = reach, "melee_completion_rejected");
++            info!(attack_key = attack_key.map(MeleeAttackKey::encoded), attacker = ?facts.attacker, target = ?facts.target, body_part = ?facts.body_part, reason = ?reason, surface_distance_metres = surface_distance.metres(), reach_metres = reach.metres(), "melee_completion_rejected");
+             info!(attack_key = attack_key.map(MeleeAttackKey::encoded), attacker = ?facts.attacker, target = ?facts.target, body_part = ?facts.body_part, outcome = "miss", reason = ?reason, "melee_attack_resolved");
+             return None;
+         }
+         let cooldown = match CombatDuration::from_elapsed(
+@@ -70,109 +72,17 @@
+         self,
+         authority: &mut MeleeAttackAuthority,
+         now: CombatInstant,
+         attack_key: Option<MeleeAttackKey>,
+-        surface_distance: f32,
+-        reach: f32,
++        surface_distance: SignedLength,
++        reach: SignedLength,
+     ) -> Option<AuthorizedMeleeAttack> {
+         let attack = self.attack;
+         authority.authorize_attack(attack, now, self.cooldown).or_else(|| {
+-            info!(attack_key = attack_key.map(MeleeAttackKey::encoded), attacker = ?attack.attacker(), target = ?attack.target(), body_part = ?attack.body_part, reason = "authorization_consumed", surface_distance_metres = surface_distance, reach_metres = reach, "melee_completion_rejected");
++            info!(attack_key = attack_key.map(MeleeAttackKey::encoded), attacker = ?attack.attacker(), target = ?attack.target(), body_part = ?attack.body_part, reason = "authorization_consumed", surface_distance_metres = surface_distance.metres(), reach_metres = reach.metres(), "melee_completion_rejected");
+             info!(attack_key = attack_key.map(MeleeAttackKey::encoded), attacker = ?attack.attacker(), target = ?attack.target(), body_part = ?attack.body_part, outcome = "miss", reason = "authorization_consumed", "melee_attack_resolved");
+             None
+         })
+-    }
+-}
+-
+-fn contact_at_completion(
+-    attacker: &TacticalPlayerView<'_, '_, '_>,
+-    authority: &MeleeAttackAuthority,
+-    surface_distance: f32,
+-    reach: f32,
+-    attack_style: MeleeAttackStyle,
+-    fallback_reach_fraction: f32,
+-) -> MeleeContactAtTime {
+-    let grip_to_tip_metres = attacker.weapon_grip_to_tip();
+-    let striking_head_length_metres = attacker.weapon_striking_head_length();
+-    let body_material = attacker.weapon_body_material();
+-    let striking_material = attacker.weapon_striking_material();
+-    let distal_headed = adventuresim_core::combat::has_distal_striking_surface(
+-        grip_to_tip_metres,
+-        striking_head_length_metres,
+-        body_material,
+-        striking_material,
+-    );
+-    resolve_melee_contact_at_time(MeleeContactAtTimeFacts {
+-        scheduled_measure_metres: authority
+-            .scheduled_measure_metres()
+-            .unwrap_or(surface_distance),
+-        actual_measure_metres: surface_distance,
+-        ideal_measure_metres: adventuresim_core::combat::preferred_melee_striking_measure(
+-            reach,
+-            grip_to_tip_metres,
+-            striking_head_length_metres,
+-            distal_headed,
+-            fallback_reach_fraction,
+-        ),
+-        effective_reach_metres: reach,
+-        grip_to_tip_metres,
+-        total_length_metres: attacker.weapon_total_length(),
+-        striking_head_length_metres,
+-        distal_headed,
+-        attack_style,
+-        body_material,
+-        striking_material,
+-    })
+-}
+-
+-#[expect(
+-    clippy::too_many_arguments,
+-    reason = "validation facts join both live actor projections"
+-)]
+-fn completion_intent_facts(
+-    event: &MeleeAttackIntent,
+-    attacker: &TacticalPlayerView<'_, '_, '_>,
+-    authority: &MeleeAttackAuthority,
+-    attacker_look: &CharacterLook,
+-    attacker_transform: &Transform,
+-    defender_look: &CharacterLook,
+-    defender_transform: &Transform,
+-    attacker_dimensions: &CharacterDimensions,
+-    weapon_reach: f32,
+-    surface_distance: f32,
+-    now: CombatInstant,
+-    sides: &Query<&TacticalCombatSide>,
+-    states: &Query<&mut TacticalCombatState>,
+-    config: &TacticalCombatConfig,
+-) -> MeleeIntentFacts {
+-    MeleeIntentFacts {
+-        attacker: event.attacker,
+-        target: event.target,
+-        attacker_side: sides.get(event.attacker).ok().copied(),
+-        target_side: sides.get(event.target).ok().copied(),
+-        attacker_incapacitated: states
+-            .get(event.attacker)
+-            .ok()
+-            .map(TacticalCombatState::is_incapacitated),
+-        target_incapacitated: states
+-            .get(event.target)
+-            .ok()
+-            .map(TacticalCombatState::is_incapacitated),
+-        attack_capability: adventuresim_core::combat::melee_attack_capability(attacker, attacker),
+-        reported_precision: event.reported_precision,
+-        arm_reach: attacker_dimensions.arm_reach_metres,
+-        weapon_reach,
+-        range_latency_tolerance: config
+-            .realtime_authority
+-            .melee
+-            .range_latency_tolerance_metres,
+-        separation: surface_distance,
+-        authority_permits: authority.permits(event.target, event.body_part, now),
+-        body_part: event.body_part,
+-        attacker_position: attacker_transform.translation,
+-        target_position: defender_transform.translation,
+-        attacker_yaw: attacker_look.yaw,
+-        target_yaw: defender_look.yaw,
+     }
+ }
+ 
+ #[expect(
+@@ -298,46 +208,26 @@
+     };
+     let (attacker_look, attacker_transform) = attacker_character;
+     let (defender_look, defender_transform) = defender_character;
+ 
+-    let weapon_reach = attacker_view.weapon_reach();
+     let Ok(attacker_dimensions) = q_dimensions.get(entity) else {
+         info!(attack_key = attack_key.map(MeleeAttackKey::encoded), attacker = ?entity, reason = "missing_attacker_dimensions", "melee_completion_rejected");
+         return;
+     };
+     let now = CombatInstant::from_elapsed(&time);
+-    let reach = melee_interaction_range(attacker_dimensions.arm_reach_metres, weapon_reach);
+-    let center_separation = attacker_transform
+-        .translation
+-        .xz()
+-        .distance(defender_transform.translation.xz());
+-    let surface_distance = (center_separation
+-        - adventuresim_core::combat::HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES)
+-        .max(0.0);
+-    let contact_at_time = contact_at_completion(
+-        &attacker_view,
+-        authority,
+-        surface_distance,
+-        reach,
+-        attack_style,
+-        config.ai.ordinary.offense.melee_measure_reach_fraction,
+-    );
+-    let facts = completion_intent_facts(
+-        &event,
+-        &attacker_view,
+-        authority,
+-        attacker_look,
+-        attacker_transform,
+-        defender_look,
+-        defender_transform,
+-        attacker_dimensions,
+-        weapon_reach,
+-        surface_distance,
+-        now,
+-        &q_sides,
+-        &q_states,
+-        &config,
+-    );
++    let geometry = match MeleeCompletionGeometry::observe(
++        CompletionActors { attacker_look, attacker_transform, defender_look, defender_transform,
++            dimensions: attacker_dimensions },
++        CompletionAuthorization { event: &event, authority, now },
++        &attacker_view, &q_sides, &q_states, &config,
++    ) {
++        Ok(geometry) => geometry,
++        Err(error) => {
++            warn!(?entity, %error, "cannot admit melee completion geometry");
++            return;
++        }
++    };
++    let MeleeCompletionGeometry { surface_distance, reach, contact_at_time, facts } = geometry;
+     let contact_sample = event.contact_sample;
+     let defense_alignment_sample = event.defense_alignment_sample;
+     let Some(completion) = MeleeCompletion::prepare(
+         facts,
+@@ -395,9 +285,9 @@
+         completion.authorize(&mut authority, now, attack_key, surface_distance, reach)
+     else {
+         return;
+     };
+-    info!(attack_key = attack.attack_key().encoded(), attacker = ?attack.attacker(), target = ?attack.target(), body_part = ?attack.body_part(), surface_distance_metres = surface_distance, reach_metres = reach, "melee_completion_accepted");
++    info!(attack_key = attack.attack_key().encoded(), attacker = ?attack.attacker(), target = ?attack.target(), body_part = ?attack.body_part(), surface_distance_metres = surface_distance.metres(), reach_metres = reach.metres(), "melee_completion_accepted");
+     let attempted_defender_response = commit_active_defense(
+         prepared_defense,
+         &attack,
+         &defender_view,

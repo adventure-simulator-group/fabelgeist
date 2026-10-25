@@ -1,0 +1,124 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-549",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-hair/src/follicles.rs",
+      "sha256": "340bfe96a91d869c32ce69355977aa5d552d76fe8f27d48d566e6f78c4b1ad49",
+      "actual_EOF": 400,
+      "actual_compared_ranges": [
+        [
+          1,
+          400
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/grow.rs",
+      "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+      "actual_EOF": 876,
+      "actual_compared_ranges": [
+        [
+          1,
+          876
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/guides.rs",
+      "sha256": "ff313e8605d4893263109f7c930fcc81eb6c71aae6a7cffdbcafd10a44137aea",
+      "actual_EOF": 357,
+      "actual_compared_ranges": [
+        [
+          1,
+          357
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/guides/packed.rs",
+      "sha256": "eabbc4d66906c663bc661d3ac362b051fc301694f436b2fdd0613116e2e2249b",
+      "actual_EOF": 93,
+      "actual_compared_ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/mod.rs",
+      "sha256": "a81bbfd1f2648d8e5de93f7d4b1781884b3567dbf07e4247fc44d9c2fe5ecfb3",
+      "actual_EOF": 1562,
+      "actual_compared_ranges": [
+        [
+          1,
+          1562
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-hair/src/groom.rs",
+      "sha256": "083ab47dd800216d8bbcd584b64aa7851587f5e88bd459c449d0d429793f23cf",
+      "actual_EOF": 79,
+      "actual_compared_ranges": [
+        [
+          1,
+          79
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Derived guide-grid capacity",
+      "finding": "SEGOVB-04-HAIR-GUIDE-GRID-CAPACITY-CANDIDATE-001",
+      "evidence": "record_map starts cell=max(distance,.002), derives each dimension by saturating f32->u32 cast then evaluates product::<u64>()*5 before checking8Mi cell budget. Finite huge root bounds can yield3dimensions=u32MAX, whose cube overflowsu64 before the intended cell-growth admission loop. Debug panic/release wrapped work budget; noGPUinvocation.",
+      "qualification": "Internal helper reached through publicgrow rawscalpbounds/Opguide-distance. No normal small anatomical bound failure or livecaller established; publicScalp may have separate admission/aggregate gap, exactaliaspending. RIG03F073 owns plain point/count/n+1/dispatchproduct, adjacent shared executablecapacity dependency rather than automatic same exact defect or new global count."
+    },
+    {
+      "contract": "Adopted executable point/guide/readback invariants",
+      "evidence": "Full exact wrappers consumed: RIG03F073 audit/continuation/rig/admission03/findings.jsonl record_index77 owns castpoints/count andn+1/count*points; RIG03F067 record_index71 owns max_pathceilcast+2 andnonfinite/no-progressTied path, presetsqualifiedfinite; RIG03F068 record_index72 owns independentlymutableGpuGroom/GpuGuides counts/buffers readback. Fresh full grow/guides/GpuGroom bodies add04 support, no duplicates or normal runtimeclaims."
+    },
+    {
+      "contract": "Pingpong, scratch and failure staging",
+      "evidence": "Settle copies scratch\u2192own beforeflippedfalse onlyonsuccess; record_ops swaps after recordedoperation, Profile staysinplace, Orientmemory<=0 andrelativeSettledefaultload skipwithoutswap. RepeatedInterpolation Err observable; localgroomcommandbatch dropsbeforepublication, earlier roots countbatch mayalreadyrun and scratchreallocationsremain reusableinternalcache, no partialpublishedGroom. set_head_mesh constructscompleteHeadMesh uploads beforeassigningSome, preservingpreviousonErr. Publicgrow/guides resampling counts requireacceptednativecapacitygate."
+    },
+    {
+      "contract": "Follicle direction and physical state",
+      "evidence": "Actualfields usebounded normalhead/ordinarywhorls, tangentprojection+safe_normalize finalfallback; rawpublicFollicles/Headmayoverflow but no checkedfinite certificate/normalproducerfailure established. Explicit4projectioniterations andcowlick59candidates bounded. GrowthField slices toleratemissingwhorls viafallback, not accidentalindexpanic. Physicalangle/seed/strandidentity extractionexistingRIGOWNERF004/RIGPPSF004 migrationdependency preserved, no arbitraryunitprobabilitypolicy."
+    },
+    {
+      "contract": "Fixtures fully consumed without execution",
+      "evidence": "All1562Gpu/mod lines personally read includingkernelvalidationlist,CPU/GPUgroomguides/scalprepeatedgeneration,collision/restvolume,allpresetsandLODtransition fixtures. These are existing source assertions withactualtolerances, not run results or inherited proof that newAPIcandidatescannotoccur. Sourcecomparison doesnotcertifyappearance orallGPUkernels notreadhere."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-HAIR-GUIDE-GRID-CAPACITY-CANDIDATE-001",
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/grow.rs",
+      "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+      "ranges": [
+        [
+          768,
+          813
+        ]
+      ],
+      "counterexample": "record_map starts cell=max(distance,.002), derives each dimension by saturating f32->u32 cast then evaluates product::<u64>()*5 before checking8Mi cell budget. Finite huge root bounds can yield3dimensions=u32MAX, whose cube overflowsu64 before the intended cell-growth admission loop. Debug panic/release wrapped work budget; noGPUinvocation.",
+      "qualification": "Internal helper reached through publicgrow rawscalpbounds/Opguide-distance. No normal small anatomical bound failure or livecaller established; publicScalp may have separate admission/aggregate gap, exactaliaspending. RIG03F073 owns plain point/count/n+1/dispatchproduct, adjacent shared executablecapacity dependency rather than automatic same exact defect or new global count.",
+      "connected_contract": "Check derived native grid product without overflowing while choosing cell size; reject or coarsen explicitly before allocation/dispatch. Preserve current ordinary8Mi budget, meaningful physical extents and no arbitrary location/radius clamp.",
+      "acceptance": "All accepted finite root extents/guide distance choose representable positive grid with nativeindex/byte products inrange, or structuredrejection beforemutating publishedgroom. Ordinaryguide maps/seeds/parting remain identical."
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "6 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/fabelgeist-hair/src/lib.rs"
+}

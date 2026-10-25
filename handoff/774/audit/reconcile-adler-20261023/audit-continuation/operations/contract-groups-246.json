@@ -1,0 +1,329 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-246",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress.rs",
+      "sha256": "555e18f9ec8b6190fd3c3431665f737b37a74a9b7ee6341d99b660663015c75c",
+      "actual_EOF": 1217,
+      "actual_compared_ranges": [
+        [
+          1,
+          1217
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress/attack_start.rs",
+      "sha256": "d0d569ebb258a1695be5f608854f31be959f905e0e7d67fa0cdb9b374b7c2b26",
+      "actual_EOF": 292,
+      "actual_compared_ranges": [
+        [
+          1,
+          292
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress/lunge.rs",
+      "sha256": "266a1dafe1f65fe3bb52d1d0cc91a35eb3ac61bd95c23db020c31708bcd64846",
+      "actual_EOF": 287,
+      "actual_compared_ranges": [
+        [
+          1,
+          287
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress/timing.rs",
+      "sha256": "8e06350841fdbea99a6cf45ab7c1aca53485273d5b07a064c11ee956cee446f7",
+      "actual_EOF": 168,
+      "actual_compared_ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress/work.rs",
+      "sha256": "6be424d70d473190c8983c7f8657d117cf7aedd39c7e13c8e3d0cd6021d8a3fa",
+      "actual_EOF": 50,
+      "actual_compared_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/ingress.rs",
+      "sha256": "7b8e51061494a9d8a04960207b16657e3494be1831663d62e911f8a690429d3a",
+      "actual_EOF": 1210,
+      "actual_compared_ranges": [
+        [
+          1,
+          1210
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/ingress/attack_start.rs",
+      "sha256": "d00a98bfffa50eabd877d4ec5d96667e98aa85c161639a074f7f3ec2a4046aa7",
+      "actual_EOF": 295,
+      "actual_compared_ranges": [
+        [
+          1,
+          295
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/ingress/lunge.rs",
+      "sha256": "6ce3ba9b4f6c1fef1cd90580466b74bde537c4ec2dac0f1cecec0fcda437c12b",
+      "actual_EOF": 298,
+      "actual_compared_ranges": [
+        [
+          1,
+          298
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/ingress/timing.rs",
+      "sha256": "8e06350841fdbea99a6cf45ab7c1aca53485273d5b07a064c11ee956cee446f7",
+      "actual_EOF": 168,
+      "actual_compared_ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/ingress/work.rs",
+      "sha256": "6be424d70d473190c8983c7f8657d117cf7aedd39c7e13c8e3d0cd6021d8a3fa",
+      "actual_EOF": 50,
+      "actual_compared_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Ingress prepares complete melee timing before skeleton/authority mutation",
+      "source_ranges": {
+        "combat/ingress.rs": [
+          [
+            1,
+            1217
+          ]
+        ],
+        "combat/ingress/attack_start.rs": [
+          [
+            1,
+            292
+          ]
+        ],
+        "combat/ingress/work.rs": [
+          [
+            1,
+            50
+          ]
+        ]
+      },
+      "disposition": "Full P16 production and fixtures plus all actual PR delta lines personally read. Recovery, admitted lunge plan, actual contact measure, animation timing and work duration prepared before begin_attack_timed; failure returns before work/authority publication. Successful skeleton begin then charges workload and infallibly publishes correlated pending contact and authority. RNG samples consumed during preparation even when later error, no replay RNG guarantee assumed. Pending contact removed when due before command; missing target/body completes miss, downstream cheap/contact validation may reject consumed occurrence. No unconditional retry guarantee for rejected actual contact asserted. Melee targeting configured precision expect distinct from actual ranged finite client precision guard; config owner packet237 governs. Ranged start computes native recovery/allowance and full sample schedule before skeleton begin/observe. Direct line-of-sight uses fallible Dir3 and canonical scene filter; raw distance norm overflow depends accepted native scene domain, no ordinary cast failure claimed. All fixtures read not run."
+    },
+    {
+      "contract": "Collision-aware movement plan and typed/raw variant delta",
+      "source_ranges": {
+        "combat/ingress/lunge.rs": [
+          [
+            1,
+            287
+          ]
+        ]
+      },
+      "disposition": "P16 canonical request admits positions/target quaternion once, interaction sum and clearance/surface computed results re-admitted, normalized PlanDirection admits full movement. P16 plan shares movement geometry with arrival and actuation; PR has raw native request, separate planned_melee_lunge and no geometry Result. Actual complete rewrite personally consumed, not counterpart identity credit. Native AABB radius/separation kernels still can lose information at extreme arithmetic before max0; canonical scene/collider scale and real native API remain dependencies, not a proven ordinary bad plan. Missing collider/transform returns no plan. CannotArrive clears target/body so publication reports a miss. Physics installation intentionally maps XZ direction to quickstep convention, preserves origin and attack key. No new independent direction defect proven."
+    },
+    {
+      "contract": "Clock sample quantization has explicit narrowing/saturation obligations",
+      "source_ranges": {
+        "combat/ingress/timing.rs": [
+          [
+            1,
+            168
+          ]
+        ],
+        "combat/ingress.rs": [
+          [
+            24,
+            39
+          ]
+        ]
+      },
+      "disposition": "Duration-to-samples rejects nonfinite product then rounds and casts u64, minimum1 for durations, arrival may0. Very large finite sample products saturate cast rather than reject >u64MAX; contact/end addition saturates and start reconstructed by saturating subtraction. observed_sample_word raw native time*f64 sample rate similarly saturates; attack key and sample share one quantization intentionally. These connect existing finite-clock/sample endpoint owner family; no current ordinary real-time MAX reachability or duplicate action identity proven. Windup tolerance min then saturating subtraction explicit not a negative deadline. Contact duration finite conversion and checked recovery sum checked before publication."
+    },
+    {
+      "contract": "Dodge charge and response publication must correlate actual begun action",
+      "source_ranges": {
+        "combat/ingress.rs": [
+          [
+            41,
+            166
+          ]
+        ]
+      },
+      "disposition": "New exact source-backed repeated command case saved finding-dodge-replay-work.json. First prebegun player action notification must remain supported; supplied archive had no exact matching candidate in targeted search. New local source finding is not an asserted global unique count or execution result."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-DODGE-REPLAY-WORK-001",
+      "kind": "source-backed admitted-command counterexample; no live network or actor witness",
+      "source_variant": "physical-p16 and pr-working",
+      "locations": {
+        "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress.rs": [
+          [
+            41,
+            56
+          ],
+          [
+            98,
+            101
+          ],
+          [
+            134,
+            166
+          ]
+        ],
+        "pr-working:crates/adventuresim-tactical-server/src/combat/ingress.rs": [
+          [
+            40,
+            55
+          ],
+          [
+            97,
+            100
+          ],
+          [
+            122,
+            154
+          ]
+        ]
+      },
+      "operation": "A valid Dodge request during SkeletonAction::Dodge is accepted without begin_authoritative_quickstep, then charges ExplosiveDodge workload again and rewrites response timestamp. No per-action charge identity or consumed notification exists in this handler.",
+      "case": "Admitted repeated direct FromClient<DefendRequest> while a healthy actor has a current dodge, valid direction, required components and available viewer: first and repeated accepted commands can charge work against the same running animation and refresh reflex timestamp. With conditional ordinary mass80kg/carried0/endurance3 and pinned authored fatigue defaults, each workload is1960J and adds about.040833 fatigue until capped; no actor with those exact values or network replay was executed.",
+      "qualifications": [
+        "PlayerInput projection intentionally begins quickstep first then triggers DefendIntent for initial charge. Existing-Dodge branch is therefore intentional for the first begun-action notification; simply rejecting every already-Dodge intent would lose ordinary player quickstep workload.",
+        "Do not claim routine client repeats this direct DefendRequest, nor bypass of PlayerInput jump sequence guard. This is actual permitted network ingress command behavior, not a demonstrated client-frequency or live-session failure.",
+        "This is per-action operation correlation, distinct numeric fatigue-overflow ROOT-INITIAL04-F030. No guessed global unique finding count.",
+        "Fresh combat/protocol.rs1\u201313 explicitly defines PendingDefenderResponse as most recent receipt, consumed each attack. Timestamp refresh is documented semantics and not independently classified as a defect; operation finding concerns additional workload without new action."
+      ],
+      "connected_repair": "Correlate defense admission/workload/response publication with the actual begun dodge identity or an explicit once-consumed transition result across direct client, prebegun PlayerInput and AI paths. Preserve one visible general fatigue pool, legitimate new dodge charges, normal animation actuation, and accurate reflex timestamp policy.",
+      "acceptance": "First legitimate prebegun PlayerInput notification and direct/AI dodge begin charge once for their actual action; repeated receipt for that same action does not add action work. Preserve intentionally most-recent response timestamp/consumption semantics unless canonical owner explicitly changes that policy. Invalid admission leaves action/work/response unchanged except explicitly harmless acknowledgement. Preserve roll policy separately; no blanket rejection of already-started actions."
+    }
+  ],
+  "fresh_dependencies": [
+    {
+      "path": "crates/adventuresim-core/src/combat/fatigue.rs",
+      "pin": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "823dc22517760aafcf6f7107becb2e1d9c647c685bfe5022f7865d7739cb52f5",
+      "actually_read_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "coverage": "Fresh critical dependency body ranges only; no whole original-role credit.",
+      "actual_EOF": 263
+    },
+    {
+      "path": "crates/adventuresim-core/src/combat/fatigue_config.rs",
+      "pin": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "a899b7bacdfbcbc116a93ff6adc283bfb56bea396687713dc3677ff505522ce9",
+      "actually_read_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "coverage": "Fresh critical dependency body ranges only; no whole original-role credit.",
+      "actual_EOF": 46
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/player/combat_state.rs",
+      "pin": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "bfc02321b1d2716ffaf92d38902b547713a76a9de7a350ece7f35449e9dddf37",
+      "actually_read_ranges": [
+        [
+          1,
+          102
+        ]
+      ],
+      "coverage": "Fresh critical dependency body ranges only; no whole original-role credit.",
+      "actual_EOF": 211
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+      "pin": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+      "actually_read_ranges": [
+        [
+          1180,
+          1260
+        ],
+        [
+          1288,
+          1322
+        ]
+      ],
+      "coverage": "Fresh critical dependency body ranges only; no whole original-role credit.",
+      "actual_EOF": 3450
+    },
+    {
+      "path": "content/tactical/combat.yaml",
+      "pin": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "05958d54e48eba637c755f8ad89959dc6ef0aeaeeeaeb75022e07071a01ddaf3",
+      "actually_read_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "coverage": "Fresh critical dependency body ranges only; no whole original-role credit.",
+      "actual_EOF": 344
+    },
+    {
+      "path": "crates/adventuresim-core/build/combat_resolution.rs",
+      "pin": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "79ebf48add6f1035ba223c7d310864e958145bdb580ab8fd0189eac3700ff9c5",
+      "actually_read_ranges": [
+        [
+          252,
+          275
+        ]
+      ],
+      "coverage": "Fresh critical dependency body ranges only; no whole original-role credit.",
+      "actual_EOF": 275
+    }
+  ],
+  "status": "10 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-tactical-server/src/combat/melee.rs"
+}

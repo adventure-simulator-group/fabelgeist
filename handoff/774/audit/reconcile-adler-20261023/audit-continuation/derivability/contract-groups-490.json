@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-490",
+  "at": "2026-10-25T15:52:01.957497+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 887,
+  "source_id": "pr-working:crates/adventuresim-core/src/case.rs",
+  "sha256": "7b919041dbce7f4e53f859aab2c5b7c6b16dd110b1452ecfa598555bda9055b0",
+  "actual_compared_ranges": [
+    [
+      1,
+      660
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Fresh441\u2013660: exact match_fact compares distinct authored objective/fact variants with payload equality and time-threshold predicates; not mechanical enum/From derive. Custody enums/records already structuralSerde. apply_custody validates source-idempotency/case/version before mutation, not a mechanical conversion. Fixture helpers add canonical strategic timestamp and source-id semantics, not trait boilerplate. Remaining fixtures661\u2013921 unread.",
+  "first_unfinished": {
+    "scope_index": 887,
+    "line": 661
+  },
+  "execution": "none"
+}

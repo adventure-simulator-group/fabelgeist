@@ -1,0 +1,1558 @@
+/* Three-Column Layout System */
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* ============================================
+   TOP BAR
+   ============================================ */
+.top-bar {
+  display: flex;
+  align-items: center;
+  height: var(--header-height);
+  padding: 0 1.25rem;
+  background: var(--header-bg);
+  border-bottom: 2px solid var(--border-accent);
+  flex-shrink: 0;
+  z-index: 100;
+  position: relative;
+}
+
+.top-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+  min-width: 200px;
+}
+
+.logo {
+  font-family: var(--font-display);
+  text-transform: none;
+  font-size: var(--font-size-xl);
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  margin: 0;
+  white-space: nowrap;
+}
+
+.top-bar-center {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.nav-tab {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.4rem 1rem;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  transition: all var(--transition-fast);
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.nav-tab:hover {
+  color: var(--text-primary);
+  background: var(--bg-tertiary);
+  border-color: var(--border-light);
+}
+
+.nav-tab.active {
+  color: var(--accent-dark);
+  background: var(--panel-bg);
+  border-color: var(--border-accent);
+}
+
+.top-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+  min-width: 200px;
+  justify-content: flex-end;
+}
+
+.developer-mode-toggle {
+  width: 2rem;
+  height: 2rem;
+  padding: 0.35rem;
+  border: 1px solid rgb(255 255 255 / 28%);
+  border-radius: 50%;
+  background: rgb(10 12 16 / 75%);
+  cursor: pointer;
+}
+
+.developer-mode-toggle[aria-pressed="true"] {
+  border-color: var(--accent-light);
+  background: rgb(90 64 24 / 88%);
+}
+
+.developer-mode-icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: currentcolor;
+  mask: url("/static/icons/game/hammer-nails.svg") center / contain no-repeat;
+}
+
+html:not([data-developer-mode]) [data-developer-only] { display: none; }
+
+html[data-developer-mode] [data-developer-only] { display: inline-grid; }
+html[data-developer-mode] .location-stat-list > div[data-developer-only] { display: flex; }
+
+.developer-quest-button {
+  width: 2rem;
+  height: 2rem;
+  padding: 0.35rem;
+  place-items: center;
+  border: 1px solid rgb(255 255 255 / 28%);
+  border-radius: 50%;
+  color: var(--text-primary);
+  background: rgb(10 12 16 / 75%);
+  cursor: pointer;
+}
+
+.developer-quest-button-icon {
+  width: 100%;
+  height: 100%;
+  background: currentcolor;
+  mask: url("/static/icons/game/open-book.svg") center / contain no-repeat;
+}
+
+.developer-quest-dialog {
+  width: min(76rem, calc(100vw - 2rem));
+  height: min(54rem, calc(100dvh - 2rem));
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--border-accent);
+  color: var(--text-primary);
+  background: var(--panel-bg);
+}
+
+.developer-quest-dialog::backdrop { background: rgb(0 0 0 / 72%); }
+
+.developer-quest-shell {
+  display: grid;
+  grid-template-rows: auto auto auto 1fr auto;
+  height: 100%;
+  min-height: 0;
+}
+
+.developer-quest-header,
+.developer-quest-footer {
+  position: sticky;
+  z-index: 2;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.8rem 1rem;
+  background: var(--bg-secondary);
+}
+
+.developer-quest-header { top: 0; border-bottom: 1px solid var(--border-light); }
+.developer-quest-header h2,
+.developer-quest-header p { margin: 0; }
+.developer-quest-header p { color: var(--text-secondary); font-size: 0.85rem; }
+.developer-quest-footer { bottom: 0; border-top: 1px solid var(--border-light); }
+.developer-quest-footer > span { display: flex; gap: 0.5rem; }
+
+.developer-quest-fields {
+  min-height: 0;
+  padding: 1rem;
+  overflow: auto;
+}
+
+.developer-quest-fields fieldset {
+  min-width: 0;
+  margin: 0 0 1rem;
+  padding: 0.8rem;
+  border: 1px solid var(--border-light);
+}
+
+.developer-quest-fields legend { padding-inline: 0.35rem; color: var(--accent-light); }
+.developer-quest-binding-snapshot {
+  margin: 0.25rem 0 0.75rem;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+.developer-quest-fields label { display: grid; gap: 0.25rem; margin-block: 0.5rem; }
+.developer-quest-fields :is(input, select, textarea) { width: 100%; }
+.developer-quest-array-item { position: relative; padding-inline-end: 6rem; }
+.developer-quest-array-actions { display: flex; gap: 0.5rem; margin-block: 0.5rem; }
+.developer-quest-remove { position: absolute; inset-block-start: 0; inset-inline-end: 0; }
+.developer-quest-errors { padding: 0.75rem 1rem; color: var(--danger, #ffb5ae); }
+.developer-quest-status { padding: 0.45rem 1rem; color: var(--text-secondary); }
+.developer-quest-override { display: flex; gap: 0.5rem; align-items: center; }
+.developer-quest-override input { width: auto; }
+[data-developer-field-error] { outline: 2px solid var(--danger, #c33); }
+
+@media (max-width: 48rem) {
+  .developer-quest-dialog { width: 100vw; height: 100dvh; max-width: none; max-height: none; }
+  .developer-quest-header, .developer-quest-footer { align-items: stretch; }
+  .developer-quest-footer { flex-direction: column; }
+  .developer-quest-array-item { padding-inline-end: 0; }
+  .developer-quest-remove { position: static; }
+}
+
+.dialogue-source-link {
+  display: inline-grid;
+  width: 1.05rem;
+  height: 1.05rem;
+  margin-inline-start: 0.35rem;
+  place-items: center;
+  vertical-align: -0.16rem;
+  border: 1px solid color-mix(in srgb, currentcolor 58%, transparent);
+  border-radius: 50%;
+  color: var(--accent-light);
+  text-decoration: none;
+}
+
+.dialogue-source-link[hidden] { display: none; }
+
+.dialogue-source-link:is(:hover, :focus-visible) {
+  border-color: currentcolor;
+  background: color-mix(in srgb, currentcolor 16%, transparent);
+}
+
+.dialogue-source-link:focus-visible {
+  outline: 2px solid currentcolor;
+  outline-offset: 2px;
+}
+
+.dialogue-source-icon {
+  width: 0.68rem;
+  height: 0.68rem;
+  background: currentcolor;
+  mask: url("/static/icons/game/hammer-nails.svg") center / contain no-repeat;
+}
+
+/* Settlement pages keep settlement identity and services visible at the top. */
+.settlement-top-bar {
+  height: var(--settlement-header-height);
+  gap: 0;
+  padding-inline: 0;
+  isolation: isolate;
+  color: var(--text-primary);
+  background:
+    radial-gradient(ellipse 32% 125% at var(--sky-glow-x, 50%) var(--sky-glow-y, 115%), var(--sky-glow, #555) 0, transparent 64%),
+    radial-gradient(circle at 18% 24%, rgb(255 255 255 / var(--star-opacity, 0)) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 71% 17%, rgb(255 255 255 / var(--star-opacity, 0)) 0 1px, transparent 1.5px),
+    radial-gradient(circle at 43% 38%, rgb(255 255 255 / var(--star-opacity, 0)) 0 1px, transparent 1.5px),
+    linear-gradient(100deg, var(--sky-low, #151d2b), var(--sky-high, #080b12));
+}
+
+.settlement-top-bar[data-environment="settlement"]::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background-image: var(--settlement-horizon-image);
+  background-position: center bottom;
+  background-size: cover;
+  background-repeat: no-repeat;
+  content: "";
+  filter: brightness(var(--building-light, 78%));
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+.quest-location-top-bar[data-environment="wilderness"]::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background-image: var(--wilderness-horizon-image);
+  background-position: center bottom;
+  background-size: cover;
+  background-repeat: no-repeat;
+  content: "";
+  filter: brightness(var(--building-light, 78%));
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+.quest-location-top-bar[data-wilderness-variant="forest"] {
+  --wilderness-horizon-image: url("/static/styles/timber-framed/background/wilderness/forest.png?v=wilderness-horizons-1");
+}
+
+.quest-location-top-bar[data-wilderness-variant="grassland"] {
+  --wilderness-horizon-image: url("/static/styles/timber-framed/background/wilderness/grassland.png?v=wilderness-horizons-1");
+}
+
+.quest-location-top-bar[data-wilderness-variant="hills"] {
+  --wilderness-horizon-image: url("/static/styles/timber-framed/background/wilderness/hills.png?v=wilderness-horizons-1");
+}
+
+.settlement-top-bar[data-building-tier="village"][data-horizon-variant="inland"] {
+  --settlement-horizon-image: url("/static/styles/timber-framed/background/village/inland.png");
+}
+.settlement-top-bar[data-building-tier="village"][data-horizon-variant="coastal"] {
+  --settlement-horizon-image: url("/static/styles/timber-framed/background/village/coastal.png");
+}
+.settlement-top-bar[data-building-tier="village"][data-horizon-variant="river"] {
+  --settlement-horizon-image: url("/static/styles/timber-framed/background/village/river.png");
+}
+.settlement-top-bar[data-building-tier="town"][data-horizon-variant="inland"] {
+  --settlement-horizon-image: url("/static/styles/timber-framed/background/town/inland.png?v=urban-foregrounds-1");
+}
+.settlement-top-bar[data-building-tier="town"][data-horizon-variant="coastal"] {
+  --settlement-horizon-image: url("/static/styles/timber-framed/background/town/coastal.png?v=urban-foregrounds-1");
+}
+.settlement-top-bar[data-building-tier="town"][data-horizon-variant="river"] {
+  --settlement-horizon-image: url("/static/styles/timber-framed/background/town/river.png?v=urban-foregrounds-1");
+}
+.settlement-top-bar[data-building-tier="city"][data-horizon-variant="inland"] {
+  --settlement-horizon-image: url("/static/styles/timber-framed/background/city/inland.png?v=urban-foregrounds-1");
+}
+.settlement-top-bar[data-building-tier="city"][data-horizon-variant="coastal"] {
+  --settlement-horizon-image: url("/static/styles/timber-framed/background/city/coastal.png?v=urban-foregrounds-1");
+}
+.settlement-top-bar[data-building-tier="city"][data-horizon-variant="river"] {
+  --settlement-horizon-image: url("/static/styles/timber-framed/background/city/river.png?v=urban-foregrounds-1");
+}
+
+.settlement-top-bar[data-building-tier="village"] {
+  --service-icon-bottom: 1.2rem;
+  --service-icon-size: 1.6rem;
+}
+
+.settlement-top-bar[data-building-tier="town"] {
+  --service-icon-bottom: 1.5rem;
+  --service-icon-size: 1.7rem;
+}
+
+.settlement-top-bar[data-building-tier="city"] {
+  --service-icon-bottom: 1.8rem;
+  --service-icon-size: 1.75rem;
+}
+
+.settlement-top-bar[data-environment="settlement"] > * {
+  position: relative;
+  z-index: 1;
+}
+
+.settlement-top-bar .settlement-location {
+  position: absolute;
+  z-index: 10;
+  top: 0.5rem;
+  left: 0.75rem;
+  width: auto;
+  min-width: 0;
+  flex: none;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.settlement-top-bar .top-bar-right {
+  position: absolute;
+  z-index: 10;
+  top: 0.5rem;
+  right: 0.75rem;
+  width: auto;
+  min-width: 0;
+  flex: none;
+}
+
+.entry-top-bar {
+  justify-content: space-between;
+}
+
+.entry-message {
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.05em;
+  text-transform: none;
+}
+
+.settlement-location {
+  min-width: 360px;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 360px;
+}
+
+.settlement-identity {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  overflow: visible;
+  border: 1px solid color-mix(in srgb, var(--building-frame-tint) 72%, white);
+  background: var(--building-surface);
+  box-shadow: inset 0 1px 2px #fff2, inset 0 -2px 3px #0009, 0 1px 3px #0008;
+}
+
+.journal-button {
+  display: grid;
+  width: 2.35rem;
+  height: 2.35rem;
+  flex: 0 0 2.35rem;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--building-frame-tint) 72%, white);
+  border-radius: 50%;
+  background: var(--building-surface);
+  box-shadow: inset 0 1px 2px #fff2, inset 0 -2px 3px #0009, 0 1px 3px #0008;
+}
+
+.journal-button:is(:hover, :focus-visible) { border-color: var(--accent-gold); }
+.journal-button.active {
+  border-color: var(--accent-gold);
+  background: color-mix(in srgb, var(--building-surface) 72%, var(--accent-gold));
+}
+
+.journal-button:focus-visible {
+  outline: 2px solid var(--accent-light);
+  outline-offset: 2px;
+}
+
+.journal-button-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  background: var(--text-primary);
+  -webkit-mask: url("/static/icons/game/open-book.svg") center / contain no-repeat;
+  mask: url("/static/icons/game/open-book.svg") center / contain no-repeat;
+}
+
+.settlement-name {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+  padding: 0.28rem 0.7rem;
+  border: 0;
+  background: transparent;
+  text-shadow: 0 1px 0 #000, 0 -1px 0 #fff2;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.settlement-time {
+  align-self: stretch;
+  padding: 0.14rem 0.7rem 0.18rem;
+  border: 0;
+  border-top: 1px solid rgb(255 255 255 / 14%);
+  background: rgb(5 8 13 / 38%);
+  color: var(--text-primary);
+  font-size: var(--font-size-xs);
+  line-height: 1;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.settlement-services {
+  width: 100%;
+  height: 100%;
+  flex: 1 1 100%;
+  align-self: stretch;
+  align-items: flex-end;
+  gap: 0.75rem;
+  min-width: 0;
+  padding-inline: 0;
+  overflow: visible;
+}
+
+.settlement-services .nav-tab {
+  position: relative;
+  justify-content: center;
+  width: 2.75rem;
+  height: 4.25rem;
+  padding: 0;
+  font-size: var(--font-size-base);
+  border: 1px solid color-mix(in srgb, var(--building-tint) 72%, white);
+  border-radius: 2px 2px 0 0;
+  background: color-mix(in srgb, var(--building-tint) var(--building-light, 78%), black);
+  color: var(--text-primary);
+}
+
+.settlement-top-bar[data-environment="settlement"] .settlement-services .nav-tab {
+  --topbar-prop-baseline: -0.18rem;
+  --topbar-prop-scale: 1;
+  width: 5.25rem;
+  height: 6.75rem;
+  flex: 0 0 5.25rem;
+  overflow: visible;
+  isolation: isolate;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  border-radius: 0;
+  background: transparent;
+}
+
+.service-tab-building {
+  display: none;
+}
+
+.settlement-top-bar[data-environment="settlement"] .service-tab-building {
+  position: absolute;
+  z-index: 0;
+  display: block;
+  inset: -0.45rem -0.65rem -0.5rem;
+  background-image:
+    linear-gradient(var(--building-tint), var(--building-tint)),
+    var(--service-building-image);
+  background-position: center bottom;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-blend-mode: color, normal;
+  -webkit-mask: var(--service-building-image) center bottom / contain no-repeat;
+  mask: var(--service-building-image) center bottom / contain no-repeat;
+  filter: brightness(var(--building-light, 78%)) brightness(0.55);
+  pointer-events: none;
+}
+
+/* Wilderness navigation uses the same physical composition as settlement
+   buildings: a tintable raster prop underneath a separate semantic mark. */
+.quest-location-top-bar[data-environment="wilderness"] .settlement-services .nav-tab {
+  --topbar-prop-baseline: -0.18rem;
+  --topbar-prop-scale: 1;
+  width: 5.25rem;
+  height: 6.75rem;
+  flex: 0 0 5.25rem;
+  overflow: visible;
+  isolation: isolate;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  border-radius: 0;
+  background: transparent;
+}
+
+.quest-location-top-bar[data-environment="wilderness"] .quest-context-tab {
+  cursor: default;
+}
+
+.quest-location-top-bar[data-environment="wilderness"] .settlement-services a.nav-tab:focus-visible {
+  z-index: 5;
+  outline: 2px solid var(--accent-light);
+  outline-offset: 2px;
+}
+
+.quest-location-top-bar[data-environment="wilderness"] .wilderness-tab-prop {
+  position: absolute;
+  z-index: 0;
+  display: block;
+  inset: -0.45rem -0.65rem -0.5rem;
+  background-image:
+    linear-gradient(var(--building-tint), var(--building-tint)),
+    var(--wilderness-prop-image);
+  background-position: center bottom;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-blend-mode: color, normal;
+  -webkit-mask: var(--wilderness-prop-image) center bottom / contain no-repeat;
+  mask: var(--wilderness-prop-image) center bottom / contain no-repeat;
+  filter: brightness(var(--building-light, 78%)) brightness(0.6);
+  pointer-events: none;
+}
+
+.quest-location-top-bar .nav-tab[data-location-view="camp"] {
+  --wilderness-prop-image: url("/static/styles/timber-framed/ornament/camp-tent/ornament.png");
+}
+
+.quest-location-top-bar .nav-tab[data-location-view="map"] {
+  --wilderness-prop-image: url("/static/styles/timber-framed/ornament/camp-tent/ornament.png");
+}
+
+.quest-location-top-bar .nav-tab[data-location-view="enemy"] {
+  --wilderness-prop-image: url("/static/styles/timber-framed/ornament/encounter-boulders/ornament.png");
+  --wilderness-icon-bottom: 1.25rem;
+  --wilderness-icon-size: 1.8rem;
+}
+
+.topbar-scene-effect-plane {
+  --smoke-rise-distance: -52px;
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  bottom: var(--topbar-prop-baseline);
+  width: 6.55rem;
+  height: 6.55rem;
+  overflow: visible;
+  transform: translateX(-50%) scale(var(--topbar-prop-scale));
+  transform-origin: center bottom;
+  pointer-events: none;
+}
+
+.wilderness-smoke,
+.wilderness-flame {
+  position: absolute;
+  z-index: 1;
+  display: block;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.building-chimney-smoke {
+  left: var(--chimney-smoke-left);
+  bottom: var(--chimney-smoke-bottom);
+  width: 2rem;
+  height: 3.7rem;
+  transform: translateX(-50%);
+}
+
+.settlement-top-bar[data-building-tier="village"] .nav-tab[data-service-id="weapons"] {
+  --chimney-smoke-left: 25%;
+  --chimney-smoke-bottom: 4.29rem;
+}
+
+.settlement-top-bar[data-building-tier="town"] .nav-tab[data-service-id="weapons"] {
+  --chimney-smoke-left: 71%;
+  --chimney-smoke-bottom: 5.27rem;
+}
+
+.settlement-top-bar[data-building-tier="city"] .nav-tab[data-service-id="weapons"] {
+  --chimney-smoke-left: 65%;
+  --chimney-smoke-bottom: 5.44rem;
+}
+
+.campfire-flame {
+  left: 84.5%;
+  bottom: 0.82rem;
+  width: 1.55rem;
+  height: 2.1rem;
+  transform: translateX(-50%);
+}
+
+.campfire-smoke {
+  --smoke-rise-distance: -180px;
+  left: 84.5%;
+  bottom: 2.16rem;
+  width: 1.8rem;
+  height: 3.35rem;
+  transform: translateX(-50%);
+}
+
+.smoke-puff {
+  fill: rgb(202 207 202 / 52%);
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: wilderness-smoke-rise 6.8s ease-out infinite;
+}
+
+.flame-shape {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: wilderness-flame-flicker 720ms ease-in-out infinite alternate;
+}
+
+.flame-outer {
+  fill: #d85f22;
+}
+
+.flame-inner {
+  fill: #ffd36a;
+  animation-delay: -360ms;
+  animation-duration: 570ms;
+}
+
+.fire-particle {
+  fill: #ffe06a;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: campfire-particle-rise 2s ease-out infinite;
+}
+
+@keyframes wilderness-smoke-rise {
+  0% {
+    opacity: 0;
+    transform: translate(0, 7px) scale(0.4);
+  }
+  18% { opacity: 0.48; }
+  68% { opacity: 0.22; }
+  100% {
+    opacity: 0;
+    transform: translate(var(--smoke-drift), var(--smoke-rise-distance)) scale(1.65);
+  }
+}
+
+@keyframes wilderness-flame-flicker {
+  from {
+    opacity: 0.88;
+    transform: translateX(-1px) scale(0.92, 1.03) rotate(-1deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(1px) scale(1.04, 0.94) rotate(1deg);
+  }
+}
+
+@keyframes campfire-particle-rise {
+  0% {
+    fill: #ffe06a;
+    opacity: 0;
+    transform: translate(0, 4px) scale(0.55);
+  }
+  12% {
+    fill: #ffc13d;
+    opacity: 1;
+  }
+  38% { fill: #ed7a25; }
+  64% {
+    fill: #bf3826;
+    opacity: 0.82;
+  }
+  84% { fill: #827b74; }
+  100% {
+    fill: #aaa49d;
+    opacity: 0;
+    transform: translate(var(--fire-drift), -46px) scale(0.25);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .smoke-puff,
+  .flame-shape,
+  .fire-particle {
+    animation: none;
+  }
+
+  .smoke-puff {
+    opacity: 0.16;
+    transform: translate(0, -22px) scale(0.85);
+  }
+
+  .fire-particle {
+    fill: #ed7a25;
+    opacity: 0.72;
+  }
+}
+
+.settlement-services .nav-tab:hover { filter: brightness(1.12); }
+.service-tab-label { display: none; }
+.settlement-services .nav-tab:focus-visible { z-index: 5; outline: 2px solid var(--accent-light); outline-offset: 2px; }
+.settlement-services .nav-tab.active {
+  color: var(--text-primary);
+  background: color-mix(in srgb, var(--building-tint) var(--building-light, 78%), black);
+  border-color: color-mix(in srgb, var(--building-tint) 72%, white);
+  border-bottom: 3px solid var(--accent-light);
+}
+
+.settlement-top-bar[data-environment="settlement"] .settlement-services .nav-tab.active {
+  background: transparent;
+  border-color: var(--accent-light);
+}
+
+.quest-location-top-bar[data-environment="wilderness"] .settlement-services .nav-tab.active {
+  background: transparent;
+  border-color: var(--accent-light);
+}
+
+.settlement-top-bar[data-environment="settlement"] .settlement-services .nav-tab.active::after {
+  position: absolute;
+  z-index: 4;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: var(--accent-light);
+  content: "";
+  pointer-events: none;
+}
+
+.quest-location-top-bar[data-environment="wilderness"] .settlement-services .nav-tab.active::after {
+  position: absolute;
+  z-index: 4;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: var(--accent-light);
+  content: "";
+  pointer-events: none;
+}
+
+/* Village art is the per-service baseline for every settlement tier. Town and
+   city overrides belong in equally specific per-service rules only when those
+   individual assets exist, so a missing higher-tier image never becomes a 404. */
+.settlement-top-bar:is([data-building-tier="village"], [data-building-tier="town"], [data-building-tier="city"])
+  .nav-tab[data-service-id="public-square"],
+.settlement-top-bar:is([data-building-tier="village"], [data-building-tier="town"], [data-building-tier="city"])
+  .nav-tab[data-service-id="residences"],
+.settlement-top-bar:is([data-building-tier="village"], [data-building-tier="town"], [data-building-tier="city"])
+  .nav-tab[data-service-id="keep"],
+.settlement-top-bar:is([data-building-tier="village"], [data-building-tier="town"], [data-building-tier="city"])
+  .nav-tab[data-service-id="map"] {
+  --service-building-image: url("/static/styles/timber-framed/building/village/map.png?v=watchtower-2");
+}
+.settlement-top-bar:is([data-building-tier="village"], [data-building-tier="town"], [data-building-tier="city"])
+  .nav-tab[data-service-id="public-square"] {
+  --service-building-image: url("/static/styles/timber-framed/building/village/public-square.png");
+}
+.settlement-top-bar:is([data-building-tier="village"], [data-building-tier="town"], [data-building-tier="city"])
+  .nav-tab[data-service-id="residences"] {
+  --service-building-image: url("/static/styles/timber-framed/building/village/residences.png");
+}
+.settlement-top-bar:is([data-building-tier="village"], [data-building-tier="town"], [data-building-tier="city"])
+  .nav-tab[data-service-id="keep"] {
+  --service-building-image: url("/static/styles/timber-framed/building/village/keep.png");
+}
+.settlement-top-bar:is([data-building-tier="village"], [data-building-tier="town"], [data-building-tier="city"])
+  .nav-tab[data-service-id="merchants"] {
+  --service-building-image: url("/static/styles/timber-framed/building/village/merchants.png?v=facade-2");
+}
+.settlement-top-bar:is([data-building-tier="village"], [data-building-tier="town"], [data-building-tier="city"])
+  .nav-tab[data-service-id="weapons"] {
+  --service-building-image: url("/static/styles/timber-framed/building/village/weapons.png?v=facade-2");
+}
+.settlement-top-bar:is([data-building-tier="village"], [data-building-tier="town"], [data-building-tier="city"])
+  .nav-tab[data-service-id="armor"] {
+  --service-building-image: url("/static/styles/timber-framed/building/village/armor.png");
+}
+.settlement-top-bar:is([data-building-tier="village"], [data-building-tier="town"], [data-building-tier="city"])
+  .nav-tab[data-service-id="clothing"] {
+  --service-building-image: url("/static/styles/timber-framed/building/village/clothing.png");
+}
+.settlement-top-bar:is([data-building-tier="village"], [data-building-tier="town"], [data-building-tier="city"])
+  .nav-tab[data-service-id="herbalist"] {
+  --service-building-image: url("/static/styles/timber-framed/building/village/herbalist.png");
+}
+.settlement-top-bar:is([data-building-tier="village"], [data-building-tier="town"], [data-building-tier="city"])
+  .nav-tab[data-service-id="books"] {
+  --service-building-image: url("/static/styles/timber-framed/building/village/merchants.png?v=facade-2");
+}
+.settlement-top-bar:is([data-building-tier="village"], [data-building-tier="town"], [data-building-tier="city"])
+  .nav-tab[data-service-id="inn"] {
+  --service-building-image: url("/static/styles/timber-framed/building/village/inn.png?v=facade-2");
+}
+.settlement-top-bar:is([data-building-tier="village"], [data-building-tier="town"], [data-building-tier="city"])
+  .nav-tab[data-service-id="religion"] {
+  --service-building-image: url("/static/styles/timber-framed/building/village/religion.png?v=facade-2");
+}
+.settlement-top-bar:is([data-building-tier="village"], [data-building-tier="town"], [data-building-tier="city"])
+  .nav-tab[data-service-id="organization"] {
+  --service-building-image: url("/static/styles/timber-framed/building/village/residences.png");
+}
+
+/* Higher tiers are complete sets; village remains the explicit fallback above. */
+.settlement-top-bar[data-building-tier="town"] .nav-tab[data-service-id="map"] { --service-building-image: url("/static/styles/timber-framed/building/town/map.png?v=watchtower-2"); }
+.settlement-top-bar[data-building-tier="town"] .nav-tab[data-service-id="public-square"] { --service-building-image: url("/static/styles/timber-framed/building/town/public-square.png"); }
+.settlement-top-bar[data-building-tier="town"] .nav-tab[data-service-id="residences"] { --service-building-image: url("/static/styles/timber-framed/building/town/residences.png"); }
+.settlement-top-bar[data-building-tier="town"] .nav-tab[data-service-id="keep"] { --service-building-image: url("/static/styles/timber-framed/building/town/keep.png"); }
+.settlement-top-bar[data-building-tier="town"] .nav-tab[data-service-id="merchants"] { --service-building-image: url("/static/styles/timber-framed/building/town/merchants.png"); }
+.settlement-top-bar[data-building-tier="town"] .nav-tab[data-service-id="weapons"] { --service-building-image: url("/static/styles/timber-framed/building/town/weapons.png"); }
+.settlement-top-bar[data-building-tier="town"] .nav-tab[data-service-id="armor"] { --service-building-image: url("/static/styles/timber-framed/building/town/armor.png"); }
+.settlement-top-bar[data-building-tier="town"] .nav-tab[data-service-id="clothing"] { --service-building-image: url("/static/styles/timber-framed/building/town/clothing.png"); }
+.settlement-top-bar[data-building-tier="town"] .nav-tab[data-service-id="herbalist"] { --service-building-image: url("/static/styles/timber-framed/building/town/herbalist.png"); }
+.settlement-top-bar[data-building-tier="town"] .nav-tab[data-service-id="books"] { --service-building-image: url("/static/styles/timber-framed/building/town/merchants.png"); }
+.settlement-top-bar[data-building-tier="town"] .nav-tab[data-service-id="inn"] { --service-building-image: url("/static/styles/timber-framed/building/town/inn.png"); }
+.settlement-top-bar[data-building-tier="town"] .nav-tab[data-service-id="religion"] { --service-building-image: url("/static/styles/timber-framed/building/town/religion.png"); }
+.settlement-top-bar[data-building-tier="town"] .nav-tab[data-service-id="organization"] { --service-building-image: url("/static/styles/timber-framed/building/town/residences.png"); }
+
+.settlement-top-bar[data-building-tier="city"] .nav-tab[data-service-id="map"] { --service-building-image: url("/static/styles/timber-framed/building/city/map.png?v=watchtower-2"); }
+.settlement-top-bar[data-building-tier="city"] .nav-tab[data-service-id="public-square"] { --service-building-image: url("/static/styles/timber-framed/building/city/public-square.png"); }
+.settlement-top-bar[data-building-tier="city"] .nav-tab[data-service-id="residences"] { --service-building-image: url("/static/styles/timber-framed/building/city/residences.png"); }
+.settlement-top-bar[data-building-tier="city"] .nav-tab[data-service-id="keep"] { --service-building-image: url("/static/styles/timber-framed/building/city/keep.png"); }
+.settlement-top-bar[data-building-tier="city"] .nav-tab[data-service-id="merchants"] { --service-building-image: url("/static/styles/timber-framed/building/city/merchants.png"); }
+.settlement-top-bar[data-building-tier="city"] .nav-tab[data-service-id="weapons"] { --service-building-image: url("/static/styles/timber-framed/building/city/weapons.png"); }
+.settlement-top-bar[data-building-tier="city"] .nav-tab[data-service-id="armor"] { --service-building-image: url("/static/styles/timber-framed/building/city/armor.png"); }
+.settlement-top-bar[data-building-tier="city"] .nav-tab[data-service-id="clothing"] { --service-building-image: url("/static/styles/timber-framed/building/city/clothing.png"); }
+.settlement-top-bar[data-building-tier="city"] .nav-tab[data-service-id="herbalist"] { --service-building-image: url("/static/styles/timber-framed/building/city/herbalist.png"); }
+.settlement-top-bar[data-building-tier="city"] .nav-tab[data-service-id="books"] { --service-building-image: url("/static/styles/timber-framed/building/city/merchants.png"); }
+.settlement-top-bar[data-building-tier="city"] .nav-tab[data-service-id="inn"] { --service-building-image: url("/static/styles/timber-framed/building/city/inn.png"); }
+.settlement-top-bar[data-building-tier="city"] .nav-tab[data-service-id="religion"] { --service-building-image: url("/static/styles/timber-framed/building/city/religion.png"); }
+.settlement-top-bar[data-building-tier="city"] .nav-tab[data-service-id="organization"] { --service-building-image: url("/static/styles/timber-framed/building/city/residences.png"); }
+
+/* Standalone chapters share the scene vocabulary, but their authored building
+   kind chooses the closest facade instead of presenting every institution as a house. */
+.settlement-top-bar[data-building-tier="village"] .nav-tab[data-organization-building-kind="guildhall"],
+.settlement-top-bar[data-building-tier="village"] .nav-tab[data-organization-building-kind="college"] { --service-building-image: url("/static/styles/timber-framed/building/village/merchants.png?v=facade-2"); }
+.settlement-top-bar[data-building-tier="village"] .nav-tab[data-organization-building-kind="workshop"] { --service-building-image: url("/static/styles/timber-framed/building/village/weapons.png"); }
+.settlement-top-bar[data-building-tier="village"] .nav-tab[data-organization-building-kind="confraternity"] { --service-building-image: url("/static/styles/timber-framed/building/village/religion.png?v=facade-2"); }
+.settlement-top-bar[data-building-tier="village"] .nav-tab[data-organization-building-kind="commandery"] { --service-building-image: url("/static/styles/timber-framed/building/village/keep.png"); }
+.settlement-top-bar[data-building-tier="village"] .nav-tab[data-organization-building-kind="lodge"] { --service-building-image: url("/static/styles/timber-framed/building/village/inn.png?v=facade-2"); }
+.settlement-top-bar[data-building-tier="town"] .nav-tab[data-organization-building-kind="guildhall"],
+.settlement-top-bar[data-building-tier="town"] .nav-tab[data-organization-building-kind="college"] { --service-building-image: url("/static/styles/timber-framed/building/town/merchants.png"); }
+.settlement-top-bar[data-building-tier="town"] .nav-tab[data-organization-building-kind="workshop"] { --service-building-image: url("/static/styles/timber-framed/building/town/weapons.png"); }
+.settlement-top-bar[data-building-tier="town"] .nav-tab[data-organization-building-kind="confraternity"] { --service-building-image: url("/static/styles/timber-framed/building/town/religion.png"); }
+.settlement-top-bar[data-building-tier="town"] .nav-tab[data-organization-building-kind="commandery"] { --service-building-image: url("/static/styles/timber-framed/building/town/keep.png"); }
+.settlement-top-bar[data-building-tier="town"] .nav-tab[data-organization-building-kind="lodge"] { --service-building-image: url("/static/styles/timber-framed/building/town/inn.png"); }
+.settlement-top-bar[data-building-tier="city"] .nav-tab[data-organization-building-kind="guildhall"],
+.settlement-top-bar[data-building-tier="city"] .nav-tab[data-organization-building-kind="college"] { --service-building-image: url("/static/styles/timber-framed/building/city/merchants.png"); }
+.settlement-top-bar[data-building-tier="city"] .nav-tab[data-organization-building-kind="workshop"] { --service-building-image: url("/static/styles/timber-framed/building/city/weapons.png"); }
+.settlement-top-bar[data-building-tier="city"] .nav-tab[data-organization-building-kind="confraternity"] { --service-building-image: url("/static/styles/timber-framed/building/city/religion.png"); }
+.settlement-top-bar[data-building-tier="city"] .nav-tab[data-organization-building-kind="commandery"] { --service-building-image: url("/static/styles/timber-framed/building/city/keep.png"); }
+.settlement-top-bar[data-building-tier="city"] .nav-tab[data-organization-building-kind="lodge"] { --service-building-image: url("/static/styles/timber-framed/building/city/inn.png"); }
+
+.service-notification-badge {
+  position: absolute;
+  z-index: 3;
+  top: -0.25rem;
+  right: -0.25rem;
+  display: grid;
+  place-items: center;
+  min-width: 1.15rem;
+  height: 1.15rem;
+  padding: 0 0.25rem;
+  border: 2px solid var(--surface-bg);
+  border-radius: 999px;
+  background: #b4232c;
+  color: #fff;
+  font: 700 0.68rem/1 var(--font-heading);
+}
+
+.service-notification-badge[hidden] {
+  display: none;
+}
+
+.settlement-top-bar[data-environment="settlement"] .service-notification-badge {
+  top: auto;
+  right: calc(50% - var(--service-icon-size, 1.6rem) / 2 - 0.4rem);
+  bottom: calc(var(--service-icon-bottom, 1.2rem) + var(--service-icon-size, 1.6rem) - 0.4rem);
+}
+
+.service-tab-icon {
+  position: relative;
+  z-index: 2;
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--text-primary);
+  -webkit-mask: var(--service-tab-icon) center / contain no-repeat;
+  mask: var(--service-tab-icon) center / contain no-repeat;
+  transition: background-color var(--transition-fast);
+}
+
+.settlement-top-bar[data-environment="settlement"] .service-tab-icon {
+  position: absolute;
+  left: 50%;
+  bottom: var(--service-icon-bottom, 1.2rem);
+  width: var(--service-icon-size, 1.6rem);
+  height: var(--service-icon-size, 1.6rem);
+  transform: translateX(-50%);
+  background-color: transparent;
+  -webkit-mask: none;
+  mask: none;
+  filter: brightness(var(--building-light, 78%));
+}
+
+.settlement-top-bar[data-environment="settlement"] .service-tab-icon::after {
+  position: absolute;
+  inset: 0;
+  background-color: #fff;
+  -webkit-mask: var(--service-tab-icon) center / contain no-repeat;
+  mask: var(--service-tab-icon) center / contain no-repeat;
+  content: "";
+}
+
+.quest-location-top-bar[data-environment="wilderness"] .service-tab-icon {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  bottom: var(--wilderness-icon-bottom, 1.2rem);
+  width: var(--wilderness-icon-size, 1.6rem);
+  height: var(--wilderness-icon-size, 1.6rem);
+  transform: translateX(-50%);
+  background-color: transparent;
+  -webkit-mask: none;
+  mask: none;
+  filter: brightness(var(--building-light, 78%));
+}
+
+.quest-location-top-bar[data-environment="wilderness"] .service-tab-icon::after {
+  position: absolute;
+  inset: 0;
+  background-color: #fff;
+  -webkit-mask: var(--service-tab-icon) center / contain no-repeat;
+  mask: var(--service-tab-icon) center / contain no-repeat;
+  content: "";
+}
+
+.service-tab-icon-market { --service-tab-icon: url("/static/icons/settlement-services/market.png"); }
+.service-tab-icon-house { --service-tab-icon: url("/static/icons/game/house.svg"); }
+.service-tab-icon-castle { --service-tab-icon: url("/static/icons/game/castle.svg"); }
+.service-tab-icon-weapons { --service-tab-icon: url("/static/icons/settlement-services/weapons.png"); }
+.service-tab-icon-armor { --service-tab-icon: url("/static/icons/settlement-services/armor.png"); }
+.service-tab-icon-clothing { --service-tab-icon: url("/static/icons/settlement-services/clothing.png"); }
+.service-tab-icon-medical-pack { --service-tab-icon: url("/static/icons/settlement-services/herbalist.png"); }
+.service-tab-icon-open-book { --service-tab-icon: url("/static/icons/game/open-book.svg"); }
+.service-tab-icon-inn { --service-tab-icon: url("/static/icons/settlement-services/inn.png"); }
+.service-tab-icon-church { --service-tab-icon: url("/static/icons/game/church.svg"); }
+.service-tab-icon-organization { --service-tab-icon: url("/static/icons/game/templar-shield.svg"); }
+
+.service-tab-icon-map { --service-tab-icon: url("/static/icons/settlement-services/travel.png"); }
+.service-tab-icon-enemy { --service-tab-icon: url("/static/icons/game/death-skull.svg"); }
+.service-tab-icon-camp { --service-tab-icon: url("/static/icons/game/campfire.svg"); }
+
+.settlement-services .nav-tab:hover .service-tab-icon,
+.settlement-services .nav-tab.active .service-tab-icon { background-color: var(--text-primary); }
+
+.settlement-top-bar[data-environment="settlement"] .nav-tab:hover .service-tab-icon,
+.settlement-top-bar[data-environment="settlement"] .nav-tab.active .service-tab-icon {
+  background-color: transparent;
+}
+
+.settlement-top-bar[data-environment="settlement"] .service-tab-icon-organization,
+.settlement-top-bar[data-environment="settlement"] .nav-tab:hover .service-tab-icon-organization,
+.settlement-top-bar[data-environment="settlement"] .nav-tab.active .service-tab-icon-organization {
+  border: 1px solid var(--organization-accent, #fff);
+  border-radius: 50%;
+  background-color: var(--organization-field, transparent);
+  box-shadow: 0 0 2px var(--organization-field, transparent);
+}
+
+.settlement-top-bar[data-environment="settlement"] .service-tab-icon-organization::after {
+  inset: 0.16rem;
+  background-color: var(--organization-accent, #fff);
+}
+
+.quest-location-top-bar[data-environment="wilderness"] .nav-tab:hover .service-tab-icon,
+.quest-location-top-bar[data-environment="wilderness"] .nav-tab.active .service-tab-icon {
+  background-color: transparent;
+}
+
+.service-tab-icon-provisions {
+  --service-tab-icon: url("/static/icons/game/bread.svg");
+}
+
+.player-name {
+  padding: 0.28rem 0.48rem;
+  border: 1px solid rgb(255 255 255 / 14%);
+  background: rgb(5 8 13 / 72%);
+  box-shadow: 0 1px 3px #0008;
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
+.player-name strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.player-name-none {
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+.character-switcher {
+  position: relative;
+}
+
+.character-switcher-toggle {
+  display: block;
+  border: 1px solid rgb(255 255 255 / 18%);
+  border-radius: 50%;
+  cursor: pointer;
+  list-style: none;
+  box-shadow: 0 1px 3px #0008;
+}
+
+.character-switcher-toggle::-webkit-details-marker { display: none; }
+
+.character-switcher-toggle:hover,
+.character-switcher-toggle:focus-visible,
+.character-switcher[open] .character-switcher-toggle {
+  border-color: var(--accent-light);
+  filter: brightness(1.1);
+}
+
+.character-switcher-portrait {
+  width: 3.35rem;
+  height: 3.35rem;
+}
+
+.character-switcher-menu {
+  position: absolute;
+  z-index: 120;
+  top: calc(100% + 0.45rem);
+  right: 0;
+  width: min(19rem, calc(100vw - 1rem));
+  padding: 0.45rem;
+  border: 1px solid color-mix(in srgb, var(--active-building-tint) 65%, white);
+  background: rgb(5 8 13 / 92%);
+  box-shadow: var(--shadow-md);
+}
+
+.character-switcher-options {
+  display: grid;
+  gap: 0.3rem;
+  max-height: min(24rem, calc(100vh - var(--header-height) - 5rem));
+  margin-bottom: 0.45rem;
+  padding-bottom: 0.45rem;
+  overflow-y: auto;
+  border-bottom: 1px solid rgb(255 255 255 / 14%);
+}
+
+.character-switcher-option {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  width: 100%;
+  min-width: 0;
+  padding: 0.45rem;
+  border: 1px solid transparent;
+  color: var(--text-primary);
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+}
+
+.character-switcher-option:hover,
+.character-switcher-option:focus-visible {
+  border-color: var(--border-accent);
+  background: rgb(255 255 255 / 7%);
+}
+
+.character-switcher-option.is-current {
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+}
+
+.character-switcher-option-portrait {
+  display: grid;
+  flex: 0 0 2.1rem;
+  width: 2.1rem;
+  height: 2.1rem;
+  place-items: center;
+  border: 1px solid var(--border-accent);
+  border-radius: 50%;
+  color: var(--accent-light);
+  font-family: var(--font-heading);
+}
+
+.character-switcher-option-copy {
+  display: grid;
+  min-width: 0;
+}
+
+.character-switcher-option-copy strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.character-switcher-option-copy small,
+.character-switcher-empty {
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+}
+
+.character-switcher-empty { margin: 0.4rem; }
+.character-switcher-menu .btn { width: 100%; }
+
+/* ============================================
+   MAIN GRID (Three Columns)
+   ============================================ */
+.main-grid {
+  display: grid;
+  grid-template-columns: 20% minmax(0, 60%) 20%;
+  grid-template-rows: minmax(0, 1fr);
+  height: calc(100vh - var(--header-height));
+  overflow: hidden;
+}
+
+/* Inventory rails grow with their currently visible columns. The center track
+   yields space while row and bulk actions project into its portrait gutter. */
+.main-grid:has(.inventory-browser) {
+  grid-template-columns:
+    var(--inventory-left-width, 20%)
+    minmax(0, 1fr)
+    var(--inventory-right-width, 20%);
+}
+
+body:has(.settlement-top-bar) .main-grid {
+  height: calc(100vh - var(--settlement-header-height));
+}
+
+.left-sidebar,
+.center-content,
+.right-sidebar {
+  min-height: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
+}
+
+/* Trade controls extend from the rails over the service portrait. */
+.left-sidebar:has(.trade-inventory-table),
+.right-sidebar:has(.trade-inventory-table) {
+  position: relative;
+  z-index: 10;
+  padding: 0;
+  overflow: visible;
+}
+
+.left-sidebar:has(.trade-inventory-table) .sidebar-section,
+.right-sidebar:has(.trade-inventory-table) .sidebar-section {
+  margin: 0;
+}
+
+.left-sidebar:has(.trade-inventory-table) .sidebar-header,
+.right-sidebar:has(.trade-inventory-table) .sidebar-header {
+  margin: 0;
+  padding: var(--padding) var(--padding) 0.5rem;
+}
+
+.left-sidebar:has(.trade-inventory-table) .small-copy,
+.right-sidebar:has(.trade-inventory-table) .small-copy {
+  margin: 0;
+  padding: 0 var(--padding) 0.65rem;
+}
+
+/* Left Sidebar */
+.left-sidebar {
+  --left-rail-scrollbar-reserve: 8px;
+  direction: rtl;
+  background: var(--building-surface);
+  border-right: 1px solid var(--border-color);
+  padding: var(--padding);
+  scrollbar-gutter: stable;
+}
+
+/* Keep strategic left-rail content in its natural reading direction while the
+   rail's vertical scrollbar stays against the outer, left-hand edge. */
+.left-sidebar > * { direction: ltr; }
+
+.sidebar-section {
+  margin-bottom: 1.5rem;
+}
+
+/* Architectural textures belong to the exposed rail, never directly behind
+   copy, meters, or controls. Sections provide an opaque reading surface while
+   the building material remains visible in their surrounding gaps. */
+body:has(.settlement-top-bar[data-environment="settlement"])
+  :is(.left-sidebar, .right-sidebar) .sidebar-section {
+  background: var(--content-surface-recess);
+}
+
+.sidebar-section:last-child {
+  margin-bottom: 0;
+}
+
+.sidebar-header {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+/* Center Content */
+.center-content {
+  background: var(--bg-primary);
+  padding: var(--padding-lg);
+}
+
+.page-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--border-accent);
+}
+
+/* Right Sidebar */
+.right-sidebar {
+  background: var(--building-surface);
+  border-left: 1px solid var(--border-color);
+  padding: var(--padding);
+}
+
+/* The selected building changes joinery, not the plaster. This lets semantic
+   reds, greens, and blues inside panels remain visually authoritative. */
+body:has(.nav-tab[data-service-id="public-square"].active) {
+  --architectural-edge: repeating-linear-gradient(90deg, transparent 0 3rem, rgb(231 216 188 / 3%) 3rem 3.08rem);
+}
+body:has(.nav-tab[data-service-id="residences"].active) {
+  --architectural-edge: repeating-linear-gradient(0deg, transparent 0 2.8rem, rgb(229 211 181 / 3%) 2.8rem 2.88rem);
+}
+body:has(.nav-tab[data-service-id="keep"].active) {
+  --architectural-edge: radial-gradient(circle at 1.2rem 1.2rem, rgb(225 222 211 / 4%) 0 .08rem, transparent .1rem) 0 0 / 2.4rem 2.4rem;
+}
+body:has(.nav-tab[data-service-id="map"].active) {
+  --architectural-edge: repeating-linear-gradient(0deg, transparent 0 1.15rem, rgb(222 215 196 / 4%) 1.15rem 1.22rem);
+}
+body:has(.nav-tab[data-service-id="merchants"].active) {
+  --architectural-edge: repeating-linear-gradient(135deg, transparent 0 2.5rem, rgb(230 207 169 / 3%) 2.5rem 2.62rem);
+}
+body:has(.nav-tab[data-service-id="weapons"].active) {
+  --architectural-edge: repeating-linear-gradient(45deg, transparent 0 1.4rem, rgb(236 211 174 / 3%) 1.4rem 1.5rem);
+}
+body:has(.nav-tab[data-service-id="armor"].active) {
+  --architectural-edge: radial-gradient(circle at .7rem .7rem, rgb(235 226 203 / 6%) 0 .1rem, transparent .12rem) 0 0 / 1.4rem 1.4rem;
+}
+body:has(.nav-tab[data-service-id="clothing"].active) {
+  --architectural-edge: repeating-linear-gradient(90deg, transparent 0 .62rem, rgb(242 220 187 / 3%) .62rem .68rem);
+}
+body:has(.nav-tab[data-service-id="herbalist"].active) {
+  --architectural-edge: repeating-radial-gradient(ellipse at 0 100%, transparent 0 .7rem, rgb(218 228 188 / 3%) .72rem .8rem, transparent .82rem 1.45rem);
+}
+body:has(.nav-tab[data-service-id="inn"].active) {
+  --architectural-edge: repeating-linear-gradient(0deg, transparent 0 2.1rem, rgb(237 204 153 / 4%) 2.1rem 2.25rem);
+}
+body:has(.nav-tab[data-service-id="religion"].active) {
+  --architectural-edge: repeating-linear-gradient(120deg, transparent 0 1.7rem, rgb(232 225 204 / 3%) 1.7rem 1.78rem);
+}
+
+body:has(.settlement-top-bar[data-environment="settlement"]) .center-content .panel {
+  border-color: color-mix(in srgb, var(--building-frame-tint) 52%, var(--panel-border));
+  box-shadow:
+    inset .18rem 0 color-mix(in srgb, var(--building-frame-tint) 62%, transparent),
+    inset -.18rem 0 color-mix(in srgb, var(--building-frame-tint) 62%, transparent),
+    var(--shadow-sm);
+}
+
+body:has(.settlement-top-bar[data-environment="settlement"]) .center-content .panel-header {
+  border-bottom-color: color-mix(in srgb, var(--building-frame-tint) 48%, var(--panel-border));
+  background-image: var(--architectural-edge, none);
+}
+
+/* Settlement rails resemble recessed wooden or stone wall panels. */
+body:has(.settlement-top-bar[data-environment="settlement"]) :is(.left-sidebar, .right-sidebar) {
+  --building-frame: color-mix(in srgb, var(--building-frame-tint) 88%, white);
+  --building-frame-corner: color-mix(in srgb, var(--building-frame) 82%, white);
+  --building-frame-corner-size: 1.35rem;
+  --building-panel-recess: var(--content-surface-recess);
+  border: 0;
+  position: relative;
+  padding-block: var(--building-frame-corner-size);
+  padding-inline: var(--building-frame-corner-size);
+  background:
+    linear-gradient(var(--building-frame-corner), var(--building-frame-corner)) left top / var(--building-frame-corner-size) var(--building-frame-corner-size) no-repeat local,
+    linear-gradient(var(--building-frame-corner), var(--building-frame-corner)) calc(100% + var(--left-rail-scrollbar-reserve, 0px)) top / var(--building-frame-corner-size) var(--building-frame-corner-size) no-repeat local,
+    linear-gradient(var(--building-frame-corner), var(--building-frame-corner)) left bottom / var(--building-frame-corner-size) var(--building-frame-corner-size) no-repeat local,
+    linear-gradient(var(--building-frame-corner), var(--building-frame-corner)) calc(100% + var(--left-rail-scrollbar-reserve, 0px)) bottom / var(--building-frame-corner-size) var(--building-frame-corner-size) no-repeat local,
+    linear-gradient(var(--building-frame), var(--building-frame)) center top / 100% 0.55rem no-repeat local,
+    linear-gradient(var(--building-frame), var(--building-frame)) center bottom / 100% 0.55rem no-repeat local,
+    linear-gradient(var(--building-frame), var(--building-frame)) left center / 0.55rem 100% no-repeat local,
+    linear-gradient(var(--building-frame), var(--building-frame)) right center / 0.55rem 100% no-repeat local,
+    var(--architectural-edge, repeating-linear-gradient(135deg, transparent 0 2.6rem, rgb(255 255 255 / 2%) 2.6rem 2.7rem)),
+    var(--building-panel-recess);
+  box-shadow:
+    inset 0 0 0 1px rgb(0 0 0 / 42%),
+    inset 0 0 1.25rem rgb(0 0 0 / 22%);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 1200px) {
+  .main-grid {
+    grid-template-columns: 20% minmax(0, 60%) 20%;
+  }
+  .settlement-location {
+    min-width: 0;
+    width: 260px;
+    flex-basis: 260px;
+  }
+  .settlement-top-bar .top-bar-right {
+    min-width: 0;
+  }
+  .settlement-top-bar .player-name {
+    display: none;
+  }
+  .settlement-services .nav-tab {
+    width: 2.35rem;
+    padding: 0;
+  }
+  .settlement-top-bar[data-environment="settlement"] .settlement-services .nav-tab {
+    --topbar-prop-baseline: -0.23rem;
+    --topbar-prop-scale: 0.8473;
+    width: 4.25rem;
+    height: 6.25rem;
+    flex-basis: 4.25rem;
+  }
+  .quest-location-top-bar[data-environment="wilderness"] .settlement-services .nav-tab {
+    --topbar-prop-baseline: -0.23rem;
+    --topbar-prop-scale: 0.8473;
+    width: 4.25rem;
+    height: 6.25rem;
+    flex-basis: 4.25rem;
+  }
+  .settlement-services {
+    gap: 0.42rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .app {
+    height: auto;
+    min-height: 100dvh;
+    overflow: visible;
+  }
+  .main-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    grid-template-areas: "main" "left" "right";
+  }
+  .main-grid:has(.inventory-browser) {
+    grid-template-columns: 1fr;
+  }
+  body .app .main-grid {
+    height: auto;
+    min-height: 0;
+    flex: 1;
+    overflow: visible;
+  }
+  .left-sidebar {
+    grid-area: left;
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+    height: auto;
+    max-height: none;
+    overflow: visible;
+  }
+  .service-left-stack,
+  .service-inventory-area {
+    flex: none;
+    min-height: 0;
+  }
+  .right-sidebar {
+    display: block;
+    grid-area: right;
+    height: auto;
+    min-height: 10rem;
+    overflow: visible;
+    border-top: 1px solid var(--border-color);
+    border-left: 0;
+  }
+  .center-content {
+    grid-area: main;
+    min-height: 32rem;
+    padding: 1rem;
+  }
+  .top-bar {
+    padding: 0 0.75rem;
+  }
+  .settlement-top-bar {
+    height: auto;
+    min-height: var(--header-height);
+    flex-wrap: wrap;
+    padding-block: 0.5rem;
+  }
+  .settlement-top-bar .settlement-location,
+  .settlement-top-bar .top-bar-right {
+    position: relative;
+    inset: auto;
+    order: 1;
+    margin-inline: 0.5rem;
+  }
+  .settlement-top-bar .top-bar-right {
+    margin-left: auto;
+  }
+  .top-bar-left {
+    min-width: auto;
+  }
+  .logo {
+    font-size: var(--font-size-base);
+  }
+  .top-bar-right {
+    min-width: auto;
+  }
+  .player-name {
+    display: none;
+  }
+  .nav-tab {
+    padding: 0.3rem 0.5rem;
+    font-size: var(--font-size-xs);
+  }
+  .settlement-location {
+    min-width: 0;
+    width: auto;
+  }
+
+  .settlement-services {
+    order: 3;
+    width: 100%;
+    gap: 0.62rem;
+    padding: 0.75rem 0.5rem 0.65rem;
+    overflow-x: auto;
+    overflow-y: hidden;
+    justify-content: flex-start;
+    padding-bottom: 0.65rem;
+    scrollbar-width: thin;
+    mask-image: linear-gradient(to right, transparent, #000 0.75rem, #000 calc(100% - 0.75rem), transparent);
+  }
+  .sidebar-section { margin-bottom: 1rem; }
+  .settlement-top-bar[data-environment="settlement"] .settlement-services .nav-tab {
+    --topbar-prop-baseline: -0.22rem;
+    --topbar-prop-scale: 0.8855;
+    width: 4.5rem;
+    height: 6.25rem;
+    flex-basis: 4.5rem;
+  }
+  .quest-location-top-bar[data-environment="wilderness"] .settlement-services .nav-tab {
+    --topbar-prop-baseline: -0.22rem;
+    --topbar-prop-scale: 0.8855;
+    width: 4.5rem;
+    height: 6.25rem;
+    flex-basis: 4.5rem;
+  }
+  .topbar-scene-effect-plane {
+    --smoke-rise-distance: -34px;
+  }
+  .campfire-smoke {
+    --smoke-rise-distance: -110px;
+  }
+  .settlement-services::-webkit-scrollbar { height: 0.35rem; }
+  .entry-message {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .top-bar-center {
+    gap: 0;
+  }
+  .nav-tab {
+    padding: 0.25rem 0.4rem;
+    letter-spacing: 0;
+  }
+  .center-content { min-height: 27rem; }
+  .left-sidebar,
+  .right-sidebar { padding: 0.85rem; }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .service-tab-label {
+    position: absolute;
+    z-index: 5;
+    right: .12rem;
+    bottom: .28rem;
+    left: .12rem;
+    display: block;
+    overflow: hidden;
+    padding: .1rem .15rem .13rem;
+    border: 1px solid rgb(240 221 169 / 32%);
+    background: rgb(10 10 9 / 82%);
+    color: var(--text-primary);
+    font-size: .65rem;
+    font-weight: 700;
+    line-height: 1;
+    pointer-events: none;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

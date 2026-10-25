@@ -1,0 +1,64 @@
+{
+  "id": "CONT07-CONTRACT-505",
+  "at": "2026-10-23T22:59:51.420907+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2196,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/mod.rs",
+      "sha256": "e2c32d059f773c9dc53ca214859713765404865e75e82302ea6b978145960199",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/gpu/mod.rs",
+      "actual_EOF": 331,
+      "ranges": [
+        [
+          1,
+          331
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2197,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/part.rs",
+      "sha256": "b990af2759b5c457ee1e2035060d64f0fdeaa9185b2239392b8d98fd18eefeaf",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/gpu/part.rs",
+      "actual_EOF": 362,
+      "ranges": [
+        [
+          1,
+          362
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2198,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/part/layout.rs",
+      "sha256": "ff78ae8e0c6e40168541eebee2a17792bb8193146d0a4b93463143adcf71c626",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/gpu/part/layout.rs",
+      "actual_EOF": 289,
+      "ranges": [
+        [
+          1,
+          289
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "ArmorGPUmod331 PartBuild362 PartLayout289 fullfreshread: PartLayout push is sole append of shellspec and coordinatedfirst/count offsets; finalfaces/components/grids derive same frozenplans, not independently authored copiedface inventories. PartBuild ownsprivateLayout and bufferscreatedinnew; status and meshfailures checkedbeforehostprojection.",
+    "BuiltPartappend shifts all actualcomponentvertex/indexranges andsurfacegrid mappings withposition/indexarena; hinges areworldframephysicalfacts anddo notshift byarrayoffset. Cardinality/uncheckedindexadmission remains existingaggregate concern, not demonstrationduplicatecurrentstate.",
+    "PartBuild derives carrier/finaltriangle counts from actual indexshell list at construction; all bufferallocations/use loopsharethosecounts. Area-vsAngle normals distinct algorithms used byExtrusionmode and finalnormals are computed afterplacement.",
+    "DevicePart public mutableplace_by +repeatable record_shells is constructionphaseAPI; potential repeatedhingeplacement must inspectactualplacementkernel and ordinarycallorder beforewrongcurrenthingeclaim. Staging/PartSlots identityassociation also pendingactual stagedresultsowner proof; no defaultassumption of safe arbitraryswappedslots."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2199,
+    "start_line": 1
+  }
+}

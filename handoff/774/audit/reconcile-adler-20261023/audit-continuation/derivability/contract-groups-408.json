@@ -1,0 +1,99 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-408",
+  "at": "2026-10-25T15:23:29.172237+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 792,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/stages.rs",
+      "sha256": "ccbbca63f8954cde1d15934b057edc40dfe382d36c273fed0acd0316f9a2fe2a",
+      "actual_EOF": 352,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/stages.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-character-creator/src/garment/stages.rs",
+        "owner": "rig",
+        "sha256": "ccbbca63f8954cde1d15934b057edc40dfe382d36c273fed0acd0316f9a2fe2a",
+        "base_sha256": "ffd231ba3b2e2cecfaf4284e11102db92d98ed0a4bc8bf260bebd8cc9019e2f9",
+        "state": "modified",
+        "bytes": 12448,
+        "audit_owner": "rig",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/sources.json",
+            "ranges": [
+              [
+                1,
+                352
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-GARMENT-05"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 220,
+            "read_ranges": [
+              [
+                1,
+                352
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-STAGE-BINDING-038"
+            ],
+            "read_status": "full-source-read-current-lens",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-character-creator/src/garment/stages.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          352
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "StageSettings/DrapeSettings Debug Clone Copy Serialize Deserialize PartialEq",
+        "DrapeCheckpoints Clone"
+      ],
+      "absence_basis": "Full source consumed: range validation, fabric-derived solver defaults/apply, semantic checkpoint stage selection and subset same_setup equality, followed by source fixtures. same_setup is a selective runtime predicate, not PartialEq boilerplate; for_fabric not field Default. No handwritten trait implementation/codec; fixtures read only."
+    }
+  ],
+  "groups": [
+    {
+      "disposition": "NO_HANDWRITTEN_TRAIT_OR_CODEC",
+      "contracts": "Retain stage input policy/native settings mapping and selective checkpoint reuse; existing structural Serde/Clone derives already used."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 793,
+    "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/validation.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

@@ -1,0 +1,22 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-040",
+  "at": "2026-10-25T11:09:17.425469+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1146,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/organization.rs",
+      "sha256": "39842ba122cf2240e36f267f8db415dd2b54bfcc0dbd2478e813ef3c374a9645",
+      "personally_read_ranges": [
+        [
+          1,
+          655
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole655 organization source read. Membership stores dues/accrual lifecycle and references canonical role separately; public gateway projection joins exact character+organization assignment to role rather than storing duplicate rank. Normal join requires character authority, temporal institutional scope, living localchapter, catalog admission and requested authored entryrole/skill requirements, consumes fee, then writes active membership+role in caller reducertransaction. Rejoining existing membership intentionally no-op. Promotion checks direct authoredtransition and destinationrequirements. Paydues renews deadline from currentpaid deadline or personalnow and activates checkpoint. no-dues uses MAX; same own09 F347 qualified absence-vs-terminal shape, no actualnoduescatalogwitness or ordinary lapse atMAX claim. Status checkpoint and deadline are distinct (currentness rechecks deadline), not generic contradiction. Presentation selection is independent of locationrecognition intentionally: moving out of recognized settlement retains global licensed profession, while localeffective view queries currentrecognition; globally_current only checks presentselection plus currentmembership. Reconcile clears truly lapsed presentation and enforces equipment law; does not discard merelyunrecognizedlocation. Membership currentness helper1147 historical exactsame-lens proof retained; no replay. current_membership_grants actualrole used for globalprivilege, local presented_privilege uses organization privilege only; requires actualprivilegecallers/authorpolicy before alleging rolebypass. Raw skill+optional leaf maps fixedskills, religion/bestiary require appropriate typedleaf, unknown failclosed; ordinary validatedcatalog controls negative/NaNminimum, no unproved badcatalog admission. NativeStringResult and bool queries retain cause/policy migration gaps from baseline, no new bespoke owner duplicated. Existing duesboundary/roleprivilege tests not run."
+    }
+  ],
+  "discovery": "One original role complete WITH qualified contracts; full lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

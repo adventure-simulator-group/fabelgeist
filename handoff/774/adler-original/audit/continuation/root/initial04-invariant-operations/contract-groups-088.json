@@ -1,0 +1,48 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-088",
+  "at": "2026-10-23T01:33:35.880020+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/planar.rs",
+      "sha256": "443ff701ad79a52b06623fc199de7ea1df011b7527ed2ef8056057b9b8fac059",
+      "actual_compared_ranges": [
+        [
+          69,
+          83
+        ]
+      ],
+      "source_evidence": "Fresh literal actual source with independent04 arithmetic/mutation reasoning; no05 verdict credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/compounds.rs",
+      "sha256": "1749661a3b0a1baf513595ff7076a7670510285e556b3e2cf7acbc5888f89583",
+      "actual_compared_ranges": [
+        [
+          12,
+          100
+        ],
+        [
+          218,
+          252
+        ]
+      ],
+      "source_evidence": "Fresh literal actual source with independent04 arithmetic/mutation reasoning; no05 verdict credit."
+    }
+  ],
+  "groups": {
+    "distance-outside": "Indices0..len and next+1 fit actual slice cardinality; modulus only inside nonempty iterator. Empty outline returns0 through vacuous all, so semantic nonempty/convex/winding precondition is caller obligation. Projection divides by squared edge length: nonzero finite edges and actual norm/product bounds needed; finiteDVec2 alone does not prove this. Nativef64 INFINITY is reduction identity, not missing measured support. Native result must be checked at actual caller boundary; no normal invalid scene/run asserted. Prior083 exact3-66 proof retained, not recredited as fresh69-83.",
+    "scene-boundary-decoding": "SceneBoundary private immutable fields/read-only references, TryFrom checks binding IDs/front/boundary before local Self publication. GeneratedBoundary additionally compares exact retained support elevation with binding gate before Self; failures do not mutate external state/consume retry clock. This checks metadata correlation, not physical mesh coverage: NativeF027 remains separately qualified API/decode case, no normal project corruption inference. SceneBoundaryWire deny_unknown_fields distinct from GeneratedBoundaryWire policy, preserve intended admissions during owner consolidation.",
+    "normal-boundary-projection": "Missing accepted foundation returns concrete owner-binding cause before publication. Bounded-settlement policy flows directly into fallible mesh project; successful returned mesh and gate elevation used together with same compound IDs/boundary clone in one local result. No sampled fallback, no partial external state mutation. RigF023 canonical SupportElevation/Elevation owner consolidation must preserve gate provenance; finite leaf alone does not establish it."
+  },
+  "mandatory_qualification": {
+    "record": "continuation/root/parallel-scope-qualification-158.json",
+    "sha256": "fa0e9cc06d04fca0a0e2b5f9a333390a0ba1e71eff846a4e957c46b68b3e940e"
+  },
+  "findings": [],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

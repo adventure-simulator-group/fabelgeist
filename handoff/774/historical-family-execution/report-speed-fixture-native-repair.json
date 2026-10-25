@@ -1,0 +1,65 @@
+{
+  "base_head": "af3fd093ae5902d29f4ee22812adac8d42bc2177",
+  "failed_run": 39450365908,
+  "failed_job": 118723248067,
+  "earliest_failed_contract": "Workspace all-target native Clippy compilation: animation-viewer test speed argument types.",
+  "reported_diagnostics": 4,
+  "reported_locations": [
+    "metrics.rs:1438",
+    "metrics.rs:1440",
+    "metrics.rs:1443",
+    "metrics.rs:1449"
+  ],
+  "changed_files": [
+    "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
+  ],
+  "scope": "Only existing transient_toe_gate_excludes_idle_preroll_but_keeps_motion_and_settle fixture arguments. Production source is byte-for-byte unchanged.",
+  "fix": "Use canonical Core SignedSpeed::ZERO and admit the existing 5.5 m/s literal once in moving_speed. Preserve scenario order, zero/moving/settle cases, numeric limits and all assertions.",
+  "owners_verified": [
+    "adventuresim-core/src/linear_speed.rs::SignedSpeed",
+    "animation_viewer/report/metrics.rs::transition_flight_toe_sample_is_active"
+  ],
+  "fixture_metadata": {
+    "all_function_names_unchanged": true,
+    "assertion_macros_before": 83,
+    "assertion_macros_after": 83,
+    "production_prefix_unchanged": true
+  },
+  "review": "Two self source Code/Rule passes: canonical signature/leaf admission and case intent, then final diff and source metadata. Not independent full-PR approval. Comment Review omitted.",
+  "validation": "git diff --check and static source/metadata only; no local Rust, project scanner/parser, tests or numerical probes. Current-head hosted acceptance pending.",
+  "new_tests_cases_assertions_or_fixture_helpers": false,
+  "sha256": "aa04ddf1b466365d8e27a43076eab1904f9d1d4abfd1715e2af1578f5d4e5636",
+  "goal": "All twenty original exit requirements remain active; no P06 source implementation.",
+  "published_head": "3544d8e99f1d9f765a813cc71b56f089e31c5118",
+  "committed_and_pushed": true,
+  "current_run": 39452715702,
+  "current_job": 118731479728,
+  "diff_check": "passed",
+  "native_compile_verification": {
+    "head": "3544d8e99f1d9f765a813cc71b56f089e31c5118",
+    "run": 39452715702,
+    "job": 118731479728,
+    "native_step": "Run Clippy with warnings denied",
+    "native_step_status": "completed",
+    "native_step_conclusion": "success",
+    "commands_rechecked_in_current_source": [
+      "cargo clippy --workspace --all-targets --all-features -- -D warnings",
+      "cargo clippy --locked --manifest-path crates/adventuresim-character-creator/Cargo.toml --all-targets --all-features -- -D warnings",
+      "cargo clippy --locked --manifest-path crates/fabelgeist-mhr/Cargo.toml --all-targets --all-features -- -D warnings",
+      "cargo clippy --locked --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml --all-targets --all-features -- -D warnings"
+    ],
+    "native_result_observed_twice": true,
+    "revision_guard_step": "Record rig contract revision completed successfully before shared rig tests",
+    "selected_steps_completed": [
+      "Test constraint graph and shell consumers",
+      "Test shared rig contracts",
+      "Test autoresolve battle-time consumers"
+    ],
+    "current_live_step": "Test MHR rig admission",
+    "constraint_artifact_verification": "constraint-artifact-verification-3544d.json",
+    "constraint_unit_executions": 67,
+    "constraint_doctest_executions": 5,
+    "scope_limit": "Native matrix proves compilation/lint coverage, not the remaining required behavioral cells or final baseline verification. Rig/autoresolve step passes await nonempty result artifact inspection. Full family acceptance remains pending.",
+    "observed_at": "2026-10-20T16:21:06.794479+00:00"
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "packet_number": 151,
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/studio_scene.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          367
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh literal entire367 in two untruncated slices after verifying original full requested role. Independent current04 source operation and native unit comparison; Camera07 navigation only, no verdict transfer or UI run.",
+      "sha256": "e486c21e58ee4c7f689bceed15e636afc2b11d12fc0989b02ca4a5e128c85fcf",
+      "actual_EOF": 367
+    }
+  ],
+  "groups": {
+    "orbit-goal-relation": "Orbit state is current yaw/pitch/radius/focus plus optional target; anglesNone intentionally preserves current direction, Some is an actual orientation request. approach uses exponential t=1-exp(-9seconds), shortest wrapped yaw displacement and direct pitch interpolation. It then clears goal using only focus/radius tolerances, not actual angle convergence. Settled turn goal intentionally copies current focus/radius and changes only angles, so one partialstep discards remaining request. Source ordinary path, not extreme floating input. Existing manually dragged yaw can be unbounded; repair must compare wrapped angular residual and optionalpitch, not raw yaw equality.",
+    "input-and-framing": "Pointer over logical panel or egui ownership suppresses orbit mutation and clears wheel; mouse left/elsepan and wheel explicitly cancel goal. Pending firstbody shot waits for positiveknownpanel,bounds/window/singlecamera; request cleared only once all available. Repeated turn extends current goal angles when a glide is active, not merely current partialyaw. Preserve this behavior and no invented global camera reset. Fullbody/portrait use actual bodybounds and fixed authored margins plus default verticalFOV, clamped radius. Exact setupprojection needed before assuming same math for a customcamera.",
+    "units-and-nativeports": "Logical panel pixels converted by actual windowscale factor for physical subcamera offsetextent, metres for focus/radius/bodybounds, radians for yaw/pitch and angular tolerances, elapsedseconds for interpolation. Generic f32/Vec3 does not establish these different units/frames. CharacterBounds empty sourceNone, generated geometry supplies nonempty expectedbody; raw nonfinite positions not proven ordinary. Physical size+panel u32capacity can overflow extreme native dimensions, no currentdisplay/runtime witness; keep boundarybudget relation with existingGPU/nativeextent owners rather than foreignBevypatch. Static lighting/material/dais constants have authored finite values and deliberateunits, no needwrapevery literal.",
+    "limits": "One new distinct04 role532->533, one new qualified findingF060 gives60. Native05 and Rig06 report no exact previousgraph, no peer bodycredit. No implementation, UI/projectexecution/newtests or cross-lenscoverage. All230/226/224/priorqualifiers retained; all thirteen initial audits then handover163."
+  },
+  "findings": [
+    {
+      "id": "ROOT-INITIAL04-F060",
+      "kind": "orbit_goal_completion_omits_requested_angle_convergence",
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/studio_scene.rs",
+      "locations": [
+        [
+          85,
+          99
+        ],
+        [
+          254,
+          256
+        ],
+        [
+          310,
+          325
+        ]
+      ],
+      "case": "Start from a settled camera with goalNone. Ordinary TurnLeft/TurnRight builds a goal with exactly current focus/radius and targetyaw offsetPI/4. First approach call changes yaw by only t=1-exp(-9seconds) of requestedturn, then clearsgoal because focus/radius already equal. For a normal small positive frame interval t<1, remaining angle is discarded; atdelta0 it clears withoutany turn. No executed UI or measuredframe claim.",
+      "operation": "The stored goal is a correlated position/distance/orientation target, but completion admits only a partial relation. Individual typed angles/radii would not fix premature termination without whole-pose convergence.",
+      "connected_repair": "Make the canonical orbit-goal operation retain target until every requested component converges, including shortest wrapped yaw and pitch when anglesSome. Keep anglesNone semantics, repeatedturn accumulation from existingtarget, firstcharacter framing and explicit manualpointer/wheel cancellation. Propagate purpose-specific angle/distance/time and frame owners through actual editorcamera/native transform boundary instead of scattering Into conversions.",
+      "acceptance": "A turn-only request from a settled view continues across updates until requested orientation is reached within its appropriate angular tolerance, independently of unchanged focus/radius and normal framepartition. Zero-time update cannot falsely complete an unsatisfied angle request. Use existing fixtures/hosted validation only when implementation resumes; no addedtests/assertions/helpers.",
+      "deduplication": "Camera07 supplied scoped-source navigation and kept only an operation observation, no own07 unique finding. Root independently read fullbody. Native05 and Rig06 existing-proof replies report no exact priorgraph; no additional sourceinspection requested and no peer bodycredit. Distinct from camera frame/degree leaf and cache invalidation findings.",
+      "contract_ref": "ROOT-INITIAL04-CONTRACT-151"
+    }
+  ],
+  "id": "ROOT-INITIAL04-CONTRACT-151",
+  "at": "2026-10-23T06:53:40.750893+00:00",
+  "lens": "audit-invariant-operations",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-066.json",
+    "sha256": "f257d6778021af18d781e034a4ca19fbd99c0051c53bdb19f2e8cdb8288e15cd"
+  },
+  "mandatory_overlays": {
+    "record": "continuation/owner-range-extensions.jsonl",
+    "sha256": "0378e32d695512b875a86dd6bb695f10d5f3c8d43d8838fe8ee222cbb02a869a",
+    "through": 245
+  },
+  "mandatory_qualification170": {
+    "record": "continuation/root/parallel-scope-qualification-170.json",
+    "sha256": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c"
+  },
+  "repair": "frozen_initial_audits_then_handover",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

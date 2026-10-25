@@ -1,0 +1,29 @@
+{
+  "id": "RIG-INITIAL06-GROUP-038",
+  "at": "2026-10-22T20:30:49.045436+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "shared-pure-combat-configuration-versus-native-authoring": {
+      "sources": [
+        "pr-working:crates/adventuresim-core/src/combat/config.rs",
+        "physical-p16:crates/adventuresim-core/src/combat/config.rs",
+        "pr-working:crates/adventuresim-core/src/combat/fatigue_config.rs",
+        "physical-p16:crates/adventuresim-core/src/combat/fatigue_config.rs",
+        "pr-working:crates/adventuresim-core/src/combat/weapon_contact_config.rs",
+        "physical-p16:crates/adventuresim-core/src/combat/weapon_contact_config.rs"
+      ],
+      "comparison": "Fresh PRconfig121/fatigue46/contact32; completeactual P16counterpartdiffs personallycompared, configchangeddeclarations1\u201354/validator72\u2013122 freshlyread and unchanged CombatResolution.validate actualbodycarriedfromPR. Coreowns purephysical combatresolution parameters and strategic-only autoresolve controls, reused by tactical/strategiccomputations withoutCore\u2192BevyServer. Nested CombatFatigueParameters/WeaponContactParameters are canonicalsharedrecordowners, not separate typedcopies insideCombatResolution. Calibrationenergy/area(mm\u00b2)/controlmetres/force/acceleration/traction/conditioning have distinctphysicalmeanings; singlevisibleFatigue authority (userAGENTS) remains onepool, no oxygendebt/per-muscleparallelowner. CheckedCoreAnimationElapsed/PositiveSpeed actualdefinitions001/002 remain canonicalleaves; positivity-specific configgate rejectszeroelapsed but permits cadencejitter0, leafstrength and aggregatepolicy differ. ActualP16introducesfiniteSignedLength at formation_spacing/travel/longthreshold; PRrawcounterpartmustnot overwrite typedP16state. Actual>0 validation is stronger acceptedconfigpolicy than genericSignedLength finite signedsource, so no assumption everyrawSerde/literal alreadypositive. Shared neutralGeometry afterF001 canown exactunit/leaves across crates; no per-moduleDuration/Speed/Length duplicates and no importingtacticalRuntimeconfig intoCore. Raw remainingquantities shouldpropagatetheir coherentphysical/unitowner throughhost APIs whenapplicable, actualnativepacking/math at boundary; no forcedUnitInterval for concentrationunarmedprecision permits>1 or automaticPositiveLength for rawconfigstage. Generatedinclude is nativebuildartifact reference only; compiledfactory/buildpredicate/sourceauthoringreceivers remain queued, not clearedbyinclude/result/type names. Source structpublic/deriveSerde/validate is not sealed acceptedstate; preservingactualfirsterror/order and rawsource evidence partoflaterrepair."
+    },
+    "signed-relative-contact-offset-versus-battle-coordinate-and-recovery": {
+      "sources": [
+        "pr-working:crates/adventuresim-core/src/combat/contact_timing.rs",
+        "physical-p16:crates/adventuresim-core/src/combat/contact_timing.rs",
+        "pr-working:crates/adventuresim-core/src/combat/incapacitation.rs",
+        "physical-p16:crates/adventuresim-core/src/combat/incapacitation.rs"
+      ],
+      "comparison": "Fresh PRContactTiming57/Recovery115 originaltests; completeactual P16bodydiff zero and personallysameunit/frame/authority/default/Serde/operationcontractcomparison againstcurrentP16BattleTime037 and canonicalElapsed/UnitInterval001/002. ContactTimingOffset privatefiniteSIGNED seconds relativeown-minus-incoming, not absoluteBattleTime finiteSIGNED coordinate or nonnegativeAnimationElapsed; equalstoragepredicate not sameclockauthority. Between_contacts actualsubtract checksfiniteoverflow; FromnativeDuration uses nonnegativeexisting saturatingauthoritativeclockdifference, legitimate boundary projection, notloss ofnegativepuretiming policy. Corecorrectlowestsharedpurecontactowner, noTacticalServerclock/CoreSDKdependency. RecoveryTime distinguishes After(canonicalAnimationElapsed) from CannotRecover at currentperformance, and serializesoptionview; not a secondDurationowner or arbitrarily huge sentinel. Zero baserecovery yieldsAfterZERO evenperformance0, positivebase/performance0 yieldsCannotRecover, nativefraction division createschangedspan thencheckedElapsed. This is meaningful capabilityresult overexistingowner; direct Into<Option> is actualpresentationadapter, notprimitiveescape. Performance UnitInterval is totalvisibleincapacitation-derived effectiveness, fatigue/rawinjuryinputs notindependent hiddenperformance pools. Fresh current kernels use canonicalClock/Fraction directly until numericalarithmetic; no sourcewrap duplication. Other body/equipmentencumbrance helperdefinition/producerroles are part remaining06scope, no all-input or scheduling/gameplay correctness claim fromthisownershipcell."
+    }
+  },
+  "new_findings": [],
+  "limits": "Exact source-specific owner/meaning/unit/frame/authority/dependency and counterpartsemanticcomparison only; remainingwhole06inventory incomplete."
+}

@@ -1,0 +1,26 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-644",
+  "at": "2026-10-25T16:20:32.451916+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 954,
+  "source_id": "pr-working:crates/adventuresim-core/src/material.rs",
+  "sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+  "actual_compared_ranges": [
+    [
+      1,
+      1320
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Private extensive-value conservation1111\u20131197 computes per-key checked gain/loss totals, no automatic derive equivalence. Retry classification1212\u20131251 uses sorted exact source comparison plus explicit identity/digest; derives Eq do not replace order-insensitive input-set policy.",
+    "validate_material_commit1266\u20131305 revalidates fresh source identity/custody/revision/quantity/full captured snapshot with distinct rejection order; semantic admission, not deserialization boilerplate. All added records/enums structural derives already. MaterialError declaration incomplete; no new handwritten trait1101\u20131320."
+  ],
+  "first_unfinished": {
+    "scope_index": 954,
+    "line": 1321
+  },
+  "execution": "none"
+}

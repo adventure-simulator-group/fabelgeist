@@ -1,0 +1,36 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-612",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-compute/src/prefix_sum.rs",
+      "sha256": "d37a82c99c0d23659bf6b0533ccb96435592ed4e2f3e62d9b5867d5c36a6e5c7",
+      "actual_EOF": 408,
+      "actual_compared_ranges": [
+        [
+          1,
+          408
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Typed exclusive scan count/byte extent andrecursive scratch",
+      "evidence": "Whole408read. ScanElementCountfullu32 incl0 byteextentwidensu64*4; zero count no-op; upfrontscratchcapacityandinputbytes checkedbeforeanydispatch; privatelevels/unused identity withcapacity, ensureconstructnewbeforeassignment. Recursivecountdivceil256 strictlydecreasesandboundedlevels; structuredMissingScratchLevel/Gpuerror retainscause. WGSL arithmetic explicitlywrappingu32 sums andhostfixturewrapping_add intentional.",
+      "qualifications": [
+        "Notallowedtotighten sumto nonwrapping arithmetic or genericcount togameplaycapacity; preserve statedwrap semantics andzero. Actualerror mayleavebatchprefixrecorded onlaternativeerror; no implicittransactionpromise.",
+        "Nativefixed256grid usesMAX_GROUPSx/y; countMAX\u2192blocks16777216,x65535,y257 padsmoreblocks; generatedscan andaddoffset block*256+local usesu32 thenindex<count, so paddedindices wraptoliveprefix. Same connected folded dispatch representation failure as SEGOVB-04-FOLDED-DISPATCH-CAPACITY-CANDIDATE-001(542), new exactWGSLoperation support, notunique defect. Actualhugebuffer/deviceallocation mayrejectearlier; noordinaryworkload/GPUrun.",
+        "Consumed RIG-ADMISSION03-F059 sortrecord_index61 contextualpublicsortscratch/histogramoverflow isdistinctspecificconsumer, doesnotreplaceScanprivatecohortproof."
+      ],
+      "acceptance": "Every acceptedscangrid paddedlane safelyexcludedbeforeu32indexwrap, actualnative dimensions/capacitycheckedbeforepartialrecording; preserve exclusiveprefix,modularSUM,tailuntouched andexacterrorfirstorder."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "1 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-tactical-client/src/animation/procedural.rs"
+}

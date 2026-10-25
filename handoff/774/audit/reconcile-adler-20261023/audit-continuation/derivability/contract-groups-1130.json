@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1130",
+  "at": "2026-10-25T17:51:37.079867+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1238,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/surgery.rs",
+  "sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+  "actual_compared_ranges": [
+    [
+      731,
+      1110
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "No handwritten trait/codec. Procedure/infection checks require actual effective attributes/skills/body/essentials/equipment/current infection; together/alignment and common safe disease/injury duration semantic. Treat_limb897 onward checks limb/context aggregate/replay/presence/eligibility/materials/skill/time and revalidates before effects. Structured ContextualTreatmentClaim constructor pairs optional fields with exact error; no unchecked derive. Existing runtime parsed BodyRegion and SurgeryProcedure owners, no Serde introduced."
+  ],
+  "first_unfinished": {
+    "scope_index": 1238,
+    "line": 1111
+  },
+  "execution": "none"
+}

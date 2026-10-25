@@ -1,0 +1,757 @@
+{
+  "id": "NATIVE-OWNER81-PROPOSED-PRODUCER-FOLLOWUP-SUMMARY-001",
+  "index": "continuation/native/owner81/proposed-producer-followup-index-001.json",
+  "sha256": "a900ade2a023a9432773c58ae078100cf6b3fc660c7f60dad9e00e3c3e0b6785",
+  "counts": {
+    "registrations": 32,
+    "qualification_rows": 1,
+    "source_variants": 29,
+    "new_source_variants": 7,
+    "classification_rows": {
+      "existing_source_new_material_ranges": 8,
+      "new_source_variant": 7,
+      "already_registered_definition_or_dependency_role_candidate": 17
+    },
+    "per_supplier": {
+      "camera": {
+        "registrations": 5,
+        "classifications": {
+          "existing_source_new_material_ranges": 5
+        }
+      },
+      "rig": {
+        "registrations": 10,
+        "classifications": {
+          "new_source_variant": 7,
+          "existing_source_new_material_ranges": 3
+        }
+      },
+      "native": {
+        "registrations": 17,
+        "classifications": {
+          "already_registered_definition_or_dependency_role_candidate": 17
+        }
+      }
+    }
+  },
+  "rows": [
+    {
+      "id": "NATIVE-PROPOSED-OWNER81-PP-001",
+      "supplier": "camera",
+      "registration": "CONT-CAMERA-OWNER81-REGISTRATION-001",
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+      "classification": "existing_source_new_material_ranges",
+      "effective_ranges": [
+        [
+          86,
+          99
+        ],
+        [
+          126,
+          141
+        ],
+        [
+          156,
+          162
+        ],
+        [
+          170,
+          217
+        ]
+      ],
+      "new_byte_ranges": [
+        [
+          86,
+          99
+        ],
+        [
+          126,
+          141
+        ],
+        [
+          156,
+          162
+        ],
+        [
+          170,
+          217
+        ]
+      ],
+      "producer_navigation_entries": 3,
+      "actual_body_pointer_available": true
+    },
+    {
+      "id": "NATIVE-PROPOSED-OWNER81-PP-002",
+      "supplier": "camera",
+      "registration": "CONT-CAMERA-OWNER81-REGISTRATION-002",
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation/ragdoll/muscles.rs",
+      "classification": "existing_source_new_material_ranges",
+      "effective_ranges": [
+        [
+          18,
+          39
+        ],
+        [
+          171,
+          180
+        ]
+      ],
+      "new_byte_ranges": [
+        [
+          18,
+          39
+        ],
+        [
+          171,
+          180
+        ]
+      ],
+      "producer_navigation_entries": 3,
+      "actual_body_pointer_available": true
+    },
+    {
+      "id": "NATIVE-PROPOSED-OWNER81-PP-003",
+      "supplier": "camera",
+      "registration": "CONT-CAMERA-OWNER81-REGISTRATION-003",
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation/ragdoll/muscles.rs",
+      "classification": "existing_source_new_material_ranges",
+      "effective_ranges": [
+        [
+          163,
+          170
+        ]
+      ],
+      "new_byte_ranges": [
+        [
+          163,
+          170
+        ]
+      ],
+      "producer_navigation_entries": 3,
+      "actual_body_pointer_available": true
+    },
+    {
+      "id": "NATIVE-PROPOSED-OWNER81-PP-004",
+      "supplier": "camera",
+      "registration": "CONT-CAMERA-OWNER81-REGISTRATION-004",
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/ragdoll.rs",
+      "classification": "existing_source_new_material_ranges",
+      "effective_ranges": [
+        [
+          51,
+          59
+        ],
+        [
+          81,
+          112
+        ]
+      ],
+      "new_byte_ranges": [
+        [
+          51,
+          59
+        ],
+        [
+          81,
+          112
+        ]
+      ],
+      "producer_navigation_entries": 2,
+      "actual_body_pointer_available": true
+    },
+    {
+      "id": "NATIVE-PROPOSED-OWNER81-PP-005",
+      "supplier": "camera",
+      "registration": "CONT-CAMERA-OWNER81-REGISTRATION-005",
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "classification": "existing_source_new_material_ranges",
+      "effective_ranges": [
+        [
+          13,
+          17
+        ],
+        [
+          44,
+          53
+        ],
+        [
+          63,
+          69
+        ],
+        [
+          82,
+          88
+        ]
+      ],
+      "new_byte_ranges": [
+        [
+          13,
+          17
+        ],
+        [
+          44,
+          53
+        ],
+        [
+          63,
+          69
+        ],
+        [
+          82,
+          88
+        ]
+      ],
+      "producer_navigation_entries": 2,
+      "actual_body_pointer_available": true
+    },
+    {
+      "id": "NATIVE-PROPOSED-OWNER81-PP-006",
+      "supplier": "rig",
+      "registration": "RIG-OWNER81-REGISTER-001",
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/furniture.rs",
+      "classification": "new_source_variant",
+      "effective_ranges": [
+        [
+          1,
+          12
+        ]
+      ],
+      "new_byte_ranges": [
+        [
+          1,
+          12
+        ]
+      ],
+      "producer_navigation_entries": 0,
+      "actual_body_pointer_available": false
+    },
+    {
+      "id": "NATIVE-PROPOSED-OWNER81-PP-007",
+      "supplier": "rig",
+      "registration": "RIG-OWNER81-REGISTER-002",
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/model/room_index.rs",
+      "classification": "new_source_variant",
+      "effective_ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "new_byte_ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "producer_navigation_entries": 0,
+      "actual_body_pointer_available": false
+    },
+    {
+      "id": "NATIVE-PROPOSED-OWNER81-PP-008",
+      "supplier": "rig",
+      "registration": "RIG-OWNER81-REGISTER-003",
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/plan_geometry.rs",
+      "classification": "new_source_variant",
+      "effective_ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "new_byte_ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "producer_navigation_entries": 0,
+      "actual_body_pointer_available": false
+    },
+    {
+      "id": "NATIVE-PROPOSED-OWNER81-PP-009",
+      "supplier": "rig",
+      "registration": "RIG-OWNER81-REGISTER-004",
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "classification": "existing_source_new_material_ranges",
+      "effective_ranges": [
+        [
+          1,
+          43
+        ],
+        [
+          70,
+          82
+        ]
+      ],
+      "new_byte_ranges": [
+        [
+          1,
+          43
+        ],
+        [
+          70,
+          82
+        ]
+      ],
+      "producer_navigation_entries": 2,
+      "actual_body_pointer_available": true
+    },
+    {
+      "id": "NATIVE-PROPOSED-OWNER81-PP-010",
+      "supplier": "rig",
+      "registration": "RIG-OWNER81-REGISTER-005",
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/sample_rate.rs",
+      "classification": "new_source_variant",
+      "effective_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "new_byte_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "producer_navigation_entries": 0,
+      "actual_body_pointer_available": false
+    },
+    {
+      "id": "NATIVE-PROPOSED-OWNER81-PP-011",
+      "supplier": "rig",
+      "registration": "RIG-OWNER81-REGISTER-006",
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/presentation/interior_lighting/field.rs",
+      "classification": "new_source_variant",
+      "effective_ranges": [
+        [
+          130,
+          142
+        ]
+      ],
+      "new_byte_ranges": [
+        [
+          130,
+          142
+        ]
+      ],
+      "producer_navigation_entries": 0,
+      "actual_body_pointer_available": false
+    },
+    {
+      "id": "NATIVE-PROPOSED-OWNER81-PP-012",
+      "supplier": "rig",
+      "registration": "RIG-OWNER81-REGISTER-007",
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/model/resolved_shapes.rs",
+      "classification": "existing_source_new_material_ranges",
+      "effective_ranges": [
+        [
+          3,
+          4
+        ],
+        [
+          27,
+          30
+        ]
+      ],
+      "new_byte_ranges": [
+        [
+          3,
+          4
+        ],
+        [
+          27,
+          30
+        ]
+      ],
+      "producer_navigation_entries": 1,
+      "actual_body_pointer_available": true
+    },
+    {
+      "id": "NATIVE-PROPOSED-OWNER81-PP-013",
+      "supplier": "rig",
+      "registration": "RIG-OWNER81-REGISTER-008",
+      "source_id": "pr-working:crates/fabelgeist-compute/src/prefix_sum.rs",
+      "classification": "new_source_variant",
+      "effective_ranges": [
+        [
+          19,
+          23
+        ],
+        [
+          44,
+          64
+        ]
+      ],
+      "new_byte_ranges": [
+        [
+          19,
+          23
+        ],
+        [
+          44,
+          64
+        ]
+      ],
+      "producer_navigation_entries": 0,
+      "actual_body_pointer_available": false
+    },
+    {
+      "id": "NATIVE-PROPOSED-OWNER81-PP-014",
+      "supplier": "rig",
+      "registration": "RIG-OWNER81-REGISTER-009",
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/model/storey_index.rs",
+      "classification": "new_source_variant",
+      "effective_ranges": [
+        [
+          79,
+          90
+        ]
+      ],
+      "new_byte_ranges": [
+        [
+          79,
+          90
+        ]
+      ],
+      "producer_navigation_entries": 0,
+      "actual_body_pointer_available": false
+    },
+    {
+      "id": "NATIVE-PROPOSED-OWNER81-PP-015",
+      "supplier": "rig",
+      "registration": "RIG-OWNER81-REGISTER-010",
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/city_layout/compound.rs",
+      "classification": "existing_source_new_material_ranges",
+      "effective_ranges": [
+        [
+          16,
+          20
+        ]
+      ],
+      "new_byte_ranges": [
+        [
+          16,
+          20
+        ]
+      ],
+      "producer_navigation_entries": 1,
+      "actual_body_pointer_available": true
+    },
+    {
+      "id": "NATIVE-PROPOSED-OWNER81-PP-016",
+      "supplier": "native",
+      "registration": "NATIVE-OWNER81-REG-001",
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+      "classification": "already_registered_definition_or_dependency_role_candidate",
+      "effective_ranges": [
+        [
+          1,
+          87
+        ],
+        [
+          112,
+          142
+        ]
+      ],
+      "new_byte_ranges": [],
+      "producer_navigation_entries": 3,
+      "actual_body_pointer_available": true
+    },
+    {
+      "id": "NATIVE-PROPOSED-OWNER81-PP-017",
+      "supplier": "native",
+      "registration": "NATIVE-OWNER81-REG-002",
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/plan_geometry.rs",
+      "classification": "already_registered_definition_or_dependency_role_candidate",
+      "effective_ranges": [
+        [
+          1,
+          161
+        ],
+        [
+          226,
+          244
+        ]
+      ],
+      "new_byte_ranges": [],
+      "producer_navigation_entries": 4,
+      "actual_body_pointer_available": true
+    },
+    {
+      "id": "NATIVE-PROPOSED-OWNER81-PP-018",
+      "supplier": "native",
+      "registration": "NATIVE-OWNER81-REG-003",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+      "classification": "already_registered_definition_or_dependency_role_candidate",
+      "effective_ranges": [
+        [
+          1,
+          14
+        ],
+        [
+          25,
+          31
+        ],
+        [
+          37,
+          53
+        ],
+        [
+          67,
+          72
+        ],
+        [
+          80,
+          94
+        ],
+        [
+          106,
+          111
+        ]
+      ],
+      "new_byte_ranges": [],
+      "producer_navigation_entries": 1,
+      "actual_body_pointer_available": false
+    },
+    {
+      "id": "NATIVE-PROPOSED-OWNER81-PP-019",
+      "supplier": "native",
+      "registration": "NATIVE-OWNER81-REG-004",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "classification": "already_registered_definition_or_dependency_role_candidate",
+      "effective_ranges": [
+        [
+          1,
+          11
+        ],
+        [
+          19,
+          43
+        ],
+        [
+          70,
+          80
+        ]
+      ],
+      "new_byte_ranges": [],
+      "producer_navigation_entries": 1,
+      "actual_body_pointer_available": false
+    },
+    {
+      "id": "NATIVE-PROPOSED-OWNER81-PP-020",
+      "supplier": "native",
+      "registration": "NATIVE-OWNER81-REG-005",
+      "source_id": "pr-working:crates/adventuresim-core/src/unit_interval.rs",
+      "classification": "already_registered_definition_or_dependency_role_candidate",
+      "effective_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "new_byte_ranges": [],
+      "producer_navigation_entries": 4,
+      "actual_body_pointer_available": true
+    },
+    {
+      "id": "NATIVE-PROPOSED-OWNER81-PP-021",
+      "supplier": "native",
+      "registration": "NATIVE-OWNER81-REG-006",
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/length.rs",
+      "classification": "already_registered_definition_or_dependency_role_candidate",
+      "effective_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "new_byte_ranges": [],
+      "producer_navigation_entries": 4,
+      "actual_body_pointer_available": true
+    },
+    {
+      "id": "NATIVE-PROPOSED-OWNER81-PP-022",
+      "supplier": "native",
+      "registration": "NATIVE-OWNER81-REG-007",
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/measurement.rs",
+      "classification": "already_registered_definition_or_dependency_role_candidate",
+      "effective_ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "new_byte_ranges": [],
+      "producer_navigation_entries": 4,
+      "actual_body_pointer_available": true
+    },
+    {
+      "id": "NATIVE-PROPOSED-OWNER81-PP-023",
+      "supplier": "native",
+      "registration": "NATIVE-OWNER81-REG-008",
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/cuboid.rs",
+      "classification": "already_registered_definition_or_dependency_role_candidate",
+      "effective_ranges": [
+        [
+          1,
+          126
+        ]
+      ],
+      "new_byte_ranges": [],
+      "producer_navigation_entries": 4,
+      "actual_body_pointer_available": true
+    },
+    {
+      "id": "NATIVE-PROPOSED-OWNER81-PP-024",
+      "supplier": "native",
+      "registration": "NATIVE-OWNER81-REG-009",
+      "source_id": "pr-working:crates/fabelgeist-math/src/units.rs",
+      "classification": "already_registered_definition_or_dependency_role_candidate",
+      "effective_ranges": [
+        [
+          1,
+          20
+        ],
+        [
+          52,
+          70
+        ]
+      ],
+      "new_byte_ranges": [],
+      "producer_navigation_entries": 2,
+      "actual_body_pointer_available": true
+    },
+    {
+      "id": "NATIVE-PROPOSED-OWNER81-PP-025",
+      "supplier": "native",
+      "registration": "NATIVE-OWNER81-REG-010",
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+      "classification": "already_registered_definition_or_dependency_role_candidate",
+      "effective_ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "new_byte_ranges": [],
+      "producer_navigation_entries": 5,
+      "actual_body_pointer_available": true
+    },
+    {
+      "id": "NATIVE-PROPOSED-OWNER81-PP-026",
+      "supplier": "native",
+      "registration": "NATIVE-OWNER81-REG-011",
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs",
+      "classification": "already_registered_definition_or_dependency_role_candidate",
+      "effective_ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "new_byte_ranges": [],
+      "producer_navigation_entries": 1,
+      "actual_body_pointer_available": false
+    },
+    {
+      "id": "NATIVE-PROPOSED-OWNER81-PP-027",
+      "supplier": "native",
+      "registration": "NATIVE-OWNER81-REG-012",
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/bounds.rs",
+      "classification": "already_registered_definition_or_dependency_role_candidate",
+      "effective_ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "new_byte_ranges": [],
+      "producer_navigation_entries": 4,
+      "actual_body_pointer_available": true
+    },
+    {
+      "id": "NATIVE-PROPOSED-OWNER81-PP-028",
+      "supplier": "native",
+      "registration": "NATIVE-OWNER81-REG-013",
+      "source_id": "pr-working:crates/adventuresim-building-generator/Cargo.toml",
+      "classification": "already_registered_definition_or_dependency_role_candidate",
+      "effective_ranges": [
+        [
+          22,
+          35
+        ]
+      ],
+      "new_byte_ranges": [],
+      "producer_navigation_entries": 1,
+      "actual_body_pointer_available": false
+    },
+    {
+      "id": "NATIVE-PROPOSED-OWNER81-PP-029",
+      "supplier": "native",
+      "registration": "NATIVE-OWNER81-REG-014",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/Cargo.toml",
+      "classification": "already_registered_definition_or_dependency_role_candidate",
+      "effective_ranges": [
+        [
+          14,
+          36
+        ]
+      ],
+      "new_byte_ranges": [],
+      "producer_navigation_entries": 1,
+      "actual_body_pointer_available": false
+    },
+    {
+      "id": "NATIVE-PROPOSED-OWNER81-PP-030",
+      "supplier": "native",
+      "registration": "NATIVE-OWNER81-REG-015",
+      "source_id": "pr-working:crates/adventuresim-core/Cargo.toml",
+      "classification": "already_registered_definition_or_dependency_role_candidate",
+      "effective_ranges": [
+        [
+          13,
+          29
+        ]
+      ],
+      "new_byte_ranges": [],
+      "producer_navigation_entries": 6,
+      "actual_body_pointer_available": true
+    },
+    {
+      "id": "NATIVE-PROPOSED-OWNER81-PP-031",
+      "supplier": "native",
+      "registration": "NATIVE-OWNER81-REG-016",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "classification": "already_registered_definition_or_dependency_role_candidate",
+      "effective_ranges": [
+        [
+          89,
+          100
+        ]
+      ],
+      "new_byte_ranges": [],
+      "producer_navigation_entries": 1,
+      "actual_body_pointer_available": false
+    },
+    {
+      "id": "NATIVE-PROPOSED-OWNER81-PP-032",
+      "supplier": "native",
+      "registration": "NATIVE-OWNER81-REG-017",
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+      "classification": "already_registered_definition_or_dependency_role_candidate",
+      "effective_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "new_byte_ranges": [],
+      "producer_navigation_entries": 3,
+      "actual_body_pointer_available": true
+    }
+  ],
+  "changed_inputs": [],
+  "credit": false,
+  "final_refresh_required": true
+}

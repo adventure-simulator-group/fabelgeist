@@ -1,0 +1,51 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-352",
+  "at": "2026-10-23T12:32:51.963432+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/field.rs",
+      "sha256": "1f537b363a614847b1ddf760ac719c5ed099171646ce606649e8b7ca79390264",
+      "scope071_index": 800,
+      "actual_EOF": 545,
+      "scoped_ranges_compared": [
+        [
+          1,
+          545
+        ]
+      ],
+      "actual05_comparison": "Fresh complete host and generated field shader1-280/281-545, followed source-specific packing and flood/readback relation analysis. No GPU allocation or execution."
+    }
+  ],
+  "groups": [
+    {
+      "id": "shared source mesh and field grid",
+      "comparison": "sample uses current lo/hi and adaptive positive intended cell, FieldHeader dims and entries to allocate one field plus cell marks. NearMesh filters actual source faces against box expanded byREACH, retains original point/normal indices and uploads vec4-padded rows. No local face membership gate before vertex_normals/filter indexing; normal current body comes from804 same raw supplied surface, lower checked mesh obligation distinct. MAX_CELLS is an adaptive aim not independently proved hard ceil/product capacity bound for arbitrary extreme aspect ratios."
+    },
+    {
+      "id": "F063 identity lane capacity",
+      "comparison": "Documented TRIANGLE_BITS20 is the exact shift/mask on both producer and consumer; no count guard in filtered upload. Quantized near uses upper12bits, zero mark reserved no seed; t>=2^20 contaminates rank and aliases decoded identity. Actual flood then samples closest/normal of aliased triangle from same filtered mesh, so relationship failure has an actual consumer beyond raw packed bits. Qualified API strengthening only."
+    },
+    {
+      "id": "ping pong and final count retain current allocation",
+      "comparison": "Marks explicitly zeroed. FLOOD_START writes every cell to0 ordecoded+1. Flood chooses initial power-of-two halving steps plus final1, writes separate next from current eachpass then returns actual last ping-pong buffer. No candidate0 dereference; finite native index assumptions separately. FINISH dispatches ceilcells/4 and writes4floatentries after exact FieldHeader::ENTRIES, padding out-of-range lanes withreach. Host FieldHeader implementation remains queued lower semantic source, not automatically covered by imports."
+    },
+    {
+      "id": "distance sign and missing geometry policy",
+      "comparison": "closest source kernel checks triangle Voronoi regions, blends corner normals for signed side, degenerate bary denominator falls backfirstcorner. No triangle or distance>REACH returnspositive reach intentionally, nowhere explicit1cell returnsNOWHERE. Jump flood approximate nearest with extra1pass does not establish exact continuous collider distance for every topology; source comments do not substitute bound proof. No universal rejection of nonfinite/degenerate raw triangles inferred."
+    },
+    {
+      "id": "F062 peer append and source freeze",
+      "comparison": "Root04 and Camera07 now both report no exact existing surface-only UV compact mismatch, existing-proof replies only with no independent body/lens credit. F062 remains API-only/no ordinary generated unused-row claim. This packet adds no new source scope; field800 already global full545."
+    }
+  ],
+  "new_unique_findings": [
+    "NATIVE-INITIAL05-F063"
+  ],
+  "remaining_dependency_obligations": [
+    "Normal MHR filtered triangle bound and native FieldHeader/groom/count contracts remain exact source obligations."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

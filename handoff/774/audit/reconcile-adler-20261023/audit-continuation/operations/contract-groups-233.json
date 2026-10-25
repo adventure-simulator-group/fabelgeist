@@ -1,0 +1,110 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-233",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player.rs",
+      "sha256": "5da51367e584ae158ebf0c1b3b4edc472dbc542fe12aa8b52682c918e1f42b62",
+      "actual_EOF": 575,
+      "actual_compared_ranges": [
+        [
+          1,
+          575
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/player.rs",
+      "sha256": "e58cbe13aa543aebd82995383e999d55e0e47b9885396f958282313316f4e37c",
+      "actual_EOF": 944,
+      "actual_compared_ranges": [
+        [
+          1,
+          944
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player/acquisition.rs",
+      "sha256": "2e7f4ea1406c4d400b369bb79f73a65677af168b00a1d8eecc0489dbd013f746",
+      "actual_EOF": 409,
+      "actual_compared_ranges": [
+        [
+          1,
+          409
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Attack timing, native transforms and actual result admission",
+      "source_ranges": {
+        "P16/player.rs": [
+          [
+            1,
+            575
+          ]
+        ],
+        "PR/player.rs": [
+          [
+            1,
+            944
+          ]
+        ],
+        "P16/acquisition.rs": [
+          [
+            1,
+            409
+          ]
+        ]
+      },
+      "disposition": "Complete P16 player/acquisition bodies personally consumed and full actual PRplayer textual comparison including inlined targeting/contact additions consumed. AttackState creates both nativeDuration timersfallibly; actual reach/targetpoint is typedfinite P16 versus rawfinitepositive manualguardsPR. P16movingtarget transform re-admits Position before publication and removesAttackState onerror, attackorigin admitscomputedAABB-height sum. PRraw origin/target/affineinverse/sight math can retain failed native arithmetic; no ordinary invalidtransform/shape or spawnedbadactor proved. Current localbodyfacing onlypublishes checked BodyFacingTurn result, retains priorrotation onerror. Fixedhitbox halfextents*2 require actualTacticalCombatConfig admission, not arbitraryfiniteinputs alone. No sourceexecution or tacticalstatepersistence."
+    },
+    {
+      "contract": "Finite target search and typed bounded versus movement-prevalidated extent",
+      "source_ranges": {
+        "P16/acquisition.rs": [
+          [
+            1,
+            349
+          ]
+        ],
+        "PR/player.rs": [
+          [
+            95,
+            428
+          ]
+        ]
+      },
+      "disposition": "Body-stable search firstselects preferredbody, thenresolvedhitboxwithinbody; ifnoneresolved marksbodyexhausted, so eachretry eliminatesactualfinitebodyset. Can bequadratic/cubic with linearcontains, collectioncapacity/scene-budget ownership remainsactualentitymanagerdependency. P16Position<HitboxLocal>/Position<Scene>, AttackAcquisitionRange andMovementPrevalidated avoid syntheticf32MAXrange; PR uses rawtuple andMAXsentinel in actual assisted path. ActualP16quickstepdisplacement/clearance/surface arrival operations re-admitchecked geometry; 90/max(distance,.5)=>finiteangle<=180 withnegdistancepreservedpolicy. Localinverse transform validity re-admittedbefore target; malformedunrelatedenemy canabortallResultcollection, but no actualbadretainedtransform producer established. Rayvisibility tests actualbody/hitbox; no stale intendedlimb semanticclaim without contactowner. Existing sourcefixtures tinynativecolliders; readnotrun."
+    },
+    {
+      "contract": "Network/contact authority and sourcevariant boundary",
+      "source_ranges": {
+        "P16/player.rs": [
+          [
+            303,
+            456
+          ]
+        ],
+        "PR/player.rs": [
+          [
+            591,
+            684
+          ]
+        ]
+      },
+      "disposition": "Client onlyschedules prediction/debugrays/rangedcompletion androllrequests; server ownsactualhitacceptance and transienttickstate. P16delegates checked PredictedAttackContact typedhit/miss/ray; PRinlinednativecontact infersreported target.bodypart aftercheckingobstructionbelongsbody andfallbackDir3. Real limbcontact/server report validation remains dependency, no genericall-limbs proof from same-body ray. Buffered/start/contact/actionclock sibling bodies not creditedtransitively. Mainreads and actualPRdelta preserve additionalerror/result boundaries, no wholevariantrestoreornewordinarydefect."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-tactical-client/src/presentation/environment.rs"
+}

@@ -1,0 +1,37 @@
+{
+  "id": "CONT08-REG003",
+  "at": "2026-10-25T09:29:27.333112+00:00",
+  "reason": "Actual REG002 support-map shape cast calls GJK directional_distance and nearzero-impact contact; exact normal output producer bodies required for Q003.",
+  "registration_timing": "Prospective before body consumption; navigation declarations only.",
+  "crate_sha256": "99613136af5c3ae1e26907eb8ef90183636f54d02341c0a1121caa813a242cb5",
+  "rows": [
+    {
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/gjk/gjk.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/parry3d-0.27.0/src/query/gjk/gjk.rs",
+      "sha256": "893b9246ae77eb21d8a3f10afaeeb05e36bfdb774ce6e98579f614ac32e57a68",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/native-parry-893b9246ae77eb21d8a3f10afaeeb05e36bfdb774ce6e98579f614ac32e57a68",
+      "material_ranges": [
+        [
+          634,
+          822
+        ]
+      ],
+      "line_count": 822
+    },
+    {
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/contact/contact_support_map_support_map.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/parry3d-0.27.0/src/query/contact/contact_support_map_support_map.rs",
+      "sha256": "fcb9e37067085e862b6a23bfbe73a4bc39ff56ceefc90031f9c0b10766430562",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/native-parry-fcb9e37067085e862b6a23bfbe73a4bc39ff56ceefc90031f9c0b10766430562",
+      "material_ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "line_count": 73
+    }
+  ],
+  "byte_identity": "Exact cached crate member equals local file, crate matches frozen lock; no audit credit from recovery.",
+  "limits": "Only exact reached normal producers, no wholeGJK/library clearance. Original2853 preserved."
+}

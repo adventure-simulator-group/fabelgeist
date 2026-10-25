@@ -1,0 +1,30 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-483",
+  "at": "2026-10-25T15:47:07.257392+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 881,
+  "source_id": "pr-working:crates/adventuresim-core/src/bestiary.rs",
+  "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+  "actual_compared_ranges": [
+    [
+      1,
+      1320
+    ]
+  ],
+  "existing_derives": [
+    "Prior478\u2013482 derives retained"
+  ],
+  "trait_inventory": [
+    {
+      "trait": "Earlier exact ID/codecs",
+      "disposition": "478/479 retained; F003 optional Serialize remains."
+    }
+  ],
+  "analysis": "Fresh1101\u20131320 consumed: native catalogue diagnostics/cardinality/bridge/ranking checks and evidence-limited advice, then source-only identity/ranking/bridge fixtures. No additional handwritten trait/codec. Earlier exact wrapper codec dispositions preserved. Remaining1321\u20131558 unread; tests not run.",
+  "first_unfinished": {
+    "scope_index": 881,
+    "line": 1321
+  },
+  "execution": "none"
+}

@@ -1,0 +1,52 @@
+{
+  "lens": "10",
+  "sources": [
+    {
+      "source_id": "pinned-registry:derive_more-impl-2.1.1/src/as/mod.rs",
+      "sha256": "767fe0f2cb67c57028ca69d138757c5fdd894ad6fa54fcb11ef8f4a7d4b4ef82",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/derivability/fresh-dependencies-423/derive_more-impl-2.1.1/src/as/mod.rs",
+      "ranges": [
+        [
+          17,
+          68
+        ],
+        [
+          147,
+          306
+        ]
+      ],
+      "actual_EOF": 306,
+      "package_checksum": "799a97264921d8623a957f6c3b9011f3b5492f557bbb7a5a19b7fa6d06ba8dcb",
+      "reason": "Bounded exact existing AsRef derive equivalence for LibraryName: explicit str output only, borrowed String view, no extra AsRef<String>/blanket implementation. No external SDK repair or whole-library coverage."
+    },
+    {
+      "source_id": "pinned-registry:derive_more-impl-2.1.1/src/as/ref.rs",
+      "sha256": "06f9f3379037f8002874119b864ca62c65d8dd785c821a1fdfd74b59d988f133",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/derivability/fresh-dependencies-423/derive_more-impl-2.1.1/src/as/ref.rs",
+      "ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "actual_EOF": 15,
+      "package_checksum": "799a97264921d8623a957f6c3b9011f3b5492f557bbb7a5a19b7fa6d06ba8dcb",
+      "reason": "Bounded exact existing AsRef derive equivalence for LibraryName: explicit str output only, borrowed String view, no extra AsRef<String>/blanket implementation. No external SDK repair or whole-library coverage."
+    },
+    {
+      "source_id": "pinned-registry:derive_more-2.1.1/src/as.rs",
+      "sha256": "c51f277897f4a2a62c0824f00d6775814282673efd16d0c8df8f87d406f7e984",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/derivability/fresh-dependencies-423/derive_more-2.1.1/src/as.rs",
+      "ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "actual_EOF": 78,
+      "package_checksum": "d751e9e49156b02b44f9c1815bcb94b984cdcc4396ecc32521c739452808b134",
+      "reason": "Bounded exact existing AsRef derive equivalence for LibraryName: explicit str output only, borrowed String view, no extra AsRef<String>/blanket implementation. No external SDK repair or whole-library coverage."
+    }
+  ],
+  "provenance": "Each exact cached package checksum matches frozen owning lock680, cached source equals archive member; source inspection only, no execution."
+}

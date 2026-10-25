@@ -1,0 +1,39 @@
+{
+  "id": "RIG-INITIAL06-GROUP-008",
+  "at": "2026-10-22T19:12:41.202435+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "fbx-name-owner-and-rig-conversion": {
+      "sources": [
+        "pr-working:crates/fabelgeist-fbx/Cargo.toml",
+        "pr-working:crates/fabelgeist-fbx/src/object_name.rs"
+      ],
+      "comparison": "Actual full manifest18 and object_name46 read. FBX depends on shared Rig, never the reverse. FbxQualifiedName preserves source namespace after removing the NUL-one class suffix and lossy UTF8 conversion; FbxObjectName strips the last colon prefix. Their owned namespace transformation differs from the exact open RigJointName label already compared in contracts005. The From<&FbxObjectName> for RigJointName adapter lives in FBX itself, the coherent higher format owner; neutral Rig acquires no importer dependency. Neither object identity is a bounded strategic ID or rendered personal name. MHR SkeletonBuilder consumes the resulting canonical joint label, while blendshape names retain FBX object names. No equivalent independently maintained rig label owner found."
+    },
+    "fbx-wire-record-and-encoding-owner": {
+      "sources": [
+        "pr-working:crates/fabelgeist-fbx/src/lib.rs",
+        "pr-working:crates/fabelgeist-fbx/src/array_encoding.rs"
+      ],
+      "comparison": "Fresh full lib548 and encoding24. Node/Prop/Reader/Object/Scene own binary FBX syntax, source i64 IDs (including native root0), byte offsets, version-dependent 32/64-bit headers, native f32/f64/integer arrays and raw string bytes. These are not game object IDs, checked finite geometry, rig ordinals or GPU offsets. Qualified/object names are retained at actual Scene::from_roots construction; MHR source lookup resolves native ObjectID to RigJointOrdinal. FbxArrayEncoding is the private u32 wire enum Uncompressed0/Zlib1; UnsupportedFbxArrayEncoding retains the original unknown u32. read_props decodes once before handing the typed enum to array decoding. The typed error belongs to this format reader even when carried through anyhow. No shared generic compression owner is justified from algorithm names; ZIP wire methods, wrapper bytes and width must be compared separately. Native file format versions are decoding contracts, not application schema compatibility aliases. No ownership defect from permissive native floating point or mutable raw format records; these do not certify admitted application state."
+    },
+    "fbx-source-time-and-animation-owner": {
+      "sources": [
+        "pr-working:crates/fabelgeist-fbx/src/animation.rs"
+      ],
+      "comparison": "Fresh full374. FbxAnimationDuration is private f64 finite nonnegative source seconds with direct NonFinite/Negative errors. Core AnimationElapsed is finite nonnegative f32 runtime seconds (contracts001), and sample tick/span are integer sampling coordinates (contracts003); range, precision and clock authority differ despite a common unit. FBX should not acquire a game Core dependency or silently narrow source f64 time. Native 46186158000 ticks/second, degree rotation channels, raw curves/default triples and native i64 node IDs remain importer-owned. Scene::takes constructs the checked source duration from a declared positive span or key-time maximum and retains source take names; actual MHR/native consumers own later coordinate and precision projection. Public Curve vectors do not certify time/value correlation, nor does ownership imply a unit quaternion or finite application position. Preserve source-specific errors and native ports; no duplicate duration owner or broad consolidation warranted."
+    },
+    "fbx-original-wire-fixture-and-description": {
+      "sources": [
+        "pr-working:crates/fabelgeist-fbx/src/array_encoding_tests.rs",
+        "pr-working:crates/fabelgeist-fbx/src/fixtures/array_encoding.txt",
+        "pr-working:crates/fabelgeist-fbx/README.md"
+      ],
+      "comparison": "Fresh full tests119, fixture95 and README73 read as source only. Builders deliberately accept raw encoding u32 7/MAX, native property tags, NaN/-0 float bits, signed integer extremes and raw boolean bytes to exercise the reader boundary; supported encoding enums must not replace rejected input evidence. Snapshot rows define no competing Rust bespoke owner. README accurately distinguishes normalized names, source f64 duration and unsupported reader encoding; descriptions are corroborated by the actual definitions above, not an independent constructor or external reference proof. No tests executed, cases added, fixtures changed or foreign package inference."
+    }
+  },
+  "new_findings": [],
+  "source_edits": 0,
+  "project_execution": 0,
+  "limits": "Exact FBX sources and current MHR/shared Rig/Core comparisons only. No external package, complete downstream graph, admission verdict or later-lens credit."
+}

@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1356",
+  "at": "2026-10-25T18:37:55.484035+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1410,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/tests.rs",
+  "sha256": "244ceaa77e510437e0f435b2ebc89eec78e610e1f67b74abc45382634fa4246f",
+  "actual_compared_ranges": [
+    [
+      1,
+      300
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Native animation fixtures: semantic routing, read-only serialized snapshot comparison, authored catalogue default contents, terrain mode default and sparse presentation phase/current locomotion/packet jitter. Setup/functions/assertions only; no manual trait/type/codec in slice. Not executed.",
+  "first_unfinished": {
+    "scope_index": 1410,
+    "line": 301
+  },
+  "execution": "none"
+}

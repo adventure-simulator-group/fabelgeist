@@ -1,0 +1,136 @@
+{
+  "id": "SEGOVB-04-ARTILLERY-SUPPORT-ID-001",
+  "classification": "source-conditional retained support-interface identity candidate; completed-generated-asset or live lookup failure unproven",
+  "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/artillery_castle.rs",
+  "sha256": "14b02a0705bb6723b34d844c890603f50c3752efba281e3fefc495c1f4b70c71",
+  "ranges": [
+    [
+      1124,
+      1153
+    ],
+    [
+      1219,
+      1236
+    ]
+  ],
+  "producer": "Pinned6533 defense_geometry.rs177..219 projected_solid usesindex=geometry.solids.len(); supportID=(4u64<<60)|index, while solidID additionallyincludesowner. It appends exactlyoneSupportInterfacepercreatedsolid.",
+  "witness": "At an otherwise successful ArtilleryRondelCastle stage with seedword%1000==702, removable deck is lastaddedsolid atindexk with supportID(4<<60)|k. Denied branch1152 removes onlythatSolid; support_interface remains. No interveningsolid before gate_leaf1219, so its projected_solid useslenk and createsanother support_interface withsameID, differentowner82100vs80000 andnode42100000vs42200000. SolidIDitselfdiffersdueowner, so do not falselyclaimduplicateSolidID.",
+  "recipients": "SupportInterface exposesglobalResolvedItemId/owner/node/bounds andisretainedinResolvedGeometry. Freshaudit_positive_bearing1..60 searchesowner/node/physicaloverlap anddoesnot checkuniqueID, so it canignorethisalias; existingpersonallyreadresolved_geometry246/294 andwall_openings651/661 useinterfaceIDlookup withvariedadditionalqualification, but no concretecurrentlookupofthisduplicatedbridge/gateIDproved.",
+  "outer_scope": "resolve_architectural_envelope consumesBuildingPlan self, so failurediscardslocalmutatedplan. generate(core202..204) returnsgenerate_unchecked withoutcompleteaudit; editorgenerate_document explicitlyauditbeforeacceptance. Remainingframedroof/finalizationpipeline not exhaustivelytracedforartifactrepair/removal; church_groundearlyreturnsifchurchNone. No call/run/finishedasset successasserted.",
+  "qualification": "Denied bridge removable_solids list deliberatelyrecords absentremovabledeck ID; thatstate-specificrecord isnotitself erroneouslypromoted. No invented requirementtoincludeabsentdeckinstaticcollision. Existingroofpitch/clerestorysolid-supportboundsdrift isrelatedauthoritygraph, notautomaticallysamecause/remedy. Parentrootsearchednoexactexistingcandidate; globaldedupstillunclaimed.",
+  "repair_contract": "If retainedaggregate identity is canonical, removal/creation must maintain support-interface identity and lifecycle together; allocateindependentstableinterfaceidentity orremoveownedinterface withthe member so futureappendcannotalias. PreserveintentionalDeniedbridgegap/no-route/missingremovable geometry semantics.",
+  "acceptance": [
+    "Source-supported Denied andDeployed seed cases retainuniqueinterfaceIDs andcorrectowner/node/bounds afterallconstruction stages.",
+    "AnylookupbyinterfaceID cannotselecta removeddeck recordfornewgateleaf.",
+    "Failingconstructionreturnsno partialpublishedBuildingPlan; editorauditandnativegenerationports preserveactualerrorcause.",
+    "No assertionofsuccessfulgeneratedfixtureuntilauthorized laterverification; no testsrunhere."
+  ],
+  "dependencies": [
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-building-generator/src/generator/artillery_route_geometry.rs",
+      "sha256": "0e9b881b97d9e68a76d403136309615fc45b53d616bc256e558dd2405172041a",
+      "personally_read_ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "coverage": "fresh narrow supporting bodies only; no full originalpath/lenscoverage transfer",
+      "actual_EOF": 39
+    },
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-building-generator/src/generator/defense_geometry.rs",
+      "sha256": "9be64466a067aa68da9f86e66bee50a578c2cb5e6f84aa01c6d517e9ef95b9a7",
+      "personally_read_ranges": [
+        [
+          155,
+          220
+        ]
+      ],
+      "coverage": "fresh narrow supporting bodies only; no full originalpath/lenscoverage transfer"
+    },
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-building-generator/src/generator/core.rs",
+      "sha256": "f9cad0ec57715ef451e89d64fc3b833ffba8beb778e82d9a286f269d71849e4d",
+      "personally_read_ranges": [
+        [
+          190,
+          311
+        ]
+      ],
+      "coverage": "fresh narrow supporting bodies only; no full originalpath/lenscoverage transfer",
+      "actual_EOF": 311
+    },
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-building-generator/src/generator/architectural_envelope.rs",
+      "sha256": "c8fd52807c339da9d087b132a0bed8c76c0a73f0bb3a0477bc2477d987bcb72e",
+      "personally_read_ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "coverage": "fresh narrow supporting bodies only; no full originalpath/lenscoverage transfer",
+      "actual_EOF": 68
+    },
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-building-generator/src/audit/bearing.rs",
+      "sha256": "426ca5b68aff61bdf650125502698d909d7c426408627fabf2172720f564bd29",
+      "personally_read_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "coverage": "fresh narrow supporting bodies only; no full originalpath/lenscoverage transfer",
+      "actual_EOF": 138
+    },
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-building-generator/src/model/resolved_networks.rs",
+      "sha256": "f6935151a38ae59a0722eb9ffec6584b50ba1b3c89356185b7b9cdc2eb60dfe9",
+      "personally_read_ranges": [
+        [
+          60,
+          115
+        ]
+      ],
+      "coverage": "fresh narrow supporting bodies only; no full originalpath/lenscoverage transfer"
+    },
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-building-generator/src/generator/framed_roofs.rs",
+      "sha256": "a59c1c293c17b206f5608ab7911c49309758f10c5c16101742cdbc6fcbe8a54b",
+      "personally_read_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "coverage": "fresh narrow supporting bodies only; no full originalpath/lenscoverage transfer",
+      "actual_EOF": 46
+    },
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-building-generator/src/generator/church_ground.rs",
+      "sha256": "9d5eb0be97cc353483ebe92f8d4580ec238d1c1cf2f0693fe2b1b9888dff5278",
+      "personally_read_ranges": [
+        [
+          1,
+          60
+        ],
+        [
+          220,
+          280
+        ]
+      ],
+      "coverage": "fresh narrow supporting bodies only; no full originalpath/lenscoverage transfer"
+    }
+  ],
+  "execution": "none"
+}

@@ -1,0 +1,110 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-049",
+  "at": "2026-10-25T11:31:41.783704+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1180,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence.rs",
+      "sha256": "df7d47666e333785437d381321a5e7b85cd6e4c453067c83f8d86ea00a30ce35",
+      "personally_read_ranges": [
+        [
+          1,
+          1455
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole1455 residencesource read. Legalholding, primarychoice and physicaloccupancy are distinctauthorities; normalpublic acquisition/designation/householdadmission enforce actorownership/currentplace/kinship/fullroom, chronology folds effective transitions and ordinal occupancy. View filters by personalfrontier, hidesnonowner billingdates withZERO (absence-versus-date shape) and keeps nonprimaryownedhomes visible. Billing sorts allholdings by due/id, accumulates atomicwholeperiodfunds/lineitems and dormant failure, agesdependents atdue chronology. Mutableprimarychoice/currentstatus versus history remain timeprojection caveats, no unproved ordinary staleauthority assertion. NPC recovery catches any recover_owned_residence_internal Err and convertsNoAffordableOffer after helper maywriteActive/billing; exactcause/atomicity question same connectedM30, not provennormalcorruptrecovery. Public admit_household_occupant can legitimatelyfill property with family/householdmembers, only rejects next admission atcapacity; valid fullholding is possible, not necessarily malformedstate. Wedding selector onlyrequires activelegalholding, so Q013 latecapacityfailure is supported by actualnormalpublicproducer and exactreceiver, now F002. Actualcase with held property full from legaldependents/family plus newfiance is a normalacceptedstate conditionalwitness, not a named liveasset/runtime. Primarydesignation writespointer before fallibleroomadmission but ordinaryreducers propagateErr; not same catchcommit bug. Existing stableoffers/own-versusrent/dueordering/history tests read notrun."
+    },
+    {
+      "scope_index": 1181,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/acquisition.rs",
+      "sha256": "0670403c3803ddc826babcb20784e88c5165152e9c2bbd986b4e0ef33d40580d",
+      "personally_read_ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole99 acquisition read. Native public rent/buy guardactorauthority, requireavailableexactproperty/currentlivingactorplace andoffer, consumeinitialcharge; rent relinquishesotherunresolvedrentals, ownerholdings retained. Newholding+Acquired history thenprimarydesignation/occupancy; downstream Err propagates transactionabort. Newproperty capacity isn\u2019t reservedfor future spouse, subsequentadmit family permitted, supporting F002 fullpropertyprecondition. IDs owncharacter+settlement+tier+acquisitionordinal but nativeleafIDs stillrawschema, existingowner migration only."
+    },
+    {
+      "scope_index": 1182,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/authority_tests.rs",
+      "sha256": "3543fcdab7a7fd0bc516183ebfa20ccafe25fe34952235d37bd7a84762d99eeb",
+      "personally_read_ranges": [
+        [
+          1,
+          242
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole242 guarded authoritytests read. Bootstrap+gateway guard; registrationretry mustnotmaterializecharacters, named+aggregatepopulation equalscatalogpopulation, boundednamedcohort. Exactownedproperty andrental/title/household separate; removaloccupancy preservesmembership. Capacityfixture fills cheap property and expects bothcurrent and futureinterval overflow rejection without changingfuturehome; confirms fullproperty is supported validstate. No combinedwedding testcase execution or newtests. Testhelpers directstateconstruction remains isolatedfixture, ordinarypublic admission separatelyread1180."
+    },
+    {
+      "scope_index": 1183,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/occupancy.rs",
+      "sha256": "181a2ef44cc12c8b3d6393ed41ebe9a8e616923413382af26ffe28b090789d41",
+      "personally_read_ranges": [
+        [
+          1,
+          282
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole282 occupancy source read. Ordered(minute,ordinal) transitionfold preserves scopedremoval andlatesthistoricalmove; admit identicallocation no-op else checksroom BEFOREits ownwrites, thenrecords oldremoval/newadmission andrefreshescurrent. Futureboundaryadmission_end limits capacityinterval, residents_at dedupscharacters andfoldsatfrontier. Thus lowlevelcapacityErr isatomicforoccupancy but cannot undo upperwedding\u2019s alreadywritten credit/household; outercatch matters. Ancillaryparenthome chooses exactvalidoccupiedparent inbirthsettlement, bedfailureintentionallydoesnotpreventbirth. Existingbackdated/currentpointer andsameinstantordinal tests supportassociation, not executed."
+    },
+    {
+      "scope_index": 1184,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/properties.rs",
+      "sha256": "80864f0168cb8abf7dcd17c08ea7405e6124f2968ad6eb83dbca7e0a5aab4e26",
+      "personally_read_ranges": [
+        [
+          1,
+          377
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole377 property source read. GatewaycanonicalGeneratedHomeCatalog parse/validate/digest before immutable registration, replay samehash no-op/differenthashreject; linksactualbuildingtiercapacitygeometry andallocates householdpopulation under transaction. NoCharactercreation inregistration; namedfamilies actualmembership and aggregateunmaterializedstate distinct. available_property rejects historicalorcurrentholdings/occupancy/census, so legalacquisition startsunoccupied, laterfamilyadmissioncanfill. require_property_room_at checks current+everyfutureoccupancyboundary until nextmove, excludes actoritself and adds aggregatecounts; fullproperty ordinaryboundedfailure. Nativegeometry/capacity schema reification mustconsume canonical #766/#768 owners, no equivalentlocaltypes proposed. Currentlibrarytuple/UUIDfields do not themselvesestablishnamespace/window sourcechecks beyondcatalogvalidator, actualcoreowner retained."
+    },
+    {
+      "scope_index": 1185,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/properties/households.rs",
+      "sha256": "f5c4295a284249b0fad780f6b8331f2dbff6c574f33bec5ba45edd3896ff5d17",
+      "personally_read_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole62 householdhome view read. Gatewaygate; groups by(household,property), stores actualaggregateunmaterialized andcounts materialized namedresidenceoccupants joinedthroughcurrenthousehold. Ownershipnotinferredfrommembership. Counteraddnativeu32 can overflow only extraordinaryAPIpopulation absentactualboundedfixture; no ordinarywitness. Currentoccupancyprojection is currentstate intentionally vs legalhistorical view; caller mustuseappropriatereceiver."
+    },
+    {
+      "scope_index": 1186,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/properties/materialization.rs",
+      "sha256": "89be43ab5a91d96b96077c6950b9159b25f61165e938395ab54774540711b688",
+      "personally_read_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole111 materialization read. One-time generatedresidenthome row prevents allocationagain afterlatermoves. Groups newnamedresidents byactualhousehold, selects censusproperty with enough unmaterializedresidents insettlement, decrementsbefore insertion, writes provenanceandoccupancyonlyifnone. Same-transactionerrorpropagation preserves totalnamed+aggregate. Existingoccupant withno provenance woulddecrementcountwithoutmoving; requires actualnormal producer toobtainstate before claiming populationloss. Rawrequired count checkedu32, quantityassociation andcanonicalgeneratedhome mayuseexistingowners; no independentregistryduplicate."
+    },
+    {
+      "scope_index": 1187,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/view.rs",
+      "sha256": "b481076a43b5a9e15f7ee78deb63fb3e81cf97989061300fa34168d9182c6053",
+      "personally_read_ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole57 visibilityinclude read. Holdingowner alwayscandidate, currentoccupants+primarychoice+effectivelegal/physicalhistory include pastoccupants forlaggingfrontier. Parent backendthenfilters actualacquired/resolved/observertime, so do not infer personalhistoricalvisibility fromcurrentpointeralone. Billingprivatevalues onlyowner; ordinarysamehouseholddoesnotgrantlegalholding rights."
+    }
+  ],
+  "finding_ids": [
+    "SEGO-INITIAL05-F002"
+  ],
+  "question_resolution": "Q013 source-backed API contract defect promotedF002 after publicadmission, completecapacity receiver and existingacceptancefixture read; runtime/currentauthoredasset occurrence notclaimed.",
+  "discovery": "Eight original roles complete WITH findings; full lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

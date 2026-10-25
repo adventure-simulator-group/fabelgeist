@@ -1,0 +1,35 @@
+--- p16base/crates/adventuresim-stdb-module/src/food/consumption.rs
++++ catalog-p16head/crates/adventuresim-stdb-module/src/food/consumption.rs
+@@ -103,9 +103,9 @@
+     character_id: u64,
+     inventory_id: u64,
+     kcal: f32,
+     explicit: bool,
+-) -> Result<f32, String> {
++) -> crate::StrategicOperationResult<f32> {
+     initialize_character_condition(ctx, character_id)?;
+     let inventory = ctx
+         .db
+         .inventory_item()
+@@ -194,9 +194,9 @@
+     crate::capability::refresh_character_capability(ctx, character_id)?;
+     Ok(wanted)
+ }
+ 
+-pub fn consume_travel_food_to_zero(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {
++pub fn consume_travel_food_to_zero(ctx: &ReducerContext, character_id: u64) -> crate::StrategicOperationResult<()> {
+     initialize_character_condition(ctx, character_id)?;
+     let actor = ctx
+         .db
+         .character()
+@@ -351,9 +351,9 @@
+ pub fn eat_food(
+     ctx: &ReducerContext,
+     character_id: u64,
+     inventory_item_id: u64,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     crate::strategic::require_strategic_gateway(ctx)?;
+     crate::character::require_living_character(ctx, character_id)?;
+     let actor = ctx
+         .db

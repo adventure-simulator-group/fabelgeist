@@ -1,0 +1,93 @@
+{
+  "id": "SEGOVB-04-LOOT-FORM-ALIGNMENT-001",
+  "lens": "audit-invariant-operations",
+  "classification": "HTTP-boundary aggregate transformation defect; no browser/DB execution",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/strategic-web/src/routes/quests.rs",
+      "sha256": "60584d6a541687989c1813acb39304738e37dd1bd1a9e17cf281551b36057b68",
+      "ranges": [
+        [
+          439,
+          492
+        ]
+      ],
+      "coverage": "fresh critical body support; quests full-role credit packet263, inventory_trade already covered earlier"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "sha256": "85c8f2c699beb1c00311678bbe179a5cc75bb33c607051bd967e91c9e6eba749",
+      "ranges": [
+        [
+          1438,
+          1562
+        ]
+      ],
+      "coverage": "fresh critical body support; quests full-role credit packet263, inventory_trade already covered earlier"
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/routes/quests.rs",
+      "sha256": "60584d6a541687989c1813acb39304738e37dd1bd1a9e17cf281551b36057b68",
+      "ranges": [
+        [
+          439,
+          492
+        ]
+      ],
+      "coverage": "fresh critical body support; quests full-role credit packet263, inventory_trade already covered earlier"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+      "sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+      "ranges": [
+        [
+          1438,
+          1562
+        ]
+      ],
+      "coverage": "fresh critical body support; quests full-role credit packet263, inventory_trade already covered earlier"
+    }
+  ],
+  "operation": "store_battle_loot parses the two comma-separated fields with independent filter_map operations, dropping invalid entries before sending aligned reducer vectors. This changes the submitted selection and can enter the intentional empty-selection means all-loot branch.",
+  "source_counterexamples": [
+    {
+      "form": {
+        "item_ids": "101,bad,303",
+        "quantities": "1,2,bad"
+      },
+      "transformed": {
+        "loot_item_ids": [
+          101,
+          303
+        ],
+        "quantities": [
+          1,
+          2
+        ]
+      },
+      "condition": "If authorized same-battle entries101 and303 exist, entry303 has at least2 units, and eligible participants exist, the reducer accepts the shifted pairing. No actual battle or actor asserted."
+    },
+    {
+      "form": {
+        "item_ids": "bad",
+        "quantities": "bad"
+      },
+      "transformed": {
+        "loot_item_ids": [],
+        "quantities": []
+      },
+      "condition": "Reducer length equality succeeds and empty IDs select all available authorized battle loot, despite nonempty malformed user fields. Empty explicit selection is an existing deliberate reducer policy, not itself a defect."
+    }
+  ],
+  "actual_receiver": "strategic/inventory_trade.rs store_battle_loot validates length equality, uniqueness, authorization, quantity range and total value after the lossy transformation; those checks cannot recover original token correspondence.",
+  "acceptance": "Parse the entire submitted selection as one fallible aligned aggregate before calling the reducer; reject malformed nonempty tokens and preserve positional correspondence. Retain authorization, duplicate/quantity/value checks and any explicitly chosen empty-selection/all-loot workflow. Do not silently drop invalid entries, invent quantity defaults, or alter unrelated battle rewards. No repairs or new tests in this discovery task.",
+  "dedup": "No exact finding discovered in archive findings/qualification JSONL searches for StoreLootForm, form.item_ids/form.quantities or empty-ID branch; global dedup remains coordinator responsibility. Do not infer uniqueness by title/path.",
+  "qualification": "Source-level supported malformed HTTP input counterexamples, conditional on ordinary authorized battle rows. This is not evidence of a normally generated browser form containing invalid tokens, an executed network request, database mutation, or rollback behavior.",
+  "dependencies": [
+    "HTTP form admission and canonical aligned loot-selection API",
+    "Receiving authorized battle/party/participant aggregate",
+    "Empty-selection all-loot policy remains explicit"
+  ],
+  "source_edits": false,
+  "project_execution": "none"
+}

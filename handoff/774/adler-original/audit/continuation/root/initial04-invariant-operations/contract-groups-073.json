@@ -1,0 +1,139 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-073",
+  "at": "2026-10-23T00:43:57.601778+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/incapacitation_tests.rs",
+      "sha256": "82fefbb149fc497e21bc9a6807ba2c59a7ede49ce15681838342a37fdd4a6527",
+      "actual_compared_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "source_evidence": "Fresh actual complete source body, explicit caller and numerical preconditions compared; existing tests read only."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/timeline.rs",
+      "sha256": "aeeb06c19efd75896544fd2d7d89f4e664f10d8c005772ccc8516d69e27f1126",
+      "actual_compared_ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "source_evidence": "Fresh actual complete source body, explicit caller and numerical preconditions compared; existing tests read only."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/threat.rs",
+      "sha256": "bf72fdd14fdc1fc1e4196b4c65172f6c71d0658f4bad6896cb41495acf889798",
+      "actual_compared_ranges": [
+        [
+          1,
+          190
+        ]
+      ],
+      "source_evidence": "Fresh actual complete source body, explicit caller and numerical preconditions compared; existing tests read only."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/timeline.rs",
+      "sha256": "97e87014b1ece1247d03e8e2a7e1e36db3c28ccae7b17b95dd7857ca13075406",
+      "actual_compared_ranges": [
+        [
+          1,
+          139
+        ]
+      ],
+      "source_evidence": "Fresh actual complete source body, explicit caller and numerical preconditions compared; existing tests read only."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/assignment.rs",
+      "sha256": "edaab496e73d7ae22b10743303627d76c5526cdff566e72e60f563dcbc2c77f9",
+      "actual_compared_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "source_evidence": "Fresh actual complete source body, explicit caller and numerical preconditions compared; existing tests read only."
+    }
+  ],
+  "groups": {
+    "incapacitation": "Existing tests preserve fatigue/general impairment equivalence, fatigue-independent movement speed, and encumbrance through the wheel exactly once. Fixtures construct and use their local roster; no fixture nonempty proof transferred to arbitrary production slices. No tests executed or modified.",
+    "evidence-clones-and-indices": "Timeline evidence clones combatants into owned local battles; failures drop local results without publishing partial evidence. position returns index<len, so inclusive first-contact endpoint <=len; absent contact uses len. Simultaneous helper creates singleton sides before indexing, admits .4 geometry and .5 elapsed and uses checked recovery addition. Cancellation tries bounded seeds1..64 and returns explicit absence/error, retaining deterministic draw order. Historical comparison boolean and captured histories are distinct from live duplicate authority.",
+    "threat-arithmetic": "Threat profile is selected by parsed ThreatId from catalogue, not supplied mutable CombatProfile; earlier exact Root040 proves training_multiplier from u16 milli /1000, <=65.535. Fresh PR threat_escalation1-25/195-270 support proves scale helper clamps integer input, divides positive10000, countermeasure <=1; even loose u32MAX/10000 upper bound gives training below4e19 at i32MAX difficulty and bow/will factors bounded by nativeu8, finite f32. SignedLength/elapsed constructors readmit fixed literals. Sidearm error follows mutation of local unpublished Combatant only. Primary ranged weapon plus melee sidearm confirms CameraF009 selected-equipment repair remains connected; no current numerical overflow claimed.",
+    "assignment-call-preconditions": "preferred_attack_mode1144-1149 chooses ranged iff can_attack_ranged; active_melee includes opposite predicate, so melee/ranged lists disjoint. Remaining active indices deduplicate and each is actual enumeration index. rank saturating_sub protects zero rank; modulo valid when any active defender. schedule_side enumerates attackers and schedule_attacker rejects side_defeated before assignment. scheduled_contacts has no local defender guard, but joint round checks both sides before each window and after contacts before recursive continuation; no normal all-defeated target panic from this path. Fresh support joint_melee1-190, scheduling130-215/275-335, autoresolve1230-1245. Direct invalid internal helper calls are not a newly demonstrated public API defect.",
+    "native-tick-policy": "tick_at explicitly maps signed negative times to native0 and rounded positive64Hz ticks via Rust saturating float-to-u64 cast; huge finite time multiplication can transiently overflow but final native sample counter is bounded and original BattleTime retained. Do not infer identity collision bug without recipient misuse; attack IDs/sequence remain separate. Typed movement/time/speed payloads preserved. Event defaults None and staged filling are aggregate-state/enum-shape concerns, not a demonstrated arithmetic failure.",
+    "armor-pending": "Fresh armor1-76 read held partial. brigandine placement0 and vambrace indices0/1 need actual catalogue cardinality contract before whole current04 credit; no bad installed asset or panic claimed from mere editability. Existing RootF007 authored coverage constructor issue remains separate."
+  },
+  "partial_source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/armor.rs",
+      "sha256": "9a5f5b89b21f9f10d774f35eb8c9f2cc2c73ebd4a21faf917bae8cd0b428561c",
+      "actual_read_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "status": "incomplete_catalogue_index_precondition_pending"
+    }
+  ],
+  "support_only": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/threat_escalation.rs",
+      "ranges": [
+        [
+          1,
+          25
+        ],
+        [
+          195,
+          270
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve.rs",
+      "ranges": [
+        [
+          1135,
+          1165
+        ],
+        [
+          1230,
+          1245
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/joint_melee.rs",
+      "ranges": [
+        [
+          1,
+          190
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/scheduling.rs",
+      "ranges": [
+        [
+          130,
+          215
+        ],
+        [
+          275,
+          335
+        ]
+      ]
+    }
+  ],
+  "findings": [],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

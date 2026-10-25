@@ -1,0 +1,63 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-087",
+  "at": "2026-10-25T14:56:31.444328+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1278,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/failure.rs",
+      "sha256": "41b12232f4ba5a4d1f824b38338091fb5a01a3f79bf300903f02ba558c24e99b",
+      "personally_read_ranges": [
+        [
+          1,
+          457
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Emitter increments sequence, derives semantic key and public event from same payload, pushes trace/key in one guarded branch up to100000; private parallelcollections remain aligned under only writer. Later sequence stillcounts emitted events beyond tracecap; semantic coverage derived from retainedkeys is bounded, cannot claim postcap completeeventhistory. Existing F376 receives this connected emitter support, not a new mismatchedordinary event assertion.",
+        "observe_call_result preserves actual CoreLoopError in recorder before propagation; call then formats toString, a real structured-cause propagation canary. Recorder later cachederror attempts recover earliercause but callerstate should retain one actual error through Result rather than depend on independent last-recorded side channel. All actual reused code-specific classifications currently receive actualtyped error before formatting; no claimparse-code logic uses display text incorrectly beyond nativewirecodec.",
+        "Failure-agent source requires actualcharacter+condition+survival bysameID and drops unavailable through Option at reportcapture. Illness absent\u2192false, death diagnostics absent survival\u21920 project unknown as normal; explicit availability aggregate remains important. Currentparty/location projections may combine no live journey with Somecurrentcase/settlement but noordinary contradiction proved.",
+        "current_leader requires livingactualpartyassignedleader plus simulatorroster match; no stale actionability claim. party_for/by_id fail missing coherentprojection, partyelapsedmax missing\u2192ZERO is unavailable sentinel. observe_deaths deduplicates actualdeadCharacterIDs and preserves explicit unavailablecause/time text, perfield survivalzeros stillambiguous. Private recordset avoids duplicate death count; nottimedearlier-than-observed lifetimeproof."
+      ]
+    },
+    {
+      "scope_index": 1279,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/failure_projection.rs",
+      "sha256": "db839d73026a5d4ecb4ff4ee8e73872b345be0e3c83a09010d9c4868dfc3ce31",
+      "personally_read_ranges": [
+        [
+          1,
+          424
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "CoreLoop failureprojection derives category/reason/message together from actual typedreducercode or operation. Stored independent publiccategory/reason/operation/message strings at JSONboundary canrepresentunsupportedcombinations but currentfactoryproducescoherent rows; keep structured owning failure product through finalserializedadapter and use existing codedcause owners. No needconstruct duplicate typederror enum perpresentation.",
+        "FailureRecorder retains draft and cachederror in separate Arc<Mutex> owners; currentsource caller is one LiveRunner and writeafterrun, so no assumedconcurrent cross-draft mismatch. Poisonedupdates silentlyignored but write explicitlyerrorsunavailablemutex. Cachederror may supersede passederror, relevant to call\u2019s typed\u2192String erasure path; whole errorpropagation source repair shouldremove independent recoveryauthority rather than maintainextra cache. No ordinarywrongerror scenario claimedwithoutactual caught/retrypath.",
+        "Failuretrace takes last64 of alreadybounded first100000 publictrace and markstruncation based on totalcount>64. It is not a rollinglast64 once source tracefills; diagnosticslimitsmust remain explicit and eventual retentionpolicy repair sharedwith trace/evidenceowners, no claimtheexistingartifact promiseslatestpostcap. Actual fixture1266 oneevent/total1/truncatedfalse coherent.",
+        "PublicSurvivalObservation derivedDefaultallzeros and boolfalse is real fallback used1276 for unavailablewholeprojection; explicit Unknown vsObserved should carry complete projected tuple through callers. Current requiredfailureagent Option requires observation andthusdropswholeagentonunknown; separatepolicyfromexpeditionzero substitution. Publicreport primitives remain serializationport owners, nativewireannotationsdenyunknownfieldsshape alone do notvalidate aggregate admission."
+      ]
+    },
+    {
+      "scope_index": 1280,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/fixture_policy.rs",
+      "sha256": "c692472c82e278cfd719eb457b7554561bc30117577225ca0c68c8eec6a8801b",
+      "personally_read_ranges": [
+        [
+          1,
+          133
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "FixturePartySelection constructor requires exactlytwo candidates then sorts publicpower/identity and checksdirecteligible; actual bootstrap1268 producesdistinctformedparties with matching assessment. Candidate identity/assessment independent API could misassociateactualparty, but noordinarynormalwitness; reuse checkedroster/assessmentselectionowner instead ofrepeatingprimitivepair. Fixed cardinalitycanbe2array through checkedadmission, not newtests or uncheckedindexpanicclaim.",
+        "FixtureLanePlan independentdirect/generated IDs andgenerated_case Option authoredprivatebootstrap coherently; later nativepublicfixture mustmatchrun/parties/directcontractbeforebindinggeneratedcase. A pending/bound generated-lane payloadowner can eliminate expect/unwrap relationships without addingcompatibilityadapter.",
+        "QuestDecisionObservation duplicatewantsquest/quest_intended pluspath/selected/reason are actualderived decision1268:788\u2013936; retained structureddecision canemitprose once, preservingintendedvsselected distinction (samebool today but distinctsemanticfact), no broadglobalmerge. Reservehelper subtracts medical+inn beforecashreserve and caps tospendable, unknownmedical0vsunknowninn0 handleddifferently deliberately; exact OptionalUnavailable semantics andsponsorproducerpending actualreceivingpath."
+      ]
+    }
+  ],
+  "findings": [
+    "SEGO-INITIAL09-F376 (connected event emitter support only)"
+  ],
+  "discovery": "Three full original roles accounted WITH qualified evidence-retention/error-association/fixture products; lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

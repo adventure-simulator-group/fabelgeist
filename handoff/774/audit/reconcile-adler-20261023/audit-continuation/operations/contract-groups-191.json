@@ -1,0 +1,110 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-191",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/repair.rs",
+      "sha256": "059b098c4d5f5c79ce5f04d376a03631e5d78b601474c3f151881ccae4a66d45",
+      "actual_EOF": 726,
+      "actual_compared_ranges": [
+        [
+          1,
+          726
+        ]
+      ],
+      "method": "Whole P16 module/helper and fixtures personally read. Complete PR textual diff consumed including catch-all batch regression and all return signatures; empty helper comparison consumed."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/repair/smiths.rs",
+      "sha256": "9f6f941a9c20133485bdb87f96731d858974bde4c8f173fd90da3f51fc1227a6",
+      "actual_EOF": 61,
+      "actual_compared_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "method": "Whole P16 module/helper and fixtures personally read. Complete PR textual diff consumed including catch-all batch regression and all return signatures; empty helper comparison consumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/repair.rs",
+      "sha256": "121a3412ae887fe1eec8fdf53acc1d66a0e091bc4d5d68593f16f0c13b270c09",
+      "actual_EOF": 724,
+      "actual_compared_ranges": [
+        [
+          1,
+          724
+        ]
+      ],
+      "method": "Whole P16 module/helper and fixtures personally read. Complete PR textual diff consumed including catch-all batch regression and all return signatures; empty helper comparison consumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/repair/smiths.rs",
+      "sha256": "9f6f941a9c20133485bdb87f96731d858974bde4c8f173fd90da3f51fc1227a6",
+      "actual_EOF": 61,
+      "actual_compared_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "method": "Whole P16 module/helper and fixtures personally read. Complete PR textual diff consumed including catch-all batch regression and all return signatures; empty helper comparison consumed."
+    }
+  ],
+  "groups": [
+    {
+      "id": "Damage bins, repair time and currency arithmetic",
+      "locations": "repair18-51,180-206,243-257,368-397,488-499,504-603; smiths1-61; fresh Core durability1-277",
+      "trace": "Native persisted bins normalize: nonfinite/negative replaced0, then five bins capped deepest-first to remaining1. Therefore native repairable<=1 and condition0..1, repair duration ceil(repairable*2880)<=2880, positive ready duration at least1. Target min1 finite. Field eligible skill<=2 bounds take and nonnegative subtractions; remaining reduced via saturation, output available-remaining bounded. Minor floating rounding and whole-minuteceil are explicit-resolution behavior, not exact real conservation guarantee. Stable smith rngindex3 plus3 gives3..5. Available coin prefix uses u64 widening ofu32 costs and affordability guard before subtraction. Actual apply_impact constructs profile from authored fields with quality clamp1..5; fresh Core damage_from_impact matches RootF039 prematureu8 tier narrowing. Normal finite profile/stress producer reaching258 remains pending, so recipient proves route, not ordinary failure. Raw persisted bins normalize intentionally; do not invent a separate numerical repair cap.",
+      "disposition": "RootF039 exact recipient support, no new numerical defect. Explicit saturation at ready timeMAX shortens positive job duration; retain terminal chronology policy qualification, no ordinary reachability claim.",
+      "dependencies": [
+        "audit/continuation/root/initial04-invariant-operations/findings.jsonl#39 ROOT-INITIAL04-F039",
+        "Actual autoresolve stress and item durability authoring admission",
+        "Canonical StrategicMinute terminal operation policy",
+        "Native currency total/withdrawal authority"
+      ],
+      "acceptance": "Accepted damage tier stays1..5 before native narrowing; successful repairs preserve deepest-first normalized damage and intended whole-minute timing/cost, rejecting unsupported terminal deadlines before custody mutation if required."
+    },
+    {
+      "id": "Custody, replay and caught batch failures",
+      "locations": "repair137-260,280-499",
+      "trace": "Submit requires actual singletonownedrow, actualsettlement/service/kind, condition and repairablepositive, snapshotsallattachmentrequirements, rejects equippedchildren then preserves stableobject in explicitRepairlocation. Numeric owner0 is deliberate smith escrow checked actualvalid_repair_escrow_row, not ordinary CharacterId by assumption. Restore charges quote then validates exact escrow item/qty, restores bins and row, checks uniqueobject/samesettlement/item, then saved equipment graph; order deleted only afterrestore. Single retrieve and bulk retrieve propagate errors, so outer transaction/catches require proof. Submit all differs materially: P16 catches Operation errors but propagates other kinds; PR `.is_ok()` catches every innererror. submit performs custody/order writes before final capability/condition refresh; therefore a lateerror may be swallowed and batch continue/returnOk if another item succeeds. This is a source-path integration gap even though the actual lateerror producer and caughtSDKstate persistence still need exactproof. No assertion ordinary validequipment triggers it or observedpartialDBcommit. Repair defaultclock fallback at submit/retrieve/bulk extends existing absent-time graph.",
+      "disposition": "Extend actual CAM-PROP-F006/localF05/M30 cause propagation and retained mutation graph, preserving sourcevariant difference. No blanket all-error rollback claim for caught helper.",
+      "dependencies": [
+        "CAM-PROP-F006",
+        "local774:F05",
+        "local774:M30",
+        "CAM-PPS-F003",
+        "Capability/condition structured errors and SDK helper call semantics",
+        "Equipment restore/attachment occupancy graph and stablephysicalobject admission"
+      ],
+      "acceptance": "An ignored ineligible-item failure must occur before writes; infrastructure/partial-update failures must abort or follow a complete explicit atomic operation policy. Successful batch accounting must reflect actual completed custody transfers. Missing clock stays unavailable; exact real epoch0 stays valid."
+    },
+    {
+      "id": "Source fixture boundary",
+      "locations": "repair605-726",
+      "trace": "Simulation wear fixture authenticates ownedrun/claimedactor/ownedinventory before fixedtiers. All sourcefixturesread, covering strictservicefilter, everyparentrequirement and stableobjectescrow. No fixturesexecuted.",
+      "disposition": "Source evidence only; no full04 clearance.",
+      "dependencies": [
+        "All13 initial inventory gate"
+      ],
+      "acceptance": "Eventual authorized validation must exercise reducer transaction and failure behavior; existing source assertions are not passing execution evidence."
+    }
+  ],
+  "findings": [],
+  "status": "Four original source roles personally compared. Whole04 incomplete; exact lateerror/SDK/caller dependencies open.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/residence.rs",
+  "fresh_dependency": {
+    "path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/source/physical-p16-unscoped-dependency/crates/adventuresim-core/src/durability.rs",
+    "sha256": "7e08e94102b0e097fdb309ad3f5caaf54c6d5c313979a3c5186bb671bb231afd",
+    "actually_read_ranges": [
+      [
+        1,
+        277
+      ]
+    ],
+    "coverage": "Fresh critical bodies; no new whole original role credit."
+  }
+}

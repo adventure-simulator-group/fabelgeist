@@ -1,0 +1,85 @@
+{
+  "reviewed_at": "2026-10-20T16:42:24.878760+00:00",
+  "failed_head": "3544d8e99f1d9f765a813cc71b56f089e31c5118",
+  "failed_run": 39452715702,
+  "failed_job": 118731479728,
+  "artifact": 12282006570,
+  "artifact_digest_verified": true,
+  "earliest_failure": {
+    "test": "player_projection::tests::tactical_recipe_length_changes_reach_mass_and_handling",
+    "line": 2409,
+    "assertion": "(short.melee_reach_m() - 2.0).abs() < 1.0e-6",
+    "summary": "32 passed; 1 failed; 0 ignored"
+  },
+  "source_baseline_evidence": {
+    "main": "c20169551087b86c0f639d7e8bbe151b510f410a",
+    "test_identical_to_main": true,
+    "relevant_dependencies_unchanged_against_main": [
+      "crates/adventuresim-weapon-model/",
+      "crates/adventuresim-core/src/equipment/parametric_weapon.rs",
+      "crates/adventuresim-tactical-server/src/player_projection/projection_equipment.rs"
+    ],
+    "limit": "The main branch failure was not separately executed. The test and its relevant dependency source match main; current branch hosted execution proves this assertion fails."
+  },
+  "independent_authored_expectation": {
+    "catalog": "crates/adventuresim-weapon-model/catalog/gameplay.json halberd",
+    "shaft_length_metres": "1.82",
+    "socket_overlap_metres": "0.15",
+    "socket_height_metres": "0.20",
+    "spike_overlap_metres": "0.01",
+    "spike_length_metres": "0.32",
+    "tip_metres": "2.18",
+    "grip": "Explicit Grip component selects shaft.center: 0.91 metres. This takes precedence over the fallback 20 percent shaft rule.",
+    "reach_metres": "1.27",
+    "source_owners": [
+      "crates/adventuresim-weapon-model/src/model/extents.rs:78",
+      "crates/adventuresim-weapon-model/src/model/placement/anchors.rs:29-66",
+      "crates/adventuresim-weapon-model/src/model/placement/anchors.rs:79-89",
+      "crates/adventuresim-weapon-model/src/model/grip.rs:15-23",
+      "crates/adventuresim-weapon-model/src/model/spears.rs:24-37",
+      "crates/adventuresim-weapon-model/src/model/output.rs:338-361",
+      "crates/adventuresim-core/src/equipment/parametric_weapon.rs:55-56"
+    ],
+    "method": "Static authored geometry and source arithmetic trace only; no local numerical probe or execution."
+  },
+  "change": "Correct only the existing short-reach golden from 2.0 to 1.27; explain the independent authored tip and controlling grip.",
+  "preservation": {
+    "production_prefix_identical": true,
+    "all_function_names_identical": true,
+    "all_assertion_macros_preserved": true,
+    "test_assertions": 5,
+    "tolerance": "1.0e-6 unchanged",
+    "remaining_four_assertions_identical": true,
+    "fixture_inputs_unchanged": true,
+    "no_new_cases_tests_helpers": true,
+    "no_workflow_gate_changed": true,
+    "no_local_rust_commands": true
+  },
+  "review_passes": [
+    {
+      "kind": "Code",
+      "pass": 1,
+      "by": "implementation agent",
+      "result": "Authored chain and grip precedence traced; golden repair retains observable recipe-length reach/mass/inertia/head invariants."
+    },
+    {
+      "kind": "Rule",
+      "pass": 1,
+      "by": "implementation agent",
+      "rules": "Root AGENTS.md and crates/AGENTS.md; existing test adjustment only, no production growth or new tests."
+    },
+    {
+      "kind": "Code/Rule",
+      "pass": 2,
+      "by": "implementation agent",
+      "result": "Production prefix, test function names, five assertions, tolerance and other four checks rechecked; Comment Review omitted. This is not independent full-PR review."
+    }
+  ],
+  "new_source_sha256": "57dfe32836c39b6610fdb569abfac20ad4575b1b7710ea6cadb86d373faa8e29",
+  "next": "Commit/push unchanged hosted workflow, verify the new exact-head result, then inspect official baseline export and required nonempty cells. All six published families remain pending acceptance.",
+  "published_head": "a15f24ad44fc22f86e1e1fd9f2ae47b6bb0ba860",
+  "hosted_run": 39459842316,
+  "hosted_job": 118756130752,
+  "hosted_status": "in_progress",
+  "entire_source_outside_exact_test_replacement_identical": true
+}

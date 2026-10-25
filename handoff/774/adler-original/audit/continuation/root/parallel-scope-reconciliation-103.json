@@ -1,0 +1,131 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-103",
+  "at": "2026-10-22T20:11:26.807662+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-023.json",
+    "sha256": "d1769161d3c94cf5f7f77c78b19d43bd7f7635472571cd1712c45d4e182a3cff"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-022.json",
+    "sha256": "9e2bdb0fafdb1e217446502936ca5fbb9ca2958f885e41cd7899cc12351430b3"
+  },
+  "new_variants": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-hair/src/identity.rs",
+      "snapshot": "pr-working",
+      "path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-hair\\src\\identity.rs",
+      "sha256": "9e6bb30bdee39ecc35561aa4a286e46a7645129f179f7734fcba0e78d433dc48",
+      "bytes": 1822,
+      "actual_line_count": 64,
+      "scope_kind": "materially_reached_parallel_initial_dependency",
+      "audit_owner": "rig",
+      "material_ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "scope_limits": "Only tinycanonicalidentity source; no broader newhairfeature/foreigngraph",
+      "parallel_reached_registrations": [
+        {
+          "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+          "sha256": "016d37cee52406178bedb6e3d9141411a60de252523f091247d268e2e79e0e60",
+          "row_1based": 14,
+          "id": "RIG-INITIAL06-REG-014",
+          "original_record": {
+            "id": "RIG-INITIAL06-REG-014",
+            "at": "2026-10-22T20:01:49.041209+00:00",
+            "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+            "source_id": "pr-working:crates/fabelgeist-hair/src/identity.rs",
+            "snapshot": "pr-working",
+            "sha256": "9e6bb30bdee39ecc35561aa4a286e46a7645129f179f7734fcba0e78d433dc48",
+            "actual_EOF": 64,
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-hair\\src\\identity.rs",
+            "material_ranges": [
+              [
+                1,
+                64
+              ]
+            ],
+            "material_caller": "Scoped Strands ids/group and nativeguidepack consumer directly use StrandId/PartingGroup/PartingGroupId",
+            "reason": "Exact direct canonical identity/default/nativeprojection definitions before body to comparestableidentity vsordinal/native sentinel, source absent022",
+            "exclusions": "Only tinycanonicalidentity source; no broader newhairfeature/foreigngraph",
+            "status": "prospectively_registered_before_body_analysis; new variantpendingglobal"
+          }
+        }
+      ],
+      "producer_inventory_accounting": "bounded01_02_newmaterial_comparison_pending",
+      "admission_discovery": "Root101/102 actual source-specific constructors/codecs/facts separately compared; no other lens verdict"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/armor.rs",
+      "snapshot": "physical-p16",
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\combat\\armor.rs",
+      "sha256": "3aeb6961c084a063132b1d1302d006c8cbf59cacaf960081e799b7ce46d37930",
+      "bytes": 4720,
+      "actual_line_count": 138,
+      "scope_kind": "materially_reached_parallel_initial_dependency",
+      "audit_owner": "camera",
+      "material_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "scope_limits": "No other modules/new tests/runtime/foreign package; full exact138 includes existing original tests source-only.",
+      "parallel_reached_registrations": [
+        {
+          "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+          "sha256": "98730f9aada86f598bef291e70ff42b7ec061864884d6a3f7df2841f6dadeab7",
+          "row_1based": 4,
+          "id": "CAMERA-INITIAL07-REG004",
+          "original_record": {
+            "id": "CAMERA-INITIAL07-REG004",
+            "at": "2026-10-22T20:07:54.468343+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "physical-p16:crates/adventuresim-core/src/combat/armor.rs",
+            "snapshot": "physical-p16",
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\combat\\armor.rs",
+            "sha256": "3aeb6961c084a063132b1d1302d006c8cbf59cacaf960081e799b7ce46d37930",
+            "actual_EOF": 138,
+            "ranges": [
+              [
+                1,
+                138
+              ]
+            ],
+            "material_reach": "Direct actual P16 combat.rs448 calls private armor::resolve_contact_energy; compare source classification/energy/surface construction and Mul retained outcome versus scaled effect. PR counterpart global022 source892 already freshly read, not P16 proof.",
+            "registered_before_body_analysis": true,
+            "exclusions": "No other modules/new tests/runtime/foreign package; full exact138 includes existing original tests source-only.",
+            "source_inventory_credit": false
+          }
+        }
+      ],
+      "producer_inventory_accounting": "bounded01_02_newmaterial_comparison_pending",
+      "admission_discovery": "Root101/102 actual source-specific constructors/codecs/facts separately compared; no other lens verdict"
+    }
+  ],
+  "new_overlays": [],
+  "total_variants": 2774,
+  "total_overlays": 200,
+  "registered_rows": 2,
+  "input_pins": [
+    {
+      "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+      "sha256": "016d37cee52406178bedb6e3d9141411a60de252523f091247d268e2e79e0e60",
+      "captured_rows": 14,
+      "selected_ids": [
+        "RIG-INITIAL06-REG-014"
+      ]
+    },
+    {
+      "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+      "sha256": "98730f9aada86f598bef291e70ff42b7ec061864884d6a3f7df2841f6dadeab7",
+      "captured_rows": 4,
+      "selected_ids": [
+        "CAMERA-INITIAL07-REG004"
+      ]
+    }
+  ],
+  "limits": "Two actual new direct identities: Hair stable IDs/native parting coordinates and P16 Armor138 contact producer. Old2772+200roles unchanged. Root101/102 actual03manualproof separate; no other lens verdict/implementation/execution."
+}

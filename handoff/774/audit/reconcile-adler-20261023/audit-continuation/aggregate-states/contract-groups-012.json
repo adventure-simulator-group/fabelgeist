@@ -1,0 +1,62 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-012",
+  "at": "2026-10-24T03:02:40.475081+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1018,
+      "source_id": "pr-working:crates/adventuresim-core/src/stub.rs",
+      "sha256": "529a51987f2cef18ffc06af597e0dbe8aa6631e49c7a1b16d85002e9cfcd792d",
+      "personally_read_ranges": [
+        [
+          46,
+          113
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Completes inherited PR stub1\u201345 material tail. Stateless fixture defaults implement PlayerEquipment and PlayerSkills with fixed values. None holding side is genuine stub absence, not missing clinical observation; no mutable multi-field accepted record here. No native-equipment semantic guarantee follows from stub values.",
+      "repair": "not started",
+      "validation": "source inspection only; no execution"
+    },
+    {
+      "scope_index": 1019,
+      "source_id": "pr-working:crates/adventuresim-core/src/surgery.rs",
+      "sha256": "c0b73f812166b3333b5611325539f8c850030c5db3ef7ff4b69b11c1bf9e34fd",
+      "personally_read_ranges": [
+        [
+          1,
+          294
+        ]
+      ],
+      "aggregate_trace_and_disposition": "BloodInterval normal constructor initializes cuts and cut_days with equal lengths and mutates by matching enumerated index; elapsed increments once per consumed minute and terminal true only on blood threshold return. Public output fields can be recombined after return, so paired per-wound records plus explicit completed/terminal state is an API ownership strengthening; ordinary returned lengths remain coherent. Starting blood<=threshold with requested0 returns terminalfalse intentionally follows current processed-minute event convention; no immediate-death policy assumed. Procedure/stitch protection neighboring fields need actual treatment owner; false stitched intentionally ignores quality. Existing uncapped extraction finite-overflow is ROOT-INITIAL04-F057, not new05 defect. Fractional blood and accumulated cut-days are not integer milliliters or bounded damage; preserve one-minute loop/chunk assertions and zeroDC/strict kit threshold.",
+      "repair": "not started",
+      "validation": "source inspection only; no execution"
+    },
+    {
+      "scope_index": 1020,
+      "source_id": "pr-working:crates/adventuresim-core/src/survival.rs",
+      "sha256": "63f604eeeca44d35f365c9daded84a61ca19b8c9c3976ead8503a2edbf4d1c57",
+      "personally_read_ranges": [
+        [
+          1,
+          430
+        ]
+      ],
+      "aggregate_trace_and_disposition": "ExposureOutcome builds state and ordered frostbite offsets together by enumerate; offsets are relative zero-based minute positions, and partition fixture shifts second offsets by333. Clothing peripheral array fixed4 ensures a minimum/tie exists; canonical absolute event minute deterministically rotates tied indices. Field tent/Indoor distinct thermal and rain policy, Indoor recovery may preserve wider raw strain and apply_immersion may preserve wetness>10000; do not blanket narrow ingress to emitted UnitBasisPoints. Normal next_wetness/thermal result bounds preserve valid0/negative cold, while frostbite progress represents remainder plus caller-input wider state. Existing NATIVE-OWNER-F017/CONT-NATIVE-OWNER-F007 exact owner support; no duplicate wrappers. Insulation sum, raw weather i32 arithmetic and input normalization are existing operations/admission dependencies, not proof of normal weather overflow. Public ExposureOutcome offsets can be forged without interval provenance but actual constructor emits matching offsets; treat API association before choosing payload shape.",
+      "repair": "not started",
+      "validation": "source inspection only; no execution"
+    }
+  ],
+  "aliases": [
+    "ROOT-INITIAL04-F057",
+    "NATIVE-OWNER-F017",
+    "CONT-NATIVE-OWNER-F007"
+  ],
+  "new_unique_findings": [],
+  "connected_acceptance": [
+    "Retain paired blood wound/exposure columns, elapsed/terminal state and actual consumed interval at receiving clinical projection. Distinguish API-representability from normal constructor behavior.",
+    "Preserve frostbite absolute-time association,4-peripheral tie policy, actual input normalization and bounded emitted owner roles; no premature normalization/rejection at raw weather ingress."
+  ],
+  "discovery": "WITH inherited findings and qualified API obligations; no clearance",
+  "repair": "not started",
+  "validation": "not run"
+}

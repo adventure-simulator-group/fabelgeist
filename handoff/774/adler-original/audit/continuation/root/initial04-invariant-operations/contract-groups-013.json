@@ -1,0 +1,63 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-013",
+  "at": "2026-10-22T19:34:51.291333+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "native-anyhow1.0.104:error.rs",
+      "sha256": "2a78ee4e5f8d6b4476c761f77473362b9ed12f5402e4701001e7d04d628ba030",
+      "actual_read_ranges": [
+        [
+          32,
+          87
+        ],
+        [
+          138,
+          190
+        ],
+        [
+          780,
+          810
+        ]
+      ],
+      "scope_limits": "Exact foreignmaterialranges only, partialheader/tail/doc contexts notwholemethod/SDKcoverage."
+    },
+    {
+      "source_id": "native-anyhow1.0.104:wrapper.rs",
+      "sha256": "079218e1d8c9374f52311b1c7971f7fbdeba4d7af1b0749c0d535010f1232697",
+      "actual_read_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "scope_limits": "Exact foreignmaterialranges only, partialheader/tail/doc contexts notwholemethod/SDKcoverage."
+    },
+    {
+      "source_id": "native-dependency:spacetimedb-sats-2.6.1/src/timestamp.rs",
+      "sha256": "9a2b59b755254767182009ea99cc689199e310845668b3343faf52ca6139de0c",
+      "actual_read_ranges": [
+        [
+          1,
+          95
+        ],
+        [
+          210,
+          251
+        ]
+      ],
+      "scope_limits": "Exact foreignmaterialranges only, partialheader/tail/doc contexts notwholemethod/SDKcoverage."
+    }
+  ],
+  "groups": {
+    "anyhow-standard-versus-message": "Fresherror32-87/138-190/780-810 pluswrapper1-40. construct_from_std selectsE-specificvtable+typedownedcause; from_boxedretainsboxederror+backtrace; adhocmsg wrapMessageError<M>withDisplay+Debug, notallStdErrorcausechains. MessageErrortransparent actualStdErrorimplempty(no sourceoverride), so changingtypedfailuretoformatString/msg losesstructuredchain evenifprintlooksright. Nativeownedcausevtable/dynamicdowncast checksTypeId beforeunsafeprojection; no gamevaluearithmetic/normalization/mutation/retryclock. Context32-36 priornewtailnotcompletefnheader, 780priorboxed-tail/no_backtrace810lastreturnonly doesnotcreditunseenreturnbrace/helperalgorithms; DisplayError40methodheadnotitsbody. No nativeerrorconstruction grantscheckedgamevalue; conversionvalidonlyactualcommand/errorboundary, internalerrorsmustretaincanonicalconcretecauses. ActualfirstpartyStringloss sites remainowncells, no newprojectdefectmerelynativeallowsmessages.",
+    "timestamp-representation-and-native-limits": "FreshTimestamp1-95/210-251. Allsignedi64microsecondsrepresentable includingpreUnixepoch; from_micros directlycopiesword, durationsameunitconversionto/fromnativeTimeDuration. No reasonconflatewithstrategicminutes/monotonictacticaltick. to_duration_since_epoch branchesnonnegative casttou64lossless; negativebranch(-micros) overflowsdebugfori64::MIN eventhoughSdkadmitsword; releasewrappingthenasu64 hasdifferentbehavior. Thisis concreteFOREIGNAPIedgecounterexample, notfirstpartyfailureorSDKpatchrequest. from_duration usesu128as_micros.try_into+i64expectexplicitdocumentedoutofrangepanic; to_system_time positivechecked_add expect andnegativebranch95prefix only, no96+negativebodycredit. ActualplatformSystemTimecapacity distinctfromtimestampwordrange. Sub<Duration>215 callschecked_sub_duration.unwrap (actualcheckedhelperbodyoutsidecurrentrange), AddAssign/SubAssign computeRHSbeforeassignmentsoonpanicno*ownTimestampwrite, butwholebusinessoperation/SDKtransactionrollbacknotproved. Display247 unwrapsto_rfc3339; formattercapacitycannotbeinferredfromalli64nativeadmission, actualRFCformatterbodyoutsideexactrole. No firstpartycalleridentifiedusingMIN/outofrangetimeorformattedextremevalue; applicationactualportsmustrespectnativeformat/arithmeticlimitsandpropagaterealcheckedfailureifuntrustedTimestampwordreachesit. Preservevalidnegativeepoch/signeddurations, no blanketpositive-timegate/defaultzero."
+  },
+  "findings": [],
+  "disposition": "Threeexactnativecause/timestampoperationcontractscompared; foreignedgecasesqualified, no newfirstpartyfailureclaim. Applicationtime/causeproducerandconsumerbodiesownsourcecells, nofinalclearance.",
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

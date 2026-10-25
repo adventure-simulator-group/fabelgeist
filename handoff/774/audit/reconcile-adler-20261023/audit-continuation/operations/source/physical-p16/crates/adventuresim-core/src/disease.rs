@@ -1,0 +1,3842 @@
+//! Deterministic, framework-neutral strategic disease simulation.
+//!
+//! An infection is completely described by its identity, associations and two
+//! character-local timestamps. Everything else in this module is derived.
+
+use crate::physiology::{self, BodyRegion, CurvePoint, Humour, Meter, MeterCurve, MeterVector};
+use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
+use fabelgeist_determinism::{Seed, StreamId};
+use serde::{Deserialize, Serialize};
+
+pub const DISEASE_RULESET_VERSION: u16 = 1;
+pub const PHYSIOLOGY_VITALS_THRESHOLD: f32 = 2.0;
+
+mod entropy;
+pub use entropy::{contact_exposure_seed, severity_seed};
+
+mod identity;
+pub use identity::{DiseaseId, ParseDiseaseIdError};
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum DiseaseStage {
+    Incubating,
+    Early,
+    Established,
+    Critical,
+    Convalescent,
+    Resolved,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Ord, PartialOrd, Serialize, Deserialize)]
+pub enum Symptom {
+    Coughing,
+    Sneezing,
+    Feverish,
+    Fatigued,
+    Vomiting,
+    BloodyStool,
+    Rash,
+    Spasms,
+    Lockjaw,
+    Buboes,
+    Trembling,
+    NightParalysis,
+    AirHunger,
+    OralFilaments,
+    Wasting,
+    FocalContracture,
+    EyeBurning,
+}
+
+impl Symptom {
+    pub const fn period_label(self) -> &'static str {
+        match self {
+            Self::Coughing => "coughing",
+            Self::Sneezing => "sneezing",
+            Self::Feverish => "feverish",
+            Self::Fatigued => "fatigued",
+            Self::Vomiting => "vomiting",
+            Self::BloodyStool => "bloody flux",
+            Self::Rash => "visible rash",
+            Self::Spasms => "muscle spasms",
+            Self::Lockjaw => "locked jaw",
+            Self::Buboes => "swellings",
+            Self::Trembling => "trembling",
+            Self::NightParalysis => "waking unable to move",
+            Self::AirHunger => "struggling for breath",
+            Self::OralFilaments => "dark threads at the gums",
+            Self::Wasting => "wasting",
+            Self::FocalContracture => "one-sided contracture",
+            Self::EyeBurning => "burning eyes",
+        }
+    }
+
+    /// Every externally visible finding is forced through the same historical,
+    /// deliberately lossy humour vocabulary as the private meter state.
+    pub const fn humour(self) -> Humour {
+        match self {
+            Self::Coughing | Self::Sneezing | Self::AirHunger => Humour::Phlegmatic,
+            Self::Feverish | Self::Vomiting | Self::BloodyStool => Humour::Choleric,
+            Self::Rash | Self::Buboes | Self::OralFilaments | Self::EyeBurning => Humour::Sanguine,
+            Self::Fatigued
+            | Self::Spasms
+            | Self::Lockjaw
+            | Self::Trembling
+            | Self::NightParalysis
+            | Self::Wasting
+            | Self::FocalContracture => Humour::Melancholic,
+        }
+    }
+
+    pub const fn observation_regions(self) -> &'static [BodyRegion] {
+        use BodyRegion::{Abdomen, Chest, Head, LeftArm, LeftLeg, RightArm, RightLeg};
+        match self {
+            Self::Coughing => &[Chest],
+            Self::Sneezing => &[Head, Chest],
+            Self::Feverish | Self::Fatigued => {
+                &[Head, Chest, Abdomen, LeftArm, RightArm, LeftLeg, RightLeg]
+            }
+            Self::Vomiting | Self::BloodyStool => &[Abdomen],
+            Self::Rash => &[Head, Chest, Abdomen, LeftArm, RightArm, LeftLeg, RightLeg],
+            Self::Spasms | Self::Trembling => &[LeftArm, RightArm, LeftLeg, RightLeg],
+            Self::Lockjaw => &[Head],
+            Self::Buboes => &[Chest, Abdomen, LeftArm, RightArm, LeftLeg, RightLeg],
+            Self::NightParalysis | Self::AirHunger => &[Head, Chest],
+            Self::OralFilaments => &[Head],
+            Self::Wasting => &[Chest, Abdomen, LeftArm, RightArm, LeftLeg, RightLeg],
+            Self::FocalContracture => &[LeftArm, RightArm, LeftLeg, RightLeg],
+            Self::EyeBurning => &[Head],
+        }
+    }
+
+    pub const fn humour_deviation(self) -> f32 {
+        match self {
+            Self::Coughing
+            | Self::BloodyStool
+            | Self::Spasms
+            | Self::Lockjaw
+            | Self::Buboes
+            | Self::NightParalysis
+            | Self::OralFilaments
+            | Self::FocalContracture => 0.055,
+            _ => 0.035,
+        }
+    }
+}
+
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct AttributeImpairment {
+    pub endurance: f32,
+    pub immunity: f32,
+    pub gut: f32,
+    pub intelligence: f32,
+    pub instinct: f32,
+    pub limb_agility: f32,
+}
+
+#[derive(Clone, Copy, Debug, Default, PartialEq)]
+pub struct VitalImpairment {
+    pub sanguine: f32,
+    pub phlegmatic: f32,
+    pub choleric: f32,
+    pub melancholic: f32,
+}
+
+impl VitalImpairment {
+    pub fn terminal_failure(self) -> Option<TerminalFailure> {
+        [
+            (self.phlegmatic, TerminalFailure::Respiratory),
+            (self.sanguine, TerminalFailure::Circulatory),
+            (self.choleric, TerminalFailure::Homeostatic),
+            (self.melancholic, TerminalFailure::Neurologic),
+        ]
+        .into_iter()
+        .filter(|(v, _)| *v >= 1.0)
+        .max_by(|a, b| a.0.total_cmp(&b.0))
+        .map(|(_, cause)| cause)
+    }
+    fn scaled(self, n: f32) -> Self {
+        Self {
+            sanguine: self.sanguine * n,
+            phlegmatic: self.phlegmatic * n,
+            choleric: self.choleric * n,
+            melancholic: self.melancholic * n,
+        }
+    }
+    fn add(&mut self, rhs: Self) {
+        self.sanguine += rhs.sanguine;
+        self.phlegmatic += rhs.phlegmatic;
+        self.choleric += rhs.choleric;
+        self.melancholic += rhs.melancholic;
+    }
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+pub enum TerminalFailure {
+    Respiratory,
+    Circulatory,
+    Homeostatic,
+    Neurologic,
+}
+
+#[derive(Clone, Copy, Debug)]
+pub struct DiseaseDefinition {
+    pub id: DiseaseId,
+    pub period_name: &'static str,
+    pub contagion: &'static str,
+    pub incubation_minutes: u64,
+    pub rise_minutes: u64,
+    pub peak_minutes: u64,
+    pub recovery_minutes: u64,
+    pub base_acquisition: f32,
+    pub peak_vitals: VitalImpairment,
+    pub peak_attributes: AttributeImpairment,
+    pub symptoms: &'static [Symptom],
+    pub acquired_immunity: f32,
+    pub transmission_vectors: &'static [TransmissionVector],
+    /// Route represented by abstract settlement/outbreak intensity. Direct
+    /// exposures such as food, wounds, and blood always supply their route.
+    pub primary_community_vector: TransmissionVector,
+}
+
+/// Public diagnostic affordances authored for a disease. These values describe
+/// how readily a *visible sequence* can be distinguished; they are never a
+/// shortcut from an infection episode to its identity.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct DiagnosticPattern {
+    pub minimum_observation_minutes: u64,
+    pub longitudinal_weight: f32,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum ClassicalElement {
+    Air,
+    Water,
+    Fire,
+    Earth,
+}
+
+impl ClassicalElement {
+    pub const fn as_str(self) -> &'static str {
+        match self {
+            Self::Air => "air",
+            Self::Water => "water",
+            Self::Fire => "fire",
+            Self::Earth => "earth",
+        }
+    }
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum ElementalKind {
+    Sylph,
+    Nymph,
+    Salamander,
+    Pygmy,
+}
+
+impl ElementalKind {
+    pub const fn as_str(self) -> &'static str {
+        match self {
+            Self::Sylph => "sylph",
+            Self::Nymph => "nymph",
+            Self::Salamander => "salamander",
+            Self::Pygmy => "pygmy",
+        }
+    }
+}
+
+/// Learned Paracelsian classification of each fantastic disease's physical
+/// source. The associated Humour is an observer-facing correspondence created
+/// by the source biology, not a causal substance in the patient.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct ElementalAssociation {
+    pub kind: ElementalKind,
+    pub element: ClassicalElement,
+    pub projected_humour: Humour,
+}
+
+pub fn elemental_association(id: DiseaseId) -> Option<ElementalAssociation> {
+    Some(match id {
+        DiseaseId::Mahrdruck => ElementalAssociation {
+            kind: ElementalKind::Sylph,
+            element: ClassicalElement::Air,
+            projected_humour: Humour::Sanguine,
+        },
+        DiseaseId::ShroudFever => ElementalAssociation {
+            kind: ElementalKind::Nymph,
+            element: ClassicalElement::Water,
+            projected_humour: Humour::Phlegmatic,
+        },
+        DiseaseId::Bilwisschuss => ElementalAssociation {
+            kind: ElementalKind::Salamander,
+            element: ClassicalElement::Fire,
+            projected_humour: Humour::Choleric,
+        },
+        DiseaseId::Kobeldunst => ElementalAssociation {
+            kind: ElementalKind::Pygmy,
+            element: ClassicalElement::Earth,
+            projected_humour: Humour::Melancholic,
+        },
+        _ => return None,
+    })
+}
+
+/// Open, weighted evidence vocabulary for future investigation and outbreak
+/// generators. IDs deliberately name physical traces rather than diagnoses.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct DiseaseEvidenceHook {
+    pub evidence_id: &'static str,
+    pub support_bps: u16,
+    pub required_site: Option<&'static str>,
+}
+
+pub fn diagnostic_pattern(id: DiseaseId) -> DiagnosticPattern {
+    match id {
+        DiseaseId::Mahrdruck => DiagnosticPattern {
+            minimum_observation_minutes: 2 * MINUTES_PER_DAY,
+            longitudinal_weight: 0.42,
+        },
+        DiseaseId::ShroudFever => DiagnosticPattern {
+            minimum_observation_minutes: 8 * MINUTES_PER_DAY,
+            longitudinal_weight: 0.38,
+        },
+        DiseaseId::Bilwisschuss => DiagnosticPattern {
+            minimum_observation_minutes: 2 * MINUTES_PER_DAY,
+            longitudinal_weight: 0.44,
+        },
+        DiseaseId::Kobeldunst => DiagnosticPattern {
+            minimum_observation_minutes: MINUTES_PER_DAY,
+            longitudinal_weight: 0.40,
+        },
+        _ => DiagnosticPattern {
+            minimum_observation_minutes: 8 * MINUTES_PER_DAY,
+            longitudinal_weight: 0.0,
+        },
+    }
+}
+
+pub fn evidence_hooks(id: DiseaseId) -> &'static [DiseaseEvidenceHook] {
+    match id {
+        DiseaseId::Mahrdruck => &[DiseaseEvidenceHook {
+            evidence_id: "night_sylph_castings",
+            support_bps: 9_200,
+            required_site: Some("occupied_house"),
+        }],
+        DiseaseId::ShroudFever => &[DiseaseEvidenceHook {
+            evidence_id: "nymph_grave_mould",
+            support_bps: 9_500,
+            required_site: Some("graveyard"),
+        }],
+        DiseaseId::Bilwisschuss => &[DiseaseEvidenceHook {
+            evidence_id: "salamander_rye_galls",
+            support_bps: 9_300,
+            required_site: Some("abandoned_farm"),
+        }],
+        DiseaseId::Kobeldunst => &[DiseaseEvidenceHook {
+            evidence_id: "pygmy_ore_biofilm",
+            support_bps: 9_500,
+            required_site: Some("cave"),
+        }],
+        _ => &[],
+    }
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, Serialize, Deserialize)]
+pub enum TransmissionVector {
+    CloseContact,
+    FoodWater,
+    Vermin,
+    Environmental,
+    Wound,
+    Blood,
+}
+
+impl TransmissionVector {
+    /// Stable compact code retained by the persisted outbreak boundary.
+    pub const fn stable_id(self) -> &'static str {
+        match self {
+            Self::CloseContact => "closecontact",
+            Self::FoodWater => "foodwater",
+            Self::Vermin => "vermin",
+            Self::Environmental => "environmental",
+            Self::Wound => "wound",
+            Self::Blood => "blood",
+        }
+    }
+
+    pub const fn stable_variant_id(self) -> &'static str {
+        match self {
+            Self::CloseContact => "CloseContact",
+            Self::FoodWater => "FoodWater",
+            Self::Vermin => "Vermin",
+            Self::Environmental => "Environmental",
+            Self::Wound => "Wound",
+            Self::Blood => "Blood",
+        }
+    }
+}
+
+impl DiseaseDefinition {
+    pub fn supports(&self, vector: TransmissionVector) -> bool {
+        self.transmission_vectors.contains(&vector)
+    }
+}
+
+/// Maximum fraction of route exposure that perfect Physiology practice can
+/// prevent. Every route retains residual risk. Wounds remain Surgery's domain;
+/// blood protection is deliberately modest because cleaning and wound closure
+/// are the stronger modeled controls.
+pub fn maximum_preventable_fraction(vector: TransmissionVector) -> f32 {
+    match vector {
+        TransmissionVector::CloseContact => 0.90,
+        TransmissionVector::FoodWater => 0.94,
+        TransmissionVector::Vermin => 0.65,
+        TransmissionVector::Environmental => 0.80,
+        TransmissionVector::Wound => 0.0,
+        TransmissionVector::Blood => 0.30,
+    }
+}
+
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct ExposureComponents {
+    pub unavoidable: f32,
+    pub preventable: f32,
+}
+
+/// Split a route's total dose into unavoidable/environmental exposure and the
+/// party-behavior share that Physiology can mitigate. `affordance` represents
+/// how much of the route's ordinary preventive behavior is physically
+/// possible with the current space, sanitation, and supplies.
+pub fn exposure_components(
+    exposure: f32,
+    vector: TransmissionVector,
+    affordance: f32,
+) -> ExposureComponents {
+    let exposure = exposure.max(0.0);
+    let preventable = exposure * maximum_preventable_fraction(vector) * affordance.clamp(0.0, 1.0);
+    ExposureComponents {
+        unavoidable: exposure - preventable,
+        preventable,
+    }
+}
+
+pub fn residual_exposure_with_affordance(
+    exposure: f32,
+    vector: TransmissionVector,
+    physiology_check: f32,
+    affordance: f32,
+) -> f32 {
+    let components = exposure_components(exposure, vector, affordance);
+    let competence = (physiology_check.clamp(0.0, 5.0) / 5.0).powf(1.25);
+    components.unavoidable + components.preventable * (1.0 - competence)
+}
+
+pub const BLOOD_BASIC_HANDLING_AFFORDANCE: f32 = 0.25;
+pub const BLOOD_CLEAN_HANDLING_BONUS: f32 = 0.45;
+pub const BLOOD_CLOSED_WOUND_BONUS: f32 = 0.30;
+
+/// Circumstance cap for blood/caregiving prevention. Basic avoidance remains
+/// possible without supplies, but clean handling and a protected wound must
+/// come from real sanitation and wound-care state.
+pub fn blood_caregiving_affordance(clean_handling: bool, cut_route: f32) -> f32 {
+    (BLOOD_BASIC_HANDLING_AFFORDANCE
+        + if clean_handling {
+            BLOOD_CLEAN_HANDLING_BONUS
+        } else {
+            0.0
+        }
+        + BLOOD_CLOSED_WOUND_BONUS * (1.0 - cut_route.clamp(0.0, 1.0)))
+    .clamp(0.0, 1.0)
+}
+
+pub fn residual_exposure(exposure: f32, vector: TransmissionVector, physiology_check: f32) -> f32 {
+    residual_exposure_with_affordance(exposure, vector, physiology_check, 1.0)
+}
+
+/// Aggregate distinct practitioners whose pinned capability covers `minute`.
+/// Duplicate spans for one practitioner use the strongest matching pinned
+/// value, which makes adjacent join/rejoin and band-boundary records harmless.
+pub fn historical_physiology_check_at(
+    spans: impl IntoIterator<Item = (u64, StrategicMinute, StrategicMinute, f32)>,
+    minute: StrategicMinute,
+) -> f32 {
+    let mut contributors = std::collections::BTreeMap::<u64, f32>::new();
+    for (contributor_id, start, end, check) in spans {
+        if minute < start || minute > end {
+            continue;
+        }
+        contributors
+            .entry(contributor_id)
+            .and_modify(|value| *value = (*value).max(check))
+            .or_insert(check);
+    }
+    crate::capability::aggregate_bounded_party_check(contributors.into_values())
+}
+
+pub fn elapsed_presence_window(
+    span_start: StrategicMinute,
+    span_end: Option<StrategicMinute>,
+    joint_now: StrategicMinute,
+    from: StrategicMinute,
+    to: StrategicMinute,
+) -> Option<(StrategicMinute, StrategicMinute)> {
+    let start = span_start.max(from.saturating_add_minutes(1));
+    let end = span_end.unwrap_or(joint_now).min(joint_now).min(to);
+    (start <= end).then_some((start, end))
+}
+
+/// End of a recorded presence span for an interval plan. Explicitly
+/// co-advancing participants may project to their shared horizon. A solo
+/// participant may consume already-recorded overlap only through the peer's
+/// current clock.
+pub fn projected_presence_end(
+    ended_at: Option<StrategicMinute>,
+    low_horizon: Option<StrategicMinute>,
+    high_horizon: Option<StrategicMinute>,
+    low_clock: StrategicMinute,
+    high_clock: StrategicMinute,
+) -> Option<StrategicMinute> {
+    ended_at.or_else(|| match (low_horizon, high_horizon) {
+        (Some(low), Some(high)) => Some(low.min(high)),
+        (Some(low), None) => Some(low.min(high_clock)),
+        (None, Some(high)) => Some(high.min(low_clock)),
+        (None, None) => None,
+    })
+}
+
+/// Disease-agnostic infectiousness for close company. Contact risk begins
+/// during incubation, peaks through the acute phases, and declines during
+/// recovery. It does not depend on whether symptoms are publicly visible.
+pub fn close_contact_infectiousness(episode: InfectionEpisode, at: StrategicMinute) -> f32 {
+    if at < episode.contracted_at {
+        return 0.0;
+    }
+    let definition = definition(episode.disease_id);
+    if !definition.supports(TransmissionVector::CloseContact) {
+        return 0.0;
+    }
+    let age = at.elapsed_since(episode.contracted_at) as f32;
+    let incubation = definition.incubation_minutes.max(1) as f32;
+    if age < incubation {
+        return 0.15 + 0.45 * age / incubation;
+    }
+    let acute_end =
+        (definition.incubation_minutes + definition.rise_minutes + definition.peak_minutes) as f32;
+    if age < acute_end {
+        return 1.0;
+    }
+    let resolved = acute_end + definition.recovery_minutes.max(1) as f32;
+    if age < resolved {
+        return ((resolved - age) / definition.recovery_minutes.max(1) as f32).clamp(0.0, 1.0);
+    }
+    0.0
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct ContactWindow {
+    pub low_id: u64,
+    pub high_id: u64,
+    pub start: StrategicMinute,
+    pub end: StrategicMinute,
+}
+
+#[derive(Clone, Debug, Default, PartialEq)]
+pub struct AcquisitionTimeline {
+    pub proposals: std::collections::BTreeMap<u64, Vec<InfectionEpisode>>,
+    pub work_units: u64,
+}
+
+/// A route-specific exposure that must be evaluated against the target's
+/// episode history at its absolute minute. `exposure == None` is reserved for
+/// acquisitions that were authoritatively decided outside this timeline.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct AcquisitionAttempt {
+    pub episode: InfectionEpisode,
+    pub base_acquisition: f32,
+    pub exposure: Option<f32>,
+}
+
+#[derive(Clone, Debug, PartialEq)]
+pub struct EnvironmentalExposureSource {
+    pub character_id: u64,
+    pub disease_id: DiseaseId,
+    pub exposure_id: String,
+    pub start: StrategicMinute,
+    pub end: StrategicMinute,
+    pub intensity: f32,
+    pub base_acquisition: f32,
+    pub vector: TransmissionVector,
+}
+
+impl AcquisitionAttempt {
+    pub fn guaranteed(episode: InfectionEpisode) -> Self {
+        Self {
+            episode,
+            base_acquisition: 0.0,
+            exposure: None,
+        }
+    }
+
+    pub fn exposure(episode: InfectionEpisode, base_acquisition: f32, exposure: f32) -> Self {
+        Self {
+            episode,
+            base_acquisition,
+            exposure: Some(exposure),
+        }
+    }
+}
+
+pub fn insert_unique_bounded<K: Ord, V>(
+    values: &mut std::collections::BTreeMap<K, V>,
+    key: K,
+    value: V,
+    limit: usize,
+) -> Result<bool, &'static str> {
+    use std::collections::btree_map::Entry;
+    if values.len() >= limit && !values.contains_key(&key) {
+        return Err("Disease interval has too many raw presence spans");
+    }
+    Ok(match values.entry(key) {
+        Entry::Vacant(entry) => {
+            entry.insert(value);
+            true
+        }
+        Entry::Occupied(_) => false,
+    })
+}
+
+pub fn add_bounded_work(work: &mut u64, amount: u64, max: u64) -> Result<(), &'static str> {
+    *work = work.saturating_add(amount);
+    (*work <= max)
+        .then_some(())
+        .ok_or("Disease interval exceeds bounded exposure work")
+}
+
+/// Resolve route exposure attempts and contact transmission in one absolute-
+/// minute timeline. Acquisitions at a minute are simultaneous and become
+/// eligible contact sources only on the following minute.
+#[expect(
+    clippy::too_many_arguments,
+    reason = "the acquisition timeline receives independent authority inputs"
+)]
+pub fn resolve_acquisition_timeline(
+    target_ids: &std::collections::BTreeSet<u64>,
+    initial: &std::collections::BTreeMap<u64, Vec<InfectionEpisode>>,
+    scheduled: impl IntoIterator<Item = AcquisitionAttempt>,
+    environmental: &[EnvironmentalExposureSource],
+    windows: &[ContactWindow],
+    immunity: &std::collections::BTreeMap<u64, f32>,
+    from: StrategicMinute,
+    to: StrategicMinute,
+    initial_work: u64,
+    max_work: u64,
+    physiology_check_at: impl Fn(u64, StrategicMinute) -> f32,
+) -> Result<AcquisitionTimeline, &'static str> {
+    if to <= from || initial_work > max_work {
+        return (initial_work <= max_work)
+            .then_some(AcquisitionTimeline {
+                work_units: initial_work,
+                ..Default::default()
+            })
+            .ok_or("Disease interval exceeds bounded exposure work");
+    }
+    let mut scheduled_by_minute =
+        std::collections::BTreeMap::<StrategicMinute, Vec<AcquisitionAttempt>>::new();
+    let mut work_units = initial_work;
+    for attempt in scheduled {
+        let episode = attempt.episode;
+        if target_ids.contains(&episode.character_id)
+            && episode.contracted_at > from
+            && episode.contracted_at <= to
+        {
+            work_units = work_units.saturating_add(1);
+            if work_units > max_work {
+                return Err("Disease interval exceeds bounded exposure work");
+            }
+            scheduled_by_minute
+                .entry(episode.contracted_at)
+                .or_default()
+                .push(attempt);
+        }
+    }
+    let mut state = initial.clone();
+    let mut result = AcquisitionTimeline {
+        work_units,
+        ..Default::default()
+    };
+    let first_scheduled = scheduled_by_minute.keys().next().copied();
+    let first_environmental = environmental
+        .iter()
+        .filter_map(|source| {
+            let start = source.start.max(from.saturating_add_minutes(1));
+            (target_ids.contains(&source.character_id) && start <= source.end && start <= to)
+                .then_some(start)
+        })
+        .min();
+    let first_contact = windows
+        .iter()
+        .filter_map(|window| {
+            let start = window.start.max(from.saturating_add_minutes(1));
+            (start <= window.end && start <= to).then_some(start)
+        })
+        .min();
+    let Some(mut minute) = first_scheduled
+        .into_iter()
+        .chain(first_environmental)
+        .chain(first_contact)
+        .min()
+    else {
+        return Ok(result);
+    };
+    while minute <= to {
+        let at = minute;
+        let mut candidates = scheduled_by_minute
+            .remove(&minute)
+            .unwrap_or_default()
+            .into_iter()
+            .filter_map(|attempt| {
+                let candidate = attempt.episode;
+                let target_immunity = immunity
+                    .get(&candidate.character_id)
+                    .copied()
+                    .unwrap_or(3.0);
+                let target_episodes = state
+                    .get(&candidate.character_id)
+                    .map_or(&[][..], Vec::as_slice);
+                if has_unresolved_disease(
+                    target_episodes,
+                    candidate.disease_id,
+                    at,
+                    target_immunity,
+                ) {
+                    return None;
+                }
+                let Some(exposure) = attempt.exposure else {
+                    return Some(candidate);
+                };
+                let prior =
+                    acquired_immunity(target_episodes, candidate.disease_id, at, target_immunity);
+                let mut attempt_definition = *definition(candidate.disease_id);
+                attempt_definition.base_acquisition = attempt.base_acquisition;
+                acquisition_succeeds(
+                    Seed::from_u64(candidate.id),
+                    &attempt_definition,
+                    target_immunity,
+                    prior,
+                    exposure,
+                )
+                .then_some(candidate)
+            })
+            .collect::<Vec<_>>();
+        for source in environmental {
+            if !target_ids.contains(&source.character_id)
+                || minute < source.start
+                || minute > source.end
+                || minute > to
+            {
+                continue;
+            }
+            result.work_units = result.work_units.saturating_add(1);
+            if result.work_units > max_work {
+                return Err("Disease interval exceeds bounded exposure work");
+            }
+            let target_immunity = immunity.get(&source.character_id).copied().unwrap_or(3.0);
+            let target_episodes = state
+                .get(&source.character_id)
+                .map_or(&[][..], Vec::as_slice);
+            if has_unresolved_disease(target_episodes, source.disease_id, at, target_immunity) {
+                continue;
+            }
+            let id = outbreak_exposure_seed(
+                source.character_id,
+                &format!("{}:{minute}", source.exposure_id),
+            );
+            let prior = acquired_immunity(target_episodes, source.disease_id, at, target_immunity);
+            let mut source_definition = *definition(source.disease_id);
+            source_definition.base_acquisition = source.base_acquisition / MINUTES_PER_DAY as f32;
+            let exposure = residual_exposure(
+                source.intensity,
+                source.vector,
+                physiology_check_at(source.character_id, at),
+            );
+            if acquisition_succeeds(id, &source_definition, target_immunity, prior, exposure) {
+                candidates.push(InfectionEpisode {
+                    id: id.to_u64(),
+                    character_id: source.character_id,
+                    disease_id: source.disease_id,
+                    contracted_at: minute,
+                    ruleset_version: physiology::PHYSIOLOGY_RULESET_VERSION,
+                    phenotype_key_version: physiology::PHENOTYPE_KEY_VERSION,
+                });
+            }
+        }
+        for window in windows {
+            result.work_units = result.work_units.saturating_add(1);
+            if result.work_units > max_work {
+                return Err("Disease interval exceeds bounded exposure work");
+            }
+            if minute < window.start || minute > window.end {
+                continue;
+            }
+            for (source_id, target_id) in [
+                (window.low_id, window.high_id),
+                (window.high_id, window.low_id),
+            ] {
+                if !target_ids.contains(&target_id) {
+                    continue;
+                }
+                let target_immunity = immunity.get(&target_id).copied().unwrap_or(3.0);
+                let target_episodes = state.get(&target_id).map_or(&[][..], Vec::as_slice);
+                for source_episode in state.get(&source_id).into_iter().flatten() {
+                    result.work_units = result.work_units.saturating_add(1);
+                    if result.work_units > max_work {
+                        return Err("Disease interval exceeds bounded exposure work");
+                    }
+                    if source_episode.contracted_at >= minute
+                        || !definition(source_episode.disease_id)
+                            .supports(TransmissionVector::CloseContact)
+                        || has_unresolved_disease(
+                            target_episodes,
+                            source_episode.disease_id,
+                            at,
+                            target_immunity,
+                        )
+                    {
+                        continue;
+                    }
+                    let exposure = residual_exposure(
+                        close_contact_infectiousness(*source_episode, at) / MINUTES_PER_DAY as f32,
+                        TransmissionVector::CloseContact,
+                        physiology_check_at(target_id, at),
+                    );
+                    let prior = acquired_immunity(
+                        target_episodes,
+                        source_episode.disease_id,
+                        at,
+                        target_immunity,
+                    );
+                    let seed = contact_exposure_seed(target_id, source_id, source_episode.id, at);
+                    if acquisition_succeeds(
+                        seed,
+                        definition(source_episode.disease_id),
+                        target_immunity,
+                        prior,
+                        exposure,
+                    ) {
+                        candidates.push(InfectionEpisode {
+                            id: seed.to_u64(),
+                            character_id: target_id,
+                            disease_id: source_episode.disease_id,
+                            contracted_at: minute,
+                            ruleset_version: source_episode.ruleset_version,
+                            phenotype_key_version: source_episode.phenotype_key_version,
+                        });
+                    }
+                }
+            }
+        }
+        candidates.sort_by_key(|episode| {
+            (
+                episode.character_id,
+                episode.disease_id as u8,
+                episode.contracted_at,
+                episode.id,
+            )
+        });
+        for candidate in candidates {
+            let current = state.entry(candidate.character_id).or_default();
+            let target_immunity = immunity
+                .get(&candidate.character_id)
+                .copied()
+                .unwrap_or(3.0);
+            if has_unresolved_disease(current, candidate.disease_id, at, target_immunity) {
+                continue;
+            }
+            current.push(candidate);
+            current.sort_by_key(|episode| (episode.contracted_at, episode.id));
+            result
+                .proposals
+                .entry(candidate.character_id)
+                .or_default()
+                .push(candidate);
+        }
+        let next_scheduled = scheduled_by_minute
+            .range((
+                std::ops::Bound::Excluded(minute),
+                std::ops::Bound::Unbounded,
+            ))
+            .next()
+            .map(|(next, _)| *next);
+        let next_environmental = environmental
+            .iter()
+            .filter_map(|source| {
+                if !target_ids.contains(&source.character_id) {
+                    return None;
+                }
+                let mut next = minute.checked_add_minutes(1)?.max(source.start);
+                if next > source.end || next > to {
+                    return None;
+                }
+                let level = immunity.get(&source.character_id).copied().unwrap_or(3.0);
+                if let Some(resolution) = state
+                    .get(&source.character_id)
+                    .into_iter()
+                    .flatten()
+                    .filter(|episode| {
+                        episode.disease_id == source.disease_id
+                            && episode.contracted_at <= next
+                            && evaluate(**episode, next, level).stage != DiseaseStage::Resolved
+                    })
+                    .map(|episode| {
+                        let definition = definition(episode.disease_id);
+                        episode.contracted_at.saturating_add_minutes(
+                            definition.incubation_minutes
+                                + definition.rise_minutes
+                                + definition.peak_minutes
+                                + definition.recovery_minutes,
+                        )
+                    })
+                    .max()
+                {
+                    next = next.max(resolution);
+                }
+                (next <= source.end && next <= to).then_some(next)
+            })
+            .min();
+        let next_contact = windows
+            .iter()
+            .filter_map(|window| {
+                let next = minute.checked_add_minutes(1)?.max(window.start);
+                (next <= window.end && next <= to).then_some(next)
+            })
+            .min();
+        let Some(next) = next_scheduled
+            .into_iter()
+            .chain(next_environmental)
+            .chain(next_contact)
+            .min()
+        else {
+            break;
+        };
+        if next <= minute {
+            break;
+        }
+        minute = next;
+    }
+    Ok(result)
+}
+
+const DAY: u64 = MINUTES_PER_DAY;
+const RESP: VitalImpairment = VitalImpairment {
+    sanguine: 0.0,
+    phlegmatic: 0.55,
+    choleric: 0.0,
+    melancholic: 0.0,
+};
+const GUT: VitalImpairment = VitalImpairment {
+    sanguine: 0.10,
+    phlegmatic: 0.0,
+    choleric: 0.70,
+    melancholic: 0.0,
+};
+const SEPTIC: VitalImpairment = VitalImpairment {
+    sanguine: 0.45,
+    phlegmatic: 0.0,
+    choleric: 0.25,
+    melancholic: 0.10,
+};
+const COUGH: &[Symptom] = &[
+    Symptom::Coughing,
+    Symptom::Sneezing,
+    Symptom::Feverish,
+    Symptom::Fatigued,
+];
+const FLUX: &[Symptom] = &[
+    Symptom::BloodyStool,
+    Symptom::Vomiting,
+    Symptom::Feverish,
+    Symptom::Fatigued,
+];
+const SPOTTED: &[Symptom] = &[Symptom::Feverish, Symptom::Rash, Symptom::Trembling];
+const LOCKJAW: &[Symptom] = &[Symptom::Lockjaw, Symptom::Spasms, Symptom::Feverish];
+const RASH: &[Symptom] = &[Symptom::Rash, Symptom::Feverish];
+const POX: &[Symptom] = &[Symptom::Rash, Symptom::Feverish, Symptom::Fatigued];
+const BUBOES: &[Symptom] = &[Symptom::Buboes, Symptom::Feverish, Symptom::Trembling];
+const CONSUMPTION: &[Symptom] = &[Symptom::Coughing, Symptom::Fatigued, Symptom::Feverish];
+const MAHRDRUCK: &[Symptom] = &[
+    Symptom::NightParalysis,
+    Symptom::AirHunger,
+    Symptom::Fatigued,
+];
+const SHROUD_FEVER: &[Symptom] = &[
+    Symptom::AirHunger,
+    Symptom::Coughing,
+    Symptom::OralFilaments,
+    Symptom::Feverish,
+];
+const BILWIS: &[Symptom] = &[
+    Symptom::FocalContracture,
+    Symptom::Feverish,
+    Symptom::EyeBurning,
+];
+const MINE_VAPOUR: &[Symptom] = &[Symptom::EyeBurning, Symptom::Trembling, Symptom::Fatigued];
+
+pub const STARTER_DISEASES: [DiseaseDefinition; 12] = [
+    d(
+        DiseaseId::Influenza,
+        "Catarrhal fever",
+        "Spreads readily among close company.",
+        DAY,
+        2 * DAY,
+        2 * DAY,
+        4 * DAY,
+        0.65,
+        RESP,
+        AttributeImpairment {
+            endurance: 0.55,
+            ..Z
+        },
+        COUGH,
+        0.30,
+        &[TransmissionVector::CloseContact],
+        TransmissionVector::CloseContact,
+    ),
+    d(
+        DiseaseId::Dysentery,
+        "Bloody flux",
+        "Often follows foul water or provisions.",
+        DAY,
+        DAY,
+        3 * DAY,
+        5 * DAY,
+        0.55,
+        GUT,
+        AttributeImpairment {
+            gut: 0.75,
+            endurance: 0.25,
+            ..Z
+        },
+        FLUX,
+        0.15,
+        &[TransmissionVector::FoodWater],
+        TransmissionVector::FoodWater,
+    ),
+    d(
+        DiseaseId::Typhus,
+        "Spotted fever",
+        "Spreads where people and vermin crowd together.",
+        6 * DAY,
+        3 * DAY,
+        5 * DAY,
+        7 * DAY,
+        0.35,
+        SEPTIC,
+        AttributeImpairment {
+            endurance: 0.55,
+            intelligence: 0.25,
+            ..Z
+        },
+        SPOTTED,
+        0.55,
+        &[TransmissionVector::CloseContact, TransmissionVector::Vermin],
+        TransmissionVector::Vermin,
+    ),
+    d(
+        DiseaseId::Tetanus,
+        "Lockjaw",
+        "May follow a befouled open wound.",
+        4 * DAY,
+        4 * DAY,
+        7 * DAY,
+        10 * DAY,
+        0.12,
+        VitalImpairment {
+            phlegmatic: 0.75,
+            melancholic: 0.2,
+            ..VZ
+        },
+        AttributeImpairment {
+            limb_agility: 0.8,
+            instinct: 0.3,
+            ..Z
+        },
+        LOCKJAW,
+        0.05,
+        &[TransmissionVector::Wound],
+        TransmissionVector::Wound,
+    ),
+    d(
+        DiseaseId::Erysipelas,
+        "Erysipelas",
+        "May follow an inflamed open wound.",
+        2 * DAY,
+        2 * DAY,
+        3 * DAY,
+        6 * DAY,
+        0.25,
+        SEPTIC,
+        AttributeImpairment {
+            endurance: 0.4,
+            ..Z
+        },
+        RASH,
+        0.15,
+        &[TransmissionVector::Wound],
+        TransmissionVector::Wound,
+    ),
+    d(
+        DiseaseId::Smallpox,
+        "Smallpox",
+        "Spreads readily through close company and belongings.",
+        8 * DAY,
+        3 * DAY,
+        7 * DAY,
+        12 * DAY,
+        0.45,
+        VitalImpairment {
+            sanguine: 0.25,
+            phlegmatic: 0.2,
+            choleric: 0.2,
+            melancholic: 0.1,
+        },
+        AttributeImpairment {
+            endurance: 0.65,
+            ..Z
+        },
+        POX,
+        0.90,
+        &[TransmissionVector::CloseContact],
+        TransmissionVector::CloseContact,
+    ),
+    d(
+        DiseaseId::Plague,
+        "Plague",
+        "Spreads amid afflicted settlements, people, and vermin.",
+        3 * DAY,
+        2 * DAY,
+        5 * DAY,
+        8 * DAY,
+        0.30,
+        VitalImpairment {
+            sanguine: 0.75,
+            choleric: 0.25,
+            ..VZ
+        },
+        AttributeImpairment {
+            endurance: 0.8,
+            instinct: 0.3,
+            ..Z
+        },
+        BUBOES,
+        0.50,
+        &[
+            TransmissionVector::CloseContact,
+            TransmissionVector::Vermin,
+            TransmissionVector::Blood,
+        ],
+        TransmissionVector::Vermin,
+    ),
+    d(
+        DiseaseId::Consumption,
+        "Consumption",
+        "Long company with the afflicted is suspected.",
+        20 * DAY,
+        40 * DAY,
+        80 * DAY,
+        120 * DAY,
+        0.18,
+        VitalImpairment {
+            phlegmatic: 0.65,
+            choleric: 0.15,
+            ..VZ
+        },
+        AttributeImpairment {
+            endurance: 0.7,
+            ..Z
+        },
+        CONSUMPTION,
+        0.20,
+        &[TransmissionVector::CloseContact],
+        TransmissionVector::CloseContact,
+    ),
+    d(
+        DiseaseId::Mahrdruck,
+        "Mahrdruck",
+        "Clusters where nocturnal sylphs roost in shared straw and leave irritating castings.",
+        2 * DAY,
+        2 * DAY,
+        4 * DAY,
+        5 * DAY,
+        0.28,
+        VitalImpairment {
+            sanguine: 0.65,
+            phlegmatic: 0.10,
+            melancholic: 0.15,
+            ..VZ
+        },
+        AttributeImpairment {
+            endurance: 0.45,
+            instinct: 0.30,
+            ..Z
+        },
+        MAHRDRUCK,
+        0.18,
+        &[TransmissionVector::Vermin],
+        TransmissionVector::Vermin,
+    ),
+    d(
+        DiseaseId::ShroudFever,
+        "Shroud fever",
+        "Follows wet grave mould carried through groundwater by nymphs; it does not pass between patients.",
+        5 * DAY,
+        8 * DAY,
+        12 * DAY,
+        20 * DAY,
+        0.24,
+        VitalImpairment {
+            phlegmatic: 0.68,
+            choleric: 0.12,
+            melancholic: 0.10,
+            ..VZ
+        },
+        AttributeImpairment {
+            endurance: 0.62,
+            immunity: 0.22,
+            ..Z
+        },
+        SHROUD_FEVER,
+        0.25,
+        &[TransmissionVector::Environmental],
+        TransmissionVector::Environmental,
+    ),
+    d(
+        DiseaseId::Bilwisschuss,
+        "Bilwisschuss",
+        "Follows toxin-bearing galls left by heat-loving field salamanders; it does not pass between patients.",
+        8 * 60,
+        DAY,
+        3 * DAY,
+        6 * DAY,
+        0.32,
+        VitalImpairment {
+            choleric: 0.72,
+            melancholic: 0.12,
+            ..VZ
+        },
+        AttributeImpairment {
+            limb_agility: 0.72,
+            instinct: 0.28,
+            ..Z
+        },
+        BILWIS,
+        0.04,
+        &[TransmissionVector::Environmental],
+        TransmissionVector::Environmental,
+    ),
+    d(
+        DiseaseId::Kobeldunst,
+        "Kobeldunst",
+        "Follows breathing vapour from ore film tended by subterranean pygmies; it is not contagious.",
+        2 * 60,
+        12 * 60,
+        2 * DAY,
+        4 * DAY,
+        0.38,
+        VitalImpairment {
+            phlegmatic: 0.12,
+            choleric: 0.08,
+            melancholic: 0.70,
+            ..VZ
+        },
+        AttributeImpairment {
+            endurance: 0.42,
+            intelligence: 0.28,
+            limb_agility: 0.25,
+            ..Z
+        },
+        MINE_VAPOUR,
+        0.0,
+        &[TransmissionVector::Environmental],
+        TransmissionVector::Environmental,
+    ),
+];
+const Z: AttributeImpairment = AttributeImpairment {
+    endurance: 0.,
+    immunity: 0.,
+    gut: 0.,
+    intelligence: 0.,
+    instinct: 0.,
+    limb_agility: 0.,
+};
+const VZ: VitalImpairment = VitalImpairment {
+    sanguine: 0.,
+    phlegmatic: 0.,
+    choleric: 0.,
+    melancholic: 0.,
+};
+#[expect(
+    clippy::too_many_arguments,
+    reason = "the const catalog constructor exposes every authored disease field"
+)]
+const fn d(
+    id: DiseaseId,
+    period_name: &'static str,
+    contagion: &'static str,
+    incubation_minutes: u64,
+    rise_minutes: u64,
+    peak_minutes: u64,
+    recovery_minutes: u64,
+    base_acquisition: f32,
+    peak_vitals: VitalImpairment,
+    peak_attributes: AttributeImpairment,
+    symptoms: &'static [Symptom],
+    acquired_immunity: f32,
+    transmission_vectors: &'static [TransmissionVector],
+    primary_community_vector: TransmissionVector,
+) -> DiseaseDefinition {
+    DiseaseDefinition {
+        id,
+        period_name,
+        contagion,
+        incubation_minutes,
+        rise_minutes,
+        peak_minutes,
+        recovery_minutes,
+        base_acquisition,
+        peak_vitals,
+        peak_attributes,
+        symptoms,
+        acquired_immunity,
+        transmission_vectors,
+        primary_community_vector,
+    }
+}
+
+pub fn definition(id: DiseaseId) -> &'static DiseaseDefinition {
+    &STARTER_DISEASES[id as usize]
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct InfectionEpisode {
+    pub id: u64,
+    pub character_id: u64,
+    pub disease_id: DiseaseId,
+    pub contracted_at: StrategicMinute,
+    pub ruleset_version: u16,
+    pub phenotype_key_version: u16,
+}
+
+#[derive(Clone, Debug, PartialEq)]
+pub struct DiseaseState {
+    pub stage: DiseaseStage,
+    pub severity: f32,
+    pub progress: f32,
+    pub symptoms: Vec<Symptom>,
+    pub attributes: AttributeImpairment,
+    pub vitals: VitalImpairment,
+    pub terminal_failure: Option<TerminalFailure>,
+}
+
+pub fn outbreak_exposure_seed(character_id: u64, outbreak_id: &str) -> Seed {
+    Seed::derive(
+        &character_id.to_le_bytes(),
+        StreamId::new("disease.outbreak-exposure"),
+        &[outbreak_id.as_bytes()],
+    )
+    .rng()
+    .next_seed()
+}
+
+/// True while an episode of the same disease remains unresolved at the
+/// interval boundary. Outbreak acquisition uses this to make partitioned rest
+/// equivalent to a single interval and avoid duplicate active infections.
+pub fn has_unresolved_disease(
+    episodes: &[InfectionEpisode],
+    disease_id: DiseaseId,
+    at: StrategicMinute,
+    immunity: f32,
+) -> bool {
+    episodes.iter().any(|episode| {
+        episode.disease_id == disease_id
+            && episode.contracted_at <= at
+            && !matches!(
+                evaluate(*episode, at, immunity).stage,
+                DiseaseStage::Resolved
+            )
+    })
+}
+
+/// Terminal interval boundaries are inclusive. Side effects strictly after
+/// `through` must not be committed when elapsed time is clipped by death.
+pub fn infection_occurs_through(episode: InfectionEpisode, through: StrategicMinute) -> bool {
+    episode.contracted_at <= through
+}
+#[expect(
+    clippy::too_many_arguments,
+    reason = "the exposure calculation names each independent epidemiology input"
+)]
+pub fn first_presence_exposure_minute(
+    character_id: u64,
+    outbreak_id: &str,
+    from: StrategicMinute,
+    to: StrategicMinute,
+    intensity: f32,
+    base_acquisition: f32,
+    immunity: f32,
+    prior_immunity: f32,
+) -> Option<StrategicMinute> {
+    from.iter_after_through(to).find(|at| {
+        let key = format!("{outbreak_id}:{at}");
+        acquisition_succeeds(
+            outbreak_exposure_seed(character_id, &key),
+            &DiseaseDefinition {
+                base_acquisition: base_acquisition / MINUTES_PER_DAY as f32,
+                ..*definition(DiseaseId::Influenza)
+            },
+            immunity,
+            prior_immunity,
+            intensity,
+        )
+    })
+}
+
+/// First exposure minute at which the character is eligible to contract this
+/// disease. Eligibility and acquired immunity are evaluated at each candidate
+/// minute so a long interval behaves like equivalent smaller updates when an
+/// earlier episode resolves partway through it.
+#[expect(
+    clippy::too_many_arguments,
+    reason = "the exposure calculation names each independent epidemiology input"
+)]
+pub fn first_eligible_presence_exposure_minute(
+    episodes: &[InfectionEpisode],
+    disease_id: DiseaseId,
+    character_id: u64,
+    outbreak_id: &str,
+    from: StrategicMinute,
+    to: StrategicMinute,
+    intensity: f32,
+    base_acquisition: f32,
+    immunity: f32,
+) -> Option<StrategicMinute> {
+    from.iter_after_through(to).find(|at| {
+        if has_unresolved_disease(episodes, disease_id, *at, immunity) {
+            return false;
+        }
+        let prior_immunity = acquired_immunity(episodes, disease_id, *at, immunity);
+        let key = format!("{outbreak_id}:{at}");
+        acquisition_succeeds(
+            outbreak_exposure_seed(character_id, &key),
+            &DiseaseDefinition {
+                base_acquisition: base_acquisition / MINUTES_PER_DAY as f32,
+                ..*definition(DiseaseId::Influenza)
+            },
+            immunity,
+            prior_immunity,
+            intensity,
+        )
+    })
+}
+
+#[expect(
+    clippy::too_many_arguments,
+    reason = "this domain boundary names each independent input explicitly"
+)]
+pub fn first_eligible_protected_presence_exposure_minute(
+    episodes: &[InfectionEpisode],
+    disease_id: DiseaseId,
+    character_id: u64,
+    exposure_id: &str,
+    from: StrategicMinute,
+    to: StrategicMinute,
+    intensity: f32,
+    base_acquisition: f32,
+    immunity: f32,
+    vector: TransmissionVector,
+    physiology_check_at: impl Fn(StrategicMinute) -> f32,
+) -> Option<StrategicMinute> {
+    if intensity <= 0.0 {
+        return None;
+    }
+    from.iter_after_through(to).find(|at| {
+        if has_unresolved_disease(episodes, disease_id, *at, immunity) {
+            return false;
+        }
+        let prior_immunity = acquired_immunity(episodes, disease_id, *at, immunity);
+        let key = format!("{exposure_id}:{at}");
+        acquisition_succeeds(
+            outbreak_exposure_seed(character_id, &key),
+            &DiseaseDefinition {
+                base_acquisition: base_acquisition / MINUTES_PER_DAY as f32,
+                ..*definition(disease_id)
+            },
+            immunity,
+            prior_immunity,
+            residual_exposure(intensity, vector, physiology_check_at(*at)),
+        )
+    })
+}
+
+#[expect(
+    clippy::too_many_arguments,
+    reason = "this domain boundary names each independent input explicitly"
+)]
+pub fn protected_presence_exposure_source(
+    disease_id: DiseaseId,
+    character_id: u64,
+    exposure_id: &str,
+    from: StrategicMinute,
+    to: StrategicMinute,
+    intensity: f32,
+    base_acquisition: f32,
+    vector: TransmissionVector,
+) -> Option<EnvironmentalExposureSource> {
+    if to <= from || intensity <= 0.0 {
+        return None;
+    }
+    Some(EnvironmentalExposureSource {
+        character_id,
+        disease_id,
+        exposure_id: exposure_id.to_string(),
+        start: from.saturating_add_minutes(1),
+        end: to,
+        intensity,
+        base_acquisition,
+        vector,
+    })
+}
+
+pub fn severity(e: InfectionEpisode, immunity: f32) -> f32 {
+    let unit = severity_seed(e).unit_f64();
+    let innate = (immunity / 5.0).clamp(0.0, 1.0);
+    ((0.72 + unit as f32 * 0.56) * (1.0 - innate * 0.62)).max(if immunity <= 0.0 {
+        1.85
+    } else {
+        0.20
+    })
+}
+pub fn acquisition_succeeds(
+    seed: Seed,
+    definition: &DiseaseDefinition,
+    immunity: f32,
+    prior_immunity: f32,
+    exposure: f32,
+) -> bool {
+    let resistance = (immunity / 5.0).clamp(0.0, 1.0) * 0.72 + prior_immunity.clamp(0.0, 0.95);
+    let chance =
+        (definition.base_acquisition * exposure.max(0.0) * (1.0 - resistance)).clamp(0.0, 1.0);
+    seed.unit_f64() < chance as f64
+}
+
+/// Absolute exposure minute at which an outbreak infects this character. Using
+/// a threshold on cumulative continuous exposure makes one 24-hour update
+/// identical to twenty-four one-hour updates.
+pub fn exposure_threshold_minute(
+    seed: Seed,
+    outbreak_start: StrategicMinute,
+    intensity: f32,
+    base_acquisition: f32,
+    immunity: f32,
+    prior_immunity: f32,
+) -> Option<StrategicMinute> {
+    let resistance = ((immunity / 5.0).clamp(0.0, 1.0) * 0.72 + prior_immunity).clamp(0.0, 0.98);
+    let hazard = (intensity.max(0.0) * base_acquisition.max(0.0) * (1.0 - resistance))
+        / MINUTES_PER_DAY as f32;
+    if hazard <= 0.0 {
+        return None;
+    }
+    let unit = seed
+        .unit_f64()
+        .clamp(0.0_f64.next_up(), 1.0_f64.next_down());
+    let minutes = (-unit.ln() / (hazard as f64)).ceil() as u64;
+    Some(outbreak_start.saturating_add_minutes(minutes))
+}
+
+fn disease_age(e: InfectionEpisode, now: StrategicMinute) -> f32 {
+    now.elapsed_since(e.contracted_at) as f32
+}
+
+fn wall_minute_for_age(e: InfectionEpisode, target_age: f32) -> StrategicMinute {
+    e.contracted_at
+        .saturating_add_minutes(target_age.ceil() as u64)
+}
+fn curve(d: &DiseaseDefinition, age: f32) -> (DiseaseStage, f32) {
+    let i = d.incubation_minutes as f32;
+    let rise = d.rise_minutes as f32;
+    let peak = d.peak_minutes as f32;
+    let recovery = d.recovery_minutes as f32;
+    if age < i {
+        (DiseaseStage::Incubating, 0.0)
+    } else if age < i + rise {
+        (DiseaseStage::Early, (age - i) / rise)
+    } else if age < i + rise + peak {
+        (DiseaseStage::Established, 1.0)
+    } else if age < i + rise + peak + recovery {
+        (
+            DiseaseStage::Convalescent,
+            1.0 - (age - i - rise - peak) / recovery,
+        )
+    } else {
+        (DiseaseStage::Resolved, 0.0)
+    }
+}
+
+pub fn evaluate(e: InfectionEpisode, now: StrategicMinute, immunity: f32) -> DiseaseState {
+    let d = definition(e.disease_id);
+    let age = disease_age(e, now);
+    let (mut stage, progress) = curve(d, age);
+    let sev = severity(e, immunity);
+    let scale = progress * sev;
+    let vitals = d.peak_vitals.scaled(scale);
+    let terminal = vitals.terminal_failure();
+    if terminal.is_some() {
+        stage = DiseaseStage::Critical
+    }
+    let symptom_count = if progress <= 0.0 {
+        0
+    } else if progress < 0.45 {
+        1
+    } else {
+        d.symptoms.len()
+    };
+    DiseaseState {
+        stage,
+        severity: sev,
+        progress,
+        symptoms: d.symptoms[..symptom_count].to_vec(),
+        attributes: AttributeImpairment {
+            endurance: d.peak_attributes.endurance * scale,
+            immunity: d.peak_attributes.immunity * scale,
+            gut: d.peak_attributes.gut * scale,
+            intelligence: d.peak_attributes.intelligence * scale,
+            instinct: d.peak_attributes.instinct * scale,
+            limb_agility: d.peak_attributes.limb_agility * scale,
+        },
+        vitals,
+        terminal_failure: terminal,
+    }
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum DiseaseEventKind {
+    SymptomOnset,
+    Peak,
+    Critical(TerminalFailure),
+    Resolution,
+}
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct DiseaseEvent {
+    pub minute: StrategicMinute,
+    pub infection_id: u64,
+    pub kind: DiseaseEventKind,
+}
+pub fn interval_events(
+    e: InfectionEpisode,
+    from: StrategicMinute,
+    to: StrategicMinute,
+    immunity: f32,
+) -> Vec<DiseaseEvent> {
+    if to <= from {
+        return vec![];
+    }
+    let d = definition(e.disease_id);
+    let mut points = vec![
+        (
+            wall_minute_for_age(e, d.incubation_minutes as f32),
+            DiseaseEventKind::SymptomOnset,
+        ),
+        (
+            wall_minute_for_age(e, (d.incubation_minutes + d.rise_minutes) as f32),
+            DiseaseEventKind::Peak,
+        ),
+    ];
+    let end = wall_minute_for_age(
+        e,
+        (d.incubation_minutes + d.rise_minutes + d.peak_minutes + d.recovery_minutes) as f32,
+    );
+    points.push((end, DiseaseEventKind::Resolution));
+    for (v, cause) in [
+        (d.peak_vitals.phlegmatic, TerminalFailure::Respiratory),
+        (d.peak_vitals.sanguine, TerminalFailure::Circulatory),
+        (d.peak_vitals.choleric, TerminalFailure::Homeostatic),
+        (d.peak_vitals.melancholic, TerminalFailure::Neurologic),
+    ] {
+        let s = severity(e, immunity);
+        if v * s >= 1. {
+            let fraction = 1. / (v * s);
+            let minute = wall_minute_for_age(
+                e,
+                d.incubation_minutes as f32 + d.rise_minutes as f32 * fraction,
+            );
+            points.push((minute, DiseaseEventKind::Critical(cause)));
+        }
+    }
+    points
+        .into_iter()
+        .filter(|(m, _)| *m > from && *m <= to)
+        .map(|(minute, kind)| DiseaseEvent {
+            minute,
+            infection_id: e.id,
+            kind,
+        })
+        .collect()
+}
+
+/// Every minute where the authored disease curve can change slope. Consumers
+/// doing combined-state crossing searches must include these points even when
+/// no standalone disease event occurs there.
+pub fn structural_minutes(
+    e: InfectionEpisode,
+    from: StrategicMinute,
+    to: StrategicMinute,
+) -> Vec<StrategicMinute> {
+    let d = definition(e.disease_id);
+    let mut ages = vec![
+        d.incubation_minutes,
+        d.incubation_minutes.saturating_add(d.rise_minutes),
+        d.incubation_minutes
+            .saturating_add(d.rise_minutes)
+            .saturating_add(d.peak_minutes),
+        d.incubation_minutes
+            .saturating_add(d.rise_minutes)
+            .saturating_add(d.peak_minutes)
+            .saturating_add(d.recovery_minutes),
+    ];
+    if let Some(curves) = fantastic_meter_curves(e.disease_id) {
+        ages.extend(
+            curves
+                .iter()
+                .flat_map(|curve| curve.points.iter().map(|point| point.minute)),
+        );
+    }
+    let mut minutes = ages
+        .into_iter()
+        .map(|age| wall_minute_for_age(e, age as f32))
+        .filter(|minute| *minute >= from && *minute <= to)
+        .collect::<Vec<_>>();
+    minutes.sort_unstable();
+    minutes.dedup();
+    minutes
+}
+
+pub fn combined_state(
+    episodes: &[InfectionEpisode],
+    now: StrategicMinute,
+    immunity: f32,
+) -> (
+    AttributeImpairment,
+    VitalImpairment,
+    Vec<Symptom>,
+    Option<TerminalFailure>,
+) {
+    let mut a = AttributeImpairment::default();
+    let mut v = VitalImpairment::default();
+    let mut s = Vec::new();
+    for e in episodes {
+        let x = evaluate(*e, now, immunity);
+        a.endurance += x.attributes.endurance;
+        a.immunity += x.attributes.immunity;
+        a.gut += x.attributes.gut;
+        a.intelligence += x.attributes.intelligence;
+        a.instinct += x.attributes.instinct;
+        a.limb_agility += x.attributes.limb_agility;
+        v.add(x.vitals);
+        for symptom in x.symptoms {
+            if !s.contains(&symptom) {
+                s.push(symptom)
+            }
+        }
+    }
+    s.sort();
+    let terminal = v.terminal_failure();
+    (a, v, s, terminal)
+}
+
+/// Derives where a patient experiences each humour imbalance. The disease's
+/// global vital impairment still determines terminal failure; this regional
+/// projection exists so a patient can perceive *where* they feel unwell while
+/// only an examined physician can distinguish *why*.
+pub fn regional_vitals(
+    episodes: &[InfectionEpisode],
+    now: StrategicMinute,
+    immunity: f32,
+) -> [VitalImpairment; 7] {
+    let mut regions = [VitalImpairment::default(); 7];
+    for episode in episodes {
+        let state = evaluate(*episode, now, immunity);
+        for (region, weight) in disease_region_weights(*episode) {
+            regions[region.index()].add(state.vitals.scaled(weight));
+        }
+    }
+    regions
+}
+
+/// Private functional-loss state used by the authoritative server. Disease
+/// identity never reaches the browser; the key changes the relative meter
+/// involvement for each episode rather than applying a scalar severity tweak.
+pub fn private_meter_state(
+    episode: InfectionEpisode,
+    now: StrategicMinute,
+    immunity: f32,
+    phenotype_secret: &[u8],
+) -> MeterVector {
+    let state = evaluate(episode, now, immunity);
+    let phenotype = physiology::phenotype_multipliers(
+        phenotype_secret,
+        episode.phenotype_key_version,
+        episode.character_id,
+        episode.id,
+    );
+    let mut meters = MeterVector::ZERO;
+    if let Some(curves) = fantastic_meter_curves(episode.disease_id) {
+        let age = now.elapsed_since(episode.contracted_at);
+        for curve in curves {
+            meters.0[curve.meter.index()] = (physiology::piecewise(curve, age)
+                * state.severity
+                * phenotype[curve.meter.index()])
+            .clamp(-1.0, 2.0);
+        }
+    } else {
+        for (meter, loss) in disease_peak_meters(episode.disease_id) {
+            meters.0[meter.index()] = (meters.0[meter.index()]
+                + loss * state.progress * state.severity * phenotype[meter.index()])
+            .clamp(-1.0, 2.0);
+        }
+    }
+    meters
+}
+
+// BodyRegion is ordered limbs, chest, abdomen, head.
+const WHOLE_BODY: [f32; physiology::REGION_COUNT] = [0.35, 0.35, 0.35, 0.35, 0.8, 0.6, 0.5];
+const HEAD_CHEST: [f32; physiology::REGION_COUNT] = [0.05, 0.05, 0.05, 0.05, 1.0, 0.15, 0.8];
+const LIMBS: [f32; physiology::REGION_COUNT] = [0.8, 0.8, 0.8, 0.8, 0.25, 0.1, 0.15];
+const MAHR_TISSUE: &[CurvePoint] = &[
+    CurvePoint {
+        minute: 0,
+        loss: 0.0,
+    },
+    CurvePoint {
+        minute: 3 * DAY,
+        loss: 0.12,
+    },
+    CurvePoint {
+        minute: 4 * DAY,
+        loss: 0.58,
+    },
+    CurvePoint {
+        minute: 8 * DAY,
+        loss: 0.18,
+    },
+    CurvePoint {
+        minute: 13 * DAY,
+        loss: 0.0,
+    },
+];
+const MAHR_PERFUSION: &[CurvePoint] = &[
+    CurvePoint {
+        minute: 0,
+        loss: 0.0,
+    },
+    CurvePoint {
+        minute: 2 * DAY,
+        loss: 0.08,
+    },
+    CurvePoint {
+        minute: 4 * DAY,
+        loss: 0.62,
+    },
+    CurvePoint {
+        minute: 8 * DAY,
+        loss: 0.24,
+    },
+    CurvePoint {
+        minute: 13 * DAY,
+        loss: 0.0,
+    },
+];
+const SHROUD_OXYGENATION: &[CurvePoint] = &[
+    CurvePoint {
+        minute: 0,
+        loss: 0.0,
+    },
+    CurvePoint {
+        minute: 6 * DAY,
+        loss: 0.08,
+    },
+    CurvePoint {
+        minute: 13 * DAY,
+        loss: 0.58,
+    },
+    CurvePoint {
+        minute: 25 * DAY,
+        loss: 0.52,
+    },
+    CurvePoint {
+        minute: 45 * DAY,
+        loss: 0.0,
+    },
+];
+const SHROUD_NEUROLOGIC: &[CurvePoint] = &[
+    CurvePoint {
+        minute: 0,
+        loss: 0.0,
+    },
+    CurvePoint {
+        minute: 9 * DAY,
+        loss: 0.12,
+    },
+    CurvePoint {
+        minute: 16 * DAY,
+        loss: 0.48,
+    },
+    CurvePoint {
+        minute: 25 * DAY,
+        loss: 0.32,
+    },
+    CurvePoint {
+        minute: 45 * DAY,
+        loss: 0.0,
+    },
+];
+const SHROUD_INFLAMMATION: &[CurvePoint] = &[
+    CurvePoint {
+        minute: 0,
+        loss: 0.0,
+    },
+    CurvePoint {
+        minute: 12 * DAY,
+        loss: 0.08,
+    },
+    CurvePoint {
+        minute: 19 * DAY,
+        loss: 0.38,
+    },
+    CurvePoint {
+        minute: 28 * DAY,
+        loss: 0.28,
+    },
+    CurvePoint {
+        minute: 45 * DAY,
+        loss: 0.0,
+    },
+];
+const BILWIS_TEMPERATURE: &[CurvePoint] = &[
+    CurvePoint {
+        minute: 0,
+        loss: 0.0,
+    },
+    CurvePoint {
+        minute: 8 * 60,
+        loss: 0.04,
+    },
+    CurvePoint {
+        minute: DAY,
+        loss: 0.72,
+    },
+    CurvePoint {
+        minute: 4 * DAY,
+        loss: 0.62,
+    },
+    CurvePoint {
+        minute: 10 * DAY,
+        loss: 0.0,
+    },
+];
+const BILWIS_INFLAMMATION: &[CurvePoint] = &[
+    CurvePoint {
+        minute: 0,
+        loss: 0.0,
+    },
+    CurvePoint {
+        minute: DAY,
+        loss: 0.08,
+    },
+    CurvePoint {
+        minute: 2 * DAY,
+        loss: 0.32,
+    },
+    CurvePoint {
+        minute: 5 * DAY,
+        loss: 0.16,
+    },
+    CurvePoint {
+        minute: 10 * DAY,
+        loss: 0.0,
+    },
+];
+const MINE_NEUROLOGIC: &[CurvePoint] = &[
+    CurvePoint {
+        minute: 0,
+        loss: 0.0,
+    },
+    CurvePoint {
+        minute: 2 * 60,
+        loss: 0.08,
+    },
+    CurvePoint {
+        minute: 12 * 60,
+        loss: 0.52,
+    },
+    CurvePoint {
+        minute: 2 * DAY,
+        loss: 0.42,
+    },
+    CurvePoint {
+        minute: 6 * DAY + 14 * 60,
+        loss: 0.0,
+    },
+];
+const MINE_NUTRITION: &[CurvePoint] = &[
+    CurvePoint {
+        minute: 0,
+        loss: 0.0,
+    },
+    CurvePoint {
+        minute: 6 * 60,
+        loss: 0.06,
+    },
+    CurvePoint {
+        minute: 18 * 60,
+        loss: 0.46,
+    },
+    CurvePoint {
+        minute: 3 * DAY,
+        loss: 0.28,
+    },
+    CurvePoint {
+        minute: 6 * DAY + 14 * 60,
+        loss: 0.0,
+    },
+];
+const MINE_TISSUE: &[CurvePoint] = &[
+    CurvePoint {
+        minute: 0,
+        loss: 0.0,
+    },
+    CurvePoint {
+        minute: 12 * 60,
+        loss: 0.04,
+    },
+    CurvePoint {
+        minute: 2 * DAY,
+        loss: 0.34,
+    },
+    CurvePoint {
+        minute: 4 * DAY,
+        loss: 0.22,
+    },
+    CurvePoint {
+        minute: 6 * DAY + 14 * 60,
+        loss: 0.0,
+    },
+];
+const MAHR_CURVES: &[MeterCurve] = &[
+    MeterCurve {
+        meter: Meter::Perfusion,
+        points: MAHR_PERFUSION,
+        regional_weights: HEAD_CHEST,
+    },
+    MeterCurve {
+        meter: Meter::TissueIntegrity,
+        points: MAHR_TISSUE,
+        regional_weights: HEAD_CHEST,
+    },
+];
+const SHROUD_CURVES: &[MeterCurve] = &[
+    MeterCurve {
+        meter: Meter::Oxygenation,
+        points: SHROUD_OXYGENATION,
+        regional_weights: WHOLE_BODY,
+    },
+    MeterCurve {
+        meter: Meter::Neurologic,
+        points: SHROUD_NEUROLOGIC,
+        regional_weights: WHOLE_BODY,
+    },
+    MeterCurve {
+        meter: Meter::Inflammation,
+        points: SHROUD_INFLAMMATION,
+        regional_weights: HEAD_CHEST,
+    },
+];
+const BILWIS_CURVES: &[MeterCurve] = &[
+    MeterCurve {
+        meter: Meter::Temperature,
+        points: BILWIS_TEMPERATURE,
+        regional_weights: LIMBS,
+    },
+    MeterCurve {
+        meter: Meter::Inflammation,
+        points: BILWIS_INFLAMMATION,
+        regional_weights: LIMBS,
+    },
+];
+const MINE_CURVES: &[MeterCurve] = &[
+    MeterCurve {
+        meter: Meter::Neurologic,
+        points: MINE_NEUROLOGIC,
+        regional_weights: HEAD_CHEST,
+    },
+    MeterCurve {
+        meter: Meter::Nutrition,
+        points: MINE_NUTRITION,
+        regional_weights: HEAD_CHEST,
+    },
+    MeterCurve {
+        meter: Meter::TissueIntegrity,
+        points: MINE_TISSUE,
+        regional_weights: WHOLE_BODY,
+    },
+];
+
+pub fn fantastic_meter_curves(id: DiseaseId) -> Option<&'static [MeterCurve]> {
+    match id {
+        DiseaseId::Mahrdruck => Some(MAHR_CURVES),
+        DiseaseId::ShroudFever => Some(SHROUD_CURVES),
+        DiseaseId::Bilwisschuss => Some(BILWIS_CURVES),
+        DiseaseId::Kobeldunst => Some(MINE_CURVES),
+        _ => None,
+    }
+}
+
+pub fn disease_peak_meters(disease_id: DiseaseId) -> &'static [(Meter, f32)] {
+    match disease_id {
+        DiseaseId::Influenza => &[
+            (Meter::Oxygenation, 0.55),
+            (Meter::Temperature, 0.20),
+            (Meter::Inflammation, 0.20),
+        ][..],
+        DiseaseId::Dysentery => &[
+            (Meter::Hydration, 0.70),
+            (Meter::RenalClearance, 0.30),
+            (Meter::Perfusion, 0.10),
+        ],
+        DiseaseId::Typhus => &[
+            (Meter::Temperature, 0.35),
+            (Meter::Inflammation, 0.45),
+            (Meter::Perfusion, 0.25),
+            (Meter::Neurologic, 0.10),
+        ],
+        DiseaseId::Tetanus => &[
+            (Meter::Neurologic, 0.75),
+            (Meter::Oxygenation, 0.20),
+            (Meter::TissueIntegrity, 0.10),
+        ],
+        DiseaseId::Erysipelas => &[
+            (Meter::TissueIntegrity, 0.45),
+            (Meter::Inflammation, 0.55),
+            (Meter::Temperature, 0.20),
+        ],
+        DiseaseId::Smallpox => &[
+            (Meter::TissueIntegrity, 0.40),
+            (Meter::Inflammation, 0.45),
+            (Meter::Hydration, 0.20),
+            (Meter::Temperature, 0.30),
+        ],
+        DiseaseId::Plague => &[
+            (Meter::Perfusion, 0.75),
+            (Meter::Coagulation, 0.35),
+            (Meter::Inflammation, 0.50),
+        ],
+        DiseaseId::Consumption => &[
+            (Meter::Oxygenation, 0.65),
+            (Meter::Nutrition, 0.25),
+            (Meter::TissueIntegrity, 0.20),
+        ],
+        DiseaseId::Mahrdruck => &[(Meter::Perfusion, 0.62), (Meter::TissueIntegrity, 0.58)],
+        DiseaseId::ShroudFever => &[
+            (Meter::Oxygenation, 0.58),
+            (Meter::Neurologic, 0.48),
+            (Meter::Inflammation, 0.38),
+        ],
+        DiseaseId::Bilwisschuss => &[(Meter::Temperature, 0.72), (Meter::Inflammation, 0.32)],
+        DiseaseId::Kobeldunst => &[
+            (Meter::Neurologic, 0.52),
+            (Meter::Nutrition, 0.46),
+            (Meter::TissueIntegrity, 0.34),
+        ],
+    }
+}
+
+pub fn private_regional_meter_state(
+    patient_id: u64,
+    episodes: &[InfectionEpisode],
+    now: StrategicMinute,
+    immunity: f32,
+    phenotype_secret: &[u8],
+    key_version: u16,
+) -> [MeterVector; physiology::REGION_COUNT] {
+    let baseline = physiology::baseline_meters(phenotype_secret, key_version, patient_id);
+    let mut regions = [baseline; physiology::REGION_COUNT];
+    for episode in episodes {
+        if let Some(curves) = fantastic_meter_curves(episode.disease_id) {
+            let state = evaluate(*episode, now, immunity);
+            let age = now.elapsed_since(episode.contracted_at);
+            let phenotype = physiology::phenotype_multipliers(
+                phenotype_secret,
+                episode.phenotype_key_version,
+                episode.character_id,
+                episode.id,
+            );
+            for curve in curves {
+                let loss = (physiology::piecewise(curve, age)
+                    * state.severity
+                    * phenotype[curve.meter.index()])
+                .clamp(-1.0, 2.0);
+                let total = curve.regional_weights.iter().copied().sum::<f32>();
+                if total <= 0.0 {
+                    continue;
+                }
+                for region in BodyRegion::ALL {
+                    let mut contribution = MeterVector::ZERO;
+                    contribution.0[curve.meter.index()] =
+                        loss * curve.regional_weights[region.index()] / total;
+                    regions[region.index()].add_bounded(contribution);
+                }
+            }
+            continue;
+        }
+        let meters = private_meter_state(*episode, now, immunity, phenotype_secret);
+        let weights = disease_region_weights(*episode);
+        let total = weights
+            .iter()
+            .map(|(_, weight)| *weight)
+            .sum::<f32>()
+            .max(1.0);
+        for (region, weight) in weights {
+            regions[region.index()].add_bounded(meters.scaled(weight / total));
+        }
+    }
+    regions
+}
+
+fn disease_region_weights(episode: InfectionEpisode) -> Vec<(BodyRegion, f32)> {
+    use BodyRegion::{Abdomen, Chest, Head, LeftArm, LeftLeg, RightArm, RightLeg};
+    match episode.disease_id {
+        DiseaseId::Influenza => vec![(Chest, 1.0), (Head, 0.35)],
+        DiseaseId::Dysentery => vec![(Abdomen, 1.0), (Chest, 0.25)],
+        DiseaseId::Typhus => vec![(Chest, 0.8), (Head, 1.0), (Abdomen, 0.45)],
+        DiseaseId::Tetanus => vec![
+            (Chest, 1.0),
+            (Head, 0.7),
+            (LeftArm, 0.65),
+            (RightArm, 0.65),
+            (LeftLeg, 0.65),
+            (RightLeg, 0.65),
+        ],
+        DiseaseId::Erysipelas => {
+            let limb =
+                [LeftArm, RightArm, LeftLeg, RightLeg][StreamId::new("disease.affected-limb")
+                    .rng(episode.id.into(), &[])
+                    .index(4)];
+            vec![(limb, 1.0), (Chest, 0.35)]
+        }
+        DiseaseId::Smallpox => vec![
+            (Head, 1.0),
+            (Chest, 0.8),
+            (Abdomen, 0.6),
+            (LeftArm, 0.45),
+            (RightArm, 0.45),
+            (LeftLeg, 0.45),
+            (RightLeg, 0.45),
+        ],
+        DiseaseId::Plague => {
+            let limb =
+                [LeftArm, RightArm, LeftLeg, RightLeg][StreamId::new("disease.affected-limb")
+                    .rng(episode.id.into(), &[])
+                    .index(4)];
+            vec![(Chest, 1.0), (Abdomen, 0.75), (Head, 0.55), (limb, 0.8)]
+        }
+        DiseaseId::Consumption => vec![(Chest, 1.0), (Abdomen, 0.3)],
+        DiseaseId::Mahrdruck => vec![(Head, 0.8), (Chest, 1.0)],
+        DiseaseId::ShroudFever => vec![
+            (Head, 0.7),
+            (Chest, 0.8),
+            (Abdomen, 1.0),
+            (LeftArm, 0.3),
+            (RightArm, 0.3),
+            (LeftLeg, 0.3),
+            (RightLeg, 0.3),
+        ],
+        DiseaseId::Bilwisschuss => {
+            let limb =
+                [LeftArm, RightArm, LeftLeg, RightLeg][StreamId::new("disease.affected-limb")
+                    .rng(episode.id.into(), &[])
+                    .index(4)];
+            vec![(limb, 1.0), (Head, 0.3)]
+        }
+        DiseaseId::Kobeldunst => vec![(Head, 1.0), (Chest, 0.9), (Abdomen, 0.35)],
+    }
+}
+
+/// Findings visible during an examination. Incidental complaints are derived
+/// from the infection identity, so they remain stable without additional
+/// per-character disease state.
+pub fn observed_symptoms(
+    episodes: &[InfectionEpisode],
+    now: StrategicMinute,
+    immunity: f32,
+) -> Vec<Symptom> {
+    let (_, _, mut symptoms, _) = combined_state(episodes, now, immunity);
+    let Some(seed_episode) = episodes
+        .iter()
+        .filter(|episode| evaluate(**episode, now, immunity).progress > 0.0)
+        .min_by_key(|episode| episode.id)
+    else {
+        return symptoms;
+    };
+    const INCIDENTAL: [Symptom; 7] = [
+        Symptom::Coughing,
+        Symptom::Sneezing,
+        Symptom::Feverish,
+        Symptom::Fatigued,
+        Symptom::Vomiting,
+        Symptom::Rash,
+        Symptom::Trembling,
+    ];
+    let mut random = StreamId::new("disease.incidental-symptoms").rng(seed_episode.id.into(), &[]);
+    for _ in 0..2 {
+        let finding = INCIDENTAL[random.index(INCIDENTAL.len())];
+        if !symptoms.contains(&finding) {
+            symptoms.push(finding);
+        }
+    }
+    symptoms.sort();
+    symptoms
+}
+
+/// Earliest combined terminal failure in an interval. Structural boundaries
+/// split every deterministic curve into monotonic spans; binary search prevents
+/// two individually survivable infections from hiding a fatal combined peak.
+pub fn first_combined_terminal(
+    episodes: &[InfectionEpisode],
+    from: StrategicMinute,
+    to: StrategicMinute,
+    immunity: f32,
+) -> Option<(StrategicMinute, TerminalFailure)> {
+    if to <= from {
+        return None;
+    }
+    let mut points = vec![from, to];
+    for e in episodes {
+        points.extend(structural_minutes(*e, from, to));
+        points.extend(
+            interval_events(*e, from, to, immunity)
+                .into_iter()
+                .map(|event| event.minute),
+        );
+    }
+    points.sort_unstable();
+    points.dedup();
+    let terminal_at = |minute| combined_state(episodes, minute, immunity).3;
+    for window in points.windows(2) {
+        let lo = window[0];
+        let hi = window[1];
+        if let Some(cause) = terminal_at(lo) {
+            return Some((lo, cause));
+        }
+        if terminal_at(hi).is_some() {
+            let (mut left, mut right) = (lo, hi);
+            while right.elapsed_since(left) > 1 {
+                let mid = left.midpoint(right);
+                if terminal_at(mid).is_some() {
+                    right = mid
+                } else {
+                    left = mid
+                }
+            }
+            if let Some(cause) = terminal_at(right) {
+                return Some((right, cause));
+            }
+        }
+    }
+    None
+}
+pub fn acquired_immunity(
+    episodes: &[InfectionEpisode],
+    disease: DiseaseId,
+    now: StrategicMinute,
+    immunity: f32,
+) -> f32 {
+    episodes
+        .iter()
+        .filter(|e| {
+            e.disease_id == disease && evaluate(**e, now, immunity).stage == DiseaseStage::Resolved
+        })
+        .map(|_| definition(disease).acquired_immunity)
+        .fold(0.0, f32::max)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use adventuresim_world_schema::calendar::MINUTES_PER_YEAR;
+
+    fn e(id: u64, disease_id: DiseaseId) -> InfectionEpisode {
+        InfectionEpisode {
+            id,
+            character_id: 7,
+            disease_id,
+            contracted_at: StrategicMinute::new(100),
+            ruleset_version: physiology::PHYSIOLOGY_RULESET_VERSION,
+            phenotype_key_version: physiology::PHENOTYPE_KEY_VERSION,
+        }
+    }
+    #[test]
+    fn seed_is_domain_stable_and_uses_identity() {
+        assert_eq!(
+            severity_seed(e(1, DiseaseId::Influenza)),
+            fabelgeist_determinism::Seed::from_u64(3728249043455261031)
+        );
+        assert_ne!(
+            severity_seed(e(1, DiseaseId::Influenza)),
+            severity_seed(e(2, DiseaseId::Influenza))
+        );
+    }
+    #[test]
+    fn interval_reports_fatal_crossing_even_past_recovery() {
+        let x = e(1, DiseaseId::Influenza);
+        let events = interval_events(
+            x,
+            StrategicMinute::new(0),
+            StrategicMinute::new(100 + 20 * DAY),
+            0.,
+        );
+        assert!(events.iter().any(|x| matches!(
+            x.kind,
+            DiseaseEventKind::Critical(TerminalFailure::Respiratory)
+        )));
+        assert!(
+            events
+                .iter()
+                .any(|x| x.kind == DiseaseEventKind::Resolution)
+        );
+    }
+
+    #[test]
+    fn structural_minutes_include_the_start_of_recovery() {
+        let infection = e(1, DiseaseId::Influenza);
+        let definition = definition(infection.disease_id);
+        let recovery_start = wall_minute_for_age(
+            infection,
+            definition
+                .incubation_minutes
+                .saturating_add(definition.rise_minutes)
+                .saturating_add(definition.peak_minutes) as f32,
+        );
+        assert!(
+            structural_minutes(
+                infection,
+                StrategicMinute::new(0),
+                StrategicMinute::new(u64::MAX)
+            )
+            .contains(&recovery_start)
+        );
+    }
+
+    #[test]
+    fn structural_minutes_include_every_fantastic_curve_point() {
+        for (index, id) in [
+            DiseaseId::Mahrdruck,
+            DiseaseId::ShroudFever,
+            DiseaseId::Bilwisschuss,
+            DiseaseId::Kobeldunst,
+        ]
+        .into_iter()
+        .enumerate()
+        {
+            let infection = e(100 + index as u64, id);
+            let structural = structural_minutes(
+                infection,
+                StrategicMinute::new(0),
+                StrategicMinute::new(u64::MAX),
+            );
+            for point in fantastic_meter_curves(id)
+                .unwrap()
+                .iter()
+                .flat_map(|curve| curve.points)
+            {
+                assert!(
+                    structural
+                        .contains(&infection.contracted_at.saturating_add_minutes(point.minute)),
+                    "{id:?} missing {}",
+                    point.minute
+                );
+            }
+        }
+    }
+    #[test]
+    fn zero_immunity_can_make_mild_disease_fatal() {
+        let x = e(4, DiseaseId::Influenza);
+        assert!(
+            evaluate(x, StrategicMinute::new(100 + 4 * DAY), 0.0)
+                .terminal_failure
+                .is_some()
+        );
+        assert!(
+            evaluate(x, StrategicMinute::new(100 + 4 * DAY), 5.0)
+                .terminal_failure
+                .is_none()
+        );
+    }
+    #[test]
+    fn composition_deduplicates_symptoms_and_combines_vitals() {
+        let a = e(1, DiseaseId::Influenza);
+        let b = e(2, DiseaseId::Influenza);
+        let (_, v, s, _) = combined_state(&[a, b], StrategicMinute::new(100 + 4 * DAY), 3.0);
+        assert!(
+            v.phlegmatic
+                > evaluate(a, StrategicMinute::new(100 + 4 * DAY), 3.0)
+                    .vitals
+                    .phlegmatic
+        );
+        assert_eq!(s.iter().filter(|x| **x == Symptom::Coughing).count(), 1);
+    }
+    #[test]
+    fn regional_projection_localizes_complaints_without_new_episode_state() {
+        let influenza = e(1, DiseaseId::Influenza);
+        let regions = regional_vitals(&[influenza], StrategicMinute::new(100 + 4 * DAY), 3.0);
+        assert!(regions[BodyRegion::Chest.index()].phlegmatic > 0.0);
+        assert!(regions[BodyRegion::Head.index()].phlegmatic > 0.0);
+        assert_eq!(
+            regions[BodyRegion::Abdomen.index()],
+            VitalImpairment::default()
+        );
+
+        let erysipelas = e(2, DiseaseId::Erysipelas);
+        assert_eq!(
+            regional_vitals(&[erysipelas], StrategicMinute::new(100 + 4 * DAY), 3.0),
+            regional_vitals(&[erysipelas], StrategicMinute::new(100 + 4 * DAY), 3.0)
+        );
+    }
+
+    #[test]
+    fn private_regional_state_includes_patient_baseline_without_infections() {
+        let regions = private_regional_meter_state(
+            73,
+            &[],
+            StrategicMinute::new(10_000),
+            3.0,
+            b"test key",
+            1,
+        );
+        assert!(regions.iter().all(|region| *region == regions[0]));
+        assert_ne!(regions[0], MeterVector::ZERO);
+        assert_ne!(
+            regions[0],
+            private_regional_meter_state(
+                74,
+                &[],
+                StrategicMinute::new(10_000),
+                3.0,
+                b"test key",
+                1
+            )[0]
+        );
+    }
+    #[test]
+    fn incidental_findings_are_stable_and_non_distinctive() {
+        let infection = e(1, DiseaseId::Influenza);
+        let first = observed_symptoms(&[infection], StrategicMinute::new(100 + 4 * DAY), 3.0);
+        let second = observed_symptoms(&[infection], StrategicMinute::new(100 + 4 * DAY), 3.0);
+        assert_eq!(first, second);
+        assert!(!first.contains(&Symptom::Buboes));
+        assert!(!first.contains(&Symptom::Lockjaw));
+    }
+
+    #[test]
+    fn visible_findings_are_forced_through_humours_and_regions() {
+        assert_eq!(Symptom::Coughing.humour(), Humour::Phlegmatic);
+        assert_eq!(Symptom::Vomiting.humour(), Humour::Choleric);
+        assert_eq!(Symptom::Rash.humour(), Humour::Sanguine);
+        assert_eq!(Symptom::Trembling.humour(), Humour::Melancholic);
+        assert_eq!(
+            Symptom::Coughing.observation_regions(),
+            &[BodyRegion::Chest]
+        );
+        assert!(
+            Symptom::Rash
+                .observation_regions()
+                .contains(&BodyRegion::LeftArm)
+        );
+    }
+
+    #[test]
+    fn continuous_exposure_is_chunk_invariant() {
+        let at = exposure_threshold_minute(
+            fabelgeist_determinism::Seed::from_u64(42),
+            StrategicMinute::new(100),
+            0.8,
+            0.65,
+            2.0,
+            0.0,
+        )
+        .unwrap();
+        let whole = at > StrategicMinute::new(100) && at <= StrategicMinute::new(100 + 30 * DAY);
+        let chunks = (0..30).any(|day| {
+            at > StrategicMinute::new(100 + day * DAY)
+                && at <= StrategicMinute::new(100 + (day + 1) * DAY)
+        });
+        assert_eq!(whole, chunks);
+    }
+    #[test]
+    fn presence_exposure_handles_late_arrival_reentry_and_chunking() {
+        let whole = first_presence_exposure_minute(
+            4,
+            "x",
+            StrategicMinute::new(10_000),
+            StrategicMinute::new(30_000),
+            1.0,
+            0.65,
+            0.0,
+            0.0,
+        );
+        let chunks = (10_000..30_000).step_by(500).find_map(|from| {
+            first_presence_exposure_minute(
+                4,
+                "x",
+                StrategicMinute::new(from),
+                StrategicMinute::new((from + 500).min(30_000)),
+                1.0,
+                0.65,
+                0.0,
+                0.0,
+            )
+        });
+        assert_eq!(whole, chunks);
+        let reentry = first_presence_exposure_minute(
+            9,
+            "reentry",
+            StrategicMinute::new(20_000),
+            StrategicMinute::new(21_000),
+            1_000_000.0,
+            0.65,
+            0.0,
+            0.0,
+        );
+        assert!(
+            reentry.is_some(),
+            "late re-entry receives a fresh presence interval"
+        );
+    }
+    #[test]
+    fn attribute_impairment_declines_and_recovers_without_mutating_baseline() {
+        let x = e(77, DiseaseId::Dysentery);
+        let baseline = 3.0;
+        let peak = evaluate(x, StrategicMinute::new(100 + 3 * DAY), 2.0)
+            .attributes
+            .gut;
+        let resolved = evaluate(x, StrategicMinute::new(100 + 30 * DAY), 2.0)
+            .attributes
+            .gut;
+        assert!(peak > 0.0);
+        assert_eq!(resolved, 0.0);
+        assert_eq!(baseline, 3.0);
+    }
+    #[test]
+    fn combined_subcritical_infections_can_cross_terminal_boundary() {
+        let a = e(1, DiseaseId::Influenza);
+        let b = e(2, DiseaseId::Influenza);
+        let c = e(3, DiseaseId::Influenza);
+        let d = e(4, DiseaseId::Influenza);
+        assert!(
+            evaluate(a, StrategicMinute::new(100 + 4 * DAY), 3.0)
+                .terminal_failure
+                .is_none()
+        );
+        let at = first_combined_terminal(
+            &[a, b, c, d],
+            StrategicMinute::new(100),
+            StrategicMinute::new(100 + 8 * DAY),
+            3.0,
+        );
+        assert!(at.is_some());
+    }
+
+    #[test]
+    fn clipped_interval_commits_the_terminal_boundary_but_not_later_infections() {
+        let mut at_boundary = e(10, DiseaseId::Typhus);
+        at_boundary.contracted_at = StrategicMinute::new(500);
+        let mut after_boundary = e(11, DiseaseId::Plague);
+        after_boundary.contracted_at = StrategicMinute::new(501);
+        assert!(infection_occurs_through(
+            at_boundary,
+            StrategicMinute::new(500)
+        ));
+        assert!(!infection_occurs_through(
+            after_boundary,
+            StrategicMinute::new(500)
+        ));
+    }
+
+    #[test]
+    fn unresolved_disease_blocks_chunked_reinfection_until_resolution() {
+        let episode = e(12, DiseaseId::Influenza);
+        assert!(has_unresolved_disease(
+            &[episode],
+            DiseaseId::Influenza,
+            episode.contracted_at.saturating_add_minutes(DAY),
+            3.0,
+        ));
+        assert!(!has_unresolved_disease(
+            &[episode],
+            DiseaseId::Influenza,
+            episode.contracted_at.saturating_add_minutes(60 * DAY),
+            3.0,
+        ));
+    }
+
+    #[test]
+    fn future_episode_is_not_unresolved_before_contraction() {
+        let mut future = e(13, DiseaseId::Influenza);
+        future.contracted_at = StrategicMinute::new(10 * DAY);
+        assert!(!has_unresolved_disease(
+            &[future],
+            DiseaseId::Influenza,
+            StrategicMinute::new(DAY),
+            3.0,
+        ));
+    }
+
+    #[test]
+    fn eligible_exposure_is_chunk_invariant_across_resolution() {
+        let episode = e(14, DiseaseId::Influenza);
+        let from = episode.contracted_at.get() + DAY;
+        let to = episode.contracted_at.get() + 60 * DAY;
+        let whole = first_eligible_presence_exposure_minute(
+            &[episode],
+            DiseaseId::Influenza,
+            episode.character_id,
+            "continuous",
+            StrategicMinute::new(from),
+            StrategicMinute::new(to),
+            1_000_000.0,
+            definition(DiseaseId::Influenza).base_acquisition,
+            3.0,
+        );
+        let chunked = (from..to).step_by(DAY as usize).find_map(|chunk_from| {
+            first_eligible_presence_exposure_minute(
+                &[episode],
+                DiseaseId::Influenza,
+                episode.character_id,
+                "continuous",
+                StrategicMinute::new(chunk_from),
+                StrategicMinute::new(chunk_from.saturating_add(DAY).min(to)),
+                1_000_000.0,
+                definition(DiseaseId::Influenza).base_acquisition,
+                3.0,
+            )
+        });
+        assert!(whole.is_some());
+        assert_eq!(whole, chunked);
+    }
+
+    #[test]
+    fn physiology_prevention_is_route_ordered_bounded_and_monotonic() {
+        let exposure = 1.0;
+        for vector in [
+            TransmissionVector::FoodWater,
+            TransmissionVector::CloseContact,
+            TransmissionVector::Vermin,
+            TransmissionVector::Blood,
+        ] {
+            assert_eq!(residual_exposure(exposure, vector, 0.0), exposure);
+            assert!(residual_exposure(exposure, vector, 5.0) > 0.0);
+            assert!(
+                residual_exposure(exposure, vector, 5.0) < residual_exposure(exposure, vector, 2.5)
+            );
+        }
+        assert!(
+            residual_exposure(exposure, TransmissionVector::FoodWater, 5.0)
+                < residual_exposure(exposure, TransmissionVector::CloseContact, 5.0)
+        );
+        assert!(
+            residual_exposure(exposure, TransmissionVector::CloseContact, 5.0)
+                < residual_exposure(exposure, TransmissionVector::Vermin, 5.0)
+        );
+        assert!(
+            residual_exposure(exposure, TransmissionVector::Vermin, 5.0)
+                < residual_exposure(exposure, TransmissionVector::Blood, 5.0)
+        );
+        assert_eq!(
+            residual_exposure(exposure, TransmissionVector::Wound, 5.0),
+            exposure
+        );
+    }
+
+    #[test]
+    fn prevention_separates_unavoidable_dose_and_caps_missing_affordances() {
+        let fully_possible = exposure_components(1.0, TransmissionVector::FoodWater, 1.0);
+        let impossible = exposure_components(1.0, TransmissionVector::FoodWater, 0.0);
+        assert!(fully_possible.preventable > fully_possible.unavoidable);
+        assert_eq!(impossible.preventable, 0.0);
+        assert_eq!(impossible.unavoidable, 1.0);
+
+        let missing_supplies_open_wound = blood_caregiving_affordance(false, 1.0);
+        let clean_handling_protected_wound = blood_caregiving_affordance(true, 0.18);
+        assert_eq!(missing_supplies_open_wound, BLOOD_BASIC_HANDLING_AFFORDANCE);
+        assert!(clean_handling_protected_wound > missing_supplies_open_wound);
+        assert!(
+            residual_exposure_with_affordance(
+                1.0,
+                TransmissionVector::Blood,
+                5.0,
+                missing_supplies_open_wound,
+            ) > residual_exposure_with_affordance(
+                1.0,
+                TransmissionVector::Blood,
+                5.0,
+                clean_handling_protected_wound,
+            )
+        );
+        assert_eq!(
+            residual_exposure_with_affordance(
+                0.0,
+                TransmissionVector::Blood,
+                5.0,
+                clean_handling_protected_wound,
+            ),
+            0.0,
+            "successful physical cleaning removes the dose before Physiology"
+        );
+    }
+
+    #[test]
+    fn strategic_prevention_fixture_reduces_contraction_and_secondary_attack_by_level() {
+        let simulated_rate = |vector, physiology_check| {
+            let definition = match vector {
+                TransmissionVector::FoodWater => definition(DiseaseId::Dysentery),
+                TransmissionVector::CloseContact => definition(DiseaseId::Influenza),
+                _ => unreachable!("fixture covers authored high-preventability routes"),
+            };
+            let exposure = residual_exposure(0.20, vector, physiology_check);
+            (0..20_000_u64)
+                .map(|character_id| outbreak_exposure_seed(character_id, "prevention-fixture"))
+                .filter(|seed| acquisition_succeeds(*seed, definition, 2.5, 0.0, exposure))
+                .count()
+        };
+        for vector in [
+            TransmissionVector::FoodWater,
+            TransmissionVector::CloseContact,
+        ] {
+            let rates = [0.0, 1.0, 3.0, 5.0].map(|level| simulated_rate(vector, level));
+            assert!(rates.windows(2).all(|pair| pair[1] < pair[0]), "{rates:?}");
+            assert!(rates[3] * 2 < rates[0], "{rates:?}");
+            assert!(rates[3] > 0, "mastery must retain residual risk");
+        }
+    }
+
+    #[test]
+    fn shared_sleep_is_close_contact_presence_and_is_chunk_invariant() {
+        let overnight_start = 18 * 60;
+        let overnight_end = overnight_start + 12 * 60;
+        let physician_span = [(
+            9,
+            StrategicMinute::new(overnight_start + 1),
+            StrategicMinute::new(overnight_end),
+            5.0,
+        )];
+        let evaluate = |from, to| {
+            first_eligible_protected_presence_exposure_minute(
+                &[],
+                DiseaseId::Influenza,
+                7,
+                "shared-sleep:source-8",
+                StrategicMinute::new(from),
+                StrategicMinute::new(to),
+                10_000.0,
+                definition(DiseaseId::Influenza).base_acquisition,
+                2.5,
+                TransmissionVector::CloseContact,
+                |minute| historical_physiology_check_at(physician_span, minute),
+            )
+        };
+        let whole = evaluate(overnight_start, overnight_end);
+        let chunked = (overnight_start..overnight_end)
+            .step_by(60)
+            .find_map(|from| evaluate(from, (from + 60).min(overnight_end)));
+        assert_eq!(whole, chunked);
+    }
+
+    #[test]
+    fn every_community_route_is_authored_and_supported() {
+        for definition in STARTER_DISEASES {
+            assert!(definition.supports(definition.primary_community_vector));
+        }
+        assert_eq!(
+            definition(DiseaseId::Dysentery).primary_community_vector,
+            TransmissionVector::FoodWater
+        );
+        assert_eq!(
+            definition(DiseaseId::Plague).primary_community_vector,
+            TransmissionVector::Vermin
+        );
+    }
+
+    #[test]
+    fn maximum_physician_protection_retains_acquisition_risk() {
+        let definition = definition(DiseaseId::Influenza);
+        let residual = residual_exposure(1.0, TransmissionVector::CloseContact, 5.0);
+        assert!(residual > 0.0);
+        assert!(
+            (0..10_000)
+                .map(fabelgeist_determinism::Seed::from_u64)
+                .any(|seed| { acquisition_succeeds(seed, definition, 0.0, 0.0, residual) })
+        );
+    }
+
+    #[test]
+    fn historical_party_support_respects_join_leave_and_band_boundaries() {
+        let spans = [
+            (7, StrategicMinute::new(100), StrategicMinute::new(199), 1.0),
+            (8, StrategicMinute::new(100), StrategicMinute::new(199), 4.0),
+            (7, StrategicMinute::new(200), StrategicMinute::new(300), 3.0),
+            (8, StrategicMinute::new(200), StrategicMinute::new(300), 4.0),
+            (9, StrategicMinute::new(225), StrategicMinute::new(250), 2.0),
+        ];
+        assert_eq!(
+            historical_physiology_check_at(spans, StrategicMinute::new(99)),
+            0.0
+        );
+        let before_training = historical_physiology_check_at(spans, StrategicMinute::new(150));
+        let after_training = historical_physiology_check_at(spans, StrategicMinute::new(210));
+        let with_supporter = historical_physiology_check_at(spans, StrategicMinute::new(240));
+        assert!(after_training > before_training);
+        assert!(with_supporter > after_training);
+        assert_eq!(
+            historical_physiology_check_at(spans, StrategicMinute::new(301)),
+            0.0
+        );
+    }
+
+    #[test]
+    fn duplicate_coverage_does_not_count_one_supporter_twice() {
+        let duplicate = historical_physiology_check_at(
+            [
+                (7, StrategicMinute::ZERO, StrategicMinute::new(100), 4.0),
+                (7, StrategicMinute::new(50), StrategicMinute::new(150), 4.0),
+            ],
+            StrategicMinute::new(75),
+        );
+        assert!((duplicate - 4.0).abs() < 0.001);
+    }
+
+    #[test]
+    fn changing_historical_protection_is_chunk_invariant() {
+        let spans = [
+            (7, StrategicMinute::new(101), StrategicMinute::new(500), 1.0),
+            (
+                7,
+                StrategicMinute::new(501),
+                StrategicMinute::new(1_000),
+                5.0,
+            ),
+        ];
+        let evaluate = |from, to| {
+            first_eligible_protected_presence_exposure_minute(
+                &[],
+                DiseaseId::Influenza,
+                77,
+                "protected",
+                StrategicMinute::new(from),
+                StrategicMinute::new(to),
+                10_000.0,
+                definition(DiseaseId::Influenza).base_acquisition,
+                0.0,
+                TransmissionVector::CloseContact,
+                |minute| historical_physiology_check_at(spans, minute),
+            )
+        };
+        let whole = evaluate(100, 1_000);
+        let chunked = (100..1_000)
+            .step_by(100)
+            .find_map(|from| evaluate(from, (from + 100).min(1_000)));
+        assert!(whole.is_some());
+        assert_eq!(whole, chunked);
+    }
+
+    #[test]
+    fn presence_window_never_advances_beyond_the_lagging_source_clock() {
+        let at = StrategicMinute::new;
+        assert_eq!(
+            elapsed_presence_window(at(100), None, at(250), at(150), at(500)),
+            Some((at(151), at(250)))
+        );
+        assert_eq!(
+            elapsed_presence_window(at(100), None, at(150), at(150), at(500)),
+            None
+        );
+        assert_eq!(
+            elapsed_presence_window(at(100), Some(at(220)), at(300), at(150), at(500)),
+            Some((at(151), at(220)))
+        );
+    }
+
+    #[test]
+    fn close_contact_infectiousness_precedes_symptoms_and_resolves() {
+        let episode = e(20, DiseaseId::Influenza);
+        let definition = definition(episode.disease_id);
+        assert!(close_contact_infectiousness(episode, episode.contracted_at) > 0.0);
+        assert_eq!(
+            close_contact_infectiousness(
+                episode,
+                episode.contracted_at.saturating_add_minutes(
+                    definition.incubation_minutes + definition.rise_minutes
+                )
+            ),
+            1.0
+        );
+        assert_eq!(
+            close_contact_infectiousness(
+                episode,
+                episode.contracted_at.saturating_add_minutes(
+                    definition.incubation_minutes
+                        + definition.rise_minutes
+                        + definition.peak_minutes
+                        + definition.recovery_minutes
+                )
+            ),
+            0.0
+        );
+        assert_eq!(
+            close_contact_infectiousness(e(21, DiseaseId::Dysentery), StrategicMinute::new(100)),
+            0.0
+        );
+    }
+
+    fn timeline_episode(id: u64, character_id: u64, contracted_at: u64) -> InfectionEpisode {
+        InfectionEpisode {
+            id,
+            character_id,
+            disease_id: DiseaseId::Influenza,
+            contracted_at: StrategicMinute::new(contracted_at),
+            ruleset_version: physiology::PHYSIOLOGY_RULESET_VERSION,
+            phenotype_key_version: physiology::PHENOTYPE_KEY_VERSION,
+        }
+    }
+
+    #[test]
+    fn chronological_contact_chain_is_order_independent_and_chunk_invariant() {
+        let targets = [1, 2, 3].into_iter().collect();
+        let initial = [(1, vec![timeline_episode(1, 1, 0)])].into_iter().collect();
+        let immunity = [(1, 0.0), (2, 0.0), (3, 0.0)].into_iter().collect();
+        let windows = [
+            ContactWindow {
+                low_id: 1,
+                high_id: 2,
+                start: StrategicMinute::new(1),
+                end: StrategicMinute::new(30_000),
+            },
+            ContactWindow {
+                low_id: 2,
+                high_id: 3,
+                start: StrategicMinute::new(1),
+                end: StrategicMinute::new(30_000),
+            },
+        ];
+        let whole = resolve_acquisition_timeline(
+            &targets,
+            &initial,
+            [],
+            &[],
+            &windows,
+            &immunity,
+            StrategicMinute::new(0),
+            StrategicMinute::new(30_000),
+            0,
+            2_000_000,
+            |_, _| 0.0,
+        )
+        .unwrap();
+        let b_at = whole.proposals[&2][0].contracted_at.get();
+        let c_at = whole.proposals[&3][0].contracted_at.get();
+        assert!(
+            c_at > b_at,
+            "new sources become eligible on the next minute"
+        );
+
+        let reversed = resolve_acquisition_timeline(
+            &targets,
+            &initial,
+            [],
+            &[],
+            &[windows[1], windows[0]],
+            &immunity,
+            StrategicMinute::new(0),
+            StrategicMinute::new(30_000),
+            0,
+            2_000_000,
+            |_, _| 0.0,
+        )
+        .unwrap();
+        assert_eq!(whole.proposals, reversed.proposals);
+
+        let first = resolve_acquisition_timeline(
+            &targets,
+            &initial,
+            [],
+            &[],
+            &windows,
+            &immunity,
+            StrategicMinute::new(0),
+            StrategicMinute::new(b_at),
+            0,
+            2_000_000,
+            |_, _| 0.0,
+        )
+        .unwrap();
+        let mut split_initial = initial.clone();
+        for (id, episodes) in &first.proposals {
+            split_initial.entry(*id).or_default().extend(episodes);
+        }
+        let second = resolve_acquisition_timeline(
+            &targets,
+            &split_initial,
+            [],
+            &[],
+            &windows,
+            &immunity,
+            StrategicMinute::new(b_at),
+            StrategicMinute::new(30_000),
+            first.work_units,
+            2_000_000,
+            |_, _| 0.0,
+        )
+        .unwrap();
+        let mut split = first.proposals;
+        for (id, episodes) in second.proposals {
+            split.entry(id).or_default().extend(episodes);
+        }
+        assert_eq!(whole.proposals, split);
+    }
+
+    #[test]
+    fn blood_scheduled_acquisition_becomes_contact_source_next_minute() {
+        let targets = [2, 3].into_iter().collect();
+        let immunity = [(2, 0.0), (3, 0.0)].into_iter().collect();
+        let blood = timeline_episode(22, 2, 100);
+        let result = resolve_acquisition_timeline(
+            &targets,
+            &Default::default(),
+            [AcquisitionAttempt::guaranteed(blood)],
+            &[],
+            &[ContactWindow {
+                low_id: 2,
+                high_id: 3,
+                start: StrategicMinute::new(1),
+                end: StrategicMinute::new(30_000),
+            }],
+            &immunity,
+            StrategicMinute::new(0),
+            StrategicMinute::new(30_000),
+            0,
+            1_000_000,
+            |_, _| 0.0,
+        )
+        .unwrap();
+        assert_eq!(result.proposals[&2], vec![blood]);
+        assert!(result.proposals[&3][0].contracted_at.get() > blood.contracted_at.get());
+    }
+
+    #[test]
+    fn synchronized_prevention_and_clipped_timeline_are_executable() {
+        let targets = [1, 2].into_iter().collect();
+        let initial = [(1, vec![timeline_episode(1, 1, 0)])].into_iter().collect();
+        let immunity = [(1, 0.0), (2, 0.0)].into_iter().collect();
+        let window = [ContactWindow {
+            low_id: 1,
+            high_id: 2,
+            start: StrategicMinute::new(1),
+            end: StrategicMinute::new(30_000),
+        }];
+        let unprotected = resolve_acquisition_timeline(
+            &targets,
+            &initial,
+            [],
+            &[],
+            &window,
+            &immunity,
+            StrategicMinute::new(0),
+            StrategicMinute::new(30_000),
+            0,
+            1_000_000,
+            |_, _| 0.0,
+        )
+        .unwrap();
+        let protected = resolve_acquisition_timeline(
+            &targets,
+            &initial,
+            [],
+            &[],
+            &window,
+            &immunity,
+            StrategicMinute::new(0),
+            StrategicMinute::new(30_000),
+            0,
+            1_000_000,
+            |_, _| 5.0,
+        )
+        .unwrap();
+        assert!(
+            protected
+                .proposals
+                .get(&2)
+                .and_then(|episodes| episodes.first())
+                .map(|episode| episode.contracted_at.get())
+                .unwrap_or(u64::MAX)
+                > unprotected.proposals[&2][0].contracted_at.get()
+        );
+
+        let scheduled_after_death_clip = timeline_episode(32, 2, 501);
+        let clipped = resolve_acquisition_timeline(
+            &targets,
+            &Default::default(),
+            [AcquisitionAttempt::guaranteed(scheduled_after_death_clip)],
+            &[],
+            &[],
+            &immunity,
+            StrategicMinute::new(0),
+            StrategicMinute::new(500),
+            0,
+            1_000,
+            |_, _| 0.0,
+        )
+        .unwrap();
+        assert!(clipped.proposals.is_empty());
+        assert_eq!(
+            resolve_acquisition_timeline(
+                &targets,
+                &initial,
+                [],
+                &[],
+                &window,
+                &immunity,
+                StrategicMinute::new(0),
+                StrategicMinute::new(30_000),
+                0,
+                1,
+                |_, _| 0.0,
+            ),
+            Err("Disease interval exceeds bounded exposure work")
+        );
+    }
+
+    #[test]
+    fn solo_catchup_uses_only_already_elapsed_peer_overlap() {
+        let at = StrategicMinute::new;
+        assert_eq!(
+            projected_presence_end(None, Some(at(300)), None, at(100), at(250)),
+            Some(at(250))
+        );
+        assert_eq!(
+            projected_presence_end(None, Some(at(200)), None, at(100), at(250)),
+            Some(at(200))
+        );
+        assert_eq!(
+            projected_presence_end(None, Some(at(300)), Some(at(280)), at(100), at(250)),
+            Some(at(280))
+        );
+        assert_eq!(
+            projected_presence_end(Some(at(175)), Some(at(300)), None, at(100), at(250)),
+            Some(at(175))
+        );
+
+        let target_horizon = 20_000;
+        let peer_clock = 10_000;
+        let overlap_end = projected_presence_end(
+            None,
+            Some(at(target_horizon)),
+            None,
+            at(100),
+            at(peer_clock),
+        )
+        .unwrap();
+        let targets = [2].into_iter().collect();
+        let initial = [(1, vec![timeline_episode(41, 1, 0)])]
+            .into_iter()
+            .collect();
+        let result = resolve_acquisition_timeline(
+            &targets,
+            &initial,
+            [],
+            &[],
+            &[ContactWindow {
+                low_id: 1,
+                high_id: 2,
+                start: StrategicMinute::new(101),
+                end: overlap_end,
+            }],
+            &[(2, 0.0)].into_iter().collect(),
+            StrategicMinute::new(100),
+            StrategicMinute::new(target_horizon),
+            0,
+            1_000_000,
+            |_, _| 0.0,
+        )
+        .unwrap();
+        assert!(result.proposals[&2][0].contracted_at.get() <= peer_clock);
+    }
+
+    #[test]
+    fn environmental_immunity_evolves_across_multiple_cycles_whole_or_split() {
+        let initial = std::collections::BTreeMap::new();
+        let immunity = [(7, 0.0)].into_iter().collect();
+        let targets = [7].into_iter().collect();
+        let duration = {
+            let episode = timeline_episode(1, 7, 1);
+            (2..60 * DAY)
+                .find(|minute| {
+                    evaluate(episode, StrategicMinute::new(*minute), 0.0).stage
+                        == DiseaseStage::Resolved
+                })
+                .unwrap()
+                - episode.contracted_at.get()
+        };
+        let first_at = 1;
+        let split_at = first_at + duration;
+        let threshold_at = split_at + 1;
+        let second_at = threshold_at + 1;
+        let third_at = second_at + duration + 1;
+        let to = third_at;
+        let definition = definition(DiseaseId::Influenza);
+        let threshold_seed = Seed::from_u64(((0.55_f64 * (1_u64 << 53) as f64) as u64) << 11);
+        assert!(acquisition_succeeds(
+            threshold_seed,
+            definition,
+            0.0,
+            0.0,
+            1.0
+        ));
+        assert!(!acquisition_succeeds(
+            threshold_seed,
+            definition,
+            0.0,
+            definition.acquired_immunity,
+            1.0
+        ));
+        let episode = |id, at| InfectionEpisode {
+            id,
+            character_id: 7,
+            disease_id: DiseaseId::Influenza,
+            contracted_at: StrategicMinute::new(at),
+            ruleset_version: physiology::PHYSIOLOGY_RULESET_VERSION,
+            phenotype_key_version: physiology::PHENOTYPE_KEY_VERSION,
+        };
+        let scheduled = |from, through| {
+            [
+                AcquisitionAttempt::exposure(episode(61, first_at), 0.65, 1_000.0),
+                AcquisitionAttempt::exposure(
+                    episode(threshold_seed.to_u64(), threshold_at),
+                    definition.base_acquisition,
+                    1.0,
+                ),
+                AcquisitionAttempt::exposure(episode(62, second_at), 0.65, 1_000.0),
+                AcquisitionAttempt::exposure(episode(63, third_at), 0.65, 1_000.0),
+            ]
+            .into_iter()
+            .filter(|attempt| {
+                attempt.episode.contracted_at.get() > from
+                    && attempt.episode.contracted_at.get() <= through
+            })
+            .collect::<Vec<_>>()
+        };
+        let whole = resolve_acquisition_timeline(
+            &targets,
+            &initial,
+            scheduled(0, to),
+            &[],
+            &[],
+            &immunity,
+            StrategicMinute::new(0),
+            StrategicMinute::new(to),
+            0,
+            1_000_000,
+            |_, _| 0.0,
+        )
+        .unwrap();
+        assert_eq!(
+            whole.proposals[&7]
+                .iter()
+                .map(|episode| episode.contracted_at.get())
+                .collect::<Vec<_>>(),
+            vec![first_at, second_at, third_at]
+        );
+        assert!(
+            !whole.proposals[&7]
+                .iter()
+                .any(|episode| episode.id == threshold_seed.to_u64()),
+            "the threshold-sensitive roll must be rejected by immunity acquired during this run"
+        );
+
+        let first = resolve_acquisition_timeline(
+            &targets,
+            &initial,
+            scheduled(0, split_at),
+            &[],
+            &[],
+            &immunity,
+            StrategicMinute::new(0),
+            StrategicMinute::new(split_at),
+            0,
+            1_000_000,
+            |_, _| 0.0,
+        )
+        .unwrap();
+        let mut split_initial = initial;
+        for (id, episodes) in &first.proposals {
+            split_initial.entry(*id).or_default().extend(episodes);
+        }
+        let second = resolve_acquisition_timeline(
+            &targets,
+            &split_initial,
+            scheduled(split_at, to),
+            &[],
+            &[],
+            &immunity,
+            StrategicMinute::new(split_at),
+            StrategicMinute::new(to),
+            first.work_units,
+            1_000_000,
+            |_, _| 0.0,
+        )
+        .unwrap();
+        let mut split = first.proposals;
+        for (id, episodes) in second.proposals {
+            split.entry(id).or_default().extend(episodes);
+        }
+        assert_eq!(whole.proposals, split);
+    }
+
+    #[test]
+    fn one_year_environmental_source_stays_compact_and_chunk_invariant() {
+        let targets = [7].into_iter().collect();
+        let immunity = [(7, 0.0)].into_iter().collect();
+        let initial = std::collections::BTreeMap::new();
+        let through = MINUTES_PER_YEAR;
+        let source = protected_presence_exposure_source(
+            DiseaseId::Influenza,
+            7,
+            "year-long-outbreak",
+            StrategicMinute::new(0),
+            StrategicMinute::new(through),
+            1_000_000.0,
+            definition(DiseaseId::Influenza).base_acquisition,
+            TransmissionVector::CloseContact,
+        )
+        .unwrap();
+        assert!(std::mem::size_of_val(&source) < 128);
+        let whole = resolve_acquisition_timeline(
+            &targets,
+            &initial,
+            [],
+            std::slice::from_ref(&source),
+            &[],
+            &immunity,
+            StrategicMinute::new(0),
+            StrategicMinute::new(through),
+            0,
+            10_000,
+            |_, _| 0.0,
+        )
+        .unwrap();
+        assert!(whole.proposals[&7].len() > 20);
+        assert!(
+            whole.work_units < 1_000,
+            "resolved intervals should be skipped instead of evaluated minute by minute"
+        );
+
+        let split_at = through / 2;
+        let first = resolve_acquisition_timeline(
+            &targets,
+            &initial,
+            [],
+            std::slice::from_ref(&source),
+            &[],
+            &immunity,
+            StrategicMinute::new(0),
+            StrategicMinute::new(split_at),
+            0,
+            10_000,
+            |_, _| 0.0,
+        )
+        .unwrap();
+        let mut split_initial = initial;
+        for (id, episodes) in &first.proposals {
+            split_initial.entry(*id).or_default().extend(episodes);
+        }
+        let second = resolve_acquisition_timeline(
+            &targets,
+            &split_initial,
+            [],
+            std::slice::from_ref(&source),
+            &[],
+            &immunity,
+            StrategicMinute::new(split_at),
+            StrategicMinute::new(through),
+            first.work_units,
+            10_000,
+            |_, _| 0.0,
+        )
+        .unwrap();
+        let mut split = first.proposals;
+        for (id, episodes) in second.proposals {
+            split.entry(id).or_default().extend(episodes);
+        }
+        assert_eq!(whole.proposals, split);
+    }
+
+    #[test]
+    fn raw_presence_span_and_checkpoint_work_caps_fail_closed() {
+        let mut spans = std::collections::BTreeMap::new();
+        assert_eq!(insert_unique_bounded(&mut spans, 1, "a", 2), Ok(true));
+        assert_eq!(
+            insert_unique_bounded(&mut spans, 1, "duplicate", 2),
+            Ok(false)
+        );
+        assert_eq!(insert_unique_bounded(&mut spans, 2, "b", 2), Ok(true));
+        assert_eq!(
+            insert_unique_bounded(&mut spans, 3, "excess", 2),
+            Err("Disease interval has too many raw presence spans")
+        );
+
+        let mut work = 0;
+        assert_eq!(add_bounded_work(&mut work, 4, 5), Ok(()));
+        assert_eq!(
+            add_bounded_work(&mut work, 2, 5),
+            Err("Disease interval exceeds bounded exposure work")
+        );
+    }
+
+    #[test]
+    fn fantastic_diseases_have_distinct_ordered_meter_courses() {
+        let cases = [
+            (
+                DiseaseId::Mahrdruck,
+                Meter::Perfusion,
+                Meter::TissueIntegrity,
+            ),
+            (
+                DiseaseId::ShroudFever,
+                Meter::Oxygenation,
+                Meter::Inflammation,
+            ),
+            (
+                DiseaseId::Bilwisschuss,
+                Meter::Temperature,
+                Meter::Inflammation,
+            ),
+            (
+                DiseaseId::Kobeldunst,
+                Meter::Neurologic,
+                Meter::TissueIntegrity,
+            ),
+        ];
+        for (index, (id, early_meter, later_meter)) in cases.into_iter().enumerate() {
+            let episode = e(900 + index as u64, id);
+            let definition = definition(id);
+            let early = private_meter_state(
+                episode,
+                episode.contracted_at.saturating_add_minutes(
+                    definition.incubation_minutes + definition.rise_minutes / 2,
+                ),
+                0.0,
+                b"fantastic-course-test",
+            );
+            let later = private_meter_state(
+                episode,
+                episode.contracted_at.saturating_add_minutes(
+                    definition.incubation_minutes
+                        + definition.rise_minutes
+                        + definition.peak_minutes / 2,
+                ),
+                0.0,
+                b"fantastic-course-test",
+            );
+            assert!(early.get(early_meter) > 0.0, "{id:?}");
+            assert!(later.get(later_meter) > 0.0, "{id:?}");
+            assert_ne!(early, later, "{id:?} must have an ordered course");
+        }
+    }
+
+    #[test]
+    fn kobeldunst_curves_are_zero_when_the_episode_resolves() {
+        let infection = e(950, DiseaseId::Kobeldunst);
+        let definition = definition(infection.disease_id);
+        let resolved_at = infection
+            .contracted_at
+            .get()
+            .saturating_add(definition.incubation_minutes)
+            .saturating_add(definition.rise_minutes)
+            .saturating_add(definition.peak_minutes)
+            .saturating_add(definition.recovery_minutes);
+        assert_eq!(
+            evaluate(infection, StrategicMinute::new(resolved_at), 3.0).stage,
+            DiseaseStage::Resolved
+        );
+        assert_eq!(
+            private_meter_state(
+                infection,
+                StrategicMinute::new(resolved_at),
+                3.0,
+                b"kobeldunst-resolution"
+            ),
+            MeterVector::ZERO
+        );
+        assert!(
+            fantastic_meter_curves(infection.disease_id)
+                .unwrap()
+                .iter()
+                .all(|curve| curve.points.last().unwrap().minute
+                    == resolved_at.saturating_sub(infection.contracted_at.get()))
+        );
+    }
+
+    #[test]
+    fn fantastic_terminal_crossing_is_stable_when_split_at_an_interior_peak() {
+        let episodes = (0..8)
+            .map(|index| e(960 + index, DiseaseId::Kobeldunst))
+            .collect::<Vec<_>>();
+        let from = episodes[0].contracted_at;
+        let peak = from.saturating_add_minutes(12 * 60);
+        let to = from.saturating_add_minutes(3 * DAY);
+        let mut state = |minute| {
+            physiology::combined_meter_state(
+                episodes
+                    .iter()
+                    .map(|episode| private_meter_state(*episode, minute, 3.0, b"curve-peak")),
+                &[],
+                minute,
+            )
+        };
+        let boundaries = episodes
+            .iter()
+            .flat_map(|episode| structural_minutes(*episode, from, to))
+            .chain([from, to])
+            .collect::<Vec<_>>();
+        let whole = physiology::first_terminal_crossing(&boundaries, &mut state);
+        let first = physiology::first_terminal_crossing(&[from, peak], &mut state);
+        let second = physiology::first_terminal_crossing(&[peak, to], &mut state);
+        assert!(whole.is_some());
+        assert_eq!(whole, first.or(second));
+    }
+
+    #[test]
+    fn fantastic_regional_projection_preserves_each_meter_curve_weights() {
+        let infection = e(951, DiseaseId::ShroudFever);
+        let now = infection.contracted_at.get() + 19 * DAY;
+        let baseline = private_regional_meter_state(
+            infection.character_id,
+            &[],
+            StrategicMinute::new(now),
+            3.0,
+            b"regional-curve-weights",
+            infection.phenotype_key_version,
+        );
+        let affected = private_regional_meter_state(
+            infection.character_id,
+            &[infection],
+            StrategicMinute::new(now),
+            3.0,
+            b"regional-curve-weights",
+            infection.phenotype_key_version,
+        );
+        let delta = |region: BodyRegion, meter: Meter| {
+            affected[region.index()].get(meter) - baseline[region.index()].get(meter)
+        };
+        let curves = fantastic_meter_curves(DiseaseId::ShroudFever).unwrap();
+        let systemic_water = curves
+            .iter()
+            .find(|curve| curve.meter == Meter::Oxygenation)
+            .unwrap();
+        let focal_inflammation = curves
+            .iter()
+            .find(|curve| curve.meter == Meter::Inflammation)
+            .unwrap();
+        assert!(
+            systemic_water.regional_weights[BodyRegion::LeftArm.index()]
+                > focal_inflammation.regional_weights[BodyRegion::LeftArm.index()]
+        );
+        assert!(
+            delta(BodyRegion::Chest, Meter::Inflammation)
+                > delta(BodyRegion::LeftArm, Meter::Inflammation) * 4.0
+        );
+    }
+
+    #[test]
+    fn elemental_diseases_project_to_four_distinct_dominant_humours() {
+        let mut signatures = std::collections::BTreeSet::new();
+        let mut associations = std::collections::BTreeSet::new();
+        for id in [
+            DiseaseId::Mahrdruck,
+            DiseaseId::ShroudFever,
+            DiseaseId::Bilwisschuss,
+            DiseaseId::Kobeldunst,
+        ] {
+            let meters = MeterVector::from_entries(disease_peak_meters(id));
+            let projected = physiology::humours(meters);
+            assert!(projected.iter().filter(|value| **value > 0.05).count() >= 2);
+            let association = elemental_association(id).unwrap();
+            let dominant = Humour::ALL
+                .into_iter()
+                .max_by(|left, right| projected[left.index()].total_cmp(&projected[right.index()]))
+                .unwrap();
+            assert_eq!(dominant, association.projected_humour, "{id:?}");
+            signatures.insert(projected.map(|value| (value * 100.0).round() as i16));
+            associations.insert((
+                association.element as u8,
+                association.kind as u8,
+                association.projected_humour.index(),
+            ));
+        }
+        assert_eq!(signatures.len(), 4);
+        assert_eq!(associations.len(), 4);
+    }
+
+    #[test]
+    fn fantastic_routes_and_evidence_are_physical_and_open() {
+        assert!(definition(DiseaseId::Mahrdruck).supports(TransmissionVector::Vermin));
+        for id in [
+            DiseaseId::ShroudFever,
+            DiseaseId::Bilwisschuss,
+            DiseaseId::Kobeldunst,
+        ] {
+            let definition = definition(id);
+            assert!(definition.supports(TransmissionVector::Environmental));
+            assert!(!definition.supports(TransmissionVector::CloseContact));
+            assert!(!evidence_hooks(id).is_empty());
+        }
+        assert_eq!(
+            evidence_hooks(DiseaseId::Mahrdruck),
+            &[DiseaseEvidenceHook {
+                evidence_id: "night_sylph_castings",
+                support_bps: 9_200,
+                required_site: Some("occupied_house"),
+            }]
+        );
+        assert_eq!(
+            evidence_hooks(DiseaseId::ShroudFever)[0].required_site,
+            Some("graveyard")
+        );
+        assert_eq!(
+            evidence_hooks(DiseaseId::Bilwisschuss)[0].required_site,
+            Some("abandoned_farm")
+        );
+        assert_eq!(
+            evidence_hooks(DiseaseId::Kobeldunst)[0].required_site,
+            Some("cave")
+        );
+        assert!(
+            residual_exposure(1.0, TransmissionVector::Environmental, 5.0)
+                < residual_exposure(1.0, TransmissionVector::Environmental, 0.0)
+        );
+    }
+
+    #[test]
+    fn fantastic_environmental_and_vermin_acquisition_is_partition_independent() {
+        for (index, (id, vector)) in [
+            (DiseaseId::Mahrdruck, TransmissionVector::Vermin),
+            (DiseaseId::Bilwisschuss, TransmissionVector::Environmental),
+        ]
+        .into_iter()
+        .enumerate()
+        {
+            let definition = definition(id);
+            let from = 10_000;
+            let to = from + 5 * DAY;
+            let exposure_id = format!("fantastic-route-{index}");
+            let whole = first_eligible_protected_presence_exposure_minute(
+                &[],
+                id,
+                7,
+                &exposure_id,
+                StrategicMinute::new(from),
+                StrategicMinute::new(to),
+                1.0,
+                definition.base_acquisition,
+                2.5,
+                vector,
+                |_| 1.5,
+            );
+            let split = (from..to)
+                .step_by((6 * 60) as usize)
+                .find_map(|chunk_from| {
+                    first_eligible_protected_presence_exposure_minute(
+                        &[],
+                        id,
+                        7,
+                        &exposure_id,
+                        StrategicMinute::new(chunk_from),
+                        StrategicMinute::new(chunk_from.saturating_add(6 * 60).min(to)),
+                        1.0,
+                        definition.base_acquisition,
+                        2.5,
+                        vector,
+                        |_| 1.5,
+                    )
+                });
+            assert_eq!(whole, split, "{id:?}");
+        }
+    }
+
+    #[test]
+    fn existing_generic_preparations_overlap_without_disease_keys() {
+        for id in [
+            DiseaseId::Mahrdruck,
+            DiseaseId::ShroudFever,
+            DiseaseId::Bilwisschuss,
+            DiseaseId::Kobeldunst,
+        ] {
+            let profile = physiology::INTERVENTION_PROFILES
+                .iter()
+                .find(|profile| {
+                    disease_peak_meters(id).iter().any(|(meter, loss)| {
+                        *loss > 0.0 && profile.loss_delta_per_unit.get(*meter) < 0.0
+                    })
+                })
+                .unwrap_or_else(|| panic!("no obtainable generic preparation helps {id:?}"));
+            let administration = physiology::Administration {
+                id: 10 + id as u64,
+                patient_id: 1,
+                preparation_id: profile.preparation_id.to_owned(),
+                profile_version: profile.version,
+                route: profile.route,
+                dose: physiology::DoseMilliunits::STANDARD,
+                region: None,
+                administered_at: StrategicMinute::new(100),
+                stopped_at: None,
+                sensitivity_bps: 0,
+                adverse_bps: 1_500,
+            };
+            let effect = administration.effect_at(StrategicMinute::new(101));
+            assert!(
+                disease_peak_meters(id)
+                    .iter()
+                    .any(|(meter, _)| effect.get(*meter) < 0.0),
+                "{id:?} receives no administered generic benefit"
+            );
+        }
+        let poppy = physiology::INTERVENTION_PROFILES
+            .iter()
+            .find(|profile| profile.loss_delta_per_unit.get(Meter::Neurologic) < -0.1)
+            .unwrap();
+        assert!(poppy.adverse_delta_per_unit.get(Meter::Oxygenation) > 0.0);
+
+        let administration = physiology::Administration {
+            id: 1,
+            patient_id: 1,
+            preparation_id: poppy.preparation_id.to_owned(),
+            profile_version: poppy.version,
+            route: poppy.route,
+            dose: physiology::DoseMilliunits::STANDARD,
+            region: None,
+            administered_at: StrategicMinute::new(100),
+            stopped_at: None,
+            sensitivity_bps: 0,
+            adverse_bps: 2_500,
+        };
+        let effect = administration.effect_at(StrategicMinute::new(101));
+        assert!(effect.get(Meter::Neurologic) < 0.0);
+        assert!(effect.get(Meter::Oxygenation) > 0.0);
+    }
+}

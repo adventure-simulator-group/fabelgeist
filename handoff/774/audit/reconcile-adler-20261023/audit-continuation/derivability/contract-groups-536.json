@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-536",
+  "at": "2026-10-25T15:59:14.727693+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 912,
+  "source_id": "pr-working:crates/adventuresim-core/src/disease.rs",
+  "sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+  "actual_compared_ranges": [
+    [
+      1,
+      660
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Fresh441\u2013660: native historical capability, presence/time projection, infectiousness and bounded acquisition helpers. ContactWindow/AcquisitionTimeline/Attempt/EnvironmentalSource structural traits already derive. guaranteed/exposure constructors intentionally select optional exposure policy; not raw From/Default suggestions. No handtrait/codec; acquisition timeline body incomplete.",
+  "first_unfinished": {
+    "scope_index": 912,
+    "line": 661
+  },
+  "execution": "none"
+}

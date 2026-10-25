@@ -1,0 +1,138 @@
+{
+  "id": "CONT07-CONTRACT-611",
+  "at": "2026-10-24T00:39:53.866205+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2648,
+      "source_id": "pr-working:crates/fabelgeist-xpbd/src/particles.rs",
+      "sha256": "99b46998863ca413643469afd3b2108707428e366d63088af8f759a515bcf37b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-xpbd/src/particles.rs",
+      "actual_EOF": 171,
+      "ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2649,
+      "source_id": "pr-working:crates/fabelgeist-xpbd/src/particles/packed.rs",
+      "sha256": "50a7d66bba9f42c372ffecc21cb208485f80885c3b4ee4884631d5473fc48d70",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-xpbd/src/particles/packed.rs",
+      "actual_EOF": 100,
+      "ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2650,
+      "source_id": "pr-working:crates/fabelgeist-physics/src/contact/tests.rs",
+      "sha256": "d47118137b70b8890c2fdf7fccf3bbc6baebf211a90545f06a45d5c37c9d295c",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-physics/src/contact/tests.rs",
+      "actual_EOF": 54,
+      "ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2651,
+      "source_id": "pr-working:crates/fabelgeist-physics/src/contact/count/tests.rs",
+      "sha256": "5f6a37ac323b7d9f38f2860278533c757e8e64aeed950b38de10925067184878",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-physics/src/contact/count/tests.rs",
+      "actual_EOF": 19,
+      "ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2652,
+      "source_id": "pr-working:crates/fabelgeist-xpbd/src/incidence.rs",
+      "sha256": "afd9754c0a781e0331b3be0f62f8398363593aa57dc474a0ed5decfeb5ee600f",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-xpbd/src/incidence.rs",
+      "actual_EOF": 142,
+      "ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2653,
+      "source_id": "pr-working:crates/fabelgeist-xpbd/src/constraint/address.rs",
+      "sha256": "1cca95c32add21d41c68abe0296d3d31684d982060d8b2098f896423b2f97075",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-xpbd/src/constraint/address.rs",
+      "actual_EOF": 32,
+      "ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2654,
+      "source_id": "pr-working:crates/fabelgeist-xpbd/src/dynamics/constraint.rs",
+      "sha256": "3a8f7b401dcd7f06e0373678542ef523772827884cbbf5a64d718201eea63228",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-xpbd/src/dynamics/constraint.rs",
+      "actual_EOF": 40,
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2655,
+      "source_id": "pr-working:crates/fabelgeist-xpbd/src/coloring.rs",
+      "sha256": "1f97fcaab5611d5acf757c551732b3e02485babc05c3ad976d05407da73f3a2a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-xpbd/src/coloring.rs",
+      "actual_EOF": 153,
+      "ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "ROOT-INITIAL04-F007",
+    "ROOT-INITIAL04-F008",
+    "ROOT-INITIAL04-F012"
+  ],
+  "facts": [
+    "Particles stores host inverse masses beside native position.w and public buffers; normal write constructs paired native records and updates host count/masses only after all three writes. write_positions takes/restores existing masses and resets velocities intentionally. Current previous positions/velocities are temporal history and motion, not derivable duplicates of current positions. Public replacement of positions buffer can invalidate retained count/capacity/mass association; actual normal API caller/error recovery must be traced before promotion. Packed record wrappers preserve signed-zero mass words; no invented positivity from type names.",
+    "Collider fixtures explicitly expect retained tail bytes/capacity after empty/shrunk replacement; active host count governs consumed prefix, so nonzero tail is not evidence of stale active colliders. Rejected mismatched-count update is expected to preserve host/native state. These fixture bodies were read, never executed.",
+    "ConstraintIncidence borrows immutable complete fixed-arity records, typed ParticleIndex assigns role but explicitly does not prove buffer membership. Coloring creates stable original-index permutation and color ranges from one borrowed graph; constraint original identity versus reordered slots intentionally separate. Its private immutable permutation/ranges coordinate in constructor. This strengthens F114 qualification: the defect is mutable external incidence/record data versus already compiled schedule, not independently editable Coloring internals. ConstraintViolation/compliance/multiplier are independent physical operands; they are not cached equivalent facts.",
+    "Personally consumed inherited ROOT-INITIAL04-F007/F008/F012 exact public API counterexamples and limits; no new07 source coverage inherited. Head sampling capacity issue remains distinct from pending custom geometric Head mesh bounds, and coverage interval scalar policy differs whole-item coverage estimate."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2656,
+    "start_line": 1
+  }
+}

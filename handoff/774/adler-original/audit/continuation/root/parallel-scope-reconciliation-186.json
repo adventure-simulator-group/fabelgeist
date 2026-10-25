@@ -1,0 +1,115 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-186",
+  "at": "2026-10-23T03:50:38.291517+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-054.json",
+    "sha256": "61dd93a34016dcc5670f4fd6d4aa9c65dc75b8464ff1eadd89374fa786a0fa23"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-053.json",
+    "sha256": "647458b6631d1e95dc0605d894414a3716fbb0e2c60ed4a6a55057300b3238d4"
+  },
+  "new_variants": [],
+  "new_overlays": [
+    {
+      "id": "CONT-OWNER-RANGE-EXTENSION-238",
+      "at": "2026-10-23T03:50:38.291517+00:00",
+      "source_id": "physical-p16:crates/adventuresim-terrain/src/lib.rs",
+      "sha256": "b6f4484e8febb316766de322ff355f1d0dda5b394343be0227517c601c0f1421",
+      "material_ranges": [
+        [
+          59,
+          65
+        ]
+      ],
+      "audit_owner": "camera",
+      "reason": "Exact missing Surface enum variant body between existing scoped derive1-58 and existing tail/method66-100; actual Cell/speed/decode classified surface owner/current native policy comparison, no surrounding route or builder graph.",
+      "scope_registration": [
+        {
+          "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+          "sha256": "84bd192195c45d47894add19267483be45049394780d4e86e2bbc06c1a80c3df",
+          "row_1based": 38,
+          "id": "CAMERA-INITIAL07-REG038",
+          "original_record": {
+            "registration_id": "CAMERA-INITIAL07-REG038",
+            "at": "2026-10-23T03:47:53.009411+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "physical-p16:crates/adventuresim-terrain/src/lib.rs",
+            "snapshot": "physical-p16",
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-terrain\\src\\lib.rs",
+            "sha256": "b6f4484e8febb316766de322ff355f1d0dda5b394343be0227517c601c0f1421",
+            "actual_EOF": 2059,
+            "material_ranges": [
+              [
+                59,
+                65
+              ]
+            ],
+            "reason": "Exact missing Surface enum variant body between existing scoped derive1-58 and existing tail/method66-100; actual Cell/speed/decode classified surface owner/current native policy comparison, no surrounding route or builder graph.",
+            "exclusions": "No new otherlibfunctions or terrainfeatures; only enum variants gap, all old scopes preserved.",
+            "status": "prospectively_registered_before_body_analysis"
+          }
+        }
+      ],
+      "limits": "No new otherlibfunctions or terrainfeatures; only enum variants gap, all old scopes preserved.",
+      "source_qualifications": "Only missing exact Surface variant role59-65; fresh actual03proof185 with independently resolved existing66Wetland andserde/speed/cell context. No whole2059/route/decoder or other-lens credit; all mandatory qualifications including184 retained."
+    }
+  ],
+  "total_variants": 2825,
+  "total_overlays": 238,
+  "mandatory_scope_qualifications": [
+    {
+      "record": "continuation/root/parallel-scope-qualification-130.json",
+      "sha256": "5dc4e5cd771612c7e050ab4af544411523317ae4b57738f1fb20f493685a50fc"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-117.json",
+      "sha256": "f3b80648900716939057b20776d756a6e37001f6910378da1a1bbaea230d348b"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-149.json",
+      "sha256": "97103899514ade32cf1e41c2794fa9c49c0cb8c6c7a2c6a4961b7492de5dc708"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-151.json",
+      "sha256": "670dd53a640b28eef7ad9d57b37f9213e1bca7117d7098691c4b0cd20c2a8f65"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-158.json",
+      "sha256": "fa0e9cc06d04fca0a0e2b5f9a333390a0ba1e71eff846a4e957c46b68b3e940e"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-170.json",
+      "sha256": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-173.json",
+      "sha256": "5763e9e965b4f4c1d402a09eab682de47336885c8d30b3c5b3d157242a496948"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-176.json",
+      "sha256": "9a321e498a00285331d4ec4fb4dc7c3a49d7bb6e3a08a44a79c2e5bf58186270"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-184.json",
+      "sha256": "5e35c8530a11d0f90bc767812758e4c504eb9ca5e776d0d1f17bf14c0853468d"
+    }
+  ],
+  "registered_rows": 1,
+  "input_pins": [
+    {
+      "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+      "sha256": "84bd192195c45d47894add19267483be45049394780d4e86e2bbc06c1a80c3df",
+      "captured_rows": 38,
+      "selected_ids": [
+        "CAMERA-INITIAL07-REG038"
+      ]
+    }
+  ],
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through237-before054.jsonl",
+    "sha256": "131e66814e193102e32ec6b780b0909788482b6f37a9e4d74145c1205a471388",
+    "through": 237
+  },
+  "limits": "Variants unchanged2825; one mandatory overlay238 completes missing P16Surface enum59-65. Mandatory184 excludes nonexistent P16tactics49-68. All prior qualifications retained; exhaustive initialaudits then handover163."
+}

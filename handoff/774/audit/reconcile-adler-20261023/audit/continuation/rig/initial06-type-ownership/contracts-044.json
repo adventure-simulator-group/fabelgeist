@@ -1,0 +1,40 @@
+{
+  "id": "RIG-INITIAL06-GROUP-044",
+  "at": "2026-10-22T20:54:43.618974+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "shared-flavor-complete-value-and-source-label-propagation": {
+      "sources": [
+        "pr-working:crates/adventuresim-core/src/item_catalog_schema.rs",
+        "pr-working:crates/adventuresim-core/src/food.rs"
+      ],
+      "comparison": "FreshPRSchema563\u2013569 completeFlavors andFood195\u2013245 completeFlavorProfile; bothsamefivepublicrawf32mass-equivalentkilogramcomponents salty/spicy/sweet/sour/savory. ActualFOOD_CATALOG295\u2013301 copiesallfiveunchanged throughFlavorProfile::new; no scale/frame/authority conversion. Samecompleteleafshouldhaveonecanonicalowner at tinyCorefood-value module usablebuildschema+runtime; preserve perunitcontext inFoodDefinition versus aggregatecookingquantity caller, notduplicateFlavorsstorage. FlavorProfile::scaled computeschanged extensivequantity andaggregate_flavor_quality463\u2013499 consumesactualsamekgpotencies versusfoodmass; operations canstaymethodsovercanonicalleaf. Schemaunknownfieldsdeny vsruntimeSerdeignoreunknown is REALportpolicy, bothrequireallfivekeys(noSerde defaults) while Default onlyconstructsallzero. Keep explicitformatadapter or deliberatelycleanfinaldecodepolicy, noalias/compatdualmodel; new doesnotestablishfinite/nonnegative despitevalidmethod. SourceFood.classString\u2192FoodClass12variantmatch271\u2013284 losescanonicalenum untilruntime andunreachable fallback; canonicalFoodClass declared156\u2013170 canalsoliveintinyleafbuildusablemodule withactualsnakecasewireadapter. Do notmoveentirefoodsimulationmoduleintoauthoringbuildgraph or equateFOOD_CATALOGsubsetrecordwithcompleteItemDefinition. PRwitnessonly; Camera009P16differentfocusedmaterialstillpendingglobal andnoP16semanticcreditfromsamebytes."
+    },
+    "shared-alcohol-properties-versus-inventory-and-consumption-authority": {
+      "sources": [
+        "pr-working:crates/adventuresim-core/src/item_catalog_schema.rs",
+        "pr-working:crates/adventuresim-core/src/alcohol.rs",
+        "pr-working:crates/adventuresim-stdb-module/src/item.rs",
+        "pr-working:crates/adventuresim-stdb-module/src/alcohol.rs"
+      ],
+      "comparison": "FreshSchemaAlcohol573\u2013580 andCoreAlcoholProperties81\u201393 exactsame6fieldtypes/meaning: servingml,ABPu16,hydrationml,disinfectant-effectivenessu16,focusedbool,potablebool. ScopedDBItem269\u2013275 copiesall6unchanged; prospectivelyREG021/022thenfreshproperties38\u201347 reconstructsall6unchanged forcanonicalCoreethanol/water/hydrationselectionrules95\u2013129. Notdifferentcodecunit/frame or authorityrecord; shareonecanonicalcompleteAlcoholProperties leaf availablebuildschema/Core/gameDB(optionalSATS), removeSchemacopy. DecodeSchemaordinarySerde+denyunknown vsCorecurrentlynoSerde,Defaultallzero: deriveorformatadaptermustpreserveactualauthoringpolicy ratherthaninferredsealedvalidity. AlcoholConsumption carriescharacter/evening/evaluatedhistory DIFFERENTauthority, ScopedAlcoholSupplyaddsconcretequantity/itemID/stableinventoryID/owner DIFFERENTprojection; retainthosecompositionproducts. ExistingflatDBschema maybeboundaryrepresentation but shouldcomposeactualcanonicalproduct whenSDKsupportsproduct, no unnecessary12fieldflatten/reconstructionornewmirrortypes; generatedclientmustberegeneratedlaterperAGENTS ifschemaedited. ExactnativeSDKproduct featurealreadyexists; do notforceCore->DBcycle. ABPvalid<=10000distincteffectivenessnativeu16notboundedBPsbyname; quantityunits/coin/StrategicMinute/eveningdayindex/restintervaldifferentcontracts. Currentall-u64eveningIDnotuniversalclock norSeed. ExistingRigclaimedCorealcohol/restquantitypropagation retained; noduplicateclaimtransfer. Corefullscopedunion1\u2013198/200\u2013426 fresh,199excluded; best_disinfectant indexactualenumerate positiveeffectivenessstableIDtiebreak is nativecollectionordinal notgameidentity. NofullCoreEOFtests427+orDB677graphcredit."
+    },
+    "catalogue-canonical-source-record-and-derived-runtime-view": {
+      "sources": [
+        "pr-working:crates/adventuresim-core/src/item_catalog.rs",
+        "physical-p16:crates/adventuresim-core/src/item_catalog.rs",
+        "physical-p16:crates/adventuresim-core/src/item_catalog_physical_serde.rs",
+        "physical-p16:crates/adventuresim-core/src/item_catalog_projection.rs",
+        "pr-working:crates/adventuresim-core/src/item_catalog_schema.rs",
+        "physical-p16:crates/adventuresim-core/src/item_catalog_schema.rs",
+        "pr-working:crates/adventuresim-core/src/equipment.rs"
+      ],
+      "comparison": "Fresh fullPRcatalogue614/Schema618 (039+044), actualcompleteP16catalogue544/Schema623diff andALLchangedretention/decoderdefinitionbodies freshlyread, P16projection122/physicalSerde18 fullfresh. SourceItemSourceRefID/file/line/column isdiagnosticprovenance(authoringorder) notCompiledCatalogDigest/ItemDefinitionidentity/inventoryID; immutableOnceLockcatalogue sortedforlookup, authored_document_itemsborrowscanonicalrecordsandreordersbysource, notsecondcatalogueowner. SameCoreauthoringSchema reusedbuild/runtimewithoptionalSATS lowdeclarations; no build->tactical cycle. F008nineweights/F009sevenbodyparts/F010flavors/F011alcohol identifyactualduplicatecompletevalues; otherkind/capability/placement/parent/attachmentpoint/material/tags aredifferentsemanticproducts, not alloneflatItem. ParentRequirementcategoryquery vsEquipmentGraphEdgeconcreteparentitem/point/capacity resolvedidentity are distinctauthoring/instancestages. RawsourcephysicalXwidth/Ylength/Zthickness versuscoreCuboidDimensions; P16actualaxisarraySerde18 islegitimatearraywireadapter, notnewdimensionalowner. Canonicalzero-validCuboid/SignedLength leaves retained; positiveequipmentaxes requiredbyaggregategate separatecurrent03 underflowfinding, no PositiveLeafDimensionsforallboxes. actualP16projectionchangesYlengthusingcheckedtotalLengthwhilepreservingX/Z, so reconstructionisnewgeometryproduct(notunchangedget/into cycle). Typedgrip reusedinbothkindreach/equipmentphysical, goodlocalpropagation; derivedphysicalmass/inertia/rawoutput weaknessesexistingadmissionfindings, notsuccessfulResultcertificate. PRrawvariantpreservedexplicitly; futureimplementationretainP16typedAPI. Equipmentfull1182 current036\u2013044 comparescanonicalSkill/Fit/Surface/AnimationPack/Loadout/Parametric/Armor/Body/Attributesactualdefs andruntimegraph/derivedburden/relativeweaponweights roles; CorepureAPIownercoherent, F008/F009 removeactualduplicationsonly. Encumbrance2aggregateweights/balanceinertiaanalyticderivedview not authoredphysicalrecipe/clinicalhumanmass. WrittenLanguage7/OfficialReligion7/BestiaryCategory13 actualPRWorldSchema315\u2013417/70\u2013130/1\u2013112freshdefinitions reusedBookTarget; culturalworldvocabularylowframeworkneutralowner right, notduplicateenglishlabelrecord. Bookterrain/skillrawtext versuscanonicalSkill requiresfutureactualallowed-subsetvalidatorcomparisonbeforemakingmigrationfinding; nofullWorldSchema3500/Language/Bestiarycreditfromnarrowdefs. SchemaordinarypublicDTO construction/Serde/noaggregateacceptedseal preserved; actualsourcevalidationcaller semantics separate03. P16WeaponSkills/EquipmentBodyPart/Flavors/AlcoholfullSchemaactualcounterpartdiffsamecurrentmeaning/formatpolicy (excepttypedphysicalfields), explicitP16samecontractcarryforF008/F009/F010/F011definitiononly, actualP16Food/DBreceiversnotcredited. No fullfeature/foreignSDK/hash-onlyclearance."
+    }
+  },
+  "new_findings": [
+    "RIG-INITIAL06-F010",
+    "RIG-INITIAL06-F011"
+  ],
+  "limits": "Whole06incomplete. SupportingFood/material/WorldSchema/DBItem partialranges doNOTclosewholecells; newDBpropertiesrolependingglobal.09/12notstarted."
+}

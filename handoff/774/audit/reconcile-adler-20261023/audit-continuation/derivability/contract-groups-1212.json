@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1212",
+  "at": "2026-10-25T18:09:21.074542+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1292,
+  "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/survival.rs",
+  "sha256": "9b69053053efb67e000a8aeafdaf2b7a89678136f4459cf592a6e7e9f391e1ad",
+  "actual_compared_ranges": [
+    [
+      1261,
+      1600
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Native combined outbound/action/return thermal/fatigue candidate admission and optional on-site recovery projections only. No handwritten trait/custom codec/type. Exact per-member current condition/insulation/state and forecast cardinalities synthesize SelectedCaseSitePlan after semantic safe checks, clone only retained forecast. Existing structural derive is used without replacing actual validity/None/deferred error order. Initially truncated middle1415\u20131442 separately consumed via1401\u20131450 before recording; no hidden-range credit.",
+  "first_unfinished": {
+    "scope_index": 1292,
+    "line": 1601
+  },
+  "execution": "none"
+}

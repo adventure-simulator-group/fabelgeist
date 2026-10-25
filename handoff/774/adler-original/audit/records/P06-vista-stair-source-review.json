@@ -1,0 +1,35 @@
+{
+  "recorded_at": "2026-10-21T02:14:32.222117+00:00",
+  "head": "271aaad0127cb76eacac2360e5bd5d4432c554eb",
+  "comparison_base": "a0ade500412cde0d94c85073fd734ef71db8e939",
+  "reviewer": "Single implementation agent; focused Code/Rule and producer receiver review, not independent review or a full audit wave.",
+  "source_trace": "P06-source-trace.json",
+  "source_backup_sha256": "3b2054f5224a694d596fccb0f3a6c2e5502e013f63867613e109d22da534f522",
+  "changed_paths": 38,
+  "source_findings": "Known P06 migration and integration findings are addressed in source. Executed validation is pending; no whole-PR clearance.",
+  "remedies": [
+    "Typed public vista point/elevation APIs and aggregate native finite-difference completion.",
+    "Required mesh errors propagate through focused/generation/backdrop preparation; all discovered callers and ignored fixture compile paths adapted.",
+    "Wasm preparation failure classification covers VistaMesh.",
+    "Core scene stair records retain checked support and point leaves; count/going/landing/width admission rejects invalid source.",
+    "Covered-but-invalid stair observations retain selection precedence rather than falling back to a valid court.",
+    "Signed selected floor shifts propagate through checked elevation translation and the disposable affine-probe clone.",
+    "Paving cached causes use Arc through framework conversion, with no prose erasure."
+  ],
+  "applicable_rules": [
+    "AGENTS.md architecture authority, clean final APIs, preserved ignored evidence, contributor summaries.",
+    "crates/AGENTS.md semantic values, native kernel evidence, existing owner reuse, checked operations, no production unwrap/expect in added paths, no tests without request.",
+    "crates/adventuresim-tactical-core/AGENTS.md tuning authority; this increment adds no combat tuning."
+  ],
+  "behavior_limits": {
+    "normalization": "Pinned Bevy 0.19.1/glam 0.33.6 source read only: Dir3 divides by length; successful Vec3 try_normalize uses the same reciprocal multiplication as prior normalize. Optional grass retains normalize_or_zero. Degenerate/nonfinite required normals now reject.",
+    "signed_zero": "Original grass centre used local + Vec2::ZERO while mesh/rock centre used local directly. For admitted sampled grids width/depth >=2, bilinear grid coordinates add positive half-grid extents >=0.5, eliminating any difference in a signed zero before sampling/fraction arithmetic. Seam outside-distance uses abs/max; sampled SceneTerrain adds its positive half extent. Owned grass bypasses this aggregate. No valid height/normal/mesh/seed output difference follows from that centre-expression difference. Native normal-probe offset order and f32 interpolation formulas are otherwise preserved.",
+    "offset_origins": "LOD scene_point/local_offset preserve old addition/subtraction and f64-to-f32 order. Existing 500/500 inspection and 125/-275 pigment fixtures are preserved. ActiveVistaSurface retains its previous numeric seam policy; this change does not silently correct the old offset-ring interpretation.",
+    "invalid_coarse": "Nonfinite coarse native samples remain Some until the completed interpolation is rejected. Malformed coarse metadata is distinct from exterior missing samples and is rejected before fallback/indexing."
+  },
+  "acceptance_limits": [
+    "Existing frozen-manifest/offline ignored cases are adapted but not executed.",
+    "No calibrated renderer/native production verdict.",
+    "No PR-wide primitive or aggregate clearance; all remaining original families stay open."
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "id": "SEGOVB-04-CUT-FACE-EMPTY-NATURAL-COLLISION-CANDIDATE-001",
+  "classification": "source-backed API conditional candidate; ordinary generated producer witness pending; indexed alias search found none, not exhaustive semantic dedup",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations.rs",
+      "sha256": "067e6669cec19996bd4cbe6fc1caf61c221b294ad11a150ccc3ca36423379797",
+      "critical_lines": {
+        "pub fn from_prisms": 87,
+        "pub fn from_foundations": null,
+        "pub fn colliders": null,
+        "if self.natural_triangles.is_empty": null,
+        "if !self.natural_triangles.is_empty": null,
+        "pub fn presentation_triangles": null
+      }
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/replacement.rs",
+      "sha256": "b75aba1e567b755f62e7882e2ad69001c5ad5fc8923d0b9a8430a4ffcebf0f32",
+      "critical_lines": {
+        "pub fn from_prisms": null,
+        "pub fn from_foundations": null,
+        "pub fn colliders": 89,
+        "if self.natural_triangles.is_empty": 96,
+        "if !self.natural_triangles.is_empty": null,
+        "pub fn presentation_triangles": null
+      }
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement.rs",
+      "sha256": "73463b02d4801103755fe0b5ed7fe7251892415ba3b7352dcce9b9634b454e8f",
+      "critical_lines": {
+        "pub fn from_prisms": null,
+        "pub fn from_foundations": 102,
+        "pub fn colliders": 227,
+        "if self.natural_triangles.is_empty": null,
+        "if !self.natural_triangles.is_empty": 236,
+        "pub fn presentation_triangles": 261
+      }
+    }
+  ],
+  "defect": "Both property/settlement collider builders omit valid retained cut_faces when natural_triangles is empty; settlement presentation always emits cut_faces. Empty natural terrain does not establish empty cut-face buffer.",
+  "admitted_route": "PropertyFoundationMesh::from_prisms admits finite cut_faces independently; BoundedSettlementTerrain::from_foundations accepts a valid foundation plus natural=[] and validates its query. A normal-sized prism with top1/base0 and a finite vertical cut_face above it is representable. No concrete generated all-source-clipped fixture or physics run asserted; raw constructor route need not prove generated semantic consistency.",
+  "remedy_contract": "Build optional combined natural+cut-face collider from the combined triangle set; preserve face winding, native index capacity and structured geometry errors. No source repair authorized now.",
+  "acceptance": [
+    "natural=[], cut_faces nonempty retains those physical faces consistently with presentation",
+    "natural=[], cut_faces=[] returns foundation shapes only",
+    "natural nonempty still preserves both cohorts exactly once and correct winding",
+    "actual production geometry/caller witness must be closed before ordinary reachability claim"
+  ],
+  "dependencies": [
+    "actual generated banks/ownership clipping witness",
+    "native parry collider adapter",
+    "related but distinct RIG-ADMISSION03-F043 and NATIVE-INITIAL05-F027; do not alias solely foundation owner"
+  ],
+  "execution": "none",
+  "new_unique_count": null,
+  "additional_contract_support": "Fresh04 packet495 full single/tests454 reads cut_banks... actual existing horizontal collision ray expectation; no run and no natural-empty generated witness."
+}

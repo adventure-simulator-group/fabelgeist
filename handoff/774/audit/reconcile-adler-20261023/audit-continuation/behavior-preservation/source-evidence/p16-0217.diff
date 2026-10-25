@@ -1,0 +1,24 @@
+--- p16base/crates/adventuresim-stdb-module/src/herbalism.rs
++++ catalog-p16head/crates/adventuresim-stdb-module/src/herbalism.rs
+@@ -337,9 +337,9 @@
+ pub fn start_poppy_tincture(
+     ctx: &ReducerContext,
+     character_id: u64,
+     object_id: u64,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     crate::strategic::require_strategic_gateway(ctx)?;
+     let actor = crate::character::require_living_character(ctx, character_id)?;
+     if actor.has_tactical_server_assignment() {
+         return Err("Tincturing is unavailable during a tactical encounter".into());
+@@ -505,9 +505,9 @@
+     actor_id: u64,
+     patient_id: u64,
+     object_id: u64,
+     dose_milliunits: u32,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     crate::strategic::require_strategic_gateway(ctx)?;
+     crate::disease::require_intervention_relationship(ctx, actor_id, patient_id)?;
+     let tincture_dose = DoseMilliunits::try_new(dose_milliunits)
+         .map_err(|_| "Tincture dose must be between 1 and 1000 milliunits")?;

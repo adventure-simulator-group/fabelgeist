@@ -1,0 +1,42 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-338",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        419,
+        420,
+        421,
+        422,
+        423,
+        424,
+        425
+      ],
+      "ranges": {
+        "419": [
+          [
+            1,
+            100
+          ],
+          [
+            268,
+            269
+          ],
+          [
+            316,
+            577
+          ],
+          [
+            948,
+            994
+          ]
+        ]
+      },
+      "comparison": "Exact frozen419 range union1-100,268-269,316-577,948-994 only; other six bodies full344 +19 +111 +47 +22 +47. Terrain Cell surface categorical enum plus crossing/cultivated and canopy/slope/wetland fractions are independent observations, not one exclusive terrain taxonomy. Current binary decoder validates discriminant and reserved bits then explicitly decodes real adapter flags into named fields. Coarser fractional observations remain meaningful and native 0/100 endpoint encoding does not justify forcing all runtime fractions Boolean. Preserve Native05 partial1x1 chunk qualification: per-axis membership issue is not solved by forcing complete tile coverage. Frozen419 excludes routing bodies, manifests and crossing consumers; no accidental full2059 credit or cleared semantic graph. RoadLine retains RegionalConnectionKind and checked WGS84 points through binary tag adapter; all seven classes map explicitly and unknown tag rejects. Bounded native floating point road arrays are true offline adapter; no enum needed for numeric coordinate indices. Road geometry digest currently hashes point arrays; classification/digest admission remains separate lens obligation, no clearance inferred. Weapon codec uses separate actual weapon/holder envelopes and typed causes; equal error variant vocabulary is valid common representation, no fake same-schema backward path. Derived physical quantities and material distribution contain independent scalars, no carried Boolean/tag payload issue in read surfaces. Generated holder kind and complete common geometry are valid common facts; kind-specific construction body remains separate. No tests or deployment writes executed.",
+      "finding_refs": [],
+      "disposition": "Real adapters and independent observations retained; exact partial source boundaries preserved"
+    }
+  ],
+  "new_findings": [],
+  "limits": "Read-only lens09 discovery. No native arithmetic, source provenance or conversion-count lens clearance; no repairs, checks, plan or execution."
+}

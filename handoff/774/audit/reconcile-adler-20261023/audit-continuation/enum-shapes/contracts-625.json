@@ -1,0 +1,23 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-625",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        1370
+      ],
+      "comparison": "Fresh full IK coordinator2973. Local routing distinguishes authored locomotion, invalid posture, raised follower, settle and ordinary terrain solve without assuming action/guard/history mutually exclusive. GuardStepState already owns stationary and side-specific swing payloads; QuickstepContactHandoff retains historical landing contacts through pending/held policies and yields to live movement. Actual plans, plants, observed support and transition support have distinct meanings; raw cadence/exhausted-until-flight latch is historical and cannot be derived from effective mutable weight. Same fixed tick skips evaluation/state mutation, while true zero elapsed has meaningful initial behavior. Independent left/right partial rig observations are legitimate. Proposed simplification release_active=release_target.is_some() would be wrong: active includes post-projection distance or unplanned terrain ownership2055\u20132061, while next_release_goal can remain None and both are retained2149\u20132158. Need actual release state owner and consumers before any shape proposal. Planned-contact/start/phase options created together1731\u20131759 but phase deliberately cleared at actual contact2840\u20132844 and retained point can be retargeted2611\u20132616; do not demand all three always present. Their lifecycle owner remains pending1380/1381. Native bool parameters in multi-condition support helpers are specific contract traces to assess in their children, not automatic blanket enum mandates. Actual FootClearanceFloor::Terrain and ReachLimit::Extended own conditionally meaningful geometry. Predicted/requested ankle versus rendered actual ankle is explicitly reconciled after solves, and terminal dual-contact ownership bypasses ordinary release/replan before truthful rendered completion. Guard/ordinary optional support remains unknown when unavailable rather than fabricated zero, except an actually attempted unsolved ordinary leg reports selected zero per2828\u20132884. Transform mutation occurs before later validation/publication; no concrete ordinary failure-atomicity defect inferred solely from fallible calls. Parent source provides actual callers but no child-body credit. No tests or runtime executed.",
+      "finding_refs": [],
+      "disposition": "Preserve independent history and actual lifecycle distinctions; retained release/plan state definitions pending"
+    }
+  ],
+  "new_findings": [],
+  "open_traces": [
+    {
+      "id": "SEGO-INITIAL09-OPEN-625-STATE",
+      "trace": "1370:1596\u20131639,1731\u20131759,1814\u20131922,2055\u20132061,2143\u20132158,2837\u20132844 -> state1380/publication1381",
+      "question": "Inspect carried release Boolean/optional goal and staged contact plan payload lifecycle, preserving active-without-goal and acquired-without-phase valid cases."
+    }
+  ],
+  "limits": "Discovery only. Child material remains incomplete; next1371 observation453. No repair, execution or clearance."
+}

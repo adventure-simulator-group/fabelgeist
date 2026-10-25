@@ -1,0 +1,149 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-309",
+  "at": "2026-10-25T14:38:52.089754+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 608,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/room_allocation.rs",
+      "sha256": "0af46aaa9d2e8406c02e95802701cab06cb2c9e496138d7589c422b4d53d48c5",
+      "actual_EOF": 249,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/room_allocation.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\room_allocation.rs",
+        "sha256": "0af46aaa9d2e8406c02e95802701cab06cb2c9e496138d7589c422b4d53d48c5",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "root",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 249,
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-WALL-SOURCE-CLOSURE-039",
+            "json_pointer": "/supplier_reconciliation/verified_exact_proofs/8",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/generator/room_allocation.rs",
+            "read_ranges_as_recorded": [
+              [
+                140,
+                180
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/room_allocation.rs",
+              "sha256": "0af46aaa9d2e8406c02e95802701cab06cb2c9e496138d7589c422b4d53d48c5",
+              "read_ranges": [
+                [
+                  140,
+                  180
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-029",
+            "json_pointer": "/additional_fresh_sources/8",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/generator/room_allocation.rs",
+            "read_ranges_as_recorded": [
+              [
+                140,
+                180
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/room_allocation.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/generator/room_allocation.rs",
+              "sha256": "0af46aaa9d2e8406c02e95802701cab06cb2c9e496138d7589c422b4d53d48c5",
+              "read_ranges": [
+                [
+                  140,
+                  180
+                ]
+              ],
+              "scope": "Only actual material source/receiving functions in these ranges; no whole-file credit outside listed ranges"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved",
+        "admission03_increment046_role_observations": [
+          {
+            "supplier": "root",
+            "registry": "continuation/root/admission03/source-range-registration.jsonl",
+            "row_1based": 3,
+            "registration_id": "ROOT-ADM-REG-003",
+            "original_record": {
+              "id": "ROOT-ADM-REG-003",
+              "at": "2026-10-22T06:38:32.470550+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/room_allocation.rs",
+              "snapshot": "pr-working",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\room_allocation.rs",
+              "sha256": "0af46aaa9d2e8406c02e95802701cab06cb2c9e496138d7589c422b4d53d48c5",
+              "actual_EOF": 249,
+              "material_ranges": [
+                [
+                  181,
+                  249
+                ]
+              ],
+              "actual_reach": "Already scoped177-180 begins GrowthCandidate declaration but omits remaining backing fields. Symbol navigation shows declarationends185 andonlyadditionalconstruction224 infinalfunction187-249; direct full admission/literal visibility comparison requires exacttail, not unrelated roomallocation1-139. Registered beforebody.",
+              "exclusions": "No wholefilecredit or unrelated roomallocation helpers1-139; new tail only actual private record and sole construction/selection function.",
+              "status": "prospectively_registered_before_body_analysis"
+            },
+            "local_qualifications": [],
+            "effective_material_ranges": [
+              [
+                181,
+                249
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\room_allocation.rs",
+            "actual_EOF": 249,
+            "bytes": 9337
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          90,
+          249
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "GrowthCandidate Clone/Copy/Eq/PartialEq/Ord/PartialOrd178\u2013185"
+      ],
+      "necessary_signature_extension": "Registered140\u2013249 joined to seed_score signature/body90\u2013139 enclosing140\u2013146; all90\u2013249 consumed. Earlier exploratory1\u201389 is not material coverage credit.",
+      "absence_basis": "Exact selected complete seed_score90\u2013146 semantic room-role/rank/native randomness; room_counts148\u2013154 and collect_rooms156\u2013175 checked native ordinal/record selection; GrowthCandidate177\u2013185 already derives lexicographic ordering; grow_rooms187\u2013249 native selected seeded growth. No handwritten trait/codec in material source. No added serializer needed for runtime ranking/classification."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "room growth semantic selection versus structural ordering",
+      "disposition": "GrowthCandidate already derives exact structural order; keep semantic rank construction, checked room ordinal collection and native mutation/error policy. No handwritten trait replacement.",
+      "acceptance": "Preserve field order/lexicographic rank and native indexing/errors. No execution/other-lens verdict; no whole-prefix coverage inferred."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 609,
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/room_connections.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

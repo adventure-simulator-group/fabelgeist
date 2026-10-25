@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-660",
+  "at": "2026-10-25T16:23:03.887404+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 961,
+  "source_id": "pr-working:crates/adventuresim-core/src/organization_catalog_validation.rs",
+  "sha256": "45b87fa13f86c8805f2b4f974fd1f629f5da068a07b3b7c4af17115aaa339846",
+  "actual_compared_ranges": [
+    [
+      1,
+      320
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Organization validator1\u2013320 consists vocabulary constants and native Value object/text/array/unknown-key/id/unique/requirement/document validation functions. No local record or handwritten trait/codec. Requirement policy validates bounds and cross-skill leaf semantics with source/path diagnostics; raw Deserialize derive would not replace this semantic validation."
+  ],
+  "first_unfinished": {
+    "scope_index": 961,
+    "line": 321
+  },
+  "execution": "none"
+}

@@ -1,0 +1,11 @@
+diff --git a/crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs.rs b/crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs.rs
+index 77f6817f8..a45cd0c1a 100644
+--- a/crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs.rs
++++ b/crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs.rs
+@@ -1,5 +1,5 @@
+-use crate::camera::authored_metres;
++use crate::camera::config::authored_metres;
+ use crate::presentation::TreeLeafRepresentation;
+ use adventuresim_tactical_core::animation::SignedAngleDegrees;
+ use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
+ use bevy::prelude::{Vec2, Vec3};

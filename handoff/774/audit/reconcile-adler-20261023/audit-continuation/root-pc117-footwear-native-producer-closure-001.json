@@ -1,0 +1,60 @@
+{
+  "at": "2026-10-23T22:39:43.413541+00:00",
+  "id": "pc117-footwear-native-producer-closure-001",
+  "reads": {
+    "crates/adventuresim-character-creator/src/device_sabaton.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/device_foot_frame.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/fabelgeist-armor/src/gpu/footwear.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/device_extremities.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/device_footwear_fit.rs": [
+      [
+        1,
+        10000
+      ]
+    ]
+  },
+  "contract": "Canonical footwear gauge/shape and contextual shell/carrier counts through fitting, error closure and native ring/profile consumers",
+  "coverage_limit": "Full five bodies personally read. Source traces only; no shader/device/fixture execution, no full lens clearance. Frame/support completion and floating roundtrip preconditions retain explicit qualifications.",
+  "disposition": "M19: FootArmorDesign canonical gauge thickness projects early into sabaton local, toe_cap(f32), CoordShell retained thickness, chart construction before native packing; actual foot_design fixed slots and PassParameters are native ports, not toe_cap/record_section_fit helpers. M16: design.lame_count becomes toe_shell index relying on native part order lames then toe-cap; preserve association not merely unit-wrap independent count. Actual boot producer fixes40columns,41rows plus sole fan center; first row authored constant y and both section fits mutate x/z only. Sole fan last index1640 is excluded from interior fairing by row+1<rings for size40. Thus no ordinary malformed/ring_size0 assertion from generic buffer API; world/local roundtrip tolerance and upstream frame/status proof remain dependencies before universal clearance. Sabaton nearest/slice Inf identities represent actual atomic reduction initial states; FRONT only checks cutaway vs frame length and final DeviceCheck tests that bit, so absence-of-support/profile invalidity must be reconciled against frame/support admission rather than declaring those native identities application sentinels. Foot FINISH explicitly rejects nonfinite reductions and nonorthonormal/zero-axis/extent frames, but DeviceRecording records shaders before host checks; shared invalid-stage issue remains exact archived Native05F061/RIGADM03F012 rather than new blanket failure. Preserve host_float fixed ordered arithmetic and explicit native shader slots, count and gauge units. M19/M06 GenerateError::SabatonTrimExceedsFoot retains extracted cutaway/available_span physical floats across asynchronous closure before UI; typed cause/quantity repair must include this recipient. No new source bug or current GPU failure claimed.",
+  "finding_traces": {
+    "M19": {
+      "source": [
+        "gpu/footwear.rs:157-309",
+        "device_sabaton.rs:69-133"
+      ],
+      "trace": "Gauge extracted into toe_cap primitive receiver and retained CoordShell.thickness; later native fixed design-slot packing legitimate. Deferred error captures cutaway and reconstructed frame span as raw metres; connected canonical physical owner must reach retained error leaves."
+    },
+    "M16": {
+      "source": [
+        "gpu/footwear.rs:12-17,111-154,247-309",
+        "device_footwear_fit.rs:256-320",
+        "device_sabaton.rs:61-74"
+      ],
+      "trace": "Actual boot fixed ordered ring source establishes intended40-column population plus final sole fan. Toe-shell index depends on part lames-first layout. Preserve source association and exact native ordering through shared #780 geometry/#826 buffer contracts; no competing wrapper."
+    }
+  },
+  "frontier": {
+    "file": "crates/adventuresim-character-creator/src/device_garment.rs",
+    "work": "PC117 footwear producers/ring schema and native frame complete as body reads; retain scoped API/frame qualifications. Next PC118 garment candidate/projection/shape graph, then pending creator/rig paths and entire original/overlay inventory. All13 discovery incomplete; no plan/repairs/checks."
+  }
+}

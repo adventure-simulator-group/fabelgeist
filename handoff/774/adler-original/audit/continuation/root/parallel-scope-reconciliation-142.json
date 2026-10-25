@@ -1,0 +1,88 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-142",
+  "at": "2026-10-22T21:55:20.697739+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-038.json",
+    "sha256": "91f1797e466c99c071bfae18ecc0ae7828d2f9f4e91470bed4ce6febd8dfb2e6"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-037.json",
+    "sha256": "a41fa3647d3c5df14ef67f9343aff7df7a45fe63dcb18272ab1c041195b81cba"
+  },
+  "new_variants": [],
+  "new_overlays": [
+    {
+      "id": "CONT-OWNER-RANGE-EXTENSION-224",
+      "at": "2026-10-22T21:55:20.697739+00:00",
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/bones.rs",
+      "sha256": "1178bf380da9126c00678608493b9d252af9746d853d347d5f334d451586b5bb",
+      "material_ranges": [
+        [
+          108,
+          129
+        ]
+      ],
+      "audit_owner": "native",
+      "reason": "Necessary actual P17 direct topology mapping; REG011 excluded this role, so prospectively extend before body now. PR sibling topology is navigation only.",
+      "scope_registration": [
+        {
+          "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+          "sha256": "69a74476a30644a6096bdbf42396927ca8d45ee3bc5f6c4b3c0347b230ef5440",
+          "row_1based": 12,
+          "id": "NATIVE-INITIAL05-REG012",
+          "original_record": {
+            "id": "NATIVE-INITIAL05-REG012",
+            "at": "2026-10-22T21:53:58.976451+00:00",
+            "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+            "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/bones.rs",
+            "snapshot": "report-p17",
+            "resolved_path": "SNAPSHOTS/p17/crates/adventuresim-tactical-client/src/animation_viewer/report/bones.rs",
+            "sha256": "1178bf380da9126c00678608493b9d252af9746d853d347d5f334d451586b5bb",
+            "actual_EOF": 138,
+            "material_ranges": [
+              [
+                108,
+                129
+              ]
+            ],
+            "material_caller": "Already global P17 capture.rs jitter_frames direct parent_bone call, same-frame local parent-relative projection requires actual acyclic reduced parent identity topology.",
+            "reason": "Necessary actual P17 direct topology mapping; REG011 excluded this role, so prospectively extend before body now. PR sibling topology is navigation only.",
+            "exclusions": "serialize_report_bone131-138 remains excluded; no authored complete rig hierarchy.",
+            "status": "prospectively registered before new body analysis; global pending"
+          }
+        }
+      ],
+      "limits": "serialize_report_bone131-138 remains excluded; no authored complete rig hierarchy.",
+      "source_qualifications": "Onlyreducedparentlookup108-129, originalREG0116-106separateandpreserved;131-138serializehelperexcluded, no completeauthoredrigscope."
+    }
+  ],
+  "total_variants": 2789,
+  "total_overlays": 224,
+  "mandatory_scope_qualifications": [
+    {
+      "record": "continuation/root/parallel-scope-qualification-130.json",
+      "sha256": "5dc4e5cd771612c7e050ab4af544411523317ae4b57738f1fb20f493685a50fc"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-117.json",
+      "sha256": "f3b80648900716939057b20776d756a6e37001f6910378da1a1bbaea230d348b"
+    }
+  ],
+  "registered_rows": 1,
+  "input_pins": [
+    {
+      "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+      "sha256": "69a74476a30644a6096bdbf42396927ca8d45ee3bc5f6c4b3c0347b230ef5440",
+      "captured_rows": 12,
+      "selected_ids": [
+        "NATIVE-INITIAL05-REG012"
+      ]
+    }
+  ],
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through223-before038.jsonl",
+    "sha256": "e92aaa6b1a6b284948a18313a5f41e3f241ece878c3a42472efb04623fc52bef",
+    "through": 223
+  },
+  "limits": "OnlyoneexpandedP17reportbonesrole108-129, overlay224; nonewvariant. Allpriorqualifiedroles SDK117/Bevy130 preserved, no completeauthoredhierarchy/131+serializer."
+}

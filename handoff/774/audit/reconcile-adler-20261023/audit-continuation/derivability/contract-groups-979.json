@@ -1,0 +1,279 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-979",
+  "at": "2026-10-25T17:25:23.459140+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1140,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem/effects.rs",
+      "sha256": "8f55ea514db0ec15ae06fb8ad544fcb6f107237239dcbb5e46be81a51cf084e0",
+      "actual_EOF": 17,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem/effects.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/local_problem/effects.rs",
+        "sha256": "8f55ea514db0ec15ae06fb8ad544fcb6f107237239dcbb5e46be81a51cf084e0",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 726,
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 96,
+            "read_ranges": [
+              [
+                1,
+                17
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-LOCAL-PROBLEM-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/local_problem/effects.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_owner": "native",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1610,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Complete native activity/time/mitigation scaling helpers read; no trait/type/codec."
+    },
+    {
+      "scope_index": 1141,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem/incident_draws.rs",
+      "sha256": "ed9f5a25305d6d7aa9443ebebff0695bbe9102ccf307f84a112016f423bd903f",
+      "actual_EOF": 62,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem/incident_draws.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/local_problem/incident_draws.rs",
+        "sha256": "ed9f5a25305d6d7aa9443ebebff0695bbe9102ccf307f84a112016f423bd903f",
+        "bytes": 2011,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/supplemental-quest-receivers.json",
+            "ranges": [
+              [
+                1,
+                62
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "NATIVE-SUPP-QUEST-IDENTITY-001"
+            ]
+          }
+        ],
+        "audit_owner": "native",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 107,
+            "read_ranges": [
+              [
+                1,
+                62
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-LOCAL-PROBLEM-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/local_problem/incident_draws.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 450,
+            "read_ranges": [
+              [
+                1,
+                62
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-LOCAL-PROBLEM-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/local_problem/incident_draws.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-QUEST-KNOWLEDGE-050",
+            "json_pointer": "/additional_actual_source_proofs/18",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/local_problem/incident_draws.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                62
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem/incident_draws.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/local_problem/incident_draws.rs",
+              "sha256": "ed9f5a25305d6d7aa9443ebebff0695bbe9102ccf307f84a112016f423bd903f",
+              "read_ranges": [
+                [
+                  1,
+                  62
+                ]
+              ],
+              "actual_line_count": 62,
+              "role": "Complete incident canonical context/Seed/RNG word/index and sorted candidate/site/circumstance producers",
+              "mode": "Fresh exact producer-supplement source-body read; only listed ranges, no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-037",
+            "json_pointer": "/fresh_current_source_reads/12",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/local_problem/incident_draws.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                62
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem/incident_draws.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/local_problem/incident_draws.rs",
+              "sha256": "ed9f5a25305d6d7aa9443ebebff0695bbe9102ccf307f84a112016f423bd903f",
+              "read_ranges": [
+                [
+                  1,
+                  62
+                ]
+              ],
+              "actual_line_count": 62,
+              "role": "Complete incident canonical context/Seed/RNG word/index and sorted candidate/site/circumstance producers",
+              "mode": "Fresh exact producer-supplement source-body read; only listed ranges, no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 461,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Complete IncidentDraws borrowed struct plus inherent constructor/RNG/index/word and sorted candidate/site/circumstance helpers read. Inherent new is a two-field borrowed aggregate, no manual trait; seeded domain-separated ordinal framing not a derived Hash/Serde substitute. No need derive construction API."
+    },
+    {
+      "scope_index": 1142,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem/inn_contact.rs",
+      "sha256": "3507dc6ed96e62ba936ebe3f306f0bfc853af7c80eca4c40f4c9131033205357",
+      "actual_EOF": 39,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem/inn_contact.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/local_problem/inn_contact.rs",
+        "sha256": "3507dc6ed96e62ba936ebe3f306f0bfc853af7c80eca4c40f4c9131033205357",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 1378,
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 97,
+            "read_ranges": [
+              [
+                1,
+                39
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-LOCAL-PROBLEM-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/local_problem/inn_contact.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_owner": "native",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1611,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Complete native inn service/present dialogue-capable contact DB join read; no traits/types/codecs. Explicit observer-time eligibility is semantic authority."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Local problem native included helper derivability",
+      "disposition": "No handwritten trait/codec; preserve exact timing, seeded framing and DB eligibility semantics."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1143,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/npc_causal.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

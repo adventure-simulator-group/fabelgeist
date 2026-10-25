@@ -1,0 +1,120 @@
+{
+  "id": "RIG-ADMISSION03-REPAIR-TARGET-PROPOSALS-113",
+  "authority": "Metadata supplier proposals only; Root reconciles existing whole-function/source claims before any eventual repair. No claim mutation or repair selection.",
+  "withdrawn": "F086 requires no claim or repair.",
+  "targets": {
+    "F087": [
+      {
+        "path": "crates/strategic-web/src/spacetimedb/types.rs",
+        "whole_records_or_functions": [
+          "EquipmentAttachmentTarget",
+          "CharacterView and current generated-row projections where IDs enter browser JSON"
+        ],
+        "limit": "Lossless full-u64 wire boundary; no arbitrary53-bit ID cap or narrowing of open presentation IDs."
+      },
+      {
+        "path": "crates/strategic-web/src/templates/settlement/trade/equipment.rs",
+        "whole_functions": [
+          "equipment_control",
+          "equipment_occupant_json"
+        ]
+      },
+      {
+        "path": "crates/strategic-web/static/equipment-toggle.js",
+        "whole_functions": [
+          "parseJsonArray",
+          "selectionForInput",
+          "equipmentMutation"
+        ]
+      },
+      {
+        "path": "crates/strategic-web/static/strategic-renderer.js",
+        "whole_function_or_block": "data-persistent-tactical click handler at242\u2013253"
+      },
+      {
+        "path": "crates/strategic-web/static/strategic-scene.js",
+        "whole_function": "preload"
+      }
+    ],
+    "F088": [
+      {
+        "path": "crates/fabelgeist-garment-fit/src/pose.rs",
+        "whole_records_or_functions": [
+          "Move",
+          "Axis::set",
+          "Pivots",
+          "Pivots::of",
+          "GarmentPose::place"
+        ]
+      },
+      {
+        "path": "crates/fabelgeist-garment-fit/src/lib.rs",
+        "whole_function": "GarmentFit::set_pose",
+        "limit": "Admit finite placed geometry before native write/retention; preserve unwrapped finite degrees, signed metres and short-panel identity."
+      }
+    ],
+    "F089": [
+      {
+        "path": "crates/fabelgeist-shell/src/selfcollision.rs",
+        "whole_records_or_functions": [
+          "SelfCollision",
+          "SelfCollision::new",
+          "SelfCollision::set_radius",
+          "SelfCollision::record"
+        ],
+        "limit": "Seal radius/spacing/cache together. Deliberate zero-radius disable/noop policy must be selected from actual caller meaning, no silent divisionbyzero."
+      }
+    ],
+    "F090": [
+      {
+        "path": "crates/fabelgeist-shell/src/outer_layer.rs",
+        "whole_records_or_functions": [
+          "OuterLayer",
+          "OuterLayer::new"
+        ],
+        "limit": "Finite nonzero completed length and normalized inward direction; finite nonnegative clearance including0. Triangle topology F054 remains separate."
+      }
+    ],
+    "F091": [
+      {
+        "path": "crates/fabelgeist-numpy-storage/src/npy.rs",
+        "whole_records_or_functions": [
+          "NpyArray",
+          "parse",
+          "NpyArray::len",
+          "NpyArray::to_tensor",
+          "NpyArray::to_int_tensor"
+        ],
+        "limit": "Header/shape/product/range admission and immutable shape/dtype/payload coherence; preserve raw array float words and zero dimensions."
+      },
+      {
+        "path": "crates/fabelgeist-numpy-storage/src/zip.rs",
+        "whole_functions": [
+          "find_central_directory",
+          "ZipArchive::from_data",
+          "ZipArchive::entry_bytes"
+        ],
+        "limit": "Exact checked byte ranges/native conversions before variable slices/allocation; actual Deflate decoder remains byte codec, not a finite mesh gate."
+      }
+    ],
+    "F092": [
+      {
+        "path": "crates/strategic-web/src/routes/travel.rs",
+        "whole_functions": [
+          "TerrainPlanKey::new",
+          "TerrainPlanner::plan_with_profile_and_weather"
+        ],
+        "limit": "Admit request before both cache hit and miss; preserve intentional finite sub-metre key equivalence and immutable package/timeout/error policies."
+      },
+      {
+        "path": "crates/adventuresim-terrain/src/lib.rs",
+        "whole_function": "TerrainPack::plan_with_deadline",
+        "limit": "Only shared endpoint/profile/weather admission extraction if the eventual coherent repair requires it; no unrelated routing/astar claim expansion."
+      }
+    ]
+  },
+  "source_status": "Only already scoped/read bodies; no new source analysis from target proposal.",
+  "repair": "frozen",
+  "validation": "not_run",
+  "later_lens_credit": false
+}

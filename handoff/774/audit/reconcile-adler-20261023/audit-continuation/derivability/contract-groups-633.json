@@ -1,0 +1,38 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-633",
+  "at": "2026-10-25T16:18:59.901716+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 951,
+  "source_id": "pr-working:crates/adventuresim-core/src/life_simulation.rs",
+  "sha256": "de8b909f4a6436e5f21c9828322d80f19905b15764e7f0b54fca2b1f0079457a",
+  "actual_compared_ranges": [
+    [
+      1,
+      440
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "PlayerAttributes",
+      "type": "tests::Attributes",
+      "lines": [
+        [
+          378,
+          385
+        ]
+      ],
+      "disposition": "KEEP synthetic uniform value for all method arguments; no equivalent field delegation"
+    }
+  ],
+  "analysis": [
+    "Native training/credential curriculum/normalization/literacy/seed-domain functions221\u2013368 are semantic mappings, not mechanical trait conversions.",
+    "Test Attributes implements PlayerAttributes378\u2013385 by ignoring both selectors and returning same contained f32 for each method; not delegation to an inner PlayerAttributes implementation, retain tiny synthetic fixture. Fixtures not run."
+  ],
+  "first_unfinished": {
+    "scope_index": 951,
+    "line": 441
+  },
+  "execution": "none"
+}

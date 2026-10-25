@@ -1,0 +1,76 @@
+//! Constant-speed acquisition of an upcoming run contact.
+
+use adventuresim_tactical_core::animation::{AnimationValueResult, CycleDelta, UnitInterval};
+
+pub(in crate::animation::procedural) fn run_contact_approach_progress(
+    phase_to_contact: CycleDelta,
+    approach_window: CycleDelta,
+    contact_ready_phase: CycleDelta,
+) -> AnimationValueResult<UnitInterval> {
+    // The retained cycle displacement meets configured native window values
+    // only at this dimensionless acquisition-ratio kernel.
+    let phase_to_contact = phase_to_contact.cycles();
+    let approach_window = approach_window.cycles();
+    let contact_ready_phase = contact_ready_phase.cycles();
+    if approach_window <= contact_ready_phase {
+        return Ok(if phase_to_contact <= contact_ready_phase {
+            UnitInterval::ONE
+        } else {
+            UnitInterval::ZERO
+        });
+    }
+    let linear = ((approach_window - phase_to_contact) / (approach_window - contact_ready_phase))
+        .clamp(0.0, 1.0);
+    // Constant horizontal velocity avoids both the old smoothstep mid-swing
+    // spike and a one-sample ease/catch-up seam. Clearance remains a separate
+    // sine arc, so the endpoint arrives early enough for bounded acquisition.
+    Ok(UnitInterval::from_fraction(linear)?)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn collapsed_contact_window_is_a_step_and_small_windows_interpolate() {
+        assert_eq!(
+            run_contact_approach_progress(
+                CycleDelta::from_cycles(0.3).unwrap(),
+                CycleDelta::from_cycles(0.2).unwrap(),
+                CycleDelta::from_cycles(0.2).unwrap()
+            )
+            .unwrap()
+            .fraction(),
+            0.0
+        );
+        assert_eq!(
+            run_contact_approach_progress(
+                CycleDelta::from_cycles(0.2).unwrap(),
+                CycleDelta::from_cycles(0.2).unwrap(),
+                CycleDelta::from_cycles(0.2).unwrap()
+            )
+            .unwrap()
+            .fraction(),
+            1.0
+        );
+        assert_eq!(
+            run_contact_approach_progress(
+                CycleDelta::from_cycles(0.1).unwrap(),
+                CycleDelta::from_cycles(0.2).unwrap(),
+                CycleDelta::from_cycles(0.2).unwrap()
+            )
+            .unwrap()
+            .fraction(),
+            1.0
+        );
+        assert_eq!(
+            run_contact_approach_progress(
+                CycleDelta::from_cycles(0.5e-10).unwrap(),
+                CycleDelta::from_cycles(1.0e-10).unwrap(),
+                CycleDelta::from_cycles(0.0).unwrap()
+            )
+            .unwrap()
+            .fraction(),
+            0.5
+        );
+    }
+}

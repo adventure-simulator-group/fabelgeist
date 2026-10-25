@@ -1,0 +1,21 @@
+{
+  "id": "SEGOVB-04-ECONOMY-LEVEL-PRODUCT-CANDIDATE-001",
+  "source_id": "pr-working:crates/adventuresim-world-schema/src/economy.rs",
+  "sha256": "ce7c60b4dca374b058a50d845ac3171642869aa47fc95b7873ac27392bff308e",
+  "ranges": [
+    [
+      145,
+      171
+    ]
+  ],
+  "counterexample": "Public infer_settlement_economy(population_level772,otherwisevalidsmallinputs) converts772tou16 thenmultiplies85=>65620 beforeanysaturating_add/min1000. Debugpanic/releasewrap producewrongboundedscore. No run.",
+  "qualification": "RawAPIcounterexample; ordinaryvalidatedworldpopulationstages smaller, no772dataset/DBactor asserted. Exactarchivealiascomparisonpending.",
+  "dependencies": "Canonicalpopulationstageadmission versus arithmeticdesignedforthefullrawAPI, sharedimport/DBfinalizationreceiver. Preserve scoring services/stockpolicy and explicit unsupportedstageoutcome ratherthan silentwrap/fallback.",
+  "acceptance": "Stage/product policy explicit before narrowmultiplication; scorecap1000 nevermasksintermediateoverflow, exactnormalstages unchanged. No implementationuntilall13initialdiscovery.",
+  "new_unique_global": "notdetermined",
+  "alias_search": {
+    "by": "coordinator",
+    "scope": "1002 recovered finding-record wrappers",
+    "result": "No indexed exact elevation_path / infer_settlement_economy candidate. Search evidence only, not exhaustive semantic no-alias proof."
+  }
+}

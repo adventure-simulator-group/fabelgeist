@@ -1,0 +1,49 @@
+{
+  "id": "CONT07-F113",
+  "lens": "audit-redundant-authority",
+  "classification": "source-backed host/kernel zero-normal disagreement on admitted analytic box; no runtimeoccurrenceclaim",
+  "title": "GPU box query loses the outward normal at its centre",
+  "sources": {
+    "2482": [
+      [
+        172,
+        195
+      ]
+    ],
+    "2329": [
+      [
+        77,
+        99
+      ],
+      [
+        110,
+        139
+      ],
+      [
+        176,
+        193
+      ]
+    ],
+    "2328": [
+      [
+        71,
+        115
+      ],
+      [
+        132,
+        142
+      ]
+    ]
+  },
+  "fact": "Host andshader independently implement sameanalyticbox distance/outward query. Hostf32.signum onzero chooses +/-1, whileWGSLsignzero yields0. Ininsidebranch, selectedlocalaxis0thereforeGPUlocalnormalzero whilehostnormalunit.",
+  "counterexample": "Unitrotation[0,0,0,1], center[0,0,0], positiveextents[1,2,3], dynamicparticleexactlycenter. GPU q[-1,-2,-3] choosesX andsign(0)=0; returned distance-1/normal0 leads collision_response correction0 despitepositivepenetration. Hostquerysamepoint returnsdistance-1/outwardX. NoexecutedGPUoractualcurrentcallerpositionasserted.",
+  "limits": [
+    "DoesnotdependonRIG-ADMISSION03-F081 invalidzeroquaternion ornonfiniteinput.",
+    "Onlypointsonselectedmedialaxiszero establishthiswitness; do notclaimallboxcontactswrong.",
+    "Rustsignedzerogivesdeterministicdirection; validzeroaxis needsfinitefallbacksharedwithkernel."
+  ],
+  "suggested_connected_remedy": "One coherentanalyticshape query policy includingzeroaxisoutwardfallback, derive nativeprojection/sharedconstants wherepossible andpreservevalidboxSDF/rotation/degenerategeometrymeaning.",
+  "acceptance_contract": "A penetratingdynamicparticle atvalidboxcenterreceivesfiniteunitoutwardcorrection; CPUandWGSLquerypolicyagreeonsignedzero andtiecase.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

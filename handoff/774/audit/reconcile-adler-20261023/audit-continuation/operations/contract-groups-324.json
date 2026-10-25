@@ -1,0 +1,192 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-324",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_coif.rs",
+      "sha256": "462aea2bd0f7f1a5dc8b365a394bacdaa8f01919a15bd385494f52b7044cf32e",
+      "actual_EOF": 488,
+      "actual_compared_ranges": [
+        [
+          1,
+          488
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_coif_sections.wgsl",
+      "sha256": "41acdba876e1f3728bb30194a1f7a2d5adeb2234f30e27a9eb472a1173a4352a",
+      "actual_EOF": 47,
+      "actual_compared_ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_equipment.rs",
+      "sha256": "5bf6b375e4fd7df25eda09134cfbd116ea893e21f87a040af51a1aef467c4d12",
+      "actual_EOF": 98,
+      "actual_compared_ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_extremities.rs",
+      "sha256": "0e277141754711abaee5c1cd2d1452918f562aa332c657717d7495c401289d0e",
+      "actual_EOF": 248,
+      "actual_compared_ranges": [
+        [
+          1,
+          248
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_fit.rs",
+      "sha256": "5eb9fadd5491db5b34e9ea0b0478355229d88f1b0b9d937911f586dc55a0b710",
+      "actual_EOF": 518,
+      "actual_compared_ranges": [
+        [
+          1,
+          518
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Coif dependent reductions validate completed drape before publishing its fit words",
+      "source_ranges": {
+        "device_coif.rs": [
+          [
+            1,
+            488
+          ]
+        ],
+        "device_coif_sections.wgsl": [
+          [
+            1,
+            47
+          ]
+        ]
+      },
+      "disposition": "Both whole host/shader bodies read. Actual canonical5sections and37drape words plus16frame words verified in fresh dependencies below; work offsets17..26/27/query28 do not overlap. Neck reductions initialize orderedzero or negative-infinity sentinels and independent counts. BOUNDARY requires all3reduction counts; DRAPE requires each edge/centre query count, positive neck width, ordered front/back, all37finite values and strictly rising section heights before writing fit. Later dispatches still execute after earlier status failure, but no new hull underflow here: triangle horizontal section has at most2crossings because three cyclic greater-than states change parity an even number, so fixed ends[2] membership is bounded. Invalid0crossing section is flagged invalid before depth use. Coincident X segment branch avoids denominator0; other clipping division has opposite-side guarantee. Exact host support face membership relies on Wearer upload validation, not bare count. CoifCarrier read verifies part status before shell0 range/read; actual fitted_coif_carrier constructs recording with one head frame before frames[0], checks frame before returning. Arbitrary wrong-family DevicePart caller is not proven supported. No GPU, generated mesh or image run."
+    },
+    {
+      "contract": "Device fitting has one base realization, matched morph slots and status/error validation before owned publication",
+      "source_ranges": {
+        "device_fit.rs": [
+          [
+            1,
+            518
+          ]
+        ],
+        "device_equipment.rs": [
+          [
+            1,
+            98
+          ]
+        ]
+      },
+      "disposition": "Both complete bodies read. realizations always begins wearer, so skin Some/base next expect are control-flow proven. One batch per realization intentionally avoids uniform-ring wrap; all uploads collected first. index.checked_sub1 maps exact morph slot; recordings/hosts/slots vector correspondence derives from same traversal. read checks every frame status, every device check, part.finish and mesh checks before pushing accepted part; skin.finish then constructs DevicePiece. This closes actual late-host-check dependency supporting323, without claiming failed dependent GPU passes are safe. assemble_recipe checks endpoint index/position/component correspondence, but public DevicePiece+Fitted independently supplied morph count can zip-truncate; normal fit_recipe constructs same-length endpoints. deltas native pairwise subtraction requires correspondence/finite output at its owning generated product, not guaranteed by arbitrary raw public arrays. Body upload cache/current-host mismatch joins exact supplied CAMERA-INITIAL07-F051 (archive camera07findings line51), ordinary mutation/runtime unproven. Current typed Result error policy is preserved; root completed03/06 baseline remains adopted."
+    },
+    {
+      "contract": "Historical suspended-waist error propagation mismatch is variant-specific and resolved in adopted merged delta",
+      "source_ranges": {
+        "device_fit.rs": [
+          [
+            305,
+            367
+          ]
+        ]
+      },
+      "disposition": "Fresh pinned PR source returns DevicePiece314 but uses fallible Skin::append?357; actual call305 wraps Ok. Fresh exact Skin owner93-106 proves append returnsResult and checks joint rig append before extending texture/weights. Exact existing archive key audit/records/final-acceptance-20261021/wave-01/audit-producer-propagation/rig/findings.json#7 RIG-CODE-001, not new unique. Parent supplied adopted-03-06-merged-delta-001.json: merged13fc returnsResult and caller corrected. This records fresh historical PR support plus supplied merged resolution, never a current build gap or an executed compiler error. Nonwrapped tasset shift updates only local owned geometry; wrapped fit intentionally remains at actual anatomical suspension. Endpoints pairs derive same requested morph order on normal path."
+    },
+    {
+      "contract": "Extremity multi-stage fits remeasure completed geometry and retain lower-layer failure checks",
+      "source_ranges": {
+        "device_extremities.rs": [
+          [
+            1,
+            248
+          ]
+        ],
+        "device_equipment.rs": [
+          [
+            1,
+            98
+          ]
+        ]
+      },
+      "disposition": "All source read. Design/region pair mismatch returns explicitErr. Mitten thumb_shell=shell_count-1 assumes actual gauntlet producer emits thumb and cuff; this producer dependency remains open until corresponding original role, not proven by generic DevicePart. Boot records shells then remeasures axial bounds after first fit, computes both actual authored Mail/Padded chausses, measures hems and fits/fairs dressed sections. Exactly2BOOT_LAYERS proves index casts and vector layout; deferred device checks retain each garment Part status, so no swallowed lower-layer failure. Post-fit shell thickening occurs in fit_piece before read. Geometry/skin native counts and vertex_texcoords source face/UV indexing rely on actual parsed model correspondence; seam last-write UV assignment is a declared per-vertex anatomical surface adapter, not proof of preserved per-corner atlas seams. No normal bad body/wrong shell or numerical clearance guarantee from this source-only read."
+    }
+  ],
+  "findings": [
+    {
+      "disposition": "same historical source finding, supplied merged correction",
+      "archive_key": "audit/records/final-acceptance-20261021/wave-01/audit-producer-propagation/rig/findings.json#7",
+      "id": "RIG-CODE-001",
+      "merged_status": "Root reports resolved in13fc adopted delta; no compiler run",
+      "no_new_unique_count": true
+    },
+    {
+      "disposition": "same supplied cache ownership graph with fresh04body support",
+      "archive_file": "audit/continuation/camera/initial07-redundant-authority/findings.jsonl",
+      "archive_line": 51,
+      "id": "CAMERA-INITIAL07-F051",
+      "no_new_unique_count": true
+    }
+  ],
+  "fresh_dependencies": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/body.rs",
+      "sha256": "f1bd53ff9b582384bddb6b2c32e63eb62838eb48c3b8eba911d1b4802a013624",
+      "actual_EOF": 229,
+      "actual_compared_ranges": [
+        [
+          75,
+          125
+        ]
+      ],
+      "purpose": "Actual Skin::append Result and mutation order only; no whole-body credit."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/coif_drape.rs",
+      "sha256": "f9ccb3bf0662590f4dd34ea6de4ce89569348359037efc93e3736a9524c3bca1",
+      "actual_EOF": 72,
+      "actual_compared_ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "purpose": "Canonical section count5 and drape words37 only."
+    },
+    {
+      "source_id": "6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/gpu/close_helmet.rs",
+      "sha256": "b8cd23b2c71e940d6fbafc9bcb366e7d9ee32d07f9769dac4de5c25fe5f80cac",
+      "actual_EOF": 387,
+      "actual_compared_ranges": [
+        [
+          22,
+          32
+        ]
+      ],
+      "purpose": "Canonical FIT_PROFILE_WORD16 only. No pr-working catalog row; exact Git object recovered, parent notified for scope accounting. No whole-role credit."
+    }
+  ],
+  "status": "5 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-character-creator/src/device_foot_frame.rs"
+}

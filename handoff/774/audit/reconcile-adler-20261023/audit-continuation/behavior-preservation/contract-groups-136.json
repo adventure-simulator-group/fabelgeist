@@ -1,0 +1,278 @@
+{
+  "id": "CONT08-CONTRACT-136",
+  "at": "2026-10-25T12:41:37.244393+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 473,
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/message/client_event.rs",
+      "package_source_origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_replicon-0.41.1/src/shared/message/client_event.rs",
+      "source_sha256": "aab1a187ebfe12274e2d36a8e87e658429edf99f9570fd9f8381141e6ea7a18b",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/aab1a187ebfe12274e2d36a8e87e658429edf99f9570fd9f8381141e6ea7a18b",
+      "head_body_read_ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "comparison_pin": {
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "lock_evidence": "source-evidence/native-p16-lock-comparison-135.json"
+      },
+      "facts": [
+        "Exact1\u2013137. ClientEvent default/mapped registrations choose actualclientmessage serializers, hash protocol then build conversion wrapper/register event. Receive trigger drains typed messages and forwards same client_id before queued event; no assumed applicationauthority from eventwrapper. Same externalpackage atpins; identity/validation in actual messagebody remains owning application."
+      ],
+      "disposition": "Exact scoped own08 native contract accounted WITH qualifiers; unchanged dependency not generalnative/payload clearance.",
+      "acceptance": "Preserve native API argument/axis/precision/order, explicit entity mapping and result lifecycle; actual changed payloads/normal generation separately traced. No native/project checks/tests/network."
+    },
+    {
+      "scope_index": 474,
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/message/client_message.rs",
+      "package_source_origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_replicon-0.41.1/src/shared/message/client_message.rs",
+      "source_sha256": "49ffa8758c206f00ed3ec3250015a7b76ee4fe5f0308151c368078185c7926e2",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/49ffa8758c206f00ed3ec3250015a7b76ee4fe5f0308151c368078185c7926e2",
+      "head_body_read_ranges": [
+        [
+          479,
+          507
+        ]
+      ],
+      "comparison_pin": {
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "lock_evidence": "source-evidence/native-p16-lock-comparison-135.json"
+      },
+      "facts": [
+        "Exact479\u2013507. Default postcard serialization; mapped serializer clones and maps entities before bytes; server receive default from_buf no arbitrary entitymap/admission inserted. Same wire kernel supports changed type comparison but does not prove all payload decode."
+      ],
+      "disposition": "Exact scoped own08 native contract accounted WITH qualifiers; unchanged dependency not generalnative/payload clearance.",
+      "acceptance": "Preserve native API argument/axis/precision/order, explicit entity mapping and result lifecycle; actual changed payloads/normal generation separately traced. No native/project checks/tests/network."
+    },
+    {
+      "scope_index": 475,
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/message/message_fns.rs",
+      "package_source_origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_replicon-0.41.1/src/shared/message/message_fns.rs",
+      "source_sha256": "bd043879e363b91cda3145415f64244ee5b85707c33bc0bdcea4ecd3e4085f62",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/bd043879e363b91cda3145415f64244ee5b85707c33bc0bdcea4ecd3e4085f62",
+      "head_body_read_ranges": [
+        [
+          118,
+          209
+        ]
+      ],
+      "comparison_pin": {
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "lock_evidence": "source-evidence/native-p16-lock-comparison-135.json"
+      },
+      "facts": [
+        "Exact118\u2013209. MessageFns delegates default/custom adapters; conversion serialization uses AsRef, deserialize performs successful native decode before From. Functionpointer ctx/result signatures and original sideeffect order preserved. No rollback/device/network claims."
+      ],
+      "disposition": "Exact scoped own08 native contract accounted WITH qualifiers; unchanged dependency not generalnative/payload clearance.",
+      "acceptance": "Preserve native API argument/axis/precision/order, explicit entity mapping and result lifecycle; actual changed payloads/normal generation separately traced. No native/project checks/tests/network."
+    },
+    {
+      "scope_index": 476,
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/message/server_event.rs",
+      "package_source_origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_replicon-0.41.1/src/shared/message/server_event.rs",
+      "source_sha256": "7581eeb1d81d9aca0af14bf56033e76b351ceb6237d950b42639821ea8c18a97",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/7581eeb1d81d9aca0af14bf56033e76b351ceb6237d950b42639821ea8c18a97",
+      "head_body_read_ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "comparison_pin": {
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "lock_evidence": "source-evidence/native-p16-lock-comparison-135.json"
+      },
+      "facts": [
+        "Exact1\u2013170, not full233. Server event protocol hash\u2192converted wrapper\u2192registry and independent flag select registered message bymessagescomponent ID. Typed drain triggers event in same order; range170ends message signature, no unreadscheduler credit. Native unchanged, actual component/msg schema remains own08 material question."
+      ],
+      "disposition": "Exact scoped own08 native contract accounted WITH qualifiers; unchanged dependency not generalnative/payload clearance.",
+      "acceptance": "Preserve native API argument/axis/precision/order, explicit entity mapping and result lifecycle; actual changed payloads/normal generation separately traced. No native/project checks/tests/network."
+    },
+    {
+      "scope_index": 477,
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/message/server_message.rs",
+      "package_source_origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_replicon-0.41.1/src/shared/message/server_message.rs",
+      "source_sha256": "45e815a2ac1b0e0c9117be00cbb45355a5085ed54c1e0225c82c4d5a3901532d",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/45e815a2ac1b0e0c9117be00cbb45355a5085ed54c1e0225c82c4d5a3901532d",
+      "head_body_read_ranges": [
+        [
+          721,
+          747
+        ]
+      ],
+      "comparison_pin": {
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "lock_evidence": "source-evidence/native-p16-lock-comparison-135.json"
+      },
+      "facts": [
+        "Exact721\u2013747. Server defaults call postcard; mapped deserialize mapsentities only after successfulfrom_buf. Actualserialization/error order same; no silentfallback/unknownenum policy introduced."
+      ],
+      "disposition": "Exact scoped own08 native contract accounted WITH qualifiers; unchanged dependency not generalnative/payload clearance.",
+      "acceptance": "Preserve native API argument/axis/precision/order, explicit entity mapping and result lifecycle; actual changed payloads/normal generation separately traced. No native/project checks/tests/network."
+    },
+    {
+      "scope_index": 478,
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/replication/registry/rule_fns.rs",
+      "package_source_origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_replicon-0.41.1/src/shared/replication/registry/rule_fns.rs",
+      "source_sha256": "07f3f73daff9344750ec08f54bd9acc8abec4a946040369ce1573c2b6a6b1073",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/07f3f73daff9344750ec08f54bd9acc8abec4a946040369ce1573c2b6a6b1073",
+      "head_body_read_ranges": [
+        [
+          65,
+          169
+        ],
+        [
+          179,
+          268
+        ]
+      ],
+      "comparison_pin": {
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "lock_evidence": "source-evidence/native-p16-lock-comparison-135.json"
+      },
+      "facts": [
+        "Fresh65\u2013169 plus exact samebody179\u2013268 own135/470 reused; source hashes470/478 equal, reuse appliesactualalreadyreadnativebody only. RuleFns fields/default inplace/consume adapters, customreplacement and methoddispatch retained; metadata does not establish receiving payload compatibility or whole348 module."
+      ],
+      "disposition": "Exact scoped own08 native contract accounted WITH qualifiers; unchanged dependency not generalnative/payload clearance.",
+      "acceptance": "Preserve native API argument/axis/precision/order, explicit entity mapping and result lifecycle; actual changed payloads/normal generation separately traced. No native/project checks/tests/network.",
+      "own_lens_reuse": "179\u2013268 exact samebody CONT08-CONTRACT-135 original470; freshread65\u2013169 only."
+    },
+    {
+      "scope_index": 479,
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/replication/rules.rs",
+      "package_source_origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_replicon-0.41.1/src/shared/replication/rules.rs",
+      "source_sha256": "037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+      "head_body_read_ranges": [
+        [
+          748,
+          809
+        ],
+        [
+          901,
+          939
+        ]
+      ],
+      "comparison_pin": {
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "lock_evidence": "source-evidence/native-p16-lock-comparison-135.json"
+      },
+      "facts": [
+        "Exact748\u2013809/901\u2013939. Replicatewithfiltered sums default component/filterpriority then registers protocolhash, materializes component rules, filterrules and inserts rule. Bundle939ends mid resource scope, not fullbody proof. Unchangedexternalnative compared in same locked package; no application ordering/wireclearance merely by registration."
+      ],
+      "disposition": "Exact scoped own08 native contract accounted WITH qualifiers; unchanged dependency not generalnative/payload clearance.",
+      "acceptance": "Preserve native API argument/axis/precision/order, explicit entity mapping and result lifecycle; actual changed payloads/normal generation separately traced. No native/project checks/tests/network."
+    },
+    {
+      "scope_index": 480,
+      "source_id": "pinned-registry:avian3d-0.7.0/Cargo.toml",
+      "package_source_origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0/Cargo.toml",
+      "source_sha256": "784418664acf79e35890108db95d9b43517706726665ab37152f3f252cb0dba9",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/784418664acf79e35890108db95d9b43517706726665ab37152f3f252cb0dba9",
+      "head_body_read_ranges": [
+        [
+          55,
+          104
+        ],
+        [
+          364,
+          381
+        ]
+      ],
+      "comparison_pin": {
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "lock_evidence": "source-evidence/native-p16-lock-comparison-135.json"
+      },
+      "facts": [
+        "Exact55\u2013104/364\u2013381. Avian features distinguishf32/f64 and default3d/parry-f32; serialize option enables native wrappers. Parry0.27 dependency declaration and actual native aliases consumed483. Thismanifest endsmidfeature at104, no full407/runtimefeature enable inference."
+      ],
+      "disposition": "Exact scoped own08 native contract accounted WITH qualifiers; unchanged dependency not generalnative/payload clearance.",
+      "acceptance": "Preserve native API argument/axis/precision/order, explicit entity mapping and result lifecycle; actual changed payloads/normal generation separately traced. No native/project checks/tests/network."
+    },
+    {
+      "scope_index": 481,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/collision/collider/parry/mod.rs",
+      "package_source_origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0/src/collision/collider/parry/mod.rs",
+      "source_sha256": "2a04ce7d6913b008e654905c96ead648efd840ddf102863532bc38bd187e3945",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/2a04ce7d6913b008e654905c96ead648efd840ddf102863532bc38bd187e3945",
+      "head_body_read_ranges": [
+        [
+          390,
+          441
+        ],
+        [
+          633,
+          810
+        ]
+      ],
+      "comparison_pin": {
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "lock_evidence": "source-evidence/native-p16-lock-comparison-135.json"
+      },
+      "facts": [
+        "Exact390\u2013441/633\u2013810. Native collider aabb uses scaled shape+make_pose; contact delegates sameargumentorder. Raynativeorigin/direction/maxdistance/solid passes through and returns rawtime/normal; compound transforms and shapes retained ininputorder. Cuboid halfextents/cylinder halfheight, capsule Y\u00b1length/2 and halfspace normalize_or_zero remain actualnativekernelpolicy. No finite positivity guarantee or Raycastunitnormal proof from documentation; lower Q003 staysopen."
+      ],
+      "disposition": "Exact scoped own08 native contract accounted WITH qualifiers; unchanged dependency not generalnative/payload clearance.",
+      "acceptance": "Preserve native API argument/axis/precision/order, explicit entity mapping and result lifecycle; actual changed payloads/normal generation separately traced. No native/project checks/tests/network."
+    },
+    {
+      "scope_index": 482,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/math/mod.rs",
+      "package_source_origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0/src/math/mod.rs",
+      "source_sha256": "67a006eda87315f690718b4d9c45b656b04958f32a80dffb0700cd9fa2d3a0e0",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/67a006eda87315f690718b4d9c45b656b04958f32a80dffb0700cd9fa2d3a0e0",
+      "head_body_read_ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "comparison_pin": {
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "lock_evidence": "source-evidence/native-p16-lock-comparison-135.json"
+      },
+      "facts": [
+        "Exact1\u201370. Active features select dimension/precision aliases, 3dDir3/Vec3 and angular vector; no new abstractcoordinate or brandedframe owner imposed onnativeport. Remaining668 source outsidecontract notcredited."
+      ],
+      "disposition": "Exact scoped own08 native contract accounted WITH qualifiers; unchanged dependency not generalnative/payload clearance.",
+      "acceptance": "Preserve native API argument/axis/precision/order, explicit entity mapping and result lifecycle; actual changed payloads/normal generation separately traced. No native/project checks/tests/network."
+    },
+    {
+      "scope_index": 483,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/math/single.rs",
+      "package_source_origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0/src/math/single.rs",
+      "source_sha256": "279b93c665684614416422084c7c9a7aca565ef6a57bd3fa61e76e388a1f71b9",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/279b93c665684614416422084c7c9a7aca565ef6a57bd3fa61e76e388a1f71b9",
+      "head_body_read_ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "comparison_pin": {
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "lock_evidence": "source-evidence/native-p16-lock-comparison-135.json"
+      },
+      "facts": [
+        "Exact1\u201385. Actualsingle precision Scalarf32/Vec3/Quat and AdjustPrecision native casts/identity with unchangedorder; f64\u2192f32 narrowing explicitboundary, no whole146/angularpredicate credit from signaturetail85."
+      ],
+      "disposition": "Exact scoped own08 native contract accounted WITH qualifiers; unchanged dependency not generalnative/payload clearance.",
+      "acceptance": "Preserve native API argument/axis/precision/order, explicit entity mapping and result lifecycle; actual changed payloads/normal generation separately traced. No native/project checks/tests/network."
+    }
+  ],
+  "next": "484\u2013490 exact Avian/Parry selectednative contracts; remaining source questions preserved."
+}

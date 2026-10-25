@@ -1,0 +1,98 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-400",
+  "at": "2026-10-25T15:16:39.507371+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 779,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/validation.rs",
+      "sha256": "61a7e389db804f2c17d7e619c27bb5bfc88f873f11e00d05097c85b6121518fb",
+      "actual_EOF": 164,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-character-creator/src/export/validation.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-character-creator/src/export/validation.rs",
+        "owner": "rig",
+        "sha256": "61a7e389db804f2c17d7e619c27bb5bfc88f873f11e00d05097c85b6121518fb",
+        "base_sha256": "75ce230e74337902c99ca08a8b87a9b4f0416323fe5251821d13486047031f0f",
+        "state": "modified",
+        "bytes": 5949,
+        "audit_owner": "rig",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/sources.json",
+            "ranges": [
+              [
+                1,
+                164
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-EXPORT-01"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 88,
+            "read_ranges": [
+              [
+                1,
+                164
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-EXPORT-013",
+              "RIG-OWNER-COLOR-014"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-character-creator/src/export/validation.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          164
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full exact164-line source: validate6\u201397 and validate_shell99\u2013164 enforce native LOD/body/rig/parent/skin/UV/morph/socket/finite/cohort invariants with current error precedence. No handwritten Rust trait/type/codec. Native aggregate validation must remain explicit; raw decode/construction derive cannot substitute."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "checked rigged export native aggregate validation",
+      "disposition": "No handwritten trait boilerplate; retain explicit checked aggregate/native index/wire prerequisites and contextual errors.",
+      "acceptance": "No raw derive bypass or error precedence/type widening; no project check/execution claim. Frozen UV policy retains separately recorded successor qualification."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 780,
+    "source_id": "pr-working:crates/adventuresim-character-creator/src/garment.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

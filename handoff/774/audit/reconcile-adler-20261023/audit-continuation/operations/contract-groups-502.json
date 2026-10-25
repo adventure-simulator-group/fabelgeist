@@ -1,0 +1,118 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-502",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates/polygon.rs",
+      "sha256": "e2ab1721fe7a2424bb3b878a6e98d58d12b6f1edc5ef39a0ae15a8bd3f322956",
+      "actual_EOF": 191,
+      "actual_compared_ranges": [
+        [
+          1,
+          191
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+      "sha256": "aab7cbd205fd372d7542412ed9898345ccc87e83c548b9988a46424d4b88c2af",
+      "actual_EOF": 270,
+      "actual_compared_ranges": [
+        [
+          1,
+          270
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates/spatial_tests.rs",
+      "sha256": "1a9a519142dab5d29d3a258936cf8538a7305f0faa3d303a28915f7d3b849588",
+      "actual_EOF": 173,
+      "actual_compared_ranges": [
+        [
+          1,
+          173
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates/velocity.rs",
+      "sha256": "f961ea0bc8da4a4bb23bba732b32f43172c9ab2aaa83bd4ff8319efb4faaf077",
+      "actual_EOF": 38,
+      "actual_compared_ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates/window.rs",
+      "sha256": "9e148e80284c8a960dc0fe0495783563bae67ec6bbf07abbdf6f82ff8edf5601",
+      "actual_EOF": 136,
+      "actual_compared_ranges": [
+        [
+          1,
+          136
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_ground.rs",
+      "sha256": "326752c9f0ad95c8f898c8ad0d106eae2395e3a89ec135922c6fd7da8d860622",
+      "actual_EOF": 88,
+      "actual_compared_ranges": [
+        [
+          1,
+          88
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Rigid projection preserves exact represented topology and complete values",
+      "evidence": "Full polygon191/spatial270/velocity38/window136. Architecturalexactconvexsource projected inestablishedf32order, from_rigid_projection checksdistinctvertices/positivef64area andadmitslegitimateroundedbends, arbitrarysceneoutline mustsharedexactconstructor. Translation returnsnewpolygonaftercompletecheckedvertices/area. NativeSceneDoor/WindowPose retainsleaf+originalquaternionproduct togetherwithprivatepairedfields; points/displacements framedandcompletedchecked. Finiteextremeaddition errors beforepublication, explicitgate/scene/architecturaldatum ownership preserved; no ordinal/physicalframealiases."
+    },
+    {
+      "contract": "Actual projection fixtures preserve wirebits and transform arithmetic",
+      "evidence": "Full spatial_tests173 andwindowfulltests read: canonicalorientation -PI/signedzero bitpreservation, +PI/nonfinite rejectedatdecode, reverseaxis canonical; point/hinge/nativequaternion/identity/size/yaw/sweepradiusroundtripswithinroundoff bothhinges, MAXgate+MAXpoint rejection. Compilerdocfail sourceassertions only, noexecution."
+    },
+    {
+      "contract": "Ground construction before publication and caller cardinality dependency",
+      "evidence": "Full scene_ground88: environmentmappedtosamples, treeobstacle influence indexesbyadmittedterraingrid before finalSceneGroundfrom_samples check. Completeactualgeneratorcaller mustmatchenvcardinality; mismatchcratehelperalone notnewordinarypanicclaim. Treelitterprobabilitybounded actualbranchdistance, seedtuple physicalsample/treeidentity. Fullurbanlookup new501 now new sourcecapacity candidate502 saved; parentindexedsearch found no exactalias, notsemanticexhaustiveproof."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-URBAN-BUCKET-WORK-CAPACITY-CANDIDATE-001",
+      "evidence_file": "finding-urban-bucket-work-502.json",
+      "new_unique": null
+    }
+  ],
+  "fresh_dependencies": [
+    {
+      "source_variant": "PR6533",
+      "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/dependencies-502/city_layout.rs",
+      "sha256": "d5aacb8a24fecfd5dadee9361c1b6c3d32bd19171bfc0bc984cd8b2efb183c8f",
+      "actual_compared_ranges": [
+        [
+          1,
+          338
+        ]
+      ],
+      "method": "Full exact Git body personally read for owningbucketconstant32 andnormalgeneratorgeometry, not originalrole coverage."
+    }
+  ],
+  "status": "6 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-core/src/scene_input.rs"
+}

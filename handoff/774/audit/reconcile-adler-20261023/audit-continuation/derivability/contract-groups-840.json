@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-840",
+  "at": "2026-10-25T16:59:22.957490+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1056,
+  "source_id": "pr-working:crates/adventuresim-procedural-materials/src/shaders/tactical_tree_bark.wgsl",
+  "sha256": "226829eae04e17626eeda3721fcbe33fc5c2d51b0a73ed9c81112fe87f7dc653",
+  "actual_compared_ranges": [
+    [
+      1,
+      260
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "WGSL source personally consumed: imports/conditional render output, sampled texture/sampler/uniform layout, packed terrain/height decoding, root soil/projection/hash/interpolation/geometry sampling helpers. No Rust or analogous handwritten trait/serialization machinery; derivability not applicable to consumed shader functions. Binding/semantic algorithms retained; this is source-specific inventory, not numerical/visual clearance."
+  ],
+  "first_unfinished": {
+    "scope_index": 1056,
+    "line": 261
+  },
+  "execution": "none"
+}

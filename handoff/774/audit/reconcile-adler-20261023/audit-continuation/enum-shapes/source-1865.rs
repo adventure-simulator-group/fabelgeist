@@ -1,0 +1,19 @@
+//! Checked authored maneuver durations.
+
+use crate::animation::PositiveAnimationDuration;
+use serde::{Deserialize, Serialize};
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct ManeuverTimingConfig {
+    pub get_up_seconds: PositiveAnimationDuration,
+    pub roll_seconds: PositiveAnimationDuration,
+    pub dive_seconds: PositiveAnimationDuration,
+    pub backward_dive_seconds: PositiveAnimationDuration,
+    /// Full sprint-slide duration. Its authored midpoint is body contact;
+    /// only the second half is subject to slide drag.
+    pub slide_seconds: PositiveAnimationDuration,
+    /// Complete input-to-recovery quickstep duration. `ActionTimeline` places
+    /// semantic contact halfway through this interval.
+    pub quickstep_duration_seconds: PositiveAnimationDuration,
+}

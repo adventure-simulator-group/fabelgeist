@@ -1,0 +1,255 @@
+{
+  "id": "CONT08-CONTRACT-174",
+  "at": "2026-10-25T13:36:34.433539+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 683,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/animation_preview.rs",
+      "before_sha256": "9e28461336b977bb9ad77c98dbbea4f5ef724cece653d381a05df365424c198b",
+      "after_sha256": "8c21b357f6f90a1c9c297c9e1c4306e63872daa3ccb32e060651f5df878b7ba3",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0683-base-9e28461336b977bb9ad77c98dbbea4f5ef724cece653d381a05df365424c198b",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/8c21b357f6f90a1c9c297c9e1c4306e63872daa3ccb32e060651f5df878b7ba3",
+      "diff": "source-evidence/pr-0683.diff",
+      "diff_sha256": "7076d3bce8943cf7164611a652b1b3672b76ac3af81484fde687b61444ac8028",
+      "head_body_read_ranges": [
+        [
+          1,
+          699
+        ]
+      ],
+      "facts": [
+        "Full699 and entire actual diff consumed. Joint/global tables preserve iteration/index order and f64/f32 transform operation order; root parent None replaces negative sentinel, requiring producer skeleton proof later. Rebuild still despawns/recreates skeleton/player and sets playing false; actual832 normal caller confirms fresh rig.",
+        "Cloth constructor now fallible with exact weighted row/position count check; Unweighted carries no invalid skin payload. Skinned/Simulated enum matches former false/true velocity-history states. All cloth targets preflight before mutation: one unweighted or bound-count mismatch freezes all weighted playback. Actual762 only adds ClothSkin for complete weighted rows; no normal Unweighted producer established. This gate is explicit accepted binding behavior with API/instance identity limitations, not an ordinary regression claim.",
+        "Eight-influence positive-weight fold preserves accumulation and native matrices; body-history gate still first entity plus vertex count. Pose/garment contacts and exact cloth fixtures preserved, not executed. Remaining producer skeleton cardinality/identity and mode controls remain material later cells; no full preview clearance."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 684,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview/binding.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/animation_preview/binding.rs",
+      "before_sha256": null,
+      "after_sha256": "1d37cdfbe3438b86643502d8f147cec1c22cfb04ba2ccdf09da1c30aacac7152",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/1d37cdfbe3438b86643502d8f147cec1c22cfb04ba2ccdf09da1c30aacac7152",
+      "diff": "source-evidence/pr-0684.diff",
+      "diff_sha256": "cb5340884497fe8d4759f0adb50bf321c8dcf768a886a0f0925932c2fac58930",
+      "head_body_read_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "facts": [
+        "Full58 new file; compared complete removed skin_mesh/skin implementation from683 actual diff. Influence weight descending/ordinal tie, selected four sum and fallback first1 unchanged; new u16::try_from rejects formerly truncated selected ordinals. Supported actual body127-joint packing is normal bound; public >65535 custom rig is intended native-width error, not valid truncation guarantee.",
+        "zip still accepts shorter weights and native mesh population is not checked here, retained conditional API contract. Entity table projection preserves native order; no proof equal count establishes same rig."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 685,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview/cloth_motion.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/animation_preview/cloth_motion.rs",
+      "before_sha256": "c80162fe64b7cf43d74f51a3f2651f058ebcda2f6e18f4d9ed68a10157226b83",
+      "after_sha256": "6ffc24ed612481adda0151e6c87d8c0980ecbe05f9c1cbcfccab08174af16d61",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0685-base-c80162fe64b7cf43d74f51a3f2651f058ebcda2f6e18f4d9ed68a10157226b83",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/6ffc24ed612481adda0151e6c87d8c0980ecbe05f9c1cbcfccab08174af16d61",
+      "diff": "source-evidence/pr-0685.diff",
+      "diff_sha256": "81892ece35c6ee4bf6f06cffee29eed2c44502bc38dd9a0ec8c13b4c404b90b1",
+      "head_body_read_ranges": [
+        [
+          1,
+          201
+        ]
+      ],
+      "facts": [
+        "Full201+actual diff. Only motion Boolean\u2192Skinned/Simulated changes; resetting previous once when entering simulation preserves old transition. Substeps max1/delta min1/30, same target/follow clamp, rest lengths, signed contact velocity min0 and native collision distance/margin preserve arithmetic/order. No simulation execution."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 686,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview/cloth_render.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/animation_preview/cloth_render.rs",
+      "before_sha256": "09e394b986b3f50c745763388fde141ed9f4512840df1a9ea6f29d26786538a4",
+      "after_sha256": "d691d43dfb3aa93344f65824b6c08ab7addcacf92e003099dde936d8b26e47ab",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0686-base-09e394b986b3f50c745763388fde141ed9f4512840df1a9ea6f29d26786538a4",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/d691d43dfb3aa93344f65824b6c08ab7addcacf92e003099dde936d8b26e47ab",
+      "diff": "source-evidence/pr-0686.diff",
+      "diff_sha256": "8ed3050d899082a6dc63892b4a7474fdda6cfce5871671b66d2e7b4a9289225e",
+      "head_body_read_ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "facts": [
+        "Full68+actual diff. Exact position-bit seam key keeps signed zeros distinct, first source row and face order/filter preserved. Weighted select keeps chosen row/weight association and original joint bound; Unweighted branch has no payload. Self::new Result moves validation before publication; native render position/normal expansion and ignored tangent Result unchanged."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 687,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/animation_preview/colliders.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/animation_preview/colliders.rs",
+      "before_sha256": "c9f502a3030cc3877154c770100716bb19bd73b5ac916438e1482c594434ad38",
+      "after_sha256": "2b26b6da1361090bfe1dbefbc45cba4a9d6dd1bc13b22ca18e351e6ef3018718",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0687-base-c9f502a3030cc3877154c770100716bb19bd73b5ac916438e1482c594434ad38",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/2b26b6da1361090bfe1dbefbc45cba4a9d6dd1bc13b22ca18e351e6ef3018718",
+      "diff": "source-evidence/pr-0687.diff",
+      "diff_sha256": "53f1a1d2a90673da00adf047d9b7bff401148f227a550d285150c397301be829",
+      "head_body_read_ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "facts": [
+        "Full26+actual diff. Only matrix slice\u2192RigJointTable changes. Body then armor iteration, source rest-offset u32 faces and skinned positions accumulation preserved. Declaration of ArmorSkin is not actual normal producer proof; instance compatibility remains conditional."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 762,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/drape_preview.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/drape_preview.rs",
+      "before_sha256": "d92a7708e1edfbce1b61cf0a3e01fee2c47caf895b5978218544822d1e66410b",
+      "after_sha256": "c6e605a97a1a017db71939375f50395488a049834eebd77c4a09ee1058360077",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0762-base-d92a7708e1edfbce1b61cf0a3e01fee2c47caf895b5978218544822d1e66410b",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/c6e605a97a1a017db71939375f50395488a049834eebd77c4a09ee1058360077",
+      "diff": "source-evidence/pr-0762.diff",
+      "diff_sha256": "9b45ac80b66a99a278d229ddca5224f825b63ef0461d2c60d46e2d22968e0505",
+      "head_body_read_ranges": [
+        [
+          1,
+          312
+        ]
+      ],
+      "facts": [
+        "Full312+actual diff. Drape input captures matching model names/joints/indices/weights; preview only creates ClothSkin if indices/weights counts equal positions, always Weighted. Missing binding still static mesh (not Unweighted component), qualifying683 whole-outfit early return.",
+        "Tangent expect\u2192context Result and ClothSkin/weld admission now occur before new entity publication; poll catches errors and continues after old drapes despawn. Failed render can leave earlier newly spawned garments, no global transaction promise; old path panicked on tangent failure. Mail material/cache and weave-refresh order unchanged; source material/raster outputs not run."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 823,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/preview.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/preview.rs",
+      "before_sha256": "b194929f40eb29ffa5782a8ddd21c55422f4b1df0a7dce5fd20fa49c751eaf03",
+      "after_sha256": "c028a72d0f62e5d1f79d76d09e35a549de03dcbba566a0258e69fe8248023c09",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0823-base-b194929f40eb29ffa5782a8ddd21c55422f4b1df0a7dce5fd20fa49c751eaf03",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/c028a72d0f62e5d1f79d76d09e35a549de03dcbba566a0258e69fe8248023c09",
+      "diff": "source-evidence/pr-0823.diff",
+      "diff_sha256": "dd81bef5c9c844b27345a27ed2bd91f726d7cc9dbcd6fed36d6d35f5789c40df",
+      "head_body_read_ranges": [
+        [
+          1,
+          193
+        ]
+      ],
+      "facts": [
+        "Full193+actual diff. Normal body/clothing spawn now propagates skin_mesh native-width Result and missing rig context before commands.spawn; old expect replaced by owned presentation error. Actual body indices/weights captured from same model and preview fresh rebuild in832; lower skeleton admission still own future source.",
+        "Skin material, armor component/trim source identity/index/material selection and mesh tangent contexts unchanged. Armor spawn does not insert ArmorSkin, supporting qualified public collider concern rather than ordinary regeneration claim."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 832,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/studio_generation.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/studio_generation.rs",
+      "before_sha256": "26e87529d4440bcb92e7e6a4a17b1f5c2a9f142b014f125fd6af9b582cfd3116",
+      "after_sha256": "7d6baf7df5362f498eb963aa984845e08e31952bec84de19b40620ea8f15dd0b",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0832-base-26e87529d4440bcb92e7e6a4a17b1f5c2a9f142b014f125fd6af9b582cfd3116",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/7d6baf7df5362f498eb963aa984845e08e31952bec84de19b40620ea8f15dd0b",
+      "diff": "source-evidence/pr-0832.diff",
+      "diff_sha256": "de01f21dc29b8024d9d1d27681376f0d60ed660cf2f413028c929db05c1951c8",
+      "head_body_read_ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "facts": [
+        "Full187+actual diff. Prepared loadout/body/clothing/armor/lining still happens before replacing rig; fresh rebuild and old entity deletion precede fallible body\u2192clothing\u2192equipment publication. New failure status/return from Result preserves explicit presentation boundary; no silent success/rollback inferred.",
+        "Material lookup now retained actual selected catalogue item instead of ID relookup. Exact recipient canonical handle/selection proof remains later cells. Drape retention/redrape policy, named cache and body bounds same; successful counts/status unaffected."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 2336,
+      "source_id": "pr-working:crates/fabelgeist-rig/src/skin.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-rig/src/skin.rs",
+      "before_sha256": null,
+      "after_sha256": "c1c856dd707201d43249ad4e61576728edf4ff9a2a2d1dbf68f6c980a1c2d206",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/c1c856dd707201d43249ad4e61576728edf4ff9a2a2d1dbf68f6c980a1c2d206",
+      "diff": "source-evidence/pr-2336.diff",
+      "diff_sha256": "d4568a67278368dae81586ce806e053e1e0c33902674b80cb31b90e153a08908",
+      "head_body_read_ranges": [
+        [
+          1,
+          226
+        ]
+      ],
+      "facts": [
+        "Full226 actual newly added body consumed; base absent and complete added diff equals body. Packed all-slot membership before weight filtering retains slot/order/zero-weight words, select retains row/bound, append empty adoption versus nonempty bound guard. Owner does not prove rig instance identity.",
+        "Actual683/684 consume same ordinal order; native_u16 checked width intentional versus former truncation. strongest_four separately combines duplicate joints and normalizes with native sum/division; preview684 does not call it, keeping former reduction. Other export recipients and zero-sum policy remain pending original scoped cells, not cleared by definition read."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 2337,
+      "source_id": "pr-working:crates/fabelgeist-rig/src/table.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-rig/src/table.rs",
+      "before_sha256": null,
+      "after_sha256": "491cfcace087aef015067a75e218e3bee9dc3c1e8bf681b40afa840f806da282",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/491cfcace087aef015067a75e218e3bee9dc3c1e8bf681b40afa840f806da282",
+      "diff": "source-evidence/pr-2337.diff",
+      "diff_sha256": "ceb8d86876fddc5c7a240080c62564a8d48868b81a3787bcae9d159cdc7e4bfc",
+      "head_body_read_ranges": [
+        [
+          1,
+          108
+        ]
+      ],
+      "facts": [
+        "Full108 actual new body consumed; base absent complete added diff equals body. Transparent native Vec columns/order/index panic/get Option and default empty/from_iter preserved versus previous direct Vec at683. indexed enumerates original slots and native projection retains source order. Owner explicitly does not establish common rig instance; parent/ordinal admission source still pending."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    }
+  ],
+  "next": "688 armor_design_input400 then689+; connected rig parent/packed producers remain pending"
+}

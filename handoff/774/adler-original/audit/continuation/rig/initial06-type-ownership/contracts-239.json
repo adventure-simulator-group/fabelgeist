@@ -1,0 +1,35 @@
+{
+  "id": "RIG-INITIAL06-GROUP-239",
+  "at": "2026-10-23T07:09:54.589452+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-067.json",
+  "groups": {
+    "pr-contact-source-versus-checked-shared-physical-api": {
+      "comparison": "Fresh PR contact161 independently compares P16 contact386 fresh226: canonical contact body taxonomy/WeaponContactParameters/AnimationSampleTick/CombatDuration already used, but ReportedPrecision.get passes unchanged to melee_contact_location/resolve_melee_attack and InitialMeleeContact retains raw reach. Supports F034 shared canonical API propagation with finite signed/>1 ReportedPrecision distinct from positive physical ContactPrecision; do not replace rejected raw contact evidence with newly checked accepted leaves. canonical_impact_surface transforms target-local hitbox centre/halfextents using actual inverse affine/native division; tuple point/normal native calculation is real boundary, not clock. MeleeContactAtTime is spatial coordinate descriptor per QUAL052, never time type just because suffix. windup saturating tick subtraction/rate division then AnimationElapsed/CombatDuration constructor preserves separate sample-clock/elapsednativeDuration domains. Random samples and flanking are different roles from precision; no generic bounded probability owner assumed without actual source policy. Transient attacker/defender Entity/view remain Bevy authority.",
+      "disposition": "Preserve exact F034 checked physical API propagation and diagnostic roles; distinguish spatial contact descriptor, sample ticks and elapsed duration."
+    },
+    "p17-angle-unit-and-sign-ownership": {
+      "comparison": "Fresh P17 authored_angle155 explicitly defines finite signed degrees, nonnegative degree magnitude, signed degrees/sec, nonnegative degrees/sec and nonnegative radians/sec, with manual via TryFrom Serde and unit getters. Equal finite backing does not make sign/unit/angle versus derivative interchangeable. Their own min/max keep signed zero/native semantics, and radian getters are conversion at numerical port. AnimationQuantity errors carry animation context; Core generic neutral angular math could own shared checked numeric kernel below camera/animation consumers as F039/F001 while animation role context remains higher. No automatic importing P17 methods/signatures to current PR; P17 still independently meaningful recorded variant. Zero Default permitted for specified signed/magnitude types, no wholeall-default policy. No repeated unit scalar ownership demonstrated solely by distinct unit wrappers; canonical conversion kernel should be shared rather than duplicated if moved.",
+      "disposition": "Keep sign/units and contextual angular roles distinct; neutral checked kernel may move below feature consumers, no stale snapshot replay."
+    },
+    "rack-recipe-calculated-dimensions": {
+      "comparison": "Fresh racks150 is generated furniture geometry over canonical Builder/FurnitureKind. Native Vec3 recipe size and changed posts/rails/slat positions use actual multiply/subtract and positive fixed loop denominators; hook/slot/slat count is local tessellation layout not durable identity or canonical capacity. Supports clean dimensions propagation into Builder/furniture recipe public boundary without replacing every calculated point/axis with an independent nominal type. F001 lower geometry ownership remains, no private-helper blanket exception; actual output dimensions cross canonical Builder admission as its own body proves. Furniture kinds Tool/Weapon/Drying/Cask/HayRack dispatch feature recipe, not weapon inventory owner or stock simulation. Comments explicitly unpopulated future stock, no accepted inventory/attachment proof. Unreachable unsupported kind precondition remains separate operation contract, no runtime execution.",
+      "disposition": "Keep furniture construction recipe local over canonical Builder and kinds; preserve real numerical geometry and lower shared-owner propagation."
+    },
+    "synthetic-fit-fixture-rig-authority": {
+      "comparison": "Fresh device_frames tests153 Arms fixture composes canonical PackedRigSkin8/RigJointCount/RigJointTable/RigJointName and native eight pose words/positions/weights. Side and RigJointPart construct names through canonical rig API; no second string grammar or mirror canonical rig ownership. Raw joint word lanes and arrays are GPU fitting port, ordinal does not certify same-asset relationship merely by length. Fixture intentionally mutates native pose entries and tests collinear rejection, not production publicly mutable accepted state or globally invariant UnitInterval weights. PartFrame origin/axes/halfextents belong actual fitted local frame, not ScenePosition/door datum/WGS. Tests only read including GPU calls, no device creation/execution/new assertions. Original fixture helper owns only local synthetic examples, no duplicate durable body/rig type.",
+      "disposition": "No competing canonical owner in original synthetic device-fit fixture; native fitting words and canonical rig table/skin remain distinct."
+    }
+  },
+  "supporting_existing_findings": [
+    "RIG-INITIAL06-F001",
+    "RIG-INITIAL06-F034",
+    "RIG-INITIAL06-F039"
+  ],
+  "source_fact_refs": [
+    "contracts-226.json",
+    "contracts-234.json",
+    "qualifications.jsonl#id=RIG-INITIAL06-QUAL-052"
+  ],
+  "limits": "Four fresh complete current source roles including independent P17 body. No source/claim edits, execution, unseen helper body, snapshot wholesale replay or later-lens credit."
+}

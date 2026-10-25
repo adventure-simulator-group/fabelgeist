@@ -1,0 +1,37 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-846",
+  "at": "2026-10-25T17:00:10.937281+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1062,
+  "source_id": "pr-working:crates/adventuresim-puzzles/src/ordered_sigils.rs",
+  "sha256": "663ef1d62d85a2b952a6be5d496949ae0b71d293110c14d6d7d123319559ee6b",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "Default",
+      "type": "OrderedSigilSpec",
+      "lines": [
+        [
+          23,
+          33
+        ]
+      ],
+      "disposition": "KEEP enabled-family/nonzero clue policy"
+    }
+  ],
+  "analysis": [
+    "OrderedSigilSpec Default23\u201333 sets four enabled clue families and max4; standard derive zero/false not equivalent, keep policy. All clue/puzzle/projection/submission structural/Serde already derived, SubmissionError structural only noDisplay toreplace. Native generation/validation/permutation/submission/projection/text and clue pool semantic functions, no manual codec."
+  ],
+  "first_unfinished": {
+    "scope_index": 1062,
+    "line": 221
+  },
+  "execution": "none"
+}

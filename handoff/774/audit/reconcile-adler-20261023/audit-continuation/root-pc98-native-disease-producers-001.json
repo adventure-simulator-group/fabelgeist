@@ -1,0 +1,84 @@
+{
+  "at": "2026-10-23T21:17:03.012685+00:00",
+  "id": "pc98-native-disease-producers-001",
+  "reads": {
+    "crates/adventuresim-stdb-module/src/disease.rs": [
+      [
+        1,
+        456
+      ],
+      [
+        551,
+        599
+      ],
+      [
+        736,
+        1770
+      ],
+      [
+        2060,
+        2950
+      ]
+    ],
+    "crates/adventuresim-stdb-module/src/disease/administration_adapter.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-stdb-module/src/disease/exposure_sources.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-stdb-module/src/disease/interval.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs": [
+      [
+        1,
+        10000
+      ]
+    ]
+  },
+  "contract": "Complete native clinical/disease source, bounded interval planning and actual administration source/decoder policies",
+  "coverage_limit": "Actualnative2950body complete only; authoritytests/current variants/Coreacquisitiongraph/medicalfullreceivers remain separate obligations and no lensclearance.",
+  "disposition": "M31 canonicalDiseaseId retainedinCore thennativeString re-admission, M102 checkedpublic readingquantities and M103 typedprivateprofile state. Actualadministration freshroute checks profile, patientinventorysingleton/quantity1, nonzero1..8000standalonedose andrequiredclock beforeeffect; oralmedicinalcomponent accepts0asno-op and typedDose unchanged. Do notglobalpositiveDose or convertall0toerrors. ActualprivateVariation sensitivity[-2500,2500] andadverse0..1500 narrower thanrawCoreclampingAPI; admitatnativeproducer, preserve broader suppliedCorepolicy separately. Chart generation bounded30days/1024rows/1024spans/256causes, originalsampling/truncation/source order intentionalboundedwork; expose unavailable/malformed distinctions ratherthan silently drop. One-keyHMACprivatekey32bytes/fourrandomwords+version isnotnormalpublicSeed; physicalprivateprofilerules immutableversion0/1semantics distinctclocksource. ExistingintervalinclusiveMAXsuccessor issue exactROOT04F044 historical operationfinding remains unresolved; sourcefailure notrerun.",
+  "finding_traces": {
+    "M31": {
+      "source": [
+        "crates/adventuresim-stdb-module/src/disease.rs",
+        "crates/adventuresim-stdb-module/src/disease/exposure_sources.rs",
+        "crates/adventuresim-stdb-module/src/disease/interval.rs"
+      ],
+      "trace": "Complete native source confirms DiseaseId->String native rows/gettingepisodeparse, canonical DiseaseEventKind->rawkindnotice, actor/episode/source IDs and realelapsed/exposure roles cross internalcachedcoverage/proposal/contacthelpers before nativehash/DBport. Unnecessary StrategicMinute::new(row.contracted_at.get()) should retain originaltypedminute directly. Keep environmental outbreakscope vs communitycontactvsblood sourceauthority distinct; no arbitraryExposure scalarbound or convertingopaque stableID seed backtoRNG."
+    },
+    "M98": {
+      "source": [
+        "crates/adventuresim-stdb-module/src/disease.rs:256-286,416-443,817-829,877-889,1093-1111,2266-2302"
+      ],
+      "trace": "Native chart missingkey\u2192empty, chartclockmissing\u2192ZERO and bad episode/administration.filter_map.ok\u2192omission beforepublicreadings are distinct from valid nohistory; native effectiveattributes/missingpersonalclock/default immunity require explicit source availability, not fakeobservation. Structuredepisode/administration decodeerrors shouldremain typedM103/M96 untilactualpublicunavailablemapping. Optional peer time/horizon/emptyidneutraliteration needs exact authority policy, not mechanically every unwrap_orDefaultfinding."
+    },
+    "M103": {
+      "source": [
+        "crates/adventuresim-stdb-module/src/disease.rs:2060-2302",
+        "crates/adventuresim-stdb-module/src/disease/administration_adapter.rs"
+      ],
+      "trace": "Actualfreshstart validates versionprofile/route/dose/currentclock, storesknownpositiveDose scalar and decoderreadmitsDose thenretainsversionedprofileStringpair. Decoder checksrulesetversion but omits phenotypeversion and profile/route validity; Coreeffect missingprofile/wrongroute returnsZERO. Keep accepted frozenprofile and explicitdecodeunavailablecause distinct fromlegitimate courseended/noeffect, preservetwooriginal doseadmissionroles. Stricttypederror P16transitivecaller graph mandatory; sourceoriginalString remainsfrozen."
+    },
+    "M102": {
+      "source": [
+        "crates/adventuresim-stdb-module/src/disease.rs:457-635"
+      ],
+      "trace": "Publiccandidate differential derives from publicquantizedmix and public diseasepatterns withconfidenceband0..5; noprivateepisode diagnosis. Exact signedbasispointleaf andboundedunsignedlikelihood/confidence fit canonicalowners; actualmean0.5+shape-reliability policy/lexical DiseaseId sort remainbehavioral contracts."
+    }
+  },
+  "frontier": {
+    "file": "crates/strategic-web/src/routes/settlements/party/inventory_medical.rs:121",
+    "work": "PC98 fullnative disease reached; PC99 remaining medical inventory/equipment/medication/encumbrance receiving bodies then body/skilltemplates and oldpendingcells. All13 initialdiscovery notcomplete."
+  }
+}

@@ -1,0 +1,822 @@
+{
+  "recorded_at": "2026-10-21T07:07:39.301243+00:00",
+  "owner": "/root/native_reports",
+  "task": "shared canonical scalar geometry and portable admission error relocation",
+  "worktree": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/shared-geometry/worktree",
+  "branch": "codex/774-shared-geometry-parallel",
+  "base": "b948c992a430dd8c53c3162c26d0cd13e74d51a1",
+  "source_commit": "c4a8ae5f5ae7fbf552795fa266588b4e9186f8d3",
+  "status": "SOURCE-COMPLETE CONNECTED DEPENDENCY INCREMENT. Manual source/metadata review only; exact integrated-head compile/format/lint/test/runtime acceptance remains pending.",
+  "completed_P18_preserved": {
+    "commit": "c6fe55e42e90981d9e132fcf1dd6615d17227275",
+    "evidence": "P18-native-reports-source-complete.json",
+    "policy": "This new branch starts after the coordinator boundary support increment; P18 source/report remain intact in their own completed increment."
+  },
+  "changed_files": [
+    "Cargo.lock",
+    "Cargo.toml",
+    "crates/adventuresim-building-generator/Cargo.toml",
+    "crates/adventuresim-building-generator/src/spatial_geometry.rs",
+    "crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+    "crates/adventuresim-building-generator/src/spatial_geometry/length.rs",
+    "crates/adventuresim-building-generator/src/spatial_geometry/measurement.rs",
+    "crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+    "crates/adventuresim-building-generator/src/spatial_geometry/tests.rs",
+    "crates/adventuresim-character-creator/Cargo.lock",
+    "crates/adventuresim-character-creator/Cargo.toml",
+    "crates/adventuresim-core/Cargo.toml",
+    "crates/adventuresim-tactical-client/Cargo.toml",
+    "crates/adventuresim-tactical-core/Cargo.toml",
+    "crates/adventuresim-tactical-server/Cargo.toml",
+    "crates/fabelgeist-armor/Cargo.toml",
+    "crates/fabelgeist-geometry/Cargo.toml",
+    "crates/fabelgeist-geometry/src/error.rs",
+    "crates/fabelgeist-geometry/src/length.rs",
+    "crates/fabelgeist-geometry/src/lib.rs",
+    "crates/fabelgeist-geometry/src/measurement.rs"
+  ],
+  "canonical_contract": {
+    "imports": [
+      "fabelgeist_geometry::SignedLength",
+      "fabelgeist_geometry::PositiveLength",
+      "fabelgeist_geometry::Area",
+      "fabelgeist_geometry::GeometryError",
+      "fabelgeist_geometry::GeometryResult",
+      "fabelgeist_geometry::GeometryRole",
+      "fabelgeist_geometry::CoordinateAxis",
+      "fabelgeist_geometry::DirectionError"
+    ],
+    "actual_relocation": "The three scalar definitions and error/role/axis owners moved out of building-generator into the new neutral crate. Building-generator pub use reexports the actual same definitions; no duplicate owner, type alias, primitive forwarding shim or compatibility path was added.",
+    "SignedLength": [
+      "const ZERO",
+      "const fn from_metres(f32)->GeometryResult<Self>, same finite-only signed admission, original SignedLength/X NonFinite classification",
+      "fn from_millimetres(u16)->Self, exact f32::from(value) / 1_000.0",
+      "fn scaled_by(f32)->GeometryResult<Self>, exact stored f32 * factor followed by original finite admission",
+      "fn metres(self)->f32"
+    ],
+    "PositiveLength": "All constructor/getter/Deserialize implementation bytes unchanged; same finite/negative/zero rejection order, role and X axis. Only owner imports and optional Reflect derive gate changed.",
+    "Area": "All constructor/getter/Deserialize implementation bytes unchanged; same finite/negative admission, valid zero and signed-zero behavior.",
+    "DirectionError": "Portable Zero/Infinite/NaN cause with the actual pinned Bevy Display strings. Its Serialize trait calls serializer.serialize_str with zero/infinite/nan, preserving original string representation even in binary serializers. GeometryError retains its original variant order/fields/messages; Clone/Eq are now derived from the portable cause."
+  },
+  "producer_consumer_closure": [
+    {
+      "producer": "Bevy Dir2::new / Dir3::new in PlanDirection::{from_vector,from_normalized} and SpatialDirection::{from_vector,from_normalized}",
+      "adapter": "building-generator spatial_geometry/error.rs::direction_error translates InvalidDirectionError exactly once to portable DirectionError and GeometryError::Direction",
+      "receivers": "All four actual constructors use the single adapter. Global source rg found one explicit Direction match receiver, adapted in the existing normalized direction fixture. Other GeometryError constructors/matches retain same fields via actual-definition reexports.",
+      "preservation": "Normalization/check order and native vector arithmetic unchanged; no String error translation."
+    },
+    {
+      "producer": "SignedLength/PositiveLength/Area scalar constructors and Deserialize",
+      "adapter": "Neutral actual owner; optional reflect feature uses bevy_reflect opaque derives",
+      "receivers": "Existing building geometry and all unchanged tactical/core/client callers through actual reexports; P08/P12/P16 consumers can import fabelgeist_geometry directly without Core->building dependency.",
+      "preservation": "repr(transparent), f32 Serde scalar representation, signed/zero data, bounds and errors retained. Existing reflection remains opaque when enabled by building-generator."
+    },
+    {
+      "producer": "Existing armor Millimeters::metres source contract f32::from(self.0)/1_000.0",
+      "adapter": "Canonical SignedLength::from_millimetres admits the bounded u16 representation infallibly using exact same expression",
+      "receivers": "Rig owner owns Millimeters::signed_length (ordinary fn) and Creator typed fitting calls; scaled_by handles authored three-wall offset without scalar extraction/re-admission.",
+      "preservation": "No multiplication-by-reciprocal, cast substitution, rounding kernel, or const From assumption."
+    },
+    {
+      "producer": "Root workspace and affected per-crate manifests",
+      "adapter": "Neutral default=[]; reflect optional Bevy reflection edge only; building explicitly enables reflect",
+      "receivers": "Core, tactical-core/client/server, Creator and armor direct canonical geometry dependencies; armor direct rig dependency for delegated packed skin.",
+      "preservation": "Core has no mandatory Bevy/building-generator edge. Rig owner confirmed equipment_assets has no actual rig import, so no Core->rig edge was added. Both root/Creator locks close all agreed edges with pinned packages."
+    }
+  ],
+  "dependency_metadata": {
+    "neutral_default_features": [],
+    "neutral_mandatory_dependencies": [
+      "serde",
+      "thiserror"
+    ],
+    "reflection_optional": true,
+    "reflection_constraint": "0.19.0",
+    "lockfiles": [
+      {
+        "path": "Cargo.lock",
+        "external_records_unchanged": true,
+        "external_records_sha256_before": "17db35ed38b51e310336af3b39803496b89739d972089f7414a310a513a3eb73",
+        "external_records_sha256_after": "17db35ed38b51e310336af3b39803496b89739d972089f7414a310a513a3eb73",
+        "new_or_changed_path_packages": [
+          {
+            "package": "adventuresim-building-generator",
+            "old": {
+              "name": "adventuresim-building-generator",
+              "version": "0.1.0",
+              "dependencies": [
+                "ab_glyph",
+                "adventuresim-procedural-textures",
+                "adventuresim-world-schema",
+                "bevy",
+                "bevy_egui",
+                "bevy_mod_outline",
+                "bevy_panorbit_camera",
+                "clap",
+                "earcut",
+                "fabelgeist-determinism",
+                "geo",
+                "postcard",
+                "serde",
+                "serde_json",
+                "thiserror 2.0.20"
+              ]
+            },
+            "new": {
+              "name": "adventuresim-building-generator",
+              "version": "0.1.0",
+              "dependencies": [
+                "ab_glyph",
+                "adventuresim-procedural-textures",
+                "adventuresim-world-schema",
+                "bevy",
+                "bevy_egui",
+                "bevy_mod_outline",
+                "bevy_panorbit_camera",
+                "clap",
+                "earcut",
+                "fabelgeist-determinism",
+                "fabelgeist-geometry",
+                "geo",
+                "postcard",
+                "serde",
+                "serde_json",
+                "thiserror 2.0.20"
+              ]
+            }
+          },
+          {
+            "package": "adventuresim-character-creator",
+            "old": {
+              "name": "adventuresim-character-creator",
+              "version": "0.1.0",
+              "dependencies": [
+                "adventuresim-core",
+                "adventuresim-world-schema",
+                "anyhow",
+                "async-lock",
+                "base64 0.22.1",
+                "bevy",
+                "bevy_egui",
+                "blake3",
+                "bytemuck",
+                "clap",
+                "derive_more 2.1.1",
+                "egui_extras",
+                "fabelgeist-armor",
+                "fabelgeist-bvh",
+                "fabelgeist-cloth",
+                "fabelgeist-compute",
+                "fabelgeist-determinism",
+                "fabelgeist-garment-code",
+                "fabelgeist-garment-fit",
+                "fabelgeist-gpu",
+                "fabelgeist-hair",
+                "fabelgeist-math",
+                "fabelgeist-rig",
+                "fabelgeist-shell",
+                "image",
+                "pollster",
+                "rand 0.9.5",
+                "rayon",
+                "serde",
+                "serde_json",
+                "thiserror 2.0.20",
+                "tokio"
+              ]
+            },
+            "new": {
+              "name": "adventuresim-character-creator",
+              "version": "0.1.0",
+              "dependencies": [
+                "adventuresim-core",
+                "adventuresim-world-schema",
+                "anyhow",
+                "async-lock",
+                "base64 0.22.1",
+                "bevy",
+                "bevy_egui",
+                "blake3",
+                "bytemuck",
+                "clap",
+                "derive_more 2.1.1",
+                "egui_extras",
+                "fabelgeist-armor",
+                "fabelgeist-bvh",
+                "fabelgeist-cloth",
+                "fabelgeist-compute",
+                "fabelgeist-determinism",
+                "fabelgeist-garment-code",
+                "fabelgeist-garment-fit",
+                "fabelgeist-geometry",
+                "fabelgeist-gpu",
+                "fabelgeist-hair",
+                "fabelgeist-math",
+                "fabelgeist-rig",
+                "fabelgeist-shell",
+                "image",
+                "pollster",
+                "rand 0.9.5",
+                "rayon",
+                "serde",
+                "serde_json",
+                "thiserror 2.0.20",
+                "tokio"
+              ]
+            }
+          },
+          {
+            "package": "adventuresim-core",
+            "old": {
+              "name": "adventuresim-core",
+              "version": "0.1.0",
+              "dependencies": [
+                "adventuresim-dialogue",
+                "adventuresim-puzzles",
+                "adventuresim-weapon-model",
+                "adventuresim-world-schema",
+                "ambassador",
+                "blanket",
+                "enum-assoc",
+                "enumflags2",
+                "fabelgeist-determinism",
+                "serde",
+                "serde-saphyr",
+                "serde_json",
+                "sha2",
+                "spacetimedb",
+                "spacetimedb-sats",
+                "thiserror 2.0.20"
+              ]
+            },
+            "new": {
+              "name": "adventuresim-core",
+              "version": "0.1.0",
+              "dependencies": [
+                "adventuresim-dialogue",
+                "adventuresim-puzzles",
+                "adventuresim-weapon-model",
+                "adventuresim-world-schema",
+                "ambassador",
+                "blanket",
+                "enum-assoc",
+                "enumflags2",
+                "fabelgeist-determinism",
+                "fabelgeist-geometry",
+                "serde",
+                "serde-saphyr",
+                "serde_json",
+                "sha2",
+                "spacetimedb",
+                "spacetimedb-sats",
+                "thiserror 2.0.20"
+              ]
+            }
+          },
+          {
+            "package": "adventuresim-tactical-client",
+            "old": {
+              "name": "adventuresim-tactical-client",
+              "version": "0.1.0",
+              "dependencies": [
+                "adventuresim-building-generator",
+                "adventuresim-character-creator",
+                "adventuresim-core",
+                "adventuresim-plant-generator",
+                "adventuresim-procedural-materials",
+                "adventuresim-procedural-textures",
+                "adventuresim-tactical-core",
+                "adventuresim-tactical-netcode",
+                "adventuresim-weapon-model",
+                "adventuresim-world-schema",
+                "anyhow",
+                "bevy",
+                "bevy_egui",
+                "bevy_eidolon",
+                "bevy_flair",
+                "bevy_mod_outline",
+                "blake3",
+                "bytemuck",
+                "ciborium",
+                "clap",
+                "console_error_panic_hook",
+                "derive_more 2.1.1",
+                "fabelgeist-armor",
+                "fabelgeist-bvh",
+                "fabelgeist-determinism",
+                "fabelgeist-math",
+                "fabelgeist-rig",
+                "flate2",
+                "gltf",
+                "pollster",
+                "postcard",
+                "semver",
+                "serde",
+                "serde-saphyr",
+                "serde_json",
+                "strum 0.27.2",
+                "thiserror 2.0.20",
+                "toml",
+                "tracing",
+                "tracing-subscriber",
+                "tracing-tracy",
+                "tracy-client-sys 0.28.0",
+                "wasm-bindgen",
+                "wasm-bindgen-futures",
+                "web-time"
+              ]
+            },
+            "new": {
+              "name": "adventuresim-tactical-client",
+              "version": "0.1.0",
+              "dependencies": [
+                "adventuresim-building-generator",
+                "adventuresim-character-creator",
+                "adventuresim-core",
+                "adventuresim-plant-generator",
+                "adventuresim-procedural-materials",
+                "adventuresim-procedural-textures",
+                "adventuresim-tactical-core",
+                "adventuresim-tactical-netcode",
+                "adventuresim-weapon-model",
+                "adventuresim-world-schema",
+                "anyhow",
+                "bevy",
+                "bevy_egui",
+                "bevy_eidolon",
+                "bevy_flair",
+                "bevy_mod_outline",
+                "blake3",
+                "bytemuck",
+                "ciborium",
+                "clap",
+                "console_error_panic_hook",
+                "derive_more 2.1.1",
+                "fabelgeist-armor",
+                "fabelgeist-bvh",
+                "fabelgeist-determinism",
+                "fabelgeist-geometry",
+                "fabelgeist-math",
+                "fabelgeist-rig",
+                "flate2",
+                "gltf",
+                "pollster",
+                "postcard",
+                "semver",
+                "serde",
+                "serde-saphyr",
+                "serde_json",
+                "strum 0.27.2",
+                "thiserror 2.0.20",
+                "toml",
+                "tracing",
+                "tracing-subscriber",
+                "tracing-tracy",
+                "tracy-client-sys 0.28.0",
+                "wasm-bindgen",
+                "wasm-bindgen-futures",
+                "web-time"
+              ]
+            }
+          },
+          {
+            "package": "adventuresim-tactical-core",
+            "old": {
+              "name": "adventuresim-tactical-core",
+              "version": "0.1.0",
+              "dependencies": [
+                "adventuresim-building-generator",
+                "adventuresim-core",
+                "adventuresim-world-schema",
+                "avian3d",
+                "bevy",
+                "bevy_ahoy",
+                "bevy_enhanced_input",
+                "bevy_math",
+                "bytemuck",
+                "ciborium",
+                "derive_more 2.1.1",
+                "fabelgeist-determinism",
+                "libm",
+                "microlp",
+                "noiz",
+                "postcard",
+                "rayon",
+                "serde",
+                "serde-saphyr",
+                "serde_json",
+                "sha2",
+                "smallvec",
+                "strum 0.28.0",
+                "thiserror 2.0.20"
+              ]
+            },
+            "new": {
+              "name": "adventuresim-tactical-core",
+              "version": "0.1.0",
+              "dependencies": [
+                "adventuresim-building-generator",
+                "adventuresim-core",
+                "adventuresim-world-schema",
+                "avian3d",
+                "bevy",
+                "bevy_ahoy",
+                "bevy_enhanced_input",
+                "bevy_math",
+                "bytemuck",
+                "ciborium",
+                "derive_more 2.1.1",
+                "fabelgeist-determinism",
+                "fabelgeist-geometry",
+                "libm",
+                "microlp",
+                "noiz",
+                "postcard",
+                "rayon",
+                "serde",
+                "serde-saphyr",
+                "serde_json",
+                "sha2",
+                "smallvec",
+                "strum 0.28.0",
+                "thiserror 2.0.20"
+              ]
+            }
+          },
+          {
+            "package": "adventuresim-tactical-server",
+            "old": {
+              "name": "adventuresim-tactical-server",
+              "version": "0.1.0",
+              "dependencies": [
+                "adventuresim-building-generator",
+                "adventuresim-core",
+                "adventuresim-stdb-client",
+                "adventuresim-tactical-core",
+                "adventuresim-tactical-netcode",
+                "adventuresim-weapon-model",
+                "adventuresim-world-schema",
+                "bevy",
+                "clap",
+                "fabelgeist-determinism",
+                "rand 0.9.5",
+                "ron",
+                "serde",
+                "serde-saphyr",
+                "serde_json",
+                "spacetimedb-sdk",
+                "thiserror 2.0.20"
+              ]
+            },
+            "new": {
+              "name": "adventuresim-tactical-server",
+              "version": "0.1.0",
+              "dependencies": [
+                "adventuresim-building-generator",
+                "adventuresim-core",
+                "adventuresim-stdb-client",
+                "adventuresim-tactical-core",
+                "adventuresim-tactical-netcode",
+                "adventuresim-weapon-model",
+                "adventuresim-world-schema",
+                "bevy",
+                "clap",
+                "fabelgeist-determinism",
+                "fabelgeist-geometry",
+                "rand 0.9.5",
+                "ron",
+                "serde",
+                "serde-saphyr",
+                "serde_json",
+                "spacetimedb-sdk",
+                "thiserror 2.0.20"
+              ]
+            }
+          },
+          {
+            "package": "fabelgeist-armor",
+            "old": {
+              "name": "fabelgeist-armor",
+              "version": "0.1.0",
+              "dependencies": [
+                "blake3",
+                "bytemuck",
+                "fabelgeist-compute",
+                "fabelgeist-garment-code",
+                "fabelgeist-gpu",
+                "fabelgeist-math",
+                "image",
+                "pollster",
+                "postcard",
+                "serde",
+                "serde_json",
+                "spade",
+                "thiserror 2.0.20"
+              ]
+            },
+            "new": {
+              "name": "fabelgeist-armor",
+              "version": "0.1.0",
+              "dependencies": [
+                "blake3",
+                "bytemuck",
+                "fabelgeist-compute",
+                "fabelgeist-garment-code",
+                "fabelgeist-geometry",
+                "fabelgeist-gpu",
+                "fabelgeist-math",
+                "fabelgeist-rig",
+                "image",
+                "pollster",
+                "postcard",
+                "serde",
+                "serde_json",
+                "spade",
+                "thiserror 2.0.20"
+              ]
+            }
+          },
+          {
+            "package": "fabelgeist-geometry",
+            "old": null,
+            "new": {
+              "name": "fabelgeist-geometry",
+              "version": "0.1.0",
+              "dependencies": [
+                "bevy_reflect",
+                "serde",
+                "thiserror 2.0.20"
+              ]
+            }
+          }
+        ],
+        "ambiguity": null,
+        "resolution_policy": "No resolver ran. New geometry edge constraints reuse bevy_reflect 0.19.1, serde and thiserror 2.0.20 already pinned in each lock. All external package identities, dependency arrays, source URLs and checksums remain unchanged."
+      },
+      {
+        "path": "crates/adventuresim-character-creator/Cargo.lock",
+        "external_records_unchanged": true,
+        "external_records_sha256_before": "dcf62d3fe84a8d120bdd21bded94e197cdfa59ffa51ea7b04ff00e85210ac84e",
+        "external_records_sha256_after": "dcf62d3fe84a8d120bdd21bded94e197cdfa59ffa51ea7b04ff00e85210ac84e",
+        "new_or_changed_path_packages": [
+          {
+            "package": "adventuresim-character-creator",
+            "old": {
+              "name": "adventuresim-character-creator",
+              "version": "0.1.0",
+              "dependencies": [
+                "adventuresim-core",
+                "adventuresim-world-schema",
+                "anyhow",
+                "async-lock",
+                "base64",
+                "bevy",
+                "bevy_egui",
+                "blake3",
+                "burn",
+                "bytemuck",
+                "clap",
+                "derive_more 2.1.1",
+                "egui_extras",
+                "fabelgeist-armor",
+                "fabelgeist-bvh",
+                "fabelgeist-cloth",
+                "fabelgeist-compute",
+                "fabelgeist-determinism",
+                "fabelgeist-garment-code",
+                "fabelgeist-garment-fit",
+                "fabelgeist-gpu",
+                "fabelgeist-hair",
+                "fabelgeist-math",
+                "fabelgeist-mhr",
+                "fabelgeist-rig",
+                "fabelgeist-shell",
+                "gltf",
+                "image",
+                "pollster",
+                "rand 0.9.5",
+                "rayon",
+                "serde",
+                "serde_json",
+                "thiserror 2.0.20",
+                "tokio"
+              ]
+            },
+            "new": {
+              "name": "adventuresim-character-creator",
+              "version": "0.1.0",
+              "dependencies": [
+                "adventuresim-core",
+                "adventuresim-world-schema",
+                "anyhow",
+                "async-lock",
+                "base64",
+                "bevy",
+                "bevy_egui",
+                "blake3",
+                "burn",
+                "bytemuck",
+                "clap",
+                "derive_more 2.1.1",
+                "egui_extras",
+                "fabelgeist-armor",
+                "fabelgeist-bvh",
+                "fabelgeist-cloth",
+                "fabelgeist-compute",
+                "fabelgeist-determinism",
+                "fabelgeist-garment-code",
+                "fabelgeist-garment-fit",
+                "fabelgeist-geometry",
+                "fabelgeist-gpu",
+                "fabelgeist-hair",
+                "fabelgeist-math",
+                "fabelgeist-mhr",
+                "fabelgeist-rig",
+                "fabelgeist-shell",
+                "gltf",
+                "image",
+                "pollster",
+                "rand 0.9.5",
+                "rayon",
+                "serde",
+                "serde_json",
+                "thiserror 2.0.20",
+                "tokio"
+              ]
+            }
+          },
+          {
+            "package": "adventuresim-core",
+            "old": {
+              "name": "adventuresim-core",
+              "version": "0.1.0",
+              "dependencies": [
+                "adventuresim-dialogue",
+                "adventuresim-puzzles",
+                "adventuresim-weapon-model",
+                "adventuresim-world-schema",
+                "ambassador",
+                "blanket",
+                "enum-assoc",
+                "enumflags2",
+                "fabelgeist-determinism",
+                "serde",
+                "serde-saphyr",
+                "serde_json",
+                "sha2",
+                "thiserror 2.0.20"
+              ]
+            },
+            "new": {
+              "name": "adventuresim-core",
+              "version": "0.1.0",
+              "dependencies": [
+                "adventuresim-dialogue",
+                "adventuresim-puzzles",
+                "adventuresim-weapon-model",
+                "adventuresim-world-schema",
+                "ambassador",
+                "blanket",
+                "enum-assoc",
+                "enumflags2",
+                "fabelgeist-determinism",
+                "fabelgeist-geometry",
+                "serde",
+                "serde-saphyr",
+                "serde_json",
+                "sha2",
+                "thiserror 2.0.20"
+              ]
+            }
+          },
+          {
+            "package": "fabelgeist-armor",
+            "old": {
+              "name": "fabelgeist-armor",
+              "version": "0.1.0",
+              "dependencies": [
+                "blake3",
+                "bytemuck",
+                "fabelgeist-compute",
+                "fabelgeist-garment-code",
+                "fabelgeist-gpu",
+                "fabelgeist-math",
+                "image",
+                "pollster",
+                "postcard",
+                "serde",
+                "serde_json",
+                "spade",
+                "thiserror 2.0.20"
+              ]
+            },
+            "new": {
+              "name": "fabelgeist-armor",
+              "version": "0.1.0",
+              "dependencies": [
+                "blake3",
+                "bytemuck",
+                "fabelgeist-compute",
+                "fabelgeist-garment-code",
+                "fabelgeist-geometry",
+                "fabelgeist-gpu",
+                "fabelgeist-math",
+                "fabelgeist-rig",
+                "image",
+                "pollster",
+                "postcard",
+                "serde",
+                "serde_json",
+                "spade",
+                "thiserror 2.0.20"
+              ]
+            }
+          },
+          {
+            "package": "fabelgeist-geometry",
+            "old": null,
+            "new": {
+              "name": "fabelgeist-geometry",
+              "version": "0.1.0",
+              "dependencies": [
+                "bevy_reflect",
+                "serde",
+                "thiserror 2.0.20"
+              ]
+            }
+          }
+        ],
+        "ambiguity": null,
+        "resolution_policy": "No resolver ran. New geometry edge constraints reuse bevy_reflect 0.19.1, serde and thiserror 2.0.20 already pinned in each lock. All external package identities, dependency arrays, source URLs and checksums remain unchanged."
+      }
+    ],
+    "lock_resolution_ambiguity": null
+  },
+  "source_preservation": {
+    "positive_length_impl_and_deserialize_byte_identical": true,
+    "area_impl_and_deserialize_byte_identical": true,
+    "existing_direction_fixture_identical_after_one_cause_type_replacement": true,
+    "existing_scalar_admission_fixture_byte_identical": true,
+    "scalar_admission_fixture_sha256": "5268a1443a2d6b73539f31a9a5f081be3016051fbca1926bf308882de6c22776",
+    "native_orientation_identical_after_four_error_adapter_replacements": true,
+    "moved_compile_fail_count_before": 2,
+    "moved_compile_fail_count_after": 2,
+    "moved_compile_fail_bodies_identical_after_owner_import_replacement": true,
+    "new_tests_cases_assertions_helpers_doctests": false,
+    "deliberate_actual_owner_change": "Runtime type identity/Reflect type path now belongs to fabelgeist_geometry. No old-owner compatibility type path was introduced; this is the clean shared owner requested by the coordinator."
+  },
+  "family_requirements": {
+    "contributes_to": [
+      "P08 shared signed physical leaf reachable by camera",
+      "P12 checked garment geometry leaf reachable by Creator/armor",
+      "P14 armor packed-skin dependency closure",
+      "P16 pure Core reach leaf dependency closure"
+    ],
+    "satisfied_in_source": [
+      "One canonical actual scalar/error definition owner without mandatory Bevy",
+      "Const signed metre admission preserving current errors/values",
+      "Portable typed native direction failures with exact serialized strings and Display",
+      "Exact bounded millimetre conversion and checked scale",
+      "All actual constructor/match receivers adapted",
+      "Centralized direct dependency and both lock closures without external version churn"
+    ],
+    "pending": [
+      "Dependent camera/rig implementation integration",
+      "Whole-family producer/receiver exits owned by the other agents",
+      "Integrated-head hosted formatting/compilation/lint/quality gates and existing fixtures"
+    ],
+    "not_claimed": "This dependency repair does not complete P08/P12/P14/P16 or whole-PR acceptance."
+  },
+  "source_reviews": [
+    {
+      "lens": "Code / behavior",
+      "result": "No unresolved finding after focused manual receiving-body/caller review. Resolved a source-review finding before commit: deriving Serialize for a portable enum would change binary source encoding from string to unit-variant index; custom string serialization preserves the old serde boundary exactly. Direction inputs/classification and normalization arithmetic unchanged; moved scalar admission/decoding and fixtures retained."
+    },
+    {
+      "lens": "Rules / architecture",
+      "result": "Claims populated before source edits and canonical contracts agreed with root/camera/rig. Canonical neutral ownership removes the wrong Core->building edge; optional Reflect maintains engine-independent scalar reachability. No duplicate definitions, primitive adapters, compatibility aliases, new test expansion, DB/schema/generated/wiki changes, gate/registry/baseline weakening, external posts/pushes/CI requests, local Cargo/formatter/parser/scanner/runtime commands or additional agents."
+    }
+  ],
+  "coordination": {
+    "camera": "Exact canonical API and source commit sent; existing P18 typed TacticalElapsed/IterationResult contracts sent for P16 overlap. Camera asked to consume P18 before touching shared output functions.",
+    "rig_garments": "Exact ordinary from_millimetres and checked scaled_by API confirmed; rig keeps armor adapter/Creator fitting implementation ownership; central manifests/locks owned here.",
+    "root": "Final integration/hosted validation retained by coordinator; AnimationQuantity additions remain with root."
+  },
+  "existing_hosted_command_selections_not_executed": [
+    "just fmt-check",
+    "just lint",
+    "cargo test --locked --package adventuresim-building-generator --lib spatial_geometry:: -- --test-threads=1",
+    "cargo test --locked --package fabelgeist-geometry --doc (the two existing compile-fail cases moved with their actual owner)",
+    "cargo check --locked --package adventuresim-core --no-default-features (verify neutral default dependency boundary)",
+    "cargo clippy --workspace --all-targets --all-features -- -D warnings"
+  ],
+  "local_inspection": [
+    "Plain source reads, rg exact constructor/match/owner searches, Git diffs/status/diff --check",
+    "Python stdlib TOML/JSON/hash/text metadata only; no resolver or executable Rust probe"
+  ],
+  "known_limits": [
+    "No compile/runtime/format/lint/fixture PASS is claimed.",
+    "Lock metadata is source-proven against existing pinned package records; locked hosted Cargo verification remains pending.",
+    "Dependent family owners must integrate this neutral crate and preserve P18 contracts when touching server iteration output."
+  ]
+}

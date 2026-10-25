@@ -1,0 +1,13 @@
+--- p16base/crates/adventuresim-tactical-server/src/combat/ranged/outcome.rs
++++ catalog-p16head/crates/adventuresim-tactical-server/src/combat/ranged/outcome.rs
+@@ -95,9 +95,9 @@
+         defender_blocking_slot,
+         attacker_weapon_contact: false,
+         impact_recipient: response.impact_recipient,
+         impact_velocity_change: response.impact_velocity_change,
+-        contact_at_time: MeleeContactAtTime::intended(0.0),
++        contact_at_time: MeleeContactAtTime::intended(SignedLength::ZERO),
+     });
+     commands.server_trigger(ToClients {
+         targets: SendTargets::All,
+         message: response,

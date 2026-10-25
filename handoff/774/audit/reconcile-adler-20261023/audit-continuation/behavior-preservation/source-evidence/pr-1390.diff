@@ -1,0 +1,34 @@
+--- PRbase/crates/adventuresim-tactical-client/src/animation/procedural/ik/track.rs
++++ frozen/crates/adventuresim-tactical-client/src/animation/procedural/ik/track.rs
+@@ -0,0 +1,31 @@
++//! The selected half of the rig-local foot corridor is a role, not a scalar.
++
++use super::*;
++
++#[derive(Debug, Clone, Copy, PartialEq, Eq)]
++pub(in crate::animation::procedural) enum FootTrackSide {
++    NegativeX,
++    PositiveX,
++}
++impl FootTrackSide {
++    pub(super) fn from_native_x(x: f32) -> Self {
++        if x < 0.0 {
++            Self::NegativeX
++        } else {
++            Self::PositiveX
++        }
++    }
++    /// Native vector-axis coefficient; no fractional or absent state is encoded.
++    pub(in crate::animation::procedural) fn coefficient(self) -> f32 {
++        match self {
++            Self::NegativeX => -1.0,
++            Self::PositiveX => 1.0,
++        }
++    }
++    pub(super) fn for_foot(foot: LeadFoot) -> Self {
++        match foot {
++            LeadFoot::Left => Self::NegativeX,
++            LeadFoot::Right => Self::PositiveX,
++        }
++    }
++}

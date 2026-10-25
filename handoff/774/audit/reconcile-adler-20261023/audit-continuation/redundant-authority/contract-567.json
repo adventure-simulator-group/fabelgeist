@@ -1,0 +1,82 @@
+{
+  "id": "CONT07-CONTRACT-567",
+  "at": "2026-10-24T00:07:40.833986+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2452,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+      "sha256": "afd630bf1aa3b39007ee568f0428f37e30d43c9b43bd12fc7cd114fca1486c34",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+      "actual_EOF": 1184,
+      "ranges": [
+        [
+          1,
+          1184
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2453,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/clearance.rs",
+      "sha256": "ef24a6569ba92503d98ad956984ab627e7c5fc41f7429713cbac258a178e57dd",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/clearance.rs",
+      "actual_EOF": 182,
+      "ranges": [
+        [
+          1,
+          182
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2454,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/continuity.rs",
+      "sha256": "d231794853b7f8d0c526e543e50e13d15499341746d4d50187f88d2022c5ced3",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/continuity.rs",
+      "actual_EOF": 186,
+      "ranges": [
+        [
+          1,
+          186
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2455,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/facing.rs",
+      "sha256": "3c351540f1c379a250a87469a2cc86c4bb2c525b5fc2dbf084ace8e4b1057671",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/facing.rs",
+      "actual_EOF": 146,
+      "ranges": [
+        [
+          1,
+          146
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "audit/continuation/camera/initial07-redundant-authority/findings.jsonl#CAMERA-INITIAL07-F065"
+  ],
+  "facts": [
+    "P17 full metrics module including existing fixtures personally read without execution. Metric grouping keys full ScenarioMetadata and thresholds delegate canonical walk/run reference speeds, stationary speed, turn tracking and shared sole contact tolerance. Authored expected support versus actual procedural support remains explicitly distinguished.",
+    "P17 clearance40 repeats literal0.085 for flight sole while contact80\u201382 calls measured_ankle_sole_offset_metres; exact additional variant/recipient support for archived CAMERA-INITIAL07-F065, not a new unique finding. Consumed full F065 narrative: checked custom configuration can choose0.1; default agrees, no failed captured run or threshold crossing claimed. Preserve independent flight/contact sample predicates and acceptance tolerance.",
+    "P17 foot_terrain_relief derives actual terrain elevation from observed world position minus clearance and subtracts root datum; no independently editable terrain copy retained. Missing bones/clearance produce Unavailable, no fabricated zero relief.",
+    "P17 continuity derives maxima and worst-location witnesses in same include path, preserves unavailable slip after later measured samples, and compares body-frame poses. First pre-roll interval intentionally omitted; loop seam upper body and full-support world drift measure different contracts.",
+    "P17 facing metrics compare independently observed body orientation to planned direction and canonical turn tracking budget. Full-ragdoll/no stable dive-axis retains explicit applicability/absence. Empty or no-motion scopes do not establish successful whole-suite evidence; report-selection completeness still to trace.",
+    "P17 quickstep-toe branch in reported_support_contacts is unreachable after earlier quickstep exclusion, but actual policy explicitly delegates quickstep/action support elsewhere; no authority mismatch promoted without the independent acceptance consumer. Existing tests are authored evidence only, never run."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2456,
+    "start_line": 1
+  }
+}

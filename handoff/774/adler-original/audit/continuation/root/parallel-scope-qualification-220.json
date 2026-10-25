@@ -1,0 +1,116 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-QUALIFICATION-220",
+  "at": "2026-10-23T06:06:16.700471+00:00",
+  "source_qualifications": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/detail.rs",
+      "sha256": "00f757ddff51e8079daf3a85241adea4b79272687b86f5e166a917ced784681f",
+      "raw_ranges_preserved": [
+        [
+          1,
+          190
+        ]
+      ],
+      "effective_material_ranges": [
+        [
+          1,
+          183
+        ]
+      ],
+      "context_only_ranges": [
+        [
+          184,
+          190
+        ]
+      ],
+      "fresh_actual_Root_boundary_read": [
+        [
+          180,
+          190
+        ]
+      ],
+      "qualification": "183 ends production.184blank/185cfgtest/186mod/187use/188-190 partialimportcontext; no191-815 body, whole815fixture or callee credit from accidental display. Same existingCamera restriction to190 retained, Native082 now explicit context qualification.",
+      "supplier_proof": {
+        "record": "continuation/native/initial05-aggregate-states/source-qualifications.jsonl",
+        "sha256": "21f1e21a41bacb462c17566edb44508eb549b6064407dfaabc148d3cd488223c",
+        "id": "NATIVE-INITIAL05-QUAL082",
+        "row_1based": 82
+      },
+      "original_supplier_record": {
+        "id": "NATIVE-INITIAL05-QUAL082",
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/detail.rs",
+        "sha256": "00f757ddff51e8079daf3a85241adea4b79272687b86f5e166a917ced784681f",
+        "actual_EOF": 815,
+        "original_registered_ranges": [
+          [
+            1,
+            190
+          ]
+        ],
+        "qualified_material_ranges": [
+          [
+            1,
+            183
+          ]
+        ],
+        "context_only_ranges": [
+          [
+            184,
+            190
+          ]
+        ],
+        "uncredited_display_ranges": [
+          [
+            191,
+            815
+          ]
+        ],
+        "qualification": "A whole-file display followed inherited scoped1\u2013190 without bounding output. Actual05 credit is ONLY production1\u2013183;185\u2013190 partial test header/import context, no tests193+ or helper bodies beyond190 credited. No source-role expansion or whole815 inference from premature display.",
+        "proof_refs": [
+          "forthcoming bounded detail packet"
+        ]
+      }
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/keep_core.rs",
+      "sha256": "4fe112080f5dcc507eb0600309b787389a2dbb7b056ead9fd82bea634d9e496b",
+      "raw_ranges_preserved": [
+        [
+          1,
+          37
+        ]
+      ],
+      "global_material_range_as_registered": [
+        [
+          1,
+          36
+        ]
+      ],
+      "effective_material_ranges": [
+        [
+          1,
+          8
+        ],
+        [
+          12,
+          36
+        ]
+      ],
+      "context_only_ranges": [
+        [
+          9,
+          11
+        ],
+        [
+          37,
+          37
+        ]
+      ],
+      "qualification": "9-10 reservation-only constants are literalcontext,11/37blank; no reserved_cells38+ body. Already read complete exact factory1-36 in216/141, no new source/semantic grant or whole70scope. Preserve raw registration1-37 and global1-36 metadata unchanged."
+    }
+  ],
+  "qualification": "No source scope shrinking or expansion, no counts or ownership changes, no new semantic/lens credit; exact body/context distinction and prior200/208/210/all older qualifiers remain mandatory.",
+  "all_lenses_mandatory": true,
+  "source_edits": 0,
+  "project_execution": 0
+}

@@ -1,0 +1,140 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-348",
+  "at": "2026-10-23T08:14:03.510756+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/generation.rs",
+      "sha256": "eb3d54908cc923b9cd761ca5abaf748d4ad9ed9175289a2d3342d0e2d4c6a4a1",
+      "scope071_index": 794,
+      "actual_EOF": 93,
+      "scoped_ranges_compared": [
+        [
+          1,
+          93
+        ]
+      ],
+      "actual05_comparison": "Fresh entire production source; output tensor rows, head affine inverses, same scalp/placement body binding, native geometry channels and groom/shape correlation compared. No model/GPU run."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair.rs",
+      "sha256": "a9d4f30809a845df7b5e43bac564eb66824d90bb6cfed878e96c6afae8ff332c",
+      "scope071_index": 795,
+      "actual_EOF": 177,
+      "scoped_ranges_compared": [
+        [
+          1,
+          177
+        ]
+      ],
+      "actual05_comparison": "Fresh entire production source; output tensor rows, head affine inverses, same scalp/placement body binding, native geometry channels and groom/shape correlation compared. No model/GPU run."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/cap.rs",
+      "sha256": "f15aaadb4a376988994c92be34ee22767367490569bb5a1fec2dd21d0db5fdf8",
+      "scope071_index": 796,
+      "actual_EOF": 256,
+      "scoped_ranges_compared": [
+        [
+          1,
+          256
+        ]
+      ],
+      "actual05_comparison": "Fresh entire production source; output tensor rows, head affine inverses, same scalp/placement body binding, native geometry channels and groom/shape correlation compared. No model/GPU run."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/geometry.rs",
+      "sha256": "58e56192a203d08a0cff3e0d1b4a037df09a24a86b969555bb1f2b6faf8a5fa0",
+      "scope071_index": 797,
+      "actual_EOF": 172,
+      "scoped_ranges_compared": [
+        [
+          1,
+          172
+        ]
+      ],
+      "actual05_comparison": "Fresh entire production source; output tensor rows, head affine inverses, same scalp/placement body binding, native geometry channels and groom/shape correlation compared. No model/GPU run."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/groom.rs",
+      "sha256": "6be15ac30dc63fd83b87ed48442b9fa9d403bb875737c7bafe13bdc19ac6c4c9",
+      "scope071_index": 804,
+      "actual_EOF": 233,
+      "scoped_ranges_compared": [
+        [
+          1,
+          233
+        ]
+      ],
+      "actual05_comparison": "Fresh entire production source; output tensor rows, head affine inverses, same scalp/placement body binding, native geometry channels and groom/shape correlation compared. No model/GPU run."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/placement.rs",
+      "sha256": "95f08e95fd0815ac957cb0578ef7291036b5d4a9b047e38da1a9f16bdebd4a7f",
+      "scope071_index": 805,
+      "actual_EOF": 266,
+      "scoped_ranges_compared": [
+        [
+          1,
+          266
+        ]
+      ],
+      "actual05_comparison": "Fresh entire production source; output tensor rows, head affine inverses, same scalp/placement body binding, native geometry channels and groom/shape correlation compared. No model/GPU run."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/shape.rs",
+      "sha256": "d2da1edcace60e78eab855e992651bda223fcbab7bd832c0f00304ecdcbe7294",
+      "scope071_index": 806,
+      "actual_EOF": 229,
+      "scoped_ranges_compared": [
+        [
+          1,
+          229
+        ]
+      ],
+      "actual05_comparison": "Fresh entire production source; output tensor rows, head affine inverses, same scalp/placement body binding, native geometry channels and groom/shape correlation compared. No model/GPU run."
+    }
+  ],
+  "groups": [
+    {
+      "id": "generated character has new device cache and current rig rows",
+      "comparison": "794 recipe.validate precedes all tensor construction; model proportions produce pose and current forward output. Vertex and normal readbacks separately require triples, skeleton requires full8words plus exact admitted model joint count. Metres conversion applies vertex/joint translations only, normals unchanged. Joint proportion bases derive same current recipe/model; DeviceBody default is fresh, positive normal factory evidence for Camera07F051. Native forward actual shape/finite output and equal vertex/normal/source mesh count remain direct lower contract, not proved by remainder checks."
+    },
+    {
+      "id": "private per-hair values versus aggregate meaning",
+      "comparison": "795 pigment checked Serde range and806 shape checked Serde finite closed ranges establish actual leaf policies; both have clamping setters which retain NaN, exact existing Rig03F017 personally consumed. Independent shape/pigment/preset combination has no mandatory correlation requiring one fixed colour or preset. Groom intentionally excludes pigment for geometry growth, and apply derives drape enabled AFTER cut/style changes. Defaults preserve preset, zero/signed shifts and frizz up to4 intentional."
+    },
+    {
+      "id": "affine forward inverse relies on accepted measured extents",
+      "comparison": "805 fit checks body skin count and rig column/joint bounds, requires exact head/eyes names and finite nonzero horizontal facing. Head-supported extent collected from same packed rows. Does NOT reject zero side/depth from a single finite head point, returns private zero scales then inverse/normal divide by scale squared. Exact own05 independent support of existing Rig03F019 personally consumed, no new unique. Canonical positive invertible anisotropic frame needed, identity map valid with caller-supplied head ordinal; no current model failure asserted."
+    },
+    {
+      "id": "cap and original scalp coordinate map",
+      "comparison": "796 fits positions through same placement and body collider, derives normals through inverse-transpose, UVs from ORIGINAL scalp coordinates (texture grew there), tangents from current placed positions and same triangle/UV arrays. Opacity combines original head hairline and topology-edge fade in same original vertex order. Four passes sample triangle interior and distribute max dip to shared corners; bounded sampled heuristic is not proof every continuous point clears skin despite broad doc wording. Actual closed/finite scalp/body native producer remains lower contract."
+    },
+    {
+      "id": "geometry channels and native LOD counts",
+      "comparison": "797 chooses cards with last-level fallback intentionally, strands require exact level and budgeted count; row budget avoids zero divisor via max1 and width compensation uses admitted levelcount/drawn. Empty unsupported form returns fully empty HairGeometry. carried maps positions and normals/tangents by distinct point/inverse-transpose/direction operations, clones same faces/UV/occlusion/random rows. Same-head-coordinate correspondence relies on valid from/to HeadPlacement. Atlas transforms one packed4tuple per texel and halves dimensions to1, lower native atlas length alignment remains queued producer contract."
+    },
+    {
+      "id": "groom and placement producer roles",
+      "comparison": "804 grow stores actual groom and private grown buffers/bounds/head/scalp/map/texture from same look. place derives carried AABB from all8corners plus margin, same current body builds field and collider; prepare returns same current placement, LODs, cap and original scalp texture Arc. on_bust deliberately identity map/current bust shape. Public groom metadata can be changed independently of private grown geometry; actual relying preview/cache consumers must be compared before asserting a stale normal operation. No accepted arbitrary BodySurface validity from raw references or GPU type names."
+    },
+    {
+      "id": "scope and old facts",
+      "comparison": "All seven files full production, no inline fixtures. Rig03F017/F019 exact source-backed prior findings independently compared against these current bodies, no new unique count or other-lens clearance. Newly noticed public-groom mutability remains qualified pending actual receiver. Native sampler/field/bake/place/strips sources798-803 and shared ScalpMap/GPU context global additions remain unread own05."
+    }
+  ],
+  "new_unique_findings": [],
+  "existing_finding_support": [
+    "RIG-ADMISSION03-F017 checked private hair values clamping NaN",
+    "RIG-ADMISSION03-F019 zero-scale private head affine"
+  ],
+  "remaining_dependency_obligations": [
+    "Current hair field/bake/place/strips and preview consumers remain source-specific pending.",
+    "Public groom metadata mutation is not an established normal cache bug without actual recipient."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

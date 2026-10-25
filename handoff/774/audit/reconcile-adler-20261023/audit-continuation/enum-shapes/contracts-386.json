@@ -1,0 +1,18 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-386",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        680,
+        681
+      ],
+      "comparison": "680 complete parsed Cargo.lock format4 has1064 package records, uniform name/version/source/checksum strings and dependency string arrays, no semantic carried Bool/tag-payload state. Per-record schema/types and complete29 local records/source adapters inspected; complete parsed artifact saved.707 records exact-equal reviewed497,137 common changed,220 new and282 absent; differences are provenance/dependency selection only, not source equivalence or automatic shader/enum findings.681 manifest79 full separately read. Cargo build/config booleans are real build adapter flags; generic feature/dependency selectors not gameplay enum state. New Burn/ML dependencies do not establish active runtime pipeline without caller source.",
+      "finding_refs": [],
+      "disposition": "Structured metadata role inspection only; no dependency-body or application clearance"
+    }
+  ],
+  "new_findings": [],
+  "data_inspection": "structured-cargo-lock-386.json",
+  "limits": "No dependency resolution, lockfile update, builds/checks/tests, package or supplied script execution."
+}

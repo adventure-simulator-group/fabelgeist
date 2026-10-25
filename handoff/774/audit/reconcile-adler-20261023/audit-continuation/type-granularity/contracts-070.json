@@ -1,0 +1,65 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-070",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "social-organization-definition-instance-role-and-birth-family",
+      "sources": [
+        {
+          "scope_index": 267,
+          "ranges": [
+            [
+              1,
+              579
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "local774:M53",
+        "local774:M56",
+        "SEGO-INITIAL09-F215"
+      ],
+      "disposition": "exact organization scope and applicable family-kind support, with independent lineage/household identities retained",
+      "trace": "267 native instance identity, catalogue definition identity, optional settlement scope and assigned role are independent primitive leaves16\u201332. ensure_instance44\u201384 validates relationship then returns String; callers101\u2013119 resolve definition/role again. Source parser126\u2013158 distinguishes provisional family origin from durable birth family, actual family role factory164\u2013225 derives definition/member role from noble Boolean while independent instance text remains. Exact09F215/M53 retain admitted scope/kind rather than parallel syntax/definition/Option authority. Birth family persists across current household moves; copy228\u2013271 removes only provisional assignments and retains parent family role. Sole current role per character/instance274\u2013327 already guarded; public title and precedence425\u2013441 derive same winning visible role rather than combine two role winners.",
+      "qualifications": [
+        "No ordinary bad assignment or conflicting noble flag found. Definition/role keys are open authored identities, not closed enum of all institutions. Actual known local template subset can have explicit scope without forbidding arbitrary organization catalogues.",
+        "Social precedence and address priority both signed integers but are different ordering contracts. Creation literacy derives its own eligible role winner and must remain actual WrittenLanguage, not arbitrary display label.",
+        "Birth family, local civic/noble/lordship membership, professional role, operational dues and public presentation remain independent authorities. Stable family identity is not current household or settlement property.",
+        "religious_organization_for375\u2013385 parses actual fixed religion vocabulary into authored organization ID; reuse canonical OfficialReligion at internal boundary with M56, preserve open target IDs.",
+        "Deletion only removes unreferenced instance; historical family relationship semantics cannot be silently replaced by current membership pointers. Source fixtures read only."
+      ],
+      "acceptance": "Carry bound canonical organization instance/role/scope and explicit family kind through actual insertion/update/copy/visibility helpers, preserving one role, arbitrary authored keys and independent birth/household authority."
+    },
+    {
+      "id": "approved-party-action-applicable-payload-and-actor-authority",
+      "sources": [
+        {
+          "scope_index": 268,
+          "ranges": [
+            [
+              1,
+              173
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "SEGO-INITIAL09-F234",
+        "local774:M58",
+        "local774:M43",
+        "local774:M44"
+      ],
+      "disposition": "positive payload-owning action enum plus existing leaf/approval propagation support",
+      "trace": "ApprovedPartyAction owns actual per-operation payload7\u201374 and exhaustive dispatcher99\u2013170, avoiding generic action plus arbitrary fields at this decode boundary. Existing canonical mission/case/contract/scene/item identities and check-target quantities are dropped to raw String/f32 across retained application variants. kind77\u201396 intentionally groups two Travel variants into one approval category; that category is not an equivalent action payload. Execute chooses leader authority for most party operations and requester for investigation162\u2013169; these are distinct roles despite u64 identity. Exact09F234 pending request reflattening is a later receiver, not new finding here.",
+      "qualifications": [
+        "No ordinary approval bypass or wrong requester proved by this body; actual receiving authorization helpers remain future scope. Keep actual leader/requester provenance instead of globally substituting one CharacterId role or duplicate permission Boolean.",
+        "Role quantity may0 mean unlimited in its receiver, while inventory target0 can mean desired no stock and check target0 can mean no threshold. Do not impose one positive quantity owner across these fields. Native raw Serde input is a true adapter but typed leaves should survive internal dispatch where fit.",
+        "save_role is independent request preference with real configuration meaning; do not mechanically wrap every Boolean without an applicable payload relation."
+      ],
+      "acceptance": "Retain one payload-owning approved action through pending request and execution, with real canonical identities and actor roles; preserve intended category grouping, zero policies and authorization receiver contracts."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

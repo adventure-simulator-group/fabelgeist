@@ -1,0 +1,31 @@
+{
+  "id": "RIG-INITIAL06-GROUP-280",
+  "at": "2026-10-23T08:08:40.813322+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "combat-resolution-diagnostic-product": {
+      "comparison": "Fresh resolution167 maps AttackResult into ResolvedEnergyLog outcome/coverage/armorimpact/contact/cut/blunt and final TacticalMeleeLogEntry. Diagnostic eventprojection is not duplicate live authority; raw energyjoules/fractions/separation have different units, namedresult should preserve canonical sourcequantities until actual reportserialization. Typed TacticalContactOutcome/CoverageContact/DefenseImplement remain sourcevocabulary; bodypart debuglowercase and anatomical serializedname are wireprojections, not new strategic/bodyregion definitions. InventoryinstanceID versus catalogueID versus eventsequence/tick remain distinct. F044 totalincapacitation levels versus rates preserved; rawreport must keep invalidsource evidence rather than normalize it away. No event/replay/run or called armorchain/performanceproof inferred.",
+      "disposition": "Keep diagnostic log product separate from combat authority, reuse canonical source vocabulary/quantities and explicit wire adapters."
+    },
+    "weapon-assembly-reference-authority": {
+      "comparison": "Fresh assembly211 owns Mount, AttachmentAnchor, Attachment, NodeBinding, GuardMember/Plate and OrnamentGeometry in canonical weaponrecipe crate below placement and controllinghand users. Attachmentto/frame/nodepath/ornamentsocket text namespaces are assemblyreferences, not catalogueID/SceneBuildingId or rigjointnames. Metres/Degrees/Ratio/Count leaves already preserve units, with useful per-shape constraints separate. NodeBinding Frame versus Between is real alternative construction, not equivalent record fields; optionalposition/anchor defaultBase differs explicitOrigin and must not be normalizedbyname. Authored vertex/indices belong nativegeometrypayload with canonicalMetres versus indexwords; no default or serde acceptedaggregatecertificate. Reservedframe constants are already one sharedowner, no new duplicatedStringowner established without actualrecipient comparison. binding_order is contextual graphordering, not canonicalglobalindex.",
+      "disposition": "Keep assembly vocabulary/references under canonical recipe owner with distinct quantity/index namespaces and explicit graph resolution."
+    },
+    "native-traffic-mask-payload": {
+      "comparison": "Fresh traffic mask175 produces native Rgba8Unorm image plus packed origin/metres-to-UV transform. RGBchannels encode mud/rut/clearance and alpha255, not semanticcolor; F005 must not brand this metrictextureasRGBAcolor. TrafficTile/road/market/stroke scenegeometry is sourceprojection, nativepixels/texels/arrayindices actual rasterizationport. Neutral1pixelmask versus bakedtile is current capability, not backward-compatible schemafallback. OriginVec2/metres and transform.zw reciprocalscaledUV have different units; canonical host geometry belongs before packing, not one genericVec4meaning. Perpixelfractions/interpolation nativekernels legitimately project sourcegeometry, no universalfinite/rasterbounds/shape acceptance from methodnames. No images generated/GPU/run.",
+      "disposition": "Keep native metrictexture/UVlayout explicit and source traffic geometry canonical; do not merge metric lanes into Color owner."
+    },
+    "architectural-sign-site-and-geometry": {
+      "comparison": "Fresh site173 keeps SignSite wallidentity/attachment/outward/panelsize/mounting as architectural supportcontext, distinct from rendered SignBoard and ShopSign semanticcontent. Actual typed ResolvedSolid centre/size/angles are extracted into native AABB/rotation math; F001 sharedgeometry/frames and F024 compose canonicalcuboid can remove unchanged reconstruction without erasing sign fitpolicy. Signattachment position, outward direction, positivepanelsize differroles; publicSerde raw backing does not establish fullmounting/planmembership acceptedseal. WallAssemblyId cannot be treated as SceneBuildingId/signinstance. For_plan chooses publicentrance and physicalheadroom; supports checks mounting/paneloverlap, which is distinct from general buildingaudit or signcontent. No helper or render/sourceconstructionexecution.",
+      "disposition": "Keep sign support/placement purpose under architecture, reuse canonical frame/cuboid leaves and distinguish content/render/host identities."
+    }
+  },
+  "supporting_existing_findings": [
+    "F001",
+    "F005",
+    "F024",
+    "F044"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit."
+}

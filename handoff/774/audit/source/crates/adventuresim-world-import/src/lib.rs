@@ -1,0 +1,21 @@
+//! Offline world compiler.
+//!
+//! Source modules parse their own formats. The outer builder combines those
+//! source models into the canonical, source-independent import schema.
+
+pub mod builder;
+pub mod cultivation;
+mod draft;
+pub mod error;
+mod manifest;
+mod sources;
+pub mod spatial;
+mod terrain_feature_validation;
+mod validation;
+
+pub use builder::{WorldBuilder, WorldSourcePaths};
+pub use error::{Error, Result};
+pub use sources::drought::derive_profiles as derive_owda_profiles;
+pub use sources::land_use::{HydeCropCell, crop_cells as hyde_crop_cells};
+pub use sources::potential_vegetation::{WetlandSpatialData, wetland_spatial_data};
+pub use validation::validate as validate_world;

@@ -1,0 +1,99 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-093",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "presentation-environment-quantities-and-camera-setup-frontier",
+      "sources": [
+        {
+          "scope_index": 339,
+          "ranges": [
+            [
+              1,
+              270
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "SEGO-INITIAL09-F169"
+      ],
+      "disposition": "Native rendering quantity roles preserved, Q015 setup source contract pending actual producer trace.",
+      "trace": "ActiveTacticalScene3\u201348 chooses most recently activated still-live entity; selection/activation history is different from scene authority itself. Light-source lux55\u201364, weather transmission66\u201375, fog distance77\u2013126, night factor128\u2013136 and ambient response138\u2013146 have different units/meanings;0..1 storage does not make lux a fraction or night factor a normalized physical illumination. Complete local interpolation/smoothstep kernels terminate in actual Bevy DistanceFog/material properties. TacticalCameraSetup176\u2013224 precedes native projection and retains untyped position/direction/FOV, Q015.",
+      "qualifications": [
+        "Only1\u2013270 read; apply_active_environment_fog begins269 and remainder is not credited here. No graphics/browser/device run.",
+        "Sun below horizon still supplies atmosphere scattering55\u201363, deliberate policy; do not gate source energy at horizon or collapse groundlighting and atmosphere roles. Tactical MSAA153\u2013164 always maps requestedMsaa to4 per actual current crossplatform policy; no claim old sample field is meaningful runtime choice or permission to change browser support.",
+        "Weather intensity/cloud coverage/density/humidity are separate roles despite compatible bounds, no unsupported wrapper per interpolation constant. Active scene entity versus activation order has existing09F169 authority support, no new scene installation defect inferred."
+      ],
+      "acceptance": "Keep physical illuminance/fog distances/angles and unitless response roles through real native rendering adapters. Complete Q015 producer trace before choosing owner/field changes or claiming current invalid state."
+    },
+    {
+      "id": "strategic-presentation-identity-versus-native-entity-mapping",
+      "sources": [
+        {
+          "scope_index": 340,
+          "ranges": [
+            [
+              1,
+              150
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "local774:M07",
+        "local774:M10"
+      ],
+      "disposition": "Exact existing catalogue and ordinal propagation support; no redundant identity owner.",
+      "trace": "Wardrobe12 retains HTTP EquipmentAppearance snapshot to compare requested appearance and produced engine Entity list; the vectors have distinct roles. PresentationId maps to engine Entity39\u201345, parent mapping100\u2013104, and serialized occupancy_id is minted in presentation namespace95, not authoritative physical inventory row. Catalog definition61\u201369 provides typed physical dimensions before raw item/placement copies76\u201389 into same internal tactical presentation M07. Order/requirement/capacity108\u2013110 are distinct M10 roles. Physical striking volume0 is presentation-only83\u201384, not broken tactical attack geometry.",
+      "qualifications": [
+        "All150 lines read; no HTTP/engine execution. Unknown catalogue equipment is dropped visually; missing parent filter may omit presentation occupancy, no authoritative custody loss claim.",
+        "Source HTTP/native transport may use raw tokens; internal Wardrobe retention and repeated canonical lookup remain established migration graph. Do not impose static catalogue membership on every open ItemProperties producer."
+      ],
+      "acceptance": "Retain admitted static catalogue/placement and semantic ordinals in internal presentation, preserve exact full-width PresentationId transport, parent Entity remapping and presentation-only no-striking-volume policy."
+    },
+    {
+      "id": "checked-capture-camera-view-frame-versus-native-pose",
+      "sources": [
+        {
+          "scope_index": 341,
+          "ranges": [
+            [
+              1,
+              265
+            ]
+          ]
+        },
+        {
+          "scope_index": 342,
+          "ranges": [
+            [
+              1,
+              101
+            ]
+          ]
+        },
+        {
+          "scope_index": 343,
+          "ranges": [
+            [
+              1,
+              60
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [],
+      "disposition": "Meaningful checked view/result/orientation distinctions; no redundant owner simplification.",
+      "trace": "SceneCameraView3437\u201311 owns Scene position/target plus LookingAt{up} versus Fixed(rotation). looking_at25\u201333 admits distinct points and nonparallel up; native_transform52\u201358 is actual final Bevy conversion. Fixed orientation still owns independently reported target, not automatically redundant or inconsistent target authority. CaptureCameraPlacement34313\u201316 adds actual obstruction observation separately from intended view. Camera341 typed errors distinguish missing geography/plant/authored camera/live-query need and actual geometry/native camera causes. Landscape342 uses geographic vista horizontal point/elevation versus scene focus, computes local safe-height kernel then admits both positions; existing signed length camera extent differs angle degree azimuth.",
+      "qualifications": [
+        "Full265+101+60 read; no capture/renderer execution. Tree fallback to ground and leaf missing explicit camera fallback are authored policy, no invented error substitution.",
+        "SceneCameraView coordinate frame and direction/rotation roles prevent actual point-versus-vector misuse without imposing arbitrary spatial bounds. Explicit negative vertical offsets in ground cover and signed extent0 remain meaningful inputs; no blanket positive SignedLength.",
+        "Live query variants return structured RequiresLiveQuery and are not unhandled capture poses. Exact camera index .get rejects out-of-range with owning cause; no array-safety claim based solely on u16 width."
+      ],
+      "acceptance": "Preserve checked positions, orientation variants, geometric admission and typed cause propagation until native camera/serialization boundaries, with source-specific fallback and optional obstruction semantics."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

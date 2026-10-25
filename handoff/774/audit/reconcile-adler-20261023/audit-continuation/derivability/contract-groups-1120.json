@@ -1,0 +1,140 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1120",
+  "at": "2026-10-25T17:49:44.171701+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1231,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_roster/authority_tests.rs",
+      "sha256": "b7a857a5b5c6d5ff38ff46fc5c80fb4a4bf41a4138454c7e089e6099d6f7ae7a",
+      "actual_EOF": 231,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_roster/authority_tests.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/strategic/mission_roster/authority_tests.rs",
+        "owner": "camera",
+        "sha256": "b7a857a5b5c6d5ff38ff46fc5c80fb4a4bf41a4138454c7e089e6099d6f7ae7a",
+        "base_sha256": "93ef7c65a2917ed29456d7e2cfdcffbb3dd3d4fa8b5c8fea316be54f71bf0cab",
+        "state": "modified",
+        "bytes": 8095,
+        "audit_owner": "camera",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                231
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-MISSION-001"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 305,
+            "read_ranges": [
+              [
+                1,
+                231
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-ROSTER-READINESS-052"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/mission_roster/authority_tests.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 356,
+            "read_ranges": [
+              [
+                1,
+                231
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-ROSTER-READINESS-052"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/mission_roster/authority_tests.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "continuation_actual_producer_source_proofs": [
+          {
+            "record": "continuation/rig/source-role-qualification-045.json",
+            "json_pointer": "/fresh_source_proofs/6",
+            "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_roster/authority_tests.rs",
+            "sha256": "b7a857a5b5c6d5ff38ff46fc5c80fb4a4bf41a4138454c7e089e6099d6f7ae7a",
+            "read_ranges": [
+              [
+                1,
+                231
+              ]
+            ],
+            "proof": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_roster/authority_tests.rs",
+              "sha256": "b7a857a5b5c6d5ff38ff46fc5c80fb4a4bf41a4138454c7e089e6099d6f7ae7a",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\strategic\\mission_roster\\authority_tests.rs",
+              "read_ranges": [
+                [
+                  1,
+                  231
+                ]
+              ],
+              "actual_EOF": 231,
+              "fingerprint_matches_receipt": true,
+              "endpoints_within_actual_source": true,
+              "role": "Fresh original authority fixtures source read: captured roster remains authoritative through live group drift, invalid snapshots cannot launch/autoresolve/emit reports, native request matches identities/count, standalone capture and finale retry ownership retained. Typed clock and typed result/String cause composition remains existing repair; no fixture/helper/assertion addition or execution.",
+              "proof_origin": "Fresh bounded source read or explicitly described complete counterpart-delta reconciliation in this turn"
+            },
+            "limits": "Actual source-role proof for producer lens only; no owner-fit or other-lens clearance."
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": 539,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          231
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Full guarded reducer fixtures for bound roster/currentcount drift/invalid snapshot launch/autoresolve/standalone/finale retry. Native record/array/source data and assertions; no handwritten trait/custom codec/type. Fixed fixture JSON167 intentional native data, not replacement serializer. Read only; no reducer/test execution or callees credited."
+    }
+  ],
+  "groups": [
+    "No derivability finding; fixture admission/current roster/finale acceptance constraints retained as source evidence only."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1232,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/mod.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

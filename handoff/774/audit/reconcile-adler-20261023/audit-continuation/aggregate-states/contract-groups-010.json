@@ -1,0 +1,76 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-010",
+  "at": "2026-10-24T02:52:12.469100+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1008,
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_economy.rs",
+      "sha256": "0821918d44bc66de59484518b50255c6a75b8001427feaa6ab8309a7a8ec7e5c",
+      "personally_read_ranges": [
+        [
+          1,
+          143
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Merchant pricing preserves buy/sell rounding and the language penalty, including a special zero-valid/sub-coin food remainder. Checked line/total helpers use widened u64 and checked aggregate addition. Inn cost separates complete and partial days before checked multiplication. Party purchase split uses shared funds first; saturated combined-balance comparison is safe for a u64 amount and subtraction after min. This is deliberately a different funding order from personal/stake storefront authorization. Large raw float price saturation is a separate existing numeric policy/API concern, not evidence that these two payment families should be merged.",
+      "acceptance": "Carry named checked row, payment, presence and chronology relationships through actual receiving operations. Preserve family-specific funding order, real zero/unbounded/end-of-day cases and domain-owner authority. Existing fixtures only.",
+      "repair": "not started",
+      "validation": "source inspected; not run"
+    },
+    {
+      "scope_index": 1009,
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_inventory.rs",
+      "sha256": "d271b63418f6ef51f276ab1e383bb534724f08ae106ffd7285f530e0308fef3e",
+      "personally_read_ranges": [
+        [
+          1,
+          455
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Aligned raw boundary vectors become named buy/sell lines only after equal lengths and positive quantity admission. Party offers additionally require nonempty complete rows. Public request/line fields preserve raw catalogue/inventory/member IDs, so row existence/custody and cross-line aggregate quantity must still be checked by the actual reducer. Payment authorization computes one total, chooses personal first and bounds the residual by maximum stake; private NonZero coin leaves plus payload variants distinguish absent sources. Public variants can be recombined from existing leaves, so total/authorization association is not an unforgeable proof; normal factory is coherent. Merchant provider admits exactly one nonzero ID, not its DB profession/availability. Route construction privately pairs storefront with the canonical location. Existing error variants and fixtures retain these distinct failure meanings.",
+      "acceptance": "Carry named checked row, payment, presence and chronology relationships through actual receiving operations. Preserve family-specific funding order, real zero/unbounded/end-of-day cases and domain-owner authority. Existing fixtures only.",
+      "repair": "not started",
+      "validation": "source inspected; not run"
+    },
+    {
+      "scope_index": 1011,
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_presence.rs",
+      "sha256": "2eeea5c9831e10b7c5d51d0d3f61b0093ce8c682bd0994d2c94de50aa3354a52",
+      "personally_read_ranges": [
+        [
+          1,
+          662
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Presence privately retains character, exact canonical place, observer frontier and basis. Venue refinement requires coarse membership and matching settlement. Scheduled presence checks exact venue, alive and daily window/suppression; residence admission checks active occupancy evidence effective by observer time; case context compares actual expected context/revision and alive state. These functions explicitly trust domain owners for the supplied facts, rather than grant DB authority from arbitrary bools. Co-presence requires identical canonical place and observer frontier, never merely settlement membership. Daily windows validate relative bounds and delegate wrapped-time arithmetic; whole-day0..1440 and overnight windows are intentional. Outbreak suppression admits ordered contraction/recovery and projects context/health separately at the observer minute, preserving later-remediation/history semantics. All existing fixtures source-read only.",
+      "acceptance": "Carry named checked row, payment, presence and chronology relationships through actual receiving operations. Preserve family-specific funding order, real zero/unbounded/end-of-day cases and domain-owner authority. Existing fixtures only.",
+      "repair": "not started",
+      "validation": "source inspected; not run"
+    },
+    {
+      "scope_index": 1012,
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_presence/context.rs",
+      "sha256": "e8fa0d3cc0b66a908ad8f44642c1cf2e09f9d6d5e8ac341e7201f7aea959995e",
+      "personally_read_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Authored contextual Allowed/Refused/Unavailable is a different authority layer from observer presentation Request/Refused/Unavailable/EmergencyTreatment. Allowed maps to a request affordance, not completed permission. Enum shape owns the role/status vocabulary, but the live presence/privacy and emergency treatment rule still determines the complete presentation at the receiving owner. No inference that non-refusing catalogue Patient implies present/treatable now.",
+      "acceptance": "Carry named checked row, payment, presence and chronology relationships through actual receiving operations. Preserve family-specific funding order, real zero/unbounded/end-of-day cases and domain-owner authority. Existing fixtures only.",
+      "repair": "not started",
+      "validation": "source inspected; not run"
+    }
+  ],
+  "new_unique_findings": [],
+  "connected_requirements": [
+    "Complete actual merchant reducer custody, duplicate-line quantity, quote/authorization and commit consumers; preserve existing CAM-PROP-F021 and payment extension findings.",
+    "Complete actual presence adapters with same row/observer and authority facts; do not impose strict target-clock equality on deliberately soft pairwise interaction.",
+    "Retain structured causes until the real wire error projection; do not treat public matching leaf types as DB evidence."
+  ],
+  "discovery": "With inherited findings and qualified API obligations; no clearance",
+  "repair": "not started",
+  "validation": "not run"
+}

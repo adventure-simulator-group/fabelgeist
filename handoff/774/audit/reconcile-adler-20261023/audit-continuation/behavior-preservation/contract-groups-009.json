@@ -1,0 +1,331 @@
+{
+  "id": "CONT08-CONTRACT-009",
+  "at": "2026-10-25T08:51:52.101573+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 20,
+      "source_id": "native-dependency:spacetimedb-2.6.1/src/rt.rs",
+      "sha256": "9dae2fdd25e809c3fae6780569a1e6ce1a9d76d99feaac6a38a884faaa5ebf16",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/9dae2fdd25e809c3fae6780569a1e6ce1a9d76d99feaac6a38a884faaa5ebf16",
+      "read_ranges": [],
+      "pin_comparison": "PR exact base/head Cargo.lock both retain spacetimedb2.6.1 b6eff5017248ff2e35e03564df947fdf3e963f7198be6ae1d9e894c2efb2ea15",
+      "facts": [
+        "Reducer IntoReducerResult accepts Result<(), E:Display> and formats only final error to Box<str>; actual invocation uses original function args/order. Host export converts Err UTF8 bytes to HOST_CALL_FAILURE. This is unlike Bevy IntoResult and does not require application helpers to stringify early.",
+        "View Vec/Option write zero/many or zero/one rows into BSATN header. Args decode sequence in declaration order; missing native bytes source supplies empty args slice.",
+        "Actual application name reducer1082 and authority_model1204 reducer ranges preserve Result<(),String>; new strategic combat1208 error is Display-compatible. Native source is locked2.6.1 at both pins, not a changed protocol."
+      ],
+      "disposition": "Own08 bounded native contract accounted, with actual application recipients consumed. No entire SDK/application family or runtime behavior clearance.",
+      "acceptance": "Preserve reducer argument/order and final rejection text, distinguish queue/reducer/SDK failures and preserve View row cardinality; keep native time units/sign explicit. No tests, native invocation or network execution."
+    },
+    {
+      "scope_index": 21,
+      "source_id": "native-dependency:spacetimedb-bindings-macro-2.6.1/src/reducer.rs",
+      "sha256": "5d9af3fa69cda0c4377ddc6e3da0ead36b83bcb5f7cda7e53d78534b9bfd0fba",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/5d9af3fa69cda0c4377ddc6e3da0ead36b83bcb5f7cda7e53d78534b9bfd0fba",
+      "read_ranges": [],
+      "pin_comparison": "PR exact base/head Cargo.lock both retain bindings-macro2.6.1 fce86c7657dcb42a33ce55f0100f98964dc15b64e79f06803a478676b74d6c82",
+      "facts": [
+        "Full204-line reducer macro consumed. Function return type asserted against IntoReducerResult, schema arguments keep names/order, invocation routes to native rt without rewriting the application body. No native ABI change inferred from application owner extraction."
+      ],
+      "disposition": "Own08 bounded native contract accounted, with actual application recipients consumed. No entire SDK/application family or runtime behavior clearance.",
+      "acceptance": "Preserve reducer argument/order and final rejection text, distinguish queue/reducer/SDK failures and preserve View row cardinality; keep native time units/sign explicit. No tests, native invocation or network execution."
+    },
+    {
+      "scope_index": 22,
+      "source_id": "native-dependency:spacetimedb-bindings-macro-2.6.1/src/view.rs",
+      "sha256": "48fc81bd0f4780c85900aac82084c05599116c565c7beecd4d26239cf7d0a78a",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/48fc81bd0f4780c85900aac82084c05599116c565c7beecd4d26239cf7d0a78a",
+      "read_ranges": [],
+      "pin_comparison": "PR exact base/head Cargo.lock both retain bindings-macro2.6.1 fce86c7657dcb42a33ce55f0100f98964dc15b64e79f06803a478676b74d6c82",
+      "facts": [
+        "Exact190\u2013361 view macro consumed: Vec/Option body emitted unchanged, query-return expansion distinct, ViewReturn/argument assertions preserve schema. Actual backend_contracts1204 retains Vec return and explicit empty unauthorized result; rest of that large application view remains pending."
+      ],
+      "disposition": "Own08 bounded native contract accounted, with actual application recipients consumed. No entire SDK/application family or runtime behavior clearance.",
+      "acceptance": "Preserve reducer argument/order and final rejection text, distinguish queue/reducer/SDK failures and preserve View row cardinality; keep native time units/sign explicit. No tests, native invocation or network execution."
+    },
+    {
+      "scope_index": 23,
+      "source_id": "native-dependency:spacetimedb-sats-2.6.1/src/timestamp.rs",
+      "sha256": "9a2b59b755254767182009ea99cc689199e310845668b3343faf52ca6139de0c",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/9a2b59b755254767182009ea99cc689199e310845668b3343faf52ca6139de0c",
+      "read_ranges": [],
+      "pin_comparison": "PR exact base/head Cargo.lock both retain sats2.6.1 6cefb87b7d5e760d43cb65855591e25af772bdcca19562e5796ae797240d1998",
+      "facts": [
+        "Exact timestamp ranges consumed: signed i64 microseconds, before-epoch sign retained, constructor stores exact signed input. Add/SubAssign reuse native operations; Display formats RFC3339 with unwrap.",
+        "Actual unchanged clock1248 reads ctx timestamp to signed micros in initialize/refresh and calls calculate_official_minute; unchanged time1249 lifecycle order captured. Native i64::MIN negation hazard in to_duration exists, but actual application trace here only uses to_micros, not that conversion; no new08 regression promoted."
+      ],
+      "disposition": "Own08 bounded native contract accounted, with actual application recipients consumed. No entire SDK/application family or runtime behavior clearance.",
+      "acceptance": "Preserve reducer argument/order and final rejection text, distinguish queue/reducer/SDK failures and preserve View row cardinality; keep native time units/sign explicit. No tests, native invocation or network execution."
+    },
+    {
+      "scope_index": 24,
+      "source_id": "native-dependency:spacetimedb-sdk-2.6.1/src/db_connection.rs",
+      "sha256": "79c452f092b1123e8a9c4f7ca3c34167290bb97e3a64093ce903f4bf742b2b9a",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/79c452f092b1123e8a9c4f7ca3c34167290bb97e3a64093ce903f4bf742b2b9a",
+      "read_ranges": [],
+      "pin_comparison": "PR exact base/head Cargo.lock both retain sdk2.6.1 074a6d8828638176eb8e9bba7a3e6fb75dc659b260717306eb966c7e10575cd7",
+      "facts": [
+        "Exact SDK ranges consumed: invoke queues callback and returns Ok, serialization failure differs from reducer rejection. Actual success applies cache update then calls callback, failures classify nested Err(message) versus InternalError and do not apply a success update.",
+        "Wire decoder checks empty success return, parses String reducer error and routes parse failures to SDK error instead of treating them as reducer rejection.",
+        "Actual unchanged tactical stdb2076 submit_terminal distinguishes queue result from eventual callback; maps Ok(Ok) accepted, both reducer/internal rejection to rejected message, callbacks mailbox rows only. No queue-success-as-acceptance regression established."
+      ],
+      "disposition": "Own08 bounded native contract accounted, with actual application recipients consumed. No entire SDK/application family or runtime behavior clearance.",
+      "acceptance": "Preserve reducer argument/order and final rejection text, distinguish queue/reducer/SDK failures and preserve View row cardinality; keep native time units/sign explicit. No tests, native invocation or network execution."
+    },
+    {
+      "scope_index": 1082,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/character/name_reducers.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/character/name_reducers.rs",
+      "before_sha256": "ce69b10b91846fd901ae6d97b470b4d96c592e96858032dedb6376b4b8b4cc17",
+      "after_sha256": "ce69b10b91846fd901ae6d97b470b4d96c592e96858032dedb6376b4b8b4cc17",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1082-base-ce69b10b91846fd901ae6d97b470b4d96c592e96858032dedb6376b4b8b4cc17",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/ce69b10b91846fd901ae6d97b470b4d96c592e96858032dedb6376b4b8b4cc17",
+      "diff": "source-evidence/1082.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          8
+        ]
+      ],
+      "facts": [
+        "Full8 lines and empty actual diff consumed. Authentication/living-character gate remains before authored-name assignment and same final to_string mapping. This unchanged reducer demonstrates actual IntoReducerResult port; does not clear naming helper behavior."
+      ],
+      "disposition": "Bounded own08 local comparison recorded; connected semantic dependencies remain explicit and do not constitute full source-family clearance.",
+      "acceptance": "Preserve successful law, lookup/cardinality/error order and final native port classification; actual changed dependency admission needs own proof. No tests/checks run."
+    },
+    {
+      "scope_index": 1187,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/view.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/residence/view.rs",
+      "before_sha256": "b481076a43b5a9e15f7ee78deb63fb3e81cf97989061300fa34168d9182c6053",
+      "after_sha256": "b481076a43b5a9e15f7ee78deb63fb3e81cf97989061300fa34168d9182c6053",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1187-base-b481076a43b5a9e15f7ee78deb63fb3e81cf97989061300fa34168d9182c6053",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/b481076a43b5a9e15f7ee78deb63fb3e81cf97989061300fa34168d9182c6053",
+      "diff": "source-evidence/1187.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "facts": [
+        "Full57 lines and empty diff consumed. Residence entitlement collects frontier-admitted occupants, holder, designated/transition members, then stable sorted/dedup IDs. No new ordering/filter behavior established; full view privacy recipient pending."
+      ],
+      "disposition": "Bounded own08 local comparison recorded; connected semantic dependencies remain explicit and do not constitute full source-family clearance.",
+      "acceptance": "Preserve successful law, lookup/cardinality/error order and final native port classification; actual changed dependency admission needs own proof. No tests/checks run."
+    },
+    {
+      "scope_index": 1243,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/tactical/request.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/tactical/request.rs",
+      "before_sha256": "9d7e1ac4bf3e219258571dc74f93f8adef66cd55dcab6fc2d49edf0c60e4cb7d",
+      "after_sha256": "9d7e1ac4bf3e219258571dc74f93f8adef66cd55dcab6fc2d49edf0c60e4cb7d",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1243-base-9d7e1ac4bf3e219258571dc74f93f8adef66cd55dcab6fc2d49edf0c60e4cb7d",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/9d7e1ac4bf3e219258571dc74f93f8adef66cd55dcab6fc2d49edf0c60e4cb7d",
+      "diff": "source-evidence/1243.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          133
+        ]
+      ],
+      "facts": [
+        "Full133-line body and empty diff consumed. Settlement capture preserves zero-distance-only membership, missing/wrong-scene None, ensured population, resident/operator association checks, name capture and sorted BusinessId order. Mission snapshot public schema and existing zero/nonzero fixture read only; root roster TryFrom recipient remains pending."
+      ],
+      "disposition": "Bounded own08 local comparison recorded; connected semantic dependencies remain explicit and do not constitute full source-family clearance.",
+      "acceptance": "Preserve successful law, lookup/cardinality/error order and final native port classification; actual changed dependency admission needs own proof. No tests/checks run."
+    },
+    {
+      "scope_index": 1203,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/approved_action.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/strategic/approved_action.rs",
+      "before_sha256": null,
+      "after_sha256": "dc45100de7c1f6bfa836ee8b4634f1b502be0aab07d778f21595785bf2eadca1",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1203-base-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/dc45100de7c1f6bfa836ee8b4634f1b502be0aab07d778f21595785bf2eadca1",
+      "diff": "source-evidence/1203.diff",
+      "diff_sha256": "55087aad1a0b2b10018a702c7956b7005e460a80f7a080095c90488a89e3d833",
+      "head_body_read_ranges": [
+        [
+          1,
+          173
+        ]
+      ],
+      "facts": [
+        "Full173-line head and entire added diff plus removed base authority_model counterpart consumed. Same JSON discriminator, variant fields, kind strings, request/leader argument ordering and dispatch. Only return now StrategicCombatResult, autoresolve arm returns it directly; other old String results wrapped Operation retaining Display. All downstream called functions remain separate unfinished source roles."
+      ],
+      "disposition": "Bounded own08 local comparison recorded; connected semantic dependencies remain explicit and do not constitute full source-family clearance.",
+      "acceptance": "Preserve successful law, lookup/cardinality/error order and final native port classification; actual changed dependency admission needs own proof. No tests/checks run."
+    },
+    {
+      "scope_index": 1078,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability/equipment_projection.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/capability/equipment_projection.rs",
+      "before_sha256": "5be4a90bddb1c41490a47aaf43db5d9dacf7feb5aaf3dcd1e6ce68c83831de68",
+      "after_sha256": "f8b4732bf544887996ecaf8ffba647c00a6a7f4c4d88728b7b5ac094a689c6af",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1078-base-5be4a90bddb1c41490a47aaf43db5d9dacf7feb5aaf3dcd1e6ce68c83831de68",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/f8b4732bf544887996ecaf8ffba647c00a6a7f4c4d88728b7b5ac094a689c6af",
+      "diff": "source-evidence/1078.diff",
+      "diff_sha256": "eee7791cdbd9b82e68ab7ab614d80a99f3018af4cb6e1d0c97d12d43c012b00f",
+      "head_body_read_ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "facts": [
+        "Full85-line body and complete diff read. CombatWeapon values, precedence and melee/ranged branches retain arithmetic/order; attack interval is now AnimationElapsed/ElapsedResult with checked_add. Finite accepted outputs same; failed intermediate admission is intended finite-result contract but actual timing producer/recipient still pending. Not whole capability clearance."
+      ],
+      "disposition": "Bounded own08 local comparison recorded; connected semantic dependencies remain explicit and do not constitute full source-family clearance.",
+      "acceptance": "Preserve successful law, lookup/cardinality/error order and final native port classification; actual changed dependency admission needs own proof. No tests/checks run."
+    },
+    {
+      "scope_index": 1232,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/mod.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/strategic/mod.rs",
+      "before_sha256": "816a9a9fae18fb424a0df0c4b48833f14ff16d9781155a9a73465b3e870f235e",
+      "after_sha256": "32f47b926eea8c6d366a26c6d6f6e237595b9c0b44c84eb15b1150e49c980870",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1232-base-816a9a9fae18fb424a0df0c4b48833f14ff16d9781155a9a73465b3e870f235e",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/32f47b926eea8c6d366a26c6d6f6e237595b9c0b44c84eb15b1150e49c980870",
+      "diff": "source-evidence/1232.diff",
+      "diff_sha256": "e12325e0e7cda0d0ffb0d86fbc6b15ff7dccab25b04bc22f469679aa716d8957",
+      "head_body_read_ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "facts": [
+        "Full98-line head and complete diff read. Adds extracted approved_action, combat_error, battle_combatants and gallery modules/exports plus test-source concat; ordered include fragments retain runtime sequence. Exact changed callees separately pending, no blanket relocation equivalence."
+      ],
+      "disposition": "Bounded own08 local comparison recorded; connected semantic dependencies remain explicit and do not constitute full source-family clearance.",
+      "acceptance": "Preserve successful law, lookup/cardinality/error order and final native port classification; actual changed dependency admission needs own proof. No tests/checks run."
+    },
+    {
+      "scope_index": 1208,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/combat_error.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/strategic/combat_error.rs",
+      "before_sha256": null,
+      "after_sha256": "58e6e2c18b7b24c5ca48112d598be60bec75a889ebfbf494562073baa85b318f",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1208-base-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/58e6e2c18b7b24c5ca48112d598be60bec75a889ebfbf494562073baa85b318f",
+      "diff": "source-evidence/1208.diff",
+      "diff_sha256": "2e572b6f598ade50a638e56ab08190ed889bf39be9cd74a0aca55fd7f2a7de70",
+      "head_body_read_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "facts": [
+        "Full29-line new enum and diff read. Transparent threat/resolution errors retain native structured owners; old String/&str wrapped Operation with identical message; RequiredDeathUnavailable actual producer not yet traced. Native Display entry compatibility proven without compiler claim."
+      ],
+      "disposition": "Bounded own08 local comparison recorded; connected semantic dependencies remain explicit and do not constitute full source-family clearance.",
+      "acceptance": "Preserve successful law, lookup/cardinality/error order and final native port classification; actual changed dependency admission needs own proof. No tests/checks run."
+    },
+    {
+      "scope_index": 1248,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/clock.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/time/clock.rs",
+      "before_sha256": "5494962821652b9edef4abf446ca231baf0db2919917b93fafb37218340af587",
+      "after_sha256": "5494962821652b9edef4abf446ca231baf0db2919917b93fafb37218340af587",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1248-base-5494962821652b9edef4abf446ca231baf0db2919917b93fafb37218340af587",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/5494962821652b9edef4abf446ca231baf0db2919917b93fafb37218340af587",
+      "diff": "source-evidence/1248.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "facts": [
+        "Full127-line actual catalog head consumed. Git base-to6533 diff empty; catalog-head actual-byte diff saved. Official clock initializes once from signed native timestamp and refreshes through official_minute; family NPC ordered BTreeSet/filter/take32/elapsed0 exclusion and saturating frontier order unchanged. Native official_minute and family downstream bodies remain pending."
+      ],
+      "disposition": "Bounded own08 local comparison recorded; connected semantic dependencies remain explicit and do not constitute full source-family clearance.",
+      "acceptance": "Preserve successful law, lookup/cardinality/error order and final native port classification; actual changed dependency admission needs own proof. No tests/checks run."
+    },
+    {
+      "scope_index": 1249,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/mod.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/time/mod.rs",
+      "before_sha256": "00f1fa799283c10da8bc5b3310a04c43d117753258629c791c379b6485f25f3f",
+      "after_sha256": "00f1fa799283c10da8bc5b3310a04c43d117753258629c791c379b6485f25f3f",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1249-base-00f1fa799283c10da8bc5b3310a04c43d117753258629c791c379b6485f25f3f",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/00f1fa799283c10da8bc5b3310a04c43d117753258629c791c379b6485f25f3f",
+      "diff": "source-evidence/1249.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "facts": [
+        "Full107-line actual catalog head and actual-byte diff consumed; unchanged. Lifecycle after time write retains age\u2192continuity\u2192residence billing\u2192wedding\u2192birth\u2192courtship discovery\u2192marriage lifecycle\u2192outbreak order. Individual lifecycle algorithms not cleared."
+      ],
+      "disposition": "Bounded own08 local comparison recorded; connected semantic dependencies remain explicit and do not constitute full source-family clearance.",
+      "acceptance": "Preserve successful law, lookup/cardinality/error order and final native port classification; actual changed dependency admission needs own proof. No tests/checks run."
+    },
+    {
+      "scope_index": 2076,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/stdb.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/stdb.rs",
+      "before_sha256": "ab24f2abcf0306df9967ba4f53671ead170142f7fd1a0697bf116389584da5b8",
+      "after_sha256": "ab24f2abcf0306df9967ba4f53671ead170142f7fd1a0697bf116389584da5b8",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/2076-base-ab24f2abcf0306df9967ba4f53671ead170142f7fd1a0697bf116389584da5b8",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/ab24f2abcf0306df9967ba4f53671ead170142f7fd1a0697bf116389584da5b8",
+      "diff": "source-evidence/2076.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          191
+        ]
+      ],
+      "facts": [
+        "Full191-line catalog head and correct snapshot-stripped actual diff consumed; unchanged. Connected row mailbox uses mem::take, terminal submit waits eventual nested callback, frame_tick precedes readiness publication, identity unavailable waits, exit queues disconnect then pumps until failure. No startup race or eventual replay guarantee inferred. Q002 drained batch obligation preserved separately."
+      ],
+      "disposition": "Bounded own08 local comparison recorded; connected semantic dependencies remain explicit and do not constitute full source-family clearance.",
+      "acceptance": "Preserve successful law, lookup/cardinality/error order and final native port classification; actual changed dependency admission needs own proof. No tests/checks run."
+    },
+    {
+      "scope_index": 1204,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "read_ranges": [
+        [
+          219,
+          251
+        ],
+        [
+          906,
+          939
+        ],
+        [
+          1020,
+          1168
+        ]
+      ],
+      "diff_read": "Full actual base/head diff, removed ApprovedPartyAction counterpart only. Current authority_model full1586 body not consumed.",
+      "disposition": "Partial actual macro/reducer/schema recipient proof; no full source credit."
+    }
+  ],
+  "questions": "Q001\u2013Q004 remain unresolved; Q005 exact ROOT-ADM-F006 alias saved separately.",
+  "next_frontier": "Original27\u201338 native GPU map/poll/surface and retained Eidolon contract, then original39+affected dependencies. 246 overlays/71 live/38 merged remain unfinished."
+}

@@ -1,0 +1,53 @@
+{
+  "id": "CONT07-CONTRACT-494",
+  "at": "2026-10-23T22:54:11.027918+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2164,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/lib.rs",
+      "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-world-schema/src/lib.rs",
+      "actual_EOF": 4796,
+      "ranges": [
+        [
+          1,
+          330
+        ],
+        [
+          1639,
+          1690
+        ],
+        [
+          1768,
+          1909
+        ],
+        [
+          2670,
+          3507
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "Personally consumed exact source-role metadata/limits in cumulative scope2164; ROOT-PPS-TERRAIN-DISPATCH-WEB-037 and RIG-PPS-020 supplied disposition fields selectively read from archive."
+  ],
+  "facts": [
+    "Exact reached union1\u2013330,1639\u20131690,1768\u20131909,2670\u20133507 personally read; already registered attributes1633\u20131638 and helper closure3508\u20133510 also read, no other4796EOFcredit.",
+    "CONT07-F106 religion membership/ordinal current7 coherent maintenance defect. Direct/effective/minutes are separate quantities, direct study prerequisite intentional.",
+    "Elevation stores one checked integer and derives band; TravelRoute sum variant derives kind/has_crossing. Coordinate point accessors use checked coordinate owner; no stored redundant floating copy.",
+    "RouteTerrain retains independently represented profile/extrema/class/risks/tags, but validate_context recomputes ascent/descent/grades/relief and expected risks/tags against route/length; validate checks class/slope/aspect. Context-dependent boundary guard is positive qualification; standalone deserialization cannot supply missing length. No unproven generic stale-route finding.",
+    "BoundedVec size_hint and actual next_element enforce samemax; wire limits repeat role bounds and may be maintenance followup but current1001/6/4/21 agree. Stage placeholder is explicit pre-finalization state, not an ordinary stale published profile proof."
+  ],
+  "new_local_findings": [
+    "CONT07-F106"
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2165,
+    "start_line": 1
+  }
+}

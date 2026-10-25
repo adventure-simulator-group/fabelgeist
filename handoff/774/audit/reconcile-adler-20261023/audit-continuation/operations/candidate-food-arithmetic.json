@@ -1,0 +1,33 @@
+{
+  "id": "SEGOVB-04-FOOD-ARITHMETIC-CANDIDATES-001",
+  "source_id": "pr-working:crates/adventuresim-core/src/food.rs",
+  "sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+  "status": "qualified represented API cases; actual consumer bounds unresolved; not global unique defect count",
+  "cases": [
+    {
+      "operation": "FlavorProfile::scaled/add_assign",
+      "witness": "Profile with salty=f32::MAX and other components0 is valid(); scaled(2.0) produces infinite salty. Two valid MAX profiles add_assign likewise invalid.",
+      "qualification": "No actual catalog lot/mass caller with extreme values proved. Receiver may explicitly reject invalid result; inspect it before claiming silent failure.",
+      "acceptance": "Choose checked result or justified component/factor bound at publication; preserve distinct flavor mass-equivalent units."
+    },
+    {
+      "operation": "preparation_safety_minutes",
+      "witness": "raw_minutes=16777217, factor=1.0: u32 as f32 rounds down to16777216, ceil cannot restore lost minute; returns one less than raw safety interval.",
+      "qualification": "Huge authored safety interval not proved. Exact identity-policy counterexample, no gameplay run.",
+      "acceptance": "Keep exact full u32 boundary semantics or adopt a justified narrower type; explicitly preserve conservative rounding."
+    },
+    {
+      "operation": "doneness_outcome",
+      "witness": "target_minutes=u32::MAX, elapsed_minutes=u32::MAX+1: ratio f64>1 narrows to f32=1, quality_penalty=0 although documented any late pan/oven retrieval is worse.",
+      "qualification": "No current recipe with decades-long target proved. Stew/roast intentionally have different late policy and are not this defect.",
+      "acceptance": "Derive discrete early/late relation from integers before approximate display ratio; preserve readiness and method-specific plateau/drying."
+    }
+  ],
+  "project_execution": "none",
+  "global_alias_status": "pending exact archive/root comparison; do not sum cases as findings",
+  "later_source_qualification": {
+    "evidence": "SEGOVB-INITIAL04-CONTRACT-349",
+    "body": "pr-working item_catalog_validation.rs full2053",
+    "result": "Current source validator caps flavor components1000, nutrition/value/growth1e6. MAX FlavorProfile is not ordinary catalog witness. No explicit smaller cooking_minutes limit here beyond typed schema; actual current recipes and receivers remain pending."
+  }
+}

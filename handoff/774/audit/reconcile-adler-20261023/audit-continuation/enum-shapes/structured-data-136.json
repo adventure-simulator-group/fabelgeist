@@ -1,0 +1,93 @@
+{
+  "source_id": "pr-working:rust-quality-baseline.toml",
+  "sha256": "059d0c2bc687c8d7bd314cfa50fb863ac83959cc3483e74aee993980f47e3efe",
+  "inspection_method": "entire immutable data file parsed; every row key/type shape inventoried; numeric values and every rule vocabulary classified for lens09, identical uniform row shapes grouped. Not line-by-line gameplay source audit.",
+  "tables": {
+    "files": {
+      "rows": 209,
+      "field_shapes": [
+        {
+          "shape": [
+            [
+              "ceiling",
+              "int"
+            ],
+            [
+              "path",
+              "str"
+            ]
+          ],
+          "count": 209
+        }
+      ],
+      "rules": {},
+      "conditional_fields": false,
+      "optional_fields": false
+    },
+    "functions": {
+      "rows": 485,
+      "field_shapes": [
+        {
+          "shape": [
+            [
+              "ceiling",
+              "int"
+            ],
+            [
+              "item",
+              "str"
+            ],
+            [
+              "path",
+              "str"
+            ]
+          ],
+          "count": 485
+        }
+      ],
+      "rules": {},
+      "conditional_fields": false,
+      "optional_fields": false
+    },
+    "findings": {
+      "rows": 1369,
+      "field_shapes": [
+        {
+          "shape": [
+            [
+              "fingerprint",
+              "str"
+            ],
+            [
+              "item",
+              "str"
+            ],
+            [
+              "occurrences",
+              "int"
+            ],
+            [
+              "path",
+              "str"
+            ],
+            [
+              "rule",
+              "str"
+            ]
+          ],
+          "count": 1369
+        }
+      ],
+      "rules": {
+        "debug-output-branch": 7,
+        "raw-string-branch": 1352,
+        "semantic-family:basis-points": 1,
+        "semantic-family:e7-coordinates": 1,
+        "semantic-family:microliters": 1,
+        "semantic-family:surgery-procedure": 7
+      },
+      "conditional_fields": false,
+      "optional_fields": false
+    }
+  }
+}

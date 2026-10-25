@@ -1,0 +1,39 @@
+{
+  "id": "CONT07-CONTRACT-540",
+  "at": "2026-10-23T23:31:26.435739+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2377,
+      "source_id": "pr-working:crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+      "sha256": "f2874ee749741d0ae6f0e3454f8e6da59b3b031b933580da15ec73a80ad33ed1",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+      "actual_EOF": 898,
+      "ranges": [
+        [
+          1,
+          898
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "RIG-PPS-F017 exact currentfullrecipient evidence and optional/realempty qualifiers preserved"
+  ],
+  "facts": [
+    "Inventorymedical full898 materialunion personally read. Equipmentgraph derives wornids/nodes, usedcapacity and freecapacity freshly from actualrecord query results; no longlived privategraph cache. Missing DBinputs default empty (related requiredobservation semantics), but no ordinary disagreement assumed without failedquery/receiverproof.",
+    "Equipment request first resolves owninventory and itemdefinition then selects actualauthoredplacement and reducerbranch; medication maps currentcanonicalprofileversion/route with standarddose andselfpatient. Reducercommit remains authority. placedparent targets copied to nativecall, not reclassifiedidentity.",
+    "RIG-PPS-F017 exactsupport: medical_presentation chartquery failure unavailable; administrationhistory authorized byself/actualchartpresence but failed administrationquery becomes Vecempty; missing/failedtargetclock explicitlyunavailable. Preserve distinction: notallmedicalqueries silentlydefault. Standardinterventionprofile+minute gives actualactiveadministration policy in prior2357source.",
+    "get_strategic_condition abortsonrefreshfailure rather than readingstalerow; contrasts296capabilityhelper ignoredrefresh. Projectionoptionalcondition doesnotitselfestablish zero penalty atrecipient without templatebody; no duplicateauthority bug added.",
+    "Liquidate nativeparallel ids/quantities derive fromsameentries vector atlastABI; do notclassifythis outboundencoding as independentmutableauthority. Deposits/withdrawals loopscommitindividualcalls intentionallynoatomictransactionclaim."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2378,
+    "start_line": 1
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "id": "CONT07-CONTRACT-579",
+  "at": "2026-10-24T00:15:26.178890+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2498,
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/collision.rs",
+      "sha256": "59ae010bf4fbedc4f9daf16fc207e3f5ca674ff20a2c5d5b6b9699d291478f97",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-building-generator/src/collision.rs",
+      "actual_EOF": 448,
+      "ranges": [
+        [
+          31,
+          78
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2499,
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/collision/cuboid.rs",
+      "sha256": "2d9a1cfbd92acc218b8fb3abaf6f579fde6217c2f3776ece0539c340602baec9",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-building-generator/src/collision/cuboid.rs",
+      "actual_EOF": 111,
+      "ranges": [
+        [
+          1,
+          6
+        ],
+        [
+          11,
+          33
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2500,
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/doors.rs",
+      "sha256": "117277d2c1a3694f567606dcd0e8207f647755a386fdabfca098aa8597a6e1b7",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-building-generator/src/doors.rs",
+      "actual_EOF": 295,
+      "ranges": [
+        [
+          1,
+          73
+        ],
+        [
+          120,
+          224
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2501,
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/furniture/builder.rs",
+      "sha256": "502686dec923c61c5544f2249c9ba10f0a1ec2fac5db68afbb55a5426698570d",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-building-generator/src/furniture/builder.rs",
+      "actual_EOF": 305,
+      "ranges": [
+        [
+          1,
+          56
+        ],
+        [
+          74,
+          161
+        ],
+        [
+          176,
+          217
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2502,
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/furniture/finish.rs",
+      "sha256": "dac29dae17db4b4f9d76d11d1b0abef36af636b365631f550a9fa90a4f81f072",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-building-generator/src/furniture/finish.rs",
+      "actual_EOF": 193,
+      "ranges": [
+        [
+          1,
+          29
+        ],
+        [
+          54,
+          88
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2503,
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/lod.rs",
+      "sha256": "a67de5a3238c34c5d18edae89ddc2c51c4fe1dd562189103a6549bb34a88cfac",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-building-generator/src/lod.rs",
+      "actual_EOF": 666,
+      "ranges": [
+        [
+          95,
+          137
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2504,
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/member_uv.rs",
+      "sha256": "c560af0f6ea1265a0cc35a0bc9c0757094219d2c6bf12f37de47d4ea15460af9",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-building-generator/src/member_uv.rs",
+      "actual_EOF": 68,
+      "ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "P16 CollisionCuboid coordinates/extents/rotation are one represented oriented shape, not stored corners. CuboidCorners derives all8checked positions from same pose; native geometry errors retain source identity. No body coverage beyond exact specified constructors/projections.",
+    "P16 DoorSpec compiler derives closedcentre/hinge/size/yaw/tangent/outward/swing from actual closure solid and opening frame, filters only operable exterior DoorLeaf openings. This supports prior actual closedcentre reconstruction and internal-door exclusion qualifications. Public serde admits leaves separately; coherence of arbitrary external DoorSpec versus normal compiled product remains an explicit separate admission dependency, not an ordinary wrong-hinge claim.",
+    "P16 furniture Builder meshes, colliders and support points are different projections from the same admitted native member pose. First construction_error survives until assembly output; no partial invalid furniture success assumed. Render winding permutation and colliderEulerprojection share source quaternion, not competing authored geometry.",
+    "P16 builder ground-contact support points use same0.001tolerance for inclusion/dedup. Furniture material regrouping derives from one material key; endgrain classification delegates canonical member_uv::grain_axis from actual member dimensions and local normal.",
+    "P16 grain axis and local UV helpers derive from immutable member pose/dimensions; local geometry versus world phase are distinct roles. Source normal versus geometric winding in LodMesh is explicit supplied shading direction; push_quad coordinates winding using actual crossproduct dotnormal, no duplicated mesh-triangle authority asserted."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2505,
+    "start_line": 1
+  }
+}

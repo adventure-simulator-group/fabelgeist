@@ -1,0 +1,242 @@
+{
+  "id": "CONT07-CONTRACT-359",
+  "at": "2026-10-23T19:22:51.709643+00:00",
+  "lens": "audit-redundant-authority",
+  "members": [
+    {
+      "scope_index": 1514,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/compute.rs",
+      "sha256": "d681948a7f1f82b5ab95dfe90ffc820f8dafa85c558a29756c26603c5f208aba",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/compute.rs",
+      "actual_EOF": 430,
+      "ranges": [
+        [
+          1,
+          430
+        ]
+      ],
+      "read_kind": "fresh full actual source and independent07 role comparison; materials270-297 explicitly recovered after earlier output truncation"
+    },
+    {
+      "scope_index": 1516,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/geometry.rs",
+      "sha256": "29d5e171eb43f72999573edd891e5789074d9df1f31c061568965e17ef885740",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/geometry.rs",
+      "actual_EOF": 151,
+      "ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "read_kind": "fresh full actual source and independent07 role comparison; materials270-297 explicitly recovered after earlier output truncation"
+    },
+    {
+      "scope_index": 1517,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/material.rs",
+      "sha256": "828e37839d5d4490e9ea77f264645c928c80d3fafa13251ea30a1c792d966dd6",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/material.rs",
+      "actual_EOF": 102,
+      "ranges": [
+        [
+          1,
+          102
+        ]
+      ],
+      "read_kind": "fresh full actual source and independent07 role comparison; materials270-297 explicitly recovered after earlier output truncation"
+    },
+    {
+      "scope_index": 1518,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/mod.rs",
+      "sha256": "76c13f913682347307d57a33b86d367ca3e074609de2365fa7833a0013fe2a38",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/mod.rs",
+      "actual_EOF": 123,
+      "ranges": [
+        [
+          1,
+          123
+        ]
+      ],
+      "read_kind": "fresh full actual source and independent07 role comparison; materials270-297 explicitly recovered after earlier output truncation"
+    },
+    {
+      "scope_index": 1519,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/scratch.rs",
+      "sha256": "a552361866bcc278a46333d7ca2ee578a10cbf888f96cbd8f402eda84dcebc83",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/scratch.rs",
+      "actual_EOF": 139,
+      "ranges": [
+        [
+          1,
+          139
+        ]
+      ],
+      "read_kind": "fresh full actual source and independent07 role comparison; materials270-297 explicitly recovered after earlier output truncation"
+    },
+    {
+      "scope_index": 1520,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/kit.rs",
+      "sha256": "57a7b0a2728f339fce3da666494543ca1e9a1e4f6424523d0bd30c00c2a2cdd0",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/buildings/kit.rs",
+      "actual_EOF": 107,
+      "ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "read_kind": "fresh full actual source and independent07 role comparison; materials270-297 explicitly recovered after earlier output truncation"
+    },
+    {
+      "scope_index": 1521,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/materials.rs",
+      "sha256": "b40a4b3063040003cdd4e0cfee6573ce1e51f131dde1d14cf4dbf25c13295916",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/buildings/materials.rs",
+      "actual_EOF": 568,
+      "ranges": [
+        [
+          1,
+          568
+        ]
+      ],
+      "read_kind": "fresh full actual source and independent07 role comparison; materials270-297 explicitly recovered after earlier output truncation"
+    }
+  ],
+  "contracts": [
+    {
+      "source_index": 1514,
+      "disposition": "accounted exact07 roles with stated native/lifecycle limits",
+      "facts": [
+        "RetainedViewEntity->history_slot stores temporal LOD history across current Entity changes; current slots are per-group draw addresses rebuilt every prepare. They are distinct history/draw namespaces. Active-set retention and allocated free history slots are updated together; capacity excess yields no prepared offsets.",
+        "Each prepare clears current slots/dispatches/uniforms; uniforms derive actual view/root/frame and role. CPU publication and native cull readiness are distinct phases. Counter clear is encoded per camera group in GPU command order before select/compact. History does not represent a second current camera pose.",
+        "Fresh shader5041-80 verifies current host/shader64-lane invocation and native flag interpretation agree; compact row flattening uses actual num_workgroups.x, not a second65535 row rule. These native ABI commitments do not establish general dispatch-capacity coverage or replace actual canonical launch obligations under other lenses.",
+        "Native view fields and root shadow camera selection retain different observation purposes. No broad arbitrary camera/matrix or view-role correlation clearance from this07 comparison."
+      ]
+    },
+    {
+      "source_index": 1516,
+      "disposition": "accounted exact07 roles with stated native/lifecycle limits",
+      "facts": [
+        "Slices/page bounds/radius derive during one Geometry.insert; per-source remap is reset when page changes, so it is source-index-to-current-page translation rather than another independent vertex authority. Per-page cloned vertices are intentional native transport.",
+        "A geometry pack is immutable snapshot output; row/index/finite assertions and radius overflow limitations remain Rig03F028 and operations dependencies. Original small-page fixture reconstructs ordered source triangles as an independent oracle. No new07 cache authority defect."
+      ]
+    },
+    {
+      "source_index": 1517,
+      "disposition": "accounted exact07 roles with stated native/lifecycle limits",
+      "facts": [
+        "CityMaterial is a one-time native shader projection of selected StandardMaterial at actual upload, not an independently authored gameplay material definition. Normal-present bit/packed mask cutoff derive from the same source in one factory.",
+        "Mutable native material fields do not by themselves prove ordinary live StandardMaterial edits are supported after one-shot city packing. No hot-reload/in-place normal-map mutation guarantee awarded; current native mask0/NaN/UV policy belongs its exact boundary and behavior/admission lenses."
+      ]
+    },
+    {
+      "source_index": 1518,
+      "disposition": "accounted exact07 roles with stated native/lifecycle limits",
+      "facts": [
+        "CityGpuScenes extraction clones one successfully published owner cohort; Scene and RegionalMap are independent authority keys. Reset coordinates owner current/pending/READY and anchors.",
+        "Static geometry assembly runs Last after deferred PostUpdate material updates, before render extraction. This closes actual ordinary prop GlobalTransform scheduling concern without claiming every foreign schedule ordering.",
+        "TRIANGLES_PER_CLUSTER and VERTICES_PER_CLUSTER are distinct derived units, not conflicting counts. MAX_CITY_VIEWS is one host history-capacity policy; GPU ABI full semantics remain explicit."
+      ]
+    },
+    {
+      "source_index": 1519,
+      "disposition": "accounted exact07 roles with stated native/lifecycle limits",
+      "facts": [
+        "Scratch.source uses buildings asset identity as full immutable uploaded-scene cohort key; slots is allocated capacity, not exact current active-view count. New whole upload creates new buildings buffer, so batches/frame handle changed by whole scene replacement invalidate the actual key.",
+        "Fresh frame15151-103 shows supported reanchor changes CityFrame data on the same frame-buffer handle with unchanged fixed ShaderType size. New REG002 native storage module shows same-size/usage/label COPY_DST buffer is reused and updated by queue.write_buffer. ShaderBuffer defaults include COPY_DST; actual factory uses those defaults. Thus ordinary reanchor does not leave scratch bound to an old native frame allocation.",
+        "REG002 resize/descriptor/usage changes can replace native allocations; this is a separate supported-policy dependency if arbitrary scene buffers become mutable. This07 proof covers exact fixed-size reanchor only, not blanket stableAssetId==nativeBufferidentity.",
+        "Scratch prepares into local Vec and commits cache key/capacity only after all native buffers and allocation checks succeed; failure preserves old scratch. Actual count/product overflow remains other-lens source obligation."
+      ]
+    },
+    {
+      "source_index": 1520,
+      "disposition": "accounted exact07 roles with stated native/lifecycle limits",
+      "facts": [
+        "Component cache key includes every actual TimberComponent field (size bits/interior) read by this immediate module; actual lower component.meshes body is independent source obligation and not certified by key syntax. Instance transform/UV/facade are per-placement and applied after prototype cache lookup, not omitted prototype dependencies.",
+        "Facade/Static compilation purpose decides where shared batches are appended; repeated vectors are purposeful native LOD snapshots rather than separately authored geometry. PreparedFacade identity/native data admission remains prior raw-product obligation; retain_facade failure precedes levels cache insertion."
+      ]
+    },
+    {
+      "source_index": 1521,
+      "disposition": "accounted full current07 roles WITH_FINDING CONT07-F071",
+      "facts": [
+        "Palette factory creates one material bundle per selected appearance. Getters choose existing bundle; source defaults, texture physical constants and source contract fields are reused where shown. Fixed color/spec data are authored appearance values, not accidental duplicate tuning.",
+        "Closed enum versus independently maintained ALL order/Vec ordinal addressing is CONT07-F071. Existing source fixtures assert current variant reachability and distribution; equality/reachability assertions detect drift but do not remove the independent roster authority.",
+        "Current materials tangent/UV/physical glass tests are independent expected output oracles. Packed glass red evidence and nominal scalar thickness are explicitly different native capabilities; do not falsely collapse them into one currently consumed channel."
+      ]
+    }
+  ],
+  "personally_consumed_prior_narratives": [
+    "audit/continuation/rig/admission03/contract-groups.jsonl#RIG-ADMISSION03-CONTRACT-436",
+    "audit/continuation/rig/admission03/contract-groups.jsonl#RIG-ADMISSION03-CONTRACT-438",
+    "audit/continuation/rig/admission03/contract-groups.jsonl#RIG-ADMISSION03-CONTRACT-439",
+    "audit/continuation/rig/admission03/contract-groups.jsonl#RIG-ADMISSION03-CONTRACT-440",
+    "audit/continuation/rig/admission03/contract-groups.jsonl#RIG-ADMISSION03-CONTRACT-441",
+    "audit/continuation/rig/admission03/contract-groups.jsonl#RIG-ADMISSION03-CONTRACT-442",
+    "audit/continuation/rig/admission03/contract-groups.jsonl#RIG-ADMISSION03-CONTRACT-443"
+  ],
+  "fresh_supporting_bodies": [
+    {
+      "scope_index": 1515,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/frame.rs",
+      "sha256": "51939cee77e0767339534b9efe7543597e9698c3904d2ecaf559a5c14260c8e4",
+      "ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "credit": "fresh full fixed-size reanchor critical support; previously07-covered role, no count increment"
+    },
+    {
+      "scope_index": 504,
+      "source_id": "pr-working:assets/shaders/tactical_city_cull.wgsl",
+      "sha256": "4d432edb3c8b72dfcd163fa412e19aa2ee5603f621de9e0fae55fc7e7e46132f",
+      "ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "credit": "fresh actual host/shader ABI counter/slot policy; previously covered07 role, no count increment"
+    }
+  ],
+  "new_material_roles": [
+    {
+      "registration": "CONT07-REG-002",
+      "source_id": "native-dependency:bevy_render-0.19.1/src/storage.rs",
+      "sha256": "dcce6f3140c253231a106b1343c0dfa5e78e3175a78e9e78863e65ee3764b35a",
+      "ranges": [
+        [
+          1,
+          231
+        ]
+      ],
+      "disposition": "Independent07 native allocation reuse proof for exact same-size CityFrame reanchor. Source data, GPU asset descriptor/had_data are lifecycle stages with explicit coordinated reuse/replacement predicates.",
+      "provenance": "REG002-native-provenance.json verifies localsource against cratearchive file and fullcrateSHA against frozenCargo.lock checksum; no folder-name-only dependency inference.",
+      "coverage": "new actual native role fully analyzed07; other lenses/global registry reconciliation pending; outside old2853 denominator"
+    }
+  ],
+  "findings": [
+    "CONT07-F071"
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "identity_count_accounting": {
+    "new_original_variant_ids": [
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/compute.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/geometry.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/material.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/mod.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/scratch.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/kit.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/materials.rs"
+    ],
+    "already_covered_fresh_reanalysis_ids": [],
+    "new_this_contract": 7,
+    "cumulative_new_original_variants": 26,
+    "cumulative_original_unique": 1784,
+    "count_basis": "Exact source_id union against Adler saved07coverage1758, not number of fresh-read rows"
+  }
+}

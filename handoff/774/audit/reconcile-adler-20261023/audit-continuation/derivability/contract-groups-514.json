@@ -1,0 +1,46 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-514",
+  "at": "2026-10-25T15:55:41.991595+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 908,
+  "source_id": "pr-working:crates/adventuresim-core/src/courtship.rs",
+  "sha256": "df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "Display",
+      "type": "CourtshipRejectionCode",
+      "lines": [
+        [
+          76,
+          80
+        ]
+      ],
+      "disposition": "KEEP small stable-label delegation to as_str; no ready owningDisplayderive."
+    },
+    {
+      "trait": "FromStr",
+      "type": "CourtshipRejectionCode",
+      "lines": [
+        [
+          82,
+          102
+        ]
+      ],
+      "disposition": "KEEP exactstablecodes and Err(()); no available exactfulltraitderive."
+    }
+  ],
+  "analysis": "Fresh courtship1\u2013220: CourtshipRejectionCode structuralSerde already. Display76\u201380 KEEP small write_str of stable as_str, no ready owningDisplayderive; FromStr82\u2013102 KEEP exactcase snake labels and uniterror, existing enum-assoc nativeOptionassociation would still require Errorglue. ABI envelope helpers intentionally custom prefix/detail parsing, not Serdewire. Other records structural/defaultalready, housingeconomysemantic. Remaining source unread.",
+  "first_unfinished": {
+    "scope_index": 908,
+    "line": 221
+  },
+  "execution": "none"
+}

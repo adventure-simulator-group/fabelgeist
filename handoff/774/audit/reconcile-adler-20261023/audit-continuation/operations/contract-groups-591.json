@@ -1,0 +1,50 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-591",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/clothing.rs",
+      "sha256": "04f07439908559bf5787f569d0eb67cc016e246004677827f0b9d6f693a76de9",
+      "actual_EOF": 708,
+      "actual_compared_ranges": [
+        [
+          1,
+          708
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/clothing/validation.rs",
+      "sha256": "f1e1fe557065da98b1e80397aeb190dfacdbeaa1d9ab5c240094e27f8cfb7adf",
+      "actual_EOF": 62,
+      "actual_compared_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Rigqualityshellselection operations establish alignednativeextents beforeindexing andadmitfittedpositionresults withoutinventingplaceholderqualityrequirements.",
+      "evidence": "clothing708/validation62fullbodiespersonallyread includingallfixtures. positions/normals/skin/weightslengthmatch, jointtablelenandPackedRigSkinjointcountmatch, faceeach<vertices beforeallbodyfaceindexedselection. Selectedsegments useactualtypedslots fromnamesbinding; no uncheckednarrowing inthisbody. Weightfinite/domain andsamecountmanifestidentity remainactualproducerprerequisites, notprovenbycount. expansionrings loopbreaksonfixedpoint, so hugecountdoesnotnecessarilydo allrounds. chain_coordinate total0/nonfinite=>None, thenNoWeightedVertices explicit; finitecandidatecoordinateonlyretained. Scalaroffset SignedLength, fitterdeferredhelper, outputpositionsallfinite thenfacevalidbeforepublishing. Normalsnotreadmittedbythisvalidator; actualfitter/nativeunitnormalowner separatelyrequired.",
+      "qualifications": "No tests/nativefitting/GPU/previewexecution. PublicClothingShelltopology/refit exactacceptedRIG-ADMISSION03-F011 audit/continuation/rig/admission03/findings.jsonl record10 fullyconsumed; generatorlatecheckdoesnotsealpublicsubsequentmutation/refit. Placeholderfaces explicitlypreservestopologywithoutarea/windingqualitygate; do not inventqualityrestrictionasnumericfix. Rigsamecount/contextswap relatedCAM-OWNER-F011/RIG06F050/local774:F19 remainssemanticmembershipdependency, notcurrentauthoredmismatchclaim.",
+      "acceptance": "Onecheckedcoherentshell/body/skin/topologyownerbeforeindexedmath; computedpositions/normals haveexplicitusablepolicy, no sourcebodymutationafterproof. Preservemissinglandmarkconcreteerrors, placeholderzero/signedoffset/area policyandactualnativevertexordinals."
+    },
+    {
+      "contract": "Cloth numerical kernels preservefinitevalidphysicalscale orrejectthroughactualowningfallibleAPI.",
+      "evidence": "Relaxconcavity3passes*strength.5, boundaryverticesunchanged, neighborcountsnonemptybeforedivision; f32weightedaverages/accumulationmayneedreadmissionforrawextremes, returnedfittedpositionslaterfinitechecked. surface_normals actualtry_normalize fallbacksourcevector, finite/unitfallback actualsourceprerequisite. weldsplitpositionswidenssourcecoords*f641e6andaverageshellcoordsinf64beforef32narrow; sourcekeyi64saturatingcastcanaliashugecoords beyond~9.22e12m, actualhumanmodelroot/frameboundsneededbeforeordinarywelddefect.",
+      "qualifications": "No actualextreme/translatedbodymeshproducer, nonfinitefallback orbadexportcallerestablished. StructuredNoWeightedVertices/NonFiniteFittedVertex isvalidrejection; dontrequireinfallibilityonallfinitegeometry. Sourceindex+countboundedallocatednonzeroVecs; no unsupportedusizeMAXlogicalarrayclaim.",
+      "acceptance": "Connectedactualfitter/kernel andbodydomain owncomputedposition/normaladmission andquantizationkeycapacityiflargercoordinatesupported. Preservemicrometreweldtolerance, topologyandrest-frameXYZ withoutarbitraryphysicaloriginclamp orsilentlyzeroinvalidgeometry."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "rig-quality:crates/adventuresim-character-creator/src/export.rs"
+}

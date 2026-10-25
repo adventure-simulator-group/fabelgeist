@@ -1,0 +1,35 @@
+{
+  "id": "RIG-CAMERA-ADM03-598",
+  "camera_queue_index": 598,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_sessions.rs",
+  "sha256": "86473c2872a35a61a69775dc2578440eeefe4b620a5414c4aa044ca98bacf412",
+  "queue_ref": "continuation/admission03-queue-v002/camera_rig_support.json#/queue/51",
+  "scope_pointer": "/files/1218",
+  "actual_read_ranges": [
+    [
+      1,
+      351
+    ]
+  ],
+  "actual_eof": 351,
+  "current_source_absent": false,
+  "base_sha256": null,
+  "current_roles": "Scripted dialogue session creation, actual NPC role binding and initial observer-safe discovery",
+  "invariant": "Start requires actual living actor/party/settlement, navigable canonical place and observer-frontier NPC co-presence, matching authored conversation and validated catalogue before session admission.",
+  "all_admission_routes": [
+    "Gateway/currentCATALOG_DIGEST+livingknownactor/party/settlement, candidateNPCrawstring parsesu64, actualPairwiseSofttemporal scope thenStrategicPresence settlement+validatedvenue, resolvedpersistentNPChome/exactchapter/presence andare_co_present. RequestedconversationmustactualNPCconversation, knowncatalogue andactualdialogue::validate.",
+    "ParsedSessionID597 ownernumeric==actor. ExistingID retries compareconversation/settlement/location/catalogue andcurrentlivepresence; DOESNOTexplicitlycompare requestednpc_actor_id tooldparticipant inthisbranch, normaloldcurrentNPCsstillvalidated. No claim complete request replay.",
+    "Newsession fixedActive/revision0; playerparticipantSomeID withcharacter:IDactorstring; everyNPCrole actualresolvedpersistentco-presentcharacter withnumericto_string, uniqueactualNPC acrossroles, role.min>1reject, thenvalidateallrolecardinality+livepresence597 beforegreeting/effects. OptionalNPCrolesstillassignedhere; rawDBrowsbroaderthanthisfactory.",
+    "Actual authoredgreeting unambiguousselect/facts, resolvedfragments+sources encoded, checkedbusiness effect593; actuallocalproblem.surface thenclassifieddelivery. Currentprimaryspeaker exactnpc_actor_id lookup aftercanonicalnumericstore means leading-zero textualrequest canlaterfail speakerlookup ifrumorpresent, no silentwrongactorbinding.",
+    "Onlyobserver-safe rumorlead received andwitnesscapability578; contracts/hiddencause notautomaticallyaccepted. Exactruntime/referral/claimbindingsactualsources592/596 consumed, andtopicrefresh currentauthority. Nonewrecord/Serde/Reflect/Default owner declaredhere."
+  ],
+  "counterexample_or_intentional_boundary": "Full351 read. Callerfactory activelyconstructswellformedparticipant actorIDs andfullpresence rechecksallNPCs, closing596normaladdressparsed-ID precondition. Underlying cataloguevalidate/temporal/presencefactory predicates retainedseparately, noResultorfunctionnameclearance. Allu64ID/zero semantics delegatedactualCharacter; no executedstart/materialization.",
+  "finding_refs": [],
+  "connected_dependencies": [
+    "RIG-CAMERA-ADM03-578/592/593/596/597",
+    "Current Native StrategicPresence and PairwiseSoft temporal scope; actual adventuresim_dialogue catalogue validator"
+  ],
+  "mode": "Fresh actual current admission source comparison; original tests read as source only. No project execution or earlier-lens verdict carry.",
+  "authority": "root/admission03/support-authority-053.json; Camera retains source/audit ownership; Root final audit/repair authority",
+  "disposition": "exact_source_role_compared_with_stated_limits_and_dependencies"
+}

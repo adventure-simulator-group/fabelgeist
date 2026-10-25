@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-605",
+  "at": "2026-10-25T16:11:55.205349+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 937,
+  "source_id": "pr-working:crates/adventuresim-core/src/item_catalog.rs",
+  "sha256": "de7dd72013aa3af8ae0aae8691011a8aaa2d168db670188bcc1064cac9a23d18",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Fresh item_catalog1\u2013220: ItemSourceRef derives structural/Deserialize; OnceLock catalogue parses already-derived document wire then semantically hydrates weapon properties/coverage, sorts and exposes borrowed native lookups. No manualtrait/codec. Generated include11 not executed/credited; source fixtures begin and remain incomplete.",
+  "first_unfinished": {
+    "scope_index": 937,
+    "line": 221
+  },
+  "execution": "none"
+}

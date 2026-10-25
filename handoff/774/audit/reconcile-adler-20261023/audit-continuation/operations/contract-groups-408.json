@@ -1,0 +1,72 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-408",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/tests.rs",
+      "sha256": "fef4e30bfd57aaca8dbbda3417f5f2ac5f67e6d03d6eaaa49e0f9726794fe525",
+      "actual_EOF": 3461,
+      "actual_compared_ranges": [
+        [
+          1,
+          3461
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/track.rs",
+      "sha256": "5bfe737eeec5812b9bc25a52964dd42009e8a4721826beaed8d155d567408e48",
+      "actual_EOF": 31,
+      "actual_compared_ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/rig.rs",
+      "sha256": "5da088286521af8e54c621b356ceb3fa949d3870c3748494352eda9016277bec",
+      "actual_EOF": 514,
+      "actual_compared_ranges": [
+        [
+          1,
+          514
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/sample_state.rs",
+      "sha256": "2605b48effbf078be1636edc4742d3f92bed99d01d2b20c232da4c564edefa3c",
+      "actual_EOF": 73,
+      "actual_compared_ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "IK coordination fixture assertions",
+      "evidence": "ik/tests.rs:1-3461",
+      "disposition": "Entire fixture body personally read. Covers wrapping sequence, one-foot topology, immutable support requests, stationary turn, cached repeat evaluation, angular zero elapsed and missing history, run approaches/reach/pole, acquired support and cadence exhaustion, stop/restart, toe lever floors, terminal absolute-root ownership and realized release diagnostics. Finite production-size captured witnesses support intended ownership. Synthetic helper arrangements are not proof of a live native/GPU pass; no tests executed. No fixture closes the retained-plan finish_terrain_release lifecycle question from406."
+    },
+    {
+      "contract": "Rig cache, bind topology and procedural observation roles",
+      "evidence": "rig.rs:1-514; ik/track.rs:1-31; sample_state.rs:1-73",
+      "disposition": "Foot side represented as exact \u00b11 role. Rig role duplicates deterministically retain minimum entity; sparse rigs keep missing chains explicit. Bind search bounded64; native transform composition and inverse quaternion seams remain native geometry operations. Sole axis normalized from authored bind, never live gait or toe vector; cache rebuild preserves previously captured axes. Potential asynchronous capture-before-cache ordering depends on actual schedule and is not established as a failure here. Sample histories retain actual tick/landing sequence, neutral filter state remains distinct from observation."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/animation/ragdoll/definition.rs"
+}

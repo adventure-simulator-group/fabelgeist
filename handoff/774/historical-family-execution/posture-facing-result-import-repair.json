@@ -1,0 +1,26 @@
+{
+  "failed_run": 39432660084,
+  "failed_job": 118661423273,
+  "failed_head": "374977162f6a561bece01018c333d2b5c307bf8d",
+  "earliest_gate": "Run Clippy with warnings denied",
+  "error": "E0425",
+  "root_cause": "The extracted posture-facing projection module uses the canonical animation result alias in five method signatures but did not import it.",
+  "file": "crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+  "failed_lines": [
+    25,
+    89,
+    111,
+    130,
+    148
+  ],
+  "repair_commit": "6c31bf753d7f2f08080aa31ac242e1dfeaf94cb8",
+  "repair": "Import adventuresim_tactical_core::animation::AnimationValueResult in the consuming module.",
+  "scope": "One import changed. The five return signatures, error owner, arithmetic, failure propagation and state updates are unchanged.",
+  "review": "Two bounded self source checks: read the complete consuming module and all five diagnostics, then inspect the one-import diff and canonical owner. Not independent full-PR review.",
+  "new_types_or_aliases": false,
+  "new_tests_assertions_helpers": false,
+  "local_checks": "Static source inspection and Git whitespace only; no local Rust commands.",
+  "current_run": 39434297927,
+  "current_job": 118667133316,
+  "validation": "Exact head 6c31bf753 passed formatting, bindings, semantic/growth, calendar, WASM Clippy and native/WASM deterministic draws. The native all-target/standalone matrix is confirmed live in run 39434297927/job 118667133316. Full selected behavioral execution, official baseline export and P04 acceptance remain pending."
+}

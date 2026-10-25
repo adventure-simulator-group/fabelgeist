@@ -1,0 +1,30 @@
+{
+  "id": "CONT03-ADMISSION-POPULATION-001",
+  "at": "2026-10-24T03:16:27.637248+00:00",
+  "classification": "source-backed API/native-decoder admission defect population; globaldedup pending",
+  "source_id": "pr-working:crates/adventuresim-world-schema/src/geology.rs",
+  "sha256": "c72ee80ae9c285fe5cc3b6346b58bfe4eb550ba70cb22dc0ed9cd6bef4f62a09",
+  "ranges": [
+    [
+      3,
+      37
+    ]
+  ],
+  "registration": "prospective-source-registration-002.json +original35\u2013130role",
+  "type": "GeologicUnitId",
+  "intended_invariant": "Nonempty String, <=255bytes, no surroundingtrim orcontrol characters; open syntactic geological unit ID, no closedcatalog membership requirement.",
+  "routes": {
+    "checked": "new11\u201318 and customSerde25\u201337 both invoke same predicate",
+    "native_bypass": "feature-gated SpacetimeType derive3\u20135 on nongeneric named struct private Stringfield value6\u20138, no reprC/customSATSvalidator; inherited exact macro Product visitor emits rawfield literal independently ofSerde."
+  },
+  "counterexample": "NativeSATSnamed/sequence Stringempty produces GeologicUnitId{value:empty} when featureenabled, thoughnew(empty) returnsNone andcheckedSerde rejects. No decoding execution.",
+  "native_proof": "inherited-sats-product-route.json exactmacro lib4ddcdb.../satsbf26e... genericnamedProduct behavior; declaration/attributes compared, notsolederiveassumption.",
+  "actual_receiver_qualification": "Mapped world-import reconstruct_geology_profile1089\u20131102 re-admits unit viaGeologicUnitId::new beforepublication, closing ordinarymappedimportinvalidunitclaim. Defect is concretefeature-enabled native construction surface, not demonstrated stored invalidrow or invalidgeologicalcatalog content.",
+  "connected_correction": "Make exactsyntactic invariant authoritative for bothSerdeandSATS incoming routes under schemaowner; preserve openvalidunknown identifiers and validmapped/inferred alternatives. No duplicate equivalent type/compatibility fallback/newtests.",
+  "related_not_automatic_alias": [
+    "CAMERA-ADM03-F001-SATS-QUALIFICATION same pinned Product decoder mechanism, differentleaf/population",
+    "Nativeconstructoradmission family; rootglobaldedup required beforeunique count"
+  ],
+  "repair": "frozen",
+  "validation": "not_run"
+}

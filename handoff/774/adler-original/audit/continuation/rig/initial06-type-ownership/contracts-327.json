@@ -1,0 +1,23 @@
+{
+  "id": "RIG-INITIAL06-GROUP-327",
+  "at": "2026-10-23T09:01:14.828502+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "waist-armor-reference-fixtures": {
+      "comparison": "Original tasset fixtures use canonical ParametricDesign/GarmentArmorDesign/WrappedTassetDesign/Millimeters/Permille with FitBody/Realization/Fitted distinct stages. They compare fitted endpoints/components/native topology and canonical RigJointName ordering projected to native u32 skin words. Raw GPU hull/status arrays are explicit fixture ABI inputs, not competing body frame/rig owners. Separate thigh ownership uses component ranges rather than collapsing full garment assembly into one identity. Existing tests source-only, no GPU/run/output performed.",
+      "disposition": "original canonical armor assembly/rig relationship references"
+    },
+    "marching-native-lattice": {
+      "comparison": "LatticeSample privately pairs actual native Vec3 position with signed field distance. usize sample coordinates/edge keys and u32 generated vertex indices belong to the local numerical mesh kernel, not durable scene identities. Marching extraction preserves endpoint identity/determinant orientation and forwards final buffers into canonical SceneTerrainPatch with existing TerrainTransitionCollar and TerrainRecipeError. No alternate checked geometry type or landform recipe owner. Physical signed field values, interpolation fraction and normals have different meanings despite f32 storage. No arithmetic/admission clearance from this ownership disposition.",
+      "disposition": "legitimate native lattice/math adapter to canonical patch aggregate"
+    },
+    "distant-building-spawn-and-sign": {
+      "comparison": "Only175–245 scoped: CityBuildingAssets::spawn borrows DistantBuildingPlacement/SceneEstablishment and uses existing cached compiled building levels. ScenePlanPoint, SupportElevation plus compiled local origin, and BuildingOrientation project at Bevy transform construction. PresentationOwner::Scene/PlacementAppearance::Distant retain renderer ownership. ShopSign::for_establishment receives explicit EstablishmentId projection from placement identity and usage/name; distinct concepts are not globally interchangeable because storage matches. Scoped present prefix only shows pending/finished/cache-clear entry; no remaining queue/present/fixture bodies credited. QUAL066 excludes premature full companion display outside scope.",
+      "disposition": "canonical placement/compiled products with explicit rendering/sign adapter; exact partial scope retained"
+    }
+  },
+  "supporting_existing_findings": [],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit.",
+  "source_qualification": "QUAL066: streaming175–245 only; no1–174/246–272 credit."
+}

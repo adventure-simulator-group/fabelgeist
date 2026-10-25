@@ -1,0 +1,27 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-145",
+  "at": "2026-10-25T12:57:06.600784+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_ROLE_INCOMPLETE",
+  "scope_index": 287,
+  "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+  "sha256": "85c8f2c699beb1c00311678bbe179a5cc75bb33c607051bd967e91c9e6eba749",
+  "actual_compared_ranges": [
+    [
+      1,
+      1395
+    ]
+  ],
+  "trait_inventory": [],
+  "existing_derives": [],
+  "semantic_contracts": "Personal actual reads1\u2013465/466\u2013930/931\u20131395 cover transfer/value/classifiers/fixture bodies, party stable-object initialization, mission candidate authority/hash/weighted selection and hostile outcome commit through loot construction. Private borrowed HostileBattleCommit927\u2013937 and HostileResolutionCommit939\u2013949 have no manual traits; no handwritten serializer in consumed ranges. Keep native checked context conversions, explicit versioned entropy/candidate ordering, subset replay comparisons and strategic consequence dispatch as semantic functions.",
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 287,
+    "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+    "next_line": 1396,
+    "actual_EOF": 3250
+  },
+  "execution": "none",
+  "limits": "Role3250 remains pending1396\u20133250; current read ends inside commit_hostile_battle_resolution. No full-role credit."
+}

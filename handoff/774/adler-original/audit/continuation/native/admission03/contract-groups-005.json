@@ -1,0 +1,112 @@
+{
+  "id": "NATIVE-ADMISSION03-CONTRACT-GROUPS-005",
+  "lens": "audit-admission-contracts",
+  "groups": {
+    "calibration-cache-inputs": {
+      "indices": [
+        139,
+        161
+      ],
+      "invariant": "Calibration retains checked speed/length/scale/rate/grid/interval leaves, optional measured state distinct from fallback. Configuration identity does not itself imply min<=max or rigmembership.",
+      "routes": "AuthoredStrideMeasurement super-public checked NonnegativeLength fields, no Serde/Reflect/Default; lerp/combat native result always readmitted checked. AuthoredLocomotionStrides Resource typed publicsuper optionalmeasurements/maps; Default captures CalibrationInputs::current then all absent/empty. CalibrationInputs private checked fields only current copies actual configleaves; no Serde/Reflect/Default/raw factory. Lookup actual matching current rig or reference fallback. CalibrationMotion closed4 EnumIter not text/raw decoder. Native direction is raw input; nonfinite result checked before typed length, not a typed direction claim.",
+      "intentional": "Missing walk/run/strafe/skip returns None and stale config returns fallback/none, zero length valid. Config typed positive lengths/scale may permit independent reversed ranges; crossfield05 is separate, no scalar false defect.",
+      "dependencies": "Core current leafgroups001; PositiveLength actual Root ROOT-ADM-GEOMETRY-001 checked finite>0 raw/manualSerde/noDefault. Current PhaseCurve actual group below; no hash/verdict carry.",
+      "acceptance": "All promised checked local invariants enforced by each actual direct/literal/default/decode route; preserve signed/zero/absence/raw/native distinctions and original existing fixtures. No arithmetic04/correlated05 clearance.",
+      "connected_repair": "Existing connected-repair-map and claim authority only; no defect beyond named existing raw-owner migrations established here, no new repair ownership."
+    },
+    "closed-display-and-side-roles": {
+      "indices": [
+        163,
+        218
+      ],
+      "invariant": "Display mode and selected corridor half are closed roles; no scalar normalization/membership guarantee.",
+      "routes": "PosePresentationMode DefaultInactive, Displaying, ordinary literal/Copy only; no Serde/Reflect. FootTrackSide two variants; from_native_x selects Negative when x<0 elsePositive, fromfoot exhaustive LeadFoot, coefficient outputonly±1. No raw integer/discriminant/Serde/Reflect/Default route.",
+      "intentional": "NaN x falls existing elsePositive by exact comparison; output remains legal role. Does not admit NaN into finite coordinate; changing sourceclassification policy separate, not invent nonzero direction predicate.",
+      "acceptance": "All promised checked local invariants enforced by each actual direct/literal/default/decode route; preserve signed/zero/absence/raw/native distinctions and original existing fixtures. No arithmetic04/correlated05 clearance.",
+      "connected_repair": "Existing connected-repair-map and claim authority only; no defect beyond named existing raw-owner migrations established here, no new repair ownership."
+    },
+    "checked-pose-interpolation": {
+      "indices": [
+        166
+      ],
+      "invariant": "Private PoseInterpolation always UnitInterval finite0..1; time ratio intentionally capped.",
+      "routes": "Private tuple; ZERO/ONE valid; only from_sample_clock typed elapsed>=0/positive interval computes ratio, rejects nonfinite then clamps0..1 and calls private from_fraction->checkedUnitInterval. No Default/Serde/Reflect/From/rawpublicbacking route.",
+      "intentional": "Elapsed greaterthan interval maps1; tiny positive interval causingInf rejects beforeclamp. CanonicalUnitInterval current registered full58 actual constructor/checkedSerde; no blanket raw elapsed conversion.",
+      "acceptance": "All promised checked local invariants enforced by each actual direct/literal/default/decode route; preserve signed/zero/absence/raw/native distinctions and original existing fixtures. No arithmetic04/correlated05 clearance.",
+      "connected_repair": "Existing connected-repair-map and claim authority only; no defect beyond named existing raw-owner migrations established here, no new repair ownership."
+    },
+    "periodic-curve-admission": {
+      "indices": [
+        169,
+        170
+      ],
+      "invariant": "AuthoredPhaseCurve identity or private sampled typed finite unwrapped phases with at least2 and exact forward/reverse cycle seam. Sampled interior monotonicity not promised.",
+      "routes": "Private struct+enum+Vec backing no Serde/Reflect/Default/mutable getter. from_samples len0/1 returnsIdentity, otherwise computes first±1 via checkedphase arithmetic and requires last equalone before Sampled literal. fit_contact_spans builds checked phases, calls smoothing then same from_samples. smooth_periodic_phase_curve has no new retainedtype constructor: typed phaseinput, too-shortgrid no-op, allnative results readmitted via checked CycleDelta/Phase; commit replacement only after typedfinite/seam construction.",
+      "intentional": "Empty/singleton intentionally identity ratherthan unavailable. Phase values signed/unwrapped; reversed seam valid. Nonmonotone interior not automatically invalid refined type; actual fit-quality later05/operation04separate. No hidden raw f32 construction in all80/55 lines.",
+      "acceptance": "All promised checked local invariants enforced by each actual direct/literal/default/decode route; preserve signed/zero/absence/raw/native distinctions and original existing fixtures. No arithmetic04/correlated05 clearance.",
+      "connected_repair": "Existing connected-repair-map and claim authority only; no defect beyond named existing raw-owner migrations established here, no new repair ownership."
+    },
+    "raw-native-spline-kernel": {
+      "indices": [
+        175
+      ],
+      "invariant": "This is an explicitly raw native interpolation kernel; it creates no refined newtype or checked admitted aggregate.",
+      "routes": "Publicsuper generic function accepts raw f32 knot/progress and nativeVec3 arrays/velocities, returns nativeVec3; helper asserts KNOTS>=2 and does original tridiagonal native math. No constructor/Serde/Reflect/Default/From of firstpartytype. Negative/repeated/nonfinite knots representable; source does not declare checked spline owningrecord.",
+      "intentional": "NaN/zero interval may propagate native invalidoutput, to be considered at actual checked recipient/operation04; not misclassified as checked-type serde bypass. Preserve originalassertion/FPorder and raw fixture entry, no newassertions/tests.",
+      "acceptance": "All promised checked local invariants enforced by each actual direct/literal/default/decode route; preserve signed/zero/absence/raw/native distinctions and original existing fixtures. No arithmetic04/correlated05 clearance.",
+      "connected_repair": "Existing connected-repair-map and claim authority only; no defect beyond named existing raw-owner migrations established here, no new repair ownership."
+    },
+    "body-checked-quantities": {
+      "indices": [
+        187
+      ],
+      "invariant": "BodyAngle finite signed unwrapped radians, localvelocity/acceleration finite signed Vec3, angularvelocityfiniteVec2; angularmagnitude finite>=0; braking scale0..1.",
+      "routes": "All scalar/vector backing private; from_radians/from_metres_per_second/etc validate finite via actual nativeis_finite or Radians::new; magnitude additionally rejectsnegative, Default only signedangles/vectorzero legal. BrakingScale checkedUnitInterval; no Serde/Reflect/rawFrom/publicbacking route. ResponseAngles/Step superpublic fields alreadycheckedleaves, defaultsvalid0. checked_sum_capped native result checksnorm finite then calls checked angle constructor. Scale/clamp outputs readmitted through from_radians.",
+      "intentional": "Componentfinite does not imply finite square; planar_squared explicitly tests derivednorm. Nonunit/wide signed coordinates valid, unit direction or magnitude restriction notforced. Root current Radians actualprivate/manualSerde/default0 and NativeUnitInterval current bodies consumed; raw Native values cannot enter public constructorunchecked.",
+      "acceptance": "All promised checked local invariants enforced by each actual direct/literal/default/decode route; preserve signed/zero/absence/raw/native distinctions and original existing fixtures. No arithmetic04/correlated05 clearance.",
+      "connected_repair": "Existing connected-repair-map and claim authority only; no defect beyond named existing raw-owner migrations established here, no new repair ownership."
+    },
+    "optional-fixed-clock": {
+      "indices": [
+        188,
+        192
+      ],
+      "invariant": "Optional fixedtick is explicit deterministic clock authority; tick everyu64 incl0/MAX, elapsed finite>=0 incl0. Absence uses native renderduration.",
+      "routes": "FixedAnimationStep cratepublic typedfields, noSerde/Reflect/Default. Clock Resource DefaultNone; set_fixed_step accepts alreadytyped tick/elapsed and constructsSome. Directpublic field assignment also onlytypedStep. Leg sample_elapsed returns storedcheckedelapsed onceperdifferenttick, duplicatesNone; absentclock uses AnimationElapsed::from(nativeDuration) and zero->None. No rawprimitive admission in either fullbody.",
+      "intentional": "Fixed step0 remainsSome unless duplicate tick; render0None policy deliberatelydifferent. Optional observation is not defaulttick0 measurement. Cross-frameauthority/mutation semantics laterlens notcleared.",
+      "acceptance": "All promised checked local invariants enforced by each actual direct/literal/default/decode route; preserve signed/zero/absence/raw/native distinctions and original existing fixtures. No arithmetic04/correlated05 clearance.",
+      "connected_repair": "Existing connected-repair-map and claim authority only; no defect beyond named existing raw-owner migrations established here, no new repair ownership."
+    },
+    "height-offset-result-admission": {
+      "indices": [
+        191
+      ],
+      "invariant": "SignedLength finite signed presentation metre offsets, HeightDistance>=0; output computation must be readmitted.",
+      "routes": "No newtype declaration/raw field factory; advance/add/subtract call private offset_result->SignedLength::from_metres and mapactualfailure to quantity Overflow. Full39 lines preserve subtraction/add/clamp order. SignedLength canonical actual Root ROOT-ADM-GEOMETRY-001 privatecheckedconstructor/manualSerde/ZEROdefault/positive-subset; current local uses reviewed against signed/zeroframe.",
+      "intentional": "Negative finite offsetvalid, maximum_delta0valid, nonfinite arithmetic cannot becomeuncheckedSignedLength. No blanket frame or nativeinput guarantee.",
+      "acceptance": "All promised checked local invariants enforced by each actual direct/literal/default/decode route; preserve signed/zero/absence/raw/native distinctions and original existing fixtures. No arithmetic04/correlated05 clearance.",
+      "connected_repair": "Existing connected-repair-map and claim authority only; no defect beyond named existing raw-owner migrations established here, no new repair ownership."
+    },
+    "foot-speed-admission": {
+      "indices": [
+        210
+      ],
+      "invariant": "FootTargetSpeeds checked nonnegative finite speed leaves; zero allowed, source SignedLength may initially be negative.",
+      "routes": "Private first/raised fields and superpublicrelease/run typedfields; configured multiplies source signedstep by typedfrequency then calls actual NonnegativeSpeed::from_metres_per_second for each in declarationorder. NoDefault/Serde/Reflect/rawFrom or primitivefield route. Closedbranch getters only select admitted values.",
+      "intentional": "Negative source step remains representable until configured rejects; tiny/large frequency result nonfinite rejects. Do not tighten raw tuning SignedLength globally or erase originalerror/ordering. NonnegativeSpeed actual registered full178 current body checked raw/Serde/default0.",
+      "acceptance": "All promised checked local invariants enforced by each actual direct/literal/default/decode route; preserve signed/zero/absence/raw/native distinctions and original existing fixtures. No arithmetic04/correlated05 clearance.",
+      "connected_repair": "Existing connected-repair-map and claim authority only; no defect beyond named existing raw-owner migrations established here, no new repair ownership."
+    },
+    "semantic-route-reporting": {
+      "indices": [
+        236
+      ],
+      "invariant": "Route inputs combine typed leaves with explicitly native reported direction; route vocabulary closed, packidentityopen. Telemetry output not an admitted geometric direction type.",
+      "routes": "SemanticRouteInputs publicfields derivesSerialize only; from_presented copies checked evaluationleaves and native normalized_or_zero direction. NoDeserialize/Reflect/Default unchecked newleaf route. Trace public typedinputs/evaluation/closedpaths, noSerde. Path closed3 andSerialize/as_stroutput, no rawparser. Telemetry private countmapDefaultempty. route evaluation Result must succeed before tracepublish; failure removes trace.",
+      "intentional": "Direction zero is intentionalreport; public raw Vec2 is not claimed finite/unitowner. TypedPackID allstrings supported untillibrarylookup. Countoverflow/mutation separate04, source lineage separateproducerlens; no blanket routevalidaggregate guarantee.",
+      "acceptance": "All promised checked local invariants enforced by each actual direct/literal/default/decode route; preserve signed/zero/absence/raw/native distinctions and original existing fixtures. No arithmetic04/correlated05 clearance.",
+      "connected_repair": "Existing connected-repair-map and claim authority only; no defect beyond named existing raw-owner migrations established here, no new repair ownership."
+    }
+  },
+  "later_lens_credit": false
+}

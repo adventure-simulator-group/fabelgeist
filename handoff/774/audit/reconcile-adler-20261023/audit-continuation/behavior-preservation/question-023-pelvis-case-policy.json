@@ -1,0 +1,71 @@
+{
+  "id": "CONT08-Q023",
+  "lens": "08 behavior-preservation",
+  "status": "Exact custom/API behavior difference; case-policy ambiguity, no ordinary authored runtime regression established.",
+  "pins": [
+    {
+      "scope_index": 1331,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation/pose_buffer.rs",
+      "before_sha256": "6845f95dba64dfc90bcf7695fe5ad7e3cdd20cf699f1bd060a34b385c6cb7e2d",
+      "after_sha256": "4544835a041e7c35f25b60d0b13e06ff22ea4ecc0efc90efdda1cd6963fb9638",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1331-base-6845f95dba64dfc90bcf7695fe5ad7e3cdd20cf699f1bd060a34b385c6cb7e2d",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/4544835a041e7c35f25b60d0b13e06ff22ea4ecc0efc90efdda1cd6963fb9638",
+      "diff": "source-evidence/pr-1331.diff",
+      "diff_sha256": "9f81fe0c9d744f323a858278b8a7af2c312683297c50fb5ecf9c832c2ecef2f0"
+    },
+    {
+      "scope_index": 1406,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/rig_identity.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation/rig_identity.rs",
+      "before_sha256": null,
+      "after_sha256": "207d7aff4743dc30e8fd603dd02ca0e9dd83863ac4c65bc53e208949767a7b64",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/207d7aff4743dc30e8fd603dd02ca0e9dd83863ac4c65bc53e208949767a7b64",
+      "diff": "source-evidence/pr-1406.diff",
+      "diff_sha256": "b2bd9a7f61bd3983a7f3777c397306ffb4a55ca9ded527292c0c018efc51edd1"
+    },
+    {
+      "scope_index": 1391,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/rig.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation/procedural/rig.rs",
+      "before_sha256": "9c6a0961b2edacc65038a1d1ec441926587521c47039fdea183e15b9950309bd",
+      "after_sha256": "5da088286521af8e54c621b356ceb3fa949d3870c3748494352eda9016277bec",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1391-base-9c6a0961b2edacc65038a1d1ec441926587521c47039fdea183e15b9950309bd",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/5da088286521af8e54c621b356ceb3fa949d3870c3748494352eda9016277bec",
+      "diff": "source-evidence/pr-1391.diff",
+      "diff_sha256": "3b95bba6acd0c466ecf1177e14f28812daf7467b8663fa83def992b3aa99be28"
+    },
+    {
+      "scope_index": 1326,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/loading.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation/loading.rs",
+      "before_sha256": "ca4a62281d9dc3618e6f92775bd873d2c3920366202955f26a1f5cd4b51a4f27",
+      "after_sha256": "eacc5fba1f6e67621c9d3e473d7556c5cf66ba140e3f1c80431b5568de9fda07",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1326-base-ca4a62281d9dc3618e6f92775bd873d2c3920366202955f26a1f5cd4b51a4f27",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/eacc5fba1f6e67621c9d3e473d7556c5cf66ba140e3f1c80431b5568de9fda07",
+      "diff": "source-evidence/pr-1326.diff",
+      "diff_sha256": "79e004074fc63420912db9357f011acf015d1b0c774d6a190c79fb85ce81d326"
+    }
+  ],
+  "old_new_trace": [
+    "Old1331base753\u2013756 detects pelvis name.eq_ignore_ascii_case(\"root\"), including ROOT; oldterrainreference1072\u20131082 samewidepredicate. Oldlowerbody1326base401\u2013416 alsoignorecase.",
+    "New1326:277\u2013301 binds originalName intoAuthoredRigJoint1406:31\u201338; Lower classification1406:42\u201371stillignorecase butrole1391:200\u2013204 exactRigJointName lookup. ThusROOT remainsLower withroleNone. New1331:760\u2013910 pelvis specialblend requiresrolePelvis and1406:80 CombatUpperincludes onlyUpperorPelvis; terrainreference1331:1003\u20131016 alsoexactrole.",
+    "For a custom bound ROOT rig and concurrentCombatUpper/CombatLower contributions, oldROOT participatesupper/pelvis rotation composition and supplieslocomotionreference; newexcludesupperfromLowerROOT andhasnocomposition/reference. Ordinary exactroot unchanged."
+  ],
+  "intent_limits": [
+    "README1302:601 explicitly documents case-sensitive proceduralhumanoid names, supporting intentional exact-role interpretation; does not explicitly explain narrowing oldposebuffer predicates. UnfamiliarRigJointName remainsvalid; no existing uppercaseROOTasset orordinarycaller established.",
+    "No tests/run/render performed; metadataaliaslookup pending. This is no globalcase-insensitive requirement."
+  ],
+  "connected_repair_if_unintended": "Choose one owner for admitted pelvis role semantics, preserve exactnative label separately, then propagate agreedclassifier into layer inclusion/blending/terrainreference consistently. If exact-case policy intentional, document and retain explicit acceptance/rejection at scene-role boundary rather thanclaim oldoutputsidentical.",
+  "acceptance": "Review lowercaseordinary andmixed-casecustom root fixtures across layer masks, combinedpelvisrotation andterrainFKreference using originalsourceinputs; nofixturecreated/executed.",
+  "coordinator_alias_lookup": "Root170/Adler1002 metadata lookup no exactcasepolicyalias, noacceptedchangeofcasepolicy found. Metadataabsence notuniquenessproof; conditionalROOTwitness retained."
+}

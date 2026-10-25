@@ -1,0 +1,185 @@
+crates/adventuresim-tactical-server-dispatcher/src/scene_input/geological_landforms.rs:55:                terrain.height_at(point + Vec2::X * offset)?
+crates/adventuresim-tactical-server-dispatcher/src/scene_input/geological_landforms.rs:56:                    - terrain.height_at(point - Vec2::X * offset)?,
+crates/adventuresim-tactical-server-dispatcher/src/scene_input/geological_landforms.rs:57:                terrain.height_at(point + Vec2::Y * offset)?
+crates/adventuresim-tactical-server-dispatcher/src/scene_input/geological_landforms.rs:58:                    - terrain.height_at(point - Vec2::Y * offset)?,
+crates/adventuresim-tactical-server-dispatcher/examples/inspect-city-grounding.rs:147:            raw.height_at(point).or_else(|| {
+crates/adventuresim-tactical-server-dispatcher/examples/inspect-city-grounding.rs:268:        terrain.height_at(point).or_else(|| {
+crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/footprint.rs:42:                    let Some(height) = terrain.height_at(point) else {
+crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/footprint.rs:105:        assert!(corners.iter().all(|p| terrain.height_at(*p) == Some(0.0)));
+crates/adventuresim-tactical-server/src/scene_obstacles.rs:32:        let y = terrain.height_at(Vec2::new(x, z)).unwrap_or_default() + height_offset;
+crates/adventuresim-tactical-server/src/player_projection.rs:746:        .and_then(|terrain| terrain.height_at(spawn_position))
+crates/adventuresim-tactical-client/src/strategic_scene/buildings.rs:104:            let anchor = Vec3::Y * backdrop.height_at(Vec2::ZERO).unwrap_or_default();
+crates/adventuresim-tactical-client/src/strategic_scene/buildings.rs:115:                backdrop.height_at(position.xz()).unwrap_or(venue.anchor.y),
+crates/adventuresim-tactical-client/src/strategic_scene/street.rs:53:        let elevation = backdrop.height_at(Vec2::new(0.0, front_z)).unwrap_or(0.0);
+crates/adventuresim-tactical-client/src/presentation/ground_scatter/mod.rs:404:    let height = terrain.height_at(sample)?;
+crates/adventuresim-tactical-client/src/presentation/ground_scatter/mod.rs:405:    let normal = terrain.normal_at(sample)?;
+crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass.rs:81:    let height = terrain.height_at(sample)?;
+crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass.rs:82:    let normal = terrain.normal_at(sample)?;
+crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_understory.rs:191:        let (Some(height), Some(normal)) = (terrain.height_at(sample), terrain.normal_at(sample))
+crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants.rs:134:                terrain.height_at(world),
+crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants.rs:135:                terrain.normal_at(world),
+crates/adventuresim-tactical-client/src/presentation/ground_scatter/loose_stone/spawn.rs:198:            (terrain.height_at(position), terrain.normal_at(position))
+crates/adventuresim-tactical-client/src/presentation/vista.rs:532:                        (backdrop.height_at(centre.xz()).unwrap() - centre.y).abs() < 0.0001,
+crates/adventuresim-tactical-client/src/presentation/vista.rs:559:                backdrop.height_at(Vec2::new(60.0, 0.0)).is_none(),
+crates/adventuresim-tactical-client/src/presentation/vista.rs:808:            let expected_height = terrain.height_at(Vec2::new(half_extent.x, z)).unwrap();
+crates/adventuresim-tactical-client/src/presentation/terrain.rs:50:        terrain.height_at(world).unwrap_or(minimum)
+crates/adventuresim-tactical-client/src/presentation/terrain.rs:330:            let coarse_height = terrain.coarse_height_at(point).or(fine_height);
+crates/adventuresim-tactical-client/src/presentation/terrain.rs:1087:                let canonical = terrain.height_at(point).unwrap();
+crates/adventuresim-tactical-client/src/presentation/terrain.rs:1089:                let lod_delta = canonical - terrain.coarse_height_at(point).unwrap();
+crates/adventuresim-tactical-client/src/presentation/terrain.rs:1120:                (rendered_height - terrain.height_at(point).unwrap()).abs() < 0.000_01,
+crates/adventuresim-tactical-client/src/presentation/terrain.rs:1140:            let expected = terrain.coarse_height_at(point).unwrap();
+crates/adventuresim-tactical-client/src/presentation/vista/owned/tests.rs:153:                        - terrain.height_at(p).unwrap())
+crates/adventuresim-tactical-client/src/presentation/vista/owned/tests.rs:200:                - terrain.height_at(point).unwrap())
+crates/adventuresim-tactical-client/src/presentation/vista/grass/tests.rs:77:            assert_eq!(placement.height(point), terrain.height_at(point));
+crates/adventuresim-tactical-client/src/presentation/vista/strategic.rs:51:        if let Some(height) = self.terrain.height_at(point) {
+crates/adventuresim-tactical-client/src/presentation/vista/surface.rs:88:        if let Some(height) = terrain.height_at(local) {
+crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs:1530:        let ground = terrain.height_at(snapped.focus.xz()).unwrap();
+crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs:1880:        let y = terrain.height_at(Vec2::new(x, z)).unwrap_or_default() + y_offset;
+crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs:1942:        .height_at(Vec2::new(obstacle_focus.x, obstacle_focus.z))
+crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs:1956:        .height_at(Vec2::new(camera_x, camera_z))
+crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs:1959:        .height_at(Vec2::new(obstacle_focus.x, obstacle_focus.z))
+crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs:1976:        terrain.height_at(Vec2::ZERO).unwrap_or_default() + 1.48,
+crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs:2001:                terrain.height_at(point).unwrap_or_default() + 0.018,
+crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs:2121:            .height_at(Vec2::new(obstacle_focus.x, obstacle_focus.z))
+crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs:4775:    let terrain_height = terrain.height_at(target.focus.xz())?;
+crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs:4797:            let normal = terrain.normal_at(target.focus.xz())?;
+crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs:4823:            let camera_ground = terrain.height_at(camera_xz)?;
+crates/adventuresim-tactical-core/src/bin/generate_scene_fixtures/heating.rs:147:                    assert!(generated.terrain.height_at(point).is_some());
+crates/adventuresim-tactical-client/src/art_demo/scenery.rs:140:        let ground = terrain.height_at(position).unwrap_or_default();
+crates/adventuresim-tactical-client/src/art_demo/scenery.rs:168:                terrain.height_at(position)? + TREE_TRUNK_HEIGHT_METRES * 0.5,
+crates/adventuresim-tactical-client/src/art_demo/scenery.rs:188:                terrain.height_at(position).unwrap_or_default() + TREE_TRUNK_HEIGHT_METRES * 0.5,
+crates/adventuresim-tactical-client/src/art_demo/scenery.rs:199:        .height_at(position)
+crates/adventuresim-tactical-client/src/art_demo/scenery.rs:203:            .height_at(position + offset)
+crates/adventuresim-tactical-core/src/vista_surface.rs:107:    let Some(playable_height) = terrain.height_at(boundary) else {
+crates/adventuresim-tactical-client/src/presentation/vista/streets/prepared.rs:188:            terrain.height_at(query.metres()).unwrap()
+crates/adventuresim-tactical-client/src/presentation/vista/streets/mesh.rs:291:                        let clearance = point.y - terrain.height_at(point.xz()).unwrap();
+crates/adventuresim-tactical-client/src/animation_viewer/capture.rs:260:            let ground = terrain.height_at(Vec2::ZERO).unwrap_or_default();
+crates/adventuresim-tactical-client/src/animation_viewer/capture.rs:396:            let ground = terrain.height_at(horizontal).unwrap_or_default()
+crates/adventuresim-tactical-client/src/animation_viewer/capture.rs:403:            terrain.height_at(horizontal).unwrap_or_default() + CAPTURE_ROOT_GROUND_OFFSET_METRES
+crates/adventuresim-tactical-client/src/animation_viewer/capture.rs:435:            let ground = terrain.height_at(Vec2::ZERO).unwrap_or_default();
+crates/adventuresim-tactical-client/src/animation_viewer/capture.rs:851:                        .or_else(|| terrain.height_at(transform.translation().xz()))
+crates/adventuresim-tactical-core/src/scene_input/gardens/tests.rs:125:                    .height_at(plant.centre_metres.metres())
+crates/adventuresim-tactical-core/src/scene_input/gardens/tests.rs:148:            (generated.terrain.height_at(point).unwrap()
+crates/adventuresim-tactical-core/src/scene_input/gardens/tests.rs:271:            (support.elevation.metres() - generated.terrain.height_at(point.metres()).unwrap())
+crates/adventuresim-tactical-core/src/scene_input/gardens/tests.rs:324:                .height_at(plant.centre_metres.metres())
+crates/adventuresim-tactical-core/src/scene_input/gardens/support.rs:43:                    .height_at(plant.centre_metres.metres())
+crates/adventuresim-tactical-core/src/scene_input.rs:336:    let centre = terrain.height_at(point)?;
+crates/adventuresim-tactical-core/src/scene_input.rs:337:    let east = terrain.height_at(point + Vec2::X * radius)?;
+crates/adventuresim-tactical-core/src/scene_input.rs:338:    let west = terrain.height_at(point - Vec2::X * radius)?;
+crates/adventuresim-tactical-core/src/scene_input.rs:339:    let north = terrain.height_at(point + Vec2::Y * radius)?;
+crates/adventuresim-tactical-core/src/scene_input.rs:340:    let south = terrain.height_at(point - Vec2::Y * radius)?;
+crates/adventuresim-tactical-core/src/scene_input.rs:972:            first.terrain.height_at(bevy::math::Vec2::ZERO),
+crates/adventuresim-tactical-core/src/scene_input.rs:973:            second.terrain.height_at(bevy::math::Vec2::ZERO)
+crates/adventuresim-tactical-core/src/scene_input.rs:1359:                .height_at(bevy::math::Vec2::new(
+crates/adventuresim-building-generator/src/interior/footprints.rs:53:            .height_at(p.centre_metres)
+crates/adventuresim-tactical-core/src/city_layout/grounding.rs:219:                heights.push(self.passage_profile.height_at(coordinate));
+crates/adventuresim-tactical-core/src/city_layout/grounding.rs:295:            .find_map(|stair| stair.height_at(local))
+crates/adventuresim-tactical-core/src/city_layout/grounding.rs:301:                    .height_at(ProfileCoordinate::from_metres(local.y)?),
+crates/adventuresim-tactical-core/src/scene/property_support.rs:69:                .height_at(point.metres())
+crates/adventuresim-tactical-core/src/scene.rs:179:                let base_height = self.height_at(point)?;
+crates/adventuresim-tactical-core/src/scene.rs:592:        assert!((terrain.height_at(Vec2::new(-1.0, -1.0)).unwrap() - 1.5).abs() < 0.0001);
+crates/adventuresim-tactical-core/src/scene.rs:593:        assert_eq!(terrain.height_at(Vec2::new(-3.0, 0.0)), None);
+crates/adventuresim-tactical-core/src/scene.rs:611:        assert_eq!(terrain.height_at(Vec2::new(0.25, -0.25)).unwrap(), 0.0);
+crates/adventuresim-tactical-core/src/scene.rs:612:        assert_eq!(terrain.height_at(Vec2::new(-0.25, 0.25)).unwrap(), 0.0);
+crates/adventuresim-tactical-core/src/scene.rs:613:        assert_eq!(terrain.height_at(Vec2::ZERO).unwrap(), 0.0);
+crates/adventuresim-tactical-core/src/scene.rs:614:        assert!((terrain.height_at(Vec2::new(0.25, 0.25)).unwrap() - 0.5).abs() < 0.0001);
+crates/adventuresim-tactical-core/src/scene.rs:631:        assert!((refined.height_at(point).unwrap() - 0.04).abs() < 0.000_01);
+crates/adventuresim-tactical-core/src/scene.rs:632:        assert!(refined.coarse_height_at(point).unwrap().abs() < 0.000_01);
+crates/adventuresim-tactical-core/src/scene.rs:668:            let expected_height = terrain.height_at(point).unwrap();
+crates/adventuresim-tactical-core/src/scene.rs:693:            let normal = terrain.normal_at(position).unwrap();
+crates/adventuresim-tactical-core/src/scene_input/furniture/placement.rs:85:                    support.height_at(crate::scene_coordinates::ScenePlanPoint::from_metres(
+crates/adventuresim-tactical-core/src/scene_input/furniture/placement.rs:151:                        .height_at(crate::scene_coordinates::ScenePlanPoint::from_metres(
+crates/adventuresim-tactical-core/src/erosional_terrain.rs:71:        .height_at(point.clamp(-half, half))
+crates/adventuresim-tactical-client/src/animation/pose_buffer.rs:1055:            .and_then(|terrain| terrain.height_at(reference_foot_world.xz()))
+crates/adventuresim-tactical-client/src/animation/pose_buffer.rs:1096:                terrain.and_then(|terrain| terrain.height_at(plant.position_world.xz()))
+crates/adventuresim-tactical-core/src/volumetric_terrain.rs:331:        .height_at(point.clamp(-half, half))
+crates/adventuresim-tactical-core/src/scene_input/furniture/tests.rs:275:                (terrain.height_at(point).unwrap()
+crates/adventuresim-tactical-core/src/scene_input/furniture/tests/city_acceptance.rs:59:                .height_at(instance.position_metres.metres().xz())
+crates/adventuresim-tactical-core/src/scene_input/furniture/tests/city_acceptance.rs:67:                    .height_at(crate::scene_coordinates::ScenePlanPoint::try_from(point).unwrap())
+crates/adventuresim-tactical-core/src/scene_input/furniture/tests/city_acceptance.rs:113:                (terrain.height_at(point), terrain.coarse_height_at(point))
+crates/adventuresim-tactical-core/src/scene_input/furniture/ground.rs:32:            .height_at(point)
+crates/adventuresim-tactical-core/src/scene_input/generation/grounding/tests.rs:119:            generated.terrain.height_at(point),
+crates/adventuresim-tactical-core/src/scene_input/tests/occupied.rs:73:            generated.terrain.height_at(point),
+crates/adventuresim-tactical-core/src/scene_input/tests/occupied.rs:74:            source.terrain.height_at(point)
+crates/adventuresim-tactical-core/src/scene_input/tests/occupied.rs:81:    let centre_height = generated.terrain.height_at(bevy::math::Vec2::ZERO).unwrap();
+crates/adventuresim-tactical-core/src/scene_input/tests/occupied.rs:171:            .height_at(original.centre_metres.metres()),
+crates/adventuresim-tactical-core/src/scene_input/generation/geographic/tests.rs:23:    let left = prepared.terrain.height_at(Vec2::new(-half, 0.0)).unwrap();
+crates/adventuresim-tactical-core/src/scene_input/generation/geographic/tests.rs:24:    let right = prepared.terrain.height_at(Vec2::new(half, 0.0)).unwrap();
+crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs:587:                            terrain_conformed_guard_target(target, terrain.height_at(target.xz()))
+crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs:918:                    && let Some(normal) = terrain.normal_at(target.xz())
+crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs:1064:            if let Some(height) = terrain.height_at(position.xz()) {
+crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs:1124:            let Some(height) = terrain.height_at(horizontal_target.xz()) else {
+crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs:1322:                let Some(height) = terrain.height_at(frozen_plant.xz()) else {
+crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs:1395:                if let Some(normal) = terrain.normal_at(target.xz())
+crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs:1504:                && let Some(height) = terrain.height_at(retained_plant.xz())
+crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs:1715:                                |xz| terrain.height_at(xz),
+crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs:1780:                            if let Some(height) = terrain.height_at(contact.xz()) {
+crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs:1788:                        && let Some(height) = terrain.height_at(desired_target.xz())
+crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs:1928:                    if run_airborne_budget && let Some(height) = terrain.height_at(target.xz()) {
+crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs:2130:                        && let Some(normal) = terrain.normal_at(target.xz())
+crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs:2190:                if let Some(height) = terrain.height_at(desired_target.xz()) {
+crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs:2221:                            |xz| terrain.height_at(xz),
+crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs:2316:                            .height_at(solution.end.xz())
+crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs:2343:                if let Some(normal) = terrain.normal_at(target.xz())
+crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs:2464:            let Some(height) = terrain.height_at(horizontal_target.xz()) else {
+crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs:2492:            let Some(height) = terrain.height_at(horizontal_target.xz()) else {
+crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs:2502:                    |xz| terrain.height_at(xz),
+crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs:2613:                        |xz| terrain.height_at(xz),
+crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs:2841:                let sole_at_contact = terrain.height_at(solution.end.xz()).is_some_and(|height| {
+crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs:2916:                && let Some(normal) = terrain.normal_at(horizontal_target.xz())
+crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs:2963:                terrain.height_at(xz)
+crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs:2965:            if terminal_settle_contacts_are_rendered(&memory, |xz| terrain.height_at(xz)) {
+crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion/terrain_leg.rs:111:                terrain.and_then(|terrain| terrain.normal_at(target.xz())),
+crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/foot_clearance.rs:161:    let sole = terrain.height_at(xz).map(|height| {
+crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/foot_clearance.rs:179:        let ankle_clearance = ankle.y - terrain.height_at(ankle.xz())?;
+crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/foot_clearance.rs:180:        let toe_clearance = toe.y - terrain.height_at(toe.xz())?;
+crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/foot_clearance.rs:182:        Some(terrain.height_at(xz)? + above_toe + margin)
+crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/foot_clearance.rs:198:        .height_at(xz)
+crates/adventuresim-tactical-core/src/city_layout/grounding/foundations.rs:272:                    let top = points.map(|p| Vec3::new(p.x, support.height_at(p), p.y));
+crates/adventuresim-tactical-core/src/city_layout/grounding/foundations.rs:276:                            support.height_at(p).min(source.height_at(p)) - embedment.metres(),
+crates/adventuresim-tactical-core/src/city_layout/grounding/foundations.rs:331:            let displacement = (support.height_at(*point) - source.height_at(*point)).abs();
+crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion.rs:243:            let Some(height) = terrain.height_at(foot_position.xz()) else {
+crates/adventuresim-building-generator/src/viewer/fortification_rendering.rs:238:                    let height = closure.coverage.height_at(across);
+crates/adventuresim-building-generator/src/viewer/fortification_rendering.rs:258:                    let height = closure.coverage.height_at(across);
+crates/adventuresim-tactical-core/src/city_layout/grounding/mesh/grid.rs:172:    Ok(plan.passage_profile.height_at(coordinate).metres())
+crates/adventuresim-tactical-core/src/city_layout/grounding/profile.rs:175:            .height_at(ProfileCoordinate::from_metres(coordinate).unwrap())
+crates/adventuresim-tactical-client/src/animation/procedural/ik/settle.rs:328:            .height_at(foot.xz())
+crates/adventuresim-tactical-client/src/animation/ragdoll/drive.rs:130:                .filter_map(|terrain| terrain.height_at(point))
+crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_capture.rs:71:                .height_at(point)
+crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_capture.rs:90:    let target = Vec3::new(centre.x, terrain.height_at(centre).unwrap(), centre.y);
+crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_capture.rs:95:            terrain.height_at(Vec2::new(-10.0, -30.0)).unwrap() + EYE_HEIGHT_METRES,
+crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_capture.rs:100:            terrain.height_at(Vec2::new(15.0, -30.0)).unwrap(),
+crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_capture.rs:104:    let junction = Vec3::new(-30.0, terrain.height_at(Vec2::splat(-30.0)).unwrap(), -30.0);
+crates/adventuresim-tactical-client/src/animation/procedural/ik/observation.rs:247:        let height = terrain?.height_at(ankle.xz())?;
+crates/adventuresim-tactical-client/src/animation/procedural/ik/observation.rs:425:            let terrain_height = ankle.and_then(|ankle| terrain.height_at(ankle.xz()));
+crates/adventuresim-building-generator/src/audit/gate_defenses.rs:72:        closure.coverage.height_at(along) + 0.01 >= passage.height_at(along)
+crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture.rs:255:                        Vec3::new(point.x, terrain.height_at(point).unwrap(), point.y),
+crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture.rs:265:        let ground = Vec3::new(bay.x, terrain.height_at(bay).unwrap(), bay.y);
+crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture.rs:364:    let ground = terrain.height_at(bay).unwrap();
+crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_overlay.rs:43:            let Some(height) = terrain.height_at(centre) else {
+crates/adventuresim-tactical-client/src/animation/diagnostics.rs:160:        let terrain_height = terrain.and_then(|terrain| terrain.height_at(global_translation.xz()));
+crates/adventuresim-tactical-client/src/animation_viewer/setup.rs:14:        terrain.height_at(Vec2::ZERO).unwrap_or_default() + CAPTURE_ROOT_GROUND_OFFSET_METRES;
+crates/adventuresim-tactical-client/src/tactical_scene_viewer/city_capture.rs:26:        bounds.iter().all(|bounds| !bounds.contains(point)) && terrain.height_at(point).is_some()
+crates/adventuresim-tactical-client/src/tactical_scene_viewer/city_capture.rs:56:                .height_at(point)
+crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/finishes.rs:63:                            Vec3::new(point.x, terrain.height_at(point).unwrap(), point.y),
+crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/finishes.rs:71:                Vec3::new(bay.x, terrain.height_at(bay).unwrap(), bay.y),
+crates/adventuresim-tactical-client/src/animation/diagnostic_record.rs:94:            .and_then(|terrain| terrain.height_at(translation.xz()))
+crates/adventuresim-tactical-client/src/tactical_scene_viewer/camera_obstruction.rs:46:            .height_at(Vec2::new(player_x, player_z))
+crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/projection.rs:75:        .map(|t| t.height_at(point))
+crates/adventuresim-tactical-core/src/city_layout/grounding/tests/enclosures.rs:90:                        .then(|| triangle.height_at(world.xz()))
+crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement/outdoor.rs:40:                .height_at(point)
+crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement/gardens.rs:141:    let elevation = ground.height_at(start).unwrap();
+crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/replacement.rs:79:                SupportElevation::from_metres(triangle.height_at(point))
+crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source.rs:86:                            elevation: SupportElevation::from_metres(source.height_at(p))?,
+crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source.rs:176:            .and_then(|triangle| SupportElevation::from_metres(triangle.height_at(point)))
+crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source/tests.rs:65:                    elevation: SupportElevation(triangle.height_at(p)),
+crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source/tests.rs:114:            .map(|triangle| SupportElevation(triangle.height_at(point)));
+crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/geometry.rs:100:        Vec3::new(point.x, self.height_at(point), point.y)
+crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/geometry/tests.rs:19:        assert_eq!(triangle.height_at(Vec2::splat(scale * 0.25)), 2.0 * scale);
+crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/geometry/tests.rs:50:                source.height_at(point.xz()),
+crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement/tests.rs:266:                    .then(|| triangle.height_at(point))
+crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement/tests.rs:274:        assert!((bound.height_at(point).unwrap() - expected).abs() < 0.001);
+crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement/tests.rs:275:        assert!((bound.coarse_height_at(point).unwrap() - expected).abs() < 0.001);
+crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement/tests.rs:297:    assert_eq!(bound.height_at(point), sampled.height_at(point));
+crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement.rs:218:            .filter_map(|triangle| SupportElevation::from_metres(triangle.height_at(point)))
+crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement.rs:296:                let height = triangle.height_at(point);

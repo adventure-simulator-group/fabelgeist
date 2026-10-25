@@ -1,0 +1,53 @@
+{
+  "id": "NATIVE-CAMERA-SUPPORT03-CONTRACTS-006",
+  "authority": "ROOT-ADM-SUPPORT-AUTHORITY-054",
+  "lens": "audit-admission-contracts",
+  "groups": {
+    "p16-geographic-component-pairs-and-raw-abstract-coordinate": {
+      "camera_indices": [
+        327
+      ],
+      "ranges": {
+        "327": [
+          [
+            1,
+            512
+          ]
+        ]
+      },
+      "invariant": "Latitude/Longitude bounded WGS84 axes in E7 or microdegrees; UnboundedCoordinateE7 explicitly abstract nativei32, not geographicvalidation.",
+      "all_admission_routes": [
+        "Full512 incloriginaltests368-512 readsourceonly. Fourprivatescalarcomponents: E7lat±900000000/lon±1800000000; microlat±90000000/lon±180000000. ZERO/endpoints legal; newinclusivebounds, from_degreesfiniteandaxisboundsBEFOREmultiply-round/nativecastthennew, preservingroundhalfawayfrom0. ManualDeserialize339-366 callsnew for ALLfour, no rawFrom/Default/Reflect/SATS. as-get/degrees outputonly; scalartransparentSerialize.",
+        "PrivateE7/Microcoordinatepairs manualfactorychecksrawlatitudeTHENlongitude, degreesfactory checksfiniteaxes. Derived denyunknown Serde delegatescheckedcomponents; from_components takescheckedleaves. E7tomicro truncatesinteger towardzero; reverse*multiplication10 representablewithincheckedfullaxisrange, privatefieldliteral legitimate subset conversion. No pairprovenance/auth/gridmembership promise.",
+        "UnboundedCoordinateE7 privatei32 acceptsALLbits viafrom_raw, noSerde/Default/Reflectdeclared. from_coordinate_units requires scaledfiniteinclusivei32range BEFOREroundcast, getters preserveabstractunits1e7/millionths. ExplicitlynotWGS84, valuesoutsideearthallowed. coordinates_in_bounds12-20 nativef64finitepointtheninclusivewest/south/east/north comparisons; boundsarrayitselfnotvalidatedthere, NaNboundordinaryfalse. Originaltests actualendpoint/nonfinite/axisorder/truncation and TravelGeometryPointwire shape; referenced TravelGeometryPointproductiondefinitionnotcreditfromtest."
+      ],
+      "counterexample_or_qualification": "No direct/Serdebounded-axis bypass found. Validdegeneratebounds/zeroaxis and signedtruncation preserved, no forcedantimeridianwrap or normalization. No currentPRcounterpartcreditfromhash.",
+      "connected_repair": "Root coordinate/frame/axis owner claims retained; preservepurpose-specific geographicalvsabstract roles throughnativeports.",
+      "acceptance": "Allfactory/decode paths enforceeachactualaxisbound withoriginalcoordinateordering/rounding/truncation/Nonepolicy; rawabstractinputremainsrepresentable."
+    },
+    "p16-road-native-source-to-checked-private-resident-pack": {
+      "camera_indices": [
+        312
+      ],
+      "ranges": {
+        "312": [
+          [
+            1,
+            344
+          ]
+        ]
+      },
+      "invariant": "Resident RoadPack privately retains matching final source and bounded checked E7 lines; manifest/native full-f64 geometry are broader deployment inputs.",
+      "all_admission_routes": [
+        "Full344 fresh. Manifestpublicschema/source/hash/counts ordinary denyunknownSerde raw; NativeRoadLinepublickind/Vec[f64;2] no ownvalidation. RoadPackprivate source/lines, RoadLineprivatekind/points/bounds; noSerde/Default/Reflect/publicnew/mutgetter forresidenttypes. Solepublicload85 checks manifest bounded<=4096 thenSerde→manifestvalidate schema==1, terrainFinal/exactsourceandgeometrydigest, contenthashgrammar thencountcaps; boundedpackmaxbytesread, exactbytesSHA, binarydecode, originalf64geometrydigest BEFORE coordinatequantization, theneverylinefactory beforeSelf.",
+        "Binarydecode285 boundschecks eachslice, rejectsunknownkind tagsoutside0..6, eachline>=2, checkedtotal<=declaredpoints/1million, totalmatch/no trailingbytes, roads<=50000manifest. Emptygeometry0roads/0points remainsvalid, notnonemptycatalogue. Nativef64points mustcoordinates_in_bounds finite/inclusiveterrainbounds and actualWGS84degreesfactory327 beforecheckedE7; nativepoints canquantizetoduplicatevertices andzerowidthbounds, no inventedPolylineunique/nondegenerate guarantee. Onlythencomputecomponentextrema andBoundsnew.",
+        "Builderwrite120 boundscheckedtotal/counts→nativeoriginalgeometrydigest→SourcePackageDigestfromterrain.digest→TerrainFinal/exactroadmaskdigest BEFOREpayloadconstruction; EVERYline throughsamefrom_native_degrees BEFOREmkdir/write. Serializedpayload exactf64LEwords/classificationtag/count; digestJSONusesfullnativepointarrays preservesordering/f64 beforeE7. Filewritepairnottransactionalcertificate, no newatomicitypromise.",
+        "Native082 freshfull49 boundsprivatecheckedE7corners/newSW<=NEincludeszeroextent, noantimeridiancrossing, noSerde/Default/Reflect/mutator; intersects inclusive. Native083 freshfull53 privateSourcePackageDigest String constructor64lowerASCIIhex only/manualSerde samegate/noDefaultReflect/rawFrom/mutableaccess. No packageauthenticity/existence bysyntax. Native084 freshfull28 valid_digest delegatesactualfrom_hex, hex_sha/reader actualSHA→nativeString boundary. NativeP16 TerrainPackinput typedsource/purpose/bounds gettercontract remainsseparateowningconstructor proof; no newfullterrainloadgraphneeded forroad-derivedleafcontract."
+      ],
+      "counterexample_or_qualification": "CurrentP16 load/manifest/nativecodec/sourceauthority and exactreadonlyresidentroutes comparedactualbody, independent PRRootbatch2RoadPackactualsamecontract nothash-only carry. Content/hashboundsgates preserveopaqueimportedidentity versus roadgeometryidentity; checkedgeopair neverusedtohashroundedroadgeometry. No newdefect.",
+      "connected_repair": "Existing Rootpackage/sourceidentity/geographic/nativecodecfunctionclaims; nativef64/digest/IO ports warranted, typedresidentpositions retained throughrecipient.",
+      "acceptance": "Preserveoriginalf64bits/hash/order, capacity/firsterror/sourcepurpose check, zero-line/duplicate-roundedpoint policies, raw rejected manifest andnativeinput separatefromacceptedresident."
+    }
+  },
+  "not_part_of_native443_or_root_batches": true
+}

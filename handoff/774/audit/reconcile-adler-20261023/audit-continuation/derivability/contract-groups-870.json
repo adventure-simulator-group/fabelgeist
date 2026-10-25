@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-870",
+  "at": "2026-10-25T17:04:23.584290+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1079,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/character.rs",
+  "sha256": "806a50bc71cade3ffdf93f52a62693f7d02d4d55a52e1cce7e5983b894ec28cf",
+  "actual_compared_ranges": [
+    [
+      2761,
+      3160
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Native component-completeness tail, equip/attach/replace/unequip reducers and full graph placement validation/mutation continue. Exact body/attachment roots, compatibility/capacity/cycle/displaced-parent and authority checks are semantic DB operations, no additional handtrait/codec. Structural occupancy record construction distinct typed meaning is not generic raw construction derive."
+  ],
+  "first_unfinished": {
+    "scope_index": 1079,
+    "line": 3161
+  },
+  "execution": "none"
+}

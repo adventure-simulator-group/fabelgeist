@@ -1,0 +1,115 @@
+{
+  "id": "CONT07-EXTENSION-CONTRACT-007",
+  "at": "2026-10-24T01:50:50.578966+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "registry_index": 48,
+      "source_id": "physical-p16-commit039329:crates/adventuresim-tactical-client/src/equipment/slot_selection.rs",
+      "sha256": "95cb7d00f5f9c53287ed626304bd1914c958f7ee38933a8906a354ca12610678",
+      "ranges": [
+        [
+          1,
+          243
+        ]
+      ],
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/95cb7d00f5f9c53287ed626304bd1914c958f7ee38933a8906a354ca12610678",
+      "read_kind": "exact own07 source355 reuse, independently applied to additional frozen variant role",
+      "reuse_reference": "CONT07-CONTRACT-355"
+    },
+    {
+      "registry_index": 49,
+      "source_id": "physical-p16-commit039329:crates/adventuresim-tactical-client/src/equipment/readiness.rs",
+      "sha256": "81632fbe7f7562ccfcfbdbeda4eb587bfcbb4fb62d60ad8c9e550837a1c968bb",
+      "ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/81632fbe7f7562ccfcfbdbeda4eb587bfcbb4fb62d60ad8c9e550837a1c968bb",
+      "read_kind": "fresh exact registered full bodies personally read",
+      "reuse_reference": null
+    },
+    {
+      "registry_index": 50,
+      "source_id": "physical-p16-commit039329:crates/adventuresim-stdb-module/src/strategic/dialogue_policy.rs",
+      "sha256": "0b4667798ab18d21ca3e177acf453f643f39fd813f40d9dc55f2bf23fec06c01",
+      "ranges": [
+        [
+          1,
+          14
+        ]
+      ],
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/0b4667798ab18d21ca3e177acf453f643f39fd813f40d9dc55f2bf23fec06c01",
+      "read_kind": "fresh exact registered full bodies personally read",
+      "reuse_reference": null
+    },
+    {
+      "registry_index": 51,
+      "source_id": "physical-p16-commit039329:crates/adventuresim-stdb-module/src/strategic/contracts.rs",
+      "sha256": "082a7174a1ca9b578bf1a52852a7d09d952c4af3c6d0705ee7b5442692175e33",
+      "ranges": [
+        [
+          1,
+          384
+        ]
+      ],
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/082a7174a1ca9b578bf1a52852a7d09d952c4af3c6d0705ee7b5442692175e33",
+      "read_kind": "fresh exact registered full bodies personally read",
+      "reuse_reference": null
+    },
+    {
+      "registry_index": 52,
+      "source_id": "physical-p16-commit039329:crates/adventuresim-stdb-module/src/strategic/tactical_enemy_fixture.rs",
+      "sha256": "241e5f1c12555a8ebde110fc10e4e426601efc263879c408aa57d5be05b395ec",
+      "ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/241e5f1c12555a8ebde110fc10e4e426601efc263879c408aa57d5be05b395ec",
+      "read_kind": "fresh exact registered full bodies personally read",
+      "reuse_reference": null
+    },
+    {
+      "registry_index": 53,
+      "source_id": "physical-p16-commit039329:crates/adventuresim-stdb-module/src/strategic/inventory_trade/streams.rs",
+      "sha256": "f0317997a922b05065564f3a5b4963d424f0efd3a2c4ed70dbb72a1de6c9569e",
+      "ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/f0317997a922b05065564f3a5b4963d424f0efd3a2c4ed70dbb72a1de6c9569e",
+      "read_kind": "fresh exact registered full bodies personally read",
+      "reuse_reference": null
+    },
+    {
+      "registry_index": 54,
+      "source_id": "physical-p16-commit039329:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/generation.rs",
+      "sha256": "92e54d6897e8c25fa216aacba88771dbd55b17f9f9968e180cf5b92ee48340a1",
+      "ranges": [
+        [
+          1,
+          402
+        ]
+      ],
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/92e54d6897e8c25fa216aacba88771dbd55b17f9f9968e180cf5b92ee48340a1",
+      "read_kind": "fresh exact registered full bodies personally read",
+      "reuse_reference": null
+    }
+  ],
+  "facts": [
+    "P16 slot_selection exactSHA95cb7...1\u2013243 reuses own07 fullbody proofCON355, preserving newvariant identity and no transferred producer/caller assumptions. P16 readiness1\u201372 freshly compared actual root geometry/presentation/failed flags; current readiness derived eachquery. Exact duplicate policy obligation CAMERA-INITIAL07-F069 remains carried, no additionalunique.",
+    "DialoguePrompt policies14-body decodes persisted native mode/resolution through actualcanonical parser; boundary rawstrings not a second semanticpolicy owner. P16contracts384-body coordinates currentcontractstatus andpartyactive contract inreducer, receiptfields record immutablehistorical interaction +consumption. Abandonedcontract retainsaccepted_by ashistory, not activeparty authority; laterstatus gatepreventsacceptance. Observer tracking isexplicitknowledge-scoped presentation with no quest/reward mutation. No inferred current/history duplication.",
+    "Tacticalenemy fixture43body validates count beforezip, then uses ordinaryequipmentoperations fornames/loadout; source-rosterorder association remains aggregate input contract, no invented typedslotnewowner orcurrent duplicateidentity. Lootstreams18body uses separate deterministic presence/amount streams; maximum iscallerinput and positiveexpectpolicy belongsadmission/operations, not competing RNGcurrenttruth.",
+    "P16 runtimegeneration402-body freshlyread: FitKey item/placement/bodyshape/layers capturedforonejob; completion consumesactualpendingkey. LastFit retains deliberately historical fittedshape/placement whenunworn. Current wornkey derives owner andexactoutfit, changedkey destroysproceduralparts andoldattachmentsockets before resolve. Fittedbody ownsbindposes andjointnamescohort; this strengthens OBS001 no normal staleinversebindhandle claim. Body/design cache inputs loadedonce forlifetimenativeowner, no supportedhotreplacement shown; publicassetmutation alone doesnotproveordinary failure. Cacheeviction preservesvisiblehandleownership and pendingbodies. Cachedfailure vsretry isexplicit lifetimepolicy, not samecurrentfact."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "other_lens_credit": false
+}

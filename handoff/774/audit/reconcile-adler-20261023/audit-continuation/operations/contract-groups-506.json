@@ -1,0 +1,86 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-506",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/occupancy.rs",
+      "sha256": "7eefddd45148b9b0b86dfc05fc848c5fb8ff0051308ae8100b0abdbc167dc4e7",
+      "actual_EOF": 71,
+      "actual_compared_ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/placement.rs",
+      "sha256": "f226a17d7921f5b1daa506cdfc8c4b0eac80e8bb72f3bde9d77a6b7f9753207f",
+      "actual_EOF": 180,
+      "actual_compared_ranges": [
+        [
+          1,
+          180
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/reservations.rs",
+      "sha256": "b361b5c1876380f15da1ee02bbcf6e5ae2d8c383edea537249f181fed5144026",
+      "actual_EOF": 288,
+      "actual_compared_ranges": [
+        [
+          1,
+          288
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/sites.rs",
+      "sha256": "6d8f288eef2299e042a77faacb58e434d25b22050e52471dd63fdf83231ac799",
+      "actual_EOF": 117,
+      "actual_compared_ranges": [
+        [
+          1,
+          117
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/sites/local.rs",
+      "sha256": "b2b2005dcb98e5278b4ae6b5b4d420ada6aa8fd169cbc2ac6a285c0a3175d5b2",
+      "actual_EOF": 93,
+      "actual_compared_ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Complete group admission before physical or vista layout publication",
+      "evidence": "Full placement180: localcompletecandidate supportscollected beforeoccupiedinsert/group+instancescommit. Full footprint boundaryclassification distinguishesplayable/vistacrossing; fivegroupgrade samples plusactualrecipecontactsupportspoints<=.045, emptycontactset rejects. This doesnotclaimallfootprintgroundflat or certifyinteriorterrain betweenactuallegs. Stablegroup/itemseedidentity, nohashcollisionrun asserted."
+    },
+    {
+      "contract": "Actual route and work-space reservations share exact native frames",
+      "evidence": "Full reservations288/sites117/local93: explicitmarketcrossings/perimeter/acceptedphysicaldoorwayapron/gardenroutes/cultivation/gatesweep+fixedmembers, ordinaryobstaclepositions shareinputsourcegridspacing. Localcollision-relative routes projected withcheckedcompletedpoints/orientationandfinitefootprintcorners; cachemiss derivesnewrecipefromsameprogram, inheritedpublicProgramFurnitureSite correlation qualifications remain separate. Gatesweepfixture samplesbothhinges3yaw*91angles*4corners, sourceassertionsonly."
+    },
+    {
+      "contract": "Native occupancy rectangle materialization shares cell-work dependency",
+      "evidence": "Full occupancy71:16mcoarsecells expands everyinclusivei32range; intersects checksactualSAT for eachcandidate. This is anothernativework/cell-range recipient of candidate502 physicalnativeindexadmissiongraph, actualrouteproducer nowclosed from full input.street reservations::route. Earlier32mUrbanGroundLookup mayfailworkfirst inordinarygeneration; do not countsecondfirstfailure/automaticglobalduplicate. Fullclassvalidity andactualconfiguredbudgetdecision stillrequired. Testsbounded20rotatedmulticellfootprints preserveexactintersections, noexecution."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "5 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/tests.rs"
+}

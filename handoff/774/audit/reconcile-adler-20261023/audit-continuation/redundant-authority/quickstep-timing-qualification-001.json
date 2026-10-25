@@ -1,0 +1,19 @@
+{
+  "id": "CONT07-QUICKSTEP-TIMING-QUALIFICATION-001",
+  "at": "2026-10-24T01:27:27.869038+00:00",
+  "source_refs": [
+    "CONT07-REG-031",
+    "CONT07-CONTRACT-649"
+  ],
+  "disposition": "No accepted new07 correctness defect from odd-span arithmetic alone. Raw authored seconds, quantized symmetric pose deadlines, and next-integration-step actuator phase are different representation stages.",
+  "source_facts": [
+    "5/64 at64Hz maps actuator denominator5 and pose preparation2/recovery2.",
+    "ActionTimeline remains ActiveONE at exact end4 and becomes Complete only after4, so raw active update count and end-start span must not be conflated.",
+    "Actuator deliberately samples elapsed+1 to target state after current integration step; comparisons with current pose phase need that explicit time shift.",
+    "Current config0.50 yields32 even; no measured wrong displacement or actual custom-duration acceptance failure established."
+  ],
+  "remaining_other_lens_question": "If behavior-preservation or invariant-operation review claims a trajectory timing defect, trace the continuous motor target and discrete integration contract with the exact inclusive endpoint convention. Do not infer it from5 versus2+2 alone.",
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true
+}

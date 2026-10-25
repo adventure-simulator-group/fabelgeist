@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1009",
+  "at": "2026-10-25T17:29:49.188615+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1177,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/repair.rs",
+  "sha256": "121a3412ae887fe1eec8fdf53acc1d66a0e091bc4d5d68593f16f0c13b270c09",
+  "actual_compared_ranges": [
+    [
+      1,
+      350
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "ItemCondition/SettlementSmith/RepairOrder structural Clone/Debug/table already. ItemCondition bins33\u201342/set_bins43\u201351 normalize DamageBins while projecting five fields: explicit semantic normalization, not mechanical derive. RepairService checked classifier and repair_kind subset mapping native; custody/quote/saved attachments/submission/retrieval semantic, no handwritten trait/codec.",
+  "first_unfinished": {
+    "scope_index": 1177,
+    "line": 351
+  },
+  "execution": "none"
+}

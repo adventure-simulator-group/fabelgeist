@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-589",
+  "at": "2026-10-25T16:07:44.099270+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 933,
+  "source_id": "pr-working:crates/adventuresim-core/src/inventory_measurement.rs",
+  "sha256": "2ffeb2e6b78a2111a09dbe9f788673605eb597afe037e375f8f3c413bafe6011",
+  "actual_compared_ranges": [
+    [
+      1,
+      660
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Fresh441\u2013660 existing source fixtures for measured/unopened per-object basis, tare, validation/error order, native overflow and monotonic mass/value. No new trait/codec; fixture builders select native state deliberately, read only. Partition/price fixtures remain.",
+  "first_unfinished": {
+    "scope_index": 933,
+    "line": 661
+  },
+  "execution": "none"
+}

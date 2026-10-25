@@ -1,0 +1,109 @@
+{
+  "id": "CONT07-CONTRACT-622",
+  "at": "2026-10-24T00:45:20.465512+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2710,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+      "sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+      "actual_EOF": 50,
+      "ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2711,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "sha256": "6aef5ced10b1d430e513c990cd005b5e6ff4bdf8c98505b3dccd48d17cb6ac62",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "actual_EOF": 267,
+      "ranges": [
+        [
+          88,
+          92
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2712,
+      "source_id": "pr-working:crates/adventuresim-terrain/src/terrain_feature.rs",
+      "sha256": "6a6dfd572ca9979a848a5ce84711bace83217c58b2725218a77475f13e3b81ae",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-terrain/src/terrain_feature.rs",
+      "actual_EOF": 51,
+      "ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2713,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/terrain_feature.rs",
+      "sha256": "0e27249f12fa5c9007dcb4fc1bc99d1b0106a6b741d0ae6b4078e3078825b36a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-world-schema/src/terrain_feature.rs",
+      "actual_EOF": 43,
+      "ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2714,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/geologic_window.rs",
+      "sha256": "371180d1fdfd5e93061a55a884f3bbf816db1e853a49f81540f215c4f9c3e2b3",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-world-schema/src/geologic_window.rs",
+      "actual_EOF": 36,
+      "ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2715,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/resolved_networks.rs",
+      "sha256": "f6935151a38ae59a0722eb9ffec6584b50ba1b3c89356185b7b9cdc2eb60dfe9",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/model/resolved_networks.rs",
+      "actual_EOF": 463,
+      "ranges": [
+        [
+          1,
+          192
+        ],
+        [
+          202,
+          209
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Disease fixture administrations deliberately retain historical profile/ruleset/key versions and independently sampled patient sensitivity alongside dose/time; these are provenance snapshots, not duplicates of current mutable rules. Hardcoded preparation/profile association requires actual profile registry before drift claim; fixture schema values alone do not prove versionwrong.",
+    "P16 locomotion_sample_rate reads runtime selected configuration owner directly, strengthening fixed64Hz capture F066 baseline contrast. PR terrainfeature variant repeats same bounded/sorted feature validator as P16; MappedFault modern mapped_active/capable flags explicitly do not claim historical activity. MappedGeologicWindow EPSG3034 bounds and lithology/unit/source ID are independent imported evidence; is_valid bounds is not proof of original polygon containment or unit/lithology provenance, and no such semantic review inferred.",
+    "StructuralNode stores authored topology/support graph and grounded fact beside position; finite position admission is local, actual structural audits govern support meaning. Roof drainage data includes owner/network/recipient/disposition/downspout projections from earlier generators; current generated station builder coordinates these, while relation admission/mutable post-edits are separate inherited topology/cache contracts. Diagnostic expected contact tolerances/positive support audit should not be replaced by derived observed outcomes. Need actual roof_editing frontier before any F006 stale-edit qualification."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2716,
+    "start_line": 1
+  }
+}

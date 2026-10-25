@@ -1,0 +1,78 @@
+{
+  "id": "RIG-INITIAL09-GROUP-003",
+  "at": "2026-10-23T12:26:46.213543+00:00",
+  "lens": "audit-enum-shapes",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "canonical-lifecycles": {
+      "comparison": "Fresh actual PRstrategic_state1-573 including originalfixtures421-573; explicit complete P16text/current-role comparison identical. ContractState alreadyowns acceptance/payment payloads, and Withdrawn preserves optional PRIORacceptance intentionally. MissionAttemptState owns optionalcomplete MissionBinding and resolution-specific subject/custody fields; Failed/Cancelled disallowresolution but rawflatbindingparsedbeforematch means existingpolicy not automaticban onhistoricalbinding. CourtshipRoute Formal(father,dowry)/Informal(secrecy) separate from Active/Exposed/Ended lifecycle: frozenroute history must surviveEnd. MarriageState ownsresolvedminute onlyterminal; PregnancyState Bornownschild+resolved, Endedresolvedonly, Activeunit. These existing enums should cross relevant APIs rather than reflattening. CommitmentState Cancelled reason currentlybroadCommitmentTerminalReason permitsdirectWeddingCompleted/MarriageEnded despiteparserreject: narrow actual cancellationreason subset insidevariant, while frozen effective/creation terms remaincommonhistory. No invent child!=0, universaldeadlineordering or nativewirebool policy.",
+      "disposition": "existing payload sums mostlycorrect; F002 use them and refine cancellationpayload subset"
+    },
+    "relationship-rows": {
+      "comparison": "Fresh actual PRmodel1-496 allfielddefs/parsers, exact P16bounded60-91/250-440 actualcounterpart/current-role comparison. PRCommitment.status+resolvedOption+reasonOption, Marriage.status+resolvedOption, Courtship.kind+optionalformal/informaldata+status+terminaloptions and Pregnancy.status+childOption+resolvedOption stillretaincontradictorypublicshapes even thoughparsed_state reconstructs existingCoreenums. Canonicalvariant should retainconditionalpayload internally/persistedwherenativeschemaallows; explicit flatindexed viewonlyatrealwire/queryadapter, no parallel applicationstate. Retain effective/conceived/due/reservedchild/seeds/parents and frozenfatherapproval ashistorical/commonterms; donotdiscardbirthplanwhenBornor formalroutewhenEnded. Kinship4/householdrole4 independentassociationaxes, notsinglelifecycle. Discovery/conception succeededbool is immutableattemptobservation withinsight/attemptvalues meaningfulonfailuretoo; no invalidinactivepayload established, do noterasefailedhistory. DowryOutcomeKind +fatherOption+amount hasactualconditionalshape confirmed normalmarriageproducer164-188/246-254; shapeF004 mustretainplannedunpaidamount onInsufficientFunds. P16onlyactualPregnancy/Dowry andparser/receiptfragmentscredited, notPRprefixTemporalScope/Commitment definitions.",
+      "disposition": "F002 flatteningmigration and F004dowrypayloadproduct; preserve meaningfulhistory/axes"
+    },
+    "chronology-request": {
+      "comparison": "Fresh PRmodel16-57 actual TemporalScope selector and targetOption contract, actualcourtship75-80callerpassesSomepartner+ExclusiveShared. ActorLocal/PairwiseSoft/Institutional do notrequiretarget; NpcCanonical andExclusiveShared immediately errorNone and consumeSome target. SemanticrequestshouldcarrytargetinNpcCanonical{target} andExclusiveShared{other}, leavingcommonscopeactor outside; donotadd redundanthas_target flag orbrand arbitraryordinal. This preventsRustcaller missingrequiredtarget and avoidsignoredoptionalargumentfortargetlesscases. Actor/targetclockauthority checks remainactualmethodwork, noautoauthorizations. P16sameprefixnotcurrentlyscopedhere,noP16credit.",
+      "disposition": "F003 concrete selector+conditionallyrequiredargument migration"
+    }
+  },
+  "finding_refs": [
+    "RIG-INITIAL09-F002",
+    "RIG-INITIAL09-F003",
+    "RIG-INITIAL09-F004"
+  ],
+  "limits": "All original scope/context exclusions retained; no whole caller/nativepackage credit.",
+  "direct_existing_scope_witnesses": [
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/courtship.rs",
+      "scope_index": 1155,
+      "ranges": [
+        [
+          68,
+          89
+        ]
+      ],
+      "contract_ref": "contracts-003.json#/groups/chronology-request",
+      "status": "onlythiscallerbodyfresh09; whole685notyetaccounted09"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/marriage.rs",
+      "scope_index": 1160,
+      "ranges": [
+        [
+          150,
+          257
+        ]
+      ],
+      "actual_fact": "planned_dowry normalbranch164-188 thenpaidcredit190-197 andoutcomepersist246-254",
+      "status": "partialexistingglobalscopewitness; remainingwholefilestillpending09"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/courtship.rs",
+      "scope_index": 908,
+      "ranges": [
+        [
+          1,
+          85
+        ],
+        [
+          148,
+          157
+        ],
+        [
+          195,
+          240
+        ]
+      ],
+      "actual_fact": "RejectionCode+detail product andHousingTier→Economy projection, independentnumericpolicyfields; noconditionalpayloadinreadsubset",
+      "status": "partialexistingglobalscopewitness only, rest1153pending09"
+    }
+  ],
+  "prior_actual_source_fact_refs": [
+    "camera/admission03/strategic-state-admission-113.json",
+    "native/admission03/camera-support/contracts-020.json",
+    "rig/initial06-type-ownership/contracts-412.json"
+  ],
+  "limits_detail": "P16modelprefix1-59/92-249 and441+ are notcredited. Original PRfullschema remainsfull. Existingtestsonly, noneexecuted."
+}

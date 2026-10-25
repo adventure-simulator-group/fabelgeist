@@ -1,0 +1,67 @@
+{
+  "id": "CONT07-F107",
+  "lens": "audit-redundant-authority",
+  "classification": "maintenance authority defect; present host/kernel constants agree",
+  "sources": [
+    {
+      "scope_index": 2188,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/helmet/surface.rs",
+      "sha256": "d6e8b3b39d21c87e2a7c4d51f25b2e9e57b2a884a87b2b8fad17b24b1a2d1087",
+      "ranges": [
+        [
+          11,
+          16
+        ],
+        [
+          145,
+          162
+        ]
+      ]
+    },
+    {
+      "scope_index": 2187,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/helmet/parts.rs",
+      "sha256": "0e8b328ee3be07d2cfafe53aaa8fa103c5e8828fdd50dbb0fae6d7f365a90e16",
+      "ranges": [
+        [
+          23,
+          35
+        ],
+        [
+          191,
+          242
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/helmet/shape.rs",
+      "sha256": "97e23604f5ed995bc4d619d8e37747acc42671ba34e7236a8184b1e3d175a35d",
+      "ranges": [
+        [
+          22,
+          35
+        ],
+        [
+          145,
+          165
+        ],
+        [
+          264,
+          283
+        ]
+      ]
+    }
+  ],
+  "fact": "Host AROUND48 sizes helmet rim and barbute angle table; shader independently sets floatAROUND48 and modulo/endcomparison48u. Host BARBUTE_CORNER_SHARE.45,MINIMUM1e-6,CORNER_ROWS4,LOWER_ROWS8 repeated in shader constants. All current values agree.",
+  "disagreement": "Changing host AROUND changes angle table cardinality while unchanged shader remap multiplies/indexes modulo48, assigning wrong sector/angles. Changing host corner/lower row counts without shader divisors moves final generated rows to wrong proportions. Actual consumers are generated barbute bowl_remap and barbute_cheek, not an incidental count.",
+  "positive_qualification": "Helmet shared_codes macro generates Slot/VertexKind/PostMap/CheekRow enum discriminants/count/WGSL names from one declaration; no separate slot roster finding for that correctly shared path.",
+  "limits": [
+    "No currentrender failure or futureedit execution claimed.",
+    "Different shape resolutions in unrelated footwear/chart kernels are distinct discretizations, not blanket forced equality.",
+    "Cross-language projection itself allowed; defect is independently authored policy count/divisors for exactly same host-generated table/rows."
+  ],
+  "suggested_connected_remedy": "Generate WGSL rim/cardinality/corner-row constants from the same host semantic constants, including index modulo/end comparison; preserve existing generated enum code mechanism.",
+  "acceptance_contract": "Changing host rim/row sampling updates every actual kernel table/divisor consumer automatically, preserving current geometry/numerical ordering.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

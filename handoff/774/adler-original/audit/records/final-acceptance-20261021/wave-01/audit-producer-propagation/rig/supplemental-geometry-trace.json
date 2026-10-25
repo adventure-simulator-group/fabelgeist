@@ -1,0 +1,374 @@
+{
+  "id": "RIG-SUPP-GEOMETRY-002",
+  "lens": "audit-producer-propagation",
+  "snapshot": "pr-working",
+  "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "source_evidence": [
+    "supplemental-geometry-sources.json",
+    "supplemental-geometry-receivers-002.json",
+    "supplemental-geometry-shared-source-proofs.json"
+  ],
+  "scope": "Only root bounded support-tolerance/diagnostic, GardenRegionOutline and SceneTerrain/vista extent receiving graph. Existing assigned inventories preserved. No all-lens or family verdict.",
+  "support_getter_sites": [
+    {
+      "path": "city_layout/compiled/support/street.rs",
+      "lines": [
+        33,
+        34
+      ],
+      "receiver": "available_run actual polygon subtraction/minimum-width/projection kernel, then immediate subtraction/max; canonical SupportLimits owner root retained"
+    },
+    {
+      "path": "city_layout/grounding/single/apron.rs",
+      "lines": [
+        72,
+        80,
+        84
+      ],
+      "receiver": "same available_run actual kernel; later scalar subtraction; separate retained apron typed-leaf finding001"
+    },
+    {
+      "path": "examples/compare_city_terrain/contacts.rs",
+      "lines": [
+        39,
+        39
+      ],
+      "receiver": "retained Probe tolerance before sampling/comparison: root014"
+    },
+    {
+      "path": "examples/compare_city_terrain/gardens.rs",
+      "lines": [
+        102,
+        102
+      ],
+      "receiver": "f64 immediate compare/report in complete measure_region/compare path; root015 polygon formation gap distinct"
+    },
+    {
+      "path": "examples/validate_city_support/composition.rs",
+      "lines": [
+        65,
+        65
+      ],
+      "receiver": "immediate scalar comparison and actual JSON diagnostic output"
+    },
+    {
+      "path": "city_layout/compiled/support/tests.rs",
+      "lines": [
+        118,
+        118
+      ],
+      "receiver": "existing physical height tolerance assertion; checked threshold raw collection roundtrip is separate geometry003"
+    },
+    {
+      "path": "city_layout/compiled/support/tests/neighboring.rs",
+      "lines": [
+        138,
+        138
+      ],
+      "receiver": "existing absolute support/source error assertion"
+    },
+    {
+      "path": "city_layout/compiled/grounded/tests.rs",
+      "lines": [
+        119,
+        119
+      ],
+      "receiver": "existing absolute support/member error assertion"
+    },
+    {
+      "path": "city_layout/grounding/single/tests.rs",
+      "lines": [
+        316,
+        316
+      ],
+      "receiver": "existing f64 diagnostic bound equality assertion"
+    },
+    {
+      "path": "city_layout/grounding/tests/movement/single.rs",
+      "lines": [
+        83,
+        83
+      ],
+      "receiver": "actual subtractive edge-clearance numeric calculation before physical tracks/assertions"
+    }
+  ],
+  "getter_count": "13 call occurrences across10 distinct source files; policy.rs55 is declaration. Similarly named sole_contact_tolerance_metres returns checked PositiveLength and is a separate root IK/report owner, not one of these sites.",
+  "support_operations": [
+    "query.rs38-46 permits consumes SupportElevation and tolerance directly in ceiling comparison/addition. Both real callers read: sampled SceneTerrain::surface_below uses literal0; BoundedSettlementTerrain::surface_below291-308 uses retained tolerance. No same-type re-admission in permits; retained tolerance was already captured by root014 extension.",
+    "PropertySupportMesh22/Wire32/TryFrom44/validate80/from_compound237 and single/bearing15 erase checked PositiveLength into raw retained tolerance before query/dedup. BoundedPropertyTerrain field14 and BoundedSettlementTerrain field22/Wire33 similarly retain raw; root014 extension with rig exact whole field/Serde/query graph claim.",
+    "Preserve zero nuance: BoundedSettlementTerrain validation accepts >=0, compiler initial0/max allows empty natural-only construction. Cannot blindly replace with PositiveLength or fabricate absent state. Canonical zero-capable policy remains root coordinate/owner dependency, not unread source.",
+    "Settlement query triangles_at210-277 -> visit_candidates279-309 actual point/bounds plus tolerance operations; GroundTriangle.contains137-143 half-plane cross product/length, height_f6482-92 affine interpolation, represented_point_tolerance127-135 actual float rounding-cell math. These concrete numeric ports do not excuse earlier raw retained tolerance.",
+    "Diagnostic factories new/for_mesh reconstruct SupportDiagnosticLocation from raw attempt. Geometry004 separates already checked scene/member points from newly computed court_end/intersection/control/native invalid attempts and actual scalar measurements. Root owns whole factory+existing caller sites; rig mesh assembly receivers consume root final contract."
+  ],
+  "gardens": {
+    "proof": "supplemental-geometry-sources.json full gardens142/contacts102 plus root027 full geometry270/specimen61; exact source hashes linked in shared proofs",
+    "producer": "outlines48-86 route/cultivated/bed/plant hull branches create complete boundaries, retain GardenRegionOutline Vec<Vec2>, measure_region112-119 reconstructs ScenePlanPoint and ScenePlanPolygon",
+    "disposition": "ROOT015 root-owned propagation gap; retain canonical polygon once complete. New affine hull/corners/perimeter/area and final diagnostic JSON coordinate conversion are actual native kernels, not blanket garden exemption."
+  },
+  "extent_producers": [
+    "SceneTerrain owns admitted row-major native height samples/dimensions/spacing; getters199-219 return native count/length calculations. Complete scene553 +SceneGround182 and actual mesh/collider/query bodies proved in root002/013/028.",
+    "server scene_setup18-36 derives raw Vec2 half extent from input counts*spacing*0.5 -> SceneVistaBundle42; art_demo scenery producer1-110 and viewer1584-1601 do same. Viewer uses retained capture terrain_summary width/depth1588-1589 before final text, so summary is not only a native output.",
+    "SceneVistaBundle typed-event/Serde record -> pending observer -> PreparedVistaLod.inner9 /VistaSurface.playable_half_extent14 /GroundMeshes15/VistaChunks26/FocusedGround22/VistaTuftPlacement22. Full actual observer/state/preparation/scenery bodies root005/008/009/011/012 read. Raw application extent transfer is existing ROOT002.",
+    "Focused VistaChunks114-141, StrategicBackdrop::height_at75-95, PreparedBackdrop::new99-147 and streets PreparedCityGround::from_scene70-149 calculate per-LOD raw extent then forward/store across mesher/query APIs; same root002 remedy, not independently native because calculations occurred.",
+    "PlacementGround::scope39-45 converts terrain half extent via FurnitureFootprint::from_metres; extent should remain canonical from actual producer. Building obstacle removal generation144-166 forwards computed extent into root-owned buildings obstacle helper; direct grid-to-point arithmetic in detail_obstacles/full support_obstacles is actual numeric computation."
+  ],
+  "extent_actual_endpoints": [
+    {
+      "group": "Owned row-major geometry",
+      "proofs": [
+        "root ROOT-PP-GEOMETRY-002 scene.rs274-398; scene/queries106-165; scene_ground88; root STATIC-GROUND013 scene/ground182",
+        "supplemental-geometry-receivers-002.json scene_transition_mesh82/property_support73-123"
+      ],
+      "operation": "row-major loops, grid ratios/indexing, Collider heightfield/trimesh, Bevy vertex/index/UV attributes; these are concrete native numeric/ABI data rather than application extent records"
+    },
+    {
+      "group": "Vista rectangle/height/morph/triangle",
+      "proofs": [
+        "root TERRAIN005 full vista_surface480,natural163,owned149,pigment192,grass253",
+        "own exact vista_surface120-283/290-442, owned/exterior205 +tests, owned/ground_support24",
+        "RIG-SUPP-LANDFORM001 clip173"
+      ],
+      "operation": "rectangle exclusion/axis split, barycentric/f64 plane interpolation, seam clamp/lerp/cross-normal, actual PreparedTriangle clipping. Raw native rectangle arrays may belong to these actual numeric operations; checked extent application signature must reach them before projection."
+    },
+    {
+      "group": "Color, height texture and shaders",
+      "proofs": [
+        "own full strategic/colors68, ground_map258/noise102 and tree/tactical WGSL exact proof013",
+        "root TERRAIN005 heightmap96/material103 + own volumetric338 and ROOT DEMO016 terrain1509"
+      ],
+      "operation": "native image dimensions/texture upload, UV division, mesh attribute interpolation, final uniform Vec4/textureLoad/shader arithmetic"
+    },
+    {
+      "group": "Scatter and scenery",
+      "proofs": [
+        "own supplemental30 source rows, receiver001-006, root full grass placement/litter batching/capture/cover_mask/obstacles material receivers",
+        "root005/008/012 vista grass/details/surface source rows"
+      ],
+      "operation": "integer lattice/spacing/jitter transforms, actual cover-sampling arrays and instance attributes. ROOT002 applies where extent is retained/forwarded before those kernels; actual root002 field/API sites are not waived by renderer prefix."
+    },
+    {
+      "group": "Geographic region coverage",
+      "proofs": [
+        "root regional_map/city full284 +own covers130-153; root027 native geographic map/source bodies"
+      ],
+      "operation": "InstalledCity::covers f64 geographic offset+scale inequality consumes retained extent; project canonical extent only here. Existing ROOT002 includes this recipient."
+    },
+    {
+      "group": "Viewer camera and capture",
+      "proofs": [
+        "native NATIVE-PP-SCENE001 viewer4477 SHA f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1",
+        "own viewer1365-1448/1570-1606 and native source manifest941/debris225/setup_obstacles166"
+      ],
+      "operation": "clamp camera position and newly computed point/Position admission, native row-major debris point placement, JSON report numeric fields. Bundle reuse before observer remains raw application transfer."
+    },
+    {
+      "group": "Existing fixture recipients",
+      "proofs": [
+        "root full vista/ground/tests300,owned/tests350,pigment/tests236,streets/prepared/extent_tests156,scene_input.rs full root proof and occupied179/city_acceptance152/geographic39",
+        "own urban owned_tests259 and exterior existing fixtures full source proof"
+      ],
+      "operation": "authored literal extent ingress, exact numeric vertex/bit/height assertions. Existing APIs still need typed adaptation with same input/count/order/assertions; fixtures are not automatic exceptions."
+    }
+  ],
+  "findings": [
+    "ROOT-PP-002",
+    "ROOT-PP-014",
+    "ROOT-PP-015",
+    "RIG-SUPP-GEOMETRY-001",
+    "RIG-SUPP-GEOMETRY-002",
+    "RIG-SUPP-GEOMETRY-003",
+    "RIG-SUPP-GEOMETRY-004"
+  ],
+  "ownership": "Root canonical SupportLimits/getter/scene-coordinate/polygon/extent/diagnostic owners and009stairs/019main_height retained. Rig exact mesh/Serde/query/apron and compiled support existing fixture claims are authoritative in parallel-ownership/rig_garments-claims.json,262entries SHA93c264cc0df337e6e99334756c8da8e0d7059b36aa469b4bcec8d0068a3f586e.",
+  "first_unfinished_bounded_source_cell": null,
+  "first_unfinished_bounded_actual_receiver": null,
+  "remaining_representation_policy_dependencies": [
+    "Zero-capable settlement tolerance vs PositiveLength owner/refinement (root014)",
+    "Typed DiagnosticLocation versus computed/rejected native Attempt roles (root factory owner)",
+    "Extent finite/nonnegative/empty-zero and exact f32/wire contracts (root002)",
+    "Apron elevation/point/direction/length result operations and root stair sampling error contract (rig001/root019)",
+    "All remaining12 initial lenses, Code/Rule/Comment and hostedCI at one final revision; no fixes or validations in this source phase"
+  ],
+  "limits": "This is source-inventory exhaustion for the bounded receiving queue, not clearance, repaired source, execution or family completion. No source/Git changes or project checks/tests/parsers/probes/agents/new fixtures/assertions.",
+  "diagnostic_actual_factory_closure": {
+    "canonical_factory_source": "diagnostic.rs162/new and187/for_mesh, full233 source proof; SupportDiagnosticLocation owner distinguishes checked ScenePoint from native rejected coordinate attempt",
+    "other_direct_from_attempt_metres_sites": [
+      {
+        "path": "city_layout/compiled/support.rs",
+        "lines": [
+          207,
+          209
+        ],
+        "receiver": "Complete plan_property146-225 gate-binding error direct constructor; source gate raw source coordinate owner is already root coordinate responsibility"
+      },
+      {
+        "path": "city_layout/grounding/surface.rs",
+        "lines": [
+          132,
+          155
+        ],
+        "receiver": "Whole PropertySupportSurface::rejection; typed centre paths and computed failed polygon attempts distinguished"
+      },
+      {
+        "path": "city_layout/grounding/enclosure.rs",
+        "lines": [
+          163,
+          190
+        ],
+        "receiver": "Whole BoundarySupportError::new plus binding/construction/cell factories; projection all actual callers full272 lines source proof"
+      }
+    ],
+    "all_support_new_and_wrapper_sites": [
+      {
+        "path": "grounding.rs",
+        "lines": [
+          324,
+          351,
+          394
+        ],
+        "proof": "Root full407 plus own330-407"
+      },
+      {
+        "path": "grounding/compound.rs",
+        "lines": [
+          14,
+          23,
+          38,
+          60,
+          65,
+          135,
+          158,
+          202,
+          213,
+          261,
+          277,
+          292
+        ],
+        "proof": "Own full304"
+      },
+      {
+        "path": "grounding/compound/profiles.rs",
+        "lines": [
+          62,
+          97,
+          108,
+          137,
+          142,
+          158
+        ],
+        "proof": "Own full171"
+      },
+      {
+        "path": "grounding/stairs.rs",
+        "lines": [
+          134,
+          156,
+          167,
+          181,
+          305
+        ],
+        "proof": "Root full318 plus own reached complete branches/validate_reservation"
+      },
+      {
+        "path": "grounding/selection.rs",
+        "lines": [
+          42,
+          59,
+          99
+        ],
+        "proof": "Own and root full127"
+      },
+      {
+        "path": "grounding/entry.rs",
+        "lines": [
+          116,
+          187,
+          197
+        ],
+        "proof": "Own full208; street_rejection routes all new calls"
+      },
+      {
+        "path": "grounding/profile.rs",
+        "lines": [
+          99,
+          110
+        ],
+        "proof": "Own full260 production and existing fixtures"
+      },
+      {
+        "path": "grounding/mesh/assembly.rs",
+        "lines": [
+          8,
+          8
+        ],
+        "proof": "Own full67"
+      },
+      {
+        "path": "grounding/mesh/union.rs",
+        "lines": [
+          14,
+          14
+        ],
+        "proof": "Own full37"
+      },
+      {
+        "path": "grounding/mesh/grid.rs",
+        "lines": [
+          40,
+          163
+        ],
+        "proof": "Own full279"
+      },
+      {
+        "path": "grounding/foundations/constraints.rs",
+        "lines": [
+          21,
+          102,
+          120,
+          131
+        ],
+        "proof": "Own full141"
+      },
+      {
+        "path": "grounding/foundations/replacement.rs",
+        "lines": [
+          36,
+          36
+        ],
+        "proof": "Own full152"
+      },
+      {
+        "path": "grounding/surface.rs",
+        "lines": [
+          169,
+          169
+        ],
+        "proof": "Own full177"
+      },
+      {
+        "path": "compiled/support.rs",
+        "lines": [
+          194,
+          194
+        ],
+        "proof": "Own complete plan_property146-225"
+      },
+      {
+        "path": "compiled/support/street.rs",
+        "lines": [
+          41,
+          41
+        ],
+        "proof": "Own full67"
+      }
+    ],
+    "parallel_surface_rejection_callers": [
+      "surface.rs54",
+      "single.rs47/63; single/bearing34/56; single/apron12/54/185/206; single/apron/surface36; single/floor17/29/41/54/72/105 (all full source rows already in geometry evidence)",
+      "foundations.rs290/334/364/381 complete function ranges247-390; banks.rs52/72 full146"
+    ],
+    "parallel_enclosure_error_callers": "enclosure.rs120/136/152 internal factories; enclosure/projection.rs16/35/43/58/86/94/166/187/198/229 full source read. Native geometric point and failure calculation ends here; no need to recurse unrelated binding mesh data for this location graph.",
+    "finding": "RIG-SUPP-GEOMETRY-004; root owns canonical factories and matching existing whole-function sites. Rig exact caller bodies consume final checked location where already rig-owned. No new competing factory claim.",
+    "classification": "Do not conflate complete native arithmetic/area/contact measurement with checked coordinates stripped solely across factory APIs. Typed owner/enum/placeholder units and admission policy still independent required lenses."
+  }
+}

@@ -1,0 +1,66 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-033",
+  "at": "2026-10-22T20:37:38.076814+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment/parametric_weapon.rs",
+      "sha256": "f62198755e98ea753340c3fdb985f7d576cfbb9a15e33dbf8a8ca4ea1e42e567",
+      "actual_compared_ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "registration": "CAMERA-INITIAL07-REG006",
+      "source_evidence": "Fresh fullPR66 AFTERprospectiveCamera006 (earlierCamera prematuredisplayuncredited), ownactualctor/operationcompared."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/equipment/parametric_weapon.rs",
+      "sha256": "b86de57ce073e0c629d63bcb5e9b1cc92c18be2705b8954f4536c12db6fd0eb3",
+      "actual_compared_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "source_evidence": "FreshfullP1665existingglobalrole separatelyread, notbyte/snapshotnamecredit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment/armor.rs",
+      "sha256": "1eb52192b9ef4b1d23b4a696a3f4b370baf3076b3184e4b576ec681f426e47f1",
+      "actual_compared_ranges": [
+        [
+          1,
+          94
+        ]
+      ],
+      "registration": "CAMERA-INITIAL07-REG007",
+      "source_evidence": "Root026fresh1-39 +fresh40-94AFTERprospectiveCamera007 joinswholePR94current04, new55line03role separate."
+    }
+  ],
+  "groups": {
+    "parametric-whole-record": "PRctor checksall7rawnumbersfinite, positivemass/total/grip, grip<=total, head0..total,inertia/balance/precision>=0. P16samepredicates exceptcanonicalfiniteSignedLengthfields remove redundantfinitecheck forthree lengths; SignedLengthdoesNOTprovepositive/boundrelationship, wholegate stillneeded. Publicfields inBOTHvariants allowconstruction/mutationoutsidegate, includingP16negativelengthleaves/crossfieldmismatch. OrdinaryClone/CopyonlyvalidifalreadycoherentSelf; notseal. then_some eagerlyconstructs temporarySelf eveninvalidconditions butNOTpublishedonNone andnoDrop/sideeffecthere, no falseleakclaim. ActualphysicallyderivedfromoneRecipe/massproperties membership notprovedbyindependentrawarguments; actualwholeinstanceproducer mustretainprovenance.",
+    "precision-and-native-units": "F014computedprecision/lookupgraph. melee_reach_m readonlygriptotip, P16SignedLength typedvalue PRrawf32 earlyerasure; useactualcanonicalphysical/mass/length/inertia/finiteprecision ownersuntilownednumeric/nativeport, no noiseconvertingonefngroupwhileleavingrawretainedfields. Headlength0/inertia0/balance0/precision0intentionallyconstructorvalid, finitepositivegrip/total distinctfromsignedoffsets. Precision>1notUnitInterval. CatalogIDbind actualcurrentrecipe/profile once, donotstoreunrelatedduplicatedmutablecatalog-selection mirror orsynccopy fields opportunistically. NativeF32numericoperation canuseprimitivekernel afteractualinput/outputadmission, no infalliblepromise whenoverflowrejectionvalid.",
+    "actual-pr-armor-aggregation": "FreshPRnew40-94 exactsameequations asindependentlyfreshP16Root027, separatelycompared: nativecoverageunion/checkedmeaningfulinputneedsfinitechannels, rawresistance/paddingsums andweightedflex finalratio haveRootF011twofiniteMAXcounterexample inPRaswell. No inheritedP16helpercoveragefromhash; PRsliceactuallyreadafterCamera007. EquipmentBodyPartclosedmap/outermostsamebodypartmax(channel.order,order,itemID) preserveactualoutermost/tiepolicy; no sum/overflowinselectionitself. NeutralfoldROM1 differsrawDefaultROM0 intentionallydifferentconstructionpaths, no standalonebaddefaultclaim. Joinfinitephysical/protectionwholeaggregate owner, keep sampledlayer/perlayer/totaldistinct."
+  },
+  "findings": [
+    {
+      "id": "ROOT-INITIAL04-F014",
+      "class": "public_API_finite_precision_product_overflow_and_unbound_catalog_lookup; existingphysicalcontact/precisiongraph, no_current_badordinaryrecipe_or_run_claim",
+      "source": "pr-working:crates/adventuresim-core/src/equipment/parametric_weapon.rs",
+      "operation": "conditioned_precision PR60-64/P1659-63 multiplies self.precision*effective_catalog_precision BEFOREdividingbycatalogbase, andexpectpanicsiflookupnotpositive.",
+      "counterexample": "Validconstructor inputs mass=1,total=grip=1,head=0,inertia=balance=0,precision=f32::MAX yieldacceptedSelfinbothvariants. OnANYsuccessfulpositivecatalogbase path, passingfinite effective_catalog_precision=MAX makesproductInf andresultInf(ifbasefinite)orNaN(ifbaseInf). Oninvalid/missingbase actualexpectpanics, notstructuredrejection. Source-levelAPIbranchcounterexamplesonly, no actualextremeauthoredrecipe/table/runclaim.",
+      "acceptance": "Propagate admitted finiteprecision/physical quantities andONEactualboundweapon/catalog/edge-condition relation throughproducer/operation. Check computed finite output (or reject withtypederror), preserveoneapplicationofedgeconditionfactor, zeroandinfiniteRESISTANCEpolicydistinctfromfinitePRECISION, andvalidprecision>1. Remove rawstringlookup/expectfrompurenumericoperation or takeactualadmittedcatalog/profile/condition owner; no fallbackprecision/defaultcatalog/cancellationoptimizationchangingpolicywithoutactualowner. Publicgeometryfields mustnotallowbypassofwholevalidity; joinexistingcontact/physicalgraph notseparateunrelatedmathrewrite."
+    }
+  ],
+  "prior_finding_support": [
+    "ROOT-INITIAL04-F011 alsoactualfreshPRaggregate40-94 nowverified",
+    "ExistingContactPrecision sourcegraph/physicalunits/provenance andCamera07F009 actualselectedequipmentownership"
+  ],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

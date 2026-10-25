@@ -1,0 +1,121 @@
+{
+  "id": "SEGOVB-INITIAL10-F001",
+  "lens": "10 audit-derivability",
+  "classification": "source-backed maintenance suggestion: redundant manual Serialize wrapper",
+  "status": "discovery only; no source changes or validation run",
+  "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs",
+  "sha256": "4ccc1188de7d5f8bdbf63b71160b8557f76fb524ae47f924381325da11198ee8",
+  "ranges": [
+    [
+      8,
+      34
+    ]
+  ],
+  "manual_implementation": "LeafDimensions::serialize25\u201329 calls self.metres().serialize(serializer).",
+  "equivalent_existing_derive": "Existing serde::Serialize derive with #[serde(transparent)] on LeafDimensions(CuboidDimensions). This delegates directly to the inner CuboidDimensions Serialize. The same source already uses transparent Serialize on PlanDimensions and PlanExtents.",
+  "proof": [
+    {
+      "source_id": "physical-p16:crates/fabelgeist-geometry/src/cuboid.rs",
+      "scope_index": 2491,
+      "sha256": "7afef5cd462b579637596de505b962b8eecc1fd818b8c8382d59ec3ab4fc6b7a",
+      "ranges": [
+        [
+          69,
+          88
+        ]
+      ],
+      "fact": "metres constructs native Vec3 from axis_metres; current inner Serialize emits serialize_tuple_struct(\"Vec3\",3) then exactly axis_metres x/y/z floats."
+    },
+    {
+      "source_id": "physical-p16:crates/fabelgeist-geometry/src/measurement.rs",
+      "scope_index": 452,
+      "sha256": "c84b2c054d772b9b8037209e1d8542238c397c5dc0148ca5f68c86ef5fc9b9b2",
+      "ranges": [
+        [
+          71,
+          73
+        ]
+      ],
+      "fact": "SignedLength::metres returns stored f32 without arithmetic."
+    },
+    {
+      "source_id": "pinned-registry:glam-0.32.1/src/features/impl_serde.rs",
+      "sha256": "da9b8a13b57b257793481f554e6888a8fb0c82a7669e52d7e2d2af74701f0061",
+      "ranges": [
+        [
+          73,
+          86
+        ],
+        [
+          730,
+          748
+        ],
+        [
+          1044,
+          1062
+        ]
+      ],
+      "fact": "Actual pinned glam Vec3 Serialize emits the same tuple-struct name Vec3, arity3 and x/y/z float fields; macro instantiation is actual f32 Vec3."
+    },
+    {
+      "source_id": "pinned-registry:serde_derive-1.0.229/src/ser.rs",
+      "sha256": "18b3a4d06cd721c402835b17f008a63fdbaad379734f0fd4132aa28d8ea5c1de",
+      "ranges": [
+        [
+          191,
+          212
+        ]
+      ],
+      "fact": "Serde transparent serializer calls Serialize::serialize on a borrow of the selected inner field with the original serializer, without an outer record/newtype layer."
+    }
+  ],
+  "qualifications": [
+    "This concerns only the LeafDimensions forwarding Serialize, not the inner CuboidDimensions wire adapter or checked Deserialize implementations.",
+    "Finite/positive admission and first-cause GeometryError behavior remain in from_metres and manual Deserialize; deriving unchecked Deserialize would weaken the contract.",
+    "Non-generic wrapper: no new type-parameter bounds, ownership conversion, Clone requirement, visibility change or error-type widening.",
+    "Equivalence compares serializer calls/name/arity/order, not only JSON output. No native serializer, tests or compiler executed.",
+    "No global unique issue count or current-main verdict; exact frozen physicalP16 variant only until other contexts compared."
+  ],
+  "connected_acceptance": [
+    "Delegate Serialize through the admitted inner owner while preserving exact Vec3 tuple-struct name, arity3, axis order and stored f32 values.",
+    "Keep LeafDimensions positive role validation, manual checked deserialization and CuboidDimensions named native wire adapter."
+  ],
+  "execution": "none",
+  "additional_personally_compared_source_variants": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs",
+      "scope_index": 667,
+      "sha256": "4ccc1188de7d5f8bdbf63b71160b8557f76fb524ae47f924381325da11198ee8",
+      "ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "equivalence": "Fresh full source667 confirms same LeafDimensions Serialize25\u201329 forwarding native Vec3. Exact current PR canonical CuboidDimensions source2268 differs from P16 and was personally consumed full126: metres75\u201378 native Vec3 from axis_metres and Serialize81\u201393 emits named Vec3 tuple-struct arity3/x-y-z stored floats. Exact PR SignedLength2272 full104 confirms metres68\u201370 returns stored f32. Reexports662/2271 and already-consumed pinned glam0.32.1/serde transparent macro proof retain native serializer-method identity. Existing transparent Serialize equivalent only for LeafDimensions; do not derive unchecked Deserialize or change canonical cuboid wire adapter.",
+      "dependencies": [
+        {
+          "scope_index": 2268,
+          "sha256": "1fe1e6483da91ee1bd681df6ff788ec97d680ac453c450069a30111c66dc40ed",
+          "ranges": [
+            [
+              1,
+              126
+            ]
+          ]
+        },
+        {
+          "scope_index": 2272,
+          "sha256": "72ee58eb8ae01af4b7f17ef81f007dfa63c7dc818a1ed71ce5bbba0707236e70",
+          "ranges": [
+            [
+              1,
+              104
+            ]
+          ]
+        }
+      ],
+      "qualification": "Same connected F001 maintenance contract from actual PR source/body, not hash-only counterpart coverage or new global issue."
+    }
+  ]
+}

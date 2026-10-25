@@ -1,0 +1,94 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1241",
+  "at": "2026-10-25T18:13:37.527888+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1303,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/examples/armor_browser_probe.rs",
+      "sha256": "4d0171a6cd7835711e211df50e71df5c0f143e6bba2b85b6e655dcf5f5af4892",
+      "actual_EOF": 227,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/examples/armor_browser_probe.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/examples/armor_browser_probe.rs",
+        "owner": "rig",
+        "sha256": "4d0171a6cd7835711e211df50e71df5c0f143e6bba2b85b6e655dcf5f5af4892",
+        "base_sha256": "682dab198afe20c00750b1cbe7e62fb3bb77555e22b0b9a84d035743fe52c47b",
+        "state": "modified",
+        "bytes": 8496,
+        "audit_owner": "rig",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/sources.json",
+            "ranges": [
+              [
+                1,
+                227
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-RUNTIME-02"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 92,
+            "read_ranges": [
+              [
+                1,
+                227
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-EXPORT-013",
+              "RIG-OWNER-PROBE-015"
+            ],
+            "read_status": "current-lens-shared-identical-lines-plus-complete-distinct-line-read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/examples/armor_browser_probe.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          227
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full227 exact browser probe read. Closed local Probe enum no handwritten impl; native/wasm free entrypoints/generator/validation/report/captured GPU errors and wrapped fit topology/realization only. JSON macro builds selected contextual measurements via existing Serde, no hand serializer. Existing default construction is authored wrapped/anime fixture recipe, not manual Default; retained validations not derive. No browser/GPU/compiler/test executed."
+    }
+  ],
+  "groups": [
+    "Browser armor probe uses native contextual fit/validation and existing codecs; no handwritten trait replacement."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1304,
+    "source_id": "pr-working:crates/adventuresim-tactical-client/examples/armor_fixture/anime_tests.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

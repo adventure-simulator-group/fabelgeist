@@ -1,0 +1,43 @@
+{
+  "recorded_at": "2026-10-21T05:12:04.099524+00:00",
+  "head": "1f7c193bb6cf310f5daad9cc4f8a6855109204f2",
+  "family": "P02 error-propagation follow-through; P06 acceptance remains pending",
+  "status": "Pre-edit plan from actual source. Known omissions must be closed before the next hosted request.",
+  "discovery": [
+    "Authored threat equipment calls an iteration-owned authored_melee_weapon helper, then expects success; that helper converts ElapsedError to String twice.",
+    "The helper is also called by roster construction, which reaches acceptance-evidence computation and the native iteration runner through String results.",
+    "Existing timeline evidence erases BattleResolutionError at all three battle calls, simultaneous contacts and cancellation search. Fatigue evidence erases ElapsedError and FractionError."
+  ],
+  "implementation_sequence": [
+    "Move the shared authored melee-weapon projection out of the iteration harness into autoresolve/authored_weapon.rs. Retain all existing recipe/physics calculations and their order. Own a structured error and result alias there, including actual validation-error vector payloads and timing causes.",
+    "Return an AuthoredThreatResult from ranged equipment setup. Admit sidearm before mutating equipment, handle missing fixed catalogue entry with an explicit AuthoredThreatError variant and retain the weapon error transparently through existing strategic/bootstrap consumers.",
+    "Give the connected roster/evidence family one MeleeIterationError owner and result alias. Represent its catalogue/role/metadata/placement/opponent/cancellation failures as variants; retain name, authored-weapon, timing, performance and battle-resolution errors without String conversion. Propagate it through roster, build/equipment/armor and acceptance evidence, armor helpers, fatigue and timeline.",
+    "Add the shared iteration error as a transparent variant of the existing native IterationError; retain unrelated native I/O/report operation errors outside this source family. Enumerate all callers, including unchanged tests.",
+    "Recheck source Code/Rule/producer exits, preserve all existing test names/assertions and all20 plan exits. Only then commit/push and request hosted verification. Do not add tests, fixture helpers, assertions, lint suppressions or broader registry scopes."
+  ],
+  "canonical_owners": {
+    "AuthoredMeleeWeaponError": "adventuresim-core::autoresolve::authored_weapon; shared by threats and roster, lowest actual common module",
+    "MeleeIterationError": "adventuresim-core::autoresolve::melee_iteration::error; owns build and evidence entry failures",
+    "underlying_errors": [
+      "ElapsedError",
+      "FractionError",
+      "NameCatalogError",
+      "adventuresim_weapon_model::ValidationError",
+      "BattleResolutionError"
+    ]
+  },
+  "caller_inventory": [
+    "authored_melee_weapon: threat equip helper and authored_equipment only",
+    "authored_equipment -> build_from_spec -> purpose_build/roster -> melee_iteration_acceptance_evidence -> native run",
+    "melee_iteration_roster -> existing core/server tests (unwrap remains fixture boundary)",
+    "melee_iteration_acceptance_evidence -> existing core test and native run",
+    "timeline -> acceptance evidence -> native run",
+    "AuthoredThreatError -> existing StrategicCombatError and CoreLoopError (Clone/Eq retained because underlying weapon validation errors support them)"
+  ],
+  "preservation": [
+    "No change to threat selection, sidearm recipe, armour catalogues, names, seeds, bounded cancellation search, combat parameters, RNG/order, output successful records or test inputs/assertions.",
+    "Pure catalogue/weapon admission moves before local equipment mutation; no new global transactional guarantee.",
+    "P16 physical measurement/report fields and unrelated native operations remain their explicitly assigned later work. No original exit is removed."
+  ],
+  "validation": "Use existing hosted all-target/all-feature matrix and existing autoresolve:: group, which includes the existing melee roster/acceptance evidence tests; strategic bootstrap group remains. No local project checks. P06 still needs complete current-head artifacts and relevant official baseline reductions."
+}

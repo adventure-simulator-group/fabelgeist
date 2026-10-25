@@ -1,0 +1,13 @@
+--- p16base/crates/adventuresim-stdb-module/src/strategic/tests/authority_trade_dialogue.rs
++++ catalog-p16head/crates/adventuresim-stdb-module/src/strategic/tests/authority_trade_dialogue.rs
+@@ -561,9 +561,9 @@
+         "storefront_stocks(",
+         "settlement_allowlist",
+         "inventory_food_definition(Some(item.kind), item_id)?",
+         "add_to_party_inventory_checked(",
+-        "add_inventory_item_checked(",
++        "add_inventory_item(",
+     ] {
+         assert!(
+             trade.contains(authority_check),
+             "missing merchant authority check: {authority_check}"

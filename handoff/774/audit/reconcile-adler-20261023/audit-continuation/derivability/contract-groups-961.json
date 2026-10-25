@@ -1,0 +1,200 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-961",
+  "at": "2026-10-25T17:20:30.952955+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1130,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/sites.rs",
+      "sha256": "f1b87ed586b1c651092b75de29d00b1717fdccca5ff4fa689e23a4295d1f119a",
+      "actual_EOF": 617,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/sites.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/investigation/sites.rs",
+        "sha256": "f1b87ed586b1c651092b75de29d00b1717fdccca5ff4fa689e23a4295d1f119a",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 21969,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 633,
+            "read_ranges": [
+              [
+                1,
+                617
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-INVESTIGATION-SITES-CLAIMS-092"
+            ],
+            "read_status": "fresh-current-lens-full-source-read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/investigation/sites.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CASE-RECEIVERS-029",
+            "json_pointer": "/current_sources/13",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/investigation/sites.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                617
+              ]
+            ],
+            "source_context": {
+              "packet_obligation": 14,
+              "assigned_camera_index": 639,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/sites.rs",
+              "sha256": "f1b87ed586b1c651092b75de29d00b1717fdccca5ff4fa689e23a4295d1f119a",
+              "read_ranges": [
+                [
+                  1,
+                  617
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/investigation/sites.rs",
+              "read_status": "full current frozen body; packet7 shares independently verified identical bytes with packet6",
+              "role": "site-authority",
+              "disposition": "Full declaration/constructor/lookup/disclosure/presentation body read. Actual point-mode and CaseSite privacy gates are traced to exact numeric/presence/SDK ports. Combat availability with optional opposition is an aggregate/absence policy question; missing refresh clock mapped to zero links CAM-PROP-F023.",
+              "trace_refs": [
+                "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016#site-authority"
+              ],
+              "authority": "Camera716 explicit per-cell reconciliation and whole DB repair authority unchanged"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016",
+            "json_pointer": "/source_reads/13",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/investigation/sites.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                617
+              ]
+            ],
+            "source_context": {
+              "packet_obligation": 14,
+              "assigned_camera_index": 639,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/sites.rs",
+              "sha256": "f1b87ed586b1c651092b75de29d00b1717fdccca5ff4fa689e23a4295d1f119a",
+              "read_ranges": [
+                [
+                  1,
+                  617
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/investigation/sites.rs",
+              "read_status": "full current frozen body; packet7 shares independently verified identical bytes with packet6",
+              "role": "site-authority",
+              "disposition": "Full declaration/constructor/lookup/disclosure/presentation body read. Actual point-mode and CaseSite privacy gates are traced to exact numeric/presence/SDK ports. Combat availability with optional opposition is an aggregate/absence policy question; missing refresh clock mapped to zero links CAM-PROP-F023.",
+              "trace_refs": [
+                "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016#site-authority"
+              ],
+              "authority": "Camera716 explicit per-cell reconciliation and whole DB repair authority unchanged"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/camera/traces.jsonl",
+            "receipt": "CONT-CAMERA-PP-009",
+            "json_pointer": "/exact_receiver_proofs/8",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/investigation/sites.rs",
+            "read_ranges_as_recorded": [
+              [
+                323,
+                443
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/sites.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/investigation/sites.rs",
+              "sha256": "f1b87ed586b1c651092b75de29d00b1717fdccca5ff4fa689e23a4295d1f119a",
+              "actual_lines": 617,
+              "read_ranges": [
+                [
+                  323,
+                  443
+                ]
+              ],
+              "role": "Fresh full exact-case and typed StrategicPresence occupancy/context consumers plus bounded following parser prefix; genuine SDKkey projection distinguished from prior CaseSite re-admission."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/native/receiver-reads.json",
+            "receipt": "row-1",
+            "json_pointer": "/8",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/investigation/sites.rs",
+            "read_ranges_as_recorded": [
+              [
+                323,
+                443
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/sites.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/investigation/sites.rs",
+              "sha256": "f1b87ed586b1c651092b75de29d00b1717fdccca5ff4fa689e23a4295d1f119a",
+              "actual_lines": 617,
+              "read_ranges": [
+                [
+                  323,
+                  443
+                ]
+              ],
+              "role": "Fresh full exact-case and typed StrategicPresence occupancy/context consumers plus bounded following parser prefix; genuine SDKkey projection distinguished from prior CaseSite re-admission."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1340,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          617
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "CaseSiteDisclosureLeadId Clone/Copy/Debug/Eq/Ord/PartialEq/PartialOrd"
+      ],
+      "absence_basis": "Entire exact site body consumed960\u2013961 including complete fixtures591\u2013617. No handwritten trait/codec. Native exact knowledge/pin/presentation, validated physical/context presence, custom contextual disclosure ID parser and bounded revision/visited update policies. Structural enum derives already present; parser requires external base_id and strict lexical width, not standalone FromStr derive."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Site authority derivability",
+      "disposition": "Retain contextual base-ID parsing, temporal/knowledge/custody/manifest validation and semantics of field selection. No unchecked derive or additional Serde. Fixtures read only, no execution."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1131,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/sites/provenance.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

@@ -1,0 +1,262 @@
+{
+  "id": "RIG-CONT-PPS-PURE-FOOD-RECIPIENT-CARRY-FORWARD-041",
+  "kind": "Exact remaining recipient obligations for coordinator pure8; no duplicate source audit",
+  "source_proof": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl#RIG-PPS-040",
+  "source_record_sha256": "7a3e5ac1e865c46d53a1055a1f793466f9f89353ed26ca668f5a3aa934db6253",
+  "sampler_subset_indices": [
+    157,
+    158,
+    488
+  ],
+  "sampler_subset_status": "exhausted-with-findings at exact frozen PR/P16 variants",
+  "sampler_subset_actual_proofs": [
+    {
+      "camera_assigned_index": 157,
+      "source_id": "pr-working:crates/adventuresim-core/src/foraging.rs",
+      "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/foraging.rs",
+      "expected_sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+      "observed_sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+      "read_ranges": [
+        [
+          1,
+          1278
+        ]
+      ],
+      "proof_mode": "Fresh full PR source and all original fixtures; P16 sampling exact same25 bytes fingerprint verified and semantically reconciled for same source/item/draw roles, not oldverdict reuse."
+    },
+    {
+      "camera_assigned_index": 158,
+      "source_id": "pr-working:crates/adventuresim-core/src/foraging/sampling.rs",
+      "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/foraging/sampling.rs",
+      "expected_sha256": "66d67a552e4a0f212e7a776678140af4965c40239a052e0f845c73143537d6e0",
+      "observed_sha256": "66d67a552e4a0f212e7a776678140af4965c40239a052e0f845c73143537d6e0",
+      "read_ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "proof_mode": "Fresh full PR source and all original fixtures; P16 sampling exact same25 bytes fingerprint verified and semantically reconciled for same source/item/draw roles, not oldverdict reuse."
+    },
+    {
+      "camera_assigned_index": 488,
+      "source_id": "physical-p16:crates/adventuresim-core/src/foraging/sampling.rs",
+      "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/foraging/sampling.rs",
+      "expected_sha256": "66d67a552e4a0f212e7a776678140af4965c40239a052e0f845c73143537d6e0",
+      "observed_sha256": "66d67a552e4a0f212e7a776678140af4965c40239a052e0f845c73143537d6e0",
+      "read_ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "proof_mode": "Fresh full PR source and all original fixtures; P16 sampling exact same25 bytes fingerprint verified and semantically reconciled for same source/item/draw roles, not oldverdict reuse."
+    }
+  ],
+  "additional_reached_ranges": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_action.rs",
+      "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/strategic_action.rs",
+      "sha256": "4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+      "read_ranges": [
+        [
+          319,
+          412
+        ],
+        [
+          602,
+          666
+        ]
+      ],
+      "actual_line_count": 1209,
+      "scope": "Exact reached material source/receiving scopes only; no inference whole source outside listed range. SDK/math/hash fixture source only; no execution."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-determinism/src/seed.rs",
+      "resolved_path": "SNAPSHOTS/pr-working/crates/fabelgeist-determinism/src/seed.rs",
+      "sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "read_ranges": [
+        [
+          1,
+          213
+        ]
+      ],
+      "actual_line_count": 213,
+      "scope": "Exact reached material source/receiving scopes only; no inference whole source outside listed range. SDK/math/hash fixture source only; no execution."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-determinism/src/stream.rs",
+      "resolved_path": "SNAPSHOTS/pr-working/crates/fabelgeist-determinism/src/stream.rs",
+      "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+      "read_ranges": [
+        [
+          1,
+          108
+        ],
+        [
+          128,
+          169
+        ]
+      ],
+      "actual_line_count": 169,
+      "scope": "Exact reached material source/receiving scopes only; no inference whole source outside listed range. SDK/math/hash fixture source only; no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/food.rs",
+      "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/food.rs",
+      "sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+      "read_ranges": [
+        [
+          248,
+          332
+        ]
+      ],
+      "actual_line_count": 848,
+      "scope": "Exact reached material source/receiving scopes only; no inference whole source outside listed range. SDK/math/hash fixture source only; no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/skill.rs",
+      "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/skill.rs",
+      "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "read_ranges": [
+        [
+          690,
+          794
+        ],
+        [
+          825,
+          1000
+        ],
+        [
+          1008,
+          1128
+        ]
+      ],
+      "actual_line_count": 1165,
+      "scope": "Exact reached material source/receiving scopes only; no inference whole source outside listed range. SDK/math/hash fixture source only; no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/foraging.rs",
+      "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/foraging.rs",
+      "sha256": "be82a5ef7905b05d68bba4d61d5173cba6011c51ee8504da85d697bb2d80df84",
+      "read_ranges": [
+        [
+          960,
+          1137
+        ]
+      ],
+      "actual_line_count": 1381,
+      "scope": "Exact reached material source/receiving scopes only; no inference whole source outside listed range. SDK/math/hash fixture source only; no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/item.rs",
+      "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/item.rs",
+      "sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+      "read_ranges": [
+        [
+          330,
+          480
+        ],
+        [
+          776,
+          810
+        ]
+      ],
+      "actual_line_count": 957,
+      "scope": "Exact reached material source/receiving scopes only; no inference whole source outside listed range. SDK/math/hash fixture source only; no execution."
+    }
+  ],
+  "sampler_remaining_actual_receivers": [],
+  "sampler_findings": [
+    "CAM-PROP-F018",
+    "NATIVE-PP-033",
+    "NATIVE-PS-F009",
+    "CAM-PROP-F006",
+    "CAM-PROP-F009",
+    "NATIVE-PP-031"
+  ],
+  "source_qualification": "RIG040 narrowly corrects Native013: all15 authored resources yield_min>=1, discovered0 skips; produced harvest quantity nonzero. Public manuallyconstructed ForageYield0 still requires admission-lens review. Training0, emptyyield and partial elapsed remain distinct valid states. No new test/case/assertion.",
+  "recipient_closure_notes": [
+    "DBforaging960-1137 actually sends the four stable-order terrain training hour results into skill::apply_direct_training then native stats/morale callbacks; this source-backed numerical/SDK graph is included, not an unread outgoing edge.",
+    "DBitem330-480/776-810 actual add_foraged_inventory_item_checked_rows emits one checked inventory item per harvested unit, initializing native object/foodlot before material/receipt/cursor writes; raw IDs at actual SDK/hash ports versus erased food/custody causes are distinguished.",
+    "Core strategic_action319-412/602-666 requested-duration capture/plan/time-effect/rights chain and determinism Seed1-213 Stream1-108/128-169 native hash/sample equations are included. CAM-PROP-F018 ForageSource string retention and PP033 requested positive versus realized0 duration remain whole Native/Camera repairs."
+  ],
+  "coordinator_remaining_pure8": [
+    {
+      "obligation": "Complete coordinator reconciliation of full food/life supplier proof and reached training/curriculum consumers; no rig verdict on unread parent completion.",
+      "proof": "ROOT-PPS-PURE-FOOD-LIFE-PARTIAL-054",
+      "cells": [
+        156,
+        165
+      ]
+    },
+    {
+      "obligation": "Consume exact full-source/range proofs and findings explicitly into final8 packet; no additional unfinished sampler receiver declared by040.",
+      "proof": "RIG-PPS-040",
+      "cells": [
+        157,
+        158,
+        488
+      ]
+    },
+    {
+      "obligation": "Read actual enclosing simulation.rs clock mutation around307; reconcile source3 receivers and missing receiver fingerprints before final disposition.",
+      "proof": "NATIVE-PS-PURE8-SUBSET-PARTIAL-028",
+      "cells": [
+        435,
+        501,
+        513
+      ]
+    }
+  ],
+  "native028_first_unfinished": "Strategic_time real_micros_for_official_minutes -> simulation::simulation_epoch_shift_micros(38–40) actual caller at simulation.rs307 found by rg but enclosing reducer body not yet read. Next bounded receipt would inspect this actual isolated clock mutation/SDK epoch write and finish current receiver/source fingerprints/dispositions. No work proceeds while paused.",
+  "native028_remaining_actual_receivers": [
+    "simulation.rs actual clock-advance caller around307 not yet body-read; selected38–40 helper proof alone does not close actual write.",
+    "Finish final per-source3 receiver/disposition reconciliation and exact fingerprints for receiver rows marked null, without treating whole-source equality as clearance."
+  ],
+  "native028_exact_next_source": {
+    "unread": "Enclosing clock-advance reducer calling simulation_epoch_shift_micros/real_micros_for_official_minutes around307 through actual epoch/native SDK write; find body bounds, do not infer from helper38-40.",
+    "prior_read_ranges": [
+      [
+        1,
+        58
+      ],
+      [
+        415,
+        495
+      ]
+    ],
+    "sha256": "caa8a155d38c326bf43174ed106f7b885196bcc23fcddb76af341a1acb380e0c",
+    "source_id": "physical-p16:crates/adventuresim-stdb-module/src/simulation.rs"
+  },
+  "native028_unfingerprinted_receivers": {
+    "source": "physical-p16",
+    "obligation": "Capture exact fingerprint and reconcile bounded role against current source; earlier receipt explicitly did not record SHA, so do not award fingerprint closure from read prose.",
+    "paths": [
+      {
+        "ranges": [
+          1130,
+          1205
+        ],
+        "path": "crates/adventuresim-strategic-sim/src/investigation_eval/report.rs"
+      },
+      {
+        "ranges": [
+          1,
+          90
+        ],
+        "path": "crates/strategic-web/src/routes/settlements/camp.rs"
+      },
+      {
+        "ranges": [
+          2090,
+          2140
+        ],
+        "path": "crates/strategic-web/src/templates/settlement/character_skills.rs"
+      }
+    ]
+  },
+  "source_repair": "none; all13 initial inventory freeze",
+  "validation": "none; historical source-proof inspection only",
+  "overall_lens_clearance": "not awarded"
+}

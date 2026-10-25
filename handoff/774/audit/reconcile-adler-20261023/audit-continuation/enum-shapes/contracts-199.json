@@ -1,0 +1,83 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-199",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        2758,
+        2759,
+        2760,
+        2761,
+        2762,
+        2763
+      ],
+      "ranges": {
+        "2758": [
+          [
+            190,
+            260
+          ],
+          [
+            268,
+            312
+          ],
+          [
+            399,
+            415
+          ]
+        ],
+        "2759": [
+          [
+            1,
+            160
+          ],
+          [
+            280,
+            280
+          ]
+        ],
+        "2760": [
+          [
+            25,
+            60
+          ],
+          [
+            85,
+            115
+          ]
+        ],
+        "2761": [
+          [
+            16,
+            61
+          ]
+        ],
+        "2762": [
+          [
+            49,
+            54
+          ]
+        ],
+        "2763": [
+          [
+            58,
+            58
+          ],
+          [
+            95,
+            103
+          ],
+          [
+            357,
+            357
+          ]
+        ]
+      },
+      "comparison": "Fresh pinnedrand0.9.5Uniform/UniformInt/Weight/widenmul/integer/Rng exactscopedranges. Rawrange0 representsFULLclosedintegerdomain, notempty/disabled; wrappingdifference/additionalone intentionalnativeencoding. Uniformnewhalfopen checksstrictlow<high; inclusive allowslow==high, preservesonevalue/rngdrawpath. Actualu64sampler macro andwideu128multiply pairhi/lo completeproduct, rejectionloop preserves entropyconsumption. Weightchecked_add_assign u64 ischecked notwrapping; ErrorInvalidInput/InvalidWeight/InsufficientNonZero/Overflow distinctalgorithmoutcomes. PrivateUniformIntlow/range/thresh native distributionstate, doNOTreplacewithgameplayenum/forceNonZerorange andbreakfullrange. Borrowed/ownedSampleBorrow trait adapter samevalue. NumericSDKports exemptfromgameplaytypeexpectationonlyinsideactualkernels; no transfer exemption to callers/retainedstate/interveningAPIs. No new09finding/native execution/test or wholeSDKclearance.",
+      "disposition": "Native integer-sampling encoding and zero/full-range distinctions preserved",
+      "finding_refs": []
+    }
+  ],
+  "new_findings": [],
+  "limits": "Discovery only; no execution/repairs/checks/plan/clearance."
+}

@@ -1,0 +1,222 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-795",
+  "at": "2026-10-25T16:52:12.799024+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1011,
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_presence.rs",
+      "sha256": "2eeea5c9831e10b7c5d51d0d3f61b0093ce8c682bd0994d2c94de50aa3354a52",
+      "actual_EOF": 662,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/strategic_presence.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/strategic_presence.rs",
+        "sha256": "2eeea5c9831e10b7c5d51d0d3f61b0093ce8c682bd0994d2c94de50aa3354a52",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 21057,
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+            "row": 29,
+            "read_ranges": [
+              [
+                1,
+                120
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-ENTROPY-018",
+              "ROOT-OWNER-SDK-CLOCK-019"
+            ],
+            "read_status": "exact_reached_owner_definition_ranges",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/strategic_presence.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 675,
+            "read_ranges": [
+              [
+                230,
+                365
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SIM-PRESENCE-COVERAGE-113"
+            ],
+            "read_status": "partial",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/strategic_presence.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 151,
+            "read_ranges": [
+              [
+                1,
+                662
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-ROOT-DEPENDENCIES-008"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/strategic_presence.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root",
+          "camera",
+          "native"
+        ],
+        "audit_owner": "root",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-PHYSICAL-SOURCE-CONTRACTS-029",
+            "json_pointer": "/source_proofs/3",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/strategic_presence.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                120
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/strategic_presence.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/strategic_presence.rs",
+              "sha256": "2eeea5c9831e10b7c5d51d0d3f61b0093ce8c682bd0994d2c94de50aa3354a52",
+              "read_ranges": [
+                [
+                  1,
+                  120
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CASE-RECEIVERS-029",
+            "json_pointer": "/related_current_sources/5",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/strategic_presence.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                396
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/strategic_presence.rs",
+              "sha256": "2eeea5c9831e10b7c5d51d0d3f61b0093ce8c682bd0994d2c94de50aa3354a52",
+              "read_ranges": [
+                [
+                  1,
+                  396
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/strategic_presence.rs",
+              "scope": "Whole reached presence constructors/identity/frontier operations, daily-window wait/remaining math, error classification and bounded fixtures; no whole662 claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016",
+            "json_pointer": "/related_current_reads/5",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/strategic_presence.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                396
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/strategic_presence.rs",
+              "sha256": "2eeea5c9831e10b7c5d51d0d3f61b0093ce8c682bd0994d2c94de50aa3354a52",
+              "read_ranges": [
+                [
+                  1,
+                  396
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/strategic_presence.rs",
+              "scope": "Whole reached presence constructors/identity/frontier operations, daily-window wait/remaining math, error classification and bounded fixtures; no whole662 claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/camera/receivers.jsonl",
+            "receipt": "row-3",
+            "json_pointer": "",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/strategic_presence.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                110
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/strategic_presence.rs",
+              "sha256": "2eeea5c9831e10b7c5d51d0d3f61b0093ce8c682bd0994d2c94de50aa3354a52",
+              "read_ranges": [
+                [
+                  1,
+                  110
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1017,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          662
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "From<PlaceIdentityError>",
+          "type": "PresenceError",
+          "lines": [
+            [
+              360,
+              364
+            ]
+          ],
+          "disposition": "KEEP intentional payload-free semantic error erasure; not field projection/from-source derive"
+        }
+      ],
+      "existing_derives": [
+        "All presence value/state/error structural traits already derived"
+      ]
+    }
+  ],
+  "groups": [
+    "Full presence source consumed; partial794 retained. Conversion ignores all identity-error details and returns one public invalid-place category; existing thiserror From/source would introduce payload/error semantics, no equivalent available enum mapping derive. Keep small manual From. Native evidence/frontier/co-presence/schedule/classification and full fixtures remain semantic/source-only. No manual codec, no other trait in fixtures."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1012,
+    "source_id": "pr-working:crates/adventuresim-core/src/strategic_presence/context.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

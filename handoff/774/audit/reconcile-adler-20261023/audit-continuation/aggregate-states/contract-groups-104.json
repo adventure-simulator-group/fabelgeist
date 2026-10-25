@@ -1,0 +1,63 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-104",
+  "at": "2026-10-25T16:44:10.065003+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1470,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/combat_effects.rs",
+      "sha256": "236a5328824e94bb189a8bde68dcf4f82154f9f48a4badb36397fe8f3fecf453",
+      "personally_read_ranges": [
+        [
+          1,
+          308
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full308 combat effects read. Event impact flags are independent: sparks, blood and sound can coexist; do not force one exclusive effect enum. Material handles initialize together behind spark-mesh sentinel in private prepare; normal factory controls the set. CombatParticle velocity/lifetime mutation is exact ROOT-OWNER-F009 canonical SceneVelocity/AnimationElapsed whole producer+movement repair, sharing deterministic identity/sequence and native geometry. Expiry/collision/stain/audio order must survive; blood/spark behavior is a payload/state shape dependency without a new ordinary malformed particle.",
+        "Native impact point and normal transform from target-local coordinates into world scene, then native particle/audio adapters. CharacterId is erased into keyed sequences/seed context; use actual canonical identity, preserve deterministic bytes/wrap. Positive ordered pitch interval is consumed from configuration (M61), rather than independently admitted endpoints at each event. Terrain mask lookup is by point within dimensions and current resource, not a generalized source identity proof. No particle or audio execution."
+      ]
+    },
+    {
+      "scope_index": 1471,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/combat_effects/blood_decals.rs",
+      "sha256": "3e00a08166bcf6b3d43e75aea399b0c990287a726a79642e49133cdf2f166066",
+      "personally_read_ranges": [
+        [
+          1,
+          337
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full337 blood surface/mask implementation and original fixtures read. closest_mesh_uv uses checked attribute-kind matching and .get for vertex/UV indices before barycentric interpolation, rejecting absent/mismatched data rather than indexing blindly. Complete triangle topology and finite nondegenerate local geometry remain native Mesh admission assumptions; do not claim every raw native Mesh is a checked gameplay record. Image mask production is positive512-square R8 and paired with extended material, first creation plus component insertion is deferred; repeated same-surface observer batches need actual event/apply ordering before claiming lost stain.",
+        "SurfaceUvHit joins entity/UV/distance and original material or existing mask; either is sufficient, not require exactly one because cached surface may legitimately expose both. Potential Q023: distance_squared is local-space metric but candidates can have different GlobalTransform scale; actual closest_surface_uv compares them across entities. Need actual generated surface-scale producer before ordinary wrong-surface claim; if scales differ, transform candidates to common metric without losing barycentric UV. Native transform/frame and source membership are the relevant aggregate, not duplicate generic UV wrappers.",
+        "stamp_mask assumes positive texture extents, R8 data length and UV/radius compatible with texture source. Actual own empty factory establishes it; terrain shared-image producer still a connected receiving dependency. Clamp/texture quantization and sequence-derived angle are intended native pixel operations, preserve exact orientation/max accumulation. Existing two tests are source evidence only, no execution/new test."
+      ]
+    },
+    {
+      "scope_index": 1472,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/debug.rs",
+      "sha256": "95f141113d44f702b7ac4ae9db824785c6bc3340413a01f3e881b52fd26cdb33",
+      "personally_read_ranges": [
+        [
+          1,
+          376
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full376 debug source and F8 fixture read. Independent collider/hitbox/raycast controls may coexist. DebugRay timer and handle bind one spawned gizmo; timer tick/fraction and native colors are genuine final rendering ports. Quarter speed bool produces matching relative speed request and local Time; network acceptance/async delivery is not proof of simultaneous global time commit. Existing canonical TerrainIkMode toggled directly.",
+        "Camera debug retains actual typed observation until final gizmos; metres()/native_transform at these sinks are real adapters, not unfinished internal signatures. Headless target option owns actual image while None intentionally selects primary window. Screenshot timestamp is final filename wallclock, not simulation clock. BRP trigger clears before enqueue and is an intentional one-shot pulse. Actual HitPerformed origin/direction/length must inherit source coherent ray geometry, debug endpoint does not establish native source admission. No debug/BRP/render execution."
+      ]
+    }
+  ],
+  "findings": [
+    "ROOT-OWNER-F009 exact particle retained velocity/lifetime contract",
+    "M61 whole checked audio configuration"
+  ],
+  "qualified_source_questions": {
+    "Q023": "Local surface UV closest-distance comparison across independently scaled GlobalTransforms; actual scale producer and native mesh association pending, no current ordinary visual bug claimed."
+  },
+  "discovery": "Three full original roles accounted, no new unique finding. Initial lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

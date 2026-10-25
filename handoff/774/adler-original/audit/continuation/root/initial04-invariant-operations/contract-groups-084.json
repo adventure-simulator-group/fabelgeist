@@ -1,0 +1,59 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-084",
+  "at": "2026-10-23T01:15:34.300951+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/fatigue.rs",
+      "sha256": "823dc22517760aafcf6f7107becb2e1d9c647c685bfe5022f7865d7739cb52f5",
+      "actual_compared_ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "source_evidence": "Actual whole source bytes compared to already literal-read exact P16 body, identicaljustifications explicitly currentPR import/consumer compared below; no automatic verdict credit fromhash."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/commitment.rs",
+      "sha256": "52eb21ff762fa1bb6d55c4237bf1d1d66638a7929d996eb94074726727b563f6",
+      "actual_compared_ranges": [
+        [
+          1,
+          239
+        ]
+      ],
+      "source_evidence": "Actual whole source bytes compared to already literal-read exact P16 body, identicaljustifications explicitly currentPR import/consumer compared below; no automatic verdict credit fromhash."
+    }
+  ],
+  "groups": {
+    "current-PR-fatigue-contract": "CurrentPR CombatFatigueParameters46 actualpositive/order validation compared earlierRoot062, AnimationElapsed/NonnegativeSpeed exactownersRoot056. The byteidentical kernel extractsnativef32 forenergy/capacity/recovery; allquantities/returnshave samecurrentPRmeaning. ValidcurrentrawpublicenduranceMAX stilloverflows positivecapacity+recovery toInf/Inf andstoresNaN F030; unitclampdoesnotsealresult. FixedMAXwork saturates1 withordinaryfinitecapacity perexistingfixture, preserveintent. Nonnegative sustainableZERO accepted speed needs explicitapplicability withpositiveeffort; currenthumanconfigsfiniteordinaryboundnotarbitrarypublicAPIproof. One visiblefatiguepool and no fatigue-based movementpenalty remainabsoluteconstraints.",
+    "current-PR-commitment-contract": "ActualcurrentPR phase/timing interfaces use sameBattleTime/AnimationElapsed sourceowners Root056, sameRoot062bodypartindex sevenway for armor, existingcoveragegeometry checkedowner F007. Gap usescheckedelapsed/min, phase/availabilitylabels translateclosed sum, shieldtransform multipliesfiniteexistingpower bybounded .6..1 (no amplification), adaptation/cancellation handles currentphase, .5workduration positive. Attempted/effective defense andincapacitationstage differ intentionally. RawNaN response isadmissionobligation, no newfiniteoperandcounter. Bodytypedcontext differences fromP16 weaponlength migration do notchangeany numericoperation here; no raw-result reintroduction or newduplicateowner.",
+    "existing-oracles-and-identical-justification": "Wholebyteidentity established foractualPR/P16pathsviaread andhash, thencurrentPR resolvedleafowner meanings explicitlycompared above. Grouping is limited totheseidenticaljustifications andsourcefacts alreadyreadinfull; it grants no otherlenscredit, nocallersoutsideclaimedbody, andnofullfamilyprecision clearance. Existing263fatigue tests readthroughavailableliteralbody, no execution/edits."
+  },
+  "finding_qualifications": [
+    {
+      "id": "ROOT-INITIAL04-F030-CURRENT-PR-084",
+      "finding": "ROOT-INITIAL04-F030",
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/fatigue.rs",
+      "sha256": "823dc22517760aafcf6f7107becb2e1d9c647c685bfe5022f7865d7739cb52f5",
+      "ranges": [
+        [
+          18,
+          21
+        ],
+        [
+          99,
+          110
+        ]
+      ],
+      "qualification": "CurrentPR exactbody same computedcapacity/recovery: nativef32 MAXendurance with otherwisevalid C2/R2 producesInf/InfNaN andmutatesfraction. CurrentPR sharedfatigue parameter owner validate and typedelapsed/speed contracts independentlyknown fromRoot062/056; bodyactualread andexactbytecompared, notborrowedP16verdict. No normal/run claim."
+    }
+  ],
+  "findings": [],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

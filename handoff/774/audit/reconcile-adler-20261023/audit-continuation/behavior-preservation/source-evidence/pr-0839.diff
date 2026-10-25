@@ -1,0 +1,55 @@
+--- PRbase/crates/adventuresim-character-creator/src/underlayer_armor.rs
++++ frozen/crates/adventuresim-character-creator/src/underlayer_armor.rs
+@@ -1,7 +1,8 @@
+ //! Underlayers cut from the body and fitted on the device, assembled into
+ //! armor with their own surface attributes and morph targets.
+ 
++use crate::armor_frames::FittingPlacement;
+ use anyhow::Result;
+ use fabelgeist_armor::{
+     ArmorComponent, ArmorComponentRole, ArmorGpu, ArmorMorph, GeneratedArmor, Millimeters,
+     Permille, TrunkHoseDesign,
+@@ -26,9 +27,9 @@
+ /// Cut an underlayer from the wearer and fit it to every morph, named.
+ pub fn fit_underlayer(
+     gpu: &ArmorGpu,
+     design: &UnderlayerDesign,
+-    placement: &str,
++    placement: FittingPlacement,
+     body: &UnderlayerBody<'_>,
+     morphs: &[(&str, BodyShape<'_>)],
+ ) -> Result<GeneratedArmor> {
+     pollster::block_on(fit_underlayer_async(gpu, design, placement, body, morphs))
+@@ -36,9 +37,9 @@
+ 
+ pub async fn fit_underlayer_async(
+     gpu: &ArmorGpu,
+     design: &UnderlayerDesign,
+-    placement: &str,
++    placement: FittingPlacement,
+     body: &UnderlayerBody<'_>,
+     morphs: &[(&str, BodyShape<'_>)],
+ ) -> Result<GeneratedArmor> {
+     let shapes = morphs.iter().map(|(_, shape)| *shape).collect::<Vec<_>>();
+@@ -105,9 +106,9 @@
+ /// vertical panes between the two fabrics.
+ pub fn fit_trunk_hose(
+     gpu: &ArmorGpu,
+     design: &TrunkHoseDesign,
+-    placement: &str,
++    placement: FittingPlacement,
+     body: &UnderlayerBody<'_>,
+     morphs: &[(&str, BodyShape<'_>)],
+ ) -> Result<GeneratedArmor> {
+     pollster::block_on(fit_trunk_hose_async(gpu, design, placement, body, morphs))
+@@ -115,9 +116,9 @@
+ 
+ pub async fn fit_trunk_hose_async(
+     gpu: &ArmorGpu,
+     design: &TrunkHoseDesign,
+-    placement: &str,
++    placement: FittingPlacement,
+     body: &UnderlayerBody<'_>,
+     morphs: &[(&str, BodyShape<'_>)],
+ ) -> Result<GeneratedArmor> {
+     design.validate().map_err(anyhow::Error::new)?;

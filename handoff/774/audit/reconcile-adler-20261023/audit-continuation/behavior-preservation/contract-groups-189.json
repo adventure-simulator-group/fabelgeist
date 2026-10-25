@@ -1,0 +1,107 @@
+{
+  "id": "CONT08-CONTRACT-189",
+  "at": "2026-10-25T13:59:15.934451+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 733,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_frames/tests.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/device_frames/tests.rs",
+      "before_sha256": "ebb20f2ac0bef067494f24a96466e9edaaeeb1be7c63435d7825097b858428a7",
+      "after_sha256": "10bca4c1bb7cc62d88939a0f0420714d8f441a19fd156e102deeced8ae0ec21c",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0733-base-ebb20f2ac0bef067494f24a96466e9edaaeeb1be7c63435d7825097b858428a7",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/10bca4c1bb7cc62d88939a0f0420714d8f441a19fd156e102deeced8ae0ec21c",
+      "diff": "source-evidence/pr-0733.diff",
+      "diff_sha256": "e5309ceb615dc5954472a0fa214942435b6593a587768498d9de9865346e3d6d",
+      "head_body_read_ranges": [
+        [
+          1,
+          153
+        ]
+      ],
+      "facts": [
+        "Full153 body and entire actual diff. Synthetic elbow fixture preserves six native joint rows, side order/+x-left/-x-right, first+vertex%2 eight-slot repeated indices and .125weights. Packed bound6 admits allslots. Exact origin/axis/width/depth and rotated0.6radian/collinear error oracles retained; fixtures read only, no GPU run."
+      ],
+      "disposition": "Own08 old/new comparison accounted with concrete lower2179/2332/2336 and frame-kernel receiver; retained API limits explicit.",
+      "acceptance": "Preserve exact packing, first-error, membership and floating operation order plus existing fixture oracles; no tests or checks run."
+    },
+    {
+      "scope_index": 734,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_garment.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/device_garment.rs",
+      "before_sha256": "c6392993fcc9069a8000ef1d795048c0e64b28db354b3dd9d971834b6e9ecf57",
+      "after_sha256": "33088136dedaa0cf15c3541ea4c9c3c2dd930c7cc1e4f8bb63c09c66680ccf6f",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0734-base-c6392993fcc9069a8000ef1d795048c0e64b28db354b3dd9d971834b6e9ecf57",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/33088136dedaa0cf15c3541ea4c9c3c2dd930c7cc1e4f8bb63c09c66680ccf6f",
+      "diff": "source-evidence/pr-0734.diff",
+      "diff_sha256": "c2e685245df4e20ede93e8305220e6c7ab87d4c7eec558dc29b47550773677c0",
+      "head_body_read_ranges": [
+        [
+          1,
+          290
+        ]
+      ],
+      "facts": [
+        "Full290 and complete441-line actual diff consumed; initial combined read truncated and recovered diff1\u2013275 plus body146\u2013290 explicitly. Typed first-exact joint lookup preserves duplicate precedence, canonical missing-joint prose replaces old garment-specific message. Support8slot/addition/.30/regionbits and upright top/bottom sum/multiply order/frame validity/fit-statusbit unchanged.",
+        "JointHeightAnchor SignedLength and unrestricted JointReachTarget Ratio project native values, Joint words use own826 checkedu32 adapter with same named uniforms. Tube placement now side()? before tube; exact receiver740 comparison remains pending, so no whole API accepted-input equivalence claim. Candidate code moved to735 with explicit presence; consumers737/739/740 pending."
+      ],
+      "disposition": "Own08 old/new comparison accounted with concrete lower2179/2332/2336 and frame-kernel receiver; retained API limits explicit.",
+      "acceptance": "Preserve exact packing, first-error, membership and floating operation order plus existing fixture oracles; no tests or checks run."
+    },
+    {
+      "scope_index": 735,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_garment/candidates.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/device_garment/candidates.rs",
+      "before_sha256": null,
+      "after_sha256": "85c82bd05f3762bf1536f056c9c1d6986321e508337d7801196a565470d13649",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/85c82bd05f3762bf1536f056c9c1d6986321e508337d7801196a565470d13649",
+      "diff": "source-evidence/pr-0735.diff",
+      "diff_sha256": "b7d448f8db149711af86d51d00fced36616cd3082ecd2b063cefc7145b7372fc",
+      "head_body_read_ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "facts": [
+        "Full132 new body and entire actual diff compared exact removed BAND from734. Preserves strict .018band/min12/near==total return, projection/distance/tie-by-vertex and native finite ceiling MAX_FINITE defined736. New explicit cursor/candidate presence replaces -1/u32MAX sentinel; NaN/Inf cannot win, d==MAX_FINITE still allowed exactly as old tie-to-valid-vertex.",
+        "Band.present false for no samples; CANDIDATE_STATUS folds nonzero to fit word15 before bounds use by intended callers. This is deliberate invalid-input rejection strengthening, not proven lost successful ordinary output. Actual affected caller ordering and flags remain connected discovery737/739/740, no blanket status-lifecycle clearance."
+      ],
+      "disposition": "Own08 old/new comparison accounted with concrete lower2179/2332/2336 and frame-kernel receiver; retained API limits explicit.",
+      "acceptance": "Preserve exact packing, first-error, membership and floating operation order plus existing fixture oracles; no tests or checks run."
+    },
+    {
+      "scope_index": 736,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_garment_kernel.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/device_garment_kernel.rs",
+      "before_sha256": "6a981b94b418cf4d751521f36c560cee77f15e7692ad9822aa96a6183702ca5b",
+      "after_sha256": "7484d47aa4568e2fc5b3fed2daba4888a9f0d637e6af199bca5e4f85f218d60f",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0736-base-6a981b94b418cf4d751521f36c560cee77f15e7692ad9822aa96a6183702ca5b",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/7484d47aa4568e2fc5b3fed2daba4888a9f0d637e6af199bca5e4f85f218d60f",
+      "diff": "source-evidence/pr-0736.diff",
+      "diff_sha256": "fe54a9aed248429fddf33ca44e4db19828686ff2805b0d2a726bb538376e38e2",
+      "head_body_read_ranges": [
+        [
+          1,
+          287
+        ]
+      ],
+      "facts": [
+        "Full287 and entire actual diff. Dynamic binding/source names, read/write/atomic element types, uniform native word ordering/padding to4 (including empty), fit/private fallback and Items/Singles dispatch counts/error mapping unchanged. New Joint produces same u32 WGSL field; own826 exact checked adapter before dispatch rejects unrepresentable ordinals instead of truncate.",
+        "Shared floating HOST unchanged: exact MAX_FINITE, left-associated dot, scaled normalization survives tiny/largefinite/zero, same mix/local/point/rem_tau op order. Existing zero/3e-30/3/3e30 fixture vectors and native2ULP component oracle read not run. Other callers need exact matching named joint proofs individually."
+      ],
+      "disposition": "Own08 old/new comparison accounted with concrete lower2179/2332/2336 and frame-kernel receiver; retained API limits explicit.",
+      "acceptance": "Preserve exact packing, first-error, membership and floating operation order plus existing fixture oracles; no tests or checks run."
+    }
+  ],
+  "next": "737 skirt461 then738 stations130/739 torso379/740 tube483"
+}

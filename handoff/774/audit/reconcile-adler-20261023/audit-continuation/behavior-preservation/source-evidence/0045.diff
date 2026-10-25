@@ -1,0 +1,12 @@
+diff --git a/crates/adventuresim-core/Cargo.toml b/crates/adventuresim-core/Cargo.toml
+index 836dbedec..6b17fbc21 100644
+--- a/crates/adventuresim-core/Cargo.toml
++++ b/crates/adventuresim-core/Cargo.toml
+@@ -29,6 +29,7 @@ fabelgeist-determinism.workspace = true
+ spacetimedb = { workspace = true, optional = true }
+ 
+ [build-dependencies]
++fabelgeist-geometry = { workspace = true, default-features = false }
+ serde = { workspace = true, features = ["derive"] }
+ serde_json.workspace = true
+ serde-saphyr.workspace = true

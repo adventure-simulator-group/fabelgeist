@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-988",
+  "at": "2026-10-25T17:26:22.192251+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1148,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak.rs",
+  "sha256": "7231d6f5c0ea33a0f938db9887dab36dff87fdb6341d8bf2099ada481593c41e",
+  "actual_compared_ranges": [
+    [
+      1,
+      350
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "All declared outbreak/patient/source/presence/material/contribution/collection-receipt rows already Clone/Debug/table. Native checked volume conversion/material transfer, concentration/provenance exposure and fixed SHA byte framing not a derived Hash/Serde equivalent. No manual trait/codec in prefix; collection reducer replay starts explicit semantic field subset.",
+  "first_unfinished": {
+    "scope_index": 1148,
+    "line": 351
+  },
+  "execution": "none"
+}

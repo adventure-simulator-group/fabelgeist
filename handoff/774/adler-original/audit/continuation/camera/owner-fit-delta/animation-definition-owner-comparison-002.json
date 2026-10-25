@@ -1,0 +1,110 @@
+{
+  "id": "CONT-CAMERA-OWNER-ANIMATION-DEFINITION-002",
+  "at": "2026-10-22T02:39:02.218877+00:00",
+  "lens": "audit-existing-type-owners",
+  "source_scope_and_range_authority": [
+    "continuation/cumulative-source-scope-owner-delta-001.json + continuation/owner-range-extensions.jsonl",
+    "continuation/cumulative-source-scope-owner-delta-002.json"
+  ],
+  "fresh_source_proofs": [
+    {
+      "id": "CONT-CAMERA-OWNER-EXT-SOURCE-response_parameters.rs",
+      "at": "2026-10-22T02:39:02.218877+00:00",
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+      "sha256": "d2eeb3c98817ee0e266094c559b48ef3736dc8b9fcdbcd975a9f47f637213222",
+      "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-core\\src\\animation\\response_parameters.rs",
+      "read_ranges": [
+        [
+          1,
+          85
+        ],
+        [
+          142,
+          155
+        ]
+      ],
+      "actual_EOF": 217,
+      "scope_authority": "continuation/cumulative-source-scope-owner-delta-001.json + continuation/owner-range-extensions.jsonl",
+      "proof_mode": "fresh actual bounded owner-definition/necessary constructor/helper/Serde adapter reread AFTER explicit registration",
+      "source_edits": 0
+    },
+    {
+      "id": "CONT-CAMERA-OWNER-EXT-SOURCE-measurement.rs",
+      "at": "2026-10-22T02:39:02.218877+00:00",
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "sha256": "3e29916a9d570f6e0d12ffb54541ee018fb068902a4e5b6c0f744db9971d9ba9",
+      "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-core\\src\\animation\\measurement.rs",
+      "read_ranges": [
+        [
+          89,
+          100
+        ]
+      ],
+      "actual_EOF": 100,
+      "scope_authority": "continuation/cumulative-source-scope-owner-delta-002.json",
+      "proof_mode": "fresh actual bounded owner-definition/necessary constructor/helper/Serde adapter reread AFTER explicit registration",
+      "source_edits": 0
+    }
+  ],
+  "per_source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+      "sha256": "d2eeb3c98817ee0e266094c559b48ef3736dc8b9fcdbcd975a9f47f637213222",
+      "material_ranges": [
+        [
+          1,
+          85
+        ],
+        [
+          142,
+          155
+        ]
+      ],
+      "definition_fit": [
+        {
+          "owner": "ReferenceAcceleration",
+          "locations": "response_parameters9-12,45-58,142-147; measurement89-100",
+          "meaning": "finite strictlypositive f32metres/second^2 body-response reference magnitude; exact TryFrom/Serde delegates constructor, shared helper rejects nonfinite/negative before zero role guard",
+          "comparison": "ForwardLungeAcceleration admits finite signed and represents conservative lunge drive; neutral math::Acceleration admits allf32 with units only. Neither is exact direct replacement for positive response-reference policy. General Core ground-drive raw APIs normalize/coast/accept wider values, cannot narrow to this purpose type. Lowest neutral shared unit leaf may compose with role but no Core->tactical dependency or equivalent duplicate definition.",
+          "disposition": "valid_distinct_purpose_owner_numeric_leaf_reuse_only_with_explicit_role_admission_and_lower_dependency"
+        },
+        {
+          "owner": "ResponseRate",
+          "locations": "response_parameters14-17,61-84,149-154; measurement89-100",
+          "meaning": "finite nonnegative f32inverse-seconds includingzero; exact TryFrom/Serde delegates constructor; exponential/linear response consumes typed elapsed and admits UnitInterval changed result after full equation",
+          "comparison": "UnitInterval is dimensionless bound<=1, not rate; AnimationElapsed is seconds inverseunit; blood-fraction-per-second is physiologicalflow role with existing wider raw/nonfinite policy and no demonstrated finite shared admission. Existing ResponseRate role valid; do not force combat wound flow into higher tactical owner merely same inverse-time dimension. Numeric finite>=0 /s leaf could be shared only after exact policy/dependency reconciliation.",
+          "disposition": "distinct_role_and_admission_policy_wrong_direct_owner_for_general_flow"
+        }
+      ],
+      "retained_primitive_limits": "Source1-85 incidental definitions of other response controllers do not grant their constructor/usage scope; only ReferenceAcceleration/ResponseRate contracts and exact adapters142-155 accounted.",
+      "repair": "No source repair prescribed for these correct own-role wrappers. General raw acceleration may use neutral math unit; preserve narrower role owner admissions and actual changed-output operations.",
+      "acceptance": "No unit/frame/positive/zero/domain narrowing, no upper dependency, Serde admission delegates exact constructor and structured cause retained."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "sha256": "3e29916a9d570f6e0d12ffb54541ee018fb068902a4e5b6c0f744db9971d9ba9",
+      "material_ranges": [
+        [
+          89,
+          100
+        ]
+      ],
+      "definition_fit": [
+        {
+          "owner": "checked_nonnegative admission kernel",
+          "locations": "measurement89-100",
+          "meaning": "Generic rawf32 finiteness then negative predicate; returns rawunchanged primitive immediately consumed by quantity-specificSelf constructors, quantity enum preserved in AnimationValueError",
+          "comparison": "No one existing measure owner fits all passed units; this is actual shared numeric admission operation, not application retainedstate or a primitive forwarding substitute. +/-zero allowed here; ReferenceAcceleration own nextguard rejectszero, ResponseRate keepszero.",
+          "disposition": "warranted_primitive_inside_complete_numeric_admission_operation"
+        }
+      ],
+      "repair": "No independent leaf wrapper for this mixed-unit predicate; role constructors own units/admission.",
+      "acceptance": "Keep finite-before-negative error ordering, quantity-tagged causes and signedzero; unrelated helpers1-88 remain outside scope."
+    }
+  ],
+  "remaining_material_owner_obligations": [],
+  "producer_followup": "Pending parent-queued producer supplement after current owner pass; this packet supplies zero producer-lens or admission credit.",
+  "source_edits": 0,
+  "project_commands": 0,
+  "overall_clearance": "none"
+}

@@ -1,0 +1,48 @@
+{
+  "id": "RIG-INITIAL06-GROUP-181",
+  "at": "2026-10-23T05:42:49.385552+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-061.json",
+  "groups": {
+    "garden-root-support-owner": {
+      "comparison": "Fresh gardens/support96 consumes canonical CityGarden/SceneTerrain and binds every GardenPlantId to actual SupportElevation through same immutable soil surface used elsewhere. GardenSupportError retains exact CityPropertyId/SceneBuildingId/plant identity and missing ScenePlanPoint; not a second geometry error or arbitraryString. Root support is distinct route grade/enclosure clearance. Negative elevation\u221217.25 is valid in codec fixture, so bounded WGS/positive length substitution wrong. Shared elevation candidate F023 remains; original fixtures read only.",
+      "disposition": "Keep garden identity/context and shared support surface/elevation; no root relocation/reseeding."
+    },
+    "surgery-authority-fixtures-not-another-procedure-owner": {
+      "comparison": "Fresh authority_tests117 uses canonical BodyRegion/SurgeryProcedure, typed strategic clocks and actual inventory/treatment receipt APIs under explicit bootstrap token. Injury amount and blood fraction are fixture mutation, not a new accepted physiology wrapper. It checks exact replay/conflicting retry/interruption intended behavior as source only, no reducer executed or database reset. Receipt IDs and character IDs differ; same rawu64 usage supports existing shared durable ID candidate F040 without turning request IDs into character keys.",
+      "disposition": "Preserve canonical procedure/anatomy/time and fixture authority boundary."
+    },
+    "gpu-workspace-native-buffer-roles": {
+      "comparison": "Fresh device workspace90 borrows canonical ArmorGpu/CutPlan, carries native buffers/counts for face incidence, weld/hash sort, grid buckets, constraints and sweep worklist. These are actual GPU algorithm byte/count/dispatch ports, not durable item amounts or RigJointCount. Buffer packing sizes12/8/16/4 and max1 constraint allocation have ABI meaning. Reusing scratch in submission order is device lifecycle, not an independently accepted fit/mesh. Keep actual plan/design owners and native arithmetic; no private-helper blanket admission exemption or universal checked-capacity proof from Result.",
+      "disposition": "Keep device-local native workspace and canonical plan/armor owners."
+    },
+    "scene-environment-provenance-and-weather": {
+      "comparison": "Fresh environment86 shares canonical Latitude/LongitudeMicrodegrees, ElevationMeters, StrategicMinute and WeatherSnapshot in compact replicated presentation handoff. Absolute time versus lunar phase have different roles despite same leaf. Scene digest/version are scene provenance, not SourcePackageDigest or weapon design hash. Coverage rawBPs belong existing exact unit-BP propagation graph F019, while wind speedBPs are not automatically probability. Fixture constants use existing checked coordinate/elevation constructors and explicit temperate profile; no competing weather/terrain owner or accepted payload certificate from immutable ECS marker.",
+      "disposition": "Preserve canonical environment leaves, different provenance/clocks and explicit fixture profile."
+    },
+    "chainmail-export-existing-fixture": {
+      "comparison": "Fresh chainmail_export_test88 uses canonical recipe inventory/GarmentSelection/DrapedGarment/transfer_skin and actual glTF export codec. Cached body equality is fixture source association, no universal canonical accepted artifact. Arrays are actual mesh/morph/UV boundary, skin canonical indices remain. Ignored external-assets test code contains write/read calls but none executed; no generated report/artifact claimed. Preserve existing cloth composition F003, linear/native material boundary F005 and explicit stage/count meaning.",
+      "disposition": "No competing fixture mesh/schema owner; retain canonical cloth/rig/export APIs."
+    },
+    "plant-lod-observation": {
+      "comparison": "Fresh plant_lods113 uses canonical PlantLod/PlantSpecies and checked Position<Scene> to identify focus, then observes native per-camera VisibleEntities, distance and triangle count. Observation is diagnostic projection, not a second LOD decision or global visibility authority. Plant detail levels differ character MHR0..6 and arbitrary VistaLevelIndex; do not unify enums due name. Fixture tests isolate cameras as source only; absent mesh uses0 diagnostic triangles, not invalid item quantity.",
+      "disposition": "Keep canonical plant LOD/species and view-specific observation."
+    },
+    "cabinet-native-geometry": {
+      "comparison": "Fresh cabinets127 uses canonical FurnitureKind/Builder/BuildingLodMaterial/CollisionPolicy and derives chest/shelf/door member geometry with actual new dimensions. Cupboard leaves here are mesh appearance, not operable building DoorSpec or authoritative equipment storage capacity. Raw positions/size deltas, rotation and finish maps are numerical construction ports; retain changed dimensions versus old unchanged checked\u2192raw forwarding distinction. No economic inventory/room owner inside apparatus kernel.",
+      "disposition": "Keep furniture recipe owner and native geometry/material adapter."
+    },
+    "building-component-native-asset-cache": {
+      "comparison": "Fresh kit107 consumes canonical TimberComponent/TimberInstance and CompiledBuildingLevels. Cache key uses exact size f32bits/interior flag for generated geometry, not a new authored component identity; native Mesh handles/Mat4/UVs are rendering ports. BuildingDetailFacade/Static controls compiled batches and retains prepared program/local origin. WASM PreparedFacade is worker result with same canonical recipe inputs; no second program schema or genericCharacterLod reuse. Keep owning renderer cache and low timber types; source code does not establish cache acceptance merely by name.",
+      "disposition": "Preserve canonical component/program/detail meaning and real engine cache boundary."
+    }
+  },
+  "source_fact_refs": [
+    "contracts-005.json",
+    "contracts-083.json",
+    "contracts-097.json",
+    "contracts-176.json",
+    "contracts-177.json"
+  ],
+  "limits": "Eight current PR source bodies freshly read completely including original ignored/authority fixtures. No execution, writes to DB/assets/source, new tests/new scope or other-lens credit."
+}

@@ -1,0 +1,26 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-670",
+  "at": "2026-10-25T16:24:27.672741+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 964,
+  "source_id": "pr-working:crates/adventuresim-core/src/physiology.rs",
+  "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+  "actual_compared_ranges": [
+    [
+      1,
+      880
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Administration effect_at691\u2013719 enforces pinned profile/route/lifetime and bounded dose/phenotype policies, not derived projection. Secret-key phenotype/HMAC751\u2013787 explicit framing/computation must not become automatic Hash/Serialize; combined disease/intervention meters and terminal crossing native algorithms.",
+    "PresenceSpan structural+Serde already derives; canonical span chooses shared clock/capped capability. No new handwritten trait/codec661\u2013880."
+  ],
+  "first_unfinished": {
+    "scope_index": 964,
+    "line": 881
+  },
+  "execution": "none"
+}

@@ -1,0 +1,23 @@
+{
+  "id": "ROOT-ADM03-PARALLEL-120",
+  "at": "2026-10-22T20:56:28.332298+00:00",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/alcohol.rs",
+      "sha256": "c572b0014c6114020ee98d99a3cdfa1579b25a815ade34656bfeb8b6a421d1dc",
+      "actual_compared_ranges": [
+        [
+          38,
+          47
+        ]
+      ],
+      "source_evidence": "Fresh actual ten-line properties function after prospective REG021/022; no old565-605/fullmodule comparison implied."
+    }
+  ],
+  "groups": {
+    "six-field-projection": "properties borrows one Item and copies all six alcohol fields unchanged into Core AlcoholProperties. No arithmetic, division, scaling, narrowing, indexing, mutation, external side effects or retry clock. Field values retain raw schema constraints; merely reconstructing named record does not establish serving-volume/sign/basis-point/finite cross-field invariants. Actual source Item and Core value canonical ownership duplicate addressed by Rig06 F011; no new arithmetic failure inferred. Preserve negative net hydration if intentional, bool potency/distinct potable versus disinfectant flags, and real source/deserialization boundary policy. No reading of ethanol calculations or consumption state beyond exact adapter."
+  },
+  "status": "exact_new_material_admission_roles_manually_compared_with_findings_preserved",
+  "findings": [],
+  "limits": "Actual structural adapter has no validating constructor; earlier Core/Item admission gaps retained. New source role only, no other-lens or whole-file acceptance."
+}

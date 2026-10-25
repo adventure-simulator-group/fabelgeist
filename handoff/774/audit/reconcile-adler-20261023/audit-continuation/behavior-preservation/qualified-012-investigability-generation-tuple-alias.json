@@ -1,0 +1,95 @@
+{
+  "id": "CONT08-QUAL012",
+  "at": "2026-10-25T16:12:06.341659+00:00",
+  "aliases": [
+    "local774:F19",
+    "RIG-NATIVE20-ADM03-F002",
+    "RIG-INITIAL06-F050",
+    "CAM-OWNER-F011"
+  ],
+  "source_proofs": [
+    {
+      "scope_index": 1128,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/projections.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/investigation/projections.rs",
+      "before_sha256": "4277df1f4841a51dafe10f9ef950ca7dec6f434358cc8aa5a98f742766825102",
+      "after_sha256": "4277df1f4841a51dafe10f9ef950ca7dec6f434358cc8aa5a98f742766825102",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1128-base-4277df1f4841a51dafe10f9ef950ca7dec6f434358cc8aa5a98f742766825102",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/4277df1f4841a51dafe10f9ef950ca7dec6f434358cc8aa5a98f742766825102",
+      "diff": "source-evidence/pr-1128.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          1801
+        ]
+      ]
+    },
+    {
+      "scope_index": 1120,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/actions.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/investigation/actions.rs",
+      "before_sha256": "00ea04f41c3b01c494fc44e24a3bd5b3720d239de26a71f896d3841e2677fafd",
+      "after_sha256": "00ea04f41c3b01c494fc44e24a3bd5b3720d239de26a71f896d3841e2677fafd",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1120-base-00ea04f41c3b01c494fc44e24a3bd5b3720d239de26a71f896d3841e2677fafd",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/00ea04f41c3b01c494fc44e24a3bd5b3720d239de26a71f896d3841e2677fafd",
+      "diff": "source-evidence/pr-1120.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1575,
+          1577
+        ]
+      ]
+    },
+    {
+      "scope_index": 972,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/model.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/quest_generation/model.rs",
+      "before_sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+      "after_sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0972-base-73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+      "diff": "source-evidence/pr-0972.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_reconsumed_ranges": [
+        [
+          305,
+          320
+        ],
+        [
+          1144,
+          1177
+        ]
+      ]
+    },
+    {
+      "scope_index": 1021,
+      "source_id": "pr-working:crates/adventuresim-core/src/threat_escalation.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/threat_escalation.rs",
+      "before_sha256": "87ab25a438699ec031fa507447c9108ccd3830f95cb5c6281eb6be1d4695fc47",
+      "after_sha256": "87ab25a438699ec031fa507447c9108ccd3830f95cb5c6281eb6be1d4695fc47",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1021-base-87ab25a438699ec031fa507447c9108ccd3830f95cb5c6281eb6be1d4695fc47",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/87ab25a438699ec031fa507447c9108ccd3830f95cb5c6281eb6be1d4695fc47",
+      "diff": "source-evidence/pr-1021.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_reconsumed_ranges": [
+        [
+          257,
+          265
+        ]
+      ]
+    }
+  ],
+  "trace": "validated candidate returns(case_id,manifest_json,context_snapshot_json); unique dropscase_id preserving(manifest,context). generated_investigability destructures(_,manifest_json), parses actual GenerationContext as GeneratedCase, missingrequiredcatalog_revision/generation_seed/etc\u2192Err\u2192.ok()?None. Actual1120optionalbranch skips profile checkmodifier (neutral50,otherwise(ilog\u221250)*30times2 applied toterrain/awareness/stealth).",
+  "classification": "Retained pinnedPR source defect, not introduced774; root alias report doesnottransfermerged/headcoverage. No newuniquecount/runtime/actor/test claim.",
+  "repair_acceptance": "Carry existing ValidatedQuestGenerationAuthority through candidate/uniqueness/view/reducer/allactualreceivers with namedmanifest/context and sourcecause; preserve strictcanonical/publicambiguity andoriginalwire/source/clockpolicy. Actualnonneutralhostile modifier mustreach resolution whilemanual/nonhostile remainnone. No repair/implementation plan/test performed."
+}

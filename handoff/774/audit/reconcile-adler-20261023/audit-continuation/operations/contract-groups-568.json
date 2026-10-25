@@ -1,0 +1,50 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-568",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/strategic-web/src/spacetimedb/client/sats.rs",
+      "sha256": "dbb97caa3f3bb18aa862aacce19d0d76f82f7760e82a389f9347698d24031906",
+      "actual_EOF": 540,
+      "actual_compared_ranges": [
+        [
+          1,
+          540
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/spacetimedb/queries.rs",
+      "sha256": "d0c3d034f86164b2ffc1acbe66095411629ed45e670ddb95938feea0c5c3e97e",
+      "actual_EOF": 466,
+      "actual_compared_ranges": [
+        [
+          1,
+          466
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Strict SATS conversion preserves row cardinality, explicit sum tags and native byte/identity representation before generated-row deserialization.",
+      "evidence": "Full sats540 personallyread. ArrayU8requirescompleteevenASCIIhex, otherarraysrecursive; productexactaritygate beforeindexing, identityvalidhex normalizedleadingzeros whilequantityschemaultimatelydeserializesnativewidth; sumexacttag/payloadarray andknownvariantget. Generatedrowname/columnaritychecked beforeconstruction, collectResult rejectsentirerowsetonerrorwithoutpublishingpartialvector. Unitproducts emptyarray valid; namedproductsoneobject, tuplespositional preserveactualSATSshape. Allfixturesconsumed, no execution.",
+      "qualifications": "u64tag asusize native64 identity; 32bittargetwouldneedcheckedwidthbeforelookup topreventtruncationalias, actualstrategicwebservernotestablished32bit. No malformedtrustedmetadata/duplicatecolumnruntimeclaim. Nonsumprimitive passthrough isnotsemanticadmission byitself; actualgeneratedSerdeWrapper doeswidth/shape decodingafterward. No hand-editgeneratedbindings.",
+      "acceptance": "Malformedwirecannotbecomevalidempty/fakevariant; retainactualparsecause, exactfullwordidentity/bytewidth and generatedauthoritativeschema; nativearchprojectioncheckedwheredeploymentrequires."
+    },
+    {
+      "contract": "SQL query value encoding retains original string/numeric identity; only fixed authored table/key syntax is interpolated.",
+      "evidence": "Full queries466 readincludingfixtures. Stringliteral duplicatesquotes andwrapsonequotedvalue; numericu64formatlosesnowidth. Table/keyprefixmacrofixedliteral atcompiletime, actualcasepinownerfiltersseparatehelper. SqlQuerywrapperdoesnotitselfauthorizecaller orguaranteefreshness; targetedbackendpublic/privateviewsareselectedbyactualhelper.",
+      "qualifications": "No externalSQL/networkcall, parserdialectexploit orauthorizationproof claimedfromescapingalone. Existingfixturesreadnotrun. WrapperDeref/raw&strtreatment typeownership/propagation auditseparatefromactualoperationhere.",
+      "acceptance": "Preserveexactencodedvalue, fixedschemaidentifierport and sourceerrorcause; receivingauthorizedqueryownerretainsprivateview/currentobserverconstraints."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/strategic-web/src/strategic_map/markers.rs"
+}

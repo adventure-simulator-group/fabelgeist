@@ -1,0 +1,26 @@
+--- PRbase/crates/adventuresim-character-creator/src/studio_cache.rs
++++ frozen/crates/adventuresim-character-creator/src/studio_cache.rs
+@@ -158,9 +158,9 @@
+     use adventuresim_character_creator::equipment_layers::LayerPlan;
+     let placements = loadout
+         .fitted
+         .iter()
+-        .map(|piece| piece.piece.placement)
++        .map(|piece| piece.piece.selection.definition())
+         .collect::<Vec<_>>();
+     let plan = LayerPlan::new(&placements)?;
+     let mut keys = vec![Vec::new(); placements.len()];
+     for &index in plan.order() {
+@@ -171,10 +171,10 @@
+             .supports(index)
+             .map(|inner| finish_key(&keys[inner], &loadout.fitted[inner]))
+             .collect::<Result<Vec<_>>>()?;
+         let bytes = serde_json::to_vec(&(
+-            &piece.piece.item.id,
+-            &piece.piece.placement.id,
++            &piece.piece.selection.item().id,
++            &piece.piece.selection.id,
+             &piece.design,
+             supports,
+         ))?;
+         keys[index] = blake3::hash(&bytes).as_bytes().to_vec();

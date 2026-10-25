@@ -1,0 +1,73 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-084",
+  "at": "2026-10-22T18:48:16.798953+00:00",
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-admission03-014.json",
+    "sha256": "8924ca5780a3fb4e71000f8efb0ed5a8ed22942897c67dfbd6b0bb0ba5450c9d"
+  },
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-015.json",
+    "sha256": "eef57a9f3e0e818a658daabfb9b9aba8e059a9481bff3bfb23d191bb35c31213"
+  },
+  "new_variant": {
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/visuals.rs",
+    "snapshot": "pr-working",
+    "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-client\\src\\equipment\\visuals.rs",
+    "sha256": "e2fd1124f665b41f87b754099e2c67c04f4d30d6689c2a57afcc115710d3993a",
+    "bytes": 2417,
+    "actual_line_count": 75,
+    "scope_kind": "materially_reached_parallel_initial07_dependency",
+    "audit_owner": "camera",
+    "material_ranges": [
+      [
+        1,
+        50
+      ]
+    ],
+    "scope_limits": "OnlyactualPluginpipeline+orphanremoval1\u201350; existingtests51\u201375 excluded. SourcealreadyfixedPR6533, no sourcechanges. Firstprematuredisplayuncredited, actualfreshboundedreread afterregistration. Everylensneedsownexactrolecomparison; no14priorverdictcarry.",
+    "parallel_reached_registration": {
+      "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+      "sha256": "63b443ce4e9b3873b45f5ca97518fc6965a323b2b52eede501655d1a861b2308",
+      "row_1based": 1,
+      "id": "CAMERA-INITIAL07-REG001",
+      "original_record": {
+        "id": "CAMERA-INITIAL07-REG001",
+        "at": "2026-10-22T18:42:51.182168+00:00",
+        "authority": "continuation/root/parallel-initial-audits-081.json",
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/visuals.rs",
+        "snapshot": "pr-working",
+        "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-client\\src\\equipment\\visuals.rs",
+        "sha256": "e2fd1124f665b41f87b754099e2c67c04f4d30d6689c2a57afcc115710d3993a",
+        "actual_EOF": 75,
+        "material_ranges": [
+          [
+            1,
+            50
+          ]
+        ],
+        "excluded_context": [
+          [
+            51,
+            75
+          ]
+        ],
+        "direct_role": "EquipmentVisualPlugin system ordering and remove_orphan_equipment actual removal receiver for ItemPlaceholder render-cache invalidation",
+        "chronology_qualification": "A first display of all75 lines occurred before noticing PR counterpart absent from014 (P16 sibling was already scoped). That premature read receives no audit credit. This row registers exact1-50 before fresh role analysis/reread; no retroactive prospective claim or test coverage.",
+        "status": "registered_for_current07_fresh_bounded_read_pending_global_reconciliation"
+      }
+    },
+    "known_current_source_evidence": [
+      {
+        "record": "continuation/root/admission03/new-visual-pipeline-role-083.json",
+        "sha256": "e8e4baacdf4019e8d32c747344ee327a32375298bd9a0762a4df675fdae89ca2"
+      }
+    ],
+    "producer_inventory_accounting": "bounded_01_02_newmaterial_comparison_pending",
+    "admission_discovery": "exact_new_role_compared_RootG083"
+  },
+  "total_variants": 2749,
+  "mandatory_overlays": 197,
+  "limits": "Metadataonlynewsourceaddition, preserveall014full/boundedroles+197overlays. G083specificmanual03/04comparison isseparatesemanticproof, doesnotawardothers. Sourcefreezeunchanged, futuregenuinefrontiermustbeprospective.",
+  "source_edits": 0,
+  "project_execution": 0
+}

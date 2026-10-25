@@ -1,0 +1,46 @@
+{
+  "id": "RIG-INITIAL06-PENDING-050",
+  "at": "2026-10-22T21:19:17.557500+00:00",
+  "supersedes": "PhysicalObject963 pending049 now closed050; preparation1109 remains partial168-254",
+  "supporting_sources": [
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "ranges": [
+        [
+          1,
+          155
+        ],
+        [
+          340,
+          444
+        ]
+      ],
+      "remaining": "Other full1451 source roles"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/fireplace_custody.rs",
+      "ranges": [
+        [
+          329,
+          472
+        ],
+        [
+          490,
+          562
+        ]
+      ],
+      "remaining": "Other full656 roles; called organization/current-camp helper bodies not cleared by these calls"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/repair.rs",
+      "ranges": [
+        [
+          192,
+          235
+        ]
+      ],
+      "remaining": "Other full724 roles; fragment is not whole-function success proof"
+    }
+  ],
+  "limits": "Supporting partial sources are not counted complete."
+}

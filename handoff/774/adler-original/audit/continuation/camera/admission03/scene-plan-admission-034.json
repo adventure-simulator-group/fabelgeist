@@ -1,0 +1,19 @@
+{
+  "id": "CAMERA-ADM03-034",
+  "at": "2026-10-22T06:43:27.515886+00:00",
+  "lens": "audit-admission-contracts",
+  "members": [
+    277
+  ],
+  "invariant": "ScenePlanPoint finite signed scene east/north metres; PlanDisplacement finite translation. Zero and negative legitimate; no geographic/architectural conversion implied.",
+  "all_admission_routes": [
+    "Fresh full P16scene_coordinates122: private Vec2. ORIGIN0; from_metres31-37 finiteX/Y; TryFrom51-64 delegates checked constructor with X/Z diagnostic. offset_from_origin subset; translated44-49 readmits sum through TryFrom. ManualDeserialize93-98 checked finite constructor after nativeVec2decode. Serialize output only; no Default/rawuncheckedFrom. Ordinary opaqueReflect20-23 has no rawfieldsetter; Rig actual witness001 cloning complete Self cannot validate an already invalid Self.",
+    "PlanDisplacement ZERO/from_metres70-78 checks Vec2finite, TryFrom79-92 delegates with diagnostic. No Deserialize/Default/Reflect. PlanVertex output only. From<Position<Scene>>100-105 projects x/z directly: valid finite canonical input preserves policy, but inherits Root G007 latent pub(super) fabricated-invalid-Self gap; no actual bad caller claimed. Narrow child tuple-constructor navigation found no additional ScenePlanPoint/PlanDisplacement tuple literal, not full child-source coverage.",
+    "Existing111-118 tests read only: NaNrejection, signedSerde roundtrip, nullfailure. spatial_tests declaration does not credit external fixture. Reexported polygon/spatial/window/velocity remain separate sources."
+  ],
+  "counterexample_or_intentional": "Negative/zero finite positions accepted; nonfinite raw constructors/TryFrom/manualSerde reject. Direct canonical projection relies lower owner encapsulation; fix RootG007 coherently, not duplicate scene owner/readmission unwrap.",
+  "connected_repair": "Preserve finite source/results, explicit3D-to-plan projection and diagnostics. Canonical private genericPosition backing plus typed componentwise operations establishes trust for projection. No SupportElevation policy inferred from this point proof.",
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "later_lens_credit": false
+}

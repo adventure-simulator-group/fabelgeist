@@ -1,0 +1,13 @@
+--- 6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/main.rs
++++ 13fc9dcc71ab879de364117e5462310673e43210:crates/adventuresim-character-creator/src/main.rs
+@@ -200,9 +200,9 @@
+         let defaults = catalog
+             .items
+             .iter()
+             .filter_map(|item| {
+-                let design = catalog.design(item)?;
++                let design = catalog.design(catalog.item(&item.id)?)?;
+                 Some((item.id.clone(), design.recipe()?.clone()))
+             })
+             .collect();
+         let designs = adventuresim_character_creator::armor_design_input::ArmorDesigns {

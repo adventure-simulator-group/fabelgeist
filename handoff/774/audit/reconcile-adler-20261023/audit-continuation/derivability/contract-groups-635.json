@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-635",
+  "at": "2026-10-25T16:19:22.067262+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 953,
+  "source_id": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+  "sha256": "42c0284a19db9d6e763cb9be7bb0c2472dea34f759b13794f37883c42e838474",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Native incident arithmetic and Scope::route canonical ordering are semantic helpers, no handwritten trait/codec in1\u2013220. ProblemId, Scope, Cause, Symptom, Effects, LocalProblem and generation records already derive structural/Serde traits; Symptom stable_variant_id is intentionally distinct canonical native name from snake_case serde."
+  ],
+  "first_unfinished": {
+    "scope_index": 953,
+    "line": 221
+  },
+  "execution": "none"
+}

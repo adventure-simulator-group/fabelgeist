@@ -1,0 +1,158 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-523",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/furniture.rs",
+      "sha256": "f3ec5409fb24d23dcf6c786fe44145ef7a58ece8c335ab6eefaa665eb6b48a7b",
+      "actual_EOF": 60,
+      "actual_compared_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/lib.rs",
+      "sha256": "064901692ab50417dd140de61f50e78b074753457b6084cbc770b833a92369b4",
+      "actual_EOF": 51,
+      "actual_compared_ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/mod.rs",
+      "sha256": "294366e9eac449d161658a404c461baaf901a04a89e96ea87909a819e322e88a",
+      "actual_EOF": 362,
+      "actual_compared_ranges": [
+        [
+          1,
+          362
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/systems.rs",
+      "sha256": "cc4bc873f502d3a08fc30a6f3d40d1d0752a81dfdee70651fb2c04737b64d6b8",
+      "actual_EOF": 320,
+      "actual_compared_ranges": [
+        [
+          1,
+          320
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/terminal.rs",
+      "sha256": "a381bfd75836c7f9f37ad73df102d94cfb8e8b2afb79592549e12b3ddbde1347",
+      "actual_EOF": 303,
+      "actual_compared_ranges": [
+        [
+          1,
+          303
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/openings.rs",
+      "sha256": "e2b631050589329c5b243b414c9ad77d1d394827829ee277f288072d2c460314",
+      "actual_EOF": 99,
+      "actual_compared_ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/scene_obstacles.rs",
+      "sha256": "8d76b7aadada8bae53e9f27cbbb6eca7e0beffb9b25519a98b10edc521476042",
+      "actual_EOF": 89,
+      "actual_compared_ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/scene_setup.rs",
+      "sha256": "509b65bb9f1ea69a74c597bd8571a0868c3503a9f6d4d9fd741d75488adf71a3",
+      "actual_EOF": 63,
+      "actual_compared_ranges": [
+        [
+          1,
+          63
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/startup.rs",
+      "sha256": "a2f5959d603a1f54ed2b719eb96e15c4101b6834d30aae545d19e8c4c3e46983",
+      "actual_EOF": 120,
+      "actual_compared_ranges": [
+        [
+          1,
+          120
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/stdb.rs",
+      "sha256": "ab24f2abcf0306df9967ba4f53671ead170142f7fd1a0697bf116389584da5b8",
+      "actual_EOF": 191,
+      "actual_compared_ranges": [
+        [
+          1,
+          191
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/terrain_collision.rs",
+      "sha256": "faee49ad384b0820c1a89f3956a9a356ba1df53ce2f8bcc29047e8c99c2c3ce5",
+      "actual_EOF": 75,
+      "actual_compared_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Frozen terminal payload, explicit retry clock and strategic acknowledgement",
+      "evidence": "Fullmissionmod362/systems320/terminal303/stdb191. Requiredloaded/enrolledparty+enemycounts gatecontinuous3sholds; saturatingDurationadd/sub intentionallypreventnativeoverflow andterminaltimerhasexplicitfinishedstate. Simultaneousdefeatfails. Frozenresolution+receiptinseparableinSubmitting/RetryScheduled; enqueuefailure/rejectionexplicitbackoff, retryconsumesclockonlyafterreturningonefrozenpayload. Ackdeadlinefailsclosedandnopresentation/retryafterambiguousstall; acceptedcallbackalonepresentsonce. StandaloneNoneDBmode explicitlocalauthority, notnetworkfallbackforconnectedfailure. SDKcallbacks mailboxonly thenBevydrain; exactDBreducer/idempotentreceiptproof remainsdifferentrole, no transfer. Countingquerylenasu32 relies actualentitycapacity/roster; no smallordinaryoverflowwitness."
+    },
+    {
+      "contract": "Scene composition can stage commands before later failure",
+      "evidence": "Fullopenings99/scenesetup63/obstacles89/terraincollision75/furniture60. Obstacles allcomputedfinitepositions+requiredheights admitted beforeanyspawn. Terraincolliders allbuiltbeforechildcommands; preparedpatch removedafteruse, recipe retainedfordumpreconstruction. Furniturecolliderfalliblebeforeinsert tuple butinputspawnalreadyexists; openings spawn doors then windows thenbuilding collider, so laterErrcouldleaveearlierdoorcommands. No concreteordinaryvalidprogramfailure/currentpartialinstalledrecipient established, preserve API atomicityquestion ratherthanassertingallcommandsrollback. Generatedbuildingtransformeach checked beforethatspawn; rootM16layout/programauthority separate."
+    },
+    {
+      "contract": "Startup snapshots and feature-only reflection targets",
+      "evidence": "Fullstartup120/lib51. Scene loadedvalidated andconfigsize1..64KiB thenYAML+validate before runtimeinstall/appresourcecreation. Metadata-size/readrace neighboringboundaryquestion notoperationcounterexample. install/digest expect claim dependsactualsnapshotowner, no freshproof of allfeaturecallers; libraryfeaturemodule stand-inArgs values neverexecutedbyreflectionlinkerpurpose, no artificialordinaryspawnfromdefault0. Defaults andmodifiedYAMLsourceassertionsreadonly. Localtacticaltickstate remainsBevy, onlyterminalreceipt strategicboundary."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "11 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-server/src/windows.rs"
+}

@@ -1,0 +1,81 @@
+{
+  "packet_number": 146,
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/water_source.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          500
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh literal fullPR500 includingoriginalfixtures, actual full emptyP16counterpartdiff; independent04 conservation/proportional arithmetic, failedmutation/order, rightsdigest andplan/timeboundaries."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/water_source.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          500
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Exactfull P16scope comparativeproof fromfresh completePRliteral+actual full emptydiff andindependent same04 contracts, no hash-only/other-lens transfer."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/coif_drape.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          12
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh literal exact newlyregistered065canonicallayoutprefix; independent04 fixedcompiletime count/word arithmetic andnativeport meaning. No13+profile/helper/test or whole72 sourcecredit, no Root03/Camera07 verdicttransfer."
+    }
+  ],
+  "groups": {
+    "water-model-versus-authority": "OutbreakWaterFlow isexplicit deterministic simulator/proofstate, notDBtransactionauthority. Publicprojection omitscontaminantload/digests, receipts bindrequest+amount+load andcapturehistoricalholding. Identicalreplay returnsoldreceipt beforeclosedgate intentionallyidempotent. Syntheticconsumptionactor/place/time/id are model constants, not evidenceproductioneventIDs collide. Repeatedconsume mayretain digestandemitzerodosemodel envelope; no actualruntimebus/persistence or one-shotguarantee inferred. Privatecontaminantfacts remain distinct frompublicwaterpresence/volume.",
+    "failure-and-capacity": "F058 exacttwo-draw failure commitsvolume before checkedloadadditionfails, no receipt; stillownedlive modelobject changes. Transferall/cook/consume also use rawnative additions andcouldoverflow ifaggregatecapacity unadmitted; explicitactualcapacitybounds needed, no arbitrarynormaldatabasecounterexample inferred. Amount0 rejectedbyconserved_collection, so zero-volumeload injection is NOT an accepted draw case. Allnumeric candidate changes/capacities shouldbe computed before committingboundaggregate+receipt.",
+    "proportion": "F059 validfraction2/2 withfoodMLMAX multipliesu64 beforedivision despiteexactfinalMAX representability. In uncheckedoverflow builds wrongchildportion; parent/child subtraction maystillpreservetotal, so this is exactproportion/arithmeticfailure rather thanclaim necessarilydestroyedtotal. cookload*ratio hassameintermediate issue andno explicitzerodenominator gate; correctratio policy mustcome fromactualcaller, not assumeallcookratios are probability. Preserve roundingremainders withsource and genuinelysupportedunits/ranges, no avoidant arbitrarycap.",
+    "real-shared-kernels": "conserved_collection checkspositiveamount<=source and checkedcontaineraddition before return; subtractionsafe, nevermutates. proportional_material_transfer checksnonzero publictotal/moved<=total, widensbothu64 factors tou128 BEFOREmultiply/divide; quotients<=originalcontribution/load justify narrowing. Fulltransfer returnsallremainders deliberately. Zero contribution withnonzeroload wouldselectfull-load fastpath (amount==contribution); actualadmittedprivatecontribution coherence andcallerbounds remain owningrecordobligation, no normalbadcarrier demonstrated. Microliters volume versusrawMLfields notlossless .into equivalence; unitconversion/nativecapacity mustbe explicitandchecked.",
+    "rights-and-plans": "Realrightshelpers bindcanonical actor/fixture/object/place andoperation, canonicalversioned framed digest\u2014notDebug strings. Source-open decision isone policyfact, notwholecustody/location/capacityauthorization. Planbuilder overwritescoordinates andsevenrequirements fromauthority, advancesactor time andonlyappliesmaterialeffect whencompletionpermitted. Public independentbooleans plusrawamount do notthemselvesprove allflags/target/lot/amountboundtogether; coherentauthority/receipt/publicpreview mustpropagate fromactualloader/commit. Genericrights/actionowner internals andDBreceiver notwholecleared bytypednames.",
+    "coif-layout": "Canonical5sectioncount and7+2*3*5=37words fitcompiletimeusize, no overflow/newtypedwrapperneeded forliteralalone. Count+offset/nativeextent mustsharecoherentlayoutowner rather thanrepeatfixed37pack/validation inreceivers. Actual4bytesperword isrealnativeencodingboundary, headerextent/FIT_PROFILE_WORD/capacity proof separate. Currentcountsagree; CameraF052maintenancecouplingnotcurrentOOB. No13+profilebody or GPUexecution.",
+    "limits": "Originalsourcefixtures read only, notnewtests/execution; sampleconservation/digest vectors notgeneraltransactionproof. Mandatory220/200/208/210/priorquals retained. No sourceedits/projectcommands/otherlensverdicttransfer. Initialaudits thenhandover163."
+  },
+  "findings": [
+    {
+      "id": "ROOT-INITIAL04-F058",
+      "kind": "outbreak_water_proof_model_draw_mutates_volume_before_rejecting_contaminant_capacity",
+      "source_id": "pr-working:crates/adventuresim-core/src/water_source.rs",
+      "locations": [
+        [
+          71,
+          99
+        ]
+      ],
+      "case": "Coherent publicmodelnew(2),draw(a,1,u64MAX) succeedswithsource1/holding1/loadMAX. draw(b,1,1) firstassignssource0/holding2 thencheckedloadadditionreturnsInsufficientWater; loadstaysMAX andreceiptbabsent. ExactnativeAPI sourcewitness, noexecution/currentnormalDBfailureclaim. Explicitproof-model/simulatorpurpose retained.",
+      "operation": "Falliblemultifieldconservation operation commits partofproposedstate before anothernativequantitycapacitycheck, soErr isnotanatomicrejection.",
+      "connected_repair": "Owncoherentwater+privateload+receipt operation withactualvolume/load/nativecapacitytypes; compute/validateeveryproposedfield before committingandcapturingreceipt. Reusecorrectcheckedconservationhelpers andstructuredcapacitycause, preserveidempotentreplayandrealunitboundaries. Do notsilentlywrap/saturatevolumes or treatthissimulatorasDBauthority.",
+      "acceptance": "Faileddrawleavesallmodelquantities/receipts unchanged; successfuldrawconservesactualwater/privatepayload andmatchingreceipt. Existingtestsonly, no speculativeproductionclaim.",
+      "deduplication": "Root001-057 no exactwaterdraw partialcommit. Native05 explicitly noexactmodeldraw/split findingthroughF057; replydoesnotgive05sourcecoverage."
+    },
+    {
+      "id": "ROOT-INITIAL04-F059",
+      "kind": "water_proof_model_fraction_multiplies_in_u64_before_representable_division",
+      "source_id": "pr-working:crates/adventuresim-core/src/water_source.rs",
+      "locations": [
+        [
+          108,
+          135
+        ]
+      ],
+      "case": "Coherentmodelnew(u64MAX),draw(a,u64MAX,0),cook_all(1,1) yieldsfoodMLMAX. split_food(2,2) admitsfractionbutfoodML*2 overflowsu64 before/2 thoughdesiredwholeportionMAXfits. Checkedoverflowpanics; uncheckedwrapproduceswrongportion whileparent+childtotalcanstillconserve. Source-onlyAPI/proof-modelwitness, noexecuted/currentDBgameplayfailureclaim.",
+      "operation": "Validboundedfraction doesnotguaranteenativeproductfits beforedivision; cookloadscalinghassamepattern andrawdenominatorneedsadmission.",
+      "connected_repair": "Useadmittedratio andcanonicalquantityoperationwithwidened/checkedintermediates beforefinalnativecapacityadmission, preservingexactfraction/roundingremainder/fulltransferpolicy. Reuseexistingcorrectproportionalhelper discipline withoutblindML/Microliterconversionor narrowing currentlysupportedinputs justto avoidarithmetic. Keepcookratio policyseparatewhereactualcallerpermitsit.",
+      "acceptance": "Everyvalidsplitfraction eitherproducesmathematicallycorrectrepresentableportion orstructuredcapacityrejectionbeforestatechange; a wholefraction2/2 cannotbecomepartialthroughintermediatewrap. Zerodenominator rejectsatrealboundary. Existingtestsonly.",
+      "deduplication": "Root017/022prematurescalingdifferentaggregates; actualwaterhelperalreadyu128correct. Native05noexactwatermodelproportionfindingthroughF057; separatefromF058failedmultifieldcommit."
+    }
+  ]
+}

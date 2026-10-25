@@ -1,0 +1,116 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-180",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/foraging.rs",
+      "sha256": "c58f33b486ca2344cd5e4a141065bf3f39de22d6dc739e48a217ae969173d604",
+      "actual_EOF": 1381,
+      "actual_compared_ranges": [
+        [
+          1,
+          1381
+        ]
+      ],
+      "method": "Whole P16 literal body including tests read; complete PR textual diff consumed and Result/StrategicEquipment fallibility delta personally analyzed. Exact timing helper complete comparison empty, not hash-only."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/foraging/timing.rs",
+      "sha256": "30193f2454edfb59bb1c74ca3f63056accf4a4540bc7fd16260bdfc8ed5b7cbc",
+      "actual_EOF": 43,
+      "actual_compared_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "method": "Whole P16 literal body including tests read; complete PR textual diff consumed and Result/StrategicEquipment fallibility delta personally analyzed. Exact timing helper complete comparison empty, not hash-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/foraging.rs",
+      "sha256": "be82a5ef7905b05d68bba4d61d5173cba6011c51ee8504da85d697bb2d80df84",
+      "actual_EOF": 1381,
+      "actual_compared_ranges": [
+        [
+          1,
+          1381
+        ]
+      ],
+      "method": "Whole P16 literal body including tests read; complete PR textual diff consumed and Result/StrategicEquipment fallibility delta personally analyzed. Exact timing helper complete comparison empty, not hash-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/foraging/timing.rs",
+      "sha256": "30193f2454edfb59bb1c74ca3f63056accf4a4540bc7fd16260bdfc8ed5b7cbc",
+      "actual_EOF": 43,
+      "actual_compared_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "method": "Whole P16 literal body including tests read; complete PR textual diff consumed and Result/StrategicEquipment fallibility delta personally analyzed. Exact timing helper complete comparison empty, not hash-only."
+    }
+  ],
+  "dependency_reads": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/foraging.rs",
+      "sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+      "ranges": [
+        [
+          284,
+          343
+        ],
+        [
+          502,
+          518
+        ]
+      ],
+      "coverage": "Fresh critical supplier bodies; no new whole role credit"
+    }
+  ],
+  "groups": [
+    {
+      "id": "Forage attestation, location and bounded check arithmetic",
+      "locations": "foraging165-209,249-516; fresh Core foraging284-343,502-518",
+      "trace": "Canonical sources sorted, duplicate and unknown IDs rejected; source authorization separate from source membership. Exact settlement/camp coordinates checkedWGS, abstract case-site retains actual latticei32 coordinates and exact observer/party authority; no blanketWGSrefinement. Attestation gatewaypackage/schema3 and canonical context/coordinate equality before LocalTerrainMixture normalizedcheck. Fresh actual is_normalized gates eachu16<=1000 before sum<=4000, then exacttotal1000, preventingrawu16 overflow. Terrain weighted skill checks get bounded normalizedweights, final checksclamp0..5 then round to0..5000u16. Request duration actual60..1440 wholehours bounds temporal/training calculations; u16yield widened tou32 safely.",
+      "disposition": "No new arithmetic/narrowing defect at actual admissible terrain/duration. Existing whole skill/equipment and coordinate owner findings retained. Abstract case-site accepts broad coordinates intentionally, unlikeWGSsettlement/camp.",
+      "dependencies": [
+        "Core skill/equipment admitted check graph",
+        "Canonical strategicplace/case-site authority",
+        "CAM-PROP-F006/local774:F05/M30 P16 typed-result integration"
+      ],
+      "acceptance": "Accepted attestation has exact currentcanonical location and normalized terrain; keep primitive projection only at SDK/hash boundary. Preserve full abstract lattice andWGSroles distinctly."
+    },
+    {
+      "id": "Attempt plan, exact replay and finite time",
+      "locations": "foraging518-1021; timing1-43",
+      "trace": "Authentication then request format/duration/sourcechecks precede receiptlookup. Replay compares all immutable submitted tuple/environmentvalues before readiness/live authority; newgeneration checked+1 before wait. Clock accessor requiresactualrow, initialized earlier under explicit newclockworkflow, not missing->ZERO. Injury preview uses nohealing consistentinvestigation path; disease safe prefix and terminalexactendpoint bool preserved. Terminal minute uses checkedadd and rejects clockoverflow. Core resolve_time and plan decide completion; partial terminal gets exposureonly/no yields, zerotime resolvesnothing. Rehydrate/replan/validate_commit before wait, verify elapsed/completed/effectyield after wait. Post search compares exactplace/environment/checks before material/consequence publication. Post-check changes due to physiology canreject; ordinary whether suchrejection is intended needs fullnative time/capability policy, no committed partial or alwaysrollback bug asserted. Authoritydigest maps terminalNone toMAX samebytes asSomeMAX; actualplan/effectauthority needs comparison before asserting relevant collision.",
+      "disposition": "No new exactreplay/clockwrap defect found. End-to-end mutation failure still SDKtransaction/catchdependency. Existing trainingfinitekernel/localM51 not re-counted.",
+      "dependencies": [
+        "Core strategic_action resolve_time/validate_commit and forageplan",
+        "Native time advancement/SDKtransaction/clinical change policy",
+        "local774:M51 training gain",
+        "Canonical Option terminal authority graph"
+      ],
+      "acceptance": "Exact oldretry remains inert; freshgeneration unique, bounded validatedduration settles actualsafe prefix with no falsecompletionyields. Rejection must preserve logical state/retryclock unless explicit terminalattemptpolicy commits prefix."
+    },
+    {
+      "id": "Yield identity, receipts and side effects",
+      "locations": "foraging1022-1161,1164-1381",
+      "trace": "Each Coreyield admitted helper createsrows; everyrow musthave stableobject and lotrevision1/sourceingredientexactone before perrow harvestprovenance. Outputinventory/object/lot/revisionarrays appendedtogether fromsamevalidatedrow, yieldeditem/quantitylists appendedsameiteration. Existing actual add_foraged helpercomplete role still separatedependency; no whole arbitrarynativearray guarantee. Infamy actualconstant1.0*100 safelyfitsi32; no arbitrary computed reputation overflow. Final receipt andnextgeneration then capability/conditionrefreshfallible; transactioncatchesremainneeded for partialstate allegation. Privateview omits exactenv/entropy/materialIDs; observerprivacy separatefromnumeric admission. Complete source fixtures read only and not executed.",
+      "disposition": "No new current numeric/resource identity failure established. Retain existing rawreceipt association and nativegeneratedbinding migration graphs. Full source coverage does not equal validatedruntime.",
+      "dependencies": [
+        "Item checkedforagedsingletonconstruction",
+        "Foodlot identity/material sourceconservation",
+        "Worldevent/reputation and capabilityrecipients",
+        "Generated backend receipt bindings/UIdecode"
+      ],
+      "acceptance": "Successful harvest preserves each concrete unit provenance and matching outputs once; actual penalty uses canonicaleventamount. Never persista tacticaltickstate or exposeprivateentropy."
+    }
+  ],
+  "findings": [],
+  "status": "Four source roles personally compared; whole lens/overlays/connecteddependencies incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/herbalism.rs"
+}

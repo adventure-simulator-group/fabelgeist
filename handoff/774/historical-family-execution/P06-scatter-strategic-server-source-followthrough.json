@@ -1,0 +1,88 @@
+{
+  "recorded_at": "2026-10-20T19:58:27.546276+00:00",
+  "head": "82cb2a3acccc852bba6a7ef9c706c337ba9fe765",
+  "status": "P06 implementation progress; uncommitted, incomplete and unvalidated. No family acceptance.",
+  "previous_goal_turn": "Progress: source changes and preservation evidence for connected animation/render support. Continued from its first unfinished producer chain.",
+  "exact_source_checks": {
+    "plant_grid_jitter_equation": {
+      "identical_source": true,
+      "before_sha256": "c49a00df6b67290e6cfff1450c643118f0f08fe55bfd011104931dc4f7b07660",
+      "after_sha256": "c49a00df6b67290e6cfff1450c643118f0f08fe55bfd011104931dc4f7b07660"
+    },
+    "tuft_lattice_jitter_equation": {
+      "identical_source": true,
+      "before_sha256": "b77c8f8031529b5ea41f911d37d1f866d3c338b92f0d7c5408d50e62b6369ac2",
+      "after_sha256": "b77c8f8031529b5ea41f911d37d1f866d3c338b92f0d7c5408d50e62b6369ac2"
+    },
+    "native_cover_uv_and_pixel_lookup": {
+      "identical_source": true,
+      "before_sha256": "78c26a2ca731845b718b5f1df3b280d5efbbee8f8e13b6f372be349aa8b55b8d",
+      "after_sha256": "78c26a2ca731845b718b5f1df3b280d5efbbee8f8e13b6f372be349aa8b55b8d"
+    },
+    "native_cached_voronoi_body": {
+      "identical_source": true,
+      "before_sha256": "55072582bf1d4c24595109cec0718a94caf109631c0d9d2883b29167d3086572",
+      "after_sha256": "55072582bf1d4c24595109cec0718a94caf109631c0d9d2883b29167d3086572"
+    },
+    "connected_player_stats_scaling": {
+      "identical_source": true,
+      "before_sha256": "30b23dfb97896115ae977beae768d6859437960ae4b48d92ce1456664508eea5",
+      "after_sha256": "30b23dfb97896115ae977beae768d6859437960ae4b48d92ce1456664508eea5"
+    },
+    "obstacle_grid_to_scene_equations": {
+      "identical_source": true,
+      "before_sha256": "de2f2dfeb84cac172b0a3736c0c0f19fe6c87057a02c99538388c78ba3b6e0c6",
+      "after_sha256": "de2f2dfeb84cac172b0a3736c0c0f19fe6c87057a02c99538388c78ba3b6e0c6"
+    },
+    "obstacle_seed_yaw_equation": {
+      "identical_source": true,
+      "before_sha256": "601fbd4825074def015597dc06a34016504de58d75b5af05d15225db97a79779",
+      "after_sha256": "601fbd4825074def015597dc06a34016504de58d75b5af05d15225db97a79779"
+    },
+    "spawn_rng_contract": {
+      "stream_label_preserved": true,
+      "context_and_root_word_preserved": true,
+      "axis_draws": [
+        "-5.0, 5.0",
+        "-5.0, 5.0"
+      ],
+      "new_axis_draws": [
+        "-5.0, 5.0",
+        "-5.0, 5.0"
+      ],
+      "collider_offset_formula_preserved": true,
+      "draw_order_and_parameters_identical": true
+    }
+  },
+  "implemented_uncommitted": [
+    "Vista scenery and environment queries take ScenePlanPoint; tree roots retain SupportElevation through complete native interpolation and actual Transform construction. Owned support uses its existing SurfaceHit directly.",
+    "ShrubPlacement retains one checked point from grid/jitter birth through understory sampling and instance production. Litter keeps its checked grid origin and admits the completed jittered point before cover/support queries. Pebble support retains checked point/elevation/normal until native scree/rotation/Transform math.",
+    "TuftPlacement coverage, height and community APIs retain ScenePlanPoint; height returns SupportElevation. The common lattice admits each completed tuft footprint once before all three queries. CoverageMask and GrassCommunityField project only inside their actual UV/grid/Voronoi calculations.",
+    "PlantSite.root, PlantCaptureAnchor.root, capture-state plant_focus, botanical camera input and LOD observation input use Position<Scene>. Native seed priority/x/z bit ordering is unchanged. Projection occurs at Transform construction or actual camera/distance/diagnostic arithmetic.",
+    "Strategic preparation uses owned errors plus shared retained error handles. Native PreparedStrategicScene generation reuses the existing generation PreparationResult, matching worker activation. SceneInput, Generation, Geometry, Backdrop, canonical TerrainSupportError and opaque BevyError payloads survive until the serialized status boundary. No new String catch-all or message branching.",
+    "Street front, Venue anchors/approaches and retained strategic actor anchors use Position<Scene>. Required backdrop observations replace zero/previous-anchor support fallbacks. Building relocation and selection use named records; existing architectural staging remains outside P06.",
+    "Server terrain selection waits before taking connected rows; multiple authoritative terrains reject. Missing loading recipients retain the existing warning/omission before geometry. Enemy fixture selection and every applicable placement are admitted before any row is projected. Positions remain Position<Scene> to actual Transform insertion.",
+    "The complete obstacle batch is admitted before any obstacle command. Native serialized grid ordinal arithmetic, collision offsets and seed yaw are preserved. on_server_started propagates SceneSpawnError through its existing Bevy Result. No generated bindings or schema changed."
+  ],
+  "intentional_contract_changes": [
+    "Missing required support rejects rather than fabricating zero, the terrain minimum or a prior unrelated venue height.",
+    "Ambiguous authoritative terrain is a typed fatal admission error; absent terrain leaves the connected-player queue intact.",
+    "Invalid complete spawn geometry or a missing required enemy-fixture entry rejects before batch publication."
+  ],
+  "native_boundaries_and_exclusions": [
+    "Core complete vista interpolation/stitch functions remain mathematical ports; application wrappers admit only the completed elevation. Their raw floats are not retained application support.",
+    "GrassInflorescence.root is tuft-local mesh scratch consumed by append_attached_quad; it is not a retained scene root. The local native frame is now documented.",
+    "scree_patch_coverage retains its existing native normal math without extra normalization; ScenePlanPoint projects to dot/noise coordinates in the owning kernel.",
+    "The placement.into() in SelectedBuildings promotes one already-typed placement record to another, retaining the canonical coordinate/elevation owners; it does not erase/re-admit a primitive.",
+    "Architectural conversation staging/floors belong to the separate city owners and are not modified. Native staged Transform positions are admitted at their actual strategic actor measurement boundary.",
+    "Locked Bevy 0.19.1 BevyError deliberately lacks the standard Error trait. PreparationError retains it as an opaque named variant with manual From; no false transparent/source derive or string flattening is used. Its framework payload, downcast support, severity and backtrace remain intact."
+  ],
+  "verification_limits": [
+    "Static source equality, hashes, test-name multisets and assertion occurrences are not compilation, runtime equivalence or test execution.",
+    "No local Cargo/build/check/test/fmt/Clippy/scanner/parser/generator/numerical probe ran. No new unit cases, assertions or fixture helpers.",
+    "No direct new negative spawn/admission tests are authorized. Existing selections must be reported with their actual scope; compilation cannot prove failure-path behavior.",
+    "No new hosted run, commit or push. Published green 82cb2a3ac does not validate P06.",
+    "Capture/viewer required-support/range paths, art/demo callers, dispatcher inspection/geology and any remaining connected callers/fixtures remain unfinished. Two Code/Rule passes, hosted gates, nonempty exact-head artifacts and relevant official baseline reductions remain required."
+  ],
+  "next": "Finish capture/viewer required-height/range/diagnostic consumers and remaining art/demo/client call sites, then dispatcher geology/inspection extrema and complete caller inventory. Do not publish a partial P06 family."
+}

@@ -1,0 +1,92 @@
+{
+  "revision": "13fc9dcc71ab879de364117e5462310673e43210",
+  "status": "Source/control-flow counterexample only; no compilation, model execution or tests.",
+  "input": {
+    "catalog_id": "spear",
+    "recipe": {
+      "components": [
+        {
+          "id": "head",
+          "role": "Head",
+          "kind": "spear",
+          "length": 0.25,
+          "width": 0.0625,
+          "thickness": 0.0078125,
+          "shoulder": 0,
+          "attach": {
+            "to": "weapon.root",
+            "at": "origin"
+          }
+        }
+      ]
+    }
+  },
+  "trace": [
+    "Finite Ratio admits shoulder0; root bounds permit abs<=128. Spear melee validates only explicit belly_position strict0..1; absent socket returnsOk from socket-specific checks. All three positive dimensions and single origin attachment pass.",
+    "Selected belly is belly_position.or(shoulder), hence0; no explicit Flat section/socket/roundness. The ordinary nonflat spear path includes stop0. half_width(0) computes0/0, then NaN powers/interpolation; ring contains NaN coordinates.",
+    "Solid::triangle appends all coordinates without finite check; positive() only compares signed volume<-1e-10. NaN volume does not trigger rejection. Placement extent check precedes emitted solid and does not inspect it; physical integrator returns nonfinite mass/moments without Result; Construction and generate/derive/evaluate remain fallible only for earlier guards."
+  ],
+  "limits": "Supported authored counterexample, no ordinary preset occurrence, actual GPU crash or downstream gameplay failure asserted. Existing source tests cover positive bellyPosition socketed/non-socketed heads, not this shoulder-selected zero endpoint.",
+  "fingerprints": [
+    {
+      "file": "crates/adventuresim-weapon-model/src/recipe/quantities.rs",
+      "sha256": "5e3c814a60c0d09d75c9eccfbd371f9412b76b95fefbce3c66c86ff03266bed5",
+      "base_identical": true
+    },
+    {
+      "file": "crates/adventuresim-weapon-model/src/recipe/melee.rs",
+      "sha256": "5e246e6a05ae294cadb481a0346346b3648fc5a4bf4096f7aab86eca803ff74b",
+      "base_identical": true
+    },
+    {
+      "file": "crates/adventuresim-weapon-model/src/recipe/validation.rs",
+      "sha256": "e40db02777c0f7401b0e90bc493f420be7630091f469a9baa7f0ef1a6f7c965a",
+      "base_identical": true
+    },
+    {
+      "file": "crates/adventuresim-weapon-model/src/recipe/validation/dimensions/blades.rs",
+      "sha256": "3fb5785ee55629d966055979c2414e4b1f7daba4e1599cd0afc575285a407e39",
+      "base_identical": true
+    },
+    {
+      "file": "crates/adventuresim-weapon-model/src/recipe/validation/melee.rs",
+      "sha256": "7b1ffa336f641cd42556a1104809cad88c913948710a3aa426b5f5f37302e616",
+      "base_identical": true
+    },
+    {
+      "file": "crates/adventuresim-weapon-model/src/recipe/validation/spear.rs",
+      "sha256": "e4dc7b816f841bc608cbf66f2a805ed4995455628dd8fbc3f3b382cebb875763",
+      "base_identical": true
+    },
+    {
+      "file": "crates/adventuresim-weapon-model/src/model/spears.rs",
+      "sha256": "5752688e3a4516d7b7162aaf11b1bfa2a0d9b7f0bbf11d32a43e626525052160",
+      "base_identical": true
+    },
+    {
+      "file": "crates/adventuresim-weapon-model/src/construction/mod.rs",
+      "sha256": "7327c75b4030df58f3b59c44b7b691713289908715ecb4c6adae4b0829806fc1",
+      "base_identical": true
+    },
+    {
+      "file": "crates/adventuresim-weapon-model/src/model/mod.rs",
+      "sha256": "485c06d11de0a974d67d404c21cde555b41f4126f6a3ffdac7cf5ba7727dc8ad",
+      "base_identical": true
+    },
+    {
+      "file": "crates/adventuresim-weapon-model/src/model/output.rs",
+      "sha256": "6cfe3fe6963b9fe8617ab5eeb7c811619a98aef2ddfbfc4c2f502a00bfb6e2e2",
+      "base_identical": true
+    },
+    {
+      "file": "crates/adventuresim-weapon-model/src/mesh.rs",
+      "sha256": "13432d88e00f3227259bb5b938b0a72a40e300fa4cec4f0d92b020d07eca2418",
+      "base_identical": true
+    },
+    {
+      "file": "crates/adventuresim-weapon-model/src/validation.rs",
+      "sha256": "fd79af94c541daf7519b52218301f4cc66dbd7614d444583271a2e955ed02aff",
+      "base_identical": true
+    }
+  ]
+}

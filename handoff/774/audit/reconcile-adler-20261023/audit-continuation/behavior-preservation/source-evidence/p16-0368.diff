@@ -1,0 +1,13 @@
+--- p16base/crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal.rs
++++ catalog-p16head/crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal.rs
+@@ -234,9 +234,9 @@
+     summary: &mut TacticalCausalSummary,
+     event: &adventuresim_tactical_server::iteration::TacticalMeleeLogEntry,
+ ) -> MeasurementResult<()> {
+     let separation =
+-        Measurement::<CenterSeparationMetres>::from_native(event.center_separation_metres)?;
++        Measurement::<CenterSeparationMetres>::from_length(event.center_separation_metres);
+     summary.minimum_contact_separation_metres = Some(
+         summary
+             .minimum_contact_separation_metres
+             .map_or(separation, |minimum| minimum.min(separation)),

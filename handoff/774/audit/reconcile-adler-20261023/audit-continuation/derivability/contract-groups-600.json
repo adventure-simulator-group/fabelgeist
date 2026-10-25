@@ -1,0 +1,34 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-600",
+  "at": "2026-10-25T16:10:50.483435+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 935,
+  "source_id": "pr-working:crates/adventuresim-core/src/investigation_action.rs",
+  "sha256": "717288409edb3210de986fef4dcf838525461956d2e686f59a78a781b5e354e2",
+  "actual_compared_ranges": [
+    [
+      1,
+      660
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "DomainTarget/DomainRequirement/DomainCapability/DomainInterruption/DomainEffect/PublicPreview/DomainRightsSubject/DomainRightsResource/DomainRightsOperation/DomainJurisdiction",
+      "lines": [
+        [
+          484,
+          540
+        ]
+      ],
+      "disposition": "KEEP ten explicit empty local trait opt-ins; no available matching derives, no imported-body credit."
+    }
+  ],
+  "analysis": "Fresh441\u2013660 completes rights digest fixture, then planner/right structural vocabulary and ten explicit empty local opt-ins484/493/499/505/516/522/526/532/537/540. KEEP no ready owning derive; private authority and explicit rights digest/leader approval are semantic. No new standard trait/codec. Planner requirement assembly continues; bridge qualification598 retained.",
+  "first_unfinished": {
+    "scope_index": 935,
+    "line": 661
+  },
+  "execution": "none"
+}

@@ -1,0 +1,77 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-405",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/observation.rs",
+      "sha256": "09275206508fba4391d7e8dafc30589344978d5ced26b283173b2e5ab4691bfa",
+      "actual_EOF": 453,
+      "actual_compared_ranges": [
+        [
+          1,
+          453
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation.rs",
+      "sha256": "9b4f94526e80364851a02b320c51009e4b036671cd9c143cc299771d4da5fbfd",
+      "actual_EOF": 530,
+      "actual_compared_ranges": [
+        [
+          1,
+          530
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation/anatomical_yaw.rs",
+      "sha256": "c4d855062c60ad77559b87fcf6a346547a1e881fa904c620fe1b0e91dac439e8",
+      "actual_EOF": 165,
+      "actual_compared_ranges": [
+        [
+          1,
+          165
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/plant.rs",
+      "sha256": "4f30c6b7a81f9d8ba4f6d7b9d9fc02c40e102eff64ed14861234da7885647336",
+      "actual_EOF": 44,
+      "actual_compared_ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Propagated endpoints and support truth",
+      "evidence": "observation.rs:1-453",
+      "disposition": "Rendered endpoints and rotations are collected and all checked before endpoint-field replacement. Owner projections are filtered finite; locomotion retains endpoints but declines procedural contact authority. Enabled terrain needs sampled ankle and surface; disabled mode explicitly owns semantic cadence. Run support requires intended target proximity plus actual sole height. Transition and reported weights remain distinct intentionally. Sequence observer admits only same/one wrapping step, not arbitrary stale plan reset."
+    },
+    {
+      "contract": "Final orientation and pole constraints",
+      "evidence": "orientation.rs:1-530; orientation/anatomical_yaw.rs:1-165",
+      "disposition": "Pole projection normalizes fallibly; near-horizontal leg rejects vertical reconstruction. Slope tilt capped, cached chains distinguish repeated evaluation. Toe-off starts from propagated orientation; angular step zero retains previous when present, initial missing previous deliberately adopts desired. Final anatomy pass measures segments and reports actual resulting yaw. Native quaternion normalization assumes usable magnitude: zero/extreme finite raw quaternion inputs remain a dependency requiring exact native semantics and actual producer proof, not an ordinary defect established here. No global unit-quaternion admission imposed on ObservedRigFrame."
+    },
+    {
+      "contract": "Retained plant state transition",
+      "evidence": "plant.rs:1-44",
+      "disposition": "Absent cannot become acquired from observation alone. Target replacement preserves acquisition state when a target remains and clears state on None. observe_contact(false) intentionally does not revoke acquisition by itself; actual release/clear ownership traced in coordinator 404 and observation refresh. These bodies do not prove whole-frame transactional rollback."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/raised_footwork.rs"
+}

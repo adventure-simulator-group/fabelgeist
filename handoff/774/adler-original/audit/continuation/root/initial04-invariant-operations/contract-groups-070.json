@@ -1,0 +1,35 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-070",
+  "at": "2026-10-23T00:32:08.567138+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_action.rs",
+      "sha256": "4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+      "actual_compared_ranges": [
+        [
+          1,
+          1209
+        ]
+      ],
+      "source_evidence": "Fresh fullcurrentPRbody1-400/401-800/801-1209; prior069directpartials supplementedbyactualeveryremainingrole. P16only1-715qualifiedscopeunchanged/nofullP16testcredit. ExistingPRtestsreadonly."
+    }
+  ],
+  "groups": {
+    "whole-time-contract": "RequestedDurationprivateNonZeroU64allpositivevalid, genericclockcheckedadd andtimeboundaryclampingneverpubnegativeelapsed. EndMAX explicitlyClockExhausted evenexactsumfits; PRexistingoracles903-951 confirm intentionalpartitionpolicy/0elapsedatMAX, notnewclockbug. Terminalwinsinterruptiontieandbound<=end, currentpastboundaryclampscurrent. ThisgivesactualexistingcanonicalendpolicyforforecastF019repair, no globalclockheadroomrestriction.",
+    "construction-and-failure": "ActionCoordinatesprivate validatesfixture/targetPlace coherence anduniqueobjecttools; ToolReference/CustodyTransfer reusecanonicalObjectCustody beforepublication. NativeIDsfields typedexceptDomainpayload traitownedvalues, no changes tophysicalcustodyvsbackinglocationsemantics. BTreeSet/Vec localconstructiononly, no externalretryclock mutationonErr. build_plan failsrequirementsBEFOREcalculate, calculatesonce andpublishesprivateplan readonlyaccessors, publicpreviewrequest/elapsed/completed arecapturedprojection notauthority. CallbackpurebyconventionnotproofarbitraryFnoncehasnocapturedsideeffects, no genericwholehostrollbackclaim.",
+    "commit-replay-and-correlations": "ActualPRvalidate_commitchecksidentity/binding, receiptconflict/equalprovenance replay BEFOREfreshsnapshot intentionallyidempotent. Withoutpriorreceipt checksinputDigest=plansnapshot, currentrevision+digest, freshReadythenfullcoordinates/provenance/requirements/time/calculationequality. No arithmetic++/DBwritehere. Pureplan evidence stillneedsactualauthoritativereplan/transaction; typedPlanInputcancontainforgedtrustedrequirements butdoesnotgrantsecurityauthority. ExistingPRtestscoverstaleequalDigest/differentRevision, forgedreceipt, prerequisites/calculationdifference, readonlyonly.",
+    "ids-and-contextual-policy": "OpenActionIDs private1..256bytes/trim/noUnicodecontrol acceptednonASCIIfine, IntoStringownershipbeforevalidationwarranted. SnapshotRevision/CustodyVersiontokensnotpositiveclock/duration. Contextualselfactionfirstexplicitexistingtest1133 confirmsselfRefusedignored; forothersRefusedwins emergency andonlyUnavailablemayEmergency. Thisisintendedpolicy, notcomment-onlyassumption norpermissionengine. Bandagenecessary conjunction onlyselectedlimbcutpositive/nonbandaged/incapacitated; NaNfalse/+Inftrue fromrawf32 admissiongapotherlens, nofinitearithmeticoverflow.",
+    "social-numerical-boundaries": "ForfiniteinputsSocialclamp0..5\u00d7Language0..1<=5; Affinity\u00b1100/20or25<=5or4; Morale0..100pressure0..5; Awareness<=10000/2000<=5. Scoreboundednegative/positivefinite, nativef32max normalizationdoneBEFOREmultiplication so noMAXoverflow. NaNrawinputmayyieldNaNscoreexistingadmissiongapseparate, no currentnormalrawbadactorclaim. Authorednegotiationpolicyprofilebooleanreadnotseconddynamicowner. Fixedthreshold7.5notprobability. Allsourceoraclesreadbutnoexecution/newcases/assertions/helpers."
+  },
+  "findings": [],
+  "prior_finding_support": [
+    "F026 currentPRgenericpositive-durationcontract fullyindependentlyconfirmed",
+    "F019 forecastendpolicy hasexistingTypedClockExhaustedpattern"
+  ],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

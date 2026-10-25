@@ -1,0 +1,102 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-882",
+  "at": "2026-10-25T17:09:47.175391+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1087,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/condition/fear.rs",
+      "sha256": "8cefb00626e1f5cf3f9eb57fb0e412503aecbd64597f2bbb63d04a97c0eda958",
+      "actual_EOF": 8,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/condition/fear.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/condition/fear.rs",
+        "sha256": "8cefb00626e1f5cf3f9eb57fb0e412503aecbd64597f2bbb63d04a97c0eda958",
+        "bytes": 364,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+            "ranges": null,
+            "source_read_status": null,
+            "trace_refs": []
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                8
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-STRATEGIC-CONDITION-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 220,
+            "read_ranges": [
+              [
+                1,
+                8
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-CONDITION-011",
+              "CAM-OWN-ERROR-012"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/condition/fear.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 420,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          8
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full checked ThreatId parse/profile fear projection with contextual String error boundary consumed. Native function only; no trait/codec."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Enemy fear projection",
+      "disposition": "Retain semantic catalog lookup and formula; do not add Serde merely to replace runtime classification."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1088,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/continuity.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

@@ -1,0 +1,563 @@
+{
+  "id": "NATIVE-REGISTRY-RECONCILIATION-SUMMARY-002",
+  "candidate": "candidate-002.json",
+  "candidate_sha256": "c72deecd99e51bc7894d7ed5d880b436058b1d2b1fb2820ffc7af7ee77e6719c",
+  "script": "../reconcile-producer-registries.py",
+  "script_sha256": "cca388d8b2fb8ce7323eb54e981be941f3cbd1476fe0d3b9cb67b8960d3c4a6b",
+  "pins": {
+    "base": {
+      "record": "continuation/cumulative-source-scope-producer-followup-007.json",
+      "sha256": "cfa8a2c432d02563a31529faad05fe568b56e350a7e7d3bb842134ceaa26991b",
+      "bytes": 13757539
+    },
+    "overlay": {
+      "record": "continuation/owner-range-extensions.jsonl",
+      "sha256": "8b768d441c3cc5253e26b05aba5bdef00b4e141133f83457cc1abd8c4cba2eed",
+      "bytes": 17396
+    },
+    "camera": {
+      "record": "continuation/camera/owner-reached-producer-followup/source-range-registration.jsonl",
+      "sha256": "7b7fd0aee5821fc35a9b8ded15a48e2d203337ed037bd284c18926ac3129ab0b",
+      "bytes": 10359
+    },
+    "rig": {
+      "record": "continuation/rig/owner-reached-producer-followup/additional-sources.jsonl",
+      "sha256": "8dbbd7d587888d4dda3b03367a1be2edcdeff049c2245735e298bb9211389836",
+      "bytes": 44694
+    },
+    "native": {
+      "record": "continuation/native/root-roof-producer-followup/local-source-scope-extensions.jsonl",
+      "sha256": "7aaccfe5b940d343c3b7308befd1978ab58a6d8cc574a029f458c7d353488a2a",
+      "bytes": 27950
+    },
+    "rig_qualifications": {
+      "record": "continuation/rig/owner-reached-producer-followup/source-qualifications.jsonl",
+      "sha256": "3c1ebfea50a651e95d55a5d888d09b78bbba9219023daf1789d63c72873dc903",
+      "bytes": 46122
+    }
+  },
+  "counts": {
+    "registration_rows": 94,
+    "qualification_rows": 56,
+    "distinct_source_variants": 68,
+    "new_source_variants": 54,
+    "existing_variants_with_new_byte_ranges": 9,
+    "existing_variants_role_only": 5,
+    "candidate_total_source_variants": 2552,
+    "issues": 0
+  },
+  "by_supplier": {
+    "camera": {
+      "registration_rows": 12,
+      "source_variants": 9,
+      "new_variants": 2,
+      "existing_range_additions": 7,
+      "existing_role_only": 0
+    },
+    "rig": {
+      "registration_rows": 54,
+      "source_variants": 39,
+      "new_variants": 35,
+      "existing_range_additions": 2,
+      "existing_role_only": 2
+    },
+    "native": {
+      "registration_rows": 28,
+      "source_variants": 20,
+      "new_variants": 17,
+      "existing_range_additions": 0,
+      "existing_role_only": 3
+    }
+  },
+  "per_registration_qualification_changes_or_request_only": [
+    {
+      "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-004",
+      "source_id": "pr-working:crates/fabelgeist-physics/src/mesh.rs",
+      "original_registered_ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "qualified_material_ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "body_proof": "Request context only; actual body read after prospective022 registration006; use006 source proof.",
+      "qualification": "No retroactive credit or independent duplicate coverage from pending004/005 requests.",
+      "proof_classification": "pending_request_context_only"
+    },
+    {
+      "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-005",
+      "source_id": "pr-working:crates/fabelgeist-physics/src/mesh.rs",
+      "original_registered_ranges": [
+        [
+          199,
+          205
+        ]
+      ],
+      "qualified_material_ranges": [
+        [
+          199,
+          205
+        ]
+      ],
+      "body_proof": "Request context only; actual body read after prospective022 registration006; use006 source proof.",
+      "qualification": "No retroactive credit or independent duplicate coverage from pending004/005 requests.",
+      "proof_classification": "pending_request_context_only"
+    },
+    {
+      "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-018",
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/doors.rs",
+      "original_registered_ranges": [
+        [
+          1,
+          75
+        ],
+        [
+          120,
+          224
+        ]
+      ],
+      "qualified_material_ranges": [
+        [
+          1,
+          73
+        ],
+        [
+          120,
+          224
+        ]
+      ],
+      "body_proof": "fresh bounded current producer source read after applicable prospective authorization; no owner verdict/hash carry",
+      "qualification": "74–75 unused sweep impl/header navigation; helper76–119 excluded.",
+      "proof_classification": "actual_proof_registration_subject_to_separate_producer_acceptance"
+    },
+    {
+      "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-019",
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/windows.rs",
+      "original_registered_ranges": [
+        [
+          1,
+          36
+        ],
+        [
+          43,
+          50
+        ],
+        [
+          103,
+          209
+        ]
+      ],
+      "qualified_material_ranges": [
+        [
+          1,
+          36
+        ],
+        [
+          43,
+          45
+        ],
+        [
+          103,
+          209
+        ]
+      ],
+      "body_proof": "fresh bounded current producer source read after applicable prospective authorization; no owner verdict/hash carry",
+      "qualification": "47–50 fixed-bar docs only; bars52–102/tests210+ excluded.",
+      "proof_classification": "actual_proof_registration_subject_to_separate_producer_acceptance"
+    },
+    {
+      "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-021",
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+      "original_registered_ranges": [
+        [
+          1,
+          36
+        ],
+        [
+          68,
+          102
+        ],
+        [
+          116,
+          218
+        ],
+        [
+          246,
+          258
+        ]
+      ],
+      "qualified_material_ranges": [
+        [
+          70,
+          102
+        ],
+        [
+          116,
+          168
+        ],
+        [
+          172,
+          218
+        ],
+        [
+          246,
+          256
+        ]
+      ],
+      "body_proof": "fresh bounded current producer source read after applicable prospective authorization; no owner verdict/hash carry",
+      "qualification": "Docs/import/oldimplclose navigation only; reverse gate_point169–171 unused; displacement103–115/plot219–245/collisionrelative258+ excluded. Frames37–48 separate025.",
+      "proof_classification": "actual_proof_registration_subject_to_separate_producer_acceptance"
+    },
+    {
+      "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-023",
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/city_layout/compound.rs",
+      "original_registered_ranges": [
+        [
+          37,
+          68
+        ]
+      ],
+      "qualified_material_ranges": [
+        [
+          37,
+          49
+        ],
+        [
+          58,
+          67
+        ]
+      ],
+      "body_proof": "fresh bounded current producer source read after applicable prospective authorization; no owner verdict/hash carry",
+      "qualification": "opposite50–55 displayed but not actual role; no other city generation/record credit.",
+      "proof_classification": "actual_proof_registration_subject_to_separate_producer_acceptance"
+    },
+    {
+      "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-029",
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/collision/cuboid.rs",
+      "original_registered_ranges": [
+        [
+          1,
+          33
+        ]
+      ],
+      "qualified_material_ranges": [
+        [
+          1,
+          6
+        ],
+        [
+          11,
+          33
+        ]
+      ],
+      "body_proof": "fresh bounded current producer source read after applicable prospective authorization; no owner verdict/hash carry",
+      "qualification": "CuboidEdge7–10 incidental; edges34+ excluded.",
+      "proof_classification": "actual_proof_registration_subject_to_separate_producer_acceptance"
+    },
+    {
+      "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-031",
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/lod.rs",
+      "original_registered_ranges": [
+        [
+          94,
+          160
+        ]
+      ],
+      "qualified_material_ranges": [
+        [
+          95,
+          137
+        ]
+      ],
+      "body_proof": "fresh bounded current producer source read after applicable prospective authorization; no owner verdict/hash carry",
+      "qualification": "push_triangle139–158 displayed but wear=None actual leaf uses push_quad; no unrelated method acceptance.",
+      "proof_classification": "actual_proof_registration_subject_to_separate_producer_acceptance"
+    },
+    {
+      "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-033",
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/model/resolved_shapes.rs",
+      "original_registered_ranges": [
+        [
+          1,
+          25
+        ],
+        [
+          344,
+          356
+        ],
+        [
+          393,
+          428
+        ]
+      ],
+      "qualified_material_ranges": [
+        [
+          6,
+          25
+        ],
+        [
+          344,
+          356
+        ],
+        [
+          393,
+          428
+        ]
+      ],
+      "body_proof": "fresh bounded current producer source read after applicable prospective authorization; no owner verdict/hash carry",
+      "qualification": "GeometryOwnerId3–4 contextual; owner/shape/support fields original payload, no independent shape/support graph credit.",
+      "proof_classification": "actual_proof_registration_subject_to_separate_producer_acceptance"
+    },
+    {
+      "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-035",
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/model/resolved_shapes.rs",
+      "original_registered_ranges": [
+        [
+          358,
+          391
+        ]
+      ],
+      "qualified_material_ranges": [
+        [
+          358,
+          380
+        ]
+      ],
+      "body_proof": "fresh bounded current producer source read after applicable prospective authorization; no owner verdict/hash carry",
+      "qualification": "cuboid_envelope381–390 displayed but not actual codec→new call; no separate role acceptance.",
+      "proof_classification": "actual_proof_registration_subject_to_separate_producer_acceptance"
+    },
+    {
+      "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-037",
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/collision.rs",
+      "original_registered_ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "qualified_material_ranges": [
+        [
+          31,
+          78
+        ]
+      ],
+      "body_proof": "fresh bounded current producer source read after applicable prospective authorization; no owner verdict/hash carry",
+      "qualification": "bounds79–99 displayed inside registered impl, not material current role; imports1–30 navigation. Retain only from_metres/declarations for this follow-up.",
+      "proof_classification": "actual_proof_registration_subject_to_separate_producer_acceptance"
+    },
+    {
+      "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-038",
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+      "original_registered_ranges": [
+        [
+          68,
+          110
+        ]
+      ],
+      "qualified_material_ranges": [
+        [
+          73,
+          86
+        ],
+        [
+          104,
+          110
+        ]
+      ],
+      "body_proof": "fresh bounded current producer source read after applicable prospective authorization; no owner verdict/hash carry",
+      "qualification": "max87–89/translated90–101 displayed but not called by actual GateDatum role; no operation credit.",
+      "proof_classification": "actual_proof_registration_subject_to_separate_producer_acceptance"
+    },
+    {
+      "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-039",
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+      "original_registered_ranges": [
+        [
+          22,
+          106
+        ]
+      ],
+      "qualified_material_ranges": [
+        [
+          27,
+          85
+        ]
+      ],
+      "body_proof": "fresh bounded current producer source read after applicable prospective authorization; no owner verdict/hash carry",
+      "qualification": "22–26 navigation; world_to_local87–94 and TacticalBuildingPlacement96–106 displayed but no role/owner credit.",
+      "proof_classification": "actual_proof_registration_subject_to_separate_producer_acceptance"
+    },
+    {
+      "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-045",
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/presentation/buildings/materials.rs",
+      "original_registered_ranges": [
+        [
+          60,
+          84
+        ],
+        [
+          219,
+          223
+        ]
+      ],
+      "qualified_material_ranges": [
+        [
+          70,
+          84
+        ],
+        [
+          219,
+          223
+        ]
+      ],
+      "body_proof": "fresh bounded current producer source read after applicable prospective authorization; no owner verdict/hash carry",
+      "qualification": "Unused palette ALL60–68 navigation; actual close224–225 separate046.",
+      "proof_classification": "actual_proof_registration_subject_to_separate_producer_acceptance"
+    },
+    {
+      "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-049",
+      "source_id": "physical-p16:crates/fabelgeist-determinism/src/seed.rs",
+      "original_registered_ranges": [
+        [
+          1,
+          83
+        ],
+        [
+          114,
+          116
+        ],
+        [
+          170,
+          174
+        ]
+      ],
+      "qualified_material_ranges": [
+        [
+          1,
+          58
+        ],
+        [
+          72,
+          83
+        ],
+        [
+          114,
+          116
+        ],
+        [
+          170,
+          174
+        ]
+      ],
+      "body_proof": "fresh bounded current producer source read after applicable prospective authorization; no owner verdict/hash carry",
+      "qualification": "Seed::derive63–70 displayed but actual appearance uses StreamId numeric context; no extra derive/fixtures credit.",
+      "proof_classification": "actual_proof_registration_subject_to_separate_producer_acceptance"
+    },
+    {
+      "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-050",
+      "source_id": "physical-p16:crates/fabelgeist-determinism/src/stream.rs",
+      "original_registered_ranges": [
+        [
+          1,
+          61
+        ],
+        [
+          134,
+          138
+        ]
+      ],
+      "qualified_material_ranges": [
+        [
+          30,
+          41
+        ],
+        [
+          48,
+          61
+        ],
+        [
+          134,
+          138
+        ]
+      ],
+      "body_proof": "fresh bounded current producer source read after applicable prospective authorization; no owner verdict/hash carry",
+      "qualification": "SamplingError12–28/next_seed43–46 contextual unused; no sample/fixtures140+ credit.",
+      "proof_classification": "actual_proof_registration_subject_to_separate_producer_acceptance"
+    },
+    {
+      "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-053",
+      "source_id": "pr-working:crates/fabelgeist-bvh/src/gpu/mod.rs",
+      "original_registered_ranges": [
+        [
+          1,
+          138
+        ],
+        [
+          175,
+          303
+        ]
+      ],
+      "qualified_material_ranges": [
+        [
+          27,
+          42
+        ],
+        [
+          62,
+          138
+        ],
+        [
+          175,
+          299
+        ]
+      ],
+      "body_proof": "fresh bounded current producer source read after applicable prospective authorization; no owner verdict/hash carry",
+      "qualification": "BvhKernels compile/cache45–59 displayed but MeshCollider receives already-built kernels; no compilation graph acceptance. Real two-vec4 bounds and count→byte→native PassParameters/dispatch proof only; unused getters139–174/build/readback304+/unrelated GPU field audit excluded.",
+      "proof_classification": "actual_proof_registration_subject_to_separate_producer_acceptance"
+    },
+    {
+      "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-054",
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/readiness.rs",
+      "original_registered_ranges": [
+        [
+          52,
+          251
+        ]
+      ],
+      "qualified_material_ranges": [
+        [
+          66,
+          83
+        ],
+        [
+          104,
+          107
+        ],
+        [
+          113,
+          156
+        ],
+        [
+          169,
+          221
+        ]
+      ],
+      "body_proof": "Fresh complete Observation definition/asset helper/check whole function52–251 read after054; only exact SceneDoor/Window IDs/kind and connected building-ID map/palette/native asset comparison roles materially analyzed.",
+      "qualification": "Other Garden/prop/sign/query/adapter/camera readiness branches displayed for complete-function context but no producer/owner/admission clearance. This is runtime reviewer asserting original cases, not a new or run test. Rendered-building map169/180 additionally strips checked SceneBuildingId into internal u64 key; retain same identity through keys.",
+      "proof_classification": "actual_proof_registration_subject_to_separate_producer_acceptance"
+    }
+  ],
+  "all_rig_qualifications": "Every Rig001-054 qualification linked by registration_id before source grouping; all54 exact qualified_material_ranges validated. Original registration records preserved. Requests004/005 are context-only, actual006 proof.",
+  "native_local_qualifications": "Both mandatory Native source-wide qualifications apply only Native local roles; historical global ranges never removed.",
+  "prior_preservation": "candidate001 hash unchanged; all91 old registration records remain byte-semantically exact original_record payloads in002. Scriptv001 archived.",
+  "owner_queue_baseline": "Accepted owner019 at2483 + overlays017. Source scope007 at2498 is only this registry reconciliation baseline;54newsourcevariants not owner obligation count. Root derives final queue separately.",
+  "global_writes": 0,
+  "body_semantics_read": 0,
+  "acceptance_pin_requirement": "Rig FINAL054 registry and54 qualifications are pinned and unchanged after bookkeeping. Root must recheck pins at actual acceptance; any laterappend requires newcandidate label."
+}

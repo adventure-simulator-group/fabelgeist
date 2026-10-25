@@ -1,0 +1,784 @@
+use adventuresim_core::{
+    attribute::PlayerAttributeValues,
+    personality::{
+        Conscience, Conviction, Courtship, Drive, Hygiene, Inclination, Mirth, Nerve, Outlook,
+        Personality, Presentation, SelfKnowledge, SelfRegard, Sociability, Temperance,
+        Transparency,
+    },
+    strategic_schedule::{DailySchedule, SkillHours},
+};
+use adventuresim_world_schema::{BestiaryHours, ReligionHours, Sex};
+use fabelgeist_determinism::DeterministicRng;
+use fabelgeist_determinism::Seed;
+use serde::{Deserialize, Serialize};
+
+const PROFILE_DOMAIN: fabelgeist_determinism::StreamId =
+    fabelgeist_determinism::StreamId::new("strategic.agent-profile");
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum ActivityPreference {
+    Labor,
+    Prayer,
+    Thievery,
+    Raiding,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum EquipmentStyle {
+    Unarmored,
+    Light,
+    Heavy,
+    Ranged,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum BuildRole {
+    FrontLine,
+    Skirmisher,
+    Ranged,
+    Healer,
+    Devout,
+    Civilian,
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct AgentBuild {
+    pub role: BuildRole,
+    pub activity_only: bool,
+    pub rationale: String,
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct EquipmentPreferences {
+    pub style: EquipmentStyle,
+    pub protection_weight: f32,
+    pub mobility_weight: f32,
+    pub price_weight: f32,
+    pub reach_weight: f32,
+}
+
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct AgentProfile {
+    pub agent_id: u32,
+    pub profile_seed: Seed,
+    pub attributes: PlayerAttributeValues,
+    pub personality: Personality,
+    pub build: AgentBuild,
+    pub initial_skills: SkillHours,
+    pub schedule: DailySchedule,
+    pub preferred_activity: ActivityPreference,
+    pub activity_vs_quest_propensity: f32,
+    pub risk_tolerance: f32,
+    pub recovery_health_threshold: f32,
+    pub equipment: EquipmentPreferences,
+    pub provision_days_target: u16,
+    pub cash_reserve_target: u32,
+    pub spending_propensity: f32,
+}
+
+fn bounded(base: f32, spread: f32, rng: &mut DeterministicRng) -> f32 {
+    (base + rng.range_f32(-spread, spread)).clamp(0.5, 5.0)
+}
+
+fn generated_attributes(profile_seed: Seed) -> PlayerAttributeValues {
+    let mut rng =
+        fabelgeist_determinism::StreamId::new("strategic.agent-attributes").rng(profile_seed, &[]);
+    // Shared latent factors create plausible correlations while limb-specific noise
+    // prevents profiles from being merely scalar copies of one another.
+    let physique = rng.range_f32(1.3, 4.4);
+    let coordination = rng.range_f32(1.2, 4.5);
+    let cognition = rng.range_f32(1.0, 4.6);
+    let resilience = rng.range_f32(1.0, 4.6);
+    PlayerAttributeValues {
+        endurance: bounded((physique + resilience) * 0.5, 0.35, &mut rng),
+        immunity: bounded(resilience, 0.45, &mut rng),
+        gut: bounded(resilience, 0.5, &mut rng),
+        intelligence: bounded(cognition, 0.4, &mut rng),
+        instinct: bounded((cognition + coordination) * 0.5, 0.4, &mut rng),
+        eyesight: bounded(coordination, 0.6, &mut rng),
+        hearing: bounded(coordination, 0.6, &mut rng),
+        left_arm_strength: bounded(physique, 0.35, &mut rng),
+        right_arm_strength: bounded(physique, 0.35, &mut rng),
+        left_leg_strength: bounded(physique + 0.2, 0.35, &mut rng),
+        right_leg_strength: bounded(physique + 0.2, 0.35, &mut rng),
+        left_arm_agility: bounded(coordination, 0.35, &mut rng),
+        right_arm_agility: bounded(coordination, 0.35, &mut rng),
+        left_leg_agility: bounded(coordination, 0.35, &mut rng),
+        right_leg_agility: bounded(coordination, 0.35, &mut rng),
+    }
+}
+
+pub fn generate_profile(seed: Seed, agent_id: u32) -> AgentProfile {
+    let profile_seed = PROFILE_DOMAIN.seed(seed, &[u64::from(agent_id)]);
+    let attributes = generated_attributes(profile_seed);
+    let personality = generated_personality(
+        &mut fabelgeist_determinism::StreamId::new("strategic.agent-personality")
+            .rng(profile_seed, &[]),
+    );
+    let mut rng =
+        fabelgeist_determinism::StreamId::new("strategic.agent-preferences").rng(profile_seed, &[]);
+    let build = derive_build(&personality, &attributes);
+    let preferred_activity = if personality.conviction == Conviction::Zealous {
+        ActivityPreference::Prayer
+    } else if matches!(
+        personality.conscience,
+        Conscience::Callous | Conscience::Cruel
+    ) {
+        ActivityPreference::Thievery
+    } else {
+        match rng.index(3) {
+            0 => ActivityPreference::Labor,
+            1 => ActivityPreference::Prayer,
+            _ => ActivityPreference::Thievery,
+        }
+    };
+    let style = match build.role {
+        BuildRole::FrontLine => EquipmentStyle::Heavy,
+        BuildRole::Ranged => EquipmentStyle::Ranged,
+        BuildRole::Skirmisher | BuildRole::Healer | BuildRole::Devout => EquipmentStyle::Light,
+        BuildRole::Civilian => EquipmentStyle::Unarmored,
+    };
+    let schedule = generated_schedule(&mut rng, preferred_activity, build.role);
+    let initial = |rng: &mut DeterministicRng| rng.range_f32(200.0, 2_000.0);
+    let mut initial_skills = SkillHours {
+        polearm: initial(&mut rng),
+        axe: initial(&mut rng),
+        bludgeon: initial(&mut rng),
+        sword: initial(&mut rng),
+        knife: initial(&mut rng),
+        dodge: initial(&mut rng),
+        block: initial(&mut rng),
+        bow: initial(&mut rng),
+        crossbow: initial(&mut rng),
+        firearm: initial(&mut rng),
+        throw: initial(&mut rng),
+        will: initial(&mut rng),
+        insight: initial(&mut rng),
+        charm: initial(&mut rng),
+        command: initial(&mut rng),
+        deception: initial(&mut rng),
+        physiology: initial(&mut rng),
+        cooking: initial(&mut rng),
+        herbalism: initial(&mut rng),
+        religion: ReligionHours {
+            roman_catholic: initial(&mut rng),
+            ..Default::default()
+        },
+        bestiary: BestiaryHours {
+            beast: initial(&mut rng),
+            human: initial(&mut rng),
+            ..Default::default()
+        },
+        surgery: initial(&mut rng),
+        stealth: initial(&mut rng),
+        balance: initial(&mut rng),
+        terrain_plains: initial(&mut rng),
+        terrain_forest: initial(&mut rng),
+        terrain_hills: initial(&mut rng),
+        terrain_wetlands: initial(&mut rng),
+        terrain_urban: initial(&mut rng),
+        terrain_snow: initial(&mut rng),
+        tailoring: initial(&mut rng),
+        smithing: initial(&mut rng),
+    };
+    let specialty = rng.range_f32(2_500.0, 5_000.0);
+    match build.role {
+        BuildRole::FrontLine => {
+            initial_skills.sword = specialty;
+            initial_skills.block = specialty * 0.8;
+        }
+        BuildRole::Ranged => initial_skills.bow = specialty,
+        BuildRole::Skirmisher => {
+            initial_skills.dodge = specialty;
+            initial_skills.knife = specialty * 0.7;
+        }
+        BuildRole::Healer => {
+            initial_skills.physiology = specialty;
+            initial_skills.surgery = specialty * 0.7;
+            initial_skills.knife = specialty * 0.7;
+            initial_skills.tailoring = specialty * 0.7;
+        }
+        BuildRole::Devout => initial_skills.religion.roman_catholic = specialty,
+        BuildRole::Civilian => {}
+    }
+    let quest_propensity = if build.activity_only {
+        0.0
+    } else {
+        let base: f32 = rng.range_f32(0.2, 0.7);
+        (base
+            + if personality.drive == Drive::Ambitious {
+                0.25
+            } else {
+                0.0
+            })
+        .clamp(0.0, 1.0)
+    };
+    let risk_tolerance = (rng.range_f32(0.25, 0.65)
+        + if personality.nerve == Nerve::Brave {
+            0.2
+        } else if personality.nerve == Nerve::Fearful {
+            -0.2
+        } else {
+            0.0
+        })
+    .clamp(0.0, 1.0);
+    AgentProfile {
+        agent_id,
+        profile_seed,
+        attributes,
+        personality,
+        build,
+        initial_skills,
+        schedule,
+        preferred_activity,
+        activity_vs_quest_propensity: quest_propensity,
+        risk_tolerance,
+        recovery_health_threshold: if risk_tolerance < 0.35 {
+            0.9
+        } else {
+            rng.range_f32(0.65, 0.85)
+        },
+        equipment: EquipmentPreferences {
+            style,
+            protection_weight: rng.unit_f32(),
+            mobility_weight: rng.unit_f32(),
+            price_weight: rng.unit_f32(),
+            reach_weight: rng.unit_f32(),
+        },
+        provision_days_target: 1 + (rng.index(31)) as u16,
+        cash_reserve_target: (rng.index(501)) as u32,
+        spending_propensity: rng.unit_f32(),
+    }
+}
+
+fn generated_schedule(
+    rng: &mut DeterministicRng,
+    preferred: ActivityPreference,
+    role: BuildRole,
+) -> DailySchedule {
+    // Ten-minute units make profiles readable and keep allocation exact.
+    let activity_minutes = 240 + (rng.index(49)) as u16 * 10;
+    let training_minutes = 120 + (rng.index(37)) as u16 * 10;
+    let mut s = DailySchedule::default();
+    match preferred {
+        ActivityPreference::Labor => s.labor = activity_minutes,
+        ActivityPreference::Prayer => s.prayer = activity_minutes,
+        ActivityPreference::Thievery => s.thievery = activity_minutes,
+        ActivityPreference::Raiding => s.raiding = activity_minutes,
+    }
+    match role {
+        BuildRole::FrontLine | BuildRole::Skirmisher | BuildRole::Ranged => {
+            s.combat_training_minutes = training_minutes
+        }
+        BuildRole::Healer => {
+            s.apprenticeship_minutes = training_minutes;
+        }
+        BuildRole::Devout => s.prayer = s.prayer.saturating_add(training_minutes),
+        BuildRole::Civilian => s.carousing_minutes = training_minutes,
+    }
+    s
+}
+
+fn generated_personality(rng: &mut DeterministicRng) -> Personality {
+    let mut p = Personality::neutral();
+    let mut axes = [0_u8, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+    rng.shuffle(&mut axes);
+    let count = 2 + rng.index(3);
+    for axis in axes.into_iter().take(count) {
+        match axis {
+            0 => {
+                p.nerve = if rng.boolean() {
+                    Nerve::Brave
+                } else {
+                    Nerve::Fearful
+                }
+            }
+            1 => {
+                p.drive = if rng.boolean() {
+                    Drive::Ambitious
+                } else {
+                    Drive::Content
+                }
+            }
+            2 => {
+                p.outlook = if rng.boolean() {
+                    Outlook::Sanguine
+                } else {
+                    Outlook::Brooding
+                }
+            }
+            3 => {
+                p.sociability = if rng.boolean() {
+                    Sociability::Gregarious
+                } else {
+                    Sociability::Solitary
+                }
+            }
+            4 => {
+                p.conscience = match rng.index(3) {
+                    0 => Conscience::Compassionate,
+                    1 => Conscience::Callous,
+                    _ => Conscience::Cruel,
+                }
+            }
+            5 => {
+                p.self_regard = if rng.boolean() {
+                    SelfRegard::Proud
+                } else {
+                    SelfRegard::Humble
+                }
+            }
+            6 => {
+                p.conviction = if rng.boolean() {
+                    Conviction::Zealous
+                } else {
+                    Conviction::Irreverent
+                }
+            }
+            7 => {
+                p.hygiene = if rng.boolean() {
+                    Hygiene::Slovenly
+                } else {
+                    Hygiene::Cleanly
+                }
+            }
+            8 => {
+                p.temperance = if rng.boolean() {
+                    Temperance::Temperate
+                } else {
+                    Temperance::Drunkard
+                }
+            }
+            9 => {
+                p.mirth = if rng.boolean() {
+                    Mirth::Merry
+                } else {
+                    Mirth::Grave
+                }
+            }
+            10 => {
+                p.courtship = if rng.boolean() {
+                    Courtship::Amorous
+                } else {
+                    Courtship::Proper
+                }
+            }
+            11 => {
+                p.transparency = if rng.boolean() {
+                    Transparency::Open
+                } else {
+                    Transparency::Guarded
+                }
+            }
+            _ => {
+                p.self_knowledge = if rng.boolean() {
+                    SelfKnowledge::Introspective
+                } else {
+                    SelfKnowledge::SelfDeceiving
+                }
+            }
+        }
+    }
+    p.sex = *rng.choose(Sex::VARIANTS);
+    p.presentation = match (p.sex, rng.index(100)) {
+        (_, 0..=3) => Presentation::Ambiguous,
+        (Sex::Female, 4) => Presentation::Man,
+        (Sex::Male, 4) => Presentation::Woman,
+        (Sex::Female, _) => Presentation::Woman,
+        (Sex::Male, _) => Presentation::Man,
+    };
+    p.inclination = match rng.index(100) {
+        0 => Inclination::Neither,
+        1..=4 => Inclination::Either,
+        5..=9 => {
+            if p.sex == Sex::Female {
+                Inclination::Women
+            } else {
+                Inclination::Men
+            }
+        }
+        _ => {
+            if p.sex == Sex::Female {
+                Inclination::Men
+            } else {
+                Inclination::Women
+            }
+        }
+    };
+    p
+}
+
+pub fn derive_build(p: &Personality, a: &PlayerAttributeValues) -> AgentBuild {
+    let arm_strength = (a.left_arm_strength + a.right_arm_strength) * 0.5;
+    let frontline_viable = a.endurance >= 3.0 && arm_strength >= 3.0;
+    let arm_agility = (a.left_arm_agility + a.right_arm_agility) * 0.5;
+    let ranged_viable = arm_agility >= 2.4 && a.eyesight >= 2.4;
+    let (role, rationale) = if p.drive == Drive::Content {
+        (
+            BuildRole::Civilian,
+            "content characters prefer settlement life",
+        )
+    } else if p.nerve == Nerve::Brave && frontline_viable {
+        (
+            BuildRole::FrontLine,
+            "bravery and physical viability support heavy melee",
+        )
+    } else if p.nerve == Nerve::Fearful && ranged_viable {
+        (
+            BuildRole::Ranged,
+            "fearfulness and perception support a safer ranged role",
+        )
+    } else if p.conscience == Conscience::Compassionate && a.intelligence >= 2.5 {
+        (
+            BuildRole::Healer,
+            "compassion and intelligence support physiology",
+        )
+    } else if p.conviction == Conviction::Zealous {
+        (
+            BuildRole::Devout,
+            "zeal supports religious study and prayer",
+        )
+    } else if ranged_viable {
+        (BuildRole::Ranged, "perception supports ranged combat")
+    } else {
+        (
+            BuildRole::Skirmisher,
+            "light equipment avoids unsupported heavy requirements",
+        )
+    };
+    AgentBuild {
+        role,
+        activity_only: p.drive == Drive::Content,
+        rationale: rationale.into(),
+    }
+}
+
+/// A matched pair preserves the generated profile and circumstances, changing
+/// only the named activity preference and its schedule allocation.
+pub fn matched_activity_pair(
+    seed: Seed,
+    agent_id: u32,
+    left: ActivityPreference,
+    right: ActivityPreference,
+) -> (AgentProfile, AgentProfile) {
+    let mut a = generate_profile(seed, agent_id);
+    set_activity(&mut a, left);
+    let mut b = a.clone();
+    set_activity(&mut b, right);
+    (a, b)
+}
+
+fn set_activity(profile: &mut AgentProfile, preference: ActivityPreference) {
+    let minutes = profile.schedule.labor
+        + profile.schedule.prayer
+        + profile.schedule.thievery
+        + profile.schedule.raiding;
+    profile.schedule.labor = 0;
+    profile.schedule.prayer = 0;
+    profile.schedule.thievery = 0;
+    profile.schedule.raiding = 0;
+    match preference {
+        ActivityPreference::Labor => profile.schedule.labor = minutes,
+        ActivityPreference::Prayer => profile.schedule.prayer = minutes,
+        ActivityPreference::Thievery => profile.schedule.thievery = minutes,
+        ActivityPreference::Raiding => profile.schedule.raiding = minutes,
+    }
+    profile.preferred_activity = preference;
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use adventuresim_core::autoresolve::{
+        BattleOpening, CombatArmor, CombatEquipment, CombatSkills, CombatWeapon, Combatant,
+        authored_threat_combatant, autoresolve_combat_power, combat_power_meets_safety_margin,
+        resolve_battle,
+    };
+    use adventuresim_core::combat::{ArmorCoverageSpan, AuthoredArmorCoverage};
+
+    fn attributes(endurance: f32, arm_strength: f32) -> PlayerAttributeValues {
+        PlayerAttributeValues {
+            endurance,
+            immunity: 3.0,
+            gut: 3.0,
+            intelligence: 3.0,
+            instinct: 3.0,
+            eyesight: 3.0,
+            hearing: 3.0,
+            left_arm_strength: arm_strength,
+            right_arm_strength: arm_strength,
+            left_leg_strength: 3.0,
+            right_leg_strength: 3.0,
+            left_arm_agility: 3.0,
+            right_arm_agility: 3.0,
+            left_leg_agility: 3.0,
+            right_leg_agility: 3.0,
+        }
+    }
+
+    #[test]
+    fn content_is_activity_only() {
+        let mut p = Personality::neutral();
+        p.drive = Drive::Content;
+        let build = derive_build(&p, &attributes(4.0, 4.0));
+        assert_eq!(build.role, BuildRole::Civilian);
+        assert!(build.activity_only);
+    }
+
+    #[test]
+    fn brave_front_line_requires_physical_viability() {
+        let mut p = Personality::neutral();
+        p.nerve = Nerve::Brave;
+        assert_eq!(
+            derive_build(&p, &attributes(4.0, 4.0)).role,
+            BuildRole::FrontLine
+        );
+        assert_ne!(
+            derive_build(&p, &attributes(2.0, 2.0)).role,
+            BuildRole::FrontLine
+        );
+    }
+
+    #[test]
+    fn generated_personality_is_reproducible_and_sparse() {
+        for id in 0..100 {
+            let a = generate_profile(fabelgeist_determinism::Seed::from_u64(42), id);
+            let b = generate_profile(fabelgeist_determinism::Seed::from_u64(42), id);
+            assert_eq!(a, b);
+            assert!((2..=4).contains(&a.personality.non_neutral_count()));
+        }
+    }
+
+    #[test]
+    fn profile_attributes_keep_the_direct_core_wire_shape() {
+        let profile = generate_profile(fabelgeist_determinism::Seed::from_u64(42), 0);
+        let encoded = serde_json::to_value(&profile).unwrap();
+        let attributes = encoded["attributes"].as_object().unwrap();
+        assert_eq!(attributes.len(), 15);
+        assert!(attributes.contains_key("endurance"));
+        assert!(attributes.contains_key("right_leg_agility"));
+        assert!(!attributes.contains_key("values"));
+
+        let decoded: AgentProfile = serde_json::from_value(encoded).unwrap();
+        let _: &PlayerAttributeValues = &decoded.attributes;
+        assert_eq!(decoded, profile);
+    }
+
+    fn fixture_weapon() -> CombatWeapon {
+        use adventuresim_core::item_catalog::{ItemKind, definition};
+        let definition = definition("katzbalger").unwrap();
+        let ItemKind::Weapon {
+            preferred_attack,
+            reach_m,
+            precision,
+            moment_of_inertia_kg_m2,
+            skills,
+            ..
+        } = definition.kind
+        else {
+            panic!("fixture item must be a weapon")
+        };
+        let equipment = definition.equipment.as_ref().unwrap();
+        let [width, total_length_m, depth] = equipment.physical.dimensions_m;
+        let grip_to_tip_m = equipment.physical.grip_to_tip_m;
+        let striking_head_length_m = width.max(depth);
+        let timing = adventuresim_core::equipment::melee_attack_timing(
+            preferred_attack,
+            moment_of_inertia_kg_m2,
+            false,
+        );
+        CombatWeapon {
+            skills: skills.into(),
+            melee: true,
+            preferred_melee_style: preferred_attack,
+            weight: definition.weight_kg,
+            precision,
+            moment_of_inertia_kg_m2,
+            melee_reach: reach_m,
+            grip_to_tip_m,
+            total_length_m,
+            striking_head_length_m,
+            body_material: equipment.material,
+            striking_material: equipment.striking_material,
+            distal_headed: adventuresim_core::combat::has_distal_striking_surface(
+                grip_to_tip_m,
+                striking_head_length_m,
+                equipment.material,
+                equipment.striking_material,
+            ),
+            attack_interval_seconds: timing.preparation_secs + timing.recovery_secs,
+            balance: adventuresim_core::equipment::weapon_balance_from_moment(
+                moment_of_inertia_kg_m2,
+                definition.weight_kg,
+                grip_to_tip_m,
+            ),
+            ..CombatWeapon::default()
+        }
+    }
+
+    /// Load-equivalent combatant for a freshly configured simulator agent:
+    /// generated attributes/skills plus the ordinary default katzbalger,
+    /// buckler, and region-specific padded equipment created for every adult.
+    fn configured_fixture_combatant(profile: &AgentProfile, id: u64) -> Combatant {
+        let a = &profile.attributes;
+        let s = profile.initial_skills;
+        let mut combatant = Combatant::new(id);
+        combatant.attributes = PlayerAttributeValues {
+            endurance: a.endurance,
+            immunity: a.immunity,
+            gut: a.gut,
+            intelligence: a.intelligence,
+            instinct: a.instinct,
+            eyesight: a.eyesight,
+            hearing: a.hearing,
+            left_arm_strength: a.left_arm_strength,
+            right_arm_strength: a.right_arm_strength,
+            left_leg_strength: a.left_leg_strength,
+            right_leg_strength: a.right_leg_strength,
+            left_arm_agility: a.left_arm_agility,
+            right_arm_agility: a.right_arm_agility,
+            left_leg_agility: a.left_leg_agility,
+            right_leg_agility: a.right_leg_agility,
+        };
+        combatant.skills = CombatSkills {
+            polearm_hours: s.polearm,
+            axe_hours: s.axe,
+            bludgeon_hours: s.bludgeon,
+            sword_hours: s.sword,
+            knife_hours: s.knife,
+            dodge_hours: s.dodge,
+            block_hours: s.block,
+            bow_hours: s.bow,
+            crossbow_hours: s.crossbow,
+            firearm_hours: s.firearm,
+            throw_hours: s.throw,
+            will_hours: s.will,
+            insight_hours: s.insight,
+            charm_hours: s.charm,
+            command_hours: s.command,
+            deception_hours: s.deception,
+            physiology_hours: s.physiology,
+            religion_hours: s.religion.total_direct(),
+            stealth_hours: s.stealth,
+            balance_hours: s.balance,
+            bestiary_hours: s.bestiary,
+            surgery_hours: s.surgery,
+            tailoring_hours: s.tailoring,
+            smithing_hours: s.smithing,
+        };
+        let weapon = fixture_weapon();
+        let armor = |resistance, padding, coverage, flexibility, range_of_motion| CombatArmor {
+            inventory_item_id: None,
+            material: None,
+            resistance,
+            padding,
+            coverage,
+            flexibility,
+            range_of_motion,
+            coverage_geometry: AuthoredArmorCoverage::from_span(ArmorCoverageSpan::centered(
+                coverage,
+            )),
+        };
+        combatant.equipment = CombatEquipment {
+            weapon: Some(weapon),
+            melee_weapon: Some(weapon),
+            // Bootstrap damages the first durable combat item, the buckler:
+            // 1.5 * (1 - (0.08 + 0.24) * 0.5) = 1.26.
+            shield_block_bonus: 1.26,
+            armor: [
+                armor(50.0, 40.0, 0.45, 0.35, 0.9),
+                armor(50.0, 40.0, 0.45, 0.35, 0.9),
+                armor(50.0, 40.0, 0.45, 0.35, 0.9),
+                armor(50.0, 40.0, 0.45, 0.35, 0.9),
+                armor(60.0, 45.0, 0.60, 0.30, 0.88),
+                armor(50.0, 40.0, 0.45, 0.35, 0.92),
+                armor(20.0, 35.0, 0.15, 0.40, 0.95),
+            ],
+            // Exact equipped kit plus the ordinary torch/bandages, rounded up
+            // to conservatively model the loader's dry inventory weight.
+            inventory_weight: 11.0,
+            ..CombatEquipment::default()
+        };
+        combatant
+    }
+
+    #[test]
+    fn generated_fixture_party_is_safe_across_broad_autoresolve_entropy() {
+        let adult_fixture = concat!(
+            include_str!("../../adventuresim-stdb-module/src/character.rs"),
+            include_str!("../../adventuresim-stdb-module/src/character/origin.rs"),
+            include_str!("../../adventuresim-core/src/starting_character.rs")
+        );
+        for item_id in [
+            "buckler",
+            "katzbalger",
+            "quilted_sleeve",
+            "arming_cap",
+            "arming_doublet",
+            "padded_skirt",
+            "padded_chausses",
+        ] {
+            assert!(adult_fixture.contains(&format!("\"{item_id}\"")));
+        }
+        let profiles = (0..4)
+            .map(|agent_id| generate_profile(fabelgeist_determinism::Seed::from_u64(42), agent_id))
+            .collect::<Vec<_>>();
+        let groups = crate::live_core::balanced_party_groups(&profiles, 2);
+        assert_eq!(groups.len(), 2);
+        let mut parties = groups
+            .iter()
+            .map(|group| {
+                group
+                    .iter()
+                    // The live bootstrap deliberately makes agent zero
+                    // symptomatic before quest selection; the shared public
+                    // readiness filter therefore excludes it.
+                    .filter(|&&index| profiles[index].agent_id != 0)
+                    .map(|&index| {
+                        let agent_id = profiles[index].agent_id;
+                        configured_fixture_combatant(&profiles[index], u64::from(agent_id) + 1)
+                    })
+                    .collect::<Vec<_>>()
+            })
+            .collect::<Vec<_>>();
+        parties.sort_by_key(|party| {
+            party
+                .iter()
+                .map(autoresolve_combat_power)
+                .try_fold(0u64, |total, power| total.checked_add(power))
+                .unwrap()
+        });
+        let allies = parties.pop().unwrap();
+        let enemy = authored_threat_combatant(10_000, "cultist", 1, 10_000, 10_000).unwrap();
+        let party_power = allies
+            .iter()
+            .try_fold(0u64, |total, ally| {
+                total.checked_add(autoresolve_combat_power(ally))
+            })
+            .unwrap();
+        let enemy_power = autoresolve_combat_power(&enemy);
+        assert_eq!(
+            combat_power_meets_safety_margin(party_power, enemy_power),
+            Some(true)
+        );
+
+        for seed in (0..256).map(fabelgeist_determinism::Seed::from_u64) {
+            let outcome = resolve_battle(
+                allies.clone(),
+                vec![enemy.clone()],
+                seed,
+                BattleOpening::Normal,
+            );
+            assert!(
+                outcome.summary.melee_attacks > 0,
+                "seed {seed} resolved without combat contact"
+            );
+        }
+    }
+}

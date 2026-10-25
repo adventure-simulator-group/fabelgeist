@@ -1,0 +1,357 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-041",
+  "at": "2026-10-25T11:48:44.807541+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 129,
+      "source_id": "physical-p16:crates/adventuresim-core/src/quest_catalog.rs",
+      "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+      "actual_EOF": 1630,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-core/src/quest_catalog.rs",
+        "snapshot": "physical-p16",
+        "path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\quest_catalog.rs",
+        "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Read-only source assignment; whole-function repair ownership remains in authoritative claims.",
+        "scope_limits": "Explicit material contracts/ranges and necessary signature dependencies only; no implied whole-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/expanded-producer-delta-map-049.json",
+        "actual_line_count": 1630,
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 29,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-MISSION-BOOTSTRAP-046",
+            "json_pointer": "/additional_actual_source_proofs/1",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row119/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                608,
+                668
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                608,
+                668
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "Fresh actual bounded current receiving body read",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": true,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved",
+        "producer_followup_scope_additions": [
+          {
+            "authority": "continuation/root/producer-scope-extension-authority-022.json",
+            "candidate_record": "continuation/native/producer-registry-reconciliation/candidate-002.json",
+            "registered_before_body_analysis": [
+              {
+                "registry": "continuation/camera/owner-reached-producer-followup/source-range-registration.jsonl",
+                "row_1based": 3,
+                "registration_id": "CONT-CAMERA-PP-FOLLOWUP-LOCAL-REGISTRATION-003",
+                "supplier": "camera",
+                "original_record": {
+                  "id": "CONT-CAMERA-PP-FOLLOWUP-LOCAL-REGISTRATION-003",
+                  "at": "2026-10-22T04:20:13.765375+00:00",
+                  "authority": "continuation/root/producer-scope-extension-authority-022.json",
+                  "source_id": "physical-p16:crates/adventuresim-core/src/quest_catalog.rs",
+                  "snapshot": "physical-p16",
+                  "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+                  "actual_eof_metadata": 1630,
+                  "ranges": [
+                    [
+                      590,
+                      597
+                    ],
+                    [
+                      842,
+                      860
+                    ]
+                  ],
+                  "material_reach": "Direct ReferenceAcceleration/ResponseRate or ThreatId producer/retained config/actual numerical or catalogue receiving function; exact request004/005/006 pins caller navigation.",
+                  "existing_proof_insufficiency": "P16 context absent or exact role/range absent; cannot infer from PR counterpart path/SHA/owner verdict.",
+                  "pre_body_status": "registered_before_new_body_analysis; no coverage credit"
+                }
+              },
+              {
+                "registry": "continuation/camera/owner-reached-producer-followup/source-range-registration.jsonl",
+                "row_1based": 9,
+                "registration_id": "CONT-CAMERA-PP-FOLLOWUP-LOCAL-REGISTRATION-009",
+                "supplier": "camera",
+                "original_record": {
+                  "id": "CONT-CAMERA-PP-FOLLOWUP-LOCAL-REGISTRATION-009",
+                  "at": "2026-10-22T04:21:46.551390+00:00",
+                  "authority": "continuation/root/producer-scope-extension-authority-022.json",
+                  "source_id": "physical-p16:crates/adventuresim-core/src/quest_catalog.rs",
+                  "snapshot": "physical-p16",
+                  "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+                  "actual_eof_metadata": 1630,
+                  "ranges": [
+                    [
+                      92,
+                      110
+                    ],
+                    [
+                      324,
+                      589
+                    ]
+                  ],
+                  "material_reach": "Fresh catalog842\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153860 reaches Catalog::compile; establish raw native Monster source records versus successful retained catalog identity and lookup, not validated comment or getter-name exemption.",
+                  "existing_proof_insufficiency": "Exact current P16 receiving body and retained identities not previously scoped; no owner/counterpart verdict credit.",
+                  "pre_body_status": "registered_before_new_body_analysis; identity/catalogue role only, unrelated numeric/feature roles not analyzed"
+                }
+              },
+              {
+                "registry": "continuation/camera/owner-reached-producer-followup/source-range-registration.jsonl",
+                "row_1based": 10,
+                "registration_id": "CONT-CAMERA-PP-FOLLOWUP-LOCAL-REGISTRATION-010",
+                "supplier": "camera",
+                "original_record": {
+                  "id": "CONT-CAMERA-PP-FOLLOWUP-LOCAL-REGISTRATION-010",
+                  "at": "2026-10-22T04:22:48.321302+00:00",
+                  "authority": "continuation/root/producer-scope-extension-authority-022.json",
+                  "source_id": "physical-p16:crates/adventuresim-core/src/quest_catalog.rs",
+                  "snapshot": "physical-p16",
+                  "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+                  "actual_eof_metadata": 1630,
+                  "ranges": [
+                    [
+                      731,
+                      791
+                    ]
+                  ],
+                  "material_reach": "Catalog::compile405 actually calls validate_monster; determine raw/direct compile policy before classifying raw compiled stable IDs against ThreatId (no speculative narrowing).",
+                  "existing_proof_insufficiency": "Fresh direct called body necessary for exact raw/checked producer admission distinctions; existing608\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153668 unrelated.",
+                  "pre_body_status": "registered_before_body_analysis"
+                }
+              }
+            ],
+            "effective_local_material_ranges": [
+              [
+                92,
+                110
+              ],
+              [
+                324,
+                597
+              ],
+              [
+                731,
+                791
+              ],
+              [
+                842,
+                860
+              ]
+            ],
+            "qualification_refs": [],
+            "scope_limits": "Every original registration/role/caller/reason remains embedded independently. Byte overlap is not semantic role coverage, producer acceptance, owner-fit acceptance or edit ownership. none; Native qualifications trim local supplier roles only, never historical global scope.",
+            "producer_discovery": "separate actual source/recipient packet acceptance required",
+            "owner_fit": "pending exact new-role delta against owner019",
+            "source_or_other_lens_credit": "none from scope bookkeeping"
+          }
+        ],
+        "admission03_increment077_role_observations": [
+          {
+            "supplier": "camera",
+            "registry": "continuation/camera/admission03/source-range-registration.jsonl",
+            "row_1based": 32,
+            "registration_id": "CAMERA-ADM03-REG030",
+            "original_record": {
+              "id": "CAMERA-ADM03-REG030",
+              "at": "2026-10-22T14:57:54.604303+00:00",
+              "authority": "CONT-ROOT-ADMISSION03-DISCOVERY-AUTHORITY-043",
+              "source_id": "physical-p16:crates/adventuresim-core/src/quest_catalog.rs",
+              "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+              "actual_EOF": 1630,
+              "ranges": [
+                [
+                  1,
+                  67
+                ],
+                [
+                  89,
+                  91
+                ],
+                [
+                  111,
+                  323
+                ],
+                [
+                  598,
+                  607
+                ],
+                [
+                  669,
+                  670
+                ],
+                [
+                  793,
+                  840
+                ]
+              ],
+              "material_caller": "Original78 privateCatalog.compile336-589/runtimecatalog842 calls direct DTO/evidence validation and demographic declarations; complete exact direct typed raw declarations and called helper only",
+              "role": "Original78 privateCatalog.compile336-589/runtimecatalog842 calls direct DTO/evidence validation and demographic declarations; complete exact direct typed raw declarations and called helper only",
+              "exclusions": "No render_dialogue68-88, dialogue selection671-730 or tests862+; no full1630 credit",
+              "status": "registered BEFORE new body analysis"
+            },
+            "local_qualifications": [
+              {
+                "registration_id": "CAMERA-ADM03-REG030",
+                "at": "2026-10-22T18:25:03.942345+00:00",
+                "source_id": "physical-p16:crates/adventuresim-core/src/quest_catalog.rs",
+                "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+                "actual_EOF": 1630,
+                "original_registered_ranges": [
+                  [
+                    1,
+                    67
+                  ],
+                  [
+                    89,
+                    91
+                  ],
+                  [
+                    111,
+                    323
+                  ],
+                  [
+                    598,
+                    607
+                  ],
+                  [
+                    669,
+                    670
+                  ],
+                  [
+                    793,
+                    840
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    1,
+                    67
+                  ],
+                  [
+                    89,
+                    91
+                  ],
+                  [
+                    111,
+                    323
+                  ],
+                  [
+                    598,
+                    607
+                  ],
+                  [
+                    669,
+                    670
+                  ],
+                  [
+                    793,
+                    840
+                  ]
+                ],
+                "context_only_ranges": [],
+                "role": "Original78 privateCatalog.compile336-589/runtimecatalog842 calls direct DTO/evidence validation and demographic declarations; complete exact direct typed raw declarations and called helper only",
+                "proof_refs": [
+                  "CAMERA-ADM03-097"
+                ],
+                "qualification": "Exact registered current role limits; reference source contract and original exclusions remain mandatory, no whole-file or included callee credit.",
+                "exclusions": "No render_dialogue68-88, dialogue selection671-730 or tests862+; no full1630 credit",
+                "source_registration_record": "continuation/camera/admission03/source-range-registration.jsonl#CAMERA-ADM03-REG030",
+                "no_source_body_credit_from_metadata": true,
+                "no_global_or_other_lens_credit": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                1,
+                67
+              ],
+              [
+                89,
+                91
+              ],
+              [
+                111,
+                323
+              ],
+              [
+                598,
+                607
+              ],
+              [
+                669,
+                670
+              ],
+              [
+                793,
+                840
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\quest_catalog.rs",
+            "actual_EOF": 1630,
+            "bytes": 62269
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          67
+        ],
+        [
+          89,
+          333
+        ],
+        [
+          590,
+          672
+        ],
+        [
+          793,
+          840
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "Selected CatalogDocument/QuestDialogueVariant/QuestDialogueVariantKind/Monster/MonsterNegotiation/MonsterCombat/MonsterInvestigation/EvidenceDefinition/EvidenceTopicDefinition/BestiaryImplicationDefinition/EvidenceCheckDefinition/WitnessDemographicDefinition/WitnessMatchRule/CircumstanceDefinition/SiteDefinition/DescriptionDefinition/TemplateDefinition/ConsequenceDefinition/WeightedRelation/WeightedCandidate/BridgeDefinition Serialize Deserialize and structural traits; Default where declared",
+        "Catalog Debug"
+      ],
+      "absence_basis": "All registered material plus necessary partial declaration/function closures consumed. No manual trait/serializer; selected native lookups/selector and validate_evidence functions are semantic, not mechanical trait code.",
+      "necessary_signature_extension": "Original89\u201391 derive starts Monster declaration92\u2013110; original323 derives Catalog324\u2013333. Original598 trailing brace requires590\u2013597 lookup context, template header670 closes671\u2013672. Exploratory335\u2013345 compile prefix uncredited incomplete body.",
+      "coverage_limit": "Exact selected quest contracts, not entire1630-line source or generated OUT_DIR body."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Catalogue authoring records already derive wire traits; preserve closed lookup, ordered populations and evidence validation explicitly. No derive cleanup identified in these material contracts.",
+      "qualification": "Source-only review, no content compilation or fixtures executed; unregistered compile body uncredited."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 130,
+    "source_id": "physical-p16:crates/adventuresim-core/src/quest_catalog_validation.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

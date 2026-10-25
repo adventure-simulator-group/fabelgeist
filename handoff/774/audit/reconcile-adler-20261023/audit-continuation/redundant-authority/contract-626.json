@@ -1,0 +1,94 @@
+{
+  "id": "CONT07-CONTRACT-626",
+  "at": "2026-10-24T00:46:46.849006+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2724,
+      "source_id": "physical-p16:crates/fabelgeist-armor/src/lib.rs",
+      "sha256": "80124b8fa3d698044166b5f4226391835bde877e6e3e55904a8e6ab149a5fdcd",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/fabelgeist-armor/src/lib.rs",
+      "actual_EOF": 171,
+      "ranges": [
+        [
+          86,
+          171
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2725,
+      "source_id": "physical-p16:crates/fabelgeist-armor/src/breastplate_design.rs",
+      "sha256": "5754de117641f6ec7b40dd69802d0fddedf3d2e9a2608945b8c26b33171f05f6",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/fabelgeist-armor/src/breastplate_design.rs",
+      "actual_EOF": 206,
+      "ranges": [
+        [
+          1,
+          128
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2726,
+      "source_id": "physical-p16:crates/fabelgeist-armor/src/plate_fluting.rs",
+      "sha256": "42c3b5a6c8d36617915977082f2a591e7e363910aa7b7b209d0f0168d774fbf7",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/fabelgeist-armor/src/plate_fluting.rs",
+      "actual_EOF": 150,
+      "ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2727,
+      "source_id": "physical-p16:crates/fabelgeist-armor/src/anime_design.rs",
+      "sha256": "3fd27205e209b9133d640381c16458c180e205625a017b93138e363d14b04b86",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/fabelgeist-armor/src/anime_design.rs",
+      "actual_EOF": 56,
+      "ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2728,
+      "source_id": "physical-p16:crates/fabelgeist-armor/src/design.rs",
+      "sha256": "26c72636cd1c9cff2ca9eb5c41bfea3d714d0820824272c2770feb4d9c234c34",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/fabelgeist-armor/src/design.rs",
+      "actual_EOF": 166,
+      "ranges": [
+        [
+          1,
+          22
+        ],
+        [
+          33,
+          66
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "P16 armor exact variant repeats coherent type\u2192validate\u2192encode\u2192hash contracts, current generator20 versus schema1 remain distinct provenance concepts. Breastplate independently authored fit/profile/construction fields validate against their own shared limits; no duplicated mutable derived pitch/shape classification in these ranges. Millimeters/Permille are intentionally broad public native-width unit owners; contextual design limits live in validators, so don't infer global<=1000 or strictlypositive scalar contract.",
+    "P16 PlateFluting columns recomputes feature samples from current count/spread/width rather than caches a second grid. Default Bracer coverage and wrist_offset have a relational sum<=1000 gate; independent lengths/offsets represent different actual facts. Hash functions' rejection order and complete design identity must be preserved if shared caches later strengthened; no execution/snapshot compile evidence."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2729,
+    "start_line": 1
+  }
+}

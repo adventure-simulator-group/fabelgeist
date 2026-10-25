@@ -1,0 +1,38 @@
+{
+  "recorded_at": "2026-10-21T06:20:47.372514+00:00",
+  "source_head": "8f2b901881f8aa8035a03cd99dbfefb7bbdf8926",
+  "family": "P06",
+  "status": "REOPENED; no push or new hosted request until connected source completion",
+  "first_hosted_failure": {
+    "run": 39552331390,
+    "job": 119064104970,
+    "contract": "Native Clippy compile/must-use",
+    "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter.rs:580",
+    "repair": "Existing fixture must unwrap the actual spawn result; identical input and assertions."
+  },
+  "new_source_findings": [
+    {
+      "path": "crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs::GateDatum",
+      "gap": "Two production presentation callers and the existing gate fixture extract SupportElevation::metres solely to re-admit the same datum.",
+      "repair": "Add the canonical typed primary constructor and checked elevation accessor; retain from_metres only for real native Transform and isolated fixture admission. Trace all six existing constructor call sites."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/buildings/boundaries.rs::fixed -> batching.rs::BoundaryBatches::insert",
+      "gap": "Distant accepted gate elevation passes as f32 through two internal APIs; numeric zero also encodes gate-relative geometry under a translated parent.",
+      "repair": "Use explicit GateRelative versus Scene(GateDatum) placement. Carry it through the batcher and project only in the actual vertex/mesh arithmetic. Move material-cell insertion into the real batch receiver without changing materials or iteration order."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/buildings/boundaries/batching.rs",
+      "gap": "The connected mesh kernel panics on foreign tangent/merge failures.",
+      "repair": "Retain the two native typed causes through the batcher, both presentation systems and actual Bevy error receiver. The fixed eight-triangle cell proves the at-most-24 native u32 indices; do not invent missing-index failure."
+    }
+  ],
+  "closure": [
+    "Core accepted boundary support -> GeneratedBoundary::elevation_metres -> typed GateDatum -> native door projection -> SceneDoorPose -> render/server ports.",
+    "Playable boundary is gate-relative beneath existing Transform; distant boundary is scene-absolute using the accepted datum. Preserve the original add/subtract/multiply order and UV frame in native mesh conversion.",
+    "Update both existing batching fixtures and gate fixture calls; add no tests, cases, assertions or helpers.",
+    "Re-read affected caller/receiver bodies and global symbols after edits; preserve signed zero and valid finite geometry, source loops and original twenty plan exits.",
+    "Only after all current source questions close, do quality cleanup and publish one completed checkpoint, which starts hosted CI."
+  ],
+  "other_pending_families": "P08 camera/report position state and P18 final-distance measurement/report-contract errors retain their original exits and remain pending. They are not cleared by this source checkpoint."
+}

@@ -1,0 +1,68 @@
+{
+  "observed_at": "2026-10-21T22:29:53.599821+00:00",
+  "kind": "Source/Git preservation metadata only; no project check, lens clearance or acceptance verdict",
+  "snapshots": [
+    {
+      "id": "pr-working",
+      "expected_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "observed_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_unchanged": true,
+      "status_unchanged": true,
+      "paths_fingerprinted": 747,
+      "observed_dirty_paths": 4
+    },
+    {
+      "id": "rig-quality",
+      "expected_head": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "observed_head": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "head_unchanged": true,
+      "status_unchanged": true,
+      "paths_fingerprinted": 8,
+      "observed_dirty_paths": 0
+    },
+    {
+      "id": "report-p17",
+      "expected_head": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "observed_head": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "head_unchanged": true,
+      "status_unchanged": true,
+      "paths_fingerprinted": 32,
+      "observed_dirty_paths": 0
+    },
+    {
+      "id": "physical-p16",
+      "expected_head": "a120390947c89b703dc74c4255a13c035d054c50",
+      "observed_head": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head_unchanged": true,
+      "status_unchanged": true,
+      "paths_fingerprinted": 159,
+      "observed_dirty_paths": 159
+    }
+  ],
+  "mismatches": [],
+  "original_stash_commit": "6c109560050d97dd6deeb842b1d71ec8a280949b",
+  "original_stash_listed": true,
+  "unrelated_primary_manifest_edits": [
+    {
+      "path": "Cargo.toml",
+      "sha256": "f46f79761bae6df7284255836d76d1a59cb7a2ea6da18c2ba0b8cdfea524f141",
+      "unchanged_from_freeze": true
+    },
+    {
+      "path": "crates/adventuresim-character-creator/Cargo.toml",
+      "sha256": "447d3738e8691ac26b118fa0394a2fcfeff80c103138f3796579dfecfc3dc275",
+      "unchanged_from_freeze": true
+    },
+    {
+      "path": "crates/fabelgeist-mhr/Cargo.toml",
+      "sha256": "812f7313b91a00c16712940cc5221d2e5747acd5b74583e1d328be7c7be5246e",
+      "unchanged_from_freeze": true
+    },
+    {
+      "path": "crates/fabelgeist-numpy-storage/Cargo.toml",
+      "sha256": "c24257cf08ecc405cc1df61059897147680a9d4a7468c226edbbe63e81586147",
+      "unchanged_from_freeze": true
+    }
+  ],
+  "metadata_correction": "Status normalization compares porcelain lines to the pinned line arrays; previous string-versus-list comparison was invalid. Source946 hashes/heads and stash/manifest observations unchanged."
+}

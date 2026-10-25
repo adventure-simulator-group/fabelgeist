@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1113",
+  "at": "2026-10-25T17:47:52.823003+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1227,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+  "sha256": "9511a258a4133480d0581e538ae88d41ccff8d90ce6a0658ff71e28267b35eb5",
+  "actual_compared_ranges": [
+    [
+      681,
+      1060
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "No handwritten trait/codec/type. Native standalone mission capture/candidate/roster/request/claim construction contextual and fixedinitialstates, checked enemy/capability snapshots. SHA claim digest explicit cryptographic boundary not Hashderive. Interrupted requests retire only exact standalone family; native world/settlement initialization chooses authored fixtures and checked environment owners/defaults. Many field records are data recipes, not handwritten Default/from serialization."
+  ],
+  "first_unfinished": {
+    "scope_index": 1227,
+    "line": 1061
+  },
+  "execution": "none"
+}

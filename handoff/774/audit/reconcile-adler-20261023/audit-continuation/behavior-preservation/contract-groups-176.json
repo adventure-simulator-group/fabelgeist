@@ -1,0 +1,107 @@
+{
+  "id": "CONT08-CONTRACT-176",
+  "at": "2026-10-25T13:39:00.708899+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 692,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_metal.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/armor_metal.rs",
+      "before_sha256": "1bf9e2e737b22caad629f7a059e80124994e296b76664ad4fd0fe9aa4e55a72b",
+      "after_sha256": "ae70b9acd477b6b29e03bd540b451d5e8556222a33a7cbb10babafab1206fbba",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0692-base-1bf9e2e737b22caad629f7a059e80124994e296b76664ad4fd0fe9aa4e55a72b",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/ae70b9acd477b6b29e03bd540b451d5e8556222a33a7cbb10babafab1206fbba",
+      "diff": "source-evidence/pr-0692.diff",
+      "diff_sha256": "73842a880b51ea3166723724bf2edac7c16164076845169a9ec145fd1c227832",
+      "head_body_read_ranges": [
+        [
+          1,
+          198
+        ]
+      ],
+      "facts": [
+        "Full198+actual diff. Only fixture skin buffers now use packed all-slot membership with native one-joint bound. Plate steel/material/engraving routing, native f32 subtraction before f64 edge length sum, surface/texture density scale, trim period/origin and .001 source oracles unchanged. No render/trim/native execution."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 693,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_recipes.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/armor_recipes.rs",
+      "before_sha256": "41fca6963a1557cb3f9e0fb04b66d2c4a38774ef69b31db30e7009b58afa3d09",
+      "after_sha256": "a6c834971b1cd263330dea65a4a48a826dda0b767e3e16b49dc26c8a7405c725",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0693-base-41fca6963a1557cb3f9e0fb04b66d2c4a38774ef69b31db30e7009b58afa3d09",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/a6c834971b1cd263330dea65a4a48a826dda0b767e3e16b49dc26c8a7405c725",
+      "diff": "source-evidence/pr-0693.diff",
+      "diff_sha256": "76bbcbcde5f20ed25152156132c7f0b57fc3a0f2e55436d0ca45fd73d042734e",
+      "head_body_read_ranges": [
+        [
+          1,
+          262
+        ]
+      ],
+      "facts": [
+        "Full262+actual diff. Catalog recipe lookup uses actual CatalogItem ID to same LazyLock authored BTreeMap and cloned design; Dedicated vambrace/breastplate/cuirass routing and is_parametric unchanged. fit_region uses FittingPlacement.side at same branches as former Side::from_placement, so unpaired Torso/Hips/Head/Neck remains valid and paired same error.",
+        "Every expected item/family, original museum controls and default distinction consumed; own688 validation uses first canonical item and existing historical same_family. No extra unknown-item fallback introduced; actual catalogue525 retains all these IDs (only belt renamed)."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 922,
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment_assets.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/equipment_assets.rs",
+      "before_sha256": null,
+      "after_sha256": "0c7bd7e45c9a145954daf97ac6f0c2caa23bda96e9731a5ff033a2a3ce4a9365",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/0c7bd7e45c9a145954daf97ac6f0c2caa23bda96e9731a5ff033a2a3ce4a9365",
+      "diff": "source-evidence/pr-0922.diff",
+      "diff_sha256": "158f840ee16440b482a389265dcc761994434df787f23778bd2a946a56ebf302",
+      "head_body_read_ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "facts": [
+        "Full107 added source body read plus actual added diff; prior own004/139 asset-wire comparisons retained as same-lens source proof, not other-lens verdict. Manifest wire record order/default optional fields and direct canonical item\u2192placement lookup, duplicate checked selection and item/placement lexical order preserve documented default-first behavior. Actual selection923 establishes first duplicate lookup.",
+        "Other moved old loaders/error consumers and metadata admission remain distinct prior/future original cells; no GLB release/load success from source metadata."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 923,
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment_assets/selection.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/equipment_assets/selection.rs",
+      "before_sha256": null,
+      "after_sha256": "162b898d78feeae3507d19844b4b11c999c50edd7609680e5ef7c2fac89486d6",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/162b898d78feeae3507d19844b4b11c999c50edd7609680e5ef7c2fac89486d6",
+      "diff": "source-evidence/pr-0923.diff",
+      "diff_sha256": "68a25c10f6af2c2b0fd1c916108be57140445e2fde43b8c1f56bef5e7472afe7",
+      "head_body_read_ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "facts": [
+        "Full170 actual new body read (base absent complete addition). Exact ID find keeps first duplicate; CatalogItem::all/admit retains actual every record (admit requires pointer identity). Authored placement iteration, first exact placement and owned immutable Arc snapshot/ordinal preserve source item relationship.",
+        "Actual688/693 consumers read definition ID rather than address for classification/override, so cloned catalogue records with same ID preserve selected design behavior. Equality/hash intentionally pointer identity for exact records, requiring each cache recipient comparison; all caches not cleared here. Native deref projections and private retained construction bounds explicit."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    }
+  ],
+  "next": "694 armory485 then695+"
+}

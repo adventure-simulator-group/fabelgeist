@@ -1,0 +1,131 @@
+{
+  "id": "CONT08-CONTRACT-105",
+  "at": "2026-10-25T11:55:56.747206+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 355,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/inventory.rs",
+      "before_sha256": "f77b0e7f7bdaa2236b496546994145e0cac821ecdf98ecd9281e282e2c1f4dad",
+      "after_sha256": "a1b3b6e0f7f1d9884a53f8306a3e0e9e6c1a8deb26e2b13fb163f73edd39900d",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0355-base-f77b0e7f7bdaa2236b496546994145e0cac821ecdf98ecd9281e282e2c1f4dad",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/a1b3b6e0f7f1d9884a53f8306a3e0e9e6c1a8deb26e2b13fb163f73edd39900d",
+      "diff": "source-evidence/p16-0355.diff",
+      "diff_sha256": "e30f235868669933d919c03f8be44069e17c3ecb9f5b31c06e083d3f0b861ad2",
+      "head_body_read_ranges": [
+        [
+          1,
+          858
+        ]
+      ],
+      "facts": [
+        "Fresh full858 plus complete126-line actual P16 diff. Weapon reach/grip and physical dimensions/head become canonical finite owners, native .metres projection and y-axis selection unchanged. is_valid retains dimensions strictlypositive, nonnegativegrip, head inclusive[0,y], finite anchor; previous removed finite guards guaranteed by actual owned leaves, not relaxed arbitrary native Vec3.",
+        "Actual weapon selection scans owned items by attack-hand slot first; shield uses retained cache. Unarmed reach/head zero and physical\u2192grip\u2192reach fallback precedence unchanged. Underlying PlayerEquipment100/CONTRACT023 actual receiving weapon_balance_from_moment440\u2013454 re-read confirms SignedLength parameter and same fallback/native law, no stale float API inferred.",
+        "Cache rebuild versus slot-hook order and unknown catalogue material behavior unchanged; inherited redundant authority/identity findings remain, not08 regressions. Existing authored unarmed.36 timing, multi-layer fold120/40/.9/.7/.3, stable topology/entity-map and transparent quantity fixtures fully consumed, not executed. No recipe/native renderer wholegraph clearance."
+      ],
+      "disposition": "Own08 exact scoped source comparison accounted WITH retained connected authority/native questions.",
+      "acceptance": "Preserve physical axis/value/admission and fallback precedence, exact attack-hand and shield selection, wire observation and existing fixture assertions. No source fixes/checks/tests."
+    },
+    {
+      "scope_index": 356,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory/armor.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/inventory/armor.rs",
+      "before_sha256": "49cd8bc000aa19cd346741cd36179b1477050c9c1949bcddc4696e486cd0461c",
+      "after_sha256": "49cd8bc000aa19cd346741cd36179b1477050c9c1949bcddc4696e486cd0461c",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0356-base-49cd8bc000aa19cd346741cd36179b1477050c9c1949bcddc4696e486cd0461c",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/49cd8bc000aa19cd346741cd36179b1477050c9c1949bcddc4696e486cd0461c",
+      "diff": "source-evidence/p16-0356.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "facts": [
+        "Fresh full53 and empty diff. ArmorItem geometry/covered-parts/layer identity; contact item and durable inventory ID distinguish exact struck item. Same enum wire shapes/optional side retained, no local semantic change."
+      ],
+      "disposition": "Own08 exact scoped source comparison accounted WITH retained connected authority/native questions.",
+      "acceptance": "Preserve physical axis/value/admission and fallback precedence, exact attack-hand and shield selection, wire observation and existing fixture assertions. No source fixes/checks/tests."
+    },
+    {
+      "scope_index": 357,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory/quantity.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/inventory/quantity.rs",
+      "before_sha256": "6a0acac145fbe06b57ecbe43504dae3eca6d0923f65aedccf72c98c9e7977e33",
+      "after_sha256": "6a0acac145fbe06b57ecbe43504dae3eca6d0923f65aedccf72c98c9e7977e33",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0357-base-6a0acac145fbe06b57ecbe43504dae3eca6d0923f65aedccf72c98c9e7977e33",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/6a0acac145fbe06b57ecbe43504dae3eca6d0923f65aedccf72c98c9e7977e33",
+      "diff": "source-evidence/p16-0357.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "facts": [
+        "Fresh full28 and empty diff. Canonical ItemQuantity wrapper transparent, defaultONE, constructor0None and getu32 retained. Existing355 fixture proves intended wire assertion source only; no Serde execution."
+      ],
+      "disposition": "Own08 exact scoped source comparison accounted WITH retained connected authority/native questions.",
+      "acceptance": "Preserve physical axis/value/admission and fallback precedence, exact attack-hand and shield selection, wire observation and existing fixture assertions. No source fixes/checks/tests."
+    },
+    {
+      "scope_index": 358,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory/timing.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/inventory/timing.rs",
+      "before_sha256": "d02da5117e785f6425ae9d21c2d48a30f0fb7818e22df987fa787f88a3cbab04",
+      "after_sha256": "d02da5117e785f6425ae9d21c2d48a30f0fb7818e22df987fa787f88a3cbab04",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0358-base-d02da5117e785f6425ae9d21c2d48a30f0fb7818e22df987fa787f88a3cbab04",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/d02da5117e785f6425ae9d21c2d48a30f0fb7818e22df987fa787f88a3cbab04",
+      "diff": "source-evidence/p16-0358.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "facts": [
+        "Fresh full17 and empty diff. Melee timing actual equipped weapon selected by same hand; raw moment or0 and weapon_none flag passed canonical melee_attack_timing, same numerical recipient already own100. No direct animation-speed coefficient added."
+      ],
+      "disposition": "Own08 exact scoped source comparison accounted WITH retained connected authority/native questions.",
+      "acceptance": "Preserve physical axis/value/admission and fallback precedence, exact attack-hand and shield selection, wire observation and existing fixture assertions. No source fixes/checks/tests."
+    },
+    {
+      "scope_index": 359,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/lib.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/lib.rs",
+      "before_sha256": "1313b2f352b4d2d17cb2983fc9e0d4a992ae61ce4351e60dfe639eb1ec23b9ba",
+      "after_sha256": "f0f319e706f85bf05b038d8e0387be8085c488aaa4b736609cb386eff9bd51e6",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0359-base-1313b2f352b4d2d17cb2983fc9e0d4a992ae61ce4351e60dfe639eb1ec23b9ba",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/f0f319e706f85bf05b038d8e0387be8085c488aaa4b736609cb386eff9bd51e6",
+      "diff": "source-evidence/p16-0359.diff",
+      "diff_sha256": "8afcd7df0a6f51c07492af0711954770b8f4cb0c51bb9303ef71c5e5746ca1b8",
+      "head_body_read_ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "facts": [
+        "Fresh full160 and complete14-line diff. Reexports new geometry owner/result/epsilon do not alter plugin schedule or run producers. Same physics-only core plugin group; all reexported module bodies separately scoped and not cleared by declarations."
+      ],
+      "disposition": "Own08 exact scoped source comparison accounted WITH retained connected authority/native questions.",
+      "acceptance": "Preserve physical axis/value/admission and fallback precedence, exact attack-hand and shield selection, wire observation and existing fixture assertions. No source fixes/checks/tests."
+    }
+  ],
+  "own_lens_connected": "CONTRACT023 source100 exact body/old-new comparison reused plus fresh440\u2013454 read; no foreign-lens clearance.",
+  "next": "360 physics1762 then361quickstep81/362player650, exact delta receivers."
+}

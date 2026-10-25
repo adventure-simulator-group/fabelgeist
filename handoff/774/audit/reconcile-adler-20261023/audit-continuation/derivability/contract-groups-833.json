@@ -1,0 +1,90 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-833",
+  "at": "2026-10-25T16:58:10.548912+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1041,
+      "source_id": "pr-working:crates/adventuresim-plant-generator/src/fungus/geometry.rs",
+      "sha256": "1fe40d73dc9b9cf308f312393f3f43f960f26dd8c4bb6542c386970789f37c45",
+      "actual_EOF": 225,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-plant-generator/src/fungus/geometry.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-plant-generator/src/fungus/geometry.rs",
+        "sha256": "1fe40d73dc9b9cf308f312393f3f43f960f26dd8c4bb6542c386970789f37c45",
+        "bytes": 8176,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-root-receivers-004.json",
+            "ranges": [
+              [
+                1,
+                225
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-SUPP-RNG-PLANT-001"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 262,
+            "read_ranges": [
+              [
+                1,
+                225
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-BOTANICAL-045"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-plant-generator/src/fungus/geometry.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 390,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          225
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Full fungus geometry/fixtures source has only borrowed Profile with inherent cap/stipe geometry and native mesh/veil/ornament functions, no handtrait/codec."
+    }
+  ],
+  "groups": [
+    "Borrowed Profile geometric evaluation and attachment/pigment sampling are semantic formulas, not generic derive candidates. Fixtures read not run, attachment child remains separate source role."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1042,
+    "source_id": "pr-working:crates/adventuresim-plant-generator/src/fungus/geometry/attachment.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

@@ -1,0 +1,29 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-066",
+  "at": "2026-10-22T22:00:30.101546+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation/procedural/rig.rs",
+      "sha256": "5da088286521af8e54c621b356ceb3fa949d3870c3748494352eda9016277bec",
+      "scope039_index": 2789,
+      "actual_EOF": 514,
+      "scoped_ranges_compared": [
+        [
+          50,
+          79
+        ]
+      ],
+      "actual05_comparison": "Fresh actual P17 BoneRole is a closed fieldless enum with compiler-derived Eq/Ord/Copy and distinct semantic root/spine/camera/limb/weapon tags. No correlated payload or arithmetic aggregate in this leaf. Actual captured17-role roster REG011/060 selects a deliberate subset; reduced topology REG012/062 uses only that subset. This does not prove authored rig role uniqueness, native joint index membership, binding or current pose validity. Exact50-79 only, earlier metadata and later80+ binding/pose bodies excluded; PR045full rig proof not transferred to P17.",
+      "source_body_proof": "Fresh bounded P17 body after Rig031 global039 registration; actual source-backed nonapplicability of aggregate state for this fieldless identity leaf."
+    }
+  ],
+  "comparison_groups": {
+    "closed-role-key": "Closed identity leaf; actual report collection and reduced hierarchy supply separate aggregate relationships, no entire rig claim."
+  },
+  "new_unique_findings": [],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

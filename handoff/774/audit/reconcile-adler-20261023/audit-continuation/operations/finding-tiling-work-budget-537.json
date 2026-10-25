@@ -1,0 +1,27 @@
+{
+  "id": "SEGOVB-04-TILING-LATE-WORK-BUDGET-CANDIDATE-001",
+  "sources": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/layout.rs",
+      "sha256": "9d9424e679eb33b176ce1687f202f9a81fcf765ef6d910fdd02bb1f409711fc2",
+      "ranges": [
+        [
+          70,
+          98
+        ],
+        [
+          108,
+          189
+        ],
+        [
+          235,
+          267
+        ]
+      ]
+    }
+  ],
+  "counterexample": "Public GeneratedArmor::constructed with validated default Scale construction and a finite nondegenerate 2x2 open plane of large length (for example1,000,000m) computes millions of rows from height.065 and pitch.0455, reserves grid_rows and builds the entire grid before Layout::new checks MAX_TILES20000. Geometry small in source vertex cardinality; workload grows with physical span before intended rejection. No project execution.",
+  "qualification": "API-only large-geometry witness; ordinary generated anatomy not shown to have this span. Exact inherited alias pending. Do not turn native work-budget into arbitrary physical-world extent restriction.",
+  "connected_contract": "Per-piece plate count is a construction budget; check prospective row/column/tile work before allocation and each push, preserving deliberate overhang/stagger and structured TooManyPlates error. Unlaced/lamellar/cyclic routes need coherent budget policy.",
+  "acceptance": "Reject over-budget construction before proportional unbounded work or allocation; normal template, lacing, morph correspondence and error semantics preserved."
+}

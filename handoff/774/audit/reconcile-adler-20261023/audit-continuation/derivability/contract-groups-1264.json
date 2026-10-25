@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1264",
+  "at": "2026-10-25T18:19:47.821129+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1331,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer.rs",
+  "sha256": "4544835a041e7c35f25b60d0b13e06ff22ea4ecc0efc90efdda1cd6963fb9638",
+  "actual_compared_ranges": [
+    [
+      1,
+      300
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Pose buffer record inventory: mechanical Resource Default/Serialize/Clone/Copy/Debug/PartialEq already derived as declared; no handwritten trait/codec in slice. Inherent from_pose adds hierarchy/current joint role projection; from_span and LocalPose from_transform/interpolation/extrapolation/continuation spline are native semantic operations, not available derive_more field-wrapper conversions. Children separately scoped.",
+  "first_unfinished": {
+    "scope_index": 1331,
+    "line": 301
+  },
+  "execution": "none"
+}

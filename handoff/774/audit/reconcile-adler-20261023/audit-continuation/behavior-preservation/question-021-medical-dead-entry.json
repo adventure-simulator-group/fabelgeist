@@ -1,0 +1,90 @@
+{
+  "id": "CONT08-Q021",
+  "at": "2026-10-25T17:20:39.891535+00:00",
+  "classification": "retained_medical_entry_calls_living_only_first_aid_before_dead_actor_outcome",
+  "related_exact_pending": "root own05 Q021, contract-groups-091/progress; coordinator confirms same entry gate and requests actual retained-now-dead caller support",
+  "sources": [
+    {
+      "scope_index": 1270,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/cycle.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-strategic-sim/src/live_core/cycle.rs",
+      "before_sha256": "3b8f6cf71583d3d4384601cc98adcaa89ff36b5698bd268077eff5a3df340f9b",
+      "after_sha256": "3b8f6cf71583d3d4384601cc98adcaa89ff36b5698bd268077eff5a3df340f9b",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1270-base-3b8f6cf71583d3d4384601cc98adcaa89ff36b5698bd268077eff5a3df340f9b",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/3b8f6cf71583d3d4384601cc98adcaa89ff36b5698bd268077eff5a3df340f9b",
+      "diff": "source-evidence/pr-1270.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ranges": [
+        [
+          102,
+          118
+        ],
+        [
+          359,
+          444
+        ]
+      ]
+    },
+    {
+      "scope_index": 1290,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/settlement.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-strategic-sim/src/live_core/settlement.rs",
+      "before_sha256": "652eac9d7899ae0a71dea77f7d1b4cd40beef647afa972cf51ee85de57f5acf9",
+      "after_sha256": "652eac9d7899ae0a71dea77f7d1b4cd40beef647afa972cf51ee85de57f5acf9",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1290-base-652eac9d7899ae0a71dea77f7d1b4cd40beef647afa972cf51ee85de57f5acf9",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/652eac9d7899ae0a71dea77f7d1b4cd40beef647afa972cf51ee85de57f5acf9",
+      "diff": "source-evidence/pr-1290.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ranges": [
+        [
+          82,
+          94
+        ],
+        [
+          744,
+          776
+        ],
+        [
+          1532,
+          1549
+        ],
+        [
+          1597,
+          1627
+        ],
+        [
+          1943,
+          1955
+        ]
+      ]
+    }
+  ],
+  "trigger_trace": [
+    "A cycle snapshots living controlled party_agents at1270:106. A member dies during the ordinary outbound travel interval, while another living party member remains and can retreat to settlement; unsafe_after_travel includes the dead agent.",
+    "After retreat/camps succeeds and retained party survives,1270:443\u2013444 calls ensure_medically_safe over that original vector.1290:746 calls apply_visible_first_aid before the intended dead handling at757\u2013776. The helper filters alive at90 and errors at91 for the retained dead Character.",
+    "Additional direct caller support: settlement_activity_day runs native settlement rest1597\u20131605, then if party remains at original settlement1615\u20131617 observes the actor andcalls ensure_medically_safe1625. If rest killed this actor but anotherparty member keeps theparty alive/currentsettlement, the same living-only prelude can fail.",
+    "Positive qualification: maintenance wait explicitly checks alive1943\u20131952 before ensure1954, so that specific receiver already avoids this dead-entry failure. In-call death handled by later medical loop/post-administration branches doesnot establish entry safety."
+  ],
+  "old_new": "Both full PR body diffs empty. Retained source behavior, not introduced774; no DB/test/simulation execution or authored occurrence asserted.",
+  "limits": [
+    "Conditional on actual death during native time advancement plus retained survivor/currentparty/retreat completion; source trace does not claim a specific generated run or incidence.",
+    "No public privacy/exploit claim, no duplicate unique finding count, and no cross-lens source clearance."
+  ],
+  "observable": "Medical entry returns missing first-aid patient error before its intended dead-actor Ok(false) cleanup/outcome. Caller can abort simulation ratherthan gracefully suppress the dead participant.",
+  "connected_repair": "Make actual medical entry classify missing/dead/live identity before living-only first aid and preserve explicit dead cleanup/telemetry idempotence; or require every time-advancing receiver to refresh actuallivingparticipants. Keep genuine missing projection separate from authoritative death.",
+  "acceptance": [
+    "Travel/rest newly dead participant with surviving party produces graceful false/skip and one death event, no first-aid reducer call or fatal missingpatient error.",
+    "Living injured actor still receives ordinary material/permission/skill/context gates, with no swallowing unrelated first-aid errors.",
+    "Maintenance already guarded path and in-call terminal/recovery accounting remain coherent."
+  ],
+  "coordinator_resolution": {
+    "at": "2026-10-25T17:34:32.947818+00:00",
+    "alias": "SEGO-INITIAL05-F009",
+    "evidence": "aggregate-states/source-support-007-medical-dead-entry.json",
+    "qualification": "Parent independently traced exactnativecallers/receivers and promotedown05Q021; thisown08conditionalwitness is support, no duplicate uniqueissue, no crosslenscoverage/run/regression transfer. Parentreports samebytesPR6533/merged13fc/checkout58ea; own08pins governowncomparison."
+  }
+}

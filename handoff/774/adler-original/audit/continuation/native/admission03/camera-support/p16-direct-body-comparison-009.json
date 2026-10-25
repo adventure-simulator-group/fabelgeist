@@ -1,0 +1,42 @@
+{
+  "id": "NATIVE-CAMERA-SUPPORT03-P16-DIRECT-COMPARISON-009",
+  "comparisons": [
+    {
+      "registration_id": "NATIVE-ADMISSION03-REG-088",
+      "source_id": "physical-p16:crates/adventuresim-core/src/world_event.rs",
+      "sha256": "10007dfcca53443d2794c0e38d8e9d741588f79ba8f61163c84d2281e7b40fb4",
+      "ranges": [
+        [
+          1,
+          151
+        ],
+        [
+          245,
+          398
+        ]
+      ],
+      "compared_actual_PR_source": "SNAPSHOTS\\pr-working\\crates\\adventuresim-core\\src\\world_event.rs",
+      "actual_PR_sha256": "10007dfcca53443d2794c0e38d8e9d741588f79ba8f61163c84d2281e7b40fb4",
+      "complete_scoped_diff": [],
+      "semantic_credit": "Only with explicit current invariant/route/receiver comparison in contracts009; comparison metadata alone not proof"
+    },
+    {
+      "registration_id": "NATIVE-ADMISSION03-REG-089",
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_place.rs",
+      "sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+      "ranges": [
+        [
+          1,
+          720
+        ]
+      ],
+      "compared_actual_PR_source": "SNAPSHOTS\\pr-working\\crates\\adventuresim-core\\src\\strategic_place.rs",
+      "actual_PR_sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+      "complete_scoped_diff": [],
+      "semantic_credit": "Only with explicit current invariant/route/receiver comparison in contracts009; comparison metadata alone not proof"
+    }
+  ],
+  "scope": "Fresh complete actual source bytes of material ranges compared to already fullyread current03 PR bodies; no unrelatedfixtures, metadata-only no verdict",
+  "source_edits": 0,
+  "project_execution": 0
+}

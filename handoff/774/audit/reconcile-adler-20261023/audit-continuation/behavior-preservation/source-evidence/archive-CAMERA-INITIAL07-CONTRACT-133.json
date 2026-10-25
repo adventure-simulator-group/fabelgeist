@@ -1,0 +1,115 @@
+{
+  "id": "CAMERA-INITIAL07-CONTRACT-133",
+  "at": "2026-10-23T01:19:20.345941+00:00",
+  "lens": "audit-redundant-authority",
+  "members": [
+    {
+      "scope043_index": 253,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/settlement_population.rs",
+      "sha256": "99cd12b58bafddf20c526c07061a1c822636fc87670178ddb36eda2587275fcc",
+      "actual_EOF": 759,
+      "material_ranges": [
+        [
+          1,
+          759
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-043.json#/files/253"
+    },
+    {
+      "scope043_index": 254,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/settlement_population/resident_drafts.rs",
+      "sha256": "0bdbeb8d3d35fb200d35d06429d177a9311b5e71207f89a3644fadcd6e72d959",
+      "actual_EOF": 585,
+      "material_ranges": [
+        [
+          1,
+          585
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-043.json#/files/254"
+    },
+    {
+      "scope043_index": 255,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/settlement_population/resident_persistence.rs",
+      "sha256": "40ec2a78bdcbb5225ff5558a6bb8f186af189dc527eef024048495ec10df0e94",
+      "actual_EOF": 299,
+      "material_ranges": [
+        [
+          1,
+          299
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-043.json#/files/255"
+    },
+    {
+      "scope043_index": 1188,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/settlement_population.rs",
+      "sha256": "99cd12b58bafddf20c526c07061a1c822636fc87670178ddb36eda2587275fcc",
+      "actual_EOF": 759,
+      "material_ranges": [
+        [
+          1,
+          759
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-043.json#/files/1188"
+    },
+    {
+      "scope043_index": 1189,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/settlement_population/resident_drafts.rs",
+      "sha256": "0bdbeb8d3d35fb200d35d06429d177a9311b5e71207f89a3644fadcd6e72d959",
+      "actual_EOF": 585,
+      "material_ranges": [
+        [
+          1,
+          585
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-043.json#/files/1189"
+    },
+    {
+      "scope043_index": 1190,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/settlement_population/resident_persistence.rs",
+      "sha256": "577af433807bf7c8a4cc22f46f82ed318d2d365ca79e61a66eaaf6d1b408c5e7",
+      "actual_EOF": 299,
+      "material_ranges": [
+        [
+          1,
+          299
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-043.json#/files/1190"
+    }
+  ],
+  "actual_source_proof": "Personally consumed Root camera-support/contracts-002 actual full759/585/299 source narratives. Fresh07 P16population1-271/387-572, full persistence299, drafts1-483 complete production; original tail tests source facts from actual full Root002. Complete actual PR/P16 three-file diffs reviewed: population/drafts empty, persistence2 Result aliases; current semantic roles compared. Fresh direct PR investigation/projections1291-1360 already scoped1128 actual receiver supports only this bounded role, no whole1801 coverage.",
+  "contracts": [
+    "ResolvedSettlementResident53-118 is explicitly a reducer-local join of profile plus current Character/name/age and personality demographics. Backend148-178 also joins current components. Name and age are not independently stored again in resident profile; generation explanation256-262 is immutable provenance and must not be refreshed from current person. Current name/demographic edits should affect the join rather than rewrite historical explanation.",
+    "Profile physical appearance strings, local trade/service role and home settlement are presentation/configuration facts. Do not infer all descriptions equal current physical geometry or canonical organization role without actual receiving semantics. Profession-to-social-role reconciliation occurs through explicit ensure_roles; exact source267 social-role authority remains a separate07 obligation. Organization representative postprocessing441-456 intentionally changes service/conversation/clothing metadata together for institution representation, not person identity.",
+    "Draft seed/characterID and provider flag/private prepared age are calculated once before persistence. Finalize_household_demographics204-221 sets sex/presentation/exactage together before surname and identity generation; preparation uses the finalized draft. Sex and visible presentation are independent canonical fields despite same initial defaults. Core input/profile explanation captures the chosen seed/policy result; private local provider/age mirrors remain immutable for one operation and cannot independently drift through a public updater here.",
+    "SettlementResidentPresence context_suppressed and health_suppressed are separate latest checkpoints, authored daily window is retained. Actual actor-relative npc_is_present461-466 uses historical suppression through remaining_at, not raw current flags. ScheduledStrategicPresence487-512 binds canonical exact place, observer frontier, daily window and actual alive/suppression evidence. Current outbreak125 and age/chronology126 facts now join the actual receiver; no clearing of raw checkpoint semantics from type name alone.",
+    "The raw latest-flags helper557-570 has an actual PR investigation recipient1323-1359. Fresh scoped PRprojections body shows the wrapper first computes historical suppression and rejects it, then clears cloned latest flags before invoking the public schedule-only helper. Thus this actual caller does not accidentally use future health flags for a lagging observer. P16projections is absent current scope and was not read or credited by counterpart inference. Other callers remain source-specific queue responsibilities.",
+    "Business operator identity is one stable canonical BusinessId plus native formatted key/settlement projection. ensure387-419 checks existing business/operator association and unique operator before insert; it does not derive current owner from profession wording. One canonical structured identity can drive codec projections, but no normal conflicting writer established. Immutable generation metadata must remain distinct from actual current business operator/person state.",
+    "Population binding does not create a second person or second household census: actual identity insertion114-166 initializes Character, name identity, private personality and NPC policy once; reuse88-112 uses existing profile/current canonical person. Explicit age override versus generated age band is intended input precedence, not a second live age source. Presence schedule241-264 maps canonical Schedule to one concrete daily window; source time policy has one actual table transition. All original inline tests were personally consumed through Root002 actual source proof, not executed."
+  ],
+  "supporting_actual_receivers": [
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/projections.rs",
+      "sha256": "4277df1f4841a51dafe10f9ef950ca7dec6f434358cc8aa5a98f742766825102",
+      "material_ranges": [
+        [
+          1291,
+          1360
+        ]
+      ],
+      "qualification": "Already global full1801; bounded supporting current07 role only, source1128 whole inventory remains incomplete"
+    }
+  ],
+  "findings": [],
+  "remaining_source_questions": [
+    "Canonical Core population/profile definitions and social role lifecycle267",
+    "Full personality projection lifecycle234 and source-generation role; this packet does not clear it"
+  ],
+  "connected_repair_acceptance": "Keep current identity/demographics joined from canonical components, generation explanation immutable, and profile presentation/configuration distinct. Retain one canonical business identity and explicit source-generation precedence. Historical presence must derive suppression at the observer frontier; pure schedule adapters may receive explicitly cleared current flags only after that check.",
+  "status": "Exact6 population source07 inventories; direct caller qualification retained, no global clearance"
+}

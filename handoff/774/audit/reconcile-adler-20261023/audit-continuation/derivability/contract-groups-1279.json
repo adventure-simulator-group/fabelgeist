@@ -1,0 +1,97 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1279",
+  "at": "2026-10-25T18:21:49.625550+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1343,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/physics_pose.rs",
+      "sha256": "3e8b29f3b61d9b5f287ba3b5f7bc392f8302da7462721bea60b4ec4b2d26fc30",
+      "actual_EOF": 98,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/physics_pose.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/animation/pose_buffer/physics_pose.rs",
+        "owner": "native",
+        "sha256": "3e8b29f3b61d9b5f287ba3b5f7bc392f8302da7462721bea60b4ec4b2d26fc30",
+        "base_sha256": "77b8a543d8dbd5c953b112d72fae2e8fafa377366c775e8672530fa6c02e577c",
+        "state": "modified",
+        "bytes": 3627,
+        "audit_owner": "native",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [],
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 155,
+            "read_ranges": [
+              [
+                1,
+                98
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-POSE-BUFFER-003"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/pose_buffer/physics_pose.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 497,
+            "read_ranges": [
+              [
+                1,
+                98
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-POSE-BUFFER-003"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/pose_buffer/physics_pose.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Only inherent PoseBufferRig typed joint/access/displayed-pose/physics ownership/paired pin/hold/sample-interval methods and LocalPose affine projection. No handwritten trait/custom codec. Ownership transition invalidates plan; pin updates both poses/offsets/velocities; not simple field conversion."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Physics handoff and rendered-pose projection are contextual semantic operations rather than structural traits.",
+      "disposition": "NO_HANDWRITTEN_TRAIT_OR_CODEC",
+      "qualification": "No physics/system execution or cross-lens clearance."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1344,
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/proportions.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

@@ -1,0 +1,334 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-037",
+  "at": "2026-10-25T11:46:01.322461+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 123,
+      "source_id": "physical-p16:crates/adventuresim-core/src/morale.rs",
+      "sha256": "f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+      "actual_EOF": 527,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-core/src/morale.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-core/src/morale.rs",
+        "sha256": "f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 19555,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 45,
+            "read_ranges": [
+              [
+                175,
+                280
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-AUTORESOLVE-001",
+              "CAM-OWN-CONFIG-001",
+              "CAM-OWN-COMBAT-PHYSICAL-002",
+              "CAM-OWN-COMBAT-FRACTIONS-003"
+            ],
+            "read_status": "partial",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/morale.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "continuation/camera/sources.jsonl",
+            "receipt": "CONT-CAMERA-SOURCE-428",
+            "json_pointer": "",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-core/src/morale.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                527
+              ]
+            ],
+            "source_context": {
+              "id": "CONT-CAMERA-SOURCE-428",
+              "index": 428,
+              "source_id": "physical-p16:crates/adventuresim-core/src/morale.rs",
+              "sha256": "f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+              "read_ranges": [
+                [
+                  1,
+                  527
+                ]
+              ],
+              "proof_mode": "Fresh complete actual source read, including original fixture text; source only. Historical exact receiving contracts reconciled separately; bytes alone do not establish receiver closure.",
+              "validation": "none",
+              "source_repair": "frozen_until_all13"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 22,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-INCIDENT-036",
+            "json_pointer": "/current_sources/3",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row113/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                288,
+                325
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                288,
+                325
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1108,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          527
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "From<MoraleEventKind> for MoraleSourceKind",
+          "lines": [
+            94,
+            119
+          ],
+          "disposition": "Retain exhaustive event-subset mapping to larger source vocabulary; no existing equivalent record/enum conversion derive identified."
+        },
+        {
+          "trait": "Display for IncapacitationStatus",
+          "lines": [
+            204,
+            208
+          ],
+          "disposition": "Retain small stable semantic status text via as_str; Serialize snake_case is separate trait, no serialization introduced just for runtime label."
+        }
+      ],
+      "existing_derives": [
+        "MoraleEventKind/MoraleSourceKind/IncapacitationStatus structural Serialize Deserialize snake_case + feature-gated SpacetimeType",
+        "StrategicIncapacitation Debug Clone Copy Default PartialEq"
+      ],
+      "absence_basis": "Full constants, computations and fixtures read: no manual serializer; other functions retain semantic morale/condition kernels."
+    },
+    {
+      "scope_index": 124,
+      "source_id": "physical-p16:crates/adventuresim-core/src/npc_policy.rs",
+      "sha256": "51c449efd5edf6380249bcc04ebf5a9a38cc9a1f20cab731e2bf80d6b958e18a",
+      "actual_EOF": 296,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-core/src/npc_policy.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-core/src/npc_policy.rs",
+        "sha256": "51c449efd5edf6380249bcc04ebf5a9a38cc9a1f20cab731e2bf80d6b958e18a",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 9698,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 187,
+            "read_ranges": [
+              [
+                1,
+                296
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-NPC-028"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/npc_policy.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 23,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-NPC-ORGANIZATION-MODULE-019",
+            "json_pointer": "/current_sources/4",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row114/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                296
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                296
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1180,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved",
+        "admission03_increment077_role_observations": [
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 127,
+            "registration_id": "NATIVE-ADMISSION03-REG-127",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-127",
+              "at": "2026-10-22T18:25:11.980983+00:00",
+              "authority": "043/054; Root lower followthrough after069",
+              "source_id": "physical-p16:crates/adventuresim-core/src/npc_policy.rs",
+              "sha256": "51c449efd5edf6380249bcc04ebf5a9a38cc9a1f20cab731e2bf80d6b958e18a",
+              "snapshot": "physical-p16",
+              "actual_EOF": 296,
+              "material_ranges": [
+                [
+                  126,
+                  139
+                ]
+              ],
+              "role": "Direct actual NPC saved-schedule production policy function only; constants/all other policy excluded",
+              "actual_caller": "REG121 NPC saved writer / REG122 exact fixture saved writer",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\npc_policy.rs",
+              "status": "registered_before_direct_current03_body_analysis",
+              "exclusions": "Exact roles only; no tests/source edits/runtime/other lens"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADM03-FOLLOWTHROUGH-QUAL-127",
+                "registration_id": "NATIVE-ADMISSION03-REG-127",
+                "source_id": "physical-p16:crates/adventuresim-core/src/npc_policy.rs",
+                "sha256": "51c449efd5edf6380249bcc04ebf5a9a38cc9a1f20cab731e2bf80d6b958e18a",
+                "actual_EOF": 296,
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-127",
+                  "at": "2026-10-22T18:25:11.980983+00:00",
+                  "authority": "043/054; Root lower followthrough after069",
+                  "source_id": "physical-p16:crates/adventuresim-core/src/npc_policy.rs",
+                  "sha256": "51c449efd5edf6380249bcc04ebf5a9a38cc9a1f20cab731e2bf80d6b958e18a",
+                  "snapshot": "physical-p16",
+                  "actual_EOF": 296,
+                  "material_ranges": [
+                    [
+                      126,
+                      139
+                    ]
+                  ],
+                  "role": "Direct actual NPC saved-schedule production policy function only; constants/all other policy excluded",
+                  "actual_caller": "REG121 NPC saved writer / REG122 exact fixture saved writer",
+                  "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\npc_policy.rs",
+                  "status": "registered_before_direct_current03_body_analysis",
+                  "exclusions": "Exact roles only; no tests/source edits/runtime/other lens"
+                },
+                "qualified_material_ranges": [
+                  [
+                    126,
+                    136
+                  ]
+                ],
+                "context_and_exclusions": "137 blank and138\u2013139 next helper docs contextual only, no next-helper credit",
+                "actual_current_proof_refs": [
+                  "continuation/native/admission03/camera-lower-followthrough/schedule-contracts-001.json"
+                ],
+                "status": "bounded_actual_current_admission_roles_compared_with_stated_findings_and_qualifications",
+                "counts_credit": "No128 count change; Root global scope reconciliation pending",
+                "producer_owner_credit": false,
+                "repair": "frozen",
+                "validation": "not_run"
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                126,
+                136
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\npc_policy.rs",
+            "actual_EOF": 296,
+            "bytes": 9698
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          296
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Display and Error for ConflictingCandidate",
+          "lines": [
+            76,
+            85
+          ],
+          "disposition": "Additional F002 existing thiserror equivalent with literal plus tuple0 Display; exact character context preserved."
+        }
+      ],
+      "existing_derives": [
+        "NpcCandidate/NpcHouseOffer/NpcCourtshipRoute structural Clone Copy Debug PartialEq Eq",
+        "NpcCourtshipEligibility same plus Default",
+        "ConflictingCandidate Clone Copy Debug PartialEq Eq"
+      ],
+      "absence_basis": "Entire source/fixture bodies consumed: only other code deterministic candidate ordering, eligibility and economic/schedule policy."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Keep semantic event-to-source injection, status label and deterministic NPC policy functions. Only context-bearing error formatting joins F002 through exact pinned existing derive support.",
+      "qualification": "All fixture source read but not executed. No native error identity or generic bound changes; no other-lens clearance."
+    }
+  ],
+  "findings": [
+    "SEGOVB-INITIAL10-F002 additional contextual tuple site"
+  ],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 125,
+    "source_id": "physical-p16:crates/adventuresim-core/src/organization.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

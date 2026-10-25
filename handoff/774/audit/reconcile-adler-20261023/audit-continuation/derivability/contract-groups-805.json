@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-805",
+  "at": "2026-10-25T16:53:37.728059+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1017,
+  "source_id": "pr-working:crates/adventuresim-core/src/strategic_time.rs",
+  "sha256": "3af84cd2d335ef14e2ae8034345fcdcb999a93b4adeabd1a2e1f58beb780f57c",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "StrategicMinuteOfDay/itinerary/fatigue records already structural derives. All present inherent/functions implement checked time-of-day/daylight/scheduled walking and native fatigue/camp calculations. No handwritten trait/codec; preserve these semantic operations."
+  ],
+  "first_unfinished": {
+    "scope_index": 1017,
+    "line": 221
+  },
+  "execution": "none"
+}

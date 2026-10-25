@@ -1,0 +1,98 @@
+--- PRbase/crates/fabelgeist-geometry/src/error.rs
++++ frozen/crates/fabelgeist-geometry/src/error.rs
+@@ -0,0 +1,95 @@
++//! Portable geometry admission and arithmetic failures.
++
++/// Checked spatial construction and measurement operations.
++pub type GeometryResult<T> = std::result::Result<T, GeometryError>;
++
++#[derive(Clone, Copy, Debug, Eq, PartialEq, serde::Serialize)]
++#[serde(rename_all = "snake_case")]
++pub enum CoordinateAxis {
++    X,
++    Y,
++    Z,
++}
++
++#[derive(Clone, Copy, Debug, Eq, PartialEq, serde::Serialize)]
++#[serde(rename_all = "snake_case")]
++pub enum GeometryRole {
++    SignedLength,
++    Area,
++    Position,
++    Displacement,
++    Elevation,
++    CuboidDimensions,
++    LeafDimensions,
++    PlanDimensions,
++    PlanExtents,
++    Angle,
++    BoundsCentre,
++    BoundsExtent,
++    Direction,
++    SweepRadius,
++    FloorWidth,
++    FloorSpan,
++    FloorStation,
++    ClearanceVolume,
++    PositiveLength,
++}
++
++/// Portable failure of native direction admission. Classification occurs once
++/// in the framework adapter; consumers retain its typed cause.
++#[derive(Clone, Copy, Debug, PartialEq, Eq, thiserror::Error)]
++pub enum DirectionError {
++    #[error("The length of the direction vector is zero or very close to zero")]
++    Zero,
++    #[error("The length of the direction vector is `std::f32::INFINITY`")]
++    Infinite,
++    #[error("The length of the direction vector is `NaN`")]
++    NaN,
++}
++
++#[derive(Clone, Debug, thiserror::Error, PartialEq, Eq, serde::Serialize)]
++pub enum GeometryError {
++    #[error("spatial index partition is empty")]
++    EmptySpatialPartition,
++    #[error("rotation must be finite and normalized")]
++    InvalidRotation,
++    #[error("invalid rigid frame projection")]
++    InvalidProjection,
++    #[error("{role:?} has a nonfinite {axis:?} component")]
++    NonFinite {
++        role: GeometryRole,
++        axis: CoordinateAxis,
++    },
++    #[error("{role:?} has a negative {axis:?} extent")]
++    NegativeExtent {
++        role: GeometryRole,
++        axis: CoordinateAxis,
++    },
++    #[error("{role:?} requires a positive {axis:?} extent")]
++    ZeroExtent {
++        role: GeometryRole,
++        axis: CoordinateAxis,
++    },
++    #[error("bounds are reversed on {axis:?}")]
++    ReversedBounds { axis: CoordinateAxis },
++    #[error("invalid normalized direction: {source}")]
++    Direction {
++        #[source]
++        source: DirectionError,
++    },
++    #[error("decoded direction is not normalized")]
++    UnnormalizedDirection,
++}
++
++impl serde::Serialize for DirectionError {
++    fn serialize<S: serde::Serializer>(
++        &self,
++        serializer: S,
++    ) -> std::result::Result<S::Ok, S::Error> {
++        serializer.serialize_str(match self {
++            Self::Zero => "zero",
++            Self::Infinite => "infinite",
++            Self::NaN => "nan",
++        })
++    }
++}

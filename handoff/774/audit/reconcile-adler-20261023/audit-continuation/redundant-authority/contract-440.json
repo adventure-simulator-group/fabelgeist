@@ -1,0 +1,50 @@
+{
+  "id": "CONT07-CONTRACT-440",
+  "at": "2026-10-23T21:54:27.469593+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1939,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/tests.rs",
+      "sha256": "1fb11e1d21ef6cfe193991f15d9777475ecc82a8f3f02d7a6b6a46385a7cbc12",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/furniture/tests.rs",
+      "actual_EOF": 486,
+      "ranges": [
+        [
+          1,
+          486
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1940,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/tests/city_acceptance.rs",
+      "sha256": "045ee82cfc08cdeceb5808d447a39b6fe37772a8529b6b483c8064b046aac4c7",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/furniture/tests/city_acceptance.rs",
+      "actual_EOF": 152,
+      "ranges": [
+        [
+          1,
+          152
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "1939 full486 fixture body consumed in two bounded reads. Repeated generation equality is independent-run observation; accepted groups, routes and item transforms are checked by actual corresponding ids/geometry, not declared coherent from field names. Ordered identity fixture includes anchor0 and both anchor kinds; no automatic nonzero helper restriction.",
+    "1939 changed wet-grade catalogue explicitly clears old grounding and rebinds accepted surfaces before generate. This is source fixture evidence of required immutable-input grounding relationship, not a successful stale-support acceptance. All original OUTDOOR family and vendor population/area-scaling cases were read, not executed.",
+    "1940 city acceptance keeps group-vendor classification and instances joined by actual group identity. Distant placement and terrain.height_at support availability are compatible: ownership topology can extend beyond tactical bounds; scenery/physics scope is a separate decision. Existing source asserts distant feet support<=.0451 and route exclusion, no execution or displayed-scene clearance.",
+    "1940 report_terrain_delta compares derived fine/coarse outputs from same terrain at explicit0.5m sample spacing. Max deltas are reduction scratch values and reporting observations, not independent physical authority. Native printed counts/measurements do not establish comprehensive mesh or selected-LOD semantics."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1941,
+    "start_line": 1
+  }
+}

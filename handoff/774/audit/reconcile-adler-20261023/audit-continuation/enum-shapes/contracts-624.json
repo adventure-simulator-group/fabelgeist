@@ -1,0 +1,27 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-624",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        1367
+      ],
+      "comparison": "Fresh full hands391. Left/right direct hand targets are independent; target translation with optional rotation means positional-only or positional+orientation goal, both valid. Weight zero is a deliberate inactive continuous contribution; do not erase retained preference or require rotation. HeldWeaponConstraint already uses HandSide and optional secondary grip in weapon-local space; one-handed no-grip is valid. Private HandChain fixed left/right role constants map existing side coherently; no normal mixed role construction. Primary explicit target is applied before attaching weapon, then final combined targets prefer derived secondary over explicit same side. A partially weighted primary may therefore be applied again in final loop; this is existing NATIVE-INITIAL05-F063 qualified API concern (normal producer remains untraced), not a new enum finding or ordinary double application claim. Arm/leg continuity memories remain independent and missing targets/rig/socket intentionally inert. Native transformations do not establish new complete-scene observations. Tests read only, no runtime.",
+      "finding_refs": [
+        "NATIVE-INITIAL05-F063"
+      ],
+      "disposition": "Independent target axes and existing side owner retained; exact inherited qualified hand concern supported without new count"
+    },
+    {
+      "indices": [
+        1368,
+        1369
+      ],
+      "comparison": "Fresh full locomotion526/terrain_leg121. PelvisShiftState Pending|Tracking{metres} already owns initialized payload; optional evaluation tick separately identifies tool dedup history and need not be derived from smoothing state. Authored foot influence channels are independent continuous weights; disabled terrain intentionally keeps authored support diagnostics while missing enabled terrain leaves actual support unknown. Per-leg staged authored positions, candidate targets and observed support may be partially present as measurement progresses, so do not turn all three into a mandatory complete pair or call None zero. Source-target arrays are local staging, not persistent parallel authority; eventual LegIkMemory publication owner remains pending1380/1381. Private OrdinaryLeg role bundles constructed twice with matching typed LeadFoot; native index0/1 arrays are actual vector slots, not an arbitrary-index enum. Actual support policies distinguish airborne/unsupported, stationary both-feet and translating guard single support. Owner predicates preserve active attack guard support and exclude posture/quickstep as authored. Native terrain solve returns None for unobserved geometry or solve absence; identity-clear authored chain returns real selected weight without unnecessary knee-pole rotation. Fixtures read as source only.",
+      "finding_refs": [],
+      "disposition": "Existing initialized pelvis enum appropriate; independent per-foot partial observations and disabled policy preserved"
+    }
+  ],
+  "new_findings": [],
+  "limits": "Discovery only. Next1370 IK parent2973. Pending state/publication and landing-history definitions remain separate source roles."
+}

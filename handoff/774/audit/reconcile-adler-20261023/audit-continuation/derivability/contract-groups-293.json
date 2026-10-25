@@ -1,0 +1,114 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-293",
+  "at": "2026-10-25T14:34:21.219005+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 589,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/artillery_castle.rs",
+      "sha256": "14b02a0705bb6723b34d844c890603f50c3752efba281e3fefc495c1f4b70c71",
+      "actual_EOF": 1859,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/artillery_castle.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\artillery_castle.rs",
+        "sha256": "14b02a0705bb6723b34d844c890603f50c3752efba281e3fefc495c1f4b70c71",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "root",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 1859,
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-WALL-SOURCE-CLOSURE-039",
+            "json_pointer": "/supplier_reconciliation/verified_exact_proofs/19",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/generator/artillery_castle.rs",
+            "read_ranges_as_recorded": [
+              [
+                475,
+                555
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/artillery_castle.rs",
+              "sha256": "14b02a0705bb6723b34d844c890603f50c3752efba281e3fefc495c1f4b70c71",
+              "read_ranges": [
+                [
+                  475,
+                  555
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-029",
+            "json_pointer": "/additional_fresh_sources/19",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/generator/artillery_castle.rs",
+            "read_ranges_as_recorded": [
+              [
+                475,
+                555
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/artillery_castle.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/generator/artillery_castle.rs",
+              "sha256": "14b02a0705bb6723b34d844c890603f50c3752efba281e3fefc495c1f4b70c71",
+              "read_ranges": [
+                [
+                  475,
+                  555
+                ]
+              ],
+              "scope": "Only actual material source/receiving functions in these ranges; no whole-file credit outside listed ranges"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          10
+        ],
+        [
+          471,
+          577
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Registered475\u2013555 plus exact signature1\u201310 and adjoining/bond constructor closure471\u2013577 personally consumed. The selected resolve_artillery_castle body builds contextual junction bonds, selects wall by source identity, clones then rewrites station wall/source/frame, calls native opening constructor and collects host solids. No handwritten trait/type/codec in these material ranges. Native record projection is semantic context-changing construction, not trait boilerplate.",
+      "necessary_signature_extension": "1\u201310 function contract,471\u2013474 enclosing adjacency selection and556\u2013577 current bond constructor completion. Earlier exploratory1\u2013330 and truncated remainder are not whole-file coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "artillery station wall and bond construction",
+      "disposition": "No trait boilerplate in selected exact source contract; keep source/frame/context mapping, checked bounds and missing-source/opening diagnostics.",
+      "acceptance": "Exact reached ranges only, not full1859-line role/body credit or other-lens conclusion; no execution."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 590,
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/artillery_openings.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

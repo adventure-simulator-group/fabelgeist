@@ -1,0 +1,37 @@
+{
+  "id": "RIG-INITIAL06-GROUP-018",
+  "at": "2026-10-22T19:48:29.700867+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "source-construction-and-result-products": {
+      "sources": [
+        "pr-working:crates/fabelgeist-armor/src/tiling/mod.rs",
+        "pr-working:crates/fabelgeist-armor/src/tiling/tests.rs"
+      ],
+      "comparison": "Fresh tilingmod137/test192. Constructed groups GeneratedArmor plates and optional lacing; Solid returns original unchanged, Lamellar/Scale validate source then build actual GridSurface/Layout/TileTemplate/Lacer. This is a construction result product with two separate surfaces, not duplicate GeneratedArmor owner. Local Style enum excludes Solid because only lacing traversal; Lamellar crossrowhangers versus Scale rowbinding are actual operationaldistinctions, no need move enum to generic Cloth/Shell or make duplicate sourceTiling validators. GeneratedArmor owns full provenance/skin/morphs, design_hash extendssourcehash with actualConstruction serialization; [u8;32]samewidthnotproofequalSourceDigestauthority. Serialization fallback unwrap_or_default stillvisibleotherinventory;06doesnotendorseorrepair. Testfixtures purposelyrawjointweights/geometry preserve canonicalPackedRigSkin reconstruction; no newtests/execution/oraclechanges."
+    },
+    "material-correspondence-coordinates-and-frames": {
+      "sources": [
+        "pr-working:crates/fabelgeist-armor/src/tiling/surface.rs",
+        "pr-working:crates/fabelgeist-armor/src/tiling/tile_map.rs"
+      ],
+      "comparison": "Fresh full surface441/tilemap115 incloriginaltests. GridPoint row/column are even physical-distance-rescaled constructioncoordinates, distinct from BuildingGridPoint i32 lattice, raw SurfaceColumn originalcarrier coordinate, spatialPosition<F>, fixedtexel/u32vertexindices and normalizedUV. They may exceed gridbounds through linearoverhang/extrapolation; UnitInterval/BP narrowing wouldchangebehavior. GridSurface retains sourcegrid, realizationpositions, base-orientation and sharedSpacing, so same materialpoint follows morph; correct Armor tiling owner, notgeneric globalframe. Local Frame adds tangent derivatives d_row/d_column plus across/up/out and computedorigin; not equivalent toPartFrame halfextents or genericMathTRS/MHRquat states. TileMap private grid-lattice interpolation owns sourcecurve approximation; physicalwidth/height versus rescaledcellcoordinates remain distinct. No private-helper validity exemption: actual rawmath normalization/float operations and publicsourcegrid gaps remain explicit other-lens facts. Tests negative/extrapolated index_at values (-1/3.5) confirm fullmeaningnotclampedcoordinates."
+    },
+    "laid-plate-and-cord-products": {
+      "sources": [
+        "pr-working:crates/fabelgeist-armor/src/tiling/layout.rs",
+        "pr-working:crates/fabelgeist-armor/src/tiling/lacing.rs"
+      ],
+      "comparison": "Fresh layout342/lacing321. Layout tiles/runs/slopes/room combine source Plate/Lacing with actualGridSurface. Bounds here is row/columnoverhangpolicy in evencoordinates, not a second spatialAabb/checkedSpatialBounds<F>. CordPoint carries grid/at/height path state while Embedded extends finalvertex state with normal/texcoord; shared anchor interpretation explicitly compared, different path and exportedvertex products. Coherent local common-anchor composition could reduce repeatedfields but no second independently maintained canonical spatialowner exists. Source physicalroom/crossradius, signedheightbehind/front, normalizedshadingbasis and accumulatedtexturelength have separate units; no blanket UnitInterval/PositiveLength substitution. Actual Lacer converts surface step and tube geometry into existingEmbedded, uses local Style correctly; no cross-package duplicate mesh record or broad native waiver. MaxTiles cardinality and u32meshvertex indices are different domains thanu64bytes/Rigordinals. Preserve nativeFP and topology/row/runordering; no aggregate-validity promise from source names."
+    },
+    "embedded-versus-realized-mesh": {
+      "sources": [
+        "pr-working:crates/fabelgeist-armor/src/tiling/embedded.rs",
+        "pr-working:crates/fabelgeist-armor/src/tiling/template.rs"
+      ],
+      "comparison": "Fresh Embedded115/TileTemplate317. TemplateVertex physicalplate-localposition/normal/metretexturecoordinate and TileTemplate triangles/faces precede Embedded materialgridanchor/morph-state vertex; actual tiles transforms and realizes into sharedGeneratedArmor, not unchanged duplicate ShellMesh fields. Meshtriangle arrays versusflatindices reflect concretealgorithms/ports, notnew canonicalMesh owner. Embedded.skin reads canonicalRigweighted_vertex and PackedRigSkin::push; no local jointidentity copy. Actual garment-grid realization derives morphdeltas then stores same materialcorrespondence acrosssurfaces, distinctiveauthority fromoriginalrawbody. Spade receives directf64Point2 triangulation input/casts output tosourcef32, nativeforeignmeshport notcandidateforBuilding/Scene importedframe types. No Spade sourcebody/algorithmcorrectness clearance from Result/unwrap. Currentoriginaltests check closure/holevolume/face normals and remainuntouched. This doesnot erase F003 exact ClothGarmentMesh\u2192ShellMesh unchanged-copyfinding: these products genuinely change representation/authority here."
+    }
+  },
+  "new_findings": [],
+  "limits": "Fresh full source-specific owner/current-role comparisons; actual tests readonly, no numerical/projectexecution/other-lens credit. Whole06 incomplete."
+}

@@ -1,0 +1,426 @@
+use bevy::math::{Vec2, Vec3};
+
+use crate::{ROOF_ENCLOSURE_THICKNESS_METRES, RoofEnclosureFace, RoofFace};
+
+const ROOF_VERTEX_TOLERANCE_SQUARED: f32 = 0.000_004;
+
+#[derive(Clone, Copy, Debug)]
+pub struct RoofSurfaceTriangle {
+    pub positions: [Vec3; 3],
+    pub normal: Vec3,
+    pub surface: RoofSurface,
+}
+
+impl RoofSurfaceTriangle {
+    /// Tile courses follow the ridge; texture V follows water down the slope.
+    /// Use distances on the roof, not its shortened horizontal projection.
+    pub(crate) fn covering_uvs(self, metres_per_unit: f32) -> [Vec2; 3] {
+        let normal = self.normal.normalize();
+        let downhill = (-Vec3::Y + normal * normal.y).normalize_or_zero();
+        let bitangent = if downhill == Vec3::ZERO {
+            Vec3::Z
+        } else {
+            downhill
+        };
+        let tangent = bitangent.cross(normal);
+        self.positions
+            .map(|point| Vec2::new(point.dot(tangent), point.dot(bitangent)) / metres_per_unit)
+    }
+
+    /// Metric texture coordinates on the actual surface, including vertical gables.
+    pub(crate) fn planar_uvs(self, metres_per_unit: f32) -> [Vec2; 3] {
+        let tangent = if self.normal.y.abs() < 0.99 {
+            Vec3::new(self.normal.z, 0.0, -self.normal.x).normalize()
+        } else {
+            Vec3::X
+        };
+        let bitangent = self.normal.cross(tangent).normalize();
+        self.positions
+            .map(|point| Vec2::new(point.dot(tangent), point.dot(bitangent)) / metres_per_unit)
+    }
+}
+
+/// Architectural side of a tessellated roof solid.
+///
+/// Exact-detail rendering uses this semantic boundary to give the weather skin
+/// and its closed perimeter the authored roof covering while routing the
+/// room-facing slope to interior boarding. Shell LODs deliberately retain a
+/// single material batch and may ignore this classification.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum RoofSurface {
+    Weather,
+    Interior,
+    Boundary,
+    Enclosure,
+}
+
+pub fn tessellate_roof_face(face: &RoofFace) -> Vec<RoofSurfaceTriangle> {
+    let normal = face.plane.normal.normalize_or_zero();
+    let offset = -normal * face.thickness_metres;
+    let mut outer = face.polygon.clone();
+    let mut remaining_cutouts = Vec::new();
+    for cutout in &face.cutouts {
+        if let Some(notched) = boundary_notched_polygon(&outer, cutout) {
+            outer = notched;
+        } else {
+            remaining_cutouts.push(cutout.clone());
+        }
+    }
+    remove_collinear_vertices(&mut outer);
+
+    let mut vertices = outer;
+    let mut hole_indices = Vec::new();
+    for cutout in &remaining_cutouts {
+        hole_indices.push(vertices.len() as u32);
+        vertices.extend(cutout.iter().copied());
+    }
+    let mut indices = Vec::new();
+    earcut::Earcut::<f32>::new().earcut(
+        vertices.iter().map(|point| [point.x, point.z]),
+        &hole_indices,
+        &mut indices,
+    );
+
+    let mut triangles = Vec::new();
+    let mut top_edges = Vec::new();
+    for triangle in indices.as_chunks::<3>().0 {
+        let mut top = triangle.map(|index| vertices[index as usize]);
+        orient_triangle(&mut top, normal);
+        for index in 0..3 {
+            top_edges.push((top[index], top[(index + 1) % 3]));
+        }
+        triangles.push(RoofSurfaceTriangle {
+            positions: top,
+            normal,
+            surface: RoofSurface::Weather,
+        });
+        triangles.push(RoofSurfaceTriangle {
+            positions: [top[2] + offset, top[1] + offset, top[0] + offset],
+            normal: -normal,
+            surface: RoofSurface::Interior,
+        });
+    }
+    append_boundary_sides(&mut triangles, &top_edges, offset);
+    triangles
+}
+
+pub fn tessellate_roof_enclosure(
+    face: &RoofEnclosureFace,
+    walls: &[crate::WallAssembly],
+) -> Vec<RoofSurfaceTriangle> {
+    if face.polygon.len() < 3 {
+        return Vec::new();
+    }
+    let normal = face.normal();
+    let tangent = face.tangent();
+    let offset = -normal * ROOF_ENCLOSURE_THICKNESS_METRES;
+    let plane = normal * face.polygon[0].dot(normal);
+    let mut triangles = Vec::new();
+    for polygon in face.residual(walls).0 {
+        let mut vertices = Vec::new();
+        let mut holes = Vec::new();
+        for (index, ring) in std::iter::once(polygon.exterior())
+            .chain(polygon.interiors())
+            .enumerate()
+        {
+            if index > 0 {
+                holes.push(vertices.len() as u32);
+            }
+            vertices.extend(
+                ring.0[..ring.0.len() - 1]
+                    .iter()
+                    .map(|p| plane + tangent * p.x + Vec3::Y * p.y),
+            );
+        }
+        let mut indices = Vec::new();
+        earcut::Earcut::<f32>::new().earcut(
+            vertices.iter().map(|p| [p.dot(tangent), p.y]),
+            &holes,
+            &mut indices,
+        );
+        let mut edges = Vec::new();
+        for indices in indices.as_chunks::<3>().0 {
+            let mut top = indices.map(|i| vertices[i as usize]);
+            orient_triangle(&mut top, normal);
+            for i in 0..3 {
+                edges.push((top[i], top[(i + 1) % 3]));
+            }
+            triangles.push(RoofSurfaceTriangle {
+                positions: top,
+                normal,
+                surface: RoofSurface::Enclosure,
+            });
+            triangles.push(RoofSurfaceTriangle {
+                positions: [top[2] + offset, top[1] + offset, top[0] + offset],
+                normal: -normal,
+                surface: RoofSurface::Interior,
+            });
+        }
+        append_boundary_sides(&mut triangles, &edges, offset);
+    }
+    triangles
+}
+
+fn append_boundary_sides(
+    triangles: &mut Vec<RoofSurfaceTriangle>,
+    edges: &[(Vec3, Vec3)],
+    offset: Vec3,
+) {
+    for (index, (start, end)) in edges.iter().copied().enumerate() {
+        let uses = edges
+            .iter()
+            .enumerate()
+            .filter(|(candidate_index, (candidate_start, candidate_end))| {
+                *candidate_index != index
+                    && ((same_point(*candidate_start, start) && same_point(*candidate_end, end))
+                        || (same_point(*candidate_start, end) && same_point(*candidate_end, start)))
+            })
+            .count();
+        if uses == 0 {
+            append_quad(
+                triangles,
+                [start, start + offset, end + offset, end],
+                RoofSurface::Boundary,
+            );
+        }
+    }
+}
+
+fn append_quad(
+    triangles: &mut Vec<RoofSurfaceTriangle>,
+    positions: [Vec3; 4],
+    surface: RoofSurface,
+) {
+    let normal = (positions[1] - positions[0])
+        .cross(positions[2] - positions[0])
+        .normalize_or_zero();
+    triangles.extend([
+        RoofSurfaceTriangle {
+            positions: [positions[0], positions[1], positions[2]],
+            normal,
+            surface,
+        },
+        RoofSurfaceTriangle {
+            positions: [positions[0], positions[2], positions[3]],
+            normal,
+            surface,
+        },
+    ]);
+}
+
+fn orient_triangle(positions: &mut [Vec3; 3], normal: Vec3) {
+    if (positions[1] - positions[0])
+        .cross(positions[2] - positions[0])
+        .dot(normal)
+        < 0.0
+    {
+        positions.swap(1, 2);
+    }
+}
+
+fn remove_collinear_vertices(polygon: &mut Vec<Vec3>) {
+    loop {
+        let removable = (0..polygon.len()).find(|index| {
+            let previous = polygon[(*index + polygon.len() - 1) % polygon.len()];
+            let current = polygon[*index];
+            let next = polygon[(*index + 1) % polygon.len()];
+            (current - previous).cross(next - current).length_squared()
+                <= ROOF_VERTEX_TOLERANCE_SQUARED
+        });
+        if polygon.len() <= 3 || removable.is_none() {
+            break;
+        }
+        polygon.remove(removable.expect("removable index was checked"));
+    }
+}
+
+fn boundary_notched_polygon(outer: &[Vec3], cutout: &[Vec3]) -> Option<Vec<Vec3>> {
+    let on_segment = |point: Vec3, start: Vec3, end: Vec3| {
+        let delta = end - start;
+        let t = ((point - start).dot(delta) / delta.length_squared()).clamp(0.0, 1.0);
+        point.distance_squared(start + delta * t) <= ROOF_VERTEX_TOLERANCE_SQUARED
+    };
+    for edge_index in 0..outer.len() {
+        let start = outer[edge_index];
+        let end = outer[(edge_index + 1) % outer.len()];
+        let delta = end - start;
+        let mut touches = cutout
+            .iter()
+            .enumerate()
+            .filter(|(_, point)| on_segment(**point, start, end))
+            .map(|(index, point)| {
+                (
+                    index,
+                    ((point - start).dot(delta) / delta.length_squared()).clamp(0.0, 1.0),
+                )
+            })
+            .collect::<Vec<_>>();
+        if touches.len() != 2 {
+            continue;
+        }
+        touches.sort_by(|left, right| left.1.total_cmp(&right.1));
+        let (first, second) = (touches[0].0, touches[1].0);
+        let forward_steps = (second + cutout.len() - first) % cutout.len();
+        let step: isize = if forward_steps > 1 { 1 } else { -1 };
+        let mut path = Vec::new();
+        let mut current = first;
+        loop {
+            path.push(cutout[current]);
+            if current == second {
+                break;
+            }
+            current = (current as isize + step).rem_euclid(cutout.len() as isize) as usize;
+        }
+        let mut polygon = Vec::with_capacity(outer.len() + path.len());
+        for (index, point) in outer.iter().copied().enumerate() {
+            polygon.push(point);
+            if index == edge_index {
+                polygon.extend(path.iter().copied().filter(|candidate| {
+                    !same_point(*candidate, start) && !same_point(*candidate, end)
+                }));
+            }
+        }
+        return Some(polygon);
+    }
+
+    let removed = outer
+        .iter()
+        .position(|outer_point| cutout.iter().any(|cut| same_point(*cut, *outer_point)))?;
+    let previous = outer[(removed + outer.len() - 1) % outer.len()];
+    let removed_point = outer[removed];
+    let next = outer[(removed + 1) % outer.len()];
+    let previous_touch = cutout.iter().copied().find(|point| {
+        !same_point(*point, removed_point) && on_segment(*point, previous, removed_point)
+    })?;
+    let next_touch = cutout.iter().copied().find(|point| {
+        !same_point(*point, removed_point) && on_segment(*point, removed_point, next)
+    })?;
+    let interior = cutout.iter().copied().find(|point| {
+        !same_point(*point, removed_point)
+            && !same_point(*point, previous_touch)
+            && !same_point(*point, next_touch)
+    })?;
+    let mut polygon = Vec::with_capacity(outer.len() + 2);
+    for (index, point) in outer.iter().copied().enumerate() {
+        if index == removed {
+            polygon.extend([previous_touch, interior, next_touch]);
+        } else {
+            polygon.push(point);
+        }
+    }
+    Some(polygon)
+}
+
+fn same_point(left: Vec3, right: Vec3) -> bool {
+    left.distance_squared(right) <= ROOF_VERTEX_TOLERANCE_SQUARED
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::{ResolvedItemId, RoofMaterial, RoofPlaneEquation, audit_triangle_mesh};
+
+    #[test]
+    fn roof_courses_keep_surface_scale_and_descend_for_every_orientation() {
+        for pitch in [15.0_f32, 35.0, 57.0, 75.0] {
+            for azimuth in [0.0_f32, 45.0, 90.0, 180.0, 270.0] {
+                let outward =
+                    Vec3::new(azimuth.to_radians().cos(), 0.0, azimuth.to_radians().sin());
+                let normal =
+                    Vec3::Y * pitch.to_radians().cos() + outward * pitch.to_radians().sin();
+                let along = Vec3::Y.cross(outward);
+                let down = outward * pitch.to_radians().cos() - Vec3::Y * pitch.to_radians().sin();
+                let start = Vec3::new(3.0, 12.0, -7.0);
+                let triangle = RoofSurfaceTriangle {
+                    positions: [start, start + along * 2.4, start + down * 2.4],
+                    normal,
+                    surface: RoofSurface::Weather,
+                };
+                let uv = triangle.covering_uvs(2.4);
+                assert!((uv[1].distance(uv[0]) - 1.0).abs() < 0.00001);
+                assert!((uv[2].distance(uv[0]) - 1.0).abs() < 0.00001);
+                assert!((uv[1].y - uv[0].y).abs() < 0.00001);
+                assert!((uv[2].y - uv[0].y - 1.0).abs() < 0.00001);
+            }
+        }
+    }
+
+    #[test]
+    fn roof_prism_honours_cutout_area_and_is_closed_and_consistently_wound() {
+        let face = RoofFace {
+            id: ResolvedItemId(1),
+            polygon: vec![
+                Vec3::new(-2.0, 0.0, -2.0),
+                Vec3::new(2.0, 0.0, -2.0),
+                Vec3::new(2.0, 0.0, 2.0),
+                Vec3::new(-2.0, 0.0, 2.0),
+            ],
+            cutouts: vec![vec![
+                Vec3::new(-1.0, 0.0, -1.0),
+                Vec3::new(-1.0, 0.0, 1.0),
+                Vec3::new(1.0, 0.0, 1.0),
+                Vec3::new(1.0, 0.0, -1.0),
+            ]],
+            plane: RoofPlaneEquation {
+                normal: Vec3::Y,
+                constant: 0.0,
+            },
+            pitch_degrees: 0.0,
+            thickness_metres: 0.2,
+            material: RoofMaterial::ClayTile,
+            support_nodes: Vec::new(),
+            drainage_catchment: ResolvedItemId(2),
+        };
+
+        let triangles = tessellate_roof_face(&face);
+        assert!(
+            triangles
+                .iter()
+                .any(|triangle| triangle.surface == RoofSurface::Weather)
+        );
+        assert!(
+            triangles
+                .iter()
+                .any(|triangle| triangle.surface == RoofSurface::Interior)
+        );
+        assert!(
+            triangles
+                .iter()
+                .any(|triangle| triangle.surface == RoofSurface::Boundary)
+        );
+        assert!(triangles.iter().all(|triangle| {
+            match triangle.surface {
+                RoofSurface::Weather => triangle.normal.dot(Vec3::Y) > 0.99,
+                RoofSurface::Interior => triangle.normal.dot(-Vec3::Y) > 0.99,
+                RoofSurface::Boundary => triangle.normal.y.abs() < 0.01,
+                RoofSurface::Enclosure => false,
+            }
+        }));
+        let top_area = triangles
+            .iter()
+            .filter(|triangle| triangle.normal.dot(Vec3::Y) > 0.99)
+            .map(|triangle| {
+                (triangle.positions[1] - triangle.positions[0])
+                    .cross(triangle.positions[2] - triangle.positions[0])
+                    .length()
+                    * 0.5
+            })
+            .sum::<f32>();
+        assert!((top_area - 12.0).abs() < 0.0001);
+        assert!(triangles.iter().all(|triangle| {
+            (triangle.positions[1] - triangle.positions[0])
+                .cross(triangle.positions[2] - triangle.positions[0])
+                .dot(triangle.normal)
+                > 0.0
+        }));
+
+        let positions = triangles
+            .iter()
+            .flat_map(|triangle| triangle.positions)
+            .map(|position| position.to_array())
+            .collect::<Vec<_>>();
+        let indices = (0..positions.len() as u32).collect::<Vec<_>>();
+        let report = audit_triangle_mesh(&positions, &indices);
+        assert!(report.passes_closed_solid(), "{report:?}");
+    }
+}

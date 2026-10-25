@@ -1,0 +1,282 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-032",
+  "at": "2026-10-25T11:42:54.911465+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 110,
+      "source_id": "physical-p16:crates/adventuresim-core/src/herbalism.rs",
+      "sha256": "501c6cf8ba05522213c175784f28e6ddecd14aaab72a490fcb4bfa846eccb203",
+      "actual_EOF": 405,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-core/src/herbalism.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-core/src/herbalism.rs",
+        "sha256": "501c6cf8ba05522213c175784f28e6ddecd14aaab72a490fcb4bfa846eccb203",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 14331,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 169,
+            "read_ranges": [
+              [
+                1,
+                405
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-HERBALISM-025"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/herbalism.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "native",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 16,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-HERBALISM-017",
+            "json_pointer": "/current_sources/2",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row104/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                405
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                405
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1174,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved",
+        "admission03_increment077_role_observations": [
+          {
+            "supplier": "camera",
+            "registry": "continuation/camera/admission03/source-range-registration.jsonl",
+            "row_1based": 54,
+            "registration_id": "CAMERA-ADM03-REG052",
+            "original_record": {
+              "id": "CAMERA-ADM03-REG052",
+              "at": "2026-10-22T18:16:56.414430+00:00",
+              "source_id": "physical-p16:crates/adventuresim-core/src/herbalism.rs",
+              "snapshot": "physical-p16",
+              "path": "crates/adventuresim-core/src/herbalism.rs",
+              "sha256": "501c6cf8ba05522213c175784f28e6ddecd14aaab72a490fcb4bfa846eccb203",
+              "actual_EOF": 405,
+              "material_ranges": [
+                [
+                  1,
+                  312
+                ]
+              ],
+              "role": "Direct actual preparation153/157 private generic planner effect cardinality, rights binding and physical duration, DB164 exact tincture constants",
+              "reason": "Existing actual PR Native039 full source proof alone cannot credit previously unregistered P16 direct same canonical contracts; register exact necessary production BEFORE body/diff analysis. No caller expansion.",
+              "exclusions": "No tests314+/wholefile credit; only directly called canonical definitions and body dependency declarations.",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "later_lens_credit": false
+            },
+            "local_qualifications": [
+              {
+                "registration_id": "CAMERA-ADM03-REG052",
+                "at": "2026-10-22T18:25:03.942345+00:00",
+                "source_id": "physical-p16:crates/adventuresim-core/src/herbalism.rs",
+                "sha256": "501c6cf8ba05522213c175784f28e6ddecd14aaab72a490fcb4bfa846eccb203",
+                "actual_EOF": 405,
+                "original_registered_ranges": [
+                  [
+                    1,
+                    312
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    1,
+                    312
+                  ]
+                ],
+                "context_only_ranges": [],
+                "role": "Direct actual preparation153/157 private generic planner effect cardinality, rights binding and physical duration, DB164 exact tincture constants",
+                "proof_refs": [
+                  "CAMERA-ADM03-QUAL164"
+                ],
+                "qualification": "Exact registered current role limits; reference source contract and original exclusions remain mandatory, no whole-file or included callee credit.",
+                "exclusions": "No tests314+/wholefile credit; only directly called canonical definitions and body dependency declarations.",
+                "source_registration_record": "continuation/camera/admission03/source-range-registration.jsonl#CAMERA-ADM03-REG052",
+                "no_source_body_credit_from_metadata": true,
+                "no_global_or_other_lens_credit": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                1,
+                312
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\herbalism.rs",
+            "actual_EOF": 405,
+            "bytes": 14331
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          405
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "DomainPreparation, DomainMaterialProcess, DomainMaterialComponent, DomainContaminant, DomainConservationPolicy, DomainMaterialReceipt, PublicMaterialPresentation",
+          "lines": [
+            36,
+            74
+          ],
+          "disposition": "Retain seven explicit per-type material vocabulary eligibility opt-ins; no existing exact derive identified, no automatic blanket widening."
+        },
+        {
+          "trait": "DomainTarget, DomainRequirement, DomainCapability, DomainInterruption, DomainEffect, PublicPreview",
+          "lines": [
+            76,
+            124
+          ],
+          "disposition": "Retain six explicit preparation-plan and public preview opt-ins; these do not imply arbitrary serialization or exposure."
+        },
+        {
+          "trait": "DomainRightsSubject, DomainRightsResource, DomainRightsOperation, DomainJurisdiction",
+          "lines": [
+            126,
+            137
+          ],
+          "disposition": "Retain four exact empty domain vocabulary opt-ins."
+        }
+      ],
+      "existing_derives": [
+        "All declared material/preparation/rights vocabularies structural Clone Copy or Clone Debug Eq PartialEq"
+      ],
+      "absence_basis": "Full production and fixtures consumed. No hand serializer, formatter or generic forwarding trait; remaining custom code binds rights/causality and computes preparation time."
+    },
+    {
+      "scope_index": 111,
+      "source_id": "physical-p16:crates/adventuresim-core/src/ingredient_preparation.rs",
+      "sha256": "ae086fd226814d3e6a5085e053f4e16a02c4a46ecbfbe9e0c2bf7063e6edf170",
+      "actual_EOF": 72,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-core/src/ingredient_preparation.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-core/src/ingredient_preparation.rs",
+        "sha256": "ae086fd226814d3e6a5085e053f4e16a02c4a46ecbfbe9e0c2bf7063e6edf170",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 2182,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 170,
+            "read_ranges": [
+              [
+                1,
+                72
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-HERBALISM-025"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/ingredient_preparation.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 17,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-HERBALISM-017",
+            "json_pointer": "/current_sources/3",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row105/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                72
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                72
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1175,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "IngredientPreparationAction Clone Copy Debug PartialEq Eq Serialize Deserialize + feature-gated SpacetimeType"
+      ],
+      "absence_basis": "Full body only semantic stable text/code/definition vocabularies and parser with existing fixtures; no manual trait or serializer."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Keep deliberate marker opt-ins, exact native token/code views and checked semantic preparation actions. Mechanical wire already derives on the shared ingredient operation.",
+      "qualification": "No fixture execution or operation/admission verdict transfer."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 112,
+    "source_id": "physical-p16:crates/adventuresim-core/src/inventory_measurement.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

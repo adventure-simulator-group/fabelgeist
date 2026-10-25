@@ -1,0 +1,25 @@
+{
+  "id": "CAMERA-ADM03-F003",
+  "at": "2026-10-22T06:09:58.268956+00:00",
+  "classification": "target-representation admission gap; static counterexample not executed",
+  "contract": "CAMERA-ADM03-025",
+  "source_roles": [
+    "physical-p16:crates/adventuresim-core/build/combat_resolution.rs",
+    "pr-working:crates/adventuresim-core/build/combat_resolution.rs",
+    "physical-p16:crates/adventuresim-core/src/combat/config.rs",
+    "pr-working:crates/adventuresim-core/src/combat/config.rs"
+  ],
+  "source_pins": {
+    "physical-p16:crates/adventuresim-core/build/combat_resolution.rs": "79ebf48add6f1035ba223c7d310864e958145bdb580ab8fd0189eac3700ff9c5",
+    "pr-working:crates/adventuresim-core/build/combat_resolution.rs": "edfd993d879e1cb771859c76510e7e78e3f612d2f22bacdff5a8ce923970d2ce",
+    "physical-p16:crates/adventuresim-core/src/combat/config.rs": "cc2a62a000314375ca41307ed50b057e71d670192954b4aee7774a69fe2e976a",
+    "pr-working:crates/adventuresim-core/src/combat/config.rs": "69009bf458abab5d6affbd82ce193c159586c474cff8229b545a3f6c4d5e6677"
+  },
+  "earliest_failed_contract": "f64positivebuildvalidation precedesf32literalrounding; emittednonnegativeElapsedconstructor admitszero withouttargetpositiveaggregatevalidate",
+  "conceptual_counterexample": "Authoredcombat_round_seconds1e\u2212100 acceptedf64sourcepositivecheck188\u2013218; targetf32 rounds0; emittedAnimationElapsed.from_seconds0 succeeds whileruntimepositive_durations.any(is_zero) rejects. No build/runtime result claimed.",
+  "actual_receiver": "PRautoresolve643 directconstant load;707 targetterminalclockfallback;751\u2013765 roundconditionelapsed, boundedactualsourcesread underexistingwholequeuescope",
+  "connected_remedy": "Enforceintendedtargetf32positivepolicy atactualgeneratedconstantfactory (orcanonicalrefinedowner atcoherentlowerdependency), notblanketpositiveAnimationElapsed/clamp. Preserve source literal encoding and finite/sign/error policy.",
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "pending_specific_question": "None requiringhuman decision; exact chosenrepresentation correction deferreduntilall13inventory/connectedimplementation."
+}

@@ -1,0 +1,75 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-007",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "native-png-alpha-and-failure-boundary",
+      "sources": [
+        {
+          "scope_index": 25,
+          "ranges": [
+            [
+              46,
+              47
+            ]
+          ]
+        },
+        {
+          "scope_index": 26,
+          "ranges": [
+            [
+              155,
+              182
+            ],
+            [
+              385,
+              430
+            ]
+          ]
+        }
+      ],
+      "distinction": "Pixmap/PixmapRef native image ownership differs borrowed versus owned, while native premultiplied color storage differs PNG unpremultiplied channel interpretation. EncodingError is the exact0.17 dependency owner; encode_png returns bytes versus save_png also commits filesystem I/O.",
+      "uses": "Actual encode makes a copy, demultiplies channels, configures RGBA8 and propagates native header/data failures. Save propagates encoding and filesystem errors with same native error family; returning captured pixels is not proof bytes reached disk.",
+      "disposition": "Keep image representation, byte encoding and persistence outcome distinctions; no duplicate PNG error taxonomy or blanket rawbyte wrapper requirement. Native unchecked color constructor sits in explicit conversion kernel, not permission for first-party retained APIs to erase alpha/color role.",
+      "acceptance": "Application export/capture APIs should bind their actual stage and path to original native error. Preserve alpha conversion and image dimensions, and distinguish capture/encode/write completion without inventing a generic image unit framework. No filesystem save, encode run or dependency changes."
+    },
+    {
+      "id": "native-device-surface-map-failures",
+      "sources": [
+        {
+          "scope_index": 27,
+          "ranges": [
+            [
+              835,
+              880
+            ]
+          ]
+        },
+        {
+          "scope_index": 28,
+          "ranges": [
+            [
+              685,
+              750
+            ]
+          ]
+        },
+        {
+          "scope_index": 29,
+          "ranges": [
+            [
+              430,
+              505
+            ]
+          ]
+        }
+      ],
+      "distinction": "BufferAsyncError means map failure; RequestDeviceError means adapter device creation; CreateSurfaceError includes HAL/web/raw-handle causes. Native wrapper encapsulates backend configuration and source behavior, not a redundant application role. MapMode is read/write authority, BufferDescriptor native buffer policy.",
+      "uses": "Native Display reports cause, but source() may return None for web and delegate inner source forcore/rawhandle. Surface raw display/window handles carry explicit lifetime/unsafe ownership rather than fungible IDs. No invented native map subcategories exist in unit BufferAsyncError.",
+      "disposition": "Keep actual phase-specific native owners and expose meaningful application context without duplicating backend enums or making universal GpuError(String). Do not promise a source chain where backend intentionally has only text. A shared parent error enum may own these distinct native causes rather than flatten them.",
+      "acceptance": "Actual application buffer readback/device/surface callers pending11 must retain original native errors, command/device/buffer association and actual phase. No device or mapping run, and incomplete constructor tail beyond registered excerpt receives no proof."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

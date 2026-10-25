@@ -1,0 +1,143 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-535",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/part.rs",
+      "sha256": "b990af2759b5c457ee1e2035060d64f0fdeaa9185b2239392b8d98fd18eefeaf",
+      "actual_EOF": 362,
+      "actual_compared_ranges": [
+        [
+          1,
+          362
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/part/layout.rs",
+      "sha256": "ff78ae8e0c6e40168541eebee2a17792bb8193146d0a4b93463143adcf71c626",
+      "actual_EOF": 289,
+      "actual_compared_ranges": [
+        [
+          1,
+          289
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/pauldron.rs",
+      "sha256": "941b424f604c4fec00e1b408cfc88a31540522830f0e5936078674a541c3a78b",
+      "actual_EOF": 244,
+      "actual_compared_ranges": [
+        [
+          1,
+          244
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/recipe.rs",
+      "sha256": "09540bbac5ff1df4fbe07021b362cd80495d565cc843ed8b484f8ab401fe508b",
+      "actual_EOF": 166,
+      "actual_compared_ranges": [
+        [
+          1,
+          166
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/staging.rs",
+      "sha256": "c82ccc89151834ead198496d95805780ebc3770b1d259c1d7d61dafa9817f02e",
+      "actual_EOF": 77,
+      "actual_compared_ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/wrapped_tasset_carrier.wgsl",
+      "sha256": "d2769977cd06ab462c3180b8faf97efd4b55c067d626ff300078d8a6baa6409d",
+      "actual_EOF": 64,
+      "actual_compared_ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/wrapped_tasset_shape.wgsl",
+      "sha256": "6bf36983d7b2fe90b22fd0e5bccd860aa4e951be3fd90828a85c87438f8f6c40",
+      "actual_EOF": 55,
+      "actual_compared_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/wrapped_tassets.rs",
+      "sha256": "e3b42051512367ece0bf95da50fe255586f90159da138fc22385ba5304ba62b9",
+      "actual_EOF": 154,
+      "actual_compared_ranges": [
+        [
+          1,
+          154
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Aggregate native cardinality and publication",
+      "evidence": "PartLayout.push validates ShellPlan but then pushes before unchecked u32 carrier/final additions. Sources reserves INNER_BIT and offsets whole arena. Public BuiltPart.append narrows position count and offsets indices while mutating; huge representable aggregate capacity is a contract question pending exact adopted03/06 alias and actual producer capacity. No ordinary large asset or execution established. Previous533 generic dependence on aggregate admission is corrected: these bodies have no checked aggregate sum gate."
+    },
+    {
+      "contract": "Private recipe and ordinary fixed producer distinction",
+      "evidence": "PartRecipe and CoordShell are crate-private; arbitrary public passesMAX is not established. Actual plain chart/coordinate producers read use fixed/small cardinalities. push_grid_coord checks grid product and exact coordinate count before push, unlike ordinary push_chart. Components must cover a nonempty run; current reviewed producers add shells first. No blanket all-producer proof."
+    },
+    {
+      "contract": "Staging context remains independently swappable",
+      "evidence": "Staged carries only a usize and StagedResults.get indexes different result collections without provenance, then part.finish truncates rather than enforces equal lengths. Same manifest/context ownership issue as supplied Rig06F050 qualification -> CAM-OWNER-F011/local774:F19; no new unique count. Public result constructors remain private, but tokens can be swapped between separately valid batches."
+    },
+    {
+      "contract": "Pauldron design admission across stages",
+      "evidence": "record validates cloned PauldronDesign; record_plates accepts another design without validation and uses u16 1000*(i+1)/lower_lames. Invalid lower_lames66 can overflow, but admission bypass/context coupling is required first and normal validated design excludes it. Preserve as qualified policy/admission dependency pending exact alias, not ordinary04 runtime failure. Zero loop counts skip denominators; no unconditional divide-by-zero claim."
+    },
+    {
+      "contract": "Wrapped tasset carrier search and rejection",
+      "evidence": "Fixed HULL512/sections26/layer17/rows8/native metadata indices; actual record validates GarmentArmorDesign. Course top-bottom positive for admitted count, bracket4 and bisection24 bounded. Exploratory signed radius limit deliberate; final chart marks nonpositive radii/outside support invalid. Raw fit/status buffers must match authored measurement metadata; current bodies do not alone establish producer correctness or status observation. No successful fit or visual acceptance inferred."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [
+    {
+      "path": "dependencies-533/limb_armor.rs",
+      "sha256": "5cc9bda50004b9d57d81c6c253f9e51e1185141f978f731fd9b55809de0f3b55",
+      "actual_EOF": 376,
+      "actual_compared_ranges": [
+        [
+          1,
+          376
+        ]
+      ],
+      "disposition": "Now entire dependency personally read; calf fraction450..800 excludes zero and one; gauge2..25/1..6 and design ratios constrain reviewed denominators. Original role credit remains unchanged."
+    }
+  ],
+  "status": "8 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/fabelgeist-armor/src/pattern.rs"
+}

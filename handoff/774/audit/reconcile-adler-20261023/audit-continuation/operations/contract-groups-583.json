@@ -1,0 +1,57 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-583",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:vendor/bevy_ahoy/src/lib.rs",
+      "sha256": "a0b15625d3086b64fd425b8bccae4f18370ae8f1f64b2633b9b3736523cc580d",
+      "actual_EOF": 552,
+      "actual_compared_ranges": [
+        [
+          1,
+          552
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Vendored controller definitions and nativeconversion helpers preserve admitted frame/shape meaning; sentinelclocks saturate intentionally.",
+      "evidence": "Full552linebodypersonallyread. Defaults finitefixedpositivephysicalvalues/sin/cosnormalangles. CharacterLook from/to/apply quaternion Eulerconversion requiresunitframe andfiniterawangles, cameraordinaryproducerprerequisite; no newban onnormalrollpreservation. Derivedprops shape-specificradii use SDKgeometry; HalfSpace explicitlyreturnsInf asunboundedshape semantics, notfinitenativelength. TouchingEntity fromMoveAndSlidecopiesallsourcefields verbatim, no extraarithmetic. max_stopwatch usesDurationMAX, actualKCC145\u2013195 ticksit; initiallysuspecteddefaultoverflowdischarged byexactBevy0.19.1Stopwatch.tick134\u2013139 elapsed.saturating_add(delta).",
+      "qualifications": "No controller/physics/SDKtestexecution. CachedSDKcratechecksum matches frozenlock andsource member; onlyfocusedoperation/caller rangesread, no wholeSDK/KCCcoverage. Arbitraryrawinvalidcontrollerconfig/quaternionneedsactualfactory/admissioncontext, notautomaticallyordinarilyreachablevendorfailure. Roundedshapeborderradius+innerbound canoverflowforrawextremeSDKshape; actualsupportedactorcolliderdomainneededbeforecounterexamplepromotion.",
+      "acceptance": "Preserve MAXmeansneverrecently sentinel withsaturatingelapsed, finitevalidactorframes andsupportedshape semantics; nativeunboundedshape radii requireexplicitdownstreampolicy, no globalfiniteclamp or importedSDKrewrite inferred."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [
+    {
+      "source_id": "pr-working:vendor/bevy_ahoy/src/kcc.rs",
+      "sha256": "270d6b20992ae497744d528d70421ca20075b2f22be9c0dff36f2c41978e72ba",
+      "actual_EOF": 1645,
+      "actual_compared_ranges": [
+        [
+          145,
+          195
+        ]
+      ],
+      "method": "Focused exact operation/caller source read only; fullEOF metadata doesnotclaimunreadremaindercoverage. Bevycratearchivechecksumf6896d83... independentlymatches frozenPRCargo.lock andactualmemberbytes."
+    },
+    {
+      "source_id": "pinned-registry:bevy_time-0.19.1/src/stopwatch.rs",
+      "sha256": "0f89469949a788d5c34a3e2608a6feb5af224c57692f0a421f1846fcfc51e87f",
+      "actual_EOF": 210,
+      "actual_compared_ranges": [
+        [
+          115,
+          165
+        ]
+      ],
+      "method": "Focused exact operation/caller source read only; fullEOF metadata doesnotclaimunreadremaindercoverage. Bevycratearchivechecksumf6896d83... independentlymatches frozenPRCargo.lock andactualmemberbytes."
+    }
+  ],
+  "status": "1 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "report-p17:crates/adventuresim-tactical-client/src/animation/bouncy_bones.rs"
+}

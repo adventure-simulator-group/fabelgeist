@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1362",
+  "at": "2026-10-25T18:38:33.110738+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1412,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+  "sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+  "actual_compared_ranges": [
+    [
+      1,
+      300
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Capture records use Component/Resource derives, not handwritten trait impls. Inherent constructor selects authored scenario plan with checked AnimationValueResult, clamps settle minimum and initializes correlated progress; completion drains selected collections, native systems coordinate capture ownership/readiness/current body. No codec or manual trait in slice; child declarations not credited.",
+  "first_unfinished": {
+    "scope_index": 1412,
+    "line": 301
+  },
+  "execution": "none"
+}

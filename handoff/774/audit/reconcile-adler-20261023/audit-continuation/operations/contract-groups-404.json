@@ -1,0 +1,53 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-404",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion/terrain_leg.rs",
+      "sha256": "51077dd4848c32f8c559637ff794ba44f8b071f92ed20fd7103ab1773aac8b9d",
+      "actual_EOF": 121,
+      "actual_compared_ranges": [
+        [
+          1,
+          121
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+      "sha256": "b1645110395d62b1dab020f6328f9b3d3fde6cd3f64b88101d6c66d5e7d8b0e6",
+      "actual_EOF": 2973,
+      "actual_compared_ranges": [
+        [
+          1,
+          2973
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Terrain solve admission and degenerate identity",
+      "evidence": "terrain_leg.rs:1-121",
+      "disposition": "Checked limb lengths, optional pole transport, fallible analytic solution and conditional sole-axis alignment. Identity-distance path intentionally retains weight; no newly proved ordinary defect."
+    },
+    {
+      "contract": "Planned targets versus realized contact and per-observation ownership",
+      "evidence": "mod.rs:1-2973",
+      "disposition": "Personally consumed coordinator end to end across posture release, raised handoff, repeated fixed-tick guard, airborne plan, acquisition, settled dual plants, pole/orientation finalization and publication. Planned footprint does not by itself publish support; support requires solved sole contact plus proximity to plant. Retained unreachable release requests are updated to the realized ankle. Frozen world plants remain stable after acquisition; raw flight releases exhausted support."
+    },
+    {
+      "contract": "Finite geometry, time and mutation boundaries",
+      "evidence": "mod.rs:1-2973, especially 2281-2973",
+      "disposition": "Rate and terrain admissions can skip individual legs; local memory publishes at end only after validation. Transform applications and some live component resets precede later fallible operations, so this is not evidence of whole-frame failure atomicity. No concrete ordinary invalid-geometry witness established; do not turn partial mutation alone into a defect. Fallback settlement requires a safe stance or terminal state and actual rendered contacts before idle completion."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/observation.rs"
+}

@@ -1,0 +1,26 @@
+{
+  "supersedes": "SEGO-INITIAL09-OPEN-317-equipment-state ambiguity only",
+  "evidence": {
+    "source_id": "physical-p16-commit039329:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/generation.rs",
+    "ranges": [
+      [
+        281,
+        286
+      ],
+      [
+        316,
+        325
+      ],
+      [
+        352,
+        360
+      ],
+      [
+        393,
+        400
+      ]
+    ]
+  },
+  "clarification": "Actual normal failurewriters deliberately install both Resolved andFailed. Resolved meanscompleted evenerror; there is no forbidden simultaneous pair. F260 proposal owns completion+result, preserving legitimateFailedcompletion andchangedkeyrecovery. Earlierfixture/readinesscoverage remains independent.",
+  "unknown": "Unrecorded Adlerdirtyhelperbytes unknown; committed039329source contracts only, no runtimeexecuted."
+}

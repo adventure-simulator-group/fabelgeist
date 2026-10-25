@@ -1,0 +1,98 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-018",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "prepared-exchange-versus-policy-transition",
+      "sources": [
+        {
+          "scope_index": 67,
+          "ranges": [
+            [
+              1,
+              597
+            ]
+          ]
+        }
+      ],
+      "distinction": "PreparedMeleeExchange joins attempt/policy, effectivealignedexchange andpowertransformedresult; similar-looking resultvalues aredifferentstages ratherthan automaticredundantauthority. DefenderReadiness before/after observations remain distincthistory. Contacttelemetry namescenterseparation separatelyfromactualsurfacemeasure.",
+      "uses": "prepare snapshots scheduleddefenderphase, decidesresponse, scales oncewithdefenderperformance thenalignedresponse throughactualexchange; scaledresultbyretainedpowerdifferentfromoriginalexchange. apply commitsreadiness/cancellation andchargesattemptedwork, recordersretainoriginalchoice/effectiveaction andcommittedpolicyfacts. Centermeasure isexplicitlyreconstructed128\u2013129.",
+      "disposition": "Keep coherent temporal/policy/resultstage boundaries; do notremove originaldecision/historyasunusedduplicateorequaterecoveryreadinesswithinstantaneousattackduration. RelatedrootM88full-event shape andF04identityrepair now actualrecorderreferences, noordinarymissingpayload claim. No erroneous inferenceofdefenderperformance doubleapplication.",
+      "acceptance": "Completewholeevent/identityrepair mustpreservecontext, target, readiness, phase, cancel/transformaffectedID andindependentattempt/effectivepolicyhistory. Namedraw/committedresultstagecanpreventmix-up; no arbitraryvalidationthreshold or sourceexecution."
+    },
+    {
+      "id": "committed-attack-lifecycle-and-cadence-unit",
+      "sources": [
+        {
+          "scope_index": 68,
+          "ranges": [
+            [
+              1,
+              391
+            ]
+          ]
+        }
+      ],
+      "distinction": "MeleeEngagement bindsactor/targetandactualdistance; AttackStartTrace ownsactualeventinputs. PendingScheduledMeleeAttack differsconsumedcontact andhistoricalobservation. Cadencejitter iselapsedtime addedtobaseattackinterval, notprobabilitydespitebuilduseoffractionsvalidator.",
+      "uses": "Actualschedulernormalupdatesdelay/jitteronlyaftercheckedconversion; RecoveryTime::available None yieldsnoschedule. Existingstart/contactmaystillbereturnedcurrent; take_side_turns missesconsumptionclear. readonlyscheduled_attack_is_current comparesretainedtimes. Normalrecordersfillrequiredstartfacts.",
+      "disposition": "ALIAS002 supportsinheritedF065 sharedlifecycle. Q001 remainsqualified explicit\u22641buildpolicyquestion; actualconsumerprovesunit butdoesnotauthorizeacceptinglongerjitter. ALIAS001F04completeidentity propagatesthroughAttackStartTrace/batch; noextraunique finding.",
+      "finding_refs": [
+        "SEGO-INITIAL11-ALIAS002"
+      ],
+      "acceptance": "Centralpendingattackconsumptionandcompleteidentity acrossdispatchers. Preservezero/noavailableattack anddistinctdelays/readiness/duration, no fakefinite valueforunavailable recovery or highercadencepolicychange."
+    },
+    {
+      "id": "loadout-selected-view-and-purposeful-snapshots",
+      "sources": [
+        {
+          "scope_index": 69,
+          "ranges": [
+            [
+              1,
+              364
+            ]
+          ]
+        },
+        {
+          "scope_index": 71,
+          "ranges": [
+            [
+              1,
+              190
+            ]
+          ]
+        }
+      ],
+      "distinction": "CombatBody/Essentials/Skills arebattlepurposesnapshots supportingexistingtraits ratherthan copiedfullstrategicCharacter. BestiaryHours category-awareowner differsgenericaggregate traininghours. CombatArmor innateprotectionhasgenuineNoneinventory/material; hybridCombatWeapon mayhaveindependentmelee/rangedcapabilities. Retainedloadoutversusselectedactiveview ismeaningful distinctioncurrentlyconflated.",
+      "uses": "PlayerEquipment gettersreadgenericweaponwhilefor_melee/ranged cloneandselectmode; threatnormalhybridproducerretainsbaseprimaryplusmeleesidearm. ArmordefaultkeepsROM/flexibility1evenwithoutprotection; innatefullcoverage noinventory isintentional, notmalformedmissingasset. Physicalskillcondition1avoidsduplicatefatigue/burdenperformance.",
+      "disposition": "ALIAS003 exactCAMERA07F009 wholeequipmentselectionrepair, no newunique. Keep genuineinnate/abstractprotection, multipleimplements, physicalmassversusimpairment andcategory-awarebestiarytraining. Commonnumerictraininginvariantcouldbesharesbeneathroles, notindependentper-skillframework orflatteningbestiarycategories. Native rawtraitports alone do notexempt retainedfirstpartystate.",
+      "finding_refs": [
+        "SEGO-INITIAL11-ALIAS003"
+      ],
+      "acceptance": "Actualselectedview throughallgeometry/physics/readerswithproperowner. Preserve strategic/tacticalboundary andcurrentlegibility; noadaptedSchema/generatedbindingsor sourcechanges."
+    },
+    {
+      "id": "abstract-combat-decision-score-versus-physical-power",
+      "sources": [
+        {
+          "scope_index": 70,
+          "ranges": [
+            [
+              1,
+              168
+            ]
+          ]
+        }
+      ],
+      "distinction": "autoresolve_combat_power isobserver-safe abstractdecisionaidscore, not physicalwatts/joules oroutcomeoracle. Native logaggregation combines heterogenousinfluenceswithauthoredweights; healthfraction, readiness andrangedopeningopportunityareindependentcontributors.",
+      "uses": "Actualmode-specificchecksusefor_melee/ranged, deriveweaponoutput/armor/checkscores thenlognormalize/readinessclamp androundtou64. checked5:4safetymargin50:308\u2013309 overflowsfailclosed separately. finite_log_component intentionallymapsnonfinite observation fordecisionaid; itisnotauniversalphysicaladmissionowner.",
+      "disposition": "A scoreidentity/scaleowner canpreventmixingnormalizedstrategicpower, physiology, money/countorphysicalpower; actualexistingNormalizedCombatPowerfitandcallerspendingown11. Do notreuseonegenericpositiveu64owneracrossalltheseorimpose300kcapfromdifferentcontractwithouttrace. No newscorefindingbasedsolelyname.",
+      "acceptance": "Traceactualnormalization/assessmentreceiversatscopedrolesandpreserveexistingweights/order/f64precision/failclosedoverflow anddecisionaidlimits. Noexecutedestimatebattleodds/tests orclaimednewacceptedrange."
+    }
+  ],
+  "new_findings": [
+    "SEGO-INITIAL11-ALIAS002",
+    "SEGO-INITIAL11-ALIAS003"
+  ],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

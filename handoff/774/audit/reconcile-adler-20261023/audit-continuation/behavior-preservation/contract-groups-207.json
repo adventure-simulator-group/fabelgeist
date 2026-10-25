@@ -1,0 +1,34 @@
+{
+  "id": "CONT08-CONTRACT-207",
+  "at": "2026-10-25T14:26:06.569419+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 800,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/field.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/hair/gpu/field.rs",
+      "before_sha256": "1f537b363a614847b1ddf760ac719c5ed099171646ce606649e8b7ca79390264",
+      "after_sha256": "1f537b363a614847b1ddf760ac719c5ed099171646ce606649e8b7ca79390264",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0800-base-1f537b363a614847b1ddf760ac719c5ed099171646ce606649e8b7ca79390264",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/1f537b363a614847b1ddf760ac719c5ed099171646ce606649e8b7ca79390264",
+      "diff": "source-evidence/pr-0800.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          545
+        ]
+      ],
+      "facts": [
+        "Full545 and actual empty diff. Actual bodyfield recipient retains selectedbody normals/triangleAABBnearbox+.1 filter/sourcefaceorder, CELL.0025/MAX16000000cellgrowth nativefloatdimsmin1/headerlayout andnowhere1000 convention. No admission guarantee for enormous/malformedcustombox or >20bittriangles inferred.",
+        "Host seedclear\u2192native4095distance/20bittriangle atomicpackedmarks\u2192floodstart triangle+1/0none\u2192widestnextpower halfsteps+extra1 pingpong\u2192finish fourcellpacks same order. Strictseed distance<1.5cell, floodstrictcloser/preservesexactdistance ties and27neighbor traversal retained; jumpflood not asserted globallyexact from comments.",
+        "Concrete signed_distance same<=.1range and interpolatedvertexnormal fallbackdenom1e-20, signed dot>=0 choosespositive distance otherwise-negative including nativezero sign; no CPU sign-policy equivalence inferred (retained separate existing07 collider question). Truncatedlast4cells returnreach andnormalweightedcornerorder unchanged. No GPU/sourcefix/coverage from09."
+      ],
+      "disposition": "Own08 old/new comparison accounted with concrete lower2179/2332/2336 and frame-kernel receiver; retained API limits explicit.",
+      "acceptance": "Preserve exact packing, first-error, membership and floating operation order plus existing fixture oracles; no tests or checks run."
+    }
+  ],
+  "next": "801 GPUplace365 then802 WGSL274/803 strips511+"
+}

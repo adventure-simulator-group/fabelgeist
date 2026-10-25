@@ -1,0 +1,18 @@
+{
+  "id": "SEGOVB-04-DIALOGUE-HTTP-STATUS-RETRY-CANDIDATE-001",
+  "status": "source-backed actual wrapper/caller disagreement; ordinary terminal HTTP response conditional, no runtime run",
+  "operation": "dialogue-client.js request() expects Response on !ok to create error.status; background-fetch.js38\u201347 strategicFetch instead throws plain Error for !ok before returning. createRetriableAction53\u201370 clears pendingActionId on409/422 only.",
+  "witness": "Use actual acceptance.run(request accept-order-errantry). Server returns409 or422. Shared wrapper rejects plain Error with message status but no statusproperty; dialogue local if!response.ok is unreachable, catch cannot clear pendingID by expectednumericstatus. Retrying same button retains the prior attemptID despite explicit terminalrejection reset policy.",
+  "qualifications": [
+    "No actual rejected session/HTTP/browser execution. Terminalrejection may remain meaningful withsameID if reducer policy differs; primary proved gap is discardedstructuredstatus and unreachable intended branch.",
+    "Existing cross-system concrete-error graph is related; no indexed exactalias found by targeted1002recordsearch, not exhaustive semanticdedup proof.",
+    "Do not infer all transport errors require newID or clear IDs on uncertainnetwork failures."
+  ],
+  "repair_cluster": "strategic-http-error-and-retry-authority",
+  "dependencies": [
+    "actual terminalreject vs uncertaincommit protocol",
+    "shared strategicFetch callers expectingResponse/status",
+    "generated/backend error envelope ownership"
+  ],
+  "acceptance": "Preserve structuredHTTPstatus and specificservercause through sharedwrapper; terminal409/422 policy observable atretryowner while transport/unknowncommit retains exactattemptID. No implementation or test run in this audit."
+}

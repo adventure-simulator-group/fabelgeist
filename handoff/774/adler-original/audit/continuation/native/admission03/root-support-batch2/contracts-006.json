@@ -1,0 +1,71 @@
+{
+  "id": "NATIVE-ROOTSUPPORT03-BATCH2-CONTRACTS-006",
+  "authority": "ROOT-ADM-SUPPORT-AUTHORITY-049",
+  "lens": "audit-admission-contracts",
+  "groups": {
+    "offline-terrain-builder-native-source-normalization": {
+      "root_indices": [
+        388
+      ],
+      "invariant": "Offline native TIFF/vector compiler emits raw Manifest/deployment bytes. Input normalization and source-policy choices are explicit; returned Manifest is not the private runtime TerrainPack admission token.",
+      "all_admission_routes": [
+        "Full646 incloriginaltests266–295/577–646 sourceonly. Publicbuild rawbounds firstrequiresfinite strictwest<east/south<north, notearthbounds; floor/ceilnativei16tileextent. TIFF actualwidth1800/2400/3600,height3600, F32 representation andexactelevationpixelcount checkedbeforeindex. Missingtile errors exceptexactfiveknownNorthSea all-water gaps; these remainimpassable/syntheticwater, notarbitrarymissingheightfallback.",
+        "Nativeelevationfinite→round/clamp-500..9000; nonfinite→0, explicitraw-source normalization notcheckedElevationMetersconstructorloss. Missingforest→None→canopy0; forestdimensions1000²/U8 checks, canopy>100→0 intentionalnativepolicy; forestpixelcountnotexplicitindependentcheckhere, TIFFadapteractualforeigncountcontractnotread/assumed. Hillyneighborhood ignoresnonfinite/outofrangecenter/neighbors; fifteen-degree nativecomparison only.",
+        "RawFeatures389 vectorarrays/defaultempty feednativeclip/rasterizer; no upfrontallfinite/closedringgeometrysourcepredicate. Roadsegmentclip, intpixelconversion/rangecaps, polygon scanlineallrings/XORholeparity/oddintersectionremainderignored are actualnativekernel semantics, notgenericconvexPlanPolygon. Sourceinvalidcoordinates maynormalize/disappear duringrasterization; new raw-source strengthening separatefromcheckedstatebypass.",
+        "Actualchunkloops dimensionsfromcheckedTIFF/fixedsynthetic tile, knownCHUNK256, writesfivebytescellLEheight/surfacetag/flags/canopy; compression thenrawEntryoffset/length/nativewidthcasts. BuildManifest copiesrawfeatureids/digests/rules, computespackagechecksum usingzeroedpackagefieldclone, writespackthenmetadata, returnsrawManifest WITHOUTvalidate_manifest. Finalpurposeinputcopied (buildercanDocumentedBase), finalruntimeconsumers mustactualTerrainPack::load +purposegate. Filewritesnotatomicpair/no rollbackpromise."
+      ],
+      "counterexample_or_qualification": "Nonfiniteheight0/forestmissing0/rawvectorhandling explicitimportpolicy; do not silentlynarrowwhileclaimingrefactorpreservesbehavior. RawManifest fields canrepresentinvalidmetadata; runtime391load independentlyvalidates. TIFFforeigndecoder pixelcardinality boundary remains actualadapterdependency if strengthened, no invented currentmalformedasset/runtimefailure.",
+      "connected_repair": "Root terrainbuilder/source/identityclaims; movecheckedownershipafteractualnativeimportboundary whilepreservingdefault/sourcepolicyunlessexplicitlaterdecision. CurrentrootG003 SourcePackageDigestgrammar actualchecksumport; no wholeTIFF/Proj/packagecredit.",
+      "acceptance": "Preserve exactsource dimensions/holes/rasterorder/binaryformat/checksum/syntheticgap list/nonfinitepolicy andoriginalfixtures; no build/execution/newtest.",
+      "proof_refs": [
+        "Root388 actual1–646; Root389rawFeatures actualbatch2 contracts003",
+        "Native064exactdigest helpers +RootG003actualcanonicaldigest",
+        "Root391independentruntimeadmission actualsamepacket"
+      ]
+    },
+    "road-native-payload-to-private-canonical-cache": {
+      "root_indices": [
+        392
+      ],
+      "invariant": "Only RoadPack::load constructs private immutable retained road lines after bounded payload/count/hash/source/final-terrain checks and completed checked geographic coordinates. Raw manifest/native geometry are deployment inputs.",
+      "all_admission_routes": [
+        "Full344 read, noexistingtestmodule. RoadManifestpublicordinarydenyunknownSerde rawschema/count/Stringhash pluscheckedSourceDigest; NativeRoadLinepublicnativef64pointarrays/closedkindexplicitport. RoadPack/RoadLineprivatefields,noSerdeDefaultReflect/publicmutablegetter; onlyloader/privatefrom_native_degrees retainedconstruction.",
+        "load85 boundedmanifest4KiB metadataANDlimit+1read, validatesmatching schema/Finalterrain/sourceDigest/roadgeometrymaskhash/contenthashsyntax/counts<=1mpts/50klines BEFOREboundedpackread. ContentexactSHAchecked beforedecode. decode285 everyline tag0..6only/LEu32count>=2/checkedcumulative<=manifestpointcount<=1m, boundedtakereads, exacttail-empty+totalcount beforeOk. No short/trailing datafallback.",
+        "Geometrydigest278 hashes serdeJSON nativeoriginalpointvectors only, retainsf64orderbeforeE7conversion; classificationhasseparatetag/contentdigest, geometricdigestnotproofexternalclassificationauthenticity. from_native_degrees206 requires2+, eachpointwithinactualterrainbounds andcanonicalWgs84fromdegrees, thenminmaxcheckedcomponents→Wgs84BoundsE7 new. Coincidentroundedpointsnotforbidden; no unit/privatecurrentDBmembershippromise.",
+        "writebuilder120 countschecked_add andcaps, geometricdigest/source/Finalmatchinggate, validatesactualeveryNativeRoadLine geographicpayload BEFOREanyoutputfile, thenexactf64LEbytes/kindtag/count; manifestnativeJSON+newline/packwritesafterallvalidation. No codecroundtriplossclaimfromE7retention: rawpackagepreservesfullf64, runtimeintentionallykeepscheckedE7; trueformatboundary. readerrors propagate; sourcecache432 storesonlyafterload andchecksresidentdigest."
+      ],
+      "counterexample_or_qualification": "SourcePackageDigestsyntax is actualRootG00364lowerhex; valid_digestNative064 actualconstructor. PrivateRoadPack no safe rawfield/Serde bypass. Payloadhash/manifestself-consistency establishpairedartifactidentity notsourceauthorization. No foreignSerdeJSON/nonfinitepolicyinference needed becauseactualgeo gate rejectscompletednonfinite/outofboundpoints.",
+      "connected_repair": "Root exactnative road/deploymentformat andsourceownershipclaims remain. Preserve no serializeralias/compatibilitypath, canonical geo leaves toactualsource projection andfinalbyteformat only.",
+      "acceptance": "Keep errorordering/nativef64digestbeforequantization, exactseven tags/count/tailchecks/readonlyviews; preserveemptycatalogzero lines/pointsallowed, eachpresentline2+. No tests/run.",
+      "proof_refs": [
+        "Root392full1–344; Root432actualresidentcache",
+        "Native020actualgeographicctor;RootG030actualBounds;RootG003sourceDigest;Native064actualhashadapter"
+      ]
+    },
+    "private-terrain-pack-admission-lazy-cells-and-raw-routing-kernel": {
+      "root_indices": [
+        391
+      ],
+      "invariant": "Private TerrainPack loader establishes bounded package/index metadata; individual cells are lazily decoded under independent count/hash/discriminant checks. Public Cell/Manifest/weights/RoutePlan are raw native/transport products and do not claim sealed finite geographic or normalized mixture state.",
+      "all_admission_routes": [
+        "Full2059 incloriginaltests1485–2059 read only. Surface closed6/DefaultOpen/Serde validenum only; Cell publicall-i16height/all-u8canopy/bools/default0, no checkedphysicalpercent/elevationseal. TerrainWeights publicu16fields+DefaultZERO/ordinarySerde, explicitis_normalized checksEACH<=1000 beforeu16sum==1000; defaultzero intentionallyrawunnormalized. from_coverclampspercent<=100 thenexactnormalizedremainder. dot/with_moisture have debug_assert precondition only; publicrawmixture broadroute notnewsealedacceptedowner. WeatheredTerrainpublicrawBP, SkillProfile publicrawu16+is_valid<=5000/Default0, RoutingWeatherraw+predicateBPs<=whole/check<=5000; noSerdeconstructorhook.",
+        "Manifest/Entry publicdenyunknownSerde rawmetadata/nativefields; privatePack onlyload332 (noDefault/Serde/Reflect/mutablegetter). manifestfilemetadata1..32MiB beforefsread, decode→validate_manifest→zeroedpackagefieldhash, pack1..2GiB→streamSHA, checkedoffset+length/nonoverlap/endbound, duplicatechunkkeyreject andconsistenttileddimensions BEFOREretainedSelf/index/cacheNone. Manifestread itselfnotlimit+1boundedlikeroadread; no strongerconcurrentfilemutationguarantee.",
+        "validate_manifest948 actualschema8/source30m/nonemptyentries<=20k/finiteorderedbounds (NOTearthaxisbound)/allnativehashsyntax/featureidentitycounts+CRS/rules; tilewidth1800/2400/3600,height3600/chunkdim1..256/digest. Exactterrain_feature::validate Native065 checksfeaturecount/sortedIDs/canonicalgeometry usingNative066/067 actualdefs; details helperjoin below.",
+        "cell438 rejectsnonfinite/outsidebounds→Ok(None); missingtileNone;presenttilemissingchunkkeystructuredError. Nativepixelclamp→actualprivateindex→chunk, final.get Option no uncheckedsourcecellindexpromise. Lazychunk476 cacheclockchecked_add/alllockerrorsstructured; readsrecordedrange, Deflate take MAX+1, exactexpectedwidth*height*5 plusdecodedSHA beforetag<=5/flagbits0..3 checks. ActualCellheightall-i16/canopyall-u8 retained, no hidden -500..9000/<=100 check. Hilly/wetlandflags0/100. Cacheinsertonlyafterdecodeallchecks; concurrentduplicate usesexisting; deterministicLRUused/keyties/bytebudget coherent, nativecacheclocknotStrategicMinute.",
+        "Packplan_with_deadline629 validatesSkill/Weather beforeallfinite endpoints andinclusivepackagebounds; expandsdeterministicwindows, privatecoarsens untilcheckednodecount<=750k thenlocalgridmatchingvectors. samples1..9²; missingcoverage mapsimpassableWater0 native search sentinel, notgeographicheightauthorityreplacement. Roadwinsaggregate, otherwisepassablemajoritytiebreakfixed; optionalnone notpublishedasregularsourcecell. Nativegridcoordinates becomeactualroutegeodegreesafterA*, checkedWeb436readmitsfinishedroute beforeMapRoute.",
+        "Publicastar/profile/weather entrances1048–1078 validateprofile/weather thenprivatekernel endpoints<dimensions; arbitraryRoutingGrid trait is nativekernelcontract, doesNOT itselfchecktotalwidth*height/u32indexcapacity or positivecellmetres. ActualPackWindowGrid hasnodecap; originalsmallfixtures bounded. Do not assert alltraitimplementationssafe/finite fromResultsignature or singlecurrentcaller. Operations u32index/nativemetres/saturatedg/heuristic/stepcost laterarithmeticlens, notclearedhere.",
+        "Reconstruct actualparentpathboundednodes/requirecurrentcells, derivesnativeseconds/distances/normalizedfrom_cover+weather weights, per-departure surface/roadtrainingdiscount, exactminuteceilspans/coalescing; capMAX512points/MAX256spans privateactualcallers. normalized_weighted_parts1427 zero-denominator fallbackwholeplains intendedemptyweight, otherwise actualfiveweightedmass entries matchingduration/training and normalizedsource; no arbitraryindependentarray admissionproof. RoutePoint/TerrainSpan/RoutePlan publicnativeproducts noSerdecheckedowner/finishedDBattestationpromise. Original tests inspect deterministicweather/roadcost/watercrossing/diagonal/compaction/decodeinvalidtags intentions, sourceonly."
+      ],
+      "counterexample_or_qualification": "No bypass into privateTerrainPack fromrawManifest/Cellliteral. Packload validatesmetadata notallchunks untilrequested; acceptedself canlegitimatelylaterreturncorruptchunkErr. Canonicalphysicalelevation/percentage policies mustoccuractualconsumers: dispatcher378/382 checkElevationMeters; RegionalTerrain aggregateRoot041 doesNOTcheckrawEnvironmentalSample BPs, preservingrawregionalvalues; TacticalSceneInputRoot036 actualvalidate_source checksBPs. Keep strongerraw-sourcepolicy distinctfromalreadycheckedloss. RawTerrainWeights API preconditions notruntimeenforcedseals, nativekernelwidth/math obligationsnotlaterlensclearance.",
+      "connected_repair": "Root terrain/mixture/source/routeclaims retained, originalfrozenall13. Preserve nativebinaryports/zero/sentinel/missing and actualfinitegeo/checkedphysicalleaf separation. RootF007TravelGeometryPoint rawgettersmaypanic applies featurevalidator actualcall evenbeforepackageaccepted; lowerdependency support qualification separatelyrecorded notnewdefectcount.",
+      "acceptance": "Keep checks/errororder/Allwordrawunits/algorithmsequence/cacheidentity and selectivechunkdecode, actualnativepercentnormalization and typedconsumerreadmission. No execution/newtests/laterlens.",
+      "proof_refs": [
+        "Root391exactfull1–2059 includingoriginaltests",
+        "Native064digest28/065terrainfeature51/066Worldfeature43/067Window36 actualprospectivehelperbody",
+        "RootG003sourceDigest,RootG030geoF007,RootG036scene,RootG040terrain,RootG041regionalactualreceivers"
+      ]
+    }
+  },
+  "not_part_of_native443": true,
+  "root_ownership_retained": true
+}

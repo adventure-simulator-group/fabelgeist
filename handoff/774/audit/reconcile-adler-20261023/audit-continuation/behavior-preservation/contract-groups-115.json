@@ -1,0 +1,83 @@
+{
+  "id": "CONT08-CONTRACT-115",
+  "at": "2026-10-25T12:11:21.317281+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 390,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress/lunge.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-server/src/combat/ingress/lunge.rs",
+      "before_sha256": "6ce3ba9b4f6c1fef1cd90580466b74bde537c4ec2dac0f1cecec0fcda437c12b",
+      "after_sha256": "266a1dafe1f65fe3bb52d1d0cc91a35eb3ac61bd95c23db020c31708bcd64846",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0390-base-6ce3ba9b4f6c1fef1cd90580466b74bde537c4ec2dac0f1cecec0fcda437c12b",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/266a1dafe1f65fe3bb52d1d0cc91a35eb3ac61bd95c23db020c31708bcd64846",
+      "diff": "source-evidence/p16-0390.diff",
+      "diff_sha256": "71ee0bcc0c23f7ef6b0651df47b808bf69a710f68eed93de27ae82ad68f7c6ce",
+      "head_body_read_ranges": [
+        [
+          1,
+          287
+        ]
+      ],
+      "facts": [
+        "Fresh full287/allfixtures pluscomplete449-line actualP16diff. Checkedrequest privatelyowns positions/targetrotation/dimensions/reach/travel; config-free MeleeMovementPlan retainscompletegeometry andderivedmovement. Actualold planned_melee_lunge _config unused, so removalpreserves geometricindependence;388alteredconfigfixture nowstructuralAPIproof, notactualchangedconfigruntimeexercise.",
+        "NativecolliderAABB thenplanarmaxradius,centreX/Zdistance-minimum andmax0 preserved; native directionnormalize_or_zero thenadmitwithoutnormalizingagain. Newgeometrycomputesbeforezero-direction branch andownedfiniteerrors areintentionalforunrepresentablegeometry; no actualordinarynativebadcollider/unitnormalproducer established.",
+        "Actual capped-scale receiver updatesSUPPORT005: planned_melee_lunge_for_entities190 nowrejectsunboundedscale beforeMeleeMovementPlan72 finitecollisioncap. FinitecustomtargetMAX/refleg2/observedleg2, defaultarm/weapon.8 andtargetX2.4 yieldoldfinitecollisioncap/smallForwardgap; newreturnsErr. No defaultconfig/runtimeclaim.",
+        "Planarrival configuredrun/acceleration/quickstepduration retained; CannotArriveremovesmovement,install removesoldmovementthenaddsnew andidentityworldaxisQuickstepPush signs unchanged. Reachabilityepsilon1e-5 andordinary2.4/3.3/fist1.25fixtures intact; Q008normalproducerlimits separate."
+      ],
+      "disposition": "Own08 exact scoped source comparison accounted WITH finitecustomcap support and intentionalfinitegeometry qualifications.",
+      "acceptance": "Preserveoriginalproduct/division/caporder atcompleterecipient,geometric/no-hitboxdependency,exactclock/endpoints/forceauthority andallfixtureinputs/assertions. No tests/checks/repairs."
+    },
+    {
+      "scope_index": 391,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress/timing.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-server/src/combat/ingress/timing.rs",
+      "before_sha256": "8e06350841fdbea99a6cf45ab7c1aca53485273d5b07a064c11ee956cee446f7",
+      "after_sha256": "8e06350841fdbea99a6cf45ab7c1aca53485273d5b07a064c11ee956cee446f7",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0391-base-8e06350841fdbea99a6cf45ab7c1aca53485273d5b07a064c11ee956cee446f7",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/8e06350841fdbea99a6cf45ab7c1aca53485273d5b07a064c11ee956cee446f7",
+      "diff": "source-evidence/p16-0391.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "facts": [
+        "Fresh full168/allfixtures andemptyP16diff. NativeTimef64quantization yieldsattackkey/sample together,continue usesactualskeletoncontinuationtick,roundeddurationmin1 vsarrival no-min andsaturatingcontact/start/end preserved. Exact300ms/200ms/.5seconds fixture input10\u2192start23/contact42 preserved. No aliasedclock/terminalheadroom inference ornormalMAXruntimeclaim."
+      ],
+      "disposition": "Own08 exact scoped source comparison accounted WITH finitecustomcap support and intentionalfinitegeometry qualifications.",
+      "acceptance": "Preserveoriginalproduct/division/caporder atcompleterecipient,geometric/no-hitboxdependency,exactclock/endpoints/forceauthority andallfixtureinputs/assertions. No tests/checks/repairs."
+    },
+    {
+      "scope_index": 392,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress/work.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-server/src/combat/ingress/work.rs",
+      "before_sha256": "6be424d70d473190c8983c7f8657d117cf7aedd39c7e13c8e3d0cd6021d8a3fa",
+      "after_sha256": "6be424d70d473190c8983c7f8657d117cf7aedd39c7e13c8e3d0cd6021d8a3fa",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0392-base-6be424d70d473190c8983c7f8657d117cf7aedd39c7e13c8e3d0cd6021d8a3fa",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/6be424d70d473190c8983c7f8657d117cf7aedd39c7e13c8e3d0cd6021d8a3fa",
+      "diff": "source-evidence/p16-0392.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "facts": [
+        "Fresh full50 andemptydiff. Zero recoveryandmissingcombatstate preserveavailableAfterwithoutperformanceadmission; otherwiseincapacitationcanonicalperformancecontrolsrecovery. Work actualper-handweights/inertia+inventory/body andsinglefatiguecharge retained; no second impairment/hiddenfatiguepool. Missingview/state silentnocharge unchanged; not08newerrorpolicy."
+      ],
+      "disposition": "Own08 exact scoped source comparison accounted WITH finitecustomcap support and intentionalfinitegeometry qualifications.",
+      "acceptance": "Preserveoriginalproduct/division/caporder atcompleterecipient,geometric/no-hitboxdependency,exactclock/endpoints/forceauthority andallfixtureinputs/assertions. No tests/checks/repairs."
+    }
+  ],
+  "next": "393melee363/394activeDefense186/395geometry137 then396+."
+}

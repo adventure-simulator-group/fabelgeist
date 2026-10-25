@@ -1,0 +1,63 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-282",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:assets/equipment/procedural/icons/belt--worn.png",
+      "sha256": "5b4ab9883c3153a5f2aaff6dc07d118e75eb7f8b1f17e99a562c9186f2fa438c",
+      "kind": "binary-static-PNG",
+      "bytes": 13625,
+      "dimensions": [
+        128,
+        128
+      ],
+      "actual_compared_ranges": [],
+      "current_body_read": "binary role classified from exact PNG signature/IHDR, not a textual source-body read",
+      "method": "Personally inspected exact file identity,13625byte PNG signature/IHDR128x128 and frozen ls-tree path. No embedded executable arithmetic/mutation body; image decoding/rendering/visual QA outside this operations role."
+    },
+    {
+      "source_id": "pr-working:assets/equipment/procedural/icons/leather_belt--worn.png",
+      "sha256": null,
+      "source_state": "deleted",
+      "current_body_read": false,
+      "actual_compared_ranges": [],
+      "recovered_base_sha256": "5b4ab9883c3153a5f2aaff6dc07d118e75eb7f8b1f17e99a562c9186f2fa438c",
+      "method": "Personally inspected exact recovery/absence metadata and frozen6533 ls-tree output: old path absent, belt--worn.png present. Recovered old base object is identical static PNG bytes, not a current source body. No current-body credit or implied deletion execution."
+    },
+    {
+      "source_id": "pr-working:assets/equipment/procedural/manifest.json",
+      "sha256": "7c9d975e49e5b775696c4120b075383ce2915b619761f7142d3feec1e35d0f10",
+      "actual_EOF": 694,
+      "actual_compared_ranges": [
+        [
+          1,
+          694
+        ]
+      ],
+      "method": "Complete exact694-line manifest personally read for operations/data aggregate role; no generator or asset execution."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Static icon identity and exact deleted counterpart are explicitly accounted without executable-body credit",
+      "disposition": "Current belt icon exact13625byte128x128 PNG and deleted leather_belt old path have the same recovered base hash. Frozen6533 tree shows only belt current path. No arithmetic or admitted value mutation exists in the bitmap payload role; decoder/resource-consumer boundaries remain separately scoped. Deleted row is absence evidence only, never counted as a current text body, independently read semantic cell or permission to restore/remove anything."
+    },
+    {
+      "contract": "Manifest contains supplied generated metadata, not computed admission",
+      "source_ranges": {
+        "manifest.json": [
+          [
+            1,
+            694
+          ]
+        ]
+      },
+      "disposition": "Whole694-line manifest personally read. It records generated coverage fractions, triangle/morph counts, generator versions/design hashes,47morph targets, schema1/LOD1 and mhrv1.0.1. Belt entry is belt--worn.glb with item_id belt, not old leather_belt; icons are resolved outside this manifest. All currentcoverage values observed0..1 and nonnegative moderate counts, but copied JSON alone cannot prove current asset geometry/hash/catalog/placement identity or computed physical authority. Actual generator/render/export owner must reconcile those dependencies; no generated asset edits, restore, regeneration, rendering or semantic gameplay clearance claimed."
+    }
+  ],
+  "findings": [],
+  "source_edits": false,
+  "project_execution": "none",
+  "status": "Three original source roles accounted: one text body, one static binary role, one deleted absence role. Whole04 incomplete.",
+  "first_unfinished": "pr-working:assets/shaders/tactical_city.wgsl"
+}

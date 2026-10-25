@@ -1,0 +1,86 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-499",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory/chronology.rs",
+      "sha256": "bc1144d088c13835018209779eecddba0f5a94957c7987fa4b8c7be902db9fb9",
+      "actual_EOF": 76,
+      "actual_compared_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory/ordering.rs",
+      "sha256": "a16a4fd249e9a9fa97fa44588caa57dc7a15e35ef78bfd5e194267419a507f20",
+      "actual_EOF": 130,
+      "actual_compared_ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/marching_tetrahedra.rs",
+      "sha256": "f9f54199093c3a25bf9295b11ebeedceb88fe03c44be92ffcfed2c6bf990f335",
+      "actual_EOF": 278,
+      "actual_compared_ranges": [
+        [
+          1,
+          278
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/marching_tetrahedra/height_surface.rs",
+      "sha256": "7e6ff1e41f864ad664c6996727b8d1b11570d3b5ed8af1201b15347ae59018bc",
+      "actual_EOF": 107,
+      "actual_compared_ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/marching_tetrahedra/height_surface/tests.rs",
+      "sha256": "3437832bcc3bd88d508e7b5ecc06146e4202ba88eb2ce9c4fd23f8fe785a860a",
+      "actual_EOF": 90,
+      "actual_compared_ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Equipment wrapping chronology explicit protocol contract",
+      "evidence": "Full chronology76/ordering130: u32wrapping next intentional, forward distance1..u32MAX/2 excludesambiguoushalf, initialwindow1..MAX/2 absentprior; zero validonlyafteractualwrap. Revision0initialandwrapping semantics deliberate. Rootordering derivescatalogplacement+occupancy/channel/layer/fitzone/authoredidentity independentnetworkEntity, existingtest reversesnetworkremapping. No positivitynarrowing or saturatingcounter substitute."
+    },
+    {
+      "contract": "Extraction native count and final geometry admission",
+      "evidence": "Full marching278: samplecountcheckedmultiplication, sampledpositionsandfieldfinite gate, nativeu32vertexindexchecked, zeroendpointglobalidentity and deterministic tetra visits; trianglewinding f64 towardempty, zeromeasurednormfaces dropped then finalpatchcheckedowner. Generalprivatekernel doesnotguarddimension<2 before dimensions-1, unlike heightkernel; actualerosionproducers positiveboundednormaldimensions, candidate498 wrappedvertical0 woulddownstream reach this onlyafter firstfailure. Finiteopposingextremefieldvalues denominatoroverflow canbias interpolation butactualboundedproducerreachability notclosed; no independentordinaryisosurface defect asserted."
+    },
+    {
+      "contract": "Height-specific trimming preserves actual field arithmetic and topology",
+      "evidence": "Full height_surface107/tests90: dims>=2, columns/volume checkedmultiplication, finiteheight/elevation/endpoints plus subtraction checks, strictlyincreasingverticallevels, binarypartition exactsnappedclassification, preservesz/y/x/tetra andglobalkeys. Callbackcontract requires samehorizontalcoordinates atallY; actualproducer does so, arbitrarynonseparablecratehelpercallback notordinarymisuseclaim. Fixturescomparecompletebufferssixnormal/zero-seamsteps and rejectMAXsubtraction; sourceassertionsonly, noexecution."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "5 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-core/src/physics/movement_speed.rs"
+}

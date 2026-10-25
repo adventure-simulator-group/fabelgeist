@@ -1,0 +1,17 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-249",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        123,
+        124
+      ],
+      "comparison": "Exact P16 morale527 and npc_policy296 fully read, all test bodies source-only. MoraleEventKind and MoraleSourceKind are distinct vocabularies: source includes ongoing/static Injury/Cleanliness/Religion/Power/Ally and event projections, so do not mechanically merge overlapping spellings. IncapacitationStatus already named, derived from sum of independent pain/blood/fear/fatigue/hunger/thirst/thermal contributions; there is no stored duplicate status. Strategic check multiplier and daily fatigue thresholds are different context from combat performance; preserve no new hidden tactical pool. Zero duration decays to0, no mandatory positive observation interval. Source interpolation/aggregation functions use independent positive and negative channels and pre-bonus speaker surplus to prevent recursive stacking. NPC eligibility flags are independent observed preconditions, including meaningful father/affinity observations even if formal pair false; no exclusive blocker enum or pruning of inactive history. NpcCourtshipRoute already owns actual Formal/Informal/Ineligible outcome with formal precedence when both qualify. Candidate identity/seed snapshot conflict is explicit typed error; identical duplicate snapshots collapse, deterministic seed ranking+actor ID ties then cap16 preserved. NpcHouseOffer rank is an ordinal preference exposed to generic chooser, not automatically canonical3-tier enum without actual offer producer. Affordability reserves one recurring cost and no funds are synthesized; overflow saturation is separate numeric admission concern, no ordinary bad choice claim. Initial schedule stores actual labor/socializing, remaining time implicit Leisure, not redundant initialization flag.",
+      "disposition": "Existing outcome vocabularies, independent observations and deterministic policy ordering preserved",
+      "finding_refs": []
+    }
+  ],
+  "new_findings": [],
+  "limits": "Discovery only; no execution, fixes, checks, implementation plan or lens clearance."
+}

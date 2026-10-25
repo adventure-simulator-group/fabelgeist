@@ -1,0 +1,116 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-585",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+      "sha256": "eb2b6cb3cb56cc6209f7a15a8b3dd72bf75cee67562c2b59cf0300223cac0c4d",
+      "actual_EOF": 947,
+      "actual_compared_ranges": [
+        [
+          1,
+          947
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs",
+      "sha256": "6ea36de3b468aa2874ddb8b81039b2a85c7f77cc6beca0d15c2f957985cb4106",
+      "actual_EOF": 195,
+      "actual_compared_ranges": [
+        [
+          1,
+          195
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/capture/global_bones.rs",
+      "sha256": "442ea977df5466ad973589f48a61e9166674c05f541f174dd0e54bb7e319b47e",
+      "actual_EOF": 59,
+      "actual_compared_ranges": [
+        [
+          1,
+          59
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+      "sha256": "a4cd3203c13ad00470f001d622f3c1097fcb28954a8c1e93766a53ddfa472441",
+      "actual_EOF": 263,
+      "actual_compared_ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+      "sha256": "9b77b6040fcf91aa02261a284189f50a43a59f05ba0e8e4d719966b21a0685bd",
+      "actual_EOF": 140,
+      "actual_compared_ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/capture/sample.rs",
+      "sha256": "c3cbd6ab4893272cb488013c9d3837632ed6c9c44b105af9e6d36b705fdb194b",
+      "actual_EOF": 132,
+      "actual_compared_ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/mod.rs",
+      "sha256": "de154a56960ffb19516e463e4fdd5bed4d85b09923ed552f3773729ac8ad56e7",
+      "actual_EOF": 179,
+      "actual_compared_ranges": [
+        [
+          1,
+          179
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "P17native capture arithmetic admits completecomputedroot/distance/support/angle observations before report samplepublication, withterminalfailureseparatefromloading.",
+      "evidence": "capture947/admission195/globalbones59/repeated263/root140/sample132/mod179fullbodies personallyread includingfixtures. advance_distance computesexistingdistance+speed*elapsed thenSignedLengthreadmissionbeforecommit; terrainquerypoint admittedfirst, completeposition admittedbeforeBevywrite. Initialrootground+.95 andfixturemotion querythenpositionreadmit, error terminalCaptureAdmission. Bodyangles radians->degrees checkedSignedAngleDegrees; springtelemetryErrpropagatesGeometryrejection. MissingordinaryIKdiagnostics/supportweight rejectsUnavailableObservation; nonIKcadencefallback explicitlyowned. validdriving requiresopen/notapplied/notinflight/index<len. Frame/sampleindexincrements maxvecactualbounds, viewmaxVIEWS3, settledmaxu32MAX reachesrequiredthenresetsbeforenextincrement; waitinglimited1200thenAppExitError.",
+      "qualifications": "No nativecapture/test/GPUexecution. Driver canmutatefixture skeleton/root beforelaterreadmissionErr, butcapturebecomesterminalunpublishable ratherthan durablegameplaycommit; notautomaticrollbackdefect. Frameinterval/tickhelpers/capture scheduling exactvariantsremainconnectedsourceobligations, no importedwholebodycoverage. Rawfullragdollframe+4 couldoverflowusizeonlyunsupportedmanuallyfabricatedMAXframe, actualplanboundedfixture. Unknownscenario assert despiteResult requiresactualCLIadmissioncontextbeforeordinarypanicclaim.",
+      "acceptance": "Admitnativecomputedvalues oncewithoutsilentfallback, preservechronologicalfixedclock/0elapsed andcurrentticklookup, terminalrejectioncannotresumeacceptedreport. Maintainterrain-vs-authoredplane andactualIKobservationauthority."
+    },
+    {
+      "contract": "Repeatedevaluation comparison must rejectinvaliddelta andpreserve exactsnapshot/cohort/counterauthority across threeviews.",
+      "evidence": "P17repeated_bone_mismatch checksmissing/extra keysets thennativepositiondistance/rotationangle andchecksfinitebespokeobservationsbeforetolerances. Exact prior413NaNwitnesssourcequalifiedfixed; qualificationfilepreservesPRvsP17delta. LegIKOptioncomparisons use<= soNaNrejects, None==None intentionalexpectedoptional. Baselineownsframe/scenario/bones/contact/landing/eventcount/IKsnapshot, &=staysfalseonceviolation. Jittercapture intentionallypelvisworldtranslationzero andparent-relativeotherbones, segmentedaction/landing/contact/guardhandoff/takeoff withwrappinganalysiscounter; relatedNATIVE05F015 underlyingderivative-frame/denominator remainsseparatejitterhelpercontract.",
+      "qualifications": "No runtime falsepass/clearance. RawununitquaternionInfDotshortcut canmaskinvalidrotationbeforedeltaadmission; actualGlobalTransformunitframeproofneeded, noordinaryproducerasserted. Equalemptybones mapsacceptedhelperneedsactualexpectedboneadmission/reportgate; existingNATIVE05F016 completenessqualification retained. GlobalBoneFrame capturesrawnativearrays forlaterreport, no globalfiniteadmissioninferred.",
+      "acceptance": "Preserveunitnativeframeandexpectedbonecohort withfinitecheckedderiveddeltas; exactlogicaltick repeatedevaluations stable whileactualevents/contacts unchanged. No thresholdweakening or silentmissingbone omission."
+    },
+    {
+      "contract": "Capturecompletion/artifact ownership anddiagnosticfingerprintsdo not themselvesestablish rendered/GPUacceptance.",
+      "evidence": "Screenshotsynchronousrequest marksinflight, callbackwritesactualimage, incrementsviews anddetectsduplicatefingerprints, thenmovescompletedcaptureownedvectors/output once. visual_fingerprint usesRGBA4byte/layoutstride saturatedbounds guardbeforeindex, fixed8pixelstep; absentdatareturns0 andtinyheightemptyviewproducessamehashnotproofvalidrender. Windowtool960x720fixed, actualRGBAimageownerprerequisite. CaptureApp transientBevyphysics presentationonly, explicitconfig/assetroot and noSpacetimeDBtickstate.",
+      "qualifications": "No screenshot/tool/fileoutputexecution beyondignoredauditevidence. Sourceassertionsarefixturesnotpassingresults; duplicatehashdetectioncanhavecollisions/under-sampling, intendedcheapdiagnosticnotimageproof. Asyncscreenshotobserverdoesnotcheckterminaladmission oncallback; actualscheduler/rejectionwhileinflightproofneededbeforeclaimbadcompletion, retainedquestion.",
+      "acceptance": "Oneownedcompletedreport onlyafterfulladmittedcohort/currentlogicaltick/actualthreeviews, failureartifactvisibleandterminal. Anyfuturevisual/nativeacceptancerequiresrealrendererqualifiedconfiguration; mockorhashcannotstandinforGPUproof."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "7 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/acceptance_limits.rs"
+}

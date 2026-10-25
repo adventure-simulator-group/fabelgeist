@@ -1,0 +1,28 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-QUALIFICATION-173",
+  "at": "2026-10-23T02:55:48.060516+00:00",
+  "source_id": "pr-working:crates/fabelgeist-mesh/src/data.rs",
+  "registration": "RIG-INITIAL06-REG-035",
+  "effective_material_ranges": [
+    [
+      1,
+      11
+    ],
+    [
+      41,
+      68
+    ]
+  ],
+  "excluded": [
+    [
+      12,
+      40
+    ],
+    [
+      69,
+      293
+    ]
+  ],
+  "qualification": "Rig QUAL036 excludes unrelated native upload/read helper display12-39 and blank40/69 from owner declaration role. Raw display retained historically, no helper/native semantic credit and no graph expansion. Fresh Root actual admission reads only1-11+41-68. Fields/default scope only, not MeshData methods70+ or tests.",
+  "status": "mandatory_material_range_qualification"
+}

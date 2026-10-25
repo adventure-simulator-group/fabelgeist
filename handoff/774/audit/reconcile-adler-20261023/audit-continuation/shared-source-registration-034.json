@@ -1,0 +1,39 @@
+{
+  "at": "2026-10-25T18:02:57.593236+00:00",
+  "rows": [
+    {
+      "index": 167,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/Cargo.toml",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-strategic-sim/Cargo.toml",
+      "sha256": "6c4b6aca99dd4eacdda5f4723be9bd9a87b9cab7cb08b18f54ba170826b1bff5",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/derivability/dependency-sources/6c4b6aca99dd4eacdda5f4723be9bd9a87b9cab7cb08b18f54ba170826b1bff5",
+      "line_count": 23,
+      "ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "base_sha256": "6c4b6aca99dd4eacdda5f4723be9bd9a87b9cab7cb08b18f54ba170826b1bff5",
+      "reason": "Owning crate dependency support for exact Display wrappers on departure reason enums; manifest has serde and thiserror, no derive_more or other Display derive provider. Keep small Display forwarding as_str rather than introduce dependency/runtime Serde solely for this.",
+      "registration_evidence": "derivability/fresh-dependency-registration-1171.json",
+      "lenses": {
+        "producer-propagation": "Bounded newly reached exact manifest dependency context pending; adopted complete baselines retained, no coverage from registration.",
+        "existing-type-owners": "Bounded newly reached exact manifest dependency context pending; adopted complete baselines retained, no coverage from registration.",
+        "admission-contracts": "Bounded newly reached exact manifest dependency context pending; adopted complete baselines retained, no coverage from registration.",
+        "invariant-operations": "Bounded newly reached exact manifest dependency context pending; adopted complete baselines retained, no coverage from registration.",
+        "aggregate-states": "Bounded newly reached exact manifest dependency context pending; adopted complete baselines retained, no coverage from registration.",
+        "type-ownership": "Bounded newly reached exact manifest dependency context pending; adopted complete baselines retained, no coverage from registration.",
+        "redundant-authority": "Bounded newly reached exact manifest dependency context pending; adopted complete baselines retained, no coverage from registration.",
+        "behavior-preservation": "Bounded newly reached exact manifest dependency context pending; adopted complete baselines retained, no coverage from registration.",
+        "enum-shapes": "Bounded newly reached exact manifest dependency context pending; adopted complete baselines retained, no coverage from registration.",
+        "derivability": "Bounded newly reached exact manifest dependency context pending; adopted complete baselines retained, no coverage from registration.",
+        "type-granularity": "Bounded newly reached exact manifest dependency context pending; adopted complete baselines retained, no coverage from registration.",
+        "magic-strings": "Bounded newly reached exact manifest dependency context pending; adopted complete baselines retained, no coverage from registration.",
+        "magic-numbers": "Bounded newly reached exact manifest dependency context pending; adopted complete baselines retained, no coverage from registration."
+      }
+    }
+  ],
+  "registration": "Source/provenance only; own10 actual bounded read belongs its investigator packet. No other lens clearance or baseline replay.",
+  "shared_count": 168
+}

@@ -1,0 +1,612 @@
+fn observer_safe_relationship_answer(
+    status: &db::BackendCharacterRelationshipStatus,
+    observer_id: u64,
+) -> String {
+    let observer_is_partner = status.courtship_partner_id == Some(observer_id)
+        || status.wedding_partner_id == Some(observer_id);
+    let courtship_is_public = status.courtship_kind.as_ref().is_some_and(|kind| {
+        !matches!(kind, db::CourtshipKind::Informal)
+            || status.courtship_exposed
+            || observer_is_partner
+    });
+    if status.wedding_commitment_id.is_some() && (status.courtship_exposed || observer_is_partner) {
+        "I am promised in marriage, and the appointed day draws nigh.".to_owned()
+    } else if status.spouse_id.is_some() {
+        "I am wed, and bound in marriage.".to_owned()
+    } else if status.courtship_partner_id.is_some() && courtship_is_public {
+        "I am in courtship, though I shall not name whom without cause.".to_owned()
+    } else {
+        "I have no public pledge of courtship to declare.".to_owned()
+    }
+}
+
+const fn social_topic_order(topic: adventuresim_core::social::SocialTopic) -> u8 {
+    use adventuresim_core::social::SocialTopic;
+
+    match topic {
+        SocialTopic::Defeat => 0,
+        SocialTopic::Faith => 1,
+        SocialTopic::Fatigue => 2,
+        SocialTopic::Filth => 3,
+        SocialTopic::Hunger => 4,
+        SocialTopic::Injury => 5,
+    }
+}
+
+pub(super) async fn party_social(
+    State(state): State<AppState>,
+    Path((kind, id, target_id)): Path<(String, String, u64)>,
+    Query(building): Query<BuildingQuery>,
+    session: Session,
+) -> Html<String> {
+    let mut location = match resolve_location(&state, &kind, &id).await {
+        LocationLookup::Found(location) => location,
+        LocationLookup::NotFound => return Html("<h1>Location not found</h1>".into()),
+        LocationLookup::Unavailable => {
+            return Html("<h1>Strategic data is unavailable</h1>".into());
+        }
+    };
+    location.active_building = building.valid_for(&location).map(str::to_owned);
+    let Some((active, _)) = get_active_character(&state, session.character_id_u64()).await else {
+        return Html("<h1>Choose a character first</h1>".into());
+    };
+    let selected = if target_id == active.id {
+        active.clone()
+    } else {
+        match crate::routes::data::character_as_observed(&state, target_id, active.id)
+            .await
+            .ok()
+            .flatten()
+        {
+            Some(value) => value,
+            None => return Html("<h1>Party member not found</h1>".into()),
+        }
+    };
+    let same_party = target_id == active.id
+        || (active.party_id.is_some() && active.party_id == selected.party_id);
+    let colocated = active.current_settlement_id == selected.current_settlement_id
+        && active.current_case_site_id == selected.current_case_site_id;
+    if !same_party
+        || !colocated
+        || !active.alive
+        || !selected.alive
+        || !character_is_at_location(&active, &location)
+    {
+        return Html("<h1>Social actions require a living, co-located party member</h1>".into());
+    }
+    let party_members = get_active_party_members(&state, Some(&active)).await;
+    let sources = get_morale_sources(&state, target_id).await;
+    let actor_sources = get_morale_sources(&state, active.id).await;
+    let mut shared_concerns = actor_sources
+        .iter()
+        .filter(|source| {
+            adventuresim_core::social::social_source_eligible(
+                db::core_morale_source_kind(source.kind),
+                source.magnitude,
+            )
+        })
+        .filter_map(|source| {
+            adventuresim_core::social::topic_for_source_kind(db::core_morale_source_kind(
+                source.kind,
+            ))
+        })
+        .collect::<Vec<_>>();
+    shared_concerns.sort_by_key(|topic| social_topic_order(*topic));
+    shared_concerns.dedup();
+    let target_condition_result = state
+        .db
+        .query_one_sats::<CharacterCondition>(&db::character_condition_by_character_id(target_id))
+        .await;
+    let religion_id = target_condition_result
+        .as_ref()
+        .ok()
+        .and_then(|value| value.as_ref())
+        .and_then(|value| value.religion_id.clone());
+    let reputation = query_local_reputation(&state, target_id, &location.id).await;
+    let fame = reputation
+        .as_ref()
+        .map_or(0.0, |value| value.fame as f32 / 100.0);
+    let infamy = reputation
+        .as_ref()
+        .map_or(0.0, |value| value.infamy as f32 / 100.0);
+    let target_minute =
+        query_single::<CharacterTime>(&state, db::character_time_by_character_id(target_id))
+            .await
+            .map_or(StrategicMinute::ZERO, |v| StrategicMinute::new(v.minutes.minutes));
+    let affinity_id = format!("{target_id}:{}", active.id);
+    let affinity_result = state
+        .db
+        .query_one_sats::<CharacterAffinity>(&db::character_affinity_by_id(&affinity_id))
+        .await;
+    let affinity_available = affinity_result.is_ok();
+    let affinity = affinity_result.ok().flatten().map_or(0.0, |v| {
+        settle_affinity(v.anchor, target_minute.elapsed_since(StrategicMinute::new(v.anchor_minute.minutes)))
+    });
+    let (low, high) = (active.id.min(target_id), active.id.max(target_id));
+    let familiarity_id = format!("{low}:{high}");
+    let familiarity_result = state
+        .db
+        .query_one_sats::<CharacterFamiliarity>(&db::character_familiarity_by_id(&familiarity_id))
+        .await;
+    let familiarity_available = familiarity_result.is_ok();
+    let shared_minutes = familiarity_result
+        .ok()
+        .flatten()
+        .map_or(0, |v| v.shared_minutes);
+    let beliefs_result = state
+        .db
+        .query_sats::<SocialBelief>(&format!(
+            "SELECT * FROM backend_social_beliefs WHERE observer_id = {}",
+            active.id
+        ))
+        .await;
+    let beliefs_available = beliefs_result.is_ok();
+    let beliefs = match beliefs_result {
+        Ok(rows) => rows
+            .into_iter()
+            .filter(|row| row.subject_id == target_id)
+            .collect(),
+        Err(error) => {
+            tracing::error!(%error, observer_id=active.id, target_id, "private social belief query failed closed");
+            Vec::new()
+        }
+    };
+    let addressed_source_ids = state
+        .db
+        .query_sats::<SocialAddress>(&format!(
+            "SELECT * FROM backend_social_addresses WHERE actor_id = {}",
+            active.id
+        ))
+        .await
+        .unwrap_or_default()
+        .into_iter()
+        .filter(|row| row.target_id == target_id)
+        .map(|row| row.source_id)
+        .collect();
+    let automatic_chat_enabled = if target_id == active.id {
+        false
+    } else {
+        state
+            .db
+            .query_one_sats::<AutomaticSocialChat>(&db::automatic_social_chat_by_id(&format!(
+                "{}:{target_id}",
+                active.id
+            )))
+            .await
+            .ok()
+            .flatten()
+            .is_some()
+    };
+    let relationship_answer = state
+        .db
+        .query_one_sats::<BackendCharacterRelationshipStatus>(
+            &db::character_relationship_status_by_character_id(target_id),
+        )
+        .await
+        .ok()
+        .flatten()
+        .map(|status| observer_safe_relationship_answer(&status, active.id));
+
+    let actor_personality_result = state
+        .db
+        .query_sats::<adventuresim_stdb_client::CharacterPersonality>(
+            &db::character_personality_by_character_id(active.id),
+        )
+        .await;
+    let actor_personality_available = actor_personality_result.is_ok();
+    let actor_personality = match actor_personality_result {
+        Ok(rows) => rows
+            .into_iter()
+            .next()
+            .map(|row| db::core_personality(&row)),
+        Err(error) => {
+            tracing::error!(
+                %error,
+                actor_id = active.id,
+                "private actor personality query failed closed"
+            );
+            None
+        }
+    };
+    let actor_skills_result = state
+        .db
+        .query_one_sats::<CharacterSkills>(&db::character_skills_by_character_id(active.id))
+        .await;
+    let prayer_disabled_reason = if target_id == active.id {
+        None
+    } else if !actor_personality_available || actor_personality.is_none() {
+        Some("Prayer eligibility is unavailable right now.".to_owned())
+    } else if actor_personality
+        .as_ref()
+        .is_some_and(|personality| personality.conviction == db::Conviction::Zealous)
+    {
+        Some("Your Zealous conviction prevents you from leading a companion's prayer.".to_owned())
+    } else {
+        match &target_condition_result {
+            Err(error) => {
+                tracing::error!(%error, target_id, "target religion query failed closed");
+                Some("Their religion is unavailable right now.".to_owned())
+            }
+            Ok(None) => Some("Their religion is unavailable right now.".to_owned()),
+            Ok(Some(condition)) => match condition.religion_id.as_deref() {
+                None => Some("They profess no religion.".to_owned()),
+                Some(religion_id) => {
+                    match adventuresim_world_schema::OfficialReligion::from_id(religion_id) {
+                        None => Some("Their religion is unknown.".to_owned()),
+                        Some(religion) => match &actor_skills_result {
+                            Err(error) => {
+                                tracing::error!(%error, actor_id=active.id, "private Religion knowledge query failed closed");
+                                Some("Your Religion knowledge is unavailable right now.".to_owned())
+                            }
+                            Ok(None) => {
+                                Some("Your Religion knowledge is unavailable right now.".to_owned())
+                            }
+                            Ok(Some(skills))
+                                if !skills.religion_hours.direct(religion).is_finite()
+                                    || skills.religion_hours.direct(religion) <= 0.0 =>
+                            {
+                                Some(format!(
+                                    "You have not directly studied {}.",
+                                    religion.label()
+                                ))
+                            }
+                            Ok(Some(_)) => None,
+                        },
+                    }
+                }
+            },
+        }
+    };
+    let social = SocialPresentation {
+        affinity,
+        familiarity_hours: adventuresim_core::social::effective_familiarity_hours(
+            shared_minutes,
+            party_members.iter().filter(|v| v.alive).count(),
+            true,
+        ),
+        religion_id,
+        fame,
+        infamy,
+        beliefs,
+        shared_concerns,
+        addressed_source_ids,
+        automatic_chat_enabled,
+        joke_blocked: social_action_blocked_by_actor(
+            actor_personality_available,
+            actor_personality.as_ref(),
+            adventuresim_core::social::SocialActionKind::LightenMood,
+        ),
+        flirt_blocked: social_action_blocked_by_actor(
+            actor_personality_available,
+            actor_personality.as_ref(),
+            adventuresim_core::social::SocialActionKind::Flirt,
+        ),
+        prayer_disabled_reason,
+        relationship_answer,
+        feedback: social_feedback(building.social_feedback.as_deref()),
+        unavailable: !beliefs_available || !affinity_available || !familiarity_available,
+    };
+    let dialog = party_social_dialog(&location, &selected, &active, &sources, &social);
+    if target_id == active.id {
+        render_party_personal(
+            &state,
+            &kind,
+            &id,
+            target_id,
+            building,
+            &session,
+            Some(dialog),
+            None,
+            true,
+        )
+        .await
+    } else {
+        render_party_stats(
+            &state,
+            &kind,
+            &id,
+            target_id,
+            building,
+            &session,
+            Some(dialog),
+            None,
+            true,
+        )
+        .await
+    }
+}
+
+#[derive(Deserialize)]
+pub(super) struct SocialActionForm {
+    source_id: String,
+    action_kind: String,
+}
+
+#[derive(Deserialize)]
+pub(super) struct CasualChatForm {
+    requested_minutes: SocialDuration,
+    action_id: SocialActionId,
+}
+
+#[derive(Deserialize)]
+pub(super) struct AutomaticSocialChatForm {
+    enabled: Option<String>,
+}
+
+pub(super) async fn set_automatic_social_chat(
+    State(state): State<AppState>,
+    Path((kind, id, target_id)): Path<(String, String, u64)>,
+    Query(building): Query<BuildingQuery>,
+    session: Session,
+    Form(form): Form<AutomaticSocialChatForm>,
+) -> Response {
+    let Some(actor_id) = session.character_id_u64() else {
+        return (StatusCode::UNAUTHORIZED, "Choose a character first").into_response();
+    };
+    if let Err(error) = state
+        .db
+        .call(
+            "set_automatic_social_chat",
+            &[
+                json!(actor_id),
+                json!(target_id),
+                json!(form.enabled.is_some()),
+            ],
+        )
+        .await
+    {
+        tracing::warn!(%error, actor_id, target_id, "automatic social chat preference rejected");
+    }
+    Redirect::to(
+        &building
+            .append_to(
+                &state,
+                &kind,
+                &id,
+                paths::PARTY_SOCIAL.url([&kind, &id, &target_id]),
+            )
+            .await,
+    )
+    .into_response()
+}
+
+pub(super) async fn perform_social_action(
+    State(state): State<AppState>,
+    Path((kind, id, target_id)): Path<(String, String, u64)>,
+    Query(building): Query<BuildingQuery>,
+    session: Session,
+    Form(form): Form<SocialActionForm>,
+) -> Response {
+    let Some(actor_id) = session.character_id_u64() else {
+        return (StatusCode::UNAUTHORIZED, "Choose a character first").into_response();
+    };
+    // The actor is derived exclusively from the signed session, never form input.
+    let result = state
+        .db
+        .call(
+            "perform_social_action",
+            &[
+                json!(actor_id),
+                json!(target_id),
+                json!(form.source_id),
+                json!(form.action_kind),
+            ],
+        )
+        .await;
+    let feedback = match result {
+        Ok(()) => {
+            let address_id = format!("{actor_id}:{target_id}:{}", form.source_id);
+            match state
+                .db
+                .query_one_sats::<SocialAddress>(&db::social_address_by_id(&address_id))
+                .await
+            {
+                Ok(Some(_)) => "addressed",
+                Ok(None) => "not_addressed",
+                Err(error) => {
+                    tracing::warn!(%error, actor_id, target_id, "social action result unavailable");
+                    "unavailable"
+                }
+            }
+        }
+        Err(error) => {
+            tracing::warn!(%error, actor_id, target_id, "social action rejected");
+            social_action_error_feedback(&error.to_string())
+        }
+    };
+    Redirect::to(
+        &building
+            .append_to(
+                &state,
+                &kind,
+                &id,
+                format!(
+                    "{}?social_feedback={}",
+                    paths::PARTY_SOCIAL.url([&kind, &id, &target_id]),
+                    crate::location_urls::encode_component(feedback)
+                ),
+            )
+            .await,
+    )
+    .into_response()
+}
+
+pub(super) async fn chat_with_party_member(
+    State(state): State<AppState>,
+    Path((kind, id, target_id)): Path<(String, String, u64)>,
+    Query(building): Query<BuildingQuery>,
+    session: Session,
+    Form(form): Form<CasualChatForm>,
+) -> Response {
+    let Some(actor_id) = session.character_id_u64() else {
+        return (StatusCode::UNAUTHORIZED, "Choose a character first").into_response();
+    };
+    let result = state
+        .db
+        .call(
+            "chat_with_party_member",
+            &[
+                json!(actor_id),
+                json!(target_id),
+                json!(form.requested_minutes.minutes()),
+                json!(form.action_id.as_str()),
+            ],
+        )
+        .await;
+    let feedback = match result {
+        Ok(()) => state
+            .db
+            .query_one_sats::<db::BackendSocialChatReceipt>(&format!(
+                "SELECT * FROM backend_social_chat_receipts WHERE id = {} AND actor_id = {actor_id}",
+                sql_string_literal(&format!("{actor_id}:{}", form.action_id.as_str()))
+            ))
+            .await
+            .ok()
+            .flatten()
+            .map_or("chat_unavailable", |row| match row.outcome {
+                SocialChatOutcome::Positive => "chat_positive",
+                SocialChatOutcome::Mixed => "chat_mixed",
+                SocialChatOutcome::Negative => "chat_negative",
+            }),
+        Err(error) => {
+            tracing::warn!(%error, actor_id, target_id, "casual party chat rejected");
+            "chat_unavailable"
+        }
+    };
+    Redirect::to(
+        &building
+            .append_to(
+                &state,
+                &kind,
+                &id,
+                format!(
+                    "{}?social_feedback={}",
+                    paths::PARTY_SOCIAL.url([&kind, &id, &target_id]),
+                    crate::location_urls::encode_component(feedback)
+                ),
+            )
+            .await,
+    )
+    .into_response()
+}
+
+pub(super) fn social_action_error_feedback(_error: &str) -> &'static str {
+    "unavailable"
+}
+
+pub(super) fn social_action_blocked_by_actor(
+    personality_available: bool,
+    personality: Option<&Personality>,
+    action: adventuresim_core::social::SocialActionKind,
+) -> bool {
+    use adventuresim_core::social::actor_allows_social_action;
+
+    if !personality_available {
+        return true;
+    }
+    let Some(personality) = personality else {
+        return true;
+    };
+    !actor_allows_social_action(action, personality.mirth, personality.courtship)
+}
+
+pub(super) fn social_feedback(
+    value: Option<&str>,
+) -> Option<crate::templates::settlement::SocialFeedback> {
+    use crate::templates::settlement::SocialFeedback;
+    match value {
+        Some("addressed") => Some(SocialFeedback {
+            message: "This concern is addressed.",
+            is_error: false,
+        }),
+        Some("not_addressed") => Some(SocialFeedback {
+            message: "This concern remains unresolved.",
+            is_error: false,
+        }),
+        Some("cooldown") => Some(SocialFeedback {
+            message: "That approach needs time before it can be tried again.",
+            is_error: true,
+        }),
+        Some("stale") => Some(SocialFeedback {
+            message: "That morale concern has changed. Choose a current concern.",
+            is_error: true,
+        }),
+        Some("unavailable") => Some(SocialFeedback {
+            message: "The social action could not be completed right now.",
+            is_error: true,
+        }),
+        Some("chat_positive") => Some(SocialFeedback {
+            message: "Thy conversation hath drawn you closer.",
+            is_error: false,
+        }),
+        Some("chat_mixed") => Some(SocialFeedback {
+            message: "Your speech held both warmth and uneasy pauses.",
+            is_error: false,
+        }),
+        Some("chat_negative") => Some(SocialFeedback {
+            message: "Your words have left some discord betwixt you.",
+            is_error: false,
+        }),
+        Some("chat_unavailable") => Some(SocialFeedback {
+            message: "The conversation could not be completed right now.",
+            is_error: true,
+        }),
+        _ => None,
+    }
+}
+
+#[cfg(test)]
+mod relationship_privacy_tests {
+    use super::*;
+
+    fn informal(exposed: bool) -> db::BackendCharacterRelationshipStatus {
+        db::BackendCharacterRelationshipStatus {
+            character_id: 2,
+            spouse_id: None,
+            courtship_partner_id: Some(7),
+            courtship_kind: Some(db::CourtshipKind::Informal),
+            courtship_exposed: exposed,
+            wedding_commitment_id: None,
+            wedding_partner_id: None,
+            wedding_effective_minute: None,
+            wedding_settlement_id: None,
+            pregnancy_due_minute: None,
+            pregnancy_child_id: None,
+        }
+    }
+
+    #[test]
+    fn informal_courtship_is_visible_only_to_partner_or_after_exposure() {
+        assert!(
+            observer_safe_relationship_answer(&informal(false), 9).contains("no public pledge")
+        );
+        assert!(observer_safe_relationship_answer(&informal(false), 7).contains("in courtship"));
+        assert!(observer_safe_relationship_answer(&informal(true), 9).contains("in courtship"));
+    }
+
+    #[test]
+    fn shared_concern_order_is_a_fixed_domain_order() {
+        use adventuresim_core::social::SocialTopic;
+
+        let mut topics = vec![
+            SocialTopic::Injury,
+            SocialTopic::Hunger,
+            SocialTopic::Filth,
+            SocialTopic::Fatigue,
+            SocialTopic::Faith,
+            SocialTopic::Defeat,
+        ];
+        topics.sort_by_key(|topic| social_topic_order(*topic));
+        assert_eq!(
+            topics,
+            vec![
+                SocialTopic::Defeat,
+                SocialTopic::Faith,
+                SocialTopic::Fatigue,
+                SocialTopic::Filth,
+                SocialTopic::Hunger,
+                SocialTopic::Injury,
+            ]
+        );
+    }
+}

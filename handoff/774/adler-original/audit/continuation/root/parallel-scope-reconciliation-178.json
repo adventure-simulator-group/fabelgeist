@@ -1,0 +1,164 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-178",
+  "at": "2026-10-23T03:04:42.687268+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-052.json",
+    "sha256": "505a017aa0689a7100624894b037b52b479409ef9a0da1201c9fbd4f3da07fc8"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-051.json",
+    "sha256": "17a341b1ef7f323d9091325e03aac691c0f443d407b49c990920033043bfe682"
+  },
+  "new_variants": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory_armor.rs",
+      "sha256": "6eccc859a14c75eb9734e96267595d482c3216028bda7e2f4cd113b8312a996b",
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-core\\src\\inventory_armor.rs",
+      "snapshot": "physical-p16",
+      "actual_line_count": 205,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "audit_owner": "camera",
+      "scope_registration": [
+        {
+          "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+          "sha256": "06c5e3563db2f1df396011ace718e42cc63d488f64ee94ad8c4c3d59c9ddf9f1",
+          "row_1based": 32,
+          "id": "CAMERA-INITIAL07-REG032",
+          "original_record": {
+            "registration_id": "CAMERA-INITIAL07-REG032",
+            "at": "2026-10-23T03:01:32.281427+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory_armor.rs",
+            "snapshot": "physical-p16",
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-core\\src\\inventory_armor.rs",
+            "sha256": "6eccc859a14c75eb9734e96267595d482c3216028bda7e2f4cd113b8312a996b",
+            "actual_EOF": 205,
+            "material_ranges": [
+              [
+                1,
+                79
+              ]
+            ],
+            "reason": "Direct receiving body of scoped P16 InventoryView layered_armor_for/armor_surface: compare covered_parts, coverage_geometry, scalar coverage and layer order against actual physical contact/fold consumers before redundant-authority verdict. PR native REG026 already global050 but cannot imply P16 body/role equivalence.",
+            "exclusions": "Only production armor contact/fold1-79. Original tests80+ excluded, no wider armor graph or source edits/project execution.",
+            "status": "prospectively_registered_before_body_analysis"
+          }
+        }
+      ],
+      "scope_limits": "Only exact production role after fresh Root03 proof177; armor79/window76 trailing blank context excluded, tests/whole parent/native graph uncredited. No other-lens verdict transfer.",
+      "source_lens_credit": "none from scope metadata"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/buildings/window.rs",
+      "sha256": "f1d40643528b12fce9e1062c6a2e23e0192c6216cb5a5f645bbc624ef90b5c26",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\scene_input\\buildings\\window.rs",
+      "snapshot": "pr-working",
+      "actual_line_count": 129,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "audit_owner": "native",
+      "scope_registration": [
+        {
+          "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+          "sha256": "605c602e9a049d8a1ef5a39f4b4f28f00e5959cef154aa9ab144971c148e3766",
+          "row_1based": 33,
+          "id": "NATIVE-INITIAL05-REG033",
+          "original_record": {
+            "id": "NATIVE-INITIAL05-REG033",
+            "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/buildings/window.rs",
+            "sha256": "f1d40643528b12fce9e1062c6a2e23e0192c6216cb5a5f645bbc624ef90b5c26",
+            "snapshot": "pr-working",
+            "actual_EOF": 129,
+            "material_ranges": [
+              [
+                1,
+                76
+              ]
+            ],
+            "role": "Actual SceneWindow definition/manualDeserialize/error production for currentPR server windows2078 and SceneBuilding1915 reexport; P16full366 separatealreadyglobal. Tests77+excluded.",
+            "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+            "at": "2026-10-23T03:03:25.456117+00:00",
+            "status": "registered_before_body_analysis",
+            "source_edits": 0,
+            "other_lens_credit": false
+          }
+        }
+      ],
+      "scope_limits": "Only exact production role after fresh Root03 proof177; armor79/window76 trailing blank context excluded, tests/whole parent/native graph uncredited. No other-lens verdict transfer.",
+      "source_lens_credit": "none from scope metadata"
+    }
+  ],
+  "new_overlays": [],
+  "total_variants": 2820,
+  "total_overlays": 236,
+  "mandatory_scope_qualifications": [
+    {
+      "record": "continuation/root/parallel-scope-qualification-130.json",
+      "sha256": "5dc4e5cd771612c7e050ab4af544411523317ae4b57738f1fb20f493685a50fc"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-117.json",
+      "sha256": "f3b80648900716939057b20776d756a6e37001f6910378da1a1bbaea230d348b"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-149.json",
+      "sha256": "97103899514ade32cf1e41c2794fa9c49c0cb8c6c7a2c6a4961b7492de5dc708"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-151.json",
+      "sha256": "670dd53a640b28eef7ad9d57b37f9213e1bca7117d7098691c4b0cd20c2a8f65"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-158.json",
+      "sha256": "fa0e9cc06d04fca0a0e2b5f9a333390a0ba1e71eff846a4e957c46b68b3e940e"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-170.json",
+      "sha256": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-173.json",
+      "sha256": "5763e9e965b4f4c1d402a09eab682de47336885c8d30b3c5b3d157242a496948"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-176.json",
+      "sha256": "9a321e498a00285331d4ec4fb4dc7c3a49d7bb6e3a08a44a79c2e5bf58186270"
+    }
+  ],
+  "registered_rows": 2,
+  "input_pins": [
+    {
+      "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+      "sha256": "06c5e3563db2f1df396011ace718e42cc63d488f64ee94ad8c4c3d59c9ddf9f1",
+      "captured_rows": 32,
+      "selected_ids": [
+        "CAMERA-INITIAL07-REG032"
+      ]
+    },
+    {
+      "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+      "sha256": "605c602e9a049d8a1ef5a39f4b4f28f00e5959cef154aa9ab144971c148e3766",
+      "captured_rows": 33,
+      "selected_ids": [
+        "NATIVE-INITIAL05-REG033"
+      ]
+    }
+  ],
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through236-before052.jsonl",
+    "sha256": "5e6bb0b590c8a298ed8dc44a980d39d44f5d21a82449623f405765f23496780c",
+    "through": 236
+  },
+  "limits": "Two new variants2820; mandatory overlays unchanged236. Armor exact1-78/window1-75 excludes trailing blanks and tests; all prior qualifications retained. Exhaustive initial audits then handover163, no implementation."
+}

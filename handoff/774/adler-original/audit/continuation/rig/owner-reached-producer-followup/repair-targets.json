@@ -1,0 +1,127 @@
+{
+  "id": "RIG-OWNER-REACHED-PRODUCER-REPAIR-TARGET-PROPOSAL-001",
+  "authority": "metadata supplier only; no claim/source mutation or function ownership transfer",
+  "new_or_extended_groups": [
+    {
+      "finding": "F001",
+      "source": "physical-p16:crates/adventuresim-building-generator/src/doors.rs",
+      "whole_functions": [
+        "door_from_solid"
+      ],
+      "ranges": [
+        [
+          163,
+          207
+        ]
+      ]
+    },
+    {
+      "finding": "F003",
+      "source": "physical-p16:crates/adventuresim-tactical-server/src/windows.rs",
+      "records": [
+        "WindowController"
+      ],
+      "whole_functions": [
+        "spawn_window",
+        "animate_windows"
+      ]
+    },
+    {
+      "finding": "F003",
+      "source": "physical-p16:crates/adventuresim-tactical-server/src/doors.rs",
+      "records": [
+        "DoorController"
+      ],
+      "whole_functions": [
+        "spawn_door",
+        "update_door_passages"
+      ]
+    },
+    {
+      "finding": "F003",
+      "source": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/openings.rs",
+      "records": [
+        "ReviewLeafPose"
+      ],
+      "whole_functions": [
+        "ReviewLeafPose::from_scene",
+        "ReviewLeafPose::transform",
+        "spawn_openings"
+      ]
+    },
+    {
+      "finding": "F004",
+      "source": "physical-p16:crates/adventuresim-tactical-client/src/presentation/buildings/materials.rs",
+      "whole_functions": [
+        "BuildingAppearance::for_building",
+        "TacticalBuildingMaterials::for_building"
+      ]
+    },
+    {
+      "finding": "F004",
+      "source": "physical-p16:crates/adventuresim-tactical-client/src/presentation/doors.rs",
+      "whole_functions": [
+        "on_scene_door_added"
+      ]
+    },
+    {
+      "finding": "F004",
+      "source": "physical-p16:crates/adventuresim-tactical-client/src/presentation/windows.rs",
+      "whole_functions": [
+        "on_scene_window_added"
+      ]
+    },
+    {
+      "finding": "F004",
+      "source": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/readiness.rs",
+      "whole_functions": [
+        "Observation::check"
+      ],
+      "ranges": [
+        [
+          133,
+          249
+        ]
+      ]
+    },
+    {
+      "finding": "F009",
+      "source": "physical-p16:crates/adventuresim-building-generator/src/windows/leaf.rs",
+      "whole_functions": [
+        "compile_window_leaf"
+      ],
+      "ranges": [
+        [
+          20,
+          107
+        ]
+      ]
+    },
+    {
+      "finding": "F009",
+      "source": "physical-p16:crates/adventuresim-building-generator/src/furniture/builder.rs",
+      "whole_functions": [
+        "Builder::cuboid",
+        "Builder::member"
+      ],
+      "ranges": [
+        [
+          46,
+          55
+        ],
+        [
+          74,
+          154
+        ]
+      ]
+    }
+  ],
+  "already_connected_claims_preserved": {
+    "F002": "Native canonical pure grab/server and Camera WorldGrabTargets graph; exact targets in findingsF002. No transfer.",
+    "F005": "Existing Root84 TerrainPack/Manifest/digest + Root RoadPack source/load/write + canonical Root85/87 source digest owners.",
+    "F006": "Rig DeviceWearer::record_boot + record_section_fit26\u201366/record_ankle_fairing71\u2013107; original Rig owner235 F004 physical repair.",
+    "F007": "Root shared origin/cache/InteriorField/prepared install; Rig preparation/ticket/cause claims unchanged.",
+    "F008": "Existing Rig gauge/CoordShell/PlateChart/PartLayout shell native packing, canonical shared finite angle relocation dependency; exact whole helper allocation under prior owners."
+  },
+  "all_material_callers": "Shared Builder/API, visual identity and static grab changes require complete actual connected callers during authorized repair; current bounded supplier does not silently claim every broader source already analyzed. No compatibility forwarding APIs."
+}

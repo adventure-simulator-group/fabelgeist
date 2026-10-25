@@ -1,0 +1,26 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-015",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "exchange-contact-policy-and-observation",
+      "sources": [
+        {
+          "scope_index": 57,
+          "ranges": [
+            [
+              1,
+              293
+            ]
+          ]
+        }
+      ],
+      "distinction": "MeleeExchangeOutcome separates physicalAttackResult, realizedMeleeContactLocation, optionalWeaponDefenseAlignment andeffective DefenderResponse. Originalrequestedresponse and actualeffective response are distinctpolicy/history axes; contactat-time carriesplanned/actual/ideal physicalmeasures ratherthan a singledistance.",
+      "uses": "Onlyweaponcontactresponse constructs alignment; effective_response derivedfromalignment ororiginalresponse andsentto actualhitresolver. AttackerUnitInterval performance isappliedto precision andresult bycurrentexistingequation; fixturecompares sametacticalequation acrossfatigue/geometry, no executed432casepass. Actualdefenderresponse isnot automaticallyre-scaled here; avoidreintroducing earlierincorrect doubleapply claim.",
+      "disposition": "Keep requested/effective response and observedalignment apart, retaincanonical contact/timeowner ratherthan parallel freeprimitiveparameters. Independentcontact/alignmentrandomsamples share unitintervalnumericinvariant but mustretain namedsource roles wherecarried; noinventedextra bounds for randomness. Typegranularity mustnotderive physicalforce/energy unitfromfieldnames orforce allSignedLengthcontactmeasuresintoindependentlyvalidated duplicateleafowners.",
+      "acceptance": "Connectedactualcontact/defense/reportgraph mustretain intendedversusrealizedmeasure andpolicyhistory withonecanonicalequation. Preserve armorabsorbedhit, contactlessoutofreach, commonUnitInterval performance andrealNone alignment fornonweaponresponses. No helper/tacticalfixtureexecution or otherlensclearance. Actualfloatkernelhandoff heredoesnotexemptinterveninghostAPIsorretainedstate fromownpurposeful types."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

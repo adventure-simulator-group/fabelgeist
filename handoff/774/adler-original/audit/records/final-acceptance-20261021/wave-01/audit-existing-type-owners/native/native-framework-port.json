@@ -1,0 +1,313 @@
+{
+  "trace_id": "NATIVE-OWNER-OBSERVER-001",
+  "lock_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+  "pinned_packages": [
+    {
+      "name": "bevy_app",
+      "version": "0.19.1",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "5fd2aa472d43b4d081ef41d26300d17bd22cba6d68df2a223eb358782fa40bc6",
+      "dependencies": [
+        "bevy_derive",
+        "bevy_ecs",
+        "bevy_platform",
+        "bevy_reflect",
+        "bevy_tasks",
+        "bevy_utils",
+        "console_error_panic_hook",
+        "ctrlc",
+        "downcast-rs 2.0.2",
+        "log",
+        "thiserror 2.0.20",
+        "tracing",
+        "variadics_please 1.1.0",
+        "wasm-bindgen",
+        "web-sys"
+      ]
+    },
+    {
+      "name": "bevy_ecs",
+      "version": "0.19.1",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "a350b2e4c2e47f7903d688affb8a723b31bca63af9789f1da88703f1ba04e354",
+      "dependencies": [
+        "arrayvec",
+        "bevy_ecs_macros",
+        "bevy_platform",
+        "bevy_ptr",
+        "bevy_reflect",
+        "bevy_tasks",
+        "bevy_utils",
+        "bitflags 2.13.1",
+        "bumpalo",
+        "concurrent-queue",
+        "derive_more 2.1.1",
+        "fixedbitset 0.5.7",
+        "indexmap 2.14.1",
+        "log",
+        "nonmax",
+        "serde",
+        "slotmap",
+        "smallvec",
+        "thiserror 2.0.20",
+        "tracing",
+        "variadics_please 1.1.0"
+      ]
+    }
+  ],
+  "read_refs": [
+    [
+      "bevy_ecs-0.19.1/src/system/function_system.rs",
+      [
+        [
+          570,
+          630
+        ]
+      ]
+    ],
+    [
+      "bevy_ecs-0.19.1/src/system/observer_system.rs",
+      [
+        [
+          1,
+          75
+        ]
+      ]
+    ],
+    [
+      "bevy_ecs-0.19.1/src/observer/distributed_storage.rs",
+      [
+        [
+          216,
+          275
+        ],
+        [
+          554,
+          583
+        ]
+      ]
+    ],
+    [
+      "bevy_ecs-0.19.1/src/observer/mod.rs",
+      [
+        [
+          45,
+          64
+        ]
+      ]
+    ],
+    [
+      "bevy_app-0.19.1/src/app.rs",
+      [
+        [
+          1468,
+          1483
+        ]
+      ]
+    ],
+    [
+      "bevy_ecs-0.19.1/src/observer/runner.rs",
+      [
+        [
+          1,
+          150
+        ]
+      ]
+    ],
+    [
+      "bevy_ecs-0.19.1/src/error/handler.rs",
+      [
+        [
+          1,
+          187
+        ]
+      ]
+    ],
+    [
+      "bevy_ecs-0.19.1/src/error/bevy_error.rs",
+      [
+        [
+          40,
+          105
+        ],
+        [
+          395,
+          415
+        ]
+      ]
+    ],
+    [
+      "bevy_ecs-0.19.1/src/error/mod.rs",
+      [
+        [
+          70,
+          82
+        ]
+      ]
+    ],
+    [
+      "bevy_ecs-0.19.1/src/world/mod.rs",
+      [
+        [
+          3448,
+          3475
+        ]
+      ]
+    ]
+  ],
+  "repository_handler_search": "No installed FallbackErrorHandler/DefaultErrorHandler/with_error_handler in PR crates; no P16 overlay handler change. Full iteration builder and update/result receivers directly read.",
+  "contract": "App::add_observer ->World::add_observer->Observer::new requires IntoObserverSystem default Out=(). Function IntoResult<()> supports Result<(),BevyError/RunSystemError>, not arbitrary Geometry/MeleeGeometryResult. Native BevyError generic From preserves original boxed cause; default Severity Panic flows fallback handler. RunSystemError Failed routed to handler in observer runner, not caller Result. Existing owning typed IterationError/readback must preserve first cause through actual native command; generic panic/text logging is insufficient authoritative report failure.",
+  "repair": "none",
+  "validation": "not run",
+  "resolved_read_files": [
+    {
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/system/function_system.rs",
+      "absolute_path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/system/function_system.rs",
+      "observed_sha256": "a8c0b778125f2da28ada5005a40c2bc2ab5d783fd9d080aad99361cb55641c3a",
+      "read_ranges": [
+        [
+          570,
+          630
+        ]
+      ],
+      "additional_source_row": 72,
+      "newly_normalized": true,
+      "scope": "Exact original read ranges only; path/hash resolution is metadata, not a new module/source audit or package clearance."
+    },
+    {
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/system/observer_system.rs",
+      "absolute_path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/system/observer_system.rs",
+      "observed_sha256": "a5ec50cfa2fdb29a0f86a8bfb1c42a266bbd199da74e8c60c30384bf59409ac6",
+      "read_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "additional_source_row": 73,
+      "newly_normalized": true,
+      "scope": "Exact original read ranges only; path/hash resolution is metadata, not a new module/source audit or package clearance."
+    },
+    {
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/observer/distributed_storage.rs",
+      "absolute_path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/observer/distributed_storage.rs",
+      "observed_sha256": "9a1c51dbb516b0cc08c33d8a5a714041eef55650447b4bb7efaf86ce537952b1",
+      "read_ranges": [
+        [
+          216,
+          275
+        ],
+        [
+          554,
+          583
+        ]
+      ],
+      "additional_source_row": 74,
+      "newly_normalized": true,
+      "scope": "Exact original read ranges only; path/hash resolution is metadata, not a new module/source audit or package clearance."
+    },
+    {
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/observer/mod.rs",
+      "absolute_path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/observer/mod.rs",
+      "observed_sha256": "ebea03dbd974a67dc92c11ae4232a2a25a9e653c6df28eaea70e26a5f964c78a",
+      "read_ranges": [
+        [
+          45,
+          64
+        ]
+      ],
+      "additional_source_row": 75,
+      "newly_normalized": true,
+      "scope": "Exact original read ranges only; path/hash resolution is metadata, not a new module/source audit or package clearance."
+    },
+    {
+      "source_id": "native-dependency:bevy_app-0.19.1/src/app.rs",
+      "absolute_path": "CARGO_REGISTRY/bevy_app-0.19.1/src/app.rs",
+      "observed_sha256": "0240f4b60c9848fcb5386998381c7b8f0be4fef83bfb574b19d818b99fc5e668",
+      "read_ranges": [
+        [
+          1468,
+          1483
+        ]
+      ],
+      "additional_source_row": 76,
+      "newly_normalized": true,
+      "scope": "Exact original read ranges only; path/hash resolution is metadata, not a new module/source audit or package clearance."
+    },
+    {
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/observer/runner.rs",
+      "absolute_path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/observer/runner.rs",
+      "observed_sha256": "e8a6dca4f1ae317b6653d6f1c5fdf175fdb6ed42a5d4a6125730bc9e716f43dd",
+      "read_ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "additional_source_row": 77,
+      "newly_normalized": true,
+      "scope": "Exact original read ranges only; path/hash resolution is metadata, not a new module/source audit or package clearance."
+    },
+    {
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/handler.rs",
+      "absolute_path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/error/handler.rs",
+      "observed_sha256": "800c43a7bcf3956170973151045546484c9546e3bb50635f9fab8cba7fed353d",
+      "read_ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "additional_source_row": 78,
+      "newly_normalized": true,
+      "scope": "Exact original read ranges only; path/hash resolution is metadata, not a new module/source audit or package clearance."
+    },
+    {
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/bevy_error.rs",
+      "absolute_path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/error/bevy_error.rs",
+      "observed_sha256": "ae8feb04751ba67eaa86d03f3b748ef61d2bcdb9292c72dc0273eb353fb24fe2",
+      "read_ranges": [
+        [
+          40,
+          105
+        ],
+        [
+          395,
+          415
+        ]
+      ],
+      "additional_source_row": 79,
+      "newly_normalized": true,
+      "scope": "Exact original read ranges only; path/hash resolution is metadata, not a new module/source audit or package clearance."
+    },
+    {
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/mod.rs",
+      "absolute_path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/error/mod.rs",
+      "observed_sha256": "1647c35091db53ccde7cfd43e7b106f40942404b814f599015db776308ddfd3d",
+      "read_ranges": [
+        [
+          70,
+          82
+        ]
+      ],
+      "additional_source_row": 80,
+      "newly_normalized": true,
+      "scope": "Exact original read ranges only; path/hash resolution is metadata, not a new module/source audit or package clearance."
+    },
+    {
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/world/mod.rs",
+      "absolute_path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/world/mod.rs",
+      "observed_sha256": "34963c05abcc51517c1db6cf1a3e1f90ae365409f75a9ceb54d6a892505681b6",
+      "read_ranges": [
+        [
+          3448,
+          3475
+        ]
+      ],
+      "additional_source_row": 81,
+      "newly_normalized": true,
+      "scope": "Exact original read ranges only; path/hash resolution is metadata, not a new module/source audit or package clearance."
+    }
+  ],
+  "path_resolution_ref": "native-dependency-path-index.json#NATIVE-OWNER-PINNED-PATHS-013"
+}

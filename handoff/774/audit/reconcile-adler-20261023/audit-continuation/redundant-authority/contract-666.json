@@ -1,0 +1,131 @@
+{
+  "id": "CONT07-CONTRACT-666",
+  "at": "2026-10-24T01:47:32.214011+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 646,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/layout.rs",
+      "sha256": "f19587b5c651091d18b720268e43f9bdef0e2ca083b33b57d53cbdbccb1be298",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/model/layout.rs",
+      "actual_EOF": 452,
+      "ranges": [
+        [
+          408,
+          449
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2544,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_outlets.rs",
+      "sha256": "a867ca903db8d40b4576b9e1985a40c0483f6f75f5a69efde7b6aa35d6a36ba4",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/generator/roof_outlets.rs",
+      "actual_EOF": 1005,
+      "ranges": [
+        [
+          700,
+          781
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2541,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_enclosure_material.rs",
+      "sha256": "38b955313e7d9f09e6b15e3fb0e46497a149df2db2fa417ffec671c9ad130999",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/generator/roof_enclosure_material.rs",
+      "actual_EOF": 18,
+      "ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2538,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_dormers.rs",
+      "sha256": "6484f99b8bdfc8cd1fc1f9aae444f6a56feaee41546a24d97109c317bba4c5f1",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/generator/roof_dormers.rs",
+      "actual_EOF": 305,
+      "ranges": [
+        [
+          205,
+          252
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2494,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+      "sha256": "be333fcb0e9e981f14bcbccb3decbda82d7ad87fd758d1f3dbc75b311ca345cd",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+      "actual_EOF": 277,
+      "ranges": [
+        [
+          38,
+          89
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2430,
+      "source_id": "pr-working:crates/strategic-web/static/strategic-scene.js",
+      "sha256": "7db5964db4e3c0c4a152ba1b501a57068a4553a440427152382042f74988be20",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/static/strategic-scene.js",
+      "actual_EOF": 371,
+      "ranges": [
+        [
+          1,
+          30
+        ],
+        [
+          115,
+          185
+        ],
+        [
+          345,
+          371
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2417,
+      "source_id": "pr-working:crates/strategic-web/static/equipment-toggle.js",
+      "sha256": "86df6350e2e09720ae1d8293a48a484f6e0aa4154787e29dd06156ee7c1e6b37",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/static/equipment-toggle.js",
+      "actual_EOF": 431,
+      "ranges": [
+        [
+          235,
+          310
+        ],
+        [
+          319,
+          395
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Straightstairs carry explicit run_metres owner; actual viewer/stringers/tread placement and timberphysicalmembers use run/count. Roof collector search and final audit independently reconstruct length as tread_count*.28 ignoringrun, so theirclearanceprism can differ from actual descriptor and geometry. Actualtimber preservesclampeddeclaredrun or fallback2.8\u20134.2 while sets18treads; inferredrooflength5.04. NewqualifiedF131 preserves actualgeometry/search/auditor samefact without claiming an executed rejectedrooflayout.",
+    "Roofenclosure material question source-disposed explicitpolicy: main gable followswall envelope andprefersRubbleInfill forrubble, child/dormer constructors chooseTimberorMasonry (belfryexplicitTimber). Actualconstructors aredistinctenclosureassemblyroles, no scopedrule/auditor requiresrubblechildmaterialequalgablematerial. Do not promote a runtimewrongmaterial just from sameWall list; unresolved physical construction/material policy retained for designreview, no blanket sharedfunction fix.",
+    "Same-settlement peoplecache source-disposed qualifiedcachecontract: actualdocument live-update producer dispatches after revision/navigation sync; scene refreshclearsrequests. NPC selectionevent changespresentationfocus anddoesnotprovecontrollingobserverchange. No actualactor/clock revision omission shown; retain optional hardening/dependencyidentity question with no currentprivacyfailure. No lifecycleexecution.",
+    "Equipmenthover snapshot candidate source-disposed DOM-conditional strengthening: retainedcontrol+previewChoices onlyrefresh onchangeofcontrol/hide; keyboardusesretainedchoices while mutation API revalidatescurrentgraph. No actual normal samecontrol datasetmutation/detachedhover lifecycle demonstrated. Keep optional explicitDOMgeneration/dependencyownership question; don't claim stale normal placement or acceptedbadDBmutation."
+  ],
+  "new_local_findings": [
+    "CONT07-F131"
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": null
+}

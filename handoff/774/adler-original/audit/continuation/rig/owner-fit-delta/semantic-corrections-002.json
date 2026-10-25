@@ -1,0 +1,8 @@
+{
+  "id": "RIG-OWNER-DELTA-SEMANTIC-CORRECTION-002",
+  "corrects": "Inherited RIG-OWNER-FIT-011/RIG-OWNER-ARMOR-DESIGN-028 claim that RigSide includes Centre",
+  "actual_definition": "PR fabelgeist-rig/src/lib.rs RigSide::Left/Right only; extension011 exact source identity",
+  "disposition": "Withdraw set-size mismatch. RigSide means authored riglabel namespace; ForearmSide means actual anatomical lowarm/wrist/upperarm fitting policy and ArmorPlacement Worn/Left/Right authoredplacement. Same Left/Right members alone do not establish same owner meaning/authority. Compare explicit side mappings and recipient before any reuse; BodySide Both remains separately broader.",
+  "limits": "No blanket side enum merge or whole-file coverage; original frozen receipts unchanged.",
+  "coverage_count_change": 0
+}

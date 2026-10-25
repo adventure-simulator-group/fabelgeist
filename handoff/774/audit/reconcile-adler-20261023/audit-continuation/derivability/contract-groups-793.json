@@ -1,0 +1,348 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-793",
+  "at": "2026-10-25T16:51:50.219597+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1010,
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_place.rs",
+      "sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+      "actual_EOF": 998,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/strategic_place.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/strategic_place.rs",
+        "sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+        "bytes": 34905,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+            "ranges": null,
+            "source_read_status": null,
+            "trace_refs": []
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                380
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-ENCOUNTER-001",
+              "CAM-PROP-AUTHORITY-001"
+            ]
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                998
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-PLACE-ENCOUNTER-RECEIVERS-001"
+            ]
+          },
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/supplemental-operation-shared-links.json",
+            "ranges": [
+              [
+                1,
+                380
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-ENCOUNTER-001",
+              "CAM-PROP-AUTHORITY-001"
+            ]
+          },
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/supplemental-operation-shared-links.json",
+            "ranges": [
+              [
+                1,
+                998
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-PLACE-ENCOUNTER-RECEIVERS-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+            "row": 43,
+            "read_ranges": [
+              [
+                1,
+                320
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-CATALOGUE-023"
+            ],
+            "read_status": "explicit_partial_supporting_definitions_receivers",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/strategic_place.rs"
+          },
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+            "row": 128,
+            "read_ranges": [
+              [
+                1,
+                112
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-OUTPUT-AND-SOURCE-ENDPOINTS-073"
+            ],
+            "read_status": "affected_ranges",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/strategic_place.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 201,
+            "read_ranges": [
+              [
+                1,
+                998
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-CASE-CUSTODY-072"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/strategic_place.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 654,
+            "read_ranges": [
+              [
+                115,
+                205
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SIM-STOREFRONT-POLICY-102"
+            ],
+            "read_status": "fresh-current-lens-scoped-definition-and-actual-receiver-read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/strategic_place.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 42,
+            "read_ranges": [
+              [
+                1,
+                460
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-STRATEGIC-004"
+            ],
+            "read_status": "specified_actual_owner_and_recipient_bodies_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/strategic_place.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root",
+          "camera",
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CASE-RECEIVERS-029",
+            "json_pointer": "/related_current_sources/6",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/strategic_place.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                128
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/strategic_place.rs",
+              "sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+              "read_ranges": [
+                [
+                  1,
+                  128
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/strategic_place.rs",
+              "scope": "Actual canonical CaseSiteId/opaque component admission, to_place, text ports and checked Serde; no whole998 claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016",
+            "json_pointer": "/related_current_reads/6",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/strategic_place.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                128
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/strategic_place.rs",
+              "sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+              "read_ranges": [
+                [
+                  1,
+                  128
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/strategic_place.rs",
+              "scope": "Actual canonical CaseSiteId/opaque component admission, to_place, text ports and checked Serde; no whole998 claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/camera/sources.jsonl",
+            "receipt": "CONT-CAMERA-SOURCE-190",
+            "json_pointer": "",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/strategic_place.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                998
+              ]
+            ],
+            "source_context": {
+              "id": "CONT-CAMERA-SOURCE-190",
+              "index": 190,
+              "source_id": "pr-working:crates/adventuresim-core/src/strategic_place.rs",
+              "sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+              "read_ranges": [
+                [
+                  1,
+                  998
+                ]
+              ],
+              "proof_mode": "Fresh complete actual source read, including original fixture text; source only. Historical exact receiving contracts reconciled separately; bytes alone do not establish receiver closure.",
+              "validation": "none",
+              "source_repair": "frozen_until_all13"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 373,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          998
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "From<String>/Deref/Display",
+          "type": "CaseSiteId",
+          "lines": [
+            [
+              75,
+              93
+            ]
+          ],
+          "disposition": "KEEP checked authored construction and small str/formatter delegation; Core849 lacks derive_more dependency"
+        },
+        {
+          "trait": "Serialize/Deserialize",
+          "type": "CaseSiteId",
+          "lines": [
+            [
+              95,
+              119
+            ]
+          ],
+          "disposition": "KEEP existing derived named borrowed Wire view and deny_unknown_fields checked owned DTO"
+        },
+        {
+          "trait": "Display + Error",
+          "type": "PlaceIdentityError",
+          "lines": [
+            [
+              437,
+              453
+            ]
+          ],
+          "disposition": "OPTIONAL F002 exact literal/source-less thiserror"
+        },
+        {
+          "trait": "Display/FromStr",
+          "type": "StrategicPlaceId/StrategicFixtureId",
+          "lines": [
+            [
+              455,
+              623
+            ]
+          ],
+          "disposition": "KEEP semantic canonical protocol/checked associations"
+        },
+        {
+          "trait": "Serialize/Deserialize",
+          "type": "StrategicPlaceId/StrategicFixtureId",
+          "lines": [
+            [
+              625,
+              651
+            ]
+          ],
+          "disposition": "KEEP small canonical-string checked parsing adapters; no existing equivalent conversion traits"
+        }
+      ],
+      "existing_derives": [
+        "Structural identity/venue traits and venue Serde already derived",
+        "CaseSite borrowed/owned Wire already derives respective Serde"
+      ]
+    }
+  ],
+  "groups": [
+    "Full source including fixtures722\u2013998 personally consumed; partial791\u2013792 exact rationale retained. Core manifest8491\u201342 personally reconfirmed thiserror dependency but no derive_more; do not introduce dependency for small formatter/dereference cleanup.",
+    "Keep checked component admission, named CaseSite wire object, canonical framed place/fixture strings, semantic association validation and exact parse error order. Native venue id differs Serde vocabulary. Fixed-literal PlaceIdentityError optional F002 only. No new trait or codec in decoder helpers/fixtures; fixtures read not run."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1011,
+    "source_id": "pr-working:crates/adventuresim-core/src/strategic_presence.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

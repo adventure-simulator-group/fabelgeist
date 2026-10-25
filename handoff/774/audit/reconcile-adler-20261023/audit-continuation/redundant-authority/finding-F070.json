@@ -1,0 +1,63 @@
+{
+  "id": "CONT07-F070",
+  "at": "2026-10-23T19:10:09.211170+00:00",
+  "lens": "audit-redundant-authority",
+  "classification": "diagnostic cached-change predicate omits a dependency of the classification it gates",
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/player/quickstep_trace.rs",
+  "sha256": "d4c445ad8881a51294103c9f7ee9ef4024f1a3d64692356dfa8ac21f93604346",
+  "locations": [
+    [
+      14,
+      35
+    ],
+    [
+      65,
+      102
+    ],
+    [
+      106,
+      126
+    ]
+  ],
+  "authoritative_fact": "Whether the current sampled quickstep animation/actuator observation is a discrepancy: (dodge_action || melee_lunge.quickstep) != snapshot.quickstep_push.active.",
+  "representations": [
+    "QuickstepTraceObservation stores only action and active/start-tick actuator",
+    "Actual discrepancy predicate independently also reads snapshot.melee_lunge.quickstep"
+  ],
+  "source_trace": "trace_local_quickstep_state constructs observation69-80 from action and push active/start only; has_changed_since31-35 compares those facts; unchanged observation returns84-85 BEFORE attack_lunge88 is read and before mismatch89. Thus cached observation does not cover all current classification dependencies.",
+  "static_counterexample": "After an initial sample with non-Dodge action, inactive push/starttick0 and no quickstep lunge, a snapshot change only to melee_lunge=Some(...quickstep:true...) leaves every has_changed_since input equal. The second call skips the current discrepancy although its full predicate changes false->true. Reverse transition can also suppress classification recovery. Native snapshot fields are independently public and the native updater copies lunge separately; no executed trace or ordinary producer emitting that inconsistent pair is asserted.",
+  "supporting_actual_sources": [
+    {
+      "scope_index": 1886,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics.rs",
+      "sha256": "14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b",
+      "ranges": [
+        [
+          107,
+          155
+        ]
+      ],
+      "fact": "CharacterMotionSnapshot has independent quickstep_push/melee_lunge; MeleeLungeMovement docs intentionally independent from SkeletonAction, quickstep bool151-155."
+    },
+    {
+      "scope_index": 2067,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+      "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "ranges": [
+        [
+          1722,
+          1739
+        ]
+      ],
+      "fact": "Actual snapshot publication copies quickstep and lunge independently; no universal equivalence gate claimed."
+    }
+  ],
+  "consumer": "The warning/transition diagnostic itself. No combat, movement or renderer output change is claimed. The detector is intended to observe discrepant states; ordinary producer coherence does not make its incomplete observation key truthful for an admitted sampled discrepancy.",
+  "connected_repair": "Retain the actual quickstep-lunge expectation or complete classification dependency in QuickstepTraceObservation and compare it with prior observation before deciding to skip; derive the warning from that same sampled fact. Do not conflate animation and actuator authority or require their independent states always agree.",
+  "acceptance": "A change in the quickstep-lunge dependency alone can emit the appropriate diagnostic transition/discrepancy; unrelated position/direction changes remain intentionally unlogged unless part of the chosen diagnostic purpose. Preserve first observation, retained inactive start tick and exact native diagnostic fields.",
+  "dedup": "No exact matching finding located in packaged1002 or local124 metadata searches; this is a new local lens07 record, not a proven globally unique defect total. Camera07F067 concerns diagnostic labels affecting pace, a distinct actual graph.",
+  "repair_status": "frozen",
+  "validation_status": "source_reasoning_only_no_execution",
+  "ordinary_runtime_failure_claim": false,
+  "no_other_lens_credit": true
+}

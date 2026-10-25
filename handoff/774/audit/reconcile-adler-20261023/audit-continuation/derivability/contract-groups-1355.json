@@ -1,0 +1,188 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1355",
+  "at": "2026-10-25T18:37:48.749793+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1408,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/semantic_route.rs",
+      "sha256": "503b335e2aaa99a5cb283b02af958b8990b0e2fce6817b437b56e1bc8900e6e1",
+      "actual_EOF": 145,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/semantic_route.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/animation/semantic_route.rs",
+        "owner": "native",
+        "sha256": "503b335e2aaa99a5cb283b02af958b8990b0e2fce6817b437b56e1bc8900e6e1",
+        "base_sha256": "671a9eebbed87a90bc68151991cec6d94d59493b4b38a674255c8000d1de203e",
+        "state": "modified",
+        "bytes": 5065,
+        "audit_owner": "native",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [],
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 243,
+            "read_ranges": [
+              [
+                1,
+                145
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-SEMANTIC-PROPORTIONS-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/semantic_route.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 582,
+            "read_ranges": [
+              [
+                1,
+                145
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-SEMANTIC-PROPORTIONS-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/semantic_route.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          145
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "serialize_with helper",
+          "type": "SemanticRouteInputs.ground_contact",
+          "lines": [
+            140,
+            145
+          ],
+          "disposition": "KEEP explicit bool classifier of Airborne with retained wire name airborne; record already derives Serialize, enum structural wire would change shape."
+        }
+      ],
+      "existing_derives": [
+        "Debug/Clone/PartialEq/Serialize SemanticRouteInputs",
+        "Component/Debug/Clone SemanticRouteTrace",
+        "Resource/Debug/Default telemetry",
+        "structural traits/Serialize snake_case SemanticRoutePath"
+      ],
+      "absence_basis": "Inherent multi-source normalized velocity/evaluation projection, runtime equipped pack/trace publication and semantic route classifier. as_str is inherent const native borrowed string mapping; no manual Display/From trait to replace."
+    },
+    {
+      "scope_index": 1409,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/skeletal_proportions.rs",
+      "sha256": "56f60067aad4396f087ebb56e068d5a0413b75ae81cd5fb4424dc3a14f28bc8c",
+      "actual_EOF": 279,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/skeletal_proportions.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/animation/skeletal_proportions.rs",
+        "owner": "native",
+        "sha256": "56f60067aad4396f087ebb56e068d5a0413b75ae81cd5fb4424dc3a14f28bc8c",
+        "base_sha256": "dac64802f53668a547b1dbc0d9c590284a16205dcc9f8328e576b43c252e04ce",
+        "state": "modified",
+        "bytes": 10545,
+        "audit_owner": "native",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [],
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 244,
+            "read_ranges": [
+              [
+                1,
+                279
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-SEMANTIC-PROPORTIONS-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/skeletal_proportions.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 583,
+            "read_ranges": [
+              [
+                1,
+                279
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-SEMANTIC-PROPORTIONS-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/skeletal_proportions.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          279
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "Component/Clone/Copy/Default proportions/reference/offset",
+        "Deserialize NodeExtras"
+      ],
+      "absence_basis": "Existing derived raw extras view followed by explicit finite JointProportionBasis admission, current per-owner identity/reference/appearance changes, hierarchy reconstruction and grounded pelvis correction plus fixtures. No manual trait/codec; preserve checked stage after Deserialize and semantic hierarchy operations."
+    }
+  ],
+  "groups": [
+    "Structural serialization/defaults already derived. Keep custom scalar airborne mapping and source admission, not unchecked transparent replacement. Native fixture calls were not executed."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1410,
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/tests.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

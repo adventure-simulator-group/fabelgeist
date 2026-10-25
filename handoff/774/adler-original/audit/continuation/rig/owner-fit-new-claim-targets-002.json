@@ -1,0 +1,12 @@
+{
+  "id": "RIG-OWNER-NEW-CLAIM-TARGETS-002",
+  "corrects": "owner-fit-new-claim-targets-001.json#/groups/4/neutral_owner",
+  "exact_existing_Radians_path": "crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+  "proof": "owner-fit-delta/additional-sources.jsonl#RIG-OWNER-DELTA-EXTENSION-018",
+  "read_range": [
+    1,
+    50
+  ],
+  "sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+  "reason": "001 abbreviated crate path building-generator incorrectly; use actual adventuresim-building-generator. No source or scope changes."
+}

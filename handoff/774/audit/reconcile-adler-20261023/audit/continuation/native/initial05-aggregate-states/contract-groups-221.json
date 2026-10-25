@@ -1,0 +1,166 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-221",
+  "at": "2026-10-23T05:24:24.830413+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/chronology.rs",
+      "sha256": "9bd03249bc0fbc1de28571a08035a777f3ab8fe1ddd0ac177d6e32b3693ee621",
+      "scope061_index": 235,
+      "actual_EOF": 200,
+      "scoped_ranges_compared": [
+        [
+          1,
+          200
+        ]
+      ],
+      "actual05_comparison": "Fresh complete PR bodies and existing Core/calendar tests; complete actual P16 diffs personally compared: calendar/Core filth identical; chronology Result alias only; DBfilth seed Result and fallible inventory addition differ. Actual aggregate current roles separately compared, not verdict/hash carry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/chronology.rs",
+      "sha256": "ee9606893c2011c97cecde3bb8bef19e0b6354b96c165b66695c8f9e2b104646",
+      "scope061_index": 1153,
+      "actual_EOF": 200,
+      "scoped_ranges_compared": [
+        [
+          1,
+          200
+        ]
+      ],
+      "actual05_comparison": "Fresh complete PR bodies and existing Core/calendar tests; complete actual P16 diffs personally compared: calendar/Core filth identical; chronology Result alias only; DBfilth seed Result and fallible inventory addition differ. Actual aggregate current roles separately compared, not verdict/hash carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/calendar.rs",
+      "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "scope061_index": 440,
+      "actual_EOF": 698,
+      "scoped_ranges_compared": [
+        [
+          1,
+          698
+        ]
+      ],
+      "actual05_comparison": "Fresh complete PR bodies and existing Core/calendar tests; complete actual P16 diffs personally compared: calendar/Core filth identical; chronology Result alias only; DBfilth seed Result and fallible inventory addition differ. Actual aggregate current roles separately compared, not verdict/hash carry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/calendar.rs",
+      "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "scope061_index": 2158,
+      "actual_EOF": 698,
+      "scoped_ranges_compared": [
+        [
+          1,
+          698
+        ]
+      ],
+      "actual05_comparison": "Fresh complete PR bodies and existing Core/calendar tests; complete actual P16 diffs personally compared: calendar/Core filth identical; chronology Result alias only; DBfilth seed Result and fallible inventory addition differ. Actual aggregate current roles separately compared, not verdict/hash carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/filth.rs",
+      "sha256": "a9e459f3c532b5661b495beff45dbdabd7946cf34bacf8e05f0d852d0f36e446",
+      "scope061_index": 106,
+      "actual_EOF": 631,
+      "scoped_ranges_compared": [
+        [
+          1,
+          631
+        ]
+      ],
+      "actual05_comparison": "Fresh complete PR bodies and existing Core/calendar tests; complete actual P16 diffs personally compared: calendar/Core filth identical; chronology Result alias only; DBfilth seed Result and fallible inventory addition differ. Actual aggregate current roles separately compared, not verdict/hash carry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/filth.rs",
+      "sha256": "a9e459f3c532b5661b495beff45dbdabd7946cf34bacf8e05f0d852d0f36e446",
+      "scope061_index": 926,
+      "actual_EOF": 631,
+      "scoped_ranges_compared": [
+        [
+          1,
+          631
+        ]
+      ],
+      "actual05_comparison": "Fresh complete PR bodies and existing Core/calendar tests; complete actual P16 diffs personally compared: calendar/Core filth identical; chronology Result alias only; DBfilth seed Result and fallible inventory addition differ. Actual aggregate current roles separately compared, not verdict/hash carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/filth.rs",
+      "sha256": "2688d57af608f66bdca8ba271a0d9283be2467514b3545e140014b5a5ef9b2fe",
+      "scope061_index": 199,
+      "actual_EOF": 769,
+      "scoped_ranges_compared": [
+        [
+          1,
+          769
+        ]
+      ],
+      "actual05_comparison": "Fresh complete PR bodies and existing Core/calendar tests; complete actual P16 diffs personally compared: calendar/Core filth identical; chronology Result alias only; DBfilth seed Result and fallible inventory addition differ. Actual aggregate current roles separately compared, not verdict/hash carry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/filth.rs",
+      "sha256": "5b1b42cf0757533e9b4591a203615729ea9ebd91da1891cadabb8bde74dec69a",
+      "scope061_index": 1098,
+      "actual_EOF": 769,
+      "scoped_ranges_compared": [
+        [
+          1,
+          769
+        ]
+      ],
+      "actual05_comparison": "Fresh complete PR bodies and existing Core/calendar tests; complete actual P16 diffs personally compared: calendar/Core filth identical; chronology Result alias only; DBfilth seed Result and fallible inventory addition differ. Actual aggregate current roles separately compared, not verdict/hash carry."
+    }
+  ],
+  "supporting_source_refs": [
+    "contract-groups-187.json camp full actual source; fresh focused camp_rest1–121 in current read",
+    "contract-groups-219.json recursive lifecycle premise now closed by exact calendar/chronology"
+  ],
+  "contract_groups": [
+    {
+      "id": "strict lifecycle interior closes recursion premise",
+      "comparison": "Chronology36–106 filters wedding/birth/marriage/inheritance times with start<time<end, then minimum. Birthday delegates actual calendar238–249, now freshly read: checked wide anniversary arithmetic plus final self<next && next<end. Every candidate is strictly interior, so first_lifecycle_segment positive and smaller than requested interval whenever returned; no same-input recursion from this supplier. NPC clock path validates policy, rejects retrograde, recursively settles exact boundary and stops if adulthood removes policy; final target clock followed by lifecycle settlement. DB transaction rollback is documented, not independently executed/proved by this source."
+    },
+    {
+      "id": "calendar related leaves and arithmetic domains",
+      "comparison": "StrategicMinute accepts all u64 words including0/MAX; bounded day/hour/minute use division/remainder, checked_div/rem returnNone forzero. floor_to_interval quotient*width cannot exceed original coordinate. Midpoint uses ordered difference before addition, daily wrapping sums only <1440 terms. Year ctor positive and serde TryFrom; ordered interpolation differences fit i32 for accepted positive years. Raw named-SATS CalendarYear bypass remains current03 qualification, not repaired by private field. Birth i128 arithmetic keeps signed birth versus unsigned absolute separate, ageu16 explicitly saturated. CalendarYear/time-of-day projections intentionally saturate/normalize, not claims invertibility over MAX."
+    },
+    {
+      "id": "calendar share and terminal endpoint support",
+      "comparison": "cumulative_daily_share266–267 saturates product before dividing, exact RootF021 widened-before-division support; minuteMAX with share2 loses representable result. iter_after_through170–174 guards self<end despite saturated+1, so MAX/MAX empty; iter_through allowsMAXonce. These correct explicit guards must not inherit other saturated terminal endpoint defects. blood windows112–118 independently clips sat(deposit+2880)−1, drops MAX at valid fromMAX−1/toMAX even infectious_fraction at deposition=1, exact RootF050 support. No ordinary clinical run asserted."
+    },
+    {
+      "id": "normal dirt and deposit admission",
+      "comparison": "Core accrual73–79 widens u16 remainder +8*u64 minutes into u128 (maximum fits), returns modulo1440 remainder; quotient explicitu16 saturation. DB missing progress starts0, every record_travel_elapsed stores canonical remainder, next boundary positive for admitted remainder0..1439. Raw public table remainder>=1441 causes subtraction underflow before max1: F049 new latent persisted-record admission gap. DBdeposit total uses saturating fold capped100; bounded_deposit_amount limits new aggregate total100. Normal per-character deposits therefore keep sums small; Core rawVec unrestricted is distinct RootF051 API sum overflow, no giant normal collection claim."
+    },
+    {
+      "id": "tagged resource and subject membership",
+      "comparison": "CoreSoapStackId has source+id, preventing equal numeric personal/party alias, personal-first deterministic rank and disease/foreign-blood priority. Coreplan_wash repeated same tagged key can double budget, RootF052 exact support; raw WashPlan fields not accepted proof. DB personal rows queried by subject ID and shared rows by FIRST Some party ID; arbitrary subject list not checked unique/same party, F050. DBpreflight confirms soap item+quantity but not complete subject-party binding; consume then deposits owner/amount checked, native reducer rollback not established here. Actual camp110 supplies living_party_member_ids(party_id), singleton wrapper suppliesone; no normal cross-party input or authorization exploit claimed. Exact lower loader uniqueness still separate."
+    },
+    {
+      "id": "canonical filth snapshot and private-source coherence",
+      "comparison": "Public CharacterFilth carries only origin, private provenance filthID relation mandatory during deposits(); disease snapshots queried bysameID and parsedclosedDiseaseId. Source episode vector support+notfuture+notresolved and seen(disease,episode) dedup atdeposition. Private sources retain provenance while public subscriber excludes it; no new extra clinical authority. predicted_wound_routes stitched/bandaged/open +same-limb projectile receiver produces expiry, active-only threshold; raw injury finite/range policy still lower independent."
+    },
+    {
+      "id": "wash operation and maintenance limits",
+      "comparison": "DB take_units decrements same mutable pool and remaining demand, each assigned<=source, no allocation creation in a unique pool. Risk priority references subject ID, raw duplicate subjects make find(firstID) ambiguity (F050). WashSummary total/personal/shared sum from exact chosenplans; repeated shared key acrossdifferent subjects is legitimate partition, preflight per-entry alone relies same just-built pool budget. Normal total100/person and valid unique inventory fractions close ordinary source sizes, rawrow/capacitycollections independent. Cleanup removes snapshots/provenance/deposit together on exhaustion; administrative seed_demo removes old filth/snapshot but doesnotremove old provenance (fixture cleanup qualification, no new unique gameplay defect). Source parent include blood_attempts not body-credit here."
+    },
+    {
+      "id": "full original tests",
+      "comparison": "All Core331–631 tests and calendar406–698 tests read, not run/new. Preserve cleansing points versus whole soap units, personal/party tagged IDs, input-order priority, exact remainder chunk invariance, inclusive infectious windows and next-minute replay, time/calendarboundary and checkedcapacity assertions. DB769/chronology200 no inline fixtures; source declarations do not credit included helpers."
+    }
+  ],
+  "new_unique_findings": [
+    "NATIVE-INITIAL05-F049",
+    "NATIVE-INITIAL05-F050"
+  ],
+  "supporting_existing_findings": [
+    "Root04F021",
+    "Root04F050",
+    "Root04F051",
+    "Root04F052"
+  ],
+  "remaining_dependency_obligations": [
+    "Full blood_attempts source is independent inventory; include declaration not proof.",
+    "Current actual living_party_member_ids uniqueness and inventory fraction accepted-source gates remain exact lower obligations, not authorization exploit claims."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

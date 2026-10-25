@@ -1,0 +1,64 @@
+{
+  "id": "CAM-PROP-SIM-SDK-RECEIVER-001",
+  "dependency": {
+    "name": "spacetimedb-sdk",
+    "version": "2.6.1",
+    "checksum": "074a6d8828638176eb8e9bba7a3e6fb75dc659b260717306eb966c7e10575cd7",
+    "lock_path": "pr-working Cargo.lock10436\u201310466",
+    "lock_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce"
+  },
+  "sources": [
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spacetimedb-sdk-2.6.1/src/error.rs",
+      "sha256": "e98badf5f0eaff8bfe959e31b3ed9e4a6ad5cf5ec4040bfe806f74dc0c692d38",
+      "read_ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "full_source_read": true
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spacetimedb-sdk-2.6.1/src/callbacks.rs",
+      "sha256": "d0261a660323f1fa611ff006dbfb6c440fbe5add9f6bbab6c378b930a394e09f",
+      "read_ranges": [
+        [
+          205,
+          241
+        ]
+      ],
+      "full_source_read": false
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spacetimedb-sdk-2.6.1/src/db_connection.rs",
+      "sha256": "79c452f092b1123e8a9c4f7ca3c34167290bb97e3a64093ce903f4bf742b2b9a",
+      "read_ranges": [
+        [
+          187,
+          254
+        ],
+        [
+          418,
+          447
+        ],
+        [
+          723,
+          762
+        ],
+        [
+          1304,
+          1433
+        ],
+        [
+          1533,
+          1543
+        ]
+      ],
+      "full_source_read": false
+    }
+  ],
+  "trace": "Generated continue_camp_travel_then59\u201370 invokes SDK DbConnectionImpl::invoke_reducer_with_callback747\u2013761 retaining typed Reducer+callback in pending mutation. Actual apply pending418\u2013447 serializes args_bsatn424 and creates native CallReducer WS message434\u2013445; reducer callback208\u2013241 retained by requestID. Actual server wire error branch1410\u20131414 decodes BSATN String into ParsedMessage result; callback error branch223\u2013253 passes original native error string/InternalError. App reducer_call564\u2013598 classifies committed/rejected(code)/dispatch/timeout into CoreLoopError then channel receiver, no intermediate application primitive error needed.",
+  "disposition": "Intentional proven native wire/callback text boundary. Internal already-classified CoreLoopError\u2192String\u2192Other remains F012. SDK InternalError retains optionalArc cause but local Dispatch(String) is purpose-specific opaque diagnostic; classify later error-policy/strengthening, not automatic mandatory replacement merely String.",
+  "limits": "Only exact SDK branches/ranges read, no whole connection module claim; no executable check/network call."
+}

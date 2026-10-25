@@ -1,0 +1,65 @@
+{
+  "id": "CONT07-CONTRACT-534",
+  "at": "2026-10-23T23:28:38.754860+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2361,
+      "source_id": "pr-working:crates/strategic-web/src/routes/dialogue.rs",
+      "sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/routes/dialogue.rs",
+      "actual_EOF": 1897,
+      "ranges": [
+        [
+          24,
+          62
+        ],
+        [
+          175,
+          423
+        ],
+        [
+          939,
+          1030
+        ],
+        [
+          1320,
+          1897
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2362,
+      "source_id": "pr-working:crates/strategic-web/src/routes/dialogue/claims.rs",
+      "sha256": "6ce1fead82db25ebeebc1f64944e44bf410b5ea3b28b9f46480cd04128130197",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/routes/dialogue/claims.rs",
+      "actual_EOF": 127,
+      "ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "RIG-PPS-F016 archive finding record personally consumed; current exact malformed/source role qualification retained"
+  ],
+  "facts": [
+    "Exact scoped dialogue projection personally compared. Participant view destructures and omits owner_character_id; DB reads filter owner/session, dialogue start makes fresh historical session, expected revision and catalogue digest passed to reducers. No competing retained Web state cache identified in these ranges.",
+    "build_view projects speaker_name via role map and speaker_is_player via participant.character_id presence; these are freshly derived per view. Whether every Some character_id is player is a producer admission dependency, not assumed from this projection alone. Topic category recomputed from compiled catalogue while session catalogue_revision is retained: actual old-session/catalogue replacement policy remains a separate dependency, no observed version mismatch claimed.",
+    "Confirms inherited RIG-PPS-F016 exact source-shape/default-erasure recipient: event fragments/source refs and prompt choices decode with unwrap_or_default, topic source ref ok().flatten(); malformed authoritative source can become successful omitted state. Claim projection additionally requires event/order/text equality and uses actual optional resolution rather than inventing resolved flag. Source bounds clamp is display projection, not independent authority.",
+    "npc social revision tags are exhaustive matches over semantic enums; serialization includes character id and all supplied relationship/wedding fields with length encoding. Actual presentation words and revision tags have different purposes, not competing enum identity. Scope ends at1030 for npc_social_view; no complete social invalidation conclusion.",
+    "03 REG041 navigable and binding helpers delegate to Core canonical policy; has_keep projection from Town/City/Capital remains manual category policy population pending canonical comparison. No whole-file coverage beyond recorded ranges; no source execution."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2363,
+    "start_line": 1
+  }
+}

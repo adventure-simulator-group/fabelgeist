@@ -1,0 +1,32 @@
+{
+  "id": "SEGOVB-04-WASM-CLOUD-EMPTY-BAKE-CANDIDATE-001",
+  "classification": "source-backed retained-state publication gap on frozen WASM production path; no renderer execution",
+  "source_variant": "PR6533 with exact source object hashes in packet427/435 and dependencies435 provenance",
+  "producer_chain": [
+    "main.rs WASM wasm_run/wasm_boot parse config and run -> add_gameplay_plugins TacticalPresentationPlugin",
+    "presentation/mod.rs Startup setup_tactical_clouds; Update update_tactical_clouds",
+    "frozen tactical-graphics.yaml clouds enabled true; normal cloud layers derive SceneEnvironment, fullcloudsread",
+    "Cloud setup constructs both image textures from CloudBakeRequest key layers=[None,None,None] -> optical depth0, pixels red0, green0, blue255, alpha0."
+  ],
+  "first_bad_operation": "clouds.rs update key-change branch resets pending/queued/clock/end_ready then only installs fallback bytes if optionalPrebakedCloudEnvironment; spawning initial actual-layer bake and advancing/installing completed bakes are cfg(not(wasm)). WASM sets animation_status.ready=true for active layer despite retainedempty opticalpair.",
+  "receiver": "Actual tactical_clouds.wgsl sample_cloud_surface converts texture red0 to opacitydepth0 and outputred0; fragment opacity=0*horizonfade then discards. Active/statusready therefore lacks renderable cloud opacity on source path.",
+  "resource_evidence": "Frozen gitgrep finds only actual PrebakedCloudEnvironment writer art_demo/scenery66 (fullbodyprevious417), not main browser production plugin. cloud_bake_assets docs are supplemental; actualmain/mod/resourcewritertrace supports absence.",
+  "qualifications": [
+    "No browser/WASM build, native renderer, screenshot, bad-asset installation or actual player scene witnessed.",
+    "Conditional on enabled clouds and nonempty authoritative cloud layers/celestial; clear sky intentionallyinactive is preserved.",
+    "Art demo fixed prebaked resource is distinct: may render static bytes, no claim this path shares production failure.",
+    "Native async pipeline remains implemented; no native samefailure claim.",
+    "Root indexed1002 archive records found no exact empty-WASM-cloud alias; not exhaustive semantic dedup proof.",
+    "Current merged source not substituted or compared for thisfinding; preserve frozen revision."
+  ],
+  "connected_contract": "Ready status and active cloud visibility must be earned by actual matching optical texture cohort on each supported platform, with complete initial/replacement installation.",
+  "dependencies": [
+    "actualbrowsercloudbake/workerpublicationowner",
+    "cohort key and stale completion handling",
+    "CAMERA-INITIAL07-F041 captured wind/current shader trajectory same graph but distinct first bad operation"
+  ],
+  "acceptance": [
+    "Enabled nonempty-layer WASM production scene obtains matching nonempty optical bakes before ready/active publication, or reports explicit unsupported/error state.",
+    "Keep clear skies inactive, fixed artdemo warmstart, native asynchronous adjacent endpoints, freeze mode, and stale-key rejection."
+  ]
+}

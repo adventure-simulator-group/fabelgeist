@@ -1,0 +1,70 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-050",
+  "at": "2026-10-22T21:30:57.691097+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/bouncy_bones.rs",
+      "sha256": "14cc7dac87568e296696a1720be8620adc2c31b3451388d7e099e569d6608108",
+      "scope033_index": 1313,
+      "actual_EOF": 471,
+      "scoped_ranges_compared": [
+        [
+          1,
+          471
+        ]
+      ],
+      "actual05_comparison": "Actual fixed19 reactive bone table allparentindices earlier, rootPelvis0, unique roles andfeet excluded; BouncyBones fixedarray19 uses same table and role→boundedsearch index, chain alwaysterminates regardlessgain. PrivateSpring couples worldrotationvectoroffset+angularvelocity, zeroDefault andsynchronous deflectionsnapshot beforeparentvelocitycoupling avoids withinframe cascading. Native currenthierarchywalkparentbeforechild uses actualchildren andsameowner; nativeacyclicsceneprecondition explicit. Springsdecay evenragdolled/frozen, transformapplication skipped avoidsstalewobble andauthorityconflict. Raw BoneKick vector is nativecosmetic port; no gameplay/tacticalpersistence. Exactclosed-formequation privately writesoffset+velocity together butnofinitecheckbeforecommit; PR admittedfrequencyMAX F013 overflows despitefinitepositiveconfig. Originalallfixtures readnotrun, exact .5/2second examples not universalanydelta proof. PR telemetry rawf32max canmaskNaN whileactivecountstillnonzero; no currenttelemetryconsumer/globalrunclaim, independentP17 reportsErrbetter.",
+      "source_body_proof": "Fresh full source/allinlineoriginalfixtures personally read; P17 complete actualsource diff and every changedtelemetryoperation separately compared, no execution."
+    },
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation/bouncy_bones.rs",
+      "sha256": "36a72e8b7ec69bfee0e9bf67a633ca079e4b157230b4628f885c9a19a4160e2b",
+      "scope033_index": 2437,
+      "actual_EOF": 492,
+      "scoped_ranges_compared": [
+        [
+          1,
+          492
+        ]
+      ],
+      "actual05_comparison": "Actual fixed19 reactive bone table allparentindices earlier, rootPelvis0, unique roles andfeet excluded; BouncyBones fixedarray19 uses same table and role→boundedsearch index, chain alwaysterminates regardlessgain. PrivateSpring couples worldrotationvectoroffset+angularvelocity, zeroDefault andsynchronous deflectionsnapshot beforeparentvelocitycoupling avoids withinframe cascading. Native currenthierarchywalkparentbeforechild uses actualchildren andsameowner; nativeacyclicsceneprecondition explicit. Springsdecay evenragdolled/frozen, transformapplication skipped avoidsstalewobble andauthorityconflict. Raw BoneKick vector is nativecosmetic port; no gameplay/tacticalpersistence. Exactclosed-formequation privately writesoffset+velocity together butnofinitecheckbeforecommit; PR admittedfrequencyMAX F013 overflows despitefinitepositiveconfig. Originalallfixtures readnotrun, exact .5/2second examples not universalanydelta proof. IndependentlyfullP17read+actualcompletePRdiff: onlyTelemetrybecomesGeometryResult<Radians>, admitsEACHobservednorm beforeorderedmaximum andfirsterrorstickyforframe; activecountstillcollectedevenerror. This reportsinvalidspringwithoutrepairingprivatekernel. No P17configMAXadmission inferred fromPR; exactP17config ifneeded remainsownsource. No baseline/filehash-only credit.",
+      "source_body_proof": "Fresh full source/allinlineoriginalfixtures personally read; P17 complete actualsource diff and every changedtelemetryoperation separately compared, no execution."
+    }
+  ],
+  "supporting_source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "5d114988a64595879b04e6f151d2a184cdf8f893f2f2b17a9987a3faf933d4ab",
+      "scope033_index": 1860,
+      "actual_EOF": 826,
+      "scoped_ranges_compared": [
+        [
+          123,
+          150
+        ],
+        [
+          680,
+          730
+        ]
+      ],
+      "actual05_comparison": "Fresh focused re-read actual BouncyBonesConfig127–145 andwholevalidate699–718 supporting own031fullactualconfigproof: allfinite_nonnegative, frequency>0,halflife>0,transmission<=1; NO frequency/coupling arithmeticsafetybound. Copy otherwisevaliddefault changeonlyfrequencyMAX passes thisactualgate; no build/test/execution proof implied.",
+      "source_body_proof": "Supporting fresh exact current05 criticalbody reread; source alreadycounted031, no newvariantcount."
+    }
+  ],
+  "comparison_groups": {
+    "coupled-spring-state-and-reactive-topology": "Fixedarray19/earlierparenttree andsnapshotcouplingproven actualmembers; rawfinite independentstate+acceptedfrequency fail completednextstateF013, no currentbadconfig/run.",
+    "telemetry-versus-spring-authority": "P17perrigobservednormResult andframefirsterror separate from actual privatekernel state; reportinginvalid doesnotmakekernelvalid, PRrawmaxpossiblymasksNaN."
+  },
+  "new_unique_findings": [
+    "NATIVE-INITIAL05-F013"
+  ],
+  "remaining_dependency_obligations": [
+    "BoneKick actual normalserverhitproducer/impactimpulsebounds stillownfuturecells; finding doesnotdepend unprovedbadproducer",
+    "P17 BouncyBonesConfig admission notcreditedfromPR counterpart"
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

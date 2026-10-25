@@ -1,0 +1,13 @@
+--- PRbase/crates/adventuresim-strategic-sim/src/live_core/tests/failure_security.rs
++++ frozen/crates/adventuresim-strategic-sim/src/live_core/tests/failure_security.rs
+@@ -286,9 +286,9 @@
+     );
+     let error =
+         CoreLoopError::reducer_rejected(ReducerOperation::PerformInvestigationAction, coded);
+     recorder.record(error.clone());
+-    recorder.write(&error.to_string()).unwrap();
++    recorder.write(&error).unwrap();
+ 
+     let artifact: CoreLoopFailureArtifact =
+         serde_json::from_slice(&std::fs::read(&path).unwrap()).unwrap();
+     std::fs::remove_file(path).unwrap();

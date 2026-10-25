@@ -1,0 +1,51 @@
+{
+  "contract": {
+    "id": "ROOT-ADM-DETERMINISM-023",
+    "source_roles": {
+      "405": "Freshfull58includingoriginaltests. Publicunit_f32/f64 andinclusiveunitfunctions consumeallu64 andreturnnativefloat byhigh24/high53bitsdivided2^24/2^53 orminus1. ActualMAX maps<1 forhalfopen and1inclusive, zero0; no privatefloatowner orinputrangeadmissionneeded. Canonicalfixed-widthunit-samplingnativeport, preserveprecision/wordbits. ModuleexportsSeed/RNGonly, notnewconstructors. Existingtestoracles sourceonlynotrun/newcases.",
+      "406": "Freshfull213. Seed private namedword:u64 hasENTIREu64domain0/MAX, from_u64/allnativeFrom<u64>, Default0, derivedrecordSerde denyunknown andoptionalnamedSATSdecode allvalid; no positivity/order/entropy/provenancecertificate. NumericFrom/SerdeParse/stringFromStr150\u00e2\u2020\u2019parseu64 thenfrom_u64 legitimateactualboundary; rand/rand08Distributions eachconsumeoneword thenfrom_u64. Hashcanonical8LEbytes, numericOrd/Display/LowerHex preserved; wrapping_offset/xor_word explicitlyownedbitoperations. StreamId private&staticstr, onlyconstnew assertsnonempty(whitespace/nonASCIIallowed), noSerde/Default/Reflect/rawFrom; emptyliteralnotadmittedasSelf, constauthoringpreconditionratherthanpublicdynamicuserinputreject. derive/child/seed length-frame root/purpose/orderedfields andfinish8LEbytes outputallSeedwords valid; no secondnativeidentity. Existingtests176+sourceonlyandunchanged. SupportingSATS namedproductmacro proof Cameraactualroute relevantonlytou64 no extra invariantbypass.",
+      "407": "Freshfull169includingoriginaltestprobe. DeterministicRng privatenativeSplitMix64 state, onlynew(Seed) initialfactory thenmutableexplicitdrawmethods, Clone validstate; noSerde/Default/Reflect/rawsetter/nativeFrom. below requiresnativeNonZeroU64; index/choose documentnonempty andpanicforzero, booleanknown2, sample_below Uniform[0,nonzero]. weighted_index validatesnativeu64weights viafallibleWeightedIndex thenmapsEmpty/ZeroTotal/Overflow toclosedSamplingError; sourceorder/purposestream contractnotguaranteedbyintegerinputtype. No uncheckedSeed/admission gap. Currentproductionexpect59/60/71/136 requiredRust-rule cleanupduringcoherentcanonicalnonempty-samplerAPI migration, preservingfullu64unbiaseddraw/rejectionsequence; no fallbackselectionor32bitdraws. range_f32 assert finiteorderedinputs thenactualmathnotbitwiseguarantee (overflowafteradmission later04, notnewfiniteoutputpromise). weighted_order explicitzeroomitpolicy; empty/allzero returnexistingfallibleerror. ExistingRngCoreprobe sourceonlynoexecution/newcases; nofullRandSDKgraphclaimed."
+    },
+    "current_recipient_comparison": "SharedRootSchedule021 expectsboundedpositiveu64weighttotal. Nativecloudunit/inclusiveSeed projection requiresactualentireu64canonicalwordandintervalsemantics, nowcoveredexactPRfunctions/definitionswithcurrentroles. RigP16narrowSeed/RNGproof comparedsemantically, notPRcoveragefromequalhash. ExistingappearancehelpersmustretainSeedthroughbuilding/furniture; primitivegetteronlyownedbits/hash/nativecodecports.",
+    "acceptance": "Preservecanonical8bytehash/serde-recordschema, entireu64including0/MAX, purposenamesnonempty, stablecontextorder andexistingdrawsequence. Alllegitimateconversionsremain atactualboundary, no Seed wrapperchurn/defaultcompatibilityaliases. Existingtests only, no projectexecution.",
+    "at": "2026-10-22T07:15:40.895442+00:00",
+    "lens": "audit-admission-contracts",
+    "repair": "frozen_initial_all13",
+    "validation": "not_established"
+  },
+  "source_pins": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-determinism/src/lib.rs",
+      "sha256": "85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+      "read_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "source_read": "actual_scoped_body_thislens"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-determinism/src/seed.rs",
+      "sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "read_ranges": [
+        [
+          1,
+          213
+        ]
+      ],
+      "source_read": "actual_scoped_body_thislens"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-determinism/src/stream.rs",
+      "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+      "read_ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "source_read": "actual_scoped_body_thislens"
+    }
+  ]
+}

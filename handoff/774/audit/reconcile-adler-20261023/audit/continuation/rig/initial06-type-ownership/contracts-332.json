@@ -1,0 +1,22 @@
+{
+  "id": "RIG-INITIAL06-GROUP-332",
+  "at": "2026-10-23T09:05:03.621005+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "head-placement-frame-and-rig": {
+      "comparison": "HeadSkin borrows canonical PackedRigSkin<8>/RigJointTable<RigJointName>/ordinal-indexed transforms; HeadPlacement retains RigJointOrdinal head owner and a private affine map from bust frame to character model space. fit checks rig column/count consistency, resolves canonical head/eye names, derives axes/extents/scales, and point/normal/direction/inverse APIs perform actual numerical coordinate transforms. This meaningful frame map differs a generic Position or a GPU Frame payload from321; no duplicate source-of-truth transform is independently authored. HeadExtent is temporary support measurement, not whole body taxonomy. Numerical raw arrays here are documented model/bust-space operations, not a reason to force scene Architectural frames.",
+      "disposition": "meaningful affine mapping over canonical rig identities and distinct model/bust frames"
+    },
+    "weapon-holder-canonical-construction": {
+      "comparison": "HolderConstruction consumes canonical WeaponHolderDesign and model::Construction/PartSource/Solid/ClearanceEnvelope/PhysicalProperties, retaining private part sources/ModelBounds/grip/derived output. FittedPart is a local borrowed-source numerical position copy plus calculated bounds, not another gameplay weapon identity. Millimeters convert to f64 metres only at actual sweeps/shell/ring math. Final native ModelPart/Bounds/DerivedProperties f64→f32 projection does not establish finite physical promise (shared admission finding preserved), and original component.id expect differs resolved identity (Root identity repair). Complete PR261/P16261 body delta empty; current design/physical/native roles explicitly equivalent. Do not create holder-only competing geometry/quantity owners.",
+      "disposition": "canonical model construction composition and real numerical/native output boundary; existing findings retained"
+    },
+    "flower-numerical-geometry": {
+      "comparison": "FlowerParameters/Corolla/LeafArrangement and PlantLod/PlantMesh/Pigment are canonical plant owners. Seed/StreamId remain typed until actual phase draw; shape generation samples each organ at LOD budget rather than cutting completed topology. Phase radians, normalized surface t/v, leaf fraction, lengths and pigment boundary controls have different meanings despite rawf32. Numerical tube/surface/triangle/rotation operations are actual native mesh port, no duplicated semantic species, rig or LOD type. Unreachable budget comment does not award invariant/admission clearance in this ownership lens.",
+      "disposition": "single canonical plant recipe/LOD/pigment with native procedural mesh math"
+    }
+  },
+  "supporting_existing_findings": [],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit."
+}

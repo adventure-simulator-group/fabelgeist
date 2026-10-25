@@ -1,0 +1,123 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-381",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/failure.rs",
+      "sha256": "41b12232f4ba5a4d1f824b38338091fb5a01a3f79bf300903f02ba558c24e99b",
+      "actual_EOF": 457,
+      "actual_compared_ranges": [
+        [
+          1,
+          457
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/failure_projection.rs",
+      "sha256": "db839d73026a5d4ecb4ff4ee8e73872b345be0e3c83a09010d9c4868dfc3ce31",
+      "actual_EOF": 424,
+      "actual_compared_ranges": [
+        [
+          1,
+          424
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/fixture_policy.rs",
+      "sha256": "c692472c82e278cfd719eb457b7554561bc30117577225ca0c68c8eec6a8801b",
+      "actual_EOF": 133,
+      "actual_compared_ranges": [
+        [
+          1,
+          133
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Failure observation propagation and actor identity preserve existing exact findings",
+      "source_ranges": {
+        "failure.rs": [
+          [
+            1,
+            457
+          ]
+        ],
+        "failure_projection.rs": [
+          [
+            1,
+            424
+          ]
+        ]
+      },
+      "disposition": "All881 lines personally read. Named event constructors preserve subjects to retained semantic key and public projection; event sequence increments then duplicate metric then traceboundedpush and diagnosticcapture. FailureRecorder uses typed CoreLoopError but internal call converts toString beforeactualpublicprojection, acceptedCAM-PROP-F012/F006 causepropagationgraph. Missing required character/condition/survival silently omits entirefinalagent in filter_map; missingdeathsurvival prints0measurements andabsentpartyclock max\u2192defaultZERO: exactCAM-PROP-F023/RIG-PPS-F018 observationgraph support. Missingdeathcause source explicitlyunavailable isdistinct legitimateabsence, preserve. current_leader position fromsimroster<=32 safe; cycle43 map_or0 actorabsence exactNATIVE-PS-F035. All actor/person/party identities untilwire mustremaincanonical; no duplicateglobalcount."
+    },
+    {
+      "contract": "Failure trace cap retains an old prefix while total sequence advances",
+      "source_ranges": {
+        "failure.rs": [
+          [
+            97,
+            149
+          ]
+        ],
+        "failure_projection.rs": [
+          [
+            341,
+            357
+          ]
+        ],
+        "config.rs": [
+          [
+            12,
+            14
+          ]
+        ]
+      },
+      "disposition": "Source-backed conditional diagnostic counterexample: once trace.len()==100000, emit_event increments sequence and updatessemanticstate but no longerpushes. bounded_failure_trace later takeslast64 ofthatprefix, so atsequence100001 failuretraceends100000 and neweventisabsent; beyondcaplatestfailure-neareventsneverretainedthoughcountcurrent. No actual100001-eventrun or sourceguaranteeallmaxconfigrunsreachcap. If intended boundedfailuretail, maintainseparate rollingtail whilepublicfullreportprefix remainsbounded; ifprefix-onlyintentional, artifactmustexplicitlyconvey coveredrange/omittedtail ratherthanclaimrecentdiagnostics. Existing trace_truncated onlytotal>64 notcoveragecoordinates. Acceptance retainbound/sequence/order/privacy/semanticdedup andunambiguousactualtracecoverage. Nativeu64sequenceMAXunchecked is privatecountercontractonly; actualpopulation*cycles100000+boundedhelpers do notapproach2^64, noordinaryoverflow promoted."
+    },
+    {
+      "contract": "Failure classification and immutable report writes keep structured categories at terminal output",
+      "source_ranges": {
+        "failure_projection.rs": [
+          [
+            1,
+            424
+          ]
+        ]
+      },
+      "disposition": "Entire424lines read. Reducer code takesprecedence overoperationfamilies; unknown validoperations genericcategory; publicmessagefixedsafeprose notrawsecretcause. ArcMutexupdate/recordsilentlyignorepoison butwrite returns distinct unavailableerrors whenlockingpoison, so no successfulempty artifact fromthatpoison inwrite. Later recordederror overwritesearliererror; actualearliestcontractpolicyrequirescallgraph, notautomaticallybug. write createsnewonly, serializesbeforeopen; filewritefailurecanleavepartialartifact ordinaryIOerrornotgameatomicity. Last64slice uses saturatinglen minus64 preventingunderflow. Publicdefaultsurvivalstruct fieldzeroes exist butrequiredcallerabsencepolicy alreadyfinding. NoFS reportwriting executed."
+    },
+    {
+      "contract": "Fixture selection proves index cardinality but duplicate identities require caller guarantee",
+      "source_ranges": {
+        "fixture_policy.rs": [
+          [
+            1,
+            133
+          ]
+        ]
+      },
+      "disposition": "All133lines read. Exactly2candidates beforeindex0/poptwice, deterministicstrongest/ties; eligiblefirstrequired. Functiondoesnotitselfenforce distinctparty/leaderidentities; actualfixtureproducer canonicaltwo-parties pendingnotordinaryduplicateclaim. Fixturelane comparesbothleaderandparty, directprecedenceifmalformedduplicateplan, acceptedaggregateownerdep. Cashreserve uses saturatingmedical+inn thenmincashgoalandsum, intentionallymedicalcommitmentcanexceedpurse; semanticreserveceiling notasserted. Optionalmissingmedical\u21920 joinsrequiredobservationpolicyifactualcallerrequires, cannotgloballyban legitimateNone. Questdecisionformatter truepublicdiagnosticnativeport, no arithmetic/index mutation."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-FAILURE-TRACE-PREFIX-CANDIDATE-001",
+      "kind": "source-backed conditional diagnostic retention contract question",
+      "ordinary_runtime_witness": false,
+      "acceptance": "A bounded failure trace either retains current failure-near tail or explicitly reports its prefix range and omitted tail, preserving current event identity and cap."
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-strategic-sim/src/live_core/generated_cases.rs"
+}

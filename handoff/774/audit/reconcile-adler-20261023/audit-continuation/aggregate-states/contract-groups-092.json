@@ -1,0 +1,135 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-092",
+  "at": "2026-10-25T15:38:55.526557+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1292,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/survival.rs",
+      "sha256": "9b69053053efb67e000a8aeafdaf2b7a89678136f4459cf592a6e7e9f391e1ad",
+      "personally_read_ranges": [
+        [
+          1,
+          2550
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full2550 survival body personally read. Saved1\u2013600 plus601\u20131200,1201\u20131800,1801\u20132190,2191\u20132550; truncated1459\u20131469 closed by1450\u20131475 reread before full credit.",
+        "Custody traversal requires same OperationalCustody through object parents, exactly one object per row, bounded cycle-safe graph. Personal load excludes Character bodymass. Canonical remaining fraction and foodlot override preserve actual partial mass. Missing custody/capacity/survival values remain unavailable-state propagation and infinity/default sentinel gaps; actual native row guards mean no ordinary malformed/infinite-cargo witness asserted.",
+        "Existing exact CAM-OWNER-F014: Storefront/venue selected canonically then service/location text and raw provider/cost tuple. Actual resident/provider singleton and canonical daily presence guard preserved. Quote language0 is explicit conservative cap, not forged current language. Existing CAM-PROP-F012 owns actual SDK/String error graph through preparation and rest receivers.",
+        "Tent purchase uses actual quote payer and party stock postcondition; absent provider intentionally BivouacReady. Rejected native tent rest does not silently retry unsheltered. Ammo floor/spendable/reserve/actual ranged checks and postcondition coherent. Pending encumbrance/recipe-derived mass owner overlap remains existing F46/M81 scope, not a duplicate finding.",
+        "Route origin must be exactly settlement or observed case-site with geographic provenance parity. Zero elevation explicit shared route policy. Required roster/clock/attrs/limbs/stats/schedule align ordered member identities with forecast outputs, and member_final_fatigue cardinality is checked. Recovery-specific forecast uses real carried thermal state. Unavailable projection fails closed, no arbitrary defaultroute.",
+        "On-site action now/recovery/return uses actual required site and per-member current projections. Hypothesized individual-vs-group itinerary chronology defect ruled out by actual canonical1017:255\u2013346: segment durations depend clock/window/movement, not fatigue. Common recovery is computed across whole roster; per-member thermal/fatigue evaluate same timing. No new finding from this hypothesis.",
+        "Field rest requires an actual active camp interval with enough remaining time, or exact physical site projection. Synchronization checks actual everymember condition/clock and critical guards. Outdoor forecast is intentionally unsheltered. Frontend readiness is proposal; reducer remains authoritative."
+      ]
+    }
+  ],
+  "supporting_source_members": [
+    {
+      "scope_index": 1252,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/settlement_rest.rs",
+      "sha256": "f63df87344c6f358a0bcaa63481d349415e8e5481acb42031232d17cf20db125",
+      "personally_read_ranges": [
+        [
+          525,
+          609
+        ]
+      ]
+    },
+    {
+      "scope_index": 1226,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/journey_camp.rs",
+      "sha256": "ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d",
+      "personally_read_ranges": [
+        [
+          1,
+          200
+        ],
+        [
+          585,
+          688
+        ]
+      ]
+    },
+    {
+      "scope_index": 1237,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs",
+      "sha256": "ff33eb4a42abbfa737b312019fdfc7c457688d66bd84fb81af2364ed30fa9cfe",
+      "personally_read_ranges": [
+        [
+          143,
+          199
+        ],
+        [
+          250,
+          340
+        ],
+        [
+          803,
+          854
+        ]
+      ]
+    },
+    {
+      "scope_index": 1281,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/generated_cases.rs",
+      "sha256": "73138f7fd9ee10974b6eb14acf7a18a5adb75129cb936b74159c0de5397cd584",
+      "personally_read_ranges": [
+        [
+          2080,
+          2230
+        ]
+      ]
+    },
+    {
+      "scope_index": 1290,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/settlement.rs",
+      "sha256": "652eac9d7899ae0a71dea77f7d1b4cd40beef647afa972cf51ee85de57f5acf9",
+      "personally_read_ranges": [
+        [
+          1653,
+          1716
+        ]
+      ]
+    },
+    {
+      "scope_index": 1017,
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_time.rs",
+      "sha256": "3af84cd2d335ef14e2ae8034345fcdcb999a93b4adeabd1a2e1f58beb780f57c",
+      "personally_read_ranges": [
+        [
+          223,
+          346
+        ]
+      ]
+    }
+  ],
+  "findings": [
+    "CAM-OWNER-F014 exact storefront/venue support",
+    "CAM-PROP-F012 exact errorgraph support"
+  ],
+  "open_source_questions": [
+    {
+      "id": "SEGO-INITIAL05-Q022",
+      "status": "qualified modeling gap, consumer revalidation prevents claimed unsafe departure; no new unique finding promoted",
+      "source_trace": "1292:1180\u20131188 maps any positive candidatewait to calories0;1287\u20131295 maps thermal/wetness to Default. Actual1290:1653\u20131716 only configures journey-local time;1237:803\u2013854 updates Party schedule/starttime, not physical rest.1252:568\u2013609 establishes canonical anchored wrapped departure clock without subjective age or recovery;1226:32\u201376/156\u2013186 reuses actual retained stats for itinerary. Thus delay itself supplies no physical recovery evidence. HOWEVER actual1281:2129\u20132210 re-reads after configuration and accepts departure only Ready/ReadyWithItinerary; a second wait is rejected.1292:1633\u20131651 emits Wait for positive candidatewait and Ready only for zero, where real current calories/thermal are used. Do not claim it accepts unsafe recovered state merely from the initial optimistic candidate. It may select an unusable wait or suppress a feasible plan; ordinary actual missed-feasible witness not yet established. Preserve actual current-state recheck in future typed plan repair; no silent addition of rest/time advancement.",
+      "related_existing_aliases": [
+        "M92 explicit forecast movement/stationary contract; not exact fictitious recovery defect",
+        "SEGO-INITIAL09-F381 actual clinical plan separate"
+      ],
+      "supporting_roles": [
+        1290,
+        1281,
+        1237,
+        1252,
+        1226,
+        1017
+      ],
+      "counterexample_limit": "No execution or numeric probe; no actual ordinary feasible-but-suppressed witness. Exact own09 saved lookup confirms no duplicate alias."
+    }
+  ],
+  "qualification": "Bounded existing/inherited supporting-role rereads add no original-role counts. No overlay or full merged-dimension coverage inferred. Existing conditional unavailable/encumbrance contracts retained without invented normal-state failures.",
+  "discovery": "One full original role accounted with concrete recipient closures, qualified recovery-model question and positive chronology exclusion. Whole lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

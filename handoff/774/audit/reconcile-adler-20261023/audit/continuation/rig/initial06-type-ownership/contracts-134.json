@@ -1,0 +1,22 @@
+{
+  "id": "RIG-INITIAL06-GROUP-134",
+  "at": "2026-10-23T03:56:19.747959+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-054.json",
+  "groups": {
+    "actual-native-rig-frame-and-presence": {
+      "comparison": "Fresh entire frame54/plant44/terminal59. ObservedRigFrame captures actual finite GlobalTransform translation+rotation, absence of rig scene/global transform returnsNone rather than fabricating identity. It deliberately accepts finite NONUNIT quaternions; canonical normalized directions/yaw-only BuildingOrientation are not equivalent complete pose owners. Keep original projection semantics, no implicit quaternion normalization. Generic finite position leaf could be reused perF001 only after choosing actual Bevy world/owner frame at integration; do not claim Scene<Position> from equalXYZ labels alone. The observation envelope itself combines runtime source/presence and nonunit orientation, a local native-view role rather than an independently authored building pose. FootPlant carries absent/acquiring/acquired world goal and retains acquired phase while updating target; a goal is not the rig origin nor a normalized direction. TerminalContacts distinguishes inactive/seeded/prepared, with signed zero-valid correction and optional initial base/target shift. None, neutralZERO, seeded visible correction and prepared ownership are different facts. No automatic fullfinite/terrainmembership promise from publicenum/nativeVec3 variants or name. Producer/current-goal numerical policy and aggregate mutation remain other source obligations; this definition comparison does not infer them.",
+      "disposition": "Preserve actual native rig observation and plant/terminal lifecycle products, canonical signed correction leaves and explicit absence. Generic geometric leaf reuse remains exact-frame F001 migration context, not forced normalized universal pose."
+    },
+    "evaluation-clock-and-foot-budget-roles": {
+      "comparison": "Fresh evaluation_clock23/target_speed58/track31 and canonical shared quantities001/132. LegIkMemory evaluation tick deduplicates only identical deterministic fixed tick; variable render delta becomes canonical AnimationElapsed and zero mayskip. CoreAnimationSampleTick is not StrategicMinute, entity generation or gameplay battle time. FootTargetSpeeds computes configured metre-step*Hz into changed canonical Core NonnegativeSpeed before retaining per-release/airborne/settle roles; true units conversion/re-admission is warranted. This is not another speed implementation or raw untouched forwarding. LocomotionSettleState chooses which already typed speed role, no hidden fatigue movement scale. FootTrackSide negative/positive rig-local X-half is a corridor role mapped from LeadFoot, not a duplicate anatomical left/right enum: actual semantic variable is axis half, coefficient emits native +/-1 at vector kernel. Zero/nonfinite native_x follows nativecomparison choice, not a generic probability or signed-distance owner. Preserve documented exact side/direction policy; no whole caller/fixture correctness inferred.",
+      "disposition": "Keep shared sample/time/speed leaves below client and actual local evaluation/corridor roles; real arithmetic ports need native scalars, not extra count/time/frame aliases."
+    }
+  },
+  "source_fact_refs": [
+    "contracts-001.json",
+    "contracts-002.json",
+    "contracts-132.json"
+  ],
+  "limits": "Six exact PR source files fresh full. Caller symbol navigation only outside these sources, no IK-state/observation/publication/terrain/rig helper source coverage from it. No normalized orientation/new frame assumption or source execution/later-lens verdict."
+}

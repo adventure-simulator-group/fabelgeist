@@ -1,0 +1,155 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-606",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/doors.rs",
+      "sha256": "676d9b173c594a21fd92761c7737e160d1c19c5c17a5efd8cadd784c51cb6c33",
+      "actual_EOF": 672,
+      "actual_compared_ranges": [
+        [
+          1,
+          672
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/windows.rs",
+      "sha256": "1558b154ebeb2ec83990f857600744dc6086859d467f5cfbaa974c04e6f3859d",
+      "actual_EOF": 294,
+      "actual_compared_ranges": [
+        [
+          1,
+          294
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Authoritative door controller, grab/exemption andactualgateproducer",
+      "finding": "SEGOVB-04-RIGHT-HINGED-GATE-PASSAGE-CENTRE-CANDIDATE-001",
+      "evidence": "Whole672doorbodypersonallyread plusactualgateboundary/privateproducer/caller ranges in freshdeps andCoredoors1\u201380 actualthreshold receiver. Allpose conversions collectbeforebuildingdoorspawn; spawnedjoint/physics authority stays transientBevy. Passagegrantonlyinsidecheckedgrab, revokeoutside/lateralbounds, motorweakerclosing byexplicitpolicy.",
+      "qualifications": [
+        "supplier RIG-OWNER-REACHED-PRODUCER-F003/OWNER81F006 retaincheckedhinge/angle; differentlostinformation remedy, no automaticsamefinding",
+        "M12 broad door/controllergeometry scope is not exactalias proof",
+        "report_unseated_doors303\u2013312 likewiseassumes leftlocalhinge; classify diagnostic consequence separately withoutclaimingjointphysicaldrift",
+        "windowanimate hasactualleftedgegeometry anddoesnotreceiveCityGate; arbitraryoffsetdecodedwindow remainsseparate APIaggregatepolicy"
+      ],
+      "acceptance": [
+        "Left/rightgeneratedgates both admitinsideactorattrueopeningcentre withcurrentgrabdistancepolicy",
+        "Actualhingepose andphysicaljoint unchanged; no artificial passagegeometryshift oroutsidegrant",
+        "Exemptionlateralrevocation usesactualopeningcentre, ordinarybuildingdoor behavior preserved",
+        "Sourceonly support; run/asset/physicsacceptance remains unperformed"
+      ]
+    },
+    {
+      "contract": "Window controller update andnativephysics handoff",
+      "evidence": "Whole294lines inclfixtures personallyread: checkedSceneWindowPose convertedtoKinematiccollider+replicateddescriptor, insidegrab togglesbool, angularstep constant2.8*clockdelta clampsangle, rotationoriginalnativeproduct thenhinge+rotationXhalfwidth.",
+      "qualifications": [
+        "Currentangle/hinge/openangle storedraw areexact supplierF003/OWNER81F006 producer gaps alreadyconsumed, no duplicatenewcount.",
+        "Nativewindowposition formula assumescanonicalleftedgehinge, actualcompilerfrom_solid establishes; no genericoffsetpivot support promisedforarbitrarypublicdecode. Negative elapsednotnormalBevyTime; no ordinarynonfiniteclockexample."
+      ],
+      "acceptance": "Preserve actualnativeclosedrotation, insideonlytoggle andboundednormalelapsedstep; no durableSpacetimeDBtacticalmutation."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-RIGHT-HINGED-GATE-PASSAGE-CENTRE-CANDIDATE-001",
+      "lens": "04",
+      "status": "source-backed ordinary-sized generated-producer conditional case; no actual actor/session/physics run",
+      "variant": "physical-p16 039329518e264f19206cf5b0b98d177433f40c17",
+      "earliest_failed_operation": "server doors.rs156\u2013164 recomputes doorway_centre=hinge+tangent*width/2 regardless actual hinge side, replacing actual closed_centre",
+      "producer_trace": [
+        "city_layout.rs268\u2013294 choosesLeftpassage for merchant whenstreamboolean true; no fixedseed asserted",
+        "compiled/property.rs164\u2013199 choosesgatehinge=passage_side.opposite withwidth1.6, boundaryheight1.8",
+        "compound/boundary.rs CityGate::door computesright hinge=closedcentre+tangent*.8 (left givesclosed\u2212.8)",
+        "server boundaries.rs4\u201329 convertsgate datumthenactualdoors::spawn_door",
+        "server doors.rsDoorGrabber84\u201399 passesreplicated shiftedcentre tocorecan_grab; update_door_passages323\u2013370 usesretained samecentre"
+      ],
+      "witness": "Right-hinged generatedgate ofwidth1.6: actualclosedcentre C; hinge C+.8T. Server passagecentre C+1.6T. Anactor C\u2212.5*outward is legallyinside attruecentre. Actualcan_grabdoor takesdepth\u2212.5 valid, butlateraldistance1.6 >halfwidth.8+margin.6=1.4 and rejects; correctauthoredcentre gives0. Sourcequantities ordinary-sized. Requires generatedLeftpassage merchant tosurviveordinarylayoutacceptance; existinghandednessfixtures explicitlycompilebothsidesbutnotexecutedhere.",
+      "related_contracts": [
+        "supplier RIG-OWNER-REACHED-PRODUCER-F003/OWNER81F006 retaincheckedhinge/angle; differentlostinformation remedy, no automaticsamefinding",
+        "M12 broad door/controllergeometry scope is not exactalias proof",
+        "report_unseated_doors303\u2013312 likewiseassumes leftlocalhinge; classify diagnostic consequence separately withoutclaimingjointphysicaldrift",
+        "windowanimate hasactualleftedgegeometry anddoesnotreceiveCityGate; arbitraryoffsetdecodedwindow remainsseparate APIaggregatepolicy"
+      ],
+      "repair_boundary": "Preserve actual doorway/opening centre as semantic fact; derive from admittedleaf.closed_centre or carry explicit hinge geometry. Do not force allgatehinges left ornormalize mirroredpassage away. Shared door spawn/controller/grab/exemption/diagnostic recipients requireconsistentcentre.",
+      "acceptance": [
+        "Left/rightgeneratedgates both admitinsideactorattrueopeningcentre withcurrentgrabdistancepolicy",
+        "Actualhingepose andphysicaljoint unchanged; no artificial passagegeometryshift oroutsidegrant",
+        "Exemptionlateralrevocation usesactualopeningcentre, ordinarybuildingdoor behavior preserved",
+        "Sourceonly support; run/asset/physicsacceptance remains unperformed"
+      ],
+      "alias_status": "Narrow1002wrapperlookup no exactgeometrycase consumed; parentaskedforpriorcurrentledgerexactalias. No uniqueglobalcount."
+    }
+  ],
+  "fresh_dependencies": [
+    {
+      "variant": "physical-p16",
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/property.rs",
+      "local_path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/fresh-dependencies/606/crates/adventuresim-tactical-core/src/city_layout/compiled/property.rs",
+      "sha256": "ae34cb221f0a7fec0c9c65d49e88822262a16c26c965566e735cc95b510741de",
+      "actual_EOF": 203,
+      "actual_compared_ranges": [
+        [
+          1,
+          55
+        ],
+        [
+          110,
+          203
+        ]
+      ],
+      "provenance": "Exact git0393295; onlystatedranges personallyread; separate live registration pendingcoordinator, no wholebodycreditwherepartial."
+    },
+    {
+      "variant": "physical-p16",
+      "path": "crates/adventuresim-tactical-server/src/boundaries.rs",
+      "local_path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/fresh-dependencies/606/crates/adventuresim-tactical-server/src/boundaries.rs",
+      "sha256": "41530ea3d8197242c6c5cc79ac9a35b31b9df76287a57aae530247553f3e2f2b",
+      "actual_EOF": 46,
+      "actual_compared_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "provenance": "Exact git0393295; onlystatedranges personallyread; separate live registration pendingcoordinator, no wholebodycreditwherepartial."
+    },
+    {
+      "variant": "physical-p16",
+      "path": "crates/adventuresim-tactical-core/src/city_layout.rs",
+      "local_path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/fresh-dependencies/606/crates/adventuresim-tactical-core/src/city_layout.rs",
+      "sha256": "d5aacb8a24fecfd5dadee9361c1b6c3d32bd19171bfc0bc984cd8b2efb183c8f",
+      "actual_EOF": 338,
+      "actual_compared_ranges": [
+        [
+          235,
+          315
+        ]
+      ],
+      "provenance": "Exact git0393295; onlystatedranges personallyread; separate live registration pendingcoordinator, no wholebodycreditwherepartial."
+    },
+    {
+      "variant": "physical-p16",
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/property/handedness_tests.rs",
+      "local_path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/fresh-dependencies/606/crates/adventuresim-tactical-core/src/city_layout/compiled/property/handedness_tests.rs",
+      "sha256": "f41fca98399a19869386e27461d20b58338b534bf26227fd0c2e4e3f5ca1e528",
+      "actual_EOF": 77,
+      "actual_compared_ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "provenance": "Exact git0393295; onlystatedranges personallyread; separate live registration pendingcoordinator, no wholebodycreditwherepartial."
+    }
+  ],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-building-generator/src/generator/church_apse.rs"
+}

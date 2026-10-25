@@ -1,0 +1,46 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-513",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain/surface_recipe.rs",
+      "sha256": "62dd60826db3c1d29b8ec6160d09985646410cb2b2b612e36b5370b3df1d891e",
+      "actual_EOF": 490,
+      "actual_compared_ranges": [
+        [
+          1,
+          490
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/tests/grounding_contracts.rs",
+      "sha256": "86099f8185a2046b811d7a1e14be6334d00f4b0eff889c3eb4e7bcda8e59a6a8",
+      "actual_EOF": 514,
+      "actual_compared_ranges": [
+        [
+          1,
+          514
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Surface parameters and structural normal arithmetic",
+      "evidence": "Full surface_recipe490.45canonical lithologies exhaustivepreset mapping; fixedparameterbounds checked. Threei16components widened i64before square/sum (max3*32768\u00b2 fitsi64). Inferredunitnormal from authoredtangent has bounded dip; arbitraryrawtangent candidate is rejected by final surface.validate if inferred normal outside normwindow; Massive intentionally no frame requirement. Structureparameters remain explicit artisticinference, sourceMapped notmeasuredfield structure. Internally tagged TerrainGeologicStructure21 remains rootlocal774:F52 codec dependency, no runtime/serde replay."
+    },
+    {
+      "contract": "Existing public-boundary fixtures qualify physical geometry semantics",
+      "evidence": "Full grounding_contracts514 personallyread, no execution. Existing JSON/postcard/reflection checks cover negative/nonfinitepolicy leaves while zeroTerrainGrade/wander/variation remainvalid; thin1e-8 andzeroarea foundationcontactcells intentional, bothwindings tested. Explicitnegativeelevation/boundedceiling, duplicateorderedmembers andinvalidquerytree accepted/rejectedbehavior; support interpolation finiteextremeendpoints returns0. These assertions do not resolve volume-depth prepromotion492 or naturalempty cutface490 because different operations. Garden sourcefixture validateszeroidentityrejection, not liveDB identityauthority."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-netcode/src/client.rs"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-026",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "durability-structural-damage-versus-physical-impact-and-repair-role",
+      "sources": [
+        {
+          "scope_index": 95,
+          "ranges": [
+            [
+              1,
+              454
+            ]
+          ]
+        }
+      ],
+      "distinction": "DamageBins is an ordered five-tier functional-loss budget, not five independent health fractions or combat contact energies. RepairService differs from RepairItemKind: Weapons service intentionally includes bothWeapon/Shield. Item quality/tier are finite numeric scales, not arbitrary enum indices; repairability is a prefix across bins. Stress thresholds/wear conversion/failure share belong one physical response profile, not interchangeable genericDamageScalar.",
+      "uses": "normalized120\u2013135 sanitizes then preserves deeper damage first; add_to_tier165\u2013179 capsnewdamage byremainingtotal, capped_to_quality183\u2013192 movesdeeper damage intoqualitycap. damage_from_impact232\u2013264 convertsrelative physicalstress tofunctional fraction, unlike combathealth energyconversion. effective_weapon_stat269/handling275 distinct projections. Repair quote65\u201370 scalesmoney byrepairablefraction; removal55\u201361 prefersspares overequipped withstableID tie.",
+      "disposition": "Retain coherent damagebudget and profile/event boundaries, share existing quality/rating leaf only where same scale meaning proven. Do not reuse meleeEnergy or AppliedHealthDamage for durableamount/stress, nor force service and itemkind into one enum. PublicrawDamageBins normalization/API exposure is admission/aggregate concern; actualshownnormalfixtures coherent, no ordinarynewproducerfailure. Booleancatastrophic/result-tier shape belongs own09 supportingobligation, notnew11unique.",
+      "acceptance": "Preserve structuralpriority, zero/no-opimpact andfield/settlement repairtiers, qualitycap andcompletequote policy, stableinstancecustody versuscatalogitem key. Escrow character0 represents actualcustodyabsence; no fakeordinaryCharacterId0 admission. Proper custodyowner remains native boundary question. No overflowkernel execution orclaimfixturespassed."
+    },
+    {
+      "id": "shared-elapsed-invariant-without-policy-cap-or-clock-erasure",
+      "sources": [
+        {
+          "scope_index": 96,
+          "ranges": [
+            [
+              1,
+              131
+            ]
+          ]
+        }
+      ],
+      "distinction": "AnimationElapsed owns finite nonnegative seconds across simulation/presentation/authority elapsed quantities. It differs from absolute battleclock andsigned contactoffset; namealone doesnotrestrict toanimationclip. Shared common elapsed invariant is useful, while real clipduration/framecycle role canwrap/reuse it when actualmixup prevented. Resultalias attachescohesivetimingerrorfamily ratherthangenericuniversalquantity.",
+      "uses": "native_duration79\u201380 is explicit native timer range refinement without capping acceptedspan; DurationFrom preservesfinite nonnegative representation. checkedscale rejectsnegative/nonfinite result, checkedadd checks overflow; zero andsignedzeroadmitted. saturatingsub flooredat0 andabsdiff preserve finiteboundedlargeroperand.",
+      "disposition": "Keep common seconds arithmetic beneath any genuinely distinct purpose wrapper; do not duplicatefinite/nonnegativevalidation per animationfeature, or foldBattleTime/ContactTimingOffset intoelapsed. CurrentQ001<=1cadencepolicy livesconfig independently, no change tosharedspan acceptedset.",
+      "acceptance": "Preserve zero observation, explicit nativeRangeerror for finite spans too largeDuration, signedcoordinate/offset separation andcompletearithmetic fallibility. No arbitraryglobalMAX/tinypositivefloor or nativeDurationcompatibility fallback."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

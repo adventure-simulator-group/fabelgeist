@@ -1,0 +1,101 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-121",
+  "at": "2026-10-25T17:44:34.017182+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1583,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/interior_lighting/exposure.rs",
+      "sha256": "2a0f8b543b87994ec1b68d032d33900e4429a299755014002ec4986dc80c75bd",
+      "personally_read_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full129 exposure and original approach fixture read. InteriorExposure groups selected scene, compensation and settled state; reset on missing snapshot and scene change before current target recomputation. Time<Real> intentionally adapts while simulation paused. Exponential approach has separate positive dark/light time constants and settled tolerance, preserves no overshoot for normal nonnegative delta. Log2 compensation uses positive brightness floor for actual numerical kernel, not a gameplay cannot-arrive sentinel. Semantic exposure stops/time remain M63; world/native inverse Transform to CPU raw field points M73. Fixed views intentionally use settled target immediately rather than animated state."
+      ]
+    },
+    {
+      "scope_index": 1584,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/interior_lighting/field.rs",
+      "sha256": "cbc42cdf56bc3c26ad2b18de8e3c7729729adf374864c725afb51d3739be7dd0",
+      "personally_read_ranges": [
+        [
+          1,
+          206
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full206 field read. Samples/base_samples/shutter contribution indices derive same width/depth/levels and source cells; room-tag+1 stored in native ShaderType .w (0 outside) is deliberate packed GPU representation. M72 exact decoded reference/membership/cardinality admission remains needed before direct opening.wall indexing and signed cell extent arithmetic. M73 grid count/spacing/origin datum ownership must survive CPU lookup. from_plan normal generated source groups values coherently, but public fields/derived upstream layout can violate cross-field facts; private sample vector alone is not proof. Preserve empty source default1 behavior pending accepted authoring policy, not silently reject unsupported programs."
+      ]
+    },
+    {
+      "scope_index": 1585,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/interior_lighting/material.rs",
+      "sha256": "471814441e963a1a7071318ba66328c2c35342833783aca64c5e9acc75b58492",
+      "personally_read_ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full82 material adapter read. Canonical native AssetId keys shared material cache; source remains on InteriorMaterialSource for inspection/effects. Modified event updates existing derived base, Unused/Removed drop key, incoming material conversion removes old component and installs extension/source together. Actual GPU buffer handle intentionally shared. Missing native asset skips rather than fake source value; no current external asset removal/runtime witness."
+      ]
+    },
+    {
+      "scope_index": 1586,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/interior_lighting/mod.rs",
+      "sha256": "7e1ddb323e8daf9aeb8c1a0270dda49ebb86500f4c346b18c2c06fc563ad41aa",
+      "personally_read_ranges": [
+        [
+          1,
+          251
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full251 GPU field builder and upload selection read. Normal selected nearby list capped16; whole sample count including reserved default must fit65536 before append, keeping actual native u32 offset within bound. Buildings/sample arrays/count built together, actual geometry matrix controls rebasing and matching bounds. Selection exact Entity+transform and field change detection guard reupload; daytime photometry included. for_upload pads actual accepted sample vector and fixed allocation remains stable. No-camera clears selection; native buffer disappearance does not prove source bug under retained strong handle. Packed native room tags/counts/arrays legitimate boundary representation, CPU raw geometry M73 still connected."
+      ]
+    },
+    {
+      "scope_index": 1587,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/interior_lighting/shutters.rs",
+      "sha256": "7407591681d7c7627ec87f5d627b59ca7972544e2096d7f7ea0104ebb8204ad4",
+      "personally_read_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full115 shutter update and fixture read. Same canonical OpeningAssemblyId joins building-specific actual window leaf projection to stored contributions; absent window means closed0 intentionally. M71 exact retained projected UnitInterval requirement. Any changed aperture rebuilds from immutable base then applies every current shutter, preserves positive.w room tag while clamps final irradiance; no iterative accumulation drift. Tolerance deliberately suppresses tiny reuploads; not universal stale state defect. Actual contributing indices rely same admitted field layout M72/M73."
+      ]
+    },
+    {
+      "scope_index": 1588,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/interior_lighting/tests.rs",
+      "sha256": "298c37aca368112afc85dbd9b6422f007ab80a458c40e7aa3c19e965bb8c4dbf",
+      "personally_read_ranges": [
+        [
+          1,
+          331
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full331 existing interior source fixtures read only. Preserve rebased rotated coordinates, room/courtyard/floor boundaries, resident16/sample budget and fixed allocation, camera active selection/removal, exposure during pause/outdoors/night/snapshot loss, source material edits without duplicate draws. Test raw building DTO mutation intentionally supplies controlled source; future admitted layout fixtures need valid construction without changing assertions. No runtime/renderer validation."
+      ]
+    }
+  ],
+  "findings": [
+    "M71 projected aperture fraction",
+    "M72 structural accepted layout",
+    "M73 CPU grid frame",
+    "M63 photometric/time quantities"
+  ],
+  "qualified_connected_requirements": [],
+  "discovery": "6 newly accounted original roles; other reads support already counted historical roles. Lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

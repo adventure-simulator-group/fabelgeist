@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1245",
+  "at": "2026-10-25T18:16:36.903079+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1309,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/examples/runtime_equipment_bench.rs",
+  "sha256": "f701a85a4eaabe0163ef74719afbbca290ff30c5e3c64a7360a674cdc8ab065a",
+  "actual_compared_ranges": [
+    [
+      1,
+      300
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Native bench main/report and beginning GPU fixtures: no handwritten trait/local bespoke type/customcodec in this slice. report adds elapsed runtime and selected mesh metrics/errors using json!, not manual Serialize. Actual fit construction/geometry validation is semantic rather than From/Default. Source only; no CLI/asset/GPU execution.",
+  "first_unfinished": {
+    "scope_index": 1309,
+    "line": 301
+  },
+  "execution": "none"
+}

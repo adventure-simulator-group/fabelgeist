@@ -1,0 +1,76 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-631",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-hair/src/grid.rs",
+      "sha256": "c09704f7670decebc3e4eb9ff4ea525870f197f4302a4e16407c5e298f988996",
+      "actual_EOF": 189,
+      "actual_compared_ranges": [
+        [
+          1,
+          156
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2644"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-hair/src/collider.rs",
+      "sha256": "a6c42473a9969568f6eb700df01cc6753b92bb2034ade7d129733d1a550c2021",
+      "actual_EOF": 171,
+      "actual_compared_ranges": [
+        [
+          1,
+          111
+        ],
+        [
+          165,
+          171
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2645"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-shell/src/lib.rs",
+      "sha256": "f56675ce9e64d8c46ee028e405abd261b969614531a211b4c75471ba5b714f10",
+      "actual_EOF": 58,
+      "actual_compared_ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2647"
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Point-grid lookup arithmetic, candidate selection and successful return",
+      "evidence": "Grid1\u2013156 personally read. Cell floor1e\u22126 then floating\u2192i32 key; insertion stores actual point/index then cell membership. Shell traversal uses signed c+offset. Count and any radius loops differ strict/non-strict boundary intentionally. nearest sorts by total distance and early-returns before terminal radius filter.",
+      "qualifications": [
+        "Exact ordinary-scale API witness and zero-k case saved separately. Actual group owner construction not re-reviewed by import. No actual hair caller/run.",
+        "Public k+8 capacity, usize\u2192u32 point index, signed cell endpoint addition and finite radius squared/work capacity need owning native admission; do not narrow physical coordinate domains on this evidence."
+      ],
+      "acceptance": "All lookup exits must preserve advertised radius/count/order and accepted group membership, with checked native cell/index/work boundaries."
+    },
+    {
+      "contract": "Bounded collider projection and shell material validation",
+      "evidence": "Collider1\u2013111/165\u2013171 and shell lib1\u201356 read. push_out has six bounded iterations; keep_clear returns for fewer than2 points, uses fixed nonzero quarter samples, accumulates per-point max-length pushes, and intentionally skips root. NoCollider deliberately returns positive infinity distance so no correction occurs. Shell material validates finite nonnegative values with strictly positive thickness; particle_radius multiplies by.5.",
+      "qualifications": [
+        "Finite positive smallest thickness may halve to0: representability/radius semantics question, not automatically forbidden material or an ordinary defect without Shell recipient proof.",
+        "push_out/keep_clear are bounded approximation kernels, not proof universal clearance for arbitrary Collider implementation; actual valid distance/gradient contract and physical scales required. Legal NoCollider infinity sentinel must remain."
+      ],
+      "acceptance": "Preserve bounded/root-anchor behavior and native distance/gradient premises; any promised finite positive radius must be admitted where material becomes actual contact geometry."
+    }
+  ],
+  "findings": [
+    "SEGOVB-04-POINTGRID-NEAREST-RADIUS-CANDIDATE-001"
+  ],
+  "status": "Qualified material ranges personally analyzed; whole04 remains incomplete.",
+  "first_unfinished": "pr-working:crates/fabelgeist-xpbd/src/particles.rs",
+  "source_edits": false,
+  "project_execution": "none"
+}

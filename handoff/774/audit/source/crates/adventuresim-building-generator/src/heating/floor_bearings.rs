@@ -1,0 +1,113 @@
+//! Re-measure deck bearings after board cuts; the joists and their joints stay intact.
+use crate::GenerationResult as Result;
+use crate::*;
+const INTERFACE_DEPTH_METRES: f32 = 0.004;
+const MINIMUM_CONTACT_METRES: f32 = 0.002;
+
+pub(super) struct BearingContact {
+    pub node: StructuralNodeId,
+    pub bounds: SpatialBounds<Architectural>,
+}
+
+pub(super) fn contacts(
+    geometry: &ResolvedGeometry,
+    members: &[TimberFrameMember],
+    floor: &TimberFloorAssembly,
+    bounds: SpatialBounds<Architectural>,
+) -> Result<Vec<BearingContact>> {
+    let mut contacts = Vec::new();
+    for member in members
+        .iter()
+        .filter(|m| floor.joist_members.contains(&m.id))
+    {
+        let Some(solid) = geometry.solids.iter().find(|s| s.id == member.solid) else {
+            continue;
+        };
+        let joist = solid.cuboid_bounds()?;
+        if (joist.max().metres().y - bounds.min().metres().y).abs() > MINIMUM_CONTACT_METRES {
+            continue;
+        }
+        let mut min = joist.min().metres().max(bounds.min().metres());
+        let mut max = joist.max().metres().min(bounds.max().metres());
+        if max.x - min.x < MINIMUM_CONTACT_METRES || max.z - min.z < MINIMUM_CONTACT_METRES {
+            continue;
+        }
+        min.y = bounds.min().metres().y - INTERFACE_DEPTH_METRES;
+        max.y = bounds.min().metres().y + INTERFACE_DEPTH_METRES;
+        contacts.push(BearingContact {
+            node: member.start_node,
+            bounds: SpatialBounds::from_metres(min, max)?,
+        });
+    }
+    Ok(contacts)
+}
+
+pub(super) fn attach(
+    geometry: &mut ResolvedGeometry,
+    members: &[TimberFrameMember],
+    floor: &mut TimberFloorAssembly,
+    piece: &mut ResolvedSolid,
+    slot: &mut u64,
+) -> Result<()> {
+    piece.supported_by.clear();
+    for contact in contacts(geometry, members, floor, piece.cuboid_bounds()?)? {
+        let BearingContact { node, bounds } = contact;
+        *slot += 1;
+        let id =
+            ResolvedItemId((4_u64 << 60) | (u64::from(piece.owner.0) << 32) | 0x0950_0000 | *slot);
+        geometry.support_interfaces.push(SupportInterface {
+            id,
+            owner: piece.owner,
+            node,
+            bounds,
+        });
+        floor.floor_joist_interfaces.push(id);
+        floor.bearing_interfaces.push(id);
+        piece.supported_by.push(node);
+    }
+    piece.supported_by.sort_unstable();
+    piece.supported_by.dedup();
+
+    Ok(())
+}
+
+pub(super) fn valid(plan: &BuildingPlan, level: StoreyIndex) -> bool {
+    let Some(frame) = &plan.timber_frame else {
+        return false;
+    };
+    let Some(floor) = frame
+        .floors
+        .iter()
+        .find(|f| StoreyIndex::from_serialized(f.level) == level)
+    else {
+        return false;
+    };
+    floor.floor_joist_interfaces.iter().all(|id| {
+        let Some(interface) = plan
+            .resolved_geometry
+            .support_interfaces
+            .iter()
+            .find(|i| i.id == *id)
+        else {
+            return false;
+        };
+        frame
+            .members
+            .iter()
+            .filter(|m| floor.joist_members.contains(&m.id))
+            .filter(|m| [m.start_node, m.end_node].contains(&interface.node))
+            .any(|member| {
+                plan.resolved_geometry.solids.iter().any(|solid| {
+                    solid.id == member.solid
+                        && crate::solid_overlap::overlaps_bounds(
+                            solid,
+                            (
+                                interface.bounds.min().metres(),
+                                interface.bounds.max().metres(),
+                            ),
+                            MINIMUM_CONTACT_METRES,
+                        )
+                })
+            })
+    })
+}

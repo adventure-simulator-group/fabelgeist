@@ -1,0 +1,1937 @@
+{
+  "id": "OWN02-DELTA-CONTRACT-003",
+  "at": "2026-10-24T02:05:09.484986+00:00",
+  "lens": "audit-existing-type-owners",
+  "baseline": "adopted ROOT040/0422560/59 WITH_FINDINGS",
+  "rows": [
+    {
+      "delta_index": 21,
+      "source_scope_index": 2703,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review.rs",
+      "sha256": "3c564d966106dc282daa68307a9b2fe6bb064582bab74f8a50e64a1aa9650896",
+      "effective_ranges": [
+        [
+          1,
+          173
+        ]
+      ],
+      "registration": {
+        "record": "continuation/root/admission03/source-range-registration.jsonl",
+        "sha256": "42db551c1765fc0c264eb972d5c17b6f69671f476ee3aab27cc97a0e5bac76f4",
+        "row_1based": 44,
+        "id": "ROOT-ADMISSION03-REG-044"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "root",
+          "registry": "continuation/root/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "registration_id": "ROOT-ADMISSION03-REG-044",
+            "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review.rs",
+            "sha256": "3c564d966106dc282daa68307a9b2fe6bb064582bab74f8a50e64a1aa9650896",
+            "effective_material_ranges": [
+              [
+                1,
+                173
+              ]
+            ],
+            "qualifications": [],
+            "status": "pure_existing_actual_role_range_normalization_not_source_or_otherlens_credit"
+          },
+          "registration_id_resolved": "ROOT-ADMISSION03-REG-044"
+        }
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": [
+        "CONT07-CONTRACT-619"
+      ],
+      "source_proof_qualification": "Exact own07 body evidence or fresh02 ranges specified; adopted same-lens02 baseline is not replayed. Root01 narrative consumed for source navigation, no01 verdict transfer.",
+      "owner_fit_disposition": "existing-review-product-owners-positive",
+      "owner_fit_reasoning": "ReviewFixture uses SceneBuildingId, ShopSign/SignSite and BuildingReviewCamera. These retain building identity, physical sign attachment and checked camera policy across fixture admission. Review profile IDs and eight material override labels are separate presentation vocabulary; do not replace them with a physical material enum solely by name. Exact fixture/spec count and slug pairing are actual admission guards, with native Bevy error display as final boundary. No broader arbitrary slug vocabulary inferred.",
+      "discovery": "accounted with inherited findings and explicit contract questions; not clear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true
+    },
+    {
+      "delta_index": 22,
+      "source_scope_index": 2704,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+      "sha256": "44e7ffb24f89b628a6aa80e5d207018770c558bef8aafacf8e9e6dfa91962bcb",
+      "effective_ranges": [
+        [
+          1593,
+          1644
+        ],
+        [
+          2656,
+          3327
+        ]
+      ],
+      "registration": {
+        "record": "continuation/root/admission03/source-range-registration.jsonl",
+        "sha256": "42db551c1765fc0c264eb972d5c17b6f69671f476ee3aab27cc97a0e5bac76f4",
+        "row_1based": 45,
+        "id": "ROOT-ADMISSION03-REG-045"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "root",
+          "registry": "continuation/root/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "registration_id": "ROOT-ADMISSION03-REG-045",
+            "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+            "sha256": "44e7ffb24f89b628a6aa80e5d207018770c558bef8aafacf8e9e6dfa91962bcb",
+            "effective_material_ranges": [
+              [
+                1593,
+                1644
+              ],
+              [
+                2656,
+                3327
+              ]
+            ],
+            "qualifications": [
+              {
+                "registration_id": "ROOT-ADMISSION03-REG-045",
+                "effective_material_ranges": [
+                  [
+                    1593,
+                    1644
+                  ],
+                  [
+                    2656,
+                    3327
+                  ]
+                ],
+                "context_excluded": [
+                  [
+                    1645,
+                    1648
+                  ],
+                  [
+                    3328,
+                    3328
+                  ]
+                ],
+                "proof": "ROOT-ADM-G073",
+                "qualification": "Exact initialstate literal only andcompletecapture_views; neighboringbenchmarkpartial notmaterial. No wholeparentstartup/readbacknumeric/helper credit."
+              }
+            ],
+            "status": "pure_existing_actual_role_range_normalization_not_source_or_otherlens_credit"
+          },
+          "registration_id_resolved": "ROOT-ADMISSION03-REG-045"
+        }
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": [
+        "CONT07-CONTRACT-620"
+      ],
+      "source_proof_qualification": "Exact own07 body evidence or fresh02 ranges specified; adopted same-lens02 baseline is not replayed. Root01 narrative consumed for source navigation, no01 verdict transfer.",
+      "owner_fit_disposition": "existing-camera-owners-erased-before-report-port",
+      "owner_fit_reasoning": "Initial capture state extracts checked geographic coordinates into retained microdegrees and source/profile/view strings. These are distinct from scene-local Position<Scene>; a SourcePackageDigest fits only the package identity, not image hashes. CaptureCameraPlacement keeps checked angles/lengths through Bevy Transform projection, but report storage copies raw FOV/boom/geometry before final JSON acceptance. Reuse existing checked camera measurement owners through that internal storage where their admission still fits; preserve unavailable luminance as a distinct observation state, not a positive distance. Infinity initialization is provisional, not an executed nonfinite result.",
+      "discovery": "accounted with inherited findings and explicit contract questions; not clear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true
+    },
+    {
+      "delta_index": 23,
+      "source_scope_index": 2705,
+      "source_id": "physical-p16:crates/strategic-web/src/routes/settlements/rest.rs",
+      "sha256": "c28f905d16256a1947973448f3c88a630b140b67d3fe9cbcc77554cf9082d04d",
+      "effective_ranges": [
+        [
+          1,
+          21
+        ],
+        [
+          32,
+          91
+        ],
+        [
+          104,
+          158
+        ]
+      ],
+      "registration": {
+        "record": "continuation/root/admission03/source-range-registration.jsonl",
+        "sha256": "42db551c1765fc0c264eb972d5c17b6f69671f476ee3aab27cc97a0e5bac76f4",
+        "row_1based": 46,
+        "id": "ROOT-ADMISSION03-REG-046"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "root",
+          "registry": "continuation/root/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "registration_id": "ROOT-ADMISSION03-REG-046",
+            "source_id": "physical-p16:crates/strategic-web/src/routes/settlements/rest.rs",
+            "sha256": "c28f905d16256a1947973448f3c88a630b140b67d3fe9cbcc77554cf9082d04d",
+            "effective_material_ranges": [
+              [
+                1,
+                21
+              ],
+              [
+                32,
+                91
+              ],
+              [
+                104,
+                158
+              ]
+            ],
+            "qualifications": [
+              {
+                "registration_id": "ROOT-ADMISSION03-REG-046",
+                "effective_material_ranges": [
+                  [
+                    1,
+                    21
+                  ],
+                  [
+                    32,
+                    91
+                  ],
+                  [
+                    104,
+                    158
+                  ]
+                ],
+                "context_excluded": [
+                  [
+                    22,
+                    31
+                  ],
+                  [
+                    92,
+                    103
+                  ],
+                  [
+                    159,
+                    159
+                  ]
+                ],
+                "proof": "ROOT-CAMERA-NATIVE2-ADM03-342",
+                "qualification": "Onlynamedactualdirectparser/constant/memberfilter body; neighboringdeclarations/helperscontextuncredited. Originalscopesnotnarrowed."
+              }
+            ],
+            "status": "pure_existing_actual_role_range_normalization_not_source_or_otherlens_credit"
+          },
+          "registration_id_resolved": "ROOT-ADMISSION03-REG-046"
+        }
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": [
+        "CONT07-CONTRACT-620",
+        "fresh02 exact scopedbody; owner148:318\u2013329 and1020:45\u201353"
+      ],
+      "source_proof_qualification": "Exact own07 body evidence or fresh02 ranges specified; adopted same-lens02 baseline is not replayed. Root01 narrative consumed for source navigation, no01 verdict transfer.",
+      "owner_fit_disposition": "concrete-existing-duration-and-shelter-owner-match",
+      "owner_fit_reasoning": "travel_rest_minutes104\u2013112 returns a positive minute request, additionally bounded by one strategic year. Existing Core RequestedDuration at P16 strategic_action148:318\u2013329 admits any nonzero u64 minutes: exact numeric leaf reuse after parsing preserves positive semantics, while the rest-specific maximum remains a separate admission rule. It does not fit parsed_rest_minutes before zero rejection or elapsed minute durations that allow0. FieldShelter at PR survival1020:45\u201353 exactly owns Bivouac/Tent; parse that enum before final DB JSON bridge instead of independently matching policy strings. Missing form shelter must still error despite enum default. RestDurationError remains structured.",
+      "discovery": "accounted with inherited findings and explicit contract questions; not clear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true
+    },
+    {
+      "delta_index": 24,
+      "source_scope_index": 156,
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_time.rs",
+      "sha256": "3af84cd2d335ef14e2ae8034345fcdcb999a93b4adeabd1a2e1f58beb780f57c",
+      "effective_ranges": [
+        [
+          16,
+          16
+        ]
+      ],
+      "registration": {
+        "record": "continuation/root/admission03/source-range-registration.jsonl",
+        "sha256": "42db551c1765fc0c264eb972d5c17b6f69671f476ee3aab27cc97a0e5bac76f4",
+        "row_1based": 47,
+        "id": "ROOT-ADMISSION03-REG-047"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "root",
+          "registry": "continuation/root/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "registration_id": "ROOT-ADMISSION03-REG-047",
+            "source_id": "physical-p16:crates/adventuresim-core/src/strategic_time.rs",
+            "sha256": "3af84cd2d335ef14e2ae8034345fcdcb999a93b4adeabd1a2e1f58beb780f57c",
+            "effective_material_ranges": [
+              [
+                16,
+                16
+              ]
+            ],
+            "qualifications": [
+              {
+                "registration_id": "ROOT-ADMISSION03-REG-047",
+                "effective_material_ranges": [
+                  [
+                    16,
+                    16
+                  ]
+                ],
+                "context_excluded": [
+                  [
+                    1,
+                    15
+                  ]
+                ],
+                "proof": "ROOT-CAMERA-NATIVE2-ADM03-342",
+                "qualification": "Onlynamedactualdirectparser/constant/memberfilter body; neighboringdeclarations/helperscontextuncredited. Originalscopesnotnarrowed."
+              }
+            ],
+            "status": "pure_existing_actual_role_range_normalization_not_source_or_otherlens_credit"
+          },
+          "registration_id_resolved": "ROOT-ADMISSION03-REG-047"
+        }
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": [
+        "CONT07-OVERLAY-130",
+        "CAMERA-INITIAL07-CONTRACT-096"
+      ],
+      "source_proof_qualification": "Exact own07 body evidence or fresh02 ranges specified; adopted same-lens02 baseline is not replayed. Root01 narrative consumed for source navigation, no01 verdict transfer.",
+      "owner_fit_disposition": "canonical-calendar-alias-not-independent-owner",
+      "owner_fit_reasoning": "The only material declaration aliases MAX_SETTLEMENT_REST_MINUTES to MINUTES_PER_YEAR. This is an explicit context policy name using the canonical calendar value. It is not a second days-per-year owner or justification for treating absolute StrategicMinute and elapsed duration as the same type. No neighboring declarations gain coverage.",
+      "discovery": "accounted with inherited findings and explicit contract questions; not clear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true,
+      "adopted_baseline_source_body_evidence": [
+        {
+          "record": "CAMERA-INITIAL07-CONTRACT-096",
+          "ranges": [
+            [
+              1,
+              860
+            ]
+          ],
+          "kind": "adopted exact07 source-body evidence; independent02 use"
+        }
+      ]
+    },
+    {
+      "delta_index": 25,
+      "source_scope_index": 2706,
+      "source_id": "physical-p16:crates/strategic-web/src/routes/settlements/encumbrance.rs",
+      "sha256": "1b05e35b79269c08ac5183beede6022f00ca9cb2ffa3c3b0ca9e2121a62a4035",
+      "effective_ranges": [
+        [
+          356,
+          410
+        ]
+      ],
+      "registration": {
+        "record": "continuation/root/admission03/source-range-registration.jsonl",
+        "sha256": "42db551c1765fc0c264eb972d5c17b6f69671f476ee3aab27cc97a0e5bac76f4",
+        "row_1based": 48,
+        "id": "ROOT-ADMISSION03-REG-048"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "root",
+          "registry": "continuation/root/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "registration_id": "ROOT-ADMISSION03-REG-048",
+            "source_id": "physical-p16:crates/strategic-web/src/routes/settlements/encumbrance.rs",
+            "sha256": "1b05e35b79269c08ac5183beede6022f00ca9cb2ffa3c3b0ca9e2121a62a4035",
+            "effective_material_ranges": [
+              [
+                356,
+                410
+              ]
+            ],
+            "qualifications": [],
+            "status": "pure_existing_actual_role_range_normalization_not_source_or_otherlens_credit"
+          },
+          "registration_id_resolved": "ROOT-ADMISSION03-REG-048"
+        }
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": [
+        "CONT07-CONTRACT-621"
+      ],
+      "source_proof_qualification": "Exact own07 body evidence or fresh02 ranges specified; adopted same-lens02 baseline is not replayed. Root01 narrative consumed for source navigation, no01 verdict transfer.",
+      "owner_fit_disposition": "identity-and-observer-product-owner-migration-question",
+      "owner_fit_reasoning": "SQL adapters are native wire boundaries, but returned CharacterView still carries raw durable character IDs and observer-time life projections. Existing tactical CharacterId has a different crate/frame and cannot simply become a shared strategic ID without a lower shared identity owner move. Party identity, observer identity, leader role and row position are different facts. Fetch/filter/sort drops explicit leader identity, exact CONT07-F116 recipient evidence; retain a party projection with explicit role rather than inventing a first-element ID alias. Unavailable versus absent data stays a distinct result policy.",
+      "discovery": "accounted with inherited findings and explicit contract questions; not clear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true
+    },
+    {
+      "delta_index": 26,
+      "source_scope_index": 2707,
+      "source_id": "physical-p16:crates/strategic-web/src/routes/settlements/service_quests.rs",
+      "sha256": "94a890ee2893205a08de7ba3635a88574f23aab5a628f88a0a08bfc5d74c55d5",
+      "effective_ranges": [
+        [
+          38,
+          44
+        ]
+      ],
+      "registration": {
+        "record": "continuation/root/admission03/source-range-registration.jsonl",
+        "sha256": "42db551c1765fc0c264eb972d5c17b6f69671f476ee3aab27cc97a0e5bac76f4",
+        "row_1based": 49,
+        "id": "ROOT-ADMISSION03-REG-049"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "root",
+          "registry": "continuation/root/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "registration_id": "ROOT-ADMISSION03-REG-049",
+            "source_id": "physical-p16:crates/strategic-web/src/routes/settlements/service_quests.rs",
+            "sha256": "94a890ee2893205a08de7ba3635a88574f23aab5a628f88a0a08bfc5d74c55d5",
+            "effective_material_ranges": [
+              [
+                38,
+                44
+              ]
+            ],
+            "qualifications": [
+              {
+                "registration_id": "ROOT-ADMISSION03-REG-049",
+                "effective_material_ranges": [
+                  [
+                    38,
+                    44
+                  ]
+                ],
+                "context_excluded": [
+                  [
+                    45,
+                    50
+                  ]
+                ],
+                "proof": "ROOT-CAMERA-NATIVE2-ADM03-342",
+                "qualification": "Onlynamedactualdirectparser/constant/memberfilter body; neighboringdeclarations/helperscontextuncredited. Originalscopesnotnarrowed."
+              }
+            ],
+            "status": "pure_existing_actual_role_range_normalization_not_source_or_otherlens_credit"
+          },
+          "registration_id_resolved": "ROOT-ADMISSION03-REG-049"
+        }
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": [
+        "CONT07-CONTRACT-621"
+      ],
+      "source_proof_qualification": "Exact own07 body evidence or fresh02 ranges specified; adopted same-lens02 baseline is not replayed. Root01 narrative consumed for source navigation, no01 verdict transfer.",
+      "owner_fit_disposition": "derived-predicate-not-new-enum-owner",
+      "owner_fit_reasoning": "living_party_members uses already observer-projected alive. A boolean predicate over that projection is not itself a missing lifecycle enum. Actual durable character identity may share the prior role25 migration, but historical alive-as-observed and current private life state must not be collapsed into one owner or narrowed by this seven-line filter.",
+      "discovery": "accounted with inherited findings and explicit contract questions; not clear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true
+    },
+    {
+      "delta_index": 27,
+      "source_scope_index": 2706,
+      "source_id": "physical-p16:crates/strategic-web/src/routes/settlements/encumbrance.rs",
+      "sha256": "1b05e35b79269c08ac5183beede6022f00ca9cb2ffa3c3b0ca9e2121a62a4035",
+      "effective_ranges": [
+        [
+          411,
+          484
+        ]
+      ],
+      "registration": {
+        "record": "continuation/root/admission03/source-range-registration.jsonl",
+        "sha256": "42db551c1765fc0c264eb972d5c17b6f69671f476ee3aab27cc97a0e5bac76f4",
+        "row_1based": 50,
+        "id": "ROOT-ADMISSION03-REG-050"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "root",
+          "registry": "continuation/root/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "registration_id": "ROOT-ADMISSION03-REG-050",
+            "source_id": "physical-p16:crates/strategic-web/src/routes/settlements/encumbrance.rs",
+            "sha256": "1b05e35b79269c08ac5183beede6022f00ca9cb2ffa3c3b0ca9e2121a62a4035",
+            "effective_material_ranges": [
+              [
+                411,
+                484
+              ]
+            ],
+            "qualifications": [],
+            "status": "pure_existing_actual_role_range_normalization_not_source_or_otherlens_credit"
+          },
+          "registration_id_resolved": "ROOT-ADMISSION03-REG-050"
+        }
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": [
+        "CONT07-CONTRACT-621",
+        "CONT07-F116"
+      ],
+      "source_proof_qualification": "Exact own07 body evidence or fresh02 ranges specified; adopted same-lens02 baseline is not replayed. Root01 narrative consumed for source navigation, no01 verdict transfer.",
+      "owner_fit_disposition": "distinct-social-identity-quantity-and-role-owners",
+      "owner_fit_reasoning": "Actor/target IDs and source IDs flow into social helpers before presentation; preserve each identity authority rather than use one generic integer ID. Scalar morale magnitude is not a notification count or address priority merely numeric. Automatic-chat preference is an independent policy, not interaction permission. Failed chronology deliberately avoids disclosing future death; do not reconstruct actual life from display alive. Leader sort after omissions strengthens F116 without a new defect count.",
+      "discovery": "accounted with inherited findings and explicit contract questions; not clear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true
+    },
+    {
+      "delta_index": 28,
+      "source_scope_index": 975,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/solver.rs",
+      "sha256": "5d9b71ab4620264dce7604d0c9662f52009a887d00225927ef217087e0f10ba2",
+      "effective_ranges": [
+        [
+          218,
+          287
+        ]
+      ],
+      "registration": {
+        "record": "continuation/root/admission03/source-range-registration.jsonl",
+        "sha256": "42db551c1765fc0c264eb972d5c17b6f69671f476ee3aab27cc97a0e5bac76f4",
+        "row_1based": 51,
+        "id": "ROOT-ADMISSION03-REG-051"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "root",
+          "registry": "continuation/root/admission03/source-qualifications-followthrough-current.jsonl",
+          "original_record": {
+            "registration_id": "ROOT-ADMISSION03-REG-051",
+            "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/solver.rs",
+            "sha256": "5d9b71ab4620264dce7604d0c9662f52009a887d00225927ef217087e0f10ba2",
+            "effective_material_ranges": [
+              [
+                218,
+                287
+              ]
+            ],
+            "proof": "ROOT-ADM-G079",
+            "qualification": {
+              "registration_id": "ROOT-ADMISSION03-REG-051",
+              "effective_material_ranges": [
+                [
+                  218,
+                  287
+                ]
+              ],
+              "context_excluded": [
+                [
+                  288,
+                  288
+                ]
+              ],
+              "proof": "ROOT-ADM-G079",
+              "qualification": "Actualtwo completecandidatehelpers218\u2013287; finalblankcontext excluded, no otherNative108unreadhelpercredit."
+            }
+          },
+          "registration_id_resolved": "ROOT-ADMISSION03-REG-051"
+        }
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": [
+        "CONT07-OVERLAY-136",
+        "CAMERA-INITIAL07-CONTRACT-293"
+      ],
+      "source_proof_qualification": "Exact own07 body evidence or fresh02 ranges specified; adopted same-lens02 baseline is not replayed. Root01 narrative consumed for source navigation, no01 verdict transfer.",
+      "owner_fit_disposition": "concrete-existing-closed-enum-owner-match",
+      "owner_fit_reasoning": "Quest solver reparses authored family/cause strings into existing TemplateFamily and CanonicalCause in quest_generation/model.rs61/79. After catalogue admission these closed semantic owners fit the same vocabulary and should survive candidate production instead of reparsing into unreachable branches. Keep distinct authored relation IDs and stable explanation IDs; they are not TemplateFamily just because text matches. Weights, factors and prose each have separate quantity/explanation roles. Related authored catalogue owner migration, no validated-catalogue panic claim.",
+      "discovery": "accounted with inherited findings and explicit contract questions; not clear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true,
+      "adopted_baseline_source_body_evidence": [
+        {
+          "record": "CAMERA-INITIAL07-CONTRACT-293",
+          "ranges": [
+            [
+              1,
+              979
+            ]
+          ],
+          "kind": "adopted exact07 source-body evidence; independent02 use"
+        }
+      ]
+    },
+    {
+      "delta_index": 29,
+      "source_scope_index": 973,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/projection.rs",
+      "sha256": "2ef4a66455b4f4fb0790abfcc0e0ca9ff70e312d140170fbf47b9f880e79fb87",
+      "effective_ranges": [
+        [
+          427,
+          506
+        ]
+      ],
+      "registration": {
+        "record": "continuation/root/admission03/source-range-registration.jsonl",
+        "sha256": "42db551c1765fc0c264eb972d5c17b6f69671f476ee3aab27cc97a0e5bac76f4",
+        "row_1based": 52,
+        "id": "ROOT-ADMISSION03-REG-052"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "root",
+          "registry": "continuation/root/admission03/source-qualifications-followthrough-current.jsonl",
+          "original_record": {
+            "registration_id": "ROOT-ADMISSION03-REG-052",
+            "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/projection.rs",
+            "sha256": "2ef4a66455b4f4fb0790abfcc0e0ca9ff70e312d140170fbf47b9f880e79fb87",
+            "effective_material_ranges": [
+              [
+                427,
+                506
+              ]
+            ],
+            "proof": "ROOT-ADM-G079",
+            "qualification": "All427\u2013506 exactattack_pattern_candidatesmethod. Metadataonly; no coverageawarded."
+          },
+          "registration_id_resolved": "ROOT-ADMISSION03-REG-052"
+        }
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": [
+        "CONT07-OVERLAY-137",
+        "CAMERA-INITIAL07-CONTRACT-292"
+      ],
+      "source_proof_qualification": "Exact own07 body evidence or fresh02 ranges specified; adopted same-lens02 baseline is not replayed. Root01 narrative consumed for source navigation, no01 verdict transfer.",
+      "owner_fit_disposition": "existing-enum-plus-distinct-authored-candidate-identity",
+      "owner_fit_reasoning": "AttackPattern in projection.rs87 is the existing closed semantic choice. Preserve it through candidate construction; raw authored IDs and prefixed explanation IDs serve separate references and must remain distinguishable. Zero plausibility with explicit unavailable target is intentional admission evidence, not a missing target to fabricate. Candidate weights and reasons are not interchangeable with identity. Keep authored hard-zero fallback policy.",
+      "discovery": "accounted with inherited findings and explicit contract questions; not clear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true,
+      "adopted_baseline_source_body_evidence": [
+        {
+          "record": "CAMERA-INITIAL07-CONTRACT-292",
+          "ranges": [
+            [
+              1,
+              506
+            ]
+          ],
+          "kind": "adopted exact07 source-body evidence; independent02 use"
+        }
+      ]
+    },
+    {
+      "delta_index": 30,
+      "source_scope_index": 2708,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/admission.rs",
+      "sha256": "11bb44acefc12ab10604d09e33f8b1d26fc3958fa916255972ec6ea63e1f6d2f",
+      "effective_ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "registration": {
+        "record": "continuation/rig/admission03/source-range-registration.jsonl",
+        "sha256": "225368b01d60d1fd2aa611310d6f57515e31a9472b43f0f1ca9652cf7ca04fcb",
+        "row_1based": 139,
+        "id": "RIG-ADMISSION03-REG-139"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "rig",
+          "registry": "continuation/rig/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "registration_id": "RIG-ADMISSION03-REG-139",
+            "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/admission.rs",
+            "sha256": "11bb44acefc12ab10604d09e33f8b1d26fc3958fa916255972ec6ea63e1f6d2f",
+            "effective_material_ranges": [
+              [
+                1,
+                44
+              ]
+            ],
+            "context_excluded": [
+              [
+                46,
+                47
+              ]
+            ],
+            "original_qualification": {
+              "registration": "RIG-ADMISSION03-REG-139",
+              "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/admission.rs",
+              "snapshot": "pr-working",
+              "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\city_layout\\grounding\\admission.rs",
+              "sha256": "11bb44acefc12ab10604d09e33f8b1d26fc3958fa916255972ec6ea63e1f6d2f",
+              "actual_eof": 58,
+              "prospective_registered_ranges": [
+                [
+                  1,
+                  47
+                ]
+              ],
+              "actual_material_ranges": [
+                [
+                  1,
+                  44
+                ]
+              ],
+              "context_or_blank_no_material_credit": [
+                [
+                  46,
+                  47
+                ]
+              ],
+              "proof": "rig/admission03/root-support/additional-contracts.jsonl#RIG-ROOT-ADM03-ADDITIONAL-001",
+              "qualification": "Prism predicate finite vertices AND sequential sum; paired XZ, ordered heights and at least one strictly positive height. Degenerate/reversed plan allowed; normal arithmetic overflow does not prove full mesh Ok. solid_faces48+ excluded.",
+              "exclusions": "solid_faces48+ and unrelated graph not yet read/credited."
+            },
+            "evidence_record": "rig/admission03/source-registration-qualification-117.json",
+            "evidence_sha256": "006f3007f3d4eff6df9f0c18c34cb3010ec4108c6e61e2c71d26d9d63bd4572f",
+            "metadata_only_no_source_or_lens_credit": true
+          },
+          "registration_id_resolved": "RIG-ADMISSION03-REG-139"
+        }
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": [
+        "CONT07-CONTRACT-621"
+      ],
+      "source_proof_qualification": "Exact own07 body evidence or fresh02 ranges specified; adopted same-lens02 baseline is not replayed. Root01 narrative consumed for source navigation, no01 verdict transfer.",
+      "owner_fit_disposition": "actual-native-geometry-boundary-positive",
+      "owner_fit_reasoning": "prism consumes an actual six-point Vec3 geometric array and checks finite sum, paired horizontal coordinates and ordered vertical interval. Degenerate or reversed plan can be valid quantized contact geometry, so generic positive polygon area or a scene polygon owner would narrow its supported contract. Existing SupportGeometryIssue preserves distinct membership/finite/pair/height/topology errors. This predicate does not grant raw mutable sibling mesh product safety; inherited RIGADM03F042 remains.",
+      "discovery": "accounted with inherited findings and explicit contract questions; not clear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true
+    },
+    {
+      "delta_index": 31,
+      "source_scope_index": 1622,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/surface.rs",
+      "sha256": "bccc776702dc9fffcbe8d608fa0de1f2ab28f6fc601d4186762fa8641fd87022",
+      "effective_ranges": [
+        [
+          16,
+          17
+        ]
+      ],
+      "registration": {
+        "record": "continuation/rig/admission03/source-range-registration.jsonl",
+        "sha256": "225368b01d60d1fd2aa611310d6f57515e31a9472b43f0f1ca9652cf7ca04fcb",
+        "row_1based": 140,
+        "id": "RIG-ADMISSION03-REG-140"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "rig",
+          "registry": "continuation/rig/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "registration_id": "RIG-ADMISSION03-REG-140",
+            "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/surface.rs",
+            "sha256": "bccc776702dc9fffcbe8d608fa0de1f2ab28f6fc601d4186762fa8641fd87022",
+            "effective_material_ranges": [
+              [
+                16,
+                17
+              ]
+            ],
+            "context_excluded": [],
+            "original_qualification": {
+              "registration": "RIG-ADMISSION03-REG-140",
+              "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/surface.rs",
+              "snapshot": "pr-working",
+              "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-client\\src\\presentation\\regional_map\\surface.rs",
+              "sha256": "bccc776702dc9fffcbe8d608fa0de1f2ab28f6fc601d4186762fa8641fd87022",
+              "actual_eof": 231,
+              "prospective_registered_ranges": [
+                [
+                  16,
+                  17
+                ]
+              ],
+              "actual_material_ranges": [
+                [
+                  16,
+                  17
+                ]
+              ],
+              "context_or_blank_no_material_credit": [],
+              "proof": "rig/admission03/root-support/additional-contracts.jsonl#RIG-ROOT-ADM03-ADDITIONAL-002",
+              "qualification": "Only exact fixed positive standoff2 and clipmargin4 constants. Original Root194 requested155-240 qualifies to actual155-231, zero nonexistent232-240 credit. No other surface1-154 credit.",
+              "exclusions": "No surfacepresent1\u2013154 bodyexcept16\u201317; requested155\u2013240qualifiedtoactualEOF231, no non-existent232\u2013240credit."
+            },
+            "evidence_record": "rig/admission03/source-registration-qualification-117.json",
+            "evidence_sha256": "006f3007f3d4eff6df9f0c18c34cb3010ec4108c6e61e2c71d26d9d63bd4572f",
+            "metadata_only_no_source_or_lens_credit": true
+          },
+          "registration_id_resolved": "RIG-ADMISSION03-REG-140"
+        }
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": [
+        "CONT07-CONTRACT-647"
+      ],
+      "source_proof_qualification": "Exact own07 body evidence or fresh02 ranges specified; adopted same-lens02 baseline is not replayed. Root01 narrative consumed for source navigation, no01 verdict transfer.",
+      "owner_fit_disposition": "fixed-camera-numeric-policy-not-identity",
+      "owner_fit_reasoning": "Two dimensionless camera policy constants multiply map spans. They are not physical metre leaves, map identity or revision integers. No additional owner is established from declarations alone. Actual EOF231 qualification remains, and this role adds only lines16\u201317.",
+      "discovery": "accounted with inherited findings and explicit contract questions; not clear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true
+    },
+    {
+      "delta_index": 32,
+      "source_scope_index": 2709,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/volumetric.rs",
+      "sha256": "91cc6773da28100f122fbaa19b7bbc9a258f808a68f09e61f199d880652266b0",
+      "effective_ranges": [
+        [
+          1,
+          206
+        ]
+      ],
+      "registration": {
+        "record": "continuation/rig/admission03/source-range-registration.jsonl",
+        "sha256": "225368b01d60d1fd2aa611310d6f57515e31a9472b43f0f1ca9652cf7ca04fcb",
+        "row_1based": 141,
+        "id": "RIG-ADMISSION03-REG-141"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "rig",
+          "registry": "continuation/rig/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "registration_id": "RIG-ADMISSION03-REG-141",
+            "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/volumetric.rs",
+            "sha256": "91cc6773da28100f122fbaa19b7bbc9a258f808a68f09e61f199d880652266b0",
+            "effective_material_ranges": [
+              [
+                1,
+                206
+              ]
+            ],
+            "context_excluded": [
+              [
+                207,
+                207
+              ]
+            ],
+            "original_qualification": {
+              "registration": "RIG-ADMISSION03-REG-141",
+              "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/volumetric.rs",
+              "snapshot": "pr-working",
+              "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-client\\src\\presentation\\volumetric.rs",
+              "sha256": "91cc6773da28100f122fbaa19b7bbc9a258f808a68f09e61f199d880652266b0",
+              "actual_eof": 280,
+              "prospective_registered_ranges": [
+                [
+                  1,
+                  207
+                ]
+              ],
+              "actual_material_ranges": [
+                [
+                  1,
+                  206
+                ]
+              ],
+              "context_or_blank_no_material_credit": [
+                [
+                  207,
+                  207
+                ]
+              ],
+              "proof": "rig/admission03/root-support/additional-contracts.jsonl#RIG-ROOT-ADM03-ADDITIONAL-003",
+              "qualification": "Actual client SurfaceNetsGrid/extract: count>=2, finite strictly ordered bounds, checked product and finite field values. Zero-radius raw rock min=-0/max0 fails before field and reaches caller expect; fixed positive generator distinct. Tests208+ excluded; Core volumetric is different source.",
+              "exclusions": "Tests208+ andunrelatedCorevolumetric/foreignpackage bodies excluded; originalRoot/Rigroles unchanged."
+            },
+            "evidence_record": "rig/admission03/source-registration-qualification-117.json",
+            "evidence_sha256": "006f3007f3d4eff6df9f0c18c34cb3010ec4108c6e61e2c71d26d9d63bd4572f",
+            "metadata_only_no_source_or_lens_credit": true
+          },
+          "registration_id_resolved": "RIG-ADMISSION03-REG-141"
+        }
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": [
+        "CONT07-CONTRACT-621"
+      ],
+      "source_proof_qualification": "Exact own07 body evidence or fresh02 ranges specified; adopted same-lens02 baseline is not replayed. Root01 narrative consumed for source navigation, no01 verdict transfer.",
+      "owner_fit_disposition": "native-scalar-field-kernel-distinct-from-foreign-grid-owner",
+      "owner_fit_reasoning": "SurfaceNetsGrid describes a3D scalar sampling layout. Scene terrain grid width/depth and a 2D map span do not fit this3D native count/ordered bound contract. Existing geometry bounds may provide a reusable leaf only after matching strict nonempty extent policy; generic AABB may allow collapsed boxes. Native Vec3 positions, normals and U32 indices are actual mesh/math ports. None conflates invalid admission and valid empty extraction, an inherited error/admission question; no arbitrary semantic ID wrapper or ordinary invalid mesh claim.",
+      "discovery": "accounted with inherited findings and explicit contract questions; not clear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true
+    },
+    {
+      "delta_index": 33,
+      "source_scope_index": 1269,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/config.rs",
+      "sha256": "7e192ef20631845534afb5f4060d45c4253271682e203f89ae3c83dec1b5687e",
+      "effective_ranges": [
+        [
+          1,
+          171
+        ]
+      ],
+      "registration": {
+        "record": "continuation/rig/admission03/source-range-registration.jsonl",
+        "sha256": "225368b01d60d1fd2aa611310d6f57515e31a9472b43f0f1ca9652cf7ca04fcb",
+        "row_1based": 142,
+        "id": "RIG-ADMISSION03-REG-142"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "rig",
+          "registry": "continuation/rig/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "registration_id": "RIG-ADMISSION03-REG-142",
+            "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/config.rs",
+            "sha256": "7e192ef20631845534afb5f4060d45c4253271682e203f89ae3c83dec1b5687e",
+            "effective_material_ranges": [
+              [
+                1,
+                171
+              ]
+            ],
+            "context_excluded": [],
+            "original_qualification": {
+              "registration": "RIG-ADMISSION03-REG-142",
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/config.rs",
+              "snapshot": "pr-working",
+              "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-strategic-sim\\src\\live_core\\config.rs",
+              "sha256": "7e192ef20631845534afb5f4060d45c4253271682e203f89ae3c83dec1b5687e",
+              "actual_eof": 171,
+              "prospective_registered_ranges": [
+                [
+                  1,
+                  171
+                ]
+              ],
+              "actual_material_ranges": [
+                [
+                  1,
+                  171
+                ]
+              ],
+              "context_or_blank_no_material_credit": [],
+              "proof": "rig/admission03/camera-support/additional-contracts.jsonl#RIG-CAMERA-ADM03-ADDITIONAL-001",
+              "qualification": "Public raw config/Serde not accepted seal. Actual validate bounds host/database/population/cycles/duration/party and product before run indexing/division. Exact PR actual source; no P16 or whole package credit.",
+              "exclusions": "No tests or bodies after171; no whole simulator package or P16 counterpart credit."
+            },
+            "evidence_record": "rig/admission03/source-registration-qualification-117.json",
+            "evidence_sha256": "006f3007f3d4eff6df9f0c18c34cb3010ec4108c6e61e2c71d26d9d63bd4572f",
+            "metadata_only_no_source_or_lens_credit": true
+          },
+          "registration_id_resolved": "RIG-ADMISSION03-REG-142"
+        }
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": [
+        "fresh02 full1\u2013171",
+        "CONT07-OVERLAY-139",
+        "CAMERA-INITIAL07-CONTRACT-315"
+      ],
+      "source_proof_qualification": "Exact own07 body evidence or fresh02 ranges specified; adopted same-lens02 baseline is not replayed. Root01 narrative consumed for source navigation, no01 verdict transfer.",
+      "owner_fit_disposition": "validated-config-needs-purpose-owners-not-same-shape-reuse",
+      "owner_fit_reasoning": "CoreLoopConfig is raw Serde plus validate, not an admitted immutable product. Parsed url::Url is an existing structural owner, but loopback/no credentials/path policy is stricter and must remain checked; storing String loses that parsed result. Population, cycles, party size and workload use distinct bounded meanings. Seed already canonical. Run nonce is not bootstrap capability. Fresh158\u2013171 proves capability producer validates64hex then returnsString to role11: a purpose owner is missing across this graph, not an excuse to reuse Seed. World manifest digest differs SourcePackageDigest, MaterialInputDigest, RightsInputDigest and SnapshotDigest despite64hex/32-byte shape; match actual producer authority before proposing reuse. Mode-dependent imported-world configuration remains an aggregate/enum-shape question.",
+      "discovery": "accounted with inherited findings and explicit contract questions; not clear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true,
+      "adopted_baseline_source_body_evidence": [
+        {
+          "record": "CAMERA-INITIAL07-CONTRACT-315",
+          "ranges": [
+            [
+              1,
+              171
+            ]
+          ],
+          "kind": "adopted exact07 source-body evidence; independent02 use"
+        }
+      ]
+    },
+    {
+      "delta_index": 34,
+      "source_scope_index": 2402,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+      "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+      "effective_ranges": [
+        [
+          2287,
+          2354
+        ]
+      ],
+      "registration": {
+        "record": "continuation/rig/admission03/source-range-registration.jsonl",
+        "sha256": "225368b01d60d1fd2aa611310d6f57515e31a9472b43f0f1ca9652cf7ca04fcb",
+        "row_1based": 143,
+        "id": "RIG-ADMISSION03-REG-143"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "rig",
+          "registry": "continuation/rig/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "registration_id": "RIG-ADMISSION03-REG-143",
+            "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+            "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+            "effective_material_ranges": [
+              [
+                2287,
+                2354
+              ]
+            ],
+            "context_excluded": [
+              [
+                2355,
+                2355
+              ]
+            ],
+            "original_qualification": {
+              "registration": "RIG-ADMISSION03-REG-143",
+              "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+              "snapshot": "pr-working",
+              "path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\templates\\settlement\\character_skills.rs",
+              "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+              "actual_eof": 3812,
+              "prospective_registered_ranges": [
+                [
+                  2287,
+                  2355
+                ]
+              ],
+              "actual_material_ranges": [
+                [
+                  2287,
+                  2354
+                ]
+              ],
+              "context_or_blank_no_material_credit": [
+                [
+                  2355,
+                  2355
+                ]
+              ],
+              "proof": "rig/admission03/dependency-qualification-114.json;dependency-qualification-115.json",
+              "qualification": "Actual schedule_special_row invokes reward_delta unconditionally for supplied profession. Whole source excluded outside registered ranges; no source/test credit from navigation.",
+              "exclusions": "No other unrelated template function or tests/JS; no source credit for symbolnavigation at1240/2306."
+            },
+            "evidence_record": "rig/admission03/source-registration-qualification-117.json",
+            "evidence_sha256": "006f3007f3d4eff6df9f0c18c34cb3010ec4108c6e61e2c71d26d9d63bd4572f",
+            "metadata_only_no_source_or_lens_credit": true
+          },
+          "registration_id_resolved": "RIG-ADMISSION03-REG-143"
+        }
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": [
+        "CONT07-CONTRACT-550"
+      ],
+      "source_proof_qualification": "Exact own07 body evidence or fresh02 ranges specified; adopted same-lens02 baseline is not replayed. Root01 narrative consumed for source navigation, no01 verdict transfer.",
+      "owner_fit_disposition": "existing-schedule-owners-before-html-boundary",
+      "owner_fit_reasoning": "Raw requested/effective minutes belong existing ActivityMinutes where its u16 admission fits, but counts or elapsed totals with broader range cannot be narrowed automatically. Existing organization activity/reward enums and selected organization identity should remain through pure calculations, then encode actual HTML attributes. u64MAX apprenticeship non-threshold is not a valid positive practice threshold; -1 debit is a sign policy, not the same missing-state marker. Exact rootF48 browser reward mismatch retained; no ordinary zero practice cadence allegation.",
+      "discovery": "accounted with inherited findings and explicit contract questions; not clear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true
+    },
+    {
+      "delta_index": 35,
+      "source_scope_index": 2402,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+      "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+      "effective_ranges": [
+        [
+          1235,
+          1247
+        ]
+      ],
+      "registration": {
+        "record": "continuation/rig/admission03/source-range-registration.jsonl",
+        "sha256": "225368b01d60d1fd2aa611310d6f57515e31a9472b43f0f1ca9652cf7ca04fcb",
+        "row_1based": 144,
+        "id": "RIG-ADMISSION03-REG-144"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "rig",
+          "registry": "continuation/rig/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "registration_id": "RIG-ADMISSION03-REG-144",
+            "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+            "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+            "effective_material_ranges": [
+              [
+                1235,
+                1247
+              ]
+            ],
+            "context_excluded": [],
+            "original_qualification": {
+              "registration": "RIG-ADMISSION03-REG-144",
+              "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+              "snapshot": "pr-working",
+              "path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\templates\\settlement\\character_skills.rs",
+              "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+              "actual_eof": 3812,
+              "prospective_registered_ranges": [
+                [
+                  1235,
+                  1247
+                ]
+              ],
+              "actual_material_ranges": [
+                [
+                  1235,
+                  1247
+                ]
+              ],
+              "context_or_blank_no_material_credit": [],
+              "proof": "rig/admission03/dependency-qualification-114.json;dependency-qualification-115.json",
+              "qualification": "Actual choices filter practice_allowed, selected ID restricted to choices; apprenticeship early return0. Native actual allowed cadence>0 predicate plus Camera151 paired normal build closes normal threshold route; public zip/raw API gap remains.",
+              "exclusions": "All other unscoped character_skills HTML factory/template/tests excluded."
+            },
+            "evidence_record": "rig/admission03/source-registration-qualification-117.json",
+            "evidence_sha256": "006f3007f3d4eff6df9f0c18c34cb3010ec4108c6e61e2c71d26d9d63bd4572f",
+            "metadata_only_no_source_or_lens_credit": true
+          },
+          "registration_id_resolved": "RIG-ADMISSION03-REG-144"
+        }
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": [
+        "CONT07-CONTRACT-550"
+      ],
+      "source_proof_qualification": "Exact own07 body evidence or fresh02 ranges specified; adopted same-lens02 baseline is not replayed. Root01 narrative consumed for source navigation, no01 verdict transfer.",
+      "owner_fit_disposition": "selected-owner-association-positive",
+      "owner_fit_reasoning": "Practice choices are filtered by actual practice_allowed; selected ID is constrained to those entries before passing the matching preview row. This producer closes a missing/wrong selected role witness for normal preview. Raw organization IDs remain identity migration, but a positive-only threshold leaf must not reject the separate apprenticeship non-threshold case or introduce a fallback role.",
+      "discovery": "accounted with inherited findings and explicit contract questions; not clear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true
+    },
+    {
+      "delta_index": 36,
+      "source_scope_index": 2710,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+      "sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+      "effective_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "registration": {
+        "record": "continuation/rig/admission03/source-range-registration.jsonl",
+        "sha256": "225368b01d60d1fd2aa611310d6f57515e31a9472b43f0f1ca9652cf7ca04fcb",
+        "row_1based": 145,
+        "id": "RIG-ADMISSION03-REG-145"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "rig",
+          "registry": "continuation/rig/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "registration_id": "RIG-ADMISSION03-REG-145",
+            "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+            "sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+            "effective_material_ranges": [
+              [
+                1,
+                50
+              ]
+            ],
+            "context_excluded": [],
+            "original_qualification": {
+              "registration": "RIG-ADMISSION03-REG-145",
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs",
+              "snapshot": "pr-working",
+              "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\disease\\fixture_administrations.rs",
+              "sha256": "e61759250b6aa18fba5ceda30f89827bd651c77bedaf6c7943409194a6c08e20",
+              "actual_eof": 50,
+              "prospective_registered_ranges": [
+                [
+                  1,
+                  50
+                ]
+              ],
+              "actual_material_ranges": [
+                [
+                  1,
+                  50
+                ]
+              ],
+              "context_or_blank_no_material_credit": [],
+              "proof": "rig/admission03/native20-support/clinical-admission-001.json#/exact_join/additional_actual_source",
+              "qualification": "Exact fixture writer checks keyversion/variation; checked750/STANDARD1000/checked1250 dose.get writes actual profile/currentversions. Actual main DAY1440 caller; arbitrary raw day_minutes multiply limitation distinct. No reset/seed execution or other fixture graph.",
+              "exclusions": "Otherdevfixture/authoritytest graphs and allunrelatedsource excluded."
+            },
+            "evidence_record": "rig/admission03/source-registration-qualification-117.json",
+            "evidence_sha256": "006f3007f3d4eff6df9f0c18c34cb3010ec4108c6e61e2c71d26d9d63bd4572f",
+            "metadata_only_no_source_or_lens_credit": true
+          },
+          "registration_id_resolved": "RIG-ADMISSION03-REG-145"
+        }
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": [
+        "CONT07-CONTRACT-622"
+      ],
+      "source_proof_qualification": "Exact own07 body evidence or fresh02 ranges specified; adopted same-lens02 baseline is not replayed. Root01 narrative consumed for source navigation, no01 verdict transfer.",
+      "owner_fit_disposition": "canonical-dose-and-route-retained-to-db-port",
+      "owner_fit_reasoning": "InterventionRoute, DoseMilliunits and StrategicMinute are already the proper admitted owners; extracting dose only for actual DB scalar field is justified. Patient/preparation/profile/key/ruleset IDs have distinct authority and clinical version meaning, related M103 and M30. Day index/duration may validly start at0, so positive requested-action duration is not automatic reuse. DB auto-insert ID0 must be compared with table convention before claiming an invalid identity. No fixture execution.",
+      "discovery": "accounted with inherited findings and explicit contract questions; not clear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true,
+      "adopted_baseline_source_body_evidence": [
+        {
+          "record": "CAMERA-INITIAL07-CONTRACT-111",
+          "ranges": [
+            [
+              1,
+              50
+            ]
+          ],
+          "kind": "adopted exact07 source-body evidence; independent02 use"
+        }
+      ]
+    },
+    {
+      "delta_index": 37,
+      "source_scope_index": 2711,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "sha256": "6aef5ced10b1d430e513c990cd005b5e6ff4bdf8c98505b3dccd48d17cb6ac62",
+      "effective_ranges": [
+        [
+          88,
+          92
+        ]
+      ],
+      "registration": {
+        "record": "continuation/native/admission03/source-range-registration.jsonl",
+        "sha256": "b64897ba6a74680b53619d22505860bae51451e916fb03fd547a59a7763875fa",
+        "row_1based": 58,
+        "id": "NATIVE-ADMISSION03-REG-058"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "native",
+          "registry": "continuation/native/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "id": "NATIVE-ADM03-FINALQUAL-058",
+            "registration_id": "NATIVE-ADMISSION03-REG-058",
+            "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+            "snapshot": "physical-p16",
+            "sha256": "6aef5ced10b1d430e513c990cd005b5e6ff4bdf8c98505b3dccd48d17cb6ac62",
+            "actual_EOF": 267,
+            "registered_requested_ranges": [
+              [
+                88,
+                94
+              ]
+            ],
+            "qualified_material_ranges": [
+              [
+                88,
+                92
+              ]
+            ],
+            "context_or_excluded_within_registration": [
+              [
+                93,
+                94
+              ]
+            ],
+            "original_registration": {
+              "id": "NATIVE-ADMISSION03-REG-058",
+              "at": "2026-10-22T14:21:50.959016+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-047.json",
+              "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+              "sha256": "6aef5ced10b1d430e513c990cd005b5e6ff4bdf8c98505b3dccd48d17cb6ac62",
+              "snapshot": "physical-p16",
+              "actual_EOF": 267,
+              "material_ranges": [
+                [
+                  88,
+                  94
+                ]
+              ],
+              "role": "Exactdirect locomotion_sample_rate completefunction/currentconstantreturn consumedbyRoot10/11sampleclock. Existing canonicalRate lowerdefinition requestedRigactualcurrentreceipt; nootherlocomotiongraph.",
+              "reason": "Necessarydirectactualfunction, signature navigation88 identified; registerbeforebodyanalysis under043. Rootoriginalownershipunchanged.",
+              "exclusions": "Otherlocomotionfunctions/fixtures/PRcounterpart notcredit; exactendpointqualifyifcontextcuts.",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-core\\src\\animation\\locomotion.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "qualification_history": [
+              {
+                "qualification_file": "root-support/source-qualifications-006.jsonl",
+                "row_1based": 1,
+                "payload": {
+                  "registration_id": "NATIVE-ADMISSION03-REG-058",
+                  "original_registration": {
+                    "id": "NATIVE-ADMISSION03-REG-058",
+                    "at": "2026-10-22T14:21:50.959016+00:00",
+                    "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-047.json",
+                    "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+                    "sha256": "6aef5ced10b1d430e513c990cd005b5e6ff4bdf8c98505b3dccd48d17cb6ac62",
+                    "snapshot": "physical-p16",
+                    "actual_EOF": 267,
+                    "material_ranges": [
+                      [
+                        88,
+                        94
+                      ]
+                    ],
+                    "role": "Exactdirect locomotion_sample_rate completefunction/currentconstantreturn consumedbyRoot10/11sampleclock. Existing canonicalRate lowerdefinition requestedRigactualcurrentreceipt; nootherlocomotiongraph.",
+                    "reason": "Necessarydirectactualfunction, signature navigation88 identified; registerbeforebodyanalysis under043. Rootoriginalownershipunchanged.",
+                    "exclusions": "Otherlocomotionfunctions/fixtures/PRcounterpart notcredit; exactendpointqualifyifcontextcuts.",
+                    "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-core\\src\\animation\\locomotion.rs",
+                    "status": "registered_before_direct_current03_body_analysis"
+                  },
+                  "qualified_material_ranges": [
+                    [
+                      88,
+                      92
+                    ]
+                  ],
+                  "qualification": "Exact complete locomotion_sample_rate only88\u201392;93blank/94nextwalksignature context excluded.",
+                  "current_admission_proof": "continuation/native/admission03/root-support/contracts-001.json",
+                  "global_reconciliation": "Root pending; no semantic or otherlens credit"
+                }
+              }
+            ],
+            "current_proof_refs": {
+              "current_admission_proof": "continuation/native/admission03/root-support/contracts-001.json"
+            },
+            "body_rereads_for_this_normalization": 0,
+            "semantic_credit_from_metadata": false,
+            "producer_or_owner_or_later_lens_credit": false,
+            "global_reconciliation_pending": true
+          },
+          "registration_id_resolved": "NATIVE-ADMISSION03-REG-058"
+        }
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": [
+        "CONT07-CONTRACT-622"
+      ],
+      "source_proof_qualification": "Exact own07 body evidence or fresh02 ranges specified; adopted same-lens02 baseline is not replayed. Root01 narrative consumed for source navigation, no01 verdict transfer.",
+      "owner_fit_disposition": "exact-existing-sample-rate-owner-positive",
+      "owner_fit_reasoning": "locomotion_sample_rate returns AnimationSampleRate directly from the selected runtime configuration. This is already the correct reciprocal-safe sampling owner; no raw hertz adapter needs replacement. Scope88\u201392 only, no body transfer beyond those literal lines.",
+      "discovery": "accounted with inherited findings and explicit contract questions; not clear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true
+    },
+    {
+      "delta_index": 38,
+      "source_scope_index": 2557,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/sample_rate.rs",
+      "sha256": "744e4868234738f05d7030c0cbae4c057fcbad21d41987b955e6895f3f9d5093",
+      "effective_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "registration": {
+        "record": "continuation/native/admission03/source-range-registration.jsonl",
+        "sha256": "b64897ba6a74680b53619d22505860bae51451e916fb03fd547a59a7763875fa",
+        "row_1based": 59,
+        "id": "NATIVE-ADMISSION03-REG-059"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "native",
+          "registry": "continuation/native/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "id": "NATIVE-ADM03-FINALQUAL-059",
+            "registration_id": "NATIVE-ADMISSION03-REG-059",
+            "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/sample_rate.rs",
+            "snapshot": "physical-p16",
+            "sha256": "744e4868234738f05d7030c0cbae4c057fcbad21d41987b955e6895f3f9d5093",
+            "actual_EOF": 86,
+            "registered_requested_ranges": [
+              [
+                1,
+                86
+              ]
+            ],
+            "qualified_material_ranges": [
+              [
+                1,
+                86
+              ]
+            ],
+            "context_or_excluded_within_registration": [],
+            "original_registration": {
+              "id": "NATIVE-ADMISSION03-REG-059",
+              "at": "2026-10-22T14:22:40.318134+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-047.json",
+              "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/sample_rate.rs",
+              "sha256": "744e4868234738f05d7030c0cbae4c057fcbad21d41987b955e6895f3f9d5093",
+              "snapshot": "physical-p16",
+              "actual_EOF": 86,
+              "material_ranges": [
+                [
+                  1,
+                  86
+                ]
+              ],
+              "role": "Exactdirect AnimationSampleRate constructor/default/Serde/hertz/interval alladmissionroutes usedbyRoot10/11locomotion_sample_rate; Rigcurrent008onlyAnimationFrequency18\u201343 excludesRate1\u201316/44+.",
+              "reason": "Actualnecessarycanonicaldirectdefinition, registerbeforebodyread; PRdefinitionNative001notautomaticP16carry.",
+              "exclusions": "No unrelatedanimation/locomotiongraph/newforeignpackages/laterlens; originaltestsifany source-only.",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-core\\src\\animation\\sample_rate.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "qualification_history": [
+              {
+                "qualification_file": "root-support/source-qualifications-006.jsonl",
+                "row_1based": 2,
+                "payload": {
+                  "registration_id": "NATIVE-ADMISSION03-REG-059",
+                  "original_registration": {
+                    "id": "NATIVE-ADMISSION03-REG-059",
+                    "at": "2026-10-22T14:22:40.318134+00:00",
+                    "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-047.json",
+                    "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/sample_rate.rs",
+                    "sha256": "744e4868234738f05d7030c0cbae4c057fcbad21d41987b955e6895f3f9d5093",
+                    "snapshot": "physical-p16",
+                    "actual_EOF": 86,
+                    "material_ranges": [
+                      [
+                        1,
+                        86
+                      ]
+                    ],
+                    "role": "Exactdirect AnimationSampleRate constructor/default/Serde/hertz/interval alladmissionroutes usedbyRoot10/11locomotion_sample_rate; Rigcurrent008onlyAnimationFrequency18\u201343 excludesRate1\u201316/44+.",
+                    "reason": "Actualnecessarycanonicaldirectdefinition, registerbeforebodyread; PRdefinitionNative001notautomaticP16carry.",
+                    "exclusions": "No unrelatedanimation/locomotiongraph/newforeignpackages/laterlens; originaltestsifany source-only.",
+                    "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-core\\src\\animation\\sample_rate.rs",
+                    "status": "registered_before_direct_current03_body_analysis"
+                  },
+                  "qualified_material_ranges": [
+                    [
+                      1,
+                      86
+                    ]
+                  ],
+                  "qualification": "Exact Rate/Frequency actual constructors/private coupled fields/Serde/routes; no blanket interval reciprocal guarantee from Frequency alone.",
+                  "current_admission_proof": "continuation/native/admission03/root-support/contracts-001.json",
+                  "global_reconciliation": "Root pending; no semantic or otherlens credit"
+                }
+              }
+            ],
+            "current_proof_refs": {
+              "current_admission_proof": "continuation/native/admission03/root-support/contracts-001.json"
+            },
+            "body_rereads_for_this_normalization": 0,
+            "semantic_credit_from_metadata": false,
+            "producer_or_owner_or_later_lens_credit": false,
+            "global_reconciliation_pending": true
+          },
+          "registration_id_resolved": "NATIVE-ADMISSION03-REG-059"
+        }
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": [
+        "CONT07-OVERLAY-141",
+        "CAMERA-INITIAL07-CONTRACT-020"
+      ],
+      "source_proof_qualification": "Exact own07 body evidence or fresh02 ranges specified; adopted same-lens02 baseline is not replayed. Root01 narrative consumed for source navigation, no01 verdict transfer.",
+      "owner_fit_disposition": "frequency-vs-sample-rate-admission-distinction",
+      "owner_fit_reasoning": "AnimationFrequency admits finite positive calibration value; AnimationSampleRate additionally admits a representable reciprocal PositiveAnimationDuration. Same f32 representation is not equivalent admission. Existing typed span and AnimationElapsed retain count/frequency roles through owning division. Preserve exact frequency bits in scalar serialization, count-before-frequency division and supported zero elapsed. Generic conversion capability alone is not proof an actual consumer erases ownership.",
+      "discovery": "accounted with inherited findings and explicit contract questions; not clear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true,
+      "adopted_baseline_source_body_evidence": [
+        {
+          "record": "CAMERA-INITIAL07-CONTRACT-020",
+          "ranges": [
+            [
+              1,
+              86
+            ]
+          ],
+          "kind": "adopted exact07 source-body evidence; independent02 use"
+        }
+      ]
+    },
+    {
+      "delta_index": 39,
+      "source_scope_index": 953,
+      "source_id": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+      "sha256": "42c0284a19db9d6e763cb9be7bb0c2472dea34f759b13794f37883c42e838474",
+      "effective_ranges": [
+        [
+          333,
+          389
+        ]
+      ],
+      "registration": {
+        "record": "continuation/native/admission03/source-range-registration.jsonl",
+        "sha256": "b64897ba6a74680b53619d22505860bae51451e916fb03fd547a59a7763875fa",
+        "row_1based": 60,
+        "id": "NATIVE-ADMISSION03-REG-060"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "native",
+          "registry": "continuation/native/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "id": "NATIVE-ADM03-FINALQUAL-060",
+            "registration_id": "NATIVE-ADMISSION03-REG-060",
+            "source_id": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+            "snapshot": "pr-working",
+            "sha256": "42c0284a19db9d6e763cb9be7bb0c2472dea34f759b13794f37883c42e838474",
+            "actual_EOF": 865,
+            "registered_requested_ranges": [
+              [
+                333,
+                389
+              ]
+            ],
+            "qualified_material_ranges": [
+              [
+                333,
+                389
+              ]
+            ],
+            "context_or_excluded_within_registration": [],
+            "original_registration": {
+              "id": "NATIVE-ADMISSION03-REG-060",
+              "at": "2026-10-22T14:23:34.048796+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-047.json",
+              "source_id": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+              "sha256": "42c0284a19db9d6e763cb9be7bb0c2472dea34f759b13794f37883c42e838474",
+              "snapshot": "pr-working",
+              "actual_EOF": 865,
+              "material_ranges": [
+                [
+                  333,
+                  389
+                ]
+              ],
+              "role": "Completeactualgenerate294\u2013364 andeffects_for366\u2013397 currentRoot101declaredpartial1\u2013332/390\u2013660 beforeadmissioncomparison; actualDB118callscurrentgenerate.",
+              "reason": "ExactprovidedrangescutgeneratedProblemIdliteralat332 andeffectsbranchat390; directneededfactorycompletion registersinterveningrange beforebodyanalysis.",
+              "exclusions": "No laterexistingtests661+ or unrelatedsource/lens; originalrequestedrangespreserved.",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-core\\src\\local_problem.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "qualification_history": [
+              {
+                "qualification_file": "root-support/source-qualifications-006.jsonl",
+                "row_1based": 3,
+                "payload": {
+                  "registration_id": "NATIVE-ADMISSION03-REG-060",
+                  "original_registration": {
+                    "id": "NATIVE-ADMISSION03-REG-060",
+                    "at": "2026-10-22T14:23:34.048796+00:00",
+                    "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-047.json",
+                    "source_id": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+                    "sha256": "42c0284a19db9d6e763cb9be7bb0c2472dea34f759b13794f37883c42e838474",
+                    "snapshot": "pr-working",
+                    "actual_EOF": 865,
+                    "material_ranges": [
+                      [
+                        333,
+                        389
+                      ]
+                    ],
+                    "role": "Completeactualgenerate294\u2013364 andeffects_for366\u2013397 currentRoot101declaredpartial1\u2013332/390\u2013660 beforeadmissioncomparison; actualDB118callscurrentgenerate.",
+                    "reason": "ExactprovidedrangescutgeneratedProblemIdliteralat332 andeffectsbranchat390; directneededfactorycompletion registersinterveningrange beforebodyanalysis.",
+                    "exclusions": "No laterexistingtests661+ or unrelatedsource/lens; originalrequestedrangespreserved.",
+                    "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-core\\src\\local_problem.rs",
+                    "status": "registered_before_direct_current03_body_analysis"
+                  },
+                  "qualified_material_ranges": [
+                    [
+                      333,
+                      389
+                    ]
+                  ],
+                  "qualification": "Completes actual generate294\u2013357/effects_for359\u2013397, correcting original registration role prose endnumbers; raw requested ranges preserved.",
+                  "current_admission_proof": "continuation/native/admission03/root-support/contracts-002.json",
+                  "global_reconciliation": "Root pending; no semantic or otherlens credit"
+                }
+              }
+            ],
+            "current_proof_refs": {
+              "current_admission_proof": "continuation/native/admission03/root-support/contracts-002.json"
+            },
+            "body_rereads_for_this_normalization": 0,
+            "semantic_credit_from_metadata": false,
+            "producer_or_owner_or_later_lens_credit": false,
+            "global_reconciliation_pending": true
+          },
+          "registration_id_resolved": "NATIVE-ADMISSION03-REG-060"
+        }
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": [
+        "fresh02 exact333\u2013389",
+        "CONT07-OVERLAY-142",
+        "CAMERA-INITIAL07-CONTRACT-287"
+      ],
+      "source_proof_qualification": "Exact own07 body evidence or fresh02 ranges specified; adopted same-lens02 baseline is not replayed. Root01 narrative consumed for source navigation, no01 verdict transfer.",
+      "owner_fit_disposition": "local-problem-identity-positive-effect-leaves-distinct",
+      "owner_fit_reasoning": "LocalProblemId derives from Seed+ordinal deterministic input text; this is identity minting, not branching on a formatted seed. Starts/ends/resolved calendar instants differ durations. Basis-point buy/sell/frequency effects and mitigation use different signed/bounded policies; disease intensity is not currency or a generic0..1 ratio by name. Existing encounter archetype enum already fits. Zero means absent impact or no mitigation, so positive quantity reuse would be wrong. Preserve exact hash order and historical identity.",
+      "discovery": "accounted with inherited findings and explicit contract questions; not clear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true,
+      "adopted_baseline_source_body_evidence": [
+        {
+          "record": "CAMERA-INITIAL07-CONTRACT-287",
+          "ranges": [
+            [
+              1,
+              865
+            ]
+          ],
+          "kind": "adopted exact07 source-body evidence; independent02 use"
+        }
+      ]
+    },
+    {
+      "delta_index": 40,
+      "source_scope_index": 960,
+      "source_id": "pr-working:crates/adventuresim-core/src/organization.rs",
+      "sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+      "effective_ranges": [
+        [
+          101,
+          149
+        ],
+        [
+          227,
+          245
+        ],
+        [
+          319,
+          334
+        ]
+      ],
+      "registration": {
+        "record": "continuation/native/admission03/source-range-registration.jsonl",
+        "sha256": "b64897ba6a74680b53619d22505860bae51451e916fb03fd547a59a7763875fa",
+        "row_1based": 61,
+        "id": "NATIVE-ADMISSION03-REG-061"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "native",
+          "registry": "continuation/native/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "id": "NATIVE-ADM03-FINALQUAL-061",
+            "registration_id": "NATIVE-ADMISSION03-REG-061",
+            "source_id": "pr-working:crates/adventuresim-core/src/organization.rs",
+            "snapshot": "pr-working",
+            "sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+            "actual_EOF": 1251,
+            "registered_requested_ranges": [
+              [
+                101,
+                149
+              ],
+              [
+                227,
+                245
+              ],
+              [
+                319,
+                334
+              ]
+            ],
+            "qualified_material_ranges": [
+              [
+                101,
+                149
+              ],
+              [
+                227,
+                245
+              ],
+              [
+                319,
+                334
+              ]
+            ],
+            "context_or_excluded_within_registration": [],
+            "original_registration": {
+              "id": "NATIVE-ADMISSION03-REG-061",
+              "at": "2026-10-22T14:23:57.705274+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-047.json",
+              "source_id": "pr-working:crates/adventuresim-core/src/organization.rs",
+              "sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+              "snapshot": "pr-working",
+              "actual_EOF": 1251,
+              "material_ranges": [
+                [
+                  101,
+                  149
+                ],
+                [
+                  227,
+                  245
+                ],
+                [
+                  319,
+                  334
+                ]
+              ],
+              "role": "CompleteOrganizationDefinition/OrganizationKind/Role/Chapter/Recognition/Dues declarationroutes referencedbyactualRoot102scopedgetters andRoot103cataloguevalidator. Originalsourceboundaries1\u2013100/150\u2013226/246\u2013318/335\u2013635 cutrawdecls.",
+              "reason": "Directnecessarycanonicalrawschema definitions beforealladmissionroutes comparison; registerbeforebodyread, Rootretainsfulloriginalscopeauthority.",
+              "exclusions": "No originaltests636+ orunrelatedapplicationgraph/laterlens.",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-core\\src\\organization.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "qualification_history": [
+              {
+                "qualification_file": "root-support/source-qualifications-006.jsonl",
+                "row_1based": 4,
+                "payload": {
+                  "registration_id": "NATIVE-ADMISSION03-REG-061",
+                  "original_registration": {
+                    "id": "NATIVE-ADMISSION03-REG-061",
+                    "at": "2026-10-22T14:23:57.705274+00:00",
+                    "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-047.json",
+                    "source_id": "pr-working:crates/adventuresim-core/src/organization.rs",
+                    "sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+                    "snapshot": "pr-working",
+                    "actual_EOF": 1251,
+                    "material_ranges": [
+                      [
+                        101,
+                        149
+                      ],
+                      [
+                        227,
+                        245
+                      ],
+                      [
+                        319,
+                        334
+                      ]
+                    ],
+                    "role": "CompleteOrganizationDefinition/OrganizationKind/Role/Chapter/Recognition/Dues declarationroutes referencedbyactualRoot102scopedgetters andRoot103cataloguevalidator. Originalsourceboundaries1\u2013100/150\u2013226/246\u2013318/335\u2013635 cutrawdecls.",
+                    "reason": "Directnecessarycanonicalrawschema definitions beforealladmissionroutes comparison; registerbeforebodyread, Rootretainsfulloriginalscopeauthority.",
+                    "exclusions": "No originaltests636+ orunrelatedapplicationgraph/laterlens.",
+                    "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-core\\src\\organization.rs",
+                    "status": "registered_before_direct_current03_body_analysis"
+                  },
+                  "qualified_material_ranges": [
+                    [
+                      101,
+                      149
+                    ],
+                    [
+                      227,
+                      245
+                    ],
+                    [
+                      319,
+                      334
+                    ]
+                  ],
+                  "qualification": "Exact raw declaration gaps needed by Root102/103; no originaltests636+ or extra application graph.",
+                  "current_admission_proof": "continuation/native/admission03/root-support/contracts-002.json",
+                  "global_reconciliation": "Root pending; no semantic or otherlens credit"
+                }
+              }
+            ],
+            "current_proof_refs": {
+              "current_admission_proof": "continuation/native/admission03/root-support/contracts-002.json"
+            },
+            "body_rereads_for_this_normalization": 0,
+            "semantic_credit_from_metadata": false,
+            "producer_or_owner_or_later_lens_credit": false,
+            "global_reconciliation_pending": true
+          },
+          "registration_id_resolved": "NATIVE-ADMISSION03-REG-061"
+        }
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": [
+        "fresh02 exact declared ranges",
+        "CONT07-OVERLAY-143",
+        "CAMERA-INITIAL07-CONTRACT-072"
+      ],
+      "source_proof_qualification": "Exact own07 body evidence or fresh02 ranges specified; adopted same-lens02 baseline is not replayed. Root01 narrative consumed for source navigation, no01 verdict transfer.",
+      "owner_fit_disposition": "existing-organization-vocabulary-plus-unfinished-id-owners",
+      "owner_fit_reasoning": "OrganizationKind, ChapterBuildingKind and Recognition already model their distinct semantics. Role, profession, settlement and standalone chapter location IDs are separate references; cannot all become one generic StringId. Existing OrganizationDefinition/role instance context must accompany profession rather than replacing it with an unrelated broad occupational label. Address priority is signed relative ordering, not positive rank. Public threat referral and errantry issuance are independent capabilities; joining fee is currency, requirements are admission conditions, no conflation.",
+      "discovery": "accounted with inherited findings and explicit contract questions; not clear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true,
+      "adopted_baseline_source_body_evidence": [
+        {
+          "record": "CAMERA-INITIAL07-CONTRACT-072",
+          "ranges": [
+            [
+              1,
+              635
+            ]
+          ],
+          "kind": "adopted exact07 source-body evidence; independent02 use"
+        }
+      ]
+    },
+    {
+      "delta_index": 41,
+      "source_scope_index": 968,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog_validation/demographic.rs",
+      "sha256": "e34eb575d8091df0f4e9d8242066c7734b986d888d7a54c51aaaf1681a53ed34",
+      "effective_ranges": [
+        [
+          1,
+          79
+        ]
+      ],
+      "registration": {
+        "record": "continuation/native/admission03/source-range-registration.jsonl",
+        "sha256": "b64897ba6a74680b53619d22505860bae51451e916fb03fd547a59a7763875fa",
+        "row_1based": 62,
+        "id": "NATIVE-ADMISSION03-REG-062"
+      },
+      "qualification_reference": [
+        {
+          "supplier": "native",
+          "registry": "continuation/native/admission03/source-qualifications-final-current.jsonl",
+          "original_record": {
+            "id": "NATIVE-ADM03-FINALQUAL-062",
+            "registration_id": "NATIVE-ADMISSION03-REG-062",
+            "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog_validation/demographic.rs",
+            "snapshot": "pr-working",
+            "sha256": "e34eb575d8091df0f4e9d8242066c7734b986d888d7a54c51aaaf1681a53ed34",
+            "actual_EOF": 79,
+            "registered_requested_ranges": [
+              [
+                1,
+                79
+              ]
+            ],
+            "qualified_material_ranges": [
+              [
+                1,
+                79
+              ]
+            ],
+            "context_or_excluded_within_registration": [],
+            "original_registration": {
+              "id": "NATIVE-ADMISSION03-REG-062",
+              "at": "2026-10-22T14:35:19.983462+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-047.json",
+              "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog_validation/demographic.rs",
+              "sha256": "e34eb575d8091df0f4e9d8242066c7734b986d888d7a54c51aaaf1681a53ed34",
+              "snapshot": "pr-working",
+              "actual_EOF": 79,
+              "material_ranges": [
+                [
+                  1,
+                  79
+                ]
+              ],
+              "role": "Exact parse_sexes/sex_selectors_overlap direct predicate called by Root105 validator882/1460; all constructor/enum/parse routes and existingtests if present, source only.",
+              "reason": "Direct necessary missing predicate for complete current Root105 demographic admission comparison; registered before body analysis.",
+              "exclusions": "No unrelated demographic/NPC application graph or laterlens/source edits.",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-core\\src\\quest_catalog_validation\\demographic.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "qualification_history": [
+              {
+                "qualification_file": "root-support/source-qualifications-006.jsonl",
+                "row_1based": 5,
+                "payload": {
+                  "registration_id": "NATIVE-ADMISSION03-REG-062",
+                  "original_registration": {
+                    "id": "NATIVE-ADMISSION03-REG-062",
+                    "at": "2026-10-22T14:35:19.983462+00:00",
+                    "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-047.json",
+                    "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog_validation/demographic.rs",
+                    "sha256": "e34eb575d8091df0f4e9d8242066c7734b986d888d7a54c51aaaf1681a53ed34",
+                    "snapshot": "pr-working",
+                    "actual_EOF": 79,
+                    "material_ranges": [
+                      [
+                        1,
+                        79
+                      ]
+                    ],
+                    "role": "Exact parse_sexes/sex_selectors_overlap direct predicate called by Root105 validator882/1460; all constructor/enum/parse routes and existingtests if present, source only.",
+                    "reason": "Direct necessary missing predicate for complete current Root105 demographic admission comparison; registered before body analysis.",
+                    "exclusions": "No unrelated demographic/NPC application graph or laterlens/source edits.",
+                    "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-core\\src\\quest_catalog_validation\\demographic.rs",
+                    "status": "registered_before_direct_current03_body_analysis"
+                  },
+                  "qualified_material_ranges": [
+                    [
+                      1,
+                      79
+                    ]
+                  ],
+                  "qualification": "Actual direct parse/overlap predicate plus originaltests; Sex FromStr delegates lower policy, no new spelling guarantee.",
+                  "current_admission_proof": "continuation/native/admission03/root-support/contracts-004.json",
+                  "global_reconciliation": "Root pending; no semantic or otherlens credit"
+                }
+              }
+            ],
+            "current_proof_refs": {
+              "current_admission_proof": "continuation/native/admission03/root-support/contracts-004.json"
+            },
+            "body_rereads_for_this_normalization": 0,
+            "semantic_credit_from_metadata": false,
+            "producer_or_owner_or_later_lens_credit": false,
+            "global_reconciliation_pending": true
+          },
+          "registration_id_resolved": "NATIVE-ADMISSION03-REG-062"
+        }
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": [
+        "CONT07-OVERLAY-144",
+        "CAMERA-INITIAL07-CONTRACT-285"
+      ],
+      "source_proof_qualification": "Exact own07 body evidence or fresh02 ranges specified; adopted same-lens02 baseline is not replayed. Root01 narrative consumed for source navigation, no01 verdict transfer.",
+      "owner_fit_disposition": "canonical-sex-owner-positive-rejected-input-remains-text",
+      "owner_fit_reasoning": "parse_sexes admits authored JSON once into canonical Sex. The same owner flows through overlap checks; empty selector intentionally means any sex. Unknown source String is rejected-input evidence, not a place to demand an already admitted enum. SexSelectorError is structured until error.at formats it for the validation accumulator, related existing typed-error migration; no new demographic restriction or current selector failure.",
+      "discovery": "accounted with inherited findings and explicit contract questions; not clear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true,
+      "adopted_baseline_source_body_evidence": [
+        {
+          "record": "CAMERA-INITIAL07-CONTRACT-285",
+          "ranges": [
+            [
+              1,
+              79
+            ]
+          ],
+          "kind": "adopted exact07 source-body evidence; independent02 use"
+        }
+      ]
+    }
+  ],
+  "supporting_actual_sources": [
+    "Fresh P16 strategic_action148:303\u2013362 includes RequestedDuration definition318\u2013329; only supporting owner evidence, not new delta coverage for neighbors.",
+    "Fresh PR survival1020:38\u201364 includes canonical FieldShelter45\u201353.",
+    "Fresh PR config1269:1\u2013171; LocalProblem953:333\u2013389 and organization960 exact three ranges.",
+    "Exact owner symbol navigation for TemplateFamily61, CanonicalCause79, AttackPattern87, SourcePackageDigest13 and purpose-specific digest alternatives; no body credit from navigation."
+  ],
+  "frontier": {
+    "accounted_delta_roles": 42,
+    "total": 312,
+    "first_unfinished_delta_index": 42
+  },
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

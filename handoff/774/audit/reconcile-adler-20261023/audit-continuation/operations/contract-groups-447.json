@@ -1,0 +1,34 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-447",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/terrain.rs",
+      "sha256": "e641530bea571c2b122e60d817a9ae562934f67c7488eae746bc1366af605599",
+      "actual_EOF": 1509,
+      "actual_compared_ranges": [
+        [
+          1,
+          1509
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Terrain preparation and local patch atomic replacement",
+      "analysis": "Full1509-line body personally read including all fixture source, no execution. Pending marker removed only Ok(true); failed refresh keeps retry state. Detail patch uses fixed49x49 positions and fixed48x48 cells, only finite sampled/interpolated height is valid; invalid cells omitted, index casts bounded by fixed topology. Replacement mesh and triangle count constructed before patch centre/revision publication. Canonical urban topology deliberately produces empty patch and skips updates. Snapped camera coordinate is re-admitted as ScenePlanPoint before use."
+    },
+    {
+      "contract": "Formula-only terrain relief kernels",
+      "analysis": "Relief, drainage, strata, roots and road arithmetic are cfg(test) owners with fixed positive wavelength/width denominators and bounded fixture loops; these are not runtime authority. Arbitrary raw helper radii/coordinates can violate native assumptions, but actual calls here use positive1.5 spacing and fixed normal terrain. Production arithmetic obligations live in tactical-core authoritative terrain, not discharged by these formula fixtures. Source fixture assertions are evidence of intended bounds/transition collars, not passing tests."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "1 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/presentation/terrain/cliff_surface.rs"
+}

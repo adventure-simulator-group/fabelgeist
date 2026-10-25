@@ -1,0 +1,131 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-040",
+  "at": "2026-10-22T21:09:49.830463+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/contact_calibration.rs",
+      "sha256": "818826cc05de685d9d918e9e1ec5693f18cf7544fd36a7777ffa191f80e7de32",
+      "scope031_index": 1334,
+      "actual_EOF": 447,
+      "scoped_ranges_compared": [
+        [
+          1,
+          447
+        ]
+      ],
+      "actual05_comparison": "contact_segments iterates exact[leftfoot,rightfoot], requiresbothknown, actualnative sampledposition finitegate, sourcegrid>=4samples sointervals>=3 beforedivision/modulo. Lowheightmask has exactlysamecountastrajectory, selectslongest circular lowwindow perfoot with>=3samples; thusproducedsegments exactly2nonemptyorderedfoottrajectories. fit_stride persegmentownintercept andsharedrootslope, checkscompletedstep/slipfiniteandpositivecycle/range beforepublishingbothmeasurement+phasecurve. No alluntrustedarbitraryslice guarantee fromprivatehelpers; original447source/allfootrange, airborneexcursion, articulated, reversefit fixtures readnotrun.",
+      "source_body_proof": "Fresh full actualsource andalloriginalinlinefixtures read/current05relationshipanalysed; no projectexecution orpriorverdict/hashstamp."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/phase_calibration.rs",
+      "sha256": "6d2b74658ffa77e2c7d32635515ddbc3589a7aff449110421f754a56ca0e9cc6",
+      "scope031_index": 1340,
+      "actual_EOF": 434,
+      "scoped_ranges_compared": [
+        [
+          1,
+          434
+        ]
+      ],
+      "actual05_comparison": "ContactOrientation genericsegments zip2semanticcenters butnormalcontact_segments actualexact2proved; directionfit usescheckedfinite signeddisplacements, nontrivialtotal thenwrapsoffset. ContactPhaseSpan privateconstructor hasexplicitfirstsample andstrictpositivephysicalwidths; singletonvalid, authoringcoordinatesmaydecreasereverse. ContactPhaseFit builds mapping+trajectorytogether fromsameOrientedSamples, restoresactualendpoints thenchecksorderbeforewholefit. Partition indexes justified nonempty/order, shiftedendpointscheckedbeforenativerelativepartition. Nativefitfloatintermediates admittedatcompletedCycle/Lengthoutputs; errorsretainrawsource, notfabricatedfallback. LowheightrawVec3 helper hascallerfinitecheck, configmin/maxorderedfromNative031 notfromPositiveLengthleavesalone. No newinvalidnormalcardinalityproven.",
+      "source_body_proof": "Fresh full actualsource andalloriginalinlinefixtures read/current05relationshipanalysed; no projectexecution orpriorverdict/hashstamp."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/phase_calibration/curve.rs",
+      "sha256": "5b1c1ef5eef21306ecadd36217f88b1c00be40518fea94696a27498347562f65",
+      "scope031_index": 1341,
+      "actual_EOF": 80,
+      "scoped_ranges_compared": [
+        [
+          1,
+          80
+        ]
+      ],
+      "actual05_comparison": "Private Identity vsSampled vec encodes empty/singleton semanticidentity and>=2grid withendpointfirst +/-1 exactseam. No assumption authoredmonotone: reverse andwarpsdeliberatelyunwrapped; physicalgriduniform implicitvectorindex. samplewrapsquery, boundsbothindicesactualarraylength andadmitsfinalwrappedoutput; from_samples checksseam beforepublication and no mutablevectoraccess. Fitintervalcountcheckedcanonical>=3 createsN+1samples, atomicperiodicsmoothingthennewseamgate. Validrawcurve canhaveinteriorfar-out finiteauthoredcoordinates; completedarithmeticerrornotglobalunit-inputrestriction.",
+      "source_body_proof": "Fresh full actualsource andalloriginalinlinefixtures read/current05relationshipanalysed; no projectexecution orpriorverdict/hashstamp."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/phase_calibration/periodic_smoothing.rs",
+      "sha256": "c18acd7fab5ff2e7a9e77f0d7a6009b4d17637cfe08b4d204a4cffab107808be",
+      "scope031_index": 1342,
+      "actual_EOF": 55,
+      "scoped_ranges_compared": [
+        [
+          1,
+          55
+        ]
+      ],
+      "actual05_comparison": "Inputincludesduplicateperiodicendpoint; count=len-1 and<3 no-op. Deviationssamegridorientationbaseline, fixedpositive triangularweights, moduloactualsamplecount. Buildsreplacement locally withcheckedproduct/sum/cycledeltas andcheckedseamfirst +/-1 thenlengthmatched copy_from_slice onlyafterallpasses; positiveatomicityevidence. Replacementlength=samplecount+1==original. No allocationcountcastfalseerror underactualVecisizebound; no arbitraryqualitycap. Forward/reverse seam explicitlyseparate, notforcingallunwrappedcoordinatesinto0..1.",
+      "source_body_proof": "Fresh full actualsource andalloriginalinlinefixtures read/current05relationshipanalysed; no projectexecution orpriorverdict/hashstamp."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/stride_calibration.rs",
+      "sha256": "f3474e23dc4875712eb9e3c3a0ad4da0bd71e840ff758ae43ab1b877231e05e4",
+      "scope031_index": 1348,
+      "actual_EOF": 297,
+      "scoped_ranges_compared": [
+        [
+          1,
+          297
+        ]
+      ],
+      "actual05_comparison": "Charactercache binds Arc actualdefinitionidentity, orderedoffsets exactlyrig.entities length/order andmeasurementcollection; matches_offsets checksallthreebeforeuse. Rebuildcandidate startsfreshmeasurements andoffsets builtfromsameentitysequence, thenwholeinsert. Raw [] reference-offsetpolicy meansbake untouched; peractorfullvector sameRigcountprovesoffsetzip, no truncatingnormalcaller. calibrate invalidatesconfigurationbeforework, sourceIDkey retainsfailedmeasurement markerdeliberately, clear_motioncorrelatedtablesbeforepublishnewstride+optionalcurve+measuredID. walk/run usecontactfit, strafe/skip geometricrange intentionallynofittedcurve. Source revision+configuration clearingactualAuthoredCadencebody below; no stalecachedefectinferred justmultiplefields. Original297fixture readactualmatchingRig+track/cardinality andscaledoffset outcome, notrun.",
+      "source_body_proof": "Fresh full actualsource andalloriginalinlinefixtures read/current05relationshipanalysed; no projectexecution orpriorverdict/hashstamp."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/locomotion_sampling.rs",
+      "sha256": "deb2a7d38a16173129e6f12866eca3c14f9de0d1754040b34d37a08f54d3d0e1",
+      "scope031_index": 1339,
+      "actual_EOF": 110,
+      "scoped_ranges_compared": [
+        [
+          1,
+          110
+        ]
+      ],
+      "actual05_comparison": "SparseLocomotionSegment privatelybindsstart/end modulo4 andUnitIntervalsmoothfraction fromonewrappedCycle. Samplesonlyquartercycleanchors; no arrayindexusingu32start, convertscompletednativeframefractiontoClipTimeandSDKclampedsource. ZeroClipDuration intentionallyphase0/staticclip. Endwrap0seam; authoredsourceactualclosingpolicyoutsidecurrentbody. All110source/fulloriginalquartercyclefixture readnotrun, genericunwrappedfinitephase intentionallywrappedatkernelnotrestrictedleaf.",
+      "source_body_proof": "Fresh full actualsource andalloriginalinlinefixtures read/current05relationshipanalysed; no projectexecution orpriorverdict/hashstamp."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+      "sha256": "fe34810c16d01e6e72cb6550444fb14d00245023b73d532a7bd87f5582897fc3",
+      "scope031_index": 1311,
+      "actual_EOF": 200,
+      "scoped_ranges_compared": [
+        [
+          1,
+          200
+        ]
+      ],
+      "actual05_comparison": "Retainedstrides couplesconfigurationstamp, perKindmeasurement/phasecurve/measuredAssetID. DefaultNoneunavailable distinctIdentitycurve; sample/ordinary/combat refuse staleconfig, invalidationclearsallrelateddataonconfig/source change. MeasuredSourceID canexistwithoutmeasurement/phasecurve torecordunmeasurableclip; notinvalidoptionalcorrelation. Actualcalibratorpreparesbeforeclearingandnewdatawholewithinexclusivefunction, no runtimeinterleaving. ordinary133–159 dividesrun-walkreferencegap, additionalactualF009recipient; allcheckedpositiveleavescannotestablishstrictorder. Combatmeasurementweightedbydirectioncomponentsabs, no requiredsum1; zero-direction None, missingneededkindNone, completedmetreoutputchecksfinite. Raw pubsuperfieldsbypass sourceprovenance butnormalproducer/cacheidentityproofcurrent.",
+      "source_body_proof": "Fresh full actualsource andalloriginalinlinefixtures read/current05relationshipanalysed; no projectexecution orpriorverdict/hashstamp."
+    }
+  ],
+  "groups": {
+    "contact-columns-and-periodic-seams": {
+      "invariant": "Trajectorypoint/mask/physical-authoredmapping aligned, exactlyleft+rightstance source; physicalgridstrictlyincreasingwhileauthoredmayreverse; outputperiodicseamcloses +/-1.",
+      "establishment": "ContactSegments exact2 loop+positionfinite+samegridlowmask; PhaseSpancheckedfirst/width; distancefitconstructsmapping/trajectorytogether; atomicconvolution preservesendpoint relation.",
+      "counterexample_or_intentional": "GenericContactOrientation.fit couldacceptmorethan2segments yetzip2centers, but actualonlyproducerprovides2; no normalcardinalitybug. Identityempty/singletoncurves valid, absencecache separate, reverse authoredmotion valid. Rawprivatesourcehelperpreconditions explicit; no invented positivity ofallcyclicdeltas."
+    },
+    "retargeted-cache-provenance": {
+      "invariant": "CalibrationbelongsactualRigDefinitionidentity+orderedcurrentoffsets+cliprevision+samecalibrationinputs. EqualcountsorIDs alone insufficient.",
+      "proof": "Arc::ptr_eq +exactlength+alloffsetcomparisons, peractorfreshcandidate, referenceconfigstampcheckedatconsumption; sourceinvalidatesallkindcolumns, failedmeasurementcanstillmarksourceprocessed intentionally. ExistingLoaderRevision038actual invalidation+PoseBuffer039bank/rigmethodsjoined.",
+      "closure": "Closes prior039 actualcalibrationmethod pending. Exactprocedural/review/configscheduling sources stillunread, no fullpipelinecredit.",
+      "acceptance": "Keeponecoherentmeasurementrecord withsource/rig/config context orequivalentprivateoperations; retainNoneunmeasured/identitycurveandmeasurefailedstates, no fake0stride/calibrationfallback."
+    },
+    "walk-run-calibration-divisor-support": {
+      "finding_support": "NATIVE-INITIAL05-F009",
+      "actual_receiver": "authored_cadence.rs133–159 repeatedlyreadsrun/walkreferences, dividesgap, clampthenUnitInterval admission. Equalacceptedrefs canNaN beforetypedfraction; currentauthored2/5.5safe.",
+      "qualification": "Sameconnectedconfig/profile/calibrationgraph, no extraunique finding. Mixed-versionruntimegetterriskpreviouslyqualified notactualconcurrentcallerclaim."
+    }
+  },
+  "new_unique_findings": [],
+  "finding_support": [
+    "NATIVE-INITIAL05-F009 additional authored strideblenddivisor exactrecipient"
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

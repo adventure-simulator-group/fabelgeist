@@ -1,0 +1,45 @@
+{
+  "id": "NATIVE-ADMISSION03-SCHEDULE-CONSTANTS-022",
+  "lens": "audit-admission-contracts",
+  "linked_group": "contract-groups-020.json#strategic-minute-supporting-definition",
+  "constants": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/activity.rs",
+      "sha256": "d8ee276214a67b09ca6571d03b1adce2dc200e6201284a9a8e25b6053aa72a15",
+      "read_ranges": [
+        [
+          1,
+          243
+        ]
+      ],
+      "contract_range": [
+        [
+          28,
+          28
+        ]
+      ],
+      "actual_definition": "pub const ACTIVITY_SEGMENT_MINUTES: u16 = 15;",
+      "proof": "Fresh entire actual source read current03; no inference from testliteral or type name."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/calendar.rs",
+      "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "read_ranges": [
+        [
+          1,
+          410
+        ]
+      ],
+      "contract_range": [
+        [
+          10,
+          10
+        ]
+      ],
+      "actual_definition": "pub const MINUTES_PER_DAY: u64 = 24 * 60;",
+      "proof": "Fresh prospectively registeredREG006 source read; exact positive width1440, not callerallocation validation."
+    }
+  ],
+  "qualification": "These constants support actual Rootallocation constructor predicates only. No daycap on standalone ActivityMinutes, no organizationmembership or planaggregate guarantee inferred. Source81 full body separately pending coverage; no global/scope/source edits or execution.",
+  "later_lens_credit": false
+}

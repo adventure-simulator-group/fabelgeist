@@ -1,0 +1,49 @@
+{
+  "id": "SEGOVB-04-BOX-MEDIAL-NORMAL-CANDIDATE-001",
+  "classification": "valid ordinary-scale analytic shape operation, source-derived shader counterexample; no GPU run",
+  "sources": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-physics/src/wgsl.rs",
+      "ranges": [
+        [
+          77,
+          99
+        ],
+        [
+          109,
+          139
+        ],
+        [
+          176,
+          194
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-physics/src/collider.rs",
+      "ranges": [
+        [
+          172,
+          195
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-physics/src/contact.rs",
+      "ranges": [
+        [
+          71,
+          89
+        ],
+        [
+          123,
+          148
+        ]
+      ]
+    }
+  ],
+  "case": "Valid Shape::Box centerZERO, half_extentsONE, unit rotation[0,0,0,1], point at centerZERO, dynamic particlew>0. WGSL q=(-1,-1,-1) selectsX, sign(local.x)=sign(0)=0, normalZERO, distance-1. Default collider separation .002 yields penetration1.002, but correction normal*penetrationZERO; stationary previous position also gives zero friction correction. Position remains inside. Rust mirror signum(+0)=+1 produces unitX outward, so mirror differs. Any point on selected medial coordinate plane can have same failure, not only malformed zero quaternion.",
+  "qualification": "Host/source construction and shader arithmetic proof only. No actual installed game asset/current cloth particle at center, shader execution or visual claim. RIG-ADMISSION03-F081 is raw zero-quaternion/nonfinite shape admission and does not exclude this valid unit-frame case. Canonical tie direction can be arbitrary finite unit direction, not necessarilyX.",
+  "acceptance": "Defined nonzero unit fallback on valid box medial/tie points in native shader and mirror, preserving signed distance, valid zero local components, oriented frame and friction response. Do not ban legitimate zero coordinates.",
+  "status": "discovery candidate, exact archive alias pending; no global unique count"
+}

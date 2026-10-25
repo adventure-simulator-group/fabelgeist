@@ -1,0 +1,24 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-095",
+  "lens": "audit-enum-shapes",
+  "groups": [],
+  "additional_sources": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-garment-code/src/garment/edge.rs",
+      "sha256": "9f36f05d7a28d876c1b319f199a1a2ce560005d2a2253c817dbf2a25e5171e09",
+      "ranges": [
+        [
+          1,
+          964
+        ]
+      ],
+      "registration": "094A",
+      "comparison": "Full964 read in1-390/391-720/721-964. EdgeKind Line/Circle/Curve alreadyapplicable but Bezier degree vector+frame flag F068 and Circle/Bezier-only methods on broadEdge F069. EdgeSequence intentionally usually chained, shared endpoints same Rc by identity; no fresh closed/chainedstored flag. is_loop/is_chained/reverse direction are derived local predicates, not redundant lifecycle flags. copy preserves shared identity topology deliberately; do not equate copy with independent endpoints. Subdivision by_length and connect_internal are separate numerical parameterization versus object-sharing policies; caller-specific API strengthening candidates remain open, no collapsed one-mode enum. Exact referenced Curve/Arc math/factory receivers beyond this source remain unclosed."
+    }
+  ],
+  "new_findings": [
+    "SEGO-INITIAL09-F068",
+    "SEGO-INITIAL09-F069"
+  ],
+  "limits": "Extra source only, frozen role count unchanged. No execution/repair/plan/clearance. Sequential frontier remains2265; next inspect garment-fit and newly referenced numerical signature dependencies after separate registration."
+}

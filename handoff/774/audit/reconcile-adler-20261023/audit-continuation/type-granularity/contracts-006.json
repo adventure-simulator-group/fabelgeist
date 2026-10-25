@@ -1,0 +1,78 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-006",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "native-view-schema-authority",
+      "sources": [
+        {
+          "scope_index": 22,
+          "ranges": [
+            [
+              190,
+              361
+            ]
+          ]
+        }
+      ],
+      "distinction": "Generated view handle/typed context distinguish caller-specific and anonymous native authority, while Vec/Option row results differ from RawQuery<T>. Explicit primary-key metadata has schema registration purpose; native typechecking is not proof of game-row invariants.",
+      "uses": "View macro checks context/return and preserves ordinary body for Vec/Option; Query converts to explicit raw SQL boundary. Generated FnInfo selects ViewKind<Ctx> and rejects scheduling views via FnKindView.",
+      "disposition": "Keep native context, query/row and generated handle distinctions. Do not make shared data owner depend on a particular observer permission merely to reuse wire storage; application projection boundaries still require own11 read. No macro execution or generated-source hand edits.",
+      "acceptance": "Any application schema/owner change preserves exact authority and row/query representation through native adapters; body excerpt only, no unregistered macro helper credit."
+    },
+    {
+      "id": "absolute-timestamp-versus-elapsed-duration",
+      "sources": [
+        {
+          "scope_index": 23,
+          "ranges": [
+            [
+              1,
+              95
+            ],
+            [
+              210,
+              251
+            ]
+          ]
+        }
+      ],
+      "distinction": "Timestamp denotes signed microseconds since Unix epoch; Duration and TimeDuration are elapsed offsets with different signed/range guarantees. This distinction prevents treating a database instant as a game elapsed interval even without stricter positive numeric validation.",
+      "uses": "Explicit since-unix conversions preserve sign, before-epoch returns Err(Duration) as actual native signed-side adapter; native arithmetic routes through checked method then unwrap for operator. Display calls RFC3339 path, not arbitrary game-minute formatting.",
+      "disposition": "Keep clock/unit/instant-versus-duration distinctions. StrategicMinute, native timestamp and tactical duration must not unify solely for i64/u64 storage. No extra unsupported positive-epoch policy. Arithmetic extrema behavior belongs actual callers/operations, not rationale to collapse owner.",
+      "acceptance": "Later app clock adapters must state epoch, scale, sign and authority, preserve supported before-epoch inputs at real native boundary and avoid substituting wall clock for authored strategic/tactical time. No system-time conversion tail96+ or execution credited."
+    },
+    {
+      "id": "native-reducer-dispatch-versus-commit",
+      "sources": [
+        {
+          "scope_index": 24,
+          "ranges": [
+            [
+              187,
+              254
+            ],
+            [
+              410,
+              450
+            ],
+            [
+              727,
+              770
+            ],
+            [
+              1290,
+              1433
+            ]
+          ]
+        }
+      ],
+      "distinction": "Queued reducer invocation returns SDK Result<()> independently of later callback Result<Result<(),String>,InternalError>. Native status distinguishes commit, domain rejection and module panic. RequestID binds callback to reducer; generic typed TableHandle<Row> belongs local cache and module schema.",
+      "uses": "invoke_reducer_with_callback queues PendingMutation and returns Ok before send/commit. Later success applies update before callback; failure returns rejection or internal error. ParsedMessage transaction decode failures are SDK Error, distinguished from reducer result. get_table clones cache/channel and table identity, not synchronous remote fetch.",
+      "disposition": "Keep admission/queueing/commit and domain-versus-internal failure distinctions in application owners. Do not widen every outcome to generic String or treat dispatch Ok as committed. No extra wrapper needed merely for each nested Result if a native result remains at actual adapter; concrete application actor/status owner should prevent real mix-ups.",
+      "acceptance": "Actual application gateway/reducer consumers independently pending11: preserve callback request association, committed update visibility and rejection/dispatch/timeout semantics where present. No running subscription/cache, malformed-message acceptance, universal rollback guarantee or implicit table fetch claimed."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

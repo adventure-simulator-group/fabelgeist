@@ -1,0 +1,26 @@
+{
+  "id": "RIG-INITIAL06-GROUP-035",
+  "at": "2026-10-22T20:24:55.181115+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "single-strategic-event-owner-versus-parallel-persistence-mirror": {
+      "sources": [
+        "physical-p16:crates/adventuresim-stdb-module/src/world_event.rs",
+        "physical-p16:crates/adventuresim-core/src/world_event.rs",
+        "physical-p16:crates/adventuresim-core/Cargo.toml",
+        "pr-working:crates/adventuresim-core/Cargo.toml"
+      ],
+      "comparison": "Fresh exact P16 DBWorldEvent1\u2013300/301\u2013350/352\u2013460/463\u2013811 plus original635\u2013657 subset; CoreWorldEvent1\u2013151/245\u2013398 only, full PRCoreCargo42/P16CoreCargo43. Core WorldEventSource/Actor/Subject/Place/PayloadRef and DB Persisted equivalents carry same authorities/units/values; actual persist169\u2013264 is field-by-field match/clone with no validation or numerical/provenance transform. PersistedEnvelope omits id because WorldEventReceipt.primarykey owns it; this is a real storage composition distinction but does not justify duplicating all nested sources/actors/subjects/places/payload owners. Request includes additional proposedconsequenceinputs, ConsequenceOrder fixedadapterpolicy and Receipt owns three separately domain-tagged request/envelope/consequence fingerprints afterapply; these are DIFFERENT authorities, not another redundantcanonical eventbody. Core validate calledbeforebuild andbeforepersistence, then actual semantic/order/preflight equality gates. WorldEventOccurrence is private strategic authority, not observedknowledge/permission nor tactical tick persistence. StrategicMinute canonical retained; no newDBclock. Raw eventplace text generic192byte/control-free policy is NOT automatic canonicalStrategicPlacegrammar/membership/caseprovenance, and infection dose\u00b5units/immunitymilli/BPs have distinctscales/bounds/zero. Keep their actual policies whenpropagatingpurposeowners; do not infer clinicalDose<=8000 or normalize allu32 toUnitInterval. Existing allowed-publicconstruction/Serde remains raw until validate, no acceptedtoken inferred. CoreCargo feature spacetimedb alreadyoptional and enabledwithoutCore\u2192DB cycle, so low canonicalCore eventmodel can own shared native-capable eventproducts. Actual SDKconstraint below requires shapechange, not two independently maintained models: move/reuse one canonical set of eventpayload products/newtypevariants underCore optionalfeature and migrateCoreplanners/validators/DBreceipts directly. A shared eventbody can preserve receiptkey-onlyid composition; do not storetwoindependent eventIDs or add compatibility mirrors. Full PRDBWorldEvent counterpart remains separate future06scope, not credited by P16samepaths. Excludes P16DB812+publicadapters/tests1010+ and Core152\u2013244/399+ planners/tests; broad helper/transaction/laterlens proof not inferred."
+    },
+    "actual-SATS-enum-barrier-and-low-shared-feature": {
+      "sources": [
+        "pinned-registry:spacetimedb-bindings-macro-2.6.1/src/sats.rs"
+      ],
+      "comparison": "Fresh ALL exact currentlyglobal SDK ranges54\u201385/87\u201396/98\u2013143/273\u2013287/295\u2013329/331\u2013637 plus prospectivelyregistered017tail728\u2013752. derive builds productfields or Sum variants. Actual variant_data728\u2013752 accepts unit or exactlyONE named/unnamed field, rejects multi-field namedvariants. Therefore direct derive onto unchanged Core GeneratedCaseFinale{finale_id,source_id} or FoodWaterInfection{manyfields} failsstructuralpredicate; no assertion currentSDK can deriveunchanged canonicalenum. This is concrete dependencybarrier. But one canonical model shaped as unit/newtypepayload products can derive under existingCore optionalSpacetime feature and servepure/planner+nativecontexts, removing duplicatedPersisted trees. Actual named/sequence products deserialize directlydeclaredfields, Sum matchesnativevarianttag/name thenpayloadtype; no automatic gamevalidate/SerdeTryFrom route. Low shared canonical model remains Core; SDK macroowner owns generic sum/product native representation, not strategicmeaning. DeriveSerialize638\u2013727 and unrelatedSDK notread/credited. This proof gives exact boundary shape feasibility only, not compiler/test/runtime success, no foreigncodeedits."
+    }
+  },
+  "new_findings": [
+    "RIG-INITIAL06-F007"
+  ],
+  "limits": "Exact newmaterial/currentrole ownership comparison; only initial06, allremaininginventory incomplete."
+}

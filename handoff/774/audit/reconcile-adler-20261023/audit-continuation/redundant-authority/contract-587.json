@@ -1,0 +1,38 @@
+{
+  "id": "CONT07-CONTRACT-587",
+  "at": "2026-10-24T00:20:46.466289+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2544,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_outlets.rs",
+      "sha256": "a867ca903db8d40b4576b9e1985a40c0483f6f75f5a69efde7b6aa35d6a36ba4",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/generator/roof_outlets.rs",
+      "actual_EOF": 1005,
+      "ranges": [
+        [
+          1,
+          1005
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "PR full1005line roof outlet consolidation uses immutable assembly_read snapshot while updating live edge outletterminals and geometry associations. Snapshot is explicit input to one consolidationstage, not asserted dynamic currentcache. Sharedstationauthorities disposition/recipient/host/downspout come fromone selected branch; network/route/void/catchment references are updated together.",
+    "PR actualmaximum_stations72\u201375 always4, despite topcommentprincipalatmost2. Source governs; no implemented2stationcontract asserted fromstaleprose. Slotcountsderivefromcurrentnetworkpartition; stableidentitycapacity/collector bitmasking remains shared allocator obligation, no authored32memberstationclaim.",
+    "PR obstacle-aware placement and exact roof_weather::contains predicates serve different acceptance stages; fallback searches can choose analyticallyviable but blockedtarget and independent drainageaudit is explicitly expected toreject. No claimthat permissivefallbackimpliesfinalacceptedbadgeometry without finalacceptancecaller.",
+    "PR oldspoutremoval cleans matchinginterfaceids and oldoutletvoids beforepublishingsharedvoid; actualbounddownspout reuseschosenid coherently. FreeDripToParentRoof vsFreeDripToGround vsBoundDownspout is distinct physicalrouting, not one boolean duplicating actualpipepresence.",
+    "PR sourcechannels/outletcentres andgrounddischarge deliberatelydifferentendpoint roles. Conservativebounds/roundtowerexplicitshapeintersections andtensamplecollector heuristics do not establishexactunobstructedproof. Stairs usesraw0.28treadlengthreconstruction751; actualcanonicalstairgeometrycomparison remains prerequisite before newduplicateauthorityfinding.",
+    "PR outletcandidatehostselection radial_frame branch364 is unreachableafterhostfilter344 excludesradialhosts; source-onlyredundantdeadbranch, not proofnormalroundtowerwrongdelivery. Hostkind/shapelegacyboundarymeaning retained, no repairs."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2545,
+    "start_line": 1
+  }
+}

@@ -1,0 +1,213 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-137",
+  "at": "2026-10-25T12:53:26.487828+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 278,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs",
+      "sha256": "d00168e23c47224b67755629192618e89fd66e2dc3c2f2440e4e2193acacaf4e",
+      "actual_EOF": 616,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs",
+        "owner": "camera",
+        "sha256": "d00168e23c47224b67755629192618e89fd66e2dc3c2f2440e4e2193acacaf4e",
+        "base_sha256": "ffaa735d01a814246e3df80b2da9bd1318b5777e34da322aa20f2c17320574fa",
+        "state": "modified",
+        "bytes": 24392,
+        "audit_owner": "camera",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                616
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-ROAD-DIALOGUE-001"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 70,
+            "read_ranges": [
+              [
+                1,
+                616
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-DIALOGUE-043"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 285,
+            "read_ranges": [
+              [
+                1,
+                616
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-DIALOGUE-043"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-DIALOGUE-040",
+            "json_pointer": "/current_sources/1",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                616
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 70,
+              "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs",
+              "expected_sha256": "d00168e23c47224b67755629192618e89fd66e2dc3c2f2440e4e2193acacaf4e",
+              "observed_sha256": "d00168e23c47224b67755629192618e89fd66e2dc3c2f2440e4e2193acacaf4e",
+              "read_ranges": [
+                [
+                  1,
+                  616
+                ]
+              ],
+              "proof_mode": "Fresh complete PR body + exact all changed P16 outer Result/Ok(?) source delta; identical common code and definition variant hashes verified, not prior-verdict coverage"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-032",
+            "json_pointer": "/fresh_current_source_reads/1",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                616
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 70,
+              "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs",
+              "expected_sha256": "d00168e23c47224b67755629192618e89fd66e2dc3c2f2440e4e2193acacaf4e",
+              "observed_sha256": "d00168e23c47224b67755629192618e89fd66e2dc3c2f2440e4e2193acacaf4e",
+              "read_ranges": [
+                [
+                  1,
+                  616
+                ]
+              ],
+              "proof_mode": "Fresh PR complete body read plus every actual PR-to-P16 source delta reviewed; distinct outer Result/Ok(?) changes preserved",
+              "disposition": "source-read-remaining-connected-receiver-reconciliation"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-033",
+            "json_pointer": "/fresh_current_source_reads/1",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                616
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 70,
+              "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs",
+              "expected_sha256": "d00168e23c47224b67755629192618e89fd66e2dc3c2f2440e4e2193acacaf4e",
+              "observed_sha256": "d00168e23c47224b67755629192618e89fd66e2dc3c2f2440e4e2193acacaf4e",
+              "read_ranges": [
+                [
+                  1,
+                  616
+                ]
+              ],
+              "proof_mode": "Fresh complete PR body + exact all changed P16 outer Result/Ok(?) source delta; identical common code and definition variant hashes verified, not prior-verdict coverage"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": 70,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          616
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        {
+          "type": "CorpsePermissionTopicId",
+          "lines": [
+            81,
+            86
+          ],
+          "traits": [
+            "Clone",
+            "Copy",
+            "Debug",
+            "Eq",
+            "PartialEq"
+          ]
+        }
+      ],
+      "absence_basis": "Full body personally consumed: the only local record already derives structural traits. Its borrowed parse method validates optional prefix, exact scope and nonempty coordinates. Reducers, source-fragment classification, selection and voting functions contain no manual trait/serializer."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "prompt resolution, retry receipts and corpse-permission topic parsing",
+      "disposition": "Retain semantic parser with borrowed coordinates and conditional Result<Option<_>>; derive cannot express optional nonmatching-prefix handling and specific errors. Keep choice eligibility, dynamic promotion projection, explicit first/majority/unanimous/all-respondent rules, event source mapping and checked session guards. JSON calls delegate existing types.",
+      "qualification": "No operation or policy clearance asserted; no body execution."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 279,
+    "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

@@ -1,0 +1,258 @@
+{
+  "id": "CONT-ROOT-OWNER-ROLES-002",
+  "at": "2026-10-22T02:55:49.884160+00:00",
+  "lens": "audit-existing-type-owners",
+  "scope_limits": "Fresh exact body read or explicit current priorowner policy reconciliation; no source correctness/other-lens credit. All source changes frozen.",
+  "groups": [
+    {
+      "role": "finite_native_helpers",
+      "comparison": "Finite Vec3 adapter checks every XYZ component for is_finite, permits signed and zero, returns axis/role-specific canonical GeometryError. Direction adapter exhaustively preserves Bevy Zero/Infinite/NaN causes. Neither native vector nor native error justifies duplicate application owners. Concrete exact policy supports Camera constructor comparisons; no P16 helper byte assumption.",
+      "source_proofs": [
+        {
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+          "sha256": "c71c5590f1fb87ae1645a6e4f4ed54a0059d33b821ad0062e098821e1409b899",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\spatial_geometry\\error.rs",
+          "read_ranges": [
+            [
+              1,
+              28
+            ]
+          ],
+          "actual_EOF": 28,
+          "role_comparison": "finite_native_helpers",
+          "source_read": "fresh actual source body; exact scoped ranges only"
+        }
+      ]
+    },
+    {
+      "role": "room_ordinal_owner",
+      "comparison": "RoomIndex is packed u16 ordinal including0; from_ordinal only rejects usize overflow, from_serialized accepts everyu16 and does not prove membership. Exact match for Room.id/WallSegment.inside_room/outside_room and typed allocation/connection/requirement arguments. Producers collect_rooms/derive_walls strip this exact owner into retained raw fields, consumers reconstruct before lookup; heating doorway similarly strips before equality. Carry RoomIndex across source storage and APIs; .index at actual slice/union-find index is legitimate. Preserve MissingRoomRequirement and DisconnectedRoom errors, room-kind versus room-index distinction, exterior OptionNone, sorting/tie order. Roof/tower serialized dimensions and positions in bounded layout portions require own geometric roles, not RoomIndex; GridPoint integer lattice and CellDiameter parity are not metre positions. Existing RIG-PPS-F012 / ROOT-PPS-WALL-SOURCE-CLOSURE-039 connected repair; no new duplicatefinding. Layout151\u2013284 happened to be displayed, excluded from all proof/credit.",
+      "source_proofs": [
+        {
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/model/room_index.rs",
+          "sha256": "09a150e0b0d2873609095c1d8e6f9cf8a4e2117df74ded1787a03d6f647f23cb",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\model\\room_index.rs",
+          "read_ranges": [
+            [
+              1,
+              45
+            ]
+          ],
+          "actual_EOF": 45,
+          "role_comparison": "room_ordinal_owner",
+          "source_read": "fresh actual source body; exact scoped ranges only"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/model/layout.rs",
+          "sha256": "f19587b5c651091d18b720268e43f9bdef0e2ca083b33b57d53cbdbccb1be298",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\model\\layout.rs",
+          "read_ranges": [
+            [
+              1,
+              150
+            ],
+            [
+              285,
+              452
+            ]
+          ],
+          "actual_EOF": 452,
+          "role_comparison": "room_ordinal_owner",
+          "source_read": "fresh actual source body; exact scoped ranges only"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/room_connections.rs",
+          "sha256": "56032b952a0d288a2ff259db55661d2e252fb865ca77d3df1a2bf8e0a4e4300c",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\room_connections.rs",
+          "read_ranges": [
+            [
+              1,
+              68
+            ]
+          ],
+          "actual_EOF": 68,
+          "role_comparison": "room_ordinal_owner",
+          "source_read": "fresh actual source body; exact scoped ranges only"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/wall_derivation.rs",
+          "sha256": "c809e10e428aa6559cf4ef46101cd34e5f8040ce82fd4a4f85c586113d52824f",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\wall_derivation.rs",
+          "read_ranges": [
+            [
+              1,
+              403
+            ]
+          ],
+          "actual_EOF": 403,
+          "role_comparison": "room_ordinal_owner",
+          "source_read": "fresh actual source body; exact scoped ranges only"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/room_allocation.rs",
+          "sha256": "0af46aaa9d2e8406c02e95802701cab06cb2c9e496138d7589c422b4d53d48c5",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\room_allocation.rs",
+          "read_ranges": [
+            [
+              140,
+              180
+            ]
+          ],
+          "actual_EOF": 249,
+          "role_comparison": "room_ordinal_owner",
+          "source_read": "fresh actual source body; exact scoped ranges only"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/heated_rooms.rs",
+          "sha256": "443063c283413c94c1d5b856ab84ff71fe275f9f039e1427384f13a395671879",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\heated_rooms.rs",
+          "read_ranges": [
+            [
+              115,
+              274
+            ]
+          ],
+          "actual_EOF": 274,
+          "role_comparison": "room_ordinal_owner",
+          "source_read": "fresh actual source body; exact scoped ranges only"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/occupied_storeys.rs",
+          "sha256": "e45cc55e23a73758b66304cd2fa518b1cb291eb214df0e66787f9c9f13b58341",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\occupied_storeys.rs",
+          "read_ranges": [
+            [
+              100,
+              145
+            ]
+          ],
+          "actual_EOF": 157,
+          "role_comparison": "room_ordinal_owner",
+          "source_read": "fresh actual source body; exact scoped ranges only"
+        }
+      ]
+    },
+    {
+      "role": "geometry_refinements",
+      "comparison": "ClearanceVolume refines ordered finite SpatialBounds with all extents nonzero; arbitrarily thin positive values valid, degenerate general contact bounds must remain SpatialBounds. Radians finite nonwrapping differs BuildingOrientation wrapping. PlanDirection/SpatialDirection carry normalized Dir2/Dir3 plus frame and retain original reciprocal-multiply arithmetic; lifted direction drops no component because Y is newly0. RigidRotation finite normalized quaternion admits without repairing. Primitive leaf backing/native math and serde are legitimate owner boundaries; no broad use-site clearance.",
+      "source_proofs": [
+        {
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/clearance.rs",
+          "sha256": "f80012cc2b501a1972d07633692af386c5cf7997f9862ec94fc113006ee44f5a",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\spatial_geometry\\clearance.rs",
+          "read_ranges": [
+            [
+              1,
+              48
+            ]
+          ],
+          "actual_EOF": 48,
+          "role_comparison": "geometry_refinements",
+          "source_read": "fresh actual source body; exact scoped ranges only"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+          "sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\spatial_geometry\\orientation.rs",
+          "read_ranges": [
+            [
+              1,
+              142
+            ]
+          ],
+          "actual_EOF": 142,
+          "role_comparison": "geometry_refinements",
+          "source_read": "fresh actual source body; exact scoped ranges only"
+        }
+      ]
+    },
+    {
+      "role": "p16_neutral_scalar",
+      "comparison": "P16 SignedLength/Area and neutral reexports retain same finite signedmetres/nonnegative squaremetres policies as current canonical definitions; min/max/negated preserve signedzero; millimetres conversion promotes then divides. scaled_by raw dimensionlessfactor still exact Ratio gap ROOT-OWNER-F001. Geometry facade simply reexports portable leaves and framed Bevy owners, not duplicate owners. Existing compilefail doctests observed only, do not add tests.",
+      "source_proofs": [
+        {
+          "source_id": "physical-p16:crates/fabelgeist-geometry/src/measurement.rs",
+          "sha256": "c84b2c054d772b9b8037209e1d8542238c397c5dc0148ca5f68c86ef5fc9b9b2",
+          "resolved_path": "SNAPSHOTS\\p16\\crates\\fabelgeist-geometry\\src\\measurement.rs",
+          "read_ranges": [
+            [
+              1,
+              107
+            ]
+          ],
+          "actual_EOF": 107,
+          "role_comparison": "p16_neutral_scalar",
+          "source_read": "fresh actual source body; exact scoped ranges only"
+        },
+        {
+          "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry.rs",
+          "sha256": "c3d39473c3dbc283a06a940bdaab465648c2789ebdf7757262ad128ef3851109",
+          "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-building-generator\\src\\spatial_geometry.rs",
+          "read_ranges": [
+            [
+              1,
+              29
+            ]
+          ],
+          "actual_EOF": 29,
+          "role_comparison": "p16_neutral_scalar",
+          "source_read": "fresh actual source body; exact scoped ranges only"
+        }
+      ]
+    },
+    {
+      "role": "p16_camera_kernel",
+      "comparison": "Position<Scene> and SceneVelocity retained at FocusSample and public damping API; primitive scalars/vectors live in exact critical_damp scalar/vector exp equations, with complete candidateposition/velocity admitted before replacement. Smooth time uses ResponseShapingTime, elapsed AnimationElapsed; no intermediate primitiveforwarder here. ScreenError/Ratio roles distinct; camera_view_metrics98\u2013100 is partial prefix and does not establish full receivingbody coverage.",
+      "source_proofs": [
+        {
+          "source_id": "physical-p16:crates/adventuresim-tactical-client/src/camera/smoothing.rs",
+          "sha256": "7a8b095a7fa6c14074686fd57c5fbfb86cafbc3e5fad5e78a0db2531b6c2d3f8",
+          "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-client\\src\\camera\\smoothing.rs",
+          "read_ranges": [
+            [
+              1,
+              100
+            ]
+          ],
+          "actual_EOF": 247,
+          "role_comparison": "p16_camera_kernel",
+          "source_read": "fresh actual source body; exact scoped ranges only"
+        }
+      ]
+    },
+    {
+      "role": "p16_trace_and_reexports",
+      "comparison": "Trace state retains SkeletonAction and explicitly distinct active/inactive actuator state carrying AnimationSampleTick; acknowledged input retains Option<PlayerInputTick> until logging mapencoded. Encoded ticks emitted directly to native logs; no internal numeric forwarding. Native Entity/Transform actual Bevy query boundary legitimate; does not waive snapshotgeometry producer gaps elsewhere. Animation mod reexports single existing AnimationElapsed/UnitInterval/NonnegativeLength and role-specific angle/cadence/time/measurement owners, includesfixture without executing. Shared zero-capablelength move remains existing ROOT-OWNER-ZERO-LENGTH-007 dependency, not local equivalent wrapper.",
+      "source_proofs": [
+        {
+          "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player/quickstep_trace.rs",
+          "sha256": "d4c445ad8881a51294103c9f7ee9ef4024f1a3d64692356dfa8ac21f93604346",
+          "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-client\\src\\player\\quickstep_trace.rs",
+          "read_ranges": [
+            [
+              1,
+              128
+            ]
+          ],
+          "actual_EOF": 128,
+          "role_comparison": "p16_trace_and_reexports",
+          "source_read": "fresh actual source body; exact scoped ranges only"
+        },
+        {
+          "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/mod.rs",
+          "sha256": "75fc12083762ad42e6fa03e9dbbd10e448c72c7940847b8c105add09c96e3c66",
+          "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-core\\src\\animation\\mod.rs",
+          "read_ranges": [
+            [
+              1,
+              86
+            ]
+          ],
+          "actual_EOF": 86,
+          "role_comparison": "p16_trace_and_reexports",
+          "source_read": "fresh actual source body; exact scoped ranges only"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-402",
+  "at": "2026-10-23T13:14:04.125908+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/power.rs",
+      "sha256": "76922a00bc1d4bf13c6d972aaba83258551ce853fff438f2edc3f0d295ae025a",
+      "scope072_index": 876,
+      "actual_EOF": 168,
+      "scoped_ranges_compared": [
+        [
+          1,
+          168
+        ]
+      ],
+      "actual05_comparison": "Fresh full source; conservative observer aggregate, authored threat mode/ammunition construction and timeline payload/time/tick relationships compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/threat.rs",
+      "sha256": "58a5e53d2fdf5283f4e7ba8a58f1335f894bb6b4ab4524f3684f92bbca8dc106",
+      "scope072_index": 877,
+      "actual_EOF": 187,
+      "scoped_ranges_compared": [
+        [
+          1,
+          187
+        ]
+      ],
+      "actual05_comparison": "Fresh full source; conservative observer aggregate, authored threat mode/ammunition construction and timeline payload/time/tick relationships compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/timeline.rs",
+      "sha256": "4e83c1f6cda9e4f7a8f9a19ac6c54119c67701f6d4dae37641c5e6b7b94b753d",
+      "scope072_index": 878,
+      "actual_EOF": 139,
+      "scoped_ranges_compared": [
+        [
+          1,
+          139
+        ]
+      ],
+      "actual05_comparison": "Fresh full source; conservative observer aggregate, authored threat mode/ammunition construction and timeline payload/time/tick relationships compared."
+    }
+  ],
+  "groups": [
+    {
+      "id": "observer power is derived from current participant but intentionally not battle outcome",
+      "comparison": "876 full168. Melee/ranged views choose matching weapon and holding side, available ranged requires ammunition, skill/armor/current health and total incapacitation read same participant. finite_log_component deliberately maps nonpositive/NaN to0 and +Inf toMAX before f64 logarithm, final u64 bounded; readiness nonfinite maps0. This is explicit conservative assessment policy, not a validated combat-state certificate. Raw weapon precision reaches ContactPrecision::new before finite_log handling, so the established raw ContactPrecision admission/panic graph applies at this actual caller; no ordinary authored bad precision claimed. Armor/body means still rely on actual admitted numeric snapshot and raw malformed values cannot be called finite-normal simply because later scalar clamp exists."
+    },
+    {
+      "id": "authored threat establishes mode and ammunition together",
+      "comparison": "877 full187. Parses closed actual ThreatId before profile lookup, preserves full requested actor ID, computes scaling through separate canonical bounded-word helper and uses actual static CombatProfile. It builds attributes/skills from same rating, installs mode-specific weapon, immutable innate/armored profile and same ranged ammo/initial_ammunition12. Ranged sidearm resolved through checked actual catalogue knife projection; errors before successful returned Combatant. Temporary local mutation on Err is not published. Fixed static profile precision/mass/training ranges are real lower predicates; no hypothetical arbitrary raw MAX profile can reach private threat_weapon from this public string API. Scaling and difficulty are native finite integers, not arbitrary f32 endpoints. Exact lower scaler/current bestiary bodies remain independently scoped."
+    },
+    {
+      "id": "timeline event is raw descriptive record with normal typed builders",
+      "comparison": "878 full139 public Serialize-only event holds kind and optional data columns. at sets time and tick from the same input and all optional fields empty; per-kind producers fill their actual payloads. Public literals may mismatch kind/payload/tick, so event is not sealed membership/chronology evidence; actual consumers must not infer validity from name. Current producer roles873/874 copy same timing and batch references, raw missing-payload behavior in consumers remains separate. with_terminal simply adds resolution; used normally with Terminal kind, not a generic whole-event gate."
+    },
+    {
+      "id": "sample tick is native projection distinct from occurrence identity",
+      "comparison": "878 tick_at max0 then seconds\u00d764,round\u2192u64 follows native clipping/saturation at enormous BattleTime or negative input. It cannot uniquely identify every time/attack occurrence. Actual 863 wrapping_shl identity loss is RootF027, not cured by a typed tick or by redundant event.time checks. Constants64 here and862 round stepping agree currently, but no unregistered global fixed-clock definition inferred. Existing queued later magic-number lens may compare policy ownership independently; no early lens credit. No runtime output, simulation or new fixture."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Actual threat scaler/profile admission, generic contact precision and public timeline consumer predicates remain separate exact source contracts."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

@@ -1,0 +1,49 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-815",
+  "at": "2026-10-25T16:55:07.727938+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1024,
+  "source_id": "pr-working:crates/adventuresim-core/src/weather.rs",
+  "sha256": "62c3d0b44fa30ce15dab8e231cc5ef90e631e633d9ef4ea34091c5c8c3f3fde9",
+  "actual_compared_ranges": [
+    [
+      1,
+      330
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "Default",
+      "type": "AtmosphericSnapshot",
+      "lines": [
+        [
+          83,
+          98
+        ]
+      ],
+      "disposition": "KEEP authored neutral humidity/pressure policy"
+    },
+    {
+      "trait": "Default",
+      "type": "WeatherSnapshot",
+      "lines": [
+        [
+          123,
+          139
+        ]
+      ],
+      "disposition": "KEEP versioned temperature/atmosphere policy"
+    }
+  ],
+  "analysis": [
+    "AtmosphericSnapshot Default83\u201398 deliberately RH5000 and pressure10132; WeatherSnapshot Default123\u2013139 current rules version, temperature100 and atmospheric policy default. Standard structural defaults differ, preserve necessary small manual policies, no custom project field-default derive.",
+    "Precipitation/CloudForm enum defaults and cloud records structural/Serde already derived, private IntervalWeather CloneCopy already. Native snapshot/weather/history/ground and atmospheric field calculations semantic; no handwritten codecs in range."
+  ],
+  "first_unfinished": {
+    "scope_index": 1024,
+    "line": 331
+  },
+  "execution": "none"
+}

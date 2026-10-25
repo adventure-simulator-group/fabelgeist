@@ -1,0 +1,37 @@
+{
+  "id": "SEGOVB-04-CUSTODY-VERSION-TERMINAL-CANDIDATE-001",
+  "lens": "04",
+  "source_id": "pr-working:crates/adventuresim-core/src/case.rs",
+  "sha256": "7b919041dbce7f4e53f859aab2c5b7c6b16dd110b1452ecfa598555bda9055b0",
+  "ranges": [
+    [
+      603,
+      624
+    ]
+  ],
+  "status": "source-backed bounded API candidate; no ordinary runtime witness or global unique-count claim",
+  "contract": "A changed custody record requires a strictly subsequent version, or an explicit terminal-version rejection policy.",
+  "witness": "Represented current record version u32::MAX; same case and object, different source_id and changed holder, next.version u32::MAX passes current.version.saturating_add(1) and replaces the record at the same version.",
+  "qualifications": [
+    "No actual DB caller or 2^32-event history established. The map and records are representable without allocating an enormous collection. Same-source replay returns false intentionally before other checks.",
+    "Parent confirms local774:M44 custody identity/finale payload is a connected dependency, not an accepted MAX-version alias."
+  ],
+  "connected_dependencies": [
+    "local774:M44",
+    "Case event identity and transaction-level caller validation remain separate."
+  ],
+  "acceptance_constraints": [
+    "Explicitly reject terminal advancement or define an independently justified terminal policy; preserve idempotent replay and case/object identity.",
+    "Rejected updates leave the original map entry intact."
+  ],
+  "execution": "none",
+  "source_edits": false,
+  "related_operation_support": {
+    "evidence": "SEGOVB-INITIAL04-CONTRACT-353",
+    "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/model.rs",
+    "sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+    "function": "transition_referred_contact_action",
+    "witness": "Active root version u32MAX yields Applied with expected_version==next_version==MAX while deactivating root and activating successors.",
+    "qualification": "Separate mutation and actual receiver/provenance graph; not automatically identical defect or ordinary lifetime witness. No exact archive token match found; coordinator semantic dedup pending."
+  }
+}

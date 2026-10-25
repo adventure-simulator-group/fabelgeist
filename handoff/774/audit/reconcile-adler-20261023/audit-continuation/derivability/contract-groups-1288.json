@@ -1,0 +1,163 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1288",
+  "at": "2026-10-25T18:23:04.648068+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1355,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs",
+      "sha256": "678af470ebedb38a874258f1f27264052978d78d58b438469bc24e25ef4d0b78",
+      "actual_EOF": 109,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs",
+        "owner": "native",
+        "sha256": "678af470ebedb38a874258f1f27264052978d78d58b438469bc24e25ef4d0b78",
+        "base_sha256": "647cdf1dcbecb36b0b933262e7d6c480cc2930f96b01ce349631dcc7f5e03805",
+        "state": "modified",
+        "bytes": 5051,
+        "audit_owner": "native",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [],
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 186,
+            "read_ranges": [
+              [
+                1,
+                109
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-PRESENTATION-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 528,
+            "read_ranges": [
+              [
+                1,
+                109
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-PRESENTATION-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-TACTICAL-RECEIVERS-044",
+            "json_pointer": "/additional_actual_source_proofs/4",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                95
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs",
+              "sha256": "678af470ebedb38a874258f1f27264052978d78d58b438469bc24e25ef4d0b78",
+              "actual_line_count": 109,
+              "read_ranges": [
+                [
+                  1,
+                  95
+                ]
+              ],
+              "resolved_path": "RECORDS/final-acceptance-20261021/frozen-inputs.zip!/pr-working/files/crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs",
+              "method": "Fresh current material body; PR/P16 paired attack_start/action_clock/offense source plus complete exact delta, duplicate defense bytes compared. Bounded ranges stay bounded; incidental partial fixture prefixes do not imply whole fixtures."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-COMBAT-RECEIVER-CLOSURE-020",
+            "json_pointer": "/source_reads/4",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                95
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs",
+              "sha256": "678af470ebedb38a874258f1f27264052978d78d58b438469bc24e25ef4d0b78",
+              "actual_line_count": 109,
+              "read_ranges": [
+                [
+                  1,
+                  95
+                ]
+              ],
+              "resolved_path": "RECORDS/final-acceptance-20261021/frozen-inputs.zip!/pr-working/files/crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs",
+              "method": "Fresh current material body; PR/P16 paired attack_start/action_clock/offense source plus complete exact delta, duplicate defense bytes compared. Bounded ranges stay bounded; incidental partial fixture prefixes do not imply whole fixtures."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          109
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Plugin",
+          "type": "TacticalAnimationPlugin",
+          "lines": [
+            10,
+            109
+          ],
+          "disposition": "KEEP_NATIVE_APP_REGISTRATION: installs exact resources/required components/messages/observers and ordered Update/FixedUpdate/PostUpdate systems around propagation; no structural project derive equivalent."
+        }
+      ],
+      "existing_derives": "StrategicModel Component with required SkeletonState.",
+      "absence_basis": "Native registration trait is behavioral app assembly, not boilerplate field delegation; child systems not credited from registration."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Plugin lifecycle must preserve exact native registration order and required resources/components, not derive from marker fields.",
+      "disposition": "KEEP_BEHAVIORAL_NATIVE_PLUGIN_IMPL",
+      "qualification": "No application/system execution or child source credit inferred."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1356,
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

@@ -1,0 +1,73 @@
+{
+  "id": "CONT07-F077",
+  "at": "2026-10-23T20:07:20.336956+00:00",
+  "classification": "source-backed conflicting current display decision; conditional supported camera/override input, no rendered execution",
+  "title": "Tree streaming and visibility independently disagree about required representations",
+  "sources": [
+    {
+      "scope_index": 1605,
+      "sha256": "9e94d087fccffc1d1ed76815d33256a0d9c53b941cf11929db12be7d6419b4bd",
+      "ranges": [
+        [
+          104,
+          118
+        ],
+        [
+          132,
+          170
+        ],
+        [
+          190,
+          204
+        ]
+      ]
+    },
+    {
+      "scope_index": 1607,
+      "sha256": "eb8c1a54c7a158a3a3858b2eb9ba2b4f5c62ce6fb1fde444bc6b2c2207b824be",
+      "ranges": [
+        [
+          156,
+          174
+        ],
+        [
+          237,
+          289
+        ],
+        [
+          474,
+          538
+        ],
+        [
+          663,
+          763
+        ]
+      ]
+    },
+    {
+      "scope_index": 1600,
+      "sha256": "918bd2a4ed873968c420e4ad7c3070043b2073a9bbdd30e27d1dbbd6c1a4d2a1",
+      "ranges": [
+        [
+          770,
+          835
+        ],
+        [
+          855,
+          876
+        ]
+      ]
+    }
+  ],
+  "earliest_failed_contract": "Every representation eligible for current tree visibility must be generated and spawned before use. Streaming and visibility independently implement the same current camera/override decision using different dependencies/default interpretation.",
+  "counterexamples": [
+    "Cold forced request lod=Some(0), leaf=None, distance beyond leaf handoff (for example10m), reference FOV: stream selects AlphaCard from distance, generates/spawns only alpha leaves. Forced visibility treats None as TexturedMesh and hides alpha. Textured leaf representation never spawned for this cold request, so no leaf representation is visible despite forced detailed tier. Subsequent identical request fastpath retains omission.",
+    "Cold normal request at distance36m, perspective80deg, physical viewport height360, no projected override: streaming omits viewport factor and does not request LOD4 until40m. Visibility focal_scale=.5 makes LOD4 fully eligible after30m, while LOD3 and mid-trunk end by35m and nearer tiers earlier. No LOD4 child exists for this cold initial request. Existing monotone history may mask omission on later approach; no history assumed."
+  ],
+  "actual_recipient": "spawn_streamed_tree_children creates only requested missing masks/leaf representations. update_tree_projected_lod_ranges then assigns incompatible native Visibility/VisibilityRange to the actual surviving entities; no virtual missing entity can be selected.",
+  "qualification": "Exact source decision and arithmetic proof for representable finite supported camera/override inputs. No app scheduling run, native visibility pass, rendered reproduction, claim default720 first approach fails, or claim every previously warmed tree fails. Distinct retained assets/history intentionally remain.",
+  "connected_repair": "One canonical current tree projection/forced leaf decision must supply both residency requirements and visibility policy, including camera physical viewport/FOV, projected override/clamp, cluster handoff bounds and forced default leaf. Prefetch may deliberately be broader, but must be a superset of current eligible representations. Preserve monotone history, cold initialization, both leaf overlap, independent benchmark isolation and native change-tick suppression.",
+  "acceptance": "Cold forced detailed default spawns selected TexturedMesh regardless distance; normal small/tall viewport and FOV/cluster transitions always have all eligible representations resident before visibility. Existing warmed caches and unchanged update behavior preserved. No tests added or executed.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

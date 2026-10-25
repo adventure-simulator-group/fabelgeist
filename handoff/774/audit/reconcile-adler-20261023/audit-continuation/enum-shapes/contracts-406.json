@@ -1,0 +1,22 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-406",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        780,
+        781,
+        782,
+        783,
+        784,
+        785,
+        786
+      ],
+      "comparison": "Full780702/781324/782334/783145/784588/785227/78682. DrapeStage already owns Sewing{step,of}/Settling{step,of}, zero steps deliberately yields Settling{0,0}; Worn distinct source not simulated. Preview shows unskinned stages before final transfer assigns both indices+weights. Need later from_pattern/savedwear definitions for optional skin shape, retaining OPEN403. DrapeOutcome result, warnings and checkpoints preserve partial completed stages on both outcomes; do not nest history solely in successful variant. Actual OutfitOutcome builds finished prefix up to first failure; every preview is finishedprefix+current, checkpoints include attempted failed entry. This resolves earlier OPEN391/403 tag association positively for actual worker preview zip: no skipped-middle clothing source. Saved drape and simulated branch selected by settledOption carrying whole savedrecord, valid. UnderPlateOption owns lining+standoff together, independent construction/fabric; liningNone intentional when no thickened plate. Dressing semantic BodyPart enum derives local dressed predicates; local flips OptionBool/left/right and numerical seam/solver flags are algorithm state. Coif carrier source is typed wrapper but public construction can arbitrary family; no ordinary wrongkind route as fitted_coif_carrier produces actual coif. Nonfinite/UVsolver scalar concerns remain distinct lens obligations, not automatic enum findings.",
+      "finding_refs": [],
+      "disposition": "Existing garment stage/source payloads retained; partial history and prefix identity contracts independently source-confirmed"
+    }
+  ],
+  "new_findings": [],
+  "limits": "Source review only. Test code read, never run; no cloth/GPU work, checks, repair or clearance."
+}

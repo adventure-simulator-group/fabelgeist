@@ -1,0 +1,15 @@
+{
+  "id": "SEGOVB-04-HAIR-GUIDE-GRID-CAPACITY-CANDIDATE-001",
+  "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/grow.rs",
+  "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+  "ranges": [
+    [
+      768,
+      813
+    ]
+  ],
+  "counterexample": "record_map starts cell=max(distance,.002), derives each dimension by saturating f32->u32 cast then evaluates product::<u64>()*5 before checking8Mi cell budget. Finite huge root bounds can yield3dimensions=u32MAX, whose cube overflowsu64 before the intended cell-growth admission loop. Debug panic/release wrapped work budget; noGPUinvocation.",
+  "qualification": "Internal helper reached through publicgrow rawscalpbounds/Opguide-distance. No normal small anatomical bound failure or livecaller established; publicScalp may have separate admission/aggregate gap, exactaliaspending. RIG03F073 owns plain point/count/n+1/dispatchproduct, adjacent shared executablecapacity dependency rather than automatic same exact defect or new global count.",
+  "connected_contract": "Check derived native grid product without overflowing while choosing cell size; reject or coarsen explicitly before allocation/dispatch. Preserve current ordinary8Mi budget, meaningful physical extents and no arbitrary location/radius clamp.",
+  "acceptance": "All accepted finite root extents/guide distance choose representable positive grid with nativeindex/byte products inrange, or structuredrejection beforemutating publishedgroom. Ordinaryguide maps/seeds/parting remain identical."
+}

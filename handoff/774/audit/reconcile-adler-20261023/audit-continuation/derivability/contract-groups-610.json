@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-610",
+  "at": "2026-10-25T16:12:28.909457+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 939,
+  "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_schema.rs",
+  "sha256": "96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+  "actual_compared_ranges": [
+    [
+      1,
+      440
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Fresh221\u2013440 authoring attachment/surface/protection/body/location/presentation and tagged ItemKind wire. All structural/Serde derives already specify exact defaults/tag/rename/denyunknown behavior; flexibility/ROM defaults1 remain explicit helper functions, not builtinzero Default. Native stable location ID mapping semantic. No handtrait/codec; weapon vocabulary continues.",
+  "first_unfinished": {
+    "scope_index": 939,
+    "line": 441
+  },
+  "execution": "none"
+}

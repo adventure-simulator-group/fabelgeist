@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-571",
+  "at": "2026-10-25T16:04:57.500117+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 927,
+  "source_id": "pr-working:crates/adventuresim-core/src/food.rs",
+  "sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Fresh food1\u2013220: native cooking progress/nutrition/contamination methods and enum/profile declarations. FoodClass/CookingMethod/Preparation wire already derives (latter two cfgSpacetimeType), FlavorProfile structural Default/Serde already. No handtrait/codec; native physical/gameplay formulas not mechanical conversions. Flavor scaling body unfinished.",
+  "first_unfinished": {
+    "scope_index": 927,
+    "line": 221
+  },
+  "execution": "none"
+}

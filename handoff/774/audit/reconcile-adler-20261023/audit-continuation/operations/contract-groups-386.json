@@ -1,0 +1,65 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-386",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/tests/failure_security.rs",
+      "sha256": "c072e8a42ab41dbd28ee281414b98b457e54f52f978dd91320c77bd9fad4b933",
+      "actual_EOF": 812,
+      "actual_compared_ranges": [
+        [
+          1,
+          812
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/tests/recovery_and_cases.rs",
+      "sha256": "ef87ad4e9c4d24ebf86edbdf12067ecbb06855d80bd109c8d88da8d9fc18c684",
+      "actual_EOF": 1049,
+      "actual_compared_ranges": [
+        [
+          1,
+          1049
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/tests/travel.rs",
+      "sha256": "326a11e035cf162c0e62df1b3c5e6dedeb0df33f7186237238c1a40e2441eeb4",
+      "actual_EOF": 957,
+      "actual_compared_ranges": [
+        [
+          1,
+          957
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Failure projection wire, event identity and resource diagnostic contracts",
+      "evidence": "failure_security.rs1\u2013812 full: public-projection whitelist/private-authority forbidden source assertions; typed failure code/operation sanitization disallows raw reducer text; version9 golden fixture; typed semantic subject distinguishes cases from wording and repeatable travel; questcoverage mutations assert both lanes and safe final-state requirements; wait hints0 and>day rejected, contact schedule typed character selects currentpresence.",
+      "qualification": "Fixture reads are source evidence only, no test execution. They do not cover event storage after100000 (SEGOVB-04-FAILURE-TRACE-PREFIX-CANDIDATE-001) or empty final_agents vacuous public validation (packet383 aggregate question). Golden serialization tests only serde_json, not generatedSATSnative/postcard protocols."
+    },
+    {
+      "contract": "Bounded recovery and generated-case action order",
+      "evidence": "recovery_and_cases.rs1\u20131049 full: explicit empty-party cannotresume and one-day supplies scale by membercount; passive rest only activecoherentcamp/control/no unresolvedencounter/no critical; conditionNone rejected. Recovery actor reselected each iteration; actualclockdelta recorded, held-only cycles do not advance globaltime. Public journey resumes without duplicated attempts, generatedowner keys distinguished, synchronize\u2192death\u2192medical\u2192resynchronize\u2192safety precedes action lookup. Authority surrender exactparty/site/controlled instigator/uniqueaffordable then publicpoststate gate.",
+      "qualification": "Many assertions inspect concatenated production strings/order instead of executing authority transitions, so no behavioral pass from source presence. Source test explicitly equates outcomes.empty with planned_interval_clipped, but packet382 retained alternative replay/nooutcome question; test expectation does not prove unique cause. Intentional observed activityorigin can bypass otherwise missing pin forecast/supplies checks, not evidence private origin or default numeric projection is sound."
+    },
+    {
+      "contract": "Journey post-encounter/rest endpoint classification and public issuer authority",
+      "evidence": "travel.rs1\u2013957 full: complete public coherent postencounter state determines continue/camp/recovery; overlap2 rejects; all choices share poststate authority. Rest classifier examples distinguish exact, interruptedshort, terminalshort/zero, ordinaryzeroerror, overshooterror andaftertotalerror. Continued camp boundedMAX_CAMPS_PER_LEG, completed marker only aftertypedcompleted outcome; merchantprovisioning and issuer availability occur before contractaccept, lateauthoritative rejection defers withoutattempt/completion metrics. Narrative ignore intended unconditional fallback and check-free choices only.",
+      "qualification": "Not executed. Raw aggregate public states in fixtures can represent correlated invalid combinations; underlying authority/readiness dependencies remain separate. None exercises nearMAX clock, malformed raw itinerary, partial medical observation, unknown catalog profile or unbounded total trace prefix. No counterpart/hash-only personal coverage credited."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-strategic-sim/src/live_core/travel.rs"
+}

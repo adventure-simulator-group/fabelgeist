@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-636",
+  "at": "2026-10-25T16:19:29.566757+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 953,
+  "source_id": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+  "sha256": "42c0284a19db9d6e763cb9be7bb0c2472dea34f759b13794f37883c42e838474",
+  "actual_compared_ranges": [
+    [
+      1,
+      440
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Authored CANDIDATES tables, deterministic generation/filter/weighted selection/ID assembly and Cause-to-Effects classification are semantic rules, not mechanical serialization or field projection. AggregateEffects Default/structural traits and ConsequenceInput structural traits already derive. No handwritten trait/codec through440."
+  ],
+  "first_unfinished": {
+    "scope_index": 953,
+    "line": 441
+  },
+  "execution": "none"
+}

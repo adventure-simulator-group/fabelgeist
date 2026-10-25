@@ -1,0 +1,164 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-308",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+      "sha256": "a4a880f61be02405eeb1c8e2b551d9c90a0ede8737e7d59a1c67ed0155d49493",
+      "actual_EOF": 154,
+      "actual_compared_ranges": [
+        [
+          1,
+          154
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church/appearance_tests.rs",
+      "sha256": "0d36153306b8a78441d45e8227f2a2f54fa002346ed7328e16119d32af7a3697",
+      "actual_EOF": 208,
+      "actual_compared_ranges": [
+        [
+          1,
+          208
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church/fittings.rs",
+      "sha256": "b404568b0b0300bd88d8b21396aadf4673ba65ebf8be5b21310ba6b3379e48b0",
+      "actual_EOF": 285,
+      "actual_compared_ranges": [
+        [
+          1,
+          285
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church/programme.rs",
+      "sha256": "3999316d3d77475ab5209ad988d62b7832e63d0a97a70fe56bc903dc3fa8e36c",
+      "actual_EOF": 84,
+      "actual_compared_ranges": [
+        [
+          1,
+          84
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church/storey.rs",
+      "sha256": "dce59e1f768ffe5e9d0c026d0eb717ca1dab99f11429a4ec8ab9eb7d04a7d8ed",
+      "actual_EOF": 82,
+      "actual_compared_ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church/tests.rs",
+      "sha256": "e71079dff15d4781019f21c021a5fbb0bee5c2d30fb15ef860536a625e55b96c",
+      "actual_EOF": 166,
+      "actual_compared_ranges": [
+        [
+          1,
+          166
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Small church dimensions come from a finite programme, with large principal churches using a different owner",
+      "source_ranges": {
+        "small_church.rs": [
+          [
+            1,
+            154
+          ]
+        ],
+        "programme.rs": [
+          [
+            1,
+            84
+          ]
+        ],
+        "storey.rs": [
+          [
+            1,
+            82
+          ]
+        ]
+      },
+      "disposition": "All three production bodies were personally read. Dimensions::from_program selects only ParishChurch without urban church_program, explicit Chapel/Parish usage and size. Authored width5/7, nave6..12 and chancel0/4 keep u16 sums/products and i16 cell casts small. Actual outer validation from301 rejects a large principal ParishChurch with missing urban programme; the fixture matrix deliberately excludes that small-church combination. configure_small_church_size sets pitch48/52 and physical footprint/room counts; it has a private expected-use precondition before expect, not a newly proven arbitrary public configuration panic. occupied storey assigns room0/1 explicitly; neighbour wall generation remains its owner. Chapel no-chancel and parish lower-chancel modes intentionally differ."
+    },
+    {
+      "contract": "Small church fittings preserve structural support identity and checked native geometry",
+      "source_ranges": {
+        "fittings.rs": [
+          [
+            1,
+            285
+          ]
+        ]
+      },
+      "disposition": "All285lines were read. The actual finite dimensions keep floor spans, crossing band height5.1-3.15, belfry and fixed bell parts positive under the authored pitch. Raw caller pitch remains a native programme boundary: tan or nonfinite results must be rejected by computed Position/CuboidDimensions/SpatialBounds; no universal valid-pitch claim. part() adds one support node, one wall_solid and one local ID before success. band() therefore has a proven final solid and one supported_by element before its last/first accesses. Support parents are sampled from already-created solids using approximate AABB contact; this is not proof of the full support DAG or exact rotated bearing. The owning whole-plan error boundary drops incomplete fittings on error. Node/owner/wall bay casts depend on the bounded actual programme, not arbitrary infinite population."
+    },
+    {
+      "contract": "Bell and room geometry retain different visible, collision and route acceptance roles",
+      "source_ranges": {
+        "small_church.rs": [
+          [
+            1,
+            154
+          ]
+        ],
+        "fittings.rs": [
+          [
+            1,
+            285
+          ]
+        ],
+        "programme.rs": [
+          [
+            1,
+            84
+          ]
+        ]
+      },
+      "disposition": "BellShell and shared hanging/axle parts retain the common hollow geometry owner; slatted belfry has physical gaps. The lower chancel roof front is inset by the existing eave so weather tiles meet masonry. Public-route bounds, footing posts, belfry stage and room capacity are different authoritative records; their consistency is checked by their actual consumers, not inferred from a shared float. Raw SmallChurchPlan derives admission for its own leaves only, leaving aggregate invariants to its owner. Signed floor datum and optional chancel eave are intentional. No new tactical persistence or compatibility path."
+    },
+    {
+      "contract": "Small church fixture source describes observable aperture and structural acceptance without execution",
+      "source_ranges": {
+        "tests.rs": [
+          [
+            1,
+            166
+          ]
+        ],
+        "appearance_tests.rs": [
+          [
+            1,
+            208
+          ]
+        ]
+      },
+      "disposition": "Both full fixture bodies were personally read. The modest church matrix covers Chapel all3 sizes and Parish Small/Medium across3 seeds; it checks shared pointed openings, route/capacity geometry, colliding physical jambs and smaller LOD budgets. Other fixtures reject added sacred-aisle obstruction, retain turret bearing rim while removing spanning ridge, check open pointed crowns and exact spring/apex for pointed/segmental panels, and ensure lower chancel abutment/material roles. Synthetic panelMAX IDs are isolated fixture identities, not a persistent-owner defect. Axis-aligned and projected fixture oracles have stated applicability; none was executed and no current passing result is claimed."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "6 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-building-generator/src/generator/stair_landing.rs"
+}

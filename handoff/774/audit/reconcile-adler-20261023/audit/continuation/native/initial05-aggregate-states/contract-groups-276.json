@@ -1,0 +1,166 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-276",
+  "at": "2026-10-23T06:41:08.048303+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator.rs",
+      "sha256": "ee32e08bcb89ab05f78431b7ce484c3ca71d2b9d7f7516f7ee38835cd0372aee",
+      "scope065_index": 588,
+      "actual_EOF": 124,
+      "scoped_ranges_compared": [
+        [
+          1,
+          124
+        ]
+      ],
+      "actual05_comparison": "Fresh exact global scoped ranges plus all existing mandatory overlays; own current aggregate construction/edit/index/membership reasoning. Partial function and context exclusions in QUAL088, no wider source-body credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/core.rs",
+      "sha256": "f9cad0ec57715ef451e89d64fc3b833ffba8beb778e82d9a286f269d71849e4d",
+      "scope065_index": 597,
+      "actual_EOF": 311,
+      "scoped_ranges_compared": [
+        [
+          1,
+          311
+        ]
+      ],
+      "actual05_comparison": "Fresh exact global scoped ranges plus all existing mandatory overlays; own current aggregate construction/edit/index/membership reasoning. Partial function and context exclusions in QUAL088, no wider source-body credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/orchestration.rs",
+      "sha256": "a780f7423a92de85a7e0177797eac288dc0b4eb003a105b427b356d2b2b0c3ba",
+      "scope065_index": 604,
+      "actual_EOF": 196,
+      "scoped_ranges_compared": [
+        [
+          1,
+          196
+        ]
+      ],
+      "actual05_comparison": "Fresh exact global scoped ranges plus all existing mandatory overlays; own current aggregate construction/edit/index/membership reasoning. Partial function and context exclusions in QUAL088, no wider source-body credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/room_connections.rs",
+      "sha256": "56032b952a0d288a2ff259db55661d2e252fb865ca77d3df1a2bf8e0a4e4300c",
+      "scope065_index": 609,
+      "actual_EOF": 68,
+      "scoped_ranges_compared": [
+        [
+          1,
+          68
+        ]
+      ],
+      "actual05_comparison": "Fresh exact global scoped ranges plus all existing mandatory overlays; own current aggregate construction/edit/index/membership reasoning. Partial function and context exclusions in QUAL088, no wider source-body credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/entrances.rs",
+      "sha256": "ce2f4daf2f3578c5e59574e47854cdfd6daaf37efe151db858cf0c07afa7ee66",
+      "scope065_index": 598,
+      "actual_EOF": 120,
+      "scoped_ranges_compared": [
+        [
+          1,
+          120
+        ]
+      ],
+      "actual05_comparison": "Fresh exact global scoped ranges plus all existing mandatory overlays; own current aggregate construction/edit/index/membership reasoning. Partial function and context exclusions in QUAL088, no wider source-body credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/stair_landing.rs",
+      "sha256": "1504bd2c4c0b812bdc8ae067b7ee8f11745f6f3a2cb4f71377fa46345365b9aa",
+      "scope065_index": 617,
+      "actual_EOF": 74,
+      "scoped_ranges_compared": [
+        [
+          1,
+          74
+        ]
+      ],
+      "actual05_comparison": "Fresh exact global scoped ranges plus all existing mandatory overlays; own current aggregate construction/edit/index/membership reasoning. Partial function and context exclusions in QUAL088, no wider source-body credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/room_allocation.rs",
+      "sha256": "0af46aaa9d2e8406c02e95802701cab06cb2c9e496138d7589c422b4d53d48c5",
+      "scope065_index": 608,
+      "actual_EOF": 249,
+      "scoped_ranges_compared": [
+        [
+          140,
+          249
+        ]
+      ],
+      "actual05_comparison": "Fresh exact global scoped ranges plus all existing mandatory overlays; own current aggregate construction/edit/index/membership reasoning. Partial function and context exclusions in QUAL088, no wider source-body credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/occupied_storeys.rs",
+      "sha256": "e45cc55e23a73758b66304cd2fa518b1cb291eb214df0e66787f9c9f13b58341",
+      "scope065_index": 603,
+      "actual_EOF": 157,
+      "scoped_ranges_compared": [
+        [
+          100,
+          145
+        ]
+      ],
+      "actual05_comparison": "Fresh exact global scoped ranges plus all existing mandatory overlays; own current aggregate construction/edit/index/membership reasoning. Partial function and context exclusions in QUAL088, no wider source-body credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/heated_rooms.rs",
+      "sha256": "443063c283413c94c1d5b856ab84ff71fe275f9f039e1427384f13a395671879",
+      "scope065_index": 602,
+      "actual_EOF": 274,
+      "scoped_ranges_compared": [
+        [
+          1,
+          74
+        ],
+        [
+          115,
+          274
+        ]
+      ],
+      "actual05_comparison": "Fresh exact global scoped ranges plus all existing mandatory overlays; own current aggregate construction/edit/index/membership reasoning. Partial function and context exclusions in QUAL088, no wider source-body credit."
+    }
+  ],
+  "groups": [
+    {
+      "id": "module includes are wiring only",
+      "comparison": "generator.rs imports framed geometry and IDs, includes listed generator modules. No local product state; inclusion alone is not body analysis or a complete structural audit. All included module bodies retain their own inventory obligations."
+    },
+    {
+      "id": "owned generation versus audited editor acceptance",
+      "comparison": "Core generate explicitly documents construction rejection rather than exhaustive geometric audit; do not treat every BuildingPlan as audit-certified. generate_structure locally derives related towers/stairs/crowns/geometry and wall/opening assemblies from the same program/storeys, constructs one owned plan, then architectural-envelope recipient remains an exact called dependency rather than name-only proof. generate_unchecked runs heating on its local plan before return. generate_document clones program, validates edit archetype applicability, rebuilds from ordered edits, checks actual targeted wall exists and replaces matching override, then audit_plan gates owned result. edit_document clones original document and publishes candidate+plan only after successful rebuild/audit, so rejected edit preserves caller document. Actual audit helper bodies not waived by call."
+    },
+    {
+      "id": "opening index and occupied-set relation",
+      "comparison": "apply_opening_edits resolves selector in same walls slice, uses actual wall index, rejects unsupported interior window/gate/slit, rejects existing opening, checks kind-specific finite ranges including door/gate sill absolute tolerance, pushes and sorts by wall. NaN fails those comparisons. Remove retains matching indices and refuses missing target. Internal &mut vector may have earlier edits on later Err, but normal editor owns candidate/rebuild and rejects whole result. Entrances derives selected south walls by same room ordinal, takes bounded safe middle slices even empty; exits same north-facing room. Empty requirements or arbitrary raw wall room ordinal is an unsealed private-helper precondition, not an established normal failure because actual allocate/derive_walls guards lie outside this exact fragment."
+    },
+    {
+      "id": "shared boundaries and connected room identity",
+      "comparison": "room_connections canonicalizes ordered pair of inside/outside RoomIndex and groups actual wall indices in BTreeMap. Both requirements use checked get and return source-bearing storey/room errors. Same-kind repeated rooms remain distinct ordinals; preferred adjacency and StairHall first are ranking not new room identity. Candidate Vec refers same immutable walls, not an unrelated vector. Raw self-room boundary not explicitly refused here, normal derived source precondition remains."
+    },
+    {
+      "id": "stair landing ties semantic rooms to actual boundary",
+      "comparison": "landing_opening resolves required landing-room kind from current requirements or errors; serializes StoreyIndex fallibly; alternating flight end derives origin+direction*3.2. Selected actual wall must have reserved cell and both StairHall adjacency and a neighbor; output Opening.wall and neighbor/stair_hall from that SAME wall. flight_index subtracts lowest_storey and relies on serves selection, not a general checked API proof. No direct unserved caller established."
+    },
+    {
+      "id": "room growth scoped tail preserves connected frontier",
+      "comparison": "Actual148–175 room_counts and collect_rooms project assignments against exact requirements; room ordinal conversion checked at collection, index in counts assumes same requirement domain. GrowthCandidate full declaration177–185 is complete only by merging prior140–180 role with mandatory overlay065181–249. grow_rooms194–246 adds one currently unassigned footprint cell adjacent to an existing room, never Passage, ranks fill/preferred/geometry/random with preferred.max1, requires same room seed, and errors if no frontier. Strict one-cell insertion advances finite unique footprint when input assignments and footprint correspond; raw duplicate footprint/foreign assignment could violate those private preconditions, normal allocator prefix1–139 excluded. Actual140–146 is tail of preceding RNG rank function, not complete producer admission."
+    },
+    {
+      "id": "heating selected programme and same reservations",
+      "comparison": "HeatingStorey::for_program uses actual program.storeys.get(index), permits only relevant archetypes with heating, classifies ground/firstupper/all later as support/heated/storage while retaining same programme+ordinal. Positive RearCellOffset constructor rejects<=0, distinct from fine GridLength. Scoped reservation closure tail115–130 returns typed outside/reserved failures and inserts same room; actual prefix75–114 not read or credited, so no whole reservation authority claim. Two-cell bays and Pantry neighbor policy fixed arrays use positive checked offsets. doorway finds exact first/second requirement ordinals, selects same actual shared wall with policy orientation, retargets matching existing Door entries only. Opening.wall membership is inherited from same normal derive_openings, not validated for arbitrary raw input slice. Current occupied fragment invokes heating/allocate/collect/connectivity/derive_walls/openings in order, but starts midway at100 and stops at apply_opening_edits header145, so not whole occupied-storey proof. Existing role/positive-offset fixtures231–274 read only."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Actual private allocator and occupied-storey earlier guards remain outside these partial ranges; no invented empty-requirements normal path or blanket all-plan audit seal.",
+    "Architectural-envelope/heating called source bodies retain source-specific inventory obligations."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

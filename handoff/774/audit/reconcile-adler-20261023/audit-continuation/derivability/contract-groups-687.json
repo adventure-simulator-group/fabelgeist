@@ -1,0 +1,809 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-687",
+  "at": "2026-10-25T16:26:57.530556+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 967,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog_validation.rs",
+      "sha256": "738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+      "actual_EOF": 1526,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog_validation.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/quest_catalog_validation.rs",
+        "sha256": "738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+        "bytes": 66249,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "root",
+            "record": "wave-01/audit-producer-propagation/root/additional-sources-025.json",
+            "ranges": [
+              [
+                1,
+                1526
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "ROOT-PP-RECEIVER-CLOSURE-025"
+            ]
+          },
+          {
+            "shard": "root",
+            "record": "wave-01/audit-producer-propagation/root/unchanged-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                1526
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "ROOT-PP-RECEIVER-CLOSURE-025"
+            ]
+          },
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-root-strategic-root-proofs.json",
+            "ranges": [
+              [
+                1,
+                1526
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "ROOT-PP-RECEIVER-CLOSURE-025"
+            ]
+          },
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/supplemental-catalog-receivers.json",
+            "ranges": [
+              [
+                1,
+                70
+              ],
+              [
+                418,
+                440
+              ],
+              [
+                655,
+                760
+              ],
+              [
+                840,
+                920
+              ]
+            ],
+            "source_read_status": "partial_exact_connected_bodies",
+            "trace_refs": [
+              "NATIVE-SUPP-CATALOG-001"
+            ]
+          }
+        ],
+        "audit_owner": "root",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 97,
+            "read_ranges": [
+              [
+                537,
+                690
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-BESTIARY-022",
+              "ROOT-OWNER-CATALOGUE-023"
+            ],
+            "read_status": "explicit_partial",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_catalog_validation.rs"
+          },
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 340,
+            "read_ranges": [
+              [
+                1,
+                536
+              ],
+              [
+                537,
+                690
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-OUTPUT-AND-SOURCE-ENDPOINTS-073"
+            ],
+            "read_status": "affected_ranges",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_catalog_validation.rs"
+          },
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 342,
+            "read_ranges": [
+              [
+                1,
+                1526
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-ROUTE-FRAMES-AND-FIXTURES-074"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_catalog_validation.rs"
+          },
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 420,
+            "read_ranges": [
+              [
+                1,
+                1526
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-BESTIARY-022",
+              "ROOT-OWNER-CATALOGUE-023",
+              "ROOT-OWNER-ROUTE-FRAMES-AND-FIXTURES-074",
+              "ROOT-OWNER-NATIVE-DEPENDENCY-CLOSURE-082"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_catalog_validation.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-CATALOGUE-ROLE-005",
+            "json_pointer": "/source_proofs/6",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/quest_catalog_validation.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1526
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog_validation.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_catalog_validation.rs",
+              "sha256": "738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+              "read_ranges": [
+                [
+                  1,
+                  1526
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-QUEST-IDENTITY-RECEIVER-CLOSURE-052",
+            "json_pointer": "/source_proofs/10",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/quest_catalog_validation.rs",
+            "read_ranges_as_recorded": [
+              [
+                1198,
+                1260
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog_validation.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_catalog_validation.rs",
+              "sha256": "738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+              "read_ranges": [
+                [
+                  1198,
+                  1260
+                ]
+              ],
+              "mode": "Fresh Root bounded actual source verification of new error-contract gap",
+              "role": "Actual candidate p/c each unsigned0..u32MAX admission, uniqueness/reference/zero-reason relationship; individual multiplication safe but no total bound in this block. Rig037 wider950\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01531515 proves no later total validation."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-DIALOGUE-040",
+            "json_pointer": "/related_current_sources/11",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/quest_catalog_validation.rs",
+            "read_ranges_as_recorded": [
+              [
+                318,
+                366
+              ],
+              [
+                1180,
+                1225
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog_validation.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_catalog_validation.rs",
+              "sha256": "738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+              "actual_lines": 1526,
+              "read_ranges": [
+                [
+                  318,
+                  366
+                ],
+                [
+                  1180,
+                  1225
+                ]
+              ],
+              "proof_mode": "fresh actual current supplement bounded material source body, no execution",
+              "role": "Actual recursive structural condition validator + authored referral kind/priority/template bounds; shared typed Condition remains runtime vocabulary"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-QUEST-KNOWLEDGE-050",
+            "json_pointer": "/additional_actual_source_proofs/5",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/quest_catalog_validation.rs",
+            "read_ranges_as_recorded": [
+              [
+                1198,
+                1260
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog_validation.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_catalog_validation.rs",
+              "sha256": "738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+              "read_ranges": [
+                [
+                  1198,
+                  1260
+                ]
+              ],
+              "mode": "Fresh Root bounded actual source verification of new error-contract gap",
+              "role": "Actual candidate p/c each unsigned0..u32MAX admission, uniqueness/reference/zero-reason relationship; individual multiplication safe but no total bound in this block. Rig037 wider950\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01531515 proves no later total validation."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-QUEST-KNOWLEDGE-050",
+            "json_pointer": "/additional_actual_source_proofs/14",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/quest_catalog_validation.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                318
+              ],
+              [
+                330,
+                515
+              ],
+              [
+                740,
+                850
+              ],
+              [
+                950,
+                1515
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog_validation.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_catalog_validation.rs",
+              "sha256": "738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+              "read_ranges": [
+                [
+                  1,
+                  318
+                ],
+                [
+                  330,
+                  515
+                ],
+                [
+                  740,
+                  850
+                ],
+                [
+                  950,
+                  1515
+                ]
+              ],
+              "actual_line_count": 1526,
+              "role": "Bounded actual native Value/openID/relations/weights/evidence/DC/bridge/namespace validators and exact predicate bodies; not whole validator or unrelated monster/demographic branches",
+              "mode": "Fresh exact producer-supplement source-body read; only listed ranges, no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-033",
+            "json_pointer": "/fresh_current_additional_source_reads/11",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/quest_catalog_validation.rs",
+            "read_ranges_as_recorded": [
+              [
+                318,
+                366
+              ],
+              [
+                1180,
+                1225
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog_validation.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_catalog_validation.rs",
+              "sha256": "738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+              "actual_lines": 1526,
+              "read_ranges": [
+                [
+                  318,
+                  366
+                ],
+                [
+                  1180,
+                  1225
+                ]
+              ],
+              "proof_mode": "fresh actual current supplement bounded material source body, no execution",
+              "role": "Actual recursive structural condition validator + authored referral kind/priority/template bounds; shared typed Condition remains runtime vocabulary"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-037",
+            "json_pointer": "/fresh_current_source_reads/8",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/quest_catalog_validation.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                318
+              ],
+              [
+                330,
+                515
+              ],
+              [
+                740,
+                850
+              ],
+              [
+                950,
+                1515
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog_validation.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_catalog_validation.rs",
+              "sha256": "738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+              "read_ranges": [
+                [
+                  1,
+                  318
+                ],
+                [
+                  330,
+                  515
+                ],
+                [
+                  740,
+                  850
+                ],
+                [
+                  950,
+                  1515
+                ]
+              ],
+              "actual_line_count": 1526,
+              "role": "Bounded actual native Value/openID/relations/weights/evidence/DC/bridge/namespace validators and exact predicate bodies; not whole validator or unrelated monster/demographic branches",
+              "mode": "Fresh exact producer-supplement source-body read; only listed ranges, no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 345,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1526
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "DemographicRule Clone360 already derive"
+      ],
+      "absence_basis": "Full1526line exact role personally consumed680\u2013687, vocabulary/shape helpers, recursive conditions, document validation, namespace/relationship/cohort checks and fixture. No handwritten trait/codec; all other functions semantic validation."
+    },
+    {
+      "scope_index": 968,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog_validation/demographic.rs",
+      "sha256": "e34eb575d8091df0f4e9d8242066c7734b986d888d7a54c51aaaf1681a53ed34",
+      "actual_EOF": 79,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog_validation/demographic.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/quest_catalog_validation/demographic.rs",
+        "sha256": "e34eb575d8091df0f4e9d8242066c7734b986d888d7a54c51aaaf1681a53ed34",
+        "bytes": 2709,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "root",
+            "record": "wave-01/audit-producer-propagation/root/additional-sources-025.json",
+            "ranges": [
+              [
+                1,
+                79
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "ROOT-PP-RECEIVER-CLOSURE-025"
+            ]
+          },
+          {
+            "shard": "root",
+            "record": "wave-01/audit-producer-propagation/root/unchanged-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                79
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "ROOT-PP-RECEIVER-CLOSURE-025"
+            ]
+          },
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-root-strategic-root-proofs.json",
+            "ranges": [
+              [
+                1,
+                79
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "ROOT-PP-RECEIVER-CLOSURE-025"
+            ]
+          },
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/supplemental-catalog-receivers.json",
+            "ranges": [
+              [
+                1,
+                79
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "NATIVE-SUPP-CATALOG-001"
+            ]
+          }
+        ],
+        "audit_owner": "root",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 98,
+            "read_ranges": [
+              [
+                1,
+                79
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-CATALOGUE-023"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_catalog_validation/demographic.rs"
+          },
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 430,
+            "read_ranges": [
+              [
+                1,
+                79
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-CATALOGUE-023",
+              "ROOT-OWNER-CLIENT-SOURCE-CLOSURE-083"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_catalog_validation/demographic.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-CATALOGUE-ROLE-005",
+            "json_pointer": "/source_proofs/7",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/quest_catalog_validation/demographic.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                79
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog_validation/demographic.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_catalog_validation/demographic.rs",
+              "sha256": "e34eb575d8091df0f4e9d8242066c7734b986d888d7a54c51aaaf1681a53ed34",
+              "read_ranges": [
+                [
+                  1,
+                  79
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-QUEST-KNOWLEDGE-050",
+            "json_pointer": "/additional_actual_source_proofs/15",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/quest_catalog_validation/demographic.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                79
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog_validation/demographic.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_catalog_validation/demographic.rs",
+              "sha256": "e34eb575d8091df0f4e9d8242066c7734b986d888d7a54c51aaaf1681a53ed34",
+              "read_ranges": [
+                [
+                  1,
+                  79
+                ]
+              ],
+              "actual_line_count": 79,
+              "role": "Complete actual parse_sexes/overlap original in-file fixture; broader wildcard/fact matching remains distinct",
+              "mode": "Fresh exact producer-supplement source-body read; only listed ranges, no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-037",
+            "json_pointer": "/fresh_current_source_reads/9",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/quest_catalog_validation/demographic.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                79
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog_validation/demographic.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_catalog_validation/demographic.rs",
+              "sha256": "e34eb575d8091df0f4e9d8242066c7734b986d888d7a54c51aaaf1681a53ed34",
+              "read_ranges": [
+                [
+                  1,
+                  79
+                ]
+              ],
+              "actual_line_count": 79,
+              "role": "Complete actual parse_sexes/overlap original in-file fixture; broader wildcard/fact matching remains distinct",
+              "mode": "Fresh exact producer-supplement source-body read; only listed ranges, no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 346,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved",
+        "admission03_increment077_role_observations": [
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 62,
+            "registration_id": "NATIVE-ADMISSION03-REG-062",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-062",
+              "at": "2026-10-22T14:35:19.983462+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-047.json",
+              "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog_validation/demographic.rs",
+              "sha256": "e34eb575d8091df0f4e9d8242066c7734b986d888d7a54c51aaaf1681a53ed34",
+              "snapshot": "pr-working",
+              "actual_EOF": 79,
+              "material_ranges": [
+                [
+                  1,
+                  79
+                ]
+              ],
+              "role": "Exact parse_sexes/sex_selectors_overlap direct predicate called by Root105 validator882/1460; all constructor/enum/parse routes and existingtests if present, source only.",
+              "reason": "Direct necessary missing predicate for complete current Root105 demographic admission comparison; registered before body analysis.",
+              "exclusions": "No unrelated demographic/NPC application graph or laterlens/source edits.",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-core\\src\\quest_catalog_validation\\demographic.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADM03-FINALQUAL-062",
+                "registration_id": "NATIVE-ADMISSION03-REG-062",
+                "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog_validation/demographic.rs",
+                "snapshot": "pr-working",
+                "sha256": "e34eb575d8091df0f4e9d8242066c7734b986d888d7a54c51aaaf1681a53ed34",
+                "actual_EOF": 79,
+                "registered_requested_ranges": [
+                  [
+                    1,
+                    79
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    1,
+                    79
+                  ]
+                ],
+                "context_or_excluded_within_registration": [],
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-062",
+                  "at": "2026-10-22T14:35:19.983462+00:00",
+                  "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-047.json",
+                  "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog_validation/demographic.rs",
+                  "sha256": "e34eb575d8091df0f4e9d8242066c7734b986d888d7a54c51aaaf1681a53ed34",
+                  "snapshot": "pr-working",
+                  "actual_EOF": 79,
+                  "material_ranges": [
+                    [
+                      1,
+                      79
+                    ]
+                  ],
+                  "role": "Exact parse_sexes/sex_selectors_overlap direct predicate called by Root105 validator882/1460; all constructor/enum/parse routes and existingtests if present, source only.",
+                  "reason": "Direct necessary missing predicate for complete current Root105 demographic admission comparison; registered before body analysis.",
+                  "exclusions": "No unrelated demographic/NPC application graph or laterlens/source edits.",
+                  "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-core\\src\\quest_catalog_validation\\demographic.rs",
+                  "status": "registered_before_direct_current03_body_analysis"
+                },
+                "qualification_history": [
+                  {
+                    "qualification_file": "root-support/source-qualifications-006.jsonl",
+                    "row_1based": 5,
+                    "payload": {
+                      "registration_id": "NATIVE-ADMISSION03-REG-062",
+                      "original_registration": {
+                        "id": "NATIVE-ADMISSION03-REG-062",
+                        "at": "2026-10-22T14:35:19.983462+00:00",
+                        "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-047.json",
+                        "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog_validation/demographic.rs",
+                        "sha256": "e34eb575d8091df0f4e9d8242066c7734b986d888d7a54c51aaaf1681a53ed34",
+                        "snapshot": "pr-working",
+                        "actual_EOF": 79,
+                        "material_ranges": [
+                          [
+                            1,
+                            79
+                          ]
+                        ],
+                        "role": "Exact parse_sexes/sex_selectors_overlap direct predicate called by Root105 validator882/1460; all constructor/enum/parse routes and existingtests if present, source only.",
+                        "reason": "Direct necessary missing predicate for complete current Root105 demographic admission comparison; registered before body analysis.",
+                        "exclusions": "No unrelated demographic/NPC application graph or laterlens/source edits.",
+                        "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-core\\src\\quest_catalog_validation\\demographic.rs",
+                        "status": "registered_before_direct_current03_body_analysis"
+                      },
+                      "qualified_material_ranges": [
+                        [
+                          1,
+                          79
+                        ]
+                      ],
+                      "qualification": "Actual direct parse/overlap predicate plus originaltests; Sex FromStr delegates lower policy, no new spelling guarantee.",
+                      "current_admission_proof": "continuation/native/admission03/root-support/contracts-004.json",
+                      "global_reconciliation": "Root pending; no semantic or otherlens credit"
+                    }
+                  }
+                ],
+                "current_proof_refs": {
+                  "current_admission_proof": "continuation/native/admission03/root-support/contracts-004.json"
+                },
+                "body_rereads_for_this_normalization": 0,
+                "semantic_credit_from_metadata": false,
+                "producer_or_owner_or_later_lens_credit": false,
+                "global_reconciliation_pending": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                1,
+                79
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-core\\src\\quest_catalog_validation\\demographic.rs",
+            "actual_EOF": 79,
+            "bytes": 2709
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          79
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Display",
+          "type": "SexSelectorError",
+          "lines": [
+            [
+              21,
+              32
+            ]
+          ],
+          "disposition": "KEEP necessary small formatter, no owning general Display derive; thiserror would add Error not currently implemented solely for cleanup"
+        }
+      ],
+      "existing_derives": [
+        "SexSelectorError Debug/Eq/PartialEq already derive"
+      ],
+      "absence_basis": "Full79line exact child personally read686 output: error, contextual .at method, checked parse retaining typed index/value errors, overlap predicate and entire fixture. No other traits/codecs."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Quest validation and demographic formatter",
+      "disposition": "No mechanical codec target in validator. Retain typed parsing and semantic context formatting; do not add std::error::Error or new dependency merely to remove small manual Display. All fixtures source-read, not run."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 969,
+    "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/assembly.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

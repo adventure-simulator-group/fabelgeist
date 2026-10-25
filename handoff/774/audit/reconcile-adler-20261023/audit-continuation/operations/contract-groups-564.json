@@ -1,0 +1,44 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-564",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/strategic-web/src/routes/settlements/party/inventory_medical.rs",
+      "sha256": "f2874ee749741d0ae6f0e3454f8e6da59b3b031b933580da15ec73a80ad33ed1",
+      "actual_EOF": 898,
+      "actual_compared_ranges": [
+        [
+          1,
+          898
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Equipment graph construction preserves typed query failure and coherent source occupancy/native identity.",
+      "evidence": "Full898 personally read. Four parallelqueryerrors becomeempty throughunwrap_or_default, then graphreturnedVecwithoneentry asifcomplete; exact inherited RIG-PPS-F014 audit/records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/findings.jsonl record_index12 consumed. used_capacityu16 increments rawrows before point.capacity.saturating_sub; aggregatefit requires canonical occupancy uniqueness/membership, cannot infer arbitraryrowcount<=u16MAX fromtypedleavesalone. ActualHTTP inventorylookupcharacterconstraint, catalogue andplacementchecked beforetransactioncommand; nativeu64targetjson retainedthroughRustcodec.",
+      "qualifications": "Existing RIG-OWNER-F026 audit/records/final-acceptance-20261021/wave-01/audit-existing-type-owners/rig/findings.jsonl record_index25 full-u64JSprecision source record consumed, actualJSbody not personallyread inthispacket. Exactlinked migration/cause contracts, no additional globalunique count. No actualmalformedoccupancy65536 or nativecurrentUIfailure.",
+      "acceptance": "Complete typedgraph/errorcause reachesactualrecipient; canonical typedinventoryidentity remainslossless throughJS/nativecodec and all aggregatecapacities establishedatowner ratherthanclamping malformedrowsets."
+    },
+    {
+      "contract": "Medical observation/history and standard administration retain privacy, required state and canonical version/dose payload.",
+      "evidence": "medical_presentation chartqueryErr returnsunavailable, patienttimeErr/None returnsunavailable; visibleadministrationqueryErr becomesemptyhistory exact RIG-PPS-F017 record_index16 consumed. Standardadministration selfonlyactor/patient, currentprofileversion/route andcheckedSTANDARDdose; uncheckrejects andunknownprofileerrors beforecommand. Generated SATS option/unit encoding actualtestsread.",
+      "qualifications": "Parent local774:M98 sharedmissing/malformedobservationcontractonly; thispacketfresh04bodyproof, notcoverageothercore/nativebodies. Selforanyauthorizedobservation enableshistory; crossobservereffective-timeauthorization dependsactualbackendprojectioncontract, notautomaticallyestablishedbyrowpresence. No DB/liveclinicalrun.",
+      "acceptance": "Required/unavailable/cause/trueemptyhistorydistinct atactualprojection; preserve observer-safeversionedprofile and fullcanonicaldose/route/region through generatedpayload, no fabricatedclinicalzero."
+    },
+    {
+      "contract": "Multi-item command failure has explicit partial-completion and retry semantics, while reducers own per-command authority.",
+      "evidence": "Deposit/withdraw foreachentry separate db.call andignoreErr, so laterentriescontinueafterfailure; liquidate usesonepairedid/quantitycommand. transfer_entries parseErr becomesempty withwarning. No sourcepromise wholeHTTPform atomicity; webredirectcannotcertifysuccess. get_strategic_condition returnsNoneonrefreshErr (doesnotqueryafterfailure), get_morale_sources errors=>empty; required/optionalpresentationsemanticquestion links existingcausegraph.",
+      "qualifications": "No inducedtransactionfailure/DBrun or imperativefix. Distinct actualcommandbatchpolicy and reportedunavailability mustbeowned; no automaticrollback nor field-levelrepairclaim.",
+      "acceptance": "Choose/preserve canonical perentrypartialbatchoratomicwholecommand semantics with clear outcome/retryidentity; authoritativeinventory/equipment/clinical reducers keep their actual admission and errorcause."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "1 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/strategic-web/src/routes/settlements/party/location_personal.rs"
+}

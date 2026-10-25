@@ -1,0 +1,54 @@
+{
+  "id": "SEGO-INITIAL09-REGISTRATION-040A",
+  "reason": "Trace map marker place/rank conditional payload through actual serverless producer and presentation consumers",
+  "roles": [
+    {
+      "scope_index": 1620,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/markers.rs",
+      "sha256": "6ab27e02750fe474d00d1c066d9d98aa39c08f06179b38a58897149df8c53c04",
+      "ranges": [
+        [
+          1,
+          74
+        ]
+      ],
+      "previously_scoped": true
+    },
+    {
+      "scope_index": 2390,
+      "source_id": "pr-working:crates/strategic-web/src/strategic_map/markers.rs",
+      "sha256": "74c56dc2aadba44b69db845d705119d4b89c11c65493a8612304db22fdb5ffd9",
+      "ranges": [
+        [
+          1,
+          128
+        ]
+      ],
+      "previously_scoped": true
+    },
+    {
+      "scope_index": 2391,
+      "source_id": "pr-working:crates/strategic-web/src/strategic_map/mod.rs",
+      "sha256": "c1cf7a1a47911c667af5ab89e92db056582853dda007a1de915dc50b719df356",
+      "ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "previously_scoped": true
+    },
+    {
+      "scope_index": 2392,
+      "source_id": "pr-working:crates/strategic-web/src/strategic_map/producer.rs",
+      "sha256": "3c88e6a324ca00c4ea631521154a3321c669de52aee4fb6a8ccb551c1cb8c9d5",
+      "ranges": [
+        [
+          1,
+          225
+        ]
+      ],
+      "previously_scoped": true
+    }
+  ]
+}

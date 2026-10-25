@@ -1,0 +1,103 @@
+{
+  "id": "SEGO-INITIAL05-F008",
+  "at": "2026-10-25T16:28:56.018708+00:00",
+  "title": "Make browser command batches observe preceding structural transitions",
+  "priority": "P2",
+  "classification": "Retained source-backed accepted-command batch coherence defect; no browser or Bevy execution and no introduced774 regression claim",
+  "lenses": [
+    "aggregate-states"
+  ],
+  "locations": [
+    {
+      "file": "crates/adventuresim-tactical-client/src/browser_runtime.rs",
+      "start": 208,
+      "end": 237
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/browser_runtime.rs",
+      "start": 256,
+      "end": 281
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/browser_runtime.rs",
+      "start": 295,
+      "end": 301
+    }
+  ],
+  "contract_trace": "queue_json admits each decoded BrowserCommand into one FIFO, pending_commands drains the complete batch, and drain_browser_commands loops over it while retaining Query snapshots for scene_entities, clients and scene_roots. Commands::spawn allocates an identity but queues the actual structural world mutation; despawn is also queued. The next command in the same system invocation therefore cannot observe entities created or removed by preceding commands. BrowserMode/Args/LocalCharacterId are mutated immediately alongside the deferred entity graph, so selected mode and connection/preview state can disagree after the batch commits.",
+  "counterexample": "Start with no forge preview roots and process two valid ShowStrategicScene::Forge commands before one Bevy update. Each despawn_forge_preview sees the same empty query, then each queues a root, mesh parts and two lights. ApplyDeferred installs both previews, even though the intended selected preview is the latest command. Actual strategic-renderer.js input handler201\u2013209 calls updateForge98\u2013121 on every editor input and command11\u201313 enqueues each Wasm call; there is no render-frame coalescing or completion acknowledgment. This is a conditional ordinary supported event batch, not an executed rapid-input capture. Independently, starting with no client, EnterTactical then ExitTactical queues a client spawn, Exit sees no client to despawn, and the batch finishes BrowserMode::Strategic with the new tactical client still present. Two Enter commands can similarly queue two clients. No claim that every normal interaction produces this ordering.",
+  "repair": "Own the entire browser command drain and structural transition graph. Apply each accepted transition against the actual state resulting from preceding commands, or construct one controlled batch result whose retained current client/preview identities include newly queued entities and whose teardown uses those exact identities. Mode, selected character/server, client entity and preview roots/lights must commit coherently. Preserve FIFO semantics and actual Show/Hide/Enter/Exit policies; do not silently discard accepted commands or add primitive compatibility adapters. Retain canonical command identities and typed failure/cause until the true Wasm/JSON boundary. Shared forge geometry/view, strategic scene release, regional-map hide and tactical UI/camera receivers must consume the final coherent state.",
+  "dependencies": [
+    "Whole drain_browser_commands is shared with M80 forge view typing, F31 exact CharacterId bridge, F37 viewport admission, strategic generation/preparation and browser mode lifecycle; one future function owner repairs all requirements together.",
+    "Actual native Bevy Commands deferred semantics are an external contract, not a request to modify Bevy or audit the whole SDK.",
+    "JS producer and public Wasm wrapper admit commands into a queue; queue acceptance does not mean renderer transition committed. Preserve this distinction in any acknowledgment/error contract.",
+    "All13 initial discovery gate remains; existing tests only after complete connected repairs, none added."
+  ],
+  "acceptance": "For accepted command batches, the final entity graph matches the last completed transition without duplicate preview roots/lights or surviving unwanted clients. Show followed by Hide removes the newly created preview; Enter followed by Exit leaves strategic mode and no tactical client; repeated selection/enter does not create competing entities or stale character/server ownership. Intermediate failures retain useful causes without publishing contradictory mode/readiness. Actual valid geometry, presentation/native boundary and queue ordering policies remain.",
+  "sources": [
+    {
+      "scope_index": 1458,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/browser_runtime.rs",
+      "sha256": "afb6d3b0ff97037051e1fae2f1c9340a31fe07a1b34a6bc244d0110010c429d3",
+      "personally_read_ranges": [
+        [
+          181,
+          293
+        ],
+        [
+          295,
+          410
+        ]
+      ]
+    },
+    {
+      "scope_index": 2428,
+      "source_id": "pr-working:crates/strategic-web/static/strategic-renderer.js",
+      "sha256": "37325cf5d7929ee9c30e7443412975c9f522fbc48fb147dd754d77f8bda24f00",
+      "personally_read_ranges": [
+        [
+          1,
+          37
+        ],
+        [
+          98,
+          156
+        ],
+        [
+          201,
+          217
+        ],
+        [
+          242,
+          261
+        ]
+      ]
+    }
+  ],
+  "native_support": {
+    "material_index": 160,
+    "source_id": "native-dependency:bevy_ecs-0.19.1/src/system/commands/mod.rs",
+    "sha256": "a379a6828b061f0ef889b7a495f591282ac97f568e21d8355a14d33a3f7b3cc9",
+    "personally_read_ranges": [
+      [
+        42,
+        62
+      ],
+      [
+        398,
+        426
+      ],
+      [
+        1897,
+        1915
+      ]
+    ],
+    "package_checksum": "a350b2e4c2e47f7903d688affb8a723b31bca63af9789f1da88703f1ba04e354",
+    "lock_provenance": "FrozenPR Cargo.lock selectsbevy_ecs0.19.1 with exact a350b2e4c2e47f7903d688affb8a723b31bca63af9789f1da88703f1ba04e354; cached archive/member matches."
+  },
+  "additional_source": "FrozenPR main.rs214\u2013219 directly wasm_command\u2192browser_runtime::queue_json, bounded source read only; full original-role credit not inferred.",
+  "base_and_merge_comparison": "Exact git diff base3a50\u2192PR6533 is empty for browser_runtime.rs and strategic-renderer.js; PR6533\u2192merged13fc same paths also empty. Retained mechanism, not an introduced774 claim.",
+  "deduplication": "Exact root168/Adler1002 lookup and own09 saved metadata query found no multi-command/deferred-query alias. F413 only initial BrowserMode\u2192bool, F428 startup renderer/connect payload and M80 view scalar propagation differ; shared receiver does not merge their distinct remedies.",
+  "repair_status": "not_started_initial_discovery_gate",
+  "validation": "Source only; no new test, project check, browser/GPU, network or hosted CI execution."
+}

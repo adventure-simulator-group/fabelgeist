@@ -1,0 +1,35 @@
+{
+  "id": "CONT07-CONTRACT-657",
+  "at": "2026-10-24T01:22:38.244709+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1971,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain/surface_recipe.rs",
+      "sha256": "62dd60826db3c1d29b8ec6160d09985646410cb2b2b612e36b5370b3df1d891e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/volumetric_terrain/surface_recipe.rs",
+      "actual_EOF": 490,
+      "ranges": [
+        [
+          189,
+          245
+        ],
+        [
+          360,
+          425
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "REG034 exact enum source personally compared after registration:10 unconsolidated+13 sedimentary+11 igneous+8 metamorphic+3 mixed leaves=45, all individually match ALL_LITHOLOGIES current test roster367\u2013413. Production from_lithology exhaustive enum matches remains actual policy owner; roster belongs cfg(test), so no runtime alternate classification or missing current case established.",
+    "Keep test enumeration as maintenance population: independently restates same closed leaf universe and could omit future variants without compile failure. Canonical enumeration/typed fixture source should own full-case generation; do not remove distinct category classification/material preset mapping or count this as current render defect. Fixture bodies read, not executed."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": null
+}

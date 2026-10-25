@@ -1,0 +1,107 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-393",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/diagnostic_record.rs",
+      "sha256": "5141597330c799f5d0ca0312cb48602fb6dd20520737d18c46429dcf21829330",
+      "actual_EOF": 117,
+      "actual_compared_ranges": [
+        [
+          1,
+          117
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/diagnostics.rs",
+      "sha256": "255ebbf963270d5128375972f1059af2843fa7da821834bcb5df88014a122a35",
+      "actual_EOF": 312,
+      "actual_compared_ranges": [
+        [
+          1,
+          312
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/fallback.rs",
+      "sha256": "6c30cf49f852b97aca93c3f079511091c20e90b0f0e910571eb9a98e34d48dda",
+      "actual_EOF": 141,
+      "actual_compared_ranges": [
+        [
+          1,
+          141
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/foot_influence.rs",
+      "sha256": "132728572eda6899b6d6f9ebe07e1c1dae458a7f8347e66f86d692edf4af3a1c",
+      "actual_EOF": 124,
+      "actual_compared_ranges": [
+        [
+          1,
+          124
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/jitter.rs",
+      "sha256": "aa9bc30e0fc0897f1fd272a8702ca8bfef43e3dc14846a71d4b6666a1b25f39e",
+      "actual_EOF": 608,
+      "actual_compared_ranges": [
+        [
+          1,
+          608
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Diagnostic projection and output failure state",
+      "evidence": "diagnostic_record.rs1\u2013117,diagnostics.rs1\u2013312 complete: rawTransform/native arrays project atwire, terrainpointchecked; perplayer evaluationfalliblebeforewrite, bones sortedname/target forstablewire. wallclock/renderelapsedu128 clampsu64, pairedAtomicU64release/acquiresnapshot, frameincrementafterJSONnewline+periodicflush. Logs optionalnativeonly.",
+      "qualification": "Separateatomiccount/time snapshotscanrace: loadcountN thenwriterstoreselapsedN+1 thenreadelapsedN+1 gives mixedpair; actualmultithreadrendercaller synchronization notfreshlytraced here, retain aggregatequestiononly. Writefailure canleavepartialJSON thenretry sameframenumber; logframe unchanged deliberately but no explicitfatal/recoverycontract established, actualdiskerrorno run. frameu64MAX ++overflowAPIonly; boundeddiagnosticnormaldurationfarbelowMAX. SerdeJSONnonfinite rawfloats canbecomenull rather thanserializationerror; consumerfinitegate separate, no ordinaryfalsecapturepass claimed. Exact preexisting split-atomic pair finding NATIVE-INITIAL05-F014, audit/continuation/native/initial05-aggregate-states/findings.jsonl#16 personally read; its actual DiagnosticPlugin/RenderApp caller proof is supplied supporting evidence, not fresh04callerbody coverage. This group adds04support only, no newunique."
+    },
+    {
+      "contract": "Fallback mannequin dimensions and IK support reduction",
+      "evidence": "fallback.rs1\u2013141 staticauthoredpositivecapsule/cuboid dimensions checkedbeforemesh/entitypublication. foot_influence.rs1\u2013124 chooseslowerbodyoverbase, actionwithoutlowerbodyNONE; weighted support mirrored perbinaryowner, nativeVec2sumfinitechecked,totalBlendWeightcheckedadd, normalizedfinitecheckedthenclampUnitInterval. total0\u2192ZERO; combatperiodicphase[.25,.75)leftelse right.",
+      "qualification": "No newadmissionrequirementforcustompositivegeometry beyondexisting owner, fixed authoredconstants safe; zero supportvalid. BlendWeightallows>1 andfiniteoverflowrejection preservescontract; do notnarrowweights tofractions. from_evaluationpure soerrorleavesretainedplayback tocaller. Childsupport/localterrainpolicy notfreshlytransferred."
+    },
+    {
+      "contract": "Derivative stencils, segments and completeness boundaries",
+      "evidence": "jitter.rs1\u2013608 full: scenario/analysissegments separate, acquisition/contactwarmups explicitpersemanticpolicy, at least4framesforanalysis. Bonenames lexicalreportlabelsort, missingboneinanyframe skipsbonetrack; times abs_diff floored1ms/missing64Hz. f32nativefiniteoperands canoverflowdifferences/norms; reportnonfinitevalues skipped, medianfinitebaseline, severitysortedtop20. Angularaccel/jerk frames[2..]/[3..] align; positionreportoffset mismatch candidatebelow.",
+      "qualification": "Preserve existingscalar-magnitude derivative/numericalstencil andscenario thresholds; no approvaltochange biomechanicalacceptance. Internalrepresentable3boneallNaNtracks yield diagnostics_complete=true (checks cardinality/segmentcontinuity only) andzero incidents; actualcaptureindependentfinitegates mustbeproved beforeordinaryfalsepassclaim. Empty/shortframes vacuouscompleteness similarly internalAPIcontractquestion. ThresholdsrawAPIassumesauthoredfinitepositivepolicy, no invalidordinarythresholdwitness. Exact preexisting completeness finding NATIVE-INITIAL05-F016, audit/continuation/native/initial05-aggregate-states/findings.jsonl#18 personally read, same empty/disjoint/nonfinite API cases; same producer qualifications, no newunique."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-JITTER-POSITION-INCIDENT-FRAME-CANDIDATE-001",
+      "classification": "Finite internal measurement API counterexample affecting reported culprit frame; actualcapture invocation dependency notfreshlyclosed, no live report claimed.",
+      "operation": "jitter.rs314\u2013352 localpositionacceleration computedfromsecondvector derivative thenreport withframes (unsliced); positionjerkthird difference reportframesalsooriginal. report~419 choosesframes[index]; angularbranches correctlyslice2and3.",
+      "witness": "Take ordinaryscenario, segment0,10uniform64Hzframes withthreebones, positionsall0exceptonebone moves+x .3 atframe7 andremains. Second difference atvaluesindex5 endsatinputframe7; report assignsoriginalframes[5], twoframesearly. Third differencevalueindex4 endsatinputframe7, reportedframe4, threeframesearly. Longzero baseline makesdefaultabsolute18accel/900jerk thresholds relevant andspikes exceedthem. No sourceexecution.",
+      "qualification": "Incidentwindow\u00b12canincidentallyincludeactualframe7 foraccel,butframefieldandjerkwindow remainmisassigned. Uniformtimewitness avoids additionalmisaligneddt question; actualnonuniformpositionjerkusesoriginalframes fordt too. Do notinfermissingincidentfromreportingoffset orredefinejerkphysics. Targetedroot04dedup pendingparentfullarchivealias check, no guessedunique count. Canonical exact alias now confirmed; any earlier search absence/pending wording above is historical within this packet, overridden by disposition/canonical_finding.",
+      "dependencies": [
+        "Diagnostic JitterFrame measurement/report alignment",
+        "Capture actualcaller and independent finite/continuity acceptance",
+        "Existing stencil/threshold preservation"
+      ],
+      "acceptance": "Carry exactframealignment through eachderivative andreport including slicedtimebase; accelerationendframei+2 andjerki+3. Preservebounds/warmup/lexicalboneordering/severityties/native numericalstencil anddo notrelaxthresholds. Addboundedfiniteinputwitnesswhen repairs authorized; productionnative acceptance required forliveclaims.",
+      "disposition": "alias/lens04 support; not a new unique defect",
+      "canonical_finding": "NATIVE-INITIAL05-F015",
+      "canonical_archive_key": "audit/continuation/native/initial05-aggregate-states/findings.jsonl#17",
+      "dedup_evidence": "Exact full source personally read for04; exact filtered archive finding record personally read, same operation/witness/qualified ordinary-producer boundary. No other lens coverage transferred."
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "5 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/animation/loading.rs"
+}

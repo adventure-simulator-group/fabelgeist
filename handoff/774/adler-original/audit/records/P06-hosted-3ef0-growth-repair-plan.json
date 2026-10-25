@@ -1,0 +1,37 @@
+{
+  "recorded_at": "2026-10-21T03:52:14.370596+00:00",
+  "head": "3ef06860d9a911ccc2ae8e3a0114b5a6e4979666",
+  "evidence": "P06-hosted-3ef0-first-failure.log",
+  "hosted_findings": {
+    "simulation.rs": [
+      552,
+      550
+    ],
+    "strategic/authority_model.rs": [
+      1546,
+      1545
+    ],
+    "strategic/development_scenarios.rs": [
+      655,
+      651
+    ],
+    "strategic/development_scenarios.rs::materialize_gallery_item": [
+      127,
+      124
+    ]
+  },
+  "source_status": "Connected type/error migration remains believed source-complete; this is subsequent cohesive quality repair, not gate weakening.",
+  "plan": [
+    "Move the existing simulation quest-coverage reducer unchanged, including its documentation and macro, into simulation/quest_fixture.rs as the existing illness seeding reducer already uses a real child module. Reexport the actual reducer from simulation facade and point its existing source fixture to its real new owner. No schema/argument/body/error changes.",
+    "Move ApprovedPartyAction enum and its kind/execute impl from the authority schema file into strategic/approved_action.rs. Only visibility needed for parent governance changes; preserve Serde tags, variants, dispatch order, typed mission branch and legacy error handling. Parent imports the one canonical type. Add its file to STRATEGIC_SOURCE.",
+    "Move development-gallery constants, dispatch, validation and bulk materialization into a real strategic/development_gallery.rs. Extract the three fixed autopsy/outbreak/recurring-threat recipes as cohesive private context-only operations so the gallery dispatcher no longer contains their full bodies. Keep the same index selection, data, seeds, side-effect/return order and debug assertions. No new raw index helper API.",
+    "Adapt existing source fixtures to read the real production owner plus the remaining scenario authority where needed. Preserve all test cases, literals and assertions; add no fixture helpers. Include moved source before test-bearing parent units so production_source trimming cannot hide it.",
+    "Source-review caller privacy, SDK macro/reducer discovery, module ownership and exact moved blocks, then run only allowed static metadata preservation. Publish only after the refactor source is complete. Use hosted gates/export for relevant reductions; never raise existing ceilings."
+  ],
+  "limits": [
+    "No local project tools, parsers or runtime probes. Text editing/metadata and Git/rg only.",
+    "No agents, new tests/cases/assertions/helpers, fourth full audit wave, Comment Review, DB operations/generated edits, gate/cache weakening or merge.",
+    "No P08 implementation before current acceptance. Original twenty exits stay unchanged."
+  ],
+  "implementation_refinement": "The static scenario cohort is extracted alongside autopsy/outbreak/recurring threat, so all four fixed gallery entries are dispatched uniformly. New public operations precede private recipes; all old data/statements are preserved."
+}

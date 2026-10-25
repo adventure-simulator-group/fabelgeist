@@ -1,0 +1,62 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-388",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/main.rs",
+      "sha256": "9b6221a78408db588faf85ca8795c5004e6b3cf501828cd610d608205e1892f1",
+      "actual_EOF": 561,
+      "actual_compared_ranges": [
+        [
+          1,
+          561
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/tests/core_loop_live.rs",
+      "sha256": "034a4036833adfa442a315160a4f2c824770432c513ca8ea64d07d3a47e9d354",
+      "actual_EOF": 237,
+      "actual_compared_ranges": [
+        [
+          1,
+          237
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "CLI bounded admission, resource arithmetic and artifact lifecycle",
+      "evidence": "main.rs1\u2013561 complete: evaluate cases count checked_mul3, Run maxdecisions checked population*days, Matched checked2*days; bounded file read take(MAX_INPUT_BYTES+1) thenvalidation; replay verifiesrecordeddigest before rerun. Coreloop outputpaths newonly, failureoutputprepared beforeexecution; writesreport beforecoveragegate andemitsfailureartifact on unmetgate. QuestAnalyze requires explicitoverwrite and validatespathdistinctness, then emits separate public/developer/storybytes; no invocation inthisaudit.",
+      "qualification": "Do not infer CoreLoopsuccess from existing report: reportmayintentionallywritten before failedacceptance gate. Multioutputpublication is sequential, notatomic; no explicitall-or-nothingcontract established. Ordinary Run/Replay emit usesfs::write implicitoverwrite unlike QuestAnalyze explicitflag; API policychoice pending notnewdefect byitself. Hardlink identity candidate below affects concrete distinct-output guarantee."
+    },
+    {
+      "contract": "Ignored live fixture contracts and bounded subsequence reader",
+      "evidence": "core_loop_live.rs1\u2013237 complete: opt-in ignored test requires freshdisposablelocaldatabase/bootstrap nonce/token; population8party2 cycle12/duration14, expects eightformed/fourjoins, legal laborpositive, innhungerdoesnotincrease, completepublicdiagnostics, repairsubmission/retrieval balance, no failures/stuck/dedup, reuse rejects. detail_number splitssemicolonfield thenparse; subsequencecursor indexesonlyafterboundscheck.",
+      "qualification": "Source-only fixture, no DBpublication/testexecution/currentpass. .all on final_agents can be vacuouslytrue; actual profilecardinalityreportgate contract packet383 remainsopen. Conditionalvictorytrace tests infereventorder globally, notsame-party/case correlation; sourcepolicyidentityalreadytyped elsewhere, no evidenceactualwrongmission acceptance. Required world/time arithmeticbounds depend admittedCoreLoopConfig notfixture constantsalone."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-QUEST-OUTPUT-HARDLINK-ALIAS-CANDIDATE-001",
+      "classification": "Representable filesystem/API counterexample; source-backed conditional artifact-boundary defect, no execution or current-file witness.",
+      "operation": "main.rs177\u2013239 QuestAnalyze distinct output preflight, writespublic then developer; write_output444\u2013461 create+truncate whenoverwrite; validate_distinct_output_paths463\u2013503 comparesnormalizedcanonical pathnames only.",
+      "witness": "Existing public_output P and developer_output D are distinct directory entries hard-linked to one regular file inode. --overwrite authorizes replacement. canonicalize(P)!=canonicalize(D) by name, so preflight accepts; write_output(P, publicbytes,true) thenwrite_output(D,developerbytes,true) truncates samefileagain. P nowcontains developerartifact bytes despite published publicoutput contract. stories may be independent. No links created or program run bythisaudit.",
+      "qualification": "Symbolic links are canonicalized whenexisting; this witness specificallyhardlinks, notsymlink equivalence. No assertion currentuserfiles hardlinked or developerbundlecontains secretcredentials. Actualbundlepublic/developersemanticseparation is sourceexplicit API outputrole; targetedroot04/assignedstrategicarchive search foundnoexactrecord butfullglobaldedup pending. Separate alias question lexical-normalizing beforefilesystemsymlinkparentresolution retained asfuturedependency, notclaimednecessary tothiswitness.",
+      "dependencies": [
+        "Filesystem alias identity at overwrite boundary",
+        "Offline quest-analysis public/developer artifact separation",
+        "Parent canonical archive reconciliation; no guessed unique count"
+      ],
+      "acceptance": "Before firstoverwrite, either establish actualfileidentitydistinctness for all existingoutputtargets or publish separatelyallocated safeartifactobjects withdefinedaliaspolicy. Preserve no-overwrite create_new behavior, existingcanonical/symlink/newpath checks, boundedinput and explicitoverwrite authorization. Testhardlinkedpublic/developeroutputs asalias before anywrite when repairsareauthorized."
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/README.md"
+}

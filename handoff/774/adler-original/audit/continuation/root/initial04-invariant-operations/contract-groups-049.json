@@ -1,0 +1,86 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-049",
+  "at": "2026-10-22T21:20:26.486399+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "native-dependency:bevy_asset-0.19.1:event.rs",
+      "sha256": "22ff08ca5948660f8ea0ea2a1a0e9c977b3c9a44bd8c5c538014a9b8200ed0ca",
+      "actual_compared_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "source_evidence": "Fresh exact native material error/receiving API role. NativeAssetEvent actualEOF129; original1-159 claim clips130-159 nonexistent, no extra bytes. Other partialfunction/reexport tails merelycontext, no fullSDK/codec/loader algorithm credit."
+    },
+    {
+      "source_id": "native-dependency:bevy_asset-0.19.1:server/mod.rs",
+      "sha256": "90bfda65679fc6cfb046dda1e2e7b5795d39e73778a15d0bc1eb7ef8d3e9bd25",
+      "actual_compared_ranges": [
+        [
+          2010,
+          2160
+        ],
+        [
+          2340,
+          2510
+        ]
+      ],
+      "source_evidence": "Fresh exact native material error/receiving API role. NativeAssetEvent actualEOF129; original1-159 claim clips130-159 nonexistent, no extra bytes. Other partialfunction/reexport tails merelycontext, no fullSDK/codec/loader algorithm credit."
+    },
+    {
+      "source_id": "native-dependency:png-0.17.16/src/encoder.rs",
+      "sha256": "2befe627874fd46476bca960d8f89038479403b9611cbba4b37aadc42ac3658d",
+      "actual_compared_ranges": [
+        [
+          20,
+          165
+        ]
+      ],
+      "source_evidence": "Fresh exact native material error/receiving API role. NativeAssetEvent actualEOF129; original1-159 claim clips130-159 nonexistent, no extra bytes. Other partialfunction/reexport tails merelycontext, no fullSDK/codec/loader algorithm credit."
+    },
+    {
+      "source_id": "native-dependency:serde-saphyr-1.2.0/src/lib.rs",
+      "sha256": "c8ac1fdcdcbfc060a9ef1696609f81289b0fdd5700e1d9b374de91b7770d6818",
+      "actual_compared_ranges": [
+        [
+          20,
+          44
+        ]
+      ],
+      "source_evidence": "Fresh exact native material error/receiving API role. NativeAssetEvent actualEOF129; original1-159 claim clips130-159 nonexistent, no extra bytes. Other partialfunction/reexport tails merelycontext, no fullSDK/codec/loader algorithm credit."
+    },
+    {
+      "source_id": "native-dependency:tiny-skia-0.11.4/src/pixmap.rs",
+      "sha256": "a7845a931a40b5b24eaa24b6053121e61bfe8b3fffa4c0db89f58c368fb9bc56",
+      "actual_compared_ranges": [
+        [
+          155,
+          182
+        ],
+        [
+          385,
+          430
+        ]
+      ],
+      "source_evidence": "Fresh exact native material error/receiving API role. NativeAssetEvent actualEOF129; original1-159 claim clips130-159 nonexistent, no extra bytes. Other partialfunction/reexport tails merelycontext, no fullSDK/codec/loader algorithm credit."
+    }
+  ],
+  "groups": {
+    "native-asset-events": "Current BevyAssetEvent fiveclosedcases carrytypedAssetId; helpermatchescompareactualsamevariant/id, Copy/Clone retainsvalue. FailureEvent typedassetID/path/AssetLoadError convertedtoungenericUntypedAssetId preserving actualtypeinformation andsamepath/clonedcause. No numericcast/operation or changedsemanticasset. Rawunknown/nativepath appropriateactualport, do not wrapconcretetypedcausetoStringinsideproject. Actual pinnedfileEOF129, originalownerread1-159 includes30 nonexistentlines; initialliteralreader printed1-129 thenstoppedIndexError beforeotherfiles. Notmissingcurrentbody/hashmismatch. FreshnativehashandactualEOF pinqualification130, no verdictcarry.",
+    "asset-loading-failure-state": "load_untyped_async validatesemptypath beforestatsstarted++/awaitload; incrementsnativeobservationalstats beforefallibleloading, intentionallycountsstartedwork notsuccessfulgameaction/retryclock. handle_internal_asset_events failurefirstprocess_asset_fail thenemitsbothuntyped/typedcauseevents; loaded-deps drainswaiters andwakes, no metadata-drivenassumptionprojectcanrestorepriornativeassettransaction. Existingprojectretainedasset/morph/cache epoch issues musttrace actualowner; do notdemandforeignrollbackofloadstatistics orpretendstartupplanchecksaferetrycommit. Hotreloadwatchguard/parentfoldercontext present butnot completehotreloadfunction beyond2160, no fullreloadgraph/cycle/atomicityclaim. AssetLoadError closedenum retainsnativeIO/loader/type/source/label/meta causes; loader.error() exposesdowncastableBevyError ratherthanopaqueString. WaitForAssetError distinguishesnotloaded/failure/dependencyfailure withArc typedcause. foreigncopy/wrap APIsactualreceiverboundary, notpermissionforprivatelyauthoredprojecthelpers toerasethem.",
+    "png-errors-and-shallow-encoder-role": "EncodingError publicenumIO/Format/Parameter/Limits, privateformatkindclassifieszeroDimension/badchannel/missingdata/stage errors. Displayformatsnativealreadytypederrors; FromIO retainsIOpayload, FromEncodingErrorforIO explicitlyformatsString andwouldloseEncodingErrortypedpayload IFused, notinferredallPNGcallsuseit. Thisdependencyimplementsdeprecatedcause() forIO butnosource()override inreadbody; do notclaimgenericError::source reliablyexposesinnerIO. ProjectcanretainandmatchnativeEncodingError itself. Encodernew164-165 ispartialsignature/contextonly; ctor/dimensionadmission/writeactualPNGalgorithm notreadinthisrole, no nativewidthheightcapacityapprovalfromtypenames.",
+    "pixmap-native-encode-and-write": "load_png nativefsreadthenactualdecode, encode_png ownedborrow delegates; borrowedencode clonesPIXMAP beforedemultiplyingeachu8pixel, thenwritesRGBA8 PNG toLOCALVec, propagateswrite_header/image_data typedEncodingError before returningbytes. NativeuncheckedPremultipliedColorU8 replacement intentionallyholdsstraightcolorsastransientencoderstaging, doesnotestablishcheckedpremultipliedretainedgamecolorandshouldnotberepremultipliedbyrefactor. GamecanonicalColor/Pigment meaningactualhostowner separate. save_png doescompleteencodebeforefswrite, IOwritecanpartiallyreplacefileonerrornativefilesystemcontract; no automaticstrongatomicreportreplacementguarantee fromResult. This isactualI/O boundary, not reason to eraseerrorinintermediate projectrecord. Pixmapfullnativeadmission/codec notimpliedbythesereceivers.",
+    "serde-export-nonoperation": "serde_saphyr20-44 onlyfeature-gatedactualpublicreexports ofDeserializeError/validation/render/options/localizer/inputsource types. No arithmetic/admissionvalidation orretryoperation; aliasDeserializeError namesSAMEcanonicalnativeError, legitimateSDKAPIaliasnotprojectcompatibilityshim. Source44endsinsidereexportblockcontext, no extraunscopedfile/APIbodycredit."
+  },
+  "findings": [],
+  "prior_finding_support": [
+    "Existing projectnativeasset/PNG/YAMLtypedcause propagation; foreignloadcounterandwritebehavior notgameplayretryclock guarantees"
+  ],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

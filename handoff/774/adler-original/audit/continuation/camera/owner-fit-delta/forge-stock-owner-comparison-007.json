@@ -1,0 +1,296 @@
+{
+  "id": "CONT-CAMERA-OWNER-FORGE-STOCK-007",
+  "at": "2026-10-22T03:10:36.117877+00:00",
+  "lens": "audit-existing-type-owners",
+  "source_proofs": [
+    {
+      "id": "CONT-CAMERA-OWNER-SOURCE-045",
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/recipe/stock.rs",
+      "sha256": "848e1187843f8082d93fa8a1adc5e8b2bc60f90336e2d496176aa32969ee596e",
+      "read_ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "actual_EOF": 38,
+      "proof_mode": "fresh actual canonical stock/quantity/request-duration definition and connected quote/DB receiver bodies",
+      "lens": "audit-existing-type-owners",
+      "scope_limit": "Actual listed source roles, existing scoped context. PR RequestedDuration candidate definition is PRsource, no P16 duplicate body claimed."
+    },
+    {
+      "id": "CONT-CAMERA-OWNER-SOURCE-046",
+      "source_id": "physical-p16:crates/adventuresim-core/src/smithing.rs",
+      "sha256": "83f6b2eb7d945187bca6dc9f0fe78cbab0d25c292ce4c4096af94b4eb89a298b",
+      "read_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "actual_EOF": 78,
+      "proof_mode": "fresh actual canonical stock/quantity/request-duration definition and connected quote/DB receiver bodies",
+      "lens": "audit-existing-type-owners",
+      "scope_limit": "Actual listed source roles, existing scoped context. PR RequestedDuration candidate definition is PRsource, no P16 duplicate body claimed."
+    },
+    {
+      "id": "CONT-CAMERA-OWNER-SOURCE-047",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/smithing.rs",
+      "sha256": "428e697ec583b24ab798b6dadd2c67abf251e6359ed5b26a9d4819f93e266ce3",
+      "read_ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "actual_EOF": 119,
+      "proof_mode": "fresh actual canonical stock/quantity/request-duration definition and connected quote/DB receiver bodies",
+      "lens": "audit-existing-type-owners",
+      "scope_limit": "Actual listed source roles, existing scoped context. PR RequestedDuration candidate definition is PRsource, no P16 duplicate body claimed."
+    },
+    {
+      "id": "CONT-CAMERA-OWNER-SOURCE-048",
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_action.rs",
+      "sha256": "4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+      "read_ranges": [
+        [
+          310,
+          412
+        ]
+      ],
+      "actual_EOF": 1209,
+      "proof_mode": "fresh actual canonical stock/quantity/request-duration definition and connected quote/DB receiver bodies",
+      "lens": "audit-existing-type-owners",
+      "scope_limit": "Actual listed source roles, existing scoped context. PR RequestedDuration candidate definition is PRsource, no P16 duplicate body claimed."
+    },
+    {
+      "id": "CONT-CAMERA-OWNER-SOURCE-049",
+      "source_id": "physical-p16:crates/adventuresim-core/src/inventory_measurement.rs",
+      "sha256": "2ffeb2e6b78a2111a09dbe9f788673605eb597afe037e375f8f3c413bafe6011",
+      "read_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "actual_EOF": 804,
+      "proof_mode": "fresh actual canonical stock/quantity/request-duration definition and connected quote/DB receiver bodies",
+      "lens": "audit-existing-type-owners",
+      "scope_limit": "Actual listed source roles, existing scoped context. PR RequestedDuration candidate definition is PRsource, no P16 duplicate body claimed."
+    }
+  ],
+  "exact_fit_cases": {
+    "stock": {
+      "role": "Closed forge-stock identity through quote keys and actual inventory filter/consumption",
+      "definition": "P16recipe/stock.rs3-10 ForgeStock{Steel,Leather,Brass,Wood}; actual item_id12-18/nativecalibrated kg20-25; Material::forge_stock28-38 intentional unsupported authoringmaterialsNone.",
+      "actual_use": "Core quote_weapon30-47 obtains typed ForgeStock then stores stock.item_id in BOTH ForgeQuote.materials/requirements BTreeMap<String,...>14-16. Only actual constructor found in PR/P16 Core source isquote_weapon. DB available11-24 and consume27-53 receive earlier raw itemID; caller98-107 iterates retained quote keys before actual SDK row.item_id predicate17/37 and consuming inventory.",
+      "comparison": "Existing ForgeStock exact semantic owner for successfully selected forge requirements/material keys (not arbitrary item keys/instance IDs/MaterialLotID). Lower model owner already usable inCore; no duplicate local keywrapper. Names of arbitrary inventory item and unsupported Material remain representable where their broader boundary needs them. Stock key projection only at actual catalogue/native row comparison or JSON map-key serialization.",
+      "order_and_codec": "Existing BTreeMap string iteration is lexical brass_stock,leather_stock,steel_stock,wood_stock. ForgeStock declaration order Steel,Leather,Brass,Wood differs. Blind derivedOrd changes preflight/error/consumption order. Retain exact existing lexical ordering explicitly at owning sort/map operation, plus same native JSON stock keyspellings. No tests/source edits now.",
+      "disposition": "new_exact_existing_owner_reuse_finding_for_retained_stock_keys_not_name_only_migration_claim",
+      "repair": "Propagate existing ForgeStock through quote material/requirement key collections and DB smithing APIs until actual native filter/JSON output; preserve lexical order, firstfailure/preflightbeforeeffects and native rowID sorting."
+    },
+    "quantity": {
+      "role": "Mass, one-item fraction versus multirow totals and positive wait request",
+      "definitions": "BodyMassKg20-300 (P16physiology19-46); Milligrams quantized integer(PRmaterial20-45); ConsumableFractionMicros0..1000000(P16inventory_measurement32-110); RequestedDuration NonZeroU64minutes(PRstrategic_action319-335).",
+      "comparison": "Stock calibrated masses2/4/5kg and arbitrary derived weaponmaterialmass are not humanbodyrange; Milligrams rounds and f64/f32wouldchange arithmetic. Appropriate generalmassowner still missing. Aggregate quote requirementsu32mayexceed1000000 but reject overflow; available/remainingmicros acrossrowsvalid0, not one-itemfraction or NonZero ItemQuantity. Actual perrow min(remaining,1000000) produces correctly admitted boundedchunk; consumed.get only actual aggregate subtraction. Positive requested minutes fit existing RequestedDuration after actual positive source admission; elapsed/clipped0 remains distinct and quote computationoverflow/NaN/ceil policy remains later operations/admission obligation.",
+      "numeric_ports": "requiredmicros = ceil(f64mass/f64unitkg*1000000); lexicalstocks merged with checked_add, rowID sorted consumption and actualelapsed interruption false policy preserved. Quote.materials f32mass retained before UI/native JSON not physical nativebufferwaiver.",
+      "diagnostic_qualification": "DB stock failure says milliunits though stored/report requested field is total millionths; actualunit mismatch recorded for later diagnostic/error policy, no source text altered or new oracle added.",
+      "disposition": "existing_numeric_leaf_correct_chunk_and_positive_request_candidates; totalfraction_and_generalmass_missing_owner_distinguished"
+    },
+    "cause": {
+      "role": "Core model/quote/DB source cause and actual native output",
+      "comparison": "Core derive_properties/derive_material_masses alreadyreturn Vec<ValidationError> flattened viaformatDebug beforeinternal quoteResultString. DBdecode CodecError similarlyformatted beforeinternalaggregate; consume receives fallibletyped inventory causes then String. Existing canonical modelCodec/validation/Measurement/Operation cause owners mustsurvive connected graph; pureCore cannot depend on DBStrategicOperationError, so lower appropriate Core forge aggregate/classification needed for stockUnsupportedMaterial/overflow rather than codecnativeerrorabuse. Actual reducer E:Display/quoteJSON finalformat are trueports only. Preserve original authority/service/chassis/preflight/consume/time/create/replace order and legitimate unsupported authoringmaterialNone."
+    }
+  },
+  "sources": [
+    {
+      "queue_index": 91,
+      "source_id": "physical-p16:crates/adventuresim-core/src/smithing.rs",
+      "sha256": "83f6b2eb7d945187bca6dc9f0fe78cbab0d25c292ce4c4096af94b4eb89a298b",
+      "prior_owner_source_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 247,
+          "read_ranges": [
+            [
+              1,
+              78
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-SMITHING-036"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/smithing.rs"
+        }
+      ],
+      "prior_owner_refs": [
+        "CAM-OWN-SMITHING-036"
+      ],
+      "per_explicit_producer_role": [
+        {
+          "observation": {
+            "delta_observation_index": 42,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SMITHING-026",
+            "json_pointer": "/current_sources/1",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row131/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                78
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                78
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          "fit_cases": [
+            "stock",
+            "quantity",
+            "cause"
+          ],
+          "comparison": "Exact closedstock producer, retained map keys, native inventory filters and numerical/request/cause receiver contracts freshly compared to real candidate owner definitions; no byte/pathcarry."
+        }
+      ],
+      "disposition": "accounted_WITH_FINDINGS",
+      "remaining_material_contracts": [],
+      "acceptance": "Use canonical stock ownerthrough actual graph preserving lexicalorder/zero/unsupported/materialkg/fraction width/nativeJSONkeys and exact mutation/cause chronology. Retain requested-duration vs realized/clipped0, no rounding/overflow behavior claim."
+    },
+    {
+      "queue_index": 204,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/smithing.rs",
+      "sha256": "428e697ec583b24ab798b6dadd2c67abf251e6359ed5b26a9d4819f93e266ce3",
+      "prior_owner_source_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+          "row": 62,
+          "read_ranges": [
+            [
+              1,
+              119
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-SMITHING-036"
+          ],
+          "read_status": null,
+          "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/smithing.rs"
+        },
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 245,
+          "read_ranges": [
+            [
+              1,
+              119
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-SMITHING-036"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/smithing.rs"
+        }
+      ],
+      "prior_owner_refs": [
+        "CAM-OWN-SMITHING-036"
+      ],
+      "per_explicit_producer_role": [
+        {
+          "observation": {
+            "delta_observation_index": 108,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SMITHING-026",
+            "json_pointer": "/current_sources/0",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row235/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                119
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                119
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          "fit_cases": [
+            "stock",
+            "quantity",
+            "cause"
+          ],
+          "comparison": "Exact closedstock producer, retained map keys, native inventory filters and numerical/request/cause receiver contracts freshly compared to real candidate owner definitions; no byte/pathcarry."
+        }
+      ],
+      "disposition": "accounted_WITH_FINDINGS",
+      "remaining_material_contracts": [],
+      "acceptance": "Use canonical stock ownerthrough actual graph preserving lexicalorder/zero/unsupported/materialkg/fraction width/nativeJSONkeys and exact mutation/cause chronology. Retain requested-duration vs realized/clipped0, no rounding/overflow behavior claim."
+    },
+    {
+      "queue_index": 317,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/recipe/stock.rs",
+      "sha256": "848e1187843f8082d93fa8a1adc5e8b2bc60f90336e2d496176aa32969ee596e",
+      "prior_owner_source_proofs": [],
+      "prior_owner_refs": [],
+      "per_explicit_producer_role": [
+        {
+          "observation": {
+            "delta_observation_index": 146,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SMITHING-026",
+            "json_pointer": "/current_sources/3",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row373/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                38
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                38
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          "fit_cases": [
+            "stock",
+            "quantity",
+            "cause"
+          ],
+          "comparison": "Exact closedstock producer, retained map keys, native inventory filters and numerical/request/cause receiver contracts freshly compared to real candidate owner definitions; no byte/pathcarry."
+        }
+      ],
+      "disposition": "accounted_WITH_FINDINGS",
+      "remaining_material_contracts": [],
+      "acceptance": "Use canonical stock ownerthrough actual graph preserving lexicalorder/zero/unsupported/materialkg/fraction width/nativeJSONkeys and exact mutation/cause chronology. Retain requested-duration vs realized/clipped0, no rounding/overflow behavior claim."
+    }
+  ],
+  "existing_owner_matrix_semantic_comparison": "CAM-OWN-SMITHING-036 correctly distinguished catalogue-vs-instance key and bounded-vs-total fraction, but did not match current closed ForgeStock owner to exact quote-key producer. Fresh actual definition+both receiving bodies add this owner match without overriding correct earlier unit/order/zero findings. Existing CAM-PPS-SMITHING-026 current source/consumer proof preserved.",
+  "new_source_scope": "None. ForgeStockP16 already admitted expandedproducer delta material1-38; quote78/DB119 and PRduration/corefraction existing scoped.",
+  "source_edits": 0,
+  "project_commands": 0,
+  "remaining_material_owner_obligations": [],
+  "overall_clearance": "none"
+}

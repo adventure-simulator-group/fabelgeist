@@ -1,0 +1,82 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-602",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/model/resolved_shapes.rs",
+      "sha256": "485156188b8c858094e576418d153b0e315f06c01ef25685a6e11eb97e60a56b",
+      "actual_EOF": 447,
+      "actual_compared_ranges": [
+        [
+          1,
+          447
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/model/walls.rs",
+      "sha256": "0ccc94972996dae71d762e7019f9814a02a26ff12a2eabe8709f7c791c8b9930",
+      "actual_EOF": 353,
+      "actual_compared_ranges": [
+        [
+          1,
+          353
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/windows.rs",
+      "sha256": "ebb276b2f9852eb4cd3cf87b5582ac9f8e58c4b266f937bc5a84d0396b06ff76",
+      "actual_EOF": 259,
+      "actual_compared_ranges": [
+        [
+          1,
+          259
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/windows/leaf.rs",
+      "sha256": "bea74075651588d26b629c3b43996d0c9fe8d76c47577b585af2b8e159488ffd",
+      "actual_EOF": 150,
+      "actual_compared_ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "P16 resolved shape/wall declarations and projections",
+      "evidence": "Complete447+353 lines consumed. ResolvedSolid constructioncopieschecked envelope; deserializeallrawgeometry thenCollisionCuboidgate preservesphysicalID. Shape-specific raw payload andgraphmembership separate fromcuboid envelope. OpeningProfile gettersselectcorrectbranch; segmentalclearheight computes spring+rise nativef32; wall thicknessmatchesmaterialbounds.",
+      "qualifications": [
+        "No claim envelopeproof validates arbitrary shape payload, room/frameorthogonality, support graph or physicallypositive arch. Existing03/06accepted evidence authoritative, not reauditedhere.",
+        "Fortified thicknesslowerbound aloneaccepts Inf and segmentalrawsum mayoverflow; these localhelpers do not alone establish successfulwholeplan/currentproducerfailure. Keep actual aggregate admission/consumer checks rather than duplicate findings solely declaration."
+      ],
+      "acceptance": "Derived shape projections/physicalrecords must preserve actual authored shape contract and contextual errors; fullu64 IDs not arbitrarily narrowed for packed-index consumers."
+    },
+    {
+      "contract": "P16 bars, selected window leaf and checked geometry",
+      "evidence": "Complete259+150lines read: barcounts2or3 and fractions bounded fixeddenominator; typed directionvalidity before construction; packedsourceID usesopening<<8 withordinal; leafselectionrolefiltered missingclosureErr; width/thickness/hinge recomputed thenchecked positiveleaf (minimum.025 thickness); inward80deg yaw checked. Glazing/shutter leaf builds local transactionalBuilder; firstmembererror retained untilinto_meshes.",
+      "qualifications": [
+        "Full consumed supplier RIG-OWNER-REACHED-PRODUCER-F009 (owner-reached-producer-followup/findings.jsonl record_index8) and RIG-OWNER81-F001 (producer-reached-owner81/findings.jsonl record_index0) exact same checked glazing leaflost across Builder API; actual04read supports connection, no duplicate/global count. Preserve fixedzeroCuboidDimensions vs operablepositiveLeafDimensions.",
+        "FiniteMAX width/height allowed by CuboidDimensions makes ceil(size/.19) saturate to usizeMAX and loops attempt enormous geometry before firsterrorreturned. Native work/indexcapacity policy question remains separate from unchanged-leaf migration; no current huge authoredproducer/run, no invented universal physicalextent cap.",
+        "Tiny shutterwidth canyieldnegative computed boardwidth andstructuredconstructionErr; validfallible rejection not automaticallydefect. Zero fixedglazing permitted; emptyshutterboards do not execute divisioninside loop.",
+        "PackedbarIDs require highopeningbits/uniquenessowner proof; no actualcuratedopeningcollision witness fromthisbody."
+      ],
+      "acceptance": "Preserve barstateindependence, actualinwardpivot/role/errors; admit supported nativeelement/index/workcapacity beforeexpansion if API promisesboundedconstruction, preserve physicaldimensions and legitimatezero domains."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-building-generator/src/windows/spec.rs"
+}

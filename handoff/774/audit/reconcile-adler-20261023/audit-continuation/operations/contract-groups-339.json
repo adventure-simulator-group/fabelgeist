@@ -1,0 +1,212 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-339",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/parametric_equipment.rs",
+      "sha256": "fb8ed7e496fe124cf6ea6c4deb962b9602cf62f5b516d362b5e50ddca9829c49",
+      "actual_EOF": 478,
+      "actual_compared_ranges": [
+        [
+          1,
+          478
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/preview.rs",
+      "sha256": "c028a72d0f62e5d1f79d76d09e35a549de03dcbba566a0258e69fe8248023c09",
+      "actual_EOF": 193,
+      "actual_compared_ranges": [
+        [
+          1,
+          193
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/proportions.rs",
+      "sha256": "aa675179f3ddceae5646814bfc455eb8f45c96da71051a95324bd2e381ac92af",
+      "actual_EOF": 73,
+      "actual_compared_ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/review_export.rs",
+      "sha256": "e9ae7ed8089bca0317e77661168325bad4467de6bdc6ab5c08696808b15205f0",
+      "actual_EOF": 125,
+      "actual_compared_ranges": [
+        [
+          1,
+          125
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/rig_parameters.rs",
+      "sha256": "f16955ae53a597eebce8b190c050f47e10671e50fb6f8426ce7bbed3164f14cc",
+      "actual_EOF": 81,
+      "actual_compared_ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/runtime_equipment.rs",
+      "sha256": "017eab8f2758a277d6638fde30e9cbcad9ea025d1eff17e92ade4d3bf0bbe960",
+      "actual_EOF": 341,
+      "actual_compared_ranges": [
+        [
+          1,
+          341
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/runtime_equipment/clothing.rs",
+      "sha256": "72974a2d1ab294dcd4b04a06a153d9781a559e9478b7f429ff32909fd6a03f8e",
+      "actual_EOF": 68,
+      "actual_compared_ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/runtime_equipment/warmup.rs",
+      "sha256": "3129853d5e471b55c8d757b9904276bd5eb90404d662099db7012cd9961dcfb2",
+      "actual_EOF": 85,
+      "actual_compared_ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/skin_rules.rs",
+      "sha256": "79f4a9ac4e470e5788fd7d75fee1142c11da843d258e870a42249eca81ea957e",
+      "actual_EOF": 475,
+      "actual_compared_ranges": [
+        [
+          1,
+          475
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Fitting and finishing preserve layer dependency order and one complete local result before publication",
+      "source_ranges": {
+        "parametric_equipment.rs": [
+          [
+            1,
+            478
+          ]
+        ],
+        "preview.rs": [
+          [
+            1,
+            193
+          ]
+        ]
+      },
+      "disposition": "Both complete bodies read, parametric1..145freshlyreadagainafterprior318dependency; remainingbodyandalloriginalfixtures readnow. LayerPlan support ordinals consumedonlyaftertopologicalearlier resultsSome, originalselectionorder restoredfromindexedOptionvector; collectedResultrejectsmissingfit ratherthanzipdroppingpiece. Construct/trim returnlocalcompleteFinish andfailurekeepspriorcallerstateuntilOk; dedicatedfitting andrecipebranches share checkedplacementside. Actual plate-steel caller scalesUVinplacebeforeOkarmor, freshsupportforfinding-metal-uv-scale.json318, no newfindingcount. Preview surfacesusegeneratedcomponent/index/UVranges, optionalcomponentmaterials andtrimchannelmatch, tangentgenerationErrpropagates; partialprevioussurfacesmayalreadybespawnedonlatererror, noatomicpreviewpromiseestablished. Body/clothingmesh skinsuseexistingrawpreviewadapterandthereforeadoptedF010weightgap, notnewduplicate. IgnoredparametricfixtureLODis1againstcurrent4..6gate, soitsbodyassertionsarenotpassingvalidationevidence; notrun."
+    },
+    {
+      "contract": "Shared skeletal bases and rig native ports retain parameter identity and reject invalid narrowing",
+      "source_ranges": {
+        "proportions.rs": [
+          [
+            1,
+            73
+          ]
+        ],
+        "rig_parameters.rs": [
+          [
+            1,
+            81
+          ]
+        ]
+      },
+      "disposition": "Both fullbodiesread. Parameterlookupreturnsactualnamedcolumn beforewritingbasis/modelvector; JointParameterRow bindsjoint+channel ratherthanrecomputedrawrow. joint_bases checkscanonicalmin/maxlimits, translatescm\u2192m andrequiresexactzerorotation/scalecontributionfortranslation-onlyportablebasis. ComputedbaseslocaluntilcompleteOk; intermediateErrnotretainedpartialstate. Finiteparameter-transformmatrixadmissionremainslowerMHRdependency; noactualnonfinitebasisclaimed. GPUuniformrolesclosedenumwithmatchingnativefieldstringsareABIbindings distinctfromauthoredjointnames. insert_joint checksu32::try_from beforePassParametersmutation, no unchecked as relay/compatibilityalias."
+    },
+    {
+      "contract": "Runtime body projection and warmup remain client-owned generated artifacts, with source-scoped admission limits",
+      "source_ranges": {
+        "runtime_equipment.rs": [
+          [
+            1,
+            341
+          ]
+        ],
+        "runtime_equipment/clothing.rs": [
+          [
+            1,
+            68
+          ]
+        ],
+        "runtime_equipment/warmup.rs": [
+          [
+            1,
+            85
+          ]
+        ]
+      },
+      "disposition": "All three fullbodiesandruntimefixture sourceread. Runtimecatalogclassifiedonceagainstcanonicalstaticcatalog viaactualCatalogItem admission; predicatesintentionalclothing/beltvsparametric, notarbitrarystringgrammar. RuntimeBody.validate establishesnonemptydomain/currentcolumns/rigcounts/nonemptyfaces, notbyitself finitecoordinates/topologybounds; downstreamactualGpuBody/generatorsownadditionaladmission. Publicbodyfieldmutationwithfirst-uploadcache is sameprevious324CameraF051contextswapqualification, no normalruntimecachemutationestablished. Parametricunderlayers/breastplate/vambrace propagateactualmatchingdomain/atlas/rig andnomorphs intentionally; changedbodyneedsnewfit, nottacticaltickDBstate. ClothingtakesactualfirstshellfromsinglespecwithErrifnone, retainsbodyUV/skinandintentionalnoPlateFace/grids/morphs. Warmupiteratesactualfinitecatalogplacements, returnsreportonlyafterallfalliblepipelines, keepskernelcachebuttemporarymeshesdiscarded; not an auditpermissiontoexecuteGPUwork. Alternatecuirass/layeredpauldron/wrappedtassets sourcesreadonly, notrun."
+    },
+    {
+      "contract": "Rigid skin replacement preserves closed anatomical ownership and depends on admitted component ranges",
+      "source_ranges": {
+        "skin_rules.rs": [
+          [
+            1,
+            475
+          ]
+        ]
+      },
+      "disposition": "Complete475lines includingeveryfixture readintwochunks. Attachchecksrigcountmatch andrequiresactualnamedanchorsbeforefills; flexiblecaps/coifskeeporiginalskinbyexplicitpolicy, rigidhelmetsallhead, gorget/cuirassC_SPINE3, copsdistaljointandupperplatesproximaljoint, besagewchest. Waist unionfindlinksroots/pathcompresses, eachvertexbelongsoneconnectedcomponent andTassetsclassificationusesactualcomponentrange; signedleftpositiveX decideship. Emptyvertexcaseemitsnocomponents so sheet[0]onlynonempty, noemptylistpanic. PublicGeneratedArmorcanholdmalformedindices/ranges/weights; fill mutatespackedrowsonebyonebeforeweightfill, so genericrawaggregate validity/erroratomicityremainsowningartifactadmissiondependency, notprovennormalgeneratorfailure. Existingcheckedset_vertexre-admitsjointbound butdoesnotvalidateallcomponentgeometry. Extremefinite centroidsumcanoverflowbeforedividesidechoice, no ordinarygeneratedassetcase. Preserveintendedlimbanatomy/flexiblematerials, notblanketonejointforcloth."
+    },
+    {
+      "contract": "Review export records actual current selected design and frames without implying whole-outfit validation",
+      "source_ranges": {
+        "review_export.rs": [
+          [
+            1,
+            125
+          ]
+        ]
+      },
+      "disposition": "Fullbodyread. BodyJSONwritesactualgeneratedsourcebeforeoptionalpieceexport; Recipe selectionresolvescurrentworncatalogdesignandfamilybutdoesnot callwholeloadoutfit, explicit independentcandidate-reviewutilityratherthangameplayacceptedoutfit. Sameitem/placementmultiplearticleown-designoutputfilenamescanoverwriteamongreviewrecords, qualifiedutilityartifactidentitydependency; noexplicitper-instancecompletenesscontractoractualbadrecipe/runpromoted. Catalogselectionusesperplacementdefault. Reviewrecordfitted_itemomitsmetal-densityfinishintentionallygeometryreview; returnedframeactualdesignregionResult. No reviewgeneration/filesystemeffects executed."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-METAL-UV-SCALE-001",
+      "file": "finding-metal-uv-scale.json",
+      "disposition": "freshfullrelyingcaller support; same318finding"
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "9 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-character-creator/src/studio_cache.rs"
+}

@@ -1,0 +1,524 @@
+[
+  {
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/shadows.rs",
+    "snapshot": "pr-working",
+    "path": "crates/adventuresim-tactical-client/src/strategic_scene/shadows.rs",
+    "sha256": "88162a5ba0e0b8ea382882acfed34414b1f0d04d2ea5ebd003a065c7e22b81a0",
+    "line_count": 94,
+    "read_ranges": [
+      [
+        1,
+        94
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-003"
+    ],
+    "disposition": "Full native RenderLayers/Camera/NotShadowCaster ownership and all existing fixtures.",
+    "coverage": "full"
+  },
+  {
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/lighting_diagnostics.rs",
+    "snapshot": "pr-working",
+    "path": "crates/adventuresim-tactical-client/src/strategic_scene/lighting_diagnostics.rs",
+    "sha256": "a1627688fff10fc5762346ef4f2842952fb09815946d3ccbb17408e48353cb4c",
+    "line_count": 40,
+    "read_ranges": [
+      [
+        1,
+        40
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-003"
+    ],
+    "disposition": "Full actual per-view native Transform/Exposure/GPU sample -> direct Status serialized diagnostic record.",
+    "coverage": "full"
+  },
+  {
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/render_diagnostics.rs",
+    "snapshot": "pr-working",
+    "path": "crates/adventuresim-tactical-client/src/strategic_scene/render_diagnostics.rs",
+    "sha256": "24723b09d19d3e854b960b1efe8dc118b2bf236352886ac871f5396e05dc9f40",
+    "line_count": 93,
+    "read_ranges": [
+      [
+        1,
+        93
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-003"
+    ],
+    "disposition": "Full native ECS AssetId/counts/Name grouping -> actual final JSON info logging; source count primitive predicates are native observation.",
+    "coverage": "full"
+  },
+  {
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/interior_lighting/mod.rs",
+    "snapshot": "pr-working",
+    "path": "crates/adventuresim-tactical-client/src/presentation/interior_lighting/mod.rs",
+    "sha256": "7e1ddb323e8daf9aeb8c1a0270dda49ebb86500f4c346b18c2c06fc563ad41aa",
+    "line_count": 251,
+    "read_ranges": [
+      [
+        80,
+        130
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-003"
+    ],
+    "disposition": "Actual InteriorLightingGpu daylight/sample_at matrix/cell/index/ambient-cube arithmetic; diagnostics exact receiver.",
+    "coverage": "exact-reached-ranges-only"
+  },
+  {
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/environment.rs",
+    "snapshot": "pr-working",
+    "path": "crates/adventuresim-tactical-client/src/presentation/environment.rs",
+    "sha256": "b6c219d19f45e18cf058bfa3ec4a06e826e50c2ae83d122e8d421f418dc31dbc",
+    "line_count": 577,
+    "read_ranges": [
+      [
+        165,
+        240
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-003"
+    ],
+    "disposition": "Actual TacticalCameraSetup raw FOV source/default + actual PerspectiveProjection recipient; no existing checked FOV producer on this exact edge, other12 lenses still required.",
+    "coverage": "exact-reached-ranges-only"
+  },
+  {
+    "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/interior/tests.rs",
+    "snapshot": "pr-working",
+    "path": "crates/adventuresim-tactical-core/src/scene_input/furniture/interior/tests.rs",
+    "sha256": "503801e4a1878c3ff962d59f4526020b82b8d798fbb60de2c5e232b686c7d11f",
+    "line_count": 87,
+    "read_ranges": [
+      [
+        1,
+        87
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-003"
+    ],
+    "disposition": "Full existing framed furniture placement/yaw/identity assertions; no execution or changes.",
+    "coverage": "full"
+  },
+  {
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/generator.rs",
+    "snapshot": "pr-working",
+    "path": "crates/adventuresim-building-generator/src/generator.rs",
+    "sha256": "ee32e08bcb89ab05f78431b7ce484c3ca71d2b9d7f7516f7ee38835cd0372aee",
+    "line_count": 124,
+    "read_ranges": [
+      [
+        1,
+        124
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-003"
+    ],
+    "disposition": "Full include/module ownership map only; not proof of every included generator numerical body.",
+    "coverage": "full"
+  },
+  {
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/core.rs",
+    "snapshot": "pr-working",
+    "path": "crates/adventuresim-building-generator/src/generator/core.rs",
+    "sha256": "f9cad0ec57715ef451e89d64fc3b833ffba8beb778e82d9a286f269d71849e4d",
+    "line_count": 311,
+    "read_ranges": [
+      [
+        1,
+        311
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-003"
+    ],
+    "disposition": "Full typed GenerationError/Seed owner interfaces, actual layout_seed direct bit selector, generate/document/edit and audit retention. Other12 lenses inspect raw semantic payloads/selection policy.",
+    "coverage": "full"
+  },
+  {
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/orchestration.rs",
+    "snapshot": "pr-working",
+    "path": "crates/adventuresim-building-generator/src/generator/orchestration.rs",
+    "sha256": "a780f7423a92de85a7e0177797eac288dc0b4eb003a105b427b356d2b2b0c3ba",
+    "line_count": 196,
+    "read_ranges": [
+      [
+        1,
+        196
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-003"
+    ],
+    "disposition": "Full actual checked BuildingProgram -> retained BuildingPlan dispatch, cause propagation, include tail145\u2013196 re-read after output truncation. Underlying architectural generators not blanket cleared.",
+    "coverage": "full"
+  },
+  {
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/lod.rs",
+    "snapshot": "pr-working",
+    "path": "crates/adventuresim-building-generator/src/lod.rs",
+    "sha256": "a67de5a3238c34c5d18edae89ddc2c51c4fe1dd562189103a6549bb34a88cfac",
+    "line_count": 666,
+    "read_ranges": [
+      [
+        1,
+        666
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-003"
+    ],
+    "disposition": "Full actual native LodVertex/LodMesh push_quad/triangle/winding/UV/roof/prism compiler and existing fixtures.",
+    "coverage": "full"
+  },
+  {
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/lod/compilation.rs",
+    "snapshot": "pr-working",
+    "path": "crates/adventuresim-building-generator/src/lod/compilation.rs",
+    "sha256": "d3191310e607fea9469139eb7a208aa89f391a379c093465007d2cf6f49d3c10",
+    "line_count": 162,
+    "read_ranges": [
+      [
+        1,
+        162
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-003"
+    ],
+    "disposition": "Full exterior/detail dispatch/excluded typed IDs/facade runs/actual geometry derivation and vertex remap invocation.",
+    "coverage": "full"
+  },
+  {
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/detail.rs",
+    "snapshot": "pr-working",
+    "path": "crates/adventuresim-building-generator/src/detail.rs",
+    "sha256": "00f757ddff51e8079daf3a85241adea4b79272687b86f5e166a917ced784681f",
+    "line_count": 815,
+    "read_ranges": [
+      [
+        1,
+        190
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-003"
+    ],
+    "disposition": "Actual compile_static_building_detail/dynamic_closure_solids/compile_detail/bar and roof native mesh dispatch; later tests not read in this additional receiver cell.",
+    "coverage": "exact-reached-ranges-only"
+  },
+  {
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/detail/solids.rs",
+    "snapshot": "pr-working",
+    "path": "crates/adventuresim-building-generator/src/detail/solids.rs",
+    "sha256": "7c09ee54b3d9ae39bd91d4b22a275373eaa3a5516f95a1835b997ce165488cf2",
+    "line_count": 260,
+    "read_ranges": [
+      [
+        1,
+        260
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-003"
+    ],
+    "disposition": "Full typed SolidDetailCompiler/shape/window/panel branch to actual numerical mesh faces and native vertices.",
+    "coverage": "full"
+  },
+  {
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/detail/cuboids.rs",
+    "snapshot": "pr-working",
+    "path": "crates/adventuresim-building-generator/src/detail/cuboids.rs",
+    "sha256": "1bc389873b2835026a9bd59935dcc2392411f1bbe05047c3cfdf8adfe9b15960",
+    "line_count": 254,
+    "read_ranges": [
+      [
+        1,
+        254
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-003"
+    ],
+    "disposition": "Full actual typed solid projection into native render offset/size then native face/UV/winding kernel+fixtures; render_centre is not forwarded to an application identity/position record.",
+    "coverage": "full"
+  },
+  {
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/placement.rs",
+    "snapshot": "pr-working",
+    "path": "crates/adventuresim-building-generator/src/interior/placement.rs",
+    "sha256": "bdb6ff8d669fb04becfeae5b400ac090c1e458b64a5fb54c215e62f43b4f23f3",
+    "line_count": 213,
+    "read_ranges": [
+      [
+        1,
+        213
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-003"
+    ],
+    "disposition": "Full furnish/variant_candidates native grid geometry/new point admission/typed layout output; Seed kept into actual RNG sampling, ranking/rejection arithmetic read.",
+    "coverage": "full"
+  },
+  {
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/composition.rs",
+    "snapshot": "pr-working",
+    "path": "crates/adventuresim-building-generator/src/interior/composition.rs",
+    "sha256": "1188624c62cd4c5600de9468519c5d9bcdee9322130944848beea6ebb18522ed",
+    "line_count": 116,
+    "read_ranges": [
+      [
+        1,
+        116
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-003"
+    ],
+    "disposition": "Full typed displacement+yaw rotation / new derived placement arithmetic, actual composition callback returns typed placement.",
+    "coverage": "full"
+  },
+  {
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/finishes.rs",
+    "snapshot": "pr-working",
+    "path": "crates/adventuresim-building-generator/src/interior/finishes.rs",
+    "sha256": "8bee3e5050eda1118f1cb4b2a9e6c4dc213dd1f30619ffecbf54232a86377b96",
+    "line_count": 69,
+    "read_ranges": [
+      [
+        1,
+        69
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-003"
+    ],
+    "disposition": "Full typed Seed -> native RNG context bit words -> index-selected enum and checked FurnitureKey, checked room/storey identity retained.",
+    "coverage": "full"
+  },
+  {
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/room_facing.rs",
+    "snapshot": "pr-working",
+    "path": "crates/adventuresim-building-generator/src/interior/room_facing.rs",
+    "sha256": "8354b4ab6e76c9f87bd7fab5a54ef22942ccf542e4a7d2404c827c6b8c812efd",
+    "line_count": 123,
+    "read_ranges": [
+      [
+        1,
+        123
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-003"
+    ],
+    "disposition": "Full typed room/placement/point handling, actual displacement/distance/score computation -> closed Direction enum.",
+    "coverage": "full"
+  },
+  {
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/footprints.rs",
+    "snapshot": "pr-working",
+    "path": "crates/adventuresim-building-generator/src/interior/footprints.rs",
+    "sha256": "d50055faae78c0c916fbb9a3e02ea23344a86a4c673af651907043cf05c2f2cf",
+    "line_count": 161,
+    "read_ranges": [
+      [
+        1,
+        161
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-003"
+    ],
+    "disposition": "Full checked geometry validation+fixtures; PositiveLength positive refinement currently via raw y extraction; tail138\u2013161 re-read after output truncation.",
+    "coverage": "full"
+  },
+  {
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/navigation.rs",
+    "snapshot": "pr-working",
+    "path": "crates/adventuresim-building-generator/src/interior/navigation.rs",
+    "sha256": "40fa11f523de79d81abfa08675576e692b474ac81c5f2d18ec49818ee8919688",
+    "line_count": 209,
+    "read_ranges": [
+      [
+        1,
+        209
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-003"
+    ],
+    "disposition": "Full actual typed waypoints/rectangles/node exact floatbit keys/BFS/access path state; first1\u201340 re-read after truncation.",
+    "coverage": "full"
+  },
+  {
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/geometry.rs",
+    "snapshot": "pr-working",
+    "path": "crates/adventuresim-building-generator/src/interior/geometry.rs",
+    "sha256": "ab00aade1ddd259c070bf761e9877e4c5f08ac7cf31913b4d7448ea389123509",
+    "line_count": 317,
+    "read_ranges": [
+      [
+        1,
+        317
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-003"
+    ],
+    "disposition": "Full actual Rect/PlanPoint/Elevation/Displacement numerical kernels+fixtures, supersedes earlier exact150\u2013230 range only for current wave.",
+    "coverage": "full"
+  },
+  {
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/architecture.rs",
+    "snapshot": "pr-working",
+    "path": "crates/adventuresim-building-generator/src/interior/architecture.rs",
+    "sha256": "ea8f3edc195be45a804f200cf4651c7855317fcb7726dfdc1dff0f256fb9bde7",
+    "line_count": 281,
+    "read_ranges": [
+      [
+        1,
+        281
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-003"
+    ],
+    "disposition": "Full actual checked Floor/Obstruction/elevation/height and actual placement_clear numerical clipping receiver.",
+    "coverage": "full"
+  },
+  {
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/navigation/occupancy.rs",
+    "snapshot": "pr-working",
+    "path": "crates/adventuresim-building-generator/src/interior/navigation/occupancy.rs",
+    "sha256": "39649345d93ad1f7cc7f6b7d8c27998822e433f60ca9b5143773e11cb110f76b",
+    "line_count": 208,
+    "read_ranges": [
+      [
+        1,
+        208
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-003"
+    ],
+    "disposition": "Full typed rect/waypoint inputs -> native graph occupancy counts/flood/proof and existing reference fixture.",
+    "coverage": "full"
+  },
+  {
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/navigation/portals.rs",
+    "snapshot": "pr-working",
+    "path": "crates/adventuresim-building-generator/src/interior/navigation/portals.rs",
+    "sha256": "67827cd410e5f877c798b6202ae978793b0a49578b2ce0b534095075d3530f54",
+    "line_count": 361,
+    "read_ranges": [
+      [
+        1,
+        361
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-003"
+    ],
+    "disposition": "Full typed portal/stair/entrance graph and actual native elbow/distance kernels; same-type entrance approach/threshold readmission gap proved.",
+    "coverage": "full"
+  },
+  {
+    "source_id": "pr-working:crates/fabelgeist-geometry/src/cuboid.rs",
+    "snapshot": "pr-working",
+    "path": "crates/fabelgeist-geometry/src/cuboid.rs",
+    "sha256": "1fe1e6483da91ee1bd681df6ff788ec97d680ac453c450069a30111c66dc40ed",
+    "line_count": 126,
+    "read_ranges": [
+      [
+        1,
+        126
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-003"
+    ],
+    "disposition": "Full canonical actual nonnegative typed SignedLength axes + y_length, native vector and serde ports, no duplicate owner.",
+    "coverage": "full"
+  },
+  {
+    "source_id": "pr-working:crates/fabelgeist-geometry/src/length.rs",
+    "snapshot": "pr-working",
+    "path": "crates/fabelgeist-geometry/src/length.rs",
+    "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+    "line_count": 40,
+    "read_ranges": [
+      [
+        1,
+        40
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-003"
+    ],
+    "disposition": "Full canonical PositiveLength admission/errors exact rolePositiveLength/axisX; finite,negative,zero classifications retained for checked refinement.",
+    "coverage": "full"
+  },
+  {
+    "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/descriptor.rs",
+    "snapshot": "pr-working",
+    "path": "crates/adventuresim-tactical-core/src/scene_input/descriptor.rs",
+    "sha256": "2b30929bb687f5865c0fa515cb96763b1b03d4a97522dbc015b02d7cb4558336",
+    "line_count": 103,
+    "read_ranges": [
+      [
+        1,
+        103
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-003"
+    ],
+    "disposition": "Full TacticalSceneInput typed Serde owner mapping every authored top field + existing schema/shop-name fixtures.",
+    "coverage": "full"
+  },
+  {
+    "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input.rs",
+    "snapshot": "pr-working",
+    "path": "crates/adventuresim-tactical-core/src/scene_input.rs",
+    "sha256": "bde515fc144669a9902a54886ded6185c84fca86313d86ca7c44ba0626e8ae12",
+    "line_count": 1026,
+    "read_ranges": [
+      [
+        1,
+        207
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-003"
+    ],
+    "disposition": "Actual scene input load/validation dispatcher/digest/environment_snapshot and semantic role declarations. Parent ROOT-PP-GROUNDING-022 full proof separately required.",
+    "coverage": "exact-reached-ranges-only"
+  },
+  {
+    "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/validation.rs",
+    "snapshot": "pr-working",
+    "path": "crates/adventuresim-tactical-core/src/scene_input/validation.rs",
+    "sha256": "3d97a798029ddc9f195aa209105f64070c55fb0172ef87a515e67fe945c735c9",
+    "line_count": 64,
+    "read_ranges": [
+      [
+        1,
+        64
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-003"
+    ],
+    "disposition": "Full actual source version/grid/urban/establishment/property/vista/weather validation dispatch, typed source/level extraction retained. Underlying urban/grounding validators shared-parent evidence still pending.",
+    "coverage": "full"
+  }
+]

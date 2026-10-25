@@ -1,0 +1,136 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-306",
+  "at": "2026-10-23T07:24:48.649883+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armory.rs",
+      "sha256": "aa66e0b18f919eb3351635241249df969eeed4c36c36aa302888c320222a54df",
+      "scope068_index": 694,
+      "actual_EOF": 485,
+      "scoped_ranges_compared": [
+        [
+          1,
+          485
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source and original fixtures, current exhibit/fit/placement/catalog identity/private retained ordinal and display/refit relationship analysis. No execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armory_scene.rs",
+      "sha256": "ece71ad33e583d6908d9ad2db842ffa724b97e8d498a19258602836608b093a3",
+      "scope068_index": 695,
+      "actual_EOF": 288,
+      "scoped_ranges_compared": [
+        [
+          1,
+          288
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source and original fixtures, current exhibit/fit/placement/catalog identity/private retained ordinal and display/refit relationship analysis. No execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armory_ui.rs",
+      "sha256": "5c519edc1b220e1bdb7d874160b997ffb77a98266e5f6c5de49565d4ab5e9ada",
+      "scope068_index": 696,
+      "actual_EOF": 332,
+      "scoped_ranges_compared": [
+        [
+          1,
+          332
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source and original fixtures, current exhibit/fit/placement/catalog identity/private retained ordinal and display/refit relationship analysis. No execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/bare_body.rs",
+      "sha256": "68cef7d12e388a580394d74d3162513902fc9a8c6539ae328aac33e1240bd4cb",
+      "scope068_index": 697,
+      "actual_EOF": 71,
+      "scoped_ranges_compared": [
+        [
+          1,
+          71
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source and original fixtures, current exhibit/fit/placement/catalog identity/private retained ordinal and display/refit relationship analysis. No execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/equipment_catalog.rs",
+      "sha256": "da3139ef3625393db9041ad0680dc244b0f81235b86ea4519a87c9299763bdd6",
+      "scope068_index": 764,
+      "actual_EOF": 146,
+      "scoped_ranges_compared": [
+        [
+          1,
+          146
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source and original fixtures, current exhibit/fit/placement/catalog identity/private retained ordinal and display/refit relationship analysis. No execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment_assets.rs",
+      "sha256": "0c7bd7e45c9a145954daf97ac6f0c2caa23bda96e9731a5ff033a2a3ce4a9365",
+      "scope068_index": 922,
+      "actual_EOF": 107,
+      "scoped_ranges_compared": [
+        [
+          1,
+          107
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source and original fixtures, current exhibit/fit/placement/catalog identity/private retained ordinal and display/refit relationship analysis. No execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment_assets/selection.rs",
+      "sha256": "162b898d78feeae3507d19844b4b11c999c50edd7609680e5ef7c2fac89486d6",
+      "scope068_index": 923,
+      "actual_EOF": 170,
+      "scoped_ranges_compared": [
+        [
+          1,
+          170
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source and original fixtures, current exhibit/fit/placement/catalog identity/private retained ordinal and display/refit relationship analysis. No execution."
+    }
+  ],
+  "groups": [
+    {
+      "id": "nonempty exhibit and paired placement rows proved from actual producer",
+      "comparison": "ItemCatalog.wearable requires material and at least one nonempty surface placement. CatalogItem.retained_placements snapshots exact ItemDefinition into shared immutable Arc and emits every ordinal0..actualequipment.placements.len. Armory exhibits filters those exact snapshots by nonempty surface and allocates one initialErr fit per remaining placement, so item()[0], shown(false)=1 and fitted[0] have a nonempty normal producer. Neither arbitrary public Exhibit-like same-crate mutation nor generic raw ItemCatalog literal is thereby sealed. No empty normal exhibit inferred. fit_exhibits maps each placement in order, parallel chunks joined in handle/chunk order, then stale indices zip exact per-exhibit results, preserving placement↔fit correspondence."
+    },
+    {
+      "id": "actual retained selection ownership",
+      "comparison": "CatalogItem::admit uses record pointer membership rather than spelling and all preserves duplicate records. find intentionally first exact ID; CatalogPlacement keeps item and placement private and constructs only from that item equipment, so unrelated row/placement cannot pair. Owned selection only constructed by snapshot producer and private retained ordinal; Arc immutable snapshot fixes its bounds through copies. Equality/hash use actual borrowed item+placement addresses; clones of snapshots deliberately not text-identity aliases. Same textual IDs do not imply same catalogue object. ExportSelection admits filter spellings from current wearable and includes actual items by text, deliberately retains duplicate records, emptyfilters means all."
+    },
+    {
+      "id": "refit and layout invalidation",
+      "comparison": "On armory entry saved camera snapshot captured; body key tests LOD, correctives and recipe after stripping inventory/name. BareBody.generate builds current model/recipe before publishing key+generated, no current source mutation of generated shown here. RefitAll replaces body and exhibit list, filters selected index to current bounds; every new exhibit stale triggers fits, arranged=None. Ordinary edits call set_default then refit(index), mark defaults_changed; leaving armory makes studio dirty. Nonempty stale set and fitted vectors stay aligned by construction. Public/same-crate raw selected/exhibits/fits can violate this; normal UI indices derive enumeration or guarded count/rem_euclid, not guessed usize admission. Body cache’s model-content revision beyond LOD/correctives depends actual model reload contract, not cleared here."
+    },
+    {
+      "id": "finish and generated output roles",
+      "comparison": "Finish only affects selected steel; decoration/construction compare previous finished to current desired and respawn affected mesh entries, while raw fitted wearer geometry retained for reconstruction. Each spawned plate/lacing mesh carries exact exhibit+placement ordinal, same physical transform and material/trim chosen from current finish. Construction/trim lower methods are fallible; multiple spawned placement entities may precede laterErr. refit catches spawnErr by replacing fitted[0] withErr and records finished state, so a subsequent finish-only retry may skip that cached first geometry; actual failing finish from permitted UI and intended retry contract not yet established. Retain conditional cache-failure observation, no new unique or normal GUI failure claim. Whole-output atomicity across Bevy Commands is not promised by a fallible helper alone."
+    },
+    {
+      "id": "display and framing correlate current data",
+      "comparison": "arrange uses same each-exhibit shown placement bounds and region grouping; arranged key both_sides reset by refit. OnBody displays only selected and all placements, wall optionally both sides+solo. Per-entity marker indexes currentexhibit list; all normal respawns after replacement remove old marked meshes, conditional empty-list/refit-failure situations not asserted impossible without actual application schedule. Frame goal derives same current displayed bounds + offset and waits until panel dimensions/ready/currentwindow exist. Offtab early hides pieces before any exhibit index access, as full existing fixture demonstrates (source only). Ghost material records applied flag only after actual material handle exists/mutates."
+    },
+    {
+      "id": "manifest acceptance retains actual item-placement relation only",
+      "comparison": "EquipmentAssets parses broad wire manifest then each asset resolves actual static catalog item and that item placement, rejects repeated resolved pointer selection, sorts lexical item+placement and publishes private entries. entries immutable iterator; file_for exact selection, default_file first lexical placement. Other metadata coverage/triangle counts/material/design hash/MHRrelease/LOD/schemaVersion are raw manifest fields and unused here, no inferred whole-asset validation or native GLB existence. Emptymanifest intentionally produces empty asset set. File spelling is a native resource reference, no asserted path sandbox contract from this source. Existing normalfirstparty producer/recipient may establish further facts, not source field names."
+    },
+    {
+      "id": "actual lower gates and uncredited dependencies",
+      "comparison": "ItemCatalog.new validates all Armor items route to embedded or dedicated generator; nonarmor generic procedural clothing remains allowed. Load sorts yaml filenames, decodes JSON-subset documents, aggregates all and requires nonempty before new. Its public items/designs permit direct mutation; no catalogue duplicate/type/body-fit schema seal asserted. same-family/numeric controls delegated to CatalogDesigns bodies separately queued; actual GPU construction/material/native scene scheduling and BareBody.generate_character still source-specific lower obligations. All original fixtures read, no GUI/body generation/filesystem/test run."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Armor finish error source/retry contract and normal producer validity remain qualified; no normal failure claimed.",
+    "Exact generate_character/model reload, fitting/construction methods, CatalogDesigns and application command schedule retain separate current source obligations."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

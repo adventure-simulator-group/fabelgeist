@@ -1,0 +1,78 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-012",
+  "at": "2026-10-22T19:29:53.237134+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "dependency-wgpu29.0.4:src/api/device.rs",
+      "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "actual_read_ranges": [
+        [
+          398,
+          428
+        ],
+        [
+          752,
+          853
+        ]
+      ],
+      "scope_limits": "Exactboundednativecontracts only; allboundarypartialcontexts notunseenbodies/wholeSDKcoverage."
+    },
+    {
+      "source_id": "native-dependency:wgpu-29.0.4/src/api/buffer.rs",
+      "sha256": "c7d2c13d8031a9416d5562ec970a46470da331544d3a5e15bc8fb7dae2a9de32",
+      "actual_read_ranges": [
+        [
+          835,
+          880
+        ]
+      ],
+      "scope_limits": "Exactboundednativecontracts only; allboundarypartialcontexts notunseenbodies/wholeSDKcoverage."
+    },
+    {
+      "source_id": "native-dependency:wgpu-29.0.4/src/api/device.rs",
+      "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "actual_read_ranges": [
+        [
+          685,
+          750
+        ]
+      ],
+      "scope_limits": "Exactboundednativecontracts only; allboundarypartialcontexts notunseenbodies/wholeSDKcoverage."
+    },
+    {
+      "source_id": "native-dependency:wgpu-29.0.4/src/api/surface.rs",
+      "sha256": "c66e417d97814893f1293cd0f5e5e11443101a7aa3df4ffa0004f49079bb70b5",
+      "actual_read_ranges": [
+        [
+          430,
+          505
+        ]
+      ],
+      "scope_limits": "Exactboundednativecontracts only; allboundarypartialcontexts notunseenbodies/wholeSDKcoverage."
+    },
+    {
+      "source_id": "native-dependency:wgpu-types-29.0.4/src/adapter.rs",
+      "sha256": "27486df080a81f4a668f47b4f68f1eb5b2fc72f14b51175db2fd678e0f5b7085",
+      "actual_read_ranges": [
+        [
+          175,
+          300
+        ]
+      ],
+      "scope_limits": "Exactboundednativecontracts only; allboundarypartialcontexts notunseenbodies/wholeSDKcoverage."
+    }
+  ],
+  "groups": {
+    "gpu-error-callback": "Freshdevice398-428/752-853 actualsamefrozenfile distinctlogicalscopefromnative28, notwholealiascredit. Uncapturedcallback requiresArc<Fn(Error)+Send+Sync+static> andreturnsunit, deviceforwardsinnerregistration. Error enum retainsnativeboxedsource +diagnosticdescription whereapplicable, Displayatfinalformatting; no arithmetic/admittedgamevalueupdate. Pushscope428docs/ScopeGuard853fieldsnotactualpush/pop/Dropbodies, no proofscopecompletion/errorreadbackfromreadonlyheader. Docs explicitlywarn synchronousORasynchronousnativefailureanddroppingunpopscopederrorsdiscard; firstpartyreportcapturemustretainstructuredfailureandobeyactualcallbackreturn/lifecycle, notreturnarbitraryResultorassumesuccessbecausequeuedwork. No nativecallbackinvocation/atomicity/runresultclaimed.",
+    "buffer-mapping-and-device-failure": "FreshBuffer835-880 includesonlypriorMapContextcleanup tailanddescriptoralias/MapMode/BufferAsyncError/errorformatting +mappedviewdocs. swap_remove836afterpriorunknownindexnotfullproofsubrangealgorithm; neitherfindingnorclearanceforunseencode. BufferAsyncErrorunitnoacceptedbytecountmath. NativeDevice685-750: create_tlas forwardsnativeallocationtheninstancesNonevec sizeddesc.max_instances asusize (u32\u2192usize losslessonactual32/64targets), lowest_unmodified0; nofirstpartybuffersizecapacitycertificateortransactionfailureproof. RequestDeviceErrorholdsCoretypedcauseorWebGpuStringnativeAPI; formatting/source reflectactualnativepayload, no gamepolicyreclassification. FromCore750partialSelfheadnotconstructorbodycredit.",
+    "surface-and-adapter-errors": "FreshSurface430-505 rawdisplay/windowhandles fromactualnativefunctions arefallible? wrappers owningnobackedgamevalue; unsafe lifetimerequirements explicit, notborrow-freeentitycertificate. Ifsecondhandlefails noSelfreturned, no logicalgamepartialstate shown. CreateSurfaceError storesHAL/Web/nativehandlecause, matchesDisplay/source; Source505partialmatchtailno506+credit. Adapter175-300 errorcontainsbackendrequest/failureflagsetsandformatsclosedBackendALL withoutnumericmath; mem::take(first) changeslocalformattercommaonly, no businessretryclock. Unknownexplanationfallback isnativefailurediagnostic, notacceptedgameplayfallback. CooperativeMatrixPropertiesdeclarestypednativeM/N/K/u32/storagescalars andsaturating_accumulationcapability, notperformingC=A*B+C or admittingderivedfinitegamequantities inthisrange. HeaderpartialpriorSubgroupmaxsize notfulladapterconstructproof."
+  },
+  "findings": [],
+  "disposition": "Fiveexactforeigncallback/handle/error/ABIrolescompared; no newprojectnumericdefect. Preserveactualcallbackunitshape/ownedcause/asynclifecycleandnativebyte/countports. Firstpartyreport/readback/gpudescriptorproducersremainownsourcecells; currentprimaryGPUeditsuntouched.",
+  "source_edits": 0,
+  "project_execution": 0,
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "other_lens_credit": false
+}

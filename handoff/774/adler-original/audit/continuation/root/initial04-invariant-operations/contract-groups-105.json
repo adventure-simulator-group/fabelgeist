@@ -1,0 +1,58 @@
+{
+  "packet_number": 105,
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability/mass.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh literal complete body after Root016 registration, repeated in current turn after qualification170; new03 admission171 and global050, not premature103 credit.",
+      "sha256": "1f6a584fc834b98fd0a39dee168f5b8c461518b712f56906a9de26bd44fe192e",
+      "actual_EOF": 41
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability/armor.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh literal complete body after Root017 registration, repeated in current turn; independent actual imports/context and P16 full helper compared, no103 credit.",
+      "sha256": "027f27a4294fe1574bcb9c7f376db05904519094f99936be09bcf66d5459b7e0",
+      "actual_EOF": 103
+    }
+  ],
+  "groups": {
+    "mass": "PR recipe/holder expects and raw quantity/product/sum remain; P16 replaces expects with concrete fallible preparation, but computed/retained carried mass F035 must still be repaired. Fireplace exclusions, whole food-lot mass versus effective fractional units preserved. No claim PR recipe fallback is P16 recipe fallback.",
+    "armor": "Exact membership/lookup/max ordering and canonical material/coverage extraction have no new local arithmetic defect. Damage-stat projection delegates existing F014 graph. Absence policy and placement/occupied-channel owner coherence are still required through producers; no whole capability inference.",
+    "qualification": "Raw103 PR two observations permanently uncredited under170. This actual post-registration/050 record independently credits only their registered whole helper roles, without duplicating F035/F036."
+  },
+  "findings": [],
+  "id": "ROOT-INITIAL04-CONTRACT-105",
+  "at": "2026-10-23T02:51:44.106319+00:00",
+  "lens": "audit-invariant-operations",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-050.json",
+    "sha256": "50f66e3bf7b00825a1c463b6cf0261dd046988baed47ff6627faab839e83e488"
+  },
+  "mandatory_overlays": {
+    "record": "continuation/owner-range-extensions.jsonl",
+    "sha256": "d631d56fb336f5b0e6975e849b6a45be00e57f92833fe45aeaa1712a269ee04d",
+    "through": 233
+  },
+  "mandatory_qualification170": {
+    "record": "continuation/root/parallel-scope-qualification-170.json",
+    "sha256": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c"
+  },
+  "repair": "frozen_initial_audits_then_handover",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

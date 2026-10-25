@@ -1,0 +1,123 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-121",
+  "at": "2026-10-22T20:56:28.332298+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-028.json",
+    "sha256": "ea4e9de261fa618b7365ebd714c7338da49de722a677cf197155f3e662b3f2a2"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-027.json",
+    "sha256": "f932f1a45ce4eb56d1f53f82b857f80f6ca61048981bad7937107c97d0de0e48"
+  },
+  "new_variants": [],
+  "new_overlays": [
+    {
+      "id": "CONT-OWNER-RANGE-EXTENSION-206",
+      "at": "2026-10-22T20:56:28.332298+00:00",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/alcohol.rs",
+      "sha256": "c572b0014c6114020ee98d99a3cdfa1579b25a815ade34656bfeb8b6a421d1dc",
+      "material_ranges": [
+        [
+          38,
+          46
+        ]
+      ],
+      "audit_owner": "rig",
+      "reason": "Exact unchanged sixfield adapter needed to compare duplicatecatalogue/Corecompletevalue owner. Existingglobal1073 only565\u2013605 unrelatedselectionfunction; no inferredfullmodulecoverage.",
+      "scope_registration": [
+        {
+          "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+          "sha256": "4a2f27553936c511fa97df48162d76a34f6c905c74c09f4ce5e2d51cf065a2fa",
+          "row_1based": 21,
+          "id": "RIG-INITIAL06-REG-021",
+          "original_record": {
+            "id": "RIG-INITIAL06-REG-021",
+            "at": "2026-10-22T20:52:19.510914+00:00",
+            "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+            "source_id": "pr-working:crates/adventuresim-stdb-module/src/alcohol.rs",
+            "snapshot": "pr-working",
+            "sha256": "c572b0014c6114020ee98d99a3cdfa1579b25a815ade34656bfeb8b6a421d1dc",
+            "actual_EOF": 677,
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\alcohol.rs",
+            "material_ranges": [
+              [
+                38,
+                46
+              ]
+            ],
+            "material_caller": "ScopedSchemaAlcohol573\u2013580 ->scopedDBItem269\u2013275 fields ->directproperties reconstruction for actualCoreAlcoholProperties82\u201393/ethanol_ml/emergency_hydration use",
+            "reason": "Exact unchanged sixfield adapter needed to compare duplicatecatalogue/Corecompletevalue owner. Existingglobal1073 only565\u2013605 unrelatedselectionfunction; no inferredfullmodulecoverage.",
+            "exclusions": "Onlyproperties38\u201346; earlierunnoticed1\u201352display entirelyuncredited, no module/table49+/importsbodyclaim. No foreign/unrelatedfeature.",
+            "status": "Registered BEFORE fresh bounded reread/current06 semantic analysis; global pending"
+          }
+        }
+      ],
+      "limits": "Onlyproperties38\u201346; earlierunnoticed1\u201352display entirelyuncredited, no module/table49+/importsbodyclaim. No foreign/unrelatedfeature.",
+      "source_qualifications": "REG02138-46 plus REG02247 complete properties38-47; premature1-52 display uncredited. Existing565-605 role retained."
+    },
+    {
+      "id": "CONT-OWNER-RANGE-EXTENSION-207",
+      "at": "2026-10-22T20:56:28.332298+00:00",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/alcohol.rs",
+      "sha256": "c572b0014c6114020ee98d99a3cdfa1579b25a815ade34656bfeb8b6a421d1dc",
+      "material_ranges": [
+        [
+          47,
+          47
+        ]
+      ],
+      "audit_owner": "rig",
+      "reason": "Necessary closing function brace for complete properties38\u201347; REG02138\u201346 retained, before fresh47read. No othermodulebody.",
+      "scope_registration": [
+        {
+          "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+          "sha256": "4a2f27553936c511fa97df48162d76a34f6c905c74c09f4ce5e2d51cf065a2fa",
+          "row_1based": 22,
+          "id": "RIG-INITIAL06-REG-022",
+          "original_record": {
+            "id": "RIG-INITIAL06-REG-022",
+            "at": "2026-10-22T20:53:04.521513+00:00",
+            "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+            "source_id": "pr-working:crates/adventuresim-stdb-module/src/alcohol.rs",
+            "snapshot": "pr-working",
+            "sha256": "c572b0014c6114020ee98d99a3cdfa1579b25a815ade34656bfeb8b6a421d1dc",
+            "actual_EOF": 677,
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\alcohol.rs",
+            "material_ranges": [
+              [
+                47,
+                47
+              ]
+            ],
+            "material_caller": "ScopedSchemaAlcohol573\u2013580 ->scopedDBItem269\u2013275 fields ->directproperties reconstruction for actualCoreAlcoholProperties82\u201393/ethanol_ml/emergency_hydration use",
+            "reason": "Necessary closing function brace for complete properties38\u201347; REG02138\u201346 retained, before fresh47read. No othermodulebody.",
+            "exclusions": "Only47 closingtail; no additionalclinical/ledger functionality",
+            "status": "Registered BEFORE fresh bounded reread/current06 semantic analysis; global pending"
+          }
+        }
+      ],
+      "limits": "Only47 closingtail; no additionalclinical/ledger functionality",
+      "source_qualifications": "REG02138-46 plus REG02247 complete properties38-47; premature1-52 display uncredited. Existing565-605 role retained."
+    }
+  ],
+  "total_variants": 2781,
+  "total_overlays": 207,
+  "registered_rows": 2,
+  "input_pins": [
+    {
+      "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+      "sha256": "4a2f27553936c511fa97df48162d76a34f6c905c74c09f4ce5e2d51cf065a2fa",
+      "captured_rows": 22,
+      "selected_ids": [
+        "RIG-INITIAL06-REG-021",
+        "RIG-INITIAL06-REG-022"
+      ]
+    }
+  ],
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through205-before028.jsonl",
+    "sha256": "abbea7bd476d149c2cdc9cf0b9041df041945047fa20413efac7e005b5a473e3",
+    "through": 205
+  },
+  "limits": "Exact properties38-47 new adapter role only; no whole alcohol source/test scope. Source acceptance120 separate."
+}

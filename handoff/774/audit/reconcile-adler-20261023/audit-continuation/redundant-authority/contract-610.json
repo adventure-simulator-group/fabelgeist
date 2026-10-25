@@ -1,0 +1,150 @@
+{
+  "id": "CONT07-CONTRACT-610",
+  "at": "2026-10-24T00:39:06.502025+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2641,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/grow/input.rs",
+      "sha256": "79df824a0c6fc00d93e45308c1d6f5a24ecb35216bab4b22b51d271d96a6f9e3",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-hair/src/gpu/grow/input.rs",
+      "actual_EOF": 22,
+      "ranges": [
+        [
+          1,
+          22
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2642,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/grow/profile.rs",
+      "sha256": "952ded1a5956f9cc562e2a19d85ecd6fcc07e49e5f5c663a9d2c0f20f2323e36",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-hair/src/gpu/grow/profile.rs",
+      "actual_EOF": 56,
+      "ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2643,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/surface.rs",
+      "sha256": "117cfab53d13fbb84de5149685248b1c6a0b6d5578fb8ffdb522d08af10ccd60",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-hair/src/surface.rs",
+      "actual_EOF": 283,
+      "ranges": [
+        [
+          1,
+          146
+        ],
+        [
+          215,
+          244
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2644,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/grid.rs",
+      "sha256": "c09704f7670decebc3e4eb9ff4ea525870f197f4302a4e16407c5e298f988996",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-hair/src/grid.rs",
+      "actual_EOF": 189,
+      "ranges": [
+        [
+          1,
+          156
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2645,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/collider.rs",
+      "sha256": "a6c42473a9969568f6eb700df01cc6753b92bb2034ade7d129733d1a550c2021",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-hair/src/collider.rs",
+      "actual_EOF": 171,
+      "ranges": [
+        [
+          1,
+          111
+        ],
+        [
+          165,
+          171
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2646,
+      "source_id": "pr-working:crates/fabelgeist-shell/src/mesh.rs",
+      "sha256": "941830eeb0c2f13bacffdbe7b6082fe33a8c1a7dcd211063230542f389edff9a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-shell/src/mesh.rs",
+      "actual_EOF": 139,
+      "ranges": [
+        [
+          1,
+          139
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2647,
+      "source_id": "pr-working:crates/fabelgeist-shell/src/lib.rs",
+      "sha256": "f56675ce9e64d8c46ee028e405abd261b969614531a211b4c75471ba5b714f10",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-shell/src/lib.rs",
+      "actual_EOF": 58,
+      "ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2300,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/ops/interpolate.rs",
+      "sha256": "695c1097efb81ad14d92b7d55949e67524b0e3949da155df54fac940c6f5b92a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-hair/src/ops/interpolate.rs",
+      "actual_EOF": 433,
+      "ranges": [
+        [
+          1,
+          95
+        ],
+        [
+          240,
+          350
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "RIG-ADMISSION03-F074",
+    "RIG-ADMISSION03-F075",
+    "NATIVE-INITIAL05-F006"
+  ],
+  "facts": [
+    "GPU interpolation input selects first Interpolate operation and Profile dispatch forwards current typed option presence/value together. This is source support for existing one-stage GPU-versus-general CPU groom qualification; no claim generic stack parity from selector alone.",
+    "Hair Surface public current positions/topology can diverge from private construction-time CDF/BVH; actual sample_at uses old CDF then current triangles and closest uses old BVH triangle identity then current geometry. Exact support aliases adopted RIG-ADMISSION03-F074, not a new global finding. Positive private PointGrid coordinate/index updates remain coordinated by insert; no stale-index public mutation route here. Native05F006/RigADM03F075 retain zero/capacity/key-range API qualifications.",
+    "PointGrid early nearest_k return applies a ring-distance lower-bound stopping policy but fails to enforce max_radius unlike terminal fallback. F121 records valid finite source witness, separate from zero-count/key arithmetic. Actual Interpolate guide nearest uses infinity (unaffected); finite edge nearest supplies distance into smoothstep(0,edge,d), saturating out-of-radius distance to the same1 as its map_or(edge) fallback. Therefore no ordinary bad hair outcome proved by this witness.",
+    "Collider trait signed-distance observation is independent from native head mesh display; iterative push/keep_clear is bounded approximation, not an unconditional collision-free certificate. ShellMesh stores rest data intentionally distinct from dynamic particles; new derives topology/masses, validate admits raw public product but does not assert all rest values are recomputed from current positions. Adopted shared-shell ownership remains; don't erase authored rest states as redundant current geometry. ShellMaterial particle_radius derives thickness rather than caches a separate editable radius."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2648,
+    "start_line": 1
+  }
+}

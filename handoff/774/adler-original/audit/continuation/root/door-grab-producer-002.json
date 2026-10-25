@@ -1,0 +1,54 @@
+{
+  "id": "CONT-ROOT-PP-DOOR-GRAB-002",
+  "lens": "audit-producer-propagation",
+  "created_at": "2026-10-22T02:05:32.577462+00:00",
+  "source_proofs": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/doors.rs",
+      "sha256": "daf461a37ebe8f9ef72ac67aa98842c02bd8239ca43087f5c4d285f70df1ca34",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\doors.rs",
+      "read_ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "actual_EOF": 132,
+      "proof_mode": "fresh full source read of each exact variant; source-only, no execution"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/doors.rs",
+      "sha256": "daf461a37ebe8f9ef72ac67aa98842c02bd8239ca43087f5c4d285f70df1ca34",
+      "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-core\\src\\doors.rs",
+      "read_ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "actual_EOF": 132,
+      "proof_mode": "fresh full source read of each exact variant; source-only, no execution"
+    }
+  ],
+  "trace": [
+    "can_grab_door_from_inside receives raw character/opening positions, tangent/outward vectors and half-width before its owned subtraction/dot/range predicate. can_grab_window_from_inside forwards the same raw composite to this internal application helper; the mere existence of complete equations does not make all earlier retained/API geometry a native framework boundary. This confirms existing RIG-PPS-001 composite-grab qualification, without a new duplicate remedy.",
+    "DoorPassageExemptions deliberately retains native Entity identities in EntityHashSet and uses actual CollisionHooks native pair filtering. These actual ECS/collision identities are distinct from character durable identities; no bespoke identity obligation is inferred solely from their u64 encoding.",
+    "Existing fixtures retain the three original grab positions, doorway/directions, width0.5, and the same passage-grant/revoke assertions. Read only; no test additions, adaptations or execution."
+  ],
+  "metadata_correction": {
+    "record": "records/final-acceptance-20261021/wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+    "row": 80,
+    "original_ranges": [
+      [
+        1,
+        90
+      ]
+    ],
+    "status": "valid bounded prior range; no EOF overrun",
+    "incorrect_navigation_note": "continuation/rig/owner-delta-preparation-047.json claimedEOF72; actual132 at exact same SHA. No nonexistent-line correction or full-file carry is justified."
+  },
+  "owner_fit": "not started; actual meaning/admission/candidate-owner comparison reserved for lens02",
+  "source_edits": 0,
+  "tests_or_project_commands": 0,
+  "clearance": "none"
+}

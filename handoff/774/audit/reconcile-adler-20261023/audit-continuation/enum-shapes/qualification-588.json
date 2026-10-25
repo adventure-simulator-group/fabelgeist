@@ -1,0 +1,21 @@
+{
+  "id": "SEGO-INITIAL09-QUAL588",
+  "corrects": [
+    "contracts-583.json",
+    "contracts-586.json",
+    "SEGO-INITIAL09-F376"
+  ],
+  "evidence": {
+    "scope_index": 1278,
+    "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/failure.rs",
+    "sha256": "41b12232f4ba5a4d1f824b38338091fb5a01a3f79bf300903f02ba558c24e99b",
+    "ranges": [
+      [
+        93,
+        105
+      ]
+    ]
+  },
+  "correction": "Earlier fullsemanticreceipts versus boundedpublictrace wording is overstrong. Actual emit_event updatessequence,last_semantic_event andduplicatecounterfor everyevent, but trace ANDsemantic_event_keys bothpushonlyiftrace.len()<MAX_CORE_TRACE_EVENTS100000. Exactquestcoverage scans thisboundedsemanticvector, notcompletefullrunreceiptlist. F376 remainsqualified event-family shape, notproofcompletecoverage, normalcapreachedwitness orfalseacceptance. Any eventualacceptance mustexplicitlyreconcile boundedsemanticcoverage versusfullsequence; no implicitfullhistorypreservationclaim.",
+  "limits": "Source-only read, no execution or newunique runtime finding."
+}

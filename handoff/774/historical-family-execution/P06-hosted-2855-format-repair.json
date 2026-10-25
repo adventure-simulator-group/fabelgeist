@@ -1,0 +1,20 @@
+{
+  "recorded_at": "2026-10-20T23:42:52.248594+00:00",
+  "head": "285595747b5d4764c0e1f3563b2f009f216d8532",
+  "run": 39516550566,
+  "job": 118949972105,
+  "evidence": "P06-hosted-2855-format.log",
+  "action": "Applied the two unique edits shown by the actual hosted formatter; root IK hunk appeared in three binary module traversals. No local formatter or Rust parser ran.",
+  "files": [
+    {
+      "file": "crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+      "before_sha256": "49ba486ffbc63c2fae3b3d988182063ccdbfe02c81760aaac30bbc9d7d59434a",
+      "after_sha256": "b1645110395d62b1dab020f6328f9b3d3fde6cd3f64b88101d6c66d5e7d8b0e6"
+    },
+    {
+      "file": "crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/source.rs",
+      "before_sha256": "3857fd7a0512043b9bda8229f651d780b9d3651326de876c802afbf6d6b96189",
+      "after_sha256": "39176b55e687908f2a300a36345b15a0218b79171c21f419a89918f4ec2a9a00"
+    }
+  ]
+}

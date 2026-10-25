@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-990",
+  "at": "2026-10-25T17:26:37.805726+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1148,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak.rs",
+  "sha256": "7231d6f5c0ea33a0f938db9887dab36dff87fdb6341d8bf2099ada481593c41e",
+  "actual_compared_ranges": [
+    [
+      731,
+      1110
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Source-material provenance and patient visibility, death\u2192pathology/family snapshot, exact remediation objective/canonical fixture, fixed digest IDs, generated outbreak projection and persisted retry equality consumed. No handwritten trait. JSON uses already-derived owners; enum source_kind classification branches and checked canonical parsers cannot be replaced by runtime Serde/native derive. Explicit pathology aggregation is semantic not field delegation.",
+  "first_unfinished": {
+    "scope_index": 1148,
+    "line": 1111
+  },
+  "execution": "none"
+}

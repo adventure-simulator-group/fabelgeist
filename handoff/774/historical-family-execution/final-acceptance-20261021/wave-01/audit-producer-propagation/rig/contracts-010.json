@@ -1,0 +1,90 @@
+[
+  {
+    "id": "RIG-MAIN-01",
+    "source_cells": [
+      91
+    ],
+    "status": "source-read-full-connected-receivers-pending",
+    "operations": [
+      "CLI Args::equipment_item Vec<String>43 is actual external clap input, passed main236 once into EquipmentItemSelection::admit; includes gets canonical selection downstream. RIG-PP-004 withdrawal now closed actual original caller, no rawfilter escapes.",
+      "Recipe decode219-223 or load_recipe375-379 uses native serde then shapevalidation; save_recipe362-373 sends actual native serde/filewrite371. This justifies wire raw fields at codec boundary, not repeatedly unresolved raw identitythrough application inventory; RIG-PP-007 must handleloaded/default/acquired paths together.",
+      "main write armor defaults200-215 immediate native encode/write endpoints, but its catalog.design receiver204 is a concrete canonicaltype mismatch RIG-CODE-002.",
+      "LOD load validatesCharacterLod414 then discards checkedtypeandretainsrawBodyModel.lod101. Actual CLIclaprange boundary17 and model_controls native slider formatter13-16 do notjustify rawmodel/export/internalstate propagation; RIG-PP-009.",
+      "Actual glb::write12-38 fullread proves serializedJSONandnativeLEbuffersendfilesystemwrite36. Armor DesignPaths::save14-42 fullread validates then serde/nativewrite39. These are realoutputports; no implicit JSONexemptionfor applicationmaps.",
+      "Main integrationtest blocksallread without execution. Historical ignored tests still use authoredLOD1 despiteactualrange4..6; no newtestor claimthattheseexecute. Their unrelated existing acceptance behavior muststayexplicit."
+    ],
+    "receivers_pending": [
+      "Actual model controls/studio state and equipment manifest rawLOD originalproduceredge",
+      "Remaining runtimepresentationoriginalproducers",
+      "Remaining allassignedsourcecells"
+    ]
+  },
+  {
+    "id": "RIG-CODE-002",
+    "status": "actionable-source-finding",
+    "lens": "Code discovered during producer propagation",
+    "source_cells": [
+      91,
+      57
+    ],
+    "location": "main.rs200-207 write_armor_designs branch, equipment_catalog.rs81",
+    "scenario": "catalog.items.iter() yields &ItemDefinition but catalog.design(item)?204 now requires canonical CatalogItem. Production branch cannot type-check.",
+    "smallest_connected_repair": "Iterate/admit canonical actual records in source order at original writer, pass typed CatalogItem, derive stringkeys onlyimmediate serialized output map. Preserve duplicatekey collectionpolicy and placementoverrides.",
+    "acceptance": "Actual write-defaults production receiver accepts canonical arguments and emits unchanged exact wirekey/values/order behavior.",
+    "coordinator_notified": true,
+    "validation": "not executed"
+  },
+  {
+    "id": "RIG-PP-009",
+    "status": "actionable-candidate",
+    "disposition": "migration gap",
+    "source_cells": [
+      91,
+      58,
+      115,
+      161,
+      68
+    ],
+    "location": "main.rs414,BodyModel.lod101,Studio.selected_lod115,export::validation12,Core EquipmentAssets.lod16",
+    "scenario": "Originalload_body_modeladmitsCharacterLodbutdiscardscheckedvalueandretainsrawu8forinternalmodelandexports;exportreadmits. ExistingmanifestLODownerdiscussion4318537193explicitlyrequests canonicalsharingratherthan dependency-basedrawretention.",
+    "smallest_connected_repair": "Unify canonical MHR character/export LOD owner in correctlysharedlowercrate; retain checked LOD through original model/runtime/meta/exportreceivers and translateonlyactualnativefilepaths/clap/slider/serde. Armor samplingLOD remainsdistinct.",
+    "dependencies": [
+      "CanonicalCharacterLod sourcefullyreadadditional-sources-008.json",
+      "MHRConfig producer/body and Core manifest/runtimeactualreceivers",
+      "AllCLI/UI/nativefield adapter and aggregate acceptance rules"
+    ],
+    "acceptance": "Every admitted characterdetaillevel remainschecked acrossinternalstate; unchangedrange4..6, exactfileformat and existingfixtures. No compatibilityaliases, latevalidation wrapper only, or widenedrange.",
+    "coordinator_notified": true,
+    "validation": "not executed"
+  },
+  {
+    "id": "RIG-RUNTIME-01",
+    "source_cells": [
+      123,
+      124,
+      125,
+      127,
+      130,
+      131,
+      133,
+      134
+    ],
+    "status": "incomplete-connected-receivers-pending",
+    "operations": [
+      "NativeglTF bodyproducer54-148 reads actual BevyMesh Uint16x4jointattributes and skin jointnames85 admittedonce; inversebindposes89 mapnative XYZ/quaternion/scale into typedtable; count100 checkedbefore PackedRigSkin::from_native112-129 boundsagainstactualsource. Fourinfluencespadzero slotweight layoutpreserved, noFBX/glTFnode/rigordinalconflation.",
+      "FittingRig keeps Vec<RigNode> with private GltfNodeOrdinalnodes/parents and RigJointTable<GltfNodeOrdinal>10; actualnative glTFnodes position49/90 admittedonce; same-ownernode indexing112 private. fit uses checked rigOrdinaloffset table through skin weighted geometry166-171, not rawrigslots.",
+      "LayerSelection retains CatalogPlacement and private key33-38 supplies intrinsic Eq/Hash/Ord operations47-70 to preservelexicalpairidentity; no rawkey escapesor re-admits. Thisis intentional encapsulatedownerimplementation likeEquipmentItemSelection, notnewfinding. OutfitPlan storescheckedselections andsharedLayerPlan indices, mapsbackwith checkedownerretained selection104/119.",
+      "FitKey::selection_for_presentation73/79 admitsrawECSpresentationIDs, then cache/jobs/start199 use typedselection; originalpresentationconstructorstillpendingandmayhavetypedproducer/erasureedge. ShapeandFitKeyretaincheckedCharacterProportions throughactualbasisnumericalfit. Cache keys preservefullsupport dependencies; rawuse_clock375 is chronology/scheduling primitivequeuedotherlenses, notautomaticallyidentitynativeport.",
+      "Native runtime mesh computes strongest4typedthencheckednative_u16106\u2192actualMesh Uint16x4attribute135; nativepositions/normals/UVs/indicesareactualBevymesharrays. originalrigboundpersistsinGeneratedArmor throughconversion.",
+      "ProceduralEquipmentPart retains typedjointnametable toactual sync skin typedname HashMap16/29 thenfinalnativeBevy SkinnedMesh.jointsVec<Entity>30/36. Emptybindingcauseshiddensync_render_bindings81andremoval40; dropped meshjointattributesremoved101-102. No reconstructed names fromName atthis receiver.",
+      "garment_sockets typedlookup16/38\u2192same-table globalstates19/41\u2192actualgeometry/socketTransformkernel. RawattachmentpointID61retainssocketmapwhoseactual native/replicatedconsumerpending; donotblanketlabelasephemeral/native.",
+      "Allnewread inline fixtures frombody/render/skinread withunchangedinputs, noexecution."
+    ],
+    "receivers_pending": [
+      "OriginalRuntimeEquipmentPresentation constructor/applicationidentitygraph",
+      "Tactical generation/layer/rig/mesh existingfixture fullfiles",
+      "Actual BodyShapeKey original retainedname/weightmetadata owner",
+      "AllloadedGLBmanifestnativeasset pathsandreceivingbinding functions"
+    ]
+  }
+]

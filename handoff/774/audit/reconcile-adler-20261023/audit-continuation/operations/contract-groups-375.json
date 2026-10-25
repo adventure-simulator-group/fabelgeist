@@ -1,0 +1,158 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-375",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/tactical/request.rs",
+      "sha256": "9d7e1ac4bf3e219258571dc74f93f8adef66cd55dcab6fc2d49edf0c60e4cb7d",
+      "actual_EOF": 133,
+      "actual_compared_ranges": [
+        [
+          1,
+          133
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/tests/clock_and_advancement.rs",
+      "sha256": "c916b4d1a36f3c4d5ca8bc2a6ea17dd56a8e0bea04b3b49a9b577ef485e5c1e9",
+      "actual_EOF": 105,
+      "actual_compared_ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/tests/rest.rs",
+      "sha256": "96cc5c9582ac14281feaed5569ee8ac0a8a8d417069a532d84591903fbb63f00",
+      "actual_EOF": 230,
+      "actual_compared_ranges": [
+        [
+          1,
+          230
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/tests/schedule_and_activity.rs",
+      "sha256": "5b75efe613d93a318386f8306a701004173c867555307d27815a0d371096394d",
+      "actual_EOF": 216,
+      "actual_compared_ranges": [
+        [
+          1,
+          216
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor/authority_tests.rs",
+      "sha256": "347470fad13ff5772d20c8221b4f1157d851eab67776ae32614339069ba56d33",
+      "actual_EOF": 49,
+      "actual_compared_ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor/contact_authority_tests.rs",
+      "sha256": "67f3636f0569656541c6b0c20e49646ff86e0cd51031ae2f6e7ba810f7d8d1a5",
+      "actual_EOF": 130,
+      "actual_compared_ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor/presence.rs",
+      "sha256": "39cd6d057c070e586f5701d068b930beaafe12dc00d68465ffd460ede664c5ea",
+      "actual_EOF": 196,
+      "actual_compared_ranges": [
+        [
+          1,
+          196
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Tactical settlement snapshot freezes coherent local identity and roster at request",
+      "source_ranges": {
+        "tactical/request.rs": [
+          [
+            1,
+            133
+          ]
+        ]
+      },
+      "disposition": "All133 lines read. Onlyzero-distance origin settlement andmatchingscene yieldsSome; missingorigin/mismatchedscene returnsNoneexplicitly. Ensurepopulation occursbeforeoperatorread; everyBusinessId settlement andoperatorresidenthome validated, actualCharactername captured, sortedBusinessId; roster useslivingpartythenCoreTacticalPartyRosteradmission. Active snapshotimmutable bydesign notgenericstaleness. Snapshotandrequestserve trueSDK/dispatcherport; no newscalar arithmetic. Zero/nonzero fixture read notrun."
+    },
+    {
+      "contract": "Time fixture acceptance constrains exposure and lifecycle ordering, payment and realized training",
+      "source_ranges": {
+        "time/tests/clock_and_advancement.rs": [
+          [
+            1,
+            105
+          ]
+        ],
+        "time/tests/rest.rs": [
+          [
+            1,
+            230
+          ]
+        ],
+        "time/tests/schedule_and_activity.rs": [
+          [
+            1,
+            216
+          ]
+        ]
+      },
+      "disposition": "All551 lines personallyread. Fixtures assert nonretroactiveexplicitfrontier, exactlyoneexposureafterclockwrite for6paths, lifecycleboundarysplitting, authoritativecaseoccupancypartysync. Restexplicitdurationlimits/serviceavailability, exactwake andceilpartialdaycost, patient+sponsorcontribution/debitonly, terminalneedsoncebeforeclearfullness, locationappropriateindoor/tent/bivouac, socialonlypositiveactualdowntime. Schedulelocationredistributionconservesdailyallocation/savedplan andrestorativeproportions, unavailableorganizationallocbecomesleisure, starteligibilitybeforeadvance andoutcomesbeforedues, dailytrainingtwiceelapsedtwicetraining, realizedconversationonlysocialtraining. These fixtures do not erase intentionalpro-rata-vsrealizedoverlap ROOT04F018. All reads sourceonly, noauthoritytestinvocation orclaimedPASS, productiontimebodycreditnottransferred."
+    },
+    {
+      "contract": "Context interval and observer presence projections validate halfopen chronology and exact claims",
+      "source_ranges": {
+        "world_actor/authority_tests.rs": [
+          [
+            1,
+            49
+          ]
+        ],
+        "world_actor/contact_authority_tests.rs": [
+          [
+            1,
+            130
+          ]
+        ],
+        "world_actor/presence.rs": [
+          [
+            1,
+            196
+          ]
+        ]
+      },
+      "disposition": "All375 lines read. Wellformedallowsleft==entered emptyinterval; valid requiresentered<=minute<left. exactly_one safeiterator cardinality; exactCase/Hostileclaim requiresliteralcontactref andexactrevision. Projectedclaim readsactualdisclosureatminute; viewrequiresleaderclock, matchingoccupancyplace+exactsite andpatientvisibility. actorpresenceclockmissingNone, noZERO fallback. aliveviewrequiresbirthatdate anddeathstrictlyafter, actualCoreconstructor/producerclaims separatelyowned. Exactvisiblelead allowspriorcorrectedlead onlywhenownedcorrectionlaterthanfrontier, matchingcase/coords/place/provenance; noarithmetic. Authorityfixtures devbootstrapguarded notinvoked: close10\u219220historyidempotent, contextualcontact1\u21922, sameactionoldrevisionreplay, conflictingnewrevisionrejected, separate2\u21923; noMAXproof. Expectedreceiptawareness removes sneak andscopedcontactexistence. Fullunderlyingcontactmutatorinherited/pendingotherroles, notcoveragefromfixture."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "7 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-stdb-module/src/world_event.rs"
+}

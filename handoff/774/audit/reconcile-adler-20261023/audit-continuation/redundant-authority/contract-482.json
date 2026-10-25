@@ -1,0 +1,108 @@
+{
+  "id": "CONT07-CONTRACT-482",
+  "at": "2026-10-23T22:37:24.595757+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2125,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/material.rs",
+      "sha256": "f23d96b4ae8655d4f129979f2b5c73bec79a5efc29caa5f1c508ba340af15c53",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/material.rs",
+      "actual_EOF": 94,
+      "ranges": [
+        [
+          1,
+          94
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2126,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/mod.rs",
+      "sha256": "6df2420e23ec21a7d706b89d8af5a999f4798fbff05d5fb6d7a3b5e647b2ff4e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/mod.rs",
+      "actual_EOF": 265,
+      "ranges": [
+        [
+          1,
+          265
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2127,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/quantities.rs",
+      "sha256": "5e3c814a60c0d09d75c9eccfbd371f9412b76b95fefbce3c66c86ff03266bed5",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/quantities.rs",
+      "actual_EOF": 98,
+      "ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2128,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/shape.rs",
+      "sha256": "90377b5e271e70583bf0f28043e2acc4a8a46b0981f5585b9abe6fed440a9feb",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/shape.rs",
+      "actual_EOF": 102,
+      "ranges": [
+        [
+          1,
+          102
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2129,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/shield.rs",
+      "sha256": "79748be2d554ea693f007368284343c25f229e022bbf6d4715070909ca52c749",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/shield.rs",
+      "actual_EOF": 231,
+      "ranges": [
+        [
+          1,
+          231
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2130,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/stock.rs",
+      "sha256": "848e1187843f8082d93fa8a1adc5e8b2bc60f90336e2d496176aa32969ee596e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/stock.rs",
+      "actual_EOF": 38,
+      "ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "2125 full94 Material owns density/color/is_metal; density and visual color are independent properties, icon aesthetic material palette previously qualified. is_metal supports true subset, not an exhaustive member roster required by every property. No current mismatch between concrete material classifications shown.",
+    "2126 full265 raw recipe/cloned resolved stages remain distinct; optional present-null rejected by deserialize_present, actual identity resolution computes id/label/index once before typed construction. Labels serve presentation but can be fallback component identity under current canonical resolver; actual direct identity policy reviewed separately rather than assuming arbitrary label mutation always updates accepted graph.",
+    "2127 full98 finite quantities normalize signed zero then Eq/Hash use exact bits, so equal \u00b10 cannot create inconsistent cache keys. Count all-u16 covers context-specific0admission; Direction maps -1/+1 exhaustively across sign/native serialization. Those are actual port conversions, no redundant mutable classification.",
+    "2128 full102 Shape enum owns payloads and actual dispatch2118 exhaustive; JSON kind text native format, not second retained semantic tag. Specific public constructors/derivedSerde remain raw admitted-shape stage, so no inferred whole construction validity from finite members.",
+    "2129 full231 producer extends original owner1\u201370: round/shaped shield fields own distinct geometry but share named optional fitting inputs by explicit type. Requested edge_segments versus calculated curvature outline resolution are minimum request/error constraints, not two independently authoritative current segment counts. Actual admission/constructor needed for ignored/contradictory optional fitting claim.",
+    "2130 full38 traded ForgeStock subset intentionally excludes valid authoring materials. unit_mass_kg constants paired with item_id need actual item catalogue/forge receipt comparison before declaring duplicate item-weight authority; exact dependency forwarded coordinator. No assumption all Material variants require trade stock, and no phantom compatibility path inferred from wildcardNone."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2131,
+    "start_line": 1
+  }
+}

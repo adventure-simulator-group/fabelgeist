@@ -1,0 +1,194 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1167",
+  "at": "2026-10-25T18:00:45.672327+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1269,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/config.rs",
+      "sha256": "7e192ef20631845534afb5f4060d45c4253271682e203f89ae3c83dec1b5687e",
+      "actual_EOF": 171,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/config.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-strategic-sim\\src\\live_core\\config.rs",
+        "sha256": "7e192ef20631845534afb5f4060d45c4253271682e203f89ae3c83dec1b5687e",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "root",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 171,
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-SIMULATION-CORE-GENERATED-PARTIAL-047",
+            "json_pointer": "/source_proofs/15",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/live_core/config.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                171
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/config.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/config.rs",
+              "sha256": "7e192ef20631845534afb5f4060d45c4253271682e203f89ae3c83dec1b5687e",
+              "read_ranges": [
+                [
+                  1,
+                  171
+                ]
+              ],
+              "mode": "Fresh source-only bounded actual receiver/fixture proof",
+              "roles": [
+                "Full source config/native rejection safety/nonce/bootstrap token/imported-world manifest, exact semantic distinctions and no unsafe reset operations."
+              ],
+              "pending_receivers": []
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/additional_actual_source_proofs/15",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/live_core/config.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                171
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/config.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/config.rs",
+              "sha256": "7e192ef20631845534afb5f4060d45c4253271682e203f89ae3c83dec1b5687e",
+              "read_ranges": [
+                [
+                  1,
+                  171
+                ]
+              ],
+              "mode": "Fresh source-only bounded actual receiver/fixture proof",
+              "roles": [
+                "Full source config/native rejection safety/nonce/bootstrap token/imported-world manifest, exact semantic distinctions and no unsafe reset operations."
+              ],
+              "pending_receivers": []
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved",
+        "admission03_increment077_role_observations": [
+          {
+            "supplier": "rig",
+            "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+            "row_1based": 142,
+            "registration_id": "RIG-ADMISSION03-REG-142",
+            "original_record": {
+              "id": "RIG-ADMISSION03-REG-142",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; root/admission03/support-authority-053.json",
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/config.rs",
+              "snapshot": "pr-working",
+              "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-strategic-sim\\src\\live_core\\config.rs",
+              "sha256": "7e192ef20631845534afb5f4060d45c4253271682e203f89ae3c83dec1b5687e",
+              "actual_eof": 171,
+              "ranges": [
+                [
+                  1,
+                  171
+                ]
+              ],
+              "material_caller": "Camera629 run_core_loop config.validate before population indexing; Camera641 balanced_party_groups div_ceil(party_size); actual657 CLI constructs same config. Direct production definition/constants/validate + loopback predicate needed.",
+              "reason": "Prospective actual direct first-party dependency under043 before body, after symbol-only navigation.",
+              "exclusions": "No tests or bodies after171; no whole simulator package or P16 counterpart credit.",
+              "status": "prospectively_registered_before_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "registration_id": "RIG-ADMISSION03-REG-142",
+                "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/config.rs",
+                "sha256": "7e192ef20631845534afb5f4060d45c4253271682e203f89ae3c83dec1b5687e",
+                "effective_material_ranges": [
+                  [
+                    1,
+                    171
+                  ]
+                ],
+                "context_excluded": [],
+                "original_qualification": {
+                  "registration": "RIG-ADMISSION03-REG-142",
+                  "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/config.rs",
+                  "snapshot": "pr-working",
+                  "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-strategic-sim\\src\\live_core\\config.rs",
+                  "sha256": "7e192ef20631845534afb5f4060d45c4253271682e203f89ae3c83dec1b5687e",
+                  "actual_eof": 171,
+                  "prospective_registered_ranges": [
+                    [
+                      1,
+                      171
+                    ]
+                  ],
+                  "actual_material_ranges": [
+                    [
+                      1,
+                      171
+                    ]
+                  ],
+                  "context_or_blank_no_material_credit": [],
+                  "proof": "rig/admission03/camera-support/additional-contracts.jsonl#RIG-CAMERA-ADM03-ADDITIONAL-001",
+                  "qualification": "Public raw config/Serde not accepted seal. Actual validate bounds host/database/population/cycles/duration/party and product before run indexing/division. Exact PR actual source; no P16 or whole package credit.",
+                  "exclusions": "No tests or bodies after171; no whole simulator package or P16 counterpart credit."
+                },
+                "evidence_record": "rig/admission03/source-registration-qualification-117.json",
+                "evidence_sha256": "006f3007f3d4eff6df9f0c18c34cb3010ec4108c6e61e2c71d26d9d63bd4572f",
+                "metadata_only_no_source_or_lens_credit": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                1,
+                171
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-strategic-sim\\src\\live_core\\config.rs",
+            "actual_EOF": 171,
+            "bytes": 6849
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          171
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "CoreLoopConfig Clone Debug PartialEq Serialize Deserialize; deny_unknown_fields; fixture_disease function default; require_quest_coverage default"
+      ],
+      "absence_basis": "Full native config role read. Existing derive owns structural wire/default behavior, explicit validate owns loopback origin/disposable DB/ranges/work/nonce/disease/import digest/cross-field policy and errors. No manual trait/custom codec. Core destination stage free classifier renames to separate generated enum, no existing derive mapping. Default disease callback returns authored nonempty choice, arbitrary String default differs. Env token checked boundary not a conversion derive."
+    }
+  ],
+  "groups": [
+    "Keep separate config validation/current policy and existing Serde attributes; no new derivability finding."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1270,
+    "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/cycle.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

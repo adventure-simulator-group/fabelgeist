@@ -1,0 +1,24 @@
+--- p16base/crates/adventuresim-stdb-module/src/settlement_population/resident_persistence.rs
++++ catalog-p16head/crates/adventuresim-stdb-module/src/settlement_population/resident_persistence.rs
+@@ -115,9 +115,9 @@
+     ctx: &ReducerContext,
+     settlement_id: &str,
+     draft: &ResidentDraft,
+     prepared: &PreparedResident,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     let birth_year = adventuresim_world_schema::calendar::StrategicMinute::ZERO
+         .birth_year_for_age(prepared.exact_age(draft))
+         .ok_or("Resident age predates the calendar")?;
+     let identity = crate::character::generated_historical_identity(
+@@ -267,9 +267,9 @@
+ pub(super) fn insert_resident_draft(
+     ctx: &ReducerContext,
+     settlement_id: &str,
+     draft: ResidentDraft,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     if reuse_existing(ctx, settlement_id, &draft)? {
+         return Ok(());
+     }
+     let prepared = PreparedResident::new(&draft)?;

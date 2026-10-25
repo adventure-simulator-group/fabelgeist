@@ -1,0 +1,77 @@
+{
+  "id": "CONT07-CONTRACT-625",
+  "at": "2026-10-24T00:46:26.654346+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2720,
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_place.rs",
+      "sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/strategic_place.rs",
+      "actual_EOF": 998,
+      "ranges": [
+        [
+          1,
+          720
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2721,
+      "source_id": "physical-p16:crates/adventuresim-stdb-client/src/connected_player_type.rs",
+      "sha256": "01f3bc878d9996682dfdf6b694f614d358d3d5acaa0375b2ca10c027fa464390",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-stdb-client/src/connected_player_type.rs",
+      "actual_EOF": 114,
+      "ranges": [
+        [
+          1,
+          114
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2722,
+      "source_id": "physical-p16:crates/adventuresim-stdb-client/src/connected_player_item_type.rs",
+      "sha256": "250d23b8d767b72622ccdaa26a5e3032d7dce28807f900206651c7cd3fda5aac",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-stdb-client/src/connected_player_item_type.rs",
+      "actual_EOF": 29,
+      "ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2723,
+      "source_id": "pr-working:crates/adventuresim-stdb-client/Cargo.toml",
+      "sha256": "cf3964f3ac12941d5266ff1285c0ce08d8a608eaf93a4a4840126288b937534c",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-client/Cargo.toml",
+      "actual_EOF": 14,
+      "ranges": [
+        [
+          11,
+          11
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "P16 StrategicPlaceId is canonical referent, not existence/visibility/reachability certificate. Coarse settlement and exact physical venues intentionally unequal. Chapter fixture carries institutional identity and effective service place; chapter constructor checks standalone place identities or service kind. This is an explicit many-context association, not automatic equivalence with venue taxonomy. Service/fireplace adapters derive admissible associations from current kind.",
+    "Venue native id and from_id manually mirror each other and current11variants agree; serde snake_case is a separate actual wire spelling from place's hyphenated public-square component. Hexencoding keeps opaque IDs from reinterpretation, parsers enforce canonical lowercase and canonical numeric spelling. Historical version is encoding schema, not content revision. Public fixture variants can bypass constructor association; inherited admission graph remains, no ordinary crafted-state/runtimeclaim.",
+    "Generated ConnectedPlayer/Item records preserve actual schema/native projection and duplicated query-builder column declarations generated from schema rather than independently handwritten authority. Strategic total incap and individual contributions in launch snapshot need actual snapshot producer/consumer semantics, not declaration-only duplicate totalfinding. Generated files remain untouched; canonical source schema/generator is owning repair path. Cargo SDK workspace line supplies dependency linkage only."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2724,
+    "start_line": 1
+  }
+}

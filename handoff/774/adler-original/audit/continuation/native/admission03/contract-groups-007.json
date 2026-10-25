@@ -1,0 +1,57 @@
+{
+  "id": "NATIVE-ADMISSION03-CONTRACT-GROUPS-007",
+  "lens": "audit-admission-contracts",
+  "groups": {
+    "physics-proportion-and-view-native-adapters": {
+      "indices": [
+        171,
+        172,
+        177
+      ],
+      "invariant": "Pose buffer keeps raw native poses and typed clock/interpolation/closed ownership. These adapters introduce no new finite geometry wrapper or decoded admission path.",
+      "routes": "Physics accessors copy retained nativePose/typedjointrole, pin_joint publicanimation accepts rawLocalPose and resets checkeddefaultoffset/nativevelocities0; hold copiesnext. set_ownership closedenum, returnauthored clearsplan. LocalPose.affine projects rawscale/quat/translation toSDK. Proportion apply_offsets adds nativeoffset to nativepose, no readmission guarantee; typed RigJointTable doesnotprove columnalignment. Visibility uses raw position/nativeSphere with checkedpositive configradius and actualSDK frustum; resume resets checkedelapsed/interpolation/nativevelocities0 thenclosedVisible. No Serde/Reflect/rawprimitivecheckedtype factory in full98/103/98 lines.",
+      "counterexample": "Raw NaN physics pose/nativeoffset can remainraw. This supports existing raw-owner strengthening only, not an asserted checked-type bypass. Views with noactivecamera intentionally notculled; original tests/proportionfixtures28–103/view60–98 read unexecuted. SDK operations not blanketcovered.",
+      "repair": "Preserve exact native frame/authority/visibility and rawsource evidence; no current local refined-admission defect; later04/05/11 remain independent.",
+      "acceptance": "Every actual declared route preserves local stated invariant and explicit raw/native/openlabel policy; earlier producer/owner repairs remain connected to existing claims, no inferred aggregate/operation/source-family clearance.",
+      "connected_repair": "continuation/native/connected-repair-map.json exact existing claims and reopened statuses; read-only supplier, no implementation or transfer."
+    },
+    "fallback-diagnostic-authored-dimensions": {
+      "indices": [
+        151
+      ],
+      "invariant": "Private fallback capsule dimensions strictlypositive finite; CuboidDimensions nonnegativefinite XYZ; rootlocal anchors codeowned finite rawVec3.",
+      "routes": "Private FallbackGeometry/Capsule/LimbAnchor, noSerde/Default/Reflect/From/publicfield/rawmutable route. Sole authored factory literal routes each radius/segment/arm through actualchecked PositiveLength/CuboidDimensions; all static anchorcomponents finite. Projection only actualBevy Capsule/Sphere/Cuboid/Transform construction; FallbackAnimationRig holds nativeEntity allvalues. Errorreturns before meshspawn. Full141 lines reviewed.",
+      "counterexample": "DimensionNaN/negative cannot pass constructor; Cuboidflat/zero intrinsicallyvalid canonical policy though authoredarm constantspositive. Native color/entity/anchor labels broaderdiagnostic boundary no fake anatomicalmembership.",
+      "repair": "Root current ROOT-ADM-GEOMETRY-001 actual constructor/manualSerde/private/default policies consumed and compared; preserve originalnative capsule convention segmentexcludeshemispheres. No new defect.",
+      "acceptance": "Every actual declared route preserves local stated invariant and explicit raw/native/openlabel policy; earlier producer/owner repairs remain connected to existing claims, no inferred aggregate/operation/source-family clearance.",
+      "connected_repair": "continuation/native/connected-repair-map.json exact existing claims and reopened statuses; read-only supplier, no implementation or transfer."
+    },
+    "open-review-metadata": {
+      "indices": [
+        229,
+        230,
+        231,
+        232,
+        233
+      ],
+      "invariant": "ScenarioMetadata admits every case-sensitive source label; optionally recognized authored ScenarioId and derived closed policy/features. Label text retained unchanged; no whitelist/nonemptypromise.",
+      "routes": "Metadata private fields; From<&str>/FromString/from_label all parseoptional authoredID then explicit authored features or ordered open prefix/suffix/substring rules; authored(id) uses explicit strum spelling and same scenario_metadata. scenario_metadata private factory alone calculates kind/terrain/repeatability/solver/execution with fixedpriority; into_owned copiesallpayload changingCowownership only. Serialize only output label, noDeserialize/Reflect/Default metadata route. ScenarioExecution DefaultNone fields; typedBodyState/MotionId/PostureTransition enums onlydefinedbranches. ScenarioId closedpublicenum EnumString/IntoStaticStr with kebabcase and explicitdecimal/numberspellings; no rawdiscriminant/Serde/Reflect/Default. ClosedFeature/LabelPattern/Kind/Terrain/Repeatability/SolverUse all legitimatevariants; exactlabelclassification not numericnewtype.",
+      "counterexample": "Empty/unknown/uppercase/NUL labels accepted withoutnormalization and mayhaveemptyfeatures; authoredknown policy takesprecedence over lexicalgrammar, intentional. Additional matching openfeatures accumulate not firstmatch. No publicmutable metadatafield bypass. Caller-providedkind to ScenarioTerrain::admit is closed but maydifferclassification; doesnotmutatemetadata. Correlated policyguarantees05 later.",
+      "repair": "Preserve exact open sourcegrammar/case/order/alllabels and authoredcatalogueexceptions; do not convertlabel into closedenum whitelist. Full277/119/206/238/115 source bodies read, noexistingtestexecution/newcases.",
+      "acceptance": "Every actual declared route preserves local stated invariant and explicit raw/native/openlabel policy; earlier producer/owner repairs remain connected to existing claims, no inferred aggregate/operation/source-family clearance.",
+      "connected_repair": "continuation/native/connected-repair-map.json exact existing claims and reopened statuses; read-only supplier, no implementation or transfer."
+    },
+    "jitter-report-raw-observations": {
+      "indices": [
+        153
+      ],
+      "invariant": "Jitter input/report is intentionally raw measurement data, with checkednonnegative elapsed; no intrinsic finite/unit/positive guarantee for arrays/thresholds/severity.",
+      "routes": "Publiccrate JitterThresholds rawf32fields Default authored finitepositive constants; Serialize only, noDeserialize/Reflect. JitterLimit private rawliteralcopiedthresholds. Bone public nativefloatarrays noSerde. Frame publictypedElapsed/openScenarioMetadata and nativeusize/u64 segmentation/bonemap. Incident/Summary Serialize-onlyrawobservations; custom serialize_bone requires actualreportlabel Some elseerror. validate constructs report fromactualraw frames, grouping label/segments; threshold source overridesnativeconstants, derivatives usechecked elapsedabs_diff.maxfinitepositivefloors; allraw numericresults remainraw. ClosedJitterClass onlyvalidvariants no rawdecoder.",
+      "counterexample": "RawNaN/negative threshold directlyrepresentable and report filtering explicitlyignoresnonfinite measuredvalues; no checked-threshold owner promise. Current source docs measurementonly, notanimationmutation. Do not discard invalidinputobservations or claim reportcomplete implies finiteallposes; diagnostics_complete checkscounts/windowsegmentation only. Whole608 lines incl existing451–608 tests and original warmup/thresholdexceptions read (truncated1–185 reread explicitly).",
+      "repair": "Existing ownership strengthening for raw measurementunits/config is separate; no new refined constructor bypass. Preserve exact diagnostic population/nonfinite behavior/scenario-specificthresholds and currentserialization error; no validationexecution or later-lensacceptance.",
+      "acceptance": "Every actual declared route preserves local stated invariant and explicit raw/native/openlabel policy; earlier producer/owner repairs remain connected to existing claims, no inferred aggregate/operation/source-family clearance.",
+      "connected_repair": "continuation/native/connected-repair-map.json exact existing claims and reopened statuses; read-only supplier, no implementation or transfer."
+    }
+  },
+  "later_lens_credit": false
+}

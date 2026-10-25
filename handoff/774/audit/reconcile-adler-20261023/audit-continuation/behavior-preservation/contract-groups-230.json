@@ -1,0 +1,60 @@
+{
+  "id": "CONT08-CONTRACT-230",
+  "at": "2026-10-25T14:53:59.632920+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 871,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/commitment.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/autoresolve/melee_round/commitment.rs",
+      "before_sha256": "01639eaf980bc10628e6dce751818b7573a79bc10e3740b6424a892eb1e764d4",
+      "after_sha256": "52eb21ff762fa1bb6d55c4237bf1d1d66638a7929d996eb94074726727b563f6",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0871-base-01639eaf980bc10628e6dce751818b7573a79bc10e3740b6424a892eb1e764d4",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/52eb21ff762fa1bb6d55c4237bf1d1d66638a7929d996eb94074726727b563f6",
+      "diff": "source-evidence/pr-0871.diff",
+      "diff_sha256": "8975b03afc1c78f800364bc11c91d6a804d6752c03ebbe6726f55c30ad0296fc",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          239
+        ]
+      ],
+      "head_body_read_method": "871exactown0065fullreuse/fresh1\u2013130;872freshfull; entirePRdiff consumed.",
+      "facts": [
+        "Exact239head own0065fullbodyreused, full138lineactualPRdiff andfresh1\u2013130 consumed. Committedgap saturatingelapsed then min(interval), otherphasesZERO; phase/readiness/availability string/enum mapping same. .5work durationadmission guaranteedliteral; Nonecommitreturnsbeforework; offhandtransformedblock multiplier .4/clamp.2..1, neutralblock0/dodge.5, attemptedweaponcontactcancel rule retained.",
+        "Do notclaimarbitrarysigned-extreme clockclamp equivalence: private phasegap(MAX,-MAX) nowrejects elapsedInf beforefinitecap whereasoldmin couldfinite; actual productioncontactclock startsnonnegative andextendsnonnegative spans, so no reachable ordinaryoppositesign witness ornewpublicdefect established. NegativeBattleTimestartfixture alone notproofnegativecontacts. Actualcaller873nextneeded; no tests/repair."
+      ],
+      "disposition": "Own08 actual old/new source comparison accounted, with retained exact-source/API qualifications and remaining connected scope stated.",
+      "acceptance": "Retain canonical source identity, ordinal/wire/native geometry, first errors and original fixture oracles. No tests, checks, exports or GPU execution."
+    },
+    {
+      "scope_index": 872,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+      "before_sha256": "aaa6fc2558d12b573051d572ed9d99af9c12af2d10790d88a890bd8618cf81e6",
+      "after_sha256": "201e0aa26a4ceec81c0caa799acc2dae96ad3d1600ed6184aef8f671e3becf1c",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0872-base-aaa6fc2558d12b573051d572ed9d99af9c12af2d10790d88a890bd8618cf81e6",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/201e0aa26a4ceec81c0caa799acc2dae96ad3d1600ed6184aef8f671e3becf1c",
+      "diff": "source-evidence/pr-0872.diff",
+      "diff_sha256": "b04a02ac7825404c61698df2c98d8c8f358189a305017b137764aea8ed5f5dba",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          226
+        ]
+      ],
+      "head_body_read_method": "871exactown0065fullreuse/fresh1\u2013130;872freshfull; entirePRdiff consumed.",
+      "facts": [
+        "Full226fresh andentire219linePRdiff+completeown0066inversevariant consumed. PRtuplemovement replaceslaterP16MeleePairMovementstruct only; actualdistance/reachremainrawf32, samepreferredmeasure/headlength/formation max/intentthreshold branchorder andsamemin/maxoperationorder. Nativefirstspeed then secondspeed\u2192accelerations\u2192integrator, surface+/.8center conversion preserved.",
+        "advance nowchecked intervaltime beforepairreset; successfulpath reset\u2192preview\u2192pairedpositions/velocity\u2192IDsorted2events same. Earlyfailedclock nowleavesearlierstateunchanged; previewErrmayleavepairreset buttopresolve ownsfailedlocalvectors, standaloneprivate retry policy not ordinarycorruptionproven. Zeroelapsed/defeatedskip preservedwithnonnegativeelapsed. No globalfinite-derivedspeed guarantee orP16geometryfailure reusedasPRdefect."
+      ],
+      "disposition": "Own08 actual old/new source comparison accounted, with retained exact-source/API qualifications and remaining connected scope stated.",
+      "acceptance": "Retain canonical source identity, ordinal/wire/native geometry, first errors and original fixture oracles. No tests, checks, exports or GPU execution."
+    }
+  ],
+  "next": "873round595 then874scheduling391; actualcallercommit order"
+}

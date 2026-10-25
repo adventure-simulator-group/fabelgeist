@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1266",
+  "at": "2026-10-25T18:20:07.682975+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1331,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer.rs",
+  "sha256": "4544835a041e7c35f25b60d0b13e06ff22ea4ecc0efc90efdda1cd6963fb9638",
+  "actual_compared_ranges": [
+    [
+      601,
+      900
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Native pose application/offset decay and calibration systems, runtime tuning/world-frame composition, and per-joint authored/direct/extrapolated/continuation clip sampling. Existing input/default/checked BlendWeight uses are not handwritten trait implementations. No trait/codec/type declaration in this exact slice; current sampling/region/pelvis policy is semantic.",
+  "first_unfinished": {
+    "scope_index": 1331,
+    "line": 901
+  },
+  "execution": "none"
+}

@@ -1,0 +1,64 @@
+{
+  "id": "RIG-INITIAL06-GROUP-177",
+  "at": "2026-10-23T05:37:26.468786+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-061.json",
+  "groups": {
+    "animation-revision-cache-orchestration": {
+      "comparison": "Fresh clip_revision100 coordinates canonical AnimationRuntime motion/grip keys, native asset IDs and BakedClipBank/stride/rig caches. RevisionCaches is a SystemParam borrowing those owners, not a competing clip identity/library. Affected source/clip revisions remove corresponding retained entries and invalidate each real cache before library rebuild. Assets and motions are different identity namespaces, availability state is not source revision. Keep the coordination owner here; no low canonical animation dependency on client AssetServer.",
+      "disposition": "Preserve existing animation/asset owners and client cache orchestration."
+    },
+    "case-provenance-alias-query": {
+      "comparison": "Fresh provenance95 uses same shared validated authority product in ViewContext and ReducerContext adapters. Canonical case ID, generated alias and public alias remain separate roles even though stored Strings. Manual requires no generated ID/authority, Generated requires one deduplicated authority and canonical manifest match. Nested Option distinguishes missing/invalid provenance from valid manual with no aliases and valid generated pair; no new identifier or competing authority definition. Do not unify the two context adapters by moving DB authority into shared pure Core.",
+      "disposition": "Reuse canonical validator/manifest; retain alias and context authority distinctions."
+    },
+    "scene-ground-and-grade-fixtures": {
+      "comparison": "Fresh scene_ground88 consumes EnvironmentalSample and SceneTerrain, builds GroundCover/GroundSubstrate, then calls canonical SceneGround.from_samples and UrbanGroundSurfaces.new. Tree lattice coordinates project to native metres; fixed Seed0 plus purpose StreamId produces leaf-litter appearance, not building identity or external entropy. Cover density9200 and height6 retain exact BP/cm units. Actual grade tests109 exercise canonical TerrainGradeLimit and SceneTerrain with dirty/unconditional numeric projection; no second grade owner, fixtures read only. Do not infer cardinality/finite validity from raw sample Vec or claim tests ran.",
+      "disposition": "Preserve canonical scene/grade/determinism owners and real lattice/numeric ports."
+    },
+    "camera-obstruction-shared-gameplay-owners": {
+      "comparison": "Fresh camera_obstruction97 constructs checked Position<Scene>/RigidRotation from capture focus/yaw, then uses same CameraFrame, CameraVolume and BoomRecovery as gameplay, zero AnimationElapsed for stateless placement. Desired/resolved distances are shared checked camera measurements, observations merely project them. SignedAngleDegrees is angular input, not world direction, and ScenePlanPoint is not architectural plan frame. Keep shared actual collision solver and client camera policy; no capture-only duplicate owner.",
+      "disposition": "Keep shared gameplay camera primitives and explicit stateless observation projection."
+    },
+    "ranged-contact-transient-publication": {
+      "comparison": "Fresh ranged outcome105 retains AuthorizedRangedShot reference, actual target/body part/result/slots and defender response in a borrowed contact, then uses authoritative impact kernels and publishes same resolved response to gameplay and clients. BodyPart is canonical coarse taxonomy; anatomical_subregion at0.5 is projection, not a competing anatomy enum. EquipSlot differs durable inventory item and entity. Ranged contact time intended0 is actual timeline policy; raw flanking and native impact vectors do not establish checked fractions. Keep tactical state transient and shared attack result, not strategic DB persistence or a ranged copy of damage owner.",
+      "disposition": "Preserve transient contact authority and canonical combat values; numerical impact ports stay native."
+    },
+    "character-identity-owner-duplicate": {
+      "comparison": "Fresh name_types111 defines private unrestricted-u64 CharacterId with new/get/conversions used in typed name errors and durable name assignment. Fresh supporting name_identity1\u201360 actually passes it into character_personality.character_id lookup, then character.id lookup while rendering canonical PersonalNameIdentity. Fresh supporting tactical Core player92\u2013121 defines another unrestricted-u64 CharacterId component with Serde/Reflect/Default and deterministic display color. These represent the same durable character-table identity, not player account, tactical Entity or subject alias. Numeric word/zero policy is identical; tactical component/color behavior does not justify a separate semantic identity owner. NameIdentityJson is separately a real SATS storage codec around shared PersonalNameIdentity and should stay at DB boundary, with parse/render errors retained. Recommend a low shared durable CharacterId usable by naming and tactical projection, attaching Bevy/component/presentation behavior through supported boundary composition without moving Bevy/DB into shared pure schema. Preserve u64 wire form and do not introduce aliases or zero rejection.",
+      "disposition": "F040 ownership migration: share durable CharacterId; retain name JSON adapter and tactical rendering/component behavior."
+    },
+    "commerce-native-mesh-geometry": {
+      "comparison": "Fresh commerce112 generates apparatus balance/board meshes from numeric extents, using canonical Builder, BuildingLodMaterial and CollisionPolicy. Positions, turned profile pairs, counter ordinal and angles are actual mesh-generation intermediates, not economic coin amounts, inventory weights or a second material taxonomy. Keep native construction arithmetic and canonical builder boundary. Existing typed dimension forwarding candidate applies upstream; changed beam/pan/chain dimensions here must not be confused with unchanged raw forwarding.",
+      "disposition": "Retain geometry kernel here and canonical material/builder owners."
+    }
+  },
+  "supporting_actual_bodies": [
+    {
+      "source_index": 1890,
+      "ranges": [
+        [
+          92,
+          121
+        ]
+      ],
+      "role": "Canonical competing CharacterId declaration and actual display color method only; full player source remains incomplete."
+    },
+    {
+      "source_index": 1081,
+      "ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "role": "Actual durable naming ID consumers, not full source coverage."
+    }
+  ],
+  "source_fact_refs": [
+    "contracts-003.json",
+    "contracts-005.json",
+    "contracts-176.json"
+  ],
+  "limits": "Eight complete source bodies freshly read incl original grade fixtures; two exact already-scoped supporting ranges compared, no whole-source supporting credit. No source edits/execution/new tests/other lens."
+}

@@ -1,0 +1,174 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-351",
+  "at": "2026-10-25T15:01:07.837024+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 691,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_layer.rs",
+      "sha256": "5e2b4c7c67044192056d8912377b42a2d69f2dd12eb2bc7dff7d475fd7dcc834",
+      "actual_EOF": 54,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_layer.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-character-creator/src/armor_layer.rs",
+        "owner": "rig",
+        "sha256": "5e2b4c7c67044192056d8912377b42a2d69f2dd12eb2bc7dff7d475fd7dcc834",
+        "base_sha256": "0e7139c9d3c0336badc6784b5ab93764b0074cd49e4dbb6c7b13666af3a55cb7",
+        "state": "modified",
+        "bytes": 2041,
+        "audit_owner": "rig",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/sources.json",
+            "ranges": [
+              [
+                1,
+                54
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-DEVICE-FIT-01"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 153,
+            "read_ranges": [
+              [
+                1,
+                54
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-ARMOR-DESIGN-028"
+            ],
+            "read_status": "full-source-read-current-lens",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-character-creator/src/armor_layer.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "ArmorLayerSurface Clone/Copy6"
+      ],
+      "absence_basis": "Full exact source: borrowed geometry/skin surface record plus inherent from_generated18\u201354 selects exact morph target and validates triangle/cohort/index shape. No handwritten trait/codec. Keep borrowed lifetime/native checked selection."
+    },
+    {
+      "scope_index": 692,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_metal.rs",
+      "sha256": "ae70b9acd477b6b29e03bd540b451d5e8556222a33a7cbb10babafab1206fbba",
+      "actual_EOF": 198,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_metal.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-character-creator/src/armor_metal.rs",
+        "owner": "rig",
+        "sha256": "ae70b9acd477b6b29e03bd540b451d5e8556222a33a7cbb10babafab1206fbba",
+        "base_sha256": "1bf9e2e737b22caad629f7a059e80124994e296b76664ad4fd0fe9aa4e55a72b",
+        "state": "modified",
+        "bytes": 7801,
+        "audit_owner": "rig",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/sources.json",
+            "ranges": [
+              [
+                1,
+                198
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-DEVICE-FIT-01"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 157,
+            "read_ranges": [
+              [
+                1,
+                198
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-ARMORY-EXPORT-029"
+            ],
+            "read_status": "full-source-read-current-lens",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-character-creator/src/armor_metal.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          198
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full exact source: is_plate_steel13\u201321 semantic runtime material subset, metal25\u201335 native material projection, scale_to_metal_density39\u201362 and trimmed68\u201388 native geometric UV/trim construction. Fixtures90\u2013198 read not run. No handwritten trait/codec; no new serialization for classifier."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "borrowed fitted surfaces and material/UV kernels",
+      "disposition": "No handwritten trait boilerplate; retain checked borrowed selection and native material/topology operations.",
+      "acceptance": "No derive bypassing morph/cohort checks or changing borrow/output shape; no runtime/check execution."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 693,
+    "source_id": "pr-working:crates/adventuresim-character-creator/src/armor_recipes.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

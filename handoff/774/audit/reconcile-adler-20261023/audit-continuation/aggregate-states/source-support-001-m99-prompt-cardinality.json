@@ -1,0 +1,90 @@
+{
+  "id": "SEGO-INITIAL05-SUPPORT-001-M99",
+  "at": "2026-10-25T12:29:33.794422+00:00",
+  "canonical_local_finding": "M99",
+  "classification": "Admitted prompt-policy/cardinality mismatch under valid authored extension; source-only, installed prompt/runtime occurrence not claimed.",
+  "source_members": [
+    {
+      "scope_index": 1215,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs",
+      "sha256": "ffaa735d01a814246e3df80b2da9bd1318b5777e34da322aa20f2c17320574fa",
+      "ranges": [
+        [
+          1,
+          79
+        ],
+        [
+          319,
+          354
+        ],
+        [
+          430,
+          505
+        ],
+        [
+          599,
+          603
+        ]
+      ]
+    },
+    {
+      "scope_index": 1035,
+      "source_id": "pr-working:crates/adventuresim-dialogue/src/prompt.rs",
+      "sha256": "ce7a0cb88c92661701e05af8240110971e02624dc1557a91cbb300ae94af94fb",
+      "ranges": [
+        [
+          1,
+          37
+        ]
+      ]
+    },
+    {
+      "scope_index": 1034,
+      "source_id": "pr-working:crates/adventuresim-dialogue/src/lib.rs",
+      "sha256": "bd30bf8d21bb5152ad8cfdc81e7ff99fc9629f6f3c5d359c156aa4b1e21cd284",
+      "ranges": [
+        [
+          1,
+          60
+        ],
+        [
+          470,
+          582
+        ],
+        [
+          650,
+          768
+        ]
+      ]
+    },
+    {
+      "scope_index": 1030,
+      "source_id": "pr-working:crates/adventuresim-dialogue/src/authoring_schema.rs",
+      "sha256": "5218afbbe83f65f767841fc2de3aea7f09b2b9fff8226085d6ab2ad98f63f6a7",
+      "ranges": [
+        [
+          1,
+          116
+        ]
+      ]
+    },
+    {
+      "scope_index": 1029,
+      "source_id": "pr-working:crates/adventuresim-dialogue/build.rs",
+      "sha256": "cc1742e70ed56b721e25aebb320b2295d621a1f826310a05b1f8771ab968093b",
+      "ranges": [
+        [
+          320,
+          388
+        ]
+      ]
+    }
+  ],
+  "counterexample": "One current eligible respondent; accepted Multi prompt with min_choices=2,max_choices=2 and choices[a,b], resolution Majority or AllRespondents. AuthoringPrompt and runtime Prompt retain independent canonical mode/resolution+bounded cardinalities; build348\u2013377 and validate711\u2013736 reject no such combination. Actual answer[a,b] passes native430\u2013444, each vote count1, respondent_count1; Majority489\u2013493 selects lexicographicfirst vec[choice] because1>0, orAllRespondents500\u2013503 one maximum. Native599\u2013603 storesResolved with selection length1<required2. All leaf values and ballot are valid. No newfixture authored/executed, installed catalogue selection or normalcurrentgameplay claim.",
+  "additional_source_limit": "Build choice/effect/turn semantics impose unrelated content guards; explicit query across exact build source found no resolution branch. Actual serde authoring shape and runtime Prompt structs use independent derive fields, no aggregate cross-policy admission. Publicauthoring/API extension conditional not absence-by-search clearance.",
+  "repair": "The canonical admitted prompt/policy/selection aggregate must own legal policy+mode+bounds and ensure the completed selection satisfies that contract. Resolve intended multi-selection vote semantics or reject unsupported voting-policy/multi-cardinality combinations at both authoring and runtime admission; do not mark singleton as a valid two-choice resolution, silently discard a choice, broaden raw bounds, or invent voting semantics without recording the decision. Propagate the same admitted contract through storage adapter and native winner/effect/receipt.",
+  "acceptance": "Every successfully admitted combination can either remainPending or resolve only a valid bounded choice set; actual winner/effects/retained resolved selection agree. Preserve canonical typed vocabulary, all valid current FirstResponse/Unanimous/YesNo/Single policies and existing exact ties/order/normalcapabilities. All13 discovery still required before fixes; existingtests only later.",
+  "deduplication": "M99 already requires one checked dialogue policy owner and accepted prompt bounds/selections through receiving resolution. Union exact aggregate counterexample and repair into that owner; no second count for same contract repair. M100 malformedballot dropout is separate mechanism and retains its qualification.",
+  "repair_status": "not_started",
+  "validation": "not_run"
+}

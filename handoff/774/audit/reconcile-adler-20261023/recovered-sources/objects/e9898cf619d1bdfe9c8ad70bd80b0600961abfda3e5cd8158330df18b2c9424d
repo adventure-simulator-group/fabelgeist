@@ -1,0 +1,155 @@
+//! Carried playback choices, separate from local selection predicates.
+
+use super::{
+    AnimationPlayback, FootIkInfluence, PlaybackContributions, PlaybackPose, PoseSamplingCadence,
+    apply_playback_pose, ordinary_locomotion_candidate, playback_tuning,
+};
+use adventuresim_core::linear_speed::NonnegativeSpeed;
+use adventuresim_tactical_core::animation::{
+    BlendWeight, SkeletonState, UnitInterval, WeaponGuardState,
+};
+use bevy::gltf::Gltf;
+use bevy::prelude::*;
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub(super) enum TimelineDirection {
+    Forward,
+    Reversed,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub(super) enum OrdinaryLocomotion {
+    Inactive,
+    Active,
+}
+
+#[derive(Debug, Clone, Default)]
+pub(super) enum BaseRigLoad {
+    #[default]
+    Unrequested,
+    Loading {
+        source: Handle<Gltf>,
+    },
+    Ready {
+        source: Handle<Gltf>,
+        scene: Handle<WorldAsset>,
+    },
+    Failed {
+        source: Handle<Gltf>,
+    },
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub(in crate::animation) enum PoseOwnership {
+    Authored,
+    Physics,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub(super) enum PoseVisibility {
+    Visible,
+    Frozen,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub(super) enum InertialState {
+    Settled,
+    Blending,
+}
+
+impl BaseRigLoad {
+    pub(super) fn source(&self) -> Option<&Handle<Gltf>> {
+        match self {
+            Self::Unrequested => None,
+            Self::Loading { source } | Self::Ready { source, .. } | Self::Failed { source } => {
+                Some(source)
+            }
+        }
+    }
+
+    pub(super) fn scene(&self) -> Option<&Handle<WorldAsset>> {
+        match self {
+            Self::Ready { scene, .. } => Some(scene),
+            _ => None,
+        }
+    }
+}
+
+impl OrdinaryLocomotion {
+    pub(super) fn from_candidate(active: bool) -> Self {
+        if active { Self::Active } else { Self::Inactive }
+    }
+}
+
+impl AnimationPlayback {
+    pub(crate) fn authored_pose_is_ready(&self) -> bool {
+        !self.plan.is_bind()
+    }
+
+    pub(crate) fn presentation_is_settled(&self) -> bool {
+        self.authored_pose_is_ready()
+    }
+
+    pub(super) fn from_presented_pose(
+        skeleton: &SkeletonState,
+        target: PlaybackPose,
+        movement_speed: NonnegativeSpeed,
+    ) -> Self {
+        let active = ordinary_locomotion_candidate(skeleton)
+            && movement_speed > playback_tuning().initial_locomotion_speed_metres_per_second;
+        Self {
+            plan: target.plan,
+            whole_body_mirror: target.whole_body_mirror,
+            foot_ik_weights: target.foot_ik_weights,
+            weapon_guard: skeleton.weapon_guard(),
+            ordinary_locomotion: OrdinaryLocomotion::from_candidate(active),
+            cadence: target.cadence,
+        }
+    }
+
+    pub(super) fn apply_presented_pose(
+        &mut self,
+        skeleton: &SkeletonState,
+        target: PlaybackPose,
+        movement_speed: NonnegativeSpeed,
+    ) {
+        // Hysteresis prevents sub-threshold velocity noise from repeatedly
+        // restarting the idle/locomotion presentation transition.
+        let threshold = if self.ordinary_locomotion == OrdinaryLocomotion::Active {
+            playback_tuning().locomotion_deactivation_speed_metres_per_second
+        } else {
+            playback_tuning().locomotion_activation_speed_metres_per_second
+        };
+        let active = ordinary_locomotion_candidate(skeleton) && movement_speed > threshold;
+        self.weapon_guard = skeleton.weapon_guard();
+        self.ordinary_locomotion = OrdinaryLocomotion::from_candidate(active);
+        apply_playback_pose(self, target);
+    }
+
+    pub(super) fn sampling_cadence(&self) -> PoseSamplingCadence {
+        if self.cadence == PoseSamplingCadence::Buffered
+            && self.plan.extrapolated().is_empty()
+            && self.plan.continuations().is_empty()
+        {
+            PoseSamplingCadence::Buffered
+        } else {
+            // Every action segment follows the authoritative action phase.
+            // Switching only its simple spans back to the 30 Hz clip grid
+            // aliases fast weapon motion and creates a cadence discontinuity.
+            PoseSamplingCadence::Direct
+        }
+    }
+}
+
+impl Default for AnimationPlayback {
+    fn default() -> Self {
+        Self {
+            plan: PlaybackContributions::default(),
+            whole_body_mirror: UnitInterval::ZERO,
+            foot_ik_weights: FootIkInfluence::NONE,
+            weapon_guard: WeaponGuardState::Lowered,
+            ordinary_locomotion: OrdinaryLocomotion::Inactive,
+            cadence: PoseSamplingCadence::Buffered,
+        }
+    }
+}

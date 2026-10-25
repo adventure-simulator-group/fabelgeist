@@ -1,0 +1,98 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-303",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/church_windows.rs",
+      "sha256": "bdb9f70337482117ead8e0c4a1a1c6ca6256f77ce1c739e082f2a833c16adfc1",
+      "actual_EOF": 485,
+      "actual_compared_ranges": [
+        [
+          1,
+          485
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/core.rs",
+      "sha256": "f9cad0ec57715ef451e89d64fc3b833ffba8beb778e82d9a286f269d71849e4d",
+      "actual_EOF": 311,
+      "actual_compared_ranges": [
+        [
+          1,
+          311
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/entrances.rs",
+      "sha256": "ce2f4daf2f3578c5e59574e47854cdfd6daaf37efe151db858cf0c07afa7ee66",
+      "actual_EOF": 120,
+      "actual_compared_ranges": [
+        [
+          1,
+          120
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Window replacement maintains physical host lifecycle and checked computed geometry",
+      "source_ranges": {
+        "church_windows.rs": [
+          [
+            1,
+            485
+          ]
+        ]
+      },
+      "disposition": "The complete485-line body was personally read in1..250/251..485. It removes the old host solids and corresponding interface IDs together, then assigns serial-derived slots with stride64; the actual26-target schedule keeps all arithmetic within the intended slot family. Fixed two jambs, two glazing leaves, two bearing interfaces and nine sectional slices have index proofs. The consuming plan boundary rejects a failed replacement without publishing a partially modified caller-owned plan. Fallible native dimensions/bounds retain cause. Raw local builder mutation is not evidence of persistent strategic/tactical storage."
+    },
+    {
+      "contract": "Window frame and relative height calculations retain real applicability constraints",
+      "source_ranges": {
+        "church_windows.rs": [
+          [
+            1,
+            485
+          ]
+        ]
+      },
+      "disposition": "The actual schedule uses tangentX walls and four selected apse facets whose tangent absX exceeds.5; unscheduled middle apse facet2 is the tangentZ case. Thus a generic concern about projecting dimensions by cardinal branch and then applying wall_yaw is not an ordinary scheduled tangentZ failure. Newly rotated apse masonry keeps implicit wall_solid underside interfaces in its earlier frame; explicit head/tracery interfaces are built in the final wall frame. This extends the existing solid/support coherence question, with no new accepted unsupported-asset finding. The .08 minimum spandrel height can extend beyond the nominal host top: for actual clerestory top11.5, sill9.1/apex2.3/ring.24 gives spandrel bottom11.615 and top11.695. Whether that extension violates the owning weather/roof envelope needs an exact acceptance contract; the arithmetic fact alone is not promoted as a broken building."
+    },
+    {
+      "contract": "Generation errors and editor mutation preserve typed causes and transactional returned state",
+      "source_ranges": {
+        "core.rs": [
+          [
+            1,
+            311
+          ]
+        ]
+      },
+      "disposition": "All311lines were personally read. The construction Result alias and error variants preserve geometry, collision, door/window, node and member identities through actual From/source causes. Some edit/circulation errors still carry prose; no new classification-by-message operation was identified here. grid_point rounds raw metre values into i32 with debug-only roundtrip assertions; actual private callers must establish grid alignment and representability. Extreme or arbitrary non-grid input is a qualified kernel contract, not a normal accepted programme failure. generate() deliberately omits exhaustive geometric audit; generate_document checks version/edit applicability, regenerates locally and validates the complete returned plan. edit_document clones input before adding the edit, so a failure returns no modified document. No compatibility migration or fallback was added."
+    },
+    {
+      "contract": "Entrance selection proves candidate slices; room indexing depends on actual occupied-storey admission",
+      "source_ranges": {
+        "entrances.rs": [
+          [
+            1,
+            120
+          ]
+        ]
+      },
+      "disposition": "All120lines were personally read. Candidate midpoint/saturating_sub/min(end) yields valid empty or bounded ranges, including no exterior candidate. Actual wall indices come from enumerate. Entrance room index uses first EntranceHall/Passage or ordinal0; requirements[index] and merchant court-exit room indexing require the actual nonempty requirements and valid room-index relation from occupied-storey construction, still pending at the original frontier. Empty raw slice is a representable private-helper strengthening case, not a generated programme panic established here. Missing actual entrance may be rejected by later graph/physical audit; no complete building acceptance claim."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-building-generator/src/generator/gable_openings.rs"
+}

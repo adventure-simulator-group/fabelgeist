@@ -1,0 +1,85 @@
+{
+  "id": "ROOT-ADM03-PARALLEL-174",
+  "at": "2026-10-23T02:55:48.060516+00:00",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-mesh/src/lib.rs",
+      "sha256": "6a0d874f4c07665cb0c5f3e477bd5a79d6c431a46aea2be921a7fab150e5e04b",
+      "registration_id": "RIG-INITIAL06-REG-034",
+      "actual_compared_ranges": [
+        [
+          1,
+          22
+        ]
+      ],
+      "source_evidence": "Fresh exact registered effective ranges personally read; native config full union of existing material plus new bounded completion independently compared, no semantic carry."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-mesh/src/data.rs",
+      "sha256": "41c300bd088e2a69594225a867cee9f1bc3fe5f19410bf77d3c8de73a383f1b4",
+      "registration_id": "RIG-INITIAL06-REG-035",
+      "actual_compared_ranges": [
+        [
+          1,
+          11
+        ],
+        [
+          41,
+          68
+        ]
+      ],
+      "source_evidence": "Fresh exact registered effective ranges personally read; native config full union of existing material plus new bounded completion independently compared, no semantic carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+      "sha256": "3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+      "registration_id": "NATIVE-INITIAL05-REG030",
+      "actual_compared_ranges": [
+        [
+          61,
+          66
+        ]
+      ],
+      "source_evidence": "Fresh exact registered effective ranges personally read; native config full union of existing material plus new bounded completion independently compared, no semantic carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/playback.rs",
+      "sha256": "6eac571d575402a1ccbcdda6ad103850b9f52fed3f9bc602d558ea5629d23fdd",
+      "registration_id": "NATIVE-INITIAL05-REG031",
+      "actual_compared_ranges": [
+        [
+          26,
+          48
+        ]
+      ],
+      "source_evidence": "Fresh exact registered effective ranges personally read; native config full union of existing material plus new bounded completion independently compared, no semantic carry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/ragdoll.rs",
+      "sha256": "af87991f5cb3f8fd2a6398ea5135c5daacd24c7b9c2b23181ebecec7bc516ad3",
+      "registration_id": "NATIVE-INITIAL05-REG032",
+      "actual_compared_ranges": [
+        [
+          60,
+          80
+        ]
+      ],
+      "source_evidence": "Fresh exact registered effective ranges personally read; native config full union of existing material plus new bounded completion independently compared, no semantic carry."
+    }
+  ],
+  "groups": {
+    "mesh-export": "Actual lib1-22 keeps GPU implementation/exports feature-gated and exposes CPU MeshData, FrontFace, PrimitiveTopology. Only declarations/reexports, no transitive GPU/helper/algorithm credit.",
+    "mesh-product": "Actual imports1-11 and fields/default41-68 retain optional indices, UVs, four-wide joints/weights, topology/winding and optional-empty normal arrays. No required per-vertex color field. This contract differs from colored unskinned PlantMesh output and must not be mechanically substituted based on similar vector fields. Data methods12-40/70+ excluded; public fields still require whole-product admission at actual operation/native receiver.",
+    "procedural-tail": "Actual61-66 completes same scoped validate error construction and Ok return: zero presentation sample gap or too-small response-angle rejected. Whole source1-66 read for context, new role only61-66. No next module/body-response runtime credit.",
+    "playback-tail": "Actual26-48 completes playback declaration and validator, requiring nonzero sample gap and deactivation<=initial<=activation. Canonical signed visual offset distinct from nonnegative movement/stance lengths and positive authored cadence product; default/consumer behavior not inferred. Whole1-48 context read, newrole26-48.",
+    "ragdoll-gap": "Actual60-80 adds nine-body-part capsule product with PositiveLength radius/length. Existing1-59/81-112 independently read: explicit Never versus positive After muscle release, TryFrom<Option<f32>> delegates positive duration admission; no zero-as-absence compatibility path. Default delegates canonical authored config, not a globally validated runtime ragdoll."
+  },
+  "mandatory_qualification173": {
+    "record": "continuation/root/parallel-scope-qualification-173.json",
+    "sha256": "5763e9e965b4f4c1d402a09eab682de47336885c8d30b3c5b3d157242a496948"
+  },
+  "status": "exact_registered_source_semantic_admission_compared",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

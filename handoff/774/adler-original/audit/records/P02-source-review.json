@@ -1,0 +1,26 @@
+{
+  "base": "2fb1676299b89c7eb567673b36841c89e588391f",
+  "files": {
+    ".github/workflows/rust-quality.yml": "e83a1f53f7a245ad27fcf52dae0491cfb82937f0916f033e42b227bffcac8b1f",
+    "crates/adventuresim-core/src/autoresolve.rs": "5863e661a94acf7cbd43f47ced6714cabc0ff7f20fd2fd406b20a76d6cbe1be9",
+    "crates/adventuresim-core/src/autoresolve/error.rs": "3684615aea20ff3693bfa3b5f9feb481f1e23b40143c8d32772a14ea119b0423",
+    "crates/adventuresim-core/src/autoresolve/joint_melee.rs": "7373a905f23ab3075cfb464c0a936ce1ebc33ba6c5c6ad23866b1a1479c5b983",
+    "crates/adventuresim-core/src/autoresolve/melee_defense.rs": "6c64790c60c4ad2b52d4e3a18e312b8be73cb714ec27aa194f9a345d17eda293",
+    "crates/adventuresim-core/src/autoresolve/melee_iteration.rs": "5b6021721c81f75f533a3a7247a217b835562ffdcab48594be9afcd2b03305f0",
+    "crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/timeline.rs": "c9724c291b3f62bad7a0cc5c42a75e3ed936d938b5b28e4693d2132d49672e1b",
+    "crates/adventuresim-core/src/autoresolve/melee_round/commitment.rs": "52eb21ff762fa1bb6d55c4237bf1d1d66638a7929d996eb94074726727b563f6",
+    "crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs": "201e0aa26a4ceec81c0caa799acc2dae96ad3d1600ed6184aef8f671e3becf1c",
+    "crates/adventuresim-core/src/autoresolve/melee_round/mod.rs": "6bfe6feef8acc1fde2cf9fde1ac453963efee694c832e17259e30da9cf3579ae",
+    "crates/adventuresim-core/src/autoresolve/melee_round/scheduling.rs": "9c56fb8232e356e6e204ba7c1065597c6063b0b25572d6f0e7cb131b2a7eb320",
+    "crates/adventuresim-core/src/combat/contact_timing.rs": "3b347473e5083f9fd02f59949b49f45eb7bf03e75c288b167cf003e2acc6ca89",
+    "crates/adventuresim-core/src/lib.rs": "fd09a838f8cfdd2da3d48800fe56d9bbfad7e9ad5556ba696be7908b4a000c2a",
+    "crates/adventuresim-core/src/autoresolve/timeline.rs": "4e83c1f6cda9e4f7a8f9a19ac6c54119c67701f6d4dae37641c5e6b7b94b753d",
+    "crates/adventuresim-core/src/battle_time.rs": "989db0ee4ad72276f3923b7d005480e50b6c618e04d0b7623602bf0de0d2a350"
+  },
+  "source_status": "Connected coordinate paths closed and checked twice; not a hosted PASS.",
+  "reviewer": "Single implementation agent; no independent full-PR review claimed.",
+  "goal_status": "active",
+  "next_family": "P03 after P02 validation and any repairs.",
+  "last_refinement": "Public interval operations document negative, saturating and unrepresentable-span behavior.",
+  "whitespace_refinement": "Removed extra trailing blank line detected when the new timeline module was staged."
+}

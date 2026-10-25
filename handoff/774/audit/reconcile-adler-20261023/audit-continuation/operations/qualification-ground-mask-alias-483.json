@@ -1,0 +1,40 @@
+{
+  "id": "SEGOVB-04-QUALIFICATION-483-GROUND-MASK-ALIAS",
+  "archive": "audit/continuation/rig/admission03/root-support/findings.jsonl#line4 (zero-based record3)",
+  "record": {
+    "id": "RIG-ROOT-ADM03-SUPPLEMENT-004",
+    "root_queue_indices": [
+      166,
+      198,
+      199
+    ],
+    "source_refs": [
+      "RIG-ROOT-ADM03-198",
+      "RIG-ROOT-ADM03-166",
+      "Root current03 q294 SceneGround::from_samples71\u201394 actual full182 supplier message; G040 packet forthcoming"
+    ],
+    "ranges": [
+      [
+        58,
+        66
+      ],
+      [
+        125,
+        156
+      ],
+      [
+        187,
+        258
+      ]
+    ],
+    "invariant": "Rendered ground distance-raster dimensions/metres-per-pixel/native radius must be admissible independently of valid physical SceneGround.",
+    "all_routes": "Root actual from_samples accepts2x2/positivefiniteanyscale/exact4samples/validcoverdensityheight, includingf32::from_bits(1). Render organic_ground_pixels creates7x7thenencode_canopy_floor_distance BEFOREreturn; metres_per_pixel=scale/6 underflows0;4.8/0\u2192Inf\u2192saturatingusizeMAXradius; chamfer initializer maximum+1 unchecked.",
+    "counterexample": "Valid2x2SceneGround withsmallestpositivef32scale and4Bare/Soil density0/height0samples. Firstdistance_to_litter sourcefalse ->usizeMAX+1 debugoverflow/releasewrapbefore grassmask allocation. Staticrepresentablecanonicalconstructor route, no badactualscene/execution. Does notrequireSerde/Reflect bypass.",
+    "connected_remedy": "Admit coherent derivednative raster extent/scale/radius/count at producerport withchecked arithmetic/typedfailure before allocation anddistancework; preserve canonicalphysicalanyfinitepositive scale unless actualglobalpolicydecision. Do not silentlyclamp invalidradius or globallynarrowphysicalSourceGround because renderer needsrepresentability.",
+    "related_limits": "Root independent rawSerde/Reflect dimension/scale bypass anduniform_for_terrain coverbounds are separateownerfindings; thiscounterexample survivescheckedconstructor. Existing sourceCodeGeometryResult alone isnotgate.",
+    "authority": "Root repair/auditownership retained; supplierfinding only, no source/test/laterlens credit."
+  },
+  "disposition": "same defect/remedy as candidate448; additional independent04 source support, no new unique count",
+  "witness_delta": "Archive smallestpositivef32 scale/6 underflows0; our1e-30 division finitebutunrepresentableusize radius saturatesMAX. Both reachsame maximum+1 overflow on bounded7x7 raster.",
+  "repair_qualification": "Preserve anyfinitepositivephysical SceneGround scale. Native completed raster must rejectunrepresentablederivedstate beforepublication; an explicit semantics-preserving bounded-distance algorithm may avoid giant radius but silent invalid-radius clamp is not assumed authorized."
+}

@@ -1,0 +1,62 @@
+{
+  "id": "CONT07-F127",
+  "contract": "CONT07-CONTRACT-654",
+  "at": "2026-10-24T01:16:59.814275+00:00",
+  "title": "Wall abutment pass erases tower-child links before tower reconciliation",
+  "classification": "source-confirmed conditional graph overwrite; admitted mixed topology existence unproven",
+  "sources": [
+    {
+      "scope_index": 2497,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_abutments.rs",
+      "sha256": "13371703dd83b55b1536cde9ee3fadd4a768080d6a2cb5d4c0b678cd8cea19c6",
+      "ranges": [
+        [
+          7,
+          22
+        ],
+        [
+          148,
+          150
+        ],
+        [
+          224,
+          247
+        ]
+      ]
+    },
+    {
+      "scope_index": 2494,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+      "sha256": "be333fcb0e9e981f14bcbccb3decbda82d7ad87fd758d1f3dbc75b311ca345cd",
+      "ranges": [
+        [
+          233,
+          259
+        ],
+        [
+          273,
+          276
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/roofs.rs",
+      "sha256": "cb1b28e1acae9488d9a5022e46476dc3693e8947fe3e30f1444769d4015fcc5f",
+      "ranges": [
+        [
+          1226,
+          1289
+        ]
+      ],
+      "registration": "CONT07-REG-033"
+    }
+  ],
+  "producer_and_recipient": "Tower child originates with cut edges and matching flashings. Resolver loops Wall then Tower edge kinds but filters every Tower child against each pass edge_ids, independently discarding unrelated kind associations. Final roof auditor explicitly requires nonempty flashing_ids, emitting unresolved_roof_child for erased links.",
+  "static_witness": "Conditional parent assembly contains successful WallAbutment edge IDs W and TowerAbutment edge IDs T, disjoint by edge identity/kind; Tower child.valley_edges initially T and flashing_ids nonempty. Wall pass retains only IDs in W, becomes empty; later Tower pass iterates empty prior list and cannot rebuild T, leaving flashing_ids empty. Final actual validator rejects despite separately generated physical tower edge/flashing still existing.",
+  "normal_qualification": "Actual Tower-child source and final receiver traced, but no complete admitted BuildingProgram or curated fixture producing both successful Wall and Tower abutments established. No generated topology/auditor/runtime run. Pure Tower-only parent skips Wall loop and is not this witness. Conditional source finding must not become ordinary castle regression claim.",
+  "connected_repair": "Reconcile child links only against their actual abutment kind/owner association, or rebuild from authoritative accepted child-cut edge set rather than progressively filtering against unrelated per-kind sets. Preserve contour rejection and removal of genuinely invalid subdivisions, physical flashing/outlet identities and final audit.",
+  "acceptance": "A supported parent with independent wall and tower contacts retains exact child tower links through every abutment pass; tower-only and rejected contour cases preserve existing behavior. If mixed topology is unsupported, reject it explicitly at admission before destructive graph reconciliation.",
+  "dedup": "Parent found no exact mixed-roof-abutment alias; M12/shared opening geometry and ROOT-INITIAL04-F001 allocator masks are different contracts. Conditional record remains outside any automatic global unique sum.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

@@ -1,0 +1,58 @@
+{
+  "id": "CONT08-SUPPORT-002-DAMAGE-SHARES",
+  "at": "2026-10-25T09:09:23.648292+00:00",
+  "kind": "Cross-lens unchanged applied-damage provenance inconsistency; global dedup/policy qualification pending.",
+  "pins": {
+    "base": "a120390947c89b703dc74c4255a13c035d054c50",
+    "head": "039329518e264f19206cf5b0b98d177433f40c17"
+  },
+  "sources": [
+    {
+      "scope_index": 50,
+      "sha256": "0b6aef0b8e1be9846beaae48cc8f7130333b0b4634acbd0b2f8b393ee40d5cef",
+      "ranges": [
+        [
+          542,
+          558
+        ],
+        [
+          1125,
+          1135
+        ]
+      ]
+    },
+    {
+      "scope_index": 79,
+      "sha256": "eb7dbfbe0a6f8fa81675d14434401b41bc0949b693b56338129c6c778af82284",
+      "ranges": [
+        [
+          470,
+          512
+        ],
+        [
+          974,
+          1000
+        ]
+      ]
+    },
+    {
+      "scope_index": 49,
+      "sha256": "590a02732db6f33532c882ce0d6a6686de3f4bad9e3368242999cc3c30f9fd35",
+      "ranges": [
+        [
+          104,
+          130
+        ],
+        [
+          224,
+          274
+        ]
+      ]
+    }
+  ],
+  "facts": "Actual apply_attack_result uses apportion_attack_health_damage, whose health channel contribution is cut + .75*blunt. BattleRecorder.record_attack recomputes applied shares using cut+blunt. Both before/head same; no regression from P16 geometry refactor. BattleLogEntry docs call these applied shares and post_combat_body copies them for morphology.",
+  "source_witness": "Equal positive energy cut/blunt with applied1: actual injury apportion4/7,3/7 versus logged1/2,1/2. Existing actual producer fixture expects38.25J of each from76.5J gap precision1. Source-only arithmetic, no execution.",
+  "limits": "This supports an inconsistent projection and explicit intended-unit question, not a proven player-visible misleading autopsy or ordinary live occurrence. Morphology may intentionally require energy ratios; then log/receiver contract must name that fact explicitly rather than claim identical applied-health shares. Root M89 may overlap but no automatic alias by category.",
+  "connected_remedy": "Resolve actual durable log field units and autopsy/DB consumers together; share canonical applied-health projection if those fields represent applied shares, or retain distinct explicitly owned energy provenance. Preserve actual energy/calibration law; do not silently change physiological thresholds.",
+  "acceptance": "Actual mixed-channel witness must retain conserved energy and committed per-channel health while log/autopsy source units agree; existing assertion inputs/count/order retained. Later authorized focused validation only after initial discovery. No new test or check."
+}

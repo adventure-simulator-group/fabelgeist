@@ -1,0 +1,109 @@
+{
+  "id": "CONT08-CONTRACT-029",
+  "at": "2026-10-25T09:32:45.239479+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 113,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/item_catalog.rs",
+      "before_sha256": "de7dd72013aa3af8ae0aae8691011a8aaa2d168db670188bcc1064cac9a23d18",
+      "after_sha256": "12a6191433c61dae833826429a9ebacc2c043cce0fe593831e65f6ec10a132f6",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0113-base-de7dd72013aa3af8ae0aae8691011a8aaa2d168db670188bcc1064cac9a23d18",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/12a6191433c61dae833826429a9ebacc2c043cce0fe593831e65f6ec10a132f6",
+      "diff": "source-evidence/p16-0113.diff",
+      "diff_sha256": "db43f8f320d95e9c73538354e665fe161d45ef8f9ddbd355ea4a1765027c8a4d",
+      "head_body_read_ranges": [
+        [
+          1,
+          544
+        ]
+      ],
+      "facts": [
+        "Full544+complete actual P16 diff read. OnceLock body extracted to115; moved predecessor present in original diff, exact generated weapon/coverage operations compared. catalog remains IDsorted binarylookup, authored document source-coordinate ordering and source map independent.OnceLock returns only complete successful vector; errors still panic at embedded catalogue boundary with structured cause Display, not recoverable retry.",
+        "All existing catalogue identity/count/golden/attachment/physical fixture bodies consumed unexecuted. Typed physical projections adapt assertions with same numeric inputs/tolerances, no extra blanket runtime/catalogue validity credit; actual build validator and weapon recipe guards still separate."
+      ],
+      "disposition": "Own08 source-local actual old/new comparison accounted; new API admission and actual recipe/build-recipient limits explicit. No new ordinary regression.",
+      "acceptance": "Keep scalar/axis wire shape, original sorting/averaging/physical formula order and original fixtures. New physical failure remains structured until owning embedded panic boundary; no compatibility paths or checks/tests/repairs."
+    },
+    {
+      "scope_index": 114,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_physical_serde.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/item_catalog_physical_serde.rs",
+      "before_sha256": null,
+      "before_status": "Exact P16 base path absent; predecessor moved from113 or prior raw schema116, not no-behavior premise.",
+      "after_sha256": "f260cac7fddd136d2fd754e6f147a3fcecaa67eb107b87d506121e3c60016671",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/f260cac7fddd136d2fd754e6f147a3fcecaa67eb107b87d506121e3c60016671",
+      "diff": "source-evidence/p16-0114.diff",
+      "diff_sha256": "e7f4e70f104066e18a3f274d07bc17a89b24869a6579766da4a2e1de7f0ad157",
+      "head_body_read_ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "facts": [
+        "Full18 all-added body consumed; exactbasepathabsent. Physical dimensions serializer deliberately calls axis_metres array, preserving original [X,Y,Z] wire rather than generic CuboidDimensions shape. Deserialize uses exact[f32;3] then own dimensions admission, rejects invalid owned box instead of storing raw state. Complete new addition differential derived from absentbase; no decoder run or serialized-byte golden claimed."
+      ],
+      "disposition": "Own08 source-local actual old/new comparison accounted; new API admission and actual recipe/build-recipient limits explicit. No new ordinary regression.",
+      "acceptance": "Keep scalar/axis wire shape, original sorting/averaging/physical formula order and original fixtures. New physical failure remains structured until owning embedded panic boundary; no compatibility paths or checks/tests/repairs."
+    },
+    {
+      "scope_index": 115,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_projection.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/item_catalog_projection.rs",
+      "before_sha256": null,
+      "before_status": "Exact P16 base path absent; predecessor moved from113 or prior raw schema116, not no-behavior premise.",
+      "after_sha256": "771a265b992561a0094e1b16784b8ca544e4192546e3f06396d35b4bde8b3e30",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/771a265b992561a0094e1b16784b8ca544e4192546e3f06396d35b4bde8b3e30",
+      "diff": "source-evidence/p16-0115.diff",
+      "diff_sha256": "198f3b4e1910cc56b0d75282b5534ed2bc8c31b3cf9a16b65ce3f5e2b7857f76",
+      "head_body_read_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "facts": [
+        "Full122 all-added body and predecessor113diff compared. Same docs flatten/order, peritem generated weapon then coverage then final sort. Missing/invalid recipes retain panic boundary113 but now structureditem/errorcontext. Reach/length checked before affected field replacement, same precision/inertia/mass assignments; box Y replacement retains X/Z via typed axis constructor.",
+        "Coverage uses same surface region weighted average perplacement then unweighted mean across nonemptyplacements, same armor/clothing target branches/order. New finite/positive dimensions admission cannot be inferred to accept every old public API/extreme recipe; Q002 actual derive/output/lifecycle qualification retained. No normal recipe rejection asserted."
+      ],
+      "disposition": "Own08 source-local actual old/new comparison accounted; new API admission and actual recipe/build-recipient limits explicit. No new ordinary regression.",
+      "acceptance": "Keep scalar/axis wire shape, original sorting/averaging/physical formula order and original fixtures. New physical failure remains structured until owning embedded panic boundary; no compatibility paths or checks/tests/repairs."
+    },
+    {
+      "scope_index": 116,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "before_sha256": "96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+      "after_sha256": "115d9400063d89f5782dc3c34be2b9f2af774ca438768a9059f815b531d71b1f",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0116-base-96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/115d9400063d89f5782dc3c34be2b9f2af774ca438768a9059f815b531d71b1f",
+      "diff": "source-evidence/p16-0116.diff",
+      "diff_sha256": "2d40fdc869b6400a0e7c507219bed023591eae9f0cf5fa26174a9dcda7b2a97f",
+      "head_body_read_ranges": [
+        [
+          1,
+          623
+        ]
+      ],
+      "facts": [
+        "Full623+complete actual diff read. Only new geometry imports/axis-serde module, dimensions owner/serdeadapter, default SignedLength grip0 and weapon reach leaf changed. Existing enum tags/strict fields, location/channel stable strings/order, raw capacities/u16order, kind flattening/defaults, capability and body ABI remain.",
+        "Input dimensions preserve axis-array shape via114, grip/reach retain admitted numeric scalar through transparent SignedLength own452 proof; new finite/box guarantees are intentional strengthened physical owner admission, not global public raw schema validity. Actual authored build validator needed for ordinary accepted-scope proof. Existing boundary-roundtrip fixtures read unexecuted."
+      ],
+      "disposition": "Own08 source-local actual old/new comparison accounted; new API admission and actual recipe/build-recipient limits explicit. No new ordinary regression.",
+      "acceptance": "Keep scalar/axis wire shape, original sorting/averaging/physical formula order and original fixtures. New physical failure remains structured until owning embedded panic boundary; no compatibility paths or checks/tests/repairs."
+    }
+  ],
+  "next": "Original117 leadership89/118lib138/119speed178/120mission106; actual recipe/source Q002 remains."
+}

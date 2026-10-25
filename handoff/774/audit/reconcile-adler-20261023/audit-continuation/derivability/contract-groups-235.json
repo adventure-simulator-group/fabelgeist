@@ -1,0 +1,132 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-235",
+  "at": "2026-10-25T13:59:17.607819+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_ROLE_INCOMPLETE",
+  "scope_index": 464,
+  "source_id": "physical-p16:crates/strategic-web/src/spacetimedb/types.rs",
+  "sha256": "df37c376e240735c231aaeca1737d1a0392643d37ab962f902a7d02df42ece02",
+  "actual_compared_ranges": [
+    [
+      1,
+      1320
+    ]
+  ],
+  "trait_inventory": [
+    {
+      "trait": "BestiaryDeductionExt",
+      "lines": [
+        457,
+        465
+      ],
+      "disposition": "KEEP JSON parse/filter/error fallback semantic adapter."
+    },
+    {
+      "trait": "From / TryFrom generated rows",
+      "lines": [
+        [
+          467,
+          498
+        ],
+        [
+          500,
+          550
+        ],
+        [
+          552,
+          575
+        ],
+        [
+          577,
+          628
+        ],
+        [
+          630,
+          651
+        ],
+        [
+          653,
+          688
+        ],
+        [
+          690,
+          704
+        ],
+        [
+          706,
+          726
+        ],
+        [
+          760,
+          791
+        ],
+        [
+          793,
+          813
+        ],
+        [
+          821,
+          978
+        ]
+      ],
+      "disposition": "KEEP checked identities, native/schema conversions, projections/default-fill or crossrecord field mapping. Available From derive generates field construction from native input, not crossrecord named projection. No generated-binding edits."
+    },
+    {
+      "trait": "Default",
+      "type": "CatalogItemView",
+      "lines": [
+        980,
+        1025
+      ],
+      "disposition": "PENDING exact inner Slot::None/CatalogItemKind::Simple versus native Default dependency proof; all remaining fields ordinary Default. Do not prematurely propose derive."
+    },
+    {
+      "trait": "JourneyEndpointExt",
+      "lines": [
+        1027,
+        1049
+      ],
+      "disposition": "KEEP native enum borrowed-ID/name selection with Camp label."
+    },
+    {
+      "trait": "ReligionHoursExt / OralLanguageHoursExt / WrittenLanguageHoursExt / BestiaryHoursExt",
+      "lines": [
+        [
+          1051,
+          1063
+        ],
+        [
+          1065,
+          1073
+        ],
+        [
+          1075,
+          1083
+        ],
+        [
+          1085,
+          1101
+        ]
+      ],
+      "disposition": "KEEP custom extension methods projecting generated native schema to core semantic skills; no existing derive for these custom traits."
+    },
+    {
+      "trait": "ItemConditionExt",
+      "lines": [
+        1103,
+        1122
+      ],
+      "disposition": "KEEP ordered tier array, clamped total/skill-dependent repair/residual methods, not mechanical serialization."
+    }
+  ],
+  "existing_derives": "All consumed local query/native/presentation structures already structural/Serde/Default derives as appropriate.",
+  "semantic_contracts": "Personally read1\u2013330/331\u2013660/661\u2013990/991\u20131320: joined query declarations, generated schema/native projection, custom trait bridges and exhaustive enum matching. Manual Default remains specific dependency question. No whole2523-line credit, read ends within generated fixture function.",
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 464,
+    "source_id": "physical-p16:crates/strategic-web/src/spacetimedb/types.rs",
+    "next_line": 1321,
+    "actual_EOF": 2523
+  },
+  "execution": "none"
+}

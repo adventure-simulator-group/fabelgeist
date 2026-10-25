@@ -1,0 +1,143 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-256",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/holders.rs",
+      "sha256": "d99cadde4f1dc9227c791e6b25dab8869a68bc888b93fa6854a2a43460148635",
+      "actual_EOF": 261,
+      "actual_compared_ranges": [
+        [
+          1,
+          261
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/holders.rs",
+      "sha256": "d99cadde4f1dc9227c791e6b25dab8869a68bc888b93fa6854a2a43460148635",
+      "actual_EOF": 261,
+      "actual_compared_ranges": [
+        [
+          1,
+          261
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Fitted holder selection uses accepted resolved identity, not original optional metadata",
+      "source_ranges": {
+        "holders.rs": [
+          [
+            135,
+            225
+          ]
+        ]
+      },
+      "disposition": "Full exact261body and actual PR comparison personally consumed. New HolderConstruction first holder_identity validates matchingcatalog/kind/parameterintervals/presentGrip/Blade, then Construction::new validates and resolves CLONED recipe and builds sources. Fresh placement34\u201369 clonesoriginal,109\u2013124 writes resolved_id Some only toclone; actualComponent217\u2013222 supportsoriginalidNone via label/ordinal. Holder subsequently expects originalselectedcomponent.id167/183, exact existing audit/continuation/root/admission03/findings.jsonl#2 ROOT-ADM-F002 and audit/continuation/camera/initial07-redundant-authority/findings.jsonl#37 CAMERA-INITIAL07-F037 support. No requirement for strictexplicitID imposed; acceptedcanonicalidentity shouldflow intoactualselectedsolid. No execution/reproduction or new unique defect."
+    },
+    {
+      "contract": "Holder sweep arithmetic, fitting extents and output refinement",
+      "source_ranges": {
+        "holders.rs": [
+          [
+            1,
+            134
+          ],
+          [
+            191,
+            261
+          ]
+        ]
+      },
+      "disposition": "tube_centers path[0] privatecaller fixed24/28rings, soempty-index counterexample unreachable throughactualcallers. Identity checkswall1..10mm,clearance2..20mm,throat4..40,chape6..60,loopposition<=1000,radius2..12,hangerwidth20..120,height30..180; conversionf64/1000 andfixedsegment10 geometryboundedforliteralholderparameters. Sheath ClearanceEnvelope result fallible beforeextent/shell operations, throatchapeintervals clippedtoactualbody, closed/openloft semantics preserved. Haftloop center/length/radii derive compiledgripbounds, loopfractioncontrolled. Allshell/sweepconstructs propagate String constructioncause. bounds(empty) initialInf remainsinternalrisk onlyifactual constructedsolid producesempty source; no proofemptycanonicalpart here. MODEL_FRAME_EXTENT20 limitsresolvedframes, but alone doesnotproveallsolidpoints/physicalf64-tof32mass/length/inertia/COM/balance/grip/bounds projections representable; exact complete numeric producer acceptance remains CAM-PROP-F002 output refinement graph, no ordinary overflow alleged. Generated native rendererbuffers differ canonicalphysical metadata; signedCOM/zeroappropriateheadlessfields preserved. No source edits/project execution."
+    }
+  ],
+  "findings": [
+    {
+      "namespace": "audit/continuation/root/admission03/findings.jsonl#2",
+      "id": "ROOT-ADM-F002",
+      "disposition": "Fresh exact holder/clone/resolved-ID source closure, no duplicate finding."
+    },
+    {
+      "namespace": "audit/continuation/camera/initial07-redundant-authority/findings.jsonl#37",
+      "id": "CAMERA-INITIAL07-F037",
+      "disposition": "Same exact canonical identity support, not second defect."
+    },
+    {
+      "namespace": "audit/records/final-acceptance-20261021/wave-01/audit-producer-propagation/camera/findings.jsonl#2",
+      "id": "CAM-PROP-F002",
+      "disposition": "Fresh physical f64-tof32 output producer support; actual extreme closure remains qualified."
+    }
+  ],
+  "fresh_dependencies": [
+    {
+      "path": "crates/adventuresim-weapon-model/src/validation.rs",
+      "pin": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "fd79af94c541daf7519b52218301f4cc66dbd7614d444583271a2e955ed02aff",
+      "actually_read_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "coverage": "Fresh critical constructor/identity/body proof only, not whole original-role credit."
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/model/mod.rs",
+      "pin": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "485c06d11de0a974d67d404c21cde555b41f4126f6a3ffdac7cf5ba7727dc8ad",
+      "actually_read_ranges": [
+        [
+          70,
+          135
+        ]
+      ],
+      "coverage": "Fresh critical constructor/identity/body proof only, not whole original-role credit."
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/model/placement.rs",
+      "pin": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "243d594fbb5904b60ec01daa6e25decb1ace121320b548926f0400a909222fc3",
+      "actually_read_ranges": [
+        [
+          30,
+          125
+        ]
+      ],
+      "coverage": "Fresh critical constructor/identity/body proof only, not whole original-role credit."
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/recipe/mod.rs",
+      "pin": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "6df2420e23ec21a7d706b89d8af5a999f4798fbff05d5fb6d7a3b5e647b2ff4e",
+      "actually_read_ranges": [
+        [
+          205,
+          230
+        ]
+      ],
+      "coverage": "Fresh critical constructor/identity/body proof only, not whole original-role credit."
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/construction/mod.rs",
+      "pin": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "7327c75b4030df58f3b59c44b7b691713289908715ecb4c6adae4b0829806fc1",
+      "actually_read_ranges": [
+        [
+          40,
+          55
+        ]
+      ],
+      "coverage": "Fresh critical constructor/identity/body proof only, not whole original-role credit."
+    }
+  ],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-world-schema/src/basis_points.rs"
+}

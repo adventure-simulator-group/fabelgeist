@@ -1,0 +1,533 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1195",
+  "at": "2026-10-25T18:05:57.340261+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1282,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/investigation_policy.rs",
+      "sha256": "beeb9c30e9b583a3e744dcc7350e83c2c5ce40a2d65d5184cd48c0a463a93ea1",
+      "actual_EOF": 528,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/investigation_policy.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-strategic-sim/src/live_core/investigation_policy.rs",
+        "sha256": "beeb9c30e9b583a3e744dcc7350e83c2c5ce40a2d65d5184cd48c0a463a93ea1",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 18149,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 641,
+            "read_ranges": [
+              [
+                1,
+                528
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SIM-GENERATED-CASES-097"
+            ],
+            "read_status": "fresh-current-lens-full-source-read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/investigation_policy.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-SIMULATION-CORE-GENERATED-PARTIAL-047",
+            "json_pointer": "/source_proofs/19",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/live_core/investigation_policy.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                528
+              ]
+            ],
+            "source_context": {
+              "index": 645,
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/investigation_policy.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/investigation_policy.rs",
+              "sha256": "beeb9c30e9b583a3e744dcc7350e83c2c5ce40a2d65d5184cd48c0a463a93ea1",
+              "read_ranges": [
+                [
+                  1,
+                  528
+                ]
+              ],
+              "mode": "Fresh complete actual source body; generated461\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153930 aggregate output truncation repaired by870\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153925 and900\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01531380 current rereads; all other chunks complete",
+              "roles": [
+                "Full investigation_policy1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153528 actual raw minute/distance/walkingwindow/candidatecount/ratio/duration/energy/skillscore/signature retention and actual equations/callback invocations inspected.",
+                "SelectedCaseSitePlan retains walkingminutes/wait/recovery raw and ItineraryForecast typedrecord; select_generated_case_site_plan passes u16,bool,u64 into internal evaluation closure before actual weather/energy numerical kernel. Absolute StrategicMinute already retained, requested positive versus observed zero elapsed and day-window widths cannot be one scalar.",
+                "Errors from pure rest/camp predicates are semantic keys before CoreLoopError conversion/report; enum unavailable reason and code-based replan already preserved at decision, keep unknown native error detail distinct. DailyPresenceWindow.minutes_until_start.ok currently collapses malformedwindow with unavailable scheduling; actual definition/caller ownership follow existing schedule/native trace, no automatic waiver.",
+                "Action priority tuple intentionally reversed counts/bounds; generated_method_skill_fit rawstr actual match plus hour clamp/round -> ranking, not final display. Preserve all method match default/zero target terrain policy while replacing authoritative string method with canonical admitted owner. Arithmetic scaling/NaN/saturation/calendar/rank range policy must be audited separately, no operation correctness clearance."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-SIMULATION-OBSERVATION-RECEIVER-CLOSURE-050",
+            "json_pointer": "/source_proofs/19",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/live_core/investigation_policy.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                528
+              ]
+            ],
+            "source_context": {
+              "index": 645,
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/investigation_policy.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/investigation_policy.rs",
+              "sha256": "beeb9c30e9b583a3e744dcc7350e83c2c5ce40a2d65d5184cd48c0a463a93ea1",
+              "read_ranges": [
+                [
+                  1,
+                  528
+                ]
+              ],
+              "actual_line_count": 528,
+              "supplier_trace": "ROOT047/048/049",
+              "disposition": "Supplier producer/retained-state/operation/actual receiving-body inventory accounted with findings; Camera must explicitly consume before716 credit.",
+              "source_roles": [
+                "Full investigation_policy1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153528 actual raw minute/distance/walkingwindow/candidatecount/ratio/duration/energy/skillscore/signature retention and actual equations/callback invocations inspected.",
+                "SelectedCaseSitePlan retains walkingminutes/wait/recovery raw and ItineraryForecast typedrecord; select_generated_case_site_plan passes u16,bool,u64 into internal evaluation closure before actual weather/energy numerical kernel. Absolute StrategicMinute already retained, requested positive versus observed zero elapsed and day-window widths cannot be one scalar.",
+                "Errors from pure rest/camp predicates are semantic keys before CoreLoopError conversion/report; enum unavailable reason and code-based replan already preserved at decision, keep unknown native error detail distinct. DailyPresenceWindow.minutes_until_start.ok currently collapses malformedwindow with unavailable scheduling; actual definition/caller ownership follow existing schedule/native trace, no automatic waiver.",
+                "Action priority tuple intentionally reversed counts/bounds; generated_method_skill_fit rawstr actual match plus hour clamp/round -> ranking, not final display. Preserve all method match default/zero target terrain policy while replacing authoritative string method with canonical admitted owner. Arithmetic scaling/NaN/saturation/calendar/rank range policy must be audited separately, no operation correctness clearance."
+              ],
+              "actual_receiver_closure": "Root047/048/049 source facts plus full Rig036 survival/expedition/economy and Native022 cycle/travel/recovery receipts close the prior fifteen shared receiving obligations. No blanket source or native exemption."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/current_sources/19",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/live_core/investigation_policy.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                528
+              ]
+            ],
+            "source_context": {
+              "index": 645,
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/investigation_policy.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/investigation_policy.rs",
+              "sha256": "beeb9c30e9b583a3e744dcc7350e83c2c5ce40a2d65d5184cd48c0a463a93ea1",
+              "read_ranges": [
+                [
+                  1,
+                  528
+                ]
+              ],
+              "actual_line_count": 528,
+              "supplier_trace": "ROOT047/048/049",
+              "disposition": "Supplier producer/retained-state/operation/actual receiving-body inventory accounted with findings; Camera must explicitly consume before716 credit.",
+              "source_roles": [
+                "Full investigation_policy1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153528 actual raw minute/distance/walkingwindow/candidatecount/ratio/duration/energy/skillscore/signature retention and actual equations/callback invocations inspected.",
+                "SelectedCaseSitePlan retains walkingminutes/wait/recovery raw and ItineraryForecast typedrecord; select_generated_case_site_plan passes u16,bool,u64 into internal evaluation closure before actual weather/energy numerical kernel. Absolute StrategicMinute already retained, requested positive versus observed zero elapsed and day-window widths cannot be one scalar.",
+                "Errors from pure rest/camp predicates are semantic keys before CoreLoopError conversion/report; enum unavailable reason and code-based replan already preserved at decision, keep unknown native error detail distinct. DailyPresenceWindow.minutes_until_start.ok currently collapses malformedwindow with unavailable scheduling; actual definition/caller ownership follow existing schedule/native trace, no automatic waiver.",
+                "Action priority tuple intentionally reversed counts/bounds; generated_method_skill_fit rawstr actual match plus hour clamp/round -> ranking, not final display. Preserve all method match default/zero target terrain policy while replacing authoritative string method with canonical admitted owner. Arithmetic scaling/NaN/saturation/calendar/rank range policy must be audited separately, no operation correctness clearance."
+              ],
+              "actual_receiver_closure": "Root047/048/049 source facts plus full Rig036 survival/expedition/economy and Native022 cycle/travel/recovery receipts close the prior fifteen shared receiving obligations. No blanket source or native exemption."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/additional_actual_source_proofs/19",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/live_core/investigation_policy.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                528
+              ]
+            ],
+            "source_context": {
+              "index": 645,
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/investigation_policy.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/investigation_policy.rs",
+              "sha256": "beeb9c30e9b583a3e744dcc7350e83c2c5ce40a2d65d5184cd48c0a463a93ea1",
+              "read_ranges": [
+                [
+                  1,
+                  528
+                ]
+              ],
+              "mode": "Fresh complete actual source body; generated461\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153930 aggregate output truncation repaired by870\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153925 and900\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01531380 current rereads; all other chunks complete",
+              "roles": [
+                "Full investigation_policy1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153528 actual raw minute/distance/walkingwindow/candidatecount/ratio/duration/energy/skillscore/signature retention and actual equations/callback invocations inspected.",
+                "SelectedCaseSitePlan retains walkingminutes/wait/recovery raw and ItineraryForecast typedrecord; select_generated_case_site_plan passes u16,bool,u64 into internal evaluation closure before actual weather/energy numerical kernel. Absolute StrategicMinute already retained, requested positive versus observed zero elapsed and day-window widths cannot be one scalar.",
+                "Errors from pure rest/camp predicates are semantic keys before CoreLoopError conversion/report; enum unavailable reason and code-based replan already preserved at decision, keep unknown native error detail distinct. DailyPresenceWindow.minutes_until_start.ok currently collapses malformedwindow with unavailable scheduling; actual definition/caller ownership follow existing schedule/native trace, no automatic waiver.",
+                "Action priority tuple intentionally reversed counts/bounds; generated_method_skill_fit rawstr actual match plus hour clamp/round -> ranking, not final display. Preserve all method match default/zero target terrain policy while replacing authoritative string method with canonical admitted owner. Arithmetic scaling/NaN/saturation/calendar/rank range policy must be audited separately, no operation correctness clearance."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1346,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          528
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "SelectedCaseSitePlan Clone Debug PartialEq",
+        "OnSiteActionDecision/GeneratedAdvanceResult/ProjectedInvestigationActionState/InvestigationActionReplanReason Clone Copy Debug PartialEq Eq"
+      ],
+      "absence_basis": "Full528 consumed1194\u20131195. Only inherent stable replan key classifier and native current contact-window/action availability/error classification, checked elapsed/camp/work candidate arithmetic, selected action/profile/group ordering and public diagnostic bounds. No handwritten trait/custom codec. Existing derives suffice structural data; keep Option/errors, valid enum payload correlation and explicit rank/score semantics."
+    },
+    {
+      "scope_index": 1283,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/journey_policy.rs",
+      "sha256": "1d73fd41a4bac82f26a1c7973b3df5685a7dd306d0b3b9c04dd8e665d76f089c",
+      "actual_EOF": 216,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/journey_policy.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-strategic-sim/src/live_core/journey_policy.rs",
+        "sha256": "1d73fd41a4bac82f26a1c7973b3df5685a7dd306d0b3b9c04dd8e665d76f089c",
+        "bytes": 6959,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+            "ranges": null,
+            "source_read_status": null,
+            "trace_refs": []
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                216
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-SIM-SDK-RECEIVER-001",
+              "CAM-PROP-SIM-OBSERVATION-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 325,
+            "read_ranges": [
+              [
+                1,
+                216
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SIM-CONTROL-OBSERVATION-096"
+            ],
+            "read_status": "fresh-current-lens-full-source-read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/journey_policy.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-SIMULATION-CORE-GENERATED-PARTIAL-047",
+            "json_pointer": "/source_proofs/11",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/live_core/journey_policy.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                216
+              ]
+            ],
+            "source_context": {
+              "index": 307,
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/journey_policy.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/journey_policy.rs",
+              "sha256": "1d73fd41a4bac82f26a1c7973b3df5685a7dd306d0b3b9c04dd8e665d76f089c",
+              "read_ranges": [
+                [
+                  1,
+                  216
+                ]
+              ],
+              "mode": "Fresh actual source read and exact variant/role reconciliation; source proof only, not percell accounting",
+              "roles": [
+                "Full journey_policy1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153216 native/public route coord admission and camp/rest policy decisions inspected. LatitudeMicrodegrees and LongitudeMicrodegrees survive state; elevation datum rawi16 remains separate owner question. Time deltas/absolute starts/counts passed through pure predicates/retained observation state before equations or SDK port.",
+                "Error keys from classify_post_rest_progress/camp/post_encounter are semantic failure states, not final display; actual travel receiving bodies pending. Core ConsumableFractionMicros is reconstructed before immediate unit cast, but raw optional fraction/quantity travels through internal projection helper, distinguish real SDK row boundary from retained application state."
+              ],
+              "pending_receivers": [
+                "Connected simulation cycle/settlement/survival/expedition/generated/travel producer and actual policy consumers remain assigned in30 packet; exact receipt will close only after actual bodies reconciled."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-SIMULATION-OBSERVATION-RECEIVER-CLOSURE-050",
+            "json_pointer": "/source_proofs/7",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/live_core/journey_policy.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                216
+              ]
+            ],
+            "source_context": {
+              "index": 307,
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/journey_policy.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/journey_policy.rs",
+              "sha256": "1d73fd41a4bac82f26a1c7973b3df5685a7dd306d0b3b9c04dd8e665d76f089c",
+              "read_ranges": [
+                [
+                  1,
+                  216
+                ]
+              ],
+              "actual_line_count": 216,
+              "supplier_trace": "NATIVE-PS-SIMULATION-TRAVEL-RECOVERY-CLOSURE-022",
+              "disposition": "Supplier producer/retained-state/operation/actual receiving-body inventory accounted with findings; Camera must explicitly consume before716 credit.",
+              "source_roles": [],
+              "actual_receiver_closure": "Root047/048/049 source facts plus full Rig036 survival/expedition/economy and Native022 cycle/travel/recovery receipts close the prior fifteen shared receiving obligations. No blanket source or native exemption."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/current_sources/7",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/live_core/journey_policy.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                216
+              ]
+            ],
+            "source_context": {
+              "index": 307,
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/journey_policy.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/journey_policy.rs",
+              "sha256": "1d73fd41a4bac82f26a1c7973b3df5685a7dd306d0b3b9c04dd8e665d76f089c",
+              "read_ranges": [
+                [
+                  1,
+                  216
+                ]
+              ],
+              "actual_line_count": 216,
+              "supplier_trace": "NATIVE-PS-SIMULATION-TRAVEL-RECOVERY-CLOSURE-022",
+              "disposition": "Supplier producer/retained-state/operation/actual receiving-body inventory accounted with findings; Camera must explicitly consume before716 credit.",
+              "source_roles": [],
+              "actual_receiver_closure": "Root047/048/049 source facts plus full Rig036 survival/expedition/economy and Native022 cycle/travel/recovery receipts close the prior fifteen shared receiving obligations. No blanket source or native exemption."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/additional_actual_source_proofs/11",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/live_core/journey_policy.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                216
+              ]
+            ],
+            "source_context": {
+              "index": 307,
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/journey_policy.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/journey_policy.rs",
+              "sha256": "1d73fd41a4bac82f26a1c7973b3df5685a7dd306d0b3b9c04dd8e665d76f089c",
+              "read_ranges": [
+                [
+                  1,
+                  216
+                ]
+              ],
+              "mode": "Fresh actual source read and exact variant/role reconciliation; source proof only, not percell accounting",
+              "roles": [
+                "Full journey_policy1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153216 native/public route coord admission and camp/rest policy decisions inspected. LatitudeMicrodegrees and LongitudeMicrodegrees survive state; elevation datum rawi16 remains separate owner question. Time deltas/absolute starts/counts passed through pure predicates/retained observation state before equations or SDK port.",
+                "Error keys from classify_post_rest_progress/camp/post_encounter are semantic failure states, not final display; actual travel receiving bodies pending. Core ConsumableFractionMicros is reconstructed before immediate unit cast, but raw optional fraction/quantity travels through internal projection helper, distinguish real SDK row boundary from retained application state."
+              ],
+              "pending_receivers": [
+                "Connected simulation cycle/settlement/survival/expedition/generated/travel producer and actual policy consumers remain assigned in30 packet; exact receipt will close only after actual bodies reconciled."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/additional_actual_source_proofs/53",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/live_core/journey_policy.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                150
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/journey_policy.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/journey_policy.rs",
+              "sha256": "1d73fd41a4bac82f26a1c7973b3df5685a7dd306d0b3b9c04dd8e665d76f089c",
+              "read_ranges": [
+                [
+                  1,
+                  150
+                ]
+              ],
+              "actual_line_count": 216,
+              "mode": "fresh current producer-supplement actual material source bodies; no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-036",
+            "json_pointer": "/additional_fresh_sources/18",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/live_core/journey_policy.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                150
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/journey_policy.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/journey_policy.rs",
+              "sha256": "1d73fd41a4bac82f26a1c7973b3df5685a7dd306d0b3b9c04dd8e665d76f089c",
+              "read_ranges": [
+                [
+                  1,
+                  150
+                ]
+              ],
+              "actual_line_count": 216,
+              "mode": "fresh current producer-supplement actual material source bodies; no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-SIMULATION-TRAVEL-CYCLE-021",
+            "json_pointer": "/source_reads/1",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/live_core/journey_policy.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                216
+              ]
+            ],
+            "source_context": {
+              "index": 307,
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/journey_policy.rs",
+              "sha256": "1d73fd41a4bac82f26a1c7973b3df5685a7dd306d0b3b9c04dd8e665d76f089c",
+              "read_ranges": [
+                [
+                  1,
+                  216
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/journey_policy.rs",
+              "read_status": "fresh full body; actual related receiver closure still in progress"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-SIMULATION-TRAVEL-RECOVERY-CLOSURE-022",
+            "json_pointer": "/source_reads/1",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/live_core/journey_policy.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                216
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/journey_policy.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/journey_policy.rs",
+              "sha256": "1d73fd41a4bac82f26a1c7973b3df5685a7dd306d0b3b9c04dd8e665d76f089c",
+              "read_ranges": [
+                [
+                  1,
+                  216
+                ]
+              ],
+              "actual_line_count": 216,
+              "read_status": "fresh actual source bodies; existing fixtures source only, no execution",
+              "index": 307,
+              "preserved_p16_sha256": "1d73fd41a4bac82f26a1c7973b3df5685a7dd306d0b3b9c04dd8e665d76f089c",
+              "pr_p16_exact_bytes_equal": true
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 568,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          216
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "PublicActiveCampObservation/PublicPostEncounterJourneyState/PostEncounterJourneyAction/PublicRoutePoint/PublicJourneyCampState/PostRestProgress Clone Copy Debug PartialEq Eq"
+      ],
+      "absence_basis": "Full216 read. No handwritten trait/custom codec. Inherent route constructors validate degrees/E7 through existing lat/lon owners and adapt to microdegree native projection, preserve signed elevation; PostRestProgress common payload accessor no hand trait. Exact checked elapsed/death cohort/public camp/post-encounter classifiers and fraction-measured quantity apply semantic invariants and errors, cannot raw From/default derive."
+    }
+  ],
+  "groups": [
+    "Investigation/journey policy structures already derive; semantic priority/checked constructors/current cohort/elapsed classifiers retained. No new finding."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1284,
+    "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/mod.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

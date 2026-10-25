@@ -1,0 +1,36 @@
+{
+  "id": "CONT07-CONTRACT-457",
+  "at": "2026-10-23T22:12:44.282953+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2002,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/scene_input/geological_landforms.rs",
+      "sha256": "7068eadeb46eb4e50b00a5f3a45e0e200e43c38afe3bfafd8d84709bbd79ae5a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server-dispatcher/src/scene_input/geological_landforms.rs",
+      "actual_EOF": 534,
+      "ranges": [
+        [
+          1,
+          534
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "2002 full534 personally read in two bounded untruncated ranges. MappedLandformProfile kind is derived by kind_for_lithology and carried with that same observed lithology in a private local record; no independent mutation/reclassification route. Process kind is artistic selected realization, not another claimed mapped geological event.",
+    "2002 whole bounding-square9points plus projection margin must fit one mapped lithology window before recipe construction; source observation and inferred structure remain separate authorities. Candidate source gradient, relief threshold, protected cover and corridor exclusions are different selection conditions, not redundant copies of final physical grade or gameplay impairment.",
+    "2002 raw source-terrain sampling precedes production repair deliberately; current source fixture checks coarse steps still yield intended landform after repair. It does not imply original source and repaired support must have identical heights everywhere. Fault priority and settlement exclusion are explicit dispatcher policy2000, preserving no synthetic extra source.",
+    "2002 source kind roster supports classified lithologies only; other plutonic/volcanic/deposits deliberately returnNone rather than guessing process. Full five-family and missing/flat/protected source fixtures read only; no execution or universal environmental classifier clearance."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2003,
+    "start_line": 1
+  }
+}

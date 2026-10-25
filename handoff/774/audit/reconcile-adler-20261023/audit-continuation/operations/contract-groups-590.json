@@ -1,0 +1,56 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-590",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+      "sha256": "95852ba679486fb361ff90d203788f00fd951c87d215420de1e4931d6911226c",
+      "actual_EOF": 155,
+      "actual_compared_ranges": [
+        [
+          1,
+          155
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+      "sha256": "ab520d3fbb8ff15b6554a7ae16e036426dea29b02082af86a99ce8de78c02fe7",
+      "actual_EOF": 148,
+      "actual_compared_ranges": [
+        [
+          1,
+          148
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "sha256": "cd6f17bf2bc0925f53292c3a04e552698ba572ae7127aa3ce31430296ca420a4",
+      "actual_EOF": 110,
+      "actual_compared_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "P17finite angular/height/duration leaves retain admitted guarantees through min/max, scaling and computedResult operations.",
+      "evidence": "authoredangle155/height148/measurement110fullbodiespersonallyread. SignedAngle finite degrees convertedtoradiansmultiplier<1 staysfinite, nonnegativeangularspeedsame. Nativef32min/max finiteoperands retainfinite+signedzeropolicy; no arithmeticclosureinferredforotherconsumers. NonnegativeLengthhalf canunderflowto0legitimate, noPositiveLengthclaim. HeightscaledbyUnitInterval0..1cannotgrowbeyondMAX; flightperiodrem.5*2->0..1,sin\u00b2boundedamplitude thenweight, completedresultreadmitted. Heightadvance_towards nonnegativefinitecurrent/target subtractionwithin\u00b1MAX, boundedmovementtowardtarget thencheckedresult; differencecanbesignedandretainedsharedSignedLength. Recovery0elapsed returnsstructuredOverflow ratherthansilentzero, validfallibleAPIpolicy; speed*elapsedover checked. PositiveAnimationDuration mayadmitsubnormalstrictlypositive; sample_spanu32countfinitecast, multiplicationfinitecheckedbeforeAnimationElapsed publication, count0validzeroelapsed.",
+      "qualifications": "No tests/serde/nativeexecution. Parentlocal774:F53 zerotime+tinyPositiveDuration turnquotient kernel defect remainsconsumeroperation, thisleafshouldnotarbitrarilynarrowvalidsubnormalduration tohideit. Privatef32fields andserdeTryFrom ownsyntax/nativeadmission, allsupportedconstructorfamiliesotherlens03acceptedwithoutreplay. Errorquantityremappingkeepsmeaning, no compatibilityaliasesneeded.",
+      "acceptance": "Preservefullfinitephysicaldomains/zero/signedzero andintentionalfallibility; re-admitderivedresults atoperationowner andretainpriorstateonactualfailedmutation. Canonicaltime/angleunits throughconsumers, no duplicatefloatingdurationowner orarbitraryphysicalcaps."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "rig-quality:crates/adventuresim-character-creator/src/clothing.rs"
+}

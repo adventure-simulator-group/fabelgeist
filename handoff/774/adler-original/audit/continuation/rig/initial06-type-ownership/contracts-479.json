@@ -1,0 +1,42 @@
+{
+  "id": "RIG-INITIAL06-GROUP-479",
+  "at": "2026-10-23T12:15:50.178126+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "color-tail": {
+      "comparison": "Fresh exact211-229 actual HLG decode/encode kernel. Encoded scalar and scene-linear light have different transfer meaning, not interchangeable UnitInterval despite normalized input examples. Existing color owner owns transfer math, typed color semantic stages above it remain F005. Numerical clamp/log/exp are real conversionport; no silent linearHDR<=1 invariant or unitowner imposed.",
+      "disposition": "actual numerical transfer owner correct"
+    },
+    "armor-tail": {
+      "comparison": "Fresh40-94 actual one-for-one EquipmentBodyPart→BodyPart7mapping, aggregate_layered_armor and outermost_wearable. Same seven-region owner duplication is existing F009, not justified by native ABI boundary inside sameCore. LayeredArmor aggregateresistance/padding/flex versus selected WearableProtection actualcontact-wear piece are different products; preserve CoreEquipmentChannel.order layering and inventoryID deterministic tie break. Coverage math and resistanceweighted flexibility are computed quantities, not duplicate authored protection owner.",
+      "disposition": "F009 direct canonical owner reuse; layer aggregate versus contact selection retained"
+    },
+    "leisure-tail": {
+      "comparison": "Fresh actual P16schedule20-33/171-182/184-239 and complete bounded counterpart comparison to currentPR101, no changed body. RestorativeLeisureSpan absoluteinterval vs prorata total leisure minutes differ actualpurpose; signedfatigue change/morale/earningminutes/leisurehours remain distinct dimensions, default0 meaningful. Source constants encode same Corepolicy not new WorldClock/Animation quantity owner. Raw +Inf intermediate for zero surplus is nativekernel policy, not retained accepted geometry.",
+      "disposition": "explicit currentrole same-contract counterpart carry; no duration/span conflation"
+    },
+    "door-native-tail": {
+      "comparison": "Fresh P16doors74-85 actual collision-hook filter compares actual Entity exemptions symmetrically. Low native entityset grant/revoke differs canonical architectural opening ID and DB permission; operation is native collisionfilter port. Existing serverinterior predicate controls grants, not this primitivepair helper. Blank73context; earlier4021-72 no blanket proof for tail, nowexplicit.",
+      "disposition": "appropriate native entity authority boundary"
+    },
+    "closure-context": {
+      "comparison": "Fresh WorldSchema1633-1638 is previousimplclosing plus nextscalar derive/optionalSATS attrs; no new body beyond previously compared ElevationMeters and next policy declaration. Context boundaries retain actual originalglobalroles rather than award unrelated nextconstructor.",
+      "disposition": "context-only structural closure, no new semantic bodycredit"
+    }
+  },
+  "supporting_existing_findings": [
+    "F005",
+    "F009"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit.",
+  "overlay_refs": [
+    82,
+    89,
+    99,
+    176,
+    203,
+    222
+  ],
+  "limits_detail": "No373+doorfixtures or missing86-132 from thissupplement; older independent fullroles remain. Context and blanklines explicitly nonmaterial."
+}

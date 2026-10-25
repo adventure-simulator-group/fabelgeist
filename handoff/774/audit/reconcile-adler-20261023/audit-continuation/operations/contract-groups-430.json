@@ -1,0 +1,138 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-430",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass.rs",
+      "sha256": "d375436ca9d226ccb6fbc5b65afcaf94a6b9c3e4bfa90fc1016da8cb958a7281",
+      "actual_EOF": 1237,
+      "actual_compared_ranges": [
+        [
+          1,
+          1237
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass/community.rs",
+      "sha256": "950c6a30f2beb4beaf5cdcc2e7b4cf410f6beb5c993bffc23fd8f99e918941a2",
+      "actual_EOF": 263,
+      "actual_compared_ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass/placement.rs",
+      "sha256": "d16bd96cb1443180658a7961e14da85b6f03d0a0a89b11a86c3a8a5054bc9bd8",
+      "actual_EOF": 70,
+      "actual_compared_ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/grass/streams.rs",
+      "sha256": "c7dec0c3ade3ab3bcab4c7477cd16a656dde75abd939c0f7ecdb56ca96a0dca3",
+      "actual_EOF": 32,
+      "actual_compared_ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass.rs",
+      "sha256": "4ebc106478d263a859403c114c4711598dd570927f2706abf5e7123bc37a9c91",
+      "actual_EOF": 623,
+      "actual_compared_ranges": [
+        [
+          1,
+          623
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/batches.rs",
+      "sha256": "55a8f28f05846eea9e2cd7460a1a1aaecb83c64af31573ed82a2bb2f5bdaf196",
+      "actual_EOF": 86,
+      "actual_compared_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Grass mesh arithmetic and ordered geometry",
+      "analysis": "Rows are admitted increasing from0 below1 with at least2 before rows.len()-1 and width taper. Positive blade width bounded .001..25cm, actual height .82 and species/age/width factors bounded; normal normalization and seed head attachment divisor positive for actual producer. Shared seeds retain near/far/vista species/root correspondence; hard zero density drops blades. Native topology square/capacity/u32 indexing remains unsupported arbitrary positive config, see candidate; current authored counts small. Full1237 body and fixture source read, not run."
+    },
+    {
+      "contract": "Community selection and site placement",
+      "analysis": "Saturating basis points give finite bounded site weights; mesic minimum.001 preserves strictly positive quantized weighted selection, localization35/65 retains it. Neighbourhood caches seed-derived9sites independently of profile then uses current profile, so no cached habitat authority drift. ScenePlanPoint finite but huge coordinates saturate native i32 lattice and +/-1 can overflow; actual bounded scene terrain producer needed before ordinary claim. Placement re-admits computed jittered points, checks terrain height/normal and slope, rejects missing cells; fixed normal comparisons rely canonical normal admission."
+    },
+    {
+      "contract": "Instance batches and movement state",
+      "analysis": "Scene preparation builds local vectors, mask errors preserve unpresented scene for retry; disabled grass marks complete intentionally. NearEdge clones actual Near placements. Empty species batches skipped before fitted_batch_aabb, discharging empty min/maxInf helper concern. Scene-wide interaction previous position missing resets state; minimum time1/240 prevents divide byzero but arbitrary huge native displacement can overflow before velocity length clamp, no ordinary interactor producer witness. Smooth/skip uniforms use visual tolerance, no movement authority. Published index/emitted u32 and lattice iteration need bounded topology/scene budget; no ordinary overflow asserted."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-GRASS-TOPOLOGY-ARITHMETIC-CANDIDATE-001",
+      "kind": "admitted custom configuration operation extension, archive canonical pending",
+      "sources": [
+        "grass.rs:247-309 native grid square and mesh construction",
+        "instanced_grass.rs:276-328 usize-to-i32 side and side-1",
+        "config.rs:373-379 nonzero-only topology admission"
+      ],
+      "counterexamples": [
+        "On 32-bit WASM native_blades_per_tuft_side=65536 is positive and usize-representable; grid_side*grid_side overflows usize before blade generation (panic with overflow checks, wraps to zero in unchecked release arithmetic). No huge vertex allocation required to reach this first bad operation.",
+        "native_tufts_per_cell_side=2147483648 is admitted on32/64-bit targets, cast to i32::MIN; when an allowed grass cell is processed side-1 overflows before tuft loop (or wraps in unchecked release), and negative side emits no tufts. Actual allowed scene/ordinary grass supports this API-conditional route, no extreme config installed."
+      ],
+      "qualifications": [
+        "Frozen shipped tiers use tuft counts12/12/4/2 and blade sides8/6/5/4; none trigger these extreme routes.",
+        "No browser/native execution, OOM, hang or observed missing sward asserted.",
+        "Connect to existing admission/config work-budget findings if exact canonical semantics match; do not claim new unique count from operation routes.",
+        "Acceptable fix may reject unsupported completed topology/casts before mutation; no requirement for infallible arbitrary-size mesh generation."
+      ],
+      "dependencies": [
+        "canonical topology/work budget policy",
+        "existing03 config findings",
+        "mesh u32 index and allocation capacities"
+      ],
+      "acceptance": [
+        "All admitted tier dimensions fit subsequent signed lattice and checked size/index arithmetic or reject before generation/partial publication.",
+        "Current tier geometries, deterministic root/species streams, crossfade positions and authored mesh metadata preserved."
+      ]
+    }
+  ],
+  "fresh_dependencies": [
+    {
+      "source": "dependencies-430/tactical-graphics.yaml",
+      "ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "coverage": "fresh exactPR asset dependency only"
+    }
+  ],
+  "status": "6 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/culling.rs"
+}

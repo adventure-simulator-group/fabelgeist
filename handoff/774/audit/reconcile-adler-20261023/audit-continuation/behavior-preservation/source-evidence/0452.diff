@@ -1,0 +1,16 @@
+diff --git a/crates/fabelgeist-geometry/src/measurement.rs b/crates/fabelgeist-geometry/src/measurement.rs
+index 800457fba..c6430750b 100644
+--- a/crates/fabelgeist-geometry/src/measurement.rs
++++ b/crates/fabelgeist-geometry/src/measurement.rs
+@@ -41,6 +41,11 @@ impl SignedLength {
+         }
+         Ok(Self(value))
+     }
++    /// Unary negation preserves finite admission and native signed-zero behavior.
++    pub fn negated(self) -> Self {
++        Self(-self.0)
++    }
++
+     /// Native minimum of two finite admitted lengths, including signed zero.
+     pub fn min(self, other: Self) -> Self {
+         Self(self.0.min(other.0))

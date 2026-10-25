@@ -1,0 +1,25 @@
+{
+  "id": "RIG-INITIAL06-GROUP-032",
+  "at": "2026-10-22T20:14:46.802528+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "canonical-host-identities-and-actual-native-groom-projection": {
+      "sources": [
+        "pr-working:crates/fabelgeist-hair/src/gpu/grow.rs",
+        "pr-working:crates/fabelgeist-hair/src/gpu/mod.rs"
+      ],
+      "comparison": "Fresh full grow876 and gpu/mod1562 including original tests source-only. Actual StrandGpu reprC/Pod native ABI119\u2013125 holds u32id/i32group; upload471\u2013480 extracts canonical Attachment StrandId.word/PartingGroup.gpu_word exactly at GPU admission. read_strands579\u2013598 reconstructs canonical StrandId/PartingGroup from readback, so these are legitimate native ports and distinct from F006 host grouping. GpuGroom is retained device resources plus counts/bounds/optional source head/guides, not another authored Groom/Look owner; StrandSet is operation-local device execution view. Points/counts are u32 native extents, byte size derived count*points*16; no conflation with stable StrandId or GuideMap ordinal. PingPong owns two buffers/currentside and settle operation, not duplicate animation state. PrefixSum/ScanElementCount, KernelBatch/KernelCache/Buffer/Scratch/WgpuContext and GPU passparameter owners are reused directly; scratch byte expressions convert to canonical Buffer length at allocator boundary, error shortreadback uses canonical byte lengths. CPUhost Hair source count APIs can retain canonical Hair counts before explicit deviceu32projection; current casts do not imply overflow-safe admission. Generic root bounds permit infinity for empty initial accumulator, distinct strongerfiniteSpatialBounds/no automaticimport Building. HeadMesh adjacency prefix offsets and triangleordinal are vertex-topology address spaces, not Rig or itemidentity. head_shape149\u2013175 actualpacked ellipsoid/capsule field input is true4lane ABI and not a duplicate checked geometry owner. All native fields do not create a blanket exemption for unchanged host quantities or extra derived state."
+    },
+    "operation-codec-and-derived-native-solver-parameters": {
+      "sources": [
+        "pr-working:crates/fabelgeist-hair/src/gpu/grow.rs"
+      ],
+      "comparison": "Actual grow.record_ops349\u2013652 reads canonical Op variants and packs named native parameters. Source clump radians/m, curl frequency*3 turns/m, Noise factor*distance, Settle acceleration\u2192load/compliance (stiffness^3) are explicit physical transforms; relevant lower raw unit-only Math owners032/030/031 remain shared where host values are unchanged, no checked finite/positive reinterpretation. GpuGroomer does not persist tactical tick state toDB. Parting retained as enum through parting_parameters842\u2013876 then emits explicit kind/lane/plane/fringe native words; host Surface/Look passed through existingowners, no independent copied source config. `Parting::Lanes` forwards rawcount at862 without a host positivegate; this is distinct from actual Hairdo defaultBraid3 proven029, no universal lane precondition clearance. Grow rejects missing/repeatedInterpolation, emptyroots/guides and returnedstrandcount>=2^20; these producer gates do not seal arbitrarypublic GpuGroom fields or everyrawGroomroute. Operation ordinal at defines exact before/after stacks, canonical borrowed input031 already carriesreference+position. Profile in-place branch does not swap buffers. Native code/word ownership stays beside actual Hair adapter, not Core or universalIDcrate. Kernel WGSL bodies are called but not newly read/credited here; original tests normal full graphcalls do not expand unscoped Sim/Lod/renderer features or prove all-input equivalence. Exact source03 evidence can inform later lenses only after their own analyses."
+    }
+  },
+  "new_findings": [],
+  "supports_existing_findings": [
+    "RIG-INITIAL06-F006 host versus actualnativeboundary distinction preserved"
+  ],
+  "limits": "Complete only exact scoped Hair source contracts; no whole feature/allcallers/foreign/other-lens or family clearance."
+}

@@ -1,0 +1,23 @@
+[book]
+title = "Fabelgeist"
+src = "wiki"
+
+[build]
+create-missing = false
+
+[preprocessor.page-metadata]
+command = "python3 scripts/mdbook_page_metadata.py"
+
+[preprocessor.toc]
+command = "mdbook-toc"
+renderer = ["html"]
+
+[output.html]
+mathjax-support = true
+admonitions = true
+site-url = "https://fabelgeist.com"
+git-repository-url = "https://github.com/adventure-simulator-group/fabelgeist"
+
+[output.linkcheck]
+exclude = [ '.+@.+\..+' ] # exclude emails
+traverse-parent-directories = true

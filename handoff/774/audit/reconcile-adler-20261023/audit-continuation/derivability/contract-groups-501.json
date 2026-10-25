@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-501",
+  "at": "2026-10-25T15:53:42.947764+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 895,
+  "source_id": "pr-working:crates/adventuresim-core/src/combat/contact_geometry.rs",
+  "sha256": "8be98e18f4aa0d7bb6fbc302c7a10e6df912a744927240f6a4618ce41541e75f",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Fresh contact_geometry1\u2013220: structural facts and derivedSerde contact result/enums already. intended()/invalid() build selected physical semantic defaults; resolver validates geometry, picks unarmed/positive/closecontact variant/energy/material, not mechanical From or Default. No handtrait/codec in prefix; closecontactbodyunfinished.",
+  "first_unfinished": {
+    "scope_index": 895,
+    "line": 221
+  },
+  "execution": "none"
+}

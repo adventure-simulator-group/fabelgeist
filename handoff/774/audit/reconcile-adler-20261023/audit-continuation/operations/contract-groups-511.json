@@ -1,0 +1,93 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-511",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/urban.rs",
+      "sha256": "0636460b78d2af66faa57a8483f4a89a9b99c84cd19c3f7f90615635734fe95b",
+      "actual_EOF": 20,
+      "actual_compared_ranges": [
+        [
+          1,
+          20
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/validation.rs",
+      "sha256": "3d97a798029ddc9f195aa209105f64070c55fb0172ef87a515e67fe945c735c9",
+      "actual_EOF": 64,
+      "actual_compared_ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_transition_mesh.rs",
+      "sha256": "9bfbec3a8d552438491d80b4939c112bde61108a815c2f3b4ff0129ad796e048",
+      "actual_EOF": 82,
+      "actual_compared_ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/terrain_transition.rs",
+      "sha256": "df252469b9538a750abdbc7646c7cb240e14f41a73eb79e640670ab4be6dda90",
+      "actual_EOF": 200,
+      "actual_compared_ranges": [
+        [
+          1,
+          200
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/terrain_transition/admission.rs",
+      "sha256": "b5fd9a68595105294678fd91c0f3c492e18e5d71d72be01dc8fe7b235f8f25a8",
+      "actual_EOF": 41,
+      "actual_compared_ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Whole source validation, exact order and aggregate bounds",
+      "evidence": "Full urban20/validation64. Streets/yards bounded counts and individualshape validity; no compound native bucket work admission established (502 remains). Vista ordered levels and strictly increasing spacing, checked cumulative sample count before weather. Validation returns structured errors without mutation. Exact ROOT-ADM-F009 weather operation remains before final admission."
+    },
+    {
+      "contract": "Transition shape and native field operations",
+      "evidence": "Full transition200/admission41/mesh82. Positive widths strictly below each half extent; finite nonnegative wander, variation<=5000bps; normalized tangent encoded bits retained rather than silently changed. Wrapping lattice offsets intentional deterministic seed arithmetic. Finite position readmission guards filtering; stride derives existing coarse/grid ratio. Internal blend computes 1-(width/minimum_extent): tiny legal general collar width can round inner to1 and exact radial1 gives0/0, a kernel contract-strengthening question. Actual private blend callers use TerrainLandformRecipe with collar>=1m and halfwidth<=20m/length<=50m, so no public ordinary recipe route promoted. Preserve legal physical scales; no fabricated runtime trigger."
+    }
+  ],
+  "findings": [
+    {
+      "id": "ROOT-ADM-F009",
+      "archive": "audit/continuation/root/admission03/findings.jsonl#row8",
+      "disposition": "exact alias fresh04 support; qualification510",
+      "new_unique": false
+    },
+    {
+      "id": "SEGOVB-04-URBAN-BUCKET-WORK-CAPACITY-CANDIDATE-001",
+      "disposition": "existing502 bounded-shape-count does not establish bounded derived cell work"
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "5 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-core/src/vista_surface.rs"
+}

@@ -1,0 +1,167 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-111",
+  "at": "2026-10-25T17:13:38.705141+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1514,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/compute.rs",
+      "sha256": "d681948a7f1f82b5ab95dfe90ffc820f8dafa85c558a29756c26603c5f208aba",
+      "personally_read_ranges": [
+        [
+          1,
+          430
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full430 compute/view preparation read. OwnerViews binds active native view entity to draw slot, retained view entity to history slot and per-view/batch uniform offsets. Global active count bounded by MAX_CITY_VIEWS before slot allocation; history and per-camera scratch draw slots serve different meanings, not equivalent u32s to interchange. Existing source/device/layout contract must retain their distinct canonical roles before actual native uniform encoding.",
+        "prepare_owner clears dispatch/slots/uniforms each frame. Scratch complete before bindings, groups and offsets iterate same ordered group\u00d7batch product, dispatch batch index modulo same batch list. Empty batches produce no offsets/bindings and no uniform, so no direct modulo0 path established. New selection buffer initially zero means previous=true with zero previous still neutral in actual504 shader; no incorrect stale old-building history claim.",
+        "F36 aggregate capacity and M16 canonical dispatch/resource contracts connect to actual native device limits and selection counts; two-dimensional compact dispatch implements actual row policy while select uses single row. Do not impose arbitrary global city cap or conflate CPU-u32 with native binding capacity. READY published only after dispatch commands recorded; it is render submission readiness, not calibrated visual correctness. Camera/shadow/root policies independent valid axes and genuine native query at encoding. No render/GPU execution."
+      ]
+    },
+    {
+      "scope_index": 1515,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/frame.rs",
+      "sha256": "51939cee77e0767339534b9efe7543597e9698c3904d2ecaf559a5c14260c8e4",
+      "personally_read_ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full103 CityFrame read. Controlled constructors default identity or geographical affine reflect north\u2192south, retain matching inverse-transpose normals and handedness. Reanchoring updates small exact frame buffer before retained state; missing buffer returns structured error before state mutation, leaves geometry identity untouched. Raw Mat4/Vec4 fields are ShaderType/native GPU record, not application coordinate owner by themselves. Actual source geographic projection/f32 narrowing must meet finite invertible scale contract; no ordinary pole/input failure established."
+      ]
+    },
+    {
+      "scope_index": 1516,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/geometry.rs",
+      "sha256": "29d5e171eb43f72999573edd891e5789074d9df1f31c061568965e17ef885740",
+      "personally_read_ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full151 geometry paging/kernel and original fixture read. 64MiB per-page limits bound native indices/count casts locally, including oversized mesh splitting without triangle reorder. Per-page safety does not prove total owner/range/batch capacity (F36). Required native attributes/formats/indexed whole triangles and matching column/face membership currently rely on expect/assert/direct indices: M66 owning admitted mesh source must establish them before retention/worker publication, rather than wrap one native cast or claim generic Bevy Mesh guarantees.",
+        "Each source mesh has its own remap while reusing append page, clearing map on page transition. Fixed three vec4 per vertex pack preserves UV/normal/tangent lanes; missing tangent intentionally derives orthonormal basis from normal. Derived normal/radius finite/normalization relies actual admitted geometry contract, not per-leaf finite positions alone. Test tiny page limit at least one whole triangle; no arbitrary externally set too-small limit normal path (limit private constants)."
+      ]
+    },
+    {
+      "scope_index": 1517,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/material.rs",
+      "sha256": "828e37839d5d4490e9ea77f264645c928c80d3fafa13251ea30a1c792d966dd6",
+      "personally_read_ranges": [
+        [
+          1,
+          102
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full102 native CityMaterial and existing fixture read. StandardMaterial\u2192GPU surface packs base color, roughness, metallic, alpha cutoff and normal-map presence with matching texture handles. Genuine GPU adapter may retain packed vectors, flags and ShaderRef string. It supports known authored diagonal UV transform; generic rotated/sheared StandardMaterial would lose off-diagonal terms, but actual palette producer must be traced before asserting ordinary rendered mismatch. Zero alpha cutoff and absent texture are intentional current native policies, not probability-type defaults. Pipeline buffer/layout indexing relies installed Bevy mesh pipeline contract and anchor, not application index API."
+      ]
+    },
+    {
+      "scope_index": 1518,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/mod.rs",
+      "sha256": "76c13f913682347307d57a33b86d367ca3e074609de2365fa7833a0013fe2a38",
+      "personally_read_ranges": [
+        [
+          1,
+          123
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full123 city plugin/state/reset read. Scene and RegionalMap share one parameterized owner container but independent resident scenes, pending queues, anchors and readiness. Last assembly after PostUpdate deferred updates precedes render extraction. Reset clears only chosen owner; static READY is per-owner process state and actual intended one renderer app. No normal multi-App race claimed. GpuBatch source/owner/geometry/capacity and CityGpuScene counts/selection/frame are meaningful associated native aggregate, M66/F36 must establish once before publication."
+      ]
+    },
+    {
+      "scope_index": 1519,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/scratch.rs",
+      "sha256": "a552361866bcc278a46333d7ca2ee578a10cbf888f96cbd8f402eda84dcebc83",
+      "personally_read_ranges": [
+        [
+          1,
+          139
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full139 scratch source read. Cache key actual scene.buildings AssetId plus sufficient slots reuses matching native batch/source graph; actual assembly creates a fresh building buffer for every nonempty replacement, while reanchor intentionally reuses same frame handle and updates its data. No stale scratch claim from frame update. Preparation builds complete temporary batch list, checks resident assets and max storage binding size, then publishes all scratch fields together; failed preparation does not install partial array.",
+        "Size/capacity/slot multiplication and indirect first-instance layout rely complete admitted F36 source/native bounds. Known slots max64 and actual device binding size constrain accepted native arrays; preserve explicit unavailable/too-large result cause through M65/#826 rather than silently call every false ready. Raw Buffer/layout/byte words are actual native GPU port, not another bespoke wrapper per lane."
+      ]
+    },
+    {
+      "scope_index": 1520,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/kit.rs",
+      "sha256": "57a7b0a2728f339fce3da666494543ca1e9a1e4f6424523d0bd30c00c2a2cdd0",
+      "personally_read_ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full107 component cache/facade installation read. Pure geometry key binds exact size-bit patterns plus interior material role; instance placement and UV remain per-instance, intentionally not in reusable pure mesh key. M74 owns admitted size/rigid placement/UV/source through prepared facade, M69 mode-specific payload construction applies facade empty interior/dynamic openings. Restore full local origin before instance transform; do not merge component pure geometry with scene identity. Native mesh upload final port and cache same-source bit equality preserved."
+      ]
+    }
+  ],
+  "fresh_supporting_full_roles": [
+    {
+      "scope_index": 503,
+      "source_id": "pr-working:assets/shaders/tactical_city.wgsl",
+      "sha256": "b9f68613f166dd35f4ef5de3e5ccc51a46aa330079aea84b1ef20d6073a4185f",
+      "personally_read_ranges": [
+        [
+          1,
+          109
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full109 vertex/fragment shader receiver read. DrawRange owner index decodes global placement index from compact cluster coordinate, then uses exact component transform/UV and corresponding CityFrame normal/handedness. Per-role shader flags, packed vec4 padding and native loops are legitimate native ABI. Normal affine semantics rely actual rigid per-part transform; no ordinary nonuniform-scale producer proved. F36/M67 must preserve layout, cluster addressing and representation/shadow bits; no shader run."
+      ],
+      "count_qualification": "Actual full source support; no added role count until seven historical non-indexed coverage qualifications reconciled, avoiding possible duplicate baseline credit."
+    },
+    {
+      "scope_index": 504,
+      "source_id": "pr-working:assets/shaders/tactical_city_cull.wgsl",
+      "sha256": "4d432edb3c8b72dfcd163fa412e19aa2ee5603f621de9e0fae55fc7e7e46132f",
+      "personally_read_ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full80 culling shader receiver read. History indexes history_slot*building_count+owner; new source selection zero is neutral even if view existed before. Component records skipped deliberately and never draw owners. Compact source range global placement addressing matches vertex decode, preserving duplicate owner multiplicity. Draw slot*capacity bounds and atomic counter sum require actual F36 aggregate contract. Shadow/root policies and representation hysteresis are distinct native behavior. No shader execution."
+      ],
+      "count_qualification": "Actual full source support; no added role count until seven historical non-indexed coverage qualifications reconciled, avoiding possible duplicate baseline credit."
+    }
+  ],
+  "additional_material": [
+    {
+      "material_index": 123,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/draw.rs",
+      "sha256": "faca55a34e4a003497e4f3aa87dfcef3a25e20ffa7e6c7108785a2df225e7337",
+      "personally_read_ranges": [
+        [
+          1,
+          134
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full134 draw receiver read. Native material AssetId locates actual owner/batch; current view draw slot and same scratch batch select bound geometry/indirect record. Missing source/view/batch skips explicitly. Real Bevy render command and final binding/draw offsets, not unfinished application primitive signatures. Prepared/scene/scratch association must be established upstream, retaining M66/F36 and representation policy through actual encoder."
+      ]
+    }
+  ],
+  "findings": [
+    "F36 complete draw-capacity/native layout",
+    "M66 coherent admitted mesh columns/indices",
+    "M67 semantic representation/fade before encoding",
+    "M74 checked timber placement/component geometry",
+    "M16 canonical shared dispatch/layout and #826 native receiving contracts"
+  ],
+  "discovery": "Seven new full original roles, two fully read supporting shader roles with conservative no-new-count qualification, and exact material123 receiver accounted. Lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

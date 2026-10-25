@@ -1,0 +1,294 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1131",
+  "at": "2026-10-25T17:51:46.639701+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1238,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/surgery.rs",
+      "sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+      "actual_EOF": 1435,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/surgery.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/surgery.rs",
+        "sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+        "bytes": 50861,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                1435
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-SURGERY-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 311,
+            "read_ranges": [
+              [
+                1,
+                1435
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SURGERY-057"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/surgery.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 401,
+            "read_ranges": [
+              [
+                1,
+                1435
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SURGERY-057"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/surgery.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 23,
+            "read_ranges": [
+              [
+                350,
+                442
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-STRATEGIC-002"
+            ],
+            "read_status": "exact_owner_and_receiving_bodies_read_remaining_unclaimed",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/surgery.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera",
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CLINICAL-RECEIVERS-045",
+            "json_pointer": "/current_sources/3",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/surgery.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1435
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 295,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/surgery.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/surgery.rs",
+              "expected_sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+              "observed_sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+              "read_ranges": [
+                [
+                  1,
+                  1435
+                ]
+              ],
+              "proof_mode": "Fresh full PR material source including fixtures plus every actual P16 surgery source delta and typed callee/error difference; same-byte variants do not imply same downstream error contract"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-034",
+            "json_pointer": "/fresh_current_source_reads/3",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/surgery.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1435
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 295,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/surgery.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/surgery.rs",
+              "expected_sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+              "observed_sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+              "read_ranges": [
+                [
+                  1,
+                  1435
+                ]
+              ],
+              "proof_mode": "Fresh current complete PR material body; paired same-byte variant fingerprint verified where supplied, preserving different downstream P16 error types",
+              "status": "body-read-actual-receiver-closure-pending"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-035",
+            "json_pointer": "/fresh_current_source_reads/1",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/surgery.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1435
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 295,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/surgery.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/surgery.rs",
+              "expected_sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+              "observed_sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+              "read_ranges": [
+                [
+                  1,
+                  1435
+                ]
+              ],
+              "proof_mode": "Fresh full PR material source including fixtures plus every actual P16 surgery source delta and typed callee/error difference; same-byte variants do not imply same downstream error contract"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 545,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved",
+        "admission03_increment050_role_observations": [
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 20,
+            "registration_id": "NATIVE-ADMISSION03-REG-020",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-020",
+              "at": "2026-10-22T07:48:19.266734+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/surgery.rs",
+              "sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+              "snapshot": "pr-working",
+              "actual_EOF": 1435,
+              "material_ranges": [
+                [
+                  366,
+                  379
+                ]
+              ],
+              "role": "Actual InjuryRecoveryMinutes private payload/new/NONE direct definition for Native124 wait/preview/travel canonical parameter admission",
+              "reason": "Current03 Rig andRoot have no canonical admission witness; actual Native124 new(minutes)/new(elapsed) calls require exact zero/allword policy, not name inference.",
+              "exclusions": "Only exact definition/derive/doc/impl; no surgery settlement/injury disease graph or original tests coverage.",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\surgery.rs",
+              "status": "registered_before_direct_definition_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADMISSION03-QUAL-020",
+                "registration_id": "NATIVE-ADMISSION03-REG-020",
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-020",
+                  "at": "2026-10-22T07:48:19.266734+00:00",
+                  "authority": "continuation/root/admission03-discovery-authority-043.json",
+                  "source_id": "pr-working:crates/adventuresim-stdb-module/src/surgery.rs",
+                  "sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+                  "snapshot": "pr-working",
+                  "actual_EOF": 1435,
+                  "material_ranges": [
+                    [
+                      366,
+                      379
+                    ]
+                  ],
+                  "role": "Actual InjuryRecoveryMinutes private payload/new/NONE direct definition for Native124 wait/preview/travel canonical parameter admission",
+                  "reason": "Current03 Rig andRoot have no canonical admission witness; actual Native124 new(minutes)/new(elapsed) calls require exact zero/allword policy, not name inference.",
+                  "exclusions": "Only exact definition/derive/doc/impl; no surgery settlement/injury disease graph or original tests coverage.",
+                  "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\surgery.rs",
+                  "status": "registered_before_direct_definition_body_analysis"
+                },
+                "original_requested_context_ranges": [
+                  [
+                    366,
+                    379
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    366,
+                    379
+                  ]
+                ],
+                "qualification": "InjuryRecoveryMinutes privateu64 NONE0/infalliblenewallu64/get, noSerdeDefaultReflect or strictpositive policy.",
+                "current_admission_proof_refs": [
+                  "contract-groups-045.json#activity-clipped-interval-and-clock-advance-admission"
+                ],
+                "frozen_hash_eof_verified": true,
+                "semantics_from_hash_or_ranges": false,
+                "global_reconciliation": "Root authority; raw original registration retained; no globalacceptance from this localqualification",
+                "producer_owner_later_lens_credit": false
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                366,
+                379
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\surgery.rs",
+            "actual_EOF": 1435,
+            "bytes": 50861
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1435
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "Native treatment/injury/projectile tables Clone/Debug; disposition/recovery/preview/settlement structural derives."
+      ],
+      "absence_basis": "Full1435lines1128\u20131131 consumed. No handwritten trait/custom codec. Identity-dependent injury reset, region mutable projection, blood/healing/infection/splint/currentequipment/time/native treatment admission/revalidation/receipts semantic; explicit None/New/Replay/Collision differs Eq-only. Final1111\u20131169 effects/receipt and1171\u20131435 native/source fixtures read not run."
+    }
+  ],
+  "groups": [
+    "KEEP identity-bound reset recipe, checked contextual treatment/current authority and recovery/time/native effect semantics; no invented Default identities or unchecked From/Serde."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1239,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/surgery/authority_tests.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

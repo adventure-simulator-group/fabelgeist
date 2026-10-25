@@ -1,0 +1,86 @@
+{
+  "id": "CONT08-CONTRACT-351",
+  "at": "2026-10-25T17:04:38.290268+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 1233,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/party_readiness.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/strategic/party_readiness.rs",
+      "before_sha256": "8b1c585d51e630d3195a7f27e41251c155466d7195ede4bac0810b2e39ad19b5",
+      "after_sha256": "8b1c585d51e630d3195a7f27e41251c155466d7195ede4bac0810b2e39ad19b5",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1233-base-8b1c585d51e630d3195a7f27e41251c155466d7195ede4bac0810b2e39ad19b5",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/8b1c585d51e630d3195a7f27e41251c155466d7195ede4bac0810b2e39ad19b5",
+      "diff": "source-evidence/pr-1233.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          198
+        ]
+      ],
+      "head_body_read_method": "Full bodies actually read in immediately preceding continuation; source facts retained across context checkpoint, compared exact base/head and native receiving bodies; no execution.",
+      "facts": [
+        "Living member IDs join alive Characters and sort IDs without claiming duplicate admission; whole-party readiness versus public ready power/leader/recovery semantics unchanged.",
+        "Evacuation chooses exact authoritative case origin/current own-party camp/settlement destinations, and continuation requires the matching settlement; stored readiness is not implicitly refreshed here."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1234,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/scenario_characters.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/strategic/scenario_characters.rs",
+      "before_sha256": "fe732c13e4aebc3bfbe24b75f8a91f654d37117925eeea8cfdf8766f5eec402e",
+      "after_sha256": "fe732c13e4aebc3bfbe24b75f8a91f654d37117925eeea8cfdf8766f5eec402e",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1234-base-fe732c13e4aebc3bfbe24b75f8a91f654d37117925eeea8cfdf8766f5eec402e",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/fe732c13e4aebc3bfbe24b75f8a91f654d37117925eeea8cfdf8766f5eec402e",
+      "diff": "source-evidence/pr-1234.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "head_body_read_method": "Full bodies actually read in immediately preceding continuation; source facts retained across context checkpoint, compared exact base/head and native receiving bodies; no execution.",
+      "facts": [
+        "Existing scenario character accepted only at requested settlement; native identity ignores replacement name. New character passes Player origin, create_solo_party/generated carry true and stable ID seed with no initialTime/field actor/personality. Empty PR diff."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1235,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/tests/authority_trade_dialogue.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/strategic/tests/authority_trade_dialogue.rs",
+      "before_sha256": "32c5e6e23e6687a365a8b7a7920e5a7dc0a6d6cc722250448159318a90f60899",
+      "after_sha256": "32c5e6e23e6687a365a8b7a7920e5a7dc0a6d6cc722250448159318a90f60899",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1235-base-32c5e6e23e6687a365a8b7a7920e5a7dc0a6d6cc722250448159318a90f60899",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/32c5e6e23e6687a365a8b7a7920e5a7dc0a6d6cc722250448159318a90f60899",
+      "diff": "source-evidence/pr-1235.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          761
+        ]
+      ],
+      "head_body_read_method": "Full bodies actually read in immediately preceding continuation; source facts retained across context checkpoint, compared exact base/head and native receiving bodies; no execution.",
+      "facts": [
+        "Full761 source assertion/fixture bodies consumed; no test execution. Retained source oracles cover accepted/ReadyToReport lifecycle guards, party authority, incident entropy/private/public identities, native hostile subject/loot policy, provider paths and per-character stake purchase ordering.",
+        "Read dialogue binding/knowledge/custody/physical evidence and joined participant source assertions plus opaque arrest projection filters. Source assertions do not themselves establish native runtime outcomes.",
+        "CONT08-QUAL014 records exact retained stale authority entropy constructor extraction and already-typed storefront clock source-string assertions, with current native producer and empty PR diff qualifications."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    }
+  ],
+  "next": "1236 travel_planning346, then1237 travel_reducers1029; exact old/new and materially reached recipients"
+}

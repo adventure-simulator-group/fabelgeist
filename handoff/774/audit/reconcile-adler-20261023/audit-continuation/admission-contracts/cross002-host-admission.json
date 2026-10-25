@@ -1,0 +1,166 @@
+{
+  "id": "SEGO-CONT03-CROSS002-DISPOSITION",
+  "at": "2026-10-25T07:30:48.800794+00:00",
+  "lens": "admission-contracts",
+  "source_evidence": [
+    {
+      "scope_index": 2286,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/grow.rs",
+      "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+      "personally_read_ranges": [
+        [
+          96,
+          430
+        ],
+        [
+          753,
+          876
+        ]
+      ]
+    },
+    {
+      "scope_index": 2287,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/guides.rs",
+      "sha256": "ff313e8605d4893263109f7c930fcc81eb6c71aae6a7cffdbcafd10a44137aea",
+      "personally_read_ranges": [
+        [
+          1,
+          357
+        ]
+      ]
+    },
+    {
+      "scope_index": 2288,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/guides/packed.rs",
+      "sha256": "eabbc4d66906c663bc661d3ac362b051fc301694f436b2fdd0613116e2e2249b",
+      "personally_read_ranges": [
+        [
+          1,
+          93
+        ]
+      ]
+    },
+    {
+      "scope_index": 2291,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/hairdo.rs",
+      "sha256": "7adbce20aa4fb6390748d4a83ad91e4c31a976db817f0a26c321f5c415393f14",
+      "personally_read_ranges": [
+        [
+          131,
+          174
+        ]
+      ]
+    },
+    {
+      "scope_index": 2300,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/ops/interpolate.rs",
+      "sha256": "695c1097efb81ad14d92b7d55949e67524b0e3949da155df54fac940c6f5b92a",
+      "personally_read_ranges": [
+        [
+          32,
+          171
+        ]
+      ]
+    },
+    {
+      "scope_index": 2641,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/grow/input.rs",
+      "sha256": "79df824a0c6fc00d93e45308c1d6f5a24ecb35216bab4b22b51d271d96a6f9e3",
+      "personally_read_ranges": [
+        [
+          1,
+          22
+        ]
+      ]
+    },
+    {
+      "scope_index": 2642,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/grow/profile.rs",
+      "sha256": "952ded1a5956f9cc562e2a19d85ecd6fcc07e49e5f5c663a9d2c0f20f2323e36",
+      "personally_read_ranges": [
+        [
+          1,
+          56
+        ]
+      ]
+    },
+    {
+      "scope_index": 2772,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/identity.rs",
+      "sha256": "9e6bb30bdee39ecc35561aa4a286e46a7645129f179f7734fcba0e78d433dc48",
+      "personally_read_ranges": [
+        [
+          1,
+          64
+        ]
+      ]
+    },
+    {
+      "extension_index": 34,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/wgsl/groom.rs",
+      "sha256": "955f005be356cd5dac7fef18bd1c669d248c1fdf2632f5a787a7b10222be2ae2",
+      "personally_read_ranges": [
+        [
+          81,
+          118
+        ],
+        [
+          300,
+          365
+        ],
+        [
+          638,
+          769
+        ]
+      ]
+    },
+    {
+      "extension_index": 35,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/wgsl/guides.rs",
+      "sha256": "bcd60aee22ae82fae270b38599aca660f0432c0a6baf72d58241a88da4cfa840",
+      "personally_read_ranges": [
+        [
+          989,
+          1087
+        ]
+      ]
+    }
+  ],
+  "question": "SEGO-CONT06-CROSS002",
+  "disposition": "Bounded connected source discovery finished WITH qualified admission gaps; not runtime failure/clearance",
+  "facts": [
+    "grow:144-152 rejects empty retained groom and count >= 1<<20 before mapping. This disproves a blanket missing groom-strand limit finding and avoids the all-ones packed-empty collision for accepted groom indices.",
+    "Guides::Host accepts &Strands; upload_guides323-355 resamples/uploads and narrows len to u32 without corresponding packed-guide limit. grow180-205 runs pre-interpolation ops on guides.count, so Op::Clump417-420 can reach record_map on this count. Guide body input is API source, not a demonstrated ordinary huge preset.",
+    "Hairdo::guide_count fixes wanted to110/140/160; generated roots also include scalp boundary. Record_guide_roots capacities/wanted+boundary and read guide count have no equivalent final map limit. Ordinary dataset boundary does not prove an oversized run.",
+    "Parting::Lanes public/Serde count is unbounded u32. parting_parameters passes it through; shared native PARTING computes corresponding signed group. Host Hairdo::parting fixes known braid count3 and other closed modes produce <=2. These normal modes fit five map slots.",
+    "MAP_CELL clamps group+1 into0..4; Assigned3 andAssigned4 share final slot. Representable five-lane API input with neighboring roots in these groups loses separation under a clump map. This is a native executable representability extension of RIG-ADMISSION03-F071, not evidence all normal looks are broken.",
+    "guide_pack1086 recomputes parting_group(root) under Interpolate.parting, then writes f32; it does NOT blindly serialize the original strands[g].group. interp_select331 casts this float to i32. Counts admitting group IDs beyond exact f32 integers can round identity. Fix the actual executable lane/native-format agreement, not the canonical open PartingGroup ID domain in isolation."
+  ],
+  "correction_to_cross_lens_prose": {
+    "source": "../type-ownership/contract-groups-013.json CROSS002 supplement",
+    "correction": "Phrase projects PartingGroup signedword was too broad: actual guide_pack recomputes group using interpolation policy. Full-i32 representability still not promised by float format, but arbitrary original host group does not flow directly through this pack."
+  },
+  "deduplication": [
+    {
+      "alias": "RIG-ADMISSION03-F071",
+      "support": "Executable lane admission must match both CPU and GPU representations, not just nonzero/i32. Native group alias/float transport is connected acceptance evidence of same Parting admission repair."
+    },
+    {
+      "alias": "RIG-ADMISSION03-F068",
+      "support": "Paired admitted GPU/guide shape is shared repair dependency; count bound for leader packing is an additional concrete format obligation. Do not equate existing readback-size finding to this exact new mechanism."
+    }
+  ],
+  "connected_repair": [
+    "Canonical executable hair layout must establish count/points/paired buffer shape and packed leader representability for BOTH guide and groom sets before recording any corresponding map. Centralize the existing successful groom bound rather than scattering primitive checks.",
+    "Admit executable Parting/lane population once with a representation that preserves actual IDs through map slots and guide-info transport, or reject unsupported executable policies explicitly. Do not arbitrarily cap the open identity type or normalize distinct lanes into one silently.",
+    "Use #780 high-level hair producer/packing ownership and #826 lower admitted buffer ports; do not start competing source repair during discovery."
+  ],
+  "acceptance": [
+    "Every accepted mapped guide/groom ordinal roundtrips and never produces empty packed sentinel.",
+    "Distinct admitted parting IDs remain distinct through leader grouping and guide interpolation compatibility.",
+    "Known None/Plane/Fringe and three-lane braid behavior, explicit unassigned policy, zero collection policy and raw authoring domain remain deliberate."
+  ],
+  "repair": "not_started",
+  "validation": "not_run",
+  "other_lens_credit": false
+}

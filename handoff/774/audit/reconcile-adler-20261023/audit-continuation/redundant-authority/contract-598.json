@@ -1,0 +1,48 @@
+{
+  "id": "CONT07-CONTRACT-598",
+  "at": "2026-10-24T00:26:41.526650+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2585,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+      "sha256": "9cb076d4f2ff85b5932981983e2eeea82850c8b40b647948ca400bd4d00aad51",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+      "actual_EOF": 185,
+      "ranges": [
+        [
+          1,
+          144
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2586,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_validation_surface.rs",
+      "sha256": "1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/item_catalog_validation_surface.rs",
+      "actual_EOF": 219,
+      "ranges": [
+        [
+          1,
+          159
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "P16 occupancy validator rejects nonzero orders for singleton channels and orders above u16::MAX, but supplies no universal order<1000 bound. Non-singleton order therefore remains wider than the UI packed-rank radix under investigation; this is a P16 admission fact, not automatically PR-working variant admission proof. Same validator deserializes typed occupancy and applies canonical conflicts_with/zone.fits_location.",
+    "Surface validation manually repeats the serialized anatomical-region roster already declared by EquipmentAnatomicalRegion, then deserializes Region again for body-part mapping. All fifteen current names agree in these personally read variants; this is a maintenance population rather than a current rejection mismatch. Contiguity/protection/coverage are independent policies and must not be collapsed into the enum roster."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2587,
+    "start_line": 1
+  }
+}

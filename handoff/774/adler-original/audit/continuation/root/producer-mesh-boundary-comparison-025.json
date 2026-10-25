@@ -1,0 +1,82 @@
+{
+  "id": "CONT-ROOT-PRODUCER-MESH-BOUNDARY-COMPARISON-025",
+  "at": "2026-10-22T04:45:49.059897+00:00",
+  "lens": "audit-producer-propagation",
+  "source_read": "Fresh actual bounded P16 leaf1-108, Builder1-56/74-161/176-217, member_uv1-44, Lod95-137, finish1-29/54-88; already prospectively registered by Rig. Merely displayed unrelated triangle method and source/header declarations gain no role coverage.",
+  "checked_unchanged_path": "compile_window_leaf typed CuboidDimensions21 -> raw size25 -> unchanged non-TimberShutter body52-58 -> Builder::cuboid46-55 forwards same raw size -> member87 re-admits CuboidDimensions before CuboidCorners::from_pose85, which already takes typed dimensions. This is a concrete existing checked guarantee stripped/reconstructed before the actual corner equation, even within cohesive mesh compilation.",
+  "legitimate_changed_and_numeric_roles": "Shutter board/hardware/came sizes are genuinely computed new dimensions; actual corner geometry, normal/cross/winding, UV projection and Lod vertex/index construction are numerical mesh roles. Do not infer a wholesale primitive-record exemption from a private Builder or eventual native Bevy Mesh. Preserve degenerate CuboidDimensions for fixed glazing and positive LeafDimensions only for operable leaves.",
+  "connected_remedy": "Compose existing canonical dimensions and whole Builder::cuboid/member plus leaf caller once with original source-policy/error semantics; retain original admitted size for unchanged branch and admit newly computed size at actual operation. No duplicate physical owner or forwarding shim. Exact claim reconciliation with Rig final packet pending.",
+  "status": "supporting concrete producer gap/canonical API propagation candidate; owner/admission/operation/aggregate lenses still required",
+  "source_edits": 0,
+  "new_tests": 0,
+  "other_lens_credit": false,
+  "actual_sources": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/windows/leaf.rs",
+      "sha256": "bea74075651588d26b629c3b43996d0c9fe8d76c47577b585af2b8e159488ffd",
+      "read_ranges": [
+        [
+          1,
+          108
+        ]
+      ],
+      "scope_qualification": "Only actual unchanged checked-dimension branch and actual corner/UV/mesh receiving path; unrelated methods/fields displayed within ranges receive no independent role credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/furniture/builder.rs",
+      "sha256": "502686dec923c61c5544f2249c9ba10f0a1ec2fac5db68afbb55a5426698570d",
+      "read_ranges": [
+        [
+          1,
+          56
+        ],
+        [
+          74,
+          161
+        ],
+        [
+          176,
+          217
+        ]
+      ],
+      "scope_qualification": "Only actual unchanged checked-dimension branch and actual corner/UV/mesh receiving path; unrelated methods/fields displayed within ranges receive no independent role credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/member_uv.rs",
+      "sha256": "c560af0f6ea1265a0cc35a0bc9c0757094219d2c6bf12f37de47d4ea15460af9",
+      "read_ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "scope_qualification": "Only actual unchanged checked-dimension branch and actual corner/UV/mesh receiving path; unrelated methods/fields displayed within ranges receive no independent role credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/lod.rs",
+      "sha256": "a67de5a3238c34c5d18edae89ddc2c51c4fe1dd562189103a6549bb34a88cfac",
+      "read_ranges": [
+        [
+          95,
+          137
+        ]
+      ],
+      "scope_qualification": "Only actual unchanged checked-dimension branch and actual corner/UV/mesh receiving path; unrelated methods/fields displayed within ranges receive no independent role credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/furniture/finish.rs",
+      "sha256": "dac29dae17db4b4f9d76d11d1b0abef36af636b365631f550a9fa90a4f81f072",
+      "read_ranges": [
+        [
+          1,
+          29
+        ],
+        [
+          54,
+          88
+        ]
+      ],
+      "scope_qualification": "Only actual unchanged checked-dimension branch and actual corner/UV/mesh receiving path; unrelated methods/fields displayed within ranges receive no independent role credit."
+    }
+  ]
+}

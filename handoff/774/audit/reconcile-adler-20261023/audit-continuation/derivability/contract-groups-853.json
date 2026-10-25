@@ -1,0 +1,401 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-853",
+  "at": "2026-10-25T17:01:27.836267+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1067,
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/continue_camp_travel_reducer.rs",
+      "sha256": "1b6c34fcc239973cbd97568ceaba3e60a04372b745ad88547dbf7a0de4468fca",
+      "actual_EOF": 72,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-client/src/continue_camp_travel_reducer.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-client/src/continue_camp_travel_reducer.rs",
+        "sha256": "1b6c34fcc239973cbd97568ceaba3e60a04372b745ad88547dbf7a0de4468fca",
+        "bytes": 2667,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                72
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-SIM-SDK-RECEIVER-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 207,
+            "read_ranges": [
+              [
+                1,
+                72
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-GENERATED-PORTS-077"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-client/src/continue_camp_travel_reducer.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-STATE-NATIVE-PORTS-054",
+            "json_pointer": "/current_sources/1",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-client/src/continue_camp_travel_reducer.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                72
+              ]
+            ],
+            "source_context": {
+              "index": 196,
+              "source_id": "pr-working:crates/adventuresim-stdb-client/src/continue_camp_travel_reducer.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-client/src/continue_camp_travel_reducer.rs",
+              "sha256": "1b6c34fcc239973cbd97568ceaba3e60a04372b745ad88547dbf7a0de4468fca",
+              "read_ranges": [
+                [
+                  1,
+                  72
+                ]
+              ],
+              "mode": "Fresh actual whole current source and exact PR/P16 byteidentity where shared; generatedfiles read only, no generation/edit/check."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 411,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "From<ContinueCampTravelArgs> for Reducer",
+          "lines": [
+            [
+              13,
+              19
+            ]
+          ],
+          "disposition": "GENERATED exact argument-to-event enum conversion"
+        },
+        {
+          "trait": "__sdk::InModule",
+          "lines": [
+            [
+              21,
+              23
+            ]
+          ],
+          "disposition": "GENERATED module association"
+        },
+        {
+          "trait": "continue_camp_travel",
+          "type": "RemoteReducers",
+          "lines": [
+            [
+              58,
+              72
+            ]
+          ],
+          "disposition": "GENERATED typed callback reducer invocation"
+        }
+      ],
+      "existing_derives": [
+        "Args native Serialize/Deserialize ClonePartialEqDebug already"
+      ]
+    },
+    {
+      "scope_index": 1068,
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/end_tactical_server_reducer.rs",
+      "sha256": "45a56ae8f6a11c4f676604c9e3c69148174c0cd6c50178a693bd9ebe8d3d4e0e",
+      "actual_EOF": 88,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-client/src/end_tactical_server_reducer.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-client\\src\\end_tactical_server_reducer.rs",
+        "sha256": "45a56ae8f6a11c4f676604c9e3c69148174c0cd6c50178a693bd9ebe8d3d4e0e",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 88,
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SERVER-PROJECTION-EQUIPMENT-055",
+            "json_pointer": "/additional_actual_source_proofs/13",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-client/src/end_tactical_server_reducer.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                88
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-client/src/end_tactical_server_reducer.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-client/src/end_tactical_server_reducer.rs",
+              "sha256": "45a56ae8f6a11c4f676604c9e3c69148174c0cd6c50178a693bd9ebe8d3d4e0e",
+              "read_ranges": [
+                [
+                  1,
+                  88
+                ]
+              ],
+              "actual_line_count": 88,
+              "read_kind": "fresh complete actual specified bodies; no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-SERVER-PLAYER-PROJECTION-026",
+            "json_pointer": "/additional_actual_receivers/13",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-client/src/end_tactical_server_reducer.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                88
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-client/src/end_tactical_server_reducer.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-client/src/end_tactical_server_reducer.rs",
+              "sha256": "45a56ae8f6a11c4f676604c9e3c69148174c0cd6c50178a693bd9ebe8d3d4e0e",
+              "read_ranges": [
+                [
+                  1,
+                  88
+                ]
+              ],
+              "actual_line_count": 88,
+              "read_kind": "fresh complete actual specified bodies; no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          88
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "From<EndTacticalServerArgs> for Reducer",
+          "lines": [
+            [
+              17,
+              24
+            ]
+          ],
+          "disposition": "GENERATED exact typed resolution+receipt move"
+        },
+        {
+          "trait": "__sdk::InModule",
+          "lines": [
+            [
+              26,
+              28
+            ]
+          ],
+          "disposition": "GENERATED module association"
+        },
+        {
+          "trait": "end_tactical_server",
+          "type": "RemoteReducers",
+          "lines": [
+            [
+              68,
+              88
+            ]
+          ],
+          "disposition": "GENERATED typed callback invocation"
+        }
+      ],
+      "existing_derives": [
+        "Args native Serialize/Deserialize ClonePartialEqDebug already"
+      ]
+    },
+    {
+      "scope_index": 1069,
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/enter_mission_reducer.rs",
+      "sha256": "92a0024a27555a70ff4a28541bfacd19dae4f1ff89cbfbcdb12babfab28db71a",
+      "actual_EOF": 81,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-client/src/enter_mission_reducer.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-client\\src\\enter_mission_reducer.rs",
+        "sha256": "92a0024a27555a70ff4a28541bfacd19dae4f1ff89cbfbcdb12babfab28db71a",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 81,
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SERVER-PROJECTION-EQUIPMENT-055",
+            "json_pointer": "/additional_actual_source_proofs/14",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-client/src/enter_mission_reducer.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                81
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-client/src/enter_mission_reducer.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-client/src/enter_mission_reducer.rs",
+              "sha256": "92a0024a27555a70ff4a28541bfacd19dae4f1ff89cbfbcdb12babfab28db71a",
+              "read_ranges": [
+                [
+                  1,
+                  81
+                ]
+              ],
+              "actual_line_count": 81,
+              "read_kind": "fresh complete actual specified bodies; no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-SERVER-PLAYER-PROJECTION-026",
+            "json_pointer": "/additional_actual_receivers/14",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-client/src/enter_mission_reducer.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                81
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-client/src/enter_mission_reducer.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-client/src/enter_mission_reducer.rs",
+              "sha256": "92a0024a27555a70ff4a28541bfacd19dae4f1ff89cbfbcdb12babfab28db71a",
+              "read_ranges": [
+                [
+                  1,
+                  81
+                ]
+              ],
+              "actual_line_count": 81,
+              "read_kind": "fresh complete actual specified bodies; no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "From<EnterMissionArgs> for Reducer",
+          "lines": [
+            [
+              14,
+              21
+            ]
+          ],
+          "disposition": "GENERATED exact character/server move"
+        },
+        {
+          "trait": "__sdk::InModule",
+          "lines": [
+            [
+              23,
+              25
+            ]
+          ],
+          "disposition": "GENERATED module association"
+        },
+        {
+          "trait": "enter_mission",
+          "type": "RemoteReducers",
+          "lines": [
+            [
+              61,
+              81
+            ]
+          ],
+          "disposition": "GENERATED typed callback invocation"
+        }
+      ],
+      "existing_derives": [
+        "Args native Serialize/Deserialize ClonePartialEqDebug already"
+      ]
+    }
+  ],
+  "groups": [
+    "Each complete exact generated reducer source personally consumed. Preserve pub(super) argument scope, argument native types, associated RemoteModule, no-op convenience callback and FnOnce Send static nested reducer/internal error result. These are generated API adapters, not handwritten repo cleanup findings; schema/generation owner only. No invocation performed."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1070,
+    "source_id": "pr-working:crates/adventuresim-stdb-client/src/leave_mission_reducer.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

@@ -1,0 +1,21 @@
+{
+  "id": "SEGOVB-04-CUT-PLANE-SCALE-CANDIDATE-001",
+  "status": "qualified_semantic_policy_dependency_not_accepted_defect",
+  "source_id": "pr-working:crates/adventuresim-character-creator/src/surface_cut.rs",
+  "sha256": "a62fc268fef2024b832c7557c089daee6d948bfa8296b12f128bdbf5fea7b849",
+  "ranges": [
+    [
+      8,
+      15
+    ],
+    [
+      130,
+      195
+    ]
+  ],
+  "source_case": "Same half-space x<=.0001 encoded by normal[1,0,0],offset.0001 or normal[100,0,0],offset.01 gives different clipping residuals near source x0. partition compares raw equation distance against CUT_VERTEX_SNAP_METRES .00015 without normal magnitude. Unit encoding snaps x0 distance-.0001 to0; scaled encoding distance-.01 staysnegative, retaining a nonzero strip between x0 andx.0001 on an ordinary unit triangle. Intermediate clipping representation disagreement established; complete triangulation/final CutPlan witness not separately traced here.",
+  "qualification": "Public plane equation scale/tolerance meaning decision needed. Existing F021 explicitly preserves legitimate arbitrary scaled planes and existing clipping/snap policies; this is not authority to impose unit normals or silently change authored cuts. Actual mail standard creates nonunit sloped planes, but no actual generated garment failure or normal scaling mutation identified. No new unique defect/count.",
+  "connected_acceptance_question": "Choose canonical equation/tolerance semantics that preserve actual intended physical snap distance and supported scaled equations; then compare equivalent representations before calling a defect or changing output.",
+  "execution": "none",
+  "repair": "frozen"
+}

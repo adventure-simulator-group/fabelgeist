@@ -1,0 +1,76 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-796",
+  "at": "2026-10-25T16:52:24.954679+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1012,
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_presence/context.rs",
+      "sha256": "e8fa0d3cc0b66a908ad8f44642c1cf2e09f9d6d5e8ac341e7201f7aea959995e",
+      "actual_EOF": 55,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/strategic_presence/context.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/strategic_presence/context.rs",
+        "sha256": "e8fa0d3cc0b66a908ad8f44642c1cf2e09f9d6d5e8ac341e7201f7aea959995e",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 1787,
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 34,
+            "read_ranges": [
+              [
+                1,
+                55
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-STRATEGIC-004"
+            ],
+            "read_status": "full_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/strategic_presence/context.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_owner": "native",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1590,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "Three vocab enums already derive structural traits, Serde snake_case and conditional SpacetimeType"
+      ],
+      "absence_basis": "Full source contains only inherent semantic presentation map and derived declarations; no handwritten trait/codec."
+    }
+  ],
+  "groups": [
+    "Allowed authoring answer maps to Request rather than identical representation, emergency treatment exists only presentation vocabulary. Preserve native semantic mapping; do not replace with serialization classifier."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1013,
+    "source_id": "pr-working:crates/adventuresim-core/src/strategic_schedule.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

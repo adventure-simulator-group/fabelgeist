@@ -1,0 +1,50 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-030",
+  "lens": "audit-enum-shapes",
+  "scope": "cumulative-source-scope-parallel-072.json",
+  "groups": [
+    {
+      "indices": [
+        1843,
+        1844
+      ],
+      "comparison": "Fresh115/454. SelectedFloor holds threshold+elevation jointly without readyflag. None sourceobservation and crossedfloorconstraints become typederrors; no modealongside inapplicablefloorpayload. Existing tests use explicit doorway supportenum and source/native predicates, preserving exact failurecases and physicalobservations. doors/aprons parallelzip is a correlation contract for otherlenses; normal1839producer constructs sameorder/cardinality, so no new09flagfinding.",
+      "disposition": "current selectedfloor shape appropriate; do not inherit aggregateclearance"
+    },
+    {
+      "indices": [
+        1845
+      ],
+      "comparison": "Fresh318. SupportStairFlight has all simultaneouslymeaningful geometry/stepfields and nonzero risercount. CourtStair::compile returns Result<Option<Self>> correctly separating invalidgeometry, legitimatelyunneededflight and presentflight. height_at returns Option<GeometryResult<SupportElevation>> distinguishing out-of-coverage from failedownedmeasurement; actual main_height.ok erasure freshly reinforces existing ROOT-PP-019. maximum_rise returns0 for unavailable Option run, supporting existing ROOT-PP-009 explicitcapacitystate; negative computedcapacity and actual0 remain separatelymeaningful.",
+      "disposition": "appropriate flight/outside/error sum; existing failure/absence andcapacitycontractsremain",
+      "supports_existing": [
+        "ROOT-PP-019",
+        "ROOT-PP-009"
+      ]
+    },
+    {
+      "indices": [
+        1846,
+        2695
+      ],
+      "comparison": "Diagnostic SupportGradingAttempt includes meaningful NotSelected plus selected SingleBuildingFloorAndEntrances/Compound(CourtTreatment). Accepted PropertySupportSurface retains the same broadenum. Its validate_encoded explicitly rejects NotSelected and requires selectedrole/membercount relation; doorway_approaches nevertheless has a NotSelected=>empty branch. Actual for_single_bearing and CompoundSupportPlan::support_surface correctly set selectedvariants, and decode performs rejection.",
+      "disposition": "SEGO-INITIAL09-F013",
+      "finding_refs": [
+        "SEGO-INITIAL09-F013"
+      ],
+      "scope_qualification": "2695actual159EOF but scoped1-157 only;158-159cfgmodcontextnotcredited"
+    },
+    {
+      "indices": [
+        1847,
+        1848
+      ],
+      "comparison": "Fresh185/37. FloorBearing fixtures patternmatch nested Floor{issue:Coverage{...}} so typedfailurepayload survives; no duplicateerrorcode/status. SurfaceHit alwayscarries elevation+normal, Option indicates rejected nativegeometry rather than a separateisvalidflag. ExistingNaN/zero/Inf/signedzero fixtureinputs retained, not executed. FloorBearing declaration/wholevalidation remains its independent2696/2697scope not inferred fromtests.",
+      "disposition": "typed nested error and completeoptionalsupporthit appropriate"
+    }
+  ],
+  "new_findings": [
+    "SEGO-INITIAL09-F013"
+  ],
+  "limits": "Actual source09comparisononly. Selectedownerproposal is finding, not animplementationplan. Original2695partialscope1-157/159 preserved. No sourcefix/check/test/execution or otherlens/finalclearance."
+}

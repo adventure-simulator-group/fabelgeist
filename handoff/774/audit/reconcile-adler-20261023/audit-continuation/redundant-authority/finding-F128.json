@@ -1,0 +1,55 @@
+{
+  "id": "CONT07-F128",
+  "contract": "CONT07-CONTRACT-656",
+  "at": "2026-10-24T01:20:48.773399+00:00",
+  "title": "Playable vista seam treats LOD-local coordinates as scene coordinates for nonzero origins",
+  "classification": "source-confirmed admitted-grid/API coordinate-authority mismatch; ordinary nonzero-origin producer unproven",
+  "sources": [
+    {
+      "scope_index": 1964,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/vista_surface.rs",
+      "sha256": "0238db91b3a926b53a353da8892a2e0ff17018d131529261be5a4cdf2cb8e405",
+      "ranges": [
+        [
+          81,
+          112
+        ],
+        [
+          115,
+          164
+        ],
+        [
+          217,
+          276
+        ],
+        [
+          384,
+          426
+        ]
+      ]
+    },
+    {
+      "scope_index": 1985,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/footprint/vista.rs",
+      "sha256": "afc09243786283c9ec9fbf8d0c66525bfae0998f3b4c10c3df6035813b8080b3",
+      "ranges": [
+        [
+          52,
+          114
+        ],
+        [
+          155,
+          202
+        ]
+      ]
+    }
+  ],
+  "producer_and_recipient": "VistaLod scene_point establishes local+origin world position. Vertex height samples vista at world, then samples zero-centered playable SceneTerrain using original local point. Clipping and subdivision also place playable rectangle at local0, while generated mesh adds LOD origin back.",
+  "static_witness": "Finite valid3x3 LOD origin(10,0), spacing1 and constant heights10; flat0 playable terrain full extent2, halfextent(1,1). presented_vista_vertex_height(local0) computes world(10,0), samples vista10 then stitch uses local0 as playable scene0, weight0, returns0. Actual scene point10 lies outside playable\u00b11 and should retain vista height10. Local rectangle clipping similarly excludes around scene10 rather than true scene0. No invalid count, NaN or extreme offset needed.",
+  "normal_qualification": "Current ordinary generated centered LOD origins0 remain coherent; no ordinary supported nonzero-origin generation path or render execution established. Existing diagnostic fixtures use nonzero origins but mostly sample away from shifted local seam and do not prove general correctness. This is coordinate frame mismatch, not bilinear interpolation or selected-ring cohort.",
+  "connected_repair": "Express playable cut/stitch in actual scene coordinates or transform the playable rectangle and grid sample coordinates consistently into each LOD local frame, deriving both clipping and height sampling from one bound surface descriptor. Preserve genuinely local LOD interpolation and final scene translation.",
+  "acceptance": "Nonzero and zero-origin admitted grids clip the same actual playable scene rectangle and sample the same scene boundary heights; mesh, diagnostic footprint and retained scenery query agree. Preserve coarser morph selection and intentional continuous/triangle policies.",
+  "dedup": "Separate from CONT07-F080 ring/coarser cohort and rootM64 broad admitted surface descriptor. Parent exact alias query pending; no automatic global count union.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

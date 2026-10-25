@@ -1,0 +1,151 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-163",
+  "at": "2026-10-25T13:08:20.035470+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 319,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/world_event.rs",
+      "sha256": "9403e2e3d8bc995c0483da0502427442f1c526ee1b513db2a9b5beac3078a5b0",
+      "actual_EOF": 1188,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/world_event.rs",
+        "snapshot": "physical-p16",
+        "path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\world_event.rs",
+        "sha256": "9403e2e3d8bc995c0483da0502427442f1c526ee1b513db2a9b5beac3078a5b0",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "native",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 1188,
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-MATERIAL-FOOD-012",
+            "json_pointer": "/related_current_reads/0",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-stdb-module/src/world_event.rs",
+            "read_ranges_as_recorded": [
+              [
+                301,
+                354
+              ],
+              [
+                427,
+                465
+              ],
+              [
+                635,
+                657
+              ],
+              [
+                941,
+                1009
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-stdb-module/src/world_event.rs",
+              "sha256": "9403e2e3d8bc995c0483da0502427442f1c526ee1b513db2a9b5beac3078a5b0",
+              "read_ranges": [
+                [
+                  301,
+                  354
+                ],
+                [
+                  427,
+                  465
+                ],
+                [
+                  635,
+                  657
+                ],
+                [
+                  941,
+                  1009
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/world_event.rs",
+              "scope": "bounded actual infection event operation and final SDK row receiver; unrelated body not claimed"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          737
+        ],
+        [
+          937,
+          1028
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": {
+        "Clone_Debug_Eq_PartialEq_Serialize_Deserialize_SpacetimeType": "Persisted event source/payload leaf structs, source/actor/subject/place/payload enums and persisted envelope25\u2013104",
+        "table_Clone_Debug": "WorldEventReceipt106\u2013120",
+        "Clone_Copy_Debug_Eq_PartialEq": "ConsequenceOrder122\u2013127",
+        "Clone_Debug_Serialize": "WorldEventRequest129\u2013144",
+        "Clone_Copy": "WorldEventFingerprintDomain267\u2013272"
+      },
+      "absence_basis": "Requested301\u2013354/427\u2013465/635\u2013657/941\u20131009 plus complete enclosing functions and direct derive/wire/projection dependencies consumed. No handwritten trait or serializer in compared ranges. Inherent envelope/fingerprint ID selection and persist mapping only.",
+      "necessary_signature_extension": {
+        "ranges": [
+          [
+            1,
+            300
+          ],
+          [
+            351,
+            462
+          ],
+          [
+            466,
+            634
+          ],
+          [
+            658,
+            737
+          ],
+          [
+            937,
+            940
+          ],
+          [
+            1010,
+            1028
+          ]
+        ],
+        "purpose": "Complete enclosing apply/preflight/fixture bodies, inspect directly fingerprinted derived request and persisted/native wire shapes plus semantic projection and validation called by commit.",
+        "shared_registration": "Parent notified of exact same-source bounded expansion; no new source identity or baseline replay."
+      },
+      "coverage_limit": "Not full1188-line role. Fragmentary observed739\u2013755 and905\u2013935 excluded from compared coverage; later remainder unreviewed unless reached."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "private event request/receipt encoding and canonical consequence replay",
+      "disposition": "Existing serde/native/structural derives cover mechanical encoding. Keep persist169\u2013265 explicit representation mapping from core struct-payload variants into native tuple-payload carriers and omitted id stored separately in receipt341\u2013348. No available owning-manifest derive proven equivalent for this multi-type enum/payload transformation. Keep source-framed fingerprinting284\u2013299, partial downstream mutable-state replay exclusions and checked dose conversion.",
+      "qualification": "No fullworld_event scope, mutation/semantic or native wire clearance; no fixtures run."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 320,
+    "source_id": "physical-p16:crates/adventuresim-strategic-sim/src/investigation_eval/report.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

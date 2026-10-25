@@ -1,0 +1,48 @@
+{
+  "id": "CONT07-CONTRACT-575",
+  "at": "2026-10-24T00:11:45.018905+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2476,
+      "source_id": "sdk-noiz-0.5.0:src/lib.rs",
+      "sha256": "75fd184c107067ee24f751adf6f49829c698ba89899a3595e6a608b63c6413f6",
+      "origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/noiz-0.5.0/src/lib.rs",
+      "actual_EOF": 441,
+      "ranges": [
+        [
+          100,
+          180
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2477,
+      "source_id": "sdk-spacetimedb-sats-2.6.1:timestamp.rs",
+      "sha256": "9a2b59b755254767182009ea99cc689199e310845668b3343faf52ca6139de0c",
+      "origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spacetimedb-sats-2.6.1/src/timestamp.rs",
+      "actual_EOF": 343,
+      "ranges": [
+        [
+          1,
+          195
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Noiz0.5.0 SeedableNoise accepts arbitraryu32 inclzero. ScalableNoise period getter/setter derive reciprocal frequency through same owner; period is not separately retained current state. Sampleable result/seed state are native noise API observations, not gameplay authority.",
+    "SpacetimeDBSATS2.6.1 Timestamp stores one signedi64 Unixmicrosecond count and derives duration/chrono/RFC3339 views. checked addition/subtraction reject range overflow; native SystemTime and reducer timestamp are independent clock sources with explicit WASMnow panic, not interchangeable game-minute authority. No SDK build/test/execution and no unsupplied timestamp body credit."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2479,
+    "start_line": 1
+  }
+}

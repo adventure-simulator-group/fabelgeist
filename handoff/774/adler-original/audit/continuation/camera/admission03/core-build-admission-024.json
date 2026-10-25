@@ -1,0 +1,61 @@
+{
+  "id": "CAMERA-ADM03-CORE-BUILD-SOURCE-PACKET-024",
+  "at": "2026-10-22T06:23:59.289303+00:00",
+  "active_lens": "audit-admission-contracts",
+  "contract": {
+    "id": "CAMERA-ADM03-024",
+    "members": [
+      3,
+      369
+    ],
+    "invariant": "Build compiler validates actual authoredcontent before embedding generatedJSON; raw source map collection is diagnostic extraction before validation, not semantically admittedIDs.",
+    "routes": [
+      "main72\u2013135 sortedquestfiles, parse_document108 then collect_dialogue_variant_sources110 before validate_documents121; embedsvalidatedJSON/digest123\u2013134. Source/pathmap maycontainrawrejectedcontent andmustremainrepresentable",
+      "Roadencounter137\u2013218 serde rawCatalogDocument thencollectsources169, nonempty177, validate_definitions181 and itemreference204 beforeembedding. RawitemIDcollection193\u2013201 usedreference membershipfromcurrentauthoreditemfiles; actualdefinitionsvalidatorsseparateproof",
+      "Items220\u2013283 enforceMAX_SOURCE_BYTES245, parse_document251, collect_item_sources253 BEFORE validate_documents_with_sources259; iconexistence264\u2013269 aftervalidation, embedoriginaldocuments/sourcemap/digest272\u2013283. Actualsemanticitempredicate residescalledmain/helpervalidators, notformat!",
+      "collect_item_sources289\u2013320 acceptsparsedValue/rawtext/file andextractsonlystringID, locatetoken322\u2013341; raw/structurallymissingdata skipsorlocatorexpectdiagnostic, notvaliditemidentityconstructor. Keeps originalID/file/line/column beforeclearance",
+      "Organizations387\u2013509 rawJSONsingle/array tosourcealigneddocs, nonempty, readpolicies445, actualorganizationvalidator447 thenpromotiontransitionarraycheck461, nonreflexive/unique tuple475, existingorg/roles479\u2013490 beforeembed494\u2013509. Buildfailurepanic forinvalidsource isdeliberatecontentcompileboundary, notsuccessfulinvalidruntimevalue",
+      "Includessharedruntimevocabulary/typecode paths14\u201370 are dependencies notautomaticadmissioncoverage. No projectbuild/sourcegeneratorrun duringthisaudit"
+    ],
+    "counterexample_or_intentional": "Unrecognized/duplicateitemIDs canreachrawsource-mapcollectionbeforesemanticvalidator; rejecting/rewritingthem whilecollectingwoulddestroyoriginalevidence. Malformedcatalogueultimatelymustfailactualsourcevalidator beforewrite; neitherSHA/digest/sourcecountnorserdeValuealoneprovescontentvalid. Rawsourcefile paths/line/column notstrategicentityIDs.",
+    "remedy": "Preserve source-sensitive firsterror/diagnostic rawdata and sameauthoritativecontentpredicate acrossbuild/runtimecompile. Pendingactualmain/helper/cataloguevalidators retainedasexactdependencies, no metadataorcallsiteclearance.",
+    "pending_application_dependencies": [
+      "PRitem_catalog_validation full2053 currentlynext; Root/Rig canonical schema/helpers",
+      "quest/organization/roadencounter actualvalidator role receipts fromowningsuppliers neededforbuildgatecomposition"
+    ],
+    "comparison": "FreshfullPRbuild509 source+completeP16body/currentbuildrolecompared; identicalactualcode notedonlyafterallroutesexamined.",
+    "at": "2026-10-22T06:09:58.268956+00:00",
+    "lens": "audit-admission-contracts",
+    "repair_status": "frozen",
+    "validation_status": "not_run"
+  },
+  "source_variants": [
+    {
+      "queue_index": 3,
+      "source_id": "physical-p16:crates/adventuresim-core/build.rs",
+      "sha256": "fc42ea1f2234144e94d6bfac86f254cd059799b9f9e5ae6de7f77e3125f19b7c",
+      "actual_read_ranges": [
+        [
+          1,
+          509
+        ]
+      ],
+      "actual_EOF": 509,
+      "proof_method": "Fresh complete PR sourcebodyread; complete actual P16 bodydifference/currentcompile/source-map contract comparison, no differingbodyhunks. Bothsource-roleobligations preserved; no bodycredit fromhashalone."
+    },
+    {
+      "queue_index": 369,
+      "source_id": "pr-working:crates/adventuresim-core/build.rs",
+      "sha256": "fc42ea1f2234144e94d6bfac86f254cd059799b9f9e5ae6de7f77e3125f19b7c",
+      "actual_read_ranges": [
+        [
+          1,
+          509
+        ]
+      ],
+      "actual_EOF": 509,
+      "proof_method": "Fresh complete PR sourcebodyread; complete actual P16 bodydifference/currentcompile/source-map contract comparison, no differingbodyhunks. Bothsource-roleobligations preserved; no bodycredit fromhashalone."
+    }
+  ],
+  "limits": "Fullbuildsource routes only; calledvalidators/runtime schema/compiledprojection need ownactualsourceproof, pendingfields preserved. No builds/generators/CI/sourceedits/otherlens."
+}

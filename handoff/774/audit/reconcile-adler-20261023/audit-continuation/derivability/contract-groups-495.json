@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-495",
+  "at": "2026-10-25T15:52:53.845520+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 891,
+  "source_id": "pr-working:crates/adventuresim-core/src/combat.rs",
+  "sha256": "7d00629a7da937cf41b5bc49a86df7119cc7054743dce1f70ac2507a7aba59b0",
+  "actual_compared_ranges": [
+    [
+      1,
+      440
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Fresh221\u2013440 native ranged attack/defense/force and damage pipeline: independent borrowed player facets, weapon distribution and response policies, selected armor/contact precision, no new declared trait/codec. Mul disposition494 retained; calculate_damage_from_force body incomplete at440.",
+  "first_unfinished": {
+    "scope_index": 891,
+    "line": 441
+  },
+  "execution": "none"
+}

@@ -1,0 +1,772 @@
+{
+  "id": "RIG-CONT-PPS-WEB-REQUEST-RECONCILIATION-039",
+  "historical_missing_receipt": "RIG-PPS-039 was not saved; this fresh append-only continuation completes its reconciliation without modifying historical records.",
+  "lens": "audit-producer-propagation",
+  "status": "exhausted-with-findings",
+  "assignment": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera-web-request-receiver-packet-assignment.json",
+  "assignment_sha256": "ddf8205df635ef044562a906b73d5a179f23cb5c8f0c30991133662e0fb9eb3b",
+  "assigned_indices": [
+    396,
+    398,
+    399,
+    400,
+    402,
+    569,
+    570,
+    571,
+    572,
+    573,
+    574,
+    575,
+    576,
+    577,
+    665,
+    706,
+    714,
+    715
+  ],
+  "assigned_obligations": 18,
+  "accounted_obligations": 18,
+  "source_dispositions": [
+    {
+      "camera_assigned_index": 396,
+      "source_id": "pr-working:crates/strategic-web/src/routes/quests.rs",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\routes\\quests.rs",
+      "sha256": "60584d6a541687989c1813acb39304738e37dd1bd1a9e17cf281551b36057b68",
+      "read_ranges": [
+        [
+          1,
+          2102
+        ]
+      ],
+      "actual_line_count": 2102,
+      "proof_origin": "RIG-PPS-038 exact full-source read, source-backed producer graph and original fixtures; current continuation independently verifies frozen bytes and joins receiving contracts. Not a new full-file read.",
+      "material_disposition": "Authorized quest pin/occupancy -> query observation, readiness, retained site/contract -> actual Maud forms. RIG038 full source and original fixtures; F021 and canonical identity/query causes remain findings.",
+      "disposition": "accounted-with-findings"
+    },
+    {
+      "camera_assigned_index": 398,
+      "source_id": "pr-working:crates/strategic-web/src/spacetimedb/client.rs",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\spacetimedb\\client.rs",
+      "sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+      "read_ranges": [
+        [
+          1,
+          273
+        ]
+      ],
+      "actual_line_count": 273,
+      "proof_origin": "RIG-PPS-038 exact full-source read, source-backed producer graph and original fixtures; current continuation independently verifies frozen bytes and joins receiving contracts. Not a new full-file read.",
+      "material_disposition": "Actual HTTP reqwest/JSON/SATS decode -> generic query conversion -> internal recipients. U::Error -> Spacetime(String) is CAM-OWNER-F015; primitive SQL/HTTP leaves justified only at actual call.",
+      "disposition": "accounted-with-findings"
+    },
+    {
+      "camera_assigned_index": 399,
+      "source_id": "pr-working:crates/strategic-web/src/spacetimedb/client/sats.rs",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\spacetimedb\\client\\sats.rs",
+      "sha256": "dbb97caa3f3bb18aa862aacce19d0d76f82f7760e82a389f9347698d24031906",
+      "read_ranges": [
+        [
+          1,
+          540
+        ]
+      ],
+      "actual_line_count": 540,
+      "proof_origin": "RIG-PPS-038 exact full-source read, source-backed producer graph and original fixtures; current continuation independently verifies frozen bytes and joins receiving contracts. Not a new full-file read.",
+      "material_disposition": "Actual external SATS array/product/sum/tag/option/identity/byte decoder and original malformed fixtures. Newly synthesized wire diagnostics differ from erased concrete projection causes.",
+      "disposition": "accounted-with-findings"
+    },
+    {
+      "camera_assigned_index": 400,
+      "source_id": "pr-working:crates/strategic-web/src/templates/quest.rs",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\templates\\quest.rs",
+      "sha256": "795707cb240810e0ed362225083f430b2e4eb47186cd95bc2fde5bbba43d3052",
+      "read_ranges": [
+        [
+          1,
+          1067
+        ]
+      ],
+      "actual_line_count": 1067,
+      "proof_origin": "RIG-PPS-038 exact full-source read, source-backed producer graph and original fixtures; current continuation independently verifies frozen bytes and joins receiving contracts. Not a new full-file read.",
+      "material_disposition": "Quest/site/readiness records -> escaped Maud text, form decimal tokens, URI attributes and browser receivers. Safe terminal output proven; earlier lost canonical identity/observation remains open.",
+      "disposition": "accounted-with-findings"
+    },
+    {
+      "camera_assigned_index": 402,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/chrome.rs",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\templates\\settlement\\chrome.rs",
+      "sha256": "6e0b987c91569ce5bab73c83667ce05e6dd0327c96f5d3519075a27cbe82407b",
+      "read_ranges": [
+        [
+          1,
+          800
+        ]
+      ],
+      "actual_line_count": 800,
+      "proof_origin": "RIG-PPS-038 exact full-source read, source-backed producer graph and original fixtures; current continuation independently verifies frozen bytes and joins receiving contracts. Not a new full-file read.",
+      "material_disposition": "Typed organization/economy/profile/faith -> real chapter/party/frontier presentation -> Maud/HTML. Population zero means imported estimate unavailable; preserve this policy and optional visibility.",
+      "disposition": "accounted-with-findings"
+    },
+    {
+      "camera_assigned_index": 569,
+      "source_id": "physical-p16:crates/strategic-web/AGENTS.md",
+      "resolved_path": "SNAPSHOTS\\p16\\crates\\strategic-web\\AGENTS.md",
+      "sha256": "4ebb7231eb7131504bdc30dc8105b0fdb2538d387f983876b2330319dd4432b0",
+      "read_ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "actual_line_count": 39,
+      "proof_origin": "RIG-PPS-038 exact full-source read, source-backed producer graph and original fixtures; current continuation independently verifies frozen bytes and joins receiving contracts. Not a new full-file read.",
+      "material_disposition": "Applicable strategic UI rules, not executable producer coverage; exact P16 counterpart retained separately.",
+      "disposition": "accounted-with-findings"
+    },
+    {
+      "camera_assigned_index": 570,
+      "source_id": "pr-working:crates/strategic-web/AGENTS.md",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\AGENTS.md",
+      "sha256": "4ebb7231eb7131504bdc30dc8105b0fdb2538d387f983876b2330319dd4432b0",
+      "read_ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "actual_line_count": 39,
+      "proof_origin": "RIG-PPS-038 exact full-source read, source-backed producer graph and original fixtures; current continuation independently verifies frozen bytes and joins receiving contracts. Not a new full-file read.",
+      "material_disposition": "Applicable strategic UI rules, not executable producer coverage; exact PR counterpart retained separately.",
+      "disposition": "accounted-with-findings"
+    },
+    {
+      "camera_assigned_index": 571,
+      "source_id": "physical-p16:crates/strategic-web/src/main.rs",
+      "resolved_path": "SNAPSHOTS\\p16\\crates\\strategic-web\\src\\main.rs",
+      "sha256": "43acd82de75c8823ed2a925e424704a87b8db7ee297b56d2f33f4e79fa9f97d9",
+      "read_ranges": [
+        [
+          1,
+          762
+        ]
+      ],
+      "actual_line_count": 762,
+      "proof_origin": "RIG-PPS-038 exact full-source read, source-backed producer graph and original fixtures; current continuation independently verifies frozen bytes and joins receiving contracts. Not a new full-file read.",
+      "material_disposition": "Terrain source registration/startup -> regional planner/digests and native HTTP. strategic_root_fragment drops concrete to_bytes error into empty body; F021 whole repair.",
+      "disposition": "accounted-with-findings"
+    },
+    {
+      "camera_assigned_index": 572,
+      "source_id": "physical-p16:crates/strategic-web/src/routes/mod.rs",
+      "resolved_path": "SNAPSHOTS\\p16\\crates\\strategic-web\\src\\routes\\mod.rs",
+      "sha256": "4adf3c28275906a5a006f13438074aa6c5b525d53e57d25855f4d5195cbaf2c2",
+      "read_ranges": [
+        [
+          1,
+          930
+        ]
+      ],
+      "actual_line_count": 930,
+      "proof_origin": "RIG-PPS-038 exact full-source read, source-backed producer graph and original fixtures; current continuation independently verifies frozen bytes and joins receiving contracts. Not a new full-file read.",
+      "material_disposition": "HTTP route/form/session/native query orchestration -> typed settlement/party/context -> actual HTTP response. Native ingress does not waive grant/custody/clock/observation state guarantees.",
+      "disposition": "accounted-with-findings"
+    },
+    {
+      "camera_assigned_index": 573,
+      "source_id": "physical-p16:crates/strategic-web/src/spacetimedb/types.rs",
+      "resolved_path": "SNAPSHOTS\\p16\\crates\\strategic-web\\src\\spacetimedb\\types.rs",
+      "sha256": "df37c376e240735c231aaeca1737d1a0392643d37ab962f902a7d02df42ece02",
+      "read_ranges": [
+        [
+          1,
+          2523
+        ]
+      ],
+      "actual_line_count": 2523,
+      "proof_origin": "RIG-PPS-038 exact full-source read, source-backed producer graph and original fixtures; current continuation independently verifies frozen bytes and joins receiving contracts. Not a new full-file read.",
+      "material_disposition": "SATS/native DTO conversion into Settlement/CaseBattle/Party/place/clock records. Concrete JSON/PlaceIdentity causes lost in generic query mapping; source-level DTO roles reconciled, not exempted.",
+      "disposition": "accounted-with-findings"
+    },
+    {
+      "camera_assigned_index": 574,
+      "source_id": "physical-p16:crates/strategic-web/src/regional_source.rs",
+      "resolved_path": "SNAPSHOTS\\p16\\crates\\strategic-web\\src\\regional_source.rs",
+      "sha256": "f28f23acfa4b9fd6796919c3595d47febaa151dd36c3e586a21d0b7160c861ba",
+      "read_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "actual_line_count": 29,
+      "proof_origin": "RIG-PPS-038 exact full-source read, source-backed producer graph and original fixtures; current continuation independently verifies frozen bytes and joins receiving contracts. Not a new full-file read.",
+      "material_disposition": "Typed terrain package -> TerrainPlanner registration; source/digest identity differs from session/design/claim. Actual JSON registration is final encoding.",
+      "disposition": "accounted-with-findings"
+    },
+    {
+      "camera_assigned_index": 575,
+      "source_id": "physical-p16:crates/strategic-web/src/spacetimedb/mod.rs",
+      "resolved_path": "SNAPSHOTS\\p16\\crates\\strategic-web\\src\\spacetimedb\\mod.rs",
+      "sha256": "a020d51bfbce659a44fe8f52c25124b01e77eb9659ef473bf76a4029e28ae130",
+      "read_ranges": [
+        [
+          1,
+          136
+        ]
+      ],
+      "actual_line_count": 136,
+      "proof_origin": "RIG-PPS-038 exact full-source read, source-backed producer graph and original fixtures; current continuation independently verifies frozen bytes and joins receiving contracts. Not a new full-file read.",
+      "material_disposition": "SpacetimeDB module/re-export wiring and canonical error owner; no independent gameplay producer. All reached query/type/client bodies accounted in038.",
+      "disposition": "accounted-with-findings"
+    },
+    {
+      "camera_assigned_index": 576,
+      "source_id": "physical-p16:crates/strategic-web/src/spacetimedb/client.rs",
+      "resolved_path": "SNAPSHOTS\\p16\\crates\\strategic-web\\src\\spacetimedb\\client.rs",
+      "sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+      "read_ranges": [
+        [
+          1,
+          273
+        ]
+      ],
+      "actual_line_count": 273,
+      "proof_origin": "RIG-PPS-038 exact full-source read, source-backed producer graph and original fixtures; current continuation independently verifies frozen bytes and joins receiving contracts. Not a new full-file read.",
+      "material_disposition": "Same exact client bytes as398, actual P16 source context reconciled for same HTTP/SATS/query/error roles; not automatic counterpart coverage.",
+      "disposition": "accounted-with-findings"
+    },
+    {
+      "camera_assigned_index": 577,
+      "source_id": "physical-p16:crates/strategic-web/src/routes/quests.rs",
+      "resolved_path": "SNAPSHOTS\\p16\\crates\\strategic-web\\src\\routes\\quests.rs",
+      "sha256": "60584d6a541687989c1813acb39304738e37dd1bd1a9e17cf281551b36057b68",
+      "read_ranges": [
+        [
+          1,
+          2102
+        ]
+      ],
+      "actual_line_count": 2102,
+      "proof_origin": "RIG-PPS-038 exact full-source read, source-backed producer graph and original fixtures; current continuation independently verifies frozen bytes and joins receiving contracts. Not a new full-file read.",
+      "material_disposition": "Same exact quest bytes as396, actual P16 source context reconciled for same authority/query/readiness/HTML roles; not automatic counterpart coverage.",
+      "disposition": "accounted-with-findings"
+    },
+    {
+      "camera_assigned_index": 665,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/browser_session.rs",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\browser_session.rs",
+      "sha256": "58bcbbfa28a430def36a47439a94587ab24f3fbdfe2eeca4b9c58e19a6e0ed4a",
+      "read_ranges": [
+        [
+          1,
+          567
+        ]
+      ],
+      "actual_line_count": 567,
+      "proof_origin": "RIG-PPS-038 exact full-source read, source-backed producer graph and original fixtures; current continuation independently verifies frozen bytes and joins receiving contracts. Not a new full-file read.",
+      "material_disposition": "Gateway grant/descendant lineage, native SDK authority rows, strict cookie-owner-key admission -> effective visibility -> Web selection. StrategicMinute retained; grant/durable identity loss remains existing repair.",
+      "disposition": "accounted-with-findings"
+    },
+    {
+      "camera_assigned_index": 706,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/chrome/portraits.rs",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\templates\\settlement\\chrome\\portraits.rs",
+      "sha256": "382210b89e6af39f692ff2a32955d40440b11028c00b996d9250d01005cc2890",
+      "read_ranges": [
+        [
+          1,
+          237
+        ]
+      ],
+      "actual_line_count": 237,
+      "proof_origin": "RIG-PPS-038 exact full-source read, source-backed producer graph and original fixtures; current continuation independently verifies frozen bytes and joins receiving contracts. Not a new full-file read.",
+      "material_disposition": "Portrait character identity and condition -> Maud decimal attributes/URLs -> actual JS decimal-string navigation and wheel rendering. Distinguish EnterTactical Number precision defect elsewhere.",
+      "disposition": "accounted-with-findings"
+    },
+    {
+      "camera_assigned_index": 714,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/tactical/request.rs",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\tactical\\request.rs",
+      "sha256": "9d7e1ac4bf3e219258571dc74f93f8adef66cd55dcab6fc2d49edf0c60e4cb7d",
+      "read_ranges": [
+        [
+          1,
+          133
+        ]
+      ],
+      "actual_line_count": 133,
+      "proof_origin": "RIG-PPS-038 exact full-source read, source-backed producer graph and original fixtures; current continuation independently verifies frozen bytes and joins receiving contracts. Not a new full-file read.",
+      "material_disposition": "Case/settlement/mission request capture -> typed BusinessId and immutable snapshot -> actual dispatcher personal-name/scene admission. Producer identity/population/name/cause loss remains existing findings.",
+      "disposition": "accounted-with-findings"
+    },
+    {
+      "camera_assigned_index": 715,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/tactical.rs",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\tactical.rs",
+      "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "read_ranges": [
+        [
+          1,
+          1515
+        ]
+      ],
+      "actual_line_count": 1515,
+      "proof_origin": "RIG-PPS-038 exact full-source read, source-backed producer graph and original fixtures; current continuation independently verifies frozen bytes and joins receiving contracts. Not a new full-file read.",
+      "material_disposition": "Mission/request/claim, ConnectedPlayer stats/body/item projection and consequence receipt -> SDK -> actual server mailbox/admission/ECS. Native027 exact receivers reconcile final pending seam; F037/F038 and identity/hash/frame/precision findings remain.",
+      "disposition": "accounted-with-findings"
+    }
+  ],
+  "historical_proof_records": [
+    {
+      "ids": [
+        "RIG-PPS-038",
+        "RIG-PPS-021",
+        "RIG-PPS-030",
+        "RIG-PPS-034",
+        "RIG-PPS-035",
+        "RIG-PPS-036",
+        "RIG-PPS-015",
+        "RIG-PPS-022"
+      ],
+      "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+      "sha256": "7a3e5ac1e865c46d53a1055a1f793466f9f89353ed26ca668f5a3aa934db6253"
+    },
+    {
+      "ids": [
+        "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-025",
+        "NATIVE-PS-SERVER-PLAYER-PROJECTION-026",
+        "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-CLOSURE-027"
+      ],
+      "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+      "sha256": "512940c3d587e1ff6c1a7539f0fec9e485b7b2a4ca066b030089fb00c6b8bb74"
+    }
+  ],
+  "fresh_bounded_seam_proofs": [
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/tactical.rs",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\tactical.rs",
+      "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "read_ranges": [
+        271,
+        490
+      ],
+      "proof_origin": "Fresh bounded actual seam read in continuation; no whole-file inference beyond explicit ranges"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/stdb.rs",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-server\\src\\stdb.rs",
+      "sha256": "ab24f2abcf0306df9967ba4f53671ead170142f7fd1a0697bf116389584da5b8",
+      "read_ranges": [
+        1,
+        100
+      ],
+      "proof_origin": "Fresh bounded actual seam read in continuation; no whole-file inference beyond explicit ranges"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-server\\src\\player_projection.rs",
+      "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "read_ranges": [
+        537,
+        874
+      ],
+      "proof_origin": "Fresh bounded actual seam read in continuation; no whole-file inference beyond explicit ranges"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection/projection_equipment.rs",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-server\\src\\player_projection\\projection_equipment.rs",
+      "sha256": "2ac9b1b21c4c3c62b6815b0885c43e18995cc9bed66fde7d692bcd7c00a07f81",
+      "read_ranges": [
+        1,
+        139
+      ],
+      "proof_origin": "Fresh bounded actual seam read in continuation; no whole-file inference beyond explicit ranges"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/tactical/request.rs",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\tactical\\request.rs",
+      "sha256": "9d7e1ac4bf3e219258571dc74f93f8adef66cd55dcab6fc2d49edf0c60e4cb7d",
+      "read_ranges": [
+        1,
+        133
+      ],
+      "proof_origin": "Fresh bounded actual seam read in continuation; no whole-file inference beyond explicit ranges"
+    }
+  ],
+  "native027_exact_receiver_proofs": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/equipment.rs",
+      "sha256": "56528e5adcad8261b414b53f196d12dee6548aa5f75c494b6a92c087d016446a",
+      "read_ranges": [
+        [
+          1,
+          1115
+        ]
+      ],
+      "proof": [
+        "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-025",
+        "NATIVE-PS-SERVER-PLAYER-PROJECTION-026"
+      ],
+      "material_contract": "Authenticated actor -> ordered equipment actions -> all-conflict/attachment/drop/pickup preflight -> accepted revision update -> ECS/Avian cuboid/spatialquery/Transform. Current PR typed sequence/revision must survive alongside P16 physical graph; older P16 chronology is not restoration source. Existing rig canonical identity/topology and root P15 owners."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+      "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+      "read_ranges": [
+        [
+          1,
+          3450
+        ]
+      ],
+      "proof": [
+        "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-025",
+        "NATIVE-PS-SERVER-PLAYER-PROJECTION-026"
+      ],
+      "material_contract": "Native ConnectedPlayer row -> mailbox -> complete batch preparation -> components/reconnect/snapshots -> input/facing/skeleton/native physics/Replicon. Whole bodies/fixtures and all materially distinct paths in026; F037 checked biological mass loss distinct generic total physicalmass. Current PR/P16 union and native typed error policies preserved."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/item_geometry.rs",
+      "sha256": "fd0e55979400ec53e6db4c76a659bca5f732e45e2431a7f66db35335c3472a75",
+      "read_ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "proof": [
+        "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-025",
+        "NATIVE-PS-SERVER-PLAYER-PROJECTION-026"
+      ],
+      "material_contract": "Native row -> explicit Empty or Admitted(quantity,recipe,geometry) -> projected ECS; checked lengths retained except changed local raw anchor offset/frame policy. ContactPrecision F004 and named WeaponSkillDistribution PP029 remain application propagation gaps; actual collider/attachment/grab recipients read."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/projection_equipment.rs",
+      "sha256": "5e4a989041915c8e90f822e9947824bb05615df6c4b4427d6ec00a9cad71a726",
+      "read_ranges": [
+        [
+          1,
+          176
+        ]
+      ],
+      "proof": [
+        "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-025",
+        "NATIVE-PS-SERVER-PLAYER-PROJECTION-026"
+      ],
+      "material_contract": "Native recipe/hash -> decode/project canonical model -> physical/reach/precision/armor -> retained ECS. P16 typed codec/geometry/schema errors remain available before caller. Existing rig recipe/hash/identity and F004 propagation gaps; actual native armor fixed-index equations distinguished."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/spawn_admission.rs",
+      "sha256": "43080d2bf8aa77667af8dad133c2266cae1829c0b33d658e858391aaa93ab474",
+      "read_ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "proof": [
+        "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-025",
+        "NATIVE-PS-SERVER-PLAYER-PROJECTION-026"
+      ],
+      "material_contract": "Whole applicable native row batch -> canonical Seed/terrain/ScenePlanPoint/offset/inventory/body admission -> prepared entries -> Commands after success(P16). Preserve RNG/order/zero-item Empty/firstfailure and current PR union; AABB native observation admitted once."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/equipment.rs",
+      "sha256": "294ef27435a3d5286f596695c442fb8bd28041af6d7b9ab24a27e1d8c4d2526f",
+      "read_ranges": [
+        [
+          1,
+          1126
+        ]
+      ],
+      "proof": [
+        "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-025",
+        "NATIVE-PS-SERVER-PLAYER-PROJECTION-026"
+      ],
+      "material_contract": "Authenticated actor -> ordered equipment actions -> all-conflict/attachment/drop/pickup preflight -> accepted revision update -> ECS/Avian cuboid/spatialquery/Transform. Current PR typed sequence/revision must survive alongside P16 physical graph; older P16 chronology is not restoration source. Existing rig canonical identity/topology and root P15 owners."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/equipment/attachment.rs",
+      "sha256": "d111cafcd0fbd3cecae5a066f6da8ce3ca7eaed114bde19daffad836153faed2",
+      "read_ranges": [
+        [
+          1,
+          248
+        ]
+      ],
+      "proof": [
+        "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-025",
+        "NATIVE-PS-SERVER-PLAYER-PROJECTION-026"
+      ],
+      "material_contract": "Canonical authored attachment lookup -> parent/channel/capacity/tag choices -> all-parent plan -> topology raw successful IDs -> actual replicated/client lookup. Existing rig identity gap; preserve sort/depth/no-displacement and rejection order."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/equipment/environment.rs",
+      "sha256": "ef1f175feb5018520f404d2525f6354086adf4ecb8767ee54d841801fa0fbe37",
+      "read_ranges": [
+        [
+          1,
+          11
+        ]
+      ],
+      "proof": [
+        "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-025",
+        "NATIVE-PS-SERVER-PLAYER-PROJECTION-026"
+      ],
+      "material_contract": "Native SpatialQuery plus checked DoorGrabber/WindowGrabber -> actual Avian ports; composite checked point/direction stripping into can_grab internal APIs remains native DOORS/RIG-PPS-F001, not excused by later numerical kernel."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/equipment/fit.rs",
+      "sha256": "4ba486d38eabcb85c3aa9ac546cc93bef6a830b083952cfa839aeae22ec56ba6",
+      "read_ranges": [
+        [
+          1,
+          252
+        ]
+      ],
+      "proof": [
+        "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-025",
+        "NATIVE-PS-SERVER-PLAYER-PROJECTION-026"
+      ],
+      "material_contract": "Authored item/placement/requirement index/fit-zone -> conflict predicates -> atomic action plan. Successful canonical catalogue identity retained as raw fields remains existing rig repair; no new ordinal admission inferred."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/equipment/lifecycle.rs",
+      "sha256": "54bed0494270888424e8718a31f26020931eed7fe695d34f4bcd8b682042d857",
+      "read_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "proof": [
+        "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-025",
+        "NATIVE-PS-SERVER-PLAYER-PROJECTION-026"
+      ],
+      "material_contract": "Reconnect/purge actor Entity chronology -> pending request retention and migrated accepted sequence; true ECS/session identities. Current PR typed P15 source union preserved."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/equipment/transfer.rs",
+      "sha256": "23ec61b4fd0ed94e7f0a787e2d0e0c1f58bbc2f2146f99956be52819593fe945",
+      "read_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "proof": [
+        "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-025",
+        "NATIVE-PS-SERVER-PLAYER-PROJECTION-026"
+      ],
+      "material_contract": "Source/destination/depth -> native usize collection access and occupancy filter -> conflict preflight -> deferred ECS relocation. Preserve child denial/exact swap order; identity owner remains rig."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+      "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "read_ranges": [
+        [
+          1,
+          3497
+        ]
+      ],
+      "proof": [
+        "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-025",
+        "NATIVE-PS-SERVER-PLAYER-PROJECTION-026"
+      ],
+      "material_contract": "Native ConnectedPlayer row -> mailbox -> complete batch preparation -> components/reconnect/snapshots -> input/facing/skeleton/native physics/Replicon. Whole bodies/fixtures and all materially distinct paths in026; F037 checked biological mass loss distinct generic total physicalmass. Current PR/P16 union and native typed error policies preserved."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection/dive_launch.rs",
+      "sha256": "92c5c2966afd08f99f1107fb60067033371cb1a4139a5d3c348ad79f27ee7bd9",
+      "read_ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "proof": [
+        "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-025",
+        "NATIVE-PS-SERVER-PLAYER-PROJECTION-026"
+      ],
+      "material_contract": "Typed angles/speeds -> actual quaternion/vector launch -> native LinearVelocity; grounded slide retains complete inherited velocity and original heading/math order."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+      "sha256": "40f9695ff7352badc2fff5fb1cc7a15d68a36ea48dcfd36083f2c7c5145096e9",
+      "read_ranges": [
+        [
+          1,
+          162
+        ]
+      ],
+      "proof": [
+        "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-025",
+        "NATIVE-PS-SERVER-PLAYER-PROJECTION-026"
+      ],
+      "material_contract": "Authoritative time/tick/state -> typed deadlines/rotation -> native body/physics Transform; intentional warn-and-skip errors preserve projection policy distinct required capture failure."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection/projection_equipment.rs",
+      "sha256": "2ac9b1b21c4c3c62b6815b0885c43e18995cc9bed66fde7d692bcd7c00a07f81",
+      "read_ranges": [
+        [
+          1,
+          139
+        ]
+      ],
+      "proof": [
+        "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-025",
+        "NATIVE-PS-SERVER-PLAYER-PROJECTION-026"
+      ],
+      "material_contract": "Native recipe/hash -> decode/project canonical model -> physical/reach/precision/armor -> retained ECS. P16 typed codec/geometry/schema errors remain available before caller. Existing rig recipe/hash/identity and F004 propagation gaps; actual native armor fixed-index equations distinguished."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection/spawn_admission.rs",
+      "sha256": "036e9735654b7050eab0212a18012e9ade1badc0ceebe3f5c093235c48ff228f",
+      "read_ranges": [
+        [
+          1,
+          108
+        ]
+      ],
+      "proof": [
+        "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-025",
+        "NATIVE-PS-SERVER-PLAYER-PROJECTION-026"
+      ],
+      "material_contract": "Whole applicable native row batch -> canonical Seed/terrain/ScenePlanPoint/offset/inventory/body admission -> prepared entries -> Commands after success(P16). Preserve RNG/order/zero-item Empty/firstfailure and current PR union; AABB native observation admitted once."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/equipment/attachment.rs",
+      "sha256": "d111cafcd0fbd3cecae5a066f6da8ce3ca7eaed114bde19daffad836153faed2",
+      "read_ranges": [
+        [
+          1,
+          248
+        ]
+      ],
+      "proof": [
+        "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-025",
+        "NATIVE-PS-SERVER-PLAYER-PROJECTION-026"
+      ],
+      "material_contract": "Canonical authored attachment lookup -> parent/channel/capacity/tag choices -> all-parent plan -> topology raw successful IDs -> actual replicated/client lookup. Existing rig identity gap; preserve sort/depth/no-displacement and rejection order."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/equipment/fit.rs",
+      "sha256": "4ba486d38eabcb85c3aa9ac546cc93bef6a830b083952cfa839aeae22ec56ba6",
+      "read_ranges": [
+        [
+          1,
+          252
+        ]
+      ],
+      "proof": [
+        "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-025",
+        "NATIVE-PS-SERVER-PLAYER-PROJECTION-026"
+      ],
+      "material_contract": "Authored item/placement/requirement index/fit-zone -> conflict predicates -> atomic action plan. Successful canonical catalogue identity retained as raw fields remains existing rig repair; no new ordinal admission inferred."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/equipment/transfer.rs",
+      "sha256": "23ec61b4fd0ed94e7f0a787e2d0e0c1f58bbc2f2146f99956be52819593fe945",
+      "read_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "proof": [
+        "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-025",
+        "NATIVE-PS-SERVER-PLAYER-PROJECTION-026"
+      ],
+      "material_contract": "Source/destination/depth -> native usize collection access and occupancy filter -> conflict preflight -> deferred ECS relocation. Preserve child denial/exact swap order; identity owner remains rig."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/equipment/environment.rs",
+      "sha256": "ef1f175feb5018520f404d2525f6354086adf4ecb8767ee54d841801fa0fbe37",
+      "read_ranges": [
+        [
+          1,
+          11
+        ]
+      ],
+      "proof": [
+        "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-025",
+        "NATIVE-PS-SERVER-PLAYER-PROJECTION-026"
+      ],
+      "material_contract": "Native SpatialQuery plus checked DoorGrabber/WindowGrabber -> actual Avian ports; composite checked point/direction stripping into can_grab internal APIs remains native DOORS/RIG-PPS-F001, not excused by later numerical kernel."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/dive_launch.rs",
+      "sha256": "92c5c2966afd08f99f1107fb60067033371cb1a4139a5d3c348ad79f27ee7bd9",
+      "read_ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "proof": [
+        "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-025",
+        "NATIVE-PS-SERVER-PLAYER-PROJECTION-026"
+      ],
+      "material_contract": "Typed angles/speeds -> actual quaternion/vector launch -> native LinearVelocity; grounded slide retains complete inherited velocity and original heading/math order."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+      "sha256": "40f9695ff7352badc2fff5fb1cc7a15d68a36ea48dcfd36083f2c7c5145096e9",
+      "read_ranges": [
+        [
+          1,
+          162
+        ]
+      ],
+      "proof": [
+        "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-025",
+        "NATIVE-PS-SERVER-PLAYER-PROJECTION-026"
+      ],
+      "material_contract": "Authoritative time/tick/state -> typed deadlines/rotation -> native body/physics Transform; intentional warn-and-skip errors preserve projection policy distinct required capture failure."
+    }
+  ],
+  "producer_to_actual_receiver_reconciliation": [
+    "tactical271-490: authenticated ctx.sender selects native Character/skills/stats/attrs/limbs/condition/strategic rows; condition affects copied equipment precision/block/handling. ConnectedPlayer and ConnectedPlayerItem are actual SDK serialization records, retaining raw admitted identity/placement/hash/unit losses that existing findings require repairing earlier. Their native record role does not waive internal producers.",
+    "Native026 stdb75-100 actual on_insert clones the generated row into Arc<Mutex<Vec<ConnectedPlayer>>> then mem::take; no tactical mutation occurs in database. Fresh projection537-556 passes complete mailbox batch into prepare/project. Native025/026/027 read whole PR3497/P163450 and exact preflight variants: PR late body/recipe asserts must become coherent batch admission while preserving current P15 sequence/revision/reservation behavior.",
+    "Fresh projection579-716 copies all skill/stat/attribute/limb sources, applies enemy scaling and native seven-religion finite/max/sum order. body632-635 explicitly strips BodyMassKg into retained Limbs before PlayerBody; F037 connected camera repair remains, generic/nonhuman/physical total mass cannot inherit human20..300 restriction. Existing native026 reads all concrete PlayerBody implementations and actual later Avian mass equation. No stats/fraction blanket strengthening or narrowed public inputs inferred.",
+    "Fresh projection780-869 maps durable inventory IDs to new ECS Entities, retains quantity, catalogue and placements, projects recipe/physical/topology. Fresh projection_equipment1-139 proves real decode/hash/derive and precision getter; raw DesignHash/recipe/cache, ContactPrecision and catalogue/attachment propagation remain rig/Camera findings. Native027 joins actual client equipment/placeholder/socket generation/render recipients; actual final native Cuboid/Transform/Replicon/BSATN/PNG ports do not excuse prior application erasure.",
+    "Native027 equipment PR/P16 chronology reconciliation preserves typed EquipmentSequence/EquipmentRevision, zero-after-wrap, all-parent preflight and deferred ECS mutation. Drop/pickup ends at actual Avian collider/ray/Transform kernels; equipment-local anchor frame remains explicit open contract, not silently Scene. Native terminal F038 is outer SDK InternalError prematurely formatted versus genuine reducer wire rejection String; mailbox/lifecycle/retry receiving graph closed with finding.",
+    "All18 historic038 source bodies and fixtures plus explicit current seam/Native027 receiver source proofs supply bounded inventory closure WITH FINDINGS. Historical source ranges remain exact: P16 routes/mod actualEOF930, regional_sourceEOF29; owner requests beyond EOF do not add fictitious code. Byte identity reconciles variants only together with the same material role trace."
+  ],
+  "connected_repair_owners": {
+    "root": "Coordinates coherent source integration, P15 chronology, scene/source/compiler/dispatcher shared dependency and exact owner-fit delta; no source repair until all13 initial inventories.",
+    "rig": "Whole strategic_root_fragment, render_quest_location, party_readiness, get_active_party_members, soap_rest_preview, travel_provision_forecast and travel_provision_forecast_for_minutes are explicitly assigned in exported rig_garments claims. Preserve query/body failure versus real empty/absent/unready and privacy/failclosed policy; consume canonical errors and identities. Also canonical catalogue/placement/attachment, DesignHash/recipe/cache/generation cause/DOM identity graph.",
+    "camera": "Canonical SpacetimeError/generic query projection concrete causes, native DB request/mission/clock/capability/custody and P16 whole physical/body/Limbs/PlayerBody connected graph. Existing whole-function claims retained.",
+    "native": "Native exact151-154 terminal SDK cause -> mailbox -> result -> lifecycle/retry, plus exact pure source contracts already claimed. Source-based bounded receiver supplier proofs transfer no implementation ownership."
+  },
+  "findings": [
+    "RIG-PPS-F021",
+    "CAM-OWNER-F015",
+    "CAM-PROP-F006",
+    "CAM-PROP-F009",
+    "CAM-PROP-F023",
+    "RIG-SUPP-PP-006",
+    "ROOT-PP-016",
+    "NATIVE-PS-F037",
+    "NATIVE-PS-F038",
+    "ContactPrecision F004",
+    "WeaponSkillDistribution PP029",
+    "Existing rig canonical identity/DesignHash/frame/generation cause"
+  ],
+  "acceptance": [
+    "Retain admitted identity, checked physical/time/cause/observation contracts across complete application APIs, records and caches to actual native ports. No duplicate leaves, String adapter or compatibility path.",
+    "Preserve authentication, granted versus durable versus ECS identities, pin/party occupancy and privacy; missing query/body evidence differs from valid absent optional data; readiness remains failclosed.",
+    "Preserve current P15 order/revision/sequence, biological versus broad body versus burden mass, lexical catalogue/hash bits/recipe/version, source ordering and original fixtures/oracle intent. Existing tests only; no new case/helper/assertion."
+  ],
+  "remaining_actual_receivers": [],
+  "first_unfinished_packet_cell": null,
+  "later_dependencies": [
+    "All listed findings remain actionable; no source fixes or implementation acceptance.",
+    "Coordinator/camera must explicitly consume each of18 cells in own716 queue; supplier completion awards no automatic queue credit.",
+    "Owner-fit delta and remaining eleven initial lenses, mandatory P16/P17 integration, repeated audits/reviews and hosted CI remain outside bounded packet."
+  ],
+  "validation": "none; source/Git/text/hash only; no local project command, tests, runtime or hosted CI",
+  "source_repair": "frozen until all13 initial inventories",
+  "overall_lens_clearance": "not awarded"
+}

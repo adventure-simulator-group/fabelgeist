@@ -1,0 +1,942 @@
+{
+  "id": "RIG-ADMISSION03-COMPLETION-112",
+  "at": "2026-10-22T12:16:40.355674+00:00",
+  "active_lens": "audit-admission-contracts",
+  "authority": "continuation/root/admission03-discovery-authority-043.json",
+  "disposition": "Assigned source inventory exhausted WITH_FINDINGS and explicit shared lower obligations; not overall admission/lens/family clearance.",
+  "original_queue": {
+    "record": "continuation/admission03-queue-v002/rig.json",
+    "sha256": "14c2dc83fd6dbf2fcde790156e99a5fd6984b9cf293c5e6f25b0fd1ee2a5dadf",
+    "assigned_source_roles": 802,
+    "distinct_accounted_source_roles": 802,
+    "coverage_receipts": 806,
+    "contract_receipts": 806,
+    "missing_original_queue_indices": [],
+    "duplicate_queue_receipts": [
+      407,
+      410,
+      558,
+      801
+    ],
+    "duplicates_count_once": true
+  },
+  "source_basis": "Fresh actual scoped bodies including original tests where in scope; explicit complete current counterpart body/delta and semantic role comparisons retained per variant. Hashes/counts/old verdicts never substitute current admission proof. Narrow/EOF/excluded ranges remain mandatory.",
+  "additional_contracts": {
+    "prospective_registry_rows": 138,
+    "additional_receipts": 124,
+    "early_numbering_exceptions": "source-registration-proof-map-109.json",
+    "registration_hash_bookkeeping": [
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-001",
+        "status": "no direct path field; see original registry locator"
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-002",
+        "sha256_matches": true,
+        "actual_EOF": 907,
+        "recorded_EOF": 907
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-003",
+        "sha256_matches": true,
+        "actual_EOF": 353,
+        "recorded_EOF": 353
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-004",
+        "sha256_matches": true,
+        "actual_EOF": 131,
+        "recorded_EOF": 131
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-005",
+        "sha256_matches": true,
+        "actual_EOF": 257,
+        "recorded_EOF": 257
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-006",
+        "sha256_matches": true,
+        "actual_EOF": 500,
+        "recorded_EOF": 500
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-007",
+        "sha256_matches": true,
+        "actual_EOF": 59,
+        "recorded_EOF": 59
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-008",
+        "sha256_matches": true,
+        "actual_EOF": 1422,
+        "recorded_EOF": 1422
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-009",
+        "sha256_matches": true,
+        "actual_EOF": 693,
+        "recorded_EOF": 693
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-010",
+        "sha256_matches": true,
+        "actual_EOF": 652,
+        "recorded_EOF": 652
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-011",
+        "sha256_matches": true,
+        "actual_EOF": 1123,
+        "recorded_EOF": 1123
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-012",
+        "sha256_matches": true,
+        "actual_EOF": 652,
+        "recorded_EOF": 652
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-013",
+        "sha256_matches": true,
+        "actual_EOF": 693,
+        "recorded_EOF": 693
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-014",
+        "sha256_matches": true,
+        "actual_EOF": 46,
+        "recorded_EOF": 46
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-015",
+        "sha256_matches": true,
+        "actual_EOF": 47,
+        "recorded_EOF": 47
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-016",
+        "sha256_matches": true,
+        "actual_EOF": 49,
+        "recorded_EOF": 49
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-017",
+        "sha256_matches": true,
+        "actual_EOF": 17,
+        "recorded_EOF": 17
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-018",
+        "sha256_matches": true,
+        "actual_EOF": 185,
+        "recorded_EOF": 185
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-019",
+        "sha256_matches": true,
+        "actual_EOF": 219,
+        "recorded_EOF": 219
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-020",
+        "sha256_matches": true,
+        "actual_EOF": 2053,
+        "recorded_EOF": 2053
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-021",
+        "sha256_matches": true,
+        "actual_EOF": 3173,
+        "recorded_EOF": 3173
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-022",
+        "sha256_matches": true,
+        "actual_EOF": 1507,
+        "recorded_EOF": 1507
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-023",
+        "sha256_matches": true,
+        "actual_EOF": 814,
+        "recorded_EOF": 814
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-024",
+        "sha256_matches": true,
+        "actual_EOF": 131,
+        "recorded_EOF": 131
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-025",
+        "sha256_matches": true,
+        "actual_EOF": 814,
+        "recorded_EOF": 814
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-026",
+        "sha256_matches": true,
+        "actual_EOF": 106,
+        "recorded_EOF": 106
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-027",
+        "sha256_matches": true,
+        "actual_EOF": 143,
+        "recorded_EOF": 143
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-028",
+        "sha256_matches": true,
+        "actual_EOF": 438,
+        "recorded_EOF": 438
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-029",
+        "sha256_matches": true,
+        "actual_EOF": 140,
+        "recorded_EOF": 140
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-030",
+        "sha256_matches": true,
+        "actual_EOF": 142,
+        "recorded_EOF": 142
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-031",
+        "sha256_matches": true,
+        "actual_EOF": 213,
+        "recorded_EOF": 213
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-032",
+        "sha256_matches": true,
+        "actual_EOF": 169,
+        "recorded_EOF": 169
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-033",
+        "sha256_matches": true,
+        "actual_EOF": 58,
+        "recorded_EOF": 58
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-034",
+        "sha256_matches": true,
+        "actual_EOF": 696,
+        "recorded_EOF": 696
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-035",
+        "sha256_matches": true,
+        "actual_EOF": 696,
+        "recorded_EOF": 696
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-036",
+        "sha256_matches": true,
+        "actual_EOF": 271,
+        "recorded_EOF": 271
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-037",
+        "sha256_matches": true,
+        "actual_EOF": 137,
+        "recorded_EOF": 137
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-038",
+        "sha256_matches": true,
+        "actual_EOF": 56,
+        "recorded_EOF": 56
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-039",
+        "sha256_matches": true,
+        "actual_EOF": 15,
+        "recorded_EOF": 15
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-040",
+        "sha256_matches": true,
+        "actual_EOF": 151,
+        "recorded_EOF": 151
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-041",
+        "sha256_matches": true,
+        "actual_EOF": 2714,
+        "recorded_EOF": 2714
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-042",
+        "sha256_matches": true,
+        "actual_EOF": 2714,
+        "recorded_EOF": 2714
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-043",
+        "sha256_matches": true,
+        "actual_EOF": 2714,
+        "recorded_EOF": 2714
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-044",
+        "sha256_matches": true,
+        "actual_EOF": 88,
+        "recorded_EOF": 88
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-045",
+        "sha256_matches": true,
+        "actual_EOF": 177,
+        "recorded_EOF": 177
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-046",
+        "sha256_matches": true,
+        "actual_EOF": 117,
+        "recorded_EOF": 117
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-047",
+        "sha256_matches": true,
+        "actual_EOF": 574,
+        "recorded_EOF": 574
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-048",
+        "sha256_matches": true,
+        "actual_EOF": 50,
+        "recorded_EOF": 50
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-049",
+        "sha256_matches": true,
+        "actual_EOF": 171,
+        "recorded_EOF": 171
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-050",
+        "sha256_matches": true,
+        "actual_EOF": 206,
+        "recorded_EOF": 206
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-051",
+        "sha256_matches": true,
+        "actual_EOF": 150,
+        "recorded_EOF": 150
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-052",
+        "sha256_matches": true,
+        "actual_EOF": 56,
+        "recorded_EOF": 56
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-053",
+        "sha256_matches": true,
+        "actual_EOF": 376,
+        "recorded_EOF": 376
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-054",
+        "sha256_matches": true,
+        "actual_EOF": 376,
+        "recorded_EOF": 376
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-055",
+        "sha256_matches": true,
+        "actual_EOF": 414,
+        "recorded_EOF": 414
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-056",
+        "sha256_matches": true,
+        "actual_EOF": 34,
+        "recorded_EOF": 34
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-057",
+        "sha256_matches": true,
+        "actual_EOF": 64,
+        "recorded_EOF": 64
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-058",
+        "sha256_matches": true,
+        "actual_EOF": 149,
+        "recorded_EOF": 149
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-059",
+        "sha256_matches": true,
+        "actual_EOF": 47,
+        "recorded_EOF": 47
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-060",
+        "sha256_matches": true,
+        "actual_EOF": 150,
+        "recorded_EOF": 150
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-061",
+        "sha256_matches": true,
+        "actual_EOF": 150,
+        "recorded_EOF": 150
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-062",
+        "sha256_matches": true,
+        "actual_EOF": 188,
+        "recorded_EOF": 188
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-063",
+        "sha256_matches": true,
+        "actual_EOF": 71,
+        "recorded_EOF": 71
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-064",
+        "sha256_matches": true,
+        "actual_EOF": 78,
+        "recorded_EOF": 78
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-065",
+        "sha256_matches": true,
+        "actual_EOF": 376,
+        "recorded_EOF": 376
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-066",
+        "sha256_matches": true,
+        "actual_EOF": 128,
+        "recorded_EOF": 128
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-067",
+        "sha256_matches": true,
+        "actual_EOF": 47,
+        "recorded_EOF": 47
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-068",
+        "sha256_matches": true,
+        "actual_EOF": 49,
+        "recorded_EOF": 49
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-069",
+        "sha256_matches": true,
+        "actual_EOF": 51,
+        "recorded_EOF": 51
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-070",
+        "sha256_matches": true,
+        "actual_EOF": 141,
+        "recorded_EOF": 141
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-071",
+        "sha256_matches": true,
+        "actual_EOF": 376,
+        "recorded_EOF": 376
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-072",
+        "sha256_matches": true,
+        "actual_EOF": 129,
+        "recorded_EOF": 129
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-073",
+        "sha256_matches": true,
+        "actual_EOF": 137,
+        "recorded_EOF": 137
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-074",
+        "sha256_matches": true,
+        "actual_EOF": 62,
+        "recorded_EOF": 62
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-075",
+        "sha256_matches": true,
+        "actual_EOF": 299,
+        "recorded_EOF": 299
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-076",
+        "sha256_matches": true,
+        "actual_EOF": 462,
+        "recorded_EOF": 462
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-077",
+        "sha256_matches": true,
+        "actual_EOF": 271,
+        "recorded_EOF": 271
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-078",
+        "sha256_matches": true,
+        "actual_EOF": 327,
+        "recorded_EOF": 327
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-079",
+        "sha256_matches": true,
+        "actual_EOF": 408,
+        "recorded_EOF": 408
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-080",
+        "sha256_matches": true,
+        "actual_EOF": 362,
+        "recorded_EOF": 362
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-081",
+        "sha256_matches": true,
+        "actual_EOF": 574,
+        "recorded_EOF": 574
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-082",
+        "sha256_matches": true,
+        "actual_EOF": 342,
+        "recorded_EOF": 342
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-083",
+        "sha256_matches": true,
+        "actual_EOF": 574,
+        "recorded_EOF": 574
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-084",
+        "sha256_matches": true,
+        "actual_EOF": 582,
+        "recorded_EOF": 582
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-085",
+        "sha256_matches": true,
+        "actual_EOF": 442,
+        "recorded_EOF": 442
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-086",
+        "sha256_matches": true,
+        "actual_EOF": 455,
+        "recorded_EOF": 455
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-087",
+        "sha256_matches": true,
+        "actual_EOF": 138,
+        "recorded_EOF": 138
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-088",
+        "sha256_matches": true,
+        "actual_EOF": 1,
+        "recorded_EOF": 1
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-089",
+        "sha256_matches": true,
+        "actual_EOF": 413,
+        "recorded_EOF": 413
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-090",
+        "sha256_matches": true,
+        "actual_EOF": 88,
+        "recorded_EOF": 88
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-091",
+        "sha256_matches": true,
+        "actual_EOF": 209,
+        "recorded_EOF": 209
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-092",
+        "sha256_matches": true,
+        "actual_EOF": 314,
+        "recorded_EOF": 314
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-093",
+        "sha256_matches": true,
+        "actual_EOF": 475,
+        "recorded_EOF": 475
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-094",
+        "sha256_matches": true,
+        "actual_EOF": 409,
+        "recorded_EOF": 409
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-095",
+        "sha256_matches": true,
+        "actual_EOF": 173,
+        "recorded_EOF": 173
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-096",
+        "sha256_matches": true,
+        "actual_EOF": 111,
+        "recorded_EOF": 111
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-097",
+        "sha256_matches": true,
+        "actual_EOF": 22,
+        "recorded_EOF": 22
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-098",
+        "sha256_matches": true,
+        "actual_EOF": 56,
+        "recorded_EOF": 56
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-099",
+        "sha256_matches": true,
+        "actual_EOF": 283,
+        "recorded_EOF": 283
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-100",
+        "sha256_matches": true,
+        "actual_EOF": 189,
+        "recorded_EOF": 189
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-101",
+        "sha256_matches": true,
+        "actual_EOF": 171,
+        "recorded_EOF": 171
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-102",
+        "sha256_matches": true,
+        "actual_EOF": 139,
+        "recorded_EOF": 139
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-103",
+        "sha256_matches": true,
+        "actual_EOF": 58,
+        "recorded_EOF": 58
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-104",
+        "sha256_matches": true,
+        "actual_EOF": 171,
+        "recorded_EOF": 171
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-105",
+        "sha256_matches": true,
+        "actual_EOF": 100,
+        "recorded_EOF": 100
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-106",
+        "sha256_matches": true,
+        "actual_EOF": 54,
+        "recorded_EOF": 54
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-107",
+        "sha256_matches": true,
+        "actual_EOF": 19,
+        "recorded_EOF": 19
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-108",
+        "sha256_matches": true,
+        "actual_EOF": 208,
+        "recorded_EOF": 208
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-109",
+        "sha256_matches": true,
+        "actual_EOF": 484,
+        "recorded_EOF": 484
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REGISTER-110",
+        "sha256_matches": true,
+        "actual_EOF": 840,
+        "recorded_EOF": 840
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REG-111",
+        "sha256_matches": true,
+        "actual_EOF": 3812,
+        "recorded_EOF": 3812
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REG-112",
+        "sha256_matches": true,
+        "actual_EOF": 3812,
+        "recorded_EOF": 3812
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REG-113",
+        "sha256_matches": true,
+        "actual_EOF": 594,
+        "recorded_EOF": 594
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REG-114",
+        "sha256_matches": true,
+        "actual_EOF": 162,
+        "recorded_EOF": 162
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REG-115",
+        "sha256_matches": true,
+        "actual_EOF": 142,
+        "recorded_EOF": 142
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REG-116",
+        "sha256_matches": true,
+        "actual_EOF": 32,
+        "recorded_EOF": 32
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REG-117",
+        "sha256_matches": true,
+        "actual_EOF": 40,
+        "recorded_EOF": 40
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REG-118",
+        "sha256_matches": true,
+        "actual_EOF": 153,
+        "recorded_EOF": 153
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REG-119",
+        "sha256_matches": true,
+        "actual_EOF": 186,
+        "recorded_EOF": 186
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REG-120",
+        "sha256_matches": true,
+        "actual_EOF": 272,
+        "recorded_EOF": 272
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REG-121",
+        "sha256_matches": true,
+        "actual_EOF": 196,
+        "recorded_EOF": 196
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REG-122",
+        "sha256_matches": true,
+        "actual_EOF": 283,
+        "recorded_EOF": 283
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REG-123",
+        "sha256_matches": true,
+        "actual_EOF": 490,
+        "recorded_EOF": 490
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REG-124",
+        "sha256_matches": true,
+        "actual_EOF": 45,
+        "recorded_EOF": 45
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REG-125",
+        "sha256_matches": true,
+        "actual_EOF": 111,
+        "recorded_EOF": 111
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REG-126",
+        "sha256_matches": true,
+        "actual_EOF": 11,
+        "recorded_EOF": 11
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REG-127",
+        "sha256_matches": true,
+        "actual_EOF": 4396,
+        "recorded_EOF": 4396
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REG-128",
+        "sha256_matches": true,
+        "actual_EOF": 47,
+        "recorded_EOF": 47
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REG-129",
+        "sha256_matches": true,
+        "actual_EOF": 260,
+        "recorded_EOF": 260
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REG-130",
+        "sha256_matches": true,
+        "actual_EOF": 232,
+        "recorded_EOF": 232
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REG-131",
+        "sha256_matches": true,
+        "actual_EOF": 132,
+        "recorded_EOF": 132
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REG-132",
+        "sha256_matches": true,
+        "actual_EOF": 215,
+        "recorded_EOF": 215
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REG-133",
+        "sha256_matches": true,
+        "actual_EOF": 438,
+        "recorded_EOF": 438
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REG-134",
+        "sha256_matches": true,
+        "actual_EOF": 150,
+        "recorded_EOF": 150
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REG-135",
+        "sha256_matches": true,
+        "actual_EOF": 505,
+        "recorded_EOF": 505
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REG-136",
+        "sha256_matches": true,
+        "actual_EOF": 28,
+        "recorded_EOF": 28
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REG-137",
+        "sha256_matches": true,
+        "actual_EOF": 76,
+        "recorded_EOF": 76
+      },
+      {
+        "registration_id": "RIG-ADMISSION03-REG-138",
+        "sha256_matches": true,
+        "actual_EOF": 2059,
+        "recorded_EOF": 2059
+      }
+    ],
+    "pending_global_reconciliation": "Root046 global source scope includes only REG001\u2013035; locally prospective REG036\u2013138 require authoritative source/range reconciliation, then necessary exact earlier producer/owner delta qualification. No new earlier-lens credit awarded here."
+  },
+  "findings": {
+    "numbered_candidate_rows": 92,
+    "withdrawn": [
+      "RIG-ADMISSION03-F086"
+    ],
+    "withdrawal_ref": "findings.jsonl#RIG-ADMISSION03-F086-RETRACTION-001",
+    "limits": "Do not treat candidates, overlapping families or supplements as unique accepted defects. Root must reconcile source-backed meaning, actual claims, overlaps and explicit intent/conditional limits.",
+    "latest_current_candidates": [
+      "F087 browser full-u64 identity conversion",
+      "F088 garment pose/pivot admission",
+      "F089 self-collision radius/cache",
+      "F090 outer-layer direction/clearance",
+      "F091 binary metadata bounds/coherence",
+      "F092 terrain cache hit before endpoint admission"
+    ]
+  },
+  "remaining_material_obligations": "remaining-admission-dependencies-110.json, corrected by111; first explicit shared cell Camera509 clinical DB table/view/reducer routes. Other delegated raw/native boundaries retain exactly stated limits; no blanket helper/SDK/private/native waiver.",
+  "gate": "Root authoritative acceptance and all current Root/Camera/Native shared inventory/dependencies remain required before switching lens or any source repair. No human policy decision is presently known to block this review; zero-radius semantics is a later connected repair choice, not silently changed.",
+  "work_performed": "Read-only source and ignored stdlib metadata/hash bookkeeping. No project commands, builds, tests, generators, scanners, runtime, new cases/assertions/fixtures, CI, source/claims/global-ledger mutation, publication or spawned agents.",
+  "repair": "not_started_frozen_all13",
+  "validation": "not_run_no_test_success_claim",
+  "later_lens_credit": false,
+  "pins": [
+    {
+      "record": "continuation/rig/admission03/contract-groups.jsonl",
+      "sha256": "7ea9af22069f5188b38dcf9ef0045c66c83b47a0b5747c7941a00c42ce7b191c",
+      "bytes": 1319065
+    },
+    {
+      "record": "continuation/rig/admission03/coverage.jsonl",
+      "sha256": "0edfac97636a8ae7260aadadd50349259f1b6b3aa1a1cc0d3957c7e340544653",
+      "bytes": 357916
+    },
+    {
+      "record": "continuation/rig/admission03/findings.jsonl",
+      "sha256": "ea6938aebe7df1faf4e5918f28330dbb96997d47f6671d0b40b697f250d01cc9",
+      "bytes": 120871
+    },
+    {
+      "record": "continuation/rig/admission03/additional-contracts.jsonl",
+      "sha256": "55d640d8bc3d228ed2c939ca54dacefa7332e5402342ddc0fd601198cf4e8186",
+      "bytes": 111211
+    },
+    {
+      "record": "continuation/rig/admission03/source-range-registration.jsonl",
+      "sha256": "698ec787519f08585b75f3ce7f2fd08f0e8793f4f4837f91d88151c2c7783db1",
+      "bytes": 125828
+    },
+    {
+      "record": "continuation/rig/admission03/source-qualifications.jsonl",
+      "sha256": "73b396c2c044872db302ab61c66fba73d766d851ea24adde64db648396a6252f",
+      "bytes": 24789
+    },
+    {
+      "record": "continuation/rig/admission03/reference-qualifications.jsonl",
+      "sha256": "ca44846135c53bc31e17540a8f5914df7d66af5f4b255608aaec314a1dbb161d",
+      "bytes": 10022
+    },
+    {
+      "record": "continuation/rig/admission03/progress.jsonl",
+      "sha256": "a7a3367165a4aac3fd6867561db5d218fa9d7dba5d34963d26a8e04e3ca26fe5",
+      "bytes": 50802
+    },
+    {
+      "record": "continuation/rig/admission03/supplier-joins-012.json",
+      "sha256": "bb82fc2aa26d8ed21806ab406421836e6f897f44d3d7e49698ea38e7525de335",
+      "bytes": 2064
+    },
+    {
+      "record": "continuation/rig/admission03/source-registration-proof-map-109.json",
+      "sha256": "61e0ac51c2be8b2b29cf42e5bff96ca177dc87a419aae4b5fdff23eb0f28c5ad",
+      "bytes": 3520
+    },
+    {
+      "record": "continuation/rig/admission03/remaining-admission-dependencies-110.json",
+      "sha256": "5dc19fd2a31152cc911734ac772e48196964644a356feb351a920a83f646377e",
+      "bytes": 7871
+    },
+    {
+      "record": "continuation/rig/admission03/remaining-dependency-reference-qualification-111.json",
+      "sha256": "3c21d519a946d9a0abbd863803d7162c958f28731f2e5880289fc4924710f1e9",
+      "bytes": 1077
+    }
+  ]
+}

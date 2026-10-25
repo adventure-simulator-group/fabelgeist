@@ -1,0 +1,7 @@
+{
+  "source_thread_id": "01a1661d-3ed4-79e3-bc02-49e63070e3ce",
+  "checkpoint": "c798fa504db9bc6fd82695887e285751846dbdfc",
+  "received_at": "2026-10-23T12:41:11.214786+00:00",
+  "reported_update": "Incoming #780 F05 retained uniform-byte metadata also exposed a packing behavior regression. #826 reports verifying base990 static/fast provided-variant packers versus c798 expected-shape guards: shorter supported values could previously populate a wider member prefix, whereas the new static guard drops it and fast guard rejects it. Earlier preservation claim withdrawn. Source frozen, pending remaining initial lenses and coordinated whole-family repair; no source changes/checks/push/CI.",
+  "audit_disposition": "Owner-reported successor evidence, not independently verified here or a newly attributed frozen #774 defect. Preserve existing exact core ownership; do not accept c798 for integration or current-source review clearance."
+}

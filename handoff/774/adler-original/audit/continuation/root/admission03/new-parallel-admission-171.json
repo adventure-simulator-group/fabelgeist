@@ -1,0 +1,107 @@
+{
+  "id": "ROOT-ADM03-PARALLEL-171",
+  "at": "2026-10-23T02:46:15.067083+00:00",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability/mass.rs",
+      "sha256": "1f6a584fc834b98fd0a39dee168f5b8c461518b712f56906a9de26bd44fe192e",
+      "registration_id": "ROOT-INITIAL04-REG016",
+      "actual_compared_ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "source_evidence": "Fresh complete literal registered ranges personally read under exact frozen source before this admission record."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability/armor.rs",
+      "sha256": "027f27a4294fe1574bcb9c7f376db05904519094f99936be09bcf66d5459b7e0",
+      "registration_id": "ROOT-INITIAL04-REG017",
+      "actual_compared_ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "source_evidence": "Fresh complete literal registered ranges personally read under exact frozen source before this admission record."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory/query.rs",
+      "sha256": "88a095239e91a987745462a6d940bd24f04148126ba2f0297a9365612ba6f512",
+      "registration_id": "NATIVE-INITIAL05-REG025",
+      "actual_compared_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "source_evidence": "Fresh complete literal registered ranges personally read under exact frozen source before this admission record."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory_armor.rs",
+      "sha256": "6eccc859a14c75eb9734e96267595d482c3216028bda7e2f4cd113b8312a996b",
+      "registration_id": "NATIVE-INITIAL05-REG026",
+      "actual_compared_ranges": [
+        [
+          1,
+          79
+        ]
+      ],
+      "source_evidence": "Fresh complete literal registered ranges personally read under exact frozen source before this admission record."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/mod.rs",
+      "sha256": "294366e9eac449d161658a404c461baaf901a04a89e96ea87909a819e322e88a",
+      "registration_id": "NATIVE-INITIAL05-REG027",
+      "actual_compared_ranges": [
+        [
+          159,
+          213
+        ]
+      ],
+      "source_evidence": "Fresh complete literal registered ranges personally read under exact frozen source before this admission record."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/enrollment.rs",
+      "sha256": "9d6646ad8d4c3da14afcf544a8426c44afd33921fc4c39d20f4e2c09a49aa5f1",
+      "registration_id": "NATIVE-INITIAL05-REG028",
+      "actual_compared_ranges": [
+        [
+          1,
+          125
+        ]
+      ],
+      "source_evidence": "Fresh complete literal registered ranges personally read under exact frozen source before this admission record."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/receipt.rs",
+      "sha256": "24e17b0e16c1731ef4fa81d7e8f2448cd42b12b6b75dbbe16bc502f0f606508d",
+      "registration_id": "NATIVE-INITIAL05-REG029",
+      "actual_compared_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "source_evidence": "Fresh complete literal registered ranges personally read under exact frozen source before this admission record."
+    }
+  ],
+  "groups": {
+    "current-pr-mass": "Fresh literal PR mass1-41 after Root016 registration: fireplace exclusion, whole food-lot nonnegative mass, measured fraction or quantity, parametric recipe expect, fitted-holder expect/optional catalogue fallback, raw product and sum. P16 prepares fallible recipe causes instead. F035 mass arithmetic remains separate from absent/error recipe policy. No prior premature103 credit reused.",
+    "current-pr-armor": "Fresh literal PR armor1-103 after Root017 registration: DB item and equipped placement lookup, body-part membership, max occupancy ordering/default, conditioned item stat projection and canonical material/coverage extraction. Same bytes as P16 were independently compared with actual same Core/DB import meanings; no hash-only semantic transfer. No armor wear/whole capability coverage.",
+    "inventory-query": "Actual inventory/query1-21 iterates only holder Inventory members through q_item.iter_many; slot lookup projects first matching slot and optional inventory ID. Missing holder means empty iterator. This helper is not proof that every member's armor metadata or ownership product was admitted; exact lower recipient role only.",
+    "armor-fold": "Actual inventory_armor1-78 plus79blank performs covered-part indexing, layer sorting, selected authored geometry expects, per-layer contact projection and layered numeric fold. covered_parts does not itself prove optional geometry presence; admitted collection/coherent ArmorItem product is required. Raw resistance/padding sums and weighted flexibility require operation-lens numerical comparison; this03 proof identifies graph, does not award04/05 verdicts.80+tests excluded.",
+    "mission-terminal": "Actual new159-213 completes timeout tick and whole CombatOutcomeHold::advance plus held_duration. It resets incomplete/unsealed/empty terminal observations, compares raw population counters, accumulates enemy/party holds saturating Duration and prioritizes party defeat on simultaneous thresholds. Saturation is appropriate for duration threshold comparison; count/roster correlation needs actual producers and recipients. Existing1-158 proof separate; no214+tests.",
+    "mission-enrollment": "Actual1-124 plus125blank: Awaiting/Enrolling/Sealed sum type, NonZeroU32 expected, seen CharacterId set, begin/admit/sealed rejoin policy, no-loading seal threshold and reconnect empty-duration threshold. This local type admits expected count but does not bind exact strategic roster or receipt capacity by itself; preserve explicit upstream binding obligation.126+tests excluded.",
+    "mission-receipt": "Actual1-75 plus76blank copies injury/blood/ammunition from accumulated party, adds equipment-contact characters, sorts and truncates party to canonical max while retaining all equipment contacts. Membership/capacity correlation requires normal roster/accumulator/DB recipient proof; no normal truncation failure or executed run asserted. Direct enum projection exhaustive.77+tests excluded."
+  },
+  "mandatory_qualification": {
+    "record": "continuation/root/parallel-scope-qualification-170.json",
+    "sha256": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c"
+  },
+  "status": "exact_registered_source_semantic_admission_compared",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

@@ -1,0 +1,81 @@
+{
+  "id": "CONT08-CONTRACT-126",
+  "at": "2026-10-25T12:31:59.981470+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 431,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/mesh.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-weapon-model/src/mesh.rs",
+      "before_sha256": "13432d88e00f3227259bb5b938b0a72a40e300fa4cec4f0d92b020d07eca2418",
+      "after_sha256": "13432d88e00f3227259bb5b938b0a72a40e300fa4cec4f0d92b020d07eca2418",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0431-base-13432d88e00f3227259bb5b938b0a72a40e300fa4cec4f0d92b020d07eca2418",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/13432d88e00f3227259bb5b938b0a72a40e300fa4cec4f0d92b020d07eca2418",
+      "diff": "source-evidence/p16-0431.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          145
+        ]
+      ],
+      "facts": [
+        "Full145+empty actual diff. Native renderer f64\u2192f32 buffers/triple chunk handling, bounds extrema, spear bladeBase/tip working-section predicate >=-1e-12 and striking-head zero fallback unchanged. Derived properties preserve original accumulation/source order, signed longitudinal center and same final f32 narrowing. No aggregate finite certificate; actual Prepared consumers already traced Q002."
+      ],
+      "disposition": "Exact original source local08 comparison accounted WITH qualifications; actual unchanged producer, not renderer/recipe graph clearance.",
+      "acceptance": "Retain source/triangle/normal ordering and epsilon, native f64 kernel precision and signed integrals, separate canonical High physical and display LOD, original fixtures and typed admission recipients. No tests or checks."
+    },
+    {
+      "scope_index": 432,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/model/mod.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-weapon-model/src/model/mod.rs",
+      "before_sha256": "485c06d11de0a974d67d404c21cde555b41f4126f6a3ffdac7cf5ba7727dc8ad",
+      "after_sha256": "485c06d11de0a974d67d404c21cde555b41f4126f6a3ffdac7cf5ba7727dc8ad",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0432-base-485c06d11de0a974d67d404c21cde555b41f4126f6a3ffdac7cf5ba7727dc8ad",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/485c06d11de0a974d67d404c21cde555b41f4126f6a3ffdac7cf5ba7727dc8ad",
+      "diff": "source-evidence/p16-0432.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          273
+        ]
+      ],
+      "facts": [
+        "Full273+empty actual diff including existing fixtures. Recipe.validate then placement resolution and frame extent rejection precede High-detail canonical construction/physical integral. Farthest tip strict > prior+1e-12 and ordered source transform/pivot/bore propagation unchanged. Low/Medium renderer reconstructs source geometry while physics stays canonical High; fixtures preserve same LOD mass equality/part count/bounds/finite catalog and rotated attachment tolerances. Read only; no native generation executed."
+      ],
+      "disposition": "Exact original source local08 comparison accounted WITH qualifications; actual unchanged producer, not renderer/recipe graph clearance.",
+      "acceptance": "Retain source/triangle/normal ordering and epsilon, native f64 kernel precision and signed integrals, separate canonical High physical and display LOD, original fixtures and typed admission recipients. No tests or checks."
+    },
+    {
+      "scope_index": 433,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/model/output.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-weapon-model/src/model/output.rs",
+      "before_sha256": "6cfe3fe6963b9fe8617ab5eeb7c811619a98aef2ddfbfc4c2f502a00bfb6e2e2",
+      "after_sha256": "6cfe3fe6963b9fe8617ab5eeb7c811619a98aef2ddfbfc4c2f502a00bfb6e2e2",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0433-base-6cfe3fe6963b9fe8617ab5eeb7c811619a98aef2ddfbfc4c2f502a00bfb6e2e2",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/6cfe3fe6963b9fe8617ab5eeb7c811619a98aef2ddfbfc4c2f502a00bfb6e2e2",
+      "diff": "source-evidence/p16-0433.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          365
+        ]
+      ],
+      "facts": [
+        "Full365+empty actual diff. Ordered triangle corner welding uses rounded position1e9/flatface1e8 keys, all-neighbor max crease strict > and angle weighted normals, preserving groups/material/animation/bore metadata and flattened buffer index order.",
+        "Physical integration retains signed tetrahedral density/mass/moment/inertia, component order and exact f64 accumulation, no moved cap/abs or switched precision. Zero mass division and native output extrema are preexisting API/admission obligations; changed finite recipients cannot silently be assumed accepting them. Global COM, longitudinal reach max0 and zero-reach balance1 fallback unchanged."
+      ],
+      "disposition": "Exact original source local08 comparison accounted WITH qualifications; actual unchanged producer, not renderer/recipe graph clearance.",
+      "acceptance": "Retain source/triangle/normal ordering and epsilon, native f64 kernel precision and signed integrals, separate canonical High physical and display LOD, original fixtures and typed admission recipients. No tests or checks."
+    }
+  ],
+  "next": "434recipe265,435quantities98,436stock38,437validation207,438validation72."
+}

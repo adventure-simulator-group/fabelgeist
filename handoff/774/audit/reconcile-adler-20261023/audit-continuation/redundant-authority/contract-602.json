@@ -1,0 +1,99 @@
+{
+  "id": "CONT07-CONTRACT-602",
+  "at": "2026-10-24T00:28:29.986847+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2605,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/icon/screen.rs",
+      "sha256": "206d3367d126c35bb42e2ae53de50be30b5638a97ea72bb6713ede026454a1fe",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/icon/screen.rs",
+      "actual_EOF": 50,
+      "ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2606,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/lib.rs",
+      "sha256": "80124b8fa3d698044166b5f4226391835bde877e6e3e55904a8e6ab149a5fdcd",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/lib.rs",
+      "actual_EOF": 171,
+      "ranges": [
+        [
+          86,
+          171
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2607,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/breastplate_design.rs",
+      "sha256": "5754de117641f6ec7b40dd69802d0fddedf3d2e9a2608945b8c26b33171f05f6",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/breastplate_design.rs",
+      "actual_EOF": 206,
+      "ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2608,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/plate_fluting.rs",
+      "sha256": "42c3b5a6c8d36617915977082f2a591e7e363910aa7b7b209d0f0168d774fbf7",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/plate_fluting.rs",
+      "actual_EOF": 150,
+      "ranges": [
+        [
+          1,
+          100
+        ],
+        [
+          102,
+          131
+        ],
+        [
+          147,
+          150
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2609,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/anime_design.rs",
+      "sha256": "3fd27205e209b9133d640381c16458c180e205625a017b93138e363d14b04b86",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/anime_design.rs",
+      "actual_EOF": 56,
+      "ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Weapon icon projection takes current render CAMERA_YAW, then explicit layout/mirror/flip transforms; alpha bounds are an independent output observation, not a competing authored geometry bound.",
+    "Armor encoding/hash reads canonical typed design and validates before postcard serialization; breastplate/bracer hash inputs retain their own design fields, while generator version names behavior provenance separately from schema version. parametric_design_hash accepts already encoded bytes intentionally; actual caller must ensure encoded identity before interpreting as validated design.",
+    "Breastplate profile and boundary policies use their own canonical range constants where declared; independent front/rear and construction controls are not derivable duplicates. Anime overlap/gauge admission is relational, not a cached label. Fluting sampling and relief both derive pitch from the same count/spread owner; the regular grid is explicitly filtered in favor of feature grid. Fan mapping, fade bounds and relief dimensions represent coordinated chart operations, no independently stored duplicate pitch here. Public helpers still rely on prior design admission; no runtime or blanket API-validity claim."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2610,
+    "start_line": 1
+  }
+}

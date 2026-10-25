@@ -1,0 +1,183 @@
+{
+  "id": "CONT08-CONTRACT-220",
+  "at": "2026-10-25T14:43:59.283675+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 848,
+      "source_id": "pr-working:crates/adventuresim-core/AGENTS.md",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/AGENTS.md",
+      "before_sha256": "7d2a3dd7507a8405fded5577a7f406273ab835389b52b189415d0878c39d8a73",
+      "after_sha256": "7d2a3dd7507a8405fded5577a7f406273ab835389b52b189415d0878c39d8a73",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0848-base-7d2a3dd7507a8405fded5577a7f406273ab835389b52b189415d0878c39d8a73",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/7d2a3dd7507a8405fded5577a7f406273ab835389b52b189415d0878c39d8a73",
+      "diff": "source-evidence/pr-0848.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          9
+        ]
+      ],
+      "facts": [
+        "Full9unchangedguide+emptydiff readasfrozenevidence, no gameplayexecution. Sharedcombat tuning typedinput/authoredyamlpolicy unchanged; usertask remainsread-only andthisfiledoesnotauthorizechecks/repairs.",
+        "N/A executableold/new behavior, explicitscopepathaccounting only."
+      ],
+      "disposition": "Own08 actual old/new source comparison accounted, with retained exact-source/API qualifications and remaining connected scope stated.",
+      "acceptance": "Retain canonical source identity, ordinal/wire/native geometry, first errors and original fixture oracles. No tests, checks, exports or GPU execution."
+    },
+    {
+      "scope_index": 849,
+      "source_id": "pr-working:crates/adventuresim-core/Cargo.toml",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/Cargo.toml",
+      "before_sha256": "76c0508feb8cf102ae2fcbc7368ee29d79cc8500f1c118b1c3936c9fb20f28f7",
+      "after_sha256": "feb7d553952f711d1296803b07e2ec1b7ee1cb555df59648b5bdef7e2cf5d4a9",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0849-base-76c0508feb8cf102ae2fcbc7368ee29d79cc8500f1c118b1c3936c9fb20f28f7",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/feb7d553952f711d1296803b07e2ec1b7ee1cb555df59648b5bdef7e2cf5d4a9",
+      "diff": "source-evidence/pr-0849.diff",
+      "diff_sha256": "4f48afa8b631bfa67e917df5999ffa5b0ebc5fd9332be291368fe14c558fe088",
+      "head_body_read_ranges": [
+        [
+          1,
+          42
+        ]
+      ],
+      "facts": [
+        "Full42andentireactualdiff. Adds workspacefabelgeist-geometry dependency fornewphysicalowners; defaultfeatureempty/optionalspacetimedb flag andbuild/devdeps/lints unchanged. Materialruntime methods are actual ownelapsed/speed/geometry comparisons, no compileddependency/linkage conclusion.",
+        "No build/check executed."
+      ],
+      "disposition": "Own08 actual old/new source comparison accounted, with retained exact-source/API qualifications and remaining connected scope stated.",
+      "acceptance": "Retain canonical source identity, ordinal/wire/native geometry, first errors and original fixture oracles. No tests, checks, exports or GPU execution."
+    },
+    {
+      "scope_index": 850,
+      "source_id": "pr-working:crates/adventuresim-core/build.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/build.rs",
+      "before_sha256": "db116f50551fe8fa80b48f6cc527686affa91403213f6df24ecff7b41b126514",
+      "after_sha256": "fc42ea1f2234144e94d6bfac86f254cd059799b9f9e5ae6de7f77e3125f19b7c",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0850-base-db116f50551fe8fa80b48f6cc527686affa91403213f6df24ecff7b41b126514",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/fc42ea1f2234144e94d6bfac86f254cd059799b9f9e5ae6de7f77e3125f19b7c",
+      "diff": "source-evidence/pr-0850.diff",
+      "diff_sha256": "a1821911107805d9d3d8cdade40232174fb3f182638d495cad19b40a8c84a76f",
+      "head_body_read_ranges": [
+        [
+          1,
+          509
+        ]
+      ],
+      "facts": [
+        "Full509andentire39lineactualdiff. Main compileorder combat\u2192organizations\u2192items\u2192encounters\u2192quests, file/pathsorting/digest bytes+NUL+rawtext, strictJSONsubset andsourcecursor/linecolumn collection,iconchecks/promotions validations unchanged. Added shared animationpack/elapsed/linearspeed modules permit actualsamevocabulary inbuild validators; validators/bodies remainseparatefrontier.",
+        "Actualcompileitems220\u2013340 supplies937canonicalsource-map documentorder; no freshbuild/source-mapruntime outputclaimed. Exactsamehead asown046P16 fullread reuse support, currentPRbase comparison independentlymade."
+      ],
+      "disposition": "Own08 actual old/new source comparison accounted, with retained exact-source/API qualifications and remaining connected scope stated.",
+      "acceptance": "Retain canonical source identity, ordinal/wire/native geometry, first errors and original fixture oracles. No tests, checks, exports or GPU execution."
+    },
+    {
+      "scope_index": 851,
+      "source_id": "pr-working:crates/adventuresim-core/build/combat_resolution.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/build/combat_resolution.rs",
+      "before_sha256": "10b9b340d8e033eefc0bc18de1073f25f8b6440a75c1c8c6f9b644924c8a15ac",
+      "after_sha256": "edfd993d879e1cb771859c76510e7e78e3f612d2f22bacdff5a8ce923970d2ce",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0851-base-10b9b340d8e033eefc0bc18de1073f25f8b6440a75c1c8c6f9b644924c8a15ac",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/edfd993d879e1cb771859c76510e7e78e3f612d2f22bacdff5a8ce923970d2ce",
+      "diff": "source-evidence/pr-0851.diff",
+      "diff_sha256": "3162765734b0810f992abe551f3ccc680c0684b48dc2db6ca56010aca7945193",
+      "head_body_read_ranges": [
+        [
+          1,
+          275
+        ]
+      ],
+      "facts": [
+        "Full275andentireactualdiff. Fatigue oldDebugstruct emission replaced explicitfieldorder/rawscalar projection including typedelapsed/speed; all originalfatiguefields present andnumericDebugf32same. Autoresolve typedconstructor stringemission preserves originalinputf64literalspelling/order andembeddedfieldvalues forrepresentablepositive authoredinputs; contactDebug unchanged.",
+        "Actualvalidate order fatigue\u2192transfer\u2192positivef64values\u2192fractionbounds\u2192orderedhit/reaction/initiative unchanged; typednarrowconstruction additionally rejects zero/nonfinite afterf32decode. Finitef64underflow positive speed becomes0 oldliteral acceptedbutinvalidphysicalspeed/newreject: intentional actualstrictpositive owner, notordinarydefaultregression. Hugef64out-of-f32literal source notclaimedoldsuccessful. Noneofbuild-generatedoutputs executed."
+      ],
+      "disposition": "Own08 actual old/new source comparison accounted, with retained exact-source/API qualifications and remaining connected scope stated.",
+      "acceptance": "Retain canonical source identity, ordinal/wire/native geometry, first errors and original fixture oracles. No tests, checks, exports or GPU execution."
+    },
+    {
+      "scope_index": 899,
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/fatigue_config.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/combat/fatigue_config.rs",
+      "before_sha256": "8047b9b6704f0c2094e21df25ec5028c5138bf5e90c91161c7032856e2d08b27",
+      "after_sha256": "a899b7bacdfbcbc116a93ff6adc283bfb56bea396687713dc3677ff505522ce9",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0899-base-8047b9b6704f0c2094e21df25ec5028c5138bf5e90c91161c7032856e2d08b27",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/a899b7bacdfbcbc116a93ff6adc283bfb56bea396687713dc3677ff505522ce9",
+      "diff": "source-evidence/pr-0899.diff",
+      "diff_sha256": "535e27f2e441bc6775653401c3924f2548886f5daddc87f766a5a2e0efb6a6e0",
+      "head_body_read_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "facts": [
+        "Head46exactsameasown085P16fullread, reread46plusactualPR46linediff; no unchangedPRbasepretence. Rawfatiguevalidate finitepositive array formerlyincludeddurations/speed, nowelapsednonfinite/nonnegative+PositiveSpeed admission andvalidatezero/minmax; validphysicalpopulation same/errorstage canearlierdeserialize forinvalidvalues.",
+        "Sameefficiency<=1/min<=max andsameordinarynativef32values; build851completeemitter nowprojects typedrawseconds/speed asactualport; no publicliteralaggregateclearance."
+      ],
+      "disposition": "Own08 actual old/new source comparison accounted, with retained exact-source/API qualifications and remaining connected scope stated.",
+      "acceptance": "Retain canonical source identity, ordinal/wire/native geometry, first errors and original fixture oracles. No tests, checks, exports or GPU execution."
+    },
+    {
+      "scope_index": 916,
+      "source_id": "pr-working:crates/adventuresim-core/src/elapsed.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/elapsed.rs",
+      "before_sha256": null,
+      "after_sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+      "diff": "source-evidence/pr-0916.diff",
+      "diff_sha256": "8f1a5945a928be95eabcccc115330a131d04b1234ac1522f576eb53b9a5aacc6",
+      "head_body_read_ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "facts": [
+        "Own096exactsamehead131 personallyread+thisentirePRaddition134lines; PRbaseabsent. Retains exactzero/subnormal/signedzeroadmission, nativeDuration TryFrom/as_secs_f32/rawserde andarithmetic behavior accounted perown096actualreceivers. Newsharedownerintentionalfiniteelapsed boundary fromoldprimitive callers.",
+        "Entireadditionconsumed includingDebugunderlyingfloat andnativeerrorDisplay; no blanketwholecallergraph clearance, actualeachproducer/recipient remains ownfrontier."
+      ],
+      "disposition": "Own08 actual old/new source comparison accounted, with retained exact-source/API qualifications and remaining connected scope stated.",
+      "acceptance": "Retain canonical source identity, ordinal/wire/native geometry, first errors and original fixture oracles. No tests, checks, exports or GPU execution."
+    },
+    {
+      "scope_index": 952,
+      "source_id": "pr-working:crates/adventuresim-core/src/linear_speed.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/linear_speed.rs",
+      "before_sha256": null,
+      "after_sha256": "db3686060ebd8ce533fe48c88685c5643b024b8a92b2b617d97481196988f3e0",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/db3686060ebd8ce533fe48c88685c5643b024b8a92b2b617d97481196988f3e0",
+      "diff": "source-evidence/pr-0952.diff",
+      "diff_sha256": "12b4ffb2a311eb764ed248072864b040e01833821838b070d70648ce927b6209",
+      "head_body_read_ranges": [
+        [
+          1,
+          178
+        ]
+      ],
+      "facts": [
+        "Own119exactsamehead178fullread plusentirePRaddition181lines. Nonnegative/signed/positiveowners preserve exactraw finitevalues; positiveexcludesbothzeros, rawnumericserde, f32 min/max anddifference-formlerporder maintainedforadmittedinputs; checkednonfinite result mapsOverflow.",
+        "Current851emission explicitlymetres_per_second avoidsderivedDebugnestedwrapperencoding. No hiddencompat/defaultpositiveconstructor added; percallerzero/tiny/overflow policy stillrequireconcretepathcomparison."
+      ],
+      "disposition": "Own08 actual old/new source comparison accounted, with retained exact-source/API qualifications and remaining connected scope stated.",
+      "acceptance": "Retain canonical source identity, ordinal/wire/native geometry, first errors and original fixture oracles. No tests, checks, exports or GPU execution."
+    }
+  ],
+  "next": "852activity243 then853alcohol776/854animation43/855attribute164"
+}

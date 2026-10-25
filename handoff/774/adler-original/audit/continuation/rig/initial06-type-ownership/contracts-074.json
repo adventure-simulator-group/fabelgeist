@@ -1,0 +1,19 @@
+{
+  "id": "RIG-INITIAL06-GROUP-074",
+  "at": "2026-10-23T00:44:18.402325+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "native-reducer-result-boundary-supports-typed-application-errors": {
+      "comparison": "Fresh full reducer macro204, exact view190-361, rt current complete material union1-228/330-465/560-655/660-695/703-712/1025-1065/1086-1098/1228-1308/1374-1393 including mandatoryoverlay108. Native macro asserts reducer arg/result traits and delegates generated invoke without forcing authored function Result<(),String>. Runtime IntoReducerResult219-223 accepts Result<(),E:Display> and formats original E to Box<str> ONLY at true ABI result boundary; host convert_err_to_errno writes bytes and failurecode. Therefore native SDK is not a legitimate barrier to typed application operation errors before final reducer return. Preserve typed leaf+operation context through internal calls as057; no duplicate SDK result/error type needed, no foreign patch, no compatibility return overload. Native procedure return diagnostic228 is context only, actual later IntoProcedureResult body unscoped/uncredited. Lifecycle registration/function descriptors own SDK invocation metadata not gameplay state transitions or mission status. Exported zero-sized uninhabited function handles are callable type-level registry objects, not duplicate actor/item IDs. Current ABI view code2/header versus documented previous0 is foreign SDK compatibility; no new game compatibility path or dependency edit.",
+      "disposition": "Typed application errors remain feasible through reducer; native text conversion belongs final ABI port"
+    },
+    "sats-schema-tuple-adapter-versus-canonical-value-owner": {
+      "comparison": "Actual rtArgsVisitor/SerDeArgs703-712 +tuple598-611 decodes declared T via native next_element<T>, schema628-632 calls T.make_type and reducerinvoke643-645 passes exact typed tuple to authored function. It does not call SerdeJSON Deserialize, gameplay new or semantic validate automatically. Single shared canonical lowCore type may own proper checked native SATS codec/feature rather than duplicating DB mirrors (F007); native representability and application invariant routes must be implemented deliberately. Role-only old SDK unit variants cannot clear data products/variants, mandatory117 distinction retained. Context parameters are separate native ReducerContext/ViewContext/AnonymousViewContext; identity reconstructed from host words, zeroConnectionId None and Unix-microsecond Timestamp native port not absolute StrategicMinute/actor character ID. ViewReturn Vec<T>/Option<T> writes native rows; RawQuery writes SQLheader; views macro selectively converts actual querybuilder into native RawQuery, real wire query boundary rather than retaining raw text throughout gameplay. No application placement/permission/visibility or checked numeric acceptance follows from successful SATS serialization. Args/Schema metadata/index/BytesSource/Sink/IterBuf are SDK generic byte/registry contracts, not reusable game rig/sample/mission counts. Generic SDK ownership coherent at actual invocation port; do not recreate native traits in gameplay Core or force all application wrappers to live in DB package.",
+      "disposition": "Native tuple/schema/byte adapters retain actual typed fields; canonical checked gameplay owners require explicit native codec"
+    }
+  },
+  "related_findings": [
+    "RIG-INITIAL06-F007"
+  ],
+  "limits": "Exact pinned macros/runtime union only; no whole1436rt/view1-189/362+ or automatically checked SATS shape. Whole06 incomplete; no generation/execution/source edits/newtests/later-lens credit."
+}

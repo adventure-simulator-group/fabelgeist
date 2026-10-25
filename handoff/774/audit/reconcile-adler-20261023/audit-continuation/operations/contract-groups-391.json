@@ -1,0 +1,110 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-391",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+      "sha256": "fe34810c16d01e6e72cb6550444fb14d00245023b73d532a7bd87f5582897fc3",
+      "actual_EOF": 200,
+      "actual_compared_ranges": [
+        [
+          1,
+          200
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/bind_pose.rs",
+      "sha256": "18362beeb59c79ca73d1ea84c897ce75b45074c2fd0e099999cabc707f058e12",
+      "actual_EOF": 48,
+      "actual_compared_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/bouncy_bones.rs",
+      "sha256": "14cc7dac87568e296696a1720be8620adc2c31b3451388d7e099e569d6608108",
+      "actual_EOF": 471,
+      "actual_compared_ranges": [
+        [
+          1,
+          471
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Authored stride interpolation and retained cache validity",
+      "evidence": "authored_cadence.rs1\u2013200: lengthleaves nonnegative; lerp resultreadmitted fieldbyfield withoutmutatingcache. Configurationmismatch excludesstalestrides/phasecurves; explicitinvalidate resetsall, perassetclear removesmotiondata+phasecurve+measuredclip. Ordinaryblend clamps0..1 thencheckedUnitInterval; combatweights absdirection, divides total andreadmits bothlengths.",
+      "qualification": "Finite operands/products canoverflow butreadmission rejects results andmethodnoretainedmutation. NaN direction canbypass positivebranch buttotaldivisionyieldsNaN rejected. walk/runreferencespeeddifference requires canonical distinctconfigprofiles; no zero-denominatorordinarycase established. Missingcalibration is intentionalOptionNone, preserves simulationfallback; empty/singletonphaseidentity separatecurveowner."
+    },
+    {
+      "contract": "Bind snapshots and hierarchy mutation",
+      "evidence": "bind_pose.rs1\u201348 full: captureaddedTransform walks atmost64ancestors, storesowner+local; restoreonlyownerplaybackbindplan, resetslocal thenaddsoptionalSkeletalJointOffset.",
+      "qualification": "No finite resultreadmission after translation+offset: validfinite extremes canoverflow butactualproportion/rigproducer bounds nottraced here. Lateadded rigroot ordepth>64 canleaveuncapturednodes; actualhierarchyschedulingdependency, notproofordinarylostbind. BevyChildOf guaranteesacyclicworldhierarchy forunboundedwalkinbouncy live_world_rotation; malformedexternal ECSgraph notassumed."
+    },
+    {
+      "contract": "Reactive spring integration and retained state",
+      "evidence": "bouncy_bones.rs1\u2013471: static19boneparentchain strictlyearlierindices, kickrolemapexcludesfeet, bone_direction falliblynormalizesworldchainvector. kickaccumulates spin on velocity; coupling takesoldoffsetsnapshot eachframe, thenstep andangleclamp. Time<=0 identity, springsdecay evenragdoll/frozen; onlyapplyrigwalk gated byownership andfrozen/physics. Capturedworldrotation recalculatedparent-before-child rather thanstaleGlobalTransform.",
+      "qualification": "Configurationorimpulsefinite doesnotguarantee spin/coupling/oscillatorfinite. NaNspringoffset skipsactualtransform condition(length\u00b2>threshold false), butat_rest remainsfalse andstatecannotdecay; maxtelemetryf32max canhideNaN. Defaultsmallembeddedtuning andactualkickproducerstillseparate; no gameplayauthorityorordinarylivefailureclaimed. Tests onlynormal3Hz/delta.5/halflife.001, notexhaustiveconfigarithmetic."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-BOUNCY-SPRING-FINITE-OVERFLOW-CANDIDATE-001",
+      "classification": "Admitted configuration/API counterexample; retained numerical failure, no current shipped-config or live-run witness.",
+      "operation": "TacticalCombatConfig bouncy admission699\u2013720 finite_nonnegative frequency>0/halflife>0; bouncy_bones spring_step221\u2013238 computesTAU*frequency, squares andsin_cos, commitsSpring withoutfinitecheck; apply352ff retains/clamps uncheckedcomputedstate.",
+      "witness": "Nonrest spring offsetVec3::X*.5, velocity0, halflife.18, frequencyf32MAX, positive delta1/60. All scalarconfigchecks admitfrequency. omega=TAU*MAX\u2192Inf, dampedInf, sin_cos(Inf)NaN; offset/velocityNaN committed. Tail snap comparisonsfalse, nextat_restfalse, subsequentstepsremainNaN. Deflection clamp doesnotre-admitfinite.",
+      "qualification": "Currentauthoredcombat.yaml frequency3,halflife.18,coupling60,maxangle.8; noordinaryoverflowfromthatdata claimed. PubliccrateBoneKick impulse producer/normalimpactscale notfreshlytraced andnotneededforconfigwitness beyondnonzeroexistingSpring. No CPUtest/GPU/native run. Archive targetedinitial04/assignedstrategic search noexactbouncyrecord; coordinatorcanonicalglobaldedup pending, no guessedunique count. Fresh packet394 mod.rs482\u2013497 closes actual SuccessfulAttackResponse\u2192BoneKick producer for nonzero confirmed impact; still no live event/config witness and no ordinary shipped-tuning failure. Canonical exact alias now confirmed; any earlier search absence/pending wording above is historical within this packet, overridden by disposition/canonical_finding.",
+      "dependencies": [
+        "TacticalCombatConfig numerical admission",
+        "spring_step/kick_bones/coupling shared retained state owner",
+        "Native diagnostic acceptance when repairs authorized"
+      ],
+      "acceptance": "Either explicitlybound configuration to a proved numericallyclosed range, or preserve full admitted finite range with stable/fallibleoperations and preparecomplete newSpring before replacingoldstate. Rejectnonfinitecomputedoffset/velocity, preservezerotime/normaldamping/clamping/frozenandraggdoll decay semantics; coverextremefrequency/strength/coupling andfinitekick accumulation. Native acceptance required for any asserted ordinaryplayfix, withoutweakenedthresholds.",
+      "disposition": "alias/lens04 support; not a new unique defect",
+      "canonical_finding": "NATIVE-INITIAL05-F013",
+      "canonical_archive_key": "audit/continuation/native/initial05-aggregate-states/findings.jsonl#15",
+      "dedup_evidence": "Exact full source personally read for04; exact filtered archive finding record personally read, same operation/witness/qualified ordinary-producer boundary. No other lens coverage transferred."
+    }
+  ],
+  "fresh_dependencies": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "5d114988a64595879b04e6f151d2a184cdf8f893f2f2b17a9987a3faf933d4ab",
+      "actual_compared_ranges": [
+        [
+          110,
+          150
+        ],
+        [
+          680,
+          725
+        ]
+      ],
+      "role": "Critical dependency snippets personally reread; no fresh whole-body scope credit."
+    },
+    {
+      "source_id": "pr-working:content/tactical/combat.yaml",
+      "sha256": "05958d54e48eba637c755f8ad89959dc6ef0aeaeeeaeb75022e07071a01ddaf3",
+      "actual_compared_ranges": [
+        [
+          252,
+          273
+        ]
+      ],
+      "role": "Critical dependency snippets personally reread; no fresh whole-body scope credit."
+    }
+  ],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/animation/capture_ids.rs"
+}

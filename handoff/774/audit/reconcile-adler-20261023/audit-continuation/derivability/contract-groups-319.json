@@ -1,0 +1,78 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-319",
+  "at": "2026-10-25T14:41:11.222479+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 622,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/geometry_index/checked.rs",
+      "sha256": "c22c004b9567bec8accd9108a2d1c0d3da7bec4f0e08068281b3c1e8179e02c9",
+      "actual_EOF": 28,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/geometry_index/checked.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-building-generator/src/geometry_index/checked.rs",
+        "sha256": "c22c004b9567bec8accd9108a2d1c0d3da7bec4f0e08068281b3c1e8179e02c9",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 683,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 243,
+            "read_ranges": [
+              [
+                1,
+                28
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-INTERIOR-ROOF-CLOSURE-090"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/geometry_index/checked.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1578,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Complete generic try_any4\u201315/try_all17\u201328 free functions consumed. Generic IntoIterator/FnMut checked predicate/error order and short-circuit semantics; no handwritten trait/type/codec. Generic algorithms are not derives."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "checked short-circuit native predicate helpers",
+      "disposition": "No handwritten trait boilerplate. Retain generic error identity, native iterator item/borrow and earliest-error/short-circuit behavior.",
+      "acceptance": "No derive/API/dependency recommendation or execution."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 623,
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/heating/placement.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

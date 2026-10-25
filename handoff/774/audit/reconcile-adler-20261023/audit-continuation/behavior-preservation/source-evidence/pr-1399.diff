@@ -1,0 +1,220 @@
+--- PRbase/crates/adventuresim-tactical-client/src/animation/resolver.rs
++++ frozen/crates/adventuresim-tactical-client/src/animation/resolver.rs
+@@ -0,0 +1,217 @@
++//! Resolve semantic samples into authored clip plans.
++
++use super::*;
++use adventuresim_tactical_core::animation::AnimationPackId;
++
++mod span;
++
++#[derive(Clone, Copy)]
++pub(super) struct PoseSampleResolver<'a> {
++    pub(super) runtime: &'a AnimationRuntime,
++    pub(super) catalog: &'a AnimationPackCatalog,
++    pub(super) pack: &'a AnimationPackId,
++    pub(super) locomotion_strides: &'a AuthoredLocomotionStrides,
++}
++
++pub(super) struct ResolvedBodyPlan {
++    pub(super) clips: Vec<WeightedClip>,
++    extrapolated_spans: Vec<ExtrapolatedSpan>,
++    continuation_spans: Vec<ContinuationSpan>,
++    whole_body_mirror: UnitInterval,
++}
++
++impl ResolvedBodyPlan {
++    pub(super) fn into_playback(
++        self,
++        evaluation: &AnimationEvaluation,
++    ) -> AnimationValueResult<PlaybackPose> {
++        Ok(PlaybackPose {
++            plan: PlaybackContributions::admit(
++                self.clips,
++                self.extrapolated_spans,
++                self.continuation_spans,
++            )?,
++            whole_body_mirror: self.whole_body_mirror,
++            foot_ik_weights: FootIkInfluence::from_evaluation(evaluation)?,
++            cadence: if evaluation.action.is_empty() {
++                PoseSamplingCadence::Buffered
++            } else {
++                PoseSamplingCadence::Direct
++            },
++        })
++    }
++}
++
++impl PoseSampleResolver<'_> {
++    pub(super) fn resolve_body(
++        &self,
++        skeleton: &SkeletonState,
++        evaluation: &AnimationEvaluation,
++    ) -> AnimationValueResult<ResolvedBodyPlan> {
++        let mut weighted = Vec::<WeightedClip>::new();
++        let mut extrapolated_spans = Vec::<ExtrapolatedSpan>::new();
++        let mut continuation_spans = Vec::<ContinuationSpan>::new();
++        let samples = if evaluation.action.is_empty() {
++            &evaluation.base
++        } else {
++            &evaluation.action
++        };
++        let split_combat_pelvis = combat_pelvis_is_component_blended(skeleton, evaluation);
++        let base_layer = if split_combat_pelvis {
++            ClipLayer::CombatUpper
++        } else if !evaluation.lower_body.is_empty() {
++            ClipLayer::Upper
++        } else {
++            ClipLayer::Whole
++        };
++        for sample in samples {
++            self.append_layer(
++                &mut weighted,
++                &mut extrapolated_spans,
++                &mut continuation_spans,
++                *sample,
++                base_layer,
++            )?;
++        }
++        let lower_layer = if split_combat_pelvis {
++            ClipLayer::CombatLower
++        } else {
++            ClipLayer::Lower
++        };
++        for sample in &evaluation.lower_body {
++            self.append_layer(
++                &mut weighted,
++                &mut extrapolated_spans,
++                &mut continuation_spans,
++                *sample,
++                lower_layer,
++            )?;
++        }
++        let whole_body_mirror = mirror_fraction(
++            weighted
++                .iter()
++                .map(|clip| (clip.weight, clip.mirrored_weight))
++                .chain(
++                    extrapolated_spans
++                        .iter()
++                        .map(|span| (span.weight, span.mirrored_weight)),
++                )
++                .chain(
++                    continuation_spans
++                        .iter()
++                        .map(|span| (span.weight, span.mirrored_weight)),
++                ),
++        )?;
++        Ok(ResolvedBodyPlan {
++            whole_body_mirror,
++            clips: weighted,
++            extrapolated_spans,
++            continuation_spans,
++        })
++    }
++
++    pub(super) fn append_layer(
++        &self,
++        weighted: &mut Vec<WeightedClip>,
++        extrapolated_spans: &mut Vec<ExtrapolatedSpan>,
++        continuation_spans: &mut Vec<ContinuationSpan>,
++        sample: PoseSample,
++        layer: ClipLayer,
++    ) -> AnimationValueResult<()> {
++        let start = resolve_anchor(self.runtime, self.catalog, self.pack, sample.pose);
++        let Some(start) = start.and_then(|resolved| {
++            select_gait_endpoint_parity(self.runtime, resolved, sample.mirror_lower_body)
++        }) else {
++            return Ok(());
++        };
++        match sample.sampling {
++            PoseSampling::Anchor => {
++                append_weighted_anchor(weighted, &start, start.anchor.frame, sample.weight, layer)
++            }
++            PoseSampling::Cycle { .. } | PoseSampling::Timeline { .. } => {
++                self.append_timed_sample(weighted, &start, sample, layer)
++            }
++            PoseSampling::Span { .. } => {
++                self.append_interpolated_span(weighted, &start, sample, layer)
++            }
++            PoseSampling::CurveSpan { .. } => {
++                self.append_curve_span(weighted, extrapolated_spans, &start, sample, layer)
++            }
++            sampling @ PoseSampling::ContinuationSpan { .. } => append_continuation_span(
++                self,
++                weighted,
++                continuation_spans,
++                &start,
++                sample,
++                sampling,
++                layer,
++            ),
++        }
++    }
++
++    fn append_timed_sample(
++        &self,
++        weighted: &mut Vec<WeightedClip>,
++        start: &ResolvedAnchor<'_>,
++        sample: PoseSample,
++        layer: ClipLayer,
++    ) -> AnimationValueResult<()> {
++        match sample.sampling {
++            PoseSampling::Cycle { phase } => {
++                let sample_phase = self.locomotion_strides.sample_phase(sample.pose, phase)?;
++                let clip = start.clip.at_anchor_layer(start.anchor.frame, layer);
++                append_weighted_clip(
++                    weighted,
++                    &clip,
++                    start.mirrored,
++                    start.clip.duration_seconds.at_phase(sample_phase)?,
++                    sample.weight,
++                    matches!(
++                        sample.pose,
++                        SemanticPose::WalkContact | SemanticPose::RunContact
++                    )
++                    .then_some(phase.wrapped()),
++                )
++            }
++            PoseSampling::Timeline { progress } => {
++                let progress = progress.fraction();
++                let timeline = if start.timeline_direction == TimelineDirection::Reversed {
++                    1.0 - progress
++                } else {
++                    progress
++                };
++                let clip = start.clip.at_anchor_layer(start.anchor.frame, layer);
++                append_weighted_clip(
++                    weighted,
++                    &clip,
++                    start.mirrored,
++                    ClipTime::from_seconds(start.clip.duration_seconds.seconds() * timeline)?,
++                    sample.weight,
++                    None,
++                )
++            }
++            _ => Ok(()),
++        }
++    }
++}
++
++fn mirror_fraction(
++    contributions: impl Iterator<Item = (BlendWeight, BlendWeight)>,
++) -> AnimationValueResult<UnitInterval> {
++    let mut total = BlendWeight::ZERO;
++    let mut mirrored = BlendWeight::ZERO;
++    for (weight, mirror) in contributions {
++        total = total.checked_add(weight)?;
++        mirrored = mirrored.checked_add(mirror)?;
++    }
++    if total.is_absent() {
++        return Ok(UnitInterval::ZERO);
++    }
++    let fraction = mirrored.factor() / total.factor();
++    if !fraction.is_finite() {
++        return Err(AnimationValueError::Overflow {
++            quantity: adventuresim_tactical_core::animation::AnimationQuantity::BlendWeight,
++        });
++    }
++    Ok(UnitInterval::from_fraction(fraction.clamp(0.0, 1.0))?)
++}

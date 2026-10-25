@@ -1,0 +1,25 @@
+{
+  "id": "RIG-INITIAL06-GROUP-031",
+  "at": "2026-10-22T20:13:23.427101+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "numerical-hair-node-quantities-and-shared-state": {
+      "sources": [
+        "pr-working:crates/fabelgeist-hair/src/ops/displace.rs",
+        "pr-working:crates/fabelgeist-hair/src/ops/settle.rs",
+        "pr-working:crates/fabelgeist-hair/src/ops/shrinkwrap.rs",
+        "pr-working:crates/fabelgeist-hair/src/ops/trim.rs"
+      ],
+      "comparison": "Fresh complete Displace335/Settle256/Shrinkwrap99/Trim81 incl original scoped tests. Frizz/Noise/Wave consume common canonical Strands, StrandId, GuideMap, Context and collider; no independent owners for these identities or buffers. Frizz and Noise legitimately separate coherent spatial noise from strand-wise stochastic offset despite overlapping fields. Wave wavelength/amplitude are metres, frequency/phase turns rather than temporal rate, Noise.scale native cells/m with fixed5 factor (not same raw source PerMetre numeric); Trim.length share versus max_length metres with0=no-limit is explicit different meaning. Settle wind/gravity are acceleration, stiffness is gravity LENGTH not XPBD mechanical compliance; native solved compliance122 computes1/(g*stiffness^3), moments/length suffix sums not independently authored material state. It must not reuse tactical combat/game clocks or Fabric compliance just by fieldname. Shrinkwrap offset distance and signed query are Hair native anatomical numerical ports; NoCollider infinite absence remains valid interface behavior (not all finite SignedLength). Public raw source/Serde/default fields keep extrapolation/zero/noop policies; no arbitrary checked probability/strictpositive reinterpretation. Shared Math unit-only leaves are available to carry unchanged host quantities until arithmetic/native pack; true kernel input can remain explicitly projected raw representation. Geometry stronger finite/frame-aware API after F001 must preserve actual source admission policy rather than blanket-changing every raw field. Canonical per-strand IDs retained until actualhashword calls; points/iterations/guide indices are counts/ordinals not stableidentity. No new duplicate ownership defect, no native/private-helper blanket exemption and no runtime claim."
+    },
+    "borrowed-interpolation-boundary-and-profile-native-packing": {
+      "sources": [
+        "pr-working:crates/fabelgeist-hair/src/gpu/grow/input.rs",
+        "pr-working:crates/fabelgeist-hair/src/gpu/grow/profile.rs"
+      ],
+      "comparison": "Fresh Input22/Profile56. Interpolation is a borrowed operation+its actual ordinal in Groom.ops, find returns first exact Op::Interpolate or MissingInterpolation; this is a coherent validated slice-boundary product, not duplicated Interpolate payload or independent config. at is operation ordinal different from strand count/current strand index/Rig ordinal. record_profile holds canonical borrowed Profile and StrandSet and projects actualradius/random/optionalrelative packing only into native KernelBatch params; native none marker0 plus separateflag preserves distinct Option state. record_guide_pack retains canonical Parting before actualparting_parameters nativeport, canonicalGpuGuides/resources reused. Exact native count/points dispatch words not content IDs. Full native recording helper/parting_parameters body and GPU state owner comparison still queued in grow/mod, no called-helper blanketproof."
+    }
+  },
+  "new_findings": [],
+  "limits": "Actual current source/meaning/unit/producer/use/authority/dependency analysis; GPU full pipeline and rest inventory remain pending."
+}

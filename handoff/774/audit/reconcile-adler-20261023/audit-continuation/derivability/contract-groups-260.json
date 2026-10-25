@@ -1,0 +1,168 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-260",
+  "at": "2026-10-25T14:16:01.190552+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 518,
+      "source_id": "pr-working:assets/shaders/tactical_terrain.wgsl",
+      "sha256": "3e1b93040592788f45f281cd81947315b64deedb33d1325c618959a3ca642e81",
+      "actual_EOF": 415,
+      "requested_registration": {
+        "source_id": "pr-working:assets/shaders/tactical_terrain.wgsl",
+        "snapshot": "pr-working",
+        "path": "assets/shaders/tactical_terrain.wgsl",
+        "sha256": "3e1b93040592788f45f281cd81947315b64deedb33d1325c618959a3ca642e81",
+        "bytes": 20079,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-root-receivers-013.json",
+            "ranges": [
+              [
+                1,
+                415
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-SUPP-NATIVE-003"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 464,
+            "read_ranges": [
+              [
+                1,
+                415
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-TERRAIN-TREE-SHADERS-070"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/assets/shaders/tactical_terrain.wgsl"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 133,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          415
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "WGSL native uniform/bindings/helper/fragment source, no Rust trait/Serde implementation.",
+      "absence_basis": "Full415-line terrain shader consumed1\u2013220/221\u2013415. TacticalTerrainMaterial layout plus decode_surface_height_ao, cliff_triplanar_weights/axis_uvs/height/arm, geological_scalar/palette_selector, height_perturbed_normal and fragment. Explicit native geometry/soil/litter/cliff/sward/snow/PBR semantic kernels are not Rust derivability; host producer/imported shader bodies uncredited."
+    },
+    {
+      "scope_index": 519,
+      "source_id": "pr-working:assets/shaders/tactical_tree_aggregate_bark.wgsl",
+      "sha256": "9fbf0f983b8019500e6cdf95bd531a99a9a3b01eea1b07f27d9c4506364c4fe8",
+      "actual_EOF": 49,
+      "requested_registration": {
+        "source_id": "pr-working:assets/shaders/tactical_tree_aggregate_bark.wgsl",
+        "snapshot": "pr-working",
+        "path": "assets/shaders/tactical_tree_aggregate_bark.wgsl",
+        "sha256": "9fbf0f983b8019500e6cdf95bd531a99a9a3b01eea1b07f27d9c4506364c4fe8",
+        "bytes": 1623,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-root-receivers-013.json",
+            "ranges": [
+              [
+                1,
+                49
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-SUPP-NATIVE-003"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 465,
+            "read_ranges": [
+              [
+                1,
+                49
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-TERRAIN-TREE-SHADERS-070"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/assets/shaders/tactical_tree_aggregate_bark.wgsl"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 134,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "WGSL native material shader, no Rust traits/Serde.",
+      "absence_basis": "Full49-line aggregate bark shader consumed: TacticalTreeAggregateBarkExtension and prepass/ordinary fragment nativePBR/normal/roughness mapping, no hand trait body. Native material host/imported library separately scoped."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Terrain and aggregate bark native shader layouts/functions",
+      "disposition": "Actual complete WGSL sources have no Rust trait/serialization replacement.",
+      "acceptance": "Keep native frame/binding/projection/shading semantics separate from Rust producer derivability and other lens correctness; no GPU/runtime/source change claim."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 520,
+    "source_id": "pr-working:assets/shaders/tactical_tree_impostor.wgsl"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

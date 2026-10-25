@@ -1,0 +1,52 @@
+{
+  "id": "SEGOVB-04-PLAN-OVERLAP-AREA-001",
+  "classification": "source-backed computed geometry defect with representable ordinary helper counterexample; complete-plan acceptance bypass unproven",
+  "variant": "pr-working",
+  "source": "crates/adventuresim-building-generator/src/audit/bonding_metrics.rs",
+  "ranges": [
+    [
+      8,
+      39
+    ]
+  ],
+  "sha256": "7a82b60c27bca633d25fee62377aba66012d2b6d2c2edc065b52c38639721e22",
+  "counterexample": "Yaw0, same xz centre, left footprint2m\u00d72m and right.1m\u00d7.1m. Each axis returns1+.05=1.05, so1.1025m\u00b2; actual contained footprint intersection is.01m\u00b2. All magnitudes finite positive ordinary, no MAX/overflow required. Changing which operand is left does not repair containment.",
+  "actual_consumer": "projected_defenses.rs882 roof_contact>=.08m\u00b2 and904 support/plate>=.014m\u00b2 receive the measured area; other bearing node/count/position/sample guards also apply. No wholeplan or ordinary generator failure asserted.",
+  "cause": "A separating-axis penetration expression is used as interval intersection length; it is not clamped to either finite extent and two left axes alone do not establish exact rotated polygon intersection area.",
+  "related_existing": "Archive search exact function found supplied root-claims ownership only; no global unique count or final dedup claim.",
+  "repair_contract": "Compute the geometric intersection area of the oriented footprint shapes or explicitly restrict and validate frame inputs with correct min(max)-max(min) interval intersection. Preserve measured Area fallibility for nonfinite computed results; do not fix merely by widening tolerance or saturating/clamping final area.",
+  "acceptance": [
+    "Containing/contained concentric rectangles both operandorders return actual smaller footprint area.",
+    "Disjoint/touching and rotated footprints preserve geometric area/bearing thresholds.",
+    "Retain source-qualified tolerated-gap contact-plane behavior in BondedInterfaceMetrics; it is a distinct intentionally sampled-plane contract.",
+    "Actual Breteche roof/plate/support boundary exercises threshold decisions with real aggregate constraints; no production fixture run authorized here."
+  ],
+  "dependencies": [
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-building-generator/src/audit/interface_contract_tests.rs",
+      "sha256": "02013c2e8180cd731204b241e2ec897fd0df64bb4e5ced4e9c54e70050327bc2",
+      "personally_read_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "coverage": "support only, no original fullrole coverage imported",
+      "actual_EOF": 62
+    },
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-building-generator/src/audit/projected_defenses.rs",
+      "sha256": "0dea3e89a0e899b941a250f90e536ded12dfd039cc473f8af69e0816d7db167d",
+      "personally_read_ranges": [
+        [
+          830,
+          925
+        ]
+      ],
+      "coverage": "support only, no original fullrole coverage imported"
+    }
+  ],
+  "execution": "none"
+}

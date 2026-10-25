@@ -1,0 +1,105 @@
+{
+  "id": "CONT07-CONTRACT-615",
+  "at": "2026-10-24T00:42:21.127115+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2675,
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+      "sha256": "031ee090102b5cc2ed9889b336ac1144ef7eb705cacc6fee37cbe8e7f6bafd0e",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+      "actual_EOF": 364,
+      "ranges": [
+        [
+          1,
+          364
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2676,
+      "source_id": "physical-p16:crates/adventuresim-core/src/activity.rs",
+      "sha256": "d8ee276214a67b09ca6571d03b1adce2dc200e6201284a9a8e25b6053aa72a15",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/activity.rs",
+      "actual_EOF": 243,
+      "ranges": [
+        [
+          28,
+          28
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2677,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration/clock.rs",
+      "sha256": "049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-server/src/iteration/clock.rs",
+      "actual_EOF": 29,
+      "ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2678,
+      "source_id": "pr-working:crates/adventuresim-core/src/threat_escalation_limits.rs",
+      "sha256": "f6fd77cd38865e477731cf06914d6e576b6498e4b2847c2a586368b378073929",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/threat_escalation_limits.rs",
+      "actual_EOF": 7,
+      "ranges": [
+        [
+          1,
+          7
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2679,
+      "source_id": "report-p17:crates/fabelgeist-geometry/src/measurement.rs",
+      "sha256": "7424133b695eecdc9d04383ff3021b7f902952c2c24354e06ca31f104642c471",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/fabelgeist-geometry/src/measurement.rs",
+      "actual_EOF": 102,
+      "ranges": [
+        [
+          1,
+          79
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2680,
+      "source_id": "report-p17:crates/fabelgeist-geometry/src/length.rs",
+      "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/fabelgeist-geometry/src/length.rs",
+      "actual_EOF": 40,
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "P16 schedule effective redistribution consumes one validated current allocation and canonical ACTIVITY_SEGMENT_MINUTES/MINUTES_PER_DAY, with deterministic stream rebuilt from supplied seed and location availability. Planned allocation and effective location-dependent allocation intentionally differ; no competing live persistence update. Reading intentionally excluded from redistribution, and unavailable time becomes leisure when no weighted alternative exists. Fixture bodies corroborate intended policy without execution.",
+    "DailySchedulePlan carries activities array plus separate organization allocations; constructor validates each but does not explicitly compare their minutes to array slots. Actual producer/recipient uses and indexed meaning remain needed before a redundant-authority finding. Organization eligibility is deliberately external authoritative DB policy, not guaranteed by local parse.",
+    "TacticalElapsed retains original f32 tick multiplication and subtract-before-f64 boundary; distinct wall/battle/iteration clocks are meaningful. Shared threat limits are canonical build/runtime policy constants. P17 geometry SignedLength/PositiveLength private checked leaves and manual Deserialize preserve finite signed versus strictlypositive meaning; Reflect opaque whole-value behavior previously inspected does not add raw primitive field mutation. Mathematical factors/min/max are native calculations followed by actual checked retention."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2681,
+    "start_line": 1
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "at": "2026-10-23T19:50:25.874222+00:00",
+  "revision": "13fc9dcc71ab879de364117e5462310673e43210",
+  "catalog_sha256": "90d87627259fc1034f5c063cd4ac0b90fcc82be4e716c30a33d3bda8b3117af5",
+  "method": "ExactJSONsource field extraction afteractualRustproducer/recipient reads; no wholecatalogbodycoverage",
+  "skeleton_record": {
+    "id": "skeleton",
+    "combat": {
+      "rig": "humanoid",
+      "speed_m_per_minute": 62,
+      "weight_kg": 18.0,
+      "attack": "blade",
+      "ranged": false,
+      "precision_milli": 1000,
+      "training_multiplier_milli": 700,
+      "perception": 40,
+      "stealth": 35,
+      "morale": 100,
+      "protection": "bone",
+      "resistance_joules": 150,
+      "padding_joules": 0,
+      "disease_risk": 0,
+      "fear": 20,
+      "temperament": "relentless",
+      "encounter_scale_basis_points": 11000,
+      "loot_item_id": "arming_sword",
+      "escalation_mode": "mob",
+      "escalation_growth_rate_bps": 2000,
+      "baseline_combat_power": 8000
+    }
+  },
+  "owner_conflict": "CoreBodyMassKg20..300livingcharacter range cannotrepresentauthored skeleton18kg. AuthoredThreat usesfinitepositiveweightprofile ratherthanlivingauthority. No duplicate generalmassowner shouldbe inventedwithoutcanonical sharedunitdesign.",
+  "health_counterexample": "mission_enemy_scale(4,13000,10000)>1 is existingfixture; ordinaryenemy-only projection multiplies allLimbshealth bythisscale. Requiresfinite nonnegativehealthcapacity beyond1; currentPlayerBodydamageclamps shouldpreserve actual behavior. Party health notscaled; persisted receipt fractionconstraints remainseparate.",
+  "runtime": "Notexecuted; static source/typefit proof."
+}

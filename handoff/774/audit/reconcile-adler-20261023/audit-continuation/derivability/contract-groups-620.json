@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-620",
+  "at": "2026-10-25T16:14:15.100215+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 941,
+  "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation.rs",
+  "sha256": "df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+  "actual_compared_ranges": [
+    [
+      1,
+      1760
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Fresh1541\u20131760 existing validator fixtures cover aggregated source diagnostics, strict duplicate-key message/location, semantic source coordinates, integer narrowing, closed registry and book/occupancy rules. In particular1590\u20131600 confirms intended strict duplicate-map contract; custom visitor retained. No new trait/codec; source fixtures not run.",
+  "first_unfinished": {
+    "scope_index": 941,
+    "line": 1761
+  },
+  "execution": "none"
+}

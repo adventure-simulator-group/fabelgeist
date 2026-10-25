@@ -1,0 +1,178 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-506",
+  "at": "2026-10-25T15:54:24.296346+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 898,
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/fatigue.rs",
+      "sha256": "823dc22517760aafcf6f7107becb2e1d9c647c685bfe5022f7865d7739cb52f5",
+      "actual_EOF": 263,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/combat/fatigue.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/combat/fatigue.rs",
+        "owner": "camera",
+        "sha256": "823dc22517760aafcf6f7107becb2e1d9c647c685bfe5022f7865d7739cb52f5",
+        "base_sha256": "35aa1507b3e28aceeccf144ca46cdad659dd632e844c4e4a4469820330ae85cb",
+        "state": "modified",
+        "bytes": 8871,
+        "audit_owner": "camera",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                263
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-FATIGUE-001"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 148,
+            "read_ranges": [
+              [
+                1,
+                263
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SCALAR-DEFINITIONS-001",
+              "CAM-OWN-CONFIG-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/combat/fatigue.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "CombatActionWorkload Debug Clone Copy Default PartialEq6",
+        "CombatActionWork Debug Clone Copy PartialEq Eq11"
+      ],
+      "absence_basis": "Full263 source read: workload/effort/capacity/recovery calculations and action/fatigue fixtures; no handwritten trait or codec, native domain computations retained."
+    },
+    {
+      "scope_index": 899,
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/fatigue_config.rs",
+      "sha256": "a899b7bacdfbcbc116a93ff6adc283bfb56bea396687713dc3677ff505522ce9",
+      "actual_EOF": 46,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/combat/fatigue_config.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/combat/fatigue_config.rs",
+        "owner": "camera",
+        "sha256": "a899b7bacdfbcbc116a93ff6adc283bfb56bea396687713dc3677ff505522ce9",
+        "base_sha256": "8047b9b6704f0c2094e21df25ec5028c5138bf5e90c91161c7032856e2d08b27",
+        "state": "modified",
+        "bytes": 1705,
+        "audit_owner": "camera",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                46
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-FATIGUE-001"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 149,
+            "read_ranges": [
+              [
+                1,
+                46
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SCALAR-DEFINITIONS-001",
+              "CAM-OWN-CONFIG-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/combat/fatigue_config.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "CombatFatigueParameters Debug Clone Copy PartialEq Serialize Deserialize deny_unknown_fields6\u20137"
+      ],
+      "absence_basis": "Full46 source read: derived recordwire plus explicit finite/positive/action-order/efficiency validation; no handwritten trait or codec. Do not replace checked policy with raw derived construction."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Single-pool physical fatigue policy and derived config wire",
+      "disposition": "No new derivability issue; structural/wire boilerplate already derives, computations/validation semantic. Existing source fixtures only read."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 900,
+    "source_id": "pr-working:crates/adventuresim-core/src/combat/incapacitation.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

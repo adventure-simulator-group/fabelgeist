@@ -1,0 +1,191 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-166",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-dialogue/build.rs",
+      "sha256": "cc1742e70ed56b721e25aebb320b2295d621a1f826310a05b1f8771ab968093b",
+      "actual_EOF": 580,
+      "actual_compared_ranges": [
+        [
+          1,
+          580
+        ]
+      ],
+      "method": "Fresh literal complete body consumed, with full actual textual counterpart diff and separately authored operation comparison for both roles; identical hashes alone not credited.",
+      "disposition": "compared_with_findings_and_qualifications; no family clearance"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-dialogue/src/lib.rs",
+      "sha256": "bd30bf8d21bb5152ad8cfdc81e7ff99fc9629f6f3c5d359c156aa4b1e21cd284",
+      "actual_EOF": 1785,
+      "actual_compared_ranges": [
+        [
+          1,
+          1785
+        ]
+      ],
+      "method": "Fresh literal complete body consumed, with full actual textual counterpart diff and separately authored operation comparison for both roles; identical hashes alone not credited.",
+      "disposition": "compared_with_findings_and_qualifications; no family clearance"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/road_encounter_catalog.rs",
+      "sha256": "62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+      "actual_EOF": 2689,
+      "actual_compared_ranges": [
+        [
+          1,
+          2689
+        ]
+      ],
+      "method": "Fresh literal complete body consumed, with full actual textual counterpart diff and separately authored operation comparison for both roles; identical hashes alone not credited.",
+      "disposition": "compared_with_findings_and_qualifications; no family clearance"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-dialogue/build.rs",
+      "sha256": "cc1742e70ed56b721e25aebb320b2295d621a1f826310a05b1f8771ab968093b",
+      "actual_EOF": 580,
+      "actual_compared_ranges": [
+        [
+          1,
+          580
+        ]
+      ],
+      "method": "Fresh literal complete body consumed, with full actual textual counterpart diff and separately authored operation comparison for both roles; identical hashes alone not credited.",
+      "disposition": "compared_with_findings_and_qualifications; no family clearance"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-dialogue/src/lib.rs",
+      "sha256": "bd30bf8d21bb5152ad8cfdc81e7ff99fc9629f6f3c5d359c156aa4b1e21cd284",
+      "actual_EOF": 1785,
+      "actual_compared_ranges": [
+        [
+          1,
+          1785
+        ]
+      ],
+      "method": "Fresh literal complete body consumed, with full actual textual counterpart diff and separately authored operation comparison for both roles; identical hashes alone not credited.",
+      "disposition": "compared_with_findings_and_qualifications; no family clearance"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/road_encounter_catalog.rs",
+      "sha256": "62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+      "actual_EOF": 2689,
+      "actual_compared_ranges": [
+        [
+          1,
+          2689
+        ]
+      ],
+      "method": "Fresh literal complete body consumed, with full actual textual counterpart diff and separately authored operation comparison for both roles; identical hashes alone not credited.",
+      "disposition": "compared_with_findings_and_qualifications; no family clearance"
+    }
+  ],
+  "groups": [
+    {
+      "id": "build parsed-source scanner and cardinalities",
+      "locations": "build.rs:112-216,282-289,400-408,414-580",
+      "input_guarantees": "main first parses source text as JSON Value and strict AuthoringDocument; scanner sees the same valid JSON source after semantic validation.",
+      "operation_trace": "Vector enumeration bounds index+1 slices; scanner consumes delimiters in pre-parsed valid JSON, string escapes move byte index across escaped byte, string delimiters remain UTF8 boundaries. Scalar path and line/Unicode-column positions are derived before records are appended. Source/path byte counts use host usize within actual string/Vec allocation; no concrete accepted source arithmetic overflow found.",
+      "failure_state": "All build mutations are local until final generated file write; validation panic ends compilation, not a successful accepted runtime update. No claim that arbitrary malformed Scanner input is accepted: private scanner is only constructed after parser success.",
+      "qualification": "Duplicate source keys can normalize to one semantic value while scanner retains multiple source entries; exact supplied archive CAMERA-INITIAL07-F020 remains open, not reclassified as new04 defect or repaired here. Build/runtime separate validators and runtime slot/action vocabularies join CAMERA-INITIAL07-F019/RIG-INITIAL06-F049.",
+      "connected_repair": "Preserve source association in canonical parser/validator graph from existing qualified records.",
+      "acceptance": "Valid JSON scanner positions stay within actual input and map current semantic fields; no source-map shortcut can substitute for validator reconciliation."
+    },
+    {
+      "id": "runtime output expansion and source alignment",
+      "locations": "lib.rs:203-335,386-437",
+      "input_guarantees": "Runtime slot lookup rejects missing bindings; all runtime string/claim text bounded512 Unicode chars, controls reject, nonempty claim must occur within spoken text. Authored fields remain broader raw public model.",
+      "operation_trace": "str.find returns UTF8 boundaries; claim_end=found+claim.len is <=spoken.len by exact substring result. Local resolved vector is discarded on Err, bindings unchanged. resolve_turn first checks source/fragment length, expands runtime testimony, calculates ordinary count, repeats source refs, then rejects unequal completed lengths before publishing ResolvedTurn. Multiple testimony placeholders may fail this final alignment check; validator permits exactly one per response when authoritative testimony effects occur. No wrong successful alignment case established.",
+      "failure_state": "No persisted mutation in these pure operations; real DB transaction/error semantics are separate recipient obligations.",
+      "qualification": "claim_order saturating u32 successor is additional representable API weakness, finding SEGOVB-04-CLAIM-ORDINAL-001 below. Actual generated witness size and recipient transaction limits remain unproven; no normal DB alias alleged.",
+      "connected_repair": "local774:M48 event-local claim identity/count contract, exact generator and DB recipients.",
+      "acceptance": "Published claims have representable distinct event-local ordinals or explicit typed capacity rejection; source_refs stay exactly aligned with published fragments."
+    },
+    {
+      "id": "runtime selection and indexing",
+      "locations": "lib.rs:439-454,599-648,650-935",
+      "input_guarantees": "Priority remains full i32; no arithmetic on priority. Empty eligible response collection returns NoEligibleResponse before winner unwrap.",
+      "operation_trace": "max over eligible establishes at least one winner of same maximum before next; later equal winner produces AmbiguousPriority. Condition traversal preserves All/Any/Not empty-set semantics. Source lookup positions are taken from same immutable catalog vectors before indexed access; arbitrary external turn/fragment indexes are interpolated into lookup strings and return None if absent rather than indexing arrays.",
+      "failure_state": "Validation collects errors into local vector without mutating document. Caller-owned raw public/Serde models are not an accepted opaque product.",
+      "qualification": "Build enforces player+NPC and speaker !=addressee whereas runtime validate differs. This is existing redundant-authority evidence, not new numeric operation defect; no validated catalogue closure inferred. URL path admission remains archive CAMERA-ADM03-F025/NATIVE-CAMERA-ADM03-F008, not repaired.",
+      "connected_repair": "Existing canonical dialogue catalogue/validation/source-map owner.",
+      "acceptance": "Keep deliberate priority, empty response, known-topic, raw input and actual source-position behavior; retain structured failures before publication."
+    },
+    {
+      "id": "road catalogue scalar checks and semantic dispatch",
+      "locations": "road_encounter_catalog.rs:220-246,387-1039",
+      "input_guarantees": "validate_definitions checks positive bounded weight/count/difficulty/delay; delta unsigned_abs handles i16MIN without signed abs overflow; quantity/currency zero reject. IDs namespace open lowercaseASCII96.",
+      "operation_trace": "Validator adds local sets only and returns first String error, never changes supplied definitions. Transition outcomes select one matching payload by enum. Item-reference traversal covers requirements, top-level effects and all four outcome payloads. Weighted quest selection filters nonempty, sorts IDs, widens u16 weights to u64 and delegates actual sum/index contract to DeterministicRng; exact delegated arithmetic remains previous RNG/actual compiled catalogue-context obligation, not covered from this import.",
+      "qualification": "resolved_combat_outcome accepts victory/defeat/stalemate/avoided/surrendered but not mutual_incapacitation/timeout; same local774:F16 terminal-result mapping obligation, not new global defect. Public retained raw models remain local774:M39. Shared mechanics flags mirror computed transition/effect/personality facts per archive CAMERA-INITIAL07-F016; maintain separate lens support. No weighted overflow on ordinary compiled corpus demonstrated.",
+      "connected_repair": "Canonical admitted encounter model and exhaustive actual battle terminal mapping under local774:M38/M39/F16.",
+      "acceptance": "Every accepted operation dispatches valid terminal results and retains checked semantic quantities through real mutation recipients; native raw codecs do not excuse primitive internal state."
+    },
+    {
+      "id": "complete existing fixtures read without execution",
+      "locations": "lib.rs:976-1785; road_encounter_catalog.rs:1041-2689",
+      "operation_trace": "Personally consumed all existing tests for source spans, priority ambiguity, prompt/testimony alignment, shared authoring rejection, organization decision reachability, concrete road routes, quantities/delays/rewards/virtues and equipment content assertions. Arithmetic in authored fixed fixture assertions remains fixture/oracle context; byte cursor advancements follow found substrings and bounded literal event text. No fixture cases/assertions/helpers changed or added.",
+      "qualification": "P16 road fixture2470 still uses raw reference arm reach; preserve final typed leaf adaptation obligations under local774:M01; no primitive production forwarding introduced to satisfy lexical/fixture checks. Tests were not executed and imported catalogue contents beyond this file are not automatically covered.",
+      "connected_repair": "Adapt only existing affected assertion ports when implementation is authorized.",
+      "acceptance": "Preserve original cases/order/oracles and actual semantics; source reading is not test validation."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-CLAIM-ORDINAL-001",
+      "classification": "representable API strengthening; source only, giant population not normal reachability",
+      "source_id": "pr-working:crates/adventuresim-dialogue/src/lib.rs",
+      "counterpart": "physical-p16:crates/adventuresim-dialogue/src/lib.rs",
+      "locations": [
+        [
+          208,
+          249
+        ],
+        [
+          386,
+          398
+        ]
+      ],
+      "input": "Public bind_testimony accepts Vec<TestimonyLine> without count bound; each line may be legal short spoken/claim a. On64bit a representable population u32MAX+2 lines has no local scalar/string rejection. This is a static count witness, no allocation or execution performed.",
+      "operation": "resolve starts0, emits each claim ordinal then saturating_add1; line at ordinalMAX and the following line both emitMAX while function still returnsOk. Event-local presentation identity is no longer distinct.",
+      "consumer": "ResolvedFragment::Claim carries public event-local presentation ID. Fresh bounded recipient read in PR dialogue_bindings.rs118-137 compares emitted order to enumerate asu32 and may reject; no accepted persisted alias claimed. Actual current generated witness population limits remain separately untraced.",
+      "relationship_to_existing": "Strengthens local774:M48 claim-ordinal owner requirement, not asserted new globally unique finding.",
+      "repair": "Canonical admitted testimony/claim population or checked ordinal successor before output publication; preserve ordinary ordinal0 and original order. Reconcile actual event/claim count contract and generator/DB consumers; do not silently saturate identity.",
+      "dependencies": [
+        "local774:M48",
+        "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+        "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_provenance.rs"
+      ],
+      "acceptance": "Successful resolution returns unique representable event-local claim identities or explicit capacity error without partial published output; existing source alignment/privacy semantics preserved.",
+      "repair_status": "frozen",
+      "validation_status": "not_run"
+    }
+  ],
+  "bounded_dependency_reads": [
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+      "actual_compared_ranges": [
+        [
+          90,
+          205
+        ]
+      ],
+      "status": "partial_dependency_only; originalfullrole remains incomplete"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_provenance.rs",
+      "actual_compared_ranges": [
+        [
+          1350,
+          1408
+        ]
+      ],
+      "status": "partial_dependency_only; originalfullrole remains incomplete"
+    }
+  ],
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/character.rs; inspect full scope and mandatory overlays before body",
+  "status": "incomplete",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

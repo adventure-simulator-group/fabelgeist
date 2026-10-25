@@ -1,0 +1,92 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-101",
+  "at": "2026-10-23T02:01:24.793660+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/consequence.rs",
+      "sha256": "9e767c76aa28c3742a0d11658983b2ce4abfd2fb63bc89962d5f1c02b3e396d0",
+      "scope047_index": 2032,
+      "actual_EOF": 308,
+      "scoped_ranges_compared": [
+        [
+          1,
+          308
+        ]
+      ],
+      "actual05_comparison": "Fresh full308. apply result gets distinct attacker/defender ECS rows together before writes, clamps applied limb damage and apportions receipt from applied not raw overkill, retains actual wound list and same bodypart. Party metadata gates strategic consequence receipt; tactical HP/wounds remain transient. Injury merges by CharacterId/bodypart and maxsingleblunt separate from cumulative; ammo saturates missioncap. Equipment provenance matches actual owner/slot/type or exact armoritemID+owner, contactstress bounded. Contact merge uses inventoryID and keeps firstcharacter/defenderflag; portability/currentrecipient guarantee remains exact later equipment/finalreceipt obligation, not presumed from uniqueID. apply_transient_attack_result mutates imbalance/limbhealth/acute_trauma without recomputing incapacitation; postconsequence MeleeAttackResolved emits afterward. Thus normal consequence operation itself can leave retained total stale until nextcondition tick (F029 qualification), no specific eventinterleaving/run claim.",
+      "source_body_proof": "Fresh actual full scoped bodies personally read, no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/contact.rs",
+      "sha256": "d36c444c66fafb2943291079bf5edcb5cb16e0890b1a078d655e838510cbac95",
+      "scope047_index": 2033,
+      "actual_EOF": 161,
+      "scoped_ranges_compared": [
+        [
+          1,
+          161
+        ]
+      ],
+      "actual05_comparison": "Fresh full161. InitialMeleeContact binds one actor+hand weaponreach, one sampledcontact and separatealignmentdraw; optionalbodypart requires actualtarget+attacker+defender+strikingside. Missingbodypart legitimate unforcedcontact, no productinvalidity byNone. Forcedbodypart path recomputes anatomicalsubregion/armor at same clampedcoordinate before one contact/result; sampledcoordinate uppernext_down avoids terminalarrayindex, finite sample policy actual RNG/caller needed. Impact point/normal bothderive same bodyparthitbox/targettransform, localframe output; singular/rawtransform/extremehalfextents not strengthened byfallbacknormal. windup uses saturating contact-start sampleduration then actualnativeclock admission, not casttimer coordinate.",
+      "source_body_proof": "Fresh actual full scoped bodies personally read, no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/melee.rs",
+      "sha256": "fe64843450cc6ba428fd3c9c1fec3a5fcb5b65b3cbf3a5c21997548d3a355dd6",
+      "scope047_index": 2040,
+      "actual_EOF": 473,
+      "scoped_ranges_compared": [
+        [
+          1,
+          473
+        ]
+      ],
+      "actual05_comparison": "Fresh full473 in1–290/291–473. MeleeCompletion read-only preparation validates same live facts/LOS/nativecooldown andstartedat before authority consumed. Actor/target queries distinct via get_many, actorhand inventory/view consistent, live observedsurface distance/weaponlength and scheduledmeasure retained as separate intended/actual contact facts. Currentincapacitation used both cheapstate gate152–159 and performance365–372; no recomputationfromcurrent limb/trauma there, so later consumers depend on total coherence after consequence (F029). prepare defense before capability consumption, then commitdefense/work/pending response removal and one sameauthorizedattackcontact/result. Rawevent contact/alignment samples admittedby actual producer lower, not fromnameofprecision. Result multiplies checkedfraction +retainedpower, no total/physicalfinite guarantee fromoneleaf. Existing authority keyloss graph separate.",
+      "source_body_proof": "Fresh actual full scoped bodies personally read, no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/melee/outcome.rs",
+      "sha256": "b1df703eee8ffb66e22145a48e714ea090151771043a2c85b99905acb930c2f4",
+      "scope047_index": 2042,
+      "actual_EOF": 129,
+      "scoped_ranges_compared": [
+        [
+          1,
+          129
+        ]
+      ],
+      "actual05_comparison": "Fresh full129. Uses AuthorizedMeleeAttack identity andsamepaired views/transforms tocompute impact tuple, then queues gameplay Apply and clientSuccessfulResponse fromsame contact/result/recipient/velocity. Alignment Option maps all3 diagnostics fromsameonevalue (no independentOptiondrift). Bodypart/anatomy/surfaceCoordinate fromactualcontact, blocking slots fromactualdefense. Ambiguous strikingside rejectswholepublish beforequeuedmutation. Diagnostic event emittedbyconsequence afteractual state apply, notequatedwithprecommitlog. Actualcaller entity/hand versusattackattacker relation suppliedbymelee473 normalcall; no separateacceptedpublic product invented.",
+      "source_body_proof": "Fresh actual full scoped bodies personally read, no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/ranged/outcome.rs",
+      "sha256": "f45632053e10a52d5ea4a1ecf1259f323c55fa091f9de58a92e8894815c55cc8",
+      "scope047_index": 2045,
+      "actual_EOF": 105,
+      "scoped_ranges_compared": [
+        [
+          1,
+          105
+        ]
+      ],
+      "actual05_comparison": "Fresh full105. RangedContact carries authorizedshot plusactualtarget/view/transform/result, same current325producer guarantees target=shot hit. publish uses SAME SuccessfulAttackResponse result/recipient/velocity forgameplay andclientfeedback; midpoint0.5 anatomy/surface intentional rangedprojection (notpretendingmelee sampledcoverage), absentmeleealignment diagnostics intentional. Genericpublish separatetargetargument not intrinsicallycorrelated withresponse.hit but soleactual normalproducer supplies same target; no publicnetworkdecodeentry atthishelper. No new aggregate defect fromprivate rawbuilder alone.",
+      "source_body_proof": "Fresh actual full scoped bodies personally read, no execution."
+    }
+  ],
+  "comparison_groups": {
+    "consequence-state-coherence": "Normal damage operation mutates total inputs without total; nextcondition eventually rebuilds.",
+    "shared-publish-product": "Actual authorizedcontact result/provenance drives gameplay andclientfeedback together.",
+    "actual-contact": "Scheduled/observed measure, selected anatomy andsame armorcoordinate remain distinct currentfacts."
+  },
+  "new_unique_findings": [],
+  "qualifies": [
+    "NATIVE-INITIAL05-F029"
+  ],
+  "remaining_dependency_obligations": [
+    "Actual event/schedule interleaving not executed; no assertion anothercontact necessarily occurs before total refresh. Enrollment still pending. Equipmentcontact merge assumes portable item/character receipt lifecycle, exact equipment/finalreceipt recipient proof pending."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

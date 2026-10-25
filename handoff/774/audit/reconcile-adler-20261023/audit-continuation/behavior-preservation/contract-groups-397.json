@@ -1,0 +1,111 @@
+{
+  "id": "CONT08-CONTRACT-397",
+  "at": "2026-10-25T17:59:56.593140+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 1357,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/body_response.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation/procedural/body_response.rs",
+      "before_sha256": "72e50820afea9b07e9875c07411028e88690a62857221f6980a3441e9d8b94da",
+      "after_sha256": "d307ec89363164d57e5762fea3f35d38adf4cb28c64801233bceacaddd9f5727",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1357-base-72e50820afea9b07e9875c07411028e88690a62857221f6980a3441e9d8b94da",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/d307ec89363164d57e5762fea3f35d38adf4cb28c64801233bceacaddd9f5727",
+      "diff": "source-evidence/pr-1357.diff",
+      "diff_sha256": "38b94d568f8d3d2b9feef269d232f1017c0e5e6deab37e8adf949cb225e7b75d",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          490
+        ]
+      ],
+      "head_body_read_method": "Personally read completeheadbody/fullactualdiff; extractednewhelperbodies comparedactualremovedold1356/57kernels. Same-lenssourceproof only noexecution.",
+      "facts": [
+        "Full490head+611actualdiff consumed; actualbody-localvelocity/acceleration transform,posture/action/ground/raised/discontinuityreset, held-authoritativeacceleration renderfilter, firstobservationfullbrakingscale andsametickvelocityretention preserveoldorder. OptionBodyObservation replaceslasttick+neutralvelocity; None\u2192Some0 initializationmatchesoldprevious0dotaccel=0fullscale forordinaryinputs.",
+        "Wholecopyadvance preparesall checkedtarget/springstate beforepublish; invalidsource/overflownowwarnskipowner. Successfulimplicit spring usesexactomega2/smoothtime, denominator/numerator/division, clampvelocity/maxspeed andcurrent+velocity*dt order; stablepelvisreference/leginversequaternioncomposition unchanged. Q024 finitecomponentnormnarrowing keptasAPIpolicyquestion, noordinaryfailureclaim. Sixretainedfixturebodies/oracles typedmigrationread notrun."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1358,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/body_response/target.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation/procedural/body_response/target.rs",
+      "before_sha256": null,
+      "after_sha256": "81446933b198eac655968dd876b5bdd007e102f4daad11024f3e92242a34bd20",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/81446933b198eac655968dd876b5bdd007e102f4daad11024f3e92242a34bd20",
+      "diff": "source-evidence/pr-1358.diff",
+      "diff_sha256": "c91332542a53d6f4ae0b25017c1ec8acd72a57271e376d5b847f2878c3ecd534",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "head_body_read_method": "Personally read completeheadbody/fullactualdiff; extractednewhelperbodies comparedactualremovedold1356/57kernels. Same-lenssourceproof only noexecution.",
+      "facts": [
+        "Full140head+alladdedsource comparedold1357target+decelerationfunctionsconsumedactualdiff333\u2013406. Samebody+Zforward,steadytravelratio, C2startupgainlerp,signedforward/braking/lateralacceleration clamps, thencombinedresultant30degreecapminus1e-6radianmargin. Currentnewconfigfields defaults18/12/14/18/22/10/8 from526 matcholdliterals; customnewconfigchanges explicit no sameoutputguarantee.",
+        "Previousvelocitydotaccel<0 andcurrentsquare<=previoussquare+.0001 stillbrakingpredicate; allfinite intermediate overflow nowErr. ExactQ024velocity1e20custom finiteinput previouslycapped nowrejected; sourcepolicyquestion notordinaryregression. No inventednativeframebound."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1359,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/body_values.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation/procedural/body_values.rs",
+      "before_sha256": null,
+      "after_sha256": "ac32044bdad9c67748eefca7b1b7db59a7eed439e3182af7581833f49076750b",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/ac32044bdad9c67748eefca7b1b7db59a7eed439e3182af7581833f49076750b",
+      "diff": "source-evidence/pr-1359.diff",
+      "diff_sha256": "3e27df1f71085410d9b8422672daa9282b1140b998c619644f60cb8daf87eab7",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          211
+        ]
+      ],
+      "head_body_read_method": "Personally read completeheadbody/fullactualdiff; extractednewhelperbodies comparedactualremovedold1356/57kernels. Same-lenssourceproof only noexecution.",
+      "facts": [
+        "Full211head+alladdedsource comparedactualnativeold1357kernels. BodyAngle wrapsfiniteRadians;ratio-beforeangle multiplication andthenclamp exactsuccessfulorder, finitevelocity/acceleration constructors checkcomponents; planar_squared additionallyrequiresfinitecomputednorm. Signedangles/angularrates zeroallowed, brakingfractionUnitInterval.",
+        "checked_sum_capped preservesordinarysum/normalizecap butrejectsnonfinitesquare beforeclamp; angularspeednativekernel sameprior. Q024 retainsrange-policy widening/narrowinglimits; no assertionthat finitecomponents guaranteeboundednorm, no blanketwholevectorconsumercredit."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1392,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/sample_state.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation/procedural/sample_state.rs",
+      "before_sha256": null,
+      "after_sha256": "2605b48effbf078be1636edc4742d3f92bed99d01d2b20c232da4c564edefa3c",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/2605b48effbf078be1636edc4742d3f92bed99d01d2b20c232da4c564edefa3c",
+      "diff": "source-evidence/pr-1392.diff",
+      "diff_sha256": "fac468a61ba2f2f5fdf64a5d8c9cdb0668261a6475f480307c302bc9121ea775",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "head_body_read_method": "Personally read completeheadbody/fullactualdiff; extractednewhelperbodies comparedactualremovedold1356/57kernels. Same-lenssourceproof only noexecution.",
+      "facts": [
+        "Full73head+alladdedsource comparedold1356height/bodyresponsestoredstructsdiff351\u2013401 plusactual1357/1362consumers. HeightHistory Option jointlyowns previousguard/posture/action/is_groundedwrapped1763/landingsequence/tick; firstobservationseedssameoldfacts andno false landing. BodyObservation Option owns coherenttick+velocity andremovesunusedoldlastposture/action/groundfacts. Zero-valuedfilter defaults remainneutralactualvalues, no fabricatedpriorobservation."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    }
+  ],
+  "next": "1356wholehead/diff pendingactualIK/rig/supportfixturemoves; firstunfinished1356; next1364+ IKmaterialsource"
+}

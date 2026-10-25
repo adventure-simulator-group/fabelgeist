@@ -1,0 +1,27 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-148",
+  "at": "2026-10-25T12:58:42.732210+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_ROLE_INCOMPLETE",
+  "scope_index": 289,
+  "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+  "sha256": "4421b1617dbe612f0ac626645aea036d082746d7823e383da6492db3334517a3",
+  "actual_compared_ranges": [
+    [
+      1,
+      1275
+    ]
+  ],
+  "trait_inventory": [],
+  "existing_derives": [],
+  "semantic_contracts": "Personal full reads1\u2013425/426\u2013850/851\u20131275 cover report/autoresolve/cancellation reducers, gated development bootstrap, standalone fixture/runtime handoff, authored seed rows and activity/recruitment generation prefix. No local types or manual traits/serializers in these consumed ranges. Keep contextual construction, snapshot/roster/native IDs, checked outcomes, explicit authority and JSON delegation. Module declarations at3\u20139 grant no child credit.",
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 289,
+    "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+    "next_line": 1276,
+    "actual_EOF": 2973
+  },
+  "execution": "none",
+  "limits": "Changed role2973 remains pending1276\u20132973; read ends inside recruitment generation."
+}

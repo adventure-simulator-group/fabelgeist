@@ -1,0 +1,172 @@
+{
+  "id": "CONT07-CONTRACT-600",
+  "at": "2026-10-24T00:27:56.450037+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2591,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/catalog.rs",
+      "sha256": "0f579abd98b3de2924ebba3a1addc74b37c30c098af4667ae23b6fdaaef398e2",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-weapon-model/src/catalog.rs",
+      "actual_EOF": 131,
+      "ranges": [
+        [
+          1,
+          3
+        ],
+        [
+          74,
+          87
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2592,
+      "source_id": "physical-p16:crates/adventuresim-core/src/equipment_assets.rs",
+      "sha256": "87080367349c3f2a7ea23430359df7cdcd25aecdfc5da77bf4c39859c2619ab6",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/equipment_assets.rs",
+      "actual_EOF": 106,
+      "ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2593,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/equipment/runtime_equipment.rs",
+      "sha256": "6ad606cfa6e06fa08e4526a3aa00bc7994af35b88608f906eb7987f16d88099c",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-client/src/equipment/runtime_equipment.rs",
+      "actual_EOF": 143,
+      "ranges": [
+        [
+          1,
+          143
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2594,
+      "source_id": "physical-p16:crates/fabelgeist-determinism/src/lib.rs",
+      "sha256": "85dcbab734e5f6b47c035628dac19ae5d331d078f7cbce23e3f5debd34986cdb",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/fabelgeist-determinism/src/lib.rs",
+      "actual_EOF": 58,
+      "ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2595,
+      "source_id": "pr-working:crates/adventuresim-puzzles/src/choices/sigil.rs",
+      "sha256": "938e02bc3b641badd397f25bab13110ca2a7bb2cac9f7a1e93c722478f0b89a5",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-puzzles/src/choices/sigil.rs",
+      "actual_EOF": 83,
+      "ranges": [
+        [
+          1,
+          83
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2596,
+      "source_id": "pr-working:crates/adventuresim-puzzles/src/choices/witness_path.rs",
+      "sha256": "363a096f49e88a04b938d910c9e90e311dd1a25cf9eca34c0f5e79881c07bd8f",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-puzzles/src/choices/witness_path.rs",
+      "actual_EOF": 75,
+      "ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2597,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/selection.rs",
+      "sha256": "887b9ace0ef021d409c493c8e8e109c13dbd98a5dd21251da6abecbf44be6ba7",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/garment/selection.rs",
+      "actual_EOF": 271,
+      "ranges": [
+        [
+          1,
+          225
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2598,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/underlayer.rs",
+      "sha256": "9726131d4d0508a8b77b56bd2723a18c1f5e45d0be3e468ccc797d39a12a1f2a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/underlayer.rs",
+      "actual_EOF": 137,
+      "ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2599,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/trunk_hose.rs",
+      "sha256": "ead698d9816a1f7549be4753d738ff8ab43d6f4eaf18f528b6b994d1248b48d9",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/trunk_hose.rs",
+      "actual_EOF": 56,
+      "ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2600,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/lifecycle/runner/sampling.rs",
+      "sha256": "61b28f4573be2c39f22698cec4476fe2cc336a972810a43756b54988e33e459d",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-strategic-sim/src/lifecycle/runner/sampling.rs",
+      "actual_EOF": 15,
+      "ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "CAMERA-INITIAL07-F060",
+    "CAMERA-INITIAL07-F066",
+    "RIG-PP-009",
+    "NATIVE-INITIAL05-F036"
+  ],
+  "facts": [
+    "P16 gameplay design catalogue is immutable OnceLock parsed JSON, returning cloned registered designs. EquipmentAssets resolves item/placement IDs to canonical static catalogue references and rejects duplicate pairs, retaining only file per pair. It discards manifest lod/release/schema/material/coverage/morph/hash metadata rather than maintaining mutable copies: metadata validation and artifact association remain separate existing contracts, not a generic cache divergence finding.",
+    "P16 runtime body preparation caches the first requested base body and loaded fixed designs, with permanent failed status. Requested-base replacement/reset consumers must be traced before claiming ordinary stale body reuse; this source alone gives no supported hot-replacement path. Runtime presentation retains entity/item/placement tuple with worn fallback, requiring caller update lifecycle before stale identity promotion.",
+    "Sigil and WitnessPath use derived Serde as FromStr admission. stable_id matches and ALL rosters are manually authored beside enum; current values agree. Human labels are deliberately separate display vocabulary, especially Ash path versus Ash. Existing round-trip fixture bodies were read, not executed. Garment channel/form derive directly from authoritative construction/fabric/layer. Drape is independently adjustable; initial for_fabric value does not make later custom drape a stale preset copy. same_simulation includes all four declared simulation inputs and excludes appearance/name/layer intentionally; actual downstream simulation must still agree.",
+    "Underlayer length policy selects one canonical range by kind; is_mail is a derived classification, cuts checked as finite ordered native boxes. TrunkHose is a distinct anatomical design with own even-panel and length constraints, not duplicate underlayer design merely sharing millimetre ranges. Lifecycle entropy uses canonical seed/domain/ordinal and BASIS_POINTS_PER_WHOLE, not copied scale literals.",
+    "Personally consumed CAMERA-INITIAL07-F066 closes pending P17 report HTML-rate question as exact additional variant support: custom installed rates may differ from fixed64Hz labels/playback, default64 agrees. RIG-PP-009 is LOD producer propagation, not proof of manifest asset mismatch. CAMERA-INITIAL07-F060 remains conditional failed-final-result versus retained successful preview; selection same_simulation does not retract completion-state finding."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2601,
+    "start_line": 1
+  }
+}

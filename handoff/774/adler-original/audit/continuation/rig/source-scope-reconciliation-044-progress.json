@@ -1,0 +1,76 @@
+{
+  "id": "RIG-CONT-PPS-SOURCE-SCOPE-RECONCILIATION-044-PROGRESS",
+  "status": "assigned metadata reconciliation complete with preserved qualification obligations",
+  "inputs": "2463 explicit range observations and231 unqualified metadata observations from pinned producer-reached-role-index",
+  "summary": {
+    "frozen_source_variants": 2279,
+    "qualified_input_observations": 2463,
+    "outside_frozen_unique_source_id_hash": 161,
+    "outside_frozen_observations": 297,
+    "variant_classification_counts": {
+      "metadata-normalization-package-alias": 3,
+      "genuinely-new-reached-source-variant": 158
+    },
+    "range_status_counts": {
+      "qualified-endpoints-only": 293,
+      "endpoint-conflict": 4
+    },
+    "unqualified_input_observations": 231,
+    "unqualified_schema_reason_counts": {
+      "bounded-range-without-explicit-fingerprint": 7,
+      "range-free-variant-comparison-metadata": 8,
+      "nested-variant-group-owns-range": 80,
+      "range-free-disposition-cross-reference": 113,
+      "range-free-additional-variant-status": 1,
+      "explicit-unread-progress-navigation": 5,
+      "range-free-supplier-evidence-cross-reference": 16,
+      "prior-range-plus-explicit-unread-recipient": 1
+    },
+    "dependency_variants": 17,
+    "dependency_pin_status": {
+      "present-in-exact-snapshot-lock": 17
+    },
+    "new_variants_with_frozen_same_byte_candidates": 25,
+    "unqualified_with_parent_range_candidates": 80,
+    "unqualified_with_same_source_qualified_candidates": 186
+  },
+  "result_files": [
+    {
+      "file": "source-scope-reconciliation-044.json",
+      "sha256": "fe7e2e81a37b125318a22c961f2d9bead728e93d3721e1e3a4142ff1f62defa1"
+    },
+    {
+      "file": "source-scope-reconciliation-044-details.json",
+      "sha256": "f905803846987764cb051f286c1ec38d8680a7012eac2423aaf5e845040e5838"
+    },
+    {
+      "file": "source-scope-reconciliation-044-input-prefixes.json",
+      "sha256": "5b3c2b52b1a843c2206f361432e06cac2a08f5ae50f16610c0c20f9444008508"
+    }
+  ],
+  "first_unfinished_material_qualification": {
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/audit.rs",
+    "sha256": "aff233410d3aa23607fd4124f078c29ea13f1e7bdf0f43a02ced2c665c2133a5",
+    "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\audit.rs",
+    "actual_EOF": 73,
+    "receipt": "ROOT-PPS-RESOLVED-GEOMETRY-036",
+    "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+    "json_pointer": "/source_proofs/2",
+    "recorded_ranges": [
+      [
+        1,
+        85
+      ]
+    ],
+    "unresolved_action": "Reconcile exact material body/read claim and append explicit source-range qualification. Do not clip or invent lines. Existing source-range-errata.json has no entry for this source/hash."
+  },
+  "unqualified_reference_authority": "044.json preserves all231 source_context and exact record/receipt/pointer references;044-details.json has compact categorized exact ref list. No row dropped.",
+  "source_scope_action": "Coordinator must evaluate158 newly reached variants and3 prefix aliases in next owner-fit delta. Same-byte candidates25 do not establish identity/role clearance.",
+  "input_snapshot_qualification": "All15 input receipt hashes verified exactly or as indexed byte prefixes;4 camera files later appended. Prefix-qualified old bytes and index hash remain reproducible.",
+  "source_edits": 0,
+  "project_commands": 0,
+  "tests_added": 0,
+  "source_scope_or_ledger_mutation": 0,
+  "overall_lens_clearance": "not awarded",
+  "next": "Await coordinator owner-fit delta assignment; do not advance admission or source repair."
+}

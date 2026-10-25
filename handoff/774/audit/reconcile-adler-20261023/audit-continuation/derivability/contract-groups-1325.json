@@ -1,0 +1,97 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1325",
+  "at": "2026-10-25T18:30:11.153462+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1377,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/settle.rs",
+      "sha256": "82541741fb7abc29a8018c22de3a815a496f10c8a19000345a9b5c708720a9c8",
+      "actual_EOF": 373,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/settle.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/settle.rs",
+        "owner": "native",
+        "sha256": "82541741fb7abc29a8018c22de3a815a496f10c8a19000345a9b5c708720a9c8",
+        "base_sha256": "9b8d3a2b53c64f777fe85e03c51ace4db6798c8f04659c7d17847064b8846e48",
+        "state": "modified",
+        "bytes": 14608,
+        "audit_owner": "native",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [],
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 220,
+            "read_ranges": [
+              [
+                1,
+                373
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-IK-SETTLEMENT-005"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/procedural/ik/settle.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 562,
+            "read_ranges": [
+              [
+                1,
+                373
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-IK-SETTLEMENT-005"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/procedural/ik/settle.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          373
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Full native raised handoff/stop restart/terminal contact/cohort state transitions and physical support/visible foot/safety classifiers. No type or handwritten trait/codec. Exact current terrain/frame and multi-field retention/error semantics not derive boilerplate; planning child separately scoped."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Explicit native stop/contact/settle state ownership and current rendered/terrain/frame semantics retained; no mechanical trait implementation to derive.",
+      "disposition": "NO_HANDWRITTEN_TRAIT_OR_CODEC",
+      "qualification": "No native/client/test/system run or imported/body/other-lens coverage transfer."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1378,
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/settle/planning.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

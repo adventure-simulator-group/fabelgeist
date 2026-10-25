@@ -1,0 +1,109 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-576",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/trade/equipment.rs",
+      "sha256": "3229ebb47a71f62dc45c5b0406a116e0785dcdf26ea485deff0f757edc4cdaac",
+      "actual_EOF": 1169,
+      "actual_compared_ranges": [
+        [
+          1,
+          1169
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/trade/equipment/attachment.rs",
+      "sha256": "3ffa6b1a6c8bbdffdfc3d43c453dff29c9f612da9cdfaf8b9902c32224ce9433",
+      "actual_EOF": 25,
+      "actual_compared_ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/trade/equipment/fit.rs",
+      "sha256": "5f88b54a698112493584486bd95eb1576ac5de6badef00ed2d7b6b4a787a1b07",
+      "actual_EOF": 38,
+      "actual_compared_ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/trade/inventory.rs",
+      "sha256": "989aa9bc45cc33ebee0bbd89fc19915e7e926315cd89319f0465da108082a5b5",
+      "actual_EOF": 543,
+      "actual_compared_ranges": [
+        [
+          1,
+          543
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Equipment ancestor traversal must terminate, preserve all roots and publish deterministic canonical layer/attachment context.",
+      "evidence": "equipment1169/attachment25/fit38/inventory543 fullbodies inclfixtures personallyread. Iterative descendant detection globalvisited breakscycles; recursive roots usespath-localset/remove toterminatecycles whilepreservingdistinctrootpaths. Depthincrements boundedactualpathnodecount, notnativeusizeMAXconstructiblegraph; memory/stack budget separate. Fit .get(requirement_index) safe onmalformedindex; canonicalfit_zone thenconflicts_with, attachmentrequireschannel+order+side+tags andrejectself/descendant. Lightness depth.min5*9 bounds0..45, saturating88 subtraction; displayeddepth+1 boundedactualstacklength.",
+      "qualifications": "No source/tests/DOMrun. Recursive roots graph canhave combinatorialmultiplepaths/deepstack underunsupportedlarge graph; actualadmission/workbudget prerequisite, noordinarywitness. Child/currentfreecapacity notmodifiedhere; authoritative reducers stillrequired. Item identity JS fullu64 precision retained archiveRIG-OWNER-F026; focused JSselectionread doesnotdischarge it.",
+      "acceptance": "Preserve allvalidmulti-root attachments and intentionalcapacityreplacement; canonicalgraph/cardinality/workbudget admission whereactualinputrequires, no arbitrary ancestrydepthban."
+    },
+    {
+      "contract": "Packed numeric keyboard layer rank must preserve declared channel-local order semantics across rawu16order.",
+      "evidence": "equipment.rs286\u2013300 packs depth*100000+channel.order()*1000+order;553\u2013564 repeatsbodyrank. ExactPRschema140\u2013220 channelorders0,10,...80 andu16order describedwithinchannel. Root depth0 Held order10001 gives10001 > BaseClothing order0 gives10000, while siblinginputOccupants uses tuple(channelrank,order,id). ActualJS1\u2013115 inputRank parsesnumber andselectionForInput sortsdescendingrank for attachmenttargets/candidates, so numericordering observably influencesselection.",
+      "qualifications": "QualifiedAPI/canonicalpolicy candidate, notordinaryauthored failure: no contentlargeorder or successfuladmissionwitness. Need canonicalpriorityspec and anyproducerbound<=9999 beforepromoting; schemafullu16 alone notproofauthoredrowreachability. Deepdepthnativeproduct overflowrequiresimpossible-memory-scalevectorsbeforeu64overflow; notpromotedasordinary.",
+      "acceptance": "If channelprecedence islexicographic, compare structuredtuple or proveninjectiverank coveringfullsupportedorderdomain; preserve attachmentdepthpriority and stableties. Do notnarrowfullphysical/channelpolicy solelyforpacking."
+    },
+    {
+      "contract": "Inventory labels and meters preserve supported quantity, quality and encumbrance policies without creating gameplay penalties.",
+      "evidence": "Qualityoverrideandcataloguequalityclamp1..5 makesunreachablelabelbranchunreachable; weight formatting fixed2decimals thenstriptrailingzeros, rawfiniteformatdoesnotoverflow. Encumbrancepercent usescanonicalsummary.penalty_fraction then*100; zero/overloadpolicyownedCorepreviousscope, displaysretainedburden and100%penaltycap. transferglyphactualcallers1/2 iterations, targetquantityonlylookup/noarithmetic.",
+      "qualifications": "Raw publicquality_overrideSome0/6 couldreachunreachable whennonfood/book viahelper; actualcallersprovidefoodlotclamp1..5, noordinarycallerwitness. Itemweightcatalogueprojection stillrelatedlocal774:F46 massfraction/recipe loss (actualservercauseparentsupplied); renderingdoesnotresolvewrongburden. No fixture/browserexecution.",
+      "acceptance": "Canonicalmass/quantity/foodlot projection and oneencumbranceeffect throughincapacitation; preserveactualburden andintentionaldisplaycap, finite-displayadmission atsharedprojectionifrawmalformedsupported."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [
+    {
+      "source_id": "pr-working:crates/strategic-web/static/equipment-toggle.js",
+      "sha256": "86df6350e2e09720ae1d8293a48a484f6e0aa4154787e29dd06156ee7c1e6b37",
+      "actual_compared_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "method": "Focused exact PR semantic receiver/producer body read; no whole-role credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "sha256": "96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+      "actual_compared_ranges": [
+        [
+          140,
+          220
+        ]
+      ],
+      "method": "Focused exact PR semantic receiver/producer body read; no whole-role credit."
+    }
+  ],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/strategic-web/src/templates/settlement/travel.rs",
+  "later_qualifications": [
+    {
+      "packet": "SEGOVB-INITIAL04-CONTRACT-617",
+      "qualification": "Held10001violatesactualPR/P16catalogsingletonorder0gate, so notadmittedcataloguewitness. Validnonsingle APIrankroute Accessory10001=>70001 vsMount0=>70000 remainsconditional; no authoredlargeorder/completecatalogrow/runtime proof. FreshPRvalidationoccupancy100\u2013144 andschema125\u2013235read; samecandidate/remedy, no uniqueglobalcount."
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-494",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/single/apron.rs",
+      "sha256": "f9e32dcc77548278629c776402165e95ee25eee417165f1020b9e82c2eca7d37",
+      "actual_EOF": 281,
+      "actual_compared_ranges": [
+        [
+          1,
+          281
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/single/apron/surface.rs",
+      "sha256": "b0385be5c59e01fd9faacffa45e1165daeeb9bf9c81ca5b6b56ef2cf9956e988",
+      "actual_EOF": 120,
+      "actual_compared_ranges": [
+        [
+          1,
+          120
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/single/bearing.rs",
+      "sha256": "2f03defda63188c2d3cda5491164f2ed5c6366a272ca14509e1a899f51c92ba2",
+      "actual_EOF": 66,
+      "actual_compared_ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/single/floor.rs",
+      "sha256": "5e5981b110fe26b972a64d993e58a3d3c8cd3452696b75eb45b9f21a08fd19f9",
+      "actual_EOF": 115,
+      "actual_compared_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Apron and floor operation completes before accepted surface publication",
+      "evidence": "Full apron281/surface120/bearing66/floor115 personallyread: checkedoutwarddirection/thresholdbearing, continuousstrip union constraints, finitepointadmissionbeforegeographicsampling, strict run>landing, floorconstraintintersection retainsinfeasiblecrossedbounds, preferredflooraveragef64 and finalSupportElevation admission. Staircountbound65535 beforeu16loop; actuali+1safe. Fullfinalsourcecontrols and admit_generated in priorpacket493discardlocalmesh onerror. No ordinarypartialpublishedproduct."
+    },
+    {
+      "contract": "Finite owner bypass in derived private floor interval remains source-qualified",
+      "evidence": "Private PreparedApron::floor_interval uses direct SupportElevation constructors for source\u00b1rise. Admitted SupportGradeMAX can powi2Inf; availablepositive, across0 yields rampInf and infinitebounds despite finite SupportElevation contract. IntermediateFloorConstraints then intersectedwithsource finitewindow and finalSelectedFloor checksfinite, so no badordinarypublishedfloor asserted. Extendedinterval policy vsphysicalelevation owner fit/canonicalarithmetic stillneeds decision, not globalpositivegrade domain narrowing."
+    },
+    {
+      "contract": "Inherited complete-source coverage and immutable envelope aliases retained",
+      "evidence": "Fullcanonical F024/F026 records personallyread and saved qualification-source-coverage-envelope-aliases-494.json. Summedsourceareas cancancel missingandduplicatecoverage despite discrepancy0; currentvista normalpartition distinct. Emptypublicenvelope vacuouscontainment weakness distinct fromcurrent17pointimmutablehazel source. Prior fresh04 source reads support samecontracts, no duplicate/globalcount claim."
+    }
+  ],
+  "findings": [
+    {
+      "id": "NATIVE-INITIAL05-F024",
+      "disposition": "exactexistingdefect support",
+      "new_unique": false
+    },
+    {
+      "id": "NATIVE-INITIAL05-F026",
+      "disposition": "exactexistingdefect support",
+      "new_unique": false
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/single/tests.rs"
+}

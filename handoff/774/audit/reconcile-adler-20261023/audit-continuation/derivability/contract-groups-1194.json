@@ -1,0 +1,26 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1194",
+  "at": "2026-10-25T18:05:45.393245+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1282,
+  "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/investigation_policy.rs",
+  "sha256": "beeb9c30e9b583a3e744dcc7350e83c2c5ce40a2d65d5184cd48c0a463a93ea1",
+  "actual_compared_ranges": [
+    [
+      1,
+      300
+    ]
+  ],
+  "existing_derives": [
+    "SelectedCaseSitePlan Clone Debug PartialEq",
+    "OnSiteActionDecision/GeneratedAdvanceResult Clone Copy Debug PartialEq Eq"
+  ],
+  "trait_inventory": [],
+  "analysis": "SelectedCaseSitePlan and closed on-site/advance outcomes already derive structure. No handwritten trait/custom codec. Native checked walking-window candidate enumeration, evaluator/contextual first-plan selection, joint failure classification, public action score ordering and balanced party role selection are semantic algorithms; no arbitrary derived Ord/From/default substitute. Role rank matches intentional explicit priority, not representation cast.",
+  "first_unfinished": {
+    "scope_index": 1282,
+    "line": 301
+  },
+  "execution": "none"
+}

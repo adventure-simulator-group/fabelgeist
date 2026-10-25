@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-974",
+  "at": "2026-10-25T17:24:35.408888+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1139,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem.rs",
+  "sha256": "49dfecf1d8b09c88835ef0e2c5d2ffcc8cfd8b6624b3a05e7320e7499a723942",
+  "actual_compared_ranges": [
+    [
+      741,
+      1120
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Settlement/route generated authority and explanation use existing Serde; effect projection and monotonic/idempotent apply_outcome perform DB/time/ID validation and fingerprint comparison. LocalProblemOutcomeInput951 already structural and Serialize/Deserialize; BoundedHearingGraph1109 already Default. Manifest/case/settlement join and stable eligible cohort selection are semantic, not derive candidates. No handwritten trait/codec.",
+  "first_unfinished": {
+    "scope_index": 1139,
+    "line": 1121
+  },
+  "execution": "none"
+}

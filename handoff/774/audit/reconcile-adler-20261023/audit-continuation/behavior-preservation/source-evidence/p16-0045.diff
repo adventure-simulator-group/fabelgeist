@@ -1,0 +1,12 @@
+--- p16base/crates/adventuresim-core/Cargo.toml
++++ catalog-p16head/crates/adventuresim-core/Cargo.toml
+@@ -28,8 +28,9 @@
+ fabelgeist-determinism.workspace = true
+ spacetimedb = { workspace = true, optional = true }
+ 
+ [build-dependencies]
++fabelgeist-geometry = { workspace = true, default-features = false }
+ serde = { workspace = true, features = ["derive"] }
+ serde_json.workspace = true
+ serde-saphyr.workspace = true
+ sha2.workspace = true

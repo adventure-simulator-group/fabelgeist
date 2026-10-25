@@ -1,0 +1,108 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-087",
+  "at": "2026-10-23T01:22:56.611478+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/encounter/choice.rs",
+      "sha256": "3a327aeb8ec9f72d67960b0cdc94f7ece677c4a963d5ce8e1db7af3fd8025206",
+      "actual_compared_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "source_evidence": "Whole actualPR bytes read andexactcompared with priorliteralP16 bodies; independentcurrentPR sealedleaf/stdlib/enum context and identicaljustification below, no hash-only credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/encounter/receipt.rs",
+      "sha256": "79edfeebdc4b5bdd4dfd8272b5b15981bf986c1acdcc4bca4b92d3fe3022b1b1",
+      "actual_compared_ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "source_evidence": "Whole actualPR bytes read andexactcompared with priorliteralP16 bodies; independentcurrentPR sealedleaf/stdlib/enum context and identicaljustification below, no hash-only credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment/timing.rs",
+      "sha256": "2d07455dadf2a1893ef4a3867f0b5ada5170e81c3a279d347ee86c1cc6ab4dfd",
+      "actual_compared_ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "source_evidence": "Whole actualPR bytes read andexactcompared with priorliteralP16 bodies; independentcurrentPR sealedleaf/stdlib/enum context and identicaljustification below, no hash-only credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "db3686060ebd8ce533fe48c88685c5643b024b8a92b2b617d97481196988f3e0",
+      "actual_compared_ranges": [
+        [
+          1,
+          178
+        ]
+      ],
+      "source_evidence": "Whole actualPR bytes read andexactcompared with priorliteralP16 bodies; independentcurrentPR sealedleaf/stdlib/enum context and identicaljustification below, no hash-only credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/mission.rs",
+      "sha256": "998416982a504559c519dabf8fecf7612eb946283441b9644c073ac500a62e62",
+      "actual_compared_ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "source_evidence": "Whole actualPR bytes read andexactcompared with priorliteralP16 bodies; independentcurrentPR sealedleaf/stdlib/enum context and identicaljustification below, no hash-only credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/mission/enemy_roster.rs",
+      "sha256": "c83ace93cc95cb243c86bf6bc02bea9954953b433db0ab7790ea890ac7251642",
+      "actual_compared_ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "source_evidence": "Whole actualPR bytes read andexactcompared with priorliteralP16 bodies; independentcurrentPR sealedleaf/stdlib/enum context and identicaljustification below, no hash-only credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/mission/roster.rs",
+      "sha256": "2b4baf6c921fd489d497a5f002c8ee5a84e48014c6932e1bd4153754501759dd",
+      "actual_compared_ranges": [
+        [
+          1,
+          91
+        ]
+      ],
+      "source_evidence": "Whole actualPR bytes read andexactcompared with priorliteralP16 bodies; independentcurrentPR sealedleaf/stdlib/enum context and identicaljustification below, no hash-only credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/lib.rs",
+      "sha256": "fd09a838f8cfdd2da3d48800fe56d9bbfad7e9ad5556ba696be7908b4a000c2a",
+      "actual_compared_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "source_evidence": "Whole actualPR bytes read andexactcompared with priorliteralP16 bodies; independentcurrentPR sealedleaf/stdlib/enum context and identicaljustification below, no hash-only credit."
+    }
+  ],
+  "groups": {
+    "currentPR-speed-owner": "Self-containedprivatef32 leaves actualctors andSerdetry_from samebody; nonnegative/signeddefaultzero valid, PositiveSpeednested rejects\u00b10 andnoDefault. min/max existingadmitted, signedabs/negate finite\u00b1MAX safe, checked_scale/lerp readmitcomputedresults andreturntypedOverfloworNegative. Arbitraryfactorcanextrapolate, no unsupported[0,1]clamp. CurrentPRsameSerdedeps/nativef32 semantics, no P16frame/geometryimportdependence. Asf32 actualencodingconversions do notjustifyprimitive retention elsewhere.",
+    "currentPR-timing-owner": "CurrentPR imports sameclosed MeleeAttackStyle/AnimationElapsed definitions alreadyactuallycompared; physicalinertia primitivekernel sanitizesfinite negative0/nonfinite.3, ratioinertia/(inertia+.45) stays[0,1], base .24..64 or.36 andstyle<=1.18 so checkedelapsedfinitepositive. TinyconstantadditiontoMAX roundsMAX, notoverflow. Keep current nativef32order, unarmed/stylepolicy and literaltestoracles. No owner change fromsame-source grouping.",
+    "currentPR-rosters": "Privateownedvectors onlynativecollectionoperations andclosed typederrors. Constructor nonempty/unique preservingorder, enemy checkedu32cardinality separatelyfromparty<=16. Therefore accessorNonZero expects safe whileborrowedreadonly/ownedconsumptions cannotchangeinvariant. No human/hostileIDexistence or positivecharID claimfromrawu64elements. CurrentPRsameCore missionconstants/NATIVE stdlib asP16, no otheraliascontext. Enemycountnotparty16cap; no tacticaltick persistence introduced.",
+    "currentPR-identities-and-retries": "MissionmacroboundedlowerASCII/kindprefixctor no arithmetic, manualstable choiceparseexactfixedarray tokens andErrbeforepublication. TransparentSerdeIDfactorybypass remains existing03 admissiongraph, notsealedbyconstructorname. Encounter128-bit two-domain words formattedfixedhex actualport; existingseed/roll framing/draworder retained. Retrycompares allsuppliedID/character/choice/revisionfields withno mutation/clockconsumption; preserve earlyidempotency beforecurrentauthorizationparse perRig078 actualcaller. Rawstringchoice retainedstate remains12propagationobligation, notblessedasformatbythishelper.",
+    "currentPR-root-and-existing-tests": "lib138module/reexports only no computation/mutation; cfgtestvalidators notmisrepresented asproductiongate. Fullsourcebyteidentity permitsonlyidenticaloperationjustifications after resolvedCore/stdlib/Serdecontexts compared; no otherlensverdicttransfer or broadercallerproof. Existingfixtureinputs/oracles readthrough literalbody without execution/edits/newcases/assertions/helpers."
+  },
+  "findings": [],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

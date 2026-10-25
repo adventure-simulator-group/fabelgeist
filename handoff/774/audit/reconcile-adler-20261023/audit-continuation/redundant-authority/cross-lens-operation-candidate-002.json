@@ -1,0 +1,25 @@
+{
+  "id": "CONT07-CROSS-LENS-002",
+  "at": "2026-10-23T22:04:40.753140+00:00",
+  "kind": "time-sample ownership / behavior candidate",
+  "status": "forwarded to coordinator; requires independent owning-lens proof",
+  "sources": [
+    {
+      "scope_index": 1973,
+      "source_id": "pr-working:crates/adventuresim-tactical-netcode/src/client.rs",
+      "sha256": "7efcd68002b4980f4d901f87a84c47dc0f697e35551b4fb3a13bc6ce80a1e770",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-netcode/src/client.rs",
+      "fresh_full_read": true
+    },
+    {
+      "scope_index": 1974,
+      "source_id": "pr-working:crates/adventuresim-tactical-netcode/src/client/melee_preparation.rs",
+      "sha256": "bc62caee41b6c642c35101af3a0f5dee241c87afceff2d426fc038ec8740cf03",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-netcode/src/client/melee_preparation.rs",
+      "fresh_full_read": true
+    }
+  ],
+  "observation": "HeldAttack resets then adds current ending-frame delta on press and omits release-frame delta; Sprint deliberately attributes delta to previously-down key including release. Actual input update passes same Time.delta. A long press frame can immediately pass alternate threshold. Intended mouse-clock contract and exact ordinary input sequence require owning-lens analysis; no runtime and no07finding.",
+  "validation_status": "not_run",
+  "other_lens_coverage": false
+}

@@ -1,0 +1,27 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-069",
+  "at": "2026-10-25T12:13:01.056265+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_ROLE_INCOMPLETE",
+  "scope_index": 186,
+  "source_id": "physical-p16:crates/adventuresim-stdb-module/src/condition.rs",
+  "sha256": "48d1fbefb0cc475a98585e46dc0f4dabdef2c47eaa4bbb1ffb699ba604dc3758",
+  "actual_compared_ranges": [
+    [
+      1,
+      900
+    ]
+  ],
+  "trait_inventory": [],
+  "existing_derives": "Inspected persisted condition/needs/exposure/morale/demand records use Clone/Debug and table macros with applicable PartialEq; ElapsedNeedsProvision/Plan structural, ProjectedMoraleSource structural, PartyReligionContext structural+Default. No handwritten trait/serializer in1\u2013900.",
+  "semantic_contracts": "Initialization and field/route exposure, actual minute projection, stored provisioning, skill/load lookup, morale ranking and religion cohort start are explicit semantic transformations. Do not add Serialize to runtime authority records to replace ordinary constructors.",
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 186,
+    "source_id": "physical-p16:crates/adventuresim-stdb-module/src/condition.rs",
+    "next_line": 901,
+    "actual_EOF": 2628
+  },
+  "execution": "none",
+  "limits": "Only1\u2013900 consumed; fullregistered1\u20132628 role remains incomplete; child fear module separate."
+}

@@ -1,0 +1,78 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-398",
+  "at": "2026-10-23T13:07:41.399537+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_movement.rs",
+      "sha256": "086c2055231445836bac21e3ffa931c0909cd95def8d4fa7e4f041a2fe629e86",
+      "scope072_index": 870,
+      "actual_EOF": 389,
+      "scoped_ranges_compared": [
+        [
+          1,
+          389
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source and movement originals; conserved pair displacement, native computed-result admission, paired engagement updates and defense commitment payload/lifecycle compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/commitment.rs",
+      "sha256": "52eb21ff762fa1bb6d55c4237bf1d1d66638a7929d996eb94074726727b563f6",
+      "scope072_index": 871,
+      "actual_EOF": 239,
+      "scoped_ranges_compared": [
+        [
+          1,
+          239
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source and movement originals; conserved pair displacement, native computed-result admission, paired engagement updates and defense commitment payload/lifecycle compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+      "sha256": "201e0aa26a4ceec81c0caa799acc2dae96ad3d1600ed6184aef8f671e3becf1c",
+      "scope072_index": 872,
+      "actual_EOF": 226,
+      "scoped_ranges_compared": [
+        [
+          1,
+          226
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source and movement originals; conserved pair displacement, native computed-result admission, paired engagement updates and defense commitment payload/lifecycle compared."
+    }
+  ],
+  "groups": [
+    {
+      "id": "opposed motion must retain conservation as well as bounded leaves",
+      "comparison": "870 whole389 read including originals. integrate_axis clamps before velocity to admitted nonnegative maximum, admits computed after velocity if finite, but raw displacement remains unchecked. Opposed movement computes distance plus both displacements, clips distance and rescales both movements by the same travel fraction, with outward-only velocity after boundary collision. Personally consumed Root04 F028/CON077 and independently compared current70\u201399: large finite distance/velocities overflow raw_after, clip can leave changed distance with zero actor displacements. Existing crate-visible API strengthening, no normal giant velocity or executed motion. Final fields being finite is insufficient to prove conservation. Zero elapsed/zero acceleration are intentional valid policies."
+    },
+    {
+      "id": "ordinary movement caller supplies actual physical bounds",
+      "comparison": "872 preview chooses shared surface separation from current paired distances, caps measured movement speed to actual guarded/lunge config, derives acceleration from physical mass and leg strength, and computes maximum surface separation from formation spacing and actual reaches. It converts surface gap to center distance using the same humanoid separation constant at both bounds and removes it afterward. Normal cap values require actual embedded config, not merely a max/min name; RootF028 kernel example does not prove ordinary battle reaches extreme operands. Raw bound ordering and finite displacement remain kernel input/output obligations."
+    },
+    {
+      "id": "pair update preserves common distance and individual velocity columns",
+      "comparison": "872 advance skips zero elapsed or defeated actors, admits interval end before changing pair. A changed target resets both target IDs, equal initial distance and zero velocities together, then previews movement and commits same final distance to both and each actor own velocity. Reset occurs before fallible preview, so no universal rollback on error; public battle consumes local vectors and errors rather than publishing success, while other internal callers must be traced separately. Recorded two movement events use same result/elapsed/time and deterministic ID order, preserving opposite axis fields and unchanged readiness."
+    },
+    {
+      "id": "defense commitment distinguishes attempted work from effective contact",
+      "comparison": "871 whole239. phase reader is immutable, combines private start/contact/recovery only when both options present and correct engagement target; neutral versus recovery closed states retain their own meaning. Availability is a diagnostic phase projection, not claimed equal to final probabilistic response. Defensive work charges attempted action once; commitment may retain weakened offhand attack, cancel same-weapon attack, or impose recovery. These are different lifecycle effects, not interchangeable bools. TransformedOffhand includes retained power and zero additional recovery; normal constructors couple payloads but public(in module) record fields remain broader than a checked enum. Actual downstream cancellation application is in queued873."
+    },
+    {
+      "id": "movement and commitment fixture scope",
+      "comparison": "870 original148\u2013389 tests show coast/zero-time, speed\u00d7elapsed bound, substep consistency, load acceleration, signed opposing intent and collision floor without tunneling for explicit modest values. No execution or general proof from assertions. 871 and872 have no inline test module; full production bodies read. No new unique finding or extra fatigue/movement penalty introduced."
+    }
+  ],
+  "new_unique_findings": [],
+  "existing_finding_support": [
+    "ROOT-INITIAL04-F028 / CONTRACT077 independently compared actual PR kernel and mobility caller"
+  ],
+  "remaining_dependency_obligations": [
+    "Actual lower embedded speed/spacing constants and downstream commitment application873 remain separate; no universal rollback or arbitrary public config reachability."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

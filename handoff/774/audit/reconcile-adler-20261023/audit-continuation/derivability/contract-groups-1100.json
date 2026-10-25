@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1100",
+  "at": "2026-10-25T17:45:55.931599+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1225,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+  "sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+  "actual_compared_ranges": [
+    [
+      731,
+      1110
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "HostileBattleCommit927\u2013937 and HostileResolutionCommit939\u2013949 native borrowed command aggregates no handtraits. No handwritten trait/codec. Exact capability ID constructs composite namespace and optional sentinel; seeded outcome uses canonical ordering/explicit fields. Mission success/failure/native state parsing, checked current objective/custody and hostile commit validate exact dynamic graph; selected retry equality976\u2013984 excludes timestamp/id and compares input authority. Resolution\u2192disposition1096\u20131102 partial semantic classification with unreachable terminal excludes invalid inputs; no derive equivalent."
+  ],
+  "first_unfinished": {
+    "scope_index": 1225,
+    "line": 1111
+  },
+  "execution": "none"
+}

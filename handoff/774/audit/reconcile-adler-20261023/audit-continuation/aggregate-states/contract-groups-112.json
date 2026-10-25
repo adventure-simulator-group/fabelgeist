@@ -1,0 +1,127 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-112",
+  "at": "2026-10-25T17:17:19.564758+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1521,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/materials.rs",
+      "sha256": "b40a4b3063040003cdd4e0cfee6573ce1e51f131dde1d14cf4dbf25c13295916",
+      "personally_read_ranges": [
+        [
+          1,
+          568
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full568 materials and existing fixtures read. Eight curated appearance records each allocate a fresh infill material handle, retain corresponding timber/tile/finish in same private record, and indexed ALL construction matches enum discriminants. Actual palette0 consumes that record, so unique infill AssetId genuinely identifies complete current palette for GPU prototype sharing. No wrong-palette alias from only some colors matching. M68 building/furniture IDs should reach deterministic palette selector rather than raw u64\u2192Seed; preserve exact stream/distribution.",
+        "Native surface materials use diagonal scale-only UV transform, positively resolving generic CityMaterial off-diagonal loss concern for actual production palette. Physical tile sizes are positive actual recipe constants; division boundary and typed geometry contracts should preserve role, not arbitrary new positive policy. Tint may legitimately exceed1 and handled wood base colors>1 are intentional; do not UnitInterval-cap scene color/gain. Standard glass actual scalar thickness intentionally differs packed red future evidence, per source/native API; material fixture source only, no calibrated verdict."
+      ]
+    },
+    {
+      "scope_index": 1522,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/prepared.rs",
+      "sha256": "93f6d71ef4483adfa946c8c19da9692b9843eb84629a32210c1652a3978b3e4d",
+      "personally_read_ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full54 worker prepared installer read. PreparedBatch stores actual triangle count/mesh/material together; M66 owns checked columns/indices at worker admission. Independent program, VenueGeometry and GeneratedBuildingRecipe are labelled as one compiled source without receiver correlation: exact SEGO-INITIAL09-F433 / M72 structural-plus-source relationship, not solved by typed positions alone. M69 dynamic compiled payload requires interior/dynamic openings; actual constructor supplies them. No normal mismatched worker response claimed without full producer trace."
+      ]
+    },
+    {
+      "scope_index": 1524,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/streaming.rs",
+      "sha256": "b8091bd1fe336c7162f6fcc4729bdd1e16cadf288fafe8ad4092029e2ea1fcc4",
+      "personally_read_ranges": [
+        [
+          1,
+          272
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full272 city streaming and original fixtures read. PendingCityBuildings constructs total/queue and matched establishment per exact building ID together; private removal/requeue maintains total>=remaining, completed means terminal processed including failed (intentional fixture), not count of successfully rendered buildings. Once per-frame queue length prevents pending asset starvation/spin. failure history can coexist with empty queue and persists intentionally. M75 retains first structured load/assembly cause, M78 admits camera focus once and retains typed ScenePlanPoint through prioritize.",
+        "Actual spawn compiles before queue/entity publication, then pushes matching native transform/appearance/compiled geometry and signs. Transform restores only local_origin.y whereas focused material162 restores rotated full local origin. Q024: these paths differ for a compiled collision center with nonzero x/z; actual ordinary asymmetric generated recipe witness still pending, no current visual failure asserted. Need canonical placement/source contract and exact generator bounds semantics before repair; no guessed translation change. Existing max budget and focus stable distance policy preserved."
+      ]
+    },
+    {
+      "scope_index": 1525,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/closure_meshes.rs",
+      "sha256": "39104be92a09f4e09bc38db7353d77a82f5fe5457067c9c6c08da3d88a46e41f",
+      "personally_read_ranges": [
+        [
+          1,
+          148
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full148 closure mesh cache and existing fixtures read. LeafDimensions admitted once and retained until final Cuboid/window compiler; dimensions-bit key is genuine native cache identity preserving exact components, separate glass/shutter maps own kind semantics. Pure geometry sharing intentionally excludes independent transforms/operable state; tests confirm two entities open independently with same mesh. Window surface batches preserve exact primary materials, dimensions and caller transforms distinct. Typed CollisionError cause remains in ClosureMeshError until actual framework presentation. No new type per cache bit or duplicated closure geometry owner."
+      ]
+    }
+  ],
+  "additional_material": [
+    {
+      "material_index": 0,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/materials/palette.rs",
+      "sha256": "0ce1ea507bc49a06edff5175cc0638a0cc8e5cf7c3e33258fc41b01e5d97faa1",
+      "personally_read_ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full69 palette receiver read. BuildingPalette borrows matching assets+appearance from controlled selectors; all semantically varying timber/roof/infill selected from same AppearanceMaterials. Setup1521 allocates unique infill for each record, so prototype infill-key uniqueness justified at current source. Remaining shared materials intentionally independent of appearance, including physical workplace and wood variants. Canonical BuildingLodMaterial controls closed dispatch; native Handle cloning is final material resource port."
+      ]
+    },
+    {
+      "material_index": 165,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/materials/furniture.rs",
+      "sha256": "2335cdb45fb125b437642bd587707adc68aeb3d1b3e177f8ca23b5de97d4deda",
+      "personally_read_ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full44 furniture material factory read after prospective registration. Four FurnitureWoodSurface values ordered to corresponding index and actual BuildingLodMaterial role; each branch derives same base grain recipe then purposeful handled/replacement/endgrain/paint treatment. Native surface color may>1, roughness current constants valid. Reference workplace_surface unwrap only known covered variants, not public arbitrary enum call. No source/visual execution."
+      ]
+    },
+    {
+      "material_index": 166,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/materials/workplace.rs",
+      "sha256": "60040ff58b1a6d59e8eb9a126073b8109d91b7793911d56f72617c2e1f0436c5",
+      "personally_read_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full50 workplace factory read after prospective registration. Every hardcoded closed physical role queries shared canonical workplace_surface and emits actual StandardMaterial fields once; physical finish intentionally independent of facade appearance. All declared material slots populated atomically by constructor, no unfinished optional state or duplicate procedural authoring vocabulary inferred."
+      ]
+    }
+  ],
+  "findings": [
+    "M68 building/furniture identity to palette",
+    "M66 worker mesh aggregate",
+    "M69 detail payload",
+    "M72 structural/source admission and SEGO-INITIAL09-F433 source match",
+    "M75 retained streaming/load cause",
+    "M78 typed scene focus"
+  ],
+  "qualified_source_questions": {
+    "Q024": "streaming spawn only restores origin.y vs focused full rotated origin; need actual valid generated nonzero x/z collision center before ordinary misplaced-building finding."
+  },
+  "positive_source_resolutions": [
+    "Actual unique infill asset matches complete private appearance record.",
+    "Actual authored native palette UV transforms diagonal only."
+  ],
+  "discovery": "Four new full original roles plus exact material0/165/166 accounted; adopted signs1523 full proof carried separately without recount. Lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

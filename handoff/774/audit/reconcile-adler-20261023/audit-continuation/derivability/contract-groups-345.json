@@ -1,0 +1,182 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-345",
+  "at": "2026-10-25T14:58:48.827778+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 677,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/windows/contract_tests.rs",
+      "sha256": "e90e34c5bf132224c8fe4cf0e24b30950f9dab42abf14da6812e97d290a51c5d",
+      "actual_EOF": 155,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/windows/contract_tests.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-building-generator/src/windows/contract_tests.rs",
+        "sha256": "e90e34c5bf132224c8fe4cf0e24b30950f9dab42abf14da6812e97d290a51c5d",
+        "bytes": 5453,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-root-receivers-011.json",
+            "ranges": [
+              [
+                1,
+                155
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-SUPP-STRATEGIC-005"
+            ]
+          },
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/server-receivers-002.json",
+            "ranges": [
+              [
+                1,
+                155
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "NATIVE-PP-SERVER-RECEIVERS-002"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 453,
+            "read_ranges": [
+              [
+                1,
+                155
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-WINDOW-OPENING-PRODUCERS-067"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/windows/contract_tests.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 221,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          155
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full exact source personally consumed before context boundary. Four fixtures: missing closure5\u201334, invalid frame/leaf37\u201374, window/bar native decoding77\u2013133, zero-frame bar identity136\u2013155. No handwritten trait/type/codec. Tests read, not run."
+    },
+    {
+      "scope_index": 678,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/windows/leaf.rs",
+      "sha256": "bea74075651588d26b629c3b43996d0c9fe8d76c47577b585af2b8e159488ffd",
+      "actual_EOF": 150,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/windows/leaf.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-building-generator/src/windows/leaf.rs",
+        "sha256": "bea74075651588d26b629c3b43996d0c9fe8d76c47577b585af2b8e159488ffd",
+        "bytes": 5168,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-root-receivers-011.json",
+            "ranges": [
+              [
+                1,
+                150
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-SUPP-STRATEGIC-005"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 454,
+            "read_ranges": [
+              [
+                1,
+                150
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-WINDOW-OPENING-PRODUCERS-067"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/windows/leaf.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 222,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full exact source personally consumed before context boundary. compile_window_leaf20\u2013107 constructs native geometry/material/came/latch through admitted CuboidDimensions/CollisionResult; fixture114\u2013149 read not run. No handwritten trait/type/codec; retain native checked semantic construction."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "window native leaf compilation and contract fixtures",
+      "disposition": "No handwritten trait boilerplate; semantic native geometry/material/error construction retained.",
+      "acceptance": "No new codec/raw construction derive and no tests executed."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 679,
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/windows/spec.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

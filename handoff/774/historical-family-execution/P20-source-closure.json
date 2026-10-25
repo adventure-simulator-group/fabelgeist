@@ -1,0 +1,56 @@
+{
+  "family": "P20",
+  "status": "source-complete; unvalidated",
+  "base": "0e6dad125",
+  "prior_scope_settled": "The original four-scalar continuation followup is now part of the authorized twenty-family plan; implemented from the upstream queue and sequence, not only the client span.",
+  "canonical_owners": [
+    "Existing AttackPoseCoordinate and UnitInterval reused",
+    "IncomingAttackTangent: finite nonnegative coordinate change over readiness interval; zero normalized by original max(0) including negative zero",
+    "ContinuationReadiness: finite and strictly (0,0.5)",
+    "AttackContinuation: one named observation of actual authoritative continuation variant"
+  ],
+  "paths": [
+    {
+      "producer": "QueuedAttack and AttackSequence decoding / SkeletonState::begin_attack_timed",
+      "storage": [
+        "typed start_coordinate and incoming_tangent in both authoritative variants",
+        "PoseSampling::ContinuationSpan four checked leaves",
+        "client ContinuationSpan in resolver/PlaybackContributions and baked sampling tuple",
+        "ContinuationTransition"
+      ],
+      "receiver": "LocalPose::continuation_transition -> checked extrapolate -> actual spline Vec3/quaternion kernels",
+      "earliest_repairs": [
+        "Retain checked queued_recovery_coordinate result instead of extracting it",
+        "Admit computed tangent before mutating queued action",
+        "Admit explicit initial continuation coordinate before assigning action",
+        "Replace independent optional primitive getters and unreachable fallback values with one named variant observation",
+        "Retain action_phase UnitInterval without fraction extraction"
+      ]
+    }
+  ],
+  "decoding": [
+    "Same float Serde representations, struct/variant/field names and order",
+    "Existing finite coordinate clamp remains in ActionState normalization and native extrapolation",
+    "Finite negative tangent normalization retained at actual owned decode boundary; direct constructor rejects invalid negative values",
+    "Finite progress clamping remains at existing owned decode boundary",
+    "Malformed nonfinite coordinate/tangent no longer invent valid 1/0 state; explicit admission error",
+    "Readiness rejects zero/contact/outside/nonfinite before spline"
+  ],
+  "native_proof": [
+    "Read complete spline/second-derivative and quaternion/extrapolation receiving bodies",
+    "Full spline remains numerical with native knots/phase/Vec3 operations",
+    "Existing nonfinite pose bind fallback remains unchanged, including extreme finite native-kernel overflow behavior",
+    "Same original 0.5*(7/12) readiness; preparation fraction recovers original 7/12 by exact power-of-two scaling of this normal finite f32, not decimal recomputation",
+    "Original tangent multiply/divide order and timeline casts retained at complete ratio kernel"
+  ],
+  "fallbacks_preserved": [
+    "Clip resolution fallback order contact/end/outgoing/finish unchanged",
+    "Existing pose sanitization unchanged",
+    "Zero contribution retains topology; existing PlaybackContributions admission unchanged"
+  ],
+  "review": "Focused source Code/Rule/producer review of all changed bodies plus all global continuation getter, span and transition references; no independent/full-suite clearance claimed. Constructor traits, Serde imports and error enum match consumers inspected.",
+  "tests": "Existing fixture literals, seam order, derivative expressions, test names and assertion counts retained. Only checked admission/access at fixture boundaries changed. No tests added.",
+  "validation": "No compiler, formatter, scanner, project command or runtime probe run. Hosted evidence pending.",
+  "hosted_ci_requested": false,
+  "updated_at": "2026-10-21T07:11:35.271812+00:00"
+}

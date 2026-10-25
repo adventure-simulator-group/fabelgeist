@@ -1,0 +1,17 @@
+{
+  "id": "SEGO-INITIAL09-REG681",
+  "index": 39,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/presentation/diagnostics.rs",
+  "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "git_blob": "b0382b48d34f4273e4bd34d767d28578b06d059d",
+  "sha256": "7b710acb4e5d608182be6f5eac8e432a9109877fb987d15e61f8685bd30695e8",
+  "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/enum-shapes/source-objects/7b710acb4e5d608182be6f5eac8e432a9109877fb987d15e61f8685bd30695e8",
+  "ranges": [
+    [
+      1,
+      84
+    ]
+  ],
+  "reason": "Actual semantic retained owner TreeAssetResidencyDiagnostics embedded in CachedTreePresentation1607:110 and TreePresentationCache residency; generate_tree_assets_resident1607:598/639-654 writes generated_lod_mask and counts, residency1608:145/156-194 merges counts. Read owner fields/addition contract to reconcile residency flags and preserve diagnostic observations; not namespace adjacency.",
+  "status": "registered before body read; no coverage yet"
+}

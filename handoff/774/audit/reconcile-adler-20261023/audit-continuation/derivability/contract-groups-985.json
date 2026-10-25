@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-985",
+  "at": "2026-10-25T17:26:05.197643+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1146,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/organization.rs",
+  "sha256": "39842ba122cf2240e36f267f8db415dd2b54bfcc0dbd2478e813ef3c374a9645",
+  "actual_compared_ranges": [
+    [
+      1,
+      350
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "OrganizationMembership and OrganizationPresentation table rows already Clone/Debug; BackendOrganizationMembership already Clone/Debug/SpacetimeType. Observer gateway projection joins canonical role, not mechanical row conversion. skill_hours149\u2013193 runtime classifier combines selected skill+leaf values; no Serde should be added merely to replace it. Native eligibility/chapter/dues/join/promotion, no handwritten trait/codec.",
+  "first_unfinished": {
+    "scope_index": 1146,
+    "line": 351
+  },
+  "execution": "none"
+}

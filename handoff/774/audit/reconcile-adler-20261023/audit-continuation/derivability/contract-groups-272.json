@@ -1,0 +1,27 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-272",
+  "at": "2026-10-25T14:20:54.864372+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_ROLE_INCOMPLETE",
+  "scope_index": 542,
+  "source_id": "pr-working:crates/adventuresim-building-generator/src/detail.rs",
+  "sha256": "00f757ddff51e8079daf3a85241adea4b79272687b86f5e166a917ced784681f",
+  "actual_compared_ranges": [
+    [
+      1,
+      550
+    ]
+  ],
+  "trait_inventory": [],
+  "existing_derives": "BuildingDetail Clone/Debug and test AuditTriangle Clone/Copy already derives.",
+  "semantic_contracts": "Personal1\u2013280/281\u2013550 prefix: material batching, full/static/dynamic closure exclusions, native solid/roof/bar compilation and semantic roof material mapping, fixture geometry checks. No manual trait/serializer so far; childinclude declarations give no body coverage.",
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 542,
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/detail.rs",
+    "next_line": 551,
+    "actual_EOF": 815
+  },
+  "execution": "none",
+  "limits": "Full815-line changed role remains pending551\u2013815; ends inside fixture expression."
+}

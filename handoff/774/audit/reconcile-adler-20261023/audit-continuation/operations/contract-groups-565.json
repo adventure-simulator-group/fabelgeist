@@ -1,0 +1,50 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-565",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/strategic-web/src/routes/settlements/party/location_personal.rs",
+      "sha256": "ba5a8c93dc9d1b62072610c5b016d87ce2db0c85f953822d5730ad4e9651f1f9",
+      "actual_EOF": 382,
+      "actual_compared_ranges": [
+        [
+          1,
+          382
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/routes/settlements/residences.rs",
+      "sha256": "f95d9bc6d0274f4525b6a04742e81bd574abbeb74fc78e7d0cab24879d33b34b",
+      "actual_EOF": 417,
+      "actual_compared_ranges": [
+        [
+          1,
+          417
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Personal character page uses exact location and actor identity before projecting derived activity/clinical state.",
+      "evidence": "Full location_personal382 read. resolve_location enum separatesFound/NotFound/Unavailable andusescorrectsettlement/casepinquery. Character actuallocationcheckedthen character_id==activeid beforepersonaldata, stats/capability/schedule/currentminute loadedseparately; failuresoftendefaultempty/zero ->existingrequiredcausegraph. Case-siteactivityuses originsettlement and raiding_allowed tochoose canonicaleligible/ineligibleActivityLocation. No new local arithmetic beyondfame/infamyu32(orbackendinteger)->f32/100 safefinite.",
+      "qualifications": "CurrentminuteZERO availabilityfallback cannot be treatedprovenactualtime, previewdefault rates notnecessarilyrealzero; exact RIG-PPS-F017 andparentlocal774:M98 connectedcausepolicy retained. Actualnative/corepreviewrateowner notcreditedinthispacket. Rawinventoryamount/foodlotparallelviews passedtoactualtemplate, no mutationhere.",
+      "acceptance": "Sourceconsistent required/unavailable/zero and actualactivitycontext retained throughcanonicalpreviewowner; preserve self-onlypersonaldata and independent observer-safe beliefs ratherthanprivatepersonality."
+    },
+    {
+      "contract": "Residence operation emits valid exact property/holding command and success only after reducerOk.",
+      "evidence": "Full residences417 read. Routeoperation/tier parsedclosedenum; rent/buyrequirespropertyid matchingqueriedsettlement+tier; currentholdingactions requiretierCurrent +nonblankholdingid. Reducerownsfinalauthority/charges/occupancy. Renderrequiresselectedactorcurrentsettlement andcanonicalstandalonechapter/keepcondition, ensurephysicalpropertiesErrunavailable. Availabilityofferdate comparedwithcharacter_minute; familyclockErr/None usesZERO and childrenqueryErr empty, so missing data notproof ofactualdate/childlessness.",
+      "qualifications": "No DB/nativeexecution, actualhousinginvalidstate or futureofferleakasserted. read_family nullable/minute fallbacks belongsharedrequiredcausegraph; no default0policychangeinvented. Sortingprimary/local/holdingid explicitdisplaypolicy, notnewbusinessauthority. Dates usecanonicalcalendar helpers, no repeatedraw arithmetic.",
+      "acceptance": "Preserve clean exactproperty/holding API, reducerauthority, typederrorcause and unavailablefamilyclock/history; actualsuccessfulmutation mappedonlyonOk, no compatibilityalias/migration."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/strategic-web/src/routes/settlements/rest.rs"
+}

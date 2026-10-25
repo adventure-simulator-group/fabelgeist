@@ -1,0 +1,56 @@
+{
+  "id": "CONT07-CONTRACT-391",
+  "at": "2026-10-23T20:55:14.856465+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1717,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/rooms.rs",
+      "sha256": "3891936e52f5d84f5970256e12a8cce2b3cf5990b15775b3512bab34ff1e21ac",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/rooms.rs",
+      "actual_EOF": 438,
+      "ranges": [
+        [
+          1,
+          438
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1718,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/rooms/sightlines.rs",
+      "sha256": "3b246c9e91979cdd7f23a8527adef2df1dbe28bf14662cd1060b557d89c77324",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/rooms/sightlines.rs",
+      "actual_EOF": 288,
+      "ranges": [
+        [
+          1,
+          288
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "CAM-OWN-CAPTURE-CLOSURE-114",
+    "NATIVE-OWNER-SCENE-SIBLINGS-004"
+  ],
+  "facts": [
+    "Rooms actualsemanticselector, furnishingproof lookup andfloor/route/furnituregeometry source personallycompared. RoomSelection distinguishes repeatedusage roles asF089 requires; validselector derivedcamera target exactlyconsumed. UpperKeep stairlanding andresolvedtreads sameplan with distinctselectionpurpose.",
+    "Closeddoor blockers deliberately augment staticnavigation collision: currentfixture provesnavigationdoorfree vsclosedrenderleaf differentpurposes, notduplicateauthorities requiringdeletion. Furniture solid pose andsignature points derive same placement/recipe; raw scene/local vectors retain establishedframeconversion.",
+    "PreparedBlocker immutable perchoose-call derives orientation/inverse/half/worldAABB fromsameCollisionCuboid; broad andexacttests querysameinput, no currentcacheinvalidator dependency. Sourcefixture exercises rotated/sloping/padded shape butnotexecuted.",
+    "RoomFOV/aspect alreadysharedcanonicalconstants in sightline/frustum check andactualCaptureViewSpec producer; no independentlyhardcoded cameraFOV inside choose. Visiblepoints/fraction/score/signature flag transientdifferentobservations, notpersistentcompetingcurrenttruth."
+  ],
+  "new_local_findings": [],
+  "finding_support": [
+    "CONT07-F089"
+  ],
+  "next_cell": {
+    "scope_index": 1719,
+    "start_line": 1
+  },
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true
+}

@@ -1,0 +1,32 @@
+{
+  "id": "CAMERA-ADM03-QUAL151",
+  "at": "2026-10-22T17:46:46.169989+00:00",
+  "qualifies": "CAMERA-ADM03-024 organization sourcealignment and NativeRoot-support003 validatorzipF004 normalcallerqualification",
+  "actual_sources": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/build.rs",
+      "sha256": "fc42ea1f2234144e94d6bfac86f254cd059799b9f9e5ae6de7f77e3125f19b7c",
+      "read_ranges": [
+        [
+          387,
+          451
+        ]
+      ],
+      "actual_EOF": 509
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/build.rs",
+      "sha256": "fc42ea1f2234144e94d6bfac86f254cd059799b9f9e5ae6de7f77e3125f19b7c",
+      "read_ranges": [
+        [
+          387,
+          451
+        ]
+      ],
+      "actual_EOF": 509
+    }
+  ],
+  "source_proof": "Fresh currentPR387-451bodyreread, exactcurrentP16correspondingboundedbodydelta explicitlyreviewed unchanged alongwith024originalcompletebuildroleproof; actualsemanticforeach pairedroutecompared, nothash/verdict.",
+  "comparison": "Bothvectorsdocuments/source_files initializedempty405-406, sameforeachfile408 readsONEJSONValue. Array421-424 source_files.extend(repeat_n(relative,values.len())) anddocuments.extend(values); singlevalue425-427 pushesoneeach. Thuslength/order/sourceperdocument invariant holds at447call; no independentfilter/skip/mutationbetweenpopulatingandcall. Actualauthoringarrayempty adds0both, overallnonemptyassert431doesnotbreakpair. Files sorted403, actualrelativepath rootnormalized413.",
+  "limits": "ClosesONLYnormalbuildcaller sourcealignmentprecondition. Public organizationvalidator validate_documents API stillzipwithoutlengthgate and rawDTOnotuniversallyvalidated; NativeF004 retained. No new source/rangeoutsideoriginalfull024, no SourceMap parsersemanticacceptance, no build/run/test/externalpublication/laterlenscredit."
+}

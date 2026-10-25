@@ -1,0 +1,58 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-521",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/scene_input/geological_landforms.rs",
+      "sha256": "7068eadeb46eb4e50b00a5f3a45e0e200e43c38afe3bfafd8d84709bbd79ae5a",
+      "actual_EOF": 534,
+      "actual_compared_ranges": [
+        [
+          1,
+          534
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/scene_input/terrain_capture.rs",
+      "sha256": "f5121eacfb30ddcea6841d7b6fe1b4b1d29b213befb32f006e727040b8a0b92c",
+      "actual_EOF": 164,
+      "actual_compared_ranges": [
+        [
+          1,
+          164
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/scene_input/tests/startup_fixtures.rs",
+      "sha256": "5861efab34c5c52becfe579f62be7ba57e67b8f3c83a9b8c79e761259ae76272",
+      "actual_EOF": 108,
+      "actual_compared_ranges": [
+        [
+          1,
+          108
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Mapped geological selection is bounded realization rather than mapped event",
+      "evidence": "Fullgeology534: actual101gridprivatecaller establisheswidth/depth>=stride8 beforeusize subtraction; arbitrarysmall privatehelpergrid wouldunderflowbutnoordinary/publicproducerroute. Sourcefinite differences8m, grade .2\u2013.65 beforegradientnormalization, relief4\u20138m; finalquantizedrecipeadmission afterrounding. Wholemappedboundinggrid3x3+2mmargininsideoneverifiedlithologywindow; unavailableprojection/coverage givesNone, nofaulttracefakegeometry. Footprintexcludeswater/crossing/wetland/cultivation/roadandcentralcorridor. Scarp faultpriority versus standalone selectionintentional, no newcurrentoperationfailureestablished."
+    },
+    {
+      "contract": "Capture scene offsets and absolute elevation stay distinct",
+      "evidence": "Fullterrain_capture164: typedfinite sceneoffset\u2192nativegeographicpacklookup\u2192absoluteElevationMetersadmission; perpoint typedOutsideSource/InvalidElevation preservesnegativeelevations. Fixed25msteps across\u00b13000m twoaxes bounded; source digest +canonicalvista sampler returnedcompleteonlyOk. ExplicitJSONwiremetresadapterdoesnotstripretainedowner. Fullstartupfixture108: twoauthoredordinal0/1 add0/10000to boundedsyntheticoperators, separatedestinations and programs; ignoredfixtureexports notrun orpermissiontoexport. No persistentresidentadmission assumptions."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-server/src/bin/melee-combat-iteration.rs"
+}

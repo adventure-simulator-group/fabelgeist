@@ -1,0 +1,90 @@
+{
+  "id": "CONT07-F124",
+  "contract": "CONT07-CONTRACT-650",
+  "at": "2026-10-24T01:09:27.918851+00:00",
+  "title": "Contact receipt reclassifies every Block as shield contact after choosing a weapon slot",
+  "classification": "source-confirmed selected-implement authority disagreement; occurrence conditional on successful physical neutral weapon block",
+  "sources": [
+    {
+      "scope_index": 2034,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/defense.rs",
+      "sha256": "68cb46b9efe6c4f44ba41fe4386c02fa7000314c52d6e10b7d33fa9742290d8e",
+      "ranges": [
+        [
+          106,
+          110
+        ],
+        [
+          173,
+          183
+        ]
+      ]
+    },
+    {
+      "scope_index": 897,
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/defense.rs",
+      "sha256": "a3019cfa64106abc38bbfa7b0962e406cc6cb1a1a663a8a0dfdee71f874201e1",
+      "ranges": [
+        [
+          172,
+          182
+        ]
+      ]
+    },
+    {
+      "scope_index": 2026,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat.rs",
+      "sha256": "847551347ed20961db50cd3ef65998a772b1d732f26b4810f4ccb725685547ba",
+      "ranges": [
+        [
+          147,
+          161
+        ]
+      ]
+    },
+    {
+      "scope_index": 2042,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/melee/outcome.rs",
+      "sha256": "b1df703eee8ffb66e22145a48e714ea090151771043a2c85b99905acb930c2f4",
+      "ranges": [
+        [
+          34,
+          38
+        ],
+        [
+          51,
+          68
+        ]
+      ]
+    },
+    {
+      "scope_index": 2032,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/consequence.rs",
+      "sha256": "9e767c76aa28c3742a0d11658983b2ce4abfd2fb63bc89962d5f1c02b3e396d0",
+      "ranges": [
+        [
+          128,
+          163
+        ],
+        [
+          227,
+          241
+        ]
+      ]
+    }
+  ],
+  "producer_and_recipient": "Raised neutral one-hand weapon without shield is valid Block. Selected defender_blocking_slot resolves shield_side.or(weapon_side), retaining actual weapon hand. Consequence recorder then reconstructs implement kind from Block response and requires ShieldItem, rejecting the weapon-only selected row.",
+  "static_witness": "Party defender with one-handed WeaponItem in its selected holding slot, no ShieldItem, raised guard/neutral action receives successful physical AttackResult::ToAttacker Block. Receipt contact_stress positive and selected slot present, but require_shield=true makes defender_equipment_contact_matches false for real weapon. No defender equipment contact enters accumulator despite admitted physical interception.",
+  "normal_qualification": "Source route supports ordinary neutral weapon block, but no fight or contact-force scenario executed. Actual shield Block and weapon Parry are not this mismatch; BodySide::Both returns ambiguous None and is excluded. Do not infer all Blocks or every weapon defense misses contact.",
+  "connected_repair": "Carry selected defender implement identity/kind/provenance from authoritative defense/contact selection into consequence receipt. Do not reconstruct physical equipment kind from a response enum whose Block includes weapon and shield. Keep native tactical IDs transient and durable receipt provenance only at actual handoff.",
+  "acceptance": "Successful positive physical neutral weapon Block records the actual matched defender inventory item once; shield Block and weapon Parry retain correct identity and no noncontact/failed response manufactures wear. Receipt role remains DefenderEquipment.",
+  "dedup": "Coordinator previously no exact accepted neutral-weapon Block alias; distinct from rootM89 injury unit propagation and broad equipment selection/capacity migrations. Global unique union pending.",
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "dedup_disposition": {
+    "kind": "exact-local-alias-source-support",
+    "canonical": "CONT07-F098",
+    "new_unique_finding": false,
+    "reason": "Same selectedweapon Block\u2192require_shield receipt omission; CON650 adds exact source/support qualifiers, no new defect."
+  }
+}

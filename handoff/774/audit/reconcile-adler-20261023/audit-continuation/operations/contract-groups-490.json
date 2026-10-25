@@ -1,0 +1,120 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-490",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/banks.rs",
+      "sha256": "a1e7915c756f7e5046405fc0347f787bca5fdfe2bd2c43fe61b32ff02bba3c6c",
+      "actual_EOF": 146,
+      "actual_compared_ranges": [
+        [
+          1,
+          146
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/constraints.rs",
+      "sha256": "09c5be604238aa229f500445a67b533b8ef1d012d81e5627dd8b5aeeb7825fc9",
+      "actual_EOF": 141,
+      "actual_compared_ranges": [
+        [
+          1,
+          141
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/geometry.rs",
+      "sha256": "35462629537232e291556fb180d6092e157ed718cf492f6a448d1c1c142cf0cb",
+      "actual_EOF": 242,
+      "actual_compared_ranges": [
+        [
+          1,
+          242
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/replacement.rs",
+      "sha256": "b75aba1e567b755f62e7882e2ad69001c5ad5fc8923d0b9a8430a4ffcebf0f32",
+      "actual_EOF": 152,
+      "actual_compared_ranges": [
+        [
+          1,
+          152
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement.rs",
+      "sha256": "73463b02d4801103755fe0b5ed7fe7251892415ba3b7352dcce9b9634b454e8f",
+      "actual_EOF": 420,
+      "actual_compared_ranges": [
+        [
+          1,
+          420
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement/query.rs",
+      "sha256": "df8bdf7862fa0f4e105fc553679c0bc6c4555bf21001b8d1ae52c3f9f166fba7",
+      "actual_EOF": 322,
+      "actual_compared_ranges": [
+        [
+          1,
+          322
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement/query/prepared.rs",
+      "sha256": "33ddca39e36f0f095f87736f1200a55a65bc0fc7d99ed0a0f92494bc92f4b985",
+      "actual_EOF": 83,
+      "actual_compared_ranges": [
+        [
+          1,
+          83
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Complete clipped boundary controls and floor shift",
+      "evidence": "Full banks146/constraints141/geometry242: boundary intervals splitatbothcohortstations, uncoveredinterval tolerance, supportmaxheightatretainingboundary; zero crossing cutface computed in f64 then representedf32/finalmesh validates finite. Affine floorbasis is privateclone, every sourceintersection constrains f64 interval, completedSignedLength re-admits finite cast. GroundTriangle determinant condition rejects unmeasurable affine faces; represented lift uses post-quantization point. Query extreme rounding-toleranceInfinity is limited by actual finitecontactmargin/broadphase and natural min(tolerance), no far-away ordinary ownership witness."
+    },
+    {
+      "contract": "Bounded composition publishes coherent geometry/reference index",
+      "evidence": "Full replacement152/settlement420/query322/prepared83. Canonicalowner sorting, overlap/duplicatebeforeclipping, checked presentationnativecount, topology/finite/naturalcentroidsumvalidation; decodedindex validates everychild/bounds/reference/reachability, iterative runtime traversal avoids stackdepth on decodedtrees. Preparedcache immutable and semanticEq excludes cachepopulation. Degenerate admitted finitefaces legitimately no support hit. Supportquery excludesburiedbottoms/verticals and uses boundceiling."
+    },
+    {
+      "contract": "Cut-face collider dispatch depends on wrong cohort emptiness",
+      "evidence": "Exact candidate saved finding-cut-faces-empty-natural-490.json; public/API source support confirmed, generated/liveordinary reachability not claimed. Parent indexed1002-record search found distinct existing F043 query-cache mutation and F027 enclosuremetadatadrift only; search absence not exhaustive semantic dedup."
+    },
+    {
+      "contract": "Foundation volume promoted-after-subtraction arithmetic question",
+      "evidence": "volume_cubic_metres in foundations.rs subtracts f32 top-bottom before f64 conversion; finite opposing extreme heights may overflow despite f64 representable exact volume. Need exact admitted prism and existing contract/alias closure before promoting; no actualordinarygeneratedtrigger asserted."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-CUT-FACE-EMPTY-NATURAL-COLLISION-CANDIDATE-001",
+      "evidence_file": "finding-cut-faces-empty-natural-490.json",
+      "new_unique": null
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "7 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement/tests.rs"
+}

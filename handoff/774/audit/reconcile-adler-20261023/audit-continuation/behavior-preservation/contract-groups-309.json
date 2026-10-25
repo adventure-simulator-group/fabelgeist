@@ -1,0 +1,111 @@
+{
+  "id": "CONT08-CONTRACT-309",
+  "at": "2026-10-25T16:16:23.692285+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 1129,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/projections/site_context.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/investigation/projections/site_context.rs",
+      "before_sha256": "2e0af33426ae082a23f587bfc8faa842f644769551a897e091208fa14caf7129",
+      "after_sha256": "2e0af33426ae082a23f587bfc8faa842f644769551a897e091208fa14caf7129",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1129-base-2e0af33426ae082a23f587bfc8faa842f644769551a897e091208fa14caf7129",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/2e0af33426ae082a23f587bfc8faa842f644769551a897e091208fa14caf7129",
+      "diff": "source-evidence/pr-1129.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "head_body_read_method": "Fresh full head body and complete pinned PR base/head diff; actual unchanged constructing/receiving contracts compared for own08, fixtures source-only.",
+      "facts": [
+        "Fresh full1\u201340; full pinned PR diff empty. BackendCaseSitePin wire field order/types unchanged: owner/public alias/site origin/name/description/scene E7+geographic population/distance, raiding eligibility independent of aliases, knowledge/tracking and generated completion/combat/opposition Option fields. No assertion these raw fields seal a coherent aggregate; actual constructing recipient1130 consumed independently. CharacterCaseSiteLocation retains only actor/site identity."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1130,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/sites.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/investigation/sites.rs",
+      "before_sha256": "f1b87ed586b1c651092b75de29d00b1717fdccca5ff4fa689e23a4295d1f119a",
+      "after_sha256": "f1b87ed586b1c651092b75de29d00b1717fdccca5ff4fa689e23a4295d1f119a",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1130-base-f1b87ed586b1c651092b75de29d00b1717fdccca5ff4fa689e23a4295d1f119a",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/f1b87ed586b1c651092b75de29d00b1717fdccca5ff4fa689e23a4295d1f119a",
+      "diff": "source-evidence/pr-1130.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          617
+        ]
+      ],
+      "head_body_read_method": "Fresh full head body and complete pinned PR base/head diff; actual unchanged constructing/receiving contracts compared for own08, fixtures source-only.",
+      "facts": [
+        "Fresh full1\u2013617; full pinned PR diff empty. Gateway-only pins filter uncorrected exact leads, exact canonical place/case alias/coordinates and validated generated presentation; BTree(owner,site) returns deterministic order and prefers Visited; equal nonvisited duplicates retain first encountered, not fabricated unique input. Raiding uses site distance/strategic-incident existence, while generated combat eligibility is separately validated party/finale/outcome/hostile state. checked count*unit power rejects overflow/zero only for optional strength; combat_available may remain true if enemy/strength projection fails, retained Option contract not new774 regression.",
+        "Generated presentation requires fully validated manifest, matching generated site place and safe_label, actual case and owner party. Invalid outcome JSON suppresses combat eligibility, manual site presentation never claims generated combat. Canonical/public aliases retain exact role differences. Actual enemy Result wrapper is own290 partial1205, core power own earlier proofs; no extra recipient coverage borrowed.",
+        "Exact action lookup requires Manual+empty generated ID or Generated+canonical owner+public/canonical case, matching owner lead/place/coordinates/current uncorrected exact state. Temporal lookup separately requires recorded_at<=frontier, correction only when referenced same-owner correction exists and correction_at<=frontier; missing correction fails closed. Physical occupancy/context membership delegates exact observed site and supplied membership ID/revision/frontier/alive validity to native presence constructor; no inference current observation at earlier time.",
+        "Disclosure parser admits base or exactly8 ASCII positive revision digits; noncanonical IDs ignored. Current clock fallback default retained. Exact same active disclosure chosen in sorted ID order, marks other active duplicates corrected by canonical; else checked next revision capped99,999,999 before stale updates+new row. Terminal space returns explicit Err. Marks visited by first ensuring canonical-case disclosure then all matching active exact leads, preserving durable party experience. Source fixture assertions for future disclosure/correction endpoints read, not run. Raw public capability/site inconsistency or DB transaction policy not blanket cleared."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1131,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/sites/provenance.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/investigation/sites/provenance.rs",
+      "before_sha256": "daffad8de81538d7a0bef0700cf95fbfccd01dae12ad483427b9b0246c4f29d2",
+      "after_sha256": "daffad8de81538d7a0bef0700cf95fbfccd01dae12ad483427b9b0246c4f29d2",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1131-base-daffad8de81538d7a0bef0700cf95fbfccd01dae12ad483427b9b0246c4f29d2",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/daffad8de81538d7a0bef0700cf95fbfccd01dae12ad483427b9b0246c4f29d2",
+      "diff": "source-evidence/pr-1131.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "head_body_read_method": "Fresh full head body and complete pinned PR base/head diff; actual unchanged constructing/receiving contracts compared for own08, fixtures source-only.",
+      "facts": [
+        "Fresh full1\u201395; full pinned PR diff empty. View/reducer collect candidates by both case.id and generated_case_id with canonical/public lookup; exact relevant alias filter then sort/dedup by authority.case_id. Manual only with empty generated id and zero matching authority returns Some(None); generated only if generated_case_id==case.id and exactly1 candidate, full validator manifest canonical matches case.id. Others None suppress site. Repeated samecanonical candidate is dedup not proof arbitrary malformed duplicates impossible; DB unique canonical key supplies ordinary identity. No copying another lens verdict or broad tuple alias repair credit."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1132,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/investigation/tests.rs",
+      "before_sha256": "2e4d80338dc9b886cb077997059b28dc98a2b59c0df1984fa523d7418b1e8095",
+      "after_sha256": "2e4d80338dc9b886cb077997059b28dc98a2b59c0df1984fa523d7418b1e8095",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1132-base-2e4d80338dc9b886cb077997059b28dc98a2b59c0df1984fa523d7418b1e8095",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/2e4d80338dc9b886cb077997059b28dc98a2b59c0df1984fa523d7418b1e8095",
+      "diff": "source-evidence/pr-1132.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "head_body_read_method": "Fresh full head body and complete pinned PR base/head diff; actual unchanged constructing/receiving contracts compared for own08, fixtures source-only.",
+      "facts": [
+        "Fresh full1\u201318; full pinned PR diff empty. cfg(test) module explicitly includes bestiary/corrections, projection/referrals, sites/actions and action-authority children. Imports and inclusion order unchanged; no runtime effect under non-test cfg, no test run or unread child coverage. Own prior source facts only guide later independent fixture comparisons."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    }
+  ],
+  "next": "1133 action_authority full pinned base/head source, then1134/1135 fixtures"
+}

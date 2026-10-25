@@ -1,0 +1,193 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-653",
+  "at": "2026-10-25T16:22:11.636765+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 959,
+      "source_id": "pr-working:crates/adventuresim-core/src/npc_policy.rs",
+      "sha256": "51c449efd5edf6380249bcc04ebf5a9a38cc9a1f20cab731e2bf80d6b958e18a",
+      "actual_EOF": 296,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/npc_policy.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/npc_policy.rs",
+        "sha256": "51c449efd5edf6380249bcc04ebf5a9a38cc9a1f20cab731e2bf80d6b958e18a",
+        "bytes": 9698,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/bounded-policy-sources.json",
+            "ranges": [
+              [
+                1,
+                296
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-BOUNDED-POLICY-RECEIVERS-001"
+            ]
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                296
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-BOUNDED-POLICY-RECEIVERS-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 181,
+            "read_ranges": [
+              [
+                1,
+                296
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-NPC-028"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/npc_policy.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 188,
+            "read_ranges": [
+              [
+                1,
+                296
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-NPC-028"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/npc_policy.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-RELATIONSHIP-RECEIVERS-030",
+            "json_pointer": "/related_current_sources/3",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/npc_policy.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                100
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/npc_policy.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/npc_policy.rs",
+              "sha256": "51c449efd5edf6380249bcc04ebf5a9a38cc9a1f20cab731e2bf80d6b958e18a",
+              "read_ranges": [
+                [
+                  1,
+                  100
+                ]
+              ],
+              "scope": "Actual reached helpers/codec/parsed state/numeric/hash/RNG definitions only; no full unrelated file credit outside ranges."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-031",
+            "json_pointer": "/additional_fresh_sources/3",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/npc_policy.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                100
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/npc_policy.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/npc_policy.rs",
+              "sha256": "51c449efd5edf6380249bcc04ebf5a9a38cc9a1f20cab731e2bf80d6b958e18a",
+              "read_ranges": [
+                [
+                  1,
+                  100
+                ]
+              ],
+              "scope": "Actual reached helpers/codec/parsed state/numeric/hash/RNG definitions only; no full unrelated file credit outside ranges."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 338,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          296
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Display + Error",
+          "type": "ConflictingCandidate",
+          "lines": [
+            [
+              76,
+              85
+            ]
+          ],
+          "disposition": "OPTIONAL_F002 fixed prefix+u64 decimal tuple field exact existing thiserror equivalent"
+        }
+      ],
+      "existing_derives": [
+        "Structural traits on policy records/results; NpcCourtshipEligibility Default already derive"
+      ],
+      "absence_basis": "Whole296line role personally consumed651\u2013653, policy/candidate/schedule/housing bodies and every fixture. Only handwritten traits76\u201385."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "NPC policy formatter versus policy classification",
+      "disposition": "Optional error boilerplate substitution retains exact default decimal output, ignored outer flags, no source/From. Native policy selection/admission stays explicit."
+    }
+  ],
+  "findings": [
+    "F002 source support652"
+  ],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 960,
+    "source_id": "pr-working:crates/adventuresim-core/src/organization.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

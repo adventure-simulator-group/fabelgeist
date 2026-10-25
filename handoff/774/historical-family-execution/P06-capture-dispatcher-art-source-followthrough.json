@@ -1,0 +1,193 @@
+{
+  "recorded_at": "2026-10-20T20:39:48.359166+00:00",
+  "head": "82cb2a3acccc852bba6a7ef9c706c337ba9fe765",
+  "status": "Source increment only; P06 remains incomplete, uncommitted, uncompiled and unvalidated.",
+  "previous_goal_turn": "Progress: the requested conflict check completed against fresh main/PR refs; no conflict action was required. The next unfinished source work resumed.",
+  "implemented": [
+    "Animation capture setup/reset/root motion/ragdoll now reject missing physical support and invalid complete positions through CaptureAdmission. Authored-plane observations remain distinct. A closed admission run condition precedes the drive system Single terrain parameter. Root motion is extracted.",
+    "TerrainSummary retains checked elevation bounds through Serde, with metres projected only in final camera arithmetic.",
+    "Dispatcher geology and mapped fault surfaces retain checked scene points through finite differences and actual Proj4 projection. MappedLandformProfile names the kind/lithology payload.",
+    "InspectionSource owns diagnostic playable/vista support sampling. Thresholds, terrace callbacks, gate profiles, comparisons and perimeter quantities retain checked points/elevations. Source observations have a focused owner and typed missing-opening rejection.",
+    "Extrema use canonical GeographicHeightControl with strict comparisons. The optional displacement maximum uses SurfaceDifferenceControl: absence no longer claims zero at origin, and a real first zero keeps its actual point. Native clipping/interpolation/integration are preserved.",
+    "Viewer boundary captures retain all ten unchanged authored points and reject missing terrain/support by failure.txt plus AppExit::error. Optional debris remains optional. Required camera/catalog/understory support no longer defaults to zero or panics at the query.",
+    "Viewer obstacle admission completes the batch before physics/overlay commands and retains Position<Scene> to Transform. Projection/native visual setup and catalogue staging/framing are extracted from large roots.",
+    "Two existing production asserts become typed failures; no test assertions/cases/helpers are added or removed.",
+    "Oak sites retain checked footprint/elevation/root through ranking and focus. Neighbour absence uses the real observed centre as the existing slope estimator did. Species/variant/obstacle identity APIs take ScenePlanPoint, ending at actual community or bit-framing kernels.",
+    "Art-demo errors preserve structured JSON/SceneInput/collider/weapon/asset-load causes through exhibit/cache state using Arc. Only final DemoStatus text formats them.",
+    "Retained tree-variant restoration now belongs to residency; a named TerrainBarkBinding shares the admitted contact/terrain/material inputs for restored and newly generated bark. The presenter raw source excerpt shrinks from 148 to 142 lines; the official quality gate has not run."
+  ],
+  "source_comparisons": [
+    {
+      "name": "Playable polygon clipping",
+      "equal": true,
+      "sha256": "93cc88d65aabf6484b202eda302ef098ea747051b7cffc8ba586e1fce7ea57cf",
+      "normalization": null
+    },
+    {
+      "name": "Vista triangle generation",
+      "equal": true,
+      "sha256": "2ed36b5fd4a2642998dbe9d548b55a45b25b1610b260007eede7630812f5f9f3",
+      "normalization": null
+    },
+    {
+      "name": "Native affine vista height",
+      "equal": true,
+      "sha256": "8aa0e8c835d52309f928da42ca9ed778f80ea97b80819f1360925857674c269f",
+      "normalization": null
+    },
+    {
+      "name": "Native clipped vista area",
+      "equal": true,
+      "sha256": "3e10d0df771ebd60e1bfae00c683c86c3b55dd4d32200cfe40c0cf3ab322117b",
+      "normalization": null
+    },
+    {
+      "name": "Native quantity area",
+      "equal": true,
+      "sha256": "4770c83b99b9b0f3dcb6944147f8dcd3df5ce82a870c5418f0de94d515a2e56a",
+      "normalization": null
+    },
+    {
+      "name": "Native clipped signed volume",
+      "equal": true,
+      "sha256": "c1693338cd32f592117d9da79bb2de607dbd4b2b16fd2a47e27bbb9b99f7896a",
+      "normalization": null
+    },
+    {
+      "name": "Existing envelope corner helper",
+      "equal": true,
+      "sha256": "414087d58d027f9c1fd4db35cf342501c9c634acb8dc66b6e5ea3bf949caa763",
+      "normalization": null
+    },
+    {
+      "name": "Complete catalogue framing kernel",
+      "equal": true,
+      "sha256": "e898fcf85d85778b051f47a325ff4608b0e52d258f75bac75b568fbb8393dbe6",
+      "normalization": "Only visibility and the module-relocation path are normalized."
+    },
+    {
+      "name": "Species probability/community bits/stream/draw",
+      "equal": true,
+      "sha256": "938a88412d39aa27bf8eece1ebe81b26630c8ec9637da644bcb0d948cab4f00d",
+      "normalization": "Name/visibility and native Vec3.xz to Vec2.xy projection only. Vista deliberately retains its existing LOD-local key."
+    },
+    {
+      "name": "Obstacle seed exact bit framing",
+      "equal": true,
+      "sha256": "2c708e303a617cca9f7a2daec3632ae351da19c0353de8f8bd4a29533cd32cc6",
+      "normalization": "Checked point projection maps original x/z to native x/y. Stream/context words are unchanged."
+    }
+  ],
+  "authored_boundary_footprints": {
+    "equal": true,
+    "count": 10,
+    "before": [
+      [
+        "0.0",
+        "44.0"
+      ],
+      [
+        "31.0",
+        "31.0"
+      ],
+      [
+        "44.0",
+        "0.0"
+      ],
+      [
+        "31.0",
+        "-31.0"
+      ],
+      [
+        "0.0",
+        "-44.0"
+      ],
+      [
+        "-31.0",
+        "-31.0"
+      ],
+      [
+        "-44.0",
+        "0.0"
+      ],
+      [
+        "-31.0",
+        "31.0"
+      ],
+      [
+        "31.0",
+        "-31.0"
+      ],
+      [
+        "31.0",
+        "-31.0"
+      ]
+    ],
+    "after": [
+      [
+        "0.0",
+        "44.0"
+      ],
+      [
+        "31.0",
+        "31.0"
+      ],
+      [
+        "44.0",
+        "0.0"
+      ],
+      [
+        "31.0",
+        "-31.0"
+      ],
+      [
+        "0.0",
+        "-44.0"
+      ],
+      [
+        "-31.0",
+        "-31.0"
+      ],
+      [
+        "-44.0",
+        "0.0"
+      ],
+      [
+        "-31.0",
+        "31.0"
+      ],
+      [
+        "31.0",
+        "-31.0"
+      ],
+      [
+        "31.0",
+        "-31.0"
+      ]
+    ]
+  },
+  "native_classifications": [
+    "Core SceneTerrain::new supplies ordinal-grid coordinates to the backing height-buffer producer; complete admission follows. It does not erase an admitted support hit.",
+    "StreetPosition/clear is a complete native corridor projection/interpolation search. Completed candidate metres are admitted before a scene query or camera support.",
+    "The support-observation world callback completes actual local-to-scene orientation/translation and returns ScenePlanPoint.",
+    "Road traffic union_support probes native polygon signed distances, not terrain height.",
+    "OakCandidate.root_exposure is an existing local numeric shape-ranking coefficient, not an erased support elevation.",
+    "P17 still owns report-measurement retention/applicability. This increment does not claim that family complete."
+  ],
+  "remaining": [
+    "Reconcile the complete current caller/fixture/signature inventory against every P06 path. Search hits alone do not prove completion.",
+    "Finish complete admission/authority/native arithmetic review, module order/growth review and both Code/Rule source passes. No Comment Review or additional full audit wave.",
+    "Add thirteen planned existing hosted selections without weakening any gate. Publish only source-complete P06, repair hosted failures, verify exact-head nonempty evidence and apply relevant official baseline reductions."
+  ],
+  "limits": [
+    "Static Git/source/stdlib metadata only. No local Rust/project parser/checker/compiler/formatter/generator/runtime/numerical execution.",
+    "No new test/case/assertion/fixture helper/doctest; source counts/hashes do not prove behavior or runtime coverage.",
+    "Five prior acceptance cases and two art-demo offline generators remain ignored. Calibrated renderer/live tactical acceptance remains unestablished.",
+    "No commit/push/merge, original stash restore, DB/schema/generated binding edit. Four primary Cargo lint edits remain separate."
+  ],
+  "tree_presenter_raw_source_lines": {
+    "before": 148,
+    "after": 142,
+    "official_gate_run": false
+  }
+}

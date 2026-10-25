@@ -1,0 +1,488 @@
+--- PRbase/crates/adventuresim-character-creator/src/device_coif.rs
++++ frozen/crates/adventuresim-character-creator/src/device_coif.rs
+@@ -6,34 +6,208 @@
+ //! boundary then sets the flaps' section heights, and a second reduction
+ //! finds the body's depth at every flap section. Each step between the two
+ //! reductions is one invocation.
+ 
+-use fabelgeist_gpu::prelude::BufferUpload;
+-use std::f32::consts::{PI, TAU};
+-use std::sync::Arc;
+-
+-use anyhow::{Context, Result, ensure};
++use crate::armor_frames::{FitRegion, Wearer};
++use crate::device_frames::{DeviceFrame, DeviceWearer};
++use crate::device_piece::DeviceRecording;
++use crate::rig_parameters::{RigJointParameter, RigPassParameters};
++use anyhow::{Result, ensure};
+ use fabelgeist_armor::gpu::COIF_DRAPE_SECTIONS;
+ use fabelgeist_armor::gpu::{COIF_DRAPE_WORDS, FIT_PROFILE_WORD, device_error, record_coif, wgsl};
+ use fabelgeist_armor::{ArmorGpu, CoifDesign, DevicePart, PartFrame};
+ use fabelgeist_compute::{Kernel, KernelBatch, host_float};
++use fabelgeist_gpu::prelude::BufferUpload;
+ use fabelgeist_gpu::prelude::{Buffer, PassParameters};
+-
+-use crate::armor_frames::{FitRegion, Wearer};
+-use crate::device_frames::{DeviceFrame, DeviceWearer};
+-use crate::device_piece::DeviceRecording;
++use fabelgeist_rig::{RigJointLookupError, RigJointName, RigJointOrdinal};
++use std::f32::consts::{PI, TAU};
++use std::sync::Arc;
+ 
+ const DRAPE_EASE_M: f32 = 0.004;
++
+ /// Neck columns either side of the front and back centre lines the flaps
+ /// hang from, of the coif's 48 around.
+ const FLAP_EDGE_COLUMNS: f32 = 4.0;
++
+ const AROUND: f32 = 48.0;
++
+ /// Work words: landmarks, the neck's reductions, the boundary, the section
+ /// heights and flap width, then one reduction per flap section and edge.
+ const QUERIES: usize = 2 * COIF_DRAPE_SECTIONS * 2;
++
+ const QUERY_START: usize = 28;
++
+ const ORDERED_ZERO: u32 = 0x8000_0000;
++
+ const ORDERED_NEGATIVE_INFINITY: u32 = 0x007f_ffff;
++
++/// One invocation: the neck boundary's heights from the rig.
++const LANDMARKS: &str = r#"
++@compute @workgroup_size(1)
++fn main() {
++    let base = local(joint(params.neck));
++    let chin = local(joint(params.jaw));
++    let span = host_sub(local(joint(params.head)).y, base.y);
++    if (!(span > 0.0)) {
++        fail(INVALID);
++        return;
++    }
++    let front = host_add(chin.y, host_mul(host_sub(base.y, chin.y), design[NECK_COVERAGE]));
++    store(FRONT_HEIGHT, front);
++    store(SIDE_HEIGHT, host_add(front, host_mul(span, SIDE_NECK_BASE_RISE)));
++    store(BACK_HEIGHT, host_add(front, host_mul(span, BACK_NECK_BASE_RISE)));
++    store(CENTER_DEPTH, base.z);
++}
++"#;
++
++/// The neck's width at the junction, and the chest and back depths below
++/// the chin.
++const NECK: &str = r#"
++@compute @workgroup_size(256)
++fn main(@builtin(global_invocation_id) id: vec3<u32>) {
++    let i = id.x;
++    if (i >= params.count) {
++        return;
++    }
++    let center = load(CENTER_DEPTH);
++    let neck = section(i, load(SIDE_HEIGHT));
++    if (neck.valid) {
++        atomicMax(&work[NECK_WIDTH], ordered_from_float(max(abs(neck.a.x), abs(neck.b.x))));
++        count_at(NECK_WIDTH);
++    }
++    reduce_depth(section(i, load(FRONT_HEIGHT)), 0.0, center, 1.0, FRONT_DEPTH);
++    reduce_depth(section(i, load(BACK_HEIGHT)), 0.0, center, -1.0, BACK_DEPTH);
++}
++"#;
++
++/// One invocation: the neck boundary, and the flaps' section heights and
++/// half width it sets.
++const BOUNDARY: &str = r#"
++@compute @workgroup_size(1)
++fn main() {
++    for (var k = 0u; k < 3u; k = k + 1u) {
++        if (atomicLoad(&work[NECK_WIDTH + 2u * k + 1u]) == 0u) {
++            fail(NO_ENVELOPE);
++            return;
++        }
++    }
++    let gap = design[GAP];
++    let front_height = load(FRONT_HEIGHT);
++    let side_height = load(SIDE_HEIGHT);
++    let back_height = load(BACK_HEIGHT);
++    let half_width = host_add(reduced(NECK_WIDTH), gap);
++    store(BOUNDARY, front_height);
++    store(BOUNDARY + 1u, side_height);
++    store(BOUNDARY + 2u, back_height);
++    store(BOUNDARY + 3u, half_width);
++    store(BOUNDARY + 4u, load(CENTER_DEPTH));
++    store(BOUNDARY + 5u, host_add(reduced(FRONT_DEPTH), gap));
++    store(BOUNDARY + 6u, host_sub(-reduced(BACK_DEPTH), gap));
++    // Each flap runs from its hem up to the boundary at its outer column.
++    for (var flap = 0u; flap < 2u; flap = flap + 1u) {
++        var bottom = front_height;
++        var length = design[FRONT_FLAP_LENGTH];
++        var cosine = design[FRONT_EDGE_COSINE];
++        if (flap == 1u) {
++            bottom = back_height;
++            length = design[BACK_FLAP_LENGTH];
++            cosine = design[BACK_EDGE_COSINE];
++        }
++        let top = host_add(side_height, host_mul(host_sub(bottom, side_height), host_mul(cosine, cosine)));
++        let hem = host_sub(bottom, length);
++        let rise = host_add(host_sub(top, bottom), length);
++        for (var j = 0u; j < SECTIONS; j = j + 1u) {
++            let t = host_div(f32(j), f32(SECTIONS - 1u));
++            store(SECTION_HEIGHTS + flap * SECTIONS + j, host_add(hem, host_mul(rise, t)));
++        }
++    }
++    store(FLAP_HALF_WIDTH, host_mul(host_mul(half_width, design[EDGE_SINE]), design[FLAP_WIDTH]));
++}
++"#;
++
++/// The body's depth at every flap section, on the centre line and at the
++/// flap's edge.
++const SECTIONS: &str = r#"
++@compute @workgroup_size(256)
++fn main(@builtin(global_invocation_id) id: vec3<u32>) {
++    let i = id.x;
++    if (i >= params.count) {
++        return;
++    }
++    let center = load(BOUNDARY + 4u);
++    let half_width = load(FLAP_HALF_WIDTH);
++    for (var flap = 0u; flap < 2u; flap = flap + 1u) {
++        let facing = select(1.0, -1.0, flap == 1u);
++        for (var j = 0u; j < SECTIONS; j = j + 1u) {
++            let height = load(SECTION_HEIGHTS + flap * SECTIONS + j);
++            let surface = section(i, height);
++            for (var edge = 0u; edge < 2u; edge = edge + 1u) {
++                let across = select(0.0, half_width, edge == 1u);
++                let at = QUERY_START + 2u * ((flap * SECTIONS + j) * 2u + edge);
++                reduce_depth(surface, across, center, facing, at);
++            }
++        }
++    }
++}
++"#;
++
++/// One invocation: the drape, validated, into the fit buffer after the
++/// coif's own frame.
++const DRAPE: &str = r#"
++@compute @workgroup_size(1)
++fn main() {
++    let gap = design[GAP];
++    var words: array<f32, 37>;
++    for (var k = 0u; k < 7u; k = k + 1u) {
++        words[k] = load(BOUNDARY + k);
++    }
++    for (var flap = 0u; flap < 2u; flap = flap + 1u) {
++        let facing = select(1.0, -1.0, flap == 1u);
++        for (var j = 0u; j < SECTIONS; j = j + 1u) {
++            let at = 7u + (flap * SECTIONS + j) * 3u;
++            words[at] = load(SECTION_HEIGHTS + flap * SECTIONS + j);
++            for (var edge = 0u; edge < 2u; edge = edge + 1u) {
++                let query = QUERY_START + 2u * ((flap * SECTIONS + j) * 2u + edge);
++                if (atomicLoad(&work[query + 1u]) == 0u) {
++                    fail(NO_ENVELOPE);
++                    return;
++                }
++                let depth = host_mul(float_from_ordered(atomicLoad(&work[query])), facing);
++                words[at + 1u + edge] = host_add(depth, host_mul(facing, gap));
++            }
++        }
++    }
++    // A drape is valid when finite, with a positive neck width and
++    // the chest in front of, and the back behind, the neck's centre.
++    var valid = words[3] > 0.0 && words[5] > words[4] && words[6] < words[4];
++    for (var k = 0u; k < 37u; k = k + 1u) {
++        valid = valid && abs(words[k]) <= 3.4e38;
++    }
++    for (var flap = 0u; flap < 2u; flap = flap + 1u) {
++        for (var j = 0u; j + 1u < SECTIONS; j = j + 1u) {
++            let at = 7u + (flap * SECTIONS + j) * 3u;
++            valid = valid && words[at] < words[at + 3u];
++        }
++    }
++    if (!valid) {
++        fail(INVALID);
++        return;
++    }
++    // The coif's own frame: identity axes at the origin, sized as the head.
++    for (var w = 0u; w < DRAPE; w = w + 1u) {
++        fit[w] = 0.0;
++    }
++    fit[3] = 1.0;
++    fit[7] = 1.0;
++    fit[11] = 1.0;
++    fit[12] = frame[12];
++    fit[13] = frame[13];
++    fit[14] = frame[14];
++    for (var k = 0u; k < 37u; k = k + 1u) {
++        fit[DRAPE + k] = words[k];
++    }
++}
++"#;
+ 
+ /// A worn coif as one open surface, for cloth rather than a rigid shell.
+ #[derive(Clone, Debug, PartialEq)]
+ pub struct CoifCarrier {
+@@ -60,29 +234,8 @@
+         })
+     }
+ }
+ 
+-/// The coif fitted to `wearer` as one open cloth surface, with the head
+-/// frame that places it.
+-pub fn fitted_coif_carrier(
+-    gpu: &ArmorGpu,
+-    wearer: &Wearer<'_>,
+-    design: &CoifDesign,
+-) -> Result<(PartFrame, CoifCarrier)> {
+-    let body = wearer.upload(gpu)?;
+-    let device = DeviceWearer {
+-        gpu,
+-        body: &body,
+-        host: wearer,
+-    };
+-    let mut batch = gpu.batch("coif carrier");
+-    let recording = device.record_fitted_coif(&mut batch, design)?;
+-    batch.submit();
+-    let (frame, region) = &recording.frames[0];
+-    frame.check(gpu, *region)?;
+-    Ok((frame.read(gpu)?, CoifCarrier::read(gpu, &recording.part)?))
+-}
+-
+ impl DeviceWearer<'_> {
+     /// Record a mail coif fitted to this wearer, short of thickening.
+     pub fn record_fitted_coif(
+         &self,
+@@ -108,15 +261,12 @@
+         frame: &DeviceFrame,
+     ) -> Result<Buffer> {
+         let gpu = self.gpu;
+         let host = self.host;
+-        let joint = |name: &str| -> Result<u32> {
+-            host.joint_names
+-                .iter()
+-                .position(|n| n == name)
+-                .map(|i| i as u32)
+-                .with_context(|| format!("missing coif neck landmark {name}"))
+-        };
++        let joint =
++            |name: &RigJointName| -> std::result::Result<RigJointOrdinal, RigJointLookupError> {
++                name.require_in(host.joint_names)
++            };
+         let mut support = host.support_indices(FitRegion::Torso)?;
+         support.extend(host.support_indices(FitRegion::Neck)?);
+         support.sort_unstable();
+         support.dedup();
+@@ -158,11 +308,11 @@
+             0.0,
+         ];
+         let mut parameters = PassParameters::new();
+         parameters.insert("count", (support.len() / 3) as u32);
+-        parameters.insert("neck", joint("c_neck")?);
+-        parameters.insert("jaw", joint("c_jaw_null")?);
+-        parameters.insert("head", joint("c_head")?);
++        parameters.insert_joint(RigJointParameter::Neck, joint(&RigJointName::C_NECK)?)?;
++        parameters.insert_joint(RigJointParameter::Jaw, joint(&RigJointName::C_JAW_NULL)?)?;
++        parameters.insert_joint(RigJointParameter::Head, joint(&RigJointName::C_HEAD)?)?;
+         parameters.insert("positions", self.body.positions.clone());
+         parameters.insert(
+             "support",
+             gpu.upload(BufferUpload::from_elements(&support))?,
+@@ -196,8 +346,29 @@
+         Ok(fit)
+     }
+ }
+ 
++/// The coif fitted to `wearer` as one open cloth surface, with the head
++/// frame that places it.
++pub fn fitted_coif_carrier(
++    gpu: &ArmorGpu,
++    wearer: &Wearer<'_>,
++    design: &CoifDesign,
++) -> Result<(PartFrame, CoifCarrier)> {
++    let body = wearer.upload(gpu)?;
++    let device = DeviceWearer {
++        gpu,
++        body: &body,
++        host: wearer,
++    };
++    let mut batch = gpu.batch("coif carrier");
++    let recording = device.record_fitted_coif(&mut batch, design)?;
++    batch.submit();
++    let (frame, region) = &recording.frames[0];
++    frame.check(gpu, *region)?;
++    Ok((frame.read(gpu)?, CoifCarrier::read(gpu, &recording.part)?))
++}
++
+ fn kernels(gpu: &ArmorGpu) -> Result<[Arc<Kernel>; 5]> {
+     let compile = |entry: &str| {
+         gpu.cache()
+             .get(gpu.context(), &source(entry))
+@@ -314,172 +485,4 @@
+         queries = QUERY_START,
+         drape = FIT_PROFILE_WORD,
+     )
+ }
+-
+-/// One invocation: the neck boundary's heights from the rig.
+-const LANDMARKS: &str = r#"
+-@compute @workgroup_size(1)
+-fn main() {
+-    let base = local(joint(params.neck));
+-    let chin = local(joint(params.jaw));
+-    let span = host_sub(local(joint(params.head)).y, base.y);
+-    if (!(span > 0.0)) {
+-        fail(INVALID);
+-        return;
+-    }
+-    let front = host_add(chin.y, host_mul(host_sub(base.y, chin.y), design[NECK_COVERAGE]));
+-    store(FRONT_HEIGHT, front);
+-    store(SIDE_HEIGHT, host_add(front, host_mul(span, SIDE_NECK_BASE_RISE)));
+-    store(BACK_HEIGHT, host_add(front, host_mul(span, BACK_NECK_BASE_RISE)));
+-    store(CENTER_DEPTH, base.z);
+-}
+-"#;
+-
+-/// The neck's width at the junction, and the chest and back depths below
+-/// the chin.
+-const NECK: &str = r#"
+-@compute @workgroup_size(256)
+-fn main(@builtin(global_invocation_id) id: vec3<u32>) {
+-    let i = id.x;
+-    if (i >= params.count) {
+-        return;
+-    }
+-    let center = load(CENTER_DEPTH);
+-    let neck = section(i, load(SIDE_HEIGHT));
+-    if (neck.valid) {
+-        atomicMax(&work[NECK_WIDTH], ordered_from_float(max(abs(neck.a.x), abs(neck.b.x))));
+-        count_at(NECK_WIDTH);
+-    }
+-    reduce_depth(section(i, load(FRONT_HEIGHT)), 0.0, center, 1.0, FRONT_DEPTH);
+-    reduce_depth(section(i, load(BACK_HEIGHT)), 0.0, center, -1.0, BACK_DEPTH);
+-}
+-"#;
+-
+-/// One invocation: the neck boundary, and the flaps' section heights and
+-/// half width it sets.
+-const BOUNDARY: &str = r#"
+-@compute @workgroup_size(1)
+-fn main() {
+-    for (var k = 0u; k < 3u; k = k + 1u) {
+-        if (atomicLoad(&work[NECK_WIDTH + 2u * k + 1u]) == 0u) {
+-            fail(NO_ENVELOPE);
+-            return;
+-        }
+-    }
+-    let gap = design[GAP];
+-    let front_height = load(FRONT_HEIGHT);
+-    let side_height = load(SIDE_HEIGHT);
+-    let back_height = load(BACK_HEIGHT);
+-    let half_width = host_add(reduced(NECK_WIDTH), gap);
+-    store(BOUNDARY, front_height);
+-    store(BOUNDARY + 1u, side_height);
+-    store(BOUNDARY + 2u, back_height);
+-    store(BOUNDARY + 3u, half_width);
+-    store(BOUNDARY + 4u, load(CENTER_DEPTH));
+-    store(BOUNDARY + 5u, host_add(reduced(FRONT_DEPTH), gap));
+-    store(BOUNDARY + 6u, host_sub(-reduced(BACK_DEPTH), gap));
+-    // Each flap runs from its hem up to the boundary at its outer column.
+-    for (var flap = 0u; flap < 2u; flap = flap + 1u) {
+-        var bottom = front_height;
+-        var length = design[FRONT_FLAP_LENGTH];
+-        var cosine = design[FRONT_EDGE_COSINE];
+-        if (flap == 1u) {
+-            bottom = back_height;
+-            length = design[BACK_FLAP_LENGTH];
+-            cosine = design[BACK_EDGE_COSINE];
+-        }
+-        let top = host_add(side_height, host_mul(host_sub(bottom, side_height), host_mul(cosine, cosine)));
+-        let hem = host_sub(bottom, length);
+-        let rise = host_add(host_sub(top, bottom), length);
+-        for (var j = 0u; j < SECTIONS; j = j + 1u) {
+-            let t = host_div(f32(j), f32(SECTIONS - 1u));
+-            store(SECTION_HEIGHTS + flap * SECTIONS + j, host_add(hem, host_mul(rise, t)));
+-        }
+-    }
+-    store(FLAP_HALF_WIDTH, host_mul(host_mul(half_width, design[EDGE_SINE]), design[FLAP_WIDTH]));
+-}
+-"#;
+-
+-/// The body's depth at every flap section, on the centre line and at the
+-/// flap's edge.
+-const SECTIONS: &str = r#"
+-@compute @workgroup_size(256)
+-fn main(@builtin(global_invocation_id) id: vec3<u32>) {
+-    let i = id.x;
+-    if (i >= params.count) {
+-        return;
+-    }
+-    let center = load(BOUNDARY + 4u);
+-    let half_width = load(FLAP_HALF_WIDTH);
+-    for (var flap = 0u; flap < 2u; flap = flap + 1u) {
+-        let facing = select(1.0, -1.0, flap == 1u);
+-        for (var j = 0u; j < SECTIONS; j = j + 1u) {
+-            let height = load(SECTION_HEIGHTS + flap * SECTIONS + j);
+-            let surface = section(i, height);
+-            for (var edge = 0u; edge < 2u; edge = edge + 1u) {
+-                let across = select(0.0, half_width, edge == 1u);
+-                let at = QUERY_START + 2u * ((flap * SECTIONS + j) * 2u + edge);
+-                reduce_depth(surface, across, center, facing, at);
+-            }
+-        }
+-    }
+-}
+-"#;
+-
+-/// One invocation: the drape, validated, into the fit buffer after the
+-/// coif's own frame.
+-const DRAPE: &str = r#"
+-@compute @workgroup_size(1)
+-fn main() {
+-    let gap = design[GAP];
+-    var words: array<f32, 37>;
+-    for (var k = 0u; k < 7u; k = k + 1u) {
+-        words[k] = load(BOUNDARY + k);
+-    }
+-    for (var flap = 0u; flap < 2u; flap = flap + 1u) {
+-        let facing = select(1.0, -1.0, flap == 1u);
+-        for (var j = 0u; j < SECTIONS; j = j + 1u) {
+-            let at = 7u + (flap * SECTIONS + j) * 3u;
+-            words[at] = load(SECTION_HEIGHTS + flap * SECTIONS + j);
+-            for (var edge = 0u; edge < 2u; edge = edge + 1u) {
+-                let query = QUERY_START + 2u * ((flap * SECTIONS + j) * 2u + edge);
+-                if (atomicLoad(&work[query + 1u]) == 0u) {
+-                    fail(NO_ENVELOPE);
+-                    return;
+-                }
+-                let depth = host_mul(float_from_ordered(atomicLoad(&work[query])), facing);
+-                words[at + 1u + edge] = host_add(depth, host_mul(facing, gap));
+-            }
+-        }
+-    }
+-    // A drape is valid when finite, with a positive neck width and
+-    // the chest in front of, and the back behind, the neck's centre.
+-    var valid = words[3] > 0.0 && words[5] > words[4] && words[6] < words[4];
+-    for (var k = 0u; k < 37u; k = k + 1u) {
+-        valid = valid && abs(words[k]) <= 3.4e38;
+-    }
+-    for (var flap = 0u; flap < 2u; flap = flap + 1u) {
+-        for (var j = 0u; j + 1u < SECTIONS; j = j + 1u) {
+-            let at = 7u + (flap * SECTIONS + j) * 3u;
+-            valid = valid && words[at] < words[at + 3u];
+-        }
+-    }
+-    if (!valid) {
+-        fail(INVALID);
+-        return;
+-    }
+-    // The coif's own frame: identity axes at the origin, sized as the head.
+-    for (var w = 0u; w < DRAPE; w = w + 1u) {
+-        fit[w] = 0.0;
+-    }
+-    fit[3] = 1.0;
+-    fit[7] = 1.0;
+-    fit[11] = 1.0;
+-    fit[12] = frame[12];
+-    fit[13] = frame[13];
+-    fit[14] = frame[14];
+-    for (var k = 0u; k < 37u; k = k + 1u) {
+-        fit[DRAPE + k] = words[k];
+-    }
+-}
+-"#;

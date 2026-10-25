@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1158",
+  "at": "2026-10-25T17:59:23.546309+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1265,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_event.rs",
+  "sha256": "9403e2e3d8bc995c0483da0502427442f1c526ee1b513db2a9b5beac3078a5b0",
+  "actual_compared_ranges": [
+    [
+      351,
+      700
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "World event native consequence application/admission/semantic binding/preflight only; no handwritten trait/custom codec/type. Classifiers map meanings to existing storage keys without adding runtime Serde. Reconstructed canonical consequence vector equality is deliberate complete existing derived equality; generated-case stable envelope removes character subjects for request identity. Current persisted recipient comparisons deliberately exclude mutable settled state. Raw structural derives cannot replace checked count/identity/order/current-receipt semantics.",
+  "first_unfinished": {
+    "scope_index": 1265,
+    "line": 701
+  },
+  "execution": "none"
+}

@@ -1,0 +1,28 @@
+{
+  "id": "RIG-INITIAL06-GROUP-294",
+  "at": "2026-10-23T08:28:12.118826+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "quickstep-fixture-role-propagation": {
+      "comparison": "Scenario uses shared ScenarioMetadata/Id, PlannedFrame, SkeletonAction, WeaponGuardState/LeadFoot, SignedSpeed, AnimationSampleSpan, authored time/angles and locomotion_sample_rate. Biological versus total mass are deliberately different fixture quantities; sample span differs from elapsed seconds and ordinal scenario_frame. Local integration velocity/displacement and force calculations are actual numerical ports, not retained competing world state. Complete PR/P16 body delta/current roles compared: P16 checks target displacement Result and re-admits observed displacement to canonical neutral SignedLength immediately before tracking-force API; PR forwards raw displacement. This joins existing F034 whole actual physical/motor API propagation graph while retaining signed/zero semantics, per-call diagnostic order and genuine integration float math. No wholesale stale P16 replay or new animation-specific duplicate length. Original tests only read, not executed.",
+      "disposition": "Existing F034 physical API propagation support, keep canonical neutral signed length and actual numeric integration boundary."
+    },
+    "procedural-root-plan": {
+      "comparison": "Root plan uses canonical Seed and purpose StreamIds, not raw identity or independent RNG. root_count/root_index and dominant bits are local bounded plan ordinals, not RigJoint/DB IDs. Gap/angle/phase and reach/radius/lift/burial calculations are actual species morphology kernels; dimensionless multiplier versus physical distance and angular offset must not merge merely because f32. OakRootSpec/Fork borrowed from tree model are authored procedural geometry products; beech branch curve maps to native Vec3 while preserving authoritative cylindrical collider elsewhere. No second species enum or deterministic seed wrapper authored in this helper.",
+      "disposition": "Legitimate deterministic procedural geometry kernel, no new ownership repair."
+    },
+    "animation-body-plan-resolution": {
+      "comparison": "PoseSampleResolver borrows canonical runtime/catalog/pack/strides, while ResolvedBodyPlan groups clips/spans and total mirror fraction until admitted PlaybackContributions. ResolvedBodyPlan and PlaybackPose are consecutive planning versus admitted playback products, not duplicate independently maintained owners. Canonical SemanticPose, PoseSampling, ClipLayer/ClipMirror, BlendWeight, UnitInterval and ClipTime retain meaning; mirrored contribution sum becomes bounded fraction after checked accumulation/division. Timeline progress and cyclic phase preserve different wrap/reversal policy; Direct versus Buffered cadence reflects action context. Actual multiplication/readmission to ClipTime is numerical port. No local duplicate clip ID, pose roster or animation-time leaf.",
+      "disposition": "Coherent borrowed resolver and staged complete playback product ownership."
+    },
+    "armor-fixture-native-geometry-checks": {
+      "comparison": "Fixture borrows canonical GeneratedArmor/PlateFace and TriangleBvh/Aabb, projects raw native positions/indices/component face ranges into independent geometric checks. f64 cross/dot/separating-axis equations deliberately distinguish normal direction, length, coplanar contact and tolerances; these raw arrays are numerical evidence, not a competing accepted mesh owner. PlateFace Inner/Outer shared enum reused; ranges/triangle IDs are addresses into the same native product rather than forged component identity. Original closed concave and tiny/coplanar fixtures use GeneratedArmor directly, no replacement schema or new runtime admission guarantee. Component/range correlation remains shared aggregate issue, not solved by a second mesh wrapper here.",
+      "disposition": "Legitimate independent native fixture checks using canonical armor products; no new duplicate owner."
+    }
+  },
+  "supporting_existing_findings": [
+    "F034"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit."
+}

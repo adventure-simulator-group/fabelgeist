@@ -1,0 +1,53 @@
+{
+  "id": "CONT07-CONTRACT-573",
+  "at": "2026-10-24T00:11:02.813111+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2473,
+      "source_id": "rig-quality:crates/fabelgeist-mhr/src/model.rs",
+      "sha256": "aee06aeea1137885801fdc4d8c1b8aa5f36f967670dc935a2a121840c3149eb0",
+      "origin": "git:cbbbca08c89a8768926799371f54cf6057312e5e:crates/fabelgeist-mhr/src/model.rs",
+      "actual_EOF": 612,
+      "ranges": [
+        [
+          1,
+          612
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2474,
+      "source_id": "rig-quality:crates/fabelgeist-mhr/src/model/tensor_upload.rs",
+      "sha256": "ff780fc23efc1039a47cd2e6f873ce231b4f6ee113349bc093e3acdd37a23cb1",
+      "origin": "git:cbbbca08c89a8768926799371f54cf6057312e5e:crates/fabelgeist-mhr/src/model/tensor_upload.rs",
+      "actual_EOF": 33,
+      "ranges": [
+        [
+          1,
+          33
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "RIG-ADMISSION03-F077",
+    "CAMERA-INITIAL07-F050"
+  ],
+  "facts": [
+    "Rig-quality Mhr constructor compiles public character and parameter_transform into private bases, joint offsets/prerotations, inverse bind, skin weights, face-corner tensors, model parameter count and FK scan once. forward/normal consumers reread public skeleton/vertex/face counts while retaining these private tensors. Exact additional variant support for inherited RIG-ADMISSION03-F077 public compiled-product coherence finding; ordinary creator mutation not established. Distinct from CAMERA-INITIAL07-F050 normal studio model-corrective cache omission.",
+    "Rig-quality model loader native/URI/bytes converge through from_loaded_assets and same constructor. LOD range gates share MIN_LOD/MAX_LOD; fixed identity/expression shape dimensions derive from two canonical constants. Optional corrective network is explicit selected product, not copied has_correctives flag; output normals intentionally recompute from posed vertices.",
+    "Rig-quality tensor_upload projects already admitted rig source/target ordinals into Burn i32 words together per prefix level, retains one shared level extent and explicit conversion errors. Required source/target association still relies on adopted admitted PrefixMultiplicationLevel; this adapter does not independently author parent semantics.",
+    "No tensor/FBX/archive/network/GPU execution and no generic current-main clearance from this exact rig-quality source review."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2475,
+    "start_line": 1
+  }
+}

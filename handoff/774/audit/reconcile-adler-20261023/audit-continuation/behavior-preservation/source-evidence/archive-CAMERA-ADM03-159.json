@@ -1,0 +1,33 @@
+{
+  "id": "CAMERA-ADM03-159",
+  "at": "2026-10-22T18:12:27.270925+00:00",
+  "members": [
+    152
+  ],
+  "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/fireplace_custody.rs",
+  "sha256": "91a13115f15cf32eabd8971f881e1eb15a9177e089cc8e72d8c7ef0495cdb168",
+  "actual_source_proof": "Fresh complete actual P16 fireplace_custody1-656 in two chunks; complete actual PR counterpart body diff empty reviewed. Exact new/current admission roles considered independently, not hash carry.",
+  "invariant": "Placed fireplace vessel and dish retain exact physical/canonical fixture and recorded carried return custody. Raw persisted station/dish fields remain broader than validated current associations; actual current camp/settlement authorization distinct from syntactically valid identity.",
+  "all_admission_routes_currently_compared": [
+    "parse persisted string through StrategicFixtureId then require Fireplace variant. Station validator recomputes actor/fixture[/object] key, instrument item presence iff returncustody presence, decodes carried return destination. Some object must exist, itemID equal and require_object_at_fixture actual root; no arbitrary raw station is accepted by name. Dish requires station found by station_key and same character/fixture, validates return custody separately (does not claim byteequal dish returncustody and station returncustody).",
+    "Currentcamp clear requires exact JourneyCamp then validates EVERY station/dish before occupancy compare; malformed unrelated row can fail gate, not skipped as safe. Memberclear checks party exists, no camp means valid no-op, exact coherent current journey/camp and supplied member set; only member-owned station/dish currentplace blocks. Supplied list not itself membership proof.",
+    "Death cleanup snapshots only dead character station rows, validates all station and return plans before deleting dishes. Exact recorded party retained if exists, else existing personal estate destination, else Abandon preserves installed tool. No inventory item is silently reassigned to current arbitrary party. Object item identity and prevalidate_rehome_subtree checked before planned Return; mutation then creates one carried row/updates stable object/rehome subtree or actual nonobject party checkedgrant. This is intentional estate fallback, not backward-compatibility shim.",
+    "Current fixture validation parses canonical identity and requires Fireplace. Settlement venue must match actor settlement, actual settlement exists, Residences true, Keep Town/City/Capital only, specific services through organization::service_npc_location_available, PublicSquare false. Chapter matches exact settlement/org/authoredlocation plus chapter standalone building against current economy. JourneyCamp requires actor same party and exact full canonical current camp equality incl departure/movement. Otherplace rejects; parse alone not location authorization.",
+    "Default station constructed only if key lookup absent with no instrument/object/custody; raw public stored rows are not checked by factory construction. Exhaustive method_for_instrument None->Roast, exact pan/pot/oven; unknown item rejects. Stationkey uses canonical full fixture string and actor/object separators, not generic unhashed identity guarantee for arbitrary supplied unparsedtext.",
+    "Place gateway/living/no tactical/current fixture, parse scope, actual require_object(actor,scope,row), reject nested vessel, known instrument, actual resolved root custody equals selected carried source. Deletes carried root row, sets physical root fireplace location, stores exact original persisted source. Stable child edges retained. No automatic whole subtree validity merely from stableID; actual require_object/resolve helpers provide direct lower contract.",
+    "Retrieve gateway/living/no tactical/currentfixture, exact keyed station, no dish, instrument and returncustody, station canonical validator, prevalidate_rehome subtree before carried-row creation. Party must still exist; one row quantity1, actual object fixture check before location update, rehome, station delete, optional mergeempty. Later fallible helper after insertion does not independently prove rollback. Actual snapshot object/station correlation matters, not String/key alone."
+  ],
+  "counterexample_or_intentional_evidence": "Public raw station/dish Rust fields permit mismatched keys/custody/fixture; validators explicitly reject many malformed associations. Dish return custody decoded but not asserted equal to station return custody; raw correlated-state bypass remains aggregate lens crossref, no actual factory produces mismatch here. StrategicFixtureId publicvariant bypass NativeF001 separate from checked stringparse actual ingress. Missing estate fallback/abandon intentional source policy.",
+  "connected_repair_acceptance": "Keep checked fixture/OperationalCustody/physical object identity through retained station/dish state and actual codec, encapsulate accepted association once without duplicate canonical owners. Preserve private-row visibility distinct from validation, exact existing-party return and dead-owner estate/abandon policies. Lower container/object custody predicates must be consumed source-specifically before global guarantees.",
+  "dependencies": [
+    "CAMERA-ADM03-094 OperationalCustody IDs",
+    "CAMERA-ADM03-105 actual settlement tab/service selection facts",
+    "Root/Native organization actual chapter catalogue proof",
+    "P16 inventory_container167 direct require_object/rehome/merge pending",
+    "Native actual StrategicFixtureId member-kind bypass remains qualified"
+  ],
+  "discovery_status": "assigned full current admission source inventory exhausted WITH_FINDINGS/dependencies",
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true
+}

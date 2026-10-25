@@ -1,0 +1,26 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-671",
+  "at": "2026-10-25T16:24:38.143451+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 964,
+  "source_id": "pr-working:crates/adventuresim-core/src/physiology.rs",
+  "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+  "actual_compared_ranges": [
+    [
+      1,
+      1100
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "ChartEntry structural+Serde already derives. quantize_humours906\u2013928 applies skill-dependent rounding/clamp; observation_noise937\u2013959 is keyed presentation-only physiology projection, preserve explicit semantics.",
+    "Fixtures961\u20131100 pin physical body-mass/dose admission, lossy humour mapping, deterministic relative phenotype, profile version/lifetime, exact terminal crossing/tiebreak, shared-clock presence and skill quantization. No new trait/codec, no execution."
+  ],
+  "first_unfinished": {
+    "scope_index": 964,
+    "line": 1101
+  },
+  "execution": "none"
+}

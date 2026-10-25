@@ -1,0 +1,63 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-223",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        25,
+        26,
+        27,
+        28,
+        29,
+        30
+      ],
+      "ranges": {
+        "25": [
+          [
+            46,
+            47
+          ]
+        ],
+        "26": [
+          [
+            155,
+            182
+          ],
+          [
+            385,
+            430
+          ]
+        ],
+        "27": [
+          [
+            835,
+            880
+          ]
+        ],
+        "28": [
+          [
+            685,
+            750
+          ]
+        ],
+        "29": [
+          [
+            430,
+            505
+          ]
+        ],
+        "30": [
+          [
+            175,
+            300
+          ]
+        ]
+      },
+      "comparison": "Fresh tiny-skia0.11.4PNGversion46\u201347/pixmap155\u2013182+385\u2013430/WGPU29Buffer835\u2013880/device685\u2013750/surface430\u2013505/adapter175\u2013300. Pixmapencode keepsactualpng::EncodingError anddeliberateperpixelalphademultiplicationrounding; doNOTreplacewithrasterfastpath andassumebitpreservation. NativeBufferAsyncErrorunitstruct exposesnoinnercause, cannotrequireunavailablelowererror; MapModeRead/WriteproperSDKenum. RequestDeviceErrorprivatekindCore(actualnative)/WebGpu(String), CreateSurfaceErrorHal/Web/RawHandle, RequestAdapterErrorNotFoundbackends/EnvNotSet properpayloadsum; webStringisactualexternalplatformcause, notearlierprojectStringconversionlicense. source()often delegatesinner.source ratherthanreturninginneritself; keepnativeoutertype, cannotclaimallprivateinnerdowncastnodesavailable. Backendbitmasksrepresentindependentsupport/rejectionsets, notoneexclusivebackendstatus. CooperativeScalarTypefinitephysicalABI; saturationBoolnativecapability independentmatrixdimensions/types, noprojectgameplayenumneed. NativeSurfaceTargetoptionaldisplayhandle legitimatewindow-onlyAPI requirement. No new09finding/physicalGPUexecution or facadeclearance; exactselectedrangesonly.",
+      "disposition": "Native error availability, backend capability flags and image-rounding contract qualified",
+      "finding_refs": []
+    }
+  ],
+  "new_findings": [],
+  "limits": "Discovery only; no execution/repairs/checks/plan/clearance."
+}

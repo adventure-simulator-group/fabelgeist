@@ -1,0 +1,197 @@
+{
+  "id": "CONT08-CONTRACT-137",
+  "at": "2026-10-25T12:42:39.621270+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 484,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/physics_transform/transform.rs",
+      "package_source_origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0/src/physics_transform/transform.rs",
+      "source_sha256": "5020a25a60cbe8b42d37cadf31c24a6d24dcde07df2c8f156ee45ff81e9c450b",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/5020a25a60cbe8b42d37cadf31c24a6d24dcde07df2c8f156ee45ff81e9c450b",
+      "head_body_read_ranges": [
+        [
+          125,
+          146
+        ],
+        [
+          740,
+          745
+        ],
+        [
+          1051,
+          1074
+        ],
+        [
+          1092,
+          1114
+        ]
+      ],
+      "comparison_pin": {
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "lock_evidence": "source-evidence/native-p16-lock-comparison-137.json"
+      },
+      "facts": [
+        "Exact125\u2013146/740\u2013745/1051\u20131074/1092\u20131114. Native3dRotation wraps Quaternion, FromTransform/GlobalTransform and nativeQuat/DQuat copy/cast actualcomponents without normalization. Earlier2dwrappedangle docs not3dguarantee. Same locked native source; changed checked RigidRotation admission could fail at observation and must retain actualproducer/lifecycle qualifications Q008, no impossible-invalid claim."
+      ],
+      "disposition": "Exact scoped own08 native source contract accounted WITH explicit pending applicationproducer questions.",
+      "acceptance": "Preserve nativeworld-frame/precision/halfextent projection and original flags/endpoint selection; retain checked error cause and Q003/Q008 actualproducer limits. No tests/SDKexecution/projectchecks."
+    },
+    {
+      "scope_index": 485,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/ray_caster.rs",
+      "package_source_origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0/src/spatial_query/ray_caster.rs",
+      "source_sha256": "bcc49b636bc3db8ebe946f004414493433003c689a819ede071337f555cc7c52",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/bcc49b636bc3db8ebe946f004414493433003c689a819ede071337f555cc7c52",
+      "head_body_read_ranges": [
+        [
+          384,
+          410
+        ]
+      ],
+      "comparison_pin": {
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "lock_evidence": "source-evidence/native-p16-lock-comparison-137.json"
+      },
+      "facts": [
+        "Exact384\u2013410, original415request exceeds actualEOF410 normalized as provided directproof. RayHitData rawVector normal and Scalar distance, mapped Entity only; nativecommentworldspace does not certify bitexact normalized tolerance to stricterreceiver. No originalcaster384 precedingbody/whole410 credit."
+      ],
+      "disposition": "Exact scoped own08 native source contract accounted WITH explicit pending applicationproducer questions.",
+      "acceptance": "Preserve nativeworld-frame/precision/halfextent projection and original flags/endpoint selection; retain checked error cause and Q003/Q008 actualproducer limits. No tests/SDKexecution/projectchecks."
+    },
+    {
+      "scope_index": 486,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/shape_caster.rs",
+      "package_source_origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0/src/spatial_query/shape_caster.rs",
+      "source_sha256": "e7ddca53ee044c4814c925fffa7f172680988ea9456834049da965f16a5c6b66",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/e7ddca53ee044c4814c925fffa7f172680988ea9456834049da965f16a5c6b66",
+      "head_body_read_ranges": [
+        [
+          400,
+          612
+        ]
+      ],
+      "comparison_pin": {
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "lock_evidence": "source-evidence/native-p16-lock-comparison-137.json"
+      },
+      "facts": [
+        "Exact400\u2013612 current effective qualifiedrange, original614tail absent. ActualDEFAULT/constructors finiteScalarMAX maxdistance and target0, compute_contact_on_penetrationtrue/ignorefalse; max setter preservesraw input. Hit buffers clone+partial_cmp sort, native positions/normals and entity mapping public. Priorpartial ownQ003 facts reread/context retained; no claimed normalproducer resolution or shape-run."
+      ],
+      "disposition": "Exact scoped own08 native source contract accounted WITH explicit pending applicationproducer questions.",
+      "acceptance": "Preserve nativeworld-frame/precision/halfextent projection and original flags/endpoint selection; retain checked error cause and Q003/Q008 actualproducer limits. No tests/SDKexecution/projectchecks."
+    },
+    {
+      "scope_index": 487,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/system_param.rs",
+      "package_source_origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0/src/spatial_query/system_param.rs",
+      "source_sha256": "a568d6d6d411e2832b3efb91dfc919770712da09eae38e4a9dff53ffd8d72fea",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/a568d6d6d411e2832b3efb91dfc919770712da09eae38e4a9dff53ffd8d72fea",
+      "head_body_read_ranges": [
+        [
+          87,
+          155
+        ],
+        [
+          176,
+          229
+        ],
+        [
+          420,
+          493
+        ],
+        [
+          523,
+          609
+        ]
+      ],
+      "comparison_pin": {
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "lock_evidence": "source-evidence/native-p16-lock-comparison-137.json"
+      },
+      "facts": [
+        "Exact87\u2013155/176\u2013229/420\u2013493/523\u2013609 actual materialranges. Ray and shape choose strictly< max/closest, excluded equalendpoint preserved; filters/missingcollider/errorNone skip before assigning result. Shape Parry invocation actualvel1ZERO, vel2direction; transforms witness and normals raw, drops native status. Existing own08Q003 falseinitialpenetration witness remains excluded by actualtrue config; native tolerance/normal producer unresolved. No genericmoving-collider frame witness established."
+      ],
+      "disposition": "Exact scoped own08 native source contract accounted WITH explicit pending applicationproducer questions.",
+      "acceptance": "Preserve nativeworld-frame/precision/halfextent projection and original flags/endpoint selection; retain checked error cause and Q003/Q008 actualproducer limits. No tests/SDKexecution/projectchecks."
+    },
+    {
+      "scope_index": 488,
+      "source_id": "pinned-registry:parry3d-0.27.0/src/math/mod.rs",
+      "package_source_origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/parry3d-0.27.0/src/math/mod.rs",
+      "source_sha256": "f1b05b3e1a27c95127e70c59bc0269e9a191b64f4c8f7b02d0f9e402f1752c8c",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/f1b05b3e1a27c95127e70c59bc0269e9a191b64f4c8f7b02d0f9e402f1752c8c",
+      "head_body_read_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "comparison_pin": {
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "lock_evidence": "source-evidence/native-p16-lock-comparison-137.json"
+      },
+      "facts": [
+        "Exact1\u201348. NativeParryfeatures choosef32/f64 Real and glamx vector/pose aliases, default epsilon native machineEPSILON; no application geographic/frame unit reinterpretation. Same0.27 packagechecksum at bothP16pins verified inlock137."
+      ],
+      "disposition": "Exact scoped own08 native source contract accounted WITH explicit pending applicationproducer questions.",
+      "acceptance": "Preserve nativeworld-frame/precision/halfextent projection and original flags/endpoint selection; retain checked error cause and Q003/Q008 actualproducer limits. No tests/SDKexecution/projectchecks."
+    },
+    {
+      "scope_index": 489,
+      "source_id": "pinned-registry:parry3d-0.27.0/src/shape/cuboid.rs",
+      "package_source_origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/parry3d-0.27.0/src/shape/cuboid.rs",
+      "source_sha256": "e096c59d8192dc997b7db25e0dcd024eefb5c9f37a00a2338bafd11f39582630",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/e096c59d8192dc997b7db25e0dcd024eefb5c9f37a00a2338bafd11f39582630",
+      "head_body_read_ranges": [
+        [
+          55,
+          90
+        ],
+        [
+          110,
+          127
+        ]
+      ],
+      "comparison_pin": {
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "lock_evidence": "source-evidence/native-p16-lock-comparison-137.json"
+      },
+      "facts": [
+        "Exact55\u201390/110\u2013127. ActualCuboidnew stores public halfextents without positivity/finite check; docpositive is not admission. Changed caller typed dimensions/halthendfloat operation must retain actual nativeprojection, zero/negative publicAPI policy qualified; no genericbounds guarantee."
+      ],
+      "disposition": "Exact scoped own08 native source contract accounted WITH explicit pending applicationproducer questions.",
+      "acceptance": "Preserve nativeworld-frame/precision/halfextent projection and original flags/endpoint selection; retain checked error cause and Q003/Q008 actualproducer limits. No tests/SDKexecution/projectchecks."
+    },
+    {
+      "scope_index": 490,
+      "source_id": "pinned-registry:parry3d-0.27.0/src/shape/shared_shape.rs",
+      "package_source_origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/parry3d-0.27.0/src/shape/shared_shape.rs",
+      "source_sha256": "7cec2012b2193c9dc60738a2a1ce2b9e873a83f730e6d0d15bfe616eead271c5",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/7cec2012b2193c9dc60738a2a1ce2b9e873a83f730e6d0d15bfe616eead271c5",
+      "head_body_read_ranges": [
+        [
+          282,
+          300
+        ]
+      ],
+      "comparison_pin": {
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "lock_evidence": "source-evidence/native-p16-lock-comparison-137.json"
+      },
+      "facts": [
+        "Exact282\u2013300. ActualSharedShape cuboid forwards halfextents to Cuboidnew inArc; roundcuboid wraps rawborderadius same. No additionalguard/saturation fromnativefactory; nofull715/librarygeometry orapplicationordinaryinvalidshapeclaim."
+      ],
+      "disposition": "Exact scoped own08 native source contract accounted WITH explicit pending applicationproducer questions.",
+      "acceptance": "Preserve nativeworld-frame/precision/halfextent projection and original flags/endpoint selection; retain checked error cause and Q003/Q008 actualproducer limits. No tests/SDKexecution/projectchecks."
+    }
+  ],
+  "next": "491SDK selectednativeconnection ranges,492error104,493lib35\u201365,494subscription140\u2013190,495timestamp343."
+}

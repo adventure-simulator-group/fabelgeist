@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-512",
+  "at": "2026-10-25T15:55:20.355458+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 907,
+  "source_id": "pr-working:crates/adventuresim-core/src/composite.rs",
+  "sha256": "d12458450a9186177a47c1b404529e9f6128dfd204fd63817b8a4fd8cf27e72f",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [
+    "Default Debug ambassador::Delegate with exact At/Bd/Es/Eq/Sl bounds and targets137\u2013150"
+  ],
+  "trait_inventory": [],
+  "analysis": "Fresh composite1\u2013220 includes full module documentation/examples and PlayerInfo already deriving Default Debug ambassador::Delegate with precise fivefacet target/bounds137\u2013150. No redundant handtrait prefix. Type-changing builders keep otherparts and select only absentfacet; inherent native builder API not standardconversionderive. Remaining source unread.",
+  "first_unfinished": {
+    "scope_index": 907,
+    "line": 221
+  },
+  "execution": "none"
+}

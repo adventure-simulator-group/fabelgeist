@@ -1,0 +1,40 @@
+{
+  "id": "CONT-ROOT-FINAL-CAMERA-OWNER-CLAIMS-018",
+  "at": "2026-10-22T04:08:09.796017+00:00",
+  "clarified_existing_claim": "Root84 exact Manifest/TerrainPack/validate_manifest list; same authority, no duplicate",
+  "new_claims": [
+    {
+      "owner": "root",
+      "claim_index": 278,
+      "path": "crates/adventuresim-terrain/src/road_pack.rs",
+      "functions": [
+        "RoadPack::load",
+        "RoadPack::source",
+        "RoadPack::write"
+      ]
+    },
+    {
+      "owner": "camera",
+      "claim_index": 387,
+      "path": "crates/adventuresim-strategic-sim/src/live_core/encounter_policy.rs",
+      "functions": [
+        "select_expedition_encounter_choice"
+      ]
+    }
+  ],
+  "canonical_source_owner": "Root85 digest / Root87 SourcePackageDigest retained; other content identities not conflated",
+  "mandatory_proof_corrections": [
+    "Autopsy006 exact full source role separate narrow outbreak",
+    "Stub008 exact1–45 only, incidental46–113 no credit",
+    "CoreBuild009 qualifier152/153",
+    "ReferenceErrata003 exact filenames",
+    "Root fixture_disease record spelling errata017"
+  ],
+  "source_edits": 0,
+  "other_lens_credit": "none",
+  "source_freeze": "all13 initial inventory gate remains",
+  "claim_sha256": {
+    "records\\parallel-ownership\\root-claims.json": "64e5be09da60a0ca09e8c744a8c2567403384083b149d6195b86b08c0918b99d",
+    "records\\parallel-ownership\\camera_targeting-claims.json": "f7cb7f5072c8efd6142f6a0ca6d6f9b9f676fda8c75efdd73b3b6f757e928ba8"
+  }
+}

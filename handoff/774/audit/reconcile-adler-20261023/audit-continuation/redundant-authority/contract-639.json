@@ -1,0 +1,126 @@
+{
+  "id": "CONT07-CONTRACT-639",
+  "at": "2026-10-24T00:55:44.148035+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2806,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/state.rs",
+      "sha256": "82a59a621b3c855886fcd18f50d917a76c60070917c5921976fed5fb0a11a6a6",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/animation/state.rs",
+      "actual_EOF": 2100,
+      "ranges": [
+        [
+          1707,
+          1752
+        ],
+        [
+          1895,
+          1988
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2807,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/authority_tests.rs",
+      "sha256": "79cb2928c581b94b83b90e220abb46105033b5e89588d1c7ba20e497772a0992",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-stdb-module/src/relationship/authority_tests.rs",
+      "actual_EOF": 75,
+      "ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2808,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/character/authority_tests.rs",
+      "sha256": "26d2e3fb9b68e8445ac7f7364922ebd8e06e0bd37bd1060b3830ea6526e50b85",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-stdb-module/src/character/authority_tests.rs",
+      "actual_EOF": 303,
+      "ranges": [
+        [
+          249,
+          303
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2809,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/character/authority_tests.rs",
+      "sha256": "26d2e3fb9b68e8445ac7f7364922ebd8e06e0bd37bd1060b3830ea6526e50b85",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/character/authority_tests.rs",
+      "actual_EOF": 303,
+      "ranges": [
+        [
+          249,
+          303
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2810,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability/mass.rs",
+      "sha256": "1f6a584fc834b98fd0a39dee168f5b8c461518b712f56906a9de26bd44fe192e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/capability/mass.rs",
+      "actual_EOF": 41,
+      "ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2811,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability/armor.rs",
+      "sha256": "027f27a4294fe1574bcb9c7f376db05904519094f99936be09bcf66d5459b7e0",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/capability/armor.rs",
+      "actual_EOF": 103,
+      "ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2812,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory/query.rs",
+      "sha256": "88a095239e91a987745462a6d940bd24f04148126ba2f0297a9365612ba6f512",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/inventory/query.rs",
+      "actual_EOF": 21,
+      "ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "2806 P16 attack selection derives admitted family availability from attack pack; begin_attack_timed coordinates action timeline, normalized curve, queued historical transition state. animation and strike_family separately retained in queued/main action require their defining AttackSpec contract; no independent ordinary disagreement proven by these scoped ranges. start_coordinate derives pre-normalized spec curve in continuation branch while stored curve normalizes it: retain exact admission/default normalization question, not an asserted ordinary defect.",
+    "2807 conception acceptance fixture intentionally corrupts current age/alive projections and verifies canonical birth/death chronology at historical trial. These are history versus current display, not equivalent interchangeable facts. Fixture body read only, not executed.",
+    "2808/2809 exact same bytes in two variants: current resident join follows authored name/personality/age while historical seed explanation relations_json remains unchanged. Retain independent historical provenance; test body not run.",
+    "2810 carried mass chooses actual food lot, fractional stock, parametric weapon geometry or fitted-holder physical recipe ahead of catalogue fallback. Catalogue unit weight is not authoritative for these fitted instances. No new alias from broad root mass policy alone.",
+    "2811 effective item condition is applied to fresh cloned catalogue row; placement identity resolved from equipped record, occupancy outer channel/order separately projected. Authored armor coverage uses canonical placement from catalogue, distinct from whole-item scalar coverage. Existing coverage owner questions remain qualified, not a new duplicate by field name.",
+    "2812 InventoryView resolves current entity members and reads current queried slot/properties. This supplies recipient query structure but does not itself prove Item UI Changed<InventoryItems> invalidation covers mutated child components; earlier cache dependency question remains pending."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2814,
+    "start_line": 1
+  }
+}

@@ -1,0 +1,804 @@
+{
+  "status": "administrative_pending_queue_only; do not start owner-fit until producer reconciliation complete",
+  "sources": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry.rs",
+      "sha256": "c3d39473c3dbc283a06a940bdaab465648c2789ebdf7757262ad128ef3851109",
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-building-generator\\src\\spatial_geometry.rs",
+      "ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "roles": [
+        "Canonical neutral geometry reexports, frame owner, feature dependency",
+        "Canonical neutral geometry reexports, frame owner, feature dependency"
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/camera/smoothing.rs",
+      "sha256": "7a8b095a7fa6c14074686fd57c5fbfb86cafbc3e5fad5e78a0db2531b6c2d3f8",
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-client\\src\\camera\\smoothing.rs",
+      "ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "roles": [
+        "Actual damp_focus\u2192critical_damp scalar/vector equations and completechangedPosition/SceneVelocity readmission; nextmetrics prefixonly",
+        "Actual damp_focus\u2192critical_damp scalar/vector equations and completechangedPosition/SceneVelocity readmission; nextmetrics prefixonly"
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player/quickstep_trace.rs",
+      "sha256": "d4c445ad8881a51294103c9f7ee9ef4024f1a3d64692356dfa8ac21f93604346",
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-client\\src\\player\\quickstep_trace.rs",
+      "ranges": [
+        [
+          1,
+          128
+        ]
+      ],
+      "roles": [
+        ""
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/mod.rs",
+      "sha256": "75fc12083762ad42e6fa03e9dbbd10e448c72c7940847b8c105add09c96e3c66",
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-core\\src\\animation\\mod.rs",
+      "ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "roles": [
+        "Actual elapsed/speed/angle reexport ownership and include-fixture source prefix",
+        "Actual elapsed/speed/angle reexport ownership and include-fixture source prefix"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/audit.rs",
+      "sha256": "aff233410d3aa23607fd4124f078c29ea13f1e7bdf0f43a02ced2c665c2133a5",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\audit.rs",
+      "ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "roles": [
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/bonding_metrics.rs",
+      "sha256": "7a82b60c27bca633d25fee62377aba66012d2b6d2c2edc065b52c38639721e22",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\audit\\bonding_metrics.rs",
+      "ranges": [
+        [
+          1,
+          126
+        ]
+      ],
+      "roles": [
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/shared_helpers.rs",
+      "sha256": "76e7f6c63abfedfdacaf9045369ed282f14c8eb113b868127679ab236368ee36",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\audit\\shared_helpers.rs",
+      "ranges": [
+        [
+          85,
+          120
+        ]
+      ],
+      "roles": [
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/vertical_circulation.rs",
+      "sha256": "61cecc8ba05a5f788ece207cfcaa96ac4575f557143704191cb16b4f7e59cf54",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\audit\\vertical_circulation.rs",
+      "ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/artillery_castle.rs",
+      "sha256": "14b02a0705bb6723b34d844c890603f50c3752efba281e3fefc495c1f4b70c71",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\artillery_castle.rs",
+      "ranges": [
+        [
+          475,
+          555
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/cathedral_clerestory.rs",
+      "sha256": "85e4cc768fd27113df0983f8999f7bd5fa56ca9ff08e57afae5b8f076feef870",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\cathedral_clerestory.rs",
+      "ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/church_assembly.rs",
+      "sha256": "6eb9c279eed9cd1087177f1e3d9dcd1e24463e43160268034b234ff270b8618e",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\church_assembly.rs",
+      "ranges": [
+        [
+          1,
+          1812
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/church_ground.rs",
+      "sha256": "9d5eb0be97cc353483ebe92f8d4580ec238d1c1cf2f0693fe2b1b9888dff5278",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\church_ground.rs",
+      "ranges": [
+        [
+          1,
+          287
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/church_window_schedule.rs",
+      "sha256": "e1d0209b490329bc1f4d7ff5f2e72fbc984538570fc97f2b78d54a51cc30aebb",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\church_window_schedule.rs",
+      "ranges": [
+        [
+          1,
+          87
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/church_windows.rs",
+      "sha256": "bdb9f70337482117ead8e0c4a1a1c6ca6256f77ce1c739e082f2a833c16adfc1",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\church_windows.rs",
+      "ranges": [
+        [
+          1,
+          485
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/entrances.rs",
+      "sha256": "ce2f4daf2f3578c5e59574e47854cdfd6daaf37efe151db858cf0c07afa7ee66",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\entrances.rs",
+      "ranges": [
+        [
+          1,
+          120
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/gable_openings.rs",
+      "sha256": "1be479e7e00bad673b7608b4e8fb4a1d638a7205445b489748c5cf268b786b5c",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\gable_openings.rs",
+      "ranges": [
+        [
+          1,
+          386
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/gable_openings/obstacles.rs",
+      "sha256": "a84f605cfca3a524cbe5b6b231454edb8330d4ab78ddf0d5d65c372f229196b1",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\gable_openings\\obstacles.rs",
+      "ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/gable_openings/tests.rs",
+      "sha256": "af152ffe400f0ec3a3f3fe8f94a2d3c21220c8dd013bfbfcb084429b85877de6",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\gable_openings\\tests.rs",
+      "ranges": [
+        [
+          1,
+          495
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/heated_rooms.rs",
+      "sha256": "443063c283413c94c1d5b856ab84ff71fe275f9f039e1427384f13a395671879",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\heated_rooms.rs",
+      "ranges": [
+        [
+          115,
+          274
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/occupied_storeys.rs",
+      "sha256": "e45cc55e23a73758b66304cd2fa518b1cb291eb214df0e66787f9c9f13b58341",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\occupied_storeys.rs",
+      "ranges": [
+        [
+          100,
+          145
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_child_fronts.rs",
+      "sha256": "bfc0adfdc7ef954824b16575482226a60207a37fc09f9df184c033c1ab6ec06f",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\roof_child_fronts.rs",
+      "ranges": [
+        [
+          1,
+          159
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_wall_opening.rs",
+      "sha256": "660dfa713c666751b218e80dbb4137ab1288791fc49c65f2b813f3cb57e4108e",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\roof_wall_opening.rs",
+      "ranges": [
+        [
+          1,
+          416
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_wall_opening/surfaces.rs",
+      "sha256": "6629b1c563e91250df52b20f9165459f9e5d413ec424f2f2cc246839c7ac94ea",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\roof_wall_opening\\surfaces.rs",
+      "ranges": [
+        [
+          1,
+          274
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/room_allocation.rs",
+      "sha256": "0af46aaa9d2e8406c02e95802701cab06cb2c9e496138d7589c422b4d53d48c5",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\room_allocation.rs",
+      "ranges": [
+        [
+          140,
+          180
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/room_connections.rs",
+      "sha256": "56032b952a0d288a2ff259db55661d2e252fb865ca77d3df1a2bf8e0a4e4300c",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\room_connections.rs",
+      "ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/round_towers.rs",
+      "sha256": "960deb25a489575e080a8dd78b759d18ccaccd9ffe4dc235d4a35cb236f770b3",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\round_towers.rs",
+      "ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+      "sha256": "a4a880f61be02405eeb1c8e2b551d9c90a0ede8737e7d59a1c67ed0155d49493",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\small_church.rs",
+      "ranges": [
+        [
+          1,
+          154
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church/appearance_tests.rs",
+      "sha256": "0d36153306b8a78441d45e8227f2a2f54fa002346ed7328e16119d32af7a3697",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\small_church\\appearance_tests.rs",
+      "ranges": [
+        [
+          1,
+          208
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church/fittings.rs",
+      "sha256": "b404568b0b0300bd88d8b21396aadf4673ba65ebf8be5b21310ba6b3379e48b0",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\small_church\\fittings.rs",
+      "ranges": [
+        [
+          1,
+          285
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church/programme.rs",
+      "sha256": "3999316d3d77475ab5209ad988d62b7832e63d0a97a70fe56bc903dc3fa8e36c",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\small_church\\programme.rs",
+      "ranges": [
+        [
+          1,
+          84
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church/storey.rs",
+      "sha256": "dce59e1f768ffe5e9d0c026d0eb717ca1dab99f11429a4ec8ab9eb7d04a7d8ed",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\small_church\\storey.rs",
+      "ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church/tests.rs",
+      "sha256": "e71079dff15d4781019f21c021a5fbb0bee5c2d30fb15ef860536a625e55b96c",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\small_church\\tests.rs",
+      "ranges": [
+        [
+          1,
+          166
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/stair_landing.rs",
+      "sha256": "1504bd2c4c0b812bdc8ae067b7ee8f11745f6f3a2cb4f71377fa46345365b9aa",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\stair_landing.rs",
+      "ranges": [
+        [
+          1,
+          74
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/wall_assemblies.rs",
+      "sha256": "1322181abd1444dbae65d1cc024a19b0077f253a65a6e5d1780dc71f1da47e30",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\wall_assemblies.rs",
+      "ranges": [
+        [
+          1,
+          1185
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/window_closures.rs",
+      "sha256": "f6a86f667919ffe1b4cda58e70d6bed520d52b683b98a6cba42ae641858bcfdd",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\window_closures.rs",
+      "ranges": [
+        [
+          1,
+          126
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/heating/placement.rs",
+      "sha256": "5dbdcafe3866798548d26b03a8880417e25b5730dd9c4d2de43f81b19dc0faa3",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\heating\\placement.rs",
+      "ranges": [
+        [
+          240,
+          370
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/layout.rs",
+      "sha256": "f19587b5c651091d18b720268e43f9bdef0e2ca083b33b57d53cbdbccb1be298",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\model\\layout.rs",
+      "ranges": [
+        [
+          1,
+          150
+        ],
+        [
+          285,
+          452
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/room_index.rs",
+      "sha256": "09a150e0b0d2873609095c1d8e6f9cf8a4e2117df74ded1787a03d6f647f23cb",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\model\\room_index.rs",
+      "ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "roles": [
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/signs/emblems.rs",
+      "sha256": "22775a6695c6acd7655402ff33352ffc6e70a648f70dcf0e29b7d7cce474cf2e",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\signs\\emblems.rs",
+      "ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "roles": [
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/solid_overlap.rs",
+      "sha256": "e61d932304ccb07e313798a4bd6cafd3c7003cf995bb29550db5cfcdf3558d24",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\solid_overlap.rs",
+      "ranges": [
+        [
+          1,
+          118
+        ]
+      ],
+      "roles": [
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/viewer/player_build_scene.rs",
+      "sha256": "d68cb8b9206234b010317faa212f96853e08a712d19e2bc67dfca81fbb035384",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\viewer\\player_build_scene.rs",
+      "ranges": [
+        [
+          225,
+          269
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/config.rs",
+      "sha256": "7e192ef20631845534afb5f4060d45c4253271682e203f89ae3c83dec1b5687e",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-strategic-sim\\src\\live_core\\config.rs",
+      "ranges": [
+        [
+          1,
+          171
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/fixture_policy.rs",
+      "sha256": "c692472c82e278cfd719eb457b7554561bc30117577225ca0c68c8eec6a8801b",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-strategic-sim\\src\\live_core\\fixture_policy.rs",
+      "ranges": [
+        [
+          1,
+          133
+        ],
+        [
+          96,
+          137
+        ]
+      ],
+      "roles": [
+        "",
+        "Borrowed semantic policy tags and selection-reason text are retained in QuestDecisionObservation before formatting.",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/binding.rs",
+      "sha256": "9db0cfc4b4c3053884d835faaca49a404c9942f7f0599b3069b89729fd8d7ae3",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\city_layout\\grounding\\enclosure\\binding.rs",
+      "ranges": [
+        [
+          1,
+          199
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/regional_environment.rs",
+      "sha256": "99f2deee42dd6e28ccfc6f469eafe5983c1bade295e1bf5f089a798fca1d8422",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\regional_environment.rs",
+      "ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/regional_terrain.rs",
+      "sha256": "07827e19ec2ffdae7d67b51850ae950b1d00fb8fe119a5a75329e24fd7e6f852",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\regional_terrain.rs",
+      "ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/terrain_transition.rs",
+      "sha256": "df252469b9538a750abdbc7646c7cb240e14f41a73eb79e640670ab4be6dda90",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\terrain_transition.rs",
+      "ranges": [
+        [
+          1,
+          200
+        ]
+      ],
+      "roles": [
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/terrain_transition/admission.rs",
+      "sha256": "b5fd9a68595105294678fd91c0f3c492e18e5d71d72be01dc8fe7b235f8f25a8",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\terrain_transition\\admission.rs",
+      "ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "roles": [
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/validate-city-support.rs",
+      "sha256": "92a90abaa4886c7e192fa799d406c9261c1879de3c97af39490d53c1dca4b707",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-server-dispatcher\\examples\\validate-city-support.rs",
+      "ranges": [
+        [
+          37,
+          140
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/terrain_sampling.rs",
+      "sha256": "be0e11404dadb950d9b751312555425b25e836bc3e3b0063664512290012f8c8",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-server-dispatcher\\src\\terrain_sampling.rs",
+      "ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/routes/map_environment/connection_window.rs",
+      "sha256": "968edda82de32a44122dc6ffba25efcfa61e98e6b758682a89d2fce3324d80b2",
+      "path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\routes\\map_environment\\connection_window.rs",
+      "ranges": [
+        [
+          1,
+          142
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/routes/map_environment/connection_window/simplification.rs",
+      "sha256": "7f265bbfd36b9d90d4a28c42a8baf7781fc08e3996f2ded82901d573199cfa2f",
+      "path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\routes\\map_environment\\connection_window\\simplification.rs",
+      "ranges": [
+        [
+          1,
+          52
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/strategic_map/markers.rs",
+      "sha256": "74c56dc2aadba44b69db845d705119d4b89c11c65493a8612304db22fdb5ffd9",
+      "path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\strategic_map\\markers.rs",
+      "ranges": [
+        [
+          1,
+          128
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    }
+  ]
+}

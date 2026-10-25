@@ -1,0 +1,128 @@
+{
+  "id": "CONT08-CONTRACT-170",
+  "at": "2026-10-25T13:31:13.756769+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 661,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/solid_overlap.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/solid_overlap.rs",
+      "before_sha256": "e61d932304ccb07e313798a4bd6cafd3c7003cf995bb29550db5cfcdf3558d24",
+      "after_sha256": "e61d932304ccb07e313798a4bd6cafd3c7003cf995bb29550db5cfcdf3558d24",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0661-base-e61d932304ccb07e313798a4bd6cafd3c7003cf995bb29550db5cfcdf3558d24",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/e61d932304ccb07e313798a4bd6cafd3c7003cf995bb29550db5cfcdf3558d24",
+      "diff": "source-evidence/pr-0661.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          118
+        ]
+      ],
+      "facts": [
+        "Full118 and empty diff. Triangle-to-solid inverse Y*X*Z transform and cuboid SAT preserve sum-then-half bounds arithmetic, threshold axis norm squared .000001, normalized edge cross axes, strict overlap > tolerance and native projection min/max order. Existing corner/false-AABB-overlap fixture unchanged, not run."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 663,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/admission_tests.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/spatial_geometry/admission_tests.rs",
+      "before_sha256": "5268a1443a2d6b73539f31a9a5f081be3016051fbca1926bf308882de6c22776",
+      "after_sha256": "5268a1443a2d6b73539f31a9a5f081be3016051fbca1926bf308882de6c22776",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0663-base-5268a1443a2d6b73539f31a9a5f081be3016051fbca1926bf308882de6c22776",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/5268a1443a2d6b73539f31a9a5f081be3016051fbca1926bf308882de6c22776",
+      "diff": "source-evidence/pr-0663.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "facts": [
+        "Full104 and empty diff. Existing postcard/opaque reflection, checked MAX point arithmetic, signed zero/negative length and nonnegative area fixtures preserve wire bytes, sizes, rejection and registry assertions. Common leaf owners are supported by own155; fixture read is not compiler/serialization/reflection execution."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 664,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/bounds.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/spatial_geometry/bounds.rs",
+      "before_sha256": "7760db42bc6a6c39f285ff6b2fdacbf6ff98b481d2385630e6bfbbb56a18a786",
+      "after_sha256": "7760db42bc6a6c39f285ff6b2fdacbf6ff98b481d2385630e6bfbbb56a18a786",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0664-base-7760db42bc6a6c39f285ff6b2fdacbf6ff98b481d2385630e6bfbbb56a18a786",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/7760db42bc6a6c39f285ff6b2fdacbf6ff98b481d2385630e6bfbbb56a18a786",
+      "diff": "source-evidence/pr-0664.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "facts": [
+        "Full98 and empty diff. SpatialBounds finite min then max, per-axis reversed check, zero extent and inclusive tangency retained. centre sum-before-half/extent subtraction followed by role-specific finite check and common cuboid admission preserve overflow error order. plan_half_extents still subtracts before half. union selects admitted native min/max without arithmetic."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 665,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/clearance.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/spatial_geometry/clearance.rs",
+      "before_sha256": "f80012cc2b501a1972d07633692af386c5cf7997f9862ec94fc113006ee44f5a",
+      "after_sha256": "f80012cc2b501a1972d07633692af386c5cf7997f9862ec94fc113006ee44f5a",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0665-base-f80012cc2b501a1972d07633692af386c5cf7997f9862ec94fc113006ee44f5a",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/f80012cc2b501a1972d07633692af386c5cf7997f9862ec94fc113006ee44f5a",
+      "diff": "source-evidence/pr-0665.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "facts": [
+        "Full48 and empty diff. ClearanceVolume transparent bounds decode validates full finite extent first then zero X/Y/Z; arbitrarily thin positive sections allowed, degenerate collision bounds still distinct. No epsilon/new minimum introduced through common owner."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 666,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+      "before_sha256": "5d66826f5196f69a4cd6af52ed404fab55b4c9a001e77e7cee81f0751f477cb6",
+      "after_sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0666-base-5d66826f5196f69a4cd6af52ed404fab55b4c9a001e77e7cee81f0751f477cb6",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+      "diff": "source-evidence/pr-0666.diff",
+      "diff_sha256": "319484db34ab6f0de896a7a6fa66c8ba8b05702d50dff6432f8302b28a962cd5",
+      "head_body_read_ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "facts": [
+        "Full140 plus entire actual diff. Architectural frame/Position/Displacement/Elevation definitions are reordered without payload/derive/wire changes. Finite checked Position translate/displacement and signed Elevation datum/zero native representation unchanged. New Elevation::max selects native f32.max without arithmetic/normalization, same frame; material caller comparisons remain individually bounded in ledger, no blanket receiver clearance."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    }
+  ],
+  "next": "671 orientation then672+;667\u2013670 already own155"
+}

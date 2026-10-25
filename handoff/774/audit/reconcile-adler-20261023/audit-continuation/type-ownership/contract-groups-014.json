@@ -1,0 +1,214 @@
+{
+  "id": "SEGO-CONT06-NEW-MATERIAL-014",
+  "at": "2026-10-25T08:30:37.598436+00:00",
+  "lens": "audit-type-ownership",
+  "receipts": [
+    {
+      "extension_index": 62,
+      "source_id": "pr-working:crates/fabelgeist-math/src/vector/vec3.rs",
+      "sha256": "83d359f9d5ae866cc3935577b48f93d9916081bceb05ac92748c91e98672c143",
+      "personally_read_ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "ownership_comparison": "Whole Vec3 is low-level generic mathematical/native vector with public IEEE components, componentwise operators, axes and native array adapters. BVH consumes same fabelgeist-math owner; this is not equivalent to checked ScenePlanPoint, typed anatomical points or Bevy/glam foreign vector layouts merely because coordinates are f32. min/max ignore NaN in their native f32 semantics, relevant to existing04 ray witness, but no second canonical coordinate authority here. Any semantic length/direction/point wrappers belong above or beside this shared numerical leaf with explicit frame, not a hair-only copy."
+    },
+    {
+      "extension_index": 63,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+      "personally_read_ranges": [
+        [
+          1,
+          209
+        ]
+      ],
+      "ownership_comparison": "Whole ReflectedInterface uses canonical low-GPU BufferBinding/TextureBinding/UniformMember and Naga/wgpu binding contracts; no application-layer GPU wrapper should duplicate this reflection authority. Actual shader.rs2283 defines shared ReflectionData with fragment/vertex names, and ComputePipeline2280:168\u2013175 consumes vertex_entry_point as compute entry. New source63:48\u201352 places a compute-stage name in that vertex-specific field and fabricates an empty fragment name. This is a concrete semantic-owner mismatch in the frozen model, not a current compile/runtime assertion. Stage-correct compute interface/entry owner belongs in low fabelgeist-gpu under existing826 pipeline family, preserving shared binding/layout facts and exact chosen compute entry. Error prose erasure is existing cause-chain migration, separate from stage naming."
+    },
+    {
+      "extension_index": 64,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+      "personally_read_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "ownership_comparison": "Whole BufferDefinition owns the actual native allocation capability policy. BufferUse is a semantic selected use mapped to native composable flags; UsageSelection::Unspecified versus Explicit stores actual default-versus-user policy, not two canonical usage authorities. BufferByteLength and BufferLabel are already canonical low-GPU owners and are retained until native BufferDescriptor; native u64::from and &str are real API ports. No forcing higher mesh populations, DeviceId or domain resource labels onto generic GPU allocation."
+    },
+    {
+      "extension_index": 65,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/collider.rs",
+      "sha256": "a6c42473a9969568f6eb700df01cc6753b92bb2034ade7d129733d1a550c2021",
+      "personally_read_ranges": [
+        [
+          1,
+          171
+        ]
+      ],
+      "ownership_comparison": "Whole hair Collider now includes actual MeshCollider: signed field/outward direction and caller algorithms reuse shared Math Vec3, TriangleBvh, vertex_normals and same input topology, while Physics::Collider is packed mass/friction/GPU shape and is not an equivalent owner. NoCollider uses infinity as explicit documented no-obstacle encoding; future explicit absence must preserve that meaning and consumer early-outs, not turn it into a finite metric distance or pretend ordinary query failure. Distance/outward and bounded-search no-hit form a query-result contract, not scene-coordinate owner. Host APIs need shared geometric units/semantic results under already retained hair-family findings, no new copied scalar wrappers."
+    },
+    {
+      "extension_index": 66,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_material.rs",
+      "sha256": "27f68197aed8fbddabadd7cf19e14bee176fbd01746a4dce9e3706a55c86e10a",
+      "personally_read_ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "ownership_comparison": "EquipmentMaterial::is_metal extends the canonical schema enum through its actual same-Core owner. This is a policy projection for armor-surface dispatch, not an independent duplicate material enum. Keep material identity until the actual generator/surface mapping; boolean result of one classification predicate is not itself evidence of a replacement stored boolean owner."
+    },
+    {
+      "extension_index": 67,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_classification.rs",
+      "sha256": "a65529b45c53a783feaa8905b9fba38d95d28e97b01fe8198d4ffeee0a57c58d",
+      "personally_read_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "ownership_comparison": "CatalogItemKind is the canonical materialized item classification shared by persistence/native views, while source ItemKind owns stat-bearing authored payloads and CatalogKind is economic stocking policy. economy_kind deliberately maps both Container and Simple to economic Simple; equal spellings do not establish equivalent contracts. Preserve all three purposeful roles and typed projection, not aliases or lossless reverse reconstruction. Equipment topology and capabilities are separately documented facts."
+    },
+    {
+      "extension_index": 68,
+      "source_id": "pr-working:crates/adventuresim-core/src/errantry.rs",
+      "sha256": "c745b617fe6b91b054b4f968565f295d03f9839eb329c4957d86306d65969858",
+      "personally_read_ranges": [
+        [
+          62,
+          98
+        ]
+      ],
+      "ownership_comparison": "Actual TacticalInsightKind already names the mechanic, ThreatId owns threat identity, while finding/preparation are player prose. Producer tactical_insight_for searches an exact English weakness sentence from implemented_combat_lore881:432\u2013434 to decide typed MustCloseToMelee: exact retained RIG-INITIAL06-F052, with both bodies freshly joined. Mechanical fact must stay typed at Core profile/lore owner before rendering prose, and ThreatId should remain through internal retained insight until wire/presentation; no duplicate enum or string fallback."
+    },
+    {
+      "extension_index": 69,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/bevy_error.rs",
+      "sha256": "ae8feb04751ba67eaa86d03f3b748ef61d2bcdb9292c72dc0273eb353fb24fe2",
+      "personally_read_ranges": [
+        [
+          7,
+          25
+        ],
+        [
+          228,
+          285
+        ],
+        [
+          381,
+          421
+        ]
+      ],
+      "ownership_comparison": "BevyError is the actual framework universal error/severity envelope; boxed source retains typed application causes and default severity Panic is a framework failure policy. Native catch-all does not justify turning application errors into String beforehand or consolidating all bespoke errors into one file. Keep owning subsystem error through actual framework conversion; do not confuse severity metadata with a new application failure taxonomy. Previously scoped BevyError native role retained, this is only new exact-range support."
+    },
+    {
+      "extension_index": 70,
+      "source_id": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-client/src/character_settlement_reputation_type.rs",
+      "sha256": "fb0c3f00ff6ec75a99d6053871e23ef12e31108af4342f236de077e4d8f2e881",
+      "personally_read_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "ownership_comparison": "Generated CharacterSettlementReputation is native SDK transport with i32 fame/infamy, String row/settlement IDs and u64 character ID. Core reputation984 owns centipoint scale/cap, arithmetic/contribution policy; module1179 owns persistent publication. Preserve full signed wire widths and actual identity authority at boundary, never edit generated helper manually or borrow money units/whole-point score merely from equal integer representation. Current delta observes an explicit SDK boundary, not a duplicate authored source of reputation facts."
+    }
+  ],
+  "supporting_original_roles": [
+    {
+      "index": 2283,
+      "ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "status": "Own06 supplemental actual body, original completed baseline retained not recounted"
+    },
+    {
+      "index": 2280,
+      "ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "status": "Actual compute producer/receiver join for stage mismatch, no original baseline replay requirement"
+    },
+    {
+      "index": 984,
+      "ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "status": "Canonical reputation units and arithmetic policy body support"
+    },
+    {
+      "index": 988,
+      "ranges": [
+        [
+          1,
+          84
+        ],
+        [
+          230,
+          300
+        ]
+      ],
+      "status": "Actual economic projection policy support"
+    },
+    {
+      "index": 939,
+      "ranges": [
+        [
+          1,
+          60
+        ],
+        [
+          430,
+          470
+        ]
+      ],
+      "status": "Authored item versus materialized/economic scopes support"
+    },
+    {
+      "index": 881,
+      "ranges": [
+        [
+          389,
+          460
+        ]
+      ],
+      "status": "Actual English lore producer for exact retained F052"
+    }
+  ],
+  "aliases": [
+    "RIG-INITIAL06-F052",
+    "Existing low-GPU cause/shape families M06/M16; no new unique count asserted for those"
+  ],
+  "source_backed_candidates": [
+    {
+      "id": "SEGO-CONT06-Q004",
+      "classification": "Frozen semantic owner mismatch, successor reconciliation pending",
+      "source": "extension63:48\u201352; original2283:36\u201340; original2280:168\u2013175",
+      "contract": "Compute entry point must be owned as compute stage, not stored in vertex field with a fictitious empty fragment field.",
+      "exact_repair_requirement": "Canonical low-GPU compute interface/entry owner with shared binding reflection; consume same selected entry at compile/native dispatch. Reconcile current826 implementation before duplicate repair or global uniqueness count.",
+      "acceptance": "Compute pipeline carries actual compute-stage entry without unrelated render-stage placeholder fields; shared native reflected bindings and chosen entry preserved.",
+      "successor_reconciliation": {
+        "receipt": "../../../coordination/826-cac5-compute-entry-owner-reconciliation.json",
+        "result": "Resolved in exact successor source; do not schedule duplicate fix. Frozen discovery remains WITH findings."
+      }
+    }
+  ],
+  "discovery": "Complete own06 delta for roles62\u201370 WITH retained findings/candidate and cross-lens qualifications; inherited complete baseline remains adopted",
+  "repair": "not_started",
+  "validation": "not_run"
+}

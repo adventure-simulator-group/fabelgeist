@@ -1,0 +1,67 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-074",
+  "at": "2026-10-23T00:45:01.370674+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/armor.rs",
+      "sha256": "9a5f5b89b21f9f10d774f35eb8c9f2cc2c73ebd4a21faf917bae8cd0b428561c",
+      "actual_compared_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "source_evidence": "Fresh full actual body; frozen embedded armour definitions and immutable catalogue lookup/projection traced."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_projection.rs",
+      "sha256": "771a265b992561a0094e1b16784b8ca544e4192546e3f06396d35b4bde8b3e30",
+      "actual_compared_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "source_evidence": "Fresh full actual body; frozen embedded armour definitions and immutable catalogue lookup/projection traced."
+    }
+  ],
+  "groups": {
+    "placement-index-proof": "Fresh frozen catalogue brigandine662-702 has exactly one worn placement; vambrace3835-3883 has two ordered left/right placements. P16 source asset exact bytes equal frozen PR asset, not inferred from filenames. P16 item_catalog1-64 actual OnceLock Vec, immutable static returned slice/binary lookup; projection preserves equipment placement order and only sorts items by ID. Thus fixed indices0 and0/1 exist in current embedded data; no current indexing panic asserted. Canonical catalogue-bound placement handles remain connected P14 propagation repair instead of positional identities. Surface selected from equipped defender vs authored reference geometry remain separate evidence stages. Existing RootF007 from_span admission graph preserved.",
+    "projection-failure": "load_catalog builds owned local Vec; per-item fallibility drops unpublished work, OnceLock publishes only successful completed Vec. derive_properties validates generated design before physical assignments. Ordinary Geometry/Recipe errors remain concrete; precision_for_design zero-section API weakness RootF025 remains connected and not proven reachable for default validated recipes. Equipment dimensions fallibility may follow local item field changes but whole catalogue object is unpublished until all entries finish. No persistent partial update or retry clock touched.",
+    "coverage-arithmetic": "Only generated embedded catalogue inputs enter private projection; ordinary span coverage range admission belongs to existing build/schema graph. Weighted per-region mean then equal per-placement mean is current intentional policy, not silently changed to globally weighted mean. Empty regions/placements return without division; nonempty branch denominators>0, native vector element counts finite. No blanket finite-f32 sum guarantee for arbitrary unvalidated public ItemDefinition, no exported public projection API counterexample claimed. Source acceptance depends on actual build admission, not arbitrary mutable ItemDefinition outside loader."
+  },
+  "support_only": [
+    {
+      "source_id": "pr-working:content/items/catalog.yaml",
+      "ranges": [
+        [
+          662,
+          702
+        ],
+        [
+          3835,
+          3883
+        ]
+      ],
+      "sha256": "87e0f51292d42ab62beeabc9f2624f635c27acf8b28ae3d8c2931eb9297f491b",
+      "no_full_file_credit": true
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog.rs",
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "no_full_file_credit": true
+    }
+  ],
+  "findings": [],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

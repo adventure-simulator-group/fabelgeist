@@ -1,0 +1,28 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-703",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        1720,
+        1721,
+        1722,
+        1723,
+        1724
+      ],
+      "comparison": "Freshfullplants113/obstacles166/viewcamera350/landscape122/placement78. Botanical visibilityrange versus actualcameraVisibleEntities are independent correctobservations; no exclusivesum. F485 missingmesh/indices0 diagnostic qualified. CapturedObstacles actualSupportedObstacle vector admittedallbeforepublishing commands; SceneObstacle Tree/Rockrecipe correctvariantpayload; F486 focusedpoint/entity pair. Position_sum/count normalaccumulation actualnonecount usesexplicitframing elsewhere, notphysicalzeromissing. ViewCaptureError causepayloadenums propagateactualcoordinate/animation/camera/terraincauses; RequiredLiveQuery andMissingAuthoredCamera explicit posepayload. CameraSceneOrientation LookingAt{up}|Fixed(rotation) correctlyowns orientationchoice; fixedtarget remainsmeaningful diagnostic/viewfocus evenwhenrotationauthoritative, notdiscarded asredundant. NativeTransform lowersatBevyport aftercheckedlookingatrelation. Rock/tree/debris/leaf absentfocus fallsbackground framingexplicitly, whiledetailvalidationseparatelyrequiresactualtarget whereapplicable; no inferredphysicalmeasurement. OptionalleafcameraNone intentionallyusesfocus+Z fallback; cannotrequireSomecamera blindly. LandformVistaPeak/Valley requireactualVistaGeometry; normalheadingfallbackaxes chooseorientation only. Ground/horizonheight usesactualtypedterrainmaximum; no fakeelevation. Raw0.08 etc projection/camera kernel native, no missingenumchoice. F477debris andF482obstruction wholeproductreceiversupport.",
+      "finding_refs": [
+        "SEGO-INITIAL09-F485",
+        "SEGO-INITIAL09-F486",
+        "SEGO-INITIAL09-F477",
+        "SEGO-INITIAL09-F482"
+      ],
+      "disposition": "Two qualified whole-state/diagnostic shape migrations; legitimate fallbackcamera/orientation semantics retained"
+    }
+  ],
+  "new_findings": [
+    "SEGO-INITIAL09-F485",
+    "SEGO-INITIAL09-F486"
+  ],
+  "limits": "No tests/checks/GPU/nativeassets/execution/repair/clearance. Next1725."
+}

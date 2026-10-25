@@ -1,0 +1,184 @@
+{
+  "id": "CONT07-CONTRACT-402",
+  "at": "2026-10-23T21:10:01.625954+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1762,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/fraction_reflection.rs",
+      "sha256": "07b2507c55331e27ceb0838e9e340f751961f35d74d29738a121e64c119297e7",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/animation/fraction_reflection.rs",
+      "actual_EOF": 14,
+      "ranges": [
+        [
+          1,
+          14
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1763,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/ground_contact.rs",
+      "sha256": "f4891ab322b4930bfdb678a97ed3b226b2f1aafbbf2ff6e15de727f9c025be74",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/animation/ground_contact.rs",
+      "actual_EOF": 26,
+      "ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1766,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/landing.rs",
+      "sha256": "b2c9f208720a6f2a993bcdb8b7752ad4799af0642e19c1d71b8bd29197a005db",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/animation/landing.rs",
+      "actual_EOF": 61,
+      "ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1767,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "sha256": "6aef5ced10b1d430e513c990cd005b5e6ff4bdf8c98505b3dccd48d17cb6ac62",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "actual_EOF": 267,
+      "ranges": [
+        [
+          1,
+          267
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1769,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/mod.rs",
+      "sha256": "de9811b3907cc3d97cd41b77b27c02d459a32275b5e813ee589b0cf1b8b9e4c9",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/animation/mod.rs",
+      "actual_EOF": 90,
+      "ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1770,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/motion_modes.rs",
+      "sha256": "9181b00087f1047a6a98384a3dfedf32c803368a63afed7727703c7999c51617",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/animation/motion_modes.rs",
+      "actual_EOF": 77,
+      "ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1771,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/packs.rs",
+      "sha256": "b1fa6c0abdf46f0a491d49293683bcb7a67ad6270b717b82ddb056cdcc6bad1f",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/animation/packs.rs",
+      "actual_EOF": 194,
+      "ranges": [
+        [
+          1,
+          194
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1324,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/foot_influence.rs",
+      "sha256": "132728572eda6899b6d6f9ebe07e1c1dae458a7f8347e66f86d692edf4af3a1c",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation/foot_influence.rs",
+      "actual_EOF": 124,
+      "ranges": [
+        [
+          1,
+          124
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "NATIVE-OWNER-ANIMATION-LEAVES-001",
+    "NATIVE-OWNER-ANIMATION-LEAVES-002"
+  ],
+  "facts": [
+    "Fraction reflection delegates canonical checked UnitInterval without an exposed raw field. Controller GroundContact explicitly differs from richer posture and downed surface support; do not collapse them based on similar bool encodings.",
+    "LandingSequence and ContactSequence have separate event authorities and same deliberate checked-versus-wrapping observation distinction. LandingImpactSpeed stores canonical speed once with quantity-specific errors, not competing measured speed storage.",
+    "LocomotionProfile reference speed, step distance, support radius, bounce/apex and landing policy are independent physical facts. Derived ordinary distance has one shared kernel; current legacy fixed movement-presence threshold explicitly differs from configurable playback hysteresis, so equal current0.05 values alone are not a duplicate-authority defect.",
+    "Runtime configuration/profile selectors remain pending exact global-default versus supplied-config proof. Gait phase support API207-230 reads phase.cycles without wrapping, while evaluation wraps. Exact baseline re-read1324 shows canonical generated cycle samples normally wrapped, and support is intentionally narrower for run IK than simulation stance. Do not treat that intentional support-width distinction as competing truth.",
+    "Unwrapped public API candidate remains qualified: gait_support_weights with admitted CyclePhase beyond one can calculate negative circular distance; actual SkeletonState builder/decode excerpts wrap the phase. No normal producer of unwrapped state proven. New search hits and partial excerpts do not grant full source coverage; actual projection body remains queued.",
+    "AnimationPackLibrary is canonical private pack map. Validation derives graph/cycle/family/required-set results each call; resolve preserves separate requested semantic, resolved authored pose and mirror. attack_animations derives capabilities rather than caching another pack map. Actual required pose subset and semantic fallback roster remain queued in1778.",
+    "Native bool serialization of DownedMotion/GuardedLocomotionMode is an explicit representation conversion, and JumpAnticipation is presentation-only input distinct from authoritative airborne posture. No implementation or source fixture executed."
+  ],
+  "fresh_partial_support": [
+    {
+      "scope_index": 1368,
+      "sha256": "7e4b80c439d05e7d13d360b80fcda7a4a10e6e8380d0889198f514dce0df962b",
+      "ranges": [
+        [
+          69,
+          130
+        ]
+      ],
+      "status": "actual IK diagnostic caller only; remainder not read this batch"
+    },
+    {
+      "scope_index": 1781,
+      "sha256": "48d075954cf0381f63c73815380ed47c37be6c35e30c573b6839e74c21572557",
+      "ranges": [
+        [
+          1141,
+          1159
+        ],
+        [
+          1169,
+          1184
+        ],
+        [
+          1200,
+          1217
+        ],
+        [
+          1236,
+          1252
+        ],
+        [
+          1266,
+          1283
+        ],
+        [
+          1308,
+          1326
+        ]
+      ],
+      "status": "bounded rg context excerpts only; no whole source credit"
+    }
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1778,
+    "start_line": 1
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-401",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/body_response.rs",
+      "sha256": "d307ec89363164d57e5762fea3f35d38adf4cb28c64801233bceacaddd9f5727",
+      "actual_EOF": 490,
+      "actual_compared_ranges": [
+        [
+          1,
+          490
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/body_response/target.rs",
+      "sha256": "81446933b198eac655968dd876b5bdd007e102f4daad11024f3e92242a34bd20",
+      "actual_EOF": 140,
+      "actual_compared_ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/body_values.rs",
+      "sha256": "ac32044bdad9c67748eefca7b1b7db59a7eed439e3182af7581833f49076750b",
+      "actual_EOF": 211,
+      "actual_compared_ranges": [
+        [
+          1,
+          211
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/clock.rs",
+      "sha256": "f71ea0cad3b1311e6b0d29b398a293759f859ee7fc9c2fd2d91b2e09a54c33c0",
+      "actual_EOF": 36,
+      "actual_compared_ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+      "sha256": "3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+      "actual_EOF": 66,
+      "actual_compared_ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Atomic body-response state and typed native calculations",
+      "evidence": "body_response.rs1\u2013490/body_values.rs1\u2013211/target.rs1\u2013140 full: advance_for_presentation consumesCopy self andreturnswholecandidate, callpublishesonlyOk; finitebodyframevelocity/accelerationadmitted afterrotation, planar_squared/dotchecks catchnorm/accumoverflow. Zerotimebodyadvanceidentity; smoothaccelrateexponentialfraction checked. Implicitspring denominator/numerator/normfiniteguard beforeclamp/angles/angularvelocityreadmission; positiveactualsmoothseconds. BodyAngleoperationsreadmitcomputedf32, checked_sum_cappedguardsresultnorm thenexplicitangularcap.",
+      "qualification": "Nativepelvis/referencequaternioncomposition stillassumesvalidunitrigrotations; perbonetransform notfallible butbodyresponsecandidatefinite. No blanketf32infallibility: extremesmoothseconds canproducecheckedErrandretainpriorstate. CopyselfchangespriortolaterErrnotretained, unlikebouncyspringNative05F013. Currentnormalfixtures bounded leanstep/sourceclock readnotrun."
+    },
+    {
+      "contract": "Config margin relation, frame/tick observation and rejection policy",
+      "evidence": "Fresh entiretactical-core/combat_config/procedural.rs1\u201366: BodyResponse maximum_response.radians strictly>1e-6 reportmargin, gapTicksnonzero; typedotherleaves ownnonnegativeangles/rates/positiveduration. Thus body_response_target capminusmargin remainsnonnegative, no zero-capfalsefinding. clock.rs1\u201336 fixedstepownsadmittedtick/elapsed, explicittooloverrideonly; liveTime branchcap, repeatedfixedsourceelapsed0. Wrapping tickgap boundedmaxauthoritativeobservation.",
+      "qualification": "Configleafsemanticsfromexistingaccepted03baseline preserved, no blanketpositive requirementwherezero allowed. Clockoverride intentionallycanrepresentarbitraryadmittedelapsed forfocusedtools; bodyresponse rejectscomputedoverflow beforecommit. Runtime configurationgetterperhelper snapshots maydiffer underexternalconcurrentinstall, existingNative05F009 snapshotcoherencequalification only/noactualdynamicruntimeproducerproven."
+    },
+    {
+      "contract": "Lean policy and source fixture acceptance",
+      "evidence": "Targettravelratio-beforeangle, separatemaximumtravel/inertial/braking/scales; dotdecelerationfinitecheckandcurrentspeedcomparison, normcheckedbeforeunitratio. Stablepelvisresponse transformsleanthroughreference andcountercompensatesthighs. Source fixtures at body_response.rs278\u2013490 include exactcompensation, continuousattack/release,sprintstart16degsteadyandbounded .6degframe.",
+      "qualification": "Source fixtures read only, not executed. Nativeunitnormalizedinputpresupposed instablepelvis, not inferredfromBodyAngle. Normaldefaultconfig runreference5.5 positive distinctwalk2; equalpairNative05F009 staysacceptedfinding elsewhere. No gameplaymovement/fatiguepenaltyintroduced."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "5 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/dive.rs"
+}

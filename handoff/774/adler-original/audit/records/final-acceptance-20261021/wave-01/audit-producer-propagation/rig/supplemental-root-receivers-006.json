@@ -1,0 +1,140 @@
+[
+  {
+    "source_id": "pr-working-receiver:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/diagnostics.rs",
+    "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/diagnostics.rs",
+    "sha256": "137a4589cc0b7945de4fb4d552dd9dab6a3e4f0d42f426b4d5d439881a0f7bb9",
+    "read_ranges": [
+      [
+        1,
+        47
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-NATIVE-002"
+    ],
+    "disposition": "full-read-actual-cache/mesh/material/native-upload-receiver-and-existing-fixtures"
+  },
+  {
+    "source_id": "pr-working-receiver:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/view_culling.rs",
+    "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/view_culling.rs",
+    "sha256": "6411bfc2ee44c3d991461d3817be5580974b682de88df4337e4beb492766407c",
+    "read_ranges": [
+      [
+        1,
+        167
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-NATIVE-002"
+    ],
+    "disposition": "full-read-actual-cache/mesh/material/native-upload-receiver-and-existing-fixtures"
+  },
+  {
+    "source_id": "pr-working-receiver:crates/adventuresim-tactical-client/src/presentation/ground_scatter/specimens.rs",
+    "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/specimens.rs",
+    "sha256": "fc7ff2bd7a82b647f3d159373a29f47dbed689557c87cfddb5d3a0233a064beb",
+    "read_ranges": [
+      [
+        1,
+        147
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-NATIVE-002"
+    ],
+    "disposition": "full-read-actual-cache/mesh/material/native-upload-receiver-and-existing-fixtures"
+  },
+  {
+    "source_id": "pr-working-receiver:crates/adventuresim-tactical-client/src/presentation/ground_scatter/scene_mask.rs",
+    "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/scene_mask.rs",
+    "sha256": "59bb666eebc24c7e9602dd6f5881f920b34f7eb6b1b65b313378330d402d58d7",
+    "read_ranges": [
+      [
+        1,
+        67
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-NATIVE-002"
+    ],
+    "disposition": "full-read-actual-cache/mesh/material/native-upload-receiver-and-existing-fixtures"
+  },
+  {
+    "source_id": "pr-working-receiver:crates/adventuresim-tactical-client/src/presentation/ground_scatter/layers.rs",
+    "path": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/layers.rs",
+    "sha256": "0e61965bb7febc3e4d4ebcb0aee7aefd10c0985e79dd8d912e9bf332a3566fdc",
+    "read_ranges": [
+      [
+        1,
+        18
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-NATIVE-002"
+    ],
+    "disposition": "full-read-actual-cache/mesh/material/native-upload-receiver-and-existing-fixtures"
+  },
+  {
+    "source_id": "pr-working-receiver:crates/adventuresim-world-schema/src/calendar.rs",
+    "path": "crates/adventuresim-world-schema/src/calendar.rs",
+    "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+    "read_ranges": [
+      [
+        350,
+        410
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-RNG-PLANT-001"
+    ],
+    "disposition": "Actual StrategicMinute::day_of_year380-383 full numerical conversion; unrelated chronology methods not claimed read; native_reports owns calendar graph"
+  },
+  {
+    "source_id": "dependency-bevy_eidolon1a5aff8:src/render/prepare/mod.rs",
+    "path": "LOCAL_PATH_REDACTED",
+    "sha256": "7b8be56d6f6ea9285176e55efb88de7bcb8a15df4cdca7619d3038a92de56092",
+    "read_ranges": [
+      [
+        1,
+        340
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-NATIVE-002"
+    ],
+    "disposition": "full-read-actual-Arc-native-buffer-to-GPU-queue-receiver",
+    "pin": "Cargo.lock1a5aff8d4809287e5f5713fb4cf72181b2285fff"
+  },
+  {
+    "source_id": "dependency-bevy_eidolon1a5aff8:src/render/prepare/core.rs",
+    "path": "LOCAL_PATH_REDACTED",
+    "sha256": "aa281e28468d05c840eccdb908fce2cfeff7a3a27066b3db55852d15affccda0",
+    "read_ranges": [
+      [
+        1,
+        47
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-NATIVE-002"
+    ],
+    "disposition": "full-read-actual-Arc-native-buffer-to-GPU-queue-receiver",
+    "pin": "Cargo.lock1a5aff8d4809287e5f5713fb4cf72181b2285fff"
+  },
+  {
+    "source_id": "dependency-bevy_eidolon1a5aff8:src/render/prepare/page_prepare_runner.rs",
+    "path": "LOCAL_PATH_REDACTED",
+    "sha256": "b40981bbae360e987668adfd785a7a553b89baf39823ed53d173263bdf849be4",
+    "read_ranges": [
+      [
+        1,
+        118
+      ]
+    ],
+    "trace_refs": [
+      "RIG-SUPP-NATIVE-002"
+    ],
+    "disposition": "full-read-actual-Arc-native-buffer-to-GPU-queue-receiver",
+    "pin": "Cargo.lock1a5aff8d4809287e5f5713fb4cf72181b2285fff"
+  }
+]

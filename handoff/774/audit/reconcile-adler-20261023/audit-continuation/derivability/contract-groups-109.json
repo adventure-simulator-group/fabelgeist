@@ -1,0 +1,102 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-109",
+  "at": "2026-10-25T12:39:45.197464+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 253,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/settlement_population.rs",
+      "sha256": "99cd12b58bafddf20c526c07061a1c822636fc87670178ddb36eda2587275fcc",
+      "actual_EOF": 759,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/settlement_population.rs",
+        "snapshot": "physical-p16",
+        "path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\settlement_population.rs",
+        "sha256": "99cd12b58bafddf20c526c07061a1c822636fc87670178ddb36eda2587275fcc",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Read-only source assignment; whole-function repair ownership remains in authoritative claims.",
+        "scope_limits": "Explicit material contracts/ranges and necessary signature dependencies only; no implied whole-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/expanded-producer-delta-map-049.json",
+        "actual_line_count": 759,
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 102,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-POPULATION-024",
+            "json_pointer": "/current_sources/1",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row229/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                759
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                759
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": true,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          759
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Deref for ResolvedSettlementResident",
+          "lines": [
+            65,
+            71
+          ],
+          "disposition": "Retain necessary small borrowed single-field projection. No Deref derive in owning module manifest (original172); do not add new derive dependency solely to replace five-line impl. Target remains SettlementResidentProfile; no DerefMut or whole-struct serialization."
+        }
+      ],
+      "existing_derives": [
+        "Clone/Debug table profile,presence,seedexplanation,businessoperator records",
+        "Clone/Debug ResolvedSettlementResident56\u201363",
+        "Clone/Debug/SpacetimeType BackendSettlementResident126\u2013146",
+        "Clone/Debug/PartialEq/Eq/Serialize/Deserialize PersistedGenerationExplanation258\u2013262",
+        "Clone/Copy PopulationLocation and ResidentEntropyStream"
+      ],
+      "absence_basis": "Fullsource1\u2013380/381\u2013759 personally read. Sole handwritten trait Deref65\u201371 retained as native adapter. Existing named public view/private explanation wire derived. PopulationLocation borrowed parsing and reduced context, profession display, entropy stream/ID/generation and historical presence projections semantic functions. No extra serialization for classifiers, no private sex/traversal exposure.",
+      "source_read_receipts": [
+        "Owning manifest original172 previously consumed; no derive_more/ambassador dependency."
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Settlement resident private join/public projection and native borrowing",
+      "disposition": "Keep one necessary small Deref; structural/native/Serde records already derived. No new10finding.",
+      "acceptance": "Preserve borrowed profile target, no implicit mutation/index exposure or private sex/entropy/traversal disclosure; field join/classifiers and historical availability remain semantic."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 254,
+    "source_id": "physical-p16:crates/adventuresim-stdb-module/src/settlement_population/resident_drafts.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

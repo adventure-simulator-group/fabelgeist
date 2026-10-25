@@ -1,0 +1,22 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-356",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        508,
+        509,
+        510,
+        511,
+        512,
+        513,
+        514
+      ],
+      "comparison": "Full508507 lines read in two bounded ranges1-260/261-507;50937/510315/511100/51265/51390/51495 full. Foliage quality.x selects cheap vertex path, quality.y authoritative interior footprint bypasses boundary mask, quality.z selects cheap lighting; shape.x selects ribbon versus card reconstruction. These independently control geometry/coverage/lighting, no justified forced single quality enum without host policy. Near seed heads encode negative UV.v plus anchor height in UV.u and have separate reconstruction; instanced shader only ribbon reconstruction appears. Must trace actual host shared mesh producer/pipeline selection before claiming seed heads reach incompatible instanced pipeline. Instanced coverage packs seed low byte; cull invalid batch index sentinel rejects before uniforms. Shader numerical thresholds/predicates are local computations, not retained gameplay choices. Interior positive.w marks room sample membership and returned sample.w presence; zero irradiance in an actual room remains valid because membership/presence is independent. Candidate room neighbors only blend with matching membership; avoid merging absent sample with zero light. Moon/pebble native kernels use fixed geometry/material inputs; billboard repurposes normal channel as centre at actual GPU layout adapter, requiring host layout pairing but no wrong producer established here.",
+      "finding_refs": [],
+      "disposition": "Native shader encodings and independent quality axes; host mesh/material shape pairing remains open"
+    }
+  ],
+  "new_findings": [],
+  "limits": "No shader execution/compilation/rendering, no host application-body credit, no repair or clearance."
+}

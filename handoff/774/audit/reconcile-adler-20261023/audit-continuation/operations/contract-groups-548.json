@@ -1,0 +1,195 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-548",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+      "sha256": "e88c8b37e80959ef7b47ce22d914becb64f57221b2adf497036ebd98881eef95",
+      "actual_EOF": 303,
+      "actual_compared_ranges": [
+        [
+          1,
+          303
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "actual_EOF": 53,
+      "actual_compared_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "f22d2556b12cbeeb849f2fa27db9d3e549e365e3bcb8cc4633e0e1e51166a9c9",
+      "actual_EOF": 178,
+      "actual_compared_ranges": [
+        [
+          1,
+          178
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "sha256": "3e25d7e25d9d85032c723926167bf505637c2e31d7f05503b9e4d5f08bd12600",
+      "actual_EOF": 89,
+      "actual_compared_ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "sha256": "fc1fbee2e072e88d28d41f4f7422b7d7eae85e5307406406722b378fdf4bbbc9",
+      "actual_EOF": 58,
+      "actual_compared_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+      "actual_EOF": 484,
+      "actual_compared_ranges": [
+        [
+          1,
+          484
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "f795df445833d7fae4fca22e42c07b01eb3b7f09e4033708bb68673597149204",
+      "actual_EOF": 187,
+      "actual_compared_ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs",
+      "sha256": "7ad0f885d284243d61ff532ba8151cf91916f1535ff64a9c8e29a5e855f128b0",
+      "actual_EOF": 42,
+      "actual_compared_ranges": [
+        [
+          1,
+          42
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/parameters/parameter.rs",
+      "sha256": "8057e3bc54fcc2941ab0b231989785cbbff9c222088d96a10920c55572a4bf24",
+      "actual_EOF": 129,
+      "actual_compared_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+      "sha256": "d43420951ea5f0f3ca07b9e7945387e830a858e14314cc634dde30079018a17a",
+      "actual_EOF": 73,
+      "actual_compared_ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "dd7c6c3515b7f79314eccb5a4be41e3ec6856c0c5c26f3788df27473b1f12834",
+      "actual_EOF": 314,
+      "actual_compared_ranges": [
+        [
+          1,
+          314
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Native logical extent and upload admission",
+      "evidence": "Full accepted wrapper audit/continuation/rig/admission03/findings.jsonl record_index68 RIG-ADMISSION03-F065 consumed. Public Buffer size/usage diverge from nativeArc, write has nofitcheck while write_at checkslogicalchecked_after. Bytes allu64 zero/alignment remain nativepolicy separate frombespokebyteunit; no forcewordalignment onallsemanticbytequantities. New rejects0, not native device-limit overflow; no execution/device assertion."
+    },
+    {
+      "contract": "Readback alignment and typed allocation",
+      "evidence": "Readback<T> rejectsZST/non-wholeTbytes/truncatedmappedbytes, allocatesbeforemappedview andsetslenafterinitializedcopy; allowedallbitpatterns remainexact. HigherBuffer.read copieslogicalrawlength; arbitrary3byte logicalallocation canreachcopylength3, nativecopyalignment question remains pendingpinnedSDKproof. SharedComputeReadback pads offsets but copieslogicalunroundedlength likewise. No actual3byteupload/read/nativeerror claimed yet."
+    },
+    {
+      "contract": "Uniform packing actual receiver qualification",
+      "evidence": "Full accepted wrapper RIG-ADMISSION03-F058-SUPPLEMENT-001 record_index67 consumed: generic create_bind_groups omitsUnsigned viawildcard andwrongwidth/missing silently0. ActualComputePass::record independently implementsUnsigned, so do not generalize genericadapter omission to everyKernel fallback. Shared schema-aware policy needed forboth reflectedsize and semantictypedfields. Reflection UniformMember omits actualscalar kind; no reason to enforcefinite rawIEEEvalues globally."
+    },
+    {
+      "contract": "Pipeline compiled identity and sparse schema questions",
+      "evidence": "Full accepted RIG03F057-SUPPLEMENT-001 record_index70 owns publicshader/layout/reflection/cache/pipeline independentmutation withentrypoint-onlycache; freshsourceconfirms, no duplicate. ImmediateReflection packsBTreeMap sparsegroups contiguously while reflection retainsindices, so noncontiguousgroup shader reachesnativeinterface rejection; explicitsupportedshape admission/capabilityquestion, no ordinary projectshaderfailure. Uniformmultipleblocks overwrittenbinding+combinedmembers similarlyrequires explicitsupportedinterfacepolicy. Newallocations local untilfunctionsuccess; no priorvalidpipeline modified byprepareErr."
+    },
+    {
+      "contract": "Context and async lifecycle",
+      "evidence": "Optionalfeatures intersectactualadapter capabilities; limitscopiedadapter. Borrowedfrom_parts disablesblockingvalidation; native submitted_work_done waits specificsubmittedindex andbrowsercallbackloopyields1ms. Buffer.read ignorespollerror beforecallbackloop; typed SDKcause preservationacceptedRIG-OWNER-F009 dependency. RawindependentcontextArcfields acceptincoherentdevice/queue, owneradmissionissue; no actual mismatched nativecontext created. No GPUoperationperformed."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "dependencies-548/crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+      "actual_EOF": 209,
+      "actual_compared_ranges": [
+        [
+          1,
+          209
+        ]
+      ],
+      "disposition": "Immediate native allocation/interface owner personally read; no original scope credit and coordinator registry reconciliation requested if absent."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "dependencies-548/crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+      "actual_EOF": 138,
+      "actual_compared_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "disposition": "Immediate native allocation/interface owner personally read; no original scope credit and coordinator registry reconciliation requested if absent."
+    }
+  ],
+  "status": "11 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/fabelgeist-hair/src/follicles.rs"
+}

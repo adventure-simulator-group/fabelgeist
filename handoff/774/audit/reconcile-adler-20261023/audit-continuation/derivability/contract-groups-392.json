@@ -1,0 +1,28 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-392",
+  "at": "2026-10-25T15:14:36.112163+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 767,
+  "source_id": "pr-working:crates/adventuresim-character-creator/src/export.rs",
+  "sha256": "ee364aaa0d304eb120d6f91216c6da3e186f5e20809e28ffa74f5864e568d72d",
+  "actual_compared_ranges": [
+    [
+      971,
+      1210
+    ]
+  ],
+  "cumulative_ranges": [
+    [
+      1,
+      1210
+    ]
+  ],
+  "trait_inventory": [],
+  "analysis": "Fresh971\u20131210 completes fixture helper and inspects normalized skin/zero-animation rig export+specific failures and start of separately materialed clothing fixture. No handmade trait/typecodec; test-native geometry/JSON assertions only read, not executed. Remaining1211\u20131841 unread.",
+  "first_unfinished": {
+    "scope_index": 767,
+    "line": 1211
+  },
+  "execution": "none"
+}

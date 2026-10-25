@@ -1,0 +1,94 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-342",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/activity.rs",
+      "sha256": "d8ee276214a67b09ca6571d03b1adce2dc200e6201284a9a8e25b6053aa72a15",
+      "actual_EOF": 243,
+      "actual_compared_ranges": [
+        [
+          1,
+          243
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_iteration/evidence.rs",
+      "sha256": "204c03d01cb76d4603c9c42a010a5ccf300f65abe20d62ab307212fe2fac19bc",
+      "actual_EOF": 448,
+      "actual_compared_ranges": [
+        [
+          1,
+          448
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/mod.rs",
+      "sha256": "3ada1de8aa9e1322565a5f1ae9b5882e0beba1d5ad024cc4705f7eb35ba0982b",
+      "actual_EOF": 595,
+      "actual_compared_ranges": [
+        [
+          1,
+          595
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Strategic activity arithmetic must retain actual elapsed, zero and source-location semantics",
+      "source_ranges": {
+        "activity.rs": [
+          [
+            1,
+            243
+          ]
+        ]
+      },
+      "disposition": "Complete243lines includingallfixturesread. Closedlocation matrix separatesauthoritativesettlementinn/namedoutdoor/incidentevidence/camp, noobserverIDaliaspolicy. Moraleu16minutesconversionandnegativeexponentfinitebounded, saturatinglimitsintentional; fervor/religionrawNaNclampnot checked but actualinputadmissiondependency, notordinarybadcaller. Sundayoverlapexplicitelapsed0emptyandhalfopenlastdayvia saturatingend-1; terminalclock/workbudget remains existingcalendarboundaryfamily, noallMAXdurationresourcepromiseornewuniqueendpointfinding. Populationestimateu32\u2192f32log+1 bounded/coarseprecisionintentional, nativelevelmaynegativeandmax1 preservespolicy. Labor/theft/raidmoneycasts roundthenfloattou32saturatebyRustnativepolicy, genericfiniteextremeproducts/sums/ratioscanoverflow but no normalboundedhours/checkproducer tracedhere; keepconditionalarithmeticadmissionratherthanclaimordinarywrongreward. Existingfixturefoods/economy are sourcedependencies notfreshbodycoverage; noexecution."
+    },
+    {
+      "contract": "Melee acceptance evidence is a projection of actual canonical operation results, not a live simulation verdict",
+      "source_ranges": {
+        "autoresolve/melee_iteration/evidence.rs": [
+          [
+            1,
+            448
+          ]
+        ]
+      },
+      "disposition": "Complete448linesreadintwochunks. Rosterlookupfalliblebeforeevidence; perweaponcontactfactsderive actualformeleepick exceptordinaryreachhelperdependency belongs existingCameraF009 selectedimplement graph. Evidenceenergiesboundedstatic69.5/76.788/101.4J andfractionprojection donotestablisharbitraryCombatWeaponphysicalvalidity. Telemetryretains rawscheduled/actual/idealmeasure andclass/material distinctions; donot conflatecenterseparationwithsurface measure. Fatiguefixture repeats15attack/15defense/1dodge actualworkloadapplication andchecksincapacitationadjustedtypedRecoveryTime; nohiddenparallelfatigueormovementpenaltyintroduced. Disabledarmexplicitbodyhealth0changeslocalcloneonly. Defenseevidenceusesactualresponse/sourceparameters; historicalnumericalevidence isnotexecutedpass, nofixtureschanged."
+    },
+    {
+      "contract": "Melee contact transition must coordinate checked timing, mutable combatant state and causal recorder output",
+      "source_ranges": {
+        "autoresolve/melee_round/mod.rs": [
+          [
+            1,
+            595
+          ]
+        ]
+      },
+      "disposition": "Full595linesreadinthreechunksincludingallfixtures. Resolvepreparescontactthenchargesattackwork, commitsdefenderresponse thenapplies/recordsattack. Preparedrecoverycheckedbeforepowerreset; laterfallibledefenderdecision/contact/performancecanoccurafterstd::mem::replacepower andRNGdraws, so privateoperationitselfisnotrollbackatomic. Outerresolvebattleownsclones/resultpublication; no ordinaryretryofsamepartiallymutatedliveDBstateestablishedhere. apply_defender_response computescommitment/adaptation andcheckedafterreadinessbeforecancellationfields, thenchargeswork; checkedtimingErrvalid, no requirement toforceunrepresentableelapsedthrough. Saturatinginterceptcounterintentional, explicitNone/finishtradepolicyretained. ContactrecordpassesactualAttackEffect fromapply_attack_result intoBattleRecorder.record_attack withrawAttackResult/typedintervalandcompletecausaltelemetry; suppliedarchive ROOT-INITIAL04-F043#43 saysrecorderlaterrepartitionsappliedcut/bluntwithwrongratio. Freshrelaybodyaddsconnectedconsumer evidenceonly, notpersonalrereadofF043arithmetic ornewduplicatefinding. PreservecanonicalappliedchannelrepairacrossCore/Engine/durableinjuryrecipients, rawJoulesdistinctfromhealthfractions. ExactattackIDs/timeline tickidentity remain suppliedRoot04F027 graph; thisbodyusesattack_id consistentlybutdoesnotproveglobalinjectivity. Defensecommittedphase/powerstatepoliciesnotreplacedbygenericprobabilitybounds. No battles/tests/checks/builds/execution."
+    }
+  ],
+  "findings": [
+    {
+      "id": "ROOT-INITIAL04-F043",
+      "archive_file": "audit/continuation/root/initial04-invariant-operations/findings.jsonl",
+      "archive_line": 43,
+      "disposition": "supplied existing finding qualified; fresh melee relay support only, no arithmetic coverage transfer",
+      "no_new_unique_count": true
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-core/src/bestiary.rs"
+}

@@ -1,0 +1,29 @@
+{
+  "id": "RIG-INITIAL06-GROUP-371",
+  "at": "2026-10-23T09:38:16.459071+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "interior-plan-shape-versus-spatial-leaves": {
+      "comparison": "Rect/RoomBounds/FloorFootprint are local architectural sampling/containment result products built from canonical ArchitecturalPlanPoint/PlanExtents/SpatialBounds<Architectural>; orientedScene CityPlotBounds or FurnitureFootprint has different authority/frame/predicate and is not interchangeable. Zero halfextents contact is explicitlyvalid, signedinset can shrinktoboundary, sharedPositiveLength would bewrong. Local_rotate explicitly changes Displacement<FurnitureLocal>→Architectural with Radians; floorheight returns Elevation<Architectural> notScenedatum/Geographicheight. RoomIndex/StoreyIndex retained in actual missingfloor/emptyroomdiagnostic. No newprimitivegeometryleaf owner; F001 lower canonicalgeometry shared reuse preserveslocal sampling product meaning. Original fixtures sourceonly.",
+      "disposition": "canonical framed leaves and meaningful interior sampling products"
+    },
+    "movement-audio-existing-scalar-owner": {
+      "comparison": "Position<Scene>/ScenePlanPoint staytyped from transform admission through spatial sound and terrain query, actual bitpattern Seedprojection at sound_seed is deterministicnativeport. Contact/Landing typedpayload sequences and GroundedSlide state meaningfuldifferent, no second combat/tacticalauthority on strategicdisplaymodels. UnitBasisPoints::saturating converts rawwind/threshold locally, existingF019 retainedweatherBPs andF045 sharedvolume UnitInterval apply without treating pitch/base speed/radius/exponent as probability. Actual audio Volume/PlaybackSettings boundary receives finalscalar; separate finite-positive pitch range is not closed[0,1]. CharacterId→Seed explicitprojection supportsF040 preservingdurableidentity while not conflatingsequenceclock. Sourcefixturesnotexecuted.",
+      "disposition": "canonical position/event/variation owners; F019/F045 scalar propagation remains connected"
+    },
+    "body-morph-realization-owned-by-bracer": {
+      "comparison": "Fresh torso342 imports ForearmMorphSample frombracer and uses it for full torso geometric/matchedrig realization. Fresh focused actualbracer64-74 against priorwhole208 proves record contains name, whole positions/normals, exactglobalRigJointTable and DeviceBody, with no forearm-specific predicate/side/region. Priorproportions240 creates same fullbody clearanceprobe product, breastplatefixture230 consumes it too. Thus established shared body-morph realization is owned/named under forearmfeature despite genericbodyconsumers; supportsnewF048. Move/rename single record to existingcoherentCreatorbody/fitting-level owner belowbracer/torso/proportions, keep native DeviceBody and exactrig association, notCore/Rig dependency upward or per-consumer clonedrecord. TorsoSurfaceInput distinct UV/fronttorso/landmark/support products remain legitimate. Nativeparameters/GPUbody/semanticframe are actualports, notblanketprivacywaiver.",
+      "disposition": "F048 shared body-realization record misplaced under forearmfeature"
+    }
+  },
+  "supporting_existing_findings": [
+    "F001",
+    "F019",
+    "F040",
+    "F045"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit.",
+  "new_finding": "RIG-INITIAL06-F048",
+  "focused_existing_definition": "bracer.rs64-74 freshlyread; own208 whole119 retained; actualproportion producer240 and breastplatefixture230 proofs personally compared, no newsourcecount"
+}

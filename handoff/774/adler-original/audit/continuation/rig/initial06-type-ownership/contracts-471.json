@@ -1,0 +1,46 @@
+{
+  "id": "RIG-INITIAL06-GROUP-471",
+  "at": "2026-10-23T12:02:38.281560+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "scene": {
+      "comparison": "Personally consumed Root040 actual SceneTerrain553 and Root036 actual SceneInput1026 including original fixtures, freshly read concrete private sampled/owned terrain and raw RockRecipe/obstacle payloads. Geographic ElevationMeters, Scene SupportElevation and Architectural frame/datum are different authorities, even though all metres. SceneTerrain is canonical sampled/owned spatial state; TerrainGenerator is source input, not equivalent accepted surface. Typed geometric leaves belong below both, with actual native heightmap/mesh port; SourceEnvironment snapshot and raw document are not accepted scene proof. Rock cmquantization/source Seed and obstacle ID remain explicit wire/native roles. Existing SupportElevation duplication and typed geometry propagation support F023/F001, no shared blanket world coordinate type.",
+      "disposition": "preserve authoritative scene-versus-source and positive/zero/signed distinctions"
+    },
+    "dispatch": {
+      "comparison": "Personally consumed Native batch2 005 full imported scene978/geologic534 including original fixtures, freshly read GridSampleRequest and MappedLandformProfile. WGS E7 centre/ElevationMeters/Seed retained appropriately; raw spacing/source-relative height arrays and native projected coordinates cross exact sampling math, then canonical SceneTerrain/quantized landform gates. Grid dimensions/request correlate shape and environment, not an interchangeable SurfaceRecipe or final groundedScene. Keep package provenance, settlement/mission identity and sampler ordinal distinct. Existing LandUseFraction/BP and digest owners should reach retained snapshot fields until native bytes rather than broaden raw source policy.",
+      "disposition": "support F012/F019/F035/F036; actual source numerical ports preserved"
+    },
+    "pack": {
+      "comparison": "Personally consumed Native batch2 006 full builder646/runtime2059 including original fixtures and fresh imports/actualSurface enum. Offline Manifest/native rasterizer is a source artifact, runtime private TerrainPack lazy cache is a different owner; do not force the loader accepted token on deployment DTOs. Surface closed vocabulary belongs terrain; hilly/canopy raw nativeu8 not automatically BP. TerrainWeights normalized1000, SkillProfile<=5000, whole10000 BPs and route native raw seconds/distances are different roles. Package SourceDigest syntax vs actual paired hash verification are different authority. Preserve exact importer nonfinite0/missingforest/syntheticwater policy and bytecount/endian boundary.",
+      "disposition": "canonical package/mixture/geographic ownership; no whole native decoder waiver"
+    },
+    "bark": {
+      "comparison": "Personally consumed RootG029 full517 shader body narrative and fresh exact uniform fields. TacticalTreeBarkExtension mirrors actual Rust host GPU layout; primitive packed lanes are legitimate at ABI. Relief/metres/inverse-scale/ratios, reservedzero soiloptics lane, metricvertexcolor and signed deposition heights differ from RGBA/unitinterval. Host canonical material/calibration should remain owner until packing; no arbitrary wrapper inside shader or dependency fork.",
+      "disposition": "native ABI boundary justified; F005/F038 matching host products only"
+    },
+    "grounding-tests": {
+      "comparison": "Personally consumed RootG056 full912/689 original grounding/movement fixture source and fresh Fixture/Walker/ExactBuildingGeometry definitions. Test fixture property+levels+rawJSON is source setup, WalkGoal/nativevelocity real framework observation. They reuse canonical SupportElevation/PositiveLength/ScenePlanPoint and exact plan/collision association rather than introduce competing owner. Raw rejected input/diagnostic NaN and both thin/zero and negative levels must survive refactor; no test execution or lower helper proof.",
+      "disposition": "original test sources accounted; no per-fixture newtypes or acceptance inferred"
+    }
+  },
+  "supporting_existing_findings": [
+    "F001",
+    "F005",
+    "F012",
+    "F019",
+    "F023",
+    "F035",
+    "F036",
+    "F038"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit.",
+  "actual_narrative_refs": [
+    "root/admission03/scene-ground-admission-040.json",
+    "root/admission03/scene-datum-admission-036.json",
+    "native/admission03/root-support-batch2/contracts-005.json",
+    "native/admission03/root-support-batch2/contracts-006.json",
+    "root/admission03/contracts.jsonl#ROOT-ADM-G029/G056"
+  ]
+}

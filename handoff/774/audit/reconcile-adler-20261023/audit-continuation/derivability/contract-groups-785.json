@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-785",
+  "at": "2026-10-25T16:50:04.969443+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1006,
+  "source_id": "pr-working:crates/adventuresim-core/src/strategic_action.rs",
+  "sha256": "4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+  "actual_compared_ranges": [
+    [
+      1,
+      440
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "All visible planning records already structural derives with explicit generic marker bounds. Six custom marker traits143\u2013148 empty. No handtrait/codec in range; native contextual/negotiation policy, coordinate/custody admission, NonZero duration and boundary resolution are semantic construction/mutation, not derive targets. Preserve deliberately serialization-free module and private capability/rejection authority."
+  ],
+  "first_unfinished": {
+    "scope_index": 1006,
+    "line": 441
+  },
+  "execution": "none"
+}

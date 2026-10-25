@@ -1,0 +1,164 @@
+{
+  "id": "CONT08-CONTRACT-102",
+  "at": "2026-10-25T11:44:45.447077+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 338,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player/quickstep_trace.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-client/src/player/quickstep_trace.rs",
+      "before_sha256": "d4c445ad8881a51294103c9f7ee9ef4024f1a3d64692356dfa8ac21f93604346",
+      "after_sha256": "d4c445ad8881a51294103c9f7ee9ef4024f1a3d64692356dfa8ac21f93604346",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0338-base-d4c445ad8881a51294103c9f7ee9ef4024f1a3d64692356dfa8ac21f93604346",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/d4c445ad8881a51294103c9f7ee9ef4024f1a3d64692356dfa8ac21f93604346",
+      "diff": "source-evidence/p16-0338.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          128
+        ]
+      ],
+      "facts": [
+        "Fresh full 128 and empty P16 diff. Trace observations retain action plus active/inactive actuator and retained start tick, emit only on the same transition predicate, and never drive physics. Render versus replicated translation and client versus acknowledged ticks stay explicitly separate observations. Historical overrun metadata requested 130; actual EOF 128, no nonexistent lines credited.",
+        "Existing warning compares dodge OR quickstep lunge with push.active; unchanged diagnostic omission of other unchanged fields is not a new gameplay regression. No tests or log/animation execution."
+      ],
+      "scope_qualification": "339 only1\u2013270; other five exact full scoped bodies. Empty counterpart diff establishes no local textual change, with actual source behavior personally compared.",
+      "disposition": "Own08 source-local comparison accounted with retained presentation/native-port qualifications.",
+      "acceptance": "Preserve exact scene selection, observation/history distinction, native axis/units, signed coordinates, fallback/error modes and original policies. No tests/checks/repairs or render success claimed."
+    },
+    {
+      "scope_index": 339,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/presentation/environment.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-client/src/presentation/environment.rs",
+      "before_sha256": "b6c219d19f45e18cf058bfa3ec4a06e826e50c2ae83d122e8d421f418dc31dbc",
+      "after_sha256": "b6c219d19f45e18cf058bfa3ec4a06e826e50c2ae83d122e8d421f418dc31dbc",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0339-base-b6c219d19f45e18cf058bfa3ec4a06e826e50c2ae83d122e8d421f418dc31dbc",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/b6c219d19f45e18cf058bfa3ec4a06e826e50c2ae83d122e8d421f418dc31dbc",
+      "diff": "source-evidence/p16-0339.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          270
+        ]
+      ],
+      "facts": [
+        "Fresh exact 1\u2013270 and empty P16 diff; no remainder of 577 credited. Active scene selection keeps most recently activated still-live entity and deterministic fallback. Weather cloud/transmission, precipitation fog, native sun/moon factors and interpolation/clamps retain operation order and display purpose.",
+        "Actual camera setup retains native translation/direction, degree-to-radian FOV, far 60000, authored initial fog, tonemapping and atmosphere/bloom gates. MSAA configuration always resolves to native Sample4 when enabled, an unchanged browser capability policy. Literal 270 begins the next fog-application signature: no whole live fog updater claim or native render success."
+      ],
+      "scope_qualification": "339 only1\u2013270; other five exact full scoped bodies. Empty counterpart diff establishes no local textual change, with actual source behavior personally compared.",
+      "disposition": "Own08 source-local comparison accounted with retained presentation/native-port qualifications.",
+      "acceptance": "Preserve exact scene selection, observation/history distinction, native axis/units, signed coordinates, fallback/error modes and original policies. No tests/checks/repairs or render success claimed."
+    },
+    {
+      "scope_index": 340,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/strategic_scene/equipment.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-client/src/strategic_scene/equipment.rs",
+      "before_sha256": "bcfd6571ac4b5c7fb271cfb50e5ef79c08b7110bc649364f23abd31c44799bdf",
+      "after_sha256": "a5276f1904f7b2072d0b173663ed3592075960f11ef193b5ffc0688023523a41",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0340-base-bcfd6571ac4b5c7fb271cfb50e5ef79c08b7110bc649364f23abd31c44799bdf",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/a5276f1904f7b2072d0b173663ed3592075960f11ef193b5ffc0688023523a41",
+      "diff": "source-evidence/p16-0340.diff",
+      "diff_sha256": "72fb5131cc980b66d6d38f046576f592eaa203a7a3929952fe6c01694c9010a1",
+      "head_body_read_ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "facts": [
+        "Fresh full 150 and complete actual two-field diff. Presentation entities copy the same catalogue cuboid dimensions and grip, zero striking head remains SignedLength::ZERO; native anchor offsets, placements, ordered occupancies and held-hand matching remain unchanged. Visual proxy has no striking volume by explicit role, not a new combat fallback.",
+        "Wardrobe compares retained appearance roster before rebuild, unknown catalogue/equipment despawns placeholder entity, missing attachment parent filters occupancy, and source changes trigger at view/scene level. These are retained rules; canonical recipe/hash/renderer dependency findings remain qualified separately. No automatic server equipment authority from a presentation entity."
+      ],
+      "scope_qualification": "339 only1\u2013270; other five exact full scoped bodies. Empty counterpart diff establishes no local textual change, with actual source behavior personally compared.",
+      "disposition": "Own08 source-local comparison accounted with retained presentation/native-port qualifications.",
+      "acceptance": "Preserve exact scene selection, observation/history distinction, native axis/units, signed coordinates, fallback/error modes and original policies. No tests/checks/repairs or render success claimed."
+    },
+    {
+      "scope_index": 341,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera.rs",
+      "before_sha256": "b8ca7d503b8d6de9b9f0892346e97eb71f3a801b68012337f4943be7e7057af9",
+      "after_sha256": "b8ca7d503b8d6de9b9f0892346e97eb71f3a801b68012337f4943be7e7057af9",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0341-base-b8ca7d503b8d6de9b9f0892346e97eb71f3a801b68012337f4943be7e7057af9",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/b8ca7d503b8d6de9b9f0892346e97eb71f3a801b68012337f4943be7e7057af9",
+      "diff": "source-evidence/p16-0341.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          265
+        ]
+      ],
+      "facts": [
+        "Fresh full 265 and empty P16 diff. Review camera offsets, species-specific beech/oak policies, signed azimuth/distance projections, terrain/city framing and native look-at dispatch retain values and selection order. Missing tree/rock focus falls back to ground exactly as before; missing plant/building/authored/live-query inputs return explicit errors.",
+        "Actual geographic and scene observation fields feed checked Position/length owners before final framework transform. This P16 counterpart is unchanged; broader PR camera migration and all state producers remain independent inventory roles. Zero/negative distance and finite-but-overflow API questions are not silently narrowed to positive or ordinary runtime failures."
+      ],
+      "scope_qualification": "339 only1\u2013270; other five exact full scoped bodies. Empty counterpart diff establishes no local textual change, with actual source behavior personally compared.",
+      "disposition": "Own08 source-local comparison accounted with retained presentation/native-port qualifications.",
+      "acceptance": "Preserve exact scene selection, observation/history distinction, native axis/units, signed coordinates, fallback/error modes and original policies. No tests/checks/repairs or render success claimed."
+    },
+    {
+      "scope_index": 342,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/landscape.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/landscape.rs",
+      "before_sha256": "0ca70d46d9aafbe4f1fef2e245b771e23fd6a79eb7263b7937c6306ed1068a11",
+      "after_sha256": "0ca70d46d9aafbe4f1fef2e245b771e23fd6a79eb7263b7937c6306ed1068a11",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0342-base-0ca70d46d9aafbe4f1fef2e245b771e23fd6a79eb7263b7937c6306ed1068a11",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/0ca70d46d9aafbe4f1fef2e245b771e23fd6a79eb7263b7937c6306ed1068a11",
+      "diff": "source-evidence/p16-0342.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "facts": [
+        "Fresh full 101 and empty P16 diff. Vista peak/valley direction fallbacks, max terrain/vista safe height plus 18, target clamp against camera height, horizon heading and native framing factors stay in the same order. Captured extrema describe admitted input observations; this camera does not recompute terrain support.",
+        "Terrain grazing and city oblique preserve exact signed coordinates and offsets, then admit complete camera position/target through the existing owner. No normal malformed vista, rendered support/LOD correctness or whole geographic pipeline clearance inferred."
+      ],
+      "scope_qualification": "339 only1\u2013270; other five exact full scoped bodies. Empty counterpart diff establishes no local textual change, with actual source behavior personally compared.",
+      "disposition": "Own08 source-local comparison accounted with retained presentation/native-port qualifications.",
+      "acceptance": "Preserve exact scene selection, observation/history distinction, native axis/units, signed coordinates, fallback/error modes and original policies. No tests/checks/repairs or render success claimed."
+    },
+    {
+      "scope_index": 343,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/placement.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/placement.rs",
+      "before_sha256": "6f16515e0ef35ed320d6c8b862676bb68e853ba485c30454c7c049a6c61bfa0c",
+      "after_sha256": "6f16515e0ef35ed320d6c8b862676bb68e853ba485c30454c7c049a6c61bfa0c",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0343-base-6f16515e0ef35ed320d6c8b862676bb68e853ba485c30454c7c049a6c61bfa0c",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/6f16515e0ef35ed320d6c8b862676bb68e853ba485c30454c7c049a6c61bfa0c",
+      "diff": "source-evidence/p16-0343.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "facts": [
+        "Fresh full 60 and empty P16 diff. Looking-at constructor checks distinct usable forward and forward\u00d7up; fixed orientation is a separate mode with its own supplied rotation and presentation target. Native transform uses the same Bevy look-at or fixed-quaternion path, preserving axes and arithmetic.",
+        "Local checks do not certify every coordinate subtraction as globally finite or every independent target/rotation as one semantic direction. Existing explicit mode distinction and native boundary remain unchanged; no broader accepted-state seal, scene render run or library-wide guarantee."
+      ],
+      "scope_qualification": "339 only1\u2013270; other five exact full scoped bodies. Empty counterpart diff establishes no local textual change, with actual source behavior personally compared.",
+      "disposition": "Own08 source-local comparison accounted with retained presentation/native-port qualifications.",
+      "acceptance": "Preserve exact scene selection, observation/history distinction, native axis/units, signed coordinates, fallback/error modes and original policies. No tests/checks/repairs or render success claimed."
+    }
+  ],
+  "next": "345 inventory next, then 346+;344 targeting already own098,350 native combat only partial1\u2013225."
+}

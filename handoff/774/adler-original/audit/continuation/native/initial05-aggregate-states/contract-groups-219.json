@@ -1,0 +1,134 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-219",
+  "at": "2026-10-23T05:21:15.702562+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_time.rs",
+      "sha256": "3af84cd2d335ef14e2ae8034345fcdcb999a93b4adeabd1a2e1f58beb780f57c",
+      "scope061_index": 156,
+      "actual_EOF": 860,
+      "scoped_ranges_compared": [
+        [
+          1,
+          860
+        ]
+      ],
+      "actual05_comparison": "Fresh PR complete bodies including all original Core inline tests, plus complete actual P16 source diffs personally compared: Core strategic_time and lifecycle identical, stationary only Result signatures. Compared current aggregate invariants, mutation, ordered consumers and exact namespace roles; no hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_time.rs",
+      "sha256": "3af84cd2d335ef14e2ae8034345fcdcb999a93b4adeabd1a2e1f58beb780f57c",
+      "scope061_index": 1017,
+      "actual_EOF": 860,
+      "scoped_ranges_compared": [
+        [
+          1,
+          860
+        ]
+      ],
+      "actual05_comparison": "Fresh PR complete bodies including all original Core inline tests, plus complete actual P16 source diffs personally compared: Core strategic_time and lifecycle identical, stationary only Result signatures. Compared current aggregate invariants, mutation, ordered consumers and exact namespace roles; no hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/advancement/lifecycle.rs",
+      "sha256": "a8f43539a28232bc47303c02e648761d55590e7f33d97fd66abbc703374965f5",
+      "scope061_index": 306,
+      "actual_EOF": 11,
+      "scoped_ranges_compared": [
+        [
+          1,
+          11
+        ]
+      ],
+      "actual05_comparison": "Fresh PR complete bodies including all original Core inline tests, plus complete actual P16 source diffs personally compared: Core strategic_time and lifecycle identical, stationary only Result signatures. Compared current aggregate invariants, mutation, ordered consumers and exact namespace roles; no hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/advancement/lifecycle.rs",
+      "sha256": "a8f43539a28232bc47303c02e648761d55590e7f33d97fd66abbc703374965f5",
+      "scope061_index": 1246,
+      "actual_EOF": 11,
+      "scoped_ranges_compared": [
+        [
+          1,
+          11
+        ]
+      ],
+      "actual05_comparison": "Fresh PR complete bodies including all original Core inline tests, plus complete actual P16 source diffs personally compared: Core strategic_time and lifecycle identical, stationary only Result signatures. Compared current aggregate invariants, mutation, ordered consumers and exact namespace roles; no hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/stationary.rs",
+      "sha256": "4247ba159aa9a5ceb6183f7a4e23023b27e47cd6c48c46e66565120fe89e1ca8",
+      "scope061_index": 313,
+      "actual_EOF": 263,
+      "scoped_ranges_compared": [
+        [
+          1,
+          263
+        ]
+      ],
+      "actual05_comparison": "Fresh PR complete bodies including all original Core inline tests, plus complete actual P16 source diffs personally compared: Core strategic_time and lifecycle identical, stationary only Result signatures. Compared current aggregate invariants, mutation, ordered consumers and exact namespace roles; no hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/stationary.rs",
+      "sha256": "4b9f686e5eb3dc2600ce935086991c271678c71692415cfb58c056a74883caf2",
+      "scope061_index": 1253,
+      "actual_EOF": 263,
+      "scoped_ranges_compared": [
+        [
+          1,
+          263
+        ]
+      ],
+      "actual05_comparison": "Fresh PR complete bodies including all original Core inline tests, plus complete actual P16 source diffs personally compared: Core strategic_time and lifecycle identical, stationary only Result signatures. Compared current aggregate invariants, mutation, ordered consumers and exact namespace roles; no hash-only coverage."
+    }
+  ],
+  "contract_groups": [
+    {
+      "id": "forecast member and temporal product",
+      "comparison": "Core strategic_time 35–346: private minute-of-day constructor bounds <1440; walking duration 1..1440 establishes actual noon/midnight windows. Forecast clones exactly ordered input members; same member array drives final and maximum vectors, segment averages/maxima and retained state. Factory keeps corresponding lengths/order, but public Forecast fields permit independent mutation; do not claim those bare fields are a validated replay. Movement versus elapsed are intentionally distinct; camp can lower final below prior peak. Existing inline fixtures independently assert those meanings and cap512 segments, source read only. Terminal MAX clock zero-duration branch does not advance and does not append a segment, so cap512 does not guarantee termination: exact RootF019 API strengthening, no current normal trip/run."
+    },
+    {
+      "id": "fatigue meaning and stable summary",
+      "comparison": "128–139 calories and capacity are raw public finite/unbounded inputs, ratios may exceed1. Two finite MAX ratios sum to Inf before division although their mean is representable; exact RootF020 support, not another finding or UnitInterval policy. Capacity.max(.01) does not establish bounded ratio. Camp recovery and subsequent schedule leisure share one general fatigue reservoir. Per-member peak versus current average have different observer meanings. Fixed finite positive provisioning-rate dependency is distinct from name-only leaf validity."
+    },
+    {
+      "id": "calendar elapsed and inverse relation",
+      "comparison": "382–423 signed i64 now−epoch is saturated before widening and positive rate conversion, supporting RootF022 full signed timestamp-capacity boundary. u128 rate multiplication itself is bounded for admitted i64 elapsed. Inverse uses ceil and checked i64/epoch subtraction, returns None on capacity failure. Target before world start deliberately maps elapsed0; do not promise unrestricted round trip. Training uses widened u16 daily minutes and finite elapsed conversion, independent of whole DailySchedule validation. Raw lunar_phase argument of illumination has no finite constructor promise; canonical absolute minute projection is bounded finite."
+    },
+    {
+      "id": "healing minimum and stopping",
+      "comparison": "432–474 all seven limbs reduced to minimum before common recovery; all healthy returns0, negative nonfinite yields MAX sentinel. Finite negative extreme may need MAX and returns sentinel when even maximum cannot heal; bounded doubling64 then binary search upper−lower midpoint preserves progress and no overflow. f32::min ignores NaN operands in reduction, so raw NaN health is not a checked-health admission seal; source makes no whole raw array promise. Existing convalescence fixtures verify slowest limb and earliest healing minute, not execution evidence."
+    },
+    {
+      "id": "stationary accepted prefix",
+      "comparison": "Stationary1–194 ensures living/current clock; target before start rejected, elapsed0 returns; optional lifecycle split recursively settles prefix then remainder. Injury preview→disease clipping→injury commit→actual elapsed clock, then family/weather/shared-time/disease finish/lifecycle in source order; terminal returns before training. Explicit weather seam116–127 contrasts F048 planned paths. Survivor training subtracts convalescence from actual elapsed. Socializing uses target minute endpoint, so any surviving shortened prefix needs exact injury guarantee before alleging endpoint mismatch; no new defect inferred."
+    },
+    {
+      "id": "saved organization schedule correlation",
+      "comparison": "Stationary195–263 supplies the SAME ten minute values and same organization tuple minutes at positions7/8 to canonical validator. Persisted row rebuilt from admitted typed plan, organization IDs/minutes from tuple owners, actual organization-membership check before update. This normal writer is coherent; RootF005 broad public DailySchedulePlan/helper mismatch remains API-only, not an observed stored-row defect. Condition refresh does not imply every raw table ingress is checked."
+    },
+    {
+      "id": "recursive lifecycle seam",
+      "comparison": "Lifecycle11 computes saturated end, calls relationship::next_lifecycle_boundary and maps elapsed_since(start); it has no local strict-interior test. Stationary recursion and advancement rely on actual lower boundary >start and <end; exact chronology body remains a concrete unread lower, not a demonstrated recursion failure. Do not infer closed graph from helper name."
+    },
+    {
+      "id": "full existing test and scope accounting",
+      "comparison": "Core476–860 original tests freshly read, not run: day/night seams, inverse epoch, itinerary member correspondence, peak preservation, walking/camp elapsed and segment cap. Stationary263 and lifecycle11 have no inline tests. Full exact P16/PR production semantic comparisons made; no external include fixture or foreign kernel body credit. Root208 mandatory PRmod EOF107 and organization testcontext qualifier preserved; current source count unchanged by qualifiers."
+    }
+  ],
+  "new_unique_findings": [],
+  "existing_findings_support": [
+    "ROOT-INITIAL04-F019",
+    "ROOT-INITIAL04-F020",
+    "ROOT-INITIAL04-F022",
+    "ROOT-ADM-F005",
+    "NATIVE-INITIAL05-F048"
+  ],
+  "remaining_dependency_obligations": [
+    "Actual next_lifecycle_boundary strict interior contract and dirtchunk nonzero source remain unread05 lower obligations.",
+    "Actual injury final-clipping survivor relationship must precede any target-minute socializing mismatch claim."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

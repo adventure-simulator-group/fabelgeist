@@ -1,0 +1,20 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-355",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        503,
+        504,
+        505,
+        506,
+        507
+      ],
+      "comparison": "All503109/50480/505189/50620/507177 lines read. City shader unpacks actual GPU layout: Building.levels.y selects static visibility owner versus component transform, optional component index packed into job.w, props fade distances bitcast in levels.zw. City cull keeps camera/shadow history separate and supports independent LOD availability mask, overlay flag, directional near-plane policy and parent-camera distance policy. Those bitfields are real WGSL adapter encodings; host semantic construction/admission still needs exact trace, no claim all flags are untyped gameplay state. Ground footprint.z categorizes corridor/market/yard while independent wear/dampness remain continuous. Normal-map flag gates sampling of always-bound GPU texture; binding presence alone not proof an invalid host combination. Cloud baked endpoint textures are both meaningful across blend, including inactive endpoint/history; no exclusive endpoint variant discarding one. ray_sphere_roots negative pair is local mathematical sentinel immediately consumed by roots.y<=0 guard, not a carried gameplay discriminator. Builtin front_facing/native material flags are required rendering inputs. Numeric color/geometry/attenuation math is legitimate kernel data; no index-enum renaming.",
+      "finding_refs": [],
+      "disposition": "Actual shader adapter contracts read; host packed mode/product traces remain open"
+    }
+  ],
+  "new_findings": [],
+  "limits": "No shader compile, render, GPU execution, host producer credit, repair or lens clearance."
+}

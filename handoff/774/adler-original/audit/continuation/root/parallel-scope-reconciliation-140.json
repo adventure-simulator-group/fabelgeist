@@ -1,0 +1,141 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-140",
+  "at": "2026-10-22T21:53:14.881427+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-037.json",
+    "sha256": "a41fa3647d3c5df14ef67f9343aff7df7a45fe63dcb18272ab1c041195b81cba"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-036.json",
+    "sha256": "e235ed590e540c5f9eaaba6a112083e5043bc66293147dfa64391fa1f9482929"
+  },
+  "new_variants": [
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/bones.rs",
+      "sha256": "1178bf380da9126c00678608493b9d252af9746d853d347d5f334d451586b5bb",
+      "path": "SNAPSHOTS\\p17\\crates\\adventuresim-tactical-client\\src\\animation_viewer\\report\\bones.rs",
+      "snapshot": "report-p17",
+      "actual_line_count": 138,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          6,
+          106
+        ]
+      ],
+      "audit_owner": "native",
+      "scope_registration": [
+        {
+          "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+          "sha256": "82ef2931535fb6dcc5144763c128a72593ae6bedf81baad256b49eb5a405e5f1",
+          "row_1based": 11,
+          "id": "NATIVE-INITIAL05-REG011",
+          "original_record": {
+            "id": "NATIVE-INITIAL05-REG011",
+            "at": "2026-10-22T21:50:23.615509+00:00",
+            "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+            "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/bones.rs",
+            "snapshot": "report-p17",
+            "resolved_path": "SNAPSHOTS\\p17\\crates\\adventuresim-tactical-client\\src\\animation_viewer\\report\\bones.rs",
+            "sha256": "1178bf380da9126c00678608493b9d252af9746d853d347d5f334d451586b5bb",
+            "actual_EOF": 138,
+            "material_ranges": [
+              [
+                6,
+                106
+              ]
+            ],
+            "material_caller": "Global P17 repeated_evaluation.rs132-172 checks equal key sets then zips CapturedBones::iter; global capture.rs jitter_frames uses same supported identities. Need actual P17 lexical ordering and unique role-label roster definition, not PR byte/hash inference.",
+            "reason": "Exact direct collection ordering/identity declaration before current counterpart aggregate analysis. No body read yet; PR sibling known only navigation.",
+            "exclusions": "Reduced parent map108+ and serialize_report_bone131+ excluded; no full authored rig hierarchy.",
+            "status": "prospectively registered before body analysis; global pending"
+          }
+        }
+      ],
+      "scope_limits": "OnlyP17 reportbone collection/roster/label6-106; parent108+andserializehelper131+excluded. Noauthoredrig/hierarchygraph, no PRhashverdictcarry.",
+      "source_lens_credit": "none from scope metadata"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/tactical.rs",
+      "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\tactical.rs",
+      "snapshot": "physical-p16",
+      "actual_line_count": 1515,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          494,
+          566
+        ]
+      ],
+      "audit_owner": "camera",
+      "scope_registration": [
+        {
+          "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+          "sha256": "467e585e775ce86e459c0a398784fadff7e45e321780d90b823c21dd969bcb31",
+          "row_1based": 18,
+          "id": "CAMERA-INITIAL07-REG018",
+          "original_record": {
+            "registration_id": "CAMERA-INITIAL07-REG018",
+            "at": "2026-10-22T21:50:56.683140+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "physical-p16:crates/adventuresim-stdb-module/src/tactical.rs",
+            "snapshot": "physical-p16",
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\tactical.rs",
+            "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+            "actual_EOF": 1515,
+            "material_ranges": [
+              [
+                494,
+                566
+              ]
+            ],
+            "reason": "Direct final enrollment call after create_temporary_character inserts capability then scale_temporary_enemy mutates attributes/limbs/skills; compare actual final call refresh behavior before cache finding",
+            "exclusions": "Only enter_mission full body494-566; leave_mission568+ and other tactical functionality excluded; earlier prematuredisplay explicitly uncredited QUAL104.",
+            "status": "prospectively_registered_before_fresh_body_analysis"
+          }
+        }
+      ],
+      "scope_limits": "OnlyP16 enter_mission494-566; leave568+excluded. QUAL104 premature494-582display explicitlyuncredited, prospectiveexactrereadrequiredandperformed. NoextraTacticaltickauthority.",
+      "source_lens_credit": "none from scope metadata"
+    }
+  ],
+  "new_overlays": [],
+  "total_variants": 2789,
+  "total_overlays": 223,
+  "mandatory_scope_qualifications": [
+    {
+      "record": "continuation/root/parallel-scope-qualification-130.json",
+      "sha256": "5dc4e5cd771612c7e050ab4af544411523317ae4b57738f1fb20f493685a50fc"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-117.json",
+      "sha256": "f3b80648900716939057b20776d756a6e37001f6910378da1a1bbaea230d348b"
+    }
+  ],
+  "registered_rows": 2,
+  "input_pins": [
+    {
+      "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+      "sha256": "82ef2931535fb6dcc5144763c128a72593ae6bedf81baad256b49eb5a405e5f1",
+      "captured_rows": 11,
+      "selected_ids": [
+        "NATIVE-INITIAL05-REG011"
+      ]
+    },
+    {
+      "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+      "sha256": "467e585e775ce86e459c0a398784fadff7e45e321780d90b823c21dd969bcb31",
+      "captured_rows": 18,
+      "selected_ids": [
+        "CAMERA-INITIAL07-REG018"
+      ]
+    }
+  ],
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through223-before037.jsonl",
+    "sha256": "e92aaa6b1a6b284948a18313a5f41e3f241ece878c3a42472efb04623fc52bef",
+    "through": 223
+  },
+  "limits": "Two new variants P17reportbones6-106 andP16DBtactical494-566; noothernewbody/overlay. Allolderrolebounds/SDK117/Bevy130qualifierspreserved; nocacheprooffromhelperalone."
+}

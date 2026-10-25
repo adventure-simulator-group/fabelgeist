@@ -1,0 +1,60 @@
+{
+  "packet_number": 126,
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/filth.rs",
+      "actual_compared_ranges": [[1, 631]],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh literal full631 across three bounded displays, including all existing tests, with actual complete empty PR/P16 diff. Independent arithmetic, endpoint, identity and plan-publication comparison; no project execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/filth.rs",
+      "actual_compared_ranges": [[1, 631]],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Actual full empty PR/P16 source diff combined with personally compared full631 P16 literal source. Independently resolved same canonical deposit, StrategicMinute, soap-source and cleansing-point contracts. Complete comparative proof, not a claim of a separate whole PR literal display or hash-only clearance."
+    }
+  ],
+  "groups": {
+    "bounded-material-and-travel": "bounded_deposit_amount saturating subtraction preserves intended total100. Exact carried travel dirt usesu128(minutes)*8+u16remainder, which cannot overflowu128 under full signature; remainder modulo1440 safely narrowsu16. Explicit materialized dirtu16 cap is followed by separate deposit cap100. One-shot float travel_dirt is a separate API, not proof checkpoint caller uses rounded one-shot. No blanket partition-equivalence claim beyond intended saturation; no fabricated u128 overflow.",
+    "time-windows": "F050 identifies endpoint saturation before minus1, not cursor+1: early to<=from guard makes fromMAX with later to impossible, so101 cannot overflow on admitted nonempty interval. Sorted merging advances end=max and adjacency saturation cannot add a later minute beyondMAX. infectious_fraction below2880 uses exactly representable integer ages and returns0..1; visible amount intentionally does not decay. Future-dated deposit lifecycle admission not traced, no current normal exposure bug invented.",
+    "exposure-arithmetic": "Cut countsu32 produce finite raw score; exp(-raw) yields bounded diminishing returns with intentional open>bandaged>stitched. Timed route raw count capacity remains caller admission obligation, no unsupported ordinary multi-billion route claim. Each raw deposit dose<=655.35, so physically feasible slice lengths cannot approachf32MAX. Duplicate disease snapshots useany and do not multiply a deposit dose. Explicit blood-compatible flag is separate API responsibility, not inferred as checked from arbitrary caller cut-routeNaN.",
+    "washing-amounts": "F051 concerns the unbounded raw deposit total before allocation and priority; once needed total is sound, every soapused<=remaining and their sum<=needed, so312 is not an independent overflow. Removed amount=min(u16amount,capacity) safely narrowsu16. WashStack.quantity is cleansing-capacity points, not whole soap items; original fixture multiplies full units by25 correctly.",
+    "washing-identity-and-order": "F052 concerns repeated identical tagged resource key. Preserve Personal7 versusParty7 as distinct resources, explicitly covered by existing408-435 fixture. Priority order is substance rank ascending, exposure descending, filth descending then characterID ascending. Plan orders personal first thenkey; deposits rank/date/id. All plan mutation is local Vec preparation; actual persistent application and transaction budget checks remain separate producer/receiver obligations.",
+    "validation-and-limits": "All original tests331-631 source compared, never run or changed. Intended per-character deposit cap100 and unique DB soap snapshots may keep normal producers safe, but those actual suppliers are not traced in this packet. Findings are API contract strengthening or terminal clock edge, not evidence of current ordinary gameplay failure. No wider disease/native receiver clearance."
+  },
+  "findings": [
+    {
+      "id": "ROOT-INITIAL04-F050",
+      "kind": "infectious_inclusive_window_loses_final_representable_minute",
+      "source_id": "physical-p16:crates/adventuresim-core/src/filth.rs",
+      "locations": [[81, 118]],
+      "case": "Compatible foreign blood amount>0 deposited_at=StrategicMinuteMAX, from=MAX-1,to=MAX: startMAX but saturated(MAX+2880)-1 yields endMAX-1, so no window. infectious_fraction(MAX,MAX) is1.0. Finite terminal API case only, no ordinary timeline or execution claimed. StrategicMinuteMAX and saturating operations previously independently read in Root04 calendar support120.",
+      "operation": "Inclusive endpoint calculation loses a representable final infectious instant because clipping is applied before subtracting the exclusive-end offset.",
+      "connected_repair": "Compute the inclusive endpoint without prematurely dropping representableMAX, preserving cursor exclusion and actual two-day duration; order duration-minus1 before checked/clipped addition or use equivalent explicit endpoint contract. Share canonical strategic time owner, with deliberate terminal policy rather than sentinel or wrapping arithmetic.",
+      "acceptance": "Successful window planning includes every representable infectious minute in(from,to], including fresh blood atMAX, while excluding already committed cursor and expired blood. Existing tests only.",
+      "deduplication": "Related to RootF046 temporal exhaustion discipline but distinct inclusive endpoint loss, not a repeated due occurrence or proof of cursor+1 overflow. Native05 had no exact earlier record."
+    },
+    {
+      "id": "ROOT-INITIAL04-F051",
+      "kind": "raw_deposit_total_overflows_before_wash_priority_and_plan",
+      "source_id": "physical-p16:crates/adventuresim-core/src/filth.rs",
+      "locations": [[257, 272], [289, 297]],
+      "case": "Public raw slice of65538 deposits eachamount65535 has mathematical total4295032830; sumu32 checking arithmetic overflows, unchecked wraps65534. Feasible API input size, not executed/allocated here. Intended accepted per-character total100 producer is untraced, so no normal wash overflow claimed.",
+      "operation": "Widening each scalar tou32 does not admit the whole aggregate; an overflowing raw total sizes capacity and prioritization before any checked plan publication.",
+      "connected_repair": "Prepare a canonical admitted bounded filth snapshot and coherent whole total, checking or widening aggregate arithmetic before accepted WashPriority/WashPlan. Propagate the admitted total through all recipients and preserve actual clipped meter/deposit policy. Do not silently saturate at an arbitrary machine maximum or merely wrap scalar amounts in bespoke types.",
+      "acceptance": "A successful accepted snapshot/plan has an exact representable total consistent with its deposits and capacity allocation, or returns structured rejection before publication. Existing tests only.",
+      "deduplication": "No exact RootF001-050 or Native05 earlier filth-total record; shared checked aggregate graph with other amount findings, distinct owning snapshot and recipients."
+    },
+    {
+      "id": "ROOT-INITIAL04-F052",
+      "kind": "wash_plan_counts_duplicate_same_resource_snapshot_twice",
+      "source_id": "physical-p16:crates/adventuresim-core/src/filth.rs",
+      "locations": [[211, 233], [285, 327]],
+      "case": "Deposit40 and two observations of the identical Personal/key7 soap stack, eachquantity25 cleansing points, produces allocations25+15 for that one physical stack whose actual capacity is25. Public API accepted plan inconsistency only: actual unique DB snapshot supplier/application checks untraced; no successful persistent double-consumption claimed.",
+      "operation": "Sorting raw observations by tagged key does not establish unique resource ownership or conserve a per-resource budget across repeated records.",
+      "connected_repair": "Admit a unique tagged-resource snapshot or checked per-key budget before planning, then carry coherent prepared allocations through settlement. Canonicalize identical duplicate observations once or reject under actual contract; reject conflicting quantities rather than summing or picking arbitrary max. Preserve Personal/Party distinction and cleansing-point units.",
+      "acceptance": "Accepted plan cannot allocate more than the admitted capacity of any tagged physical resource, including repeated identical key observations. Separate Personal7 andParty7 remain distinct. Existing tests only.",
+      "deduplication": "No exact earlier Root or Native05 soap-key record. Distinct identity/budget relationship from F051 deposit-total capacity, while both should share the whole admitted washing graph rather than isolated scalar wrappers."
+    }
+  ]
+}

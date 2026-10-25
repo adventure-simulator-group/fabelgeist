@@ -1,0 +1,65 @@
+{
+  "id": "CONT-ROOT-PP-FOREIGN-ALIASES-003",
+  "lens": "audit-producer-propagation",
+  "created_at": "2026-10-22T02:09:33.424446+00:00",
+  "source_proofs": [
+    {
+      "source_id": "native-dependency:spacetimedb-2.6.1/src/rt.rs",
+      "alias_as_recorded": "foreign:spacetimedb-2.6.1/src/rt.rs",
+      "sha256": "9dae2fdd25e809c3fae6780569a1e6ce1a9d76d99feaac6a38a884faaa5ebf16",
+      "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\spacetimedb-2.6.1\\src\\rt.rs",
+      "read_ranges": [
+        [
+          200,
+          228
+        ]
+      ],
+      "source_role": "Reducer Result<(),E:Display> is converted to Box<str> by the actual SDK IntoReducerResult implementation, after the application reducer has returned its concrete error. This justifies text conversion at this exact foreign result boundary, and does not justify early String returns from application helpers.",
+      "proof_mode": "Fresh actual bounded body reads by root; identity normalization alone supplied no semantic credit.",
+      "producer_disposition": "exact reached foreign producer/recipient role accounted; application findings retained; no later-lens credit"
+    },
+    {
+      "source_id": "pinned-registry:avian3d-0.7.0/src/collision/collider/parry/mod.rs",
+      "alias_as_recorded": "pinned-avian3d-0.7.0:src/collision/collider/parry/mod.rs",
+      "sha256": "2a04ce7d6913b008e654905c96ead648efd840ddf102863532bc38bd187e3945",
+      "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\avian3d-0.7.0\\src\\collision\\collider\\parry\\mod.rs",
+      "read_ranges": [
+        [
+          390,
+          441
+        ],
+        [
+          651,
+          695
+        ]
+      ],
+      "source_role": "Actual AnyCollider AABB computes native Parry bounds from physics pose; contact_manifolds_with_context forwards the complete native physics contract to contact_query; cast_ray/intersects_ray invoke the native shape/ray algorithms and return native measurements. These concrete foreign bodies are endpoints for game-owned checked geometry, not blanket waivers for earlier application retention.",
+      "proof_mode": "Fresh actual bounded body reads by root; identity normalization alone supplied no semantic credit.",
+      "producer_disposition": "exact reached foreign producer/recipient role accounted; application findings retained; no later-lens credit"
+    },
+    {
+      "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/system_param.rs",
+      "alias_as_recorded": "pinned-avian3d-0.7.0:src/spatial_query/system_param.rs",
+      "sha256": "a568d6d6d411e2832b3efb91dfc919770712da09eae38e4a9dff53ffd8d72fea",
+      "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\avian3d-0.7.0\\src\\spatial_query\\system_param.rs",
+      "read_ranges": [
+        [
+          93,
+          138
+        ],
+        [
+          176,
+          226
+        ]
+      ],
+      "source_role": "cast_ray forwards to the complete native cast_ray_predicate: tree traversal/filter/Entity lookup, concrete collider.cast_ray and closest-hit RayHitData construction. Native Dir/Scalar/Entity and engine-owned None/filter/max-distance behavior are actual framework contracts. Application inputs remain checked until this endpoint; returned raw measurements are admitted according to application policy in their callers.",
+      "proof_mode": "Fresh actual bounded body reads by root; identity normalization alone supplied no semantic credit.",
+      "producer_disposition": "exact reached foreign producer/recipient role accounted; application findings retained; no later-lens credit"
+    }
+  ],
+  "additional_material_range": "Parry contact forwarding tail436\u2013441 freshly read to close actual body; printed mass-method prefix442\u2013448 is unrelated and receives no scope/coverage credit.",
+  "unresolved_actual_receivers": [],
+  "source_edits": 0,
+  "tests_or_project_commands": 0,
+  "owner_fit_and_other_lenses": "pending, no clearance"
+}

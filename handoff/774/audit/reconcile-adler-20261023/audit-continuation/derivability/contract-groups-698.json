@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-698",
+  "at": "2026-10-25T16:33:58.945558+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 972,
+  "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/model.rs",
+  "sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+  "actual_compared_ranges": [
+    [
+      1,
+      660
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Model441\u2013660 records for pattern targets/traces/bridges/events/consequences/outbreak truth/responsibility/source/exposure/remediation already derive structural+Serde with explicit tagged wire where needed. Native pattern_target_matches checks authoritative selected subset/current settlement rather than whole record Eq; stable compact reservoir IDs differ snake_case Serde and remain explicit. No new handwritten trait/codec."
+  ],
+  "first_unfinished": {
+    "scope_index": 972,
+    "line": 661
+  },
+  "execution": "none"
+}

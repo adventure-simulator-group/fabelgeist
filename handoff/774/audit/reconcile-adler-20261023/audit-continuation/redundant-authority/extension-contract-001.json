@@ -1,0 +1,68 @@
+{
+  "id": "CONT07-EXTENSION-CONTRACT-001",
+  "at": "2026-10-24T01:01:51.410630+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "registry_index": 1,
+      "source_id": "merged774:crates/adventuresim-weapon-model-browser/src/lib.rs",
+      "sha256": "c29071eeb95db76a0909330a53328dd39f1f2d2f1dddfcecff7c448fcffe344b",
+      "ranges": [
+        [
+          1,
+          250
+        ]
+      ],
+      "read_kind": "fresh personally read exact registered source ranges",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/redundant-authority/extension-merged774-weapon-browser-lib.rs"
+    },
+    {
+      "registry_index": 8,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/building_program.rs",
+      "sha256": "2ecfe5491e448871f85d33e15bc04c197311aae741054b4587143531548063a2",
+      "ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "read_kind": "fresh personally read exact registered source ranges",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/2ecfe5491e448871f85d33e15bc04c197311aae741054b4587143531548063a2"
+    },
+    {
+      "registry_index": 9,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/settlement.rs",
+      "sha256": "5a26d13567d00297e0bec89a8425945e633f346b1593eba9d4733ece32476ffc",
+      "ranges": [
+        [
+          1,
+          257
+        ]
+      ],
+      "read_kind": "fresh personally read exact registered source ranges",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/5a26d13567d00297e0bec89a8425945e633f346b1593eba9d4733ece32476ffc"
+    },
+    {
+      "registry_index": 10,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/settlement/size.rs",
+      "sha256": "23584a638ed300e6bfb8e5bb95e2a330d24b705b9589838c22632f99d81a884e",
+      "ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "read_kind": "fresh personally read exact registered source ranges",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/23584a638ed300e6bfb8e5bb95e2a330d24b705b9589838c22632f99d81a884e"
+    }
+  ],
+  "facts": [
+    "Frozen merged774 browser transport Request tagged enum owns payloads; execute delegates geometry, recipe encoding, materials, presets and editor metadata to authoritative library. Diagnostic recipe reparse only locates invalid field and never substitutes recipe or executes malformed input. Generate output recipe/mesh/materials derive same received design; still relies on actual library admission rather than treating independent outputs as their own owners. Tests bodies read only, not run.",
+    "BuildingProgram explicitly raw recipe may describe unsupported combinations; generate canonical admission is required. Archetype, usage, service_size and physical programme have actual distinct roles, not all equivalent category caches. fixture Workplace sets Barn then Medium; no current wrong structural programme established.",
+    "Settlement maps actual BuildingUse to structural archetype, then assign_use remaps main/secondary room roles and preferred neighbours together. Heating programme removed for nondwelling. validated_settlement returns actual successful recipe seed rather than nominal original and bounds deterministic search64. Authored seed history/variation separate from resolved plan current state.",
+    "ServiceBuildingSize independently authored physical programme band for parishes, not inferred catchment fact. Service capacity bands derive from canonical usage.definition().demand; ordinary band boundaries use shared owner. with_service_size materializes physical programme, but arbitrary post-configuration mutation could desync public service_size/footprint with validated product; exact receiving generate validation must own all invariants, not automatic ordinary defect. Preserve explicit distinction from actual demand/capacity and from general M72 structural wall association."
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "other_lens_credit": false
+}

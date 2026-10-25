@@ -1,0 +1,42 @@
+{
+  "failed_head": "6c31bf753d7f2f08080aa31ac242e1dfeaf94cb8",
+  "failed_run": 39434297927,
+  "failed_job": 118667133316,
+  "first_contract": "Native Clippy workspace all-target/all-feature gate",
+  "diagnostics": [
+    {
+      "lint": "collapsible_if",
+      "file": "crates/adventuresim-tactical-server/src/bot/defense.rs",
+      "line": 155,
+      "item": "on_targeted_attack_started"
+    },
+    {
+      "lint": "collapsible_if",
+      "file": "crates/adventuresim-tactical-server/src/bot/defense.rs",
+      "line": 195,
+      "item": "on_targeted_ranged_attack_started"
+    },
+    {
+      "lint": "blocks_in_conditions",
+      "file": "crates/adventuresim-tactical-server/src/combat/melee/active_defense.rs",
+      "line": 41,
+      "item": "prepare_active_defense"
+    }
+  ],
+  "repair_commit": "13bbd34d16df3062de1ef9f97167f5365d521f99",
+  "review": "Two bounded self source checks: read all affected functions and the applicable combat guide, then inspect the full two-file diff against the three hosted diagnostics. Not independent whole-PR approval.",
+  "preserved_contracts": [
+    "AI lookup precedes incapacitation check; reaction preparation is evaluated once only after both succeed.",
+    "RNG draws, command insertion, windup input, error logging and success/error exits are unchanged.",
+    "The active-defense authority lookup stays inside the same lexical block and its owned preparation result is matched afterward.",
+    "No arithmetic, state admission, test, suppression, lint policy or growth ceiling changed."
+  ],
+  "checks": "Git whitespace/static source inspection only locally. New hosted formatting passed; full acceptance pending.",
+  "current_run": 39439132880,
+  "current_job": 118684016902,
+  "scope": "Native-gate repairs supporting P04 acceptance; no P06 implementation.",
+  "file_hashes": {
+    "crates/adventuresim-tactical-server/src/bot/defense.rs": "4eca0fbb28b320a2c62d9351bc7ce4331d2b0d011abe8ad74a6f10b62071884e",
+    "crates/adventuresim-tactical-server/src/combat/melee/active_defense.rs": "291b5d7171d5674bc929189b672bf92ee1b1348b9866f526f65d4377c8fbedbe"
+  }
+}

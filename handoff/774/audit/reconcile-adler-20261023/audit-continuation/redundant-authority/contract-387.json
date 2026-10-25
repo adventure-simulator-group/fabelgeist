@@ -1,0 +1,45 @@
+{
+  "id": "CONT07-CONTRACT-387",
+  "at": "2026-10-23T20:51:11.530033+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1699,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+      "sha256": "f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+      "actual_EOF": 4477,
+      "ranges": [
+        [
+          1,
+          4477
+        ]
+      ],
+      "fresh_this_batch": [
+        [
+          2701,
+          4477
+        ]
+      ],
+      "read_kind": "fresh exact full source; prior partial1-2700 plus7bounded untruncated reads2701-4477"
+    }
+  ],
+  "facts": [
+    "Capture Configure writes production-leaf, floor-layer, scene-obstacle and broad VistaTerrain visibility at2775-3052; potential overlap retained until actual per-view flags/recipient markers compared. Benchmark F087 remains concrete; no unproven blanket capture alias.",
+    "Understory selection2802/2863 uses independent common_name/name strings and3130 retainedstring. Current roster correspondence not yet checked; carry exact obligations, no guessed identity mismatch.",
+    "Capture phase single enum guards readback/settling/currentview; asynchronous callback checks exact view+kind3214-3224/3322-3329. Luminance history, lastprimehash, stablepair and temporal bypass are distinct observations; no redundant-state failure proven merely from caching.",
+    "Manifest built before final screenshot with explicit PendingSceneCaptureManifest.finalize_after_screenshot3387-3390. Initial all_views_captured/lighting/readback flags are provisional and must be evaluated with finalizer source, not a false off-by-one finding.",
+    "largest_visible_vista_tree3422-3464 uses range+geometry without actual ViewVisibility; its observedname can overstate visibility under off-frustum/hidden inputs. Actual animation-boundary view/caller/acceptance must be compared before new finding; no renderer execution.",
+    "Requested grass suppression validation3707-3709 consumes recorded configuration3121-3122, not observednativevisibility. This strengthens need for exact overlap review but is not independent proof of current failed capture.",
+    "Feature_state candidate remains descriptive hardcoded observed.settings; tests4366-4374 validate current defaults only and native observedcomponents/mapsize still checked. No automatic false-acceptance assertion.",
+    "Source tests personally read as evidence, not executed. Current profile string rosters/distance/fov assertions are independent maintenance obligations; no inherited owner clearance. capture_revision env/git provenance does not claim dirty tree contenthash."
+  ],
+  "new_local_findings": [],
+  "next_cell": {
+    "scope_index": 1700,
+    "start_line": 1
+  },
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true
+}

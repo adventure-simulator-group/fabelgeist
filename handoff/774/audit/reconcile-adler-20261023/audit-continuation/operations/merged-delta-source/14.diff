@@ -1,0 +1,19 @@
+--- 6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/wardrobe_tab.rs
++++ 13fc9dcc71ab879de364117e5462310673e43210:crates/adventuresim-character-creator/src/wardrobe_tab.rs
+@@ -218,12 +218,12 @@
+     };
+     for entity in &garments {
+         scene.commands.entity(entity).despawn();
+     }
+-    if let Some((selection, garment)) = shown {
+-        if let Err(error) = spawn(&mut scene, &mut mail, &selection, garment) {
+-            wardrobe.fit_problems = Some(format!("{error:#}"));
+-        }
++    if let Some((selection, garment)) = shown
++        && let Err(error) = spawn(&mut scene, &mut mail, &selection, garment)
++    {
++        wardrobe.fit_problems = Some(format!("{error:#}"));
+     }
+ }
+ 
+ /// Take the running drape's progress, and show it when the design is shown.

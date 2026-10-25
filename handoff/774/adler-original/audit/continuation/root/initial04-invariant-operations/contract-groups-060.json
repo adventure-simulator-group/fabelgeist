@@ -1,0 +1,112 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-060",
+  "at": "2026-10-22T21:54:47.442879+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/battle_rewards.rs",
+      "sha256": "b01daaf0a320f38062f1772b90da65b1d29e49f85f49a1dcde2d72b539a381b5",
+      "actual_compared_ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "source_evidence": "Fresh full P16 scoped body independentlyread; existingtestsource readonly, no PRcounterpart verdict fromhash."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/body.rs",
+      "sha256": "febe5d8b193afe3cefa2292965bb42c15d4a5d25aef8a2f3c9fea757b3720317",
+      "actual_compared_ranges": [
+        [
+          1,
+          179
+        ]
+      ],
+      "source_evidence": "Fresh full P16 scoped body independentlyread; existingtestsource readonly, no PRcounterpart verdict fromhash."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/config.rs",
+      "sha256": "cc2a62a000314375ca41307ed50b057e71d670192954b4aee7774a69fe2e976a",
+      "actual_compared_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "source_evidence": "Fresh full P16 scoped body independentlyread; existingtestsource readonly, no PRcounterpart verdict fromhash."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/contact_timing.rs",
+      "sha256": "3b347473e5083f9fd02f59949b49f45eb7bf03e75c288b167cf003e2acc6ca89",
+      "actual_compared_ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "source_evidence": "Fresh full P16 scoped body independentlyread; existingtestsource readonly, no PRcounterpart verdict fromhash."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/fatigue_config.rs",
+      "sha256": "a899b7bacdfbcbc116a93ff6adc283bfb56bea396687713dc3677ff505522ce9",
+      "actual_compared_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "source_evidence": "Fresh full P16 scoped body independentlyread; existingtestsource readonly, no PRcounterpart verdict fromhash."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/incapacitation.rs",
+      "sha256": "a38c469cbc09f75a1d55f0050c74c54c9dba3adb5dfe9e13e88142dc10cff7e3",
+      "actual_compared_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "source_evidence": "Fresh full P16 scoped body independentlyread; existingtestsource readonly, no PRcounterpart verdict fromhash."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/weapon_contact.rs",
+      "sha256": "6490cee01f9eeb43f5cb7201d193a93cb59f9e053ba093d3689c94008a24d140",
+      "actual_compared_ranges": [
+        [
+          1,
+          113
+        ]
+      ],
+      "source_evidence": "Fresh full P16 scoped body independentlyread; existingtestsource readonly, no PRcounterpart verdict fromhash."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/weapon_contact/tests.rs",
+      "sha256": "1f06000f7544b5eef15b06fbce033930014e96dc50812d8b9dadfd3c2b850af9",
+      "actual_compared_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "source_evidence": "Fresh full P16 scoped body independentlyread; existingtestsource readonly, no PRcounterpart verdict fromhash."
+    }
+  ],
+  "groups": {
+    "participants-and-body": "living_participant_ids returnsrecordedsequencefilteredbycurrentlivingBTreeSet; recordedduplicates/order intentionallypreserved, no uniquenessproof/equalcountsassumed. Purelocalcollectionnoexternalcommit. Rawu64 IDs migrationgap remains. SevenBodyPartbitflags1<<0..6fitu8, FULLBODYknown7nonempty givesexistingpowerdivide7; delegatedPlayerBody traitrawhealth/massrequiresactualimplementations. LimbWeightsdefaultall0.normalize returnsNaNs; fourMAXsumInf thennormalizedall0 evenfiniteleaves, SAMEF009 independentlyconfirmedP16. Predefinedone/two/allequal/primaryarmweights finiteunit-sum; by_part torso0 intentionalonlyfourlimbdistribution, keepclinical/finerigonomiesdistinct.",
+    "configuration-admission": "Publicmutableparameterrecords + validatechecksleafpositivefinite, fatigueefficiency<=1 anddurationorder, chance0..1, min/maxprecision/order/reaction windows, nonzeroelapsedconfigurationrefinement. Validationreturnsunitnotsealedaggregate and maybepublicrecordsforgedlater; no claim finalkerneloperands boundedmerelyfromvalidation. PositiveSpeed intrinsicpositivity retained. GeometrySignedLength permitsnegativegenerally butconfigcallsactualmetres>0 gate; do notgloballyforbidnegativeothercoordinates. Contact/fatiguewholeconstructors and actualsubsequentcomputedresultadmission connectedexistingauditgaps; no arbitrarymaxtuningcapornewhiddenpenalty.",
+    "contact-timing-and-recovery": "ContactTimingOffset signedfinite validearlynegative/latepositive/equalzero; subtracttwoadmittedBattleTimes mayoverflow, explicitContactOffsetOverflow beforeSelf. FromnativeDurationu64seconds finitef32safe; scalar extraction actualtimingkernel/serializationport. Incapacitationperformance clampswholeinput thenUnitIntervaltry; NaNremainsNaNandErr, infinitiesclamp0/1 nativecurrentpolicy. RecoverybaseZERO returnsAfterZERO evenzeroperformance, positivebase+zeroperformanceCannotRecover sumdistinctfrominfinityduration, tinypositiveperformance divisionoverflowErr notCannotRecover. ThismatchesAGENTS singlewheel/totalperformance, no per-fatigueparallelmultiplier. Encumbrance1\u2212actualcarryingpenalty rawtraitcompositionrequiresrecipientread, no newmovementpenalty.",
+    "weapon-contact-arithmetic": "Point/edge/broad precisionforms nativef64Metres\u2192mmf32 thensquare/product/division andContactPrecisionassert finite>=0; eachheadmax notsum, furnitureexcludedunlessfallbackshaft. Computeddivision/narrowing needsownadmission, cannotclaimwholedesignvalidationmerelyfromMetresleaf. Tinysection/hugecalibration canproduceInf butexactMetres/configconstructor witness pending; no newindependentfindinguntilactualnativecallerownercomplete. ExistingRootF014 precisioncomputedgraph remains. Handlingaccuracy signedgrip.max0/reference followednormreciprocal canoverflowintermediate butfinal0finite forhugelever; no blanketInfbanfortransientkernel. ContactPrecision finiteunbounded acceptsMAX, concentratedMAX/(1+MAX)=1 duefloatroundingfinite; resistance0precisionexplicitInf sentinel, positive tinydenommayoverflow nativeInf too, no undeclaredfiniteoutputguarantee inferred. Needactualcontactrecipientbeforechangingzeroresistancepolicy.",
+    "existing-oracles": "Sourceonlytestskeep handlingindependentofcontactprecision, bestheadmax/doublegeometryinvariance, armorconditiononce, calibratedcatalogue values and total-incapacitationrecovery. No tests executed/newassertions/helpers/cases. Parametricgeometryconstructorreadonlytestvalues do not proveeveryacceptedpublicaggregate/nativekernel safety."
+  },
+  "findings": [],
+  "prior_finding_support": [
+    "ROOT-INITIAL04-F009 P16 normalize independentlycompared",
+    "ROOT-INITIAL04-F014 precisioncomputationgraph pending exactnewrecipeendpoint witness, no newfindingcredit"
+  ],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

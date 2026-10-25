@@ -1,0 +1,62 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-441",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor/raster.rs",
+      "sha256": "ee16efd8a79ab3116e35ecd6f0e7ac5eb6a5e48c573e33e84eba57b4c5634913",
+      "actual_EOF": 976,
+      "actual_compared_ranges": [
+        [
+          1,
+          976
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor_assets.rs",
+      "sha256": "792c336a1d9612c83b4ae0f385c94a35175009ae202f71d4e3231d10179f899a",
+      "actual_EOF": 444,
+      "actual_compared_ranges": [
+        [
+          1,
+          444
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/lod.rs",
+      "sha256": "9e94d087fccffc1d1ed76815d33256a0d9c53b941cf11929db12be7d6419b4bd",
+      "actual_EOF": 402,
+      "actual_compared_ranges": [
+        [
+          1,
+          402
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Raster coordinate/depth arithmetic",
+      "analysis": "Actualfixedpositiveatlas/tilecarddimensions yieldbounded nativeindexes; nondegeneratetriangleepsilon rejectszeros beforebarycentrics. NativearbitraryNaNdenominator bypasses abs<epsilon, negativeweightsanddepthtests canthenpublishinvaliddepth/blackpixel; currentordinaryfinitewellformedmaturetreeproducer neededbeforedefectclaim. Unitnormalinterpolation andcolorresponsechannel semantics intentionallytreatvertexRGBas shade/threshold ratherthanpigment. Per-shootsampling sortsidentity+ordinal, handlesstride<=1 early andnonemptyshoots, wrapsoneceilingrepresentative; actualu8stride<=255 andboundedleafcounts safe. Whole976sourceincludingruntimeprojectionalpha/regressionfixturesread, notrun."
+    },
+    {
+      "contract": "Prepared tree asset receiver and hash qualification",
+      "analysis": "Preparedloader decompresses/decode rawvectors thenresolverselectsusage/species/seed/lod; runtime assertsversion andconstructsmesh/image withoutgeometric/provenancefulladmission. Existingcompleted03 admissionbaseline owns malformed-assetvector/dimensiongaps; this04read doesnot invent livebadasset. matches_art_demo checksgeometryhash onlycfgtest; runtime resolve doesnotpromisefullsource-equivalence viahash here. Hashomittedorientation/torsion/shade remains diagnosticvalidation sensitivity question (packet440), notprovenordinarycachefailure. Fixedprepared-scene usageintentionallyseparate fromproductionproceduralbakes, no wholebranchrestore/fallback recommendation."
+    },
+    {
+      "contract": "Actual projected LOD producer",
+      "analysis": "Viewportheight/fov focal ratio multiplied optionaldiagnosticprojectedscale thenclamped. Normalperspective/defaultfiniteconfigs producefocalscale.25..4, boundingrangeproducts anddischarging arbitraryMAXfocalwitness inpacket440 actualordinarypath. NaNrawprojection/override remainsadmissionqualification; cluster.radiusfrom rawloadedasset mayNaN, no installedbadasset. ForcedLODcanhideallifoutside0..4, diagnosticproduceradmissionpendingnotordinaryselectiondefect. Componentwritesonlywhenvaluesdifferpreservechange-ticks; isolationappliesafterproductionchoice. Whole402fixturebodyread, notrun."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/materials.rs"
+}

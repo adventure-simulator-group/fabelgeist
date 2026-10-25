@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1295",
+  "at": "2026-10-25T18:23:47.985296+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1357,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/body_response.rs",
+  "sha256": "d307ec89363164d57e5762fea3f35d38adf4cb28c64801233bceacaddd9f5727",
+  "actual_compared_ranges": [
+    [
+      1,
+      300
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Inherent current presentation body-response advance, native tick/Bevy application, acceleration filter, checked implicit spring and stable pelvis/leg coordinate compensation plus beginning fixtures. No handwritten trait/type/codec; contextual checked transformations not mechanical conversion/Default. Body-state definitions are separate source role.",
+  "first_unfinished": {
+    "scope_index": 1357,
+    "line": 301
+  },
+  "execution": "none"
+}

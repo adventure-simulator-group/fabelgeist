@@ -1,0 +1,150 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-428",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/config.rs",
+      "sha256": "e2ec96c28d8458610bba86df77c1adceae1cdfe0e71ab972e227c362f72f0fe1",
+      "actual_EOF": 414,
+      "actual_compared_ranges": [
+        [
+          1,
+          414
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/doors.rs",
+      "sha256": "8630bc42b038441854accd960c9a849477567598d424f8c4e01a259414666f0e",
+      "actual_EOF": 61,
+      "actual_compared_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/furniture.rs",
+      "sha256": "07988f23128ecaaf0ea6916b865309979ba36c6f62650f7171667f470f848cf9",
+      "actual_EOF": 127,
+      "actual_compared_ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation.rs",
+      "sha256": "80f83fdedc32c9d2a9c8f95d7a84c1d83972310ac6fe93cdb87201a7d8e14c37",
+      "actual_EOF": 89,
+      "actual_compared_ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/building.rs",
+      "sha256": "1152ca1b81a23bb4bf4bf1128d479d5cbdc8109c653dd9d4a6057b4da7d6baae",
+      "actual_EOF": 60,
+      "actual_compared_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/city.rs",
+      "sha256": "dc50098c2f04955e49c7bc30582a809addb65cbd3e8107c64e282b585cdedb50",
+      "actual_EOF": 103,
+      "actual_compared_ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/installation.rs",
+      "sha256": "b6bfc1a3b7fee5f042c8c1c926db1e528aed65c795c69dc303755fef51f877f8",
+      "actual_EOF": 54,
+      "actual_compared_ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/ownership.rs",
+      "sha256": "e778ced99ff655e2f55ac67e0faf0e8152899f9552b0210670c232b48483ea4f",
+      "actual_EOF": 320,
+      "actual_compared_ranges": [
+        [
+          1,
+          320
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/requests.rs",
+      "sha256": "59d35ca03f4c4de7d0a0073bbec0d155d1a4df348a2814bca0e72dce625f04fd",
+      "actual_EOF": 88,
+      "actual_compared_ranges": [
+        [
+          1,
+          88
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/residency.rs",
+      "sha256": "89f2b40e67971116f29c8aeffde062b16d8f374a9e374a907ce7ea7f1c7726aa",
+      "actual_EOF": 9,
+      "actual_compared_ranges": [
+        [
+          1,
+          9
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Graphics configuration prerequisites",
+      "analysis": "Finite positive/bounded checks cover cloud scales, blade width, spacings and ordered nonnegative fade ranges; enum anti-aliasing samples restricted. Some independent admission gaps remain (NaN root_occlusion and maximum_push comparison, unvalidated optional width compensation, unbounded positive topology dimensions), inherited completed03 admission findings remain authoritative; do not duplicate merely from this04 read. Resource/work budgets and completed grass arithmetic need actual downstream operations frontier."
+    },
+    {
+      "contract": "Furniture and closure source qualification",
+      "analysis": "Actual furniture producer caches recipe mesh batches and spawns every batch child with Transform::IDENTITY under the furniture root. Thus all props child global transforms coincide and first-placement Group::from_parts is correct for this producer; discharges packet425 source-conditional transform-loss question. Door mesh dimensions already admitted; gate-owned openings intentionally omit ordinary building closure LOD marker; physics remains server authority."
+    },
+    {
+      "contract": "Pure generation products and transactional residency",
+      "analysis": "Preparation identities checked owner+nonzero checked-increment sequence; sequence exhaustion rejects before staging mutation. clear_residency preserves last issued sequence. Begin clones active immutable products into staging, clears mutable facade/placement bindings only; active remains until activate validates exact ticket and scene digest/document. Finish validates staged product identity before taking stage into completed; activation derives needed scene/city before replacing active. Cancel affects only matching preparing/completed ticket, other owners isolated. Completed snapshot may persist while another request stages, explicitly supports installation handoff."
+    },
+    {
+      "contract": "Job/dependency generation and consumption",
+      "analysis": "Regional city job parses/admitted document+graphics, generates terrain/landform/ground before constructing product. PreparedFacade geometry/site/shell compilation completes before return. Jobs deduplicate exact BuildingProgram and resident state; venue dependencies scoped to staged ticket and matching program; scene jobs validate input before scheduling. Venue retention trims previous staged recipes then discovers missing jobs; no claim resulting geometry is active before finish. take_venue_geometry/take_facade intentionally consume active products, consumers must preserve failure semantics; no current failing installation witness. Installation finds matching scene digest before clone; release clears only requested owner facade buffers."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "10 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/scene.rs"
+}

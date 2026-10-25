@@ -1,0 +1,235 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-055",
+  "at": "2026-10-25T11:58:57.232905+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 161,
+      "source_id": "physical-p16:crates/adventuresim-core/src/water_source.rs",
+      "sha256": "2892720bfed0f3280e91d03da01cf985b234731e8f08d449a76bf97f7cfdb556",
+      "actual_EOF": 500,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-core/src/water_source.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-core/src/water_source.rs",
+        "sha256": "2892720bfed0f3280e91d03da01cf985b234731e8f08d449a76bf97f7cfdb556",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 17263,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 201,
+            "read_ranges": [
+              [
+                1,
+                500
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-OUTBREAK-030"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/water_source.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-FORAGE-OUTBREAK-020",
+            "json_pointer": "/current_shared_actual_source_proofs/1/related_current_reads/0",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-core/src/water_source.rs",
+            "read_ranges_as_recorded": [
+              [
+                27,
+                105
+              ],
+              [
+                287,
+                323
+              ],
+              [
+                390,
+                430
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-core/src/water_source.rs",
+              "sha256": "2892720bfed0f3280e91d03da01cf985b234731e8f08d449a76bf97f7cfdb556",
+              "read_ranges": [
+                [
+                  27,
+                  105
+                ],
+                [
+                  287,
+                  323
+                ],
+                [
+                  390,
+                  430
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/water_source.rs",
+              "scope": "actual retained whole-mL flow/effect roles and complete conserved/proportional transfer numerical kernels; no whole-file claim"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-MATERIAL-OUTBREAK-014",
+            "json_pointer": "/related_current_reads/0",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-core/src/water_source.rs",
+            "read_ranges_as_recorded": [
+              [
+                27,
+                105
+              ],
+              [
+                287,
+                323
+              ],
+              [
+                390,
+                430
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-core/src/water_source.rs",
+              "sha256": "2892720bfed0f3280e91d03da01cf985b234731e8f08d449a76bf97f7cfdb556",
+              "read_ranges": [
+                [
+                  27,
+                  105
+                ],
+                [
+                  287,
+                  323
+                ],
+                [
+                  390,
+                  430
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/water_source.rs",
+              "scope": "actual retained whole-mL flow/effect roles and complete conserved/proportional transfer numerical kernels; no whole-file claim"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-PURE8-SUBSET-PARTIAL-028",
+            "json_pointer": "/source_reads/1",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-core/src/water_source.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                500
+              ]
+            ],
+            "source_context": {
+              "assigned_camera_index": 501,
+              "source_id": "physical-p16:crates/adventuresim-core/src/water_source.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/water_source.rs",
+              "sha256": "2892720bfed0f3280e91d03da01cf985b234731e8f08d449a76bf97f7cfdb556",
+              "read_ranges": [
+                [
+                  1,
+                  500
+                ]
+              ],
+              "mode": "Fresh full actual P16 body and every original fixture read before pause; exact PR byte equality established before pause, not a prior read-count verdict."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/camera/traces.jsonl",
+            "receipt": "CONT-CAMERA-PP-007",
+            "json_pointer": "/exact_source_proofs/6/historical_exact_source_proofs/0",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-core/src/water_source.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                500
+              ]
+            ],
+            "source_context": {
+              "assigned_camera_index": 501,
+              "source_id": "physical-p16:crates/adventuresim-core/src/water_source.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/water_source.rs",
+              "sha256": "2892720bfed0f3280e91d03da01cf985b234731e8f08d449a76bf97f7cfdb556",
+              "read_ranges": [
+                [
+                  1,
+                  500
+                ]
+              ],
+              "mode": "Fresh full actual P16 body and every original fixture read before pause; exact PR byte equality established before pause, not a prior read-count verdict."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1186,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          500
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "DomainRightsSubject/Resource/Operation/Jurisdiction marker opt-ins",
+          "lines": [
+            188,
+            201
+          ],
+          "disposition": "KEEP four explicit narrow custom marker opt-ins; no existing matching derive established and blanket impl would widen admitted domains."
+        },
+        {
+          "trait": "DomainTarget/Requirement/Capability/Interruption/Effect/PublicPreview marker opt-ins",
+          "lines": [
+            267,
+            298
+          ],
+          "disposition": "KEEP six explicit narrow custom marker opt-ins; semantic rights/planner participation, not standard structural boilerplate."
+        }
+      ],
+      "existing_derives": [
+        "OutbreakWaterFlow/OutbreakWaterFlowError structural",
+        "Water rights/collection enums,effect,preview structural Clone/Copy/Debug/Eq/PartialEq as declared"
+      ],
+      "absence_basis": "Full exactsource consumed: simulator state/receipt operations, versioned flow/question digests, rights decisions, planning semantic projection and conservation helpers/fixtures. No handwritten serializer. Public projection omits private contaminant/receipt authority deliberately; do not introduce blanket serialization to replace it."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Water planner markers and privacy-preserving projections",
+      "disposition": "Retain narrow custom trait opt-ins and semantic digest/plan/public projection; no new lens10 finding.",
+      "acceptance": "No generic marker blanket or added serialization leaks; keep frame order/version bytes and public/private separation with checked quantity operations."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 162,
+    "source_id": "physical-p16:crates/adventuresim-core/src/weather.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

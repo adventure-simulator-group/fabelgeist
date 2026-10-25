@@ -1,0 +1,35 @@
+{
+  "id": "CONT08-CONTRACT-263",
+  "at": "2026-10-25T15:26:53.763327+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 988,
+      "source_id": "pr-working:crates/adventuresim-core/src/settlement_economy.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/settlement_economy.rs",
+      "before_sha256": "5ebaaf60d766322d2dc8bbd0cf1a54b0c790793a11d1d3f7b98e139861a3c54e",
+      "after_sha256": "5ebaaf60d766322d2dc8bbd0cf1a54b0c790793a11d1d3f7b98e139861a3c54e",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0988-base-5ebaaf60d766322d2dc8bbd0cf1a54b0c790793a11d1d3f7b98e139861a3c54e",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/5ebaaf60d766322d2dc8bbd0cf1a54b0c790793a11d1d3f7b98e139861a3c54e",
+      "diff": "source-evidence/pr-0988.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          552
+        ]
+      ],
+      "head_body_read_method": "Exact own08 same-body bounded reuse135 plus fresh all remaining source body and complete empty PR diff",
+      "facts": [
+        "Own08 coverage source135 exact same5ebaaf60 body1\u2013182/233\u2013250 reused with its service/navigation qualifications; fresh183\u2013232/251\u2013552 read. Complete PR diff empty. Earlier P16 scope not retrospectively expanded.",
+        "Stock category196\u2013230 preserves CurrencyNone, weapon/shield/armor/clothing/herb mappings; cooking_tool precedes book on Simple, first food tag in fixed grain/meat/herbs/general order, missingFood defaultsGeneralGoods. storefront availability checked first; then General/Inn travel_provision override before category/profile stock. Other storefront kind/book/food/dualingredient rules and unknownSimple fallback unchanged.",
+        "All original fixtures310\u2013552 read: service+stock necessity, books exclusivity, staple exception, fieldtent, dual-roleingredients, generalblacksmith, navigation tabs/keep/orgchapter and native inferredprofile abundance. Preserve exact inputs/assertions; no catalogue/nativeinference/fixture execution. Already-read937/941/food927 catalogue projections remain compatible in this unchanged receiver, without all-content truth claim."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    }
+  ],
+  "next": "996skill unread1\u20138/118\u2013719/778\u2013891/982\u20131009/1106\u20131165 then1003starting_character"
+}

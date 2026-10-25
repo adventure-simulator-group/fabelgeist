@@ -1,0 +1,59 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-454",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        921
+      ],
+      "comparison": "Fresh97. Canonical MeleeAttackStyle plus unarmed Boolean selects fixed empty-hand cycle versus inertia-based armed cycle; independently applicable style scales both. Exact PR variant supports F146 alias of inherited RIG-INITIAL09-F007; no new unique finding. Keep zero-inertia armed case and nonfinite fallback .3/negative clamp; do not derive unarmed from mass/inertia. MeleeAttackTiming preparation/recovery are complete timing product, not exclusive phases.",
+      "disposition": "Exact source-variant support for inherited cadence shape",
+      "finding_refs": [
+        "SEGO-INITIAL09-F146",
+        "RIG-INITIAL09-F007"
+      ]
+    },
+    {
+      "indices": [
+        922
+      ],
+      "comparison": "Fresh107 actual manifest shape. ProceduralEquipmentAsset retains three independent optional armor hash/generator/domain provenance fields; previous exporter765 jointly fills three or none (OPEN403), now declaration confirmed. EquipmentAssets from_json intentionally retains only validated CatalogPlacement+file; metadata discarded by this lookup, so no downstream provenance mismatch inferred from this consumer alone. Manifest identity/schema/content policy distinct; source provenance optional payload association still requires whole exporter/remaining consumer reconciliation.",
+      "disposition": "Manifest declaration supplied for OPEN403; reader is lexical file lookup",
+      "finding_refs": []
+    },
+    {
+      "indices": [
+        923
+      ],
+      "comparison": "Fresh170. CatalogItem/CatalogPlacement private borrowed identity proves exact owning record relation; OwnedCatalogPlacement private ordinal captured alongside immutable Arc snapshot ensures selection references same present placement. Arbitrary numeric ordinal is not enum vocabulary; multiple placements and duplicate-record export ordering remain intentional. No retained validity Boolean or optional-initialization pair.",
+      "disposition": "Existing borrowed/retained owner product positive",
+      "finding_refs": []
+    },
+    {
+      "indices": [
+        924
+      ],
+      "comparison": "Fresh48. AppearanceAnchor Character owns location and Attachment owns parent+point, exact payload-owning enum positive. GeneratedAppearance complete generator-version/hash/recipe product and optional whole observation positive. weapon and holder optional generated appearances require actual item producer schema to judge coexistence, not exclusive merely due names. Occupancies multi-anchor, channel/order/requirement/capacity independent dimensions; IDs decimal transport purpose noted but admission other lens.",
+      "disposition": "Payload-owning anchor/whole generated metadata positive; item projection trace pending",
+      "finding_refs": []
+    },
+    {
+      "indices": [
+        925
+      ],
+      "comparison": "Fresh40. PlayerEssentials retained numerical actor context with no mode flags or conditional optionals. Strategic physical skill condition uses fatigue and burden; combat authority explicitly separate context, no audit acceptance for tactical double charging. No enum for quantities/native polynomial.",
+      "disposition": "No affected semantic carried choice in exact body",
+      "finding_refs": []
+    },
+    {
+      "indices": [
+        926
+      ],
+      "comparison": "Fresh631 including source-only fixtures. FilthSubstance/Origin, CutRouteState and SoapSource finite semantic owners; SoapStackId carries actual source namespace so equal numeric personal/party IDs distinct. Cut route active Option means prediction persists entire horizon whenNone; not malformed missing expiry. Multiple diseases and independent wound routes coexist; infectious dose can decay to0 while visible blood remains. Deposit blood-only disease payload/source applicability needs actual deposit producers before variant proposal; unknown source blood deliberately treated foreign. has_cut is carried wound-presence circumstance selecting cleaning priority, independent exposure/filth. blood_compatible bool explicitly permits route policy override; wrapper passes catalog supports and test deliberately alternate true with Influenza, no inferred ordinary invalid vector. Numeric cleaning rank plus empty sentinel5 could become named priority owner after recipient trace, not enum for every number. Deterministic risk/age/id cleaning and personal-first soap order retained; no runtime execution.",
+      "disposition": "Finite source/route owners positive; deposit/compatibility/priority producer traces pending",
+      "finding_refs": []
+    }
+  ],
+  "new_findings": [],
+  "limits": "Pinned source only. No execution, repairs or clearance."
+}

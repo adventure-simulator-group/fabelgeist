@@ -1,0 +1,88 @@
+{
+  "id": "NATIVE-SUPP-SCHEDULE-001",
+  "lens": "audit-producer-propagation",
+  "scope": "Confirmed source-backed promotion of prior schedule C001, no new source or validation commands",
+  "source_evidence": [
+    "supplemental-camera-receivers.json (allocation full364 and exact Core1\u2013719 actual consumers)",
+    "supplemental-camera-sources.json (module schedule fullP16741/reversePR and other actual rest/stationary time variants)",
+    "supplemental-camera-closure.json historical candidate promoted by root"
+  ],
+  "finding": {
+    "id": "NATIVE-PP-035",
+    "previous_candidate": "NATIVE-SUPP-CAMERA-C001",
+    "disposition": "confirmed source-backed retained schedule-contract guarantee loss; final aggregate/owner/operation design pending required later lenses",
+    "locations": [
+      {
+        "source_id": "pr-working:crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+        "lines": [
+          221,
+          281
+        ],
+        "contract": "ValidatedSchedule::effective_at starts from validated allocation, redistributes15-minute segments within original day budget, but returns raw unvalidated DailySchedule"
+      },
+      {
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/schedule.rs",
+        "lines": [
+          77,
+          89
+        ],
+        "contract": "actual caller retains effective result as raw SDK ScheduleAllocation in application state before later pure evaluation"
+      },
+      {
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/schedule.rs",
+        "lines": [
+          728,
+          741
+        ],
+        "contract": "core_schedule reconstructs raw DailySchedule aggregate before Core numerical consumer"
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-core/src/strategic_schedule.rs",
+        "lines": [
+          126,
+          237
+        ],
+        "contract": "actual recovery arithmetic receiving raw schedule aggregate"
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-core/src/strategic_schedule.rs",
+        "lines": [
+          397,
+          473
+        ],
+        "contract": "actual training arithmetic receiving raw schedule aggregate"
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-core/src/strategic_schedule.rs",
+        "lines": [
+          647,
+          683
+        ],
+        "contract": "actual outcome arithmetic receiving raw schedule aggregate"
+      }
+    ],
+    "producer_proof": "Fresh native full allocation364 SHA031ee090102b5cc2ed9889b336ac1144ef7eb705cacc6fee37cbe8e7f6bafd0e plus Core strategic_schedule exact1\u2013719 SHAace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146 in supplemental-camera-receivers.json. Module schedule fullP16741 SHA6cbe8772bb5c9f5bd4f48d7dffa099df1b8a39a8a1cf69a83bc4a5ad0b938c73 with full exact reversePR delta in supplemental-camera-sources.json. Root independently read full allocation364 and explicitly confirms guarantee preserved by algorithm but erased in returned/retained API. Actual table projection is a true native boundary, distinct from application ScheduleAllocation/core_schedule loss.",
+    "smallest_connected_repair": "Use existing canonical validated schedule owner for effective_at result and connected pure consumer APIs; retain admitted day-budget/quarter-hour/allowed allocation guarantees across module application state and dynamic eligibility transformations until actual arithmetic or SDK projection. Whole Core producer/operation owner native, whole DB schedule functions camera. Later aggregate/ownership/operations lenses settle exact result shape and eligibility policy before coherent shared source patch; no duplicate schedule type or unchecked public/raw forwarding adapter.",
+    "acceptance": "Zero allocations remain valid; reading unchanged; unavailable alternatives redirect to leisure; never increase original day budget; retain quarter-hour segmentation and exact organization eligibility evaluation order. Preserve exact original RNG stream/context/draw count/order and allocation totals, rest/training arithmetic/sample order, true SDK schema values, existing fixture inputs/count/order/assertions. No admitted result becomes raw retained allocation merely for application forwarding/reconstruction.",
+    "dependencies": [
+      "Root explicit first-lens disposition confirms oldC001 as PP035",
+      "Native pure effective_at/validated result/connected Core schedule consumers exactclaim; camera retains whole DB time/schedule/rest/stationary/F006 graph",
+      "Final aggregate/owner/invariant-operation design remains mandatory later-lens dependency, not unread actual receiving path",
+      "Original P02 battle-time and P03 maneuver scopes are distinct; PP035 adjacent strategic source repair, no automatic narrow original-family regression"
+    ],
+    "discovery_status": "confirmed source-backed; unfixed"
+  },
+  "remaining_actual_receiving_cells": [],
+  "representation_dependencies": [
+    "canonical validated effective result shape",
+    "aggregate day budget and dynamic org eligibility invariants",
+    "canonical owner/invariant-preserving operations design in later lenses"
+  ],
+  "ownership_metadata": {
+    "path": "../parallel-ownership/native_reports-claims.json",
+    "sha256": "d7cce67ee644d4de1e759cf12f498eb729b2d1f2a5d661c012de4f5baa235d40",
+    "key": "shared_validated_schedule_claim"
+  },
+  "source_status": "read-only producer inventory complete with gap; no repair or family acceptance",
+  "validation": "No source/check/build/test/fmt/CI command or runtime PASS"
+}

@@ -1,0 +1,376 @@
+//! Developer-mode quest authoring HTTP adapter.
+//!
+//! The module reducer enforces both gateway identity and the compiled
+//! development capability. Browser-local developer mode only controls display.
+
+const DEVELOPER_SEED: fabelgeist_determinism::Seed =
+    fabelgeist_determinism::Seed::from_u64(0x0ddc_0ffe);
+const OBSERVER_HIGH: fabelgeist_determinism::StreamId =
+    fabelgeist_determinism::StreamId::new("quest.developer-observer-high");
+const OBSERVER_LOW: fabelgeist_determinism::StreamId =
+    fabelgeist_determinism::StreamId::new("quest.developer-observer-low");
+use super::AppState;
+use crate::{
+    session::Session,
+    spacetimedb::{
+        BackendDevelopmentQuest, BackendDevelopmentScenario, BackendSettlementResident,
+        CharacterTime, CharacterView, SettlementResidentPresence, SettlementView, npc_age_band_id,
+        npc_presentation_id, sql_string_literal,
+    },
+};
+use adventuresim_core::{
+    developer_quest::{self as dq, DeveloperGenerationContext, DeveloperQuestDefinition},
+    quest_generation::{
+        GenerationContext, TemplateFamily, VisibleWitnessCandidateInput,
+        retain_navigable_witnesses, visible_witness_candidate,
+    },
+    settlement_economy::player_visible_npc_tabs,
+};
+use adventuresim_world_schema::calendar::StrategicMinute;
+use axum::{
+    Form, Json, Router,
+    extract::State,
+    http::StatusCode,
+    response::{Html, IntoResponse, Redirect, Response},
+    routing::{get, post},
+};
+use fabelgeist_determinism::Seed;
+use serde::Deserialize;
+use serde_json::{Value, json};
+
+#[derive(Deserialize)]
+struct SpawnRequest {
+    definition: Value,
+    #[serde(default)]
+    allow_implausible: bool,
+}
+
+pub fn routes() -> Router<AppState> {
+    Router::new()
+        .route("/api/developer/quests/schema", get(schema))
+        .route("/api/developer/quests", post(spawn))
+        .route("/developer/scenarios", get(inspector))
+        .route("/developer/scenarios/incident", post(trigger_incident))
+}
+
+#[derive(Deserialize)]
+struct TriggerIncidentForm {
+    scenario_slug: String,
+    problem_id: String,
+    request_id: String,
+}
+
+async fn inspector(State(state): State<AppState>) -> Response {
+    let quests = match state
+        .db
+        .query_sats::<BackendDevelopmentQuest>("SELECT * FROM backend_development_quests")
+        .await
+    {
+        Ok(quests) => quests,
+        Err(_) => return StatusCode::NOT_FOUND.into_response(),
+    };
+    if quests.is_empty() {
+        return StatusCode::NOT_FOUND.into_response();
+    }
+    let markup = maud::html! {
+        main class="developer-scenario-inspector" {
+            h1 { "Strategic quest inspector" }
+            p { "Player-safe summaries are shown separately from private canonical identifiers." }
+            nav { a href="/characters" { "Test scenario roster" } }
+            label for="quest-filter" { "Filter quests" }
+            input id="quest-filter" type="search" data-scenario-search placeholder="Scenario, symptom, or status";
+            section data-scenario-group {
+            @for quest in quests {
+                article class="panel" data-scenario-card data-scenario-search-text=(format!("{} {} {} {}", quest.scenario_slug, quest.quest_kind, quest.title, quest.status).to_ascii_lowercase()) {
+                    h2 { @if quest.scenario_slug.is_empty() { (&quest.title) } @else { (&quest.scenario_slug) } }
+                    p { strong { "Kind: " } (&quest.quest_kind) }
+                    p { strong { "Player-safe: " } (&quest.player_safe_summary) }
+                    dl {
+                        dt { "Private subject ID" } dd { code { (&quest.subject_id) } }
+                        dt { "Canonical case ID" } dd { code { (&quest.canonical_case_id) } }
+                        dt { "Status" } dd { (&quest.status) }
+                        @if quest.quest_kind == "generated problem" {
+                            dt { "Incidents" } dd { (quest.incident_count) }
+                            dt { "Public awareness" } dd { (quest.public_awareness_bps) " bps" }
+                        }
+                    }
+                    @if quest.supports_incident_action {
+                        form action="/developer/scenarios/incident" method="post" {
+                            input type="hidden" name="scenario_slug" value=(&quest.scenario_slug);
+                            input type="hidden" name="problem_id" value=(&quest.subject_id);
+                            input type="hidden" name="request_id" value=(format!("web:{}:{}", quest.subject_id, quest.incident_count.saturating_add(1)));
+                            button class="btn btn-primary" type="submit" { "Trigger next incident / attack" }
+                        }
+                    }
+                }
+            }
+            }
+        }
+        script src="/static/development-scenarios.js?v=1" defer {}
+    };
+    Html(markup.into_string()).into_response()
+}
+
+async fn trigger_incident(
+    State(state): State<AppState>,
+    Form(form): Form<TriggerIncidentForm>,
+) -> Response {
+    match state
+        .db
+        .call(
+            "trigger_development_scenario_incident",
+            &[
+                json!(form.scenario_slug),
+                json!(form.problem_id),
+                json!(form.request_id),
+            ],
+        )
+        .await
+    {
+        Ok(()) => Redirect::to("/developer/scenarios").into_response(),
+        Err(error) => (StatusCode::UNPROCESSABLE_ENTITY, error.to_string()).into_response(),
+    }
+}
+async fn active_context(
+    state: &AppState,
+    session: &Session,
+    seed: Seed,
+) -> Result<(u64, SettlementView, GenerationContext), StatusCode> {
+    let character_id = session.character_id_u64().ok_or(StatusCode::UNAUTHORIZED)?;
+    let character = state
+        .db
+        .query_one_sats_into::<adventuresim_stdb_client::Character, CharacterView>(
+            &crate::spacetimedb::character_by_id(character_id),
+        )
+        .await
+        .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
+        .ok_or(StatusCode::UNAUTHORIZED)?;
+    let settlement_id = character
+        .current_settlement_id
+        .ok_or(StatusCode::CONFLICT)?;
+    let settlement = state
+        .db
+        .query_one_sats_into::<adventuresim_stdb_client::Settlement, SettlementView>(
+            &crate::spacetimedb::settlement_by_id(&settlement_id),
+        )
+        .await
+        .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
+        .ok_or(StatusCode::NOT_FOUND)?;
+    let now_minute = state
+        .db
+        .query_one_sats::<CharacterTime>(&crate::spacetimedb::character_time_by_character_id(
+            character_id,
+        ))
+        .await
+        .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
+        .map_or(StrategicMinute::ZERO, |t| {
+            StrategicMinute::new(t.minutes.minutes)
+        });
+    let literal = sql_string_literal(&settlement_id);
+    let npc_sql =
+        format!("SELECT * FROM backend_settlement_residents WHERE home_settlement_id = {literal}");
+    let presence_sql =
+        format!("SELECT * FROM settlement_resident_presence WHERE settlement_id = {literal}");
+    let (npcs, presences) = tokio::join!(
+        state.db.query_sats::<BackendSettlementResident>(&npc_sql),
+        state
+            .db
+            .query_sats::<SettlementResidentPresence>(&presence_sql)
+    );
+    let visible_tabs = player_visible_npc_tabs(
+        &settlement.economy,
+        matches!(
+            settlement.category,
+            crate::spacetimedb::SettlementCategory::Town
+                | crate::spacetimedb::SettlementCategory::City
+                | crate::spacetimedb::SettlementCategory::Capital
+        ),
+        &settlement_id,
+    );
+    let presences = presences.map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?;
+    let mut candidates = npcs
+        .map_err(|_| StatusCode::SERVICE_UNAVAILABLE)?
+        .into_iter()
+        .filter_map(|npc| {
+            let presence = presences
+                .iter()
+                .find(|row| row.character_id == npc.character_id)?;
+            visible_witness_candidate(VisibleWitnessCandidateInput {
+                resident_character_id: npc.character_id,
+                display_name: &npc.name,
+                age_band: npc_age_band_id(npc.age_band),
+                presentation: npc_presentation_id(npc.presentation),
+                height: &npc.height,
+                build: &npc.build,
+                hair: &npc.hair,
+                clothing: &npc.clothing,
+                profession: &npc.profession,
+                local_role: &npc.local_role,
+                settlement_id: &presence.settlement_id,
+                location_id: &presence.location_id,
+                start_minute: presence.start_minute,
+                end_minute: presence.end_minute,
+                is_default: presence.is_default,
+            })
+        })
+        .collect::<Vec<_>>();
+    candidates = retain_navigable_witnesses(candidates, &visible_tabs);
+    candidates.sort_by_key(|left| left.resident_character_id);
+    let context = GenerationContext {
+        seed,
+        observer_entropy_hi: OBSERVER_HIGH.rng(seed, &[]).next_u64(),
+        observer_entropy_lo: OBSERVER_LOW.rng(seed, &[]).next_u64(),
+        settlement_id: settlement_id.clone(),
+        settlement_name: settlement.name.clone(),
+        scope: adventuresim_core::local_problem::Scope::Settlement { settlement_id },
+        ordinal: 0,
+        now_minute,
+        incident_weather: adventuresim_core::weather::Precipitation::Clear,
+        requested_family: Some(TemplateFamily::RecurringDepredation),
+        witness_candidates: candidates,
+    };
+    Ok((character_id, settlement, context))
+}
+
+async fn development_enabled(state: &AppState) -> bool {
+    state
+        .db
+        .query_sats::<BackendDevelopmentScenario>("SELECT * FROM backend_development_scenarios")
+        .await
+        .is_ok_and(|rows| !rows.is_empty())
+}
+
+async fn schema(
+    State(state): State<AppState>,
+    session: Session,
+) -> Result<Json<Value>, StatusCode> {
+    if !development_enabled(&state).await {
+        return Err(StatusCode::NOT_FOUND);
+    }
+    let seed = Seed::from_u64(
+        std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?
+            .as_nanos() as u64,
+    );
+    let (_, settlement, context) = active_context(&state, &session, seed).await?;
+    let generated = adventuresim_core::quest_generation::generate(&context)
+        .map_err(|_| StatusCode::UNPROCESSABLE_ENTITY)?;
+    let definition = DeveloperQuestDefinition::from_generated(generated);
+    let mut schema = dq::schema_json(&context.witness_candidates);
+    schema["settlement"] = json!({"id": settlement.id, "name": settlement.name});
+    schema["definition"] =
+        serde_json::to_value(definition).map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+    Ok(Json(schema))
+}
+
+async fn spawn(
+    State(state): State<AppState>,
+    session: Session,
+    Json(request): Json<SpawnRequest>,
+) -> Response {
+    if !development_enabled(&state).await {
+        return StatusCode::NOT_FOUND.into_response();
+    }
+    let (character_id, _, context) = match active_context(&state, &session, DEVELOPER_SEED).await {
+        Ok(context) => context,
+        Err(status) => {
+            let (code, message) = match status {
+                StatusCode::UNAUTHORIZED => (
+                    "character_not_selected",
+                    "Select a character before spawning a developer quest",
+                ),
+                StatusCode::SERVICE_UNAVAILABLE => (
+                    "strategic_data_unavailable",
+                    "Strategic data is unavailable",
+                ),
+                StatusCode::NOT_FOUND => (
+                    "current_settlement_not_found",
+                    "The character's current settlement no longer exists",
+                ),
+                StatusCode::CONFLICT => (
+                    "not_in_settlement",
+                    "Developer quests can only be spawned in a settlement",
+                ),
+                _ => (
+                    "context_unavailable",
+                    "Developer quest context is unavailable",
+                ),
+            };
+            return (
+                status,
+                Json(json!({"diagnostics":[{
+                    "path":"$","code":code,
+                    "message":message,
+                    "tier":"structural"
+                }]})),
+            )
+                .into_response();
+        }
+    };
+    let definition: DeveloperQuestDefinition = match serde_json::from_value(request.definition) {
+        Ok(definition) => definition,
+        Err(error) => {
+            return (
+                StatusCode::UNPROCESSABLE_ENTITY,
+                Json(json!({"diagnostics":[{
+                    "path":"$","code":"invalid_definition",
+                    "message":error.to_string(),"tier":"structural"
+                }]})),
+            )
+                .into_response();
+        }
+    };
+    let preview = DeveloperGenerationContext {
+        base: context,
+        definition: definition.clone(),
+        allow_implausible: request.allow_implausible,
+    };
+    if let Err(diagnostics) = dq::compile(&preview) {
+        return (
+            StatusCode::UNPROCESSABLE_ENTITY,
+            Json(json!({"diagnostics": diagnostics})),
+        )
+            .into_response();
+    }
+    let definition_json = match serde_json::to_string(&definition) {
+        Ok(value) if value.len() <= dq::MAX_DEVELOPER_QUEST_JSON_BYTES => value,
+        _ => {
+            return (
+                StatusCode::PAYLOAD_TOO_LARGE,
+                Json(json!({"diagnostics":[{
+                    "path":"$","code":"payload_too_large",
+                    "message":"Developer quest definition exceeds the server limit",
+                    "tier":"structural"
+                }]})),
+            )
+                .into_response();
+        }
+    };
+    match state
+        .db
+        .call(
+            "spawn_developer_quest",
+            &[
+                json!(character_id),
+                json!(definition_json),
+                json!(request.allow_implausible),
+            ],
+        )
+        .await
+    {
+        Ok(()) => (
+            StatusCode::CREATED,
+            Json(json!({"status":"created","discovery":"normal_rumor"})),
+        )
+            .into_response(),
+        Err(error) => (
+            StatusCode::UNPROCESSABLE_ENTITY,
+            Json(json!({"diagnostics":[{
+                "path":"$","code":"authority_rejected",
+                "message":error.to_string(),"tier":"structural"
+            }]})),
+        )
+            .into_response(),
+    }
+}

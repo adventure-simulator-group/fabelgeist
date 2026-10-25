@@ -1,0 +1,14 @@
+{
+  "family": "P15",
+  "status": "active source closure",
+  "existing_trace": "migration-plan.json P15 retained; /tmp/pr774-p15-existing-paths.txt source inventory inspected",
+  "contracts": [
+    "EquipmentSequence and EquipmentRevision distinct canonical tactical-core protocol owners; u32 Serde unchanged; wrap half-window unchanged",
+    "Client first-send remains1 and valid wrap-zero retained; no send/sequence issue before actual authoritative revision observed",
+    "Absent server replay history stays Option; explicit initial acceptance window preserves former behavior without a fake prior observation",
+    "Local DB capacity query uses Free/Reserved/Occupied(actual storage ID); valid MAX IDs cannot alias reservation, DB schema unchanged",
+    "Successful authoritative commit alone records sequence and advances revision; reconnect/rekey/purge preserve actual observed history"
+  ],
+  "overlaps": "Rig acknowledged no chronology overlap; camera owns pickup/weapon physical fields and has been notified; whole shared functions remain owned by first active trace.",
+  "validation": "No CI until connected source closure; no local project commands or new tests."
+}

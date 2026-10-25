@@ -1,0 +1,25 @@
+{
+  "id": "RIG-INITIAL06-GROUP-263",
+  "at": "2026-10-23T07:51:52.194308+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-070.json",
+  "groups": {
+    "approved-wire-action-versus-canonical-authorities": {
+      "comparison": "Fresh full PR approved_action173 plus complete actual P16 delta/current-role comparison: only result/error carrier changes StrategicCombatResult/Error to StrategicOperationResult/Error, not the action payload or routing. Tagged raw JSON action DTO carries names, target fractions, quantities, mission/case/action IDs and expected versions. This is wire input, not an accepted party authority token. Canonical target IDs/methods can be admitted once at this boundary and retained where same concept persists; role, request, character, contract, mission and scene identifiers remain distinct. Actual CaseSiteId::from on unvalidated raw string110 and duplicated raw method String71 routed166 belong to existing authority/admission/error graphs, no inferred infallibility or new duplicate owner just from DTO. kind() intentionally groups two travel operations under approval policy kind travel, not the same enum as execution action taxonomy. Leader versus requester authorization purposes are explicit. No leaf or reducer body credit from forwarding.",
+      "disposition": "Keep wire action purpose distinct from accepted canonical IDs/methods and authorization context; propagate established types rather than clone owner vocabularies."
+    },
+    "body-local-inertial-angle-policy": {
+      "comparison": "Fresh PR full target140 and exact P16 inertial84–140 complete actual counterpart comparison (no body differences) use canonical BodyLocalVelocity/Acceleration, BrakingLeanScale, BodyAngle/Magnitude, UnitInterval and BodyResponseAngles under one body-local policy owner. Speed metres/second, acceleration metres/second squared, signed pitch/roll, positive angle cap, startup fraction and braking scale are meaningful distinct roles, not duplicate f32 wrappers by equal predicates. Raw numeric component ratios and signed turn negation are actual mathematical operations; final checked angle construction/capped sum retains role. No reason to turn body-local directions into Scene positions or dimensionless scale into angular magnitude. Camera borrowing animation error quantity F039 remains a separate misuse, not grounds to move every response-specific type. P16 body1–83 was counterpart navigation only, outside its material84–140 and receives no coverage.",
+      "disposition": "Keep actual body-local policy wrappers and neutral lower numeric leaves; preserve exact P16 material bound."
+    },
+    "persistent-occupancy-versus-canonical-requirements": {
+      "comparison": "Fresh P16 occupancy full191 including original tests and PR production1–122 actual counterpart comparison (no source delta) reuse canonical OccupancyRequirement/EquipmentLocation/ParentRequirement under persisted placement DTO. DB IDs distinguish character, inventory instance and requirement ordinal. Composite occupancy String is persisted key encoding, not the canonical body location itself. validate_attachment_requirement compares canonical channel/order then traverses DB ancestry using a visited set; conflicting_equipment_roots resolves inventory/definition/placement then delegates canonical conflicts_with. This is actual strategic row/membership authority, not duplicate canonical overlap geometry or tactical EquipmentGraph state. Proposed/current occupancy records should retain one canonical requirement product while DB row association stays local. Raw public DB routes are not sealed by this helper; no runtime/cycle or lower predicate proof inferred from names. P16 fixture confirms distinct fit-zone versus whole-arm meaning through actual source assertions only, not execution. PR tests124+ excluded; P16 full191 included.",
+      "disposition": "Reuse canonical occupancy requirement vocabulary; retain strategic persisted association/membership authority and exact source scopes."
+    }
+  },
+  "supporting_existing_findings": [
+    "F009",
+    "F039"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit."
+}

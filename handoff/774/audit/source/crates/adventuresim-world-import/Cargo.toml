@@ -1,0 +1,41 @@
+[package]
+name = "adventuresim-world-import"
+version.workspace = true
+edition.workspace = true
+repository.workspace = true
+license.workspace = true
+
+[features]
+default = []
+regional-map-builder = ["adventuresim-terrain/builder"]
+
+[[bin]]
+name = "build-strategic-map"
+path = "src/bin/build-strategic-map.rs"
+required-features = ["regional-map-builder"]
+
+[dependencies]
+adventuresim-world-schema.workspace = true
+adventuresim-terrain = { path = "../adventuresim-terrain" }
+fabelgeist-determinism.workspace = true
+blake3.workspace = true
+clap.workspace = true
+csv.workspace = true
+dbase.workspace = true
+geo.workspace = true
+geozero.workspace = true
+proj4rs.workspace = true
+rusqlite.workspace = true
+html-escape.workspace = true
+reqwest = { version = "0.12", default-features = false, features = ["blocking", "json", "rustls-tls"] }
+serde.workspace = true
+serde_json.workspace = true
+sha2.workspace = true
+netcdf-reader.workspace = true
+shapefile.workspace = true
+thiserror.workspace = true
+tiff.workspace = true
+zip.workspace = true
+
+[lints]
+workspace = true

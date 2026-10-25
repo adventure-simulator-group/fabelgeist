@@ -1,0 +1,641 @@
+{
+  "id": "ROOT-PPS-CAMERA-WEAPON-PHYSICAL-PACKET-040",
+  "lens": "audit-producer-propagation",
+  "mode": "read-only receiver packet for camera24; root240 does not gain extra cell credit",
+  "status": "assigned packet exhausted with findings; whole family and other camera obligations incomplete",
+  "timestamp": "2026-10-21T21:12:57.622726+00:00",
+  "assigned_camera_indices": [
+    381,
+    382,
+    383,
+    384,
+    385,
+    386,
+    387,
+    388,
+    389,
+    390,
+    419,
+    420,
+    421,
+    449,
+    450,
+    586,
+    587,
+    588,
+    589,
+    590,
+    591,
+    592,
+    593,
+    666
+  ],
+  "source_proofs": [
+    {
+      "index": 381,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/codec.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/codec.rs",
+      "sha256": "1a32ed016049692514041f1111820fc2513464dcd4f23b45a4f65f8b084c9b60",
+      "read_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "evidence_mode": "fresh full body read",
+      "disposition": "Accounted producer contracts with actionable findings or explicit actual-port/existing-owner use; no source/family/audit clearance",
+      "contract_trace": "Actual Serde JSON size/version/error envelope; validation versus parse-only evaluate entry separates genuine wire admission from internal checked physical retention. CodecError preserves Json source; schema/generator u16 are actual transport roles, not same domain. Construction failures are already String before wrapper."
+    },
+    {
+      "index": 382,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/derive.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/derive.rs",
+      "sha256": "c21331b47fbf9aff7837343abc27e7f572acb622fd7baaf8a86a3dfb0fc92edd",
+      "read_ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "evidence_mode": "fresh full body read",
+      "disposition": "Accounted producer contracts with actionable findings or explicit actual-port/existing-owner use; no source/family/audit clearance",
+      "contract_trace": "Recipe identity/Construction -> mesh::derived(DerivedProperties); per-component physical f64 -> per-part f32 cast then material-group f32 addition (preserve exact order). Holder cause stringification before ValidationError::Construction is application erasure, not CLI Display."
+    },
+    {
+      "index": 383,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/derived_properties.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/derived_properties.rs",
+      "sha256": "fc35cb85ad750d9eb943b55cde7f20e3dc6cffd2d3ac119bef96732eb32402c5",
+      "read_ranges": [
+        [
+          1,
+          22
+        ]
+      ],
+      "evidence_mode": "fresh full body read",
+      "disposition": "Accounted producer contracts with actionable findings or explicit actual-port/existing-owner use; no source/family/audit clearance",
+      "contract_trace": "Raw f32 mass/length/inertia/signed COM/balance and material-mass are retained gameplay output, not merely renderer ABI. Root whole owner; preserve zero holder fields versus valid weapon requirements."
+    },
+    {
+      "index": 384,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/design/generated.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/design/generated.rs",
+      "sha256": "676cdac09cfd5549f08dcaad5876f3053c52b04c49fb59a70b09df15c766df03",
+      "read_ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "evidence_mode": "fresh full body read",
+      "disposition": "Accounted producer contracts with actionable findings or explicit actual-port/existing-owner use; no source/family/audit clearance",
+      "contract_trace": "GeneratedWeapon/Holder retain canonical DesignHash but raw mesh/anchor/physical output. Distinguish retained model/frame/semantic identity from actual f32 vertex codec. Root owned source outputs; rig owns canonical hash."
+    },
+    {
+      "index": 385,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/evaluation.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/evaluation.rs",
+      "sha256": "bf99629f5204b4bcdab31adcee2f5029e28085143bb3b3e00e2987c1ad2e7b4d",
+      "read_ranges": [
+        [
+          1,
+          59
+        ]
+      ],
+      "evidence_mode": "fresh full body read",
+      "disposition": "Accounted producer contracts with actionable findings or explicit actual-port/existing-owner use; no source/family/audit clearance",
+      "contract_trace": "EvaluatedWeapon/Holder owns immutable design + root DerivedProperties; new/decode authenticated evaluation, design/derived return owners rather than immediately stripping them. Raw leaves inside DerivedProperties require earliest owner repair; typed accessor itself not a canary."
+    },
+    {
+      "index": 386,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/evaluation/memo.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/evaluation/memo.rs",
+      "sha256": "88583e6c11bc5fe78178b4843cc1910a8f58f14083ba7bbd62ceebfe50f4ffb6",
+      "read_ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "evidence_mode": "fresh full body read",
+      "disposition": "Accounted producer contracts with actionable findings or explicit actual-port/existing-owner use; no source/family/audit clearance",
+      "contract_trace": "Full design key and DerivedProperties retained unchanged across mutex/queue/callback. No primitive escape introduced by memo; finite capacity64 actual queue/lock APIs. Original successful/edit/eviction/failure assertions and design values retained. No hash-only authentication or changed failure cache semantics."
+    },
+    {
+      "index": 387,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/lib.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/lib.rs",
+      "sha256": "617d4da8bd91ac58b857ad94c1a1d44d417e90055976d46637e567caeb218bad",
+      "read_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "evidence_mode": "fresh full body read",
+      "disposition": "Accounted producer contracts with actionable findings or explicit actual-port/existing-owner use; no source/family/audit clearance",
+      "contract_trace": "Exports and exact version/byte-budget constants: no executable producer implementation beyond exposed source ownership. Distinct actual wire schema/generator versions, source grip units and budget roles reconciled by actual Codec/validation recipients."
+    },
+    {
+      "index": 388,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/mesh.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/mesh.rs",
+      "sha256": "13432d88e00f3227259bb5b938b0a72a40e300fa4cec4f0d92b020d07eca2418",
+      "read_ranges": [
+        [
+          1,
+          145
+        ]
+      ],
+      "evidence_mode": "fresh full body read",
+      "disposition": "Accounted producer contracts with actionable findings or explicit actual-port/existing-owner use; no source/family/audit clearance",
+      "contract_trace": "Physical f64 -> gameplay raw32 leaves and renderer f32 arrays are different contracts. Root typed physical output and immutable shape native codecs; head extrema +/-Inf represent no striking geometry before fallback0, not a measured length; mesh bounds on empty source similarly requires later admission/state decision. Preserve exact cast/scan/filter/spear-working-section order."
+    },
+    {
+      "index": 389,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/mod.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/model/mod.rs",
+      "sha256": "485c06d11de0a974d67d404c21cde555b41f4126f6a3ffdac7cf5ba7727dc8ad",
+      "read_ranges": [
+        [
+          1,
+          273
+        ]
+      ],
+      "evidence_mode": "fresh full body read",
+      "disposition": "Accounted producer contracts with actionable findings or explicit actual-port/existing-owner use; no source/family/audit clearance",
+      "contract_trace": "Recipe validated then placement resolved raw retained frame/offset/rotation/fit -> construct -> Solid transforms/physical integral -> renderer. RecipeError flattened at Construction::new82 before internal APIs and ValidationError; pure string errors propagate through construct/render/generate_model. Whole camera source owner consumes root DerivedProperties and rig recipe/hash. Actual shapes typed dispatch alone cannot waive internal shape/body recipients covered by other scoped camera obligations."
+    },
+    {
+      "index": 390,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/output.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/model/output.rs",
+      "sha256": "6cfe3fe6963b9fe8617ab5eeb7c811619a98aef2ddfbfc4c2f502a00bfb6e2e2",
+      "read_ranges": [
+        [
+          1,
+          365
+        ]
+      ],
+      "evidence_mode": "fresh full body read",
+      "disposition": "Accounted producer contracts with actionable findings or explicit actual-port/existing-owner use; no source/family/audit clearance",
+      "contract_trace": "PartSource/ResolvedRecipe/ModelPart/PhysicalProperties/PartMass retain raw frame identities/coordinates/material leaves/causes. Physical integration actually reads signed tetrahedral mass+moments and density, then retains f64 totals/COM/inertia/balance. ModelPart quantized point/face key rounding and flat native buffers are actual mesh math/format; no permission to treat all application records as external boundary. Preserve f64, normals/crease policy, original grouping/triangle order and partial-equation signs."
+    },
+    {
+      "index": 419,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/lib.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/camera/worktree/crates/adventuresim-weapon-model/src/lib.rs",
+      "sha256": "617d4da8bd91ac58b857ad94c1a1d44d417e90055976d46637e567caeb218bad",
+      "read_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "evidence_mode": "explicit corresponding current PR full-body source-and-role reconciliation; matching bytes checked, not inferred from path alone",
+      "disposition": "Accounted producer contracts with actionable findings or explicit actual-port/existing-owner use; no source/family/audit clearance",
+      "contract_trace": "Exports and exact version/byte-budget constants: no executable producer implementation beyond exposed source ownership. Distinct actual wire schema/generator versions, source grip units and budget roles reconciled by actual Codec/validation recipients."
+    },
+    {
+      "index": 420,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/recipe/mod.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/camera/worktree/crates/adventuresim-weapon-model/src/recipe/mod.rs",
+      "sha256": "6df2420e23ec21a7d706b89d8af5a999f4798fbff05d5fb6d7a3b5e647b2ff4e",
+      "read_ranges": [
+        [
+          1,
+          265
+        ]
+      ],
+      "evidence_mode": "explicit corresponding current PR full-body source-and-role reconciliation; matching bytes checked, not inferred from path alone",
+      "disposition": "Accounted producer contracts with actionable findings or explicit actual-port/existing-owner use; no source/family/audit clearance",
+      "contract_trace": "Typed dimensional authored source; optional present-null policy, arbitrary component/source id and frame labels retained. Offset/rotation units already admitted before placement graph erases them. resolved_id authored ID -> label -> generated component-index policy is real identity authority, distinct from display label."
+    },
+    {
+      "index": 421,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/recipe/quantities.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/camera/worktree/crates/adventuresim-weapon-model/src/recipe/quantities.rs",
+      "sha256": "5e3c814a60c0d09d75c9eccfbd371f9412b76b95fefbce3c66c86ff03266bed5",
+      "read_ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "evidence_mode": "explicit corresponding current PR full-body source-and-role reconciliation; matching bytes checked, not inferred from path alone",
+      "disposition": "Accounted producer contracts with actionable findings or explicit actual-port/existing-owner use; no source/family/audit clearance",
+      "contract_trace": "Finite signed f64 Metres/Ratio/Degrees/Radians normalize negativezero before Eq/Hash/Serde; Countu16 and Direction +/-1 real wire codec. Shape-local validation imposes separate positive/local bounds. Do not replace with f32/positive-only geometry or clamp angles/ratio; exact error cause and serde diagnostic admission require later focused lenses."
+    },
+    {
+      "index": 449,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/validation.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/camera/worktree/crates/adventuresim-weapon-model/src/validation.rs",
+      "sha256": "fd79af94c541daf7519b52218301f4cc66dbd7614d444583271a2e955ed02aff",
+      "read_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "evidence_mode": "explicit corresponding current PR full-body source-and-role reconciliation; matching bytes checked, not inferred from path alone",
+      "disposition": "Accounted producer contracts with actionable findings or explicit actual-port/existing-owner use; no source/family/audit clearance",
+      "contract_trace": "Identity/type/local shape validation then actual Construction. RecipeError kept in ValidationError::Recipe, String lost for Construction/holder. Typed source/error variants should survive pure validation; original kind/parameter/source-geometry and catalog constraints keep order."
+    },
+    {
+      "index": 450,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/recipe/validation.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/camera/worktree/crates/adventuresim-weapon-model/src/recipe/validation.rs",
+      "sha256": "e40db02777c0f7401b0e90bc493f420be7630091f469a9baa7f0ef1a6f7c965a",
+      "read_ranges": [
+        [
+          1,
+          207
+        ]
+      ],
+      "evidence_mode": "fresh full body read",
+      "disposition": "Accounted producer contracts with actionable findings or explicit actual-port/existing-owner use; no source/family/audit clearance",
+      "contract_trace": "Manufacturing physical predicate bodies actually compare scalar quantities to local bounds or evaluate equations. Calls positive/nonnegative/bounded on get() are still first-party semantic signatures; consume agreed f64 owner without strengthening finite/sign or reordering errors. Full current207 also covers requested P16first180; exact PR/P16 role/hash reconciliation explicit."
+    },
+    {
+      "index": 586,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/evaluation.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/camera/worktree/crates/adventuresim-weapon-model/src/evaluation.rs",
+      "sha256": "bf99629f5204b4bcdab31adcee2f5029e28085143bb3b3e00e2987c1ad2e7b4d",
+      "read_ranges": [
+        [
+          1,
+          59
+        ]
+      ],
+      "evidence_mode": "explicit corresponding current PR full-body source-and-role reconciliation; matching bytes checked, not inferred from path alone",
+      "disposition": "Accounted producer contracts with actionable findings or explicit actual-port/existing-owner use; no source/family/audit clearance",
+      "contract_trace": "EvaluatedWeapon/Holder owns immutable design + root DerivedProperties; new/decode authenticated evaluation, design/derived return owners rather than immediately stripping them. Raw leaves inside DerivedProperties require earliest owner repair; typed accessor itself not a canary."
+    },
+    {
+      "index": 587,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/evaluation/memo.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/camera/worktree/crates/adventuresim-weapon-model/src/evaluation/memo.rs",
+      "sha256": "88583e6c11bc5fe78178b4843cc1910a8f58f14083ba7bbd62ceebfe50f4ffb6",
+      "read_ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "evidence_mode": "explicit corresponding current PR full-body source-and-role reconciliation; matching bytes checked, not inferred from path alone",
+      "disposition": "Accounted producer contracts with actionable findings or explicit actual-port/existing-owner use; no source/family/audit clearance",
+      "contract_trace": "Full design key and DerivedProperties retained unchanged across mutex/queue/callback. No primitive escape introduced by memo; finite capacity64 actual queue/lock APIs. Original successful/edit/eviction/failure assertions and design values retained. No hash-only authentication or changed failure cache semantics."
+    },
+    {
+      "index": 588,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/derive.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/camera/worktree/crates/adventuresim-weapon-model/src/derive.rs",
+      "sha256": "c21331b47fbf9aff7837343abc27e7f572acb622fd7baaf8a86a3dfb0fc92edd",
+      "read_ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "evidence_mode": "explicit corresponding current PR full-body source-and-role reconciliation; matching bytes checked, not inferred from path alone",
+      "disposition": "Accounted producer contracts with actionable findings or explicit actual-port/existing-owner use; no source/family/audit clearance",
+      "contract_trace": "Recipe identity/Construction -> mesh::derived(DerivedProperties); per-component physical f64 -> per-part f32 cast then material-group f32 addition (preserve exact order). Holder cause stringification before ValidationError::Construction is application erasure, not CLI Display."
+    },
+    {
+      "index": 589,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/model/mod.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/camera/worktree/crates/adventuresim-weapon-model/src/model/mod.rs",
+      "sha256": "485c06d11de0a974d67d404c21cde555b41f4126f6a3ffdac7cf5ba7727dc8ad",
+      "read_ranges": [
+        [
+          1,
+          273
+        ]
+      ],
+      "evidence_mode": "explicit corresponding current PR full-body source-and-role reconciliation; matching bytes checked, not inferred from path alone",
+      "disposition": "Accounted producer contracts with actionable findings or explicit actual-port/existing-owner use; no source/family/audit clearance",
+      "contract_trace": "Recipe validated then placement resolved raw retained frame/offset/rotation/fit -> construct -> Solid transforms/physical integral -> renderer. RecipeError flattened at Construction::new82 before internal APIs and ValidationError; pure string errors propagate through construct/render/generate_model. Whole camera source owner consumes root DerivedProperties and rig recipe/hash. Actual shapes typed dispatch alone cannot waive internal shape/body recipients covered by other scoped camera obligations."
+    },
+    {
+      "index": 590,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/model/output.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/camera/worktree/crates/adventuresim-weapon-model/src/model/output.rs",
+      "sha256": "6cfe3fe6963b9fe8617ab5eeb7c811619a98aef2ddfbfc4c2f502a00bfb6e2e2",
+      "read_ranges": [
+        [
+          1,
+          365
+        ]
+      ],
+      "evidence_mode": "explicit corresponding current PR full-body source-and-role reconciliation; matching bytes checked, not inferred from path alone",
+      "disposition": "Accounted producer contracts with actionable findings or explicit actual-port/existing-owner use; no source/family/audit clearance",
+      "contract_trace": "PartSource/ResolvedRecipe/ModelPart/PhysicalProperties/PartMass retain raw frame identities/coordinates/material leaves/causes. Physical integration actually reads signed tetrahedral mass+moments and density, then retains f64 totals/COM/inertia/balance. ModelPart quantized point/face key rounding and flat native buffers are actual mesh math/format; no permission to treat all application records as external boundary. Preserve f64, normals/crease policy, original grouping/triangle order and partial-equation signs."
+    },
+    {
+      "index": 591,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/codec.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/camera/worktree/crates/adventuresim-weapon-model/src/codec.rs",
+      "sha256": "1a32ed016049692514041f1111820fc2513464dcd4f23b45a4f65f8b084c9b60",
+      "read_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "evidence_mode": "explicit corresponding current PR full-body source-and-role reconciliation; matching bytes checked, not inferred from path alone",
+      "disposition": "Accounted producer contracts with actionable findings or explicit actual-port/existing-owner use; no source/family/audit clearance",
+      "contract_trace": "Actual Serde JSON size/version/error envelope; validation versus parse-only evaluate entry separates genuine wire admission from internal checked physical retention. CodecError preserves Json source; schema/generator u16 are actual transport roles, not same domain. Construction failures are already String before wrapper."
+    },
+    {
+      "index": 592,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/quantities.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/recipe/quantities.rs",
+      "sha256": "5e3c814a60c0d09d75c9eccfbd371f9412b76b95fefbce3c66c86ff03266bed5",
+      "read_ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "evidence_mode": "fresh full body read",
+      "disposition": "Accounted producer contracts with actionable findings or explicit actual-port/existing-owner use; no source/family/audit clearance",
+      "contract_trace": "Finite signed f64 Metres/Ratio/Degrees/Radians normalize negativezero before Eq/Hash/Serde; Countu16 and Direction +/-1 real wire codec. Shape-local validation imposes separate positive/local bounds. Do not replace with f32/positive-only geometry or clamp angles/ratio; exact error cause and serde diagnostic admission require later focused lenses."
+    },
+    {
+      "index": 593,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/validation.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/validation.rs",
+      "sha256": "fd79af94c541daf7519b52218301f4cc66dbd7614d444583271a2e955ed02aff",
+      "read_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "evidence_mode": "fresh full body read",
+      "disposition": "Accounted producer contracts with actionable findings or explicit actual-port/existing-owner use; no source/family/audit clearance",
+      "contract_trace": "Identity/type/local shape validation then actual Construction. RecipeError kept in ValidationError::Recipe, String lost for Construction/holder. Typed source/error variants should survive pure validation; original kind/parameter/source-geometry and catalog constraints keep order."
+    },
+    {
+      "index": 666,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/mod.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/recipe/mod.rs",
+      "sha256": "6df2420e23ec21a7d706b89d8af5a999f4798fbff05d5fb6d7a3b5e647b2ff4e",
+      "read_ranges": [
+        [
+          1,
+          265
+        ]
+      ],
+      "evidence_mode": "fresh full body read",
+      "disposition": "Accounted producer contracts with actionable findings or explicit actual-port/existing-owner use; no source/family/audit clearance",
+      "contract_trace": "Typed dimensional authored source; optional present-null policy, arbitrary component/source id and frame labels retained. Offset/rotation units already admitted before placement graph erases them. resolved_id authored ID -> label -> generated component-index policy is real identity authority, distinct from display label."
+    }
+  ],
+  "additional_fresh_sources": [
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/placement.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/model/placement.rs",
+      "sha256": "243d594fbb5904b60ec01daa6e25decb1ace121320b548926f0400a909222fc3",
+      "read_ranges": [
+        [
+          1,
+          156
+        ]
+      ],
+      "read_mode": "fresh actual source/retention/receiving body, no execution"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/placement/anchors.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/model/placement/anchors.rs",
+      "sha256": "d7d808f132cf5cb9b8b7ed612cab252cbafc14dd0b690bf3ec1774c60f1bd7d6",
+      "read_ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "read_mode": "fresh actual source/retention/receiving body, no execution"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/placement/fitting.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/model/placement/fitting.rs",
+      "sha256": "1c4e18d75b0af80b31df9117e68879dad923acac69e5a4a34365b533be070413",
+      "read_ranges": [
+        [
+          1,
+          141
+        ]
+      ],
+      "read_mode": "fresh actual source/retention/receiving body, no execution"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/shapes.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/model/shapes.rs",
+      "sha256": "1bdea66bbc76b2483d53a48a954b78b725ae186d4121befd5781664c8a71e0d0",
+      "read_ranges": [
+        [
+          1,
+          393
+        ]
+      ],
+      "read_mode": "fresh actual source/retention/receiving body, no execution"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/grip.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/model/grip.rs",
+      "sha256": "bf3ed53fe98389fc076f302154befc4d3abd3169203067c07c0ca05a30acb9e2",
+      "read_ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "read_mode": "fresh actual source/retention/receiving body, no execution"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/mod.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/construction/mod.rs",
+      "sha256": "7327c75b4030df58f3b59c44b7b691713289908715ecb4c6adae4b0829806fc1",
+      "read_ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "read_mode": "fresh actual source/retention/receiving body, no execution"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/curves.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/construction/curves.rs",
+      "sha256": "b5accc11c18f0ac90310414f5db75ca9ef76661bea923b658513fed644cea66e",
+      "read_ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "read_mode": "fresh actual source/retention/receiving body, no execution"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/structure.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/recipe/structure.rs",
+      "sha256": "4afde3b9b0b368ed92065d9e37c2b56b09b565aa87e70fe58fa51961b868aa4e",
+      "read_ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "read_mode": "fresh actual source/retention/receiving body, no execution"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/weapon_instance/evaluation.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-stdb-module/src/weapon_instance/evaluation.rs",
+      "sha256": "6307923392138203a738fb32c47fe530f7f57ff0c417f2091e5440345d1a752b",
+      "read_ranges": [
+        [
+          1,
+          152
+        ]
+      ],
+      "read_mode": "fresh actual source/retention/receiving body, no execution"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/weapon_instance.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-stdb-module/src/weapon_instance.rs",
+      "sha256": "0366036a85f92aec26b1e205aa69edeb41afe565c118d2d5335e5cbb2ee4e983",
+      "read_ranges": [
+        [
+          307,
+          395
+        ]
+      ],
+      "read_mode": "fresh actual source/retention/receiving body, no execution"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-core/src/item_catalog.rs",
+      "sha256": "de7dd72013aa3af8ae0aae8691011a8aaa2d168db670188bcc1064cac9a23d18",
+      "read_ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "read_mode": "fresh actual source/retention/receiving body, no execution"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/weapon_instance/evaluation.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/camera/worktree/crates/adventuresim-stdb-module/src/weapon_instance/evaluation.rs",
+      "sha256": "6307923392138203a738fb32c47fe530f7f57ff0c417f2091e5440345d1a752b",
+      "read_ranges": [
+        [
+          1,
+          152
+        ]
+      ],
+      "read_mode": "fresh actual source/retention/receiving body, no execution"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/weapon_instance.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/camera/worktree/crates/adventuresim-stdb-module/src/weapon_instance.rs",
+      "sha256": "e07ad1f88c536b1cd68f6384d729b7ca9d77bb74613af181283a9954346f9c27",
+      "read_ranges": [
+        [
+          1,
+          48
+        ],
+        [
+          310,
+          410
+        ]
+      ],
+      "read_mode": "fresh actual source/retention/receiving body, no execution"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/equipment/parametric_weapon.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/camera/worktree/crates/adventuresim-core/src/equipment/parametric_weapon.rs",
+      "sha256": "b86de57ce073e0c629d63bcb5e9b1cc92c18be2705b8954f4536c12db6fd0eb3",
+      "read_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "read_mode": "fresh actual source/retention/receiving body, no execution"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/camera/worktree/crates/adventuresim-core/src/item_catalog.rs",
+      "sha256": "12a6191433c61dae833826429a9ebacc2c043cce0fe593831e65f6ec10a132f6",
+      "read_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "read_mode": "fresh actual source/retention/receiving body, no execution"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_projection.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/camera/worktree/crates/adventuresim-core/src/item_catalog_projection.rs",
+      "sha256": "771a265b992561a0094e1b16784b8ca544e4192546e3f06396d35b4bde8b3e30",
+      "read_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "read_mode": "fresh actual source/retention/receiving body, no execution"
+    }
+  ],
+  "producer_to_receiver": [
+    "Earliest source Recipe::Component.offset/rotation finite f64 owners -> PlacementGraph::insert111/112 strips complete arrays before mounted/attached and retained ResolvedComponent/frames/rotations. Shaft checked length63 copied raw into retained frame; grip_width35\u201347 stripped/retained before construction dispatch. Pure f64 geometry kernels may extract inside actual add/rotate/Solid integral, but internal first-party graph, point/angle/frame signatures and caches are not native APIs. Construction Point/PlanarPoint aliases do not prove bespoke contracts. Preserve new computed result admission and typed source without repeated re-admission.",
+    "Fresh attached/register/mounted/seating actual consumers read offsets/rotations/checked profiles then vector/trig/fit equations, return raw offsets/radii/frame records. Compound frame names control topology/lookup, not just prose. grip_point selects real shield/grip/shaft policies and fallback origin; raw origin may be valid actual authored local datum, not automatically a forbidden missing-value sentinel. Reconcile later state/ownership lens before changing original fallback semantics.",
+    "PhysicalProperties::from_sources actual signed tetrahedral integral -> raw retained f64 mass/COM/inertia/normalized balance -> mesh::derived f32 casts -> raw DerivedProperties -> EvaluatedWeapon and PhysicalMemo -> DB combat_geometry and pure catalog. Signed intermediate mass/moment cannot be positive-clamped; output positivity/zero degenerate failure contract separate. Control-point/COM recipe-local frame and f64 density cannot reuse scene f32 or kg/m2 density.",
+    "P16 DB combat_geometry344\u2013346 and Core item_catalog_projection59\u201360 reconstruct SignedLength from unchanged raw derived output. Carry final checked output owner from earliest model -> DerivedProperties/Evaluated return into receiving geometry/catalog, with true f64 -> f32 conversion admitted once and exact rounding preserved. All raw mass/inertia/balance/precision fields still require existing-owner contract reconciliation; root owns derived physical32 records and camera sourcephysical64 plus application recipients, not duplicate same leaf types.",
+    "Actual DB from_evaluation scales f32*1000 then range-checks/rounds/casts; mass/length max1 while grip0 allowed. These are actual persisted gram/mm storage representations; preserve arithmetic order and re-evaluation authentication against complete row before consumption. from_design/encode flatten CodecError to String before internal helpers; typed causes must reach actual SDK/errorDisplay. Existing Option evaluation intentionally rejects invalid/corrupt/mismatch vs absent instance; do not replace with fallback catalog defaults or turn everyNone into an error without source contract.",
+    "Memo full design/physical record preserves contract and bounded success-only caching; copying typed aggregate/accessor is not a canary. Existing memo tests cover edit, label-only full-key changes, eviction and failed nonretention. Original DB seven mutation cases and exact quantity inputs remain, no new assertions/cases. Actual Serde JSON/mesh flatbuffers/packedRGBA/indices are proven ports only for their exact format fields.",
+    "Cause chain Construction::new recipe.validate.map_err(to_string) -> model/render/derive -> ValidationError::Construction(String) -> CodecError::InvalidDesign -> DB from_design toString is premature before finalerror display. Distinguish actual Serde::custom string protocol from first-party flattening; preserve original source/error branch order. Pure shape/body dispatch passes typed p to actual source kernels; other camera assigned shape/profile/validation obligations remain responsible for their materially distinct branches.",
+    "Fresh construction::CurveQuality uses infinity for unbounded maxchord/deviation, then detail.error/refine/minfinite rules. This is explicit unbounded policy rather than a measured length and needs later enum/operation design; preserve depth8, minspacing, endpoint compaction and exact finite filtering. New scope proof retained so this cannot disappear from later lenses."
+  ],
+  "findings": [
+    {
+      "id": "ROOT-WEAPON-PACKET-F001",
+      "kind": "incomplete_migration",
+      "source": "model/placement.rs::PlacementGraph::insert/ResolvedComponent and model/output.rs::PhysicalProperties -> mesh::derived -> DB/Core receivers",
+      "repair": "Consume canonical exact-f64 recipe point/angle/physical source contracts through whole placement/physical functions, root checked physical32 output at actual f64/f32 projection, then carry into unchanged catalog/DB/native receivers without get/re-admit adapters.",
+      "acceptance": "No admitted dimensional/frame promise lost before application storage/functions; exact doubleprecision and original f32 casts/rounding/native storage preserved.",
+      "dedup": [
+        "CAM-OWN-WEAPON-CONSTRUCTION-058",
+        "CAM-OWNER-F016",
+        "ROOT-PPS-WEAPON-HOLDER-PHYSICAL-030"
+      ]
+    },
+    {
+      "id": "ROOT-WEAPON-PACKET-F002",
+      "kind": "premature_cause_erasure",
+      "source": "Construction::new82/derive_holder_properties46/validate_holder35 -> application evaluation/DB cause chain",
+      "repair": "Keep RecipeError and structured construction/source failures through typed model/derive/evaluation/DB graph until actual terminal adapter.",
+      "acceptance": "Actual callers inspect concrete variants/source; original display text/first error/wire policy preserved where protocol requires.",
+      "dedup": [
+        "CAM-OWN-WEAPON-CONSTRUCTION-058",
+        "ROOT-PPS-WEAPON-HOLDER-PHYSICAL-030"
+      ]
+    },
+    {
+      "id": "ROOT-WEAPON-PACKET-F003",
+      "kind": "policy_state_candidate_for_enum_lens",
+      "source": "construction/curves.rs::CurveQuality::default/refine/adaptive_curve",
+      "repair": "Plan explicit finite-or-unbounded curve error/chord policy through actual sampler; reconcile canonical f64 owner and preserve native evaluate callback contract.",
+      "acceptance": "No internal infinity-as-policy; identical finite/evaluation/sample/endpoint order.",
+      "unresolved_design": "Enum/admission/operation lens not yet inventoried; not yet repaired."
+    }
+  ],
+  "whole_function_ownership": "Exact claim files authoritative. Root DerivedProperties/mesh/holders/Generated* retained; camera whole physical/model/placement/derive/evaluation/codec/DB recipients per parent explicit agreement, rig canonical Recipe/DesignHash/icon ownership retained. No path-wide competing edit permission.",
+  "remaining_family_coverage": "Camera remaining shape/profile/recipe validation/source consumer obligations; this24 packet is actual scoped source proof, not clearance of every model shape or full weapon family. Parent camera must explicitly reconcile percell plus actual remaining receiver queues. Other11 initial lenses remain incomplete.",
+  "repair": "frozen_until_all13_initial_inventories",
+  "validation": "not_executed",
+  "fixtures": "Existing source only; no execution/new cases/helpers/assertions"
+}

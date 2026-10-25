@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1036",
+  "at": "2026-10-25T17:33:55.834616+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1195,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/social.rs",
+  "sha256": "a09342196732b00b8520e9a446aa9fdef60e8fd44a439032ebdadc21e6e8e4c5",
+  "actual_compared_ranges": [
+    [
+      2631,
+      3010
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Full authoritative social outcome/skill/personality/diagnosis/time/morale/affinity/receipt/cooldown/belief mutation, bounded automatic selection and source pruning/cleanup consumed. No manual trait/codec. Explicit selected native input/output construction and conditional self/other behavior are semantic policy, no blanket conversion derive.",
+  "first_unfinished": {
+    "scope_index": 1195,
+    "line": 3011
+  },
+  "execution": "none"
+}

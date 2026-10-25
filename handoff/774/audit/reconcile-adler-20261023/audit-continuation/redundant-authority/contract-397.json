@@ -1,0 +1,58 @@
+{
+  "id": "CONT07-CONTRACT-397",
+  "at": "2026-10-23T21:03:41.235431+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1745,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/ui.rs",
+      "sha256": "2a2206d4b76e7db409e7cfa2b8e4337d5ea4a6fa606a95de4e8cf04ca85666e6",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/ui.rs",
+      "actual_EOF": 1039,
+      "ranges": [
+        [
+          1,
+          1039
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1746,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/ui/combat_state.rs",
+      "sha256": "4a377bed178aa3822eba2e6be0f9b97db5e7b8267ade2b3bdc90924241a074a2",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/ui/combat_state.rs",
+      "actual_EOF": 140,
+      "ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "RIG-OWNER-STRATEGIC-READINESS-UI-062"
+  ],
+  "facts": [
+    "UI source and combat wheel helper personally read. Native text, colors and graphical dimensions are display projections; state label, current impairment sources and forecast segments have distinct roles. Current wheel uses one remaining 100% budget, black fatigue, translucent encumbrance once, and yellow forecasts scaled to unused capacity. No gameplay movement penalty is introduced here.",
+    "Wheel visibility uses retained state.incapacitation while segment sources recompute pain from current limbs/will. Actual canonical state update and replication timing must be compared before calling this divergence; no new defect asserted merely because an aggregate is retained.",
+    "Item text cache candidate: update_items_ui742-765 runs only on Changed<InventoryItems> but formats current ItemQuery quantity/slot/properties/weapon/armor/shield into retained text. Need exact ItemQuery definition and a valid item-update producer that leaves membership unchanged; not yet accepted as normal or API staleness finding.",
+    "Player name and ID styling are created on Add<Player> through a linked relationship; no ordinary rename/ID mutation producer proven. Attack result text is intentionally event history, timer expiry deletes it; no requirement to follow changing current enemy state.",
+    "Camera reticle/block state is derived every frame from CameraAimState; desired weapon guard display is an input observation, not automatically a claim of server-admitted current guard. Debug UI derives native formatted values. Connection status uses current ClientState/ClientStats and avoids redundant writes only after comparing displayed values.",
+    "Egui context insertion restricts to newly added gameplay camera and intentionally excludes offscreen cameras. Source fixture exercises recipient selection; no app, test, capture or runtime executed."
+  ],
+  "new_local_findings": [],
+  "pending_actual_dependencies": [
+    "ItemQuery owner and item update/equip producers for retained inventory text",
+    "TacticalCombatState incapacitation updater/replication versus current wheel source calculation"
+  ],
+  "next_cell": {
+    "scope_index": 1747,
+    "start_line": 1
+  },
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true
+}

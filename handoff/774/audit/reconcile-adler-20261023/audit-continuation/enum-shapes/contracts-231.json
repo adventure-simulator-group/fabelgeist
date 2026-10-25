@@ -1,0 +1,18 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-231",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        55,
+        56,
+        57
+      ],
+      "comparison": "Exact P16 joint_melee329, melee_defense221 and melee_exchange293 fully read including source tests, never executed. ScheduledMeleeTiming.commit writes start/contact/measure together and recovery independently; joint contact completion clears all three Options, retaining recovery. This strengthens a pending composite attack-state candidate, but remaining cancellation/scheduling writers need direct reads before final shape. MeleeDefenderPhase already owns applicable scheduled timing or occupied recovery. AutoresolveMeleeDefenderDecision response plus optional committed policy observation intentionally can retain historical commitment even when effective response is None for FinishTrade; do not prune observation simply from response kind. MeleeExchangeOutcome retains sampled original defense alignment and effective response: failed interception can produce None effective defense while historical alignment remains meaningful. can_block, intercept_window and allies_first are immediate derived predicates, not carried gameplay configuration. schedule_both_sides uses allies_first only to order native slice work; canonical ID ordering/deterministic draw order must be preserved, not replaced with enum-index ordering. Simultaneous contact roster, order and current attack checks preserve mutual contact policy even if one participant became defeated within the same batch. Temporal tolerance and exact contact grouping are separate numerical contracts, not automatic keyword aliases to other graphs. Fixed64Hz source is reached here, without importing other-lens coverage.",
+      "disposition": "Existing payload-owning phase and independent historical observations preserved; composite attack state still needs remaining writers",
+      "finding_refs": []
+    }
+  ],
+  "new_findings": [],
+  "limits": "Discovery only; no execution, fixes, checks, implementation plan or lens clearance."
+}

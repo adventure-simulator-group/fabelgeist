@@ -1,0 +1,15 @@
+diff --git a/crates/adventuresim-character-creator/src/main.rs b/crates/adventuresim-character-creator/src/main.rs
+index a48116cab..e29f2c729 100644
+--- a/crates/adventuresim-character-creator/src/main.rs
++++ b/crates/adventuresim-character-creator/src/main.rs
+@@ -200,9 +200,9 @@ fn main() -> Result<()> {
+         let defaults = catalog
+             .items
+             .iter()
+             .filter_map(|item| {
+-                let design = catalog.design(item)?;
++                let design = catalog.design(catalog.item(&item.id)?)?;
+                 Some((item.id.clone(), design.recipe()?.clone()))
+             })
+             .collect();
+         let designs = adventuresim_character_creator::armor_design_input::ArmorDesigns {

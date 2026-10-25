@@ -1,0 +1,11 @@
+{
+  "id": "SEGO-INITIAL09-QUAL511",
+  "finding": "SEGO-INITIAL09-F177",
+  "source_variant": "PR6533 originalscope1079 sha806a50bc71cade3ffdf93f52a62693f7d02d4d55a52e1cce7e5983b894ec28cf",
+  "disposition": "P16numericreservation witness does not apply to this exact PR body; other pinned variant unresolved unless mapped separately",
+  "evidence": [
+    "1079:3054\u20133064 returns AttachmentCapacity::Reserved for localreservation and maps actualrow to typedcapacity",
+    "1079:3870\u20133893 typed Free/Occupied fixtures preserve same-item reparent"
+  ],
+  "qualification": "P16scope178 has distinctbytes and F177 sourceclaim; do not silentlyretireit or infer frozenmerged/currentmainresolution. ExactPRhelper1080 pendingfresh09next, so full helpercontract notyetclaimed. This is sourcevariant qualification, not implementation/acceptance run."
+}

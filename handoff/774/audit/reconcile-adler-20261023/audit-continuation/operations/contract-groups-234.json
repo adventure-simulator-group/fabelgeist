@@ -1,0 +1,86 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-234",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/presentation/environment.rs",
+      "sha256": "b6c219d19f45e18cf058bfa3ec4a06e826e50c2ae83d122e8d421f418dc31dbc",
+      "actual_EOF": 577,
+      "actual_compared_ranges": [
+        [
+          1,
+          577
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/strategic_scene/equipment.rs",
+      "sha256": "a5276f1904f7b2072d0b173663ed3592075960f11ef193b5ffc0688023523a41",
+      "actual_EOF": 150,
+      "actual_compared_ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/environment.rs",
+      "sha256": "b6c219d19f45e18cf058bfa3ec4a06e826e50c2ae83d122e8d421f418dc31dbc",
+      "actual_EOF": 577,
+      "actual_compared_ranges": [
+        [
+          1,
+          577
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/equipment.rs",
+      "sha256": "bcfd6571ac4b5c7fb271cfb50e5ef79c08b7110bc649364f23abd31c44799bdf",
+      "actual_EOF": 150,
+      "actual_compared_ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Active-scene selection and bounded environment presentation arithmetic",
+      "source_ranges": {
+        "environment.rs": [
+          [
+            1,
+            577
+          ]
+        ]
+      },
+      "disposition": "Complete577line P16body and fullactualPRcomparison consumed. Activation removesduplicateEntity thenpushes; refreshselectslatestliveEntity and dropsretired ones, preservesgeneration identityonrecycle. Mutableenvironment remains onscene entity, resource stores selectiononly, no secondweather snapshotauthority. Under actualweatherbps0..10000/cloudsnapshotbounds, fixedcloudfold/transmission/smoothstep/fog yields finitepositive orderedstart/end; humidity/clamping and fixednon-equal smoothstep edges avoidzerodivision. Native raw u16weather snapshot fields and generic f32solar/lunar args still require actualscene/source admission; no invalid snapshot producedhere, no globalforcingWGS/positiveelevation. CameraSetup rawtranslation/direction/FOV goesnativeprojection unchecked; default0/NEG_Z/80 valid, custom setup configuration joins CameraADM03F012 metric aggregate, not proofactualbadnormalcaller. Native MSAA maps any configuredrequest to4, explicitcross-platformrenderpolicy; no new ordinary operationsdefect. Alltinyenvironment/camera fixtures readnotrun."
+    },
+    {
+      "contract": "Strategic presentation inventory construction and lifetime",
+      "source_ranges": {
+        "strategic_scene/equipment.rs": [
+          [
+            1,
+            150
+          ]
+        ]
+      },
+      "disposition": "Full P16body and actualPRtypedphysicaldelta consumed. CurrentWardrobe exactappearanceequality avoidsunneeded rebuild; changedstate retirespreviousEntities thenmaps PresentationId tonewEntity andparents exactIDreferences. Everyiteratedid ispresentinmap so itemlookupcannotmiss, evenrawduplicates; howeverduplicatePresentationIds wouldoverwriteallocatedEntity andbindmultipleappearances tosameentity, leavingunusedemptyentity. Missingparent currentlyfilter_mapdropsoccupancy. These are completeappearance aggregate/decoder contractdependencies; no normalcanonicalserverduplicate/missingparentproducer established, do notpromoteacceptedordinarydefect fromrawrecords. Itemunknown/nocompleteequipment despawnsexactcreatedentity; generatedweapon/holder cachesownactualrecipeadmission. Presentation-only zero strikinghead deliberate; nottacticalcombatstatepersistent. No duplicateglobalcount or bindingedits."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera.rs"
+}

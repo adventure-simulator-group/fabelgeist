@@ -1,0 +1,108 @@
+{
+  "id": "CONT07-CONTRACT-531",
+  "at": "2026-10-23T23:23:08.495992+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2340,
+      "source_id": "pr-working:crates/fabelgeist-shell/src/ccd.rs",
+      "sha256": "bd0f3a309967fdd9399aaf5eb558944b9e0c0059b35ae7e143922be675bd0047",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-shell/src/ccd.rs",
+      "actual_EOF": 394,
+      "ranges": [
+        [
+          1,
+          394
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2342,
+      "source_id": "pr-working:crates/fabelgeist-shell/src/surface_contact.rs",
+      "sha256": "6bdba5ebaf3c2f90c51ee7a6f35bba9214605cb9ab80cdbf4b9b6a94eef19fa5",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-shell/src/surface_contact.rs",
+      "actual_EOF": 623,
+      "ranges": [
+        [
+          1,
+          623
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2343,
+      "source_id": "pr-working:crates/fabelgeist-shell/src/surface_contact/broad_phase.rs",
+      "sha256": "7e110378e0a6c4c85508d64de1cee18757b4ae6db8c593e1d9301028bdf5ddb7",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-shell/src/surface_contact/broad_phase.rs",
+      "actual_EOF": 73,
+      "ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2344,
+      "source_id": "pr-working:crates/fabelgeist-shell/src/surface_contact/solve.rs",
+      "sha256": "3391f999990a711fa2e38f73c7585057b1101305aab1cef5cf0b52119146d93b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-shell/src/surface_contact/solve.rs",
+      "actual_EOF": 309,
+      "ranges": [
+        [
+          1,
+          309
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2345,
+      "source_id": "pr-working:crates/fabelgeist-shell/src/topology.rs",
+      "sha256": "98444936697b73035be3e07e0464a3e4a031ad0b1f28084275206b1b8ae7eb91",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-shell/src/topology.rs",
+      "actual_EOF": 427,
+      "ranges": [
+        [
+          1,
+          427
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2346,
+      "source_id": "pr-working:crates/fabelgeist-shell/src/wgsl.rs",
+      "sha256": "e724670ea98957037a3fed9a6057929b2f48be87f2c217e5a01b59649a050ccc",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-shell/src/wgsl.rs",
+      "actual_EOF": 361,
+      "ranges": [
+        [
+          1,
+          361
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "CCDContact time/distance/weights/normal derivefromonesampledgeometrytuple; latercurrentendseparation intentionallyappliesfirst-safecontactplane, notstaleenddistancecache. Iterationbudgetexhaustion returnsSomelastsafecontactratherthanNone. Independentprevious/end states and fallbacknormalhistory necessarytemporalroles.",
+    "SurfaceContacts privatefaces/edges/seamcopies/staticpositions/fixedbounds updatedcoherently constructors/with_seams/set_static_surface. Replacementreconstructstopology/BVH/bounds/countoffsets andcopiesdynamicseamsets. Bounds derivedimmutablefixedobstaclegeometry, dynamicboundsrebuiltperpass. No ordinaryfixedobstacleinvalidationdefectfound.",
+    "Hostcontactsolve verifiescardinality/finitepoints/validmasses beforebroadphase, thicknesspositivityreturnsinactive. solveproject writescorrectedpositions+velocitieswithoutresettingallvelocity, actualnextintegrationhistorydependency remainsunderSolverread. Bodyease static_clearance vscloththickness distinctcontactpolicies, searchusesmaxconservative.",
+    "Topologyderivesedges/bends/boundary fromsamefrozenfaceadjacency. PublicTopologywithoutsourcefaces isderivedsnapshot; noindependentlyeditable sourceidentityretainedhere. Bendingweightsrestlayout andcurrentdeformedconstraints intentionallydistinct; constructordegeneratepolicy Noneexplicit.",
+    "ShellGPUhash duplicatedbetweenHASH/SELF_COLLIDEcurrentwordconstants/equationsagree; FIXED_SCALE1048576 duplicatedaccumulate/applycurrentlyagree. Maintenancecoordinationobligation recordednotcurrentnumericaldefect. Exactcellcoordinatecheck294preventsdoublecorrectionfromhashedneighborbucketcollisions. Bentweights8-stride/nativeparticleorderrequiresactualconstraintpackingrecipientreadnext.",
+    "ExistingShellpublicmesh/materialvscompiledconstraintsfamilyF083 andSelfCollisionradius/SpacingF089 sourcepositivesretained; thisbatchdoesnotclaimthesealreadyfixed orfullclothclear. Embeddedregressionspersonallyreadnotexecuted."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2349,
+    "start_line": 1
+  }
+}

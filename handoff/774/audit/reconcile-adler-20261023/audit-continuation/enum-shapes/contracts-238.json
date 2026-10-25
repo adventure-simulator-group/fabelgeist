@@ -1,0 +1,31 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-238",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        83
+      ],
+      "comparison": "Exact P16 defense444 fully read, source tests unexecuted. CommittedThreatChoice already names FinishTrade/WeaponIntercept, while probability/completed-work/benefit are meaningful observations for both alternatives and must stay common. WeaponDefenseAlignment retains attempted and effective responses plus original probability/sample/engagement; effective scaling preserves Block/Parry variant even at0. This corrects earlier F139 wording: failed alignment does not itself turn response into None. Shield lateral geometry independently may reject block to None before exchange alignment selection. Public generic resolve_alignment permits nonweapon response returning coherent identity observation probability1/engagement1; normal exchange calls it only for weapon contact. No wholesale unsupported variant inference. Contact lag<=0 deterministically FinishTrade preserves first/simultaneous attack; consecutive intercepts are short-term observed history, not permanent trait or hidden fatigue pool. BodySide::Both explicitly has no single shield resting coordinate, preserving current geometry policy. All named predicates are immediate derived checks; continuous engagement and policy inputs are not arbitrary enums.",
+      "disposition": "F139 exact scaling correction; independent policy/history and geometry preserved",
+      "finding_refs": [
+        "SEGO-INITIAL09-F139"
+      ]
+    },
+    {
+      "indices": [
+        84,
+        85,
+        86,
+        87,
+        88,
+        89
+      ],
+      "comparison": "Exact P16 fatigue263, fatigue_config46, incapacitation115, weapon_contact113, weapon_contact/tests111 and weapon_contact_config32 fully read, never executed. One CombatActionWork enum selects physical Attack/WeaponDefense/ExplosiveDodge workload using applicable mass/inertia channels; unused native kernel inputs do not by themselves prove retained invalid state. Single general fatigue pool and one encumbrance contribution preserved. RecoveryTime already owns After(elapsed) vs CannotRecover; After0 at performance0 is explicitly valid, finite overflow is typed error not CannotRecover. Optional duration serialization is actual adapter and preserves these meanings. Nonnegative movement effort/sustainable speed includes0; rest/zero-work semantics cannot be replaced by positive-only blanket. ContactPrecision is continuous concentration independent of handling accuracy, zero valid; resistance(0precision) intentionally returns native +Inf sentinel inside calculation, not stored accepted finite damage. Head components contribute max precision, never sum; furniture ignored, actual headless shaft fallback retained. Runtime generic precision constructor asserts finite/nonnegative, while zero/tiny design projection may cause other-lens arithmetic admission issues; no ordinary catalog failure established. Config derives alone do not enforce aggregate explicit validate. All calibration/order and deterministic behavior retained.",
+      "disposition": "Existing work/recovery enums, zero policies and native kernel distinctions preserved",
+      "finding_refs": []
+    }
+  ],
+  "new_findings": [],
+  "limits": "Discovery only; no execution, fixes, checks, implementation plan or lens clearance."
+}

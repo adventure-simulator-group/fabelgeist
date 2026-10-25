@@ -1,0 +1,26 @@
+{
+  "id": "RIG-INITIAL06-GROUP-343",
+  "at": "2026-10-23T09:14:18.411104+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "gardens-canonical-geometry-and-context": {
+      "comparison": "CityGarden uses canonical CityPlotBounds, plant position/orientation/scale, CityAccessSegment and GardenIssue. corridor constructs checked scene point/PlanDimensions/BuildingOrientation; translate admits PlanDisplacement before changing each product. GardenClearanceGeometry is contextual working rectangles versus measured wind-expanded plant hulls, not duplicate wholeplot geometry. Native SAT overlap, hull/margin/range math are real numerical ports; purpose-specific bounds/connected-street/membership cannot be collapsed into generic finite geometry. Existing F001 checked-leaf propagation remains; actual raw diagnostics/admission routes not automatically closed by names.",
+      "disposition": "canonical scene geometry with meaningful working/access/plant-clearance policy"
+    },
+    "architectural-interior-floor": {
+      "comparison": "Floor retains canonical StoreyIndex, ArchitecturalPlanPoint/Elevation/PositiveLength/PlanExtents and Obstruction<Architectural>; FloorSupport adds footprint/elevation relationship, not scene support authority. Native lattice cell(i16,i16) projection, collision rectangle math and doorway/stair reservations are true numerical/interior policy ports. Floor versus SceneTerrain/GeographicSurface meanings differ despite all heights metres. Existing SpatialBounds/CollisionCuboid canonical solids feed obstruction rather than another hand-maintained collision geometry. Supports F001 geometry ownership/preservation, no broad flattening of occupancy/reservation/physical bearing concepts.",
+      "disposition": "coherent architectural floor/obstruction owner over canonical geometry"
+    },
+    "creator-inventory-id-erasure-at-shared-graph": {
+      "comparison": "InventoryItemId is canonical creator-local stable article identity; Inventory/InventoryItem/Article/CatalogArticle distinguish owned instance, catalogue placement and design/decoration/construction. WornGraph borrows canonical Core EquipmentGraph rules, good shared ownership. However WornGraph::support/place/children_on erase this actual ID with .0 into Core EquipmentGraphEdge.parent_inventory_item_id and EquipmentGraph::equip rawu64, then rebuild InventoryItemId from returned edges. Fresh Core197–300 defines exactly those raw identity keys; this is an internal shared algorithm, not wire/native boundary. F047 proposes generic caller-key graph preserving creator ID without equating it to durable DB inventory IDs or creating a second graph implementation. Occupancy/ParentRequirement/Channel/Location remain canonical; local Occupancy is complete candidate body+parent requirement product.",
+      "disposition": "F047 canonical caller identity lost through reusable graph API; catalogue/instance/DB authorities remain distinct"
+    }
+  },
+  "supporting_existing_findings": [
+    "F001",
+    "F047"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit.",
+  "supporting_fresh_body": "Previously accounted PR Core equipment.rs canonical graph declaration/operations197–300 freshly focused; existing whole source proof044/138 preserved, no newcount."
+}

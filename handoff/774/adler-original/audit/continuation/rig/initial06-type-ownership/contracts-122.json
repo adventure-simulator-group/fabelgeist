@@ -1,0 +1,27 @@
+{
+  "id": "RIG-INITIAL06-GROUP-122",
+  "at": "2026-10-23T02:54:30.641858+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "botanical-presets-own-authored-morphology": {
+      "comparison": "Fresh full Flower presets155 and Fungus presets113. Five and four closed species identities select continuous organ recipes, rather than geometry branching on an unconstrained name. Each reuses existing FlowerParameters/FungusParameters, Corolla/LeafArrangement/FertileSurface and quantized Pigment. Species display names are not accepted alternate IDs or world-item stock names. Counts, metre dimensions, dimensionless ratios, optional zero ring/stamen/ornament values and organ categories have different meanings; equal f32 storage does not justify one generic body-measure wrapper. The correct common owner remains the botanical library below viewer/tactical mesh generation, not game DB, Core Food or generic geometry. Recipes are source parameter products; their fixed values do not by themselves certify all public parameter/Serde routes. No new duplicate accepted owner in these two preset definitions.",
+      "disposition": "Preserve canonical species/organ identities and morphology source contracts; no equivalent competing species or general measurement owner established."
+    },
+    "colored-plant-output-versus-lower-general-mesh-data": {
+      "comparison": "Fresh PlantMesh164, prospectively registered low mesh lib1-22 and data imports1-11/declaration/default41-68 only. PlantMesh is an owning colored, unskinned triangle output with required position/normal/color/index arrays, metre/Y-up convention and a real Bevy attribute adapter. MeshData is a lower CPU mesh product with optional indices, optional four-wide joints/weights, optional-normal/UV representation, topology and winding, but NO vertex color channel. Equal position and normal arrays do not make the complete products equivalent: direct substitution would drop the plant palette or require a new broader common mesh API. Keep current botanical output purpose; broader mesh unification is only a design possibility after actual format/capability analysis, not a confirmed duplicate-owner finding here. Native raw vectors, sampling coordinates, UV ratios and transformed points belong the actual surface/tube/ellipsoid numerical kernels. PlantLod High/Medium/Low owns this botanical sampling budget, distinct from MHR asset LOD and terrain rings. Generic MeshData optional fields/Default do not certify topology, finite geometry or skin correlation. No native upload/read Buffer body analysis or credit from incidental display12-39; QUAL036 excludes it.",
+      "disposition": "Reject blind whole-product consolidation; keep exact colored botanical output and lower generic mesh capabilities distinct."
+    },
+    "host-color-retention-before-bevy-packing": {
+      "comparison": "Fresh PlantMesh39-85/88-110 produces Pigment.linear() RGBA values, retains them in Vec<[f32;4]> colors, copies them unchanged through append83, and only packs at into_bevy64. Existing permissive fabelgeist-color::Color from actual024 has the same floating RGBA value meaning; it makes no finite, range or color-space promise. This is another concrete F005 host-retention use, not a reason to force quantized Pigment into float storage or infer a gamma bug. Retain documented linear output and perform the actual sRGB source conversion once; canonical Color can be converted to the native Vec4 attribute only at Bevy upload. The low MeshData mismatch does not prevent shared color-leaf reuse. Numeric mesh kernels may use raw channels at actual computations, but unchanged retention/copy is not itself a terminal native format.",
+      "disposition": "Extend F005 to retained per-vertex floating RGBA while preserving quantized pigment and exact linear/native boundaries."
+    }
+  },
+  "prospective_additional_sources": [
+    "RIG-INITIAL06-REG-034",
+    "RIG-INITIAL06-REG-035"
+  ],
+  "mandatory_qualifications": [
+    "RIG-INITIAL06-QUAL036"
+  ],
+  "limits": "Three existing global source variants exhaustively reviewed. Two prospective competing definitions analyzed only after registration; global reconciliation and earlier-lens supplements pending. No data methods70+, GPU upload/read12-39, GPU conversion204+ or tests240+ credit. No project execution/source edits."
+}

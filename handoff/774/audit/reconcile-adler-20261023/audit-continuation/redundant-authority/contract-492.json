@@ -1,0 +1,64 @@
+{
+  "id": "CONT07-CONTRACT-492",
+  "at": "2026-10-23T22:52:43.450024+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2160,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/coordinates/bounds.rs",
+      "sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-world-schema/src/coordinates/bounds.rs",
+      "actual_EOF": 49,
+      "ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2161,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/coordinates/terrain_projection.rs",
+      "sha256": "544933ad018de5b8ea333045594690c3f76bedc634c95faea7b34a73807408c9",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-world-schema/src/coordinates/terrain_projection.rs",
+      "actual_EOF": 83,
+      "ranges": [
+        [
+          1,
+          83
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2162,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/economy.rs",
+      "sha256": "ce7c60b4dca374b058a50d845ac3171642869aa47fc95b7873ac27392bff308e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-world-schema/src/economy.rs",
+      "actual_EOF": 358,
+      "ranges": [
+        [
+          1,
+          358
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Bounds keeps only checked SW/NE corners; native degree projections derive from those corners, inclusive touching intersections and zero area admitted. No independently cached extent.",
+    "Terrain projection keeps one longitude scale/origin; offset_to/at_offset and frame conversion are derived reciprocal numerical ports, including deliberate off-coverage offsets; no independent coordinate cache.",
+    "Economy full358: canonical infer computes score then tier, services then stock then specializations from one immutable input. Public profile/serde admits fields independently; validate checks version/score bounds/canonical sets but does not verify tier(score) or specialization(stock). Pending actual receiving path before promoting redundant authority defect.",
+    "Stock provenance is historical evidence classification, relative abundance is immutable world-build profile rather than mutable shop quantity; do not collapse these facts."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2163,
+    "start_line": 1
+  }
+}

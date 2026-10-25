@@ -1,0 +1,51 @@
+{
+  "id": "CONT07-F114",
+  "lens": "audit-redundant-authority",
+  "classification": "source-confirmed unsealed compiled constraint schedule; public API conditional",
+  "title": "Mutable native incidence can disagree with its retained conflict colouring",
+  "sources": {
+    "2349": [
+      [
+        32,
+        50
+      ],
+      [
+        60,
+        91
+      ],
+      [
+        258,
+        287
+      ]
+    ],
+    "2652": [
+      [
+        95,
+        113
+      ]
+    ],
+    "2655": [
+      [
+        89,
+        148
+      ]
+    ],
+    "2353": [
+      [
+        179,
+        214
+      ]
+    ]
+  },
+  "fact": "ConstraintSet.new derives private immutableColoring fromincidence anduploads samepermutation. It exposeswritableparticles Buffer independently; record_solve dispatchesretainedcolorintervals whilekernel readsnowmutableparticleaddresses. Count/byteequaldoesnotestablishsameconflictgraph.",
+  "counterexample": "Construct distanceedges[[0,1],[2,3]] withtwo currentrestlengths: bothinonecolor. Publicparticles.write ofsame-sized words[[0,1],[0,2]] leavesprivatecolorunchanged; next record_solve dispatchestwoconstraintinvocationsbothreadmodifywriteparticle0. NoSDKrun oractualcallerasserted. Publiclambdas/attachmentslikewisecanbeindependentlyreplaced; minimumwitness requiresnoinvalidextent.",
+  "limits": [
+    "Native rawbufferaccess may be useful, but admittedscheduleidentitymustbepreserved/revalidated.",
+    "Separate lowerConstraintSet product fromShellF083 owningrestmesh/material; noexactduplicateyetconfirmed.",
+    "No claimthatattach documentedalready-colororderedcallercontract automaticallywrong; normal distance/spring constructors reorderassociatedattachments correctly."
+  ],
+  "suggested_connected_remedy": "Encapsulate compiledincidence/coloring/nativebuffer identity orcoordinatelyrebuild/readmit conflictgraph andpermutation onreplacement. Keepcurrentvalidzero/emptysets, colororder, attachmentlayout andarity policies.",
+  "acceptance_contract": "Noacceptedincidencechange canretainascheduleplacingconflictingparticles inoneparallelcolor; associatedattachments/count/nativebuffers shareonecompiledidentity.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

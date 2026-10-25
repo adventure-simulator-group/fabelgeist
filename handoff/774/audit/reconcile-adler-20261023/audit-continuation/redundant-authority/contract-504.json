@@ -1,0 +1,80 @@
+{
+  "id": "CONT07-CONTRACT-504",
+  "at": "2026-10-23T22:59:19.703508+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2193,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "sha256": "8dee677fcdf79dbea5c29ec06b65413435faef45bb0d8d0da7a35516f25e4a2c",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "actual_EOF": 126,
+      "ranges": [
+        [
+          1,
+          126
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2194,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/metal/ornament.rs",
+      "sha256": "6a9f887c5c746b8b70fc8a3c9741ffa1a68dd3580a61483ca88fbc244dcb4152",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/gpu/metal/ornament.rs",
+      "actual_EOF": 198,
+      "ranges": [
+        [
+          1,
+          198
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2195,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/metal/textures.rs",
+      "sha256": "b7eedf258c742117f1e6dbcb5abfeb71614f57e3001a6bd335b88c160ffca0ee",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/gpu/metal/textures.rs",
+      "actual_EOF": 335,
+      "ranges": [
+        [
+          1,
+          335
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2207,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/ornament.rs",
+      "sha256": "5aaf7f24806502832feef0cc0a9d5e572e80199b63c1d371b05a14fd6cb361ef",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/ornament.rs",
+      "actual_EOF": 189,
+      "ranges": [
+        [
+          1,
+          189
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Metalmod126/ornamentshader198/textures335 and actual Ornamentowner189 full freshread. MetalGpu caches kernels by actual source in supplieddevicecontext; bake opens no live materialcache, immutableCPU input feedsone dispatch chain.",
+    "CONT07-F108 exact independently authored Motif enum/ALL/hostnumericcodes/WGSLsymbols+switch maintenance defect; all current6coherent, actualbake recipientproved2191.",
+    "DRAWS_PER_SCRATCH5/STAMP_GROUP64 actualshader sourced fromhostconstants, MetalTILES_PER_METRE andSCRATCH_ROUGHNESS injected fromowner; positive singlepolicyprojection. Scratchdrawstate is deliberate deterministicsequence layout, not duplicated random authoritativevalue.",
+    "Image resampling inversecoordinates and slopesforwardrotation use matchedsin/cos; finite-differenceengravingdepth computes slopes usingactualTILES_PER_METRE, normal/parallax outputsserve different roles. FINISH_WORDS3 agreesactualshaderthree-channel layout; no currentABI misalignment claimed."
+  ],
+  "new_local_findings": [
+    "CONT07-F108"
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2196,
+    "start_line": 1
+  }
+}

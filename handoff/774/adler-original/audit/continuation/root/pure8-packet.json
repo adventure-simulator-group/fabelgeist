@@ -1,0 +1,207 @@
+{
+  "id": "CONT-ROOT-PP-PURE8-001",
+  "lens": "audit-producer-propagation",
+  "at": "2026-10-22T01:35:15.710290+00:00",
+  "indices": [
+    156,
+    157,
+    158,
+    165,
+    435,
+    488,
+    501,
+    513
+  ],
+  "authoritative_scope": "Bounded pure8 supplementary supplier packet only; camera ledger decides queue accounting. Source repair remains frozen until all13 initial inventories.",
+  "prior_supplier_receipts": [
+    {
+      "path": "root/pure-food-life-partial.json",
+      "id": "ROOT-PPS-PURE-FOOD-LIFE-PARTIAL-054",
+      "roles": "Food and life complete source contracts and actual training/catalogue/SDK recipient proofs; retained precisely with their recorded findings."
+    },
+    {
+      "path": "rig/traces.jsonl",
+      "id": "RIG-PPS-040",
+      "roles": "Pure foraging and both sampling variants, real source/order/yield/rights and native material recipients; no unresolved supplier receivers."
+    },
+    {
+      "path": "native/traces.jsonl",
+      "id": "NATIVE-PS-PURE8-SUBSET-PARTIAL-028",
+      "roles": "Survival, water and strategic-time full sources plus exact previously traced native condition/outbreak/time/forecast recipients; bounded gap completed below."
+    }
+  ],
+  "sources": [
+    {
+      "index": 156,
+      "source_id": "pr-working:crates/adventuresim-core/src/food.rs",
+      "expected_sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+      "observed_sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+      "evidence": "ROOT-PPS-PURE-FOOD-LIFE-PARTIAL-054",
+      "scope": "Carry exact prior source/contract proof with the reconciled recipients below; no whole-lens or validation acceptance."
+    },
+    {
+      "index": 157,
+      "source_id": "pr-working:crates/adventuresim-core/src/foraging.rs",
+      "expected_sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+      "observed_sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+      "evidence": "RIG-PPS-040",
+      "scope": "Carry exact prior source/contract proof with the reconciled recipients below; no whole-lens or validation acceptance."
+    },
+    {
+      "index": 158,
+      "source_id": "pr-working:crates/adventuresim-core/src/foraging/sampling.rs",
+      "expected_sha256": "66d67a552e4a0f212e7a776678140af4965c40239a052e0f845c73143537d6e0",
+      "observed_sha256": "66d67a552e4a0f212e7a776678140af4965c40239a052e0f845c73143537d6e0",
+      "evidence": "RIG-PPS-040",
+      "scope": "Carry exact prior source/contract proof with the reconciled recipients below; no whole-lens or validation acceptance."
+    },
+    {
+      "index": 165,
+      "source_id": "pr-working:crates/adventuresim-core/src/life_simulation.rs",
+      "expected_sha256": "de8b909f4a6436e5f21c9828322d80f19905b15764e7f0b54fca2b1f0079457a",
+      "observed_sha256": "de8b909f4a6436e5f21c9828322d80f19905b15764e7f0b54fca2b1f0079457a",
+      "evidence": "ROOT-PPS-PURE-FOOD-LIFE-PARTIAL-054",
+      "scope": "Carry exact prior source/contract proof with the reconciled recipients below; no whole-lens or validation acceptance."
+    },
+    {
+      "index": 435,
+      "source_id": "physical-p16:crates/adventuresim-core/src/survival.rs",
+      "expected_sha256": "63f604eeeca44d35f365c9daded84a61ca19b8c9c3976ead8503a2edbf4d1c57",
+      "observed_sha256": "63f604eeeca44d35f365c9daded84a61ca19b8c9c3976ead8503a2edbf4d1c57",
+      "evidence": "NATIVE-PS-PURE8-SUBSET-PARTIAL-028",
+      "scope": "Carry exact prior source/contract proof with the reconciled recipients below; no whole-lens or validation acceptance."
+    },
+    {
+      "index": 488,
+      "source_id": "physical-p16:crates/adventuresim-core/src/foraging/sampling.rs",
+      "expected_sha256": "66d67a552e4a0f212e7a776678140af4965c40239a052e0f845c73143537d6e0",
+      "observed_sha256": "66d67a552e4a0f212e7a776678140af4965c40239a052e0f845c73143537d6e0",
+      "evidence": "RIG-PPS-040",
+      "scope": "Carry exact prior source/contract proof with the reconciled recipients below; no whole-lens or validation acceptance."
+    },
+    {
+      "index": 501,
+      "source_id": "physical-p16:crates/adventuresim-core/src/water_source.rs",
+      "expected_sha256": "2892720bfed0f3280e91d03da01cf985b234731e8f08d449a76bf97f7cfdb556",
+      "observed_sha256": "2892720bfed0f3280e91d03da01cf985b234731e8f08d449a76bf97f7cfdb556",
+      "evidence": "NATIVE-PS-PURE8-SUBSET-PARTIAL-028",
+      "scope": "Carry exact prior source/contract proof with the reconciled recipients below; no whole-lens or validation acceptance."
+    },
+    {
+      "index": 513,
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_time.rs",
+      "expected_sha256": "3af84cd2d335ef14e2ae8034345fcdcb999a93b4adeabd1a2e1f58beb780f57c",
+      "observed_sha256": "3af84cd2d335ef14e2ae8034345fcdcb999a93b4adeabd1a2e1f58beb780f57c",
+      "evidence": "NATIVE-PS-PURE8-SUBSET-PARTIAL-028",
+      "scope": "Carry exact prior source/contract proof with the reconciled recipients below; no whole-lens or validation acceptance."
+    }
+  ],
+  "fresh_or_reconciled_receiver_reads": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/simulation.rs",
+      "sha256": "caa8a155d38c326bf43174ed106f7b885196bcc23fcddb76af341a1acb380e0c",
+      "read_ranges": [
+        [
+          1,
+          65
+        ],
+        [
+          256,
+          320
+        ]
+      ],
+      "role": "Native official-span to real-microsecond conversion then actual isolated-world clock epoch and absolute-minute row mutation."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_time.rs",
+      "sha256": "3af84cd2d335ef14e2ae8034345fcdcb999a93b4adeabd1a2e1f58beb780f57c",
+      "read_ranges": [
+        [
+          377,
+          423
+        ]
+      ],
+      "role": "Exact official clock and inverse elapsed-duration kernel and actual epoch reconstruction caller; native u128 ceil then i64 checked conversion.",
+      "proof_mode": "Prior Native028 full strategic_time1-860 plus fresh exact kernel384-423 output; same source fingerprint. Exact supporting range377-423 is carried from prior full-source proof."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-strategic-sim/src/investigation_eval/report.rs",
+      "sha256": "9973408d3a3ebff65189a41a0537488dcf4ba9f88b667672e09543fc90318db4",
+      "read_ranges": [
+        [
+          1130,
+          1205
+        ]
+      ],
+      "role": "Existing OutbreakWaterFlow replay/material conservation/privacy fixture consumers; read only, no execution/assertion changes."
+    },
+    {
+      "source_id": "physical-p16:crates/strategic-web/src/routes/settlements/camp.rs",
+      "sha256": "f74938c062c2117522bc053568946e0dbb495f3852a85b95bc29154de215b972",
+      "read_ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "role": "Actual HH:MM form admission to StrategicMinuteOfDay then immediate JSON reducer argument boundary."
+    },
+    {
+      "source_id": "physical-p16:crates/strategic-web/src/templates/settlement/character_skills.rs",
+      "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+      "read_ranges": [
+        [
+          2090,
+          2140
+        ]
+      ],
+      "role": "Actual schedule preview allocation source and dynamic activity policy; no full-module credit."
+    }
+  ],
+  "new_receiver_dispositions": [
+    "simulation::advance_simulation_world_time first verifies disposable-run ownership and bounded positive native reducer delta, refreshes the clock, obtains the row, computes the inverse strategic-clock transform with ceil, checks i64 conversion and epoch subtraction, then writes epoch and saturating official-minute fields together in one SDK update. This closes native028 actual caller gap; it does not claim transaction/error or scalar-type clearance under later lenses.",
+    "The native delta is a wire official-minute duration, not an absolute StrategicMinute. real_micros_for_official_minutes produces a different unit using u128 integer arithmetic; simulation_epoch_shift_micros checked-narrows it for the real signed SDK epoch field. Do not reuse an absolute clock type for duration or a human-only admission restriction. Remaining raw duration/micros roles require explicit owner-fit and later primitive/operations inventory; no automatic native-boundary waiver for retained application state.",
+    "Existing full-source028 survival/water/strategic-time facts, Rig040 source/yield/rights paths and Root054 food/life/curriculum paths now have their identified actual downstream receivers accounted. PP035 schedule guarantee retention, F023 required-clock absence and existing water/material/source/error findings remain actionable and are not accepted as native storage needs.",
+    "Fresh null-row reconciliation confirms report material test consumers, camp native HTTP->JSON reducer handoff and skill-preview schedule allocation. The StrategicMinuteOfDay getter enters JSON immediately at the real remote reducer contract, so later re-admission across that wire is justified. effective_preview_schedule and raw ScheduleAllocation copies are existing schedule propagation work rather than a new independent plan authority."
+  ],
+  "ownership_reconciliation": {
+    "native": [
+      "native-exact-155 entire life_simulation producer/record/helper graph",
+      "native-exact-080 entire strategic_schedule training/curriculum/recovery/outcome functions and native puretraining079; do not split receiving numerical bodies"
+    ],
+    "camera": [
+      "Existing complete starting_character/DB-character/name/cause lifecycle and native DB food/custody/clock graphs",
+      "FlavorProfile::scaled and preparation_safety_minutes exact transferred functions"
+    ],
+    "root": [
+      "Remaining pure food/catalogue and organization/catalogue admission/error policy; exclude Camera functions and Native life/training graph"
+    ],
+    "foraging": "Existing Native whole pure foraging/action/requested-duration/rights/sampler owners; Camera DB foraging/error/native persistence; root catalogue/food/digest. No new owner or source mutation."
+  },
+  "findings_preserved": [
+    "CAM-OWNER-F005",
+    "CAM-PROP-F006",
+    "CAM-PROP-F009",
+    "CAM-PROP-F017",
+    "CAM-PROP-F018",
+    "CAM-PROP-F023",
+    "Camera canonical whole water volume roles",
+    "Existing raw/new observation/health/fraction/mass/hour/phase/unit owner strengthening and later admission/operations/state questions",
+    "F023 requiredclock/observation absence vs realzero",
+    "NATIVE-PP-031",
+    "NATIVE-PP-032",
+    "NATIVE-PP-033",
+    "NATIVE-PP-034",
+    "NATIVE-PS-F009",
+    "PP035 planned schedule guarantee retention"
+  ],
+  "remaining_supplier_receivers": [],
+  "discovery": "bounded_packet_exhausted_with_findings",
+  "repair": "not_started_all13_source_freeze",
+  "validation": "not_run_no_checks_or_CI",
+  "limits": [
+    "Exact historical source facts consumed only for listed roles/ranges, not historical verdict or path-count acceptance.",
+    "Owner-fit delta must reconcile newly reached duration/clock/preview roles before admission lens.",
+    "All original test inputs/order/oracles remain; no new tests/cases/assertions/helpers."
+  ]
+}

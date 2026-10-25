@@ -1,0 +1,27 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-400",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        745,
+        746,
+        747,
+        748,
+        749,
+        750,
+        751,
+        752
+      ],
+      "comparison": "Full745177/74665/747327/748212/74934/75059/75146/75279. Projection ray_depth depth+present encodedvec2 is native WGSL ABI; actual consumers check presence, no hostenum imposed. Named frame joints remain typed until device packing. DeviceCheck already Device(async validation)|Mesh(finishedpart validation), preserving distinct validation phases and payloads. Native hull sentinels/candidate statuses/count partitions are numerical kernel state; further scalar arithmetic concerns do not create semantic hostshape defects automatically. Actual limb non-mitten fit constructs irrelevant cuff0, confirming F283 with earlier720/721/725. Region/style arbitrary public pairing is independent aggregate trace, no ordinary wrong placement claimed.",
+      "finding_refs": [
+        "SEGO-INITIAL09-F283"
+      ],
+      "disposition": "Conditional mitten cuff payload finding; appropriate native algorithm encodings and DeviceCheck ownership retained"
+    }
+  ],
+  "new_findings": [
+    "SEGO-INITIAL09-F283"
+  ],
+  "limits": "Source review only, no GPU execution, tests/checks, repairs or clearance."
+}

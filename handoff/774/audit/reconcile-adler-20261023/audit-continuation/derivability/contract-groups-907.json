@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-907",
+  "at": "2026-10-25T17:13:01.665969+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1103,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/cooking.rs",
+  "sha256": "05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+  "actual_compared_ranges": [
+    [
+      1,
+      760
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Prior prefix retained.361\u2013760 checked lot quantities/ratios, recipe/flavor/medicine/contamination contributions, water-volume conservation, preflight/consumption, dish record and retrieval reconstruction consumed. Native contextual policy and checked state effects, no handwritten traits/codecs. No derive should replace conservation/admission or semantic FoodPreparation classification.",
+  "first_unfinished": {
+    "scope_index": 1103,
+    "line": 761
+  },
+  "execution": "none"
+}

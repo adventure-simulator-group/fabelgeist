@@ -1,0 +1,39 @@
+{
+  "id": "CONT07-F089",
+  "at": "2026-10-23T20:54:37.456712+00:00",
+  "classification": "maintenance: currently coherent parallel roster; no current wrongcapture asserted",
+  "title": "Furnished-room labels, building usages and semantic camera selectors independently own one view roster",
+  "sources": [
+    {
+      "scope_index": 1714,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture.rs",
+      "sha256": "bcaff9a888ddff154b19d741d428659d595446dbb78e29938811c169810b6738",
+      "ranges": [
+        [
+          80,
+          125
+        ],
+        [
+          192,
+          215
+        ],
+        [
+          234,
+          258
+        ],
+        [
+          352,
+          377
+        ]
+      ]
+    }
+  ],
+  "earliest_failed_contract": "One authored room-view record should own its slug/label, usage and RoomSelection together; length equality only binds ROOM_LABELS/ROOM_USES cardinality while indexmatch owns selection independently.",
+  "counterexample": "Swap ROOM_USES[0] and[2] without changing ROOM_LABELS or indexmatch: house plate still labelsdwelling and selectsCommonRoom in GeneralShop; shop plate selectsShop inDwelling, potentially failing or inspectingwrongrole underunchangedslugs. Current entries align; no sourceedit/capture executed.",
+  "actual_recipient": "room_views derives pose index and label fromROOM_LABELS; setup_rooms independently findsbuilding fromROOM_USES and derivesRoomSelection frommanualindexmatch. state.building_interior_cameras vector thenconsumed by actual CapturePose::BuildingInterior route.",
+  "connected_repair": "Declare one perview roster containing slug,label,BuildingUse,RoomSelection andderive both CaptureViewSpec and selectedcamera sequence. Preserve repeatedDwelling/Weaver roles, UpperKeep/Bedroom/Operating distinctions, currentorder and settledreadback policy.",
+  "acceptance": "A roster reorder carries semanticusage/selection/label together; replacingusage cannot silentlyretainunrelatedselector. Existing16plates and deliberate repeatedusage roles preserved. No testsadded/executed.",
+  "related_limits": "Catalogue/finishlabels similarly index separately fromFurnitureKind::INTERIOR/FinishableFurnitureKind::ALL, but exactcanonicalrosters notfreshcomparedthisbatch; retained as pendinggraph, notadditionalcurrentdefect. BroadF011 and otherroster findings notautomaticglobalmerge.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

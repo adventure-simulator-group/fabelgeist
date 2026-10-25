@@ -1,0 +1,32 @@
+{
+  "id": "SEGOVB-04-TERRAIN-COST-INTERMEDIATE-001",
+  "classification": "representable public lazy-grid API arithmetic counterexample; no implementation/test/probe or ordinary pack route claim",
+  "source_variants": [
+    "physical-p16",
+    "pr-working"
+  ],
+  "source_ranges": {
+    "crates/adventuresim-terrain/src/lib.rs": [
+      [
+        1020,
+        1178
+      ],
+      [
+        1191,
+        1227
+      ],
+      [
+        1229,
+        1343
+      ]
+    ]
+  },
+  "case": "A lazy RoutingGrid reports width2,height1, metres_per_cell=u32MAX and returns default Open/elevation0 cells for its two in-range coordinates. astar start(0,0),goal(1,0) with default bounded profile/weather passes every shape/coordinate/profile admission; from_cover yields validplains1000. step_seconds distance=u32MAX, base=ceil(distance*3600/1250) about1.2e10. Uphill1000, saturation_factor10000 and snow factor10000 produce base*1e11 aboveu64MAX before dividing by1e11. Mathematical final cost is base and fitsu64. Checked builds panic on multiplication; uncheckedoverflow wraps intermediate beforedivision. No source fixture or evaluator was created/run.",
+  "qualification": [
+    "This differs exact NativeF038 address collision: width2 and in-range unique indexes here. It extends accepted generic-grid arithmetic contract, not another count of that same index counterexample.",
+    "Actual private WindowGrid coarsens bounded node counts and normal source coordinate/metre domain may prevent this huge spacing. No accepted current terrain package, installed route or actor path with this spacing proved.",
+    "Same family includes heuristic multiplies, route cumulative distance/seconds, compact bucket products and span cumulative endpoints; their exact accepted range/overflow policy must be retained through actual consumers, not assumed closed by the visitednode cap."
+  ],
+  "connected_repair": "Admit appropriate grid spacing and computed route costs at shared routing owner, and compute multiply/divide with sufficient width/order or structured overflow rejection. Keep lazy grid support, bounded search, exact integer ceil/ties/rounding, weather/skill factors and surface departure semantics. No arbitrary spacing cap or unchecked saturating cost fallback merely to hide overflow.",
+  "acceptance": "Every accepted grid route cost publishes representable u64 values or a declared error before arithmetic can panic/wrap; representable final multiply/divide results stay obtainable where policy allows. Exact accumulated distance/time/span conservation must hold or reject before returning a plan. Normal native pack route outputs/tie/deadline behavior remain coherent."
+}

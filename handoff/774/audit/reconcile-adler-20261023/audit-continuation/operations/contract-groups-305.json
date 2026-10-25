@@ -1,0 +1,110 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-305",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/heated_rooms.rs",
+      "sha256": "443063c283413c94c1d5b856ab84ff71fe275f9f039e1427384f13a395671879",
+      "actual_EOF": 274,
+      "actual_compared_ranges": [
+        [
+          1,
+          274
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/occupied_storeys.rs",
+      "sha256": "e45cc55e23a73758b66304cd2fa518b1cb291eb214df0e66787f9c9f13b58341",
+      "actual_EOF": 157,
+      "actual_compared_ranges": [
+        [
+          1,
+          157
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/orchestration.rs",
+      "sha256": "a780f7423a92de85a7e0177797eac288dc0b4eb003a105b427b356d2b2b0c3ba",
+      "actual_EOF": 196,
+      "actual_compared_ranges": [
+        [
+          1,
+          196
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Heating reservation uses actual ordinal roles and checked cell offsets before occupied-room publication",
+      "source_ranges": {
+        "heated_rooms.rs": [
+          [
+            1,
+            274
+          ]
+        ],
+        "occupied_storeys.rs": [
+          [
+            1,
+            157
+          ]
+        ]
+      },
+      "disposition": "Both complete source bodies were personally read. for_program checked-get proves a storey exists and classifies ground/first-upper/arbitrary upper indices into three roles; it does not cap all upper ordinals to enum variants. RearCellOffset is strictly positive i16 and depth conversion admits only nonnegative i16, so depth-offset remains within[-32767,32766] and cannot overflow. Reservation collision/outside-footprint returns typed storey/room/cell/reason. Earlier inserts may precede an error, but actual allocate_storey owns a fresh local BTreeMap and propagates the failure before publishing StoreyPlan; no externally retained partial reservation demonstrated. Fixed two-cell bay and pantry offsets are actual topology policy, not isolated optional point hints."
+    },
+    {
+      "contract": "Occupied-storey construction closes the empty requirements fallback and keeps assigned identities fallible",
+      "source_ranges": {
+        "occupied_storeys.rs": [
+          [
+            1,
+            157
+          ]
+        ]
+      },
+      "disposition": "After footprint admission, generate_storeys rejects empty room requirements and more rooms than cells before stair-core resolution or allocation. enumerate establishes program.storeys[level.index()] access. RoomIndex and serialized StoreyIndex conversions propagate errors. Therefore the empty requirements[0] example for entrances303 is not an ordinary call through this generation path. Exact assignment-room membership still belongs to room_allocation and derive_walls; those owner bodies remain separate inventory dependencies. Generated room connectivity is checked before wall/opening derivation. Small church has a separate owned occupied-storey branch and rejects edits. Church/workplace structural programmes intentionally clear duplicate grid walls/openings after occupancy labels are built."
+    },
+    {
+      "contract": "Opening mutation uses bounded actual room/wall identity and separates absent optional set-out from rejected dimensions",
+      "source_ranges": {
+        "heated_rooms.rs": [
+          [
+            159,
+            274
+          ]
+        ],
+        "orchestration.rs": [
+          [
+            95,
+            196
+          ]
+        ]
+      },
+      "disposition": "Heating doorway chooses only known room ordinals and actual enumerated wall candidates; absent pair or eligible shared wall leaves prior openings unchanged. walls[o.wall] remains dependent on actual derive_openings provenance. Editor mutation looks up the selector before direct wall indexing, rejects existing-owned opening conflicts and inapplicable interior Window/Gate/ArrowSlit, then uses inclusive finite ranges: NaN fails range/abs checks. It appends and sorts only after validation. RemoveOpening requires an actual removal; subsequent edit failure abandons the local regenerated document/plan, not a database transaction. Width/sill/height relationships with complete wall/roof clearance remain the structural audit contract."
+    },
+    {
+      "contract": "Generation orchestration defines the real admission and error-publication order",
+      "source_ranges": {
+        "orchestration.rs": [
+          [
+            1,
+            196
+          ]
+        ]
+      },
+      "disposition": "All196lines were personally read. Church and workplace programme validation precedes occupancy, then actual roof/tower/crown/defense/wall graph construction; checked local ResolvedGeometry is finally moved into BuildingPlan and its consuming architectural envelope resolver. generate_unchecked resolves heating only after the structure succeeds. This establishes whole local-plan error containment, not universal success of each native arithmetic operation or an implicit audit_plan call. Actual derived geometry helpers and accepted programme policies remain their owning original source roles; no counterpart/hash coverage or other-lens review was imported. No implementation plan, source fixes, tests, checks, builds or generation."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-building-generator/src/generator/roof_child_fronts.rs"
+}

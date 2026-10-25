@@ -1,0 +1,44 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-092",
+  "at": "2026-10-23T01:36:58.083077+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement.rs",
+      "sha256": "9a3b4ed5cede2d65e1b880ae2247536fe3478b19fe34207df5ebd6cd96ec6a29",
+      "scope044_index": 1852,
+      "actual_EOF": 689,
+      "scoped_ranges_compared": [
+        [
+          1,
+          689
+        ]
+      ],
+      "actual_displayed_read_chunks": [
+        [
+          1,
+          300
+        ],
+        [
+          301,
+          689
+        ]
+      ],
+      "actual05_comparison": "Fresh complete689 originaltest/controllerhelper source, notexecuted. Walker owns oneApp+actorEntity; factory registers actualproductionphysics/controller/motor withfixed1/64time beforeactorcreation. Controllerparameters fromsame defaultcombatconfig andcapsule actor mass/footheight setup, no relaxedmovementlimits. Drive writes goal delta input beforemotor; LastDriveVelocity captures aftermotor/beforemovement, explicitly stage-specific diagnostic notsecondvelocityauthority. Routebudget scalesactualdistance/positiveactualwalkspeed/fixedtick, max640 baseline; reachedwaypoint removesgoal andletsproductionmotorbrake ratherthanzerovelocity. Returnedposition alwaysactualworldstate; walk_to requiresactualarrival threshold. Diagnostics retainactualmatched actor/controller/collider/frame/cuboid/source ID, notresolvedsolidsearch bynearest. Genericdiagnosticcapture expects WalkGoal present; no API guarantee on arbitrarycallerstate/routecapacity. install_property_buildings derives sameprogram plan/collision andmatchesactualmemberID datum before retainedExactBuildingGeometry+collider+transform. Positive/negativefixtures preserveordinary/overheight/headroom/steepmovementconstraints andlevel/terraced/geographicfullgeometry relations; surface-onlyshortlanding deliberatelyfailsarchitecturalaccess. Source explicitly isolatesproposedsupportsurface, notcityacceptance. No runtimeKCC/nativealgorithm proof or tests run.",
+      "source_body_proof": "Actualfull689 source read in two consecutiveboundedchunks; no execution, newtests or assertions."
+    }
+  ],
+  "comparison_groups": {
+    "test-world-identity": "Actor/entity/App and retainedbuildingphysicalsource staypaired; diagnostics matchexactsource IDs.",
+    "sample-stage-purpose": "Goalinput/motorvelocity/finalposition are distinctcontrollerstages, notduplicateauthorities merelysharedunits.",
+    "acceptance-boundaries": "Actualarrival required, actorlimits preserved, isolatedsurfacehelper notwholecityacceptance."
+  },
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Broad remainingfrozen source inventory and exactlowercanonical/native helperroles incomplete. No nextlens orimplementation."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

@@ -1,0 +1,321 @@
+{
+  "id": "CONT08-CONTRACT-025",
+  "at": "2026-10-25T09:28:04.948906+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 1460,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/camera.rs",
+      "before_sha256": "a7a74e2f31522bf19fc21792bd121631646c19c307b267b8a45b9165d9b129ff",
+      "after_sha256": "4d7aab7742753836f2384c8cd1095148537193d23ba45c3f5bac3762dabc6fa9",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1460-base-a7a74e2f31522bf19fc21792bd121631646c19c307b267b8a45b9165d9b129ff",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/4d7aab7742753836f2384c8cd1095148537193d23ba45c3f5bac3762dabc6fa9",
+      "diff": "source-evidence/1460.diff",
+      "diff_sha256": "b1990a7e168e28fbf35d02c62aebcde5612a22b4f53b5e72f0f1fa68dd28f7dd",
+      "head_body_read_ranges": [
+        [
+          1,
+          185
+        ]
+      ],
+      "facts": [
+        "Full185 body+entire590-line actual diff; removed predecessor compared against new1461/1464\u20131467/1469. F9/default true and offset-before-aim/Transform scheduling retained. Complete optional debug/aim observation replaces stale active payload intentionally. Actual UI/diagnostic recipients pending.",
+        "Old update mutated live history incrementally; new cloned pose commits only on complete preparation. Blend advances independently before observation, explicit new contract; no global rollback promise. Capture boom arithmetic unchanged after native projections."
+      ],
+      "disposition": "Own08 source-local old/new comparison accounted with native/UI dependencies; no all-camera clearance.",
+      "acceptance": "Preserve authored scalars, signed shaping and kernel/clamp/selection order; reject invalid owned results before affected publication, retain independent blend lifecycle. No checks/tests/repairs."
+    },
+    {
+      "scope_index": 1461,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/aim.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/camera/aim.rs",
+      "before_sha256": null,
+      "after_sha256": "cbbc59d3f49773f1c5030d3399c0dc94533f46afd5e022ea3adda5eda284c339",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1461-base-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/cbbc59d3f49773f1c5030d3399c0dc94533f46afd5e022ea3adda5eda284c339",
+      "diff": "source-evidence/1461.diff",
+      "diff_sha256": "eadf9149af0f37300dbdd6c1057e729fda93377949169ffec065890da1f1cbb0",
+      "head_body_read_ranges": [
+        [
+          1,
+          94
+        ]
+      ],
+      "facts": [
+        "Full94 body+complete added diff and removed old1460 aim method consumed. Raised/ranged gates, ray/filter order, planar fallback, right/muzzle and target arithmetic retained. Current aim is None before missing/controller/error paths; complete endpoints admitted before Some, no fabricated origin. blocked derives same hit-identity predicate; removed target args were unused. Actual display recipients pending."
+      ],
+      "disposition": "Own08 source-local old/new comparison accounted with native/UI dependencies; no all-camera clearance.",
+      "acceptance": "Preserve authored scalars, signed shaping and kernel/clamp/selection order; reject invalid owned results before affected publication, retain independent blend lifecycle. No checks/tests/repairs."
+    },
+    {
+      "scope_index": 1464,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/config.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/camera/config.rs",
+      "before_sha256": null,
+      "after_sha256": "62f911a33b3857f7f42007f9773937a09e031bc7944bcf57536a64a030a6b9fa",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1464-base-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/62f911a33b3857f7f42007f9773937a09e031bc7944bcf57536a64a030a6b9fa",
+      "diff": "source-evidence/1464.diff",
+      "diff_sha256": "7112b88a1fd142fc9613e2351e83f803c5f7b23436ead0f9786139b361e9252f",
+      "head_body_read_ranges": [
+        [
+          1,
+          142
+        ]
+      ],
+      "facts": [
+        "Full142 body+added diff vs old1460 defaults. Same literal scalars/order including negative posture and zero shoulder, separate raised/lowered times. Constant admission checks authored finite values. Public custom signed/zero/negative shaping remains supported; no blanket positive restriction."
+      ],
+      "disposition": "Own08 source-local old/new comparison accounted with native/UI dependencies; no all-camera clearance.",
+      "acceptance": "Preserve authored scalars, signed shaping and kernel/clamp/selection order; reject invalid owned results before affected publication, retain independent blend lifecycle. No checks/tests/repairs."
+    },
+    {
+      "scope_index": 1465,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/rig.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/camera/rig.rs",
+      "before_sha256": null,
+      "after_sha256": "1ec50b293b57a16a3f213a4e26d2a6a6f3d69500f61d3f586939745bc2978d01",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1465-base-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/1ec50b293b57a16a3f213a4e26d2a6a6f3d69500f61d3f586939745bc2978d01",
+      "diff": "source-evidence/1465.diff",
+      "diff_sha256": "0c3be1557bff3278d378e80daf67cf93d6cb790fa839e920a1c0eebf1a8fa6bc",
+      "head_body_read_ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "facts": [
+        "Full97 body+added diff vs old1460 update. Same delta min(.1), controller selection and successful publication order. Invalid elapsed warns/returns; profile or input errors warn/continue; failed pose preparation retains previous committed pose/camera translation. No default-Bevy panic here. Mode reset drops observation history but retains blend as old initialized reset."
+      ],
+      "disposition": "Own08 source-local old/new comparison accounted with native/UI dependencies; no all-camera clearance.",
+      "acceptance": "Preserve authored scalars, signed shaping and kernel/clamp/selection order; reject invalid owned results before affected publication, retain independent blend lifecycle. No checks/tests/repairs."
+    },
+    {
+      "scope_index": 1466,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/rig/observation.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/camera/rig/observation.rs",
+      "before_sha256": null,
+      "after_sha256": "a0a88df02f4d557950c09e55645900e75731a2817d9d422b636fe3126f062ef1",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1466-base-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/a0a88df02f4d557950c09e55645900e75731a2817d9d422b636fe3126f062ef1",
+      "diff": "source-evidence/1466.diff",
+      "diff_sha256": "9af33f44475e12cbbc322e61942507d8b941e913789b6ddf284e18c3c844d769",
+      "head_body_read_ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "facts": [
+        "Full170 added body and equivalent whole addition differential; base absent and old1460 predecessor consumed. Prone/Supine-before-crouch, anchor order, subject ray/filter and soft point, focus damping/error/velocity rejection and shoulder scalar order retained. Mutations are local history until outer success. Debug volume/soft-point admission can fail before publication; ordinary invalid normal not proven."
+      ],
+      "disposition": "Own08 source-local old/new comparison accounted with native/UI dependencies; no all-camera clearance.",
+      "acceptance": "Preserve authored scalars, signed shaping and kernel/clamp/selection order; reject invalid owned results before affected publication, retain independent blend lifecycle. No checks/tests/repairs."
+    },
+    {
+      "scope_index": 1467,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/rig_history.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/camera/rig_history.rs",
+      "before_sha256": null,
+      "after_sha256": "6b8831f4120039b41df17cb9365f3d4e37f1db57259aa4e5573e0fd8c9f8e4ff",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1467-base-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/6b8831f4120039b41df17cb9365f3d4e37f1db57259aa4e5573e0fd8c9f8e4ff",
+      "diff": "source-evidence/1467.diff",
+      "diff_sha256": "802e803ded8cd4980eb8a2ec7841b9336cb16692cef5c8f46b6baae79d7966c7",
+      "head_body_read_ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "facts": [
+        "Full105+entire added diff vs old1460 state/reset/update. Scalar blend clamp then complete checked profile then derivative admitted before filter commit; pose update independent. Exact subject/anchor-distance>threshold reset and zero-velocity/default boom/shoulder retained. History Option intentionally replaces initialized boolean."
+      ],
+      "disposition": "Own08 source-local old/new comparison accounted with native/UI dependencies; no all-camera clearance.",
+      "acceptance": "Preserve authored scalars, signed shaping and kernel/clamp/selection order; reject invalid owned results before affected publication, retain independent blend lifecycle. No checks/tests/repairs."
+    },
+    {
+      "scope_index": 1469,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/values.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/camera/values.rs",
+      "before_sha256": null,
+      "after_sha256": "6a14958f0a7593181730db9d73a69a54302cf39b9706819553ee8edece85a19f",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1469-base-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/6a14958f0a7593181730db9d73a69a54302cf39b9706819553ee8edece85a19f",
+      "diff": "source-evidence/1469.diff",
+      "diff_sha256": "2aa1e7ffa7910d7a277b202617e6b30d1617b2561a06d9f677fc192050688b3c",
+      "head_body_read_ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "facts": [
+        "Full105+equivalent whole added diff vs prior native fields1460/1468. ScreenWindow finite nonnegative incl0/subnormal/>1, ScreenError finite signed incloffscreen, signed finite blend derivative. Owners retain unrounded native values; actual rig/aim warnings expose failure and do not fabricate success defaults."
+      ],
+      "disposition": "Own08 source-local old/new comparison accounted with native/UI dependencies; no all-camera clearance.",
+      "acceptance": "Preserve authored scalars, signed shaping and kernel/clamp/selection order; reject invalid owned results before affected publication, retain independent blend lifecycle. No checks/tests/repairs."
+    }
+  ],
+  "partial_native_rows": [
+    {
+      "scope_index": 486,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/shape_caster.rs",
+      "sha256": "e7ddca53ee044c4814c925fffa7f172680988ea9456834049da965f16a5c6b66",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/e7ddca53ee044c4814c925fffa7f172680988ea9456834049da965f16a5c6b66",
+      "fresh_read_ranges": [
+        [
+          400,
+          477
+        ],
+        [
+          545,
+          612
+        ]
+      ],
+      "facts": "Actual camera from_max_distance sets compute_contact_on_penetration=true/ignore=false. Avian passes flags to Parry, selects hit.distance strictly<closest, transports raw rotated points/normals, drops ShapeCastStatus. Error/None skips candidate. Same locked native source at both pins.",
+      "disposition": "Partial original role; other material ranges uncredited; lower Q003 normal producer remains."
+    },
+    {
+      "scope_index": 487,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/system_param.rs",
+      "sha256": "a568d6d6d411e2832b3efb91dfc919770712da09eae38e4a9dff53ffd8d72fea",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/a568d6d6d411e2832b3efb91dfc919770712da09eae38e4a9dff53ffd8d72fea",
+      "fresh_read_ranges": [
+        [
+          420,
+          609
+        ]
+      ],
+      "facts": "Actual camera from_max_distance sets compute_contact_on_penetration=true/ignore=false. Avian passes flags to Parry, selects hit.distance strictly<closest, transports raw rotated points/normals, drops ShapeCastStatus. Error/None skips candidate. Same locked native source at both pins.",
+      "disposition": "Partial original role; other material ranges uncredited; lower Q003 normal producer remains."
+    }
+  ],
+  "additional_native_contracts": [
+    {
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/shape_cast/shape_cast.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/parry3d-0.27.0/src/query/shape_cast/shape_cast.rs",
+      "sha256": "55751d940df916bcdc1526be642b46736efe8223038ea0bbed6cee5530db129e",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/native-parry-55751d940df916bcdc1526be642b46736efe8223038ea0bbed6cee5530db129e",
+      "material_ranges": [
+        [
+          1,
+          151
+        ],
+        [
+          272,
+          284
+        ]
+      ],
+      "line_count": 284,
+      "byte_identity": "Local native member bytes equal exact cached crate member; crate hash equals frozen lock checksum. No source audit credit from verification.",
+      "read_ranges": [
+        [
+          1,
+          151
+        ],
+        [
+          272,
+          284
+        ]
+      ],
+      "disposition": "Fresh bounded08 body read after prospectiveREG002. RawVector normal fields; support-map GJK/contact and rotated tolerance remain dependencies. No ordinary rejection established."
+    },
+    {
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/default_query_dispatcher.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/parry3d-0.27.0/src/query/default_query_dispatcher.rs",
+      "sha256": "dd9873e219688b93f28314df13a405c0c78fb44444344b46e18ba2eb75fbe53d",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/native-parry-dd9873e219688b93f28314df13a405c0c78fb44444344b46e18ba2eb75fbe53d",
+      "material_ranges": [
+        [
+          437,
+          543
+        ]
+      ],
+      "line_count": 835,
+      "byte_identity": "Local native member bytes equal exact cached crate member; crate hash equals frozen lock checksum. No source audit credit from verification.",
+      "read_ranges": [
+        [
+          437,
+          543
+        ]
+      ],
+      "disposition": "Fresh bounded08 body read after prospectiveREG002. RawVector normal fields; support-map GJK/contact and rotated tolerance remain dependencies. No ordinary rejection established."
+    },
+    {
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/shape_cast/shape_cast_support_map_support_map.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/parry3d-0.27.0/src/query/shape_cast/shape_cast_support_map_support_map.rs",
+      "sha256": "d874526a7a624206fd8ae6e3302db0f51f2d643c53014b8f5d496daa7d1e125c",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/native-parry-d874526a7a624206fd8ae6e3302db0f51f2d643c53014b8f5d496daa7d1e125c",
+      "material_ranges": [
+        [
+          1,
+          67
+        ]
+      ],
+      "line_count": 67,
+      "byte_identity": "Local native member bytes equal exact cached crate member; crate hash equals frozen lock checksum. No source audit credit from verification.",
+      "read_ranges": [
+        [
+          1,
+          67
+        ]
+      ],
+      "disposition": "Fresh bounded08 body read after prospectiveREG002. RawVector normal fields; support-map GJK/contact and rotated tolerance remain dependencies. No ordinary rejection established."
+    },
+    {
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/shape_cast/shape_cast_halfspace_support_map.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/parry3d-0.27.0/src/query/shape_cast/shape_cast_halfspace_support_map.rs",
+      "sha256": "42943e2a44151982c9c509c9c633cde8b794e4da98ac70a1fd1d99c657aef851",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/native-parry-42943e2a44151982c9c509c9c633cde8b794e4da98ac70a1fd1d99c657aef851",
+      "material_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "line_count": 78,
+      "byte_identity": "Local native member bytes equal exact cached crate member; crate hash equals frozen lock checksum. No source audit credit from verification.",
+      "read_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "disposition": "Fresh bounded08 body read after prospectiveREG002. RawVector normal fields; support-map GJK/contact and rotated tolerance remain dependencies. No ordinary rejection established."
+    }
+  ],
+  "question_dispositions": [
+    {
+      "id": "CONT08-Q004",
+      "status": "resolved_with_explicit_API_behavior_qualification; no new defect promoted",
+      "sources": [
+        1464,
+        1467,
+        1468,
+        1779,
+        1465
+      ],
+      "old_new_trace": "Old raw coefficient interpolation may becomeInf before downstream damping floor. New checked_lerp admits finite signed complete CameraProfile before retained blend/derivative commit. Huge opposite finite endpoints can reject; rig_history54 fails before56/57; rig58\u201360 warns/skips frame.",
+      "intent_evidence": "Captured PR44\u201345 finite signed shaping and128\u2013135 rejects unrepresentable final owned operation result before affected replacement. Actual blended CameraProfile stores ResponseShapingTime; finite coefficient is operation result, not blanket positivity.",
+      "ordinary_qualification": "Exact defaults .18/.34 vs .055/.08 and unit blend exclude huge opposite witness; representable custom signed/zero/negative coefficients retain law. No runtime execution.",
+      "acceptance": "Preserve difference-form interpolation and later damping floor, supported signs/zero; reject unrepresentable owned coefficient before affected commit."
+    },
+    {
+      "id": "CONT08-Q003",
+      "status": "open bounded lower native producer question",
+      "excluded_claim": "Initial overlap alone does not imply unreliable normals; actual config computes contact geometry.",
+      "remaining": "GJK/contact normal production and actual collider shape policy before ordinary rejection claim."
+    }
+  ],
+  "next": "Original108 prefix; camera fixtures/native normal and diagnostic recipients pending."
+}

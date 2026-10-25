@@ -1,0 +1,40 @@
+{
+  "id": "CONT07-F109",
+  "lens": "audit-redundant-authority",
+  "classification": "maintenance authority suggestion; current digit cardinality coherent",
+  "source_id": "pr-working:crates/fabelgeist-compute/src/sort/mod.rs",
+  "sha256": "2cf6b4446ab00dce84c8b3169d9685d3b2e304b869f4c25d0e4322c7bedf9634",
+  "locations": [
+    [
+      34,
+      40
+    ],
+    [
+      56,
+      77
+    ],
+    [
+      158,
+      180
+    ],
+    [
+      219,
+      221
+    ],
+    [
+      260,
+      286
+    ]
+  ],
+  "fact": "RADIX256 and BITS_PER_PASS8 separately author one digit cardinality. TILE256 also has an explicit current equality precondition: every local invocation initializes and flushes one histogrambin using local_id.x. Code injects eachconstant into shader but does not derive/enforce their relationship.",
+  "disagreement": "A future RADIX or TILE change alone can leave histogram entries unwritten or index outside local_histogram, while pass shifts still derive independent BITS_PER_PASS. Current256/256/8 values agree; no current badsort/dispatch.",
+  "limits": [
+    "This is a maintenance suggestion, not an observed behavioral defect.",
+    "Different tile/per-pass policies can be valid after adapting histogram loops; do not force unrelated GPUgroups globallyequal.",
+    "ExistingRIG-ADMISSION03-F059 scratchbuffer/capacity provenance distinctactualingress defect, no automaticalias."
+  ],
+  "suggested_connected_remedy": "Derive digit cardinality/mask from one bitwidth and establish actual histogramlane/cardinality relationship in generated layout or explicit staticcontract, preserving current four-pass stable sort.",
+  "acceptance_contract": "Any legitimate tile/digit-width change cannot silently violate histogram initialization/output or extraction/shift relationship.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

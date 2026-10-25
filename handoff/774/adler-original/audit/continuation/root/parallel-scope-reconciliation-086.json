@@ -1,0 +1,151 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-086",
+  "at": "2026-10-22T18:59:18.825065+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-017.json",
+    "sha256": "edc9c04b3ceea9fe660ee7b13ca85001e8df2a381de4c6f47c5bdc5ad1b3f249"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-016.json",
+    "sha256": "391e99888dc6fa833ea8ac6c7e86a7862d411654ce7d5d53449dec180f108d22"
+  },
+  "new_variants": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/lib.rs",
+      "snapshot": "pr-working",
+      "path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-mhr\\src\\lib.rs",
+      "sha256": "9d99fd95ed9ec73c741b282a32784af8c92b4a8d3abcbc8ae15914f94a50f06b",
+      "bytes": 1589,
+      "actual_line_count": 43,
+      "scope_kind": "materially_reached_parallel_initial_dependency",
+      "audit_owner": "rig",
+      "material_ranges": [
+        [
+          31,
+          43
+        ]
+      ],
+      "scope_limits": "Earlier full46-line GetContent display occurred before missing scope identity was noticed; contracts005 erroneously lists full fresh library proof. That premature display and prior analysis receive NO source/lens credit. Register now BEFORE fresh exact bounded31-EOF reread/reanalysis; QUAL001 overrides005 library claim. No retroactive authorization.",
+      "parallel_reached_registration": {
+        "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+        "sha256": "3c030ef626adf1034e7a71d9ae2ceb50a484632aac09222d67fe75046cfbebb0",
+        "row_1based": 1,
+        "id": "RIG-INITIAL06-REG-001",
+        "original_record": {
+          "id": "RIG-INITIAL06-REG-001",
+          "at": "2026-10-22T18:53:51.969620+00:00",
+          "authority": "root/parallel-initial-audits-081.json",
+          "source_id": "pr-working:crates/fabelgeist-mhr/src/lib.rs",
+          "snapshot": "pr-working",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-mhr\\src\\lib.rs",
+          "sha256": "9d99fd95ed9ec73c741b282a32784af8c92b4a8d3abcbc8ae15914f94a50f06b",
+          "actual_eof": 43,
+          "material_ranges": [
+            [
+              31,
+              43
+            ]
+          ],
+          "role": "Direct MHR public module/type export bindings tying already scoped Skeleton/ParameterTransform/Mhr to canonical Rig dependency comparison; no whole library/asset narrative graph",
+          "chronology_qualification": "Earlier full46-line GetContent display occurred before missing scope identity was noticed; contracts005 erroneously lists full fresh library proof. That premature display and prior analysis receive NO source/lens credit. Register now BEFORE fresh exact bounded31-EOF reread/reanalysis; QUAL001 overrides005 library claim. No retroactive authorization.",
+          "exclusions": "Opening documentation1-30, externalMHR documentation/links/example and other engine/asset graphs excluded.",
+          "status": "registered_before_fresh_bounded_current06_analysis_after_explicit_premature_display_exclusion"
+        }
+      },
+      "producer_inventory_accounting": "bounded_01_02_newmaterial_comparison_pending",
+      "admission_discovery": "incomplete_exact_new_role"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-math/src/transform.rs",
+      "snapshot": "pr-working",
+      "path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-math\\src\\transform.rs",
+      "sha256": "db425ac10c79f92ed75f446051d52b90811ab3c5b2c5f28304959c9445182564",
+      "bytes": 9868,
+      "actual_line_count": 322,
+      "scope_kind": "materially_reached_parallel_initial_dependency",
+      "audit_owner": "rig",
+      "material_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "scope_limits": "Exactregisteredroleonly, no unlistedcontext/foreignhelpercredit.",
+      "parallel_reached_registration": {
+        "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+        "sha256": "3c030ef626adf1034e7a71d9ae2ceb50a484632aac09222d67fe75046cfbebb0",
+        "row_1based": 2,
+        "id": "RIG-INITIAL06-REG-002",
+        "original_record": {
+          "id": "RIG-INITIAL06-REG-002",
+          "at": "2026-10-22T18:57:10.842413+00:00",
+          "authority": "root/parallel-initial-audits-081.json",
+          "source_id": "pr-working:crates/fabelgeist-math/src/transform.rs",
+          "snapshot": "pr-working",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-math\\src\\transform.rs",
+          "sha256": "db425ac10c79f92ed75f446051d52b90811ab3c5b2c5f28304959c9445182564",
+          "actual_eof": 322,
+          "material_ranges": [
+            [
+              1,
+              110
+            ]
+          ],
+          "role": "Exact candidate competing Transform owner of already scoped MHR math::Transform, sharedmath moduleexport alreadyscoped; compare actual field/constructor/Euler+scale native representation before any consolidation conclusion",
+          "reason": "Fresh scoped MHR math has f64 quaternion/uniformscale momentum skeleton state, while symbol-only sharedmath nav reveals vector rotation/scale API. Actual definition + to_mat4 route needed to establish distinct versus duplicate semantics; no .into basedonname.",
+          "exclusions": "from_mat4/inverse/composition110+ and vector/matrix operation bodies/foreign algorithms excluded. No actualsharedmathTransformbody read/analyzed beforethisregistration; symbol-onlynav notsourcecredit.",
+          "status": "registered_before_bounded_initial06_body_analysis"
+        }
+      },
+      "producer_inventory_accounting": "bounded_01_02_newmaterial_comparison_pending",
+      "admission_discovery": "incomplete_exact_new_role"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/framed_roofs.rs",
+      "snapshot": "pr-working",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\framed_roofs.rs",
+      "sha256": "a59c1c293c17b206f5608ab7911c49309758f10c5c16101742cdbc6fcbe8a54b",
+      "bytes": 1309,
+      "actual_line_count": 46,
+      "scope_kind": "materially_reached_parallel_initial_dependency",
+      "audit_owner": "root",
+      "material_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "scope_limits": "Premature full46 display occurred in same invocation as membership lookup which returned absent016. No credit from premature display. Register exact role now before fresh bounded reread and analysis.",
+      "parallel_reached_registration": {
+        "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+        "sha256": "fac20d5f701303cb5bd5d6d1671d1d15b7d869cb5c6d49e58c7e56ab7a62a17f",
+        "row_1based": 1,
+        "id": "ROOT-INITIAL04-REG001",
+        "original_record": {
+          "id": "ROOT-INITIAL04-REG001",
+          "at": "2026-10-22T18:56:33.604801+00:00",
+          "authority": "continuation/root/parallel-initial-audits-081.json",
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/framed_roofs.rs",
+          "snapshot": "pr-working",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\framed_roofs.rs",
+          "sha256": "a59c1c293c17b206f5608ab7911c49309758f10c5c16101742cdbc6fcbe8a54b",
+          "actual_EOF": 46,
+          "material_ranges": [
+            [
+              1,
+              46
+            ]
+          ],
+          "direct_role": "Immediate actual resolve_roof_assemblies caller forwarding mutable geometry through later fallible stages; qualify local partial mutation versus externally published accepted building.",
+          "chronology_qualification": "Premature full46 display occurred in same invocation as membership lookup which returned absent016. No credit from premature display. Register exact role now before fresh bounded reread and analysis.",
+          "status": "prospectively_registered_fresh_read_pending_global"
+        }
+      },
+      "producer_inventory_accounting": "bounded_01_02_newmaterial_comparison_pending",
+      "admission_discovery": "incomplete_exact_new_role"
+    }
+  ],
+  "total_variants": 2753,
+  "mandatory_overlays": 197,
+  "limits": "Metadata-only prospective exact role registration for Rig06REG001/002 andRoot04REG001. Priorfull/boundedrolespreserved, no added SDK/testbody scope and no semanticcredit. Frozen sourceunchanged."
+}

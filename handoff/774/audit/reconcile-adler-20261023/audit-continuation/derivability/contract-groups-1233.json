@@ -1,0 +1,26 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1233",
+  "at": "2026-10-25T18:12:23.900946+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1299,
+  "source_id": "pr-working:crates/adventuresim-strategic-sim/src/profile.rs",
+  "sha256": "765a5b37cbc4ffd63fff90bddf75a154a779a77bc8dbfd6d26d1bbf929c8fd9e",
+  "actual_compared_ranges": [
+    [
+      1,
+      300
+    ]
+  ],
+  "existing_derives": [
+    "ActivityPreference/EquipmentStyle/BuildRole Clone Copy Debug PartialEq Eq Serialize Deserialize snake_case",
+    "AgentBuild/EquipmentPreferences/AgentProfile Clone Debug PartialEq Serialize Deserialize deny_unknown_fields"
+  ],
+  "trait_inventory": [],
+  "analysis": "Profile enums already structural Clone Copy Debug Eq PartialEq Serialize Deserialize snake_case; build/preferences/profile records structural Clone Debug PartialEq Serialize Deserialize deny_unknown_fields. No handwritten trait/custom codec. Native seeded/correlated attributes/personality/build/skills/preferences/schedule generation synthesizes bounded/canonical fields, not Default/From derivability. No generator executed.",
+  "first_unfinished": {
+    "scope_index": 1299,
+    "line": 301
+  },
+  "execution": "none"
+}

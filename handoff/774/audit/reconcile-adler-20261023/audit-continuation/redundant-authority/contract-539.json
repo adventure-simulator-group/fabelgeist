@@ -1,0 +1,67 @@
+{
+  "id": "CONT07-CONTRACT-539",
+  "at": "2026-10-23T23:30:57.475934+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2374,
+      "source_id": "pr-working:crates/strategic-web/src/routes/settlements/camp.rs",
+      "sha256": "f74938c062c2117522bc053568946e0dbb495f3852a85b95bc29154de215b972",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/routes/settlements/camp.rs",
+      "actual_EOF": 1246,
+      "ranges": [
+        [
+          935,
+          1246
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2375,
+      "source_id": "pr-working:crates/strategic-web/src/routes/settlements/encumbrance.rs",
+      "sha256": "1b05e35b79269c08ac5183beede6022f00ca9cb2ffa3c3b0ca9e2121a62a4035",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/routes/settlements/encumbrance.rs",
+      "actual_EOF": 484,
+      "ranges": [
+        [
+          296,
+          484
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2376,
+      "source_id": "pr-working:crates/strategic-web/src/routes/settlements/medical.rs",
+      "sha256": "4a65105b858f1a7597d6f005ffd1840aced5a93d6655837cb0ad03d4f1fdb502",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/routes/settlements/medical.rs",
+      "actual_EOF": 567,
+      "ranges": [
+        [
+          1,
+          567
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "RIG-PPS-F017 personally consumed exact failure/required-observation qualifications"
+  ],
+  "facts": [
+    "Camp exactforecast935\u20131246 derives intervals from canonicalitinerary segments, balances from currentneeds andinventory, yields from foodlots, water from containedcustody except explicit settlement refillforecastpolicy. Forecastoutput fields capture samefunctioninputs/results, not independently mutatedretainedauthority. Need actual authoritative alcohol/needs recipientpolicy comparison for manual expected_morale_demands history loop before claiming duplicate currentpolicy defect.",
+    "Encumbrance296\u2013314 confirms inherited RIG-PPS-F017: capability refresh failure ignored, failed query becomes None then medical166\u2013168 realzero check. Not newunique. Extension094315\u2013349 personally read completes trainingprofileproducer: heldoccupancies produce itemclass/skill/balance projections; multicapacity duplicateoccupancy could duplicatehands only if authoritative occupancy admits sameitem Held multiple times, actual receiving Core aggregation prerequisite remains.",
+    "Party observer model deliberately overrides broadcurrentalive accordingto actor chronology, future rows omitted; failure conceals broaddeath by setting true. This is observationprivacy policy not proofdeathauthority changes. Notificationcount and automaticflag derivedfresh from sources/addresses/preferences; failure defaults covered cause/requiredobservation questions, no independentretainedcache.",
+    "Medical whole567body uses canonical BodyRegion parser, Procedureenum, RepairService owner projections. Surgery inventory counts and bestdisinfectant are fresh display projections, procedure reducer commit owns treatment; capability fallback exactF017 support. Corpseoverview errors become empty currentview exactinheritedF017, while requiredsurgery_rows fails explicitly. No newclinicalcurrenterror invented.",
+    "Fullmedicalscope ends567, older evidence568 is EOF overshoot not phantomlinecredit. No source execution or initial-lensclearance."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2377,
+    "start_line": 1
+  }
+}

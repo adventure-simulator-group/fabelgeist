@@ -1,0 +1,90 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-278",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pinned-registry:parry3d-0.27.0/src/math/mod.rs",
+      "sha256": "f1b05b3e1a27c95127e70c59bc0269e9a191b64f4c8f7b02d0f9e402f1752c8c",
+      "actual_EOF": 314,
+      "actual_compared_ranges": [
+        [
+          1,
+          314
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pinned-registry:parry3d-0.27.0/src/shape/cuboid.rs",
+      "sha256": "e096c59d8192dc997b7db25e0dcd024eefb5c9f37a00a2338bafd11f39582630",
+      "actual_EOF": 783,
+      "actual_compared_ranges": [
+        [
+          1,
+          783
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pinned-registry:parry3d-0.27.0/src/shape/shared_shape.rs",
+      "sha256": "7cec2012b2193c9dc60738a2a1ce2b9e873a83f730e6d0d15bfe616eead271c5",
+      "actual_EOF": 715,
+      "actual_compared_ranges": [
+        [
+          1,
+          715
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Native selected numeric aliases, grid casts and basis construction preserve port prerequisites",
+      "source_ranges": {
+        "parry/math/mod.rs": [
+          [
+            1,
+            314
+          ]
+        ]
+      },
+      "disposition": "Complete314-line pinned body personally read. Real/Int/Vector aliases select f32/i32 or f64/i64 and2D/3D; fixed DIM*2 is at most6. Integer-to-float loses precision at large grid indices, float-to-int native casts saturate/truncate and NaN collapses0; neither is checked coordinate/grid admission. orthonormal_subspace_basis checks empty then normalizes first input and returns forZERO, chooses a nonparallel branch, emits at most two vectors respecting first callbackfalse. It intentionally implements documented3D one-vector case; multiple-vector/null/nonfinite meaning remains actual native caller dependency, not a promoted ordinary wrong-basis defect. No arbitrary epsilon or signed lattice restrictions imposed."
+    },
+    {
+      "contract": "Native cuboid construction/scaling and feature operations do not establish bespoke physical admission",
+      "source_ranges": {
+        "cuboid.rs": [
+          [
+            1,
+            456
+          ],
+          [
+            457,
+            783
+          ]
+        ]
+      },
+      "disposition": "Complete783-line pinned body personally read; latter large ConvexPolyhedron block is commented evidence, not executable behavior. Cuboid::new copies raw public half_extents despite positive prose; scaled multiplies raw scale and can invert/overflow. Actual Avian adapter273 passes abs(scale), which closes negative-scale inversion on that path but not overflow/zero/NaN without producer admission. Feature support picks axes0..DIM-1, fixedmod2/3 and copysign\u00b11 justify table indexes and small ID arithmetic. feature_normal Face(id) indexes unbounded publicid minus dimension with no range guard; arbitrary raw out-of-range Face can panic. Exact packed face-ID producer/receiver relation and first-party call remain unproved, so no ordinary collision normal failure promoted. Native vertex/edge normals normalize fixed small \u00b11 vectors; no independent finite-extreme numerator there. Preserve native support shape topology and actual packed ID ownership; no duplicate game-level feature-ID wrapper invented."
+    },
+    {
+      "contract": "Shared shape mutation is copy-on-write; constructors retain fallible versus raw native behavior",
+      "source_ranges": {
+        "shared_shape.rs": [
+          [
+            1,
+            715
+          ]
+        ]
+      },
+      "disposition": "Complete715-line pinned body personally read. make_mut prepares clone_dyn if Arc not unique, replaces ownedArc then get_mut unwrap under unique-return contract; mutation of one shared clone does not intentionally mutate other clones. Primitive constructors delegate raw values; cuboid wrapper is not positive/finite admission. Trimesh allocates/publishes SharedShape only after native TriMesh::new/with_flags returnsOk, retaining native error. Hull and convex_mesh use Option; convex decomposition filters failed part constructors before compound publication, so success does not certify original all-parts completeness. Voxels/VHACD and Array2 heightfield delegate actual count/geometry/work policy with no local checks; no concrete first-party oversized/native-invalid body asserted. SharedShape Serialize delegates typed native shape, Deserialize rejects unsupported custom shape explicitly rather than manufacturing fallback. Codec leaf/admission semantics remain actual typed-shape dependency. No shape allocation, geometry generation, Serde roundtrip, physics or tests executed."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pinned-sdk-2.6.1:db_connection.rs"
+}

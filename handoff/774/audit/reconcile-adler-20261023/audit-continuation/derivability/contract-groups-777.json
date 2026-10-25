@@ -1,0 +1,243 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-777",
+  "at": "2026-10-25T16:46:20.651555+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 999,
+      "source_id": "pr-working:crates/adventuresim-core/src/social/action_kind.rs",
+      "sha256": "2b9ff5d4ad32e81e8a66e3ad09dc43d0e382c88b117b89b970876d9d3789ce92",
+      "actual_EOF": 264,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/social/action_kind.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/social/action_kind.rs",
+        "sha256": "2b9ff5d4ad32e81e8a66e3ad09dc43d0e382c88b117b89b970876d9d3789ce92",
+        "bytes": 10528,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                264
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-SOCIAL-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 192,
+            "read_ranges": [
+              [
+                1,
+                264
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SOCIAL-037"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/social/action_kind.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 266,
+            "read_ranges": [
+              [
+                1,
+                264
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SOCIAL-037"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/social/action_kind.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 363,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          264
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Display + Error",
+          "type": "ParseSocialActionKindError",
+          "lines": [
+            [
+              152,
+              158
+            ]
+          ],
+          "disposition": "OPTIONAL_F002 exact existing thiserror fixed literal/source None"
+        },
+        {
+          "trait": "FromStr",
+          "type": "SocialActionKind",
+          "lines": [
+            [
+              160,
+              167
+            ]
+          ],
+          "disposition": "KEEP canonical borrowed Serde vocabulary/concrete error adapter"
+        }
+      ],
+      "existing_derives": [
+        "SocialActionKind structural+Serde with explicit renames; parse error structural already derive"
+      ],
+      "absence_basis": "Whole264line exact role personally consumed775\u2013777, native skill/eligibility/presentation/risk tables, error/parser and all fixture assertions; no other trait/codec."
+    },
+    {
+      "scope_index": 1000,
+      "source_id": "pr-working:crates/adventuresim-core/src/social/affinity.rs",
+      "sha256": "498a0922e501f63800d2c4fa9bbffd863ca4cf98b83e09393c504b29d8a8ba7c",
+      "actual_EOF": 60,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/social/affinity.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/social/affinity.rs",
+        "sha256": "498a0922e501f63800d2c4fa9bbffd863ca4cf98b83e09393c504b29d8a8ba7c",
+        "bytes": 2100,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                60
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-CORE-FOOD-SOCIAL-001"
+            ]
+          },
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/receiver-reconciliation-shared-proofs.json",
+            "ranges": [
+              [
+                1,
+                60
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-CORE-FOOD-SOCIAL-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 193,
+            "read_ranges": [
+              [
+                1,
+                60
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SOCIAL-037"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/social/affinity.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 268,
+            "read_ranges": [
+              [
+                1,
+                60
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SOCIAL-037"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/social/affinity.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 364,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Whole60line exact affinity module personally consumed776 output, native decay/gain/realized delta and three fixtures; no type/trait/codec. No execution."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Social action derivability",
+      "disposition": "F002 optional literal error derive only, preserve canonical borrowed parser. Native action/topic/skill policy not replaced by serialization."
+    },
+    {
+      "contract": "Affinity derivability",
+      "disposition": "No manual trait target; preserve bounded semantic arithmetic. Fixtures read only."
+    }
+  ],
+  "findings": [
+    "F002 social action parse error support776"
+  ],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1001,
+    "source_id": "pr-working:crates/adventuresim-core/src/social/claim_resolution.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

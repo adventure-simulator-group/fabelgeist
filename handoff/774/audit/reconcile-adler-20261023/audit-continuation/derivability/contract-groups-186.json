@@ -1,0 +1,287 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-186",
+  "at": "2026-10-25T13:25:08.160240+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 363,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+      "sha256": "e3b88b223ae8d99d6fbcb634fbb1dd3990f9f42f4440309a341f3da3b8c0a0ce",
+      "actual_EOF": 122,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+        "sha256": "e3b88b223ae8d99d6fbcb634fbb1dd3990f9f42f4440309a341f3da3b8c0a0ce",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 4219,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 461,
+            "read_ranges": [
+              [
+                1,
+                100
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-CLIENT-TARGETING-060"
+            ],
+            "read_status": "exact_scoped_current_owner_definition_or_receiving_body",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-core/src/scene_coordinates.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-CANONICAL-SPATIAL-CLOCK-CLOSURE-053",
+            "json_pointer": "/source_proofs/16",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                122
+              ]
+            ],
+            "source_context": {
+              "index": 598,
+              "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+              "sha256": "e3b88b223ae8d99d6fbcb634fbb1dd3990f9f42f4440309a341f3da3b8c0a0ce",
+              "read_ranges": [
+                [
+                  1,
+                  122
+                ]
+              ],
+              "role": "fresh current clock/angle/frame/velocity owner source, worldlib explicitly scoped; actual receiving contract disposition pending",
+              "timestamp": "2026-10-21T22:37:14.129396+00:00"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CANONICAL-SPATIAL-CLOCK-053",
+            "json_pointer": "/current_sources/16",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                122
+              ]
+            ],
+            "source_context": {
+              "index": 598,
+              "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+              "sha256": "e3b88b223ae8d99d6fbcb634fbb1dd3990f9f42f4440309a341f3da3b8c0a0ce",
+              "read_ranges": [
+                [
+                  1,
+                  122
+                ]
+              ],
+              "role": "fresh current clock/angle/frame/velocity owner source, worldlib explicitly scoped; actual receiving contract disposition pending",
+              "timestamp": "2026-10-21T22:37:14.129396+00:00"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1297,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "TryFrom<Vec2>",
+          "type": "ScenePlanPoint/PlanDisplacement",
+          "lines": [
+            51,
+            64,
+            79,
+            92
+          ],
+          "disposition": "KEEP checked finite coordinate/displacement admission and first bad axis X versus Z with distinct GeometryRole/error. Raw wrapper derives would bypass validation."
+        },
+        {
+          "trait": "PlanVertex",
+          "type": "ScenePlanPoint",
+          "lines": [
+            65,
+            69
+          ],
+          "disposition": "KEEP small explicit bespoke-trait native representation bridge; no available equivalent custom-trait derive."
+        },
+        {
+          "trait": "Deserialize<'de>",
+          "type": "ScenePlanPoint",
+          "lines": [
+            93,
+            98
+          ],
+          "disposition": "KEEP checked finite Vec2 admission and exact custom error text; transparent raw derive bypasses checked construction."
+        },
+        {
+          "trait": "From<Position<Scene>>",
+          "type": "ScenePlanPoint",
+          "lines": [
+            100,
+            105
+          ],
+          "disposition": "KEEP dimensional/frame projection X/Z from finite spatial point to plan point; not same-type field wrapping."
+        }
+      ],
+      "existing_derives": "ScenePlanPoint already structural/transparent Serialize/opaque Reflect, PlanDisplacement structural.",
+      "absence_basis": "All122 lines consumed including existing fixtures and child declaration; no extra manual structural/wire candidate. No child spatial_tests coverage."
+    },
+    {
+      "scope_index": 364,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_coordinates/velocity.rs",
+      "sha256": "f961ea0bc8da4a4bb23bba732b32f43172c9ab2aaa83bd4ff8319efb4faaf077",
+      "actual_EOF": 38,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_coordinates/velocity.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-tactical-core/src/scene_coordinates/velocity.rs",
+        "sha256": "f961ea0bc8da4a4bb23bba732b32f43172c9ab2aaa83bd4ff8319efb4faaf077",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 1217,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 460,
+            "read_ranges": [
+              [
+                1,
+                44
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-CLIENT-TARGETING-060"
+            ],
+            "read_status": "exact_scoped_current_owner_definition_or_receiving_body",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-core/src/scene_coordinates/velocity.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-CANONICAL-SPATIAL-CLOCK-CLOSURE-053",
+            "json_pointer": "/source_proofs/15",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-tactical-core/src/scene_coordinates/velocity.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                38
+              ]
+            ],
+            "source_context": {
+              "index": 597,
+              "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_coordinates/velocity.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-core/src/scene_coordinates/velocity.rs",
+              "sha256": "f961ea0bc8da4a4bb23bba732b32f43172c9ab2aaa83bd4ff8319efb4faaf077",
+              "read_ranges": [
+                [
+                  1,
+                  38
+                ]
+              ],
+              "role": "fresh current clock/angle/frame/velocity owner source, worldlib explicitly scoped; actual receiving contract disposition pending",
+              "timestamp": "2026-10-21T22:37:14.129321+00:00"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CANONICAL-SPATIAL-CLOCK-053",
+            "json_pointer": "/current_sources/15",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-tactical-core/src/scene_coordinates/velocity.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                38
+              ]
+            ],
+            "source_context": {
+              "index": 597,
+              "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_coordinates/velocity.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-core/src/scene_coordinates/velocity.rs",
+              "sha256": "f961ea0bc8da4a4bb23bba732b32f43172c9ab2aaa83bd4ff8319efb4faaf077",
+              "read_ranges": [
+                [
+                  1,
+                  38
+                ]
+              ],
+              "role": "fresh current clock/angle/frame/velocity owner source, worldlib explicitly scoped; actual receiving contract disposition pending",
+              "timestamp": "2026-10-21T22:37:14.129321+00:00"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1296,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "SceneVelocity Clone/Copy/Debug/Default/PartialEq already derive.",
+      "absence_basis": "Full actual38-line body read; stale supplied1\u201344 range bounded to exact EOF. Native Vec3/SignedSpeed axis admission/extraction is inherent checked conversion, not trait or serializer."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Finite scene-plan and velocity boundaries",
+      "disposition": "Retain checked custom conversion/deserialize and dimensional projection; existing derives already own structural/serialization mechanics.",
+      "acceptance": "Preserve frame identity, native axis order, role-specific GeometryError and checked deserialization message without exposing raw internals or adding generic bounds."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 365,
+    "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

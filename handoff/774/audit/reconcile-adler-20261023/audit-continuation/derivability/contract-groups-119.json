@@ -1,0 +1,174 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-119",
+  "at": "2026-10-25T12:42:43.807021+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 260,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social.rs",
+      "sha256": "93e446648725e961aaac7377e920dd07a8fcef4b7c0ff243ad9b054801f2ca41",
+      "actual_EOF": 3805,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-stdb-module/src/social.rs",
+        "owner": "camera",
+        "sha256": "93e446648725e961aaac7377e920dd07a8fcef4b7c0ff243ad9b054801f2ca41",
+        "base_sha256": "a09342196732b00b8520e9a446aa9fdef60e8fd44a439032ebdadc21e6e8e4c5",
+        "state": "modified",
+        "bytes": 134671,
+        "audit_owner": "camera",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                3805
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-SOCIAL-001"
+            ]
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+            "ranges": null,
+            "source_read_status": null,
+            "trace_refs": []
+          },
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-db-shared-proofs.json",
+            "ranges": [
+              [
+                1,
+                3805
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-SOCIAL-001"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 63,
+            "read_ranges": [
+              [
+                1,
+                3805
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SOCIAL-037"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/social.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 249,
+            "read_ranges": [
+              [
+                1,
+                3805
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SOCIAL-037"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/social.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 109,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SOCIAL-027",
+            "json_pointer": "/current_sources/0",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row236/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                3805
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                3805
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": 63,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          3805
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "Clone/Debug/table CharacterAffinity,CharacterFamiliarity,SocialChatReceipt,DialogueWitnessCapability,DialogueWitnessClaim,WitnessSocialActionReceipt,PhysiologyPresenceSpan,SocialBelief,SocialInteraction,SocialAddress,AutomaticSocialChat,SocialActionCooldown",
+        "Clone/Copy/Debug/PartialEq/Eq/SpacetimeType SocialChatTargetKind,SocialChatOutcome,AffinityBand,FamiliarityBand,MoraleBand",
+        "Clone/Debug/SpacetimeType BackendSocialChatReceipt,BackendSettlementResidentRelationship,BackendDialogueWitnessClaim",
+        "Clone/Copy/Debug/PartialEq/Eq SocialDemoMoraleSourceId3054\u20133059"
+      ],
+      "absence_basis": "Full3805-line role personally consumed across114\u2013118 partial1\u20133500 and fresh3501\u20133805 final fixtures. No handwritten trait/serializer anywhere. Qualitative/classifier code, participant/custody/session/time/physiology/rights/known-belief native checks, explicit replay subsets, source/current projections and fixed demo ID parser are semantic. Existing native/table derives own mechanical structure; retain privacy omissions and contextual native errors.",
+      "source_read_receipts": [
+        "114:1\u2013700",
+        "115:701\u20131400",
+        "116:1401\u20132100",
+        "117:2101\u20132800",
+        "118:2801\u20133500",
+        "119:fresh3501\u20133805"
+      ],
+      "coverage_limit": "No child admission/discovery/draws/authority fixture bodies inferred; fixtures/demos read only, no execution or broad social policy clearance."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Durable social authority and observer-safe projections",
+      "disposition": "No new derivabilityfinding; structural/native table derives already available. Retain semantic classifiers, checked native boundaries and explicit record mapping.",
+      "acceptance": "No extra serialization or From derive replacing runtime classifiers/admission; preserve private factual truth/demeanor/propositions/rolls, replay subsets and recipient clock semantics. Full source discovery for this role only, lens remains incomplete."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 261,
+    "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social/action_authority_tests.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

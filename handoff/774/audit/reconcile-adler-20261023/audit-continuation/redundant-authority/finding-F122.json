@@ -1,0 +1,54 @@
+{
+  "id": "CONT07-F122",
+  "contract": "CONT07-CONTRACT-648",
+  "at": "2026-10-24T01:05:47.970568+00:00",
+  "title": "Inventory text cache ignores mutations to the item fields it displays",
+  "classification": "source-confirmed API/change-invalidation defect; ordinary client replication occurrence unproven",
+  "sources": [
+    {
+      "scope_index": 1745,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/ui.rs",
+      "sha256": "2a2206d4b76e7db409e7cfa2b8e4337d5ea4a6fa606a95de4e8cf04ca85666e6",
+      "ranges": [
+        [
+          711,
+          766
+        ]
+      ]
+    },
+    {
+      "scope_index": 1877,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory.rs",
+      "sha256": "513ea2b3aa9c0322422e9cea57e10c00c00fe2046f10ce6d9d0cf6460c93957e",
+      "ranges": [
+        [
+          40,
+          106
+        ],
+        [
+          600,
+          651
+        ]
+      ]
+    },
+    {
+      "scope_index": 2044,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/ranged.rs",
+      "sha256": "1a644ecf10b57c8e5f34d503a9002cd71bd5ecdf4736d1dd689925c65a91f10e",
+      "ranges": [
+        [
+          85,
+          119
+        ]
+      ]
+    }
+  ],
+  "producer_and_recipient": "Text derives child quantity, slot and weapon/armor/shield state but update_items_ui only runs for owner Changed<InventoryItems>. Replacing TacticalItemQuantity or mutating public item properties retains same membership and holding caches; text becomes stale.",
+  "static_witness": "On a client-world owner whose inventory UI has rendered quantity3, replace the existing child TacticalItemQuantity with accepted quantity2 without changing ItemOf/EquipSlot. The changed relationship target filter is not satisfied, so previously built x3 text persists. Actual server ranged consume does exactly child quantity replacement for nonfinal shot, but transmission of quantity into ordinary client remains untraced.",
+  "normal_qualification": "Insertion/removal and holding-slot hooks can mark owner InventoryItems changed, so membership/equipment transitions may refresh. No actual gameplay/browser/client update executed; no blanket stale UI claim for every edit.",
+  "connected_repair": "Own the inventory presentation cache dependencies explicitly: update from changed relevant child data/relationship association, or derive display from a coherent item revision. Do not mark unrelated gameplay state changed merely as hidden UI invalidation.",
+  "acceptance": "Displayed quantity and shown combat stats refresh after accepted child-only mutations while insertion/removal/move roots also refresh correct lists. Preserve positive quantity and equipment identity contracts.",
+  "dedup": "Parent reports no exact accepted alias; root M07/M10 typed equipment selection/capacity are related semantics only. Global unique union pending.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

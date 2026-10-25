@@ -1,0 +1,43 @@
+{
+  "id": "CONT07-CONTRACT-398",
+  "at": "2026-10-23T21:04:49.827329+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1747,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/weather_audio.rs",
+      "sha256": "35e0527b4916af005b7cf251be2808a43f5226c23fefc9287f14ae511c6b27e9",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/weather_audio.rs",
+      "actual_EOF": 208,
+      "ranges": [
+        [
+          1,
+          208
+        ]
+      ],
+      "read_kind": "fresh full exact source in untruncated read"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "ROOT-OWNER-AUDIO-033 full",
+    "ROOT-OWNER-PARTICLES-034 full",
+    "ROOT-OWNER-CLIENT-SOURCE-CLOSURE-083 exact selected weather/audio/client group only"
+  ],
+  "narrative_limits": "Initial combined083 output was truncated. Only the separately re-read exact group containing weather_audio.rs is credited; other083 groups are not claimed consumed by this batch.",
+  "facts": [
+    "F090 records the exact enum/ALL/startup population maintenance gap. Current four entries agree; no current missing audio asserted.",
+    "Weather intensity, listener ground classification and target gains recompute each frame from current sources. AudioSink current gain is deliberately smoothed toward target, not an independently authoritative weather state. Absence of environment normalizes to silent intensity; absent ground/listener selects explicit SoftGround policy.",
+    "RainMix surface/storm gains are distinct layers, not duplicated intensity. Native gain is derived from canonical config and current normalized BPS input; threshold and zero/None policies preserved. Multiple environment/ground selection uses first iterator element, but no conflicting normal multi-scene population is proven here.",
+    "Supplier owner-fit proofs are evidence only; no rate/elapsed/type migration or validation performed. Source tests and asset loading entrypoints were read only."
+  ],
+  "new_local_findings": [
+    "CONT07-F090"
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1748,
+    "start_line": 1
+  }
+}

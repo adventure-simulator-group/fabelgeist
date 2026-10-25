@@ -1,0 +1,24 @@
+{
+  "id": "CAMERA-ADM03-082",
+  "at": "2026-10-22T14:42:50.535765+00:00",
+  "lens": "audit-admission-contracts",
+  "additional_sources": [
+    "CAMERA-ADM03-REG023",
+    "CAMERA-ADM03-REG024"
+  ],
+  "supersedes_exact_pending": "CAMERA-ADM03-080 EquipmentChannel native Sum namespace only; previous conditional decoder body proof preserved",
+  "actual_source_proof": {
+    "runtime": "Pinned spacetimedb-2.6.1/src/lib.rs SHA b4c9d8460c2b511a8ddd6bac50546cb06ab9e83daab5df6007605e4b65c65a00 exact1-34,37-41 freshly read AFTER prospective registration. Line33 reexports sats::SpacetimeType;37 reexports spacetimedb_lib;40 reexports its sats module. No entire1817-line SDK body credit.",
+    "derive": "Existing registered bindings-macro lib251-293 freshly re-read: SpacetimeType279-280 assumes in_module=true; fallback257-260 is spacetimedb::spacetimedb_lib;286-288 generate type/deserialize/serialize. Actual sats type extractor98-143 uses sats(crate/name), not Serde attrs.",
+    "upstream_bridge": "Consumed actual Native admission03 contract-groups-043.json#p16-basispoints-all-adapter-routes exact frozen2.6.1 dependency/reexport chain: workspace runtime178 and _lib180; locked _lib/sats/bindings-macro2.6.1; _lib45/47, SATSlib92/typespace320 actual derive reexport. Compare current Channel implicit fallback versus basispoints explicit sats crate: both reach same actual _lib SATS traits/macro, not namespace-name inference."
+  },
+  "contracts": {
+    "current_decl": "PR/P16 EquipmentChannel actual declarations compared in080:9 unit variants, no reprC; current implicit runtime path resolves actual registered 2.6.1 Sum decoder. Existing exact REG022 body generates only nine known tags/names with unit payload and rejects unknown names/tags; no unchecked primitive construction. Therefore no scalar admission bypass from Channel native decode. Serde snake_case versus SATS Rust variant names are distinct protocol vocabularies and intentionally retained.",
+    "scope": "This closes only exact Channel Sum route and current implicit runtime reexport for declarations actually compared. No arbitrary tuple/data enum, unknown derive version, downstream reducer or whole SDK graph credit. Scalar named-product F001 remains a concrete separate bypass, not repaired by enum closure."
+  },
+  "qualification": "QUAL081 records accidental Get-Content -Raw output beyond registered macro header, with no analysis or audit credit; corrected bounded Python header read supplies only registered body proof. No source/range authority inferred from incidental output.",
+  "connected_acceptance": "Preserve closed enum known tags/names and unit payload validation, feature gates and existing wire vocabularies; canonical graph/catalogue admission remains separate. No compatibility alias or new tests.",
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "later_lens_credit": false
+}

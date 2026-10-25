@@ -1,0 +1,36 @@
+{
+  "id": "RIG-INITIAL06-QUAL-008",
+  "at": "2026-10-22T20:00:15.780816+00:00",
+  "scope_record": "cumulative-source-scope-parallel-022.json",
+  "scope_sha256": "9e2bdb0fafdb1e217446502936ca5fbb9ca2958f885e41cd7899cc12351430b3",
+  "global_variants": 2772,
+  "mandatory_overlays": 200,
+  "explicit_source_credit_from_prior_actual_packets": [
+    "pr-working:crates/fabelgeist-armor/src/components.rs",
+    "pr-working:crates/fabelgeist-armor/src/plate_face.rs",
+    "pr-working:crates/fabelgeist-armor/src/plate_mount.rs",
+    "pr-working:crates/fabelgeist-armor/src/gpu/limb_build.rs",
+    "pr-working:crates/fabelgeist-garment-code/src/math.rs"
+  ],
+  "new_unreviewed06_overlay": {
+    "id": "CONT-OWNER-RANGE-EXTENSION-200",
+    "source_id": "physical-p16:crates/adventuresim-stdb-module/src/world_event.rs",
+    "registration_ref": "NATIVE-INITIAL05-REG-006",
+    "ranges": [
+      [
+        1,
+        300
+      ],
+      [
+        352,
+        460
+      ],
+      [
+        463,
+        811
+      ]
+    ],
+    "status": "navigationonly; no06bodyproof yet"
+  },
+  "limits": "AllpriorSourceSHA/roles/ranges/exclusions preserved; newmetadataisnotsemanticcoverage. Remainingwhole06incomplete."
+}

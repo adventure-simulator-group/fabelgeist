@@ -1,0 +1,303 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-033",
+  "at": "2026-10-25T11:43:14.429212+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 112,
+      "source_id": "physical-p16:crates/adventuresim-core/src/inventory_measurement.rs",
+      "sha256": "2ffeb2e6b78a2111a09dbe9f788673605eb597afe037e375f8f3c413bafe6011",
+      "actual_EOF": 804,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-core/src/inventory_measurement.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-core/src/inventory_measurement.rs",
+        "sha256": "2ffeb2e6b78a2111a09dbe9f788673605eb597afe037e375f8f3c413bafe6011",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 26593,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 139,
+            "read_ranges": [
+              [
+                1,
+                210
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-FILTH-LAW-018"
+            ],
+            "read_status": "partial",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/inventory_measurement.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 179,
+            "read_ranges": [
+              [
+                1,
+                804
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-ITEM-026"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/inventory_measurement.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 18,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-FILTH-LAW-AMOUNT-015",
+            "json_pointer": "/current_sources/6",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row106/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                210
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                210
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "delta_observation_index": 19,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-ITEM-COMMERCE-018",
+            "json_pointer": "/current_sources/3",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row106/proofs/1",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                804
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                804
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1158,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved",
+        "admission03_increment077_role_observations": [
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 74,
+            "registration_id": "NATIVE-ADMISSION03-REG-074",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-074",
+              "at": "2026-10-22T15:18:11.400351+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+              "source_id": "physical-p16:crates/adventuresim-core/src/inventory_measurement.rs",
+              "sha256": "2ffeb2e6b78a2111a09dbe9f788673605eb597afe037e375f8f3c413bafe6011",
+              "snapshot": "physical-p16",
+              "actual_EOF": 804,
+              "material_ranges": [
+                [
+                  1,
+                  66
+                ]
+              ],
+              "role": "Exact ItemQuantity private NonZeroU32 constructor/Serde/Default/conversions under TacticalItemQuantity. Navigation first implementation boundaries need qualification after read.",
+              "actual_caller": "Camera support307/308 or468 direct current definition",
+              "reason": "Necessary direct actual admission route; source registered before body analysis; no prior P16 body/current role proof from PR names/verdict.",
+              "exclusions": "Only exact direct contracts, no unrelated source graph or repair/function transfer; current lens only.",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\inventory_measurement.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADM03-FINALQUAL-074",
+                "registration_id": "NATIVE-ADMISSION03-REG-074",
+                "source_id": "physical-p16:crates/adventuresim-core/src/inventory_measurement.rs",
+                "snapshot": "physical-p16",
+                "sha256": "2ffeb2e6b78a2111a09dbe9f788673605eb597afe037e375f8f3c413bafe6011",
+                "actual_EOF": 804,
+                "registered_requested_ranges": [
+                  [
+                    1,
+                    66
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    1,
+                    28
+                  ]
+                ],
+                "context_or_excluded_within_registration": [
+                  [
+                    29,
+                    66
+                  ]
+                ],
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-074",
+                  "at": "2026-10-22T15:18:11.400351+00:00",
+                  "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                  "source_id": "physical-p16:crates/adventuresim-core/src/inventory_measurement.rs",
+                  "sha256": "2ffeb2e6b78a2111a09dbe9f788673605eb597afe037e375f8f3c413bafe6011",
+                  "snapshot": "physical-p16",
+                  "actual_EOF": 804,
+                  "material_ranges": [
+                    [
+                      1,
+                      66
+                    ]
+                  ],
+                  "role": "Exact ItemQuantity private NonZeroU32 constructor/Serde/Default/conversions under TacticalItemQuantity. Navigation first implementation boundaries need qualification after read.",
+                  "actual_caller": "Camera support307/308 or468 direct current definition",
+                  "reason": "Necessary direct actual admission route; source registered before body analysis; no prior P16 body/current role proof from PR names/verdict.",
+                  "exclusions": "Only exact direct contracts, no unrelated source graph or repair/function transfer; current lens only.",
+                  "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\inventory_measurement.rs",
+                  "status": "registered_before_direct_current03_body_analysis"
+                },
+                "qualification_history": [
+                  {
+                    "qualification_file": "camera-support/source-qualifications-011.jsonl",
+                    "row_1based": 2,
+                    "payload": {
+                      "id": "NATIVE-CAMERA-SUPPORT03-QUAL-074",
+                      "registration_id": "NATIVE-ADMISSION03-REG-074",
+                      "original_registration": {
+                        "id": "NATIVE-ADMISSION03-REG-074",
+                        "at": "2026-10-22T15:18:11.400351+00:00",
+                        "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                        "source_id": "physical-p16:crates/adventuresim-core/src/inventory_measurement.rs",
+                        "sha256": "2ffeb2e6b78a2111a09dbe9f788673605eb597afe037e375f8f3c413bafe6011",
+                        "snapshot": "physical-p16",
+                        "actual_EOF": 804,
+                        "material_ranges": [
+                          [
+                            1,
+                            66
+                          ]
+                        ],
+                        "role": "Exact ItemQuantity private NonZeroU32 constructor/Serde/Default/conversions under TacticalItemQuantity. Navigation first implementation boundaries need qualification after read.",
+                        "actual_caller": "Camera support307/308 or468 direct current definition",
+                        "reason": "Necessary direct actual admission route; source registered before body analysis; no prior P16 body/current role proof from PR names/verdict.",
+                        "exclusions": "Only exact direct contracts, no unrelated source graph or repair/function transfer; current lens only.",
+                        "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\inventory_measurement.rs",
+                        "status": "registered_before_direct_current03_body_analysis"
+                      },
+                      "qualified_material_ranges": [
+                        [
+                          1,
+                          28
+                        ]
+                      ],
+                      "qualification": "NextConsumableFraction30-66 contextualreadonly/excluded; ItemQuantityactual1-28 only.",
+                      "actual_semantic_refs": [
+                        "contracts-002.json"
+                      ],
+                      "registered_before_body": true,
+                      "global_registry_reconciliation_pending": true,
+                      "later_lens_credit": false
+                    }
+                  }
+                ],
+                "current_proof_refs": {
+                  "actual_semantic_refs": [
+                    "contracts-002.json"
+                  ]
+                },
+                "body_rereads_for_this_normalization": 0,
+                "semantic_credit_from_metadata": false,
+                "producer_or_owner_or_later_lens_credit": false,
+                "global_reconciliation_pending": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                1,
+                28
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\inventory_measurement.rs",
+            "actual_EOF": 804,
+            "bytes": 26593
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          804
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "TryFrom<u32> for ConsumableFractionMicros",
+          "lines": [
+            104,
+            110
+          ],
+          "disposition": "Retain checked whole-fraction upper bound and typed MeasurementError, not raw construction."
+        },
+        {
+          "trait": "From<ConsumableFractionMicros> for u32",
+          "lines": [
+            112,
+            116
+          ],
+          "disposition": "Retain small native integer extraction boundary; no existing equal conversion derive established."
+        }
+      ],
+      "existing_derives": [
+        "ItemQuantity structural traits Serialize Deserialize transparent over NonZeroU32",
+        "ConsumableFractionMicros structural traits Default",
+        "MeasurementKind/Profile/Basis/MeasuredInventoryRow/EffectiveTotals/MeasurementError/PricingFactor/PriceRounding structural traits"
+      ],
+      "absence_basis": "Full source and fixture bodies read. No handwritten Serialize/Deserialize/Display/Error. Remaining typed measurement and pricing kernels are checked semantic functions; do not add Error/serialization solely because type is an error enum."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Existing transparent ItemQuantity derives retain inner NonZeroU32 admission. Keep fraction bounds and checked unit/rounding arithmetic explicit. No additional derivability cleanup.",
+      "qualification": "All existing fixture bodies inspected only, no execution and no claim persistent measured-inventory schema is integrated."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 113,
+    "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

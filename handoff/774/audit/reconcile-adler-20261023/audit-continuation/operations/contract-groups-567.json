@@ -1,0 +1,68 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-567",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/strategic-web/src/routes/settlements/rest_preview.rs",
+      "sha256": "f545d695b666086cb43166e8c7d28a2290272758191042c37530967a71184a21",
+      "actual_EOF": 233,
+      "actual_compared_ranges": [
+        [
+          1,
+          233
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/routes/settlements/service_quests.rs",
+      "sha256": "94a890ee2893205a08de7ba3635a88574f23aab5a628f88a0a08bfc5d74c55d5",
+      "actual_EOF": 725,
+      "actual_compared_ranges": [
+        [
+          1,
+          725
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/session.rs",
+      "sha256": "6be4223e4e49787ef289a75602ec8a113d2c0b7220292db0ed9de21eee34e50d",
+      "actual_EOF": 355,
+      "actual_compared_ranges": [
+        [
+          1,
+          355
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Rest supply derived counts match fraction, party scope and needs, with explicit source-data availability.",
+      "evidence": "Full rest_preview233 read. soapfraction admittedConsumableFractionMicros, units floorfraction/fractionperuse; Soapcapacityconstantnonzero ownerrequired, no newzero divisionwitness. Personal/shared integer sums thenouter saturatingadd, per-memberused minneeded/available, remainingneedsaturating; actualinneru32sumstillneedsaggregatecapacity ifarbitraryrowcountlarge. AlcoholneedsnonzerofractionandpotableABV/serving/dedicatedpolicy; living/memberpartyfilters, temperance influencesactualconsumptionprediction. Queryfailuresempty/privatepersonalitymissing=>nontemperate default, so previewcouldclaimconsumption underunavailabledata; existingrequiredcausegraph.",
+      "qualifications": "No actualcapacityoverflow, liveprivatefielddisclosure or consumptionmismatch asserted. Scalarfractionsareserverboundaryvalues, not permissionforarbitraryrawnewstate. Actualpublicpreviewvsprivateauthoritypolicy canonicalquestion separatefrom04arithmetic.",
+      "acceptance": "Canonical fraction/consumptionbudget throughpreviewandactualoperation, checkednativecountaggregate and explicitunavailableinsteadfalsecertification whilepreserving legitimatezero/unlicensedbehavior."
+    },
+    {
+      "contract": "Service quest/recruitment projection uses source quest authority, bounded requirement counts and exact organization routing.",
+      "evidence": "Full service_quests725 read after initialtruncated output reread1\u2013370/371\u2013725; no truncatedcredit. Rolematchcounts atmost7bool+precision+2ratings=10, finiteusizeincrementation safe; requiredrecommendationtotal derivesexactlabels, bestonecandidate preservescoherence. Filledmembershipcount asu32 beforequantity.saturating_sub requiresnativecountrepresentability, no4Bactualparty claimed. Questdetails usesactualdescription/oppositionwording ratherthanservicefixedthreat. Apprenticeship verifiescataloguechapter andexactrepresentativefields/locationbeforecallingjoin_organization, selforganizationpresentationactorchecked.",
+      "qualifications": "exact_representative_present usesconfiguredlocationonly, notcurrentdailywindow/suppression; canonicalfallbackintent mustdecidewhetherconfiguredrepresentativeorcurrentlyavailable. No automatic ordinaryavailabilitydefect claimfromnamealone. Servicequeriesfailuresempty andrefreshresultignored linkcausegraph, no currentsourceclosure inferred.",
+      "acceptance": "Preserve sourcequest authority, exact identity/location and recommendation semantics, nativecardinality and queryoutcome policies; no fabricatedservice threat or universalallpartyrequirementmatch."
+    },
+    {
+      "contract": "Session timestamp arithmetic and selected grantedidentity admit only verified complete authority.",
+      "evidence": "Full session355 personallyreadincludingfixturetail. Version/fourparts/fixed32byteID verified, HMACcheckedbeforeowneraccepted, futureskew usesnow.saturating_add300 andagesaturating_sub vs30days preventsu64overflow. Inclusiveexpiry boundary fixtures read. GrantqueryErr yieldsSessionUnavailable andforeignownerrowrejects; chosencharacterfirstselected+allgrantsconstructedonlyafterchecks. Cookieclearselectiondoesnotrevokebrowsergrants explicitly.",
+      "qualifications": "Nativeclockbeforeepochdefault0/futureMAX signedtokens onlyissuedbysecret-owningserver; no externallyforgeabletimestampcounterexample. Multiple selectedrows canonicalDBaggregateproof pending, not first()unsafe byitself. No cookie/auth/network testexecution or secretsread/exposure.",
+      "acceptance": "Preserve verifiedauthority/typepolicy, exact grantfailurecause, boundedtimestamp policy and serverselection; no arbitrarynonzerocharacter restriction or legacycookiefallback."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/strategic-web/src/spacetimedb/client/sats.rs"
+}

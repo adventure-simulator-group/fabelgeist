@@ -1,0 +1,108 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-512",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/vista_surface.rs",
+      "sha256": "0238db91b3a926b53a353da8892a2e0ff17018d131529261be5a4cdf2cb8e405",
+      "actual_EOF": 480,
+      "actual_compared_ranges": [
+        [
+          1,
+          480
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain.rs",
+      "sha256": "7623a9336cbe4a4c30650bd451893f1769952e1d29b6cd4c18e6c4f23780887e",
+      "actual_EOF": 526,
+      "actual_compared_ranges": [
+        [
+          1,
+          526
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain/patch.rs",
+      "sha256": "f51a14125e8e313cd4e2fcfc73efc27b9c219f1804556cbeffaf224dfb4a31f8",
+      "actual_EOF": 99,
+      "actual_compared_ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain/recipe.rs",
+      "sha256": "fcaf87702a89d958728884e2576a2f981d6a15f491e9fab4586e483f9527df2f",
+      "actual_EOF": 217,
+      "actual_compared_ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain/resistance.rs",
+      "sha256": "775f5d7a035eea6e401828aeceab320737bbaf8286024f65b9e65153a24d7f3b",
+      "actual_EOF": 114,
+      "actual_compared_ranges": [
+        [
+          1,
+          114
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain/support.rs",
+      "sha256": "bba6cc80f38ff3d02d8c7fced6c2f8b6a18271b18b4d115a260a97453c2c3923",
+      "actual_EOF": 17,
+      "actual_compared_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Shared vista interpolation and finite completed results",
+      "evidence": "Full vista480: scene/local transforms readmitted; height structural admission checks u16 product (fits32-bit), positive spacing and finite converted origin. Bounds precede floor/rowmajor indexing; upper indices clamped. Native bilinear/coarser/seam calculation stays native until completed SupportElevation, nonfinite coarse sample cannot masquerade as absent. Rectangle clipping and seam priority intentional. Selected-render-cohort vs retained fullvista mismatch459 remains separate owner dependency, not repaired by stable interpolation."
+    },
+    {
+      "contract": "Immutable terrain patch topology and native index offset",
+      "evidence": "Full patch99 +volumetric526. Patch finite arrays/cardinality/u32positions/index multiple3/range admitted before immutable storage. Combined colliders checked total positions and u32 representation before adding patch index offset; indices already bounded, so offset addition fits total. TerrainMeshBuffers consumes owner, mutableuploadbuffers do not mutate admitted patch. Normals unit is stated producer precondition, finite/cardinality checked; zero normal public admission is neighboring03 question, not new04 arithmetic route."
+    },
+    {
+      "contract": "Quantized recipe bounds and deterministic bounded scarp erosion",
+      "evidence": "Full recipe217/resistance114/support17. Actual recipe enforces1\u201320m relief,4\u201350m half length,3\u201320m halfwidth,>=1m collar and2collar<halfwidth; .5m/1m voxel; tangent checked bothencodednorm and normalizedcollar. Thus pre-grid-guard simulation side is bounded by recipe, side*side safe.224step transfers use immutable edge resistance, simultaneous transfer arrays, no cross-cell mutable dependency or persistent tactical state. Finite checked height range after simulation. Exact unit conversion preserves signed elevations."
+    },
+    {
+      "contract": "Fault branch adds same derived vertical lattice overflow support",
+      "evidence": "Complete volumetric526 personally read. Same public finite flat SceneTerrain[-MAX;4] and normal Detail FaultScarp recipe: base heights all-MAX, bounded displacement rounds away, differences0 and transfers0, finite height range-MAX passes. At185 bottom division by.5 becomes-Inf; at188 verticalInf castsusizeMAX then+1 before96 bound. Same first derived-native-grid admission contract as existing498 erosion witness. Normal TacticalSceneInput height bounds\u00b112000 exclude this API extreme. No generator/runtime invocation claimed."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-EROSION-VERTICAL-GRID-OVERFLOW-CANDIDATE-001",
+      "disposition": "extends498 exact fault-scarp branch operation188, not another unique finding",
+      "new_unique": false
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "6 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain/surface_recipe.rs"
+}

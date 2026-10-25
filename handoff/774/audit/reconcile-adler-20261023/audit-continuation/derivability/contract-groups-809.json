@@ -1,0 +1,194 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-809",
+  "at": "2026-10-25T16:54:14.130046+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1020,
+      "source_id": "pr-working:crates/adventuresim-core/src/survival.rs",
+      "sha256": "63f604eeeca44d35f365c9daded84a61ca19b8c9c3976ead8503a2edbf4d1c57",
+      "actual_EOF": 430,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/survival.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/survival.rs",
+        "sha256": "63f604eeeca44d35f365c9daded84a61ca19b8c9c3976ead8503a2edbf4d1c57",
+        "bytes": 16181,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/supplemental-core-receivers.json",
+            "ranges": [
+              [
+                1,
+                430
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "NATIVE-SUPP-CORE-EXPOSURE-001"
+            ]
+          }
+        ],
+        "audit_owner": "native",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 100,
+            "read_ranges": [
+              [
+                1,
+                430
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-EXPOSURE-001",
+              "NATIVE-OWNER-F017"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/survival.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 102,
+            "read_ranges": [
+              [
+                1,
+                430
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-EXPOSURE-002"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/survival.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 444,
+            "read_ranges": [
+              [
+                1,
+                430
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-EXPOSURE-002"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/survival.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/additional_actual_source_proofs/35",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/survival.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                230
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/survival.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/survival.rs",
+              "sha256": "63f604eeeca44d35f365c9daded84a61ca19b8c9c3976ead8503a2edbf4d1c57",
+              "read_ranges": [
+                [
+                  1,
+                  230
+                ]
+              ],
+              "actual_line_count": 430,
+              "mode": "fresh current producer-supplement actual material source bodies; no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-036",
+            "json_pointer": "/additional_fresh_sources/0",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/survival.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                230
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/survival.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/survival.rs",
+              "sha256": "63f604eeeca44d35f365c9daded84a61ca19b8c9c3976ead8503a2edbf4d1c57",
+              "read_ranges": [
+                [
+                  1,
+                  230
+                ]
+              ],
+              "actual_line_count": 430,
+              "mode": "fresh current producer-supplement actual material source bodies; no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 378,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          430
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Default",
+          "type": "ExposureShelter",
+          "lines": [
+            [
+              64,
+              68
+            ]
+          ],
+          "disposition": "KEEP data-bearing Field(FieldShelter::default()) enum policy; standard enum Default requires unit default variant, cannot preserve this shape"
+        }
+      ],
+      "existing_derives": [
+        "SurvivalState/ClothingExposure/ExposureOutcome structural and zero Default already derived",
+        "FieldShelter Serde/conditional native/Default already derived with Bivouac unit default",
+        "ExposureShelter structural already derived"
+      ]
+    }
+  ],
+  "groups": [
+    "Full survival body/fixtures source consumed. Data-bearing enum default remains necessary small implementation; do not redesign variant wire/API merely to derive. Native exposure/shelter/insulation/wetness/thermal/frostbite operations retain semantic logic; no handtrait/codec elsewhere or fixture. No fixture execution or other-lens coverage."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1021,
+    "source_id": "pr-working:crates/adventuresim-core/src/threat_escalation.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

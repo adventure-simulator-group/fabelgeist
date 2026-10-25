@@ -1,0 +1,128 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-632",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-xpbd/src/particles.rs",
+      "sha256": "99b46998863ca413643469afd3b2108707428e366d63088af8f759a515bcf37b",
+      "actual_EOF": 171,
+      "actual_compared_ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2648"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-xpbd/src/particles/packed.rs",
+      "sha256": "50a7d66bba9f42c372ffecc21cb208485f80885c3b4ee4884631d5473fc48d70",
+      "actual_EOF": 100,
+      "actual_compared_ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2649"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-physics/src/contact/tests.rs",
+      "sha256": "d47118137b70b8890c2fdf7fccf3bbc6baebf211a90545f06a45d5c37c9d295c",
+      "actual_EOF": 54,
+      "actual_compared_ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2650"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-physics/src/contact/count/tests.rs",
+      "sha256": "5f6a37ac323b7d9f38f2860278533c757e8e64aeed950b38de10925067184878",
+      "actual_EOF": 19,
+      "actual_compared_ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2651"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-xpbd/src/incidence.rs",
+      "sha256": "afd9754c0a781e0331b3be0f62f8398363593aa57dc474a0ed5decfeb5ee600f",
+      "actual_EOF": 142,
+      "actual_compared_ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2652"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-xpbd/src/constraint/address.rs",
+      "sha256": "1cca95c32add21d41c68abe0296d3d31684d982060d8b2098f896423b2f97075",
+      "actual_EOF": 32,
+      "actual_compared_ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2653"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-xpbd/src/coloring.rs",
+      "sha256": "1f97fcaab5611d5acf757c551732b3e02485babc05c3ad976d05407da73f3a2a",
+      "actual_EOF": 153,
+      "actual_compared_ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2655"
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Particle upload cohorts, reset and retained-state error boundaries",
+      "evidence": "Particles1\u2013169/packed1\u2013100 read. Allocation widens capacity before *16. Write compares position/mass counts and native capacity, builds matching packed records, uploads positions/previous/rest velocity then commits host count/masses. write_positions takes and always restores host mass vector across Result. Packed native records separate velocity and position roles without finite-position validation.",
+      "qualifications": [
+        "usize\u2192u32 comparisons/count narrowing require actual host count admission before upload; no huge allocated vector/device failure asserted.",
+        "Three fallible writes precede host commit: transactional GPU updates depend on actual Buffer preflight/error semantics and public buffer mutation. No concrete normal later-write rejection or ordinary partial-state failure promoted from ? syntax."
+      ],
+      "acceptance": "Actual host cardinality fits shader u32/count and all resource buffers; rejected logical update preserves coherent host/GPU state under the actual failure policy."
+    },
+    {
+      "contract": "Incidence, greedy coloring and shader count/index representation",
+      "evidence": "Incidence1\u2013140/address1\u201332/coloring1\u2013151 read. Arity uses NonZeroUsize before modulo/chunks; fixed records retain exact order. Coloring privately builds ordered ranges/permutation; repeated particle addresses remain conflicts and empty variable records legal. Upload indexes arity ranges using coloring order; all integer narrowing/count prefix accumulation must fit native u32 domain.",
+      "qualifications": [
+        "Coloring derived from this incidence discharges ordinary permutation membership; unrelated Coloring paired internally would require owning constructor proof. ParticleIndex role alone explicitly does not prove buffer membership.",
+        "Native constraint count/cardinality and u32 prefix/color/index capacity still necessary; no feasible >u32 host graph or device execution demonstrated. Intentional native narrowing is documented but not proof capacity policy."
+      ],
+      "acceptance": "Admit actual graph/count/native capacity before color accumulation or upload, preserve immutable permutation/ranges and conflict exclusion, legal empty graphs and repeated addresses."
+    },
+    {
+      "contract": "Existing collider replacement/capacity acceptance fixtures",
+      "evidence": "Personally read contact tests1\u201354 and count tests1\u201319 without executing. Fixtures describe retained native capacity after17 growth/empty/smaller replacement, and rejected wrong-size update preserving host list/uploaded words; pointer64 fixture checks host growth before byte narrowing.",
+      "qualifications": "Fixture source is acceptance evidence only; no test outcome or native current behavior verified here. Current merged collision fixture changes remain separate mandatory merged-delta obligations.",
+      "acceptance": "Retain specified empty replacement/capacity and rejected update coherence while actual native count/byte representation is checked."
+    }
+  ],
+  "findings": [],
+  "status": "Qualified material ranges personally analyzed; whole04 remains incomplete.",
+  "first_unfinished": "pr-working:crates/fabelgeist-numpy-storage/src/npz.rs",
+  "source_edits": false,
+  "project_execution": "none"
+}

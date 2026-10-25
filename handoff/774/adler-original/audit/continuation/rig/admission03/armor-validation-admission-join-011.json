@@ -1,0 +1,263 @@
+{
+  "id": "RIG-ADMISSION03-ARMOR-VALIDATION-JOIN-011",
+  "registered_source_refs": [
+    {
+      "id": "RIG-ADMISSION03-REGISTER-049",
+      "authority": "continuation/root/admission03-discovery-authority-043.json",
+      "source_id": "pr-working:crates/fabelgeist-armor/src/lib.rs",
+      "snapshot": "pr-working",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\lib.rs",
+      "sha256": "80124b8fa3d698044166b5f4226391835bde877e6e3e55904a8e6ab149a5fdcd",
+      "actual_EOF": 171,
+      "material_ranges": [
+        [
+          86,
+          171
+        ]
+      ],
+      "reason": "Exact actual canonical validate/validate_breastplate gates and encode/decode/design_hash called by current assigned BracerDesign/DeviceBracer/DeviceBreastplate. Required to compare primitive authoring versus admitted device design before native dispatch; symbol navigation declarations86\u2013146.",
+      "exclusions": "Reexport/module inventory1\u201385 excluded beyond navigation. No unrelated armor generation/source fixture or whole feature credit.",
+      "status": "registered_before_bounded_actual_admission_analysis",
+      "at": "2026-10-22T10:17:23.521403+00:00"
+    },
+    {
+      "id": "RIG-ADMISSION03-REGISTER-050",
+      "authority": "continuation/root/admission03-discovery-authority-043.json",
+      "source_id": "pr-working:crates/fabelgeist-armor/src/breastplate_design.rs",
+      "snapshot": "pr-working",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\breastplate_design.rs",
+      "sha256": "5754de117641f6ec7b40dd69802d0fddedf3d2e9a2608945b8c26b33171f05f6",
+      "actual_EOF": 206,
+      "material_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "reason": "Direct BreastplateDesign/Profile fields/defaults, Profile.validate and edge range constants called by actual canonical validate_breastplate REG049 and assigned DeviceBreastplate; unrelated artistic presets130+ excluded.",
+      "exclusions": "Only exact directly called declaration/default/predicate/count helper. No unrelated preset/test/helper/feature or SDK expansion.",
+      "status": "registered_before_bounded_actual_admission_analysis",
+      "at": "2026-10-22T10:17:56.742412+00:00"
+    },
+    {
+      "id": "RIG-ADMISSION03-REGISTER-051",
+      "authority": "continuation/root/admission03-discovery-authority-043.json",
+      "source_id": "pr-working:crates/fabelgeist-armor/src/plate_fluting.rs",
+      "snapshot": "pr-working",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\plate_fluting.rs",
+      "sha256": "42c3b5a6c8d36617915977082f2a591e7e363910aa7b7b209d0f0168d774fbf7",
+      "actual_EOF": 150,
+      "material_ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "reason": "Direct PlateFluting fields/default and validate plus columns used by assigned BracerDesign.columns\u2192actual DeviceBracer.layout/native counts; later relief/fan/unfan numerical methods excluded.",
+      "exclusions": "Only exact directly called declaration/default/predicate/count helper. No unrelated preset/test/helper/feature or SDK expansion.",
+      "status": "registered_before_bounded_actual_admission_analysis",
+      "at": "2026-10-22T10:17:56.757607+00:00"
+    },
+    {
+      "id": "RIG-ADMISSION03-REGISTER-052",
+      "authority": "continuation/root/admission03-discovery-authority-043.json",
+      "source_id": "pr-working:crates/fabelgeist-armor/src/anime_design.rs",
+      "snapshot": "pr-working",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\anime_design.rs",
+      "sha256": "3fd27205e209b9133d640381c16458c180e205625a017b93138e363d14b04b86",
+      "actual_EOF": 56,
+      "material_ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "reason": "Direct BreastplateConstruction/AnimeDesign declaration/default/validate(wall_thickness) called by actual validate_breastplate and DeviceBreastplate construction switch; no unrelated armor feature.",
+      "exclusions": "Only exact directly called declaration/default/predicate/count helper. No unrelated preset/test/helper/feature or SDK expansion.",
+      "status": "registered_before_bounded_actual_admission_analysis",
+      "at": "2026-10-22T10:17:56.766510+00:00"
+    }
+  ],
+  "actual_bounded_comparisons": [
+    "RIG-ADMISSION03-ADDITIONAL-049",
+    "RIG-ADMISSION03-ADDITIONAL-050",
+    "RIG-ADMISSION03-ADDITIONAL-051",
+    "RIG-ADMISSION03-ADDITIONAL-052"
+  ],
+  "actual_assigned_recipients": [
+    "RIG-ADMISSION03-CONTRACT-581",
+    "RIG-ADMISSION03-CONTRACT-586",
+    "RIG-ADMISSION03-CONTRACT-587"
+  ],
+  "semantics": {
+    "49": {
+      "contract": "Canonical armor gates/codecs/hash",
+      "actual": "Bracer encode validates then Postcard; decode Postcard then samevalidate; hash encodevalidated. parametric_design_hash rawbytes accepts anybytes, no shape certificate. breastplatehash first validates thenPostcard. All authoring types remain raw ordinarySerde/publicfields; these functions are actual normaldevice gate, not everyDeserialize route. Bracer validates flare/ridge limits\u2192optionalfluting\u2192nonemptytrimmedcatalogue\u2192coverage\u2192coverage+offset u32sum\u2192gauge\u2192clearance. Breastplate order profile\u2192Anime(gauge)\u2192fluting\u2192catalogue\u2192edge/dimensional bounds; gaugechecked afterAnime leads F049. NoCompat/Default/Reflect adapter here.",
+      "bracer_ranges": {
+        "elbow_flare_mm_max": 15,
+        "wrist_flare_mm_max": 15,
+        "center_ridge_mm_max": 8,
+        "coverage_permille": [
+          50,
+          1000
+        ],
+        "wrist_offset_max": 950,
+        "coverage_plus_offset_max": 1000,
+        "wall_thickness_mm": [
+          1,
+          20
+        ],
+        "clearance_mm": [
+          1,
+          30
+        ]
+      },
+      "breastplate_ranges": {
+        "neck_width_permille": [
+          700,
+          1300
+        ],
+        "neck_depth_permille": [
+          600,
+          1400
+        ],
+        "arm_opening_depth_permille": [
+          700,
+          1300
+        ],
+        "arm_opening_width_permille": [
+          100,
+          1000
+        ],
+        "waist_width_permille": [
+          650,
+          1200
+        ],
+        "back_depth_permille": [
+          700,
+          1100
+        ],
+        "plate_length_permille": [
+          650,
+          1150
+        ],
+        "side_return_permille": [
+          500,
+          1080
+        ],
+        "skirt_length_permille": [
+          500,
+          1600
+        ],
+        "skirt_flare_mm_max": 70,
+        "wall_thickness_mm": [
+          1,
+          20
+        ],
+        "front_clearance_mm": [
+          4,
+          30
+        ],
+        "back_clearance_mm": [
+          6,
+          35
+        ]
+      }
+    },
+    "50": {
+      "contract": "Breastplate raw design/profile admission",
+      "actual": "Public design/profile fields ordinary derivedSerde denyunknown and known valid Default, noReflect. Meaningful scale controls legitimately>1000; profile.validate exact rawu16 bounds, namederrors preservefirstfail. Only declaration/default/profilepredicate+edgeconstants read1\u2013128 (129 comment nonsemantic); artisticpresets130+ excluded.",
+      "profile_ranges": {
+        "upper_recession_mm": [
+          0,
+          50
+        ],
+        "projection_and_waist_projection_mm": [
+          0,
+          80
+        ],
+        "projection_height_permille": [
+          150,
+          800
+        ],
+        "fullness_permille": [
+          350,
+          1000
+        ],
+        "medial_ridge_mm": [
+          0,
+          35
+        ],
+        "waist_point_width_permille": [
+          350,
+          1000
+        ],
+        "waist_point_mm": [
+          0,
+          100
+        ]
+      }
+    },
+    "51": {
+      "contract": "Fluting raw controls and bounded column sender",
+      "actual": "Public scaled-wordfields/FluteCount rawu16, derivedSerde; knownvalidDefault. validate shortcircuit gates count/shape/range BEFORE end-start and fade*2, so subtraction/multiplication in admitted path bounded. columns publicrawhelper but actualbracercaller validates before fixed32argument; <=33 regular+2boundaries+64*9samples=611 before dedup/pop, finite known unitfield widths/spreads andcount>0. Zero rawbase_segments othercallers not assumed invalid; their actualroute separate. fan/relief/unfan101+ excluded.",
+      "ranges": {
+        "count": [
+          2,
+          64
+        ],
+        "width_permille": [
+          350,
+          850
+        ],
+        "depth_mm": [
+          1,
+          4
+        ],
+        "spread_permille": [
+          400,
+          850
+        ],
+        "lower_spread_permille": [
+          500,
+          1000
+        ],
+        "fade_permille": [
+          100,
+          250
+        ],
+        "start_min": 50,
+        "end_max": 950,
+        "correlation": "end>start and end-start>=2*fade"
+      }
+    },
+    "52": {
+      "contract": "Articulated course authoring and gauge relation",
+      "actual": "ClosedBreastplateConstruction Solid/Anime; Anime public rawwordfields/ordinarySerde denyunknown/knownDefault6courses,800height,8mmoverlap,300/120slopes,7mmlift. validate receivesrawMillimeters and checks scalar bounds then lift>=gauge*2 withu16multiplication. Gauge first-order predicate lives later in parentvalidate, so rawMAX gauge causesoverflowbeforestructured rejection F049. NoReflect/acceptedimmutablewrapper.",
+      "ranges": {
+        "lame_count": [
+          3,
+          10
+        ],
+        "articulated_height_permille": [
+          450,
+          950
+        ],
+        "overlap_mm": [
+          4,
+          60
+        ],
+        "both_chevron_slopes_permille_max": 500,
+        "lap_lift_mm": [
+          4,
+          12
+        ],
+        "correlation": "lap_lift>=2*gauge"
+      }
+    }
+  },
+  "finding_ref": "RIG-ADMISSION03-F049",
+  "limits": "PR exactvariant only, not P16 semantic credit. Raw ordinarySerde authoring remains separate from successful explicitvalidation. No bodyanatomy/GPUkernel/otherpreset/wholepackage/laterlens credit.",
+  "repair": "frozen",
+  "validation": "not_executed"
+}

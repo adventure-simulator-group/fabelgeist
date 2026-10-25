@@ -1,0 +1,42 @@
+--- PRbase/crates/adventuresim-tactical-client/src/animation/procedural/height_values.rs
++++ frozen/crates/adventuresim-tactical-client/src/animation/procedural/height_values.rs
+@@ -0,0 +1,39 @@
++//! Checked signed offsets in the presentation height frame.
++
++use adventuresim_building_generator::spatial_geometry::SignedLength;
++use adventuresim_tactical_core::animation::{
++    AnimationQuantity, AnimationValueError, AnimationValueResult,
++};
++pub(crate) use adventuresim_tactical_core::animation::{HeightDistance, HeightSpeed};
++
++/// Advance a signed retained offset in its metre frame, rejecting intermediate overflow.
++pub(super) fn advance_offset(
++    current: SignedLength,
++    maximum_delta: HeightDistance,
++) -> AnimationValueResult<SignedLength> {
++    let difference = -current.metres();
++    offset_result(
++        current.metres()
++            + difference.clamp(
++                -maximum_delta.metres().max(0.0),
++                maximum_delta.metres().max(0.0),
++            ),
++    )
++}
++pub(super) fn subtract_offsets(
++    left: SignedLength,
++    right: SignedLength,
++) -> AnimationValueResult<SignedLength> {
++    offset_result(left.metres() - right.metres())
++}
++pub(super) fn add_offsets(
++    left: SignedLength,
++    right: SignedLength,
++) -> AnimationValueResult<SignedLength> {
++    offset_result(left.metres() + right.metres())
++}
++fn offset_result(value: f32) -> AnimationValueResult<SignedLength> {
++    SignedLength::from_metres(value).map_err(|_| AnimationValueError::Overflow {
++        quantity: AnimationQuantity::HeightOffset,
++    })
++}

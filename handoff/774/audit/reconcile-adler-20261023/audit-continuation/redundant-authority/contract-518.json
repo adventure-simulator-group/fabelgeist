@@ -1,0 +1,36 @@
+{
+  "id": "CONT07-CONTRACT-518",
+  "at": "2026-10-23T23:08:55.367482+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2260,
+      "source_id": "pr-working:crates/fabelgeist-fs/src/lib.rs",
+      "sha256": "b0eda40872d0165cc3a1524083dc60e23ec7a9ee0e88d7bd88fa26e7f3a4ed6f",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-fs/src/lib.rs",
+      "actual_EOF": 944,
+      "ranges": [
+        [
+          1,
+          944
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Filesystem944 fullfreshread, including native/web implementations and inlineJS source only; nofile/picker/network/IDB operationsinvoked. NativeFile/Directory nameandpath deriveprivatePathBuf, Webname derivesnativehandle; no cachedseparatelabel. GlobalPROJECT_ROOT isonecurrentArcoption; persistedroot isdeliberaterestartsetting, notnecessarilycurrentmemoryvalue.",
+    "NativePOSIX URIpersist codec candidate CONT07-CROSS-007 recordedforowninglens, no07unique: file:///tmp/project\u2192stripfile:///\u2192tmp/project persisted, restorePathBufrelative. Nooutsidecurrentapplicationpersistcallsite found; APIconditional, noexecuteddataeffect.",
+    "read/write URIresolution stripsfileprefixbeforecomparingroot.path URI, fallbacknative load_file followsrawURI viafile://, webexplicitprojectrelative route useshandle. SemanticURI/path/permissionidentity issues retainedowningstring/admissioncontracts; no genericstaleprojectroot proof.",
+    "FAILED_FETCHES cachesonly failedblob URI, notordinaryHTTPnetworkfailures; do notinventpermanentHTTPcachebug fromstaticHashSet. Sameblob transient-retrycontract notestablished, no07finding. FS currentbytes intentionallynewreads percall, no contentcacheoutlivingfilewrite."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2262,
+    "start_line": 1
+  }
+}

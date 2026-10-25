@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-794",
+  "at": "2026-10-25T16:52:03.222246+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1011,
+  "source_id": "pr-working:crates/adventuresim-core/src/strategic_presence.rs",
+  "sha256": "2eeea5c9831e10b7c5d51d0d3f61b0093ce8c682bd0994d2c94de50aa3354a52",
+  "actual_compared_ranges": [
+    [
+      1,
+      330
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "All presence/frontier/basis/window/suppression records already structural derives. Only inherent constructors/getters and native evidence/time/venue/availability classification in consumed range; no handwritten trait/codec. Preserve observer frontier, checked occupancy/refinement and semantic suppression; adding runtime serialization for classifiers is not equivalent cleanup."
+  ],
+  "first_unfinished": {
+    "scope_index": 1011,
+    "line": 331
+  },
+  "execution": "none"
+}

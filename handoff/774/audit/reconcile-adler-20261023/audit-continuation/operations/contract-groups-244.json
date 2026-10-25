@@ -1,0 +1,138 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-244",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/offense/phase.rs",
+      "sha256": "d779afa0fed93760d08b2dc0b0cea2701dcda4cca41f4be0d5d2b6106d16092d",
+      "actual_EOF": 370,
+      "actual_compared_ranges": [
+        [
+          1,
+          370
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/offense/ranged.rs",
+      "sha256": "2f92d78e5bd08a1b831ec0901c256ce7b4a540193ad988ef6d3a4f3d62f68fdc",
+      "actual_EOF": 43,
+      "actual_compared_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/offense/tactics.rs",
+      "sha256": "b65059c1af131b6b98f426067c5bf495ade564c4f8538987bbdce63dcc42a54d",
+      "actual_EOF": 48,
+      "actual_compared_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bot/offense/phase.rs",
+      "sha256": "3319be254a488cfacf2abfcea4c143c419090ebcd9b778b4dabdec7c95b85bb5",
+      "actual_EOF": 370,
+      "actual_compared_ranges": [
+        [
+          1,
+          370
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bot/offense/ranged.rs",
+      "sha256": "60b6f6c4256b2ef4d61e7c1c1cc052ef163e78deb6cb260504820e365ec76c5b",
+      "actual_EOF": 43,
+      "actual_compared_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bot/offense/tactics.rs",
+      "sha256": "7cf8c5d94969b2b6fbdcdf953d7dc70d3923ff6b2990e0a207d87dc67b9e0615",
+      "actual_EOF": 48,
+      "actual_compared_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Offensive phases publish checked durations before actions and preserve retry clock on error",
+      "source_ranges": {
+        "bot/offense/phase.rs": [
+          [
+            1,
+            370
+          ]
+        ]
+      },
+      "disposition": "Personally read complete P16 body and complete actual PR delta. Melee start checks arrival and usable recovery, CombatDuration and native Timer before trigger. It writes movement before available_strike_family gate, but returned Ok no-action remains usable windup positioning, not failed value admission. complete_windup clones Timer and commits tick only after jitter/cooldown checked_add/native_duration succeeds; when completion arithmetic fails, original timer retained and caller clears movement. Ranged intent emitted only after cooldown computation succeeds, so no fallible arithmetic consumes attack then errors in this path. Shared authority downstream owns actual contact/cadence rather than controller windup itself. Withdrawal1s then Yield explicit current behavior; preserve archived withdrawal correction, no revived missing-refusal defect. Source only, no native event execution."
+    },
+    {
+      "contract": "Actual AI precision admission failure supports existing exact finding",
+      "source_ranges": {
+        "bot/offense/phase.rs": [
+          [
+            65,
+            77
+          ],
+          [
+            343,
+            366
+          ]
+        ]
+      },
+      "disposition": "Both melee/ranged phase publication call ReportedPrecision::new(config.hit_precision).expect. These fresh actual consumers support audit/continuation/native/initial05-aggregate-states/findings.jsonl#34 NATIVE-INITIAL05-F032 already linked packet237: raw config hit_precision nonfinite path may panic if unvalidated value installed. No additional unique finding or actual installed bad config asserted. Signed finite precision semantics preserved; no blanket [0,1] constraint proposed. Canonical config admission and typed propagation are acceptance dependencies."
+    },
+    {
+      "contract": "Ranged standoff and initiative numerical kernels",
+      "source_ranges": {
+        "bot/offense/ranged.rs": [
+          [
+            1,
+            43
+          ]
+        ],
+        "bot/offense/tactics.rs": [
+          [
+            1,
+            48
+          ]
+        ]
+      },
+      "disposition": "Actual standoff scales reach then ordered config clamp then min reach; compares signedlength extracted metres and range guard before starting windup. Config min/max ordering/finite admission prerequisite remains packet237 owner; these leaf checks alone do not admit all computed native intermediates. Distance and slop extreme sum can overflow but no ordinary admitted scene/wrong action witness here. Initiative delay samples ordered config bounds, scales factor clamped [.6,2] from instinct.max(.5), and re-admits elapsed, so product overflow rejects; native duration conversion precedes phase assignment. Threat recognition maps admitted UnitInterval phase to sqrt then instinct scale/clamp; raw nonfinite instinct semantics belong actual viewer producer proof, no ordinary case inferred. Long-weapon measure adds canonical minimum separation native f32; signedlength/frame re-admission dependency joins existing geometry family, no new independent defect or forced positivity claim."
+    }
+  ],
+  "findings": [
+    {
+      "namespace": "audit/continuation/native/initial05-aggregate-states/findings.jsonl#34",
+      "id": "NATIVE-INITIAL05-F032",
+      "disposition": "fresh exact phase consumer support; not duplicate finding"
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "6 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-tactical-server/src/combat.rs"
+}

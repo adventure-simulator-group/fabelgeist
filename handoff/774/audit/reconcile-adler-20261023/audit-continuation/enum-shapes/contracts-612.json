@@ -1,0 +1,17 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-612",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        1329,
+        1330
+      ],
+      "comparison": "Fresh full PlaybackContributions43 and playback_state155. Existing typed choices TimelineDirection, OrdinaryLocomotion, BaseRigLoad, PoseOwnership, PoseVisibility and InertialState retained. Base ready owns source+scene while failed retains source, unrequested no source. Physics ownership and frozen visibility independent axes, do not collapse them or require display history. OrdinaryLocomotion from_candidate is named local predicate conversion, actual state determines hysteresis thresholds118\u2013123; active state cannot be derived from current speed alone without losing hysteresis. PlaybackContributions contains three independently applicable contribution families; all empty means native authored bind product, no redundant bind flag. Zero-weight declared contributions still make nonbind plan and retain topology18\u201324, intentionally distinct from absent contributions. Empty default real bind fallback valid; wholebody mirror and foot influence default0/NONE are actual no contribution, not missing observation history. Checked weight sum admits all before retaining vectors. sampling_cadence returns Direct for extrapolated/continuation despite stored Buffered, derived applicability safeguard; no ordinary inconsistent sampling. Stored cadence also distinguishes action-simple-span direct versus locomotion buffered, so cannot derive solely vector families or drop it blindly. presentation_is_settled currently equals authored_pose_is_ready85\u201391, not source proof inertia settled; actual consumers pending, don't inherit method name as semantic clearance. Prior broad README assertions require actual source support. No new finding/execution.",
+      "finding_refs": [],
+      "disposition": "Existing typed state owners and legitimate independent hysteresis/display/topology facts preserved"
+    }
+  ],
+  "new_findings": [],
+  "limits": "Discovery only. Next1331 pose_buffer1892; no clearance."
+}

@@ -1,0 +1,104 @@
+cargo run --package fabelgeist-rust-quality -- check .
+shell: /usr/bin/bash -e {0}
+env:
+  CARGO_TERM_COLOR: always
+  SPACETIMEDB_VERSION: 2.6.1
+  CARGO_HOME: /home/runner/.cargo
+  CARGO_INCREMENTAL: 0
+  CACHE_ON_FAILURE: false
+##[endgroup]
+   Compiling fabelgeist-rust-quality v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-rust-quality)
+    Finished `test` profile [optimized] target(s) in 7.90s
+     Running unittests src/main.rs (target/debug/deps/fabelgeist_rust_quality-1d4f80d5520b9204)
+
+running 41 tests
+test analyze::tests::debt_can_shrink_but_cannot_grow_past_its_ceiling ... ok
+test analyze::tests::independent_crates_and_modules_with_matching_names_need_no_exception ... ok
+test analyze::tests::epsilon_provenance_crosses_reexports_test_files_and_macro_definitions ... ok
+test analyze::tests::machine_precision_requires_exact_audited_exceptions ... ok
+test analyze::tests::included_production_and_test_fragments_keep_exact_exception_locations ... ok
+test analyze::tests::standalone_build_outputs_are_excluded ... ok
+test analyze::tests::test_files_are_not_production ... ok
+test analyze::tests::stale_exceptions_fail ... ok
+test calendar_flow::tests::accepts_owned_operations_and_plain_durations ... ok
+test analyze::tests::precision_scan_includes_test_files_without_changing_production_metrics ... ok
+test calendar_flow::tests::rejects_unwrapped_calendar_arithmetic ... ok
+test float_epsilon::imports::tests::a_shared_fragment_is_resolved_in_every_caller_and_reported_once ... ok
+test float_epsilon::imports::tests::binary_and_integration_test_roots_do_not_inherit_library_bindings ... ok
+test float_epsilon::imports::tests::cyclic_globs_terminate_without_hiding_resolvable_names ... ok
+test float_epsilon::imports::tests::blocks_and_macro_bodies_shadow_names_without_leaking ... ok
+test float_epsilon::imports::tests::literal_fragments_share_aliases_with_the_including_module ... ok
+test float_epsilon::imports::tests::included_bindings_stay_in_their_module_block_and_crate ... ok
+test float_epsilon::imports::tests::explicit_crate_aliases_and_same_name_prelude_imports_resolve ... ok
+test float_epsilon::imports::tests::module_files_and_explicit_paths_use_their_own_child_directories ... ok
+test float_epsilon::imports::tests::nested_fragments_and_their_modules_resolve_from_the_fragment_source ... ok
+test float_epsilon::imports::tests::recursive_includes_terminate_without_hiding_inherited_aliases ... ok
+test float_epsilon::imports::tests::qualified_reexports_and_module_globs_keep_their_provenance ... ok
+test analyze::tests::cargo_target_paths_and_dependency_renames_preserve_import_identity ... ok
+test float_epsilon::imports::tests::macro_bodies_follow_literal_includes_in_their_own_scope ... ok
+test float_epsilon::imports::tests::restricted_aliases_follow_module_and_crate_visibility ... ok
+test float_epsilon::imports::tests::text_custom_and_nonliteral_macros_do_not_inherit_include_semantics ... ok
+test float_epsilon::imports::tests::unrelated_modules_do_not_share_private_aliases ... ok
+test float_epsilon::imports::tests::value_namespace_items_do_not_shadow_imported_modules ... ok
+test float_epsilon::tests::checks_imports_in_macro_definitions_and_assertion_arguments ... ok
+test float_epsilon::imports::tests::unrelated_crates_can_bind_the_same_terminal_name ... ok
+test float_epsilon::tests::covers_tests_macros_qualified_paths_and_aliases ... ok
+test float_epsilon::tests::macro_import_occurrences_count_source_identifiers_once ... ok
+test float_epsilon::tests::precision_constants_have_exact_associated_owners ... ok
+test float_epsilon::tests::ignores_comments_strings_and_adjacent_float_boundaries ... ok
+test float_epsilon::tests::rejects_float_globs_before_bare_expressions_and_assertions_can_hide_epsilon ... ok
+test float_epsilon::tests::rejects_globs_through_grouped_and_chained_float_module_aliases ... ok
+test scan::tests::path_prefixes_are_explicit ... ok
+test scan::tests::raw_strings_and_debug_derived_locals_cannot_drive_branches ... ok
+test scan::tests::tests_are_excluded_from_metrics_and_semantics ... ok
+test scan::tests::semantic_context_does_not_ban_ordinary_values ... ok
+test manifests::tests::checks_workspace_and_standalone_lint_policy ... ok
+
+test result: ok. 41 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+
+     Running ../adventuresim-tactical-client/build.rs (target/debug/deps/bevy_version_guard-186e08aeb22d8165)
+
+running 8 tests
+test tests::invalid_selected_version_retains_its_parse_source_and_context ... ok
+test tests::duplicates_take_precedence_over_invalid_versions ... ok
+test tests::missing_engine_has_a_structured_actionable_error ... ok
+test tests::only_exact_bevy_names_select_the_engine ... ok
+test tests::selected_version_keeps_prerelease_and_build_components ... ok
+test tests::malformed_wire_fields_remain_string_only ... ok
+test tests::selected_versions_keep_the_backport ... ok
+test tests::stable_fix_versions_require_removal_with_the_selected_version ... ok
+
+test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling syn v3.0.4
+   Compiling serde_derive v1.0.229
+   Compiling serde v1.0.229
+   Compiling fabelgeist-rust-quality v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-rust-quality)
+    Finished `dev` profile [optimized] target(s) in 16.73s
+     Running `target/debug/fabelgeist-rust-quality check .`
+crates/adventuresim-tactical-core/src/city_layout/grounding/stairs.rs::CourtStair::compile: new function debt is 102 lines (limit 100)
+semantic-value census: 1855 repeated candidate(s), advisory only
+  "2": 3558 occurrence(s) (crates/fabelgeist-gpu/src/globals/wgpu_context/blitter.rs:125, crates/fabelgeist-gpu/src/globals/wgpu_context/blitter.rs:288, crates/fabelgeist-mesh/src/wireframe.rs:35)
+  "0.5": 2666 occurrence(s) (crates/fabelgeist-mesh/src/gpu.rs:51, crates/fabelgeist-mesh/src/gpu.rs:52, crates/fabelgeist-mesh/src/gpu.rs:267)
+  "3": 2244 occurrence(s) (crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs:56, crates/fabelgeist-mesh/src/wireframe.rs:45, crates/fabelgeist-mesh/src/wireframe.rs:113)
+  "4": 1398 occurrence(s) (crates/fabelgeist-gpu/src/globals/wgpu_context/blitter.rs:257, crates/fabelgeist-gpu/src/globals/wgpu_context/blitter.rs:313, crates/fabelgeist-mesh/src/data.rs:43)
+  "2.0": 1305 occurrence(s) (crates/fabelgeist-mesh/src/gpu.rs:51, crates/fabelgeist-mesh/src/gpu.rs:52, crates/fabelgeist-mesh/src/gpu.rs:427)
+  "8": 705 occurrence(s) (crates/adventuresim-puzzles/src/ordered_sigils.rs:40, crates/adventuresim-puzzles/src/puzzles.rs:627, crates/adventuresim-texture-studio/src/document.rs:75)
+  "5": 573 occurrence(s) (crates/adventuresim-puzzles/src/analysis.rs:72, crates/adventuresim-puzzles/src/analysis.rs:193, crates/adventuresim-puzzles/src/lib.rs:4)
+  "6": 525 occurrence(s) (crates/fabelgeist-mesh/src/gpu.rs:44, crates/adventuresim-puzzles/src/logic_grid.rs:30, crates/adventuresim-puzzles/src/resource_allocation.rs:22)
+  "7": 386 occurrence(s) (crates/adventuresim-puzzles/src/resource_allocation.rs:55, crates/adventuresim-puzzles/src/resource_allocation.rs:124, crates/adventuresim-core/src/disease.rs:1032)
+  "9": 379 occurrence(s) (crates/adventuresim-puzzles/src/analysis.rs:108, crates/adventuresim-core/src/disease.rs:1886, crates/adventuresim-core/src/local_problem.rs:237)
+  "10": 357 occurrence(s) (crates/fabelgeist-animation/src/skeleton/auto_rigger.rs:53, crates/adventuresim-core/src/disease.rs:1052, crates/adventuresim-core/src/disease.rs:1942)
+  "3.0": 339 occurrence(s) (crates/fabelgeist-mesh/src/gpu.rs:428, crates/fabelgeist-animation/src/skeleton/auto_rigger.rs:257, crates/adventuresim-texture-studio/src/document.rs:189)
+  "60": 337 occurrence(s) (crates/adventuresim-core/src/disease.rs:1217, crates/adventuresim-core/src/disease.rs:1241, crates/adventuresim-core/src/disease.rs:1242)
+  "12": 295 occurrence(s) (crates/fabelgeist-mesh/src/gpu.rs:238, crates/adventuresim-puzzles/src/logic_grid.rs:43, crates/adventuresim-texture-studio/src/scene/geometry.rs:11)
+  "0.08": 291 occurrence(s) (crates/fabelgeist-animation/src/skeleton/auto_rigger.rs:145, crates/adventuresim-texture-studio/src/scene/geometry.rs:10, crates/adventuresim-texture-studio/src/scene/environment.rs:28)
+  "0.01": 278 occurrence(s) (crates/adventuresim-texture-studio/src/document.rs:181, crates/adventuresim-core/src/survival.rs:21, crates/adventuresim-core/src/durability.rs:261)
+  "0.001": 266 occurrence(s) (crates/adventuresim-character-creator/src/outfit.rs:11, crates/adventuresim-procedural-textures/src/leaf/profile.rs:65, crates/adventuresim-procedural-textures/src/leaf/profile.rs:162)
+  "0.25": 261 occurrence(s) (crates/fabelgeist-animation/src/animation/mod.rs:104, crates/fabelgeist-animation/src/animation/mod.rs:107, crates/fabelgeist-animation/src/animation/mod.rs:110)
+  "11": 250 occurrence(s) (crates/adventuresim-core/src/strategic_economy.rs:9, crates/adventuresim-core/src/physiology.rs:610, crates/adventuresim-core/src/physiology.rs:733)
+  "16": 221 occurrence(s) (crates/fabelgeist-mesh/src/data.rs:17, crates/adventuresim-core/src/disease.rs:1890, crates/adventuresim-core/src/item_catalog_surface.rs:19)
+  ... run the census subcommand for all candidates
+##[error]Process completed with exit code 1.

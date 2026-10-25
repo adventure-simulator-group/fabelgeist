@@ -1,0 +1,521 @@
+{
+  "id": "weapon-physical-profile-helper-unification",
+  "to": "/root/camera_targeting",
+  "status": "explicit_source_function_transfer_metadata_only",
+  "entries": [
+    {
+      "path": "crates/adventuresim-weapon-model/src/recipe/validation.rs",
+      "functions": [
+        "Recipe::validate",
+        "Component::validate",
+        "require",
+        "positive",
+        "nonnegative",
+        "proportion",
+        "clearance",
+        "bounded",
+        "profile",
+        "ProfileEnds/Checked associated internal semantic signatures; RecipeError canonical owner coordinated, no duplicate"
+      ],
+      "owner": "/root/camera_targeting",
+      "transfer": "Root first exact040/041 newly reached helper repair explicitly combined with camera existing profile/model graph; already camera functions retain ownership. One coherent owner across every affected family, no source edits until initial13 gate.",
+      "exclusions": [
+        "Root holders/mesh/DerivedProperties/generated physical outputs retained",
+        "Rig canonical Recipe/input quantity/DesignHash/authoring schemas retained; coordinate actual canonical declarations/errors without competing changes",
+        "Unrelated surface_refinement methods not assigned"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/recipe/validation/contoured_plate.rs",
+      "functions": [
+        "validate",
+        "positions",
+        "ridge",
+        "profile"
+      ],
+      "owner": "/root/camera_targeting",
+      "transfer": "Root first exact040/041 newly reached helper repair explicitly combined with camera existing profile/model graph; already camera functions retain ownership. One coherent owner across every affected family, no source edits until initial13 gate.",
+      "exclusions": [
+        "Root holders/mesh/DerivedProperties/generated physical outputs retained",
+        "Rig canonical Recipe/input quantity/DesignHash/authoring schemas retained; coordinate actual canonical declarations/errors without competing changes",
+        "Unrelated surface_refinement methods not assigned"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/recipe/validation/dimensions.rs",
+      "functions": [
+        "check"
+      ],
+      "owner": "/root/camera_targeting",
+      "transfer": "Root first exact040/041 newly reached helper repair explicitly combined with camera existing profile/model graph; already camera functions retain ownership. One coherent owner across every affected family, no source edits until initial13 gate.",
+      "exclusions": [
+        "Root holders/mesh/DerivedProperties/generated physical outputs retained",
+        "Rig canonical Recipe/input quantity/DesignHash/authoring schemas retained; coordinate actual canonical declarations/errors without competing changes",
+        "Unrelated surface_refinement methods not assigned"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/recipe/validation/graphs.rs",
+      "functions": [
+        "check",
+        "tube",
+        "guard"
+      ],
+      "owner": "/root/camera_targeting",
+      "transfer": "Root first exact040/041 newly reached helper repair explicitly combined with camera existing profile/model graph; already camera functions retain ownership. One coherent owner across every affected family, no source edits until initial13 gate.",
+      "exclusions": [
+        "Root holders/mesh/DerivedProperties/generated physical outputs retained",
+        "Rig canonical Recipe/input quantity/DesignHash/authoring schemas retained; coordinate actual canonical declarations/errors without competing changes",
+        "Unrelated surface_refinement methods not assigned"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/recipe/validation/melee.rs",
+      "functions": [
+        "check",
+        "guard",
+        "fuller_dimensions",
+        "pommel",
+        "mace",
+        "oval_grip",
+        "socket"
+      ],
+      "owner": "/root/camera_targeting",
+      "transfer": "Root first exact040/041 newly reached helper repair explicitly combined with camera existing profile/model graph; already camera functions retain ownership. One coherent owner across every affected family, no source edits until initial13 gate.",
+      "exclusions": [
+        "Root holders/mesh/DerivedProperties/generated physical outputs retained",
+        "Rig canonical Recipe/input quantity/DesignHash/authoring schemas retained; coordinate actual canonical declarations/errors without competing changes",
+        "Unrelated surface_refinement methods not assigned"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/recipe/validation/profile_body.rs",
+      "functions": [
+        "check",
+        "grip"
+      ],
+      "owner": "/root/camera_targeting",
+      "transfer": "Root first exact040/041 newly reached helper repair explicitly combined with camera existing profile/model graph; already camera functions retain ownership. One coherent owner across every affected family, no source edits until initial13 gate.",
+      "exclusions": [
+        "Root holders/mesh/DerivedProperties/generated physical outputs retained",
+        "Rig canonical Recipe/input quantity/DesignHash/authoring schemas retained; coordinate actual canonical declarations/errors without competing changes",
+        "Unrelated surface_refinement methods not assigned"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/recipe/validation/ranged.rs",
+      "functions": [
+        "check",
+        "firearm",
+        "bow"
+      ],
+      "owner": "/root/camera_targeting",
+      "transfer": "Root first exact040/041 newly reached helper repair explicitly combined with camera existing profile/model graph; already camera functions retain ownership. One coherent owner across every affected family, no source edits until initial13 gate.",
+      "exclusions": [
+        "Root holders/mesh/DerivedProperties/generated physical outputs retained",
+        "Rig canonical Recipe/input quantity/DesignHash/authoring schemas retained; coordinate actual canonical declarations/errors without competing changes",
+        "Unrelated surface_refinement methods not assigned"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/recipe/validation/shields.rs",
+      "functions": [
+        "common macro shared predicate contract",
+        "check"
+      ],
+      "owner": "/root/camera_targeting",
+      "transfer": "Root first exact040/041 newly reached helper repair explicitly combined with camera existing profile/model graph; already camera functions retain ownership. One coherent owner across every affected family, no source edits until initial13 gate.",
+      "exclusions": [
+        "Root holders/mesh/DerivedProperties/generated physical outputs retained",
+        "Rig canonical Recipe/input quantity/DesignHash/authoring schemas retained; coordinate actual canonical declarations/errors without competing changes",
+        "Unrelated surface_refinement methods not assigned"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/recipe/validation/spear.rs",
+      "functions": [
+        "check",
+        "shaft",
+        "wrapping_contact"
+      ],
+      "owner": "/root/camera_targeting",
+      "transfer": "Root first exact040/041 newly reached helper repair explicitly combined with camera existing profile/model graph; already camera functions retain ownership. One coherent owner across every affected family, no source edits until initial13 gate.",
+      "exclusions": [
+        "Root holders/mesh/DerivedProperties/generated physical outputs retained",
+        "Rig canonical Recipe/input quantity/DesignHash/authoring schemas retained; coordinate actual canonical declarations/errors without competing changes",
+        "Unrelated surface_refinement methods not assigned"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/recipe/validation/terminal_profile.rs",
+      "functions": [
+        "check"
+      ],
+      "owner": "/root/camera_targeting",
+      "transfer": "Root first exact040/041 newly reached helper repair explicitly combined with camera existing profile/model graph; already camera functions retain ownership. One coherent owner across every affected family, no source edits until initial13 gate.",
+      "exclusions": [
+        "Root holders/mesh/DerivedProperties/generated physical outputs retained",
+        "Rig canonical Recipe/input quantity/DesignHash/authoring schemas retained; coordinate actual canonical declarations/errors without competing changes",
+        "Unrelated surface_refinement methods not assigned"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/recipe/validation/dimensions/archery.rs",
+      "functions": [
+        "archery_bow",
+        "arrow",
+        "arrow_quiver"
+      ],
+      "owner": "/root/camera_targeting",
+      "transfer": "Root first exact040/041 newly reached helper repair explicitly combined with camera existing profile/model graph; already camera functions retain ownership. One coherent owner across every affected family, no source edits until initial13 gate.",
+      "exclusions": [
+        "Root holders/mesh/DerivedProperties/generated physical outputs retained",
+        "Rig canonical Recipe/input quantity/DesignHash/authoring schemas retained; coordinate actual canonical declarations/errors without competing changes",
+        "Unrelated surface_refinement methods not assigned"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/recipe/validation/dimensions/blades.rs",
+      "functions": [
+        "blade",
+        "section_blade",
+        "diamond_blade",
+        "axe",
+        "spear",
+        "fork",
+        "partisan",
+        "glaive",
+        "faceted_beak",
+        "bill",
+        "pick",
+        "beak",
+        "hammer"
+      ],
+      "owner": "/root/camera_targeting",
+      "transfer": "Root first exact040/041 newly reached helper repair explicitly combined with camera existing profile/model graph; already camera functions retain ownership. One coherent owner across every affected family, no source edits until initial13 gate.",
+      "exclusions": [
+        "Root holders/mesh/DerivedProperties/generated physical outputs retained",
+        "Rig canonical Recipe/input quantity/DesignHash/authoring schemas retained; coordinate actual canonical declarations/errors without competing changes",
+        "Unrelated surface_refinement methods not assigned"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/recipe/validation/dimensions/crossbow.rs",
+      "functions": [
+        "crossbow",
+        "crossbow_bolt",
+        "bolt_quiver"
+      ],
+      "owner": "/root/camera_targeting",
+      "transfer": "Root first exact040/041 newly reached helper repair explicitly combined with camera existing profile/model graph; already camera functions retain ownership. One coherent owner across every affected family, no source edits until initial13 gate.",
+      "exclusions": [
+        "Root holders/mesh/DerivedProperties/generated physical outputs retained",
+        "Rig canonical Recipe/input quantity/DesignHash/authoring schemas retained; coordinate actual canonical declarations/errors without competing changes",
+        "Unrelated surface_refinement methods not assigned"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/recipe/validation/dimensions/firearm.rs",
+      "functions": [
+        "firearm",
+        "lead_ball",
+        "ball_pouch"
+      ],
+      "owner": "/root/camera_targeting",
+      "transfer": "Root first exact040/041 newly reached helper repair explicitly combined with camera existing profile/model graph; already camera functions retain ownership. One coherent owner across every affected family, no source edits until initial13 gate.",
+      "exclusions": [
+        "Root holders/mesh/DerivedProperties/generated physical outputs retained",
+        "Rig canonical Recipe/input quantity/DesignHash/authoring schemas retained; coordinate actual canonical declarations/errors without competing changes",
+        "Unrelated surface_refinement methods not assigned"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/recipe/validation/dimensions/furniture.rs",
+      "functions": [
+        "wheel",
+        "cuboid",
+        "socket",
+        "pommel",
+        "collar",
+        "sleeve",
+        "mace",
+        "grip",
+        "oval_grip",
+        "slab_grip"
+      ],
+      "owner": "/root/camera_targeting",
+      "transfer": "Root first exact040/041 newly reached helper repair explicitly combined with camera existing profile/model graph; already camera functions retain ownership. One coherent owner across every affected family, no source edits until initial13 gate.",
+      "exclusions": [
+        "Root holders/mesh/DerivedProperties/generated physical outputs retained",
+        "Rig canonical Recipe/input quantity/DesignHash/authoring schemas retained; coordinate actual canonical declarations/errors without competing changes",
+        "Unrelated surface_refinement methods not assigned"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/recipe/validation/dimensions/guards.rs",
+      "functions": [
+        "mortised",
+        "guard",
+        "guard_assembly",
+        "knuckle_bow",
+        "ring_guard",
+        "tube",
+        "figure_eight"
+      ],
+      "owner": "/root/camera_targeting",
+      "transfer": "Root first exact040/041 newly reached helper repair explicitly combined with camera existing profile/model graph; already camera functions retain ownership. One coherent owner across every affected family, no source edits until initial13 gate.",
+      "exclusions": [
+        "Root holders/mesh/DerivedProperties/generated physical outputs retained",
+        "Rig canonical Recipe/input quantity/DesignHash/authoring schemas retained; coordinate actual canonical declarations/errors without competing changes",
+        "Unrelated surface_refinement methods not assigned"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/recipe/validation/dimensions/shields.rs",
+      "functions": [
+        "round_shield",
+        "shaped_shield"
+      ],
+      "owner": "/root/camera_targeting",
+      "transfer": "Root first exact040/041 newly reached helper repair explicitly combined with camera existing profile/model graph; already camera functions retain ownership. One coherent owner across every affected family, no source edits until initial13 gate.",
+      "exclusions": [
+        "Root holders/mesh/DerivedProperties/generated physical outputs retained",
+        "Rig canonical Recipe/input quantity/DesignHash/authoring schemas retained; coordinate actual canonical declarations/errors without competing changes",
+        "Unrelated surface_refinement methods not assigned"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/recipe/validation/dimensions/union.rs",
+      "functions": [
+        "bent_bar",
+        "spatial_tube",
+        "lofted_blade",
+        "shaft"
+      ],
+      "owner": "/root/camera_targeting",
+      "transfer": "Root first exact040/041 newly reached helper repair explicitly combined with camera existing profile/model graph; already camera functions retain ownership. One coherent owner across every affected family, no source edits until initial13 gate.",
+      "exclusions": [
+        "Root holders/mesh/DerivedProperties/generated physical outputs retained",
+        "Rig canonical Recipe/input quantity/DesignHash/authoring schemas retained; coordinate actual canonical declarations/errors without competing changes",
+        "Unrelated surface_refinement methods not assigned"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/recipe/assembly.rs",
+      "functions": [
+        "GuardAssemblyParameters::binding_order only; canonical Recipe/Attachment/NodeBinding/Guard schemas remain rig"
+      ],
+      "owner": "/root/camera_targeting",
+      "transfer": "Root first exact040/041 newly reached helper repair explicitly combined with camera existing profile/model graph; already camera functions retain ownership. One coherent owner across every affected family, no source edits until initial13 gate.",
+      "exclusions": [
+        "Root holders/mesh/DerivedProperties/generated physical outputs retained",
+        "Rig canonical Recipe/input quantity/DesignHash/authoring schemas retained; coordinate actual canonical declarations/errors without competing changes",
+        "Unrelated surface_refinement methods not assigned"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/recipe/facing.rs",
+      "functions": [
+        "direction",
+        "directions including nested resolve",
+        "apply"
+      ],
+      "owner": "/root/camera_targeting",
+      "transfer": "Root first exact040/041 newly reached helper repair explicitly combined with camera existing profile/model graph; already camera functions retain ownership. One coherent owner across every affected family, no source edits until initial13 gate.",
+      "exclusions": [
+        "Root holders/mesh/DerivedProperties/generated physical outputs retained",
+        "Rig canonical Recipe/input quantity/DesignHash/authoring schemas retained; coordinate actual canonical declarations/errors without competing changes",
+        "Unrelated surface_refinement methods not assigned"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/recipe/blade_form.rs",
+      "functions": [
+        "FullerGroove::on_face",
+        "FullerGroove::envelope",
+        "PointCurve whole existing record/methods already camera; no other schema owner reassignment"
+      ],
+      "owner": "/root/camera_targeting",
+      "transfer": "Root first exact040/041 newly reached helper repair explicitly combined with camera existing profile/model graph; already camera functions retain ownership. One coherent owner across every affected family, no source edits until initial13 gate.",
+      "exclusions": [
+        "Root holders/mesh/DerivedProperties/generated physical outputs retained",
+        "Rig canonical Recipe/input quantity/DesignHash/authoring schemas retained; coordinate actual canonical declarations/errors without competing changes",
+        "Unrelated surface_refinement methods not assigned"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/recipe/shield.rs",
+      "functions": [
+        "ShapedShieldParameters::outline_resolution only; canonical input schemas remain rig"
+      ],
+      "owner": "/root/camera_targeting",
+      "transfer": "Root first exact040/041 newly reached helper repair explicitly combined with camera existing profile/model graph; already camera functions retain ownership. One coherent owner across every affected family, no source edits until initial13 gate.",
+      "exclusions": [
+        "Root holders/mesh/DerivedProperties/generated physical outputs retained",
+        "Rig canonical Recipe/input quantity/DesignHash/authoring schemas retained; coordinate actual canonical declarations/errors without competing changes",
+        "Unrelated surface_refinement methods not assigned"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/model/groove_sections.rs",
+      "functions": [
+        "GrooveCut whole record/at",
+        "section"
+      ],
+      "owner": "/root/camera_targeting",
+      "transfer": "Root first exact040/041 newly reached helper repair explicitly combined with camera existing profile/model graph; already camera functions retain ownership. One coherent owner across every affected family, no source edits until initial13 gate.",
+      "exclusions": [
+        "Root holders/mesh/DerivedProperties/generated physical outputs retained",
+        "Rig canonical Recipe/input quantity/DesignHash/authoring schemas retained; coordinate actual canonical declarations/errors without competing changes",
+        "Unrelated surface_refinement methods not assigned"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/model/groove_transitions.rs",
+      "functions": [
+        "refine",
+        "check_interval",
+        "GrooveEnd whole enum/cutoff"
+      ],
+      "owner": "/root/camera_targeting",
+      "transfer": "Root first exact040/041 newly reached helper repair explicitly combined with camera existing profile/model graph; already camera functions retain ownership. One coherent owner across every affected family, no source edits until initial13 gate.",
+      "exclusions": [
+        "Root holders/mesh/DerivedProperties/generated physical outputs retained",
+        "Rig canonical Recipe/input quantity/DesignHash/authoring schemas retained; coordinate actual canonical declarations/errors without competing changes",
+        "Unrelated surface_refinement methods not assigned"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/construction/mod.rs",
+      "functions": [
+        "construction_budget",
+        "Detail::lathe_radial/samples/error/radial",
+        "Solid whole source record and triangle/quad/volume/positive/transform/append",
+        "add",
+        "sub",
+        "mul",
+        "dot",
+        "cross",
+        "magnitude",
+        "normalize",
+        "lerp",
+        "rotate",
+        "inverse_rotate",
+        "Point/PlanarPoint existing alias role replacement coordinates with canonical finite-f64 owners, no duplicate f32 scene types"
+      ],
+      "owner": "/root/camera_targeting",
+      "transfer": "Root first exact040/041 newly reached helper repair explicitly combined with camera existing profile/model graph; already camera functions retain ownership. One coherent owner across every affected family, no source edits until initial13 gate.",
+      "exclusions": [
+        "Root holders/mesh/DerivedProperties/generated physical outputs retained",
+        "Rig canonical Recipe/input quantity/DesignHash/authoring schemas retained; coordinate actual canonical declarations/errors without competing changes",
+        "Unrelated surface_refinement methods not assigned"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/construction/curves.rs",
+      "functions": [
+        "CurveQuality whole record/Default",
+        "point_segment_distance",
+        "refine",
+        "adaptive_curve",
+        "cubic_bezier",
+        "append_curve",
+        "subdivide"
+      ],
+      "owner": "/root/camera_targeting",
+      "transfer": "Root first exact040/041 newly reached helper repair explicitly combined with camera existing profile/model graph; already camera functions retain ownership. One coherent owner across every affected family, no source edits until initial13 gate.",
+      "exclusions": [
+        "Root holders/mesh/DerivedProperties/generated physical outputs retained",
+        "Rig canonical Recipe/input quantity/DesignHash/authoring schemas retained; coordinate actual canonical declarations/errors without competing changes",
+        "Unrelated surface_refinement methods not assigned"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/construction/sweep.rs",
+      "functions": [
+        "Section whole enum/outline",
+        "Sweep whole record/Default",
+        "tube_segments",
+        "rotate_around",
+        "segment_distance",
+        "bend_scales",
+        "validate_simple_path",
+        "Solid::sweep"
+      ],
+      "owner": "/root/camera_targeting",
+      "transfer": "Root first exact040/041 newly reached helper repair explicitly combined with camera existing profile/model graph; already camera functions retain ownership. One coherent owner across every affected family, no source edits until initial13 gate.",
+      "exclusions": [
+        "Root holders/mesh/DerivedProperties/generated physical outputs retained",
+        "Rig canonical Recipe/input quantity/DesignHash/authoring schemas retained; coordinate actual canonical declarations/errors without competing changes",
+        "Unrelated surface_refinement methods not assigned"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/construction/sweep/path.rs",
+      "functions": [
+        "SampledPath whole record/new",
+        "TransportFrames whole record/along"
+      ],
+      "owner": "/root/camera_targeting",
+      "transfer": "Root first exact040/041 newly reached helper repair explicitly combined with camera existing profile/model graph; already camera functions retain ownership. One coherent owner across every affected family, no source edits until initial13 gate.",
+      "exclusions": [
+        "Root holders/mesh/DerivedProperties/generated physical outputs retained",
+        "Rig canonical Recipe/input quantity/DesignHash/authoring schemas retained; coordinate actual canonical declarations/errors without competing changes",
+        "Unrelated surface_refinement methods not assigned"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/construction/polygon.rs",
+      "functions": [
+        "Region whole record/triangulate/improve/improve_where/refine",
+        "OutlineTolerance whole record/checked_outline",
+        "area2",
+        "distance2",
+        "edge",
+        "signed_area",
+        "shape",
+        "contains",
+        "remove_collinear"
+      ],
+      "owner": "/root/camera_targeting",
+      "transfer": "Root first exact040/041 newly reached helper repair explicitly combined with camera existing profile/model graph; already camera functions retain ownership. One coherent owner across every affected family, no source edits until initial13 gate.",
+      "exclusions": [
+        "Root holders/mesh/DerivedProperties/generated physical outputs retained",
+        "Rig canonical Recipe/input quantity/DesignHash/authoring schemas retained; coordinate actual canonical declarations/errors without competing changes",
+        "Unrelated surface_refinement methods not assigned"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/construction/solids.rs",
+      "functions": [
+        "planar_region",
+        "Solid::faceted_socket/prism/cuboid/lathe/faceted_lathe/radial_profile/hollow_socket/hollow_profile/shaped_plate/rounded_plate"
+      ],
+      "owner": "/root/camera_targeting",
+      "transfer": "Root first exact040/041 newly reached helper repair explicitly combined with camera existing profile/model graph; already camera functions retain ownership. One coherent owner across every affected family, no source edits until initial13 gate.",
+      "exclusions": [
+        "Root holders/mesh/DerivedProperties/generated physical outputs retained",
+        "Rig canonical Recipe/input quantity/DesignHash/authoring schemas retained; coordinate actual canonical declarations/errors without competing changes",
+        "Unrelated surface_refinement methods not assigned"
+      ]
+    },
+    {
+      "path": "crates/adventuresim-weapon-model/src/construction/surface_refinement.rs",
+      "functions": [
+        "Region::split_edges only60\u2013112; other methods not transferred by this trace"
+      ],
+      "owner": "/root/camera_targeting",
+      "transfer": "Root first exact040/041 newly reached helper repair explicitly combined with camera existing profile/model graph; already camera functions retain ownership. One coherent owner across every affected family, no source edits until initial13 gate.",
+      "exclusions": [
+        "Root holders/mesh/DerivedProperties/generated physical outputs retained",
+        "Rig canonical Recipe/input quantity/DesignHash/authoring schemas retained; coordinate actual canonical declarations/errors without competing changes",
+        "Unrelated surface_refinement methods not assigned"
+      ]
+    }
+  ],
+  "evidence": [
+    "../final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl#ROOT-PPS-CAMERA-WEAPON-PHYSICAL-PACKET-040",
+    "../final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl#ROOT-PPS-CAMERA-WEAPON-SHAPE-PACKET-041"
+  ],
+  "reason": "Extensive overlap with camera already whole physical/model/evaluation/DB/profile repair. Transfer whole newly reached helpers once; root outputs and rig canonical source declarations remain agreed separate functions, no partial primitive adapters."
+}

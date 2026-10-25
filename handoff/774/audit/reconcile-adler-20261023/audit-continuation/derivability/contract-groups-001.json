@@ -1,0 +1,289 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-001",
+  "at": "2026-10-25T11:09:09.041505+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 0,
+      "source_id": "dependency-wgpu29.0.4:src/api/device.rs",
+      "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "actual_compared_ranges": [
+        [
+          398,
+          428
+        ],
+        [
+          752,
+          853
+        ]
+      ],
+      "requested_registration": {
+        "source_id": "dependency-wgpu29.0.4:src/api/device.rs",
+        "snapshot": "dependency-wgpu29.0.4",
+        "path": "CARGO_REGISTRY/wgpu-29.0.4/src/api/device.rs",
+        "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 32771,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 42,
+            "read_ranges": [
+              [
+                398,
+                428
+              ],
+              [
+                752,
+                853
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-PROBE-015"
+            ],
+            "read_status": "actual-callback-typed-error-source-trait-and-Display-owner-read",
+            "resolved_path": "CARGO_REGISTRY/wgpu-29.0.4/src/api/device.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1431,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "trait_inventory": [
+        {
+          "trait": "UncapturedErrorHandler",
+          "locations": [
+            [
+              759,
+              760
+            ]
+          ],
+          "disposition": "retain blanket trait marker implementation",
+          "reason": "Blanket impl requires Fn(Error)+Send+Sync+static; derive cannot create blanket applicability for arbitrary downstream callable T."
+        },
+        {
+          "trait": "std::error::Error",
+          "locations": [
+            [
+              819,
+              827
+            ]
+          ],
+          "disposition": "retain native source delegation",
+          "reason": "Each Error variant returns its boxed real source; both source trait-object cfg bounds retained."
+        },
+        {
+          "trait": "fmt::Display",
+          "locations": [
+            [
+              829,
+              837
+            ]
+          ],
+          "disposition": "retain manual semantic formatting",
+          "reason": "OutOfMemory prints fixed text; Validation/Internal borrow description only. Debug/Serde do not provide equivalent Display or Error semantics."
+        }
+      ],
+      "status": "PERSONALLY_ANALYZED_LENS10_WITH_QUALIFICATIONS",
+      "method": "Exact selected source bodies personally consumed and analyzed for derivability; no other-lens verdict transfer or hash-only coverage."
+    },
+    {
+      "scope_index": 1,
+      "source_id": "native-anyhow1.0.104:error.rs",
+      "sha256": "2a78ee4e5f8d6b4476c761f77473362b9ed12f5402e4701001e7d04d628ba030",
+      "actual_compared_ranges": [
+        [
+          32,
+          87
+        ],
+        [
+          138,
+          190
+        ],
+        [
+          780,
+          810
+        ]
+      ],
+      "requested_registration": {
+        "source_id": "native-anyhow1.0.104:error.rs",
+        "snapshot": "native-anyhow1.0.104",
+        "path": "CARGO_REGISTRY/anyhow-1.0.104/src/error.rs",
+        "sha256": "2a78ee4e5f8d6b4476c761f77473362b9ed12f5402e4701001e7d04d628ba030",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 39200,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 111,
+            "read_ranges": [
+              [
+                32,
+                87
+              ],
+              [
+                138,
+                190
+              ],
+              [
+                780,
+                810
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-EQUIPMENT-EXPORT-036"
+            ],
+            "read_status": "bounded-actual-constructor-wrapper-and-downcast-body-read-current-lens",
+            "resolved_path": "CARGO_REGISTRY/anyhow-1.0.104/src/error.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1487,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "trait_inventory": [],
+      "status": "PERSONALLY_ANALYZED_LENS10_WITH_QUALIFICATIONS",
+      "method": "Exact selected source bodies personally consumed and analyzed for derivability; no other-lens verdict transfer or hash-only coverage."
+    },
+    {
+      "scope_index": 2,
+      "source_id": "native-anyhow1.0.104:wrapper.rs",
+      "sha256": "079218e1d8c9374f52311b1c7971f7fbdeba4d7af1b0749c0d535010f1232697",
+      "actual_compared_ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "requested_registration": {
+        "source_id": "native-anyhow1.0.104:wrapper.rs",
+        "snapshot": "native-anyhow1.0.104",
+        "path": "CARGO_REGISTRY/anyhow-1.0.104/src/wrapper.rs",
+        "sha256": "079218e1d8c9374f52311b1c7971f7fbdeba4d7af1b0749c0d535010f1232697",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 1964,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 112,
+            "read_ranges": [
+              [
+                1,
+                40
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-EQUIPMENT-EXPORT-036"
+            ],
+            "read_status": "bounded-actual-constructor-wrapper-and-downcast-body-read-current-lens",
+            "resolved_path": "CARGO_REGISTRY/anyhow-1.0.104/src/wrapper.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1488,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "trait_inventory": [
+        {
+          "trait": "Debug for MessageError<M>",
+          "locations": [
+            [
+              13,
+              20
+            ]
+          ],
+          "disposition": "retain manual delegated Debug",
+          "reason": "Forwards directly to inner Debug under M:Display+Debug; built-in derive Debug adds wrapper tuple name and different bounds, not equivalent."
+        },
+        {
+          "trait": "Display for MessageError<M>",
+          "locations": [
+            [
+              22,
+              29
+            ]
+          ],
+          "disposition": "retain direct Display delegate",
+          "reason": "Borrowed formatting forwards innerDisplay under Display+Debug, no standard Display derive."
+        },
+        {
+          "trait": "StdError for MessageError<M>",
+          "locations": [
+            [
+              31,
+              31
+            ]
+          ],
+          "disposition": "retain manual marker",
+          "reason": "Exactly Display+Debug+static no StdError bound onM; transparent Error derive would incorrectly require inner StdError/source delegation."
+        },
+        {
+          "trait": "Debug/Display/StdError for DisplayError<M>",
+          "locations": [
+            [
+              36,
+              54
+            ]
+          ],
+          "disposition": "retain custom bound and formatting",
+          "reason": "Debug intentionally uses innerDisplay requiring only M:Display, so Debug derive would add Debug bound/change behavior; Error marker requires Display+static only."
+        }
+      ],
+      "status": "PERSONALLY_ANALYZED_LENS10_WITH_QUALIFICATIONS",
+      "method": "Exact selected source bodies personally consumed and analyzed for derivability; no other-lens verdict transfer or hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Actual native callback and error trait semantics",
+      "evidence": "Role0 exact scoped wgpu native handler marker, stdError source andDisplay bodies inventoried. Existing derives already cover mechanical ErrorFilter fields and Debug ofError; handwritten parts supply distinct blanket applicability/source/semantic output. Native anyhow constructors/vtables/downcast selectedrole1 contain no handwritten trait impl inactualranges, not absence acrosswhole1060-line module. Role2 selected1\u201340 plusnecessary contiguousclosure41\u201354 personallyanalyzed; manualDebug delegateswithoutwrappername, Display-specificDebug changesbound andError markersallow nonError messages.",
+      "available_derive_comparison": "Built-in Debug derive would print tuple struct names and require M:Debug; it is not semantically equivalent. std has no built-in Display/Error derive. No external project crate/dependency addition or foreignSDK rewrite recommended merely because a third-party error derive could express attributes.",
+      "qualification": "Fullwrapper1\u201384 was displayed, but materialtraitinventory records1\u201354 requiredtofinishselectedDebug anditspairedDisplay/Error bounds; BoxedError55\u201384 notneworiginalmaterialcoverageclaim. Foreign package implementations are sourcefacts, no mandate tomodifydependencies. No source fixture executed.",
+      "acceptance": "Retain exact callable trait bounds, borrowedDisplay/source delegation, cfgSendSync differences andabilityto wrap aDisplay-only nonError message. Any laterderive suggestion mustname anexisting dependency anddemonstrate samebounds/wire/API beforechange."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 3,
+    "source_id": "native-dependency:bevy_app-0.19.1/src/app.rs"
+  },
+  "execution": "none",
+  "scope_note": "These are three actual scoped roles; no whole foreignpackage coverage, no all-lens clearance."
+}

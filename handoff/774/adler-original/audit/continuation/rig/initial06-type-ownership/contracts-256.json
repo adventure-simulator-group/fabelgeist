@@ -1,0 +1,67 @@
+{
+  "id": "RIG-INITIAL06-GROUP-256",
+  "at": "2026-10-23T07:36:41.107305+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-069.json",
+  "groups": {
+    "scene-ground-semantic-versus-render-material": {
+      "comparison": "Fresh SceneGround182 owns server/client queryable GroundSurface/GroundSubstrate/GroundCover and centered samplegrid, separate from client material assetcatalogue or terrain elevation mesh. These substrate/cover enums are distinct concepts from broader Terrain Surface classifications, city treatment and biological species. cover_density basispoints and cover_height centimetres are different units; F019 shared bounded BP leaf can serve appropriate source/retained fraction while height remains role-specific. Actual from_samples grid>=2, positive finite scale, exact length/density<=10000/height<=1000 differs structural Serde/Reflect and uniform_for_terrain; preserve Root03F011 bypass qualifications rather than accepted immutable certificate. World point ScenePlanPoint, sample gridindices and native scatter square extents have distinct frames/units. Semantic cover deliberately not interpolated, urban ownership takes precedence; actual geometric kernel unchanged. No new generic probability clamp or all-ground acceptance from type name, no unseen urban body credit.",
+      "disposition": "Keep shared tactical ground semantics independent from client materials and height mesh; reuse appropriate fraction leaves, preserve actual admission limits."
+    },
+    "combat-condition-single-authoritative-transient-state": {
+      "comparison": "Fresh condition160 updates canonical TacticalCombatState using elapsed AnimationElapsed, view body/inventory mass, injury/imbalance/blood/fatigue/encumbrance and projected increase. CombatStateQuery is ECS adapter, not duplicate state owner. General fatigue one value includes exertion and recovery, total incapacitation determines disabling; no new hidden parallel penalty or direct movement-speed fatigue scalar introduced. Total can exceed presentation cutoff, not UnitInterval merely because individual fatigue clamps0..1. Bloodloss fraction, imbalance, acute trauma, source trend forecast and current state have distinct authority/time meanings; forecast Local<Entity,...> is observer history, not extra gameplay pool. CharacterId durable party consequence metadata distinct from transient Entity, F040 applies canonical identity sharing. Native effort-speed calculations and fatigue integration are changed arithmetic; actual speed error skips update, not generic fallible owner seal. Late consequence freshness/aggregate recomputation remains Native05 qualification, no claim this pass proves scheduling. Tactical state stays transient Bevy, no strategic DB relocation.",
+      "disposition": "Keep one transient combat condition owner and explicit forecast observer, distinct component quantities and durable versus transient identity."
+    },
+    "capture-admission-versus-loading-readiness": {
+      "comparison": "Fresh capture admission168 CaptureAdmission Open/Rejected/Terminated owns terminal capture outcome, with structured frame/locomotion/terrain/geometry causes preserving canonical lower errors. Loading/wait/readiness is a different state, not a second accepted geometry authority or generic Optionfallback. admit ScenePlanPoint/Position/SupportElevation and supportweights uses exact canonical leaves, records failure; later reject_capture terminates even equipmentpending. Active IK absence cannot become flight, cadence fallback only explicitly inapplicable authoredsupportcase, evidence semantics meaningful. can_drive_frame combines admission, applied/inflight and plan index checks, no universal sibling-index safety or immediate AppExit claim (Root073 terminalview issue preserved). F001/F023 lower generic geometry/SceneElevation owners remain. Diagnostic strings/fileoutput is actual terminal observation boundary; source only no failureartifact/runtime/test execution.",
+      "disposition": "Keep terminal capture admission distinct from loading/readiness and native failure reporting, reuse canonical errors/leaves."
+    },
+    "furniture-readiness-shared-appearance-seed-owner": {
+      "comparison": "Fresh furniture_readiness160 ExpectedFurniture counts and Readiness (ready/pendingclock/recordedviewordinals) are review observation state, not canonical furniture or source acceptance. Actual check ties PresentedFurnitureMesh parent to SceneFurniture, compares materialhandle against palette.for_building(instance.id.0), then GPUresidency. Focused fresh canonical materials1521 for_building70–84/219–225 proves raw argument is only converted to canonical Seed for deterministic appearance; assembly input1509 fresh249 supplies SceneBuildingId.id0 while this caller supplies FurnitureInstanceId.id0. These are different identities, so a shared API should accept actual appearance Seed projected at each identity owner, not force furniture into SceneBuildingId or retain misleading building_id:u64. This supports new F043 migration/ownership API suggestion and earlier shared appearance claim graph; exact materialresource still incomplete whole568, no wholefile credit. Fresh canonical Seed2249 definition1–57 plus full003 role comparison confirms low allword deterministic root distinct from identity. Preserve same StreamId/draw order/result and distant prosperity/variant policy. Renderer count/texturehandle/timeout seconds are different roles, no probability or gameplayclock conflation. Ready source does not prove actualcaptured frame content or scheduler terminalsafe, no GPU/test execution.",
+      "disposition": "F043: shared appearance API should consume canonical Seed across distinct building/furniture identities; keep readiness/GPU observation local."
+    }
+  },
+  "supporting_existing_findings": [
+    "RIG-INITIAL06-F001",
+    "RIG-INITIAL06-F019",
+    "RIG-INITIAL06-F023",
+    "RIG-INITIAL06-F040",
+    "RIG-INITIAL06-F043"
+  ],
+  "source_fact_refs": [
+    "contracts-003.json",
+    "contracts-249.json",
+    "contracts-252.json"
+  ],
+  "supporting_source_reads": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/materials.rs",
+      "sha256": "b40a4b3063040003cdd4e0cfee6573ce1e51f131dde1d14cf4dbf25c13295916",
+      "ranges": [
+        [
+          1,
+          84
+        ],
+        [
+          186,
+          226
+        ]
+      ],
+      "scope_pointer": "/files/1521",
+      "status": "Fresh focused actual appearance declaration/producer/API only; whole568 still incomplete"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-determinism/src/seed.rs",
+      "sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "scope_pointer": "/files/2249",
+      "status": "Fresh canonical deterministic owner/purpose/seed declaration, full003 prior actualbody currentrole consumed; no new whole-source credit"
+    }
+  ],
+  "limits": "Four fresh complete assigned sources and focused supporting existing definitions. No body credit for incidental materials85–90/180–184/228–246 or Seedpartialderive59–70 beyond existing full003. No execution/edits/newmaterial/laterlens."
+}

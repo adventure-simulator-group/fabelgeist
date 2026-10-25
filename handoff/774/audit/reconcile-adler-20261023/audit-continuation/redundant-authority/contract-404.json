@@ -1,0 +1,36 @@
+{
+  "id": "CONT07-CONTRACT-404",
+  "at": "2026-10-23T21:13:04.790749+00:00",
+  "lens": "audit-redundant-authority",
+  "source": {
+    "scope_index": 1781,
+    "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state.rs",
+    "sha256": "48d075954cf0381f63c73815380ed47c37be6c35e30c573b6839e74c21572557",
+    "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/animation/state.rs",
+    "actual_EOF": 2069,
+    "ranges": [
+      [
+        1,
+        855
+      ]
+    ],
+    "read_kind": "fresh exact partial source in4bounded untruncated reads; earlier selected excerpts do not close remainder"
+  },
+  "coverage_status": "partial only; no full source variant credit",
+  "facts": [
+    "BodyState derives Posture/grounded/downed/support classifications; StanceState derives guard and retains raised-only locomotion payload. Current discriminants own their payloads instead of parallel flags. Actual transition and normalization implementations remain later in this body.",
+    "GuardStepPlan carries contacts, swing_start/landing and timing. Advection updates all point representations together; normalization separately repairs nonfinite start/landing and contact deadline. Finite conflicting decoded coordinates are admitted, but their exact consumer significance remains pending; do not call swing_start and contact an identical current fact without proving historical/current roles.",
+    "ActionKind is the private payload enum; ActionState custom decode normalizes each timeline and attack data. Queued versus current attacks are deliberately distinct future/current facts. QuickstepDirection normalizes finite nonzero direction and owns Defensive versus Quickstep payload distinction.",
+    "Config authority candidate: from_handling_with_config666-687 normalizes using supplied maximum values, but normalized690-698 and maximum_drawback/overshoot641-650 use global runtime configuration, and queued_recovery_coordinate789 caps using global maximum. Need supplied-config admission, later action normalization and actual consumer proof before a new finding.",
+    "Attack curve contact/preparation/recovery knots share documented half-action topology; mathematical factor two is not automatically duplicated tunable policy. Typed errors are retained; no curve evaluation executed."
+  ],
+  "new_local_findings": [],
+  "next_cell": {
+    "scope_index": 1781,
+    "start_line": 856,
+    "scope_end": 2069
+  },
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true
+}

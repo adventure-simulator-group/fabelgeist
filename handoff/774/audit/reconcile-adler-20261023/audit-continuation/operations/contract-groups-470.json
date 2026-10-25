@@ -1,0 +1,70 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-470",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_capture.rs",
+      "sha256": "5b18a1ddb04059c6126b350b2df16288411ef3402b2573d661ab0bafcb582ea5",
+      "actual_EOF": 177,
+      "actual_compared_ranges": [
+        [
+          1,
+          177
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_overlay.rs",
+      "sha256": "dabf3bf9fa2f2c3901d7d9737809119ec7f14c610b352fae3adcd159772bd386",
+      "actual_EOF": 64,
+      "actual_compared_ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_readiness.rs",
+      "sha256": "8f349e6bcd0e513f6a77a8b70f6957051ba93b126b1d2f6a6fe384e2ee035ab3",
+      "actual_EOF": 160,
+      "actual_compared_ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_capture.rs",
+      "sha256": "bce910fe4144f1301ece257fd3e0a1b333d4f4e61ae2908f796f4e4e72faa933",
+      "actual_EOF": 241,
+      "actual_compared_ranges": [
+        [
+          1,
+          241
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Furniture and interior capture preparation",
+      "analysis": "All four complete bodies read. Furniture cameras use actualrecipebounds/orientation andrequiredterrain; meanvendorcentre guardednonempty and re-admitted aftersum. Recipes/counts generatedbeforeExpectedFurnitureinsert; sourcewrite_layout failure terminal beforeprofile-specificcameraResult. Nativeoverlay line lengths/meshes followacceptedfootprintcorners, centre re-admitted andmissingheight skipped. Interiorcamera room/cell/storey expects are profilefixture-specific; no genericemptybuildingguarantee promised. Completedpositions re-admitted; rakinglight rawVec3 usesunitbasis andfixedpositive1.2m."
+    },
+    {
+      "contract": "Furniture readiness and bounded observation",
+      "analysis": "Full160-line owner requires nonemptyground, allgroundGPUtextureids, exactinstance/batchcounts andproductionmaterialbinding at actualparent. Configure resetsready/wait;120smonotonictimebound andperviewrecordonlysuccess. GPU residencylist andsourcefile writes are intendedacceptanceoutputs, not auditexecution. Countlen/sum depend actualboundedrecipeinventory, no small integeroverflowcounterexample. Fixture install expectationread, no tests run."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture.rs"
+}

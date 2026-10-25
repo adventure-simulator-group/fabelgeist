@@ -1,0 +1,358 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-492",
+  "at": "2026-10-25T15:52:19.613625+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 887,
+      "source_id": "pr-working:crates/adventuresim-core/src/case.rs",
+      "sha256": "7b919041dbce7f4e53f859aab2c5b7c6b16dd110b1452ecfa598555bda9055b0",
+      "actual_EOF": 921,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/case.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/case.rs",
+        "sha256": "7b919041dbce7f4e53f859aab2c5b7c6b16dd110b1452ecfa598555bda9055b0",
+        "bytes": 27224,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+            "ranges": [
+              [
+                1,
+                921
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": []
+          },
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/supplemental-quest-sources.json",
+            "ranges": [
+              [
+                1,
+                921
+              ]
+            ],
+            "source_read_status": "full source incl existing inline fixtures where present",
+            "trace_refs": [
+              "NATIVE-SUPP-QUEST-IDENTITY-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 141,
+            "read_ranges": [
+              [
+                1,
+                921
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-CASE-CUSTODY-072"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/case.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 41,
+            "read_ranges": [
+              [
+                1,
+                185
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-STRATEGIC-004"
+            ],
+            "read_status": "specified_actual_owner_and_recipient_bodies_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/case.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 88,
+            "read_ranges": [
+              [
+                1,
+                185
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-QUEST-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/case.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera",
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-QUEST-IDENTITY-INVENTORY-PARTIAL-051",
+            "json_pointer": "/source_proofs/3",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/case.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                921
+              ]
+            ],
+            "source_context": {
+              "index": 136,
+              "source_id": "pr-working:crates/adventuresim-core/src/case.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/case.rs",
+              "sha256": "7b919041dbce7f4e53f859aab2c5b7c6b16dd110b1452ecfa598555bda9055b0",
+              "read_ranges": [
+                [
+                  1,
+                  921
+                ]
+              ],
+              "mode": "Fresh complete actual source body; former assigned ranges may be scoped, actual full currentEOF recorded",
+              "roles": [
+                "Fresh full actual case921, extending assigned scoped1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153185. Actual strict prefix/160 ASCII lower-case ID constructors, ObjectiveExpression admission/evaluation/filtering, authenticated typed OutcomeFact, bounded/saturating count matching, CustodyObject/Holder/Record and version/idempotent apply body plus all existing fixtures inspected.",
+                "Existing AssetId/SubjectId/ObjectiveId/CaseId owners remain canonical at actual typed expression/custody consumers; broader investigation aliases and arbitrary subject/proposition/source strings do not automatically fit strict CaseId/SubjectId. Native custody version0 is initial valid state, distinct from KnowledgeRevision nonzero1 and tactical EquipmentRevision.",
+                "ID private fields plus unchecked derived Deserialize and mutable/public ObjectiveExpression alternatives mean admitted-aggregate routes need later audit; no guarantee inferred solely from new/try_new. Pure custody source/error state must retain full typed cause through DB wrappers rather than generic str return."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-QUEST-IDENTITY-RECEIVER-CLOSURE-052",
+            "json_pointer": "/source_proofs/3",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/case.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                921
+              ]
+            ],
+            "source_context": {
+              "index": 136,
+              "source_id": "pr-working:crates/adventuresim-core/src/case.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/case.rs",
+              "sha256": "7b919041dbce7f4e53f859aab2c5b7c6b16dd110b1452ecfa598555bda9055b0",
+              "read_ranges": [
+                [
+                  1,
+                  921
+                ]
+              ],
+              "mode": "Fresh complete actual source body; former assigned ranges may be scoped, actual full currentEOF recorded",
+              "roles": [
+                "Fresh full actual case921, extending assigned scoped1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153185. Actual strict prefix/160 ASCII lower-case ID constructors, ObjectiveExpression admission/evaluation/filtering, authenticated typed OutcomeFact, bounded/saturating count matching, CustodyObject/Holder/Record and version/idempotent apply body plus all existing fixtures inspected.",
+                "Existing AssetId/SubjectId/ObjectiveId/CaseId owners remain canonical at actual typed expression/custody consumers; broader investigation aliases and arbitrary subject/proposition/source strings do not automatically fit strict CaseId/SubjectId. Native custody version0 is initial valid state, distinct from KnowledgeRevision nonzero1 and tactical EquipmentRevision.",
+                "ID private fields plus unchecked derived Deserialize and mutable/public ObjectiveExpression alternatives mean admitted-aggregate routes need later audit; no guarantee inferred solely from new/try_new. Pure custody source/error state must retain full typed cause through DB wrappers rather than generic str return."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CASE-RECEIVERS-029",
+            "json_pointer": "/related_current_sources/9",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/case.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                83
+              ],
+              [
+                142,
+                640
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/case.rs",
+              "sha256": "7b919041dbce7f4e53f859aab2c5b7c6b16dd110b1452ecfa598555bda9055b0",
+              "read_ranges": [
+                [
+                  1,
+                  83
+                ],
+                [
+                  142,
+                  640
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/case.rs",
+              "scope": "Actual Asset/Subject/Objective admission, objective/fact typed records, full evaluation/match/custody mutation bodies and bounded fixture prefix; no whole921 claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-DIALOGUE-040",
+            "json_pointer": "/related_current_sources/5",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/case.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                138
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/case.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/case.rs",
+              "sha256": "7b919041dbce7f4e53f859aab2c5b7c6b16dd110b1452ecfa598555bda9055b0",
+              "actual_lines": 921,
+              "read_ranges": [
+                [
+                  1,
+                  138
+                ]
+              ],
+              "proof_mode": "fresh actual current supplement bounded material source body, no execution",
+              "role": "Canonical prefix-bearing AssetId/SubjectId/ObjectiveId constructors and exact ContractStatus stable-ID owner; derived Serde validation remains separate admission-lens dependency"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-QUEST-KNOWLEDGE-050",
+            "json_pointer": "/current_sources/3",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/case.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                921
+              ]
+            ],
+            "source_context": {
+              "index": 136,
+              "source_id": "pr-working:crates/adventuresim-core/src/case.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/case.rs",
+              "sha256": "7b919041dbce7f4e53f859aab2c5b7c6b16dd110b1452ecfa598555bda9055b0",
+              "read_ranges": [
+                [
+                  1,
+                  921
+                ]
+              ],
+              "mode": "Fresh complete actual source body; former assigned ranges may be scoped, actual full currentEOF recorded",
+              "roles": [
+                "Fresh full actual case921, extending assigned scoped1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153185. Actual strict prefix/160 ASCII lower-case ID constructors, ObjectiveExpression admission/evaluation/filtering, authenticated typed OutcomeFact, bounded/saturating count matching, CustodyObject/Holder/Record and version/idempotent apply body plus all existing fixtures inspected.",
+                "Existing AssetId/SubjectId/ObjectiveId/CaseId owners remain canonical at actual typed expression/custody consumers; broader investigation aliases and arbitrary subject/proposition/source strings do not automatically fit strict CaseId/SubjectId. Native custody version0 is initial valid state, distinct from KnowledgeRevision nonzero1 and tactical EquipmentRevision.",
+                "ID private fields plus unchecked derived Deserialize and mutable/public ObjectiveExpression alternatives mean admitted-aggregate routes need later audit; no guarantee inferred solely from new/try_new. Pure custody source/error state must retain full typed cause through DB wrappers rather than generic str return."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-033",
+            "json_pointer": "/fresh_current_additional_source_reads/5",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/case.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                138
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/case.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/case.rs",
+              "sha256": "7b919041dbce7f4e53f859aab2c5b7c6b16dd110b1452ecfa598555bda9055b0",
+              "actual_lines": 921,
+              "read_ranges": [
+                [
+                  1,
+                  138
+                ]
+              ],
+              "proof_mode": "fresh actual current supplement bounded material source body, no execution",
+              "role": "Canonical prefix-bearing AssetId/SubjectId/ObjectiveId constructors and exact ContractStatus stable-ID owner; derived Serde validation remains separate admission-lens dependency"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016",
+            "json_pointer": "/related_current_reads/9",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/case.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                83
+              ],
+              [
+                142,
+                640
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/case.rs",
+              "sha256": "7b919041dbce7f4e53f859aab2c5b7c6b16dd110b1452ecfa598555bda9055b0",
+              "read_ranges": [
+                [
+                  1,
+                  83
+                ],
+                [
+                  142,
+                  640
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/case.rs",
+              "scope": "Actual Asset/Subject/Objective admission, objective/fact typed records, full evaluation/match/custody mutation bodies and bounded fixture prefix; no whole921 claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 284,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          921
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "id! six private String wrappers structural/transparent Serde17\u201319",
+        "Case/Contract/status/objective/fact/evaluation/custody records structural+Serde; selected cfgSpacetimeType"
+      ],
+      "absence_basis": "Entire921 source personally consumed488\u2013492. Native checked ID/objective admission; status stable-ID mapping; objective/fact matching/time/identity comparison; source-idempotent custody transition and existing fixtures contain no handwritten trait/codec implementations. All structural/wire implementations already derived."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Case identity, objective evaluation and custody native semantics",
+      "disposition": "Keep checks/classification/mutation semantic. Do not impose conversion or Serde derives in place of these functions. Existing admission/operations findings remain separate; no later-lens clearance or repairs. Fixtures read, not run."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 888,
+    "source_id": "pr-working:crates/adventuresim-core/src/celestial.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

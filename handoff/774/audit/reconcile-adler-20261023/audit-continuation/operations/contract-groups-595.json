@@ -1,0 +1,50 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-595",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/storey_index.rs",
+      "sha256": "399c8ab44cc2dd0c22df8ab1cb88d4284837f7aaccd08f14cb1e4fefcd58c05c",
+      "actual_EOF": 137,
+      "actual_compared_ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/timber.rs",
+      "sha256": "452e6d4196200a40485612e2a5717561e708e0ebbaa595e20cb9b26b43ba599b",
+      "actual_EOF": 310,
+      "actual_compared_ranges": [
+        [
+          1,
+          310
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Occupiedstoreyclassification preservesroundedordinalsemantics andrejectsderivednative/packedcapacityoverflowbeforecast.",
+      "evidence": "storey137/timber310fullbodiespersonallyread includingstoreyfixtures. StoreyIndexnewnativeusize issemanticordinalnotmembershipproof; serialized_ordinal checkedu16try_from, Deserializeu16mapslosslessnative. from_elevation finiteElevation/positiveheight ratio couldInf thenrejectOverflow, roundnearest beforeBelowGround andu16cap, castonlyfinite0..65535. Negativefractionroundingto-0/ground isexplicitroundedstationpolicy ratherthanstrictpositiveelevation; zero/signed/negativephysicalelevationdomainpreserved.",
+      "qualifications": "No codec/test/buildinggenerationexecution. Ground/firstupper indices stillactualstoreyvectorbound atconsumer, notprovedbytypealone. Opaquereflectiondoesnotintroduceuncheckedprimitivearithmetic inthisbody. Do not requireeveryfinitepositiveheightquotientinfallible orsilentlysaturateordinal.",
+      "acceptance": "Onecanonicalroundedstorey operation preservingfinitefullphysicaldomain andexplicitBelowGround/Overflow/ExceedsRepresentation causes, serializeonlysupportedu16nativeword withouttruncation; actualmembership separate."
+    },
+    {
+      "contract": "Timberstructural/circulationassemblies retainidentityandendpoint/interfacegeometryrelationships foractualmutators.",
+      "evidence": "Timberdeclarations full310lines consumed. Fixedseam.008/minlength.05/setback.008/underlap.006 arefiniteauthoredcoefficients; IDsfullu64newtypes, programarchetypematchfixedenum, structs no math/mutationmethods. Memberpositions typedArchitectural, sectionsPlanDimensions; rawparticipantsaxes/reaction/load/contactarea andlevels/routewidth/headroom keepactualproducer/aggregateconstraintsseparate.",
+      "qualifications": "Declarations/deriveSerde alone do notprove runtimeassemblygraphcoherence. Existingroofpitch/supportinterface/removablesolid/duplicateIDquestions dependactualgenerator/mutator andvalidation recipients; no newfindingormembershipclearancefromfieldnames. SharedRIG03/06adoptionhonored, no guessedcurrentworld/inputfailure.",
+      "acceptance": "Actualmutators maintainoneconnectedsolid/node/member/joint/interfacegraphandfiniteusablephysicaldimensions; no duplicateauthority/IDregeneration orsemanticglobalcoordinateclamp. Existingcrosspartitionbuildingrepairdependenciesremaincoordination, notownershiptransfer."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-tactical-client/src/animation/procedural/body_response/target.rs"
+}

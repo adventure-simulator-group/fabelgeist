@@ -1,0 +1,29 @@
+{
+  "id": "RIG-INITIAL06-GROUP-310",
+  "at": "2026-10-23T08:42:04.288307+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "church-lod-original-fixtures": {
+      "comparison": "Original small church fixtures use canonical BuildingUse/ServiceBuildingSize, BuildingProgram/Plan, BuildingLodLevel, Roof/BuildingLodMaterial, OpeningUse and roof assembly source polygons. Detail/Facade/Shell are architectural representation roles distinct from generic character/plant LOD; geometry/material consistency across them is tested against same canonical source rather than second hand-authored silhouette owner. Native triangle/normal/door-plane equations are fixture geometric ports, not duplicate accepted profile schema. Fixtures only source-read; generate/compile/tessellator predicates not inferred from calls.",
+      "disposition": "Canonical architecture/LOD/source ownership exercised by original tests."
+    },
+    "street-entry-support-owner": {
+      "comparison": "StreetEntryApron groups exact external reservation, extended owned support region and canonical PropertySupportMesh inside CompoundSupportPlan; no independently authoritative apron versus foundation source. ScenePlanPoint threshold, CityPlotBounds, GeographicSurface and canonical CourtStairLimits/SupportGrade reuse meaningful shared owners. Ramp versus riser/going flight is contextual policy bounded by reservation/landing, not generic global movement rule. Real plan-local transforms, sourceedge heights, step count and mesh quad equations project typed values at genuine numeric ports; new bounds re-admit typed PlanDimensions/ScenePlanPoint. SupportDiagnostic retains rejected raw point/measure/attempt context, separate from accepted geometry. Existing F001/F023 lower-owner moves apply without altering external reservation/actor limits.",
+      "disposition": "Coherent contextual support-plan extension and explicit numerical geometry boundary."
+    },
+    "equipment-fitting-layer-plan": {
+      "comparison": "LayerPlan owns acyclic fitting dependency order over borrowed canonical EquipmentPlacement, not another equipment ownership graph. Canonical channel.order and occupancy order reused for ordinary layer ranking; explicit layers_over can reverse physical fit order (boot around padded hose), so channel scalar rank differs from actual dependency precedence. Supports and ancestors distinguish direct/transitive lower surfaces; local usize indices only reference supplied placements. supports_location anatomical neighborhood is geometric fit support relation, not OccupancyRequirement conflict/tactical coverage or seven coarse BodyPart map; do not unify predicates because same EquipmentLocation enum. Tests preserve unrelated limbs and nonlocal cycles; no alternate channel enum or source schema.",
+      "disposition": "Legitimate geometric dependency owner over shared placement vocabulary, distinct from equipment occupancy/coverage policy."
+    },
+    "original-browser-fit-probe": {
+      "comparison": "PR probe and rig-quality variant use local Probe sum to choose real catalogue placement or specific authored Anime/Wrapped test construction; not canonical complete armor kind. Actual wrapped input composes FitBody topology, Realization wearer and Fitted output context over canonical RuntimeBody/rig tables, no duplicate accepted body definition. Native byte/wasm String error ports are harness adapters; canonical Permille/Garment/PlateShape reused. Complete counterpart body delta/currentroles explicitly compared: rig-quality hoists exactsame12 subset to Probe::ALL and moves empty main, no concept or policy delta. Native buffer/cache geometry assertions are original probe evidence only, no execution or universal validity guarantee.",
+      "disposition": "Legitimate bounded probe vocabulary and canonical fitting products, no new ownership consolidation."
+    }
+  },
+  "supporting_existing_findings": [
+    "F001",
+    "F023"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit."
+}

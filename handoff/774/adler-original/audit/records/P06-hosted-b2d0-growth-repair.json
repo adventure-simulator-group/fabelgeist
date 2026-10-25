@@ -1,0 +1,13 @@
+{
+  "recorded_at": "2026-10-21T02:31:54.533691+00:00",
+  "head": "b2d0193e3daa4eff068103040f7688d94a555c30",
+  "run": 39532083667,
+  "job": 119000092261,
+  "first_failure": "Check semantic values and Rust growth",
+  "official_finding": "CourtStair::compile is 102 lines, over the 100-line new-function limit. No other semantic/growth diagnostic.",
+  "evidence": "P06-hosted-b2d0-first-failure.log",
+  "repair_head": "350c73c1978f78c732c45727236b2cf65bd4e041",
+  "repair": "Move scene-flight -> bound plot-local rectangle/tread projection into CourtStair::new. It accepts SupportStairFlight, ScenePlanPoint, PositiveLength and SupportElevation leaves; no new primitive wrapper/helper or compatibility API. Compile still owns feasibility, reservation and checked leaf admission.",
+  "source_review": "The same endpoint and centre bits enter the same world_to_local subtraction/rotation formula. route.end() is the checked producer for the former route.end_metres(). Completed valid outputs and failure diagnostics remain unchanged; the helper mutates no state.",
+  "tests_and_gates": "No new tests/cases/assertions/helpers; metadata preserves 569 existing names and 2498 assertion occurrences, with two earlier production assertion rejections. No local project tool, suppression, ceiling increase or baseline change."
+}

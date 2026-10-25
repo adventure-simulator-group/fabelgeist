@@ -1,0 +1,27 @@
+{
+  "id": "RIG-INITIAL06-GROUP-023",
+  "at": "2026-10-22T19:56:36.514336+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "independent-source-format-owner": {
+      "sources": [
+        "pr-working:crates/fabelgeist-garment-code/Cargo.toml",
+        "pr-working:crates/fabelgeist-garment-code/src/pattern/spec.rs",
+        "pr-working:crates/fabelgeist-garment-code/src/pattern/core.rs"
+      ],
+      "comparison": "Fresh Cargo19/PatternSpec1\u2013141 and PatternCore1\u201314,67\u201399. GarmentCode has no appCore/Building/Bevy/Geometry dependency; owns sewingpattern source format, Curvature Circle/Quadratic/Cubic relativecontrol products, namedPanelSpec/PatternSpec/StitchSides and Properties units_in_meter default100. Panels translation sourceunits and EulerDEGREES/f64 precision differ neutralMathTransformf32/TRS and MHRf64quaternion+uniformscale; no blindmerge based3components. NewREG013 freshlyread aliases7\u20138 V2=[f64;2]/V3=[f64;3] show raw numerical aliases, not separate admittedfinite coordinate wrappers. No need import CorecheckedFloat or reduce precision; if portable continuousf64angles/lengths later useful, sharedlowest mathowner mustpreserve precision and sourceunitformat. Actual Core edge_as_curve reads canonical EdgeSpec then interprets relativecontrolpoints/circularradius through Curve constructors; exactCurve/mathhelper bodies notread, so no validity/normalization promise. PatternSpec name/panellabels remain sourceextensionidentities, notRigJointName/assetIDs. Properties curvature_coordsstring/open nativeunitsi64 and publicfields not closedenum/positiveunitcertificate (09/12 pending). Earlier accidental full142\u2013582 display explicitly excludedQUAL007 and fresh exact1\u2013141 used; no writer/parser/testtail analysis credited."
+    },
+    "centimetre-measurement-frame-and-output": {
+      "sources": [
+        "pr-working:crates/fabelgeist-garment-code/src/measure/mod.rs",
+        "pr-working:crates/fabelgeist-garment-code/src/measure/section.rs"
+      ],
+      "comparison": "Fresh entire measure791/section356. BodyMesh borrows nativef32triangles in centimetres with +Yup,+Xleft,+Zfront; Landmarks provides six pairedanatomicaljoint arrays without assuming RigJointOrdinal indices. This input differs MHRcanonicalmetre/quaternionjointstate and ArmorPartFrame/reflectedaxes, so adapter at actual caller should preserve unit/frame with explicit conversion, not merge types or importBuildingframe. Measurer pairs source+landmarks, floor/top/axis/step; Level containsheight/girth/hull/ring; Axes HorizontalXZ/SagittalZY selects measurementplanes. Ring is rawVec<[f32;3]> and assemble expressly keeps openchains whenmeshholes present; not an admittedClosedRing/ConvexPolygon solelyfromname/docs. Hull/perimeter/nativekeyGRID10 reflects tenth-mm quantization incm, distinct Trimweld1e6/metre or Buildinglattice. Actual body() pushes f32calculatedlengths/degreeinclinations to openf64Bodymap and eval_dependencies; no globalFinitePositiveLength invariant acrossallnames/zero fallback. ClinicalBodyMass/canonicalCharacterProportions, general rigtable and dynamic tailorBody representdifferentauthority. Existing generic neutralSignedLength=f32metres cannot silently replacef32cm/f64output or boundhistoricalsourceformat. A dedicated measure-frame/length owner mayserve future APIpropagation, but no same-contractduplicatecheckedowner demonstrated. Source finite/surface/landmark acceptance gaps remain03 findings; stated input requirements/privateMeasurer not actualcertification. Actualscans/normalizations/posefallbacks are numericaloperations readforownership only; original measuretests separatefile notinthissourcegraph and not credited."
+    }
+  },
+  "new_findings": [],
+  "qualifications": [
+    "RIG-INITIAL06-QUAL-007"
+  ],
+  "limits": "Fresh exact full/boundedbody ownershipcomparisons, metadataCargo parsed/read; no accidentalunscopedwriter credit or lowerCurve/mathgraph/admission/laterlenscredit. Whole06 incomplete."
+}

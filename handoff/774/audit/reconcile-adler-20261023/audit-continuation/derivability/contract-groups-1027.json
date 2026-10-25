@@ -1,0 +1,116 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1027",
+  "at": "2026-10-25T17:32:30.246365+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1191,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/simulation.rs",
+      "sha256": "909ef3cba93d998d407876cc05fd8c4ad9933f39faec7de0ac45dd0893d9bd60",
+      "actual_EOF": 610,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/simulation.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/simulation.rs",
+        "owner": "camera",
+        "sha256": "909ef3cba93d998d407876cc05fd8c4ad9933f39faec7de0ac45dd0893d9bd60",
+        "base_sha256": "dc632f763571e76d07d171997abc20ced653b462e6994d07a29dac8f6045b372",
+        "state": "modified",
+        "bytes": 22266,
+        "audit_owner": "camera",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                610
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-SIMULATION-001",
+              "CAM-PROP-STRATEGIC-PROJECTION-001"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 274,
+            "read_ranges": [
+              [
+                1,
+                610
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SIMULATION-035"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/simulation.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 236,
+            "read_ranges": [
+              [
+                1,
+                610
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SIMULATION-035"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/simulation.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": 505,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          610
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "SimulationRun/SimulationCharacter/SimulationQuestFixtureAuthority Clone/Debug/table",
+        "SimulationQuestFixture Clone/Debug/SpacetimeType"
+      ],
+      "absence_basis": "Whole isolation/simulation source across1026\u20131027 consumed. No handwritten trait/codec. Native capability, selected scope/equality, private manifest+referral public projection, checked configuration/range/epoch helpers and lifecycle adapters semantic. Fullfixtures506\u2013610 read not executed, child fixture bodies independent. No security/correctness clearance or runtime claim."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Simulation capability/schema derivability",
+      "disposition": "Structural/schema derives already used. Keep authorization and checked source-context conversions explicit; no new finding."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1192,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/simulation/disease_fixture.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

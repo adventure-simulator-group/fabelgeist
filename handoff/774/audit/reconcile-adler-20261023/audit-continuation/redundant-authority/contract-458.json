@@ -1,0 +1,78 @@
+{
+  "id": "CONT07-CONTRACT-458",
+  "at": "2026-10-23T22:13:03.620951+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2003,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/scene_input/terrain_capture.rs",
+      "sha256": "f5121eacfb30ddcea6841d7b6fe1b4b1d29b213befb32f006e727040b8a0b92c",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server-dispatcher/src/scene_input/terrain_capture.rs",
+      "actual_EOF": 164,
+      "ranges": [
+        [
+          1,
+          164
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2004,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/scene_input/tests/startup_fixtures.rs",
+      "sha256": "5861efab34c5c52becfe579f62be7ba57e67b8f3c83a9b8c79e761259ae76272",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server-dispatcher/src/scene_input/tests/startup_fixtures.rs",
+      "actual_EOF": 108,
+      "ranges": [
+        [
+          1,
+          108
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2005,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/settlement_buildings.rs",
+      "sha256": "cd7c7620ecad6eea71eb5e453d882bce444f9308ab4f6d2cee08423609964585",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server-dispatcher/src/settlement_buildings.rs",
+      "actual_EOF": 42,
+      "ranges": [
+        [
+          1,
+          42
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2006,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/terrain_sampling.rs",
+      "sha256": "be0e11404dadb950d9b751312555425b25e836bc3e3b0063664512290012f8c8",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server-dispatcher/src/terrain_sampling.rs",
+      "actual_EOF": 38,
+      "ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "2003 SourceElevationSample associates exact scene offset with absolute geographic observation; relative scene elevation is a different derived datum, not copied truth. Capture sample uses same native origin/offset mapping and shared vista resampler as production; repeated from_cell checks same immutable centre and no mutable competing source exists.",
+    "2004 distinct startup fixture destinations deliberately share benchmark mission label but different settlement identities, geometry programs and operator identity ranges. This tests settlement source authority rather than asserting missionlabel uniquely identifies geometry across settlements. Actor/city/environment output roles share captured coordinate/source/input; all source code read only, ignored export not executed.",
+    "2005 effective_population method delegates canonical Core function on original profile values; it does not retain a second derived population. Settlement population estimate and level are source inputs with distinct meanings. Building seed canonical settlement_building_seed differs from scene terrain Seed::derive policy2000 by authored purpose; no forced seed unification.",
+    "2006 shared environment_sample is the single source-to-tactical transport classifier used by scene/regional capture. Native surface remainsWater for crossing but waterbps0 and crossingbps10000 intentionally coexist; base_ground_surface207-215 prioritizes crossing toRoad, so no contradiction to declare simply from fields. Canopy/hilly/wetland percentages are independent cover observations and fraction-toBPS conversion derives one fixed scale."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2008,
+    "start_line": 1
+  }
+}

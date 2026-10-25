@@ -1,0 +1,115 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-227",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-strategic-sim/src/live_core/bootstrap.rs",
+      "sha256": "e58eadc935d9bd93c40262b170bc85c9e2d26c0b42ee490e882e0dd96f65be55",
+      "actual_EOF": 1325,
+      "actual_compared_ranges": [
+        [
+          1,
+          1325
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/bootstrap.rs",
+      "sha256": "e58eadc935d9bd93c40262b170bc85c9e2d26c0b42ee490e882e0dd96f65be55",
+      "actual_EOF": 1325,
+      "actual_compared_ranges": [
+        [
+          1,
+          1325
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Live simulator scope, bounded setup and actual index preconditions",
+      "source_ranges": {
+        "bootstrap.rs": [
+          [
+            1,
+            1325
+          ]
+        ],
+        "config.rs": [
+          [
+            1,
+            171
+          ]
+        ],
+        "investigation_policy.rs": [
+          [
+            265,
+            355
+          ]
+        ]
+      },
+      "disposition": "Complete1325line P16 bootstrap and full actual PR textual comparison consumed. Fresh config proves population2..32,party2..8,cycles1..10000, checkedpopulation*cycles<=100000, duration<=100years. Generated profile/character vectors have same population cardinality, enumerateindices fitu32; population>0 proves character_ids[0]. Fresh balanced grouping uses nonzero party_size, ceilgroupcount<=population, distributes positive target counts and preserves everyinputindex once; group[0] therefore valid. Direct/generated fixture expectedparties is fixedarray2 and lookup only after requiretwoformedparties. Synthetic authored fixture enemyu64MAX is deliberate per-evaluation identity, do not impose persistent-ID ownership. Exact public fixture selection take2 rejectsnone/ambiguous/run/party mismatch. Public direct contract wait bounded20s and sorted/deduped candidates, no helper executed."
+    },
+    {
+      "contract": "Duration/frontier calculations and reporting arithmetic",
+      "source_ranges": {
+        "bootstrap.rs": [
+          [
+            630,
+            1325
+          ]
+        ]
+      },
+      "disposition": "Durationu32days widened before*1440 and actual100year bound finite. Per-agent start clock captured after bootstrap; simulation elapsed uses actual owner helper, not absolutecalendarage. In-budget recovery can finish beyondcutoff intentionally and one final bounded rescue/cleanup runs. Direct own partiesformed/joins counters<=32; deeper nested policy metrics need actual calleebounds and are not proven from outerworkalone. Final currency sums widenu32->u64 acrossrows; represented billionsstacks couldoverflow aggregate, no normal disposablebudgetproof of that extreme. Final gold explicitlyminu32MAX while personal_gold_coin keepsu64; this is reportprojection policy/rawschema dependency not a conserved-mutation loss. Damage tiers sum five finite boundedfractions if admittedcondition, then clamp; rawbadrows need actualowner not assumed. Sequence/trace truncation compares actual counts, exact questcoverage uses typed eventsubject+party+case, no proseidentity; no all-eventsretention claim from boundedtrace."
+    },
+    {
+      "contract": "Generated bindings and physical utility boundaries",
+      "source_ranges": {
+        "bootstrap.rs": [
+          [
+            12,
+            37
+          ],
+          [
+            152,
+            426
+          ]
+        ]
+      },
+      "disposition": "Source uses generated schema constructors/reducer callbacks and maps concrete errors; no generated bindings edited. Equipmentutility computes raw weightedprotection/mobility/price/reach scores; actual generated preference/catalogue validity is needed before finite ordering, not supplied solely by sumofleaves. Databaseisolation/disposableauthority checked beforeclaim/seed; read-onlyaudit neverconnected or seeded. No new ordinary operationdefect/whole04clearance."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [
+    {
+      "path": "physical-p16-unscoped-dependency/crates/adventuresim-strategic-sim/src/live_core/config.rs",
+      "git": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "7e192ef20631845534afb5f4060d45c4253271682e203f89ae3c83dec1b5687e",
+      "actually_read_ranges": [
+        [
+          1,
+          171
+        ]
+      ],
+      "coverage": "Fresh dependency body; no additional full original-role credit."
+    },
+    {
+      "path": "physical-p16-unscoped-dependency/crates/adventuresim-strategic-sim/src/live_core/investigation_policy.rs",
+      "git": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "beeb9c30e9b583a3e744dcc7350e83c2c5ce40a2d65d5184cd48c0a463a93ea1",
+      "actually_read_ranges": [
+        [
+          265,
+          355
+        ]
+      ],
+      "coverage": "Fresh grouping criticalbody only; no full original-role credit."
+    }
+  ],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-strategic-sim/src/live_core/policy.rs"
+}

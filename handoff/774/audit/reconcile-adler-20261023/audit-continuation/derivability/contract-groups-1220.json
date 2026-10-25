@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1220",
+  "at": "2026-10-25T18:10:27.934182+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1294,
+  "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/tests/recovery_and_cases.rs",
+  "sha256": "ef87ad4e9c4d24ebf86edbdf12067ecbb06855d80bd109c8d88da8d9fc18c684",
+  "actual_compared_ranges": [
+    [
+      341,
+      680
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Only native/source fixtures for coherent journey/case continuation, owner-scoped tracking/sync/readiness, public diagnostics/typed failure Serde and bounded formatting. No handwritten trait/custom codec/local type. Source text/order assertions are not verified passing behavior; literal DTO initialization invokes existing derives only. No tests/I/O run.",
+  "first_unfinished": {
+    "scope_index": 1294,
+    "line": 681
+  },
+  "execution": "none"
+}

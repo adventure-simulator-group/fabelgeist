@@ -1,0 +1,26 @@
+{
+  "revision": "13fc9dcc71ab879de364117e5462310673e43210",
+  "finding": "F37",
+  "kind": "Sourcearithmetic+actualtypedreceiverwitness, notexecution",
+  "css_element_x": [
+    -63.49,
+    0.51
+  ],
+  "overflow_parent_left": 0.49,
+  "device_pixel_ratio": 1,
+  "clipped_css_interval": [
+    0.49,
+    0.51
+  ],
+  "css_visible": true,
+  "rounded_origin": 1,
+  "rounded_far_edge": 0,
+  "emitted_width": -1,
+  "native_receiver": "CanvasRect.width:u32 viaBrowserCommand::SyncStrategicView; queue_json deserializesbeforeenqueue",
+  "postclip_limit_notes": {
+    "owned_source": "finite/source/queryadmission andsourcevertices<=u32MAX",
+    "wasm32": "usizeVec.len is32bit sofinalu32try_fromrangealreadyfits;allocation/devicecapacity isseparate",
+    "host64": "sourcefaces canexpandafterrectangleclipping; no finaloutputboundprooffound ornormalfeasibleoverflow reproduced",
+    "file_size": "32MiBload(Path) limitisnotasharedall-constructor/serdeproof"
+  }
+}

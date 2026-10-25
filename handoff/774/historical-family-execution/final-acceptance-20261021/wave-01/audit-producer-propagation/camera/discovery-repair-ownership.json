@@ -1,0 +1,83 @@
+{
+  "authority": "Supplemental source/evidence reference only. Exact listed F022 and WorldEventError/F006 scopes are merged into camera_targeting-claims.json, the sole camera ownership authority. Parent execution-ledger remains sole family status authority.",
+  "source_edit_freeze": true,
+  "findings": [
+    "CAM-PROP-F022",
+    "CAM-PROP-F023"
+  ],
+  "camera_scopes": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/custody_objectives.rs",
+      "scope": "whole reached custody/continuity/fact/finale functions already camera-owned; canonical object/id retention +F006 causes"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+      "functions": [
+        "generated_dialogue_recipient",
+        "generated_dialogue_producer_recipient",
+        "issue_dialogue_investigation_bindings"
+      ],
+      "scope": "whole connected ObjectiveId retained/comparison recipient functions"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/investigation/capabilities.rs",
+      "items": [
+        "InvestigationActionConsequence",
+        "issue_investigation_action_capability",
+        "issue_rumor_action_graph"
+      ],
+      "scope": "whole affected checked consequence admission/retention/serialization receivers"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/investigation/projections.rs",
+      "functions": [
+        "generated_pattern_authority"
+      ],
+      "scope": "whole affected actual generated consequence receiver"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/investigation/actions.rs",
+      "functions": [
+        "case_objective_contains_custody_target",
+        "validate_pickup_custody",
+        "reissue_stale_custody_capability",
+        "commit_action_consequence"
+      ],
+      "scope": "whole connected checked case-object consumption through custody/native rows"
+    },
+    {
+      "path": "crates/adventuresim-strategic-sim/src/live_core",
+      "scope": "F023 whole survival/expedition/expedition_policy/journey_policy/travel/settlement/failure observation lifecycle and final report, preserve measuredzero and failclosed policies"
+    },
+    {
+      "path": "crates/adventuresim-stdb-module/src/world_event.rs",
+      "functions": [
+        "fingerprint",
+        "commit_world_event",
+        "commit_noticed_illegal_foraging",
+        "commit_generated_case_resolution",
+        "commit_food_water_infection"
+      ],
+      "scope": "First-trace F006 concrete WorldEventError/serde typedcause\u2192fixed String before application commit; whole necessary error-return followthrough to actual SDK, preserving request lookup/preflight/apply/receipt order. Canonical Core WorldEventError remains actual leafowner, no central replacement."
+    }
+  ],
+  "transfers_or_shared_dependencies": [
+    {
+      "owner": "native",
+      "scope": "whole pure quest assembly/model/validation F022 and PP032; consume camera F011 agreed fields once"
+    },
+    {
+      "owner": "root",
+      "scope": "canonical elapsed cap methods, P15currentcapacity/chronology, authoritative ledger"
+    },
+    {
+      "owner": "rig",
+      "scope": "canonical Corecourtship selector/Seed helper and childidentity DB001/002"
+    },
+    {
+      "owner": "native",
+      "scope": "NATIVE-PP-035 pure checked schedule effective result/consumer repair; camera actual DB time/schedule functions consume agreed checked contract, genuine SDK row projection preserved."
+    }
+  ],
+  "authoritative_claim_file": "../../../../parallel-ownership/camera_targeting-claims.json"
+}

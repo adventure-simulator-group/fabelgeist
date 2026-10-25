@@ -1,0 +1,26 @@
+{
+  "canonical_reference": "audit/continuation/native/initial05-aggregate-states/findings.jsonl#row24",
+  "line": 25,
+  "record": {
+    "id": "NATIVE-INITIAL05-F023",
+    "lens": "audit-aggregate-states",
+    "classification": "tiny finite support triangle horizontal norm underflows grade measurement",
+    "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/mesh.rs",
+    "sha256": "d126f49c7be7d94e3c1e6bd19e6479542f155aaee7fedfccaa1c471706eed66e",
+    "source_ranges": [
+      [
+        212,
+        223
+      ]
+    ],
+    "relationship": "Physical support grade used by whole-surface acceptance must reflect the ratio of horizontal and vertical normal magnitudes across valid finite admitted triangle values.",
+    "source_counterexample": "A PropertySupportMesh with nonzero owner/member, positive tolerance and triangle vertices a=(0,0,0),b=(1,-1,0),c=(0,0,1e-30) passes this mesh finite/index/member gate. Cross normal=(-1e-30,-1e-30,0) is finite with nonzero y; its f32 horizontal squared norm underflows to0, so maximum_grade returns0 despite mathematical grade1. The enclosing surface topology predicate also checks finite normal/y!=0 then compares this same helper at122\u2013129. Source-only reasoning, no execution/new test.",
+    "actual_path": "Standalone admitted mesh/API measurement weakness and concrete reliance by encoded surface grade check. Complete floor/binding/clipping predicates and actual normal tiny-geometry producer have not been established for a fully accepted surface, so no normal bad asset/unsafe installed surface/runtime claim.",
+    "connected_repair": "Join physical support/profile grade calculation graph with F022, preserving exact whole-surface admission and retaining-face exclusion; Root owns repair authority. Separate direct witness from unrelated roof/nets norm overflow records.",
+    "acceptance": "Compute robust horizontal normal magnitude/ratio with scaling or widened arithmetic before accepting a grade; retain zero-grade horizontal support, signed elevations, legitimate tiny contact geometry and intentional exclusion of vertical retaining faces. Do not replace nonfinite/unmeasurable physical result with grade0 or epsilon-collapse source topology.",
+    "proof_ref": "contract-groups-076.json",
+    "repair": "frozen",
+    "validation": "not_established"
+  },
+  "disposition": "Exact same mesh.maximum_grade f32 horizontal norm underflow; full record personally read. New1e-12 coordinates support same remedy, no new unique count. Full surface predicates/normal producer remain unproved."
+}

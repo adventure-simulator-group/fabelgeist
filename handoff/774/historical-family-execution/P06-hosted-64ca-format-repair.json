@@ -1,0 +1,52 @@
+{
+  "recorded_at": "2026-10-21T05:36:23.460968+00:00",
+  "base_head": "64cafc95febbac5c869c573241e312f181ec0206",
+  "run": 39550202748,
+  "job": 119057415519,
+  "unique_hunks": 6,
+  "changes": [
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/authored_weapon.rs",
+      "hosted_occurrences": 1,
+      "exact_old_matches": 1,
+      "old": "            .as_ref()\n            .map_or([0.0; 3], |equipment| equipment.physical.dimensions_m);\n        let total_length_m = dimensions_m[1];\n        let recipe = adventuresim_weapon_model::default_design(weapon_id)\n            .ok_or_else(|| AuthoredMeleeWeaponError::MissingRecipe {\n                weapon: weapon_id.to_owned(),\n            })?;\n        let striking_head_length_m = adventuresim_weapon_model::derive_properties(&recipe)\n            .map_err(|violations| AuthoredMeleeWeaponError::Recipe {\n                weapon: weapon_id.to_owned(),\n",
+      "new": "            .as_ref()\n            .map_or([0.0; 3], |equipment| equipment.physical.dimensions_m);\n        let total_length_m = dimensions_m[1];\n        let recipe = adventuresim_weapon_model::default_design(weapon_id).ok_or_else(|| {\n            AuthoredMeleeWeaponError::MissingRecipe {\n                weapon: weapon_id.to_owned(),\n            }\n        })?;\n        let striking_head_length_m = adventuresim_weapon_model::derive_properties(&recipe)\n            .map_err(|violations| AuthoredMeleeWeaponError::Recipe {\n                weapon: weapon_id.to_owned(),\n"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/armor.rs",
+      "hosted_occurrences": 1,
+      "exact_old_matches": 1,
+      "old": "        .collect())\n}\n\npub(super) fn mirrored_vambrace_contacts() -> MeleeIterationResult<Vec<MirroredArmorContactEvidence>> {\n    let definition = crate::item_catalog::definition(\"vambrace\")\n        .ok_or(MeleeIterationError::MissingEvidenceItem { item: \"vambrace\" })?;\n    let equipment = definition\n",
+      "new": "        .collect())\n}\n\npub(super) fn mirrored_vambrace_contacts() -> MeleeIterationResult<Vec<MirroredArmorContactEvidence>>\n{\n    let definition = crate::item_catalog::definition(\"vambrace\")\n        .ok_or(MeleeIterationError::MissingEvidenceItem { item: \"vambrace\" })?;\n    let equipment = definition\n"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "hosted_occurrences": 1,
+      "exact_old_matches": 1,
+      "old": "    armor_ids: &[&str],\n    shield_id: Option<&str>,\n) -> MeleeIterationResult<CombatEquipment> {\n    let definition = crate::item_catalog::definition(weapon_id)\n        .ok_or_else(|| MeleeIterationError::UnknownWeapon {\n            weapon: weapon_id.to_owned(),\n        })?;\n    let weapon = CombatWeapon::from_authored_melee_definition(definition)?;\n    let mut equipment = CombatEquipment {\n        weapon: Some(weapon),\n",
+      "new": "    armor_ids: &[&str],\n    shield_id: Option<&str>,\n) -> MeleeIterationResult<CombatEquipment> {\n    let definition = crate::item_catalog::definition(weapon_id).ok_or_else(|| {\n        MeleeIterationError::UnknownWeapon {\n            weapon: weapon_id.to_owned(),\n        }\n    })?;\n    let weapon = CombatWeapon::from_authored_melee_definition(definition)?;\n    let mut equipment = CombatEquipment {\n        weapon: Some(weapon),\n"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "hosted_occurrences": 1,
+      "exact_old_matches": 1,
+      "old": "        ..CombatEquipment::default()\n    };\n    if let Some(shield_id) = shield_id {\n        let shield = crate::item_catalog::definition(shield_id)\n            .ok_or_else(|| MeleeIterationError::UnknownShield {\n                shield: shield_id.to_owned(),\n            })?;\n        let ItemKind::Shield { block, .. } = shield.kind else {\n            return Err(MeleeIterationError::NotShield {\n                shield: shield_id.to_owned(),\n",
+      "new": "        ..CombatEquipment::default()\n    };\n    if let Some(shield_id) = shield_id {\n        let shield = crate::item_catalog::definition(shield_id).ok_or_else(|| {\n            MeleeIterationError::UnknownShield {\n                shield: shield_id.to_owned(),\n            }\n        })?;\n        let ItemKind::Shield { block, .. } = shield.kind else {\n            return Err(MeleeIterationError::NotShield {\n                shield: shield_id.to_owned(),\n"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "hosted_occurrences": 1,
+      "exact_old_matches": 1,
+      "old": "    armor_ids: &[&str],\n) -> MeleeIterationResult<()> {\n    for (index, armor_id) in armor_ids.iter().enumerate() {\n        let armor = crate::item_catalog::definition(armor_id)\n            .ok_or_else(|| MeleeIterationError::UnknownArmor {\n                armor: (*armor_id).to_owned(),\n            })?;\n        let ItemKind::Armor {\n            coverage,\n            resistance,\n",
+      "new": "    armor_ids: &[&str],\n) -> MeleeIterationResult<()> {\n    for (index, armor_id) in armor_ids.iter().enumerate() {\n        let armor = crate::item_catalog::definition(armor_id).ok_or_else(|| {\n            MeleeIterationError::UnknownArmor {\n                armor: (*armor_id).to_owned(),\n            }\n        })?;\n        let ItemKind::Armor {\n            coverage,\n            resistance,\n"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "hosted_occurrences": 1,
+      "exact_old_matches": 1,
+      "old": "        else {\n            continue;\n        };\n        let authored = armor\n            .equipment\n            .as_ref()\n            .ok_or_else(|| MeleeIterationError::ArmorProjectionUnavailable {\n                armor: (*armor_id).to_owned(),\n            })?;\n        let occurrence = armor_ids[..index]\n            .iter()\n            .filter(|prior| *prior == armor_id)\n",
+      "new": "        else {\n            continue;\n        };\n        let authored = armor.equipment.as_ref().ok_or_else(|| {\n            MeleeIterationError::ArmorProjectionUnavailable {\n                armor: (*armor_id).to_owned(),\n            }\n        })?;\n        let occurrence = armor_ids[..index]\n            .iter()\n            .filter(|prior| *prior == armor_id)\n"
+    }
+  ],
+  "scope": "Exact hosted formatter hunks only, after connected source completion. No local formatter/project check, source contract/math/test/assertion/input change."
+}

@@ -1,0 +1,111 @@
+{
+  "packet_number": 109,
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh full literal1-66 after Native030 registration and global051; existing bounded prefix plus exact completing tail, independent operations-lens comparison.",
+      "sha256": "3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+      "actual_EOF": 66
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/playback.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh full literal1-48 after Native031 registration/global051, complete declaration and validator; no absent Default inferred.",
+      "sha256": "6eac571d575402a1ccbcdda6ad103850b9f52fed3f9bc602d558ea5629d23fdd",
+      "actual_EOF": 48
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/ragdoll.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          59
+        ],
+        [
+          61,
+          80
+        ],
+        [
+          81,
+          112
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh actual1-112, effective new capsule role61-80 under mandatory176; blank60 context only. All prior roles independently reconciled.",
+      "sha256": "af87991f5cb3f8fd2a6398ea5135c5daacd24c7b9c2b23181ebecec7bc516ad3",
+      "actual_EOF": 112
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-mesh/src/lib.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          22
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh exact literal export/declaration file after Rig034 registration and global051; no child module behavior credited.",
+      "sha256": "6a0d874f4c07665cb0c5f3e477bd5a79d6c431a46aea2be921a7fab150e5e04b",
+      "actual_EOF": 22
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-mesh/src/data.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          11
+        ],
+        [
+          41,
+          68
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh literal imports1-11 and declaration/default41-68 ONLY after Rig035 registration; helpers12-40 and69+ excluded under173.",
+      "sha256": "41c300bd088e2a69594225a867cee9f1bc3fe5f19410bf77d3c8de73a383f1b4",
+      "actual_EOF": 293
+    }
+  ],
+  "groups": {
+    "procedural": "Validator compares admitted gap/angle leaves against explicit zero and positive report-margin; no local mutation/arithmetic aggregate or external publication. Full body now includes structured error and success return. Body-response leaf conversion and native consumer integration remain their own obligations; checked config label alone cannot clear runtime interpolation/scaling.",
+    "playback": "Nonzero maximum gap plus deactivation<=initial<=activation checked as complete local product before success. Ordering relies on finite admitted leaf speeds; direct field mutation can invalidate relation, so propagate a coherent validated product at consumers rather than merely preserving three bespoke leaves. Source has no Default method. Signed visualY remains signed, stance slip nonnegative, source/frame/sampling/cadence quantities distinct.",
+    "ragdoll": "Capsule product assembles nine distinct body locations from positive radius/length leaves; declaration/default has no geometry arithmetic. MuscleRelease TryFrom None\u2192Never and Some\u2192positive duration preserves explicit absence and concrete leaf failure; reverse conversion is real serde/native representation boundary. Default delegates canonical config, no proof every native capsule/PD step is finite. Runtime mass/joint topology not reviewed here.",
+    "mesh": "CPU default builds empty positions/normals/UV, no indices or skin, explicit TriangleList/Ccw. No unchecked operation in the scoped declaration/default; mutable vectors and independent option arrays require actual operation/receiver correlation before native use. This record does not review MeshData validators/upload/read or claim equivalence to colored PlantMesh. Feature-gated exports preserve CPU/GPU boundary.",
+    "qualifications": "Root173 excludes all displayed foreign-role upload/read helpers; Root176 excludes ragdollblank60 and absent playbackDefault. Operations-lens conclusions personally authored from actual bodies; no03/05/06 verdict transfer."
+  },
+  "findings": [],
+  "id": "ROOT-INITIAL04-CONTRACT-109",
+  "at": "2026-10-23T02:57:28.222949+00:00",
+  "lens": "audit-invariant-operations",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-051.json",
+    "sha256": "17a341b1ef7f323d9091325e03aac691c0f443d407b49c990920033043bfe682"
+  },
+  "mandatory_overlays": {
+    "record": "continuation/owner-range-extensions.jsonl",
+    "sha256": "5e6bb0b590c8a298ed8dc44a980d39d44f5d21a82449623f405765f23496780c",
+    "through": 236
+  },
+  "mandatory_qualification170": {
+    "record": "continuation/root/parallel-scope-qualification-170.json",
+    "sha256": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c"
+  },
+  "repair": "frozen_initial_audits_then_handover",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

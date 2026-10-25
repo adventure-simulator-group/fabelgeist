@@ -1,0 +1,64 @@
+{
+  "id": "RIG-CAMERA-SUPPLIER-REPAIR-TARGETS-001",
+  "kind": "exact already-read claim reconciliation metadata, no authority/claim/source mutation",
+  "targets": [
+    {
+      "finding": "RIG-CAMERA-OWNER-F001",
+      "path": "crates/adventuresim-strategic-sim/src/live_core/encounter_policy.rs",
+      "records": [
+        "EncounterPolicyChoice (9\u201313)"
+      ],
+      "whole_functions": [
+        "select_expedition_encounter_choice (15\u201342)"
+      ],
+      "connected_graph": "Actual recorded native022 travel/expedition callers retain this existing result; Root reconcile existing canonical Camera whole function claims before any future edit. No new caller analysis.",
+      "preserve": "Raw available unknown choices ignored; detour/run/surrender/attack preference/evacuation order unchanged. NarrativeEncounterPolicyChoice authored IDs different open role, not same enum."
+    },
+    {
+      "finding": "RIG-CAMERA-OWNER-F002",
+      "path": "crates/adventuresim-terrain/src/lib.rs",
+      "records": [
+        "Manifest.package_sha256 (270\u2013289)",
+        "TerrainPack.manifest (322\u2013329)"
+      ],
+      "whole_functions": [
+        "TerrainPack::load (332\u2013408)",
+        "TerrainPack::package_sha256 (413\u2013415)",
+        "TerrainPack::digest (431\u2013433)",
+        "validate_manifest (948\u2013994)"
+      ],
+      "supporting_existing_functions": [
+        {
+          "path": "crates/adventuresim-terrain/src/digest.rs",
+          "whole_functions": [
+            "valid_digest (9\u201311)",
+            "hex_sha (13\u201315)",
+            "hex_sha_reader (17\u201328)"
+          ],
+          "limit": "Actual commonhexvalidation/SHA ports, not permission to label every content/geometry digest SourcePackageDigest."
+        },
+        {
+          "path": "crates/adventuresim-terrain/src/road_pack.rs",
+          "whole_functions": [
+            "RoadPack::load85",
+            "RoadPack::source107",
+            "RoadPack::write120"
+          ],
+          "proof": "Explicit current source306 full344 producer proof and fresh1\u2013170 definition/use. Shared source consumer; original typed SourcePackageDigest retained, rawterrain.digest reconstruction at135 exactgap."
+        },
+        {
+          "path": "crates/adventuresim-world-schema/src/source_package.rs",
+          "whole_functions": [
+            "SourcePackageDigest::from_hex19",
+            "SourcePackageDigest::as_str30",
+            "Deserialize41\u201345"
+          ],
+          "limit": "Canonical existingowner alreadybelowterrain, no newowner/admissionclaim."
+        }
+      ],
+      "preserve": "Original nativeDTO/errorfirstorder, SHApath/nativeJSONbytes, package versuscontent/road/wetland/cultivation authority, sourcepurposeFinal and realunknownerrors. Root owns shared terrain/source graph; supplier no transfer."
+    }
+  ],
+  "source_or_claim_edits": 0,
+  "new_lens_authority": false
+}

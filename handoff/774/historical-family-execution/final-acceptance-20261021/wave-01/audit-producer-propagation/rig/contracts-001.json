@@ -1,0 +1,208 @@
+[
+  {
+    "id": "RIG-METADATA-01",
+    "source_cells": [
+      166
+    ],
+    "status": "source-read",
+    "disposition": "non-applicable",
+    "evidence": "Cargo.toml1-17 supplies package identity, derive/serde/strum dependencies and lint inheritance; it stores no application producer quantity. Dependency visibility will be reconciled against all scoped manifests/locks."
+  },
+  {
+    "id": "RIG-IDENTITY-01",
+    "source_cells": [
+      167,
+      168,
+      169,
+      170,
+      171,
+      174,
+      159
+    ],
+    "status": "incomplete",
+    "meaning": "Exact authored skeleton label, independent of anatomy or membership",
+    "canonical_owner": "fabelgeist_rig::RigJointName(Cow<static,str>) lib.rs48",
+    "admission": [
+      "From<&str>148-151 and derive From<String>/serde transparent30-48 preserve spelling",
+      "SkeletonBuilder::visit102 admits already-normalized FbxObjectName at source-format handoff; FBX normalization producer still to read",
+      "names.rs5-78 supplies authored canonical typed constants; part.rs6-135 names fragments, not ordinals"
+    ],
+    "operations": [
+      "lib.rs111-124 lexical case/family/part kernels execute within owner; as_ref extraction never leaves these operations",
+      "lib.rs127-144 index/require return typed Ordinal and exact requested-name error",
+      "mhr.rs6-35 handles authored naming profile: lexical starts_with/strip_prefix and format! only inside owning profile; result remains typed"
+    ],
+    "receivers_pending": [
+      "All MHR/Creator/runtime/Bevy/glTF/serde consumers and FbxObjectName original producer"
+    ],
+    "fixture_evidence": "tests.rs4-108 retains raw literal fixture admission into typed identities, direct serialization comparisons and typed role/index assertions; no production raw forwarding proven by these fixtures"
+  },
+  {
+    "id": "RIG-ORDINAL-01",
+    "source_cells": [
+      168,
+      172,
+      173,
+      159
+    ],
+    "status": "incomplete",
+    "meaning": "Zero-based ordinal in an ordered rig; it does not alone prove membership in a different rig",
+    "canonical_owner": "fabelgeist_rig::RigJointOrdinal(usize) lib.rs52",
+    "admission": "native usize From derive and u32 From94-98; SkeletonBuilder101 constructs from current synchronized append ordinal",
+    "primitive_escapes": [
+      "lib.rs104-105 checked u32 native width encoding",
+      "table.rs49-55,99-106 usize extraction for actual Vec get/index",
+      "skin.rs94-99 u16 projection intended for native Bevy/glTF receiver, pending receiver body review",
+      "MHR skin.rs104 raw u32 intermediate then from_native110 is finding RIG-PP-001"
+    ],
+    "receivers_pending": [
+      "Burn i32 gather construction/runtime select",
+      "GPU Word and skin storage ports",
+      "Bevy/glTF narrow words",
+      "All retained columns/rig bounds"
+    ]
+  },
+  {
+    "id": "RIG-PACKED-01",
+    "source_cells": [
+      172
+    ],
+    "status": "incomplete",
+    "meaning": "Fixed WIDTH native-u32 influence rows with an admitted real rig bound; every slot including zero-weight slots is checked",
+    "canonical_owner": "PackedRigSkin words private skin.rs14-17 and RigJointCount9",
+    "admission": [
+      "from_native105-117 checks each incoming word against provided count",
+      "repeated127-135 and push/set175-188 encode typed ordinal rows once; encode213-224 checks width and count",
+      "count source from_table45-46; from_native_joint_count41-43 promises decoder/fixture bound provenance"
+    ],
+    "operations": [
+      "iter154-156/vertex159-160 restore typed ordinals in canonical owner",
+      "weighted_vertex163-168 retains typed row+native numerical weights",
+      "strongest_four73-90 combines/sorts/normalizes typed ordinals and weight scalars in actual numerical reduction; native_u16 is separate final adapter",
+      "select191-198 preserves same stored bound and raw storage internally; append201-210 checks bound for nonempty data; empty takeover is explicit"
+    ],
+    "primitive_escapes": [
+      "native_words171-173 returns raw fixed rows: all actual GPU/readback/export/test receivers must be read",
+      "RigJointCount::len49-51 used by actual native matrix shape comparison and any additional callers to inspect",
+      "native_u1694-99 receivers pending"
+    ],
+    "receivers_pending": [
+      "Every native_words/native_u16 occurrence located with rg (hits are inventory only)",
+      "Fixture authored-bound provenance in every caller; production glTF actual source rig bounds",
+      "Device readback and trim/select/append receivers"
+    ]
+  },
+  {
+    "id": "RIG-COLUMN-01",
+    "source_cells": [
+      173,
+      159,
+      158
+    ],
+    "status": "incomplete",
+    "meaning": "Rig-order homogeneous column retains typed ordinal access but does not establish cross-rig identity",
+    "canonical_owner": "RigJointTable<T>(Vec<T>) table.rs14",
+    "admission": [
+      "derive From<Vec<T>>/serde11-14, FromIterator88-91 and push70-72 at producers; no claim of synchronized multiple-column proof"
+    ],
+    "operations": [
+      "indexed37-42 and ordinals44-46 construct canonical ordinals for same-column traversal",
+      "get49-55 is checked dynamic access; Index99-106 native Vec indexing for established ordinals",
+      "map57-59 preserves order and checked leaf types",
+      "as_native_slice62-64 exposes ordered contiguous collection; actual native recipients pending"
+    ],
+    "receivers_pending": [
+      "All same-rig multi-column producers and numerical upload/render bridges",
+      "animation_preview binding as_native_slice().to_vec actual ClothSkin recipient"
+    ]
+  },
+  {
+    "id": "RIG-FIXTURE-01",
+    "source_cells": [
+      174
+    ],
+    "status": "source-read",
+    "disposition": "intentional proven boundary",
+    "evidence": "tests.rs4-108 contains exact raw authored label and ordinal literals admitted once, then exercises owner queries/serde/lookup. serde_json is the concrete string wire endpoint. No production returned raw identity is inferred from fixture APIs."
+  },
+  {
+    "id": "MHR-FBX-01",
+    "source_cells": [
+      158
+    ],
+    "status": "incomplete",
+    "meaning": "Native FBX scene decoding to one aligned MHR Character",
+    "producer": "Character::from_fbx_bytes68-162",
+    "retained_state": "Skeleton ordered columns, SkinWeights admitted packed rows+native weight arrays, inverse_bind_pose typed column, Mesh native coordinate/vertex arrays, BlendShapes FbxObjectName labels",
+    "trace": [
+      "69 Scene::parse ->73 parse_skeleton ->78 typed object-ID-to-rig-ordinal map ->85 bind_pose ->86 aligned inverse matrices ->140 parse_skin ->157 aligned states",
+      "Native positions/UV/matrices perform f64/f32 coordinate and scalar casts at FBX/math numerical kernel; mesh vertex index raw values are not rig ordinals",
+      "triangulate168-195 and UV triangulate232-248 decode native FBX signed polygon terminators into native vertex slots; no bespoke value is unwrapped here",
+      "parse_blend_shapes251-295 retains FbxObjectName names and fills shape-major native scalar tensor basis"
+    ],
+    "receivers_pending": [
+      "FBX Scene/Object/name implementations",
+      "Transform::from_matrix/to_skel_state numerical kernel",
+      "Mhr tensor builder and all Creator receiving states"
+    ]
+  },
+  {
+    "id": "MHR-TOPOLOGY-01",
+    "source_cells": [
+      159
+    ],
+    "status": "incomplete",
+    "meaning": "Single traversal produces same-order names/parents/translation offsets/prerotations/object IDs",
+    "producer": "parse_skeleton123-136 -> SkeletonBuilder::visit70-120",
+    "retained_state": "Skeleton fields9-16 and ParsedSkeleton25-28",
+    "trace": [
+      "Visit71-99 admits only actual limb nodes; native FBX col_type/RotationOrder/Lcl/PreRotation fields are source-format vocabularies, not application role strings",
+      "101-115 appends typed ordinal/name and Option parent with simultaneous numeric transform/object-ID columns",
+      "117-119 passes typed parent through recursive child traversal",
+      "bind_pose44-65 retains typed table and Option parent; f32->f64 casts feed actual Transform compose operation"
+    ],
+    "receivers_pending": [
+      "Scene::children/is_limb/is_null_node native format definitions",
+      "Math Transform compose actual receiver",
+      "Parameter layout/prefix/Burn/Creator/export topology consumers"
+    ]
+  },
+  {
+    "id": "MHR-SKIN-01",
+    "source_cells": [
+      160
+    ],
+    "status": "incomplete",
+    "meaning": "FBX skin cluster object-ID resolution to canonical rig influence rows",
+    "trace": [
+      "parse_skin32-50 resolves native Deformer/Skin/Cluster relationship into typed RigJointOrdinal",
+      "53-59 native TransformLink16 values feed mat4_from_column_major then affine_inverse and typed inverse-bind table",
+      "75-106 sorts and renormalizes raw numeric weights in original f64/f32 numerical kernel",
+      "104 projects canonical ordinal to internal raw u32 row then110 re-admits using actual inverse-bind column count"
+    ],
+    "candidate_refs": [
+      "RIG-PP-001"
+    ],
+    "receivers_pending": [
+      "MHR GPU/tensor builder",
+      "Native matrix math definitions",
+      "FBX actual scene object ID decoding"
+    ]
+  },
+  {
+    "id": "RIG-PP-001",
+    "status": "actionable-candidate",
+    "disposition": "migration gap",
+    "location": "pr-working:crates/fabelgeist-mhr/src/character/skin.rs104,110 parse_skin",
+    "scenario": "Native cluster object ID was already resolved into RigJointOrdinal at50/83, then projected into an internal raw Vec<u32>104 and re-admitted at110 without an intervening external/framework write. This is an internal checked-leaf-to-primitive-to-owner round trip, not direct raw FBX joint-word decoding.",
+    "rule": "Producer-propagation lens; crates/AGENTS repeated extraction/readmission and composite APIs accept checked leaves",
+    "smallest_connected_repair": "Keep row joints as [RigJointOrdinal;8] after resolution; append through canonical PackedRigSkin::push or another owning typed row constructor with actual source count, retaining sorted weights, all zero slots and row order. No numerical policy change.",
+    "dependencies": [
+      "RigJointOrdinal/PackedRigSkin existing canonical owner",
+      "parse_skin complete row construction and final receiver; no new manifests or tests required"
+    ],
+    "acceptance": "No raw joint-word intermediate or from_native re-admission between typed cluster identity resolution and packed storage; actual fixed-u32 encoding remains solely canonical PackedRigSkin operation. Existing numerical inputs/order/weights and errors reviewed at connected receivers.",
+    "validation": "not executed",
+    "coordinator_notified": true
+  }
+]

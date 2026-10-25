@@ -1,0 +1,113 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-395",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer.rs",
+      "sha256": "4544835a041e7c35f25b60d0b13e06ff22ea4ecc0efc90efdda1cd6963fb9638",
+      "actual_EOF": 1892,
+      "actual_compared_ranges": [
+        [
+          1,
+          1892
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/baking.rs",
+      "sha256": "ad98238ee42b11ab107af73e24e4d4f43849fa442e0ef1ea2ae4a2d90ba55d26",
+      "actual_EOF": 240,
+      "actual_compared_ranges": [
+        [
+          1,
+          240
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/inertialization.rs",
+      "sha256": "8bf6f24386dae22c8e339928d6d9c90fbf89cfc3b438d0cd0e74468559e8cd84",
+      "actual_EOF": 443,
+      "actual_compared_ranges": [
+        [
+          1,
+          443
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/sampling_clock.rs",
+      "sha256": "2f9571a011a7099a5089fdff4360e78d20c638d2c8790a84187b65bedf89223a",
+      "actual_EOF": 63,
+      "actual_compared_ranges": [
+        [
+          1,
+          63
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Whole pose sampling, zero-time observations and retained publications",
+      "evidence": "pose_buffer.rs1\u20131892 full: sampleplan buildsjointtable locally; checkedweightaccumulation preparesnextweight/posebeforemutation; extrapolated/continuationkernels sanitizeeachsamplebeforeweightreduction. Inupdate_pose_buffers tickobservation/accumulator precedesfalliblesample; physicsownsbuffer, culledfreeze preservesdisplay; upcomingterrainconformity before interpolation, targetweaponpublishedbeforeinertialcapture, buffers/plan committedaftercapture success. applyperjoint updateclockchecked,zeroelapsedpeek. sampling_clock.rs1\u201363 computesdue countthenintervalspan/remainder/fractionbeforebufferreplace.",
+      "qualification": "Do notclaimallcamera/poseupdatesatomic: clocks/visibility/plants/bakes/weaponcommand maychangebeforelaterfailure. Apparent capture_transition_offsets perjointpartialerror notpromoted: actualQuinticChanneldurationderivedfromadmittedpositivefinite blend remainsfinite, no laterjointErrwitness merelyfrom?. NativeLocalPose notbespokefinite owner; sanitize translation/scale finite androtationnorm onlybefore normalization; finite hugequaternion normoverflow canproduceinvalidnormalizedresult, exactnativeglam implementationproof pending. Actualrig/assets canonicalbounds separate. No currentordinaryfallbackcorruptionclaimed."
+    },
+    {
+      "contract": "Terrain IK geometry and retained plant policy",
+      "evidence": "pose_buffer.rs985\u20131224: ownertransforminverse forworldplants, fullchainsought byname, protectedworldplantatcontactpolicyRetain, movingauthoredconformityReset intentional. identitytargetstrictnoop, noauthoredfootlowering, supportedplantlimitclipsXZmovement androtation, two-boneoutputsfinitechecked. Existingfixtures covercontrollercentreoffset,terrainbeforeinterpolation,unweightedpelvisFK,8directionauthoredXZ,retainedplant.",
+      "qualification": "Currentterraincall usesContactPlantPolicyReset, soRetain worldplantbranch primarilyinternalfixture/API withoutseparateordinarycallerproof. Finite scalarlengthsneedconsistentclampbounds before nativeclamp, smallchaincandidatebelow. Caseinsensitivenamedleglookup differs semanticcase-sensitiveBoneRole ownership; actualcustomnamedrigproducer/recipient graph pending, notautomaticallynew04mutationdefect. Testsourceonly, no nativeacceptance."
+    },
+    {
+      "contract": "Baked grid cardinality and cache computation",
+      "evidence": "baking.rs1\u2013240: nonzerosamplecount owns intervals=count\u22121; allthreechannelvectorslengthcheckedbeforepublish; nativegridceil boundedbeforeusizecast/+1,computedextentfinitechecked; samplefirstminlast andsecondminlast, sourceclampedtopositiveinterval. Bakewholeobjectbeforebankinsert; metrics saturatingouteradd. Offsettranslationmutatorpreserveschannellengths, notnumericfiniteclosure.",
+      "qualification": "NativebakeallocworkcanstillverylargebelowusizeMAX; actualclipduration/config admission/workbudgetpolicy needed, noOOMrunorblanketarbitrarycapfinding. Bonejointordinal expectedmatchingrigtable, cachekeyfamily+clipid assumesfamilydefinitionunique. Bakedbyteslocalusizeproductsumcanoverflowonlyunrepresentableallocatedaggregateextreme; noordinaryallocatorwitness. Nativeclipcurvevalueadmissionseparate, currentoutputsanitizeexplicitfallbackpolicy retained."
+    },
+    {
+      "contract": "Inertial channel preparation, clocks and quaternion kernels",
+      "evidence": "inertialization.rs1\u2013443full: hemisphereslerp/shortestquaternion preserveantipodes,velocityelapsedfloor1e-5; QuinticChannel capturesmagnitudedirection/velocity, dropsdivergingvelocity/shortensclosingduration thenfloors1ms; duration powers andcoefficientsnativef32unchecked. Jointcapturepreparesbothchannelsthenreplacesall,elapsedcheckedbeforeupdate; doneexactzerooffsetreturn. Tests normal.2/.3/1sdecay,chainedinterruptionsandantipodes sourceonly.",
+      "qualification": "Onlyelapsedbespokeguarantee readmitted; computedcoefficients/poses notfiniteguarded. Extreme admittedblend candidatebelow noordinarycurrenttuningclaim. Temporalclockfiniteclosure alone cannotprove finitequaternion/translation output. Preserveexistingpolynomialstencil/overshootguards; no needforcepositiveelapsed repeatedobservationvalid0."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-TWO-BONE-SMALL-CHAIN-CLAMP-CANDIDATE-001",
+      "classification": "Private native-kernel representable finite geometry counterexample; no actual canonical wearer/runtime witness.",
+      "operation": "pose_buffer.rs1174\u20131187 solve_pose_two_bone clamps offsetlength withmin abs(upper\u2212lower)+.0001 andmax upper+lower\u2212.0001.",
+      "witness": "hip0,currentkneeY*1e-5,targetY*1.5e-5, upper=lower=1e-5,fallbackpoleZ. Directionnonzero normalize succeeds; lowerclampbound.0001 exceedsupperbound-.00008, so f32clamp panics beforefiniteoutputOptionguard. Bothlimblengths finitepositive.",
+      "qualification": "Currentcanonicalhumanoidchain~metres, boundedbodyfitexamples.85..1.2, no normal tinybody or admittedcustomrigassetproducer proven. This iskernelcontractstrengthening, notordinaryanimationregression/currenttestfailure. No minimumhumanscaleimposedwithoutownerpolicy. Exactarchivealiasparentpending. Canonical exact alias now confirmed; any earlier search absence/pending wording above is historical within this packet, overridden by disposition/canonical_finding.",
+      "dependencies": [
+        "RigDefinition/bind/localpose geometric admission",
+        "Native two-bone reach interval",
+        "Terrain pose fallback without panic"
+      ],
+      "acceptance": "Establishnonemptyreachinterval orreturnNone fordegenerate arithmetic beforeclamp; preservepositivefinite tinygeometry rejectionpolicy andexistingnormalreach/tolerance; do notsilentlyincreasechainlengths orrelaxcapturethresholds.",
+      "disposition": "alias/lens04 support; not a new unique defect",
+      "canonical_finding": "NATIVE-INITIAL05-F011",
+      "canonical_archive_key": "audit/continuation/native/initial05-aggregate-states/findings.jsonl#13",
+      "dedup_evidence": "Exact full source personally read for04; exact filtered archive finding record personally read, same operation/witness/qualified ordinary-producer boundary. No other lens coverage transferred."
+    },
+    {
+      "id": "SEGOVB-04-INERTIAL-COEFFICIENT-OVERFLOW-CANDIDATE-001",
+      "classification": "Checked duration API counterexample; retained numerical failure, no normal authored config/live run.",
+      "operation": "inertialization.rs136\u2013171 QuinticChannel::new durationpowersnative thenreturnsOk ifdurationfinite; JointInertialOffsetcapture commitschannels~215\u2013236; peek259 multipliesHorner result andpublishesLocalPose.",
+      "witness": "CapturedisplayedtranslationX*.1,target0,unitquaternions,zero linear/angularvelocities, blend PositiveAnimationDuration(f32MAX). Scalarpositivefinite admissionvalid. durationMAX, t2/t3/t4/t5Inf; a0\u22120, a0*t2 is0*InfNaN ->coefficientsNaN. duration conversionOk, committedchannel; evenpeekatelapsed0evaluatesNaN*0 yieldingNaNtranslation, despitevalidnormal.1moffset.",
+      "qualification": "Actualruntimeposeconfignormalblend, notMAX; exactPositiveAnimationDuration fullfinitepositive contract inherited/coreadmission evidence. No compiler/test/nativecapture, no ordinaryshippingdefectclaimed. Distinctpolynomialoperationfrombouncyspring391, sharedfinitecomputedstateownershipbutnotautomaticduplicate. Parentcanonicaldedup pending, no globalunique count.",
+      "dependencies": [
+        "PositiveAnimationDuration computed-kernel contract",
+        "QuinticChannel/JointInertialOffset retained state",
+        "PoseBuffer output finite acceptance"
+      ],
+      "acceptance": "Preserveadmittedconfigurationpolicy explicitly: boundblendwithjustifiedownerpolicy orstable/falliblecoefficientcalculation; preparefinitecompletechannels beforecommit, requirefiniteoutput/rotation normalization. Keepnormalquinticstencil,overshootshortening,1msfloor,zeroelapsedpeekandinterruptioncontinuity; noacceptancethresholdrelaxation."
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/calibration_inputs.rs"
+}

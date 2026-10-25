@@ -1,0 +1,311 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-237",
+  "at": "2026-10-25T14:01:08.190236+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 464,
+      "source_id": "physical-p16:crates/strategic-web/src/spacetimedb/types.rs",
+      "sha256": "df37c376e240735c231aaeca1737d1a0392643d37ab962f902a7d02df42ece02",
+      "actual_EOF": 2523,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/strategic-web/src/spacetimedb/types.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/strategic-web/src/spacetimedb/types.rs",
+        "sha256": "df37c376e240735c231aaeca1737d1a0392643d37ab962f902a7d02df42ece02",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 90035,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 380,
+            "read_ranges": [
+              [
+                160,
+                245
+              ],
+              [
+                615,
+                705
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-ROUTE-SOURCE-054"
+            ],
+            "read_status": "scoped_complete_route_record_and_conversion",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/strategic-web/src/spacetimedb/types.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-038",
+            "json_pointer": "/fresh_current_source_reads/9",
+            "source_id_as_recorded": "physical-p16:crates/strategic-web/src/spacetimedb/types.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                2523
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 573,
+              "source_id": "physical-p16:crates/strategic-web/src/spacetimedb/types.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/strategic-web/src/spacetimedb/types.rs",
+              "expected_sha256": "df37c376e240735c231aaeca1737d1a0392643d37ab962f902a7d02df42ece02",
+              "observed_sha256": "df37c376e240735c231aaeca1737d1a0392643d37ab962f902a7d02df42ece02",
+              "read_ranges": [
+                [
+                  1,
+                  2523
+                ]
+              ],
+              "proof_mode": "Fresh full material source/fixtures read; identical-hash PR/P16 variants explicitly reconciled after byte fingerprints, preserving downstream role distinctions. Source only; no project execution.",
+              "read_status": "full-source-read-receiver-reconciliation-in-progress"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/camera/traces.jsonl",
+            "receipt": "CONT-CAMERA-PP-008",
+            "json_pointer": "/exact_source_proofs/9",
+            "source_id_as_recorded": "physical-p16:crates/strategic-web/src/spacetimedb/types.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                2523
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 573,
+              "source_id": "physical-p16:crates/strategic-web/src/spacetimedb/types.rs",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\strategic-web\\src\\spacetimedb\\types.rs",
+              "sha256": "df37c376e240735c231aaeca1737d1a0392643d37ab962f902a7d02df42ece02",
+              "read_ranges": [
+                [
+                  1,
+                  2523
+                ]
+              ],
+              "actual_line_count": 2523,
+              "proof_origin": "RIG-PPS-038 exact full-source read, source-backed producer graph and original fixtures; current continuation independently verifies frozen bytes and joins receiving contracts. Not a new full-file read.",
+              "material_disposition": "SATS/native DTO conversion into Settlement/CaseBattle/Party/place/clock records. Concrete JSON/PlaceIdentity causes lost in generic query mapping; source-level DTO roles reconciled, not exempted.",
+              "disposition": "accounted-with-findings"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/rig/web-request-reconciliation-039.json",
+            "receipt": "RIG-CONT-PPS-WEB-REQUEST-RECONCILIATION-039",
+            "json_pointer": "/source_dispositions/9",
+            "source_id_as_recorded": "physical-p16:crates/strategic-web/src/spacetimedb/types.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                2523
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 573,
+              "source_id": "physical-p16:crates/strategic-web/src/spacetimedb/types.rs",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\strategic-web\\src\\spacetimedb\\types.rs",
+              "sha256": "df37c376e240735c231aaeca1737d1a0392643d37ab962f902a7d02df42ece02",
+              "read_ranges": [
+                [
+                  1,
+                  2523
+                ]
+              ],
+              "actual_line_count": 2523,
+              "proof_origin": "RIG-PPS-038 exact full-source read, source-backed producer graph and original fixtures; current continuation independently verifies frozen bytes and joins receiving contracts. Not a new full-file read.",
+              "material_disposition": "SATS/native DTO conversion into Settlement/CaseBattle/Party/place/clock records. Concrete JSON/PlaceIdentity causes lost in generic query mapping; source-level DTO roles reconciled, not exempted.",
+              "disposition": "accounted-with-findings"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1263,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          2523
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "BestiaryDeductionExt",
+          "lines": [
+            457,
+            465
+          ],
+          "disposition": "KEEP JSON parse/filter/error fallback semantic adapter."
+        },
+        {
+          "trait": "From / TryFrom generated rows",
+          "lines": [
+            [
+              467,
+              498
+            ],
+            [
+              500,
+              550
+            ],
+            [
+              552,
+              575
+            ],
+            [
+              577,
+              628
+            ],
+            [
+              630,
+              651
+            ],
+            [
+              653,
+              688
+            ],
+            [
+              690,
+              704
+            ],
+            [
+              706,
+              726
+            ],
+            [
+              760,
+              791
+            ],
+            [
+              793,
+              813
+            ],
+            [
+              821,
+              978
+            ]
+          ],
+          "disposition": "KEEP checked identities, native/schema conversions, projections/default-fill or crossrecord field mapping. Available From derive generates field construction from native input, not crossrecord named projection. No generated-binding edits."
+        },
+        {
+          "trait": "Default",
+          "type": "CatalogItemView",
+          "lines": [
+            980,
+            1025
+          ],
+          "disposition": "F006 exact built-in Default derive equivalent: Slot None and CatalogItemKind Simple both are existing owners derived defaults; all remaining fields match native/default calls. See finding-F006 and exact dependency236."
+        },
+        {
+          "trait": "JourneyEndpointExt",
+          "lines": [
+            1027,
+            1049
+          ],
+          "disposition": "KEEP native enum borrowed-ID/name selection with Camp label."
+        },
+        {
+          "trait": "ReligionHoursExt / OralLanguageHoursExt / WrittenLanguageHoursExt / BestiaryHoursExt",
+          "lines": [
+            [
+              1051,
+              1063
+            ],
+            [
+              1065,
+              1073
+            ],
+            [
+              1075,
+              1083
+            ],
+            [
+              1085,
+              1101
+            ]
+          ],
+          "disposition": "KEEP custom extension methods projecting generated native schema to core semantic skills; no existing derive for these custom traits."
+        },
+        {
+          "trait": "ItemConditionExt",
+          "lines": [
+            1103,
+            1122
+          ],
+          "disposition": "KEEP ordered tier array, clamped total/skill-dependent repair/residual methods, not mechanical serialization."
+        },
+        {
+          "trait": "TryFrom<sats::TravelEdge>",
+          "type": "fixture TravelEdgeView",
+          "lines": [
+            1941,
+            1971
+          ],
+          "disposition": "KEEP test-only native row projection, sats_to_serde checked normalization of route/terrain and selected fields, not field-construction derive."
+        }
+      ],
+      "existing_derives": "All consumed local query/native/presentation structures already structural/Serde/Default derives as appropriate.",
+      "absence_basis": "Full2523-line exact frozen role personally consumed:packet235 covers1\u20131320; packet236 covers1321\u20131650;fresh1651\u20131980/1981\u20132300/2301\u20132523. Explicit native enum/core record conversions, typed publication, mixed schema normalization and string-vs-SATS field codec functions1767\u20131815 retain their semantic/native shape. Name/category custom field serializers are not equivalent to ordinary enum derives. All fixtures read, not run. No generated source edits or child-module credit.",
+      "source_read_receipts": [
+        {
+          "scope_index": 116,
+          "sha256": "115d9400063d89f5782dc3c34be2b9f2af774ca438768a9059f815b531d71b1f",
+          "ranges": [
+            [
+              451,
+              472
+            ]
+          ],
+          "purpose": "Exact existing Slot derive Default=None rechecked, no new original credit."
+        },
+        {
+          "evidence": "fresh-dependency-registration-236.json",
+          "ranges": [
+            [
+              8,
+              22
+            ]
+          ],
+          "purpose": "Exact CatalogItemKind derive Default=Simple direct dependency."
+        }
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Generated row presentation, custom extension traits and native codecs",
+      "disposition": "F006 exact optional Default derive; retain explicit checked identities, borrowed/native owner projections, sum codecs/classifiers and semantic extension methods.",
+      "acceptance": "Preserve owned/borrowed inputs and error types, existing field wire shape and Default values. No generated-binding changes, additional APIs, raw admission bypass or runtime claim."
+    }
+  ],
+  "findings": [
+    "SEGOVB-INITIAL10-F006"
+  ],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 465,
+    "source_id": "physical-p16:crates/strategic-web/src/templates/settlement/character_skills.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

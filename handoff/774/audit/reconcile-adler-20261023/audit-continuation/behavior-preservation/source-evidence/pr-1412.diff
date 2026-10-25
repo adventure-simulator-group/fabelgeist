@@ -1,0 +1,1416 @@
+--- PRbase/crates/adventuresim-tactical-client/src/animation_viewer/capture.rs
++++ frozen/crates/adventuresim-tactical-client/src/animation_viewer/capture.rs
+@@ -1,29 +1,26 @@
+ //! ECS fixture driving, sampling, and three-view capture.
+ 
+ use super::*;
++pub(super) use admission::reject_capture;
++use admission::{CaptureAdmission, RejectedCaptureAdmission, fail_capture};
++use adventuresim_tactical_core::animation::STATIONARY_ANIMATION_SPEED_LIMIT;
++pub(super) use capture_schedule::CapturePlugin;
++use frame_clock::{capture_frame_elapsed, next_capture_simulation_tick};
++use repeated_evaluation::RepeatedEvaluationSnapshot;
++
++mod admission;
++mod capture_schedule;
++pub(super) mod frame_clock;
++mod global_bones;
++mod overlay;
++mod readiness;
++mod repeated_evaluation;
++mod root_motion;
++mod subject_motion;
+ 
+ pub(super) const CAPTURE_ROOT_GROUND_OFFSET_METRES: f32 = 0.95;
+ pub(super) const FULL_PLANT_SUPPORT_WEIGHT: f32 = 0.99;
+-pub(super) const TRACKED_BONE_NAMES: [&str; 17] = [
+-    "pelvis",
+-    "chest",
+-    "head",
+-    "left_shoulder",
+-    "right_shoulder",
+-    "left_elbow",
+-    "right_elbow",
+-    "left_hand",
+-    "right_hand",
+-    "left_hip",
+-    "right_hip",
+-    "left_knee",
+-    "right_knee",
+-    "left_foot",
+-    "right_foot",
+-    "left_toe",
+-    "right_toe",
+-];
+ 
+ #[derive(Component)]
+ pub(super) struct CaptureSubject;
+ 
+@@ -37,8 +34,9 @@
+     plan: Vec<PlannedFrame>,
+     index: usize,
+     view_index: usize,
+     applied: bool,
++    admission: CaptureAdmission,
+     settled: u32,
+     waiting: u32,
+     capture_in_flight: bool,
+     view_fingerprints: Vec<u64>,
+@@ -47,12 +45,12 @@
+     global_bone_frames: Vec<GlobalBoneFrame>,
+     presentation_events: Vec<PresentationEventSample>,
+     repeated_evaluation_baseline: Option<RepeatedEvaluationSnapshot>,
+     repeated_evaluation_valid: bool,
+-    active_scenario: Option<&'static str>,
++    active_scenario: Option<ScenarioMetadata<'static>>,
+     warmup_frames: u32,
+     motion_ready_frames: u32,
+-    simulation_tick: u64,
++    simulation_tick: AnimationSampleTick,
+     scenario_distance: f32,
+ }
+ 
+ pub(super) struct CompletedCapture {
+@@ -67,34 +65,54 @@
+     pub(super) pose_buffer_metrics: PoseBufferMetrics,
+ }
+ 
+ impl CaptureSequence {
+-    pub(super) fn new(output: PathBuf, settle_frames: u32, scenario: Option<&str>) -> Self {
+-        let plan = match scenario {
+-            Some("flat-grid-walk-2.0") => steady_scenario("flat-grid-walk-2.0", 2.0, 3.0),
+-            Some("flat-grid-run-5.5") => steady_scenario("flat-grid-run-5.5", 5.5, 3.0),
+-            Some("flat-grid-walk-no-ik") => steady_scenario("flat-grid-walk-no-ik", 2.0, 3.0),
+-            Some("flat-grid-sprint-no-ik") => {
+-                steady_scenario("flat-grid-sprint-no-ik", canonical_john_sprint_speed(), 3.0)
+-            }
+-            Some("flat-grid-walk-stop") => flat_grid_walk_stop_scenario(),
+-            Some("full-ragdoll") => full_ragdoll_scenario(),
+-            _ => capture_plan()
++    pub(super) fn new(
++        output: PathBuf,
++        settle_frames: u32,
++        scenario: Option<ScenarioMetadata<'_>>,
++    ) -> AnimationValueResult<Self> {
++        let selected = scenario.map(ScenarioMetadata::into_owned);
++        let plan = match selected {
++            Some(scenario) if scenario.identity() == Some(ScenarioId::FlatGridWalk20) => {
++                steady_scenario(scenario, authored_drive_speed(2.0), 3.0)?
++            }
++            Some(scenario) if scenario.identity() == Some(ScenarioId::FlatGridRun55) => {
++                steady_scenario(scenario, authored_drive_speed(5.5), 3.0)?
++            }
++            Some(scenario) if scenario.identity() == Some(ScenarioId::FlatGridWalkNoIk) => {
++                steady_scenario(scenario, authored_drive_speed(2.0), 3.0)?
++            }
++            Some(scenario) if scenario.identity() == Some(ScenarioId::FlatGridSprintNoIk) => {
++                steady_scenario(scenario, canonical_john_sprint_speed(), 3.0)?
++            }
++            Some(scenario) if scenario.identity() == Some(ScenarioId::FlatGridWalkStop) => {
++                flat_grid_walk_stop_scenario()
++            }
++            Some(scenario) if scenario.identity() == Some(ScenarioId::FullRagdoll) => {
++                full_ragdoll_scenario()
++            }
++            selected => capture_plan()?
+                 .into_iter()
+-                .filter(|frame| scenario.is_none_or(|scenario| frame.scenario == scenario))
+-                .collect::<Vec<_>>(),
++                .filter(|frame| {
++                    selected
++                        .as_ref()
++                        .is_none_or(|scenario| &frame.scenario == scenario)
++                })
++                .collect(),
+         };
+         assert!(
+             !plan.is_empty(),
+             "requested animation capture scenario is unknown"
+         );
+-        Self {
++        Ok(Self {
+             output,
+             settle_frames: settle_frames.max(1),
+             plan,
+             index: 0,
+             view_index: 0,
+             applied: false,
++            admission: CaptureAdmission::Open,
+             settled: 0,
+             waiting: 0,
+             capture_in_flight: false,
+             view_fingerprints: Vec::with_capacity(VIEWS.len()),
+@@ -106,11 +124,11 @@
+             repeated_evaluation_valid: true,
+             active_scenario: None,
+             warmup_frames: 0,
+             motion_ready_frames: 0,
+-            simulation_tick: 0,
++            simulation_tick: AnimationSampleTick::ZERO,
+             scenario_distance: 0.0,
+-        }
++        })
+     }
+ 
+     pub(super) fn view(&self) -> CaptureView {
+         VIEWS[self.view_index.min(VIEWS.len() - 1)]
+@@ -122,9 +140,9 @@
+ 
+     pub(super) fn uses_flat_grid(&self) -> bool {
+         self.plan
+             .iter()
+-            .all(|frame| frame.scenario.starts_with("flat-grid-"))
++            .all(|frame| frame.scenario.has(ScenarioFeature::FlatGrid))
+     }
+ 
+     fn complete(
+         &mut self,
+@@ -144,117 +162,24 @@
+         }
+     }
+ }
+ 
+-pub(super) fn next_capture_simulation_tick(current: u64, absolute_first_sample: bool) -> u64 {
+-    if absolute_first_sample {
+-        current
+-    } else {
+-        current.wrapping_add(1)
+-    }
+-}
+-
+-pub(super) struct RepeatedEvaluationSnapshot {
+-    scenario: &'static str,
+-    scenario_frame: usize,
+-    bones: BTreeMap<String, BoneSample>,
+-    contact_sequence: u64,
+-    landing_sequence: u64,
+-    event_count: usize,
+-    leg_ik: LegIkDiagnostics,
+-}
+-
+-pub(super) fn repeated_bone_mismatch(
+-    expected: &BTreeMap<String, BoneSample>,
+-    actual: &BTreeMap<String, BoneSample>,
+-) -> Option<(String, f32, f32)> {
+-    if let Some(name) = expected
+-        .keys()
+-        .find(|name| !actual.contains_key(*name))
+-        .or_else(|| actual.keys().find(|name| !expected.contains_key(*name)))
+-    {
+-        return Some((name.clone(), f32::INFINITY, f32::INFINITY));
+-    }
+-    expected.iter().find_map(|(name, expected)| {
+-        let actual = actual
+-            .get(name)
+-            .expect("equal repeated-evaluation bone keys were checked above");
+-        let position_delta =
+-            Vec3::from_array(expected.position).distance(Vec3::from_array(actual.position));
+-        let expected_rotation = Quat::from_array(expected.rotation_xyzw);
+-        let actual_rotation = Quat::from_array(actual.rotation_xyzw);
+-        // `acos` quantizes identical f32 quaternions to roughly 0.056-0.079
+-        // degrees on some frames. Treat a direct dot match as identity, then
+-        // retain the angular report for genuine changes.
+-        let rotation_dot = expected_rotation.dot(actual_rotation).abs();
+-        let rotation_delta = if rotation_dot >= 1.0 - 0.000_001 {
+-            0.0
+-        } else {
+-            expected_rotation
+-                .angle_between(actual_rotation)
+-                .to_degrees()
+-        };
+-        // Re-evaluating one logical tick must be visually identical. Keep only
+-        // sub-half-millimetre/sub-twentieth-degree numeric noise.
+-        (position_delta > 0.0005 || rotation_delta > 0.05).then_some((
+-            name.clone(),
+-            position_delta,
+-            rotation_delta,
+-        ))
+-    })
+-}
+-
+-pub(super) fn repeated_leg_ik_matches(
+-    expected: LegIkDiagnostics,
+-    actual: LegIkDiagnostics,
+-) -> bool {
+-    let option_vec3_matches =
+-        |expected: Option<Vec3>, actual: Option<Vec3>| match (expected, actual) {
+-            (Some(expected), Some(actual)) => expected.distance(actual) <= 0.0005,
+-            (None, None) => true,
+-            _ => false,
+-        };
+-    let option_scalar_matches =
+-        |expected: Option<f32>, actual: Option<f32>| match (expected, actual) {
+-            (Some(expected), Some(actual)) => (expected - actual).abs() <= 0.001,
+-            (None, None) => true,
+-            _ => false,
+-        };
+-    option_vec3_matches(expected.left_authored_target, actual.left_authored_target)
+-        && option_vec3_matches(expected.right_authored_target, actual.right_authored_target)
+-        && option_vec3_matches(expected.left_planned_contact, actual.left_planned_contact)
+-        && option_vec3_matches(expected.right_planned_contact, actual.right_planned_contact)
+-        && option_vec3_matches(expected.settle_capture_point, actual.settle_capture_point)
+-        && option_vec3_matches(expected.left_solve_target, actual.left_solve_target)
+-        && option_vec3_matches(expected.right_solve_target, actual.right_solve_target)
+-        && (expected.left_support_weight - actual.left_support_weight).abs() <= 0.001
+-        && (expected.right_support_weight - actual.right_support_weight).abs() <= 0.001
+-        && expected.left_release_active == actual.left_release_active
+-        && expected.right_release_active == actual.right_release_active
+-        && option_vec3_matches(expected.left_release_target, actual.left_release_target)
+-        && option_vec3_matches(expected.right_release_target, actual.right_release_target)
+-        && option_scalar_matches(expected.settle_progress, actual.settle_progress)
+-        && (expected.left_knee_foot_yaw_offset_degrees - actual.left_knee_foot_yaw_offset_degrees)
+-            .abs()
+-            <= 0.05
+-        && (expected.right_knee_foot_yaw_offset_degrees - actual.right_knee_foot_yaw_offset_degrees)
+-            .abs()
+-            <= 0.05
+-}
+-
+ /// Screenshot completion advances capture views asynchronously. Reassert the
+ /// planned look on every render of a logical sample so all three views enter
+ /// procedural PostUpdate with identical presentation input.
+ pub(super) fn freeze_capture_look(
+     sequence: Res<CaptureSequence>,
+     mut subjects: Query<&mut CharacterLook, With<CaptureSubject>>,
+ ) {
++    if !sequence.admission.is_open() {
++        return;
++    }
+     let Some(frame) = sequence.plan.get(sequence.index) else {
+         return;
+     };
+     for mut look in &mut subjects {
+-        look.yaw = frame.camera_yaw;
+-        look.pitch = frame.camera_pitch;
++        look.yaw = frame.camera_yaw.radians();
++        look.pitch = frame.camera_pitch.radians();
+     }
+ }
+ 
+ #[expect(
+@@ -264,9 +189,9 @@
+ )]
+ pub(super) fn drive_sequence(
+     mut sequence: ResMut<CaptureSequence>,
+     mut procedural_clock: ResMut<ProceduralAnimationClock>,
+-    mut terrain_ik: ResMut<TerrainIkEnabled>,
++    mut terrain_ik: ResMut<TerrainIkMode>,
+     mut guard_input: ResMut<WeaponGuardInputState>,
+     animation_runtime: Res<AnimationRuntime>,
+     terrain: Single<&SceneTerrain>,
+     mut subjects: Query<
+@@ -284,15 +209,15 @@
+         With<CaptureSubject>,
+     >,
+     mut labels: Query<&mut Text, With<CaptureLabel>>,
+ ) {
+-    if sequence.applied || sequence.capture_in_flight || sequence.index >= sequence.plan.len() {
++    if !sequence.can_drive_frame() {
+         return;
+     }
+     let frame = sequence.plan[sequence.index].clone();
+-    let metadata = scenario_metadata(frame.scenario);
+-    let mut gait_phase = 0.0;
+-    let mut presentation_settled = false;
++    let metadata = frame.scenario.clone();
++    let mut gait_phase = CyclePhase::ZERO;
++    let mut observed_playback = None;
+     for (
+         mut skeleton,
+         mut transform,
+         mut look,
+@@ -306,15 +231,15 @@
+     {
+         let Some(playback) = playback else {
+             return;
+         };
+-        presentation_settled = playback.presentation_is_settled();
+-        if frame.scenario != "full-ragdoll" && !playback.authored_pose_is_ready() {
++        observed_playback = Some(playback);
++        if !frame.scenario.is(ScenarioId::FullRagdoll) && !playback.authored_pose_is_ready() {
+             return;
+         }
+ 
+-        if sequence.active_scenario != Some(frame.scenario) {
+-            sequence.active_scenario = Some(frame.scenario);
++        if sequence.active_scenario.as_ref() != Some(&frame.scenario) {
++            sequence.active_scenario = Some(frame.scenario.clone());
+             sequence.scenario_distance = 0.0;
+             sequence.motion_ready_frames = 0;
+             *skeleton = SkeletonState::default();
+             *guard_input = WeaponGuardInputState::default();
+@@ -332,20 +257,21 @@
+             }
+             if let Some(mut body_response) = body_response {
+                 *body_response = LocomotionBodyResponseState::default();
+             }
+-            let ground = terrain.height_at(Vec2::ZERO).unwrap_or_default();
+-            transform.translation = Vec3::new(0.0, ground + CAPTURE_ROOT_GROUND_OFFSET_METRES, 0.0);
+-            transform.rotation = Quat::from_rotation_y(std::f32::consts::PI);
+-            if frame.scenario.starts_with("raised-guard-tap-stop-") {
++            let Some(initial) = sequence.initial_root(&terrain, *transform) else {
++                return;
++            };
++            *transform = initial;
++            if frame.scenario.has(ScenarioFeature::RaisedTapStop) {
+                 // Prime the static combat stance and its terrain-conformed IK
+                 // before judging the later six-frame movement tap. A live
+                 // character has already held this stance; capturing component
+                 // allocation and pelvis acquisition would test viewer spawn,
+                 // not the authored-to-procedural stop transition.
+                 sequence.warmup_frames = 8;
+             }
+-            if let Some((start_body, _)) = transition_for_scenario(frame.scenario) {
++            if let Some((start_body, _)) = frame.scenario.transition() {
+                 skeleton.transition_body(start_body);
+                 // Prime the authored endpoint before beginning the transition.
+                 // Live characters have already evaluated their prone/supine or
+                 // upright base; a fresh viewer subject otherwise crossfades
+@@ -353,69 +279,85 @@
+                 sequence.warmup_frames = 8;
+             }
+         }
+ 
+-        if let Some(body) = downed_body_for_scenario(frame.scenario) {
++        if let Some(body) = frame.scenario.body() {
+             skeleton.transition_body(body);
+             let preload_locomotion = frame.scenario_frame == 0
+-                && matches!(
+-                    required_motion_for_scenario(frame.scenario),
+-                    Some("prone_crawl" | "supine_scamper")
+-                )
+-                && !required_motion_for_scenario(frame.scenario)
++                && frame.scenario.required_motion().is_some_and(|motion| {
++                    *motion == crate::animation::MotionId::PRONE_CRAWL
++                        || *motion == crate::animation::MotionId::SUPINE_SCAMPER
++                })
++                && !frame
++                    .scenario
++                    .required_motion()
+                     .is_some_and(|motion| animation_runtime.motion_is_processed(motion));
+-            skeleton.set_downed_turning(
+-                frame.scenario != "downed-prone-look-at"
+-                    && (preload_locomotion || (frame.scenario_frame >= 4 && frame.speed <= 0.05)),
++            skeleton.set_downed_motion(
++                if !frame.scenario.is(ScenarioId::DownedProneLookAt)
++                    && (preload_locomotion
++                        || (frame.scenario_frame >= 4
++                            && frame.speed <= SignedSpeed::from(STATIONARY_ANIMATION_SPEED_LIMIT)))
++                {
++                    DownedMotion::Turning
++                } else {
++                    DownedMotion::Resting
++                },
+             );
+         }
+ 
+-        let orientation =
+-            Quat::from_euler(EulerRot::YXZ, frame.camera_yaw, frame.camera_pitch, 0.0);
+-        look.yaw = frame.camera_yaw;
+-        look.pitch = frame.camera_pitch;
+-        let attack_start_frame = frame.scenario.starts_with("attack-live-").then_some(8);
++        let orientation = Quat::from_euler(
++            EulerRot::YXZ,
++            frame.camera_yaw.radians(),
++            frame.camera_pitch.radians(),
++            0.0,
++        );
++        look.yaw = frame.camera_yaw.radians();
++        look.pitch = frame.camera_pitch.radians();
++        let attack_start_frame = frame.scenario.has(ScenarioFeature::AttackLive).then_some(8);
+         if frame.action != SkeletonAction::Attack
+             || attack_start_frame == Some(frame.scenario_frame)
+         {
+             skeleton.lead_foot = frame.lead_foot;
+         }
+-        terrain_ik.0 = terrain_ik_enabled_for_frame(&frame);
++        *terrain_ik = terrain_ik_mode_for_frame(&frame);
+         guard_input.desired = frame.weapon_guard;
+         set_weapon_guard(&mut skeleton, guard_input.desired);
+-        if frame.scenario == "downed-prone-look-at" {
++        if frame.scenario.is(ScenarioId::DownedProneLookAt) {
+             let target = downed_camera_roll_target(transform.rotation, orientation);
+-            skeleton.advance_downed_facing(
+-                target,
+-                true,
+-                if frame.scenario_frame == 0 {
+-                    0.0
+-                } else {
+-                    1.0 / 84.0
+-                },
+-            );
+-        }
+-        let dive_impact = frame.scenario.ends_with("-impact");
+-        let quickstep = is_quickstep_scenario(frame.scenario);
++            let step = if frame.scenario_frame == 0 {
++                Ok(DownedFacingStep::ZERO)
++            } else {
++                DownedFacingStep::from_half_turns(1.0 / 84.0)
++            };
++            if let Err(error) = step.and_then(|step| {
++                skeleton.advance_downed_facing(target, DownedFacingAim::Held, step)
++            }) {
++                sequence.admission =
++                    CaptureAdmission::Rejected(RejectedCaptureAdmission::Locomotion(error));
++                return;
++            }
++        }
++        let dive_impact = frame.scenario.has(ScenarioFeature::Impact);
++        let quickstep = is_quickstep_scenario(&frame.scenario);
+         let grounded = if quickstep {
+             frame.scenario_frame < quickstep_release_frame()
+                 || frame.scenario_frame >= quickstep_landing_frame()
+         } else if dive_impact {
+             frame.scenario_frame == 0 || frame.scenario_frame >= 17
+         } else {
+-            metadata.kind != ScenarioKind::Landing || frame.scenario_frame >= 32
++            metadata.kind() != ScenarioKind::Landing || frame.scenario_frame >= 32
+         };
+         let vertical_velocity = if quickstep && frame.scenario_frame < quickstep_landing_frame() {
+             quickstep_fixture_vertical_state(frame.scenario_frame).1
+-        } else if (metadata.kind == ScenarioKind::Landing || dive_impact) && !grounded {
++        } else if (metadata.kind() == ScenarioKind::Landing || dive_impact) && !grounded {
+             -4.5
+         } else {
+             0.0
+         };
+         let requested_local_velocity = Vec3::new(
+-            frame.local_direction.x * frame.speed,
++            frame.local_direction.x * frame.speed.metres_per_second(),
+             vertical_velocity,
+-            frame.local_direction.y * frame.speed,
++            frame.local_direction.y * frame.speed.metres_per_second(),
+         );
+         let local_velocity = requested_local_velocity;
+         let world_velocity = controller_yaw(orientation) * local_velocity;
+         sequence.simulation_tick = next_capture_simulation_tick(
+@@ -423,251 +365,111 @@
+             sequence.index == 0 && sequence.warmup_frames == 0,
+         );
+         if sequence.warmup_frames == 0
+             && frame.scenario_frame == 0
+-            && let Some((start_body, transition)) = transition_for_scenario(frame.scenario)
++            && let Some((start_body, transition)) = frame.scenario.transition()
+         {
+             skeleton.transition_body(start_body);
+-            if frame.scenario.ends_with("-aimed-impact") {
++            if frame.scenario.has(ScenarioFeature::AimedImpact) {
+                 // Match the authoritative launch seam: velocity and authored
+                 // direction capture one camera frame even if the previously
+                 // displayed root had not finished turning toward it.
+                 transform.rotation =
+-                    dive_launch_root_rotation(Quat::from_rotation_y(frame.camera_yaw));
++                    dive_launch_root_rotation(Quat::from_rotation_y(frame.camera_yaw.radians()));
+             }
+             // Matches the live server's terrain-contact dive recovery.
+-            let duration = if frame.scenario.starts_with("dive-backward") {
++            let duration = if frame.scenario.has(ScenarioFeature::DiveBackward) {
+                 32
+             } else if dive_impact {
+                 20
+             } else {
+                 84
+             };
+-            skeleton.begin_posture_transition(transition, sequence.simulation_tick, duration);
+-        }
+-        let delta_seconds = if frame.scenario_frame == 0 {
+-            0.0
+-        } else {
+-            1.0 / locomotion_sample_hz()
++            skeleton.begin_posture_transition(
++                transition,
++                sequence.simulation_tick,
++                AnimationSampleSpan::from(duration as u64),
++            );
++        }
++        let elapsed = capture_frame_elapsed(frame.scenario_frame);
++        let delta_seconds = elapsed.seconds();
++        procedural_clock.set_fixed_step(sequence.simulation_tick, elapsed);
++        let motion = subject_motion::CaptureMotion {
++            orientation,
++            world_velocity,
++            contact: GroundContact::from(grounded),
++            elapsed,
+         };
+-        procedural_clock.fixed_tick = Some((sequence.simulation_tick, delta_seconds.max(0.0)));
+-        let horizontal = transform.translation.xz() + world_velocity.xz() * delta_seconds;
+-        let vertical = if quickstep {
+-            let ground = terrain.height_at(horizontal).unwrap_or_default()
+-                + CAPTURE_ROOT_GROUND_OFFSET_METRES;
+-            ground
+-                + quickstep_fixture_vertical_state(frame.scenario_frame)
+-                    .0
+-                    .max(0.0)
+-        } else if terrain_ik.0 {
+-            terrain.height_at(horizontal).unwrap_or_default() + CAPTURE_ROOT_GROUND_OFFSET_METRES
+-        } else {
+-            transform.translation.y
++        let Some(position) = sequence.fixture_root_position(
++            &terrain,
++            transform.translation,
++            &frame,
++            &motion,
++            *terrain_ik,
++        ) else {
++            return;
+         };
+-        transform.translation = Vec3::new(horizontal.x, vertical, horizontal.y);
+-        let action_starts_now = match frame.action {
+-            SkeletonAction::Attack => attack_start_frame == Some(frame.scenario_frame),
+-            SkeletonAction::Dodge if quickstep => frame.scenario_frame == 0,
+-            SkeletonAction::Dodge | SkeletonAction::Block => skeleton.action_kind() != frame.action,
+-            SkeletonAction::None => false,
+-        };
+-        if action_starts_now {
+-            let start = sequence.simulation_tick;
+-            let contact = start
+-                + if frame.action == SkeletonAction::Attack {
+-                    19
+-                } else {
+-                    64
+-                };
+-            match frame.action {
+-                SkeletonAction::Attack => {
+-                    let attack = if frame.scenario == "attack-live-stationary-swing" {
+-                        AttackSpec::new(AttackAnimation::Swing)
+-                    } else {
+-                        AttackSpec::new(AttackAnimation::Thrust)
+-                    };
+-                    skeleton
+-                        .begin_attack(attack, start, contact)
+-                        .expect("viewer attack transition must be admitted");
+-                }
+-                SkeletonAction::Dodge => {
+-                    let spec = if quickstep {
+-                        DodgeSpec::quickstep(frame.local_direction)
+-                            .expect("quickstep scenario direction must be non-zero")
+-                    } else {
+-                        DodgeSpec::default()
+-                    };
+-                    skeleton
+-                        .begin_dodge(
+-                            spec,
+-                            start,
+-                            if quickstep {
+-                                start + (quickstep_action_ticks() / 2) as u64
+-                            } else {
+-                                contact
+-                            },
+-                        )
+-                        .expect("viewer dodge transition must be admitted");
+-                }
+-                SkeletonAction::Block => {
+-                    skeleton
+-                        .begin_block(BlockSpec::default(), start, contact)
+-                        .expect("viewer block transition must be admitted");
+-                }
+-                SkeletonAction::None => {}
+-            }
+-        }
+-        if !skeleton.is_posture_transitioning() {
+-            transform.rotation = advance_body_facing(
+-                transform.rotation,
+-                orientation,
+-                world_velocity,
+-                frame.action,
+-                skeleton.weapon_guard(),
+-                delta_seconds,
+-            );
+-        }
+-        if frame.scenario == "full-ragdoll" {
+-            let fall = ((frame.scenario_frame + 4) as f32 / 8.0).clamp(0.0, 1.0);
+-            transform.rotation = Quat::from_rotation_y(std::f32::consts::PI)
+-                * Quat::from_rotation_x(1.25 * smoothstep01(fall));
+-            // The production root becomes a coarse dynamic body while the
+-            // client ragdoll is active. Reproduce its descent in this focused
+-            // viewer so the first sixty-frame settle window actually exercises
+-            // whole-body terrain contact instead of suspending the pelvis at
+-            // the standing controller height.
+-            let ground = terrain.height_at(Vec2::ZERO).unwrap_or_default();
+-            transform.translation.y =
+-                ground + CAPTURE_ROOT_GROUND_OFFSET_METRES - 0.62 * smoothstep01(fall);
+-        }
+-        sequence.scenario_distance += frame.speed * delta_seconds;
+-        let jump_charging =
+-            frame.scenario == "jump-charge-anticipation" && (4..48).contains(&frame.scenario_frame);
+-        project_skeleton_locomotion_with_body_rotation(
++        transform.translation = position.metres();
++        subject_motion::begin_capture_action(
+             &mut skeleton,
+-            SkeletonLocomotionInput {
+-                orientation,
+-                linear_velocity: world_velocity,
+-                grounded,
+-                delta_seconds,
+-                tick: sequence.simulation_tick,
+-            },
+-            transform.rotation,
+-            None,
+-        );
+-        skeleton.set_jump_anticipation(jump_charging);
+-        if sequence.warmup_frames == 0 && transition_for_scenario(frame.scenario).is_some() {
+-            let previous_transition = skeleton.posture_transition();
+-            skeleton.advance_posture_transition(sequence.simulation_tick);
+-            transform.rotation = (transform.rotation
+-                * dive_landing_facing_delta(previous_transition, skeleton.posture_transition())
+-                * supine_get_up_counter_yaw_delta(
+-                    previous_transition,
+-                    skeleton.posture_transition(),
+-                ))
+-            .normalize();
++            &frame,
++            sequence.simulation_tick,
++            attack_start_frame,
++        );
++        if let Err(error) = subject_motion::advance_capture_facing(
++            &skeleton,
++            &mut transform,
++            orientation,
++            world_velocity,
++            frame.action,
++            elapsed,
++        ) {
++            sequence.admission =
++                CaptureAdmission::Rejected(RejectedCaptureAdmission::Locomotion(error));
++            return;
++        }
++        if frame.scenario.is(ScenarioId::FullRagdoll) {
++            let Some(projected) = sequence.full_ragdoll_root(&terrain, *transform, &frame) else {
++                return;
++            };
++            *transform = projected;
++        }
++        sequence.scenario_distance += frame.speed.metres_per_second() * delta_seconds;
++        if let Err(error) = subject_motion::project_capture_motion(
++            &mut skeleton,
++            &mut transform,
++            &frame,
++            motion,
++            &sequence,
++        ) {
++            sequence.admission =
++                CaptureAdmission::Rejected(RejectedCaptureAdmission::Locomotion(error));
++            return;
+         }
+         gait_phase = skeleton.gait_phase;
+     }
+-    if sequence.warmup_frames > 0 {
+-        sequence.warmup_frames -= 1;
+-        return;
+-    }
+-    if frame.scenario_frame == 0
+-        && let Some(motion) = required_motion_for_scenario(frame.scenario)
+-    {
+-        if !animation_runtime.motion_is_processed(motion) || !presentation_settled {
+-            sequence.motion_ready_frames = 0;
+-            return;
+-        }
+-        sequence.motion_ready_frames += 1;
+-        if sequence.motion_ready_frames < 2 {
+-            return;
+-        }
++    if !sequence.ready_for_frame(&frame, &animation_runtime, observed_playback) {
++        return;
+     }
+     for mut label in &mut labels {
+         **label = format!(
+             "{} | {:>4.2} m/s | phase {:>5.3} | {} view | 64 Hz frame {}",
+-            frame.scenario,
+-            frame.speed,
+-            gait_phase,
++            frame.scenario.label(),
++            frame.speed.metres_per_second(),
++            gait_phase.cycles(),
+             VIEWS[sequence.view_index].slug(),
+             frame.scenario_frame,
+         );
+     }
+     sequence.applied = true;
+     sequence.settled = 0;
+ }
+ 
+-pub(super) fn draw_skeleton_overlay(
+-    sequence: Res<CaptureSequence>,
+-    mut gizmos: Gizmos,
+-    subjects: Query<(Entity, &PresentedSkeleton), With<CaptureSubject>>,
+-    bones: Query<(&HumanoidBone, &GlobalTransform)>,
+-) {
+-    if matches!(
+-        VIEWS[sequence.view_index.min(VIEWS.len() - 1)],
+-        CaptureView::Gameplay
+-    ) {
+-        return;
+-    }
+-    let Ok((subject, skeleton)) = subjects.single() else {
+-        return;
+-    };
+-    let positions = bones
+-        .iter()
+-        .filter(|(bone, _)| bone.owner == subject)
+-        .map(|(bone, transform)| (bone.role, transform.translation()))
+-        .collect::<BTreeMap<_, _>>();
+-    let connections = [
+-        (BoneRole::Pelvis, BoneRole::Chest),
+-        (BoneRole::Chest, BoneRole::Head),
+-        (BoneRole::Chest, BoneRole::UpperArmLeft),
+-        (BoneRole::UpperArmLeft, BoneRole::ForearmLeft),
+-        (BoneRole::ForearmLeft, BoneRole::HandLeft),
+-        (BoneRole::Chest, BoneRole::UpperArmRight),
+-        (BoneRole::UpperArmRight, BoneRole::ForearmRight),
+-        (BoneRole::ForearmRight, BoneRole::HandRight),
+-        (BoneRole::Pelvis, BoneRole::ThighLeft),
+-        (BoneRole::ThighLeft, BoneRole::ShinLeft),
+-        (BoneRole::ShinLeft, BoneRole::FootLeft),
+-        (BoneRole::Pelvis, BoneRole::ThighRight),
+-        (BoneRole::ThighRight, BoneRole::ShinRight),
+-        (BoneRole::ShinRight, BoneRole::FootRight),
+-    ];
+-    for (start, end) in connections {
+-        if let (Some(&start), Some(&end)) = (positions.get(&start), positions.get(&end)) {
+-            gizmos.line(start, end, Color::srgba(0.1, 0.9, 1.0, 0.8));
+-        }
+-    }
+-    let (left_support, right_support) = locomotion_support_weights(skeleton);
+-    for (role, support) in [
+-        (BoneRole::FootLeft, left_support),
+-        (BoneRole::FootRight, right_support),
+-    ] {
+-        let Some(&position) = positions.get(&role) else {
+-            continue;
+-        };
+-        let color = if support >= 0.55 {
+-            Color::srgb(1.0, 0.8, 0.05)
+-        } else {
+-            Color::srgb(1.0, 0.1, 0.7)
+-        };
+-        gizmos.line(position - Vec3::X * 0.09, position + Vec3::X * 0.09, color);
+-        gizmos.line(position - Vec3::Z * 0.09, position + Vec3::Z * 0.09, color);
+-        gizmos.line(
+-            position,
+-            position + Vec3::Y * (0.05 + support * 0.15),
+-            color,
+-        );
+-    }
+-}
+-
+ pub(super) fn draw_flat_ground_grid(sequence: Res<CaptureSequence>, mut gizmos: Gizmos) {
+     let Some(frame) = sequence.plan.get(sequence.index) else {
+         return;
+     };
+-    if !frame.scenario.starts_with("flat-grid-") {
++    if !frame.scenario.has(ScenarioFeature::FlatGrid) {
+         return;
+     }
+ 
+     const HALF_EXTENT_METRES: i32 = 20;
+@@ -700,27 +502,21 @@
+ pub(super) fn collect_locomotion_presentation_events(
+     mut events: MessageReader<LocomotionPresentationEvent>,
+     mut sequence: ResMut<CaptureSequence>,
+ ) {
+-    if sequence.index >= sequence.plan.len() {
+-        return;
+-    }
+-    let scenario = sequence.plan[sequence.index].scenario.to_owned();
++    if !sequence.admission.is_open() || sequence.index >= sequence.plan.len() {
++        return;
++    }
++    let scenario = sequence.plan[sequence.index].scenario.clone();
+     let scenario_frame = sequence.plan[sequence.index].scenario_frame;
+     sequence
+         .presentation_events
+         .extend(events.read().map(move |event| PresentationEventSample {
+             scenario: scenario.clone(),
+             scenario_frame,
+             owner: capture_entity_id(event.owner),
+-            sequence: event.sequence,
+             sample_tick: event.sample_tick,
+-            kind: match event.kind {
+-                LocomotionPresentationEventKind::Contact(foot) => {
+-                    format!("contact_{}", foot.id())
+-                }
+-                LocomotionPresentationEventKind::Landing => "landing".to_owned(),
+-            },
++            payload: event.payload,
+         }));
+ }
+ 
+ #[expect(
+@@ -732,9 +528,9 @@
+     mut commands: Commands,
+     mut sequence: ResMut<CaptureSequence>,
+     pose_buffer_metrics: Res<PoseBufferMetrics>,
+     bouncy_bones_telemetry: Res<BouncyBonesTelemetry>,
+-    terrain_ik: Res<TerrainIkEnabled>,
++    terrain_ik: Res<TerrainIkMode>,
+     subjects: Query<
+         (
+             Entity,
+             &PresentedSkeleton,
+@@ -759,9 +555,9 @@
+     mut exit: MessageWriter<AppExit>,
+ ) {
+     let playback_backend = "pose_buffer";
+     let pose_buffer_metrics = *pose_buffer_metrics;
+-    if !sequence.applied || sequence.capture_in_flight {
++    if !sequence.admission.is_open() || !sequence.applied || sequence.capture_in_flight {
+         return;
+     }
+     let Ok((
+         subject,
+@@ -793,9 +589,14 @@
+             &mut exit,
+         );
+         return;
+     };
+-    if sequence.active_scenario != Some("full-ragdoll") && !playback.authored_pose_is_ready() {
++    if !sequence
++        .active_scenario
++        .as_ref()
++        .is_some_and(|scenario| scenario.is(ScenarioId::FullRagdoll))
++        && !playback.authored_pose_is_ready()
++    {
+         wait_or_fail(
+             &mut sequence,
+             "authored locomotion clip has not resolved",
+             &mut exit,
+@@ -817,99 +618,45 @@
+     }
+ 
+     let frame = sequence.plan[sequence.index].clone();
+     let view = VIEWS[sequence.view_index];
+-    let file_name = format!(
+-        "{}-{:04}-{}.png",
+-        frame.scenario,
+-        frame.scenario_frame,
+-        view.slug()
+-    );
++    let file_name = view.screenshot_name(&frame);
+     let path = sequence.output.join(&file_name);
+-    let evaluation_bones = collect_bones(
+-        subject,
+-        &bones,
+-        &terrain,
+-        (!terrain_ik.0)
+-            .then_some(subject_global.translation().y - CAPTURE_ROOT_GROUND_OFFSET_METRES),
+-    );
++    let Some(ground) = sequence.capture_ground(*terrain_ik, subject_global.translation()) else {
++        return;
++    };
++    let evaluation_bones = ground.collect_bones(subject, &bones, &terrain);
+     let evaluation_leg_ik = leg_ik.map(LegIkState::diagnostics).unwrap_or_default();
++    sequence.record_repeated_evaluation(&frame, &evaluation_bones, skeleton, evaluation_leg_ik);
+     if sequence.view_index == 0 {
+-        sequence.repeated_evaluation_baseline = Some(RepeatedEvaluationSnapshot {
+-            scenario: frame.scenario,
+-            scenario_frame: frame.scenario_frame,
+-            bones: evaluation_bones.clone(),
+-            contact_sequence: skeleton.contact_sequence,
+-            landing_sequence: skeleton.landing_sequence,
+-            event_count: sequence.presentation_events.len(),
+-            leg_ik: evaluation_leg_ik,
+-        });
+-    } else if let Some(baseline) = &sequence.repeated_evaluation_baseline {
+-        let bone_mismatch = repeated_bone_mismatch(&baseline.bones, &evaluation_bones);
+-        let bones_match = bone_mismatch.is_none();
+-        let repeated_evaluation_matches = baseline.scenario == frame.scenario
+-            && baseline.scenario_frame == frame.scenario_frame
+-            && bones_match
+-            && baseline.contact_sequence == skeleton.contact_sequence
+-            && baseline.landing_sequence == skeleton.landing_sequence
+-            && baseline.event_count == sequence.presentation_events.len()
+-            && repeated_leg_ik_matches(baseline.leg_ik, evaluation_leg_ik);
+-        if !repeated_evaluation_matches
+-            && let Some((bone, position_delta, rotation_delta)) = &bone_mismatch
+-        {
+-            warn!(
+-                scenario = frame.scenario,
+-                scenario_frame = frame.scenario_frame,
+-                bone,
+-                position_delta,
+-                rotation_delta,
+-                "repeated animation evaluation changed a captured bone"
+-            );
+-        }
+-        if !repeated_evaluation_matches && bone_mismatch.is_none() {
+-            warn!(
+-                scenario = frame.scenario,
+-                scenario_frame = frame.scenario_frame,
+-                baseline_contact = baseline.contact_sequence,
+-                contact = skeleton.contact_sequence,
+-                baseline_landing = baseline.landing_sequence,
+-                landing = skeleton.landing_sequence,
+-                baseline_events = baseline.event_count,
+-                events = sequence.presentation_events.len(),
+-                "repeated animation evaluation changed non-bone state"
+-            );
+-        }
+-        sequence.repeated_evaluation_valid &= repeated_evaluation_matches;
+-    }
+-    if sequence.view_index == 0 {
+-        sequence.global_bone_frames.push(GlobalBoneFrame {
+-            scenario: frame.scenario.to_owned(),
+-            scenario_frame: frame.scenario_frame,
+-            time_seconds: frame.time_seconds,
+-            action: skeleton.action_kind(),
+-            action_phase: skeleton.action_phase(),
+-            subject_translation: subject_global.translation().to_array(),
+-            subject_rotation_xyzw: subject_global.rotation().to_array(),
+-            bones: collect_global_bone_transforms(subject, &animation_bones),
+-        });
+-        let cadence_support = locomotion_support_weights(skeleton);
++        sequence.global_bone_frames.push(GlobalBoneFrame::capture(
++            &frame,
++            skeleton,
++            subject_global,
++            subject,
++            &animation_bones,
++        ));
++        let Some(cadence_support) =
++            sequence.admit_locomotion_support(skeleton, semantic_route.inputs.speed)
++        else {
++            return;
++        };
+         let root_distance_metres = sequence.scenario_distance;
+         let (desired_left_foot_target, desired_right_foot_target) = raised_footwork
+             .map(|state| (state.left_solve_target, state.right_solve_target))
+             .unwrap_or_default();
+         let leg_ik = evaluation_leg_ik;
+-        let ik_support =
+-            if leg_ik.left_solve_target.is_some() || leg_ik.right_solve_target.is_some() {
+-                (leg_ik.left_support_weight, leg_ik.right_support_weight)
+-            } else {
+-                cadence_support
+-            };
++        let Some(ik_support) =
++            sequence.admit_ik_support(leg_ik, cadence_support, skeleton, *terrain_ik)
++        else {
++            return;
++        };
+         let (left_support_weight, right_support_weight) = raised_footwork
+             .filter(|state| state.initialized())
+             .map(|state| (state.left_support_weight, state.right_support_weight))
+             .unwrap_or(ik_support);
+         sequence.samples.push(FrameSample {
+-            scenario: frame.scenario.to_owned(),
++            scenario: frame.scenario.clone(),
+             scenario_frame: frame.scenario_frame,
+             time_seconds: frame.time_seconds,
+             speed_metres_per_second: frame.speed,
+             gait_phase: skeleton.gait_phase,
+@@ -936,24 +683,31 @@
+                 .unwrap_or(skeleton.contact_foot),
+             landing_sequence: skeleton.landing_sequence,
+             landing_impact_speed: skeleton.landing_impact_speed,
+             body_lean_pitch_degrees: body_response
+-                .map_or(0.0, |state| state.pitch_radians.to_degrees()),
++                .map_or(BodyAngle::ZERO, |state| state.pitch_radians),
+             body_lean_roll_degrees: body_response
+-                .map_or(0.0, |state| state.roll_radians.to_degrees()),
+-            landing_compression_metres: height_state.map_or(0.0, |state| state.landing_compression),
++                .map_or(BodyAngle::ZERO, |state| state.roll_radians),
++            landing_compression_metres: height_state
++                .map_or(HeightDistance::ZERO, |state| state.landing_compression),
+             root_distance_metres,
+             root_position_metres: subject_global.translation().to_array(),
+-            world_travel_direction: (controller_yaw(Quat::from_rotation_y(frame.camera_yaw))
+-                * Vec3::new(frame.local_direction.x, 0.0, frame.local_direction.y))
++            world_travel_direction: (controller_yaw(Quat::from_rotation_y(
++                frame.camera_yaw.radians(),
++            )) * Vec3::new(
++                frame.local_direction.x,
++                0.0,
++                frame.local_direction.y,
++            ))
+             .normalize_or_zero()
+             .to_array(),
+             desired_body_forward_direction: if frame.weapon_guard == WeaponGuardState::Raised
+                 || matches!(frame.action, SkeletonAction::Attack | SkeletonAction::Block)
+             {
+-                (controller_yaw(Quat::from_rotation_y(frame.camera_yaw)) * Vec3::NEG_Z).to_array()
++                (controller_yaw(Quat::from_rotation_y(frame.camera_yaw.radians())) * Vec3::NEG_Z)
++                    .to_array()
+             } else {
+-                (controller_yaw(Quat::from_rotation_y(frame.camera_yaw))
++                (controller_yaw(Quat::from_rotation_y(frame.camera_yaw.radians()))
+                     * Vec3::new(frame.local_direction.x, 0.0, frame.local_direction.y))
+                 .normalize_or_zero()
+                 .to_array()
+             },
+@@ -986,33 +740,27 @@
+             ik_left_release_active: leg_ik.left_release_active,
+             ik_right_release_active: leg_ik.right_release_active,
+             ik_left_release_target: leg_ik.left_release_target.map(|value| value.to_array()),
+             ik_right_release_target: leg_ik.right_release_target.map(|value| value.to_array()),
+-            ik_settle_progress: leg_ik.settle_progress,
+-            ik_left_knee_foot_yaw_offset_degrees: leg_ik.left_knee_foot_yaw_offset_degrees,
+-            ik_right_knee_foot_yaw_offset_degrees: leg_ik.right_knee_foot_yaw_offset_degrees,
++            ik_settle_progress: leg_ik.settle_progress.map(|progress| progress.fraction()),
++            ik_left_knee_foot_yaw_offset_degrees: leg_ik
++                .left_knee_foot_yaw_offset_degrees
++                .degrees(),
++            ik_right_knee_foot_yaw_offset_degrees: leg_ik
++                .right_knee_foot_yaw_offset_degrees
++                .degrees(),
+             semantic_route_requested_path: semantic_route.requested_path,
+             semantic_route_selected_path: semantic_route.path,
+-            semantic_route_runtime_evaluated: semantic_route.runtime_evaluated,
++            semantic_route_runtime_evaluated: true,
+             screenshots: VIEWS
+                 .into_iter()
+-                .map(|view| {
+-                    (
+-                        view.slug().to_owned(),
+-                        format!(
+-                            "{}-{:04}-{}.png",
+-                            frame.scenario,
+-                            frame.scenario_frame,
+-                            view.slug()
+-                        ),
+-                    )
+-                })
++                .map(|view| (view.slug().to_owned(), view.screenshot_name(&frame)))
+                 .collect(),
+             bones: evaluation_bones,
+         });
+     }
+     sequence.capture_in_flight = true;
+-    let frame_key = format!("{}:{}", frame.scenario, frame.scenario_frame);
++    let frame_key = format!("{}:{}", frame.scenario.label(), frame.scenario_frame);
+     commands.spawn(Screenshot::primary_window()).observe(
+         move |captured: On<ScreenshotCaptured>,
+               mut sequence: ResMut<CaptureSequence>,
+               mut exit: MessageWriter<AppExit>| {
+@@ -1071,107 +819,31 @@
+     }
+     hash
+ }
+ 
+-pub(super) fn collect_bones(
+-    subject: Entity,
+-    bones: &Query<(&HumanoidBone, &GlobalTransform)>,
+-    terrain: &SceneTerrain,
+-    flat_ground_height: Option<f32>,
+-) -> BTreeMap<String, BoneSample> {
+-    bones
+-        .iter()
+-        .filter(|(bone, _)| bone.owner == subject && tracked_bone(bone.role).is_some())
+-        .map(|(bone, transform)| {
+-            let rotation = transform.rotation();
+-            (
+-                tracked_bone(bone.role).unwrap().to_owned(),
+-                BoneSample {
+-                    position: transform.translation().to_array(),
+-                    rotation_xyzw: [rotation.x, rotation.y, rotation.z, rotation.w],
+-                    terrain_clearance_metres: flat_ground_height
+-                        .or_else(|| terrain.height_at(transform.translation().xz()))
+-                        .map(|height| transform.translation().y - height),
+-                },
+-            )
+-        })
+-        .collect()
+-}
+-
+-pub(super) fn collect_global_bone_transforms(
+-    subject: Entity,
+-    bones: &Query<(
+-        &AnimationTargetId,
+-        &AuthoredBindTransform,
+-        Option<&Name>,
+-        &GlobalTransform,
+-    )>,
+-) -> Vec<GlobalBoneTransformSample> {
+-    let mut samples = bones
+-        .iter()
+-        .filter(|(_, bind, _, _)| bind.owner == subject)
+-        .map(|(target, _, name, transform)| {
+-            let (scale, rotation, translation) = transform.to_scale_rotation_translation();
+-            let sample = GlobalBoneTransformSample {
+-                name: name.map_or_else(|| "<unnamed>".to_owned(), |name| name.as_str().to_owned()),
+-                target_id: capture_animation_target_id(*target),
+-                translation: translation.to_array(),
+-                rotation_xyzw: rotation.to_array(),
+-                scale: scale.to_array(),
+-            };
+-            (*target, sample)
+-        })
+-        .collect::<Vec<_>>();
+-    samples.sort_by(|(left_target, left), (right_target, right)| {
+-        (&left.name, left_target).cmp(&(&right.name, right_target))
+-    });
+-    samples.into_iter().map(|(_, sample)| sample).collect()
+-}
+-
+-pub(super) fn tracked_bone(role: BoneRole) -> Option<&'static str> {
+-    Some(match role {
+-        BoneRole::Pelvis => "pelvis",
+-        BoneRole::Chest => "chest",
+-        BoneRole::Head => "head",
+-        BoneRole::UpperArmLeft => "left_shoulder",
+-        BoneRole::UpperArmRight => "right_shoulder",
+-        BoneRole::ForearmLeft => "left_elbow",
+-        BoneRole::ForearmRight => "right_elbow",
+-        BoneRole::HandLeft => "left_hand",
+-        BoneRole::HandRight => "right_hand",
+-        BoneRole::ThighLeft => "left_hip",
+-        BoneRole::ThighRight => "right_hip",
+-        BoneRole::ShinLeft => "left_knee",
+-        BoneRole::ShinRight => "right_knee",
+-        BoneRole::FootLeft => "left_foot",
+-        BoneRole::FootRight => "right_foot",
+-        BoneRole::ToeLeft => "left_toe",
+-        BoneRole::ToeRight => "right_toe",
+-        _ => return None,
+-    })
+-}
+-
+-pub(super) fn jitter_frames(frames: &[FrameSample]) -> Vec<JitterFrame> {
++pub(super) fn jitter_frames(frames: &[FrameSample]) -> Vec<JitterFrame<BoneRole>> {
+     let mut previous: Option<&FrameSample> = None;
+     let mut analysis_segment = 0_u64;
+     frames
+         .iter()
+         // A ragdoll is intentionally non-smooth at the animation-to-physics
+         // handoff and does not obey authored locomotion jerk thresholds.
+-        .filter(|frame| frame.scenario != "full-ragdoll")
++        .filter(|frame| !frame.scenario.is(ScenarioId::FullRagdoll))
+         .map(|frame| {
+             if let Some(previous_frame) = previous {
+                 let action_transition = previous_frame.action != frame.action;
+                 let landing = previous_frame.landing_sequence != frame.landing_sequence;
+                 let foot_contact = previous_frame.contact_sequence != frame.contact_sequence;
+                 let guard_stop_handoff = is_guard_stop_transition(&frame.scenario)
+-                    && previous_frame.speed_metres_per_second > 0.05
+-                    && frame.speed_metres_per_second <= 0.05;
++                    && previous_frame.speed_metres_per_second
++                        > SignedSpeed::from(STATIONARY_ANIMATION_SPEED_LIMIT)
++                    && frame.speed_metres_per_second
++                        <= SignedSpeed::from(STATIONARY_ANIMATION_SPEED_LIMIT);
+                 let quickstep_takeoff = is_quickstep_scenario(&frame.scenario)
+-                    && previous_frame.left_support_weight >= FULL_PLANT_SUPPORT_WEIGHT
+-                    && previous_frame.right_support_weight >= FULL_PLANT_SUPPORT_WEIGHT
+-                    && frame.left_support_weight <= 0.01
+-                    && frame.right_support_weight <= 0.01;
++                    && previous_frame.left_support_weight.fraction() >= FULL_PLANT_SUPPORT_WEIGHT
++                    && previous_frame.right_support_weight.fraction() >= FULL_PLANT_SUPPORT_WEIGHT
++                    && frame.left_support_weight.fraction() <= 0.01
++                    && frame.right_support_weight.fraction() <= 0.01;
+                 if previous_frame.scenario != frame.scenario {
+                     analysis_segment = 0;
+                 } else if action_transition
+                     || landing
+@@ -1191,9 +863,9 @@
+                 bones: frame
+                     .bones
+                     .iter()
+                     .map(|(name, bone)| {
+-                        let position = if name == "pelvis" {
++                        let position = if *name == BoneRole::Pelvis {
+                             // The capture root is authoritative locomotion, not
+                             // a skeletal joint. Exclude its world translation
+                             // from limb jitter while retaining pelvis rotation.
+                             Vec3::ZERO
+@@ -1211,9 +883,9 @@
+                                     parent_rotation.inverse() * rotation,
+                                 )
+                             });
+                         (
+-                            name.clone(),
++                            *name,
+                             JitterBone {
+                                 position: position.to_array(),
+                                 rotation_xyzw: rotation.to_array(),
+                             },
+@@ -1224,27 +896,8 @@
+         })
+         .collect()
+ }
+ 
+-pub(super) fn parent_bone(name: &str) -> Option<&'static str> {
+-    Some(match name {
+-        "chest" | "left_hip" | "right_hip" => "pelvis",
+-        "head" | "left_shoulder" | "right_shoulder" => "chest",
+-        "left_elbow" => "left_shoulder",
+-        "right_elbow" => "right_shoulder",
+-        "left_hand" => "left_elbow",
+-        "right_hand" => "right_elbow",
+-        "left_knee" => "left_hip",
+-        "right_knee" => "right_hip",
+-        "left_foot" => "left_knee",
+-        "right_foot" => "right_knee",
+-        "left_toe" => "left_foot",
+-        "right_toe" => "right_foot",
+-        "pelvis" => return None,
+-        _ => return None,
+-    })
+-}
+-
+ pub(super) fn wait_or_fail(
+     sequence: &mut CaptureSequence,
+     reason: &str,
+     exit: &mut MessageWriter<AppExit>,
+@@ -1256,94 +909,90 @@
+     let message = format!(
+         "animation viewer timed out after {} rendered frames: {reason}\n",
+         sequence.waiting
+     );
+-    let path = sequence.output.join("failure.txt");
+-    fs::write(&path, &message).unwrap_or_else(|error| panic!("failed to write {path:?}: {error}"));
+-    error!(%reason, path = ?path, "Animation capture failed");
+-    exit.write(AppExit::Error(1.try_into().expect("one is non-zero")));
++    fail_capture(sequence, &message, exit);
+ }
+ 
+ #[cfg(test)]
+ mod tests {
+     use super::*;
+ 
+     #[test]
+-    fn capture_ticks_remain_unique_across_consecutive_scenario_boundaries() {
+-        let first = next_capture_simulation_tick(0, true);
+-        let second = next_capture_simulation_tick(first, false);
+-        let next_scenario_frame_zero = next_capture_simulation_tick(second, false);
+-        assert_eq!(first, 0);
+-        assert_eq!(second, 1);
+-        assert_eq!(next_scenario_frame_zero, 2);
+-    }
+-
+-    #[test]
+-    fn repeated_evaluation_rejects_missing_or_extra_tracked_bones() {
+-        let sample = BoneSample {
+-            position: Vec3::ZERO.to_array(),
+-            rotation_xyzw: Quat::IDENTITY.to_array(),
+-            terrain_clearance_metres: Some(0.0),
+-        };
+-        let expected = BTreeMap::from([("left_foot".to_owned(), sample)]);
+-        let missing = BTreeMap::new();
+-        assert!(repeated_bone_mismatch(&expected, &missing).is_some());
+-        assert!(repeated_bone_mismatch(&missing, &expected).is_some());
+-        assert!(repeated_bone_mismatch(&expected, &expected).is_none());
+-    }
+-
+-    #[test]
+-    fn repeated_evaluation_diagnostics_detect_hidden_ik_state_mutation() {
+-        let baseline = LegIkDiagnostics::default();
+-        let changed = LegIkDiagnostics {
+-            left_support_weight: 1.0,
+-            left_release_active: true,
+-            left_planned_contact: Some(Vec3::NEG_Z),
+-            settle_progress: Some(0.5),
+-            ..default()
+-        };
+-        assert_ne!(baseline, changed);
+-    }
+-
+-    #[test]
+     fn flat_grid_scenarios_are_opt_in_complete_cycles_with_explicit_ik_ownership() {
+-        for (scenario, speed) in [("flat-grid-walk-2.0", 2.0), ("flat-grid-run-5.5", 5.5)] {
+-            let sequence = CaptureSequence::new(PathBuf::new(), 1, Some(scenario));
++        for (scenario, speed) in [
++            ("flat-grid-walk-2.0", authored_drive_speed(2.0)),
++            ("flat-grid-run-5.5", authored_drive_speed(5.5)),
++        ] {
++            let sequence = CaptureSequence::new(
++                PathBuf::new(),
++                1,
++                Some(ScenarioMetadata::from_label(scenario)),
++            )
++            .unwrap();
+             assert!(sequence.uses_flat_grid());
+             assert!(sequence.plan.len() > 64);
+             assert!(sequence.plan.iter().all(|frame| {
+-                frame.scenario == scenario
++                frame.scenario.label() == scenario
+                     && frame.speed == speed
+-                    && terrain_ik_enabled_for_frame(frame)
++                    && terrain_ik_mode_for_frame(frame) == TerrainIkMode::Enabled
+             }));
+         }
+ 
+-        let sprint = CaptureSequence::new(PathBuf::new(), 1, Some("flat-grid-sprint-no-ik"));
++        let sprint = CaptureSequence::new(
++            PathBuf::new(),
++            1,
++            Some(ScenarioMetadata::from_label("flat-grid-sprint-no-ik")),
++        )
++        .unwrap();
+         assert!(sprint.uses_flat_grid());
+         assert!(sprint.plan.len() > 64);
+         assert!(sprint.plan.iter().all(|frame| {
+-            frame.scenario == "flat-grid-sprint-no-ik"
++            frame.scenario.is(ScenarioId::FlatGridSprintNoIk)
+                 && frame.speed == canonical_john_sprint_speed()
+-                && !terrain_ik_enabled_for_frame(frame)
++                && terrain_ik_mode_for_frame(frame) == TerrainIkMode::Disabled
+         }));
+-        assert!((canonical_john_sprint_speed() - 8.957_856).abs() < 0.000_01);
+-
+-        let walk = CaptureSequence::new(PathBuf::new(), 1, Some("flat-grid-walk-no-ik"));
++        assert!((canonical_john_sprint_speed().metres_per_second() - 8.957_856).abs() < 0.000_01);
++
++        let walk = CaptureSequence::new(
++            PathBuf::new(),
++            1,
++            Some(ScenarioMetadata::from_label("flat-grid-walk-no-ik")),
++        )
++        .unwrap();
+         assert!(walk.uses_flat_grid());
+         assert!(walk.plan.len() > 64);
+         assert!(walk.plan.iter().all(|frame| {
+-            frame.scenario == "flat-grid-walk-no-ik"
+-                && frame.speed == 2.0
+-                && !terrain_ik_enabled_for_frame(frame)
++            frame.scenario.is(ScenarioId::FlatGridWalkNoIk)
++                && frame.speed == authored_drive_speed(2.0)
++                && terrain_ik_mode_for_frame(frame) == TerrainIkMode::Disabled
+         }));
+ 
+-        let ordinary = CaptureSequence::new(PathBuf::new(), 1, Some("steady-walk-2.0"));
++        let ordinary = CaptureSequence::new(
++            PathBuf::new(),
++            1,
++            Some(ScenarioMetadata::from_label("steady-walk-2.0")),
++        )
++        .unwrap();
+         assert!(!ordinary.uses_flat_grid());
+ 
+-        let stop = CaptureSequence::new(PathBuf::new(), 1, Some("flat-grid-walk-stop"));
++        let stop = CaptureSequence::new(
++            PathBuf::new(),
++            1,
++            Some(ScenarioMetadata::from_label("flat-grid-walk-stop")),
++        )
++        .unwrap();
+         assert!(stop.uses_flat_grid());
+-        assert!(stop.plan[..48].iter().all(|frame| frame.speed == 2.0));
+-        assert!(stop.plan[56..].iter().all(|frame| frame.speed == 0.0));
++        assert!(
++            stop.plan[..48]
++                .iter()
++                .all(|frame| frame.speed == authored_drive_speed(2.0))
++        );
++        assert!(
++            stop.plan[56..]
++                .iter()
++                .all(|frame| frame.speed == SignedSpeed::ZERO)
++        );
+         assert!(
+             stop.plan[48..=56]
+                 .windows(2)
+                 .all(|pair| pair[1].speed <= pair[0].speed)
+@@ -1352,9 +1001,14 @@
+ 
+     #[test]
+     fn completed_capture_owns_the_finished_ecs_state() {
+         let output = PathBuf::from("owned-capture");
+-        let mut sequence = CaptureSequence::new(output.clone(), 1, Some("flat-grid-walk-2.0"));
++        let mut sequence = CaptureSequence::new(
++            output.clone(),
++            1,
++            Some(ScenarioMetadata::from_label("flat-grid-walk-2.0")),
++        )
++        .unwrap();
+         let plan_len = sequence.plan.len();
+ 
+         let completed = sequence.complete("pose_buffer", PoseBufferMetrics::default());
+ 

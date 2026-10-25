@@ -1,0 +1,37 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-059",
+  "at": "2026-10-25T12:09:17.850076+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1209,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/custody_objectives.rs",
+      "sha256": "7274d8bedc95fa40cee64bda7b7dda0c32b6d02aa01e44e754f77e1bd171bc5b",
+      "personally_read_ranges": [
+        [
+          1,
+          1677
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Whole1677 actual custody/objective/mission authority read, including existing dispatch fixtures; no execution. Tagged custody object/holder parsing ties Destroyed/Released emptyID versus namedSite/Party/NPC/nonempty and parsedcharacter. Canonical core nextrecord built once with case/object/holder/version/source, accepted by corestate machine before native row mutation. Native Kind+ID boundary reconstructed repeatedly rather than retained admitted object, existing producer/aggregate migration applies, no duplicate owner. Existing source retry matches all custody coordinates and verifies pairedfact case+party attribution without requiring current retiredNPC row; ordinary/resident/unattributed dispatch checked exact authorities, ambiguous/unknownfail. Dispatch fixture ensures residentNPC cannot enter playercontinuity. No absentplayer-row error reintroduced.",
+        "Seed derives objectkind from everyobjective, rejects same lexicalID mixedkind and compares authoredlistlength, looks up each authoredobject, seeds unattributed Site/version0/noFact. Exact set coverage would additionally require distinct authored object IDs; valid generated manifest/custody admission must establish uniqueness. No ordinary duplicate/missing generated custody witness asserted from length equality alone. Currentrecord localmap key uses storedkind while value objectclonesnewrequestedobject, requiring core apply_custody identity validation and actual global objectID uniqueness, not arbitrary malformed storedrow assumption.",
+        "Continuity owner tied exact party/case/objective, Survive carries site, Protect carries subject+custodyversion, starts only while actuallyvalid and now<=deadline. Activeunbroken/noncompleted gate prevents duplicateinterval, currentpartyclock drives close/break. Consumption rechecks currentplace or exact versioned heldsubject; mismatches break beforedeadline proof. Atthrough, validates exact objectivekind/site/subject/deadline, ingests typedfact then markscompleted. Missing party returnsOk and closedcase leaves oldguard untouched intentionally no newfact; no claim completed means deadlinealone. Native kind/irrelevant emptystrings/Optionalversion/lifecycleflag bundle remains canonical aggregate-state migration, not demonstrated current mismatch. Actual clock monotonicity and transition callers remain graph dependencies.",
+        "Arrivalescort requires matching site+case+partyheldsubject, transitions canonicalcustody toSite withincremented version and fact, thencontinuity reconciliation. AssetRetrieved/Returned/Exchanged, SubjectRescued/Released adapters derive holder and fact from same actual arguments; native exchange/release booleans split semantic outcome but no ordinary mismatched payload witness. Terminal holder emits exactobjectiveimpossibility selectively while caseopen; Release objective is not madeimpossible byReleased holder. Saturatingversion exhaustion is existing counterowner obligation; do not fabricate ordinaryMAX event.",
+        "Factprovenance rejects collidingmanual/generated and validates exactlyone committedauthority+full replay/objective equality. Outbreakremediation replaces acceptedhostilefact only after canonicalacceptedremediation match. OutcomeFact case/party/source/kind/time and nativeindexedrow constructed together, exactsource retry compares encodedfact; refreshed happened_at before retry means private direct retry at laterclock may conflict, but owning public receipt paths must be traced before lost-response bug. One trusted internal ingestion seam, no public freefact reducer. Evaluates all storedfacts through canonical expression/party, Pending returns; terminalstatus+resolvedparty+contracts+winningpath/finale/outcome derive sameevaluation. Pathindex conversion failure toNone is representable capacity boundary; actual canonicalexpression limits are prerequisite, not an ordinary hugepath claim. Sourceprefix stripping can collapse fact-coordinate tags, but actual durableproducer namespace pairs needed before collisionclaim.",
+        "Finale selected deterministically priority+ID, exactcase/status/path matched, allothers ineligible, optionalno-finalenoop explicitnativeemptystring. Execute exactreceipt returnsbeforeeffects, requires Selected actualcase, canonicalgeneratedresolution receives same validated manifest/publiccase/settlement/localproblem/party, then Executed+immutable receipt. Distinctimmutablefinale receipt ownscompletion; no second incompletecheckpoint invented. All postwrite fallible work propagated here, actualoutercatch policy still independent.",
+        "Generatedhostileeligible requires canonicalcase/provenance/open/site/label, exactlyone matchinghostilegroup andActive, exactobjectiveexpression, evaluationPending appropriatehostileleaf and matchingRecordResolution Availablefinale/path. optionalrequiredresolution filters actual objective; no generic sameenemytype identity binding. ensureboundmission exactexistingparty/observer/site/scene/Bound replay accepted immutable snapshot; new exactobserverknowledge/openactualcase and provenancechecked generated oracceptedactivemanualcontract. Builds capabilities only pending actualobjective, capturechecks actualSubject heldSite andcurrentcustodyversion, surrenderrequiresauthoredthreatpermission thenexcludedfromtacticalsample; immutablecandidatepayload copied fromsamecapability. Cap replay compares allassociation/effect/capture/weightfields, inactivecandidate notrevived. Canonical MissionAuthority::capture final roster snapshot thenstore+indexedcandidates. Capture error toString remains retained migrationgap; mission lifecycle completion/sampling owned elsewhere, M58/M59 evidence muststay separate. No full graph acceptance or historical CI reuse claimed."
+      ]
+    }
+  ],
+  "dependencies": [
+    "Core custody state-machine identity/version guarantee and generated manifest authored-custody distinct set admission.",
+    "Exact public producer receipt prevents private direct fact retry from recomputing changed happened_at; inspect before retry defect promotion.",
+    "MissionAuthority::capture and mission/tactical completion, outcome sampling, terminal roster and cause-preserving errors, existing M58/M59 connected owners.",
+    "Native continuity and casefact outer reducers must propagate fallible writes; no caught-error ordinary survivor asserted."
+  ],
+  "acceptance": "Retain admitted tagged custody/fact/mission capabilities through actual native mutation and lifecycle recipients, preserve ordinary/resident attribution and exact immutable replay. No new tests/checks/source changes.",
+  "discovery": "One original role WITH inherited migration findings and explicit qualified dependencies; full lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

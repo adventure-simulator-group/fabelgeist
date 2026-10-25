@@ -1,0 +1,68 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-065",
+  "at": "2026-10-23T00:22:37.640543+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/foraging.rs",
+      "sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+      "actual_compared_ranges": [
+        [
+          1,
+          1278
+        ]
+      ],
+      "source_evidence": "Fresh every exact scoped P16 body, strategic_action union1-715 fromoriginal1-170+overlays124/196; no715+tests/PRsamehashcredit. Foraging existingtestsource readonly."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/foraging/sampling.rs",
+      "sha256": "66d67a552e4a0f212e7a776678140af4965c40239a052e0f845c73143537d6e0",
+      "actual_compared_ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "source_evidence": "Fresh every exact scoped P16 body, strategic_action union1-715 fromoriginal1-170+overlays124/196; no715+tests/PRsamehashcredit. Foraging existingtestsource readonly."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/ingredient_preparation.rs",
+      "sha256": "ae086fd226814d3e6a5085e053f4e16a02c4a46ecbfbe9e0c2bf7063e6edf170",
+      "actual_compared_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "source_evidence": "Fresh every exact scoped P16 body, strategic_action union1-715 fromoriginal1-170+overlays124/196; no715+tests/PRsamehashcredit. Foraging existingtestsource readonly."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_action.rs",
+      "sha256": "4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+      "actual_compared_ranges": [
+        [
+          1,
+          715
+        ]
+      ],
+      "source_evidence": "Fresh every exact scoped P16 body, strategic_action union1-715 fromoriginal1-170+overlays124/196; no715+tests/PRsamehashcredit. Foraging existingtestsource readonly."
+    }
+  ],
+  "groups": {
+    "forage-whole-arithmetic": "resolve gatesduration60..1440wholehours, normalizedterrain and1..5uniquesources beforework. Mixture shortcircuits all4<=1000 BEFOREu16sum<=4000, nooverflow. Static15resources yieldmin1or2/max<=6ordered, so max\u2212min+1positive<=6; publiccustomresourcehelpers notfedtoresolution. BTreeSet canonicalsourceorder; resourcesatmost15/sourcecount<=5, divisor1..75, denominator480*1e9*<=75fitsu64. Numeratormax2300*1440*1500*1000*1750=8.694e15fitsu64. expected<=18112permille, discovered<=19, baseyield<=6, quantity<=171fitsu16; saturationsneverloserepresentableyield underactualgate. LocalVeclen<=15/canonicalroster cardinality fixed, no unboundedallocationworkcase.",
+    "forage-partial-exposure-and-training": "habitatfoldsaturatingaddthenmin1000 intentionallybounded evencustombiomes/rawmixture; is_normalized required byresolve, invalidtrainingmixture returnszeros. Elapsedu64MAX asf32/60<=3.1e17, \u00d7share<=1000 remainsfinite before/1000; fourleaves sumtoactualhourswithinfloatrounding, no f32overflow. Stealthpartialelapsed arbitraryu64allowed; afterfirsthours tryu16saturation/product75 thenfinalcap4500 samefinalboundedpolicy, notF017prematuredivisionloss. Stealthrollbound1001fitsu16; skill.saturating_addroll intentional then>=dc finite. Not UnitIntervalskill/rate1750permille>wholelegitimate.",
+    "forage-native-rng-and-rights": "Samplingactualpurpose3closednames andlengthframedSeed::derive source/item -> localownedRNG ->nativeNonZeroU64 upper. Actualbounds1000/1001/1..6positive soexpectcannotfailatcurrentcallers; no modulobias/randompurposechange. Rightsglobalquestion noextra placejurisdiction, typedactor/source plusprivateForageLicenseDecision bindsdigest/operation/global andactualactor/source. Sortednonemptyunique sourceIDs+oneprivatebindingpersource impliesatmost5knownenumvariants, no need duplicateindependentcountauthority. Deniedlicensepermitsillegalattemptwithlegalityclassificationspecified; differentfromautomaticrejection. Digestsource/harvest/versionframes actualnativebyteport, notPermissionGrant duplicate.",
+    "forage-planner-and-effects": "Actualcanonicalgenericbuild_plan checksrequirements beforecalculate closure, timecheckedclockends supports0elapsed/Terminal/Interrupted/ClockExhausted. Forageclosure mutatesOWNEDresolution yields.clear whencompletionnotpermitted, exposurestillretained; localVec+capturesonly no externalpartialpublication/retryclock. Positiveelapsed+None resolution silentlyomitsCommitResolution despitefieldcomment, rawauthoritystagecorrespondence notproved; sameF026wholeadapterrepairqualification. Publicpreview intentionallyonlysourceIDs/requestminutes no privateenvironment/license/RNG/DC/yields, preserveprojection.",
+    "generic-action-operations": "PrivateActionCoordinates validatesfixture/targetplace anduniquetoolobjectIDs beforeSelf, ToolReference/CustodyTransfer validateeachObjectCustody beforeretention; no callerpartialwrite. RequestedDuration onlyNonZeroU64. resolve_time checkedadd thenMAXexplicitClockExhausted evenexactMAX; terminalclampednotearliercurrent andwinsinterruptionties, interruptionsstrictlyearlierterminal; no elapsedunderflow. Genericclockend noinfiniteloop/alllocals; do not globallycapclock. PrivateAuthoritativePlan readonlyviews/publicsanitizedprojection distinctevidence, not grant. Genericcalculatecallbackcontractpurebyusage; arbitraryexternalcallbacksideeffects not promisedrollback.",
+    "commit-and-nonnumeric-policy": "validate_commit priorreceiptsamerequest+sameprovenance returnsIdempotentReplay BEFOREcurrentsnapshot intentionally, ensuringoldsuccessdoesnotreapplyafterworldchanges; conflictsreject. Newapplyrequiresattemptbinding/inputdigest/plansnapshotcurrent/replanReadyandfullcoordinates/provenance/requirements/time/calculationequality. No stateorclockmutationhere, actualDBeffectapplicationseparate. CanonicalID1..256bytestrimmednoncontrolUTF8; String.into isinputownershipconversionbeforevalidation. Socialfiniteclampedscorebounded, NaNrawinputs canpublishNaNscore (existingadmissiongap) no finiteinputoverflow. Selfaction/emergencypolicy distinctsemanticdecisions, no generalpermissionengine invented.",
+    "ingredient-vocabulary": "Cut/Grind requestedoperation distinct resultingmaterialpreparation. Stablelowercaseid /versionedbytes1,2 /definitionkeys explicitformats, defaultSerdePascalvariant existingtests demonstrateintentionaldifferentwirevocabulary. Actualscalarparse unknownNone andclosedenum no arithmetic/publicmutation; no forcedvocabularycollapse. No existingtestsrun/newcases/helpers."
+  },
+  "findings": [
+    "ROOT-INITIAL04-F026"
+  ],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

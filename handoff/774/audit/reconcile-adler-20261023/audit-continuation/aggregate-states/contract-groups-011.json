@@ -1,0 +1,72 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-011",
+  "at": "2026-10-24T03:02:40.475081+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1013,
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_schedule.rs",
+      "sha256": "ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+      "personally_read_ranges": [
+        [
+          1,
+          1363
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Full schedule production and existing fixtures compared (tail941\u20131363 completed now). Finite/nonnegative skill budgets and stable32-field projection remain raw; actual hands factory always includes positive default defense weights, whereas a public all-zero CombatTrainingProfile makes normalization0/0 and silently yields no award through direct-training NaN rejection. Distinguish that API strengthening from normal factory failure. Raw SkillHours/meta correlations need canonical owners rather than replacing actual leaf+meta retention with redundant independently authored totals. Leisure computes carried fatigue clearance before morale; internal infinity is explicitly no-positive-surplus recovery, requiring an explicit state per user policy, preserving genuine zero/six-hour/partial-day cases. Uniform cumulative leisure-minute counting and authored absolute end-of-day spans are distinct current scheduling policies, not a presumed discrepancy. Existing fixtures explicitly document aggregate-vs-repeated rounded income difference1204\u20131221, so do not impose universal chunk equality on rounded gold. Prayer None yields no religious training. Training curricula with unknown raw targets skip them; actual catalogue admission is a separate dependency, not inferred from local helper names.",
+      "repair": "not started",
+      "validation": "source inspection only; no execution"
+    },
+    {
+      "scope_index": 1014,
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+      "sha256": "031ee090102b5cc2ed9889b336ac1144ef7eb705cacc6fee37cbe8e7f6bafd0e",
+      "personally_read_ranges": [
+        [
+          1,
+          364
+        ]
+      ],
+      "aggregate_trace_and_disposition": "DailySchedulePlan independently stores10 accepted activity minutes and two OrganizationAllocation minutes; total validation covers array only. Exact inherited CAMERA-INITIAL07-F017 /Root03F005 aggregate disagreement: parser can accept mismatching array/tuple minutes, while actual frozen DB stationary204\u2013252 and Web schedule15\u201339 pass matching values. No demonstrated bad DB writer. Public OrganizationAllocation::Scheduled can be recombined using ActivityMinutes(0) admitted by TryFrom0, even though parse forbids0+organization; private canonical aggregate construction should preserve zero iff absent and nonblank organization together. ValidatedSchedule private wrapper independently bounds total1440 and quarter-hour leaves; redistribution selects only available positive weights, bounded segment transfer conserves total and cannot overflowu16 under admitted day. No alternatives deliberately becomes leisure; reading remains untouched; fixed order/seed purpose preserved. Whole accepted schedule and organization eligibility remain distinct authority checks.",
+      "repair": "not started",
+      "validation": "source inspection only; no execution"
+    }
+  ],
+  "additional_bounded_receiving_support": [
+    {
+      "path": "crates/adventuresim-stdb-module/src/time/stationary.rs",
+      "revision": "13fc9dcc71ab879de364117e5462310673e43210",
+      "ranges": [
+        [
+          195,
+          270
+        ]
+      ],
+      "comparison": "Actual reducer builds matching array and tuple minutes, reconstructs row from plan owners and calls organization membership policy before update. No whole stationary-file credit."
+    },
+    {
+      "path": "crates/strategic-web/src/schedule.rs",
+      "revision": "13fc9dcc71ab879de364117e5462310673e43210",
+      "ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "comparison": "Actual validation caller uses matching minute inputs; normalization of blank optional organization is explicit Web ingress behavior. Effective/preview share ValidatedSchedule and location+Seed; no whole Web module fixture credit."
+    }
+  ],
+  "aliases": [
+    "CAMERA-INITIAL07-F017",
+    "Root03F005"
+  ],
+  "connected_acceptance": [
+    "One canonical schedule aggregate owns each organization amount once, total over actual retained owners; preserve quarter-hour/day and zero/absent association plus authoritative membership gates.",
+    "Explicit NoSurplusRecovery state replaces numerical infinity control sentinel without inventing maximum physical fatigue or disallowing valid zero recovery.",
+    "Preserve distinct leisure counting/span policy and documented rounded-income partition behavior; inspect actual receiving uses before changing."
+  ],
+  "new_unique_findings": [],
+  "discovery": "WITH findings and qualified API obligations; no clearance",
+  "repair": "not started",
+  "validation": "not run"
+}

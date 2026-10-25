@@ -1,0 +1,80 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-316",
+  "at": "2026-10-23T07:39:20.389750+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_foot_frame.rs",
+      "sha256": "646358891b65b2efa4bb01c0c6ee805b0c111adc1eff16949499a91436d131a5",
+      "scope070_index": 727,
+      "actual_EOF": 323,
+      "scoped_ranges_compared": [
+        [
+          1,
+          323
+        ]
+      ],
+      "actual05_comparison": "Fresh complete host and embedded shader source; foot-frame/ordered-reduction/section/cardinality/carrier ring-state relationships independently compared. No GPU/fixtures executed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_foot_sections.rs",
+      "sha256": "43e6ef537032e0b98f260630a6d174d8d9b13226c31ee172162a50b37e8fd131",
+      "scope070_index": 728,
+      "actual_EOF": 414,
+      "scoped_ranges_compared": [
+        [
+          1,
+          414
+        ]
+      ],
+      "actual05_comparison": "Fresh complete host and embedded shader source; foot-frame/ordered-reduction/section/cardinality/carrier ring-state relationships independently compared. No GPU/fixtures executed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_footwear_fit.rs",
+      "sha256": "a5ff6c930746498007808fb52e47a2ef6971347270a35ce8e0eeec3c03c77b1e",
+      "scope070_index": 729,
+      "actual_EOF": 284,
+      "scoped_ranges_compared": [
+        [
+          1,
+          284
+        ]
+      ],
+      "actual05_comparison": "Fresh complete host and embedded shader source; foot-frame/ordered-reduction/section/cardinality/carrier ring-state relationships independently compared. No GPU/fixtures executed."
+    }
+  ],
+  "groups": [
+    {
+      "id": "foot frame owns same side and ordered operation stages",
+      "comparison": "record_foot_frame resolves exact sideFoot andBall names against current host, uploadssameFoot-owner masks, bindsactualbody arrays/count andoneframe/status. Floor side xsign separatesbodyfloor notper-foot arbitrarypoint; ignoresNaNy via y==y but subsequentfinitebounds gate still needed. Fourkernelsfloor→orient→ownedbounds→finish useexplicit7orderedreduction sentinels. Exacthost_float helper sourceinjected withzero hook; body itself notinspectagainhere or assumednativeFPidentical withoutactuallowerhelperproof. Frame.finish validatesallused15words,axesorthonormalwithin.001,positiveextents beforeknownfailurebitscheckedbyreadcaller. Minimumradius genuineenvelopefloor distinctfromsectioncardinalityF061."
+    },
+    {
+      "id": "support masks and counts have a native capacity guard",
+      "comparison": "record_any_region_support explicitly regions.len<=32 beforebitshifts, eachmaskrowderivedsamehostjointnames, bits0..31 safe. Shaderloopsactualregionscount and8weights perbodyrow, thresholdperregion thenORbooleanresult; no rawsumofallregions incorrectlystrengtheningweight. Bufferbyteswidenvertex_count tou64 before×4/16. record_body_points writesactualcurrentframe-localposition plusfloatflagw, countsharedhost/uniform/dispatch. Raw count/nativebuffer and differenthost/devicecorrespondence remainpublicDeviceWearerF051, not solvedbybyteallocation."
+    },
+    {
+      "id": "footwear profile keeps distance bounds and radial scale together",
+      "comparison": "Profile48×6words allocatedfromsameconstants. Eachsectioninitialnearest+loxz=+Inf,hixz=−Inf,scaleordered1. NEAREST atomicmin choosesminheightdistance ofactualsupportedpoint; SLICE boundsallwithinnearest+.008; ENCLOSE atomicmaxsuperellipse scale overthosepoints, phaseorderrecordedthreebatchesdispatchedagainstsamepoints/count/bounds. Thus pointorder doesnotchangefinite extrema and allcurrentbounds+scale derivecurrentselectedsource. No supportedpoints leavesinitialsentinels; no explicitstatushere, laterfitcomparisoncanavoidmutationonNaN but notproofmeaningfulenvelope. Normalregionalinputpresence/finalpartacceptanceremainlowercontracts; notblanketframe-positiveimpliesallprofilesvalid."
+    },
+    {
+      "id": "measured sections and interpolation intentionally outward",
+      "comparison": "record_section_fit modeEnvelope bindsownbounds asunusedhems; modeLayer bindscapturedtwo-layerhems. FullfixedParams/pads matchgeneratedshader,firstcountcarriersgatedid<count. Samplingindexclamped<=46 thenneighbor+1<=47 whenfinite; smoothingthreeendpointclampedrows, sectioncenters+radiusweighted, constantpositive_MINradialextent+gaugeclearance. Envelope leavescentralsolefaninterior andonlyexpands0.001<normalized<1, notallcarriersprojectedtoperimeter;Layeronlyexpandsnormalized0..1withhemtransition. Deliberateonewayclearancepurpose, no mirror-surfaceidentityrequirement. Rawzeroaxialspan/nonfinite profile numeric case remains actualstageinputprecondition, notnormalbootfailure."
+    },
+    {
+      "id": "fairing uses coordinated scratch and temporal passes",
+      "comparison": "One256-laneworkgroup computesring_sizefromfirstcoplanarcarrierrowthenuniformload. Radiiscratchcount×8bytes equals2halvescountfloats,initialradiuswritesfirsthalf,64evenlockstepstoragebarrierpassesalternatehalves andfinalreadsfirsthalf. Adjacentrowsguardrow>=1,row+1<rings;onlyoutwardmaxnearhem, finalappliedonlypositivecurrentradius andlargernew. Invariants n>0,finitefirst-ringheight,size>0,uniformrowmembershipandintendedcountmultiple notprovedbythisrawhelper; actualDevicePartbootgenerator/unreadcarrierlayoutmustsupplythem. Guardedinnercomparisonshort-circuits size>=n, butnoextraactualpubliczero-countnormalclaim. No GPU scheduling/barrierexecutionasserted."
+    },
+    {
+      "id": "lower publication and numerical limits",
+      "comparison": "axial_boundspair allocatedcallerchosenrepeatcount andrecord_axial_bounds writespair×2;normalbootactual725 allocates1forpart/2forfixedlayersandusesmatchingindex. Generalrawpair/buffer combinationnotsealedbyBuffertype. Allmin/maxandFP operationsneedfiniteappropriateframe/pointinput; exactnativeorderedfloatandhost_floathelpersremainingowncells, notguessedimplementationcredit. Source-only APIcapacity/cardinality qualifiers preserved; no newuniqueordinaryfailure ornativepackagewaiver."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Exact boot DevicePart carrier row topology/nonempty count and profile-point validity/native finalpart acceptance remain source-specific obligations.",
+    "Native injected host_float/orderedfloat/helpers and generic Buffer/runtime behaviors not credited from references."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

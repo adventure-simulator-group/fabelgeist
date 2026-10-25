@@ -1,0 +1,87 @@
+{
+  "id": "CONT07-CONTRACT-655",
+  "at": "2026-10-24T01:19:18.231585+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1948,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation/support_obstacles.rs",
+      "sha256": "275490834d4f7a36140e5d3a0739f5ce80d5a731c9d261f5645675bd4647f624",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/generation/support_obstacles.rs",
+      "actual_EOF": 87,
+      "ranges": [
+        [
+          1,
+          87
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1887,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics/controller_config.rs",
+      "sha256": "56773ae80325116c0e2383940bec1f3f8a05d95d97a2c76596982c717b5dbc62",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/physics/controller_config.rs",
+      "actual_EOF": 18,
+      "ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1886,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics.rs",
+      "sha256": "14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/physics.rs",
+      "actual_EOF": 1738,
+      "ranges": [
+        [
+          86,
+          104
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1914,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input.rs",
+      "sha256": "bde515fc144669a9902a54886ded6185c84fca86313d86ca7c44ba0626e8ae12",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input.rs",
+      "actual_EOF": 1026,
+      "ranges": [
+        [
+          88,
+          147
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1591,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/rock.rs",
+      "sha256": "de412c389d20a623c0246c6408e57774ac07270681d32eaae84ea1baecf790ab",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/obstacles/rock.rs",
+      "actual_EOF": 319,
+      "ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Controller clearance source question closed for current installed controller: support_obstacles uses actual Ahoy CharacterController::default().move_and_slide.skin_width; tactical_character_controller overrides speed/acceleration/friction/gravity/step/slope but leaves same default skin, apply_motor_config never changes skin. This is reuse of native default owner, not duplicated handwritten skin constant or proved current mismatch. Arbitrary external custom native controller remains different explicit input, not ordinary producer.",
+    "Rock render/collision source question closed: RockField::sample78\u201384 intersects procedural shape with point.length()/recipeRadius\u22120.94. Client grid bounds also derive recipe collision radius; conservative sphere need not equal exact visible mesh. Independently authored dimensions/archetype affect shape within proxy, and this actual final field guard prevents ordinary outer-bounds disagreement. Do not infer zero-dimension/radius admission safety; separate invalid-leaf owner issue, no render/native execution."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": null
+}

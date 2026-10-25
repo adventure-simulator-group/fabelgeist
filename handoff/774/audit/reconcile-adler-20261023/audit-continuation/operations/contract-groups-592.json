@@ -1,0 +1,160 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-592",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/export.rs",
+      "sha256": "cc0dcb8aa0f608af65aa968955667894a687e4f44ef547919b421d7c3e1d2616",
+      "actual_EOF": 1819,
+      "actual_compared_ranges": [
+        [
+          1,
+          1819
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/shell.rs",
+      "sha256": "ff370d4ead428bf2bc7c6de55dcf2d22d7b358ab64054cac8e1ec34f71bda894",
+      "actual_EOF": 111,
+      "actual_compared_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "rig-quality:crates/adventuresim-tactical-client/examples/armor_browser_probe.rs",
+      "sha256": "c1c35c5512650985dc6cf1cba8545b9db2cb63b65c3b092424893541811b1453",
+      "actual_EOF": 231,
+      "actual_compared_ranges": [
+        [
+          1,
+          231
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Rigqualityexportnativeoperations retaingeometry/skin/topology/UVassociation andfiniteformatresults throughtrueglTFwireport.",
+      "evidence": "export1819/shell111/probe231fullbodiespersonallyread includingalltesttails. Buffer4alignmentpad0..3 andVecactualallocationownsresourcebounds; exportedfaceslen*3safeactualVec<[u32;3]>nativecapacity butGLBwordcapacityseparateglbwriterowner. Shellappend_viewsreturnsoneViewsentrypershellResult, zipWriterthereforecoherentactualproducer; optionalindependentskin handledbyactualvalidate. ExportmainvalidatesLODu84..6/counts/parentorder/u16joints/skinfinite-sum beforeviews, thennativejointlandmarks; missingjointconcreteErr. F64socketframe mathfromf32geometrywidensnorm/cross, rejectsunstableunitdirections; arbitraryglobalf64transform/matrix->f32overflowpolicy stillinputcontractquestion. Newpublicsocketandmaterialoperationcounterexamplesbelow.",
+      "qualifications": "No export/glTF/test/browser/GPUexecution. RIG-ADMISSION03-F015 fullwrapperrecord14 consumed (PRbodyposition/normalNaNpassescounts andwritesrawbytes), samegap remainsrigvalidatorbody; no newglobalunique. RIG03F027 inversebind family onlyrelated, no claimedexactderivedmatrixcounterexamplehere. Preservefirstcount/sourceerror andlegitimateemptyfaces/shell-onlyexport; nosealedunitnormalassumptionfromfiniteonly.",
+      "acceptance": "Onecoherentcheckednativeexportview/publicsocketview andderivedmaterial/matrixtarget-formatadmission beforebytes/outputeffects; exactfullwordjointmembershipandportablewordcapacity, preserveCM->metres/frame/UV/winding/FPpolicy."
+    },
+    {
+      "contract": "Browserarmorprobe measuresactualnativegeneration path withoutclaimingpassfromsourceassertions.",
+      "evidence": "Probe12cases*2rounds withboundedround count, actualgpuerrorcallbacklogsfirstpartydevicevalidation, generatedmesh nonempty/finite/allindices<positions, at leastone noncollapsedtriangle andnomorphs/newkernels afterreadiness. Length/3rawtrianglecount assumesgroup3 actualgenerator; no testexecution. cached_kernels subtractiononlyafterensureequal so no underflowactualpath.",
+      "qualifications": "No probe/build/run/GPUacceptance; sourceassertionsarediagnosticrequirements, notproofalltrianglesvalidarea orallphysicalclearances/renderedreadability. Examplecfgwasmexports maperrorsstringatnativeboundary, notnewbackenderrorhandlingpolicy. ExistinghistoricalDevicePiece/?staticmismatchsourcequalifiedmergedfix notcurrentbuildclaim.",
+      "acceptance": "Futureauthorizednativeacceptance mustusecurrentactualGPU/device, generatedproducts/completepipeline andvisualproof; retainbounded diagnostics andsamecatalogcases, never infermock/sourcepass."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-EXPORTED-SOCKET-INPUT-CANDIDATE-001",
+      "status": "source-backed bounded publicAPI counterexample; no malformedactualgeneratedcaller/run",
+      "operation": "Rigquality export.rs fitted_equipment_socket_from_uv ispublicResultAPI butdoesnotcallauthoritativevalidate; checksUVdomain/facecountthenindexesmeshskin/shellnormal/positions. PublicRiggedMesh/RiggedShellfields permitmismatchedarrays.",
+      "witness": "Validbodytriangle[0,1,2], validanatomicalUVtriangleandROOTjointskinweights1 pervertex, matching shell.faces trianglebut shell.normals empty. UVcontainsmidpoint andROOTisactualwaistsupport (exactregions106\u2013118). attachmentweight1passes. face.map shell.normals[vertex] panicsbeforeResultError. Bootstraphelper analogousshell.positions indexing occursbeforeexportgate.",
+      "qualifications": [
+        "ExistingRIG03F015 finitebodyexportadmission andRIG03F011 ClothingShellrefit areconnectedcanonicalgeometryownerdependencies, notidenticalfirstbadroute. No globalnewcount.",
+        "Actualexport_rigged_glb doesvalidate beforeitsownserialization, whichdoesnotestablishpreconditionforthepublicsockethelpercalledseparately.",
+        "OnlysafeRust/API-shapedmalformedinputclaimed, no authoredasset, GPU/renderfailure orcompilerexecution."
+      ],
+      "repair_cluster": "native-export-socket-surface-input-authority",
+      "dependencies": [
+        "publicborrowedRiggedMesh/RiggedShellcheckedcoherence",
+        "socketUVtopology/skinassociationbeforeindexedmath",
+        "existingexport/placeholder admittedgeometryowner"
+      ],
+      "acceptance": "Everypublicsocketresolutionroute receivesonecheckedcoherentbody+shell+UV/skinvieworrejectsmismatchbeforeindexing; preserveconcreteerrororder, realperLODtopology/UV/signedcoordinateandnormalpolicies."
+    },
+    {
+      "id": "SEGOVB-04-GLTF-COLOR-LINEARIZATION-CANDIDATE-001",
+      "status": "source-backed finitepublicinput arithmetic counterexample; ordinaryauthoredcolorboundunproven",
+      "operation": "exportvalidation shellbase_color onlyis_finite; Writerpasseslinear_base_color intojsonbaseColorFactor. linear_base_color f32powf2.4canoverflowfiniteinput; actualserde_json1.0.151 Valuefromnonfinite mapsNull.",
+      "witness": "Otherwisevalidexportableindependenttriangle shell withred=f32MAX, green/blue0,alpha1,finitePBRpassesvalidation. ((MAX+.055)/1.055)^2.4 ->Inf; serdeValue::from mapsInf toNull soemittedbaseColorFactor red isnull. No actualGLBwrite/run.",
+      "qualifications": [
+        "Existingcanonicalfabelgeist-color::Color/rawHDRpolicy Rig06F005 mustbepreserved; doNOTblanketclampallRGBA/HDRtoUnitInterval. SpecificglTFcolorfactorwirecontract/normalartistproducerboundmustbechosen.",
+        "Shippedmaterialpresets finite0..1 sourcehistoricalevidence; no ordinaryasset/configwithMAXclaimed.",
+        "ConnectedRIG03F015 exportfinitegeometrygate butthisisdifferentcomputedmaterialresult/targetformatport; no automaticglobaldedup/uniqueclaim."
+      ],
+      "repair_cluster": "gltf-material-derived-value-admission",
+      "dependencies": [
+        "canonicalColor/sourceHDRsemantics",
+        "actualglTFmaterialfactorcapability/policy",
+        "checkednativecomputedlinearizationbeforeJSONpublication"
+      ],
+      "acceptance": "Supportedcolorsproducevalidfiniteformatmaterialfactorsorstructuredrejectionbeforeoutput; nonfinitecomputedvaluecannot silentlybecomenull. PreservevalidsRGBtransfer/alpha/HDRcontexts independently; no arbitraryglobalrange restriction."
+    }
+  ],
+  "fresh_dependencies": [
+    {
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/rigged.rs",
+      "sha256": "2f337baa2edb2356e1f086aacf549696c63bfac639d03c5f0a9b564d675bb397",
+      "actual_EOF": 60,
+      "actual_compared_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "method": "Onlystatedrangespersonallyread; no fullcoverageunlessrangesreachactualEOF. Riggitexactcbbbca08c89a8768926799371f54cf6057312e5e. SerdeJSONcratec841b55e...matchesfrozenrigCargo.lockandactualmemberbytes; no otherSDKcoverage."
+    },
+    {
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/validation.rs",
+      "sha256": "61a7e389db804f2c17d7e619c27bb5bfc88f873f11e00d05097c85b6121518fb",
+      "actual_EOF": 164,
+      "actual_compared_ranges": [
+        [
+          1,
+          164
+        ]
+      ],
+      "method": "Onlystatedrangespersonallyread; no fullcoverageunlessrangesreachactualEOF. Riggitexactcbbbca08c89a8768926799371f54cf6057312e5e. SerdeJSONcratec841b55e...matchesfrozenrigCargo.lockandactualmemberbytes; no otherSDKcoverage."
+    },
+    {
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/clothing/regions.rs",
+      "sha256": "3819e9e4805a3004655e303c8a9e84b2d28892ea2d2b193ea9d094a31afc8f5a",
+      "actual_EOF": 162,
+      "actual_compared_ranges": [
+        [
+          104,
+          133
+        ]
+      ],
+      "method": "Onlystatedrangespersonallyread; no fullcoverageunlessrangesreachactualEOF. Riggitexactcbbbca08c89a8768926799371f54cf6057312e5e. SerdeJSONcratec841b55e...matchesfrozenrigCargo.lockandactualmemberbytes; no otherSDKcoverage."
+    },
+    {
+      "source_id": "pinned-registry:serde_json-1.0.151/src/value/ser.rs",
+      "sha256": "11f2b7daa1eba826d4086d5497f73729478dd7647bff77deccde5e47b0f126f2",
+      "actual_EOF": 1063,
+      "actual_compared_ranges": [
+        [
+          148,
+          158
+        ]
+      ],
+      "method": "Onlystatedrangespersonallyread; no fullcoverageunlessrangesreachactualEOF. Riggitexactcbbbca08c89a8768926799371f54cf6057312e5e. SerdeJSONcratec841b55e...matchesfrozenrigCargo.lockandactualmemberbytes; no otherSDKcoverage."
+    },
+    {
+      "source_id": "pinned-registry:serde_json-1.0.151/src/value/from.rs",
+      "sha256": "ae4b5f93b27e578fa40e3a8d25d0df2032fe40b680cddb15963e47cbd56db613",
+      "actual_EOF": 284,
+      "actual_compared_ranges": [
+        [
+          27,
+          52
+        ]
+      ],
+      "method": "Onlystatedrangespersonallyread; no fullcoverageunlessrangesreachactualEOF. Riggitexactcbbbca08c89a8768926799371f54cf6057312e5e. SerdeJSONcratec841b55e...matchesfrozenrigCargo.lockandactualmemberbytes; no otherSDKcoverage."
+    }
+  ],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "rig-quality:crates/fabelgeist-mhr/src/model.rs"
+}

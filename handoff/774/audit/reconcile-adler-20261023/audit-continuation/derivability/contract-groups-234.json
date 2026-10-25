@@ -1,0 +1,540 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-234",
+  "at": "2026-10-25T13:58:30.728339+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 461,
+      "source_id": "physical-p16:crates/strategic-web/src/routes/travel.rs",
+      "sha256": "64146fe8563b4e15f539d9f28b47f2380bcae0191509deca6956fff1468bc42c",
+      "actual_EOF": 696,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/strategic-web/src/routes/travel.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/strategic-web/src/routes/travel.rs",
+        "sha256": "64146fe8563b4e15f539d9f28b47f2380bcae0191509deca6956fff1468bc42c",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 25323,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 390,
+            "read_ranges": [
+              [
+                145,
+                180
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-ROUTE-SOURCE-054"
+            ],
+            "read_status": "scoped_digest_forwarder_and_native_forage_start",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/strategic-web/src/routes/travel.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-PURE8-SUBSET-PARTIAL-028",
+            "json_pointer": "/additional_actual_read_ranges_before_pause/5",
+            "source_id_as_recorded": "physical-p16:crates/strategic-web/src/routes/travel.rs",
+            "read_ranges_as_recorded": [
+              [
+                390,
+                535
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/strategic-web/src/routes/travel.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/strategic-web/src/routes/travel.rs",
+              "sha256": "64146fe8563b4e15f539d9f28b47f2380bcae0191509deca6956fff1468bc42c",
+              "fingerprint_status": "exact previously recorded source metadata",
+              "read_ranges": [
+                [
+                  390,
+                  535
+                ]
+              ],
+              "mode": "Fresh bounded actual source read before pause; exact ranges only, no fullmodule inference"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1268,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved",
+        "admission03_increment046_role_observations": [
+          {
+            "supplier": "rig",
+            "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+            "row_1based": 34,
+            "registration_id": "RIG-ADMISSION03-REGISTER-034",
+            "original_record": {
+              "id": "RIG-ADMISSION03-REGISTER-034",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "physical-p16:crates/strategic-web/src/routes/travel.rs",
+              "snapshot": "physical-p16",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\strategic-web\\src\\routes\\travel.rs",
+              "sha256": "64146fe8563b4e15f539d9f28b47f2380bcae0191509deca6956fff1468bc42c",
+              "actual_EOF": 696,
+              "material_ranges": [
+                [
+                  59,
+                  119
+                ],
+                [
+                  181,
+                  193
+                ],
+                [
+                  358,
+                  389
+                ]
+              ],
+              "reason": "Complete actual definition and operation envelopes for original scoped145\u2013180 digest/forage and390\u2013535 forecast recipient roles: public forecast/destination/source records59\u2013119, forage return181\u2013193, apply_terrain_route header/precedingbranch358\u2013389. Earlier fulltext inadvertentlydisplayed during lookup; this registration precedes explicit bounded admission analysis, doesnotclaim preread/unrelatedcredit.",
+              "exclusions": "Unrelated cachekey/asyncplan/questpresentation/fulltravel tests outside exact frozen145\u2013180/390\u2013535 plus these direct envelopes remain excluded.",
+              "status": "registered_before_bounded_actual_admission_analysis"
+            },
+            "local_qualifications": [],
+            "effective_material_ranges": [
+              [
+                59,
+                119
+              ],
+              [
+                181,
+                193
+              ],
+              [
+                358,
+                389
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\strategic-web\\src\\routes\\travel.rs",
+            "actual_EOF": 696,
+            "bytes": 25323
+          },
+          {
+            "supplier": "rig",
+            "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+            "row_1based": 35,
+            "registration_id": "RIG-ADMISSION03-REGISTER-035",
+            "original_record": {
+              "id": "RIG-ADMISSION03-REGISTER-035",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "physical-p16:crates/strategic-web/src/routes/travel.rs",
+              "snapshot": "physical-p16",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\strategic-web\\src\\routes\\travel.rs",
+              "sha256": "64146fe8563b4e15f539d9f28b47f2380bcae0191509deca6956fff1468bc42c",
+              "actual_EOF": 696,
+              "material_ranges": [
+                [
+                  47,
+                  54
+                ],
+                [
+                  292,
+                  302
+                ]
+              ],
+              "reason": "Actual TerrainPlanner privatefield declaration and onlynewfactory153\u2013160, plus actualforecast_minutes called444; necessary direct declaration/envelope for scoped145\u2013180/390\u2013535. Earlier incidentaldisplay uncredited, boundedpostregistration analysis only.",
+              "exclusions": "No other planner/cache/travel graph",
+              "status": "registered_before_bounded_actual_admission_analysis"
+            },
+            "local_qualifications": [],
+            "effective_material_ranges": [
+              [
+                47,
+                54
+              ],
+              [
+                292,
+                302
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\strategic-web\\src\\routes\\travel.rs",
+            "actual_EOF": 696,
+            "bytes": 25323
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          24,
+          54
+        ],
+        [
+          59,
+          193
+        ],
+        [
+          292,
+          302
+        ],
+        [
+          358,
+          545
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "TerrainPlanKey structural Eq/Hash already derive, cache Default already; forecast/destination/presentation records structural Default/Clone derive as appropriate.",
+      "absence_basis": "All registered union personally consumed plus exact key definition28\u201345, constructor127\u2013144 and cache fixture536\u2013545 immediate closure; material145 begins within TerrainPlanKey.new. No handwritten trait/serializer. Cache-key rounding/weather defaulting, planner admission, forecasts/terrain mutation and schedule projection are semantic inherent functions. Whole696-line role not claimed; exploratory547\u2013565 uncredited.",
+      "necessary_signature_extension": {
+        "additional_ranges": [
+          [
+            24,
+            46
+          ],
+          [
+            120,
+            144
+          ],
+          [
+            536,
+            545
+          ]
+        ],
+        "reason": "Actual reached key declaration/constructor beginning and last scoped fixture closure; no broad planner/fixture expansion."
+      }
+    },
+    {
+      "scope_index": 462,
+      "source_id": "physical-p16:crates/strategic-web/src/spacetimedb/client.rs",
+      "sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+      "actual_EOF": 273,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/strategic-web/src/spacetimedb/client.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/strategic-web/src/spacetimedb/client.rs",
+        "sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 8664,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 386,
+            "read_ranges": [
+              [
+                185,
+                222
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-ROUTE-SOURCE-054"
+            ],
+            "read_status": "scoped_complete_actual_HTTP_call",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/strategic-web/src/spacetimedb/client.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-038",
+            "json_pointer": "/fresh_current_source_reads/12",
+            "source_id_as_recorded": "physical-p16:crates/strategic-web/src/spacetimedb/client.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                273
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 576,
+              "source_id": "physical-p16:crates/strategic-web/src/spacetimedb/client.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/strategic-web/src/spacetimedb/client.rs",
+              "expected_sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+              "observed_sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+              "read_ranges": [
+                [
+                  1,
+                  273
+                ]
+              ],
+              "proof_mode": "Fresh full material source/fixtures read; identical-hash PR/P16 variants explicitly reconciled after byte fingerprints, preserving downstream role distinctions. Source only; no project execution.",
+              "read_status": "full-source-read-receiver-reconciliation-in-progress"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/camera/traces.jsonl",
+            "receipt": "CONT-CAMERA-PP-008",
+            "json_pointer": "/exact_source_proofs/12",
+            "source_id_as_recorded": "physical-p16:crates/strategic-web/src/spacetimedb/client.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                273
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 576,
+              "source_id": "physical-p16:crates/strategic-web/src/spacetimedb/client.rs",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\strategic-web\\src\\spacetimedb\\client.rs",
+              "sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+              "read_ranges": [
+                [
+                  1,
+                  273
+                ]
+              ],
+              "actual_line_count": 273,
+              "proof_origin": "RIG-PPS-038 exact full-source read, source-backed producer graph and original fixtures; current continuation independently verifies frozen bytes and joins receiving contracts. Not a new full-file read.",
+              "material_disposition": "Same exact client bytes as398, actual P16 source context reconciled for same HTTP/SATS/query/error roles; not automatic counterpart coverage.",
+              "disposition": "accounted-with-findings"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/rig/web-request-reconciliation-039.json",
+            "receipt": "RIG-CONT-PPS-WEB-REQUEST-RECONCILIATION-039",
+            "json_pointer": "/source_dispositions/12",
+            "source_id_as_recorded": "physical-p16:crates/strategic-web/src/spacetimedb/client.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                273
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 576,
+              "source_id": "physical-p16:crates/strategic-web/src/spacetimedb/client.rs",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\strategic-web\\src\\spacetimedb\\client.rs",
+              "sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+              "read_ranges": [
+                [
+                  1,
+                  273
+                ]
+              ],
+              "actual_line_count": 273,
+              "proof_origin": "RIG-PPS-038 exact full-source read, source-backed producer graph and original fixtures; current continuation independently verifies frozen bytes and joins receiving contracts. Not a new full-file read.",
+              "material_disposition": "Same exact client bytes as398, actual P16 source context reconciled for same HTTP/SATS/query/error roles; not automatic counterpart coverage.",
+              "disposition": "accounted-with-findings"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1266,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          273
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "SpacetimeError thiserror with exact native #[from] already; metrics Default/structural and client Clone derive already.",
+      "absence_basis": "Full273-line nativeHTTP/query adapter+fixtures consumed. SatsDeserializeOwned then checked TryFrom presentation, at-most-one-row guard, timers/atomicmetrics and reducer error parsing are semantic methods; no handwritten trait/serializer."
+    },
+    {
+      "scope_index": 463,
+      "source_id": "physical-p16:crates/strategic-web/src/spacetimedb/mod.rs",
+      "sha256": "a020d51bfbce659a44fe8f52c25124b01e77eb9659ef473bf76a4029e28ae130",
+      "actual_EOF": 136,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/strategic-web/src/spacetimedb/mod.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/strategic-web/src/spacetimedb/mod.rs",
+        "sha256": "a020d51bfbce659a44fe8f52c25124b01e77eb9659ef473bf76a4029e28ae130",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 5625,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 384,
+            "read_ranges": [
+              [
+                1,
+                48
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-ROUTE-SOURCE-054"
+            ],
+            "read_status": "scoped_native_option_serializer",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/strategic-web/src/spacetimedb/mod.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-038",
+            "json_pointer": "/fresh_current_source_reads/11",
+            "source_id_as_recorded": "physical-p16:crates/strategic-web/src/spacetimedb/mod.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                136
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 575,
+              "source_id": "physical-p16:crates/strategic-web/src/spacetimedb/mod.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/strategic-web/src/spacetimedb/mod.rs",
+              "expected_sha256": "a020d51bfbce659a44fe8f52c25124b01e77eb9659ef473bf76a4029e28ae130",
+              "observed_sha256": "a020d51bfbce659a44fe8f52c25124b01e77eb9659ef473bf76a4029e28ae130",
+              "read_ranges": [
+                [
+                  1,
+                  136
+                ]
+              ],
+              "proof_mode": "Fresh full material source/fixtures read; identical-hash PR/P16 variants explicitly reconciled after byte fingerprints, preserving downstream role distinctions. Source only; no project execution.",
+              "read_status": "full-source-read-receiver-reconciliation-in-progress"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/camera/traces.jsonl",
+            "receipt": "CONT-CAMERA-PP-008",
+            "json_pointer": "/exact_source_proofs/11",
+            "source_id_as_recorded": "physical-p16:crates/strategic-web/src/spacetimedb/mod.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                136
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 575,
+              "source_id": "physical-p16:crates/strategic-web/src/spacetimedb/mod.rs",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\strategic-web\\src\\spacetimedb\\mod.rs",
+              "sha256": "a020d51bfbce659a44fe8f52c25124b01e77eb9659ef473bf76a4029e28ae130",
+              "read_ranges": [
+                [
+                  1,
+                  136
+                ]
+              ],
+              "actual_line_count": 136,
+              "proof_origin": "RIG-PPS-038 exact full-source read, source-backed producer graph and original fixtures; current continuation independently verifies frozen bytes and joins receiving contracts. Not a new full-file read.",
+              "material_disposition": "SpacetimeDB module/re-export wiring and canonical error owner; no independent gameplay producer. All reached query/type/client bodies accounted in038.",
+              "disposition": "accounted-with-findings"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/rig/web-request-reconciliation-039.json",
+            "receipt": "RIG-CONT-PPS-WEB-REQUEST-RECONCILIATION-039",
+            "json_pointer": "/source_dispositions/11",
+            "source_id_as_recorded": "physical-p16:crates/strategic-web/src/spacetimedb/mod.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                136
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 575,
+              "source_id": "physical-p16:crates/strategic-web/src/spacetimedb/mod.rs",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\strategic-web\\src\\spacetimedb\\mod.rs",
+              "sha256": "a020d51bfbce659a44fe8f52c25124b01e77eb9659ef473bf76a4029e28ae130",
+              "read_ranges": [
+                [
+                  1,
+                  136
+                ]
+              ],
+              "actual_line_count": 136,
+              "proof_origin": "RIG-PPS-038 exact full-source read, source-backed producer graph and original fixtures; current continuation independently verifies frozen bytes and joins receiving contracts. Not a new full-file read.",
+              "material_disposition": "SpacetimeDB module/re-export wiring and canonical error owner; no independent gameplay producer. All reached query/type/client bodies accounted in038.",
+              "disposition": "accounted-with-findings"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1265,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          136
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "SatsUnitVariant",
+          "type": "BodyRegion / InterventionRoute / SurgeryProcedure",
+          "lines": [
+            [
+              53,
+              67
+            ],
+            [
+              69,
+              80
+            ],
+            [
+              82,
+              95
+            ]
+          ],
+          "disposition": "KEEP explicit owning nativeSATS schema-name classifiers. No available project derive for this custom trait proven; ordinary Serde classification cannot replace exact sum-record wire boundary and must not add serialization just to replace runtime classifier."
+        }
+      ],
+      "existing_derives": "Module reexports/native helpers; no local manual standard trait/Serde.",
+      "absence_basis": "Full136-line assembly/native options/unit-variant adapters+fixtures consumed. Sats some/none and single-key object encodings differ from ordinary Serde scalar/null/unit variants; semantic bridges retain exact names, no generated-client hand edits."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Strategic planning projections and generated-SATS boundary",
+      "disposition": "Existing mechanical derives sufficient; retain semantic cache/projection and exact custom schema classifiers.",
+      "acceptance": "Preserve weather/skill cache identity, native error sources, cardinality checks, bounds and SATS sum representation. No child/generatedSDK/body or other-lens coverage inferred; fixtures not run."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 464,
+    "source_id": "physical-p16:crates/strategic-web/src/spacetimedb/types.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

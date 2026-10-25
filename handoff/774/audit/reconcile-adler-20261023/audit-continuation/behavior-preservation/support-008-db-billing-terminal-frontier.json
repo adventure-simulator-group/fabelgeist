@@ -1,0 +1,27 @@
+{
+  "id": "CONT08-SUPPORT-008-DB-BILLING-TERMINAL",
+  "classification": "Additional actual receiver support for retained terminal-period saturation family; not newlyintroduced774 ornewunique",
+  "source": {
+    "scope_index": 1180,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence.rs",
+    "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+    "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/residence.rs",
+    "before_sha256": "df7d47666e333785437d381321a5e7b85cd6e4c453067c83f8d86ea00a30ce35",
+    "after_sha256": "df7d47666e333785437d381321a5e7b85cd6e4c453067c83f8d86ea00a30ce35",
+    "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1180-base-df7d47666e333785437d381321a5e7b85cd6e4c453067c83f8d86ea00a30ce35",
+    "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/df7d47666e333785437d381321a5e7b85cd6e4c453067c83f8d86ea00a30ce35",
+    "diff": "source-evidence/pr-1180.diff",
+    "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "ranges": [
+    [
+      849,
+      940
+    ]
+  ],
+  "related_existing": "ROOT-INITIAL04-F046; root confirms exact family support, no new regression/unique",
+  "witness": "Source-conditional API state: valid activeholding next_due=StrategicMinute::MAX, actorpersonalnowMAX, canonicalpositiveperiodcharge c with unchangedresidentpopulation and funds2c. Firstpaid records(holding,MAX,paid), subtractsc, next_due saturatesMAX. Seconditeration sameholding: receiptalreadyexists skippedinsert but stillsubtractsc; thirdunpaid recordsunpaid andDormant. Singleterminalperiodchargedtwiceinonecall despiteonepaidreceipt. No database/numerical execution.",
+  "normal_qualification": "No ordinaryMAXclock/time policy supplied; abstractterminalAPI witness only, no nonterminaldefaultregression. Existing coreF046 witness distinct location but common explicitexhaustedbillingfrontier remedy.",
+  "connected_acceptance": "Canonical nextbilling outcome must distinguish exhausted/nonprogressing terminalfrontier; receipt retries cannot reapply sameperiod, preserve due/idfairness, actualonce-onlydebit and historicalunpaid/recovery/owner/renter semantics. No globalheadroombound orcompatpath inferred."
+}

@@ -1,0 +1,34 @@
+{
+  "at": "2026-10-25T18:42:33.139986+00:00",
+  "lens": "aggregate-states",
+  "source": {
+    "index": 169,
+    "source_id": "native-dependency:bevy_time-0.19.1/src/fixed.rs",
+    "sha256": "c3e4e4bee5d4cdde83d23e3016d7c8532b2ca00f98fbea93f34c23d316bfb963",
+    "ranges": [
+      [
+        70,
+        108
+      ],
+      [
+        116,
+        180
+      ]
+    ],
+    "package_checksum": "f6896d83d7ed32a2f89da127b7aeddf01eb702e603897cf5ddac231480a1870e"
+  },
+  "actual_read_ranges": [
+    [
+      70,
+      108
+    ],
+    [
+      116,
+      180
+    ]
+  ],
+  "contract_trace": "Pinned native Time<Fixed> retains timestep and overstep as Duration; from_duration calls set_timestep, rejects native ZERO before replacing timestep. from_hz validates finite positive frequency then uses f64 reciprocal to set_timestep_seconds -> Duration::from_secs_f64 -> same set_timestep. Native nanosecond representability is separate from application finite-positive frequency and no matching application progress/frequency aggregate is provided by this external type.",
+  "disposition": "Bounded native interface qualification only. Keep admitted application interval/frequency and deliberate f64 calculation until exact native Duration boundary; no rewrite of Bevy internals or new wrapper for its own Duration fields. Own08 handles actual old/new error-order/equivalence. No source-role increment, no other-lens/full367file credit.",
+  "repair": "No independent native library repair; actual capture producer admission dependency retained in own08 trace.",
+  "validation": "not_run"
+}

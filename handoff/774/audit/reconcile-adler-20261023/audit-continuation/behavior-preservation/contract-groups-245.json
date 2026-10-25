@@ -1,0 +1,310 @@
+{
+  "id": "CONT08-CONTRACT-245",
+  "at": "2026-10-25T15:10:18.595398+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 941,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/item_catalog_validation.rs",
+      "before_sha256": "df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+      "after_sha256": "df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0941-base-df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+      "diff": "source-evidence/pr-0941.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          2053
+        ]
+      ],
+      "head_body_read_method": "Fresh full941/944/945/947; prior exact complete own08 bodies reused forremaining rows plus complete actual PR diffs.",
+      "facts": [
+        "Fresh full2053 in contiguous1\u2013400/401\u2013820/821\u20131240/1241\u20131660/1661\u20132053 reads; actual PR diff empty. Strict duplicate-key visitor/finiteJSONnumber\u2192Value, bounded source/doc/item/diagnostics128 truncation, crossdocument duplicateIDs andtypedItemCatalogDocument crosscheck retain exact diagnostic/error order andsource-coordinate formatter. No validator execution.",
+        "New939AnimationPackId still accepts exactString population; unchanged validate_weapon safevalid_id rejectsbadpack beforetypedcrosscheck, so ordinarycatalogueacceptedpack populationnotnarrowed. Shieldblock andsurfacecoverage explicitpositive_f32 helper943/945 protectstorageunderflow; dimensions/grip/tangent f64 checksdistinct andnotblanketf32safe. SamepreexistingAPIpolicy, no new08finiteguarantee.",
+        "Carry(hand_onlyroot-vssheathparent), physical/protection/material, occupancy andsurfacecallorder, weaponmode/skillweights, durability/food/alcohol/container/bookfamily checks unchanged. Doesnotreplaceactualgeneratedweaponrecipe admission orSDKreceivingproof. Alloriginalstructured diagnostics/typedoverflow/sourcecoordinates/book/side/UVpair/carry/subnormaloracles readnotrun."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 944,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+      "before_sha256": "9cb076d4f2ff85b5932981983e2eeea82850c8b40b647948ca400bd4d00aad51",
+      "after_sha256": "9cb076d4f2ff85b5932981983e2eeea82850c8b40b647948ca400bd4d00aad51",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0944-base-9cb076d4f2ff85b5932981983e2eeea82850c8b40b647948ca400bd4d00aad51",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/9cb076d4f2ff85b5932981983e2eeea82850c8b40b647948ca400bd4d00aad51",
+      "diff": "source-evidence/pr-0944.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          185
+        ]
+      ],
+      "head_body_read_method": "Fresh full941/944/945/947; prior exact complete own08 bodies reused forremaining rows plus complete actual PR diffs.",
+      "facts": [
+        "Freshfull185/emptyactualPRdiff. ParentRequirement andLayerPrecedence typedparse delegates preserveactualenumfield policy; occupancy validateslocation/channel before typedoptional, fitzonescope, singletonorder0 andu16max/conflicts via938 includingwholezone semantics. Invalidtyped requirement maynotpopulate conflictlist buthigher941typedwhole-documentcheckremains; notnew bypassregression or standalonevalidatorcompleteadmission claim. Originalzone/disjoint/duplicatewholelimbfixtures readnotrun."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 945,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_surface.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/item_catalog_validation_surface.rs",
+      "before_sha256": "1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b",
+      "after_sha256": "1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0945-base-1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b",
+      "diff": "source-evidence/pr-0945.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          219
+        ]
+      ],
+      "head_body_read_method": "Fresh full941/944/945/947; prior exact complete own08 bodies reused forremaining rows plus complete actual PR diffs.",
+      "facts": [
+        "Freshfull219/emptyactualPRdiff. Requirednonemptyarmor/clothing spans/material, sumregionsegments<=16, exact15regionroster/proximalchain/placementprotectedbodypart, anchorserde thenpositive_f32coverage<=1 orderunchanged. Accessoryunprotectedspans intentionallyallowed, regionchainretainsdirection. Actual937 weightedcoverageprojection consumedsamepopulation; originalsubnormal/overflowfixtures readnotrun."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 947,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_references/gameplay.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/item_references/gameplay.rs",
+      "before_sha256": "5ea6b74abe83e50e450510c6e28499ad7597e7dddf14a93428184b5ece767263",
+      "after_sha256": "5ea6b74abe83e50e450510c6e28499ad7597e7dddf14a93428184b5ece767263",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0947-base-5ea6b74abe83e50e450510c6e28499ad7597e7dddf14a93428184b5ece767263",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/5ea6b74abe83e50e450510c6e28499ad7597e7dddf14a93428184b5ece767263",
+      "diff": "source-evidence/pr-0947.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "head_body_read_method": "Fresh full941/944/945/947; prior exact complete own08 bodies reused forremaining rows plus complete actual PR diffs.",
+      "facts": [
+        "Freshfull30/emptyactualPRdiff. Runtimecrosscatalogue reference vector startsmandatoryIDs thencurrency theninterventionpreparation thenactualquestmonsterloot;937validate_referencesreceivessameopenquestpopulation/no secondmonsterroster. MapmissingIDserrorstructunchanged; source-only no embeddedcataloguerun."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 949,
+      "source_id": "pr-working:crates/adventuresim-core/src/leadership.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/leadership.rs",
+      "before_sha256": "0fb805b67bc7cb231e00841a0fc40b44ddd96f52a54c08fe16f434e9435daf53",
+      "after_sha256": "0fb805b67bc7cb231e00841a0fc40b44ddd96f52a54c08fe16f434e9435daf53",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0949-base-0fb805b67bc7cb231e00841a0fc40b44ddd96f52a54c08fe16f434e9435daf53",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/0fb805b67bc7cb231e00841a0fc40b44ddd96f52a54c08fe16f434e9435daf53",
+      "diff": "source-evidence/pr-0949.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "head_body_read_method": "Fresh full941/944/945/947; prior exact complete own08 bodies reused forremaining rows plus complete actual PR diffs.",
+      "facts": [
+        "Own030/source117 full89 sameSHA08proof reused; actualPRdiffempty. Livingmembership/tally/thresholdinclusive66%alive-orhalfdead/highesttally-lowestID/incumbentno-threshold retained; repeatedvotertuples notnew08bug andactualballotproducerindependent."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 950,
+      "source_id": "pr-working:crates/adventuresim-core/src/lib.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/lib.rs",
+      "before_sha256": "ac9e45a8c2f172ebe2ad346c44e0032bf957e2ac685430e19f062fc3e2d33bdb",
+      "after_sha256": "fd09a838f8cfdd2da3d48800fe56d9bbfad7e9ad5556ba696be7908b4a000c2a",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0950-base-ac9e45a8c2f172ebe2ad346c44e0032bf957e2ac685430e19f062fc3e2d33bdb",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/fd09a838f8cfdd2da3d48800fe56d9bbfad7e9ad5556ba696be7908b4a000c2a",
+      "diff": "source-evidence/pr-0950.diff",
+      "diff_sha256": "02c78edcc456381b16f02e06c6ca22401b2ec5a4b2b21f51dcfa75b64af7b15e",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "head_body_read_method": "Fresh full941/944/945/947; prior exact complete own08 bodies reused forremaining rows plus complete actual PR diffs.",
+      "facts": [
+        "Own030/source118 full138sameSHA08proof reused plusentire60lineactualPRdiff consumed. Exposesnewanimationpack/battle_time/elapsed/equipment_assets/linear_speed/unitinterval modules andpreludespeedtypes, noexistingmodule/API familyremoved. Individualmodulebodies/pinnederrorsemantics accountedseparately; no compile/name-resolutionclearance frommodulelist."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 955,
+      "source_id": "pr-working:crates/adventuresim-core/src/mission.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/mission.rs",
+      "before_sha256": "998416982a504559c519dabf8fecf7612eb946283441b9644c073ac500a62e62",
+      "after_sha256": "998416982a504559c519dabf8fecf7612eb946283441b9644c073ac500a62e62",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0955-base-998416982a504559c519dabf8fecf7612eb946283441b9644c073ac500a62e62",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/998416982a504559c519dabf8fecf7612eb946283441b9644c073ac500a62e62",
+      "diff": "source-evidence/pr-0955.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "head_body_read_method": "Fresh full941/944/945/947; prior exact complete own08 bodies reused forremaining rows plus complete actual PR diffs.",
+      "facts": [
+        "Own030/source120 full106sameSHA08proof reused; actualPRdiffempty. Terminalreceiptidmacro/wire/limits/bound-vsunboundhostiles/victor/resolution same; constructor-vsderivedSerde qualificationretained. Strategicconsequence notpersistenttransientticks; actualmissionentryadaptersremainownroles."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 956,
+      "source_id": "pr-working:crates/adventuresim-core/src/mission/enemy_roster.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/mission/enemy_roster.rs",
+      "before_sha256": "c83ace93cc95cb243c86bf6bc02bea9954953b433db0ab7790ea890ac7251642",
+      "after_sha256": "c83ace93cc95cb243c86bf6bc02bea9954953b433db0ab7790ea890ac7251642",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0956-base-c83ace93cc95cb243c86bf6bc02bea9954953b433db0ab7790ea890ac7251642",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/c83ace93cc95cb243c86bf6bc02bea9954953b433db0ab7790ea890ac7251642",
+      "diff": "source-evidence/pr-0956.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "head_body_read_method": "Fresh full941/944/945/947; prior exact complete own08 bodies reused forremaining rows plus complete actual PR diffs.",
+      "facts": [
+        "Own031/source121 full96sameSHA08proof reused; actualPRdiffempty. Enemynonempty/u32cardinalitythenunique/errororder/sourceorder privatevector/count retained; notmistakenlyparty16cap. No allmissionlaunchclearance."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 957,
+      "source_id": "pr-working:crates/adventuresim-core/src/mission/roster.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/mission/roster.rs",
+      "before_sha256": "2b4baf6c921fd489d497a5f002c8ee5a84e48014c6932e1bd4153754501759dd",
+      "after_sha256": "2b4baf6c921fd489d497a5f002c8ee5a84e48014c6932e1bd4153754501759dd",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0957-base-2b4baf6c921fd489d497a5f002c8ee5a84e48014c6932e1bd4153754501759dd",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/2b4baf6c921fd489d497a5f002c8ee5a84e48014c6932e1bd4153754501759dd",
+      "diff": "source-evidence/pr-0957.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          91
+        ]
+      ],
+      "head_body_read_method": "Fresh full941/944/945/947; prior exact complete own08 bodies reused forremaining rows plus complete actual PR diffs.",
+      "facts": [
+        "Own031/source122 full91sameSHA08proof reused; actualPRdiffempty. Partyempty\u2192max16\u2192duplicatevalidation/sourceorder/privatevector/nonzerocount unchanged; actualSDKcapturedmembershipindependent. Originalfixturesnotrun."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 958,
+      "source_id": "pr-working:crates/adventuresim-core/src/morale.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/morale.rs",
+      "before_sha256": "f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+      "after_sha256": "f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0958-base-f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+      "diff": "source-evidence/pr-0958.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          527
+        ]
+      ],
+      "head_body_read_method": "Fresh full941/944/945/947; prior exact complete own08 bodies reused forremaining rows plus complete actual PR diffs.",
+      "facts": [
+        "Own031/source123 full527sameSHA08proof reused; actualPRdiffempty. Moraleeventwire/thresholds/nativepositivefilterdescendingharmonic/negativewillmitigation/fervorstrictroll/ageexpiry/masterydecay source law retained. No newtacticalhiddenpool/persistentticks; actualsocial/DBrecordersstillpendingexactreceivers."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 959,
+      "source_id": "pr-working:crates/adventuresim-core/src/npc_policy.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/npc_policy.rs",
+      "before_sha256": "51c449efd5edf6380249bcc04ebf5a9a38cc9a1f20cab731e2bf80d6b958e18a",
+      "after_sha256": "51c449efd5edf6380249bcc04ebf5a9a38cc9a1f20cab731e2bf80d6b958e18a",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0959-base-51c449efd5edf6380249bcc04ebf5a9a38cc9a1f20cab731e2bf80d6b958e18a",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/51c449efd5edf6380249bcc04ebf5a9a38cc9a1f20cab731e2bf80d6b958e18a",
+      "diff": "source-evidence/pr-0959.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          296
+        ]
+      ],
+      "head_body_read_method": "Fresh full941/944/945/947; prior exact complete own08 bodies reused forremaining rows plus complete actual PR diffs.",
+      "facts": [
+        "Own031/source124 full296sameSHA08proof reused; actualPRdiffempty. Courtshipformalprecedence/candidateidentity+seedconflict/dedup/hashrankIDtie/cap16/schedule15min/nativehousingcap unchanged. Terminalu64saturatingAPIqualificationpreserved, no new08normalclockclaim."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 960,
+      "source_id": "pr-working:crates/adventuresim-core/src/organization.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/organization.rs",
+      "before_sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+      "after_sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0960-base-cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+      "diff": "source-evidence/pr-0960.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          1251
+        ]
+      ],
+      "head_body_read_method": "Fresh full941/944/945/947; prior exact complete own08 bodies reused forremaining rows plus complete actual PR diffs.",
+      "facts": [
+        "Own034/source125 full1251sameSHA08proof reused; actualPRdiffempty. Organizationcatalogue/role/practice/reward/defaults/lookupfirst/addresspriority/promotion/privileges/servicevenue andrepresentativehash unchanged. Actualrewardpreview/DBassociationreceiversnotcleared bysamebody orsourceincludeassertions; originalfixturesnotexecuted."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    }
+  ],
+  "next": "948knowledge1330 then951life_simulation552/953local_problem865/954material1869/961validation986"
+}

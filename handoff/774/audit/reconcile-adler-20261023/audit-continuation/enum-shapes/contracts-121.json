@@ -1,0 +1,23 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-121",
+  "lens": "audit-enum-shapes",
+  "groups": [],
+  "extra_sources": [
+    {
+      "source_id": "pr-working:crates/strategic-web/src/routes/party_actions.rs",
+      "pin": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "061c7eda69f59c154573d983af84afe85c6aae215d4b4385473bd2331fa701ac",
+      "ranges": [
+        [
+          1,
+          355
+        ]
+      ],
+      "registration": "SEGO-INITIAL09-REGISTRATION-121A",
+      "outside_frozen_scope": true
+    }
+  ],
+  "comparison": "Full exact canonical PartyAction355 read after121A registration and git blob provenance. Closed internally tagged enum already owns action-specific identities and payloads; reducer mapping matches once and binds current approving actor at dispatch. The separate kind() strings intentionally form coarser UI/request groups: both TravelToSettlement and TravelToCaseSite map to travel, unlike distinct serialized action tags. Therefore do not demand action_kind equal serialized discriminator, invent a parallel PartyActionKind enum or mark current grouping mismatched from names alone. Root request producer serializes kind/summary/payload from same action coherently; persisted/native admission still needs its own source. Broad planned_travel_call only handles those two canonical variants; avoiding repeated selection could directly pass destructured existing payload, not require duplicate TravelAction taxonomy. save_role is independent retained creation intent about template saving, not role lifecycle flag; actual native owner/callers untraced, no new09 finding here. RoleRequirements has independent capability axes, no inferred exclusive melee/ranged/heavy mode. All existing normal and source fixture qualifications retained.",
+  "new_findings": [],
+  "limits": "Extra fifth source only, not added to2853 denominator. No source edits/checks/tests/plan/clearance. Resume2390 unchanged."
+}

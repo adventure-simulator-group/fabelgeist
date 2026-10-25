@@ -1,0 +1,58 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-464",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/tests.rs",
+      "sha256": "61a75136cb8f74dc15d82067001e779adb530856156117c3a1a8502dfe23493c",
+      "actual_EOF": 361,
+      "actual_compared_ranges": [
+        [
+          1,
+          361
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/views.rs",
+      "sha256": "ccf553eb553150d9800d83d4f17b763f19de8547e3b57b46a9486a0782c330a9",
+      "actual_EOF": 398,
+      "actual_compared_ranges": [
+        [
+          1,
+          398
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/visibility.rs",
+      "sha256": "09366b1705b726c94763a99aaa47ffd35ccd1874b93bc11150436a9c8210595e",
+      "actual_EOF": 214,
+      "actual_compared_ranges": [
+        [
+          1,
+          214
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Camera projection and inherited environment",
+      "analysis": "All361/398/214line bodies read. Current person_view has fixednear/far/FOV and typedstaginganchor/facing; retainedsignature rect/transform/equipment omits projection/layers but current generated portraitprojectionfixed and personlayerstable. StreetFOV dependswidth/height andstreettransform, needexactchangedcameraexample beforedeclaring cachecollision. sync_environment copieschangedcurrent sky/exposure/fog; optional environment/atmosphere removals are not reflected by Some.is_changed checks, conditional owner-removal question pending actualproducer. Fixedcamera projections and nativewindowclipping preserveviewportextent. HistoricalPRfixture front:Vec3::ZERO type mismatch is corrected in13fc9dcc toPosition::from_metres(...).unwrap; sourcecomparisononly, notcurrentbuilddefect."
+    },
+    {
+      "contract": "Per-view visibility and installation latch",
+      "analysis": "Farplane filters eachactivecamera actualAABB independently, preservesaggregateViewVisibility/shadows. Installation gate rootchange clearslocalopened beforeusingpriorstatus, lateronceopened staysopen intentionalduringweatherrebake. Explicitregionalmapexcluded. Actualboundedfixture and103personlayerpolicy read, no GPU/render/testexecution claimed."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/world.rs"
+}

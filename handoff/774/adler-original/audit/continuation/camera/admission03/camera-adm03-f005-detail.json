@@ -1,0 +1,31 @@
+{
+  "id": "CAMERA-ADM03-F005",
+  "at": "2026-10-22T06:19:05.435691+00:00",
+  "classification": "admission_defect: positive source dimension lost at target representation",
+  "contract": "CAMERA-ADM03-026",
+  "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation.rs",
+  "sha256": "df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+  "actual_source_ranges": [
+    [
+      269,
+      273
+    ],
+    [
+      682,
+      727
+    ]
+  ],
+  "invariant": "Equipment physicaldimensions eachfinitepositive metre axis, accordingto actualmaingate690\u2013701; genericCuboidDimensions deliberatelyallowszero inothercontexts.",
+  "all_admission_routes_and_failed_gate": "Main sourcepredicate checks f64finite>0 thenfinal typedItemCatalogDocument from_value269 convertsPRphysicaldimensions to raw[f32;3], P16customphysicalserde1\u201318 decodes[f32;3] thenzero-validgenericCuboid. Rig registeredactualserde_core229/serde_json151 Value\u2192Number\u2192f32PrimitiveVisitor casts f64, permitting underflow0; eachactualschema/context independentlycompared. No positive axis recheck aftertargetconversion.",
+  "conceptual_counterexample": "Authoredfinitepositiveaxis1e\u2212100 passesf64positivecheck, convertsf32zero, thenPRarray/P16genericCuboid acceptszero. Existingmain1499\u20131524shieldblocksourceexample alreadycapturesidenticaltarget-underflowissueandpositive_f32_inhelper solvesitforblock; no newcase/testexecution.",
+  "actual_dependency_witness": {
+    "record": "continuation/rig/admission03/catalogue-schema-receiver-witness-001.json",
+    "sha256": "c154e61d2167e921b2d34d29099e9c11db5a37ca25f5f401843477e18d435bf7",
+    "id": "RIG-ADMISSION03-CATALOGUE-SCHEMA-WITNESS-001"
+  },
+  "current_semantic_comparison": "Actual PRmaindimensionpredicate andcomplete main typeddecode route compared to exactcurrent PRnativearray/P16checkedCuboiddecoder plus actual lockedSerde conversion source facts. A validzeroCuboid is not evidence ofpositiveequipmentrole. Genericowner verdictneverusedtoassertpositivity.",
+  "earliest_connected_repair": "Enforce equipment-axis positive finite targetf32 afterrepresentationconversion, reusingexactexistingpositive_f32_inadmissionpolicy orcoherentpositiveequipmentdimensionowner. PreservegenericCuboidzero point/linevalidity; rejectunrepresentablepositive sourcevalue insteadclampingminimum orsilentlyconstructingflatphysicalextent. Composeauthoritativebuild/runtime/directcompiledcatalogueroutes.",
+  "acceptance": "Targetzero/negative/nonfiniteaxesreject; smallestpositivef32axisremainsvalid; source precision/targetcast/order/errorlocation preserved. No broadfinite/signnarrowing foranchoroffset orzero-validgripdistance.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

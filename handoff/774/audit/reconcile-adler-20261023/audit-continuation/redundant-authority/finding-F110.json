@@ -1,0 +1,53 @@
+{
+  "id": "CONT07-F110",
+  "lens": "audit-redundant-authority",
+  "classification": "source-confirmed public recipe policy mismatch; ordinary Look image-mask producer absent",
+  "title": "GPU interpolation silently substitutes uniform density for a valid image mask",
+  "sources": {
+    "2300": [
+      [
+        177,
+        237
+      ],
+      [
+        266,
+        288
+      ]
+    ],
+    "2286": [
+      [
+        118,
+        179
+      ],
+      [
+        654,
+        750
+      ]
+    ],
+    "CONT07-REG-024": [
+      [
+        1,
+        22
+      ]
+    ],
+    "CONT07-REG-022": [
+      [
+        114,
+        226
+      ]
+    ]
+  },
+  "fact": "One Groom/Interpolate recipe is accepted by bothCPUandGPU paths, but CPU applies DensityMask::Image while GPU match maps every non-Balding value to uniform. Interpolation::find imposes no supported-policy restriction.",
+  "counterexample": "Wellformed1x1 image values[0], countpositive, patchiness=edge0, keep_guidesfalse, nonemptywellformedscalp+guides:CPUretainpredicate dropsallroots, GPUrootskeep_here starts1andremains1soallcandidateflagskept. NoGPUexecution or specificordinaryLooktrigger asserted.",
+  "limits": [
+    "Normal Look.groom builds Uniform/Balding only; directpublicGrow recipe input is the established ingress.",
+    "CPU/GPU root sampling intentionally differs; finding targets ignored admitted policy, not exactpointwiseidentity.",
+    "GPU may fail forindependentdevice/resourceissues first; native successful execution is conditional, but nohostmaskgate restores image semantics."
+  ],
+  "suggested_connected_remedy": "One authoritative supported interpolation recipe contract beforeCPU/GPUexecution; preserve image semantics or explicitly reject unsupported image policy instead of silently changing it. Trace other fields separately.",
+  "acceptance_contract": "A valid allzero image cannot produce accepted uniformlydenseGPUgroom; maskshape/admission andempty-result policies explicit.",
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "coordinator_dedup": "Exactalias confirmed by behavior09 owner reconcile_engine; independent07sourceproof/coverage retained; do not addglobalunique",
+  "global_alias": "SEGO-INITIAL09-F080"
+}

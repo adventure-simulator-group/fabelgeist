@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1303",
+  "at": "2026-10-25T18:25:00.279427+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1368,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion.rs",
+  "sha256": "7e4b80c439d05e7d13d360b80fcda7a4a10e6e8380d0889198f514dce0df962b",
+  "actual_compared_ranges": [
+    [
+      1,
+      300
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "OrdinaryLocomotionIkState Component Debug Clone Copy Default; PelvisShiftState Debug Clone Copy Default Pending already. All impls inherent current-geometry/tick/pelvis state advance; native support classifier/system uses current rig/frame/resources and checked physical errors. No handwritten trait/codec in exact slice.",
+  "first_unfinished": {
+    "scope_index": 1368,
+    "line": 301
+  },
+  "execution": "none"
+}

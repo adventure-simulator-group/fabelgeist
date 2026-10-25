@@ -1,0 +1,111 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-199",
+  "at": "2026-10-23T04:51:55.512782+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/disease.rs",
+      "sha256": "c001a52a7bb957260ae3914ca056d847292760b5911984791143b8a4a1ede2e5",
+      "scope059_index": 193,
+      "actual_EOF": 2950,
+      "scoped_ranges_compared": [
+        [
+          1,
+          2950
+        ]
+      ],
+      "actual05_comparison": "Fresh PRfull2950 sixboundeddisplays inclallconditionalhelpers/fixtures; completeactualP16diffpersonallycompared sevenResultsignatures+realpurchasehelperdelta, no loweraliascarry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease.rs",
+      "sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+      "scope059_index": 1093,
+      "actual_EOF": 2950,
+      "scoped_ranges_compared": [
+        [
+          1,
+          2950
+        ]
+      ],
+      "actual05_comparison": "Fresh PRfull2950 sixboundeddisplays inclallconditionalhelpers/fixtures; completeactualP16diffpersonallycompared sevenResultsignatures+realpurchasehelperdelta, no loweraliascarry."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/disease/exposure_sources.rs",
+      "sha256": "fd65f1ffe87f35659e8ebfa0216668ba5e1c17373d94539901cf36bab248c81b",
+      "scope059_index": 195,
+      "actual_EOF": 77,
+      "scoped_ranges_compared": [
+        [
+          1,
+          77
+        ]
+      ],
+      "actual05_comparison": "FreshPRfull77+completeactualP16diffempty, currentrolecomparison: samesettlementquery, stableoutbreakstart/ID+problemIDorder/cap; parsedDiseaseId/rawoutbreakinterval/intensity; localmitigation<10000 provesnewexpect, resolvedendmin. Parentdiscardsnonpositivewindow; nofiniteintensitypromise."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/exposure_sources.rs",
+      "sha256": "fd65f1ffe87f35659e8ebfa0216668ba5e1c17373d94539901cf36bab248c81b",
+      "scope059_index": 1095,
+      "actual_EOF": 77,
+      "scoped_ranges_compared": [
+        [
+          1,
+          77
+        ]
+      ],
+      "actual05_comparison": "FreshPRfull77+completeactualP16diffempty, currentrolecomparison: samesettlementquery, stableoutbreakstart/ID+problemIDorder/cap; parsedDiseaseId/rawoutbreakinterval/intensity; localmitigation<10000 provesnewexpect, resolvedendmin. Parentdiscardsnonpositivewindow; nofiniteintensitypromise."
+    }
+  ],
+  "contract_groups": [
+    {
+      "id": "durable row versus admitted clinical aggregate",
+      "comparison": "InfectionEpisodeRow/Administration/Outbreak/CommittedCut raw public fields/native schema do not seal whole products. episode823 checks ruleset/phenotype versions and DiseaseId, then copies same row. character_episodes851 filters exact character column, normal DB query PK IDs unique. intervention_rows1723 filters patient and adapter179 readmitsDose/ruleset. These actual loaders close canonical patient/member grouping; arbitrary raw slices remain broader."
+    },
+    {
+      "id": "gateway and chart observer authority",
+      "comparison": "Chart/admin views require strategic gateway sender equality. Key initialization32 bytes fromfouru64/version; key lookup checks version not arbitrary stored length. Chart spans cap1024 then sort; patientepisodes/admin cap256 then decode, malformedstored rows omitted inview but authoritative loader fails. Bounded incomplete public projection is intentional, not complete diagnosis. Four columns from SAME fixed7 quantizedregions, gap branch allfour empty/endpoints together; raw wireproduct broader. Pairhistory+continuity maps, gap clears history, clampbothclocks;30day range/1024rows boundwork, cadence/stride/end-minus-minute break avoidsMAXnonprogress. Differential uses onlypublicmixes+publiccatalogue12; finite25offset/fourcolumn math."
+    },
+    {
+      "id": "regional placement and terminal authority",
+      "comparison": "chart_regional applies Some regionexactlyone/None seven scaledshares afterpatientload. private_combined uses samepatientbaseline/episodes/admins; private terminal controls death, not old humour. first_private adds from/to+diseaseslopes/events+treatmentstart/stop/profileend then actual crossing. Positive nonsaturatedinterval>=2boundaries; zero/MAXsingleton capacity qualification separate fromnormalmiss. Pointtreatment evaluates private terminaldirectly. effective_attributes/publicillnessnotices useold evaluate fordistinctrecipients; no duplicateauthorityverdict fromfields alone."
+    },
+    {
+      "id": "protection snapshot construction",
+      "comparison": "Factorysort/dedupmembers, requiresclocks, constructsmatchingstarts/horizons, prefetchbothpresenceindexes+dedupspanIDs. Raw8192/relevant4096,candidates100000/work2000000 actualconstants closegenericMAXwork concern normalresolver. Everypairpeerkey included beforemapindex. Coverageboundarysort/dedup→ordereddisjointsegments→partitionpoint; checkstrongestpercontributor. EndMAX+1 saturation loses terminalcoverageendpoint, sameRootF046clockgraph qualification, no normallong-livedclaim."
+    },
+    {
+      "id": "interval plan binding weakness",
+      "comparison": "Plan private proposals/coverage/work immutable afterfactory but publicDefault unboundempty; factorydropsmember/start/horizon/allowhealingbinding. Publicin_plan1941/2017 consumesanyplanforchar/request/currentclockwithoutcheck. Wrongmember/window/defaultcanomitacquisition/protection versusproperfactory, F044 APIstrengtheningonly. Actualcamp187/settlement189/journey191 normal matching same-reducerplan paths remaincoherent; noexecutedskip/nativeDBrollbackclaim."
+    },
+    {
+      "id": "preview and commit prefix",
+      "comparison": "Both loadcurrentepisodes+sameplanproposalsfiltered(from,to]. Previewnowrites. Clip sortsevents, findsprivateearliestterminal,persistsonlyproposals<=inclusiveboundary, re-evaluatesbloodcursor onlycommittedprefix, noticesonlythroughboundary, returnselapsed+cause. Endpointterminal boolean preventsordinarycompletion confusion. finishmaps samecause into typeddeathtransition; lowertransitionnotcleared. NoticeID infection/minute/kind noindependentpayloadfingerprint, normalstableprovenanceonly."
+    },
+    {
+      "id": "treatment accepted product",
+      "comparison": "Administer requiresactor authority/livingactor+patient andself/contextAllowed; Refused/Unavailableerrors. Innerdose1..8000 separatelyexcludescanonicalvalid0, exactinventorypatient+quantity1, sameitem/versionprofile+route, samepatientclock/key, thenwholelocalrow insert→deleteitem→privatepointterminal. No guessedregion/routepolicy. Componentnonzerocheckedoraldose/profile+samepatientclock/key; carrieramountauthorityparentowned. Stoploadsrowandusesitsactualpatient forrelationship/clock/check, repeatno-op. No arbitraryrowinvalidity inferred."
+    },
+    {
+      "id": "raw inputs, purchasing and original fixtures",
+      "comparison": "Committed/standingcuts acceptrawseverity/surgerycheck, nonfinite<=0/clampnotfiniteseal. Standingtoken uniquenessactualcheckpointproducerpending, noordinaryduplicateclaim. PurchasealignednonemptyIDs/quantities1..100, knownitem/stock/settlement/locationbeforecharge/grant, saturatingtotal genericcapacityqualification only. PR actualadd_inventory_item_checked versusP16add_inventory_item realdelta; noaliascarry. DiagnosticseedfixedIDs/staggeredpositiveages/knownprofiles/bands. Allconditionaloriginalhelpers/testsfullsource-readnotrun. Includedfile names do not credit lowerbodies."
+    }
+  ],
+  "exact_lower_actual_proofs": [
+    "contract-groups-197.json",
+    "contract-groups-195.json",
+    "contract-groups-179.json administration_adapter/interval",
+    "contract-groups-187.json",
+    "contract-groups-189.json",
+    "contract-groups-191.json"
+  ],
+  "new_unique_findings": [
+    "NATIVE-INITIAL05-F044"
+  ],
+  "remaining_dependency_obligations": [
+    "Actual contextual treatment internals, blood checkpoint producer, rawcutnormalbounds and P16 add_inventory_item lower remain exactalready-global own05cells, no nameclearance.",
+    "No nativeDBrollback/sourceexecution proof; RootF046 endpointqualification retained."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

@@ -1,0 +1,207 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-199",
+  "at": "2026-10-25T13:35:49.641289+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 388,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress.rs",
+      "sha256": "555e18f9ec8b6190fd3c3431665f737b37a74a9b7ee6341d99b660663015c75c",
+      "actual_EOF": 1217,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-tactical-server/src/combat/ingress.rs",
+        "owner": "camera",
+        "sha256": "555e18f9ec8b6190fd3c3431665f737b37a74a9b7ee6341d99b660663015c75c",
+        "base_sha256": "7b8e51061494a9d8a04960207b16657e3494be1831663d62e911f8a690429d3a",
+        "state": "modified",
+        "bytes": 42988,
+        "audit_owner": "camera",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                1217
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-SERVER-INGRESS-001"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 100,
+            "read_ranges": [
+              [
+                1,
+                1217
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SERVER-RESOLUTION-NETWORK-064"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-server/src/combat/ingress.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 494,
+            "read_ranges": [
+              [
+                1,
+                1217
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SERVER-RESOLUTION-NETWORK-064"
+            ],
+            "read_status": "full_current_lens_source_and_existingfixtures",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-server/src/combat/ingress.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-TACTICAL-RECEIVERS-044",
+            "json_pointer": "/current_sources/7",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1217
+              ]
+            ],
+            "source_context": {
+              "packet_obligation": 8,
+              "assigned_camera_index": 100,
+              "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress.rs",
+              "sha256": "555e18f9ec8b6190fd3c3431665f737b37a74a9b7ee6341d99b660663015c75c",
+              "read_ranges": [
+                [
+                  1,
+                  1217
+                ]
+              ],
+              "resolved_path": "RECORDS/final-acceptance-20261021/frozen-inputs.zip!/physical-p16/files/crates/adventuresim-tactical-server/src/combat/ingress.rs",
+              "method": "Fresh full PR body plus complete preserved P16 textual delta; lunge P16 full body also reread after truncated combined output; P16-only geometry full; duplicate clock/ranged-authority/consequence/defense/timing/work/protocol explicit byte equality.",
+              "trace_refs": [
+                "NATIVE-PS-COMBAT-SERVER-INGRESS-018",
+                "NATIVE-PS-COMBAT-RECEIVER-CLOSURE-020"
+              ],
+              "disposition": "Current source/retained role/operation/actual receiver path inventoried with findings in exact trace paths; no source or family clearance; camera716 explicit accounting unchanged"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-COMBAT-SERVER-INGRESS-018",
+            "json_pointer": "/source_reads/3",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1217
+              ]
+            ],
+            "source_context": {
+              "packet_obligation": 8,
+              "assigned_camera_index": 100,
+              "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress.rs",
+              "sha256": "555e18f9ec8b6190fd3c3431665f737b37a74a9b7ee6341d99b660663015c75c",
+              "read_ranges": [
+                [
+                  1,
+                  1217
+                ]
+              ],
+              "resolved_path": "RECORDS/final-acceptance-20261021/frozen-inputs.zip!/physical-p16/files/crates/adventuresim-tactical-server/src/combat/ingress.rs",
+              "method": "Fresh full PR body plus complete preserved P16 textual delta; lunge P16 full body also reread after truncated combined output; P16-only geometry full; duplicate clock/ranged-authority/consequence/defense/timing/work/protocol explicit byte equality."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-COMBAT-RECEIVER-CLOSURE-020",
+            "json_pointer": "/per_source_closure/7",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1217
+              ]
+            ],
+            "source_context": {
+              "packet_obligation": 8,
+              "assigned_camera_index": 100,
+              "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress.rs",
+              "sha256": "555e18f9ec8b6190fd3c3431665f737b37a74a9b7ee6341d99b660663015c75c",
+              "read_ranges": [
+                [
+                  1,
+                  1217
+                ]
+              ],
+              "resolved_path": "RECORDS/final-acceptance-20261021/frozen-inputs.zip!/physical-p16/files/crates/adventuresim-tactical-server/src/combat/ingress.rs",
+              "method": "Fresh full PR body plus complete preserved P16 textual delta; lunge P16 full body also reread after truncated combined output; P16-only geometry full; duplicate clock/ranged-authority/consequence/defense/timing/work/protocol explicit byte equality.",
+              "trace_refs": [
+                "NATIVE-PS-COMBAT-SERVER-INGRESS-018",
+                "NATIVE-PS-COMBAT-RECEIVER-CLOSURE-020"
+              ],
+              "disposition": "Current source/retained role/operation/actual receiver path inventoried with findings in exact trace paths; no source or family clearance; camera716 explicit accounting unchanged"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": 107,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1217
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "PlayerAttackWindups plain private carrier; fixture ScheduledContactResults Resource/Default and ExpectedLungeMode structural derives already.",
+      "absence_basis": "Every1217 actual line personally consumed. No handwritten trait or serializer. Checked jitter/native duration refinement, network request\u2192authoritative intent, explicit multi-source prepare/publish and query authorization are semantic functions. Existing child declarations grant no child credit."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Network ingress to scheduled tactical action",
+      "disposition": "No derivability maintenance finding. Retain checked native conversion, client identity/error paths and two-stage preparation/publication.",
+      "acceptance": "Preserve native timing/source/result types, finite precision policy, checked geometry and event ordering; do not replace semantic request classifiers with wire derives. No build/run/fixture pass claimed."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 389,
+    "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress/attack_start.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

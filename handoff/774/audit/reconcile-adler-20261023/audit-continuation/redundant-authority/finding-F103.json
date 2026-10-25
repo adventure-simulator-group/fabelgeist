@@ -1,0 +1,101 @@
+{
+  "id": "CONT07-F103",
+  "at": "2026-10-23T22:48:05.246229+00:00",
+  "classification": "source-conditional passable-plan versus rebound inferred-road geometry disagreement; no current dataset occurrence or run",
+  "title": "Inferred roads replace snapped planner endpoints without admitting new end segments",
+  "sources": [
+    {
+      "scope_index": 2154,
+      "source_id": "pr-working:crates/adventuresim-world-import/src/sources/road_inference.rs",
+      "sha256": "f74f07db1d321f14985590625124b5cbaccae7ff6ef35b7430a0749d2d8cfcf5",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-world-import/src/sources/road_inference.rs",
+      "ranges": [
+        [
+          124,
+          178
+        ]
+      ]
+    },
+    {
+      "scope_index": 2082,
+      "source_id": "pr-working:crates/adventuresim-terrain/src/lib.rs",
+      "sha256": "b6f4484e8febb316766de322ff355f1d0dda5b394343be0227517c601c0f1421",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-terrain/src/lib.rs",
+      "ranges": [
+        [
+          717,
+          739
+        ],
+        [
+          912,
+          934
+        ],
+        [
+          1081,
+          1178
+        ],
+        [
+          1188,
+          1190
+        ],
+        [
+          1328,
+          1343
+        ]
+      ]
+    },
+    {
+      "scope_index": 2152,
+      "source_id": "pr-working:crates/adventuresim-world-import/src/bin/build-strategic-map.rs",
+      "sha256": "04e204bfa41896b53eb82671ad9b0378036a21b7ec54b3fce0e4c285c0b097bb",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-world-import/src/bin/build-strategic-map.rs",
+      "ranges": [
+        [
+          301,
+          324
+        ]
+      ]
+    },
+    {
+      "scope_index": 2153,
+      "source_id": "pr-working:crates/adventuresim-world-import/src/bin/build-strategic-map/terrain_features.rs",
+      "sha256": "e4be1391bce49d102c596d622f3dcb646e44ac71555c5ded9028a50f5beeeeaa",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-world-import/src/bin/build-strategic-map/terrain_features.rs",
+      "ranges": [
+        [
+          3,
+          21
+        ],
+        [
+          24,
+          49
+        ]
+      ]
+    },
+    {
+      "scope_index": 2079,
+      "source_id": "pr-working:crates/adventuresim-terrain/src/builder.rs",
+      "sha256": "39502f30860a433c74e3d1309365d46fda323b7406ee627123dfcd50630442a1",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-terrain/src/builder.rs",
+      "ranges": [
+        [
+          126,
+          149
+        ]
+      ]
+    }
+  ],
+  "earliest_failed_contract": "A passability result belongs to the actual searched grid path, including snapped endpoints. enrich replaces those coordinates with original node coordinates then retains the old passable-alignment justification without searching/admitting replacement connector segments.",
+  "counterexample": "Conditional admitted source window: original settlement node a maps to noncrossing Water; nearby grid cell s within snap radius8 is passable, with a land path s to goal t. Actual snap scans and selects passable s, so terrain.plan(a,b) can succeed on s\u2192t even though a itself is not passable. enrich copies returned points then writes geometry[0]=a and geometry[last]=b. The new a\u2192next point begins in unsearched impassable Water, but a Land route with no bridge/water_crossings and text claiming passable alignment between original nodes is published. The caller only checks finite typed points, counts, distance and time. Source branch witness, no initialized-world water settlement or generated-route run claimed.",
+  "actual_recipient": "2152 append_inferred_roads later copies accepted edge.geometry into canonical routing_roads.2153 uses those coordinates for both road mask and vector package.2079 terrain builder marks any road-over-water as crossing. Thus changed geometry can receive actual inferred-road/crossing authority after only the original snapped path was searched.",
+  "qualification": "Do not claim all snap offsets are wrong: valid connected endpoint projection policy may be intentional, but its connector passability must be established or represented as distinct approximation. Actual world-node placement on water and dataset occurrence remain unverified. Generic512-point simplification turn loss is not the normal inferred-road explanation: minimum kernel30m and accepted distance<=12km bound the accepted original path to<=400 steps; retained turns<=401<512. Root M36/M52 and F42/F43 are different quantities/admission/cache issues.",
+  "connected_repair": "Retain actual snapped endpoints and admit/trace connector segments to original nodes under explicit passage policy before authorizing an inferred Land link. Derive passability/provenance from the actual final geometry, with crossing/bridge distinctions when required; do not reuse a searched-path claim after arbitrary coordinate replacement.",
+  "acceptance": "When a node projects to impassable terrain and snap finds nearby land, the final inferred connector either has explicit supported passable/crossing treatment or is rejected; resulting road-mask/vector geometry and provenance reference the same admitted final path. Land-only valid endpoint alignment and deterministic ordering remain unchanged. No new tests/data/build executed.",
+  "related_not_alias": [
+    "Root M36 route/network quantities",
+    "Root M52 corridor/provenance quantities",
+    "Root F42/F43 route admission/cache"
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

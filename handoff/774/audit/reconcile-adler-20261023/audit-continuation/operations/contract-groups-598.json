@@ -1,0 +1,45 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-598",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+      "sha256": "b1645110395d62b1dab020f6328f9b3d3fde6cd3f64b88101d6c66d5e7d8b0e6",
+      "actual_EOF": 2973,
+      "actual_compared_ranges": [
+        [
+          1,
+          2973
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Exact P16 terrain IK orchestration, owner handoff and state clock",
+      "evidence": "Personally consumed1\u20132973 sequentially. Authored locomotion releases procedural ownership; invalid posture resets retained lowerbody; copied LegIkMemory samples evaluation tick and skips repeated fixed tick. Checked profile/support/speed/phase/segment failures continue. Raised handoff retains world contacts; candidate footwork validates targets before memory/raised component publication.",
+      "qualifications": [
+        "Do not infer whole-update atomicity: raised handoff resets actual RaisedFootworkState early and pelvis/root/bone transforms can mutate before later finalize/target/publication rejection. No concrete accepted-input late-error witness established here; preserve source-conditional qualification rather than promote syntax alone.",
+        "Local delta finite does not itself prove transform.translation+delta finite; valid rig/scene frame and native solver admission remain required upstream contracts. No malformed frame assumed ordinary."
+      ],
+      "acceptance": "Keep repeated fixed views from mutating IK memory twice, and preserve distinct authored/raised/ordinary/settle owner transitions. Any defined reject transaction must account for actual transforms and early actual raised-state reset."
+    },
+    {
+      "contract": "Terrain acquisition, airborne follower and terminal contact policies",
+      "evidence": "Ordinary perleg flow first derives hip shift from terrain/reach, applies bounded root correction, then separate terminal frozen-contact path bypasses ordinary release/replan. Exhausted raw lobe latch clears only actual flight; nominal weight does not prove support. Airborne/release/settle uses native owner/world transforms with checked clearance/follower calls; retained plans freeze desired landing; actual analytic resolved end replaces unplanned rejected request. Ordinary acquisition resamples moved XZ before height/normal; final support only when solved sole at intended contact, then final orientation seam and publication.",
+      "qualifications": [
+        "Foot-space conversion arithmetic relies on ObservedRigFrame and actual chain validity; this facade is not independent proof of all helper arithmetic. Existing helper roles have own evidence and remaining exact roles retain independent obligations.",
+        "Known sole clearance configured literal alias CAMERA-INITIAL07-F065 remains shared evidence; no new unique count or ordinary currentasset/GPU acceptance from this source pass.",
+        "Safe-settle fallback is explicit policy conditioned by elapsed and safe stance; do not replace with a blanket progress==1 completion rule."
+      ],
+      "acceptance": "Preserve stationary acquired plants or explicit release, no nominal support until truthful rendered contact, owner-local motion budgets, actual resolved-end continuation and final terminal-contact/rendered completion distinction."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "1 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-building-generator/src/generator/roof_cutting.rs"
+}

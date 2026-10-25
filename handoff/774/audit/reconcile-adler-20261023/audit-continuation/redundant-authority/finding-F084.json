@@ -1,0 +1,44 @@
+{
+  "id": "CONT07-F084",
+  "at": "2026-10-23T20:36:10.800447+00:00",
+  "classification": "source-backed optional camera-component removal propagation defect; transition source proof, no renderingrun",
+  "title": "Strategic camera environment copies retain removed atmospheric components",
+  "sources": [
+    {
+      "scope_index": 1696,
+      "sha256": "ccf553eb553150d9800d83d4f17b763f19de8547e3b57b46a9486a0782c330a9",
+      "ranges": [
+        [
+          213,
+          264
+        ]
+      ]
+    },
+    {
+      "registration": "CONT07-REG-010",
+      "sha256": "b9dcce7121c3161293d2fbd9c9f02f0df7aa341d51c9a0a1b94a7315f8bfdd4c",
+      "ranges": [
+        [
+          188,
+          215
+        ],
+        [
+          273,
+          311
+        ],
+        [
+          313,
+          332
+        ]
+      ]
+    }
+  ],
+  "earliest_failed_contract": "StrategicCamera copies must reflect both presence and absence of authoritative TacticalGameplayCamera environment components. Optional copiedcomponent absence is notpropagated.",
+  "counterexample": "Start with sourceEnvironmentMapLight and/orAtmosphereSettings Some andastrategicnonmaptarget;sync insertscopies. Authoritativeatmosphere cache clear297-311 removesEnvironmentMapLight onmissingcurrentstate/keyreplacement; settingsdisabled202-208 removesAtmosphereSettings. Nextsync hasNone butchangedpredicate241-242 seesno Refchange and mayreturnearly. Evenifanothercomponentchangeornewmarkerforcesupdate, nonmap Nonebranches neverremoveexistingtargetcopies, leavingoldIBL/atmosphere componentspresent.",
+  "actual_recipient": "Actual StrategicCamera target ECS components remainoldEnvironmentMapLight/AtmosphereSettings whileauthoritativecamera lacks them; live/capturenativecamera extraction consumes theirpresence. Sourceownercleanup133-154 explicitlykeysrendercleanupoffcameracomponentabsence, so retainingtargetpresencepreventsthatcleanupforthistarget. No claimnativeGPUcompletionobserved.",
+  "qualification": "Exact supportedproducer operationsandreceiver omission personallyread; no runtimeexecution, observed UI toggle, badframe or guaranteeduseractionsequence claimed. Sourcekeyreplacement/disabledsettings paths areactualcurrentcode; cachedfinishedimages mayintentionallyremainhistorical andarenotthecomponent-removalclaim. Regionalmapfog/atmosphereomissionintentional, preserveit. Newsource333-656 deliberatelyunread/outofscope.",
+  "connected_repair": "Propagateoptionalappearancecohort as complete replacement: onsourceNone remove targetcomponent, observe removals/presenceidentity or comparecurrentdesiredstate pertarget. Preserveexplicitregionalmappolicy,new/reusedcamera first-extractionordering,boundedcamera pool andsource-ownedGPUbake lifecycle.",
+  "acceptance": "SourceSome->None clearscorrespondingnonmaptargetcomponent evenwithoutotherRefchanges; Someupdates/newtargets stillcopybeforefirstnativeextraction. Regionalmapkeepsintendednoatmosphere/fog whileenvironmentlightpresencefollowscanonicalsourcepolicy. No tests added or executed.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

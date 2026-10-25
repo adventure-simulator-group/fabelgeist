@@ -1,0 +1,44 @@
+{
+  "id": "SEGOVB-04-ESCALATION-POWER-ACCOUNTING-CANDIDATE-001",
+  "source_id": "pr-working:crates/adventuresim-core/src/threat_escalation.rs",
+  "sha256": "87ab25a438699ec031fa507447c9108ccd3830f95cb5c6281eb6be1d4695fc47",
+  "ranges": [
+    [
+      131,
+      217
+    ],
+    [
+      234,
+      276
+    ]
+  ],
+  "source_dependency": {
+    "source_id": "pr-working:crates/adventuresim-core/src/threat_escalation_limits.rs",
+    "sha256": "f6fd77cd38865e477731cf06914d6e576b6498e4b2847c2a586368b378073929",
+    "ranges": [
+      [
+        1,
+        8
+      ]
+    ],
+    "body_personally_read": true,
+    "coverage_credit": false
+  },
+  "witness": "Actual fixture profile ORC_MOB growth2000, baseline10000, initialcount2, represented incident ordinal u16MAX gives progress10000/countcap7. scale_cap ceil(300000*10000/70000)=42858. Consumed total count7*10000*42858/10000=300006, while normalized_combat_power clips to300000.",
+  "status": "source-backed representable API accounting candidate; no live max-progress encounter or global unique-count claim",
+  "qualifications": [
+    "Need actual consumer/current incident ceiling to determine ordinary reachability and meaning of normalized diagnostic cap.",
+    "Initial count/power combinations may already exceed cap while policy intentionally never weakens base; do not force a blanket shrink by assumption.",
+    "Tactical/autoresolve multiplier pair shape intentionally distinguishes sqrt physical scaling from linear training. Actual combat damage may not be exactly this abstract power equation."
+  ],
+  "connected_dependencies": [
+    "Actual normalized power and per-enemy scale consumers",
+    "Generated and persisted incident count ceiling",
+    "Escalation rounding/power display authority"
+  ],
+  "acceptance_constraints": [
+    "Choose explicit conservative rounding versus display approximation policy and align retained normalized power with actual accepted scale/count semantics.",
+    "Preserve monotonicity, base-never-weaken policy if retained, all valid count modes and separate countermeasure range5000..10000."
+  ],
+  "project_execution": "none"
+}

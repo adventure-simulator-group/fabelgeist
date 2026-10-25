@@ -1,0 +1,61 @@
+{
+  "owner": "camera",
+  "lens": "audit-producer-propagation",
+  "wave": 1,
+  "status": "initial-inventory-exhausted-with-findings",
+  "source_edit_freeze": true,
+  "snapshot_manifest_sha256": "6134882f2b850fe2bbba8218c71550a4a3b2581d9b144e23c5f12da40adffbc4",
+  "assigned_variants": 250,
+  "first_unfinished_cell": null,
+  "snapshots": [
+    {
+      "id": "pr-working",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "root": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree"
+    },
+    {
+      "id": "rig-quality",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "cbbbca08c89a8768926799371f54cf6057312e5e",
+      "root": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/rig-garments/worktree"
+    },
+    {
+      "id": "report-p17",
+      "base": "18360adba0fb43add88c75dfbd2f45d7e71d8ace",
+      "head": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "root": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/viewer-reports/worktree"
+    },
+    {
+      "id": "physical-p16",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "a120390947c89b703dc74c4255a13c035d054c50",
+      "root": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/camera/worktree"
+    }
+  ],
+  "limits": "Read-only initial discovery; no source/Git mutations, project commands, tests or acceptance claims. Prior implementation knowledge is provenance only.",
+  "first_unfinished_detail": "None in assigned producer-propagation source/actual receiver inventory. Every250sourcevariant read/deletedbaseline/N-A with exactpins; all75 historicaltracequeues reconciled in receiver-closure. Open findings and later owner/representation/lens dependencies remain, not source acceptance.",
+  "next_source_read": null,
+  "findings": 23,
+  "first_never_read_assigned_cell": null,
+  "supplemental_discussion_read": 47,
+  "assigned_full_text_read": true,
+  "additional_receiver_frontier": [],
+  "assigned_source_read_counts": {
+    "full_text_read": 245,
+    "deleted_owner_baseline_and_replacement_read": 1,
+    "manifest_non_applicable_source_read": 4,
+    "partial_text_read": 0,
+    "never_read": 0
+  },
+  "assigned_discovery_trace_counts": {
+    "accounted_non_applicable_or_deleted": 5,
+    "accounted_with_concrete_trace_and_findings": 245
+  },
+  "next_trace_reconciliation": null,
+  "receiver_trace_count": 75,
+  "discovery_complete_for_assigned_lens": true,
+  "repair_status": "Frozen; no source edits until all13initial lenses discovery complete and parent reconciliation",
+  "validation_status": "Not run; no compiler/project command/CI/runtime PASS",
+  "next_action": "Await parent next lens assignment; do not start a second lens or source repair."
+}

@@ -1,0 +1,84 @@
+{
+  "id": "CONT07-CONTRACT-596",
+  "at": "2026-10-24T00:26:11.251557+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2575,
+      "source_id": "pinned-registry:serde-saphyr-1.2.0/src/de/deserializer.rs",
+      "sha256": "72b755ac168c5dd782c5b1bea90fce7488a9d4b9ba713fe26be33b553973362a",
+      "origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-saphyr-1.2.0/src/de/deserializer.rs",
+      "actual_EOF": 2941,
+      "ranges": [
+        [
+          484,
+          501
+        ],
+        [
+          577,
+          623
+        ],
+        [
+          978,
+          989
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2576,
+      "source_id": "pinned-registry:serde-saphyr-1.2.0/src/parse_scalars.rs",
+      "sha256": "cf724ec89b4f506fa46193c9b2c1917b43356e02a342f11c9ccf45483dc3bebb",
+      "origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-saphyr-1.2.0/src/parse_scalars.rs",
+      "actual_EOF": 699,
+      "ranges": [
+        [
+          271,
+          334
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2577,
+      "source_id": "pinned-registry:serde-saphyr-1.2.0/src/de/with_deserializer.rs",
+      "sha256": "c6304415acbe2cb08fe5a730da8625f2c4631d111b7dccde6dad44c2d5e34c95",
+      "origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde-saphyr-1.2.0/src/de/with_deserializer.rs",
+      "actual_EOF": 222,
+      "ranges": [
+        [
+          120,
+          147
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2578,
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/model/placement.rs",
+      "sha256": "243d594fbb5904b60ec01daa6e25decb1ace121320b548926f0400a909222fc3",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-weapon-model/src/model/placement.rs",
+      "actual_EOF": 156,
+      "ranges": [
+        [
+          26,
+          156
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Saphyr concrete f32/f64 takes the effective scalar text, parses YAML .nan/.inf spellings into nonfinite native values, then visits that concrete float. Finite fallback rejects overflowing numeric literals. Typeless rejection is therefore not a concrete bespoke finite invariant; actual type Deserialize remains necessary. Single-document enforcement occurs after the scoped callback, independent from numeric contracts.",
+    "P16 placement resolve caches first matching Grip ID/role width before applying facing to a cloned recipe, then copies that width into every ResolvedComponent while component offsets/rotations are materialized. This is additional exact-variant support for pending OBS002 first-width versus later frame registration; multiple-Grip admission and receiving guard semantics still require proof. Repeated Pommel profile scaling is materialization on a cloned recipe in this path, not source recipe mutation."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2579,
+    "start_line": 1
+  }
+}

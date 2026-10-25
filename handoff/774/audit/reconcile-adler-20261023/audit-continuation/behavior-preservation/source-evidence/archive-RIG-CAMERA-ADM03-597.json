@@ -1,0 +1,35 @@
+{
+  "id": "RIG-CAMERA-ADM03-597",
+  "camera_queue_index": 597,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs",
+  "sha256": "aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576",
+  "queue_ref": "continuation/admission03-queue-v002/camera_rig_support.json#/queue/50",
+  "scope_pointer": "/files/1217",
+  "actual_read_ranges": [
+    [
+      1,
+      781
+    ]
+  ],
+  "actual_eof": 781,
+  "current_source_absent": false,
+  "base_sha256": null,
+  "current_roles": "Dialogue raw native schema, closed storage classifiers, gateway projections and complete live-presence boundary",
+  "invariant": "Raw DB rows encode strings/JSON/times without accepted-state seal. Actual use revalidates active state, current catalogue identity and exact owner-party/settlement/canonical-place/NPC/observer-minute contact.",
+  "all_admission_routes": [
+    "PublicrawSession/Participant/Event/Prompt/Action/Answer/Knowledge/Option/InvestigationBinding records tablecodecs andbackendSATSrecords, no customcheckedSerde/Reflect/Default. Storedstate/policy remainsraw; privateSessionStateonlyactive, PromptStateopen/resolved parsers exact. ParsedSessionID<=160/noControls, splitn3 dialogue:allu64:nonemptynonce (noncecancontaincolon), no membership/zero/noncanonicaldecimal rejection locally.",
+    "Gatewayviews onlybucket0 andactualplayerparticipantSomeIDs, copyrawfields/JSONwithownerprojection; freechatvieweractualPartyMember andNPCvplayerkind branch, no blanketJSONsemanticvalidation atview.",
+    "require_dialogue_revision exactcurrentCATALOG_DIGEST. require_livepresence actualnavigablecanonicalNPCplace, knownactor+sameownerparty+same settlement, actualpersonalclock REQUIRED(no720fallback), at leastoneNPC; actualStrategicPresence settlement_membership+validatedvenue, EACH NPC actorID u64parse/profile/presence andobserver-frontier npc_strategic_presence/are_co_present, exacthome+organizationrepresentative.",
+    "Corecanonicalplace/presence/navigableeconomic helper gates remainrealcalledcontracts; require_live doesnot locally test actor.alive, actualstart/join and individualaction paths supply their life policy. Sourceclaimscompletephysicalauthority, not universalrecordliveness/token. Originaltests697\u2013781 readonly."
+  ],
+  "counterexample_or_intentional_boundary": "Full781 read. Actual currentlive boundary parses everyNPCactorID, so earlier596 pairwise-address malformedNPCrawparticipant conceptual panic is blocked on this normal reducer path before runtimebinding; raw internalhelper standalone fabricated rows remainbroader, no currentbadcaller. Neither tablePK noropaqueStringrecord certifies fullJSON/identitycorrelation. Canonical currentNative presence predicate dependency retained.",
+  "finding_refs": [],
+  "connected_dependencies": [
+    "RIG-CAMERA-ADM03-593 exactrepresentative",
+    "RIG-CAMERA-ADM03-596 member/livecaller",
+    "Native current StrategicPresence/DailyPresenceWindow; own start598"
+  ],
+  "mode": "Fresh actual current admission source comparison; original tests read as source only. No project execution or earlier-lens verdict carry.",
+  "authority": "root/admission03/support-authority-053.json; Camera retains source/audit ownership; Root final audit/repair authority",
+  "disposition": "exact_source_role_compared_with_stated_limits_and_dependencies"
+}

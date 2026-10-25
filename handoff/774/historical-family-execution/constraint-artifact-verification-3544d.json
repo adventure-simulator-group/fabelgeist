@@ -1,0 +1,69 @@
+{
+  "head": "3544d8e99f1d9f765a813cc71b56f089e31c5118",
+  "run": 39452715702,
+  "job": 118731479728,
+  "artifact_id": 12279762876,
+  "zip_sha256": "8b79447c3518f6bb3c03c1d0f16ea3787b8e691dbd15d5f1861712e98187bd88",
+  "digest_matches_hosted_metadata": true,
+  "files": [
+    "source.txt",
+    "pr-head.txt",
+    "tests.log"
+  ],
+  "test_results": [
+    {
+      "result": "ok",
+      "passed": 40,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "result": "ok",
+      "passed": 27,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "result": "ok",
+      "passed": 0,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "result": "ok",
+      "passed": 5,
+      "failed": 0,
+      "ignored": 0
+    }
+  ],
+  "passed_total": 72,
+  "verification_scope": "Completed constraint/shell artifact only; not the current migration-family runtime matrix. No local project commands executed.",
+  "result_sections": [
+    {
+      "section": "Running unittests src/lib.rs (target/debug/deps/fabelgeist_shell-5f82cdfae76b5f28)",
+      "passed": 40,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "section": "Running unittests src/lib.rs (target/debug/deps/fabelgeist_xpbd-6b7fe6dc6449ea15)",
+      "passed": 27,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "section": "Doc-tests fabelgeist_shell",
+      "passed": 0,
+      "failed": 0,
+      "ignored": 0
+    },
+    {
+      "section": "Doc-tests fabelgeist_xpbd",
+      "passed": 5,
+      "failed": 0,
+      "ignored": 0
+    }
+  ],
+  "unit_executions": 67,
+  "doctest_executions": 5
+}

@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1023",
+  "at": "2026-10-25T17:31:49.986992+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1189,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/settlement_population/resident_drafts.rs",
+  "sha256": "0bdbeb8d3d35fb200d35d06429d177a9311b5e71207f89a3644fadcd6e72d959",
+  "actual_compared_ranges": [
+    [
+      1,
+      310
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "ResidentDraft already Clone; local DefaultPresence and StrategicServiceEndpoint Clone/Copy. Inherent constructors derive seeded sex/identity/presentation, source service/boolean semantics and defaults, not mechanical field construction trait. Business ordinal/service/district/profession/role classifiers and household demographic/surname semantic conversions; existing business Serde invoked. No handwritten trait/codec.",
+  "first_unfinished": {
+    "scope_index": 1189,
+    "line": 311
+  },
+  "execution": "none"
+}

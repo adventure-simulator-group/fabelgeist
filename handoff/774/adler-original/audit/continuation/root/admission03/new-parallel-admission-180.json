@@ -1,0 +1,89 @@
+{
+  "id": "ROOT-ADM03-PARALLEL-180",
+  "at": "2026-10-23T03:39:47.732472+00:00",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/physics/controller_config.rs",
+      "sha256": "56773ae80325116c0e2383940bec1f3f8a05d95d97a2c76596982c717b5dbc62",
+      "registration_id": "CAMERA-INITIAL07-REG033",
+      "actual_compared_ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "source_evidence": "Fresh literal exact complete registered source or74-106 material role; actual PR/P16 plugin each independently read, no body verdict from hash/names/other lenses."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/physics/plugin.rs",
+      "sha256": "c165c0efe7988bed6982ef9f1fe32fd78cd0fe603c3e5e4581435bad0bde0353",
+      "registration_id": "CAMERA-INITIAL07-REG034",
+      "actual_compared_ranges": [
+        [
+          1,
+          88
+        ]
+      ],
+      "source_evidence": "Fresh literal exact complete registered source or74-106 material role; actual PR/P16 plugin each independently read, no body verdict from hash/names/other lenses."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics/plugin.rs",
+      "sha256": "c165c0efe7988bed6982ef9f1fe32fd78cd0fe603c3e5e4581435bad0bde0353",
+      "registration_id": "CAMERA-INITIAL07-REG035",
+      "actual_compared_ranges": [
+        [
+          1,
+          88
+        ]
+      ],
+      "source_evidence": "Fresh literal exact complete registered source or74-106 material role; actual PR/P16 plugin each independently read, no body verdict from hash/names/other lenses."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/report.rs",
+      "sha256": "732565c70b576d74ef982a5902e2268a5bd2611b296b9319f242562dd26571be",
+      "registration_id": "CAMERA-INITIAL07-REG036",
+      "actual_compared_ranges": [
+        [
+          1,
+          269
+        ]
+      ],
+      "source_evidence": "Fresh literal exact complete registered source or74-106 material role; actual PR/P16 plugin each independently read, no body verdict from hash/names/other lenses."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration/logging/decisions.rs",
+      "sha256": "1e132304f3127343f18a77a99b9d18205c3057788ce99700525a0d16e27a8768",
+      "registration_id": "CAMERA-INITIAL07-REG037",
+      "actual_compared_ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "source_evidence": "Fresh literal exact complete registered source or74-106 material role; actual PR/P16 plugin each independently read, no body verdict from hash/names/other lenses."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/material.rs",
+      "sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+      "registration_id": "NATIVE-INITIAL05-REG034",
+      "actual_compared_ranges": [
+        [
+          74,
+          106
+        ]
+      ],
+      "source_evidence": "Fresh literal exact complete registered source or74-106 material role; actual PR/P16 plugin each independently read, no body verdict from hash/names/other lenses."
+    }
+  ],
+  "groups": {
+    "motor-config-writer": "P16 direct helper1-18 zeroes native acceleration/air/water acceleration/friction/stop speed, writes gravity/step height, derives walk cosine from configured angle. Native startup defaults differ from per-step runtime policy and must not be merged as duplicate authorities. No foreign Ahoy implementation or actual execution inferred.",
+    "physics-schedule": "Both actual88-line plugin variants separately read: simulation branch schedules own motor before Ahoy MoveCharacters; presentation branch enables solver and disables ordinary replicated rigidbodies by required component; tool branch registers collision/hierarchy phases without solver and explicitly end-optimize in finalize. Public bool combinations choose simulation first. CPU debug config/gizmos presentation separate from authoritative gameplay. No foreign schedules/global ordering/replay guarantee from local wiring alone.",
+    "causal-report": "Full P16report269 retains unit-labelled measurements, counters and nested per-combatant summaries. finish_means mutates stored sum-named mean fields by sample counts and can partially update before later failure. record_final checks native measurement leaves/addition sequentially, then raw wound/run/map counters. Correct caller must discard/reject failed product; actual whole report typestate/count capacity and publish flow need operation/aggregate lenses, no ordinary partial report claimed. Preserve distinct tactical/autoresolve/wall/energy/movement units, history/canceled/transformed counts; canonical getters/output adapters may remove true duplicate projections without collapsing distinct populations.",
+    "decisions-callbacks": "Full P16decisions89 projects committed-defense/transformed/continuation events into log with exact tick/elapsed/name/optional target/attack-key/cause. Missing player query returns before mutation. Canceled versus transformed and withdraw-started versus yield-accepted are distinct events, not duplicate current authority. Clock/attack-key identity integration remains lower suppliers and current receivers, notably RootF027, not cleared by a log append.",
+    "milliliters-kernel": "Actual P16material74-106 privateu64 Milliliters, zero-valid default/new/get/iszero and checked_add/sub returnNone for native overflow/underflow. This exact unit role preserves checked accumulation in containment graph; no Microliters/conversion/other material methods or tests107+ credit. Source metadata does not transfer Native05 graph verdict."
+  },
+  "status": "exact_registered_source_semantic_admission_compared",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

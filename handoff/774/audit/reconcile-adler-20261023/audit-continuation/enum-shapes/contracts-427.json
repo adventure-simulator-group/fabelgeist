@@ -1,0 +1,22 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-427",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        858,
+        859,
+        860,
+        861
+      ],
+      "comparison": "Full authoredweapon127/classification65/errors19/incaptests86. AuthoredMeleeWeaponError variantsownmissingrecipe/weaponidentity/violationpayload; transparent checkedquantity causes own nativefailure. This helper deliberately admits melee-only authoreddefinition andwritesfalseRanged, trueMelee; genericCombatWeaponhybridcapability remainsvalidelsewhere, donotrestrictallprofilesbythisroute. Existingunarmedfalse timingcall isarmedproducer supportforF146 aliasF007, noordinarywrongcadence. BattleAttackKind serializestablelowercase classification, payloadowningacceptedlogF136 separate, do notmakeeveryclassificationvariantcarrytelemetry. MeleeMovementAction requestedClose/Retreat/Hold retains signedtargetvelocitymapping, actualdisplacementcan differ; explicitintentnotredundanttelemetry. Numeric predicates/fixtures notnewapplicationmodes. Incapfixturespreservegeneral fatigue, totalperformance,physicalburden andnoextraspeedpenalty; sourceonlynotexecuted.",
+      "finding_refs": [
+        "SEGO-INITIAL09-F136",
+        "SEGO-INITIAL09-F146"
+      ],
+      "disposition": "Typed error/classification owners positive; deliberate melee-only helper does not override valid generic hybrids"
+    }
+  ],
+  "new_findings": [],
+  "limits": "Source only. No tests/checks/builds, fixes or clearance."
+}

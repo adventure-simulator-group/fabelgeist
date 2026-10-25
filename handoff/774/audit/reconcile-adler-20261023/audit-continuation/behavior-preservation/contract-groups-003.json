@@ -1,0 +1,450 @@
+{
+  "id": "CONT08-CONTRACT-003",
+  "at": "2026-10-25T08:11:44.522811+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 100,
+      "source_id": "physical-p16:crates/adventuresim-core/src/equipment.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "before_sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+      "before_status": "present",
+      "after_sha256": "635ee67da06496157b5b091eb40535af2493a554d2b69f6b82023886b9b2a1e0",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/0100-base-e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/635ee67da06496157b5b091eb40535af2493a554d2b69f6b82023886b9b2a1e0",
+      "diff": "source-evidence/0100.diff",
+      "diff_sha256": "79edb22994488205978e53dca8a6233d38cc95b111adf851ec1877101f9cb3dd",
+      "head_body_read_ranges": [
+        [
+          1,
+          1182
+        ]
+      ],
+      "diff_read": "Entire actual base/head diff personally consumed. For new413, original moved implementation in411 was separately read at base760\u2013940.",
+      "contract": "PlayerEquipment projection and equipment helper behavior",
+      "actual_old_new_comparison": [
+        "Full1182-line body and135-line diff read. EquipmentGraph occupancy/capacity conflict preflight, ancestor-cycle handling, children guard and mutation placement are unchanged.",
+        "WeaponSkillDistribution filtering, normalization, order and unknown-catalog empty selection remain unchanged. All encumbrance law and armor penalties remain unchanged, including Infinity saturation and zero-capacity penalty.",
+        "weapon_balance_from_moment440\u2013454 retains existing mass/inertia validation, nonpositive grip fallback1 and exact sqrt/division. Nonfinite grip is now rejected at checked SignedLength construction instead of helper fallback1; no valid finite grip numerical change.",
+        "PlayerEquipment reach/grip/total/head methods557\u2013568 preserve default delegation and ZERO head. All existing fixtures675\u20131182 were read; only geometry constructor/access/Result adaptation changes the affected fixtures, with no checks run."
+      ],
+      "trigger_and_observable_difference": "Same finite supported source values retain scalar fields, axis and role selection. Intentional finite admission and panic-to-typed-error differences are explicitly qualified in facts. No runtime execution.",
+      "disposition": "Bounded own08 contract compared, with source-policy and connected-recipient qualifications. No whole-family clearance.",
+      "limits": [
+        "Catalogue/DB caller admission is tracked separately. The trait does not validate arbitrary semantic nonnegative length roles merely because SignedLength is finite."
+      ],
+      "connected_acceptance": "Preserve finite supported values and physical meaning, source identity/recipe association, native operation order and None/zero distinction; expose deliberate error/rejection changes at the owning boundary. Verify actual failure handling before claiming recovery.",
+      "repair": "Prohibited during initial discovery."
+    },
+    {
+      "scope_index": 102,
+      "source_id": "physical-p16:crates/adventuresim-core/src/equipment/parametric_weapon.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "before_sha256": "f62198755e98ea753340c3fdb985f7d576cfbb9a15e33dbf8a8ca4ea1e42e567",
+      "before_status": "present",
+      "after_sha256": "b86de57ce073e0c629d63bcb5e9b1cc92c18be2705b8954f4536c12db6fd0eb3",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/0102-base-f62198755e98ea753340c3fdb985f7d576cfbb9a15e33dbf8a8ca4ea1e42e567",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/b86de57ce073e0c629d63bcb5e9b1cc92c18be2705b8954f4536c12db6fd0eb3",
+      "diff": "source-evidence/0102.diff",
+      "diff_sha256": "578510a3850288afb54d0154e4636dcb41389016435e4b215ec70cb423633c12",
+      "head_body_read_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "diff_read": "Entire actual base/head diff personally consumed. For new413, original moved implementation in411 was separately read at base760\u2013940.",
+      "contract": "Parametric weapon aggregate geometry admission",
+      "actual_old_new_comparison": [
+        "Full65-line body and complete diff read. The same positive mass/length/grip, grip<=total, inclusive head[0,total], nonnegative moment/balance/precision constraints remain.",
+        "Finite length validation moves to checked leaves; all remaining raw scalar finite checks retain order. Zero head stays admitted, zero grip/total stay rejected, negative lengths stay rejected by aggregate predicates.",
+        "melee_reach_m remains exactly grip_to_tip; conditioned_precision retains exact multiplication/division order and same positive-catalog-precision expectation. Public fields remain public; no new aggregate invariant proof from type names."
+      ],
+      "trigger_and_observable_difference": "Same finite supported source values retain scalar fields, axis and role selection. Intentional finite admission and panic-to-typed-error differences are explicitly qualified in facts. No runtime execution.",
+      "disposition": "Bounded own08 contract compared, with source-policy and connected-recipient qualifications. No whole-family clearance.",
+      "limits": [
+        "Public construction error shape changes from new(...NaN length...)->None to leaf Err before the aggregate call. Native generated recipe validation is a connected dependency, not presumed from this aggregate alone."
+      ],
+      "connected_acceptance": "Preserve finite supported values and physical meaning, source identity/recipe association, native operation order and None/zero distinction; expose deliberate error/rejection changes at the owning boundary. Verify actual failure handling before claiming recovery.",
+      "repair": "Prohibited during initial discovery."
+    },
+    {
+      "scope_index": 51,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/authored_weapon.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "before_sha256": "446d7c751bfec9680b1aaf74efb82a38f44b145076a521b5bd5c0ea14844003c",
+      "before_status": "present",
+      "after_sha256": "d51000403c3e70e523d5bdfe690114fcf0781449dabb10a52ee3dc006b00f5ca",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/0051-base-446d7c751bfec9680b1aaf74efb82a38f44b145076a521b5bd5c0ea14844003c",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/d51000403c3e70e523d5bdfe690114fcf0781449dabb10a52ee3dc006b00f5ca",
+      "diff": "source-evidence/0051.diff",
+      "diff_sha256": "fae14462aab6d7b8941b8c025d20c60bbd6a05729cc354a0b7e14fb5f070076c",
+      "head_body_read_ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "diff_read": "Entire actual base/head diff personally consumed. For new413, original moved implementation in411 was separately read at base760\u2013940.",
+      "contract": "Authored melee weapon to battle snapshot",
+      "actual_old_new_comparison": [
+        "Full130-line body and complete diff read. Nonweapon/melee-only rejection, timing computation, missing recipe and derive_properties error order remain.",
+        "Missing equipment remains ZERO grip and ZERO dimensions; total length becomes dimensions.y_length(), personally verified in cuboid2491:61\u201363 to select old array[1]. Authored reach, skill distribution, materials, default ranged ZERO and cycle timing preserve their selected source.",
+        "New Geometry error admits the derived striking-head scalar after derive_properties; only nonfinite derived length changes this path. Valid finite derive output is retained without normalize/clamp."
+      ],
+      "trigger_and_observable_difference": "Same finite supported source values retain scalar fields, axis and role selection. Intentional finite admission and panic-to-typed-error differences are explicitly qualified in facts. No runtime execution.",
+      "disposition": "Bounded own08 contract compared, with source-policy and connected-recipient qualifications. No whole-family clearance.",
+      "limits": [
+        "Full native derive_properties source and typed catalogue schema/build counterparts remain pending08. No ordinary malformed recipe admission asserted."
+      ],
+      "connected_acceptance": "Preserve finite supported values and physical meaning, source identity/recipe association, native operation order and None/zero distinction; expose deliberate error/rejection changes at the owning boundary. Verify actual failure handling before claiming recovery.",
+      "repair": "Prohibited during initial discovery."
+    },
+    {
+      "scope_index": 71,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/threat.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "before_sha256": "58a5e53d2fdf5283f4e7ba8a58f1335f894bb6b4ab4524f3684f92bbca8dc106",
+      "before_status": "present",
+      "after_sha256": "bf72fdd14fdc1fc1e4196b4c65172f6c71d0658f4bad6896cb41495acf889798",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/0071-base-58a5e53d2fdf5283f4e7ba8a58f1335f894bb6b4ab4524f3684f92bbca8dc106",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/bf72fdd14fdc1fc1e4196b4c65172f6c71d0658f4bad6896cb41495acf889798",
+      "diff": "source-evidence/0071.diff",
+      "diff_sha256": "e0929d4e8d0bd1b0632c4f7b674045a74bb2930cc005473ab7702b2c3c5ad38e",
+      "head_body_read_ranges": [
+        [
+          1,
+          190
+        ]
+      ],
+      "diff_read": "Entire actual base/head diff personally consumed. For new413, original moved implementation in411 was separately read at base760\u2013940.",
+      "contract": "Threat weapon default projection",
+      "actual_old_new_comparison": [
+        "Full190-line body and complete diff read. Unknown threat parsing, difficulty max1, profile scaling, armor/sidearm selection, IDs, ammunition12 and timings remain unchanged.",
+        "The new checked lengths wrap fixed finite literals0,0.8,20. Thus new Geometry variant cannot be reached from those literal constructions; it does not change successful threat behavior.",
+        "Authored ranged-threat sidearm goes through exact source51, including its new derived-length error qualification."
+      ],
+      "trigger_and_observable_difference": "Same finite supported source values retain scalar fields, axis and role selection. Intentional finite admission and panic-to-typed-error differences are explicitly qualified in facts. No runtime execution.",
+      "disposition": "Bounded own08 contract compared, with source-policy and connected-recipient qualifications. No whole-family clearance.",
+      "limits": [
+        "Bestiary and scaling inputs are unchanged in this P16 patch; their broader nonfinite/overflow policy is not automatically cleared."
+      ],
+      "connected_acceptance": "Preserve finite supported values and physical meaning, source identity/recipe association, native operation order and None/zero distinction; expose deliberate error/rejection changes at the owning boundary. Verify actual failure handling before claiming recovery.",
+      "repair": "Prohibited during initial discovery."
+    },
+    {
+      "scope_index": 67,
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/mod.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "before_sha256": "3ada1de8aa9e1322565a5f1ae9b5882e0beba1d5ad024cc4705f7eb35ba0982b",
+      "before_status": "present",
+      "after_sha256": "4d44aec14335abdea2ad0899a2d41cf09c7b5677fcb850b2ede69174596d3a34",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/0067-base-3ada1de8aa9e1322565a5f1ae9b5882e0beba1d5ad024cc4705f7eb35ba0982b",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/4d44aec14335abdea2ad0899a2d41cf09c7b5677fcb850b2ede69174596d3a34",
+      "diff": "source-evidence/0067.diff",
+      "diff_sha256": "2d5bac7c14fcf442adb22b7009344277b7c89d78222100f3c726bb5af4dd3fb3",
+      "head_body_read_ranges": [
+        [
+          1,
+          597
+        ]
+      ],
+      "diff_read": "Entire actual base/head diff personally consumed. For new413, original moved implementation in411 was separately read at base760\u2013940.",
+      "contract": "Contact preparation, work application and telemetry",
+      "actual_old_new_comparison": [
+        "Full597-line body and complete diff read. Newly fallible preferred/contact geometry preparation propagates before later draws; attack power std::mem::replace still occurs at375 before geometry preparation, as at base. No global rollback guarantee is inferred.",
+        "On successful preparation, action work, defender commitment, contact application, report and timeline order remain unchanged. Center separation now admits actual surface+.8 before apply_attack_result; same scalar addition is retained.",
+        "Actual checked contact geometry contains finite nonnegative measure; adding the small .8 center constant cannot create overflow from a finite f32 value at this scale because large values round the increment away. No new error witness from that addition established.",
+        "Defender cancellation/trade counters, retained timing identity, material/report fields and all fixture predicates456\u2013597 are unchanged apart from wrappers."
+      ],
+      "trigger_and_observable_difference": "Same finite supported source values retain scalar fields, axis and role selection. Intentional finite admission and panic-to-typed-error differences are explicitly qualified in facts. No runtime execution.",
+      "disposition": "Bounded own08 contract compared, with source-policy and connected-recipient qualifications. No whole-family clearance.",
+      "limits": [
+        "Remaining equation/report wire producers and the complete main autoresolve role remain pending; unchanged equations are not cleared by this local diff."
+      ],
+      "connected_acceptance": "Preserve finite supported values and physical meaning, source identity/recipe association, native operation order and None/zero distinction; expose deliberate error/rejection changes at the owning boundary. Verify actual failure handling before claiming recovery.",
+      "repair": "Prohibited during initial discovery."
+    },
+    {
+      "scope_index": 415,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/projection_equipment.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "before_sha256": "2ac9b1b21c4c3c62b6815b0885c43e18995cc9bed66fde7d692bcd7c00a07f81",
+      "before_status": "present",
+      "after_sha256": "5e4a989041915c8e90f822e9947824bb05615df6c4b4427d6ec00a9cad71a726",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/0415-base-2ac9b1b21c4c3c62b6815b0885c43e18995cc9bed66fde7d692bcd7c00a07f81",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/5e4a989041915c8e90f822e9947824bb05615df6c4b4427d6ec00a9cad71a726",
+      "diff": "source-evidence/0415.diff",
+      "diff_sha256": "c39c9105687cb2c7560ffd90dcec41ec7d6e2abea92bc275b2562974280c1640",
+      "head_body_read_ranges": [
+        [
+          1,
+          176
+        ]
+      ],
+      "diff_read": "Entire actual base/head diff personally consumed. For new413, original moved implementation in411 was separately read at base760\u2013940.",
+      "contract": "Native parametric weapon appearance admission",
+      "actual_old_new_comparison": [
+        "Full176-line body plus entire diff read. Correct-version, decodable, matching catalogue/hash recipe still derives the same geometry and precision. Body/holder/armor projection bodies are unchanged.",
+        "Missing appearance for a known generated design formerly asserted; new MissingRecipe returns Err. Version, decode, catalogue/hash mismatch and derived-property failure likewise move panic/expect to typed errors in the same order.",
+        "Former parametric aggregate None becomes CombatGeometry Err. Lengths reject nonfinite derived scalars at leaf construction before aggregate admission; valid finite values and constructor predicates remain source102-equivalent.",
+        "New caller413 and admission416 were read, with actual parent411 partial base/head routing and original queue2076 same-hash proof. The whole drained batch is preflighted before entity commands."
+      ],
+      "trigger_and_observable_difference": "Same finite supported source values retain scalar fields, axis and role selection. Intentional finite admission and panic-to-typed-error differences are explicitly qualified in facts. No runtime execution.",
+      "disposition": "Bounded own08 contract compared, with source-policy and connected-recipient qualifications. No whole-family clearance.",
+      "limits": [
+        "Do not equate returning Result with recovery: native Bevy6/7 default converts ordinary errors to Panic severity. No actual retained malformed current recipe witness yet. Old None fallback versus new error remains conditional API behavior; actual native derive guarantee is pending."
+      ],
+      "connected_acceptance": "Preserve finite supported values and physical meaning, source identity/recipe association, native operation order and None/zero distinction; expose deliberate error/rejection changes at the owning boundary. Verify actual failure handling before claiming recovery.",
+      "repair": "Prohibited during initial discovery."
+    },
+    {
+      "scope_index": 413,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/item_geometry.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "before_sha256": null,
+      "before_status": "absent at exact base",
+      "after_sha256": "fd0e55979400ec53e6db4c76a659bca5f732e45e2431a7f66db35335c3472a75",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/fd0e55979400ec53e6db4c76a659bca5f732e45e2431a7f66db35335c3472a75",
+      "diff": "source-evidence/0413.diff",
+      "diff_sha256": "9901d49915a5e3c818a09042d678e9a5207c348ae3686dfd712b522d8e4a4e5f",
+      "head_body_read_ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "diff_read": "Entire actual base/head diff personally consumed. For new413, original moved implementation in411 was separately read at base760\u2013940.",
+      "contract": "Moved item geometry preflight",
+      "actual_old_new_comparison": [
+        "New full112-line body and full added diff read; moved old implementation personally read from parent411 base760\u2013940.",
+        "Zero quantity returns Empty before geometry admission as before its old projection skip. Item mass still selects instance, then holder, then catalog weight; default X/Z and instance Y axis preserve old physical projection.",
+        "Anchor Y still equals -(total-grip) with native subtraction order, head fallback still max(X,Z), weapon leaf skill order and materials/timing/reach selection remain. Eager map_or(item.item.reach,...) becomes match; unused raw scalar had no side effect.",
+        "Missing metadata/material, invalid raw reach or recipe now fail in preparation before commands instead of panicking/retaining invalid raw reach during projection. This is a deliberate admission boundary change, with exact caller/default-handler limits."
+      ],
+      "trigger_and_observable_difference": "Same finite supported source values retain scalar fields, axis and role selection. Intentional finite admission and panic-to-typed-error differences are explicitly qualified in facts. No runtime execution.",
+      "disposition": "Bounded own08 contract compared, with source-policy and connected-recipient qualifications. No whole-family clearance.",
+      "limits": [
+        "Parent411 full3450-line role is not complete08. Duplicate/parent item IDs and raw anchor finiteness are unchanged paths, not newly guaranteed by Prepared names."
+      ],
+      "connected_acceptance": "Preserve finite supported values and physical meaning, source identity/recipe association, native operation order and None/zero distinction; expose deliberate error/rejection changes at the owning boundary. Verify actual failure handling before claiming recovery.",
+      "repair": "Prohibited during initial discovery."
+    },
+    {
+      "scope_index": 416,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/spawn_admission.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "before_sha256": "036e9735654b7050eab0212a18012e9ade1badc0ceebe3f5c093235c48ff228f",
+      "before_status": "present",
+      "after_sha256": "43080d2bf8aa77667af8dad133c2266cae1829c0b33d658e858391aaa93ab474",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/0416-base-036e9735654b7050eab0212a18012e9ade1badc0ceebe3f5c093235c48ff228f",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/43080d2bf8aa77667af8dad133c2266cae1829c0b33d658e858391aaa93ab474",
+      "diff": "source-evidence/0416.diff",
+      "diff_sha256": "8cdd8160181942b289683d8caa7acd4cc686bbb3d8be9d350bdc2b6b299c89ba",
+      "head_body_read_ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "diff_read": "Entire actual base/head diff personally consumed. For new413, original moved implementation in411 was separately read at base760\u2013940.",
+      "contract": "Connected player inventory/body admission before publication",
+      "actual_old_new_comparison": [
+        "Full119-line head and entire diff read. Existing terrain/recipient preparation and stable per-character random spawn stream remain. P16 adds checked body mass and complete ordered item preparation before pushing an admitted player.",
+        "Body mass previously expected during spawn; now structured BodyMass error. Whole applicable batch was already preflighted for terrain at base, with new inventory checks extending that policy.",
+        "Parent411:548\u2013559 drains queue2076:92\u201394 before prepare. Any error drops the drained vector. However actual default native Bevy error path is fatal, and old recipe/body cases often panicked; therefore no silent recoverable drop or retry failure is asserted as an ordinary new regression.",
+        "Absent loading recipient still warns/skips before geometry preparation. Empty quantities still reserve empty entities in parent projection as before; no new defect counted for that unchanged behavior."
+      ],
+      "trigger_and_observable_difference": "Same finite supported source values retain scalar fields, axis and role selection. Intentional finite admission and panic-to-typed-error differences are explicitly qualified in facts. No runtime execution.",
+      "disposition": "Bounded own08 contract compared, with source-policy and connected-recipient qualifications. No whole-family clearance.",
+      "limits": [
+        "Native aggregate recipe None fallback versus new rejection still requires actual admitted producer proof; app-level error-handler override or explicit intended retry contract would change lifecycle assessment."
+      ],
+      "connected_acceptance": "Preserve finite supported values and physical meaning, source identity/recipe association, native operation order and None/zero distinction; expose deliberate error/rejection changes at the owning boundary. Verify actual failure handling before claiming recovery.",
+      "repair": "Prohibited during initial discovery."
+    }
+  ],
+  "native_scoped_rows": [
+    {
+      "scope_index": 0,
+      "source_id": "dependency-wgpu29.0.4:src/api/device.rs",
+      "after_sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "read_ranges": [
+        [
+          398,
+          428
+        ],
+        [
+          752,
+          853
+        ]
+      ],
+      "exact_dependency_pin": "PR base3a50 and head6533 both lock wgpu29.0.4 checksum76e8840e1ba2881d4cbb18d2147627a56af426ff064c0401eb0c8410c6325d07; no native dependency-body delta presumed.",
+      "contract": "wgpu uncaptured callback and Error cause/Display receiving behavior",
+      "actual_comparison": "Native callback receives typed Error synchronously/asynchronously per backend; Error variants retain sources, Display for Validation/Internal emits descriptions and OOM fixed text. Actual armor_browser_probe1303:158\u2013169 unchanged capture_errors formats each Error into the same retained Vec<String> under same mutex. Full probe227lines and actual PR diff read; new changes elsewhere concern typed placement, not this callback.",
+      "trigger": "Any uncaptured native Validation/Internal/OOM error through the registered callback.",
+      "old_new_result": "Same description/OOM string, same callback registration and retention; still intentionally loses native cause structure at this reporting boundary. No new behavior regression in this exact contract.",
+      "disposition": "Scoped native contract accounted for08 with unchanged actual callback proof; no GPU success or all-error-lifecycle clearance.",
+      "remaining_probe_changes": "Typed CatalogPlacement lookup and wrapped Unpaired mapping need independent owner/old-new comparison; no full1303 closure."
+    }
+  ],
+  "partial_recipients": [
+    {
+      "scope_index": 411,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "before_sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "before_status": "present",
+      "after_sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/0411-base-53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+      "diff": "source-evidence/0411.diff",
+      "diff_sha256": "3f5b48fddb65309e791c7468eef47154df55ec641864c28f42938ed5bd18fec5",
+      "head_ranges_read": [
+        [
+          470,
+          570
+        ],
+        [
+          750,
+          890
+        ]
+      ],
+      "base_ranges_read": [
+        [
+          530,
+          655
+        ],
+        [
+          760,
+          940
+        ]
+      ],
+      "disposition": "Partial recipient path only; all other3450-line behavior unreviewed."
+    },
+    {
+      "scope_index": 2076,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/stdb.rs",
+      "sha256": "ab24f2abcf0306df9967ba4f53671ead170142f7fd1a0697bf116389584da5b8",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/ab24f2abcf0306df9967ba4f53671ead170142f7fd1a0697bf116389584da5b8",
+      "ranges_read": [
+        [
+          65,
+          106
+        ]
+      ],
+      "same_hash_variant_proof": "P16 base/head identical full-file SHAab24f2abcf0306df9967ba4f53671ead170142f7fd1a0697bf116389584da5b8 matches original2076 object.",
+      "disposition": "Bounded queue material recipient read, no full2076 role credit."
+    },
+    {
+      "scope_index": 1303,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/examples/armor_browser_probe.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "before_sha256": "682dab198afe20c00750b1cbe7e62fb3bb77555e22b0b9a84d035743fe52c47b",
+      "before_status": "present",
+      "after_sha256": "4d0171a6cd7835711e211df50e71df5c0f143e6bba2b85b6e655dcf5f5af4892",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1303-base-682dab198afe20c00750b1cbe7e62fb3bb77555e22b0b9a84d035743fe52c47b",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/4d0171a6cd7835711e211df50e71df5c0f143e6bba2b85b6e655dcf5f5af4892",
+      "diff": "source-evidence/1303.diff",
+      "diff_sha256": "f60b5055086f45062662ca2db4c7c332934fece389c64447cce9b20cfa3dd668",
+      "head_ranges_read": [
+        [
+          1,
+          227
+        ]
+      ],
+      "status": "Full body + diff consumed, native callback comparison complete; changed typed placement recipients pending."
+    },
+    {
+      "scope_index": 2491,
+      "source_id": "physical-p16:crates/fabelgeist-geometry/src/cuboid.rs",
+      "sha256": "7afef5cd462b579637596de505b962b8eecc1fd818b8c8382d59ec3ab4fc6b7a",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/7afef5cd462b579637596de505b962b8eecc1fd818b8c8382d59ec3ab4fc6b7a",
+      "head_ranges_read": [
+        [
+          1,
+          123
+        ]
+      ],
+      "status": "Full body read; y-axis accessor and native tuple shape consumed for dependent contracts. Complete old/new cuboid admission/serialization comparison pending."
+    },
+    {
+      "scope_index": 7,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/handler.rs",
+      "sha256": "800c43a7bcf3956170973151045546484c9546e3bb50635f9fab8cba7fed353d",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/800c43a7bcf3956170973151045546484c9546e3bb50635f9fab8cba7fed353d",
+      "head_ranges_read": [
+        [
+          1,
+          187
+        ]
+      ],
+      "status": "Full current pinned native error handler body read; default and severity recipient proof consumed. Base/head lock match for this native package still pending."
+    },
+    {
+      "scope_index": 410,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/main.rs",
+      "sha256": "0fd91dac25a4b0b05eb65c51f7aa7bc5740bd0de5adff082320dd247d83b2444",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/0fd91dac25a4b0b05eb65c51f7aa7bc5740bd0de5adff082320dd247d83b2444",
+      "head_ranges_read": [
+        [
+          216,
+          255
+        ]
+      ],
+      "status": "Actual spawn scheduling read, full726 role and app/plugin configuration pending."
+    },
+    {
+      "scope_index": 417,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/scene_spawn.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "before_sha256": "377b39cdfd69aee6164a0d9df1f235f810f0211b299e506d97b5bd521719bbaf",
+      "before_status": "present",
+      "after_sha256": "0ed8029897a512fc8ebb39248471b4febef60c0a7c7657673a9df6b393d9838a",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/0417-base-377b39cdfd69aee6164a0d9df1f235f810f0211b299e506d97b5bd521719bbaf",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/0ed8029897a512fc8ebb39248471b4febef60c0a7c7657673a9df6b393d9838a",
+      "diff": "source-evidence/0417.diff",
+      "diff_sha256": "0de000ec0c194c2c56f1b7c77df3c0722b19ca7ac9fe131f15432b304838d471",
+      "head_ranges_read": [
+        [
+          1,
+          40
+        ]
+      ],
+      "status": "Full new error wrapper body read; all old/new role comparison pending."
+    }
+  ],
+  "new_material_registration": "CONT08-REG001",
+  "policy_qualifications": [
+    {
+      "id": "CONT08-Q002",
+      "status": "Source-conditional admission/lifecycle question, no ordinary regression promoted.",
+      "trace": [
+        415,
+        413,
+        416,
+        411,
+        2076,
+        6,
+        7,
+        410
+      ],
+      "difference": "Aggregate invalid geometry previously None/fallback, now typed error before command publication; former assertion/expect cases remain default-fatal through Bevy.",
+      "remaining": "Read derive_properties successful-output validation and actual app error configuration before claiming an admitted malformed-recipe or recoverable drop witness."
+    }
+  ],
+  "next_frontier": "Original nativeindex1/2 anyhow constructor/wrapper receiving paths; ongoing P16 derive/geometry admission source questions and partial411/50; no full2853 or lens closure."
+}

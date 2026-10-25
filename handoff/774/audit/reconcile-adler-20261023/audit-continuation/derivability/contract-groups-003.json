@@ -1,0 +1,589 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-003",
+  "at": "2026-10-25T11:13:13.448230+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 15,
+      "source_id": "native-dependency:bevy_math-0.19.1/src/direction.rs",
+      "sha256": "0aef18fddadf5d5361c4c11f0b9d5561637a7cee6dabde16dfd2816dcf2e521c",
+      "actual_EOF": 1511,
+      "requested_registration": {
+        "source_id": "native-dependency:bevy_math-0.19.1/src/direction.rs",
+        "snapshot": "native-dependency",
+        "path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_math-0.19.1\\src\\direction.rs",
+        "sha256": "0aef18fddadf5d5361c4c11f0b9d5561637a7cee6dabde16dfd2816dcf2e521c",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "native",
+        "audit_assignment_limits": "Read-only source assignment; whole-function repair ownership remains in authoritative claims.",
+        "scope_limits": "Explicit material contracts/ranges and necessary signature dependencies only; no implied whole-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/expanded-producer-delta-map-049.json",
+        "actual_line_count": 1511,
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 1,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CAMERA-BOUNDARIES-048",
+            "json_pointer": "/additional_actual_source_proofs/7",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row13/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                15,
+                47
+              ],
+              [
+                550,
+                611
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                15,
+                47
+              ],
+              [
+                550,
+                611
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "Fresh actual bounded application/native receiving body read",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": true,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved",
+        "admission03_increment046_role_observations": [
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 7,
+            "registration_id": "NATIVE-ADMISSION03-REG-007",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-007",
+              "at": "2026-10-22T06:54:40.530354+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "native-dependency:bevy_math-0.19.1/src/direction.rs",
+              "sha256": "0aef18fddadf5d5361c4c11f0b9d5561637a7cee6dabde16dfd2816dcf2e521c",
+              "snapshot": "native-dependency",
+              "actual_EOF": 1511,
+              "material_ranges": [
+                [
+                  1,
+                  170
+                ],
+                [
+                  550,
+                  660
+                ]
+              ],
+              "role": "Exact direct Dir2/Dir3 new/new_unchecked admission and invalid direction errors relied upon by assigned P16 orientation18, preserving prior15\u201347/550\u2013611 roles.",
+              "reason": "Actual P16 orientation from_vector/from_normalized/spatial methods directly call these already-pinned native constructors. Register bounded needed method context before reading; no wholeSDK exemption.",
+              "exclusions": "No unrelated operators/rotation/slerp/foreign tests or whole1511 coverage. Native is_normalized predicate downstream is literal firstparty gate; arithmetic04 independent.",
+              "resolved_path": "CARGO_HOME/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_math-0.19.1/src/direction.rs",
+              "status": "registered_before_direct_native_admission_body_analysis"
+            },
+            "local_qualifications": [],
+            "effective_material_ranges": [
+              [
+                1,
+                170
+              ],
+              [
+                550,
+                660
+              ]
+            ],
+            "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_math-0.19.1\\src\\direction.rs",
+            "actual_EOF": 1511,
+            "bytes": 50858
+          },
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 8,
+            "registration_id": "NATIVE-ADMISSION03-REG-008",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-008",
+              "at": "2026-10-22T06:55:08.295622+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "native-dependency:bevy_math-0.19.1/src/direction.rs",
+              "sha256": "0aef18fddadf5d5361c4c11f0b9d5561637a7cee6dabde16dfd2816dcf2e521c",
+              "snapshot": "native-dependency",
+              "actual_EOF": 1511,
+              "material_ranges": [
+                [
+                  171,
+                  205
+                ]
+              ],
+              "role": "Direct Dir2::new_and_length helper invoked153\u2013155 by registered Dir2::new; exact constructor body needed before admission closure.",
+              "reason": "Prior bounded new153\u2013155 delegates this immediately following helper. Register before new body analysis; same pinned native file.",
+              "exclusions": "No unrelated operators/fullSDK/otherlens credit. Preserve prior registrations007 and original ranges.",
+              "resolved_path": "CARGO_HOME/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_math-0.19.1/src/direction.rs",
+              "status": "registered_before_direct_native_admission_body_analysis"
+            },
+            "local_qualifications": [],
+            "effective_material_ranges": [
+              [
+                171,
+                205
+              ]
+            ],
+            "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_math-0.19.1\\src\\direction.rs",
+            "actual_EOF": 1511,
+            "bytes": 50858
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          205
+        ],
+        [
+          550,
+          660
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Primitive2d for Dir2",
+          "lines": [
+            97,
+            97
+          ],
+          "disposition": "retain necessary explicit marker impl; no ordinaryRust derive forbespoke trait. Existing mechanicalClone/Copy/Debug/PartialEqandcfgSerde/Reflectalreadyderived."
+        }
+      ],
+      "semantic_methods": "InvalidDirectionError::from_length classifiesNaN/Inf/zero; Dirnew normalizes/rejects whileuncheckedconstructorassertsindebug. These arenotmechanicalFrom projection/derive candidates."
+    },
+    {
+      "scope_index": 16,
+      "source_id": "native-dependency:parry3d-0.27.0/Cargo.toml",
+      "sha256": "e9a4996484162b4fcda871bf170f0224ad27e1fff77ef5c88a8d8eafdfc89b9a",
+      "actual_EOF": 397,
+      "requested_registration": {
+        "source_id": "native-dependency:parry3d-0.27.0/Cargo.toml",
+        "snapshot": "native-dependency",
+        "path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\parry3d-0.27.0\\Cargo.toml",
+        "sha256": "e9a4996484162b4fcda871bf170f0224ad27e1fff77ef5c88a8d8eafdfc89b9a",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "native",
+        "audit_assignment_limits": "Read-only source assignment; whole-function repair ownership remains in authoritative claims.",
+        "scope_limits": "Explicit material contracts/ranges and necessary signature dependencies only; no implied whole-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/expanded-producer-delta-map-049.json",
+        "actual_line_count": 397,
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 2,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CAMERA-BOUNDARIES-048",
+            "json_pointer": "/additional_actual_source_proofs/10",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row23/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                60,
+                87
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                60,
+                87
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "Fresh actual bounded application/native receiving body read",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": true,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          60,
+          87
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Exactmanifestfeaturelist only dim3/f32/rkyv/encase/determinism flags, no handwrittenRustimpl."
+    },
+    {
+      "scope_index": 17,
+      "source_id": "native-dependency:png-0.17.16/src/encoder.rs",
+      "sha256": "2befe627874fd46476bca960d8f89038479403b9611cbba4b37aadc42ac3658d",
+      "actual_EOF": 2429,
+      "requested_registration": {
+        "source_id": "native-dependency:png-0.17.16/src/encoder.rs",
+        "snapshot": "native-dependency",
+        "path": "CARGO_REGISTRY/png-0.17.16/src/encoder.rs",
+        "sha256": "2befe627874fd46476bca960d8f89038479403b9611cbba4b37aadc42ac3658d",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 87771,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 88,
+            "read_ranges": [
+              [
+                20,
+                165
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-CLIENT-EQUIPMENT-026"
+            ],
+            "read_status": "current-lens-exact-native-encoding-error-owner-ranges-read",
+            "resolved_path": "CARGO_REGISTRY/png-0.17.16/src/encoder.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-022",
+            "json_pointer": "/fresh_current_source_reads/14",
+            "source_id_as_recorded": "native-dependency:png-0.17.16/src/encoder.rs",
+            "read_ranges_as_recorded": [
+              [
+                20,
+                165
+              ]
+            ],
+            "source_context": {
+              "assigned_index": 409,
+              "source_id": "native-dependency:png-0.17.16/src/encoder.rs",
+              "sha256": "2befe627874fd46476bca960d8f89038479403b9611cbba4b37aadc42ac3658d",
+              "read_ranges": [
+                [
+                  20,
+                  165
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1467,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          20,
+          165
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Error for EncodingError",
+          "lines": [
+            53,
+            60
+          ],
+          "disposition": "retain selective deprecatedcause override onlyIo; ordinaryderivedtransparent source semantics notprovenequivalent."
+        },
+        {
+          "trait": "Display EncodingError/FormatError",
+          "lines": [
+            62,
+            112
+          ],
+          "disposition": "retain semanticexact messages/nestedTextEncoding classification andborrowedformatting, notDebug/Serialize derive."
+        },
+        {
+          "trait": "From<io::Error> /From<EncodingError> for io::Error /From<FormatErrorKind> /From<TextEncodingError>",
+          "lines": [
+            114,
+            139
+          ],
+          "disposition": "Onevariant/wrapperconversionsmechanicalinpart but reverseconversion intentionallyto_stringandOther classification, nestedTextEncodingsemantic. No actualavailablePNGderive/dependency proven, no foreignSDKrewrite suggestion."
+        }
+      ],
+      "existing_derives": "Debug alreadyderived onEncodingError/FormatError/Kind, OptionsDefaultalreadyderived."
+    },
+    {
+      "scope_index": 18,
+      "source_id": "native-dependency:serde-saphyr-1.2.0/src/de/error.rs",
+      "sha256": "f814896313ec178ed4f0ee14ab60e358b354814e4019564a42d1f75f2f0d4713",
+      "actual_EOF": 2882,
+      "requested_registration": {
+        "source_id": "native-dependency:serde-saphyr-1.2.0/src/de/error.rs",
+        "snapshot": "native-dependency",
+        "path": "CARGO_REGISTRY/serde-saphyr-1.2.0/src/de/error.rs",
+        "sha256": "f814896313ec178ed4f0ee14ab60e358b354814e4019564a42d1f75f2f0d4713",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 98687,
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+            "row": 152,
+            "read_ranges": [
+              [
+                676,
+                1100
+              ],
+              [
+                1960,
+                1985
+              ],
+              [
+                2227,
+                2270
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-DECAL-AND-YAML-CAUSE-077"
+            ],
+            "read_status": "exact actual native error declaration and trait output bodies, not whole unrelated module",
+            "resolved_path": "CARGO_REGISTRY/serde-saphyr-1.2.0/src/de/error.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root"
+        ],
+        "audit_owner": "root",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-YAML-CAUSE-035",
+            "json_pointer": "/source_proofs/0",
+            "source_id_as_recorded": "native-dependency:serde-saphyr-1.2.0/src/de/error.rs",
+            "read_ranges_as_recorded": [
+              [
+                676,
+                1100
+              ],
+              [
+                1960,
+                1985
+              ],
+              [
+                2227,
+                2270
+              ]
+            ],
+            "source_context": {
+              "source_id": "native-dependency:serde-saphyr-1.2.0/src/de/error.rs",
+              "path": "CARGO_REGISTRY/serde-saphyr-1.2.0/src/de/error.rs",
+              "sha256": "f814896313ec178ed4f0ee14ab60e358b354814e4019564a42d1f75f2f0d4713",
+              "read_ranges": [
+                [
+                  676,
+                  1100
+                ],
+                [
+                  1960,
+                  1985
+                ],
+                [
+                  2227,
+                  2270
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1065,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          676,
+          1100
+        ],
+        [
+          1960,
+          1985
+        ],
+        [
+          2227,
+          2270
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "fmt::Display for Error",
+          "lines": [
+            1969,
+            1973
+          ],
+          "disposition": "retain actualRenderOptions::default customsnippet/localizer renderer, enumderiveDisplaynot equivalentdirectmessage."
+        },
+        {
+          "trait": "fmt::Debug for Error",
+          "lines": [
+            1975,
+            1979
+          ],
+          "disposition": "retain intentionalDisplay output ratherthanstructuralDebug includingpotentialsourcecontent."
+        },
+        {
+          "trait": "std::error::Error marker",
+          "lines": [
+            2233,
+            2233
+          ],
+          "disposition": "retain manualsmallmarker; defaultsource semantics notautomaticallytransparentnestedcause."
+        },
+        {
+          "trait": "serde::de::Error custom/invalid_type",
+          "lines": [
+            2248,
+            2270
+          ],
+          "disposition": "retain redaction andfallbacklocation attachment/structured variantclassification. Scopereadonlyfirsttwomethods, latertraitmethodsnotcredited."
+        }
+      ],
+      "semantic_fields": "Nonexhaustive enum carriesactualsource/location/budget/transformation/validation/snippetpolicy, no derivabilityfromvariantnamesalone."
+    },
+    {
+      "scope_index": 19,
+      "source_id": "native-dependency:serde-saphyr-1.2.0/src/lib.rs",
+      "sha256": "c8ac1fdcdcbfc060a9ef1696609f81289b0fdd5700e1d9b374de91b7770d6818",
+      "actual_EOF": 139,
+      "requested_registration": {
+        "source_id": "native-dependency:serde-saphyr-1.2.0/src/lib.rs",
+        "snapshot": "native-dependency",
+        "path": "CARGO_REGISTRY/serde-saphyr-1.2.0/src/lib.rs",
+        "sha256": "c8ac1fdcdcbfc060a9ef1696609f81289b0fdd5700e1d9b374de91b7770d6818",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 4768,
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+            "row": 153,
+            "read_ranges": [
+              [
+                20,
+                44
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-DECAL-AND-YAML-CAUSE-077"
+            ],
+            "read_status": "exact actual native error declaration and trait output bodies, not whole unrelated module",
+            "resolved_path": "CARGO_REGISTRY/serde-saphyr-1.2.0/src/lib.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root"
+        ],
+        "audit_owner": "root",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-YAML-CAUSE-035",
+            "json_pointer": "/source_proofs/1",
+            "source_id_as_recorded": "native-dependency:serde-saphyr-1.2.0/src/lib.rs",
+            "read_ranges_as_recorded": [
+              [
+                20,
+                44
+              ]
+            ],
+            "source_context": {
+              "source_id": "native-dependency:serde-saphyr-1.2.0/src/lib.rs",
+              "path": "CARGO_REGISTRY/serde-saphyr-1.2.0/src/lib.rs",
+              "sha256": "c8ac1fdcdcbfc060a9ef1696609f81289b0fdd5700e1d9b374de91b7770d6818",
+              "read_ranges": [
+                [
+                  20,
+                  44
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1066,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          20,
+          44
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Actualcfgreexports ofnativeYAMLerror/options/formatter/localizer/inputsource types, nohandwrittentraitimplementation inmaterialrange."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Direction markers and semantic admitted conversion remain distinct from derives",
+      "evidence": "ExactselectedDir2/Dir3construction anderrorclassification bodies personallyread. Erroralreadyusesthiserror::Error; leafmechanicaltraits alreadyderivedwhereconfigured. MarkerPrimitive2d explicit, constructors normalize/admitratherthanrawfieldcopy. RawcfgSerdederive isactualnativeboundary fact; itdoesnotprovecheckednewsemantics andmustnotbeaddedasreplacementforvalidation.",
+      "qualification": "No whole1511SDK/operator/testcoverage. Existingadmission/ownershipbaselinefacts retained, no newduplicateglobalissue orderiveduncheckedprojection recommendation."
+    },
+    {
+      "contract": "Native PNG/YAML error contracts require semantic formatting and controlled causes",
+      "evidence": "All17\u201319registeredranges personallyconsumed. Manualimpls inventoriedindividually: exactPNGDisplay/cause/conversions andYAMLcustomDisplayasDebug/snippet/redaction/location/Error marker. Reexportsandmanifestdeclaredconfigactualreadhave noimpl onlywithintheirsource ranges.",
+      "derive_comparison": "PNGOptions alreadyderivesDefault; enumstructuralDebug alreadyderived. YAMLDebug intentionallydelegatesDisplay, so Debugderivechangesoutput andcouldexposepayload. serde::de::Error iscustomfactory/structuredlocation/redaction behavior, noDeserialize derive substitute. Keepnecessarysmallmanualimpls; no existingforeigncrateavailablederive provenfor mechanicalFrompieces.",
+      "acceptance": "Exacterrorclassification/borrowedformat/sourcechain/redaction andwire/admission behavior remainunchanged byanylaterderive suggestion; no serializationaddedtoruntimeclassifiers, no broader bounds or unvalidatedconstruction."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 20,
+    "source_id": "native-dependency:spacetimedb-2.6.1/src/rt.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

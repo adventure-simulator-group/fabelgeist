@@ -1,0 +1,28 @@
+{
+  "id": "SEGOVB-INITIAL10-F008",
+  "classification": "source-backed optional maintenance suggestion",
+  "source_id": "pr-working:crates/adventuresim-character-creator/src/garment.rs",
+  "sha256": "d6b09524be811c5e4202be50af529c941a917ff8f31ea61e2a73e4da17dc103e",
+  "ranges": [
+    [
+      69,
+      91
+    ]
+  ],
+  "problem": "Nongeneric DrapeStage manually repeats a literal/named-u32 Display match despite this crate already enabling derive_more Display.",
+  "equivalent_implementation": "Add derive_more::Display to DrapeStage derive list, with exact per-variant #[display(\"panels placed\")], #[display(\"sewing step {step}/{of}\")], #[display(\"settling step {step}/{of}\")], #[display(\"fitted from its saved drape\")]; remove only handwritten Display82\u201391.",
+  "source_proof": [
+    "Original780 actual source69\u201391 personally consumed: no checks/classification/representation change in Display; exact four variants/nongeneric fields are u32 step/of.",
+    "Owning PR Cargo.toml681 personally read full79: derive_more2.1.1 features as_ref/display/from already enabled; frozen lock680 pins impl2.1.1.",
+    "Exact pinned macro display.rs1\u201382/233\u2013327/398\u2013438/499\u2013552 personally read; enum match destructures the same named fields, explicit format emits core::write!, and nongeneric enum adds no generic bound. Package/member bytes independently verified against frozen lock; fresh-dependency-registration-401.json."
+  ],
+  "acceptance": [
+    "Preserve all four exact messages/punctuation/default decimal progress and std::fmt::Result/Display receiver/formatter signature. Explicit formats ignore outer padding/precision like current write_str/write! forms; no transparent delegation fallback.",
+    "Keep DrapeStage variant/payload/API and existing structural derives, no Serialize/Deserialize or new conversion/dependency.",
+    "Only optional mechanical cleanup, not a runtime defect; no macro expansion/compiler/test run."
+  ],
+  "qualifications": [
+    "Full original780702-line source now personally consumed for lens10 in401/402/403; only Display candidate promoted. No child/other-lens coverage implied.",
+    "No global unique issue count inferred; parent alias reconciliation remains separate."
+  ]
+}

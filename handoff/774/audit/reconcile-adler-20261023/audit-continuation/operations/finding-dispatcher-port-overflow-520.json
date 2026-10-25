@@ -1,0 +1,44 @@
+{
+  "id": "SEGOVB-04-DISPATCHER-PORT-OVERFLOW-CANDIDATE-001",
+  "classification": "bounded native scalar mutation overflow",
+  "evidence": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/main.rs",
+      "sha256": "de12026f8d2b3c6409d0ff52f053b48b2caf54e3af425d2abdc2e7a3ec6b7eb5",
+      "ranges": [
+        [
+          50,
+          52
+        ],
+        [
+          98,
+          100
+        ],
+        [
+          140,
+          172
+        ],
+        [
+          177,
+          233
+        ]
+      ]
+    }
+  ],
+  "counterexample": "Ordinary CLI --base-port65535 accepted asu16; firstpendingrequest notalreadyspawned entersallocator; *p+=1 at150 overflows beforelaunch/provision/claim/spawn. Debugpanic/releasewrap0 are source-semantics, noexecutionperformed. Default6000 eventuallysameexhaustion after allocationcount, no live workloadassertion.",
+  "dependencies": "Exactaliascomparison pendingparent. OSportrepresentation and exhausted/available/reusable allocator state; rejected provisioningconsumption/retry is adjacent policyquestion, notautomaticallysamefinding. Mutexpoisonafterdebugpanic downstreamsymptom notseparatedefect.",
+  "acceptance": "Admittedlastport allocation and next-exhaustedstate have explicitcheckedoutcome beforemutation/claim; avoid silentlywrappingtoephemeral0. Preserve claimbeforechildspawn/tokenstripping/revokeonspawnfailure; no implementationuntilall13initialgate.",
+  "proof": "fresh frozen source only",
+  "new_unique_global": "not determined",
+  "alias_search": {
+    "by": "coordinator",
+    "scope": "1002 recovered finding-record wrappers",
+    "terms": [
+      "next_port",
+      "base_port",
+      "port allocation",
+      "port exhausted"
+    ],
+    "result": "No indexed exact alias; this is search evidence, not exhaustive semantic no-alias proof."
+  }
+}

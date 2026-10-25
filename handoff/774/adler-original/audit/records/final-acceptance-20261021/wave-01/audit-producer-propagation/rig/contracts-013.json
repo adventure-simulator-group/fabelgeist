@@ -1,0 +1,59 @@
+[
+  {
+    "id": "RIG-GARMENT-05",
+    "source_cells": [
+      56,
+      67,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      110,
+      111
+    ],
+    "status": "incomplete-connected-receivers-pending",
+    "operations": [
+      "All assigned garment/drape/settled/stage/wardrobe sources and existing fixtures fully read. DrapeInput original studio producer drape_preview::input141-159 clones typed source skin/names/states, retained through DrapeCheckpoints::input177 and exact same_setup237-253. Actual fitting uses typed joint lookup and native geometry/cloth kernels; no primitive rig ordinal roundtrip in transfer_skin462-521 or skirt385-460. Typed BTreeMap ordinal keeps original ascending ordinal tie order and strongest8 selection; PackedRigSkin::empty uses real source jointcount then push/set typed rows.",
+      "Measured_body99-142 uses typed joint/name columns then converts raw XYZ metres to centimetres for actual garment numerical measurement; vertices/faces remain geometric roles. Placement23-34 typed hip ordinals index typed state table then native pose translation. Numericalcloth/scalar settings StageSettings feed actual Fit solver settings88-103; they are raw validated application settings, no existing checked producer was found before them in this lens. Other lenses must assess primitive policy.",
+      "Skin transfer fixture at garment603-625 declares authored extent3; sphere/wardrobe/stage fixtures declare extent1 and empty unused name/state columns, so they prove local surface/transfer behavior only. Do not call these complete Wearer aggregate validation.",
+      "SettledDrape capture107-127 persists only bodycounts and native triangle/barycentric/offset bindings; fit184-225 compares counts then re-evaluates actual mesh bindings and regenerates typed skin. BodyTopology docs claim same MHR LOD, but count equality cannot prove topology identity. Preserve as exact aggregate-lens candidate; connected CharacterLod propagation gap RIG-PP-009 includes model/manifest/cache, not automatically resolved by this record.",
+      "Wardrobe keeps checked LibraryName keys through showing/state/get/save. Wardrobe::insert58 mirrors LibraryName text into GarmentSelection.name; actual validation44 compares presentation name, no name is reconstructed as LibraryName from that mirror inside owner. This is display/codec spelling, separate from catalog identity RIG-PP-007. Actual UI save23 admits authored text once and retains resulting typed name.",
+      "StudioCache private Key Vec<u8> encodes exact recipe/cache inputs via serde/hash38-43/174-180 and is compared/indexed privately; no application semantic value is reconstituted from bytes. It is intentional cache identity representation, not blanket external format exemption. CharacterLod is already raw before encoding and remains covered RIG-PP-009.",
+      "StudioGeneration original loadout/generation/typedrig/native-preview receivers21-107/118-187 fully read. Spawn_garment227-277 explicitly creates optional weighted binding only when skin arrays match; wardrobe spawn298-300 clears binding for static display. Production animation weighted-absence behavior is covered prior trace.",
+      "Underlayer pattern required_frames28-44 and regions48-80 preserve typed kind/placement/region/name; callback resolves typed ordinal against actual Wearer then reads XYZ only for native clipping-plane kernels. fit_underlayer38-83 retains checkedpacked skin produced by GPUreadback. with_body58-91 preserves typedWearer; morph sample.name strips generated purpose for internalArmorMorphname before correction, another affected RIG-PP-008 edge."
+    ],
+    "pending": [
+      "Actual unchanged conform/fitted/outfit/drape_worker/LayerPlan/bare_body and export/character_morphs draped siblings",
+      "README embedded code/contracts",
+      "GPU/native shader receiver queues from earlier traces"
+    ]
+  },
+  {
+    "id": "RIG-CODE-003",
+    "status": "actionable-source-blocker",
+    "location": "pr-working:crates/adventuresim-character-creator/src/garment/dressing.rs97",
+    "source_hash": "a5b190694f00f1dbc5e1895f5b40f65b6c1f7242da45ea844b59a6b6d6932523",
+    "scenario": "Dressing::new takes typed joints from PackedRigSkin::iter (fabelgeist-rig/skin.rs154-155) and uses *joint as usize. RigJointOrdinal is a struct(usize), fabelgeist-rig/lib.rs52; Rust primitive as cast is invalid for this struct.",
+    "smallest_connected_repair": "Preserve joint-column ownership in parts as RigJointTable<bool> and use typed get (or equivalent canonical typed owning operation); preserve existing max_by total_cmp tie and fallback semantics and every existing fixture input/assertion. Re-read actual drape/conform callers.",
+    "dependencies": [
+      "Canonical RigJointOrdinal/PackedRigSkin producer",
+      "Actual drape run78 Dressing caller"
+    ],
+    "acceptance": "Actual clothing module type-checks under hosted source checks with no internal raw ordinal adapter and unchanged bodypart selection/fallback behavior.",
+    "coordinator_notified": true,
+    "validation": "not executed"
+  }
+]

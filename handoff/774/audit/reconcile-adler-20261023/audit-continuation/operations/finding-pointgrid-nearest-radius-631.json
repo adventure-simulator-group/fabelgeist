@@ -1,0 +1,35 @@
+{
+  "id": "SEGOVB-04-POINTGRID-NEAREST-RADIUS-CANDIDATE-001",
+  "source_id": "pr-working:crates/fabelgeist-hair/src/grid.rs",
+  "sha256": "c09704f7670decebc3e4eb9ff4ea525870f197f4302a4e16407c5e298f988996",
+  "ranges": [
+    [
+      113,
+      154
+    ]
+  ],
+  "witness": "Build cell1 with accepted point(.5,0,0); query nearest_k(Vec3::ZERO,1,.1,accept_all). Ring0 collects point at distance.5 but cannot early return (.5<=0 false). Ring1 has no additional point, then .5<=1 allows early return at135\u2013137. Returned distance.5 exceeds documented max_radius.1 because retain<=max_radius is only final140\u2013143 path. nearest delegates this exact operation.",
+  "classification": "Source-backed public API defect at ordinary finite unit scale; no actual groom caller/session or GPU execution asserted.",
+  "related_api_cases": "k=0 also enters found.len()>=k then indexes found[k\u22121], even an empty grid. Native cell endpoint additions can overflow for extreme finite coordinates; separate capacity qualification, not an ordinary producer assertion.",
+  "repair_boundary": "Apply the max-radius contract before every successful return; explicitly define empty k policy. Preserve actual group filter and exact nearest ordering, not arbitrary coordinate clamps.",
+  "acceptance": [
+    "Unit-scale witness returns no out-of-radius point on early and terminal paths.",
+    "Zero requested neighbors returns the explicitly chosen empty/error policy without indexing underflow.",
+    "In-radius ordering, group filtering and nearest delegation retain their contracts."
+  ],
+  "alias_status": "Pending narrow exact archive alias check; no global uniqueness claim.",
+  "consumed_exact_alias_qualifications": [
+    {
+      "archive_file": "audit/continuation/native/initial05-aggregate-states/findings.jsonl",
+      "record_index": 7,
+      "id": "NATIVE-INITIAL05-F006",
+      "disposition": "Exact zero-k alias, not radius-filter witness; actual Interpolate clamps>=1 and nearest uses1."
+    },
+    {
+      "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+      "record_index": 79,
+      "id": "RIG-ADMISSION03-F075",
+      "disposition": "Exact zero-k/kMAX and spatial endpoint admission aliases; preserve intentional infinite nearest search radius. Does not state bounded max-radius early-return route."
+    }
+  ]
+}

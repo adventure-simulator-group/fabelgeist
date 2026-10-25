@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-632",
+  "at": "2026-10-25T16:18:51.060972+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 951,
+  "source_id": "pr-working:crates/adventuresim-core/src/life_simulation.rs",
+  "sha256": "de8b909f4a6436e5f21c9828322d80f19905b15764e7f0b54fca2b1f0079457a",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "LifePhaseKind/HistoricalActivity structural traits and LifeSimulationOutput Default already derive. Input borrows generic attributes and organization; no handwritten trait/codec in1\u2013220. HistoricalActivity::eligible is semantic phase classification, simulation constructs/advances bounded analytical phases, not trait delegation."
+  ],
+  "first_unfinished": {
+    "scope_index": 951,
+    "line": 221
+  },
+  "execution": "none"
+}

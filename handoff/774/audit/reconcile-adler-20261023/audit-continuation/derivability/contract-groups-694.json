@@ -1,0 +1,370 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-694",
+  "at": "2026-10-25T16:33:01.097597+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 969,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/assembly.rs",
+      "sha256": "a54013572d9b0b6a8385c70e2aac6dbd516dfd40a72e87ede1c8ab6e9ea48ff7",
+      "actual_EOF": 1443,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/assembly.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/quest_generation/assembly.rs",
+        "sha256": "a54013572d9b0b6a8385c70e2aac6dbd516dfd40a72e87ede1c8ab6e9ea48ff7",
+        "bytes": 61438,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+            "ranges": [
+              [
+                1,
+                1443
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": []
+          },
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/supplemental-quest-sources.json",
+            "ranges": [
+              [
+                1,
+                1443
+              ]
+            ],
+            "source_read_status": "full source incl existing inline fixtures where present",
+            "trace_refs": [
+              "NATIVE-SUPP-QUEST-IDENTITY-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 184,
+            "read_ranges": [
+              [
+                1,
+                1443
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SHARED-QUEST-WORLD-ACTOR-089"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_generation/assembly.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 89,
+            "read_ranges": [
+              [
+                1,
+                1443
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-QUEST-002",
+              "NATIVE-OWNER-F015"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_generation/assembly.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera",
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-QUEST-IDENTITY-INVENTORY-PARTIAL-051",
+            "json_pointer": "/source_proofs/0",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/quest_generation/assembly.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1443
+              ]
+            ],
+            "source_context": {
+              "index": 173,
+              "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/assembly.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_generation/assembly.rs",
+              "sha256": "a54013572d9b0b6a8385c70e2aac6dbd516dfd40a72e87ede1c8ab6e9ea48ff7",
+              "read_ranges": [
+                [
+                  1,
+                  1443
+                ]
+              ],
+              "mode": "Fresh complete actual source body; former assigned ranges may be scoped, actual full currentEOF recorded",
+              "roles": [
+                "Fresh full assembly1443: canonical_context then typed Seed/solved family/cause/site/demographic/evidence/route/weight selection through GeneratedCase validation. Observer scope/hash formatting feeds exact ID codec, but raw generated IDs retained in manifest and application schemas before actual DB encode, separate from real hash/JSON numerical operation.",
+                "Direct checked SubjectId/AssetId at439\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153442 -> .as_str().into into consequence/finale/custody/dialogue producer rows611\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153724; validation later compares against existing typed ObjectiveRequirement leaves, and actual DB seed custody re-admits same owner. This is F022 connected propagation; preserve existing Subject/Asset owner and full tuple/payload distinctions.",
+                "FabricatedClaim finale.subject_id contains proposition description_prop, while Rescue contains real subject ID. Do not wrap the whole mixed field as SubjectId. Existing typed Expose/Rescue kind and payload must own their distinct references. Same custody tuple field carries either realAsset or realSubject, not an arbitrary equivalent ID.",
+                "Outbreak private entropy pair is distinct from generation Seed. Highword.into used in private pattern RNG, seed.to_u64()/5 parity branch and SHA-framed observer ID generators have actual different purpose/precision/framing. Preserve exact source bits/draw/order; choose final canonical identity versus entropy owners using actual uses, not width.",
+                "Outbreak acquisition Seed -> pure InfectionEpisode.id and retained OutbreakExposure.episode_id before actual DB write is exact NATIVE-PS-CLINICAL-005 and NATIVE-PS-CAMERA-MATERIAL-OUTBREAK-014 shared source requirement. Their actual subsequent severity/RNG reconstruction is linked, no repeated body investigation or inference from helper name alone.",
+                "Actual outbreak types preserve private canonical disease/source/route/remediation/carrier/chronology. Measured0 immunity and living5.0 values, terminal/attack chronology, saturation, native degree/abstract coordinate policies and original privacy/determinism must stay intact; later enum/aggregate/admission/operations inventory remains required."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-QUEST-IDENTITY-RECEIVER-CLOSURE-052",
+            "json_pointer": "/source_proofs/0",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/quest_generation/assembly.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1443
+              ]
+            ],
+            "source_context": {
+              "index": 173,
+              "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/assembly.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_generation/assembly.rs",
+              "sha256": "a54013572d9b0b6a8385c70e2aac6dbd516dfd40a72e87ede1c8ab6e9ea48ff7",
+              "read_ranges": [
+                [
+                  1,
+                  1443
+                ]
+              ],
+              "mode": "Fresh complete actual source body; former assigned ranges may be scoped, actual full currentEOF recorded",
+              "roles": [
+                "Fresh full assembly1443: canonical_context then typed Seed/solved family/cause/site/demographic/evidence/route/weight selection through GeneratedCase validation. Observer scope/hash formatting feeds exact ID codec, but raw generated IDs retained in manifest and application schemas before actual DB encode, separate from real hash/JSON numerical operation.",
+                "Direct checked SubjectId/AssetId at439\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153442 -> .as_str().into into consequence/finale/custody/dialogue producer rows611\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153724; validation later compares against existing typed ObjectiveRequirement leaves, and actual DB seed custody re-admits same owner. This is F022 connected propagation; preserve existing Subject/Asset owner and full tuple/payload distinctions.",
+                "FabricatedClaim finale.subject_id contains proposition description_prop, while Rescue contains real subject ID. Do not wrap the whole mixed field as SubjectId. Existing typed Expose/Rescue kind and payload must own their distinct references. Same custody tuple field carries either realAsset or realSubject, not an arbitrary equivalent ID.",
+                "Outbreak private entropy pair is distinct from generation Seed. Highword.into used in private pattern RNG, seed.to_u64()/5 parity branch and SHA-framed observer ID generators have actual different purpose/precision/framing. Preserve exact source bits/draw/order; choose final canonical identity versus entropy owners using actual uses, not width.",
+                "Outbreak acquisition Seed -> pure InfectionEpisode.id and retained OutbreakExposure.episode_id before actual DB write is exact NATIVE-PS-CLINICAL-005 and NATIVE-PS-CAMERA-MATERIAL-OUTBREAK-014 shared source requirement. Their actual subsequent severity/RNG reconstruction is linked, no repeated body investigation or inference from helper name alone.",
+                "Actual outbreak types preserve private canonical disease/source/route/remediation/carrier/chronology. Measured0 immunity and living5.0 values, terminal/attack chronology, saturation, native degree/abstract coordinate policies and original privacy/determinism must stay intact; later enum/aggregate/admission/operations inventory remains required."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-QUEST-KNOWLEDGE-050",
+            "json_pointer": "/current_sources/0",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/quest_generation/assembly.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1443
+              ]
+            ],
+            "source_context": {
+              "index": 173,
+              "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/assembly.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_generation/assembly.rs",
+              "sha256": "a54013572d9b0b6a8385c70e2aac6dbd516dfd40a72e87ede1c8ab6e9ea48ff7",
+              "read_ranges": [
+                [
+                  1,
+                  1443
+                ]
+              ],
+              "mode": "Fresh complete actual source body; former assigned ranges may be scoped, actual full currentEOF recorded",
+              "roles": [
+                "Fresh full assembly1443: canonical_context then typed Seed/solved family/cause/site/demographic/evidence/route/weight selection through GeneratedCase validation. Observer scope/hash formatting feeds exact ID codec, but raw generated IDs retained in manifest and application schemas before actual DB encode, separate from real hash/JSON numerical operation.",
+                "Direct checked SubjectId/AssetId at439\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153442 -> .as_str().into into consequence/finale/custody/dialogue producer rows611\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153724; validation later compares against existing typed ObjectiveRequirement leaves, and actual DB seed custody re-admits same owner. This is F022 connected propagation; preserve existing Subject/Asset owner and full tuple/payload distinctions.",
+                "FabricatedClaim finale.subject_id contains proposition description_prop, while Rescue contains real subject ID. Do not wrap the whole mixed field as SubjectId. Existing typed Expose/Rescue kind and payload must own their distinct references. Same custody tuple field carries either realAsset or realSubject, not an arbitrary equivalent ID.",
+                "Outbreak private entropy pair is distinct from generation Seed. Highword.into used in private pattern RNG, seed.to_u64()/5 parity branch and SHA-framed observer ID generators have actual different purpose/precision/framing. Preserve exact source bits/draw/order; choose final canonical identity versus entropy owners using actual uses, not width.",
+                "Outbreak acquisition Seed -> pure InfectionEpisode.id and retained OutbreakExposure.episode_id before actual DB write is exact NATIVE-PS-CLINICAL-005 and NATIVE-PS-CAMERA-MATERIAL-OUTBREAK-014 shared source requirement. Their actual subsequent severity/RNG reconstruction is linked, no repeated body investigation or inference from helper name alone.",
+                "Actual outbreak types preserve private canonical disease/source/route/remediation/carrier/chronology. Measured0 immunity and living5.0 values, terminal/attack chronology, saturation, native degree/abstract coordinate policies and original privacy/determinism must stay intact; later enum/aggregate/admission/operations inventory remains required."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-QUEST-KNOWLEDGE-050",
+            "json_pointer": "/additional_actual_source_proofs/11",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/quest_generation/assembly.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                175
+              ],
+              [
+                390,
+                510
+              ],
+              [
+                710,
+                785
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/assembly.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_generation/assembly.rs",
+              "sha256": "a54013572d9b0b6a8385c70e2aac6dbd516dfd40a72e87ede1c8ab6e9ea48ff7",
+              "read_ranges": [
+                [
+                  1,
+                  175
+                ],
+                [
+                  390,
+                  510
+                ],
+                [
+                  710,
+                  785
+                ]
+              ],
+              "actual_line_count": 1443,
+              "role": "Actual generate dispatch/choice calls, typed subject/asset source/build_actions/evidence/bridge assembly receiving bodies",
+              "mode": "Fresh exact producer-supplement source-body read; only listed ranges, no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-037",
+            "json_pointer": "/fresh_current_source_reads/5",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/quest_generation/assembly.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                175
+              ],
+              [
+                390,
+                510
+              ],
+              [
+                710,
+                785
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/assembly.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_generation/assembly.rs",
+              "sha256": "a54013572d9b0b6a8385c70e2aac6dbd516dfd40a72e87ede1c8ab6e9ea48ff7",
+              "read_ranges": [
+                [
+                  1,
+                  175
+                ],
+                [
+                  390,
+                  510
+                ],
+                [
+                  710,
+                  785
+                ]
+              ],
+              "actual_line_count": 1443,
+              "role": "Actual generate dispatch/choice calls, typed subject/asset source/build_actions/evidence/bridge assembly receiving bodies",
+              "mode": "Fresh exact producer-supplement source-body read; only listed ranges, no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 347,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1443
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Entire1443line exact assembly personally consumed687\u2013694; two native generate/outbreak functions construct and validate semantic typed graph/provenance/public views. No local type declaration or handwritten trait/codec."
+    },
+    {
+      "scope_index": 970,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/audit.rs",
+      "sha256": "d5c30cf48e89ffd626d8a3df81a151478fb15f25b92fe5bdaa4b1ca8bdb2674c",
+      "actual_EOF": 78,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/audit.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/quest_generation/audit.rs",
+        "sha256": "d5c30cf48e89ffd626d8a3df81a151478fb15f25b92fe5bdaa4b1ca8bdb2674c",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 3182,
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 93,
+            "read_ranges": [
+              [
+                1,
+                78
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-QUEST-003",
+              "NATIVE-OWNER-F016"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_generation/audit.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_owner": "native",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1608,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Entire78line exact role personally consumed693 output: native multi-seed audit aggregation and authored typed witness fixture constructor. No local type/trait/codec. Source only, audit function not executed."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Quest assembly and audit helper",
+      "disposition": "No handwritten trait target. Preserve native semantic choices, checked graph/authority construction, safe presentation and explicit public/private source distinctions. No new finding or execution evidence."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 971,
+    "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/mod.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

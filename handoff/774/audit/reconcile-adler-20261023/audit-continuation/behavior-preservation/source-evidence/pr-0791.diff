@@ -1,0 +1,24 @@
+--- PRbase/crates/adventuresim-character-creator/src/garment/shading.rs
++++ frozen/crates/adventuresim-character-creator/src/garment/shading.rs
+@@ -22,9 +22,9 @@
+             name: format!("{} · {}", selection.name, selection.fabric.label()),
+             positions: Vec::new(),
+             normals: Vec::new(),
+             faces: mesh.triangles.clone(),
+-            indices: Vec::new(),
++            indices: Default::default(),
+             weights: Vec::new(),
+             stage: DrapeStage::Placed,
+         }
+     }
+@@ -50,9 +50,9 @@
+             ],
+             faces: vec![[0, 1, 2], [3, 4, 5]],
+             normals: vec![],
+             texcoords: vec![],
+-            indices: vec![],
++            indices: Default::default(),
+             weights: vec![],
+             stage: DrapeStage::Placed,
+         };
+         let mut bent = garment.positions.clone();

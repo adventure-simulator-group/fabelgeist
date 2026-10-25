@@ -1,0 +1,76 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-001",
+  "at": "2026-10-24T02:27:38.158797+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 975,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/solver.rs",
+      "sha256": "5d9b71ab4620264dce7604d0c9662f52009a887d00225927ef217087e0f10ba2",
+      "personally_read_ranges": [
+        [
+          1,
+          979
+        ]
+      ]
+    },
+    {
+      "scope_index": 969,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/assembly.rs",
+      "sha256": "a54013572d9b0b6a8385c70e2aac6dbd516dfd40a72e87ede1c8ab6e9ea48ff7",
+      "personally_read_ranges": [
+        [
+          1,
+          1443
+        ]
+      ]
+    }
+  ],
+  "fresh_support_ranges": [
+    {
+      "scope_index": 974,
+      "sha256": "3c679c4e5177ee4462d6286d81cdd3e3cfaa9b6e2d91e844d3d45b8e2f666a44",
+      "ranges": [
+        [
+          111,
+          213
+        ]
+      ],
+      "note": "Additional own05 reread; already historical role, no new distinct count."
+    }
+  ],
+  "groups": [
+    {
+      "relationship": "Solved variables preserve same context/witness/catalogue association",
+      "trace": "975:18\u2013216 solves only after >=2 witnesses, bounded count/text budget, chooses indices from actual same arrays and takes secondary distinct index. 974:111\u2013130 freshly reread canonical_context sorts and rejects duplicate resident identities; 969:4\u201331 canonicalizes before solving, then borrows exact primary/secondary. Victim candidate excludes both indices, projection454 proved hard-zero when no target,969:82\u2013110 binds selected remaining candidate. No normal duplicate-witness or absent-victim panic supported.",
+      "disposition": "Positive normal construction; raw model/context membership strengthening remains inherited452/454. SolvedVariables private record is not blanket authority for public mutated manifest."
+    },
+    {
+      "relationship": "Family/action/trail and finale producers",
+      "trace": "969 early Outbreak dedicated branch precedes solve/build_actions, so975 Outbreak empty-actions followed by expect is unreachable under actual private caller. Nonoutbreak constructs exactly2 linked track segments, hands same array into build_actions, binds first/final action findings and IDs. Finales/objectives/custody/dialogue payloads assembled together by family/cause; Surrender only when authored. Configured finale list asserted equal; actual catalogue validation/author coverage remains separate.",
+      "disposition": "No supported normal Outbreak panic or missing trail correlation. Public mutable DTO and loose payload relationships still representable; retain exact shared aggregate owner/typed references rather than primitive side channels."
+    },
+    {
+      "relationship": "Bridge and reachable evidence correspondence",
+      "trace": "975 bridge resolves catalogue action IDs by family, scoped event/evidence/action IDs.969:728\u2013782 deduplicates bridge identity, creates evidence and adds matching action output when action exists;969:859 whole validate rejects missing production. That success is Result<()> on borrowed mutable model; it does not seal later mutations.",
+      "disposition": "Normal assembler validates complete result. Need validated case owner retaining graph relations plus mutation/API discipline if migratory repair undertaken; do not invent accepted malformed current manifest."
+    },
+    {
+      "relationship": "Outbreak source/remediation/transmission/chronology",
+      "trace": "969:863\u20131443 bounds disease catalogue; match jointly constructs source/remediation/responsible/carrier, same source/patient IDs bind independent routes and exact remediation objective. Noncarrier installs two intervention actions; carrier uses actual hostile group. Patient episode/terminal comparison constructs died_at and death_kind together; living branch maps same optional terminal to both. Carrier optional death can be absent when now too early but no Disease-with-None pair emitted. Sparse generated bodies validated before return.",
+      "disposition": "Discharges claimed normal optional Disease-death mismatch for assembler; raw mutable aggregate validator API observation456 remains qualified. Source-specific tests and actual disease kernel acceptance remain independent."
+    },
+    {
+      "relationship": "Authority/visibility and derived identity",
+      "trace": "969 private pattern detail chooses separate observer entropy; initial volunteered projections exclude withheld. Regular witness reliability maps presented decoy vs actual finale without disclosing reliability; correction_ref matches intended prior proposition. Scoped IDs/Seed remain canonical shared owners where admitted; textual context seed and patient ID hash materials must preserve byte semantics.",
+      "disposition": "No prose-equivalence reliability test. Keep graph/observer/context identity correspondence through future API repair; native hash serialization is boundary, not license for internal string IDs."
+    }
+  ],
+  "connected_repairs": "Carry inherited model/validator findings forward. Complete aggregate graph admission and typed reference/mutation contracts once full13 discovery is finished; reconcile ownership of shared quest factories and consumers before edits. No execution plan yet.",
+  "acceptance": "All normal/private construction and public decode/mutation routes preserve case family, witness/site/target, objective/finale/producer and chronology relationships; distinguish raw DTO API weakness from actual emitted bad states. Use existing fixtures only.",
+  "new_unique_findings": [],
+  "discovery": "WITH findings/qualified inherited obligations; initial05 still incomplete",
+  "repair": "not started; all13 discovery gate",
+  "validation": "not run",
+  "next": "976 test module and977\u2013981 quest fixtures, then remaining original scopes/246overlays/merged and live deltas"
+}

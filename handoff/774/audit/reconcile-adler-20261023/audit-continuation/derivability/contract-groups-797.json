@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-797",
+  "at": "2026-10-25T16:52:25.139047+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1013,
+  "source_id": "pr-working:crates/adventuresim-core/src/strategic_schedule.rs",
+  "sha256": "ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "SkillHours/LeisureOutcome structural, Default and Serde deny_unknown_fields already derived; RestorativeLeisureSpan structural already. Inherent ordered skill array incorporates semantic leaf totals/finiteness, and leisure pro-rata/spans/fatigue native calculations are not trait boilerplate. No manual trait/codec in consumed range."
+  ],
+  "first_unfinished": {
+    "scope_index": 1013,
+    "line": 221
+  },
+  "execution": "none"
+}

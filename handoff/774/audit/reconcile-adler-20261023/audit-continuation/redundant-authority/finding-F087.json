@@ -1,0 +1,94 @@
+{
+  "id": "CONT07-F087",
+  "at": "2026-10-23T20:46:41.295425+00:00",
+  "classification": "source-backed current diagnostic isolation contradiction; no benchmark run",
+  "title": "Broad vista visibility writes undo tree and grass benchmark isolation",
+  "sources": [
+    {
+      "scope_index": 1699,
+      "sha256": "f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1",
+      "ranges": [
+        [
+          408,
+          415
+        ],
+        [
+          499,
+          505
+        ],
+        [
+          1879,
+          1892
+        ],
+        [
+          1956,
+          2023
+        ],
+        [
+          2271,
+          2337
+        ],
+        [
+          2629,
+          2655
+        ]
+      ],
+      "coverage": "source freshpartial1-2700; remainder notyetread"
+    },
+    {
+      "scope_index": 1637,
+      "sha256": "15095204e03f1e13f74d77b1afbd17e33489f798b7732c59acfbacdfcc219307",
+      "ranges": [
+        [
+          245,
+          259
+        ]
+      ]
+    },
+    {
+      "scope_index": 1641,
+      "sha256": "d6c99d033f27462e88a6c1dbafd194a210933ababf7450d35111f18e155ad01e",
+      "ranges": [
+        [
+          145,
+          159
+        ]
+      ]
+    },
+    {
+      "scope_index": 1555,
+      "sha256": "55a8f28f05846eea9e2cd7460a1a1aaecb83c64af31573ed82a2bb2f5bdaf196",
+      "ranges": [
+        [
+          54,
+          80
+        ]
+      ]
+    },
+    {
+      "scope_index": 1674,
+      "sha256": "b487f7c3b762586f17bebd06fd0a7cae7d415743566df637800b4056cc3441ac",
+      "ranges": [
+        [
+          20,
+          26
+        ],
+        [
+          77,
+          85
+        ]
+      ]
+    }
+  ],
+  "earliest_failed_contract": "A selectedbenchmark isolation mode must produceoneconsistent finalvisibility decisionforentitieswithmultiplerender-familymarkers. Separatecurrentvisibilitywriters targetoverlappingsets withdifferentdecisionfacts.",
+  "proof": [
+    "No vista trees sets hide_vista_trees=true andhidden_scene_layers0. p1 setsVisibilityHidden forVistaTreePresentation1981-1987. p5 lateriteratesWithVistaTerrain2017-2023 andsetsInheritedbecauseHIDE_VISTA_TERRAIN isunset. Actualvista trees carrybothVistaTreePresentation andVistaTerrain, sofinalwriteundoestheisolation.",
+    "No grass setsHIDE_GRASS; p2 hidesGroundScatterLayer::Grass. Actualvista spawn_tuft_batches gives grassmarker andVistaTerrain via callerbundle, so p5laterrestoresInherited forthesamevistagrassentities. ExistingplayablegrasswithoutVistaTerrainstayhidden; cannotlabelwholegrassfamilysuppressed."
+  ],
+  "actual_recipient": "Benchmarksamples andnamedmode results2271-2298 thennatural-minus-mode GPUattribution2311-2337 andMarkdownisolationtable2629-2655 claimhiddenfamilycost. FinalnativeVisibility stillenablesoverlappedtargets, contaminatingdiagnosticcausalcomparison.",
+  "qualification": "Exactcurrentmode data/queryoverlap/sequentialwrites/staticentitytags proof, no timing/GPU/nativebenchmarkexecution, screenshot, measuredwrongdelta or allmodesclaim. BroadNoVistaTerrain alsocoversscenerybycurrenttag, butitsintendedlabelscopeisrelatedpolicyquestion ratherthanaseconddistinctfinding. Unreadviewer2701-4477 notcredited.",
+  "connected_repair": "Useonecanonicalper-entity isolation decision that combinesallfamilyflags, ornarrowtheterrainquerytoactualVistaTerrainMesh so itcannotoverwriteotherfamilies. Preservebaselinevisibility, designedcross-familymodes, exactGPUattribution/nativescheduleandshadow/isolationownership.",
+  "acceptance": "NoVistaTrees leavesactualvista treeentitieshiddenafterallconfigurationwrites; NoGrass includesvistagrass; togglingonefamilydoesnotrestoreanotherhiddenfamily. DeliberateNoVistaTerrainmeaningexplicit. No tests added or executed.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

@@ -1,0 +1,40 @@
+{
+  "id": "NATIVE-INITIAL05-QUAL098",
+  "at": "2026-10-23T13:37:10.495648+00:00",
+  "kind": "duplicate provenance and exact distinct-count correction; no new source or rollback of actual evidence",
+  "preserved_immutable": [
+    "contract-groups-153.json",
+    "contract-groups-179.json",
+    "contract-groups-400.json",
+    "contract-groups-418.json",
+    "progress-419.json",
+    "progress-425.json",
+    "NATIVE-INITIAL05-REG056",
+    "NATIVE-INITIAL05-QUAL096"
+  ],
+  "corrections": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/durability.rs",
+      "sha256": "7e08e94102b0e097fdb309ad3f5caaf54c6d5c313979a3c5186bb671bb231afd",
+      "actual_global_index": 915,
+      "original_current05_proof": "contract-groups-153.json full454",
+      "later_support": "contract-groups-418.json full454",
+      "effect": "Later418 does not add a distinct variant. Progress419 and subsequent421/423/425 each overcounted current072 by1; current intersection of completed source identities is1450, unread1403. No finding-count change."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/assignment.rs",
+      "sha256": "edaab496e73d7ae22b10743303627d76c5526cdff566e72e60f563dcbc2c77f9",
+      "actual_global_index": 2741,
+      "original_current05_proof": "contract-groups-179.json full72 with actual P16/PR difference and current role comparison",
+      "later_support": "REG056/contract-groups-400.json fresh direct body and surprise caller comparison",
+      "effect": "Already existing global variant and range. REG056 is duplicate prospective current-role/reread provenance, not a new variant, overlay or pending01/02 obligation. Its wording no prior body display only describes immediately preceding navigation before this fresh reread, not historical first analysis. Prior400/405 and ensuing progress pending-new-material label is superseded."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/assignment.rs",
+      "relationship": "target list membership versus uniqueness",
+      "effect": "Packet179 correctly states a hybrid can occur in both initial active melee and active ranged lists; later400 shorthand must not promise global uniqueness. Each enumerated index still belongs to same side and actual nonempty side guard closes modulo. SurpriseF065 requires only bounded attacker index and nonempty targets plus its stated surviving/cancellation condition, not unique target list."
+    }
+  ],
+  "repair": "frozen",
+  "validation": "not_established"
+}

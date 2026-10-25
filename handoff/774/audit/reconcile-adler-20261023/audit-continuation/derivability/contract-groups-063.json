@@ -1,0 +1,52 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-063",
+  "at": "2026-10-25T12:04:02.067734+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_ROLE_INCOMPLETE",
+  "source_id": "physical-p16:crates/adventuresim-stdb-module/src/character.rs",
+  "scope_index": 178,
+  "sha256": "1c346cbf22b4b7ad34cdd6b515b08d015c43e6489f953aa3a75ea40d8e3c675c",
+  "actual_compared_ranges": [
+    [
+      1,
+      900
+    ]
+  ],
+  "trait_inventory": [
+    {
+      "trait": "From<&CharacterAttributes> for PlayerAttributeValues",
+      "lines": [
+        465,
+        485
+      ],
+      "disposition": "KEEP explicit named cross-record projection dropping persistent character_id. No available exact structural mapping derive established; standard/derive_more From does not map named source fields this way."
+    },
+    {
+      "trait": "From<CharacterAttributes> for PlayerAttributeValues",
+      "lines": [
+        487,
+        491
+      ],
+      "disposition": "KEEP small ownership adapter delegating borrowed mapping, preserving both API forms."
+    },
+    {
+      "trait": "From<(u64, PlayerAttributeValues)> for CharacterAttributes",
+      "lines": [
+        493,
+        514
+      ],
+      "disposition": "KEEP tuple ID plus named values flattening into persisted row; no existing equivalent derive established."
+    }
+  ],
+  "existing_derives": "SpacetimeDB table/type macros with structural Clone/Debug and applicable Eq/Copy on inspected Character/death/attribute/skills/limbs/equipment records; no handwritten serializer seen in1\u2013900.",
+  "semantic_contracts": "Trusted gateway projections, death lifecycle, equipment occupancy/cycle/capacity/restoration and temporary enemy construction/scaling remain semantic functions. Include name modules are separate source roles, not transferred.",
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 178,
+    "source_id": "physical-p16:crates/adventuresim-stdb-module/src/character.rs",
+    "next_line": 901,
+    "actual_EOF": 3987
+  },
+  "execution": "none",
+  "limits": "Only personally consumed1\u2013900; fullrole remains pending, no hash/otherlens credit."
+}

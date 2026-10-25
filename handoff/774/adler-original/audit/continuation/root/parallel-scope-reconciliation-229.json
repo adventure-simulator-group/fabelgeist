@@ -1,0 +1,193 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-229",
+  "at": "2026-10-23T06:45:09.339227+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-066.json",
+    "sha256": "f257d6778021af18d781e034a4ca19fbd99c0051c53bdb19f2e8cdb8288e15cd"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-065.json",
+    "sha256": "5912cf3861acbf9ece8666db7dec00285ddd0333b78afcec5174ce45167f8f89"
+  },
+  "new_variants": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/scalp_map.rs",
+      "sha256": "717bbedb859bc7b5df413aeea35d20cccbdf1e08dc53f2f8d692b72dc2cc662e",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-character-creator\\src\\hair\\scalp_map.rs",
+      "snapshot": "pr-working",
+      "actual_line_count": 147,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          1,
+          147
+        ]
+      ],
+      "audit_owner": "camera",
+      "scope_registration": [
+        {
+          "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+          "sha256": "04546ed7a87f82cb507908dee5259dc0b2ce101e551a961cdd18fd9ae9fda09d",
+          "row_1based": 45,
+          "id": "CAMERA-INITIAL07-REG045",
+          "original_record": {
+            "id": "CAMERA-INITIAL07-REG045",
+            "at": "2026-10-23T06:39:31.832954+00:00",
+            "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/scalp_map.rs",
+            "snapshot": "pr-working",
+            "snapshot_path": "target/774-snapshots/pr-working/crates/adventuresim-character-creator/src/hair/scalp_map.rs",
+            "sha256": "717bbedb859bc7b5df413aeea35d20cccbdf1e08dc53f2f8d692b72dc2cc662e",
+            "actual_EOF": 147,
+            "material_ranges": [
+              [
+                1,
+                147
+              ]
+            ],
+            "role": "Direct shared mapping definition for actual796 cap UV and798/799 GPU scalp bake coordinate recipient; compare one current texture-coordinate authority across host and native numerical adapter.",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "chronology": "Metadata fingerprint/EOF and declaration-only symbol navigation before registration; no body analysis credited before this append. Fresh bounded body read follows.",
+            "exclusions": "No other file or foreign package; direct local production definition only."
+          }
+        }
+      ],
+      "scope_limits": "Exact full PR scalp_map1-147 after prospective registration and actual independent Root03 proof228. Shared fitted projection/frame/UV/metres-per-texel relation; no included shader/native/foreign implementation clearance or normal degeneracy/run claim.",
+      "source_lens_credit": "none from scope metadata"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+      "sha256": "f8844fc7362364c5217079615e4459865865020ba4a36f5b25a8997cdd9c8f92",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-character-creator\\src\\hair\\gpu\\mod.rs",
+      "snapshot": "pr-working",
+      "actual_line_count": 138,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "audit_owner": "camera",
+      "scope_registration": [
+        {
+          "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+          "sha256": "04546ed7a87f82cb507908dee5259dc0b2ce101e551a961cdd18fd9ae9fda09d",
+          "row_1based": 46,
+          "id": "CAMERA-INITIAL07-REG046",
+          "original_record": {
+            "id": "CAMERA-INITIAL07-REG046",
+            "at": "2026-10-23T06:39:31.833468+00:00",
+            "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+            "snapshot": "pr-working",
+            "snapshot_path": "target/774-snapshots/pr-working/crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+            "sha256": "f8844fc7362364c5217079615e4459865865020ba4a36f5b25a8997cdd9c8f92",
+            "actual_EOF": 138,
+            "material_ranges": [
+              [
+                1,
+                138
+              ]
+            ],
+            "role": "Direct actual KernelSource compile and per-HairGpu context/kernel owner used by798-804 construction and807 renderer device; compare cache/device identity and explicit native parameter producer, no foreign graph.",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "chronology": "Metadata fingerprint/EOF and declaration-only symbol navigation before registration; no body analysis credited before this append. Fresh bounded body read follows.",
+            "exclusions": "No other file or foreign package; direct local production definition only."
+          }
+        }
+      ],
+      "scope_limits": "Exact full PR hair/gpu/mod1-138 after prospective registration and actual independent Root03 proof228. Device/kernel/parameter/buffer owner relation, actual imported child/foreign bodies remain separate obligations. No GPU run or automatic other-lens credit.",
+      "source_lens_credit": "none from scope metadata"
+    }
+  ],
+  "new_overlays": [],
+  "total_variants": 2846,
+  "total_overlays": 245,
+  "mandatory_scope_qualifications": [
+    {
+      "record": "continuation/root/parallel-scope-qualification-130.json",
+      "sha256": "5dc4e5cd771612c7e050ab4af544411523317ae4b57738f1fb20f493685a50fc"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-117.json",
+      "sha256": "f3b80648900716939057b20776d756a6e37001f6910378da1a1bbaea230d348b"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-149.json",
+      "sha256": "97103899514ade32cf1e41c2794fa9c49c0cb8c6c7a2c6a4961b7492de5dc708"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-151.json",
+      "sha256": "670dd53a640b28eef7ad9d57b37f9213e1bca7117d7098691c4b0cd20c2a8f65"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-158.json",
+      "sha256": "fa0e9cc06d04fca0a0e2b5f9a333390a0ba1e71eff846a4e957c46b68b3e940e"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-170.json",
+      "sha256": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-173.json",
+      "sha256": "5763e9e965b4f4c1d402a09eab682de47336885c8d30b3c5b3d157242a496948"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-176.json",
+      "sha256": "9a321e498a00285331d4ec4fb4dc7c3a49d7bb6e3a08a44a79c2e5bf58186270"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-184.json",
+      "sha256": "5e35c8530a11d0f90bc767812758e4c504eb9ca5e776d0d1f17bf14c0853468d"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-188.json",
+      "sha256": "e15ac81028377714ef550a4cbd68546ec0fbd2ab41300f64db2a1c8686cb43ab"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-193.json",
+      "sha256": "fa718d979ab18d0f9bc7ea210e912d4cb8e971c3bbaa8702a602311d515d6e06"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-200.json",
+      "sha256": "0488f5857b999e28c0bfa68767711e5ccd0f5f7624892db7e578d0f680fa8c3c"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-208.json",
+      "sha256": "5fbee9250ddc79b5b7b1d96cf11104a38d4189b50be6afc922a7dad13ebe28c7"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-210.json",
+      "sha256": "e6967f316a6344840b02cf456d957909b3d845736e44be94ebf098ab31189b9b"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-220.json",
+      "sha256": "6037ab6a14b7e1f4a3a410940e5c00a6be8dcdff65b6fa058ae908a6df2a225f"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-224.json",
+      "sha256": "686fb52c275d5851977f8d2e2115dc56a0dabf6dede106d49006ba1eb66d1b46"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-226.json",
+      "sha256": "942720ea601333118ce0179bcfb964e2c6a9c51676dfae80e040ce0223e39d4c"
+    }
+  ],
+  "registered_rows": 2,
+  "input_pins": [
+    {
+      "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+      "sha256": "04546ed7a87f82cb507908dee5259dc0b2ce101e551a961cdd18fd9ae9fda09d",
+      "captured_rows": 46,
+      "selected_ids": [
+        "CAMERA-INITIAL07-REG045",
+        "CAMERA-INITIAL07-REG046"
+      ]
+    }
+  ],
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through245-before066.jsonl",
+    "sha256": "0378e32d695512b875a86dd6bb695f10d5f3c8d43d8838fe8ee222cbb02a869a",
+    "through": 245
+  },
+  "limits": "Two new full PR source variants2846, overlays unchanged245, bounded role queue302->304. Original scopes/all old overlays and mandatory226/prior qualifications retained; no transitive foreign-package growth or source execution."
+}

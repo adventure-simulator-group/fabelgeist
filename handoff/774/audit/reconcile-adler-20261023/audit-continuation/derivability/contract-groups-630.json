@@ -1,0 +1,273 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-630",
+  "at": "2026-10-25T16:18:29.462141+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 948,
+      "source_id": "pr-working:crates/adventuresim-core/src/knowledge.rs",
+      "sha256": "eff9843bb7a8c4e0459b990f5684deae4c827ec824b58334789ec8e1cce55ffd",
+      "actual_EOF": 1330,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/knowledge.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/knowledge.rs",
+        "sha256": "eff9843bb7a8c4e0459b990f5684deae4c827ec824b58334789ec8e1cce55ffd",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 44369,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 639,
+            "read_ranges": [
+              [
+                1,
+                355
+              ],
+              [
+                760,
+                815
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-KNOWLEDGE-ADAPTER-095"
+            ],
+            "read_status": "fresh-current-lens-scoped-definition-receiver-read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/knowledge.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-QUEST-IDENTITY-INVENTORY-PARTIAL-051",
+            "json_pointer": "/source_proofs/4",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/knowledge.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1330
+              ]
+            ],
+            "source_context": {
+              "index": 643,
+              "source_id": "pr-working:crates/adventuresim-core/src/knowledge.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/knowledge.rs",
+              "sha256": "eff9843bb7a8c4e0459b990f5684deae4c827ec824b58334789ec8e1cce55ffd",
+              "read_ranges": [
+                [
+                  1,
+                  1330
+                ]
+              ],
+              "mode": "Fresh complete actual source body; former assigned ranges may be scoped, actual full currentEOF recorded",
+              "roles": [
+                "Fresh full actual knowledge1330, extending assigned scoped1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153355/760\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153815. All operational subjects/provenance/record/observer/visibility/lineage/sharing/contradiction/request/decision states stay checked typed through comparison/mutation/result; numeric get in lineage/version checked-add compare is concrete owning arithmetic, not an internal forwarding API or re-admission.",
+                "ProjectionGrant restricts minting to crate; current production mint functions intentionally dead-code annotated and exercised only by trusted existing fixtures. Pure knowledge model has no Serde/wire conversion and no general truth\u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122public projection. Genuine unavailable grant and observer/private/public scope must not be confused with raw serialization.",
+                "Shared receipt provenance and exact mutation replay/collision/ambiguous prior-state enum are explicit contracts. Whole source fixture raw literals enter local typed constructors as authored fixture admission; no new cases/helpers/assertions or runtime execution. Actual DB transport adapters remain existing Camera/Native current proof; field getters alone are not defects."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-QUEST-IDENTITY-RECEIVER-CLOSURE-052",
+            "json_pointer": "/source_proofs/4",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/knowledge.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1330
+              ]
+            ],
+            "source_context": {
+              "index": 643,
+              "source_id": "pr-working:crates/adventuresim-core/src/knowledge.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/knowledge.rs",
+              "sha256": "eff9843bb7a8c4e0459b990f5684deae4c827ec824b58334789ec8e1cce55ffd",
+              "read_ranges": [
+                [
+                  1,
+                  1330
+                ]
+              ],
+              "mode": "Fresh complete actual source body; former assigned ranges may be scoped, actual full currentEOF recorded",
+              "roles": [
+                "Fresh full actual knowledge1330, extending assigned scoped1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153355/760\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153815. All operational subjects/provenance/record/observer/visibility/lineage/sharing/contradiction/request/decision states stay checked typed through comparison/mutation/result; numeric get in lineage/version checked-add compare is concrete owning arithmetic, not an internal forwarding API or re-admission.",
+                "ProjectionGrant restricts minting to crate; current production mint functions intentionally dead-code annotated and exercised only by trusted existing fixtures. Pure knowledge model has no Serde/wire conversion and no general truth\u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122public projection. Genuine unavailable grant and observer/private/public scope must not be confused with raw serialization.",
+                "Shared receipt provenance and exact mutation replay/collision/ambiguous prior-state enum are explicit contracts. Whole source fixture raw literals enter local typed constructors as authored fixture admission; no new cases/helpers/assertions or runtime execution. Actual DB transport adapters remain existing Camera/Native current proof; field getters alone are not defects."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CASE-RECEIVERS-029",
+            "json_pointer": "/related_current_sources/1",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/knowledge.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                320
+              ],
+              [
+                760,
+                806
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/knowledge.rs",
+              "sha256": "eff9843bb7a8c4e0459b990f5684deae4c827ec824b58334789ec8e1cce55ffd",
+              "read_ranges": [
+                [
+                  1,
+                  320
+                ],
+                [
+                  760,
+                  806
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/knowledge.rs",
+              "scope": "Record/revision/confidence identities, lineage/envelope admission and accessors used by actual evidence receiver; bounded error definition/Display prefix only, no whole1330 claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-QUEST-KNOWLEDGE-050",
+            "json_pointer": "/current_sources/4",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/knowledge.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1330
+              ]
+            ],
+            "source_context": {
+              "index": 643,
+              "source_id": "pr-working:crates/adventuresim-core/src/knowledge.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/knowledge.rs",
+              "sha256": "eff9843bb7a8c4e0459b990f5684deae4c827ec824b58334789ec8e1cce55ffd",
+              "read_ranges": [
+                [
+                  1,
+                  1330
+                ]
+              ],
+              "mode": "Fresh complete actual source body; former assigned ranges may be scoped, actual full currentEOF recorded",
+              "roles": [
+                "Fresh full actual knowledge1330, extending assigned scoped1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153355/760\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153815. All operational subjects/provenance/record/observer/visibility/lineage/sharing/contradiction/request/decision states stay checked typed through comparison/mutation/result; numeric get in lineage/version checked-add compare is concrete owning arithmetic, not an internal forwarding API or re-admission.",
+                "ProjectionGrant restricts minting to crate; current production mint functions intentionally dead-code annotated and exercised only by trusted existing fixtures. Pure knowledge model has no Serde/wire conversion and no general truth\u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122public projection. Genuine unavailable grant and observer/private/public scope must not be confused with raw serialization.",
+                "Shared receipt provenance and exact mutation replay/collision/ambiguous prior-state enum are explicit contracts. Whole source fixture raw literals enter local typed constructors as authored fixture admission; no new cases/helpers/assertions or runtime execution. Actual DB transport adapters remain existing Camera/Native current proof; field getters alone are not defects."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016",
+            "json_pointer": "/related_current_reads/1",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/knowledge.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                320
+              ],
+              [
+                760,
+                806
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/knowledge.rs",
+              "sha256": "eff9843bb7a8c4e0459b990f5684deae4c827ec824b58334789ec8e1cce55ffd",
+              "read_ranges": [
+                [
+                  1,
+                  320
+                ],
+                [
+                  760,
+                  806
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/knowledge.rs",
+              "scope": "Record/revision/confidence identities, lineage/envelope admission and accessors used by actual evidence receiver; bounded error definition/Display prefix only, no whole1330 claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1344,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1330
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Display + std::error::Error",
+          "type": "KnowledgeError",
+          "lines": [
+            [
+              786,
+              818
+            ]
+          ],
+          "disposition": "OPTIONAL_F002 exact fixed-literal thiserror derive with source None, retain bytes; dependency proof485/017/026/037"
+        },
+        {
+          "trait": "ten local knowledge marker traits",
+          "lines": [
+            [
+              829,
+              881
+            ]
+          ],
+          "disposition": "KEEP explicit empty opt-ins; no matching owning project derive"
+        }
+      ],
+      "existing_derives": [
+        "Clone/Copy/Debug/Eq/PartialEq on concrete wrappers, enums and generic records"
+      ],
+      "absence_basis": "Entire exact1330 lines personally consumed626\u2013630, including native identity/admission/projection/provenance/idempotency and fixture bodies. Other impl blocks are inherent, not handwritten trait boilerplate."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Knowledge semantic authority and chronology",
+      "disposition": "KEEP checked identity/lineage/shared provenance/observer-time/disclosure and contradiction gates; truth has deliberately no public projection conversion. Do not add raw Serde/From just to replace runtime rules."
+    },
+    {
+      "contract": "Knowledge error and fixture traits",
+      "disposition": "F002 optional source-equivalent literal Error/Display derive only; ten empty local opt-ins retained. Fixtures reviewed only, not run."
+    }
+  ],
+  "findings": [
+    "F002 additional exact PR source support628"
+  ],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 949,
+    "source_id": "pr-working:crates/adventuresim-core/src/leadership.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-504",
+  "at": "2026-10-25T15:54:03.907763+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 897,
+  "source_id": "pr-working:crates/adventuresim-core/src/combat/defense.rs",
+  "sha256": "a3019cfa64106abc38bbfa7b0962e406cc6cb1a1a663a8a0dfdee71f874201e1",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Fresh defense1\u2013220: all choice/facts/decision/alignment structural traits already derive; native committed-work probability, weapon alignment, shield geometry and reciprocal interception functions semantic. No handtrait/codec in prefix. Registration ends455 in one supplied range but exactsourceEOF444; do not invent nonexistentbody.",
+  "first_unfinished": {
+    "scope_index": 897,
+    "line": 221
+  },
+  "execution": "none"
+}

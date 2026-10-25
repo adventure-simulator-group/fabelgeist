@@ -1,0 +1,146 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-419",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/collision.rs",
+      "sha256": "e57c0f4f3a2b7f4cb749b5e1ca57628e9e5ef864f1bd4365fe48313a3f426c3e",
+      "actual_EOF": 339,
+      "actual_compared_ranges": [
+        [
+          1,
+          339
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/collision/tests.rs",
+      "sha256": "64b2d4cf55741173468cc58b7c98013529ad4004d7aa164c6d9f0728e2616e64",
+      "actual_EOF": 296,
+      "actual_compared_ranges": [
+        [
+          1,
+          296
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/config.rs",
+      "sha256": "62f911a33b3857f7f42007f9773937a09e031bc7944bcf57536a64a030a6b9fa",
+      "actual_EOF": 142,
+      "actual_compared_ranges": [
+        [
+          1,
+          142
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/rig.rs",
+      "sha256": "1ec50b293b57a16a3f213a4e26d2a6a6f3d69500f61d3f586939745bc2978d01",
+      "actual_EOF": 97,
+      "actual_compared_ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/rig/observation.rs",
+      "sha256": "a0a88df02f4d557950c09e55645900e75731a2817d9d422b636fe3126f062ef1",
+      "actual_EOF": 170,
+      "actual_compared_ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/rig_history.rs",
+      "sha256": "6b8831f4120039b41df17cb9365f3d4e37f1db57259aa4e5573e0fd8c9f8e4ff",
+      "actual_EOF": 105,
+      "actual_compared_ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/values.rs",
+      "sha256": "6a14958f0a7593181730db9d73a69a54302cf39b9706819553ee8edece85a19f",
+      "actual_EOF": 105,
+      "actual_compared_ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/combat_effects.rs",
+      "sha256": "236a5328824e94bb189a8bde68dcf4f82154f9f48a4badb36397fe8f3fecf453",
+      "actual_EOF": 308,
+      "actual_compared_ranges": [
+        [
+          1,
+          308
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/combat_effects/blood_decals.rs",
+      "sha256": "3e00a08166bcf6b3d43e75aea399b0c990287a726a79642e49133cdf2f166066",
+      "actual_EOF": 337,
+      "actual_compared_ranges": [
+        [
+          1,
+          337
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Camera collision, recovery and candidate publication",
+      "evidence": "camera/collision.rs:1-339; collision/tests.rs:1-296; camera/rig.rs:1-97; rig/observation.rs:1-170; rig_history.rs:1-105",
+      "disposition": "Volume admits complete inverseprojected dimensions/centre; bounded8framing sweeps and final resweep constrain displayedposition. Boomplace uses local recoverycopy and onlycommits after finalcheckedendpoint; rig copiesposehistory and commits final completeobservation. Profile blend advances separately by explicitcontract. Physical cast uses native distance/direction and admits returnedfraction/normal; extremeendpointdifference overflow remains nativeAPIqualification, no defaultfailure. Existing corner/stairs/doorway/recovery fixture bodies read, not run. Historical testunit.unwrap corrected at merged774; exact proof qualifications-418.json."
+    },
+    {
+      "contract": "Camera profile aggregate prerequisites",
+      "evidence": "camera/config.rs:1-142; values.rs:1-105; prior full smoothing contract230",
+      "disposition": "Signed offsets/zero orsignedboom/offscreensweetwindow>1 legal representations must not globallynarrow. Closeblend equalstart/full canproduceundefinedratio then endpoint rejection; defaultsordered1.8/.65. Existing CAMERA-ADM03-F012 reversedclamp sharedaccepteddependency from prior230; no new count. Screenerror/window checked finite, nonnegativewindow; signedblendvelocity checked completednativefilter. Actual multiplecontroller globalhistory remainsownershipfitqualification, not proof ordinary sharedhistoryfault."
+    },
+    {
+      "contract": "Transient impact effects and mask arithmetic",
+      "evidence": "combat_effects.rs:1-308; blood_decals.rs:1-337",
+      "disposition": "Fixed particlecounts10/14, boundedlifetimes, deliberatewrappingdeterministicsequences. Soundpitch interpolates admittedorderedpositiverange and unitrandomfraction. Particle state rawnative time/vector integration; ordinarylifetimes limit work, no hugeframeintervalfailure invented. Barycentric mesh lookups safelyskipmissingindices/UV; underlying finitegeometry/degeneracy/skin-localprojection assumptions remain actualmeshdependency, no accepted currentwrongstamp witness. Bloodmask writes monotonicallymax alpha bounded0..235; fixed512R8currentmask and actualpositive terraintextureextent assumed. Zero/huge dimensions couldunderflow/indexoverflow generichelper, no realassetproducer shown. Localdistance comparison across differentlyscaled surfaces is sharedgeometry question, no new ordinarydefect."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [
+    {
+      "source": "qualifications-418.json",
+      "coverage": "Exact aliases and mergedcriticalsnippet only; no extraoriginalcredit"
+    },
+    {
+      "source": "contract-groups-230.json",
+      "coverage": "Prior own whole smoothing body evidence reused, not replayed or doublecredited"
+    }
+  ],
+  "status": "9 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/diagnostics.rs"
+}

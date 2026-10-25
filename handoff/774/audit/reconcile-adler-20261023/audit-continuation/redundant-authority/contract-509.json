@@ -1,0 +1,63 @@
+{
+  "id": "CONT07-CONTRACT-509",
+  "at": "2026-10-23T23:01:50.548671+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2216,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/template.rs",
+      "sha256": "a1cd00e8c02d5c25d675041927317755b24262122ac4096db8fec9a5b1ac16c8",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/tiling/template.rs",
+      "actual_EOF": 317,
+      "ranges": [
+        [
+          1,
+          317
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2217,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/tests.rs",
+      "sha256": "166ec2be7855c465b709326152b2be1babfdcd538a062213cc6a5d8ae680d1f9",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/tiling/tests.rs",
+      "actual_EOF": 192,
+      "ranges": [
+        [
+          1,
+          192
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2218,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/tile_map.rs",
+      "sha256": "2acac8447a7f7a9347382ff425f74de58a7aeef6786c43d1d352412cbaff4065",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/tiling/tile_map.rs",
+      "actual_EOF": 115,
+      "ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "TileTemplate317 Tilingtests192 TileMap115 fullfreshread inclfixturesunrun. Template derivesfront/back/walls/hole boundaries fromsamecanonicalPlateoutline/holes; facelabels emitted alongsideactualtriangles. Separateflatsurfacevertices support hard normals, not competingpositionauthorities.",
+    "TileMap private lattice derivedonce frombaseGridSurface andwidth/height; at queries interpolate samefrozenlattice with intendededgeextrapolation. It is an explicit approximatebase materialcoordinate map, not supposed to be rerunfor targetmorph. CurrentCELLS4x8even stepping allfilled; no independent cellcount declaration elsewhere.",
+    "Existingfixtures directlyexercise baseversusmorphcoherence, layerclearance, no-grid path, trianglefacemembership andwithin-familytemplatevolume. These are read evidence only; no testsrun/claimedpassing. Fixture reversedregularvertices leavesoriginalsamples, illustrating differentconsumerpopulations but not proofordinarybadasset."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2219,
+    "start_line": 1
+  }
+}

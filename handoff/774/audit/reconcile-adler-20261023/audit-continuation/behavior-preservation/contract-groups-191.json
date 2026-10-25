@@ -1,0 +1,58 @@
+{
+  "id": "CONT08-CONTRACT-191",
+  "at": "2026-10-25T14:01:44.679961+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 741,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_gorget.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/device_gorget.rs",
+      "before_sha256": "34566666bbb966e20fd393d678de1e91e25cbc5b9234a1444c9649756f3a59d4",
+      "after_sha256": "ba644b18ad4daf9cdbfa3caf009737c018ee220b98b321e5338bad8e38539e95",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0741-base-34566666bbb966e20fd393d678de1e91e25cbc5b9234a1444c9649756f3a59d4",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/ba644b18ad4daf9cdbfa3caf009737c018ee220b98b321e5338bad8e38539e95",
+      "diff": "source-evidence/pr-0741.diff",
+      "diff_sha256": "0bcddbd2afb848086cf8ec69ccd34cb7ac3c32daa0ebfb90f1f6c02bcacfcf14",
+      "head_body_read_ranges": [
+        [
+          1,
+          368
+        ]
+      ],
+      "facts": [
+        "Full368 and complete406-line actual diff. Shader constants/functions relocation retains exact setup/sections/cage code; typed neck\u2192crown first lookup checked nativewords from826 remain same parameter spelling. Gorget design validation\u2192kind\u2192shape\u2192head frame\u2192fit order retained.",
+        "Native head-basis/crown-neck height positivefinite guard, signed bib drops/.58base/.45pitch/.48front/.30rear/.45side,7bands/2planes strict edge-sign crossings/4crossingminimum, ordered reductions and cage radii/width arithmetic unchanged. Actual dispatch samples\u2192planes\u2192bands\u2192cage\u2192support/layers\u2192plates\u2192fit_status retains failure and source domains; layer receiver744/745 still own08 frontier, no sampled enclosure continuous guarantee."
+      ],
+      "disposition": "Own08 old/new comparison accounted with concrete lower2179/2332/2336 and frame-kernel receiver; retained API limits explicit.",
+      "acceptance": "Preserve exact packing, first-error, membership and floating operation order plus existing fixture oracles; no tests or checks run."
+    },
+    {
+      "scope_index": 742,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_gorget_bib.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/device_gorget_bib.rs",
+      "before_sha256": "1425663f319a310838460e34e282ee8d2d421c87d4b0e074d5cd14e50f09e225",
+      "after_sha256": "002c0b80c36401a0849cba9cb6f2a4cecc3e6eb6bcd57bef872bd3a5b7fde726",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0742-base-1425663f319a310838460e34e282ee8d2d421c87d4b0e074d5cd14e50f09e225",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/002c0b80c36401a0849cba9cb6f2a4cecc3e6eb6bcd57bef872bd3a5b7fde726",
+      "diff": "source-evidence/pr-0742.diff",
+      "diff_sha256": "d42b528b10742d27537677fe950470b8dbcf4e92397721a940bda061068cde73",
+      "head_body_read_ranges": [
+        [
+          1,
+          326
+        ]
+      ],
+      "facts": [
+        "Full326 and entire actual diff: only fixture packed allslots0 bound1/native tables change, preserves four positions/faces/normals/weights and same c_neck rig. Runtime unchanged fullbody independently read: body face then completed lower-equipment triangles retain exact geometry order/canonical frame, excludes body head above upper height but includes all lower equipment.",
+        "Deepest rayoffset max0, outward-only additive envelope with 3x3 adjacency/periodiccolumns and rowclamp preserved. Existing translated/original support_top.1/.056 fixture retains actual straightedge clearance.144-1e-5, authored no-contraction, topopening fixed, sharedseam1e-6, finite oracles read notrun. Projection/cage mathematical limits remain separate; no GPU or asset assertion."
+      ],
+      "disposition": "Own08 old/new comparison accounted with concrete lower2179/2332/2336 and frame-kernel receiver; retained API limits explicit.",
+      "acceptance": "Preserve exact packing, first-error, membership and floating operation order plus existing fixture oracles; no tests or checks run."
+    }
+  ],
+  "next": "743 cage292 then744 collar375/745 projection177/746 bands65"
+}

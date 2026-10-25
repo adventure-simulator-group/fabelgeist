@@ -1,0 +1,77 @@
+{
+  "id": "CONT07-CONTRACT-604",
+  "at": "2026-10-24T00:29:15.951238+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2615,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/pierced_plate_domain.rs",
+      "sha256": "815a9f618d8a242fc5055674178448ebc6d5cd2c32bdeca391c54b47a5ea5182",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/pierced_plate_domain.rs",
+      "actual_EOF": 188,
+      "ranges": [
+        [
+          1,
+          188
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2616,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/sampling.rs",
+      "sha256": "b14bc28d8943746ac65b6c2b3197e56f84a6c04e09c5e799ffab963a390a9ae9",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/sampling.rs",
+      "actual_EOF": 71,
+      "ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2617,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/extremities.rs",
+      "sha256": "c1cf0b909a27cc5e1351eeb6624cde6dcf6b72d4d03a76c6d4e042e54d0f82c7",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/gpu/extremities.rs",
+      "actual_EOF": 78,
+      "ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2618,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/joint_cup_design.rs",
+      "sha256": "d17b22a1167a4cce7caa2b0c4fc225bf17e0ec1574caa262354fe4b95dde56b9",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/joint_cup_design.rs",
+      "actual_EOF": 128,
+      "ranges": [
+        [
+          1,
+          128
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "PiercedDomain validates real authored holes against outer boundary and one shared MINIMUM_WEB_MM, then filters actual triangulated face centers against the same outer/hole geometry. Generated points/indices are one product, not independently authored domain rosters. Visor admission reuses MINIMUM_WEB_MM; no copied web threshold. Generic domain cardinality/topology robustness remains an admission question, not an independently stale cache conclusion.",
+    "ArmorDetail controls sampling density while retaining authored feature boundaries; ArmorLod is a distinct armor sampling owner from character mesh LOD. segments source/minimum arithmetic does not represent mutable cached semantic identity. GPU extremity shape validates current payload then dispatches by matching same LimbArmorDesign; kernel design/shape names still require concrete kernel mapping review, not assumed equivalent to catalogue strings.",
+    "JointCup construction determines its wing range directly; defaults reuse shared medial/lateral wrap constants, while poleyn/couter dome/length values intentionally differ. validate_construction excludes distal extension on RaisedCop. No independent construction flag beside the enum payload or computed wing-range cache was identified in these scoped bodies."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2619,
+    "start_line": 1
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "RIG-INITIAL06-GROUP-357",
+  "at": "2026-10-23T09:26:46.434366+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "window-leaf-typed-pose-native-dynamic-state": {
+      "comparison": "CollisionCentreDatum/SceneWindowPose carry canonical conversion from Architectural collision centre to Scene; SceneWindow retains LeafDimensions/Position/SpatialDirection and OpeningAssemblyId/SceneBuildingId/WindowLeafKind/BarPresence. Collider::cuboid and Transform are real native recipients; WindowController additionally retains raw hinge/closedQuat/openangle/currentangle for ongoing motion rather than a checked pose owner. This is not blanket private-helper exemption: connected F001 accepted angle/frame propagation can retain canonical Position/Radians until actual equations, while existing native_rotation preserves more than yaw. No new module-specific leaf owner appropriate. Fresh P16exact1-150 complete scoped contract compared with PR production including unchanged semantics; P16fixtures151+excluded, PRoriginaltests full294 read.",
+      "disposition": "canonical leaf/datum owner retained to native spawn; explicit remaining raw controller representation joins F001 scope"
+    },
+    "presentation-ragdoll-versus-server-root": {
+      "comparison": "Ragdolling is explicitly client-only articulated pose-source state; replicated body/server coarse root remains authoritative. PoseOwnership::Physics/Authored, canonical BoneRole/RigJointOrdinal/RigJointTable, RagdollDefinition and AnimationElapsed compose rather than new parallel rig/time owners. Body index Option<usize> is definition-body index, not RigJointOrdinal. PositiveLength radius versus SignedLength capsulehalflength and local centre/axis preserve actual solver roles. Local native Affine3A/Transform operations compose bind/owner/world frames and produce physics Position/Rotation, not justification to forward raw accepted pose metadata everywhere. F034 propagation preserves non-unit affine scale versus unit rotation distinctions. No tick state persisted.",
+      "disposition": "distinct client articulated-pose versus server-root authority and canonical rig/time/geometry leaves"
+    },
+    "ground-topology-owner-policy": {
+      "comparison": "GroundTopology::Canonical/Sampled is physical topology policy, separate from GroundCoverage native upload revision and from semantic terrain Surface/Scene identity. Owned property surface and urban vista choose canonical fine topology; sampled natural ground may use coarse/transition meshes. ScenePresentationOf keeps actual owning entity and canonical ActiveVistaSurface revision/SceneEnvironment digest; public mesh replacement does not create a new terrain source authority. No copied geometry or typed height wrapper; F023 SupportElevation reused in original fixtures. Scalar detail_patch.x encodes cutout mode, not RGBAcolor. Full original cache/topology tests read only.",
+      "disposition": "coherent physical-topology versus sampled-render policy; no duplicate terrain owner"
+    }
+  },
+  "supporting_existing_findings": [
+    "F001",
+    "F023",
+    "F034"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit."
+}

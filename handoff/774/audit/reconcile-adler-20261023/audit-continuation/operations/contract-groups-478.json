@@ -1,0 +1,46 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-478",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_sky_viewer.rs",
+      "sha256": "cbb6ea6fc7bcecaff9f470a543695ac8757ae4fc43485dc74761262b147ed1e4",
+      "actual_EOF": 787,
+      "actual_compared_ranges": [
+        [
+          1,
+          787
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_sky_viewer/configuration.rs",
+      "sha256": "2ab68ac424a1330be6d25120eafe310737c3379a7e0be402a06f24c097c8fef0",
+      "actual_EOF": 60,
+      "actual_compared_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Sky capture phase and arithmetic guarantees",
+      "analysis": "Full787/60linebodies read. Fixedscene2x2 andunreplicatedhorizon separatefrom tacticalterrain; nativecapturemaximumvista0 intentional. Typedfixedcalendar presets,sun/moon/starunitdirections,FOV12/20/72/80 beforestartup; render-extractedcameraobservations plusmaincameramatch required, notrequestedsettingsalone. Settledcounterincrements onlybeforeu32target, cloudminimum60; in-flight/primescreenshot resetownedstate, finalexitwritesobservedmanifest. renderobservationsu64incrementunbounded extremeonly, no ordinarycounteroverflow."
+    },
+    {
+      "contract": "Sky image metrics and unsupported helper inputs",
+      "analysis": "Actualcapturefixed1600x900 boundsu16 luminanceweightedaddition\u226465280, counter/ratiomeans andf64variance; ratio viaUnitBasisPoints. Missing/emptypixels defaultfailcontent, actualfixednonempty halfsplit avoidszero denominator. A singlepixel rawhelperinput has split0 andNaNhorizonDelta but is notactualimageproducer oracceptedcapture result; keepnativeprecondition qualification. CameraFOVprojection/horazion usesfinitefixedpositiveperspective; no livecapture/testexecuted or archivedresultsadoptedbythesereads."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/ui.rs"
+}

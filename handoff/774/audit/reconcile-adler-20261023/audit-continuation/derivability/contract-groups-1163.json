@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1163",
+  "at": "2026-10-25T18:00:11.867325+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1268,
+  "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/bootstrap.rs",
+  "sha256": "e58eadc935d9bd93c40262b170bc85c9e2d26c0b42ee490e882e0dd96f65be55",
+  "actual_compared_ranges": [
+    [
+      1,
+      340
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Native simulation bootstrap helpers only: actionable leader predicate, contextual weighted equipment utility/slot membership, unique public fixture selection with run/party correlation, live reducer connection/subscription/initial state setup and import/bootstrap provenance. No handwritten trait/custom codec/local data type in slice. LiveRunner initial state uses context/connection/profile/identity and policy defaults, not hand Default. Explicit query observation surface/privacy and error/time/current identity checks retained; no network or reducer executed.",
+  "first_unfinished": {
+    "scope_index": 1268,
+    "line": 341
+  },
+  "execution": "none"
+}

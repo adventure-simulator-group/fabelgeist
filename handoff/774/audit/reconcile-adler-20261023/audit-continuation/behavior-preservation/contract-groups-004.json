@@ -1,0 +1,689 @@
+{
+  "id": "CONT08-CONTRACT-004",
+  "at": "2026-10-25T08:19:43.597872+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 1,
+      "source_id": "native-anyhow1.0.104:error.rs",
+      "sha256": "2a78ee4e5f8d6b4476c761f77473362b9ed12f5402e4701001e7d04d628ba030",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/2a78ee4e5f8d6b4476c761f77473362b9ed12f5402e4701001e7d04d628ba030",
+      "read_ranges": [
+        [
+          32,
+          87
+        ],
+        [
+          138,
+          190
+        ],
+        [
+          780,
+          810
+        ]
+      ],
+      "comparison": "Pinned native dependency has no known body/version delta; actual changed bespoke caller/receiver compared instead of claiming clearance from a hash.",
+      "actual_contract_and_disposition": [
+        "Fresh native constructor/msg/wrapper/downcast bodies at exact scope ranges read. PR base/head both lock anyhow1.0.104 checksum330a5ed07fa54e4702c9d6c4174f74427fc0ef6e214bbd677ae50a5099946470.",
+        "Actual exporter765:141\u2013151 keeps map_err(anyhow::Error::msg). Base clothing707:282\u2013326 returned String; head707:109\u2013143 returns ClothingError. New lower error708:18\u201328 retains GeometryError/RigJointLookupError sources, but native MessageError<M> StdError has no source delegation. The original M is retained for downcast, not converted to a String.",
+        "Disposition: exact support/qualification for RIG-OWNER-F016. This is a structured-cause propagation gap introduced by a typed producer while the receiver remains message-only; it is not evidence that the former String path lost a richer preexisting cause chain. No other Error::msg sites are cleared."
+      ],
+      "cross_lens_source_evidence": "Archive contracts used only to locate the actual materially reached native path; all listed own08 bodies consumed and old/new callers inspected.",
+      "status": "Scoped08 contract accounted with findings/qualifications; no full dependency or native runtime clearance.",
+      "finding_support": "RIG-OWNER-F016",
+      "acceptance": "Preserve original typed cause through the exact native Error owner/adapter; separately retain owning report state/readback and mandatory failure outcome. Do not replace meaningful errors with strings or infer success from handler dispatch.",
+      "execution": "No compiler, tests, CLI, GPU or runtime execution."
+    },
+    {
+      "scope_index": 2,
+      "source_id": "native-anyhow1.0.104:wrapper.rs",
+      "sha256": "079218e1d8c9374f52311b1c7971f7fbdeba4d7af1b0749c0d535010f1232697",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/079218e1d8c9374f52311b1c7971f7fbdeba4d7af1b0749c0d535010f1232697",
+      "read_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "comparison": "Pinned native dependency has no known body/version delta; actual changed bespoke caller/receiver compared instead of claiming clearance from a hash.",
+      "actual_contract_and_disposition": [
+        "Fresh native constructor/msg/wrapper/downcast bodies at exact scope ranges read. PR base/head both lock anyhow1.0.104 checksum330a5ed07fa54e4702c9d6c4174f74427fc0ef6e214bbd677ae50a5099946470.",
+        "Actual exporter765:141\u2013151 keeps map_err(anyhow::Error::msg). Base clothing707:282\u2013326 returned String; head707:109\u2013143 returns ClothingError. New lower error708:18\u201328 retains GeometryError/RigJointLookupError sources, but native MessageError<M> StdError has no source delegation. The original M is retained for downcast, not converted to a String.",
+        "Disposition: exact support/qualification for RIG-OWNER-F016. This is a structured-cause propagation gap introduced by a typed producer while the receiver remains message-only; it is not evidence that the former String path lost a richer preexisting cause chain. No other Error::msg sites are cleared."
+      ],
+      "cross_lens_source_evidence": "Archive contracts used only to locate the actual materially reached native path; all listed own08 bodies consumed and old/new callers inspected.",
+      "status": "Scoped08 contract accounted with findings/qualifications; no full dependency or native runtime clearance.",
+      "finding_support": "RIG-OWNER-F016",
+      "acceptance": "Preserve original typed cause through the exact native Error owner/adapter; separately retain owning report state/readback and mandatory failure outcome. Do not replace meaningful errors with strings or infer success from handler dispatch.",
+      "execution": "No compiler, tests, CLI, GPU or runtime execution."
+    },
+    {
+      "scope_index": 3,
+      "source_id": "native-dependency:bevy_app-0.19.1/src/app.rs",
+      "sha256": "0240f4b60c9848fcb5386998381c7b8f0be4fef83bfb574b19d818b99fc5e668",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/0240f4b60c9848fcb5386998381c7b8f0be4fef83bfb574b19d818b99fc5e668",
+      "read_ranges": [
+        [
+          1468,
+          1483
+        ]
+      ],
+      "comparison": "Pinned native dependency has no known body/version delta; actual changed bespoke caller/receiver compared instead of claiming clearance from a hash.",
+      "actual_contract_and_disposition": [
+        "Fresh exact scoped native bodies personally read. PR base/head both lock bevy_app/ecsv0.19.1; bevy_ecs checksum a350b2e4c2e47f7903d688affb8a723b31bca63af9789f1da88703f1ba04e354. P16 lock increment39 adds only Core geometry edge, preserving these native pins.",
+        "Actual P16 iteration406:133\u2013177 directly registers logging408:198\u2013257 record_attack_start returning Result<(),MeleeGeometryError> and302\u2013331 record_resolved_attack returning Result<(),GeometryError>; their base callbacks returned (). Lower aliases350:16\u201329 and449:1\u20134 are distinct bespoke error enums, not BevyError.",
+        "Native app3:1474 forwards IntoObserver to World10:55; IntoObserver9:572 requires IntoObserverSystem with default Out=(); native13:32\u201350 requires IntoSystem for that Out. IntoResult12:576\u2013612 supports bare T, Result<T,RunSystemError>, Result<T,BevyError>, not arbitrary bespoke Result<T,E>. There is no automatic generic From conversion of the complete Result return type.",
+        "Exact source-port support for retained NATIVE-OWNER-F009, dedup NATIVE-PP-018. This is an unresolved native binding/migration obligation, not a successful compile or runtime fault verdict.",
+        "For correctly adapted callbacks, native runner11:110\u2013123 dispatches Failed to an optional/fallback error handler, then queues deferred commands; it does not return IterationResult to run_duel. World14:3461\u20133465 uses registered handler or default; native7:117\u2013139 defaults to severity handler, native6:400\u2013414 boxes source with Panic severity. A typed error alone does not establish owning report propagation or recoverability."
+      ],
+      "cross_lens_source_evidence": "Archive contracts used only to locate the actual materially reached native path; all listed own08 bodies consumed and old/new callers inspected.",
+      "status": "Scoped08 contract accounted with findings/qualifications; no full dependency or native runtime clearance.",
+      "finding_support": "NATIVE-OWNER-F009 / NATIVE-PP-018",
+      "acceptance": "Preserve original typed cause through the exact native Error owner/adapter; separately retain owning report state/readback and mandatory failure outcome. Do not replace meaningful errors with strings or infer success from handler dispatch.",
+      "execution": "No compiler, tests, CLI, GPU or runtime execution."
+    },
+    {
+      "scope_index": 6,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/bevy_error.rs",
+      "sha256": "ae8feb04751ba67eaa86d03f3b748ef61d2bcdb9292c72dc0273eb353fb24fe2",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/ae8feb04751ba67eaa86d03f3b748ef61d2bcdb9292c72dc0273eb353fb24fe2",
+      "read_ranges": [
+        [
+          40,
+          105
+        ],
+        [
+          395,
+          415
+        ],
+        [
+          7,
+          25
+        ],
+        [
+          228,
+          285
+        ],
+        [
+          381,
+          421
+        ]
+      ],
+      "comparison": "Pinned native dependency has no known body/version delta; actual changed bespoke caller/receiver compared instead of claiming clearance from a hash.",
+      "actual_contract_and_disposition": [
+        "Fresh exact scoped native bodies personally read. PR base/head both lock bevy_app/ecsv0.19.1; bevy_ecs checksum a350b2e4c2e47f7903d688affb8a723b31bca63af9789f1da88703f1ba04e354. P16 lock increment39 adds only Core geometry edge, preserving these native pins.",
+        "Actual P16 iteration406:133\u2013177 directly registers logging408:198\u2013257 record_attack_start returning Result<(),MeleeGeometryError> and302\u2013331 record_resolved_attack returning Result<(),GeometryError>; their base callbacks returned (). Lower aliases350:16\u201329 and449:1\u20134 are distinct bespoke error enums, not BevyError.",
+        "Native app3:1474 forwards IntoObserver to World10:55; IntoObserver9:572 requires IntoObserverSystem with default Out=(); native13:32\u201350 requires IntoSystem for that Out. IntoResult12:576\u2013612 supports bare T, Result<T,RunSystemError>, Result<T,BevyError>, not arbitrary bespoke Result<T,E>. There is no automatic generic From conversion of the complete Result return type.",
+        "Exact source-port support for retained NATIVE-OWNER-F009, dedup NATIVE-PP-018. This is an unresolved native binding/migration obligation, not a successful compile or runtime fault verdict.",
+        "For correctly adapted callbacks, native runner11:110\u2013123 dispatches Failed to an optional/fallback error handler, then queues deferred commands; it does not return IterationResult to run_duel. World14:3461\u20133465 uses registered handler or default; native7:117\u2013139 defaults to severity handler, native6:400\u2013414 boxes source with Panic severity. A typed error alone does not establish owning report propagation or recoverability."
+      ],
+      "cross_lens_source_evidence": "Archive contracts used only to locate the actual materially reached native path; all listed own08 bodies consumed and old/new callers inspected.",
+      "status": "Scoped08 contract accounted with findings/qualifications; no full dependency or native runtime clearance.",
+      "finding_support": "NATIVE-OWNER-F009 / NATIVE-PP-018",
+      "acceptance": "Preserve original typed cause through the exact native Error owner/adapter; separately retain owning report state/readback and mandatory failure outcome. Do not replace meaningful errors with strings or infer success from handler dispatch.",
+      "execution": "No compiler, tests, CLI, GPU or runtime execution."
+    },
+    {
+      "scope_index": 7,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/handler.rs",
+      "sha256": "800c43a7bcf3956170973151045546484c9546e3bb50635f9fab8cba7fed353d",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/800c43a7bcf3956170973151045546484c9546e3bb50635f9fab8cba7fed353d",
+      "read_ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "comparison": "Pinned native dependency has no known body/version delta; actual changed bespoke caller/receiver compared instead of claiming clearance from a hash.",
+      "actual_contract_and_disposition": [
+        "Fresh exact scoped native bodies personally read. PR base/head both lock bevy_app/ecsv0.19.1; bevy_ecs checksum a350b2e4c2e47f7903d688affb8a723b31bca63af9789f1da88703f1ba04e354. P16 lock increment39 adds only Core geometry edge, preserving these native pins.",
+        "Actual P16 iteration406:133\u2013177 directly registers logging408:198\u2013257 record_attack_start returning Result<(),MeleeGeometryError> and302\u2013331 record_resolved_attack returning Result<(),GeometryError>; their base callbacks returned (). Lower aliases350:16\u201329 and449:1\u20134 are distinct bespoke error enums, not BevyError.",
+        "Native app3:1474 forwards IntoObserver to World10:55; IntoObserver9:572 requires IntoObserverSystem with default Out=(); native13:32\u201350 requires IntoSystem for that Out. IntoResult12:576\u2013612 supports bare T, Result<T,RunSystemError>, Result<T,BevyError>, not arbitrary bespoke Result<T,E>. There is no automatic generic From conversion of the complete Result return type.",
+        "Exact source-port support for retained NATIVE-OWNER-F009, dedup NATIVE-PP-018. This is an unresolved native binding/migration obligation, not a successful compile or runtime fault verdict.",
+        "For correctly adapted callbacks, native runner11:110\u2013123 dispatches Failed to an optional/fallback error handler, then queues deferred commands; it does not return IterationResult to run_duel. World14:3461\u20133465 uses registered handler or default; native7:117\u2013139 defaults to severity handler, native6:400\u2013414 boxes source with Panic severity. A typed error alone does not establish owning report propagation or recoverability."
+      ],
+      "cross_lens_source_evidence": "Archive contracts used only to locate the actual materially reached native path; all listed own08 bodies consumed and old/new callers inspected.",
+      "status": "Scoped08 contract accounted with findings/qualifications; no full dependency or native runtime clearance.",
+      "finding_support": "NATIVE-OWNER-F009 / NATIVE-PP-018",
+      "acceptance": "Preserve original typed cause through the exact native Error owner/adapter; separately retain owning report state/readback and mandatory failure outcome. Do not replace meaningful errors with strings or infer success from handler dispatch.",
+      "execution": "No compiler, tests, CLI, GPU or runtime execution."
+    },
+    {
+      "scope_index": 8,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/mod.rs",
+      "sha256": "1647c35091db53ccde7cfd43e7b106f40942404b814f599015db776308ddfd3d",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/1647c35091db53ccde7cfd43e7b106f40942404b814f599015db776308ddfd3d",
+      "read_ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "comparison": "Pinned native dependency has no known body/version delta; actual changed bespoke caller/receiver compared instead of claiming clearance from a hash.",
+      "actual_contract_and_disposition": [
+        "Fresh exact scoped native bodies personally read. PR base/head both lock bevy_app/ecsv0.19.1; bevy_ecs checksum a350b2e4c2e47f7903d688affb8a723b31bca63af9789f1da88703f1ba04e354. P16 lock increment39 adds only Core geometry edge, preserving these native pins.",
+        "Actual P16 iteration406:133\u2013177 directly registers logging408:198\u2013257 record_attack_start returning Result<(),MeleeGeometryError> and302\u2013331 record_resolved_attack returning Result<(),GeometryError>; their base callbacks returned (). Lower aliases350:16\u201329 and449:1\u20134 are distinct bespoke error enums, not BevyError.",
+        "Native app3:1474 forwards IntoObserver to World10:55; IntoObserver9:572 requires IntoObserverSystem with default Out=(); native13:32\u201350 requires IntoSystem for that Out. IntoResult12:576\u2013612 supports bare T, Result<T,RunSystemError>, Result<T,BevyError>, not arbitrary bespoke Result<T,E>. There is no automatic generic From conversion of the complete Result return type.",
+        "Exact source-port support for retained NATIVE-OWNER-F009, dedup NATIVE-PP-018. This is an unresolved native binding/migration obligation, not a successful compile or runtime fault verdict.",
+        "For correctly adapted callbacks, native runner11:110\u2013123 dispatches Failed to an optional/fallback error handler, then queues deferred commands; it does not return IterationResult to run_duel. World14:3461\u20133465 uses registered handler or default; native7:117\u2013139 defaults to severity handler, native6:400\u2013414 boxes source with Panic severity. A typed error alone does not establish owning report propagation or recoverability."
+      ],
+      "cross_lens_source_evidence": "Archive contracts used only to locate the actual materially reached native path; all listed own08 bodies consumed and old/new callers inspected.",
+      "status": "Scoped08 contract accounted with findings/qualifications; no full dependency or native runtime clearance.",
+      "finding_support": "NATIVE-OWNER-F009 / NATIVE-PP-018",
+      "acceptance": "Preserve original typed cause through the exact native Error owner/adapter; separately retain owning report state/readback and mandatory failure outcome. Do not replace meaningful errors with strings or infer success from handler dispatch.",
+      "execution": "No compiler, tests, CLI, GPU or runtime execution."
+    },
+    {
+      "scope_index": 9,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/observer/distributed_storage.rs",
+      "sha256": "9a1c51dbb516b0cc08c33d8a5a714041eef55650447b4bb7efaf86ce537952b1",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/9a1c51dbb516b0cc08c33d8a5a714041eef55650447b4bb7efaf86ce537952b1",
+      "read_ranges": [
+        [
+          216,
+          275
+        ],
+        [
+          554,
+          583
+        ]
+      ],
+      "comparison": "Pinned native dependency has no known body/version delta; actual changed bespoke caller/receiver compared instead of claiming clearance from a hash.",
+      "actual_contract_and_disposition": [
+        "Fresh exact scoped native bodies personally read. PR base/head both lock bevy_app/ecsv0.19.1; bevy_ecs checksum a350b2e4c2e47f7903d688affb8a723b31bca63af9789f1da88703f1ba04e354. P16 lock increment39 adds only Core geometry edge, preserving these native pins.",
+        "Actual P16 iteration406:133\u2013177 directly registers logging408:198\u2013257 record_attack_start returning Result<(),MeleeGeometryError> and302\u2013331 record_resolved_attack returning Result<(),GeometryError>; their base callbacks returned (). Lower aliases350:16\u201329 and449:1\u20134 are distinct bespoke error enums, not BevyError.",
+        "Native app3:1474 forwards IntoObserver to World10:55; IntoObserver9:572 requires IntoObserverSystem with default Out=(); native13:32\u201350 requires IntoSystem for that Out. IntoResult12:576\u2013612 supports bare T, Result<T,RunSystemError>, Result<T,BevyError>, not arbitrary bespoke Result<T,E>. There is no automatic generic From conversion of the complete Result return type.",
+        "Exact source-port support for retained NATIVE-OWNER-F009, dedup NATIVE-PP-018. This is an unresolved native binding/migration obligation, not a successful compile or runtime fault verdict.",
+        "For correctly adapted callbacks, native runner11:110\u2013123 dispatches Failed to an optional/fallback error handler, then queues deferred commands; it does not return IterationResult to run_duel. World14:3461\u20133465 uses registered handler or default; native7:117\u2013139 defaults to severity handler, native6:400\u2013414 boxes source with Panic severity. A typed error alone does not establish owning report propagation or recoverability."
+      ],
+      "cross_lens_source_evidence": "Archive contracts used only to locate the actual materially reached native path; all listed own08 bodies consumed and old/new callers inspected.",
+      "status": "Scoped08 contract accounted with findings/qualifications; no full dependency or native runtime clearance.",
+      "finding_support": "NATIVE-OWNER-F009 / NATIVE-PP-018",
+      "acceptance": "Preserve original typed cause through the exact native Error owner/adapter; separately retain owning report state/readback and mandatory failure outcome. Do not replace meaningful errors with strings or infer success from handler dispatch.",
+      "execution": "No compiler, tests, CLI, GPU or runtime execution."
+    },
+    {
+      "scope_index": 10,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/observer/mod.rs",
+      "sha256": "ebea03dbd974a67dc92c11ae4232a2a25a9e653c6df28eaea70e26a5f964c78a",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/ebea03dbd974a67dc92c11ae4232a2a25a9e653c6df28eaea70e26a5f964c78a",
+      "read_ranges": [
+        [
+          45,
+          64
+        ]
+      ],
+      "comparison": "Pinned native dependency has no known body/version delta; actual changed bespoke caller/receiver compared instead of claiming clearance from a hash.",
+      "actual_contract_and_disposition": [
+        "Fresh exact scoped native bodies personally read. PR base/head both lock bevy_app/ecsv0.19.1; bevy_ecs checksum a350b2e4c2e47f7903d688affb8a723b31bca63af9789f1da88703f1ba04e354. P16 lock increment39 adds only Core geometry edge, preserving these native pins.",
+        "Actual P16 iteration406:133\u2013177 directly registers logging408:198\u2013257 record_attack_start returning Result<(),MeleeGeometryError> and302\u2013331 record_resolved_attack returning Result<(),GeometryError>; their base callbacks returned (). Lower aliases350:16\u201329 and449:1\u20134 are distinct bespoke error enums, not BevyError.",
+        "Native app3:1474 forwards IntoObserver to World10:55; IntoObserver9:572 requires IntoObserverSystem with default Out=(); native13:32\u201350 requires IntoSystem for that Out. IntoResult12:576\u2013612 supports bare T, Result<T,RunSystemError>, Result<T,BevyError>, not arbitrary bespoke Result<T,E>. There is no automatic generic From conversion of the complete Result return type.",
+        "Exact source-port support for retained NATIVE-OWNER-F009, dedup NATIVE-PP-018. This is an unresolved native binding/migration obligation, not a successful compile or runtime fault verdict.",
+        "For correctly adapted callbacks, native runner11:110\u2013123 dispatches Failed to an optional/fallback error handler, then queues deferred commands; it does not return IterationResult to run_duel. World14:3461\u20133465 uses registered handler or default; native7:117\u2013139 defaults to severity handler, native6:400\u2013414 boxes source with Panic severity. A typed error alone does not establish owning report propagation or recoverability."
+      ],
+      "cross_lens_source_evidence": "Archive contracts used only to locate the actual materially reached native path; all listed own08 bodies consumed and old/new callers inspected.",
+      "status": "Scoped08 contract accounted with findings/qualifications; no full dependency or native runtime clearance.",
+      "finding_support": "NATIVE-OWNER-F009 / NATIVE-PP-018",
+      "acceptance": "Preserve original typed cause through the exact native Error owner/adapter; separately retain owning report state/readback and mandatory failure outcome. Do not replace meaningful errors with strings or infer success from handler dispatch.",
+      "execution": "No compiler, tests, CLI, GPU or runtime execution."
+    },
+    {
+      "scope_index": 11,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/observer/runner.rs",
+      "sha256": "e8a6dca4f1ae317b6653d6f1c5fdf175fdb6ed42a5d4a6125730bc9e716f43dd",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/e8a6dca4f1ae317b6653d6f1c5fdf175fdb6ed42a5d4a6125730bc9e716f43dd",
+      "read_ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "comparison": "Pinned native dependency has no known body/version delta; actual changed bespoke caller/receiver compared instead of claiming clearance from a hash.",
+      "actual_contract_and_disposition": [
+        "Fresh exact scoped native bodies personally read. PR base/head both lock bevy_app/ecsv0.19.1; bevy_ecs checksum a350b2e4c2e47f7903d688affb8a723b31bca63af9789f1da88703f1ba04e354. P16 lock increment39 adds only Core geometry edge, preserving these native pins.",
+        "Actual P16 iteration406:133\u2013177 directly registers logging408:198\u2013257 record_attack_start returning Result<(),MeleeGeometryError> and302\u2013331 record_resolved_attack returning Result<(),GeometryError>; their base callbacks returned (). Lower aliases350:16\u201329 and449:1\u20134 are distinct bespoke error enums, not BevyError.",
+        "Native app3:1474 forwards IntoObserver to World10:55; IntoObserver9:572 requires IntoObserverSystem with default Out=(); native13:32\u201350 requires IntoSystem for that Out. IntoResult12:576\u2013612 supports bare T, Result<T,RunSystemError>, Result<T,BevyError>, not arbitrary bespoke Result<T,E>. There is no automatic generic From conversion of the complete Result return type.",
+        "Exact source-port support for retained NATIVE-OWNER-F009, dedup NATIVE-PP-018. This is an unresolved native binding/migration obligation, not a successful compile or runtime fault verdict.",
+        "For correctly adapted callbacks, native runner11:110\u2013123 dispatches Failed to an optional/fallback error handler, then queues deferred commands; it does not return IterationResult to run_duel. World14:3461\u20133465 uses registered handler or default; native7:117\u2013139 defaults to severity handler, native6:400\u2013414 boxes source with Panic severity. A typed error alone does not establish owning report propagation or recoverability."
+      ],
+      "cross_lens_source_evidence": "Archive contracts used only to locate the actual materially reached native path; all listed own08 bodies consumed and old/new callers inspected.",
+      "status": "Scoped08 contract accounted with findings/qualifications; no full dependency or native runtime clearance.",
+      "finding_support": "NATIVE-OWNER-F009 / NATIVE-PP-018",
+      "acceptance": "Preserve original typed cause through the exact native Error owner/adapter; separately retain owning report state/readback and mandatory failure outcome. Do not replace meaningful errors with strings or infer success from handler dispatch.",
+      "execution": "No compiler, tests, CLI, GPU or runtime execution."
+    },
+    {
+      "scope_index": 12,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/system/function_system.rs",
+      "sha256": "a8c0b778125f2da28ada5005a40c2bc2ab5d783fd9d080aad99361cb55641c3a",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/a8c0b778125f2da28ada5005a40c2bc2ab5d783fd9d080aad99361cb55641c3a",
+      "read_ranges": [
+        [
+          570,
+          630
+        ]
+      ],
+      "comparison": "Pinned native dependency has no known body/version delta; actual changed bespoke caller/receiver compared instead of claiming clearance from a hash.",
+      "actual_contract_and_disposition": [
+        "Fresh exact scoped native bodies personally read. PR base/head both lock bevy_app/ecsv0.19.1; bevy_ecs checksum a350b2e4c2e47f7903d688affb8a723b31bca63af9789f1da88703f1ba04e354. P16 lock increment39 adds only Core geometry edge, preserving these native pins.",
+        "Actual P16 iteration406:133\u2013177 directly registers logging408:198\u2013257 record_attack_start returning Result<(),MeleeGeometryError> and302\u2013331 record_resolved_attack returning Result<(),GeometryError>; their base callbacks returned (). Lower aliases350:16\u201329 and449:1\u20134 are distinct bespoke error enums, not BevyError.",
+        "Native app3:1474 forwards IntoObserver to World10:55; IntoObserver9:572 requires IntoObserverSystem with default Out=(); native13:32\u201350 requires IntoSystem for that Out. IntoResult12:576\u2013612 supports bare T, Result<T,RunSystemError>, Result<T,BevyError>, not arbitrary bespoke Result<T,E>. There is no automatic generic From conversion of the complete Result return type.",
+        "Exact source-port support for retained NATIVE-OWNER-F009, dedup NATIVE-PP-018. This is an unresolved native binding/migration obligation, not a successful compile or runtime fault verdict.",
+        "For correctly adapted callbacks, native runner11:110\u2013123 dispatches Failed to an optional/fallback error handler, then queues deferred commands; it does not return IterationResult to run_duel. World14:3461\u20133465 uses registered handler or default; native7:117\u2013139 defaults to severity handler, native6:400\u2013414 boxes source with Panic severity. A typed error alone does not establish owning report propagation or recoverability."
+      ],
+      "cross_lens_source_evidence": "Archive contracts used only to locate the actual materially reached native path; all listed own08 bodies consumed and old/new callers inspected.",
+      "status": "Scoped08 contract accounted with findings/qualifications; no full dependency or native runtime clearance.",
+      "finding_support": "NATIVE-OWNER-F009 / NATIVE-PP-018",
+      "acceptance": "Preserve original typed cause through the exact native Error owner/adapter; separately retain owning report state/readback and mandatory failure outcome. Do not replace meaningful errors with strings or infer success from handler dispatch.",
+      "execution": "No compiler, tests, CLI, GPU or runtime execution."
+    },
+    {
+      "scope_index": 13,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/system/observer_system.rs",
+      "sha256": "a5ec50cfa2fdb29a0f86a8bfb1c42a266bbd199da74e8c60c30384bf59409ac6",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/a5ec50cfa2fdb29a0f86a8bfb1c42a266bbd199da74e8c60c30384bf59409ac6",
+      "read_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "comparison": "Pinned native dependency has no known body/version delta; actual changed bespoke caller/receiver compared instead of claiming clearance from a hash.",
+      "actual_contract_and_disposition": [
+        "Fresh exact scoped native bodies personally read. PR base/head both lock bevy_app/ecsv0.19.1; bevy_ecs checksum a350b2e4c2e47f7903d688affb8a723b31bca63af9789f1da88703f1ba04e354. P16 lock increment39 adds only Core geometry edge, preserving these native pins.",
+        "Actual P16 iteration406:133\u2013177 directly registers logging408:198\u2013257 record_attack_start returning Result<(),MeleeGeometryError> and302\u2013331 record_resolved_attack returning Result<(),GeometryError>; their base callbacks returned (). Lower aliases350:16\u201329 and449:1\u20134 are distinct bespoke error enums, not BevyError.",
+        "Native app3:1474 forwards IntoObserver to World10:55; IntoObserver9:572 requires IntoObserverSystem with default Out=(); native13:32\u201350 requires IntoSystem for that Out. IntoResult12:576\u2013612 supports bare T, Result<T,RunSystemError>, Result<T,BevyError>, not arbitrary bespoke Result<T,E>. There is no automatic generic From conversion of the complete Result return type.",
+        "Exact source-port support for retained NATIVE-OWNER-F009, dedup NATIVE-PP-018. This is an unresolved native binding/migration obligation, not a successful compile or runtime fault verdict.",
+        "For correctly adapted callbacks, native runner11:110\u2013123 dispatches Failed to an optional/fallback error handler, then queues deferred commands; it does not return IterationResult to run_duel. World14:3461\u20133465 uses registered handler or default; native7:117\u2013139 defaults to severity handler, native6:400\u2013414 boxes source with Panic severity. A typed error alone does not establish owning report propagation or recoverability."
+      ],
+      "cross_lens_source_evidence": "Archive contracts used only to locate the actual materially reached native path; all listed own08 bodies consumed and old/new callers inspected.",
+      "status": "Scoped08 contract accounted with findings/qualifications; no full dependency or native runtime clearance.",
+      "finding_support": "NATIVE-OWNER-F009 / NATIVE-PP-018",
+      "acceptance": "Preserve original typed cause through the exact native Error owner/adapter; separately retain owning report state/readback and mandatory failure outcome. Do not replace meaningful errors with strings or infer success from handler dispatch.",
+      "execution": "No compiler, tests, CLI, GPU or runtime execution."
+    },
+    {
+      "scope_index": 14,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/world/mod.rs",
+      "sha256": "34963c05abcc51517c1db6cf1a3e1f90ae365409f75a9ceb54d6a892505681b6",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/34963c05abcc51517c1db6cf1a3e1f90ae365409f75a9ceb54d6a892505681b6",
+      "read_ranges": [
+        [
+          3448,
+          3475
+        ]
+      ],
+      "comparison": "Pinned native dependency has no known body/version delta; actual changed bespoke caller/receiver compared instead of claiming clearance from a hash.",
+      "actual_contract_and_disposition": [
+        "Fresh exact scoped native bodies personally read. PR base/head both lock bevy_app/ecsv0.19.1; bevy_ecs checksum a350b2e4c2e47f7903d688affb8a723b31bca63af9789f1da88703f1ba04e354. P16 lock increment39 adds only Core geometry edge, preserving these native pins.",
+        "Actual P16 iteration406:133\u2013177 directly registers logging408:198\u2013257 record_attack_start returning Result<(),MeleeGeometryError> and302\u2013331 record_resolved_attack returning Result<(),GeometryError>; their base callbacks returned (). Lower aliases350:16\u201329 and449:1\u20134 are distinct bespoke error enums, not BevyError.",
+        "Native app3:1474 forwards IntoObserver to World10:55; IntoObserver9:572 requires IntoObserverSystem with default Out=(); native13:32\u201350 requires IntoSystem for that Out. IntoResult12:576\u2013612 supports bare T, Result<T,RunSystemError>, Result<T,BevyError>, not arbitrary bespoke Result<T,E>. There is no automatic generic From conversion of the complete Result return type.",
+        "Exact source-port support for retained NATIVE-OWNER-F009, dedup NATIVE-PP-018. This is an unresolved native binding/migration obligation, not a successful compile or runtime fault verdict.",
+        "For correctly adapted callbacks, native runner11:110\u2013123 dispatches Failed to an optional/fallback error handler, then queues deferred commands; it does not return IterationResult to run_duel. World14:3461\u20133465 uses registered handler or default; native7:117\u2013139 defaults to severity handler, native6:400\u2013414 boxes source with Panic severity. A typed error alone does not establish owning report propagation or recoverability."
+      ],
+      "cross_lens_source_evidence": "Archive contracts used only to locate the actual materially reached native path; all listed own08 bodies consumed and old/new callers inspected.",
+      "status": "Scoped08 contract accounted with findings/qualifications; no full dependency or native runtime clearance.",
+      "finding_support": "NATIVE-OWNER-F009 / NATIVE-PP-018",
+      "acceptance": "Preserve original typed cause through the exact native Error owner/adapter; separately retain owning report state/readback and mandatory failure outcome. Do not replace meaningful errors with strings or infer success from handler dispatch.",
+      "execution": "No compiler, tests, CLI, GPU or runtime execution."
+    },
+    {
+      "scope_index": 764,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/equipment_catalog.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "before_sha256": "7aa395dbc42198d83449acd56f13d4710f592c43ff6cc0cab66116d258079048",
+      "before_status": "present",
+      "after_sha256": "da3139ef3625393db9041ad0680dc244b0f81235b86ea4519a87c9299763bdd6",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/0764-base-7aa395dbc42198d83449acd56f13d4710f592c43ff6cc0cab66116d258079048",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/da3139ef3625393db9041ad0680dc244b0f81235b86ea4519a87c9299763bdd6",
+      "diff": "source-evidence/0764.diff",
+      "diff_sha256": "fbbc3eb0ff796f4427434909f597cbb21414ab5f1fd8bb4c0f3b5f663d98aa8d",
+      "head_body_read": "Full exact head body personally read; complete actual diff consumed.",
+      "ranges": [
+        [
+          1,
+          146
+        ]
+      ],
+      "contract": "Creator catalogue and filtered export selection",
+      "old_new_behavior": [
+        "Exact lookup still selects the first same-ID record; wearable iteration preserves all actual input records and authored order through CatalogItem::all. Selection admits filters against the wearable iterator, retains IDs, and includes every wearable duplicate with a selected ID as old filter.contains did.",
+        "Empty filters still mean all, duplicate filters do not duplicate output iteration, unknown filters still fail before output directory mutation. Actual main819:235\u2013243 admits against the same catalogue passed to exporter765.",
+        "Catalogue loading, sorted file order, JSON decoding of YAML-named documents, material lookup and no-placeholder armor checks retain their algorithms. The exact typed item/design owner lookup remains a connected dependency."
+      ],
+      "disposition": "Bounded local own08 contract compared with exact admission/policy qualifications; other linked source families remain incomplete.",
+      "limits": [
+        "Selection can be supplied alongside another same-lifetime catalogue at the API level; actual ordinary main uses the same catalogue. No cross-catalogue mismatch or ordinary duplicate-content defect inferred solely from this shape."
+      ],
+      "acceptance": "Preserve actual selection/identity, duplicate and default behavior, finite physical values and concrete wire fields. Distinguish intentional malformed-input tightening from a regression, using actual producers/recipients.",
+      "execution": "No filesystem export, project check or new test executed."
+    },
+    {
+      "scope_index": 923,
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment_assets/selection.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "before_sha256": null,
+      "before_status": "absent at exact base",
+      "after_sha256": "162b898d78feeae3507d19844b4b11c999c50edd7609680e5ef7c2fac89486d6",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/162b898d78feeae3507d19844b4b11c999c50edd7609680e5ef7c2fac89486d6",
+      "diff": "source-evidence/0923.diff",
+      "diff_sha256": "c849807dd435be2ff2318bb24b175f025e8310adefa0bbe1d36100f27b3929d7",
+      "head_body_read": "Full exact head body personally read; complete actual diff consumed.",
+      "ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "contract": "Catalogue record and placement identity",
+      "old_new_behavior": [
+        "New complete170-line source establishes CatalogItem as actual borrowed record and CatalogPlacement as actual own placement. find uses the first exact matching ID as the old item/placement code did; placements retains authored order and every duplicate record/placement when iterating.",
+        "Equality/hash are pointer identity, not string identity. Retained placements clone one immutable item snapshot into Arc, store valid enumerated ordinal and later select that snapshot. It does not globally intern same-ID records.",
+        "Actual exporter765 iterates each record then own placements, preserving old per-record iteration; native manifest922 reconstructs selections only from canonical embedded lookup. Ordinary same-source flow coherent; callers across unrelated catalogue snapshots require separate proof."
+      ],
+      "disposition": "Bounded local own08 contract compared with exact admission/policy qualifications; other linked source families remain incomplete.",
+      "limits": [
+        "No all-consumer identity clearance. CatalogDesigns changed API behavior, retained editor use and duplicate design precedence remain pending source cells."
+      ],
+      "acceptance": "Preserve actual selection/identity, duplicate and default behavior, finite physical values and concrete wire fields. Distinguish intentional malformed-input tightening from a regression, using actual producers/recipients.",
+      "execution": "No filesystem export, project check or new test executed."
+    },
+    {
+      "scope_index": 765,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/equipment_export.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "before_sha256": "4b9d06d2634e7d1edf53ea49d83a461c60d2d37214ff8e20b4748f5e0182a0d5",
+      "before_status": "present",
+      "after_sha256": "a8541e9383d61945925725c89b8c8c6cc448ddd898fa2538379cf18a075d19e3",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/0765-base-4b9d06d2634e7d1edf53ea49d83a461c60d2d37214ff8e20b4748f5e0182a0d5",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/a8541e9383d61945925725c89b8c8c6cc448ddd898fa2538379cf18a075d19e3",
+      "diff": "source-evidence/0765.diff",
+      "diff_sha256": "63805d565c4339b3454e0ffe0d0a6cf4ba5de17ceb9f0745ed1fa81b1e63ec93",
+      "head_body_read": "Full exact head body personally read; complete actual diff consumed.",
+      "ranges": [
+        [
+          1,
+          343
+        ]
+      ],
+      "contract": "Equipment export wire fields, filter ordering and error boundary",
+      "old_new_behavior": [
+        "Full343-line head and complete370-line diff read. Export loop moved below implementation; still validates filtered staging before mkdir, generates character then morphs, iterates wearable records and authored placements, skips empty surface, prefers parametric design then garment, retains generated filenames and removes only stale .glb paths before manifest write.",
+        "Authoring selections now flow through actual CatalogPlacement; source764/923 preserve relevant first-match and full-record iteration. Actual main admits filters before entering this output mutation boundary as old code did inside the boundary.",
+        "ProceduralEquipmentAsset replaces JSON literals. Garment Option fields are None and source922 has skip_serializing_if, preserving absence rather than introducing nulls. Armor Some fields retain prior values; root manifest stays schema1/releasev1.0.1, and conversion through serde_json::to_value before pretty serialization retains JSON value formatting/ordering policy.",
+        "Sockets retain authored iteration/filter/order and exact native data; new context errors replace impossible expect cases at already filtered values. ClothingError boundary has exact RIG-OWNER-F016 cause gap, qualified above."
+      ],
+      "disposition": "Bounded local own08 contract compared with exact admission/policy qualifications; other linked source families remain incomplete.",
+      "limits": [
+        "Actual fitting, character generation, UV socket kernels, design selection, output image/GLB bytes and all error messages are not proved equivalent by this orchestration comparison. No output exported."
+      ],
+      "acceptance": "Preserve actual selection/identity, duplicate and default behavior, finite physical values and concrete wire fields. Distinguish intentional malformed-input tightening from a regression, using actual producers/recipients.",
+      "execution": "No filesystem export, project check or new test executed."
+    },
+    {
+      "scope_index": 922,
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment_assets.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "before_sha256": null,
+      "before_status": "absent at exact base",
+      "after_sha256": "0c7bd7e45c9a145954daf97ac6f0c2caa23bda96e9731a5ff033a2a3ce4a9365",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/0c7bd7e45c9a145954daf97ac6f0c2caa23bda96e9731a5ff033a2a3ce4a9365",
+      "diff": "source-evidence/0922.diff",
+      "diff_sha256": "c36576c323502a9dd1ba7e7bffe3325ce17d3fcac74fec0a411120adcbe71b02",
+      "head_body_read": "Full exact head body personally read; complete actual diff consumed.",
+      "ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "contract": "Typed equipment manifest input and default lookup",
+      "old_new_behavior": [
+        "New full107-line source and full added diff read; original client1474 base225\u2013274 reader consumed actual JSON assets into nested BTreeMaps, asserted duplicate absence, and selected first lexical placement when None.",
+        "New complete wire schema requires existing exporter root/asset fields; optional armor keys default/skip None. It validates canonical item and its own placement, rejects duplicate canonical selections, then sorts by item ID/placement ID and returns first lexical placement: same default-selection order for supported unique canonical keys.",
+        "Duplicate manifests were already fatal through old assert, so no invented last-wins regression. New native caller1474:135\u2013144 turns decode/admission Err into the same committed-build-input panic policy.",
+        "Unknown item/placement and minimal manifests that omit formerly ignored fields now reject earlier. This is a real input-admission tightening; actual committed producer source502 supplies the required fields, so no ordinary missing-field failure is established."
+      ],
+      "disposition": "Bounded local own08 contract compared with exact admission/policy qualifications; other linked source families remain incomplete.",
+      "limits": [
+        "Full canonical catalogue/data admission and client1474 presentation recipients remain pending. No file-existence, GLB/bodyLOD/hash/content consistency guarantee is established by this parser; raw metadata remains mostly unvalidated here."
+      ],
+      "acceptance": "Preserve actual selection/identity, duplicate and default behavior, finite physical values and concrete wire fields. Distinguish intentional malformed-input tightening from a regression, using actual producers/recipients.",
+      "execution": "No filesystem export, project check or new test executed."
+    },
+    {
+      "scope_index": 502,
+      "source_id": "pr-working:assets/equipment/procedural/manifest.json",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "before_sha256": "85e4e70817b318a29c047d17e6b6b1b8565549174e08f724b5b92e478d387034",
+      "before_status": "present",
+      "after_sha256": "7c9d975e49e5b775696c4120b075383ce2915b619761f7142d3feec1e35d0f10",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/0502-base-85e4e70817b318a29c047d17e6b6b1b8565549174e08f724b5b92e478d387034",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/7c9d975e49e5b775696c4120b075383ce2915b619761f7142d3feec1e35d0f10",
+      "diff": "source-evidence/0502.diff",
+      "diff_sha256": "d21bed17f05ecf05c33f4c07cc464fbda9828158d509586d9a39a520f1c6c219",
+      "head_body_read": "Full exact head body personally read; complete actual diff consumed.",
+      "ranges": [
+        [
+          1,
+          694
+        ]
+      ],
+      "contract": "Frozen procedural equipment manifest rename",
+      "old_new_behavior": [
+        "Entire694-line JSON consumed through complete compact58-record display after an earlier oversized display was truncated; no credit assigned from that truncated call. Entire exact diff read.",
+        "Only record33 item_id/file changes leather_belt to belt / belt--worn.glb. All58 record order, coverage/material/morph/triangle/hash/version/domain values and root lod1/releasev1.0.1/schema1 remain identical.",
+        "This matches the explicitly intended clean belt catalogue rename; no compatibility alias expected. It does not itself prove actual renamed asset bytes or all references updated."
+      ],
+      "disposition": "Bounded local own08 contract compared with exact admission/policy qualifications; other linked source families remain incomplete.",
+      "limits": [
+        "GLB asset bytes, file rename, catalogue physical/topology definitions and other belt consumers are separate pending source cells. Actual manifest keys have no duplicate pair in the displayed58 records; no loader execution performed."
+      ],
+      "acceptance": "Preserve actual selection/identity, duplicate and default behavior, finite physical values and concrete wire fields. Distinguish intentional malformed-input tightening from a regression, using actual producers/recipients.",
+      "execution": "No filesystem export, project check or new test executed."
+    }
+  ],
+  "partial_sources": [
+    {
+      "scope_index": 708,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/clothing/error.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "before_sha256": null,
+      "before_status": "absent at exact base",
+      "after_sha256": "3a33f6fd8aaabd68b8be71ea21f472b142fd17f7648bd79551af19b2c8f24297",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/3a33f6fd8aaabd68b8be71ea21f472b142fd17f7648bd79551af19b2c8f24297",
+      "diff": "source-evidence/0708.diff",
+      "diff_sha256": "74030cbd7fb68066480fef23fd0f3c7b08af9d3fe487971ff5523ce965d251e1",
+      "ranges_read": [
+        [
+          1,
+          48
+        ]
+      ],
+      "status": "Full new typed error definition read for native1/2 cause graph; full generating behavior707 not reviewed."
+    },
+    {
+      "scope_index": 707,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/clothing.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "before_sha256": "459ff9e029460faffa0502eb358e22f603beff7ef183d93ba8746c4d1aaf1283",
+      "before_status": "present",
+      "after_sha256": "01a1b2449b801b5bc0597ad35ddb9a5cef1bc7f86612b1c02efcb50c6b18e049",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/0707-base-459ff9e029460faffa0502eb358e22f603beff7ef183d93ba8746c4d1aaf1283",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/01a1b2449b801b5bc0597ad35ddb9a5cef1bc7f86612b1c02efcb50c6b18e049",
+      "diff": "source-evidence/0707.diff",
+      "diff_sha256": "a6f4af1184d331939632c554d108348454f666be65f46d3364f195e0f3b91dee",
+      "head_ranges_read": [
+        [
+          90,
+          175
+        ]
+      ],
+      "base_ranges_read": [
+        [
+          282,
+          326
+        ]
+      ],
+      "status": "Partial clothing producer only; remaining714-line body/diff pending."
+    },
+    {
+      "scope_index": 819,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/main.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "before_sha256": "31040d06aaf28711632268409163f463d038c1dbdb915c8289d1dcbf704810c0",
+      "before_status": "present",
+      "after_sha256": "41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/0819-base-31040d06aaf28711632268409163f463d038c1dbdb915c8289d1dcbf704810c0",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9",
+      "diff": "source-evidence/0819.diff",
+      "diff_sha256": "4f3334bdf85e5bc6d8ae5bb8e9dc7db9ca29d18209683261eaabb7f9293e2ce3",
+      "head_ranges_read": [
+        [
+          214,
+          245
+        ]
+      ],
+      "status": "Only ordinary filter admission caller; full667-line source and diff pending."
+    },
+    {
+      "scope_index": 1474,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "before_sha256": "7e814de4d7c4a949912538a6d63f5fad3fc23ff23c367634f3034f7cca17cbf9",
+      "before_status": "present",
+      "after_sha256": "c7869ebb6e2c2a67a4c47e9504c0ced6da6566f95fba9320181d49b1142a54fd",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1474-base-7e814de4d7c4a949912538a6d63f5fad3fc23ff23c367634f3034f7cca17cbf9",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/c7869ebb6e2c2a67a4c47e9504c0ced6da6566f95fba9320181d49b1142a54fd",
+      "diff": "source-evidence/1474.diff",
+      "diff_sha256": "f04b36691dd3a751d3c9400f31da689c056cf165ebdda52d126f4124f7d2c8c1",
+      "head_ranges_read": [
+        [
+          105,
+          166
+        ]
+      ],
+      "base_ranges_read": [
+        [
+          1,
+          160
+        ],
+        [
+          225,
+          274
+        ]
+      ],
+      "status": "Partial native manifest recipient, not full1745-line source credit."
+    },
+    {
+      "scope_index": 406,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "before_sha256": "812c3b491db93ba51220e73ebe4aef93934ff80abeb3f7d4e2af796c598ce1b7",
+      "before_status": "present",
+      "after_sha256": "5ebb42e36e764cd3adee88c336b2976f42db557494a436e8fa2eef2f79fdef61",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/0406-base-812c3b491db93ba51220e73ebe4aef93934ff80abeb3f7d4e2af796c598ce1b7",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/5ebb42e36e764cd3adee88c336b2976f42db557494a436e8fa2eef2f79fdef61",
+      "diff": "source-evidence/0406.diff",
+      "diff_sha256": "82a4ea07a1522eeb71692d5719c1a1215b4261f0263c97fb3686744c207cf342",
+      "head_ranges_read": [
+        [
+          115,
+          177
+        ]
+      ],
+      "diff_read": "Only observer registration/source-context obligations read; remainder79-line diff not wholly consumed.",
+      "status": "Partial iteration app/readback source pending."
+    },
+    {
+      "scope_index": 408,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration/logging.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "before_sha256": "9b544bf84edcca32609b26242d2794c3800a45618c40cef1aa5f4d6965225b88",
+      "before_status": "present",
+      "after_sha256": "cee413f196e6709475af3c4f68ba65471662d2dbc16d1fe978946ecbf362ca2d",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/0408-base-9b544bf84edcca32609b26242d2794c3800a45618c40cef1aa5f4d6965225b88",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/cee413f196e6709475af3c4f68ba65471662d2dbc16d1fe978946ecbf362ca2d",
+      "diff": "source-evidence/0408.diff",
+      "diff_sha256": "3ff05ec51af22955f7f0a488d5b16146511889baebf896e710756befb842c624",
+      "head_ranges_read": [
+        [
+          190,
+          258
+        ],
+        [
+          298,
+          377
+        ]
+      ],
+      "diff_read": "First125 of179 diff lines displayed; remaining diff not fully consumed.",
+      "status": "Exact observer signatures and changed failure preparation read; full431 role pending."
+    },
+    {
+      "scope_index": 350,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "before_sha256": "6da9d5558329053c0ceaadbcb7a19730884fc55bbc50cdd90af9b9305346b48c",
+      "before_status": "present",
+      "after_sha256": "98f3cb6b60b6672e3bdb730f6c922c012120f3763add4beb906040f1be122c2f",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/0350-base-6da9d5558329053c0ceaadbcb7a19730884fc55bbc50cdd90af9b9305346b48c",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/98f3cb6b60b6672e3bdb730f6c922c012120f3763add4beb906040f1be122c2f",
+      "diff": "source-evidence/0350.diff",
+      "diff_sha256": "e9674da55d249968f3405be00a62706f2cc126321a14d961d7de4dff8d0b4ad6",
+      "head_ranges_read": [
+        [
+          1,
+          46
+        ]
+      ],
+      "status": "Error alias identity only; full310 role pending."
+    },
+    {
+      "scope_index": 449,
+      "source_id": "physical-p16:crates/fabelgeist-geometry/src/error.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "before_sha256": "78064ad3e76e6e39580db42af5da259e24a922d69fbe0953704cb9715f26a5c3",
+      "before_status": "present",
+      "after_sha256": "78064ad3e76e6e39580db42af5da259e24a922d69fbe0953704cb9715f26a5c3",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/0449-base-78064ad3e76e6e39580db42af5da259e24a922d69fbe0953704cb9715f26a5c3",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/78064ad3e76e6e39580db42af5da259e24a922d69fbe0953704cb9715f26a5c3",
+      "diff": "source-evidence/0449.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_ranges_read": [
+        [
+          1,
+          36
+        ]
+      ],
+      "status": "GeometryResult alias and coordinate/role header only; full body pending."
+    }
+  ],
+  "finding_alias_support": [
+    {
+      "existing": "RIG-OWNER-F016",
+      "classification": "Typed-producer propagation gap; no older richer String cause chain regression claimed."
+    },
+    {
+      "existing": "NATIVE-OWNER-F009",
+      "dedup": "NATIVE-PP-018",
+      "classification": "Actual observer Result owner mismatch and mandatory owning failure/readback gap; no compiler verdict."
+    }
+  ],
+  "next_frontier": "Original native4/5 asset-failure causal variants and actual changed asset receivers; P16 Q001/Q002 remain qualified. No initial08 exhaustive discovery claim."
+}

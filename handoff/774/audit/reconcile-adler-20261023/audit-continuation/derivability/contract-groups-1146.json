@@ -1,0 +1,186 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1146",
+  "at": "2026-10-25T17:54:36.084419+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1251,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/schedule.rs",
+      "sha256": "08c054563be5757fc2da0ce95af4c995e5a8f8d1acf549bc5dbc65f2c3443077",
+      "actual_EOF": 741,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/schedule.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/time/schedule.rs",
+        "sha256": "08c054563be5757fc2da0ce95af4c995e5a8f8d1acf549bc5dbc65f2c3443077",
+        "bytes": 27540,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "root",
+            "record": "wave-01/audit-producer-propagation/root/additional-sources-031.json",
+            "ranges": [
+              [
+                1,
+                125
+              ],
+              [
+                728,
+                741
+              ]
+            ],
+            "source_read_status": "partial",
+            "trace_refs": [
+              "ROOT-PP-SCHEDULE-031"
+            ]
+          },
+          {
+            "shard": "root",
+            "record": "wave-01/audit-producer-propagation/root/unchanged-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                125
+              ],
+              [
+                728,
+                741
+              ]
+            ],
+            "source_read_status": "partial",
+            "trace_refs": [
+              "ROOT-PP-SCHEDULE-031"
+            ]
+          }
+        ],
+        "audit_owner": "root",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 174,
+            "read_ranges": [
+              [
+                1,
+                741
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-SCHEDULE-046",
+              "NATIVE-OWNER-STRATEGIC-003"
+            ],
+            "read_status": "delegated_current_lens_full_body_plus_full_variant_delta",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/time/schedule.rs"
+          },
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 423,
+            "read_ranges": [
+              [
+                1,
+                741
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-SCHEDULE-046",
+              "NATIVE-OWNER-STRATEGIC-003",
+              "ROOT-OWNER-NATIVE-DEPENDENCY-CLOSURE-082"
+            ],
+            "read_status": "delegated_current_lens_full_body_plus_full_variant_delta",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/time/schedule.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-SCHEDULE-RETENTION-010",
+            "json_pointer": "/source_proofs/1",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/time/schedule.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                741
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/schedule.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/time/schedule.rs",
+              "sha256": "08c054563be5757fc2da0ce95af4c995e5a8f8d1acf549bc5dbc65f2c3443077",
+              "read_ranges": [
+                [
+                  1,
+                  741
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-TIME-PACKET-011",
+            "json_pointer": "/source_reads/8",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/time/schedule.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                741
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/schedule.rs",
+              "sha256": "08c054563be5757fc2da0ce95af4c995e5a8f8d1acf549bc5dbc65f2c3443077",
+              "read_ranges": [
+                [
+                  1,
+                  741
+                ]
+              ],
+              "method": "P16 whole actual body plus complete textual reversePR delta, or exact byteidentity correspondence; both pinned hashes retained",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/time/schedule.rs"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 549,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          741
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "ActivityExecutionLocation Clone/Debug."
+      ],
+      "absence_basis": "Full741lines1144\u20131146 consumed. Native context/location/org/schedule training/book classification/rank/access/currentcohort/semantic field mapping and selected mutable skill slots, no manual trait/codec. core_schedule728\u2013741 projects renamed selected schedule fields to DailySchedule but no handwritten From or available conversion derive; keep no new dependency solely for field adapter."
+    }
+  ],
+  "groups": [
+    "KEEP contextual checked schedule/book/training behavior and selected mutable projection; no blanket From/AsMut/Serde."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1252,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/settlement_rest.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

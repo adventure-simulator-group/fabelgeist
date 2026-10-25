@@ -1,0 +1,156 @@
+{
+  "id": "SEGO774-780-47C-CONTRACT-RECONCILIATION",
+  "at": "2026-10-25T08:27:24.976747+00:00",
+  "revision": "47c23647be6d0e764076237b8a0a692906663d0a",
+  "mode": "Read-only source-backed successor coordination, not initial frozen-source lens coverage or family/lens clearance",
+  "receipts": [
+    {
+      "path": "crates/adventuresim-character-creator/src/device_body.rs",
+      "revision": "47c23647be6d0e764076237b8a0a692906663d0a",
+      "sha256": "7f528ffbfd597a6199b1ef50c86f045e36ae230acb0b5957c2504f6285a99bd3",
+      "actual_lines": 26,
+      "source_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/coordination/780-47c-source/7f528ffbfd597a6199b1ef50c86f045e36ae230acb0b5957c2504f6285a99bd3",
+      "personally_read_ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "findings": [
+        "M15"
+      ],
+      "contract_reconciliation": "Cloneable OnceLock returns first GpuBody before checking current host realization/device or invoking the supplied closure; exact unbranded cache mechanism remains.",
+      "coverage": "Only actual listed ranges consumed; full object retained for byte provenance, not whole-family/lens acceptance."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_fit.rs",
+      "revision": "47c23647be6d0e764076237b8a0a692906663d0a",
+      "sha256": "dcd91f8fa4f1fc251a4195f28cd8b7954b77f03a174d2f6d455c70550c53e7dc",
+      "actual_lines": 510,
+      "source_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/coordination/780-47c-source/dcd91f8fa4f1fc251a4195f28cd8b7954b77f03a174d2f6d455c70550c53e7dc",
+      "personally_read_ranges": [
+        [
+          1,
+          135
+        ],
+        [
+          390,
+          510
+        ]
+      ],
+      "findings": [
+        "M15",
+        "M17"
+      ],
+      "contract_reconciliation": "Independent FitBody/Realization public columns and DevicePiece endpoint vector remain; upload checks joint-bound/name relationship, then enters unbranded cache. assemble_recipe zips caller-supplied morph names and endpoints, checking only visited pairs; public deltas also zip arrays. No complete fit_piece_async body or ordinary bad caller proof.",
+      "coverage": "Only actual listed ranges consumed; full object retained for byte provenance, not whole-family/lens acceptance."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/anatomy.rs",
+      "revision": "47c23647be6d0e764076237b8a0a692906663d0a",
+      "sha256": "5f35b514cf75ef2240d775a8fba069e0812fb7ba59b3aeab3b60e77e30918290",
+      "actual_lines": 314,
+      "source_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/coordination/780-47c-source/5f35b514cf75ef2240d775a8fba069e0812fb7ba59b3aeab3b60e77e30918290",
+      "personally_read_ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "findings": [
+        "M16",
+        "F09"
+      ],
+      "contract_reconciliation": "SeamTopology stores raw face count and checks paired face-row cardinality/nonempty, without supplied atlas population, so it cannot admit atlas membership. Raw pair/count casts remain in this bounded source.",
+      "coverage": "Only actual listed ranges consumed; full object retained for byte provenance, not whole-family/lens acceptance."
+    },
+    {
+      "path": "crates/fabelgeist-armor/src/gpu/body.rs",
+      "revision": "47c23647be6d0e764076237b8a0a692906663d0a",
+      "sha256": "ab105e5b85115fa0da95e814b31ade3f19e55fc58158ac1c78d01db29a999b7d",
+      "actual_lines": 234,
+      "source_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/coordination/780-47c-source/ab105e5b85115fa0da95e814b31ade3f19e55fc58158ac1c78d01db29a999b7d",
+      "personally_read_ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "findings": [
+        "M16"
+      ],
+      "contract_reconciliation": "BodySurface has independent public columns; new checks body-column lengths, joint count and actual vertex membership. GpuBody retains raw u32 populations and correspondence passes raw count into old PointTargets shape. Known incomplete canonical-query integration, no compiler execution or whole-file clearance.",
+      "coverage": "Only actual listed ranges consumed; full object retained for byte provenance, not whole-family/lens acceptance."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/bracer.rs",
+      "revision": "47c23647be6d0e764076237b8a0a692906663d0a",
+      "sha256": "2fd643dd2bc33e9b844cdd3c185c7ca9d474fe5ca773d8759d54854129ce64ef",
+      "actual_lines": 119,
+      "source_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/coordination/780-47c-source/2fd643dd2bc33e9b844cdd3c185c7ca9d474fe5ca773d8759d54854129ce64ef",
+      "personally_read_ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "findings": [
+        "F09",
+        "M17"
+      ],
+      "contract_reconciliation": "ForearmSurfaceInput validate checks columns/morph lengths/joint bounds/actual skin family, but no texture-coordinate index membership. Morph sample name is String with independent columns/cache. This is an actual admission API gap, not an asserted ordinary malformed asset.",
+      "coverage": "Only actual listed ranges consumed; full object retained for byte provenance, not whole-family/lens acceptance."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_bracer.rs",
+      "revision": "47c23647be6d0e764076237b8a0a692906663d0a",
+      "sha256": "ff37e035a52f79f4970f87fb21acef7702a0e9cf0ab288cf551e1c35d78365c4",
+      "actual_lines": 248,
+      "source_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/coordination/780-47c-source/ff37e035a52f79f4970f87fb21acef7702a0e9cf0ab288cf551e1c35d78365c4",
+      "personally_read_ranges": [
+        [
+          45,
+          105
+        ]
+      ],
+      "findings": [
+        "F09",
+        "M16"
+      ],
+      "contract_reconciliation": "Validated input flows to SeamTopology on supplied faces/texcoord_faces then upload of separate actual atlas, without atlas membership gate in this interval. Raw scratch/record counts remain. Later record_skin body not covered by this current-source slice.",
+      "coverage": "Only actual listed ranges consumed; full object retained for byte provenance, not whole-family/lens acceptance."
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/device_frames.rs",
+      "revision": "47c23647be6d0e764076237b8a0a692906663d0a",
+      "sha256": "e209739488d454a1565af4a6f3663940c07b0b56ce228bf1fff65297eafd8a2d",
+      "actual_lines": 246,
+      "source_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/coordination/780-47c-source/e209739488d454a1565af4a6f3663940c07b0b56ce228bf1fff65297eafd8a2d",
+      "personally_read_ranges": [
+        [
+          1,
+          120
+        ]
+      ],
+      "findings": [
+        "M06"
+      ],
+      "contract_reconciliation": "FrameFailure enum decoded by ordered bit precedence, then check_status converts actual FitRegion+FrameFailure into anyhow prose. Actual earliest structured failure is still erased here; no claim all startup cache changes remain untouched.",
+      "coverage": "Only actual listed ranges consumed; full object retained for byte provenance, not whole-family/lens acceptance."
+    }
+  ],
+  "author_reported_partial_repairs": "Shared GpuInitializationError in armor_gpu_async/metal_gpu startup caches reported by780; not independently source-read in this receipt. Broader application chain and fitting families explicitly incomplete.",
+  "disposition": {
+    "M06": "Lower826 cause-retention repairs accepted in826-cac5-3e74 receipt; actual780 frame status erasure remains at47c.",
+    "M15": "Actual higher DeviceBody association remains open at47c; native826 buffer preconditions do not close it.",
+    "M16": "Lower canonical populations/session tickets partly repaired in826; selected higher780 receivers still incomplete.",
+    "M17": "Actual47c assembly still accepts independent name and endpoint slices and zip truncation; canonical identity association remains open.",
+    "F09": "Actual47c forearm admission still omits UV atlas membership. No whole torso or shader current-family clearance claimed."
+  },
+  "ownership": "780 retains fitting/body association/morph/atlas producers and application propagation;826 retains lower GPU plus explicitly transferred generated Map/Gather/Scatter/Stencil/Stream/fluid/schema family. No competing implementation or new hold.",
+  "limits": [
+    "No code changes, project checks, CI or execution.",
+    "Reported scoped reviews and packet hashes do not establish all13 lens clearance.",
+    "Current successor findings do not erase frozen774 evidence; final integration/revision still requires source and acceptance reconciliation."
+  ]
+}

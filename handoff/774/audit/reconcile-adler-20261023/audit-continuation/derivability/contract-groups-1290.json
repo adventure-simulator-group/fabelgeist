@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1290",
+  "at": "2026-10-25T18:23:12.304769+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1356,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural.rs",
+  "sha256": "8b82644fdbb52e00c1b40a850239bb273c956668c89805efae19800b35f42487",
+  "actual_compared_ranges": [
+    [
+      281,
+      580
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Native current jump-state/body-role effects, reflection in parent/global/local frames, checked locomotion height application, guarded pelvis/spine split yaw, landing contact/resync setup. No handwritten traits/codec/types declared in this exact slice; semantic contextual multi-state transformations remain native.",
+  "first_unfinished": {
+    "scope_index": 1356,
+    "line": 581
+  },
+  "execution": "none"
+}

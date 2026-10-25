@@ -1,0 +1,86 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-229",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation_viewer/harness.rs",
+      "sha256": "301ac4dfe279a9dde47a582987736d16158cea960a0398b2a59f57a63859511d",
+      "actual_EOF": 511,
+      "actual_compared_ranges": [
+        [
+          1,
+          511
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/quickstep.rs",
+      "sha256": "760ecbcf0a6723b9624547541159758a8e9e117606b3c827969cbd9733645aab",
+      "actual_EOF": 190,
+      "actual_compared_ranges": [
+        [
+          1,
+          190
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness.rs",
+      "sha256": "ed20b1e997850b7b95cc52c88c55fad7855c2cf9c7a8e08ec3f610656517ee13",
+      "actual_EOF": 511,
+      "actual_compared_ranges": [
+        [
+          1,
+          511
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/quickstep.rs",
+      "sha256": "33077519d29facefe510e67394af05f51874b1324ce3b4a8de4f27b657852e9c",
+      "actual_EOF": 183,
+      "actual_compared_ranges": [
+        [
+          1,
+          183
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Bounded harness readiness and physical fixture projection",
+      "source_ranges": {
+        "harness.rs": [
+          [
+            1,
+            511
+          ]
+        ]
+      },
+      "disposition": "Complete P16 bodies and full actual PR textual deltas consumed. ArmorHarness closed variants select static catalogue list/placements; source tests expectedcounts<=29 ordinaryfixture, not global equipmentnodecap. Readiness increments only while !failed and unresolved afterdevicepreparation; actual CAPTURE_LOAD_FRAME_LIMIT1200 (exactP16 animation_viewer/mod.rs70) causes fail and laterreturn, so native waited cannot reachu32overflow. Camera focus+positive fixedoffset uses actual head/subject/orbit; finite transform/quaternion admission remains capture-input dependency. Bevyentity and graphfixture indexcasts safe under static tinyplacements; no generic unknowncatalogue proof or gameplayEquipmentGraph duplicateauthority inferred. Exact P16typed physical dimensions/zero head length versus PRrawVec3/0 delta retained. Filewrite/serialize expect are fixture tooling failure policy, no calls executed."
+    },
+    {
+      "contract": "Quickstep fixture integration and frame extent",
+      "source_ranges": {
+        "quickstep.rs": [
+          [
+            1,
+            190
+          ]
+        ]
+      },
+      "disposition": "Fixed scenario72frames indexes vector produced exactframe_count72. Actual fixture masses70/93.9 positive, agility4, configured finite samplefrequency/defaultmotor needed by division and integration. Frame+1 and release/landing arithmetic are bounded by defaultduration and fixedfixture; raw helperframe_count/scenario_frame are private viewer workextents, not proof arbitraryMAX memory accepted. P16target displacement and observed displacement carry checkedgeometry versus PRraw handoffs. Loop stores re-admitted SignedSpeed perframe; computed finite motor input/output closure joins root physicalmovement kernel qualification rather than blanket rawfloat wrappers. Release searches positive takeoffprofile and landing bounded1second with fixtureexpect; existing tests assert25/11/22 and distance/time, read not run. No gameplayintegration failure or all04clearance."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-tactical-client/src/camera/smoothing.rs"
+}

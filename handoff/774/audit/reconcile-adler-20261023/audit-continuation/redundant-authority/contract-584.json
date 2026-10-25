@@ -1,0 +1,79 @@
+{
+  "id": "CONT07-CONTRACT-584",
+  "at": "2026-10-24T00:18:45.034496+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2530,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/windows.rs",
+      "sha256": "1558b154ebeb2ec83990f857600744dc6086859d467f5cfbaa974c04e6f3859d",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-server/src/windows.rs",
+      "actual_EOF": 294,
+      "ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2531,
+      "source_id": "physical-p16:crates/fabelgeist-determinism/src/seed.rs",
+      "sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/fabelgeist-determinism/src/seed.rs",
+      "actual_EOF": 213,
+      "ranges": [
+        [
+          1,
+          116
+        ],
+        [
+          147,
+          174
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2532,
+      "source_id": "physical-p16:crates/fabelgeist-determinism/src/stream.rs",
+      "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/fabelgeist-determinism/src/stream.rs",
+      "actual_EOF": 169,
+      "ranges": [
+        [
+          1,
+          61
+        ],
+        [
+          74,
+          89
+        ],
+        [
+          104,
+          117
+        ],
+        [
+          134,
+          138
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "P16 window server uses authoritative window.closed_centre directly, unlike F119 doorcentre reconstruction. WindowController desiredopen, currentangle, fixedhinge and closedrotation are independent desired/history/geometry roles; animate derives actual transform once per fixed update. Ordinary compiler supplies matching negativehinge casement; arbitrary contradictorydecoded spec remains separate prioradmissiondependency.",
+    "P16 deterministic Seed stores oneu64; derive/StreamId both delegate common length-framed derivation and fixed little-endian context, seedviews/randomdrawadapters derive fromsameword. Seed is deterministic content identity, not authenticated capability; do not merge with native validated secrets/configidentity questions.",
+    "P16 DeterministicRng wraps one SplitMix64 and derives all sampled words through fixedwidthnext_u64. Index samples u64beforeusizeprojection; weightedindex delegates pinnedRand with explicit empty/zero/overflow errors and authoredorder requirement. Independent randompurpose streams intentionally separate authorities, not duplicate samefact."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2533,
+    "start_line": 1
+  }
+}

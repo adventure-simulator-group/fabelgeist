@@ -1,0 +1,198 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-872",
+  "at": "2026-10-25T17:04:43.035408+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1079,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/character.rs",
+      "sha256": "806a50bc71cade3ffdf93f52a62693f7d02d4d55a52e1cce7e5983b894ec28cf",
+      "actual_EOF": 3983,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/character.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/character.rs",
+        "owner": "camera",
+        "sha256": "806a50bc71cade3ffdf93f52a62693f7d02d4d55a52e1cce7e5983b894ec28cf",
+        "base_sha256": "18de7483bb91a472726da0d3a9ce89e4d84db408e4a040236d31bb1425d58fb4",
+        "state": "modified",
+        "bytes": 138872,
+        "audit_owner": "camera",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                3983
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-CHARACTER-001",
+              "CAM-PROP-STRATEGIC-PROJECTION-001",
+              "CAM-PROP-ITEM-ID-001"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 212,
+            "read_ranges": [
+              [
+                1,
+                3983
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-CHARACTER-007",
+              "CAM-OWN-DAMAGE-BINS-009",
+              "CAM-OWN-NAME-008"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/character.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 73,
+            "read_ranges": [
+              [
+                1,
+                3983
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-CHARACTER-007",
+              "CAM-OWN-NAME-008",
+              "CAM-OWN-DAMAGE-BINS-009"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/character.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 24,
+            "read_ranges": [
+              [
+                435,
+                572
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-STRATEGIC-002"
+            ],
+            "read_status": "actual frozen current435\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153572 reread; precise byte-identical historical Git6533 range correspondence proved",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/character.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera",
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-PURE-FOOD-LIFE-PARTIAL-054",
+            "json_pointer": "/source_proofs/5",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/character.rs",
+            "read_ranges_as_recorded": [
+              [
+                2245,
+                2332
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/character.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/character.rs",
+              "sha256": "806a50bc71cade3ffdf93f52a62693f7d02d4d55a52e1cce7e5983b894ec28cf",
+              "read_ranges": [
+                [
+                  2245,
+                  2332
+                ]
+              ],
+              "role": "Native character creation consumes life simulator\u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122oral/written/skills then begins actual SDKCharacterSkills.insert; bounded recordprefix, full creation Camera008 proof"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": 412,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          3983
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "From<&CharacterAttributes>",
+          "type": "PlayerAttributeValues",
+          "lines": [
+            [
+              467,
+              487
+            ]
+          ],
+          "disposition": "KEEP borrowed flat DB attributes projection into foreign Core value, intentional ID omission"
+        },
+        {
+          "trait": "From<CharacterAttributes>",
+          "type": "PlayerAttributeValues",
+          "lines": [
+            [
+              489,
+              493
+            ]
+          ],
+          "disposition": "KEEP owned small adapter preserving borrowed mapping"
+        },
+        {
+          "trait": "From<(u64,PlayerAttributeValues)>",
+          "type": "CharacterAttributes",
+          "lines": [
+            [
+              495,
+              516
+            ]
+          ],
+          "disposition": "KEEP ID injection into flat persistent row, no owning conversion derive"
+        }
+      ],
+      "existing_derives": [
+        "Character/claim/death/attribute/stats/skills/limbs/equipment tables CloneDebug and table macros already",
+        "DeathCause/Source and attachment vocabulary native SpacetimeType already",
+        "CreationMode/Options/NpcLifeFacts structural traits already"
+      ]
+    }
+  ],
+  "groups": [
+    "Exact806a50bc PR-working recovered object full3983 personally consumed; partial863\u2013871 retained. It is not raw6533counterpart. Only three handtraits are cross-owner flat boundary conversions; foreign Core target cannot derive reference to module DB owner without reversing dependency, and module has no general conversion derive. Preserve borrowed and owned API plus ID omission/injection.",
+    "All other source consists of native gateway projections, life/death/create/delete/seed/setup, multiauthority generation and equipment graph mutation/validation; semantic policy rather than mechanical traits. Fixtures3286\u20133983 source read only, no assertions run, no lifecycle/DB operation executed. Included child source strings do not credit bodies. No new derive finding."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1080,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/character/attachment_capacity.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

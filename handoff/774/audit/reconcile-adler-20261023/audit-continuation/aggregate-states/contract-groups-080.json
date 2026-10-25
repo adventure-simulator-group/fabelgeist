@@ -1,0 +1,86 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-080",
+  "at": "2026-10-25T14:46:22.675551+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1260,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor.rs",
+      "sha256": "a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95",
+      "personally_read_ranges": [
+        [
+          1,
+          1353
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Context membership relates context kind/id/location, role, ordinal, Character identity and half-open strategic interval; raw DB schema does not alone enforce complete relationship. materialize_context_roster verifies prior open rows kind/location/role/count, deterministic field IDs reject collisions, inserts componentized characters and memberships together in reducer transaction. Count caps to u16::MAX; no claim this cap reached ordinarily.",
+        "Road cast materialization handles authored non-Character backings by skipping without synthetic surrogate, preserves cast ordinal identity. Retries check both Character and membership existence plus immutable kind/location/role/ordinal/interval/decisions/name. Road-to-combat rebind preserves living Character identity, sorts already-sorted source members, compact ordinals and fills remainder through canonical factory; existing partial retry rows reject identity collisions.",
+        "Gateway-only view filters actual gateway, appropriate active encounter/challenge or historical observer-relative case occupancy. Interval checks + matching canonical place/provenance/leads/revisions guard exact case exposure; no claim global living bool is sufficient historical authority. Current limb/condition presentation is separately live and requires future temporal-consumer trace before alleging ordinary historical treatment exploit.",
+        "Co-presence settled same actual settlement or matching observer-aware case place or active same-party contextual encounter. Contextual action requires living target, visibility and actual permission. Treatment selects exactly one supplied matching membership claim/revision; authored refusal overrides party preference, emergency only actual limb Bandage and incapacitation. Non-emergency prepared interventions pass no contextual claim, so current contextual case patients may be unavailable by policy, not proved unauthorized success.",
+        "Contact validates actual strategic actor authority, action identifier, exact retry payload, living actor/target, active-party presence and single context. Contacts persist existence-owned authority plus revision, mutual awareness/sneak removal, social updates and receipt atomically via propagated Result. Case/hostile memberships use immutable membership revision while encounters use contact/encounter revision; independent values are deliberate differing facts. Saturating revision can eventually cease distinguishability, no ordinary exhaustion witness asserted. Existing source/guarded tests read not run."
+      ]
+    },
+    {
+      "scope_index": 1261,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor/authority_tests.rs",
+      "sha256": "347470fad13ff5772d20c8221b4f1157d851eab67776ae32614339069ba56d33",
+      "personally_read_ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Guarded authority-test reducer requires development bootstrap token and constructs open interval membership, verifies before-enter rejection, closed half-open interval projection and repeated closure idempotence. Fixture public raw fields deliberate test-boundary use; no production new-field owner inferred. Source read only, not acceptance execution."
+      ]
+    },
+    {
+      "scope_index": 1262,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor/contact_authority_tests.rs",
+      "sha256": "67f3636f0569656541c6b0c20e49646ff86e0cd51031ae2f6e7ba810f7d8d1a5",
+      "personally_read_ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Guarded contact fixture creates actual componentized actor/target, active encounter/membership and actor party association. Acceptance reducer checks contact existence, mutual awareness, sneak removal, revision2, immutable retry and conflicting/stale rejection, second interaction revision3. Existing String comparisons specify current outward wire diagnostics; no test executed and no fixture success inferred from prose."
+      ]
+    },
+    {
+      "scope_index": 1263,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor/presence.rs",
+      "sha256": "39cd6d057c070e586f5701d068b930beaafe12dc00d68465ffd460ede664c5ea",
+      "personally_read_ranges": [
+        [
+          1,
+          196
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Interval well-formed entered<=left (empty interval legal) and half-open entered<=observer<left; membership selection rejects malformed intervals. exactly_one rejects missing/ambiguous matches. Exact context claim binds kind/public discriminator/revision; private membership identity retained internally.",
+        "Historical case visibility joins actor occupancy, canonical case place, actual site provenance, lead owner/coordinates/stage/recorded-at/correction frontier. Historical life uses birth and death records at observer minute, deliberately differing from current Character.alive. Existing raw string tuple/ID relationships should reuse canonical context/place owners, not flatten unrelated public discriminator/private context."
+      ]
+    },
+    {
+      "scope_index": 1264,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor/roster.rs",
+      "sha256": "9b4cde3a9009140eb19a6dab12c897dc30ea527fd5cb976c867d651f62c73a07",
+      "personally_read_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Closure is first-write-only, clamps end>=entered, saturating increments membership revision; repeated cleanup preserves historical interval. Current helper receives a whole row, but no concurrent transaction interleave in evidence and no ordinary stale caller overwrite established. refresh_clock failure falls back ZERO then clamped start, an existing cause-erasure/explicit failure gap, not new independent ordinary time-travel proof."
+      ]
+    }
+  ],
+  "findings": [],
+  "discovery": "Five original roles fully read with source-backed dispositions; full lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

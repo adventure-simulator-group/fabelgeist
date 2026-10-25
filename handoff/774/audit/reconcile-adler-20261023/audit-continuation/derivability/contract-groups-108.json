@@ -1,0 +1,272 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-108",
+  "at": "2026-10-25T12:39:19.565317+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 250,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/residence/properties/households.rs",
+      "sha256": "f5c4295a284249b0fad780f6b8331f2dbff6c574f33bec5ba45edd3896ff5d17",
+      "actual_EOF": 62,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/residence/properties/households.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-stdb-module/src/residence/properties/households.rs",
+        "sha256": "f5c4295a284249b0fad780f6b8331f2dbff6c574f33bec5ba45edd3896ff5d17",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 2054,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 229,
+            "read_ranges": [
+              [
+                1,
+                62
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-RESIDENCE-033"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/residence/properties/households.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 99,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-RESIDENCE-023",
+            "json_pointer": "/current_sources/6",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row226/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                62
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                62
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1196,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "Clone/Debug/SpacetimeType BackendHouseholdPropertyOccupancy6\u201312"
+      ],
+      "absence_basis": "Fullsource named native output already derived. Gateway household/property join and aggregate/named counts semantic function, no manual trait/serializer."
+    },
+    {
+      "scope_index": 251,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/residence/properties/materialization.rs",
+      "sha256": "89be43ab5a91d96b96077c6950b9159b25f61165e938395ab54774540711b688",
+      "actual_EOF": 111,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/residence/properties/materialization.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-stdb-module/src/residence/properties/materialization.rs",
+        "sha256": "89be43ab5a91d96b96077c6950b9159b25f61165e938395ab54774540711b688",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 3556,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 227,
+            "read_ranges": [
+              [
+                1,
+                111
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-RESIDENCE-033"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/residence/properties/materialization.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 100,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-RESIDENCE-023",
+            "json_pointer": "/current_sources/5",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row227/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                111
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                111
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1195,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "Clone/Debug/table GeneratedResidentHome6\u201312"
+      ],
+      "absence_basis": "Fullsource table record already derived. Checked named cohort count and deterministic allocation of census homes, provenance/occupancy mutation contextual functions, no manual trait/serializer."
+    },
+    {
+      "scope_index": 252,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/residence/view.rs",
+      "sha256": "b481076a43b5a9e15f7ee78deb63fb3e81cf97989061300fa34168d9182c6053",
+      "actual_EOF": 57,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/residence/view.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-stdb-module/src/residence/view.rs",
+        "sha256": "b481076a43b5a9e15f7ee78deb63fb3e81cf97989061300fa34168d9182c6053",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 2149,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 219,
+            "read_ranges": [
+              [
+                1,
+                57
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-RESIDENCE-033"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/residence/view.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 101,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-RESIDENCE-023",
+            "json_pointer": "/current_sources/1",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row228/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                57
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                57
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1191,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Fullsource authorized character cohort query across tenure/current/historical occupancy plus canonical sort/dedup; no local type/manual trait/serializer."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Household census and authorized residence projections",
+      "disposition": "No derivability candidates; native output/table derives adequate.",
+      "acceptance": "Preserve aggregate versus named cohort and observer-frontier authorization, no all-fields serialization or raw conversion bypass."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 253,
+    "source_id": "physical-p16:crates/adventuresim-stdb-module/src/settlement_population.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

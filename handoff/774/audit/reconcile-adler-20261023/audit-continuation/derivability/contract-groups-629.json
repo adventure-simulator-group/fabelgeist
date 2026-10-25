@@ -1,0 +1,26 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-629",
+  "at": "2026-10-25T16:18:15.737649+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 948,
+  "source_id": "pr-working:crates/adventuresim-core/src/knowledge.rs",
+  "sha256": "eff9843bb7a8c4e0459b990f5684deae4c827ec824b58334789ec8e1cce55ffd",
+  "actual_compared_ranges": [
+    [
+      1,
+      1100
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Fixture source881\u20131100 adds final empty KnowledgeMutationOutcome opt-in and typed setup, no additional handwritten trait/codec; retain local marker opt-ins.",
+    "Source-only fixture review pins observer isolation/time, exact disclosure rule with hidden public reference, construction chronology, exact increment/predecessor immutable supersession and overflow rejection, and contradiction provenance assertions. No execution and no imported coverage."
+  ],
+  "first_unfinished": {
+    "scope_index": 948,
+    "line": 1101
+  },
+  "execution": "none"
+}

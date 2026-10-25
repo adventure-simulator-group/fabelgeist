@@ -1,0 +1,447 @@
+--- pr-working:crates/adventuresim-stdb-module/src/character.rs
++++ physical-p16:crates/adventuresim-stdb-module/src/character.rs
+@@ -1,6 +1,5 @@
+ use adventuresim_world_schema::calendar::StrategicMinute;
+-use attachment_capacity::{AttachmentCapacity, first_free_attachment_capacity};
+ use occupancy::{character_occupancy_id, conflicting_equipment_roots};
+ use weapon_carry::provision_generated_weapon_carry;
+ 
+ use adventuresim_core::{
+@@ -49,9 +48,8 @@
+         character_training_schedule__view,
+     },
+ };
+ 
+-mod attachment_capacity;
+ #[cfg(feature = "authority-tests")]
+ mod authority_tests;
+ mod occupancy;
+ mod origin;
+@@ -338,9 +336,9 @@
+     character_id: u64,
+     cause: DeathCause,
+     source: DeathSource,
+     source_id: Option<String>,
+-) -> Result<CharacterDeath, String> {
++) -> crate::StrategicOperationResult<CharacterDeath> {
+     let strategic_minute = ctx
+         .db
+         .character_time()
+         .character_id()
+@@ -364,9 +362,9 @@
+     cause: DeathCause,
+     source: DeathSource,
+     source_id: Option<String>,
+     strategic_minute: StrategicMinute,
+-) -> Result<CharacterDeath, String> {
++) -> crate::StrategicOperationResult<CharacterDeath> {
+     if let Some(death) = ctx.db.character_death().character_id().find(character_id) {
+         crate::food::cleanup_fireplace_custody_for_death(ctx, character_id)?;
+         return Ok(death);
+     }
+@@ -676,8 +674,17 @@
+     }
+     false
+ }
+ 
++fn first_free_attachment_capacity(
++    capacity: u16,
++    inventory_item_id: u64,
++    mut occupant_at: impl FnMut(u16) -> Option<u64>,
++) -> Option<u16> {
++    (0..capacity)
++        .find(|index| occupant_at(*index).is_none_or(|occupant| occupant == inventory_item_id))
++}
++
+ fn attachment_point_matches_requirement(
+     point: &crate::item::PersistedEquipmentAttachmentPoint,
+     requirement: ParentRequirement,
+ ) -> bool {
+@@ -788,16 +795,16 @@
+         false,
+     )
+ }
+ 
+-fn refresh_equipment_dependents(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {
++fn refresh_equipment_dependents(ctx: &ReducerContext, character_id: u64) -> crate::StrategicOperationResult<()> {
+     crate::capability::refresh_character_capability(ctx, character_id)?;
+     crate::condition::refresh_character_strategic_condition(ctx, character_id).map(|_| ())
+ }
+ 
+ /// Create a new random temporary character for the server.
+ #[reducer]
+-pub fn create_temporary_character(ctx: &ReducerContext, server: Identity) -> Result<(), String> {
++pub fn create_temporary_character(ctx: &ReducerContext, server: Identity) -> crate::StrategicOperationResult<()> {
+     let tactical_server = ctx.db.tactical_server_authority().identity().find(server);
+     if ctx.sender() != server || tactical_server.is_none() {
+         return Err("Only a registered tactical server can create its temporary characters".into());
+     }
+@@ -1246,9 +1253,9 @@
+ }
+ 
+ /// Create a new character with generated name and add initial items to it
+ #[reducer]
+-pub fn create_character(ctx: &ReducerContext, id: u64) -> Result<(), String> {
++pub fn create_character(ctx: &ReducerContext, id: u64) -> crate::StrategicOperationResult<()> {
+     insert_new_character(ctx, "Pending generated name".into(), id, false)?;
+     assign_generated_historical_name_for_age(
+         ctx,
+         CharacterId::new(id),
+@@ -1272,9 +1279,9 @@
+ }
+ 
+ /// Create a new character with name and add initial items to it
+ #[reducer]
+-pub fn create_named_character(ctx: &ReducerContext, name: String) -> Result<(), String> {
++pub fn create_named_character(ctx: &ReducerContext, name: String) -> crate::StrategicOperationResult<()> {
+     let id = named_character_id(&name, ctx.timestamp.to_micros_since_unix_epoch());
+ 
+     insert_new_character(ctx, name, id, false)
+ }
+@@ -1284,9 +1291,9 @@
+ pub fn create_named_character_with_id(
+     ctx: &ReducerContext,
+     id: u64,
+     name: String,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     insert_new_character(ctx, name, id, false)
+ }
+ 
+ /// Materialize one previewed candidate. The request coordinates, never browser-posted
+@@ -1298,9 +1305,9 @@
+     generator_version: u16,
+     seed: String,
+     age_tier: StartingAgeTier,
+     slot: u8,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     crate::strategic::require_strategic_gateway(ctx)?;
+     let spec =
+         adventuresim_core::starting_character::generate(generator_version, &seed, age_tier, slot)
+             .map_err(str::to_owned)?;
+@@ -1354,9 +1361,9 @@
+ /// Idempotently grant the canonical fallback character to a new browser
+ /// owner. The owner key namespaces identity only; the versioned generated
+ /// build remains stable in every session and in tactical fixtures.
+ #[reducer]
+-pub fn create_default_character(ctx: &ReducerContext, owner_key: String) -> Result<(), String> {
++pub fn create_default_character(ctx: &ReducerContext, owner_key: String) -> crate::StrategicOperationResult<()> {
+     crate::strategic::require_strategic_gateway(ctx)?;
+     let spec = adventuresim_core::starting_character::default_character(&owner_key);
+     let version = adventuresim_core::starting_character::DEFAULT_CHARACTER_VERSION;
+     let request_key = format!("default:{version}:{owner_key}");
+@@ -1406,9 +1413,9 @@
+     Ok(())
+ }
+ 
+ /// Seed an injured character for local UI development and visual verification.
+-pub(crate) fn seed_damaged_character(ctx: &ReducerContext) -> Result<(), String> {
++pub(crate) fn seed_damaged_character(ctx: &ReducerContext) -> crate::StrategicOperationResult<()> {
+     const DAMAGED_CHARACTER_ID: u64 = 9_999_999_999_999_999;
+ 
+     if ctx.db.character().id().find(DAMAGED_CHARACTER_ID).is_none() {
+         insert_new_character(ctx, "Wounded Demo".to_string(), DAMAGED_CHARACTER_ID, false)?;
+@@ -1501,11 +1508,11 @@
+         0.08,
+         Some(crate::surgery::ProjectileKind::Ball),
+     )?;
+ 
+-    crate::add_inventory_item(ctx, DAMAGED_CHARACTER_ID, "bandage", 8);
+-    crate::add_inventory_item(ctx, DAMAGED_CHARACTER_ID, "surgery_kit", 1);
+-    crate::add_inventory_item(ctx, DAMAGED_CHARACTER_ID, "splint", 3);
++    crate::add_inventory_item(ctx, DAMAGED_CHARACTER_ID, "bandage", 8)?;
++    crate::add_inventory_item(ctx, DAMAGED_CHARACTER_ID, "surgery_kit", 1)?;
++    crate::add_inventory_item(ctx, DAMAGED_CHARACTER_ID, "splint", 3)?;
+ 
+     // A wounded primary surgeon, a less-skilled backup, and a second critical
+     // patient make clock alignment and parallel triage visible in one fixture.
+     let fixture_now = ctx
+@@ -1540,11 +1547,11 @@
+         time.minutes = fixture_now.saturating_sub_minutes(lag);
+         ctx.db.character_time().character_id().update(time);
+         crate::capability::refresh_character_capability(ctx, id)?;
+     }
+-    crate::add_inventory_item(ctx, 9_000_001, "bandage", 6);
+-    crate::add_inventory_item(ctx, 9_000_001, "surgery_kit", 1);
+-    crate::add_inventory_item(ctx, 9_000_001, "splint", 2);
++    crate::add_inventory_item(ctx, 9_000_001, "bandage", 6)?;
++    crate::add_inventory_item(ctx, 9_000_001, "surgery_kit", 1)?;
++    crate::add_inventory_item(ctx, 9_000_001, "splint", 2)?;
+     crate::surgery::commit_hit_injury(
+         ctx,
+         9_000_002,
+         adventuresim_core::physiology::BodyRegion::RightLeg,
+@@ -1605,19 +1612,22 @@
+             .inventory_item()
+             .character_id()
+             .filter(DAMAGED_CHARACTER_ID)
+             .find(|inventory| inventory.item_id == item_id)
+-            .map(|inventory| inventory.id)
+-            .or_else(|| add_inventory_item(ctx, DAMAGED_CHARACTER_ID, item_id, 1))
+-            .ok_or_else(|| format!("Failed to add {item_id} to damaged demo inventory"))?;
++            .map(|inventory| inventory.id);
++        let inventory_item_id = match inventory_item_id {
++            Some(id) => id,
++            None => add_inventory_item(ctx, DAMAGED_CHARACTER_ID, item_id, 1)?
++                .ok_or_else(|| format!("Failed to add {item_id} to damaged demo inventory"))?,
++        };
+         set_demo_item_damage(ctx, inventory_item_id, bins)?;
+     }
+ 
+     Ok(())
+ }
+ 
+ /// Seed a character with direct training in every religion for local UI development.
+-pub(crate) fn seed_religion_scholar_character(ctx: &ReducerContext) -> Result<(), String> {
++pub(crate) fn seed_religion_scholar_character(ctx: &ReducerContext) -> crate::StrategicOperationResult<()> {
+     const RELIGION_SCHOLAR_CHARACTER_ID: u64 = 9_999_999_999_999_988;
+ 
+     if ctx
+         .db
+@@ -1674,9 +1684,9 @@
+ 
+ /// Seed an isolated, selectable character for exercising every bounded
+ /// Herbalism method, public grade, and terrain-backed foraging flow in the
+ /// strategic UI.
+-pub(crate) fn seed_herbalism_demo_character(ctx: &ReducerContext) -> Result<(), String> {
++pub(crate) fn seed_herbalism_demo_character(ctx: &ReducerContext) -> crate::StrategicOperationResult<()> {
+     const HERBALISM_DEMO_CHARACTER_ID: u64 = 9_999_999_999_999_986;
+     const HERBALISM_DEMO_SETTLEMENT_ID: &str = "dev-scenario-foraging";
+     crate::strategic::ensure_foraging_demo_settlement(ctx)?;
+     if ctx
+@@ -1770,9 +1780,9 @@
+             .filter((HERBALISM_DEMO_CHARACTER_ID, item_id))
+             .next()
+             .is_none()
+         {
+-            add_inventory_item(ctx, HERBALISM_DEMO_CHARACTER_ID, item_id, quantity)
++            add_inventory_item(ctx, HERBALISM_DEMO_CHARACTER_ID, item_id, quantity)?
+                 .ok_or_else(|| format!("Failed to add {item_id} to Herbalism and Foraging Demo"))?;
+         }
+     }
+     crate::capability::refresh_character_capability(ctx, HERBALISM_DEMO_CHARACTER_ID)?;
+@@ -1780,9 +1790,9 @@
+     Ok(())
+ }
+ 
+ /// Seed broad category knowledge for local Bestiary rail and evidence demos.
+-pub(crate) fn seed_bestiary_scholar_character(ctx: &ReducerContext) -> Result<(), String> {
++pub(crate) fn seed_bestiary_scholar_character(ctx: &ReducerContext) -> crate::StrategicOperationResult<()> {
+     const BESTIARY_SCHOLAR_CHARACTER_ID: u64 = 9_999_999_999_999_987;
+ 
+     if ctx
+         .db
+@@ -1883,9 +1893,9 @@
+     ctx: &ReducerContext,
+     name: String,
+     id: u64,
+     temporary: bool,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     let mode = if temporary {
+         CharacterCreationMode::TemporaryNpc
+     } else {
+         CharacterCreationMode::Player
+@@ -1974,9 +1984,9 @@
+     ctx: &ReducerContext,
+     name: String,
+     id: u64,
+     temporary: bool,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     let mode = if temporary {
+         CharacterCreationMode::TemporaryNpc
+     } else {
+         CharacterCreationMode::PersistentNpc
+@@ -2015,9 +2025,9 @@
+     stable_seed: Seed,
+     initial_time_minute: Option<StrategicMinute>,
+     life: &NpcLifeFacts,
+     personality: &crate::personality::CharacterPersonality,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     insert_character_with_origin(
+         ctx,
+         name,
+         id,
+@@ -2043,9 +2053,9 @@
+     name: String,
+     id: u64,
+     stable_seed: Seed,
+     initial_time_minute: Option<StrategicMinute>,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     let life = NpcLifeFacts::from_stable_seed(stable_seed);
+     insert_character_with_origin(
+         ctx,
+         name,
+@@ -2067,9 +2077,9 @@
+ 
+ pub(crate) fn insert_starting_character(
+     ctx: &ReducerContext,
+     spec: &StartingCharacterSpec,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     insert_character_with_origin(
+         ctx,
+         spec.native_everyday_name()
+             .map_err(|error| error.to_string())?
+@@ -2169,9 +2179,9 @@
+     id: u64,
+     options: CharacterCreationOptions<'_>,
+     starting: Option<&StartingCharacterSpec>,
+     npc_life: Option<&NpcLifeFacts>,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     log::info!("New character created: {name} (ID: {id})");
+     let temporary = options.mode.temporary();
+     let initial_name_identity = starting.map_or_else(
+         || authored_name_identity(name.clone()),
+@@ -2553,17 +2563,17 @@
+         for item in &spec.inventory {
+             if let Some(slot) = item.equipped {
+                 add_and_equip_starting_item(ctx, character.id, &item.item_id, slot)?;
+                 if item.quantity > 1 {
+-                    add_inventory_item(ctx, character.id, &item.item_id, item.quantity - 1);
++                    add_inventory_item(ctx, character.id, &item.item_id, item.quantity - 1)?;
+                 }
+             } else {
+-                add_inventory_item(ctx, character.id, &item.item_id, item.quantity);
++                add_inventory_item(ctx, character.id, &item.item_id, item.quantity)?;
+             }
+         }
+     } else if !newborn {
+-        add_inventory_item(ctx, character.id, "torch", 1);
+-        add_inventory_item(ctx, character.id, "bandage", 3);
++        add_inventory_item(ctx, character.id, "torch", 1)?;
++        add_inventory_item(ctx, character.id, "bandage", 3)?;
+         add_and_equip_basic_clothing(ctx, character.id)?;
+         for (item, slot) in [
+             ("buckler", LoadoutSlot::LeftHand),
+             ("katzbalger", LoadoutSlot::RightHand),
+@@ -2788,9 +2798,9 @@
+ pub fn unequip_item(
+     ctx: &ReducerContext,
+     character_id: u64,
+     inventory_item_id: u64,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     crate::strategic::require_strategic_character_authority(ctx, character_id)?;
+     crate::strategic::require_character_no_unresolved_encounter(ctx, character_id)?;
+     require_living_character(ctx, character_id)?;
+     ctx
+@@ -3053,15 +3063,15 @@
+         }
+         let capacity_index =
+             first_free_attachment_capacity(point.capacity, inventory_item_id, |index| {
+                 if reserved_capacity.contains(&(parent_id, point_id.to_owned(), index)) {
+-                    return AttachmentCapacity::Reserved;
++                    return Some(u64::MAX);
+                 }
+                 ctx.db
+                     .equipment_occupancy()
+                     .id()
+                     .find(attachment_occupancy_id(parent_id, point_id, index))
+-                    .map_or(AttachmentCapacity::Free, AttachmentCapacity::from)
++                    .map(|row| row.inventory_item_id)
+             })
+             .or_else(|| {
+                 replace_occupied.then(|| {
+                     (0..point.capacity).find(|index| {
+@@ -3211,10 +3221,10 @@
+     ctx: &ReducerContext,
+     character_id: u64,
+     item_id: &str,
+     slot: LoadoutSlot,
+-) -> Result<(), String> {
+-    let id = add_inventory_item(ctx, character_id, item_id, 1)
++) -> crate::StrategicOperationResult<()> {
++    let id = add_inventory_item(ctx, character_id, item_id, 1)?
+         .ok_or_else(|| "Can't add item to inventory".to_string())?;
+     // This helper is used only while materializing starter equipment. The
+     // completed character runs the ordinary compliance pass once every starter
+     // item is present, avoiding partial creation when its initial settlement
+@@ -3232,9 +3242,9 @@
+ 
+ pub(crate) fn add_and_equip_basic_clothing(
+     ctx: &ReducerContext,
+     character_id: u64,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     for (item, slot) in [
+         ("linen_tunic", LoadoutSlot::Chest),
+         ("linen_breeches", LoadoutSlot::LeftLeg),
+         ("leather_boot", LoadoutSlot::LeftFoot),
+@@ -3252,9 +3262,9 @@
+ pub(crate) fn replace_development_loadout(
+     ctx: &ReducerContext,
+     character_id: u64,
+     loadout: &[(&str, LoadoutSlot)],
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     for inventory_item_id in equipped_wearable_ids(ctx, character_id) {
+         unequip_wearable(ctx, inventory_item_id);
+     }
+ 
+@@ -3265,11 +3275,14 @@
+             .inventory_item()
+             .character_and_item_id()
+             .filter((character_id, *item_id))
+             .find(|item| !selected.contains(&item.id))
+-            .map(|item| item.id)
+-            .or_else(|| add_inventory_item(ctx, character_id, item_id, 1))
+-            .ok_or_else(|| format!("Failed to add {item_id} to development loadout"))?;
++            .map(|item| item.id);
++        let inventory_item_id = match inventory_item_id {
++            Some(id) => id,
++            None => add_inventory_item(ctx, character_id, item_id, 1)?
++                .ok_or_else(|| format!("Failed to add {item_id} to development loadout"))?,
++        };
+         selected.insert(inventory_item_id);
+         equip_equipment_internal(
+             ctx,
+             character_id,
+@@ -3286,9 +3299,9 @@
+ #[cfg(test)]
+ mod starting_character_boundary_tests {
+     use super::weapon_carry::select_sheath_compatible_parent_placement;
+     use super::{
+-        AttachmentCapacity, CharacterAttributes, CharacterCreationMode, NpcLifeFacts,
++        CharacterAttributes, CharacterCreationMode, NpcLifeFacts,
+         attachment_point_matches_requirement, attachment_would_create_cycle,
+         character_occupancy_id, first_free_attachment_capacity, hand_only_placement_is_held_root,
+         initial_membership_minutes, named_character_id,
+     };
+@@ -3869,26 +3882,17 @@
+     #[test]
+     fn attachment_capacity_is_stable_full_and_reparent_idempotent() {
+         assert_eq!(
+             first_free_attachment_capacity(3, 99, |index| match index {
+-                0 => AttachmentCapacity::Occupied(10),
+-                1 => AttachmentCapacity::Free,
+-                _ => AttachmentCapacity::Occupied(11),
++                0 => Some(10),
++                1 => None,
++                _ => Some(11),
+             }),
+             Some(1)
+         );
++        assert_eq!(first_free_attachment_capacity(2, 99, |_| Some(10)), None);
+         assert_eq!(
+-            first_free_attachment_capacity(2, 99, |_| AttachmentCapacity::Occupied(10)),
+-            None
+-        );
+-        assert_eq!(
+-            first_free_attachment_capacity(2, 99, |index| {
+-                if index == 0 {
+-                    AttachmentCapacity::Occupied(99)
+-                } else {
+-                    AttachmentCapacity::Free
+-                }
+-            }),
++            first_free_attachment_capacity(2, 99, |index| { (index == 0).then_some(99) }),
+             Some(0),
+             "an item's existing capacity cell remains a valid atomic reparent target"
+         );
+     }

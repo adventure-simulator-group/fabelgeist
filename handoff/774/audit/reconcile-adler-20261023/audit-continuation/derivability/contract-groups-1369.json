@@ -1,0 +1,298 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1369",
+  "at": "2026-10-25T18:39:49.402949+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1422,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness.rs",
+      "sha256": "ed20b1e997850b7b95cc52c88c55fad7855c2cf9c7a8e08ec3f610656517ee13",
+      "actual_EOF": 511,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/harness.rs",
+        "sha256": "ed20b1e997850b7b95cc52c88c55fad7855c2cf9c7a8e08ec3f610656517ee13",
+        "bytes": 19176,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/bounded-policy-sources.json",
+            "ranges": [
+              [
+                130,
+                225
+              ],
+              [
+                376,
+                455
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-BOUNDED-POLICY-RECEIVERS-001"
+            ]
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                130,
+                225
+              ],
+              [
+                376,
+                455
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-BOUNDED-POLICY-RECEIVERS-001"
+            ]
+          },
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/additional-sources-003.json",
+            "ranges": [
+              [
+                430,
+                522
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": []
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 338,
+            "read_ranges": [
+              [
+                1,
+                511
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-HARNESS-CAMERA-079"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation_viewer/harness.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 103,
+            "read_ranges": [
+              [
+                1,
+                511
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-HARNESS-004"
+            ],
+            "read_status": "Full P16 511 read plus complete exact reverse PR delta; exact both1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153250 reread; review_camera157\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153196 byte-identical",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation_viewer/harness.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera",
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CAMERA-BOUNDARIES-048",
+            "json_pointer": "/current_sources/0",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                511
+              ]
+            ],
+            "source_context": {
+              "index": 316,
+              "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation_viewer/harness.rs",
+              "sha256": "ed20b1e997850b7b95cc52c88c55fad7855c2cf9c7a8e08ec3f610656517ee13",
+              "read_ranges": [
+                [
+                  1,
+                  511
+                ]
+              ],
+              "read_mode": "Fresh full actual source body including all existing in-file fixtures; physicalharness exactcomplete delta separately read, no source/check execution."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 582,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          511
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "clap ValueEnum/Serialize snake_case and Clone/Copy/Debug ArmorHarness",
+        "Component CapturedArmor/Resource ArmorCapture"
+      ],
+      "absence_basis": "Complete body split1368 and301\u2013511 here. Native catalogue placement/semantic requirements and camera selection, checked recipe override, current wearer topology/runtime readiness with contextual JSON artifact mapping and native fixtures. No handwritten trait/codec. Construction performs I/O and correlated readiness policy, not structural Default/From."
+    },
+    {
+      "scope_index": 1423,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness/material.rs",
+      "sha256": "082b2d608e351444908c81cc624ab3627828ff0ec19111f32e708ac8f21caad3",
+      "actual_EOF": 29,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness/material.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/harness/material.rs",
+        "sha256": "082b2d608e351444908c81cc624ab3627828ff0ec19111f32e708ac8f21caad3",
+        "bytes": 1351,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/progress.json",
+            "ranges": [
+              [
+                1,
+                29
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": []
+          },
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/unchanged-owners-002.json",
+            "ranges": [
+              [
+                1,
+                29
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": []
+          }
+        ],
+        "audit_owner": "native",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 256,
+            "read_ranges": [
+              [
+                1,
+                29
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-CAPTURE-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation_viewer/harness/material.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 595,
+            "read_ranges": [
+              [
+                1,
+                29
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-CAPTURE-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation_viewer/harness/material.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 164,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CAMERA-BOUNDARIES-048",
+            "json_pointer": "/additional_actual_source_proofs/14",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row790/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                29
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                29
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "Fresh actual bounded application/native receiving body read",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 583,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Free native optional material-handle and current loaded Image introspection, explicit formatting/asset metadata/current normal-vs-occlusion identity classification into serde_json Value. No manual trait/codec; semantic diagnostic view mapping remains explicit."
+    }
+  ],
+  "groups": [
+    "No derive replacement identified; keep native reporting and fixture semantics. No tests, GPU, capture or I/O executed."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1424,
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness/readiness.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

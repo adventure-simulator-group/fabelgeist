@@ -1,0 +1,18 @@
+{
+  "id": "RIG-ADMISSION03-DETERMINISM-WITNESS-003",
+  "lens": "audit-admission-contracts",
+  "record_refs": [
+    "continuation/rig/admission03/contract-groups.jsonl#RIG-ADMISSION03-CONTRACT-068",
+    "continuation/rig/admission03/contract-groups.jsonl#RIG-ADMISSION03-CONTRACT-069"
+  ],
+  "source_scope_registration_refs": [
+    "RIG-ADMISSION03-REGISTER-031",
+    "RIG-ADMISSION03-REGISTER-032",
+    "RIG-ADMISSION03-REGISTER-033"
+  ],
+  "canonical_seed_policy": "Private fullwidthu64, allwords0/MAXvalid, default0, decimalFromStr/nativeu64, directFrom/derivedSerde/SATS/generatedrepresentation allsameunrestrictednumericpolicy. No authoredstablecontext/provenance validation. StreamIdonlynonemptyconststr, openotherwise.",
+  "actual_inclusive_predicate": "P16lib23\u201324 high24bits asf32 /((1<<24)-1)asf32; [0,1] includingendpoints, finite forALLu64. RNG82\u201384 andSeed101\u2013102 delegateexacthelper, noambiententropy/contextchanges. Bothhalfopen/inclusivemethodsdistinct.",
+  "limits": "Sourcebased currentadmission witness only; no wholeRNG/foreignsampler/unrelatedtests/readcredit. Rootglobalregistrationreconciliation pending; exactnew01/02rolequalification queuedafter03, no priorlensautomaticcredit.",
+  "repair": "frozen",
+  "validation": "not_run"
+}

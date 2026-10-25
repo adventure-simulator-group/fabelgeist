@@ -1,0 +1,92 @@
+[
+  {
+    "id": "RIG-SUPP-DB-001",
+    "lens": "audit-producer-propagation",
+    "status": "initial-discovery-frozen; exact shared whole-function owners reconciled",
+    "disposition": "source-backed application identity\u2192text\u2192reparse migration gap",
+    "source_refs": [
+      "supplemental-db-sources.json#relationship/socializing.rs",
+      "supplemental-db-additional-sources.json#courtship.rs",
+      "RIG-SUPP-DB-002"
+    ],
+    "locations": [
+      {
+        "path": "crates/adventuresim-stdb-module/src/relationship/socializing.rs",
+        "function": "socializing_target",
+        "lines": [
+          92,
+          107
+        ]
+      },
+      {
+        "path": "crates/adventuresim-core/src/courtship.rs",
+        "functions": [
+          "select_daily_location_target",
+          "select_stable_target_by_score",
+          "daily_location_target_score"
+        ],
+        "lines": [
+          593,
+          627
+        ]
+      }
+    ],
+    "scenario": "Numeric actor/candidate IDs are already canonical DB character identity values. Selector converts all to String, chooses a text reference, then parses to recreate original u64; no external codec requires textual return across pure selection API. Actual hash consumes exact decimal UTF8 framing and tie comparison uses lexical decimal ID; preserve both, never replace lexical tie with numeric ordering inadvertently.",
+    "repair": "Carry original key/reference (and canonical existing character identity after owner reconciliation) through selection. Serialize only at actual native framed hash/key comparison; return original key without parse. Complete one shared Core selection API/actual DB caller and existing authored report/fixture callers as needed, no compatibility adapter or duplicate identity.",
+    "owners": "Root explicitly transfers whole Core stable_lifecycle_hash/deterministic_child_seeds +selection helper repair to rig; camera retains complete actual DB socializing/reproduction/error functions. Exact authoritative claims249; single shared canonical Seed contract, no competing DB edits.",
+    "acceptance": "No application identity text is re-parsed to recover selection result. Exact decimal bytes, hash stream/framing, lexical tie, sorting/priority and all existing fixture input/count/order/assertions preserved. No source/execution change until all13 discovery passes."
+  },
+  {
+    "id": "RIG-SUPP-DB-CODE-001",
+    "dedup": "CAM-PROP-F020",
+    "disposition": "source-only existing source assertion mismatch",
+    "status": "source-frozen; camera whole existing fixture adaptation owner",
+    "locations": [
+      {
+        "path": "crates/adventuresim-stdb-module/src/relationship/tests/courtship.rs",
+        "function": "formal_route_uses_living_father_and_retry_is_explicit",
+        "line": 32
+      },
+      {
+        "path": "crates/adventuresim-stdb-module/src/relationship/courtship.rs",
+        "function": "begin_formal_courtship",
+        "line": 471
+      }
+    ],
+    "evidence": "Existing assertion literal requires father_of_at(ctx, partner_id, StrategicMinute::new(minute)); full actual production uses father_of_at(ctx, partner_id, minute). production_source actual lib89\u201394 only truncates cfg(test); concat actual body proof mod157\u2013172. No rewriting makes expected expression appear. No tests executed.",
+    "repair": "Connected existing fixture adaptation for actual typed minute API, same existing cases/input/assertion count/order; no new assertion or test authorization inferred."
+  },
+  {
+    "id": "RIG-SUPP-DB-002",
+    "lens": "audit-producer-propagation",
+    "status": "initial-discovery-frozen; exact shared whole-function owners reconciled",
+    "disposition": "source-backed canonical Seed stripped/re-admitted before actual typed RNG/name/home receivers",
+    "source_refs": [
+      "supplemental-db-additional-sources.json#courtship.rs",
+      "supplemental-db-additional-sources.json#courtship/child_identity.rs",
+      "RIG-SUPP-DB-004"
+    ],
+    "locations": [
+      {
+        "path": "crates/adventuresim-core/src/courtship.rs",
+        "function": "stable_lifecycle_hash",
+        "lines": [
+          583,
+          591
+        ]
+      },
+      {
+        "path": "crates/adventuresim-core/src/courtship/child_identity.rs",
+        "function": "deterministic_child_seeds",
+        "lines": [
+          83,
+          97
+        ]
+      }
+    ],
+    "counterexample": "Checked canonical Seed::derive result is projected to_u64 by shared helper then immediately Seed::from_u64 for name/home, Into<Seed> for childsexrng. No actual numeric/wire consumer requires word on those three paths; canonical typed producer guarantee is dropped across pure firstparty API. ChildNameSeed/HouseholdPlacementSeed already own Seed correctly.",
+    "repair": "One complete shared helper change returns/retains canonical Seed through actual name/home/sex operations. All other actual users must retain actual old framedhash byte/word behavior: selector numeric minscore, child candidate identity hashing, DB conception modulo and fixtures extract only where their numeric operation actually needs word. Do not introduce duplicate Seed/compatibility forwarding helpers or change exactlabels/framing/draworder.",
+    "owners": "Root explicitly transfers whole Core stable_lifecycle_hash/deterministic_child_seeds +selection helper repair to rig; camera retains complete actual DB socializing/reproduction/error functions. Exact authoritative claims249; single shared canonical Seed contract, no competing DB edits.",
+    "acceptance": "No canonical seed\u2192primitive\u2192same seed reconstruction on name/home/sex paths. Exact parent-string ordering, UTF8/contextlength framing, wordbits/name-v2/home/identity/sex streamlabels and all existing fixture input/count/order/assertions preserved. All13 gate/sourcefreeze retained."
+  }
+]

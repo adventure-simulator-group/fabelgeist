@@ -1,0 +1,104 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-348",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/investigation.rs",
+      "sha256": "670a2ae0df206f175978278ad2644e91d75c22a88cfa1ef89759171da672147b",
+      "actual_EOF": 1154,
+      "actual_compared_ranges": [
+        [
+          1,
+          1154
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/investigation_action.rs",
+      "sha256": "717288409edb3210de986fef4dcf838525461956d2e686f59a78a781b5e354e2",
+      "actual_EOF": 1291,
+      "actual_compared_ranges": [
+        [
+          1,
+          1291
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/investigation_action/vocabulary.rs",
+      "sha256": "8d67cde0fd321af7ee5bae1c5045bc1adeb4fbe118698c40d194878ed01f5b5e",
+      "actual_EOF": 186,
+      "actual_compared_ranges": [
+        [
+          1,
+          186
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Observer report construction and bounded confidence arithmetic",
+      "source_ranges": {
+        "investigation.rs": [
+          [
+            1,
+            1154
+          ]
+        ]
+      },
+      "disposition": "Whole1154 lines and fixtures read. BasisPoints wraps UnitBasisPoints, product bounded10000*10000 through scale_u32_floor then u16 safe. Compound IDs length-frame parts (no delimiter collision), but constructors may validly reject oversized concatenations; not required infallible for arbitrary individually valid component IDs. process_report builds locals, stops omitted claim intentionally, and cannot mutate canonical event. stable_id derived Deserialize and public aggregate literal admission gaps remain inherited03 dependencies. Evidence adapter frames persisted string into nonzero u64 hash and explicitly requires collision rejection by persistence adapter; no cryptographic collision fabricated as gameplay witness. It preserves original persisted_id and learned chronology and constructs observer-private envelope fallibly. Actual envelope/persistence receiver body not credited."
+    },
+    {
+      "contract": "Visible inference, relative support and evidence correlation",
+      "source_ranges": {
+        "investigation.rs": [
+          [
+            711,
+            862
+          ]
+        ]
+      },
+      "disposition": "Fresh full module read. infer_threats rejects raw evidence count>32 before sort/dedup by evidence_id, ranks only visible inputs, and publishes provenance after bounded source label. Duplicates with conflicting kind are aggregate authority input question, no new actual caller witness. qualitative_deductions trusts first score as top and takes6, ratio helper handles0denominator as weak; arbitrary manually constructed unsorted SafeInference is an admitted aggregate policy dependency, not current ranking failure. Earlier fresh bestiary diagnostic overflow remains exact NATIVE05F055, not aliased to this safer owner ratio code."
+    },
+    {
+      "contract": "Investigation action arithmetic uses closed bounded constants and local resolution",
+      "source_ranges": {
+        "investigation_action.rs": [
+          [
+            1,
+            1291
+          ]
+        ],
+        "investigation_action/vocabulary.rs": [
+          [
+            1,
+            186
+          ]
+        ]
+      },
+      "disposition": "Both whole bodies, native type-adapter serialization and every fixture read. All primary u16 averages widen to u32 (sum<=131070), effective i32 accumulation fits even raw u16; weather components clamp10000 before max12million products. Costs use small closed base<=240minutes, bounded9500 effective and checked-by-bounds products; uncertainty saturation/min semantics separate admitted bps input guarantee. Bounded progress prior<=5 and1900*5=9500, threshold<=10000 guarantees sixth under domain_roll<10000. Failed bounded attempts intentionally reduce uncertainty unlike ordinary failure; do not falsely assert first complete Resolution equality universally from success fixtures. Kind/terrain FromStr delegates canonical serde enum vocabulary and rejects aliases. Tracking coherence checks structure only; case/owner/success/location delegated to server, no coverage imported."
+    },
+    {
+      "contract": "Investigation planning keeps private authority and clipped completion separate",
+      "source_ranges": {
+        "investigation_action.rs": [
+          [
+            338,
+            706
+          ]
+        ]
+      },
+      "disposition": "Whole enclosing body freshly read. build_plan receives explicit capability/rights/prerequisite/generated requirement booleans and private provenance. AttemptPartyInterval intentionally carries resolution.cost.minutes rather than clipped elapsed; CommitResolution only when time permits completion. Actual reducer owns per-member interval and must verify this adapter duration equals intended resolution interval, atomic commit and clipped effects; differing raw authority.duration versus resolution.cost could be representable but no current caller mismatch proved. Rights digest frames exact subject/resource/operation/jurisdiction and empty domain enums cannot forge hidden variants. Allowed/denied evidence provenance remains private."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-core/src/item_catalog_fit.rs"
+}

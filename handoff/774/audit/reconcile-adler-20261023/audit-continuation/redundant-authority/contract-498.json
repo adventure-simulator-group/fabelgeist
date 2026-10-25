@@ -1,0 +1,107 @@
+{
+  "id": "CONT07-CONTRACT-498",
+  "at": "2026-10-23T22:55:50.491307+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2174,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/construction.rs",
+      "sha256": "c589129c7386c136feaf7f63fc21ed925f81dd035642ea3dacdc92d054659854",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/construction.rs",
+      "actual_EOF": 374,
+      "ranges": [
+        [
+          1,
+          374
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2175,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/design.rs",
+      "sha256": "8e37cfc29b43f781bc5f265fc6f263c2625aa32cdffbc21e289268437d772ecb",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/design.rs",
+      "actual_EOF": 171,
+      "ranges": [
+        [
+          1,
+          171
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2176,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/engraving.rs",
+      "sha256": "678b5940a6ed8ab768eee0cefbe366694b743df49a22e6cb75f8d5e55234a005",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/engraving.rs",
+      "actual_EOF": 249,
+      "ranges": [
+        [
+          1,
+          249
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2177,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/error.rs",
+      "sha256": "1e14c8d0441364e441ccc57365bdddfe9c895a633be80ce0bdf91c0f45b95b1a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/error.rs",
+      "actual_EOF": 40,
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2178,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/frame.rs",
+      "sha256": "3f26803970af96abe7f16ff9d245230a7718e93f657f8868d605623716356c5e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/frame.rs",
+      "actual_EOF": 50,
+      "ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2179,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/body.rs",
+      "sha256": "f1bd53ff9b582384bddb6b2c32e63eb62838eb48c3b8eba911d1b4802a013624",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/gpu/body.rs",
+      "actual_EOF": 229,
+      "ranges": [
+        [
+          1,
+          229
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Construction374 derives tiling/name/trim from one construction variant; Plate hole limits and actual holes share hole_row_pitch/HOLE_INSET. Lamellar/Scale defaults are different artistic inputs, not duplicate current plate. Lacingradiusvsplatehole separate physical facts validated relationship.",
+    "Design171: GeneratedArmor raw geometry/components and ArmorMorph endpoints/deltas require existing aggregate-contract findings, not assumption every parallel array duplicates same value. PackedRigSkin here owns joint indices; separate float joint_weights are different skin data. ArmorMorph direct_positions explicitly export verification oracle, not independently simulated mesh topology.",
+    "Engraving249 relief source and height-vs-normal form encode different actual operations; decode switches same relief enum; procedural Ornament onlyHeight validated. PathBuf references external bytes, no source-content cache established in this file. Source display label derived for errors.",
+    "Error40 retains typed skin/readback/plateshell/design causes and observations of failed geometry, not redundant success flags. Frame50 computes points from one affineframe; reflected axes deliberately admitted and checkedorthogonality.",
+    "Body229: GpuBody counts/jointcount derive from uploaded immutableborrowedsurface in constructor with cardinality checks; Correspondence copies only body attributes at nearestbody vertex, count is scratch-bound role and jointcount retainedfor checked readback. Skinappend updates index/uv/weights together; aggregate public ingress concerns preserved, no independent current duplicatedweights claim."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2180,
+    "start_line": 1
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-065",
+  "at": "2026-10-25T12:36:04.210219+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1217,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs",
+      "sha256": "aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576",
+      "personally_read_ranges": [
+        [
+          1,
+          781
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole781 native schema/view/presence/admission source read incl existing exacttoken tests, notrun. Storage LocalChatMessage optionalresident selects playerparty vsNPC projection; audienceparty and otherparty are directionalchatroles, viewerIDs derive CURRENTparty membership not historicalsnapshot bysourcepolicy, no privacyviolation invented. Backends emit explicitaudience owner_character_id peractualparticipant, which isdifferent from originalsessonowner; schema labels do not justify merging these IDs. Same rowID copiedacrossviewers expected projectionkey adapter, actualWeb usesviewerfilter beforeHTML. Native dialogue Session/Prompt/Participant/Binding fields independentlyprimitive; actualconstruction andconsumption1212\u201316 enforce manyrelations, M99admittedaggregate remains ratherthan arbitraryinvalidstoredrowclaim. Nonemptyvalidsessionnonce maycontaincolons by splitn3; ownerIDmustparse, cap160, no arbitrarilytightenedformat. Active-only session enum expected validcurrentstate, no invented Closedvariant restoration. Mode/Resolution persistedtokens differauthoringsnakecase, preserveexactvalues. Native timestamps i64Unixmicro separate StrategicMinute. Actualrequire_live_dialogue_presence549\u2013658 closes earlier missingclock ordinary mutationquestion: actualactor same frozenowningparty/currentsettlement, required actualpersonalclock (noonfallbacknotused), canonicalvalidatedvenue+NPCpresence atactorfrontier, allpersistentNPCs exacthome/chapterauthority. Doesnotitselftestcharacter.alive; start/join do and later semantic effect receivers mayalso, actualdeathparty cleanup prerequisite before promoting deadactorability. NonemptyNPCcollection then parses everyactualactorID/resolvesprofile; primary first is stableexecutiondependency but notselected-speaker identity. Exactgateway projection guard for allsession/participant/event/prompt/options; nativerowsprivate. No same-namedsemanticID alias or presumeduntrustedpublicsetter."
+    },
+    {
+      "scope_index": 1218,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_sessions.rs",
+      "sha256": "86473c2872a35a61a69775dc2578440eeefe4b620a5414c4aa044ca98bacf412",
+      "personally_read_ranges": [
+        [
+          1,
+          351
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole351 actualstart producer read. Gateway/currentcatalog/livingactualcharacter+party+settlement, canonicalnavigablePlace plus PairwiseSofttemporalfrontier andactualpersistentNPC presence/organizationrepresentative/conversation enforced before mutation. Actualfullcatalogvalidate, canonicalSessionIDowner==character, replay comparesconversation/settlement/location/catalog thenactualexistingpresence. RequestedNPCactorID notcomparedonreplay, sourcefirstwins identity policy not exactrequestfingerprint; retained M99contract decision, no introducedregressionclaim. Newstart choosesfirstPlayerrole andONE persistentNPC per NPC ROLE, rejectsrole.min>1, fillsadditionalNPCroles fromactualdistinctco-presentresidents. Validatesallrolecardinalities andallactualNPC exactpresence beforegreeting/effects. Thus singleNPCtotal assumption is false: sourceadmits multiple differentNPCroles, earlierfirstNPC/HashSetfallback questions become valid-authored-extension applicability, not ordinaryinstalledbadwitness. ItstillneverconstructsmultipleNPCsameRole, so donotassertthatmalformedrolecase. Rolemin>1 Playerstart cannotinitiallypasscardinality eveniflaterjoin supportsmax>1; actualmultiPlayerconfigurationadmission policy mustbeexplicit, no guessed ordinaryscenario. Greetingresultturns separatelyresolve+sourcevector but canonicalfullcatalogvalidation prohibits testimonyexpansion there, existingM100qualificationretained. Allfalliblewriteworkpropagates; actualrumor deliverySource publicthreat encodes Vec<receiptID String> whereas compilerSourceRefvector receiverdifferent, exactM100actualmismatchcorroborated, no duplicatefinding. Localproblemreferral rawfallbackemptycompilerlist remainsknown. Receivecanonicalrumor beforewitnesscapability+topicoptions, actualrequestedNPCcarriedto source gate andwitnessowner; fallbackHashSetquestion mustconsumeagreedactualNPCowner. No tests/sourceedits."
+    }
+  ],
+  "qualifications_closed": [
+    {
+      "previous": "064 missingpersonalclock ordinaryfallback risk",
+      "actual": "1217:579\u2013585 requiresclock beforegenericdialoguemutation; privatepresentation defaults remainmigrationpolicy only, not ordinarynoonadmission.",
+      "coverage": "Onlythisqualifiedordinarymutation hypothesis closed, not allclockowner/errorpaths."
+    },
+    {
+      "previous": "061\u2013064 actualmultipleNPC/sessionquestion",
+      "actual": "1218:175\u2013207 admits ONE actor per eachdistinctNPCrole andadditionalco-presentresidents, rejectsNPCrolemin>1; actualinstalledcatalogmultipleNPCuse notestablished.",
+      "coverage": "Valid-authored-extension multiplicity admitted, not nativeinvalidrow or actualinstalledwrongrecipient."
+    }
+  ],
+  "existing_finding_support": [
+    "M99 exactstorage/session/prompt/participant/ordinal/nativevariantassociation; current actualstate tokens andnonceformat preserved.",
+    "M100 exactpublicthreat receipt-provenance versuscompilerSourceRef source-role mismatch remainsactionable; ordinarygreeting/choiceTestimony-expansionclaim staysexcluded."
+  ],
+  "discovery": "Two originalrolesaccounted WITH findings/qualifiedreceivingclosure; full lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

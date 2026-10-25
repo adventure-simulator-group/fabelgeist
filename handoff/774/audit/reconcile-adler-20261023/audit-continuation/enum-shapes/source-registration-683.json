@@ -1,0 +1,17 @@
+{
+  "id": "SEGO-INITIAL09-REG683",
+  "index": 44,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/path_geometry.rs",
+  "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "git_blob": "7b6beb569e352a783f8dd7c382dde92ce0ce5b6c",
+  "sha256": "08afd9a444a46f1add41fd92ff00d046203e0991c24041ae11bf4033c714fb76",
+  "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/enum-shapes/source-objects/08afd9a444a46f1add41fd92ff00d046203e0991c24041ae11bf4033c714fb76",
+  "ranges": [
+    [
+      1,
+      241
+    ]
+  ],
+  "reason": "Actual helper called routes.rs129\u2013144 and connections.rs168\u2013179; defines GeographicLine payload choice, PathGeometryError mapped to CapacityExceeded and Option<Mesh> mapped to Uncovered/Drawn. Needed actual alternative semantics through builder to classify loss/coverage shape; registration follows actual body trace, not module export.",
+  "status": "registered before body read; no coverage yet"
+}

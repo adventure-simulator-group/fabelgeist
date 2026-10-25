@@ -1,0 +1,109 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-117",
+  "at": "2026-10-23T04:08:41.256553+00:00",
+  "lens": "audit-invariant-operations",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-054.json",
+    "sha256": "61dd93a34016dcc5670f4fd6d4aa9c65dc75b8464ff1eadd89374fa786a0fa23"
+  },
+  "mandatory_overlays": {
+    "record": "continuation/owner-range-extensions.jsonl",
+    "sha256": "d54b480e8e385f2416db93d6e6781d2237438cf2d9227fbd3c9ebd82176526a6",
+    "through": 238
+  },
+  "partial_source_roles": [
+    {
+      "role": "P16 crates/adventuresim-core/src/autoresolve.rs",
+      "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "0b6aef0b8e1be9846beaae48cc8f7130333b0b4634acbd0b2f8b393ee40d5cef",
+      "actual_eof": 2879,
+      "actual_literal_range_already_compared": [
+        1,
+        1410
+      ],
+      "production_ends": 1332,
+      "fixtures_begin": 1333,
+      "next_literal_line": 1411,
+      "complete": false
+    }
+  ],
+  "support_only_source_roles": [
+    {
+      "role": "P16 core combat.rs",
+      "ranges": [
+        [
+          56,
+          84
+        ],
+        [
+          473,
+          526
+        ]
+      ],
+      "no_whole_source_credit": true
+    },
+    {
+      "role": "P16 core autoresolve/model.rs",
+      "ranges": [
+        [
+          101,
+          131
+        ]
+      ],
+      "no_whole_source_credit": true
+    }
+  ],
+  "counterpart_diff_only": {
+    "role": "PR crates/adventuresim-core/src/autoresolve.rs",
+    "sha256": "cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+    "actual_eof": 2878,
+    "evidence": "Full actual main-file PR/P16 diff personally compared; not full literal PR source credit. P16 SignedLength private engagement/scheduled measure and public telemetry; PR raw f32. Initialization and volley/formation extraction differ accordingly; remaining fixture conversion deltas."
+  },
+  "groups": [
+    "Strategic input resets transient duel state, preserves durable equipment/skills/ammo/body baseline; no tactical-state persistence conclusion.",
+    "Movement uses leg agility, armor and physical load with computed finite admission, not separate fatigue or total-incapacitation speed penalties. Encumbrance contributes once to incapacitation.",
+    "Safety-margin checked u64 multiply failure deliberately returns no comparison; do not flag solely because wider arithmetic could compare it.",
+    "Recorder sequence saturation and log len-to-u32 narrowing require reachable capacity evidence; no normal failure demonstrated.",
+    "Public resolve owns local combatants and recorder; errors discard the local outcome, not evidence of partial external database publication.",
+    "Opening surprise side is resolved once; deterministic combat.autoresolve seed domain retained. Terminal classification and fallback terminal time have explicit producers.",
+    "Ranged plan indices come from fixed slices without intervening structural resizing. Opening targets checked nonempty and shoot checks ammo before decrement.",
+    "Opening volley count clamped to 1..64; count/overflow clipping must be interpreted in actual policy context rather than treating every unexposed infinity as invalid.",
+    "Outcome wound flow joins existing F031; aggregate ammo capacity joins existing F036. Body part index matches seven-element roster.",
+    "Attack-harm raw energy sums may share the checked physical arithmetic graph; no ordinary-size misranking asserted from this prefix.",
+    "Fixtures only read through line1410, ending inside a helper. Neither remaining helper nor whole file has been cleared."
+  ],
+  "findings": [
+    {
+      "id": "ROOT-INITIAL04-F043",
+      "kind": "applied_health_channels_repartitioned_with_different_blunt_weight_in_battle_log",
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve.rs",
+      "locations": [
+        [
+          542,
+          558
+        ],
+        [
+          1125,
+          1135
+        ]
+      ],
+      "case": "Healthy head and raw cut=1, blunt=1: actual applied health loss (1+0.75)/20=0.0875. Canonical actual cut/blunt=0.05/0.0375; recorded shares=0.04375/0.04375.",
+      "operation": "BattleRecorder independently partitions applied health loss with an unweighted raw cut/blunt ratio, while actual wounds and retained cut use canonical apportionment weighting raw blunt by 0.75.",
+      "qualification": "Ordinary-size static mixed-channel operation discrepancy, not executed gameplay or a demonstrated shipped-weapon occurrence. Durable BodyInjury recipients consume logged applied health fractions; raw Joules are a distinct quantity.",
+      "connected_repair": "Carry one canonical admitted applied cut/blunt result into mutation, wounds, retained cut, recorder and durable recipients, retaining raw energy versus applied health unit distinctions.",
+      "acceptance": "Logged applied cut/blunt and resulting durable injury composition agree with the actual applied canonical channels, including mixed positive inputs; existing fixtures only, no added cases/assertions/helpers.",
+      "same_graph_numeric_support": "Finite raw cut=MAX and blunt=MAX yield health total infinity, healthy clamp applies 1; canonical partition produces (0,1), recorder produces (0,0). No ordinary huge-hit claim and no extra unique finding.",
+      "deduplication": "Root04 existing finding search found no exact graph. Native05 confirmed no exact F001-F038 counterpart; F029 cache and F035 diagnostic response membership are distinct.",
+      "contract_ref": "ROOT-INITIAL04-CONTRACT-117"
+    }
+  ],
+  "source_edits": 0,
+  "project_execution": 0,
+  "validation": "not_run",
+  "other_lens_credit": false,
+  "full_source_credit": false,
+  "recovered_evidence": {
+    "record": "continuation/root/main-autoresolve-partial-recovery-187.json",
+    "sha256": "28db32a8ba6af07280dd89ca85e74a1c66042675e83d65b7a20b35b317bba7da"
+  }
+}

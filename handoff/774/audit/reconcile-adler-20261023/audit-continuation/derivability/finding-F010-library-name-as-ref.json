@@ -1,0 +1,28 @@
+{
+  "id": "SEGOVB-INITIAL10-F010",
+  "classification": "source-backed optional maintenance suggestion",
+  "source_id": "pr-working:crates/adventuresim-character-creator/src/library_name.rs",
+  "sha256": "ecd978e94b850604d4345df1494e9536819e19d7a6d3b8921fde3d55bf54eb27",
+  "ranges": [
+    [
+      6,
+      9
+    ],
+    [
+      29,
+      33
+    ]
+  ],
+  "problem": "LibraryName manually delegates AsRef<str> through its String field although owning681 enables derive_more/as_ref.",
+  "equivalent_implementation": "Add derive_more::AsRef and explicit #[as_ref(str)] on the single-field LibraryName, remove only AsRef<str>29\u201333. Explicit output type is essential: bare derive yields AsRef<String>, blanket forward broadens API.",
+  "source_proof": [
+    "Full original817 source1\u201352 personally consumed; original681 manifest/680 frozen lock prove enabled existing derive_more2.1.1/as_ref.",
+    "Exact macro dispatch src/as/ref.rs1\u201315, struct specific-type selection src/as/mod.rs17\u201368 and concrete generic/body/signature147\u2013306, plus runtime ExtractRef src/as.rs1\u201353 personally consumed and package/member verified; fresh-dependency-registration-423.json. Explicit String\u2192str uses non-generic specialization invoking String::as_ref; same borrowed str and no allocation/new generic bound."
+  ],
+  "acceptance": [
+    "Keep exact AsRef<str> only, same self-borrow lifetime and no owned output; preserve private String field and visibility.",
+    "Retain TryFrom<String>11\u201321 trim/nonempty admission and String error plus checked Serde try_from/into. Do not derive raw From<String>.",
+    "Retain current small From<LibraryName>forString22\u201327 (reverse Into feature absent owning manifest) and Display35\u201339 write_str. Default transparent Display derive forwards formatting flags and can change width/precision behavior; it is not the same write_str contract.",
+    "Optional mechanical AsRef cleanup only; no runtime defect/global unique count, no macro expansion/compiler/tests."
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "id": "SEGOVB-04-COLLIDER-GROWTH-FAILURE-CANDIDATE-001",
+  "classification": "source-qualified retained-state failure path; actual native allocation failure not exercised",
+  "sources": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-physics/src/contact.rs",
+      "ranges": [
+        [
+          71,
+          89
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-physics/src/contact/count.rs",
+      "ranges": [
+        [
+          25,
+          45
+        ]
+      ]
+    }
+  ],
+  "trace": "Growing from live16 capacity to count17 publishes collider_capacity32 before Buffer::new(...)? completes. If allocation returns Err, old live16 buffer and old collider list remain but capacity32 retained. Retrying17 sees Retained and skips necessary allocation, then attempts17*64-byte write into old16*64 buffer. Later upload Err after replacing buffer also leaves host old list paired with new unpopulated buffer.",
+  "qualification": "Conditional Result failure path, no native failure induced/run. Capacity comment explicitly does not itself prove live buffer; caller nevertheless uses it for buffer-reuse decision. Specific GPU API throw/abort before returned Err may differ; retain structured Err branch qualification. Prior valid collider state must stay usable or explicitly invalidate it.",
+  "acceptance": "Stage capacity/buffer/upload as one candidate then publish all list/buffer/capacity state on success, or explicit invalidation/retry protocol; preserve empty-list and same-countupdate semantics. No arbitrary ban on largehostlist.",
+  "status": "discovery candidate; exact alias pending; no global unique count"
+}

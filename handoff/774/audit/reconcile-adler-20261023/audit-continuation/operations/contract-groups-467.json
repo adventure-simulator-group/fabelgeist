@@ -1,0 +1,46 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-467",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/cameras.rs",
+      "sha256": "339321b37e85cb2c1b1e2fcc138cac67330b953e40a94cf2797cdfcee382ae5e",
+      "actual_EOF": 224,
+      "actual_compared_ranges": [
+        [
+          1,
+          224
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/readiness.rs",
+      "sha256": "da0f087a671bf4958225ba9cd45f834cff0b0d651c9ab03c1ebcc9242a01b1e0",
+      "actual_EOF": 301,
+      "actual_compared_ranges": [
+        [
+          1,
+          301
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Building review target arithmetic and result publication",
+      "analysis": "Both whole224/301linebodies read. Typedoffset minimumdistance checked, completed target anddatum-transformeddisplacement re-admitted beforecameraResult; explicitPlotRelativeheight remains architecturalground ratherthanburiedslab. Hugefiniteoffset norm overflow may pass minimum test but translatedtypedposition canreject result; rejection valid. Missingbuilding/gable/opening/sign/window yieldsErr beforecameraResult. Testsource yaw/baseelevation witnessread, not run."
+    },
+    {
+      "contract": "Actual asset and view readiness evidence",
+      "analysis": "Review gate requires exactbuilding/door/window/boundary counts, GPUcontains mesh+material textures, all3LODlevels andsameproductionmaterialhandles. Nearbylettering prerequisite conditionalactualcameradistance. Readiness resets Configure and has120s monotonicwait bound; source assertion/JSONreport is intendedacceptance, not currentaudit execution. Viewrecorded set onlyaftercheck; actualoutputwrite failure terminaltool error. LocalGPUcontains and recordcount semantics are followed by their own source roles; no broad declaration of liveGPUclearance."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/buildings.rs"
+}

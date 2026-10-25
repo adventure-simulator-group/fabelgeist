@@ -1,0 +1,58 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-385",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/survival.rs",
+      "sha256": "9b69053053efb67e000a8aeafdaf2b7a89678136f4459cf592a6e7e9f391e1ad",
+      "actual_EOF": 2550,
+      "actual_compared_ranges": [
+        [
+          1,
+          2550
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/thermal_projection.rs",
+      "sha256": "b1ad1a9d5dee6a7f75cb4b9fa78ab15e596d4a30a536f7781bba38550bc3b3b4",
+      "actual_EOF": 343,
+      "actual_compared_ranges": [
+        [
+          1,
+          343
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Carried custody, measured quantity and observable load",
+      "evidence": "survival.rs1\u2013413: finite positive weights quantized/clamped to u64 grams; encumbrance output clamped0..1 thenbps. Public inventory row must map to exactly one physical object, location must match custody and every ancestor, cycles/depth overflow reject. Fraction amount is used for personal/party measured stack mass; foodlot owns foodmass and contained water added separately. Living member IDs sorted; missing capacity attributes/limbs/condition produce0. Public observation requires condition/capability and readiness uses status, abs thermal, wetness, ammo, encumbrance.",
+      "qualification": "Correct remaining-fraction handling differs from Web local774:F46 fraction-loss receiver; static catalog item.weight still lacks per-object recipe mass, related F46 authority dependency, no separate unique count. Quantities sum<u32> and raw f32 mass sums rely on issuance/cardinality/body admission; no ordinary overflow witness. Missing survival observation defaults elsewhere remain exact CAM-PROP-F023 / RIG-PPS-F018 extension. Invalid custody maps infinite load deliberately fail-closed; bounded_grams maps nonfinite to0 telemetry, do not mistake telemetry for physical admission."
+    },
+    {
+      "contract": "Storefront/provider quote and paid readiness transactions",
+      "evidence": "survival.rs415\u2013958: quote requires alive actor at settlement, service and unique present default provider; equipment additionally canonical storefront stock/availability. Stake withdrawal bounds each stack quantity by remaining min u32, decrements until0 after sufficient total andownstake. Tent capacity checked before purchase; after reducer verifies party custody; provider absence intentionally permits bivouac with explicit reason. Arrow purchase bounded by floor, upper-bound price/reserve and own-stake shortfall, verifies returnedquantity.",
+      "qualification": "Equipment offer contains no root-placement suitability check; extends SEGOVB-04-UPGRADE-PURCHASE-BEFORE-FIT-CANDIDATE-001: stocked mail_voiders qualifies as Armor before cycle purchase even though only attached placement; actual public provider/stock/profile selected candidate/purse still not witnessed. Storefront alias CAM-OWNER-F014 shared owner graph only. No atomicity claim across multiple separate reducer calls: withdrawal/purchase intentionally separate accepted operations. Current paid reducer owns final price and custody."
+    },
+    {
+      "contract": "Joint outbound/action/recovery/return safety and state alignment",
+      "evidence": "survival.rs960\u20132470: all party members need attributes/limbs/stats/schedule, outbound forecast must complete and fatigue-vector cardinality match. Candidate finite walking windows, departure waits and optional1..day fatigue recovery retain selected forecasts. Checks actor readiness separately from survival, nonfatigue derives total-minusfatigue, public thermal model conservative zero weatherproofing. Recovery paths reproject action/return with recovered calories and thermal state; exact destination-site matching required; missing observations hold/defer. Onsite camps retain authority interval instead of invented route.",
+      "qualification": "MAX clock forecast dependency remains ROOT-INITIAL04-F019 (F086 withdrawn); no source-role coverage transferred from root. Initial starting minute uses max of filter_map clocks, so one missing member clock is not itself rejected here; actual public reducer owns synchronized party clock admission, linked observation contracts, no new ordinary outcome claimed. Delayed generic candidate resets calories/state todefault in one path whereas recovery fallback retains state; correct future-wait model depends on actual authoritative journey wait/rest and no current misleading forecast witness established. Starting frostbite progress0 deliberately lacks public field; do not invent positive exposure policy."
+    },
+    {
+      "contract": "Thermal interpolation, duration bounds and stationary sentinel",
+      "evidence": "thermal_projection.rs1\u2013343: differences widen i32\u2192i64\u2192f64; spherical haversine clamps a0..1 and nongeographic hypot explicit separate model. Positive distance yieldsceil travelminute. Itinerary rejects truncated/zero/noncredible>60day total andzero movement; each minute interpolates signed coordinates/elevation and calls canonical weather/exposure. Cold/heat threshold aborts safe projection. Stationary uses identical endpoints and movementtotal1 sentinel; duration0 identity returns existingstate safe true. Roundtrip/recovery chain exact returned state and requires each safetyflag.",
+      "qualification": "Do not globally restrict weather abstracti32 lattice/signedi16elevation to WGS84/positive: RIG-PPS-F019 qualification applies. Raw ItineraryForecast aggregate fields are trusted: segment sums, starts, movement bounds and i64 casts can disagree with advertised bounded total; parent PC91 aggregate contract shared dependency, no duplicate new finding. Actual forecast producer emits coherent segments; no malformed ordinary itinerary claimed. Zero duration safe true is identity policy question if initialstate already unsafe; caller adds own readiness where appropriate. No tests/render/DBexecution."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-strategic-sim/src/live_core/tests/failure_security.rs"
+}

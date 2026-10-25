@@ -1,0 +1,170 @@
+{
+  "recorded_at": "2026-10-21T02:26:36.879074+00:00",
+  "head": "b2d0193e3daa4eff068103040f7688d94a555c30",
+  "family": "P08",
+  "status": "Source preflight only, not implementation or acceptance. Wait for accepted P06 before source edits.",
+  "original_exit": "Physical camera state is typed until actual physics/render/math projection, without duplicate camera time or length owners.",
+  "observed_trace": [
+    "CameraRigConfig/CameraProfile authored float metres -> blend_profile -> CameraPoseHistory retained focus/shoulder/boom values and velocities -> CameraFrame/CameraPlacement -> native sweeps and Transform.",
+    "CameraRigDebugState and CameraAimState retain the same physical points/measures -> debug.rs Gizmos and ui.rs final formatting/projection.",
+    "animation_capture_camera_offset -> animation_viewer/view.rs native Transform; tactical_scene_viewer/camera_obstruction.rs builds the same frame/recovery at capture boundaries."
+  ],
+  "assigned_source_candidates": [
+    "crates/adventuresim-tactical-client/src/camera.rs",
+    "crates/adventuresim-tactical-client/src/camera/config.rs",
+    "crates/adventuresim-tactical-client/src/camera/rig_history.rs",
+    "crates/adventuresim-tactical-client/src/camera/smoothing.rs",
+    "crates/adventuresim-tactical-client/src/camera/collision.rs",
+    "crates/adventuresim-tactical-client/src/camera/collision/tests.rs",
+    "crates/adventuresim-tactical-client/src/debug.rs",
+    "crates/adventuresim-tactical-client/src/ui.rs",
+    "crates/adventuresim-tactical-client/src/tactical_scene_viewer/camera_obstruction.rs",
+    "crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+    "crates/adventuresim-tactical-client/src/animation_viewer/view.rs",
+    "crates/adventuresim-tactical-client/src/animation_viewer/mod.rs",
+    "crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera.rs",
+    "crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/landscape.rs",
+    "crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_terrain.rs"
+  ],
+  "owners": {
+    "physical_point": "spatial_geometry::Position<Scene>",
+    "scene_offset": "spatial_geometry::Displacement<Scene>",
+    "signed_scalar_offset": "spatial_geometry::SignedLength",
+    "scalar_velocity": "adventuresim_core::linear_speed::SignedSpeed",
+    "time": "AnimationElapsed and ResponseShapingTime, already checked; retain existing clamp, reverse/zero policy and operation order",
+    "missing_vector_velocity_owner": "No exact checked vector velocity found in searched core/tactical/spatial owners. Inspect all relevant owners before adding one; prefer a shared scene-frame velocity owner consuming the canonical signed-speed contract, not a camera-only copy.",
+    "screen_window": "Normalized screen coordinates are not metres. Do not reuse physical vectors/lengths or infer an upper bound of one from defaults.",
+    "rotation": "Inspect canonical RigidRotation and local-to-scene frame semantics before deciding which quaternion retention belongs to the actual framework port."
+  },
+  "specific_implementation_sequence": [
+    "Pin the current source and finish constructor/caller enumeration, including feature-gated debug/UI, viewer captures, all fixtures and unchanged helpers. Check existing type owners before writing types.",
+    "Admit authored physical leaves once at config/profile literal boundaries. Preserve signed offsets, velocities and valid zero. Old public float fields do not establish positivity; do not silently restrict a finite signed/zero contract or quantize to integer millimetres. State every deliberate newly rejected invalid value explicitly.",
+    "Propagate checked leaves through blend_profile and observation-backed history, including last anchor, focus velocity and shoulder velocity. Preserve independent profile-blend advancement and subject/teleport reset rules.",
+    "Carry checked point/offset/measure owners through CameraFrame.endpoint, CameraVolume sweeps, BoomRecovery reset/retract/recover/place and CameraPlacement. Preserve sweep order, close-framing interpolation, 8-sweep budget, native hit precedence, hold/hysteresis and successful exact analytic damping order. Prepare checked replacements before mutating their owner.",
+    "Keep critical_damp_scalar/critical_damp_vec3 as genuine complete numerical formula kernels only if receiver-body inspection justifies their native inputs. Typed application wrappers must not merely forward raw measures. Dimensionless filter scratch coefficients can remain primitive; named physical state cannot.",
+    "Trace aim/debug records to Gizmos/Transform/physics casts and final UI formatting, including existing fake zero normal/point plus hit flags. Inspect the missing-controller active-aim path: active is set before controller lookup and can retain stale endpoints; absence must not impersonate a current observation. Preserve real origin/identity values.",
+    "Adapt existing camera collision, smoothing, mode and capture fixtures without adding tests/helpers/cases/assertions. Add their existing commands to hosted selection if needed. Preserve their obstacle geometry, inputs, iteration budgets and tolerances.",
+    "Complete the source family and source-backed compact trace before any formatting/size/CI work. Then focused Code/Rule/producer review, preservation metadata and hosted relevant existing checks; no Comment Review, new agents or fourth full audit wave."
+  ],
+  "pre_edit_open_questions": [
+    "Choose scalar length bounds from actual accepted contracts, not names/default values alone. Negative shoulder/body offsets and signed speeds are intentional.",
+    "Resolve frame ownership for camera-local right/up/muzzle offsets, world vectors, scene points and velocity. Do not label all Vec3 as scene displacement.",
+    "Check which debug/aim absence states need payload ownership and which booleans are ordinary predicates or native flags. Do not invent a broad unrelated camera-mode redesign.",
+    "Confirm the precise owning camera geometry error and effect of failed preparation without global-transaction claims.",
+    "Enumerate all camera-related capture/report handoffs so P17 remains distinct without hiding a producer propagation gap."
+  ],
+  "validation_limits": [
+    "No current P08 implementation or CI pass is claimed.",
+    "Existing native collision and smoothing tests are behavioral evidence; no calibrated/live production camera verdict is currently available.",
+    "Source lookup commands containing guessed nonexistent paths were corrected by rg --files; failed searches are not coverage evidence."
+  ],
+  "latest_source_recheck": {
+    "head": "3ef06860d9a911ccc2ae8e3a0114b5a6e4979666",
+    "recorded_at": "2026-10-21T03:42:31.360203+00:00",
+    "status": "Source planning only; no P08 source edit and no implementation acceptance. Original P08 exit unchanged.",
+    "decisions_and_candidates": [
+      {
+        "topic": "existing owners",
+        "source": "spatial_geometry/measurement.rs, orientation.rs; core/linear_speed.rs; tactical-core/scene_coordinates/spatial.rs",
+        "decision": "Reuse SignedLength, Position<Scene>, Displacement<Scene>, RigidRotation and SignedSpeed. RigidRotation::from_quaternion preserves admitted bits and rejects malformed/nonunit input; do not normalize valid camera rotations on admission. Existing finite SignedLength constructor can become const without changing its error/bit contract to support checked authored defaults."
+      },
+      {
+        "topic": "vector velocity / dependency ownership",
+        "source": "building-generator Cargo.toml, tactical-core dependencies, body_values.rs, core linear_speed.rs",
+        "decision": "No exact scene-frame vector-velocity owner found. Proposed owner is shared tactical-core scene_coordinates (which already consumes geometry frames and core speeds), with named east/up/north SignedSpeed components and native Vec3 admission/encoding only at kernels/framework ports. Do not add a dependency from building geometry to strategic core merely for this one camera use. Existing BodyLocalVelocity is explicitly body-local and cannot be reused as scene velocity; do not alias or mislabel its frame."
+      },
+      {
+        "topic": "camera local coordinates",
+        "source": "camera/collision.rs::CameraVolume::new/CameraFrame::endpoint and camera.rs::update_camera_aim",
+        "decision": "Near-plane inverse projection uses view coordinates, whereas muzzle offset z means forward along a planar aim basis. Keep these meanings distinct. A camera view frame can own local collider-centre Displacement; muzzle and close-offset records should use named right/up/forward SignedLength leaves rather than relabelling them scene coordinates."
+      },
+      {
+        "topic": "retained blend derivative",
+        "source": "camera/rig_history.rs::CameraRigState and response_parameters.rs/phase_response.rs",
+        "decision": "blend_velocity is retained signed fraction/second state, not local scratch. Include it in P08 admission and propagation. Existing ResponseRate and PhaseCorrectionRate are nonnegative and have different roles; neither fits reversal. Resolve a focused signed blend-derivative owner at smoothing ownership instead of keeping the raw retained f32 or reusing a phase role."
+      },
+      {
+        "topic": "observation and redundant state",
+        "source": "camera.rs::CameraRigDebugState/CameraAimState/update_camera_aim/muzzle_path_is_blocked, debug.rs and ui.rs",
+        "decision": "Use optional complete observation payloads for absent/current debug and aim state. Collision entity/normal and soft entity/point belong together. Clear absence before lookup and publish a complete new observation after preparation. The existing blocked predicate depends only on camera/muzzle hit identities; remove its unused point arguments and derive the predicate from the observation instead of retaining redundant blocked state."
+      },
+      {
+        "topic": "screen coordinates",
+        "source": "camera/smoothing.rs::sweet_spot_target and repository owner search",
+        "decision": "No matching checked screen owner found. NDC window extents are nonnegative dimensionless quantities with no inferred upper bound of one; screen error is signed and may be off-screen. Keep these separate from metres and bounded UnitInterval. Inspect all existing fixture/config mutations before final admission policy."
+      },
+      {
+        "topic": "physical scalar bounds and operations",
+        "source": "camera/config.rs, collision.rs, smoothing.rs, rig_history.rs",
+        "decision": "Preserve signed offsets, zero recovery state, scalar and vector velocities, exact damping order and all meaningful resets. Do not select positive owners solely from current defaults; finish fixture/mutation survey before narrowing old public values. Prepare checked focus/velocity/boom/history replacements together, keeping genuine critical-damping and collision calculations as explicit native kernels."
+      }
+    ],
+    "next_source_planning_tasks": [
+      "Finish exact fixture/config mutation and feature-gated capture caller inventory, then resolve the remaining scalar/screen bound decisions from their actual successful contracts.",
+      "Review prospective constructor/operation failure behavior before editing: a failure must not mutate its owned record into a partly admitted replacement. No global transaction claim.",
+      "Keep existing collision/smoothing/camera tests and their inputs, order and assertions; no new tests/helpers/assertions. Select existing hosted commands only after this entire source family is complete."
+    ],
+    "additional_checked_consumers": {
+      "angle_candidate": "animation/authored_angle.rs::SignedAngleDegrees already admits finite signed degrees and exposes final native radians. Reuse rather than adding a camera-only degree type, after checking its current BodyAngle diagnostic classification for the broader role.",
+      "capture_paths": [
+        "tactical_scene_viewer/view_camera.rs",
+        "tactical_scene_viewer/view_camera/landscape.rs",
+        "tactical_scene_viewer/camera_obstruction.rs",
+        "tactical_scene_viewer/capture_terrain.rs",
+        "tactical_scene_viewer.rs::CameraObstructionObservation/build_manifest"
+      ],
+      "closure_requirement": "Carry camera physical fields through obstruction observations until actual manifest serialization/formatting; P17 is not a reason to erase these freshly migrated values in an internal observation. Inspect tuple target/transform handoffs, named record ownership and yaw producer boundaries before implementation.",
+      "existing_unit_selection": "Candidate existing command: cargo test --locked --package adventuresim-tactical-client --lib --features remote-types camera:: -- --test-threads=1. Confirm actual filter/nonempty results on hosted CI only after source completion. Current 6 collision,3 smoothing and2 mode/aim tests are source-read, not executed evidence.",
+      "existing_fixture_inputs": "Wall/corner/focus-lag cases, doorway/ceiling/stair sweeps across 3 aspect ratios and yaw/pitch samples, full-distance open space, held/monotonic recovery, blend reversal, 30/144-step damping, sweet-spot bounds and distinct muzzle-hit identity assertions remain unchanged."
+    }
+  },
+  "capture_receiver_recheck": {
+    "recorded_at": "2026-10-21T04:28:39.855710+00:00",
+    "head": "66d90cacc2d95012556ec6730a35fc8a5fbfe31a",
+    "scope": "Source planning only; no P08 implementation.",
+    "observed_edges": [
+      "view_camera.rs tree/rock/ground/LOD helpers return positional native point/target/up tuples; lit helpers return Transform plus native Vec3 target. camera_for_view composes these.",
+      "camera_obstruction.rs resolve/frame/placement returns Transform, native Vec3 target and CameraObstructionObservation; capture_terrain.rs forwards that packet.",
+      "tactical_scene_viewer.rs update/capture path receives all those packets and retains target until camera_target.to_array() in capture metadata.",
+      "CameraObstructionObservation currently retains desired_metres/resolved_metres as f32. They are internal observations, not yet the serialization boundary."
+    ],
+    "plan_closure": [
+      "Use a named checked scene-camera view/placement record across capture helper APIs; retain scene Position and direction guarantees until actual Transform/looking-at and serialized array adapters. Composite admission must handle unusable view geometry without placeholder observations.",
+      "Carry the gameplay rig physical owners into the two obstruction observation lengths; convert only in actual manifest serialization/formatting. P17 does not excuse internal primitive forwarding for these newly migrated values.",
+      "Trace capture ground_eye_position/ground_eye_target and other participating retained camera positions to their actual framework/admission producer before claiming the return-record migration complete.",
+      "Use the existing finite signed authored-degree owner where the units match, preserving degree wire values and final native radian conversion. Its existing BodyAngle error classification needs explicit correction or mapping for the camera role, not a duplicate camera angle type.",
+      "Keep ordinary hit predicates distinct from role/availability states. Optional current observations must own correlated entity/normal and entity/point payloads; do not introduce unavailable-value zero sentinels."
+    ],
+    "additional_files": [
+      "crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera.rs",
+      "crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/landscape.rs",
+      "crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_terrain.rs"
+    ],
+    "unverified": "Not a claim that every independent browser/art-demo orbit camera is in this connected producer graph. Resolve any actual shared handoff during full caller enumeration; no original exit is dropped."
+  },
+  "current_main_owner_reuse": {
+    "recorded_at": "2026-10-21T05:44:03.571190+00:00",
+    "source_head": "a0b1c4c681cedbb11fac99282836640acdfcbf25",
+    "incoming_main": "3a50b708381ad00c116445c2c999a49c3943088b",
+    "scope": "Source planning only while the same P06 job is live; no P08 implementation, acceptance or new audit wave.",
+    "source_files": [
+      "crates/fabelgeist-math/src/units.rs",
+      "crates/fabelgeist-math/Cargo.toml",
+      "crates/fabelgeist-hair/src/parameters.rs"
+    ],
+    "observed_contracts": {
+      "Metres": "Transparent f32 unit wrapper. from_metres and derived Deserialize retain any represented f32; no finite or sign admission is imposed. This is not a new f64 or checked finite owner.",
+      "Ratio": "Transparent unbounded f32 unit wrapper. Explicitly leaves application bounds to the record. It is not interchangeable with checked UnitInterval or a signed per-second derivative.",
+      "AccelerationVector": "Model-frame acceleration [f32;3], no checked finite policy; cannot serve as scene-frame linear velocity.",
+      "other_units": "RadiansPerMetre, TurnsPerMetre and PerMetre have distinct dimensions from camera linear velocity or signed blend fraction per second."
+    },
+    "decisions": [
+      "Keep canonical geometry SignedLength for finite signed camera distances/offsets. Do not silently weaken its contract to the unchecked Metres wrapper or add a camera-only equivalent length. Unit-only and checked application contracts are distinct.",
+      "Reuse Ratio for actual dimensionless coefficients or inside private checked screen-window/screen-error records. Those records must own finiteness and nonnegative-window admission; do not add an upper bound of one to window extents or use metres. Do not retain arbitrary Ratio inputs without completing that record admission.",
+      "Keep canonical SignedSpeed for scalar metres-per-second. The new upstream units provide no scene-frame velocity owner, so the earlier shared scene-coordinate owner proposal remains to be resolved from actual consumers.",
+      "The signed blend derivative still needs the correct per-second role; neither Ratio nor nonnegative ResponseRate/PhaseCorrectionRate matches it.",
+      "P18 f64 statistics cannot be quantized into the newly added f32 Metres or Ratio wrappers. Check precision and role again during that family; no f64 owner is established by this math-unit addition."
+    ],
+    "remaining": "P06/current P02 selected hosted checks/artifacts and relevant official baseline reductions must be accepted before P08 source edits. Existing camera fixture inputs, native arithmetic/reset/hysteresis and all20 original exits remain binding."
+  }
+}

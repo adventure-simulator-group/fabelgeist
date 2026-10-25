@@ -1,0 +1,51 @@
+{
+  "id": "CONT08-CONTRACT-026",
+  "at": "2026-10-25T09:29:02.198955+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 1463,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/collision/tests.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/camera/collision/tests.rs",
+      "before_sha256": "f8c88a1c3c9855d3dc549be441411316e07a9577455378bfe954c9a046c83256",
+      "after_sha256": "64b2d4cf55741173468cc58b7c98013529ad4004d7aa164c6d9f0728e2616e64",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1463-base-f8c88a1c3c9855d3dc549be441411316e07a9577455378bfe954c9a046c83256",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/64b2d4cf55741173468cc58b7c98013529ad4004d7aa164c6d9f0728e2616e64",
+      "diff": "source-evidence/1463.diff",
+      "diff_sha256": "38fbd848f395f6b95f7e5977354e37203d0ba7d3bb9b54d43e7117bc0fefa2a6",
+      "head_body_read_ranges": [
+        [
+          1,
+          296
+        ]
+      ],
+      "facts": [
+        "Full296 head and complete actual PR base/head diff personally consumed. Same obstacle cuboids, scene timestep/updates, camera frame literals, perspectiveaspect/fov/near, orbit loops/tolerances and recovery sequence/count/assertions retained with typed arranging/projection. No fixtures executed.",
+        "Historical6533 adds unwrap after assert!108\u2013113 (unit result); native contact Result already unwrapped107. This fixture migration defect is corrected at frozen merged13fc, exact full295 merged body and entire20.diff independently consumed. No current unresolved finding, no compiler/test pass claim."
+      ],
+      "disposition": "Own08 source-local comparison with historical defect and exact frozen-merge correction accounted; camera native normal/Q003 remains separate.",
+      "acceptance": "Retain all original obstacle inputs, counts, tolerances, independent clearance/monotonic assertions and actual Result unwrap; never replace assertion with computed output or claim runtime success."
+    }
+  ],
+  "frozen_merged_delta": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/camera/collision/tests.rs",
+      "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "before_sha256": "64b2d4cf55741173468cc58b7c98013529ad4004d7aa164c6d9f0728e2616e64",
+      "after_sha256": "92f47bc1cf69d262c09d215bc35adf19d01216f98fd5fb35f2aceab0aa870e0c",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/merged-camera-fixtures-92f47bc1cf69d262c09d215bc35adf19d01216f98fd5fb35f2aceab0aa870e0c",
+      "head_read_ranges": [
+        [
+          1,
+          295
+        ]
+      ],
+      "diff": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/merged-camera-fixtures-20.diff",
+      "diff_sha256": "8beee1b077a6989ed2ad706632e4b5e96670a83f289c3a92b9ea82b0ea7988c0",
+      "disposition": "Fresh own08 exact one-hunk comparison removes erroneous unit.unwrap and keeps all assertion expression/message/inputs. Full merged fixture body independently consumed; no other37 merged files or family clearance."
+    }
+  ],
+  "next": "Original108; camera Q003 lower native normal bodies and receiving diagnostics. All246 overlays still pending,37 frozen merged deltas remain."
+}

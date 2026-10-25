@@ -1,0 +1,124 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1162",
+  "at": "2026-10-25T18:00:02.768668+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1267,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/lifecycle/runner.rs",
+      "sha256": "8e66bfc1f9b0ca9fbf5210ffa925235c3a1965e8165b6992d35f0b5278c638ae",
+      "actual_EOF": 590,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-strategic-sim/src/lifecycle/runner.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-strategic-sim/src/lifecycle/runner.rs",
+        "sha256": "8e66bfc1f9b0ca9fbf5210ffa925235c3a1965e8165b6992d35f0b5278c638ae",
+        "bytes": 23639,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-db-additional-sources.json",
+            "ranges": [
+              [
+                190,
+                245
+              ],
+              [
+                320,
+                378
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-SUPP-DB-002"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 318,
+            "read_ranges": [
+              [
+                1,
+                590
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-DB-RESIDENCE-RUNNER-050"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/lifecycle/runner.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-013",
+            "json_pointer": "/fresh_current_source_reads/3",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/lifecycle/runner.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                590
+              ]
+            ],
+            "source_context": {
+              "assigned_index": 189,
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/lifecycle/runner.rs",
+              "sha256": "8e66bfc1f9b0ca9fbf5210ffa925235c3a1965e8165b6992d35f0b5278c638ae",
+              "read_ranges": [
+                [
+                  1,
+                  590
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 561,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          590
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "ScenarioState Clone Debug PartialEq Eq"
+      ],
+      "absence_basis": "Full590 consumed1161\u20131162. Inherent scenario initialization uses explicit nonzero/current-policy deadlines/funds/canary and canonical default components; not hand Default. Native cadence simulation, contextual metrics/acceptance, explicit typed Serialize+BLAKE3 report digest, public privacy projection, create_new output and source tests contain no handwritten trait or custom serializer. Exact selected metric equality/digest intentionally separate. No run/I/O execution; sampling child separate."
+    }
+  ],
+  "groups": [
+    "Lifecycle runner composes native rules and already derived report serialization; explicit scenario policy/metric and artifact operations are not derive boilerplate. No new candidate."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1268,
+    "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/bootstrap.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

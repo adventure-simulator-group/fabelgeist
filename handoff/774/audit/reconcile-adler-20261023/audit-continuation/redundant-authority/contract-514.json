@@ -1,0 +1,78 @@
+{
+  "id": "CONT07-CONTRACT-514",
+  "at": "2026-10-23T23:05:37.936145+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2239,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/host_float/arithmetic.rs",
+      "sha256": "c1f92194b17274f4c4f616f05402724d6714024a31d791d3af256b08d7b7df51",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-compute/src/host_float/arithmetic.rs",
+      "actual_EOF": 175,
+      "ranges": [
+        [
+          1,
+          175
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2240,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/host_float/double_float.rs",
+      "sha256": "196e4e5928c8690f9c454f6df53c6923893063912d0e5ea63cddf199ab7f5688",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-compute/src/host_float/double_float.rs",
+      "actual_EOF": 360,
+      "ranges": [
+        [
+          1,
+          360
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2241,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/host_float/mod.rs",
+      "sha256": "f584218ee80866588dc56bfddb3464f65635a41e317f6fbaa08a404143b42b39",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-compute/src/host_float/mod.rs",
+      "actual_EOF": 86,
+      "ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2242,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/host_float/tests.rs",
+      "sha256": "837d9a82e8851a69388f04459ab242107ad9facba9f662cf4e5f2219cb6c2a75",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-compute/src/host_float/tests.rs",
+      "actual_EOF": 271,
+      "ranges": [
+        [
+          1,
+          271
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "HostFloat arithmetic175 doublefloat360 module86 tests271 fullfreshread. OnceLock caches generatedimmutableWGSL source withno mutablecoefficient/config dependency. Polynomialcount/coefficients generatedfromsameconst termcounts andHornerarrayN; no independently authoredshader length/seriesroster.",
+    "Quarterturn andln2 arrayparts are deliberatemultiwordrepresentation ofone highprecisionconstant, not competingroundedcurrentvalue caches; shaderconstants generated directlyeachpart withliteralfloatrounding. Split high/low compensatingresidual ismeaningful extra precision, not two authorities for sameobservedscalar.",
+    "host_zero hook mustreadruntimezero as explicit fenceprotocol; moduledefs+Metal actualhost insertszero examinedearlier. No claimallotherkernelcallers followprotocol. Source sayslimits for subnormalresults/residuals andfew-thousandradianreduction; do not promotegenericnormal-range mathpromise intoallf32platformguarantee.",
+    "Host-vsdevicefixtureoracle intentionallyindependentcalculation; readfixturesusefinite declaredranges/nonemptyexpressionsets andtolerance, noneexecuted. DifferentCPUoracle not duplicateapplicationauthority. Potential positive-subnormal log/powoutsideinternalnormalassumption notpromotedhere: headerexplicitfloatlimits andactualproductionadmission/consumer proofmissing."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2243,
+    "start_line": 1
+  }
+}

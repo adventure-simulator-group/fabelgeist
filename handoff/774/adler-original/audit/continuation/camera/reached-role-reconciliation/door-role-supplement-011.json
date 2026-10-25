@@ -1,0 +1,161 @@
+{
+  "id": "CONT-CAMERA-DOOR-ROLE-SUPPLEMENT-011",
+  "supplier_sha256": "84bda9f163c1c9fe2f72f94379d71fedb5ae84ef6b1c615e1212bc2bd1d20da1",
+  "source_observations": [
+    {
+      "id": "CONT-CAMERA-DOOR-ROLE-PR",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/doors.rs",
+      "sha256": "daf461a37ebe8f9ef72ac67aa98842c02bd8239ca43087f5c4d285f70df1ca34",
+      "supplier_record": "continuation/root/door-grab-producer-002.json",
+      "supplier_id": "CONT-ROOT-PP-DOOR-GRAB-002",
+      "source_read_proof": {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/doors.rs",
+        "sha256": "daf461a37ebe8f9ef72ac67aa98842c02bd8239ca43087f5c4d285f70df1ca34",
+        "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\doors.rs",
+        "read_ranges": [
+          [
+            1,
+            132
+          ]
+        ],
+        "actual_EOF": 132,
+        "proof_mode": "fresh full source read of each exact variant; source-only, no execution"
+      },
+      "in_original_frozen_2279": true,
+      "roles": [
+        {
+          "role": "internal grab geometry producer and operation",
+          "ranges": [
+            [
+              1,
+              90
+            ]
+          ],
+          "comparison": "Raw five-parameter door geometry is consumed by owned subtraction, dot and range predicates; window helper forwards the same raw composite. RIG-PPS-001 already identifies checked leaf erasure before the internal helper. Complete equations do not justify a premature native-boundary classification. Exact ROOT053/CAM053 prefix proof now reinforced by ROOT door002 full body, no duplicate defect.",
+          "existing_refs": [
+            "RIG-PPS-001",
+            "ROOT-PPS-CANONICAL-SPATIAL-CLOCK-CLOSURE-053",
+            "CAM-PPS-CANONICAL-SPATIAL-CLOCK-053"
+          ]
+        },
+        {
+          "role": "native collision identity set and pair filter",
+          "ranges": [
+            [
+              1,
+              90
+            ]
+          ],
+          "comparison": "DoorPassageExemptions retains native EntityHashSet values for actual CollisionHooks filtering. This is an actual ECS/collision identity port; no durable CharacterId producer or loss inferred from Entity numeric representation.",
+          "existing_refs": [
+            "CONT-ROOT-PP-DOOR-GRAB-002"
+          ]
+        },
+        {
+          "role": "original grab and passage exemption fixtures",
+          "ranges": [
+            [
+              91,
+              132
+            ]
+          ],
+          "comparison": "Exact supplier source read preserves three grab positions, doorway directions and width 0.5 plus grant/revoke assertions. Newly explicit PR fixture role is producer-accounted by this supplied actual fixture body, with no fixture alteration or execution. P16 proof independently read by supplier; no same-byte inferred read.",
+          "existing_refs": [
+            "CONT-ROOT-PP-DOOR-GRAB-002"
+          ]
+        }
+      ],
+      "remaining_actual_recipient": [],
+      "disposition": "producer_roles_traced_WITH_FINDINGS_existing_RIG_PPS_001_retained",
+      "owner_fit": "not_performed",
+      "scope_qualification": "PR is existing frozen identity; P16 is explicit separately supplied counterpart outside original2279 in collector reconciliation and receives no automatic frozen-set membership or new admission here."
+    },
+    {
+      "id": "CONT-CAMERA-DOOR-ROLE-P16",
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/doors.rs",
+      "sha256": "daf461a37ebe8f9ef72ac67aa98842c02bd8239ca43087f5c4d285f70df1ca34",
+      "supplier_record": "continuation/root/door-grab-producer-002.json",
+      "supplier_id": "CONT-ROOT-PP-DOOR-GRAB-002",
+      "source_read_proof": {
+        "source_id": "physical-p16:crates/adventuresim-tactical-core/src/doors.rs",
+        "sha256": "daf461a37ebe8f9ef72ac67aa98842c02bd8239ca43087f5c4d285f70df1ca34",
+        "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-core\\src\\doors.rs",
+        "read_ranges": [
+          [
+            1,
+            132
+          ]
+        ],
+        "actual_EOF": 132,
+        "proof_mode": "fresh full source read of each exact variant; source-only, no execution"
+      },
+      "in_original_frozen_2279": false,
+      "roles": [
+        {
+          "role": "internal grab geometry producer and operation",
+          "ranges": [
+            [
+              1,
+              90
+            ]
+          ],
+          "comparison": "Raw five-parameter door geometry is consumed by owned subtraction, dot and range predicates; window helper forwards the same raw composite. RIG-PPS-001 already identifies checked leaf erasure before the internal helper. Complete equations do not justify a premature native-boundary classification. Exact ROOT053/CAM053 prefix proof now reinforced by ROOT door002 full body, no duplicate defect.",
+          "existing_refs": [
+            "RIG-PPS-001",
+            "ROOT-PPS-CANONICAL-SPATIAL-CLOCK-CLOSURE-053",
+            "CAM-PPS-CANONICAL-SPATIAL-CLOCK-053"
+          ]
+        },
+        {
+          "role": "native collision identity set and pair filter",
+          "ranges": [
+            [
+              1,
+              90
+            ]
+          ],
+          "comparison": "DoorPassageExemptions retains native EntityHashSet values for actual CollisionHooks filtering. This is an actual ECS/collision identity port; no durable CharacterId producer or loss inferred from Entity numeric representation.",
+          "existing_refs": [
+            "CONT-ROOT-PP-DOOR-GRAB-002"
+          ]
+        },
+        {
+          "role": "original grab and passage exemption fixtures",
+          "ranges": [
+            [
+              91,
+              132
+            ]
+          ],
+          "comparison": "Exact supplier source read preserves three grab positions, doorway directions and width 0.5 plus grant/revoke assertions. Newly explicit PR fixture role is producer-accounted by this supplied actual fixture body, with no fixture alteration or execution. P16 proof independently read by supplier; no same-byte inferred read.",
+          "existing_refs": [
+            "CONT-ROOT-PP-DOOR-GRAB-002"
+          ]
+        }
+      ],
+      "remaining_actual_recipient": [],
+      "disposition": "producer_roles_traced_WITH_FINDINGS_existing_RIG_PPS_001_retained",
+      "owner_fit": "not_performed",
+      "scope_qualification": "PR is existing frozen identity; P16 is explicit separately supplied counterpart outside original2279 in collector reconciliation and receives no automatic frozen-set membership or new admission here."
+    }
+  ],
+  "metadata_correction": {
+    "record": "records/final-acceptance-20261021/wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+    "row": 80,
+    "original_ranges": [
+      [
+        1,
+        90
+      ]
+    ],
+    "status": "valid bounded prior range; no EOF overrun",
+    "incorrect_navigation_note": "continuation/rig/owner-delta-preparation-047.json claimedEOF72; actual132 at exact same SHA. No nonexistent-line correction or full-file carry is justified."
+  },
+  "owner_range_qualification": "Original rig owner additional row80 range1-90 is valid bounded source proof. ActualEOF132 refutes navigation note EOF72; neither full-file owner role coverage nor existing-owner delta follows. Source-scope list uses zero-based row79 for the same line80 record.",
+  "remaining_unread": [],
+  "source_changes": 0,
+  "new_source_reads_by_camera": 0,
+  "project_commands": 0,
+  "owner_fit": "not_performed",
+  "clearance": "none"
+}

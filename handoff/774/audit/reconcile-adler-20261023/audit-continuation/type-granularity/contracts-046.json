@@ -1,0 +1,112 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-046",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "dialogue-authoring-runtime-stage-and-policy-granularity",
+      "sources": [
+        {
+          "scope_index": 165,
+          "ranges": [
+            [
+              1,
+              580
+            ]
+          ]
+        },
+        {
+          "scope_index": 166,
+          "ranges": [
+            [
+              1,
+              347
+            ]
+          ]
+        },
+        {
+          "scope_index": 167,
+          "ranges": [
+            [
+              1,
+              102
+            ]
+          ]
+        },
+        {
+          "scope_index": 168,
+          "ranges": [
+            [
+              1,
+              82
+            ]
+          ]
+        },
+        {
+          "scope_index": 169,
+          "ranges": [
+            [
+              1,
+              30
+            ]
+          ]
+        },
+        {
+          "scope_index": 170,
+          "ranges": [
+            [
+              1,
+              1785
+            ]
+          ]
+        },
+        {
+          "scope_index": 171,
+          "ranges": [
+            [
+              1,
+              37
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "local774:M99",
+        "local774:M100",
+        "local774:M101"
+      ],
+      "disposition": "exact connected existing dialogue contracts; own11 support without new unique",
+      "trace": "Authoring mirrors preserve open conversation/role/topic/choice identity but duplicate raw rolekind/runtime-slot/investigation-action vocabulary already canonical at runtime. Schema structural deserialization and semantic accepted membership differ. PromptMode and ResolutionPolicy are orthogonal policy axes with distinct authored snake_case versus persisted stable tokens. Current bound fields are associated to choices but no fully admitted product enforces all supported policy combinations across recipients. Runtime Fragment versus ResolvedFragment is meaningful stage distinction: unresolved code slots cannot occur in output, while PeriodClaim is not AuthoritativeExplanation and Claim ordinal conveys event-local presentation only.",
+      "qualifications": [
+        "Exact M99,M100,M101 full root ledger records read; native body evidence is usable but no fresh own11 native coverage. Installed catalogue is build-gated; public runtime validator accepted-set gaps are not installed malformed content claim.",
+        "Participant/Role/Group addressees share string role storage but have different actual participant-selection cardinality; not redundant enums merely because payloadsame.",
+        "Open FactValue DSL carries Bool/Integer/Text/Sex. Sex has exact key/value gate; other semantic facts need actual producer-specific owner fit, not blanket enum over arbitrary authored text. Generic facts are not source truth.",
+        "Testimony actual primary turn permits exactlyone expansion paired with effect. Greeting and choice-result testimony rejected by actual validators. Resolve_turn preserves source alignment; ordinary paths do not establish a testimony misalignment.",
+        "SourceRef document/path/file/line/column and valueJSON are edit provenance, distinct from private authority receipts. Runtime slots resolve to inert text; truthful claims/private demeanor/assessment authority absent output.",
+        "Catalog digest frames ordered documents, typed JSON tags and sorted objectfields; display text is content, not runtime code or authority. No new hash policy inferred."
+      ],
+      "acceptance": "Retain canonical shared vocabulary and admitted policy/selection/source products at real boundaries; preserve IDs, order, exact stable tokens, privacy and source coordinate meanings. Existing admitted Multi voting mismatch remains M99 qualified proof, not fresh execution."
+    },
+    {
+      "id": "native-module-feature-and-boundary-topology",
+      "sources": [
+        {
+          "scope_index": 172,
+          "ranges": [
+            [
+              1,
+              32
+            ]
+          ]
+        }
+      ],
+      "disposition": "manifest topology only",
+      "trace": "Module compiles core/world schema/determinism with SpacetimeDB features, native geometry without defaultfeatures and guarded authority-tests flag. Manifest does not prove schema or capability body correctness.",
+      "qualifications": [
+        "No build executed, no callee credit from dependencies."
+      ],
+      "acceptance": "Preserve actual generated adapter boundary; generated clients require owner regeneration rather than handwritten repair."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

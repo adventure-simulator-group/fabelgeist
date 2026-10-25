@@ -1,0 +1,111 @@
+{
+  "id": "CONT07-F098",
+  "at": "2026-10-23T22:23:27.025041+00:00",
+  "classification": "source-confirmed conditional tactical equipment-contact receipt omission; no executed contact/mission claimed",
+  "title": "Weapon blocks select a weapon slot but receipt classification requires a shield",
+  "sources": [
+    {
+      "scope_index": 2026,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat.rs",
+      "sha256": "847551347ed20961db50cd3ef65998a772b1d732f26b4810f4ccb725685547ba",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/combat.rs",
+      "ranges": [
+        [
+          147,
+          161
+        ]
+      ]
+    },
+    {
+      "scope_index": 2032,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/consequence.rs",
+      "sha256": "9e767c76aa28c3742a0d11658983b2ce4abfd2fb63bc89962d5f1c02b3e396d0",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/combat/consequence.rs",
+      "ranges": [
+        [
+          113,
+          174
+        ],
+        [
+          227,
+          240
+        ]
+      ]
+    },
+    {
+      "scope_index": 2034,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/defense.rs",
+      "sha256": "68cb46b9efe6c4f44ba41fe4386c02fa7000314c52d6e10b7d33fa9742290d8e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/combat/defense.rs",
+      "ranges": [
+        [
+          173,
+          182
+        ]
+      ]
+    },
+    {
+      "scope_index": 2042,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/melee/outcome.rs",
+      "sha256": "b1df703eee8ffb66e22145a48e714ea090151771043a2c85b99905acb930c2f4",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/combat/melee/outcome.rs",
+      "ranges": [
+        [
+          9,
+          68
+        ]
+      ]
+    },
+    {
+      "scope_index": 901,
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/melee_resolution.rs",
+      "sha256": "5dd8e24f1b117b07079d9bbd53930a23740ac4970336b315e88a11642e2d0635",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/combat/melee_resolution.rs",
+      "ranges": [
+        [
+          1,
+          123
+        ]
+      ]
+    },
+    {
+      "scope_index": 897,
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/defense.rs",
+      "sha256": "a3019cfa64106abc38bbfa7b0962e406cc6cb1a1a663a8a0dfdee71f874201e1",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/combat/defense.rs",
+      "ranges": [
+        [
+          125,
+          194
+        ],
+        [
+          234,
+          295
+        ]
+      ]
+    },
+    {
+      "scope_index": 891,
+      "source_id": "pr-working:crates/adventuresim-core/src/combat.rs",
+      "sha256": "7d00629a7da937cf41b5bc49a86df7119cc7054743dce1f70ac2507a7aba59b0",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/combat.rs",
+      "ranges": [
+        [
+          180,
+          350
+        ]
+      ]
+    }
+  ],
+  "earliest_failed_contract": "The accepted defensive implement is a weapon when a shieldless actor performs a neutral raised-guard Block. Slot selection handles this explicitly; receipt recording independently reconstructs Block as shield-only and discards the real contact.",
+  "counterexample": "A party defender with a held WeaponItem and no ShieldItem raises guard while neutral. passive_block_response returns Block; defender_blocking_slot returns weapon side. On a successful physical Block with positive contact force, Core avoided_contact returns ToAttacker physical_contact=true. emit_melee_outcome carries the actual fallback weapon slot. record_melee_equipment_contacts sets require_shield=true solely because response is Block, so the correct owner/slot WeaponItem fails defender_equipment_contact_matches and receives no equipment stress receipt. These are supported source branches; no specific run occurrence asserted.",
+  "actual_recipient": "TacticalConsequenceAccumulator.equipment_contacts is the mission equipment contact receipt, unlike diagnostic F097 counters. The loop finds no valid defender implement when require_shield is true and all defender items lack ShieldItem.",
+  "qualification": "Shielded Block and Parry use the expected concrete implement paths. The witness concerns the explicit shieldless weapon Block fallback; no generic permission to block empty-handed or claim about current database durability processing beyond retained receipt omission. Accepted result may vary with actual skills/alignment, so occurrence is conditional on a successful physical contact.",
+  "connected_repair": "Carry one authoritative accepted defensive implement identity/kind through contact resolution and receipt recording, or derive required classification from the same resolved actual item/slot. Do not infer shield identity merely from Block response.",
+  "acceptance": "A successful positive-force shieldless weapon Block records defender weapon stress; a shield Block records its shield, and nonphysical miss/dodge records neither. No test/build/probe executed or added in this audit.",
+  "related_not_alias": [
+    "CONT07-F097 report classification only"
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

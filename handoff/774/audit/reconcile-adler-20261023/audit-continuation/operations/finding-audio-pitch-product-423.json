@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-04-AUDIO-PITCH-PRODUCT-CANDIDATE-001",
+  "kind": "source-backed admitted custom-configuration arithmetic candidate",
+  "operation": "movement_audio.rs:303-310",
+  "admission": "audio_config.rs:120-132,175-197 positive finite rustle pitches and positive ordered pitch range",
+  "witness": "Representable admitted config tall_grass_rustle_pitch=f32::MAX, movement.pitch_randomization=[2,2]. Interpolated pitch remains 2 for every inclusive sample; base_speed*pitch overflows to Inf, published to PlaybackSettings.speed. Rustle route actual play_locomotion_audio -> spawn_rustle -> spawn_spatial_sound. No randomized endpoint assumption required.",
+  "consumer": "main.rs native --audio-config load and wasm_run/wasm_boot parse install validated config; movement sound ECS playback settings receive unadmitted completed speed.",
+  "qualifications": [
+    "No custom configuration installed, no native audio execution or actual playback failure asserted.",
+    "Frozen assets/config/tactical-audio.yaml actual pitches1.12/.88, range.94..1.06 produce normal finite speeds.",
+    "Root searched 1002 archived records for playback/spawn_spatial_sound/pitch_randomization and overflow terms, no indexed exact match; this is not exhaustive semantic alias proof.",
+    "Finite operands alone are insufficient; no demand for arbitrary restrictive pitch maximum if completed-product rejection or safe arithmetic owns the policy."
+  ],
+  "dependencies": [
+    "existing audio admission owner and actual playback speed boundary",
+    "main custom configuration admission",
+    "archive canonical alias resolution pending"
+  ],
+  "acceptance": [
+    "Every admitted rustle base/range combination must yield finite positive native playback speed or reject before sound publication, with explicit failure policy.",
+    "Preserve authored volume/pitch randomization and deterministic sample selection; exercise current normal configuration and representative extreme finite product."
+  ]
+}

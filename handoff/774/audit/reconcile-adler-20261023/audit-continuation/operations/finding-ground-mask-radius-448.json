@@ -1,0 +1,31 @@
+{
+  "id": "SEGOVB-04-GROUND-MASK-RADIUS-OVERFLOW-CANDIDATE-001",
+  "classification": "exact archive alias with additional independently read04 arithmetic support",
+  "source_variant": "pr-working frozen exact catalog objects",
+  "operation": "SceneGround::from_samples admits 2x2 scale1e-30 with four valid surfaces. organic_ground_pixels makes7x7; encode_canopy_floor_distance derives inner/outer radius ceil(constant/(scale/6)) as usize, saturating to usizeMAX. chamfer_distance_to maximum+1 then overflows for each nonsource texel. grass_cover_mask_pixels derives same unsupported radius.",
+  "consumer": "terrain material ground texture / grass cover mask retained image",
+  "failure_policy": "checked arithmetic panic vs wrapping builds initialize zero distance, yielding incorrect alpha/feather fields. No project execution or live actor/config witness. No enormous allocation required for this counterexample.",
+  "qualification": "Positive scale is intentionally legal; do not arbitrarily narrow tactical world coordinates or impose WGS84. Raw helper arbitrary dimensions also need product/index boundary policy but lack small concrete admitted dimension witness here.",
+  "dependencies": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/ground.rs",
+      "sha256": "54559503a139270a829c73a46cb1ba81b69ada99dc3827350e16b575c4139d8a",
+      "read_ranges": [
+        [
+          1,
+          182
+        ]
+      ],
+      "coverage": "fresh exact admission dependency; no unrelated role coverage transferred"
+    }
+  ],
+  "repair_contract": "Bound useful chamfer radius to finite raster reach or explicitly reject unrepresentable operation before publication; checked sentinel arithmetic.",
+  "acceptance": [
+    "2x2 finitepositive tiny-scale API retains deterministic correct no-source/full-source mask semantics without overflow",
+    "ordinary1m/2m scale deterministic pixels and intentional grass-side feather retained",
+    "surface material preparation failure preserves pending retry"
+  ],
+  "aliases": "audit/continuation/rig/admission03/root-support/findings.jsonl#line4 (zero-based record3)",
+  "canonical_id": "RIG-ROOT-ADM03-SUPPLEMENT-004",
+  "repair_qualification": "Preserve anyfinitepositivephysical SceneGround scale. Native completed raster must rejectunrepresentablederivedstate beforepublication; an explicit semantics-preserving bounded-distance algorithm may avoid giant radius but silent invalid-radius clamp is not assumed authorized."
+}

@@ -1,0 +1,88 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-271",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/message/server_event.rs",
+      "sha256": "7581eeb1d81d9aca0af14bf56033e76b351ceb6237d950b42639821ea8c18a97",
+      "actual_EOF": 233,
+      "actual_compared_ranges": [
+        [
+          1,
+          233
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/message/server_message.rs",
+      "sha256": "45e815a2ac1b0e0c9117be00cbb45355a5085ed54c1e0225c82c4d5a3901532d",
+      "actual_EOF": 747,
+      "actual_compared_ranges": [
+        [
+          1,
+          747
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Server event registration and native source/recipient identity",
+      "source_ranges": {
+        "server_event.rs": [
+          [
+            1,
+            233
+          ]
+        ],
+        "server_message.rs": [
+          [
+            1,
+            302
+          ],
+          [
+            550,
+            747
+          ]
+        ]
+      },
+      "disposition": "Both complete pinned bodies personally read. Server event registration wraps E in a native message adapter, uses postcard defaults unless explicitly customized, and mapped events decode then Entity-map before publication. Trigger drain queues actual E only after message acceptance. Local server delivery drains ToClients and respects All/AllExcept/Single; intentionally bypasses wire decode. make independent requires prior registration and panics on absent registry entry, explicit native registration precondition rather than proven current first-party ordering bug. Native SendTargets is authoritative recipient enum; deprecated SendMode alias is pinned upstream evidence, not authorization to edit dependency or preserve/add a first-party compatibility API."
+    },
+    {
+      "contract": "Server buffers prepare serialization before insert; actual serializer failure is fatal expectation",
+      "source_ranges": {
+        "server_message.rs": [
+          [
+            303,
+            450
+          ]
+        ]
+      },
+      "disposition": "Server send iterates current cursor and relies on later local drain to prevent repeated publication. Independent send allocates fresh Vec, serializes fully then sends immutable Bytes clones to selected clients; buffered send allocates fixed native tick padding then inserts only after serialization returnsOk. Failed serializer cannot insert partial bytes on these local paths but send_or_buffer calls expect and therefore panics on callback Err. This is an explicit native invariant requiring actually registered first-party Serialize to support every published message. No concrete current server message with reachable failing serializer, network execution or panic witness established; keep codec candidate003 and first-party native-admission dependencies separate. Fixed RepliconTick::POSTCARD_MAX_SIZE padding is a native wire contract, not invented integer cap."
+    },
+    {
+      "contract": "Tick queue and reconnect reset publish decoded values after acceptance",
+      "source_ranges": {
+        "server_message.rs": [
+          [
+            452,
+            550
+          ],
+          [
+            575,
+            747
+          ]
+        ]
+      },
+      "disposition": "Queued messages pop only when their replication tick<=update_tick; each owned message decodes before writing. New payload validates tick first, queues future messages without semantic decoding, and logs/discards malformed tick or body. This wrapper has no local queue cap; actual MessageQueue/transport/trusted server lifetime remains dependency, no resource-exhaustion allegation without concrete first-party producer. Missing mapped Entities are rejected and list cleared after successful custom decode; early callback Err can retain mapping context similarly to client path, requiring an actual failing registered mapper/context continuation witness. reset clears queued messages intentionally on disconnect, not a broken replay guarantee. Native tick comparison/wrap semantics remain owner dependency; no raw-u32 chronology imposed. No tests or transport sessions executed."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pinned-bevy_replicon-0.41.1:src/shared/replication/registry/rule_fns.rs"
+}

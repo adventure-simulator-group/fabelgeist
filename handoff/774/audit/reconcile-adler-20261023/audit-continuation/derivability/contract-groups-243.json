@@ -1,0 +1,608 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-243",
+  "at": "2026-10-25T14:05:40.277170+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 480,
+      "source_id": "pinned-registry:avian3d-0.7.0/Cargo.toml",
+      "sha256": "784418664acf79e35890108db95d9b43517706726665ab37152f3f252cb0dba9",
+      "actual_EOF": 407,
+      "requested_registration": {
+        "source_id": "pinned-registry:avian3d-0.7.0/Cargo.toml",
+        "snapshot": "pinned-registry",
+        "path": "CARGO_REGISTRY/avian3d-0.7.0/Cargo.toml",
+        "sha256": "784418664acf79e35890108db95d9b43517706726665ab37152f3f252cb0dba9",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 7168,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 591,
+            "read_ranges": [
+              [
+                55,
+                104
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-NATIVE-PHYSICS-PORT-071"
+            ],
+            "read_status": "fresh_scoped_current_lens_actual_native_owner_and_receiving_body",
+            "resolved_path": "CARGO_REGISTRY/avian3d-0.7.0/Cargo.toml"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CAMERA-BOUNDARIES-048",
+            "json_pointer": "/current_sources/14",
+            "source_id_as_recorded": "pinned-registry:avian3d-0.7.0/Cargo.toml",
+            "read_ranges_as_recorded": [
+              [
+                55,
+                104
+              ]
+            ],
+            "source_context": {
+              "index": 623,
+              "source_id": "pinned-registry:avian3d-0.7.0/Cargo.toml",
+              "path": "CARGO_REGISTRY/avian3d-0.7.0/Cargo.toml",
+              "sha256": "784418664acf79e35890108db95d9b43517706726665ab37152f3f252cb0dba9",
+              "read_ranges": [
+                [
+                  55,
+                  104
+                ]
+              ],
+              "mode": "Fresh exact assigned native type/feature/cast/collider/hit-result numerical boundary source ranges, plus full cast body523\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153596; not wholeforeignmodule clearance."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 0,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CAMERA-BOUNDARIES-048",
+            "json_pointer": "/additional_actual_source_proofs/9",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row3/proofs/1",
+            "read_ranges_as_recorded": [
+              [
+                364,
+                381
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                364,
+                381
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "Fresh actual bounded application/native receiving body read",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1323,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          55,
+          107
+        ],
+        [
+          364,
+          381
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "Exact serde derive optional dependency and serialization/nativeParry feature gates; thiserror2 dependency.",
+      "absence_basis": "All scoped manifest material plus serialize feature closure105\u2013107 consumed. f32/f64/2d/3d/native feature identity preserved; dependency availability only, no code body coverage.",
+      "necessary_signature_extension": {
+        "additional_ranges": [
+          [
+            105,
+            107
+          ]
+        ],
+        "reason": "Complete reached serialize feature array."
+      }
+    },
+    {
+      "scope_index": 481,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/collision/collider/parry/mod.rs",
+      "sha256": "2a04ce7d6913b008e654905c96ead648efd840ddf102863532bc38bd187e3945",
+      "actual_EOF": 1830,
+      "requested_registration": {
+        "source_id": "pinned-registry:avian3d-0.7.0/src/collision/collider/parry/mod.rs",
+        "snapshot": "pinned-registry",
+        "path": "CARGO_REGISTRY/avian3d-0.7.0/src/collision/collider/parry/mod.rs",
+        "sha256": "2a04ce7d6913b008e654905c96ead648efd840ddf102863532bc38bd187e3945",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 72493,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 592,
+            "read_ranges": [
+              [
+                633,
+                719
+              ],
+              [
+                705,
+                810
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-NATIVE-PHYSICS-PORT-071"
+            ],
+            "read_status": "fresh_scoped_current_lens_actual_native_owner_and_receiving_body",
+            "resolved_path": "CARGO_REGISTRY/avian3d-0.7.0/src/collision/collider/parry/mod.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-TACTICAL-RECEIVERS-044",
+            "json_pointer": "/additional_actual_source_proofs/45",
+            "source_id_as_recorded": "pinned-avian3d-0.7.0:src/collision/collider/parry/mod.rs",
+            "read_ranges_as_recorded": [
+              [
+                390,
+                435
+              ],
+              [
+                651,
+                695
+              ]
+            ],
+            "source_context": {
+              "source_id": "pinned-avian3d-0.7.0:src/collision/collider/parry/mod.rs",
+              "sha256": "2a04ce7d6913b008e654905c96ead648efd840ddf102863532bc38bd187e3945",
+              "actual_line_count": 1830,
+              "read_ranges": [
+                [
+                  390,
+                  435
+                ],
+                [
+                  651,
+                  695
+                ]
+              ],
+              "resolved_path": "CARGO_REGISTRY/avian3d-0.7.0/src/collision/collider/parry/mod.rs",
+              "method": "Fresh exact installed dependency body only at actual receiving callback/byte/physical/network ports; package versions matched existing Cargo.lock, no project execution or whole dependency clearance."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CAMERA-BOUNDARIES-048",
+            "json_pointer": "/current_sources/15",
+            "source_id_as_recorded": "pinned-registry:avian3d-0.7.0/src/collision/collider/parry/mod.rs",
+            "read_ranges_as_recorded": [
+              [
+                633,
+                719
+              ],
+              [
+                705,
+                810
+              ]
+            ],
+            "source_context": {
+              "index": 624,
+              "source_id": "pinned-registry:avian3d-0.7.0/src/collision/collider/parry/mod.rs",
+              "path": "CARGO_REGISTRY/avian3d-0.7.0/src/collision/collider/parry/mod.rs",
+              "sha256": "2a04ce7d6913b008e654905c96ead648efd840ddf102863532bc38bd187e3945",
+              "read_ranges": [
+                [
+                  633,
+                  719
+                ],
+                [
+                  705,
+                  810
+                ]
+              ],
+              "mode": "Fresh exact assigned native type/feature/cast/collider/hit-result numerical boundary source ranges, plus full cast body523\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153596; not wholeforeignmodule clearance."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-COMBAT-RECEIVER-CLOSURE-020",
+            "json_pointer": "/source_reads/45",
+            "source_id_as_recorded": "pinned-avian3d-0.7.0:src/collision/collider/parry/mod.rs",
+            "read_ranges_as_recorded": [
+              [
+                390,
+                435
+              ],
+              [
+                651,
+                695
+              ]
+            ],
+            "source_context": {
+              "source_id": "pinned-avian3d-0.7.0:src/collision/collider/parry/mod.rs",
+              "sha256": "2a04ce7d6913b008e654905c96ead648efd840ddf102863532bc38bd187e3945",
+              "actual_line_count": 1830,
+              "read_ranges": [
+                [
+                  390,
+                  435
+                ],
+                [
+                  651,
+                  695
+                ]
+              ],
+              "resolved_path": "CARGO_REGISTRY/avian3d-0.7.0/src/collision/collider/parry/mod.rs",
+              "method": "Fresh exact installed dependency body only at actual receiving callback/byte/physical/network ports; package versions matched existing Cargo.lock, no project execution or whole dependency clearance."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "continuation_actual_producer_source_proofs": [
+          {
+            "record": "continuation/root/foreign-alias-producer-003.json",
+            "json_pointer": "/source_proofs/1",
+            "source_id": "pinned-registry:avian3d-0.7.0/src/collision/collider/parry/mod.rs",
+            "sha256": "2a04ce7d6913b008e654905c96ead648efd840ddf102863532bc38bd187e3945",
+            "read_ranges": [
+              [
+                390,
+                441
+              ],
+              [
+                651,
+                695
+              ]
+            ],
+            "proof": {
+              "source_id": "pinned-registry:avian3d-0.7.0/src/collision/collider/parry/mod.rs",
+              "alias_as_recorded": "pinned-avian3d-0.7.0:src/collision/collider/parry/mod.rs",
+              "sha256": "2a04ce7d6913b008e654905c96ead648efd840ddf102863532bc38bd187e3945",
+              "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\avian3d-0.7.0\\src\\collision\\collider\\parry\\mod.rs",
+              "read_ranges": [
+                [
+                  390,
+                  441
+                ],
+                [
+                  651,
+                  695
+                ]
+              ],
+              "source_role": "Actual AnyCollider AABB computes native Parry bounds from physics pose; contact_manifolds_with_context forwards the complete native physics contract to contact_query; cast_ray/intersects_ray invoke the native shape/ray algorithms and return native measurements. These concrete foreign bodies are endpoints for game-owned checked geometry, not blanket waivers for earlier application retention.",
+              "proof_mode": "Fresh actual bounded body reads by root; identity normalization alone supplied no semantic credit.",
+              "producer_disposition": "exact reached foreign producer/recipient role accounted; application findings retained; no later-lens credit"
+            },
+            "limits": "Actual source-role proof for producer lens only; no owner-fit or other-lens clearance."
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1324,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          388,
+          441
+        ],
+        [
+          628,
+          810
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Default",
+          "type": "Collider",
+          "lines": [
+            388,
+            399
+          ],
+          "disposition": "KEEP explicit .5-dimension rectangle/cuboid geometry policy conditional2d/3d; not arbitrary underlying shape field Default."
+        },
+        {
+          "trait": "AnyCollider",
+          "type": "Collider",
+          "lines": [
+            401,
+            441
+          ],
+          "disposition": "KEEP native scaled shape/pose AABB and contact manifold query behavior with unit context; custom behavioral trait cannot be structural derived."
+        }
+      ],
+      "existing_derives": "No mechanical hand serialization in exact material slices.",
+      "absence_basis": "Scoped union390\u2013441/633\u2013810 plus full Default header388\u2013389 and contains_point signature628\u2013632 personally consumed. Native collider constructors own full-extents-to-half-extents conversion, frame/scale and native shape admission; not From field projection. Not whole1830-line library.",
+      "necessary_signature_extension": {
+        "additional_ranges": [
+          [
+            388,
+            389
+          ],
+          [
+            628,
+            632
+          ]
+        ],
+        "reason": "Scoped ranges begin inside exact Default and contains_point bodies."
+      }
+    },
+    {
+      "scope_index": 482,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/math/mod.rs",
+      "sha256": "67a006eda87315f690718b4d9c45b656b04958f32a80dffb0700cd9fa2d3a0e0",
+      "actual_EOF": 668,
+      "requested_registration": {
+        "source_id": "pinned-registry:avian3d-0.7.0/src/math/mod.rs",
+        "snapshot": "pinned-registry",
+        "path": "CARGO_REGISTRY/avian3d-0.7.0/src/math/mod.rs",
+        "sha256": "67a006eda87315f690718b4d9c45b656b04958f32a80dffb0700cd9fa2d3a0e0",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 16801,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 590,
+            "read_ranges": [
+              [
+                1,
+                70
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-NATIVE-PHYSICS-PORT-071"
+            ],
+            "read_status": "fresh_scoped_current_lens_actual_native_owner_and_receiving_body",
+            "resolved_path": "CARGO_REGISTRY/avian3d-0.7.0/src/math/mod.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CAMERA-BOUNDARIES-048",
+            "json_pointer": "/current_sources/13",
+            "source_id_as_recorded": "pinned-registry:avian3d-0.7.0/src/math/mod.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                70
+              ]
+            ],
+            "source_context": {
+              "index": 622,
+              "source_id": "pinned-registry:avian3d-0.7.0/src/math/mod.rs",
+              "path": "CARGO_REGISTRY/avian3d-0.7.0/src/math/mod.rs",
+              "sha256": "67a006eda87315f690718b4d9c45b656b04958f32a80dffb0700cd9fa2d3a0e0",
+              "read_ranges": [
+                [
+                  1,
+                  70
+                ]
+              ],
+              "mode": "Fresh exact assigned native type/feature/cast/collider/hit-result numerical boundary source ranges, plus full cast body523\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153596; not wholeforeignmodule clearance."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1322,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          70
+        ],
+        [
+          100,
+          105
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "Feature-dependent native type aliases, no local standard trait or Serde implementation.",
+      "absence_basis": "Scoped1\u201370 feature/frame alias definitions consumed plus immediate AdjustPrecision declaration100\u2013105 necessary for reached single.rs custom implementations. No whole668-line library; unused aliases/other helper bodies uncredited.",
+      "necessary_signature_extension": {
+        "additional_ranges": [
+          [
+            100,
+            105
+          ]
+        ],
+        "reason": "Exact custom trait associated output/borrowed receiver contract used by original483."
+      }
+    },
+    {
+      "scope_index": 483,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/math/single.rs",
+      "sha256": "279b93c665684614416422084c7c9a7aca565ef6a57bd3fa61e76e388a1f71b9",
+      "actual_EOF": 146,
+      "requested_registration": {
+        "source_id": "pinned-registry:avian3d-0.7.0/src/math/single.rs",
+        "snapshot": "pinned-registry",
+        "path": "CARGO_REGISTRY/avian3d-0.7.0/src/math/single.rs",
+        "sha256": "279b93c665684614416422084c7c9a7aca565ef6a57bd3fa61e76e388a1f71b9",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 3724,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 589,
+            "read_ranges": [
+              [
+                1,
+                85
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-NATIVE-PHYSICS-PORT-071"
+            ],
+            "read_status": "fresh_scoped_current_lens_actual_native_owner_and_receiving_body",
+            "resolved_path": "CARGO_REGISTRY/avian3d-0.7.0/src/math/single.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CAMERA-BOUNDARIES-048",
+            "json_pointer": "/current_sources/12",
+            "source_id_as_recorded": "pinned-registry:avian3d-0.7.0/src/math/single.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                85
+              ]
+            ],
+            "source_context": {
+              "index": 621,
+              "source_id": "pinned-registry:avian3d-0.7.0/src/math/single.rs",
+              "path": "CARGO_REGISTRY/avian3d-0.7.0/src/math/single.rs",
+              "sha256": "279b93c665684614416422084c7c9a7aca565ef6a57bd3fa61e76e388a1f71b9",
+              "read_ranges": [
+                [
+                  1,
+                  85
+                ]
+              ],
+              "mode": "Fresh exact assigned native type/feature/cast/collider/hit-result numerical boundary source ranges, plus full cast body523\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153596; not wholeforeignmodule clearance."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1321,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "AdjustPrecision",
+          "type": "f32 / f64 / Vec3 / DVec3 / Vec2 / DVec2",
+          "lines": [
+            [
+              50,
+              55
+            ],
+            [
+              57,
+              62
+            ],
+            [
+              64,
+              69
+            ],
+            [
+              71,
+              76
+            ],
+            [
+              78,
+              83
+            ],
+            [
+              85,
+              90
+            ]
+          ],
+          "disposition": "KEEP custom associated-type borrowed native precision adapters; f64/DVec narrow through native conversions, f32/Vec identity specific to feature. No available project derive implements custom trait; blanket From substitution changes borrowed signature/trait API."
+        }
+      ],
+      "existing_derives": "Native scalar/vector/matrix/quaternion aliases, no local record boilerplate.",
+      "absence_basis": "Scoped1\u201385 plus final DVec2 implementation86\u201390 consumed. No further quaternion/matrix implementation credit; exploratory92 declaration uncredited.",
+      "necessary_signature_extension": {
+        "additional_ranges": [
+          [
+            86,
+            90
+          ]
+        ],
+        "reason": "Registration ends at reached DVec2 implementation header; complete body required."
+      }
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Native collider geometry policies and precision traits",
+      "disposition": "Retain semantic/default/native precision implementations; optional derives already enabled where used, no replacement found.",
+      "acceptance": "Preserve feature-specific native shape/dimension precision, borrowed receiver/associated output, unit frame and half-extent operations. No new precision policy or native/library-wide clearance."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 484,
+    "source_id": "pinned-registry:avian3d-0.7.0/src/physics_transform/transform.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

@@ -1,0 +1,613 @@
+{
+  "rows": [
+    {
+      "evidence_file": "../camera/coverage.jsonl",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability.rs",
+      "observed_sha256": "3249a867a88a75dc29d514b94c01a89965aed2c037a05fdbcc9109b0bde179f6",
+      "read_ranges": [
+        [
+          1,
+          694
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-STRATEGIC-PROJECTION-001",
+        "CAM-PROP-CONCENTRATION-001",
+        "CAM-PROP-WEAPON-STORAGE-001"
+      ],
+      "proof_scope": "Same-wave other-agent full-source proof, not native firsthand read or whole graph clearance"
+    },
+    {
+      "evidence_file": "../camera/coverage.jsonl",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/character.rs",
+      "observed_sha256": "806a50bc71cade3ffdf93f52a62693f7d02d4d55a52e1cce7e5983b894ec28cf",
+      "read_ranges": [
+        [
+          1,
+          3983
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-CHARACTER-001",
+        "CAM-PROP-STRATEGIC-PROJECTION-001",
+        "CAM-PROP-ITEM-ID-001"
+      ],
+      "proof_scope": "Same-wave other-agent full-source proof, not native firsthand read or whole graph clearance"
+    },
+    {
+      "evidence_file": "../camera/coverage.jsonl",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/corpse.rs",
+      "observed_sha256": "ae853a404a9463c18ad6bf2d0b06e86f6fc35061f88cd34e823fc3df0aebbc3f",
+      "read_ranges": [
+        [
+          1,
+          2121
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-AUTOPSY-001",
+        "CAM-PROP-CHARACTER-001",
+        "CAM-PROP-CORPSE-001"
+      ],
+      "proof_scope": "Same-wave other-agent full-source proof, not native firsthand read or whole graph clearance"
+    },
+    {
+      "evidence_file": "../camera/coverage.jsonl",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "observed_sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "read_ranges": [
+        [
+          1,
+          1586
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-STRATEGIC-BATTLE-001",
+        "CAM-PROP-AUTHORITY-001"
+      ],
+      "proof_scope": "Same-wave other-agent full-source proof, not native firsthand read or whole graph clearance"
+    },
+    {
+      "evidence_file": "../camera/coverage.jsonl",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+      "observed_sha256": "88470ea4f157d8b74f281effcb8bac261e5f3af81a84fe81562a9a549d695d6d",
+      "read_ranges": [
+        [
+          1,
+          1463
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-ENCOUNTER-001",
+        "CAM-PROP-STRATEGIC-BATTLE-001"
+      ],
+      "proof_scope": "Same-wave other-agent full-source proof, not native firsthand read or whole graph clearance"
+    },
+    {
+      "evidence_file": "../camera/coverage.jsonl",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+      "observed_sha256": "9511a258a4133480d0581e538ae88d41ccff8d90ce6a0658ff71e28267b35eb5",
+      "read_ranges": [
+        [
+          1,
+          2973
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-MISSION-001",
+        "CAM-PROP-ENCOUNTER-001",
+        "CAM-PROP-STRATEGIC-BATTLE-001",
+        "CAM-PROP-DEVELOPMENT-001"
+      ],
+      "proof_scope": "Same-wave other-agent full-source proof, not native firsthand read or whole graph clearance"
+    },
+    {
+      "evidence_file": "../camera/coverage.jsonl",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/capability.rs",
+      "observed_sha256": "78dedc50a9d6ed96ba7f2bb88a85ff2c1f762296d8c7867acc99ea2e7aed98bd",
+      "read_ranges": [
+        [
+          1,
+          555
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-STRATEGIC-PROJECTION-001",
+        "CAM-PROP-CONCENTRATION-001",
+        "CAM-PROP-WEAPON-STORAGE-001"
+      ],
+      "proof_scope": "Same-wave other-agent full-source proof, not native firsthand read or whole graph clearance"
+    },
+    {
+      "evidence_file": "../camera/coverage.jsonl",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/character.rs",
+      "observed_sha256": "1c346cbf22b4b7ad34cdd6b515b08d015c43e6489f953aa3a75ea40d8e3c675c",
+      "read_ranges": [
+        [
+          1,
+          3987
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-CHARACTER-001",
+        "CAM-PROP-STRATEGIC-PROJECTION-001",
+        "CAM-PROP-ITEM-ID-001"
+      ],
+      "proof_scope": "Same-wave other-agent full-source proof, not native firsthand read or whole graph clearance"
+    },
+    {
+      "evidence_file": "../camera/coverage.jsonl",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/condition.rs",
+      "observed_sha256": "48d1fbefb0cc475a98585e46dc0f4dabdef2c47eaa4bbb1ffb699ba604dc3758",
+      "read_ranges": [
+        [
+          1,
+          2628
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-STRATEGIC-CONDITION-001"
+      ],
+      "proof_scope": "Same-wave other-agent full-source proof, not native firsthand read or whole graph clearance"
+    },
+    {
+      "evidence_file": "../camera/coverage.jsonl",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/corpse.rs",
+      "observed_sha256": "7c9ccbcd887b073dab9e1e468d3e89b3b491124213383e12957c5e5736f06242",
+      "read_ranges": [
+        [
+          1,
+          2122
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-AUTOPSY-001",
+        "CAM-PROP-CHARACTER-001",
+        "CAM-PROP-CORPSE-001"
+      ],
+      "proof_scope": "Same-wave other-agent full-source proof, not native firsthand read or whole graph clearance"
+    },
+    {
+      "evidence_file": "../camera/coverage.jsonl",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/ingredient_preparation.rs",
+      "observed_sha256": "9e75b9aba8942a342cb8fefc7b4d41940349122a52c86c976547d280e751a509",
+      "read_ranges": [
+        [
+          1,
+          652
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-PREPARATION-001"
+      ],
+      "proof_scope": "Same-wave other-agent full-source proof, not native firsthand read or whole graph clearance"
+    },
+    {
+      "evidence_file": "../camera/coverage.jsonl",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/foraging.rs",
+      "observed_sha256": "c58f33b486ca2344cd5e4a141065bf3f39de22d6dc739e48a217ae969173d604",
+      "read_ranges": [
+        [
+          1,
+          1381
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-FORAGING-001"
+      ],
+      "proof_scope": "Same-wave other-agent full-source proof, not native firsthand read or whole graph clearance"
+    },
+    {
+      "evidence_file": "../camera/coverage.jsonl",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/herbalism.rs",
+      "observed_sha256": "98a9b9265a294f16c734dc7a90ca9cbb9f7770b359a71fdbdc4e19a3736ad934",
+      "read_ranges": [
+        [
+          1,
+          600
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-HERBALISM-001"
+      ],
+      "proof_scope": "Same-wave other-agent full-source proof, not native firsthand read or whole graph clearance"
+    },
+    {
+      "evidence_file": "../camera/coverage.jsonl",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/npc_causal.rs",
+      "observed_sha256": "f148788fb9f35b6fd5762cb3905c229568da28a9fc3b0556b662fa5ec10b6532",
+      "read_ranges": [
+        [
+          1,
+          635
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-DURABLE-LIFECYCLE-001"
+      ],
+      "proof_scope": "Same-wave other-agent full-source proof, not native firsthand read or whole graph clearance"
+    },
+    {
+      "evidence_file": "../camera/coverage.jsonl",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/chronology.rs",
+      "observed_sha256": "9bd03249bc0fbc1de28571a08035a777f3ab8fe1ddd0ac177d6e32b3693ee621",
+      "read_ranges": [
+        [
+          1,
+          200
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-HOUSEHOLD-REPAIR-001"
+      ],
+      "proof_scope": "Same-wave other-agent full-source proof, not native firsthand read or whole graph clearance"
+    },
+    {
+      "evidence_file": "../camera/coverage.jsonl",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/simulation/disease_fixture.rs",
+      "observed_sha256": "f7a9183b1a46d23e9a981d895678917171d40b3ab22c6c9dfd9a7a6cca83d84b",
+      "read_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-NPC-FORGE-001"
+      ],
+      "proof_scope": "Same-wave other-agent full-source proof, not native firsthand read or whole graph clearance"
+    },
+    {
+      "evidence_file": "../camera/coverage.jsonl",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/smithing.rs",
+      "observed_sha256": "428e697ec583b24ab798b6dadd2c67abf251e6359ed5b26a9d4819f93e266ce3",
+      "read_ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-NPC-FORGE-001"
+      ],
+      "proof_scope": "Same-wave other-agent full-source proof, not native firsthand read or whole graph clearance"
+    },
+    {
+      "evidence_file": "../camera/coverage.jsonl",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social.rs",
+      "observed_sha256": "93e446648725e961aaac7377e920dd07a8fcef4b7c0ff243ad9b054801f2ca41",
+      "read_ranges": [
+        [
+          1,
+          3805
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-SOCIAL-001"
+      ],
+      "proof_scope": "Same-wave other-agent full-source proof, not native firsthand read or whole graph clearance"
+    },
+    {
+      "evidence_file": "../camera/coverage.jsonl",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+      "observed_sha256": "a1005d38cb2af372af21abdfbba3af8f2209de2fa20a31d3d084792d49acbf46",
+      "read_ranges": [
+        [
+          1,
+          2815
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-ROAD-DIALOGUE-001"
+      ],
+      "proof_scope": "Same-wave other-agent full-source proof, not native firsthand read or whole graph clearance"
+    },
+    {
+      "evidence_file": "../camera/coverage.jsonl",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+      "observed_sha256": "3c9ffa24338de25378c4f5b46c684ed6e4dbe34e70b4edff6badc1df3f025340",
+      "read_ranges": [
+        [
+          1,
+          1463
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-ENCOUNTER-001",
+        "CAM-PROP-STRATEGIC-BATTLE-001"
+      ],
+      "proof_scope": "Same-wave other-agent full-source proof, not native firsthand read or whole graph clearance"
+    },
+    {
+      "evidence_file": "../camera/coverage.jsonl",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+      "observed_sha256": "4421b1617dbe612f0ac626645aea036d082746d7823e383da6492db3334517a3",
+      "read_ranges": [
+        [
+          1,
+          2973
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-MISSION-001",
+        "CAM-PROP-ENCOUNTER-001",
+        "CAM-PROP-STRATEGIC-BATTLE-001",
+        "CAM-PROP-DEVELOPMENT-001"
+      ],
+      "proof_scope": "Same-wave other-agent full-source proof, not native firsthand read or whole graph clearance"
+    },
+    {
+      "evidence_file": "../camera/coverage.jsonl",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs",
+      "observed_sha256": "0d84cd735fae1cf275ad3e2003b55b209f41cdf0c4dc22c8acdeb1b7809864d2",
+      "read_ranges": [
+        [
+          1,
+          1029
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-TRAVEL-FIXTURES-001"
+      ],
+      "proof_scope": "Same-wave other-agent full-source proof, not native firsthand read or whole graph clearance"
+    },
+    {
+      "evidence_file": "../camera/coverage.jsonl",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/surgery.rs",
+      "observed_sha256": "e3beacbecc62d9b55e495bf21e6b2b430a08d0e464e6374a16047a4babf5ef08",
+      "read_ranges": [
+        [
+          1,
+          1435
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-SURGERY-001"
+      ],
+      "proof_scope": "Same-wave other-agent full-source proof, not native firsthand read or whole graph clearance"
+    },
+    {
+      "evidence_file": "../camera/related-paths.jsonl",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/condition.rs",
+      "observed_sha256": "294cb300d2e6c3cee8a6ed923a24ab450efd97cfb87254a10c7743943bc4d6f8",
+      "read_ranges": [
+        [
+          1,
+          2627
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-STRATEGIC-CONDITION-001"
+      ],
+      "proof_scope": "Same-wave other-agent full-source proof, not native firsthand read or whole graph clearance"
+    },
+    {
+      "evidence_file": "../camera/related-paths.jsonl",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/ingredient_preparation.rs",
+      "observed_sha256": "8424b8d20fe3619b57687d4e31b3715b141fe47d21a1f21d7c78ed11958c0b9f",
+      "read_ranges": [
+        [
+          1,
+          652
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-PREPARATION-001"
+      ],
+      "proof_scope": "Same-wave other-agent full-source proof, not native firsthand read or whole graph clearance"
+    },
+    {
+      "evidence_file": "../camera/related-paths.jsonl",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/foraging.rs",
+      "observed_sha256": "be82a5ef7905b05d68bba4d61d5173cba6011c51ee8504da85d697bb2d80df84",
+      "read_ranges": [
+        [
+          1,
+          1381
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-FORAGING-001"
+      ],
+      "proof_scope": "Same-wave other-agent full-source proof, not native firsthand read or whole graph clearance"
+    },
+    {
+      "evidence_file": "../camera/related-paths.jsonl",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/herbalism.rs",
+      "observed_sha256": "22a0312534bd03b91e900595bd44d7bffe8b159545dfd65c8eccfe207f8cb0b8",
+      "read_ranges": [
+        [
+          1,
+          600
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-HERBALISM-001"
+      ],
+      "proof_scope": "Same-wave other-agent full-source proof, not native firsthand read or whole graph clearance"
+    },
+    {
+      "evidence_file": "../camera/related-paths.jsonl",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/npc_causal.rs",
+      "observed_sha256": "3e8edab2fcd4988c3443a07ef35041bc7c9522ab9e6e025317b29608a41de263",
+      "read_ranges": [
+        [
+          1,
+          635
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-DURABLE-LIFECYCLE-001"
+      ],
+      "proof_scope": "Same-wave other-agent full-source proof, not native firsthand read or whole graph clearance"
+    },
+    {
+      "evidence_file": "../camera/related-paths.jsonl",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/chronology.rs",
+      "observed_sha256": "ee9606893c2011c97cecde3bb8bef19e0b6354b96c165b66695c8f9e2b104646",
+      "read_ranges": [
+        [
+          1,
+          200
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-HOUSEHOLD-REPAIR-001"
+      ],
+      "proof_scope": "Same-wave other-agent full-source proof, not native firsthand read or whole graph clearance"
+    },
+    {
+      "evidence_file": "../camera/related-paths.jsonl",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/simulation/disease_fixture.rs",
+      "observed_sha256": "af0610c33fb37a1d05d9adba1b25ad6e4d99a40045194429a62acf7c711150fc",
+      "read_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-NPC-FORGE-001"
+      ],
+      "proof_scope": "Same-wave other-agent full-source proof, not native firsthand read or whole graph clearance"
+    },
+    {
+      "evidence_file": "../camera/related-paths.jsonl",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/smithing.rs",
+      "observed_sha256": "aecea90ad65fd73946a24653499fdfe07a626491543cb20c57f5e70ae82e4d49",
+      "read_ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-NPC-FORGE-001"
+      ],
+      "proof_scope": "Same-wave other-agent full-source proof, not native firsthand read or whole graph clearance"
+    },
+    {
+      "evidence_file": "../camera/related-paths.jsonl",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/social.rs",
+      "observed_sha256": "a09342196732b00b8520e9a446aa9fdef60e8fd44a439032ebdadc21e6e8e4c5",
+      "read_ranges": [
+        [
+          1,
+          3800
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-SOCIAL-001"
+      ],
+      "proof_scope": "Same-wave other-agent full-source proof, not native firsthand read or whole graph clearance"
+    },
+    {
+      "evidence_file": "../camera/related-paths.jsonl",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+      "observed_sha256": "b7631b4632c175df4a0e7531e08f7ac9cb8deaaad24bd17eed0d978f7dc76906",
+      "read_ranges": [
+        [
+          1,
+          2815
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-ROAD-DIALOGUE-001"
+      ],
+      "proof_scope": "Same-wave other-agent full-source proof, not native firsthand read or whole graph clearance"
+    },
+    {
+      "evidence_file": "../camera/related-paths.jsonl",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs",
+      "observed_sha256": "ff33eb4a42abbfa737b312019fdfc7c457688d66bd84fb81af2364ed30fa9cfe",
+      "read_ranges": [
+        [
+          1,
+          1029
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-TRAVEL-FIXTURES-001"
+      ],
+      "proof_scope": "Same-wave other-agent full-source proof, not native firsthand read or whole graph clearance"
+    },
+    {
+      "evidence_file": "../camera/related-paths.jsonl",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/surgery.rs",
+      "observed_sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+      "read_ranges": [
+        [
+          1,
+          1435
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-SURGERY-001"
+      ],
+      "proof_scope": "Same-wave other-agent full-source proof, not native firsthand read or whole graph clearance"
+    },
+    {
+      "evidence_file": "../camera/coverage.jsonl",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/disease.rs",
+      "observed_sha256": "c001a52a7bb957260ae3914ca056d847292760b5911984791143b8a4a1ede2e5",
+      "read_ranges": [
+        [
+          1,
+          2950
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-DISEASE-001"
+      ],
+      "proof_scope": "Same-wave other-agent full source read, not native whole source or graph clearance"
+    },
+    {
+      "evidence_file": "../camera/related-paths.jsonl",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease.rs",
+      "observed_sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+      "read_ranges": [
+        [
+          1,
+          2950
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-DISEASE-001"
+      ],
+      "proof_scope": "Same-wave other-agent full source read, not native whole source or graph clearance"
+    },
+    {
+      "evidence_file": "../camera/related-paths.jsonl",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/administration_adapter.rs",
+      "observed_sha256": "980f43c8f979574fcc23678173933bcef9f8fc18e678d0070dc3c8ec1e2a3181",
+      "read_ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-FILTH-001",
+        "CAM-PROP-DISEASE-001"
+      ],
+      "proof_scope": "Same-wave other-agent full source read, not native whole source or graph clearance"
+    },
+    {
+      "evidence_file": "../camera/related-paths.jsonl",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/interval.rs",
+      "observed_sha256": "4384f792f23b407ce0400d31755a84c01e36c464be04edcea9ca39859deda652",
+      "read_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "trace_refs": [
+        "CAM-PROP-FILTH-001",
+        "CAM-PROP-DISEASE-001"
+      ],
+      "proof_scope": "Same-wave other-agent full source read, not native whole source or graph clearance"
+    }
+  ],
+  "scope": "Actual canonical cause/clock and materially distinct caller bodies already full read by camera this producer wave. Native supplemental traces link this exact source evidence, not historical verdicts."
+}

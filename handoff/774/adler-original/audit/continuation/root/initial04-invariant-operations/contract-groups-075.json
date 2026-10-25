@@ -1,0 +1,100 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-075",
+  "at": "2026-10-23T00:48:57.754778+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/joint_melee.rs",
+      "sha256": "7373a905f23ab3075cfb464c0a936ce1ebc33ba6c5c6ad23866b1a1479c5b983",
+      "actual_compared_ranges": [
+        [
+          1,
+          329
+        ]
+      ],
+      "source_evidence": "Fresh complete actual body; timing/identity and caller ownership contracts compared, existing tests source-only."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_defense.rs",
+      "sha256": "6fffe49da3ec9f55c7b6dfcdeb723ef065569b78b004db991367d44329ee7fe9",
+      "actual_compared_ranges": [
+        [
+          1,
+          221
+        ]
+      ],
+      "source_evidence": "Fresh complete actual body; timing/identity and caller ownership contracts compared, existing tests source-only."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_exchange.rs",
+      "sha256": "cfc25332b52f4fc560e46cefc37fe47517c27237a47cd1d54f512161635b229b",
+      "actual_compared_ranges": [
+        [
+          1,
+          293
+        ]
+      ],
+      "source_evidence": "Fresh complete actual body; timing/identity and caller ownership contracts compared, existing tests source-only."
+    }
+  ],
+  "groups": {
+    "joint-indices-and-order": "Scheduled contacts enumerate actual slices; no removal/reordering/resizing of side slices across contact sort/dispatch, so attacker/target ordinals remain inbounds. contact_batch called with0..len, members includes the current attack, so first/position fallbacks unreachable absent identity collisionF027. Equal contact times grouped exactly, nearby contacts considered in same window using tolerance but remain separate exact-time batches. Preserve exact current tie-by-actor-ID semantics rather than silently adopting another simultaneity policy.",
+    "joint-error-owner": "Round start and window/end/elapsed/scale use typed checked construction; actual public resolve_battle owns both Vec sides/RNG/recorder and returns only after success, so intermediate borrowed mutations remain local to failed owned battle. Internal helpers themselves do mutate before later errors; no general rollback promise inferred for arbitrary borrowed APIs. Joint loop gates side_defeated before window and after contacts before recursion; normal target-list nonempty proof matches Root073. Source allows unbounded finite positive round length at raw internal config API; step_count converts rounded64Hz float to nativeusize and can saturate huge, capacity contract remains a connected config/admission obligation, not demonstrated current embedded run nontermination.",
+    "defense-arithmetic": "Recovery remaining==0 returns1 before division; positive remaining with zero windup gives infinity thenclamp0 deliberate guard semantics, no0/0 throughthisbranch. Committed intercept requires positive chronological delay within reflex window before typed elapsed, ordinary invalid chronology/difference returns error. Reaction delay interpolates bounded sample over ordered nonnegative delays; current embedded parameters admission requires appropriate windows. Raw NaN samples or mutable incoherent parameters do not become valid simply because private helper acceptsf32. Input-reflex/engagement/completed-work sample propagation belongs to shared fraction/config graph, not new duplicate leaf.",
+    "defense-stage-commit": "ScheduledMeleeTiming::commit is nonfallible straight assignment of one timing stage; resets adaptation once and retains typed distance/jitter. Fields currently allow incoherent timing products through crate construction; whole-state admission remains05/09, not a fresh arithmetic defect. Attack identity truncation F027 concrete and propagated below.",
+    "exchange-policies": "Pure exchange checks incapacitation before reading selected melee view; performance bounded0..1 scales precision and final AttackResult. Shared contact/measure/defense helpers retain their actual typed causes and existing RootF014/F025 physical result obligations. Attacker uses for_melee; defender base view remains part of CameraF009 selected-equipment projection graph. No state/clock mutation. Existing tests cover 432 projection combinations and out-of-reach no-contact, read without running or changing them. Test set_style mutates both projections intentionally for fixture setup, not canonical production authority proof."
+  },
+  "support_only": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve.rs",
+      "ranges": [
+        [
+          45,
+          170
+        ],
+        [
+          630,
+          760
+        ]
+      ],
+      "no_full_file_credit": true
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/mod.rs",
+      "ranges": [
+        [
+          155,
+          205
+        ],
+        [
+          270,
+          310
+        ]
+      ],
+      "no_full_file_credit": true
+    }
+  ],
+  "findings": [
+    {
+      "id": "ROOT-INITIAL04-F027",
+      "kind": "representable_API_identity_loss",
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_defense.rs",
+      "locations": [
+        [
+          188,
+          190
+        ]
+      ],
+      "case": "ScheduledMeleeTiming with the same legitimate start BattleTime and two distinct full-u64 combatant IDs1 and4294967297 yields identical attack_id: wrapping_shl32 discards all upper32 ID bits. Public Combatant::new/autoresolve51-52,131-166 accepts fullu64, authored_threat_combatant also accepts it, and public resolve_battle638-735 has no32-bit-ID restriction. No observed runtime collision or normal database ID>=2^32 claimed.",
+      "operation": "Intentional machine wrapping avoids arithmetic panic but loses admitted identity. For two simultaneous attacks, joint_melee contact_batch members has duplicate derivedIDs, position returns first equal element, so distinct attacks cannot retain distinct member/order identity. Timeline contact/response/cancellation refer to same derived key.",
+      "connected_repair": "Introduce one canonical battle attack identity preserving full combatant identity and per-attack occurrence, assign/retain it through scheduled timing, combatant phase state, batches, timeline and report/evidence recipients. Do not merely wrap lossyu64 hash or cap supported combatant IDs to32bits. Keep native quantized sample tick separate from identity and preserve deterministic side ordering/draw order. Reconcile P17 report identity consumers and whole existing API fixture adaptations; no compatibility aliases.",
+      "acceptance": "All admitted distinct combatant identities remain distinguishable in attack references and simultaneous member/order records; one actor repeated attacks have separate occurrence identities even if quantized ticks coincide. Reuse existing tests only with necessary API adaptations; no added cases/assertions/helpers.",
+      "deduplication": "Separate battle attack identity graph from roof collector ID F001 and native tick projection itself; linked P16/P17 connected repair."
+    }
+  ],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

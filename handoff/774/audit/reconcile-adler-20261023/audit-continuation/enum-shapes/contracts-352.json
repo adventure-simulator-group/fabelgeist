@@ -1,0 +1,60 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-352",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        491,
+        492,
+        493,
+        494,
+        495
+      ],
+      "ranges": {
+        "491": [
+          [
+            715,
+            805
+          ],
+          [
+            930,
+            975
+          ],
+          [
+            1138,
+            1180
+          ]
+        ],
+        "492": [
+          [
+            1,
+            104
+          ]
+        ],
+        "493": [
+          [
+            35,
+            65
+          ]
+        ],
+        "494": [
+          [
+            140,
+            190
+          ]
+        ],
+        "495": [
+          [
+            1,
+            343
+          ]
+        ]
+      },
+      "comparison": "Exact SDK scoped unions491/493/494 and full492/495. Pending reducer/procedure calls already use payload-owning mutation variants. A successful builder return is explicitly not successful asynchronous connection; separate on_connect/on_connect_error/on_disconnect registrations are optional independent observers, not exclusive retained connection state. Optional subscription applied/error observers can both be useful because error may follow successful application; do not collapse callback presence into exclusive outcome enum. Error variants own applicable failure payload, optional InternalError cause is independent diagnostic enrichment. InternalError source() returning None despite retained cause is separate native error-chain behavior evidence, not a new09 variant defect or proof an application native cause is lost. Timestamp is signed microseconds; Result<Duration,Duration> distinguishes after/before epoch at native conversion adapter; checked arithmetic owns absence via Option. Negative-minimum negation and unchecked operator unwrap questions are arithmetic/native admission obligations, no new enum merely renaming sign or index. Test source inspected as text only; no test, connection, subscription or native callback executed.",
+      "finding_refs": [],
+      "disposition": "Existing payload variants and independent observers preserved; native conversion evidence only"
+    }
+  ],
+  "new_findings": [],
+  "limits": "Read-only exact source analysis; fragments confer no unread-file credit and no application/lens clearance."
+}

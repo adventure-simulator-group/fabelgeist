@@ -1,0 +1,76 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-036",
+  "at": "2026-10-22T20:55:19.633794+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/food.rs",
+      "sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+      "actual_compared_ranges": [
+        [
+          7,
+          10
+        ],
+        [
+          171,
+          179
+        ],
+        [
+          309,
+          338
+        ]
+      ],
+      "source_evidence": "Fresh exact old food roles; joined with independently compared new constructor/catalogue roles035. No unscoped cooking, flavor arithmetic or test credit."
+    },
+    {
+      "source_id": "pinned-registry:spacetimedb-bindings-macro-2.6.1/src/sats.rs",
+      "sha256": "bf26e6331c7cf9a560ecec507b5e06b11bc77460dec17ac0d553cff5278a5bc4",
+      "actual_compared_ranges": [
+        [
+          54,
+          85
+        ],
+        [
+          87,
+          96
+        ],
+        [
+          98,
+          143
+        ],
+        [
+          273,
+          287
+        ],
+        [
+          295,
+          329
+        ],
+        [
+          331,
+          637
+        ],
+        [
+          728,
+          752
+        ]
+      ],
+      "source_evidence": "Fresh entire exact scoped generation/product decoder/unit-sum role, independently compared against previous030 expanded DATA helper role. Qualification117 preserved; no unrelated foreign schema/serialize source credit."
+    }
+  ],
+  "groups": {
+    "contamination-arithmetic": "Fixed positive finite contamination constants bound deterministic log interpolation: StreamId unit_f64 is native random unit source, log endpoints finite; interpolation and exp remain within finite f64/f32 contamination range for admitted unit. No altered stream, draw count or seed identity. contamination_at rejects nonfinite anchor/growth by existing explicit maximal-risk policy; finite negatives clamp0. Maximum finite f32 growth times u64 minutes remains finite f64, exponent capped80; finite f32 anchor times exp80 remains finite f64 before maximum1e9 clamp and f32 narrowing. Thus finite final [0,1e9] follows actual operations, not input naming. Zero contamination and zero elapsed valid; u64-to-f64 rounding is native long-duration kernel precision, no integer overflow.",
+    "cooking-and-definition": "CookingMethod four closed choices select positive finite kill fractions. current.max(0) suppresses NaN to0 under actual float max semantics, +infinity multiplied by positive fraction remains infinity then clamp1e9, negative values clamp0 then positive recontamination floor. Output always finite floor..1e9 for all float current; this is existing explicit fallback behavior, not proof current input was admitted. Preserve modeled recontamination floor and differing kill factors. definition uses find on immutable food IDs, returns first exact match; actual catalogue uniqueness belongs source owner, no numeric mutation or retry clock. Join old scoped roles with035, not whole848 source.",
+    "sdk-product-generated-construction": "Derive parser builds product from AST fields and sum through checked variant_data, rejects unions. sats metadata only crate/name override, duplicate attr error before returned metadata; reprC detection shape flag not numeric validation. Generic bounds on type params and lifetime construction only token AST operations, no game numeric result. Generated product decoder directly constructs #name fields from child Deserialize, bypassing private checked constructors. Named products reject duplicates/missing/unknown names, sequence requires each next field; validate validates fields and cardinality but never invokes whole-product try_new or cross-field invariants. Existing bespoke-decoder admission repair remains required. Actual named scalar structs have field identifiers; generator unwraps are structural prerequisites, not runtime rejected game inputs. No new foreign SDK patch or inferred runtime crash from hypothetical tuple struct derive.",
+    "sdk-fast-and-sum-roles": "reprC primitive product optional fast path emits direct native read when sizes equal (otherwise ordinary decoder); neither route invokes checked numeric admission. Preserve actual native dependency port; do not pretend reprC/raw bit validity proves finite/interval constraints. Sum decoder maps exact known names or u8 ordinal tags to variants and rejects unknown names/tags; current EquipmentChannel nine unit variants deserialize unit payload. Existing expanded Core event DATA role uses precisely one named/unnamed payload per variant, validated AST length before indexing. Canonical Core payload products and optional SDK derivation can replace DB mirror hierarchy, but checked child payload and aggregate decoding still need explicit owner admission. tags0u8 iterator has finite ordinal capacity; current nine-category channel and actual small event variants fit, no >256 real enum claim. All fields are decoded into local result before returned Self; no external retained game mutation or retry-clock consumption in these generated visitors. Failures propagate Result; no transaction rollback inferred."
+  },
+  "findings": [],
+  "prior_finding_support": [
+    "Checked SATS decoder admission gap remains; finite contamination bounded output verified without changing fallback policy"
+  ],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

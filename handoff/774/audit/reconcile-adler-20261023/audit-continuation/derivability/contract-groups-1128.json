@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1128",
+  "at": "2026-10-25T17:51:18.876804+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1238,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/surgery.rs",
+  "sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+  "actual_compared_ranges": [
+    [
+      1,
+      350
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "TreatmentActionReceipt/LimbInjury/RetainedProjectile already Clone/Debug native tables; TreatmentReceiptDisposition structural. No handwritten trait/codec. Receipt disposition compares selected input fields vs computed id and semantic absent/collision states. blank_injury150\u2013168 is inherent identity-bound reset recipe, cannot blanket Default without inventing meaningful character/limb. health_mut222\u2013232 returns selected mutable native limb including Abdomen\u2192stomach representation; semantic not generic AsMut. Hit/frostbite effects/sidecars/projections native policy, no derive replacement."
+  ],
+  "first_unfinished": {
+    "scope_index": 1238,
+    "line": 351
+  },
+  "execution": "none"
+}

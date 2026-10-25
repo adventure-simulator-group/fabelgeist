@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-915",
+  "at": "2026-10-25T17:14:07.105981+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1109,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/preparation_authority.rs",
+  "sha256": "4f06d127e8d7d358ded01b2d1b7eba9116644b53146a476dd780e98344689613",
+  "actual_compared_ranges": [
+    [
+      1,
+      360
+    ]
+  ],
+  "existing_derives": [
+    "PreparationAuthority Clone"
+  ],
+  "trait_inventory": [],
+  "analysis": "Prefix explicit versioned request/material SHA framing, contextual place, clone-derived PreparationAuthority, bitwise lot truth comparison, checked integer material snapshot and conservation receipt construction and beginning authority admission consumed. No handwritten trait/codec. Native truth comparison intentionally compares f32::to_bits (including signed zero/NaN payload), so derived PartialEq would not be equivalent. No new serialization merely for classifiers.",
+  "first_unfinished": {
+    "scope_index": 1109,
+    "line": 361
+  },
+  "execution": "none"
+}

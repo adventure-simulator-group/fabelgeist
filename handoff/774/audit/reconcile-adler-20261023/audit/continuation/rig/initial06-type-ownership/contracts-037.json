@@ -1,0 +1,24 @@
+{
+  "id": "RIG-INITIAL06-GROUP-037",
+  "at": "2026-10-22T20:29:16.564605+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "combat-body-taxonomy-and-shared-character-attribute-value-owner": {
+      "sources": [
+        "pr-working:crates/adventuresim-core/src/body.rs",
+        "physical-p16:crates/adventuresim-core/src/body.rs",
+        "pr-working:crates/adventuresim-core/src/attribute.rs"
+      ],
+      "comparison": "Fresh full PRBody1\u2013179 and PRAttribute1\u2013164, exact prospective SimpleAttribute1\u201326. Full actual PR/P16 Body text comparison has no differences and current P16Capability/armorbodypartmapping receiver roles freshlycompared036/033: explicitsamecontract carry of sameclosed7part bitflags/BodySide LeftRightBoth/PlayerBody/LimbWeights definition and producers, not hash/pathcredit. CanonicalCore owns combatparts/bodyhealthtrait and attributeconditioningpolicy, independent of Bevy/DB; lowerRig names or clinicalsurfaces cannotown gameplay primaryside/healthweighting bysameanatomicalword/enumarity. BodyPart flags singlepart versus BodyParts set distinct fromLimbWeights fourrawweightedcontributions; nativebitmask ABI and zero-valued/defaultweighting notallgenericUnitInterval. Actualweights normalize divides sum, so no unit-sum orfiniteguarantee fromtypename/default; zeroDefault and ordinary botharms/all_equal remainintentional sourceinputs, existingadmission/aggregate concern retained, not duplicatednewwrapper. PlayerAttributeValues is complete15field framework-neutral value already canonicalCore; it implements PlayerAttributes directly, DB/ECS identitymetadata shouldcomposeit ratherthanindependently redefine/copyfields. SimpleAttribute sevenproperty labels versus LimbAttribute Strength/Agility versus Attribute taggedchoice differpurpose, not duplicatedsingleschema. Actual generic Into<Attribute> converts categoryenum into sum onelevel, normal polymorphic API adapter and not primitivepropagationavoidance. Bound0..5 comments not sealed by publicrawf32/Default/Serde/SATS; negative/nonfinitepolicy mustbe decided at acceptedstateowner, not silently clamp whilechangingowner. Current numericalraw*health/clampedweights output genuinelycalculated, no earlier unchangedownererror from arithmetic; canonicaltypedbody/attr enums retained. SimpleAttribute physical sevenlabels actualalreadylowgameowner with optionalSDK onlyruntime_catalog; no featurecycle orneeddup nativeenum. OtherDB/ECS duplicateproducer/consumer comparison still remainingwhole06inventory, no wholeaggregatevalidity claim."
+    },
+    "battle-origin-coordinate-versus-neutral-elapsed-span": {
+      "sources": [
+        "pr-working:crates/adventuresim-core/src/battle_time.rs",
+        "physical-p16:crates/adventuresim-core/src/battle_time.rs"
+      ],
+      "comparison": "Fresh PRBattleTime95 and completeactual PR/P16bodydiff no differences; exactsameP16definition/operations/units/frame/authority/serde/default compared, not hashcredit. BattleTime privatefiniteSIGNEDf32 seconds relativepurebattleorigin, zeroDefault/negative allowed, so not canonicalAnimationElapsed finiteNONNEGATIVEspan, StrategicMinute allu64worldclock, nativeDuration or tacticalserverauthorityclock. It correctlycomposes canonicalAnimationElapsed for from_elapsed_since_start/checked_add/differences/tolerance, and numericaltime getters occurinsideclockkernels. BattleTime.lowestowner is Corepureautoresolve semantics, no genericelapsed relocation or importedBevyClock. CanonicalCoreElapsed existing001/002 definition checkedfinite>=0/manualSerde; BattleTime manualSerdeTryFrom finiteonly maintains distinct admission. Transient difference/precedence overflowoperationpolicy distinctretainedcoordinatevalidation, no unmotivated saturating/recheckingclone or newframealias. This extendsactualshared clock owner map; raw primitive callers/recipient propagation stillsource-specificpending and no wholeautoresolveclearance."
+    }
+  },
+  "new_findings": [],
+  "limits": "Focusedfresh source-specific ownership and explicitsamecontract counterpartcarry only; remaining whole06inventory incomplete."
+}

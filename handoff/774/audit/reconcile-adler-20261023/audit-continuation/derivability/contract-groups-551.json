@@ -1,0 +1,300 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-551",
+  "at": "2026-10-25T16:01:13.750530+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 912,
+      "source_id": "pr-working:crates/adventuresim-core/src/disease.rs",
+      "sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+      "actual_EOF": 3842,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/disease.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/disease.rs",
+        "sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+        "bytes": 125549,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/supplemental-core-receivers.json",
+            "ranges": [
+              [
+                1,
+                3842
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "NATIVE-SUPP-CORE-DISEASE-001"
+            ]
+          }
+        ],
+        "audit_owner": "native",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 78,
+            "read_ranges": [
+              [
+                1,
+                3842
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-DISEASE-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/disease.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 434,
+            "read_ranges": [
+              [
+                1,
+                3842
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-DISEASE-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/disease.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CLINICAL-RECEIVERS-045",
+            "json_pointer": "/additional_actual_source_proofs/1",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/disease.rs",
+            "read_ranges_as_recorded": [
+              [
+                60,
+                132
+              ],
+              [
+                250,
+                286
+              ],
+              [
+                1310,
+                1339
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/disease.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/disease.rs",
+              "sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+              "actual_lines": 3842,
+              "read_ranges": [
+                [
+                  60,
+                  132
+                ],
+                [
+                  250,
+                  286
+                ],
+                [
+                  1310,
+                  1339
+                ]
+              ],
+              "requested_range_limits": [
+                [
+                  60,
+                  132
+                ],
+                [
+                  250,
+                  286
+                ],
+                [
+                  1310,
+                  1339
+                ]
+              ],
+              "proof_mode": "Fresh actual bounded current clinical receiver/owner body. Effective range clipped to actualEOF. No whole unrelated file/role credit."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/additional_actual_source_proofs/47",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/disease.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                85
+              ],
+              [
+                2000,
+                2235
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/disease.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/disease.rs",
+              "sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+              "read_ranges": [
+                [
+                  1,
+                  85
+                ],
+                [
+                  2000,
+                  2235
+                ]
+              ],
+              "actual_line_count": 3842,
+              "mode": "fresh current producer-supplement actual material source bodies; no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-035",
+            "json_pointer": "/fresh_current_additional_source_reads/1",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/disease.rs",
+            "read_ranges_as_recorded": [
+              [
+                60,
+                132
+              ],
+              [
+                250,
+                286
+              ],
+              [
+                1310,
+                1339
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/disease.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/disease.rs",
+              "sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+              "actual_lines": 3842,
+              "read_ranges": [
+                [
+                  60,
+                  132
+                ],
+                [
+                  250,
+                  286
+                ],
+                [
+                  1310,
+                  1339
+                ]
+              ],
+              "requested_range_limits": [
+                [
+                  60,
+                  132
+                ],
+                [
+                  250,
+                  286
+                ],
+                [
+                  1310,
+                  1339
+                ]
+              ],
+              "proof_mode": "Fresh actual bounded current clinical receiver/owner body. Effective range clipped to actualEOF. No whole unrelated file/role credit."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-036",
+            "json_pointer": "/additional_fresh_sources/12",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/disease.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                85
+              ],
+              [
+                2000,
+                2235
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/disease.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/disease.rs",
+              "sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+              "read_ranges": [
+                [
+                  1,
+                  85
+                ],
+                [
+                  2000,
+                  2235
+                ]
+              ],
+              "actual_line_count": 3842,
+              "mode": "fresh current producer-supplement actual material source bodies; no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 302,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          3842
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "DiseaseStage structural20",
+        "Symptom structural Hash Ord Serialize Deserialize30",
+        "Attribute/VitalImpairment structural Default127/137",
+        "TerminalFailure structuralSerde174",
+        "DiseaseDefinition Debug Clone Copy182",
+        "diagnostic/element/evidence/route/exposure/contact/timeline/attempt/state/event records structural as declared; Symptom/TerminalFailure/TransmissionVector wire derives"
+      ],
+      "absence_basis": "Full3842 personally consumed534\u2013551. All impl blocks inherent semantic methods; no handwritten standard trait or codec. Native acquisition timeline, authored constants, deterministic exposure/impairment projection and every existing source fixture inspected. Imported entropy/identity/physiology bodies receive no credit from this role."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Disease simulation versus derived record behavior",
+      "disposition": "Retain native state/clock/identity/route/region rules and content constructors; mechanical traits already derive, no new cleanup finding. No fixture/sampling/build execution."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 913,
+    "source_id": "pr-working:crates/adventuresim-core/src/disease/entropy.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

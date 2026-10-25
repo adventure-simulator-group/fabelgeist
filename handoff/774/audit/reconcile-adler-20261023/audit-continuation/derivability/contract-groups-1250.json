@@ -1,0 +1,33 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1250",
+  "at": "2026-10-25T18:17:25.616573+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1315,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/catalog.rs",
+  "sha256": "4621b2ac33e53d39be4866122ba41283261d01f8d007455c5266ef88916655a0",
+  "actual_compared_ranges": [
+    [
+      1,
+      300
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "Default",
+      "type": "AnimationPackCatalog",
+      "lines": [
+        69,
+        76
+      ],
+      "disposition": "KEEP_VALIDATED_BUILTIN_ROOT_DEFAULT"
+    }
+  ],
+  "analysis": "Catalog records already structural Debug/Clone/Eq where declared. Manual AnimationPackCatalog Default69\u201376 constructs biped_root and preserves built-in validation panic rather than empty maps: retain semantic default. PackBuilder inherent operations assemble semantic keyed catalog/validate motion membership; editor fixture validator resolves actual routes, not trait conversion. No handwritten codec.",
+  "first_unfinished": {
+    "scope_index": 1315,
+    "line": 301
+  },
+  "execution": "none"
+}

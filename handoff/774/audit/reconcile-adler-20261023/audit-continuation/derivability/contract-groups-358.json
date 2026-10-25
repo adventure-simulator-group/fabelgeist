@@ -1,0 +1,172 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-358",
+  "at": "2026-10-25T15:03:02.292222+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 702,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/character_export/hair.rs",
+      "sha256": "e4d9f41ddc4a5dfcddc44b953c10e1f987005360152375c435731e2220ae2526",
+      "actual_EOF": 133,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-character-creator/src/character_export/hair.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-character-creator/src/character_export/hair.rs",
+        "owner": "rig",
+        "sha256": "e4d9f41ddc4a5dfcddc44b953c10e1f987005360152375c435731e2220ae2526",
+        "base_sha256": "151838ff42378abc3b25678d146473e8e564c3b1e598d373e0c0dcf6be279f11",
+        "state": "modified",
+        "bytes": 5004,
+        "audit_owner": "rig",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/sources.json",
+            "ranges": [
+              [
+                1,
+                133
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-EXPORT-01"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 164,
+            "read_ranges": [
+              [
+                1,
+                133
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-ARMORY-EXPORT-029"
+            ],
+            "read_status": "full-source-read-current-lens",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-character-creator/src/character_export/hair.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          133
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full exact source: owned ExportedHair native buffers with borrowed targets/shell methods39\u201396, headless GPU acquisition32\u201337, semantic tinted atlas100\u2013116 and linear-to-sRGB/PNG nativeencoding119\u2013133. No handwritten Rust trait/Serde codec. Native image encoding/rig mapping cannot be replaced by record derive."
+    },
+    {
+      "scope_index": 703,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/character_morphs.rs",
+      "sha256": "8de5cb18068b504009da233ef635cb7781311cebe73f1bcafd94532b3478a02d",
+      "actual_EOF": 378,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-character-creator/src/character_morphs.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-character-creator/src/character_morphs.rs",
+        "owner": "rig",
+        "sha256": "8de5cb18068b504009da233ef635cb7781311cebe73f1bcafd94532b3478a02d",
+        "base_sha256": "c510f81754e4a478d81b3038a976b6222fe80d14071c8a91d6f523a970b5b4b9",
+        "state": "modified",
+        "bytes": 12978,
+        "audit_owner": "rig",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/sources.json",
+            "ranges": [
+              [
+                1,
+                378
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-EXPORT-01"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 165,
+            "read_ranges": [
+              [
+                1,
+                378
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-ARMORY-EXPORT-029"
+            ],
+            "read_status": "full-source-read-current-lens",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-character-creator/src/character_morphs.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          378
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full exact source: MorphDelta/CharacterMorphs/RiggedArmor owned and borrowed runtime records, checked morph correspondence32\u201354, borrowed rigged view56\u201362, semantic sampling/refit65\u2013151, material/shell/target projection153\u2013270, skeletal residual correction273\u2013295; fixtures297\u2013378 read not run. No handwritten trait/codec; semantic subtraction/cohort/presentation mapping retained."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "native hair export and body/equipment morph representation",
+      "disposition": "No handwritten trait boilerplate; preserve semantic GPU/native image/GLB mappings, checked correspondence, borrowing and residual policy.",
+      "acceptance": "No new serialization merely to replace runtime/native mapping; no execution or arithmetic correctness claim."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 704,
+    "source_id": "pr-working:crates/adventuresim-character-creator/src/character_morphs/draped.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

@@ -1,0 +1,38 @@
+{
+  "id": "CAMERA-ADM03-027",
+  "at": "2026-10-22T06:20:12.751279+00:00",
+  "lens": "audit-admission-contracts",
+  "members": [
+    752
+  ],
+  "source_id": "pr-working:crates/adventuresim-weapon-model/src/mesh.rs",
+  "sha256": "13432d88e00f3227259bb5b938b0a72a40e300fa4cec4f0d92b020d07eca2418",
+  "actual_read_ranges": [
+    [
+      1,
+      145
+    ]
+  ],
+  "invariant": "mesh native projection is an actual raw f64\u2192f32 renderer/gameplay output boundary; no universalfinite/positive/orderedguarantee from DerivedProperties/Generated native DTOs. Admitted recipefallback componentidentity mustremain coherent where measured-head/working-section branches relyonmatching.",
+  "all_admission_routes": [
+    "bounds13\u201325 rawpointarrayinput, Inf/\u2212Infmin/maxseeds, publicBoundsrawoutput; emptysetstaysunboundedseed, notcheckedfinitefactory",
+    "native_part26\u201348 acceptsModelPart, chunksnative triples, f64\u2192f32castsposition/normal, rawbounds/indices copied; no decoder orfinite admission recheck here",
+    "physical49\u201361 forwardsmodelphysical/frames/modelpartsiterator toderived62\u2013119. Derived collectsHeadcomponentsusingoriginalOptional.idonly68\u201374; matchesworkingsection original.id82 andsocketframebase/tip85\u201387, scansnativepoints; mass/length/grip/COM/inertia/balance107\u2013117 rawcastswithoutpositive/finitepostadmission; noheadbranch110\u2013114 intentionally0",
+    "generate121\u2013144 publicentryidentity122\u2192generate_modelHigh124\u2192physical125; writesGeneratedWeaponhash/parts/bounds/anchors/derived. Identity/manufacturinggate groups015/016/018 preventinvalidsourceDTO throughthisroute butdo notvalidateeverycomputedoutputbytype. generate_holder145 reexportseparateRootconstructorproof",
+    "GenerateError5\u201312 closedfailureclassifications InvalidtypedVec/ConstructionString/MissingHolderGeometry stringlabel; diagnosticcause/authoritynotmeasuredquantity. NoSerde/default/Reflect inthismodule."
+  ],
+  "counterexamples_or_intentional": [
+    "RawemptyboundsinputreturnsInfseeds; nofiniteguaranteeclaimedbyfactory. Do notsilentlysubstituteOriginorzero bounds.",
+    "Valid sourceHeadcomponentwithout explicitid isadmittedbyRecipe fallbackidentity buthead_idsfilter_map omitsit; measured-headlengthcanbeclassifiedheadlesszero110\u2013114. SamecauseRoot holderOptionexpectfinding ROOT-ADM-F002; actualworking_section lookupalso .id-only. Notanexecutedruntimeclaim. Preservegenuinelyheadlesszero.",
+    "Publicf64/f32native outputconstructors/boundsrows acceptbroadvalues, so finitephysicalinvariants requirecoherentadmissionpolicy atactualproducer/consumer; noautomatic BodyMassKg/PositiveLengthfits."
+  ],
+  "connected_repair": "Composeoneactualresolvedcomponentidentity throughRecipe/placement/construct/holder/meshhead/workingsection matches; do notrequireexplicitIDcontradicting admittedfallback. Typedcomputedphysical/frameoutputadmission mustcoverthese actualcasts/publicDTO/Derived/cache/nativeports together whilepreservingprecision/FPorder/zero/unboundednativepolicies and errorcauses.",
+  "dependencies_and_current_role_comparison": "FreshPRfull145source comparedtoactualRecipefallback/Construction/physicalsourcegroups015\u2013018. RootfreshP16full145 independentbodyproofreported exactsamehead/workingsection/cast/generatebranch; its immutable G006/F002qualificationforthcoming. No P16sourcecoverageclaimedbyCameraorPRhash.",
+  "finding_refs": [
+    "CAMERA-ADM03-F002",
+    "ROOT-ADM-F002 (Rootconnectedidentitygraph, qualificationpendingartifactpin)"
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "later_lens_credit": false
+}

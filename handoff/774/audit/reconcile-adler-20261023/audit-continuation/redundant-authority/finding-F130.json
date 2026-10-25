@@ -1,0 +1,47 @@
+{
+  "id": "CONT07-F130",
+  "contract": "CONT07-CONTRACT-664",
+  "at": "2026-10-24T01:43:55.223116+00:00",
+  "title": "Pattern mutations retain a computed panel-order roster used by export",
+  "classification": "source-confirmed API cache dependency defect; ordinary assembly call order unproven",
+  "sources": [
+    {
+      "scope_index": 2629,
+      "source_id": "pr-working:crates/fabelgeist-garment-code/src/pattern/spec.rs",
+      "sha256": "091a579552af6da77a2bbcf091a6a7afddf4784dd6f488460940b9eb9fa77ee9",
+      "ranges": [
+        [
+          87,
+          133
+        ],
+        [
+          284,
+          291
+        ]
+      ]
+    },
+    {
+      "scope_index": 2630,
+      "source_id": "pr-working:crates/fabelgeist-garment-code/src/pattern/core.rs",
+      "sha256": "78a40a867edc2528c4d5bd02bd24b48e21b4e8fdf0e70e4c0cac759b680efa50",
+      "ranges": [
+        [
+          102,
+          125
+        ],
+        [
+          128,
+          154
+        ]
+      ]
+    }
+  ],
+  "producer_and_recipient": "PatternSpec.panel_order(false) computes one roster from currentpanels then storesit. merge independently adds/replacespanels. serialize checks retainedroster and to_json writesit verbatim.",
+  "static_witness": "Cache order[A] on validonepanelpattern, merge validpanelB: panelsA/B but order[A]. More directly cacheemptyorder[] thenmergevalidA: serialize(empty_ok=false) rejects nonemptypattern as empty. Explicitmanualorder must preserve its intendedorderingbut currentmembership needsvalidation; insertionorder neednot equalgeometricorder.",
+  "normal_qualification": "No supportednormalassembly compute-before-merge caller established; current fresh None cache and explicitforce_update positive. No export/SVG/file execution.",
+  "connected_repair": "Make computed order dependency follow everypanelmembership/anchor mutation and preserve/validateexplicitmanual order as a separatepolicy ifsupported. Avoid onemutablefield combining authoredorder with stalecomputedcache.",
+  "acceptance": "Merge/add/remove/anchor-edit afterorderread preserves complete currentpanelmembership and exact intendedorder; emptyguard agrees actualpanelcollection; freshauthoredordering and JSONkeyorder preserved.",
+  "dedup": "No globalunique count asserted; parent exactaliasquery pending.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-756",
+  "at": "2026-10-25T16:42:21.418440+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 989,
+  "source_id": "pr-working:crates/adventuresim-core/src/settlement_population.rs",
+  "sha256": "427a6f6e78d9b203d41f9186e0c4722a1622a9f1d3e2916b43e1b69b73ef601e",
+  "actual_compared_ranges": [
+    [
+      1,
+      660
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Population441\u2013541 finishes semantic height/build/hair/household conditional draws and explicit profile+explanation assembly. Fixtures543\u2013660 assert deterministic derived roundtrip, bridge hardzero policy, independent streams and planned age precedence. No new handwritten trait/codec/type; fixture calls not executed."
+  ],
+  "first_unfinished": {
+    "scope_index": 989,
+    "line": 661
+  },
+  "execution": "none"
+}

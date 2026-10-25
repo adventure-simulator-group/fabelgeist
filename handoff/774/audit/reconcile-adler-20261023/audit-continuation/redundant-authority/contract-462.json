@@ -1,0 +1,94 @@
+{
+  "id": "CONT07-CONTRACT-462",
+  "at": "2026-10-23T22:22:03.161901+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2030,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/condition.rs",
+      "sha256": "543fe525702b8245d56a704a028a74138144789cf48c888b58704897bb6be7bf",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/combat/condition.rs",
+      "actual_EOF": 160,
+      "ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2031,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/condition/forecast.rs",
+      "sha256": "7b2a7d5e50bff9d2fb938aa12d45a750504327c369f2534c6e0866bdef93eb58",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/combat/condition/forecast.rs",
+      "actual_EOF": 166,
+      "ranges": [
+        [
+          1,
+          166
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2032,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/consequence.rs",
+      "sha256": "9e767c76aa28c3742a0d11658983b2ce4abfd2fb63bc89962d5f1c02b3e396d0",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/combat/consequence.rs",
+      "actual_EOF": 308,
+      "ranges": [
+        [
+          1,
+          308
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2033,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/contact.rs",
+      "sha256": "d36c444c66fafb2943291079bf5edcb5cb16e0890b1a078d655e838510cbac95",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/combat/contact.rs",
+      "actual_EOF": 161,
+      "ranges": [
+        [
+          1,
+          161
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2034,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/defense.rs",
+      "sha256": "68cb46b9efe6c4f44ba41fe4386c02fa7000314c52d6e10b7d33fa9742290d8e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/combat/defense.rs",
+      "actual_EOF": 255,
+      "ranges": [
+        [
+          1,
+          255
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "2030 full160 recalculates current total from actual limbs, starting enrollment, bleed, trauma, fatigue and burden then derives displayed sources and presentation-only forecast. ConditionTrend2031 full166 retains historical rates, not a competing current authority; elapsed0 produces zero forecast without advancing previous sample. Bleed override uses same remaining-blood/source formula; current and projected fractions remain distinct.",
+    "2030 actual total refresh occurs only condition update;2032 full308 attack consequence changes limbs, trauma and imbalance without refreshing current incapacitation before post-consequence event.1892 full211 freshly reread confirms charge_work explicitly updates total atomically and readiness consumes only total. Need actual between-refresh readiness consumer/order before promotion; no stale total assertion across arbitrary schedules.",
+    "2032 actual contact receipts use accepted owner/slot and exact armor inventory provenance. Injury sum/max-hit and capped equipment/ammunition accumulators are mission history, not current HP/quantity caches. Dedup by inventory item retains initial defender role; actual transfer/same-item opposite-role recipient dependency remains unproved.",
+    "2026 blocking slot chooses shield_side.or(weapon_side) for Block;2034 passive block accepts raised neutral equipped weapon even without shield;2032 recording reconstructs require_shield solely from response Block. Potential weapon-block equipment-contact omission needs actual result/normal recipient trace; retain separately from F097 report classifier.",
+    "2033 full161 picks one authoritative initial sample and alignment sample, stores intended reach/location for later actual contact. Forced body location rebuilds armor surface/subregion from same sample, not mutable parallel labels. Canonical impact point is local presentation hitbox contact; no whole body collider equivalence claimed. Windup elapsed converts sample difference with canonical locomotion_sample_rate.",
+    "2034 full255 prepares potential trade response then commits authority side effect once; pending dodge input time vs incoming attack start, current passive guard and reciprocal committed attack are intentional distinct event/state roles. Current passive predicate prevents neutral-action block while Attack/Dodge. Source fixtures read only, none executed."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2046,
+    "start_line": 1
+  }
+}

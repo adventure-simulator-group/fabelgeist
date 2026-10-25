@@ -1,0 +1,34 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-048",
+  "at": "2026-10-25T11:22:22.421637+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1177,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/repair.rs",
+      "sha256": "121a3412ae887fe1eec8fdf53acc1d66a0e091bc4d5d68593f16f0c13b270c09",
+      "personally_read_ranges": [
+        [
+          1,
+          724
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole724 repair source read. ItemCondition independentlypersisted tierleaves normalize into canonicalDamageBins for read/write; identity matchesinventoryrow andrepairorder uniqueitem, stored quote is frozencontract not currentmarket recomputation. submit requires oneownedrow/currentsettlement, matchingservicekind, actualsmithskill/damage; snapshotplacement+orderedparentrequirements, detachnestedobject to explicitRepair location, unequip, zerocharacter escrow, writes order/time/target/quote then refreshes. Generic bulk submit ignores any Err via is_ok and cancommitpartial latewrites aftersome successes, but specificordinary latefailure witness unestablished; same M30 cause/transaction distinction, not automatically wholetransactionrollback. P16 successor242 changes to selectiveOperation skip perown08evidence, no currentaggregatecredit without own05delta later. Retrieve requires sameowner/place/readiness, chargesquote, validatesescrowrow then repairscondition/reassignsrow/physicalcustody/restores savedgraph/deletesorder andrefreshes; its Err is propagated, so normalnative reducer rollback protects lateinvalidstate ratherthan caughtweddingQ013. savedgraph may be no longerrestorable, structuredfailure mustpreserve thatcause. equippedplacementOption and attachmenttargets relatedpayload; normal targets onlywhen equipped and nochildren, futurecleanpayloadstate shouldretainallparents. Batchretrieve sorts stabledate/id, takes affordableprefix beforemutations, then propagateseachretrieveErr. Fieldrepair boundsbudget andskills<=2, subtractstimewithsaturation and normalizedbins; nativefloatquantity/precision owner remains operationsmigration. Impact constructscanonicaldurabilityprofile fromauthoreddefinition, capsdamagequality, routine20%highquality splitintentional, currentfinalcommitreceiverownsno tacticaltickpersistence. Simulationfixture guards ownedrun/claimedcharacter/exactitem; directbinmutation fixtureonly, notordinaryadmission bypass. Existingservicethreewayfilters/parentorder/stableescrow tests read, notrun."
+    },
+    {
+      "scope_index": 1178,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/repair/smiths.rs",
+      "sha256": "9f6f941a9c20133485bdb87f96731d858974bde4c8f173fd90da3f51fc1227a6",
+      "personally_read_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole61 smith source read. Seednamedstreams derive deterministic skill3..5; servicekind mapsWeapon+Shield\u2192Weaponsmith, Armor\u2192Armorer, Clothing\u2192Tailor with actualspecialist then GeneralBlacksmith fallback. This is intended alternativeservicepolicy, notlegacycompatibility fallback byname alone; String cause is_err discards missingservice versus brokeninfrastructure distinction, existing causegraph gap. Normalstoredsmithfields updatedtogether onfirstuse; no invalidout-of-rangeauthoredskill witness beyond publicschema representation. No tests/fixes/checks."
+    }
+  ],
+  "discovery": "Two original roles compared;1179 inherited same-lens reputation proof retained without replay. Full lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

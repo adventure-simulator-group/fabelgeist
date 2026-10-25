@@ -1,0 +1,36 @@
+{
+  "id": "RIG-INITIAL06-GROUP-154",
+  "at": "2026-10-23T04:53:02.453786+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-059.json",
+  "groups": {
+    "canonical-rig-and-event-clock-roles": {
+      "comparison": "Fresh full sampling_clock63, rig_parameters81, event_span81, landing61. PoseBuffer uses canonical RigJointTable<LocalPose>/ordinals and existing positive duration/elapsed/interpolation values; sampling debt quotient is an actual count computation, not a Rig index or durable clock. Table count alone does not prove same rig membership across previous/next, preserving aggregate prerequisites. RigJointParameter describes GPU uniform binding roles, not RigJointPart/authored joint identity: Hip/Knee/Anchor0/TorsoJoint0 etc are shader parameter slots. insert_joint keeps canonical RigJointOrdinal until exact checked u32 conversion and PassParameters insertion, a real native ABI boundary. LandingSequence and ContactSequence have distinct authoritative event streams despite identical u64 storage/next/distance arithmetic; AnimationEventSpan is their shared zero-valid count, not sample clock span. CoalescedEventBudget is a positive cap, while zero span is meaningful. LandingImpactSpeed already composes canonical Core NonnegativeSpeed, preserving zero and context-specific error quantity rather than duplicating validation. No identity alias by equal representation or blanket joint-count membership proof.",
+      "disposition": "Keep canonical low rig/speed/time/count leaves, useful event stream and parameter roles, and checked native uniform conversion."
+    },
+    "observed-animation-metrics-and-boundaries": {
+      "comparison": "Fresh full catastrophic_contacts65/support_slip55/global_bones59 including the original catastrophic fixture. Metric input is observed FrameSample and native body/bone transforms, not certified accepted current geometry. Catastrophic displacement combines actual scenario selection, body-local offset>.65m and elapsed observation duration>=.1s; it introduces no independent gameplay impairment or fatigue rule. Support slip preserves canonical support fractions, computes actual captured XZ movement under stable body/plant conditions and returns checked NonnegativeLength, supporting generic length ownership F002 rather than inventing a FootSlip-only invariant. Raw quaternion/native bone arrays may retain invalid observations for diagnosis, not interchangeable with accepted normalized RigidRotation. GlobalBoneFrame explicitly formats scenario label/elapsed, arrays and target ID at the serialized capture boundary; authored bind owner filters subject and stable name/target order. Native capture payload is not another canonical authored rig or current pose authority. No runtime assertion or generic codec validity inferred.",
+      "disposition": "Preserve raw diagnostic observations and canonical checked metric results, with true serialized capture ports and no hidden gameplay penalty."
+    },
+    "native-scene-publication-and-view-preparation": {
+      "comparison": "Fresh full detail_obstacles50/prepared_vista62/scene_mask67/server_furniture60 and doors61 (doors was freshly read with the151 batch but omitted from that coverage list). Detail obstacle grid ordinals/spacing are admitted into canonical ScenePlanPoint and positive radius before retention; generic PositiveLength facade import remains F001, radius versus zero extents policy distinct. PreparedVistaLod pairs actual source/coarser LOD references, clipping bounds and upload-ready Mesh batch; Near/Distant scenery policy differs VistaLevelIndex and CharacterLod. Ground scatter masking changes native cover samples then reconstructs SceneGround, preserving urban data; the comment assumes valid input, and existing raw/Serde SceneGround admission gap is not cleared by this helper. Server furniture uses canonical FurnitureKey recipe collider and typed position/orientation until Bevy Transform; replicated nearby fixtures and distant reconnect-only scenery have different authority. Client door mesh/outline uses canonical SceneDoor dimensions/IDs and existing visibility/closure records; PresentedDoorLeaf marker and GrabTargetOutline Entity are framework lifecycle roles, not new door/opening identities. building_id.0 appearance projection does not justify forcing SceneBuildingId on broader material/Seed APIs. No tactical state is persisted to strategic DB here.",
+      "disposition": "Keep canonical scene/recipe/geometry owners through retained data until actual engine ports; retain presentation versus physical and near versus distant roles."
+    },
+    "shared-measured-specimen-and-render-replay-purposes": {
+      "comparison": "Fresh full garden specimen61/tree leaf streams32. GardenSpecimen closed CommonHazel owns one fixed measured envelope source; its raw public JSON DTO reuses canonical Seed and contains hull/metre extrema/count/revision, not another random seed or finite Position definition. Actual fixed JSON527 has a negative base and17 hull vertices; keep signed height and source-specific geometry. contains_local_vertex is a native geometric predicate, but absent generic hull validation/Serde gate means no universal accepted convex envelope or valid polygon guarantee from its name. Named leaf StreamIds reuse low determinism owner, separating attachment/size/normal/torsion/lanes/identity replay purposes; purpose strings are not anatomical IDs or actual shoot identity values. No new native RNG or per-purpose duplicate type.",
+      "disposition": "Keep a coherent shared measured specimen product and canonical deterministic purposes; source/codec and procedural evidence remain distinct."
+    },
+    "outfit-and-capture-fixtures-use-existing-owners": {
+      "comparison": "Fresh full runtime layers tests62, fungus views83, interior views83 and furniture views94. Layer fixtures use existing admitted LayerSelection/OutfitPlan/FitKey/BodyShapeKey; they demonstrate order-independent fitting, unrelated-limb exclusion, innermost rebuild and structured failure propagation, not new physical layer owners or a passing run. Capture fixtures reuse CaptureViewSpec/CapturePose and canonical FungusSpecies, authored camera distance, view ordinals, degrees and frame budgets. Fungus seven, interiors eleven and furniture eleven are different authored suites rather than duplicate view-spec schemas. Labels are final human/output identifiers, not an internal alternative botanical/physical taxonomy. No camera-index recipient proof or complete constructor admission is inferred from static arrays; root capture scheduling qualifications remain separate.",
+      "disposition": "Keep existing outfit/fit/species/view owners and meaningful fixture suites; original source fixtures only, no test execution or duplication."
+    }
+  },
+  "source_fact_refs": [
+    "contracts-001.json",
+    "contracts-005.json",
+    "contracts-147.json",
+    "contracts-149.json",
+    "contracts-151.json"
+  ],
+  "limits": "All18 exact source bodies freshly read (doors61 carried from the explicitly fresh151 reading but previously unaccounted). Every scoped original fixture source-only. No lower helper graph or old-verdict credit, project execution, source edits, new tests or other lens."
+}

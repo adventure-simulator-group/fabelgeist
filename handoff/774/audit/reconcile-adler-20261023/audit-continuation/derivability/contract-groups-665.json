@@ -1,0 +1,38 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-665",
+  "at": "2026-10-25T16:23:43.690653+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 963,
+  "source_id": "pr-working:crates/adventuresim-core/src/physical_object.rs",
+  "sha256": "906e67eed5acc9fbf6ab98e2e4bc7df11b8e9742c1ee148092c7d2061f64afab",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "TryFrom<&str>",
+      "type": "CarriedInventoryScope",
+      "lines": [
+        [
+          33,
+          43
+        ]
+      ],
+      "disposition": "KEEP exact lowercase token parser+concrete error, distinct default Serde wire spelling"
+    }
+  ],
+  "analysis": [
+    "CarriedInventoryScope TryFrom<&str>33\u201343 preserves exactly lowercase boundary tokens and CustodyIdentityError, distinct from its default externally tagged Serde enum names; retain semantic token parser. No own existing matching native parser derive.",
+    "Location payloads and union already structural/Serde/conditional native SpacetimeType derive; native scope/row/samecustody classification and checked physical/character/party identity constructors not mechanical traits. No other handwritten trait/codec1\u2013220."
+  ],
+  "first_unfinished": {
+    "scope_index": 963,
+    "line": 221
+  },
+  "execution": "none"
+}

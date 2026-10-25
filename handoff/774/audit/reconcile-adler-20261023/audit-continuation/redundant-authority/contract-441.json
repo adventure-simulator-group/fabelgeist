@@ -1,0 +1,65 @@
+{
+  "id": "CONT07-CONTRACT-441",
+  "at": "2026-10-23T21:54:57.514998+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1941,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/gardens.rs",
+      "sha256": "88cce4f821e3d6ebebb7c824257e51bab60d4f73fafbd0ebfb6b2ce93695eded",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/gardens.rs",
+      "actual_EOF": 208,
+      "ranges": [
+        [
+          1,
+          208
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1942,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/gardens/support.rs",
+      "sha256": "b0b818220b4bf6eba139dfd10bc3dec1053a7d8e74f77eb1243e3c669ffab6cd",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/gardens/support.rs",
+      "actual_EOF": 96,
+      "ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1943,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/gardens/tests.rs",
+      "sha256": "b9d33ebabd8995ca9df26d355b9a2caf726b0dbbc89a290d7af29175ee413661",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/gardens/tests.rs",
+      "actual_EOF": 330,
+      "ranges": [
+        [
+          1,
+          330
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "ROOT-OWNER-GARDEN-ROOT-066 full narrative"
+  ],
+  "facts": [
+    "1941 SceneGarden privately retains immutable garden descriptor and ordered elevation support keyed to each exact plant id. from_support checks membership count/order/uniqueness and Serde follows same route. Root heights are new soil projection, not house-floor duplicate; no independently mutable horizontal pose copy inside support.",
+    "1942 project derives every root from the same final SceneTerrain and collects all before from_support; missing support rejects whole projection with exact owner/building/plant/location. from_support by itself admits supplied finite elevations and membership, not proof of any specific current terrain/source digest; actual source preparation/binding recipient is required for terrain agreement.",
+    "1943 full330 source fixtures distinguish detailed authoring clearance from runtime ownership/plot checks; generated placement deliberately changed for negative clearance case. Sloped and straddling fixtures rebind source then compare every retained root to exact terrain/source, and changed vista causes GroundingProjection failure. Distant-owner garden omitted from tactical output intentionally but explicit projected presentation retains root/horizontal membership. Source assertions are evidence of intended paths, not executed acceptance."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1944,
+    "start_line": 1
+  }
+}

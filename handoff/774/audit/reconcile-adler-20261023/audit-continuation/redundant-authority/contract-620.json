@@ -1,0 +1,61 @@
+{
+  "id": "CONT07-CONTRACT-620",
+  "at": "2026-10-24T00:44:30.056080+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2704,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+      "sha256": "44e7ffb24f89b628a6aa80e5d207018770c558bef8aafacf8e9e6dfa91962bcb",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+      "actual_EOF": 4404,
+      "ranges": [
+        [
+          1593,
+          1644
+        ],
+        [
+          2656,
+          3327
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2705,
+      "source_id": "physical-p16:crates/strategic-web/src/routes/settlements/rest.rs",
+      "sha256": "c28f905d16256a1947973448f3c88a630b140b67d3fe9cbcc77554cf9082d04d",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/strategic-web/src/routes/settlements/rest.rs",
+      "actual_EOF": 840,
+      "ranges": [
+        [
+          1,
+          21
+        ],
+        [
+          32,
+          91
+        ],
+        [
+          104,
+          158
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "P16 capture pipeline permits one Readback phase at a time, returns before camera reconfiguration while in-flight, and advances view only in matching kind/current-view callbacks. Screenshot observer is attached to its spawned request entity; this source alone supplies no ordinary cross-request stale event. A callback checks current phase/state, not an independently captured generation token, but no overlapping supported request lifecycle was found in these ranges. Pending manifest is finalized only after actual screenshot metrics appended; expected camera/fixture evidence and actual pixels remain independent.",
+    "Consecutive readback hash/luminance and bounded retry counters are intentional historical observations. Lighting readiness can precede streamed geometry; final stable-pair gate explicitly persists false after budget exhaustion rather than silently deriving success from final count. Configure resets hash and post-readback clears luminance before next view. Expected/observed LOD counts remain separate metrics, and collapsing them would erase acceptance evidence.",
+    "P16 rest parser treats requested_minutes as redundant browser wake-time crosscheck only in hours encoding and rejects disagreement before returning; minutes/days use their explicit numeric unit path. Canonical year/day limit imported rather than copied. Transport unit/shelter strings are actual serde/form ports; no equivalent bespoke owner demanded solely by raw string. Saturating days multiplication still faces final duration maximum, no ordinary over-budget accepted duration shown here."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2706,
+    "start_line": 1
+  }
+}

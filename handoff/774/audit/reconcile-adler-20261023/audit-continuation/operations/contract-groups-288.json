@@ -1,0 +1,98 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-288",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:content/items/catalog.yaml",
+      "sha256": "87e0f51292d42ab62beeabc9f2624f635c27acf8b28ae3d8c2931eb9297f491b",
+      "actual_EOF": 5632,
+      "actual_compared_ranges": [
+        [
+          1,
+          5632
+        ]
+      ],
+      "method": "Personally read complete authored semantic content. Catalog all184 records consumed with every field retained via compact JSON formatting (raw lines1..190 additionally read); combat and envelope full raw bodies read. No hash-only coverage; explicit textual-format normalization limitation."
+    },
+    {
+      "source_id": "pr-working:content/tactical/combat.yaml",
+      "sha256": "05958d54e48eba637c755f8ad89959dc6ef0aeaeeeaeb75022e07071a01ddaf3",
+      "actual_EOF": 344,
+      "actual_compared_ranges": [
+        [
+          1,
+          344
+        ]
+      ],
+      "method": "Personally read complete authored semantic content. Catalog all184 records consumed with every field retained via compact JSON formatting (raw lines1..190 additionally read); combat and envelope full raw bodies read. No hash-only coverage; explicit textual-format normalization limitation."
+    },
+    {
+      "source_id": "pr-working:content/tactical/garden-hazel-envelope.json",
+      "sha256": "1743fa13a7526af557706f78d50f5d61e3f8bcd8f82d5b1b2f3a0e6e1370bc65",
+      "actual_EOF": 77,
+      "actual_compared_ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "method": "Personally read complete authored semantic content. Catalog all184 records consumed with every field retained via compact JSON formatting (raw lines1..190 additionally read); combat and envelope full raw bodies read. No hash-only coverage; explicit textual-format normalization limitation."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Item catalog authored scalar and capability values are finite ordinary inputs, with actual computed result admission owned by compiler and consumers",
+      "source_ranges": {
+        "catalog.yaml": [
+          [
+            1,
+            5632
+          ]
+        ]
+      },
+      "disposition": "Personally consumed schema_version1 and all184 item objects without selected-key omission in compact JSON chunks indices0..24/25..54/55..84/85..114/115..144/145..183; original first190 rawlines also read. Formatting-only normalization is explicit, not a fresh independent rawline read. Individual weight/dimensions/reach/inertia, durability thresholds/shares, coverage, ROM, nutrition/growth/cooking/flavor, alcohol serving/ABV/hydration, capacity and book quality/target values inspected. These values do not by themselves prove summed inventory mass, combined armor/skill weights, nutrition/partial-consumable conservation, physical transformation normalization or checked arithmetic. Zero grip/anchor offsets are intentional armor/equipment cases; zero calories and cooking time are intentional herbs/preparedfoods, not automatic invalidity. Weapon skill .5/.5 and halberd thirds are authored blends; compiled normalization/rounding belongs to actual owner. Steel stock5kg supports supplied local774:F46 ordinary partial fraction mass projection; no new unique finding from this content. Book target subset joins local774:M23 qualification, not arbitrary whole skill roster migration. All entry fields read; no schema/client generation or tests."
+    },
+    {
+      "contract": "Equipment attachment and protection records retain aggregate, location and unit-vector consumers",
+      "source_ranges": {
+        "catalog.yaml": [
+          [
+            1,
+            5632
+          ]
+        ]
+      },
+      "disposition": "Left/right alternatives, containment/mount parent channels, capacity/order/tags, empty direct occupancy with required parents on mail voiders/knee voiders, layer-over and distinct physical protection/surface scopes are intentional aggregate declarations. Belt UV coordinates bounded0..1 and tangent directions finite ordinary approx unit directions; actual transform must normalize/readmit rounding where needed. No requirement that authored mass equal bounding dimensions*one nominal density; physical mass/recipe authority and exterior containment volume differ. Surface patch coverage accumulation/overlap requires real region/placement consumer proof, not adding independent fractions mechanically. Published constructor validation and generated bindings remain exact API boundary dependencies; no invented data-only remedy."
+    },
+    {
+      "contract": "Embedded combat configuration constrains normal operation inputs but cannot prove arbitrary operator closure",
+      "source_ranges": {
+        "combat.yaml": [
+          [
+            1,
+            344
+          ]
+        ]
+      },
+      "disposition": "Full344line exact body read. Normalautoresolve1s round, guarded2m/s andrun/lunge5.5m/s corroborate supplied ROOT-INITIAL04-F028 internal-kernel extreme-case qualification. Authored quickstep profile starts0 ends1 monotone0/.20226349/.5092641/.7891253/1; timing windows orderedpositive, referencespositive, weightsinertia.55+skill.45. Signed gamepadlookY and terraincontacttoe-.009 intentional; bouncytransmission0 and firstrunrelease rotation0 intentional. Playback8coalescedevents/32ticks and posegrid/contactbounds ordinary and explicitly different modes, not assumed redundant authority. Result computed floats, casts, loops, timing retries and native physics need actual owner proof; raw configuration alone neither forces invariant failure nor clears code. No config/build execution."
+    },
+    {
+      "contract": "Authored vegetation hull is finite, nonempty and revision-pinned geometry evidence",
+      "source_ranges": {
+        "garden-hazel-envelope.json": [
+          [
+            1,
+            77
+          ]
+        ]
+      },
+      "disposition": "All17 hull points and metadata read. Positive maxheight3.1321 and signed minheight-.0209456 ordered; 97397vertices and seedword827340762641 ordinaryu64. Exact authored source frame, hull winding/convexity, geometry_revision1 and actual cached mesh relationship remain generation/consumer dependencies. No generator or geometry check executed; minheight belowzero is intentional geometric datum, not globally positive-height rule."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-building-generator/src/arch_geometry.rs"
+}

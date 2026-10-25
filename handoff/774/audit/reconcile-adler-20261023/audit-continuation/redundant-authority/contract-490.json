@@ -1,0 +1,53 @@
+{
+  "id": "CONT07-CONTRACT-490",
+  "at": "2026-10-23T22:48:05.255457+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2154,
+      "source_id": "pr-working:crates/adventuresim-world-import/src/sources/road_inference.rs",
+      "sha256": "f74f07db1d321f14985590625124b5cbaccae7ff6ef35b7430a0749d2d8cfcf5",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-world-import/src/sources/road_inference.rs",
+      "actual_EOF": 299,
+      "ranges": [
+        [
+          1,
+          299
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2155,
+      "source_id": "pr-working:crates/adventuresim-world-schema/build.rs",
+      "sha256": "1cbb4c6032d77345ba85c017d2e5f94b1600c1a4064ff586f0e1872afd63df74",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-world-schema/build.rs",
+      "actual_EOF": 121,
+      "ranges": [
+        [
+          1,
+          121
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "2154 full299 inference caches adjacency/degree/evaluation counts as distinct current accepted-edge state and search-budget history. Adjacency updated exactly when accepted appended, degree counts only inferred additions (not totalnetwork degree by intent MAX_INFERRED_DEGREE). Existing ids plus accepted ids guard stable-id collisions; candidate sorted order fixes tie policy. Current count/report derived before publishing moved world.",
+    "2154 actual inferred endpoint rebinding after snap changes the geometry carrying passable-plan provenance; source-conditional F103 saved separately with exact actual planner snap/Water predicate and output road-mask/vector recipient, not current dataset failure. Recomputed haversine length is final geometry observation while plan distance/minutes are search evidence, distinct values but association must be explicit.",
+    "Positive F103 qualification: accepted path<=12km with minimum30m grid distances has<=400steps, hence <=401 retained turn points; generic cap512 does not explain normal accepted inferred-road shortcut. Different failure is new unsearched endpoint connector. No observed ordinary water-node occurrence, implementation/test/execution claimed.",
+    "2155 full121 actual expanded producer material range read. Name build uses shared calendar/schema/validator sources, combines sorted rawfile documents then applies repertoire fragments before one validation and serialization. Source digest hashes rawfile names/bytes, compiled catalog JSON is transformed validated product, different identity roles. Pending fragments removed by take, no duplicate runtime fragment authority remains.",
+    "2155 source filesystem traversal/sorted order and digest explicit; labels/files are true authoring inputs, not runtime network names. Embedded NAME_CATALOG_JSON/DIGEST generated together, no independent mutable catalogue generation path proved. All selected source read-only, no compiler/parser/generator execution."
+  ],
+  "new_local_findings": [
+    "CONT07-F103"
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2157,
+    "start_line": 1
+  }
+}

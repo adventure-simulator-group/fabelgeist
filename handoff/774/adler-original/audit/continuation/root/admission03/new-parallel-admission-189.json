@@ -1,0 +1,43 @@
+{
+  "id": "ROOT-ADM03-PARALLEL-189",
+  "at": "2026-10-23T04:14:23.130377+00:00",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/morale.rs",
+      "sha256": "f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+      "registration_id": "NATIVE-INITIAL05-REG035",
+      "actual_compared_ranges": [
+        [
+          331,
+          334
+        ]
+      ],
+      "source_evidence": "Fresh literal registered terminal role after REG035/036; independently read existing function prefix as context. No whole file/native runtime or other-lens credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/reputation.rs",
+      "sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+      "registration_id": "NATIVE-INITIAL05-REG036",
+      "actual_compared_ranges": [
+        [
+          180,
+          188
+        ]
+      ],
+      "source_evidence": "Fresh literal registered terminal role after REG035/036; independently read existing function prefix as context. No whole file/native runtime or other-lens credit."
+    }
+  ],
+  "groups": {
+    "pain-terminal": "Actual PR pain327-334 maxes total damage/will at0, returns0 for damage0, otherwise damage/(damage+0.5*will)*exp(-0.2*will). Newly registered331-334 complete function rather than inventing all remaining527-line morale scope. No checked finite result admission inferred from max/return type; canonical damage versus total incapacitation meaning and finite computed sums remain connected earlier physical/admission repair obligations.",
+    "local-offense-terminal": "Actual PR unsettled_local_offenses172-188 queries exact character index, filters matching settlement AND not settled, collects then sorts by occurred minute and ID before return. Sorting yields deterministic tie ordering; not stronger uniqueness or immutable DB snapshot proof. Registered180-188 completes exact function; no arrest-charge190+ or whole440-file clearance. Preserve exact offense IDs/strategic minutes/settlement identity and native index/filter ports, reuse existing owners across internal APIs.",
+    "qualification": "Mandatory188 excludes nonexistent P16Core reputation332-338. Earlier full companion displays have no outside-union coverage. Prospective new terminal roles now freshly read, not retrocredited."
+  },
+  "mandatory_qualification188": {
+    "record": "continuation/root/parallel-scope-qualification-188.json",
+    "sha256": "e15ac81028377714ef550a4cbd68546ec0fbd2ab41300f64db2a1c8686cb43ab"
+  },
+  "status": "exact_registered_source_semantic_admission_compared",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

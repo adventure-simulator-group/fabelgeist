@@ -1,0 +1,59 @@
+{
+  "id": "SEGOVB-04-FOUNDATION-VOLUME-PROMOTION-CANDIDATE-001",
+  "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations.rs",
+  "sha256": "067e6669cec19996bd4cbe6fc1caf61c221b294ad11a150ccc3ca36423379797",
+  "actual_source_support": "Full390 lines personally read packet489; admission dependency full body packet489. Arithmetic volume_cubic_metres subtracts f32 top/base before converting difference to f64.",
+  "admitted_witness": {
+    "top": [
+      [
+        "0",
+        "f32::MAX",
+        "0"
+      ],
+      [
+        "1",
+        "0",
+        "0"
+      ],
+      [
+        "0",
+        "0",
+        "1"
+      ]
+    ],
+    "bottom": [
+      [
+        "0",
+        "-f32::MAX",
+        "0"
+      ],
+      [
+        "1",
+        "-1",
+        "0"
+      ],
+      [
+        "0",
+        "-1",
+        "1"
+      ]
+    ],
+    "owners": "CityPropertyId1, PropertyMembers nonzero valid member1",
+    "cut_faces": [],
+    "admission": "Each position finite, paired xz, top>=base and notwhollycollapsed. Running six-position SUM y sequence MAX,MAX,MAX,0,-1,-2 finite; prism sum gate does not reject. One normal-sized xz triangular cell, huge finite height API-only. from_prisms builds canonical native topology and final validates."
+  },
+  "defect": "First depth subtract MAX-(-MAX) ->f32Infinity before f64::from. Result volumeInfinity although exact finite f64 volume=(MAX+1)/3 approximately1.134e38. No run performed.",
+  "qualification": "Public admitted API arithmetic defect candidate. No ordinary generated huge-height/actual asset/runtime trigger claimed. Parent indexed1002record search found no exact volume alias, not exhaustive semantic dedup.",
+  "remedy_contract": "Perform depth subtraction in widened arithmetic before aggregation; preserve finite signed elevations and exact prism topology, no global elevation clamp.",
+  "acceptance": [
+    "Admitted finite opposing extreme elevations yield finite accurate f64 physical volume",
+    "normal positive-depth volume and exact geometry serialization stay coherent",
+    "all qualified generation/collider contracts remain distinct; no claim this repairs native colliderability"
+  ],
+  "dependencies": [
+    "foundation physical metric owner",
+    "actual producer reachability if ordinary impact claimed"
+  ],
+  "new_unique_count": null,
+  "execution": "none"
+}

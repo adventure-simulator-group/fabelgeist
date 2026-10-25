@@ -1,0 +1,15 @@
+diff --git a/crates/adventuresim-character-creator/src/device_garment_skirt.rs b/crates/adventuresim-character-creator/src/device_garment_skirt.rs
+index 3624d652a..21cd6e8f3 100644
+--- a/crates/adventuresim-character-creator/src/device_garment_skirt.rs
++++ b/crates/adventuresim-character-creator/src/device_garment_skirt.rs
+@@ -12,9 +12,9 @@ use fabelgeist_armor::{
+ use fabelgeist_compute::KernelBatch;
+ use fabelgeist_geometry::SignedLength;
+ use fabelgeist_gpu::prelude::Buffer;
+ use fabelgeist_gpu::prelude::BufferUpload;
+-use fabelgeist_math::Ratio;
++use fabelgeist_math::units::Ratio;
+ use fabelgeist_rig::RigJointName;
+ 
+ use crate::armor_frames::FitRegion;
+ use crate::device_frames::{DeviceFrame, DeviceWearer};

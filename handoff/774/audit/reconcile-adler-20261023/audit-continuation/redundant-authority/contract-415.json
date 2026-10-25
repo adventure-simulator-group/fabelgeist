@@ -1,0 +1,86 @@
+{
+  "id": "CONT07-CONTRACT-415",
+  "at": "2026-10-23T21:30:26.870352+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1819,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement.rs",
+      "sha256": "73463b02d4801103755fe0b5ed7fe7251892415ba3b7352dcce9b9634b454e8f",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement.rs",
+      "actual_EOF": 420,
+      "ranges": [
+        [
+          1,
+          420
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1820,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement/query.rs",
+      "sha256": "df8bdf7862fa0f4e105fc553679c0bc6c4555bf21001b8d1ae52c3f9f166fba7",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement/query.rs",
+      "actual_EOF": 322,
+      "ranges": [
+        [
+          1,
+          322
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1821,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement/query/prepared.rs",
+      "sha256": "33ddca39e36f0f095f87736f1200a55a65bc0fc7d99ed0a0f92494bc92f4b985",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement/query/prepared.rs",
+      "actual_EOF": 83,
+      "ranges": [
+        [
+          1,
+          83
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1822,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement/tests.rs",
+      "sha256": "a79667760aff1f020c5a0a9c92213a755852b225e44b534cd88de28e57e69d46",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement/tests.rs",
+      "actual_EOF": 392,
+      "ranges": [
+        [
+          1,
+          392
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "RIG-OWNER-SUPPORT-MESH-APRON-064",
+    "NATIVE-OWNER-ROOT-SUPPORT-DEPENDENCIES-009",
+    "ROOT-OWNER-SUPPORT-RECEIVERS-060",
+    "ROOT-OWNER-SUPPORT-AND-RANGE-CLOSURE-086"
+  ],
+  "facts": [
+    "1819 source foundation/natural buffers immutable through public getters; compile coordinates one global subtraction across all property outlines rather than retaining independent uncut natural colliders per property. Geometry validates before query index creation or decoded index validation. Contact tolerance is max of selected per-property limits and supports0 for natural-only settlement; per-property versus aggregate tolerance are distinct policy roles.",
+    "1819 prepared Arc<OnceLock> is discarded at decode, omitted from wire and equality, and populated from immutable current source once. Clones share cache with unchanged geometry. Within-module fields exist but no actual normal mutator of source after cache population was proved; no stale-cache finding solely because Rust privacy is module-scoped.",
+    "1820 query index validates finite/order/bounds containment, exact existing references with uniqueness and full count, graph reachability/cycles. It is derived source-reference acceleration rather than an alternate sampled heightfield. Serialized indexes may differ in legal tree/traversal shape; shared-edge equal-height normal tie depends on traversal, but no current canonical tie contract/normal discrepancy defect established; conditional API question retained, not newfinding.",
+    "1820 natural support requires both ownership rounding cell and contact margin; foundation margin applies only after some face of same owner owns represented point. These are different ownership/contact facts, not competing classifications to collapse.1821 prepared edge_lengths derive from canonicalized same geometry and preserve original unnormalized halfplane order. Degenerate legal source face maps None, intentionally no support face, not zero height.",
+    "1822 fixtures explicitly preserve both retaining levels and bound ceiling selection, stable accepted source diagonal versus metadata grid, terrain LOD-independent accepted geometry, prohibited rewrite/refine after owned surface, and source-only exterior versus nearby floor margin. Their assertions are source contracts only; no checks executed.",
+    "1822 apron owner fixture moves mesh, regions and outlines together intentionally constructing a conflict; it does not prove an ordinary mutable-surface updater. Broader original archived aggregate/owner findings and .ok() error-loss remain open.",
+    "No new07finding; all13 and overlays remain incomplete."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1823,
+    "start_line": 1
+  }
+}

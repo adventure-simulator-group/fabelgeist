@@ -1,0 +1,162 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-073",
+  "at": "2026-10-23T00:52:59.526728+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/grade.rs",
+      "sha256": "60f79c6fe38de7e44aa07d908848a9a81e03efc77be1522585275f3f8e3f2c0e",
+      "scope041_index": 1899,
+      "actual_EOF": 296,
+      "scoped_ranges_compared": [
+        [
+          1,
+          296
+        ]
+      ],
+      "actual05_comparison": "Fresh complete296. TerrainGradeLimit private finite nonnegative, zero legitimate and manual checked Serde. constrain validates complete width/depth/count, finite positive spacing, finite heights and nonnegative grade BEFORE indexing. Converts to local f64 values; dirty flags have exact cell cardinality and each changed triangle marks every adjacent cell before future skip, retaining shared-vertex proof. Alternating raster order is deterministic. Bounded1024 sweeps; all candidate replacement heights must be finite before copy_from_slice120. InvalidInput and Convergence return with original heights unchanged, closing parent072 pending mutable helper boundary. Already permitted relief returns without changing bits. WorstCell retains the actual cell with measured rise, DiagnosticCount sweep bound; zero target branch explicitly flattens rather than divide by zero. Finite f32 operands widened to f64 keep difference/square/products within representable f64 here; no runtime/convergence claim for every terrain.",
+      "source_body_proof": "Fresh exact current frozen body personally read, existing fixtures source-only; original unchanged ranges qualified before use."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/grade/tests.rs",
+      "sha256": "480ab83fca39804dcdb282b16c1d3ebfb6ce3b257b1f7b89f0455cce60a10601",
+      "scope041_index": 1900,
+      "actual_EOF": 109,
+      "scoped_ranges_compared": [
+        [
+          1,
+          109
+        ]
+      ],
+      "actual05_comparison": "Fresh full109 original fixtures source only. Tests encode diagonal rather than per-axis gradient, unchanged permitted relief, deterministic neighboring projection, and invalid-request unchanged input. Dirty sweep comparison uses identical current values and unconditional baseline; these are acceptance expectations, not executed validation. No production state or new test.",
+      "source_body_proof": "Fresh exact current frozen body personally read, existing fixtures source-only; original unchanged ranges qualified before use."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input.rs",
+      "sha256": "bde515fc144669a9902a54886ded6185c84fca86313d86ca7c44ba0626e8ae12",
+      "scope041_index": 1914,
+      "actual_EOF": 1026,
+      "scoped_ranges_compared": [
+        [
+          1,
+          1026
+        ]
+      ],
+      "actual05_comparison": "Fresh full1026 including original510+fixtures source only. Raw TacticalSceneInput requires actual explicit validate; load/digest call it. validate_grid427–467 bounds playable dimensions2..601, spacing.25..2000, exact BOTH height/environment count, finite height[-12000,12000] and six BP fields<=10000. Upsampling252–306 either clones both matching arrays or pushes one height and one nearest environment per same width×depth iteration; cap600 intervals preserves bounded extent. Private microrelief/repair helpers rely on caller lengths; actual geographic chain validates before entry, and grade helper preserves heights on failure. Environment snapshot averages corresponding actual array; max(1) permits rawempty diagnostics but is not full accepted state. Actual5.75 canopy minus2.25 dense radius=3.5 positive closes ground probability divisor, no magic-number lens credit. Weather validator dewpoint comparison raw temperature+5 retains existing Root03F009 overflow graph; no duplicate unique finding. RockRecipe dimensions/radius raw public u16 product is data-only; actual rock generator/native consumer remains separate obligation.",
+      "source_body_proof": "Fresh exact current frozen body personally read, existing fixtures source-only; original unchanged ranges qualified before use."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation.rs",
+      "sha256": "6dd07ed9db5b93386803c3c441f3e84c340a217626c86b423f59563deaf1c739",
+      "scope041_index": 1944,
+      "actual_EOF": 204,
+      "scoped_ranges_compared": [
+        [
+          1,
+          204
+        ]
+      ],
+      "actual05_comparison": "Fresh full204 including original169+fixture. generate→generate_unfurnished obtains complete SupportedSceneTerrain then passes SAME terrain/ground/buildings/obstacles into furniture/garden/boundary generation before constructing final output. prepare_terrain preserves both array lengths and accumulates source diagnostics; actual validated caller bounds count conversions. Obstacle enumeration uses validated input width/count and same original source spacing, separate from refined terrain lattice intentionally. Remove-building obstacles accumulates local retained vector, commits only after all geometry checks succeed; count report derives before-after same vector. No whole recipes/cache rollback promised: mutable building_recipes may be updated before later error; caller authority remains Root.",
+      "source_body_proof": "Fresh exact current frozen body personally read, existing fixtures source-only; original unchanged ranges qualified before use."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/validation.rs",
+      "sha256": "3d97a798029ddc9f195aa209105f64070c55fb0172ef87a515e67fe945c735c9",
+      "scope041_index": 1960,
+      "actual_EOF": 64,
+      "scoped_ranges_compared": [
+        [
+          1,
+          64
+        ]
+      ],
+      "actual05_comparison": "Fresh full64. validate_source enforces version, nonempty bounded scene/source identity, THEN validate_grid on playable BEFORE geographic generation. Vista each grid checked exact count and height/environment bounds, strictly increasing distinct ordinal/spacing, finite origin, max8 levels and checked cumulative<=2m samples. Empty vista legitimate. Ordinal names do not classify distance roles. Source validation distinct from selected grounding validation; actual stage calls full validate where owned support needed. Grounding/helper predicates remain their actual separate source obligations, not passed from name.",
+      "source_body_proof": "Fresh exact current frozen body personally read, existing fixtures source-only; original unchanged ranges qualified before use."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/terrain_samples.rs",
+      "sha256": "d2ea661c716a406090f74c7caf955d7381bb8eee5f02850af42cd153b3fedd84",
+      "scope041_index": 1956,
+      "actual_EOF": 109,
+      "scoped_ranges_compared": [
+        [
+          1,
+          109
+        ]
+      ],
+      "actual05_comparison": "Fresh full109 including original95+fixtures. EnvironmentalSample and TerrainSampleGrid public raw DTO fields do not seal BP/dimension/count correlation; actual input validate_grid owns these checks. Closed TacticalSurface transport enum denotes distinct semantic vocabulary, not render index. VistaLevelIndex intentionally allu8; containing scene owns ordering/count, not scalar. VistaSample empty default valid optional absence. Source ImportedPackage retains canonical package digest versus open SyntheticFixture string; source identity and bytes provenance not interchangeable. Ordinary derived Serde for grids is raw ingress, no accepted state exemption.",
+      "source_body_proof": "Fresh exact current frozen body personally read, existing fixtures source-only; original unchanged ranges qualified before use."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/descriptor.rs",
+      "sha256": "2b30929bb687f5865c0fa515cb96763b1b03d4a97522dbc015b02d7cb4558336",
+      "scope041_index": 1919,
+      "actual_EOF": 103,
+      "scoped_ranges_compared": [
+        [
+          1,
+          103
+        ]
+      ],
+      "actual05_comparison": "Fresh full103 including original40+fixtures. TacticalSceneInput raw public complete document ties schema/generation version, geographic snapshot/time/weather, playable/vista and optional grounding/properties. Derive deny-unknown controls schema only; validate/generate gates establish actual aggregate, public mutation can break it until revalidation. Source bytes bounded by load32MiB, no embedded type size cap. Grounding None/Some versus physical placements checked in actual2698; selected support and property catalogue not inferred from Option alone. Existing fixtures exercise operator/sign association and stale branding, no run. No compatibility migration/fallback added or assumed.",
+      "source_body_proof": "Fresh exact current frozen body personally read, existing fixtures source-only; original unchanged ranges qualified before use."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation/geographic.rs",
+      "sha256": "b0a7c91fd0c9c09870ebcacd16ae968638ba3381e66e7d44b9ee6c7e6235236c",
+      "scope041_index": 1945,
+      "actual_EOF": 96,
+      "scoped_ranges_compared": [
+        [
+          1,
+          96
+        ]
+      ],
+      "actual05_comparison": "Fresh full96. prepare_geographic_terrain24 validates SOURCE before preparing buildings or any sampling. upsample result supplies SAME width/depth/spacing and paired columns to preparation; coarse validated from same heights; build_scene_ground37 uses same environment/coarse. Thus short raw slice is an internal helper precondition, not reachable from this ordinary validated factory. SceneGround remains coarse when Terrain is subsequently refined: equal array lengths between refined terrain and ground are NOT required; physical extent and point frame shared. Reservations derive actual buildings plus compound/garden plot geometry; all local outputs returned together, though public UngradedSceneTerrain fields permit raw caller recombination and are not a sealed capability. Normal source extent<=1.2e6 closes current litter .55/community24 integer capacity; arbitrary helper inputs remain F021.",
+      "source_body_proof": "Fresh exact current frozen body personally read, existing fixtures source-only; original unchanged ranges qualified before use."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation/supported.rs",
+      "sha256": "951ac796fe6192eccfebbeca4317a11c29f0ac3697424ddc46973810d05db06b",
+      "scope041_index": 2699,
+      "actual_EOF": 56,
+      "scoped_ranges_compared": [
+        [
+          1,
+          56
+        ]
+      ],
+      "actual05_comparison": "Fresh full56. prepare_supported_terrain23 full validate before geographic factory; building pads and compound relation checked before support install. Actual presented-source object and physical placements supplied together to projection.reconstruct, then consumes terrain.with_property_surface. Obstacles removed against installed physical support. Public output struct is a correlated factory result, not private proof token; no arbitrary external field recombination guarantee. Does not re-run sampled generation with buildings deleted or invent neighboring floors; reconstruction lower digest/binding admission remains own exact original source roles.",
+      "source_body_proof": "Fresh exact current frozen body personally read, existing fixtures source-only; original unchanged ranges qualified before use."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation/grounding.rs",
+      "sha256": "b6b4c68b580f96661e79986758218aaa58f8ac2b89c2414c58f5978f1c55bd80",
+      "scope041_index": 2698,
+      "actual_EOF": 78,
+      "scoped_ranges_compared": [
+        [
+          1,
+          75
+        ]
+      ],
+      "actual05_comparison": "Fresh exact1–75 only, EOF78; cfgtest declaration76–78 excluded. ground_generated_city validates source and exact complete equality of playable/distant/compounds/gardens/streets/yards/parishes against supplied layout BEFORE selection. Empty buildings takes full validate path. Nonempty derives GeographicSurface from same prepared terrain/vista, selects and compiles one complete layout, stores support projection and replaces both building collections before full validate and returning owned self. Failure never publishes the locally moved candidate; no host/database rollback claim. physical_placements concatenates exact playable then converted distant, preserves order. validate_grounding allows only(None,empty) or(Some,nonempty) with actual placement+compound binding checks; no len-only catalogue membership assumption.",
+      "source_body_proof": "Fresh exact current frozen body personally read, existing fixtures source-only; original unchanged ranges qualified before use."
+    }
+  ],
+  "comparison_groups": {
+    "normal-column-shape": "Exact validation→paired upsampling→same coarse terrain/ground call chain closes ordinary build_scene_ground indexing precondition; arbitrary helper slices still raw.",
+    "atomic-grade-replacement": "Grade repair computes local candidate and commits only after complete finite convergence, preserving source bits on failure.",
+    "accepted-source-and-support": "Source-only validation precedes geography; full validation and exact source/placement reconstruction precede installed owned support. Raw public stage outputs are not capabilities.",
+    "capacity-qualification": "Source dimensions/spacing bound normal coordinate cells, without pretending finite leaf positions establish universal integer capacity."
+  },
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Owned support reconstruction/digest/placement bindings, refinement and terrain source/native geometry helpers remain own remaining inventory cells.",
+    "Native allocator backend/source collector requirements from071 still explicit; no native whole-graph waiver."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

@@ -1,0 +1,32 @@
+{
+  "id": "RIG-INITIAL06-GROUP-021",
+  "at": "2026-10-22T19:53:11.961429+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "device-family-products-and-canonical-skin": {
+      "sources": [
+        "pr-working:crates/fabelgeist-armor/src/gpu/bracer.rs",
+        "pr-working:crates/fabelgeist-armor/src/gpu/breastplate/mod.rs"
+      ],
+      "comparison": "Fresh full Bracer486/Breastplate332. Layout/BracerMesh/DeviceBracer versus DeviceBreastplate are different runtime fit algorithms: forearmring sparse weightedcontours versus torsoface correspondence/remeshing/animearticulation. They retain canonical BracerDesign/BreastplateDesign, RigJointCount and sharedGeneratedArmor/ArmorMorph on readback; no need duplicate source types or forceboth into genericDevicePart (different construction/draw/stagepolicy). BracerBody is a borrowed realization positions/normals pair, ForearmSkin supplies axial/surface/atlas/body, TorsoBody supplies fronttorsosemantic/riganchors/atlasfaces/eligibleface map: different useful inputproducts. MeshSurface tuple outputpositions/normals reuses no other semanticowner, a common outputpair can share meaningful record laterwithoutmerginginputs. Actual typed RigJointCount\u2192nativewords\u2192PackedRigSkin.from_native uses canonical lowerRigowner; nearest-body rawweights/nativebits retain normalization/provenance qualifications. Skin UV/nativeindices packing different lane meanings explicitlyunpacked; no new typedfield owner fabricated from rawu32. Lower DeviceSurface/Plates/Shell/Articulation bodygraphs notread here, call names no coverage. Source actual family validates before record, read errororder preserved; publicnativeBuffers/suppliedmorphnames not universal validstate guarantee."
+    },
+    "common-unfitted-part-product": {
+      "sources": [
+        "pr-working:crates/fabelgeist-armor/src/gpu/limb.rs",
+        "pr-working:crates/fabelgeist-armor/src/gpu/limb/joint_cup.rs"
+      ],
+      "comparison": "Fresh limb478/jointcup268 and registeredlimb_build46, compared actual extremities78 and common recipe166 read016. LimbShape257\u2013261 and ExtremityShape15\u201319 both consist EXACTLY PartRecipe+Vec<f32>design with same units/authority/zero/admission and same source\u2192unfittedrecipe\u2192record purpose. Every current Limb producer greave/cuisse/rerebrace/spaulder/jointcup returns it; caller limb_build19\u201320 passes fields unchanged to PartRecipe.record,44\u201345 to PartRecipe.build. Extremities shape59\u201364 selects Mitten/Sabaton/Boot then record76\u201377 passes exact same pair toPartRecipe.record. Distinct anatomicalfamily selection is already carried by inputdesign and chosenkernels/layout, not extra invariant in these two outputtypes. Thus a single common prepared-part recipe product belongs lowest gpu::recipe beside canonical PartRecipe, both familiesdirectlyuse; no aliases/forwardingcompatibility wrappers. This is F004 migration gap rather than requirednewcrate/newgenericmesh abstraction. Exact body07/09recordstate issue notautomatically solved by common type. Shader source constants/Vec design slots nativepacked representation retain current meaning; scripted code mirroring remains otherinitiallens candidate. JointCup source construction Wrapped/RaisedCop/flute orientation/distal extension meaningfulsourcevariants, not duplicate shapeowner. Its lapspace/terminalshare/length calculations changequantities before upload; actualGPUangle sin/cos portsdistinct earlier hostAnglepropagationF001.",
+      "additional_sources": [
+        "pr-working:crates/fabelgeist-armor/src/gpu/limb_build.rs"
+      ],
+      "already_read_current06_source_refs": [
+        "contracts-016.json#/groups/chart-and-coordinate-shape-native-port",
+        "contracts-016.json#/groups/shell-layout-native-address-domains"
+      ]
+    }
+  },
+  "new_findings": [
+    "RIG-INITIAL06-F004"
+  ],
+  "limits": "Fresh exactfullcurrentbody and explicit crossfamily producer/recipient comparison, no wholelowergraph/oldverdict/nativeblanket credit. Whole06 incomplete."
+}

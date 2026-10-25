@@ -1,0 +1,86 @@
+{
+  "id": "CONT08-CONTRACT-409",
+  "at": "2026-10-25T18:20:04.669733+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 1385,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/approach.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/approach.rs",
+      "before_sha256": "1934371f858760a558f0253d24322f839b672ad3cf732d6c10c99129122d3f2c",
+      "after_sha256": "2c19e2ae2a9bad27291f92cec00c346ba03f1254289e441714f84016a5e37e7e",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1385-base-1934371f858760a558f0253d24322f839b672ad3cf732d6c10c99129122d3f2c",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/2c19e2ae2a9bad27291f92cec00c346ba03f1254289e441714f84016a5e37e7e",
+      "diff": "source-evidence/pr-1385.diff",
+      "diff_sha256": "5e374a3f9878e335bfcfcfd6563f19f236836d9cea6a48e23610d94ec91801e3",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "head_body_read_method": "Fullsource andactualdiff/alladdednewbody consumed; directoldmovedkernels andfixturebodies comparedwithout execution",
+      "facts": [
+        "Whole76head+89actualdiff consumed. Same collapsedwindow<=ready step, inclusionphase<=ready, tiny1e-10 ratio=.5, subtraction/division/clamporder preserved for admittedfinitecoordinates. Existing4assertions/inputsretained typedconstructors/unwraponly, readnotrun. Nativefiniteextreme subtractionInf/Inf maynowErrwhereoldNaN flowed; noordinaryconfiguredwindowwitness."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1386,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/flight_projection.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/flight_projection.rs",
+      "before_sha256": null,
+      "after_sha256": "522eaadd0e7580f987c7a1d37d5687abf202baca0b78bdc2ae9247d3de39424c",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/522eaadd0e7580f987c7a1d37d5687abf202baca0b78bdc2ae9247d3de39424c",
+      "diff": "source-evidence/pr-1386.diff",
+      "diff_sha256": "0013b70e40d8ee5893bc3f918c8440f366bca4b63cd7c69e2ef0cbf8257ffecd",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          256
+        ]
+      ],
+      "head_body_read_method": "Fullsource andactualdiff/alladdednewbody consumed; directoldmovedkernels andfixturebodies comparedwithout execution",
+      "facts": [
+        "Whole256newbody/alladded consumed; actualremovedold1384flightprojection1112diffalreadyread plusactualold1389fixture2291\u20132309/2336\u20132357/2607\u20132627 compared. Same previousfinitefilter, firstsnap/nohistory, ownertransport,64inclusive samples/farthestfeasible interval,12bisections,4refinements/25x25square-disk/4cmchord constraints/strictscoretie/leastdiscontinuousfallback. Missingfloor inside disk stillreturnsNonewholehelper ratherthan skippingpoint, sameold? behavior retainedexplicitly.",
+        "Finitecheckednativepoints/floors nowResult beforepublication; errorsshortcircuitcandidate search, sourceconditional strengthening versusoldnonfinite arithmetic, noordinaryterrainfaultclaimed. Actual1387completedfloor kernelsread. movedcapturedRunfixture oldNEG_INFINITYfloor becomesNone; max(y,-Inf)=y equals new nofloor, assertions/inputs unchanged. Other2ridge/uphillfixtureinput/thresholdoracles retained; notrun."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1387,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/foot_clearance.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/foot_clearance.rs",
+      "before_sha256": null,
+      "after_sha256": "fbee9961d5150f7a221c942cab5c5288e3efdca4d36e920ab5476a2ed9be3b82",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/fbee9961d5150f7a221c942cab5c5288e3efdca4d36e920ab5476a2ed9be3b82",
+      "diff": "source-evidence/pr-1387.diff",
+      "diff_sha256": "49ba0bd740e96e4ac48587b8e9dfd78b5cccfa7ba9fb71e6891796c0feacaebb",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          395
+        ]
+      ],
+      "head_body_read_method": "Fullsource andactualdiff/alladdednewbody consumed; directoldmovedkernels andfixturebodies comparedwithout execution",
+      "facts": [
+        "Whole395newbody/alladded consumed, comparedactualold1384removedclearance/toearc/settle kernels pluswhole1370actualdiff andown1368ordinarytarget. Same terrain+sole+clearance leftassociation, upwardmaxvsFollowFloor exact, authoredlerpaftermax, progressclamp/smoothstep/sine, justreleasedonlyminimumfloor, toeankleabove-toe subtractionorder and90degrotationmargin.",
+        "Completedscalar/point/floorfiniteadmission occursbeforeuse; transition_floor intentionally completes solefirst optionaltoesecond f32max beforechecking (oldfinite-maxneutralization retained). Badpoint/scalarErr conditionalAPI strengthensadmission, noordinaryauthoredgeometryfailure. Missingterrain returnsoriginaltarget/None asold.",
+        "Movedsettleswingfixture old1356:1636\u20131644 actualbodyalreadyread; new369\u2013394 same .0/.5/.75/1 inputs and exact .09/.0001 assertions, readnotrun. Flowproof newFootDescent representsoldbool withoutinvertingfloor/descent."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    }
+  ],
+  "next": "Remainingconnected1375raisedfootwork,1388runreach and1389fixtures;1370/1384wholehead+diff proofsaved, awaitthosebeforefullroles"
+}

@@ -1,0 +1,309 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-835",
+  "at": "2026-10-25T16:58:29.705938+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1045,
+      "source_id": "pr-working:crates/adventuresim-plant-generator/src/fungus/tests.rs",
+      "sha256": "9f28109140452b041e8384e12e077229fb93d33f95d9daf8d400b6c3829e18d9",
+      "actual_EOF": 129,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-plant-generator/src/fungus/tests.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-plant-generator/src/fungus/tests.rs",
+        "sha256": "9f28109140452b041e8384e12e077229fb93d33f95d9daf8d400b6c3829e18d9",
+        "bytes": 4231,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-root-receivers-004.json",
+            "ranges": [
+              [
+                1,
+                129
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-SUPP-RNG-PLANT-001"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 266,
+            "read_ranges": [
+              [
+                1,
+                129
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-BOTANICAL-045"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-plant-generator/src/fungus/tests.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 394,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Full fungus fixtures source only geometry/admission/habitat assertions; no own type/handtrait/codec."
+    },
+    {
+      "scope_index": 1046,
+      "source_id": "pr-working:crates/adventuresim-plant-generator/src/habitat.rs",
+      "sha256": "7f13a680943fdde1dbb0d8e39762bbc58003d47bc2937621fee8b6d61a390bc7",
+      "actual_EOF": 94,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-plant-generator/src/habitat.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-plant-generator/src/habitat.rs",
+        "sha256": "7f13a680943fdde1dbb0d8e39762bbc58003d47bc2937621fee8b6d61a390bc7",
+        "bytes": 3330,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-root-receivers-004.json",
+            "ranges": [
+              [
+                1,
+                94
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-SUPP-RNG-PLANT-001"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 267,
+            "read_ranges": [
+              [
+                1,
+                94
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-BOTANICAL-045"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-plant-generator/src/habitat.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 395,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          94
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "PlantGround/PlantHabitat structural traits already derived"
+      ],
+      "absence_basis": "Full habitat source only native per-species/season/ground occurrence classifiers, no handwritten trait/codec."
+    },
+    {
+      "scope_index": 1047,
+      "source_id": "pr-working:crates/adventuresim-plant-generator/src/lib.rs",
+      "sha256": "50117dba957760185e51e46b06b652846a6682f7f18bdcd993e40bcf2f6a34c6",
+      "actual_EOF": 13,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-plant-generator/src/lib.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-plant-generator/src/lib.rs",
+        "sha256": "50117dba957760185e51e46b06b652846a6682f7f18bdcd993e40bcf2f6a34c6",
+        "bytes": 393,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-root-receivers-004.json",
+            "ranges": [
+              [
+                1,
+                13
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-SUPP-RNG-PLANT-001"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 268,
+            "read_ranges": [
+              [
+                1,
+                13
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-BOTANICAL-045"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-plant-generator/src/lib.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 396,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          13
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Full crate root modules/reexports only; no own implementation and no childbody credit."
+    },
+    {
+      "scope_index": 1048,
+      "source_id": "pr-working:crates/adventuresim-plant-generator/src/lod_tests.rs",
+      "sha256": "61629eb0962893806bfe10ea6ac6da724bada40435a910e83b5891512f86dd1c",
+      "actual_EOF": 68,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-plant-generator/src/lod_tests.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-plant-generator/src/lod_tests.rs",
+        "sha256": "61629eb0962893806bfe10ea6ac6da724bada40435a910e83b5891512f86dd1c",
+        "bytes": 2516,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-root-receivers-004.json",
+            "ranges": [
+              [
+                1,
+                68
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-SUPP-RNG-PLANT-001"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 269,
+            "read_ranges": [
+              [
+                1,
+                68
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-BOTANICAL-045"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-plant-generator/src/lod_tests.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 397,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Full LOD fixture source only catalog/seed/mesh budget assertions, no own type/handtrait/codec."
+    }
+  ],
+  "groups": [
+    "Habitat weight rules are semantic scene-level approximation, not enum serialization replacement. Source fixtures read only, not executed; no promised assertion outcome."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1049,
+    "source_id": "pr-working:crates/adventuresim-plant-generator/src/mesh.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

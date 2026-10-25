@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-556",
+  "at": "2026-10-25T16:02:11.496211+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 917,
+  "source_id": "pr-working:crates/adventuresim-core/src/encounter.rs",
+  "sha256": "aad69b12c6ade6caa59828876caede30c0a0fe2577b11fdd91f84594d2471dd5",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Fresh encounter1\u2013220 structural enums/context/selection already derive; EncounterArchetype also snake_case Serde/cfgSpacetimeType. Native archetype\u2192threat, terrain/choice penalty, speed/awareness eligibility and deterministic encounter boundary rules are semantic functions. No handwritten trait/codec. select_at signature continues.",
+  "first_unfinished": {
+    "scope_index": 917,
+    "line": 221
+  },
+  "execution": "none"
+}

@@ -1,0 +1,24 @@
+{
+  "canonical": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit/continuation/root/admission03/findings.jsonl#row8",
+  "record": {
+    "id": "ROOT-ADM-F009",
+    "at": "2026-10-22T14:27:43.065382+00:00",
+    "lens": "audit-admission-contracts",
+    "classification": "scene_weather_admission_narrow_temperature_comparison_overflows",
+    "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input.rs",
+    "ranges": [
+      [
+        470,
+        503
+      ]
+    ],
+    "actual_recipient": "TacticalSceneInput public rawWeatherSnapshot deserialize/literal inputs; actualvalidation347 validate_source61 invokesvalidate_weather afterearliergrid/identitygates. Native fullWeather actualrawi16temperature anddewpoint fields notalreadyrestrictedphysicaltempowner.",
+    "counterexample": "Otherwisevalidsceneweather withtemperature_deci_c=i16::MAX reaches comparison atmosphere.dew_point_deci_c > weather.temperature_deci_c + 5 at477. Additionoverflowsdebug beforestructuredWeatherErr; releasewrap changespredicate. A canonical source validator must evaluate representable rejected/rawinput without narrowintermediateoverflow. No authoredpayload/newtest/runtimefailureclaimed.",
+    "remedy": "Keeptemperature/temperaturedelta roles distinct andcompare inwidened exactinteger units (orcanonicalcheckedoperation) beforefinaladmission. Do not inventphysicaltemperaturebounds/clamp/discardrawrejectedinput tohideoverflow. Preserve existing5decidegree tolerance/firsterrorder andnativeweatherstate policy. Existingtests only.",
+    "repair": "frozen_initial_all13",
+    "validation": "not_established"
+  },
+  "fresh04_support": "Packet503 personally read complete exact scene_input.rs1026 including validation470\u2013503. Same i16 temperature+5 before comparison. This exact full supplied record establishes raw-i16 admission qualification; no transfer of unread Weather owner coverage. Widen exact unit comparison preserving5 tolerance and validation order, not arbitrary physical bounds.",
+  "new_unique": false,
+  "execution": "none"
+}

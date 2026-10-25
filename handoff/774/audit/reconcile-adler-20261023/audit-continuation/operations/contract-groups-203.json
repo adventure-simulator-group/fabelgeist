@@ -1,0 +1,105 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-203",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/custody_objectives.rs",
+      "sha256": "7274d8bedc95fa40cee64bda7b7dda0c32b6d02aa01e44e754f77e1bd171bc5b",
+      "actual_EOF": 1677,
+      "actual_compared_ranges": [
+        [
+          1,
+          1677
+        ]
+      ],
+      "method": "Full P16 literal custody/objective body and inline dispatch fixtures read in6 bounded displays. Complete empty PR textual comparison consumed, actual mutation/retry contracts analyzed; no hash-only credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/custody_objectives.rs",
+      "sha256": "7274d8bedc95fa40cee64bda7b7dda0c32b6d02aa01e44e754f77e1bd171bc5b",
+      "actual_EOF": 1677,
+      "actual_compared_ranges": [
+        [
+          1,
+          1677
+        ]
+      ],
+      "method": "Full P16 literal custody/objective body and inline dispatch fixtures read in6 bounded displays. Complete empty PR textual comparison consumed, actual mutation/retry contracts analyzed; no hash-only credit."
+    }
+  ],
+  "groups": [
+    {
+      "id": "Typed custody mutation and retry",
+      "locations": "custody_objectives1-428,674-905; fresh Core case570-622",
+      "trace": "Objectkind/strictID and holderkind/payload admitted before current record adaptation. Party dispatch distinguishes empty unattributed, exactly ordinary, exactly residentNPC, rejects ambiguous/unknown. Native exactsource replay compares case/object/kind/holder/version and paired fact attribution when factSome; this strengthens rawCore same-source earlyfalse which alone ignores mismatched payload. Current record passed to actualCore apply_custody before DBwrite. Core requires initialversion0 and next=current.saturating+1, samecase, thenreplaces; at currentMAX a new source can replaceholder withoutfreshversion. Native escort uses same saturated+1 at724. This is represented terminal authority strengthening, no ordinary mutationhistory/runclaim. Snapshot current version cannot alone distinguish laterMAX transition; actual holder checks retainindependentcontinuity protection. Native update precedes fact/continuity/impossibility fallible calls; alloutercallers/SDK semantics required beforepartialcommitted claim. Seedtypedkind map rejects ambiguous objectivekind andchecks counts, but exactuniqueauthoredlistcoverage stillgeneratoradmissioncontract.",
+      "disposition": "No new ordinary custody bug promoted; retain explicit exhaustedversion policy and same-source equality requirements as connected canonical authority.",
+      "dependencies": [
+        "Canonical CustodyRecord version/transition owner",
+        "Actual native custody source and fact payload producer/caller graph",
+        "ResidentNPC versus ordinaryparty sharedownership boundaries",
+        "SDK outer transaction and catches"
+      ],
+      "acceptance": "Every accepted custody change has explicit fresh or exhausted version policy and exactsemanticretry; rejectedchange cannot commit holder without matching fact/continuity. Preserve version0 initial meaning and no persistent owner imposed on synthetic IDs."
+    },
+    {
+      "id": "Continuous deadlines and clock acquisition",
+      "locations": "custody_objectives431-673",
+      "trace": "Party exists but missing leaderclock defaultsZERO at443, extendsCAM-PPS-F003 actualrecipient. Guardrequirescurrentphysicalsite or exactpartyholder andnow<=deadline, retainscustodyversion/start/deadline. Reconcile guardsactualsite/holder/version, breaks atnow or waits untilnow>=deadline. Atdeadline emits typedfact matching exactobjective andonlythencompletedtrue. Later touchedcases ensure newguards. Stableguardid case/object/party/now cancollide if break/reacquire atsamepersonalminute, actualmove/custodyelapsedpolicyneeded beforeordinaryclaim. Expiry endpoints inclusive here deliberate, no blind+1. Broken/replacedparty contexts retainhistory beforeappend.",
+      "disposition": "No new ordinary endpoint/arithmeticdefect; missingclock and represented same-minute lifecycle identity remain qualified dependencies.",
+      "dependencies": [
+        "CAM-PPS-F003",
+        "Actual departure/arrival/custody transition elapsed guarantees",
+        "Canonical continuousguard start-versus-requiredhistory policy",
+        "Case fact ingestion and outererror graph"
+      ],
+      "acceptance": "Requiredclock absence remainsunavailable; accepted continuoushistory cancompleteonlywithactualunbrokenmatchingauthority throughdeadline. Same-minute validreacquisition mustnotcrash or overwrite priorbrokenhistory if allowed."
+    },
+    {
+      "id": "Fact ingestion, evaluation and finale mutation",
+      "locations": "custody_objectives906-1241; fresh Core case326-381",
+      "trace": "Exactmanual/generated provenance checked beforetrustedfact; generatedauthorityfullreplay/manifestobjectives agreement, actualcarrierremediationtransformsacceptedhostilefact toSourceRemediated beforeencoding. Fact includes fresh refresh_clock happened_at beforeexisting-source comparison. Repeating same semantic source laterworldtime changesencodedtimestamp andconflicts; outerdurablereceiptsmaypreventsuchcalls, soretaininternalretrycontractquestion notordinaryreportedfailure. Existingfact exactcase/party/JSON equality, thennewfactinsert/evaluate. Winningpath usize->u16.tryok canbecomeNone forrawoversizeexpressions; freshCoreObjectiveExpression::new caps16paths, so notpossibleforactualconstructor-admittedexpression. Native serde-ownedretainedexpression needsrealwriteradmissionclosure, no65537acceptednormalgraphinferred. Finale selectionstablepriority/id, allineligible exceptselected; executionreceipt exactsource/party early, actualgeneratedworldevent thenstatus/receipt. Many fallible stepsafter earlierfacts/case/contracts; no blanketatomicity claim ifcaller catches.",
+      "disposition": "No new numericdefect promoted. Preserve source fact timestamp/identity semantics and existinggeneratedprovenance boundary; no guessed global unique count.",
+      "dependencies": [
+        "Actual immutable domainreceipt retry entry points and happened_at eventtime owner",
+        "ObjectiveExpression decoder/constructor validation for every manual/generatedwriter",
+        "Worldevent resolvedcase commit and ensure_settlement_activity reentrancy",
+        "SDK outertransaction/catches"
+      ],
+      "acceptance": "A completed fact/selection/finale operation preserves exact provenance and oneimmutable event coordinate, with representable path identity and completed effects. Exactsemanticretry must have deliberate eventtime policy; fail before partial publication if unavailable."
+    },
+    {
+      "id": "Mission candidate publication and checked path coordinates",
+      "locations": "custody_objectives1243-1677",
+      "trace": "Objective resolution weights fixed50/30/20; generatedsitefinalegroup requires oneuniquecompatiblegroup alsoauthoredatsite. Eligibilitychecksactualgeneratedcase/site/name/oneactivegroup/objectives/evaluation; get(path/objective) guards shape beforeaccess. Finale path comparison usesu16.tryok, constructor16pathbound appliesonlyafteractualadmission. Binding requiresactualvisited/knownsite andactivecase, generatedfullreplay ormanualacceptedactivecontract. Capture exactsubject/site/custodyversion; surrenderedonlyifauthored. Capability path index checkedu16 beforewrite; replaycomparesallimmutablecandidatecoordinates. Stablecandidate index formattedminimum3width nevertruncates, so index1000 remainsunique. ActualMissionAuthority::capture delegatesfullroster/snapshot admission, thenmissionandcandidatewrites; exactcapturebody futuredependency, no wholeauthorityproof from field shape.",
+      "disposition": "No local uncheckedindex/narrowing failure for admittedboundedobjectives. Preserve boundroster and strategic/tactical snapshotboundary.",
+      "dependencies": [
+        "Actual MissionAuthority::capture and worldactorroster cardinality/identity",
+        "Canonical objective/admittedcapability bounds and missioncandidate selector",
+        "Outertransaction/catches and generatedbindings publication constraints"
+      ],
+      "acceptance": "Acceptedmission contains exactimmutableauthoredroster/snapshot and admittedpath/custody identity. Failedcapture/candidatepublication cannot retain a usablepartialmission. Tacticalchildcannot select/amend strategicoutcome candidates."
+    }
+  ],
+  "findings": [],
+  "status": "Two originalrolespersonallycompared; whole04andconnectedcaller/authoritydependenciesincomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/strategic/development_gallery.rs",
+  "fresh_dependencies": [
+    {
+      "path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/source/physical-p16-unscoped-dependency/crates/adventuresim-core/src/case.rs",
+      "sha256": "7b919041dbce7f4e53f859aab2c5b7c6b16dd110b1452ecfa598555bda9055b0",
+      "actually_read_ranges": [
+        [
+          326,
+          381
+        ],
+        [
+          570,
+          651
+        ]
+      ],
+      "coverage": "Freshcriticalcustody/constructorbodies only; no newwholeoriginalrolecredit."
+    }
+  ]
+}

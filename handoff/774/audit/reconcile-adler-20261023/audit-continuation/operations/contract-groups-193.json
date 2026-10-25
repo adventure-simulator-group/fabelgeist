@@ -1,0 +1,118 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-193",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/residence/authority_tests.rs",
+      "sha256": "3543fcdab7a7fd0bc516183ebfa20ccafe25fe34952235d37bd7a84762d99eeb",
+      "actual_EOF": 242,
+      "actual_compared_ranges": [
+        [
+          1,
+          242
+        ]
+      ],
+      "method": "Full literal P16 helpers and guarded fixtures personally read, entire empty PR textual comparison consumed for each; unchanged body operations actually compared, not hash-only."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/residence/properties/households.rs",
+      "sha256": "f5c4295a284249b0fad780f6b8331f2dbff6c574f33bec5ba45edd3896ff5d17",
+      "actual_EOF": 62,
+      "actual_compared_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "method": "Full literal P16 helpers and guarded fixtures personally read, entire empty PR textual comparison consumed for each; unchanged body operations actually compared, not hash-only."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/residence/properties/materialization.rs",
+      "sha256": "89be43ab5a91d96b96077c6950b9159b25f61165e938395ab54774540711b688",
+      "actual_EOF": 111,
+      "actual_compared_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "method": "Full literal P16 helpers and guarded fixtures personally read, entire empty PR textual comparison consumed for each; unchanged body operations actually compared, not hash-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/authority_tests.rs",
+      "sha256": "3543fcdab7a7fd0bc516183ebfa20ccafe25fe34952235d37bd7a84762d99eeb",
+      "actual_EOF": 242,
+      "actual_compared_ranges": [
+        [
+          1,
+          242
+        ]
+      ],
+      "method": "Full literal P16 helpers and guarded fixtures personally read, entire empty PR textual comparison consumed for each; unchanged body operations actually compared, not hash-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/properties/households.rs",
+      "sha256": "f5c4295a284249b0fad780f6b8331f2dbff6c574f33bec5ba45edd3896ff5d17",
+      "actual_EOF": 62,
+      "actual_compared_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "method": "Full literal P16 helpers and guarded fixtures personally read, entire empty PR textual comparison consumed for each; unchanged body operations actually compared, not hash-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/properties/materialization.rs",
+      "sha256": "89be43ab5a91d96b96077c6950b9159b25f61165e938395ab54774540711b688",
+      "actual_EOF": 111,
+      "actual_compared_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "method": "Full literal P16 helpers and guarded fixtures personally read, entire empty PR textual comparison consumed for each; unchanged body operations actually compared, not hash-only."
+    }
+  ],
+  "groups": [
+    {
+      "id": "Population-to-named-home conservation",
+      "locations": "residence/properties/materialization1-111; households1-62; fresh Core settlement_property1-226",
+      "trace": "One-time GeneratedResidentHome provenance excludes already bound residents, preserving identity after later moves. Groups by actual household, checked members.len to u32, chooses exact settlement aggregate home with unmaterialized>=required, subtracts safely before adding named occupancy. Existing current occupant not overwritten; provenance remains census origin distinct from present home. Changes/fallible next groups remain outer atomicity dependency. GeneratedHomeCatalog native registration comes through4MiB parse, rejects zero capacity/nonfinite geometry/nonpositive dimensions/duplicate canonical property id/wrong seed/population/market reserve. Fixed market first home per tier excludes actual vacant supply. Remaining capacity u64 sum safe actual bounded serialized input, not proof for unbounded programmatic Vec. Allocation rejects empty/duplicate families, checks known population<=u32 population before narrowing/subtraction; per-home free>=count and min abstract protect both subtractions. Native current per-household/property count u32+1 needs accepted capacity invariant; no ordinary overflow witness for valid catalog-derived allocation.",
+      "disposition": "No new operation defect; preserve historical census origin versus current occupancy and named/aggregate population distinction. Whole catalog admission closes ordinary zero-capacity underflow in guarded fixture capacity-1.",
+      "dependencies": [
+        "Actual settlement population materialization/household generation and all later occupancy writers",
+        "SDK outer transaction/caller catches",
+        "Canonical catalog geometry/capacity owner and generated binding publication"
+      ],
+      "acceptance": "Normal materialization converts each resident exactly once and conserves total named+abstract population without oversubscribing a property or moving existing current home. Bad allocation fails without partial manifest/population publication."
+    },
+    {
+      "id": "Guarded authority source fixtures",
+      "locations": "residence/authority_tests1-242",
+      "trace": "All three fixture reducers require dev bootstrap and gateway. Setup verifies registration replay does not rematerialize and named+aggregate census equals actual population with bounded named roster. Contract fixture preserves separate rental/owned property, guest legal/title distinction, family membership on removal and reservation of unoccupied held property. Capacity fixture uses validated positive home capacity before capacity-1, deterministic actor IDs fit u64 for every u32 index, checks both current and intervening future overflow rejection plus unchanged future pointer. Unwraps require actual initialized fixture clocks, not production missing clock policy. No fixture executed.",
+      "disposition": "Source assertions only; whole04 incomplete.",
+      "dependencies": [
+        "All13 initial inventory gate and later authorized validation"
+      ],
+      "acceptance": "Retain exact conservation, capacity and historical future-pointer behavior; passing execution evidence must be collected only when authorized."
+    }
+  ],
+  "findings": [],
+  "status": "Six original source roles personally compared. Whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/settlement_population.rs",
+  "fresh_dependency": {
+    "path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/source/physical-p16-unscoped-dependency/crates/adventuresim-core/src/settlement_property.rs",
+    "sha256": "da9742eb9634c5f1b14cca267784dd6d55e2b08ff0434a6d1c265eaed145bdbf",
+    "actually_read_ranges": [
+      [
+        1,
+        226
+      ]
+    ],
+    "coverage": "Fresh catalog admission/allocate bodies plus imports; no new original whole role credit or test module credit."
+  }
+}

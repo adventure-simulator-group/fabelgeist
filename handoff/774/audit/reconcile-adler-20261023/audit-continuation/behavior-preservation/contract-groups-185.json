@@ -1,0 +1,49 @@
+{
+  "id": "CONT08-CONTRACT-185",
+  "at": "2026-10-25T13:51:19.396730+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [],
+  "merged_delta": [
+    {
+      "id": "CONT08-QUAL008",
+      "at": "2026-10-25T13:51:19.396730+00:00",
+      "lens": "08 behavior-preservation",
+      "links": [
+        "CONT08-MIGRATION-002",
+        "RIG-CODE-001"
+      ],
+      "before_pin": {
+        "scope_index": 726,
+        "source_id": "pr-working:crates/adventuresim-character-creator/src/device_fit.rs",
+        "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+        "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/device_fit.rs",
+        "before_sha256": "91f583ae36ac5c421f00022df26fcb7843b697f9dc4912eecd94af6e97f8d575",
+        "after_sha256": "5eb9fadd5491db5b34e9ea0b0478355229d88f1b0b9d937911f586dc55a0b710",
+        "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0726-base-91f583ae36ac5c421f00022df26fcb7843b697f9dc4912eecd94af6e97f8d575",
+        "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/5eb9fadd5491db5b34e9ea0b0478355229d88f1b0b9d937911f586dc55a0b710",
+        "diff": "source-evidence/pr-0726.diff",
+        "diff_sha256": "af34bfa0f1d2eb06ce888b8a92f4f697baf4453097ccb725a17aecebac2c666f"
+      },
+      "merged_head": "13fc9dcc71ab879de364117e5462310673e43210",
+      "merged_sha256": "937f4a7860d38a7b490464615e476551a565f2119242b8e30ea3aeaf7c8307d7",
+      "merged_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/merged-device-fit-937f4a7860d38a7b490464615e476551a565f2119242b8e30ea3aeaf7c8307d7",
+      "actual_merged_body_read_ranges": [
+        [
+          300,
+          370
+        ]
+      ],
+      "exact_complete_diff": "../producer-merged-delta/04.diff",
+      "source_reuse": "Own184 full exact6533 body/read + whole before/after diff; only changed source and directly connected helper301\u2013367 freshly read at merged head. No false full518-line merged fresh body credit.",
+      "disposition": "Archived RIG-CODE-001 return migration fixed in frozen merged source: fit_recipe_async305 directly returns suspended_waist; helper314 returns Result<DevicePiece>, append357? and Ok(DevicePiece)358\u2013366 propagate actual source error.",
+      "behavior_comparison": "Successful branch retains exact hem/top f32 fold/order, wrapped no shift versus negative-only min0 shift, component roles/order, skin append before build and endpoints zip. Error now propagates instead of a source-inconsistent non-Result boundary.",
+      "limits": [
+        "No compiler/test/build/native/GPU result.",
+        "Zip cardinality and matched source population remain independent retained questions; source return fix does not clear full fit family or08.",
+        "Original2853 PR role726 and merged38 delta are separate inventories; this resolution must not retire unrelated endpoint/geometry findings."
+      ]
+    }
+  ],
+  "next": "727 device_foot_frame323 then728+"
+}

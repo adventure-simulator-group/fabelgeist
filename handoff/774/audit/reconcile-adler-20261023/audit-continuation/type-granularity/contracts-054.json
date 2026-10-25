@@ -1,0 +1,56 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-054",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "food-physical-portions-cooking-and-preparation-receipts",
+      "sources": [
+        {
+          "scope_index": 202,
+          "ranges": [
+            [
+              1,
+              207
+            ]
+          ]
+        },
+        {
+          "scope_index": 203,
+          "ranges": [
+            [
+              1,
+              369
+            ]
+          ]
+        },
+        {
+          "scope_index": 204,
+          "ranges": [
+            [
+              1,
+              868
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "local774:M29",
+        "local774:M31",
+        "local774:M91",
+        "local774:M103"
+      ],
+      "disposition": "existing whole food-material and physiological quantity migration support; no new unique granularity finding",
+      "trace": "Consumption203 separates explicit meal from travel-to-zero deficit; both actual callers338/367 pass f32::MAX to the unused kcal cap. Exact M29 remedy removes the unused cap rather than adding an artificial Unlimited wrapper. Portion fraction rescales actual lot mass, nutrition, value, contamination and medicinal carriers; minimum nonzero micros preserves an actual live partial row. Cooking204 admits selected fraction relative to available fraction365, separates ingredient/water mass, caloric energy, economic value, flavor mass, microbial concentration/load/growth and medicinal potency. Water public milliliters and private Microliters contributions are checked471\u2013478, converted to water kilograms480\u2013487, then retained provenance. Method/doneness/preparation are different stages; elapsed absolute-clock difference659 and target duration remain distinct. Retrieval converts the private dish to one physical material lot, scoped custody and exact associated ingredient/provenance/profile vectors. Authority fixtures202 assert identity, revision, conservation, replay and interruption contracts without executing them.",
+      "qualifications": [
+        "Current proportional arithmetic/conversions are coherent where read; no ordinary quantity duplication or bad meal claimed. Preserve meal versus travel policy, partial quantities, physical stable identity, exact rounding, zero food deficit and private immunity/source facts.",
+        "Do not flatten quality tier, cooking skill check, flavor quality, retention, progress, kill progress and calorie factor into a universal scalar. Quality minimum1 is current policy; potency>0 insertion permits legitimate absent/zero component.",
+        "PanFry/Stew/Roast/Bake methods are not interchangeable with FoodPreparation stage; Roast overtarget becomes DriedSmoked739\u2013744. Preserve different completion/heat effects, current stew water requirement and vessel versus nonvessel selection limits.",
+        "Actual container cooking selects direct children150\u2013151, not recursively all descendants despite broad comment wording; no new nesting-policy defect inferred. Preview and commit preparation-time paths differ; this source observation gives no automatic new granularity defect or execution claim.",
+        "Native table parallel columns and paired optional owner IDs remain M29 aggregate migration; actual construction here pairs them. Do not infer ordinary malformed lot from public shape alone. Atomicity comments are not independent transaction proof; no partial-commit verdict from question marks alone."
+      ],
+      "acceptance": "Retain checked food-material/custody aggregate and explicit portion, mass, caloric, value, contamination and medicinal units through real adapters; remove demonstrably unused cap, preserve current policies/provenance, avoid wrapper per arbitrary float."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

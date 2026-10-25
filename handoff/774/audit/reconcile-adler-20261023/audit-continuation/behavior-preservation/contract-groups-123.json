@@ -1,0 +1,35 @@
+{
+  "id": "CONT08-CONTRACT-123",
+  "at": "2026-10-25T12:25:38.596357+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 411,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-server/src/player_projection.rs",
+      "before_sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "after_sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0411-base-53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+      "diff": "source-evidence/p16-0411.diff",
+      "diff_sha256": "770eae12b63eeed21d0dff0adfdaf97c57ab4aeda5787e68dcac7149fff5c4b4",
+      "head_body_read_ranges": [
+        [
+          1501,
+          2000
+        ]
+      ],
+      "facts": [
+        "Fresh1501\u20132000. Bodyrelativeinput currentroot/controller yaw transforms andsupinebackwardhalf/lateral scale unchanged; actualquicksteppush overrides latestmovement duringactuator,rollmotionoverrides beforeposturefreeze,proneAimNone sameprecedence.",
+        "Actualfixedpoststep facing\u2192controllerlocomotion\u2192postureadvance errorbranches remainafterpriorguard/facingmutations; nodeclaredtransaction. Quicksteptraceprojectscheckedrotation/origin atsamereceivingnativekernel; snapshotretainswholetypedpush/lunge andactualackOptiontick.",
+        "Disconnectownsallqueryablecore/motion/physics beforedeferredorphancommand,thenmovesitems/rebuildsholdingcache; claim/reconnectexpiry skip/retrydurablereducer ordering unchanged. Newcanonicalownedfields copythroughsamemetadata; publicCharacterDimensions omittedbothold/newSnapshot andrequirementdefaultswhenPlayerreadded remainsunchangedsource-conditional lossquestion, no08introducedregression.",
+        "Actualon_player_added insert_if_new retainsrestoredauthority/controller/etc andfillsmissingdefaults; effectofrequiredCharacterDimensions own362 acknowledged. NoAeronetobserverordering orworldrestoreexecuted; unchangedproduceridentity/authoritycontractevidenceonly."
+      ],
+      "disposition": "PARTIAL4111\u20132000 nowread;2001\u20133450unfinished.",
+      "acceptance": "Preservefixedstepnativeaxis/sequence,error/mutationorder,snapshotauthority/entityrebindandoriginalreconnectedgepolicy; no checks/tests/source repairs."
+    }
+  ],
+  "next": "4112001\u20132250thenremainingthrough3450."
+}

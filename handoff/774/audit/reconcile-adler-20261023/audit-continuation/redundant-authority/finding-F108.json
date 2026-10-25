@@ -1,0 +1,63 @@
+{
+  "id": "CONT07-F108",
+  "lens": "audit-redundant-authority",
+  "classification": "maintenance authority defect; current6motif mappings agree",
+  "sources": [
+    {
+      "scope_index": 2207,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/ornament.rs",
+      "sha256": "5aaf7f24806502832feef0cc0a9d5e572e80199b63c1d371b05a14fd6cb361ef",
+      "ranges": [
+        [
+          27,
+          58
+        ],
+        [
+          84,
+          108
+        ],
+        [
+          111,
+          118
+        ]
+      ]
+    },
+    {
+      "scope_index": 2194,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/metal/ornament.rs",
+      "sha256": "6a9f887c5c746b8b70fc8a3c9741ffa1a68dd3580a61483ca88fbc244dcb4152",
+      "ranges": [
+        [
+          69,
+          81
+        ],
+        [
+          92,
+          98
+        ]
+      ]
+    },
+    {
+      "scope_index": 2191,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+      "sha256": "48d91d7bad79387e928424c9c868a5137fc880d3764258c53f82224e65f9c7ec",
+      "ranges": [
+        [
+          174,
+          190
+        ]
+      ]
+    }
+  ],
+  "fact": "Motif enum6/manualALL6 and explicit words numericcodes0..5 coexist with independently authored WGSL MOTIF constants0..5/switch including silentdefault. Actualbake calls words thenpassescode into that switch.",
+  "disagreement": "Updating host words mapping withoutshaderconstants selectsanothermotif; adding validnewvariant withnewcode butmissingshadercase silentlydrawsnone because defaultleavesmotifzero. ALL can independently omit an admittedvariant from picker/defaultfixturecoverage.",
+  "limits": [
+    "All current six variants, hostwords andshadercodes agree; no currentwrongornament occurrence.",
+    "Cross-language ABI projection legitimate, but same motif identity mapping is independently authored even though helmetcodes REG019 already demonstrates generated single authority.",
+    "No arbitraryGPU execution claimed."
+  ],
+  "suggested_connected_remedy": "One motif identity declaration supplies host numeric codes, shader symbolic constants and exhaustiveinventory; preserve actual variantpayloads/artisticparameters and native shader branch arithmetic.",
+  "acceptance_contract": "Every admittedmotif hasone stablecode, actualshadercase andintendedpickerentry; a host addition/remap cannot silentlyselectnone/anothermotif.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

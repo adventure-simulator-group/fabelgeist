@@ -1,0 +1,57 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-418",
+  "at": "2026-10-23T13:30:50.361346+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/durability.rs",
+      "sha256": "7e08e94102b0e097fdb309ad3f5caaf54c6d5c313979a3c5186bb671bb231afd",
+      "scope072_index": 915,
+      "actual_EOF": 454,
+      "scoped_ranges_compared": [
+        [
+          1,
+          454
+        ]
+      ],
+      "actual05_comparison": "Fresh full actual source and all original fixtures, whole damage-bin conservation/quality folding and repair resource/prefix ownership analyzed."
+    }
+  ],
+  "groups": [
+    {
+      "id": "damage bin leaf validity differs from whole capacity invariant",
+      "comparison": "DamageBins public tuple five floats/defaultzeros, no checked admission. normalized sanitizes nonfinite/negative input then consumes unitcapacity deepestfirst; each min/sub remains finite nonnegative. total reports capped condition while yellow/red/repairable/repair_through expose raw sums if caller skipped whole normalization. add_to_tier correct fixed1..5 index and remainingcapacity for admitted bins, but does not force malformed existing rawbins into unit total. Need one coherent admitted bin product through all mutations, not five independent fractions or raw sum getters as proof."
+    },
+    {
+      "id": "quality fold distinguishes malformed input and computed overflow",
+      "comparison": "Consumed actual Root110 F040 narrative then fresh915119-193. RawfiniteMAXfivebins quality1 sums higher tiersInf and adds to firstInf, then normalized mistakes computedInf for discardable rawinput, returning undamagedzeros. API malformedaggregateonly, accepted normalizedbins unaffected. Same RootF040 support noextraunique. Preserve explicit current source fixture nonfinite input policy and deepest structural-first ordering; do not silently normalize proportionalweights or cap everydamage scalar identically."
+    },
+    {
+      "id": "catastrophic tier computation joins existing finite severity narrowing finding",
+      "comparison": "Consumed Root110 F039 then fresh232-265. Positive ordered yield1/catastrophic2/wear.1/share.5/quality3/stress258 yields overload128 ->floor256 asu8 saturates255, then3+255 overflows beforemin5. Debug/release distinction is source semantics, no compiler/run. Rawprofile also permits negative/reversed bounds and invalidshare/quality independently, not a validated physical product. Actual catalogue profile producers and conditioned thresholds are separate lower contracts, not proved by field names."
+    },
+    {
+      "id": "repair resource allocation uses complete ordered prefix and exact escrow facts",
+      "comparison": "affordable_repair_prefix checks cost<=remaining before subtraction, stops at first unaffordable rather than skipping. Stable durable removal sorts sparefirst then ID; arbitrary duplicate IDs in rawvector need actual persisted uniqueness if repeated physical resources matter. valid_repair_escrow_row checks holder0/quantity1/itemidentity together, actual object/custody membership is external. bounded durable change unsigned_abs then cap64 safelyrejects i32MIN. Priorityminutes subtract min(required,available), no underflow."
+    },
+    {
+      "id": "native totals and quote policies retain explicit limits",
+      "comparison": "repair_budget reservations widen eachu32 to u64 then sum, so native capacity still depends actual outstandingrowcount; no ordinary giantjob vector failureclaimed. repair_quote rejects nonpositive/nonfinite share, clamps1 and ceil then minimum1 for positive tinywork. u32->f32 round/cast boundary is explicit countquote policy, not merchant markup equivalence. effective_weapon_stat admitted finitebase times bounded multiplier cannotoverflow; baseprecision>1 intentional. effective_handling separately models mobility/sensory obstruction without inventing coverage holes."
+    },
+    {
+      "id": "all fixture source evidence and remaining producers",
+      "comparison": "Every279-454 original fixture read, including qualityprogression, localizedcatastrophe, deepesttier repair, nonfiniteinputsanitization, deterministicremoval, repairprefix/reservations, escrowidentity and prioritycampminutes. No execution/additions. Their small profiles/bins do not prove arbitrarypublicstate admission. Actual condition ingestion/mutation and profile producers remain source-specific separately scoped dependencies."
+    }
+  ],
+  "existing_findings_supported": [
+    "ROOT-INITIAL04-F039",
+    "ROOT-INITIAL04-F040"
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Actual normal unique durable IDs/outstanding-job cardinality and coherent profile/damage-bin construction at persistence boundaries."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1108",
+  "at": "2026-10-25T17:47:08.844269+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1226,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/journey_camp.rs",
+  "sha256": "ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d",
+  "actual_compared_ranges": [
+    [
+      101,
+      480
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "No handwritten trait/typecodec. Native journey setup/contextforecast/campcoalescing/stoppromotion/terrain and oraltraining. PartyJourneyRoute203\u2013218 mostly clones selected route fields but supplies party/gateway and surrounding validated actual journey context; not handwritten From with existing derive. Current camp identity284\u2013309 proves aggregate party/journey state before typed canonical constructor; retain checked error. Training array maps each distinct native skill to exposure policy, not mechanical derive."
+  ],
+  "first_unfinished": {
+    "scope_index": 1226,
+    "line": 481
+  },
+  "execution": "none"
+}

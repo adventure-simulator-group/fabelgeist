@@ -1,0 +1,164 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-295",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/domestic/bedding.rs",
+      "sha256": "ae6e94031101a1d47906e6348859359820275511d2bc527d9544283dd3d1d1fa",
+      "actual_EOF": 85,
+      "actual_compared_ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/domestic/beds.rs",
+      "sha256": "672e6f75c36fc5e1035b008729730b996cbf88750e50a9dad93da625ee6792a1",
+      "actual_EOF": 66,
+      "actual_compared_ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/domestic/cabinets.rs",
+      "sha256": "7b1e10c04d5b546327546fe91b9cfdf00a016a3400c999041cbd1d341b83a464",
+      "actual_EOF": 127,
+      "actual_compared_ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/domestic/seating.rs",
+      "sha256": "60facf0fb58c1f95483d67ae6f8728ecbcba3201d86083849e20c86c4e72a36d",
+      "actual_EOF": 48,
+      "actual_compared_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/domestic/tables.rs",
+      "sha256": "0e914056126923ef4e2fda70b44a4e8f1e594bc1fb2b39d81791e9d853484eb7",
+      "actual_EOF": 94,
+      "actual_compared_ranges": [
+        [
+          1,
+          94
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/domestic/tests.rs",
+      "sha256": "0beb9e346f5abced5bce012949f47dcff2e3f98f38dd6c6a2161da688e0a5d75",
+      "actual_EOF": 128,
+      "actual_compared_ranges": [
+        [
+          1,
+          128
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture/domestic/washing.rs",
+      "sha256": "6191dfec93ba83baedf5eb42cd9fbcfbacee02d9769db16db87ef58289ffb2bc",
+      "actual_EOF": 71,
+      "actual_compared_ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Domestic authored geometry preserves supported fixed topology and delegates final admission to whole recipe builder",
+      "source_ranges": {
+        "bedding.rs": [
+          [
+            1,
+            85
+          ]
+        ],
+        "beds.rs": [
+          [
+            1,
+            66
+          ]
+        ],
+        "cabinets.rs": [
+          [
+            1,
+            127
+          ]
+        ],
+        "seating.rs": [
+          [
+            1,
+            48
+          ]
+        ],
+        "tables.rs": [
+          [
+            1,
+            94
+          ]
+        ],
+        "washing.rs": [
+          [
+            1,
+            71
+          ]
+        ]
+      },
+      "disposition": "All6productionbodiespersonallyread, no compact omissions.8point4ringcushion/fixedwindows, fixed4ladderrungs/fivecabinetlevels/twodoorleaves/twoendbedrails bounded. Per-kind size offsets requireactualspec dimensions e.g beddingwidth>.28, cabinetheight>.22, backedseatheight>.59, bedsrail>.48. Those constraints remain actualspecregistry dependency, not arbitrarypositiveLeafDimensionsclosure claim. Slope angleatan((back-front)/depth), computedlength/cos androtatedmembercorners finalBuilderfallible admission; no infallibilityrequired. Nativecushionfacesnorms/UVs require nondegenerateordinaryoutline, no nonfiniteshape supplied. Ward/Bunk openrails/Bedclosedboards intentionalvisualdifferences; cupboarddrawnclosedvsshelvingopen andbathusableinterior distinct modepolicy."
+    },
+    {
+      "contract": "Bath floor sampling has a local domain proof once actual positive radii are admitted",
+      "source_ranges": {
+        "washing.rs": [
+          [
+            1,
+            71
+          ]
+        ]
+      },
+      "disposition": "16ellipsestaves, radii=size.xz/2-.04, actualspecmustkeepstrictpositive. Floor row-3..3, x=row*radius.x/4 givesx/radius.x in[-.75,.75] forordinarynonzeroradius, so1-ratio\u00b2nonnegativeandbounded locally; rawzero/underflow/nonfinite radius not provennormal. Eachcomputedtimber/cuboid triggersBuildermemberreadmission; no solidfillcollider abovebasin intentional. InfinitelyhugefurnitureandMAXcounterexamplesnotpromoted."
+    },
+    {
+      "contract": "Domestic fixture source states meaningful envelope, support and open-interior acceptance without execution",
+      "source_ranges": {
+        "tests.rs": [
+          [
+            1,
+            128
+          ]
+        ]
+      },
+      "disposition": "Entirefixturebodyreadnotrun.16domestic\u00d72variants coverageclaim limitedtoauthoredfixturetext; validatesfinitepositions/normals/specenvelope/ground4supports/colliderpositivecorners; lecternpostvsleaf andbath/shelvingemptyinterior areexplicitobservablecontracts. Theseassertionsarenotcurrentpassingproof or universalAPIadmission, andprivateassemblefixtureomitslateraccessclearanceappend bydesign. No generatedbindings/source/testsmodified."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "7 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-building-generator/src/furniture/finish.rs"
+}

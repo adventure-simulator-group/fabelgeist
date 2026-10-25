@@ -1,0 +1,63 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-094",
+  "at": "2026-10-23T01:43:19.972098+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat.rs",
+      "sha256": "6da9d5558329053c0ceaadbcb7a19730884fc55bbc50cdd90af9b9305346b48c",
+      "scope045_index": 1858,
+      "actual_EOF": 290,
+      "scoped_ranges_compared": [
+        [
+          1,
+          290
+        ]
+      ],
+      "actual05_comparison": "Fresh full290 including existinginlinefixtures source-only. Explicit MeleeLungeArrival sum separates NotNeeded/ArrivesIn/ CannotArrive; failedmovinglunge deliberatelydoesnotinvalidateordinaryin-rangeattack. contact_timing derives delay/contact fromSAME authoredwindup/predictedarrival inone completedrecord, checksboth elapsedoutputs beforeSelf. Publicrecord alone broader, but noactualarbitrary-recordacceptingconsumer shown, no newdefectfrompublicfields only. Forwardarrival handles actualrawdistance/nonpositiveDrive explicitly, completednonfinitetime returnsOverflow; Quickstep intentionallyusesduration ratherthandistance forarrival. ForwardLungeAcceleration finite signed0valid torepresentcannotarrive. Runtimeconfig lungewindow/threshold nativegetter notproofwholeconfigcorrelation; rawmax/clampnumerics preservedwithoutclaimallfinitearithmetic. Actualselector ordinarygap/window/maximumdistance outcomes andanatomyaddsonce sourcefixtures observed; no normalruntime/KCC lowerproof.",
+      "source_body_proof": "Fresh full currentfrozen body personallyread, existingfixtures source-only no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat/attack_key.rs",
+      "sha256": "0c195d5b16f4846e5d0e043e5864a0b65328387495a88af8a48719234aacd063",
+      "scope045_index": 1859,
+      "actual_EOF": 23,
+      "scoped_ranges_compared": [
+        [
+          1,
+          23
+        ]
+      ],
+      "actual05_comparison": "Fresh full23. MeleeAttackKey is originalopaqueobservedrequestword, allu64incl0 valid andabsenceOption peractualcontract. Privateword+transparentSerde/From, scalarencoded andexactLEbytes finalports. No tuple/collectioncorrelation internally, no guaranteeupstreampackedworduniqueness/provenance or reconstructionoflostactorbits. Root04F027 upstreamattackidentity graph cannotbeclosedmerelywrappingthealready-producedword; no NonZero/enum narrowing inferredfromname.",
+      "source_body_proof": "Fresh full currentfrozen body personallyread, existingfixtures source-only no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/doors.rs",
+      "sha256": "daf461a37ebe8f9ef72ac67aa98842c02bd8239ca43087f5c4d285f70df1ca34",
+      "scope045_index": 1871,
+      "actual_EOF": 132,
+      "scoped_ranges_compared": [
+        [
+          1,
+          132
+        ]
+      ],
+      "actual05_comparison": "Fresh full132 incloriginalfixtures source-only. Door/windowgrab shareidenticalsignedinteriordepth andtangentlateralpredicate, inputdirections/halfwidth are rawportpreconditions, notautomaticallynormalized byname. DoorPassageExemptions oneprivate EntityHashSet ownedbyonecharactercomponent; grant/revokeidempotentmembershipops, no independent parallelallowedboolean. Collisionpairfilter checks eitherendpointownexemptionforspecificotherentity, symmetryexplicit andunrelateddoor unaffected. APIacceptsanyEntity notsemanticdoorseal; exactordinaryservergrant/revokelifecycle stillownsourceobligation beforeclaimonlylivevaliddoors. Transientstate notpersistedstrategicdata. NativeAvian/bevyEntity/kernelbodies notcreditedbytraitnames.",
+      "source_body_proof": "Fresh full currentfrozen body personallyread, existingfixtures source-only no execution."
+    }
+  ],
+  "comparison_groups": {
+    "payload-bearing-lunge-outcomes": "Explicitarrives/notneeded/cannotarrive preserveordinaryattack andtimingpurpose.",
+    "computed-timing-pair": "Normalfactory tiesdelay/contact, no hypotheticalpublicrecord-onlynewdefect.",
+    "native-key-versus-upstream-identity": "Allwordopaqueportdoesnotrecoverupstreamidentityloss.",
+    "entity-pair-exemption": "Onecharacter-scopedset, symmetricpaircheck, semanticlifecyclecallerconditionspending."
+  },
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Actualcaller config/kernel anddoor exemptionlifecycle source remains exactinventoryobligation; allinitial05 incomplete, no otherlens orimplementation."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

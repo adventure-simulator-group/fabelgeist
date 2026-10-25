@@ -1,0 +1,100 @@
+{
+  "status": "all_four_bodies_read",
+  "comments": [
+    {
+      "url": "https://github.com/adventure-simulator-group/fabelgeist/pull/774#discussion_r4314539802",
+      "body": "*Bruno's Codex instance, writing on Bruno's behalf.*\n\n**Audited: this is the deterministic-seed boundary.** The producer already carries `AnimationSampleTick` through `SkeletonState`; the audio adapter projects it into the seed API's native `u64` coordinates here. No unfinished tick producer was found on this path. Keep the typed tick until this adapter and preserve its exact value, coordinate ordering and seed encoding. Replacing it with a render-frame counter or moving raw `u64` fields back into application state would change the contract.",
+      "user": {
+        "login": "segovb",
+        "name": "segovb",
+        "email": null,
+        "avatar_url": "PUBLIC_AVATAR_OMITTED",
+        "id": 70238035
+      },
+      "id": 4314539802,
+      "pull_request_review_id": 5571931476,
+      "in_reply_to_id": null,
+      "created_at": "2026-10-19T13:44:09Z",
+      "updated_at": "2026-10-19T20:16:19Z",
+      "review": null,
+      "side": "RIGHT",
+      "line": null,
+      "start_line": null,
+      "path": "crates/adventuresim-tactical-client/src/movement_audio.rs",
+      "body_html": "<p dir=\"auto\"><em>Bruno's Codex instance, writing on Bruno's behalf.</em></p>\n<p dir=\"auto\"><strong>Audited: this is the deterministic-seed boundary.</strong> The producer already carries <code class=\"notranslate\">AnimationSampleTick</code> through <code class=\"notranslate\">SkeletonState</code>; the audio adapter projects it into the seed API's native <code class=\"notranslate\">u64</code> coordinates here. No unfinished tick producer was found on this path. Keep the typed tick until this adapter and preserve its exact value, coordinate ordering and seed encoding. Replacing it with a render-frame counter or moving raw <code class=\"notranslate\">u64</code> fields back into application state would change the contract.</p>"
+    },
+    {
+      "url": "https://github.com/adventure-simulator-group/fabelgeist/pull/774#discussion_r4314540755",
+      "body": "*Bruno's Codex instance, writing on Bruno's behalf.*\n\n**Audited: this optional tick is encoded at the tracing boundary.** The source is already `SkeletonState.locomotion_sample_tick: AnimationSampleTick`; `map_or(0, ...)` preserves the existing absent-clock logging policy. Keep the optional observation typed in application logic and retain numeric projection only for the emitted field. Do not treat this boundary call as a reason to restore primitive tick parameters. The adjacent `push_start_tick = push.start_tick` also needs a numeric tracing adapter: the bespoke tick does not itself implement `tracing::Value`. Passing it directly is not a replacement for preserving the numeric log schema.",
+      "user": {
+        "login": "segovb",
+        "name": "segovb",
+        "email": null,
+        "avatar_url": "PUBLIC_AVATAR_OMITTED",
+        "id": 70238035
+      },
+      "id": 4314540755,
+      "pull_request_review_id": 5571931476,
+      "in_reply_to_id": null,
+      "created_at": "2026-10-19T13:44:14Z",
+      "updated_at": "2026-10-19T20:16:19Z",
+      "review": null,
+      "side": "RIGHT",
+      "line": 600,
+      "start_line": null,
+      "path": "crates/adventuresim-tactical-core/src/physics.rs",
+      "body_html": "<p dir=\"auto\"><em>Bruno's Codex instance, writing on Bruno's behalf.</em></p>\n<p dir=\"auto\"><strong>Audited: this optional tick is encoded at the tracing boundary.</strong> The source is already <code class=\"notranslate\">SkeletonState.locomotion_sample_tick: AnimationSampleTick</code>; <code class=\"notranslate\">map_or(0, ...)</code> preserves the existing absent-clock logging policy. Keep the optional observation typed in application logic and retain numeric projection only for the emitted field. Do not treat this boundary call as a reason to restore primitive tick parameters. The adjacent <code class=\"notranslate\">push_start_tick = push.start_tick</code> also needs a numeric tracing adapter: the bespoke tick does not itself implement <code class=\"notranslate\">tracing::Value</code>. Passing it directly is not a replacement for preserving the numeric log schema.</p>"
+    },
+    {
+      "url": "https://github.com/adventure-simulator-group/fabelgeist/pull/774#discussion_r4314540915",
+      "body": "*Bruno's Codex instance, writing on Bruno's behalf.*\n\n**Audited: this optional tick is encoded at the tracing boundary.** The source is already `SkeletonState.locomotion_sample_tick: AnimationSampleTick`; `map_or(0, ...)` preserves the existing absent-clock logging policy. Keep the optional observation typed in application logic and retain numeric projection only for the emitted field. Do not treat this boundary call as a reason to restore primitive tick parameters. If formatting is centralized, put this projection in that logging adapter and preserve the existing zero sentinel and field type.",
+      "user": {
+        "login": "segovb",
+        "name": "segovb",
+        "email": null,
+        "avatar_url": "PUBLIC_AVATAR_OMITTED",
+        "id": 70238035
+      },
+      "id": 4314540915,
+      "pull_request_review_id": 5571931476,
+      "in_reply_to_id": null,
+      "created_at": "2026-10-19T13:44:15Z",
+      "updated_at": "2026-10-19T20:16:19Z",
+      "review": null,
+      "side": "RIGHT",
+      "line": 628,
+      "start_line": null,
+      "path": "crates/adventuresim-tactical-core/src/physics.rs",
+      "body_html": "<p dir=\"auto\"><em>Bruno's Codex instance, writing on Bruno's behalf.</em></p>\n<p dir=\"auto\"><strong>Audited: this optional tick is encoded at the tracing boundary.</strong> The source is already <code class=\"notranslate\">SkeletonState.locomotion_sample_tick: AnimationSampleTick</code>; <code class=\"notranslate\">map_or(0, ...)</code> preserves the existing absent-clock logging policy. Keep the optional observation typed in application logic and retain numeric projection only for the emitted field. Do not treat this boundary call as a reason to restore primitive tick parameters. If formatting is centralized, put this projection in that logging adapter and preserve the existing zero sentinel and field type.</p>"
+    },
+    {
+      "url": "https://github.com/adventure-simulator-group/fabelgeist/pull/774#discussion_r4314869918",
+      "body": "*Bruno's Codex instance, writing on Bruno's behalf.*\n\n**This helper undoes the typed subtraction before returning it.** `saturating_sub` already produces `AnimationSampleSpan`, but `elapsed_sample_ticks` extracts `.samples()` and publishes `u64` to the actuator lifecycle. The consumer then compares it with separately computed raw `action_ticks` and `support_ticks` and adds a raw recovery allowance before the force-curve calculation. Return the span directly, construct the action/support spans at their timing producer, and retain those types through lifecycle comparisons. Native counts belong inside the phase/force arithmetic and numeric trace fields. Calling this a native action-clock delta in a comment doesn't make the application handoff a wire boundary. Preserve the current rounding, ceiling, support-window endpoints and recovery allowance. See [producer/record guidance](https://github.com/adventure-simulator-group/fabelgeist/blob/376ff773b6d126b46a90f3362bedadee71421bb0/crates/AGENTS.md#L36-L57).",
+      "user": {
+        "login": "segovb",
+        "name": "segovb",
+        "email": null,
+        "avatar_url": "PUBLIC_AVATAR_OMITTED",
+        "id": 70238035
+      },
+      "id": 4314869918,
+      "pull_request_review_id": 5571931476,
+      "in_reply_to_id": null,
+      "created_at": "2026-10-19T14:14:50Z",
+      "updated_at": "2026-10-19T20:16:19Z",
+      "review": null,
+      "side": "RIGHT",
+      "line": null,
+      "start_line": null,
+      "path": "crates/adventuresim-tactical-core/src/physics/quickstep.rs",
+      "body_html": "<p dir=\"auto\"><em>Bruno's Codex instance, writing on Bruno's behalf.</em></p>\n<p dir=\"auto\"><strong>This helper undoes the typed subtraction before returning it.</strong> <code class=\"notranslate\">saturating_sub</code> already produces <code class=\"notranslate\">AnimationSampleSpan</code>, but <code class=\"notranslate\">elapsed_sample_ticks</code> extracts <code class=\"notranslate\">.samples()</code> and publishes <code class=\"notranslate\">u64</code> to the actuator lifecycle. The consumer then compares it with separately computed raw <code class=\"notranslate\">action_ticks</code> and <code class=\"notranslate\">support_ticks</code> and adds a raw recovery allowance before the force-curve calculation. Return the span directly, construct the action/support spans at their timing producer, and retain those types through lifecycle comparisons. Native counts belong inside the phase/force arithmetic and numeric trace fields. Calling this a native action-clock delta in a comment doesn't make the application handoff a wire boundary. Preserve the current rounding, ceiling, support-window endpoints and recovery allowance. See <a href=\"https://github.com/adventure-simulator-group/fabelgeist/blob/376ff773b6d126b46a90f3362bedadee71421bb0/crates/AGENTS.md#L36-L57\">producer/record guidance</a>.</p>"
+    }
+  ],
+  "limits": "Supplemental historical requests; current source not cleared from comment wording.",
+  "source_links": {
+    "4314539802": "ROOT-PP-AUDIO-003 actual seed boundary independently read",
+    "4314540755": "CAM-PROP-MOTOR-001 exact PR/P16 body; optional numeric log presence policy reconciles P17",
+    "4314540915": "CAM-PROP-MOTOR-001 same shared function",
+    "4314869918": "camera owner requested complete current quickstep typed span/lifecycle proof"
+  }
+}

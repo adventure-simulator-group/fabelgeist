@@ -1,0 +1,176 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-185",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/local_problem.rs",
+      "sha256": "49dfecf1d8b09c88835ef0e2c5d2ffcc8cfd8b6624b3a05e7320e7499a723942",
+      "actual_EOF": 2518,
+      "actual_compared_ranges": [
+        [
+          1,
+          2518
+        ]
+      ],
+      "method": "Full P16 literal 2518-line body including tests personally read. Complete PR body diff empty. All three helper bodies read from exact P16 commit0393295 and actual full textual comparisons to scoped PR bodies consumed. No P16 unscoped helper inventory credit invented."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem.rs",
+      "sha256": "49dfecf1d8b09c88835ef0e2c5d2ffcc8cfd8b6624b3a05e7320e7499a723942",
+      "actual_EOF": 2518,
+      "actual_compared_ranges": [
+        [
+          1,
+          2518
+        ]
+      ],
+      "method": "Full P16 literal 2518-line body including tests personally read. Complete PR body diff empty. All three helper bodies read from exact P16 commit0393295 and actual full textual comparisons to scoped PR bodies consumed. No P16 unscoped helper inventory credit invented."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem/effects.rs",
+      "sha256": "8f55ea514db0ec15ae06fb8ad544fcb6f107237239dcbb5e46be81a51cf084e0",
+      "actual_EOF": 17,
+      "actual_compared_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "method": "Full P16 literal 2518-line body including tests personally read. Complete PR body diff empty. All three helper bodies read from exact P16 commit0393295 and actual full textual comparisons to scoped PR bodies consumed. No P16 unscoped helper inventory credit invented."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem/incident_draws.rs",
+      "sha256": "ed9f5a25305d6d7aa9443ebebff0695bbe9102ccf307f84a112016f423bd903f",
+      "actual_EOF": 62,
+      "actual_compared_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "method": "Full P16 literal 2518-line body including tests personally read. Complete PR body diff empty. All three helper bodies read from exact P16 commit0393295 and actual full textual comparisons to scoped PR bodies consumed. No P16 unscoped helper inventory credit invented."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem/inn_contact.rs",
+      "sha256": "3507dc6ed96e62ba936ebe3f306f0bfc853af7c80eca4c40f4c9131033205357",
+      "actual_EOF": 39,
+      "actual_compared_ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "method": "Full P16 literal 2518-line body including tests personally read. Complete PR body diff empty. All three helper bodies read from exact P16 commit0393295 and actual full textual comparisons to scoped PR bodies consumed. No P16 unscoped helper inventory credit invented."
+    }
+  ],
+  "dependency_reads": [
+    {
+      "source_id": "physical-p16-unscoped-dependency:crates/adventuresim-stdb-module/src/local_problem/effects.rs",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "8f55ea514db0ec15ae06fb8ad544fcb6f107237239dcbb5e46be81a51cf084e0",
+      "ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "coverage": "Fresh actual supplier; outside original2853 scope, no source-cell credit"
+    },
+    {
+      "source_id": "physical-p16-unscoped-dependency:crates/adventuresim-stdb-module/src/local_problem/incident_draws.rs",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "ed9f5a25305d6d7aa9443ebebff0695bbe9102ccf307f84a112016f423bd903f",
+      "ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "coverage": "Fresh actual supplier; outside original2853 scope, no source-cell credit"
+    },
+    {
+      "source_id": "physical-p16-unscoped-dependency:crates/adventuresim-stdb-module/src/local_problem/inn_contact.rs",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "3507dc6ed96e62ba936ebe3f306f0bfc853af7c80eca4c40f4c9131033205357",
+      "ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "coverage": "Fresh actual supplier; outside original2853 scope, no source-cell credit"
+    },
+    {
+      "source_id": "physical-p16-unscoped-dependency:crates/adventuresim-core/src/local_problem.rs",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "42c0284a19db9d6e763cb9be7bb0c2472dea34f759b13794f37883c42e838474",
+      "ranges": [
+        [
+          1,
+          80
+        ],
+        [
+          422,
+          510
+        ]
+      ],
+      "coverage": "Fresh critical numeric owner only; no new whole-role credit"
+    }
+  ],
+  "groups": [
+    {
+      "id": "Incident ordinal, catch-up and deterministic draw contracts",
+      "locations": "local_problem343-741; incident_draws1-62; fresh Core local_problem1-80",
+      "trace": "Generation starts incident_count1, ordinary finite cases expire after saturated30days and recurring hostile uses explicit MAX end. Incident due count is capped at configured maximum and catch-up at current+16; due<=current returns before inclusive ordinal loop, so saturation at u16MAX cannot wrap ordinal or reroll it. Manual trigger computes saturated next; at recurring countMAX it can returnMAX without creating another incident. This is explicit finite ordinal exhaustion policy qualification, not normal unlimited chronology proof; source test title calls recurring unbounded while implementation stops atMAX. Fresh Core due-count code asserts positive interval/maximum: actual validated manifest must establish them, not inferred from native raw field. Candidate/sites/circumstances nonempty guards precede RNG-indexed lookup, private RNG helper retains actual case/ordinal stream separation. Scheduled occurred_at saturates multiplication/addition, so represented huge intervals can coalesce times while ordinal identity remains distinct; no ordinary valid generated interval reaches machine capacity shown. Multiple table writes may precede later rejection, requiring actual enclosing transaction/catch policy before committed partial allegation.",
+      "disposition": "No new ordinary counter wrap/index failure. Preserve ordinal exhaustion, exact event identity and transaction qualification; existing canonical manifest admission and historical acceptance remain distinct.",
+      "dependencies": [
+        "Canonical generated manifest validation and incident interval bounds",
+        "Core threat escalation, native hostile group and event/evidence recipients",
+        "SDK transaction/caught-error graph"
+      ],
+      "acceptance": "Successful incident generation advances distinct ordinal/identity at most16 per transaction, retains actual occurred time and consistent event/evidence/group consequences. Exhaustion must have an explicit policy; no silent wrap or fabricated occurrence."
+    },
+    {
+      "id": "Consequences, mitigation and exact signed arithmetic",
+      "locations": "local_problem744-1027; effects1-17; fresh Core local_problem422-509",
+      "trace": "Exact helper scaled widens i32*mitigation complement<=10000 to i64 before division and safe narrowing, preserving signed price effect. Route selects sorted active max3 rows; each scaled u16 frequency<=65535, sum<=196605 fitsu32 before cap2000/u16. Fresh Core aggregate max3 and checked-width intermediate incident scaling/clamps preserve output policy; raw signed buy effect is not UnitBasisPoints. Outcome accepts mitigation<=10000, requires official timestamp for fresh operation, exact retry payload fingerprint before mutable authority, then monotonically maxes mitigation and earliest resolvedtime. Symptom end clips with min, does not reverse earlier resolution. Creation and view no new unsafe arithmetic.",
+      "disposition": "No new finite admitted overflow in consequence/mitigation paths. Native raw shape, pricing rounding and existing quote saturation findings remain separate owner graph.",
+      "dependencies": [
+        "Canonical signed effect versus UnitBasisPoints complement roles",
+        "Native trade/disease/outcome consumers",
+        "Core aggregate/localproblem source admission"
+      ],
+      "acceptance": "Accepted consequence aggregation keeps bounded actual effects and signed trade semantics; repeated identical outcome is inert and conflicting payload rejects. Preserve earliest resolution and official versus observer chronology."
+    },
+    {
+      "id": "Hearing traversal work, distance and candidate bounds",
+      "locations": "local_problem1090-1464",
+      "trace": "Traversal state is(node,crossed_settlement); strict shorter-distance insertion plus priority stale check terminates zero-length cycles. Processed distance<=450000 and native edge lengthu32 mean next_distance<=4295417295, safely withinu64 even before saturation. Node visits<=4096; edge counter increments at most16385 before break, no usize overflow. Map keys originate from graph state, no unchecked external indexing. Neighbor lists are collected/sorted before edge inspection budget, and all settlement nodes collected globally; the stated work bounds therefore do not independently cap loader memory at arbitrary raw high-degree graph. Actual world topology/resource contract still needs supplier evidence before classifying ordinary work failure. Remote scopes filtered before bounded candidate cap; candidates are then canonical manifest/group/site validated.",
+      "disposition": "No new arithmetic or nonprogress finding. Resource-budget qualification retained without claiming every bounded traversal has fully bounded database scans.",
+      "dependencies": [
+        "Actual travel edge/world graph cardinality and import admission",
+        "Core bounded_public_threat_candidates/hearing policy",
+        "Canonical generated group/site identity"
+      ],
+      "acceptance": "Accepted hearing results preserve deterministic finite distances and bounded evaluated work under actual graph contract; missing/deep malformed authority cannot fabricate a nearby referral. If memory bounds are contractual, bound loader scans as well as processed edges."
+    },
+    {
+      "id": "Disclosure, chronology and retained receipt state",
+      "locations": "local_problem1030-1087,1466-1970; inn_contact1-39",
+      "trace": "Validated generation requires exactlyone canonical authority candidate and matching case/problem/settlement context. Contact navigation and exact current source/location predicates gate new rumor; existing incident/receipt identity remains separate knowledge authority. Observer time and world time deliberately serve distinct roles. Required world official clock helper343-348 and ordinary observer read1704-1709 default missingrow toZERO, extending existing missing chronology graph; development discovery correctly requires observer time. Fixed confidence5000 and unknown coordinates0 are explicit unknown lead state, not WGS coordinates. Serialization may follow receipt/lead mutation but no actual committed partial path inferred without transaction semantics. Source fixtures all read through EOF; none run.",
+      "disposition": "Extend CAM-PPS-F003 receiver evidence without inventing new unique count. Generated/client/UI binding and knowledge aggregate questions remain incomplete.",
+      "dependencies": [
+        "CAM-PPS-F003",
+        "Native investigation/journal/dialogue receipt consumers",
+        "Canonical known/unknown location and generated bindings",
+        "SDK transaction/caught error graph"
+      ],
+      "acceptance": "Successful disclosure records real observer and official time, exact source-attributed knowledge and authorized location. Missing chronology must propagate/omit explicitly while preserving genuine epoch0; rejected logical publication leaves no partial knowledge receipt."
+    }
+  ],
+  "findings": [],
+  "status": "Five scoped source roles personally compared; whole lens/overlays/connected dependencies incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/npc_causal.rs"
+}

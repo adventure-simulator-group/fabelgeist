@@ -1,0 +1,28 @@
+{
+  "id": "CONT07-CANDIDATE-ROOF-MIXED-ABUTMENT",
+  "status": "recipient proof complete; promoted conditional source finding CONT07-F127, admitted mixed-topology existence remains explicit qualification",
+  "source": {
+    "scope_index": 2497,
+    "sha256": "13371703dd83b55b1536cde9ee3fadd4a768080d6a2cb5d4c0b678cd8cea19c6",
+    "ranges": [
+      [
+        7,
+        13
+      ],
+      [
+        148,
+        150
+      ],
+      [
+        232,
+        245
+      ]
+    ]
+  },
+  "witness": "Parent has WallAbutment and TowerAbutment edge sets, with Tower child valley_edges initially pointing at tower edges. Wall pass retains every Tower child against wall edge_ids, dropping towerIDs. Later Tower pass cannot reconstruct dropped IDs from now-empty child association.",
+  "prerequisites": "Trace allowed producer/constructor of mixed topology and actual finalized tower-link recipient; root dedup pending. Distinct from masked station allocator and stale pitch descriptor.",
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "contract": "CONT07-CONTRACT-578",
+  "disposition_reference": "CONT07-F127"
+}

@@ -1,0 +1,56 @@
+{
+  "id": "CONT07-CONTRACT-403",
+  "at": "2026-10-23T21:11:57.948188+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1778,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/semantic.rs",
+      "sha256": "bd7fae5f4804c3a1827174d3b17e17391688e8a3308bba7ecc68333100c7ac45",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/animation/semantic.rs",
+      "actual_EOF": 1132,
+      "ranges": [
+        [
+          1,
+          1132
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1780,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/skeleton_family.rs",
+      "sha256": "526f6b40dbe2b1a94aac7807e7ca9cb7f2fab69bd0a86f074319e7fd4f4e00bc",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/animation/skeleton_family.rs",
+      "actual_EOF": 24,
+      "ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "NATIVE-OWNER-CORE-STATE-008 chronological/latest",
+    "CAM-OWN-MOTION-CAPTURE-RECEIVER-120"
+  ],
+  "facts": [
+    "F091 records complete enum iteration/parser roster maintenance gap. HUMANOID_REQUIRED30 is deliberately a non-attack semantic subset; attacks remain capabilities and may be absent. No false all-variants-required finding.",
+    "Exact mirror graph pairs only prone/supine left/right roll; fallback graph restarts selected-pack lookup intentionally. Current custom as_str attack strings differ from Serde snake_case by existing port policy; no automatic compatibility rewrite or alias inferred.",
+    "All semantic contract fixtures1-930 personally read as source evidence. They exercise atomic body/action preemption, stance preservation, dive contact timing, downed-facing history/targets and wire normalization. Fixture definitions are not execution evidence or substitute for actual state bodies, which remain next.",
+    "State gait-phase excerpts and fixtures use wrapped normal constructors; the public unwrapped support API candidate stays qualified pending actual projection body. No observed normal gait failure asserted.",
+    "SkeletonFamily is an open authored string identity with one HUMANOID constant and native Cow storage. It is purpose-distinct from closed SemanticPose and pack identity, not a redundant local alias to erase."
+  ],
+  "new_local_findings": [
+    "CONT07-F091"
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1781,
+    "start_line": 1
+  }
+}

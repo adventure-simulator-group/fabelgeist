@@ -1,0 +1,26 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-138",
+  "at": "2026-10-25T18:24:12.060031+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1625,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/strategic_scene_assets.rs",
+      "sha256": "0c9d0aabc0f31d29f92b8cc5884247ea436077a3c41c3ba434dbe5f24059f9f2",
+      "personally_read_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full37 PreparedStrategicScene read. Native generate validates full TacticalSceneInput, creates local scene product, derives eachplacement/program recipe andpairedplan/collision fromsamecache, then furniture fromsamecompletebuildinglist before returning. Falliblegeneration/furnishing affects local product only, no partial visiblepublish. Allpubliccrate fields/Clone stillrepresentpossiblewrongdigest/recipe/building/furniture association afterconstruction, so owningacceptedproduct/source invariants M66/M70/M72/F433 remain ratherthan claimingfactoryaloneproof. Strategicscene deliberatelyexcludes tacticalterrain/actors; no persistenceauthoritytransfer. DigestrawString retainedidentity propagation existingfinding, not secondhashedcontentauthority."
+      ]
+    }
+  ],
+  "findings": [],
+  "qualified_connected_requirements": [],
+  "discovery": "1 newly accounted original roles; other reads support already counted historical roles. Lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

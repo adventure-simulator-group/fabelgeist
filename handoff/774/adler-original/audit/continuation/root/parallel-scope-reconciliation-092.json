@@ -1,0 +1,107 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-092",
+  "at": "2026-10-22T19:17:59.624392+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-019.json",
+    "sha256": "678256fd2e3fd4b78c21d815336c4a4da7af52616b0672c8d7c4b159b2875742"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-018.json",
+    "sha256": "9c0f966cbeb5b61e2c492d28c70afd52374a12a0f3d964e7a6ea3978bff594d7"
+  },
+  "new_variants": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs",
+      "snapshot": "pr-working",
+      "path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-gpu\\src\\data\\gpu\\buffer\\label.rs",
+      "sha256": "64c0cb1ac75e094cf6521bf61ea6ad9eef9aa1a1ab63ca34ae3d395d3a66969a",
+      "bytes": 698,
+      "actual_line_count": 28,
+      "scope_kind": "materially_reached_parallel_initial06_dependency",
+      "audit_owner": "rig",
+      "material_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "scope_limits": "No tests, unrelated GPU label owners or foreign SDK graph; exact direct definition only",
+      "parallel_reached_registration": {
+        "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+        "sha256": "6be88e891db68bf85e2079733519683d7d589149fe51161408b8c0e262026d50",
+        "row_1based": 3,
+        "id": "RIG-INITIAL06-REG-003",
+        "original_record": {
+          "id": "RIG-INITIAL06-REG-003",
+          "at": "2026-10-22T19:15:16.444290+00:00",
+          "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+          "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs",
+          "snapshot": "pr-working",
+          "sha256": "64c0cb1ac75e094cf6521bf61ea6ad9eef9aa1a1ab63ca34ae3d395d3a66969a",
+          "actual_EOF": 28,
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-gpu\\src\\data\\gpu\\buffer\\label.rs",
+          "material_ranges": [
+            [
+              1,
+              28
+            ]
+          ],
+          "material_caller": "Scoped BufferDefinition.with_label and allocate_native exact BufferLabel conversion",
+          "reason": "Direct bespoke label owner needed to distinguish native GPU diagnostic names from shader binding identity and authored rig/game IDs; no body analyzed before this registration",
+          "exclusions": "No tests, unrelated GPU label owners or foreign SDK graph; exact direct definition only",
+          "status": "prospectively_registered_before_body_analysis; global scope pending"
+        }
+      },
+      "producer_inventory_accounting": "bounded_01_02_newmaterial_comparison_pending",
+      "admission_discovery": "exactrolemanualRootG091; separateotherlenscomparisonrequired"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/mod.rs",
+      "snapshot": "pr-working",
+      "path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-gpu\\src\\data\\mod.rs",
+      "sha256": "7a84c8ef7c760fd6292dac52b88418a52a7e4831a5a3579e05d9fd19e4e856ad",
+      "bytes": 482,
+      "actual_line_count": 13,
+      "scope_kind": "materially_reached_parallel_initial06_dependency",
+      "audit_owner": "rig",
+      "material_ranges": [
+        [
+          7,
+          13
+        ]
+      ],
+      "scope_limits": "Other module declarations/reexports excluded; no texture/color implementation graph",
+      "parallel_reached_registration": {
+        "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+        "sha256": "6be88e891db68bf85e2079733519683d7d589149fe51161408b8c0e262026d50",
+        "row_1based": 4,
+        "id": "RIG-INITIAL06-REG-004",
+        "original_record": {
+          "id": "RIG-INITIAL06-REG-004",
+          "at": "2026-10-22T19:15:56.409446+00:00",
+          "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+          "source_id": "pr-working:crates/fabelgeist-gpu/src/data/mod.rs",
+          "snapshot": "pr-working",
+          "sha256": "7a84c8ef7c760fd6292dac52b88418a52a7e4831a5a3579e05d9fd19e4e856ad",
+          "actual_EOF": 13,
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-gpu\\src\\data\\mod.rs",
+          "material_ranges": [
+            [
+              7,
+              13
+            ]
+          ],
+          "material_caller": "Scoped parameters/parameter.rs imports crate::data::{transform::Transform,vector::Vec2/3/4,matrix::Mat2/3/4}",
+          "reason": "Navigation found exact reexport block; register before analysis to resolve whether GPU maintains competing math owner or reuses canonical shared definitions",
+          "exclusions": "Other module declarations/reexports excluded; no texture/color implementation graph",
+          "status": "prospectively_registered_before_body_analysis; global pending"
+        }
+      },
+      "producer_inventory_accounting": "bounded_01_02_newmaterial_comparison_pending",
+      "admission_discovery": "exactrolemanualRootG091; separateotherlenscomparisonrequired"
+    }
+  ],
+  "total_variants": 2757,
+  "mandatory_overlays": 197,
+  "limits": "Metadata-only Rig06REG003label1-28/REG004mod7-13 explicitrange registration. FrozenPRsourceonly, unrelatedprimaryGPUchangesuntouched. Allpriorfull/boundedrolespreserved, nootherlens/repair/validationcredit. RootG091specificmanual03comparisonseparateevidence."
+}

@@ -1,0 +1,123 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-244",
+  "at": "2026-10-23T05:59:57.404629+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/arch_geometry.rs",
+      "sha256": "49ed35940c0cf6b1c49c55b2cd39464e8751b3774c3ab722ca10e5130d24ccc6",
+      "scope063_index": 529,
+      "actual_EOF": 138,
+      "scoped_ranges_compared": [
+        [
+          1,
+          138
+        ]
+      ],
+      "actual05_comparison": "Fresh full actual scoped PR body and original inline/external fixtures read; own current aggregate relationship/constructor/mutation/recipient comparison. No P16/body/hash or other-lens verdict carry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/collision.rs",
+      "sha256": "59ae010bf4fbedc4f9daf16fc207e3f5ca674ff20a2c5d5b6b9699d291478f97",
+      "scope063_index": 539,
+      "actual_EOF": 448,
+      "scoped_ranges_compared": [
+        [
+          1,
+          448
+        ]
+      ],
+      "actual05_comparison": "Fresh full actual scoped PR body and original inline/external fixtures read; own current aggregate relationship/constructor/mutation/recipient comparison. No P16/body/hash or other-lens verdict carry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/collision/admission.rs",
+      "sha256": "870d262a151d801eafe72f60e2711c2df146abdc84319c87a59580d131ab25b0",
+      "scope063_index": 540,
+      "actual_EOF": 98,
+      "scoped_ranges_compared": [
+        [
+          1,
+          98
+        ]
+      ],
+      "actual05_comparison": "Fresh full actual scoped PR body and original inline/external fixtures read; own current aggregate relationship/constructor/mutation/recipient comparison. No P16/body/hash or other-lens verdict carry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/collision/cuboid.rs",
+      "sha256": "2d9a1cfbd92acc218b8fb3abaf6f579fde6217c2f3776ece0539c340602baec9",
+      "scope063_index": 541,
+      "actual_EOF": 111,
+      "scoped_ranges_compared": [
+        [
+          1,
+          111
+        ]
+      ],
+      "actual05_comparison": "Fresh full actual scoped PR body and original inline/external fixtures read; own current aggregate relationship/constructor/mutation/recipient comparison. No P16/body/hash or other-lens verdict carry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/detail/kit.rs",
+      "sha256": "da20f3ab034ae60df35d55ff3f9a26f4e2c220b163d33026b807b07e2d60b913",
+      "scope063_index": 547,
+      "actual_EOF": 130,
+      "scoped_ranges_compared": [
+        [
+          1,
+          130
+        ]
+      ],
+      "actual05_comparison": "Fresh full actual scoped PR body and original inline/external fixtures read; own current aggregate relationship/constructor/mutation/recipient comparison. No P16/body/hash or other-lens verdict carry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/detail/kit/tests.rs",
+      "sha256": "d64c8d404606c77fbcc11783c96bf4e8a7845bd1e789173c132e86f3b5e1b9fb",
+      "scope063_index": 548,
+      "actual_EOF": 80,
+      "scoped_ranges_compared": [
+        [
+          1,
+          80
+        ]
+      ],
+      "actual05_comparison": "Fresh full actual scoped PR body and original inline/external fixtures read; own current aggregate relationship/constructor/mutation/recipient comparison. No P16/body/hash or other-lens verdict carry."
+    }
+  ],
+  "contract_groups": [
+    {
+      "id": "arch shape and shared physical sections",
+      "comparison": "ArchGeometry private fields retain one solid centre/size and optional wall frame, plus raw span/spring/rise/radius selected by exact ResolvedSolidShape. from_solid rejects unrelated shape but does not validate raw arch relationships; pointed rise derives apex-spring and segmental crown divides by raw rise. Fixed24 subdivisions feed paired front quad/depth, both visible and collision strip consumers share this section recipe. Existing NativeF005 shape/envelope aggregate relationship applies; this adapter does not supply the missing accepted-shape contract. Zero wall tangent normalizes invalidly; no actual bad accepted wall or new unique graph established. Panel versus ring intentionally reverses which part of the same crown is filled."
+    },
+    {
+      "id": "cuboid checked leaves and correlated topology",
+      "comparison": "CollisionCuboid from_metres preserves source ID and checks centre,size,three radians in source order; manual native Deserialize routes same complete record through same factory. Fields individually typed, zero extent valid; identity membership is not a constructor promise. Corners private[Position;8] is filled by one pose/sign-bit topology and checks each computed point before Self. Exactly12 constant pairs use indices0..7 and each differing single sign bit, so no independent caller edge list/row alignment. Original fixture checks degree3 and all unique undirected edges. bounds deliberately computes a separately rounded centre/half envelope, while floor contact uses actual corner-derived sections; do not require bit-identical alternate reductions."
+    },
+    {
+      "id": "collision selection and represented membership",
+      "comparison": "Compiler builds ID map from actual resolved solids, selected ID set from unreplaced wall hosts, fixed gable/heating/frame/workplace and semantic-role lists, then actual solid lookup and fallible shape projection. BTreeSet deduplicates selected identities; raw duplicate solid IDs overwrite and raw missing references filter out, so this API relies on accepted BuildingPlan identity graph rather than sealing arbitrary public plan. No normal broken input/collision failure asserted. Dynamic doors intentionally separate; not every roof is static collision. Bar source IDs and checked placement copied together. Enclosing bounds start from checked plan footprint then union each cuboid bounds; this intentionally includes empty footprint space, not an exact occupied-area union. Raw public BuildingCollision decode does not recompute that aggregate; no new specific downstream misuse proven. Ground contact recomputes from cuboids and ignores independently supplied overall bounds."
+    },
+    {
+      "id": "arch native projection failure versus successful result",
+      "comparison": "collision_parts branches cylinder/bell to separate actual lower obligations; other nonarches reuse checked envelope. Arch strips generate conservative boxes from SAME front+depth eight points projected into one local frame, checked constructor keeps original solid ID on geometry failure. Finite source leaves alone do not guarantee finite intermediate min+max or shape crown; no silent assumption that successful raw ArchGeometry is a checked shape. Local Vec<Result> collection returns no completed BuildingCollision if a projected cuboid rejects. Other lower modules declared here retain independent inventory, not body credit."
+    },
+    {
+      "id": "coherent disjoint render product and mutable membership",
+      "comparison": "BuildingKit borrows immutable plan, selects actual cuboid timber roles/material and skips face-selected gables, derives local size/rotation/world transform/UV phase from the same source, and records source in private excluded sets and public instances in one loop before Ok. Every completed normal new has disjoint residual/instanced membership. Public instances.clear permits later safe mutation while private excluded remains; detail and facade still receive original exclusions. This independently supports exact Camera07F044/CONTRACT226; no extra Native unique finding. Correct repair is canonical immutable compiled membership/read-only iteration or derive omissions from canonical current instance membership, preserving facade subset, UV phase, world/local normals and source IDs. No normal edit/rendered-hole or run claim."
+    },
+    {
+      "id": "original fixtures and bounded limitations",
+      "comparison": "Full collision inline tests check ground-datum contact excludes high/buried projection, rotated extent contains corners, door void absence, timber floor/stair/landing source membership and permanent window bars; full admission tests include zero-Y and negative leaf rejection/source diagnostic, postcard native record roundtrip. Full kit external test compares component topology/material/transformed positions/normals/UV, then total triangles of residual+instances for detail and facade across three archetypes. These are actual source facts only, not executed checks or a proof arbitrary plan/source IDs are valid. External collision/arch_tests declaration remains independently unread, no implicit full fixture coverage."
+    }
+  ],
+  "supporting_findings": [
+    "NATIVE-INITIAL05-F005",
+    "CAMERA-INITIAL07-F044"
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Exact separately scoped collision footprint/ground_contact/gable/intersection/arch_tests and detail compiler helpers remain independent inventory.",
+    "Accepted plan IDs and raw public collision envelope correlation not inferred from leaf types."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1067",
+  "at": "2026-10-25T17:40:56.573931+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1212,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+  "sha256": "775c9d22ecc0823474a0e4941da7a73e63c7fe7ca755ffc29cc479d95c611dfe",
+  "actual_compared_ranges": [
+    [
+      1,
+      150
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "No handwritten trait/codec. ReferredTestimonyClaim62\u201370 is private native aggregate; testimony mapping depends on canonical private authority and witness/event/context, not mechanical From. Emitted typed ResolvedFragment existing Serde verifies exact ordered transcript/text against claims before returning; preserve confidentiality and fallible errors."
+  ],
+  "first_unfinished": {
+    "scope_index": 1212,
+    "line": 151
+  },
+  "execution": "none"
+}

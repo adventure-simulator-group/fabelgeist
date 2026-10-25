@@ -1,0 +1,108 @@
+{
+  "id": "CONT08-CONTRACT-211",
+  "at": "2026-10-25T14:30:50.096469+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 809,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/inventory.rs",
+      "before_sha256": "50bd8bed15cca90e97f4a88fa783b4b03147ef1095d7a871f0c8dac848a460e3",
+      "after_sha256": "0f820bca06e27b164da010e95dc7d3500a79a6feb0b7be9411ed8a41e88feb18",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0809-base-50bd8bed15cca90e97f4a88fa783b4b03147ef1095d7a871f0c8dac848a460e3",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/0f820bca06e27b164da010e95dc7d3500a79a6feb0b7be9411ed8a41e88feb18",
+      "diff": "source-evidence/pr-0809.diff",
+      "diff_sha256": "75ba1960642754b884e374e385cf20435393ba1d8be0ef7a83c70e75a73a3e22",
+      "head_body_read_ranges": [
+        [
+          1,
+          442
+        ]
+      ],
+      "facts": [
+        "Full442 and entire124-line actual diff. CatalogArticle resolve now retains exact CatalogPlacement insteadtuple, same firstmatching item/placement source923. design nowresolve? first: unknownitem/placement rejects rather than None default; deliberate invalididentity tightening. New design_for checks item/placementID matching, then actual815 default/familyoverride; normal810 passesexactresolvedselection.",
+        "Inventory fit candidateequipment/attachmenttags now sourced from sameplacement.item rather than secondIDlookup; coherent canonicalnormalcatalogue unchanged, intended exactrecord association. wornorder/occupancy/errorculprit, wear snapshotrollback/displacementloop, takeoffunsupportedcascade/remove/shift/nativeIDallocation and display/weights/wire unchanged. MAXID+1/independent designcatalog identity remain retainedsourceconditions, no ordinaryfinitebound invention."
+      ],
+      "disposition": "Own08 old/new comparison accounted with concrete lower2179/2332/2336 and frame-kernel receiver; retained API limits explicit.",
+      "acceptance": "Preserve exact packing, first-error, membership and floating operation order plus existing fixture oracles; no tests or checks run."
+    },
+    {
+      "scope_index": 810,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory/loadout.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/inventory/loadout.rs",
+      "before_sha256": "562dfe61e557f3037cc3c9f4278249d01b37d22031d844e752b76a30ceb4253a",
+      "after_sha256": "8b3ada636d68eaae16cf4ca2bab097cd918be93a52452d34dc3e2648add51691",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0810-base-562dfe61e557f3037cc3c9f4278249d01b37d22031d844e752b76a30ceb4253a",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/8b3ada636d68eaae16cf4ca2bab097cd918be93a52452d34dc3e2648add51691",
+      "diff": "source-evidence/pr-0810.diff",
+      "diff_sha256": "85276f60afe1c3be68640ed467c55e33910937c6a4c265fe7c7e00ac26ab23fc",
+      "head_body_read_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "facts": [
+        "Full110 and complete actual diff. fit first\u2192worninputorder\u2192resolve\u2192wearablesurfaceguard\u2192same selection design_for815\u2192fitted/clothing ordrademarkgroup\u2192stablelayer sort retains original behavior forcanonical selections. Decoration/construction/scalars carried unchanged; samefitconflictfirst beforegeneration.",
+        "CatalogPiece now oneactualselection replacing independently held item/placement; own923 source fields enforce relationship, not proof designs fromsamecatalogueinstance. Final generators previously own175/177/180/197 reading preserve exact sourceidentity and qualifiers; no newglobalcacheclearance."
+      ],
+      "disposition": "Own08 old/new comparison accounted with concrete lower2179/2332/2336 and frame-kernel receiver; retained API limits explicit.",
+      "acceptance": "Preserve exact packing, first-error, membership and floating operation order plus existing fixture oracles; no tests or checks run."
+    },
+    {
+      "scope_index": 811,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory/occupancy.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/inventory/occupancy.rs",
+      "before_sha256": "9678b95490ef5f447892d56e24100a233334faad17159294ee11ef51837d2e12",
+      "after_sha256": "dbd62cb0c402bcb0903b4bcebdc159c2d2f35f266e4dff77c359796db40231b8",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0811-base-9678b95490ef5f447892d56e24100a233334faad17159294ee11ef51837d2e12",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/dbd62cb0c402bcb0903b4bcebdc159c2d2f35f266e4dff77c359796db40231b8",
+      "diff": "source-evidence/pr-0811.diff",
+      "diff_sha256": "48971a5d4949878afd52d5663c6cf8b66bbb46a8ac10de30bc48fce7d55f6c75",
+      "head_body_read_ranges": [
+        [
+          1,
+          287
+        ]
+      ],
+      "facts": [
+        "Full287 and complete67-line actual diff. from_catalog constructs same occupancy/parents/equipment/tags fromactualsame selection. WornGraph defers attachmentssameorder, progressround and firstunsupported requirement, firstsupportpoint capacity search, successive duplicate-capacity offset, nativegraph.equip then supports publication unchanged.",
+        "Actual capacity/count u16 arithmetic and firstOccupied detection/recursive support/cycle behavior remain retainedsourcequestions linked broaderM10 family, not new08 regression orprovenbound. Native tuplechannel/order/geographiclocations and garmentcoverage defaults preserved; lower EquipmentGraph recipient later own08scope."
+      ],
+      "disposition": "Own08 old/new comparison accounted with concrete lower2179/2332/2336 and frame-kernel receiver; retained API limits explicit.",
+      "acceptance": "Preserve exact packing, first-error, membership and floating operation order plus existing fixture oracles; no tests or checks run."
+    },
+    {
+      "scope_index": 815,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/item_design.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/item_design.rs",
+      "before_sha256": "09b86816e4baba79ab8a35e87a8d9f896ceef69bd1f2f9d05189092759981f80",
+      "after_sha256": "a33bdf3bde70ed5a647c3968c9e9c04dd60402bca585d47a4d2555ce9e3802aa",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0815-base-09b86816e4baba79ab8a35e87a8d9f896ceef69bd1f2f9d05189092759981f80",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/a33bdf3bde70ed5a647c3968c9e9c04dd60402bca585d47a4d2555ce9e3802aa",
+      "diff": "source-evidence/pr-0815.diff",
+      "diff_sha256": "9bd123d3a60d65d0003050acab8a7a16fade2c81752ec3d48d6a81fbc8eb4e26",
+      "head_body_read_ranges": [
+        [
+          1,
+          232
+        ]
+      ],
+      "facts": [
+        "Full232 and entire actual diff. DesignTarget Item/Placement replacesoptionalstring; actualown68846\u201351 selected exact fallback consumed: placementoverride\u2192itemdefault\u2192embeddedrecipe, dedicatedvambrace/breastplate precedence unchanged. Exactdefault/family/save/mutator validation order preserved; normal810 reusesresolvedselection.",
+        "Recognized unknownplacement nativeoldArmorPlacement None previouslyfellbackdefault; newCatalogPlacement canonlyresolveactualplacement, deliberate tighter sourceidentity. Dedicated classification own176693 considers actualitem.kind; canonicalcataloguefixture samevambrace/breastplate/cuirass/morion/linen andcrossfamilyErr/center_ridge5 mutation oracles retainedreadnotrun. No inventedduplicateinstance closure orfilesystemsave."
+      ],
+      "disposition": "Own08 old/new comparison accounted with concrete lower2179/2332/2336 and frame-kernel receiver; retained API limits explicit.",
+      "acceptance": "Preserve exact packing, first-error, membership and floating operation order plus existing fixture oracles; no tests or checks run."
+    }
+  ],
+  "next": "812 inventoryfixtures239 then813acquire138/814editor199"
+}

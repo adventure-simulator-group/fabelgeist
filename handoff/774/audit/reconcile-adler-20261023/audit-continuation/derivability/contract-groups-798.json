@@ -1,0 +1,38 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-798",
+  "at": "2026-10-25T16:52:34.000987+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1013,
+  "source_id": "pr-working:crates/adventuresim-core/src/strategic_schedule.rs",
+  "sha256": "ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+  "actual_compared_ranges": [
+    [
+      221,
+      660
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "Default",
+      "type": "CombatTrainingProfile",
+      "lines": [
+        [
+          309,
+          319
+        ]
+      ],
+      "disposition": "KEEP nonzero gameplay policy; derived primitive defaults not equivalent"
+    }
+  ],
+  "analysis": [
+    "CombatTrainingProfile Default309\u2013319 deliberately dodge/balance/will1, block0 plus default weapons. Standard derive Default would zero floats and change gameplay; no project custom field-default derive present, preserve manual policy default. Other activity/profile/outcome Default already derived where zero policy fits.",
+    "All native equipped-hands weighting, socializing budget split, aptitude-aware/direct curriculum/leaf training and ordered mutable skill selection are semantic calculations; no mechanical trait/codec here besides stated Default."
+  ],
+  "first_unfinished": {
+    "scope_index": 1013,
+    "line": 661
+  },
+  "execution": "none"
+}

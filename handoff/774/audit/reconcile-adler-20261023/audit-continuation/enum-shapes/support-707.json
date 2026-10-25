@@ -1,0 +1,21 @@
+{
+  "id": "SEGO-INITIAL09-SUPPORT707-F476",
+  "finding": "SEGO-INITIAL09-F476",
+  "source": {
+    "scope_index": 1742,
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_sky_viewer.rs",
+    "sha256": "cbb6ea6fc7bcecaff9f470a543695ac8757ae4fc43485dc74761262b147ed1e4",
+    "ranges": [
+      [
+        410,
+        443
+      ],
+      [
+        510,
+        588
+      ]
+    ]
+  },
+  "trace": "Second native screenshot harness sky_metrics(None/empty) returns a full zero-default measurement product, and unobserved skyregions divide by max(count,1), same missing-image observation contract family as capture_state1704. Shared admitted RGBA readback adapter can preserve missing/truncated/empty distinction before metric kernels.",
+  "qualification": "No ordinary missing-pixel screenshot or false certification proven; positive nonblack/subject gates fail closed for zero metrics. Valid realblack/zero sky remains observation; empty skyregion should be explicit inapplicability/absence, not forcednumericpositive. No runtime."
+}

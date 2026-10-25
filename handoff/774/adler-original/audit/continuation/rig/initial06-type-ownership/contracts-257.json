@@ -1,0 +1,51 @@
+{
+  "id": "RIG-INITIAL06-GROUP-257",
+  "at": "2026-10-23T07:39:39.836857+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-070.json",
+  "groups": {
+    "footprint-extrema-observation-and-native-clip": {
+      "comparison": "Fresh footprint153 uses HeightExtrema to retain correlated GeographicHeightControl point+SupportElevation at low/high and count intersection vertices. This is diagnostic observation product, not duplicate accepted terrain or separate height owner; optional no-data remains distinct from elevation0. Rotated ScenePlanPoint footprint converts at actualnative clipping kernel, f32 Vec2 interpolation and gridindices distinct from geographiclat/lon. F023 canonical SceneElevation applies; geographic name here means sourceheightcontrol in Scene frame, not Earthbounds. Json complete_playable_coverage is only footprintcornersinsideplayable and explicitreport saysoutsidecoverageuncertified, no acceptedgenerationtoken fromfieldname. Sourceflat triangle diagonal preserves actualSceneTerrain/Avian convention. Originaltestsreadonly, nogeneration/runtime/report writes, includedvistahelper notcredited.",
+      "disposition": "Keep correlated extrema/report observation over canonical scene point/elevation and native clip port."
+    },
+    "court-support-profile-and-gate-geometry": {
+      "comparison": "Fresh profiles171 CourtSupportConstruction couples canonical SupportProfile and explicit CourtStair list; supportslice is derived engineering plan rather than a new independent sourceproperty. ProfilePoint longitudinal signedmetres plus SupportElevation verticalscene coordinate are distinctunits/axes; stepped repeatedcoordinate differentheights models verticalretainingfaces, not sorteduniqueunitinterval. F023 same SceneElevation lowerowner reuse stays, while CourtTreatment/SupportBoundary/SupportDiagnostic remain groundingpolicy. Passage builds gateDoor throughcanonicalboundary/properCityPropertyId, projects hinge/sweepradius along actualCityAccessSegment and feedsprofilecheckedgrade; sourcegeometrynumericchange is realkernel. Gateclosurepositiveleaf and zero/signedsupportlevels distinct, F026 canonicalGateDatum should remain sharedsource not rebuildduplicate. OptionalProfilePoint failure and errorpoint mapping preserve rejectedrawgeometryevidence. Called Door/profile/stair implementations separatelyscoped, no completebinding guarantee fromResult. No runtime operation.",
+      "disposition": "Keep court/passage profile and stair correlation with canonical gate/Scene elevation, preserving signed axes and vertical-step semantics."
+    },
+    "camera-profile-shaping-versus-hold-clock": {
+      "comparison": "Fresh camera config142 uses actual shared ResponseShapingTime for temporalresponse coefficients and Core AnimationElapsed for collisionhold elapsed, plus neutral SignedLength, ScreenWindow/MuzzleOffset/FramingOffset. Fresh shaping_time63 confirms finite SIGNED seconds coefficient deliberately permits zero/negative, with each response kernel owning division/cap/clamp. This is not nonnegative elapsed, positive animationduration or a clockcoordinate; camera reuse shares same responsemeaning rather than creating parallel cameraTime definition. Existing156 truecontract comparison retained: advance_settle/guard are animation-specific operations with their own order while scalarcoefficient reused. Camera profile distance/focus/shoulder/negativecrouchoffset incontrollerframe distinct from NDC halfextentwindow and localmuzzle axes. SignedLength allowszero/negative bycanonicalunit, individualcamerapolicy isconsumerresponsibility. Compile-time authoredconstants admit throughcheckedconstructor, no runtimefailure or aggregatevaliditycertificate inferred. F039 actualSignedBlendVelocity/errorcontext issue remains separate, no reason to widen to every camera coefficient or forcepositive shaping floor.",
+      "disposition": "Reuse canonical shared shaping coefficient with distinct elapsed hold and coordinate units; preserve kernel-specific animation operations and existing F039 limits."
+    },
+    "connected-equipment-native-authority-projection": {
+      "comparison": "Fresh PR projection_equipment139 consumes generated ConnectedPlayerItem wireDTO, canonical modeldecode/version/hash/derive and constructs Core ParametricWeaponCombatGeometry. Generated SDK bindings are wireprojection, not a second sourceenum owner to edit manually. F009 coarse equipment/combat BodyPart mapping and tactical ArmorSlot projection apply while fine authoredcoverage remains separate. Complete physicalproduct is canonical combatgeometry; output raw DerivedProperties mass/length/grip/head/inertia/balance re-admitted by new, preserve current zerohead/signed/precision semantics and CAMF002 postcastoutputs gap, no universalfinite guarantee from deriveResult. Weapon/holder recipes/hashes/generatorversions are distincttypeauthority; assertions mean expectsstrategicacceptedrow, not proofallraw ConnectedPlayerItem constructorsvalidated. Armor sourcejoins catalogue placement with actualselectedID and builds canonicalAuthoredArmorCoverage, not copiedmanualregionroster. Holdermass remainsrawf32projection afterderivation, no humanBodyMassboundor nativeportwaiver. Actualsourcenarrowing vswholeacceptedDBgraphs explicit, no source/generatedbindings edits.",
+      "disposition": "Keep generated wire DTO adapter over canonical recipe/coverage/physical owners; preserve coarse/fine taxonomy and exact acceptance limits."
+    }
+  },
+  "supporting_existing_findings": [
+    "RIG-INITIAL06-F009",
+    "RIG-INITIAL06-F023",
+    "RIG-INITIAL06-F026",
+    "RIG-INITIAL06-F039"
+  ],
+  "source_fact_refs": [
+    "contracts-156.json",
+    "contracts-242.json",
+    "contracts-248.json",
+    "contracts-256.json"
+  ],
+  "supporting_source_reads": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/shaping_time.rs",
+      "sha256": "daf4c6b1cf6f43edc45f91ac44fb6fe70ae0848a2e1b23b8bc313ba24d887a87",
+      "ranges": [
+        [
+          1,
+          63
+        ]
+      ],
+      "scope_pointer": "/files/1779",
+      "status": "Fresh complete shared coefficient definition consumed for exact camera use; earlier full156 accounted, no new duplicate source row"
+    }
+  ],
+  "limits": "Four fresh complete scoped bodies plus fresh shared shapingdefinition. No generated SDK edits, canonicalnew/derive/coverage calledbody blanketcredit, execution/tests/newsource/other-lens credit. New070sectionedblade role still independently pending."
+}

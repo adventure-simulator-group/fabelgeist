@@ -1,0 +1,87 @@
+{
+  "id": "SEGO-CONT07-SUPPLEMENT001",
+  "at": "2026-10-25T07:32:49.639467+00:00",
+  "lens": "redundant-authority",
+  "question": "SEGO-CONT06-CROSS001",
+  "classification": "maintainability migration gap; present formulas agree, no current incorrect geometry asserted",
+  "source_evidence": [
+    {
+      "extension_index": 30,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/chart/chart_wgsl.rs",
+      "sha256": "2b31c7fe9b829a50fc2c3411ebf7f12d06a54f079f88b86c4cf1165c17e6bb80",
+      "personally_read_ranges": [
+        [
+          65,
+          95
+        ],
+        [
+          95,
+          170
+        ]
+      ]
+    },
+    {
+      "extension_index": 32,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/helmet/shape.rs",
+      "sha256": "97e23604f5ed995bc4d619d8e37747acc42671ba34e7236a8184b1e3d175a35d",
+      "personally_read_ranges": [
+        [
+          1,
+          32
+        ],
+        [
+          65,
+          120
+        ],
+        [
+          217,
+          248
+        ]
+      ]
+    },
+    {
+      "extension_index": 28,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/bracer_wgsl.rs",
+      "sha256": "4d241c6f7e175f29b96322988a5847431b5894612786ac6173cabb719b9642c9",
+      "personally_read_ranges": [
+        [
+          1,
+          50
+        ],
+        [
+          110,
+          152
+        ],
+        [
+          188,
+          210
+        ]
+      ]
+    },
+    {
+      "original_scope_index": 2608,
+      "source": "pr-working:crates/fabelgeist-armor/src/plate_fluting.rs",
+      "personally_read_ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "credit_limit": "Original scoped formula102-131; no unscoped unfan132-146 credit"
+    }
+  ],
+  "contract_and_trace": "One PlateFluting policy controls fan mapping and rounded raised-relief shape. CPU fan_coordinate/relief own same law102-129. Chart WGSL105-138 and helmet shape78-108 independently spell same native law; parameter storage differs (flute array versus design[FLUTE_*]). Chart routes fanned/height81-93 and helmet230-233 both invoke their own copies. Bracer displace188-206 already shares chart FLUTING.",
+  "disagreement_scenario": "A change to flute fan/fade/relief policy made only in chart/native helper changes bracer/chart geometry while helmet keeps old same-policy math. This is a source-maintenance dependency, not a current input demonstrating divergent formulas. CPU/native arithmetic necessarily lives in different execution languages and is not itself proof of redundant semantic authority.",
+  "connected_repair": "Share one native WGSL law taking an explicit fluting parameter record or parameter accessor. Keep chart/helmet/bracer layout adapters and coordinate conventions distinct. Reuse canonical PlateFluting admission; do not add another independently admitted GPU design type merely to share code. CPU/native parity remains an explicit acceptance relation.",
+  "acceptance": [
+    "All native consumers obtain the same fan/relief law from one authored helper while retaining exact native packing/layout.",
+    "Existing tests and native shader validation, when authorized, preserve current valid-design geometry and frame conventions.",
+    "No implication that this alone fixes CONT07-F107 duplicate ring/table constants."
+  ],
+  "deduplication": "Consumed own07 contracts501/502/602: they covered bracer sharing, layout/constants and CPU pitch derivation, but did not explicitly reconcile independent helmet/chart law. Separate from F107 constants; no global unique count asserted.",
+  "owner_dependency": "#780 armor geometry/material producer owner; #826 lower native ports do not acquire design-policy repair ownership here. Recheck successor source before proposing any implementation.",
+  "discovery": "Bounded own07 joined source comparison finished; actionable maintenance scope recorded separately from proven behavior defects",
+  "repair": "not_started",
+  "validation": "not_run",
+  "other_lens_credit": false
+}

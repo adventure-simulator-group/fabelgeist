@@ -1,0 +1,269 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-024",
+  "at": "2026-10-22T20:13:18.337697+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "native-dependency:parry3d-0.27.0/Cargo.toml",
+      "sha256": "e9a4996484162b4fcda871bf170f0224ad27e1fff77ef5c88a8d8eafdfc89b9a",
+      "actual_compared_ranges": [
+        [
+          60,
+          87
+        ]
+      ],
+      "scope_index": 16,
+      "source_fact_evidence": "Fresh exact bounded/full static Cargo source lines personally consumed; source imports/metadata only, no implementation arithmetic or mutation. Unselected foreign/P17 tails excluded."
+    },
+    {
+      "source_id": "native-dependency:tiny-skia-0.11.4/Cargo.toml",
+      "sha256": "76370c68002a8cf88f605f06e1d645d11045ae2bae97a7d8b490acf47362e6ad",
+      "actual_compared_ranges": [
+        [
+          46,
+          47
+        ]
+      ],
+      "scope_index": 25,
+      "source_fact_evidence": "Fresh exact bounded/full static Cargo source lines personally consumed; source imports/metadata only, no implementation arithmetic or mutation. Unselected foreign/P17 tails excluded."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/Cargo.toml",
+      "sha256": "308714b71f7effc69b5f0d0314884b560472372f1746b1101147414253715b42",
+      "actual_compared_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "scope_index": 45,
+      "source_fact_evidence": "Fresh exact bounded/full static Cargo source lines personally consumed; source imports/metadata only, no implementation arithmetic or mutation. Unselected foreign/P17 tails excluded."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/Cargo.toml",
+      "sha256": "36987a2d79efdb7b873694038158a9b7ca916a8d1cf332427e2023b5311d487f",
+      "actual_compared_ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "scope_index": 172,
+      "source_fact_evidence": "Fresh exact bounded/full static Cargo source lines personally consumed; source imports/metadata only, no implementation arithmetic or mutation. Unselected foreign/P17 tails excluded."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/Cargo.toml",
+      "sha256": "3a08ad5b69e06fb586e1ff7ace785e9b53c79345119fddc49c3f162b5f2f3bdb",
+      "actual_compared_ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "scope_index": 421,
+      "source_fact_evidence": "Fresh exact bounded/full static Cargo source lines personally consumed; source imports/metadata only, no implementation arithmetic or mutation. Unselected foreign/P17 tails excluded."
+    },
+    {
+      "source_id": "physical-p16:crates/fabelgeist-math/Cargo.toml",
+      "sha256": "6aaf0cb94d1603d0d6cdd07f1bee8021c3c29c841d01d144143faa4be39a6321",
+      "actual_compared_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "scope_index": 453,
+      "source_fact_evidence": "Fresh exact bounded/full static Cargo source lines personally consumed; source imports/metadata only, no implementation arithmetic or mutation. Unselected foreign/P17 tails excluded."
+    },
+    {
+      "source_id": "pinned-registry:avian3d-0.7.0/Cargo.toml",
+      "sha256": "784418664acf79e35890108db95d9b43517706726665ab37152f3f252cb0dba9",
+      "actual_compared_ranges": [
+        [
+          55,
+          104
+        ],
+        [
+          364,
+          381
+        ]
+      ],
+      "scope_index": 480,
+      "source_fact_evidence": "Fresh exact bounded/full static Cargo source lines personally consumed; source imports/metadata only, no implementation arithmetic or mutation. Unselected foreign/P17 tails excluded."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/Cargo.toml",
+      "sha256": "b44ae2d0177b2c835054b53f233a12d93f7fffdce8ecbf20fad37d99796840a4",
+      "actual_compared_ranges": [
+        [
+          1,
+          79
+        ]
+      ],
+      "scope_index": 681,
+      "source_fact_evidence": "Fresh exact bounded/full static Cargo source lines personally consumed; source imports/metadata only, no implementation arithmetic or mutation. Unselected foreign/P17 tails excluded."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/Cargo.toml",
+      "sha256": "feb7d553952f711d1296803b07e2ec1b7ee1cb555df59648b5bdef7e2cf5d4a9",
+      "actual_compared_ranges": [
+        [
+          1,
+          42
+        ]
+      ],
+      "scope_index": 849,
+      "source_fact_evidence": "Fresh exact bounded/full static Cargo source lines personally consumed; source imports/metadata only, no implementation arithmetic or mutation. Unselected foreign/P17 tails excluded."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-plant-generator/Cargo.toml",
+      "sha256": "c62ef46d7f6ce6ce73bc52b18585d610a1417364a808ab3b0cd6d0ce5f8c4015",
+      "actual_compared_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "scope_index": 1036,
+      "source_fact_evidence": "Fresh exact bounded/full static Cargo source lines personally consumed; source imports/metadata only, no implementation arithmetic or mutation. Unselected foreign/P17 tails excluded."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/Cargo.toml",
+      "sha256": "88120e04c42c2e3a0dfa5100055838100a09da1e60fb3193f2aa8ab2a8867113",
+      "actual_compared_ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "scope_index": 1072,
+      "source_fact_evidence": "Fresh exact bounded/full static Cargo source lines personally consumed; source imports/metadata only, no implementation arithmetic or mutation. Unselected foreign/P17 tails excluded."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/Cargo.toml",
+      "sha256": "c3269a597f4399ec46bb77e79211dbffec578862002f0565cdd74814572a7fd1",
+      "actual_compared_ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "scope_index": 2173,
+      "source_fact_evidence": "Fresh exact bounded/full static Cargo source lines personally consumed; source imports/metadata only, no implementation arithmetic or mutation. Unselected foreign/P17 tails excluded."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-fbx/Cargo.toml",
+      "sha256": "6b787f0479935fe16ad0ec4d53619949c7334776370480647f98882a1e5178ee",
+      "actual_compared_ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "scope_index": 2251,
+      "source_fact_evidence": "Fresh exact bounded/full static Cargo source lines personally consumed; source imports/metadata only, no implementation arithmetic or mutation. Unselected foreign/P17 tails excluded."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-mhr/Cargo.toml",
+      "sha256": "55bc5dad2b9cc29b536931350e93450876d6fd3ea3f9e8a105e6a32fa4b765d7",
+      "actual_compared_ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "scope_index": 2314,
+      "source_fact_evidence": "Fresh exact bounded/full static Cargo source lines personally consumed; source imports/metadata only, no implementation arithmetic or mutation. Unselected foreign/P17 tails excluded."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-rig/Cargo.toml",
+      "sha256": "bfc8f1cdfedc5b57930f84fa5d33fba192fb4d30053794b50dafaef512336a43",
+      "actual_compared_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "scope_index": 2330,
+      "source_fact_evidence": "Fresh exact bounded/full static Cargo source lines personally consumed; source imports/metadata only, no implementation arithmetic or mutation. Unselected foreign/P17 tails excluded."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-world-schema/Cargo.toml",
+      "sha256": "3c5bed9bdba2fe4d9a73522f70749beccc5240021b04af3755167af288735655",
+      "actual_compared_ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "scope_index": 2670,
+      "source_fact_evidence": "Fresh exact bounded/full static Cargo source lines personally consumed; source imports/metadata only, no implementation arithmetic or mutation. Unselected foreign/P17 tails excluded."
+    },
+    {
+      "source_id": "physical-p16:Cargo.toml",
+      "sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+      "actual_compared_ranges": [
+        [
+          178,
+          182
+        ]
+      ],
+      "scope_index": 2671,
+      "source_fact_evidence": "Fresh exact bounded/full static Cargo source lines personally consumed; source imports/metadata only, no implementation arithmetic or mutation. Unselected foreign/P17 tails excluded."
+    },
+    {
+      "source_id": "report-p17:crates/adventuresim-building-generator/Cargo.toml",
+      "sha256": "7fea1b7354749df8baa74d64f7de52d31252f38ef3e631722c694b113d60e8b7",
+      "actual_compared_ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "scope_index": 2683,
+      "source_fact_evidence": "Fresh exact bounded/full static Cargo source lines personally consumed; source imports/metadata only, no implementation arithmetic or mutation. Unselected foreign/P17 tails excluded."
+    },
+    {
+      "source_id": "report-p17:Cargo.toml",
+      "sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+      "actual_compared_ranges": [
+        [
+          85,
+          85
+        ],
+        [
+          95,
+          95
+        ]
+      ],
+      "scope_index": 2685,
+      "source_fact_evidence": "Fresh exact bounded/full static Cargo source lines personally consumed; source imports/metadata only, no implementation arithmetic or mutation. Unselected foreign/P17 tails excluded."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-client/Cargo.toml",
+      "sha256": "cf3964f3ac12941d5266ff1285c0ce08d8a608eaf93a4a4840126288b937534c",
+      "actual_compared_ranges": [
+        [
+          11,
+          11
+        ]
+      ],
+      "scope_index": 2723,
+      "source_fact_evidence": "Fresh exact bounded/full static Cargo source lines personally consumed; source imports/metadata only, no implementation arithmetic or mutation. Unselected foreign/P17 tails excluded."
+    }
+  ],
+  "groups": {
+    "actual-nonapplicability": "These exact static package/dependency/feature/version/build-target declarations contain no operations constructing or replacing admitted application values. They select actual implementation sources, whose arithmetic/mutation must be separately audited. Fresh exact current source content compared, no status from filenames/hash or old admission verdict. No extra fullforeign/P17coverage from bounded metadata snippets.",
+    "native-precision-and-serde-context": "Parry60-87 declares defaultdim3/f32/std/spade and enhanced-determinism/libm, contextendsinrkyv arrayheader. Avian55-104/364-381 actualdefault3d/f32/parry-f32/xpbd/parallel plusoptional f64/serialize pathways andparry0.27/Serde1/Thiserror2. These do notestablish everycompiledcallusesf32 or finitephysicalquantities, nativekernel/source operations separatelyrequired. TinySkia46-47 png0.17codecdependency only, no checkedimageextent/coloradmissionproof.",
+    "physical-p16-core-db-schema": "FullP16Core43 usesfabelgeist-geometry atruntime ANDbuild dependency defaultfalse, actualPRCore42 omitsgeometrybuild dependency. Both defaultfeatures empty andoptionalSpacetimebridges; DB32vsPR31 difference geometry depP16defaultfalse, actualtest/doctestfalse/authority-testsdisposablefeature retained. P16WorldSchema31 defaultempty/optionalSpacetime library plusalwaysbuildSDK dependency; doesnotshowmacrobody/reducertransactionrollback. P16root178-182 pinsSDK/lib/SATS2.6.1, no otherrootrolecredit. ClientCargo11 inheritsSDKworkspace only.",
+    "portable-and-format-owners": "P16Weapon19 SerdeJSONfloat_roundtrip/glam0.32.1/TinySkia; P16Math17 Serde/Bytemuck/GPUoptionalmetadata not normalized-quaternionorfinitepositionadmission. PRArmor26 depsactualgeometry/math/rig/garment/nativeGPU withGPUdefaultfalse, no magicalvalidation. PRFBX18 nativeinflateRustbackend/num_enum definesfilecodecdependency; originalrawfileandnativeintegerportsnotarithmeticguarantees. PRRig17 derives/Serde requiresactualsourcegateinspection.",
+    "applications-and-feature-boundaries": "PRCharacterCreator79 defaultofflineburnwgpu/revisions/nativehairGPUfeature/CPUcontactoptimizations devopt3 andexternalworkspacepatch; configmetadata doesnotmakeprivatehelpersnativeports or proveanyuncheckedallocationbound. PRMHR25 standaloneworkspaceBurnwgpu/externalpatch/Rig/FBX/FS dependencies actualnativeformatcontext. PRPlant29 defaultempty/viewerconditional anddefaultBevyMesh proceduralgenerator selected, no sampler/meshvalidationprooffrommetadata. P17Building1-27 enablesReflectandBevy onlyboundedseen, sourcebodiesandremainingdependencies notcredited. P17root85/95 onlycanonicalgeometrypath/Bevyheader, fullfeaturelistunseen.",
+    "policy": "No numericalpolicy/newdatatype/staticdefaults changed. Native/Wasm/optionalfeature acceptance targets remainfinalhostedobligation. No cargo resolution/compiler/generator/scanner/test/runtime/projectcommand executed."
+  },
+  "findings": [],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

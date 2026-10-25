@@ -1,0 +1,88 @@
+{
+  "id": "SEGO-INITIAL09-REGISTRATION-036A",
+  "reason": "Trace tactical prefers_stab producer/reuse and ArmorLayerContact selected/intersected flags",
+  "roles": [
+    {
+      "scope_index": 2018,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bot.rs",
+      "sha256": "8626aece6d47f2087249b45ecc70c2fc943b600943ac23e3a5eb3c7cbc55619b",
+      "ranges": [
+        [
+          420,
+          514
+        ]
+      ],
+      "previously_scoped": true,
+      "coverage_limit": "Partial trace support only unless complete scoped role independently read"
+    },
+    {
+      "scope_index": 2057,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration/equipment.rs",
+      "sha256": "ca4439b826717b1d61d7efd26d33a4538f66c8fc5527e32d8e7d9768b71e7074",
+      "ranges": [
+        [
+          1,
+          163
+        ]
+      ],
+      "previously_scoped": true,
+      "coverage_limit": "Partial trace support only unless complete scoped role independently read"
+    },
+    {
+      "scope_index": 2062,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/main.rs",
+      "sha256": "a52f98db1a5b753a3b5f3d54348ffa36df35e266644e667489c8a1784508b150",
+      "ranges": [
+        [
+          530,
+          588
+        ]
+      ],
+      "previously_scoped": true,
+      "coverage_limit": "Partial trace support only unless complete scoped role independently read"
+    },
+    {
+      "scope_index": 2067,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+      "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "ranges": [
+        [
+          857,
+          937
+        ],
+        [
+          2200,
+          2245
+        ]
+      ],
+      "previously_scoped": true,
+      "coverage_limit": "Partial trace support only unless complete scoped role independently read"
+    },
+    {
+      "scope_index": 2778,
+      "source_id": "pr-working:crates/adventuresim-core/src/combat_style.rs",
+      "sha256": "061ad83361e2177d953bb8c9b3246f1c654156078edd65e63926ed4dd62c9d77",
+      "ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "previously_scoped": true,
+      "coverage_limit": "Partial trace support only unless complete scoped role independently read"
+    },
+    {
+      "scope_index": 2813,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory_armor.rs",
+      "sha256": "6eccc859a14c75eb9734e96267595d482c3216028bda7e2f4cd113b8312a996b",
+      "ranges": [
+        [
+          1,
+          205
+        ]
+      ],
+      "previously_scoped": true,
+      "coverage_limit": "Partial trace support only unless complete scoped role independently read"
+    }
+  ]
+}

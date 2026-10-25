@@ -1,0 +1,122 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-322",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/clothing_material.rs",
+      "sha256": "bafb2117ada36281130d4dd00bb3862dc6f51840637a74fe1924c5106840668e",
+      "actual_EOF": 16,
+      "actual_compared_ranges": [
+        [
+          1,
+          16
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/construction_controls.rs",
+      "sha256": "3f3fa3760c04b76557e2a6927b461eb83c134a41d561952d22579c3f3f286599",
+      "actual_EOF": 93,
+      "actual_compared_ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/design_input.rs",
+      "sha256": "9140c84ddc9d85554f2a063e1ccf8e162cf046d680f663bf44c91986a4589904",
+      "actual_EOF": 119,
+      "actual_compared_ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_body.rs",
+      "sha256": "7f528ffbfd597a6199b1ef50c86f045e36ae230acb0b5957c2504f6285a99bd3",
+      "actual_EOF": 26,
+      "actual_compared_ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_bracer.rs",
+      "sha256": "ff37e035a52f79f4970f87fb21acef7702a0e9cf0ab288cf551e1c35d78365c4",
+      "actual_EOF": 248,
+      "actual_compared_ranges": [
+        [
+          1,
+          248
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Construction UI constrains dependent radii and declared units while recipe load rejects invalid source",
+      "source_ranges": {
+        "clothing_material.rs": [
+          [
+            1,
+            16
+          ]
+        ],
+        "construction_controls.rs": [
+          [
+            1,
+            93
+          ]
+        ],
+        "design_input.rs": [
+          [
+            1,
+            119
+          ]
+        ]
+      },
+      "disposition": "All3complete bodies including fixtures read. Palette is fixed finite RGBA/metallic/roughness; current polished values agree with Metal default, preserving inherited Camera07F049 duplicate-authority finding without new drift claim. Construction choice resets variant deliberately. Bevel/hole bounds derive from actual plate; lacing clamp is reached only when max_radius>=minimum, so ordered radius bounds are proven. NaN arbitrary mutable Plate still needs its actual recipe admission, not assumed fixed by UI. Metre-to-mm scale1000 and reverse reflect actual bounded plate controls; no ordinary UI overflow. Failed validation displays the existing error rather than claiming a valid construction. Design loaders parse supplied/embedded bytes and call authoritative validate with original context, never substitute defaults on error. Complete missing/duplicate/unknown/range/authored fixture bodies read, not executed."
+    },
+    {
+      "contract": "Device body cache publishes successful upload once and leaves failed upload retryable",
+      "source_ranges": {
+        "device_body.rs": [
+          [
+            1,
+            26
+          ]
+        ]
+      },
+      "disposition": "Whole26lines read. Existing cache returns retained body; upload? completes before get_or_init, so a failed upload does not populate OnceLock. A race may perform two successful uploads and retain one; contract that callers refer to the same body realization/device remains source-owner identity requirement, not established merely by OnceLock. No failed upload poisoning or partial retained body shown here. Public arbitrary closure can encode different source than prior upload, but that is the existing cache/identity aggregate question, not new arithmetic defect."
+    },
+    {
+      "contract": "Bracer GPU bridge preserves exact source rig slots, status rejection and completed readback boundary",
+      "source_ranges": {
+        "device_bracer.rs": [
+          [
+            1,
+            248
+          ]
+        ]
+      },
+      "disposition": "Whole host and embedded WGSL personally read. Forearm input validates row counts/rig family; lowarm/wrist require exact actual source ordinal. SeamTopology::new and GpuBody::new own actual index/finite input admission, still dependency until their original04frontier. Atlas and per-vertex buffers are local; vertex_count casts/byte products and GPU dispatch capacity need owning checked native adapters, no giant allocation performed. record_support checks vertex_count>0, insert_joint narrows exact ordinal through its adapter and count bounds each shader invocation. Eight fixed influence slots read actual supports membership table including zero-weight indices; no skip of raw invalid ordinal before admission. Coincident landmark length_squared<=0 sets status; nonfinite derived native arithmetic is not comprehensively rejected by that comparison, but ordinary supported MHR coordinates are bounded and empty-face status may reject unsupported cases. No accepted malformed output/ordinary shader failure established. DeviceBracer records base then all morphs; status read and two explicit failure bits checked before returning read_async product. Exact source comment promises one final readback, but actual per-morph batch submits are intentional. No GPU/kernel execution or import of another lens coverage."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "5 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-character-creator/src/device_chausses.rs"
+}

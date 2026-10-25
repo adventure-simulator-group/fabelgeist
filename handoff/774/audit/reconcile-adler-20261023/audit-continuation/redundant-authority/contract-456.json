@@ -1,0 +1,51 @@
+{
+  "id": "CONT07-CONTRACT-456",
+  "at": "2026-10-23T22:12:09.948455+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2000,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/scene_input.rs",
+      "sha256": "03e1948b1e2d2492d4f2062ef4aebb1e6dc293f6e228bede4d15710785306b57",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server-dispatcher/src/scene_input.rs",
+      "actual_EOF": 978,
+      "ranges": [
+        [
+          1,
+          978
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2001,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/scene_input/establishments.rs",
+      "sha256": "b7ca5ef8c7f9a34070cc1ad19fe19a3cdc9915fd5d10cd6c2d2ee3b51ce519a1",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server-dispatcher/src/scene_input/establishments.rs",
+      "actual_EOF": 42,
+      "ranges": [
+        [
+          1,
+          42
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "2000 full978 personally read in three bounded untruncated chunks. Settlement geometry seed selects immutable settlement id while nonsettlement geometry selects mission id; weather uses canonical WORLD_WEATHER_SEED. These are different source authorities, and ordinary two-mission settlement fixture requires identical resulting input. Scene key is semantic document label, not necessarily seed identity.",
+    "2000 original PLAYABLE_SIDE/spacing drive building partition extent and sample request. Vista grid specs own ringordinal/spacing/side once; output derives same dimensions and all normal produced origins are0, limiting earlier1985 offset-seam question to broader admitted/API inputs, not this dispatcher route. PreservePeaks chooses conservative coarse observation versus AddLocalDetail fine source preparation; not competing final tactical surfaces.",
+    "2000 current nearest fault computes canonical nearest projection and quantized tangent, while Detail/Fringe only changes voxel resolution, not source origin/dimensions. Ordinary quantization starts normalized f64 and rounds components; F095 explicit .98 API witness is not asserted as typical mapped fault output. Missing/unfit mapped surface is optional selection, not a successfully admitted fabricated landform.",
+    "2000 materialization verifies existing file exact bytes for same mission-derived filename and rejects mismatch; matching file is immutable cached input rather than current mutable gameplay state. Read errors currently treated like absence before tempwrite/rename, an existing behavior/operation question. No concurrent-write or actual filesystem failure proved/executed in this audit.",
+    "2001 actual business binding consumes exact scoped keys once from operator map, rejects duplicate/crosssettlement/missing/unplaced entries, creates ShopName from same captured operator name and site usage, and sorts by building identity. This positively qualifies current branding construction and downstream validation1923; operator snapshots remain historical mission data. Source tests in2000 all read, not run."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2002,
+    "start_line": 1
+  }
+}

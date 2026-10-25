@@ -1,0 +1,20 @@
+{
+  "source_run": 39421476851,
+  "source_job": 118623218533,
+  "source_head": "2fb1676299b89c7eb567673b36841c89e588391f",
+  "gate": "WASM tactical client Clippy, warnings denied",
+  "earliest_diagnostic": "clippy::double_must_use on combat_incapacitation_performance",
+  "current_source_applicable": true,
+  "repair": "Remove only the redundant must_use attribute; FractionResult is Result and retains unused-result enforcement.",
+  "code_rule_review": "No behavior, invariant, signature, lint policy or suppression change. Other must_use attributes remain.",
+  "files": {
+    "crates/adventuresim-core/src/combat/incapacitation.rs": "a38c469cbc09f75a1d55f0050c74c54c9dba3adb5dfe9e13e88142dc10cff7e3"
+  },
+  "implementation_agents": [
+    "root"
+  ],
+  "local_project_checks": [],
+  "new_unit_tests": 0,
+  "comment_review": "omitted",
+  "final_validation": "Hosted matrix pending; no Clippy PASS claimed."
+}

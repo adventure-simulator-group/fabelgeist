@@ -1,0 +1,61 @@
+{
+  "id": "CONT07-XOPS-001",
+  "at": "2026-10-23T21:19:47.641726+00:00",
+  "classification": "cross-lens operation candidate; no independent invariant-operations inventory credit",
+  "title": "A tiny admitted turn duration can rotate at zero elapsed after rate overflow",
+  "sources": [
+    {
+      "scope_index": 1789,
+      "sha256": "bb92ce4b2c2252c6c68cc37955cba5f4d2c90ccdab05a4456a632a7f4adadc4e",
+      "ranges": [
+        [
+          27,
+          60
+        ],
+        [
+          64,
+          97
+        ],
+        [
+          214,
+          246
+        ]
+      ]
+    },
+    {
+      "scope_index": 1768,
+      "sha256": "3e29916a9d570f6e0d12ffb54541ee018fb068902a4e5b6c0f744db9971d9ba9",
+      "ranges": [
+        [
+          44,
+          68
+        ],
+        [
+          82,
+          86
+        ]
+      ]
+    },
+    {
+      "scope_index": 916,
+      "sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+      "ranges": [
+        [
+          24,
+          44
+        ]
+      ],
+      "coverage": "fresh partial owner excerpt, not whole source"
+    }
+  ],
+  "source_reasoning": "PositiveAnimationDuration admits every finite positive AnimationElapsed, including f32::from_bits(1); configured_half_turn stores that valid duration. native_radians_per_second computes PI/tiny as infinity. With valid AnimationElapsed::ZERO, advance computes infinity*0 as NaN, then f32::min with PI selects PI, and delta.clamp permits the full desired quarter/half turn. Example current identity and desired Vec3::X thus can return a rotated quaternion although elapsed is zero. No code or test executed.",
+  "limits": "API/valid configuration edge case, not current committed duration or ordinary frame observed failure. Existing invariant-operations findings must be checked for exact duplicate before promotion. Current fixture tests 1e-10 remaining and both intervals zero, which do not cover positive subnormal rate overflow times zero.",
+  "requested_followup": "Invariant-operations lens should independently evaluate exact admitted operands, native float min/NaN behavior and actual paused callers; no source07 credit transfer.",
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "coordinator_resolution": {
+    "finding": "local774:F53",
+    "evidence": "producer-delta/finding-F53.json",
+    "qualification": "Exact retained checked-API quotient/product bug, no ordinary subnormal runtime configuration or gameplay trigger. No independent07/04coverage transfer."
+  }
+}

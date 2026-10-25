@@ -1,0 +1,29 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1157",
+  "at": "2026-10-25T17:59:16.518758+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1265,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_event.rs",
+  "sha256": "9403e2e3d8bc995c0483da0502427442f1c526ee1b513db2a9b5beac3078a5b0",
+  "actual_compared_ranges": [
+    [
+      1,
+      350
+    ]
+  ],
+  "existing_derives": [
+    "Persisted event source/actor/subject/place/payload/envelope Clone Debug Eq PartialEq Serialize Deserialize SpacetimeType",
+    "WorldEventReceipt Clone Debug table",
+    "ConsequenceOrder Clone Copy Debug Eq PartialEq",
+    "WorldEventRequest Clone Debug Serialize",
+    "WorldEventFingerprintDomain Clone Copy"
+  ],
+  "trait_inventory": [],
+  "analysis": "Persisted event enums/records already derive structural Eq/PartialEq, Serde and SpacetimeType; receipt table Clone Debug; request Serialize. No handwritten traits/custom codec. Inherent request envelope accessor selects a common enum payload; persist explicitly maps distinct source/persisted enum payload shapes and clones borrowed data, not existing From derive. Fixed versioned fingerprint domains plus length-framed SHA over typed Serde preserve durable identity, not derived Hash. Commit performs envelope/current consequence/replay validation and native effects before receipt.",
+  "first_unfinished": {
+    "scope_index": 1265,
+    "line": 351
+  },
+  "execution": "none"
+}

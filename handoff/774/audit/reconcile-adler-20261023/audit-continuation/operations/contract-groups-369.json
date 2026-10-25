@@ -1,0 +1,86 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-369",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/action_authority.rs",
+      "sha256": "156f3a249b74dd3ae2a235aefc6e0f85ddb501d26506d2d0fd280954b6268290",
+      "actual_EOF": 1018,
+      "actual_compared_ranges": [
+        [
+          1,
+          1018
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/bestiary_and_corrections.rs",
+      "sha256": "4237f3b685e3eb38b41d2eabd6b64c89542d97923b84d8b55b7a3f63e8bf5f70",
+      "actual_EOF": 586,
+      "actual_compared_ranges": [
+        [
+          1,
+          586
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/projection_and_referrals.rs",
+      "sha256": "c66f2f103d7c9e06d5426737e2d87279cd43f0160b834292664ddaa3e55c8390",
+      "actual_EOF": 648,
+      "actual_compared_ranges": [
+        [
+          1,
+          648
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Inspection fixtures explicitly retain original observation time and permit later lore augmentation",
+      "source_ranges": {
+        "tests/bestiary_and_corrections.rs": [
+          [
+            1,
+            586
+          ]
+        ]
+      },
+      "disposition": "Complete586 lines personally read. later_revisit_augments_one_stable_observation_without_duplicates explicitly asserts attempted_at10 retained, narration/statlabel unchanged, duplicatekind retains originalinterpretation; failedphysicalobservation cannot gainlore. This qualifies367: originalobservationtimestamp is intentional and must not retime. Only newlycreateddiagnostic learned_at/rebuiltdeduction.updated_at chronology remains question; nohistoricalvisibilitybypass. Correctionfixtures require exactowner/case/site dependency, versiongap breaks contiguousfailure, supportedreplacement doesnotconsume seed/reset, unsupported bumps1/rerandomizes, dedup resets once. Existingfixture directly stringasserts saturating_add1 but covers1\u21922 only, not arithmeticclearance atMAX. No fixtures changed/executed."
+    },
+    {
+      "contract": "Action authority fixtures describe expected source associations, not project verification",
+      "source_ranges": {
+        "tests/action_authority.rs": [
+          [
+            1,
+            1018
+          ]
+        ]
+      },
+      "disposition": "All1018 lines read: majoritysource-text tests assert route, preflight/commit ordering, nohiddenhostilebattle path, interruptedtime retained, zero-minute referredcontact outputs, initial site disclosures, publiccase association and explicit geographic/abstractdistance behavior. Purefixtures exercise typedpattern/manualauthority, exactknowledge owner/date/evidence, manifestfield mutations, duplicateidenticalauthority vsdistinctcollision, andgeographic nearantipodal exclusion. Their source asserts desired limits; no execution. Sourceconcat split markers referencing old functions/order may be stale; no pass claimed. Existing exact fixtures must remain acceptanceconstraints, no extra fabricatedseedruns or countchanges."
+    },
+    {
+      "contract": "History, provenance and referrals fixtures retain authority and identity fidelity",
+      "source_ranges": {
+        "tests/projection_and_referrals.rs": [
+          [
+            1,
+            648
+          ]
+        ]
+      },
+      "disposition": "Whole648 lines read. Bound progress contiguous across exactcapability/owner/method/version only, gap/success/interrupted/malformed breaks; wording percentages mapactualboundedprogress andalternates. Sourcecounterboundedfixture search0..u64MAX lazyfind doesnotprovehang; noexecuting. Generated/manualprovenancecases require unique validatedauthority, explicitsecondary referral exactcontextandedgecount, bothfamiliesroot/successortext, immutablepublic/canonicalsplit. Pipelinefixtures include residentIDsabove2^53 andlargeu64actor to retain losslessnativeidentities; actualweb numericports separately scoped. No fixture suggests narrowingglobalCharacterId or replacingabstractcoordpolicy. NoMAXrevisiontest exists, absencealone notnewfinding."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-stdb-module/src/object_custody.rs"
+}

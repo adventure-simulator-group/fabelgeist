@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1154",
+  "at": "2026-10-25T17:58:38.472823+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1260,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor.rs",
+  "sha256": "a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95",
+  "actual_compared_ranges": [
+    [
+      701,
+      1050
+    ]
+  ],
+  "existing_derives": [
+    "ContextualTreatmentClaim Clone Debug Eq PartialEq"
+  ],
+  "trait_inventory": [],
+  "analysis": "Native current-context visibility/contact/treatment decisions require live character/clock/party/case/claim graph. ContextualTreatmentClaim already derives Clone Debug Eq PartialEq. public_decision maps Allowed to a reason-bearing variant and treatment picks authored vs party preference/emergency; semantic classifiers, not raw derives. Contact retry selected immutable comparison intentionally excludes resulting revision and receipt fields; keep exact ambiguity/current-authority/error behavior. No handwritten trait or custom codec in slice.",
+  "first_unfinished": {
+    "scope_index": 1260,
+    "line": 1051
+  },
+  "execution": "none"
+}

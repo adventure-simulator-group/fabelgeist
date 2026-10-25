@@ -1,0 +1,413 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-820",
+  "at": "2026-10-25T16:55:56.093489+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1027,
+      "source_id": "pr-working:crates/adventuresim-core/src/world_event.rs",
+      "sha256": "10007dfcca53443d2794c0e38d8e9d741588f79ba8f61163c84d2281e7b40fb4",
+      "actual_EOF": 620,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/world_event.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/world_event.rs",
+        "sha256": "10007dfcca53443d2794c0e38d8e9d741588f79ba8f61163c84d2281e7b40fb4",
+        "bytes": 21001,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/bounded-policy-sources.json",
+            "ranges": [
+              [
+                1,
+                620
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-BOUNDED-POLICY-RECEIVERS-001"
+            ]
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                620
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-BOUNDED-POLICY-RECEIVERS-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 204,
+            "read_ranges": [
+              [
+                1,
+                620
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-WORLD-EVENT-083"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/world_event.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CASE-RECEIVERS-029",
+            "json_pointer": "/related_current_sources/23",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/world_event.rs",
+            "read_ranges_as_recorded": [
+              [
+                180,
+                393
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/world_event.rs",
+              "sha256": "10007dfcca53443d2794c0e38d8e9d741588f79ba8f61163c84d2281e7b40fb4",
+              "read_ranges": [
+                [
+                  180,
+                  393
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/world_event.rs",
+              "scope": "Actual canonical participant sorting, case consequence producer, envelope checks and errors; unchanged IDs retain declared raw-role policies, no full620 claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-MATERIAL-FOOD-012",
+            "json_pointer": "/related_current_reads/1",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/world_event.rs",
+            "read_ranges_as_recorded": [
+              [
+                130,
+                167
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/world_event.rs",
+              "sha256": "10007dfcca53443d2794c0e38d8e9d741588f79ba8f61163c84d2281e7b40fb4",
+              "read_ranges": [
+                [
+                  130,
+                  167
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/world_event.rs",
+              "scope": "bounded actual infection event operation and final SDK row receiver; unrelated body not claimed"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016",
+            "json_pointer": "/related_current_reads/23",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/world_event.rs",
+            "read_ranges_as_recorded": [
+              [
+                180,
+                393
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/world_event.rs",
+              "sha256": "10007dfcca53443d2794c0e38d8e9d741588f79ba8f61163c84d2281e7b40fb4",
+              "read_ranges": [
+                [
+                  180,
+                  393
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/world_event.rs",
+              "scope": "Actual canonical participant sorting, case consequence producer, envelope checks and errors; unchanged IDs retain declared raw-role policies, no full620 claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/camera/findings.jsonl",
+            "receipt": "row-4",
+            "json_pointer": "/supplier_finding/locations/2",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/world_event.rs",
+            "read_ranges_as_recorded": [
+              [
+                56,
+                60
+              ],
+              [
+                245,
+                257
+              ],
+              [
+                306,
+                309
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/world_event.rs",
+              "sha256": "10007dfcca53443d2794c0e38d8e9d741588f79ba8f61163c84d2281e7b40fb4",
+              "ranges": [
+                [
+                  56,
+                  60
+                ],
+                [
+                  245,
+                  257
+                ],
+                [
+                  306,
+                  309
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/camera/traces.jsonl",
+            "receipt": "CONT-CAMERA-PP-009",
+            "json_pointer": "/exact_source_proofs/0",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/world_event.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                620
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/world_event.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/world_event.rs",
+              "sha256": "10007dfcca53443d2794c0e38d8e9d741588f79ba8f61163c84d2281e7b40fb4",
+              "actual_lines": 620,
+              "read_ranges": [
+                [
+                  1,
+                  620
+                ]
+              ],
+              "role": "Whole closed envelope/source/payload/consequence, dose codec, canonical participant planner, validation, replay and all original inline fixture bodies. Old Native012/016 and Camera029 partial roles consumed first; only missing source ranges refreshed before bounded semantic reinspection.",
+              "fresh_missing_ranges": [
+                [
+                  1,
+                  179
+                ],
+                [
+                  394,
+                  620
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/camera/traces.jsonl",
+            "receipt": "CONT-CAMERA-PP-009",
+            "json_pointer": "/findings/0/locations/2",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/world_event.rs",
+            "read_ranges_as_recorded": [
+              [
+                56,
+                60
+              ],
+              [
+                245,
+                257
+              ],
+              [
+                306,
+                309
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/world_event.rs",
+              "sha256": "10007dfcca53443d2794c0e38d8e9d741588f79ba8f61163c84d2281e7b40fb4",
+              "ranges": [
+                [
+                  56,
+                  60
+                ],
+                [
+                  245,
+                  257
+                ],
+                [
+                  306,
+                  309
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/native/source-reads.json",
+            "receipt": "row-1",
+            "json_pointer": "/0",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/world_event.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                620
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/world_event.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/world_event.rs",
+              "sha256": "10007dfcca53443d2794c0e38d8e9d741588f79ba8f61163c84d2281e7b40fb4",
+              "actual_lines": 620,
+              "read_ranges": [
+                [
+                  1,
+                  620
+                ]
+              ],
+              "role": "Whole closed envelope/source/payload/consequence, dose codec, canonical participant planner, validation, replay and all original inline fixture bodies. Old Native012/016 and Camera029 partial roles consumed first; only missing source ranges refreshed before bounded semantic reinspection.",
+              "fresh_missing_ranges": [
+                [
+                  1,
+                  179
+                ],
+                [
+                  394,
+                  620
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/native/findings.json",
+            "receipt": "row-1",
+            "json_pointer": "/0/locations/2",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/world_event.rs",
+            "read_ranges_as_recorded": [
+              [
+                56,
+                60
+              ],
+              [
+                245,
+                257
+              ],
+              [
+                306,
+                309
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/world_event.rs",
+              "sha256": "10007dfcca53443d2794c0e38d8e9d741588f79ba8f61163c84d2281e7b40fb4",
+              "ranges": [
+                [
+                  56,
+                  60
+                ],
+                [
+                  245,
+                  257
+                ],
+                [
+                  306,
+                  309
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/native/world5-final-packet.json",
+            "receipt": "NATIVE-CONT-WORLD-AUTHORITY-FINAL-029",
+            "json_pointer": "/findings/0/locations/2",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/world_event.rs",
+            "read_ranges_as_recorded": [
+              [
+                56,
+                60
+              ],
+              [
+                245,
+                257
+              ],
+              [
+                306,
+                309
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/world_event.rs",
+              "sha256": "10007dfcca53443d2794c0e38d8e9d741588f79ba8f61163c84d2281e7b40fb4",
+              "ranges": [
+                [
+                  56,
+                  60
+                ],
+                [
+                  245,
+                  257
+                ],
+                [
+                  306,
+                  309
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 384,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          620
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "All event provenance/payload/consequence/envelope/closed error/replay structural traits already derived, event records Serde already"
+      ],
+      "absence_basis": "Full source including fixtures400\u2013620 consumed: native consequence assembly, identity/cohort/domain validation and retry classification only; no manual trait/codec."
+    }
+  ],
+  "groups": [
+    "Partial819 retained. Preserve semantic source/actor/payload correlation, canonical subjects/identity constraints and exact retry/public consequence behavior. Already-derived Serde does not replace explicit validation. Fixtures read only; no test or current runtime claim."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1028,
+    "source_id": "pr-working:crates/adventuresim-core/tests/armor_harness.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

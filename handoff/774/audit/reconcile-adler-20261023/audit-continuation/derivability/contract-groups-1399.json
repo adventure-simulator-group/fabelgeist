@@ -1,0 +1,285 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1399",
+  "at": "2026-10-25T18:47:04.485792+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1456,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/art_demo_main.rs",
+      "sha256": "2521e13453acacdb89c6e96f50324d3ee88f1cb272b8e63f915cd7130fff3b01",
+      "actual_EOF": 41,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/art_demo_main.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/art_demo_main.rs",
+        "sha256": "2521e13453acacdb89c6e96f50324d3ee88f1cb272b8e63f915cd7130fff3b01",
+        "bytes": 893,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "root",
+            "record": "wave-01/audit-producer-propagation/root/unchanged-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                41
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "ROOT-PP-DEMO-016"
+            ]
+          }
+        ],
+        "audit_owner": "root",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 131,
+            "read_ranges": [
+              [
+                1,
+                41
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-AUDIO-033",
+              "ROOT-OWNER-PARTICLES-034"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/art_demo_main.rs"
+          },
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 447,
+            "read_ranges": [
+              [
+                1,
+                41
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-AUDIO-033",
+              "ROOT-OWNER-PARTICLES-034",
+              "ROOT-OWNER-CLIENT-SOURCE-CLOSURE-083"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/art_demo_main.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-ART-DEMO-012",
+            "json_pointer": "/source_proofs/3",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-client/src/art_demo_main.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                41
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-tactical-client/src/art_demo_main.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/art_demo_main.rs",
+              "sha256": "2521e13453acacdb89c6e96f50324d3ee88f1cb272b8e63f915cd7130fff3b01",
+              "read_ranges": [
+                [
+                  1,
+                  41
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 590,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Free cfg native/Wasm entry/export functions delegate typed command/status and install panic hook; no type/manual trait/codec. Module declarations not coverage."
+    },
+    {
+      "scope_index": 1457,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/audio_config.rs",
+      "sha256": "d1111aa5bdab4e1897a07e82062d8ffc5ffbed8a0790fa75a4c0c482d2e36063",
+      "actual_EOF": 206,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/audio_config.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/audio_config.rs",
+        "sha256": "d1111aa5bdab4e1897a07e82062d8ffc5ffbed8a0790fa75a4c0c482d2e36063",
+        "bytes": 6918,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "root",
+            "record": "wave-01/audit-producer-propagation/root/additional-sources-028.json",
+            "ranges": [
+              [
+                1,
+                206
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "ROOT-PP-CONFIG-PORTS-028"
+            ]
+          },
+          {
+            "shard": "root",
+            "record": "wave-01/audit-producer-propagation/root/unchanged-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                206
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "ROOT-PP-AUDIO-003"
+            ]
+          },
+          {
+            "shard": "root",
+            "record": "wave-01/audit-producer-propagation/root/unchanged-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                206
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "ROOT-PP-CONFIG-PORTS-028"
+            ]
+          }
+        ],
+        "audit_owner": "root",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 132,
+            "read_ranges": [
+              [
+                1,
+                206
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-AUDIO-033",
+              "ROOT-OWNER-PARTICLES-034"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/audio_config.rs"
+          },
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 448,
+            "read_ranges": [
+              [
+                1,
+                206
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-AUDIO-033",
+              "ROOT-OWNER-PARTICLES-034",
+              "ROOT-OWNER-CLIENT-SOURCE-CLOSURE-083"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/audio_config.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-AUDIO-EFFECTS-013",
+            "json_pointer": "/source_proofs/1",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-client/src/audio_config.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                206
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-tactical-client/src/audio_config.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/audio_config.rs",
+              "sha256": "d1111aa5bdab4e1897a07e82062d8ffc5ffbed8a0790fa75a4c0c482d2e36063",
+              "read_ranges": [
+                [
+                  1,
+                  206
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 591,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          206
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "Debug/Clone/Deserialize deny_unknown_fields audio config records, Resource root"
+      ],
+      "absence_basis": "Derived raw YAML records then explicit selected finite/positive/unit-range/pitch-pair/crossfield/native basis-point validation, file-size/parse/contextual String error boundaries and fixtures. No manual trait/codec. Retain validation order/errors; unchecked transparent derive replacement wrong."
+    }
+  ],
+  "groups": [
+    "Keep post-deserialization admission and platform glue; no tests or configuration parse executed."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1458,
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/browser_runtime.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

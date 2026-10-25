@@ -1,0 +1,179 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-604",
+  "at": "2026-10-25T16:11:46.117148+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 936,
+      "source_id": "pr-working:crates/adventuresim-core/src/investigation_action/vocabulary.rs",
+      "sha256": "8d67cde0fd321af7ee5bae1c5045bc1adeb4fbe118698c40d194878ed01f5b5e",
+      "actual_EOF": 186,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/investigation_action/vocabulary.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/investigation_action/vocabulary.rs",
+        "sha256": "8d67cde0fd321af7ee5bae1c5045bc1adeb4fbe118698c40d194878ed01f5b5e",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 5975,
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 38,
+            "read_ranges": [
+              [
+                1,
+                120
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-STRATEGIC-004"
+            ],
+            "read_status": "specified_actual_owner_and_recipient_bodies_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/investigation_action/vocabulary.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_owner": "native",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-SIMULATION-CORE-GENERATED-PARTIAL-047",
+            "json_pointer": "/source_proofs/26",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/investigation_action/vocabulary.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                186
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/investigation_action/vocabulary.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/investigation_action/vocabulary.rs",
+              "sha256": "8d67cde0fd321af7ee5bae1c5045bc1adeb4fbe118698c40d194878ed01f5b5e",
+              "read_ranges": [
+                [
+                  1,
+                  186
+                ]
+              ],
+              "mode": "Fresh exact actual receiver definition/source",
+              "roles": [
+                "Full canonical InvestigationActionKind/actual Serde stableid/FromStr admission and Terrain distinct owner, all original fixtures sourceonly. Canonical method vocabulary matches actual generated score source, unknown raw SDK row is rejected-input question at ingress not temporary fallback semantic owner."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/additional_actual_source_proofs/26",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/investigation_action/vocabulary.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                186
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/investigation_action/vocabulary.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/investigation_action/vocabulary.rs",
+              "sha256": "8d67cde0fd321af7ee5bae1c5045bc1adeb4fbe118698c40d194878ed01f5b5e",
+              "read_ranges": [
+                [
+                  1,
+                  186
+                ]
+              ],
+              "mode": "Fresh exact actual receiver definition/source",
+              "roles": [
+                "Full canonical InvestigationActionKind/actual Serde stableid/FromStr admission and Terrain distinct owner, all original fixtures sourceonly. Canonical method vocabulary matches actual generated score source, unknown raw SDK row is rejected-input question at ingress not temporary fallback semantic owner."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1591,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          186
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Display + Error",
+          "type": "ParseInvestigationActionKindError",
+          "lines": [
+            [
+              37,
+              46
+            ]
+          ],
+          "disposition": "F002 optional exact existing thiserror unit-literal derive #[error(\"Unknown investigation action method\")], fixed text/source None."
+        },
+        {
+          "trait": "Display + Error",
+          "type": "ParseTerrainError",
+          "lines": [
+            [
+              87,
+              96
+            ]
+          ],
+          "disposition": "F002 optional exact unit-literal derive #[error(\"Unknown investigation terrain\")], fixed text/source None."
+        },
+        {
+          "trait": "FromStr",
+          "type": "InvestigationActionKind / Terrain",
+          "lines": [
+            [
+              48,
+              55
+            ],
+            [
+              98,
+              105
+            ]
+          ],
+          "disposition": "KEEP explicit borrowed Serde StrDeserializer reuse, concrete error mapping and canonical snake_case vocabulary. No new inverse table, Serde traits already derived."
+        }
+      ],
+      "existing_derives": [
+        "InvestigationActionKind/Terrain structural snake_caseSerde6\u20137/58\u201359",
+        "two parse error unit types structural37/87"
+      ],
+      "absence_basis": "Full186 source read: stable native key helpers, exact parsers and existing source fixtures; no other handtrait/codec. Owning Core849/root497 exact thiserror2.0.20 and prior pinned literal macro proof support F002, no new dependency."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Investigation vocabulary error boilerplate and exact parser policy",
+      "disposition": "F002 optional two unit-error sites only; retain borrowed canonical parsing and storage/tracking semantics. No new issue, fixture execution or repair."
+    }
+  ],
+  "findings": [
+    "SEGOVB-INITIAL10-F002 two additional same literal-unit-error sites"
+  ],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 937,
+    "source_id": "pr-working:crates/adventuresim-core/src/item_catalog.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

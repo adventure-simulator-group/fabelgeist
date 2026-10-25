@@ -1,0 +1,197 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1093",
+  "at": "2026-10-25T17:44:56.983881+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1221,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/hostile_negotiation.rs",
+      "sha256": "9fc4780022d9229014f92e14ea895c8d0a07a7aca3cbb61dbe87957cc6190c7e",
+      "actual_EOF": 687,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/hostile_negotiation.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/strategic/hostile_negotiation.rs",
+        "sha256": "9fc4780022d9229014f92e14ea895c8d0a07a7aca3cbb61dbe87957cc6190c7e",
+        "bytes": 23742,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                687
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-HOSTILE-INCIDENT-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 297,
+            "read_ranges": [
+              [
+                1,
+                687
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-HOSTILE-048"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/hostile_negotiation.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 322,
+            "read_ranges": [
+              [
+                1,
+                687
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-HOSTILE-048"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/hostile_negotiation.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 530,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          687
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "Outcome structural+SpacetimeType; receipt Clone/Debug; backend Clone/Debug/SpacetimeType."
+      ],
+      "absence_basis": "Full687lines1091\u20131093 consumed; no handwritten trait/codec. Selected minimum ordinal rejects ambiguous ties without payload ordering/bounds. Contextual native View/Reducer DB joins, typed Serde manifests/facts, safe projection and exact current/replay authority, assessment/recheck/effect/receipt. Fixtures633\u2013687 native assertions read only."
+    },
+    {
+      "scope_index": 1222,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/hostile_negotiation/spokesman.rs",
+      "sha256": "859e2cce6e284240050cd19aadc0485b78d976c29aa738ca1c0c08734696b03d",
+      "actual_EOF": 27,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/hostile_negotiation/spokesman.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/strategic/hostile_negotiation/spokesman.rs",
+        "sha256": "859e2cce6e284240050cd19aadc0485b78d976c29aa738ca1c0c08734696b03d",
+        "bytes": 1131,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                27
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-HOSTILE-INCIDENT-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 298,
+            "read_ranges": [
+              [
+                1,
+                27
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-HOSTILE-048"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/hostile_negotiation/spokesman.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 324,
+            "read_ranges": [
+              [
+                1,
+                27
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-HOSTILE-048"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/hostile_negotiation/spokesman.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 531,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Exact native spokesman view selector checks role/context/location/life/minute, calls unique lowest ordinal. No handtrait/typecodec."
+    }
+  ],
+  "groups": [
+    "KEEP contextual authority validation and selected-key ordering/replay semantics; distinct native accessor contexts not derive boilerplate."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1223,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/hostile_surrender.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

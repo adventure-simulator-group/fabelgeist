@@ -1,0 +1,50 @@
+{
+  "head": "82cb2a3acccc852bba6a7ef9c706c337ba9fe765",
+  "scope": "Workspace static query-name sweep compared with frozen candidate filenames. All six additional entries belong to weather/manifest range consumers already in the migration scope. Body evidence is in P06-range-consumer-trace.json and the source inspections; not every similarly named native owner is a gap.",
+  "current_query_references": 196,
+  "additional_references": [
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/weather.rs",
+      "line": 234,
+      "source": "terrain.minimum_height(),",
+      "receiver_classification": "SceneTerrain min/max range consumer",
+      "migration_scope": "Already included in the range-consumer plan; keep checked elevation leaves through weather image/uniform packing or manifest serialization."
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/weather.rs",
+      "line": 235,
+      "source": "terrain.maximum_height(),",
+      "receiver_classification": "SceneTerrain min/max range consumer",
+      "migration_scope": "Already included in the range-consumer plan; keep checked elevation leaves through weather image/uniform packing or manifest serialization."
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/weather.rs",
+      "line": 409,
+      "source": "let minimum = terrain.minimum_height() - 2.0;",
+      "receiver_classification": "SceneTerrain min/max range consumer",
+      "migration_scope": "Already included in the range-consumer plan; keep checked elevation leaves through weather image/uniform packing or manifest serialization."
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/weather.rs",
+      "line": 410,
+      "source": "let range = terrain.maximum_height() + 24.0 - minimum;",
+      "receiver_classification": "SceneTerrain min/max range consumer",
+      "migration_scope": "Already included in the range-consumer plan; keep checked elevation leaves through weather image/uniform packing or manifest serialization."
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/manifest.rs",
+      "line": 95,
+      "source": "minimum_height_metres: terrain.minimum_height(),",
+      "receiver_classification": "SceneTerrain min/max range consumer",
+      "migration_scope": "Already included in the range-consumer plan; keep checked elevation leaves through weather image/uniform packing or manifest serialization."
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/manifest.rs",
+      "line": 96,
+      "source": "maximum_height_metres: terrain.maximum_height(),",
+      "receiver_classification": "SceneTerrain min/max range consumer",
+      "migration_scope": "Already included in the range-consumer plan; keep checked elevation leaves through weather image/uniform packing or manifest serialization."
+    }
+  ],
+  "no_source_changes": true
+}

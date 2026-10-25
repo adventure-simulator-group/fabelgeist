@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1190",
+  "at": "2026-10-25T18:05:11.015351+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1281,
+  "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/generated_cases.rs",
+  "sha256": "73138f7fd9ee10974b6eb14acf7a18a5adb75129cb936b74159c0de5397cd584",
+  "actual_compared_ranges": [
+    [
+      1361,
+      1700
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Only native inherent investigation diagnostic/window wait/return/evacuation and generated-case advance wrappers/inner preflight; no handwritten trait/custom codec/type. Closed availability\u2192selected public fields and enum branch waiting modes preserve semantic keys; current time/site/actor/safe route/budget/public progress determine outcomes. Contextual request construction and guarded commands not structural From; no execution.",
+  "first_unfinished": {
+    "scope_index": 1281,
+    "line": 1701
+  },
+  "execution": "none"
+}

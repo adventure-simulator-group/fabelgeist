@@ -1,0 +1,71 @@
+{
+  "scope_index": 497,
+  "source_id": "pr-working:Cargo.lock",
+  "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+  "method": "Entire TOML parsed as dependency provenance data; equality compared against prior complete structured225 inventory; exact changed package independently inspected. No source execution or dependency-body credit.",
+  "root_keys": [
+    "version",
+    "package"
+  ],
+  "version": 4,
+  "package_count": 1126,
+  "package_keys": [
+    "checksum",
+    "dependencies",
+    "name",
+    "source",
+    "version"
+  ],
+  "identical_package_records": 1125,
+  "added": [],
+  "removed": [],
+  "changed": [
+    {
+      "key": [
+        "adventuresim-stdb-module",
+        "0.1.0",
+        null
+      ],
+      "old": {
+        "name": "adventuresim-stdb-module",
+        "version": "0.1.0",
+        "dependencies": [
+          "adventuresim-core",
+          "adventuresim-dialogue",
+          "adventuresim-puzzles",
+          "adventuresim-weapon-model",
+          "adventuresim-world-schema",
+          "fabelgeist-determinism",
+          "fabelgeist-geometry",
+          "log",
+          "petname",
+          "serde",
+          "serde_json",
+          "sha2",
+          "spacetimedb",
+          "thiserror 2.0.20"
+        ]
+      },
+      "new": {
+        "name": "adventuresim-stdb-module",
+        "version": "0.1.0",
+        "dependencies": [
+          "adventuresim-core",
+          "adventuresim-dialogue",
+          "adventuresim-puzzles",
+          "adventuresim-weapon-model",
+          "adventuresim-world-schema",
+          "fabelgeist-determinism",
+          "log",
+          "petname",
+          "serde",
+          "serde_json",
+          "sha2",
+          "spacetimedb",
+          "thiserror 2.0.20"
+        ]
+      }
+    }
+  ],
+  "limits": "Structured dependency metadata accounting, not line-by-line Rust body discovery or lens clearance."
+}

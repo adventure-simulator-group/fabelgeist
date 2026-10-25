@@ -1,0 +1,103 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-574",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/chrome.rs",
+      "sha256": "6e0b987c91569ce5bab73c83667ce05e6dd0327c96f5d3519075a27cbe82407b",
+      "actual_EOF": 800,
+      "actual_compared_ranges": [
+        [
+          1,
+          800
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/chrome/portraits.rs",
+      "sha256": "382210b89e6af39f692ff2a32955d40440b11028c00b996d9250d01005cc2890",
+      "actual_EOF": 237,
+      "actual_compared_ranges": [
+        [
+          1,
+          237
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/chrome/residences.rs",
+      "sha256": "a227365e91a54e459db0526c1f78de353612e16c8c7ecace7217807b41e43295",
+      "actual_EOF": 489,
+      "actual_compared_ranges": [
+        [
+          1,
+          489
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/rest.rs",
+      "sha256": "63dcebbc01df68859b94ad46c77ca3a6d20ca1727213d550f050ce39caa4e947",
+      "actual_EOF": 594,
+      "actual_compared_ranges": [
+        [
+          1,
+          594
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Settlement navigation, labels and portraits retain canonical identity/context; presentation arithmetic is bounded or explicitly normalized.",
+      "evidence": "chrome.rs1\u2013800 (1\u2013280 previously personally read before saved573; 281\u2013800 now), portraits1\u2013237, residences1\u2013489 fully consumed including fixture tails. ASCII-only decimal u32 formatting slices valid digits; label truncation uses actual len after take8 so subtraction safe. u64distance->f64 /1000 finite (precision only display). Journey quotient/remainder60 safe. Portrait selection only compares u64; actual data attributes emit decimal identity (JS recipient precision remains inherited RIG-OWNER-F026, no recipient body credit). Wedding days capped by DAYS_PER_YEAR before bounded *100; pregnancy days capped270; maturity u16 widenedu64 then/100 and visual clamp100; no overflows.",
+      "qualifications": "Static source only, no HTML/DOM/browser or tests run. Canonical tabs prerequisite for overview expect, action permission remains reducer-owned. Clipping/whole-percent child display are deliberate presentation policies unless product specification establishes finer precision.",
+      "acceptance": "Preserve canonical location/character IDs, actual activity/tenure enums, available-vs-missing population and bounded percent bars; no global identity narrowing."
+    },
+    {
+      "contract": "Residence proportional meter and owner-cost arithmetic require derived-value policy at the raw projected offer boundary.",
+      "evidence": "residences.rs71\u201382 value.saturating_mul(100)/maximum.max(1). Representable value=maximum=100000000 gives42 rather than100, value=maximum=u32MAX gives1. Owner cost additions at136/155 can overflow two rawu32. Focused exact PR courtship145\u2013260 confirms HousingTier::economy maxima purchase1800/rent70/upkeep16+18 and benefits16000; focused module residence350\u2013400 copies tier.economy into offers, so these authored offers discharge normal arithmetic.",
+      "qualifications": "Raw AvailableResidenceProperty schema/API admits u32; no actual large offer, alternate writer, DB row or runtime failure established. Private helper counterexample is strengthening at raw projection contract, not a promoted ordinary gameplay defect. Do not ban valid high prices merely for native multiply.",
+      "acceptance": "If raw offers supported, widen percentage numerator to u64, admit/represent aggregate owner cost explicitly, and keep max offer100% and zero maximum policy; otherwise prove exclusive canonical bounded producer and express contract."
+    },
+    {
+      "contract": "Rest recommendations and duration controls preserve bounded calendar unit conversion and distinguish raw physiology from admitted values.",
+      "evidence": "rest.rs1\u2013594 fully read. u64 div_ceil fixed positive MINUTES_PER_DAY then1..DAYS_PER_YEAR; whole-day formatting quotient/remainders avoid product overflow. healing_days saturating float-to-u16 thenu64*1440 fits. Recommendation max across healing/fatigue/blood, saturating_add repair andmax smith wait intentional. Blood valid0<=current<=maximum positive finite yields fraction0..1 then canonical positive recovery rate. Raw maximum<=0 returns0.",
+      "qualifications": "No tests run. Raw NaN/negative/huge physiology can turn casts into0/MAX; actual physiology admission prerequisite, no ordinary row witness. Duration renderer clipping to year intentional, field wake-time JS recipient still pending; source alone does not prove user chosen requested_minutes honored. Rest summary signed reputation may omit decreases, canonical UX policy needed.",
+      "acceptance": "Retain canonical recovery and unit policies; finite physiology admitted before derived recommendations, elapsed0/whole-day and explicit shelter choices preserved; supplied result amounts remain distinct gross/net contracts."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/courtship.rs",
+      "sha256": "df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45",
+      "actual_compared_ranges": [
+        [
+          145,
+          260
+        ]
+      ],
+      "method": "Focused exact PR producer re-read; no additional whole-role coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence.rs",
+      "sha256": "df7d47666e333785437d381321a5e7b85cd6e4c453067c83f8d86ea00a30ce35",
+      "actual_compared_ranges": [
+        [
+          350,
+          400
+        ]
+      ],
+      "method": "Focused exact PR producer re-read; no additional whole-role coverage."
+    }
+  ],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/strategic-web/src/templates/settlement/social.rs"
+}

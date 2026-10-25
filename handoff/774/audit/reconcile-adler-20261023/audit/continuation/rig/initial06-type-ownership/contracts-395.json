@@ -1,0 +1,27 @@
+{
+  "id": "RIG-INITIAL06-GROUP-395",
+  "at": "2026-10-23T10:06:21.548982+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "urban-exact-surfaces-and-derived-index": {
+      "comparison": "Fresh urban378: UrbanGroundSurfaces owns private street/yard/building sources plus skipped/reflect-ignored OnceLock lookup; UrbanGroundLookup owns copies plus private SpatialBuckets index maps. The derived index is not an independent authoritative geometry type: source/cache coherence needs one mutation owner, preserving lazy rebuild after Serde and existing reflection qualification. Typed ScenePlanPoint enters both queries then .metres is used only inside bucket/segment numerical work. CityPlotBounds construction composes placement centre/orientation and checked PlanDimensions from collision extent; retain Scene/Architectural datum distinctions through explicit projection. overlaps_disk radius rawf32 has nonnegative metre meaning, so existing neutral NonnegativeLength is a suitable shared leaf at the API, unlike signed coordinate components. Bucket (i32,i32) keys and usize source ordinals are intentional acceleration identities, not Scene IDs. Street material priority maps deliberate CityStreetSurface->GroundSubstrate classification and bare density/height0 are valid. Original fixtures compare exact ownership and transport; no execution.",
+      "disposition": "Existing geometry/length propagation and source/cache ownership support; preserve semantic surface classifications and derived private indices."
+    },
+    "hair-bake-native-packing": {
+      "comparison": "Fresh full embedded WGSL400: packed topmost word is12height+12wrappedturn+8shade with0 sentinel and max1 to distinguish presentstrand. This is a native ordered atomic encoding, not canonical Seed/Parting/RGBA identity. StrandGpu groupi32 carries signed native unassigned state; params explicitly mix spatial centre/frame/rim, texture size/count/points, metre step/reach, tonal factors and padding. Numerical map_texel projects scalp direction through concentric disk mapping to texels. FINISH shade texture is tone RGB+skin transparency, while strands texture R/G encode signed 2D orientation remapped tobytes and B tone: these are different pixel meanings despite identical u32 storage. HALVE averages packed byte channels; LONGEST bitcasts nonnegative arc length for atomicMax. Retain one explicit host ABI owner per payload/packing; native WGSL lanes/bitcasts are warranted terminal projections, not a reason to force RGBA wrappers across data textures. No imported head_distance helper credit.",
+      "disposition": "Intentional native numerical/packing boundary with role-specific payload owners; existing F005/F006 distinctions preserved."
+    },
+    "plant-local-leaf-products": {
+      "comparison": "Fresh arrangement279: canonical Seed/StreamId derive each leaf stream from shoot identity and ordinal; draws are actual inclusiveunit factors, whereas shoot/group/leaf ordinals identify procedural topology rather than random identity or character LOD. WoodyPlantForm selects MatureOak/MatureBeech/MultiStemShrub geometry behavior, distinct from ecological species identity. Retained TreeLeaf contains plant-local petiole/centre, normalized right/up, metre length/width and signed torsion radians; these should share finite/frame-aware lower geometry leaves with TreeBranchSegment under existing F001 instead of importing scene/world positions. Numerical basis generation/lerp/noise is a legitimate Vec3/f32 port. Shade is tonal multiplier (oak terminal expression can exceed1), not universally UnitInterval or opacity. Native u8 leafordinal cast does not make count a probability or durable ID. No called branch_frame/shoot_identity body credit.",
+      "disposition": "Existing F001 retained geometry support; maintain procedural topology, ecological identity and native math distinctions."
+    }
+  },
+  "supporting_existing_findings": [
+    "F001",
+    "F002",
+    "F005",
+    "F006"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit."
+}

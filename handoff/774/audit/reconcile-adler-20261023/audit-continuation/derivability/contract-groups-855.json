@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-855",
+  "at": "2026-10-25T17:01:49.357498+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1073,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/alcohol.rs",
+  "sha256": "c572b0014c6114020ee98d99a3cdfa1579b25a815ade34656bfeb8b6a421d1dc",
+  "actual_compared_ranges": [
+    [
+      1,
+      300
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "AlcoholConsumption CloneDebug and SpacetimeDB table macro already; local StackClone already. Native property projection, private/durable ledger updates, filtered/reserved/cohort alcohol stack availability/selection and consumption are semantic functions, no handwritten trait/codec in range. Keep generated table machinery and explicit policy rather than derive runtime DB queries."
+  ],
+  "first_unfinished": {
+    "scope_index": 1073,
+    "line": 301
+  },
+  "execution": "none"
+}

@@ -1,0 +1,312 @@
+#[cfg(not(target_family = "wasm"))]
+use super::diagnostic_record::*;
+use super::*;
+#[cfg(not(target_family = "wasm"))]
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
+#[cfg(not(target_family = "wasm"))]
+use std::io::{BufWriter, Write};
+#[cfg(not(target_family = "wasm"))]
+use std::{
+    sync::{
+        Arc,
+        atomic::{AtomicU64, Ordering},
+    },
+    time::Instant,
+};
+
+#[cfg(not(target_family = "wasm"))]
+#[derive(Resource, Debug, Clone, Default, serde::Serialize)]
+pub(crate) struct DiagnosticInputStatus {
+    pub command_index: usize,
+    pub command_kind: String,
+    pub command_elapsed_seconds: f32,
+    pub request: PlayerInputRequest,
+}
+
+#[cfg(not(target_family = "wasm"))]
+#[derive(Resource)]
+pub(crate) struct AnimationDiagnosticLog {
+    pub(crate) writer: BufWriter<std::fs::File>,
+    pub(crate) frame: u64,
+}
+
+#[cfg(not(target_family = "wasm"))]
+#[derive(Resource, Clone, Debug)]
+pub(crate) struct RenderScheduleTelemetry(Arc<RenderScheduleShared>);
+
+#[cfg(not(target_family = "wasm"))]
+#[derive(Debug)]
+struct RenderScheduleShared {
+    started: Instant,
+    count: AtomicU64,
+    elapsed_micros: AtomicU64,
+}
+
+#[cfg(not(target_family = "wasm"))]
+impl RenderScheduleTelemetry {
+    pub(crate) fn new() -> Self {
+        Self(Arc::new(RenderScheduleShared {
+            started: Instant::now(),
+            count: AtomicU64::new(0),
+            elapsed_micros: AtomicU64::new(0),
+        }))
+    }
+
+    pub(crate) fn record_completion(&self) {
+        let elapsed = self.0.started.elapsed().as_micros();
+        self.0
+            .elapsed_micros
+            .store(elapsed.min(u64::MAX as u128) as u64, Ordering::Release);
+        self.0.count.fetch_add(1, Ordering::Release);
+    }
+
+    pub(crate) fn snapshot(&self) -> (u64, u64) {
+        (
+            self.0.count.load(Ordering::Acquire),
+            self.0.elapsed_micros.load(Ordering::Acquire),
+        )
+    }
+}
+
+#[cfg(not(target_family = "wasm"))]
+impl AnimationDiagnosticLog {
+    pub(crate) fn write(&mut self, record: impl serde::Serialize) {
+        // Value is the final wire adapter: preserve JSON's sorted keys and widened f32 numbers.
+        let mut value = match serde_json::to_value(record) {
+            Ok(value) => value,
+            Err(error) => {
+                error!(%error, "Failed to serialize animation diagnostics");
+                return;
+            }
+        };
+        value["frame"] = self.frame.into();
+        if let Err(error) = serde_json::to_writer(&mut self.writer, &value) {
+            error!(%error, "Failed to write animation diagnostics");
+            return;
+        }
+        if let Err(error) = self.writer.write_all(b"\n") {
+            error!(%error, "Failed to finish animation diagnostic record");
+            return;
+        }
+        if self.frame % 60 == 59
+            && let Err(error) = self.writer.flush()
+        {
+            error!(%error, "Failed to flush animation diagnostics");
+            return;
+        }
+        self.frame += 1;
+    }
+}
+
+#[cfg(not(target_family = "wasm"))]
+#[expect(
+    clippy::type_complexity,
+    reason = "the diagnostic Bevy query reads one exact snapshot of player animation components"
+)]
+pub(super) fn log_animation_diagnostics(
+    time: Res<Time>,
+    mut log: Option<ResMut<AnimationDiagnosticLog>>,
+    input: Option<Res<DiagnosticInputStatus>>,
+    render_schedule: Option<Res<RenderScheduleTelemetry>>,
+    terrains: Query<&SceneTerrain>,
+    players: Query<
+        (
+            Entity,
+            &Transform,
+            &GlobalTransform,
+            Option<&Rotation>,
+            &SkeletonState,
+            &PresentedSkeleton,
+            &AnimationPlayback,
+            Option<&semantic_route::SemanticRouteTrace>,
+            Option<&pose_buffer::AuthoredWeaponTarget>,
+        ),
+        (With<Player>, With<crate::player::ClientPlayer>),
+    >,
+    bones: Query<(
+        &AnimationTargetId,
+        &AuthoredBindTransform,
+        Option<&Name>,
+        &GlobalTransform,
+    )>,
+) {
+    let Some(log) = log.as_mut() else {
+        return;
+    };
+    let render_schedule_completion = render_schedule.as_deref().map(|telemetry| {
+        let (count, elapsed_micros) = telemetry.snapshot();
+        ScheduleCompletion {
+            count,
+            elapsed_micros,
+        }
+    });
+    let wall_clock_unix_micros = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map(|duration| duration.as_micros().min(u64::MAX as u128) as u64)
+        .unwrap_or_default();
+    let terrain = terrains.iter().next();
+    for (
+        player,
+        transform,
+        global_transform,
+        physics_rotation,
+        authoritative,
+        presented,
+        playback,
+        semantic_route,
+        authored_weapon_target,
+    ) in &players
+    {
+        let diagnostic_frame = log.frame;
+        let global_translation = global_transform.translation();
+        let terrain_height = ScenePlanPoint::from_metres(global_translation.xz())
+            .and_then(|point| terrain.and_then(|terrain| terrain.height_at(point)));
+        let evaluation = match AnimationEvaluation::from_skeleton(presented) {
+            Ok(evaluation) => evaluation,
+            Err(error) => {
+                warn!(%error, ?player, "Rejected diagnostic animation evaluation");
+                continue;
+            }
+        };
+        let clips = diagnostic_clips(playback);
+        let mut bone_transforms = bones
+            .iter()
+            .filter(|(_, bind, _, _)| bind.owner == player)
+            .map(|(target, _, name, transform)| {
+                let value = DiagnosticBone::from_global(*target, name, transform, terrain);
+                let name = value.name;
+                (name, *target, value)
+            })
+            .collect::<Vec<_>>();
+        bone_transforms.sort_by_key(|(name, target, _)| (*name, *target));
+        let bone_transforms = bone_transforms
+            .into_iter()
+            .map(|(_, _, value)| value)
+            .collect::<Vec<_>>();
+        log.write(AnimationDiagnosticRecord {
+            trace_format: "real-client-animation-v1",
+            scenario: "real-client-script",
+            scenario_frame: diagnostic_frame,
+            elapsed_seconds: time.elapsed_secs_f64(),
+            wall_clock_unix_micros,
+            render_delta_seconds: time.delta_secs(),
+            render_schedule_completion,
+            input: input.as_deref(),
+            controller_transform: DiagnosticTransform::from(transform),
+            controller_global_transform: DiagnosticTransform {
+                translation: global_translation.to_array(),
+                rotation_xyzw: global_transform.compute_transform().rotation.to_array(),
+            },
+            controller_physics_rotation_xyzw: physics_rotation
+                .map(|rotation| rotation.0.to_array()),
+            subject_translation: global_translation.to_array(),
+            subject_rotation_xyzw: global_transform.compute_transform().rotation.to_array(),
+            action: presented.state.action_kind(),
+            action_phase: presented.state.action_phase(),
+            authored_weapon_target: authored_weapon_target.map(|target| DiagnosticTransform {
+                translation: target.translation.to_array(),
+                rotation_xyzw: target.rotation.to_array(),
+            }),
+            bones: bone_transforms,
+            terrain_height,
+            controller_height_above_terrain: terrain_height
+                .map(|height| global_translation.y - height.metres()),
+            authoritative,
+            presented: &presented.state,
+            presentation_phase_error_remaining: presented.phase_error_remaining,
+            presentation_phase_prediction_delta: presented.last_phase_prediction_delta,
+            presentation_phase_correction_delta: presented.last_phase_correction_delta,
+            presentation_phase_measurement_error: presented.last_phase_measurement_error,
+            presentation_phase_source_changed: presented.last_phase_source_changed,
+            evaluation: evaluation.clone(),
+            semantic_route: semantic_route.map(|trace| DiagnosticRoute {
+                requested_path: trace.requested_path,
+                path: trace.path,
+                inputs: &trace.inputs,
+                runtime_evaluated: true,
+                evaluation_equivalent: trace.evaluation == evaluation,
+            }),
+            playback: DiagnosticPlayback {
+                use_authored_bind_pose: (playback.plan.is_bind()),
+                whole_body_mirror: playback.whole_body_mirror,
+                ordinary_locomotion_active: (playback.ordinary_locomotion
+                    == super::OrdinaryLocomotion::Active),
+                clips,
+            },
+        });
+    }
+}
+
+#[cfg(not(target_family = "wasm"))]
+fn diagnostic_clips(playback: &AnimationPlayback) -> Vec<DiagnosticClip> {
+    playback
+        .plan
+        .clips()
+        .iter()
+        .map(|clip| DiagnosticClip {
+            weight: clip.weight,
+            time_seconds: clip.time_seconds,
+            mirrored_weight: clip.mirrored_weight,
+        })
+        .collect::<Vec<_>>()
+}
+
+#[cfg(target_family = "wasm")]
+pub(super) fn log_animation_diagnostics() {}
+
+// --- Temporary per-system frame-time probe (diagnostic; safe to remove) -----
+// Records the maximum wall time a handful of movement/animation systems take
+// per frame and logs the ranking once a second, so `just client` reveals which
+// system carries a running/jumping FPS drop without needing a Tracy capture.
+static PERF_MAX_MS: std::sync::LazyLock<
+    std::sync::Mutex<std::collections::HashMap<&'static str, f32>>,
+> = std::sync::LazyLock::new(|| std::sync::Mutex::new(std::collections::HashMap::new()));
+
+/// Drop guard that stamps its label's per-frame max on scope exit, so it
+/// captures the cost even when a system returns early.
+pub(in crate::animation) struct SpikeGuard {
+    label: &'static str,
+    start: web_time::Instant,
+}
+
+impl SpikeGuard {
+    pub(in crate::animation) fn new(label: &'static str) -> Self {
+        Self {
+            label,
+            start: web_time::Instant::now(),
+        }
+    }
+}
+
+impl Drop for SpikeGuard {
+    fn drop(&mut self) {
+        let ms = self.start.elapsed().as_secs_f32() * 1000.0;
+        if let Ok(mut map) = PERF_MAX_MS.lock() {
+            let entry = map.entry(self.label).or_insert(0.0);
+            *entry = entry.max(ms);
+        }
+    }
+}
+
+pub(in crate::animation) fn report_system_spikes(time: Res<Time>, mut elapsed: Local<f32>) {
+    *elapsed += time.delta_secs();
+    if *elapsed < 1.0 {
+        return;
+    }
+    *elapsed = 0.0;
+    let Ok(mut map) = PERF_MAX_MS.lock() else {
+        return;
+    };
+    if map.is_empty() {
+        return;
+    }
+    let mut rows = map.iter().map(|(k, v)| (*k, *v)).collect::<Vec<_>>();
+    rows.sort_by(|a, b| b.1.total_cmp(&a.1));
+    let summary = rows
+        .iter()
+        .map(|(label, ms)| format!("{label} {ms:.2}ms"))
+        .collect::<Vec<_>>()
+        .join("  |  ");
+    info!("PERF/frame-max (last 1s): {summary}");
+    map.clear();
+}

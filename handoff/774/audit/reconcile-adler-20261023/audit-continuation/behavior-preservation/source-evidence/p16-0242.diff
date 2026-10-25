@@ -1,0 +1,88 @@
+--- p16base/crates/adventuresim-stdb-module/src/repair.rs
++++ catalog-p16head/crates/adventuresim-stdb-module/src/repair.rs
+@@ -139,9 +139,9 @@
+     character_id: u64,
+     settlement_id: &str,
+     service: adventuresim_core::durability::RepairService,
+     inventory_item_id: u64,
+-) -> Result<u64, String> {
++) -> crate::StrategicOperationResult<u64> {
+     let character = ctx
+         .db
+         .character()
+         .id()
+@@ -283,9 +283,9 @@
+     character_id: u64,
+     settlement_id: String,
+     service: String,
+     inventory_item_id: u64,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     submit(
+         ctx,
+         character_id,
+         &settlement_id,
+@@ -300,9 +300,9 @@
+     ctx: &ReducerContext,
+     character_id: u64,
+     settlement_id: String,
+     service: String,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     let service = repair_service(&service)?;
+     let ids: Vec<u64> = ctx
+         .db
+         .inventory_item()
+@@ -314,10 +314,12 @@
+         })
+         .collect();
+     let mut submitted = 0;
+     for id in ids {
+-        if submit(ctx, character_id, &settlement_id, service, id).is_ok() {
+-            submitted += 1;
++        match submit(ctx, character_id, &settlement_id, service, id) {
++            Ok(_) => submitted += 1,
++            Err(crate::StrategicOperationError::Operation(_)) => {}
++            Err(error) => return Err(error),
+         }
+     }
+     if submitted == 0 {
+         return Err("No matching item has damage this service can repair".into());
+@@ -329,13 +331,13 @@
+ pub fn retrieve_repaired_item(
+     ctx: &ReducerContext,
+     character_id: u64,
+     order_id: u64,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     retrieve(ctx, character_id, order_id)
+ }
+ 
+-fn retrieve(ctx: &ReducerContext, character_id: u64, order_id: u64) -> Result<(), String> {
++fn retrieve(ctx: &ReducerContext, character_id: u64, order_id: u64) -> crate::StrategicOperationResult<()> {
+     let order = ctx
+         .db
+         .repair_order()
+         .id()
+@@ -445,9 +447,9 @@
+     settlement_id: String,
+     service: String,
+     item_id: Option<String>,
+     limit: u32,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     let service = repair_service(&service)?;
+     if limit == 0 {
+         return Err("Retrieve count must be positive".into());
+     }
+@@ -607,9 +609,9 @@
+     ctx: &ReducerContext,
+     nonce: String,
+     character_id: u64,
+     inventory_item_id: u64,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     let run = crate::simulation::owned_run(ctx, &nonce)?;
+     let simulation_character = ctx
+         .db
+         .simulation_character()

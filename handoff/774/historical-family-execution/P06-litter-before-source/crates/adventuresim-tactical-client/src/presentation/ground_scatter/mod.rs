@@ -1,0 +1,546 @@
+use adventuresim_tactical_core::prelude::{
+    SceneEnvironment, SceneGround, SceneId, SceneTerrain, TerrainTransitionCollar,
+};
+use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
+use bevy::{
+    color::{ColorToComponents, LinearRgba},
+    ecs::change_detection::DetectChanges,
+    pbr::Material,
+    prelude::{
+        AlphaMode, Asset, Assets, Color, Commands, Component, Entity, GlobalTransform, Handle,
+        Image, Local, Mesh, Quat, Query, Reflect, Res, ResMut, Resource, StandardMaterial, Time,
+        Transform, Vec2, Vec3, Vec4, With, Without, default,
+    },
+    render::render_resource::{
+        AsBindGroup, RenderPipelineDescriptor, SpecializedMeshPipelineError,
+    },
+    shader::ShaderRef,
+};
+use fabelgeist_determinism::Seed;
+use fabelgeist_determinism::StreamId;
+
+use super::obstacles::tree::{
+    BLACKTHORN_PARAMETERS, COMMON_HAWTHORN_PARAMETERS, COMMON_HAZEL_PARAMETERS,
+    TacticalTreeBarkMaterial, TacticalTreeImpostorMaterial, TacticalTreeLeafCardMaterial,
+    TreeLeafRepresentation, blackthorn_leaf_material, hawthorn_leaf_material, hazel_leaf_material,
+    procedural_woody_branch_mesh, procedural_woody_cambered_leaf_mesh,
+    procedural_woody_leaf_card_mesh, procedural_woody_plant_leaves,
+    procedural_woody_plant_skeleton, procedural_woody_sparse_leaf_card_mesh,
+};
+use super::{
+    PresentedCelestialLighting, ProceduralTextureAssets, TacticalGraphicsSettings, bps,
+    stable_text_seed,
+};
+
+// Ground-scatter orchestration and shared presentation contracts.
+
+mod cover_mask;
+mod grass;
+mod layers;
+use layers::GroundScatterPresented;
+pub(crate) use layers::{GrassInteractor, GroundScatterLayer};
+pub(crate) mod instanced_grass;
+mod instanced_understory;
+mod litter;
+mod loose_stone;
+pub(super) mod plants;
+pub(crate) use plants::{PlantCaptureAnchors, PlantLodInstance};
+mod review_specimens;
+
+pub(crate) use review_specimens::{UnderstoryReviewSpecimen, spawn_understory_review_specimens};
+pub(in crate::presentation) mod gardens;
+mod scene_mask;
+mod specimens;
+mod understory;
+use specimens::ensure_understory_presentations;
+
+use scene_mask::{GroundScatterSceneQuery, scatter_ground_without_patch};
+
+pub(in crate::presentation) use instanced_grass::{
+    GrassWorld, InstancedGrassPlugin, MINIMUM_GRASS_SLOPE_NORMAL_Y, TacticalGrassInstancedMaterial,
+    TierSpeciesBatches, TuftPigment, TuftPlacement, scatter_cell_tufts, spawn_tuft_batches,
+};
+pub(in crate::presentation) use instanced_understory::{
+    TacticalShrubBarkInstancedMaterial, TacticalShrubLeafInstancedMaterial,
+};
+
+pub(in crate::presentation) use grass::{
+    FAR_LOD_GAP_FILL_FRACTION, GrassCommunity, GrassCommunityField, GrassCommunityProfile,
+    GrassMeshLod, GrassSpecies, NEAR_TO_FAR_SWARD_FADE_END_METRES,
+    NEAR_TO_FAR_SWARD_FADE_START_METRES, TERMINAL_SWARD_FADE_END_METRES,
+    TERMINAL_SWARD_FADE_START_METRES, grass_lod_visibility,
+};
+use litter::{
+    DRY_LEAF_MESH_VARIANTS, TWIG_MESH_VARIANTS, dry_leaf_patch_mesh, forest_floor_leaf_material,
+    twig_patch_mesh,
+};
+pub(crate) use loose_stone::{
+    LooseStonePebblePatch, TacticalPebbleBillboardMaterial, TacticalPebbleMaterial,
+};
+
+/// Real generated litter placements retained independently of batched mesh origins.
+/// Capture diagnostics use this bounded pair to frame dry leaves and twigs without
+/// mistaking a shared batch-cell transform for the rendered subjects.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub(crate) struct GroundLitterCapturePair {
+    pub(crate) dry_leaf: Vec3,
+    pub(crate) twig: Vec3,
+}
+
+#[derive(Component, Clone, Debug, PartialEq)]
+pub(crate) struct GroundLitterCaptureAnchors {
+    pub(crate) pairs: Vec<GroundLitterCapturePair>,
+}
+
+#[derive(Component, Clone, Copy, Debug, Default, PartialEq, Eq)]
+pub(crate) struct GroundLitterDiagnostics {
+    pub(crate) dry_leaf_patch_instances: usize,
+    pub(crate) physical_dry_leaf_count: usize,
+}
+
+#[derive(Default)]
+pub(in crate::presentation) struct WoodyUnderstoryPresentation {
+    branches: Option<Handle<Mesh>>,
+    cambered_leaves: Option<Handle<Mesh>>,
+    minimal_leaf_cards: Option<Handle<Mesh>>,
+    // Full-coverage leaf cards consumed by the instanced shrub renderer,
+    // which draws its own leaf-card representation tier.
+    leaf_cards: Option<Handle<Mesh>>,
+    bark: Option<Handle<StandardMaterial>>,
+    leaves: Option<Handle<TacticalTreeLeafCardMaterial>>,
+}
+
+#[derive(Resource, Default)]
+pub(crate) struct WoodyUnderstoryPresentationCache {
+    hazel: WoodyUnderstoryPresentation,
+    blackthorn: WoodyUnderstoryPresentation,
+    hawthorn: WoodyUnderstoryPresentation,
+}
+
+impl WoodyUnderstoryPresentationCache {
+    fn presentation(&self, species: understory::UnderstorySpecies) -> &WoodyUnderstoryPresentation {
+        match species {
+            understory::UnderstorySpecies::CommonHazel => &self.hazel,
+            understory::UnderstorySpecies::Blackthorn => &self.blackthorn,
+            understory::UnderstorySpecies::CommonHawthorn => &self.hawthorn,
+        }
+    }
+}
+
+#[derive(Resource, Default)]
+pub(in crate::presentation) struct GroundFoliagePresentationCache {
+    forest_floor_leaves: Option<Handle<TacticalTreeLeafCardMaterial>>,
+    dry_leaf_meshes: Option<Vec<Handle<Mesh>>>,
+    twig_meshes: Option<Vec<Handle<Mesh>>>,
+    woodland_plant_meshes: Option<Vec<Handle<Mesh>>>,
+    twig_material: Option<Handle<StandardMaterial>>,
+    woodland_plant_material: Option<Handle<TacticalFoliageMaterial>>,
+}
+
+pub(super) fn foliage_material(wind_scale: f32, ground_foliage: bool) -> TacticalFoliageMaterial {
+    TacticalFoliageMaterial {
+        wind: Vec4::new(0.74, 0.67, wind_scale, 1.35),
+        interaction: Vec4::ZERO,
+        interaction_motion: Vec4::ZERO,
+        // Root occlusion, reserved palette variation, normal up-bias, and
+        // whether nearby player movement affects this material.
+        shading: if ground_foliage {
+            Vec4::new(0.52, 0.13, 0.76, 1.0)
+        } else {
+            Vec4::new(0.55, 0.08, 0.28, 0.0)
+        },
+        // Curved ribbon geometry, edge-on view thickening, authored lean, and
+        // reserved future shaping control. Understory cards retain the older
+        // crossed-plane deformation path.
+        shape: Vec4::ZERO,
+        // Far and vista grass set `quality.x` to select reduced vertex work
+        // before any interactive curved-ribbon reconstruction begins. Fragment
+        // lighting is selected independently through `quality.z`.
+        quality: Vec4::ZERO,
+        lighting: Vec3::new(0.35, 0.86, 0.25).normalize().extend(1.0),
+        ambient: Vec4::new(1.0, 1.0, 1.0, 0.28),
+        ground_mask_transform: Vec4::ZERO,
+        ground_mask: None,
+    }
+}
+
+pub(super) fn update_celestial_material_lighting(
+    celestial: Res<PresentedCelestialLighting>,
+    mut bark_materials: ResMut<Assets<TacticalTreeBarkMaterial>>,
+    mut impostor_materials: ResMut<Assets<TacticalTreeImpostorMaterial>>,
+    mut pebble_materials: ResMut<Assets<TacticalPebbleBillboardMaterial>>,
+    mut written: Local<Option<(Vec4, Vec4)>>,
+    mut foliage_materials: ResMut<Assets<TacticalFoliageMaterial>>,
+) {
+    if !celestial.is_changed() {
+        return;
+    }
+    let Some(celestial) = celestial.snapshot.as_ref() else {
+        return;
+    };
+    let direction = if celestial.sun_altitude_degrees > -6.0 {
+        celestial.sun_direction
+    } else if celestial.moon_altitude_degrees > -2.0 {
+        celestial.moon_direction
+    } else {
+        Vec3::new(0.25, 0.92, 0.3).normalize()
+    };
+    // The presented snapshot refreshes on every replicated environment tick,
+    // but celestial motion is glacial on gameplay timescales. Rewriting the
+    // material assets dirties them and re-queues every tree and pebble, so
+    // skip the write until the change would be visible.
+    let lighting = direction.extend(celestial.material_light_factor);
+    let ambient = celestial
+        .ambient_color
+        .extend(celestial.material_ambient_response);
+    if written.is_some_and(|(written_lighting, written_ambient)| {
+        written_lighting.distance_squared(lighting) < 1e-6
+            && written_ambient.distance_squared(ambient) < 1e-6
+    }) {
+        return;
+    }
+    *written = Some((lighting, ambient));
+    for (_, material) in bark_materials.iter_mut() {
+        material.extension.lighting = lighting;
+    }
+    for (_, material) in impostor_materials.iter_mut() {
+        material.lighting = lighting;
+        material.ambient = ambient;
+    }
+    for (_, material) in pebble_materials.iter_mut() {
+        material.lighting = lighting;
+        material.ambient = ambient;
+    }
+    for (_, material) in foliage_materials.iter_mut() {
+        if material.quality.x > 0.5 {
+            material.lighting = direction.extend(celestial.material_light_factor);
+            material.ambient = celestial
+                .ambient_color
+                .extend(celestial.material_ambient_response);
+        }
+    }
+}
+
+#[expect(
+    clippy::too_many_arguments,
+    reason = "the foliage construction boundary keeps distinct Bevy asset stores, caches, and scene inputs explicit"
+)]
+pub(super) fn spawn_ground_foliage(
+    commands: &mut Commands,
+    meshes: &mut Assets<Mesh>,
+    materials: &mut Assets<TacticalFoliageMaterial>,
+    standard_materials: &mut Assets<StandardMaterial>,
+    pebble_materials: &mut Assets<TacticalPebbleMaterial>,
+    pebble_billboard_materials: &mut Assets<TacticalPebbleBillboardMaterial>,
+    leaf_materials: &mut Assets<TacticalTreeLeafCardMaterial>,
+    understory_cache: &mut WoodyUnderstoryPresentationCache,
+    ground_foliage_cache: &mut GroundFoliagePresentationCache,
+    procedural_assets: &ProceduralTextureAssets,
+    scene_id: &SceneId,
+    terrain: &SceneTerrain,
+    ground: &SceneGround,
+    environment: &SceneEnvironment,
+    shrub_bark_materials: &mut Assets<TacticalShrubBarkInstancedMaterial>,
+    shrub_leaf_materials: &mut Assets<TacticalShrubLeafInstancedMaterial>,
+) -> adventuresim_building_generator::spatial_geometry::GeometryResult<()> {
+    let canopy = bps(environment.canopy_bps);
+    let wetland = bps(environment.wetland_bps);
+    let cultivation = bps(environment.cultivation_bps);
+    // Equal-area QHD benchmarks show that the full woody hazel/reed-like
+    // specimen, rather than the trees themselves, dominates dense woodland
+    // and wetland cost. Keep sparse woodland's established occupancy while
+    // capping denser biomes near one plant in four lattice cells. This leaves
+    // traversable openings and gives every terrain family a comparable GPU
+    // budget without reducing the much cheaper canopy-tree population.
+    let understory_chance = understory_scatter_chance(canopy, wetland, cultivation);
+    // The playable grass sward is generated by `instanced_grass`; this pass
+    // only builds the litter, loose stone, and woody understory layers.
+    ensure_understory_presentations(
+        meshes,
+        standard_materials,
+        leaf_materials,
+        understory_cache,
+        procedural_assets,
+    );
+    let litter::PatchMeshes {
+        dry_leaves: dry_leaf_meshes,
+        twigs: twig_meshes,
+        plants: woodland_plant_meshes,
+    } = litter::prepare_meshes(ground_foliage_cache, meshes)?;
+    let dry_leaf_material = ground_foliage_cache
+        .forest_floor_leaves
+        .get_or_insert_with(|| leaf_materials.add(forest_floor_leaf_material(procedural_assets)))
+        .clone();
+    let twig_material = ground_foliage_cache
+        .twig_material
+        .get_or_insert_with(|| standard_materials.add(litter::static_twig_material()))
+        .clone();
+    let woodland_plant_material = ground_foliage_cache
+        .woodland_plant_material
+        .get_or_insert_with(|| materials.add(foliage_material(0.035, false)))
+        .clone();
+    let base_seed = scatter_seed(&environment.scene_digest, &scene_id.0);
+    // Grass uses a macro patch whose internal blade spacing matches the old
+    // one-metre patch. A roughly ten-times larger footprint therefore retains
+    // density while cutting extraction, visibility, and instance entities by
+    // an order of magnitude. Macro patches stay unit-scale and nearly gridded:
+    // randomly shrinking/rotating the square footprint opened visible seams.
+    // Aligning each patch to the sampled terrain normal keeps the shared plane
+    // seated on slopes while its blades retain deterministic local variation.
+
+    let understory_habitat = understory::UnderstoryHabitat {
+        canopy,
+        wetland,
+        cultivation,
+        moisture: bps(environment.weather.ground_moisture_bps),
+    };
+    instanced_understory::spawn(
+        commands,
+        shrub_bark_materials,
+        shrub_leaf_materials,
+        standard_materials,
+        leaf_materials,
+        understory_cache,
+        terrain,
+        ground,
+        base_seed,
+        understory_chance,
+        understory_habitat,
+    );
+
+    litter::spawn(
+        commands,
+        meshes,
+        terrain,
+        ground,
+        base_seed,
+        &litter::Assets {
+            dry_leaf_meshes,
+            twig_meshes,
+            dry_leaf_material,
+            twig_material,
+            woodland_plant_meshes,
+            woodland_plant_material,
+        },
+    );
+
+    loose_stone::spawn(
+        commands,
+        meshes,
+        pebble_materials,
+        pebble_billboard_materials,
+        terrain,
+        ground,
+        base_seed,
+    );
+    Ok(())
+}
+
+fn understory_scatter_chance(canopy: f32, wetland: f32, cultivation: f32) -> f32 {
+    // This is intentionally about 70% below the original physical-shrub
+    // occupancy. Community multipliers retain dense, readable clumps rather
+    // than turning the reduced population into evenly spaced specimens.
+    (canopy * 0.156 + wetland * 0.09 + cultivation * 0.024).clamp(0.0, 0.075)
+}
+
+pub(in crate::presentation) fn grass_scatter_density(
+    canopy: f32,
+    water: f32,
+    cultivation: f32,
+    snow: f32,
+) -> f32 {
+    // Deep shade and standing water should expose litter, mud, and hummocks;
+    // a quarter-density floor still read as an implausible meadow and made
+    // woodland traversal a wall of overlapping rectangular blade ribbons.
+    (0.98 - canopy * 0.95 - water * 0.88 + cultivation * 0.04).clamp(0.08, 0.98)
+        * (1.0 - snow * 1.25).clamp(0.12, 1.0)
+}
+
+pub(in crate::presentation) fn grass_pigment(environment: &SceneEnvironment) -> (Color, f32) {
+    let grass_dryness = (1.0
+        - bps(environment.weather.ground_moisture_bps) * 0.7
+        - bps(environment.canopy_bps) * 1.2
+        - bps(environment.wetland_bps) * 0.8
+        - bps(environment.water_bps) * 0.8)
+        .clamp(0.0, 1.0);
+    let color = if environment.weather.snow_cover_bps >= 5_000 {
+        Color::srgb_u8(155, 164, 137)
+    } else if environment.cultivation_bps >= 4_000 {
+        Color::srgb_u8(142, 133, 61)
+    } else {
+        // Blend pigment in sRGB authoring space from hydrated chlorophyll to
+        // a dry olive sward. Fine-grained cohort variation remains in the
+        // shader, but the biome-wide baseline honors replicated moisture and
+        // shade instead of rendering dry grassland as woodland green.
+        let hydrated = Vec3::new(82.0, 119.0, 45.0);
+        let senescent = Vec3::new(150.0, 126.0, 52.0);
+        let pigment = hydrated.lerp(senescent, grass_dryness * 0.78);
+        Color::srgb_u8(pigment.x as u8, pigment.y as u8, pigment.z as u8)
+    };
+    (color, grass_dryness)
+}
+
+/// Solid-ground albedo that reproduces the *rendered* optical mass of the
+/// procedural sward. Blade vertex pigments are subsequently darkened by the
+/// species/cohort palette, root occlusion, rib occlusion, and thin-foliage
+/// lighting, so copying their input pigment directly makes upward-facing
+/// terrain much brighter than the grass it replaces.
+pub(in crate::presentation) fn grass_terminal_pigment(environment: &SceneEnvironment) -> Color {
+    let linear = grass_pigment(environment).0.to_linear().to_f32_array();
+    Color::LinearRgba(LinearRgba::new(
+        linear[0] * 0.34,
+        linear[1] * 0.38,
+        linear[2] * 0.18,
+        1.0,
+    ))
+}
+
+fn foliage_transform(
+    terrain: &SceneTerrain,
+    point: ScenePlanPoint,
+    hash: Seed,
+) -> Option<Transform> {
+    let height = terrain.height_at(point)?;
+    let normal = terrain.normal_at(point)?;
+    if normal.y < 0.72 {
+        return None;
+    }
+    let terrain_rotation = Quat::from_rotation_arc(Vec3::Y, *normal);
+    let yaw = Quat::from_rotation_y(
+        StreamId::new("visual.understory.yaw")
+            .rng(hash, &[])
+            .inclusive_unit_f32()
+            * core::f32::consts::TAU,
+    );
+    let scale = 0.72
+        + StreamId::new("visual.understory.scale")
+            .rng(hash, &[])
+            .inclusive_unit_f32()
+            * 0.58;
+    Some(
+        Transform::from_xyz(point.metres().x, height.metres(), point.metres().y)
+            .with_rotation(terrain_rotation * yaw)
+            .with_scale(Vec3::splat(scale)),
+    )
+}
+
+#[expect(
+    clippy::too_many_arguments,
+    reason = "Bevy injects independently borrowed scene, asset, cache, and procedural-resource state"
+)]
+pub(super) fn present_ground_scatter(
+    scenes: GroundScatterSceneQuery,
+    mut commands: Commands,
+    mut meshes: ResMut<Assets<Mesh>>,
+    mut foliage_materials: ResMut<Assets<TacticalFoliageMaterial>>,
+    mut standard_materials: ResMut<Assets<StandardMaterial>>,
+    mut pebble_materials: ResMut<Assets<TacticalPebbleMaterial>>,
+    mut pebble_billboard_materials: ResMut<Assets<TacticalPebbleBillboardMaterial>>,
+    mut leaf_materials: ResMut<Assets<TacticalTreeLeafCardMaterial>>,
+    mut understory_cache: ResMut<WoodyUnderstoryPresentationCache>,
+    mut ground_foliage_cache: ResMut<GroundFoliagePresentationCache>,
+    procedural_assets: Res<ProceduralTextureAssets>,
+    mut shrub_bark_materials: ResMut<Assets<TacticalShrubBarkInstancedMaterial>>,
+    mut shrub_leaf_materials: ResMut<Assets<TacticalShrubLeafInstancedMaterial>>,
+) -> bevy::prelude::Result {
+    for (entity, scene_id, terrain, ground, environment, fault_scarp) in &scenes {
+        let started = web_time::Instant::now();
+        tracing::info!("Generating tactical ground scatter");
+        let masked_ground = fault_scarp
+            .map(|recipe| scatter_ground_without_patch(ground, recipe.transition_collar()));
+        let ground = masked_ground.as_ref().unwrap_or(ground);
+        spawn_ground_foliage(
+            &mut commands,
+            &mut meshes,
+            &mut foliage_materials,
+            &mut standard_materials,
+            &mut pebble_materials,
+            &mut pebble_billboard_materials,
+            &mut leaf_materials,
+            &mut understory_cache,
+            &mut ground_foliage_cache,
+            &procedural_assets,
+            scene_id,
+            terrain,
+            ground,
+            environment,
+            &mut shrub_bark_materials,
+            &mut shrub_leaf_materials,
+        )?;
+        tracing::info!(
+            elapsed_ms = started.elapsed().as_millis(),
+            "Generated tactical ground scatter"
+        );
+        commands.entity(entity).insert(GroundScatterPresented);
+    }
+    Ok(())
+}
+
+#[derive(Asset, AsBindGroup, Reflect, Debug, Clone)]
+pub(in crate::presentation) struct TacticalFoliageMaterial {
+    #[uniform(0)]
+    wind: Vec4,
+    #[uniform(0)]
+    interaction: Vec4,
+    #[uniform(0)]
+    interaction_motion: Vec4,
+    #[uniform(0)]
+    shading: Vec4,
+    #[uniform(0)]
+    shape: Vec4,
+    #[uniform(0)]
+    quality: Vec4,
+    #[uniform(0)]
+    lighting: Vec4,
+    #[uniform(0)]
+    ambient: Vec4,
+    #[uniform(0)]
+    ground_mask_transform: Vec4,
+    #[texture(1)]
+    #[sampler(2)]
+    ground_mask: Option<Handle<Image>>,
+}
+
+impl Material for TacticalFoliageMaterial {
+    fn vertex_shader() -> ShaderRef {
+        FOLIAGE_SHADER.into()
+    }
+
+    fn fragment_shader() -> ShaderRef {
+        FOLIAGE_SHADER.into()
+    }
+
+    fn alpha_mode(&self) -> AlphaMode {
+        AlphaMode::AlphaToCoverage
+    }
+
+    fn enable_prepass() -> bool {
+        false
+    }
+
+    fn enable_shadows() -> bool {
+        false
+    }
+
+    fn specialize(
+        _pipeline: &bevy::pbr::MaterialPipeline,
+        descriptor: &mut RenderPipelineDescriptor,
+        _layout: &bevy::mesh::MeshVertexBufferLayoutRef,
+        _key: bevy::pbr::MaterialPipelineKey<Self>,
+    ) -> Result<(), SpecializedMeshPipelineError> {
+        descriptor.primitive.cull_mode = None;
+        Ok(())
+    }
+}
+
+const FOLIAGE_SHADER: &str = "shaders/tactical_foliage.wgsl";
+
+fn scatter_seed(digest: &str, scene: &str) -> Seed {
+    StreamId::new("visual.ground-scatter.mod.scene").seed(
+        stable_text_seed(digest),
+        &[stable_text_seed(scene).to_u64()],
+    )
+}
+
+#[cfg(test)]
+mod tests;

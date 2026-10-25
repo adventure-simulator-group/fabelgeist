@@ -1,0 +1,27 @@
+{
+  "id": "RIG-INITIAL06-GROUP-394",
+  "at": "2026-10-23T10:05:31.616466+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "wall-room-and-geometry-owners": {
+      "comparison": "Fresh full wall_derivation403: derive_walls erases RoomIndex through serialized_ordinal at19/30 into WallSegment inside/outside rawu16; derive_openings122 reconstructs RoomIndex::from_serialized. The retained wall relation has the same room-ordinal meaning on both sides, so canonical RoomIndex should propagate through WallSegment with ordinal projection at serialization/native indexing. canonical connection indexes used by disjoint sets are legitimate local numerical indices, distinct from wall/opening usize indices and source/assembly IDs. StoreyIndex remains semantic until serves serialized_level54; preserve its distinct meaning. GridEnvelope rawi16 cell min/max is discrete topology, not metre SpatialBounds. wall_solid composes checked CollisionCuboid<Architectural>, ResolvedItemId and SupportInterface bounds; raw sectional-opening/ResolvedSolidShape parameters remain broader than the checked envelope. OpeningUse/Profile/HeadKind deliberately express separate purpose, shape and construction choices. Seed/StreamId retain random identity until numerical context. Category/owner/slot packed IDs are allocation policy, not grounds to equate the IDs.",
+      "disposition": "Ownership propagation candidate within existing building geometry/ordinal repair graph; preserve distinct topology and semantic identity owners."
+    },
+    "grass-native-shader-abi": {
+      "comparison": "Fresh full WGSL315, including recovered130-169: five Vec4 uniform fields encode wind, interaction position/radius, motion/push, occlusion/dryness/lean/width and shading ambient gain/reserved lanes. This is the native payload paired with existing F038 host Material/Uniform copies; one host payload owner can project this exact ABI. Vertex UV side/height and tuft root UV_b are geometric coordinates; color RGB is pigment while alpha is threshold/hash, not opacity. i_seed lowbyte is packed ground coverage, distinct from canonical Seed identity. Imported Eidolon batch/instance uniforms are real dependency owners. World/local transforms and output homogeneous w are numerical ports; exposure-adjusted RGB may exceed1 and signed dither partitions are not gameplay probabilities. No blanket RGBA or UnitInterval replacement.",
+      "disposition": "Existing F038 support; intentional shader/native ABI and lane-specific units retained."
+    },
+    "authoritative-terrain-refinement": {
+      "comparison": "Fresh full refinement346: refinement constructs one authoritative high-resolution SceneTerrain for IK/render/server heightfield while coarse grids retain their separate LOD representation. Seed, ScenePlanPoint, SupportElevation, GroundSurface/Substrate/Cover are canonical semantic inputs. Raw moisture_bps u16 is immediately UnitBasisPoints::saturating(...).as_unit_f32 at193, supporting F019 propagation at the internal producer instead of a duplicate percentage type. TerrainShapeSample downhill vector/slope/concavity is an immediate derived numerical product: slope ratio differs from signed concavity metres; detail relief accepts negative signed displacement. Combined support height is re-admitted48-60 and PLAYABLE grade policy applied afterward. Rock centre/radius stay typed until numerical influence; seed-word extraction is an actual deterministic hash port. Called noise/road/obstacle helpers get no body credit.",
+      "disposition": "Canonical shared leaves with frame-specific roles; existing F001/F019/F023 support, native terrain kernel remains a numerical boundary."
+    }
+  },
+  "supporting_existing_findings": [
+    "F001",
+    "F019",
+    "F023",
+    "F038"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit."
+}

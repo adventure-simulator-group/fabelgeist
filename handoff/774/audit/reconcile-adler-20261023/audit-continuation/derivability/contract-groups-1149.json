@@ -1,0 +1,81 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1149",
+  "at": "2026-10-25T17:55:01.583652+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1253,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/stationary.rs",
+      "sha256": "4b9f686e5eb3dc2600ce935086991c271678c71692415cfb58c056a74883caf2",
+      "actual_EOF": 263,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/stationary.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\time\\stationary.rs",
+        "sha256": "4b9f686e5eb3dc2600ce935086991c271678c71692415cfb58c056a74883caf2",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "native",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 263,
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-TIME-PACKET-011",
+            "json_pointer": "/source_reads/16",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/time/stationary.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                263
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/stationary.rs",
+              "sha256": "4b9f686e5eb3dc2600ce935086991c271678c71692415cfb58c056a74883caf2",
+              "read_ranges": [
+                [
+                  1,
+                  263
+                ]
+              ],
+              "method": "P16 whole actual body plus complete textual reversePR delta, or exact byteidentity correspondence; both pinned hashes retained",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/time/stationary.rs"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Native stationary/currentpersonalfrontier lifecycle/authority handoff/disease/injury/cohort/elapsed/training/leisure/outcome policy and canonical schedule validation/normalized reconstruction. No handwritten trait/codec/type. ScheduleAllocation239\u2013252 gets checked activity values/paired organization from parsed plan, preserving representation/error changes; not unchecked derive."
+    }
+  ],
+  "groups": [
+    "KEEP canonical checked plan/context/currentstate/time effects and normalized storage; no derive finding."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1254,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/tests/clock_and_advancement.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

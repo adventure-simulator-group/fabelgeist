@@ -1,0 +1,526 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-248",
+  "at": "2026-10-25T14:12:16.952659+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 496,
+      "source_id": "pr-working:.github/workflows/rust-quality.yml",
+      "sha256": "5c2ceb3c325776e498988e77ac4244d1ad60ea11783ac9366e83c034933a1cde",
+      "actual_EOF": 393,
+      "requested_registration": {
+        "source_id": "pr-working:.github/workflows/rust-quality.yml",
+        "snapshot": "pr-working",
+        "path": ".github/workflows/rust-quality.yml",
+        "owner": "root",
+        "sha256": "5c2ceb3c325776e498988e77ac4244d1ad60ea11783ac9366e83c034933a1cde",
+        "base_sha256": "7514f9694e2103f6f5e7214096d8eba62dc201307e59ec2e801f1ab9d3a0bf8f",
+        "state": "modified",
+        "bytes": 23023,
+        "audit_owner": "root",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [],
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 63,
+            "read_ranges": [
+              [
+                1,
+                393
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-WORKFLOW-009"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/.github/workflows/rust-quality.yml"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          393
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "Non-Rust workflow/YAML with shell and embedded Python configuration; no Rust trait/Serde implementation.",
+      "absence_basis": "Full393-line frozen workflow personally consumed, including inline report parser. Build/test/format/CI commands are inert source evidence, never current execution authorization; none executed. Derive dependency/format/native gate declarations do not prove source conformance or passing validation."
+    },
+    {
+      "scope_index": 497,
+      "source_id": "pr-working:Cargo.lock",
+      "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+      "actual_EOF": 13102,
+      "requested_registration": {
+        "source_id": "pr-working:Cargo.lock",
+        "snapshot": "pr-working",
+        "path": "Cargo.lock",
+        "owner": "root",
+        "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+        "base_sha256": "c2bd70649c5d3895494b89789412c937cc824cf0e44e670170857ef9eb9bf363",
+        "state": "modified",
+        "bytes": 306125,
+        "audit_owner": "root",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [],
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 1,
+            "read_ranges": [
+              [
+                1,
+                13102
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-METADATA-001"
+            ],
+            "read_status": "full_stdlib_native_format_metadata",
+            "resolved_path": "SNAPSHOTS/pr-working/Cargo.lock"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 601,
+            "read_ranges": [
+              [
+                1227,
+                1278
+              ],
+              [
+                8279,
+                8302
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-NATIVE-PHYSICS-PORT-071"
+            ],
+            "read_status": "fresh_exact_native_dependency_configuration_and_lock_port",
+            "resolved_path": "SNAPSHOTS/pr-working/Cargo.lock"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root",
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-NATIVE-CONTRACT-METADATA-003",
+            "json_pointer": "/source_proofs/0",
+            "source_id_as_recorded": "pr-working:Cargo.lock",
+            "read_ranges_as_recorded": [
+              [
+                1227,
+                1278
+              ],
+              [
+                8279,
+                8302
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:Cargo.lock",
+              "path": "SNAPSHOTS/pr-working/Cargo.lock",
+              "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+              "read_ranges": [
+                [
+                  1227,
+                  1278
+                ],
+                [
+                  8279,
+                  8302
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": 121,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved",
+        "admission03_increment077_role_observations": [
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 79,
+            "registration_id": "NATIVE-ADMISSION03-REG-079",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-079",
+              "at": "2026-10-22T15:20:22.604893+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+              "source_id": "pr-working:Cargo.lock",
+              "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+              "snapshot": "pr-working",
+              "actual_EOF": 13102,
+              "material_ranges": [
+                [
+                  10219,
+                  10256
+                ],
+                [
+                  10302,
+                  10327
+                ],
+                [
+                  10372,
+                  10405
+                ]
+              ],
+              "role": "Exact locked runtime/bindings-macro/lib/SATS package version/checksum/dependency records for CaseSite namedProduct macro route; no whole lock graph",
+              "actual_caller": "CaseSiteId currentPR cfgfeature spacetimedb derive49 via CoreCargo feature/optionalworkspace Native077",
+              "reason": "Root/Camera confirm no currentPR version/lock proof; exact bounded necessary dependency registered BEFORE body",
+              "exclusions": "No other lockpackages/fullmanifest/body/newforeignversion or laterlens credit",
+              "resolved_path": "SNAPSHOTS\\pr-working\\Cargo.lock",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADM03-FINALQUAL-079",
+                "registration_id": "NATIVE-ADMISSION03-REG-079",
+                "source_id": "pr-working:Cargo.lock",
+                "snapshot": "pr-working",
+                "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+                "actual_EOF": 13102,
+                "registered_requested_ranges": [
+                  [
+                    10219,
+                    10256
+                  ],
+                  [
+                    10302,
+                    10327
+                  ],
+                  [
+                    10372,
+                    10405
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    10219,
+                    10255
+                  ],
+                  [
+                    10302,
+                    10326
+                  ],
+                  [
+                    10372,
+                    10404
+                  ]
+                ],
+                "context_or_excluded_within_registration": [
+                  [
+                    10256,
+                    10256
+                  ],
+                  [
+                    10327,
+                    10327
+                  ],
+                  [
+                    10405,
+                    10405
+                  ]
+                ],
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-079",
+                  "at": "2026-10-22T15:20:22.604893+00:00",
+                  "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                  "source_id": "pr-working:Cargo.lock",
+                  "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+                  "snapshot": "pr-working",
+                  "actual_EOF": 13102,
+                  "material_ranges": [
+                    [
+                      10219,
+                      10256
+                    ],
+                    [
+                      10302,
+                      10327
+                    ],
+                    [
+                      10372,
+                      10405
+                    ]
+                  ],
+                  "role": "Exact locked runtime/bindings-macro/lib/SATS package version/checksum/dependency records for CaseSite namedProduct macro route; no whole lock graph",
+                  "actual_caller": "CaseSiteId currentPR cfgfeature spacetimedb derive49 via CoreCargo feature/optionalworkspace Native077",
+                  "reason": "Root/Camera confirm no currentPR version/lock proof; exact bounded necessary dependency registered BEFORE body",
+                  "exclusions": "No other lockpackages/fullmanifest/body/newforeignversion or laterlens credit",
+                  "resolved_path": "SNAPSHOTS\\pr-working\\Cargo.lock",
+                  "status": "registered_before_direct_current03_body_analysis"
+                },
+                "qualification_history": [
+                  {
+                    "qualification_file": "camera-support/source-qualifications-011.jsonl",
+                    "row_1based": 7,
+                    "payload": {
+                      "id": "NATIVE-CAMERA-SUPPORT03-QUAL-079",
+                      "registration_id": "NATIVE-ADMISSION03-REG-079",
+                      "original_registration": {
+                        "id": "NATIVE-ADMISSION03-REG-079",
+                        "at": "2026-10-22T15:20:22.604893+00:00",
+                        "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                        "source_id": "pr-working:Cargo.lock",
+                        "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+                        "snapshot": "pr-working",
+                        "actual_EOF": 13102,
+                        "material_ranges": [
+                          [
+                            10219,
+                            10256
+                          ],
+                          [
+                            10302,
+                            10327
+                          ],
+                          [
+                            10372,
+                            10405
+                          ]
+                        ],
+                        "role": "Exact locked runtime/bindings-macro/lib/SATS package version/checksum/dependency records for CaseSite namedProduct macro route; no whole lock graph",
+                        "actual_caller": "CaseSiteId currentPR cfgfeature spacetimedb derive49 via CoreCargo feature/optionalworkspace Native077",
+                        "reason": "Root/Camera confirm no currentPR version/lock proof; exact bounded necessary dependency registered BEFORE body",
+                        "exclusions": "No other lockpackages/fullmanifest/body/newforeignversion or laterlens credit",
+                        "resolved_path": "SNAPSHOTS\\pr-working\\Cargo.lock",
+                        "status": "registered_before_direct_current03_body_analysis"
+                      },
+                      "qualified_material_ranges": [
+                        [
+                          10219,
+                          10255
+                        ],
+                        [
+                          10302,
+                          10326
+                        ],
+                        [
+                          10372,
+                          10404
+                        ]
+                      ],
+                      "qualification": "Nextpackage delimiters10256/10327/10405 excluded; no unrelatedpackages.",
+                      "actual_semantic_refs": [
+                        "case-site-sats-admission-003.json"
+                      ],
+                      "registered_before_body": true,
+                      "global_registry_reconciliation_pending": true,
+                      "later_lens_credit": false
+                    }
+                  }
+                ],
+                "current_proof_refs": {
+                  "actual_semantic_refs": [
+                    "case-site-sats-admission-003.json"
+                  ]
+                },
+                "body_rereads_for_this_normalization": 0,
+                "semantic_credit_from_metadata": false,
+                "producer_or_owner_or_later_lens_credit": false,
+                "global_reconciliation_pending": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                10219,
+                10255
+              ],
+              [
+                10302,
+                10326
+              ],
+              [
+                10372,
+                10404
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\Cargo.lock",
+            "actual_EOF": 13102,
+            "bytes": 306125
+          },
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 96,
+            "registration_id": "NATIVE-ADMISSION03-REG-096",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-096",
+              "at": "2026-10-22T17:03:02.647739+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+              "source_id": "pr-working:Cargo.lock",
+              "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+              "snapshot": "pr-working",
+              "actual_EOF": 13102,
+              "material_ranges": [
+                [
+                  10436,
+                  10467
+                ]
+              ],
+              "role": "Exact generated PR client SDK dependency edge to already-read bounded SDK2.6.1 native callback/namespace contracts; no unrelated package algorithm",
+              "actual_caller": "Camera supplier482\u2013488 generated reducer/table transport imports spacetimedb_sdk::__codegen",
+              "reason": "Necessary precise imported/native callback version link registered before body analysis; not inferred from installed folder",
+              "exclusions": "Only exact dependency ranges; no full SDK/native algorithm graph or semantics/other-lens credit",
+              "resolved_path": "SNAPSHOTS\\pr-working\\Cargo.lock",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADM03-FINALQUAL-096",
+                "registration_id": "NATIVE-ADMISSION03-REG-096",
+                "source_id": "pr-working:Cargo.lock",
+                "snapshot": "pr-working",
+                "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+                "actual_EOF": 13102,
+                "registered_requested_ranges": [
+                  [
+                    10436,
+                    10467
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    10436,
+                    10466
+                  ]
+                ],
+                "context_or_excluded_within_registration": [
+                  [
+                    10467,
+                    10467
+                  ]
+                ],
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-096",
+                  "at": "2026-10-22T17:03:02.647739+00:00",
+                  "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                  "source_id": "pr-working:Cargo.lock",
+                  "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+                  "snapshot": "pr-working",
+                  "actual_EOF": 13102,
+                  "material_ranges": [
+                    [
+                      10436,
+                      10467
+                    ]
+                  ],
+                  "role": "Exact generated PR client SDK dependency edge to already-read bounded SDK2.6.1 native callback/namespace contracts; no unrelated package algorithm",
+                  "actual_caller": "Camera supplier482\u2013488 generated reducer/table transport imports spacetimedb_sdk::__codegen",
+                  "reason": "Necessary precise imported/native callback version link registered before body analysis; not inferred from installed folder",
+                  "exclusions": "Only exact dependency ranges; no full SDK/native algorithm graph or semantics/other-lens credit",
+                  "resolved_path": "SNAPSHOTS\\pr-working\\Cargo.lock",
+                  "status": "registered_before_direct_current03_body_analysis"
+                },
+                "qualification_history": [
+                  {
+                    "qualification_file": "camera-support/source-qualifications-018.jsonl",
+                    "row_1based": 2,
+                    "payload": {
+                      "registration_id": "NATIVE-ADMISSION03-REG-096",
+                      "source_id": "pr-working:Cargo.lock",
+                      "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+                      "actual_EOF": 13102,
+                      "original_requested_ranges": [
+                        [
+                          10436,
+                          10467
+                        ]
+                      ],
+                      "qualified_material_ranges": [
+                        [
+                          10436,
+                          10466
+                        ]
+                      ],
+                      "context_only_ranges": [
+                        [
+                          10467,
+                          10467
+                        ]
+                      ],
+                      "admission_proof": "contracts-017.json#generated-client-raw-transport-versus-reducer-admission",
+                      "other_lens_credit": false
+                    }
+                  }
+                ],
+                "current_proof_refs": {
+                  "admission_proof": "contracts-017.json#generated-client-raw-transport-versus-reducer-admission"
+                },
+                "body_rereads_for_this_normalization": 0,
+                "semantic_credit_from_metadata": false,
+                "producer_or_owner_or_later_lens_credit": false,
+                "global_reconciliation_pending": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                10436,
+                10466
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\Cargo.lock",
+            "actual_EOF": 13102,
+            "bytes": 306125
+          }
+        ]
+      },
+      "method": "Complete exact TOML source decoded and structurally parsed using tomllib; root schema and every package record field kind/dependency list inspected and enumerated in lock-source-enumeration-248.json. Declarative-data analysis, not a claim of line-by-line Rust body read or project check.",
+      "actual_compared_ranges": [
+        [
+          1,
+          13102
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "Pinned derive/native package identities enumerated as provenance only; actual owning crate feature/import availability still separately required.",
+      "absence_basis": "Whole parsed Cargo.lock has version4 plus1126 package records using only name/version/source/checksum/dependencies keys; all primitive string/list metadata. No Rust implementation body. Exact per-package enumeration saved; no baseline hash-based role credit or package source coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Frozen CI declarations and complete lockfile metadata",
+      "disposition": "No Rust implementation to derive in these exact non-Rust roles; metadata/declarations provide provenance only.",
+      "acceptance": "Do not execute embedded commands or infer passing checks/feature availability from lock presence; actual trait source analysis remains separately scoped. Source-only discovery."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 498,
+    "source_id": "pr-working:Cargo.toml"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

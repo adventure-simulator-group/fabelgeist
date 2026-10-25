@@ -1,0 +1,228 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-953",
+  "at": "2026-10-25T17:19:19.289016+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1127,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/model.rs",
+      "sha256": "ce5e06fe7f483ecbd5c30af9a9475686d4c7acf147a8bb8de2e8a9e738211cb4",
+      "actual_EOF": 1399,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/model.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/investigation/model.rs",
+        "sha256": "ce5e06fe7f483ecbd5c30af9a9475686d4c7acf147a8bb8de2e8a9e738211cb4",
+        "bytes": 47311,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+            "ranges": null,
+            "source_read_status": null,
+            "trace_refs": []
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1040,
+                1170
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-GOVERNANCE-001",
+              "CAM-PROP-ENCOUNTER-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 255,
+            "read_ranges": [
+              [
+                1,
+                1399
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-INVESTIGATION-MODEL-CAPABILITY-088"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/investigation/model.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CASE-RECEIVERS-029",
+            "json_pointer": "/current_sources/2",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/investigation/model.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1399
+              ]
+            ],
+            "source_context": {
+              "packet_obligation": 3,
+              "assigned_camera_index": 240,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/model.rs",
+              "sha256": "ce5e06fe7f483ecbd5c30af9a9475686d4c7acf147a8bb8de2e8a9e738211cb4",
+              "read_ranges": [
+                [
+                  1,
+                  1399
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/investigation/model.rs",
+              "read_status": "full current frozen body; packet7 shares independently verified identical bytes with packet6",
+              "role": "bestiary-and-evidence",
+              "disposition": "DeductionSupport becomes a retained static string before the application helper returns (F030). Typed ThreatId stays retained until the actual SDK insert. Evidence knowledge adapters retain typed envelopes and personal-time checks; internal CaseSite text readmission remains CAM-PROP-F009.",
+              "trace_refs": [
+                "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016#bestiary-and-evidence"
+              ],
+              "authority": "Camera716 explicit per-cell reconciliation and whole DB repair authority unchanged"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016",
+            "json_pointer": "/source_reads/2",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/investigation/model.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1399
+              ]
+            ],
+            "source_context": {
+              "packet_obligation": 3,
+              "assigned_camera_index": 240,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/model.rs",
+              "sha256": "ce5e06fe7f483ecbd5c30af9a9475686d4c7acf147a8bb8de2e8a9e738211cb4",
+              "read_ranges": [
+                [
+                  1,
+                  1399
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/investigation/model.rs",
+              "read_status": "full current frozen body; packet7 shares independently verified identical bytes with packet6",
+              "role": "bestiary-and-evidence",
+              "disposition": "DeductionSupport becomes a retained static string before the application helper returns (F030). Typed ThreatId stays retained until the actual SDK insert. Evidence knowledge adapters retain typed envelopes and personal-time checks; internal CaseSite text readmission remains CAM-PROP-F009.",
+              "trace_refs": [
+                "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016#bestiary-and-evidence"
+              ],
+              "authority": "Camera716 explicit per-cell reconciliation and whole DB repair authority unchanged"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/camera/traces.jsonl",
+            "receipt": "CONT-CAMERA-PP-009",
+            "json_pointer": "/exact_receiver_proofs/7",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/investigation/model.rs",
+            "read_ranges_as_recorded": [
+              [
+                30,
+                52
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/model.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/investigation/model.rs",
+              "sha256": "ce5e06fe7f483ecbd5c30af9a9475686d4c7acf147a8bb8de2e8a9e738211cb4",
+              "actual_lines": 1399,
+              "read_ranges": [
+                [
+                  30,
+                  52
+                ]
+              ],
+              "role": "Actual CaseSiteId::try_new then to_place native decoder of internal raw location; not whole module credit."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/native/receiver-reads.json",
+            "receipt": "row-1",
+            "json_pointer": "/7",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/investigation/model.rs",
+            "read_ranges_as_recorded": [
+              [
+                30,
+                52
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/model.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/investigation/model.rs",
+              "sha256": "ce5e06fe7f483ecbd5c30af9a9475686d4c7acf147a8bb8de2e8a9e738211cb4",
+              "actual_lines": 1399,
+              "read_ranges": [
+                [
+                  30,
+                  52
+                ]
+              ],
+              "role": "Actual CaseSiteId::try_new then to_place native decoder of internal raw location; not whole module credit."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 455,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1399
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "All declared investigation authority/knowledge/receipt/belief/lead/site/area/capability/output/pattern/attempt/outcome/tracking/occupancy/testimony/journal rows Clone/Debug/table; JournalNotice also PartialEq/Eq",
+        "EvidencePresentationKind structural/SpacetimeType; BackendBestiaryDeduction Clone/Debug/SpacetimeType",
+        "PersistedBestiaryLoreResult Clone/Debug/Eq/PartialEq + strict Serialize/Deserialize",
+        "SafeBestiaryDeduction Clone/Debug/PartialEq/Eq"
+      ],
+      "absence_basis": "Entire exact model source consumed950\u2013953; no handwritten trait/codec. Native lore postparse checks/inference, inspection effects, checked case-site occupancy transitions and journal retry/upsert policies are semantic. Built-in existing codecs and derives already cover mechanical row writing/equality."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Investigation model derivability",
+      "disposition": "Retain checked vocabulary/text/uniqueness and exact provenance/context admission. Existing native/Serde/structural derives suffice, private row codecs must not be added solely to replace runtime classifiers. No executions or transferred findings."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1128,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/projections.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

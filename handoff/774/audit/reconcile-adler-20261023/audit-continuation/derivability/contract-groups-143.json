@@ -1,0 +1,148 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-143",
+  "at": "2026-10-25T12:56:13.815577+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 285,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/hostile_surrender.rs",
+      "sha256": "e2f5748256966b0c213139b3738202af3e71b51ae7b1d2be57814e76e66553d5",
+      "actual_EOF": 417,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/hostile_surrender.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-stdb-module/src/strategic/hostile_surrender.rs",
+        "owner": "camera",
+        "sha256": "e2f5748256966b0c213139b3738202af3e71b51ae7b1d2be57814e76e66553d5",
+        "base_sha256": "f1b6b291bd216720319051244c99925d2f4797fef16883a2f37d1bbb6350d2ba",
+        "state": "modified",
+        "bytes": 14064,
+        "audit_owner": "camera",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                417
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-HOSTILE-INCIDENT-001"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 75,
+            "read_ranges": [
+              [
+                1,
+                417
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-HOSTILE-048"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/strategic/hostile_surrender.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 325,
+            "read_ranges": [
+              [
+                1,
+                417
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-HOSTILE-048"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/strategic/hostile_surrender.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 130,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-HOSTILE-035",
+            "json_pointer": "/current_sources/2",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row256/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                417
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                417
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": 75,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          417
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": {
+        "native_structural": [
+          "HostileSurrenderMode",
+          "HostileSurrenderOutcome",
+          "BackendHostileSurrender"
+        ],
+        "table_Clone_Debug": [
+          "HostileSurrenderReceipt"
+        ]
+      },
+      "absence_basis": "Complete source and fixture bodies read. Private SurrenderRequest holds request-specific inputs with no manual trait. All other structural/native/table types already derive. No handwritten serializer or trait implementation."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "elected demand versus offer surrender policy",
+      "disposition": "Keep mode election, checked optional offer-answer relationship, exact authority recheck and outcome/response classifier as semantic functions. Deriving raw From or defaults would not preserve these policy conditions. Existing native and structural derives already cover mechanical behavior.",
+      "qualification": "No run or authority/aggregate clearance; fixture source only."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 286,
+    "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/incidents.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

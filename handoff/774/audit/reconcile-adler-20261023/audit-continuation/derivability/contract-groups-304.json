@@ -1,0 +1,109 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-304",
+  "at": "2026-10-25T14:37:20.910527+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 601,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/gable_openings/tests.rs",
+      "sha256": "af152ffe400f0ec3a3f3fe8f94a2d3c21220c8dd013bfbfcb084429b85877de6",
+      "actual_EOF": 495,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/gable_openings/tests.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\gable_openings\\tests.rs",
+        "sha256": "af152ffe400f0ec3a3f3fe8f94a2d3c21220c8dd013bfbfcb084429b85877de6",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "root",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 495,
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-WALL-SOURCE-CLOSURE-039",
+            "json_pointer": "/supplier_reconciliation/verified_exact_proofs/14",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/generator/gable_openings/tests.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                495
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/gable_openings/tests.rs",
+              "sha256": "af152ffe400f0ec3a3f3fe8f94a2d3c21220c8dd013bfbfcb084429b85877de6",
+              "read_ranges": [
+                [
+                  1,
+                  495
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-029",
+            "json_pointer": "/additional_fresh_sources/14",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/generator/gable_openings/tests.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                495
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/gable_openings/tests.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/generator/gable_openings/tests.rs",
+              "sha256": "af152ffe400f0ec3a3f3fe8f94a2d3c21220c8dd013bfbfcb084429b85877de6",
+              "read_ranges": [
+                [
+                  1,
+                  495
+                ]
+              ],
+              "scope": "Only actual material source/receiving functions in these ranges; no whole-file credit outside listed ranges"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          495
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Entire fixture source consumed1\u2013260/261\u2013495: fixture7\u20139/openings11\u201315/ray_hit67\u201381/meshes_hit83\u201393 helpers; supported aperture18\u201338/pitch atomicity41\u201365/shared geometry96\u2013207/residual mutation210\u2013304/native ridge-axis frame preservation307\u2013495 test functions. No handwritten trait or new type or codec. Tests read only; iterator helper semantic filter is not trait boilerplate."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "gable opening fixtures and native assertions",
+      "disposition": "No handwritten trait boilerplate; retain exact semantic helpers/assertions.",
+      "acceptance": "Source consumption only, no execution. Fixture references do not transfer implementation/native library or other-lens coverage."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 602,
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/heated_rooms.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

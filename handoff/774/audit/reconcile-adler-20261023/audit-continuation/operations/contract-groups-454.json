@@ -1,0 +1,106 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-454",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/pending.rs",
+      "sha256": "d23d3716ef9b634a101ce7e70d7f0b1e6be43de6e38ccf32c015ffacfb804aa2",
+      "actual_EOF": 83,
+      "actual_compared_ranges": [
+        [
+          1,
+          83
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/pigment.rs",
+      "sha256": "46de07541d21c23ef7533675e901fb632dbe0b7d321900d053603c56426f559d",
+      "actual_EOF": 192,
+      "actual_compared_ranges": [
+        [
+          1,
+          192
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/pigment/tests.rs",
+      "sha256": "ce37914d95bcac68d8f6c18eaf640503b932b3ede8b79a839c15ca86d2ccf3c8",
+      "actual_EOF": 236,
+      "actual_compared_ranges": [
+        [
+          1,
+          236
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/prepared.rs",
+      "sha256": "c3c5dda2b43208a48d70060c29d876025c47aca6e4fe836ea002b2ec651ca44d",
+      "actual_EOF": 62,
+      "actual_compared_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/regional.rs",
+      "sha256": "2e65532ed7e9acac69d98e68480149db8e0cd282b93caf96ea82ebf63c397b01",
+      "actual_EOF": 56,
+      "actual_compared_ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/strategic.rs",
+      "sha256": "8534f53749dd9918cd0c3a9549561eab6825e7edb7b8908db60da2a8639ee64a",
+      "actual_EOF": 190,
+      "actual_compared_ranges": [
+        [
+          1,
+          190
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/strategic/colors.rs",
+      "sha256": "db6776dd0ba46be63553e5964b3f8e913e35b2378966be4f62067b9284f9550d",
+      "actual_EOF": 68,
+      "actual_compared_ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Pending vista cohort and retry policy",
+      "analysis": "Full seven bodies read. Pending accept retains unmatched digest and clears once matching environment found; ready presenter takes and retriggers only exactmatchingterrain. Observer additionally requiresSceneGround, so absence requeues at accept(false). Later mesh prepare Err leaves current active surface unchanged but accepted pending bundle consumed; no retry-on-transient-preparation-error policy shown. Exact error input/repair mechanism is needed before ordinary retry loss claim; immutable invalid bundle need not retry forever."
+    },
+    {
+      "contract": "Pigment, ring extent and prepared backdrop operations",
+      "analysis": "Local immutable SampleColors caches exactweather/environment and preserves bilinear\u2192coarser\u2192edge interpolation order plus coverage alpha. Source bounds/completegrid required before nativeindexing. PreparedVistaLod only advances inner extent after nonempty mesh; correctness for empty owned rings is a connected extent-policy question, no concrete visible overlap producer proven. Regional fixedlattice u32indexcasts bounded and missingvertices excluded. StrategicBackdrop validates foregroundheight/environment but stores rawlods; PreparedBackdrop validates each through naturalmesher before spawning. Direct height_at on malformed rawlods remains APIconstructor/aggregate qualification; no validated actualinput example claimed. Backdrop entity deliberately lacksSceneTerrain/SceneId and is separatefrom tactical authority. Localcolortriangleweight operations use admitted cellgeometry; nativefloat overflow depends extreme scale, no ordinary witness."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "7 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets.rs"
+}

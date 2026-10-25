@@ -1,0 +1,67 @@
+{
+  "at": "2026-10-23T21:45:20.156375+00:00",
+  "id": "pc104-clinical-health-final-renderers-001",
+  "reads": {
+    "crates/strategic-web/src/templates/settlement/character_health.rs": [
+      [
+        1,
+        279
+      ],
+      [
+        481,
+        619
+      ],
+      [
+        876,
+        2165
+      ]
+    ],
+    "crates/strategic-web/src/templates/settlement/character_health/segments.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/strategic-web/src/templates/settlement/character_health/notebook.rs": [
+      [
+        1,
+        10000
+      ]
+    ]
+  },
+  "contract": "Complete clinical/body/status and treatment final renderer bodies; preserve exact health/humour/private-observation and over-cap skill semantics",
+  "coverage_limit": "Full2165healthbody and segments/notebook read; existing prior ranges complete other helpers. Actual source causes, canonical typed APIs, all thirteen independent lens inventories and frozen supplier variants remain mandatory. No checks/newtests or render execution.",
+  "disposition": "M102 SignedUnitBasisPoints/UnitBasisPoints roles reach charthelpers/SVG finalnumbers: signed humour magnitude feeds impairment separately from signed baseline observations. Do not cap allprivatehealth/meters topublicunit scale or conflate physical injury/clinicalestimate. Head/chest/stomach/limb rawregionusize passedacrossinternalgroup/healthbar/serieshelpers despite existing BodyRegion/Humour semantic axes; numericalarrayindex isfinalnativeport, not everyhelper signature. M89physicaldamage bounded bycurrentregion/segments; named physical injuries and actual clinical impairment are related butdistinct, raw f32 cuts/frostbite/fracture/blunt clamped/displayed with explicit proof expectation. Nativeprocedure skill/difficulty mayexceed5 (fixture7.2difficulty), finalmeterclampplus textualover-cap preserved; notboundedordinarySkillRankallinputs. Absenceofmedicalassessment deliberatelyconcealsotherimpairment, nohiddenprivatepayload; unavailable isvisible, validnohistory separate. Sourcefixtures verify interredcorpse hidesidentity/findings/unopenedtreatment and no permission requireexplicitconfirmation; preserveburialredaction and penaltyfreeenemyburning distinction. Some known style/documentation/internal tupleflag concerns belong otherlenses, no producer-specific runtimefailure inferred from naming alone.",
+  "finding_traces": {
+    "M102": {
+      "source": [
+        "crates/strategic-web/src/templates/settlement/character_health.rs:692-875,889-1157,1188-1448",
+        "crates/strategic-web/src/templates/settlement/character_health/notebook.rs"
+      ],
+      "trace": "Publicquantizedsignedhumour/i16arrays and confidence/likelihoodu16 retainedrawthrough medicalpresentations and helpers thennormalization/nativeSVGtext. Existing BodyRegion/Humour owner shouldbind semantic axes throughinternalrecipient, extractindexonlyarrayoperation. Confidencefloorpercent and\u00b135%chartvs\u00b1100%accessible are intentionaldifferentdisplaywindows, preserve. UnknownassessmentOtherimpairment notautomaticphysiologicalzero."
+    },
+    "M89": {
+      "source": [
+        "crates/strategic-web/src/templates/settlement/character_health.rs:1381-1456",
+        "crates/strategic-web/src/templates/settlement/character_health/segments.rs"
+      ],
+      "trace": "Physicalhealth clamp\u21921-health\u2192boundedphysicalinjurycomposition and humourscaledhealth displays. Injury damage rawnativefields vsbodyhealthcapacity/clinicalobserverestimate have distinct units/policies; expectednonnegative actualproducer guarantees requireadmissiontrace, noordinarynegativeinjuryproducerclaimed. Keep fracture subsetofblunt compositionandunknownbluntfallback exact."
+    },
+    "M51": {
+      "source": [
+        "crates/strategic-web/src/templates/settlement/character_health.rs:37-43,99-128"
+      ],
+      "trace": "ProcedureSkillanddifficulty crosssame primitivef32 signatures but difficulty legitimately7.2overordinary5 and selftreatment halvedprocedure skill. Preserve broadnonnegativedifficulty vsboundedhealthy/currentrank, actual duration returnminutes and finalHTMLencoding; canonicalownersmustpreventcrossingrolewithoutnarrowingvaliddifficulty."
+    },
+    "M97": {
+      "source": [
+        "crates/strategic-web/src/templates/settlement/character_health.rs:280-425,1502-1630"
+      ],
+      "trace": "Actualcorpse display categorizes location/permission/discipline strings before HTML; existing CoreCorpseLocation/DecompositionBand shouldsurvive. Burialredaction, exhumationpermission and irreversibleburning confirmation nativepolicycorrectpositive, no blankettypedpersonalnameforhistoricalvictimprose."
+    }
+  },
+  "frontier": {
+    "file": "crates/adventuresim-character-creator/src/animation_preview.rs",
+    "work": "PC104 complete Webclinical/body/skill receipts read; continue remaining changed-source producer inventory beginning character-creator animation-preview/render pipeline while preserving all earlier PC01\u2013PC104 graph dependencies and scope extensions. All13 incomplete; no implementation plan/repairs/check."
+  }
+}

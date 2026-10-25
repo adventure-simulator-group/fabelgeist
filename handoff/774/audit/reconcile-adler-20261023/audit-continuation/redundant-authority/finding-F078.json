@@ -1,0 +1,58 @@
+{
+  "id": "CONT07-F078",
+  "at": "2026-10-23T20:10:10.444113+00:00",
+  "classification": "conditional asynchronous replacement/status identity attribution defect; source sequence, no execution",
+  "title": "Old pending city assembly failure can be attributed to a newer rejected preparation",
+  "sources": [
+    {
+      "scope_index": 1618,
+      "sha256": "554d9dc7e4d33ae4301f1c7c1e94e30a5c47bfb5803febcb6d536a407419b33a",
+      "ranges": [
+        [
+          16,
+          41
+        ],
+        [
+          51,
+          80
+        ]
+      ]
+    },
+    {
+      "scope_index": 1617,
+      "sha256": "2ecbbe4cf5f193f1cdc1e59d911e07aab57fc6122177d50e82b38c0b988ae972",
+      "ranges": [
+        [
+          25,
+          39
+        ],
+        [
+          48,
+          81
+        ],
+        [
+          256,
+          284
+        ]
+      ]
+    },
+    {
+      "registration": "CONT07-REG-009",
+      "sha256": "4ed19181ab78cf91d879f183d56d313397141bcefd0c3139ebd1263c1c3163ff",
+      "ranges": [
+        [
+          134,
+          177
+        ]
+      ]
+    }
+  ],
+  "earliest_failed_contract": "Pending city product lacks its own PreparationTicket; asynchronous publish_candidate borrows whichever ticket is currently stored in independent last-installation status.",
+  "counterexample": "A accepted replacement retains pendingA and status(A,Preparing). Before A assembly publishes, install B is rejected, for example malformed document JSON; install sets status(B,Failed,Input) and intentionally retains pendingA. If A subsequently receives actual CityAssemblyFailure, publish_candidate removes A but replaces status with failed(status.preparation,Assembly), producing B/Assembly although B never entered assembly.",
+  "actual_recipient": "regional_map/status.rs168 serializes this city_installation record into STATUS JSON, served by json180-185. Wrong preparation/error pairing is externally observable report data.",
+  "qualification": "Conditional API/async ordering; current code permits both calls and actual assemblyfailure path exists. No ordinary browser sends this sequence, bad live city, observed report or executed reproduction claimed. Keeping a last-good installed or older pending product is legitimate policy; its failure must retain its own identity. General phase/error neighbor aggregate risk in ROOT-OWNER-CITY-SURFACE-048 is related evidence, not this exact causal attribution proof.",
+  "connected_repair": "Bind each pending candidate to exact ticket and publish outcomes against that candidate identity. Define latest-attempt report versus still-pending product status explicitly, so late A completion/failure cannot rewrite B cause. Preserve transactional candidate replacement, last-good installed visibility, cleanup and stale candidate ownership.",
+  "acceptance": "After A pending then B rejects, A assemblyfailure cannot relabel B Input as Assembly or use Bticket for Aoutcome. Successful replacement and pointer-resident idempotency preserve exactticket/status semantics. No tests added or executed.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

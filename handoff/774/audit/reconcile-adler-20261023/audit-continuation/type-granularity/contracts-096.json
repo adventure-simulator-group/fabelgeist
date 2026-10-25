@@ -1,0 +1,99 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-096",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "door-interior-geometry-and-character-specific-exemptions",
+      "sources": [
+        {
+          "scope_index": 354,
+          "ranges": [
+            [
+              1,
+              132
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [],
+      "disposition": "Meaningful interaction/kernel and ECS association roles; no duplicate door/window scalar owner.",
+      "trace": "can_grab_door_from_inside16\u201328 computes local signed depth and absolute tangent distance from actual scene observations; can_grab_window30\u201344 delegates identical inside-vicinity contract, so common kernel already shared. Character-specific DoorPassageExemptions48 stores native Entity set with grant/revoke and collision hook75\u201384 applies relation in either ordering. Set wrapper earns its role: blanket entity collection is not automatically a collision exemption.",
+      "qualifications": [
+        "Full132 lines source read, no physics/test execution. Native coordinates/tangent/outward are actual numerical-kernel inputs from typed scene door/window callers329; no callee-wide primitive exemption beyond the complete dot/range calculation.",
+        "Door grab depth, lateral margin and interior-sideepsilon have different geometric meanings despite metres; preserve negative interior sign and per-character exclusion, no general noclip permission."
+      ],
+      "acceptance": "Keep shared complete door/window geometric calculation and character-local exemption relation, preserve native layer and engine hook ports."
+    },
+    {
+      "id": "inventory-quantity-unit-mass-dimensions-and-topology-roles",
+      "sources": [
+        {
+          "scope_index": 355,
+          "ranges": [
+            [
+              1,
+              858
+            ]
+          ]
+        },
+        {
+          "scope_index": 356,
+          "ranges": [
+            [
+              1,
+              53
+            ]
+          ]
+        },
+        {
+          "scope_index": 357,
+          "ranges": [
+            [
+              1,
+              28
+            ]
+          ]
+        },
+        {
+          "scope_index": 358,
+          "ranges": [
+            [
+              1,
+              17
+            ]
+          ]
+        },
+        {
+          "scope_index": 359,
+          "ranges": [
+            [
+              1,
+              160
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "local774:F07",
+        "local774:M07",
+        "local774:M10",
+        "SEGO-INITIAL09-F115",
+        "SEGO-INITIAL09-F262",
+        "SEGO-INITIAL09-F137"
+      ],
+      "disposition": "Exact F07 unit versus aggregate mass support, existing topology/capability/coverage shape support; Q016 laterality/slot simplification pending actual producer/receiver closure.",
+      "trace": "ItemProperties355102\u2013105 retains unit/instance weight; ItemQuery271 separately has TacticalItemQuantity, but inventory_weight524\u2013526 sums one weight per row without quantity, exact local774F07. weapon_weight545\u2013549 remains one striking item and must not be pre-multiplied stackmass. Geometry355167\u2013172 separates dimensions/anchor/grip-to-tip/striking length; total length452\u2013459 differs grip446\u2013449 and reach439\u2013444, actual geometric roles although same SignedLength. TacticalItemQuantity3579 composes shared ItemQuantity while adding ECS Component/Reflect role; no redundant invariant implementation. TacticalInventoryItemId35627 is strategic row identity, not native Entity or stable physical-object identity. Order/requirement/capacity355120\u2013122 are separate M10 roles; opaque occupancy_id survives Entity remapping test818\u2013842 rather than recomputed from mappedparent. WeaponAppearance versus HolderAppearance355182\u2013196 identical byte shape but independent recipe/version identity, render transport not gameplay geometry authority. Armor covered_parts plus optional geometry355/356 is exactF262 applicability product, separateF137 per-contact intersected/selected. ArmorSide Left/Right35650 differs existing BodySide77 Left/Right/Both, so direct Option<BodySide> would add unwanted duplicateBoth/None possibilities; Q016 pending whole source use.",
+      "qualifications": [
+        "Full858+53+28+17+160 personally read; tests source only.359 module declarations/reexports do not credit implementation bodies or legacy branches.",
+        "ItemOf native relationship wrapper and InventoryItems holding caches have real engine association/rebuild/serialization roles. Current tests deliberately partial empty skillweights/geometry are isolated seams, not ordinary malformed source proof.",
+        "F07 arithmetic witness remains source-only and source variantP16; parent merged proof/recipient trace independent. Mass total is not biological BodyMass bound. Preserve fractional food/water/stable-object custody before final mass producer, no double scaling.",
+        "M07 generic ItemProperties may intentionally carry open item spells; only actual fixed catalogue receiver may retain canonical membership. F115 static hybrid capability differs selected predictionF256; unarmed means no WeaponItem and remains melee-valid with0weaponextension.",
+        "ArmorSlot nominal label and covered_parts/geometry may have distinct or redundant roles; pinned grep shows only producers and fixture uses, no actual receiver body proof yet. Do not infer None means exactBoth merely from name, and do not force common BodySide on every narrower side axis without trace.",
+        "Melee cadence358 takes moment of inertia and explicit weapon absence, different from weapon mass/total length; preserve authored unarmed cadence and typed ElapsedResult."
+      ],
+      "acceptance": "Retain unit versus stack mass and full quantity owners through actual aggregation, distinct geometry roles and semantic topology ordinals. Preserve ECS/native transport contracts, canonical catalogue admission, absent/unarmed policies, exact physical identity/remapping and armor applicability/contact provenance."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

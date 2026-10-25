@@ -1,0 +1,116 @@
+{
+  "id": "NATIVE-ADMISSION03-CONTRACT-GROUPS-004",
+  "lens": "audit-admission-contracts",
+  "groups": {
+    "catalog-identities": {
+      "indices": [
+        145
+      ],
+      "invariant": "MotionId is a safe authored stem; AnimationAssetDirectory a normalized relative directory; AssetPath deliberately broader native path; authored frame every u16.",
+      "routes": "MotionId private Cow, constants40–68 and TryFrom<&str>76–89 only raw admissions: reject empty/dot/dotdot/control/slash/backslash/colon/hash/query. No Serde/Default/Reflect/FromString. mirrored70–73 appends safe suffix. Directory private Cow constants92–94, TryFrom101–119 trims trailing separators then rejects empty/absolute/bad segments/control/backslash/colon/hash/query. No unchecked decoder/default. motion_path96–98 combines typed operands. AnimationAssetPath private Cow derives From<String> and has from_static130–134, intentionally nativeasset-path not safe directory. Frame private u16 derived From/Into, ZERO/abs_diff all values legal; no upper-content bound promised.",
+      "evidence": "MotionKey121–127 retains typed pack/stem; no raw identity. Empty/pathtraversal stem cannot use declared checked route, while AssetPath may retain native labels. Native path receiving adapter loading381–390 read; content existence is separate.",
+      "repair": "No local admission bypass found. Preserve exact spelling/trailing normalization; open AssetPath is not directory grammar, frame membership belongs actual loaded clip check.",
+      "all_other_admission_routes": "Full source derives/visibility/constructors/defaults/From/TryFrom/Serde/Reflect reviewed; routes not declared above absent in this exact file. Supporting SDK body not blanket-cleared.",
+      "connected_repair": "continuation/native/connected-repair-map.json; existing whole-function authority only, no transfer or implementation; preserve six historical acceptances/reopened findings",
+      "acceptance": "All routes promising each stated local invariant must enforce it or expose clearly raw source before owned admission; preserve stated intentional zero/sign/absence/native/error policies. No aggregate/arithmetic clearance."
+    },
+    "catalog-staging-and-builtin": {
+      "indices": [
+        143,
+        144
+      ],
+      "invariant": "Catalog is authored staging with checked identity/frame leaves; built-in factory additionally validates semantic completeness. Raw frame indexes need not inherently belong to a loaded asset.",
+      "routes": "PackCatalog/PoseAnchor/MotionSource super-public records typed leaves, map Default/builder literals, no Serde/Reflect. PackBuilder new/motion/variable_motion/pose/reference/finish admits typed frames, rejects absent motion/duplicate semantic but does not validate all frame/content relations. biped_root builds two explicit packs then AnimationPackLibrary insert and validate_complete(root) before returning. Source tree full including original cfg(test) editor validation193–361 and exact authored builtin frame constants1–264 read unexecuted. Editor validation checks actual filesystem and anchor frame<=last only when explicitly invoked; not runtime structural guarantee.",
+      "evidence": "Code-owned builtins frame0/4/8/12 and contacts0/6/12/18/24/64 preserved, incomplete two-handed pack intentional fallback. Generic builder can stage frame>last; 05 correlated representation concern not misreported as invalid scalar AuthoredFrame. Full cfgtest lookup has fallback loop; library production resolver has seen-set proof in group003; no unexecuted test claimed passing.",
+      "repair": "Retain authored staging/validated semantic-content distinction; future aggregate policy separate. Existing fixture/source population preserved, no whitelist of open PackId or frame narrowing.",
+      "all_other_admission_routes": "Full source derives/visibility/constructors/defaults/From/TryFrom/Serde/Reflect reviewed; routes not declared above absent in this exact file. Supporting SDK body not blanket-cleared.",
+      "connected_repair": "continuation/native/connected-repair-map.json; existing whole-function authority only, no transfer or implementation; preserve six historical acceptances/reopened findings",
+      "acceptance": "All routes promising each stated local invariant must enforce it or expose clearly raw source before owned admission; preserve stated intentional zero/sign/absence/native/error policies. No aggregate/arithmetic clearance."
+    },
+    "native-bind-and-report-boundary": {
+      "indices": [
+        140,
+        142,
+        149
+      ],
+      "invariant": "Native transforms/entities/target IDs are captured or reported; diagnostics do not promise finite admitted animation coordinates.",
+      "routes": "bind_pose copies Bevy Transform from actual query into AuthoredBindTransform owner Entity/local Transform, later restores. No Serde/Reflect/Default constructor promises finite pose. Capture helpers stringify native TargetId/Entity with explicit placeholder, original encoding test read. Diagnostic record derives Serialize only (not Deserialize/Reflect), copies native arrays/transform decompositions and retained typed duration/weight/fractions; optional terrain lookup first tries checked ScenePlanPoint and bad native observation yields None. No raw outbound report strings are imported as refined IDs.",
+      "evidence": "Full48/29/117 lines read including existing capture test. Nonfinite native diagnostic value remains original observation, not proof checked leaf admits NaN. AuthoredBindTransform mod166–170 pub(crate)/pub(super) native fields are deliberately unrefined boundary representation.",
+      "repair": "No intrinsic native/report scalar guarantee invented. Preserve rejected/raw observation and native handle identity; source-strengthening elsewhere separate.",
+      "all_other_admission_routes": "Full source derives/visibility/constructors/defaults/From/TryFrom/Serde/Reflect reviewed; routes not declared above absent in this exact file. Supporting SDK body not blanket-cleared.",
+      "connected_repair": "continuation/native/connected-repair-map.json; existing whole-function authority only, no transfer or implementation; preserve six historical acceptances/reopened findings",
+      "acceptance": "All routes promising each stated local invariant must enforce it or expose clearly raw source before owned admission; preserve stated intentional zero/sign/absence/native/error policies. No aggregate/arithmetic clearance."
+    },
+    "native-revision-observation": {
+      "indices": [
+        146,
+        147
+      ],
+      "invariant": "Asset revision observation retains SDK-owned handles/AssetIds and typed MotionKey; unknown/failed assets remain expressible.",
+      "routes": "RevisionCaches SystemParam holds existing typed resources; ChangedAnimationAssets retains HashSet<AssetId> built solely from native event variants/load failures and SDK assets. No Deserialize/Reflect/custom raw identifier or checked scalar factory. Revision processing invalidates/removes affected retained caches and rebuilds library, not raw admitted identity creation. Full100/78 lines read.",
+      "evidence": "Native event variants include failed loads; source revision matching is actual source/path/label and SDK handle authority. Membership and mutation correlation require independent later lens, not waived.",
+      "repair": "No new scalar admission defect; preserve failed/absent state evidence and source affinity.",
+      "all_other_admission_routes": "Full source derives/visibility/constructors/defaults/From/TryFrom/Serde/Reflect reviewed; routes not declared above absent in this exact file. Supporting SDK body not blanket-cleared.",
+      "connected_repair": "continuation/native/connected-repair-map.json; existing whole-function authority only, no transfer or implementation; preserve six historical acceptances/reopened findings",
+      "acceptance": "All routes promising each stated local invariant must enforce it or expose clearly raw source before owned admission; preserve stated intentional zero/sign/absence/native/error policies. No aggregate/arithmetic clearance."
+    },
+    "loaded-clip-and-content-admission": {
+      "indices": [
+        154,
+        155
+      ],
+      "invariant": "LoadedClip retains SDK clip handle plus finite nonnegative duration and closed layer; content/target compatibility admitted by actual motion loading stage, not implied by newtype name alone.",
+      "routes": "MotionLoad private path and closed Pending/Ready optional SDK handle states, request performs native asset load and try_typed<Gltf>, NotFound optional absence, other failure explicit. poll maps SDK state; observe_source_revision preserves failed path authority. MotionClipAdmission admit requires exactly one animation, loaded handle/asset, nonempty canonical targets, all clip target IDs subset, source exists, checked ClipDuration::from_seconds and frame_fits_clip half-frame tolerance. Ready literal only after checks. Grip counterpart repeats single/loaded/target/duration checks then typed literal. LoadedClip struct mod104–109 private fields to animation module, clone/at_anchor_layer copies typed leaves; no Serde/Reflect/Default/raw float field path.",
+      "evidence": "Full loading390/motion175 lines read, wrong type/absent/pending/failed distinct. Native AssetPath constructed loading381–390 handles WASM/native source difference. Name->RigJointName bind295 retains deliberately open exact string per Rig CONTRACT032; target membership separate. Finite zero duration remains allowed when frame tolerance allows. Native clip curves are not thereby universally finite validated; no foreign SDK package waiver.",
+      "repair": "Preserve exact frame tolerance, missing optional motion, target admission order/errors and namespace/source; canonical scalar route checked. Public aggregate handle/duration correlation is later05, no blind reject all unknown names.",
+      "all_other_admission_routes": "Full source derives/visibility/constructors/defaults/From/TryFrom/Serde/Reflect reviewed; routes not declared above absent in this exact file. Supporting SDK body not blanket-cleared.",
+      "connected_repair": "continuation/native/connected-repair-map.json; existing whole-function authority only, no transfer or implementation; preserve six historical acceptances/reopened findings",
+      "acceptance": "All routes promising each stated local invariant must enforce it or expose clearly raw source before owned admission; preserve stated intentional zero/sign/absence/native/error policies. No aggregate/arithmetic clearance."
+    },
+    "playback-typed-admission": {
+      "indices": [
+        148,
+        152,
+        156,
+        157,
+        158,
+        227,
+        228,
+        239
+      ],
+      "invariant": "Retained playback coordinates finite signed ClipTime; weight nonnegative finite unbounded; left/right IK and mirror fractions0..1. Empty plan bind pose and absent anchors supported. Sum1/clip membership are not scalar invariants.",
+      "routes": "WeightedClip super-public fields contain typed LoadedClip/BlendWeight/ClipTime/optional CyclePhase; no Serde/Default/Reflect/raw float routes. append coalesces by typed SDK handle/layer/time/phase, checked weight addition before stores. ContinuationSpan/ExtrapolatedSpan typed literal fields, optional anchor fallback retains explicit policy, frame_seconds checked factory. PlaybackContributions private collections; Default empty, admit checked-add total across all categories then retain, immutable getters. FootIkInfluence private UnitInterval fields, typed new/constants, from_evaluation native weighted reduction finite guards/division/clamp then checked UnitInterval; no raw decoder. AnimationPlayback private retained plan/fractions/cadence/closed guard/visibility/inertial states, Default valid typedzero/empty; apply/from_presented only copies admitted PlaybackPose. Resolver private mirror/continuation/extrapolation fields, into_playback invokes contributions and FootIK admission, sample-specific constructors use checked weights/times and clamp mirror fraction. Closed enum state literals all legal; BaseRigLoad DefaultUnrequested/native handle payloads no extra raw decoder.",
+      "evidence": "All8 full files including mod1–810 original tests635–807 read; finite signed time supports extrapolation, zero-weight contributions preserved, independent weights>1 legal. Full mod evaluation error branches reject before publish; native SuccessfulAttack impact Vec3 event produces BoneKick raw impulse (no claimed refined leaf). Test fixture constants/native invalid observations retain original entry routes, no new cases/execution.",
+      "repair": "No local scalar bypass found. Reusable current Core group001 leaves + UnitInterval actual registered canonical checkedSerde. Original mode/fallback and FP operation order retained; cross-field mirrored<=total, plan ownership, content membership and mutation failure independent later lenses.",
+      "all_other_admission_routes": "Full source derives/visibility/constructors/defaults/From/TryFrom/Serde/Reflect reviewed; routes not declared above absent in this exact file. Supporting SDK body not blanket-cleared.",
+      "connected_repair": "continuation/native/connected-repair-map.json; existing whole-function authority only, no transfer or implementation; preserve six historical acceptances/reopened findings",
+      "acceptance": "All routes promising each stated local invariant must enforce it or expose clearly raw source before owned admission; preserve stated intentional zero/sign/absence/native/error policies. No aggregate/arithmetic clearance."
+    },
+    "rig-open-name-classification": {
+      "indices": [
+        234
+      ],
+      "invariant": "AuthoredRigJoint caches classification of an exact open RigJointName; does not assert authored rig membership or fixed vocabulary.",
+      "routes": "Private fields name/body_region/optional BoneRole; only new(name) computes classification, getters borrow/copy. No Serde/Reflect/Default/raw-field public route. AnimationBodyRegion closed Root/Upper/Lower and ClipLayer exhaustive match; arbitrary unfamiliar name maps Upper by declared classification. Canonical RigJointName private Cow has FromString/manual Fromstr/transparent Serde accepting every string, constants convenience; RigJointPart closed query-fragment enum with output AsRefStr/Display only, no parser/Serde/Default/Reflect.",
+      "evidence": "Native full84 lines read. Actual Rig current admission supplier contract-groups.jsonl#RIG-ADMISSION03-CONTRACT-032 (lib1–155 SHA7e73efb0a5ce824e111c2d28e54a5422b75bdca12e0c7553423dc0dfab8f563b) and035(part1–135 SHAbb324df83dafc6706069ecbe3e4fa829c21af0de463166169f96904089a034b7) consumed explicitly. Empty/NUL/case/namespace permitted identity; substring/case-ignore anatomy queries are not identity normalization. loading295 actual native Name producer compared.",
+      "repair": "No nonempty/known-rig whitelist warranted; preserve exact identity and cached heuristic classification. Actual native rig/target lookup separate relying boundary.",
+      "all_other_admission_routes": "Full source derives/visibility/constructors/defaults/From/TryFrom/Serde/Reflect reviewed; routes not declared above absent in this exact file. Supporting SDK body not blanket-cleared.",
+      "connected_repair": "continuation/native/connected-repair-map.json; existing whole-function authority only, no transfer or implementation; preserve six historical acceptances/reopened findings",
+      "acceptance": "All routes promising each stated local invariant must enforce it or expose clearly raw source before owned admission; preserve stated intentional zero/sign/absence/native/error policies. No aggregate/arithmetic clearance."
+    },
+    "clip-duration-and-signed-time": {
+      "indices": [
+        235
+      ],
+      "invariant": "ClipDuration finite>=0 seconds incl0; ClipTime finite signed seconds, negative valid for extrapolation.",
+      "routes": "Private f32 fields with checked from_seconds/TryFrom; Serde try_from f32 routes same checks, Serialize into output; no Default/Reflect/raw From input. ZERO legitimate; at_phase multiplies finite duration by signed cycle and rejects nonfinite product before private ClipTime literal. finite_sample_value rejects nonfinite before returning still-primitive channel value, not automatically refined owning aggregate.",
+      "evidence": "Full91 lines read including exact conversion implementations; NaN/Inf rejected, negative duration rejected, negative ClipTime admitted intentionally. Counterexample negativeTime is supported, not bug. Overflow phase product rejected.",
+      "repair": "No admission bypass found; preserve signed/unwrapped coordinate and duration0; typed ownership of remaining primitive channels tracked separately.",
+      "all_other_admission_routes": "Full source derives/visibility/constructors/defaults/From/TryFrom/Serde/Reflect reviewed; routes not declared above absent in this exact file. Supporting SDK body not blanket-cleared.",
+      "connected_repair": "continuation/native/connected-repair-map.json; existing whole-function authority only, no transfer or implementation; preserve six historical acceptances/reopened findings",
+      "acceptance": "All routes promising each stated local invariant must enforce it or expose clearly raw source before owned admission; preserve stated intentional zero/sign/absence/native/error policies. No aggregate/arithmetic clearance."
+    }
+  },
+  "new_tests_cases_assertions": 0,
+  "later_lens_credit": false
+}

@@ -1,0 +1,64 @@
+{
+  "kind": "same-current-lens-exact-line-equivalence-only",
+  "source_read_precondition": "qualityprobe5601-231 readthislens",
+  "from_source_id": "rig-quality:crates/adventuresim-tactical-client/examples/armor_browser_probe.rs",
+  "from_sha256": "c1c35c5512650985dc6cf1cba8545b9db2cb63b65c3b092424893541811b1453",
+  "to_source_id": "pr-working:crates/adventuresim-tactical-client/examples/armor_browser_probe.rs",
+  "to_sha256": "4d0171a6cd7835711e211df50e71df5c0f143e6bba2b85b6e655dcf5f5af4892",
+  "from_lines": 231,
+  "to_lines": 227,
+  "equal_line_blocks": [
+    {
+      "from_range": [
+        1,
+        2
+      ],
+      "to_range": [
+        1,
+        2
+      ]
+    },
+    {
+      "from_range": [
+        3,
+        7
+      ],
+      "to_range": [
+        5,
+        9
+      ]
+    },
+    {
+      "from_range": [
+        25,
+        60
+      ],
+      "to_range": [
+        10,
+        45
+      ]
+    },
+    {
+      "from_range": [
+        63,
+        76
+      ],
+      "to_range": [
+        46,
+        59
+      ]
+    },
+    {
+      "from_range": [
+        78,
+        231
+      ],
+      "to_range": [
+        74,
+        227
+      ]
+    }
+  ],
+  "changed_source_read": "Every nonidenticalPRline displayedunifieddiff andinspected; noast/projectparser/runtime/numerical equivalence inference",
+  "limits": "Samefreshauditlenssourcebodyequalityonly; no historical/prior-lensverdictborrowed; laterlensesindependent"
+}

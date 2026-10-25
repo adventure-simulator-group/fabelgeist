@@ -1,0 +1,199 @@
+{
+  "changes": [
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "before": "pub(super) fn authored_melee_weapon(\n    definition: &crate::item_catalog::ItemDefinition,\n) -> Result<CombatWeapon, String> {\n    let weapon_id = definition.id.as_str();\n    let ItemKind::Weapon {\n        preferred_attack,\n        reach_m,\n        precision,\n        melee,\n        ranged,\n        skills,\n        ..\n    } = &definition.kind\n    else {\n        return Err(format!(\"{weapon_id} is not a weapon\"));\n    };\n    if !melee || *ranged {\n        return Err(format!(\"{weapon_id} is not melee-only\"));\n    }\n    let moment_of_inertia_kg_m2 = match definition.kind {\n        ItemKind::Weapon {\n            moment_of_inertia_kg_m2,\n            ..\n        } => moment_of_inertia_kg_m2,\n        _ => unreachable!(),\n    };\n    let timing =\n        crate::equipment::melee_attack_timing(*preferred_attack, moment_of_inertia_kg_m2, false)\n            .map_err(|error| error.to_string())?;\n    let grip_to_tip_m = definition\n        .equipment\n        .as_ref()\n        .map_or(0.0, |equipment| equipment.physical.grip_to_tip_m);\n    let dimensions_m = definition\n        .equipment\n        .as_ref()\n        .map_or([0.0; 3], |equipment| equipment.physical.dimensions_m);\n    let total_length_m = dimensions_m[1];\n    let recipe = adventuresim_weapon_model::default_design(weapon_id)\n        .ok_or_else(|| format!(\"{weapon_id} has no generated recipe\"))?;\n    let striking_head_length_m = adventuresim_weapon_model::derive_properties(&recipe)\n        .map_err(|errors| format!(\"{weapon_id}: {errors:?}\"))?\n        .striking_head_length_m;\n    let skill_distribution: crate::equipment::WeaponSkillDistribution = (*skills).into();\n    Ok(CombatWeapon {\n        skills: skill_distribution,\n        melee: true,\n        ranged: false,\n        preferred_melee_style: *preferred_attack,\n        weight: definition.weight_kg,\n        moment_of_inertia_kg_m2,\n        precision: *precision,\n        melee_reach: *reach_m,\n        grip_to_tip_m,\n        total_length_m,\n        striking_head_length_m,\n        distal_headed: crate::combat::has_distal_striking_surface(\n            grip_to_tip_m,\n            striking_head_length_m,\n            definition\n                .equipment\n                .as_ref()\n                .and_then(|equipment| equipment.material),\n            definition\n                .equipment\n                .as_ref()\n                .and_then(|equipment| equipment.striking_material),\n        ),\n        body_material: definition\n            .equipment\n            .as_ref()\n            .and_then(|equipment| equipment.material),\n        striking_material: definition\n            .equipment\n            .as_ref()\n            .and_then(|equipment| equipment.striking_material),\n        ranged_range: 0.0,\n        // Autoresolve advances the same complete attack cycle as the tactical\n        // bot: the authored server windup to contact plus inertia/style-based\n        // recovery before another fresh attack may begin.\n        attack_interval_seconds: EMBEDDED_AUTORESOLVE_PARAMETERS\n            .melee_windup_seconds\n            .checked_add(timing.recovery_secs)\n            .map_err(|error| error.to_string())?,\n        balance: crate::equipment::weapon_balance_from_moment(\n            moment_of_inertia_kg_m2,\n            definition.weight_kg,\n            grip_to_tip_m,\n        ),\n        ranged_force_joules: 0.0,\n    })\n}\n\n",
+      "after": ""
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "before": "//! Melee-only iteration roster assembled from canonical character and item data.\n\nuse super::*;\n",
+      "after": "//! Melee-only iteration roster assembled from canonical character and item data.\n\nuse super::*;\nuse super::authored_weapon::authored_melee_weapon;\n"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "before": "mod evidence;\n\npub use evidence::*;",
+      "after": "pub use error::{MeleeIterationError, MeleeIterationResult};\npub use evidence::*;\n\nmod error;\nmod evidence;"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "before": "pub fn melee_iteration_roster() -> Result<(MeleeIterationBuild, Vec<MeleeIterationBuild>), String>",
+      "after": "pub fn melee_iteration_roster() -> MeleeIterationResult<(MeleeIterationBuild, Vec<MeleeIterationBuild>)>"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "before": "        .native_everyday_name()\n        .map_err(|error| error.to_string())?",
+      "after": "        .native_everyday_name()?"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "before": ") -> Result<CombatEquipment, String>",
+      "after": ") -> MeleeIterationResult<CombatEquipment>"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "before": ".ok_or_else(|| format!(\"unknown weapon {weapon_id}\"))?",
+      "after": ".ok_or_else(|| MeleeIterationError::UnknownWeapon { weapon: weapon_id.to_owned() })?"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "before": ".ok_or_else(|| format!(\"unknown shield {shield_id}\"))?",
+      "after": ".ok_or_else(|| MeleeIterationError::UnknownShield { shield: shield_id.to_owned() })?"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "before": "return Err(format!(\"{shield_id} is not a shield\"));",
+      "after": "return Err(MeleeIterationError::NotShield { shield: shield_id.to_owned() });"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "before": "fn apply_authored_armor(equipment: &mut CombatEquipment, armor_ids: &[&str]) -> Result<(), String>",
+      "after": "fn apply_authored_armor(equipment: &mut CombatEquipment, armor_ids: &[&str]) -> MeleeIterationResult<()>"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "before": ".ok_or_else(|| format!(\"unknown armor {armor_id}\"))?",
+      "after": ".ok_or_else(|| MeleeIterationError::UnknownArmor { armor: (*armor_id).to_owned() })?"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "before": ".ok_or_else(|| format!(\"armor {armor_id} has no equipment projection\"))?",
+      "after": ".ok_or_else(|| MeleeIterationError::ArmorProjectionUnavailable { armor: (*armor_id).to_owned() })?"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "before": ".ok_or_else(|| format!(\"armor {armor_id} has no authored placement\"))?",
+      "after": ".ok_or_else(|| MeleeIterationError::ArmorPlacementUnavailable { armor: (*armor_id).to_owned() })?"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "before": "return Err(format!(\"armor {armor_id} placement protects no body part\"));",
+      "after": "return Err(MeleeIterationError::EmptyArmorProtection { armor: (*armor_id).to_owned() });"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve.rs",
+      "before": "pub use classification::{",
+      "after": "pub use authored_weapon::{AuthoredMeleeWeaponError, AuthoredMeleeWeaponResult};\npub use classification::{"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve.rs",
+      "before": "mod classification;",
+      "after": "mod authored_weapon;\nmod classification;"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/threat.rs",
+      "before": "use super::*;\n",
+      "after": "use super::*;\nuse super::authored_weapon::authored_melee_weapon;\n"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/threat.rs",
+      "before": "    Timing(#[from] ElapsedError),",
+      "after": "    Timing(#[from] ElapsedError),\n    #[error(\"authored threat sidearm knife is absent from the item catalogue\")]\n    MissingSidearmDefinition,\n    #[error(transparent)]\n    Sidearm(#[from] AuthoredMeleeWeaponError),"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/threat.rs",
+      "before": "    equip_threat_weapon(&mut combatant, weapon, profile.ranged);",
+      "after": "    equip_threat_weapon(&mut combatant, weapon, profile.ranged)?;"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/threat.rs",
+      "before": "fn equip_threat_weapon(combatant: &mut Combatant, weapon: CombatWeapon, ranged: bool) {",
+      "after": "fn equip_threat_weapon(\n    combatant: &mut Combatant,\n    weapon: CombatWeapon,\n    ranged: bool,\n) -> AuthoredThreatResult<()> {"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/threat.rs",
+      "before": "    if ranged {\n        combatant.equipment.ranged_weapon = Some(weapon);\n        combatant.equipment.ranged_projectile_kind = Some(ProjectileKind::Arrowhead);\n        combatant.equipment.melee_weapon = Some(\n            super::melee_iteration::authored_melee_weapon(\n                crate::item_catalog::definition(\"knife\").expect(\"catalog knife\"),\n            )\n            .expect(\"valid generated sidearm\"),\n        );",
+      "after": "    if ranged {\n        let sidearm = authored_melee_weapon(\n            crate::item_catalog::definition(\"knife\")\n                .ok_or(AuthoredThreatError::MissingSidearmDefinition)?,\n        )?;\n        combatant.equipment.ranged_weapon = Some(weapon);\n        combatant.equipment.ranged_projectile_kind = Some(ProjectileKind::Arrowhead);\n        combatant.equipment.melee_weapon = Some(sidearm);"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/threat.rs",
+      "before": "        combatant.equipment.melee_weapon = Some(weapon);\n    }\n}",
+      "after": "        combatant.equipment.melee_weapon = Some(weapon);\n    }\n    Ok(())\n}"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_iteration/evidence.rs",
+      "before": "pub fn melee_iteration_acceptance_evidence() -> Result<MeleeIterationAcceptanceEvidence, String>",
+      "after": "pub fn melee_iteration_acceptance_evidence() -> MeleeIterationResult<MeleeIterationAcceptanceEvidence>"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_iteration/evidence.rs",
+      "before": ".ok_or_else(|| format!(\"missing {key}\"))",
+      "after": ".ok_or(MeleeIterationError::MissingOpponent { key })"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_iteration/evidence.rs",
+      "before": "fn fatigue_cadence_evidence(build: &MeleeIterationBuild) -> Result<FatigueCadenceEvidence, String>",
+      "after": "fn fatigue_cadence_evidence(build: &MeleeIterationBuild) -> MeleeIterationResult<FatigueCadenceEvidence>"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_iteration/evidence.rs",
+      "before": ".ok_or(\"John has no melee weapon\")?",
+      "after": ".ok_or(MeleeIterationError::MissingEvidenceMeleeWeapon)?"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/armor.rs",
+      "before": ") -> Result<Vec<ForcedArmorContactEvidence>, String>",
+      "after": ") -> MeleeIterationResult<Vec<ForcedArmorContactEvidence>>"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/armor.rs",
+      "before": "pub(super) fn mirrored_vambrace_contacts() -> Result<Vec<MirroredArmorContactEvidence>, String>",
+      "after": "pub(super) fn mirrored_vambrace_contacts() -> MeleeIterationResult<Vec<MirroredArmorContactEvidence>>"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/armor.rs",
+      "before": ".ok_or(\"missing authored brigandine\")?",
+      "after": ".ok_or(MeleeIterationError::MissingEvidenceItem { item: \"brigandine\" })?"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/armor.rs",
+      "before": ".ok_or(\"missing vambrace\")?",
+      "after": ".ok_or(MeleeIterationError::MissingEvidenceItem { item: \"vambrace\" })?"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/armor.rs",
+      "before": ".ok_or(\"brigandine has no equipment metadata\")?",
+      "after": ".ok_or(MeleeIterationError::MissingEvidenceEquipment { item: \"brigandine\" })?"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/armor.rs",
+      "before": ".ok_or(\"vambrace has no equipment metadata\")?",
+      "after": ".ok_or(MeleeIterationError::MissingEvidenceEquipment { item: \"vambrace\" })?"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/timeline.rs",
+      "before": ") -> Result<AutoresolveTimelineEvidence, String>",
+      "after": ") -> MeleeIterationResult<AutoresolveTimelineEvidence>"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/timeline.rs",
+      "before": "cancellation.ok_or(\"bounded hammer seeds produced no cancellation evidence\")?",
+      "after": "cancellation.ok_or(MeleeIterationError::CancellationUnavailable)?"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/error.rs",
+      "before": "use adventuresim_core::autoresolve::BattleResolutionError;",
+      "after": "use adventuresim_core::autoresolve::{BattleResolutionError, MeleeIterationError};"
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/error.rs",
+      "before": "    Resolution(#[from] BattleResolutionError),",
+      "after": "    Resolution(#[from] BattleResolutionError),\n    #[error(transparent)]\n    Evidence(#[from] MeleeIterationError),"
+    }
+  ],
+  "moved_weapon_before": "pub(super) fn authored_melee_weapon(\n    definition: &crate::item_catalog::ItemDefinition,\n) -> Result<CombatWeapon, String> {\n    let weapon_id = definition.id.as_str();\n    let ItemKind::Weapon {\n        preferred_attack,\n        reach_m,\n        precision,\n        melee,\n        ranged,\n        skills,\n        ..\n    } = &definition.kind\n    else {\n        return Err(format!(\"{weapon_id} is not a weapon\"));\n    };\n    if !melee || *ranged {\n        return Err(format!(\"{weapon_id} is not melee-only\"));\n    }\n    let moment_of_inertia_kg_m2 = match definition.kind {\n        ItemKind::Weapon {\n            moment_of_inertia_kg_m2,\n            ..\n        } => moment_of_inertia_kg_m2,\n        _ => unreachable!(),\n    };\n    let timing =\n        crate::equipment::melee_attack_timing(*preferred_attack, moment_of_inertia_kg_m2, false)\n            .map_err(|error| error.to_string())?;\n    let grip_to_tip_m = definition\n        .equipment\n        .as_ref()\n        .map_or(0.0, |equipment| equipment.physical.grip_to_tip_m);\n    let dimensions_m = definition\n        .equipment\n        .as_ref()\n        .map_or([0.0; 3], |equipment| equipment.physical.dimensions_m);\n    let total_length_m = dimensions_m[1];\n    let recipe = adventuresim_weapon_model::default_design(weapon_id)\n        .ok_or_else(|| format!(\"{weapon_id} has no generated recipe\"))?;\n    let striking_head_length_m = adventuresim_weapon_model::derive_properties(&recipe)\n        .map_err(|errors| format!(\"{weapon_id}: {errors:?}\"))?\n        .striking_head_length_m;\n    let skill_distribution: crate::equipment::WeaponSkillDistribution = (*skills).into();\n    Ok(CombatWeapon {\n        skills: skill_distribution,\n        melee: true,\n        ranged: false,\n        preferred_melee_style: *preferred_attack,\n        weight: definition.weight_kg,\n        moment_of_inertia_kg_m2,\n        precision: *precision,\n        melee_reach: *reach_m,\n        grip_to_tip_m,\n        total_length_m,\n        striking_head_length_m,\n        distal_headed: crate::combat::has_distal_striking_surface(\n            grip_to_tip_m,\n            striking_head_length_m,\n            definition\n                .equipment\n                .as_ref()\n                .and_then(|equipment| equipment.material),\n            definition\n                .equipment\n                .as_ref()\n                .and_then(|equipment| equipment.striking_material),\n        ),\n        body_material: definition\n            .equipment\n            .as_ref()\n            .and_then(|equipment| equipment.material),\n        striking_material: definition\n            .equipment\n            .as_ref()\n            .and_then(|equipment| equipment.striking_material),\n        ranged_range: 0.0,\n        // Autoresolve advances the same complete attack cycle as the tactical\n        // bot: the authored server windup to contact plus inertia/style-based\n        // recovery before another fresh attack may begin.\n        attack_interval_seconds: EMBEDDED_AUTORESOLVE_PARAMETERS\n            .melee_windup_seconds\n            .checked_add(timing.recovery_secs)\n            .map_err(|error| error.to_string())?,\n        balance: crate::equipment::weapon_balance_from_moment(\n            moment_of_inertia_kg_m2,\n            definition.weight_kg,\n            grip_to_tip_m,\n        ),\n        ranged_force_joules: 0.0,\n    })\n}\n\n",
+  "moved_weapon_after": "//! Checked authored melee-weapon projection shared by threats and iteration builds.\n\nuse super::CombatWeapon;\nuse crate::combat::EMBEDDED_AUTORESOLVE_PARAMETERS;\nuse crate::elapsed::ElapsedError;\nuse crate::item_catalog_schema::ItemKind;\nuse adventuresim_weapon_model::ValidationError;\n\npub type AuthoredMeleeWeaponResult<T> = Result<T, AuthoredMeleeWeaponError>;\n\n#[derive(Clone, Debug, Eq, PartialEq, thiserror::Error)]\npub enum AuthoredMeleeWeaponError {\n    #[error(\"{weapon} is not a weapon\")]\n    NotWeapon { weapon: String },\n    #[error(\"{weapon} is not melee-only\")]\n    NotMeleeOnly { weapon: String },\n    #[error(transparent)]\n    Timing(#[from] ElapsedError),\n    #[error(\"{weapon} has no generated recipe\")]\n    MissingRecipe { weapon: String },\n    #[error(\"{weapon}: {violations:?}\")]\n    Recipe {\n        weapon: String,\n        violations: Vec<ValidationError>,\n    },\n}\n\nimpl CombatWeapon {\n    pub(super) fn from_authored_melee_definition(\n        definition: &crate::item_catalog::ItemDefinition,\n    ) -> AuthoredMeleeWeaponResult<CombatWeapon> {\n        let weapon_id = definition.id.as_str();\n        let ItemKind::Weapon {\n            preferred_attack,\n            reach_m,\n            precision,\n            melee,\n            ranged,\n            skills,\n            moment_of_inertia_kg_m2,\n            ..\n        } = &definition.kind\n        else {\n            return Err(AuthoredMeleeWeaponError::NotWeapon {\n                weapon: weapon_id.to_owned(),\n            });\n        };\n        if !melee || *ranged {\n            return Err(AuthoredMeleeWeaponError::NotMeleeOnly {\n                weapon: weapon_id.to_owned(),\n            });\n        }\n        let moment_of_inertia_kg_m2 = *moment_of_inertia_kg_m2;\n        let timing =\n            crate::equipment::melee_attack_timing(*preferred_attack, moment_of_inertia_kg_m2, false)?;\n        let grip_to_tip_m = definition\n            .equipment\n            .as_ref()\n            .map_or(0.0, |equipment| equipment.physical.grip_to_tip_m);\n        let dimensions_m = definition\n            .equipment\n            .as_ref()\n            .map_or([0.0; 3], |equipment| equipment.physical.dimensions_m);\n        let total_length_m = dimensions_m[1];\n        let recipe = adventuresim_weapon_model::default_design(weapon_id)\n            .ok_or_else(|| AuthoredMeleeWeaponError::MissingRecipe {\n                weapon: weapon_id.to_owned(),\n            })?;\n        let striking_head_length_m = adventuresim_weapon_model::derive_properties(&recipe)\n            .map_err(|violations| AuthoredMeleeWeaponError::Recipe {\n                weapon: weapon_id.to_owned(),\n                violations,\n            })?\n            .striking_head_length_m;\n        let skill_distribution: crate::equipment::WeaponSkillDistribution = (*skills).into();\n        Ok(CombatWeapon {\n            skills: skill_distribution,\n            melee: true,\n            ranged: false,\n            preferred_melee_style: *preferred_attack,\n            weight: definition.weight_kg,\n            moment_of_inertia_kg_m2,\n            precision: *precision,\n            melee_reach: *reach_m,\n            grip_to_tip_m,\n            total_length_m,\n            striking_head_length_m,\n            distal_headed: crate::combat::has_distal_striking_surface(\n                grip_to_tip_m,\n                striking_head_length_m,\n                definition\n                    .equipment\n                    .as_ref()\n                    .and_then(|equipment| equipment.material),\n                definition\n                    .equipment\n                    .as_ref()\n                    .and_then(|equipment| equipment.striking_material),\n            ),\n            body_material: definition\n                .equipment\n                .as_ref()\n                .and_then(|equipment| equipment.material),\n            striking_material: definition\n                .equipment\n                .as_ref()\n                .and_then(|equipment| equipment.striking_material),\n            ranged_range: 0.0,\n            // Autoresolve advances the same complete attack cycle as the tactical\n            // bot: the authored server windup to contact plus inertia/style-based\n            // recovery before another fresh attack may begin.\n            attack_interval_seconds: EMBEDDED_AUTORESOLVE_PARAMETERS\n                .melee_windup_seconds\n                .checked_add(timing.recovery_secs)?,\n            balance: crate::equipment::weapon_balance_from_moment(\n                moment_of_inertia_kg_m2,\n                definition.weight_kg,\n                grip_to_tip_m,\n            ),\n            ranged_force_joules: 0.0,\n        })\n    }\n}\n",
+  "files": [
+    "crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+    "crates/adventuresim-core/src/autoresolve/authored_weapon.rs",
+    "crates/adventuresim-core/src/autoresolve.rs",
+    "crates/adventuresim-core/src/autoresolve/threat.rs",
+    "crates/adventuresim-core/src/autoresolve/melee_iteration/error.rs",
+    "crates/adventuresim-core/src/autoresolve/melee_iteration/evidence.rs",
+    "crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/armor.rs",
+    "crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/timeline.rs",
+    "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/error.rs"
+  ],
+  "new_owner_sha256": "6a9a1aa882e5ecca53656678918bab7c9b55dd09ccaf15e7c8641f6cf72fc01e",
+  "constructor_transition": "The shared free projection helper is now CombatWeapon::from_authored_melee_definition, following the local-type constructor rule; two callers use the actual constructor. No forwarding API."
+}

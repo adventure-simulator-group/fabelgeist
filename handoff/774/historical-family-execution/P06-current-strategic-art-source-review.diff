@@ -1,0 +1,1729 @@
+--- before/crates/adventuresim-tactical-client/src/art_demo.rs
++++ after/crates/adventuresim-tactical-client/src/art_demo.rs
+@@ -1,23 +1,37 @@
+ //! Fixed exhibits composed from shipped equipment and production generators.
++
++use std::sync::Mutex;
++
++use adventuresim_tactical_core::physics::AdventureSimulatorPhysicsPlugin;
++use bevy::prelude::*;
++use serde::{Deserialize, Serialize};
++
++use crate::presentation::{TacticalCameraSetup, TacticalPresentationPlugin};
++use camera::OrbitView;
++use exhibits::{Exhibit, ExhibitId};
++use preparation::SharedArtDemoResult;
+ 
+ mod camera;
+ mod district;
+ mod exhibits;
++mod preparation;
+ mod residency;
+ mod scenery;
+ 
+-use std::sync::Mutex;
+-
+-use adventuresim_tactical_core::physics::AdventureSimulatorPhysicsPlugin;
+-use bevy::prelude::*;
+-use serde::{Deserialize, Serialize};
+-
+-use crate::presentation::{TacticalCameraSetup, TacticalPresentationPlugin};
+-use camera::OrbitView;
+-use exhibits::{Exhibit, ExhibitId};
+-
+ static PENDING: Mutex<Vec<DemoCommand>> = Mutex::new(Vec::new());
+ static STATUS: Mutex<DemoStatus> = Mutex::new(DemoStatus::Starting);
++
++#[derive(Component)]
++struct DemoEntity(ExhibitId);
++
++#[derive(Component)]
++struct StudioEntity;
++
++#[derive(Resource)]
++struct CurrentExhibit {
++    id: ExhibitId,
++    scene: SharedArtDemoResult<Option<Handle<WorldAsset>>>,
++}
+ 
+ #[derive(Deserialize)]
+ #[serde(tag = "type", rename_all = "kebab-case", deny_unknown_fields)]
+@@ -61,18 +75,6 @@
+     Failed {
+         message: String,
+     },
+-}
+-
+-#[derive(Component)]
+-struct DemoEntity(ExhibitId);
+-
+-#[derive(Component)]
+-struct StudioEntity;
+-
+-#[derive(Resource)]
+-struct CurrentExhibit {
+-    id: ExhibitId,
+-    scene: Result<Option<Handle<WorldAsset>>, String>,
+ }
+ 
+ pub(super) fn queue(json: &str) -> Result<(), String> {
+@@ -273,10 +275,10 @@
+         }
+     }
+     match &current.scene {
+-        Err(message) => {
++        Err(error) => {
+             status = DemoStatus::Unavailable {
+                 exhibit: current.id,
+-                message: message.clone(),
++                message: error.to_string(),
+             }
+         }
+         Ok(Some(scene)) => {
+--- before/crates/adventuresim-tactical-client/src/art_demo/district.rs
++++ after/crates/adventuresim-tactical-client/src/art_demo/district.rs
+@@ -1,5 +1,6 @@
+ //! Load the prepared production-generated settlement without validating every
+ //! building plan again on the browser's main thread.
++use super::preparation::{ArtDemoPreparationError, ArtDemoPreparationResult};
+ use adventuresim_tactical_core::prelude::*;
+ use serde::Deserialize;
+ 
+@@ -25,10 +26,11 @@
+     pub groups: Vec<FurnitureGroup>,
+ }
+ 
+-pub(super) fn curate(input: &mut TacticalSceneInput) -> Result<PreparedOutdoorFurniture, String> {
++pub(super) fn curate(
++    input: &mut TacticalSceneInput,
++) -> ArtDemoPreparationResult<PreparedOutdoorFurniture> {
+     let layout: CityLayout =
+-        serde_json::from_str(include_str!("../../../../assets/art-demo/city-layout.json"))
+-            .map_err(|error| error.to_string())?;
++        serde_json::from_str(include_str!("../../../../assets/art-demo/city-layout.json"))?;
+     bevy::log::info!(
+         population = layout.resident_population,
+         buildings = layout.buildings.len(),
+@@ -37,9 +39,7 @@
+     if layout.schema_version != input.schema_version
+         || layout.generation_version != input.generation_version
+     {
+-        return Err(
+-            "prepared city uses a different scene format; regenerate the city assets".into(),
+-        );
++        return Err(ArtDemoPreparationError::CityFormatMismatch);
+     }
+     input.grounding = Some(layout.grounding);
+     input.establishments = layout.establishments;
+@@ -50,11 +50,10 @@
+     input.parishes = layout.parishes;
+     input.compounds = layout.compounds;
+     input.gardens = layout.gardens;
+-    input.validate().map_err(|error| error.to_string())?;
+-    serde_json::from_str(include_str!(
++    input.validate()?;
++    Ok(serde_json::from_str(include_str!(
+         "../../../../assets/art-demo/city-furniture.json"
+-    ))
+-    .map_err(|error| error.to_string())
++    ))?)
+ }
+ 
+ #[cfg(test)]
+--- before/crates/adventuresim-tactical-client/src/art_demo/exhibits.rs
++++ after/crates/adventuresim-tactical-client/src/art_demo/exhibits.rs
+@@ -12,6 +12,7 @@
+ use super::{
+     DemoEntity, StudioEntity,
+     camera::{CameraSpace, OrbitView},
++    preparation::{ArtDemoPreparationError, ArtDemoPreparationResult},
+     scenery,
+ };
+ 
+@@ -127,13 +128,13 @@
+         )
+     }
+ 
+-    pub fn spawn(&self, world: &mut World) -> Result<Option<Handle<WorldAsset>>, String> {
++    pub fn spawn(&self, world: &mut World) -> ArtDemoPreparationResult<Option<Handle<WorldAsset>>> {
+         match self.kind {
+             ExhibitKind::Armor => {
+                 let asset = self
+                     .asset
+                     .as_ref()
+-                    .ok_or("armor exhibit requires an asset")?;
++                    .ok_or(ArtDemoPreparationError::MissingArmorAsset)?;
+                 let handle = world
+                     .resource::<AssetServer>()
+                     .load(GltfAssetLabel::Scene(0).from_asset(format!("art-demo/armor/{asset}")));
+@@ -149,7 +150,7 @@
+                 let catalog_id = self
+                     .asset
+                     .as_deref()
+-                    .ok_or("weapon exhibit requires a chassis")?;
++                    .ok_or(ArtDemoPreparationError::MissingWeaponAsset)?;
+                 weapon(world, self.id, catalog_id)?;
+                 Ok(None)
+             }
+@@ -197,9 +198,13 @@
+     }
+ }
+ 
+-fn weapon(world: &mut World, id: ExhibitId, catalog_id: &str) -> Result<(), String> {
+-    let design = default_design(catalog_id).ok_or("unknown weapon chassis")?;
+-    let generated = generate(&design).map_err(|error| format!("weapon generation: {error:?}"))?;
++fn weapon(world: &mut World, id: ExhibitId, catalog_id: &str) -> ArtDemoPreparationResult<()> {
++    let design = default_design(catalog_id).ok_or_else(|| {
++        ArtDemoPreparationError::UnknownWeaponChassis {
++            chassis: catalog_id.into(),
++        }
++    })?;
++    let generated = generate(&design)?;
+     let center =
+         (Vec3::from_array(generated.bounds.min) + Vec3::from_array(generated.bounds.max)) * 0.5;
+     let extent = Vec3::from_array(generated.bounds.max) - Vec3::from_array(generated.bounds.min);
+--- before/crates/adventuresim-tactical-client/src/art_demo/preparation.rs
++++ after/crates/adventuresim-tactical-client/src/art_demo/preparation.rs
+@@ -0,0 +1,45 @@
++//! Exhibit preparation keeps owned causes through the retained loading state.
++use adventuresim_tactical_core::{
++    city_layout::grounding::SupportColliderError, scene_input::SceneInputError,
++};
++use std::sync::Arc;
++
++pub(super) type ArtDemoPreparationResult<T> = Result<T, ArtDemoPreparationError>;
++pub(super) type SharedArtDemoResult<T> = Result<T, Arc<ArtDemoPreparationError>>;
++
++#[derive(Debug, thiserror::Error)]
++pub(super) enum ArtDemoPreparationError {
++    #[error(transparent)]
++    Json(#[from] serde_json::Error),
++    #[error(transparent)]
++    SceneInput(#[from] Box<SceneInputError>),
++    #[error(transparent)]
++    Collider(#[from] SupportColliderError),
++    #[error(transparent)]
++    Weapon(#[from] adventuresim_weapon_model::GenerateError),
++    #[error("prepared city uses a different scene format; regenerate the city assets")]
++    CityFormatMismatch,
++    #[error("prebaked cloud asset belongs to scene {baked}, not {scene}")]
++    CloudSceneMismatch { baked: &'static str, scene: String },
++    #[error("woodland fixture contains no oak specimen")]
++    MissingOak,
++    #[error("armor exhibit requires an asset")]
++    MissingArmorAsset,
++    #[error("weapon exhibit requires a chassis")]
++    MissingWeaponAsset,
++    #[error("unknown weapon chassis {chassis}")]
++    UnknownWeaponChassis { chassis: String },
++    #[error("oak impostor asset was not requested")]
++    ImpostorNotRequested,
++    #[error("prepared oak impostors failed: {source}")]
++    ImpostorLoad {
++        #[source]
++        source: Arc<bevy::asset::AssetLoadError>,
++    },
++}
++
++impl From<SceneInputError> for ArtDemoPreparationError {
++    fn from(error: SceneInputError) -> Self {
++        Self::SceneInput(Box::new(error))
++    }
++}
+--- before/crates/adventuresim-tactical-client/src/art_demo/residency.rs
++++ after/crates/adventuresim-tactical-client/src/art_demo/residency.rs
+@@ -1,7 +1,11 @@
+ //! Keep recently used studio exhibits resident in a bounded navigation cache.
+ //! Scenery shares prepared facades, but releases terrain and inspection detail.
+ 
+-use std::collections::{HashMap, VecDeque};
++use super::preparation::{ArtDemoPreparationError, ArtDemoPreparationResult, SharedArtDemoResult};
++use std::{
++    collections::{HashMap, VecDeque},
++    sync::Arc,
++};
+ 
+ use super::*;
+ 
+@@ -18,7 +22,7 @@
+ 
+ #[derive(Default, Resource)]
+ pub(super) struct ExhibitCache {
+-    studio: HashMap<ExhibitId, Result<Option<Handle<WorldAsset>>, String>>,
++    studio: HashMap<ExhibitId, SharedArtDemoResult<Option<Handle<WorldAsset>>>>,
+     views: HashMap<ExhibitId, OrbitView>,
+     recency: VecDeque<ExhibitId>,
+ }
+@@ -78,12 +82,12 @@
+         Ok(None)
+     } else {
+         match scenery_ready(world, &exhibit) {
+-            Ok(true) => exhibit.spawn(world),
++            Ok(true) => exhibit.spawn(world).map_err(Arc::new),
+             Ok(false) => {
+                 world.insert_resource(PendingScenery(id));
+                 Ok(None)
+             }
+-            Err(error) => Err(error),
++            Err(error) => Err(Arc::new(error)),
+         }
+     };
+     world.flush();
+@@ -120,13 +124,13 @@
+             Ok(false) => return,
+             Err(error) => {
+                 world.remove_resource::<PendingScenery>();
+-                world.resource_mut::<CurrentExhibit>().scene = Err(error);
++                world.resource_mut::<CurrentExhibit>().scene = Err(Arc::new(error));
+                 return;
+             }
+         }
+     }
+     if let Some(pending) = world.remove_resource::<PendingScenery>() {
+-        let result = Exhibit::get(pending.0).spawn(world);
++        let result = Exhibit::get(pending.0).spawn(world).map_err(Arc::new);
+         if let Some(view) = world
+             .resource::<ExhibitCache>()
+             .views
+@@ -145,7 +149,7 @@
+         .is_none_or(|residency| residency.is_ready(exhibit.texture_recipes().iter().copied()))
+ }
+ 
+-fn scenery_ready(world: &World, exhibit: &Exhibit) -> Result<bool, String> {
++fn scenery_ready(world: &World, exhibit: &Exhibit) -> ArtDemoPreparationResult<bool> {
+     if !textures_ready(world, exhibit) {
+         return Ok(false);
+     }
+@@ -155,15 +159,18 @@
+     let residency = world.resource::<crate::presentation::PreparedTreeImpostorAssets>();
+     let handle = residency
+         .handle()
+-        .ok_or("oak impostor asset was not requested")?;
++        .ok_or(ArtDemoPreparationError::ImpostorNotRequested)?;
+     let server = world.resource::<AssetServer>();
+     if let Some(bevy::asset::LoadState::Failed(error)) = server.get_load_state(handle.id()) {
+-        return Err(format!("prepared oak impostors failed: {error}"));
++        return Err(ArtDemoPreparationError::ImpostorLoad { source: error });
+     }
+     Ok(server.is_loaded_with_dependencies(handle.id()))
+ }
+ 
+-fn load_studio(world: &mut World, exhibit: &Exhibit) -> Result<Option<Handle<WorldAsset>>, String> {
++fn load_studio(
++    world: &mut World,
++    exhibit: &Exhibit,
++) -> SharedArtDemoResult<Option<Handle<WorldAsset>>> {
+     if let Some(result) = world
+         .resource::<ExhibitCache>()
+         .studio
+@@ -174,7 +181,7 @@
+         return result;
+     }
+     evict_for(world, exhibit.id());
+-    let result = exhibit.spawn(world);
++    let result = exhibit.spawn(world).map_err(Arc::new);
+     let mut cache = world.resource_mut::<ExhibitCache>();
+     cache.studio.insert(exhibit.id(), result.clone());
+     cache.recency.push_back(exhibit.id());
+--- before/crates/adventuresim-tactical-client/src/art_demo/scenery.rs
++++ after/crates/adventuresim-tactical-client/src/art_demo/scenery.rs
+@@ -1,10 +1,29 @@
+ //! Curated views of the existing city and sparse-woodland fixtures.
+ 
+-use super::{camera::OrbitView, exhibits::ExhibitId};
+-use adventuresim_tactical_core::prelude::*;
++use super::{
++    camera::OrbitView,
++    exhibits::ExhibitId,
++    preparation::{ArtDemoPreparationError, ArtDemoPreparationResult},
++};
++use adventuresim_building_generator::spatial_geometry::Position;
+ use adventuresim_tactical_core::scene_input::{GeneratedBuildingRecipes, SupportedSceneTerrain};
++use adventuresim_tactical_core::{
++    city_layout::grounding::GeographicHeightControl,
++    prelude::*,
++    scene_coordinates::{Scene, ScenePlanPoint},
++};
+ use adventuresim_tactical_netcode::prelude::SceneVistaBundle;
+ use bevy::prelude::*;
++
++struct OakExhibitSite {
++    surface: GeographicHeightControl,
++    root: Position<Scene>,
++}
++
++struct OakCandidate {
++    site: OakExhibitSite,
++    root_exposure: f32,
++}
+ 
+ struct PreparedSceneryInput {
+     input: TacticalSceneInput,
+@@ -12,7 +31,7 @@
+     cloud_asset_digest: String,
+ }
+ 
+-pub(super) fn spawn(world: &mut World, id: ExhibitId) -> Result<(), String> {
++pub(super) fn spawn(world: &mut World, id: ExhibitId) -> ArtDemoPreparationResult<()> {
+     let PreparedSceneryInput {
+         input,
+         furniture: prepared_furniture,
+@@ -24,10 +43,8 @@
+     // Building-anchored furniture is prepared alongside the city offline.
+     // Keep its accepted instances and reservations instead of regenerating
+     // from a scene stripped of the buildings that own those activity groups.
+-    let generated = input
+-        .prepare_supported_terrain(&mut GeneratedBuildingRecipes::default())
+-        .map_err(|error| error.to_string())?;
+-    let digest = input.digest().map_err(|error| error.to_string())?;
++    let generated = input.prepare_supported_terrain(&mut GeneratedBuildingRecipes::default())?;
++    let digest = input.digest()?;
+     let environment = input.environment_snapshot(digest.clone());
+     let (asset_scene_digest, rgba8): (&str, &'static [u8]) = if id == ExhibitId::Oak {
+         (
+@@ -41,19 +58,17 @@
+         )
+     };
+     if asset_scene_digest != cloud_asset_digest {
+-        return Err(format!(
+-            "prebaked cloud asset belongs to scene {asset_scene_digest}, not {cloud_asset_digest}"
+-        ));
++        return Err(ArtDemoPreparationError::CloudSceneMismatch {
++            baked: asset_scene_digest,
++            scene: cloud_asset_digest,
++        });
+     }
+     world.insert_resource(crate::presentation::PrebakedCloudEnvironment { rgba8 });
+     let half_extent = Vec2::new(generated.terrain.width(), generated.terrain.depth()) * 0.5;
+     if id == ExhibitId::Oak {
+         spawn_oak(world, &input, &generated, &environment)?;
+     }
+-    let colliders = generated
+-        .terrain
+-        .colliders()
+-        .map_err(|error| error.to_string())?;
++    let colliders = generated.terrain.colliders()?;
+     world
+         .spawn((
+             SceneId(input.scene_key.clone()),
+@@ -103,17 +118,16 @@
+     Ok(())
+ }
+ 
+-fn prepare_input(id: ExhibitId) -> Result<PreparedSceneryInput, String> {
++fn prepare_input(id: ExhibitId) -> ArtDemoPreparationResult<PreparedSceneryInput> {
+     let json = if id == ExhibitId::Oak {
+         include_str!("../../../../assets/tactical-scenes/sparse-woodland.json")
+     } else {
+         include_str!("../../../../assets/tactical-scenes/massive-city.json")
+     };
+-    let mut input: TacticalSceneInput =
+-        serde_json::from_str(json).map_err(|error| error.to_string())?;
++    let mut input: TacticalSceneInput = serde_json::from_str(json)?;
+     // Clouds use the authored fixture's environment. Key their offline bake
+     // before installing the separately prepared, fully bound city layout.
+-    let cloud_asset_digest = input.digest().map_err(|error| error.to_string())?;
++    let cloud_asset_digest = input.digest()?;
+     let prepared_furniture = if id == ExhibitId::City {
+         let furniture = super::district::curate(&mut input)?;
+         Some(furniture)
+@@ -132,19 +146,23 @@
+     input: &TacticalSceneInput,
+     generated: &SupportedSceneTerrain,
+     environment: &SceneEnvironment,
+-) -> Result<(), String> {
+-    let terrain = &generated.terrain;
+-    let (position, root) = oak_exhibit_site(input, generated, environment)
+-        .ok_or("woodland fixture contains no oak specimen")?;
+-    {
+-        let ground = terrain.height_at(position).unwrap_or_default();
+-        world.spawn((SceneObstacle::Tree, Transform::from_translation(root)));
+-        let mut view = world.resource_mut::<OrbitView>();
+-        view.focus = Vec3::new(position.x, ground + view.focus.y, position.y);
+-        view.pitch = 0.06;
+-        let downhill = root_slope(terrain, position);
+-        view.yaw = downhill.x.atan2(downhill.y) + std::f32::consts::FRAC_PI_2;
+-    }
++) -> ArtDemoPreparationResult<()> {
++    let site = oak_exhibit_site(input, generated, environment)
++        .ok_or(ArtDemoPreparationError::MissingOak)?;
++    world.spawn((
++        SceneObstacle::Tree,
++        Transform::from_translation(site.root.metres()),
++    ));
++    let mut view = world.resource_mut::<OrbitView>();
++    let position = site.surface.point.metres();
++    view.focus = Vec3::new(
++        position.x,
++        site.surface.elevation.metres() + view.focus.y,
++        position.y,
++    );
++    view.pitch = 0.06;
++    let downhill = root_slope(&generated.terrain, site.surface);
++    view.yaw = downhill.x.atan2(downhill.y) + std::f32::consts::FRAC_PI_2;
+     Ok(())
+ }
+ 
+@@ -152,7 +170,7 @@
+     input: &TacticalSceneInput,
+     generated: &SupportedSceneTerrain,
+     environment: &SceneEnvironment,
+-) -> Option<(Vec2, Vec3)> {
++) -> Option<OakExhibitSite> {
+     let terrain = &generated.terrain;
+     generated
+         .obstacles
+@@ -161,51 +179,53 @@
+             let GeneratedObstacle::Tree { x, z } = obstacle else {
+                 return None;
+             };
+-            let position = Vec2::new(f32::from(*x), f32::from(*z)) * input.playable.spacing_metres
+-                - Vec2::new(terrain.width(), terrain.depth()) * 0.5;
+-            let root = Vec3::new(
+-                position.x,
+-                terrain.height_at(position)? + TREE_TRUNK_HEIGHT_METRES * 0.5,
+-                position.y,
+-            );
+-            (crate::presentation::tree_species_for_site(root, environment)
++            let point = ScenePlanPoint::from_metres(
++                Vec2::new(f32::from(*x), f32::from(*z)) * input.playable.spacing_metres
++                    - Vec2::new(terrain.width(), terrain.depth()) * 0.5,
++            )?;
++            let elevation = terrain.height_at(point)?;
++            let root = Position::from_metres(Vec3::new(
++                point.metres().x,
++                elevation.metres() + TREE_TRUNK_HEIGHT_METRES * 0.5,
++                point.metres().y,
++            ))
++            .ok()?;
++            (crate::presentation::tree_species_for_site(point, environment)
+                 == crate::presentation::TreePresentationSpecies::EnglishOak)
+-                .then_some((
+-                    position,
+-                    crate::presentation::oak_root_exposure_for_site(root, environment),
+-                ))
++                .then_some(OakCandidate {
++                    site: OakExhibitSite {
++                        surface: GeographicHeightControl { point, elevation },
++                        root,
++                    },
++                    root_exposure: crate::presentation::oak_root_exposure_for_site(
++                        point,
++                        environment,
++                    ),
++                })
+         })
+         .max_by(|a, b| {
+-            a.1.total_cmp(&b.1).then_with(|| {
+-                root_slope(terrain, a.0)
++            a.root_exposure.total_cmp(&b.root_exposure).then_with(|| {
++                root_slope(terrain, a.site.surface)
+                     .length_squared()
+-                    .total_cmp(&root_slope(terrain, b.0).length_squared())
++                    .total_cmp(&root_slope(terrain, b.site.surface).length_squared())
+             })
+         })
+-        .map(|(position, _)| {
+-            let root = Vec3::new(
+-                position.x,
+-                terrain.height_at(position).unwrap_or_default() + TREE_TRUNK_HEIGHT_METRES * 0.5,
+-                position.y,
+-            );
+-            (position, root)
+-        })
++        .map(|candidate| candidate.site)
+ }
+ 
+ // The local slope ranks exposed sites and orients a lit view across the hill.
+-fn root_slope(terrain: &SceneTerrain, position: Vec2) -> Vec2 {
++fn root_slope(terrain: &SceneTerrain, centre: GeographicHeightControl) -> Vec2 {
+     const ROOT_SPREAD_METRES: f32 = 1.5;
+-    let centre_height = terrain
+-        .height_at(position)
+-        .expect("oak lies on its terrain");
+     let height = |offset| {
+-        terrain
+-            .height_at(position + offset)
+-            .unwrap_or(centre_height)
++        ScenePlanPoint::from_metres(centre.point.metres() + offset)
++            .and_then(|point| terrain.height_at(point))
++            .unwrap_or(centre.elevation)
+     };
+     Vec2::new(
+-        height(-Vec2::X * ROOT_SPREAD_METRES) - height(Vec2::X * ROOT_SPREAD_METRES),
+-        height(-Vec2::Y * ROOT_SPREAD_METRES) - height(Vec2::Y * ROOT_SPREAD_METRES),
++        height(-Vec2::X * ROOT_SPREAD_METRES).metres()
++            - height(Vec2::X * ROOT_SPREAD_METRES).metres(),
++        height(-Vec2::Y * ROOT_SPREAD_METRES).metres()
++            - height(Vec2::Y * ROOT_SPREAD_METRES).metres(),
+     )
+ }
+ 
+@@ -250,7 +270,8 @@
+         let environment = prepared
+             .input
+             .environment_snapshot(prepared.input.digest().unwrap());
+-        let (_, root) = oak_exhibit_site(&prepared.input, &generated, &environment).unwrap();
++        let site = oak_exhibit_site(&prepared.input, &generated, &environment).unwrap();
++        let root = site.surface.point;
+         let asset = crate::presentation::PreparedTreeImpostorAsset::decode(include_bytes!(
+             "../../../../assets/art-demo/oak.tree-impostors"
+         ));
+@@ -298,7 +319,8 @@
+         let environment = prepared
+             .input
+             .environment_snapshot(prepared.input.digest().unwrap());
+-        let (_, root) = oak_exhibit_site(&prepared.input, &generated, &environment).unwrap();
++        let site = oak_exhibit_site(&prepared.input, &generated, &environment).unwrap();
++        let root = site.surface.point;
+         let asset = crate::presentation::prepare_art_demo_tree_impostor_asset(root, &environment);
+         let bytes = asset.compressed_bytes();
+         let output = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+@@ -331,9 +353,13 @@
+             .collect::<Vec<_>>();
+         assert_eq!(roots.len(), 1);
+         assert_eq!(
+-            crate::presentation::tree_species_for_site(roots[0].translation, &environment),
++            crate::presentation::tree_species_for_site(
++                ScenePlanPoint::from_metres(roots[0].translation.xz()).unwrap(),
++                &environment
++            ),
+             crate::presentation::TreePresentationSpecies::EnglishOak
+         );
+-        assert!(generated.terrain.maximum_height() - generated.terrain.minimum_height() > 1.0);
+-    }
+-}
++        let bounds = generated.terrain.required_elevation_range().unwrap();
++        assert!(bounds.maximum().metres() - bounds.minimum().metres() > 1.0);
++    }
++}
+--- before/crates/adventuresim-tactical-client/src/presentation/strategic_scene_assets.rs
++++ after/crates/adventuresim-tactical-client/src/presentation/strategic_scene_assets.rs
+@@ -1,4 +1,6 @@
+ //! Building-local strategic geometry never contains tactical terrain or actors.
++#[cfg(not(target_family = "wasm"))]
++use super::preparation::PreparationResult;
+ #[cfg(not(target_family = "wasm"))]
+ use adventuresim_tactical_core::scene_input::TacticalSceneInput;
+ use adventuresim_tactical_core::scene_input::furniture::FurnitureLayout;
+@@ -13,29 +15,23 @@
+ 
+ impl PreparedStrategicScene {
+     #[cfg(not(target_family = "wasm"))]
+-    pub(crate) fn generate(input: &TacticalSceneInput) -> Result<Self, String> {
+-        input.validate().map_err(|error| error.to_string())?;
++    pub(crate) fn generate(input: &TacticalSceneInput) -> PreparationResult<Self> {
++        input.validate()?;
+         let mut scene = Self {
+-            digest: input.digest().map_err(|error| error.to_string())?,
++            digest: input.digest()?,
+             buildings: Vec::new(),
+             building_recipes: Default::default(),
+             furniture: Default::default(),
+         };
+         for placement in &input.buildings {
+-            let recipe = scene
+-                .building_recipes
+-                .get_or_generate(&placement.program)
+-                .map_err(|error| error.to_string())?;
++            let recipe = scene.building_recipes.get_or_generate(&placement.program)?;
+             scene.buildings.push(GeneratedBuilding {
+                 placement: placement.clone(),
+                 plan: recipe.plan.clone(),
+                 collision: recipe.collision.clone(),
+             });
+         }
+-        scene
+-            .furniture
+-            .furnish_interiors(&scene.buildings)
+-            .map_err(|error| error.to_string())?;
++        scene.furniture.furnish_interiors(&scene.buildings)?;
+         Ok(scene)
+     }
+ }
+--- before/crates/adventuresim-tactical-client/src/strategic_scene/buildings.rs
++++ after/crates/adventuresim-tactical-client/src/strategic_scene/buildings.rs
+@@ -1,31 +1,44 @@
+ //! Anchors in the full-size tactical buildings along the shared frontage.
+-use super::protocol::PlaceKind;
++use super::preparation::{PreparationError, PreparationResult};
++use super::protocol::{PlaceId, PlaceKind};
++use super::staging::ConversationPose;
+ use crate::presentation::venues::select_building;
++use adventuresim_building_generator::spatial_geometry::Position;
+ use adventuresim_building_generator::{OpeningUse, interior::InteriorLayout};
+ use adventuresim_tactical_core::prelude::*;
++use adventuresim_tactical_core::scene_coordinates::{Scene, ScenePlanPoint};
+ use bevy::prelude::*;
+ 
+ pub(super) const ROOM_LAYER: usize = 0;
+ #[derive(Clone)]
+ pub(super) struct Venue {
+-    pub anchor: Vec3,
+-    pub approach: Vec3,
+-    pub positions: Vec<Transform>,
++    pub anchor: Position<Scene>,
++    pub approach: Position<Scene>,
++    pub positions: Vec<ConversationPose>,
++}
++
++struct SelectedBuildings {
++    promoted: Vec<GeneratedBuilding>,
++    selected: std::collections::HashMap<
++        PlaceId,
++        adventuresim_tactical_core::scene_input::SceneBuildingId,
++    >,
+ }
+ 
+ impl Venue {
+     pub(super) fn from_building(
+         building: &GeneratedBuilding,
+         layout: &InteriorLayout,
+-    ) -> Result<Self, String> {
++    ) -> PreparationResult<Self> {
+         let bounds = building.collision.bounds;
+-        let transform = building.transform().map_err(|error| error.to_string())?;
+-        let positions =
+-            super::staging::positions(building, layout).map_err(|error| error.to_string())?;
++        let transform = building.transform()?;
++        let positions = ConversationPose::in_building(building, layout)?;
+         let anchor = positions
+             .first()
+-            .ok_or("building has no clear conversation position")?
+-            .translation;
++            .ok_or(PreparationError::MissingConversationPosition {
++                building: building.placement.id,
++            })?
++            .anchor;
+         let door = building.plan.opening_assemblies.iter().find(|opening| {
+             matches!(opening.use_kind, OpeningUse::Door | OpeningUse::Gate)
+                 && opening.frame.outside_room.is_none()
+@@ -36,14 +49,7 @@
+         });
+         let outward = transform.rotation * outward;
+         // A standing-eye perspective from the real approach, with the entire facade in view.
+-        let distance = bounds
+-            .extent()
+-            .map_err(|error| error.to_string())?
+-            .metres()
+-            .xz()
+-            .max_element()
+-            * 0.8
+-            + 4.0;
++        let distance = bounds.extent()?.metres().xz().max_element() * 0.8 + 4.0;
+         let target = transform.translation;
+         let eye = Vec3::new(
+             target.x,
+@@ -52,9 +58,53 @@
+         ) + outward * distance;
+         Ok(Self {
+             anchor,
+-            approach: eye,
++            approach: Position::from_metres(eye)?,
+             positions,
+         })
++    }
++}
++
++impl SelectedBuildings {
++    fn prepare(
++        input: &TacticalSceneInput,
++        view: &super::protocol::StrategicView,
++        generated: &mut crate::presentation::PreparedStrategicScene,
++    ) -> PreparationResult<Self> {
++        let mut promoted = Vec::new();
++        let mut selected = std::collections::HashMap::new();
++        for place in &view.places {
++            let id = select_building(
++                input,
++                place.kind,
++                view.people
++                    .iter()
++                    .filter(|p| p.place == place.id)
++                    .map(|p| p.id.0),
++            );
++            if let Some(id) = id {
++                selected.insert(place.id.clone(), id);
++                if !generated
++                    .buildings
++                    .iter()
++                    .chain(promoted.iter())
++                    .any(|b| b.placement.id == id)
++                {
++                    let placement = input
++                        .distant_buildings
++                        .iter()
++                        .find(|b| b.id == id)
++                        .ok_or(PreparationError::MissingBuildingPlacement { building: id })?;
++                    let program = placement.occupied_program();
++                    let recipe = generated.building_recipes.get_or_generate(&program)?;
++                    promoted.push(GeneratedBuilding {
++                        placement: (*placement).into(),
++                        plan: recipe.plan.clone(),
++                        collision: recipe.collision.clone(),
++                    });
++                }
++            }
++        }
++        Ok(Self { promoted, selected })
+     }
+ }
+ 
+@@ -64,13 +114,11 @@
+     generated: &mut crate::presentation::PreparedStrategicScene,
+     street: &mut Option<super::street::Street>,
+     backdrop: &crate::presentation::StrategicBackdrop,
+-) -> Result<std::collections::HashMap<super::protocol::PlaceId, Venue>, String> {
++) -> PreparationResult<std::collections::HashMap<PlaceId, Venue>> {
+     let mut venues = std::collections::HashMap::new();
+-    let (promoted, selected) = select_buildings(input, view, generated)?;
+-    generated
+-        .furniture
+-        .furnish_interiors(&promoted)
+-        .map_err(|e| e.to_string())?;
++    let SelectedBuildings { promoted, selected } =
++        SelectedBuildings::prepare(input, view, generated)?;
++    generated.furniture.furnish_interiors(&promoted)?;
+     generated.buildings.extend(promoted);
+     *street = if view
+         .places
+@@ -97,83 +145,39 @@
+                 .interiors
+                 .iter()
+                 .find(|interior| interior.building_id == building.placement.id)
+-                .ok_or("building has no prepared interior")?;
++                .ok_or(PreparationError::MissingInterior {
++                    building: building.placement.id,
++                })?;
+             Venue::from_building(building, &interior.layout)?
+         } else {
+             // Public squares and camps are real outdoor positions on the terrain.
+-            let anchor = Vec3::Y * backdrop.height_at(Vec2::ZERO).unwrap_or_default();
++            let elevation = backdrop.required_height_at(ScenePlanPoint::ORIGIN)?;
++            let anchor = Position::from_metres(Vec3::Y * elevation.metres())?;
+             Venue {
+                 anchor,
+-                positions: vec![Transform::from_translation(anchor)],
+-                approach: anchor + Vec3::new(0.0, 1.7, 12.0),
++                positions: vec![ConversationPose {
++                    anchor,
++                    facing: Quat::IDENTITY,
++                }],
++                approach: Position::from_metres(anchor.metres() + Vec3::new(0.0, 1.7, 12.0))?,
+             }
+         };
+         if matches!(place.kind, PlaceKind::Square | PlaceKind::Camp) {
+             let position = venue.approach;
+-            venue.anchor = Vec3::new(
+-                position.x,
+-                backdrop.height_at(position.xz()).unwrap_or(venue.anchor.y),
+-                position.z,
+-            );
+-            venue.positions = vec![Transform::from_translation(venue.anchor)];
++            let elevation = backdrop.required_height_at(ScenePlanPoint::from(position))?;
++            venue.anchor = Position::from_metres(Vec3::new(
++                position.metres().x,
++                elevation.metres(),
++                position.metres().z,
++            ))?;
++            venue.positions = vec![ConversationPose {
++                anchor: venue.anchor,
++                facing: Quat::IDENTITY,
++            }];
+         }
+         venues.insert(place.id.clone(), venue);
+     }
+     Ok(venues)
+-}
+-
+-fn select_buildings(
+-    input: &TacticalSceneInput,
+-    view: &super::protocol::StrategicView,
+-    generated: &mut crate::presentation::PreparedStrategicScene,
+-) -> Result<
+-    (
+-        Vec<GeneratedBuilding>,
+-        std::collections::HashMap<
+-            super::protocol::PlaceId,
+-            adventuresim_tactical_core::scene_input::SceneBuildingId,
+-        >,
+-    ),
+-    String,
+-> {
+-    let mut promoted = Vec::new();
+-    let mut selected = std::collections::HashMap::new();
+-    for place in &view.places {
+-        let id = select_building(
+-            input,
+-            place.kind,
+-            view.people
+-                .iter()
+-                .filter(|p| p.place == place.id)
+-                .map(|p| p.id.0),
+-        );
+-        if let Some(id) = id {
+-            selected.insert(place.id.clone(), id);
+-            if !generated
+-                .buildings
+-                .iter()
+-                .chain(promoted.iter())
+-                .any(|b| b.placement.id == id)
+-            {
+-                let placement = input
+-                    .distant_buildings
+-                    .iter()
+-                    .find(|b| b.id == id)
+-                    .ok_or("missing building placement")?;
+-                let program = placement.occupied_program();
+-                let recipe = generated
+-                    .building_recipes
+-                    .get_or_generate(&program)
+-                    .map_err(|e| e.to_string())?;
+-                promoted.push(GeneratedBuilding {
+-                    placement: (*placement).into(),
+-                    plan: recipe.plan.clone(),
+-                    collision: recipe.collision.clone(),
+-                });
+-            }
+-        }
+-    }
+-    Ok((promoted, selected))
+ }
+ 
+ #[cfg(test)]
+@@ -229,7 +233,7 @@
+         let local = pose
+             .compute_affine()
+             .inverse()
+-            .transform_point3(venue.anchor)
++            .transform_point3(venue.anchor.metres())
+             + building.collision.bounds.centre().unwrap().metres();
+         let bounds = building.collision.bounds;
+         assert!(local.x >= bounds.min().metres().x && local.x <= bounds.max().metres().x);
+@@ -240,7 +244,8 @@
+             "selected room must receive actual daylight: {local:?}"
+         );
+         assert!(
+-            (venue.approach.y - building.placement.base_elevation_metres.metres() - 1.7).abs()
++            (venue.approach.metres().y - building.placement.base_elevation_metres.metres() - 1.7)
++                .abs()
+                 < 0.01
+         );
+     }
+--- before/crates/adventuresim-tactical-client/src/strategic_scene/cached_views/demand_tests.rs
++++ after/crates/adventuresim-tactical-client/src/strategic_scene/cached_views/demand_tests.rs
+@@ -4,6 +4,7 @@
+     protocol::{Person, PersonPresentation, PlaceId, PortraitView},
+     status::{SceneAssetsReady, SceneInstallationReady},
+ };
++use adventuresim_building_generator::spatial_geometry::Position;
+ 
+ #[test]
+ fn requested_portraits_capture_on_first_visit_and_reuse_their_completed_images() {
+@@ -25,7 +26,7 @@
+                 id,
+                 RetainedPerson {
+                     entity: Entity::PLACEHOLDER,
+-                    anchor: Vec3::X * id.0 as f32,
++                    anchor: Position::from_metres(Vec3::X * id.0 as f32).unwrap(),
+                     facing: Quat::IDENTITY,
+                     layer: id.0 as usize + 1,
+                 },
+--- before/crates/adventuresim-tactical-client/src/strategic_scene/mod.rs
++++ after/crates/adventuresim-tactical-client/src/strategic_scene/mod.rs
+@@ -5,6 +5,7 @@
+ mod equipment;
+ mod instances;
+ mod lighting_diagnostics;
++mod preparation;
+ pub(crate) mod protocol;
+ mod render_diagnostics;
+ mod shadows;
+@@ -18,7 +19,9 @@
+ mod world;
+ 
+ use crate::animation::StrategicModel;
++use adventuresim_building_generator::spatial_geometry::Position;
+ use adventuresim_tactical_core::prelude::{CharacterId, SkeletonState};
++use adventuresim_tactical_core::scene_coordinates::Scene;
+ use bevy::{camera::visibility::RenderLayers, prelude::*};
+ use buildings::Venue;
+ use protocol::{PlaceId, PortraitId, StrategicView};
+@@ -34,7 +37,7 @@
+ 
+ struct RetainedPerson {
+     entity: Entity,
+-    anchor: Vec3,
++    anchor: Position<Scene>,
+     facing: Quat,
+     layer: usize,
+ }
+@@ -52,7 +55,7 @@
+     people: HashMap<PortraitId, RetainedPerson>,
+     next_person_layer: usize,
+     next_place: usize,
+-    error: Option<String>,
++    error: Option<std::sync::Arc<preparation::PreparationError>>,
+     pending: std::collections::VecDeque<adventuresim_tactical_core::prelude::GeneratedBuilding>,
+ }
+ 
+@@ -128,9 +131,9 @@
+             })
+             .position(|other| other.id == person.id)
+             .unwrap_or(0);
+-        let position = venue.positions[rank % venue.positions.len()];
+-        let anchor = position.translation;
+-        let facing = position.rotation;
++        let pose = venue.positions[rank % venue.positions.len()];
++        let anchor = pose.anchor;
++        let facing = pose.facing;
+         if let Some(current) = scene.people.get_mut(&person.id) {
+             if current.anchor != anchor || current.facing != facing {
+                 current.anchor = anchor;
+@@ -173,11 +176,11 @@
+     }
+ }
+ 
+-fn model_transform(anchor: Vec3) -> Transform {
++fn model_transform(anchor: Position<Scene>) -> Transform {
+     let height = adventuresim_tactical_core::combat_config::runtime_animation_config()
+         .playback
+         .player_visual_y_offset_metres;
+-    Transform::from_translation(anchor - Vec3::Y * height.metres())
++    Transform::from_translation(anchor.metres() - Vec3::Y * height.metres())
+ }
+ 
+ #[expect(
+--- before/crates/adventuresim-tactical-client/src/strategic_scene/preparation.rs
++++ after/crates/adventuresim-tactical-client/src/strategic_scene/preparation.rs
+@@ -0,0 +1,65 @@
++//! Strategic scene admission retains causes until the serialized status boundary.
++
++use crate::presentation::{
++    BackdropError, preparation::PreparationError as GenerationPreparationError,
++};
++use adventuresim_building_generator::{GenerationError, spatial_geometry::GeometryError};
++use adventuresim_tactical_core::{
++    scene::TerrainSupportError,
++    scene_input::{SceneBuildingId, SceneInputError},
++};
++use bevy::ecs::error::BevyError;
++use std::sync::Arc;
++
++pub(super) type PreparationResult<T> = Result<T, PreparationError>;
++pub(super) type SharedPreparationResult<T> = Result<T, Arc<PreparationError>>;
++
++#[derive(Debug, thiserror::Error)]
++pub(super) enum PreparationError {
++    #[error(transparent)]
++    SceneInput(#[from] Box<SceneInputError>),
++    #[error(transparent)]
++    Generation(#[from] Box<GenerationPreparationError>),
++    #[error(transparent)]
++    Geometry(#[from] GeometryError),
++    #[error(transparent)]
++    Backdrop(#[from] BackdropError),
++    #[error(transparent)]
++    Support(#[from] TerrainSupportError),
++    #[error("strategic presentation failed: {0}")]
++    Presentation(BevyError),
++    #[error("invalid doorway orientation")]
++    DoorwayOrientation,
++    #[error("invalid relocated furniture orientation")]
++    FurnitureOrientation,
++    #[error("building {building} has no clear conversation position")]
++    MissingConversationPosition { building: SceneBuildingId },
++    #[error("building {building} has no prepared interior")]
++    MissingInterior { building: SceneBuildingId },
++    #[error("building {building} has no distant placement")]
++    MissingBuildingPlacement { building: SceneBuildingId },
++}
++
++impl From<SceneInputError> for PreparationError {
++    fn from(error: SceneInputError) -> Self {
++        Self::SceneInput(Box::new(error))
++    }
++}
++
++impl From<GenerationPreparationError> for PreparationError {
++    fn from(error: GenerationPreparationError) -> Self {
++        Self::Generation(Box::new(error))
++    }
++}
++
++impl From<GenerationError> for PreparationError {
++    fn from(error: GenerationError) -> Self {
++        Self::from(GenerationPreparationError::from(error))
++    }
++}
++
++impl From<BevyError> for PreparationError {
++    fn from(error: BevyError) -> Self {
++        Self::Presentation(error)
++    }
++}
+--- before/crates/adventuresim-tactical-client/src/strategic_scene/staging.rs
++++ after/crates/adventuresim-tactical-client/src/strategic_scene/staging.rs
+@@ -1,88 +1,89 @@
+ //! Conversation positions use the furnished tactical building's circulation proof.
+ use adventuresim_building_generator::{
+-    CollisionCuboid, ResolvedItemId,
++    CollisionCuboid, ResolvedItemId, StoreyIndex,
+     interior::{InteriorLayout, StandingClearance},
++    spatial_geometry::{Architectural, Elevation, Position},
+ };
+-use adventuresim_tactical_core::prelude::GeneratedBuilding;
++use adventuresim_tactical_core::{prelude::GeneratedBuilding, scene_coordinates::Scene};
+ use bevy::prelude::*;
+ 
+ pub(super) const CONVERSATION_DISTANCE_METRES: f32 = 1.1;
+ const RESIDENT_SPACING_METRES: f32 = 0.65;
+ 
+-pub(super) fn positions(
+-    building: &GeneratedBuilding,
+-    layout: &InteriorLayout,
+-) -> Result<Vec<Transform>> {
+-    let field = crate::presentation::interior_lighting::InteriorField::from_plan(
+-        &building.plan,
+-        Vec3::ZERO,
+-    );
+-    let obstacles = obstacles(building, layout)?;
+-    let mut candidates = Vec::new();
+-    let mut clearances = std::collections::BTreeMap::new();
+-    // Circulation routes share long runs of points. Score each physical point
+-    // once, preserving first occurrence and the existing daylight ordering.
+-    let mut visited = std::collections::HashSet::new();
+-    for path in &layout.paths {
+-        for point in path
+-            .points
+-            .iter()
+-            .filter(|point| point.storey == adventuresim_building_generator::StoreyIndex::GROUND)
+-        {
+-            let centre = point.position_metres.metres();
+-            if !visited.insert((centre.x.to_bits(), centre.y.to_bits())) {
++#[derive(Clone, Copy)]
++pub(super) struct ConversationPose {
++    pub(super) anchor: Position<Scene>,
++    pub(super) facing: Quat,
++}
++
++impl ConversationPose {
++    pub(super) fn in_building(
++        building: &GeneratedBuilding,
++        layout: &InteriorLayout,
++    ) -> Result<Vec<Self>> {
++        let field = crate::presentation::interior_lighting::InteriorField::from_plan(
++            &building.plan,
++            Vec3::ZERO,
++        );
++        let obstacles = obstacles(building, layout)?;
++        let mut candidates = Vec::new();
++        let mut clearances = std::collections::BTreeMap::new();
++        // Circulation routes share long runs of points. Score each physical point
++        // once, preserving first occurrence and the existing daylight ordering.
++        let mut visited = std::collections::HashSet::new();
++        for path in &layout.paths {
++            for point in path
++                .points
++                .iter()
++                .filter(|point| point.storey == StoreyIndex::GROUND)
++            {
++                let centre = point.position_metres.metres();
++                if !visited.insert((centre.x.to_bits(), centre.y.to_bits())) {
++                    continue;
++                }
++                let height = floor_height(building, centre);
++                let clearance = match clearances.entry(height.to_bits()) {
++                    std::collections::btree_map::Entry::Occupied(entry) => entry.into_mut(),
++                    std::collections::btree_map::Entry::Vacant(entry) => entry.insert(
++                        StandingClearance::new(&obstacles, Elevation::from_metres(height)?)?,
++                    ),
++                };
++                for direction in [Vec2::X, Vec2::Y, Vec2::NEG_X, Vec2::NEG_Y] {
++                    let camera = centre + direction * CONVERSATION_DISTANCE_METRES;
++                    if !clearance.is_clear(
++                        Position::from_metres(Vec3::new(centre.x, height, centre.y))?,
++                        Position::from_metres(Vec3::new(camera.x, height, camera.y))?,
++                    ) {
++                        continue;
++                    }
++                    let anchor = Vec3::new(centre.x, height, centre.y);
++                    let daylight = field.directional_daylight_at(
++                        anchor + Vec3::Y,
++                        Vec3::new(direction.x, 0.0, direction.y),
++                    );
++                    candidates.push((daylight, anchor, direction));
++                }
++            }
++        }
++        candidates.sort_by(|a, b| b.0.total_cmp(&a.0));
++        let transform = building.transform()?;
++        let origin = building.collision.bounds.centre()?.metres();
++        let mut selected: Vec<Self> = Vec::new();
++        for (_, point, direction) in candidates {
++            let anchor = Position::from_metres(transform.transform_point(point - origin))?;
++            if selected
++                .iter()
++                .any(|p| p.anchor.metres().distance(anchor.metres()) < RESIDENT_SPACING_METRES)
++            {
+                 continue;
+             }
+-            let height = floor_height(building, centre);
+-            let clearance = match clearances.entry(height.to_bits()) {
+-                std::collections::btree_map::Entry::Occupied(entry) => entry.into_mut(),
+-                std::collections::btree_map::Entry::Vacant(entry) => {
+-                    entry.insert(StandingClearance::new(
+-                        &obstacles,
+-                        adventuresim_building_generator::spatial_geometry::Elevation::from_metres(
+-                            height,
+-                        )?,
+-                    )?)
+-                }
+-            };
+-            for direction in [Vec2::X, Vec2::Y, Vec2::NEG_X, Vec2::NEG_Y] {
+-                let camera = centre + direction * CONVERSATION_DISTANCE_METRES;
+-                if !clearance.is_clear(
+-                    adventuresim_building_generator::spatial_geometry::Position::from_metres(
+-                        Vec3::new(centre.x, height, centre.y),
+-                    )?,
+-                    adventuresim_building_generator::spatial_geometry::Position::from_metres(
+-                        Vec3::new(camera.x, height, camera.y),
+-                    )?,
+-                ) {
+-                    continue;
+-                }
+-                let anchor = Vec3::new(centre.x, height, centre.y);
+-                let daylight = field.directional_daylight_at(
+-                    anchor + Vec3::Y,
+-                    Vec3::new(direction.x, 0.0, direction.y),
+-                );
+-                candidates.push((daylight, anchor, direction));
+-            }
++            selected.push(Self {
++                anchor,
++                facing: transform.rotation * Quat::from_rotation_y(direction.x.atan2(direction.y)),
++            });
+         }
++        Ok(selected)
+     }
+-    candidates.sort_by(|a, b| b.0.total_cmp(&a.0));
+-    let transform = building.transform()?;
+-    let origin = building.collision.bounds.centre()?.metres();
+-    let mut selected: Vec<Transform> = Vec::new();
+-    for (_, point, direction) in candidates {
+-        let anchor = transform.transform_point(point - origin);
+-        if selected
+-            .iter()
+-            .any(|p| p.translation.distance(anchor) < RESIDENT_SPACING_METRES)
+-        {
+-            continue;
+-        }
+-        selected.push(Transform::from_translation(anchor).with_rotation(
+-            transform.rotation * Quat::from_rotation_y(direction.x.atan2(direction.y)),
+-        ));
+-    }
+-    Ok(selected)
+ }
+ 
+ fn floor_height(building: &GeneratedBuilding, point: Vec2) -> f32 {
+@@ -108,8 +109,7 @@
+ fn obstacles(
+     building: &GeneratedBuilding,
+     layout: &InteriorLayout,
+-) -> Result<Vec<CollisionCuboid<adventuresim_building_generator::spatial_geometry::Architectural>>>
+-{
++) -> Result<Vec<CollisionCuboid<Architectural>>> {
+     let mut obstacles = building.collision.cuboids.clone();
+     for placement in &layout.placements {
+         let size = placement.key.interior_spec()?.size_metres.metres();
+--- before/crates/adventuresim-tactical-client/src/strategic_scene/status.rs
++++ after/crates/adventuresim-tactical-client/src/strategic_scene/status.rs
+@@ -205,15 +205,22 @@
+         waiting_pipelines: waiting,
+         equipment_ready,
+         equipment_pending: (!equipment_ready).then(|| equipment.pending_summary(items.iter())),
+-        error: scene
+-            .error
+-            .clone()
+-            .or_else(|| failure.0.clone())
+-            .or_else(|| {
+-                city.as_ref()
+-                    .and_then(|city| city.failure().map(str::to_owned))
+-            })
+-            .or_else(|| equipment_state.err().map(str::to_owned)),
++        error: status_error(&scene, &failure, city.as_deref(), equipment_state),
+     };
+     status.publish();
+ }
++
++fn status_error(
++    scene: &RetainedScene,
++    failure: &SceneAssetFailure,
++    city: Option<&crate::presentation::PendingCityBuildings>,
++    equipment_state: std::result::Result<bool, &'static str>,
++) -> Option<String> {
++    scene
++        .error
++        .as_ref()
++        .map(ToString::to_string)
++        .or_else(|| failure.0.clone())
++        .or_else(|| city.and_then(|city| city.failure().map(str::to_owned)))
++        .or_else(|| equipment_state.err().map(str::to_owned))
++}
+--- before/crates/adventuresim-tactical-client/src/strategic_scene/street.rs
++++ after/crates/adventuresim-tactical-client/src/strategic_scene/street.rs
+@@ -1,8 +1,10 @@
+ //! One full-size frontage in the retained city, viewed through one perspective camera.
++use super::preparation::{PreparationError, PreparationResult};
+ use super::protocol::PlaceId;
+ use adventuresim_building_generator::OpeningUse;
++use adventuresim_building_generator::spatial_geometry::Position;
+ use adventuresim_tactical_core::prelude::*;
+-use adventuresim_tactical_core::scene_coordinates::PlanDisplacement;
++use adventuresim_tactical_core::scene_coordinates::{PlanDisplacement, Scene, ScenePlanPoint};
+ use bevy::prelude::*;
+ use serde::Serialize;
+ use std::collections::HashMap;
+@@ -27,7 +29,15 @@
+     pub width: f32,
+     pub height: f32,
+     #[serde(skip)]
+-    pub front: Vec3,
++    pub front: Position<Scene>,
++}
++
++#[derive(Component)]
++pub(super) struct StreetGround(Street);
++
++struct BuildingRelocation {
++    before: Transform,
++    after: Transform,
+ }
+ 
+ impl Street {
+@@ -37,7 +47,7 @@
+         selected: &HashMap<PlaceId, adventuresim_tactical_core::scene_input::SceneBuildingId>,
+         generated: &mut crate::presentation::PreparedStrategicScene,
+         backdrop: &crate::presentation::StrategicBackdrop,
+-    ) -> Result<Self, String> {
++    ) -> PreparationResult<Self> {
+         let front_z = input
+             .distant_buildings
+             .iter()
+@@ -50,12 +60,13 @@
+             )
+             .fold(0.0, f32::max)
+             + CITY_CLEARANCE_METRES;
+-        let elevation = backdrop.height_at(Vec2::new(0.0, front_z)).unwrap_or(0.0);
++        let front_point = ScenePlanPoint::try_from(Vec2::new(0.0, front_z))?;
++        let elevation = backdrop.required_height_at(front_point)?;
+         let mut street = Self {
+             bays: Vec::new(),
+             width: 0.0,
+             height: MINIMUM_BAY_METRES,
+-            front: Vec3::new(0.0, elevation, front_z),
++            front: Position::from_metres(Vec3::new(0.0, elevation.metres(), front_z))?,
+         };
+         let mut moves = HashMap::new();
+         for place in places {
+@@ -67,7 +78,7 @@
+             });
+             let mut width = MINIMUM_BAY_METRES;
+             if let Some(building) = building {
+-                let before = building.transform().map_err(|error| error.to_string())?;
++                let before = building.transform()?;
+                 let outward = building
+                     .plan
+                     .opening_assemblies
+@@ -79,14 +90,9 @@
+                     })
+                     .map_or(Vec2::Y, |opening| opening.frame.outward);
+                 let yaw = -outward.x.atan2(outward.y);
+-                let orientation =
+-                    BuildingOrientation::from_radians(yaw).ok_or("invalid doorway orientation")?;
+-                let extent = building
+-                    .collision
+-                    .bounds
+-                    .extent()
+-                    .map_err(|error| error.to_string())?
+-                    .metres();
++                let orientation = BuildingOrientation::from_radians(yaw)
++                    .ok_or(PreparationError::DoorwayOrientation)?;
++                let extent = building.collision.bounds.extent()?.metres();
+                 let rotation = Quat::from_rotation_y(yaw);
+                 let size =
+                     (rotation * Vec3::X * extent.x).abs() + (rotation * Vec3::Z * extent.z).abs();
+@@ -96,15 +102,14 @@
+                 building.placement.centre_metres =
+                     adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::try_from(
+                         Vec2::new(street.width + width * 0.5, front_z - size.z * 0.5),
+-                    )
+-                    .map_err(|cause| cause.to_string())?;
+-                building.placement.base_elevation_metres = adventuresim_tactical_core::city_layout::grounding::SupportElevation::from_metres(elevation).ok_or("invalid relocated floor elevation")?;
++                    )?;
++                building.placement.base_elevation_metres = elevation;
+                 moves.insert(
+                     building.placement.id,
+-                    (
++                    BuildingRelocation {
+                         before,
+-                        building.transform().map_err(|error| error.to_string())?,
+-                    ),
++                        after: building.transform()?,
++                    },
+                 );
+             }
+             street.bays.push(StreetBay {
+@@ -113,15 +118,12 @@
+             });
+             street.width += width;
+         }
+-        let centering = PlanDisplacement::try_from(Vec2::new(-street.width * 0.5, 0.0))
+-            .map_err(|error| error.to_string())?;
++        let centering = PlanDisplacement::try_from(Vec2::new(-street.width * 0.5, 0.0))?;
+         for building in &mut generated.buildings {
+-            if let Some((_, after)) = moves.get_mut(&building.placement.id) {
++            if let Some(relocation) = moves.get_mut(&building.placement.id) {
+                 let centre = building.placement.centre_metres;
+-                building.placement.centre_metres = centre
+-                    .translated(centering)
+-                    .map_err(|error| error.to_string())?;
+-                *after = building.transform().map_err(|error| error.to_string())?;
++                building.placement.centre_metres = centre.translated(centering)?;
++                relocation.after = building.transform()?;
+             }
+         }
+         relocate_interior_furniture(&mut generated.furniture, &moves)?;
+@@ -129,11 +131,20 @@
+     }
+ 
+     pub(super) fn camera(&self) -> Transform {
+-        let target = self.front + Vec3::Y * self.height * FRAME_CENTRE_HEIGHT_FRACTION;
+-        Transform::from_translation(self.front + Vec3::new(0.0, EYE_HEIGHT_METRES, self.distance()))
+-            .looking_at(target, Vec3::Y)
+-    }
+-
++        let target = self.front.metres() + Vec3::Y * self.height * FRAME_CENTRE_HEIGHT_FRACTION;
++        Transform::from_translation(
++            self.front.metres() + Vec3::new(0.0, EYE_HEIGHT_METRES, self.distance()),
++        )
++        .looking_at(target, Vec3::Y)
++    }
++
++    pub(super) fn vertical_fov(&self) -> f32 {
++        2.0 * (self.height * 0.5 / self.distance()).atan()
++    }
++
++    pub(super) fn spawn_ground(&self, commands: &mut Commands, root: Entity) {
++        commands.spawn((StreetGround(self.clone()), ChildOf(root)));
++    }
+     fn distance(&self) -> f32 {
+         // Keep a normal horizontal lens across the wide strip, rather than an
+         // extreme wide-angle lens obtained by retaining the old vertical FOV.
+@@ -142,18 +153,7 @@
+             .to_radians();
+         self.width.max(MINIMUM_BAY_METRES) * 0.5 / (fov * 0.5).tan()
+     }
+-
+-    pub(super) fn vertical_fov(&self) -> f32 {
+-        2.0 * (self.height * 0.5 / self.distance()).atan()
+-    }
+-
+-    pub(super) fn spawn_ground(&self, commands: &mut Commands, root: Entity) {
+-        commands.spawn((StreetGround(self.clone()), ChildOf(root)));
+-    }
+-}
+-
+-#[derive(Component)]
+-pub(super) struct StreetGround(Street);
++}
+ 
+ pub(super) fn build_ground(
+     mut commands: Commands,
+@@ -176,37 +176,34 @@
+                 perceptual_roughness: 1.0,
+                 ..default()
+             })),
+-            Transform::from_translation(street.front + Vec3::Y * 0.01),
++            Transform::from_translation(street.front.metres() + Vec3::Y * 0.01),
+         ));
+     }
+ }
+ 
+ fn relocate_interior_furniture(
+     furniture: &mut FurnitureLayout,
+-    moves: &HashMap<
+-        adventuresim_tactical_core::scene_input::SceneBuildingId,
+-        (Transform, Transform),
+-    >,
+-) -> Result<(), String> {
++    moves: &HashMap<adventuresim_tactical_core::scene_input::SceneBuildingId, BuildingRelocation>,
++) -> PreparationResult<()> {
+     for furniture in &mut furniture.instances {
+         if let FurnitureLocation::Interior { building_id, .. } = furniture.scene.location
+-            && let Some((before, after)) = moves.get(&building_id)
++            && let Some(relocation) = moves.get(&building_id)
+         {
+-            let local = before
++            let local = relocation
++                .before
+                 .compute_affine()
+                 .inverse()
+                 .transform_point3(furniture.position_metres.metres());
+             furniture.position_metres =
+                 adventuresim_building_generator::spatial_geometry::Position::from_metres(
+-                    after.transform_point(local),
+-                )
+-                .map_err(|cause| cause.to_string())?;
+-            let delta = (after.rotation * before.rotation.inverse())
++                    relocation.after.transform_point(local),
++                )?;
++            let delta = (relocation.after.rotation * relocation.before.rotation.inverse())
+                 .to_euler(EulerRot::YXZ)
+                 .0;
+             furniture.orientation =
+                 BuildingOrientation::from_radians(furniture.orientation.yaw_radians() + delta)
+-                    .ok_or("invalid relocated furniture orientation")?;
++                    .ok_or(PreparationError::FurnitureOrientation)?;
+         }
+     }
+     Ok(())
+@@ -290,7 +287,7 @@
+                 + (pose.rotation * Vec3::Z * extent.z).abs();
+             assert!(pose.translation.x - size.x * 0.5 >= previous_right);
+             previous_right = pose.translation.x + size.x * 0.5;
+-            assert!((pose.translation.z + size.z * 0.5 - street.front.z).abs() < 0.01);
++            assert!((pose.translation.z + size.z * 0.5 - street.front.metres().z).abs() < 0.01);
+             for (before, after) in furniture.iter().zip(&generated.furniture.instances) {
+                 if matches!(before.scene.location, FurnitureLocation::Interior { building_id, .. } if building_id == building.placement.id)
+                 {
+@@ -308,7 +305,10 @@
+         }
+         assert!(previous_right <= street.width * 0.5);
+         assert_eq!(street.camera().translation.x, 0.0);
+-        assert!(street.camera().translation.z > street.front.z);
+-        assert!((street.camera().translation.y - street.front.y - EYE_HEIGHT_METRES).abs() < 0.001);
+-    }
+-}
++        assert!(street.camera().translation.z > street.front.metres().z);
++        assert!(
++            (street.camera().translation.y - street.front.metres().y - EYE_HEIGHT_METRES).abs()
++                < 0.001
++        );
++    }
++}
+--- before/crates/adventuresim-tactical-client/src/strategic_scene/tests.rs
++++ after/crates/adventuresim-tactical-client/src/strategic_scene/tests.rs
+@@ -103,9 +103,18 @@
+         venues: [(
+             place.clone(),
+             Venue {
+-                anchor: Vec3::ZERO,
+-                approach: Vec3::ZERO,
+-                positions: vec![Transform::default(), Transform::from_translation(Vec3::X)],
++                anchor: Position::ORIGIN,
++                approach: Position::ORIGIN,
++                positions: vec![
++                    staging::ConversationPose {
++                        anchor: Position::ORIGIN,
++                        facing: Quat::IDENTITY,
++                    },
++                    staging::ConversationPose {
++                        anchor: Position::from_metres(Vec3::X).unwrap(),
++                        facing: Quat::IDENTITY,
++                    },
++                ],
+             },
+         )]
+         .into(),
+@@ -158,7 +167,9 @@
+             .contains_key(&PortraitId(7))
+     );
+     assert_eq!(
+-        app.world().resource::<RetainedScene>().people[&id].anchor,
++        app.world().resource::<RetainedScene>().people[&id]
++            .anchor
++            .metres(),
+         Vec3::X,
+         "unseen earlier residents still determine the visible resident's rank"
+     );
+@@ -242,8 +253,8 @@
+         });
+     app.update();
+     let scene = app.world().resource::<RetainedScene>();
+-    assert_eq!(scene.people[&id].anchor, Vec3::X);
+-    assert_eq!(scene.people[&PortraitId(99)].anchor, Vec3::ZERO);
++    assert_eq!(scene.people[&id].anchor.metres(), Vec3::X);
++    assert_eq!(scene.people[&PortraitId(99)].anchor.metres(), Vec3::ZERO);
+     assert_ne!(scene.people[&id].layer, scene.people[&PortraitId(99)].layer);
+     app.world_mut().resource_mut::<StrategicView>().people[1]
+         .equipment
+--- before/crates/adventuresim-tactical-client/src/strategic_scene/views.rs
++++ after/crates/adventuresim-tactical-client/src/strategic_scene/views.rs
+@@ -4,6 +4,8 @@
+     buildings::ROOM_LAYER,
+     protocol::{CanvasRect, StrategicView},
+ };
++use adventuresim_building_generator::spatial_geometry::Position;
++use adventuresim_tactical_core::scene_coordinates::Scene;
+ use bevy::{camera::visibility::RenderLayers, prelude::*};
+ 
+ #[derive(Resource, Default)]
+@@ -29,12 +31,12 @@
+ 
+ pub(super) fn person_view(
+     rect: CanvasRect,
+-    anchor: Vec3,
++    anchor: Position<Scene>,
+     facing: Quat,
+     portrait: bool,
+     layers: RenderLayers,
+ ) -> ViewSpec {
+-    let target = anchor + Vec3::Y * if portrait { HEAD_HEIGHT_METRES } else { 1.2 };
++    let target = anchor.metres() + Vec3::Y * if portrait { HEAD_HEIGHT_METRES } else { 1.2 };
+     let distance = if portrait {
+         PORTRAIT_DISTANCE_METRES
+     } else {
+@@ -274,7 +276,7 @@
+                 id,
+                 RetainedPerson {
+                     entity: Entity::PLACEHOLDER,
+-                    anchor: Vec3::ZERO,
++                    anchor: Position::ORIGIN,
+                     facing: Quat::IDENTITY,
+                     layer: 2,
+                 },
+@@ -369,7 +371,7 @@
+                     PortraitId(1),
+                     RetainedPerson {
+                         entity: Entity::PLACEHOLDER,
+-                        anchor: Vec3::ZERO,
++                        anchor: Position::ORIGIN,
+                         facing: Quat::IDENTITY,
+                         layer: ROOM_LAYER + 1,
+                     },
+@@ -378,7 +380,7 @@
+                     PortraitId(2),
+                     RetainedPerson {
+                         entity: Entity::PLACEHOLDER,
+-                        anchor: Vec3::Z,
++                        anchor: Position::from_metres(Vec3::Z).unwrap(),
+                         facing: Quat::IDENTITY,
+                         layer: ROOM_LAYER + 2,
+                     },
+--- before/crates/adventuresim-tactical-client/src/strategic_scene/world.rs
++++ after/crates/adventuresim-tactical-client/src/strategic_scene/world.rs
+@@ -1,13 +1,15 @@
+ //! Local presentation of the same scene document consumed by the tactical server.
+ //! These entities carry asset descriptors only; authority arrives through replication.
++use super::preparation::{PreparationError, PreparationResult, SharedPreparationResult};
+ use super::{RetainedScene, SceneRoot, buildings, protocol::StrategicView};
+-use adventuresim_tactical_core::prelude::*;
++use adventuresim_tactical_core::{prelude::*, scene_input::SceneInputError};
+ use bevy::prelude::*;
++use std::sync::Arc;
+ 
+ #[derive(Resource)]
+ pub(crate) struct SceneDocument {
+     location: String,
+-    input: Result<TacticalSceneInput, String>,
++    input: SharedPreparationResult<TacticalSceneInput>,
+     #[cfg(target_family = "wasm")]
+     preparation: crate::presentation::generation::PreparationTicket,
+ }
+@@ -19,13 +21,13 @@
+         preparation: crate::presentation::generation::PreparationTicket,
+     ) -> Self {
+         let input = serde_json::from_str::<TacticalSceneInput>(json)
+-            .map_err(|error| error.to_string())
++            .map_err(SceneInputError::from)
+             .and_then(|input| {
+-                input
+-                    .validate()
+-                    .map(|()| input)
+-                    .map_err(|error| error.to_string())
+-            });
++                input.validate()?;
++                Ok(input)
++            })
++            .map_err(PreparationError::from)
++            .map_err(Arc::new);
+         Self {
+             location,
+             input,
+@@ -34,13 +36,15 @@
+         }
+     }
+ 
+-    fn generated_scene(&self) -> Result<crate::presentation::PreparedStrategicScene, String> {
+-        let input = self.input.as_ref().map_err(Clone::clone)?;
++    fn generated_scene(
++        &self,
++    ) -> SharedPreparationResult<crate::presentation::PreparedStrategicScene> {
++        let input = self.input.as_ref().map_err(Arc::clone)?;
+         #[cfg(target_family = "wasm")]
+         let generated = crate::presentation::generation::activate(self.preparation, input);
+         #[cfg(not(target_family = "wasm"))]
+         let generated = crate::presentation::PreparedStrategicScene::generate(input);
+-        generated.map_err(|error| error.to_string())
++        generated.map_err(PreparationError::from).map_err(Arc::new)
+     }
+ }
+ 
+@@ -94,7 +98,7 @@
+                     generated,
+                     settings.config.rendering.vista.maximum_lods,
+                 ) {
+-                    scene.error = Some(error);
++                    scene.error = Some(Arc::new(error));
+                 }
+             }
+             Err(error) => scene.error = Some(error.clone()),
+@@ -110,7 +114,7 @@
+             root,
+             document.input.as_ref().ok(),
+         ) {
+-            scene.error = Some(error.to_string());
++            scene.error = Some(Arc::new(PreparationError::Presentation(error)));
+         }
+     }
+ }
+@@ -122,11 +126,19 @@
+     retained: &mut RetainedScene,
+     mut generated: crate::presentation::PreparedStrategicScene,
+     maximum_lods: usize,
+-) -> Result<(), String> {
+-    let backdrop = crate::presentation::StrategicBackdrop::new(input, maximum_lods)
+-        .map_err(|error| error.to_string())?;
+-    retained.venues =
+-        buildings::prepare_venues(input, view, &mut generated, &mut retained.street, &backdrop)?;
++) -> PreparationResult<()> {
++    let backdrop = crate::presentation::StrategicBackdrop::new(input, maximum_lods)?;
++    let backdrop = crate::presentation::PreparedBackdrop::new(
++        backdrop,
++        input.environment_snapshot(generated.digest.clone()),
++    )?;
++    retained.venues = buildings::prepare_venues(
++        input,
++        view,
++        &mut generated,
++        &mut retained.street,
++        backdrop.backdrop(),
++    )?;
+     retained.digest = generated.digest.clone();
+     let root = commands
+         .spawn((SceneRoot, Transform::default(), Visibility::Inherited))
+@@ -136,12 +148,7 @@
+         street.spawn_ground(commands, root);
+     }
+     super::instances::spawn_props(commands, &mut generated, root);
+-    crate::presentation::spawn_strategic_backdrop(
+-        commands,
+-        backdrop,
+-        input.environment_snapshot(generated.digest.clone()),
+-        root,
+-    );
++    backdrop.spawn(commands, root);
+     crate::presentation::queue_strategic_city(commands, input, &generated.buildings);
+     let recipes = std::mem::take(&mut generated.building_recipes);
+     commands.queue(move |world: &mut World| {

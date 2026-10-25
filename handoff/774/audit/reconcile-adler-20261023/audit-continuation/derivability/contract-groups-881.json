@@ -1,0 +1,184 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-881",
+  "at": "2026-10-25T17:09:38.044887+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1086,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/condition.rs",
+      "sha256": "294cb300d2e6c3cee8a6ed923a24ab450efd97cfb87254a10c7743943bc4d6f8",
+      "actual_EOF": 2627,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/condition.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/condition.rs",
+        "sha256": "294cb300d2e6c3cee8a6ed923a24ab450efd97cfb87254a10c7743943bc4d6f8",
+        "bytes": 92654,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                2627
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-STRATEGIC-CONDITION-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 219,
+            "read_ranges": [
+              [
+                1,
+                2627
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-CONDITION-011",
+              "CAM-OWN-ERROR-012"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/condition.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 100,
+            "read_ranges": [
+              [
+                1,
+                2627
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-CONDITION-011",
+              "CAM-OWN-ERROR-012"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/condition.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CLINICAL-RECEIVERS-045",
+            "json_pointer": "/additional_actual_source_proofs/7",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/condition.rs",
+            "read_ranges_as_recorded": [
+              [
+                2135,
+                2220
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/condition.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/condition.rs",
+              "sha256": "294cb300d2e6c3cee8a6ed923a24ab450efd97cfb87254a10c7743943bc4d6f8",
+              "actual_lines": 2627,
+              "read_ranges": [
+                [
+                  2135,
+                  2220
+                ]
+              ],
+              "requested_range_limits": [
+                [
+                  2135,
+                  2220
+                ]
+              ],
+              "proof_mode": "Fresh actual bounded current clinical receiver/owner body. Effective range clipped to actualEOF. No whole unrelated file/role credit."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-035",
+            "json_pointer": "/fresh_current_additional_source_reads/7",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/condition.rs",
+            "read_ranges_as_recorded": [
+              [
+                2135,
+                2220
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/condition.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/condition.rs",
+              "sha256": "294cb300d2e6c3cee8a6ed923a24ab450efd97cfb87254a10c7743943bc4d6f8",
+              "actual_lines": 2627,
+              "read_ranges": [
+                [
+                  2135,
+                  2220
+                ]
+              ],
+              "requested_range_limits": [
+                [
+                  2135,
+                  2220
+                ]
+              ],
+              "proof_mode": "Fresh actual bounded current clinical receiver/owner body. Effective range clipped to actualEOF. No whole unrelated file/role credit."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 419,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          2627
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "Durable condition/needs/exposure/morale/projection/demand rows: Clone/Debug, selected PartialEq and table macros",
+        "ElapsedNeedsProvision/Plan structural Clone/Copy/Debug/PartialEq/Eq as applicable",
+        "ProjectedMoraleSource Clone/Debug",
+        "PartyReligionContext Clone/Copy/Debug/Default"
+      ],
+      "absence_basis": "Entire exact PR source consumed in875\u2013881 including complete existing fixtures2304\u20132627. No handwritten trait or codec. Explicit contextual weather, provision, morale/personality/party, projection, religious-demand, blood/death and leisure/recovery functions are semantic operations, not mechanical trait implementations."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Strategic condition derivability",
+      "disposition": "Existing derives cover structural records. Retain native contextual projections and fallible authorization/state effects; do not add serialization to private authorities. Existing fixtures personally read but not run; no behavior/correctness clearance claimed."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1087,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/condition/fear.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

@@ -1,0 +1,13 @@
+--- p16base/crates/adventuresim-stdb-module/src/residence.rs
++++ catalog-p16head/crates/adventuresim-stdb-module/src/residence.rs
+@@ -963,9 +963,9 @@
+     ctx: &ReducerContext,
+     character_id: u64,
+     baseline_morale: f32,
+     now: StrategicMinute,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     if baseline_morale <= 0.0 || !baseline_morale.is_finite() {
+         return Ok(());
+     }
+     let character = ctx

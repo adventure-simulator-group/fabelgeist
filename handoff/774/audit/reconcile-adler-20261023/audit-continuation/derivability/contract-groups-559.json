@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-559",
+  "at": "2026-10-25T16:02:33.027387+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 917,
+  "source_id": "pr-working:crates/adventuresim-core/src/encounter.rs",
+  "sha256": "aad69b12c6ade6caa59828876caede30c0a0fe2577b11fdd91f84594d2471dd5",
+  "actual_compared_ranges": [
+    [
+      1,
+      880
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Fresh661\u2013880 existing encounter source fixtures: narrative boundary clipping, settlement/interruption exclusion, retries/chunks, quest frequency and archetype influence, counts and awareness distributions. No declared handwritten trait/codec. Sampling loops are source evidence only, never executed.",
+  "first_unfinished": {
+    "scope_index": 917,
+    "line": 881
+  },
+  "execution": "none"
+}

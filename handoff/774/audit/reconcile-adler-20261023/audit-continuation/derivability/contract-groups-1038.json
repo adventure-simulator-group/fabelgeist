@@ -1,0 +1,115 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1038",
+  "at": "2026-10-25T17:34:12.148189+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1195,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/social.rs",
+      "sha256": "a09342196732b00b8520e9a446aa9fdef60e8fd44a439032ebdadc21e6e8e4c5",
+      "actual_EOF": 3800,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/social.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/social.rs",
+        "sha256": "a09342196732b00b8520e9a446aa9fdef60e8fd44a439032ebdadc21e6e8e4c5",
+        "bytes": 134286,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                3800
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-SOCIAL-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 278,
+            "read_ranges": [
+              [
+                1,
+                3800
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SOCIAL-037"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/social.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 250,
+            "read_ranges": [
+              [
+                1,
+                3800
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SOCIAL-037"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/social.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 509,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          3800
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "CharacterAffinity/Familiarity/SocialChatReceipt/DialogueWitnessCapability/Claim/WitnessSocialActionReceipt/PhysiologyPresenceSpan/SocialBelief/Interaction/Address/AutomaticSocialChat/Cooldown Clone/Debug/table",
+        "SocialChatTargetKind/Outcome/AffinityBand/FamiliarityBand/MoraleBand Clone/Copy/Debug/PartialEq/Eq/SpacetimeType",
+        "BackendSocialChatReceipt/SettlementResidentRelationship/DialogueWitnessClaim Clone/Debug/SpacetimeType",
+        "SocialDemoMoraleSourceId Clone/Copy/Debug/PartialEq/Eq"
+      ],
+      "absence_basis": "Whole social source personally consumed across1029\u20131038. No handwritten trait/Serializer/Deserializer. Explicit numeric/enum classifiers, private\u2192gateway field subsets and clamp, selected replay identity, checked legal beliefs, conditional action/time/authority policy semantic; existing record derives cover mechanical traits. Allfixtures3282\u20133800 read not run, no referenced source body coverage. No unrelated lens/runtime clearance."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Social action, witness authority and safe projection derivability",
+      "disposition": "Mechanical traits already derive; preserve all contextual validation/representation/borrowing and semantic enum/numeric mappings. No new lens10 finding."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1196,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/social/action_authority_tests.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

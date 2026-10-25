@@ -1,0 +1,35 @@
+{
+  "id": "RIG-INITIAL06-GROUP-162",
+  "at": "2026-10-23T05:10:44.797764+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-061.json",
+  "groups": {
+    "material-vocabulary-and-native-render-projection": {
+      "comparison": "Fresh full weaponrecipe Material94 and client recipe_mesh87. Weaponmodel Material is sharedauthoring/gameplay palette with densitykg/m³ and f64RGB, including darkfinish variants and richerphysicalspecies. It differs Corechemicalsubstances/MaterialComponentMicrounits, ForgeStockclosedstock or building materialbatch tags; many-to-one physicaldensity equality does not make enums interchangeable. Forge stock mappings deliberatelycollapsefinishes, not anothercompletepaletteowner. Colour output is f64model meshpalette input, not rawRGBAalpha or u8paint; preserve precision/actualcolor-space boundary before F005 consolidation, no forcedf32conversion. recipe_mesh consumes canonical LodMesh/BuildingLodMaterial and creates actual Bevyattributes/Indices/tangents; native localorigin subtraction/metreUVscale is real numericalport. Materialkind controls tangentrequirements, not duplicatedmaterialdefinition.",
+      "disposition": "Keep richer canonical weapon palette, physical/stock/building role distinctions and explicit engine mesh boundary; existing generic checkedphysical/color owners only where actual contracts match."
+    },
+    "procedural-recipe-wrapper-versus-authored-schema": {
+      "comparison": "Fresh full plantviewer Recipe90 and weapon shieldvalidator106. Viewer Family Flowers/Fungi selects currentviewer subset while Recipe composes actual FlowerParameters/FungusParameters under taggedwire sum, delegates samecanonicalvalidate/generate and derivescamera framing; no independentlymaintained copy ofparameterfields. Family count/index roster is UIchoice policy, not globalPlantSpecies or CharacterLod taxonomy; nativeindices stillcallerbounded rather than inferredtypeproof. Shieldvalidators consume canonical recipequantities and correlatedrole constraints; abs128 shapingratios, signedfittingangle±3600degrees and metre dimensions must not become UnitInterval or wrappedorientation. Positivedimensions/shareablecheckedleaves belonglowerrecipegeometry, while assembledshape-specificbudget gates remain here.",
+      "disposition": "Keep useful sum wrapper over canonical recipes and family-specific policies, with no forced cross-family vocabulary/angle/fraction merge."
+    },
+    "composed-outfit-failure-and-original-property-fixtures": {
+      "comparison": "Fresh full garment outfit82 and Core settlementpropertyfixtures99. OutfitOutcome intentionally preserves successfulprefixgarments, warnings, stoppingerror and checkpoints; partial result is meaningful in authoringworkflow, not equivalent Result<Vec<Garment>> or universalall-or-nothingacceptedoutfit. Savedsettled wear versus redrape are currentcachedstage choices, not schema compatibility paths. Whole outfitoriginalorder and innergarments as obstacles use canonical DrapedGarment/checkpoints, no duplicatephysicalmeshowner; F003 lower canonicalClothcomposition graph still exact. Propertyfixtures reuse canonical PropertyId/HousingTier/GeneratedHomeCatalog/marketreserve and noncountedcapacity; source values demonstrate intendednegative/NaN/duplicate failures, not passingrun or a new generatedpropertyschema. Propertyscope differsbarebuilding/householdidentity.",
+      "disposition": "Keep explicit authoring partial-outcome product and canonical property/garment owners; originalfixtures are source evidence only."
+    },
+    "sourcevalidation-and-native-contact-distance": {
+      "comparison": "Fresh full scene_input validation64 and diagnostic supportdistance89. Sourcevalidation composes existing scene/source/version/grid/urban/property/establishment/weather predicates and VistaLevelIndex order/spacing/count policy; sourcevalidation is different from selectedsupport/grading admission, no newowner introduced by validationadapter or temporary TerrainSampleGrid. Invokedhelpers are not blanketcovered byname. Supportdistance is true planar numeric kernel with point/edgecontacts and empty→None, computes intersection/distance over nativeVec2 arrays. Diagnostic contactgeometry differs acceptedScenePlanPoint/convexpolygonowner; no move of physicsnativeVec2 into WorldSchema or sign/zero narrowing. Exactexistingfixtures cover symmetric/separated/crossedexamples without execution; genericconvexity/finiteprerequisites not inferred.",
+      "disposition": "Keep canonical source/vista owners and distinct numerical diagnosticport; admission/delegatedpredicate proof remains separate."
+    },
+    "weapon-validation-stages-and-device-status-owner": {
+      "comparison": "Fresh full weapon validation72 and underlayer WGSL86. Weapon ValidationError composes RecipeError but Construction(String) reflects actuallower modelerror surface; this does not establish typedcause equivalence or clear stringerrorpropagation graph. Gameplaycatalogueidentity/holdercompatibility/recipevalidation are distinct stage roles, with holderparameterbounds and grip/blade sourcegeometry predicate, not duplicate manufacturingShape owner. Underlayer FitFailure owns five actualstatus bits once, projects them into WGSL constants and hostmessages from enum, avoidingindependentnumericfailuremap. GROUPS NO_VERTEXsentinel/nativeweldcapacity are GPU ABIvertexindices, not RigJointOrdinal/PhysicalObjectID. Explicitfixedorder dot/cross strings preserve nativeevaluationcontract, no runtimeWGSLgeneration performed. Samegenericword doesnotwarrant a gameplaytype or whole GPUpackage waiver.",
+      "disposition": "Keep meaningful validation/status stages and canonicalfailurebit generation; native ABIword and structuredRecipeError distinctions preserved."
+    }
+  },
+  "source_fact_refs": [
+    "contracts-024.json",
+    "contracts-047.json",
+    "contracts-155.json",
+    "contracts-156.json"
+  ],
+  "limits": "10 exact full PR bodies and containedoriginalfixtures freshly read for06. No helper or nativepackage blanketcredit; no projectexecution/newtests/sourceedits/otherlens."
+}

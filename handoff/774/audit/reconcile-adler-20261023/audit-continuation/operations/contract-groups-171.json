@@ -1,0 +1,121 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-171",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/corpse.rs",
+      "sha256": "7c9ccbcd887b073dab9e1e468d3e89b3b491124213383e12957c5e5736f06242",
+      "actual_EOF": 2122,
+      "actual_compared_ranges": [
+        [
+          1,
+          2122
+        ]
+      ],
+      "method": "Full P16 literal body including fixtures personally read. Actual entire PR textual diff consumed and its typed Result, inventory-fallibility and error-owner deltas analyzed. Both helper module literal variants read, not hash-only credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/corpse/autopsy_context.rs",
+      "sha256": "3b26e430df2bfed7d8872f969645bf2f86aa1792c64fcf0dfdb95834c793c6ab",
+      "actual_EOF": 25,
+      "actual_compared_ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "method": "Full P16 literal body including fixtures personally read. Actual entire PR textual diff consumed and its typed Result, inventory-fallibility and error-owner deltas analyzed. Both helper module literal variants read, not hash-only credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/corpse/draws.rs",
+      "sha256": "3a497fff6699e3e757043e6c8b448fbac0a1fb0c182489a328a9cba84f2776d2",
+      "actual_EOF": 27,
+      "actual_compared_ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "method": "Full P16 literal body including fixtures personally read. Actual entire PR textual diff consumed and its typed Result, inventory-fallibility and error-owner deltas analyzed. Both helper module literal variants read, not hash-only credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/corpse.rs",
+      "sha256": "ae853a404a9463c18ad6bf2d0b06e86f6fc35061f88cd34e823fc3df0aebbc3f",
+      "actual_EOF": 2121,
+      "actual_compared_ranges": [
+        [
+          1,
+          2121
+        ]
+      ],
+      "method": "Full P16 literal body including fixtures personally read. Actual entire PR textual diff consumed and its typed Result, inventory-fallibility and error-owner deltas analyzed. Both helper module literal variants read, not hash-only credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/corpse/autopsy_context.rs",
+      "sha256": "3b26e430df2bfed7d8872f969645bf2f86aa1792c64fcf0dfdb95834c793c6ab",
+      "actual_EOF": 25,
+      "actual_compared_ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "method": "Full P16 literal body including fixtures personally read. Actual entire PR textual diff consumed and its typed Result, inventory-fallibility and error-owner deltas analyzed. Both helper module literal variants read, not hash-only credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/corpse/draws.rs",
+      "sha256": "3a497fff6699e3e757043e6c8b448fbac0a1fb0c182489a328a9cba84f2776d2",
+      "actual_EOF": 27,
+      "actual_compared_ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "method": "Full P16 literal body including fixtures personally read. Actual entire PR textual diff consumed and its typed Result, inventory-fallibility and error-owner deltas analyzed. Both helper module literal variants read, not hash-only credit."
+    }
+  ],
+  "groups": [
+    {
+      "id": "Corpse access, evidence snapshots and body arithmetic",
+      "locations": "P16 corpse180-305,370-639,641-815,998-1123; autopsy_context1-25; fresh Core autopsy69-139,174-210",
+      "trace": "Actual actor clock is required by action access. Scene/location and discovering-party checks precede actions. Durable health is copied only with seven entries; recognized injury regions are translated explicitly, not arbitrary vector indexing. Core canonical health indices4/5/6 correspond to chest/stomach/head and native seven-field order agrees. Post-combat health and blood overwrite occurs after transition; durable injury rows are copied by death transition, while returned post_combat_body.injuries are not copied here. Whole outcome-to-durable-limb injury commit order remains a recipient dependency, so missing injury is not asserted from this function alone. Core elapsed age intentionally saturates and handling damage is u16 cumulative aging, not bounded basis points.",
+      "disposition": "No new proved ordinary numeric failure in these bodies. Preserve ROOT-INITIAL04-F042 source claim about strongest-injury finite-sum ordering; do not reinterpret it as witnessed ordinary combat failure. Body raw admission and transaction integrity remain open dependencies.",
+      "dependencies": [
+        "Frozen strategic battle commit/limb injury integration and ROOT-INITIAL04-F043 recorder graph",
+        "Core autopsy and canonical BodyPart/BodyRegion bridge",
+        "Native SDK transaction and error propagation policy"
+      ],
+      "acceptance": "Death snapshot must reflect the committed battle body and bounded recorded injuries under actual canonical order. Preserve observer-safe evidence and no killer authority. Successful operations keep finite admitted body values; failure cannot publish a partial logical result."
+    },
+    {
+      "id": "Retry, revision and fallible action sequences",
+      "locations": "corpse1125-1599",
+      "trace": "Receipts intentionally key actor/corpse/action/discipline/stage/expected revision; validated client action ID is not the key. Existing receipt returns before access to make retries idempotent. Expected revision gates every state mutation; examined receipts do not change corpse revision. Internal stage requires opened body; unknown stage rejected before wait. Open validates skill before wait, whereas examine resolves skill after wait. Wait false returns without receipt. Bury/exhume/open handling and revision use saturating arithmetic; handling is an aging accumulator allowed beyond10000. Revision saturation at u32MAX merits policy review but no normal reachable MAX witness or unbounded canonical producer was traced. Mutation then fallible filth/social/evidence recipient requires actual outer transaction/caught-error semantics before alleging committed partial state.",
+      "disposition": "No new current partial-commit or retry defect is claimed. Action identity/semantic dedup may be intentional and cannot be declared defective merely because action_id is unused. Revision saturation is contract-strengthening qualification, not a newly counted ordinary failure.",
+      "dependencies": [
+        "advance_character_wait_time complete body and caller policy",
+        "reputation/social/filth/investigation actual recipients",
+        "SDK reducer rollback and internal catches"
+      ],
+      "acceptance": "Rejected logical action must preserve state and retry clock unless explicit interruption policy commits progress. Existing semantic retry must remain stable; define revision exhaustion policy before changing saturation."
+    },
+    {
+      "id": "Permission draws, familiarity and topic chronology",
+      "locations": "corpse1601-1977; draws1-27",
+      "trace": "Draw index10001 maps exactly to0..10000 then safe u16 narrowing or normalized f32 coefficient0..1. Familiarity saturating product then division/min preserves0..10000 and safe cast. u64 minutes as f32 divided60 remains finite. Canonical_pair rejects self; attempts are persisted once per party/resident/scope/approach. Finite difficulty constants enumerate authority and scope. Language min uses actual oral hours/instinct; recipient admission remains separate. permission_topics_for_npc1864 uses now(...).unwrap_or_default and thus presents missing clock as epoch0, changing scene/interment availability. This is another actual receiver of existing missing-clock finding, not genuine zero time. Demo victimID saturating subtraction is only called with fixed high fixture IDs; no invented live identity-zero witness.",
+      "disposition": "Extend supplied CAM-PPS-F003 missing-clock graph to corpse permission topic availability. Other checked scalar operations retain actual policy. Broad raw input language/social admission and generated view classification remain existing producer/owner migration graphs.",
+      "dependencies": [
+        "CAM-PPS-F003 and CAM-PPS-F004",
+        "CAM-PPS-CORPSE-012",
+        "Core resolve_permission_petition and native mental/religion checks"
+      ],
+      "acceptance": "Missing required actor chronology must omit/reject or propagate unavailable state consistently; preserve genuine epoch0 and absolute versus elapsed minutes. Keep signed cumulative handling damage separate from UnitBasisPoints and preserve permission policies."
+    }
+  ],
+  "findings": [],
+  "status": "Six complete source roles compared with open connected dependencies and existing findings; whole lens incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/disease.rs"
+}

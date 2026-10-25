@@ -1,0 +1,1186 @@
+{
+  "id": "RIG-CONT-EXPANDED-PRODUCER-ROLE-DELTA-051",
+  "lens": "audit-producer-propagation-only",
+  "status": "assigned24-roles-exhausted-with-findings",
+  "inputs": [
+    {
+      "path": "continuation\\rig\\expanded-producer-delta-map-049.json",
+      "sha256": "0dc306277a6865938b1915a025e925ab7569ec3f7d6ddba9ea4c1cc107f3673b"
+    },
+    {
+      "path": "records\\final-acceptance-20261021\\wave-01\\producer-supplement-after-owner\\camera\\traces.jsonl",
+      "sha256": "f0e53b1f18b85876dd81c01dfeacfffaf3b1d60ca13eaa9b59f33d2de7f8d674"
+    },
+    {
+      "path": "records\\final-acceptance-20261021\\wave-01\\producer-supplement-after-owner\\rig\\traces.jsonl",
+      "sha256": "7a3e5ac1e865c46d53a1055a1f793466f9f89353ed26ca668f5a3aa934db6253"
+    },
+    {
+      "path": "records\\final-acceptance-20261021\\wave-01\\producer-supplement-after-owner\\root\\pure-food-life-partial.json",
+      "sha256": "9cb9ecc95f90e83907e24e34312d12eeb978ff9a483521055be271bea1301be7"
+    },
+    {
+      "path": "continuation\\root\\pure8-packet.json",
+      "sha256": "58f9ada2be814a6eebcbbfb84ffb9d7d0aff98c9198208d16e6f4fc0ef56fffb"
+    },
+    {
+      "path": "continuation\\camera\\traces.jsonl",
+      "sha256": "6d71ea84825f461cafe98446af772c3a8afd950d7e9023a1be5f616734ebc355"
+    },
+    {
+      "path": "continuation\\rig\\web-request-reconciliation-039.json",
+      "sha256": "a8da289761930b0983922ccacc77168d94a2f29ebf1e49eda7cc8d44dd5cfce6"
+    }
+  ],
+  "assigned_observations": {
+    "CAM-PPS-SOCIAL-027": 19,
+    "CAM-PPS-NAMING-STARTING-052": 5
+  },
+  "accounted_observations": 24,
+  "fresh_source_proofs": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/personality.rs",
+      "sha256": "3251416fba119a8dbdfb3ce1f48abfd7bda014d55dd3ec2b3e38e4dd7e3e9b15",
+      "read_ranges": [
+        [
+          1,
+          202
+        ]
+      ],
+      "actual_EOF": 202,
+      "origin": "Fresh actual bounded source displayed/reviewed in this producer-only turn; no inference beyond these ranges"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/personality.rs",
+      "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+      "read_ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "actual_EOF": 1210,
+      "origin": "Fresh actual bounded source displayed/reviewed in this producer-only turn; no inference beyond these ranges"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social/admission.rs",
+      "sha256": "69e421c97648b448a374ac32ca30481cb6d0599800f9fbfa88d27dd6fb0f9137",
+      "read_ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "actual_EOF": 31,
+      "origin": "Fresh actual bounded source displayed/reviewed in this producer-only turn; no inference beyond these ranges"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social/draws.rs",
+      "sha256": "788653b52576c63a07a52065f8742eb6b63bc0268cb64ce16441cdea693f8c09",
+      "read_ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "actual_EOF": 54,
+      "origin": "Fresh actual bounded source displayed/reviewed in this producer-only turn; no inference beyond these ranges"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social/discovery.rs",
+      "sha256": "848aa99d18243a4679c4c3ef1cbe3e9e1556f5c93b1a5cf83cd6c9a04c545198",
+      "read_ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "actual_EOF": 47,
+      "origin": "Fresh actual bounded source displayed/reviewed in this producer-only turn; no inference beyond these ranges"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/social/claim_resolution.rs",
+      "sha256": "adfd512aab47db7827260717ebbb91d41706b4668372a0137510c9d3df796dcc",
+      "read_ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "actual_EOF": 69,
+      "origin": "Fresh actual bounded source displayed/reviewed in this producer-only turn; no inference beyond these ranges"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/social/affinity.rs",
+      "sha256": "498a0922e501f63800d2c4fa9bbffd863ca4cf98b83e09393c504b29d8a8ba7c",
+      "read_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "actual_EOF": 60,
+      "origin": "Fresh actual bounded source displayed/reviewed in this producer-only turn; no inference beyond these ranges"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/language.rs",
+      "sha256": "1475b920cad83e1f040a2c19627f288508d660a9d771bd72cf8993fa34b9a05f",
+      "read_ranges": [
+        [
+          214,
+          243
+        ]
+      ],
+      "actual_EOF": 756,
+      "origin": "Fresh actual bounded source displayed/reviewed in this producer-only turn; no inference beyond these ranges"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/character.rs",
+      "sha256": "1c346cbf22b4b7ad34cdd6b515b08d015c43e6489f953aa3a75ea40d8e3c675c",
+      "read_ranges": [
+        [
+          2144,
+          2173
+        ]
+      ],
+      "actual_EOF": 3987,
+      "origin": "Fresh actual bounded source displayed/reviewed in this producer-only turn; no inference beyond these ranges"
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/routes/dialogue/claims.rs",
+      "sha256": "6ce1fead82db25ebeebc1f64944e44bf410b5ea3b28b9f46480cd04128130197",
+      "read_ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "actual_EOF": 127,
+      "origin": "Fresh actual bounded source displayed/reviewed in this producer-only turn; no inference beyond these ranges"
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/static/dialogue-client.js",
+      "sha256": "dd5524466d59c0e52e3a527e31b8cc005ebf64f581b89a08801e2195943fcf19",
+      "read_ranges": [
+        [
+          480,
+          555
+        ]
+      ],
+      "actual_EOF": 825,
+      "origin": "Fresh actual bounded source displayed/reviewed in this producer-only turn; no inference beyond these ranges"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/starting_character.rs",
+      "sha256": "6fc3cb5410e5f3657ffc30cdb4be97fca0dbd4542238960d0db8d0fcc8ff7192",
+      "read_ranges": [
+        [
+          886,
+          984
+        ]
+      ],
+      "actual_EOF": 1936,
+      "origin": "Fresh actual bounded source displayed/reviewed in this producer-only turn; no inference beyond these ranges"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/build.rs",
+      "sha256": "1cbb4c6032d77345ba85c017d2e5f94b1600c1a4064ff586f0e1872afd63df74",
+      "read_ranges": [
+        [
+          1,
+          121
+        ]
+      ],
+      "actual_EOF": 121,
+      "origin": "Fresh actual bounded source displayed/reviewed in this producer-only turn; no inference beyond these ranges"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/name_catalog_schema.rs",
+      "sha256": "c50dcf6eef9aa348c8c259b105a9734f1e25ee2e57a043ee484a3892e9795dfa",
+      "read_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "actual_EOF": 199,
+      "origin": "Fresh actual bounded source displayed/reviewed in this producer-only turn; no inference beyond these ranges"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/name_catalog_validation.rs",
+      "sha256": "555b21fb6dddac260f0a951252041fd40a0d3e02dd8bb0d649fda9a528e0ed77",
+      "read_ranges": [
+        [
+          270,
+          340
+        ]
+      ],
+      "actual_EOF": 576,
+      "origin": "Fresh actual bounded source displayed/reviewed in this producer-only turn; no inference beyond these ranges"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/name_catalog_validation/derivations.rs",
+      "sha256": "7178c20d189f6254be6bd97094c550465c0b137c2c2e3ccf0b8f033cc80d435d",
+      "read_ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "actual_EOF": 214,
+      "origin": "Fresh actual bounded source displayed/reviewed in this producer-only turn; no inference beyond these ranges"
+    }
+  ],
+  "observation_dispositions": [
+    {
+      "delta_observation_index": 27,
+      "source_id": "physical-p16:crates/adventuresim-core/src/personality.rs",
+      "sha256": "3251416fba119a8dbdfb3ce1f48abfd7bda014d55dd3ec2b3e38e4dd7e3e9b15",
+      "path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/personality.rs",
+      "material_ranges": [
+        [
+          1,
+          202
+        ]
+      ],
+      "parent_source_proof": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "receipt": "CAM-PPS-SOCIAL-027",
+        "json_pointer": "/current_sources/12"
+      },
+      "parent_actual_contract_refs": [
+        "CAM-PPS-SOCIAL-027/contracts/1",
+        "CAM-PPS-SOCIAL-027/contracts/4"
+      ],
+      "actual_producer_recipient_reconciliation": "Canonical thirteen-axis personality enums, demographics and Personality record -> DB canonical re-exports -> chat/prayer/discovery consumers. Actual typed enum is lost into retained i8 chat/prayer APIs (existing propagation finding); perceived axis-local i8 belief and private Sex differ. Conviction strength/non-neutral count are newly computed numeric results, not previously checked leaves erased.",
+      "fresh_source_proof_indices": [
+        0
+      ],
+      "receiving_closure_groups": [
+        "social-time-mental-language-native",
+        "dialogue-native-and-browser"
+      ],
+      "findings": [
+        "CAM-PROP-F019",
+        "CAM-PROP-F006",
+        "CAM-PROP-F023",
+        "CAM-OWN-SOCIAL-037"
+      ],
+      "disposition": "bounded-producer-role-accounted-with-findings",
+      "remaining_actual_unread": [],
+      "proof_limit": "Exact current producer proof and substantive role/receiver narrative reused; fresh reads only where listed. No full-file, counterpart, owner-fit or acceptance credit from hash/range alone."
+    },
+    {
+      "delta_observation_index": 44,
+      "source_id": "physical-p16:crates/adventuresim-core/src/social.rs",
+      "sha256": "bb53725a73f48ae6fbd9f4ff3e2e744aaaea403fa2fd0a9381c6766ce0ad1b6d",
+      "path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/social.rs",
+      "material_ranges": [
+        [
+          1,
+          1909
+        ]
+      ],
+      "parent_source_proof": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "receipt": "CAM-PPS-SOCIAL-027",
+        "json_pointer": "/current_sources/7"
+      },
+      "parent_actual_contract_refs": [
+        "CAM-PPS-SOCIAL-027/contracts/0",
+        "CAM-PPS-SOCIAL-027/contracts/1",
+        "CAM-PPS-SOCIAL-027/contracts/2",
+        "CAM-PPS-SOCIAL-027/contracts/3",
+        "CAM-PPS-SOCIAL-027/contracts/4"
+      ],
+      "actual_producer_recipient_reconciliation": "Core social action/topic/claim/prayer/chat records and numerical operations -> actual complete DB social and Web witnesses. Typed classifications survive where stated; retained raw chat personality/cooldown action, elapsed/familiarity/affinity/effect roles remain existing repair. Preserve broad public numeric/unknown input normalization, signed affinity, effectiveness above1 and actual final decay/scaling/roll kernels.",
+      "fresh_source_proof_indices": [],
+      "receiving_closure_groups": [
+        "social-time-mental-language-native",
+        "dialogue-native-and-browser"
+      ],
+      "findings": [
+        "CAM-PROP-F019",
+        "CAM-PROP-F006",
+        "CAM-PROP-F023",
+        "CAM-OWN-SOCIAL-037"
+      ],
+      "disposition": "bounded-producer-role-accounted-with-findings",
+      "remaining_actual_unread": [],
+      "proof_limit": "Exact current producer proof and substantive role/receiver narrative reused; fresh reads only where listed. No full-file, counterpart, owner-fit or acceptance credit from hash/range alone."
+    },
+    {
+      "delta_observation_index": 45,
+      "source_id": "physical-p16:crates/adventuresim-core/src/social/action_kind.rs",
+      "sha256": "2b9ff5d4ad32e81e8a66e3ad09dc43d0e382c88b117b89b970876d9d3789ce92",
+      "path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/social/action_kind.rs",
+      "material_ranges": [
+        [
+          1,
+          264
+        ]
+      ],
+      "parent_source_proof": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "receipt": "CAM-PPS-SOCIAL-027",
+        "json_pointer": "/current_sources/8"
+      },
+      "parent_actual_contract_refs": [
+        "CAM-PPS-SOCIAL-027/contracts/0",
+        "CAM-PPS-SOCIAL-027/contracts/3"
+      ],
+      "actual_producer_recipient_reconciliation": "SocialActionKind authored enum -> strict manual command parse -> typed automatic choice -> actual manual/automatic DB operations. Automatic action still stable-id String -> same internal parse (F019). Canonical command/Rally and deception/Reframe spelling, unknown/whitespace error ordering and real native reducer text port preserved.",
+      "fresh_source_proof_indices": [],
+      "receiving_closure_groups": [
+        "social-time-mental-language-native",
+        "dialogue-native-and-browser"
+      ],
+      "findings": [
+        "CAM-PROP-F019",
+        "CAM-PROP-F006",
+        "CAM-PROP-F023",
+        "CAM-OWN-SOCIAL-037"
+      ],
+      "disposition": "bounded-producer-role-accounted-with-findings",
+      "remaining_actual_unread": [],
+      "proof_limit": "Exact current producer proof and substantive role/receiver narrative reused; fresh reads only where listed. No full-file, counterpart, owner-fit or acceptance credit from hash/range alone."
+    },
+    {
+      "delta_observation_index": 46,
+      "source_id": "physical-p16:crates/adventuresim-core/src/social/affinity.rs",
+      "sha256": "498a0922e501f63800d2c4fa9bbffd863ca4cf98b83e09393c504b29d8a8ba7c",
+      "path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/social/affinity.rs",
+      "material_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "parent_source_proof": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "receipt": "CAM-PPS-SOCIAL-027",
+        "json_pointer": "/current_sources/9"
+      },
+      "parent_actual_contract_refs": [
+        "CAM-PPS-SOCIAL-027/contracts/2",
+        "CAM-PPS-SOCIAL-027/contracts/4"
+      ],
+      "actual_producer_recipient_reconciliation": "Affinity anchor/elapsed -> actual exponential half-life, bounded signed gain and realized clamp-difference equations -> DB relationship/presence receipt. Fresh full60 source/fixtures confirms real zero and signed changes; missing required caller clocks remain F023, not excused by numerical0 normalization.",
+      "fresh_source_proof_indices": [
+        6
+      ],
+      "receiving_closure_groups": [
+        "social-time-mental-language-native",
+        "dialogue-native-and-browser"
+      ],
+      "findings": [
+        "CAM-PROP-F019",
+        "CAM-PROP-F006",
+        "CAM-PROP-F023",
+        "CAM-OWN-SOCIAL-037"
+      ],
+      "disposition": "bounded-producer-role-accounted-with-findings",
+      "remaining_actual_unread": [],
+      "proof_limit": "Exact current producer proof and substantive role/receiver narrative reused; fresh reads only where listed. No full-file, counterpart, owner-fit or acceptance credit from hash/range alone."
+    },
+    {
+      "delta_observation_index": 47,
+      "source_id": "physical-p16:crates/adventuresim-core/src/social/claim_resolution.rs",
+      "sha256": "adfd512aab47db7827260717ebbb91d41706b4668372a0137510c9d3df796dcc",
+      "path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/social/claim_resolution.rs",
+      "material_ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "parent_source_proof": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "receipt": "CAM-PPS-SOCIAL-027",
+        "json_pointer": "/current_sources/11"
+      },
+      "parent_actual_contract_refs": [
+        "CAM-PPS-SOCIAL-027/contracts/3",
+        "CAM-PPS-SOCIAL-027/contracts/4"
+      ],
+      "actual_producer_recipient_reconciliation": "Typed ClaimChallengeOutcome plus actual realized affinity delta -> WitnessClaimResolution enum payload -> optional DB resolution -> generated row -> Web claim_view -> actual JSON/DOM. Option carries unresolved versus resolved; signed realized change remains raw owner strengthening. No duplicate resolved flag or sentinel inferred.",
+      "fresh_source_proof_indices": [
+        5
+      ],
+      "receiving_closure_groups": [
+        "social-time-mental-language-native",
+        "dialogue-native-and-browser"
+      ],
+      "findings": [
+        "CAM-PROP-F019",
+        "CAM-PROP-F006",
+        "CAM-PROP-F023",
+        "CAM-OWN-SOCIAL-037"
+      ],
+      "disposition": "bounded-producer-role-accounted-with-findings",
+      "remaining_actual_unread": [],
+      "proof_limit": "Exact current producer proof and substantive role/receiver narrative reused; fresh reads only where listed. No full-file, counterpart, owner-fit or acceptance credit from hash/range alone."
+    },
+    {
+      "delta_observation_index": 48,
+      "source_id": "physical-p16:crates/adventuresim-core/src/social/witness.rs",
+      "sha256": "14db851b00491a104efa4d272f24ef1285b357a92dbd0f875a109a27033fd735",
+      "path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/social/witness.rs",
+      "material_ranges": [
+        [
+          1,
+          233
+        ]
+      ],
+      "parent_source_proof": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "receipt": "CAM-PPS-SOCIAL-027",
+        "json_pointer": "/current_sources/10"
+      },
+      "parent_actual_contract_refs": [
+        "CAM-PPS-SOCIAL-027/contracts/3",
+        "CAM-PPS-SOCIAL-027/contracts/4"
+      ],
+      "actual_producer_recipient_reconciliation": "Witness assessment/challenge typed approach/direction and broader sensitivity/roll inputs -> actual confidence/strength/scoring kernels -> DB claim record -> Web CSS/text. Successful assessed strength clamp differs diagnosed-axis NaN confidence; preserve raw public normalization and unknown assessment alias policy rather than blanket UnitInterval.",
+      "fresh_source_proof_indices": [],
+      "receiving_closure_groups": [
+        "social-time-mental-language-native",
+        "dialogue-native-and-browser"
+      ],
+      "findings": [
+        "CAM-PROP-F019",
+        "CAM-PROP-F006",
+        "CAM-PROP-F023",
+        "CAM-OWN-SOCIAL-037"
+      ],
+      "disposition": "bounded-producer-role-accounted-with-findings",
+      "remaining_actual_unread": [],
+      "proof_limit": "Exact current producer proof and substantive role/receiver narrative reused; fresh reads only where listed. No full-file, counterpart, owner-fit or acceptance credit from hash/range alone."
+    },
+    {
+      "delta_observation_index": 55,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/character.rs",
+      "sha256": "1c346cbf22b4b7ad34cdd6b515b08d015c43e6489f953aa3a75ea40d8e3c675c",
+      "path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/character.rs",
+      "material_ranges": [
+        [
+          2144,
+          2173
+        ]
+      ],
+      "parent_source_proof": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "receipt": "CAM-PPS-SOCIAL-027",
+        "json_pointer": "/current_sources/15"
+      },
+      "parent_actual_contract_refs": [
+        "CAM-PPS-SOCIAL-027/contracts/2",
+        "CAM-PPS-SOCIAL-027/contracts/4"
+      ],
+      "actual_producer_recipient_reconciliation": "Actual shared_language_coefficient loads both skills/attribute caps -> best_common_oral_language_capped -> scalar coefficient -> social effect. Fresh2144-2173 shows missing rows/caps become0 under existing policy; do not mislabel that as observed fluency. Fraction is new computed output, not a peeled checked fraction; retain capability/observation owner requirements.",
+      "fresh_source_proof_indices": [
+        8
+      ],
+      "receiving_closure_groups": [
+        "social-time-mental-language-native",
+        "dialogue-native-and-browser"
+      ],
+      "findings": [
+        "CAM-PROP-F019",
+        "CAM-PROP-F006",
+        "CAM-PROP-F023",
+        "CAM-OWN-SOCIAL-037"
+      ],
+      "disposition": "bounded-producer-role-accounted-with-findings",
+      "remaining_actual_unread": [],
+      "proof_limit": "Exact current producer proof and substantive role/receiver narrative reused; fresh reads only where listed. No full-file, counterpart, owner-fit or acceptance credit from hash/range alone."
+    },
+    {
+      "delta_observation_index": 83,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/personality.rs",
+      "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+      "path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/personality.rs",
+      "material_ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "parent_source_proof": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "receipt": "CAM-PPS-SOCIAL-027",
+        "json_pointer": "/current_sources/13"
+      },
+      "parent_actual_contract_refs": [
+        "CAM-PPS-SOCIAL-027/contracts/1"
+      ],
+      "actual_producer_recipient_reconciliation": "Actual CharacterPersonality1-160 re-exports Core enums, retains typed visible traits/demographics and separate signed private score schema. This scoped producer reaches DB social canonical enum-to-i8 seam. Only1-160 material role, not the entire larger personality file or its partial set_score body, is reconciled.",
+      "fresh_source_proof_indices": [
+        1
+      ],
+      "receiving_closure_groups": [
+        "social-time-mental-language-native",
+        "dialogue-native-and-browser"
+      ],
+      "findings": [
+        "CAM-PROP-F019",
+        "CAM-PROP-F006",
+        "CAM-PROP-F023",
+        "CAM-OWN-SOCIAL-037"
+      ],
+      "disposition": "bounded-producer-role-accounted-with-findings",
+      "remaining_actual_unread": [],
+      "proof_limit": "Exact current producer proof and substantive role/receiver narrative reused; fresh reads only where listed. No full-file, counterpart, owner-fit or acceptance credit from hash/range alone."
+    },
+    {
+      "delta_observation_index": 109,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social.rs",
+      "sha256": "93e446648725e961aaac7377e920dd07a8fcef4b7c0ff243ad9b054801f2ca41",
+      "path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/social.rs",
+      "material_ranges": [
+        [
+          1,
+          3805
+        ]
+      ],
+      "parent_source_proof": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "receipt": "CAM-PPS-SOCIAL-027",
+        "json_pointer": "/current_sources/0"
+      },
+      "parent_actual_contract_refs": [
+        "CAM-PPS-SOCIAL-027/contracts/0",
+        "CAM-PPS-SOCIAL-027/contracts/1",
+        "CAM-PPS-SOCIAL-027/contracts/2",
+        "CAM-PPS-SOCIAL-027/contracts/3",
+        "CAM-PPS-SOCIAL-027/contracts/4",
+        "CAM-PPS-SOCIAL-027/contracts/5"
+      ],
+      "actual_producer_recipient_reconciliation": "Complete frozen P16 social3805 and explicit current PR signature/logging union -> admission, manual/automatic actions, chat/prayer/affinity/presence, testimony/challenge and native row/reducer recipients. Existing F019 typed action/personality erasure, F006 concrete causes and F023 missing clocks/health remain. Actual stable IDs at final native receipt/cooldown fields differ internal raw forwarding; preserve exact ordering/privacy/replay/draw/rollback policies.",
+      "fresh_source_proof_indices": [],
+      "receiving_closure_groups": [
+        "social-time-mental-language-native",
+        "dialogue-native-and-browser"
+      ],
+      "findings": [
+        "CAM-PROP-F019",
+        "CAM-PROP-F006",
+        "CAM-PROP-F023",
+        "CAM-OWN-SOCIAL-037"
+      ],
+      "disposition": "bounded-producer-role-accounted-with-findings",
+      "remaining_actual_unread": [],
+      "proof_limit": "Exact current producer proof and substantive role/receiver narrative reused; fresh reads only where listed. No full-file, counterpart, owner-fit or acceptance credit from hash/range alone."
+    },
+    {
+      "delta_observation_index": 110,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social/action_authority_tests.rs",
+      "sha256": "ba5b4a0bf39b20046078778a463fce3dea54375d10801a7f68c2d58aaa689198",
+      "path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/social/action_authority_tests.rs",
+      "material_ranges": [
+        [
+          1,
+          154
+        ]
+      ],
+      "parent_source_proof": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "receipt": "CAM-PPS-SOCIAL-027",
+        "json_pointer": "/current_sources/4"
+      },
+      "parent_actual_contract_refs": [
+        "CAM-PPS-SOCIAL-027/contracts/0",
+        "CAM-PPS-SOCIAL-027/contracts/5"
+      ],
+      "actual_producer_recipient_reconciliation": "Original action authority fixtures -> strict canonical action/native request -> current typed operation result and SDK state checks. Parent personally read full154 source; unchanged fixture values/cases/assertions retained. Known typed aggregate versus string comparison is an API adaptation obligation, not passed validation.",
+      "fresh_source_proof_indices": [],
+      "receiving_closure_groups": [
+        "social-time-mental-language-native",
+        "dialogue-native-and-browser"
+      ],
+      "findings": [
+        "CAM-PROP-F019",
+        "CAM-PROP-F006",
+        "CAM-PROP-F023",
+        "CAM-OWN-SOCIAL-037"
+      ],
+      "disposition": "bounded-producer-role-accounted-with-findings",
+      "remaining_actual_unread": [],
+      "proof_limit": "Exact current producer proof and substantive role/receiver narrative reused; fresh reads only where listed. No full-file, counterpart, owner-fit or acceptance credit from hash/range alone."
+    },
+    {
+      "delta_observation_index": 111,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social/admission.rs",
+      "sha256": "69e421c97648b448a374ac32ca30481cb6d0599800f9fbfa88d27dd6fb0f9137",
+      "path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/social/admission.rs",
+      "material_ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "parent_source_proof": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "receipt": "CAM-PPS-SOCIAL-027",
+        "json_pointer": "/current_sources/1"
+      },
+      "parent_actual_contract_refs": [
+        "CAM-PPS-SOCIAL-027/contracts/0",
+        "CAM-PPS-SOCIAL-027/contracts/5"
+      ],
+      "actual_producer_recipient_reconciliation": "Fresh31 admission source parses SocialActionKind before actor/target/self/living/co-location policy. ParseSocialActionKindError is formatted before internal return (F006); preserve unknown-token diagnostic and first-failure order. Actual manual string wire ingress does not justify automatic typed action round trip.",
+      "fresh_source_proof_indices": [
+        2
+      ],
+      "receiving_closure_groups": [
+        "social-time-mental-language-native",
+        "dialogue-native-and-browser"
+      ],
+      "findings": [
+        "CAM-PROP-F019",
+        "CAM-PROP-F006",
+        "CAM-PROP-F023",
+        "CAM-OWN-SOCIAL-037"
+      ],
+      "disposition": "bounded-producer-role-accounted-with-findings",
+      "remaining_actual_unread": [],
+      "proof_limit": "Exact current producer proof and substantive role/receiver narrative reused; fresh reads only where listed. No full-file, counterpart, owner-fit or acceptance credit from hash/range alone."
+    },
+    {
+      "delta_observation_index": 112,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social/authority_tests.rs",
+      "sha256": "7d9764fa811d072a8b73d6cff64f240b384f8a04d87654fa95c97a8f06a72231",
+      "path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/social/authority_tests.rs",
+      "material_ranges": [
+        [
+          1,
+          379
+        ]
+      ],
+      "parent_source_proof": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "receipt": "CAM-PPS-SOCIAL-027",
+        "json_pointer": "/current_sources/5"
+      },
+      "parent_actual_contract_refs": [
+        "CAM-PPS-SOCIAL-027/contracts/3",
+        "CAM-PPS-SOCIAL-027/contracts/5"
+      ],
+      "actual_producer_recipient_reconciliation": "Original full379 witness/social authority fixtures -> challenge/retry/resolution/native persistence/feedback recipients. Parent current producer graph preserves all original inputs and optional-resolution/alias policy. Existing map_err(String::as_str) on typed aggregate remains source adaptation finding; no test executed.",
+      "fresh_source_proof_indices": [],
+      "receiving_closure_groups": [
+        "social-time-mental-language-native",
+        "dialogue-native-and-browser"
+      ],
+      "findings": [
+        "CAM-PROP-F019",
+        "CAM-PROP-F006",
+        "CAM-PROP-F023",
+        "CAM-OWN-SOCIAL-037"
+      ],
+      "disposition": "bounded-producer-role-accounted-with-findings",
+      "remaining_actual_unread": [],
+      "proof_limit": "Exact current producer proof and substantive role/receiver narrative reused; fresh reads only where listed. No full-file, counterpart, owner-fit or acceptance credit from hash/range alone."
+    },
+    {
+      "delta_observation_index": 113,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social/automatic_authority_tests.rs",
+      "sha256": "005d1418c985d41f95a7556250dba755b766afd37f61192b5750025194eec271",
+      "path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/social/automatic_authority_tests.rs",
+      "material_ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "parent_source_proof": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "receipt": "CAM-PPS-SOCIAL-027",
+        "json_pointer": "/current_sources/6"
+      },
+      "parent_actual_contract_refs": [
+        "CAM-PPS-SOCIAL-027/contracts/0",
+        "CAM-PPS-SOCIAL-027/contracts/5"
+      ],
+      "actual_producer_recipient_reconciliation": "Original automatic85 fixtures exercise actual typed automatic selection -> application path/native social state; same F019 loss remains in that receiving operation. Preserve existing actor eligibility, conditional draw order and oracle population; source-read evidence only.",
+      "fresh_source_proof_indices": [],
+      "receiving_closure_groups": [
+        "social-time-mental-language-native",
+        "dialogue-native-and-browser"
+      ],
+      "findings": [
+        "CAM-PROP-F019",
+        "CAM-PROP-F006",
+        "CAM-PROP-F023",
+        "CAM-OWN-SOCIAL-037"
+      ],
+      "disposition": "bounded-producer-role-accounted-with-findings",
+      "remaining_actual_unread": [],
+      "proof_limit": "Exact current producer proof and substantive role/receiver narrative reused; fresh reads only where listed. No full-file, counterpart, owner-fit or acceptance credit from hash/range alone."
+    },
+    {
+      "delta_observation_index": 114,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social/discovery.rs",
+      "sha256": "848aa99d18243a4679c4c3ef1cbe3e9e1556f5c93b1a5cf83cd6c9a04c545198",
+      "path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/social/discovery.rs",
+      "material_ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "parent_source_proof": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "receipt": "CAM-PPS-SOCIAL-027",
+        "json_pointer": "/current_sources/2"
+      },
+      "parent_actual_contract_refs": [
+        "CAM-PPS-SOCIAL-027/contracts/0",
+        "CAM-PPS-SOCIAL-027/contracts/3",
+        "CAM-PPS-SOCIAL-027/contracts/4"
+      ],
+      "actual_producer_recipient_reconciliation": "Fresh47 source keeps SocialActionKind/SocialTopic/PersonalityAxis through actual discovery matching and ordered axis vector; self-only branch, deliberate empty Reassure and fixed fallback axes stay explicit. Axis word extraction occurs only inside actual owned RNG context, not retained raw selection state.",
+      "fresh_source_proof_indices": [
+        4
+      ],
+      "receiving_closure_groups": [
+        "social-time-mental-language-native",
+        "dialogue-native-and-browser"
+      ],
+      "findings": [
+        "CAM-PROP-F019",
+        "CAM-PROP-F006",
+        "CAM-PROP-F023",
+        "CAM-OWN-SOCIAL-037"
+      ],
+      "disposition": "bounded-producer-role-accounted-with-findings",
+      "remaining_actual_unread": [],
+      "proof_limit": "Exact current producer proof and substantive role/receiver narrative reused; fresh reads only where listed. No full-file, counterpart, owner-fit or acceptance credit from hash/range alone."
+    },
+    {
+      "delta_observation_index": 115,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social/draws.rs",
+      "sha256": "788653b52576c63a07a52065f8742eb6b63bc0268cb64ce16441cdea693f8c09",
+      "path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/social/draws.rs",
+      "material_ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "parent_source_proof": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "receipt": "CAM-PPS-SOCIAL-027",
+        "json_pointer": "/current_sources/3"
+      },
+      "parent_actual_contract_refs": [
+        "CAM-PPS-SOCIAL-027/contracts/4"
+      ],
+      "actual_producer_recipient_reconciliation": "Fresh54 ActionDraws stores Seed and participants; typed axis survives until actual StreamId RNG context words. testimony uses Seed bytes solely in owned length-framed derive, other helpers consume Seed directly. Returned random floats are new draws consumed by actual social numerical comparisons, not retained canonical Seed bits erased.",
+      "fresh_source_proof_indices": [
+        3
+      ],
+      "receiving_closure_groups": [
+        "social-time-mental-language-native",
+        "dialogue-native-and-browser"
+      ],
+      "findings": [
+        "CAM-PROP-F019",
+        "CAM-PROP-F006",
+        "CAM-PROP-F023",
+        "CAM-OWN-SOCIAL-037"
+      ],
+      "disposition": "bounded-producer-role-accounted-with-findings",
+      "remaining_actual_unread": [],
+      "proof_limit": "Exact current producer proof and substantive role/receiver narrative reused; fresh reads only where listed. No full-file, counterpart, owner-fit or acceptance credit from hash/range alone."
+    },
+    {
+      "delta_observation_index": 147,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/language.rs",
+      "sha256": "1475b920cad83e1f040a2c19627f288508d660a9d771bd72cf8993fa34b9a05f",
+      "path": "SNAPSHOTS/physical-p16/crates/adventuresim-world-schema/src/language.rs",
+      "material_ranges": [
+        [
+          214,
+          243
+        ]
+      ],
+      "parent_source_proof": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "receipt": "CAM-PPS-SOCIAL-027",
+        "json_pointer": "/current_sources/14"
+      },
+      "parent_actual_contract_refs": [
+        "CAM-PPS-SOCIAL-027/contracts/4"
+      ],
+      "actual_producer_recipient_reconciliation": "Fresh language214-243 computes capped shared hours/fluency coefficient and deterministic tie order; language_scaled_effect performs final finite/clamp multiplication. OralLanguage stays typed through selection; coefficient is changed output. Preserve missing source policy and original float order, broader nonfinite behavior, not arbitrary wrapper narrowing.",
+      "fresh_source_proof_indices": [
+        7
+      ],
+      "receiving_closure_groups": [
+        "social-time-mental-language-native",
+        "dialogue-native-and-browser"
+      ],
+      "findings": [
+        "CAM-PROP-F019",
+        "CAM-PROP-F006",
+        "CAM-PROP-F023",
+        "CAM-OWN-SOCIAL-037"
+      ],
+      "disposition": "bounded-producer-role-accounted-with-findings",
+      "remaining_actual_unread": [],
+      "proof_limit": "Exact current producer proof and substantive role/receiver narrative reused; fresh reads only where listed. No full-file, counterpart, owner-fit or acceptance credit from hash/range alone."
+    },
+    {
+      "delta_observation_index": 156,
+      "source_id": "pr-working:crates/adventuresim-core/src/starting_character.rs",
+      "sha256": "6fc3cb5410e5f3657ffc30cdb4be97fca0dbd4542238960d0db8d0fcc8ff7192",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/starting_character.rs",
+      "material_ranges": [
+        [
+          1,
+          1936
+        ]
+      ],
+      "parent_source_proof": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "receipt": "CAM-PPS-NAMING-STARTING-052",
+        "json_pointer": "/additional_actual_source_proofs/0"
+      },
+      "parent_actual_contract_refs": [
+        "CAM-PPS-NAMING-STARTING-052/contracts/0",
+        "CAM-PPS-NAMING-STARTING-052/contracts/1",
+        "CAM-PPS-NAMING-STARTING-052/contracts/4",
+        "CAM-PPS-NAMING-STARTING-052/contracts/5"
+      ],
+      "actual_producer_recipient_reconciliation": "StartingCharacterSpec1936 authored/native seed, PersonalNameIdentity, traits/profession/loadout -> actual name generation, life/training and DB creation -> immutable tactical request/mailbox/spawn. Root054 plus final pure8 closes previously pending LifeSimulation receiver. Fresh886-984 confirms checked Seed and training result flow; raw128-bit roster seed, biological/body mass, raw religion/organization/skill keys and physical catalogue union remain distinct connected findings.",
+      "fresh_source_proof_indices": [
+        11
+      ],
+      "receiving_closure_groups": [
+        "name-build-runtime",
+        "starting-life-and-authoritative-projection"
+      ],
+      "findings": [
+        "CAM-OWNER-F005",
+        "CAM-PROP-F006",
+        "CAM-PROP-F002",
+        "CAM-PROP-F021"
+      ],
+      "disposition": "bounded-producer-role-accounted-with-findings",
+      "remaining_actual_unread": [],
+      "proof_limit": "Exact current producer proof and substantive role/receiver narrative reused; fresh reads only where listed. No full-file, counterpart, owner-fit or acceptance credit from hash/range alone."
+    },
+    {
+      "delta_observation_index": 175,
+      "source_id": "pr-working:crates/adventuresim-world-schema/build.rs",
+      "sha256": "1cbb4c6032d77345ba85c017d2e5f94b1600c1a4064ff586f0e1872afd63df74",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-world-schema/build.rs",
+      "material_ranges": [
+        [
+          1,
+          121
+        ]
+      ],
+      "parent_source_proof": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "receipt": "CAM-PPS-NAMING-STARTING-052",
+        "json_pointer": "/additional_actual_source_proofs/1"
+      },
+      "parent_actual_contract_refs": [
+        "CAM-PPS-NAMING-STARTING-052/contracts/3"
+      ],
+      "actual_producer_recipient_reconciliation": "Fresh complete build121: sorted actual file paths/text -> framed SHA; external JSON-compatible YAML decode -> raw schema -> fragment merge -> validator -> actual generated JSON/Rust file. These are concrete filesystem/Serde/hash/output ports; internal validated-name membership/raw keys still require propagation. Build panic Display is final output, not a waiver for earlier concrete SamplingError erasure.",
+      "fresh_source_proof_indices": [
+        12
+      ],
+      "receiving_closure_groups": [
+        "name-build-runtime",
+        "starting-life-and-authoritative-projection"
+      ],
+      "findings": [
+        "CAM-OWNER-F005",
+        "CAM-PROP-F006",
+        "CAM-PROP-F002",
+        "CAM-PROP-F021"
+      ],
+      "disposition": "bounded-producer-role-accounted-with-findings",
+      "remaining_actual_unread": [],
+      "proof_limit": "Exact current producer proof and substantive role/receiver narrative reused; fresh reads only where listed. No full-file, counterpart, owner-fit or acceptance credit from hash/range alone."
+    },
+    {
+      "delta_observation_index": 176,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/name_catalog_schema.rs",
+      "sha256": "c50dcf6eef9aa348c8c259b105a9734f1e25ee2e57a043ee484a3892e9795dfa",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-world-schema/src/name_catalog_schema.rs",
+      "material_ranges": [
+        [
+          1,
+          199
+        ]
+      ],
+      "parent_source_proof": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "receipt": "CAM-PPS-NAMING-STARTING-052",
+        "json_pointer": "/additional_actual_source_proofs/2"
+      },
+      "parent_actual_contract_refs": [
+        "CAM-PPS-NAMING-STARTING-052/contracts/3"
+      ],
+      "actual_producer_recipient_reconciliation": "Externally decoded full schema199 retains typed cultural/sex/register/tradition/record-unit enums but open definition/reference IDs and frequency/provenance records remain raw across validation and generation. Real external field names/JSON are native format; successful membership must survive later internal selectors. Source strengthening and tuple/aggregate design remain separate later lenses.",
+      "fresh_source_proof_indices": [
+        13
+      ],
+      "receiving_closure_groups": [
+        "name-build-runtime",
+        "starting-life-and-authoritative-projection"
+      ],
+      "findings": [
+        "CAM-OWNER-F005",
+        "CAM-PROP-F006",
+        "CAM-PROP-F002",
+        "CAM-PROP-F021"
+      ],
+      "disposition": "bounded-producer-role-accounted-with-findings",
+      "remaining_actual_unread": [],
+      "proof_limit": "Exact current producer proof and substantive role/receiver narrative reused; fresh reads only where listed. No full-file, counterpart, owner-fit or acceptance credit from hash/range alone."
+    },
+    {
+      "delta_observation_index": 177,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/name_catalog_validation.rs",
+      "sha256": "555b21fb6dddac260f0a951252041fd40a0d3e02dd8bb0d649fda9a528e0ed77",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-world-schema/src/name_catalog_validation.rs",
+      "material_ranges": [
+        [
+          1,
+          576
+        ]
+      ],
+      "parent_source_proof": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "receipt": "CAM-PPS-NAMING-STARTING-052",
+        "json_pointer": "/additional_actual_source_proofs/3"
+      },
+      "parent_actual_contract_refs": [
+        "CAM-PPS-NAMING-STARTING-052/contracts/2",
+        "CAM-PPS-NAMING-STARTING-052/contracts/3"
+      ],
+      "actual_producer_recipient_reconciliation": "Full validator576 -> indexed name membership, positive/unique compatible frequencies and provenance -> actual build accept/reject. Fresh270-340 confirms per-family form checked_add; family/surname total overflow can still produce runtime SamplingError. Existing NameCatalogError::Sampling(String) loses that concrete runtime cause; static validator string diagnostics are a separate strengthening obligation.",
+      "fresh_source_proof_indices": [
+        14
+      ],
+      "receiving_closure_groups": [
+        "name-build-runtime",
+        "starting-life-and-authoritative-projection"
+      ],
+      "findings": [
+        "CAM-OWNER-F005",
+        "CAM-PROP-F006",
+        "CAM-PROP-F002",
+        "CAM-PROP-F021"
+      ],
+      "disposition": "bounded-producer-role-accounted-with-findings",
+      "remaining_actual_unread": [],
+      "proof_limit": "Exact current producer proof and substantive role/receiver narrative reused; fresh reads only where listed. No full-file, counterpart, owner-fit or acceptance credit from hash/range alone."
+    },
+    {
+      "delta_observation_index": 178,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/name_catalog_validation/derivations.rs",
+      "sha256": "7178c20d189f6254be6bd97094c550465c0b137c2c2e3ccf0b8f033cc80d435d",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-world-schema/src/name_catalog_validation/derivations.rs",
+      "material_ranges": [
+        [
+          1,
+          214
+        ]
+      ],
+      "parent_source_proof": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "receipt": "CAM-PPS-NAMING-STARTING-052",
+        "json_pointer": "/additional_actual_source_proofs/4"
+      },
+      "parent_actual_contract_refs": [
+        "CAM-PPS-NAMING-STARTING-052/contracts/3"
+      ],
+      "actual_producer_recipient_reconciliation": "Full derivations214 validation and fresh1-90: repertoire/family/form/surname raw target tuple + exact frequency -> known-target, source observation and complete-coverage checks -> build output. Unknown rejected authored key evidence stays available; no arbitrary closed enum or successful-membership waiver. Optional tuple shape is later aggregate review, not unread producer graph.",
+      "fresh_source_proof_indices": [
+        15
+      ],
+      "receiving_closure_groups": [
+        "name-build-runtime",
+        "starting-life-and-authoritative-projection"
+      ],
+      "findings": [
+        "CAM-OWNER-F005",
+        "CAM-PROP-F006",
+        "CAM-PROP-F002",
+        "CAM-PROP-F021"
+      ],
+      "disposition": "bounded-producer-role-accounted-with-findings",
+      "remaining_actual_unread": [],
+      "proof_limit": "Exact current producer proof and substantive role/receiver narrative reused; fresh reads only where listed. No full-file, counterpart, owner-fit or acceptance credit from hash/range alone."
+    },
+    {
+      "delta_observation_index": 179,
+      "source_id": "pr-working:crates/strategic-web/src/routes/dialogue.rs",
+      "sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+      "path": "SNAPSHOTS/pr-working/crates/strategic-web/src/routes/dialogue.rs",
+      "material_ranges": [
+        [
+          175,
+          310
+        ],
+        [
+          939,
+          1030
+        ],
+        [
+          1333,
+          1503
+        ]
+      ],
+      "parent_source_proof": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "receipt": "CAM-PPS-SOCIAL-027",
+        "json_pointer": "/current_sources/17"
+      },
+      "parent_actual_contract_refs": [
+        "CAM-PPS-SOCIAL-027/contracts/1",
+        "CAM-PPS-SOCIAL-027/contracts/2",
+        "CAM-PPS-SOCIAL-027/contracts/3",
+        "CAM-PPS-SOCIAL-027/contracts/5"
+      ],
+      "actual_producer_recipient_reconciliation": "Exact Web175-310/939-1030/1333-1503 -> claim/native query observations -> ConversationView/JSON and NPC social availability. Rig033 full dialogue29 closes actual callbacks/build_view/JSON/DOM graph, preserving F016 malformed authoritative omission and F023 observation losses. Real absent relationship maps Uncertain; final safe response does not justify internal failed-query default.",
+      "fresh_source_proof_indices": [],
+      "receiving_closure_groups": [
+        "social-time-mental-language-native",
+        "dialogue-native-and-browser"
+      ],
+      "findings": [
+        "CAM-PROP-F019",
+        "CAM-PROP-F006",
+        "CAM-PROP-F023",
+        "CAM-OWN-SOCIAL-037"
+      ],
+      "disposition": "bounded-producer-role-accounted-with-findings",
+      "remaining_actual_unread": [],
+      "proof_limit": "Exact current producer proof and substantive role/receiver narrative reused; fresh reads only where listed. No full-file, counterpart, owner-fit or acceptance credit from hash/range alone."
+    },
+    {
+      "delta_observation_index": 180,
+      "source_id": "pr-working:crates/strategic-web/src/routes/dialogue/claims.rs",
+      "sha256": "6ce1fead82db25ebeebc1f64944e44bf410b5ea3b28b9f46480cd04128130197",
+      "path": "SNAPSHOTS/pr-working/crates/strategic-web/src/routes/dialogue/claims.rs",
+      "material_ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "parent_source_proof": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "receipt": "CAM-PPS-SOCIAL-027",
+        "json_pointer": "/current_sources/16"
+      },
+      "parent_actual_contract_refs": [
+        "CAM-PPS-SOCIAL-027/contracts/3",
+        "CAM-PPS-SOCIAL-027/contracts/5"
+      ],
+      "actual_producer_recipient_reconciliation": "Fresh claims1-127 matches exact event/order/text, carries optional typed WitnessClaimResolution and maps generated outcome enum to canonical enum before JSON. Witness approach admits canonical ClaimChallengeApproach and immediately encodes at actual HTTP reducer JSON; final conflict/bad-request statuses are real response policy. Earlier grant extraction/build_view malformed data remain existing whole-loop findings.",
+      "fresh_source_proof_indices": [
+        9
+      ],
+      "receiving_closure_groups": [
+        "social-time-mental-language-native",
+        "dialogue-native-and-browser"
+      ],
+      "findings": [
+        "CAM-PROP-F019",
+        "CAM-PROP-F006",
+        "CAM-PROP-F023",
+        "CAM-OWN-SOCIAL-037"
+      ],
+      "disposition": "bounded-producer-role-accounted-with-findings",
+      "remaining_actual_unread": [],
+      "proof_limit": "Exact current producer proof and substantive role/receiver narrative reused; fresh reads only where listed. No full-file, counterpart, owner-fit or acceptance credit from hash/range alone."
+    },
+    {
+      "delta_observation_index": 186,
+      "source_id": "pr-working:crates/strategic-web/static/dialogue-client.js",
+      "sha256": "dd5524466d59c0e52e3a527e31b8cc005ebf64f581b89a08801e2195943fcf19",
+      "path": "SNAPSHOTS/pr-working/crates/strategic-web/static/dialogue-client.js",
+      "material_ranges": [
+        [
+          480,
+          555
+        ]
+      ],
+      "parent_source_proof": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "receipt": "CAM-PPS-SOCIAL-027",
+        "json_pointer": "/current_sources/18"
+      },
+      "parent_actual_contract_refs": [
+        "CAM-PPS-SOCIAL-027/contracts/3"
+      ],
+      "actual_producer_recipient_reconciliation": "Fresh JS480-555 receives claim JSON, sends actual HTTP challenge command, writes actual CSS/ARIA/text and completion DOM. Assessment text chooses CSS/text fallback at this browser adapter, not a Rust semantic re-admission. Preserve unknown insight fallback, full token/revision matching and stale-view request recovery; unrelated JS bodies not credited.",
+      "fresh_source_proof_indices": [
+        10
+      ],
+      "receiving_closure_groups": [
+        "social-time-mental-language-native",
+        "dialogue-native-and-browser"
+      ],
+      "findings": [
+        "CAM-PROP-F019",
+        "CAM-PROP-F006",
+        "CAM-PROP-F023",
+        "CAM-OWN-SOCIAL-037"
+      ],
+      "disposition": "bounded-producer-role-accounted-with-findings",
+      "remaining_actual_unread": [],
+      "proof_limit": "Exact current producer proof and substantive role/receiver narrative reused; fresh reads only where listed. No full-file, counterpart, owner-fit or acceptance credit from hash/range alone."
+    }
+  ],
+  "receiving_closure_groups": {
+    "social-time-mental-language-native": [
+      "CAM-PPS-SOCIAL-027/contracts/0-5 + actual_receivers",
+      "CAM-PPS-CONDITION-WEATHER-009",
+      "CAM-PPS-TIME-ROSTER-014 / NATIVE-PS-CAMERA-TIME-PACKET-011",
+      "CAM-PPS-POPULATION-024"
+    ],
+    "dialogue-native-and-browser": [
+      "RIG-PPS-033/paths/0-7 + current_shared_exact_proofs",
+      "RIG-PPS-033/actually_unread=[]",
+      "RIG-PPS-F016 preserved; no malformed observation fallback accepted"
+    ],
+    "name-build-runtime": [
+      "CAM-PPS-NAMING-STARTING-052/contracts/0-3",
+      "Existing canonical Seed/StreamId/weighted sampling actual kernel and NameCatalogError cause proof, preserving order/hash/framing/unknown IDs"
+    ],
+    "starting-life-and-authoritative-projection": [
+      "ROOT-PPS-PURE-FOOD-LIFE-PARTIAL-054/producer_to_receiver/6-9",
+      "CONT-ROOT-PP-PURE8-001/new_receiver_dispositions/2",
+      "CAM-PPS-STRATEGIC-PROJECTION-007 creation source",
+      "RIG-CONT-PPS-WEB-REQUEST-RECONCILIATION-039/source_dispositions indices714/715 and actual mailbox/spawn joins",
+      "CONT-CAMERA-PP-008/historical_reconciliation",
+      "NATIVE-PS-SERVER-EQUIPMENT-PROJECTION-CLOSURE-027 exact source/recipient graph"
+    ]
+  },
+  "connected_repairs_preserved": [
+    "Camera whole canonical social manual/automatic action/personality/cause/clock loops retain existing claims; typed action must reach internal execution without stable-id reparse.",
+    "Camera/rig dialogue whole observation and provenance/query/HTTP callback owners retain F016/F006/F022/F023; true final JSON/DOM/reducer text ports do not excuse internal loss.",
+    "Root/camera canonical name catalogue error/ID/membership and current P16 physical catalogue owners; Native combined pure training/life/curriculum function; Camera DB creation/physical biological mass and Native terminal causes; rig catalogue/hash/DOM graph. No new ownership transfer.",
+    "Preserve exact current PR/P16 union, typed P15 equipment chronology, all existing fixture inputs/cases/assertions, full seed bits/framing/draw order, private versus perceived state, realzero versus unavailable and original broad input policies."
+  ],
+  "remaining_actual_unread": [],
+  "first_unfinished_assigned_cell": null,
+  "limits": [
+    "16 fresh bounded source reads supplement existing current producer body proofs; not a claim to independently reread social3805/Core1909/starting1936/name validation576 entirely.",
+    "Existing findings remain mandatory; no source/family, behavior, owner-fit or overall lens clearance.",
+    "Only assigned24 rows qualified. Root six narrow qualifiers, Native boundary15 and Camera remainder remain separate."
+  ],
+  "source_or_authoritative_ledger_edits": 0,
+  "project_commands_or_tests": 0,
+  "overall_lens_clearance": "not awarded"
+}

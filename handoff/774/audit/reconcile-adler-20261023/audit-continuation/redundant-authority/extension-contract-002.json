@@ -1,0 +1,68 @@
+{
+  "id": "CONT07-EXTENSION-CONTRACT-002",
+  "at": "2026-10-24T01:02:33.377007+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "registry_index": 17,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/rigged.rs",
+      "sha256": "2f337baa2edb2356e1f086aacf549696c63bfac639d03c5f0a9b564d675bb397",
+      "ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "read_kind": "fresh personally read exact registered source ranges",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/2f337baa2edb2356e1f086aacf549696c63bfac639d03c5f0a9b564d675bb397"
+    },
+    {
+      "registry_index": 18,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/validation.rs",
+      "sha256": "61a7e389db804f2c17d7e619c27bb5bfc88f873f11e00d05097c85b6121518fb",
+      "ranges": [
+        [
+          1,
+          164
+        ]
+      ],
+      "read_kind": "fresh personally read exact registered source ranges",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/61a7e389db804f2c17d7e619c27bb5bfc88f873f11e00d05097c85b6121518fb"
+    },
+    {
+      "registry_index": 19,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/compact.rs",
+      "sha256": "4aa7045f30b54218cf1897ee3f74e1d8831a35debb7905ad3365a796e20f7ca9",
+      "ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "read_kind": "fresh personally read exact registered source ranges",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/4aa7045f30b54218cf1897ee3f74e1d8831a35debb7905ad3365a796e20f7ca9"
+    },
+    {
+      "registry_index": 20,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/textures.rs",
+      "sha256": "94523800edefb10ca1a28ebdf93b14b034f2b22b0900e406857bbfc8a5dbf99b",
+      "ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "read_kind": "fresh personally read exact registered source ranges",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/94523800edefb10ca1a28ebdf93b14b034f2b22b0900e406857bbfc8a5dbf99b"
+    }
+  ],
+  "facts": [
+    "RiggedMesh supplied arrays/rig roster/global states are distinct projections sharing joint/vertex identity, not independently recomputed anatomy. global_transforms derives native state once. RiggedShell optional source.surface UV/ShellTextures and texcoords/SurfaceTextures may represent separate surface mechanisms, need actual precedence recipient before calling duplicate authority.",
+    "Validation coordinates vertex/skin/joint cardinalities and parent ordinal, canonical PackedRigSkin bound, per-shell optionalskin pairing, finite UV/material/geometry. Body positions/normals finite check absent in these scoped checks; inherited export admission findings remain, no new unique by generic absence. Negative skin weights can sum1: exact bound question remains if actual upstream typed weight owner closes.",
+    "CompactShell selects sorted used original vertex IDs and remaps every listed geometry/skin/morph/texcoords/plate edge. rigged copies source.surface tuple unchanged, potentially retaining unremapped UV slice when geometry drops/reorders vertices; receiver/caller dependency pending, no ordinary export failure asserted. Same source borrows immutable owner, so no asynchronous mutation hypothesis.",
+    "TextureImages shell_cache keyed borrowed ShellTextures pointer inside one builder; textures borrowed immutable, cache lifetime bounded by export construction. No cross-export stale cache inferred. Shared files content addressed by actual PNGbytes and existing exact bytes checked; packaging option describes independent transport policy, not geometry authority. Texture image/texture indices co-generated."
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "other_lens_credit": false
+}

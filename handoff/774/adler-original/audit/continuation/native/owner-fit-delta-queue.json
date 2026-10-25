@@ -1,0 +1,975 @@
+{
+  "lens": "audit-existing-type-owners",
+  "status": "authorized read-only initial owner-fit delta; source freeze remains",
+  "source_scope_sha256": "7b26edf4b11e70ca00e3c2118a713726489c031be96a9a403207caef8abb2404",
+  "sources": [
+    {
+      "source_id": "native-dependency:bevy_math-0.19.1/src/direction.rs",
+      "sha256": "0aef18fddadf5d5361c4c11f0b9d5561637a7cee6dabde16dfd2816dcf2e521c",
+      "scope_kind": "materially_reached_producer_contract",
+      "new_variant": true,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "native-dependency:parry3d-0.27.0/Cargo.toml",
+      "sha256": "e9a4996484162b4fcda871bf170f0224ad27e1fff77ef5c88a8d8eafdfc89b9a",
+      "scope_kind": "materially_reached_producer_contract",
+      "new_variant": true,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "native-dependency:spacetimedb-2.6.1/src/rt.rs",
+      "sha256": "9dae2fdd25e809c3fae6780569a1e6ce1a9d76d99feaac6a38a884faaa5ebf16",
+      "scope_kind": "materially_reached_owner_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "native-dependency:spacetimedb-bindings-macro-2.6.1/src/reducer.rs",
+      "sha256": "5d9af3fa69cda0c4377ddc6e3da0ead36b83bcb5f7cda7e53d78534b9bfd0fba",
+      "scope_kind": "materially_reached_owner_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "native-dependency:spacetimedb-sats-2.6.1/src/timestamp.rs",
+      "sha256": "9a2b59b755254767182009ea99cc689199e310845668b3343faf52ca6139de0c",
+      "scope_kind": "materially_reached_producer_contract",
+      "new_variant": true,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "native-dependency:spacetimedb-sdk-2.6.1/src/db_connection.rs",
+      "sha256": "79c452f092b1123e8a9c4f7ca3c34167290bb97e3a64093ce903f4bf742b2b9a",
+      "scope_kind": "materially_reached_producer_contract",
+      "new_variant": true,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/herbalism.rs",
+      "sha256": "501c6cf8ba05522213c175784f28e6ddecd14aaab72a490fcb4bfa846eccb203",
+      "scope_kind": "materially_reached_owner_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_action.rs",
+      "sha256": "4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+      "scope_kind": "materially_reached_owner_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/journey_camp.rs",
+      "sha256": "ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d",
+      "scope_kind": "materially_reached_producer_contract",
+      "new_variant": true,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/activities.rs",
+      "sha256": "04dc828b86ab6bc354e9242ef33f6d1d75902cc5d9fad656c5192540167ec18a",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/advancement.rs",
+      "sha256": "2baeb9fb076d4f802e6d65c3e31d148b12d4b44f6b57756ca9022338afcb76a4",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/advancement/lifecycle.rs",
+      "sha256": "a8f43539a28232bc47303c02e648761d55590e7f33d97fd66abbc703374965f5",
+      "scope_kind": "materially_reached_producer_contract",
+      "new_variant": true,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/camp_rest.rs",
+      "sha256": "1b6ce9045c12adeece1d728b3eb5ba67c4ac28ef2683808f3a11ff6269f54c98",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/clock.rs",
+      "sha256": "25673af055bc146c82eb0fcf5bcbde2db09174cc6bec4e4dc2ae081150e3a25c",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/mod.rs",
+      "sha256": "0e0aec9ef7cae2e967e3e7018f1c6a823c847e11839fb43bf5c2fee295c404bc",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/model.rs",
+      "sha256": "8b5882561331877cca6e022666a6fc03c813375df88bcdda95752cddd3cd1a1e",
+      "scope_kind": "materially_reached_producer_contract",
+      "new_variant": true,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/schedule.rs",
+      "sha256": "6cbe8772bb5c9f5bd4f48d7dffa099df1b8a39a8a1cf69a83bc4a5ad0b938c73",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/settlement_rest.rs",
+      "sha256": "597a9011b190676ac71213abd7cf040a71a673d78e5b0498f204452a5b2d3223",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/stationary.rs",
+      "sha256": "4247ba159aa9a5ceb6183f7a4e23023b27e47cd6c48c46e66565120fe89e1ca8",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/world_actor.rs",
+      "sha256": "232be94a5acf0de9c374f0c16d546051e2d007c1005510b0adb7f3c0d41b28f6",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/world_actor/roster.rs",
+      "sha256": "9b4cde3a9009140eb19a6dab12c897dc30ea527fd5cb976c867d651f62c73a07",
+      "scope_kind": "materially_reached_producer_contract",
+      "new_variant": true,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/world_event.rs",
+      "sha256": "9403e2e3d8bc995c0483da0502427442f1c526ee1b513db2a9b5beac3078a5b0",
+      "scope_kind": "materially_reached_producer_contract",
+      "new_variant": true,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/presentation/environment.rs",
+      "sha256": "b6c219d19f45e18cf058bfa3ec4a06e826e50c2ae83d122e8d421f418dc31dbc",
+      "scope_kind": "materially_reached_owner_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/audit.rs",
+      "sha256": "a5a83e7409778230722685583a4efc7985dc11db52bf5eb2dd5a7ebde16af5a0",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal/autoresolve.rs",
+      "sha256": "5b0e7292d55c87297515274078335112ffd415b7d491548345e6417de1ed129d",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/measurement.rs",
+      "sha256": "7484685c90ececcfe299b8e5e8c4c4f361fe53ed917ec14e15c28affe40669df",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/offense.rs",
+      "sha256": "4275e4b481c27b96b32ef6cf85927899c939af70d3aa8cf2f4094bbd8d80e7dd",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/offense/facts.rs",
+      "sha256": "be9f3c237f25e8a4604f2eab6cf51a11b0e988d3b780ea7904884f0bb79a3e97",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/offense/phase.rs",
+      "sha256": "d779afa0fed93760d08b2dc0b0cea2701dcda4cca41f4be0d5d2b6106d16092d",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/offense/ranged.rs",
+      "sha256": "2f92d78e5bd08a1b831ec0901c256ce7b4a540193ad988ef6d3a4f3d62f68fdc",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/offense/tactics.rs",
+      "sha256": "b65059c1af131b6b98f426067c5bf495ade564c4f8538987bbdce63dcc42a54d",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/basis_points.rs",
+      "sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+      "scope_kind": "materially_reached_owner_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pinned-aeronet_websocket-0.21.0:src/client/backend.rs",
+      "sha256": "23dfe8915ad2b846fc6fefc68db46f83d144f77ae59771b5f1917fb323b6bc3b",
+      "scope_kind": "materially_reached_producer_contract",
+      "new_variant": true,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pinned-aeronet_websocket-0.21.0:src/client/mod.rs",
+      "sha256": "989293dad41e11f0b3d5c5bb4e10be8246e2645cd92c97090a19aa18bb385e93",
+      "scope_kind": "materially_reached_producer_contract",
+      "new_variant": true,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pinned-avian3d-0.7.0:src/collision/collider/mod.rs",
+      "sha256": "ca5bb9f61dfc7660c62dc29f09ae251c62a366a405904fbb3bff2a418dd30d6f",
+      "scope_kind": "materially_reached_producer_contract",
+      "new_variant": true,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pinned-avian3d-0.7.0:src/dynamics/rigid_body/mod.rs",
+      "sha256": "eb3a7e85f3ce1aca1e6959e5d335dc72a1f1fdcf3cd4835344c9d410efb247bd",
+      "scope_kind": "materially_reached_producer_contract",
+      "new_variant": true,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pinned-bevy_replicon-0.41.1:src/postcard_utils.rs",
+      "sha256": "4a9f413f61885f1581e0a3ddadb2528459e45bd2ea029a7a08ad3b2ab085d537",
+      "scope_kind": "materially_reached_producer_contract",
+      "new_variant": true,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/message/client_event.rs",
+      "sha256": "aab1a187ebfe12274e2d36a8e87e658429edf99f9570fd9f8381141e6ea7a18b",
+      "scope_kind": "materially_reached_producer_contract",
+      "new_variant": true,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/message/client_message.rs",
+      "sha256": "49ffa8758c206f00ed3ec3250015a7b76ee4fe5f0308151c368078185c7926e2",
+      "scope_kind": "materially_reached_producer_contract",
+      "new_variant": true,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/message/message_fns.rs",
+      "sha256": "bd043879e363b91cda3145415f64244ee5b85707c33bc0bdcea4ecd3e4085f62",
+      "scope_kind": "materially_reached_producer_contract",
+      "new_variant": true,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/message/server_event.rs",
+      "sha256": "7581eeb1d81d9aca0af14bf56033e76b351ceb6237d950b42639821ea8c18a97",
+      "scope_kind": "materially_reached_producer_contract",
+      "new_variant": true,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/message/server_message.rs",
+      "sha256": "45e815a2ac1b0e0c9117be00cbb45355a5085ed54c1e0225c82c4d5a3901532d",
+      "scope_kind": "materially_reached_producer_contract",
+      "new_variant": true,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/replication/registry/rule_fns.rs",
+      "sha256": "07f3f73daff9344750ec08f54bd9acc8abec4a946040369ce1573c2b6a6b1073",
+      "scope_kind": "materially_reached_producer_contract",
+      "new_variant": true,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/replication/rules.rs",
+      "sha256": "037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+      "scope_kind": "materially_reached_producer_contract",
+      "new_variant": true,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:assets/shaders/tactical_cloud_composite.wgsl",
+      "sha256": "bc687e4b087232f3d4cea9b9f05393ece9f197db7269d1df1467ea686a8730d4",
+      "scope_kind": "materially_reached_owner_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:assets/shaders/tactical_clouds.wgsl",
+      "sha256": "a04c3a457fc4e9bdf80cb0bb2eca4eb2364d8d3b5233f9942c740594b3084e66",
+      "scope_kind": "materially_reached_owner_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:assets/shaders/tactical_moon.wgsl",
+      "sha256": "69d07afb5411b9aab80510259c6f30c47d2f6a6f27a07e96b09276dc3fb7639a",
+      "scope_kind": "materially_reached_owner_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:assets/shaders/tactical_stars.wgsl",
+      "sha256": "929fdce1cb1b288bcc885f481a2fd64d20f60dc513e16ebd534b84d700e7ca98",
+      "scope_kind": "materially_reached_owner_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/bin/content-check.rs",
+      "sha256": "98447fa524e96dfa1f89ade51017472fae06833cd9ea73014855140c7062f387",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/celestial.rs",
+      "sha256": "c31595528b5df5ab5137bb15789e202abcc096187f12ba1f5f207d7299726b06",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/disease.rs",
+      "sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/disease/identity.rs",
+      "sha256": "bbf3c7a20b95f217815f48c7e830dc75efab9ecf9d7e52a79fd4ad86324388af",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/investigation_action.rs",
+      "sha256": "717288409edb3210de986fef4dcf838525461956d2e686f59a78a781b5e354e2",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/investigation_action/vocabulary.rs",
+      "sha256": "8d67cde0fd321af7ee5bae1c5045bc1adeb4fbe118698c40d194878ed01f5b5e",
+      "scope_kind": "materially_reached_owner_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/physiology.rs",
+      "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/mod.rs",
+      "sha256": "d413a6b7b05742aa234bab8a83285df33f25133338fe51fb9eebe1327680ac64",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/projection.rs",
+      "sha256": "2ef4a66455b4f4fb0790abfcc0e0ca9ff70e312d140170fbf47b9f880e79fb87",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/sampling.rs",
+      "sha256": "3c679c4e5177ee4462d6286d81cdd3e3cfaa9b6e2d91e844d3d45b8e2f666a44",
+      "scope_kind": "materially_reached_owner_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/solver.rs",
+      "sha256": "5d9b71ab4620264dce7604d0c9662f52009a887d00225927ef217087e0f10ba2",
+      "scope_kind": "materially_reached_owner_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/skill.rs",
+      "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "scope_kind": "materially_reached_owner_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_action.rs",
+      "sha256": "4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_schedule.rs",
+      "sha256": "ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_time.rs",
+      "sha256": "3af84cd2d335ef14e2ae8034345fcdcb999a93b4adeabd1a2e1f58beb780f57c",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/survival.rs",
+      "sha256": "63f604eeeca44d35f365c9daded84a61ca19b8c9c3976ead8503a2edbf4d1c57",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/threat_escalation.rs",
+      "sha256": "87ab25a438699ec031fa507447c9108ccd3830f95cb5c6281eb6be1d4695fc47",
+      "scope_kind": "materially_reached_owner_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/weather.rs",
+      "sha256": "62c3d0b44fa30ce15dab8e231cc5ef90e631e633d9ef4ea34091c5c8c3f3fde9",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/weather/field.rs",
+      "sha256": "8f11cdffeb39e9e0ca929c9cf3ac853b89c6d926c5bdd4d42c0ec9208e36cede",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/weather/streams.rs",
+      "sha256": "441a11bfce5d076e3dc78875c0f4bfbe8622178c5c1a4cba2c7e0077f5ea2ea8",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem.rs",
+      "sha256": "49dfecf1d8b09c88835ef0e2c5d2ffcc8cfd8b6624b3a05e7320e7499a723942",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem/incident_draws.rs",
+      "sha256": "ed9f5a25305d6d7aa9443ebebff0695bbe9102ccf307f84a112016f423bd903f",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/journey_camp.rs",
+      "sha256": "ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/activities.rs",
+      "sha256": "a47b028b15d0e416ae19b84b18f616bff39ea8f7a951526e32996cc70ed48915",
+      "scope_kind": "materially_reached_producer_contract",
+      "new_variant": true,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/advancement.rs",
+      "sha256": "4d29377483597d2c70b29a228fcbda60ed1f81614ae46c891cb9d833c18da188",
+      "scope_kind": "materially_reached_producer_contract",
+      "new_variant": true,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/advancement/lifecycle.rs",
+      "sha256": "a8f43539a28232bc47303c02e648761d55590e7f33d97fd66abbc703374965f5",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/camp_rest.rs",
+      "sha256": "0b7a5ed8ec44cf760ca6c39a180bf3290b7342aa430e790aa1a48a2a69f16f5a",
+      "scope_kind": "materially_reached_producer_contract",
+      "new_variant": true,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/clock.rs",
+      "sha256": "5494962821652b9edef4abf446ca231baf0db2919917b93fafb37218340af587",
+      "scope_kind": "materially_reached_producer_contract",
+      "new_variant": true,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/mod.rs",
+      "sha256": "00f1fa799283c10da8bc5b3310a04c43d117753258629c791c379b6485f25f3f",
+      "scope_kind": "materially_reached_producer_contract",
+      "new_variant": true,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/model.rs",
+      "sha256": "8b5882561331877cca6e022666a6fc03c813375df88bcdda95752cddd3cd1a1e",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/settlement_rest.rs",
+      "sha256": "f63df87344c6f358a0bcaa63481d349415e8e5481acb42031232d17cf20db125",
+      "scope_kind": "materially_reached_producer_contract",
+      "new_variant": true,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/stationary.rs",
+      "sha256": "4b9f686e5eb3dc2600ce935086991c271678c71692415cfb58c056a74883caf2",
+      "scope_kind": "materially_reached_producer_contract",
+      "new_variant": true,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor/presence.rs",
+      "sha256": "39cd6d057c070e586f5701d068b930beaafe12dc00d68465ffd460ede664c5ea",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor/roster.rs",
+      "sha256": "9b4cde3a9009140eb19a6dab12c897dc30ea527fd5cb976c867d651f62c73a07",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/mod.rs",
+      "sha256": "cd54ed038a4131a947dff4db1a0310069b669800547e2f2b6456566e9c0ec4c4",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs",
+      "sha256": "678af470ebedb38a874258f1f27264052978d78d58b438469bc24e25ef4d0b78",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/global_bones.rs",
+      "sha256": "974eb0a6fc0c028f246576cd03e2ba83b772d47befe3a2593663c1d38339dd68",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness/material.rs",
+      "sha256": "082b2d608e351444908c81cc624ab3627828ff0ec19111f32e708ac8f21caad3",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness/readiness.rs",
+      "sha256": "64c3ae627a9e6e8b449c355a123aa9007228513e88cc07c9d3ec6f6783ecff34",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/mod.rs",
+      "sha256": "40cfb0af104c5b99efdf25346bf83168023b20c4305655f392ef49dcca1ab584",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+      "sha256": "46e0169bf601414d1b5ab885a9fa69b0c32436dd3fb1269d28e06e18b5cde1bc",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+      "sha256": "927e13d910b8e3b7dc6a9cc58ef2e936172b4ec9188948ffd5d1a524d4b89185",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/view.rs",
+      "sha256": "1ec7bad7a491c5c78bfefb2ee24f87039f35d5fc22fcca5aec8ab879f69a79d8",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/cloud_bake_assets.rs",
+      "sha256": "e5ae55fc95ea907b2d01ae26ffd4b4dd1334a1db7befee2d9f8add866f6ed5be",
+      "scope_kind": "materially_reached_producer_contract",
+      "new_variant": true,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/clouds.rs",
+      "sha256": "ed0d069d3ad4096d18a89716b34158f0db25d84009ea752a90e7beb367de52c4",
+      "scope_kind": "materially_reached_owner_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/clouds/noise.rs",
+      "sha256": "be3ebae3349fed391089881f331e4d441b3028d0f2b882bc7b80b9020e51c6fc",
+      "scope_kind": "materially_reached_owner_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/clouds/streams.rs",
+      "sha256": "2331da03edfee132b8f78ada82f67e4f5e56f8f4845fccd28a54fea442641428",
+      "scope_kind": "materially_reached_owner_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_lighting.rs",
+      "sha256": "14ccb04e74be7e9f7760d1f8b0e80da33903e4d381e2109def952436a0c18f57",
+      "scope_kind": "materially_reached_owner_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/sky/astrometry.rs",
+      "sha256": "553895e6bbe39722c38999355c9d30c0c5bd72f3e5a702b2143d5826b749b6f2",
+      "scope_kind": "materially_reached_owner_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/sky/mod.rs",
+      "sha256": "98db3fe74b0ea6ed6df1900a31714f9462067510a09b1583c055fcdc354225b1",
+      "scope_kind": "materially_reached_owner_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_sky_viewer.rs",
+      "sha256": "cbb6ea6fc7bcecaff9f470a543695ac8757ae4fc43485dc74761262b147ed1e4",
+      "scope_kind": "materially_reached_owner_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_sky_viewer/configuration.rs",
+      "sha256": "2ab68ac424a1330be6d25120eafe310737c3379a7e0be402a06f24c097c8fef0",
+      "scope_kind": "materially_reached_owner_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/packs.rs",
+      "sha256": "b1fa6c0abdf46f0a491d49293683bcb7a67ad6270b717b82ddb056cdcc6bad1f",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/turn_deadline.rs",
+      "sha256": "bb92ce4b2c2252c6c68cc37955cba5f4d2c90ccdab05a4456a632a7f4adadc4e",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/property/gate_sweep.rs",
+      "sha256": "60ca372a1f75d3accd4461f56dea1305e81bf8b653ca03850af93866782dfd6a",
+      "scope_kind": "materially_reached_producer_contract",
+      "new_variant": true,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/doors.rs",
+      "sha256": "daf461a37ebe8f9ef72ac67aa98842c02bd8239ca43087f5c4d285f70df1ca34",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/player.rs",
+      "sha256": "7950d432247add4cf942e8eaf9a0dfeed6199326e4518094a1d616d1cd89a645",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/audit.rs",
+      "sha256": "351dc4cb2a26bcf9f8f708150890f43c3766a24c6d541eecdbe1a43869121f44",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal/autoresolve.rs",
+      "sha256": "6b3523710ea972a96aebe9e062898169c56d10cf28ff987bdbfc36e5370521f0",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/mod.rs",
+      "sha256": "5a603f0c5055543157a0dd1d47bc979a6109569d0e61cf088f5ca7a99ca495bd",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs",
+      "sha256": "682408c513c94a29855ef855be8d4e16dad21a2de2e3349ff61dea8f87a43d0a",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bot.rs",
+      "sha256": "8626aece6d47f2087249b45ecc70c2fc943b600943ac23e3a5eb3c7cbc55619b",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bot/defense.rs",
+      "sha256": "4eca0fbb28b320a2c62d9351bc7ce4331d2b0d011abe8ad74a6f10b62071884e",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bot/offense.rs",
+      "sha256": "eb77ed366461de7b58fa7111ba5a06c2d32e1b47617ff297e2ef0f25d8fae8c3",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bot/offense/facts.rs",
+      "sha256": "ab5ef062d89204566f6f01b3c95ed45aecb640aae364883b7becefc6e9e4c854",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bot/offense/phase.rs",
+      "sha256": "3319be254a488cfacf2abfcea4c143c419090ebcd9b778b4dabdec7c95b85bb5",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bot/offense/ranged.rs",
+      "sha256": "60b6f6c4256b2ef4d61e7c1c1cc052ef163e78deb6cb260504820e365ec76c5b",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bot/offense/tactics.rs",
+      "sha256": "7cf8c5d94969b2b6fbdcdf953d7dc70d3923ff6b2990e0a207d87dc67b9e0615",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/main.rs",
+      "sha256": "a52f98db1a5b753a3b5f3d54348ffa36df35e266644e667489c8a1784508b150",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/coordinates.rs",
+      "sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+      "scope_kind": "affected_unchanged_reached_contract",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation/bouncy_bones.rs",
+      "sha256": "36a72e8b7ec69bfee0e9bf67a633ca079e4b157230b4628f885c9a19a4160e2b",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+      "sha256": "a4cd3203c13ad00470f001d622f3c1097fcb28954a8c1e93766a53ddfa472441",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    },
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/capture/sample.rs",
+      "sha256": "c3cbd6ab4893272cb488013c9d3837632ed6c9c44b105af9e6d36b705fdb194b",
+      "scope_kind": "frozen_requested_change",
+      "new_variant": false,
+      "exact_scope_record": "continuation/cumulative-source-scope-after-producer.json",
+      "prior_owner_proofs": "Preserved owner_contract_proofs and original owner coverage; exact semantic fit must be compared, not assumed."
+    }
+  ]
+}

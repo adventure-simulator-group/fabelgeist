@@ -1,0 +1,79 @@
+[package]
+name = "adventuresim-character-creator"
+version = "0.1.0"
+edition = "2024"
+repository = "https://github.com/adventure-simulator-group/fabelgeist"
+license = "AGPL-3.0"
+
+[features]
+default = ["offline-creator"]
+offline-creator = ["dep:burn", "dep:fabelgeist-mhr", "bevy/default"]
+
+[[bin]]
+name = "adventuresim-character-creator"
+path = "src/main.rs"
+required-features = ["offline-creator"]
+
+[dependencies]
+fabelgeist-geometry = { path = "../fabelgeist-geometry" }
+fabelgeist-rig = { path = "../fabelgeist-rig" }
+adventuresim-core = { path = "../adventuresim-core" }
+anyhow = "1"
+thiserror = "2.0.18"
+derive_more = { version = "2.1.1", features = ["as_ref", "display", "from"] }
+bytemuck = { version = "1.16", features = ["derive"] }
+pollster = "0.4"
+async-lock = "3"
+base64 = "0.22"
+fabelgeist-armor = { path = "../fabelgeist-armor" }
+image = { version = "0.25.10", default-features = false, features = ["png"] }
+bevy = { version = "0.19.0", default-features = false, features = ["std", "3d_bevy_render"] }
+bevy_egui = "0.40.1"
+blake3 = "1"
+burn = { optional = true, git = "https://github.com/tracel-ai/burn", rev = "b1502de8b396e7c575981d8df9fc84099619f458", default-features = false, features = [
+    "std",
+    "wgpu",
+] }
+fabelgeist-mhr = { optional = true, path = "../fabelgeist-mhr" }
+adventuresim-world-schema = { path = "../adventuresim-world-schema" }
+clap = { version = "4.5", features = ["derive", "env"] }
+fabelgeist-determinism = { path = "../fabelgeist-determinism" }
+rand = "0.9"
+rayon = "1.12"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+fabelgeist-garment-code = { path = "../fabelgeist-garment-code" }
+fabelgeist-garment-fit = { path = "../fabelgeist-garment-fit" }
+fabelgeist-cloth = { path = "../fabelgeist-cloth" }
+# Hair grown and cut into cards on the host; the GPU groomer and renderer stay off.
+fabelgeist-hair = { path = "../fabelgeist-hair", default-features = false, features = ["gpu"] }
+fabelgeist-shell = { path = "../fabelgeist-shell" }
+fabelgeist-math = { path = "../fabelgeist-math" }
+fabelgeist-bvh = { path = "../fabelgeist-bvh" }
+fabelgeist-gpu = { path = "../fabelgeist-gpu", default-features = false }
+fabelgeist-compute = { path = "../fabelgeist-compute" }
+tokio = { version = "1", features = ["rt", "time"] }
+egui_extras = { version = "0.34", default-features = false, features = ["svg"] }
+
+[dev-dependencies]
+gltf = { version = "1.4", default-features = false }
+
+[workspace]
+
+# Swept surface contacts execute on the CPU between GPU substeps. Keep their
+# geometry kernels optimized in the interactive development application.
+[profile.dev.package.fabelgeist-cloth]
+opt-level = 3
+
+[profile.dev.package.fabelgeist-bvh]
+opt-level = 3
+
+[profile.dev.package.fabelgeist-math]
+opt-level = 3
+
+[patch.crates-io]
+pliron = { git = "https://github.com/pliron-org/pliron.git", rev = "2610651306ea3ba670f68d5d8b1e1159bcd521ed" }
+
+[lints.clippy]
+all = { level = "warn", priority = -1 }

@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-641",
+  "at": "2026-10-25T16:20:09.409956+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 954,
+  "source_id": "pr-working:crates/adventuresim-core/src/material.rs",
+  "sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+  "actual_compared_ranges": [
+    [
+      1,
+      660
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "PrivateMaterialTruth admission checks duplicate semantic keys; split conserves component/contaminant integer remainders and suppresses zero entries, not mechanical trait transformation. Snapshot nonempty admission and sanitized projection omit private truth; preserve semantic public boundary. ProcessTiming enforces nonzero duration+checked clock, semantic cooking status ongoing. All added types already structural derives; no new handwritten trait/codec441\u2013660."
+  ],
+  "first_unfinished": {
+    "scope_index": 954,
+    "line": 661
+  },
+  "execution": "none"
+}

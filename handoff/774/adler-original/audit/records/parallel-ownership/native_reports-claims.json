@@ -1,0 +1,3195 @@
+{
+  "owner": "/root/native_reports",
+  "families": [
+    "P18"
+  ],
+  "contributes_to": [
+    "P02 native typed-error preservation"
+  ],
+  "status": "Ownership claims only. P18 and geometry source commits are historical completed increments; P17 current implementation remains active/partial. Family status is authoritative only in execution-ledger.json.",
+  "shared_repairs": [
+    {
+      "functions": [
+        "run_tactical_batch",
+        "run_autoresolve_batch",
+        "run_matchup",
+        "run",
+        "main"
+      ],
+      "families": [
+        "P18",
+        "P02"
+      ],
+      "canonical_contract": "IterationResult preserves existing Preparation and Resolution plus explicit Measurement(AnimationValueError), statistical validation, ReportContract, native I/O and JSON causes; no Operation(String) or primitive adapters. Main already returns the owning result and is read-only unless wiring requires it."
+    }
+  ],
+  "preservation": [
+    "f64 accumulation and averaging order",
+    "f32 tactical tick/subtraction order before promotion",
+    "native count and seed/sample order",
+    "valid signed/real zero",
+    "distinct clocks",
+    "no new tests or local checks"
+  ],
+  "coordination": "Coordinator explicitly transferred native report/error/output functions. Shared gameplay/math owners remain with coordinator; no changes claimed there.",
+  "canonical_contracts": {
+    "statistics": "Measurement<Role> has private finite f64 storage, distinct type-level semantic roles, checked ordered addition/mean and closed extrema operations; scalar Serde only. No new shared gameplay/math owner.",
+    "tactical_clock": "TacticalElapsed originates from server tick-count multiplication in f32, retains typed log/output fields, subtracts in f32, then promotes through Measurement<TacticalSeconds>. Autoresolve uses AnimationElapsed into Measurement<AutoresolveSeconds>; wall uses Duration into Measurement<WallSeconds>.",
+    "absence": "Option<Measurement<Role>> for unobserved tactical/autoresolve contact extrema and attack-performance minimum; measured zero stays Some(ZERO). No sentinel serializer.",
+    "error": "IterationResult retains Preparation, Resolution, AnimationValueError, ElapsedError, MeasurementError, structured ReportContractError, native I/O and serde_json causes through main."
+  },
+  "source_commit": "c6fe55e42e90981d9e132fcf1dd6615d17227275",
+  "evidence": "RECORDS/P18-native-reports-source-complete.json",
+  "additional_tasks": [
+    {
+      "task": "shared-geometry portable canonical scalar/error relocation",
+      "worktree": "LOCAL_COORDINATOR/target/semantic-goal/pr774-parallel/shared-geometry/worktree",
+      "branch": "codex/774-shared-geometry-parallel",
+      "base": "b948c992a",
+      "status": "source-complete local commit; pending integrated-head hosted validation",
+      "contributes_to": [
+        "P08",
+        "P12",
+        "P14",
+        "P16"
+      ],
+      "explicit_transfer": "Coordinator transferred actual shared scalar/error definitions and central manifests/locks plus connected native direction adapters; prior camera const-only edit superseded.",
+      "agreements": {
+        "camera": "consume fabelgeist_geometry directly; neutral errors remain the same actual type reexported by building-generator; from_metres is const",
+        "rig_garments": "owns Millimeters::signed_length and Creator fitting functions; consume ordinary fn SignedLength::from_millimetres and checked scaled_by; avoid central manifests/locks",
+        "root": "retains shared AnimationQuantity enum and final integration/hosted validation"
+      },
+      "required_preservation": [
+        "valid scalar values incl signed zero",
+        "admission bounds/role/axis and error ordering",
+        "Serde scalar/error shapes",
+        "native direction classification/Display/serialized labels",
+        "moved existing compile-fail semantics",
+        "armor exact division and f32 conversion",
+        "unchanged external lock package identities/versions/checksums"
+      ],
+      "source_commit": "c4a8ae5f5ae7fbf552795fa266588b4e9186f8d3",
+      "evidence": "RECORDS/shared-geometry-source-complete.json",
+      "claim_contexts": [
+        {
+          "claim_refs": [
+            "native-exact-014"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-015"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-016"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-017"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-018"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-019"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-020"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-021"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-022"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-023"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-024"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-025"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-026"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-027"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-028"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-029"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-030"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-031"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-032"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-033"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-034"
+          ]
+        }
+      ]
+    },
+    {
+      "task": "P17 viewer observations and actual report consumers",
+      "family": "P17",
+      "worktree": "SNAPSHOTS/report-p17",
+      "branch": "codex/774-viewer-reports-parallel",
+      "base": "6fa6a7937",
+      "status": "Preserved local90a increment, discovery reopened concrete remaining PP012 tick snapshot and other connected report producer gaps; shared P16 motor remains unfinished/unintegrated. Family status only execution-ledger.json.",
+      "agreements": {
+        "root": "Explicit transfers preserved; root also confirmed exact bouncy native producer/telemetry/apply and Radians::max first-active trace, no competing ownership; existing Locomotion/Geometry errors suffice for body degrees",
+        "camera": "Camera owns all apply_character_motor P16/P17 repair, including both Option skeleton_tick log fields. Native reports must not edit physics.rs; camera also owns P18 weapon_reach and Measurement<WeaponReachMetres> follow-through.",
+        "rig": "identity/layout owners untouched; use existing BoneRole"
+      },
+      "requirements": [
+        "No sentinel minimum or missing stopped frame can impersonate measurement in touched graph",
+        "typed expected height bounds and named checked phase/height samples reach validation",
+        "explicit required absence fails; NotApplicable is distinct",
+        "real negative/zero height and current numerical order/thresholds retained",
+        "structural mismatch explicit rather than infinities",
+        "no new tests/cases/assertions/helpers/doctests or local project checks"
+      ],
+      "shared_repairs": [
+        {
+          "owner": "/root/camera_targeting",
+          "file": "crates/adventuresim-tactical-core/src/physics.rs",
+          "function": "apply_character_motor",
+          "families": [
+            "P16",
+            "P17"
+          ],
+          "contract": "Preserve optional skeleton tick in both logs with Option projection; camera owns whole connected lunge function and reports source proof."
+        },
+        {
+          "owner": "/root/native_reports",
+          "families": [
+            "P06",
+            "P17"
+          ],
+          "contract": "Root explicit transfer: preserve typed SupportElevation authority, retain Option absence, admit actual signed clearance once into canonical SignedLength and propagate portable GeometryError through capture rejection; P06 remains pending integrated revalidation.",
+          "claim_refs": [
+            "native-exact-053"
+          ]
+        },
+        {
+          "owner": "/root/native_reports",
+          "families": [
+            "P06",
+            "P17",
+            "P19"
+          ],
+          "contract": "Root explicit transfer: absent IK diagnostics return authoritative cadence only where procedural support is not required; otherwise retain typed missing support error, preserving Option through capture/snapshot/receiver.",
+          "claim_refs": [
+            "native-exact-054"
+          ]
+        },
+        {
+          "owner": "/root/native_reports",
+          "families": [
+            "P06",
+            "P17",
+            "P20"
+          ],
+          "contract": "Root explicit whole-function transfer for typed signed distance accumulation/report propagation only; preserve existing terrain/action/continuation contracts and native arithmetic order.",
+          "claim_refs": [
+            "native-exact-052"
+          ]
+        }
+      ],
+      "dependencies": [
+        {
+          "source_commit": "18360adba",
+          "source": "exact geometry diff consumed from camera bda1fab71; root already integrated c912fd7a7",
+          "contract": "canonical SignedLength min/max; no competing owner edit; root need not replay prerequisite commit"
+        }
+      ],
+      "head": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "source_commit": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+      "source_increment_status": "Historical90a local report/capture increment preserved; current discovery identifies required connected repair gaps. Not current family completion, integration, validation or all-lens clearance.",
+      "evidence": "../P17-viewer-reports-source-handoff.json",
+      "claim_contexts": [
+        {
+          "claim_refs": [
+            "native-exact-035"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-036"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-037"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-038"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-039"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-040"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-041"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-042"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-043"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-044"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-045"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-046"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-047"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-048"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-049"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-050"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-038"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-037"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-042"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-051"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-052"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-035"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-045"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-044"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-041"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-053"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-054"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-055"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-056"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-057"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-058"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-059"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-060"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-061"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-062"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-052"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-035"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-057"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-063"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-054"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-035"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-041"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-051"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-050"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-049"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-035"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-064"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-061"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-038"
+          ]
+        },
+        {
+          "agreement": "No existing exact claim overlaps. Camera explicitly confirmed no overlap and requested claim on 2026-10-21. Parent informed; first active connected P17 trace owns complete function.",
+          "claim_refs": [
+            "native-exact-065"
+          ]
+        },
+        {
+          "agreement": "No prior claim on Radians impl; camera explicitly confirmed no overlap. Own historical direction native error adapters unchanged.",
+          "claim_refs": [
+            "native-exact-023"
+          ]
+        },
+        {
+          "claim_refs": [
+            "native-exact-065"
+          ]
+        }
+      ]
+    }
+  ],
+  "current_task": "audit-producer-propagation supplement after owner: bounded read-only tactical combat64 packet; source remains frozen",
+  "current_worktree": "SNAPSHOTS/report-p17",
+  "family_status_authority": "../execution-ledger.json",
+  "exclusions": [
+    "fabelgeist-geometry/src/measurement.rs::SignedLength::{min,max}: explicitly transferred to camera owner; c4a relocation commit remains unchanged",
+    "adventuresim-tactical-core/src/physics.rs::apply_character_motor: camera owns complete P16/P17 implementation including both optional skeleton_tick logs",
+    "native runner::weapon_reach and Measurement<WeaponReachMetres> physical conversion remain camera-owned first-traced leaf; native owner consumes checked result and owns complete run_duel/run/error orchestration. Coordinate explicit transfer before any helper change."
+  ],
+  "shared_observer_error_transfer": {
+    "authorization": "Root explicit whole-function reconciliation 2026-10-21 during discovery; metadata only, source gate remains closed",
+    "owner": "/root/native_reports",
+    "families": [
+      "P16",
+      "P18"
+    ],
+    "dependency": "Camera retains original Core contact/autoresolve checked physical producers/leaf errors. Frozen P16 physical delta and earlier P18 c6fe55e are evidence; later implementation must consume coherent final checked contracts, never partial P16 source. Camera motor remains shared P17 dependency. Root clarification: runner::weapon_reach and Measurement<WeaponReachMetres> remain camera-owned leaf; native run orchestration consumes its agreed checked result.",
+    "status": "Exact transferred ownership only; no source edits authorized before all13 discovery gate",
+    "finding": "NATIVE-PP-018 / native/framework-port.json",
+    "claim_refs": [
+      "native-exact-011",
+      "native-exact-013",
+      "native-exact-010",
+      "native-exact-001",
+      "native-exact-005",
+      "native-exact-002",
+      "native-exact-066"
+    ]
+  },
+  "discovery_repair_claims": {
+    "authorization": "Root explicit2026-10-21 first-traced whole-function transfer during all13 initial discovery; metadata only, no source edits before gate",
+    "finding_refs": [
+      "NATIVE-PP-026",
+      "NATIVE-PP-030"
+    ],
+    "families": [
+      "P06 connected architectural geometry producer preservation",
+      "native authoritative opening/controller consumers"
+    ],
+    "preservation": [
+      "Reuse canonical frame-specific Position and Radians; no duplicate owner",
+      "Keep actual native geometry/rotation order, signed angles/realzero/subnormal behavior",
+      "Preserve native AngleMotor/RevoluteJoint/Transform endpoint values",
+      "Existing fixture inputs/count/order/assertions only; no new cases/helpers/assertions/doctests",
+      "Whole connected error contracts must reach actual native framework receiver without String erasure"
+    ],
+    "exclusions": [
+      "Viewer building_review ReviewLeafPose repair remains root-owned unless root explicitly transfers",
+      "Core coordinate/rotation/polygon/cuboid and canonical scalar definitions remain existing owners",
+      "No fixes, source commits or integration while all13 discovery is gated"
+    ],
+    "status": "Exact ownership only; implementation not started",
+    "claim_refs": [
+      "native-exact-067",
+      "native-exact-068",
+      "native-exact-069"
+    ]
+  },
+  "shared_equipment_failure_dependency": {
+    "owner": "/root/rig_garments",
+    "native_receiver": "crates/adventuresim-tactical-client/src/animation_viewer/harness/readiness.rs::EquipmentVisualStatus::{state,summary} plus EquipmentVisualState/query and existing connected harness/capture receivers",
+    "contract": "Native retains its exact whole harness readiness ownership. Consume canonical retained typed generation failure payload from rig once defined; retain locally observed invalid skin/readiness causes distinctly, Missing/Loading vs Failed vs Ready. No competing cache/generation fixes.",
+    "evidence": "final-acceptance-20261021/wave-01/audit-producer-propagation/native/progress.json source108, full285 SHA64c3ae627a9e6e8b449c355a123aa9007228513e88cc07c9d3ec6f6783ecff34",
+    "status": "Dependency recorded; all13 source freeze remains active"
+  },
+  "shared_impact_animation_transfer": {
+    "authorization": "Root explicit first-trace whole-function transfer2026-10-21, metadata only during all13 freeze",
+    "families": [
+      "P16",
+      "P17",
+      "connected impact and animation producers/receivers"
+    ],
+    "finding_ref": "CAM-PROP-F015; native source15/185 actual receiver proof",
+    "dependency": "Camera owns original hit_velocity_change/authoritative_impact/internal result and agreed network/SceneVelocity physical leaf contracts. Native consumes checked world delta-v, preserves it through scaled BoneKick until actual cross-product/spin operation; no primitive adapter or duplicate physical/angular owner. Existing rotational Spring offset/velocity math remains native numerical representation. Coordinate real API edge once repairs authorized.",
+    "preservation": [
+      "Original impact scaling/cross-product order, gain/transmission/parent-chain count/order and zero policy",
+      "Native bone/rig identity and per-bone response",
+      "Actual network values and clock/render authority",
+      "No new tests/cases/assertions/helpers/doctests or local checks"
+    ],
+    "status": "Exact ownership only; source repair not started",
+    "claim_refs": [
+      "native-exact-070",
+      "native-exact-065"
+    ]
+  },
+  "shared_strategic_pure_producer_claims": {
+    "authorization": "Root assigned bounded pure strategic_action/rights/material receiver queue and explicitly directed pureCore producers whole where first-traced during read-only discovery2026-10-21. Metadata only; no source edits before all13 gate. Camera confirmed no prior resolve_time/material or whole pure quest assembly repair claim.",
+    "finding_refs": [
+      "NATIVE-PP-033",
+      "NATIVE-PP-034",
+      "CAM-PROP-F022 earliest pure producer",
+      "NATIVE-PP-032 additional assembly/validation edges"
+    ],
+    "family_status": "Additional connected source requirements only; execution-ledger.json remains sole family status, prior P18/geometry/P17 commits preserved.",
+    "exclusions": [
+      "Camera retains whole DB time/condition/food/preparation/foraging/investigation/custody_objectives and canonical StrategicOperationError/F006/F022 caller repair ownership; native consumes and supplies agreed pure checked APIs, never competing DB patches",
+      "Camera retains whole visible_witness_candidate/visible_witness_presence_version/pattern_target_matches and original F011 age/presentation API repair; native whole assembly/validate consume agreed checked field contract together",
+      "Rights foundations full source read is evidence only, no repair transfer needed without new source-backed first trace",
+      "Core case::{CaseId,AssetId,SubjectId,ObjectiveId} are existing canonical owners, not new duplicate wrappers; pure foundation changes need exact additional claim if later admission/ownership lens requires them",
+      "No source edits/checks/CI/new tests/cases/assertions/helpers/doctests during all13 initial discovery"
+    ],
+    "claim_refs": [
+      "native-exact-071",
+      "native-exact-072",
+      "native-exact-073",
+      "native-exact-074",
+      "native-exact-075",
+      "native-exact-076",
+      "native-exact-077",
+      "native-exact-078"
+    ]
+  },
+  "shared_validated_schedule_claim": {
+    "authorization": "Root explicitly confirmed C001 as PP035 and transferred whole pure effective_at/validated result plus connected Core schedule consumers2026-10-21. Metadata only; no source/validation commands or edits before remaining initial lenses.",
+    "finding": "NATIVE-PP-035",
+    "evidence": "final-acceptance-20261021/wave-01/audit-producer-propagation/native/supplemental-schedule-closure.json",
+    "exclusions": [
+      "Camera retains all whole DB time/schedule/rest/stationary/activities/advancement functions and original StrategicOperationError/F006 graph; native supplies and consumes agreed checked pure result API",
+      "Actual table/SDK schedule projection is legitimate native boundary and must stay explicit; no primitive application forwarding adapter or unchecked public construction",
+      "Later aggregate/ownership/invariant-operation lenses must reconcile final representation before any source edit",
+      "No duplicate schedule type, additional tests/helpers/assertions/cases/doctests, source commits/checks/CI or family-level completion claim"
+    ],
+    "claim_refs": [
+      "native-exact-079",
+      "native-exact-080"
+    ]
+  },
+  "canonical_nonnegative_length_transfer": {
+    "authorization": "Root explicit2026-10-21 lens-two metadata-only transfer; source gate closed until all13 initial inventories",
+    "finding_refs": [
+      "ROOT-OWNER-ZERO-LENGTH-007",
+      "ROOT-PP-014"
+    ],
+    "preservation": [
+      "Existing finite >=0 length values, all valid zero/signedzero/Serde and original error classifications",
+      "Existing SignedLength.scaled_by accepts anyf32 input then admits actual computed length; Ratio constructor accepts everyf32 and preserves factor operation semantics, unlike bounded/positive zoom/plant scale",
+      "No f32/f64 narrowing, arithmetic/order/error or native output change",
+      "Do not duplicate equivalent NonnegativeLength or scale wrapper; final type/portable error/dependency API after all13"
+    ],
+    "exclusions": [
+      "Root keeps SupportLimits/CornerProbe terrain consumers",
+      "Rig keeps property/settlement/apron/garment caller consumers",
+      "No source edit/check/CI or family acceptance from ownership metadata"
+    ],
+    "claim_refs": [
+      "native-exact-056",
+      "native-exact-018"
+    ]
+  },
+  "diagnostic_script_transfer": {
+    "status": "Root explicitly transferred exact first-traced whole functions during read-only lens-two; metadata only, source remains frozen until all13 initial inventories.",
+    "contributes_to": [
+      "P17 actual diagnostic observations/command clock",
+      "P08/P16 shared actual scripted camera/movement input recipients where reached; no automatic family completion"
+    ],
+    "preservation": [
+      "f64 clock/warmup/sample/ready precision; no narrowing into AnimationElapsedf32",
+      "script command order and elapsed0 firsttick behavior",
+      "valid zero and absence versus measured state",
+      "exact existing native handler/output behavior until later lenses reconcile policy",
+      "no new tests/cases/assertions/helpers/source edits or validation commands"
+    ],
+    "discovery_refs": [
+      "audit-producer-propagation/native NATIVE-PP-019",
+      "audit-existing-type-owners/root ROOT-OWNER-DIAGNOSTIC-SCRIPT-035 pending saved proof",
+      "Exact PR diagnostics.rs declarations observed SHA f75fd2dcfa8891b72b801dec9631fdbb68183bdf125fd08f0a614ba420048a17; whole root current-lens proof to link",
+      "Current-lens root/coverage.jsonl complete876 source SHA f75fd2dcfa8891b72b801dec9631fdbb68183bdf125fd08f0a614ba420048a17 and root/contracts.jsonl#ROOT-OWNER-DIAGNOSTIC-SCRIPT-035"
+    ],
+    "ownership_exclusions": "Root/camera retain actual gameplay/camera/motor functions except later exact transfers; this claim owns whole diagnostic script/record producer and its status receiver contract, no competing leaf wrappers.",
+    "connected_claims": [
+      {
+        "claim_refs": [
+          "native-exact-082"
+        ]
+      },
+      {
+        "claim_refs": [
+          "native-exact-083"
+        ]
+      }
+    ],
+    "claim_refs": [
+      "native-exact-081"
+    ]
+  },
+  "quest_sampling_solver_transfer": {
+    "authorization": "Root explicit2026-10-21 lens-two first-trace whole pure choose/solver Candidate/SolvedVariables/bridge/canonical ID/error/trace transfer. Metadata only; no source edits before all13 initial inventories.",
+    "dependencies": [
+      "Consume root owning catalogue admission/error policy; preserve original authored bounds and first failure order",
+      "Camera keeps DB/custody/dialogue/action/F006/F011 receiving bodies and quest_fixture aggregation",
+      "Heterogeneous Candidate.id and weighted_order.domain are distinct roles, no blanket ModuleId replacement"
+    ],
+    "evidence_refs": [
+      "NATIVE-OWNER-QUEST-001",
+      "NATIVE-OWNER-QUEST-002",
+      "NATIVE-OWNER-QUEST-003",
+      "NATIVE-OWNER-F016"
+    ],
+    "preservation": [
+      "Same lexicographic ID/candidate sort/ties/excluded order and RNG streams/draws",
+      "Full integer weight precision, valid0 and typed lower causes",
+      "No extra cases/assertions/helpers/tests/source changes or validation commands"
+    ],
+    "claim_refs": [
+      "native-exact-084",
+      "native-exact-085",
+      "native-exact-077"
+    ]
+  },
+  "local_problem_weight_transfer": {
+    "authorization": "Root explicit current-lens first-trace transfer; metadata only untilall13 inventories complete.",
+    "existing_owner": "quest_generation::Weight actualpairu32/u64product; canonicalplacement reconcile afterall13, no duplicatepair.",
+    "preservation": [
+      "Integeru32/u64product/validzero/hardzerofilter, exactauthoredcandidateorder andweightedRNGdraws",
+      "Originalseedbytecontexts/hashframing/errororder/sourceoutputs",
+      "No sourcefixes/tests/validation commands now"
+    ],
+    "exclusions": [
+      "Root retains adjust_price broad\u00e2\u02c6\u20199999..50000 input and ConsequenceInput/consequence aggregate signedoffset contract",
+      "Camera retains DBoperation/reducererrorreceivinggraph",
+      "No otherpurelocalproblem functiontransfer inferred; coordinate actualoverlapsbeforefutureedit"
+    ],
+    "evidence_refs": [
+      "NATIVE-OWNER-F018",
+      "NATIVE-OWNER-LOCAL-PROBLEM-001"
+    ],
+    "claim_refs": [
+      "native-exact-086"
+    ]
+  },
+  "cycle_delta_ratio_transfer": {
+    "authorization": "RootexplicitfirsttracewholeCycleDelta::checked_lerp duringlens2; metadataonlysourcefrozenuntilall13.",
+    "candidate": "Existing fabelgeist_math::Ratio allf32 fitsunitfactor; UnitIntervalwouldnarrowextrapolation/nonfiniteinputpolicy.",
+    "preservation": "NativeFloatExtlerp arithmeticorder/extrapolation/NaN\u00e2\u2020\u2019postoperationOverflow; samecheckedcycles/privatebound/Serde; sourceunchanged.",
+    "exclusions": [
+      "Camera AnimationElapsed::checked_scale andNonnegativeSpeed::{checked_scale,checked_lerp} remaincamera",
+      "Rootproceduralfoot_influence functions remainroot; anytypedcatalogcycleconstants consumeagreedAPI wholeownerlater"
+    ],
+    "refs": [
+      "ROOT-OWNER-F001/ROOT-OWNER-RATIO-003",
+      "NATIVE-OWNER-ANIMATION-LEAVES-001"
+    ],
+    "claim_refs": [
+      "native-exact-087"
+    ]
+  },
+  "animation_load_cause_transfer": {
+    "authorization": "Rootexplicitwholeconnectedanimationloadstate/asset/ClipDurationcause/revision+harnessreceivergraph firsttrace duringlens2. Metadataonly; sourcefreezeuntilall13.",
+    "dependencies": [
+      "Consume actual BevyAssetLoadError typednativecause fromrig020proof, do notduplicateframeworkerror",
+      "Retain firstparty structuralreason classifications andClipDuration AnimationValueError untilactualcapture/CLIerrorreceiver",
+      "Rootmotion/proceduralpose exactclaims stayroot; canonicalrigidentity/targetbinding andequipmentfailurecache stayrig; coordinate newlyreachedwholefunction beforefutureedit"
+    ],
+    "preservation": [
+      "Optionalexpectedabsentmotion fallback remainssupported; requiredabsence cannotbecomeunexplainedready",
+      "Existingrevision/readiness/sourcehandle/retryorder retained; no competingpartialrootorP16sourceimport",
+      "All13laterenum/owner/admissionlenses reconcilepayload/state beforeimplementation"
+    ],
+    "refs": [
+      "NATIVE-OWNER-ANIMATION-LOAD-001",
+      "NATIVE-OWNER-F020",
+      "rig/RIG-OWNER-ASSET-CAUSE-020"
+    ],
+    "claim_refs": [
+      "native-exact-088",
+      "native-exact-089",
+      "native-exact-090",
+      "native-exact-070",
+      "native-exact-091",
+      "native-exact-092",
+      "native-exact-093"
+    ]
+  },
+  "fallback_geometry_transfer": {
+    "authorization": "Root explicitly transferred wholefallback root-anchor/bodypart construction andreceivers forF022 discovery/futurerepair; sourcefrozenall13.",
+    "dependencies": [
+      "ProveactualActorRoot/riglocaldatum beforechoosingcanonicalexistingframe; Scene/Architecturalarenotinterchangeable",
+      "ExistinggenericPosition/Displacement mayneedactualrootframemove/shared; no duplicatevectorwrapper",
+      "Rootprocedural/rootmotion/IK andrigidentity/topology/skin keepwholefunctions exceptlaterexacttransfer"
+    ],
+    "preservation": [
+      "Originalsignednegative/0 anchors, f32literal/arithmeticorder, capsulepositivebounds",
+      "Slashnamesare diagnosticgroup labels notstrictMHRjointmembership",
+      "NativeBevyColor/Transform/Meshports andsame fallbackreadiness behavior; no newtests/checks"
+    ],
+    "refs": [
+      "NATIVE-OWNER-F022",
+      "NATIVE-OWNER-ANIMATION-FALLBACK-001"
+    ],
+    "claim_refs": [
+      "native-exact-094"
+    ]
+  },
+  "jitter_measurement_transfer": {
+    "authorization": "Root explicit wholejitter firsttracegraph underlens2; P17contribution onlynofamilycompletion, sourcefrozenall13.",
+    "existing_owner_dependencies": [
+      "math::Acceleration allf32 numericunit exactm/s\u00c2\u00b2 inclinvalidobservationvalues diagnosticpolicy",
+      "math::Ratio allf32 relativedimensionless/severity (>1/Inf) input/output support; UnitIntervalwouldnarrow",
+      "Angularacceleration/jerk andlinearjerk distinctunitroles noexactowneryetproven",
+      "ActualobservedActorRoot/localframe/finiteness sourceproof required; noforcedScenePosition/RigidRotationrejectedevidence"
+    ],
+    "preservation": [
+      "Currentthresholdvalues/scenariowarmup/segmentcuts/inputcounts/order/assertions untouched",
+      "Originalvector/quaternionderivatives/radianunits/f32order andmedian/thresholdmax/severity sort",
+      "Invalid/nonfinitefiltering diagnosticpolicy inventoriedforlaterlenses, no silentnewaccept/reject/thresholdweakening"
+    ],
+    "refs": [
+      "NATIVE-OWNER-JITTER-001",
+      "NATIVE-OWNER-F023"
+    ],
+    "claim_refs": [
+      "native-exact-095",
+      "native-exact-052",
+      "native-exact-037",
+      "native-exact-042",
+      "native-exact-036"
+    ]
+  },
+  "animation_sample_failure_transfer": {
+    "authorization": "Root explicit whole sample_plan/update_pose_buffers transfer forALLaffectedP17/P19/P20 families tocohere loadfailure/readiness graph; metadataonlysourcefrozenall13.",
+    "exclusions": [
+      "Root retains PoseConformity, conform_upcoming_pose_to_terrain, canonicalContinuationTransition definition/operations; anyhelpercontractchangecoordinatefirst",
+      "Rig keeps canonicalRigJointName/Ordinal/Table andactualbasis/identityproducers; nativeconsumesagreed checkedpayload",
+      "No wholeposebuffer-otherfunctions automatictransfer; existingowners retained exceptpreciseparenttransfer"
+    ],
+    "preservation": [
+      "Currentintegratedpose/conformity/continuation behavior, frameclock/states/errororder/sourceasset/bakedcache andRNGnone unchanged",
+      "Requiredinvalidmeasurementmustretain AnimationValueError ratherthan .ok\u00e2\u2020\u2019None, optionalmissingasset remainsdistinguished",
+      "No sourceedits/check/tests/CIbeforeall13"
+    ],
+    "refs": [
+      "NATIVE-OWNER-ANIMATION-LOAD-001",
+      "NATIVE-OWNER-POSE-BUFFER-002"
+    ],
+    "connected_caller_transfer": {
+      "authorization": "Root confirmed no competing claim; whole sample_character_plan and typed failure/readiness result path for allP17/P19/P20, metadataonly discoveryfreeze",
+      "exclusions": [
+        "Root canonical conformity/continuation helpers retained",
+        "Rig canonical proportions/basis/identity owners retained"
+      ],
+      "policy": "Stride calibration warns/continues deliberately degradedpolicy, do not automatically convert to fatal; actual required capture/readiness obligations separately classified",
+      "claim_refs": [
+        "native-exact-097"
+      ]
+    },
+    "claim_refs": [
+      "native-exact-096"
+    ]
+  },
+  "canonical_basis_point_admission_transfer": {
+    "authorization": "Rootexplicitsharedcanonicalbasis_points.rs wholeadmission/Serde/SATS transfer forALLaffectedfamilies; firstrecordNATIVE-OWNER-STRATEGIC-002. Metadataonlyuntilall13initialinventories.",
+    "dependencies": [
+      "ActualSDKSpacetimeType/SATS admission isseparatefromSerde; customSerde alonecannotclaimSDKvaluebounds",
+      "Root/camera/rig native consumers retainwholefunctions andreuseagreedcanonicalleaf, no equivalent localBPSowner",
+      "PreserveactualSDKtable/wirelayout/spelling/native integerarithmetic, sourceinputadmission/errorfirstfailureorder tobereconciled inlateradmissionlens"
+    ],
+    "refs": [
+      "NATIVE-OWNER-STRATEGIC-002",
+      "NATIVE-OWNER-PHYSIOLOGY-002",
+      "rootcurrentsharedconstructorcomparison"
+    ],
+    "preservation": [
+      "Unsigned0..10000 andsigned\u00e2\u02c6\u201910000..10000; zeroandnegativevalues remainreal",
+      "Do notblanketnarrowpublicrawu16/i16/i32kernels orwrongdenominatorpermille/full-u16cumulativehandlingdamage",
+      "No source/tests/validationcommands beforeall13"
+    ],
+    "claim_refs": [
+      "native-exact-098"
+    ]
+  },
+  "initial_claim_contexts": [
+    {
+      "requirements": [
+        "retain Preparation/MeleeIterationError and Resolution/BattleResolutionError",
+        "typed AnimationValueError, I/O, JSON, argument and required-evidence causes to main"
+      ],
+      "claim_refs": [
+        "native-exact-001"
+      ]
+    },
+    {
+      "requirements": [
+        "move cohesive report records/operations into report.rs",
+        "typed report fields and whole connected error propagation"
+      ],
+      "claim_refs": [
+        "native-exact-002"
+      ]
+    },
+    {
+      "requirements": [
+        "retain original scalar field names/units",
+        "Option contact extrema serialize null when unobserved"
+      ],
+      "claim_refs": [
+        "native-exact-003"
+      ]
+    },
+    {
+      "requirements": [
+        "no f32 narrowing",
+        "preserve native reduction/averaging expression order",
+        "distinct tactical/autoresolve/wall clock roles",
+        "scalar serialization at boundary"
+      ],
+      "claim_refs": [
+        "native-exact-004"
+      ]
+    },
+    {
+      "requirements": [
+        "finish P18 measure producer propagation",
+        "structured native I/O/report causes",
+        "unchanged seed/sample order"
+      ],
+      "claim_refs": [
+        "native-exact-005"
+      ]
+    },
+    {
+      "requirements": [
+        "whole typed causal accumulation",
+        "required evidence structured error",
+        "Option minimum",
+        "extract autoresolve responsibility into causal/autoresolve.rs before expansion"
+      ],
+      "claim_refs": [
+        "native-exact-006"
+      ]
+    },
+    {
+      "requirements": [
+        "typed gameplay elapsed/speed through report accumulator",
+        "preserve local displacement/limit numerical kernel arithmetic"
+      ],
+      "claim_refs": [
+        "native-exact-007"
+      ]
+    },
+    {
+      "requirements": [
+        "typed limits and explicit unobserved contact handling at real consumers",
+        "propagate checked authored limit admission through the actual acceptance report writer"
+      ],
+      "claim_refs": [
+        "native-exact-008"
+      ]
+    },
+    {
+      "requirements": [
+        "canonical tactical coordinate distinct from autoresolve BattleTime and wall Duration",
+        "preserve f32 tick multiplication and subtraction before f64 accumulation"
+      ],
+      "claim_refs": [
+        "native-exact-009"
+      ]
+    },
+    {
+      "requirements": [
+        "retain existing AnimationValueResult final-distance admission",
+        "produce typed tactical elapsed observation"
+      ],
+      "claim_refs": [
+        "native-exact-010"
+      ]
+    },
+    {
+      "requirements": [
+        "typed tactical elapsed producer fields with identical scalar JSON"
+      ],
+      "claim_refs": [
+        "native-exact-011"
+      ]
+    },
+    {
+      "requirements": [
+        "typed tactical elapsed literal/kernel boundary"
+      ],
+      "claim_refs": [
+        "native-exact-012"
+      ]
+    },
+    {
+      "requirements": [
+        "typed tactical elapsed literal/kernel boundary"
+      ],
+      "claim_refs": [
+        "native-exact-013"
+      ]
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "native-exact-001",
+      "file": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/error.rs",
+      "items": [
+        "IterationError",
+        "IterationResult",
+        "new report/measurement error enums and owning results",
+        "IterationError and whole report-contract cause receivers"
+      ],
+      "context_refs": [
+        "#/initial_claims/0",
+        "#/shared_observer_error_transfer/files_and_functions/crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/error.rs"
+      ]
+    },
+    {
+      "claim_id": "native-exact-002",
+      "file": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/mod.rs",
+      "items": [
+        "MatchupSummary",
+        "TacticalCausalSummary",
+        "TacticalCombatantCausal",
+        "AutoresolveCausalSummary",
+        "AutoresolveCombatantCausal",
+        "TacticalCausalSummary::finish_means",
+        "TacticalCombatantCausal::finish_means",
+        "AutoresolveCombatantCausal::{record_final,finish_means}",
+        "run",
+        "run_matchup",
+        "record_autoresolve_combatant_causal",
+        "record_tactical_causal",
+        "write_json",
+        "acceptance_audit",
+        "module/import wiring",
+        "run_matchup/run connected error receivers"
+      ],
+      "context_refs": [
+        "#/initial_claims/1",
+        "#/shared_observer_error_transfer/files_and_functions/crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/mod.rs"
+      ]
+    },
+    {
+      "claim_id": "native-exact-003",
+      "file": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/report.rs",
+      "items": [
+        "new canonical report records moved from mod.rs and their operations"
+      ],
+      "context_refs": [
+        "#/initial_claims/2"
+      ]
+    },
+    {
+      "claim_id": "native-exact-004",
+      "file": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/measurement.rs",
+      "items": [
+        "new canonical finite f64 report measurements/statistics",
+        "semantic unit markers",
+        "typed addition/mean/extrema",
+        "wall clock and throughput operations"
+      ],
+      "context_refs": [
+        "#/initial_claims/3"
+      ]
+    },
+    {
+      "claim_id": "native-exact-005",
+      "file": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs",
+      "items": [
+        "TacticalBatch",
+        "AutoresolveBatch",
+        "run_tactical_batch",
+        "run_autoresolve_batch",
+        "record_autoresolve_outcome",
+        "record_final_totals",
+        "record_autoresolve_log",
+        "record_autoresolve_timeline",
+        "run_tactical_batch and connected typed iteration error receiving bodies"
+      ],
+      "context_refs": [
+        "#/initial_claims/4",
+        "#/shared_observer_error_transfer/files_and_functions/crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs"
+      ]
+    },
+    {
+      "claim_id": "native-exact-006",
+      "file": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal.rs",
+      "items": [
+        "record_autoresolve_telemetry",
+        "record_timeline_event",
+        "record_movement_event",
+        "record_response_event",
+        "record_contact_measures",
+        "record_tactical_decisions",
+        "record_combatant_decision",
+        "record_tactical_event",
+        "record_tactical_attacker",
+        "record_tactical_totals",
+        "record_tactical_defender",
+        "module/import wiring"
+      ],
+      "context_refs": [
+        "#/initial_claims/5"
+      ]
+    },
+    {
+      "claim_id": "native-exact-007",
+      "file": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal/autoresolve.rs",
+      "items": [
+        "autoresolve causal functions moved from causal.rs"
+      ],
+      "context_refs": [
+        "#/initial_claims/6"
+      ]
+    },
+    {
+      "claim_id": "native-exact-008",
+      "file": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/audit.rs",
+      "items": [
+        "build_acceptance_audit",
+        "movement_respects_limits",
+        "swept_contact_contract_holds",
+        "summary_contact_contract_holds"
+      ],
+      "context_refs": [
+        "#/initial_claims/7"
+      ]
+    },
+    {
+      "claim_id": "native-exact-009",
+      "file": "crates/adventuresim-tactical-server/src/iteration/clock.rs",
+      "items": [
+        "new TacticalElapsed",
+        "TacticalElapsed::{from_tick_count,elapsed_since,seconds}"
+      ],
+      "context_refs": [
+        "#/initial_claims/8"
+      ]
+    },
+    {
+      "claim_id": "native-exact-010",
+      "file": "crates/adventuresim-tactical-server/src/iteration.rs",
+      "items": [
+        "resolve_tactical_server_melee_duel simulated_seconds assignment",
+        "clock module export/import wiring",
+        "resolve_tactical_server_melee_duel (whole observer failure readback/typed result receiver)",
+        "tactical_iteration_app observer registration and retained error initialization"
+      ],
+      "context_refs": [
+        "#/initial_claims/9",
+        "#/shared_observer_error_transfer/files_and_functions/crates/adventuresim-tactical-server/src/iteration.rs"
+      ]
+    },
+    {
+      "claim_id": "native-exact-011",
+      "file": "crates/adventuresim-tactical-server/src/iteration/logging.rs",
+      "items": [
+        "TacticalMeleeLogEntry::elapsed_seconds",
+        "TacticalConditionLogEntry::elapsed_seconds",
+        "TacticalWoundLogEntry::elapsed_seconds",
+        "TacticalDecisionLogEntry::elapsed_seconds",
+        "TacticalMeleeOutcome::simulated_seconds",
+        "record_attack_start",
+        "record_defense_resolution",
+        "log_new_wounds",
+        "record_condition_changes",
+        "record_attack_start (whole function, physical and TacticalElapsed payloads)",
+        "record_resolved_attack (whole function, physical and TacticalElapsed payloads)",
+        "IterationLog retained typed failure state and directly connected observer callbacks as required by one coherent error-readback contract"
+      ],
+      "context_refs": [
+        "#/initial_claims/10",
+        "#/shared_observer_error_transfer/files_and_functions/crates/adventuresim-tactical-server/src/iteration/logging.rs"
+      ]
+    },
+    {
+      "claim_id": "native-exact-012",
+      "file": "crates/adventuresim-tactical-server/src/iteration/logging/decisions.rs",
+      "items": [
+        "record_attack_committed_to_defense",
+        "record_attack_transformed_by_defense",
+        "record_continuation_decision"
+      ],
+      "context_refs": [
+        "#/initial_claims/11"
+      ]
+    },
+    {
+      "claim_id": "native-exact-013",
+      "file": "crates/adventuresim-tactical-server/src/iteration/logging/resolution.rs",
+      "items": [
+        "resolved_attack_entry elapsed_seconds assignment",
+        "resolved_attack_entry (whole typed physical/elapsed report construction receiver)"
+      ],
+      "context_refs": [
+        "#/initial_claims/12",
+        "#/shared_observer_error_transfer/files_and_functions/crates/adventuresim-tactical-server/src/iteration/logging/resolution.rs"
+      ]
+    },
+    {
+      "claim_id": "native-exact-014",
+      "file": "crates/fabelgeist-geometry/Cargo.toml",
+      "items": [
+        "new neutral crate manifest, optional reflect feature and pinned-compatible dependency constraints"
+      ],
+      "context_refs": [
+        "#/additional_tasks/0/claims/0"
+      ]
+    },
+    {
+      "claim_id": "native-exact-015",
+      "file": "crates/fabelgeist-geometry/src/lib.rs",
+      "items": [
+        "canonical scalar/error module declarations/reexports"
+      ],
+      "context_refs": [
+        "#/additional_tasks/0/claims/1"
+      ]
+    },
+    {
+      "claim_id": "native-exact-016",
+      "file": "crates/fabelgeist-geometry/src/error.rs",
+      "items": [
+        "GeometryError",
+        "GeometryResult",
+        "GeometryRole",
+        "CoordinateAxis",
+        "new portable DirectionError with exact native Display and serialized classification"
+      ],
+      "context_refs": [
+        "#/additional_tasks/0/claims/2"
+      ]
+    },
+    {
+      "claim_id": "native-exact-017",
+      "file": "crates/fabelgeist-geometry/src/length.rs",
+      "items": [
+        "PositiveLength actual definition, admission/getter and checked Deserialize moved unchanged; reflect feature gate"
+      ],
+      "context_refs": [
+        "#/additional_tasks/0/claims/3"
+      ]
+    },
+    {
+      "claim_id": "native-exact-018",
+      "file": "crates/fabelgeist-geometry/src/measurement.rs",
+      "items": [
+        "SignedLength and Area actual definitions/admission/Serde moved",
+        "existing two compile-fail examples moved with canonical crate import only",
+        "SignedLength::from_metres const",
+        "SignedLength::from_millimetres(u16) infallible ordinary fn preserving exact f32::from(value)/1000.0",
+        "SignedLength::scaled_by(f32) exact product then canonical finite admission",
+        "optional opaque Reflect gate",
+        "Whole relocated canonical NonnegativeLength contract at neutral shared owner, including zero/admission/error/Serde/native operation semantics; coordinate final portable error API after all13 lenses",
+        "SignedLength::scaled_by whole existing canonical operation ownership retained; fabelgeist_math::Ratio is current exact unbounded dimensionless input candidate, not UnitInterval"
+      ],
+      "context_refs": [
+        "#/additional_tasks/0/claims/4",
+        "#/canonical_nonnegative_length_transfer/files_and_functions/crates/fabelgeist-geometry/src/measurement.rs"
+      ]
+    },
+    {
+      "claim_id": "native-exact-019",
+      "file": "crates/adventuresim-building-generator/src/spatial_geometry.rs",
+      "items": [
+        "actual scalar/error reexports from canonical crate; remove relocated module declarations"
+      ],
+      "context_refs": [
+        "#/additional_tasks/0/claims/5"
+      ]
+    },
+    {
+      "claim_id": "native-exact-020",
+      "file": "crates/adventuresim-building-generator/src/spatial_geometry/length.rs",
+      "items": [
+        "remove actual definitions after relocation"
+      ],
+      "context_refs": [
+        "#/additional_tasks/0/claims/6"
+      ]
+    },
+    {
+      "claim_id": "native-exact-021",
+      "file": "crates/adventuresim-building-generator/src/spatial_geometry/measurement.rs",
+      "items": [
+        "remove actual definitions after relocation"
+      ],
+      "context_refs": [
+        "#/additional_tasks/0/claims/7"
+      ]
+    },
+    {
+      "claim_id": "native-exact-022",
+      "file": "crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+      "items": [
+        "finite native Vec3 validation helper",
+        "new single native InvalidDirectionError -> portable DirectionError/GeometryError adapter"
+      ],
+      "context_refs": [
+        "#/additional_tasks/0/claims/8"
+      ]
+    },
+    {
+      "claim_id": "native-exact-023",
+      "file": "crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+      "items": [
+        "PlanDirection::{from_vector,from_normalized}",
+        "SpatialDirection::{from_vector,from_normalized} native error propagation only",
+        "Radians::max addition only: direct native max on finite private leaves, preserving bounds/errors/Serde/signed-zero; other Radians operations untouched"
+      ],
+      "context_refs": [
+        "#/additional_tasks/0/claims/9",
+        "#/additional_tasks/1/claims/50"
+      ]
+    },
+    {
+      "claim_id": "native-exact-024",
+      "file": "crates/adventuresim-building-generator/src/spatial_geometry/tests.rs",
+      "items": [
+        "normalized_directions_reject_bad_decoding_and_preserve_normalization_arithmetic existing Zero error pattern type only; identical fixture/inputs/assertions/order"
+      ],
+      "context_refs": [
+        "#/additional_tasks/0/claims/10"
+      ]
+    },
+    {
+      "claim_id": "native-exact-025",
+      "file": "Cargo.toml",
+      "items": [
+        "new workspace member and dependency registration; no external version change"
+      ],
+      "context_refs": [
+        "#/additional_tasks/0/claims/11"
+      ]
+    },
+    {
+      "claim_id": "native-exact-026",
+      "file": "crates/adventuresim-building-generator/Cargo.toml",
+      "items": [
+        "canonical geometry direct dependency with reflect feature"
+      ],
+      "context_refs": [
+        "#/additional_tasks/0/claims/12"
+      ]
+    },
+    {
+      "claim_id": "native-exact-027",
+      "file": "crates/adventuresim-core/Cargo.toml",
+      "items": [
+        "canonical geometry direct dependency without mandatory Bevy"
+      ],
+      "context_refs": [
+        "#/additional_tasks/0/claims/13"
+      ]
+    },
+    {
+      "claim_id": "native-exact-028",
+      "file": "crates/adventuresim-tactical-core/Cargo.toml",
+      "items": [
+        "canonical geometry direct dependency"
+      ],
+      "context_refs": [
+        "#/additional_tasks/0/claims/14"
+      ]
+    },
+    {
+      "claim_id": "native-exact-029",
+      "file": "crates/adventuresim-tactical-client/Cargo.toml",
+      "items": [
+        "canonical geometry direct dependency"
+      ],
+      "context_refs": [
+        "#/additional_tasks/0/claims/15"
+      ]
+    },
+    {
+      "claim_id": "native-exact-030",
+      "file": "crates/adventuresim-tactical-server/Cargo.toml",
+      "items": [
+        "canonical geometry direct dependency"
+      ],
+      "context_refs": [
+        "#/additional_tasks/0/claims/16"
+      ]
+    },
+    {
+      "claim_id": "native-exact-031",
+      "file": "crates/adventuresim-character-creator/Cargo.toml",
+      "items": [
+        "canonical geometry direct path dependency"
+      ],
+      "context_refs": [
+        "#/additional_tasks/0/claims/17"
+      ]
+    },
+    {
+      "claim_id": "native-exact-032",
+      "file": "crates/fabelgeist-armor/Cargo.toml",
+      "items": [
+        "canonical geometry direct dependency",
+        "canonical fabelgeist-rig direct dependency required by delegated packed-skin owner"
+      ],
+      "context_refs": [
+        "#/additional_tasks/0/claims/18"
+      ]
+    },
+    {
+      "claim_id": "native-exact-033",
+      "file": "Cargo.lock",
+      "items": [
+        "exact package/edge metadata for new geometry path package and agreed direct dependencies using current pinned packages only"
+      ],
+      "context_refs": [
+        "#/additional_tasks/0/claims/19"
+      ]
+    },
+    {
+      "claim_id": "native-exact-034",
+      "file": "crates/adventuresim-character-creator/Cargo.lock",
+      "items": [
+        "exact package/edge metadata for geometry/core/armor/Creator dependencies using current pinned packages only"
+      ],
+      "context_refs": [
+        "#/additional_tasks/0/claims/20"
+      ]
+    },
+    {
+      "claim_id": "native-exact-035",
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/observation.rs",
+      "items": [
+        "new canonical report Observation<T>/UnavailableReason",
+        "ExpectedVisualHeight",
+        "HeightSample",
+        "HeightPeaks",
+        "ReportError/ReportResult preserving animation/geometry causes",
+        "P17 absence reasons and canonical report finite KneeHemisphereDot; named signed clearance range, expected bounds; no duplicate shared physical units",
+        "QualityPercent over existing UnitInterval, scalar percent serialization retaining multiply-last order; incomplete capture quality is explicit Unavailable(IncompleteCapture), while measured quality0 remains real0",
+        "HeightSample::{new,phase,height} private wrapped-phase admission",
+        "SignedLengthRange::{from_sample,include,minimum,maximum} private ordered finite bounds",
+        "KneeHemisphereDot::{from_native,min,value}",
+        "QualityPercent::{from_fraction,percent} and scalar percent Serialize",
+        "Observation::{measured,when_applicable} and explicit availability reasons; owning ReportResult/ReportError",
+        "VisualHeightPeaks::{from_cycles,maximum_count,each_cycle_has_two_passing_peaks} owns aggregate count/each-cycle predicate separately from single-cycle HeightPeaks; native old aggregation/order retained"
+      ],
+      "context_refs": [
+        "#/additional_tasks/1/claims/0",
+        "#/additional_tasks/1/claims/21",
+        "#/additional_tasks/1/claims/36",
+        "#/additional_tasks/1/claims/40",
+        "#/additional_tasks/1/claims/45"
+      ]
+    },
+    {
+      "claim_id": "native-exact-036",
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+      "items": [
+        "observation module/reexports; write_completed_capture receiving body read; no I/O policy change",
+        "write_completed_capture existingwhole reportserialization receiver asneeded forfinaltypedjitterrecords",
+        "Whole capture_scenarios_complete and capture_artifacts_written actual typed scenario/view/identity receivers and existing fixtures; write_completed_capture whole connected native file/serialization receiver across every affected family"
+      ],
+      "context_refs": [
+        "#/additional_tasks/1/claims/1",
+        "#/jitter_measurement_transfer/files_and_functions/crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs"
+      ]
+    },
+    {
+      "claim_id": "native-exact-037",
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+      "items": [
+        "ScenarioMetrics maximum_pelvis_vertical_step_metres and named visual_height_peaks",
+        "AnimationCaptureValidation hard_stop_maximum_pelvis_step_metres",
+        "ScenarioHeightMetrics canonical named record; flattened scalar field names retained in serialization",
+        "all ScenarioMetrics metric fields typed/grouped; ContinuityLocation quantity type; FrameSample optional body response/height/yaw observations and typed clearance; final serialization adapters",
+        "AnimationCaptureValidation.jitter_validation existingfield type/serde receivingcontract asneeded",
+        "Whole PresentationEventSample/GlobalBoneFrame/GlobalBoneTransformSample/AnimationCaptureManifest/FrameSample screenshot and identity records plus Serialize implementations; consume actual existing Entity/AnimationTargetId/ScenarioMetadata/SemanticRoutePath/CaptureView, preserve wire encoding/order"
+      ],
+      "context_refs": [
+        "#/additional_tasks/1/claims/2",
+        "#/additional_tasks/1/claims/17",
+        "#/jitter_measurement_transfer/files_and_functions/crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs"
+      ]
+    },
+    {
+      "claim_id": "native-exact-038",
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+      "items": [
+        "scenario_metrics whole shared producer",
+        "root_relative_vertical_range",
+        "root_relative_vertical_step",
+        "hard_stop_pelvis_vertical_step",
+        "controller_vertical_range",
+        "contact_to_passing_height_gain",
+        "visual_height_peaks",
+        "phase_height_range",
+        "phase_validation_frames",
+        "maximum_no_support_seconds",
+        "move cohesive height calculations to metrics/height.rs",
+        "existing hard-stop/root-relative-step/peak fixtures API adaptation only",
+        "terrain_run_contacts_are_valid typed duration receiver",
+        "existing hard-stop fixture and guard-height-snap fixture operands only",
+        "whole scenario_metrics producer across P17 metric families; remove moved metric responsibilities; all existing affected fixture operands only, identical inputs/count/order/assertions",
+        "terrain_run_contacts_are_valid whole typed AnimationValueResult<bool> contract and existing fixtures; propagate required support/duration failures through build_completed_report rather than is_ok_and cause erasure",
+        "both_feet_behind_hips whole timed observation/reset/threshold contract F029; terrain_run_contacts_are_valid whole retained side identity (existing LeadFoot) contract F030"
+      ],
+      "context_refs": [
+        "#/additional_tasks/1/claims/3",
+        "#/additional_tasks/1/claims/16",
+        "#/additional_tasks/1/claims/48"
+      ]
+    },
+    {
+      "claim_id": "native-exact-039",
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height.rs",
+      "items": [
+        "canonical moved height responsibility and typed observation producers listed in metrics claim",
+        "ScenarioHeightMetrics::measure complete height producer responsibility"
+      ],
+      "context_refs": [
+        "#/additional_tasks/1/claims/4"
+      ]
+    },
+    {
+      "claim_id": "native-exact-040",
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height_peaks.rs",
+      "items": [
+        "prominent_height_peaks named typed sample/measurement contract; explicit missing-neighbor reduction state"
+      ],
+      "context_refs": [
+        "#/additional_tasks/1/claims/5"
+      ]
+    },
+    {
+      "claim_id": "native-exact-041",
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/acceptance_limits.rs",
+      "items": [
+        "expected_visual_height named checked authored bounds/peak expectation",
+        "actual typed expected displacement/angle bounds and vertical_range_limit typed relief consumer; existing numerical thresholds unchanged",
+        "ExpectedScenarioBounds::for_scenario",
+        "ExpectedVisualHeight::{for_scenario,minimum_range,maximum_range,peak_count} actual named owner replaces old free constructor",
+        "foot_continuity_limit, knee_continuity_limit, loop_seam_position_limit, planted_drift_limit, supported_foot_slip_limit, inter_foot_separation_limit typed authored factories",
+        "vertical_range_limit typed observed relief receiver",
+        "cadence_contacts_valid checked signed adjusted samples from typed retained distance"
+      ],
+      "context_refs": [
+        "#/additional_tasks/1/claims/6",
+        "#/additional_tasks/1/claims/24",
+        "#/additional_tasks/1/claims/41"
+      ]
+    },
+    {
+      "claim_id": "native-exact-042",
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+      "items": [
+        "build_completed_report whole shared receiver/error propagation and observation gates",
+        "extract phase-height validation responsibility before growth",
+        "all existing callers of changed height measurement producers",
+        "existing validation fixture Option->NotApplicable field only; same input semantics and assertion count",
+        "all build_completed_report and quality_score receiving metric/capture bodies, complete required absence gates; extract validation responsibilities before growth",
+        "build_completed_report whole original JitterValidationSummary receivingfunction, coordinatedwithallpriorP17requirements perexistingwholeclaim",
+        "Existingnative-owned quality/category receivingfunctions onlyasneededfor final checkedjitter API; exactexistingclaimsretainwholefunctions",
+        "Whole quality_score/weighted_defect_score/validation_passed/build_completed_report receiving functions for F028/F029/F030 and every existing P17 shared metric/cause family; no field slices"
+      ],
+      "context_refs": [
+        "#/additional_tasks/1/claims/7",
+        "#/additional_tasks/1/claims/18",
+        "#/jitter_measurement_transfer/files_and_functions/crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs"
+      ]
+    },
+    {
+      "claim_id": "native-exact-043",
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/height_validation.rs",
+      "items": [
+        "phase_owned_height_valid named typed expected bounds and observations at actual gate"
+      ],
+      "context_refs": [
+        "#/additional_tasks/1/claims/8"
+      ]
+    },
+    {
+      "claim_id": "native-exact-044",
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/html.rs",
+      "items": [
+        "review_html actual height/observation presentation including explicit unavailable/not-applicable/measured status; no sentinel restoration",
+        "all actual typed observation presentation; no primitive sentinel serializer; typed ContinuityLocation formatter",
+        "Whole review_html/describe/scenario_measurements_html/height_metrics_html/describe_observation actual serialization/display receivers, including existing identity/measurement roles and arbitrary open label output policy"
+      ],
+      "context_refs": [
+        "#/additional_tasks/1/claims/9",
+        "#/additional_tasks/1/claims/23"
+      ]
+    },
+    {
+      "claim_id": "native-exact-045",
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+      "items": [
+        "RepeatedBoneMismatch explicit structural/typed transform/invalid measurement variants",
+        "RepeatedEvaluationSnapshot::matches",
+        "CaptureSequence::record_repeated_evaluation",
+        "repeated_bone_mismatch",
+        "existing missing/extra bone fixture unchanged inputs/assertions",
+        "RepeatedEvaluationSnapshot::locomotion_sample_tick field plus first-view initialization, whole matches comparison/log projection and connected capture/repeated_evaluation_valid validation receivers; metadata-only exact claim clarification authorized by root during read-only discovery",
+        "preserve Option<LegIkDiagnostics> through record_repeated_evaluation/snapshot/matches/repeated_leg_ik_matches; existing fixtures unchanged inputs/count/assertions"
+      ],
+      "context_refs": [
+        "#/additional_tasks/1/claims/10",
+        "#/additional_tasks/1/claims/22"
+      ]
+    },
+    {
+      "claim_id": "native-exact-046",
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/clearance.rs",
+      "items": [
+        "move minimum_flight_sole_clearance, contact_sole_clearance_range, minimum_toe_clearance, foot_terrain_relief, minimum_foot_clearance; ScenarioClearanceMetrics::measure; typed signed clearance observations and named range"
+      ],
+      "context_refs": [
+        "#/additional_tasks/1/claims/11"
+      ]
+    },
+    {
+      "claim_id": "native-exact-047",
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/pose.rs",
+      "items": [
+        "move minimum_signed_foot_track, minimum_inter_foot_separation, minimum_knee_flexion, frame_minimum_knee_flexion, minimum_knee_hemisphere, maximum_knee_foot_yaw_offset, minimum_knee_bend; named ScenarioPoseMetrics and report-owned finite KneeHemisphereDot"
+      ],
+      "context_refs": [
+        "#/additional_tasks/1/claims/12"
+      ]
+    },
+    {
+      "claim_id": "native-exact-048",
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/facing.rs",
+      "items": [
+        "move maximum_facing_error, maximum_facing_tracking_excess, maximum_guard_facing_error, final_facing_error, maximum_dive_axis_motion_error; typed observations through ScenarioFacingMetrics"
+      ],
+      "context_refs": [
+        "#/additional_tasks/1/claims/13"
+      ]
+    },
+    {
+      "claim_id": "native-exact-049",
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/continuity.rs",
+      "items": [
+        "move scenario_metrics continuity accumulation responsibility, LoopSeamMetrics::measure, loop_seam, maximum_planted_foot_drift; typed ScenarioContinuityMetrics and generic typed ContinuityLocation; typed slip/drift observations",
+        "ScenarioContinuityMetrics::measure",
+        "LoopSeamMetrics::{measure,between} replaces old free loop_seam",
+        "maximum_planted_foot_drift"
+      ],
+      "context_refs": [
+        "#/additional_tasks/1/claims/14",
+        "#/additional_tasks/1/claims/44"
+      ]
+    },
+    {
+      "claim_id": "native-exact-050",
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/guard_liveness.rs",
+      "items": [
+        "move GuardStepLivenessMetrics canonical owner/is_required/measurement; replace semantic required boolean and absent minima with Observation<GuardStepLivenessMetrics>",
+        "GuardStepLivenessMetrics::{measure,is_required} replaces old free constructor",
+        "GuardHalfStep::measure whole half-step evidence",
+        "SwingSupport::between named typed support selection"
+      ],
+      "context_refs": [
+        "#/additional_tasks/1/claims/15",
+        "#/additional_tasks/1/claims/43"
+      ]
+    },
+    {
+      "claim_id": "native-exact-051",
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/body_response_validation.rs",
+      "items": [
+        "body_response_validation, lean_range, body_lateral_range; named typed range and absence required failure",
+        "BodyResponseValidation::measure replaces old free constructor",
+        "LeanRange::measure replaces old free lean_range; closed LeanComponent selector",
+        "body_lateral_range typed signed extrema and nonnegative range"
+      ],
+      "context_refs": [
+        "#/additional_tasks/1/claims/19",
+        "#/additional_tasks/1/claims/42"
+      ]
+    },
+    {
+      "claim_id": "native-exact-052",
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+      "items": [
+        "capture_frame whole report observation projection: preserve optional body response/height/IK diagnostic state; no camera code/solver state edits; existing fixture read only",
+        "drive_sequence complete connected P06/P17/P20 function transfer; CaptureSequence::scenario_distance field/init/reset; preserve distance + speed*delta native f32 order and typed GeometryError terminal rejection; no terrain/action/continuation policy change",
+        "drive_sequence and scenario_distance retained state",
+        "jitter_frames whole actual JitterFrame/JitterBone construction receiver; existingcapture_frame whole claim stays intact"
+      ],
+      "context_refs": [
+        "#/additional_tasks/1/claims/20",
+        "#/additional_tasks/1/claims/35",
+        "#/additional_tasks/1/shared_repairs/3",
+        "#/jitter_measurement_transfer/files_and_functions/crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
+      ]
+    },
+    {
+      "claim_id": "native-exact-053",
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+      "items": [
+        "CaptureGround::collect_bones complete actual signed clearance producer and GeometryResult propagation; all other CaptureGround/root-motion/admission methods remain root-owned",
+        "CaptureGround::collect_bones"
+      ],
+      "context_refs": [
+        "#/additional_tasks/1/claims/25",
+        "#/additional_tasks/1/shared_repairs/1"
+      ]
+    },
+    {
+      "claim_id": "native-exact-054",
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs",
+      "items": [
+        "CaptureSequence::admit_ik_support complete Option<LegIkDiagnostics> parameter/required absence contract; all other admission functions remain root-owned",
+        "CaptureSequence::advance_distance new cohesive signed distance numerical admission/terminal error ownership extracted from approved drive_sequence transfer; takes canonical SignedSpeed/AnimationElapsed and stores SignedLength",
+        "CaptureSequence::admit_ik_support"
+      ],
+      "context_refs": [
+        "#/additional_tasks/1/claims/26",
+        "#/additional_tasks/1/claims/39",
+        "#/additional_tasks/1/shared_repairs/2"
+      ]
+    },
+    {
+      "claim_id": "native-exact-055",
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/support_slip.rs",
+      "items": [
+        "supported_foot_slip Observation<NonnegativeLength>, explicit required missing bones and no qualifying plant, same distance/body-turn/support numerical order and thresholds; P17/P19 shared report repair"
+      ],
+      "context_refs": [
+        "#/additional_tasks/1/claims/27"
+      ]
+    },
+    {
+      "claim_id": "native-exact-056",
+      "file": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "items": [
+        "NonnegativeLength::{min,max} only, root explicit transfer; direct native f32 extrema preserving invariant and signed-zero policy",
+        "Whole existing NonnegativeLength definition/private representation/admission bounds/validzero/Serde/error and every inherent method incl explicitly claimed min/max, moved as actual canonical definition into neutral geometry; callers reexport actual owner, no compatibilityalias/shim"
+      ],
+      "context_refs": [
+        "#/additional_tasks/1/claims/28",
+        "#/canonical_nonnegative_length_transfer/files_and_functions/crates/adventuresim-tactical-core/src/animation/measurement.rs"
+      ]
+    },
+    {
+      "claim_id": "native-exact-057",
+      "file": "crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+      "items": [
+        "AngularMagnitudeDegrees::{min,max} only, root explicit transfer; direct native f32 extrema preserving invariant and signed-zero policy",
+        "SignedAngleDegrees::{min,max} only, exact root transfer, native finite f32 extrema preserving signed zero; other methods remain owned separately"
+      ],
+      "context_refs": [
+        "#/additional_tasks/1/claims/29",
+        "#/additional_tasks/1/claims/37"
+      ]
+    },
+    {
+      "claim_id": "native-exact-058",
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/continuity_validation.rs",
+      "items": [
+        "extracted continuity_within_review_bounds from build_completed_report; typed expected/observed bounds, missing required evidence fails"
+      ],
+      "context_refs": [
+        "#/additional_tasks/1/claims/30"
+      ]
+    },
+    {
+      "claim_id": "native-exact-059",
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/biomechanics_validation.rs",
+      "items": [
+        "extracted biomechanics_within_review_bounds from build_completed_report; typed pose/facing/height/contact/seam/plant gates with same scenario exclusions and thresholds"
+      ],
+      "context_refs": [
+        "#/additional_tasks/1/claims/31"
+      ]
+    },
+    {
+      "claim_id": "native-exact-060",
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/landing_validation.rs",
+      "items": [
+        "landing_response_valid extracted from build_completed_report; optional measured compression required where landing gate applies; typed max sample and frame knee admission errors retained"
+      ],
+      "context_refs": [
+        "#/additional_tasks/1/claims/32"
+      ]
+    },
+    {
+      "claim_id": "native-exact-061",
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/capture/sample.rs",
+      "items": [
+        "extract actual FrameSample::capture constructor and named CaptureSample record from capture_frame; preserve all ordered native vector/scalar projections and optional observations; no gameplay/IK/camera source changes",
+        "CaptureSampleResult owning existing RejectedCaptureAdmission; FrameSample::capture admits native body radians-to-degrees once into SignedAngleDegrees; existing typed Locomotion/Geometry capture rejection, no new error variant"
+      ],
+      "context_refs": [
+        "#/additional_tasks/1/claims/33",
+        "#/additional_tasks/1/claims/47"
+      ]
+    },
+    {
+      "claim_id": "native-exact-062",
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/capture/global_bones.rs",
+      "items": [
+        "GlobalBoneFrame::capture time_seconds field retains actual AnimationElapsed; no global bone identity/layout/vector edits"
+      ],
+      "context_refs": [
+        "#/additional_tasks/1/claims/34"
+      ]
+    },
+    {
+      "claim_id": "native-exact-063",
+      "file": "crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+      "items": [
+        "HeightDistance::{min,max} only, exact root transfer, closed delegation to actual NonnegativeLength native extrema; other methods remain owned separately"
+      ],
+      "context_refs": [
+        "#/additional_tasks/1/claims/38"
+      ]
+    },
+    {
+      "claim_id": "native-exact-064",
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/mod.rs",
+      "items": [
+        "BodyAngle unused import removal only after sample body angle retention becomes canonical checked SignedAngleDegrees; no root/camera functions transferred"
+      ],
+      "context_refs": [
+        "#/additional_tasks/1/claims/46"
+      ]
+    },
+    {
+      "claim_id": "native-exact-065",
+      "file": "crates/adventuresim-tactical-client/src/animation/bouncy_bones.rs",
+      "items": [
+        "BouncyBones::maximum_deflection_radians native ordered spring-length admission and checked radians extrema",
+        "BouncyBonesTelemetry definition and Default actual retained per-frame measurement/error owner",
+        "apply_bouncy_bones whole connected telemetry source function; preserve spring coupling/integration/clamping, counts, rig order, ragdoll/frozen/transform logic and zero reset; retain typed errors to capture rejection",
+        "BouncyBonesTelemetry::include owns native per-rig count/typed ordered maximum aggregation, extracted from complete apply_bouncy_bones transfer without dynamics changes",
+        "BoneKick complete retained physical payload",
+        "kick_bones complete physical impulse -> rotational spin/native spring numerical conversion"
+      ],
+      "context_refs": [
+        "#/additional_tasks/1/claims/49",
+        "#/additional_tasks/1/claims/51",
+        "#/shared_impact_animation_transfer/files_and_functions/crates/adventuresim-tactical-client/src/animation/bouncy_bones.rs"
+      ]
+    },
+    {
+      "claim_id": "native-exact-066",
+      "file": "crates/adventuresim-tactical-server/src/bin/melee-combat-iteration.rs",
+      "items": [
+        "main typed native command result port"
+      ],
+      "context_refs": [
+        "#/shared_observer_error_transfer/files_and_functions/crates/adventuresim-tactical-server/src/bin/melee-combat-iteration.rs"
+      ]
+    },
+    {
+      "claim_id": "native-exact-067",
+      "file": "crates/adventuresim-building-generator/src/doors.rs",
+      "items": [
+        "door_from_solid complete function; preserve canonical Position<Architectural> from existing ResolvedSolid without primitive extraction/re-admission"
+      ],
+      "context_refs": [
+        "#/discovery_repair_claims/files_and_functions/crates/adventuresim-building-generator/src/doors.rs"
+      ]
+    },
+    {
+      "claim_id": "native-exact-068",
+      "file": "crates/adventuresim-tactical-server/src/doors.rs",
+      "items": [
+        "DoorController complete retained geometry fields",
+        "spawn_door complete native collider/joint/controller producer",
+        "door_joint complete final native RevoluteJoint adapter",
+        "door_motor complete final AngularMotor adapter",
+        "update_door_passages complete controller/motor receiving body",
+        "report_unseated_doors complete retained controller geometry diagnostic receiver",
+        "tests::closing_motor_is_weaker_than_automatic_opening existing fixture",
+        "tests::grabbed_inside_door_is_exempt_until_clear_of_the_exterior existing fixture",
+        "tests::authoritative_inside_grab_grants_collision_exemption existing fixture",
+        "tests::door_remains_seated_and_upright_after_a_character_scale_collision existing fixture"
+      ],
+      "context_refs": [
+        "#/discovery_repair_claims/files_and_functions/crates/adventuresim-tactical-server/src/doors.rs"
+      ]
+    },
+    {
+      "claim_id": "native-exact-069",
+      "file": "crates/adventuresim-tactical-server/src/windows.rs",
+      "items": [
+        "WindowController complete retained geometry/current angle fields",
+        "spawn_window complete collider/controller producer",
+        "animate_windows complete typed retained current angle/native Transform receiver",
+        "tests::only_an_inside_actor_can_toggle_the_window_catch existing fixture",
+        "tests::converted_barred_window_keeps_collider_hinge_and_inward_swing existing fixture"
+      ],
+      "context_refs": [
+        "#/discovery_repair_claims/files_and_functions/crates/adventuresim-tactical-server/src/windows.rs"
+      ]
+    },
+    {
+      "claim_id": "native-exact-070",
+      "file": "crates/adventuresim-tactical-client/src/animation/mod.rs",
+      "items": [
+        "on_successful_attack complete external impact ingress/scaling/message producer",
+        "AnimationRuntime load-related base_rig/requested_motions/unavailable_motions/clips/requested_grips/processed_grips/unavailable_grips/grips/library fields anddefaultconstruction receivers",
+        "update_rig_visibility andattach readiness requiredconnectedloadresultprojection only; no unrelatedprocedural/skeletalposes transfer"
+      ],
+      "context_refs": [
+        "#/shared_impact_animation_transfer/files_and_functions/crates/adventuresim-tactical-client/src/animation/mod.rs",
+        "#/animation_load_cause_transfer/files_and_functions/crates/adventuresim-tactical-client/src/animation/mod.rs"
+      ]
+    },
+    {
+      "claim_id": "native-exact-071",
+      "file": "crates/adventuresim-core/src/strategic_action.rs",
+      "items": [
+        "RequestedDuration canonical positive requested-minute owner; retain existing constructor/zero policy",
+        "TimeResolution retained requested-duration field and resolve_time whole function",
+        "AuthoritativeActionPlan time/public_plan receivers, build_plan whole callback owner and validate_commit whole equality/error receiver",
+        "Existing same-input/time fixture adaptations required by final typed APIs only"
+      ],
+      "context_refs": [
+        "#/shared_strategic_pure_producer_claims/files_and_functions/crates/adventuresim-core/src/strategic_action.rs"
+      ]
+    },
+    {
+      "claim_id": "native-exact-072",
+      "file": "crates/adventuresim-core/src/herbalism.rs",
+      "items": [
+        "PreparationPlanEffect::AttemptWait requested duration and PreparationPublicPreview duration application retention",
+        "build_preparation_plan whole function with original positive requested / optional clipped elapsed policy",
+        "Existing same-input preparation fixture adaptations only"
+      ],
+      "context_refs": [
+        "#/shared_strategic_pure_producer_claims/files_and_functions/crates/adventuresim-core/src/herbalism.rs"
+      ]
+    },
+    {
+      "claim_id": "native-exact-073",
+      "file": "crates/adventuresim-core/src/foraging.rs",
+      "items": [
+        "ForagePlanEffect::AttemptSearch requested duration and ForagePublicPreview duration application retention",
+        "build_forage_plan whole function including required effect/callback and legitimate elapsed0 policy",
+        "Existing same-input foraging fixture adaptations only"
+      ],
+      "context_refs": [
+        "#/shared_strategic_pure_producer_claims/files_and_functions/crates/adventuresim-core/src/foraging.rs"
+      ]
+    },
+    {
+      "claim_id": "native-exact-074",
+      "file": "crates/adventuresim-core/src/investigation_action.rs",
+      "items": [
+        "InvestigationPlanEffect::AttemptPartyInterval duration contract and build_investigation_plan whole callback receiver, reconcile authoritative requested duration vs newly computed resolution cost without changing action policy",
+        "Existing same-input planning_adapter fixtures only"
+      ],
+      "context_refs": [
+        "#/shared_strategic_pure_producer_claims/files_and_functions/crates/adventuresim-core/src/investigation_action.rs"
+      ]
+    },
+    {
+      "claim_id": "native-exact-075",
+      "file": "crates/adventuresim-core/src/material.rs",
+      "items": [
+        "Milligrams/Microliters/MaterialComponentMicrounits canonical checked unit operations needed for original same-value typed composite retention, no duplicate owners",
+        "MaterialMeasure whole retained fields/try_new/ZERO/checked_add/checked_sub plus Portion::split_measure whole invariant-preserving arithmetic",
+        "ExtensiveComponent whole magnitude payload and PrivateMaterialTruth::{try_new,split,components,contaminants} whole typed aggregate operations",
+        "MaterialVessel capacity/accepts and RoundingTolerance whole required material measure receivers",
+        "ConservationReceipt / verify_conservation / checked_sum whole typed arithmetic receivers",
+        "PrivateMaterialSnapshot/MaterialRemainder/SourceLotContribution/ProducedMaterial/ProcessConservationPolicy/MaterialTransformationReceipt affected retained checked measure/component fields and whole connected constructors/accessors",
+        "canonical_input_digest / verify_private_conservation / verify_extensive_values / validate_material_commit whole actual reduction/hash/commit receiving bodies",
+        "classify_material_retry / exact_sources_equal whole typed receipt receiving bodies, same identity/sort/hash values",
+        "Existing material fixtures with unchanged input/count/order/assertions only; no new helpers/cases"
+      ],
+      "context_refs": [
+        "#/shared_strategic_pure_producer_claims/files_and_functions/crates/adventuresim-core/src/material.rs"
+      ]
+    },
+    {
+      "claim_id": "native-exact-076",
+      "file": "crates/adventuresim-core/src/quest_generation/assembly.rs",
+      "items": [
+        "generate whole typed AssetId/SubjectId production + retained custody/finale/consequence/dialogue contract across all affected families",
+        "generate_outbreak whole Seed/episode identity and retained exposure contract across all affected families"
+      ],
+      "context_refs": [
+        "#/shared_strategic_pure_producer_claims/files_and_functions/crates/adventuresim-core/src/quest_generation/assembly.rs"
+      ]
+    },
+    {
+      "claim_id": "native-exact-077",
+      "file": "crates/adventuresim-core/src/quest_generation/model.rs",
+      "items": [
+        "GeneratedActionConsequence whole asset/subject payload owner",
+        "GeneratedFinale whole actual mixed subject/proposition/asset payload contract, coordinate final enum/owner lens result; do not blanket SubjectId replacement",
+        "GeneratedDialogueProducer whole retained asset/objective payload owner",
+        "GeneratedCase.custody field and directly connected typed custody initialization/serialization receivers only; other model fields remain existing first-trace owners",
+        "OutbreakExposure.episode_id and whole connected checked identity/entropy retention field contract as PP032; preserve exact genuine identity semantics until later owner/granularity reconciliation",
+        "Candidate whole retained ID/bridge/factors/weight/context/error contract",
+        "ModuleId/RelationId/FactorId/BridgeId existing canonical definitions only as needed for connected checked APIs",
+        "SamplingError/GenerationError and sampling trace payload fields needed for exact typed cause/ID retention"
+      ],
+      "context_refs": [
+        "#/shared_strategic_pure_producer_claims/files_and_functions/crates/adventuresim-core/src/quest_generation/model.rs",
+        "#/quest_sampling_solver_transfer/files_and_functions/crates/adventuresim-core/src/quest_generation/model.rs"
+      ]
+    },
+    {
+      "claim_id": "native-exact-078",
+      "file": "crates/adventuresim-core/src/quest_generation/validation.rs",
+      "items": [
+        "validate whole actual generated-case receiving/error contract, consume final typed Asset/Subject/Objective and checked Seed identity representations together, preserving existing witness/demographic rules",
+        "validate_track_trails stays unchanged unless final owned whole validate API requires a connected receiver change; coordinate any newly reached overlap first"
+      ],
+      "context_refs": [
+        "#/shared_strategic_pure_producer_claims/files_and_functions/crates/adventuresim-core/src/quest_generation/validation.rs"
+      ]
+    },
+    {
+      "claim_id": "native-exact-079",
+      "file": "crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+      "items": [
+        "ValidatedSchedule::effective_at whole function and returned canonical validated schedule representation (existing owner, no duplicate type)",
+        "DailySchedule/ValidatedSchedule exact retained allocation fields, admission/result/operations needed to preserve effective allocation guarantees; existing same-input fixture adaptations only"
+      ],
+      "context_refs": [
+        "#/shared_validated_schedule_claim/files_and_functions/crates/adventuresim-core/src/strategic_schedule/allocation.rs"
+      ]
+    },
+    {
+      "claim_id": "native-exact-080",
+      "file": "crates/adventuresim-core/src/strategic_schedule.rs",
+      "items": [
+        "Whole connected pure recovery consumer whose actual numerical operation body is126\u00e2\u20ac\u201c237 (exact source pin/hash in supplemental-camera-receivers.json)",
+        "Whole connected pure training consumer whose actual numerical operation body is397\u00e2\u20ac\u201c473, preserving reading untouched and org eligibility behavior",
+        "Whole connected pure outcome consumer whose actual numerical operation body is647\u00e2\u20ac\u201c683, plus same owner typed schedule signatures/accessors feeding those bodies",
+        "Existing same-input/count/order/assertion source fixtures needed by final checked schedule API only",
+        "apply_religion_training whole function",
+        "apply_organization_training whole function",
+        "apply_curriculum_training whole function and connected canonical TrainingTarget/TrainingEntry selector signatures (coordinate root catalogue admission/representation owner)",
+        "fixed_skill_target whole helper",
+        "terrain_target whole helper"
+      ],
+      "context_refs": [
+        "#/shared_validated_schedule_claim/files_and_functions/crates/adventuresim-core/src/strategic_schedule.rs"
+      ],
+      "authorization_extension": "Root explicit purelife/curriculum/training whole-function combination after ROOT-PPS-PURE-FOOD-LIFE-PARTIAL-054. No source changes before all13; Camera DB/starting_character and root authored catalogue owners retained."
+    },
+    {
+      "claim_id": "native-exact-081",
+      "file": "crates/adventuresim-tactical-client/src/diagnostics.rs",
+      "items": [
+        "InputScript",
+        "ScriptCommand",
+        "ScriptedInput",
+        "DiagnosticPlugin::{new,build,finish}",
+        "validate_script",
+        "drive_scripted_input",
+        "FrameTimingTrace",
+        "FrameTimingRecord",
+        "create_diagnostic_file",
+        "record_frame_timing",
+        "diagnostic_command_pace",
+        "default_attack_observation_seconds"
+      ],
+      "context_refs": [
+        "#/diagnostic_script_transfer"
+      ]
+    },
+    {
+      "claim_id": "native-exact-082",
+      "file": "crates/adventuresim-tactical-client/src/animation/diagnostics.rs",
+      "items": [
+        "DiagnosticInputStatus declaration and receiving contract only; exact parent transfer, remaining diagnostics functions retain prior owners"
+      ],
+      "context_refs": [
+        "#/diagnostic_script_transfer/connected_claims/0"
+      ]
+    },
+    {
+      "claim_id": "native-exact-083",
+      "file": "crates/adventuresim-tactical-client/src/animation/diagnostic_record.rs",
+      "items": [
+        "Existing DiagnosticInputStatus payload field/serialization receiver as needed for whole transferred source; no unrelated pose/rig ownership transfer"
+      ],
+      "context_refs": [
+        "#/diagnostic_script_transfer/connected_claims/1"
+      ]
+    },
+    {
+      "claim_id": "native-exact-084",
+      "file": "crates/adventuresim-core/src/quest_generation/sampling.rs",
+      "items": [
+        "choose whole connected function",
+        "weighted_order whole connected function; preserve RNG byte domain as byte context, not automatically ModuleId",
+        "deterministic_witness_order and canonicalize necessary typed ID/order receivers"
+      ],
+      "context_refs": [
+        "#/quest_sampling_solver_transfer/files_and_functions/crates/adventuresim-core/src/quest_generation/sampling.rs"
+      ]
+    },
+    {
+      "claim_id": "native-exact-085",
+      "file": "crates/adventuresim-core/src/quest_generation/solver.rs",
+      "items": [
+        "SolvedVariables complete retained bridge/factor/role fields",
+        "solve and actual Candidate collection/backtrack/matching/error receivers",
+        "bridge whole original canonical BridgeId assembly/trace receiver and connected solver helper signatures"
+      ],
+      "context_refs": [
+        "#/quest_sampling_solver_transfer/files_and_functions/crates/adventuresim-core/src/quest_generation/solver.rs"
+      ]
+    },
+    {
+      "claim_id": "native-exact-086",
+      "file": "crates/adventuresim-core/src/local_problem.rs",
+      "items": [
+        "generate whole original typedWeight/canonicalID/error/RNG/recipient contract",
+        "Candidate entire plausibility-curation Weight aggregate payload",
+        "GenerationExplanation entire same Weight retained projection and receiving signatures"
+      ],
+      "context_refs": [
+        "#/local_problem_weight_transfer"
+      ]
+    },
+    {
+      "claim_id": "native-exact-087",
+      "file": "crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+      "items": [
+        "CycleDelta::checked_lerp whole checkednative interpolation contract and necessary existingcallers"
+      ],
+      "context_refs": [
+        "#/cycle_delta_ratio_transfer"
+      ]
+    },
+    {
+      "claim_id": "native-exact-088",
+      "file": "crates/adventuresim-tactical-client/src/animation/loading/motion.rs",
+      "items": [
+        "MotionLoad whole struct/request/source/poll/observe_source_revision",
+        "MotionLoadState entire pending/ready/unavailable/cause retainedpayload",
+        "MotionClipAdmission entire enum/admit whole failure/readiness cause contract"
+      ],
+      "context_refs": [
+        "#/animation_load_cause_transfer/files_and_functions/crates/adventuresim-tactical-client/src/animation/loading/motion.rs"
+      ]
+    },
+    {
+      "claim_id": "native-exact-089",
+      "file": "crates/adventuresim-tactical-client/src/animation/loading.rs",
+      "items": [
+        "AnimationRuntime::rebuild_loaded_library whole typedload/packvalidation failure retainingreceiver",
+        "request_animation_packs andcollect_loaded_packs whole loadstate producer/receiver contract",
+        "collect_loaded_grips whole asset/clipduration/structuraladmission causecontract",
+        "install_requests necessary connectedloadsystem registration only; rigidentity/targetbinding helpers retainexistingowners"
+      ],
+      "context_refs": [
+        "#/animation_load_cause_transfer/files_and_functions/crates/adventuresim-tactical-client/src/animation/loading.rs"
+      ]
+    },
+    {
+      "claim_id": "native-exact-090",
+      "file": "crates/adventuresim-tactical-client/src/animation/playback_state.rs",
+      "items": [
+        "BaseRigLoad entire enum andsource/scene actual retainedcause/readinessreceivers"
+      ],
+      "context_refs": [
+        "#/animation_load_cause_transfer/files_and_functions/crates/adventuresim-tactical-client/src/animation/playback_state.rs"
+      ]
+    },
+    {
+      "claim_id": "native-exact-091",
+      "file": "crates/adventuresim-tactical-client/src/animation/clip_revision.rs",
+      "items": [
+        "refresh_animation_revisions whole invalidation/reset/rebuild typedloadstate contract"
+      ],
+      "context_refs": [
+        "#/animation_load_cause_transfer/files_and_functions/crates/adventuresim-tactical-client/src/animation/clip_revision.rs"
+      ]
+    },
+    {
+      "claim_id": "native-exact-092",
+      "file": "crates/adventuresim-tactical-client/src/animation/clip_revision/events.rs",
+      "items": [
+        "RevisionEvents/ChangedAnimationAssets/read necessary whole nativeevent/cause vsrevision identity contract; asset_event_id actualframeworkidentity projection remainsnamednativeport"
+      ],
+      "context_refs": [
+        "#/animation_load_cause_transfer/files_and_functions/crates/adventuresim-tactical-client/src/animation/clip_revision/events.rs"
+      ]
+    },
+    {
+      "claim_id": "native-exact-093",
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/harness/readiness.rs",
+      "items": [
+        "Existing native-owned readiness loadfailure/cause requiredavailability actualreceivers wholefunctions perpriorclaim"
+      ],
+      "context_refs": [
+        "#/animation_load_cause_transfer/files_and_functions/crates/adventuresim-tactical-client/src/animation_viewer/harness/readiness.rs"
+      ]
+    },
+    {
+      "claim_id": "native-exact-094",
+      "file": "crates/adventuresim-tactical-client/src/animation/fallback.rs",
+      "items": [
+        "LimbAnchor entire localpoint/name role record",
+        "FallbackCapsule entire radius/segment andmesh nativeadapter",
+        "FallbackGeometry entire retainedbodypart/root-anchor record andauthored constructor",
+        "spawn_fallback_t_pose whole root/bodypart construction andactualMesh/Transformreceivers"
+      ],
+      "context_refs": [
+        "#/fallback_geometry_transfer"
+      ]
+    },
+    {
+      "claim_id": "native-exact-095",
+      "file": "crates/adventuresim-tactical-client/src/animation/jitter.rs",
+      "items": [
+        "JitterThresholds/JitterLimit whole per-class physical/relative/noisefloor quantities",
+        "JitterBone/JitterFrame whole observedpose/time/segment records includinginvalidobservation policy",
+        "JitterIncident/JitterValidationSummary whole per-class measurement/bound/severity contracts",
+        "JitterClass/JitterBoneIdentity currentrole/native-report serialization contract",
+        "JitterThresholds::default, validate andserialize_bone wholefunctions",
+        "acquisition_warmup_frames/contact_segment_warmup_frames/thresholds_for_scenario whole originalpolicyhelpers",
+        "analyze_scenario/report/dt/derivative/vector_derivative whole connectednumericalanalysis andreceivers"
+      ],
+      "context_refs": [
+        "#/jitter_measurement_transfer/files_and_functions/crates/adventuresim-tactical-client/src/animation/jitter.rs"
+      ]
+    },
+    {
+      "claim_id": "native-exact-096",
+      "file": "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs",
+      "items": [
+        "sample_plan whole original body including simple/extrapolated/continuation/grip blends andtypedfailure propagation",
+        "update_pose_buffers whole original clock/binding/culling/sampling/terrain/conformity/continuation/update body consumingagreedhelpercontracts",
+        "SampledPlan andrequiredtyped error/readiness receivingstate asneeded forwholefunctions",
+        "Necessarydirectsample_plan/update_pose_buffers caller fixtures adaptedwithsameinputs/count/order/assertions onlyaftergate"
+      ],
+      "context_refs": [
+        "#/animation_sample_failure_transfer"
+      ]
+    },
+    {
+      "claim_id": "native-exact-097",
+      "file": "crates/adventuresim-tactical-client/src/animation/pose_buffer/proportions.rs",
+      "items": [
+        "sample_character_plan whole function including native offset application after checked sample_plan result",
+        "necessary direct typed failure/readiness result receivers and unchanged fixture adaptations withsameinputs/count/order/assertions aftergate"
+      ],
+      "context_refs": [
+        "#/animation_sample_failure_transfer/connected_caller_transfer"
+      ]
+    },
+    {
+      "claim_id": "native-exact-098",
+      "file": "crates/adventuresim-world-schema/src/basis_points.rs",
+      "items": [
+        "UnitBasisPoints whole privatebounds/new/checkedops/Serialize/Deserialize/SpacetimeType admission contract",
+        "SignedUnitBasisPoints whole privatebounds/new/checkedops/Serialize/Deserialize/SpacetimeType admission contract",
+        "ExistingBasisPoints error/result conversions and sameinput fixtures onlyasneeded finalcanonicalAPI"
+      ],
+      "context_refs": [
+        "#/canonical_basis_point_admission_transfer"
+      ]
+    },
+    {
+      "claim_id": "native-exact-099",
+      "file": "crates/adventuresim-tactical-client/src/animation/procedural.rs",
+      "items": [
+        "ProceduralJumpAnticipationState whole retained base/applied/amount/pelvis_amount/evaluation_tick contract",
+        "apply_jump_anticipation whole original function including repeated-tick, authored tuning and actual actor-local Transform outputs",
+        "jump_charge_pelvis_target whole canonical UnitInterval target producer and necessary direct existing same-input fixture adaptations"
+      ],
+      "context_refs": [
+        "#/procedural_owner_fit_transfer"
+      ]
+    },
+    {
+      "claim_id": "native-exact-100",
+      "file": "crates/adventuresim-tactical-client/src/animation/procedural/body_values.rs",
+      "items": [
+        "BodyAngle::from_authored_scale whole existing checked scale product using agreed canonical Ratio, preserving postproduct admission/error order"
+      ],
+      "context_refs": [
+        "#/procedural_owner_fit_transfer"
+      ]
+    },
+    {
+      "claim_id": "native-exact-101",
+      "file": "crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+      "items": [
+        "ReferenceAcceleration::component_ratio whole existing canonical physical acceleration/ratio operation; other methods remain with prior owners"
+      ],
+      "context_refs": [
+        "#/procedural_owner_fit_transfer"
+      ]
+    },
+    {
+      "claim_id": "native-exact-102",
+      "file": "crates/adventuresim-tactical-client/src/animation/procedural/body_response/target.rs",
+      "items": [
+        "body_response_target whole connected typed physical/Ratio body-angle receiving contract",
+        "travel_lean whole original checked signed speed/reference Ratio -> BodyAngle receiving kernel",
+        "inertial_lean whole original checked acceleration/reference Ratio -> BodyAngle receiving kernel"
+      ],
+      "context_refs": [
+        "#/procedural_owner_fit_transfer"
+      ]
+    },
+    {
+      "claim_id": "native-exact-103",
+      "file": "crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation/anatomical_yaw.rs",
+      "items": [
+        "KneeYawLeg whole typed optional/error measured-yaw producer contract including constrain and rendered_offset whole functions",
+        "enforce_anatomical_knee_yaw whole required/optional/error observation enforcement and state publication receiver; preserve actual0 andnativeTransformpolicy"
+      ],
+      "context_refs": [
+        "#/anatomical_yaw_observation_transfer"
+      ]
+    },
+    {
+      "claim_id": "native-exact-104",
+      "file": "crates/adventuresim-tactical-client/src/animation/procedural/ik/state.rs",
+      "items": [
+        "LegIkMemory::{left_knee_foot_yaw_offset_degrees,right_knee_foot_yaw_offset_degrees} field/default/typed error-versus-unavailable observation contracts only; no blanket state ownership",
+        "LegIkDiagnostics corresponding yaw observation fields/default/typedcause receivingcontract",
+        "LegIkState::diagnostics whole connected observation producer/projection across all affected family requirements",
+        "LegIkMemory/LocomotionSettleState/QuickstepContactHandoff/LegIkDiagnostics existing Scene/local point retained fields andnecessary derived/default/targets/update_targets typed result contract; no blanket differentclock/helpertransfer",
+        "seed_quickstep_contact_handoff/LegIkMemory::observe_owner_frame/LegIkMemory::finish_terrain_release/LegIkState::diagnostics whole connected point/admission/observation functions; shared existing yaw claims retained"
+      ],
+      "context_refs": [
+        "#/anatomical_yaw_observation_transfer",
+        "#/scene_foot_target_graph_transfer"
+      ]
+    },
+    {
+      "claim_id": "native-exact-105",
+      "file": "crates/adventuresim-tactical-client/src/animation/procedural/ik/state/publication.rs",
+      "items": [
+        "LegIkMemory::publish whole connected checked state publication/error receiving contract",
+        "LegIkMemory::validate_targets whole connected state admission/error receiving contract required by shared measured-yaw/P17 state"
+      ],
+      "context_refs": [
+        "#/anatomical_yaw_observation_transfer"
+      ]
+    },
+    {
+      "claim_id": "native-exact-106",
+      "file": "crates/adventuresim-tactical-client/src/animation/procedural/ik/solver.rs",
+      "items": [
+        "TwoBoneSolution whole successful finite Scene knee/end and normalized Scene direction retained contract",
+        "solve_two_bone whole original checked successful-solution producer",
+        "solve_landing_two_bone whole original geometry/cause/optional successful-solution producer",
+        "solve_two_bone_with_reach whole original checked successful-solution producer",
+        "solve_two_bone_internal whole analytic native geometry kernel and successful canonical output admission/fallback contract",
+        "apply_two_bone_solution whole original typed solution -> actual twist hierarchy/native Transform receiving contract",
+        "aim_world_rotation whole directly connected native direction/rotation adapter preserving exact original arithmetic and fallback",
+        "Existing apply_test_two_bone/test_joint_pose and solve fixture receiving API adaptations only, identical inputs/count/order/assertions; no new cases/helpers"
+      ],
+      "context_refs": [
+        "#/analytic_solution_owner_transfer"
+      ]
+    },
+    {
+      "claim_id": "native-exact-107",
+      "file": "crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/foot_clearance.rs",
+      "items": [
+        "FootClearanceFloor andFootDescent whole checked point/floor policy definitions andminimum_height/apply/permits_descent methods",
+        "ordinary_terrain_target/run_swing_clearance/run_airborne_clearance/run_airborne_clearance_for_sample/settle_swing_target whole original physical point/clearance producers",
+        "conform_run_swing_target/conform_settle_swing_target/toe_aware_clearance_floor/transition_toe_clearance_with_rotation_margin/transition_clearance_floor/terrain_clearance_floor whole original typed point/floor/callback receiving functions",
+        "checked_scene_point_metres/checked_scene_elevation/checked_signed_length/checked_foot_target/native_run_swing_clearance whole canonical derived admission/native constituent functions, preserving original final-value first-error/order"
+      ],
+      "context_refs": [
+        "#/scene_foot_target_graph_transfer"
+      ]
+    },
+    {
+      "claim_id": "native-exact-108",
+      "file": "crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/flight_projection.rs",
+      "items": [
+        "advance_run_airborne_world_target andterrain_feasible_target_in_step whole native search/typed completed-point/error/callback contracts"
+      ],
+      "context_refs": [
+        "#/scene_foot_target_graph_transfer"
+      ]
+    },
+    {
+      "claim_id": "native-exact-109",
+      "file": "crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/run_reach.rs",
+      "items": [
+        "run_contact_within_follower_step/run_contact_within_leg_reach/run_contact_within_follower_motion_step whole typed point/native reach consumers",
+        "retarget_unacquired_run_contact_for_descent/project_point_into_two_disks/reachable_run_contact_target/project_run_contact_into_reach_intersection/run_contact_reachable_through_stance whole original native projection/callback/typed point contracts"
+      ],
+      "context_refs": [
+        "#/scene_foot_target_graph_transfer"
+      ]
+    },
+    {
+      "claim_id": "native-exact-110",
+      "file": "crates/adventuresim-tactical-client/src/animation/procedural/ik/raised_footwork.rs",
+      "items": [
+        "GuardSwing/GuardTargetRequest/GuardLegGeometry/ValidatedGuardTargets/GuardStepState/RaisedFootworkState whole existing retained Scene point/normalizeddirection contract andall original methods/default/validation",
+        "opposite_guard_foot/safer_guard_reacquire_foot/guard_swing_target/advance_stationary_turn_step/validate_guard_frame_targets/constrain_guard_swing_to_reach/anatomical_side/constrain_foot_to_track/terrain_conformed_guard_target whole connected original point/topology numerical producers andreceivers"
+      ],
+      "context_refs": [
+        "#/scene_foot_target_graph_transfer"
+      ]
+    },
+    {
+      "claim_id": "native-exact-111",
+      "file": "crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion.rs",
+      "items": [
+        "apply whole ordinary authored locomotion typed physical point/error/state/native Transform receiver across all affected requirements",
+        "apply_root_vertical_shift andalign_foot_to_slope_weighted whole connected native frame/point/rotation adapters; existing foot-phase helpers retainroot authority"
+      ],
+      "context_refs": [
+        "#/scene_foot_target_graph_transfer"
+      ]
+    },
+    {
+      "claim_id": "native-exact-112",
+      "file": "crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion/terrain_leg.rs",
+      "items": [
+        "OrdinaryLeg::solve andOrdinaryLeg::align_surface whole connected Scene point/native solve/slope/error observation consumers"
+      ],
+      "context_refs": [
+        "#/scene_foot_target_graph_transfer"
+      ]
+    },
+    {
+      "claim_id": "native-exact-113",
+      "file": "crates/adventuresim-tactical-client/src/animation/procedural/ik/settle.rs",
+      "items": [
+        "preserve_raised_handoff_targets/cancel_settle_for_restart/finish_settle_for_idle whole retained Scene/local point transfer/restart/terminal receiving functions",
+        "prepare_terminal_settle_contacts/terminal_settle_contacts_are_rendered/terminal_contact_solve_ownership/seed_settle_from_rendered_feet/settle_visible_foot/retain_settle_support/settle_stance_is_safe/sole_is_at_contact/raised_support_is_actual whole original checked Scene point/elevation/callback/optionalobservation contracts"
+      ],
+      "context_refs": [
+        "#/scene_foot_target_graph_transfer"
+      ]
+    },
+    {
+      "claim_id": "native-exact-114",
+      "file": "crates/adventuresim-tactical-client/src/animation/procedural/ik/settle/planning.rs",
+      "items": [
+        "LegIkMemory::begin_settle_if_needed whole checked Scene point/actual optional foot observation producer",
+        "balance_recovery_direction/projected_capture_point/choose_settle_support/plan_settle_landing/settle_swing_side whole native physical/frame/point planning contracts"
+      ],
+      "context_refs": [
+        "#/scene_foot_target_graph_transfer"
+      ]
+    },
+    {
+      "claim_id": "native-exact-115",
+      "file": "crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts.rs",
+      "items": [
+        "bound_unacquired_run_support_release_target/support_release_diagnostic_goal/resolved_unacquired_support_release_ownership/commit_resolved_unplanned_airborne_release/commit_resolved_unacquired_support_release whole original typed Scene/local point producer/readback functions",
+        "update_measured_owner_planar_speed/clear_planned_contact_metadata/clear_all_planned_contact_metadata/planned_contact_start/run_previous_owner_target/run_plan_visible_start/release_start_owner_target/bound_late_run_contact/ordinary_contact_target/acquisition_planted_target whole original physical point/speed/plan retention andreceiving functions; no rootcanonicalfootphase operationtransfer"
+      ],
+      "context_refs": [
+        "#/scene_foot_target_graph_transfer"
+      ]
+    },
+    {
+      "claim_id": "native-exact-116",
+      "file": "crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+      "items": [
+        "apply_terrain_leg_ik whole original connected coordination function across all affected P06/P17/P19/P20 point/state/observation/error/native Transform requirements; consume root canonical foot-phase helpers unchanged unless separately coordinated"
+      ],
+      "context_refs": [
+        "#/scene_foot_target_graph_transfer"
+      ]
+    },
+    {
+      "claim_id": "native-exact-117",
+      "file": "crates/adventuresim-tactical-client/src/animation/procedural/ik/observation.rs",
+      "items": [
+        "LegIkMemory::observe_rendered_endpoints/refresh_raised_support_after_propagation/observed_support_weight/refresh_run_support whole actual native observation -> retained typed Scene point/absence/cause receiver contracts",
+        "retained_plant_requires_release/ordinary_plant_requires_clear/unplanned_terrain_solve_requires_release/unplanned_support_release_is_owned whole connected Scene point physical comparison consumers"
+      ],
+      "context_refs": [
+        "#/scene_foot_target_graph_transfer"
+      ]
+    },
+    {
+      "claim_id": "native-exact-118",
+      "file": "crates/adventuresim-tactical-client/src/animation/procedural/ik/frame.rs",
+      "items": [
+        "ObservedRigFrame whole existing Scene origin/from_native/from_global/resolve/origin/rotation receivingcontract as needed for canonicalpoint propagation; finiteNONUNIT rotation accepted policy retained"
+      ],
+      "context_refs": [
+        "#/scene_foot_target_graph_transfer"
+      ]
+    },
+    {
+      "claim_id": "native-exact-119",
+      "file": "crates/adventuresim-tactical-client/src/animation/ragdoll/geometry.rs",
+      "items": [
+        "RagdollGeometry::prepare whole scaled capsule geometry preflight and its Ratio scale signature/result contract; preserve radius then signed segment then half length product-before-admission and first cause order"
+      ],
+      "authorization": "Root existing-owner message authorizes whole prepare once current source proved; full geometry/entry/definition/muscles/drive/mod current-lens bodies now read",
+      "exclusions": [
+        "Other whole ragdoll definition/entry functions require explicit shared reconciliation; no source edits until all13"
+      ]
+    },
+    {
+      "claim_id": "native-exact-120",
+      "file": "crates/adventuresim-tactical-client/src/animation/ragdoll/definition.rs",
+      "items": [
+        "RagdollBody/RagdollJoint/RagdollDefinition/JointAngleLimits/JointSpecKind/BindAxis/BodySpec/JointSpec/AnchorAt/FlexDirection entire retained role/geometry contracts",
+        "CapsuleSelector::select",
+        "BindAxis::resolve",
+        "RagdollDefinition::{from_bind_pose,body_of}",
+        "axis/body/spherical/hinge/character_forward/hinge_axis whole constructor/producer functions"
+      ],
+      "authorization": "Root explicit whole ragdoll graph transfer in existing-owner lens after full current source reads",
+      "preservation": "Product-before-admission, signed hinge limits, raw invalid observation/error/degraded policies, exact rig identity/native physics inputs. Existing fixtures only. Camera whole motor/physical source and rig canonical IDs excluded; no source before all13."
+    },
+    {
+      "claim_id": "native-exact-121",
+      "file": "crates/adventuresim-tactical-client/src/animation/ragdoll/drive.rs",
+      "items": [
+        "drive_ragdoll_pose_buffers",
+        "apply_ragdoll_poses",
+        "resolve_ragdoll_terrain_contacts",
+        "capsule_terrain_penetration whole exact geometry/native receiver contracts"
+      ],
+      "authorization": "Root explicit whole ragdoll graph transfer in existing-owner lens after full current source reads",
+      "preservation": "Product-before-admission, signed hinge limits, raw invalid observation/error/degraded policies, exact rig identity/native physics inputs. Existing fixtures only. Camera whole motor/physical source and rig canonical IDs excluded; no source before all13."
+    },
+    {
+      "claim_id": "native-exact-122",
+      "file": "crates/adventuresim-tactical-client/src/animation/ragdoll/entry.rs",
+      "items": [
+        "BodySeed/MuscleTarget/SpawnedRagdoll entire retained payloads",
+        "live_world_affine",
+        "topological_joint_order",
+        "joint_base_affine",
+        "joint_world_affines",
+        "seed_bodies",
+        "spawn_ragdoll",
+        "angular_velocity_between",
+        "spawn_bodies",
+        "spawn_joints whole connected scale/pose/velocity/native receiver functions"
+      ],
+      "authorization": "Root explicit whole ragdoll graph transfer in existing-owner lens after full current source reads",
+      "preservation": "Product-before-admission, signed hinge limits, raw invalid observation/error/degraded policies, exact rig identity/native physics inputs. Existing fixtures only. Camera whole motor/physical source and rig canonical IDs excluded; no source before all13."
+    },
+    {
+      "claim_id": "native-exact-123",
+      "file": "crates/adventuresim-tactical-client/src/animation/ragdoll/mod.rs",
+      "items": [
+        "Ragdolling/RagdollBodyPart/RagdollPart whole retained scale/frame/identity contracts",
+        "sync_ragdolls",
+        "proportioned_bind_global",
+        "enter_ragdoll",
+        "exit_ragdoll whole lifecycle/geometry/cause functions"
+      ],
+      "authorization": "Root explicit whole ragdoll graph transfer in existing-owner lens after full current source reads",
+      "preservation": "Product-before-admission, signed hinge limits, raw invalid observation/error/degraded policies, exact rig identity/native physics inputs. Existing fixtures only. Camera whole motor/physical source and rig canonical IDs excluded; no source before all13."
+    },
+    {
+      "claim_id": "native-exact-124",
+      "file": "crates/adventuresim-tactical-client/src/animation/ragdoll/muscles.rs",
+      "items": [
+        "muscle_strength",
+        "apply_muscles",
+        "damp_joints",
+        "ragdoll_tuning",
+        "quintic_rise",
+        "split_kick whole native angular velocity/envelope contracts"
+      ],
+      "authorization": "Root explicit whole ragdoll graph transfer in existing-owner lens after full current source reads",
+      "preservation": "Product-before-admission, signed hinge limits, raw invalid observation/error/degraded policies, exact rig identity/native physics inputs. Existing fixtures only. Camera whole motor/physical source and rig canonical IDs excluded; no source before all13."
+    },
+    {
+      "claim_id": "native-exact-125",
+      "file": "crates/adventuresim-tactical-client/src/animation/capture_ids.rs",
+      "items": [
+        "capture_animation_target_id and capture_entity_id whole semantic/native identity projection functions and existing fixtures; retain Entity/AnimationTargetId until actual serialization/render port"
+      ],
+      "authorization": "Root explicit whole producer/model/validation/HTML/report identity/timed-observation graph transfer after current lens firsttrace F028/F029",
+      "preservation": "Entity vs AnimationTargetId vs scenario/path/view distinct; exact existing encodings, invalid observation and f32 accumulation order, no source/newtests until all13."
+    },
+    {
+      "claim_id": "native-exact-126",
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/catastrophic_contacts.rs",
+      "items": [
+        "catastrophic_foot_displacement whole timed observation and typed error/score contract",
+        "catastrophic_horizontal_foot_offset whole physical threshold/numerical receiver and existing fixture adaptations"
+      ],
+      "authorization": "Root explicit whole producer/model/validation/HTML/report identity/timed-observation graph transfer after current lens firsttrace F028/F029",
+      "preservation": "Entity vs AnimationTargetId vs scenario/path/view distinct; exact existing encodings, invalid observation and f32 accumulation order, no source/newtests until all13."
+    },
+    {
+      "claim_id": "native-exact-127",
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/presentation_events.rs",
+      "items": [
+        "presentation_events_valid whole event identity/order/uniqueness/scenario count contract"
+      ],
+      "authorization": "Root explicit whole producer/model/validation/HTML/report identity/timed-observation graph transfer after current lens firsttrace F028/F029",
+      "preservation": "Entity vs AnimationTargetId vs scenario/path/view distinct; exact existing encodings, invalid observation and f32 accumulation order, no source/newtests until all13."
+    },
+    {
+      "claim_id": "native-exact-128",
+      "file": "crates/adventuresim-tactical-core/src/doors.rs",
+      "items": [
+        "can_grab_door_from_inside whole physical point/direction/half-width predicate signature and kernel contract",
+        "can_grab_window_from_inside whole connected predicate signature/forwarding contract",
+        "Existing fixtures for these exact functions only asneeded; preserve inputs/count/order/assertions"
+      ],
+      "authorization": "Root explicit whole Core door/window grab and actualingress transfer current owner lens",
+      "preservation": "Actual native invalid actor Transform =>false policy, underflow-valid0halfwidth, native range/dot arithmeticorder; server DoorGrabber/WindowGrabber wholeingress alreadyowned; canonicalScene/Radians reuse, sourcefrozenuntilall13."
+    },
+    {
+      "claim_id": "native-exact-129",
+      "file": "crates/adventuresim-tactical-core/src/animation/state.rs",
+      "items": [
+        "AttackCurve entire definition/default/from_config/coordinate/normalization operations and exact existing fixture adaptations",
+        "QueuedAttack entire fields/normalization/serde retained targetheight and curve contract",
+        "ActionKind/ActionState entire normalized attack-height fields/deserialize and actual owning state operations",
+        "SkeletonState::begin_attack and begin_attack_timed whole connected admission/state transition and queued receiver contract",
+        "SkeletonState::attack_target_height and attack_curve whole projection contract; connected queued continuation readback preserves root ContinuationTransition helper ownership",
+        "GuardContacts entire definition/default/contact/advection operations",
+        "GuardStepPlan entire definition/progress/advection/direction/contact operations and GuardFootworkPlan retained payload receiving contract"
+      ],
+      "authorization": "Root explicit current owner-lens whole state/guard/viewer geometry and bounded developerquest transfer; metadata only until all13 initial inventories.",
+      "exclusions": [
+        "Root canonical ContinuationTransition/PoseConformity/conform_upcoming_pose_to_terrain/canonical foot-phase helpers retain existing ownership",
+        "Camera whole capture_views/build_manifest/camera setup/apply/review and canonical physical producers retain existing ownership; consume agreed types",
+        "Rig whole identity/layout/fitting source owners retain existing ownership"
+      ],
+      "preservation": "All affected families together; preserve validzero/rawinvalid policy, exact frames/f32-f64 precision/normalization/order/RNG/fixtureinputs; no newtests/source/checks until all13."
+    },
+    {
+      "claim_id": "native-exact-130",
+      "file": "crates/adventuresim-tactical-core/src/animation/state/guard_footwork.rs",
+      "items": [
+        "advance_guard_footwork and plan_guard_step whole connected controller-local metre/progress/clock/typederror contract"
+      ],
+      "authorization": "Root explicit current owner-lens whole state/guard/viewer geometry and bounded developerquest transfer; metadata only until all13 initial inventories.",
+      "exclusions": [
+        "Root canonical ContinuationTransition/PoseConformity/conform_upcoming_pose_to_terrain/canonical foot-phase helpers retain existing ownership",
+        "Camera whole capture_views/build_manifest/camera setup/apply/review and canonical physical producers retain existing ownership; consume agreed types",
+        "Rig whole identity/layout/fitting source owners retain existing ownership"
+      ],
+      "preservation": "All affected families together; preserve validzero/rawinvalid policy, exact frames/f32-f64 precision/normalization/order/RNG/fixtureinputs; no newtests/source/checks until all13."
+    },
+    {
+      "claim_id": "native-exact-131",
+      "file": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/city_capture.rs",
+      "items": [
+        "StreetPosition entire definition/point/shifted/nearest and capture_cameras whole connected street camera producer contract; necessary PlacementBounds/Bounds2 retained Scene geometry operations and camera constructors"
+      ],
+      "authorization": "Root explicit current owner-lens whole state/guard/viewer geometry and bounded developerquest transfer; metadata only until all13 initial inventories.",
+      "exclusions": [
+        "Root canonical ContinuationTransition/PoseConformity/conform_upcoming_pose_to_terrain/canonical foot-phase helpers retain existing ownership",
+        "Camera whole capture_views/build_manifest/camera setup/apply/review and canonical physical producers retain existing ownership; consume agreed types",
+        "Rig whole identity/layout/fitting source owners retain existing ownership"
+      ],
+      "preservation": "All affected families together; preserve validzero/rawinvalid policy, exact frames/f32-f64 precision/normalization/order/RNG/fixtureinputs; no newtests/source/checks until all13."
+    },
+    {
+      "claim_id": "native-exact-132",
+      "file": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_state.rs",
+      "items": [
+        "PlasterRakingLight entire retained declaration and typed geometry/error receiving contract only; camera capture_views/build_manifest remain camera-owned"
+      ],
+      "authorization": "Root explicit current owner-lens whole state/guard/viewer geometry and bounded developerquest transfer; metadata only until all13 initial inventories.",
+      "exclusions": [
+        "Root canonical ContinuationTransition/PoseConformity/conform_upcoming_pose_to_terrain/canonical foot-phase helpers retain existing ownership",
+        "Camera whole capture_views/build_manifest/camera setup/apply/review and canonical physical producers retain existing ownership; consume agreed types",
+        "Rig whole identity/layout/fitting source owners retain existing ownership"
+      ],
+      "preservation": "All affected families together; preserve validzero/rawinvalid policy, exact frames/f32-f64 precision/normalization/order/RNG/fixtureinputs; no newtests/source/checks until all13."
+    },
+    {
+      "claim_id": "native-exact-133",
+      "file": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_capture.rs",
+      "items": [
+        "plaster_raking_camera whole producer and necessary capture_cameras/partition_review_camera/camera_for_storey connected retained geometry contract"
+      ],
+      "authorization": "Root explicit current owner-lens whole state/guard/viewer geometry and bounded developerquest transfer; metadata only until all13 initial inventories.",
+      "exclusions": [
+        "Root canonical ContinuationTransition/PoseConformity/conform_upcoming_pose_to_terrain/canonical foot-phase helpers retain existing ownership",
+        "Camera whole capture_views/build_manifest/camera setup/apply/review and canonical physical producers retain existing ownership; consume agreed types",
+        "Rig whole identity/layout/fitting source owners retain existing ownership"
+      ],
+      "preservation": "All affected families together; preserve validzero/rawinvalid policy, exact frames/f32-f64 precision/normalization/order/RNG/fixtureinputs; no newtests/source/checks until all13."
+    },
+    {
+      "claim_id": "native-exact-134",
+      "file": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/rooms/sightlines.rs",
+      "items": [
+        "Owner/Blocker/Subject/PreparedBlocker definitions and PreparedBlocker::from/segment_hit, clear_line/in_frame/choose whole connected Architectural point/direction/weight/identity/numerical receiver contract; existing fixtures adaptations only"
+      ],
+      "authorization": "Root explicit current owner-lens whole state/guard/viewer geometry and bounded developerquest transfer; metadata only until all13 initial inventories.",
+      "exclusions": [
+        "Root canonical ContinuationTransition/PoseConformity/conform_upcoming_pose_to_terrain/canonical foot-phase helpers retain existing ownership",
+        "Camera whole capture_views/build_manifest/camera setup/apply/review and canonical physical producers retain existing ownership; consume agreed types",
+        "Rig whole identity/layout/fitting source owners retain existing ownership"
+      ],
+      "preservation": "All affected families together; preserve validzero/rawinvalid policy, exact frames/f32-f64 precision/normalization/order/RNG/fixtureinputs; no newtests/source/checks until all13."
+    },
+    {
+      "claim_id": "native-exact-135",
+      "file": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/rooms.rs",
+      "items": [
+        "camera/select_room/blockers/closed_door_blockers/furniture_subject/add_stair_subjects/room_contains whole functions necessary to preserve Architectural sightline point/direction and typed geometry-error propagation; signature_kind unchanged unless actual connected selector contract requires it; no unrelated furniture identity/fitting transfer"
+      ],
+      "authorization": "Root explicit current owner-lens whole state/guard/viewer geometry and bounded developerquest transfer; metadata only until all13 initial inventories.",
+      "exclusions": [
+        "Root canonical ContinuationTransition/PoseConformity/conform_upcoming_pose_to_terrain/canonical foot-phase helpers retain existing ownership",
+        "Camera whole capture_views/build_manifest/camera setup/apply/review and canonical physical producers retain existing ownership; consume agreed types",
+        "Rig whole identity/layout/fitting source owners retain existing ownership"
+      ],
+      "preservation": "All affected families together; preserve validzero/rawinvalid policy, exact frames/f32-f64 precision/normalization/order/RNG/fixtureinputs; no newtests/source/checks until all13."
+    },
+    {
+      "claim_id": "native-exact-136",
+      "file": "crates/adventuresim-core/src/developer_quest.rs",
+      "items": [
+        "DeveloperQuestDefinition retained QG identity/custody records and from_generated whole connected transfer",
+        "declared_ids and DeclaredIdSets complete constructors/collectors/retained heterogeneous ID-set contracts",
+        "validate_local_ids/validate_custody and necessary connected canonical ID receiving helpers whole functions",
+        "namespace_definition and necessary remap/mapped helpers whole changed-value namespace admission contract",
+        "compile whole actual QG/Case/native record receiving function, preserve DiagnosticTier/first-error/order; no unrelated developer subsystem ownership"
+      ],
+      "authorization": "Root explicit current owner-lens whole state/guard/viewer geometry and bounded developerquest transfer; metadata only until all13 initial inventories.",
+      "exclusions": [
+        "Root canonical ContinuationTransition/PoseConformity/conform_upcoming_pose_to_terrain/canonical foot-phase helpers retain existing ownership",
+        "Camera whole capture_views/build_manifest/camera setup/apply/review and canonical physical producers retain existing ownership; consume agreed types",
+        "Rig whole identity/layout/fitting source owners retain existing ownership"
+      ],
+      "preservation": "All affected families together; preserve validzero/rawinvalid policy, exact frames/f32-f64 precision/normalization/order/RNG/fixtureinputs; no newtests/source/checks until all13."
+    },
+    {
+      "claim_id": "native-exact-137",
+      "file": "crates/adventuresim-tactical-client/src/presentation/clouds.rs",
+      "items": [
+        "CloudLayerParameters/TacticalCloudLayer/CloudBakeKey/CloudBakeRequest/CompletedCloudBake/CloudBakeState/TacticalCloudAnimationStatus retained declarations and all owning constructors/elapsed/advection/evolution/readiness methods",
+        "setup_tactical_clouds/update_tactical_clouds/cloud_wind_velocity/cloud_representative_altitude/spawn_cloud_bake/advance_cloud_bake_pipeline/install_completed_cloud_bake whole retained enum/unit/frame/clock/cause graph",
+        "cloud_bake_image/cloud_bake_direction/cloud_shell_altitude/cloud_ray_layer_interval/baked_cloud_density/cloud_density_coordinate/cloud_bake_lighting_variation/cloud_vertical_profile whole connected native numerical receivers, preserving raw kernel invalid/normalization policy",
+        "cloud_offscreen_size/cloud_offscreen_image/update_tactical_cloud_offscreen_target/cloud_hemisphere_mesh/cloud_visibility/cloud_shell_geometry/cloud_shell_altitude_at_distance/bake_environment_rgba8/smoothstep/cloud_solar_color whole necessary native format/mesh/output methods and TacticalCloudMaterial/Composite packing; existing fixtures only"
+      ],
+      "authorization": "Root explicit whole coherent cloud/celestial retainedsource->shape/layer/sky nativeport and skyviewer capture/metrics missing-observation graph, all affected P08/P17/report/weather requirements; metadata only until all13.",
+      "exclusions": [
+        "Root shared config loader/validation, canonical SceneDigest/Scene/extent and city frame/lifecycle ownership retained",
+        "Rig main/asset/identity/fitting branches retain exact claims",
+        "Camera existing camera setup/apply/review and Coreweather/DBcondition typedphysical graph retains ownership; shared function changes require coordinate whole owner"
+      ],
+      "preservation": "No frameguess: canonicalScene+north vs celestialrender\u00e2\u02c6\u2019north mismatch explicit. Preserve actual sampler/draw/order/normalization/timing/f32-f64/invalidnative behavior; explicit missingobservations; no source/newtests/checks until all13."
+    },
+    {
+      "claim_id": "native-exact-138",
+      "file": "crates/adventuresim-tactical-client/src/presentation/clouds/noise.rs",
+      "items": [
+        "CloudDensityCoordinate/CloudDensityWarp/ActiveCloudLayerOrdinal whole definitions/new/axes/from_layer_axes/context_word and Mul/Add operations",
+        "non_periodic_value_noise_3d/cloud_seed/density_warp whole actual native sampling/hash context functions; retain dimensionless lattice role and original Seed/hash arithmetic"
+      ],
+      "authorization": "Root explicit whole coherent cloud/celestial retainedsource->shape/layer/sky nativeport and skyviewer capture/metrics missing-observation graph, all affected P08/P17/report/weather requirements; metadata only until all13.",
+      "exclusions": [
+        "Root shared config loader/validation, canonical SceneDigest/Scene/extent and city frame/lifecycle ownership retained",
+        "Rig main/asset/identity/fitting branches retain exact claims",
+        "Camera existing camera setup/apply/review and Coreweather/DBcondition typedphysical graph retains ownership; shared function changes require coordinate whole owner"
+      ],
+      "preservation": "No frameguess: canonicalScene+north vs celestialrender\u00e2\u02c6\u2019north mismatch explicit. Preserve actual sampler/draw/order/normalization/timing/f32-f64/invalidnative behavior; explicit missingobservations; no source/newtests/checks until all13."
+    },
+    {
+      "claim_id": "native-exact-139",
+      "file": "crates/adventuresim-tactical-client/src/presentation/clouds/streams.rs",
+      "items": [
+        "Existing named StreamId cloudvisual constants as connected native seed purpose declarations; preserve exact strings/draws"
+      ],
+      "authorization": "Root explicit whole coherent cloud/celestial retainedsource->shape/layer/sky nativeport and skyviewer capture/metrics missing-observation graph, all affected P08/P17/report/weather requirements; metadata only until all13.",
+      "exclusions": [
+        "Root shared config loader/validation, canonical SceneDigest/Scene/extent and city frame/lifecycle ownership retained",
+        "Rig main/asset/identity/fitting branches retain exact claims",
+        "Camera existing camera setup/apply/review and Coreweather/DBcondition typedphysical graph retains ownership; shared function changes require coordinate whole owner"
+      ],
+      "preservation": "No frameguess: canonicalScene+north vs celestialrender\u00e2\u02c6\u2019north mismatch explicit. Preserve actual sampler/draw/order/normalization/timing/f32-f64/invalidnative behavior; explicit missingobservations; no source/newtests/checks until all13."
+    },
+    {
+      "claim_id": "native-exact-140",
+      "file": "crates/adventuresim-tactical-client/src/presentation/sky/mod.rs",
+      "items": [
+        "CelestialLightingSnapshot/PresentedCelestialLighting whole fields/from_environment and update_presented_celestial_lighting/apply_presented_celestial_lighting whole owning retainedgeometry/clock/units/availability graph",
+        "setup_tactical_sky/keep_celestial_visuals_centered/moon_near_side_rotation/light_transform/to_bevy_direction/sky_weather_transmission/scene_exposure_ev100/night_exposure_ev100/star_visibility/smoothstep/star_mesh/parse_star_catalog/bv_to_linear_rgb whole necessary native geometry/light/color/mesh ports and receiving material records",
+        "tactical_directional_shadow_config/preset_cascade_config/update_global_ambient_policy whole connected setup/policy receivers only; root shared graphics config loader/validation remains excluded"
+      ],
+      "authorization": "Root explicit whole coherent cloud/celestial retainedsource->shape/layer/sky nativeport and skyviewer capture/metrics missing-observation graph, all affected P08/P17/report/weather requirements; metadata only until all13.",
+      "exclusions": [
+        "Root shared config loader/validation, canonical SceneDigest/Scene/extent and city frame/lifecycle ownership retained",
+        "Rig main/asset/identity/fitting branches retain exact claims",
+        "Camera existing camera setup/apply/review and Coreweather/DBcondition typedphysical graph retains ownership; shared function changes require coordinate whole owner"
+      ],
+      "preservation": "No frameguess: canonicalScene+north vs celestialrender\u00e2\u02c6\u2019north mismatch explicit. Preserve actual sampler/draw/order/normalization/timing/f32-f64/invalidnative behavior; explicit missingobservations; no source/newtests/checks until all13."
+    },
+    {
+      "claim_id": "native-exact-141",
+      "file": "crates/adventuresim-tactical-client/src/presentation/sky/astrometry.rs",
+      "items": [
+        "equatorial_to_world whole numerical frame conversion and current clock/geography receiving contract"
+      ],
+      "authorization": "Root explicit whole coherent cloud/celestial retainedsource->shape/layer/sky nativeport and skyviewer capture/metrics missing-observation graph, all affected P08/P17/report/weather requirements; metadata only until all13.",
+      "exclusions": [
+        "Root shared config loader/validation, canonical SceneDigest/Scene/extent and city frame/lifecycle ownership retained",
+        "Rig main/asset/identity/fitting branches retain exact claims",
+        "Camera existing camera setup/apply/review and Coreweather/DBcondition typedphysical graph retains ownership; shared function changes require coordinate whole owner"
+      ],
+      "preservation": "No frameguess: canonicalScene+north vs celestialrender\u00e2\u02c6\u2019north mismatch explicit. Preserve actual sampler/draw/order/normalization/timing/f32-f64/invalidnative behavior; explicit missingobservations; no source/newtests/checks until all13."
+    },
+    {
+      "claim_id": "native-exact-142",
+      "file": "crates/adventuresim-tactical-client/src/presentation/regional_lighting.rs",
+      "items": [
+        "MapLightSource declaration and sync whole celestial source/native Transform/light receiving function; preserve already-adapted signs and root city-frame/lifecycle ownership; same existing fixture adaptations only"
+      ],
+      "authorization": "Root explicit whole coherent cloud/celestial retainedsource->shape/layer/sky nativeport and skyviewer capture/metrics missing-observation graph, all affected P08/P17/report/weather requirements; metadata only until all13.",
+      "exclusions": [
+        "Root shared config loader/validation, canonical SceneDigest/Scene/extent and city frame/lifecycle ownership retained",
+        "Rig main/asset/identity/fitting branches retain exact claims",
+        "Camera existing camera setup/apply/review and Coreweather/DBcondition typedphysical graph retains ownership; shared function changes require coordinate whole owner"
+      ],
+      "preservation": "No frameguess: canonicalScene+north vs celestialrender\u00e2\u02c6\u2019north mismatch explicit. Preserve actual sampler/draw/order/normalization/timing/f32-f64/invalidnative behavior; explicit missingobservations; no source/newtests/checks until all13."
+    },
+    {
+      "claim_id": "native-exact-143",
+      "file": "crates/adventuresim-tactical-client/src/presentation/environment.rs",
+      "items": [
+        "ActiveTacticalScene/activate_tactical_scene/refresh_active_tactical_scene whole existing transient selection state/clock/availability contract",
+        "scene_atmosphere_solar_illuminance/cloud_solar_transmission/scene_distance_fog/scene_night_factor/scene_ambient_response/smoothstep/apply_active_environment_fog whole connected weather/celestial physical numerical ports",
+        "TacticalCameraSetup/default/setup_tactical_presentation whole actual setup native projection/Transform receiving contract subject to camera existing firsttrace camera parameter API; no competing camera::apply/review/obstruction contract"
+      ],
+      "authorization": "Root explicit whole coherent cloud/celestial retainedsource->shape/layer/sky nativeport and skyviewer capture/metrics missing-observation graph, all affected P08/P17/report/weather requirements; metadata only until all13.",
+      "exclusions": [
+        "Root shared config loader/validation, canonical SceneDigest/Scene/extent and city frame/lifecycle ownership retained",
+        "Rig main/asset/identity/fitting branches retain exact claims",
+        "Camera existing camera setup/apply/review and Coreweather/DBcondition typedphysical graph retains ownership; shared function changes require coordinate whole owner"
+      ],
+      "preservation": "No frameguess: canonicalScene+north vs celestialrender\u00e2\u02c6\u2019north mismatch explicit. Preserve actual sampler/draw/order/normalization/timing/f32-f64/invalidnative behavior; explicit missingobservations; no source/newtests/checks until all13."
+    },
+    {
+      "claim_id": "native-exact-144",
+      "file": "crates/adventuresim-tactical-client/src/tactical_sky_viewer.rs",
+      "items": [
+        "SkyCaptureState/SkyViewConfiguration/ObservedSkyCamera/SkyCameraProbe/SkyValidation/SkyManifest/SkyMetrics whole retained measurements/availability/identity/unit/error declarations",
+        "run/setup_view/observe_extracted_sky_camera/camera_observation_matches/capture_view whole required camera evidence/readback/rejection/serialization graph",
+        "sky_metrics/projected_horizon_row/twilight_subject_content/sky_view_slug/is_cloud_view/cloud_capture_profile/cloud_profile_slug/capture_revision/to_bevy_direction/horizon_view whole connected numerical/enum/output receivers; preserve validreal0/negativeobservations, no NaNabsence fabrication afterrepair"
+      ],
+      "authorization": "Root explicit whole coherent cloud/celestial retainedsource->shape/layer/sky nativeport and skyviewer capture/metrics missing-observation graph, all affected P08/P17/report/weather requirements; metadata only until all13.",
+      "exclusions": [
+        "Root shared config loader/validation, canonical SceneDigest/Scene/extent and city frame/lifecycle ownership retained",
+        "Rig main/asset/identity/fitting branches retain exact claims",
+        "Camera existing camera setup/apply/review and Coreweather/DBcondition typedphysical graph retains ownership; shared function changes require coordinate whole owner"
+      ],
+      "preservation": "No frameguess: canonicalScene+north vs celestialrender\u00e2\u02c6\u2019north mismatch explicit. Preserve actual sampler/draw/order/normalization/timing/f32-f64/invalidnative behavior; explicit missingobservations; no source/newtests/checks until all13."
+    },
+    {
+      "claim_id": "native-exact-145",
+      "file": "crates/adventuresim-tactical-client/src/tactical_sky_viewer/configuration.rs",
+      "items": [
+        "sky_view_configuration and skycapture constants whole authored constructor/checkedcamera selection contract"
+      ],
+      "authorization": "Root explicit whole coherent cloud/celestial retainedsource->shape/layer/sky nativeport and skyviewer capture/metrics missing-observation graph, all affected P08/P17/report/weather requirements; metadata only until all13.",
+      "exclusions": [
+        "Root shared config loader/validation, canonical SceneDigest/Scene/extent and city frame/lifecycle ownership retained",
+        "Rig main/asset/identity/fitting branches retain exact claims",
+        "Camera existing camera setup/apply/review and Coreweather/DBcondition typedphysical graph retains ownership; shared function changes require coordinate whole owner"
+      ],
+      "preservation": "No frameguess: canonicalScene+north vs celestialrender\u00e2\u02c6\u2019north mismatch explicit. Preserve actual sampler/draw/order/normalization/timing/f32-f64/invalidnative behavior; explicit missingobservations; no source/newtests/checks until all13."
+    },
+    {
+      "claim_id": "native-exact-146",
+      "file": "assets/shaders/tactical_clouds.wgsl",
+      "items": [
+        "Actual cloud material uniform/vertex/fragment numerical receivers only if final agreed typedhost packing requires coherent native format change; preserve exact arithmetic/values and sourceassertions"
+      ],
+      "authorization": "Root explicit whole coherent cloud/celestial retainedsource->shape/layer/sky nativeport and skyviewer capture/metrics missing-observation graph, all affected P08/P17/report/weather requirements; metadata only until all13.",
+      "exclusions": [
+        "Root shared config loader/validation, canonical SceneDigest/Scene/extent and city frame/lifecycle ownership retained",
+        "Rig main/asset/identity/fitting branches retain exact claims",
+        "Camera existing camera setup/apply/review and Coreweather/DBcondition typedphysical graph retains ownership; shared function changes require coordinate whole owner"
+      ],
+      "preservation": "No frameguess: canonicalScene+north vs celestialrender\u00e2\u02c6\u2019north mismatch explicit. Preserve actual sampler/draw/order/normalization/timing/f32-f64/invalidnative behavior; explicit missingobservations; no source/newtests/checks until all13."
+    },
+    {
+      "claim_id": "native-exact-147",
+      "file": "assets/shaders/tactical_cloud_composite.wgsl",
+      "items": [
+        "Actual cloudcomposite native texture/uniform/fragment receiver only as needed for coherent hostformat"
+      ],
+      "authorization": "Root explicit whole coherent cloud/celestial retainedsource->shape/layer/sky nativeport and skyviewer capture/metrics missing-observation graph, all affected P08/P17/report/weather requirements; metadata only until all13.",
+      "exclusions": [
+        "Root shared config loader/validation, canonical SceneDigest/Scene/extent and city frame/lifecycle ownership retained",
+        "Rig main/asset/identity/fitting branches retain exact claims",
+        "Camera existing camera setup/apply/review and Coreweather/DBcondition typedphysical graph retains ownership; shared function changes require coordinate whole owner"
+      ],
+      "preservation": "No frameguess: canonicalScene+north vs celestialrender\u00e2\u02c6\u2019north mismatch explicit. Preserve actual sampler/draw/order/normalization/timing/f32-f64/invalidnative behavior; explicit missingobservations; no source/newtests/checks until all13."
+    },
+    {
+      "claim_id": "native-exact-148",
+      "file": "assets/shaders/tactical_moon.wgsl",
+      "items": [
+        "Actual celestial material native packing/vertex/fragment receiver only as needed; no unrelated shader work"
+      ],
+      "authorization": "Root explicit whole coherent cloud/celestial retainedsource->shape/layer/sky nativeport and skyviewer capture/metrics missing-observation graph, all affected P08/P17/report/weather requirements; metadata only until all13.",
+      "exclusions": [
+        "Root shared config loader/validation, canonical SceneDigest/Scene/extent and city frame/lifecycle ownership retained",
+        "Rig main/asset/identity/fitting branches retain exact claims",
+        "Camera existing camera setup/apply/review and Coreweather/DBcondition typedphysical graph retains ownership; shared function changes require coordinate whole owner"
+      ],
+      "preservation": "No frameguess: canonicalScene+north vs celestialrender\u00e2\u02c6\u2019north mismatch explicit. Preserve actual sampler/draw/order/normalization/timing/f32-f64/invalidnative behavior; explicit missingobservations; no source/newtests/checks until all13."
+    },
+    {
+      "claim_id": "native-exact-149",
+      "file": "assets/shaders/tactical_stars.wgsl",
+      "items": [
+        "Actual celestial star native packing/vertex/fragment receiver only as needed; no unrelated shader work"
+      ],
+      "authorization": "Root explicit whole coherent cloud/celestial retainedsource->shape/layer/sky nativeport and skyviewer capture/metrics missing-observation graph, all affected P08/P17/report/weather requirements; metadata only until all13.",
+      "exclusions": [
+        "Root shared config loader/validation, canonical SceneDigest/Scene/extent and city frame/lifecycle ownership retained",
+        "Rig main/asset/identity/fitting branches retain exact claims",
+        "Camera existing camera setup/apply/review and Coreweather/DBcondition typedphysical graph retains ownership; shared function changes require coordinate whole owner"
+      ],
+      "preservation": "No frameguess: canonicalScene+north vs celestialrender\u00e2\u02c6\u2019north mismatch explicit. Preserve actual sampler/draw/order/normalization/timing/f32-f64/invalidnative behavior; explicit missingobservations; no source/newtests/checks until all13."
+    },
+    {
+      "claim_id": "native-exact-150",
+      "file": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "items": [
+        "TacticalCombatConfig::digest whole method",
+        "TacticalCombatConfigError whole enum and its serialization cause contract; existing validation/schema variants and From<&static str> integration preserved as required"
+      ],
+      "authorization": "Root explicit producer-supplement first-trace transfer for digest and error-enum cause loss. Metadata only until all13 initial discovery inventories.",
+      "exclusions": [
+        "Camera owns TacticalCombatConfig::validate and physical/config fields; no transfer of their function/field ownership.",
+        "Root graphics/audio shared config loader/validation scopes remain unchanged."
+      ],
+      "preservation": "Preserve exact validated serialization bytes/SHA digest, schema version, validation-first and first-failure order, existing input/fixture populations. Consume canonical typed config; coordinate error definition/callers with camera. No source edits/checks/tests before all13.",
+      "evidence": "producer supplement tactical combat64 packet; digest749\u00e2\u20ac\u201c752 PR and750\u00e2\u20ac\u201c753 P16 concrete serde_json::Error -> Serialization(String) before internal method return."
+    },
+    {
+      "claim_id": "native-exact-151",
+      "file": "crates/adventuresim-tactical-server/src/stdb.rs",
+      "items": [
+        "TerminalSubmissionResult whole enum/typed payload contract",
+        "SpacetimeDb::terminal_results retained mailbox field and initialization",
+        "SpacetimeDb::submit_terminal whole method/callback",
+        "SpacetimeDb::take_terminal_results whole method"
+      ],
+      "authorization": "Root explicit all-claim-scan first-tracer transfer of whole terminal submission cause loop, NATIVE-PS-F038. Inventory/metadata only until all13 initial inventories.",
+      "exclusions": [
+        "Camera whole DB/SDK canonical owners and other mission/enrollment/receipt authority retained; exact MissionState terminal delegation overlap being coordinated directly.",
+        "No generated SDK binding edits; use actual canonical spacetimedb_sdk::Error/InternalError.",
+        "No whole unrelated SpacetimeDb, MissionState, enrollment, mission receipt or combat outcome authority transfer."
+      ],
+      "preservation": "Preserve immediate dispatch failure versus actual reducer rejection versus callback InternalError, frozen payload identity, original retry/backoff/ack deadline, standalone explicit acceptance and fail-closed ambiguous ack. Actual SDK cause Clone not Eq; payload/enum/equality design later. Original fixtures source-only; no source/tests/checks.",
+      "evidence": "NATIVE-PS-SERVER-PLAYER-PROJECTION-026; current terminal callback/lifecycle receiver closure027 pending save."
+    },
+    {
+      "claim_id": "native-exact-152",
+      "file": "crates/adventuresim-tactical-server/src/mission/terminal.rs",
+      "items": [
+        "FrozenTerminal whole retained submission payload contract as needed by terminal lifecycle; preserve receipt owner",
+        "TerminalLifecycle whole enum and methods is_running/begin/retry_due/enqueue_failed/apply_submission_result/fail_if_ack_stalled/advance_presentation",
+        "TerminalState whole facade and corresponding methods",
+        "presentation_outcome whole helper as needed by terminal result publication",
+        "Existing terminal lifecycle fixtures adaptation only, identical populations/order/assertion purpose"
+      ],
+      "authorization": "Root explicit all-claim-scan first-tracer transfer of whole terminal submission cause loop, NATIVE-PS-F038. Inventory/metadata only until all13 initial inventories.",
+      "exclusions": [
+        "Camera whole DB/SDK canonical owners and other mission/enrollment/receipt authority retained; exact MissionState terminal delegation overlap being coordinated directly.",
+        "No generated SDK binding edits; use actual canonical spacetimedb_sdk::Error/InternalError.",
+        "No whole unrelated SpacetimeDb, MissionState, enrollment, mission receipt or combat outcome authority transfer."
+      ],
+      "preservation": "Preserve immediate dispatch failure versus actual reducer rejection versus callback InternalError, frozen payload identity, original retry/backoff/ack deadline, standalone explicit acceptance and fail-closed ambiguous ack. Actual SDK cause Clone not Eq; payload/enum/equality design later. Original fixtures source-only; no source/tests/checks.",
+      "evidence": "NATIVE-PS-SERVER-PLAYER-PROJECTION-026; current terminal callback/lifecycle receiver closure027 pending save."
+    },
+    {
+      "claim_id": "native-exact-153",
+      "file": "crates/adventuresim-tactical-server/src/mission/mod.rs",
+      "items": [
+        "MissionState::terminal field/init only as needed to consume canonical TerminalState; no whole unrelated MissionState ownership",
+        "MissionState::terminal_is_running whole method",
+        "MissionState::begin_terminal_submission whole method",
+        "MissionState::terminal_retry_due whole method",
+        "MissionState::terminal_enqueue_failed whole method",
+        "MissionState::apply_terminal_submission_result whole method",
+        "MissionState::fail_if_terminal_ack_stalled whole method",
+        "MissionState::advance_terminal_presentation whole method"
+      ],
+      "authorization": "Root explicit all-claim-scan first-tracer transfer of whole terminal submission cause loop, NATIVE-PS-F038. Inventory/metadata only until all13 initial inventories.",
+      "exclusions": [
+        "Camera whole DB/SDK canonical owners and other mission/enrollment/receipt authority retained; exact MissionState terminal delegation overlap being coordinated directly.",
+        "No generated SDK binding edits; use actual canonical spacetimedb_sdk::Error/InternalError.",
+        "No whole unrelated SpacetimeDb, MissionState, enrollment, mission receipt or combat outcome authority transfer."
+      ],
+      "preservation": "Preserve immediate dispatch failure versus actual reducer rejection versus callback InternalError, frozen payload identity, original retry/backoff/ack deadline, standalone explicit acceptance and fail-closed ambiguous ack. Actual SDK cause Clone not Eq; payload/enum/equality design later. Original fixtures source-only; no source/tests/checks.",
+      "evidence": "NATIVE-PS-SERVER-PLAYER-PROJECTION-026; current terminal callback/lifecycle receiver closure027 pending save."
+    },
+    {
+      "claim_id": "native-exact-154",
+      "file": "crates/adventuresim-tactical-server/src/mission/systems.rs",
+      "items": [
+        "commit_terminal_resolution whole function",
+        "submit_frozen_terminal whole function",
+        "process_terminal_submission_results whole function",
+        "fail_stalled_terminal_submission whole function",
+        "finish_terminal_presentation whole function",
+        "check_terminal_combat_outcome whole connected submission/retry receiving function",
+        "check_mission_timeout whole connected submission receiving function",
+        "Existing standalone terminal resolution fixture adaptation only, identical inputs/order/assertion purpose"
+      ],
+      "authorization": "Root explicit all-claim-scan first-tracer transfer of whole terminal submission cause loop, NATIVE-PS-F038. Inventory/metadata only until all13 initial inventories.",
+      "exclusions": [
+        "Camera whole DB/SDK canonical owners and other mission/enrollment/receipt authority retained; exact MissionState terminal delegation overlap being coordinated directly.",
+        "No generated SDK binding edits; use actual canonical spacetimedb_sdk::Error/InternalError.",
+        "No whole unrelated SpacetimeDb, MissionState, enrollment, mission receipt or combat outcome authority transfer."
+      ],
+      "preservation": "Preserve immediate dispatch failure versus actual reducer rejection versus callback InternalError, frozen payload identity, original retry/backoff/ack deadline, standalone explicit acceptance and fail-closed ambiguous ack. Actual SDK cause Clone not Eq; payload/enum/equality design later. Original fixtures source-only; no source/tests/checks.",
+      "evidence": "NATIVE-PS-SERVER-PLAYER-PROJECTION-026; current terminal callback/lifecycle receiver closure027 pending save."
+    },
+    {
+      "claim_id": "native-exact-155",
+      "file": "crates/adventuresim-core/src/life_simulation.rs",
+      "items": [
+        "LifePhaseKind/HistoricalActivity/LifeSimulationInput/LifeSimulationOutput whole connected retained records and operations",
+        "simulate_life whole function",
+        "apply_common_phase whole function",
+        "run_curriculum_activity whole function",
+        "apply_written whole function",
+        "credential_curriculum whole function",
+        "professional_curriculum whole function",
+        "normalized_curriculum whole function",
+        "apply_creation_literacy whole function",
+        "domain_draw whole helper preserving canonical Seed/RNG/context bytes",
+        "Existing life simulation fixtures adaptation only, identical inputs/count/order/assertion purposes"
+      ],
+      "authorization": "Root explicit whole purelife producer/records/helper + existing native puretraining079/080 combined owner, ROOT-PPS-PURE-FOOD-LIFE-PARTIAL-054; metadata only until all13. No previous exact life_simulation claim found.",
+      "exclusions": [
+        "Camera starting_character/DB character/name/error lifecycle owners unchanged.",
+        "Root remaining purefood and organization/catalogue admission/error policy unchanged; Camera FlavorProfile::scaled/preparation_safety_minutes unchanged.",
+        "No duplicate hours, age, selector, Seed or quarter-hour schedule owner; coordinate canonical roles."
+      ],
+      "preservation": "Preserve ages/young or empty phases, work vs elapsed/effectivehours, zero actual gains, Seed/domain/RNG draws/order, profession dedup/max/normalize, religion/bestiary/fixedskill/terrain narrower accepted namespaces, original fixture populations. Design reconciliation later; no source/tests/checks now.",
+      "evidence": "Root054 fresh full life552/actual schedule390\u00e2\u20ac\u201c624/skill995\u00e2\u20ac\u201c1107/starting915\u00e2\u20ac\u201c1090 and SDK character2245\u00e2\u20ac\u201c2332; original native owner fits navigation only."
+    },
+    {
+      "file": "crates/adventuresim-core/src/world_event.rs",
+      "records": [
+        "WorldEventPlace"
+      ],
+      "requirements": [
+        "Coordinate lower event place record/validation with Camera DB food infection/commit_world_event261. Actual admitted StrategicPlaceId up to4096 differs generic raw event identifier192 policy; retain exact namespaces and input/rejection evidence rather than blanket narrow or broad string erasure. Final aggregate/enum/admission synthesis follows all13 discovery.",
+        "Whole connected function/record repair across all affected families after all13 initial discovery. No source edits, new tests/cases/assertions, compatibility alias or duplicate owner authorized by this bookkeeping.",
+        "Keep current PR/P15 chronology and newer parent APIs while composing P16/P17. Existing claims/canonical operations and precise source scopes preserved; register additional body/range before analysis."
+      ],
+      "finding": "CONT-NATIVE-OWNER-F005 / NATIVE-CONT-WORLD-F001",
+      "authority": "Root explicit exact whole-function reconciliation from owner findings and gap map; source audit assignment was not automatic transfer.",
+      "evidence": "continuation/native/owner-delta-claim-gap-map-001.json; Root current scoped signature navigation verifies exact identifiers, not new body coverage.",
+      "status": "ownership only; source freeze until all13 initial inventories",
+      "claim_id": "native-owner-world-place-001",
+      "items": [
+        "WorldEventEnvelope::validate",
+        "validate_id"
+      ],
+      "context_refs": [
+        "continuation/native/owner-delta-claim-gap-map-001.json; Root current scoped signature navigation verifies exact identifiers, not new body coverage."
+      ]
+    },
+    {
+      "claim_id": "native-exact-157",
+      "file": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/openings.rs",
+      "items": [
+        "ReviewLeafPose whole retained geometry record",
+        "ReviewLeafPose::from_scene whole constructor",
+        "ReviewLeafPose::transform whole native Transform receiver",
+        "spawn_openings whole typed Scene geometry producer"
+      ],
+      "requirements": [
+        "Compose canonical Position<Scene> and finite unwrapped Radians retention with original native closed Transform/Quat and transient state; no primitive forwarding before actual numerical/framework operations.",
+        "Coordinate existing Native door/window controllers and Rig Observation::check appearance identity helper claims; no split whole function or source edits before initial all13. Original cases/order/failure/FP preserved."
+      ],
+      "evidence": "continuation/rig/owner-reached-producer-followup/findings.jsonl#RIG-OWNER-REACHED-PRODUCER-F003",
+      "authority": "Root exact all-four source/function claim scan found no competing same-path whole functions; Native existing server controller ownership preserved.",
+      "status": "initial_discovery_only_repairs_frozen"
+    }
+  ],
+  "claims_authority": "Only claims[] contains active exact native file/function scopes. Other objects preserve authorization, exclusions, preservation and evidence as context with claim_refs. Global exclusions override stale historical text; camera weapon_reach removed from native items. Family status is execution-ledger.json only.",
+  "procedural_owner_fit_transfer": {
+    "claim_refs": [
+      "native-exact-099",
+      "native-exact-100",
+      "native-exact-101",
+      "native-exact-102"
+    ],
+    "authorization": "Root explicit current-lens firsttrace whole functions transfer2026-10-21, source frozen until all13 inventories",
+    "evidence_refs": [
+      "NATIVE-OWNER-PROCEDURAL-001",
+      "NATIVE-OWNER-F024",
+      "ROOT-OWNER-F001"
+    ],
+    "dependencies": [
+      "Existing UnitInterval exactbounded output; Ratio admits allf32 scale without narrowing extrapolation/nonfinite\u00e2\u2020\u2019postproductcause; existing math Acceleration unit-only preserves inputset",
+      "Keep original required tuning source; coordinate actual Core config owner before changing shared constructor",
+      "Actor-local Transform frame and accepted native invalid/fallback policy explicit; no forced Scene frame or primitive forwarding adapters"
+    ],
+    "preservation": [
+      "Same boolean guard/charging targets, per-tick increment/order, retained repeated-tick base/applied transforms and authored physical constants",
+      "Native product then existing Radians/AnimationValueError admission and original finalTransform outputs",
+      "No newtests/cases/assertions/helpers/doctests/source edits or validationcommands"
+    ]
+  },
+  "anatomical_yaw_observation_transfer": {
+    "claim_refs": [
+      "native-exact-103",
+      "native-exact-104",
+      "native-exact-105"
+    ],
+    "authorization": "Root explicit whole PP008 producer/state/publication/diagnostics receiver transfer during lens2, sourcefrozenall13",
+    "evidence_refs": [
+      "NATIVE-PP-008",
+      "NATIVE-OWNER-IK-STATE-004"
+    ],
+    "preservation": [
+      "Missing required observation fails at owningP17gate, actual0 preserved, optionalNone versus sourceError distinct",
+      "Preserve actualnativeTransform/degradedruntimepolicy and priorintegratedP19/P20 behavior",
+      "Root canonical P19 phase/conformity/continuation helpers remainexcluded; coordinateactualAPIbeforechanges",
+      "No source/tests/checks beforeall13"
+    ]
+  },
+  "analytic_solution_owner_transfer": {
+    "claim_refs": [
+      "native-exact-106"
+    ],
+    "authorization": "Root explicit whole solve_* ->TwoBoneSolution->apply receiving transfer after fresh current-lens source proof, all affected family requirements; metadataonly",
+    "evidence_refs": [
+      "NATIVE-OWNER-F026",
+      "NATIVE-OWNER-IK-STATE-004"
+    ],
+    "preservation": [
+      "Same successful Scene point/direction bits; use canonical normalized admission without extra normalization",
+      "Raw invalid chain input/None/fallback policy separately inventoried before later admissiondesign; no automaticearlybounds",
+      "Whole connected analytic/error/native Transform contract, preserve twist hierarchy/order/authoritativefoot-phase/rootconformity helpers",
+      "Existing root canonical foot-phase/conformity functions excluded; coordinate any reachedAPI",
+      "No source/tests/checks until all13 inventories"
+    ]
+  },
+  "scene_foot_target_graph_transfer": {
+    "claim_refs": [
+      "native-exact-107",
+      "native-exact-108",
+      "native-exact-109",
+      "native-exact-110",
+      "native-exact-111",
+      "native-exact-112",
+      "native-exact-113",
+      "native-exact-114",
+      "native-exact-115",
+      "native-exact-116",
+      "native-exact-104",
+      "native-exact-117",
+      "native-exact-118"
+    ],
+    "authorization": "Root explicit no-competing-claim whole foot_clearance/flight_projection/run_reach/checked_foot_target/ValidatedGuardTargets and ordinary/settle/capture receiver transfer across every affectedP06/P17/P19/P20 requirement; source frozen untilall13",
+    "evidence_refs": [
+      "NATIVE-OWNER-F026",
+      "NATIVE-OWNER-IK-CLEARANCE-006",
+      "NATIVE-OWNER-IK-STATE-004",
+      "NATIVE-OWNER-IK-COORDINATOR-003"
+    ],
+    "preservation": [
+      "Reuse shared Position<Scene>, no duplicate pointwrapper or primitive forwardingadapter",
+      "Raw failed native observations separately observable; original first-error/order and nonfinite motion-budget policy retained",
+      "Root footphase, PoseConformity/conform_upcoming_pose_to_terrain, ContinuationTransition definitions/operations excluded; coordinateactualAPIbeforeedit",
+      "Existing actor/local/Scene transform semantics and integrated P19/P20 behavior preserved; no forced unitQuat where finiteNONUNIT accepted",
+      "Existing fixtures only identicalinputs/count/order/assertions, no newhelpers/tests/checks/sourceedits"
+    ]
+  },
+  "updated_at": "2026-10-22T04:53:36.067155+00:00"
+}

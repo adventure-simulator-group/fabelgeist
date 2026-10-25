@@ -1,0 +1,62 @@
+{
+  "id": "CAMERA-INITIAL07-CONTRACT-099",
+  "at": "2026-10-22T21:36:18.357892+00:00",
+  "lens": "audit-redundant-authority",
+  "members": [
+    {
+      "scope034_index": 161,
+      "source_id": "physical-p16:crates/adventuresim-core/src/water_source.rs",
+      "sha256": "2892720bfed0f3280e91d03da01cf985b234731e8f08d449a76bf97f7cfdb556",
+      "actual_EOF": 500,
+      "material_ranges": [
+        [
+          1,
+          500
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-034.json#/files/161"
+    },
+    {
+      "scope034_index": 1023,
+      "source_id": "pr-working:crates/adventuresim-core/src/water_source.rs",
+      "sha256": "2892720bfed0f3280e91d03da01cf985b234731e8f08d449a76bf97f7cfdb556",
+      "actual_EOF": 500,
+      "material_ranges": [
+        [
+          1,
+          500
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-034.json#/files/1023"
+    },
+    {
+      "scope034_index": 320,
+      "source_id": "physical-p16:crates/adventuresim-strategic-sim/src/investigation_eval/report.rs",
+      "sha256": "9973408d3a3ebff65189a41a0537488dcf4ba9f88b667672e09543fc90318db4",
+      "actual_EOF": 1659,
+      "material_ranges": [
+        [
+          1130,
+          1205
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-034.json#/files/320"
+    }
+  ],
+  "actual_source_proof": "Fresh fullP16water_source500 production/tests, actualcompletePRbodydiffempty and current07roles independently compared; prioractual Camera120 Native058 only source facts. Fresh exactP16report1130-1205 actualreceivingrole: existingtest-flow1138-1184 and nextgoldensuite1188-1202; initial1130-1137 previous-testtail and1204-1205 next-testdeclaration context only. Firstparty source navigation found only this existing inline test caller of OutbreakWaterFlow, not claimed runtimegameplay/DBcaller or executabletest.",
+  "contracts": [
+    "Water source open/closed policy and remaining volume are independent: closure prevents newdraws but existing held/cookedmaterialremains. Publicholding/foodamount and privatecontaminantload are different facts; actualexistingtest1180-1184 explicitlycompares identicalpublicprojection for clean/taintedload. Do not collapseprivateexposure into visiblewateramount or inferclosedmeans consumedinventoryempty.",
+    "Draw receipt stores immutable accepted amount/load/holding_after for retry, which may differ from currentholding after transfer/cooking. Returning historicalholding_after on replay is intentional receipt semantics, not stalecurrentholdingcache. Volume/contaminantcompartments move together in explicitmethods; cumulativeconsumedload is historicaldose, distinctcurrentfoodload. Publicrawmutations/overflow/partialfailedmethodstate remain prior03/04/05 qualification, no privateacceptedmodelpromise or liveDBmisuse established.",
+    "Contribution digest is recomputed when cooking/splitting currentfoodbatch and retained throughconsumption. Existingactualtest1161 reads it AFTERfoodzeroing and compares emittedpayload, establishing its intended historicalcontribution role. Therefore retaininglastdigest afterconsumption is not evidence wrongcurrenthashcache. Publicmutablefoodfields can create unsupportedcorrelation if usedoutsidecoordinatedmethods; distinguish rawtestsupportmodel from acceptedfirstpartyproductionmaterialstate. Actualreportcallerconsumesonce and validates emitted event; no currentproductionstateauthoritybranchfromthishelper found.",
+    "F018: WaterCollectionAuthority repeats ActionCoordinates outside and inside PlanInput, plus individualsourcefactflags alongside PlanInput.requirements. Actualbuilder332/333 replaces both plan.coordinates and entire requirements from outerfields before build_plan. Winner is explicit, so conflictingignoredplaceholderdata doesnotreachthebuiltplan; however API requires callers construct parallelignoredrepresentations of samefacts. Canonicalbuilderinput should contain provenance/snapshot/time metadata plus one actualcoordinate/requirement owner, not fullPlanInputwithoverwrittenplaceholders.",
+    "WaterCollectionEffect and preview both deriveamount in sameclosure, while completioneffect is gatedbyTimeOutcome and actor-timeeffect always reflectsactualresolvedinterval; previewamount remainsrequestedquantity, not proofcompletionoccurred. Sourcebooleans are reducer-authored facts, not unforgeablewaterrightsauthority. Fullreplan/cachebinding from087 applies onlyafteractualdomaininputcomparison; actualDBgathering/custody/sourcefreshness remain other source inventories.",
+    "Rights question hashes explicit typed subject/resource/operation/jurisdiction usingonecanonicalframer and emptydomainpayload variants. This is completequestion identity not an alternatepermission decision; evidence revision recordswhichsourcewasread. Publicwater decision derives Allowed/Denied from actualopenfact; revision and questiondigest are independent provenancecoordinates. Native enum names/Debug are deliberately not hashed.",
+    "Conserved collection derives sourceafter/containerafter together; proportionaltransfer retainsintegerremainders atsource and exactwholetransferexception ratherthan separatelyrenormalizing contamination. Amount vsload units cannot be collapsed; sourceamount mayincludecleanmaterial while trackedcontribution onlytaintedfraction. Staticfloweventactor/source IDs are demonstrationfixturecoordinates, not ordinaryruntimecurrentplace or newdomainidentityauthority."
+  ],
+  "findings": [
+    "CAMERA-INITIAL07-F018"
+  ],
+  "qualification": "ObservedOutbreakWaterFlowcaller is existinginlinetestonly. No executedtest/liveDBwrongdose/staledigestclaim. Reportonlyexact1130-1205 includescontexttails, no parenttestsetup/evaluate_cases/golden_suite/helperbodycredit. Rawpartialmutation/numericissues remainotherlensgraphs; no foreigndependencyexpansion.",
+  "connected_repair_acceptance": "Remove overwrittenparallelplanfields by owningcoordinate/requirementfacts once in domainbuilder; preserve actualmetadata/provenance andfullreplanvalidation. Retain public/privatecompartmentdistinction and immutablehistoricalreceipts/digests, computingcurrentstatehash separately if needed. Do not converttest-supportflowconstantidentities or requestedpreviewquantity into liveDBauthority.",
+  "status": "exact source07 inventories complete with APIrepresentation migration finding and test-context qualifications"
+}

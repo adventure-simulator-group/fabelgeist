@@ -1,0 +1,56 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-046",
+  "at": "2026-10-22T21:14:35.384699+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/reputation.rs",
+      "sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+      "actual_compared_ranges": [
+        [
+          85,
+          356
+        ]
+      ],
+      "source_evidence": "Fresh exact old85-356 plus045new357-360;85-89 partialtabletail context only. No other1-84/361+credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/reputation.rs",
+      "sha256": "f440b09e301404f9d1be804764c9be6af087320ea34c8b8a27fd9a4b191b8103",
+      "actual_compared_ranges": [
+        [
+          1,
+          331
+        ]
+      ],
+      "source_evidence": "Actual frozen P16 source consumed1-331 including existingtests sourceonly. Independentlyfocused P16DBreceiver operations traced tothisexactbody, not historicalverdict."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/reputation.rs",
+      "sha256": "f440b09e301404f9d1be804764c9be6af087320ea34c8b8a27fd9a4b191b8103",
+      "actual_compared_ranges": [
+        [
+          1,
+          280
+        ]
+      ],
+      "source_evidence": "FrozenactualPRbytes explicitlycompared equalP16 then actualsource1-331 consumed once; PRmaterialrole1-280independentlycompared samecurrentoperationfacts. No PR281-331testtailcoverage from P16."
+    }
+  ],
+  "groups": {
+    "reputation-finite-scalar-kernels": "effective_population returnspositiveu32 forrawestimate>0 elseclosedlevelmapping1000..16000, so population/1000>0 finitef64/lnfinite. Multiplier denominator1+.6ln isfinitebutcannegative/zeroforverysmallpopulations; positivefinite10000divisioncanInfbutnotNaN, round/clamp2000..10000makesfinalboundedfinitei64. This provespublishedboundedcontract, not monotonicpopulationpolicy: formula saturateslow for tiny populations andhigh nearitsdenominatorcrossing. Preserveactualpolicyunlessexplicitdesignchange; no normalassetfailureclaimed. reach uses ln_1p positivefinite<=u32MAX thenfixedscale18000+20000 finite, round/clamp20k..250k beforeu64cast. apply_delta widenstwoi32 toi64 thenaddfits\u00b14294967296 andclamp0..100000beforei32narrow. localdelta nonnegativei32*bounded10000fitsi64 evenwithout explicit saturation; divisionpositive10000 thenreputationcap intentional. npc netwidei64difference and familiaritymin10000 =>unfamiliarity0..10000; productfitsi64, fixedpositive100/10000division andclamp\u00b120 beforei16narrow.",
+    "bounded-propagation-and-weights": "Originabsent intentionallyempty; foundorigin alwaysretainsonecontribution even0. Graphadjacencysameedgeforward/backward, rawzerolength max1 intentionalpositivecost. StableBTreeMap/Reverse(distance,node) plus sortedadjacency deterministicties; distance<=reach250k andu32edgelength widened =>sumfitsu64, saturatingadditionexplicit. Nativeadmissionmax4096 discoverednodes, actualreadonlyinputsmaycontainmoreedges butlookupbounddoesnotclaimallallocationbounded. Destinationssorted(distance,id), truncate24 beforeweights. Eachpositiveweight<=reach+1<=250001; total<=6000024fitsi64/nonzero, budget<=30000, product<=7500030000fitsi64. weightsderivedoneperdestination retainedorder, zipcannotmisalignortruncateindependentcolumns. Eachintegerfloor share andtotalnormalizedbudget ensures sum<=budget; no recursiveimportedeventamplification. Duplicate publicsettlementIDs rawaggregatecontract separate; DBsourceuniqueprimarykeyactualroute avoidsduplicateoutputID. No new contractclaimthatallgeneric graphinputs are canonical.",
+    "authority-fine-and-cardinality": "Severityclamps1..5then\u00d75<=25u64, emptyNone andsettledfiltercanproduceNone intentionally. Sumthenmin100 means practicalsmallchargecardinalityboundedoutput, but arbitraryusize-lengthpublicslice has no explicitwholecountbound beforeu64sum; usecoherent boundedcount/cappedfold policy ifformal allnativecardinalities required, no currentgiantcharge/runassertion. Existingactualtest[5;30] provesauthoredexpectedcapcontract as sourceoracleonly, notexecuted. Do notreplaceoriginalfineemptyNonewithSome0 orremoveexplicitminimumseverity.",
+    "db-idempotency-projection-and-commit": "record_event rejectsnegativefame/infamy before anywrite; theneventIDexistingreturnfalse, missingoriginErr, collectsameDBsettlements/traveledges andcomputecompleteCorecontributions BEFORE eventinsert. Exactapply_deltaaboveguaranteesretained0..100000. Eventinsert thenaggregateupserts has no subsequent authoredResultErr path; hostSpacetimeDBtransactionsemantics separateassumption, notprovedbycommentorResultsignature and no manualDBrollbackrequiredfromthisfunctionalone. Event isimmutableactionauthority, terminalimportedaggregates neverre-emitevents; sameIDretry no doubleaward. EventIDdifferentpayload handling historicalexistingcontract notsilentlychangedhere. no clockadvancedexceptoccurredAtcopiedtoevent. snapshotparticipant/charges skipalreadyexistingkeys, sortoffenses actualsamecharacter/settlement/unsettledconstraints. settleoffenses updatesprovidedrow snapshots, stale/externalaggregate validity actualcaller/hosttransactionowner notproved. PublicrawIDs/severity sourcekindstrings remaincanonicaltypepropagationgap butno proposedcompatibilityalias.",
+    "participants-and-return-projection": "Battleparticipantsetactualonecase/party beforecanonicalCorehelper; livingfallback onlyifno battleIDs, actualcanonicalparticipanthelper semanticbody notautoacceptedbythis04cell. Snapshotrowcapturesminute withoutchangingclock/retry. Offense severityclamp beforeinsert safeand explicitzero->1 existingpolicy. snapshotarrestcharges returnsallcurrentoffensescount evenalreadyinsertedkeys, count!=newlyinsertedrowcount deliberateactualAPI; preserve unlessseparatedesign. local_reputation sameaggregatekey+rowfame/infamy or0tuple045actualtail, missingrowdefaultnotmalformedrowmask. Scopedpartialtabletail1-84excluded, exactDBnativebindings/strategicfallbackoutsidematerialroles notinventedwholecallerproof."
+  },
+  "findings": [],
+  "prior_finding_support": [
+    "Existing reputation typedcentipoints/aggregateid/nativeDBauthority propagation, no new observed gameplayfailure"
+  ],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

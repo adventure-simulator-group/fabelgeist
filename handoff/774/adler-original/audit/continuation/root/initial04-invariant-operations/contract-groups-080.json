@@ -1,0 +1,72 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-080",
+  "at": "2026-10-23T01:06:06.131495+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:content/tactical/combat.yaml",
+      "sha256": "05958d54e48eba637c755f8ad89959dc6ef0aeaeeeaeb75022e07071a01ddaf3",
+      "actual_compared_ranges": [
+        [
+          1,
+          344
+        ]
+      ],
+      "source_evidence": "Fresh exact complete current authored config/build/geometry-root body; code emission and computed native line/cursor rules compared without execution."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry.rs",
+      "sha256": "c3d39473c3dbc283a06a940bdaab465648c2789ebdf7757262ad128ef3851109",
+      "actual_compared_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "source_evidence": "Fresh exact complete current authored config/build/geometry-root body; code emission and computed native line/cursor rules compared without execution."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/build.rs",
+      "sha256": "fc42ea1f2234144e94d6bfac86f254cd059799b9f9e5ae6de7f77e3125f19b7c",
+      "actual_compared_ranges": [
+        [
+          1,
+          509
+        ]
+      ],
+      "source_evidence": "Fresh exact complete current authored config/build/geometry-root body; code emission and computed native line/cursor rules compared without execution."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/build/combat_resolution.rs",
+      "sha256": "79ebf48add6f1035ba223c7d310864e958145bdb580ab8fd0189eac3700ff9c5",
+      "actual_compared_ranges": [
+        [
+          1,
+          275
+        ]
+      ],
+      "source_evidence": "Fresh exact complete current authored config/build/geometry-root body; code emission and computed native line/cursor rules compared without execution."
+    }
+  ],
+  "groups": {
+    "actual-authored-bounds": "Fresh actual config has fatigue capacity16000/recovery55/minendurance.5/actions.1..35, autoreolve round1/native64steps, guarded2/lunge5.5, minmovement.25/force1000/traction.9. These actual small constants support normalbound qualifications for F028/F030; do notinfer arbitrary acceptedconfig/public Combatant data shares thosebounds. Contact calibrationpositive finite, itemscene offsets/clearance/gamepad signed values intentional. Walk2/run5.5 confirm NativeF009 currentconfig denominatorpositive, firstreleasefootrotation0 and negativecontacttoe-.009 legitimatepolicy; no globalPositiveLength/NonZeroRate imposed.",
+    "canonical-generator-winners": "CombatBuildConfig reads subset withoutdenyunknown. AutoresolveValues omits YAML guarded/lunge/force/gravity/traction/dodgechance/longthreshold/reachfraction mirrors; emission actuallytakes movement.speeds raised_guard/run, motorphysical+quicksteptravel andAIordinarydefense/offense. Currentliteralduplicatesagree. Sourcefact passedCamera07 for existingignorededitableauthority graph; preserve canonical winner and do notactivate formerlyignoredkeys duringpropagation. Untyped unresolvedhelpers notactual nativeboundary; source emission itself is an actual encodingport.",
+    "build-native-admission": "f64 positive/fraction/order validation beforeformat doesnotprove f32 representability or positivepostnarrowing; generated typed constructors reject some outofrange/underflow via compiletime errors and rawf32fields stillneed existing admission/ownergraph. Preserve concrete schema/nativeconversionfailure ratherthan pretendf64finite validates finalf32. fatigue sharedf32schema/elapsed/PositiveSpeed andcontact validator actuallyreused, not copiedvalidators. Sourceformat Debug andfloatliteral is realRustencoding boundary; no run or validarbitrarytuning proof fromcurrentdata.",
+    "build-local-state-and-failure": "All authored documents collected/validated inlocal Vecs before each generated filewrite. Build main writes separate generated artifacts sequentially and mayfailafterearlieroutput; no wholebuildatomicity promise. Cargo compilation failure prevents successfulbinarypublication, not a runtime game-state rollback problem. Paths joined beneath knownroot, unwrapstrip_prefix only enumerated descendants/configuredsame-root paths. No DB/retryclock mutation or nativeprojectexecution duringthisreview.",
+    "index-and-cursor-guarantees": "find matches returnactualUTF8characterboundary; adding exactmatchedASCII/encodedJSON lengths stays<=textlen. trim_startbytecount maintainsboundary, stripcolon proves+1 exists. search advancesatleast4bytes perid-match sofinite, start+matchedlen <=len, text[..start]safe. Bytecount<=stringlen<=isizeMAX so+1fitsusize; charcolumns likewise. Road encounter line usesuncheckednesize\u2192u32 formatport (no general4GBsource guarantee claimed); itemMAX_SOURCE_BYTES gate boundsordinaryitempositions. Source positions/traces retaindistinctnative units, no sourcepathidentityfromdisplaystring alone.",
+    "attribution-and-native-JSON": "Native serde Value map duplicate replacement versus scanners is existingCameraF020 graph. Item locator andquest dialogue variant locator use substrings, so textual repeats/nestedIDs maychoose anotheroccurrence; sourcepositionsnotproved structural justbycomment. No actualcurrentbadtoken/run claimed; sourcefact qualificationfor07/reportsourceproducer, notnewglobal indexingpanic. Builddebugdiagnostic stablefields require actualsourceownership and earlier03 schema gates, no typedvalidatorcreditfrom functionname alone.",
+    "determinism-and-geometry-root": "Filepaths sorted forcontenthash andJSONencoding, preserve originalrelativepath/NUL/rawtext framing and source document order; organizationarray expands sourcefilename once perrow andvalidatedrolescheckedbeforeemit. Hashfinalizeformatlowerhex actualformatport. spatial_geometry rootonlyreexports canonicalneutral scalar/error and framed architecturalproducts; no arithmetic/uncheckedconstructors there. Bodymoduleownersremain separatelyaudited, portableSignedLengthdoesnoteliminateframes."
+  },
+  "findings": [],
+  "related_findings": [
+    "ROOT-INITIAL04-F028",
+    "ROOT-INITIAL04-F030",
+    "Camera07-F005",
+    "Camera07-F020"
+  ],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

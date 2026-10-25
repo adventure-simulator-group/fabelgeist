@@ -1,0 +1,86 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-122",
+  "at": "2026-10-25T12:44:14.566848+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 267,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social_roles.rs",
+      "sha256": "328d8285856568995cc423bb2ec74bb88bfa690af6e4defcbfc4aa8f9a355415",
+      "actual_EOF": 579,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social_roles.rs",
+        "snapshot": "physical-p16",
+        "path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\social_roles.rs",
+        "sha256": "328d8285856568995cc423bb2ec74bb88bfa690af6e4defcbfc4aa8f9a355415",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Read-only source assignment; whole-function repair ownership remains in authoritative claims.",
+        "scope_limits": "Explicit material contracts/ranges and necessary signature dependencies only; no implied whole-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/expanded-producer-delta-map-049.json",
+        "actual_line_count": 579,
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 116,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-POPULATION-024",
+            "json_pointer": "/current_sources/3",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row243/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                579
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                579
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": true,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          579
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "Clone/Debug/table SocialOrganizationInstance14\u201321,CharacterOrganizationRole23\u201332"
+      ],
+      "absence_basis": "Fullsource1\u2013290/291\u2013579. No handwritten trait/serializer. Borrowed SocialOrganizationInstanceId contextual family parser and settlement organization/religion classifiers, checked role membership/profession/literacy/precedence native joins and lifecycle cleanup semantic functions. Native/table derives already own structural records; no serialization added to classifier."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Relational organization role authority",
+      "disposition": "No new derivabilityfinding; preserve checked catalog/instance/character roles and borrowed family-classification semantics.",
+      "acceptance": "No constructor/From/Serde derive bypassing role membership, exact instance or native errors; no field/exposure expansion."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 268,
+    "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/approved_action.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

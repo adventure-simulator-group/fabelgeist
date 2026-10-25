@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-699",
+  "at": "2026-10-25T16:34:05.209747+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 972,
+  "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/model.rs",
+  "sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+  "actual_compared_ranges": [
+    [
+      1,
+      880
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Quest model661\u2013880 testimony/site/evidence/trail/action records and transition outputs already derive structural/Serde as appropriate. Compact native action IDs differ wire snake_case and remain explicit. referral_display_location returns exact authored tab label, not serialization. FailedActionAlternate transition native mutation begins865; no handwritten trait/codec in range."
+  ],
+  "first_unfinished": {
+    "scope_index": 972,
+    "line": 881
+  },
+  "execution": "none"
+}

@@ -1,0 +1,126 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-518",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/footprint.rs",
+      "sha256": "6215062b250f11105cb0d5603a4d7ee7bf1a731d0a6b485a05baa396672913ba",
+      "actual_EOF": 153,
+      "actual_compared_ranges": [
+        [
+          1,
+          153
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/footprint/vista.rs",
+      "sha256": "afc09243786283c9ec9fbf8d0c66525bfae0998f3b4c10c3df6035813b8080b3",
+      "actual_EOF": 204,
+      "actual_compared_ranges": [
+        [
+          1,
+          204
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/gate_approach.rs",
+      "sha256": "9974d8b635e383425cfd2734cdc847418a58a4b3d4e28c61974f90c5a2c8749f",
+      "actual_EOF": 122,
+      "actual_compared_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/gate_approach/profile.rs",
+      "sha256": "295b5ee27be5fa2ea6691f4a7480b8859677db039c092a44be4524b8fcfc9ff5",
+      "actual_EOF": 48,
+      "actual_compared_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/solutions.rs",
+      "sha256": "f238069f199c6cab4d3ae9214f735d423c261228a14182ae11c812ce2edcd428",
+      "actual_EOF": 169,
+      "actual_compared_ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/solutions/quantities.rs",
+      "sha256": "1475ceeaa960729b38d723bc4c6f67ce42ec888798dd0e095b5b490073d0b379",
+      "actual_EOF": 207,
+      "actual_compared_ranges": [
+        [
+          1,
+          207
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/source.rs",
+      "sha256": "b273838e62fad2b7929676b8fc9099581cc0b60cf77abcdbb24b63a124864282",
+      "actual_EOF": 56,
+      "actual_compared_ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/support_observations.rs",
+      "sha256": "cda65f6ad918673728bba9694b99ec598bde424978c0f896351fbfbe149e995c",
+      "actual_EOF": 71,
+      "actual_compared_ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Native diagnostic clipping and exact height-diagonal choice",
+      "evidence": "Full footprint153/vista204. Terrainclippedextrema uses b\u2013dheightfielddiagonal, vista a\u2013cdiagonal and actualsharedvertexmorph; completecoverageexplicit ratherthanoutsidefallback. Nativeclipcrossingfinite arithmetic feedscheckedpoint/elevation; failedsamples skippedwithcounts, no completephysicalacceptance asserted. NonzeroLODorigin helper subtractsorigin fromquery/corners but usesplayablehalfextentcenteredlocal0; same framequestion discoveredfreshvista_surface512, actualproducerorigins nextscope. Noordinaryoriginassumed or extraunique count."
+    },
+    {
+      "contract": "Gate route trial and final topology are different contracts",
+      "evidence": "Full gate122/profile48. Exactlyonegatecrossingroute, level landings reserve width and conservativeactualdoorsweepradius; run>0 guard before grade/pass. Endpointfeasibilitydoesnotacceptgatecollision/access/drainage/retainingcapacity. CapturedGoslarfixture explicitfailedsamefrontgate, independentgatecourtprofileboundedchecks; no execution or currentasset acceptance."
+    },
+    {
+      "contract": "Proposed levels and signed cut/fill diagnostics",
+      "evidence": "Full solutions169/quantities207. Exact3JSONfinitef32checked SupportElevation, signednegativeallowed. Comparativeplan compiletyped, mesh checked beforetriangleindexing; displacementfinitepoint/elevations/difference admitted. Signsplit volume integratescut/fillseparatelyinsteadcancel; perimeterabsent isNone notzerowork. Nativef32cross/sum/integration mayoverflowonextremeAPIvalues but sourceboundordinaryscene and diagnosticresult lackscomplete finitequantityowner; notpromotedordinaryfinding. Provisional6mcutfill/stairassumptionsexplicit, no runtimeplanpublished."
+    },
+    {
+      "contract": "Evidence provenance and structural observations",
+      "evidence": "Full source56/supportobservations71. Source/digest exactverifiedbeforecomparison; tacticalterrainfirst then presentedvistasampler neverbecomestacticalsupport. Door openingID mustexist or typedMissingOpening. Rawstructuralnode/sill+base diagnostic arithmeticnotreadmittedunlikeLODminimumowner; couldserialize nullonextremefiniteoverflow, but noactualordinarybuilding/configroute orclaimedguarantee established. Preserve diagnosticmissingvalue distinctions; notinventworldbounds."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "8 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/support_regions.rs"
+}

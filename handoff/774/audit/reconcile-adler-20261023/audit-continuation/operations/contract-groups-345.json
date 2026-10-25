@@ -1,0 +1,62 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-345",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/developer_quest.rs",
+      "sha256": "c81518557455da223c56b59f0003647eac72633ee5d4e681786aad20fa31de78",
+      "actual_EOF": 2492,
+      "actual_compared_ranges": [
+        [
+          1,
+          2492
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/dialogue_boundary.rs",
+      "sha256": "e68ecc33496a7820aad7f54bccb03d86b407e59c97759223fe80ed6205c8894b",
+      "actual_EOF": 49,
+      "actual_compared_ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Developer compilation validates before namespaced clone publication",
+      "source_ranges": {
+        "developer_quest.rs": [
+          [
+            1,
+            2492
+          ]
+        ]
+      },
+      "disposition": "Entire2492 lines and all inline fixtures personally read in eight chunks. parse bounds UTF-8 bytes before serde; recursive array item totals saturate only for threshold rejection. Collection limits checked after local-reference work, a bounded-work/admission concern for direct in-memory callers rather than an arithmetic error claim. Declaration duplicate detection, typed reference sets, custody kind consistency/starting site and unsupported challenge rejection run before materialization. namespace_definition clones, remaps declared identity operands while preserving prose and catalog bridge identity; typed ObjectiveId/SubjectId/AssetId reconstructed fallibly. qg::validate is final publication gate. No shared mutable input commit on failure, no fresh concrete failing compilation case established. Outbreak identities, recipient/custodian external identities, observer_scoped_id collision/length semantics and qg final aggregate validator remain exact dependent contracts; this read does not grant their body coverage. Compatibility override intentionally cannot waive structural diagnostics. Schema lists are a declaration/owner graph dependency, not full producer migration proof."
+    },
+    {
+      "contract": "Dialogue boundary preserves started/unavailable versus reducer/projection errors",
+      "source_ranges": {
+        "dialogue_boundary.rs": [
+          [
+            1,
+            49
+          ]
+        ]
+      },
+      "disposition": "Whole49 lines and fixture read. Closed outcome and generic error payloads have no arithmetic/mutation; Display delegates without changing variant meaning. SessionProjectionMissing identifies post-reducer projection boundary; receiver transaction semantics not implemented by this enum and not inferred."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-core/src/disease.rs"
+}

@@ -1,0 +1,85 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-147",
+  "at": "2026-10-25T18:33:33.098037+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1660,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets.rs",
+      "sha256": "0c1abe95c96378d50acffc88477c5694fd8a715b32de66f586bdb4eac30f46c5",
+      "personally_read_ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Focused paving uploads all prepared meshes before enqueuing entities, native materialtraffic transform same as selected neutralmask and CityFrame. Tactical paving first prepares fullsource then uploads allbefore spawn; per-tilemask cache and preparedtraffic source retainedfromsamebundle. Streamed neutralmaskexpect logicallyguaranteedSome iff resourceexists; no arbitrary boolpayload mismatch.",
+        "Tactical observer1636 swaps terrain before this infallible-to-caller spawn maylogandreturnoncanonical mesh reflection/uploaderror. Wholegraph M66/M65/M75 outcome/error repair must preserve accepted terrain/paving success policy, not treat greenmesh preparation as all detailpublication accepted. No ordinaryreflectionfailure witness introduced here."
+      ]
+    },
+    {
+      "scope_index": 1661,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/activity.rs",
+      "sha256": "30fdd1c0dc0b3569a4f38a70bca296cf20ec370c5487a0411c18011987fec1cf",
+      "personally_read_ranges": [
+        [
+          1,
+          91
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "ActivityWear privately retains candidate FurnitureGroup references from same source spatialindex and overlapfilter. Footprint canonical centre/extents/orientation pairedbyowner. Wear/dampness independent materialchannels selected bygroupkind andmaxcombined, native Vec2 final projection; zerooutsideactualfootprint explicit. Existing rotatedactivity fixture ensures centrepositive/cornerszero/distantcandidatesempty, not run."
+      ]
+    },
+    {
+      "scope_index": 1662,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/material.rs",
+      "sha256": "7166792f47fb4800916b03dd90a149033382ed4a4f2d2e7b058a1237a4586f71",
+      "personally_read_ranges": [
+        [
+          1,
+          153
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "CityGroundKind enum owns closed5materialchoices and determines correlated cover/spacing/garden nativeuniformmatch; CityStreetSurface and CityYardSurface convert semantically totaltoappropriatekind. Trafficmaskhandleandtransformcopiedtogether, source CityFrame inverse set byplacement. Index matches fixedALL, physicalspacingconstantpositive. Finalfloatmodechannels nativeGPUboundary, no applicationprimitiveadapter."
+      ]
+    },
+    {
+      "scope_index": 1663,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/mesh.rs",
+      "sha256": "001e9ddd72769e824937e8765c48d3c42f9bf67f348ff62f258129019cd61f26",
+      "personally_read_ranges": [
+        [
+          1,
+          331
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "CitySurfaceMeshBuilder local appends derive correlated position/normal/UV/footprint/activity columns per same clipped triangle, preserving actualsupportplane afterfinalf32representation and intentionalmmlifts. Missingterrain neverfabricatesheight0: supportclipemitsonlyacceptedtriangles. Canonicalnormal.y positivity from GroundSupport admissibleground isrequired, not established by final Mesh; future exactsupportsource below.",
+        "SurfaceVertices derives binaryDeserializeforindependentVeccolumns without validating cardinality/finiteness/triangle divisibility; readactualPreparedCityGroundSerde paths before asserting normalmalformedfactory. Existing M66 acceptedworkerproduct repair covers correlatedcolumns and nativebuild. Raw publicCorridor endpoints cancoincide before normalize; baseline03/06admission findingsretained, no normalgeneratedzerolengthclaim.",
+        "Existing shortsurveystreet, slope/spike/diagonal+barycentreclearance bothwindings, and absentterrainboundedoutput fixtures read. Nativepositions/countusedareactualsamebuilderoutput, no sourcecountshortcut."
+      ]
+    },
+    {
+      "scope_index": 1664,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/partition.rs",
+      "sha256": "f1235fb0cff334be1c2f34ba2ea9c1419161753aa704b69f4b4321ced4c8231e",
+      "personally_read_ranges": [
+        [
+          1,
+          175
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "SpatialIndex privatelybindsitemsandcellordinalmapbuiltfromsameborrow, BTreeSetdedup preserves sourceordinalorder. Finiteorderedsourcebounds required; generic item_bounds callbacknotacceptedregioncertificate. Fixed4point bounds infidentities complete bynonemptyarray. Bedsubtraction keepsf64plane intersection andbothwindings; validconvexnondegeneratequad is inputownerobligation. Samebedmultipleoverlap sequential subtraction explicit, no payloadalias. Existing sourceorderand20m2slopedbedremoval expectedvalues read/notrun."
+      ]
+    }
+  ],
+  "findings": [],
+  "qualified_connected_requirements": [],
+  "discovery": "5 newly accounted original roles; other reads support already counted historical roles. Lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

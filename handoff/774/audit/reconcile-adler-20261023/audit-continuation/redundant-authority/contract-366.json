@@ -1,0 +1,131 @@
+{
+  "id": "CONT07-CONTRACT-366",
+  "at": "2026-10-23T19:45:25.695820+00:00",
+  "lens": "audit-redundant-authority",
+  "members": [
+    {
+      "scope_index": 1571,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/loose_stone.rs",
+      "sha256": "91ff28710a9a14a819f4922ea771cfe62fa7d385fb63f2b561f10444600c057d",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/ground_scatter/loose_stone.rs",
+      "actual_EOF": 676,
+      "ranges": [
+        [
+          1,
+          676
+        ]
+      ],
+      "read_kind": "fresh full exact source and current07 independent reasoning"
+    },
+    {
+      "scope_index": 1572,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/loose_stone/spawn.rs",
+      "sha256": "8ae3f85f7348aa4417fecbfc8408f36dda93ea3e4c707f0e79bc673e0cac3ef7",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/ground_scatter/loose_stone/spawn.rs",
+      "actual_EOF": 250,
+      "ranges": [
+        [
+          1,
+          250
+        ]
+      ],
+      "read_kind": "fresh full exact source and current07 independent reasoning"
+    },
+    {
+      "scope_index": 1573,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/mod.rs",
+      "sha256": "1577f17b44515d9e38cd44b010e81127ddace5a721dfc82688cc46be04c341fa",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/ground_scatter/mod.rs",
+      "actual_EOF": 522,
+      "ranges": [
+        [
+          1,
+          522
+        ]
+      ],
+      "read_kind": "fresh full exact source and current07 independent reasoning"
+    }
+  ],
+  "contracts": [
+    {
+      "source_index": 1571,
+      "disposition": "accounted with exact cache/frame/LOD/celestial qualifications",
+      "facts": [
+        "Pebble geometry and billboard repeat exact same candidate seed, radius, centre and survival calculation; current nonwoodland height formula agrees. Woodland uses shorter mesh height but actual spawn excludes woodland billboard entirely, so no false woodland LOD-height inconsistency claim. Hero/Near ring topology differ intentionally while same subject candidate set retained.",
+        "physical_pebbles nonhero0 intentionally avoids triple-counting one physical patch across representations, not claim geometry empty. Hero count derives actual mesh vertices divided by current topology factor. Billboards encode local centre in NORMAL and offset POSITION; those are native separate roles, not normal versus authoritative point contradiction.",
+        "PebbleDensity ALL/asset_offset parallels three actual arrays; current ordering agrees, another related roster maintenance occurrence, not new unique finding. Local visibility fade bands and per-sprite screen fade are independent conservative entity/per-member policies. Current fixture reference topological counts and minimum pixel scale are independent oracles; no execution/actual QHD camera guarantee."
+      ]
+    },
+    {
+      "source_index": 1572,
+      "disposition": "accounted with exact cache/frame/LOD/celestial qualifications",
+      "facts": [
+        "PatchAssets builds each density/variant cohort together with same exact seed and extent, computing actual hero population then deriving matching native handles. No scene-dependent recipe key is cached across invocations here; spawn makes a new complete set each operation. PatchPlacement woodland flag and density are coordinated temporary constructor outputs; no independently mutable retained classification.",
+        "Woodland is explicitly chosen only from LeafLitter, shrunk/lowered and omits billboard; LooseStone chooses sparse/dense via actual current terrain/scree. Material granite/sharedcolour policy fixed here, not claim scene geological lithology dynamically follows every ground pixel. Root transform and batch geometry local centre are different frames.",
+        "Billboard factory158-171 initializes default lighting/ambient without current celestial input; actual updater1573 shares global unchanged gates. Fresh shader514 proves default uniforms are actual light consumer. This extends exact priorF042 to actual pebble factory/recipient path, with same insertion/runtime qualification. No automatic credit for bark/foliage factories."
+      ]
+    },
+    {
+      "source_index": 1573,
+      "disposition": "accounted with exact cache/frame/LOD/celestial qualifications",
+      "facts": [
+        "Canonical caches retain immutable authored woody/litter assets versus per-scene placement/history; marked GroundScatterPresented after successful spawn only. Missing/failed geometry before completion does not set marker, although earlier queued side effects may exist; source is not blanket transactional scene publication guarantee. Structured Geometry/MeshMerge causes retained.",
+        "Current celestial snapshot and per-material native light projection coexist intentionally, but global changed/equality guard omits target asset additions: priorF042 exact new pebble supplier support. Dynamic night/day direction and ambient are different fields, not competing sun authority. Foliage quality selector means only eligible cheap-light variants updated; do not assert all current foliage require same projected light.",
+        "Grass density, pigment, dryness and terminal optical albedo have intentionally distinct transformations. grass_terminal_pigment consumes same source pigment before calibrated visual attenuation; no second independent current habitat. scatter_seed combines independent scene content and scene identity in canonical deterministic context, not a source package digest. Full actual habitat/cache/species consumers remain later queued source roles."
+      ]
+    }
+  ],
+  "personally_consumed_prior_narratives": [
+    "RIG-OWNER-PEBBLE-SHRUB-SHADERS-057",
+    "RIG-OWNER-GROUND-HABITAT-SPECIES-058",
+    "CAMERA-INITIAL07-F042"
+  ],
+  "fresh_support_reads": [
+    {
+      "scope_index": 514,
+      "sha256": "c4644f87c9162b39d2fc1225d9912d8e7a0580cd7556d1333181defd62752b93",
+      "ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "coverage": "already covered original variant; fresh critical shader comparison only"
+    }
+  ],
+  "new_material_roles": [
+    {
+      "registration": "CONT07-REG-006",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/loose_stone/streams.rs",
+      "sha256": "80fc6b2fc6f287ef9c214f4492651b73006484371550db1c0ee58649f492d7ee",
+      "ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "disposition": "Fresh07 full18 named random purposes consumed; mesh/billboard share same explicit sources. Test VARIANT string equals actual inline factory string currently; distinct random roles not aliases. No automatic deterministic behavior clearance.",
+      "coverage": "new source outside2853; pending global all-lens scope reconciliation, no old-universe source increment"
+    }
+  ],
+  "finding_qualifications": [
+    "CONT07-QUAL-F042-PEBBLE"
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "identity_count_accounting": {
+    "new_original_variant_ids": [
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/loose_stone.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/loose_stone/spawn.rs"
+    ],
+    "already_covered_fresh_reanalysis_ids": [
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/mod.rs"
+    ],
+    "new_this_contract": 2,
+    "cumulative_new_original_variants": 76,
+    "cumulative_original_unique": 1834,
+    "count_basis": "Exact source_id union against Adler saved07coverage1758, not number of fresh-read rows"
+  }
+}

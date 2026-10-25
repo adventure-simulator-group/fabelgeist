@@ -1,0 +1,694 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-244",
+  "at": "2026-10-25T14:08:40.262292+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 484,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/physics_transform/transform.rs",
+      "sha256": "5020a25a60cbe8b42d37cadf31c24a6d24dcde07df2c8f156ee45ff81e9c450b",
+      "actual_EOF": 1275,
+      "requested_registration": {
+        "source_id": "pinned-registry:avian3d-0.7.0/src/physics_transform/transform.rs",
+        "snapshot": "pinned-registry",
+        "path": "CARGO_REGISTRY/avian3d-0.7.0/src/physics_transform/transform.rs",
+        "sha256": "5020a25a60cbe8b42d37cadf31c24a6d24dcde07df2c8f156ee45ff81e9c450b",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 40830,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 594,
+            "read_ranges": [
+              [
+                125,
+                146
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-NATIVE-PHYSICS-PORT-071"
+            ],
+            "read_status": "fresh_scoped_current_lens_actual_native_owner_and_receiving_body",
+            "resolved_path": "CARGO_REGISTRY/avian3d-0.7.0/src/physics_transform/transform.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CAMERA-BOUNDARIES-048",
+            "json_pointer": "/current_sources/17",
+            "source_id_as_recorded": "pinned-registry:avian3d-0.7.0/src/physics_transform/transform.rs",
+            "read_ranges_as_recorded": [
+              [
+                125,
+                146
+              ]
+            ],
+            "source_context": {
+              "index": 626,
+              "source_id": "pinned-registry:avian3d-0.7.0/src/physics_transform/transform.rs",
+              "path": "CARGO_REGISTRY/avian3d-0.7.0/src/physics_transform/transform.rs",
+              "sha256": "5020a25a60cbe8b42d37cadf31c24a6d24dcde07df2c8f156ee45ff81e9c450b",
+              "read_ranges": [
+                [
+                  125,
+                  146
+                ]
+              ],
+              "mode": "Fresh exact assigned native type/feature/cast/collider/hit-result numerical boundary source ranges, plus full cast body523\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153596; not wholeforeignmodule clearance."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1326,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved",
+        "admission03_increment077_role_observations": [
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 81,
+            "registration_id": "NATIVE-ADMISSION03-REG-081",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-081",
+              "at": "2026-10-22T15:23:08.834702+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+              "source_id": "pinned-registry:avian3d-0.7.0/src/physics_transform/transform.rs",
+              "sha256": "5020a25a60cbe8b42d37cadf31c24a6d24dcde07df2c8f156ee45ff81e9c450b",
+              "snapshot": "pinned-registry",
+              "actual_EOF": 1275,
+              "material_ranges": [
+                [
+                  739,
+                  745
+                ],
+                [
+                  1051,
+                  1075
+                ],
+                [
+                  1092,
+                  1115
+                ]
+              ],
+              "role": "Actual 3D Rotation publicquaternion declaration/derives and direct Transform/GlobalTransform/Quat/DQuat conversion bodies; scoped125-146 onlyprecedingcontext/RotationValuealias, not3DRotationdefinition",
+              "actual_caller": "AssignedCamera354 current foreign nativeport contract; direct Camera308 physics_rotation.0",
+              "reason": "Necessary actual scoped contract bodies prospectivelyregistered BEFOREanalysis; no wholeforeignpackage waiver",
+              "exclusions": "Only selected current direct methods/declaration; otherforeign methods/source/tests excluded; qualifycontextedges afterread",
+              "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\avian3d-0.7.0\\src\\physics_transform\\transform.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADM03-FINALQUAL-081",
+                "registration_id": "NATIVE-ADMISSION03-REG-081",
+                "source_id": "pinned-registry:avian3d-0.7.0/src/physics_transform/transform.rs",
+                "snapshot": "pinned-registry",
+                "sha256": "5020a25a60cbe8b42d37cadf31c24a6d24dcde07df2c8f156ee45ff81e9c450b",
+                "actual_EOF": 1275,
+                "registered_requested_ranges": [
+                  [
+                    739,
+                    745
+                  ],
+                  [
+                    1051,
+                    1075
+                  ],
+                  [
+                    1092,
+                    1115
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    740,
+                    745
+                  ],
+                  [
+                    1051,
+                    1074
+                  ],
+                  [
+                    1092,
+                    1114
+                  ]
+                ],
+                "context_or_excluded_within_registration": [
+                  [
+                    739,
+                    739
+                  ],
+                  [
+                    1075,
+                    1075
+                  ],
+                  [
+                    1115,
+                    1115
+                  ]
+                ],
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-081",
+                  "at": "2026-10-22T15:23:08.834702+00:00",
+                  "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                  "source_id": "pinned-registry:avian3d-0.7.0/src/physics_transform/transform.rs",
+                  "sha256": "5020a25a60cbe8b42d37cadf31c24a6d24dcde07df2c8f156ee45ff81e9c450b",
+                  "snapshot": "pinned-registry",
+                  "actual_EOF": 1275,
+                  "material_ranges": [
+                    [
+                      739,
+                      745
+                    ],
+                    [
+                      1051,
+                      1075
+                    ],
+                    [
+                      1092,
+                      1115
+                    ]
+                  ],
+                  "role": "Actual 3D Rotation publicquaternion declaration/derives and direct Transform/GlobalTransform/Quat/DQuat conversion bodies; scoped125-146 onlyprecedingcontext/RotationValuealias, not3DRotationdefinition",
+                  "actual_caller": "AssignedCamera354 current foreign nativeport contract; direct Camera308 physics_rotation.0",
+                  "reason": "Necessary actual scoped contract bodies prospectivelyregistered BEFOREanalysis; no wholeforeignpackage waiver",
+                  "exclusions": "Only selected current direct methods/declaration; otherforeign methods/source/tests excluded; qualifycontextedges afterread",
+                  "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\avian3d-0.7.0\\src\\physics_transform\\transform.rs",
+                  "status": "registered_before_direct_current03_body_analysis"
+                },
+                "qualification_history": [
+                  {
+                    "qualification_file": "camera-support/source-qualifications-011.jsonl",
+                    "row_1based": 9,
+                    "payload": {
+                      "id": "NATIVE-CAMERA-SUPPORT03-QUAL-081",
+                      "registration_id": "NATIVE-ADMISSION03-REG-081",
+                      "original_registration": {
+                        "id": "NATIVE-ADMISSION03-REG-081",
+                        "at": "2026-10-22T15:23:08.834702+00:00",
+                        "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-054.json",
+                        "source_id": "pinned-registry:avian3d-0.7.0/src/physics_transform/transform.rs",
+                        "sha256": "5020a25a60cbe8b42d37cadf31c24a6d24dcde07df2c8f156ee45ff81e9c450b",
+                        "snapshot": "pinned-registry",
+                        "actual_EOF": 1275,
+                        "material_ranges": [
+                          [
+                            739,
+                            745
+                          ],
+                          [
+                            1051,
+                            1075
+                          ],
+                          [
+                            1092,
+                            1115
+                          ]
+                        ],
+                        "role": "Actual 3D Rotation publicquaternion declaration/derives and direct Transform/GlobalTransform/Quat/DQuat conversion bodies; scoped125-146 onlyprecedingcontext/RotationValuealias, not3DRotationdefinition",
+                        "actual_caller": "AssignedCamera354 current foreign nativeport contract; direct Camera308 physics_rotation.0",
+                        "reason": "Necessary actual scoped contract bodies prospectivelyregistered BEFOREanalysis; no wholeforeignpackage waiver",
+                        "exclusions": "Only selected current direct methods/declaration; otherforeign methods/source/tests excluded; qualifycontextedges afterread",
+                        "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\avian3d-0.7.0\\src\\physics_transform\\transform.rs",
+                        "status": "registered_before_direct_current03_body_analysis"
+                      },
+                      "qualified_material_ranges": [
+                        [
+                          740,
+                          745
+                        ],
+                        [
+                          1051,
+                          1074
+                        ],
+                        [
+                          1092,
+                          1114
+                        ]
+                      ],
+                      "qualification": "Previousdocfence739/blank1075/1115 contextual; no2DRotation/otheroperations.",
+                      "actual_semantic_refs": [
+                        "contracts-004.json"
+                      ],
+                      "registered_before_body": true,
+                      "global_registry_reconciliation_pending": true,
+                      "later_lens_credit": false
+                    }
+                  }
+                ],
+                "current_proof_refs": {
+                  "actual_semantic_refs": [
+                    "contracts-004.json"
+                  ]
+                },
+                "body_rereads_for_this_normalization": 0,
+                "semantic_credit_from_metadata": false,
+                "producer_or_owner_or_later_lens_credit": false,
+                "global_reconciliation_pending": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                740,
+                745
+              ],
+              [
+                1051,
+                1074
+              ],
+              [
+                1092,
+                1114
+              ]
+            ],
+            "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\avian3d-0.7.0\\src\\physics_transform\\transform.rs",
+            "actual_EOF": 1275,
+            "bytes": 40830
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          120,
+          146
+        ],
+        [
+          739,
+          745
+        ],
+        [
+          1051,
+          1075
+        ],
+        [
+          1092,
+          1115
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "From<Rotation> for Quaternion",
+          "lines": [
+            1051,
+            1056
+          ],
+          "disposition": "KEEP small native field extraction with feature-selected Quaternion output. No universal component derive recommendation; reverse/native conversions coexist and feature-dependent representation must remain."
+        },
+        {
+          "trait": "From<Transform/GlobalTransform/&GlobalTransform> for Rotation",
+          "lines": [
+            1058,
+            1074
+          ],
+          "disposition": "KEEP explicit rotation selection/decomposition, distinct owned/borrowed input and native conversion."
+        },
+        {
+          "trait": "From<Quat/DQuat> for Rotation",
+          "lines": [
+            1092,
+            1114
+          ],
+          "disposition": "KEEP component-wise native precision conversion through Scalar, semantically different under f32/f64; no raw constructor derive replacing universal configurations."
+        }
+      ],
+      "existing_derives": "PreSolveDeltaPosition/Rotation native Default/Deref/From/optionalSerde already; 3dRotation native Default/Deref/Reflect/Component/optionalSerde already.",
+      "absence_basis": "Exact registered union personally consumed plus immediate PreSolveDeltaPosition annotation120\u2013124. No complete1275-line module credit or claim native configuration can be erased.",
+      "necessary_signature_extension": {
+        "additional_ranges": [
+          [
+            120,
+            124
+          ]
+        ],
+        "reason": "Full derive/feature metadata immediately above scoped PreSolveDeltaPosition declaration125."
+      }
+    },
+    {
+      "scope_index": 485,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/ray_caster.rs",
+      "sha256": "bcc49b636bc3db8ebe946f004414493433003c689a819ede071337f555cc7c52",
+      "actual_EOF": 410,
+      "requested_registration": {
+        "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/ray_caster.rs",
+        "snapshot": "pinned-registry",
+        "path": "CARGO_REGISTRY/avian3d-0.7.0/src/spatial_query/ray_caster.rs",
+        "sha256": "bcc49b636bc3db8ebe946f004414493433003c689a819ede071337f555cc7c52",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 13656,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 596,
+            "read_ranges": [
+              [
+                384,
+                415
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-NATIVE-PHYSICS-PORT-071"
+            ],
+            "read_status": "fresh_scoped_current_lens_actual_native_owner_and_receiving_body",
+            "resolved_path": "CARGO_REGISTRY/avian3d-0.7.0/src/spatial_query/ray_caster.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CAMERA-BOUNDARIES-048",
+            "json_pointer": "/current_sources/19",
+            "source_id_as_recorded": "pinned-registry:avian3d-0.7.0/src/spatial_query/ray_caster.rs",
+            "read_ranges_as_recorded": [
+              [
+                384,
+                415
+              ]
+            ],
+            "source_context": {
+              "index": 628,
+              "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/ray_caster.rs",
+              "path": "CARGO_REGISTRY/avian3d-0.7.0/src/spatial_query/ray_caster.rs",
+              "sha256": "bcc49b636bc3db8ebe946f004414493433003c689a819ede071337f555cc7c52",
+              "read_ranges": [
+                [
+                  384,
+                  415
+                ]
+              ],
+              "mode": "Fresh exact assigned native type/feature/cast/collider/hit-result numerical boundary source ranges, plus full cast body523\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153596; not wholeforeignmodule clearance."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "continuation_actual_producer_source_proofs": [
+          {
+            "record": "continuation/camera/reached-role-reconciliation/eof-role-qualification-012.json",
+            "json_pointer": "/fresh_source_and_immediate_receiver_proofs/0",
+            "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/ray_caster.rs",
+            "sha256": "bcc49b636bc3db8ebe946f004414493433003c689a819ede071337f555cc7c52",
+            "read_ranges": [
+              [
+                384,
+                410
+              ]
+            ],
+            "proof": {
+              "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/ray_caster.rs",
+              "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\avian3d-0.7.0\\src\\spatial_query\\ray_caster.rs",
+              "sha256": "bcc49b636bc3db8ebe946f004414493433003c689a819ede071337f555cc7c52",
+              "actual_EOF": 410,
+              "fresh_read_ranges": [
+                [
+                  384,
+                  410
+                ]
+              ],
+              "material_role_ranges": [
+                [
+                  384,
+                  410
+                ]
+              ],
+              "proof_mode": "fresh source body and current exact semantic recipient trace review; no execution"
+            },
+            "limits": "Actual source-role proof for producer lens only; no owner-fit or other-lens clearance."
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1328,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          382,
+          410
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "MapEntities",
+          "type": "RayHits",
+          "lines": [
+            382,
+            388
+          ],
+          "disposition": "KEEP native container loop for this bounded review; actual RayHits declaration/available container derive not fully established here, do not extend F007 to untraced container."
+        },
+        {
+          "trait": "MapEntities",
+          "type": "RayHitData",
+          "lines": [
+            406,
+            410
+          ],
+          "disposition": "F007 exact native derive equivalent on annotated entity field, preserving geometric fields."
+        }
+      ],
+      "existing_derives": "RayHitData structural/Reflect/optionalSerde already derives.",
+      "absence_basis": "Requested384\u2013415 clamped actualEOF410, plus implementation header382\u2013383 consumed; prefix375\u2013380 exploratory uncredited. Not whole410-line dependency.",
+      "necessary_signature_extension": {
+        "additional_ranges": [
+          [
+            382,
+            383
+          ]
+        ],
+        "reason": "Registered384 begins within actual MapEntities method; enclosing type/trait required."
+      }
+    },
+    {
+      "scope_index": 486,
+      "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/shape_caster.rs",
+      "sha256": "e7ddca53ee044c4814c925fffa7f172680988ea9456834049da965f16a5c6b66",
+      "actual_EOF": 612,
+      "requested_registration": {
+        "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/shape_caster.rs",
+        "snapshot": "pinned-registry",
+        "path": "CARGO_REGISTRY/avian3d-0.7.0/src/spatial_query/shape_caster.rs",
+        "sha256": "e7ddca53ee044c4814c925fffa7f172680988ea9456834049da965f16a5c6b66",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 21397,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 595,
+            "read_ranges": [
+              [
+                400,
+                472
+              ],
+              [
+                572,
+                614
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-NATIVE-PHYSICS-PORT-071"
+            ],
+            "read_status": "fresh_scoped_current_lens_actual_native_owner_and_receiving_body",
+            "resolved_path": "CARGO_REGISTRY/avian3d-0.7.0/src/spatial_query/shape_caster.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CAMERA-BOUNDARIES-048",
+            "json_pointer": "/current_sources/18",
+            "source_id_as_recorded": "pinned-registry:avian3d-0.7.0/src/spatial_query/shape_caster.rs",
+            "read_ranges_as_recorded": [
+              [
+                400,
+                472
+              ],
+              [
+                572,
+                614
+              ]
+            ],
+            "source_context": {
+              "index": 627,
+              "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/shape_caster.rs",
+              "path": "CARGO_REGISTRY/avian3d-0.7.0/src/spatial_query/shape_caster.rs",
+              "sha256": "e7ddca53ee044c4814c925fffa7f172680988ea9456834049da965f16a5c6b66",
+              "read_ranges": [
+                [
+                  400,
+                  472
+                ],
+                [
+                  572,
+                  614
+                ]
+              ],
+              "mode": "Fresh exact assigned native type/feature/cast/collider/hit-result numerical boundary source ranges, plus full cast body523\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153596; not wholeforeignmodule clearance."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "continuation_actual_producer_source_proofs": [
+          {
+            "record": "continuation/camera/reached-role-reconciliation/eof-role-qualification-012.json",
+            "json_pointer": "/fresh_source_and_immediate_receiver_proofs/1",
+            "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/shape_caster.rs",
+            "sha256": "e7ddca53ee044c4814c925fffa7f172680988ea9456834049da965f16a5c6b66",
+            "read_ranges": [
+              [
+                400,
+                612
+              ]
+            ],
+            "proof": {
+              "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/shape_caster.rs",
+              "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\avian3d-0.7.0\\src\\spatial_query\\shape_caster.rs",
+              "sha256": "e7ddca53ee044c4814c925fffa7f172680988ea9456834049da965f16a5c6b66",
+              "actual_EOF": 612,
+              "fresh_read_ranges": [
+                [
+                  400,
+                  612
+                ]
+              ],
+              "material_role_ranges": [
+                [
+                  400,
+                  491
+                ],
+                [
+                  572,
+                  612
+                ]
+              ],
+              "proof_mode": "fresh source body and current exact semantic recipient trace review; no execution"
+            },
+            "limits": "Actual source-role proof for producer lens only; no owner-fit or other-lens clearance."
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1327,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          395,
+          612
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Default",
+          "type": "ShapeCastConfig",
+          "lines": [
+            440,
+            444
+          ],
+          "disposition": "KEEP selected MAX distance and compute_contact_on_penetration=true policy via DEFAULT448\u2013453; fieldwise native Default is not equivalent."
+        },
+        {
+          "trait": "IntoIterator",
+          "type": "ShapeHits / &ShapeHits / &mut ShapeHits",
+          "lines": [
+            [
+              541,
+              548
+            ],
+            [
+              550,
+              557
+            ],
+            [
+              559,
+              566
+            ]
+          ],
+          "disposition": "KEEP small exact owned/shared/mutable iterator adapters and associated outputs; no equally available full three-mode derive feature established in scoped native manifest. Do not add dependency/features solely for cleanup."
+        },
+        {
+          "trait": "MapEntities",
+          "type": "ShapeHits / ShapeHitData",
+          "lines": [
+            [
+              568,
+              574
+            ],
+            [
+              608,
+              612
+            ]
+          ],
+          "disposition": "F007 native derive with annotated Vec field/entity field forwards exact native mapping; actual macro/Entity/Vec proof244."
+        }
+      ],
+      "existing_derives": "ShapeHits Component/Default/Deref/structural/Reflect/optionalSerde; ShapeHitData and config structural/Reflect/optionalSerde already derive.",
+      "absence_basis": "All scoped400\u2013614 clamped actualEOF612 consumed plus on_add_shape_caster beginning395\u2013399. Capacity/cast constructors/native defaults and sorting semantic functions. No whole612-line module credit.",
+      "necessary_signature_extension": {
+        "additional_ranges": [
+          [
+            395,
+            399
+          ]
+        ],
+        "reason": "Registered400 starts inside actual native hook capacity branch; whole reached395\u2013405 function consumed."
+      }
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Native transform precision and entity-bearing hit mapping",
+      "disposition": "F007 optional exact native MapEntities derive sites, retaining semantic/default/native conversions and iterator interfaces.",
+      "acceptance": "Native source belongs external pinned library; no patch/edit authorized. Preserve precise mapping invocation/order, feature precision, borrowed/owned interfaces, cast policy and non-entity geometry fields. No code/test/run/global count claim."
+    }
+  ],
+  "findings": [
+    "SEGOVB-INITIAL10-F007"
+  ],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 487,
+    "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/system_param.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

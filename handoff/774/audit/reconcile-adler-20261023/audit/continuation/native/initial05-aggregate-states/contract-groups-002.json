@@ -1,0 +1,110 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-002",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "at": "2026-10-22T18:38:50.282782+00:00",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+      "sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+      "scope014_index": 671,
+      "actual_EOF": 142,
+      "scoped_ranges_compared": [
+        [
+          1,
+          142
+        ]
+      ],
+      "group": "normalized-component-correlation",
+      "fresh_source_proof": "Fresh full PR current aggregate bodies; complete actual P16/P17 counterpart diff personally compared against current member/constructor/mutation/Serde/lift contracts. P17 max5lines explicitly compared below; no hash/verdict credit.",
+      "complete_actual_counterpart_diff": [],
+      "qualifier": "Original P16 request148 qualified EOF142; P17 actual147, PR orientation historical150 endpoints qualified EOF142; no nonexistent tail credit. Canonical original full source role preserved."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+      "sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+      "scope014_index": 44,
+      "actual_EOF": 142,
+      "scoped_ranges_compared": [
+        [
+          1,
+          142
+        ]
+      ],
+      "group": "normalized-component-correlation",
+      "fresh_source_proof": "Fresh full PR current aggregate bodies; complete actual P16/P17 counterpart diff personally compared against current member/constructor/mutation/Serde/lift contracts. P17 max5lines explicitly compared below; no hash/verdict credit.",
+      "complete_actual_counterpart_diff": [],
+      "qualifier": "Original P16 request148 qualified EOF142; P17 actual147, PR orientation historical150 endpoints qualified EOF142; no nonexistent tail credit. Canonical original full source role preserved."
+    },
+    {
+      "source_id": "report-p17:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+      "sha256": "10ec37a1c4a64e581565d0eb9c297d396a34c1c9134a8d210de29cecb77e88ee",
+      "scope014_index": 2436,
+      "actual_EOF": 147,
+      "scoped_ranges_compared": [
+        [
+          1,
+          147
+        ]
+      ],
+      "group": "normalized-component-correlation",
+      "fresh_source_proof": "Fresh full PR current aggregate bodies; complete actual P16/P17 counterpart diff personally compared against current member/constructor/mutation/Serde/lift contracts. P17 max5lines explicitly compared below; no hash/verdict credit.",
+      "complete_actual_counterpart_diff": [
+        "--- PR\n",
+        "+++ p17\n",
+        "@@ -27,6 +27,11 @@\n",
+        "         }",
+        "         Ok(Self(value))",
+        "     }",
+        "+    /// Native maximum of admitted finite radians, preserving signed zero.",
+        "+    pub fn max(self, other: Self) -> Self {",
+        "+        Self(self.0.max(other.0))",
+        "+    }",
+        "+",
+        "     pub fn radians(self) -> f32 {",
+        "         self.0",
+        "     }"
+      ],
+      "qualifier": "Original P16 request148 qualified EOF142; P17 actual147, PR orientation historical150 endpoints qualified EOF142; no nonexistent tail credit. Canonical original full source role preserved."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/clearance.rs",
+      "sha256": "f80012cc2b501a1972d07633692af386c5cf7997f9862ec94fc113006ee44f5a",
+      "scope014_index": 665,
+      "actual_EOF": 48,
+      "scoped_ranges_compared": [
+        [
+          1,
+          48
+        ]
+      ],
+      "group": "strict-extent-over-ordered-bounds",
+      "fresh_source_proof": "Fresh full PR current aggregate bodies; complete actual P16/P17 counterpart diff personally compared against current member/constructor/mutation/Serde/lift contracts. P17 max5lines explicitly compared below; no hash/verdict credit.",
+      "complete_actual_counterpart_diff": [],
+      "qualifier": "Original P16 request148 qualified EOF142; P17 actual147, PR orientation historical150 endpoints qualified EOF142; no nonexistent tail credit. Canonical original full source role preserved."
+    }
+  ],
+  "groups": {
+    "normalized-component-correlation": {
+      "relationship": "Individually finite coordinate/quaternion components do not guarantee collectively normalized direction/rotation. Private PlanDirection/SpatialDirection and RigidRotation must admit the complete correlated native payload, retain one frame and never expose component mutation. Radians scalar has no cross-field normalization requirement.",
+      "construction": "PR PlanDirection45–82 from_vector validates native Dir2 then normalizes completevector and invokes from_normalized. from_normalized validates nativevector then native is_normalized before committing private Dir2+PhantomData; Deserialize invokes from_normalized, preserving rejection of scaled decoded input rather than silentlynormalizing. SpatialDirection114–142 analogous complete XYZ. RigidRotation90–107 checks Quat finite AND is_normalized before privatecommit, manualSerde samefactory, IDENTITY valid. No public independentcomponent setter/mutable payload, Default or unchecked From route. Opaque reflection actual shared adapter only clones canonicalSelf.",
+      "retained_and_consumed": "PlanDirection::spatial70–76 lifts (x,y) to(x,0,y) in SAMEframe without changing squarednorm; internal native new_unchecked here follows algebraic embedding of alreadychecked pair, not a raw factory. vector/quaternion projections read-only and intentionally native math boundary. Native normalization tolerance retained, not exact-real unit equation or arbitrarypositive denominator policy invented. Any later rotationcomposition controller must re-admit results separately; not blanket operation clearance.",
+      "invalid_combination": "AllfiniteVec2(2,0), Vec3(2,0,0) and Quat(0,0,0,2) have valid scalar leaves but fail complete from_normalized/from_quaternion; from_vector deliberately accepts nonzero finite vector and normalizes beforecommit. Zero/nonfinite direction failsnativepredicate. Native signed/unwrapped finite Radians permits0/negative/multipleturn, so no artificial joint/anglewrap relation imposed.",
+      "per_source_exceptions": "P16 full142 current actualbody unchanged, sameprivatewholepayload/decoder/frame/lift contracts by explicitcomparison. P17 full147 adds Radians::max29–33 selecting existing finite scalar; this does not weaken complete normgate or add aggregate correlation. Exactdiff fiveaddedlines read, semanticrelationship independentlycompared.",
+      "disposition": "Controlledconstruction already closes actual valid-component invalid-combination gap for directions/quaternions. Keep current strict decode and explicitnormalize factory separate; no extra branding/newconstraint warranted.",
+      "connected_repair_acceptance": "Preserve native tolerance, frame/lift, quaternionfailure, signedunwrappedangles and source/error order. Track actual callers separately, especially coupled nonunit PlaneEquation that is NOT a direction aggregate; do not substitute unitnormal without coupledconstant rescale."
+    },
+    "strict-extent-over-ordered-bounds": {
+      "relationship": "General SpatialBounds permits equality; ClearanceVolume requires allthree complete computed extents finite and >0 in same frame. Individually admitted endpoints/orderedbounds can still be zero-thickness or have unrepresentable f32difference.",
+      "construction": "new13–27 first calls bounds.extent (checkedfinite Cuboid) then rejects each zeroaxis; privateSpatialBounds backing committed onlyafterallaxespass. from_metres28–33 and manualSerde44–48 route through wholebounds admission then SAME new. No Default/rawfield/setter; min/max/bounds projections read-only. Opaque clone typed-only under current adapter proof.",
+      "retention_and_consumer": "Private immutable copy retains original pair, no independently movedface can invalidate volume. Caller needingpositive clearance consumes this refined completebounds; genericbearing/collision tangency continuesusingzero-capableBounds. frombounds[(0,0,0),(1,0,1)] satisfies ordinaryorderedfinitebounds but clearance rejects Yzero. Arbitrarilythin positive admitted difference remainsvalid, no arbitraryminimumepsilon.",
+      "disposition": "Existing completeaggregate refinementsufficient. No currentinvalidconstructpath underadmittedleafcontract; inheritedRootF003coordinatebackingqualification remains separate.",
+      "acceptance": "Keep equality permittedforgenericbounds, strictpositive forallclearanceaxes, f32errororder, no minimumsizepolicy, canonicalwholeSerde and privatepayload."
+    }
+  },
+  "findings": [],
+  "status": "4 exactsourcevariant aggregate roles compared; wholeinventory remainsincomplete",
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

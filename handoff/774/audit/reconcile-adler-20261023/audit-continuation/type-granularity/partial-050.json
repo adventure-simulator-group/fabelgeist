@@ -1,0 +1,21 @@
+{
+  "id": "SEGO-INITIAL11-PARTIAL-050",
+  "ranges": [
+    [
+      1,
+      2879
+    ]
+  ],
+  "observations": [
+    "CombatantStrategicState intentionally excludes transientduelstate; defaultinitialization removes durablefatigue from startingincapacitation once, independentblood/mass/limb policies remain.",
+    "AnimationElapsed, BattleTime, SignedLength/SignedSpeed, UnitInterval already distinguish clocks/magnitude/direction/performance; actual nativeownerbodies pending own11.",
+    "BattleRecorder owns actualattack facts and sourceAttackResult before projection. Logcontact_stress is copy ofcontact_force; truephysicalunit stillneeds producer source, not naming.",
+    "AttackEffect retainedhit+damage/outputcoherence and optionaltelemetry areotherlensrelated; do notdeclaregenericallfields invalid or discardrealoptionalabstractinventoryidentity.",
+    "NativePartCount/round/sequenceindices areordinals, not inventedfiniteenums. Fullcombatant identityu64 versus equipment inventoryID roles independent; canonicalgenerated/strategic IDfitneedsactualsource.",
+    "Defeat predicates separate yielded from incapacitation; explicit ScheduledBattleSide hasclosedrole while attacker/targetindices arepopulationordinals.",
+    "Actualopening volley usesrange/speed\u2192time\u2192attackcount; directversustotalattacks arenamedcountswithrole, notprobabilities. ranged_attack_progress retains fractional attackcredit and mayexceed1; UnitInterval wouldunsupportedlynarrow it.",
+    "BattleOpening surprise routes take_side_turns beforejointloop; inheritedsurprisereplayNATIVE-INITIAL05-F065 isrelatedqualifiedlifecycle repair, but actualsidechildbodypending and own11 nofreshoperationalverdict."
+  ],
+  "status": "body complete at exact registeredrole; semanticcontracts013",
+  "next_line": null
+}

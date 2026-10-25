@@ -1,0 +1,92 @@
+{
+  "id": "CONT07-EXTENSION-CONTRACT-003",
+  "at": "2026-10-24T01:02:33.377224+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "registry_index": 21,
+      "source_id": "native-dependency:bevy_replicon-0.41.1/src/shared/replication/registry/rule_fns.rs",
+      "sha256": "07f3f73daff9344750ec08f54bd9acc8abec4a946040369ce1573c2b6a6b1073",
+      "ranges": [
+        [
+          40,
+          145
+        ],
+        [
+          162,
+          225
+        ]
+      ],
+      "read_kind": "fresh personally read exact registered source ranges",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/07f3f73daff9344750ec08f54bd9acc8abec4a946040369ce1573c2b6a6b1073"
+    },
+    {
+      "registry_index": 22,
+      "source_id": "native-dependency:bevy_replicon-0.41.1/src/shared/replication/rules.rs",
+      "sha256": "037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+      "ranges": [
+        [
+          1,
+          58
+        ],
+        [
+          262,
+          281
+        ],
+        [
+          890,
+          920
+        ]
+      ],
+      "read_kind": "fresh personally read exact registered source ranges",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6"
+    },
+    {
+      "registry_index": 23,
+      "source_id": "native-dependency:postcard-1.1.3/src/de/deserializer.rs",
+      "sha256": "20f5ff69404628e4d765f58ceb91b6ac8879ce998aef6dfe49a2fdb2c5f20ac2",
+      "ranges": [
+        [
+          208,
+          236
+        ]
+      ],
+      "read_kind": "fresh personally read exact registered source ranges",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/20f5ff69404628e4d765f58ceb91b6ac8879ce998aef6dfe49a2fdb2c5f20ac2"
+    },
+    {
+      "registry_index": 24,
+      "source_id": "native-dependency:serde_derive-1.0.229/src/de/enum_internally.rs",
+      "sha256": "9d898dbc1c46262f695ef7ba1660b2af70de48e07bbac8f44b740326b7c5b303",
+      "ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "read_kind": "fresh personally read exact registered source ranges",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/9d898dbc1c46262f695ef7ba1660b2af70de48e07bbac8f44b740326b7c5b303"
+    },
+    {
+      "registry_index": 25,
+      "source_id": "native-dependency:bevy_replicon-0.41.1/src/postcard_utils.rs",
+      "sha256": "4a9f413f61885f1581e0a3ddadb2528459e45bd2ea029a7a08ad3b2ab085d537",
+      "ranges": [
+        [
+          120,
+          143
+        ]
+      ],
+      "read_kind": "fresh personally read exact registered source ranges",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/4a9f413f61885f1581e0a3ddadb2528459e45bd2ea029a7a08ad3b2ab085d537"
+    }
+  ],
+  "facts": [
+    "Exact native replication rules replicate_once\u2192replicate_once_filtered\u2192RuleFns.default\u2192default_deserialize\u2192postcard_utils.from_buf, deserialize then map_entities. Serde internal-tag derive unconditionally calls deserialize_any54\u201356, postcard1.1.3 rejectsWontImplement214\u2013219. This personally verifies native receiver needed by earlier cross-lens terrain codec candidate; exact rootF52 alias/support, no new defect count and no network/codec execution.",
+    "RuleFns keeps distinct serialize/deserialize/inplace/history-consume operations coordinated through private construction; native history consuming is intentionally temporal policy, not second current component authority. Typed unsafe erased function association guards actual TypeId upstream, no inferred mismatch in scoped ranges.",
+    "ProtocolHasher and actual component rule registry both updated by one registration path; schema hash is native protocol identity versus actual codec registry, distinct but requires matching admitted source schema. No hash-based head clearance or invocation success claimed. Whole07 still incomplete pending source questions."
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "other_lens_credit": false
+}

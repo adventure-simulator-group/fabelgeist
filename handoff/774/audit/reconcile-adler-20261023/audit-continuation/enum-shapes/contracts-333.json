@@ -1,0 +1,24 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-333",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        400,
+        401,
+        402,
+        403,
+        404,
+        405
+      ],
+      "comparison": "Full exact 1115 + 248 + 11 + 252 + 29 + 95 source lines. ReachableTarget already distinguishes Occupied from EmptyAttachment with actual attachment payload; EquipmentAction owns each action payload and optional expected item means observed vacancy, not missing required request evidence. Actor authentication, revision, sequence and selected destination remain independently validated before one deferred action commits. Named accepted results are predicate outcomes rather than retained semantic mode flags. TacticalSceneItem Has is a queried ECS fact; scene/owner/slot/topology component correlation remains aggregate authority scope, not evidence that independent item capabilities must be one exclusive enum. Existing canonical CharacterLocation versus ItemAttachment anchors own their payload; F039 narrowing source support remains exact because authored_requirement accepts broad anchor and uses unreachable, while sole normal caller guards both CharacterLocation. Multi-parent attachment placements remain valid and chosen atomically; capacity index is an actual numeric slot, not arbitrary enum opportunity. Pure root placement excludes parent-only choices and hand-only weapon policy is retained. Descendants block transfers/drop, while no matching fit-zone intentionally falls back to absent fit-zone. Reconnect retains sequence history under new entity and discards queued old/new work. No tests executed.",
+      "disposition": "Valid payload enums retained; existing narrow-helper finding independently supported",
+      "finding_refs": [
+        "SEGO-INITIAL09-F039",
+        "SEGO-INITIAL09-F174"
+      ]
+    }
+  ],
+  "new_findings": [],
+  "limits": "Fresh P16 scoped source evidence only. No execution, edits, plan, generated schema edits, other-lens clearance or all09 clearance."
+}

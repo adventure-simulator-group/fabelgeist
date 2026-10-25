@@ -1,0 +1,127 @@
+{
+  "id": "CONT07-CONTRACT-442",
+  "at": "2026-10-23T21:56:49.691579+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1944,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation.rs",
+      "sha256": "6dd07ed9db5b93386803c3c441f3e84c340a217626c86b423f59563deaf1c739",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/generation.rs",
+      "actual_EOF": 204,
+      "ranges": [
+        [
+          1,
+          204
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1945,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation/geographic.rs",
+      "sha256": "b0a7c91fd0c9c09870ebcacd16ae968638ba3381e66e7d44b9ee6c7e6235236c",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/generation/geographic.rs",
+      "actual_EOF": 96,
+      "ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1946,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation/geographic/tests.rs",
+      "sha256": "567fff2185681d5767893b4a091f52e5d133ddd6a8576921b248cdd6e342bcbd",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/generation/geographic/tests.rs",
+      "actual_EOF": 39,
+      "ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1947,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation/grounding/tests.rs",
+      "sha256": "fbe00d6ad48ad16142a3f1e110a1d35f58a27b88aecf6198a15f357a8e411f22",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/generation/grounding/tests.rs",
+      "actual_EOF": 217,
+      "ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1948,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation/support_obstacles.rs",
+      "sha256": "275490834d4f7a36140e5d3a0739f5ce80d5a731c9d261f5645675bd4647f624",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/generation/support_obstacles.rs",
+      "actual_EOF": 87,
+      "ranges": [
+        [
+          1,
+          87
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1949,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/properties.rs",
+      "sha256": "f6b7e0173aefc53be5d5a32d2a1127e175f3101c199261306a1badca39d1c4bd",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/properties.rs",
+      "actual_EOF": 148,
+      "ranges": [
+        [
+          1,
+          148
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1950,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/recipes.rs",
+      "sha256": "cce4ce937c53b3edbb8c3ebc7e76f14b65139f4acc63770d448ed6712398e60e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/recipes.rs",
+      "actual_EOF": 112,
+      "ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "ROOT-OWNER-GEOGRAPHIC-HOME-067 full narrative"
+  ],
+  "facts": [
+    "1944 generate_unfurnished owns a local scene assembled from supported terrain then publishes its digest from same borrowed input. generate furnishes local result and returns only on success; partial interior mutations from1932 do not escape this normal error path. No stale input digest in this constructor. Caller-supplied environment_snapshot digest remains distinct API question.",
+    "1945 validates source, prepares exact programs, upsamples/repairs/coarse-admits, filters obstacles, builds ground and refines before later property grading. Ground and refined terrain share extent but distinct sampling resolution and physical facts. Source fixture1946 preserves full input and deterministic output, unexecuted.",
+    "1947 source fixtures reject missing/stale source and changed bound elevation, and compare complete supported preparation to full generation. This is positive qualification for normal immutable support handoff, not final all-path validity. Every original217 fixture line personally read.",
+    "1948 exclusion clearance deliberately adds physical pedestrian radius and native default skin, not grading region or movement allowance. Original full-disc fixture checks rock outside bare support still cleared by expanded envelope. Need actual configured-controller creation proof before equating this default to every runtime controller.",
+    "1949 confirms duplicate captured-home pose/dimensions are explicitly checked against actual playable/distant program in validate, before successful scene usage. Missing/moved/rotated/resized cases reject. PropertyId settlement identity is distinct from physical SceneBuildingId despite linked ordinal; no mere duplicate-field finding for checked snapshot binding.",
+    "1950 normal recipe generation creates plan from program and collision from same plan. Private recipe vector lookup/take uses full program, but public recipe fields, raw Serde and insert accept independent plan/collision/program. Separate public sites cache also trusts supplied program label. Fresh actual worker receive/from_products support proves conditional wrong-program association in F094; no claim normal generators disagree or arbitrary decoded corruption occurs in current runs.",
+    "Fresh supplemental source1542 full69,1545 full164,1548 full67 reread for F094. They were already original07-covered; no new unique increment or other-lens transfer."
+  ],
+  "new_local_findings": [
+    "CONT07-F094"
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1951,
+    "start_line": 1
+  }
+}

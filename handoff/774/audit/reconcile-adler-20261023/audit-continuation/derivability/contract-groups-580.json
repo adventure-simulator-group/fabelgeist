@@ -1,0 +1,359 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-580",
+  "at": "2026-10-25T16:06:22.836206+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 928,
+      "source_id": "pr-working:crates/adventuresim-core/src/foraging.rs",
+      "sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+      "actual_EOF": 1278,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/foraging.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/foraging.rs",
+        "sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+        "bytes": 42888,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+            "ranges": null,
+            "source_read_status": null,
+            "trace_refs": []
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                1278
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-FORAGING-001"
+            ]
+          },
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/supplemental-operation-receivers.json",
+            "ranges": [
+              [
+                535,
+                845
+              ]
+            ],
+            "source_read_status": "exact connected ranges; full counterpart or common body proof linked camera",
+            "trace_refs": [
+              "NATIVE-SUPP-OPERATION-001"
+            ]
+          },
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/supplemental-operation-shared-links.json",
+            "ranges": [
+              [
+                1,
+                1278
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-FORAGING-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 167,
+            "read_ranges": [
+              [
+                1,
+                1278
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-FORAGING-024"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/foraging.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-FORAGE-OUTBREAK-020",
+            "json_pointer": "/current_shared_actual_source_proofs/0/related_current_reads/0",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/foraging.rs",
+            "read_ranges_as_recorded": [
+              [
+                396,
+                431
+              ],
+              [
+                776,
+                830
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/foraging.rs",
+              "sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+              "read_ranges": [
+                [
+                  396,
+                  431
+                ],
+                [
+                  776,
+                  830
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/foraging.rs",
+              "scope": "bounded original source parser and requested duration/effect receiving bodies only"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-040",
+            "json_pointer": "/fresh_current_source_reads/0",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/foraging.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1278
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 157,
+              "source_id": "pr-working:crates/adventuresim-core/src/foraging.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/foraging.rs",
+              "expected_sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+              "observed_sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+              "read_ranges": [
+                [
+                  1,
+                  1278
+                ]
+              ],
+              "proof_mode": "Fresh full PR source and all original fixtures; P16 sampling exact same25 bytes fingerprint verified and semantically reconciled for same source/item/draw roles, not oldverdict reuse."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-MATERIAL-FORAGE-013",
+            "json_pointer": "/related_current_reads/0",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/foraging.rs",
+            "read_ranges_as_recorded": [
+              [
+                396,
+                431
+              ],
+              [
+                776,
+                830
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/foraging.rs",
+              "sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+              "read_ranges": [
+                [
+                  396,
+                  431
+                ],
+                [
+                  776,
+                  830
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/foraging.rs",
+              "scope": "bounded original source parser and requested duration/effect receiving bodies only"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/camera/traces.jsonl",
+            "receipt": "CONT-CAMERA-PP-007",
+            "json_pointer": "/exact_source_proofs/1/historical_exact_source_proofs/0",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/foraging.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1278
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 157,
+              "source_id": "pr-working:crates/adventuresim-core/src/foraging.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/foraging.rs",
+              "expected_sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+              "observed_sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+              "read_ranges": [
+                [
+                  1,
+                  1278
+                ]
+              ],
+              "proof_mode": "Fresh full PR source and all original fixtures; P16 sampling exact same25 bytes fingerprint verified and semantically reconciled for same source/item/draw roles, not oldverdict reuse."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/rig/pure-food-recipient-carry-forward-041.json",
+            "receipt": "RIG-CONT-PPS-PURE-FOOD-RECIPIENT-CARRY-FORWARD-041",
+            "json_pointer": "/sampler_subset_actual_proofs/0",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/foraging.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1278
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 157,
+              "source_id": "pr-working:crates/adventuresim-core/src/foraging.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/foraging.rs",
+              "expected_sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+              "observed_sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+              "read_ranges": [
+                [
+                  1,
+                  1278
+                ]
+              ],
+              "proof_mode": "Fresh full PR source and all original fixtures; P16 sampling exact same25 bytes fingerprint verified and semantically reconciled for same source/item/draw roles, not oldverdict reuse."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 315,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1278
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "DomainTarget",
+          "type": "ForagePlanTarget",
+          "lines": [
+            [
+              522,
+              522
+            ]
+          ],
+          "disposition": "KEEP explicit empty local trait opt-in; no available owning derive."
+        },
+        {
+          "trait": "DomainRequirement",
+          "type": "ForagePlanRequirement",
+          "lines": [
+            [
+              533,
+              533
+            ]
+          ],
+          "disposition": "KEEP explicit empty local trait opt-in."
+        },
+        {
+          "trait": "DomainCapability",
+          "type": "ForagePlanCapability",
+          "lines": [
+            [
+              540,
+              540
+            ]
+          ],
+          "disposition": "KEEP explicit empty local trait opt-in."
+        },
+        {
+          "trait": "DomainInterruption",
+          "type": "ForagePlanInterruption",
+          "lines": [
+            [
+              546,
+              546
+            ]
+          ],
+          "disposition": "KEEP explicit empty local trait opt-in."
+        },
+        {
+          "trait": "DomainEffect",
+          "type": "ForagePlanEffect",
+          "lines": [
+            [
+              565,
+              565
+            ]
+          ],
+          "disposition": "KEEP explicit empty local trait opt-in."
+        },
+        {
+          "trait": "PublicPreview",
+          "type": "ForagePublicPreview",
+          "lines": [
+            [
+              574,
+              574
+            ]
+          ],
+          "disposition": "KEEP explicit empty local trait opt-in; public preview intentionally limited payload."
+        },
+        {
+          "trait": "DomainRightsSubject/DomainRightsResource/DomainRightsOperation/DomainJurisdiction",
+          "lines": [
+            [
+              578,
+              591
+            ]
+          ],
+          "disposition": "KEEP four explicit empty local trait opt-ins; no owning ready derive. No claim on imported definitions coverage."
+        }
+      ],
+      "existing_derives": [
+        "Forage closed vocabulary structural snake_caseSerde40\u201369",
+        "ForageResource/Environment/Yield/Resolution and planner/right vocabulary structural; LocalTerrainMixture also Default/Serde286"
+      ],
+      "absence_basis": "Full1278 personally consumed575\u2013580. Other code native authored resources, duration/source/environment checks, deterministic yield/exposure, typed rights/digest/admission, planner requirements/effects and existing fixtures. No hand standard trait/codec or unneeded mechanical serializer; imported trait definitions remain separately pending."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Forage native simulation, rights and typed planner adapters",
+      "disposition": "Keep checked native constructors/digest framing and semantic requirement/effect assembly; existing structural derives cover boilerplate. Explicit empty local trait opt-ins retained; no dependency/derive proposed solely to eliminate one-line implementations. No tests or repairs."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 929,
+    "source_id": "pr-working:crates/adventuresim-core/src/foraging/sampling.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

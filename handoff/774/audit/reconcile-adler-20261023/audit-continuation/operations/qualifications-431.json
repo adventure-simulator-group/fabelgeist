@@ -1,0 +1,58 @@
+{
+  "cloud_wind_exact_alias": [
+    {
+      "archive_file": "audit/continuation/camera/initial07-redundant-authority/findings.jsonl",
+      "record_index": 40,
+      "record": {
+        "id": "CAMERA-INITIAL07-F041",
+        "at": "2026-10-23T04:43:22.568214+00:00",
+        "lens": "audit-redundant-authority",
+        "classification": "conditional cache dependency / coordinated wind trajectory migration",
+        "contract": "CAMERA-INITIAL07-CONTRACT-217",
+        "source_roles": {
+          "clouds.rs": [
+            [
+              370,
+              409
+            ],
+            [
+              527,
+              571
+            ],
+            [
+              909,
+              942
+            ],
+            [
+              971,
+              983
+            ],
+            [
+              1035,
+              1109
+            ]
+          ],
+          "clouds/noise.rs": [
+            [
+              40,
+              54
+            ]
+          ],
+          "tactical_clouds.wgsl": [
+            [
+              61,
+              96
+            ]
+          ]
+        },
+        "authorities": "CloudBakeRequest.wind_velocity captured in endpoint image; current SceneEnvironment wind becomes shader cloud_motion.xy separately",
+        "counterexample": "Representable same scene digest/latitude/longitude/6h seed and identical cloud layer snapshots, wind changes from A to B after initial bake. CloudBakeKey stays equal; queued and subsequent requests retain A by completed.request.wind_velocity, shader compensates endpoints with B. For nonzero endpoint/blend, sampled density advection and compensation differ. No current normal weather transition/asset/runtime asserted.",
+        "actual_receiver": "cloud_bake_image subtracts request advection from density/lighting sample positions; shader wind_compensated_direction offsets endpoint ray with current motion.xy before texture sample. Old wind remains through queued/pending installation under same key.",
+        "connected_repair": "One canonical bake trajectory binds wind and endpoint evolution to retained image identity; either invalidate/rebuild same cohort when wind changes or integrate explicit coordinated advection history and pass actual image trajectory to shader. Do not merely add another independent wind field or freeze current weather unknowingly.",
+        "acceptance": "Changing only wind in a representable same-layer/same-seed environment cannot combine captured-A images with current-B compensation; stale async completions rejected; still preserve warm-start prebaked input/freeze modes and continuous adjacent endpoint optical handoff. Existing tests conceptual only, no added/executed tests.",
+        "normal_path_qualification": "Actual public/current environment and mutable update operation observed; no installed generator transition or rendering reproduction claimed. May choose explicit immutable wind-cohort contract only if actual lifecycle enforces it."
+      }
+    }
+  ],
+  "disposition": "Packet427 full actual source read adds04 support to same captured-bake-wind/current-shader-wind authority finding. Preserve same-layer/same-seed conditional transition and no actual renderer reproduction. No new unique finding."
+}

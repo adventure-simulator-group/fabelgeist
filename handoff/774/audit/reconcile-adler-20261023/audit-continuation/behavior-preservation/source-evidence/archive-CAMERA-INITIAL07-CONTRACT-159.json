@@ -1,0 +1,100 @@
+{
+  "id": "CAMERA-INITIAL07-CONTRACT-159",
+  "at": "2026-10-23T02:15:42.568540+00:00",
+  "lens": "audit-redundant-authority",
+  "members": [
+    {
+      "scope049_index": 283,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/hostile_negotiation.rs",
+      "sha256": "f880f5a870da48b140f53c29d60b2663fe7e2f6b2ab1bac4d064ba884e8cab89",
+      "actual_EOF": 687,
+      "material_ranges": [
+        [
+          1,
+          687
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-049.json#/files/283"
+    },
+    {
+      "scope049_index": 284,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/hostile_negotiation/spokesman.rs",
+      "sha256": "859e2cce6e284240050cd19aadc0485b78d976c29aa738ca1c0c08734696b03d",
+      "actual_EOF": 27,
+      "material_ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-049.json#/files/284"
+    },
+    {
+      "scope049_index": 285,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/hostile_surrender.rs",
+      "sha256": "e2f5748256966b0c213139b3738202af3e71b51ae7b1d2be57814e76e66553d5",
+      "actual_EOF": 417,
+      "material_ranges": [
+        [
+          1,
+          417
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-049.json#/files/285"
+    },
+    {
+      "scope049_index": 1221,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/hostile_negotiation.rs",
+      "sha256": "9fc4780022d9229014f92e14ea895c8d0a07a7aca3cbb61dbe87957cc6190c7e",
+      "actual_EOF": 687,
+      "material_ranges": [
+        [
+          1,
+          687
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-049.json#/files/1221"
+    },
+    {
+      "scope049_index": 1222,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/hostile_negotiation/spokesman.rs",
+      "sha256": "859e2cce6e284240050cd19aadc0485b78d976c29aa738ca1c0c08734696b03d",
+      "actual_EOF": 27,
+      "material_ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-049.json#/files/1222"
+    },
+    {
+      "scope049_index": 1223,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/hostile_surrender.rs",
+      "sha256": "f1b6b291bd216720319051244c99925d2f4797fef16883a2f37d1bbb6350d2ba",
+      "actual_EOF": 417,
+      "material_ranges": [
+        [
+          1,
+          417
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-049.json#/files/1223"
+    }
+  ],
+  "actual_source_proof": "Personally consumed substantive full-current source facts RIG-CAMERA-ADM03-601/602/603, then current07 fresh P16negotiation1-551/552-632, surrender1-377 and spokesman1-27. Actual complete PR/P16 body diffs: negotiation one return alias, surrender three return aliases; spokesman same body explicitly compared for same current role. First combined output truncated negotiation467-551: fresh407-551 separately reviewed; unseen output not credited.",
+  "contracts": [
+    "Negotiation/surrender backend availability is recomputed from current active group, current case/site, current party leader/location, actual context membership/living state/revision, pending contextual capability and language. The public DTO carries spokesman/revision as a claim, not independent durable authority: reducers re-resolve exact claims and again re-resolve immediately before accepted shared transition. World-actor temporal validity and canonical language/mental kernels remain separate lower contracts, not cleared by type names.",
+    "Unique spokesman is derived from current filtered memberships using unique minimum ordinal79-99; ties yieldNone and strictly lower later ordinal clears prior ambiguity. View helper and reducer repeat the exact predicate across native View/Reducer ports; one canonical predicate/projection policy should own this logic where dependency fit permits. No stored independent spokesman cache or normal stale selected-spokesman commit is established by these bodies.",
+    "Backend latest_response deliberately selects historical receipt by occurred_at minute; old Refused response may remain after changed circumstances while current decision availability is recomputed. Receipt outcome and response describe the same past event, not current hostile disposition to rewrite after later action. Exact replay precedes mutable authority check so already-completed request remains idempotent; it must not redo assessment against current morale/affinity or resurrect group.",
+    "Surrender mode is derived from current Core assessment at projection and again at resolver. Demand requires no optional offer answer; Offer requiresSome(bool), and Declined differs from Refused. Current live assessment rejects stale or forged mode; accepted transition updates whole group via shared commit, declined offer leaves it unchanged, refused demand changes directed affinity only. These are orthogonal request/decision/result facts, not values to force equal.",
+    "View surrender_offer_elected passes zero social ability/affinity while reducer computes actual values; this explicit Core lower dependency must confirm offers_surrender depends on language/morale/awareness rather than assume all assessment inputs identical. No disagreement claimed from differing call arguments alone. Actual Core strategic_action source remains queued for current07 and must close this exact dependency.",
+    "Authored threat sapience/negotiability/morale and local public awareness are read through profile/case owner rather than copied into receipt as current facts. Context discriminator exact_case_context is stable wire grammar shared in producer/consumer, supports canonical codec graphF010. Case/group/party identifiers retained in historical receipts are event bindings, not extra current location or membership values. Shared resolution updates/objective invalidation remain externally queued before whole graph clearance."
+  ],
+  "findings": [],
+  "existing_finding_support": [
+    "CAMERA-INITIAL07-F010"
+  ],
+  "connected_repair_acceptance": "Retain explicit current authority re-resolution and immutable replay/history; consolidate repeated semantic predicates through canonical owners without merging native context adapters or activating history as current state. Close actual Core offers_surrender input dependence and shared commit/world membership lifecycles before final graph acceptance.",
+  "status": "Exact6 source inventories with explicit actual lower-operation dependencies; no normal stale decision defect established"
+}

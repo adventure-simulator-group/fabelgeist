@@ -1,0 +1,48 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-761",
+  "at": "2026-10-25T16:43:35.710602+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 996,
+  "source_id": "pr-working:crates/adventuresim-core/src/skill.rs",
+  "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "PlayerAttributes",
+      "type": "tests::Aptitudes",
+      "lines": [
+        [
+          138,
+          159
+        ]
+      ],
+      "disposition": "KEEP selector-specific synthetic fixture values, not delegation"
+    },
+    {
+      "trait": "PlayerBody",
+      "type": "tests::ArmHealthBody",
+      "lines": [
+        [
+          163,
+          179
+        ]
+      ],
+      "disposition": "KEEP arm-specific health and synthetic healthy other parts/mass/side"
+    }
+  ],
+  "analysis": [
+    "Skill uses existing enum_assoc::Assoc16\u2013117 for authored maxhours/kind/trained and structural derives. Test Aptitudes PlayerAttributes138\u2013159 selects custom arg-dependent Agility/mental values and defaults; ArmHealthBody PlayerBody163\u2013179 custom arm-only health/default other bodymass/side, not field delegation. KEEP synthetic fixture behavior, no equivalent mechanical derive."
+  ],
+  "first_unfinished": {
+    "scope_index": 996,
+    "line": 221
+  },
+  "execution": "none"
+}

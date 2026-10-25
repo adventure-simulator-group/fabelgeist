@@ -1,0 +1,137 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1285",
+  "at": "2026-10-25T18:22:33.055933+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1350,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/presentation.rs",
+      "sha256": "6a067389a1cdcbddd0dd3814f95e17664351794be139353572edd19928a18171",
+      "actual_EOF": 867,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/presentation.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/animation/presentation.rs",
+        "owner": "native",
+        "sha256": "6a067389a1cdcbddd0dd3814f95e17664351794be139353572edd19928a18171",
+        "base_sha256": "b13c52abe9f62747b3b62fd6b8d290d01c32fd2db275a8a7a6b527ad8347e6d5",
+        "state": "modified",
+        "bytes": 35002,
+        "audit_owner": "native",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+            "ranges": null,
+            "source_read_status": null,
+            "trace_refs": []
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                245,
+                320
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-CAP-001"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 761,
+            "read_ranges": [
+              [
+                1,
+                867
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-MOTION-CAPTURE-RECEIVER-120"
+            ],
+            "read_status": "shared-current-lens-body-proof",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/presentation.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 181,
+            "read_ranges": [
+              [
+                1,
+                867
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-PRESENTATION-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/presentation.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 523,
+            "read_ranges": [
+              [
+                1,
+                867
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-PRESENTATION-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/presentation.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera",
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": 581,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          867
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "PresentedSkeleton Component Debug Clone targeted derive_more Deref(state); PresentedAttackPhase Debug Clone Copy.",
+      "absence_basis": "Complete actual body includes contextual constructor/current-state matches/phase prediction and error correction/native skeleton update/quickstep/attack/cadence coordination and fixtures. No handwritten trait/customcodec. Selected action identity comparisons are deliberate partial predicates, not derived whole equality."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Structural delegation already derives; current authoritative-presentation phase/tick/state semantics and fixture construction retain multi-input checked behavior.",
+      "disposition": "NO_HANDWRITTEN_TRAIT_OR_CODEC",
+      "qualification": "No fixture/client/system execution, no adjacent child coverage or correctness verdict transfer."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1351,
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/presentation/attack.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

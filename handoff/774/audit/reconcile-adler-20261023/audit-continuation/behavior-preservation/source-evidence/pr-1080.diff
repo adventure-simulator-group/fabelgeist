@@ -1,0 +1,32 @@
+--- PRbase/crates/adventuresim-stdb-module/src/character/attachment_capacity.rs
++++ frozen/crates/adventuresim-stdb-module/src/character/attachment_capacity.rs
+@@ -0,0 +1,29 @@
++//! Capacity selection at the native equipment-occupancy table boundary.
++
++use super::EquipmentOccupancy;
++
++/// A transaction-local reservation is distinct from every stored item ID.
++pub(super) enum AttachmentCapacity {
++    Free,
++    Reserved,
++    /// The table's native inventory_item_id; all u64 values remain valid.
++    Occupied(u64),
++}
++
++impl From<EquipmentOccupancy> for AttachmentCapacity {
++    fn from(row: EquipmentOccupancy) -> Self {
++        Self::Occupied(row.inventory_item_id)
++    }
++}
++
++pub(super) fn first_free_attachment_capacity(
++    capacity: u16,
++    inventory_item_id: u64,
++    mut occupant_at: impl FnMut(u16) -> AttachmentCapacity,
++) -> Option<u16> {
++    (0..capacity).find(|index| match occupant_at(*index) {
++        AttachmentCapacity::Free => true,
++        AttachmentCapacity::Reserved => false,
++        AttachmentCapacity::Occupied(occupant) => occupant == inventory_item_id,
++    })
++}

@@ -1,0 +1,29 @@
+{
+  "id": "RIG-INITIAL06-GROUP-387",
+  "at": "2026-10-23T09:55:23.690585+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "animation-loading-adapter": {
+      "comparison": "Fresh full390. Canonical AnimationPackCatalog/Pack/Library, MotionKey, AuthoredAnimationFrame, ClipTime/Duration, WeaponGrip and RigJointName are retained until AssetServer/native clip or hierarchy operations. Name is an explicit native scene boundary converted once to AuthoredRigJoint with cached semantic classification295, not repeatedly parsed strings downstream. AnimationTargetId is Bevy name-path identity, different RigJointOrdinal and semantic BoneRole; compatibility here means current skeleton target membership, not forbidden backward compatibility shim. Catalog fallback graph is explicit current authored policy, not alias to stale API. MotionLoad/Pending/Unavailable/Ready asynchronous state differs loaded clip definition. frame_seconds177 converts authored ordinal through actual samplefrequency to ClipTime at engine port; no StrategicMinute or elapsed-vs-duration collapse. AssetPath converts canonical AnimationAssetPath at real load boundary; native filepath not packidentity. No called motion admission/helper body credit.",
+      "disposition": "Canonical animation/rig owners composed through native asset/name/time adapters, no competing type owner."
+    },
+    "ragdoll-entry-roles": {
+      "comparison": "Fresh full359 incl original test;145-190 truncation recovered. RigJointOrdinal/Table used for actual joint worldaffines and mapping to body indices; body usize is index into RagdollDefinition bodies, not rig ordinal. BodySeed word seed means initial physics position/rotation/velocities, completely different deterministic Seed. MuscleTarget relative rotation is parent-body frame, world BodySeed and bone bind rotation distinct. PoseBufferRig sample interval canonical PositiveAnimationDuration used as finite difference denominator with deliberate native floor; no generic gameplay clock. Native affine/quaternion/linear/angular velocity and final Avian components are genuine math/physics ports; BodySeed retained checked pose/velocity roles can use shared lower spatial numeric leaves per F034, not blanket exemption of all internal ragdoll data. Client-only collision island and RagdollPart entities not strategic authority. Topological joint order returns canonical ordinals, cycle break policy not automatic hierarchy proof. Geometry lower canonical radius/margin and joint angle limits preserved. Test source only/no physics execution.",
+      "disposition": "Rig joint, ragdoll body, world/local physics and deterministic identity meanings distinguished; canonical host types reach native engine ports."
+    },
+    "vista-detail-projection": {
+      "comparison": "Fresh full362. VistaLevelIndex terrain ring role distinct mesh near/far visibility representation and TreeLod/MHR; canonical Seed per-cell streams differ species/variant and source digest identity. EnvironmentalSample raw BP values projected bps() then ecological weights support existing F019 propagation, not all canopy inputs percent by name. ScenePlanPoint re-admitted before scene query; raw origin/spacing/extent/height maths are actual native interpolation and transform ports, with retained VistaLod owner invariants separately scoped. RockRecipe canonical integer-cm dimensions and SignedLength lift remain until mesh/transform; no human mass caps or positive all signed lengths. Tree stand density/candidatecount and per-tree scales intentionally different, scale1.25 valid; projected_bounds.w cardheight metric not alpha so F005 preserve mixed lanes. Canonical procedural geometry parameters reused rather than new species mesh owner; cached asset/provenance and source terrain authority differ. No called lower cache/tree height/streams/bps body credit from this source.",
+      "disposition": "Vista native presentation adaptation and canonical terrain/seed/species ownership distinguished; existing spatial/BP/digest propagation limits retained."
+    }
+  },
+  "supporting_existing_findings": [
+    "F001",
+    "F005",
+    "F019",
+    "F031",
+    "F034",
+    "F035"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit."
+}

@@ -1,0 +1,151 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-225",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/world_actor.rs",
+      "sha256": "232be94a5acf0de9c374f0c16d546051e2d007c1005510b0adb7f3c0d41b28f6",
+      "actual_EOF": 1353,
+      "actual_compared_ranges": [
+        [
+          1,
+          1353
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/world_actor/roster.rs",
+      "sha256": "9b4cde3a9009140eb19a6dab12c897dc30ea527fd5cb976c867d651f62c73a07",
+      "actual_EOF": 28,
+      "actual_compared_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor.rs",
+      "sha256": "a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95",
+      "actual_EOF": 1353,
+      "actual_compared_ranges": [
+        [
+          1,
+          1353
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor/roster.rs",
+      "sha256": "9b4cde3a9009140eb19a6dab12c897dc30ea527fd5cb976c867d651f62c73a07",
+      "actual_EOF": 28,
+      "actual_compared_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Roster count/ordinal identity and immutable materialization",
+      "source_ranges": {
+        "world_actor.rs": [
+          [
+            1,
+            590
+          ]
+        ]
+      },
+      "disposition": "Full P16 body and all actual PR deltas consumed. Generic materializer min(count,u16MAX) caps expected65535 and subsequent range casts safe0..65534; it silently truncates requested raw count above supported bound, requiring actual caller/retained count relation, not proof a normal compiled cast exceeds capacity. Existing partial roster assumes dense unique ordinals from writer: it checks length/kind/location/Counterparty then appends starting at len; it does not re-prove prefix indices or Character existence on complete retry. Actual initial materializer writes dense indices and collision-rejects actual Character ID, so malformed retained partial state is not ordinary reachability. Road cast uses checked ordinal from actual enumerate, materializes only Character-backed mortal speakers, preserves explicit narrative collectives/blocked figures. Exact retry rejects missing half-state and immutable authoring difference. Rebind preserves road Character ID and validates existing core identity fields; deeper interval/revision/rawstate claims remain canonical aggregate dependency. Patient seeded cut.35/bloodloss.30 are bounded actual payload."
+    },
+    {
+      "contract": "Presence intervals, live treatment and revision operations",
+      "source_ranges": {
+        "world_actor.rs": [
+          [
+            591,
+            1152
+          ]
+        ],
+        "world_actor/roster.rs": [
+          [
+            1,
+            28
+          ]
+        ],
+        "world_actor/presence.rs": [
+          [
+            1,
+            196
+          ]
+        ]
+      },
+      "disposition": "Fresh interval helper proves halfopen entered<=minute<left and rejects reversed closure; close only once, max(minute,entered) and revision saturation do not reopen an interval. Missing refresh clock defaultsZERO thenclampsentered on cleanup; actual failure/temporal policy question, not a normal faulty timestamp. Actual case/hostile contact uses membership revision (projection also membership revision); road/strategic contact uses mutable contact/encounter revision. Do not mechanically treat different revision authorities as same fact. Terminal MAX successor saturation is a strengthening for mutable contact stale-claim semantics, no ordinary MAX counter or new unique graph. Exact receipt binds actor/target/publicreference/expected revision and prevents sameaction repeated effects. New distinct actions intentionally allow interaction again (actual guarded fixture tests repeated contact), so do not label all repeated social gain duplication. Self treatment disallows contextclaim; nonself exactone membership/presence and explicit refusal priority, live emergency bandage only exact limb/incapacitation. Post-wait decision checks actual permission/emergency but not all initial procedural need predicates, so full procedure revalidation remains surgery owner policy dependency."
+    },
+    {
+      "contract": "Projection and actual social side effects",
+      "source_ranges": {
+        "world_actor.rs": [
+          [
+            1,
+            290
+          ],
+          [
+            1153,
+            1353
+          ]
+        ],
+        "social.rs": [
+          [
+            1620,
+            1745
+          ],
+          [
+            1900,
+            1960
+          ]
+        ]
+      },
+      "disposition": "Gateway projection exact scope/visibility before emitting private minimal context fields; fixed seven-limb emergency scan has no unbounded numeric operation. Membership/context view cardinality and receipt action-ID bounded160; full table fanout remains work-budget dependency. Contact commits awareness/choice removal and revision before fallible asyncsocial child/receipt, SDK atomicity required. Fresh social helper confirms caller owns idempotency; each distinct accepted contact adds fixed10 pairwise-soft social minutes, no canonical time consumption. Physiology presence begins only if no openpair span. Source fixtures tiny, text assertions not execution; no new ordinary defect or clearance."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [
+    {
+      "path": "physical-p16-unscoped-dependency/crates/adventuresim-stdb-module/src/world_actor/presence.rs",
+      "git": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "39cd6d057c070e586f5701d068b930beaafe12dc00d68465ffd460ede664c5ea",
+      "actually_read_ranges": [
+        [
+          1,
+          196
+        ]
+      ],
+      "coverage": "Fresh exact helper body, no additional original role credit."
+    },
+    {
+      "path": "physical-p16:crates/adventuresim-stdb-module/src/social.rs",
+      "actually_read_ranges": [
+        [
+          1620,
+          1745
+        ],
+        [
+          1900,
+          1960
+        ]
+      ],
+      "coverage": "Fresh critical recipient reread of already completed role, no new coverage."
+    }
+  ],
+  "status": "4 original roles personally compared; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-strategic-sim/src/investigation_eval/report.rs"
+}

@@ -1,0 +1,49 @@
+{
+  "id": "RIG-INITIAL06-PENDING-059",
+  "at": "2026-10-22T21:48:13.468510+00:00",
+  "supporting_partials": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/weather.rs",
+      "actual_read_ranges": [
+        [
+          1,
+          160
+        ],
+        [
+          258,
+          320
+        ]
+      ],
+      "remaining": "Other958 source roles, no broad all_bps verdict yet"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_time.rs",
+      "actual_read_ranges": [
+        [
+          1,
+          115
+        ],
+        [
+          344,
+          365
+        ]
+      ],
+      "remaining": "Other full860 source roles"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/sky/mod.rs",
+      "actual_read_ranges": [
+        [
+          210,
+          275
+        ],
+        [
+          590,
+          600
+        ]
+      ],
+      "remaining": "Other full827 roles; native frame adapter594–595 actual body compared"
+    }
+  ],
+  "prior_partials": "058 Bestiary/1119container/1458browser remain incomplete"
+}

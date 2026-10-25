@@ -1,0 +1,107 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-175",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "sha256": "da8832af71a29edfd807274456fa4ee5890834beec5b80ef726e55b8399eaf7b",
+      "actual_EOF": 868,
+      "actual_compared_ranges": [
+        [
+          1,
+          868
+        ]
+      ],
+      "method": "Full P16 literal body read, full PR textual diff consumed; only retrieval return error owner differs, analyzed against surrounding mutation path."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "sha256": "05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+      "actual_EOF": 868,
+      "actual_compared_ranges": [
+        [
+          1,
+          868
+        ]
+      ],
+      "method": "Full P16 literal body read, full PR textual diff consumed; only retrieval return error owner differs, analyzed against surrounding mutation path."
+    }
+  ],
+  "dependency_reads": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/food.rs",
+      "sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+      "ranges": [
+        [
+          340,
+          415
+        ]
+      ],
+      "coverage": "Fresh critical supplier bodies, no added whole role credit"
+    }
+  ],
+  "groups": [
+    {
+      "id": "Ingredient admission and deterministic selection",
+      "locations": "cooking1-498",
+      "trace": "Selected fractions parsed<=whole, nonempty aligned lists, manual lane<=32, duplicate/zero selected IDs rejected. Positive fraction<=available proves available>0 for ratio division. Personal requires custody and unequipped row; party requires matching party. Vessel assembly deliberately reads direct children only despite preceding stale all-depth documentation; nested ingredients left in place. Actual persisted fixture/return custody gates station and scope. Pot requires positive water; material contribution Microliters summed checked and <=publicvolume. Core duration checks finitepositive mass<=25 and checked setup/safety/batch additions, so successful mass total finite; this does not certify kcal/value/flavor/growth aggregates. New qualified nutrition/value overflow record supplied. item_quantity sum only presencepredicate and actual singleton utensil admission not fully joined; no ordinary overflow asserted.",
+      "disposition": "Keep local food product/association/provenance graph open. Stale nested-depth doc is behavior/comment evidence, not new operations finding. Actual checked selected-ID uniqueness counters claims duplicate inputs necessarily double-consume here.",
+      "dependencies": [
+        "SEGOVB-04-COOKING-SUM-001",
+        "local774:M29",
+        "Native fixture custody and material liquid contribution owners"
+      ],
+      "acceptance": "Whole admitted cooking selection binds identity, fractions, custody and finite computed dish fields before mutation. Preserve direct-content policy and actual fixed batch bound."
+    },
+    {
+      "id": "Mutation, retrieval and provenance settlement",
+      "locations": "cooking498-816",
+      "trace": "Water deletion/ingredients consumption begins after nominal preflight; partial retain_lot_fraction may still reject exhausted revision inside loop. SDK transactional propagation needed before asserting partial committed consumption. Full selectedfraction deletes lot/row; partial does checked remaining subtraction protected by earlier <= and uniqueness. Dish retains ingredient IDs/quantities and medicinal parallel arrays from one ordered map; actual other dish construction not globally proven. Retrieval validates fixture/custody/party and vessel selector; reads elapsed absolute clock, uses saturated quality floor1, computes nutrient/value and provenance. Floating conservation check compares absdifference to tolerance; raw nonfiniteproducts can make predicatefalse viaNaN, so finite whole aggregate must precede relying on it, not asserted as ordinary finite authored failure. New meal location is mutually selected Personal/Party. Medicinal zip safely follows arrays generated together here, but not universal native schema certificate. Final capability refresh is fallible and only actual actor; party/other recipient settlement remains graphdependency.",
+      "disposition": "No independent committed partial-state allegation. Preserve ingredient revision exhaustion result, provenance shape and explicit floating tolerance policy. Existing CAM-PPS missing chronology graph applies to current_minute receiver, not all truezero timestamps.",
+      "dependencies": [
+        "local774:M29",
+        "Inventory object custody and amount receiver",
+        "SDK reducer atomicity/internal catches",
+        "Canonical clinical potency and food provenance owners"
+      ],
+      "acceptance": "Successful retrieval conserves admitted material/provenance within explicit tolerance and finite arithmetic; no false pass through nonfinite comparison. Rejection cannot commit half one logical assembly/retrieval, and terminal interruption policy must stay explicit."
+    },
+    {
+      "id": "Preview parity",
+      "locations": "cooking819-868",
+      "trace": "Preview enforces aligned positive unique fraction selection and availableamount before ratio. Positivefraction rejects availablezero. Preview safety uses raw ingredient cooking_minutes, while assembly uses Cut/Ground factor at383-390. Thus cut/ground preview target can differ from eventual assembly target under otherwise matching method/check/mass. This is a concrete source parity difference, but actual consumers and intended preview semantics have not been traced; retain qualification rather than claim user-visible wrongtime yet. Equipment reason presence-only gate differs from actual station/vessel availability and preview is separate publichelper, not full action authorization.",
+      "disposition": "Needs recipient evidence for preview contract; no new confirmed count. Do not call all differing preview/admission checks automatically behavior regressions.",
+      "dependencies": [
+        "Strategic Web cooking preview caller and actual selector",
+        "Core preparation_safety_minutes Cut/Ground factors",
+        "local774:M29 cooking producer migration"
+      ],
+      "acceptance": "If preview promises same selected preparation duration, use same admitted ingredient safety and final scope/station inputs; otherwise define distinct preview contract. Preserve legitimate equipment and fixture policies."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-COOKING-SUM-001",
+      "kind": "Representable native ingredient aggregate strengthening",
+      "source_variants": [
+        "physical-p16",
+        "pr-working"
+      ],
+      "locations": "cooking365-379,420-433,489-498,563-598,664-667,733-756",
+      "case": "Two distinct carried ingredient lots with admitted fractional availability1 and selectedfraction1, each mass1kg, each nutrition_kcal=f32MAX and otherwise finite nonnegative lot fields pass explicit per-lot validation366-379. Their aggregate mass2 passes actual Core cooking duration gate<=25kg; nutrition sum at422 overflowsInf and is stored as FireplaceDish.raw_nutrition_kcal583. Retrieval multiplies by positive normal retention and stores nonfinite FoodLot.nutrition_kcal755. total_value has analogous sum423. Source-only representable retained-input case: canonical authored food producers do not ordinarily create nutritionMAX perkg, and no runtime/DB injection executed. This is not proof a fully coherent checked food product admits these densities.",
+      "operation": "Per-leaf finite checks do not retain finite computed nutrition/value totals, and successful mass/duration admission does not admit neighboring aggregate results.",
+      "connected_repair": "Prepare coherent ingredient/amount/food scalar aggregate and check computed totals before mutation or publication. Retain canonical material/nutrition/value owners and actual lawful density constraints where they exist; reject nonrepresentable result. Joins local774:M29 food graph rather than inventing independent scalar wrappers or arbitrary caps.",
+      "dependencies": [
+        "local774:M29 and full food lot admission",
+        "Core duration gate and native dish retrieval",
+        "Money/material/nutrition owner decisions and generated schema adapters"
+      ],
+      "acceptance": "Accepted cooking assembly/retrieval publishes finite admitted mass,nutrition,value and coherent provenance, or rejects before consuming ingredients/water. Keep actual25kg batch policy, partial ingredient fractions and normal yield behavior.",
+      "unique_count": "Not assigned; root exact reconciliation required."
+    }
+  ],
+  "status": "Two source roles complete; whole lens and recipient dependencies remain incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/food/fireplace_custody.rs"
+}

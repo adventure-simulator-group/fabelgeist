@@ -1,0 +1,112 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-336",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/field.rs",
+      "sha256": "1f537b363a614847b1ddf760ac719c5ed099171646ce606649e8b7ca79390264",
+      "actual_EOF": 545,
+      "actual_compared_ranges": [
+        [
+          1,
+          545
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/place/mod.rs",
+      "sha256": "4197c4d14aeac409495f9d91e21e2e69439a4a62bd9991804a5b8fe59ebaad8d",
+      "actual_EOF": 365,
+      "actual_compared_ranges": [
+        [
+          1,
+          365
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/place/wgsl.rs",
+      "sha256": "21850bcf4f22d8cd055230bb6ac0c8b93f722a90a278d51568acb513894f88c3",
+      "actual_EOF": 274,
+      "actual_compared_ranges": [
+        [
+          1,
+          274
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/strips.rs",
+      "sha256": "018591fdd7fdc9288f16a0ed5ed2f2ef6e3649448afa564b58358a3987144bba",
+      "actual_EOF": 511,
+      "actual_compared_ranges": [
+        [
+          1,
+          511
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Hair distance field must preserve triangle identity through quantized native marks and grid addressing",
+      "source_ranges": {
+        "hair/gpu/field.rs": [
+          [
+            1,
+            545
+          ]
+        ]
+      },
+      "disposition": "Full545lines personally read in threechunks. Exact adopted RIG-ADMISSION03-F018#18: NearMesh storesall participatingfaces withnativeu32count, SEED ORsordinalinto20lowbits withoutboundgate, FLOOD_START masks20bits then+1; ordinal2^20 aliases0 and corruptsdistancebits. Representable publicBodySurface API issue, not actualmillion-faceasset/GPUdriver/runtimewitness. Connectedremedy remains lowestcoherent checked native20bitadapter or coherentwiderformat, preservingzerono-candidate/nearest+1 anddistance tiepolicies. Native grid cell dims derive fromfinitepositivecarriedbounds and approximatevolume16million budget; ceil/product and i32flattening are separate capacity contracts, cannot infer universalaspectratio bound fromvolume alone. Extreme/degenerate admittedHeadPlacement remainsF019dependency. Normal boundsinclude.08margin, but arbitrary rawBodySurfacefaces aredirectlyindexedbeforeGPUupload; no actualmalformedproducerpromoted. Floodpingpongcurrenttoggle returnslastwrittenbuffer; widestpowerof2, additionalstep1 andsigneddistancefinite-near/nonzero candidate branches inspected. Jumpfloodapproximationnot exactnearest theorem and no projectexecution."
+    },
+    {
+      "contract": "Hair placement preserves guide correspondence and explicit body-minus-free displacement policy",
+      "source_ranges": {
+        "hair/gpu/place/mod.rs": [
+          [
+            1,
+            365
+          ]
+        ],
+        "hair/gpu/place/wgsl.rs": [
+          [
+            1,
+            274
+          ]
+        ]
+      },
+      "disposition": "Both full host/nativebodies personally read in twochunks each. count/GUIDES stepmax1 andguidesceil ensure everygatheredsourceguideordinal<count whennativeproductsfit; points/sourcearrays remain actualGpuGroom cardinalitydependency. Fourequilibrium solves distinguishbody/free onplaced/groomedpositions andMOVES subtractscorrectcarriedbustdisplacement. FOLLOW usesnearestguideroot intentionallyratherthanblendingacrossoppositeshoulder branches; maxsinking/smoothhold clipped0..1, segmentlengthrestorationroot-to-tip preservesactualroot. ROOT12stepNewton dividesincidencemax.3, breakslarge.03shift thenactualpush_out fallback. Positivehold_start-hold_full requiresactualpositiveverticalplacementfactor andbustcraniumradius; adoptedF019mapgap retainszero/degeneratecounterexample, no newordinaryhairfailure. Frameaxiscomputed point(unit)-origin canloseprecisionforarbitraryhugesignedorigin; nativeinverse squarednorm max1e-12 is explicitprojectionguard not proof mathematicalinverseforinvalidmap. Nativebufferallocationfactors widenu64; dispatch/products stillu32capacitydependency, no normaloverflow demonstrated. NoGPU/equilibriumexecution."
+    },
+    {
+      "contract": "Strip topology and per-vertex attributes share exact row layout after adaptive subdivision",
+      "source_ranges": {
+        "hair/gpu/strips.rs": [
+          [
+            1,
+            511
+          ]
+        ]
+      },
+      "disposition": "Full511lines personally read in threechunks. Fixedpiececlamp1..16cards/1..8ribbons keepssubdivisionboundedforvalidsource_rows>=2. Hostbuild widensstrips*rows*2 forallocation andactualread/faces sharethatlayout. Native cut_point source_rows-2 andribbonpoints-1 requireactualGpuLodsnondegeneratepointcount; max2 inhostrowsdoesnotbyitselfrepairzero/oneactualsource_rows, so lowerproducerpendingratherthanassumedbytype. Taper33samples=>i<=31 theni+1valid; cardvariantsmax1 guardsdivision. Samepassoneinvocation ownsallrows/liftsforonestrip so postwrite liftread isin-invocation order, no crossworkgroupbarrierneeded. Spread4 endpointselect discardsnativeunderflows, actualchosenfirst/lastwithinrows. Turningchoosesflathemispherebymatchingdot side>=0 beforemix, avoidingoppositecancellationforunitvectors; tangent/frame/nonfinitebounds dependnativegroom. clearancewidth\u00b2/(8*.05) andfiniteattributecompletionnot re-admittedbefore read, conditionalextremeinputstrengthening only. Stripremesh accountspositions/normals/tangents/UV/occlusion/randoms together; noGPU/readback/runtimeorordinaryinvalidassetclaimed."
+    }
+  ],
+  "findings": [
+    {
+      "id": "RIG-ADMISSION03-F018",
+      "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+      "archive_line": 18,
+      "disposition": "same adopted packed identity gap; fresh04pack/flood decode proof",
+      "no_new_unique_count": true
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-character-creator/src/hair_preview.rs"
+}

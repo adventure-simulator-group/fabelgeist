@@ -1,0 +1,175 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-607",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/church_apse.rs",
+      "sha256": "075279208015858b1ae308c7ae36a1eb58062aec9ad5469816af6cbc1524380e",
+      "actual_EOF": 75,
+      "actual_compared_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/defense_geometry.rs",
+      "sha256": "9be64466a067aa68da9f86e66bee50a578c2cb5e6f84aa01c6d517e9ef95b9a7",
+      "actual_EOF": 443,
+      "actual_compared_ranges": [
+        [
+          1,
+          443
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/dormer_layout.rs",
+      "sha256": "ac744d01f3dada293a02952e68c7f68a18395eb0dd035cccb85298a703d3d5a4",
+      "actual_EOF": 171,
+      "actual_compared_ranges": [
+        [
+          1,
+          171
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_child_enclosure.rs",
+      "sha256": "e40c96a484c04ef51cdd5139e5f0dc6bf3be92f09516dfc1cd0de27493ea7eed",
+      "actual_EOF": 78,
+      "actual_compared_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_contacts.rs",
+      "sha256": "4cd1f8a5d9662f277ac4d7707ddefda519e4cf56d107132f8c7a403c3a3c28d1",
+      "actual_EOF": 106,
+      "actual_compared_ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_dormers.rs",
+      "sha256": "6484f99b8bdfc8cd1fc1f9aae444f6a56feaee41546a24d97109c317bba4c5f1",
+      "actual_EOF": 305,
+      "actual_compared_ranges": [
+        [
+          1,
+          305
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_drainage.rs",
+      "sha256": "78f6495882663da6c57047c052bf85c818f6640300a5c9e3819a1958e3393f1f",
+      "actual_EOF": 265,
+      "actual_compared_ranges": [
+        [
+          1,
+          265
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_edge_binding.rs",
+      "sha256": "710d88030ba0cda4005e228f397aaa523d571bdbc64cd00a5c234ee5861ff4a7",
+      "actual_EOF": 164,
+      "actual_compared_ranges": [
+        [
+          1,
+          164
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_enclosure_material.rs",
+      "sha256": "38b955313e7d9f09e6b15e3fb0e46497a149df2db2fa417ffec671c9ad130999",
+      "actual_EOF": 18,
+      "actual_compared_ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_finalization.rs",
+      "sha256": "c02cf2fd7b6a594dd75307d1b2164471415a1ed28c01a8b1ee5008268d27b35a",
+      "actual_EOF": 138,
+      "actual_compared_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_internal_cut.rs",
+      "sha256": "fa5481795fb308912be246d67e10a7a5deeadc1fa2f2ba4051255e7ed52d23e3",
+      "actual_EOF": 143,
+      "actual_compared_ranges": [
+        [
+          1,
+          143
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Frozen apse/defense native geometry and graphprojection",
+      "evidence": "Whole75+443 read. Fiveapsewalls/sourceindex4 guard nonemptyindices then radial eave>=.75 andapexpitch; fallbackordinaryroof. Defensefootprintu16\u2192f32 physicalscale; privatewalknearest clamped t/shortsegmentfallback; projected solid admits cuboid/bounds andusesfirstsupport; IDslanes fromowner andvectorlen; weatheringchangescrossfall/gutterlongfall then explicitcatchmentphysicalroute.",
+      "qualifications": [
+        "Projectedsolid support[0] assumes actualsuppliednonempty; prior299 ARTILLERY-SUPPORT-ID candidate andcanonical graphmembership remain, no duplicate.",
+        "Mutationsnativebeforelastfalliblecompletion do notestablish externallypublishedpartialplan. Curatedfinite directions/scales and arch admission prerequisite; no arbitrarysquaretower/roofpitchguarantee fromprivatehelper."
+      ],
+      "acceptance": "Preserve contextual membergeometry rejection, actualsourceidentity/support andweatheringsemantic relations."
+    },
+    {
+      "contract": "Dormer layout, attached child enclosure and parent cut",
+      "evidence": "Full171+78+305 read: fixed801depthsamples boundedwork, childnativefallbackvsShedstructuredInvalidRoofDormer; ridgeextension movespolygonandmatchededges; rearvergesremovephysicalweather+correspondingsupport; threeenclosurepanels deriveactualparent height; parentcutlink maintains vally/flashing/eavesmetadata, childassembly appendedlast. Contactcache106 freezeswallbounds once andphysicalpositivecontact .025; hostrankingactualexteriormasonry witharcadepriority. Material18 actualtimber/rubble/masonryselection.",
+      "qualifications": [
+        "assemblies[0] requires initialparentactualcaller; nonempty dormantrecipe not standalonepublic admission. Emptygeneratedface.mean denominator and firstsupport assumption depend actualresolver; no genericemptyrawprivateargument failure promoted.",
+        "Sourceshadowretainedrecipe vs resolvededitedplanes deliberatelydifferent; preserve fallbackdepthandboundedseams ratherthan imposeinfallibleintersection."
+      ],
+      "acceptance": "Preserveactualparentplane enclosure andchildvalley/openingmetadata, no orphanremovedrearverge support; rejectionboundary checkedatouterconsumingplan."
+    },
+    {
+      "contract": "Drainage finalization, coincidentedges, treatment cleanup and splitcaps",
+      "evidence": "Full265+164+138+143 read. Drainage selects lowesteave/valley perface, boundednativefloor/lips/spoutgeometry andupdatescatchment/outletroute before network; coincidentprimary joins edges/physicalflashingandoptionalvalley, removesoldweather; refit removesorphanphysicaltreatments plusmatchinginterface thenrefreshesremainingdescriptorbounds. Splitedges/caps keepsbothinternalcut sides,positivecutlength gates andnativeadmission; firstsolid mutationandsecondnewID/supports separately.",
+      "qualifications": [
+        "Actualcallnavigation exact6533 roof_assemblies262\u2013275 places bindcoincident immediatelybeforefinalizedrainage andrefitlast. Junctionflashing IDs0x8|assembly<<16|0x6000|edge_index andgutter IDs0x8|assembly<<16|0x6000|face_index*8|slot sharelanes; concreteintersectionrequiresactualfinaltopology (e.g.junctionedge1/face0lip1), notclaimedcurrentassetcollision. No exact indexedaliasfound; sourceconditional opencapacity/identity question, no uniquecount.",
+        "Drainage removespriorgutterphysical/network butnotmatching supportinterfaces inthishelper; actualonce-onlyinitialcall prevents claimingrepeatmutationordinary. Refittreatment doesnotautomaticallycleanupallnon-treatment descriptors.",
+        "bindroofjunctions IDsfromlocalroof_bonds.len sharegenericjunctionlane; actualpriorbondidentitynamespace/membership requiresoutergraphproof, notblanketnewdefect.",
+        "Roof yaw_bounds purpose ignorescrossfall/longfall unlike canonicalcuboidbounds; exactconsumer approximation/policy remains, not universalgeometryfailure."
+      ],
+      "acceptance": "Published graph must retain uniquephysical/descriptor identities andactualcurrentgeometry; preserve intendedvalley/holes andmany-to-manysupport semantics. Complete generatedtopology/canonicalAPI decision required beforepromotingconditionalidentity question."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "11 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-building-generator/src/generator/roof_outlets.rs"
+}

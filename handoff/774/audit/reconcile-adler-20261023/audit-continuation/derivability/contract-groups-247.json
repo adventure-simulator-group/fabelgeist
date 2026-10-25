@@ -1,0 +1,122 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-247",
+  "at": "2026-10-25T14:11:36.348751+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 495,
+      "source_id": "pinned-sdk:spacetimedb-sats2.6.1/src/timestamp.rs",
+      "sha256": "9a2b59b755254767182009ea99cc689199e310845668b3343faf52ca6139de0c",
+      "actual_EOF": 343,
+      "requested_registration": {
+        "source_id": "pinned-sdk:spacetimedb-sats2.6.1/src/timestamp.rs",
+        "snapshot": "pinned-sdk",
+        "path": "CARGO_REGISTRY/spacetimedb-sats-2.6.1/src/timestamp.rs",
+        "sha256": "9a2b59b755254767182009ea99cc689199e310845668b3343faf52ca6139de0c",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 13304,
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 44,
+            "read_ranges": [
+              [
+                1,
+                343
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-STRATEGIC-004",
+              "NATIVE-OWNER-F005"
+            ],
+            "read_status": "full_source_read",
+            "resolved_path": "CARGO_REGISTRY/spacetimedb-sats-2.6.1/src/timestamp.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_owner": "native",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1592,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          343
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Add/Sub<TimeDuration/Duration>",
+          "type": "Timestamp",
+          "lines": [
+            [
+              187,
+              201
+            ],
+            [
+              203,
+              217
+            ]
+          ],
+          "disposition": "KEEP checked time-unit operations then intentional panic-on-overflow, not fieldwise primitive arithmetic derive."
+        },
+        {
+          "trait": "AddAssign/SubAssign<TimeDuration/Duration>",
+          "type": "Timestamp",
+          "lines": [
+            219,
+            241
+          ],
+          "disposition": "KEEP small mutation adapters forwarding existing heterogeneous timestamp arithmetic and native unit semantics; no equivalent project-native assignment derive established or dependency added."
+        },
+        {
+          "trait": "Display",
+          "type": "Timestamp",
+          "lines": [
+            245,
+            249
+          ],
+          "disposition": "KEEP semantic RFC3339/ISO formatting through fallible Chrono conversion with existing panic behavior, not i64 field Display."
+        },
+        {
+          "trait": "From<SystemTime>/From<Timestamp>",
+          "type": "Timestamp / SystemTime / AlgebraicValue",
+          "lines": [
+            251,
+            267
+          ],
+          "disposition": "KEEP platform range/epoch/precision conversion and native SATS product representation. Plain field constructor/extractor derive changes units/shape/native behavior."
+        }
+      ],
+      "existing_derives": "Timestamp native SATS Serialize/Deserialize and structural Eq/Ord/Hash/Debug already derives; impl_st owns special timestamp schema declaration, not new hand Serde writer.",
+      "absence_basis": "Full343-line pinned native timestamp source and fixtures consumed. Checked temporal operations, native conversion and calendar formatting are semantic. Native impl_st macro body/type owner not independently credited; no extra SDK validation/runtime or other-lens clearance."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Native timestamp arithmetic, platform conversion and schema representation",
+      "disposition": "Retain explicit temporal/operator/display/conversion semantics; structural native wire derives already used.",
+      "acceptance": "Preserve signed microseconds, epoch/platform range and precision, checked/panic order, RFC3339 and native SATS timestamp/product identity. No arithmetic repair/compiler/tests authorized."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 496,
+    "source_id": "pr-working:.github/workflows/rust-quality.yml"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

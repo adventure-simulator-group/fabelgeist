@@ -1,0 +1,70 @@
+{
+  "at": "2026-10-23T22:54:25.505494+00:00",
+  "id": "pc129-rig-occupancy-and-hair-retention-001",
+  "reads": {
+    "crates/adventuresim-character-creator/src/rig_parameters.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/device_frames/landmarks.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/inventory/occupancy.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/inventory_article_editor.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/character_morphs/hair.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/hair/groom.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/hair/placement.rs": [
+      [
+        1,
+        10000
+      ]
+    ]
+  },
+  "contract": "Canonical rig joint/skin and localarticle identity through orientationnativewords/shared equipment graph/hair placement andretainedLOD/sourcegeometry",
+  "coverage_limit": "Seven full bodies read. Preserve adoptedAdler03/06 evidence andexactaliases; notfreshrediscovery requirementorotherlensclearance. Current API/native/render/testbehavior unexecuted.",
+  "disposition": "RigJointParameter enum ownsactualuniformbindingfieldnames, notauthoredjointname; insert_joint takescanonicalRigJointOrdinal andchecksactualu32nativewidth. FrameLandmark Joint/Unused andFrameSide Central/Paired retainsemanticstatesuntil actualsixwordshaderprojection; zero unusednativepaddingnotfakejointidentity. Existing Ruleenum+packed slotsactualdependenttypedstate relationship belongs inherited03/06/09findings, nonew blanketwrapper. M07/M10 localInventoryItemId erased.0intoCore EquipmentGraph nodes/edges thenreconstructed; exactRIGINITIAL06F047 genericsharedgraphkeyrepair, distinctfromDBIDandEntity (do notmergeauthorities). ParentRequirement u16capacity/cellorder/selectionordinal distinct; mask/attachmenttags String sourceM07 plusM10notprimitiveclosedflagban. WornGraph finitependingpass makesunsupportedfirstdeferred proofvalid, placeonlocalcandidategraphonly; no partialexternalDBstate defectinferred. Article UIeditableStringname/statuslegitimateimmediateegui/textport;admittedcatalogselection used. Hair normalstrongest_joint/whole_joint typedRigInfluences retaineduntilnativeSkins; HeadSkin rawgeometry/weightsourceassociatedM16 canonical#780fitowners. RIGADM03F019 exactprivateHeadPlacement zero-width/depth\u2192inverse scale bypass inherited; no need freshwholeadmissionaudit. CAMERA07F057 mutablepubGroomidentity vsprivateGPUproducts/previewcache inheritedAPIonly strengthening; normalArcpreviewproducer coherent, no ordinarybadpreview. Native05F063 aliasRig03F018 exact20bitfieldcapacity notnewunique. Groomed/PlacedHair retainlongestf32/metres andnativeLOD counts/usizelevels throughinternal getters/forms, canonical#780 hairquantity/populationowner mustreachactualreceivingGPU/render\u2014notdeclarelibrarygettersfinalboundary. Drapping.bool native/bodyfieldchoice actualtyped look.drape\u2192boolretained requires09consumption separate; no newclosedstatebynameonly. All validnonpositive/zero-native policies andsamebodymorphframe retained.",
+  "finding_traces": {
+    "M10": {
+      "source": [
+        "inventory/occupancy.rs:163-194,226-279"
+      ],
+      "trace": "InventoryItemId localcreator\u2192.0inEquipmentGraphEdge/equip\u2192InventoryItemIdreconstruction acrosspureCoregraph. ExistingRIG06F047 genericcalleridentity repair mustcoverparent/support/children paths andretaincapacity vsordinal distinctions."
+    },
+    "M16": {
+      "source": [
+        "hair/groom.rs:28-66,120-148,222-232",
+        "hair/placement.rs:17-26,80-107"
+      ],
+      "trace": "Canonicalbody/rigsourceassociation and hairpopulation/modelquantity retainedraw throughapplicationGroomedHair/PlacedHair/HeadPlacement\u2192LOD/render APIs. Respect shared780fit/hairowners and826wholeHairRendererboundary, no duplicate scalarowners."
+    }
+  },
+  "frontier": {
+    "file": "crates/adventuresim-character-creator/src/hair_preview.rs",
+    "work": "PC129 canonicalrig/occupancy/hairplacement sourcegraph readwithAdler03/06findingsinherited. Nexthairpreview/nativeasset/renderreceiver andremainingCreatororacles/bodyinventory; thenbounded01/02newmaterial reconciliation ratherthanreplayhistorical040/042. All13initialdiscoveryunfinished; noexecutionplan/repairs/checks."
+  }
+}

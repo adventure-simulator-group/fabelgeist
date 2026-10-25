@@ -1,0 +1,59 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-122",
+  "at": "2026-10-25T17:45:10.941381+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1589,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/mod.rs",
+      "sha256": "388ce709c22690649f7f24cc0ba3f537e11a40e32b9a449c00695ee3e2ba96b3",
+      "personally_read_ranges": [
+        [
+          1,
+          407
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full407 presentation facade/plugin and source-only shader-directive fixture read. Canonical subsystem resources initialized once and ordering explicitly chains environment refresh/snapshot/apply, terrain/vista/scatter, trees/LOD and sky post-update dependencies. ClientStartupTiming one-shot bool owns diagnostic emission with monotonic Instant, not gameplay lifecycle; named phase text terminal log label. TacticalGraphicsSettings retains cloned parsed config M61, shader native map size actualport. mesh_triangle_count native indexed/nonindexed division intentionally aggregate diagnostics, not proof every mesh TriangleList. Public facade and cfg-specific sources remain original inventory, plugin installation alone gives no shader/GPU/runtime guarantee."
+      ]
+    },
+    {
+      "scope_index": 1590,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/mod.rs",
+      "sha256": "30d5e6301edce9013871f2322401b5a982a0a0cdd70aa556bc1404b1452a3c8f",
+      "personally_read_ranges": [
+        [
+          1,
+          141
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full141 obstacle dispatch/review shoot source read. SceneObstacle enum owns tree versus RockRecipe; native observer error is actual Bevy query boundary, not stored generic gameplay error. Review terminal specimen derives canonical shoot_identity from chosen depth3 terminal branch before filtering leaves, translates shoot+leaf geometry together then scores finite candidate viewing directions; tuple focus/direction need future checked capture-frame contract, distinct actual native meshes. Expects terminal shoot relies actual generator source, retained dependency. Canopy basispoint migration M90 and tree geometry owners stay shared. No procedural generation executed."
+      ]
+    },
+    {
+      "scope_index": 1591,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/rock.rs",
+      "sha256": "de412c389d20a623c0246c6408e57774ac07270681d32eaae84ea1baecf790ab",
+      "personally_read_ranges": [
+        [
+          1,
+          319
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full319 rock field/material and original fixtures read. One RockRecipe determines dimensions/seed/archetype/radius and both mesh/material numerical kernels, same phase purpose. Positive/nonzero physical dimension+collision radius must be admitted by canonical recipe (existing admission/owner findings) before dividing; no ordinary authored invalid rock inferred from public DTO alone. Fieldmax includes proxy sphere normalized bound, actual18cubed sample grid fixed bounded, not unbounded count product. Native ShaderType vec4 packs photometric/material coefficients at actual shader port, tint >1 deliberate and not UnitInterval. Existing deterministic/proxy/material/winding shader assertions source-only."
+      ]
+    }
+  ],
+  "findings": [
+    "M61 accepted graphics settings",
+    "M90 canopy/weather quantities"
+  ],
+  "qualified_connected_requirements": [
+    "Complete RockRecipe owner admission proof retained from existing lenses; source normal factory coherent, no new simulation/GPU validation."
+  ],
+  "discovery": "3 newly accounted original roles; other reads support already counted historical roles. Lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

@@ -1,0 +1,54 @@
+[
+  {
+    "snapshot": "pr-working-unchanged-receiver",
+    "path": "crates/fabelgeist-mhr/src/math.rs",
+    "observed_sha256": "20b8033a4cd2771f494d9a73e0820bd9c27c5cdce23c097687360719bfc46b0a",
+    "read_ranges": [
+      [
+        1,
+        357
+      ]
+    ],
+    "coverage": "source-read-trace-incomplete",
+    "reason": "Actual unchanged producer/receiver reached from assigned MHR/FBX/Creator contract; not assumed by handoff."
+  },
+  {
+    "snapshot": "pr-working-unchanged-receiver",
+    "path": "crates/fabelgeist-mhr/src/correctives.rs",
+    "observed_sha256": "315f5296ef9ba45169384bc17e9157b66cb1224bedfb4962a04e32821afc63c4",
+    "read_ranges": [
+      [
+        1,
+        188
+      ]
+    ],
+    "coverage": "source-read-trace-incomplete",
+    "reason": "Actual unchanged producer/receiver reached from assigned MHR/FBX/Creator contract; not assumed by handoff."
+  },
+  {
+    "snapshot": "pr-working-unchanged-receiver",
+    "path": "crates/fabelgeist-fbx/src/array_encoding.rs",
+    "observed_sha256": "25c50cf09de961a67c7ef1c327410c5a019e5af7ef0e8574136cae98d193df5f",
+    "read_ranges": [
+      [
+        1,
+        24
+      ]
+    ],
+    "coverage": "source-read-trace-incomplete",
+    "reason": "Actual unchanged producer/receiver reached from assigned MHR/FBX/Creator contract; not assumed by handoff."
+  },
+  {
+    "snapshot": "pr-working-unchanged-receiver",
+    "path": "crates/adventuresim-core/src/character_proportions.rs",
+    "observed_sha256": "7a3b0a5797dbb6d8c811aa2e2df9d831e7424367faf501cf6b3b9bffe1683433",
+    "read_ranges": [
+      [
+        1,
+        208
+      ]
+    ],
+    "coverage": "source-read-trace-incomplete",
+    "reason": "Actual unchanged producer/receiver reached from assigned MHR/FBX/Creator contract; not assumed by handoff."
+  }
+]

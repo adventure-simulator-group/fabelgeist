@@ -1,0 +1,70 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-456",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/partition.rs",
+      "sha256": "f1235fb0cff334be1c2f34ba2ea9c1419161753aa704b69f4b4321ced4c8231e",
+      "actual_EOF": 175,
+      "actual_compared_ranges": [
+        [
+          1,
+          175
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/prepared.rs",
+      "sha256": "e71c17fce89d8304542afd21ad84fde3cec70c08368bc21c27f318146268e48a",
+      "actual_EOF": 295,
+      "actual_compared_ranges": [
+        [
+          1,
+          295
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/prepared/extent_tests.rs",
+      "sha256": "ec1e85e8624809e09deeccbb67ed4d8df1b5fa5b32b8de830b026965b6631e36",
+      "actual_EOF": 156,
+      "actual_compared_ranges": [
+        [
+          1,
+          156
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/streaming.rs",
+      "sha256": "90cb292cda48fd9f01d10205004aea74f606b3a6d497c9c2eae6fdf298e3a9f3",
+      "actual_EOF": 140,
+      "actual_compared_ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Paving source partition and owner-specific upload",
+      "analysis": "Full four bodies read. Subtractbeds uses winding-aware convexplanes and opposite-sign edgeintersections; cell32 indexing preserves originalitemorder throughBTreeSet. Raw arbitraryspatialextent can cost hugeintegercells but actual boundedinput not shown violatingbudget. PreparedCityGround constructedlocal beforepublication; installedper-owner OnceLock cachesimmutablemeshreflectionResult, usesdifferentwinding forRegionalMap. Prior assets may beadded beforelaterreflectionErr, but localResult dropshandles and noentitypublication; not proven retained partial scene. CachedErr tiesimmutableinvalidgeometry, no demonstratedtransientasseterror."
+    },
+    {
+      "contract": "Paving extent, traffic residency and failure boundaries",
+      "analysis": "from_scene ownedclip usesmaxselectedringextent; sampledclip usesactualpreparedmesh support andlandformpatch. Exact156-line extentfixtures include12ring/nativecoverage andfaultsupport acceptance expectations, not executed. Streaming retainswantedmask tiles andbakesatmostone perframe, updatesmaterialhandle+transformtogether withinexclusiveborrow. Camera3Ddistance intentionallylimitsdetail; no newhiddenauthorityclaim. Imagecachelock andmaskbake nofallibleResult. Moreprecise traffic/native index assumptions followednext."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/support.rs"
+}

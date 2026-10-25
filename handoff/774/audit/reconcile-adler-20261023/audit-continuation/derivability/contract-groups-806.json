@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-806",
+  "at": "2026-10-25T16:53:44.141717+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1017,
+  "source_id": "pr-working:crates/adventuresim-core/src/strategic_time.rs",
+  "sha256": "3af84cd2d335ef14e2ae8034345fcdcb999a93b4adeabd1a2e1f58beb780f57c",
+  "actual_compared_ranges": [
+    [
+      221,
+      660
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Walking-window/itinerary mutation, lunar projection, official clock/epoch conversions, healing and convalescence are native operations/inherent algorithms, not handtrait or codec. Full fixture portion476\u2013660 contains no handtrait/type declaration. No source-verdict transfer to operations; this packet only establishes derivability inventory."
+  ],
+  "first_unfinished": {
+    "scope_index": 1017,
+    "line": 661
+  },
+  "execution": "none"
+}

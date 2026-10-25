@@ -1,0 +1,13 @@
+--- p16base/crates/adventuresim-stdb-module/src/strategic/challenges.rs
++++ catalog-p16head/crates/adventuresim-stdb-module/src/strategic/challenges.rs
+@@ -1467,9 +1467,9 @@
+     challenge_id: String,
+     expected_revision: u32,
+     choice: String,
+     action_id: String,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     require_strategic_gateway(ctx)?;
+     if action_id.is_empty() || action_id.len() > 160 {
+         return Err("Road challenge action ID is invalid".into());
+     }

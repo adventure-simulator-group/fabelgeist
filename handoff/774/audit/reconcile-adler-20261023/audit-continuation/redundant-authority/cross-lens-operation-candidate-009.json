@@ -1,0 +1,32 @@
+{
+  "id": "CONT07-CROSS-009",
+  "classification": "operation/behavior candidate, publichookadapterconditional; notnewunique07finding",
+  "sources": {
+    "2328": [
+      [
+        234,
+        258
+      ]
+    ],
+    "2352": [
+      [
+        69,
+        85
+      ],
+      [
+        157,
+        184
+      ]
+    ],
+    "2341": [
+      [
+        367,
+        408
+      ]
+    ]
+  },
+  "fact": "HookChain runsinner.record methods but doesnotforwardafter_solve; traitdefaultno-op replacesallinneraftersolvebehavior. Shellhookafter_solve actualSelfCollision losespostconstraintcorrectionwhenwrapped.",
+  "limits": "OnlyproductionlocatorfoundHookChainexportandphysicstest; noordinarycomposedShellcaller/GPUrun. Parentdeduprequested.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

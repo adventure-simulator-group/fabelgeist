@@ -1,0 +1,75 @@
+{
+  "id": "NATIVE-CAMERA-SUPPORT03-CONTRACTS-002",
+  "authority": "ROOT-ADM-SUPPORT-AUTHORITY-054",
+  "lens": "audit-admission-contracts",
+  "groups": {
+    "p16-positive-length-all-admission-routes": {
+      "camera_indices": [
+        334
+      ],
+      "invariant": "Finite strictly positive metres, coordinate-frame independent; generic checked geometry zero-valid Cuboid is different owner.",
+      "all_admission_routes": [
+        "Actualfull40. Privatef32; only public from_metres18 rejects nonfinite FIRST, negative NEXT, zero incl signed0 LAST; subnormal finite positive valid. ManualDeserialize36-39 invokes same factory; transparentSerialize only. NoDefault/rawFrom/mutablebacking/uncheckedTryFrom. Optional Reflect11/opaque14: actual Rig reflection witness001 opaque FromReflect/try_apply requires existing typedSelf clone, no raw f32 reconstruction; declared type lacks nonopaque fields/ReflectDeserialize override. Direct reprtransparent not raw safe construction."
+      ],
+      "counterexample_or_qualification": "0/-0/negative/NaN/Inf fail factory and manualSerde. No new bypass. Positivity does not promise reciprocal representable or shared scene datum.",
+      "connected_repair": "Root neutralgeometry existing owner. Preserve exact errors and refined admission, no redundant rechecking an already admitted leaf.",
+      "acceptance": "Every safe ctor/decoder retains strictpositivefinite while raw rejected evidence remains primitive. No engine-native vector claim."
+    },
+    "p16-geometry-reexports-no-alternate-construction": {
+      "camera_indices": [
+        335
+      ],
+      "invariant": "Facade reexports canonical checked geometry and typed diagnostics; no independent constructor implementation.",
+      "all_admission_routes": [
+        "Full16 read. CuboidDimensions,error types,PositiveLength,Area/SignedLength direct reexports; modulesprivate. No alias compatibility/newforwarding, no ownrawFrom/Serde/default/reflection. Exact bodies peractual334/Root001 and Native043error, not clearance inferred from facade."
+      ],
+      "counterexample_or_qualification": "No alternate admission route in module facade; reexport does not strengthen unit-only Area policy or prove every consumer.",
+      "connected_repair": "Existing neutralgeometry shared owner, no duplicate leaf.",
+      "acceptance": "Keep canonical exports and intended portability/native feature choices."
+    },
+    "p16-unit-only-numerical-wrappers": {
+      "camera_indices": [
+        337
+      ],
+      "invariant": "Explicitly unit-only owners, no numerical finite/range promise in source3-6.",
+      "all_admission_routes": [
+        "Full120 read. Seven private wrappers Metres/Ratio/RadiansPerMetre/TurnsPerMetre/PerMetre/Acceleration f32 and AccelerationVector[f32;3]. Public const raw factory copies every bit; getters output native scalars/array. Default0, transparent ordinary Serde permit all native representable values including signed0/negative/NaN/Inf when decoder permits. NoReflect or additional validator. No finite/positive/probability promise: Ratio may legitimately exceed1, signed acceleration and curvature allowed."
+      ],
+      "counterexample_or_qualification": "Nonfinite raw representability is intentional numerical unit policy here; actual application accepted-state records must establish stronger policy at real admission boundary. No blanket waiver for their use as checked spatial owners.",
+      "connected_repair": "Retain numerical units at actual kernels; use existing finite SignedLength/PositiveLength when actual application contract requires finite/sign. Do not change genericRatio to <=1 by name.",
+      "acceptance": "Preserve native floating bits and sign/zero behavior, no invented rejection in general math wrapper."
+    },
+    "direct-p16-quantity-and-opaque-reflection": {
+      "camera_indices": [],
+      "source_refs": [
+        "NATIVE-ADMISSION03-REG-073 full28",
+        "NATIVE-ADMISSION03-REG-074 actual1-28 only"
+      ],
+      "invariant": "Nonzero all-u32 count, no inventory membership promise.",
+      "all_admission_routes": [
+        "Fresh TacticalItemQuantity28: publictuple contains canonical ItemQuantity, new18 delegatesItemQuantity::new, defaultONE, transparentSerde delegates canonical; Component+opaqueReflect+ReflectSerialize/Deserialize declared. Fresh lower ItemQuantity1-28 private NonZeroU32, ONE=MIN1 and only publicnew via NonZeroU32::new. TransparentSerde directly decodes native NonZeroU32 and cannot create0. Quantitynew0None; u32MAXvalid. Publicouterfield replaces only checkedinner, Deref readonly. Opaque Reflect actualRigwitness clone/downcastSelf; ReflectDeserialize calls canonicalSerde and inner NonZero decode, no rawminting."
+      ],
+      "counterexample_or_qualification": "REG074 originallyrequested1-66; incidental next ConsumableFraction30-66 read but NOT analyzed/credited. Canonical ItemQuantity only1-28 admission proven. No lower P16InventoryMeasurement wholefile credit.",
+      "connected_repair": "Preserve zero->Empty native observation in Camera307, not failed missing inventory. No new duplicate quantity owner.",
+      "acceptance": "All safe default/literal/decoder/reflection paths retain nonzero count; no forced upper cap or membership."
+    },
+    "direct-p16-facing-operands-and-wire-normalization": {
+      "camera_indices": [],
+      "source_refs": [
+        "NATIVE-ADMISSION03-REG-075 actual1-208; tests209+excluded",
+        "NATIVE-ADMISSION03-REG-076 actual1-325; tests326+excluded",
+        "Native original003 actual PR facing comparison only after this fresh P16body"
+      ],
+      "invariant": "BodyFacingTurn retains finite checked angle/speed/positive duration operands; Downed facing scalar/state policies preserve explicit native source sanitation, not unit quaternion or wrapped angle guarantee.",
+      "all_admission_routes": [
+        "FreshTurn1-208 has privateBodyFacingTurn/TurnPolicy, only configured_* accepts canonical positive duration/angularspeed, deadline rawnativeplanardirection normalize→missing zeroSpeed; effective maxremaining/elapsed0→zeroSpeed; completed angle through Radians::new and positive duration throughfrom_elapsed beforeSelf. NoSerde/Default/Reflect/publicliteral route. Nativequotient*elapsed*pi cap remains transientrate, not typedfiniteangularspeed. rotation_from_yaw202 checkedRadians before nativeQuat; finalquaternionmultiplication in Camera308 is not scalar-admission proof of normalizedfinite quaternion.",
+        "FreshDowned1-325 privateSignedHalfTurns finite signedunwrapped; Step checked_nonnegative (actual P16 measurement canonical boundary from Native059/Camera010 dependent); Roll finite[-1,1]. All TryFrom and scalarSerde try_from share factories; legalconstants0/±1. Stateprivatefields, customwirefrom mapsnonfinitehalfturn0 and clampsrollfinite[-1,1]/nonfinite0 thenliteral; noReflect/rawpublicmutation. for_frame explicitnonfinitecomputedstep0 andfinite max0 preserve current producer sanitation. from_change emits only -1/0/1, landed canonical0/.5/1/-.5. advance checks completednextSignedHalfTurns BEFORE retainedstate assignment, camera helper323 mapsnonfinitetarget0. No default state or uncheckedFromraw except actualprivatewire normalization.",
+        "Current P16 and actual originalNativePR003 definitions explicitly compared by meaning/sign/zero/admission/visibility/Serde/native sourcepolicy; same substantive contracts, not filename/hash verdict credit. Original PRfulltests do not supply P16testcoverage; newdependencyfixtures excluded. SkeletonState parent rawadmission/transitionmethods and configs are independent current lower roles, not certified by these direct helpers."
+      ],
+      "counterexample_or_qualification": "No newscalarbypass in these exact definitions. Finiteextremequotientoverflow is intentionaltransientnativeoperation, not rejecttinypositive duration. Native raw quaternion accepts missingdirection fallback; no unit-check guarantee invented.",
+      "connected_repair": "Existing Native movement state F002 raw/admitted split retained, no repair authority transfer. Private policy operands and explicit wire sanitation remain actual boundary.",
+      "acceptance": "Preserve kernel FP order, zero/deadline/missingdirection semantics, roll edge sticky/wrap behavior and source-specific errors; no generic normalize-every-input edit."
+    }
+  },
+  "not_part_of_native443_or_root_batches": true
+}

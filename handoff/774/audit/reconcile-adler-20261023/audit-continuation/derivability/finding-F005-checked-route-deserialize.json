@@ -1,0 +1,29 @@
+{
+  "id": "SEGOVB-INITIAL10-F005",
+  "classification": "source-backed maintenance suggestion",
+  "source_id": "physical-p16:crates/strategic-web/src/routes/mod.rs",
+  "sha256": "4adf3c28275906a5a006f13438074aa6c5b525d53e57d25855f4d5195cbaf2c2",
+  "ranges": [
+    [
+      59,
+      125
+    ]
+  ],
+  "problem": "SocialDuration and SocialActionId manually deserialize a primitive then call an already existing checked TryFrom; existing serde derive can generate the exact delegation without bypassing validation.",
+  "equivalent_implementation": "Add Deserialize with #[serde(try_from = \"u64\")] to SocialDuration, and Deserialize with #[serde(try_from = \"String\")] to SocialActionId; remove only manual Deserialize82\u201389/118\u2013125. Keep both checked TryFrom bodies unchanged.",
+  "source_proof": [
+    "Nongeneric wrappers62/93 have no existing Serialize or transparent attribute conflict; u64 input preserves duration range/narrowing semantics, owned String input preserves action-ID ownership.",
+    "Existing TryFrom70\u201380/101\u2013116 owns exact errors, bounds and character validation. Both manual Deserialize bodies call primitive Deserialize and TryFrom.map_err(custom).",
+    "Exact frozen package/member verified serde_derive1.0.229 de.rs300\u2013320/435\u2013444 generates primitive Deserialize then TryFrom.map_err(custom), fresh-dependency-registration-230.json. Existing serde Deserialize import49 and derive use in same frozen crate require no dependency addition."
+  ],
+  "acceptance": [
+    "Preserve exact u64 versus String native decoding, checked narrowing, accepted values, static error text and source signatures.",
+    "Do not add Serialize, From, raw transparent admission, generic bounds or borrowed conversion APIs.",
+    "Keep native ID/duration validation and all route/reducer/payload semantics."
+  ],
+  "qualifications": [
+    "Optional mechanical cleanup only; no runtime defect, compiler or test execution claim.",
+    "Full930-line frozen route module personally read; child modules uncredited.",
+    "No global unique issue count inferred."
+  ]
+}

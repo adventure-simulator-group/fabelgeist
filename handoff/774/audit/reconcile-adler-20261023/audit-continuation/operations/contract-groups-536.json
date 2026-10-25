@@ -1,0 +1,150 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-536",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/pattern.rs",
+      "sha256": "8d0d262278bc2b6511da93bf24abf111ae4e5649b288166b56a2a5a4a17d1ca2",
+      "actual_EOF": 86,
+      "actual_compared_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/skin.rs",
+      "sha256": "30e87caf9ec73fb5defee0388b3bd24e2fc37b5d9c5200af5889d03455f7e816",
+      "actual_EOF": 99,
+      "actual_compared_ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/surface_grid.rs",
+      "sha256": "d2e76894c4233cad8a8656215bf15fe6defcce235adc2350b3e2d5ad0308465e",
+      "actual_EOF": 108,
+      "actual_compared_ranges": [
+        [
+          1,
+          108
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/embedded.rs",
+      "sha256": "6c7f84f8e6b242d32e19ddecedfa1cfdb5f849bd984008eda7b0ea1da79e5345",
+      "actual_EOF": 115,
+      "actual_compared_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/lacing.rs",
+      "sha256": "cce09840d83fc6c71d1020fc45961df2a0c9b4c2a85d5702bc0f65d6fad902a4",
+      "actual_EOF": 321,
+      "actual_compared_ranges": [
+        [
+          1,
+          321
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/layout.rs",
+      "sha256": "9d9424e679eb33b176ce1687f202f9a81fcf765ef6d910fdd02bb1f409711fc2",
+      "actual_EOF": 342,
+      "actual_compared_ranges": [
+        [
+          1,
+          342
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/mod.rs",
+      "sha256": "7ff5bfe0408afa8433957ee7575dd1fbb9f83d6afe4bb3af59a581a81724280d",
+      "actual_EOF": 137,
+      "actual_compared_ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/surface.rs",
+      "sha256": "b11e892b1c5cebf91866d5ffeed3801659fd98201fe446753a33aadf65598020",
+      "actual_EOF": 441,
+      "actual_compared_ranges": [
+        [
+          1,
+          441
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "SurfaceColumn endpoint arithmetic",
+      "evidence": "SurfaceColumn::at(u32::MAX).bracket(u32::MAX): at rounds MAX to 2^32f32; upper guard (columns-1) as f32 also rounds to2^32, so first becomes u32MAX and first+1 overflows before min. Debug panic / release wrap changes returned neighboring index. Source proof only, no execution.",
+      "qualification": "Public representable API. Actual generated armor column counts read are small and do not trigger; no ordinary asset or GPU failure claimed. Exact RIG-ADMISSION03-F053 alias pending detailed record comparison, not a new unique global count.",
+      "finding": "SEGOVB-04-SURFACE-COLUMN-ENDPOINT-CANDIDATE-001"
+    },
+    {
+      "contract": "Skin blend valid producer shares",
+      "evidence": "Private blend merges and normalizes positive weights; arbitrary MAX shares can overflow internally but actual EmbeddedMesh corners clamps bilinear s/t to0..1 and supplies exactly4 shares. With valid normalized source influence rows these small products/sums remain bounded. Invalid morph/skin cardinality is admission/aggregate ownership, no ordinary overflow promoted."
+    },
+    {
+      "contract": "Grid realization and fallible publication",
+      "evidence": "constructed validates Construction, filters spanning grids and builds local Layout/EmbeddedMesh before returning. Base GridSurface checks orientation finite/nonzero; realization reuses base spacing on morph positions, with frame normalization potentially degenerating on malformed/collapsed morphs. No valid actual morph collapse witness established. Source index/position cardinality belongs accepted03 grid admission evidence; no other-lens coverage transfer."
+    },
+    {
+      "contract": "Tiling work capacity and topology",
+      "evidence": "Layout checks MAX_TILES20000 only after lay_grid has generated each entire grid. Row count conversion uses ceil-as-usize+1 and columns allocates before cap; large finite public GeneratedArmor geometry could defeat intended work bound but actual scale/canonical grid admission requires tracing before promoting. Lacer STEP.006 subdivides physical cord lengths without a separate bound; local mesh discarded on error. Pattern dimensions widen to f64 before centimetre conversion; current validated plate sizes are small. Open border overhang/extrapolation and closed-row seam wrapping intentional."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-SURFACE-COLUMN-ENDPOINT-CANDIDATE-001",
+      "source_id": "pr-working:crates/fabelgeist-armor/src/surface_grid.rs",
+      "sha256": "d2e76894c4233cad8a8656215bf15fe6defcce235adc2350b3e2d5ad0308465e",
+      "ranges": [
+        [
+          57,
+          75
+        ]
+      ],
+      "counterexample": "SurfaceColumn::at(u32::MAX).bracket(u32::MAX): at rounds MAX to 2^32f32; upper guard (columns-1) as f32 also rounds to2^32, so first becomes u32MAX and first+1 overflows before min. Debug panic / release wrap changes returned neighboring index. Source proof only, no execution.",
+      "qualification": "Public representable API. Actual generated armor column counts read are small and do not trigger; no ordinary asset or GPU failure claimed. Exact RIG-ADMISSION03-F053 alias pending detailed record comparison, not a new unique global count.",
+      "contract": "Endpoint bracket must preserve valid indices and explicitly reject/unrepresentable native column cardinality or use checked next endpoint. Do not add arbitrary physical extent clamp.",
+      "acceptance": "Representable endpoint and neighboring indices within admitted cardinality; ordinary endpoints/last-column interpolation preserved. Shared cardinality/grid owner relationship maintained."
+    }
+  ],
+  "fresh_dependencies": [
+    {
+      "path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/source-extensions.json",
+      "role_count": 62,
+      "disposition": "Authoritative registry now62 roles loaded for later own04 reconciliation; metadata/provenance only, no fresh coverage credit."
+    }
+  ],
+  "status": "8 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/fabelgeist-armor/src/tiling/template.rs"
+}

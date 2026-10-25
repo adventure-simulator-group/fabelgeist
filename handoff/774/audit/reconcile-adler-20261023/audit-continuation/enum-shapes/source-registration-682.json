@@ -1,0 +1,70 @@
+{
+  "id": "SEGO-INITIAL09-REG682",
+  "entries": [
+    {
+      "index": 40,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/status.rs",
+      "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_blob": "54944145ee08ebf9f2c32893e72d2f38e2711aef",
+      "sha256": "4ed19181ab78cf91d879f183d56d313397141bcefd0c3139ebd1263c1c3163ff",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/enum-shapes/source-objects/4ed19181ab78cf91d879f183d56d313397141bcefd0c3139ebd1263c1c3163ff",
+      "ranges": [
+        [
+          1,
+          204
+        ]
+      ],
+      "reason": "Actual InstallationStatus phase/error receiver and MapState failure/presented readiness serializer called at mod1621:66; needed to trace proposed payload-bearing status through serialization and preserve retained prior presentation.",
+      "status": "registered before body read; no coverage yet"
+    },
+    {
+      "index": 41,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/focus.rs",
+      "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_blob": "f504d92be65ba7082e4dc306a2b073149dfd6ddd",
+      "sha256": "0e170d10cea11d48678f3c192e21fb6f2273e9cd1edcdc93fecb2d908e8386d0",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/enum-shapes/source-objects/0e170d10cea11d48678f3c192e21fb6f2273e9cd1edcdc93fecb2d908e8386d0",
+      "ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "reason": "Actual requested_city() semantic gate consumed city1617:135 and installation1618:65; defines focus/category admission used by installed city lifecycle, not namespace export.",
+      "status": "registered before body read; no coverage yet"
+    },
+    {
+      "index": 42,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/connections.rs",
+      "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_blob": "6682608b13a48ef846c4cc0c88d4ffd476ed3c46",
+      "sha256": "96d604645187dd0d74c64974f909dbb8cc14a6ee8c5d8a6d56e71b29597d3970",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/enum-shapes/source-objects/96d604645187dd0d74c64974f909dbb8cc14a6ee8c5d8a6d56e71b29597d3970",
+      "ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "reason": "Actual scheduled connections::present receiver1621:54 and retained MapState.presented_connections1621:33; inspect its construction/retirement together to determine which absence/history combinations are meaningful.",
+      "status": "registered before body read; no coverage yet"
+    },
+    {
+      "index": 43,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/routes.rs",
+      "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_blob": "517e6683f7bcf499f74fad944c33744eb62506e7",
+      "sha256": "afe345727adbff233fdc700aa56b6a3b15104e18a24218e64bf33529335c4f8d",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/enum-shapes/source-objects/afe345727adbff233fdc700aa56b6a3b15104e18a24218e64bf33529335c4f8d",
+      "ranges": [
+        [
+          1,
+          177
+        ]
+      ],
+      "reason": "Actual scheduled routes::present receiver1621:55 and retained MapState.presented_route1621:37; inspect request/route/mesh state construction and lifecycle so aggregate MapState review does not assume unavailable route means stale/inapplicable.",
+      "status": "registered before body read; no coverage yet"
+    }
+  ],
+  "limits": "Actual retained state/writer/receiver paths only; sibling path_geometry and module exports navigation only until actual callee trace."
+}

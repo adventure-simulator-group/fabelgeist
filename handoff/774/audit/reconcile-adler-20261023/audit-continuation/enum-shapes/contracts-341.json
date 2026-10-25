@@ -1,0 +1,47 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-341",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        440,
+        441,
+        442,
+        443
+      ],
+      "ranges": {
+        "442": [
+          [
+            214,
+            243
+          ]
+        ],
+        "443": [
+          [
+            33,
+            33
+          ],
+          [
+            70,
+            180
+          ],
+          [
+            1503,
+            1710
+          ],
+          [
+            2670,
+            2735
+          ]
+        ]
+      },
+      "comparison": "Full exact calendar698 and coordinates512; language only214-243; world schema only33,70-180,1503-1710,2670-2735. Calendar has checked/saturating/wrapped operations with explicit names and real optional failure, no carried policy Boolean or invented enum for date indices. Absolute zero and maximum minutes, signed birth coordinate, partial-day windows and overnight wrapping remain meaningful; no clock64Hz assumptions. Coordinate owners explicitly separate WGS84 bounds from unbounded abstract strategic coordinates, so preserve F243 valid mixed coordinate-system requirement at actual location owner; no geographic bounds blanket for all strategic points. Named coordinate/window predicates are ordinary calculations. Oral language selection retains canonical enum through fixed explicit tie ordering; zero coefficient has deterministic EastCentral label, not proof of actual communication. Language string adapters outside214-243 not credited. OfficialReligion closed vocabulary already typed; religion training in several categories is independent and may coexist. LandUseProfile fraction composition is mixed acreage and intensity is derived classification, not one mutually exclusive land-use variant that loses shares. Hydrology availability predicates derive from independent optional water types; CrossingWatercourse already owns River/Canal payload, Ditch has none. No full4796 schema or whole756 language coverage. No tests executed.",
+      "finding_refs": [
+        "SEGO-INITIAL09-F243"
+      ],
+      "disposition": "Valid numeric owners, derived classifications and payload enums retained; exact partial boundaries preserved"
+    }
+  ],
+  "new_findings": [],
+  "limits": "No source edits, execution, plan or clearance; source coverage does not replace other lens admission/operation obligations."
+}

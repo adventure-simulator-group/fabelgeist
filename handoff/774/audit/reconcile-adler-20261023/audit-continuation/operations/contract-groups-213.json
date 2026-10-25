@@ -1,0 +1,252 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-213",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+      "sha256": "4421b1617dbe612f0ac626645aea036d082746d7823e383da6492db3334517a3",
+      "actual_EOF": 2973,
+      "actual_compared_ranges": [
+        [
+          1,
+          2973
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap/standalone.rs",
+      "sha256": "f8c439a961994d8cecdb92d5714dc22d3bf156311809819c89c78e0a1cbdd1a5",
+      "actual_EOF": 112,
+      "actual_compared_ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap/streams.rs",
+      "sha256": "07b827d6de030e024becdf33498ae858f561c957cef249f2bcf024566895b906",
+      "actual_EOF": 46,
+      "actual_compared_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+      "sha256": "9511a258a4133480d0581e538ae88d41ccff8d90ce6a0658ff71e28267b35eb5",
+      "actual_EOF": 2973,
+      "actual_compared_ranges": [
+        [
+          1,
+          2973
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap/standalone.rs",
+      "sha256": "f8c439a961994d8cecdb92d5714dc22d3bf156311809819c89c78e0a1cbdd1a5",
+      "actual_EOF": 112,
+      "actual_compared_ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap/streams.rs",
+      "sha256": "07b827d6de030e024becdf33498ae858f561c957cef249f2bcf024566895b906",
+      "actual_EOF": 46,
+      "actual_compared_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "id": "Report reward, mission result and lifecycle authority",
+      "locations": "mission_bootstrap.rs1-310",
+      "trace": "Report validates actual active acceptedparty contract ReadyToReport/notpaid and actoratsettlement beforeconsuminginteraction andofficialclock. Gold i32max0->u64 thenu32 is safe<=i32MAX. Equalshare denominatorrecipientslen.max1 nonzero; zero recipients wouldcreditfullreserve via modulo denominator1 gives0, but livingactingcharacter/party consistency actualcaller prevents empty onlyif membershipinvariant holds. XP quotient useslen.max1 asu32: huge2^32members narrows0, rawcapacityqualification notordinarypopulation. member.xp saturatesu32, level1+xp/100 fitsu32. Paidstatus/date then clearsactivecontract/requests andensuresactivity; lateErrors outerSDK/catches. Autoresolve exact boundmission/roster, no concurrenttacticalrequest/serverforgroup, actualsnapshotenemyparameters andtransientbattle. Nonvictory recordsstrategicconsequences thenmarksFailed returnsOk; victorycorpse/completeboundchild. Existingreport earlyreturn occursaftermissionBound check, so exactterminalmissionretry policyneedsactualcaller ratherthanassumedallretryOk. Cancellation onlyBoundrequest, deletesrequest/claim andmarksCancelled; no tacticaltickstate persisted here.",
+      "disposition": "No new ordinary reward integeroverflow. Preserve member uniqueness/capacity, actual terminal retries and native result integration.",
+      "dependencies": [
+        "Actual require contract interaction and membership/living owner",
+        "Packet211 hostile completion/receipt/reward owner",
+        "MissionRoster and transient battle actor identity",
+        "SDK transaction/catches and actual report/error ports"
+      ],
+      "acceptance": "Rewardcurrency/stakes/reserve conserve exact payout; XP policy explicit. Successful/failed/cancelled attempts retain coherent one-waymissionstate and strategic consequences, tacticalchildcannotchooseoutcome, failedchild cannotcommitanunreceiptedpartialresult."
+    },
+    {
+      "id": "Bootstrap work budget and standalone count admission",
+      "locations": "mission_bootstrap.rs313-1080; standalone.rs1-112; fresh tactical_fixture45-115 andnativefixture1-43",
+      "trace": "All bootstrapreducers requirecompiledcapability; sourcecredentials are notauthorizationtoexecutereset/seed. Full bootstrapstillcallswholegallery334, while splitfinalizecomments419\u2013432 explicitlysaygalleryexceedsone reducerbudget; this strengthens204 actualcallerworkbudgetquestion, no execution/performancefailureproved. Splitgallery offset/countu32 widen tousize andsaturatingrangeend, breaksfirstmissingactualboundeditem. Standalone existingrequest/server earlyOk precedesfullpayload comparison; immutablefixture/claimretry policyquestion notassumedexactconflictguard. FreshCorefixtureparse caps16KiB andenemies1..MAX_MOB_COUNT, exactcountu32conversion safe; groupclamp thereforeidentity onactualparsedfixture. configurechecksrosterlenexactbeforeeachloadout. Normalizedcount*10000 underactualMAX30 fitsu32. Thus apparentoriginalrequired-versusclampedcount mismatchclosed. Standaloneoffsetactualdistance0/2000 dividedfinite1000or111000, thenpropergeographic/abstractreadmission. Prefixfamily parserusescanonicalMissionIDbefore splitonce; no unsafeindex. ExistingrequestretirementchecksstandalonecasebeforedeletingthenmarksFailed. Createsrequest/claimonlyafteractualenemy/partyrostersandsettlementsnapshot. Environmental defaultsWorldStart occurafteranchorSomeinitialization, no normalmissinganchorclaim. Demoenvironmentfixedboundedconstructorvalues, seednotrun.",
+      "disposition": "No new local ordinary count/offset bug. Exact earlyretry, work-budget and childatomicity dependencies remain.",
+      "dependencies": [
+        "204 actual gallery/batch executionbudget",
+        "Actual standalone tactical request/server/claim lifecycle",
+        "Canonical simulation security and isolated development workflow",
+        "MissionAuthority capture/roster and native generatedbindings",
+        "SDK transaction/catches"
+      ],
+      "acceptance": "Accepted boundedfixtures retain exactcount/roster/objective andrequest/claimauthority, onlyisolatedcapabilityworkflowmayseed. Retry mustfollowexplicitimmutablepayloadpolicy andworkbudgetmust beeffectiveatactualentrypoint."
+    },
+    {
+      "id": "Settlement activity counts and recruiter identity lifecycle",
+      "locations": "mission_bootstrap.rs1082-1350; fresh autoresolve68-80,authority_model498-550; governance full208",
+      "trace": "Actual min/maxquests3/5 make targetrangebound3..5 and generatedenumeration asu32safe<=5; activeusizecounts saturateataggregate andnoiterationif>=target. Generatedcasefoldincrementsatmostactualcollectionlen, no ordinaryusizeoverflowwithinallocatedtablegraph claimed. Newactivity children residence/population/officialclock/quests/incidents/recruiters allfalliblewithstageformatting, no sourcecommentprovesSDKrollback. Recruitertarget1+index2=>1..2. ExpiredOpen liveoffer renewsinplace; staleofferClosed. CandidateexclusiononlyOpenstatus andnew deterministicofferkey/source/NPC/partyallunique. A retainedClosedstillalive/presentminimumresidentcanberepicked andsameidentityinserted, exactfindingbelow; normalrolefillinggovernanceclosesofferwhennoopenslots. now+7dayssaturatesMAX, soatMAX renewedofferexpiresnowandremainsunusable, terminalpolicyqualificationonly. Streamsroleattrs index4->u8<=3, precisionindex4*.5<=1.5, partycheck3+index3<=5. No arbitrary globalpartycapinferredfromrecruitmentslots.",
+      "disposition": "Source-static ordinary-size conditional closed-history collision finding; terminal expiry and SDK/errorqualifications preserved.",
+      "dependencies": [
+        "SEGOVB-04-RECRUITER-CLOSED-IDENTITY-001",
+        "208 recruitment completion and offerbinding owner",
+        "Actual residentpresence/living/minimumselection afterofferclosure",
+        "SDK insert uniqueness/transaction/catches"
+      ],
+      "acceptance": "Valid recruiterhistory cannotblockfutureactivity byreinsertingauniqueidentity. Canonical lifecycle mustdeliberatelyreuse/reneweligibleexistingauthorityorexcludeallhistoricalusedidentities, preservingfiniteNPCpopulation, playerpartyleadership andcapacitymeaning. Terminalexpiryneedsdeclaredpolicy."
+    },
+    {
+      "id": "Generated identity, weather and ordinal capacity",
+      "locations": "mission_bootstrap.rs1352-1813,2421-2513",
+      "trace": "Generatedwitness candidatesfilterednavigable/sortedpersistentIDs; developerinputusesplayer-visiblepresentationandsexNoneinsteadprivate demography. Presenceversionlengthframedhash usesintentionalwrapping multiplication, no arithmeticerrorfromhashwrap. Candidatehashisnotproofcollision-freeidentity; actualrevisionownersemanticsdistinct. Ordinaryquestgenerator anddeveloperquestboth countallvalidatedhistoricalsettlementauthoritiesin u16 viauncheckedcount+1, unboundedbyactive3..5target; sourcecapacityfindingbelow,no65536actualquestsclaimed. Bothweathercalls unconditionallyadmitWGS84microdegreesdespitesettlement.source_nodeNonemeaningabstractelsewhere. Validabstractfulli32latticeoutsideWGS canthereforerejectquestgeneration; connectsaudit/records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/findings.jsonl#19 RIG-PPS-F019 coordinatepolicy, noglobalrestriction/positiveelevationinvented. Developerisactualcapability/character-gated despiteoldcomment, notclient-onlyauthority. Preferredfixture64boundedattempts andacceptance32768boundedcandidates, finitebutactualworkbudgetnotproved; generatorerrors maystopbeforefurthercandidates deliberately. Fixtureclockmax4000 explicitlydevpolicy, notordinarymissingclockfallback. Fixtureordinalseed lowu16 deliberateentropycoordinate, notassumedfullseedidentity. Generatedsitedistance4000+index17000=>4000..20999 safe, nearoverride1000onlyrecurringthreat; alloffsetsfiniteandre-admitted, edgecoordinatecanlegitimatelyrejectwithoutpublishinginvalidlocation.",
+      "disposition": "New qualified historicalordinalcapacity support; exact abstract/WGS boundary and workbudget remain connected dependencies, not newordinaryrunclaims.",
+      "dependencies": [
+        "SEGOVB-04-QUEST-ORDINAL-CAPACITY-001",
+        "audit/records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/findings.jsonl#19 RIG-PPS-F019",
+        "Canonical generated context/observer/presence identity and replay owner",
+        "Actual Core generate/validate/developercompile and budget"
+      ],
+      "acceptance": "Every newgeneration hasrepresentable canonicalordinal ordeclared exhaustionbeforework. Keepfullabstractlattice/geographicweatherpoliciesdistinct andactualnumericrangevalidated. Preserve public/privatewitnessfacts and replayseeds/draworder."
+    },
+    {
+      "id": "Generated materialization and source publication",
+      "locations": "mission_bootstrap.rs1815-2419,2515-2973",
+      "trace": "Developmentboostsfinitefixedhours andactualneededobjects; canonicalcheckedcreatorerrors P16propagate, PRuncheckedaddadaptercallsareactualdifferentintegration, fullPRdiffconsumed. Ordinarymaterializer receivesvalidatedCoregenerated/developercompiledmanifestfromactualcalls, but privatefunctionsignatureisrawreference notopaquecapability. It checkscaseIDcollisiontheninsertsschema rows,event/site/area/evidence/testimony/group/custody/finale/problem/outbreakbeforegenerationauthorityrecordlast. Allfalliblechildrenpropagate,noinnercatchhere; outerSDK/actualcallergraphmustclosepublication. ActualObjectiveExpressionconstructorcaps16pathsso pathusize->u16/priority100-saturatingindexsafe forproperadmittedmanifest; nogiantpathnormalclaimfromrawSerdealone. Normalhostilematerializationdifficulty2 andactualauthoredcountsource; terraincoordinateoffsetlongitude denominatorcosabs.max.1 preventszero, finalcoordreadmitted. Areasradius5000intentionalbound, fixedsitecountsactualmanifestadmissionseparate. Contextcommitmentcomputedfromexactserializedoverride/defaultcontext; ensure replayvalidator regeneratesalreadyread201. Allsourcefixturesreadwithout execution; imports/source-stringassertionsnotcoverageofabsenthelpers.",
+      "disposition": "No new local ordinary finite/index defect. Preserve exact source identity, typederrors, materializationatomicity and generated authority dependencies.",
+      "dependencies": [
+        "Actual qg::validate/developercompile admission graph and201 replayvalidator",
+        "203 authored custody/finale/exact objective owner",
+        "Native tactical/equipment schema and generatedclients",
+        "SDK outertransaction/catch semantics and childpublication"
+      ],
+      "acceptance": "Successfulmaterializationpublishesonecoherent validatedcase/context/manifest/provenancegraph andallreferencedauthority. Anyrejectedchild cannotleaveusablepartialcase; actualwire/DBbindingsgeneratedfromcleanschema, nohandedits."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-RECRUITER-CLOSED-IDENTITY-001",
+      "classification": "Source-static ordinary-size conditional lifecycle conflict; no liveNPC/DB/insertfailureexecutionclaimed.",
+      "source_ids": [
+        "physical-p16:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+        "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs"
+      ],
+      "locations": [
+        [
+          1239,
+          1343
+        ]
+      ],
+      "input": "ExistingClosedRecruitmentOfferforstillalive/presentminimumeligibleNPC; numberOpenoffersbelowtarget1..2. A normalproducerofClosedisgovernancefullspecializedrole1605-1627. ActualNPCpresenceafterthatspecificgameplaysequence remainsconditional.",
+      "operation": "OnlyOpenofferscontributetoused_npcs; closedresidentselectedagain, same deterministicofferkey/source_id/party/NPCinsertedalthoughallfourareuniqueintheschema. Noexistinghistorylookup/upsertbeforeinsert.",
+      "relationship": "Canonical persistentrecruiteridentity/lifecycle graph; exact globaldedup notestablished andno newuniquecountclaimed.",
+      "dependencies": [
+        "Actual resident presence and leader/party afterclosure",
+        "Native schema uniqueness and SDK insert-error semantics",
+        "208 closed-offer/recruitment lifecycle"
+      ],
+      "acceptance": "Closedhistoricalidentitymustnotcollidewhenactivitygeneratesreplacement. Choosecanonicaleligibility/reusepolicybeforemutation; retainNPCidentityandwholeplayerpartyownership, noblindreset/duplicateofferidentity.",
+      "repair_status": "frozen",
+      "validation_status": "not_run"
+    },
+    {
+      "id": "SEGOVB-04-QUEST-ORDINAL-CAPACITY-001",
+      "classification": "Represented retained history/APIcapacity strengthening; no ordinary65536questhistory/runtimeclaim.",
+      "source_ids": [
+        "physical-p16:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+        "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs"
+      ],
+      "locations": [
+        [
+          1573,
+          1581
+        ],
+        [
+          2457,
+          2465
+        ]
+      ],
+      "input": "65536validretainedquestgenerationauthoritiesforsettlement; activecountcanstillbe<3becausehistoricalresolvedcasesremain. Eachcontext/manifestindividuallyvalid; completeadmittedhistorycapacitynotclosed.",
+      "operation": "try_fold0u16adds1pervalidatedsame-settlementrowwithoutchecked_add; on65536throwlackrepresentablecountbeforetypedGenerationContext.ordinal. Result wrapperdoesnotcaptureintegeroverflow.",
+      "relationship": "Canonicalgeneratedoccurrenceordinal/capacity graph, separatefromM48dialogueeventandRootF047conceptiontrial; no globaluniquenessclaim.",
+      "dependencies": [
+        "Actual generatedhistoryretention and canonicalordinalowner",
+        "CoreGenerationContext admission/replay and nativeauthoritylookup",
+        "Structured error propagation beforematerialization"
+      ],
+      "acceptance": "Generationeitherretainsrepresentablefreshordinalorexplicitlyrejectsexhaustionbeforepartialwork. Historicalcountcannotwraporpanic, preserveordinaryorder/replayandactivepopulationpolicy.",
+      "repair_status": "frozen",
+      "validation_status": "not_run"
+    }
+  ],
+  "fresh_dependencies": [
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/source/physical-p16/crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "actually_read_ranges": [
+        [
+          498,
+          550
+        ]
+      ],
+      "coverage": "Fresh exact critical body/schema only; no additional original-role credit."
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/source/physical-p16-unscoped-dependency/crates/adventuresim-stdb-module/src/strategic/tactical_enemy_fixture.rs",
+      "sha256": "241e5f1c12555a8ebde110fc10e4e426601efc263879c408aa57d5be05b395ec",
+      "actually_read_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "coverage": "Fresh exact critical body/schema only; no additional original-role credit."
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/source/physical-p16-unscoped-dependency/crates/adventuresim-core/src/tactical_fixture.rs",
+      "sha256": "563f1e6e038981b2f33a77d3291e761b7d1569335ddac5355278d04335c50670",
+      "actually_read_ranges": [
+        [
+          45,
+          115
+        ]
+      ],
+      "coverage": "Fresh exact critical body/schema only; no additional original-role credit."
+    },
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/source/physical-p16-unscoped-dependency/crates/adventuresim-stdb-module/src/strategic/autoresolve.rs",
+      "sha256": "b475a0317b7ceda238789e057c6c302ca8ca83924b7cb09b13807a2e70b63782",
+      "actually_read_ranges": [
+        [
+          68,
+          80
+        ]
+      ],
+      "coverage": "Fresh exact critical body/schema only; no additional original-role credit."
+    }
+  ],
+  "status": "6 original roles personally compared; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/strategic/mission_roster.rs"
+}

@@ -1,0 +1,96 @@
+{
+  "id": "CONT07-CONTRACT-524",
+  "at": "2026-10-23T23:15:14.069151+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2291,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/hairdo.rs",
+      "sha256": "7adbce20aa4fb6390748d4a83ad91e4c31a976db817f0a26c321f5c415393f14",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-hair/src/hairdo.rs",
+      "actual_EOF": 710,
+      "ranges": [
+        [
+          1,
+          710
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2292,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/lib.rs",
+      "sha256": "57c7525f7e70077874384b0491220ff8d9dd427cc3b5e18b8e0f43d5ef5ddff0",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-hair/src/lib.rs",
+      "actual_EOF": 187,
+      "ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2293,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/look.rs",
+      "sha256": "81e8743f737a776691275b86117f5b22c8b318ae88c8985f2dcc12f7280b69d5",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-hair/src/look.rs",
+      "actual_EOF": 469,
+      "ranges": [
+        [
+          1,
+          469
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2294,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/look/groom.rs",
+      "sha256": "3dffaa4b35a78c1b5f3d8e07b5698d2f273f563741c9250883f74701d5572818",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-hair/src/look/groom.rs",
+      "actual_EOF": 193,
+      "ranges": [
+        [
+          1,
+          193
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2295,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/look/random.rs",
+      "sha256": "bbc2659794d1758ed6147329c7cc21c8e1a08a726ec80e12426ae397fa13e0b5",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-hair/src/look/random.rs",
+      "actual_EOF": 50,
+      "ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "RIG-ADMISSION03-F069",
+    "RIG-PPS-F004",
+    "RIG-OWNER-F004"
+  ],
+  "facts": [
+    "Hairdo computes flow, fringe_falls, parting and drapes from current recipe on request. Guide count, spacing/key are shared hosthelpers usedGPU; separate head/scalp inputs have caller-associated identity, no matching guard established but noactualordinarywrongpair asserted. Flow.code manualnumericshadercodes dependency registeredREG021\u2013023 before reads.",
+    "Look.preset explicitly records starting preset, and texture/editedhairdo neednot equal factorypreset. Draping is explicit userpolicy initialized andrandomselected from drapes; notnecessarilycachethatmusttracklaterhairdo. guidesfixed64versusgroompointsdistinct guide-resolutionthenresamplingpolicy, notduplicatedcurrentcount.",
+    "Look.groom/Look.guides typed leaves discarded through retained Op/Groom/Guides rawfields: exactRIG-PPS-F004/RIG-OWNER-F004 adopted evidence. seed+9 etc sameRIG-ADMISSION03-F069 overflow, noexecution. Shared material/CPU/GPU equationownership still independent07review, no propagatedclosure.",
+    "Random follicle weighttable totals100currentlymatches index100. Relativeweightsareindependentdistributionpolicy, enumALLnotnecessarilyrandomweightslist. Source weights/default fallback futuremaintenancecandidate mustremainlimited, notinventcurrentdistributiondrift."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2296,
+    "start_line": 1
+  }
+}

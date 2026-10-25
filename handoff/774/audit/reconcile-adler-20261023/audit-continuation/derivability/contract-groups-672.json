@@ -1,0 +1,595 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-672",
+  "at": "2026-10-25T16:24:54.032617+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 964,
+      "source_id": "pr-working:crates/adventuresim-core/src/physiology.rs",
+      "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+      "actual_EOF": 1169,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/physiology.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/physiology.rs",
+        "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+        "bytes": 38543,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/supplemental-core-receivers.json",
+            "ranges": [
+              [
+                1,
+                1169
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "NATIVE-SUPP-CORE-PHYSIOLOGY-001"
+            ]
+          }
+        ],
+        "audit_owner": "native",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+            "row": 10,
+            "read_ranges": [
+              [
+                1,
+                115
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-DEBUG-010",
+              "ROOT-OWNER-TARGETING-011",
+              "ROOT-OWNER-MOTOR-013",
+              "ROOT-OWNER-ATTACK-014"
+            ],
+            "read_status": "exact_reached_contract_ranges",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/physiology.rs"
+          },
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+            "row": 35,
+            "read_ranges": [
+              [
+                1,
+                140
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-BESTIARY-022"
+            ],
+            "read_status": "exact_owner_definition_ranges",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/physiology.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 648,
+            "read_ranges": [
+              [
+                465,
+                490
+              ],
+              [
+                650,
+                679
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SIM-SETTLEMENT-099"
+            ],
+            "read_status": "fresh-current-lens-scoped-definition-receiver-reread",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/physiology.rs"
+          },
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 16,
+            "read_ranges": [
+              [
+                1,
+                130
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-CATALOG-008"
+            ],
+            "read_status": "affected-BodyMassKg-definition-complete-unrelated-physiology-not-credited",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/physiology.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 81,
+            "read_ranges": [
+              [
+                1,
+                1169
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-PHYSIOLOGY-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/physiology.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 437,
+            "read_ranges": [
+              [
+                1,
+                1169
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-PHYSIOLOGY-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/physiology.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root",
+          "camera",
+          "rig",
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CLINICAL-RECEIVERS-045",
+            "json_pointer": "/additional_actual_source_proofs/0",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/physiology.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                100
+              ],
+              [
+                185,
+                315
+              ],
+              [
+                650,
+                715
+              ],
+              [
+                850,
+                935
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/physiology.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/physiology.rs",
+              "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+              "actual_lines": 1169,
+              "read_ranges": [
+                [
+                  1,
+                  100
+                ],
+                [
+                  185,
+                  315
+                ],
+                [
+                  650,
+                  715
+                ],
+                [
+                  850,
+                  935
+                ]
+              ],
+              "requested_range_limits": [
+                [
+                  1,
+                  100
+                ],
+                [
+                  185,
+                  315
+                ],
+                [
+                  650,
+                  715
+                ],
+                [
+                  850,
+                  935
+                ]
+              ],
+              "proof_mode": "Fresh actual bounded current clinical receiver/owner body. Effective range clipped to actualEOF. No whole unrelated file/role credit."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/additional_actual_source_proofs/49",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/physiology.rs",
+            "read_ranges_as_recorded": [
+              [
+                330,
+                385
+              ],
+              [
+                455,
+                665
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/physiology.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/physiology.rs",
+              "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+              "read_ranges": [
+                [
+                  330,
+                  385
+                ],
+                [
+                  455,
+                  665
+                ]
+              ],
+              "actual_line_count": 1169,
+              "mode": "fresh current producer-supplement actual material source bodies; no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-035",
+            "json_pointer": "/fresh_current_additional_source_reads/0",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/physiology.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                100
+              ],
+              [
+                185,
+                315
+              ],
+              [
+                650,
+                715
+              ],
+              [
+                850,
+                935
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/physiology.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/physiology.rs",
+              "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+              "actual_lines": 1169,
+              "read_ranges": [
+                [
+                  1,
+                  100
+                ],
+                [
+                  185,
+                  315
+                ],
+                [
+                  650,
+                  715
+                ],
+                [
+                  850,
+                  935
+                ]
+              ],
+              "requested_range_limits": [
+                [
+                  1,
+                  100
+                ],
+                [
+                  185,
+                  315
+                ],
+                [
+                  650,
+                  715
+                ],
+                [
+                  850,
+                  935
+                ]
+              ],
+              "proof_mode": "Fresh actual bounded current clinical receiver/owner body. Effective range clipped to actualEOF. No whole unrelated file/role credit."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-036",
+            "json_pointer": "/additional_fresh_sources/14",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/physiology.rs",
+            "read_ranges_as_recorded": [
+              [
+                330,
+                385
+              ],
+              [
+                455,
+                665
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/physiology.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/physiology.rs",
+              "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+              "read_ranges": [
+                [
+                  330,
+                  385
+                ],
+                [
+                  455,
+                  665
+                ]
+              ],
+              "actual_line_count": 1169,
+              "mode": "fresh current producer-supplement actual material source bodies; no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 343,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1169
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "TryFrom<u32>",
+          "type": "DoseMilliunits",
+          "lines": [
+            [
+              96,
+              102
+            ]
+          ],
+          "disposition": "KEEP checked capped dose/error"
+        },
+        {
+          "trait": "From<DoseMilliunits> for u32",
+          "lines": [
+            [
+              104,
+              108
+            ]
+          ],
+          "disposition": "KEEP small extraction no owning Into derive"
+        },
+        {
+          "trait": "Display",
+          "type": "BodyRegion",
+          "lines": [
+            [
+              202,
+              206
+            ],
+            [
+              223,
+              233
+            ]
+          ],
+          "disposition": "KEEP small underscore token as_str formatter, distinct hyphen slug, no owning Display derive"
+        },
+        {
+          "trait": "Display",
+          "type": "InterventionRoute",
+          "lines": [
+            [
+              457,
+              472
+            ]
+          ],
+          "disposition": "KEEP small closed as_str formatter no existing owning Display derive"
+        }
+      ],
+      "existing_derives": [
+        "Structural/Serde/native conditional vocabulary derives; DoseMilliunits and MeterVector Default already derive; PresenceSpan and ChartEntry Serde already derive"
+      ],
+      "absence_basis": "Full1169lines personally consumed666\u2013672: every native admission/meter/curve/intervention/keyed phenotype/public observation/timing function and fixture; all other impls inherent."
+    },
+    {
+      "scope_index": 965,
+      "source_id": "pr-working:crates/adventuresim-core/src/provisioning.rs",
+      "sha256": "438b45a44c51026e751788a6ef9da9c40ee88ae53eac79a64ca0845d5170cd68",
+      "actual_EOF": 118,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/provisioning.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/provisioning.rs",
+        "sha256": "438b45a44c51026e751788a6ef9da9c40ee88ae53eac79a64ca0845d5170cd68",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 4242,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 660,
+            "read_ranges": [
+              [
+                1,
+                118
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SIM-TRAVEL-105"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/provisioning.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-SIMULATION-OBSERVATION-RECEIVER-CLOSURE-050",
+            "json_pointer": "/source_proofs/28",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/provisioning.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                118
+              ]
+            ],
+            "source_context": {
+              "index": 659,
+              "source_id": "pr-working:crates/adventuresim-core/src/provisioning.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/provisioning.rs",
+              "sha256": "438b45a44c51026e751788a6ef9da9c40ee88ae53eac79a64ca0845d5170cd68",
+              "read_ranges": [
+                [
+                  1,
+                  118
+                ]
+              ],
+              "actual_line_count": 118,
+              "supplier_trace": "RIG-PPS-036",
+              "disposition": "Supplier producer/retained-state/operation/actual receiving-body inventory accounted with findings; Camera must explicitly consume before716 credit.",
+              "source_roles": [],
+              "actual_receiver_closure": "Root047/048/049 source facts plus full Rig036 survival/expedition/economy and Native022 cycle/travel/recovery receipts close the prior fifteen shared receiving obligations. No blanket source or native exemption."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/current_sources/28",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/provisioning.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                118
+              ]
+            ],
+            "source_context": {
+              "index": 659,
+              "source_id": "pr-working:crates/adventuresim-core/src/provisioning.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/provisioning.rs",
+              "sha256": "438b45a44c51026e751788a6ef9da9c40ee88ae53eac79a64ca0845d5170cd68",
+              "read_ranges": [
+                [
+                  1,
+                  118
+                ]
+              ],
+              "actual_line_count": 118,
+              "supplier_trace": "RIG-PPS-036",
+              "disposition": "Supplier producer/retained-state/operation/actual receiving-body inventory accounted with findings; Camera must explicitly consume before716 credit.",
+              "source_roles": [],
+              "actual_receiver_closure": "Root047/048/049 source facts plus full Rig036 survival/expedition/economy and Native022 cycle/travel/recovery receipts close the prior fifteen shared receiving obligations. No blanket source or native exemption."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-036",
+            "json_pointer": "/fresh_current_source_reads/9",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/provisioning.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                118
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/provisioning.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/provisioning.rs",
+              "sha256": "438b45a44c51026e751788a6ef9da9c40ee88ae53eac79a64ca0845d5170cd68",
+              "read_ranges": [
+                [
+                  1,
+                  118
+                ]
+              ],
+              "actual_line_count": 118,
+              "mode": "fresh current producer-supplement actual material source bodies; no execution",
+              "camera_assigned_index": 659,
+              "expected_sha256": "438b45a44c51026e751788a6ef9da9c40ee88ae53eac79a64ca0845d5170cd68",
+              "fingerprint_matches_assignment": true
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1360,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          118
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "PartyProvisioningInputs/Forecast structural and Default already derive"
+      ],
+      "absence_basis": "Full118lines personally consumed671 output: shared-first supply helper, native forecast arithmetic and three fixture bodies. No handwritten trait or codec."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Physiology derivability",
+      "disposition": "Keep checked dose conversions and small vocab formatters; lossy humour/observer projections, keyed hashing, terminal crossing and treatment semantics are not mechanical derives. No new finding."
+    },
+    {
+      "contract": "Provisioning derivability",
+      "disposition": "No trait boilerplate. Forecast computes party budgets/rounding, not mechanical From; existing defaults already derived."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 966,
+    "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

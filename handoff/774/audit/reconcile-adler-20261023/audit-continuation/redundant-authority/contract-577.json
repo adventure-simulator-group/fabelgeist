@@ -1,0 +1,162 @@
+{
+  "id": "CONT07-CONTRACT-577",
+  "at": "2026-10-24T00:13:10.794144+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2483,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+      "sha256": "3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+      "actual_EOF": 66,
+      "ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2484,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/ragdoll.rs",
+      "sha256": "af87991f5cb3f8fd2a6398ea5135c5daacd24c7b9c2b23181ebecec7bc516ad3",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/combat_config/ragdoll.rs",
+      "actual_EOF": 112,
+      "ranges": [
+        [
+          1,
+          59
+        ],
+        [
+          81,
+          112
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2485,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/playback.rs",
+      "sha256": "6eac571d575402a1ccbcdda6ad103850b9f52fed3f9bc602d558ea5629d23fdd",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/combat_config/playback.rs",
+      "actual_EOF": 48,
+      "ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2486,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation/procedural/body_response/target.rs",
+      "sha256": "81446933b198eac655968dd876b5bdd007e102f4daad11024f3e92242a34bd20",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-client/src/animation/procedural/body_response/target.rs",
+      "actual_EOF": 140,
+      "ranges": [
+        [
+          84,
+          140
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2487,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation/procedural/body_response.rs",
+      "sha256": "d307ec89363164d57e5762fea3f35d38adf4cb28c64801233bceacaddd9f5727",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-client/src/animation/procedural/body_response.rs",
+      "actual_EOF": 490,
+      "ranges": [
+        [
+          195,
+          217
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2488,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation/ragdoll/muscles.rs",
+      "sha256": "4d66c5e28731d05a4ff8e3fb3489cbe7d05bec7c2e76af21c7e2d7a58d846998",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-client/src/animation/ragdoll/muscles.rs",
+      "actual_EOF": 275,
+      "ranges": [
+        [
+          18,
+          180
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2489,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation/presentation.rs",
+      "sha256": "6a067389a1cdcbddd0dd3814f95e17664351794be139353572edd19928a18171",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-client/src/animation/presentation.rs",
+      "actual_EOF": 867,
+      "ranges": [
+        [
+          82,
+          116
+        ],
+        [
+          178,
+          181
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2490,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+      "sha256": "b1645110395d62b1dab020f6328f9b3d3fde6cd3f64b88101d6c66d5e7d8b0e6",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+      "actual_EOF": 2973,
+      "ranges": [
+        [
+          285,
+          315
+        ],
+        [
+          2968,
+          2973
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2491,
+      "source_id": "physical-p16:crates/fabelgeist-geometry/src/cuboid.rs",
+      "sha256": "7afef5cd462b579637596de505b962b8eecc1fd818b8c8382d59ec3ab4fc6b7a",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/fabelgeist-geometry/src/cuboid.rs",
+      "actual_EOF": 123,
+      "ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "P16 procedural/ragdoll/playback config hold independent authored controls with typed rates/references; MuscleRelease Never versus positive After owns its payload instead of sentinel. RagdollConfig::default delegates canonical authoreddefaults, avoiding duplicate defaults.",
+    "P16 inertial lean selects supplied BodyResponseConfig references/caps and delegates shared run profile speed; actual smooth_acceleration reads installed attack/release rates. These methods mix supplied and global inputs only at explicit separate call boundaries in scoped roles, no exact same-input contradiction promoted without outer recipient.",
+    "P16 ragdoll muscle envelope derives strength from retained age and current authored config; apply commits admittedage only after successful envelope. Historical relative entry pose and live parent/child rotations are intentionally independent observations. Damping gain and rate caps come from canonical config; no parallel gameplay impairment pool.",
+    "P16 presentation predictions are local estimates explicitly anchored to authoritative sample tick and maximum gap; prediction and authoritative velocity are different temporal roles. Terrain blend is retained transitional history derived incrementally from desired enabled/handoff state and current canonical speed, not redundant instantaneous enabled flag.",
+    "P16 CuboidDimensions has one array of axis lengths; native arrays/Vec3derivefromsame admitted axes. Scope1\u201380only, no Serde or omitted companionmethod coverage. Exact variant review supplies no inherited PR clearance.",
+    "REG028 exact61\u201366 validator completion confirms only zero sample-gap and too-small maximum response rejected in this method; no implied validation of all semantic relations among authored caps. Additional six lines recorded separately as material extension."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2492,
+    "start_line": 1
+  }
+}

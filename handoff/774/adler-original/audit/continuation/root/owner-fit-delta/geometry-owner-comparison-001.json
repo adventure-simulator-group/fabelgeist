@@ -1,0 +1,396 @@
+{
+  "id": "CONT-ROOT-OWNER-GEOMETRY-001",
+  "lens": "audit-existing-type-owners",
+  "at": "2026-10-22T02:48:41.312251+00:00",
+  "scope": "Current exact candidate definitions plus explicitly listed use witnesses. Definition source coverage only below; no downstream graph blanket credit.",
+  "source_proofs": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/lib.rs",
+      "sha256": "4be1dea1bfca250604d52c9c8ea026aac5e3608d4d8cf35168f0cdc60ff4a7ab",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-geometry\\src\\lib.rs",
+      "read_ranges": [
+        [
+          1,
+          16
+        ]
+      ],
+      "actual_EOF": 16,
+      "mode": "fresh exact body/text read this owner-lens turn; source proof only, no other-lens or source-correctness credit",
+      "role": "current candidate definition/Serde-policy/native-projection/dependency manifest"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/length.rs",
+      "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-geometry\\src\\length.rs",
+      "read_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "actual_EOF": 40,
+      "mode": "fresh exact body/text read this owner-lens turn; source proof only, no other-lens or source-correctness credit",
+      "role": "current candidate definition/Serde-policy/native-projection/dependency manifest"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/measurement.rs",
+      "sha256": "72ee58eb8ae01af4b7f17ef81f007dfa63c7dc818a1ed71ce5bbba0707236e70",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-geometry\\src\\measurement.rs",
+      "read_ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "actual_EOF": 104,
+      "mode": "fresh exact body/text read this owner-lens turn; source proof only, no other-lens or source-correctness credit",
+      "role": "current candidate definition/Serde-policy/native-projection/dependency manifest"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/cuboid.rs",
+      "sha256": "1fe1e6483da91ee1bd681df6ff788ec97d680ac453c450069a30111c66dc40ed",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-geometry\\src\\cuboid.rs",
+      "read_ranges": [
+        [
+          1,
+          126
+        ]
+      ],
+      "actual_EOF": 126,
+      "mode": "fresh exact body/text read this owner-lens turn; source proof only, no other-lens or source-correctness credit",
+      "role": "current candidate definition/Serde-policy/native-projection/dependency manifest"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/error.rs",
+      "sha256": "78064ad3e76e6e39580db42af5da259e24a922d69fbe0953704cb9715f26a5c3",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-geometry\\src\\error.rs",
+      "read_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "actual_EOF": 95,
+      "mode": "fresh exact body/text read this owner-lens turn; source proof only, no other-lens or source-correctness credit",
+      "role": "current candidate definition/Serde-policy/native-projection/dependency manifest"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry.rs",
+      "sha256": "c3d39473c3dbc283a06a940bdaab465648c2789ebdf7757262ad128ef3851109",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\spatial_geometry.rs",
+      "read_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "actual_EOF": 29,
+      "mode": "fresh exact body/text read this owner-lens turn; source proof only, no other-lens or source-correctness credit",
+      "role": "current candidate definition/Serde-policy/native-projection/dependency manifest"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+      "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\spatial_geometry\\coordinates.rs",
+      "read_ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "actual_EOF": 140,
+      "mode": "fresh exact body/text read this owner-lens turn; source proof only, no other-lens or source-correctness credit",
+      "role": "current candidate definition/Serde-policy/native-projection/dependency manifest"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs",
+      "sha256": "4ccc1188de7d5f8bdbf63b71160b8557f76fb524ae47f924381325da11198ee8",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\spatial_geometry\\dimensions.rs",
+      "read_ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "actual_EOF": 105,
+      "mode": "fresh exact body/text read this owner-lens turn; source proof only, no other-lens or source-correctness credit",
+      "role": "current candidate definition/Serde-policy/native-projection/dependency manifest"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/bounds.rs",
+      "sha256": "7760db42bc6a6c39f285ff6b2fdacbf6ff98b481d2385630e6bfbbb56a18a786",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\spatial_geometry\\bounds.rs",
+      "read_ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "actual_EOF": 98,
+      "mode": "fresh exact body/text read this owner-lens turn; source proof only, no other-lens or source-correctness credit",
+      "role": "current candidate definition/Serde-policy/native-projection/dependency manifest"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+      "sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\scene_coordinates.rs",
+      "read_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "actual_EOF": 122,
+      "mode": "fresh exact body/text read this owner-lens turn; source proof only, no other-lens or source-correctness credit",
+      "role": "current candidate definition/Serde-policy/native-projection/dependency manifest"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+      "sha256": "aab7cbd205fd372d7542412ed9898345ccc87e83c548b9988a46424d4b88c2af",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\scene_coordinates\\spatial.rs",
+      "read_ranges": [
+        [
+          1,
+          270
+        ]
+      ],
+      "actual_EOF": 270,
+      "mode": "fresh exact body/text read this owner-lens turn; source proof only, no other-lens or source-correctness credit",
+      "role": "current candidate definition/Serde-policy/native-projection/dependency manifest"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates/polygon.rs",
+      "sha256": "e2ab1721fe7a2424bb3b878a6e98d58d12b6f1edc5ef39a0ae15a8bd3f322956",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\scene_coordinates\\polygon.rs",
+      "read_ranges": [
+        [
+          1,
+          191
+        ]
+      ],
+      "actual_EOF": 191,
+      "mode": "fresh exact body/text read this owner-lens turn; source proof only, no other-lens or source-correctness credit",
+      "role": "current candidate definition/Serde-policy/native-projection/dependency manifest"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-math/src/units.rs",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-math\\src\\units.rs",
+      "read_ranges": [
+        [
+          1,
+          120
+        ]
+      ],
+      "actual_EOF": 120,
+      "mode": "fresh exact body/text read this owner-lens turn; source proof only, no other-lens or source-correctness credit",
+      "role": "current candidate definition/Serde-policy/native-projection/dependency manifest"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-geometry/Cargo.toml",
+      "sha256": "a301b39ec718fa3959414680a15d2fa22226c216298da879aed86b9a1fb62165",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-geometry\\Cargo.toml",
+      "read_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "actual_EOF": 21,
+      "mode": "fresh exact body/text read this owner-lens turn; source proof only, no other-lens or source-correctness credit",
+      "role": "current candidate definition/Serde-policy/native-projection/dependency manifest"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-math/Cargo.toml",
+      "sha256": "6aaf0cb94d1603d0d6cdd07f1bee8021c3c29c841d01d144143faa4be39a6321",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-math\\Cargo.toml",
+      "read_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "actual_EOF": 17,
+      "mode": "fresh exact body/text read this owner-lens turn; source proof only, no other-lens or source-correctness credit",
+      "role": "current candidate definition/Serde-policy/native-projection/dependency manifest"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-netcode/src/message.rs",
+      "sha256": "61261c4055cee33ac91c6cdac317996352c4997f93cbd692a93448656a2db2eb",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-netcode\\src\\message.rs",
+      "read_ranges": [
+        [
+          26,
+          64
+        ]
+      ],
+      "actual_EOF": 475,
+      "mode": "fresh exact body/text read this owner-lens turn; source proof only, no other-lens or source-correctness credit",
+      "role": "bounded actual newly reached point/extent use/producer/retained-state witness; not all unrelated path roles"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/scene_setup.rs",
+      "sha256": "509b65bb9f1ea69a74c597bd8571a0868c3503a9f6d4d9fd741d75488adf71a3",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-server\\src\\scene_setup.rs",
+      "read_ranges": [
+        [
+          18,
+          37
+        ]
+      ],
+      "actual_EOF": 63,
+      "mode": "fresh exact body/text read this owner-lens turn; source proof only, no other-lens or source-correctness credit",
+      "role": "bounded actual newly reached point/extent use/producer/retained-state witness; not all unrelated path roles"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/focused/meshes.rs",
+      "sha256": "d61a67fcf466b67a7f9f3b27752a4c27605ede3b1d12850ef7fc5a962dc4740a",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-client\\src\\presentation\\vista\\focused\\meshes.rs",
+      "read_ranges": [
+        [
+          1,
+          144
+        ]
+      ],
+      "actual_EOF": 144,
+      "mode": "fresh exact body/text read this owner-lens turn; source proof only, no other-lens or source-correctness credit",
+      "role": "bounded actual newly reached point/extent use/producer/retained-state witness; not all unrelated path roles"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/prepared.rs",
+      "sha256": "c3c5dda2b43208a48d70060c29d876025c47aca6e4fe836ea002b2ec651ca44d",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-client\\src\\presentation\\vista\\prepared.rs",
+      "read_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "actual_EOF": 62,
+      "mode": "fresh exact body/text read this owner-lens turn; source proof only, no other-lens or source-correctness credit",
+      "role": "bounded actual newly reached point/extent use/producer/retained-state witness; not all unrelated path roles"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/terrain_samples.rs",
+      "sha256": "d2ea661c716a406090f74c7caf955d7381bb8eee5f02850af42cd153b3fedd84",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\scene_input\\terrain_samples.rs",
+      "read_ranges": [
+        [
+          57,
+          109
+        ]
+      ],
+      "actual_EOF": 109,
+      "mode": "fresh exact body/text read this owner-lens turn; source proof only, no other-lens or source-correctness credit",
+      "role": "bounded actual newly reached point/extent use/producer/retained-state witness; not all unrelated path roles"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene.rs",
+      "sha256": "2661ce950659807c47c0de4fdc769ba1ba79825c47ba2985fcec32d7e4f38390",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\scene.rs",
+      "read_ranges": [
+        [
+          35,
+          106
+        ],
+        [
+          186,
+          227
+        ]
+      ],
+      "actual_EOF": 553,
+      "mode": "fresh exact body/text read this owner-lens turn; source proof only, no other-lens or source-correctness credit",
+      "role": "bounded actual newly reached point/extent use/producer/retained-state witness; not all unrelated path roles"
+    }
+  ],
+  "semantic_comparisons": [
+    {
+      "id": "finite-leaf-versus-unit",
+      "uses": "Private backing, public admission/getters and dimensional APIs in current neutral scalar/cuboid source",
+      "candidate_definitions": [
+        "fabelgeist-geometry::SignedLength",
+        "PositiveLength",
+        "Area",
+        "CuboidDimensions",
+        "fabelgeist-math::{Metres,Ratio}"
+      ],
+      "comparison": "Fresh bodies prove SignedLength finite signed metres including0, PositiveLength finite>0, Area finite>=0 square metres, CuboidDimensions finite nonnegative XYZ including point/line. Native f32/array backing and Deserialize constructor arguments implement these existing leaves; they are not missing owners in an application record. Math Metres/Ratio deliberately impose no numeric policy, including nonfinite values; neither is proof of finite length nor a bounded fraction. Ratio is exact dimensionless scale match for SignedLength::scaled_by including factor3/negative/nonfinite inputs, with existing result finite admission retaining failure; a0..1 fraction would narrow. Fresh Cargo manifests show no reverse geometry dependency in math, so shared Ratio reuse need not duplicate a factor owner.",
+      "related_findings": [
+        "ROOT-OWNER-F001",
+        "ROOT-OWNER-RATIO-003"
+      ],
+      "limits": "No invariant-operation, admission-route or derivability clearance; finer cuboid-axis refinement is not inferred as a new defect solely from its private backing."
+    },
+    {
+      "id": "framed-points-and-bounds",
+      "uses": "Position/Displacement/Elevation generic owner, dimensions/bounds and current scene datum/projection records",
+      "candidate_definitions": [
+        "Position<F>",
+        "Displacement<F>",
+        "Elevation<F>",
+        "ScenePlanPoint",
+        "PlanDisplacement",
+        "SpatialBounds<F>",
+        "PlanExtents",
+        "PlanDimensions",
+        "LeafDimensions"
+      ],
+      "comparison": "Actual constructors/fields distinguish finite signed point/translation/elevation and frame/datum. SpatialBounds ordered min/max permits0; it does not fit reversed tolerated contact-plane pairs. LeafDimensions and PlanDimensions are strictpositive; PlanExtents is finite>=0 X/Z, including subnormal halves becoming0, so it fits scene/vista half extents rather than a point, direction or positive dimensions. ScenePlanPoint is 2D scene east/north, not architectural point or full3D Scene position; Position<Scene> toScenePlanPoint deliberately projectsX/Z. Generic framed implementations currently live in Bevy-dependent building-generator, while neutral scalar crate has optional engine adapters: dependency/ownership moves must be coherent, not duplicate equivalent wrappers.",
+      "related_findings": [
+        "ROOT-PP-002",
+        "ROOT-OWNER-F002",
+        "ROOT-OWNER-EXTENT-005",
+        "ROOT-OWNER-FRAMES-004"
+      ],
+      "limits": "Only actual candidate definitions and the listed current uses are compared; full downstream vista/scarp/diagnostic graph remains separately queued."
+    },
+    {
+      "id": "existing-scene-owner-reuse",
+      "uses": "ArchitecturalPlanProjection::from_placement plus point/from_architectural/translated methods and SceneDoorPose datum conversion source",
+      "candidate_definitions": [
+        "ScenePlanPoint",
+        "ArchitecturalPlanPoint",
+        "BuildingOrientation",
+        "RigidRotation",
+        "SceneDoorPose"
+      ],
+      "comparison": "from_placement centre already has the exact finite ScenePlanPoint owner and no intervening arithmetic; extracting metres then reconstructing the same owner is the established ROOT-PP-001 gap. bounds.centre projection intentionally changes3D/2D architectural role and can fail after actual arithmetic. BuildingOrientation wrapping differs finite nonwrapping Radians. Paired scene door native quaternion retains exact adapter product alongside checked leaf, not another authoring primitive. ScenePlanPolygon rigid rounded projection differs strict arbitrary PlanPolygon admission, so its Vec<ScenePlanPoint> is not automatically a duplicate owner. All original fixture values/cases/oracles retained; no tests executed/added.",
+      "related_findings": [
+        "ROOT-PP-001",
+        "ROOT-OWNER-FRAMES-004"
+      ],
+      "limits": "No aggregate/redundant-authority/behavior verdict; no arbitrary Polygon owner substitution."
+    }
+  ],
+  "prior_exact_owner_contracts": [
+    "ROOT-OWNER-GEOMETRY-002",
+    "ROOT-OWNER-RATIO-003",
+    "ROOT-OWNER-FRAMES-004",
+    "ROOT-OWNER-EXTENT-005",
+    "ROOT-OWNER-ZERO-LENGTH-007",
+    "ROOT-OWNER-VISTA-EXTENTS-050",
+    "ROOT-OWNER-VISTA-SURFACE-051"
+  ],
+  "producer_contract_comparison": [
+    "ROOT-PPS-CANONICAL-SPATIAL-CLOCK-CLOSURE-053 actual scalar/frame source roles match the freshly read owner definitions, preserving unit-only versus finite/refined admission distinctions.",
+    "ROOT-PPS-ARCHITECTURAL-PORT-014/ROOT-PPS-RESOLVED-GEOMETRY-036 retain distinct point/displacement/dimensions/orderedbounds semantics; no positive/signed/zero or projection authority collapsed.",
+    "Existing vista producer roles have an exact PlanExtents candidate from the actual source computation and retained fields, but complete use graph is not accepted by this partial packet."
+  ],
+  "accounted_root_definition_source_ids": [
+    "pr-working:crates/fabelgeist-geometry/src/lib.rs",
+    "pr-working:crates/fabelgeist-geometry/src/length.rs",
+    "pr-working:crates/fabelgeist-geometry/src/measurement.rs",
+    "pr-working:crates/fabelgeist-geometry/src/cuboid.rs",
+    "pr-working:crates/fabelgeist-geometry/src/error.rs",
+    "pr-working:crates/adventuresim-building-generator/src/spatial_geometry.rs",
+    "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+    "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/bounds.rs",
+    "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+    "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+    "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates/polygon.rs"
+  ],
+  "remaining": "Root179 self-source roles minus explicitly covered definitions; downstream extent/support/building/source-error graphs still pending. Native separately supplies132 root tactical roles.",
+  "source_edits": 0,
+  "project_commands_or_tests": 0,
+  "overall_clearance": "not awarded; findings and remaining owner queue open"
+}

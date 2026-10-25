@@ -1,0 +1,20 @@
+diff --git a/crates/adventuresim-character-creator/src/animation_preview/binding.rs b/crates/adventuresim-character-creator/src/animation_preview/binding.rs
+index 4d54da288..ca3fe9186 100644
+--- a/crates/adventuresim-character-creator/src/animation_preview/binding.rs
++++ b/crates/adventuresim-character-creator/src/animation_preview/binding.rs
+@@ -4,8 +4,15 @@ use super::*;
+ 
+ /// Unweighted cloth owns geometry and dynamics without any skin payload.
+ /// A retained weighted binding may be ignored while physics is unweighted.
+ pub enum ClothBinding {
++    #[cfg_attr(
++        not(test),
++        expect(
++            dead_code,
++            reason = "unweighted simulation is covered by tests; the current preview supplies weighted cloth"
++        )
++    )]
+     Unweighted,
+     Weighted {
+         indices: fabelgeist_rig::PackedRigSkin<8>,
+         weights: Vec<[f32; 8]>,

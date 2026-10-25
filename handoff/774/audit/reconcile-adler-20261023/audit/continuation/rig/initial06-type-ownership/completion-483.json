@@ -1,0 +1,53 @@
+{
+  "id": "RIG-INITIAL06-COMPLETION-483",
+  "at": "2026-10-23T12:37:45.607013+00:00",
+  "lens": "audit-type-ownership",
+  "authority": "root/parallel-initial-audits-081.json",
+  "stage": "All13 initial audits then handover under user163; no implementation.",
+  "status": "local_source_discovery_exhausted_WITH_FINDINGS_at_global072; Root authoritative acceptance pending",
+  "scope": {
+    "record": "cumulative-source-scope-parallel-072.json",
+    "sha256": "153b17c462414e6fbae07f3b89f8854c3090e134a6b15175a82c1c8e9bb423eb",
+    "source_variants": 2853,
+    "overlay_count": 246,
+    "overlay_sha256": "f72b47d0ba315b4bb19a15bbea493ca30e1cd911127b01c43ab89c347a723b0d"
+  },
+  "inventory": {
+    "distinct_global_sources": 2853,
+    "source_observations": 2906,
+    "manual_contract_packets": 479,
+    "local_finding_records": 52,
+    "remaining_unread_material_roles": [],
+    "pending_local_registrations": []
+  },
+  "previous_completion": {
+    "record": "completion-481.json",
+    "sha256": "826546f42bafabe965e12f0401558c64ab27e984526160cae8892e2c32357bd5",
+    "preservation": "All pinned original files/observations retained; coverage is append-only, original481 coverage bytes preserved exactly as prefix.",
+    "coverage_prefix_bytes": 2451560,
+    "coverage_prefix_sha256": "c5e9d131d6301f4b421c878e1b260c8439b2dca0b59a476eb999410a7d053a4f"
+  },
+  "delta": {
+    "record": "frontier-reconciliation-482.json",
+    "sha256": "ebaaa22d427b4c98d731bd36a9c6f08807cdd8aad8ac342e9a263468594cdb4f",
+    "meaning": "Globalized exact already analyzed REG037/038 roles plus mandatory249 surface qualification; no new semantic finding or other-lens credit."
+  },
+  "pins": [
+    {
+      "record": "coverage.jsonl",
+      "sha256": "1b0f3f275208319b29f4d495dab8c16d00cc6de1e1c4b6943affda818a0c8d8b"
+    },
+    {
+      "record": "findings.jsonl",
+      "sha256": "782f6350073a242b22e22a346351f14376ad838cd8d6ccda513f1deb268782d5"
+    },
+    {
+      "record": "root/parallel-scope-qualification-249.json",
+      "sha256": "0e2a5dac17a6e1d5306c7fc859cf71e7fd7b8a1c29159a0eaaac870385b07562"
+    }
+  ],
+  "next": "Continue authorized09 actual source-role review;12 unstarted. Future new material must be qualified independently. No source/lens/family repair clearance.",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

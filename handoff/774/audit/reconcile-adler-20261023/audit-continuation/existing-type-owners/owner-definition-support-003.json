@@ -1,0 +1,39 @@
+{
+  "id": "OWN02-OWNER-DEFINITION-SUPPORT-003",
+  "fresh_read": [
+    {
+      "scope_index": 916,
+      "source_id": "pr-working:crates/adventuresim-core/src/elapsed.rs",
+      "sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+      "ranges": [
+        [
+          1,
+          131
+        ]
+      ]
+    },
+    {
+      "scope_index": 952,
+      "source_id": "pr-working:crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "db3686060ebd8ce533fe48c88685c5643b024b8a92b2b617d97481196988f3e0",
+      "ranges": [
+        [
+          1,
+          178
+        ]
+      ]
+    },
+    {
+      "scope_index": 1022,
+      "source_id": "pr-working:crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "268891d7d5556895ace4c6ce33b14953e35d5973bfce9b042e4b9d2dbc721a86",
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ]
+    }
+  ],
+  "qualification": "Concrete floating UnitInterval fits coverage/flexibility/motion fractions without integer basispoint quantization. Earlier generic numeric-leaf proposals must use actual units/precision and preserve aggregate validation; UnitBasisPoints directSerde caveat not copied onto this checkedSerde type. Existing original sources, no new identity."
+}

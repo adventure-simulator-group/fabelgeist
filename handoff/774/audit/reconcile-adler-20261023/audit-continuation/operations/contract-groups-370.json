@@ -1,0 +1,128 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-370",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/object_custody.rs",
+      "sha256": "a9bb1a3335b7d10b135f817c54c903577af4b2df12ca9d1c10a9ca52d48b2d5c",
+      "actual_EOF": 501,
+      "actual_compared_ranges": [
+        [
+          1,
+          501
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/commitments.rs",
+      "sha256": "ec754c7ccdd1dee1a7441ab99e805a8b36102e4db96b24cf221c0c3c369b48cc",
+      "actual_EOF": 332,
+      "actual_compared_ranges": [
+        [
+          1,
+          332
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/courtship.rs",
+      "sha256": "3f03d0db1b9cf1860a021496c4a4442a607e0dc03f6eaa309ca7318e965e323c",
+      "actual_EOF": 685,
+      "actual_compared_ranges": [
+        [
+          1,
+          685
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/courtship_discovery.rs",
+      "sha256": "bb3280e79254b6cd420b8bb89720f0d32475c78005b1b8b56d01756a186c0e24",
+      "actual_EOF": 169,
+      "actual_compared_ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/leisure_authority_tests.rs",
+      "sha256": "77c26b1c6306f9db87be39935ec5bbc58def37f7d9c796fedf2c0544abda999a",
+      "actual_EOF": 81,
+      "actual_compared_ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Physical custody decoding and bounded containment traversal preserve exact root authority",
+      "source_ranges": {
+        "object_custody.rs": [
+          [
+            1,
+            501
+          ]
+        ]
+      },
+      "disposition": "All501 lines read including fixtures. Transport variants decode canonicalCore ids/place/fixture, losslessencode projects atSDKboundary. Personal/party backingrow quantity exactly1 anditem/custodian equality plus uniqueobjectalias<=2count checked. Repair requireszerocharacterescrowrow/exactrepairorder/settlement; fireplace validatescanonicalfixturekind, actualfixtureexistence producer pending, no restored deletedrootfixture finding. Traversal checkeddepth+1 <=MAX, visited detectscycle, everyparent persistedlocationvalidated, carriedcustodians must agree. Ultimatefixture/repair vsinitialcarried policy requiresactual containment mutations; current strongresolver returns directobjectcustody androot separately and actorcheckusesroot. No unbounded recursion or arithmetic/narrowing. Carrieddestination intentionallyadmitsparty withoutactor membership becauseactualconsumer mustauthorize, no publictakeover claim. Fivefixturesreadnotrun."
+    },
+    {
+      "contract": "Commitment terminal transitions release uniqueness and refund escrow once",
+      "source_ranges": {
+        "relationship/commitments.rs": [
+          [
+            1,
+            332
+          ]
+        ]
+      },
+      "disposition": "Complete332 lines read. Paircanonicalordering stable withselfreservationrejected. Terminal helper parsedstate then Reservedonly; otherstates return unchanged beforeescrowrefund, releaseparticipantonlymatchingcommitment, thenstatus/date/reason/event. Death freezeschildqueue so cleanup eagerlyendspregnancy andfreesexactactivepregnancy/childreservation; sortedwritesdeterministic. Reservation verifieshistoricalexclusiveconflicts, bothparticipantuniqueindexes, currentco-locationceremony, fatherdowryfunds/creditcapacity beforedebit; insertscommitment/escrow/participants/event. Multiplewrites relyreducertransactionno live partialrefund claim. effective_minute saturatingaddWEDDING_NOTICE cancompress notice nearMAX (shared ROOT04F021 clockterminal dependency, actualnormaldatefarbelowMAX; no new unique timeline failure). IDsinclude pair/date/count; no countercast. Private terminal status/reason combinations require actualcallers, not publicinvalidenum witness."
+    },
+    {
+      "contract": "Courtship validation and discovery freeze eligibility, baseline and one daily receipt",
+      "source_ranges": {
+        "relationship/courtship.rs": [
+          [
+            1,
+            685
+          ]
+        ],
+        "relationship/courtship_discovery.rs": [
+          [
+            1,
+            169
+          ]
+        ]
+      },
+      "disposition": "All854lines read. Exacttemporalsharedscope/livingadult/mutualinclination/exclusive/kinship gates beforeestablish; active samekind idempotent, endedhistoryfinal. Formalfatherapproval anddowryplan; informalbaselinesqrt finitefallback0 intentionallymissingcomponentpolicy question, not ordinaryNaNpropagation claim. NPC fasteligibility no-op then sharedvalidatorbeforewrites; formal/informalreducers separatelytypedrejections andschedulemustactivecourtship. Devprepare trustgatewayonly vsbuildcapability is adoptedadmission boundary dependency, no fresh04allocation. Discovery waits untilbothpartnerandeligibleobserverfrontiers reachday, preflightsalllivingobservers beforewriting, deterministic entropy sortedobserverreceiptid+day. Success exposescourtship, affinitypenaltyanchorscurrentobserverfrontier intentionally avoidsdoubledecay; immutablediscoverydate staysrelationshipday. Onceexposedbreak; retryexistingreceipts skip. Dayindex bounded byStrategicMinute/1440 so currentday cannotu64MAX; nextday.saturating_add1 not a reachableMAXloop. Publicsettlepair arbitrarylargeday failsfrontiergatebeforedaystart, no genericloop finding. Missingclockfallback afterpriorcanonicalpreflight sameauthoritative context requiresactualerrorpolicy, no fabricatedcurrentfailure."
+    },
+    {
+      "contract": "Leisure authority fixture preserves chunk/checkpoint and replay intent",
+      "source_ranges": {
+        "relationship/leisure_authority_tests.rs": [
+          [
+            1,
+            81
+          ]
+        ]
+      },
+      "disposition": "Whole81line reducerfixture readonly: devbootstrapgate; fixedpositive17/43/71/6intervalsum137safe, twocharacters/slices, comparesconservedjointminutes/trialordinal towholeinterval and repeatsreversedpairassertsreceiptsunchanged exactly60/120crossings. Existingfixture doesnotmerge pro-rata restorative scheduling withrealizedoverlap. Adler ROOT-INITIAL04-F018 explicitlypreservesthatdistinction; no previousleisurepolicycandidate promotion. Reducer notinvoked, DBnotreset/reseeded."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "5 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-stdb-module/src/relationship/marriage.rs"
+}

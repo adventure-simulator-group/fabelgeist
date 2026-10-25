@@ -1,0 +1,84 @@
+--- PRbase/crates/adventuresim-tactical-core/src/animation/event_span.rs
++++ frozen/crates/adventuresim-tactical-core/src/animation/event_span.rs
+@@ -0,0 +1,81 @@
++//! Counts between animation observations, independent of sample-clock spans.
++
++use super::{AnimationQuantity, AnimationValueError, AnimationValueResult};
++use derive_more::{Debug, Display, From};
++use serde::{Deserialize, Serialize};
++use std::num::NonZeroU64;
++
++/// A full-width count of contact or landing observations; zero is a real count.
++#[derive(
++    Clone,
++    Copy,
++    Debug,
++    Default,
++    PartialEq,
++    Eq,
++    PartialOrd,
++    Ord,
++    Serialize,
++    Deserialize,
++    From,
++    Display,
++)]
++#[serde(transparent)]
++#[debug("{_0:?}")]
++pub struct AnimationEventSpan(u64);
++
++/// Maximum admitted events in one presentation coalescing interval.
++#[derive(Clone, Copy, Debug, PartialEq, Eq, Serialize, Deserialize)]
++#[serde(try_from = "u64", into = "u64")]
++#[debug("{:?}", self.0.get())]
++pub struct CoalescedEventBudget(NonZeroU64);
++
++impl AnimationEventSpan {
++    pub const ZERO: Self = Self(0);
++    pub const ONE: Self = Self(1);
++
++    pub fn is_zero(self) -> bool {
++        self.0 == 0
++    }
++
++    pub fn is_even(self) -> bool {
++        self.0.is_multiple_of(2)
++    }
++
++    /// Event offsets for native iteration, oldest first after reversal.
++    pub fn offsets(self) -> impl DoubleEndedIterator<Item = Self> {
++        (0..self.0).map(Self)
++    }
++
++    /// Native event-count encoding for serialization, tracing or count arithmetic.
++    pub fn events(self) -> u64 {
++        self.0
++    }
++}
++
++impl CoalescedEventBudget {
++    pub fn from_events(events: u64) -> AnimationValueResult<Self> {
++        NonZeroU64::new(events)
++            .map(Self)
++            .ok_or(AnimationValueError::NonPositive {
++                quantity: AnimationQuantity::CoalescedEventBudget,
++            })
++    }
++
++    pub fn contains(self, span: AnimationEventSpan) -> bool {
++        span.0 <= self.0.get()
++    }
++}
++
++impl TryFrom<u64> for CoalescedEventBudget {
++    type Error = AnimationValueError;
++    fn try_from(events: u64) -> AnimationValueResult<Self> {
++        Self::from_events(events)
++    }
++}
++
++impl From<CoalescedEventBudget> for u64 {
++    fn from(budget: CoalescedEventBudget) -> Self {
++        budget.0.get()
++    }
++}

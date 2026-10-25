@@ -1,0 +1,177 @@
+{
+  "id": "CONT08-CONTRACT-135",
+  "at": "2026-10-25T12:40:04.033848+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 466,
+      "source_id": "pinned-aeronet_websocket-0.21.0:src/client/backend.rs",
+      "package_source_origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/aeronet_websocket-0.21.0/src/client/backend.rs",
+      "source_sha256": "23dfe8915ad2b846fc6fefc68db46f83d144f77ae59771b5f1917fb323b6bc3b",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/23dfe8915ad2b846fc6fefc68db46f83d144f77ae59771b5f1917fb323b6bc3b",
+      "head_body_read_ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "comparison_pin": {
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "lock_evidence": "source-evidence/native-p16-lock-comparison-135.json"
+      },
+      "facts": [
+        "Actual full80 pinned native source, same packageversion/checksum in P16base/head lock. Wasm WebSocket constructor\u2192split/oneshot connected send\u2192backend.start, native request conversion/TLSconnect/localpeer metadata order and errors retain actual native policy. Application URL/TLS inputs remain actual external port, not aliases to internal place IDs; no socket/session execution."
+      ],
+      "disposition": "Exact bounded native contract accounted under own08 with unchanged pinned dependency and actual connected-port qualifications; no whole SDK/native behavior clearance.",
+      "acceptance": "Preserve application/native observation projection, typed error/serialization shape and original ordering; trace actual changed admitted payload and receiving lifecycle separately. No library build/tests/network."
+    },
+    {
+      "scope_index": 467,
+      "source_id": "pinned-aeronet_websocket-0.21.0:src/client/mod.rs",
+      "package_source_origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/aeronet_websocket-0.21.0/src/client/mod.rs",
+      "source_sha256": "989293dad41e11f0b3d5c5bb4e10be8246e2645cd92c97090a19aa18bb385e93",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/989293dad41e11f0b3d5c5bb4e10be8246e2645cd92c97090a19aa18bb385e93",
+      "head_body_read_ranges": [
+        [
+          73,
+          170
+        ]
+      ],
+      "comparison_pin": {
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "lock_evidence": "source-evidence/native-p16-lock-comparison-135.json"
+      },
+      "facts": [
+        "Exact73\u2013170, no full239. IntoClientRequest/String conversion occurs before queued entity closure; runtime spawns backend and inserts Connecting channels. Native CreateTarget/CreateSocket/Connect typed causes retained through actual backend466. Unread nextstate processing170+ not credited; no retry/observer execution inferred."
+      ],
+      "disposition": "Exact bounded native contract accounted under own08 with unchanged pinned dependency and actual connected-port qualifications; no whole SDK/native behavior clearance.",
+      "acceptance": "Preserve application/native observation projection, typed error/serialization shape and original ordering; trace actual changed admitted payload and receiving lifecycle separately. No library build/tests/network."
+    },
+    {
+      "scope_index": 468,
+      "source_id": "pinned-avian3d-0.7.0:src/collision/collider/mod.rs",
+      "package_source_origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0/src/collision/collider/mod.rs",
+      "source_sha256": "ca5bb9f61dfc7660c62dc29f09ae251c62a366a405904fbb3bff2a418dd30d6f",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/ca5bb9f61dfc7660c62dc29f09ae251c62a366a405904fbb3bff2a418dd30d6f",
+      "head_body_read_ranges": [
+        [
+          245,
+          280
+        ]
+      ],
+      "comparison_pin": {
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "lock_evidence": "source-evidence/native-p16-lock-comparison-135.json"
+      },
+      "facts": [
+        "Exact245\u2013280 only. Actual AnyCollider contact_manifolds native positions/rotations/prediction/output mutablebuffer and SimpleCollider aabb native adapter to fakecontext are material signature/API facts. Range ends mid swept_aabb signature; no whole method/collider715 or collision acceptance proof. Actual old/new applicationposition projections stay at native API; further kernel callers remain separately scoped."
+      ],
+      "disposition": "Exact bounded native contract accounted under own08 with unchanged pinned dependency and actual connected-port qualifications; no whole SDK/native behavior clearance.",
+      "acceptance": "Preserve application/native observation projection, typed error/serialization shape and original ordering; trace actual changed admitted payload and receiving lifecycle separately. No library build/tests/network."
+    },
+    {
+      "scope_index": 469,
+      "source_id": "pinned-avian3d-0.7.0:src/dynamics/rigid_body/mod.rs",
+      "package_source_origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/avian3d-0.7.0/src/dynamics/rigid_body/mod.rs",
+      "source_sha256": "eb3a7e85f3ce1aca1e6959e5d335dc72a1f1fdcf3cd4835344c9d410efb247bd",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/eb3a7e85f3ce1aca1e6959e5d335dc72a1f1fdcf3cd4835344c9d410efb247bd",
+      "head_body_read_ranges": [
+        [
+          389,
+          440
+        ]
+      ],
+      "comparison_pin": {
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "lock_evidence": "source-evidence/native-p16-lock-comparison-135.json"
+      },
+      "facts": [
+        "Exact389\u2013440 only. LinearVelocity actual public nativeVector, DefaultZERO/Deref mutable and optionalserde retains unrestricted native values; MaxLinearSpeed surrounding docs/signature not actual solver clamp proof. Same pinned package in old/new; typed spatial observation receiving errors cannot be dismissed as native impossibility from docs."
+      ],
+      "disposition": "Exact bounded native contract accounted under own08 with unchanged pinned dependency and actual connected-port qualifications; no whole SDK/native behavior clearance.",
+      "acceptance": "Preserve application/native observation projection, typed error/serialization shape and original ordering; trace actual changed admitted payload and receiving lifecycle separately. No library build/tests/network."
+    },
+    {
+      "scope_index": 470,
+      "source_id": "pinned-bevy-replicon-0.41.1:src/shared/replication/registry/rule_fns.rs",
+      "package_source_origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_replicon-0.41.1/src/shared/replication/registry/rule_fns.rs",
+      "source_sha256": "07f3f73daff9344750ec08f54bd9acc8abec4a946040369ce1573c2b6a6b1073",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/07f3f73daff9344750ec08f54bd9acc8abec4a946040369ce1573c2b6a6b1073",
+      "head_body_read_ranges": [
+        [
+          175,
+          290
+        ]
+      ],
+      "comparison_pin": {
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "lock_evidence": "source-evidence/native-p16-lock-comparison-135.json"
+      },
+      "facts": [
+        "Exact175\u2013290. RuleFns default selects postcard default serialize/deserialize, entity mapping occurs after successful from_buf, in-place assignment occurs only after success; consume toggles ignore_mapping before deserialize and resets on success only. serialize_as/deserialize_as and diff cursor order unchanged external body. Existing pure codec behavior/failure lifecycle remains material to changed owners; no generic Result implies rollback."
+      ],
+      "disposition": "Exact bounded native contract accounted under own08 with unchanged pinned dependency and actual connected-port qualifications; no whole SDK/native behavior clearance.",
+      "acceptance": "Preserve application/native observation projection, typed error/serialization shape and original ordering; trace actual changed admitted payload and receiving lifecycle separately. No library build/tests/network."
+    },
+    {
+      "scope_index": 471,
+      "source_id": "pinned-bevy-replicon-0.41.1:src/shared/replication/rules.rs",
+      "package_source_origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_replicon-0.41.1/src/shared/replication/rules.rs",
+      "source_sha256": "037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+      "head_body_read_ranges": [
+        [
+          1,
+          145
+        ],
+        [
+          250,
+          277
+        ]
+      ],
+      "comparison_pin": {
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "lock_evidence": "source-evidence/native-p16-lock-comparison-135.json"
+      },
+      "facts": [
+        "Exact1\u2013145/250\u2013277. App replicate/once routes to filtered default RuleFns and Once mode with Serialize/DeserializeOwned; conversion/documented quantization examples are context, not actual applicationadmission. Range277 ends registrationexpression, no full1386 credit. Actual changed component wire shape must be compared at its owning serde body, not cleared by registration or same nativepackage."
+      ],
+      "disposition": "Exact bounded native contract accounted under own08 with unchanged pinned dependency and actual connected-port qualifications; no whole SDK/native behavior clearance.",
+      "acceptance": "Preserve application/native observation projection, typed error/serialization shape and original ordering; trace actual changed admitted payload and receiving lifecycle separately. No library build/tests/network."
+    },
+    {
+      "scope_index": 472,
+      "source_id": "pinned-bevy_replicon-0.41.1:src/postcard_utils.rs",
+      "package_source_origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_replicon-0.41.1/src/postcard_utils.rs",
+      "source_sha256": "4a9f413f61885f1581e0a3ddadb2528459e45bd2ea029a7a08ad3b2ab085d537",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/4a9f413f61885f1581e0a3ddadb2528459e45bd2ea029a7a08ad3b2ab085d537",
+      "head_body_read_ranges": [
+        [
+          1,
+          40
+        ],
+        [
+          120,
+          133
+        ]
+      ],
+      "comparison_pin": {
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "lock_evidence": "source-evidence/native-p16-lock-comparison-135.json"
+      },
+      "facts": [
+        "Exact1\u201340/120\u2013133, no full243. Actual to_extend_mut delegates postcardflavor and from_buf calls T::deserialize on streamflavor. Shared lock unchanged1.1.3, does not prove arbitrary internally tagged enum decodes. RootF52 existing terraincodec qualification navigation retained; no new08 alias/coverage transferred or codec execution."
+      ],
+      "disposition": "Exact bounded native contract accounted under own08 with unchanged pinned dependency and actual connected-port qualifications; no whole SDK/native behavior clearance.",
+      "acceptance": "Preserve application/native observation projection, typed error/serialization shape and original ordering; trace actual changed admitted payload and receiving lifecycle separately. No library build/tests/network."
+    }
+  ],
+  "next": "473client_event1\u2013137,474client_message479\u2013507,475message_fns118\u2013209,476server_event1\u2013170 etc."
+}

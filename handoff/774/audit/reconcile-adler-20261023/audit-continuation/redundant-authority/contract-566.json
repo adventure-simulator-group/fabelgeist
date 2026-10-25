@@ -1,0 +1,121 @@
+{
+  "id": "CONT07-CONTRACT-566",
+  "at": "2026-10-24T00:06:54.384569+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2445,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/acceptance_limits.rs",
+      "sha256": "cd50789f7bb51a70cba222126924e2bd09537e91732baaeaa87a5a5b764bf5a3",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-tactical-client/src/animation_viewer/report/acceptance_limits.rs",
+      "actual_EOF": 288,
+      "ranges": [
+        [
+          1,
+          288
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2446,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/biomechanics_validation.rs",
+      "sha256": "9211b4536a6ae6cf42e37da786ff675287b5d917b2231ba82415e9ed4e84109a",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-tactical-client/src/animation_viewer/report/biomechanics_validation.rs",
+      "actual_EOF": 64,
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2447,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/body_response_validation.rs",
+      "sha256": "bd29a229e56b7d1e2bf3637893267470180968b4d88e10c970ab9067d78c2439",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-tactical-client/src/animation_viewer/report/body_response_validation.rs",
+      "actual_EOF": 103,
+      "ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2448,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/continuity_validation.rs",
+      "sha256": "2d2788cbd744673baa618011298af0a711c24b8063a8fe651eb4c15922cd68d0",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-tactical-client/src/animation_viewer/report/continuity_validation.rs",
+      "actual_EOF": 27,
+      "ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2449,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/height_validation.rs",
+      "sha256": "a40eb11dc1cb1c214bdd2fc118536d9e879075175c3688f4650f680c43bec3d3",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-tactical-client/src/animation_viewer/report/height_validation.rs",
+      "actual_EOF": 35,
+      "ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2450,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/html.rs",
+      "sha256": "ad225bb5b1a00479327871963669e407028cc5e4550fe10134be12a2030bacf1",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-tactical-client/src/animation_viewer/report/html.rs",
+      "actual_EOF": 142,
+      "ranges": [
+        [
+          1,
+          142
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2451,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/landing_validation.rs",
+      "sha256": "f68a28a4d7d79923b5d9b1d5bec979b4518498f9d3d25a91f89911b2916a95cb",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-tactical-client/src/animation_viewer/report/landing_validation.rs",
+      "actual_EOF": 30,
+      "ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "P17 acceptance limits are authored review thresholds, distinct from measured geometry and live tuning. ExpectedScenarioBounds derives every bound by scenario; terrain vertical limit propagates Measured/Unavailable/NotApplicable relief without defaulting absence to flat terrain. ExpectedVisualHeight owns one per-scenario range/peak definition.",
+    "P17 biomechanics/continuity/height/landing validators consume measured quantities and expected bounds separately, with explicit exceptions for ragdoll, posture, authored transitions and diagnostic cases. Missing required evidence fails rather than becoming zero; optional absent scenario selection is intentionally not applicable, pending report selection-completeness consumers.",
+    "P17 cadence gate uses canonical ordinary_step_distance for requested 2m/s and independently observes actual captured contact sequence, foot alternation and integrated root distance. Expected input is an oracle, not duplicate gameplay-state storage.",
+    "P17 body-response validation derives lean ranges from signed observations; empty unselected scenario is NotApplicable while missing value within selected frames is Unavailable. Straight-run lateral pose is compared as actual body-local displacement. Separate expected min/max thresholds do not constitute competing current pose authority.",
+    "P17 HTML derives data and measurements from manifest and preserves unavailable/not-applicable descriptions. Explicit quality denominator31 and fixed64Hz playback are presentation policy copies requiring comparison to quality-score/clock owners before any drift claim. Source review does not execute scripts or prove user-facing HTML acceptance."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2452,
+    "start_line": 1
+  }
+}

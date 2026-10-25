@@ -1,0 +1,55 @@
+{
+  "id": "CONT07-CONTRACT-654",
+  "at": "2026-10-24T01:16:59.739126+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2497,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_abutments.rs",
+      "sha256": "13371703dd83b55b1536cde9ee3fadd4a768080d6a2cb5d4c0b678cd8cea19c6",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/generator/roof_abutments.rs",
+      "actual_EOF": 251,
+      "ranges": [
+        [
+          1,
+          32
+        ],
+        [
+          135,
+          163
+        ],
+        [
+          221,
+          251
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2494,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+      "sha256": "be333fcb0e9e981f14bcbccb3decbda82d7ad87fd758d1f3dbc75b311ca345cd",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+      "actual_EOF": 277,
+      "ranges": [
+        [
+          1,
+          277
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "REG033 final receiver1200\u20131295 personally read: roof child valley_edges must all be appropriate TowerAbutment/Valley edges with flashing; flashing_ids explicitly nonempty and all actual owned RoofFlashing solids. Empty links from mixed-kind overwrite therefore generate unresolved_roof_child, not merely metadata-only lost list.",
+    "Actual source2494 constructs Tower children with exact cut_edge identities and matching flashings before calling abutment resolver; Wall/Tower passes both iterate every Tower child. Wall pass retains against unrelated wall edge IDs, removing tower IDs; Tower pass cannot reconstruct from now-empty list. Promote source-conditional CONT07-F127; admitted mixed topology/current curated occurrence remains unproven and explicitly qualified. No generated scene/auditor execution."
+  ],
+  "new_local_findings": [
+    "CONT07-F127"
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": null
+}

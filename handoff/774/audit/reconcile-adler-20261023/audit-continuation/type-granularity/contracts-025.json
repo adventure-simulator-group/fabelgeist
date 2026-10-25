@@ -1,0 +1,80 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-025",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "disease-identity-exposure-progression-and-private-physiology-roles",
+      "sources": [
+        {
+          "scope_index": 93,
+          "ranges": [
+            [
+              1,
+              60
+            ],
+            [
+              127,
+              205
+            ],
+            [
+              345,
+              353
+            ],
+            [
+              390,
+              437
+            ],
+            [
+              440,
+              510
+            ],
+            [
+              930,
+              1277
+            ],
+            [
+              1282,
+              1405
+            ],
+            [
+              1510,
+              1530
+            ],
+            [
+              1556,
+              1619
+            ],
+            [
+              1723,
+              2091
+            ],
+            [
+              2093,
+              2160
+            ],
+            [
+              2214,
+              2271
+            ]
+          ],
+          "qualification": "Exact frozen+overlay179/242 scoped union only; 3842EOF not wholebody credit. Cuts1\u201360/205/510/1405 are declarations/fragments only, no omitted method/callee coverage. All original nested role exclusions retained in overlay receipts."
+        },
+        {
+          "scope_index": 94,
+          "ranges": [
+            [
+              1,
+              132
+            ]
+          ]
+        }
+      ],
+      "distinction": "DiseaseId is finite authored vocabulary, InfectionEpisode.id is episodeidentity andcharacter_id separateassociation. Ruleset and phenotype key versions are different provenance axes. DiseaseState is a derived read model at time+immunity, not independentlystored episodeauthority. Disease stage, visible symptom, private functional meter and terminal cause are different classifications, not alternative names for one status.",
+      "uses": "evaluate1585\u20131619 derives coherent stage/progress/severity/impairments/terminal from episodeclock; severity1510\u20131517 canbe1.85 andcombined impairment1723\u20131753 accumulatesmultipleepisodes. Private meter1783\u20131807 explicitlyclamps[-1,2], regionalweights2214\u20132271 arenot normalizedprobabilitypartition andcan sum>1. acquisition1519\u20131530 computes bounded probability from unboundednonnegativeexposure, immunity0\u20135 and priorimmunity cap. ExposureComponents390\u2013432 separatespreventableshare versusunavoidableactualdose; historicalpractitioner aggregation usesboundedpartyalgorithm. Identity stable snake_case differs explicit stableuppercase RNGcoordinate spelling; both share enumowner.",
+      "disposition": "Keep probability/fraction separatefrom severity, additiveimpairment, signedprivatefunctional-loss meters and publicsymptom evidence. Do not imposeUnitInterval on severity/aggregateimpairment or normalize regional weights. CanonicalDiseaseId canownmultipleexplicit stringprojections without compatibilityalias or duplicateenum. Namedtyped historicalpresence contribution couldreplace tuple only ifactualpositionalcontract benefit; exact current spanrange semantics andsamepractitioner maxdedup alreadyexplicit.",
+      "acceptance": "Preserve realzeroimmunity/adverse1.85severity, negative meter values, terminal>=1 threshold, noidentityleakfromprivate episode tobrowser/publicdiagnosis, inclusivepresence/minute boundaries, genuine ongoingNone endedspan, explicitsolo/coadvancing horizon policies, exactRNGdomain/canonicalspelling. No infection/nativeproducercovered fromunreadranges, nofixtureexecution orordinarybadstateclaim."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

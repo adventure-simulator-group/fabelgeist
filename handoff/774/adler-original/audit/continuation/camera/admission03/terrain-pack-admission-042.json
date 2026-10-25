@@ -1,0 +1,29 @@
+{
+  "id": "CAMERA-ADM03-042",
+  "at": "2026-10-22T07:02:51.711525+00:00",
+  "lens": "audit-admission-contracts",
+  "members": [
+    311
+  ],
+  "invariant": "Private TerrainPack can be created only by checked load, while public Manifest/Entry/Cell DTOs remain ordinary raw metadata. Hash grammar/content equality, bounded byte/index structure, geographic meaning and decoded field bounds are distinct actual gates.",
+  "all_admission_routes": {
+    "source_scope": "Fresh exact P16lib1-100/268-315/316-577/948-995: original scopes plus prospectivelyregistered006, actual load/manifest/cell/chunk only; no routing/astar/builder/fixtures. Fresh additional terrain_feature1-51 after007. Surface closed6/defaultOpen, Cell public raw i16 elevation/nativeSurface/bools/u8 coverfields/defaultzero, noSerde declared forCell; rawliteral fullu8 not certified percent bound.",
+    "manifest": "PublicManifest/Entry deriveSerde denyunknown, rawStringdigests/u64counts/f64bounds, no checked wholeManifestDeserialize. Private TerrainPack fields/file/cache, noDeserialize/default/rawFrom. load332-408 rejects empty/oversize manifests32MiB, typeddecode→validate_manifest; canonicalunsigned clone zeroespackagehash only then SHA256equality, pack0..2GiB/contenthash; checkedusizeoffset/endaddition/rangebounds/monotonicnonoverlap; duplicateindex and inconsistenttiles reject before privateSelf396. No publicmanifestmutator. RootcurrentG003 actualPR/P16 SourcePackageDigest53/terraindigest28 consumed semantically: valid_digest runs checked64lowerASCIIhex constructor→bool and discardsowner, hashes rawlowerhexString. All Manifestdigeststrings remain propagationgap, but arbitrarysyntax does not pass load.",
+    "structural_validation": "validate_manifest948-994 requires schema8/resolution30/nonempty<=20000entries; f64boundsfinite andstrictwest<east/south<north; noEarthlat/lngrange. Featureidentity branch checks 3digests, wetlandcount<=100000, EPSG:3035/resolution1000/rules>0 and cultivationcounts caps, then exactfeaturehelper. Entry widthtile1800/2400/3600, height3600, chunkaxes1..256, digestsyntax; tile south/westfulli16 and chunkcoordinateextent not globallygeographicvalidated here.",
+    "cell_and_chunk": "cell438-474 nativef64 nonfinite/outofpackbounds→Ok(None), floorcasti16tilecoords, absenttileNone, localgridclamp, missingchunk→Validation, then privatechunk index fromvalidatedenumeration, optional finalget. chunk476-573 boundeddecodedwidth*height*5<=256²*5, compressedrange fromload, limitedDeflate+exactlen+digest, rejects surfacebyte>5/reservedflags before nativeclosedenum literal. Elevationall i16/flagsbool/coverhillwet0or100; canopybyte copiedfullu8. Checkedcacheclockinc, boundedcacheLRUclock+index tieorder, poison/IOfail propagated. Existing expect567 is protected by currently-held lock andselectedexistingkey; no newnativevalidation invented.",
+    "features": "Additional exactterrain_featurevalidate15-51: totalgeometrypointbudget, maxmappedwindows, strictlysorteduniqueIDs, nonmappedid1..256/geometry2..MAX/noadjacentduplicate/withinpackbounds. MappedGeology delegates window.is_valid directly; publicTerrainFeature/GeoPoint admission definitions remain separate directcanonical obligation, not assumed fromname. Emptyfeaturelist intentionallyvalid, no Earthrange gate supplied bythishelper. Gettercultivatedcount/features5-12 immutableoutputonly."
+  },
+  "counterexamples_or_intentional": [
+    "PrivatePack successfulload proves structural/hashes, notEarthlatitude domain. Self-consistent metadata with finiteorderedbounds aroundlatitude32767.5 andtile south32767 can reach cell south+1 (i16)458 overflow. Othergates can be valid, includingemptyfeatures/digests/bytepack. Static representability, no filescreated/execution/securityclaim.",
+    "RawCell canopy255 and Manifest counts/strings can be represented; no scalarpercent<=100 promise proven by currently scopedroute, so treat actual rawpolicy/strengthening and await relying terrain_weights contract if needed ratherthan invent fixturefailure.",
+    "Ok(None) means nonfinite/outside/missingtile or missinglocalcell, distinct from validation/IOfailure and actualzeroheight/defaultOpen. Preserve this option/error policy."
+  ],
+  "connected_repair": "Admit geographic tile/bounds values in actual coordinate representation before floor/+1/indexing, or checked successor with structured error preservingmissing/outside policies; retain canonicalopen fulli16 where not geographic. Carry actual SourcePackageDigest through retainedManifest/getters; typed terrainfeature compiledroles must retain same budgets/order. Preserve nativebytecodec fulli16 elevation/bools/surface and boundedcache. No blankethash-authenticity/finite-geography guarantee.",
+  "remaining_dependencies": [
+    "Actual P16 TerrainFeature/GeologicWindow/GeoPoint definitions for delegated featureadmission; original329 currently narrower scope, will register exact directdefinition before body if no supplier proof.",
+    "TerrainWeights accepting rawcanopy/cover current policy only if materiallyreached by ownconsumer; no speculative graph."
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "later_lens_credit": false
+}

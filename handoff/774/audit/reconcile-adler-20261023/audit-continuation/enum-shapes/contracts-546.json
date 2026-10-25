@@ -1,0 +1,22 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-546",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        1184,
+        1185,
+        1186,
+        1187
+      ],
+      "comparison": "Fresh full377 immutable properties/registration/capacity,62 household projection,111 census materialization and57 residence visibility. Property geometry, legal holding, seeded household census and named current occupancy have distinct actual owners. Missing legal holding is deliberate seeded occupancy, not missing home. Census can coexist with named residents and reach0 after transfer; materialized/unmaterialized are counts, not exclusive Boolean state. GeneratedResidentHome membership is one-time provenance for census transfer and later moves must not delete it or cause second allocation; no extra initialized flag. Registration digest owns same-source idempotency, changed geometry rejects; this is source manifest identity, not proof all source catalog admission. Capacity inspects all relevant future occupancy boundaries within admission interval, retaining optional end instead of MAX-as-absence. Scoped Removed transitions require former property/holding payload. View gathers legal holder, actual occupancy, primary and historical transitions; unrelated historical occupant filtering still depends later safe projection, source-specific privacy not globally cleared. Materialization selects available aggregate property without relabeling original aggregate household to named household; aggregate remainder and named membership differ, no ordinary household ownership corruption asserted. Existing F208 redacted billing remains, F209 legal status/history remain. No tests executed.",
+      "finding_refs": [
+        "SEGO-INITIAL09-F208",
+        "SEGO-INITIAL09-F209"
+      ],
+      "disposition": "No additional shape finding; optional legal title and conserved census provenance are meaningful and preserved"
+    }
+  ],
+  "new_findings": [],
+  "limits": "No repairs, tests, project checks or clearance. Source-produced catalog and population contracts remain independently scoped."
+}

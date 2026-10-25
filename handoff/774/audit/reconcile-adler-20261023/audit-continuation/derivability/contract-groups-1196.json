@@ -1,0 +1,152 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1196",
+  "at": "2026-10-25T18:06:04.928329+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1284,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/mod.rs",
+      "sha256": "48d31c75f2d06657271422a7fcd7b492ec6623da3e77a4db2beffaef3cdd9005",
+      "actual_EOF": 260,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/mod.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-strategic-sim/src/live_core/mod.rs",
+        "owner": "camera",
+        "sha256": "48d31c75f2d06657271422a7fcd7b492ec6623da3e77a4db2beffaef3cdd9005",
+        "base_sha256": "f368dfc5efefa4fb4667f34e9d0f72e8d2c2792e7277f7cffe8cb3c1a1d2a375",
+        "state": "modified",
+        "bytes": 11704,
+        "audit_owner": "camera",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                260
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-SIM-001"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 326,
+            "read_ranges": [
+              [
+                1,
+                260
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SIM-CONTROL-OBSERVATION-096"
+            ],
+            "read_status": "fresh-current-lens-full-source-read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/mod.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-SIMULATION-CORE-GENERATED-PARTIAL-047",
+            "json_pointer": "/source_proofs/23",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/live_core/mod.rs",
+            "read_ranges_as_recorded": [
+              [
+                205,
+                222
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/mod.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/mod.rs",
+              "sha256": "48d31c75f2d06657271422a7fcd7b492ec6623da3e77a4db2beffaef3cdd9005",
+              "read_ranges": [
+                [
+                  205,
+                  222
+                ]
+              ],
+              "mode": "Fresh exact actual receiver definition/source",
+              "roles": [
+                "Actual calendar_minute native SDK adapter directly reads row.minutes into canonical StrategicMinute; actual include/module wiring scope."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/additional_actual_source_proofs/23",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/live_core/mod.rs",
+            "read_ranges_as_recorded": [
+              [
+                205,
+                222
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/mod.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/mod.rs",
+              "sha256": "48d31c75f2d06657271422a7fcd7b492ec6623da3e77a4db2beffaef3cdd9005",
+              "read_ranges": [
+                [
+                  205,
+                  222
+                ]
+              ],
+              "mode": "Fresh exact actual receiver definition/source",
+              "roles": [
+                "Actual calendar_minute native SDK adapter directly reads row.minutes into canonical StrategicMinute; actual include/module wiring scope."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          260
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full260 module/native import/export/include assembly consumed; no manual trait/custom codec/local data type. Only calendar_minute free adapter reconstructs exact core minute from generated SDK minutes, no derive mapping/dependency. Includes/imports prove declaration graph only, no implicit child body coverage."
+    }
+  ],
+  "groups": [
+    "Module assembly contains no derivability site; child source roles stay separate."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1285,
+    "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/policy.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

@@ -1,0 +1,60 @@
+{
+  "id": "RIG-INITIAL06-GROUP-434",
+  "at": "2026-10-23T11:01:36.404022+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "capability-owner": {
+      "comparison": "Consumed full Native053 parent492 narrative and Camera126 actualP16 parent+changedheld-equipment narrative, fresh PR26-77/255-276/479-536 and P16257-285/367-407/449-466, complete actual delta. Core CharacterCapabilities and CombatEquipment are shared derived concepts; DB CharacterCapability is persistent projection with DBcharacterkey/powercache, not a competing gameplay owner merelybecausefields overlap. Raw PlayerBody/Skills trait interfaces erase stronger current leaves (F034/F028/F040), including hardcoded70kg differing realconditionweight; avoid imposing humanBodyMass on nonhuman combat state. P16 StrategicHeldEquipment moves selected item+geometry/side into coherent product below parent, a sensible owner; selected-only reach check is not a whole valid weapon guarantee. NativeHands observation should remain raw until admission, private SelectedReach provenance not rebranded acceptedallstats. Base/melee/ranged choices may need one per-mode view under Camera07F009, not a DB-specific duplicate Core weapon enum. Unknownwater Inf intentional failclosed burden must remain distinguishable from measuredfinite mass.",
+      "disposition": "correct_db_projection_boundary_and_connected_shared_combat_owner_propagation"
+    },
+    "character-owner": {
+      "comparison": "Consumed entire Native065 actual3983 source/routes/tests and Camera161 changedP16qualification, fresh PR69-103/438-636 and complete actual3987counterpart delta. DB owns durable Character metadata, component storage, gateway/reducer authority and normalized occupancy edges; Core/world-schema own shared attributes/skills/names/clock/location/equipment vocabulary. CharacterAttributes15 duplicates PlayerAttributeValues via two exactfieldwisecopies, CharacterSkills30scalar+language/religion/bestiarycomposites repeats shared Core skill product: existing F028 calls for one lower shared product plus DBadapter, no new artificial DB owner. CharacterId F040 requires consistentallword policy, separate from nonzero custody and nativeIdentityZERO sentinel. ScaledNPChealth/attribute values>1/5 are intentional; do not narrow fromhumantypenames. EquipmentAnchorKind/selectedcapacity are actual relationships, PR AttachmentCapacity Free/Occupied/Reserved correctly owns local cell state versus P16 Some(MAX) sentinel; retain PR typed enum and no MAXidentity cap. CreationMode and raw starting-spec context are authority-role products, not interchangeable Seed orCharacterId.",
+      "disposition": "shared_component_product_propagation_with_authority_and_identity_distinctions"
+    },
+    "condition-owner": {
+      "comparison": "Consumed full Native059 and exact P16completecounterpartdiff; fresh PR28-150/533-551. Needs signed food/water reserves differ nonnegative material quantity; clinical bodymass/blood, exposurethermalstrain/wetness, derived strategic incapacitation and morale have distinct units/policies. Keep durable strategic state here and transient live combat elsewhere; no extra fatigue pool or movement penalty. Core survival/morale/clinical numeric owners should propagate where actual retainedcontractmatches; one generic Fraction cannot replace signed morale, fooddeficit, thermalstrain or >1summedincapacitation. ActualElapsedNeedsProvision three private source contexts is a legitimate local policy enum, not duplicated calendar/settlement serviceowner. P16 changes error signatures/fallibleequipmentload; preserve that causality without replaying allold signatures.",
+      "disposition": "correct_strategic_state_owner_distinct_shared_leaves_propagation"
+    },
+    "item-owner": {
+      "comparison": "Consumed full RIG-CAMERA-ADM03-552 source957/tests and completeP16actual946delta; freshPR1-135/290-345. DB Item intentionally projects catalogue into persistence, but scalaralcoholsixfields repeat existing canonical AlcoholProperties F011 and rawphysical/grip/reach path joinsF034. InventoryItem whole-stack quantity differs measuredmaterialremaining/foodlot quantity1 and currency amount; do not move all to TradeQuantity. PersistedEquipmentPlacement/AttachmentPoint compose canonical OccupancyRequirement/ParentRequirement/EquipmentBodyPart/Channel, correct reuse; wirelayout-specific capacity/storage is not independent alternative game semantics. Generic catalogue ID vs resolvedmembership distinct (admissionF001), no ownerconsolidation assertsvalidcataloguefromString. P16 removes swallowed-error wrapper and preserves fallible canonicalgrant; retain cleanfinalAPI withoutcompatibilityalias.",
+      "disposition": "catalogue_storage_adapter_valid_with_existing_alcohol_physical_propagation"
+    },
+    "npc-clock-owner": {
+      "comparison": "Consumed full RIG-CAMERA-ADM03-555 source635/tests, freshPR1-108/195-265 and completeactualP16delta only errorheader. Native ScheduleAt/TimeDuration are real wall-clock wake ABI, separate from full StrategicMinute personal chronology. DecisionPhase/Outcome describe schedulerreceipt, not personality/marriage/authorization enums. Seed policy purpose differscharacteridentity and monotonic clock. initialize_saved_schedule_once rebuilds tenfield DB ScheduleAllocation from canonical initial_npc_schedule product, supports existingF041 shared allocation owner while preserving added organizationbindings. Receiptdayindex and actualminute intentionallybothstored provenance, no inference universalcalendarcap.",
+      "disposition": "legitimate_scheduler_native_port_and_existing_schedule_product_gap"
+    }
+  },
+  "supporting_existing_findings": [
+    "F011",
+    "F028",
+    "F034",
+    "F040",
+    "F041"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit.",
+  "manual_refs": [
+    "../../native/admission03/camera-support/contracts-053.json#pr-strategic-capability-raw-rows-and-private-derived-equipment",
+    "../../native/admission03/camera-support/contracts-065.json",
+    "../../native/admission03/camera-support/contracts-059.json",
+    "../../camera/admission03/contracts.jsonl#CAMERA-ADM03-126",
+    "../../camera/admission03/contracts.jsonl#CAMERA-ADM03-161",
+    "../admission03/camera-support/contracts.jsonl#RIG-CAMERA-ADM03-552",
+    "../admission03/camera-support/contracts.jsonl#RIG-CAMERA-ADM03-555"
+  ],
+  "fresh_P16_capability_ranges": [
+    [
+      257,
+      285
+    ],
+    [
+      367,
+      407
+    ],
+    [
+      449,
+      466
+    ]
+  ],
+  "source_coverage_note": "Full exact source obligations compared using personally consumed substantive source-specific narratives incloriginaltests, fresh critical bodies and all complete counterpart deltas; focusedread ranges not falsely represented as fullsource freshdisplay."
+}

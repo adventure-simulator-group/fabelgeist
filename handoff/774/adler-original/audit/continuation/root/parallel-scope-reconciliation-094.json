@@ -1,0 +1,66 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-094",
+  "at": "2026-10-22T19:27:45.757387+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-020.json",
+    "sha256": "aa1188d94c5168a1ed9808202877534af6c700f068218f905ff18e95b87d557e"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-019.json",
+    "sha256": "678256fd2e3fd4b78c21d815336c4a4da7af52616b0672c8d7c4b159b2875742"
+  },
+  "new_overlay": {
+    "id": "CONT-OWNER-RANGE-EXTENSION-198",
+    "at": "2026-10-22T19:27:45.757387+00:00",
+    "source_id": "pr-working:crates/fabelgeist-xpbd/src/dynamics/projection.rs",
+    "sha256": "5bb8e91c0567547ebdbb72da14d8b7e9384b3caded29267f1f3d96ac49ececf3",
+    "material_ranges": [
+      [
+        201,
+        206
+      ]
+    ],
+    "audit_owner": "rig",
+    "reason": "Prospective Initial06REG005 completes actual NormalSpeedCorrection returned type+nativeprojection; previousmaterial1-200preserved.",
+    "scope_registration": {
+      "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+      "sha256": "c55d7fff285948f900b47643e780ba5899a4c4e17df5366a20f2d40d4e213678",
+      "row_1based": 5,
+      "id": "RIG-INITIAL06-REG-005",
+      "original_record": {
+        "id": "RIG-INITIAL06-REG-005",
+        "at": "2026-10-22T19:22:56.571763+00:00",
+        "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+        "source_id": "pr-working:crates/fabelgeist-xpbd/src/dynamics/projection.rs",
+        "snapshot": "pr-working",
+        "sha256": "5bb8e91c0567547ebdbb72da14d8b7e9384b3caded29267f1f3d96ac49ececf3",
+        "actual_EOF": 206,
+        "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-xpbd\\src\\dynamics\\projection.rs",
+        "material_ranges": [
+          [
+            201,
+            206
+          ]
+        ],
+        "material_caller": "Scoped RelativeNormalSpeed.contact_correction163 and MassResponseShare.speed_correction189 return NormalSpeedCorrection; existing range1\u2013200 stops at attached derive",
+        "reason": "Complete exact directly returned correction type and native projection operation to compare speed versus position correction ownership; no body201+ analyzed before registration",
+        "exclusions": "Only exact6line declared tail; no new feature or unrelated helper graph",
+        "status": "prospectively_registered_before_body_analysis; existing-source range overlay pending"
+      }
+    },
+    "limits": "Exactnew6lines only, no otherfeature/caller/privategraph or anycross-lens/repaircredit. All13 mustcompareaddedrole; RootG093independentmanual03proofseparate."
+  },
+  "mandatory_overlays": {
+    "record": "continuation/owner-range-extensions.jsonl",
+    "sha256": "4d35594e7810b19036807318e42617000133727bec28e057885064a78385f73e",
+    "through": 198
+  },
+  "total_variants": 2757,
+  "total_overlays": 198,
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through197-before020.jsonl",
+    "sha256": "b159982116c1c2fab02971e3f7856de33200281659bf84a465a3f8348766732a",
+    "through": 197
+  },
+  "limits": "Metadata-only existing-source exact6linetail registration. Alloldfull/boundedrolespreserved; overlay197rawprefixretainedbyteexactforhistoricalhash. No projectexecution/repair. RootG093manual03newrolecomparedseparately."
+}

@@ -1,0 +1,31 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-480",
+  "at": "2026-10-25T15:46:37.108989+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 881,
+  "source_id": "pr-working:crates/adventuresim-core/src/bestiary.rs",
+  "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+  "actual_compared_ranges": [
+    [
+      1,
+      660
+    ]
+  ],
+  "existing_derives": [
+    "Prior478/479 derives",
+    "CategorizedThreatProfile Clone Copy Debug"
+  ],
+  "trait_inventory": [
+    {
+      "trait": "Earlier ThreatId codecs / ReportDescription Serialize+Deserialize / ID Debug",
+      "disposition": "Exact retained/optional classifications in478/479; no new trait in441\u2013660."
+    }
+  ],
+  "analysis": "Fresh441\u2013660 consumed: implemented lore tail, categorical profile view, static native catalogue/cache and compile_profile semantic string\u2192enum/quantity/unit/static-borrow projections. No new handwritten trait/codec; multiple representation/classification conversions and process-lifetime storage not mechanical derives. Earlier479 exact F003 optional Serialize support preserved. Remaining661\u20131558 unread.",
+  "first_unfinished": {
+    "scope_index": 881,
+    "line": 661
+  },
+  "execution": "none"
+}

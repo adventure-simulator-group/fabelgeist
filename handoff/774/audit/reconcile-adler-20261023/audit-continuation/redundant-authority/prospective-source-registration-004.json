@@ -1,0 +1,21 @@
+{
+  "id": "CONT07-REG-004",
+  "at": "2026-10-23T19:40:14.425656+00:00",
+  "source_id": "native-dependency:bevy_render-0.19.1/src/render_resource/uniform_buffer.rs",
+  "sha256": "09c699b99ca5712b61dc38ce3703155701999ab75801a5f38172475c23b73d1c",
+  "bytes": 14681,
+  "actual_EOF": 405,
+  "new_material_ranges": [
+    [
+      1,
+      149
+    ]
+  ],
+  "origin": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_render-0.19.1/src/render_resource/uniform_buffer.rs",
+  "archive_sha256": "fc86a32b2eef9859e1e7d323c6d1a9150fe77aa17c30fd05abebc12f645929dc",
+  "archive_member_equal": true,
+  "provenance": "same bevy_render0.19.1 crate as frozen lock checksum already verified REG002; fresh exact member byte equality",
+  "reason": "Actual UniformBuffer set/write/binding identity required to distinguish current per-camera cache from arbitrary native allocation replacement in source1561. Dynamic buffer149+ unrelated, excluded.",
+  "status": "prospectively registered BEFORE semantic body read; no source/lens credit yet; pending global all-lens reconciliation",
+  "old_universe_added_source_count": 1
+}

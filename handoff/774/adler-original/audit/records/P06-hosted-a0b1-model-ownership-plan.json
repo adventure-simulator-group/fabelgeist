@@ -1,0 +1,15 @@
+{
+  "recorded_at": "2026-10-21T05:54:01.960307+00:00",
+  "head": "a0b1c4c681cedbb11fac99282836640acdfcbf25",
+  "first_failure": "Hosted fabelgeist-rust-quality check: autoresolve.rs production1358 > existing1356. No other blocker reported by that gate.",
+  "source_status": "Connected migrations believed source complete; this is subsequent ownership/quality repair.",
+  "decision": "The existing model.rs owns supporting combat snapshots (armor, weapons and equipment). Move the matching body, essentials and skills snapshots plus their trait adapters/defaults from resolver orchestration into that actual owner. Keep all records before impls.",
+  "preservation": [
+    "Move complete definitions and implementations byte-for-byte; no new type, field, calculation, tuning value, wrapper or forwarding API.",
+    "The existing pub use model::* exposes the one real owner at the public autoresolve API; no alias or compatibility shim.",
+    "Leave combatant state, simulation/resolution loops and existing tests in autoresolve.rs. Preserve test modules, successful serialization, defaults, traits and data layout.",
+    "Move BestiaryHours import to the actual record owner; no other caller requires the parent import.",
+    "No baseline/registry/suppression/cache/CI selection change now. Inspect official relevant reductions only after hosted export.",
+    "No new tests, cases, assertions, fixture helpers, local project checks or new agent."
+  ]
+}

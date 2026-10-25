@@ -1,0 +1,355 @@
+{
+  "id": "met-14-25-394",
+  "name": "Met 14.25.394 spear study",
+  "definition": {
+    "shaft": {
+      "length": 1.903,
+      "radius": 0.02,
+      "topScale": 0.965,
+      "bottomScale": 0.84,
+      "segments": 16,
+      "material": "walnut",
+      "tenon": {
+        "length": 0.075,
+        "tipRadius": 0.0125
+      },
+      "wrappings": [
+        {
+          "start": 1.668,
+          "length": 0.16,
+          "pitch": 0.1,
+          "width": 0.012,
+          "thickness": 0.0012,
+          "phase": 90,
+          "pattern": "crossed",
+          "material": "leather",
+          "underlay": {
+            "thickness": 0.0008,
+            "material": "darkLeather"
+          }
+        }
+      ]
+    },
+    "components": [
+      {
+        "kind": "spear",
+        "id": "head",
+        "label": "forged leaf and socket",
+        "mount": "shaft-top",
+        "length": 0.382,
+        "width": 0.049,
+        "thickness": 0.008,
+        "rootWidth": 0.031,
+        "bellyPosition": 0.16230366492146597,
+        "acuteness": 1,
+        "section": "diamond",
+        "material": "steel",
+        "shoulderRoundness": 1,
+        "socket": {
+          "length": 0.12,
+          "neckLength": 0.035,
+          "baseRadius": 0.022,
+          "wall": 0.002,
+          "cavityDepth": 0.08,
+          "insertionDepth": 0.075,
+          "boreTipRadius": 0.013,
+          "stops": {
+            "span": 0.095,
+            "centerHeight": 0.07,
+            "endHeight": 0.014,
+            "rootHeight": 0.035,
+            "thickness": 0.008,
+            "orientation": 0,
+            "rootBlend": 0.003
+          }
+        }
+      }
+    ]
+  },
+  "family": "Museum study \u00b7 Western Europe \u00b7 15th century",
+  "description": "Dimensioned study of the Met spear head. The full shaft, tenon, cavity and section depth are inferred. Calculated mass is not fitted to the museum total.",
+  "controls": [
+    {
+      "label": "Blade length",
+      "path": "components.0.length",
+      "min": 0.25,
+      "max": 0.55,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Blade breadth",
+      "path": "components.0.width",
+      "min": 0.035,
+      "max": 0.065,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Blade depth",
+      "path": "components.0.thickness",
+      "min": 0.006,
+      "max": 0.012,
+      "step": 0.0005,
+      "unit": "m"
+    },
+    {
+      "label": "Neck breadth",
+      "path": "components.0.rootWidth",
+      "min": 0.027,
+      "max": 0.034,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Belly position",
+      "path": "components.0.bellyPosition",
+      "min": 0.1,
+      "max": 0.5,
+      "step": 0,
+      "unit": ""
+    },
+    {
+      "label": "Shoulder roundness",
+      "path": "components.0.shoulderRoundness",
+      "min": 0,
+      "max": 1,
+      "step": 0.05,
+      "unit": ""
+    },
+    {
+      "label": "Tip taper",
+      "path": "components.0.acuteness",
+      "min": 0.7,
+      "max": 1.5,
+      "step": 0.05,
+      "unit": ""
+    },
+    {
+      "label": "Socket length",
+      "path": "components.0.socket.length",
+      "min": 0.12,
+      "max": 0.2,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Neck transition length",
+      "path": "components.0.socket.neckLength",
+      "min": 0.02,
+      "max": 0.035,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Socket outer radius",
+      "path": "components.0.socket.baseRadius",
+      "min": 0.022,
+      "max": 0.026,
+      "step": 0.0005,
+      "unit": "m"
+    },
+    {
+      "label": "Socket wall",
+      "path": "components.0.socket.wall",
+      "min": 0.001,
+      "max": 0.002,
+      "step": 0.0001,
+      "unit": "m"
+    },
+    {
+      "label": "Cavity depth",
+      "path": "components.0.socket.cavityDepth",
+      "min": 0.078,
+      "max": 0.082,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Shaft insertion",
+      "path": "components.0.socket.insertionDepth",
+      "min": 0.05,
+      "max": 0.075,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Cavity end radius",
+      "path": "components.0.socket.boreTipRadius",
+      "min": 0.013,
+      "max": 0.014,
+      "step": 0.0001,
+      "unit": "m"
+    },
+    {
+      "label": "Stop span",
+      "path": "components.0.socket.stops.span",
+      "min": 0.075,
+      "max": 0.12,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Stop center above rim",
+      "path": "components.0.socket.stops.centerHeight",
+      "min": 0.055,
+      "max": 0.075,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Stop end height",
+      "path": "components.0.socket.stops.endHeight",
+      "min": 0.01,
+      "max": 0.018,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Stop root height",
+      "path": "components.0.socket.stops.rootHeight",
+      "min": 0.025,
+      "max": 0.045,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Stop depth",
+      "path": "components.0.socket.stops.thickness",
+      "min": 0.006,
+      "max": 0.012,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Stop orientation",
+      "path": "components.0.socket.stops.orientation",
+      "min": 0,
+      "max": 180,
+      "step": 5,
+      "unit": "deg"
+    },
+    {
+      "label": "Shaft length",
+      "path": "shaft.length",
+      "min": 1.6,
+      "max": 2.2,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Tenon length",
+      "path": "shaft.tenon.length",
+      "min": 0.075,
+      "max": 0.1,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Tenon end radius",
+      "path": "shaft.tenon.tipRadius",
+      "min": 0.01,
+      "max": 0.0125,
+      "step": 0.0001,
+      "unit": "m"
+    },
+    {
+      "label": "Stop root fillet",
+      "path": "components.0.socket.stops.rootBlend",
+      "min": 0,
+      "max": 0.006,
+      "step": 0.0005,
+      "unit": "m"
+    },
+    {
+      "label": "Wrapping start",
+      "path": "shaft.wrappings.0.start",
+      "min": 1.6,
+      "max": 1.668,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Wrapping length",
+      "path": "shaft.wrappings.0.length",
+      "min": 0.1,
+      "max": 0.16,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Wrapping pitch",
+      "path": "shaft.wrappings.0.pitch",
+      "min": 0.05,
+      "max": 0.15,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Strip width",
+      "path": "shaft.wrappings.0.width",
+      "min": 0.006,
+      "max": 0.012,
+      "step": 0.001,
+      "unit": "m"
+    },
+    {
+      "label": "Strip thickness",
+      "path": "shaft.wrappings.0.thickness",
+      "min": 0.0005,
+      "max": 0.002,
+      "step": 0.0001,
+      "unit": "m"
+    },
+    {
+      "label": "Wrapping phase",
+      "path": "shaft.wrappings.0.phase",
+      "min": 0,
+      "max": 360,
+      "step": 5,
+      "unit": "deg"
+    },
+    {
+      "label": "Wrapping underlay thickness",
+      "path": "shaft.wrappings.0.underlay.thickness",
+      "min": 0.0004,
+      "max": 0.0012,
+      "step": 0.0001,
+      "unit": "m"
+    }
+  ],
+  "choiceControls": [
+    {
+      "label": "Wrapping pattern",
+      "path": "shaft.wrappings.0.pattern",
+      "options": [
+        {
+          "label": "Crossed strips",
+          "value": "crossed"
+        },
+        {
+          "label": "Right handed",
+          "value": "rightHanded"
+        },
+        {
+          "label": "Left handed",
+          "value": "leftHanded"
+        }
+      ]
+    }
+  ],
+  "source": {
+    "museum": "The Metropolitan Museum of Art",
+    "accession": "14.25.394",
+    "url": "https://www.metmuseum.org/art/collection/search/26796",
+    "overallLengthM": 2.33,
+    "headLengthM": 0.502,
+    "maximumWidthM": 0.095,
+    "wholeObjectMassKg": 2.5798,
+    "images": [
+      "https://collectionapi.metmuseum.org/api/collection/v1/iiif/26796/1425684/main-image",
+      "https://collectionapi.metmuseum.org/api/collection/v1/iiif/26796/1425711/main-image"
+    ],
+    "imageRights": "Public Domain, The Metropolitan Museum of Art"
+  }
+}

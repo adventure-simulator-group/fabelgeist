@@ -1,0 +1,448 @@
+--- before/crates/adventuresim-tactical-client/src/animation_viewer/capture.rs
++++ after/crates/adventuresim-tactical-client/src/animation_viewer/capture.rs
+@@ -15,6 +15,7 @@
+ mod overlay;
+ mod readiness;
+ mod repeated_evaluation;
++mod root_motion;
+ mod subject_motion;
+ 
+ pub(super) const CAPTURE_ROOT_GROUND_OFFSET_METRES: f32 = 0.95;
+@@ -257,9 +258,10 @@
+             if let Some(mut body_response) = body_response {
+                 *body_response = LocomotionBodyResponseState::default();
+             }
+-            let ground = terrain.height_at(Vec2::ZERO).unwrap_or_default();
+-            transform.translation = Vec3::new(0.0, ground + CAPTURE_ROOT_GROUND_OFFSET_METRES, 0.0);
+-            transform.rotation = Quat::from_rotation_y(std::f32::consts::PI);
++            let Some(initial) = sequence.initial_root(&terrain, *transform) else {
++                return;
++            };
++            *transform = initial;
+             if frame.scenario.has(ScenarioFeature::RaisedTapStop) {
+                 // Prime the static combat stance and its terrain-conformed IK
+                 // before judging the later six-frame movement tap. A live
+@@ -391,20 +393,22 @@
+         let elapsed = capture_frame_elapsed(frame.scenario_frame);
+         let delta_seconds = elapsed.seconds();
+         procedural_clock.set_fixed_step(sequence.simulation_tick, elapsed);
+-        let horizontal = transform.translation.xz() + world_velocity.xz() * delta_seconds;
+-        let vertical = if quickstep {
+-            let ground = terrain.height_at(horizontal).unwrap_or_default()
+-                + CAPTURE_ROOT_GROUND_OFFSET_METRES;
+-            ground
+-                + quickstep_fixture_vertical_state(frame.scenario_frame)
+-                    .0
+-                    .max(0.0)
+-        } else if terrain_ik.is_enabled() {
+-            terrain.height_at(horizontal).unwrap_or_default() + CAPTURE_ROOT_GROUND_OFFSET_METRES
+-        } else {
+-            transform.translation.y
++        let motion = subject_motion::CaptureMotion {
++            orientation,
++            world_velocity,
++            contact: GroundContact::from(grounded),
++            elapsed,
+         };
+-        transform.translation = Vec3::new(horizontal.x, vertical, horizontal.y);
++        let Some(position) = sequence.fixture_root_position(
++            &terrain,
++            transform.translation,
++            &frame,
++            &motion,
++            *terrain_ik,
++        ) else {
++            return;
++        };
++        transform.translation = position.metres();
+         subject_motion::begin_capture_action(
+             &mut skeleton,
+             &frame,
+@@ -424,29 +428,17 @@
+             return;
+         }
+         if frame.scenario.is(ScenarioId::FullRagdoll) {
+-            let fall = ((frame.scenario_frame + 4) as f32 / 8.0).clamp(0.0, 1.0);
+-            transform.rotation = Quat::from_rotation_y(std::f32::consts::PI)
+-                * Quat::from_rotation_x(1.25 * smoothstep01(fall));
+-            // The production root becomes a coarse dynamic body while the
+-            // client ragdoll is active. Reproduce its descent in this focused
+-            // viewer so the first sixty-frame settle window actually exercises
+-            // whole-body terrain contact instead of suspending the pelvis at
+-            // the standing controller height.
+-            let ground = terrain.height_at(Vec2::ZERO).unwrap_or_default();
+-            transform.translation.y =
+-                ground + CAPTURE_ROOT_GROUND_OFFSET_METRES - 0.62 * smoothstep01(fall);
++            let Some(projected) = sequence.full_ragdoll_root(&terrain, *transform, &frame) else {
++                return;
++            };
++            *transform = projected;
+         }
+         sequence.scenario_distance += frame.speed.metres_per_second() * delta_seconds;
+         if let Err(error) = subject_motion::project_capture_motion(
+             &mut skeleton,
+             &mut transform,
+             &frame,
+-            subject_motion::CaptureMotion {
+-                orientation,
+-                world_velocity,
+-                contact: GroundContact::from(grounded),
+-                elapsed,
+-            },
++            motion,
+             &sequence,
+         ) {
+             sequence.admission =
+@@ -629,13 +621,10 @@
+     let view = VIEWS[sequence.view_index];
+     let file_name = view.screenshot_name(&frame);
+     let path = sequence.output.join(&file_name);
+-    let evaluation_bones = collect_bones(
+-        subject,
+-        &bones,
+-        &terrain,
+-        (!terrain_ik.is_enabled())
+-            .then_some(subject_global.translation().y - CAPTURE_ROOT_GROUND_OFFSET_METRES),
+-    );
++    let Some(ground) = sequence.capture_ground(*terrain_ik, subject_global.translation()) else {
++        return;
++    };
++    let evaluation_bones = ground.collect_bones(subject, &bones, &terrain);
+     let evaluation_leg_ik = leg_ik.map(LegIkState::diagnostics).unwrap_or_default();
+     sequence.record_repeated_evaluation(&frame, &evaluation_bones, skeleton, evaluation_leg_ik);
+     if sequence.view_index == 0 {
+@@ -831,31 +820,6 @@
+     hash
+ }
+ 
+-pub(super) fn collect_bones(
+-    subject: Entity,
+-    bones: &Query<(&HumanoidBone, &GlobalTransform)>,
+-    terrain: &SceneTerrain,
+-    flat_ground_height: Option<f32>,
+-) -> CapturedBones {
+-    bones
+-        .iter()
+-        .filter(|(bone, _)| bone.owner == subject && report_bone_label(bone.role).is_some())
+-        .map(|(bone, transform)| {
+-            let rotation = transform.rotation();
+-            (
+-                bone.role,
+-                BoneSample {
+-                    position: transform.translation().to_array(),
+-                    rotation_xyzw: [rotation.x, rotation.y, rotation.z, rotation.w],
+-                    terrain_clearance_metres: flat_ground_height
+-                        .or_else(|| terrain.height_at(transform.translation().xz()))
+-                        .map(|height| transform.translation().y - height),
+-                },
+-            )
+-        })
+-        .collect()
+-}
+-
+ pub(super) fn jitter_frames(frames: &[FrameSample]) -> Vec<JitterFrame<BoneRole>> {
+     let mut previous: Option<&FrameSample> = None;
+     let mut analysis_segment = 0_u64;
+--- before/crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs
++++ after/crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs
+@@ -1,7 +1,13 @@
+ //! Terminal capture admission rejection, separate from loading/readiness waits.
+ 
+ use super::*;
++use adventuresim_building_generator::spatial_geometry::{GeometryError, Position};
+ use adventuresim_tactical_core::animation::{AnimationQuantity, AnimationValueError, UnitInterval};
++use adventuresim_tactical_core::{
++    city_layout::grounding::SupportElevation,
++    scene::TerrainSupportError,
++    scene_coordinates::{Scene, ScenePlanPoint},
++};
+ 
+ /// One terminal authority: a rejected admission cannot return to driving.
+ pub(super) enum CaptureAdmission {
+@@ -13,9 +19,51 @@
+ pub(super) enum RejectedCaptureAdmission {
+     FrameInterval(AnimationValueError),
+     Locomotion(AnimationValueError),
++    Terrain(TerrainSupportError),
++    Geometry(GeometryError),
+ }
+ 
+ impl CaptureSequence {
++    pub(in crate::animation_viewer) fn admit_terrain_height(
++        &mut self,
++        terrain: &SceneTerrain,
++        point: ScenePlanPoint,
++    ) -> Option<SupportElevation> {
++        match terrain.required_height_at(point) {
++            Ok(height) => Some(height),
++            Err(error) => {
++                self.admission =
++                    CaptureAdmission::Rejected(RejectedCaptureAdmission::Terrain(error));
++                None
++            }
++        }
++    }
++
++    pub(super) fn admit_terrain_point(&mut self, metres: Vec2) -> Option<ScenePlanPoint> {
++        match ScenePlanPoint::try_from(metres) {
++            Ok(point) => Some(point),
++            Err(error) => {
++                self.admission =
++                    CaptureAdmission::Rejected(RejectedCaptureAdmission::Geometry(error));
++                None
++            }
++        }
++    }
++
++    pub(in crate::animation_viewer) fn admit_scene_position(
++        &mut self,
++        metres: Vec3,
++    ) -> Option<Position<Scene>> {
++        match Position::from_metres(metres) {
++            Ok(position) => Some(position),
++            Err(error) => {
++                self.admission =
++                    CaptureAdmission::Rejected(RejectedCaptureAdmission::Geometry(error));
++                None
++            }
++        }
++    }
++
+     /// A failed support calculation is terminal admission, not another readiness wait.
+     pub(super) fn admit_locomotion_support(
+         &mut self,
+@@ -89,6 +137,8 @@
+             Self::Locomotion(error) => {
+                 format!("capture locomotion observation rejected: {error}\n")
+             }
++            Self::Terrain(error) => format!("capture terrain support rejected: {error}\n"),
++            Self::Geometry(error) => format!("capture scene geometry rejected: {error}\n"),
+         }
+     }
+ }
+--- before/crates/adventuresim-tactical-client/src/animation_viewer/capture/capture_schedule.rs
++++ after/crates/adventuresim-tactical-client/src/animation_viewer/capture/capture_schedule.rs
+@@ -2,8 +2,8 @@
+ 
+ use super::overlay::draw_skeleton_overlay;
+ use super::{
+-    capture_frame, collect_locomotion_presentation_events, draw_flat_ground_grid, drive_sequence,
+-    freeze_capture_look, reject_capture,
++    CaptureSequence, capture_frame, collect_locomotion_presentation_events, draw_flat_ground_grid,
++    drive_sequence, freeze_capture_look, reject_capture,
+ };
+ use crate::animation_viewer::{
+     harness, inspection, setup::setup_viewer, view::position_capture_camera,
+@@ -16,7 +16,14 @@
+ impl Plugin for CapturePlugin {
+     fn build(&self, app: &mut App) {
+         app.add_systems(Startup, setup_viewer)
+-            .add_systems(PreUpdate, (drive_sequence, freeze_capture_look).chain())
++            .add_systems(
++                PreUpdate,
++                (
++                    drive_sequence.run_if(admission_is_open),
++                    freeze_capture_look,
++                )
++                    .chain(),
++            )
+             .add_systems(
+                 PostUpdate,
+                 position_capture_camera
+@@ -36,9 +43,15 @@
+                     harness::update_readiness,
+                     collect_locomotion_presentation_events,
+                     reject_capture,
+-                    capture_frame.run_if(harness::ready),
++                    capture_frame
++                        .run_if(harness::ready)
++                        .run_if(admission_is_open),
+                 )
+                     .chain(),
+             );
+     }
+ }
++
++fn admission_is_open(sequence: Res<CaptureSequence>) -> bool {
++    sequence.admission.is_open()
++}
+--- before/crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs
++++ after/crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs
+@@ -0,0 +1,136 @@
++//! Scene-root fixture motion and explicit capture ground-observation authority.
++
++use super::*;
++use adventuresim_building_generator::spatial_geometry::{
++    CoordinateAxis, GeometryError, GeometryRole, Position,
++};
++use adventuresim_tactical_core::{
++    city_layout::grounding::SupportElevation,
++    scene_coordinates::{Scene, ScenePlanPoint},
++};
++
++#[derive(Clone, Copy)]
++pub(super) enum CaptureGround {
++    Terrain,
++    AuthoredPlane(SupportElevation),
++}
++
++impl CaptureGround {
++    pub(super) fn collect_bones(
++        self,
++        subject: Entity,
++        bones: &Query<(&HumanoidBone, &GlobalTransform)>,
++        terrain: &SceneTerrain,
++    ) -> CapturedBones {
++        bones
++            .iter()
++            .filter(|(bone, _)| bone.owner == subject && report_bone_label(bone.role).is_some())
++            .map(|(bone, transform)| {
++                let rotation = transform.rotation();
++                let elevation = match self {
++                    CaptureGround::AuthoredPlane(height) => Some(height),
++                    CaptureGround::Terrain => {
++                        ScenePlanPoint::from_metres(transform.translation().xz())
++                            .and_then(|point| terrain.height_at(point))
++                    }
++                };
++                (
++                    bone.role,
++                    BoneSample {
++                        position: transform.translation().to_array(),
++                        rotation_xyzw: [rotation.x, rotation.y, rotation.z, rotation.w],
++                        terrain_clearance_metres: elevation
++                            .map(|height| transform.translation().y - height.metres()),
++                    },
++                )
++            })
++            .collect()
++    }
++}
++
++impl CaptureSequence {
++    /// Admit the initial scene root while retaining its current scale.
++    pub(super) fn initial_root(
++        &mut self,
++        terrain: &SceneTerrain,
++        mut transform: Transform,
++    ) -> Option<Transform> {
++        let ground = self.admit_terrain_height(terrain, ScenePlanPoint::ORIGIN)?;
++        let position = self.admit_scene_position(Vec3::new(
++            0.0,
++            ground.metres() + CAPTURE_ROOT_GROUND_OFFSET_METRES,
++            0.0,
++        ))?;
++        transform.translation = position.metres();
++        transform.rotation = Quat::from_rotation_y(std::f32::consts::PI);
++        Some(transform)
++    }
++
++    /// Native scene-root translation advances by the existing controller step;
++    /// admit its footprint before queries and its complete position before Bevy.
++    pub(super) fn fixture_root_position(
++        &mut self,
++        terrain: &SceneTerrain,
++        current: Vec3,
++        frame: &PlannedFrame,
++        motion: &subject_motion::CaptureMotion,
++        terrain_ik: TerrainIkMode,
++    ) -> Option<Position<Scene>> {
++        let horizontal = current.xz() + motion.world_velocity.xz() * motion.elapsed.seconds();
++        let point = self.admit_terrain_point(horizontal)?;
++        let vertical = if is_quickstep_scenario(&frame.scenario) {
++            let ground = self.admit_terrain_height(terrain, point)?.metres()
++                + CAPTURE_ROOT_GROUND_OFFSET_METRES;
++            ground
++                + quickstep_fixture_vertical_state(frame.scenario_frame)
++                    .0
++                    .max(0.0)
++        } else if terrain_ik.is_enabled() {
++            self.admit_terrain_height(terrain, point)?.metres() + CAPTURE_ROOT_GROUND_OFFSET_METRES
++        } else {
++            current.y
++        };
++        self.admit_scene_position(Vec3::new(horizontal.x, vertical, horizontal.y))
++    }
++
++    /// The full ragdoll scenario lowers the production-like controller root
++    /// while its capsule island resolves contact against the same terrain.
++    pub(super) fn full_ragdoll_root(
++        &mut self,
++        terrain: &SceneTerrain,
++        mut transform: Transform,
++        frame: &PlannedFrame,
++    ) -> Option<Transform> {
++        let fall = ((frame.scenario_frame + 4) as f32 / 8.0).clamp(0.0, 1.0);
++        transform.rotation = Quat::from_rotation_y(std::f32::consts::PI)
++            * Quat::from_rotation_x(1.25 * smoothstep01(fall));
++        let ground = self.admit_terrain_height(terrain, ScenePlanPoint::ORIGIN)?;
++        transform.translation.y =
++            ground.metres() + CAPTURE_ROOT_GROUND_OFFSET_METRES - 0.62 * smoothstep01(fall);
++        transform.translation = self.admit_scene_position(transform.translation)?.metres();
++        Some(transform)
++    }
++
++    /// An authored flat plane is measured from the visible scene-root datum;
++    /// failure to admit that observation cannot select terrain instead.
++    pub(super) fn capture_ground(
++        &mut self,
++        terrain_ik: TerrainIkMode,
++        subject: Vec3,
++    ) -> Option<CaptureGround> {
++        if terrain_ik.is_enabled() {
++            return Some(CaptureGround::Terrain);
++        }
++        let height = subject.y - CAPTURE_ROOT_GROUND_OFFSET_METRES;
++        if let Some(height) = SupportElevation::from_metres(height) {
++            return Some(CaptureGround::AuthoredPlane(height));
++        }
++        self.admission = CaptureAdmission::Rejected(RejectedCaptureAdmission::Geometry(
++            GeometryError::NonFinite {
++                role: GeometryRole::Elevation,
++                axis: CoordinateAxis::Y,
++            },
++        ));
++        None
++    }
++}
+--- before/crates/adventuresim-tactical-client/src/animation_viewer/setup.rs
++++ after/crates/adventuresim-tactical-client/src/animation_viewer/setup.rs
+@@ -1,8 +1,9 @@
+ use super::*;
++use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;
+ 
+ pub(super) fn setup_viewer(
+     mut commands: Commands,
+-    sequence: Res<CaptureSequence>,
++    mut sequence: ResMut<CaptureSequence>,
+     proportions: Res<CaptureBodyProportions>,
+     armor: Res<harness::ArmorCapture>,
+ ) -> Result {
+@@ -10,8 +11,16 @@
+     let mut generator = TerrainGenerator::new(0xA11C_E5E1.into());
+     generator.period = 200.0;
+     let terrain = generator.generate(100, if sequence.uses_flat_grid() { 0 } else { 30 }, 100)?;
+-    let spawn_height =
+-        terrain.height_at(Vec2::ZERO).unwrap_or_default() + CAPTURE_ROOT_GROUND_OFFSET_METRES;
++    let Some(height) = sequence.admit_terrain_height(&terrain, ScenePlanPoint::ORIGIN) else {
++        return Ok(());
++    };
++    let Some(position) = sequence.admit_scene_position(Vec3::new(
++        0.0,
++        height.metres() + CAPTURE_ROOT_GROUND_OFFSET_METRES,
++        0.0,
++    )) else {
++        return Ok(());
++    };
+     commands.spawn((
+         Name::new(if sequence.uses_flat_grid() {
+             "Animation review flat-grid scene"
+@@ -32,7 +41,7 @@
+             CharacterId(default_tactical_character_id()),
+             CharacterLook::default(),
+             SkeletonState::default(),
+-            Transform::from_xyz(0.0, spawn_height, 0.0),
++            Transform::from_translation(position.metres()),
+             Collider::cylinder(0.4, 1.9),
+             CollisionMargin(0.01),
+             tactical_character_controller(),

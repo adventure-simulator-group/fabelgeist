@@ -1,0 +1,117 @@
+{
+  "id": "CONT07-CONTRACT-523",
+  "at": "2026-10-23T23:14:25.683585+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2285,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/follicles.rs",
+      "sha256": "340bfe96a91d869c32ce69355977aa5d552d76fe8f27d48d566e6f78c4b1ad49",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-hair/src/follicles.rs",
+      "actual_EOF": 400,
+      "ranges": [
+        [
+          1,
+          400
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2286,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/grow.rs",
+      "sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-hair/src/gpu/grow.rs",
+      "actual_EOF": 876,
+      "ranges": [
+        [
+          1,
+          876
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2287,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/guides.rs",
+      "sha256": "ff313e8605d4893263109f7c930fcc81eb6c71aae6a7cffdbcafd10a44137aea",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-hair/src/gpu/guides.rs",
+      "actual_EOF": 357,
+      "ranges": [
+        [
+          1,
+          357
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2288,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/guides/packed.rs",
+      "sha256": "eabbc4d66906c663bc661d3ac362b051fc301694f436b2fdd0613116e2e2249b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-hair/src/gpu/guides/packed.rs",
+      "actual_EOF": 93,
+      "ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2289,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/mod.rs",
+      "sha256": "a81bbfd1f2648d8e5de93f7d4b1781884b3567dbf07e4247fc44d9c2fe5ecfb3",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-hair/src/gpu/mod.rs",
+      "actual_EOF": 1562,
+      "ranges": [
+        [
+          1,
+          1562
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2290,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/groom.rs",
+      "sha256": "083ab47dd800216d8bbcd584b64aa7851587f5e88bd459c449d0d429793f23cf",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-hair/src/groom.rs",
+      "actual_EOF": 79,
+      "ranges": [
+        [
+          1,
+          79
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "RIG-ADMISSION03-F067",
+    "RIG-ADMISSION03-F068",
+    "RIG-ADMISSION03-F069",
+    "RIG-ADMISSION03-F070",
+    "RIG-ADMISSION03-F073",
+    "RIG-INITIAL06-F006",
+    "RIG-OWNER-F004",
+    "RIG-PPS-F004"
+  ],
+  "facts": [
+    "Follicles.field derives GrowthField from current follicles and head; field is a snapshot recipe. Growth mode and whorl payload cardinality public/Serde permits noncanonical recipes, but custom fields may be intentional; no current ordinary contradictoryproducer asserted. Growth seven/manualALL7 currentlyagree, host GPU encoders use ALL.position fallback0; actual shader receivingcodes still outstanding before maintenance finding.",
+    "GpuGroom/GpuGuides public count/points/positions/attributes/roots/bounds can diverge. read_strands indexes by declaredcount/points with no wholeproductshape gate. Exact adopted RIG-ADMISSION03-F068; upload derives normal initial product from same Strands. Explicitly public bounds/root_bounds can stale afterbufferreplacement; actual LOD recipients remain outstanding, not wholeGpuGroom clearance.",
+    "grow uses local StrandSet/PingPong flag updated onceperwriting operation and settlecopies scratchbacktoown; Profile in-place correctlycontinues withoutswap. GuideMap mappedflag and reuse_guide_map intentionallyrequestreuse acrosspositiondeformation: mapdependsimmutable roots/group membership, notmovingtips. NeedactualCPU Context/ops review for reuse semantics, do notcallpositionchangeinvalidatesbyassumption.",
+    "Host HairdoUpload creates discriminator/optionalflag/payload from same hairdo eachcall, noretained independent source identity. Growth codingdependentmanualALL and WGSL, tiedaxis/flow code dependency requires exactshader comparison. HairdoGpu explicit ABI layout not claimed verifiedSDK.",
+    "RIG-ADMISSION03-F067 exact longest_guide infinity\u2192u32::MAX +2 preupload; F073 count/point casts andn+1 sizing; RIG-OWNER-F004/RIG-PPS-F004 hostraw recipe propagation. No new count/credit from adopted03/06 dispositions. Existing GPU fixtures personallyreadas sourceonly, notrun orclaimedpassing.",
+    "Groom GrowReport duration andstrandcounts are historical observations, total_ms derivessteps. Head_mesh is explicit caller-selected receiver snapshot; noactualupdateomission established merelybecause API accepts different head recipes."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2291,
+    "start_line": 1
+  }
+}

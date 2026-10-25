@@ -1,0 +1,170 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-188",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/outbreak.rs",
+      "sha256": "463018a13e8d3061fb161e6f5d814acd00f8cb489e3aa43f3cb08def9ea35f27",
+      "actual_EOF": 2111,
+      "actual_compared_ranges": [
+        [
+          1,
+          2111
+        ]
+      ],
+      "method": "Whole literal P16 body and fixtures personally read across bounded chunks, then entire actual PR textual diff consumed and all changed signatures assessed; complete helper comparisons consumed. No hash-only credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/outbreak/authority_tests.rs",
+      "sha256": "327d9f247ed9c164305e23809fbe5b46f77e8a1f5fb14adb60d01093c5f3324a",
+      "actual_EOF": 212,
+      "actual_compared_ranges": [
+        [
+          1,
+          212
+        ]
+      ],
+      "method": "Whole literal P16 body and fixtures personally read across bounded chunks, then entire actual PR textual diff consumed and all changed signatures assessed; complete helper comparisons consumed. No hash-only credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/outbreak/patient_chronology.rs",
+      "sha256": "13d2838fd47720c3645d3c0cba3875699b4ad7984159ddeded1b2a23a32f15ee",
+      "actual_EOF": 37,
+      "actual_compared_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "method": "Whole literal P16 body and fixtures personally read across bounded chunks, then entire actual PR textual diff consumed and all changed signatures assessed; complete helper comparisons consumed. No hash-only credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/outbreak/water_time.rs",
+      "sha256": "de713cf1a7816326fcc398a37c9194736867f984202e5efaa22e7ac944bb1390",
+      "actual_EOF": 13,
+      "actual_compared_ranges": [
+        [
+          1,
+          13
+        ]
+      ],
+      "method": "Whole literal P16 body and fixtures personally read across bounded chunks, then entire actual PR textual diff consumed and all changed signatures assessed; complete helper comparisons consumed. No hash-only credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak.rs",
+      "sha256": "7231d6f5c0ea33a0f938db9887dab36dff87fdb6341d8bf2099ada481593c41e",
+      "actual_EOF": 2111,
+      "actual_compared_ranges": [
+        [
+          1,
+          2111
+        ]
+      ],
+      "method": "Whole literal P16 body and fixtures personally read across bounded chunks, then entire actual PR textual diff consumed and all changed signatures assessed; complete helper comparisons consumed. No hash-only credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak/authority_tests.rs",
+      "sha256": "327d9f247ed9c164305e23809fbe5b46f77e8a1f5fb14adb60d01093c5f3324a",
+      "actual_EOF": 212,
+      "actual_compared_ranges": [
+        [
+          1,
+          212
+        ]
+      ],
+      "method": "Whole literal P16 body and fixtures personally read across bounded chunks, then entire actual PR textual diff consumed and all changed signatures assessed; complete helper comparisons consumed. No hash-only credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak/patient_chronology.rs",
+      "sha256": "13d2838fd47720c3645d3c0cba3875699b4ad7984159ddeded1b2a23a32f15ee",
+      "actual_EOF": 37,
+      "actual_compared_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "method": "Whole literal P16 body and fixtures personally read across bounded chunks, then entire actual PR textual diff consumed and all changed signatures assessed; complete helper comparisons consumed. No hash-only credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak/water_time.rs",
+      "sha256": "de713cf1a7816326fcc398a37c9194736867f984202e5efaa22e7ac944bb1390",
+      "actual_EOF": 13,
+      "actual_compared_ranges": [
+        [
+          1,
+          13
+        ]
+      ],
+      "method": "Whole literal P16 body and fixtures personally read across bounded chunks, then entire actual PR textual diff consumed and all changed signatures assessed; complete helper comparisons consumed. No hash-only credit."
+    }
+  ],
+  "groups": [
+    {
+      "id": "Conserved material transfer and collection",
+      "locations": "outbreak172-731; water_time1-13; Core water_source277-430 fresh dependency",
+      "trace": "Positive request, exact current capability and fixture/custody/source checks precede collection. conserved_collection rejects zero/overdraw and checked-adds container total before subtracting. SourceAvailable requirement enters actual Core plan. After actor time, all material/custody/capability/source facts are revalidated; checked revision precedes source publication. Private proportional transfer uses u128 products; moved<=public_total gives amount<=contribution and load<=prior load before native subtraction. Whole transfer preserves integer remainders at source. Collection contamination uses elapsed-since anchor, matching authoritative world time. Amount conversion ml*1000 is checked. Actual generated source is concentration12, growth0, stock500000ml, bounding ordinary load6e9. Collection round-as-u64 may silently saturate on extreme represented source amounts/concentrations; this is the same material computed-load narrowing authority question as SEGOVB-04-MATERIAL-CONTAMINANT-NARROW-001, not proof of ordinary generated failure. Public total versus sum of private contributions still needs admission closure.",
+      "disposition": "No new ordinary overflow. Extend canonical material-load strengthening with outbreak source-specific units and actual generated bound. Fallible post-time/mutation calls require SDK transaction and caller-catch proof before alleging committed partial update.",
+      "dependencies": [
+        "SEGOVB-04-MATERIAL-CONTAMINANT-NARROW-001",
+        "local774:M29",
+        "Canonical Microliters/concentration/load admission and action planner",
+        "SDK transaction/caught-error graph"
+      ],
+      "acceptance": "Admitted transfers conserve public amount and every private contribution/load. Computed load must fit canonical owner or reject, preserving exact generated normal bounds and retry tuple; failed updates must not consume time/material."
+    },
+    {
+      "id": "Patient chronology and release",
+      "locations": "outbreak849-1419,1510-1763; patient_chronology1-37",
+      "trace": "Materialization caps patients8 before work; existing real resident/episode/time/attributes required. Stable chronology ordinal position checked, immutable authority retry checked, context membership and actual illness checkpoint separate. Disease terminal uses private computed outcome; carrier attack latest min(private terminal minus1,now), then max symptomatic start, clearing invalid death if start exceeds available latest. At terminal0, saturating minus1 produces0 rather than strict-before0; requires admitted chronology witness before claiming an ordinary death defect. Normal episode deadlines use explicit saturation; historical suppression instead checked-adds and returnsNone if unrepresentable, leaving a terminal chronology contract question. Recovery closes membership once, health_active releases only recovered/dead. Remediation closes context without curing; historical observer kernel joins episode and knowledge.",
+      "disposition": "No new ordinary deadline/wrap failure; preserve latest state versus historical suppression distinction, exact death source collision and canonical kinship. Extreme chronology mismatch remains contract strengthening, not a reached normal outbreak.",
+      "dependencies": [
+        "Canonical StrategicMinute exhaustion policy",
+        "Actual disease course and generated chronology admission",
+        "Character death/corpse and context membership revision owners"
+      ],
+      "acceptance": "Terminal and historical patient operations must use one explicit representable chronology policy, retain independent illness/context semantics and idempotent closure, without saturation silently inventing before-zero ordering."
+    },
+    {
+      "id": "Time acquisition and source presence",
+      "locations": "outbreak241-290,483-488,1835-1943",
+      "trace": "Exposure clips half-open low<high intervals by remediation deadline and actual source-place presence. Unknown source kinds produce no exposure. Missing real character time defaultsZERO in water exposure, action minute and source-place transition. Same-minute presence transition closes prior open span before synthesizing id from actor/site/minute; revisiting same site in the same minute encounters closed existing id and does not reopen. This is a representable helper sequence; actual movement/time-consuming caller must be traced before promoting an ordinary lost-exposure defect. Fixed-size SHA256 slice is safe; synthetic blood carrier id is a distinct transient identity, not a persistent CharacterId by inference.",
+      "disposition": "Extend existing clock fallback graph; retain same-minute presence candidate explicitly unclosed rather than count as confirmed unique defect.",
+      "dependencies": [
+        "CAM-PPS-F003 supplied namespace; coordinator exact reconciliation",
+        "Actual record_case_site_presence_transition caller and movement elapsed guarantees",
+        "Native exposure interval owner and disease acquisition recipients"
+      ],
+      "acceptance": "Absent real clocks return structured unavailable state without inventing epoch. Admitted presence transitions preserve an open span for actual current site and historical endpoints, including same-minute revisits if allowed."
+    },
+    {
+      "id": "Source fixtures and PR delta",
+      "locations": "outbreak1651-1687,1993-2111; authority_tests1-212",
+      "trace": "Complete fixtures read, covering frontier bounded knowledge, replay authority, context release without cure, recovery/death idempotence and source privacy. These are supplied source assertions, not executed passing tests. Complete PR delta changes two StrategicOperationResult aliases to String Result; bodies unchanged. Preserve cause propagation integration with existing CAM-PROP-F006/localF05/M30.",
+      "disposition": "No execution, no full04 clearance.",
+      "dependencies": [
+        "local774:F05",
+        "local774:M30",
+        "CAM-PROP-F006",
+        "All13 initial inventory gate"
+      ],
+      "acceptance": "Preserve exact semantic retry and patient chronology contracts; eventually authorized validation must exercise actual reducers rather than count source assertions as a test run."
+    }
+  ],
+  "findings": [],
+  "status": "Eight original roles personally compared; remaining lens and overlays incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/relationship/chronology.rs",
+  "fresh_dependency": {
+    "path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/source/physical-p16-unscoped-dependency/crates/adventuresim-core/src/water_source.rs",
+    "sha256": "2892720bfed0f3280e91d03da01cf985b234731e8f08d449a76bf97f7cfdb556",
+    "actually_read_ranges": [
+      [
+        277,
+        430
+      ]
+    ],
+    "coverage": "Fresh critical bodies only; no whole original role credit."
+  }
+}

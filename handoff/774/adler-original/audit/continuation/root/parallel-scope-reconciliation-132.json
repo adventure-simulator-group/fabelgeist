@@ -1,0 +1,85 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-132",
+  "at": "2026-10-22T21:22:16.940593+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-033.json",
+    "sha256": "b89d0a147a31ed4bc75cc3e280e0efcb249fd44d8aa68c1623dfb38703cff85f"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-032.json",
+    "sha256": "de4bd2c89906482e001808c3b85789adf4439a9f5a657747b9bf56f79b11598b"
+  },
+  "new_variants": [],
+  "new_overlays": [
+    {
+      "id": "CONT-OWNER-RANGE-EXTENSION-221",
+      "at": "2026-10-22T21:22:16.940593+00:00",
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_references.rs",
+      "sha256": "e794dc0ede51c9d53d64155ee9ce8d551347ec8f659e2461c0b3d5d31b34cb6b",
+      "material_ranges": [
+        [
+          1,
+          10
+        ]
+      ],
+      "audit_owner": "camera",
+      "reason": "Exact strategic_currency assigned_currency_id24 indexes actual P16CURRENCY_IDS; direct fixed authored complete currency list required for authoritative roster vs live catalogue classification, no PR equality inference",
+      "scope_registration": [
+        {
+          "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+          "sha256": "e547e6aaf36af08c559c81ba92c702af24ea6580f6d34f862273e09245260783",
+          "row_1based": 14,
+          "id": "CAMERA-INITIAL07-REG014",
+          "original_record": {
+            "id": "CAMERA-INITIAL07-REG014",
+            "at": "2026-10-22T21:20:11.685790+00:00",
+            "authority": "CONT-ROOT-PARALLEL-INITIAL-AUDITS-081",
+            "source_id": "physical-p16:crates/adventuresim-core/src/item_references.rs",
+            "sha256": "e794dc0ede51c9d53d64155ee9ce8d551347ec8f659e2461c0b3d5d31b34cb6b",
+            "actual_EOF": 76,
+            "material_ranges": [
+              [
+                1,
+                10
+              ]
+            ],
+            "material_caller": "Exact strategic_currency assigned_currency_id24 indexes actual P16CURRENCY_IDS; direct fixed authored complete currency list required for authoritative roster vs live catalogue classification, no PR equality inference",
+            "exclusions": "ExistingP16medication12-27/food30-37 separate; no other source tail expansion",
+            "status": "registered BEFORE new body analysis"
+          }
+        }
+      ],
+      "limits": "ExistingP16medication12-27/food30-37 separate; no other source tail expansion",
+      "source_qualifications": "OriginalREG014 exclusion label food30-37 is inaccurate: actual30-37 is equipment belt/sheath/loop/worn/hip/attachment-point constants, notfood. Existingmaterialranges unchanged and originalregistration retained. MEDICATION_IDS12-27 has14items; CURRENCY_IDS1-10 has6. No38-76/testcredit."
+    }
+  ],
+  "total_variants": 2783,
+  "total_overlays": 221,
+  "registered_rows": 1,
+  "input_pins": [
+    {
+      "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+      "sha256": "e547e6aaf36af08c559c81ba92c702af24ea6580f6d34f862273e09245260783",
+      "captured_rows": 14,
+      "selected_ids": [
+        "CAMERA-INITIAL07-REG014"
+      ]
+    }
+  ],
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through220-before033.jsonl",
+    "sha256": "186145d2c0e0be84dc17b80dff70b0aae1b208368f5800d79d7dbfd7f37ad302",
+    "through": 220
+  },
+  "mandatory_scope_qualifications": [
+    {
+      "record": "continuation/root/parallel-scope-qualification-130.json",
+      "sha256": "5dc4e5cd771612c7e050ab4af544411523317ae4b57738f1fb20f493685a50fc"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-117.json",
+      "sha256": "f3b80648900716939057b20776d756a6e37001f6910378da1a1bbaea230d348b"
+    }
+  ],
+  "limits": "OnlyP16CURRENCY_IDS1-10 newmaterialrole. Existing30-37 equipmentnotfood labelcorrected, no byte/scopeexpansion. ActualBevyAssetEventEOF129 qualification130 mandatory; previous130-159 nonexistent. All13freeze retained."
+}

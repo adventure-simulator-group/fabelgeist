@@ -1,0 +1,89 @@
+{
+  "id": "SEGOVB-04-ATTACHMENT-RESERVATION-001",
+  "lens": "audit-invariant-operations",
+  "status": "source_backed_conditional_catalog_API_failure_no_run",
+  "sources": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory/occupancy.rs",
+      "sha256": "dbd62cb0c402bcb0903b4bcebdc159c2d2f35f266e4dff77c359796db40231b8",
+      "ranges": [
+        [
+          171,
+          231
+        ],
+        [
+          247,
+          274
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/equipment_catalog.rs",
+      "sha256": "da3139ef3625393db9041ad0680dc244b0f81235b86ea4519a87c9299763bdd6",
+      "ranges": [
+        [
+          44,
+          52
+        ],
+        [
+          112,
+          122
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment.rs",
+      "sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+      "ranges": [
+        [
+          216,
+          278
+        ]
+      ]
+    }
+  ],
+  "contract": "Reservations for all requirements of one candidate must fit the offered attachment point capacity before WornGraph publishes a successful fit.",
+  "counterexample": "Use ordinary source arming_doublet parent with mail_voiders point capacity1 and matching tag, and mail_voiders child with two copies of its flexible_armor parent requirement instead of one. ItemCatalog.new only validates known armor recipe and accepts the same IDs/recipes; no huge numbers or malformed topology needed. During one child attach, both support() calls see existing graph children_on0<capacity1 and choose same point at index0. attach increments second edge index by one locally but never rechecks point capacity, producing edges0 and1. Core EquipmentGraph.equip accepts distinct edge keys, existing parent and no cycle/conflict; it has no catalog capacity metadata. WornGraph therefore returns successful fit exceeding offered capacity1.",
+  "qualification": "Modified accepted catalog/API case, not current authored two-requirement mail_voiders: exact authored source has one requirement, preserved in evidence. No normal installed outfit, GUI/runtime/test/generation or DB violation claimed. Candidate is ordinary-sized conditional input operation failure.",
+  "connected_remedy": "Select and reserve attachment capacity coherently across both already placed articles and requirements accumulated for current candidate. Resolve another matching free point or return existing Unsupported/Invalid contract before publishing WornGraph. Preserve intended successive capacity for genuine capacity>=2, stable parent/point order and dependent removal. Avoid global rejecting duplicate requirements without meaning comparison.",
+  "acceptance": [
+    "capacity1 plus two required reservations cannot return accepted edges0 and1 on that point.",
+    "Capacity2 can satisfy two reservations; capacity1 may use a distinct second compatible point if policy supports it.",
+    "Existing one-requirement authored outfits, rollback and dependency order remain unchanged."
+  ],
+  "dependencies": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment.rs",
+      "sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+      "actual_EOF": 1182,
+      "personally_read_ranges": [
+        [
+          208,
+          330
+        ]
+      ],
+      "structured_records_personally_read": null,
+      "whole_role_credit": false
+    },
+    {
+      "source_id": "pr-working:content/items/catalog.yaml",
+      "sha256": "87e0f51292d42ab62beeabc9f2624f635c27acf8b28ae3d8c2931eb9297f491b",
+      "actual_EOF": 5632,
+      "personally_read_ranges": [],
+      "structured_records_personally_read": {
+        "complete_records_indices_zero_based": [
+          23,
+          180
+        ],
+        "record_ids": [
+          "arming_doublet",
+          "mail_voiders"
+        ]
+      },
+      "whole_role_credit": false
+    }
+  ],
+  "dedup": "No exact local/archive match in source-specific capacity_index/point.capacity/WornGraph search; parent canonical reconciliation pending, no unique global count.",
+  "execution": "none",
+  "repair": "frozen"
+}

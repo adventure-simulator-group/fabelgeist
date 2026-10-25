@@ -1,0 +1,91 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-553",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/model.rs",
+      "sha256": "08275eee95012fbf2c20c185a7416b977f74c4181ad4362e704fafb847ae2c55",
+      "actual_EOF": 626,
+      "actual_compared_ranges": [
+        [
+          1,
+          626
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/model_def.rs",
+      "sha256": "aba9d2376e3b4633b05e1d51ec5f2baa54f29bcb5b57e511b1694612585c657a",
+      "actual_EOF": 348,
+      "actual_compared_ranges": [
+        [
+          1,
+          348
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/model_def/layout.rs",
+      "sha256": "add108e99167c2fa9f7550558f56bdd7f28bf7e5d5b6537fc516b9481a2ef247",
+      "actual_EOF": 303,
+      "actual_compared_ranges": [
+        [
+          1,
+          303
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/model_def/tests.rs",
+      "sha256": "8a4c3ccff3704053320170d56ccd92e1e3d449f9744b8993f0cebe87b7aef0a1",
+      "actual_EOF": 143,
+      "actual_compared_ranges": [
+        [
+          1,
+          143
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/skel_state.rs",
+      "sha256": "ec915bd52ab4e9fae98af225984322c62de94699e071cd90df48e8c7af0249b0",
+      "actual_EOF": 302,
+      "actual_compared_ranges": [
+        [
+          1,
+          302
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Compiled MHR topology/tensors remain one coherent generation; native tensor shapes/indices come from admitted host ownership.",
+      "evidence": "Full model626/model_def348/layout303/tests143/skel_state302 personally consumed. Mhr exposes mutable character/parameter_transform while tensor caches private; num_joints/vertices/faces use mutable host identity in reshape/index receiver: exact inherited F077. Actual face projection checks i32 representability but not vertex membership before vertex_normals select: F080. Forward identity width45/rowsbatch-or1, pose parameter width and expression72/rowsbatch explicit gates preserved; failed Result does not mutate compiled Mhr host state.",
+      "qualifications": "audit/continuation/rig/admission03/findings.jsonl record_index81 F077,84 F080 and80 F076 exact consumed. Scale exponent and unbounded raw coefficients could overflow but no admitted universal finite coefficient contract/current authored extreme established. Normal output zero for unreferenced vertex explicit policy; tiny-normal normalization threshold not automatically defect. No tensor/native execution.",
+      "acceptance": "Encapsulate/recompile complete caches at coherent source replacement; membership and checked native extents before tensor publication, preserving existing broadcast, optional correctives, precision and zero-unreferenced-normal policies."
+    },
+    {
+      "contract": "Joint-column matrix updates preserve source relationships and bounded interval policy.",
+      "evidence": "append_columns builds temporary then assigns; public smaller columns can panic copy but caller old+45 monotonically grows. zeros count products/row offsets and tensor_transpose selected columns rawAPI unchecked: nativecapacity/cross-table membership contract, not proven currentcaller. apply_limits clamps sequentially after raw parser admits reversed/NaN bounds and closing-before-opening bracket slices: exact F078. Source references copy coefficient triplets only, constants overwritten; precise policy candidate saved separately.",
+      "qualifications": "Inherited F078 record_index82 exact consumed. RigJointOrdinal identifies ordinal, not table membership; no constructor narrowing assumed. Prefix scan current acyclic ordered parser valid; public cycles hang exact F076, not new finding. Fixture source read, not executed.",
+      "acceptance": "Checked canonical limit interval/syntax; coherent rows/columns/native extents at admission; decide affine composition semantics without guessing source algebra policy."
+    }
+  ],
+  "findings": [
+    {
+      "ref": "candidate-mhr-affine-reference-policy-553.json",
+      "disposition": "needs canonical policy evidence"
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "5 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/fabelgeist-physics/src/contact.rs"
+}

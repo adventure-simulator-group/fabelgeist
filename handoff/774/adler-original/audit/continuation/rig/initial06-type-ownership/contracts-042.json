@@ -1,0 +1,22 @@
+{
+  "id": "RIG-INITIAL06-GROUP-042",
+  "at": "2026-10-22T20:48:45.345297+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "contact-location-is-selected-gameplay-product-not-authored-coverage": {
+      "sources": [
+        "pr-working:crates/adventuresim-core/src/combat/targeting.rs",
+        "pr-working:crates/adventuresim-core/src/combat/melee_resolution.rs"
+      ],
+      "comparison": "Fresh PRtargeting1\u2013427 includingoriginaltests and fullMeleeResolution1\u2013123 actual039/rereadcurrent; directCorecombat1\u2013350 actualdefinition/dispatch supportingcomparison only. CanonicalCore owns sampled MeleeContactLocation{7BodyPart,12AnatomicalSubregion,normalizedpart-localcoordinate,optionalArmorSurface}; authored EquipmentAnatomicalRegion15,EquipmentLocation24 andclinical/Riglabels are NOT duplicatedtaxonomies: actual12 includescheststernum/ribs/axilla/neckline/loweredge/abdomen/groin notsameauthoring15limbsegments. Inputglobalsample is mapped to part then localcoordinate; localclipping/coverage use samecoordinate to keep actualcontactanatomy coherent, no arbitraryglobalXYZ/metres/UnitInterval-as-everything. No newstoredcollisionframeowner; Corehasgameplayauthority, tacticalnativecontactproviders mustadaptcoordinate at actual port. Rawpublicconstructor doesnotcertify correlation/finiteness, existing admissionqualifications separate. Testfixtures show canonicalBody/Snapshot reuse, no clonedtaxonomy. Resolutionreceives separatefacets andcanonicalparameters/style/contact/response ratherthan nativeBevy/DB persistence; preserves invalidatedmiss earlyreturn, attemptedresponse vsenergy-scaledactualcontact and legitimate computedAttackResult. CurrentdirectAttackResult127\u2013181 andDefenderResponse184\u2013198 actualread: resultencodes damage/force/contact/optionalArmorImpact, response intentNone/Block/Parry/Dodge withdifferentpayload. Neither replacescontactidentity nor is duplicate of geometric ContactAtTime classification. Fullcombat1137 notcredited fromsupporting1\u2013350."
+    },
+    "committed-intent-resolved-alignment-and-performance-share-leaves": {
+      "sources": [
+        "pr-working:crates/adventuresim-core/src/combat/defense.rs",
+        "physical-p16:crates/adventuresim-core/src/combat/defense.rs"
+      ],
+      "comparison": "Fresh completePRdefense1\u2013444 then actualcompletePR/P16textualdiff empty and explicit current P16 producer/currentrole/definition comparison against exact fullScoped1\u2013444. CommittedThreatFacts owns currentcommit observation lag(ContactTimingOffset signedrelative),windup/recovery(AnimationElapsed nonnegspan),inertia kgm2,engagement/incapacitation,shortinterceptcount,decisionsample. Differentfrom lifetimecombattrait/BattleTimeabsolute/observerordinal/Seed; keeptypedleaves canonicalexistingowners and Corepurepolicy. CommittedThreatDecision is computedchoice/probability/work/benefit, WeaponDefenseAlignment retains attempted/effective response plusphysicalengagement andsample; useful stages not independentlyauthoredduplicateparams. Actualnative dimensionless logistic andshieldhalfbodywidthcoordinates notmetres/framePlanDirection. scaled_for_performance253 accepts canonicalUnitInterval thencomputes responsechangedvalues; genuinearithmeticboundary, not unchanged into/getter/ctor cycle. ContactTimingOffset andAnimationElapsed distinct despite seconds. factspublicrawfields/DefaultNone/SerdeDefenderResponse no universalsealedfinitepromise. No DB/tacticaltickauthoritymoves. P16semanticcarry expressly actualcompletebody+canonicaldefinition+currentintendeduse, not SHA/name/verdict. Originalold330\u2013455 requestpreserved; actualEOF444,445\u2013455 nonexistent no credit/obligation."
+    }
+  },
+  "limits": "No wholeCorecombat or P16unscopedtargeting/meleeresolution credit; originalSchema/Equipment otherdirectownerjoins remain; nootherlens/repairauthority."
+}

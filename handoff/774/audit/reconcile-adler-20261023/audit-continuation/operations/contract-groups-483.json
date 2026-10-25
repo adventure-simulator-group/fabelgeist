@@ -1,0 +1,58 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-483",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/semantic.rs",
+      "sha256": "bd7fae5f4804c3a1827174d3b17e17391688e8a3308bba7ecc68333100c7ac45",
+      "actual_EOF": 1132,
+      "actual_compared_ranges": [
+        [
+          1,
+          1132
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/shaping_time.rs",
+      "sha256": "daf4c6b1cf6f43edc45f91ac44fb6fe70ae0848a2e1b23b8bc313ba24d887a87",
+      "actual_EOF": 63,
+      "actual_compared_ranges": [
+        [
+          1,
+          63
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/skeleton_family.rs",
+      "sha256": "526f6b40dbe2b1a94aac7807e7ca9cb7f2fab69bd0a86f074319e7fd4f4e00bc",
+      "actual_EOF": 24,
+      "actual_compared_ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Semantic fixture obligations and enum catalogues",
+      "analysis": "Full1132line semanticbody personallyread includingcompletecontracttests, actualALL41/required30 mappings, mirrorpair andterminatingfallbackedges. Fixturecorrectness ofstate/action/dive/downedmotion/zeroelapsed/replicationcodecs is sourceexpectation only, notexecutedacceptance orsourcebodycoverage ofcalledstateowners. OpenSkeletonFamily simply ownsidentitytext; noarithmetic/mutationcontractorforcedcataloguemembership."
+    },
+    {
+      "contract": "Signed shaping-time operation and zero-time question",
+      "analysis": "Full63/24linebodies read. checked_lerp re-admits finitecompletedcoefficient; signed/zeroshapingtimes intentionalcontract, no globalpositive restriction. advance_settle capsadditionafterdivision andthenfiniteadmission; representableAPI coefficient0/progress0/elapsedZERO computesNaN.min1\u21921, returnsCOMPLETE. advance_guard sameinputs rejectsNaNclamp. Zero-shaping instantaneousresponseintent andactualcaller constraints mustbe resolved againstzeroelapsedobservationcontract before ordinarydefectpromotion; sourceconditionalcontractquestion, parentaliascomparisonpending. ActualSettleProgress\u22641 bound satisfied by min1 atonlyfoundcaller; privatefrom_arithmetic finite-only isnot itself an actualuncappedproducer."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-core/src/animation/state.rs"
+}

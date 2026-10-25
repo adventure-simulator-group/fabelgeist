@@ -1,0 +1,94 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-040",
+  "at": "2026-10-22T21:03:13.583509+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/alcohol.rs",
+      "sha256": "ead3354da78110069cabd335496a7e9ee16125ac302d7dece1d3684b0a1824ef",
+      "actual_compared_ranges": [
+        [
+          1,
+          198
+        ],
+        [
+          200,
+          426
+        ]
+      ],
+      "source_evidence": "Fresh actual entire exact scoped kernel/record and existingtestprefix through426;199 unscoped type alias not credited, tests readnotrun."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/alcohol.rs",
+      "sha256": "c572b0014c6114020ee98d99a3cdfa1579b25a815ade34656bfeb8b6a421d1dc",
+      "actual_compared_ranges": [
+        [
+          565,
+          605
+        ]
+      ],
+      "source_evidence": "Fresh actual prior bounded disinfectant selection, joined with037 newadapter38-47. Prefix565-567 is old prior-function tail only, no rest of module credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/bestiary.rs",
+      "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+      "actual_compared_ranges": [
+        [
+          66,
+          125
+        ],
+        [
+          139,
+          191
+        ],
+        [
+          210,
+          294
+        ],
+        [
+          311,
+          338
+        ],
+        [
+          345,
+          396
+        ],
+        [
+          484,
+          803
+        ]
+      ],
+      "source_evidence": "Fresh every remaining old bounded P16 material role plus independent prior034 lore397-460 and039 bridge300-306/805-836. No1-65/126-138/192-209/295-299/307-310/339-344/461-483/837+ or test credit."
+    }
+  ],
+  "groups": {
+    "alcohol-fixed-point-and-selection": "ABV>10000 returns0 explicitly, zero serving allowed, properties_valid also netHydration<=water. Endpoint saturation witnessF017; native typed leaf should preserve actual basis-point bound, not conflate disinfectant effectiveness with unit probability absentpolicy. units_for_target guardsboth0 then div_ceil u32 safe, affordable guardsprice0 beforeu64 division then explicitly bounds narrowing u32. consumable settled saturating subtraction intentional. surgery bonus u16/25 +0or2 finite<=2623.4. best_disinfectant enumerate/filter/max returns index in actual same input vector, highest effectiveness/lowerstableID tie; DB builds ranking from candidates one-to-one preservesorder and immutablelength through selection, then returnedindex safely indexescandidates. Defserving0 ratiofallbackWHOLE and raw effectivenessexistingadmissionpolicy, not claimedrealwrongcandidate. No inventory or external mutation in best selection.",
+    "alcohol-clock-iteration": "Raw absolute evening IDs distinct from duration/minute, evening_boundary checkeddaymultiply/add before returnedOption. One-yearchecked interval validates order andduration before iterator publication, crossed interval(start,end] earlyday handling deliberate. EveningIds.next saturatingincrement cannotstick at u64MAX on reachable privatefactory state because last derives minute.day_index<=u64MAX/MINUTES_PER_DAY. Rest same derivedday bound; prior-day saturating0 intentional; sleep_end checkedday/minuteaddition returnsNone atnativeedge. Travel segments nextboundary strictlyafterstart or clippedself.end fallback atupperclockedge, monotonecursor progresses untilend, attributionend-1 validbecauseemittedend>start>=0. Localiterators mutateonlyowncursor; caller DB commit/retryclock not provedatomicfromthiskernel. Preserve exactnight overlap andtravelchunkhistory identities.",
+    "alcohol-hydration-forecast": "Consumes owned Vec clone locally, protectsmedical andnonpotable inventory, positivequantity/ethanol guard, deterministicsharedbeforepersonal/effectiveness/item/stableID ordering. Eachwhile decrementspositivequantity, remaining saturatingeach; terminationbounded units/demandcounts but arbitraryhugeforecastwork is actualcountcapacitypolicy, no currentperfdefectasserted. Quantity\u00d7hydration/total saturation intentionally publishedu32limit distinct from F017avoidablepredivisionloss. Demands order and ownershipfilter actualalgorithm, no new arbitrary reordering. Falsepotability orzeroethanol excluded fromdrinkingandforecastperexistingpolicy.",
+    "p16-profile-operations": "All scalarperception/stealth/morale/risk/fear nativeu8 copiesfinite; speedu32copyzeroallowedrawunlessauthoredgate. u16milli conversiondivide1000 finiteandmay>1 intentionally; f64authoredresistance/padding asf32 canoverflowevenfinitef64, existingRoot03physicalnarrowinggraph notnewunique. Strings mappedclosedrig/attack/protection/temperament/activity/countermeasure currentlyrelystartupcataloggate; rawauthoredrecorditselfnotsealed, fulltypescategorypropagation mustremove repeatedunreachable. Publicprofilefields allow combinations; once-built immutableOnceLock map itself legitimatelycache oneimmutablecatalog. Compilelocalplaceholder fields fullyassignedbefore returnedprofile, no callbackobservesplaceholder. Box::leak intentionallyprocess-lifetimestorage, failure couldleakalreadyallocatedlocalvectors but noclaimedretainedhalfpublishedprofile/clock. OpenEvidence/ReportIDs syntax!=closedthreatmembership, preserveactualseparateidmeanings.",
+    "p16-habitat-weight-and-relation": "Actual habitat_weight returns0 unsupported else constants10/200/300/350/500/900, sou16fits. selectfirstrejectsweight0, then required/actualbridge fourcases rejectmissing/invalid/unexpected, buildscoherentpositiveweight+optionalbridge+evidence onlyafterchecks. Its public resultfields canbypasswholegraph admission notedNative05, not numericcomputationfailure. Fresh039actualboundedcontains_habitat andallbridgehelpers supportcaller; allowed.contains safe, no zerodivisor/narrowing/rangeoverflow. Categories iteratesprimaryplussecondary, intentionaltaxonomy membership not arithmetic sums. ThreatId FromStr doescatalogmembership check, directtry_new syntacticcontract maybeweaker; profileexpectdependsactualrequestedIDadmission, retainexisting03identitygap notclaimednormalbadID."
+  },
+  "findings": [
+    {
+      "id": "ROOT-INITIAL04-F017",
+      "kind": "representable_API_numerical_contract_strengthening",
+      "source_id": "pr-working:crates/adventuresim-core/src/alcohol.rs",
+      "locations": [
+        [
+          95,
+          111
+        ]
+      ],
+      "case": "AlcoholProperties{serving_ml:u32::MAX,abv_basis_points:10000,net_hydration_ml:0,..Default} passes properties_valid. ethanol_ml computes serving.saturating_mul(10000)/10000 =429496 instead of u32::MAX for pure ethanol. Water analogue at abv0 similarly undercounts pure-water content. Static valid public API case only, no normal huge-serving asset/runtime claim.",
+      "operation": "Saturation before fixed-point division loses information even where final mathematically correct result fits original serving bound. This is explicit existing saturating behavior, not undefined integer overflow.",
+      "connected_repair": "Use actual volume owner and widened exact product (u64 accommodates u32*u16) before division, then checked/proven-safe volume result. Whole serving/fraction/hydration validated contract and consumers share canonical AlcoholProperties per RigF011. Preserve zero allowed/invalidABV rejection/rounddown and legitimate final accumulation saturation policy separately; no change to ordinary current-size servings.",
+      "acceptance": "For admitted ABV0..10000, pure endpoint volume equals serving; all accepted products computed exactly before fixed-point division, published content<=serving. Existing tests only, no new cases/helper/assertions.",
+      "deduplication": "Connected alcohol quantity/aggregate owner graph; endpoint witness not observed current gameplay defect."
+    }
+  ],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

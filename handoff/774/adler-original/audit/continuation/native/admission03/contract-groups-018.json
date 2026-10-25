@@ -1,0 +1,82 @@
+{
+  "id": "NATIVE-ADMISSION03-CONTRACT-GROUPS-018",
+  "lens": "audit-admission-contracts",
+  "groups": {
+    "original-animation-fixtures": {
+      "indices": [
+        238
+      ],
+      "invariant": "Original animation fixtures use checked scalar/time/frame leaves and intentionally open pack/family identity, raw native samples and incomplete asset staging.",
+      "all_admission_routes": "Fresh full1524 lines read1–800/801–1524. No new production constructor/decoder/Reflect impl. All MotionId values checked TryFrom, authored directory checked, pack/family allstrings intentional; AuthoredAnimationFrame accepts allu16 incl0 then actual frame_fits_clip membership; ClipDuration/Time, BlendWeight/UnitInterval/CyclePhase/current elapsed admitted checked before LoadedClip/PoseSample/ExtrapolatedSpan fixture literals. PlaybackContributions::admit actual fixture route gates sum. Raw SDK handles, Transform and constraint vectors intentionally raw. Helpers runtime_with_available builds incomplete staging library plus checked clip duration. Existing fixtures cover missing clip/base/fallback/bind restoration, open alternate test/armored packs, zero weights/endpoints, direct/continuous backend, incompatible target set, sequence gaps/reset/MAX and body states.",
+      "counterexample_or_qualification": "Tests do not prove all raw geometry or every catalog relation admitted; standalone raw fields and F002 remain. No new tests executed/added and no assertions weakened.",
+      "connected_repair": "Existing animation tests and owning animation/catalog/playback whole-function claims.",
+      "acceptance": "Preserve original source expectations including zero/missing/incomplete staging and reverse fallback; no admission bypass beyond previously qualified sources.",
+      "later_lens_credit": false
+    },
+    "capture-sequence-and-terminal-admission": {
+      "indices": [
+        240,
+        241,
+        242,
+        243,
+        246,
+        248,
+        249
+      ],
+      "invariant": "Capture private sequence stores raw diagnostic/staging values and typed admitted leaves. Rejected geometry/timing/locomotion/terrain is terminal; readiness waits are distinct.",
+      "all_admission_routes": "Fresh full capture1021 including existing tests916–1021, admission168, schedule57, frameclock58 including tests45–58, readiness32, rootmotion136 and subjectmotion126. CaptureSequence::new derives selected plan through checked scenario leaf factories, asserts nonempty unknown label, settles max1, typed simulationtickZERO, None baseline/scenario, closed admissionOpen. No Serde/Reflect/Default or raw primitive backing for checked leaf. can_drive_frame checks open/notapplied/notinflight/inbounds; schedule gates drive/capture on Open and consumes rejection before capture even if equipment loading. Geometry point/fullPosition constructors check completed equations; required terrain failure marks Rejected, finite authored plane failure cannot fall back to terrain. IK support missing rejects when active requires it, measured0 remains validtyped. CaptureMotion fields raworientation/worldvelocity+typedelapsed; actual from_controller/project gates refined locomotion fields; selected action uses existing checked state APIs. Fixed nativeclock uses f64 reciprocal, Duration::try_from_secs_f64, explicit nonzero nativeDuration check; firstframeelapsedZERO/tick0 valid, later wrapping_next preserves allu64.",
+      "counterexample_or_qualification": "Private resource/closed states can be deliberately assembled by definingmodulechildren; no cryptographic linear terminal guarantee or aggregate05 pass. CompletedCapture pub(super) rawrecords no finite completeness invariant. Native velocities, scenario_distancef32, raw bone/quat/clearance reports remain broad. Native frameinterval positivity is separately checked beyond f32 rate invariant. Missing support rejects only required observations; no terrain0 invented. Current typed Position actualconstructor path retains RootG007 latent backing qualifier. No blanket fullTransformfinite proof.",
+      "connected_repair": "Existing capture/sequence/admission/clock/rootmotion/function claims; no authority transfer. Supporting NativeREG004/005 canonical scene wrapper admission group016.",
+      "acceptance": "Retain terminal vs wait/error order, current initial0 tick and zeroelapsed, f64/native rounding, signed heights, optional measurements, original authored fixture behavior.",
+      "later_lens_credit": false
+    },
+    "capture-native-observations-and-report-identity": {
+      "indices": [
+        244,
+        245,
+        247,
+        250,
+        256,
+        263,
+        264
+      ],
+      "invariant": "Captured raw native arrays and outbound diagnostic records are not refined finite state. Typed clocks/weights/sequences remain typed until actual serialization/math boundary; report bone identity is a selected closed-role subset.",
+      "all_admission_routes": "Fresh full globalbones59,overlay80,repeated214 including tests182–214,material29,bones138,model352,presentationevents48. GlobalBoneFrame/BoneSample/FrameSample/ScenarioMetrics/ContinuityLocation/QualityScore are raw observation/report structs with pub(in viewer) fields, Serialize only (PresentationEventSample manual output view), no Deserialize/Reflect/checked new or universal finite promise. Their raw arrays and f32 fields can contain diagnostic nonfinite source values. FrameSample required_ik_support zips optional typed weights or exact UnavailableObservation; has_finite_bone_transforms predicate examines selected arrays only, no automatic construction guarantee. CapturedBones private BTreeMap has Defaultempty/FromIterator arbitraryclosed BoneRole and test-onlymutation; no grammar or full17member promise. Custom Serialize rejects uncaptured role at output, preserves lexical-label order; REPORT_BONES defines17labels and reduced hierarchy, not fullrig. Eventreport ownerstring/targetdebugstring are outbound IDs only; sequence encoded at serializer boundary, payload/tick remain typed internally.",
+      "counterexample_or_qualification": "Repeated comparison nativeNaN distance can make comparisons false in repeated_bone_mismatch, but this is a raw diagnostic predicate and finite-transforms acceptance is separate, not a validated newtype bypass. Missingbone uses Infinity diagnostic sentinel. Report code intentionally records evidence, so narrowing all raw fields would hide rejected evidence; refine only actual admitted retained-state contract. No incoming JSON decoder in these sources. Empty bone collection allowed; source no completeness claim.",
+      "connected_repair": "Existing native/report/serializer/bone identity and optional evidence whole-function claims; maintain separate arithmetic04/aggregate05/evidence lenses.",
+      "acceptance": "No new refinedleaf bypass; preserve raw rejected evidence, selected report-label rejection, stable FP fold order, None versus observed0 and actual wire extraction.",
+      "later_lens_credit": false
+    },
+    "scenario-plan-and-authored-leaf-admission": {
+      "indices": [
+        266,
+        267,
+        268,
+        269,
+        270
+      ],
+      "invariant": "PlannedFrame is raw fixture plan with checked finite signed speed/angles/nonnegative elapsed and open scenario metadata; local_directionVec2 is raw, not a normalizeddirection owner.",
+      "all_admission_routes": "Fresh full scenarios1409 including original tests1054–1409,admission43,planfamilies190,quickstep183 including tests166–183,terrainpolicy40. PlannedFrame pub(super) fields typed speed/time/yaw/pitch, rawVec2direction/usizeframe and closed action/guard/foot; no decoder/Serde/Reflect/Default/unchecked checkedleaf backing. Every authored finite scalar output calls authored_drive_speed→SignedSpeed checked, authored_frame_time→AnimationElapsed checked, authored_camera_angle→Radians checked; codeowned invalid authored input panics with explicit error, not unchecked literal. Native quickstep loop updatesrawvelocity/displacement then checks each speed snapshot before storing; native tick cast yields full-u64 sample span, not physical duration owner. Static planfamilies passes actual signed/zero speeds, closedmetadataids and nativeconstantdirections; deliberately zero idle/directions allowed; normalization is native helper, not strong leaf declaration. Scenario policy checks metadata identity/features and selected window, no new admission type.",
+      "counterexample_or_qualification": "Steady builders accept raw cycles/native direction and calculate native durations/framecounts; they do not claim arbitrary-input checked aggregate or bounded allocation. Raw direction can be nonunit/invalid if direct helpercaller supplies it; actual built-in authored vectors explicitly finite and later controllerchecks remain. Exact default config runtimephysics may return error/panic beforetypedstore; no invented raw input decoder graph or laterlens clearance.",
+      "connected_repair": "Existing scenario/frame/fixture/quickstep whole-function claims; RootneutralRadians dependency canonicalcurrent03 actualproof, native scalar groups.",
+      "acceptance": "All retained refinedleaves use actualcheckedroutes; preserve original stress/captured fixture constants, negative angle, zero idle, arbitrary valid scenario text and explicit missing/unknown behavior.",
+      "later_lens_credit": false
+    },
+    "viewer-entry-and-native-camera-inspection": {
+      "indices": [
+        252,
+        253,
+        271,
+        272,
+        273
+      ],
+      "invariant": "Capture options are raw CLI/resource parameters with typed combatconfig/proportions; native camerainspection quaternion is raw, not RigidRotation. Setup checks scene translation before SDK insertion.",
+      "all_admission_routes": "Fresh full inspection67,viewermod179,setup94,view74,main131. Clap Args primitive orbitf32/u32/path/optionalstrings remain raw externalconfiguration. main serde_saphyr decodes TacticalCombatConfig then actual install_runtime_snapshot validation; native fixedclock checked before install; body-proportions JSON canonical privatechecked Serde from RigCONTRACT041. CaptureOptions public(crate) raw output/paths/settle/scenario/native inspection plus typed config/proportions, no decoder/reflection. CaptureInspection::new stores rawnativeQuat::from_rotation_y(orbit.to_radians), outputJSON only, puborbit can mutate; no finite-unit promise. run admitsCaptureSequence before inspection artifact publication/app setup; explicit errors returnAppExit. Setup terrainheight→checkedfullPosition before commands, seedproportions canonicalcheckedbounded helper, outputSerialize only; native meshes/lights/camera look_at remain SDK ops. Gameplay camera actual helper takes RigidRotation::IDENTITY and returns typed displacement; no unproven nativequat converted into refinedRigidRotation here.",
+      "counterexample_or_qualification": "Raw CLI orbit can admitNaN/Inf and nativequat can be nonfinite, but no documented validatedowner invariant—existing rawsource strengthening, not checkedtype bypass. Camera native translation sum/rawlook_at not universallyfinite. CaptureOptions combatconfig can be constructed without main install; fieldtype does not imply cross-field policy; Camera config sourcecurrent03 separate. Native Parry/renderer inputs here authoredconstants, no newforeign dependencygraph inspected.",
+      "connected_repair": "Existing viewer/options/setup/camera/inspection claims, Rigcanonicalproportions and Camera config authority retained.",
+      "acceptance": "Preserve CLI/raw evidence vs checked retained leaves, exact admission-before-output order, current scene datum/signedheight and missing support rejection. No project execution.",
+      "later_lens_credit": false
+    }
+  },
+  "later_lens_credit": false
+}

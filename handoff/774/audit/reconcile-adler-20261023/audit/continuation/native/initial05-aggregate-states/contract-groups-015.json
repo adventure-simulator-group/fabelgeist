@@ -1,0 +1,145 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-015",
+  "at": "2026-10-22T19:29:04.810516+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/visuals.rs",
+      "sha256": "e2fd1124f665b41f87b754099e2c67c04f4d30d6689c2a57afcc115710d3993a",
+      "scope020_index": 2748,
+      "actual_EOF": 75,
+      "scoped_ranges_compared": [
+        [
+          1,
+          50
+        ]
+      ],
+      "group": "equipment-pipeline-reference-lifecycle",
+      "fresh_source_proof": "Fresh bounded actual current05 bodies after global registration; no source/other-lens credit from supplier notification."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/identity_morphs.rs",
+      "sha256": "340b2018b6091fe33081fc257ab36fc8f65a72011cb81d5fc583239d32807c5d",
+      "scope020_index": 2749,
+      "actual_EOF": 138,
+      "scoped_ranges_compared": [
+        [
+          1,
+          76
+        ]
+      ],
+      "group": "morph-name-weight-column-alignment",
+      "fresh_source_proof": "Fresh bounded actual current05 bodies after global registration; no source/other-lens credit from supplier notification."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/lib.rs",
+      "sha256": "9d99fd95ed9ec73c741b282a32784af8c92b4a8d3abcbc8ae15914f94a50f06b",
+      "scope020_index": 2750,
+      "actual_EOF": 43,
+      "scoped_ranges_compared": [
+        [
+          31,
+          43
+        ]
+      ],
+      "group": "reexports-no-state",
+      "fresh_source_proof": "Fresh bounded actual current05 bodies after global registration; no source/other-lens credit from supplier notification."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-math/src/transform.rs",
+      "sha256": "db425ac10c79f92ed75f446051d52b90811ab3c5b2c5f28304959c9445182564",
+      "scope020_index": 2751,
+      "actual_EOF": 322,
+      "scoped_ranges_compared": [
+        [
+          1,
+          110
+        ]
+      ],
+      "group": "affine-trs-raw-contract",
+      "fresh_source_proof": "Fresh bounded actual current05 bodies after global registration; no source/other-lens credit from supplier notification."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs",
+      "sha256": "64c0cb1ac75e094cf6521bf61ea6ad9eef9aa1a1ab63ca34ae3d395d3a66969a",
+      "scope020_index": 2755,
+      "actual_EOF": 28,
+      "scoped_ranges_compared": [
+        [
+          1,
+          28
+        ]
+      ],
+      "group": "diagnostic-string-no-state",
+      "fresh_source_proof": "Fresh bounded actual current05 bodies after global registration; no source/other-lens credit from supplier notification."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/mod.rs",
+      "sha256": "7a84c8ef7c760fd6292dac52b88418a52a7e4831a5a3579e05d9fd19e4e856ad",
+      "scope020_index": 2756,
+      "actual_EOF": 13,
+      "scoped_ranges_compared": [
+        [
+          7,
+          13
+        ]
+      ],
+      "group": "reexports-no-state",
+      "fresh_source_proof": "Fresh bounded actual current05 bodies after global registration; no source/other-lens credit from supplier notification."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/framed_roofs.rs",
+      "sha256": "a59c1c293c17b206f5608ab7911c49309758f10c5c16101742cdbc6fcbe8a54b",
+      "scope020_index": 2752,
+      "actual_EOF": 46,
+      "scoped_ranges_compared": [
+        [
+          1,
+          46
+        ]
+      ],
+      "group": "roof-frame-shared-draft",
+      "fresh_source_proof": "Fresh bounded actual current05 bodies after global registration; no source/other-lens credit from supplier notification."
+    }
+  ],
+  "groups": {
+    "equipment-pipeline-reference-lifecycle": {
+      "relationship": "An equipment visual root references a live entity with TacticalEquipmentPhysical; cache/model preparation precedes consumers and orphan roots are retired.",
+      "actual_establishment_retention": "visuals9-36 installs explicit chain removal -> placeholder spawn -> procedural skins -> render binding sync -> placeholder update, with runtime body prepare/generate chain after spawn and before skins. Local orphan40-50 compares each actual ItemPlaceholder entity reference to current physical query, then queues root despawn if missing. In this exact body there are no parallel numeric columns or independently mutable accepted physical fields.",
+      "limits": "Deferred Commands/effects and full body/model cache lifecycle depend on actual separately scoped receivers; chain declaration is not proof all those helpers apply deferred edits coherently or validate any raw physical input. No whole pipeline implementation credit or claimed global absence of stale visuals.",
+      "disposition": "Concrete ordered local lifecycle/reference-retirement mechanism; related aggregate/helper roles remain separate cells."
+    },
+    "morph-name-weight-column-alignment": {
+      "relationship": "Mesh morph target name at index i and mutable weight at index i must be same current mesh/weight record; current owner explicit proportions/reference fallback and removed inputs must trigger recomputation.",
+      "actual_establishment_retention": "identity_morphs28-43 unions removed owner IDs, recomputes all roots if any MorphWeights was added, otherwise relevant owner CharacterId/explicit/reference changed. Looks up actual AnimationRigScene owner35; absent owner skip. Selected explicit proportions or deterministic seed and optional reference default are computed once per actual owner. For each actual descendant with MorphWeights, names55-59 are obtained from THAT weights.first_mesh, not an unrelated independently ordered table. Each index62 from actual names is checked via weights.weights().get(index)65-68 before weights.weights_mut()[index]70; no resize or replacement between guard/write. Unknown names skipped intentionally; does not promise every named mesh target is this subsystem authority.",
+      "counterexample": "Different length names/weights cannot cause this actual write out of bounds; trailing weights untouched, unknown names stay unchanged. Any stronger authored name/count/membership promise must be established by mesh loader/canonical controls, not generic enumeration. Native descendant/mesh helper full invariants not newly inferred here.",
+      "disposition": "Source-backed positive per-record alignment and source-change invalidation. Exact producer/reference type contracts still scoped separately; no invented test or name/weight global equality seal."
+    },
+    "reexports-no-state": {
+      "actual_source": "MHR lib31-43 and GPU data/mod7-13 are exact public module/reexport owner bindings only, no retained mutable aggregate/factory/decoder. Imported Mesh/Skeleton/SkinWeights/Transform/ParameterTransform definitions remain separate source obligations.",
+      "disposition": "Source-backed05 nonapplicability limited to these bindings, excluding MHRintro1-30, GPUmod1-6 and unrequested children."
+    },
+    "diagnostic-string-no-state": {
+      "actual_source": "BufferLabel10 private one String, From<String>/From<&str> accept exact arbitrary diagnostic spelling, From<&BufferLabel> outputs same borrowed text. No grammar, shader-parameter equality, uniqueness or collection membership promised; no second correlated field/independent lifecycle.",
+      "disposition": "Source-backed no meaningful multi-field relationship in exact whole label28; do not narrow diagnostics to shader keys."
+    },
+    "affine-trs-raw-contract": {
+      "relationship": "Transform stores raw public Euler-degree rotation, position, per-axis scale, not a checked rigid-frame/unit-quaternion or guaranteed invertible matrix. to_mat4 must pair each computed rotation column with corresponding scale and use translation column/homogeneous constants coherently.",
+      "actual_establishment_retention": "transform6-10 public raw fields/Serde/new27 copy; default12-19 identity, individual constructors35-54 substitute identity other fields, preserving unconstrained affine input contract. to_mat462-109 radians each Euler component then Rz*Ry*Rx formulas, column0 multiplied scale.x,1 scale.y,2 scale.z; translation xyz+1 final column and rotational column w0. No separately stored matrix cache can diverge from current record here; each projection recomputes current fields. Zero/nonuniform/negative scale is representable; no inverse/normalization invariant implied. look_at56-60 delegates view/inverse fallback and from_mat4 lower operations, excluded helper bodies111+ not silently analyzed.",
+      "counterexample": "Public scale zero or nonfinite values may yield singular/nonfinite matrices; this raw general TRS body does not claim canonical finite rigid guarantee. A requiring caller must admit those at its actual boundary. Do not transfer MHR quaternion/uniform-scale contract onto Euler/per-axis transform merely because names match.",
+      "disposition": "Current scoped raw relationship semantics and column correspondence compared; lower inversion/decomposition/composition excluded and remain exact scope obligations if reached, no blanket checked finite claim."
+    },
+    "roof-frame-shared-draft": {
+      "relationship": "Roof assemblies, child front openings, walls/openings/stairs, physical geometry and optional timber frame must originate from same evolving draft.",
+      "actual_establishment_retention": "framed_roofs15-25 creates local roof assemblies while borrowing supplied mutable graph;26-33 resolves actual child fronts using same assemblies/walls/openings/geometry;34-44 resolves timber against current shared inputs and returns tuple45 only all successes. Roof recipe slices supplied to timber remain input evidence, not second accepted RoofAssembly authority.",
+      "limits": "Mutable referenced graph may be changed before later Err; local roof tuple not returned on Err. External failed-publication atomics require actual owning caller, as Root04 independently qualified. This function alone neither seals cross-graph accepted state nor proves public failed mutation. No new unique finding from its shared draft orchestration.",
+      "disposition": "Actual ordered same-draft supplier chain/return sequencing, RootF001 aggregate and F004 successful pitch omission remain separate exact mechanisms."
+    }
+  },
+  "new_unique_findings": [],
+  "connected_repair_acceptance": "Original Root/Camera/Rig function ownership unchanged. Preserve per-record morph mesh-index guard, owner-change/removed-input trigger and actual shared equipment scheduling; strengthen only demonstrated correlated state boundary, no nominal alias/string grammar/rigid-transform rewrite without recipient need. Root roof draft publication/accepted graph repair graph stays canonical.",
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

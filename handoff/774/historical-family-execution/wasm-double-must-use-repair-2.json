@@ -1,0 +1,18 @@
+{
+  "source_run": 39425127945,
+  "source_job": 118635647875,
+  "source_head": "bfab9d01437fc250f77bce2c3c0571c475b19c7a",
+  "diagnostic": "clippy::double_must_use on conservative_forward_lunge_acceleration",
+  "repair_commit": "78099c4a5967737ebff1be614c19c6c230b92ae3",
+  "change": "Remove only redundant must_use; checked Result return, all logic and lint policy unchanged.",
+  "same_cause_search": "Static rg search for a plain must_use immediately before a direct Result-returning signature found this sole remaining match; no matches after repair. This is not exhaustive macro/conditional-target clearance.",
+  "code_rule_review": "No actionable issue in the attribute-only change; no behavior or type guarantee weakened.",
+  "comment_review": "omitted",
+  "local_project_checks": [],
+  "new_unit_tests": 0,
+  "superseded_cancellation": {
+    "run": 39424441309,
+    "cancelled": false,
+    "reason": "The cancellation request returned HTTP 409 because the run had already completed. Its sole failure was the previously fixed Core attribute."
+  }
+}

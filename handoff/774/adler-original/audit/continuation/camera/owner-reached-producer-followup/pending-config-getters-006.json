@@ -1,0 +1,37 @@
+{
+  "id": "CONT-CAMERA-FOLLOWUP-PENDING-CONFIG-GETTERS-006",
+  "lens": "audit-producer-propagation",
+  "sources": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation/ragdoll/muscles.rs",
+      "sha256": "4d66c5e28731d05a4ff8e3fb3489cbe7d05bec7c2e76af21c7e2d7a58d846998",
+      "requested_ranges": [
+        [
+          158,
+          162
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation/presentation.rs",
+      "sha256": "6a067389a1cdcbddd0dd3814f95e17664351794be139353572edd19928a18171",
+      "requested_ranges": [
+        [
+          178,
+          181
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+      "sha256": "b1645110395d62b1dab020f6328f9b3d3fde6cd3f64b88101d6c66d5e7d8b0e6",
+      "requested_ranges": [
+        [
+          2968,
+          2973
+        ]
+      ]
+    }
+  ],
+  "purpose": "Actual private tuning getter bodies must establish same typed retained config source, rather than assume from helper names. Tiny exact necessary receiver dependencies; no body analysis before registration."
+}

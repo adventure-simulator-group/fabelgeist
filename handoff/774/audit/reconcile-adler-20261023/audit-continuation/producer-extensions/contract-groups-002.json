@@ -1,0 +1,442 @@
+{
+  "id": "producer-extensions-002",
+  "at": "2026-10-24T01:20:05.877288+00:00",
+  "lens": "producer-propagation",
+  "rows": [
+    {
+      "extension_index": 17,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/rigged.rs",
+      "sha256": "2f337baa2edb2356e1f086aacf549696c63bfac639d03c5f0a9b564d675bb397",
+      "effective_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "registration_evidence": "enum-shapes/source-extensions.jsonl#SEGO-INITIAL09-REGISTRATION-144A-rigged",
+      "producer_trace_and_disposition": "RiggedMesh retains canonical joint tables/ordinals/PackedRigSkin, but independently borrowed geometry, eight weights, global transform words and morph columns still require source association. RiggedShell separately retains physical plate edges, optional baked surface UV/textures, optional exact texcoords, optional skin columns and raw name/PBR values. global_transforms maps native MHR words through actual state conversion. Existing M16/M17/M19/M20 and F50 distinguish those roles; no ordinary malformed export asserted.",
+      "connected_repair_or_remaining_requirement": "Retain an admitted mesh/skin/morph/source product through export and its actual glTF VEC4/transform/JSON ports. Reuse canonical joint and influence owners, preserve descriptive hinge, optional body rendering and physical boundaries distinct from UV seams. Carry typed morph/source identity and structured owning rejection causes, without pretending every raw native transform word needs a separate scalar wrapper.",
+      "acceptance": "Preserve stated units, frames, authority, association and real native codec/layout behavior; close connected source questions and inherited repairs before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH retained findings or explicit connected source questions; no family/lens clearance",
+      "repair": "not started; all-thirteen initial discovery gate",
+      "validation": "not run",
+      "reused_own_same_lens_evidence": {
+        "reference": "ledger.json#/lenses/producer-propagation/file_reviews/crates~1adventuresim-character-creator~1src~1export~1rigged.rs",
+        "prior_file_review": {
+          "read_ranges": [
+            [
+              1,
+              60
+            ]
+          ],
+          "source_lines": 60,
+          "source_sha256": "2f337baa2edb2356e1f086aacf549696c63bfac639d03c5f0a9b564d675bb397",
+          "body_read_complete": true,
+          "graph_status": "incomplete: connected native shape/topology, fit identity, source/export roles and residual shared contracts not cleared",
+          "local_discovery": "complete with recorded findings/dispositions",
+          "disposition": "Full local producer/native/fixture inventory accounted for inM17/M18/M20/M21/M22 andPC14/34/36 plus concrete kernel/serialization/validation dispositions. Connected original source/aggregate and later lens coverage remains incomplete; not a family/lens clearance."
+        },
+        "contract_references": [
+          "M16/M17/M19/M20/F50 export associations",
+          "M82/M83/M84 guard physical contracts",
+          "M31/M37/M42/M72/M90 importer contracts"
+        ],
+        "qualification": "Exact own source/ranges and earlier producer contracts retained; no cross-lens or complete graph inference."
+      }
+    },
+    {
+      "extension_index": 18,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/validation.rs",
+      "sha256": "61a7e389db804f2c17d7e619c27bb5bfc88f873f11e00d05097c85b6121518fb",
+      "effective_ranges": [
+        [
+          1,
+          164
+        ]
+      ],
+      "registration_evidence": "enum-shapes/source-extensions.jsonl#SEGO-INITIAL09-REGISTRATION-144A-validation",
+      "producer_trace_and_disposition": "Own exact164-line export-validation proof retained with M20: validation rejects malformed mesh/skin/UV/morph populations and native socket/geometry relationships, while canonical rig lookup and existing native IO/Serde sources may already survive anyhow context. This is an internal acceptance stage before final CLI/file reporting, not an exception merely because it returns anyhow.",
+      "connected_repair_or_remaining_requirement": "Use focused owning export/input error variants and preserve actual source errors through unchanged export callers. Retain validated whole geometry/rig/column associations after the check, rather than returning unit and rebuilding raw parallel arrays. Keep legitimate empty/optional channels and actual rejected-candidate search behavior distinct from final failure.",
+      "acceptance": "Preserve stated units, frames, authority, association and real native codec/layout behavior; close connected source questions and inherited repairs before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH retained findings or explicit connected source questions; no family/lens clearance",
+      "repair": "not started; all-thirteen initial discovery gate",
+      "validation": "not run",
+      "reused_own_same_lens_evidence": {
+        "reference": "ledger.json#/lenses/producer-propagation/file_reviews/crates~1adventuresim-character-creator~1src~1export~1validation.rs",
+        "prior_file_review": {
+          "read_ranges": [
+            [
+              1,
+              164
+            ]
+          ],
+          "source_lines": 164,
+          "source_sha256": "61a7e389db804f2c17d7e619c27bb5bfc88f873f11e00d05097c85b6121518fb",
+          "body_read_complete": true,
+          "graph_status": "incomplete: connected native shape/topology, fit identity, source/export roles and residual shared contracts not cleared",
+          "local_discovery": "complete with recorded findings/dispositions",
+          "disposition": "Full local producer/native/fixture inventory accounted for inM17/M18/M20/M21/M22 andPC14/34/36 plus concrete kernel/serialization/validation dispositions. Connected original source/aggregate and later lens coverage remains incomplete; not a family/lens clearance."
+        },
+        "contract_references": [
+          "M16/M17/M19/M20/F50 export associations",
+          "M82/M83/M84 guard physical contracts",
+          "M31/M37/M42/M72/M90 importer contracts"
+        ],
+        "qualification": "Exact own source/ranges and earlier producer contracts retained; no cross-lens or complete graph inference."
+      }
+    },
+    {
+      "extension_index": 19,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/compact.rs",
+      "sha256": "4aa7045f30b54218cf1897ee3f74e1d8831a35debb7905ad3365a796e20f7ca9",
+      "effective_ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "registration_evidence": "enum-shapes/source-extensions.jsonl#SEGO-INITIAL09-REGISTRATION-144A-compact",
+      "producer_trace_and_disposition": "CompactShell selects sorted used original vertex IDs, remaps positions/normals/faces/skin/morph/explicit texcoords/plate edges, but copies source.surface tuple unchanged into rigged(). That tuple contains another UV slice. The exact receiver choosing that slice and normal callers need separate proof: source-conditional Surface-UV support also recorded by07/09, not an ordinary exported-texture failure or duplicate of every UV finding. Source borrow is immutable during compaction.",
+      "connected_repair_or_remaining_requirement": "Make one admitted remap product own every corresponding channel and baked surface association, carrying canonical morph identities through targets() instead of String copies. Trace the actual surface-versus-explicit-texcoord receiver before deciding the UV repair; preserve sorted vertex order, topology, skin reduction and actual native index boundary. Share M16/M17/M19/M20/F50 but keep the distinct unremapped surface-UV obligation explicit.",
+      "acceptance": "Preserve stated units, frames, authority, association and real native codec/layout behavior; close connected source questions and inherited repairs before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH retained findings or explicit connected source questions; no family/lens clearance",
+      "repair": "not started; all-thirteen initial discovery gate",
+      "validation": "not run",
+      "fresh_read_ranges": [
+        [
+          1,
+          104
+        ]
+      ]
+    },
+    {
+      "extension_index": 20,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/textures.rs",
+      "sha256": "94523800edefb10ca1a28ebdf93b14b034f2b22b0900e406857bbfc8a5dbf99b",
+      "effective_ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "registration_evidence": "enum-shapes/source-extensions.jsonl#SEGO-INITIAL09-REGISTRATION-144A-textures",
+      "producer_trace_and_disposition": "Own exact170-line export-texture proof retained. Texture/UV association belongs to the shell/material source, while actual pixel/image/PNG/glTF representation is a native boundary. Existing M20 cause-retention and M106 material facts distinguish a structured application rejection from concrete image/IO errors already preserved by a source chain; no claim all context erases causes.",
+      "connected_repair_or_remaining_requirement": "Carry admitted surface/material/texture source and dimensions through export helpers to actual pixel encoding and native metadata. Preserve exact sRGB-to-linear policy where implemented, legitimate absent textures and deterministic buffer/image order. Reuse actual native encoding causes and subsystem error ownership; no generic global error file or new PNG error version chosen from a similarly named API.",
+      "acceptance": "Preserve stated units, frames, authority, association and real native codec/layout behavior; close connected source questions and inherited repairs before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH retained findings or explicit connected source questions; no family/lens clearance",
+      "repair": "not started; all-thirteen initial discovery gate",
+      "validation": "not run",
+      "reused_own_same_lens_evidence": {
+        "reference": "ledger.json#/lenses/producer-propagation/file_reviews/crates~1adventuresim-character-creator~1src~1export~1textures.rs",
+        "prior_file_review": {
+          "read_ranges": [
+            [
+              1,
+              170
+            ]
+          ],
+          "source_lines": 170,
+          "source_sha256": "94523800edefb10ca1a28ebdf93b14b034f2b22b0900e406857bbfc8a5dbf99b",
+          "body_read_complete": true,
+          "graph_status": "Actual full bodies as listed; existing fixture source observed only, never run. Cloth finalization/capture and cache-key operations remain connected graph dependencies; historical variants and other twelve lenses receive no inferred credit.",
+          "local_discovery": "complete with recorded findings/dispositions",
+          "disposition": "Full local producer/native/fixture inventory accounted for inM17/M18/M20/M21/M22 andPC14/34/36 plus concrete kernel/serialization/validation dispositions. Connected original source/aggregate and later lens coverage remains incomplete; not a family/lens clearance."
+        },
+        "contract_references": [
+          "M16/M17/M19/M20/F50 export associations",
+          "M82/M83/M84 guard physical contracts",
+          "M31/M37/M42/M72/M90 importer contracts"
+        ],
+        "qualification": "Exact own source/ranges and earlier producer contracts retained; no cross-lens or complete graph inference."
+      }
+    },
+    {
+      "extension_index": 21,
+      "source_id": "native-dependency:bevy_replicon-0.41.1/src/shared/replication/registry/rule_fns.rs",
+      "sha256": "07f3f73daff9344750ec08f54bd9acc8abec4a946040369ce1573c2b6a6b1073",
+      "effective_ranges": [
+        [
+          40,
+          145
+        ],
+        [
+          162,
+          225
+        ]
+      ],
+      "registration_evidence": "root-native-codec-registration-001.json",
+      "producer_trace_and_disposition": "Pinned Replicon RuleFns::default installs default_serialize/default_deserialize. Serialization calls postcard_utils::to_extend_mut; deserialization calls from_buf then map_entities. RuleFns::new_as is a separate typed projection facility, not automatic admission of arbitrary app invariants. Partial function headers/type-erasure context outside the relevant complete default bodies do not prove the entire registry safety contract.",
+      "connected_repair_or_remaining_requirement": "Use a postcard-decodable typed wire product at the actual TerrainLandformRecipe replication boundary, restoring the canonical component only through its checked constructor. Preserve entity mapping and original native error source. This reinforces existing F52 and M64, rather than creating a second generic serialization finding or editing vendor internals.",
+      "acceptance": "Preserve stated units, frames, authority, association and real native codec/layout behavior; close connected source questions and inherited repairs before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH retained findings or explicit connected source questions; no family/lens clearance",
+      "repair": "not started; all-thirteen initial discovery gate",
+      "validation": "not run",
+      "fresh_read_ranges": [
+        [
+          40,
+          145
+        ],
+        [
+          162,
+          225
+        ]
+      ]
+    },
+    {
+      "extension_index": 22,
+      "source_id": "native-dependency:bevy_replicon-0.41.1/src/shared/replication/rules.rs",
+      "sha256": "037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+      "effective_ranges": [
+        [
+          1,
+          58
+        ],
+        [
+          262,
+          281
+        ],
+        [
+          890,
+          920
+        ]
+      ],
+      "registration_evidence": "root-native-codec-registration-001.json",
+      "producer_trace_and_disposition": "Pinned replicate_once forwards to replicate_once_filtered and installs RuleFns::default with ReplicationMode::Once. The default protocol documentation and actual generic bodies agree: ordinary Serde derives reach Postcard. Registered rule insertion excerpt is partial at920; no full insertion/priority body coverage claimed. Exact new material complements earlier delta59 range proof.",
+      "connected_repair_or_remaining_requirement": "Apply F52 at the project serializer/deserializer plus registration together; preserve final intended network representation and checked canonical terrain admission. Do not infer that JSON-compatible enum tags are Postcard-compatible or add a compatibility fallback. Actual priority/index bytes remain native replication protocol.",
+      "acceptance": "Preserve stated units, frames, authority, association and real native codec/layout behavior; close connected source questions and inherited repairs before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH retained findings or explicit connected source questions; no family/lens clearance",
+      "repair": "not started; all-thirteen initial discovery gate",
+      "validation": "not run",
+      "fresh_read_ranges": [
+        [
+          1,
+          58
+        ],
+        [
+          262,
+          281
+        ],
+        [
+          890,
+          920
+        ]
+      ]
+    },
+    {
+      "extension_index": 23,
+      "source_id": "native-dependency:postcard-1.1.3/src/de/deserializer.rs",
+      "sha256": "20f5ff69404628e4d765f58ceb91b6ac8879ce998aef6dfe49a2fdb2c5f20ac2",
+      "effective_ranges": [
+        [
+          208,
+          236
+        ]
+      ],
+      "registration_evidence": "root-native-codec-registration-001.json",
+      "producer_trace_and_disposition": "Pinned Postcard reports non-human-readable and deserialize_any unconditionally returns WontImplement. Its ordinary bool visitor accepts only0/1 and rejects other bytes, a legitimate concrete native codec invariant. These are actual codec constraints, not an application primitive escape.",
+      "connected_repair_or_remaining_requirement": "Keep F52 project wire projection compatible with this real receiver; do not attempt validation after a decoder that cannot construct the value, or loosen canonical geology guarantees. Preserve typed codec errors to the actual replication rejection port and avoid an unsupported vendor workaround.",
+      "acceptance": "Preserve stated units, frames, authority, association and real native codec/layout behavior; close connected source questions and inherited repairs before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH retained findings or explicit connected source questions; no family/lens clearance",
+      "repair": "not started; all-thirteen initial discovery gate",
+      "validation": "not run",
+      "fresh_read_ranges": [
+        [
+          208,
+          236
+        ]
+      ]
+    },
+    {
+      "extension_index": 24,
+      "source_id": "native-dependency:serde_derive-1.0.229/src/de/enum_internally.rs",
+      "sha256": "9d898dbc1c46262f695ef7ba1660b2af70de48e07bbac8f44b740326b7c5b303",
+      "effective_ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "registration_evidence": "root-native-codec-registration-001.json",
+      "producer_trace_and_disposition": "Pinned serde_derive internally tagged enum expansion unconditionally invokes Deserializer::deserialize_any to obtain tag/content before variant handling, including custom variant payload decoders. This connects the actual nested geology enum to Postcard failure. The generator itself consumes native syntax AST and emits tokens; its raw strings/discriminants are actual procedural-macro representation.",
+      "connected_repair_or_remaining_requirement": "Repair the owning project wire representation, not the vendor macro or every tagged enum in the repository. Preserve authored JSON shape separately from clean final network schema and admit all required payload relationships before publication. Same F52 retained defect; no codec execution or new test performed.",
+      "acceptance": "Preserve stated units, frames, authority, association and real native codec/layout behavior; close connected source questions and inherited repairs before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH retained findings or explicit connected source questions; no family/lens clearance",
+      "repair": "not started; all-thirteen initial discovery gate",
+      "validation": "not run",
+      "fresh_read_ranges": [
+        [
+          1,
+          106
+        ]
+      ]
+    },
+    {
+      "extension_index": 25,
+      "source_id": "native-dependency:bevy_replicon-0.41.1/src/postcard_utils.rs",
+      "sha256": "4a9f413f61885f1581e0a3ddadb2528459e45bd2ea029a7a08ad3b2ab085d537",
+      "effective_ranges": [
+        [
+          120,
+          143
+        ]
+      ],
+      "registration_evidence": "root-native-codec-registration-001.json",
+      "producer_trace_and_disposition": "Pinned Replicon from_buf constructs the Postcard deserializer over the actual Bytes cursor and invokes T::deserialize. entity_from_buf uses a distinct compact Entity decoder; that does not repair an unrelated tagged geology enum. BufFlavor declaration/docs alone do not prove every flavor method.",
+      "connected_repair_or_remaining_requirement": "Carry the canonical checked terrain product through an explicit supported wire decoder, preserving native buffer consumption and entity mapping. Actual Into/byte cursor conversions are justified at this concrete boundary. Same F52, no ordinary transport/session run claim.",
+      "acceptance": "Preserve stated units, frames, authority, association and real native codec/layout behavior; close connected source questions and inherited repairs before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH retained findings or explicit connected source questions; no family/lens clearance",
+      "repair": "not started; all-thirteen initial discovery gate",
+      "validation": "not run",
+      "fresh_read_ranges": [
+        [
+          120,
+          143
+        ]
+      ]
+    },
+    {
+      "extension_index": 26,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/guards.rs",
+      "sha256": "aa9d8fff8668ea79607a4037aced426da5be5f58d5ee3929008ee00c92994267",
+      "effective_ranges": [
+        [
+          1,
+          225
+        ]
+      ],
+      "registration_evidence": "redundant-authority/prospective-source-registration-014.json",
+      "producer_trace_and_disposition": "Own exact225-line guard source proof retained. Weapon guard geometry, local physical dimensions, sweep/section/topology association and actual native vector math belong to existing M82/M83/M84 contracts. Same-source body evidence is reused without a new baseline pass or complete family inference.",
+      "connected_repair_or_remaining_requirement": "Carry canonical recipe/guard selection, physical length/frame/angle and accepted geometry through generation and weapon/holder/socket consumers to actual mesh/native encoding. Preserve f64 precision and supported authored extents, sharing whole functions with the existing weapon family rather than inserting primitive adapters or duplicate guard types.",
+      "acceptance": "Preserve stated units, frames, authority, association and real native codec/layout behavior; close connected source questions and inherited repairs before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH retained findings or explicit connected source questions; no family/lens clearance",
+      "repair": "not started; all-thirteen initial discovery gate",
+      "validation": "not run",
+      "reused_own_same_lens_evidence": {
+        "reference": "ledger.json#/lenses/producer-propagation/file_reviews/crates~1adventuresim-weapon-model~1src~1model~1guards.rs",
+        "prior_file_review": {
+          "read_ranges": [
+            [
+              1,
+              225
+            ]
+          ],
+          "source_lines": 225,
+          "source_sha256": "aa9d8fff8668ea79607a4037aced426da5be5f58d5ee3929008ee00c92994267",
+          "body_read_complete": true,
+          "graph_status": "Actual body/ranges read. Native f64 sweep/stock bounds and more physical constructor/ResolvedComponent receivers traced; M83 shield mode/unit retention and M82 named compound block contracts recorded. Remaining source constructors/identity/native combined population and all later lenses remain incomplete."
+        },
+        "contract_references": [
+          "M16/M17/M19/M20/F50 export associations",
+          "M82/M83/M84 guard physical contracts",
+          "M31/M37/M42/M72/M90 importer contracts"
+        ],
+        "qualification": "Exact own source/ranges and earlier producer contracts retained; no cross-lens or complete graph inference."
+      }
+    },
+    {
+      "extension_index": 27,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/world_import.rs",
+      "sha256": "cc83d5f3e3c415a12dc0ced11a5e9271a2b115d3ed5ac9703d1a8b8ae9728d22",
+      "effective_ranges": [
+        [
+          1,
+          45
+        ],
+        [
+          427,
+          440
+        ],
+        [
+          523,
+          721
+        ],
+        [
+          801,
+          834
+        ]
+      ],
+      "registration_evidence": "redundant-authority/prospective-source-registration-015.json",
+      "producer_trace_and_disposition": "Own exact1159-line native world-import proof retained for these registered subsets. Actual decode/build/import is a boundary, but accepted world/settlement/service/location/profile values should survive internal derivation. Prior independent importer proof shows economy profile fields recomputed on final import, so raw public profile fields do not establish ordinary retained disagreement.",
+      "connected_repair_or_remaining_requirement": "Reuse canonical world-schema identity/coordinate/profile/service owners through importer and final native writes, sharing M31/M37/M42/M72/M90 and the existing profile finding. Preserve exact source order/seed/digest and derived-profile policy. No blanket imported primitive mirror, no destructive database/reset action and no whole unrelated importer graph acceptance from this material subset.",
+      "acceptance": "Preserve stated units, frames, authority, association and real native codec/layout behavior; close connected source questions and inherited repairs before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH retained findings or explicit connected source questions; no family/lens clearance",
+      "repair": "not started; all-thirteen initial discovery gate",
+      "validation": "not run",
+      "reused_own_same_lens_evidence": {
+        "reference": "ledger.json#/lenses/producer-propagation/file_reviews/crates~1adventuresim-stdb-module~1src~1strategic~1world_import.rs",
+        "prior_file_review": {
+          "read_ranges": [
+            [
+              1,
+              1159
+            ]
+          ],
+          "source_lines": 1159,
+          "source_sha256": "cc83d5f3e3c415a12dc0ced11a5e9271a2b115d3ed5ac9703d1a8b8ae9728d22",
+          "body_read_complete": true,
+          "graph_status": "Actual body/ranges read; connected native storage/initialization/training/economy source inventory incomplete."
+        },
+        "contract_references": [
+          "M16/M17/M19/M20/F50 export associations",
+          "M82/M83/M84 guard physical contracts",
+          "M31/M37/M42/M72/M90 importer contracts"
+        ],
+        "qualification": "Exact own source/ranges and earlier producer contracts retained; no cross-lens or complete graph inference."
+      }
+    },
+    {
+      "extension_index": 28,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/bracer_wgsl.rs",
+      "sha256": "4d241c6f7e175f29b96322988a5847431b5894612786ac6173cabb719b9642c9",
+      "effective_ranges": [
+        [
+          1,
+          426
+        ]
+      ],
+      "registration_evidence": "redundant-authority/prospective-source-registration-016.json",
+      "producer_trace_and_disposition": "Own exact426-line bracer WGSL-generation proof retained. The emitted shader body is a real native arithmetic/array interface; host design/frame/layout/physical association must remain admitted until this encoding. Rust raw strings containing WGSL do not make preceding app helpers a native boundary. Distinct physical and chart/fit data remain existing M16/M19 obligations.",
+      "connected_repair_or_remaining_requirement": "Preserve shared generated constants, native slot/stride/index and coordinate units while completing host producers and checked layout before dispatch. Reconcile780 geometry/parameter generation with826 native buffers/dispatch/errors; do not wrap every shader arithmetic temporary or claim a kernel/source body proves all host and device inputs agree.",
+      "acceptance": "Preserve stated units, frames, authority, association and real native codec/layout behavior; close connected source questions and inherited repairs before family/lens acceptance. Existing fixtures only, no new tests.",
+      "discovery": "accounted WITH retained findings or explicit connected source questions; no family/lens clearance",
+      "repair": "not started; all-thirteen initial discovery gate",
+      "validation": "not run",
+      "reused_own_same_lens_evidence": {
+        "reference": "ledger.json#/lenses/producer-propagation/file_reviews/crates~1fabelgeist-armor~1src~1gpu~1bracer_wgsl.rs",
+        "prior_file_review": {
+          "read_ranges": [
+            [
+              343,
+              425
+            ],
+            [
+              1,
+              342
+            ],
+            [
+              420,
+              426
+            ]
+          ],
+          "source_lines": 426,
+          "source_sha256": "4d241c6f7e175f29b96322988a5847431b5894612786ac6173cabb719b9642c9",
+          "body_read_complete": true,
+          "graph_status": "incomplete: torso atlas/native frame/count, morph identity/association and connected host/export contracts remain linked to F09/M06/M15/M16/M17"
+        },
+        "contract_references": [
+          "M16/M17/M19/M20/F50 export associations",
+          "M82/M83/M84 guard physical contracts",
+          "M31/M37/M42/M72/M90 importer contracts"
+        ],
+        "qualification": "Exact own source/ranges and earlier producer contracts retained; no cross-lens or complete graph inference."
+      }
+    }
+  ],
+  "baseline": "Completed Adler03/06 and historical01 evidence retained; no exhaustive baseline reread prerequisite.",
+  "carried_findings": [
+    "F52 actual native tagged-landform/Postcard codec defect",
+    "M16/M17/M19/M20/F50 export/rig/influence/UV/source contracts",
+    "M82/M83/M84 guard/weapon physical contracts"
+  ],
+  "limits": "Surface tuple UV remap receiver remains an explicit source question, not ordinary failure. Native cropped registry/header contexts do not grant full vendor coverage. No implementation plan, source edits, tests, checks, CI or publication."
+}

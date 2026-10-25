@@ -1,0 +1,39 @@
+{
+  "id": "CONT07-CONTRACT-409",
+  "at": "2026-10-23T21:23:38.280010+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1790,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/tests.rs",
+      "sha256": "48ba1b8005d63740183260c570153bbd903dba12c0fc3615253199a65a70f27e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/animation/tests.rs",
+      "actual_EOF": 1969,
+      "ranges": [
+        [
+          1,
+          1969
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads;1-900 preserved408,901-1969 newly read"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "NATIVE-OWNER-CORE-FIXTURE-009"
+  ],
+  "facts": [
+    "Entire1969-line animation fixture body personally consumed without executing fixtures. Contact replan at new direction, committed in-flight contacts, held intent at zero physical velocity, contact sequence, motion and action clocks have explicit distinct temporal roles.",
+    "Ordinary locomotion fixtures distinguish controller/world movement and body-facing rotation; gait anchor quarters intentionally derive mirrors and weights. Sparse authored anchors and full cyclic clips are different representations with different sampling contracts, not interchangeable rosters.",
+    "Attack fixtures use current default/global curve, queued recovery coordinate and continuation readiness/tangent. They do not exercise a separately supplied configuration maximum; F092 remains conditional explicit-policy discrepancy with no default failure asserted.",
+    "Quickstep upper guard, lower-body authored timeline, physical airborne state and JumpAnticipation are intentionally separate facts. Transition to airborne clears anticipation; anticipation alone leaves upright posture.",
+    "No new redundant-authority defect established by these fixture assertions; no passed-check claim, no other-lens coverage. All13 gate and mandatory overlays remain incomplete."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1791,
+    "start_line": 1
+  }
+}

@@ -1,0 +1,191 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-335",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair.rs",
+      "sha256": "a9d4f30809a845df7b5e43bac564eb66824d90bb6cfed878e96c6afae8ff332c",
+      "actual_EOF": 177,
+      "actual_compared_ranges": [
+        [
+          1,
+          177
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/cap.rs",
+      "sha256": "f15aaadb4a376988994c92be34ee22767367490569bb5a1fec2dd21d0db5fdf8",
+      "actual_EOF": 256,
+      "actual_compared_ranges": [
+        [
+          1,
+          256
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/geometry.rs",
+      "sha256": "58e56192a203d08a0cff3e0d1b4a037df09a24a86b969555bb1f2b6faf8a5fa0",
+      "actual_EOF": 172,
+      "actual_compared_ranges": [
+        [
+          1,
+          172
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs",
+      "sha256": "2d8ba1f7658b0a709143467f73dc6b3f0a0eab31ad0a36a6a7436028b0ba4d7f",
+      "actual_EOF": 448,
+      "actual_compared_ranges": [
+        [
+          1,
+          448
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/bake/wgsl.rs",
+      "sha256": "7965432924278f1a7cbcf9a47a295a9c2b9fe4103783e8d641f54dbbd9bc70ec",
+      "actual_EOF": 400,
+      "actual_compared_ranges": [
+        [
+          1,
+          400
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/groom.rs",
+      "sha256": "6be15ac30dc63fd83b87ed48442b9fa9d403bb875737c7bafe13bdc19ac6c4c9",
+      "actual_EOF": 233,
+      "actual_compared_ranges": [
+        [
+          1,
+          233
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/placement.rs",
+      "sha256": "95f08e95fd0815ac957cb0578ef7291036b5d4a9b047e38da1a9f16bdebd4a7f",
+      "actual_EOF": 266,
+      "actual_compared_ranges": [
+        [
+          1,
+          266
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/shape.rs",
+      "sha256": "d2da1edcace60e78eab855e992651bda223fcbab7bd832c0f00304ecdcbe7294",
+      "actual_EOF": 229,
+      "actual_compared_ranges": [
+        [
+          1,
+          229
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Private hair value invariants must survive every mutator and affine construction route",
+      "source_ranges": {
+        "hair.rs": [
+          [
+            1,
+            177
+          ]
+        ],
+        "hair/shape.rs": [
+          [
+            1,
+            229
+          ]
+        ],
+        "hair/placement.rs": [
+          [
+            1,
+            266
+          ]
+        ]
+      },
+      "disposition": "All three complete bodies personally read. Finite checked Serde range admission and NaN-preserving clamp constructors/setters remain exact adopted RIG-ADMISSION03-F017#17, not new finding. Shape.apply preserves legitimate signedpart/volume/curl/waves and explicitclamps, not all knobs UnitInterval. HeadPlacement checks columns and eye-facingnorm but not finitepositive measuredwidth/depth/factors; valid oneheadvertex yieldszero scales, bust_point divides0/0 and inverse-normal computesn/0. Exact adopted RIG-ADMISSION03-F019#19, fresh04operation recipient proof. Ordinary canonicalrig dimensions not claimedbad, nor GPU/runtimeobserved. connectedacceptance remains finitepositiveinvertible map before retainedprivateSelf, preservingidentityplacement and anisotropicscale; do not silentfallbackinvalidfactor. sourcehelpersnormalize itself rejectszero/nonfinite length, but that cannot establishderivedfactorvalidity."
+    },
+    {
+      "contract": "Hair geometry and scalp cap preserve per-channel mapping under admitted placement",
+      "source_ranges": {
+        "hair/geometry.rs": [
+          [
+            1,
+            172
+          ]
+        ],
+        "hair/cap.rs": [
+          [
+            1,
+            256
+          ]
+        ],
+        "hair/groom.rs": [
+          [
+            1,
+            233
+          ]
+        ]
+      },
+      "disposition": "All three full bodies read. Geometry carries positions via inversefrom/to map and normals inverse transpose, tangents directional; depends onF019 validmap. Ribbonbudget1.5million vertices limits requestedshare; share is deliberatelyclamped and at leastone drawn foravailablelevel, no explicitzero-share meanshide contract. Atlasperleveldimension halvesmax1 while shading consumes4bytechunks; actual atlaschannel/level sourcecardinality is externalGpuLodsdependency, trailingbytes ignoredonlyifmalformedrawatlas. ScalpCap offsets againstactualbody, finite4pass sampledtrianglelift is not continuous no-dip guarantee; tangents guardzero/nonfiniteUVarea/length and usefallbackaxis withhandedness. Edgefade queuedonlyboundaries then finiteBFSdistance, no u32MAX+1 ordinaryqueuepath; closedcomponent unvisitedMAX deliberately mapsopacity1. Grow and place useactual bust/placedbodyfield and immutableprivateGPUgroom; carriedbounds enumerates8corners thenmargin. GPUgroom shape/buffer/index/finite output remains owningproducerdependency. Noempty/publicrawcap mesh acceptance inferred, no renderer/GPU execution."
+    },
+    {
+      "contract": "Scalp bake fixed buffer dimensions and packed fields remain coherent across all native passes",
+      "source_ranges": {
+        "hair/gpu/bake/mod.rs": [
+          [
+            1,
+            448
+          ]
+        ],
+        "hair/gpu/bake/wgsl.rs": [
+          [
+            1,
+            400
+          ]
+        ]
+      },
+      "disposition": "Both complete host/WGSL bodies personally read in twochunks each. SIZE2048, rowpadding64 and geometricmiplevels boundoffsets wellwithinu32; chainallocation sums identicalstride*side schedule usedreadback. Fourblurpasses pingpong leavesresultbare0; everymipsource precedes destinationnonoverlap, texelchannelssum<=1020 then/4. topmostpack12height+12direction+8shade exact32bits, zero reservedbymax1; integerhashoverflow intentionalnativewrapping, not objectidentity. Drawing/shadowwrites boundcolumn,row<size beforeflatten; gridblock_side>=1 anddivceil coverall2048texels. Blurleftunderflow operand discardedbyselect; resultingfirst0whennearboundary, finaldenominatorpositive foractualpositivereach. Hostbare_reach derives fromprivatecanonicalmaptexel; arbitrarydegeneraterim/map canproduceenormouswork orposition+reachoverflow, no normalScalpMapcounterexample established here. Strandsegmentsubdivision growswithactualdistance/positive.002step; extreme invalidGPUpositions cannotbeassumedfinitefromfixedtexturebounds. LONGEST bit-order atomicmax validonlyforfinite/nonnegativearclength; producerfinite/cardinality remainsdependency. NoGPUwork/watchdog/driverclaim, and fixedkernelbudget is not sourceauditcoverage of externalgroom implementation."
+    }
+  ],
+  "findings": [
+    {
+      "id": "RIG-ADMISSION03-F017",
+      "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+      "archive_line": 17,
+      "disposition": "same adopted setter NaN gap; fresh04mutator support",
+      "no_new_unique_count": true
+    },
+    {
+      "id": "RIG-ADMISSION03-F019",
+      "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+      "archive_line": 19,
+      "disposition": "same adopted affine admission gap; fresh04inverse/normal proof",
+      "no_new_unique_count": true
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "8 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/field.rs"
+}

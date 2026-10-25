@@ -1,0 +1,824 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-002",
+  "at": "2026-10-25T11:11:16.419139+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 3,
+      "source_id": "native-dependency:bevy_app-0.19.1/src/app.rs",
+      "sha256": "0240f4b60c9848fcb5386998381c7b8f0be4fef83bfb574b19d818b99fc5e668",
+      "actual_EOF": 2120,
+      "requested_registration": {
+        "source_id": "native-dependency:bevy_app-0.19.1/src/app.rs",
+        "snapshot": "native-dependency",
+        "path": "CARGO_REGISTRY/bevy_app-0.19.1/src/app.rs",
+        "sha256": "0240f4b60c9848fcb5386998381c7b8f0be4fef83bfb574b19d818b99fc5e668",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 73581,
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 75,
+            "read_ranges": [
+              [
+                1468,
+                1483
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-OBSERVER-001"
+            ],
+            "read_status": null,
+            "resolved_path": "CARGO_REGISTRY/bevy_app-0.19.1/src/app.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_owner": "native",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1597,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1468,
+          1483
+        ]
+      ],
+      "trait_inventory": [],
+      "scope_qualification": "Only actual selectedmaterial ranges, no foreignwholemodule credit."
+    },
+    {
+      "scope_index": 4,
+      "source_id": "native-dependency:bevy_asset-0.19.1:event.rs",
+      "sha256": "22ff08ca5948660f8ea0ea2a1a0e9c977b3c9a44bd8c5c538014a9b8200ed0ca",
+      "actual_EOF": 129,
+      "requested_registration": {
+        "source_id": "native-dependency:bevy_asset-0.19.1:event.rs",
+        "snapshot": "native-dependency",
+        "path": "CARGO_REGISTRY/bevy_asset-0.19.1/src/event.rs",
+        "sha256": "22ff08ca5948660f8ea0ea2a1a0e9c977b3c9a44bd8c5c538014a9b8200ed0ca",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 5089,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 56,
+            "read_ranges": [
+              [
+                1,
+                159
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-ASSET-CAUSE-020"
+            ],
+            "read_status": "current-lens-exact-native-error-owner-receiving-ranges-read",
+            "resolved_path": "CARGO_REGISTRY/bevy_asset-0.19.1/src/event.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1443,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "From<&AssetLoadFailedEvent<A>> for UntypedAssetLoadFailedEvent",
+          "lines": [
+            37,
+            45
+          ],
+          "disposition": "retain semantic type erasure with cloned ownedpath/error and AssetId::untyped, not mechanical same-shape From derive"
+        },
+        {
+          "trait": "Clone/Copy/Debug/PartialEq/Eq for AssetEvent<A>",
+          "lines": [
+            90,
+            129
+          ],
+          "disposition": "retain unconditional A:Asset implementation; builtin derives would generally add A trait bounds despite AssetId<A> representation. Exact variant/id semantics and same Debug variant names maintained."
+        }
+      ],
+      "scope_qualification": "Requested event1\u2013159 exceeds exact129-lineEOF; actual1\u2013129 fullyread, no nonexistentlinescredited."
+    },
+    {
+      "scope_index": 5,
+      "source_id": "native-dependency:bevy_asset-0.19.1:server/mod.rs",
+      "sha256": "90bfda65679fc6cfb046dda1e2e7b5795d39e73778a15d0bc1eb7ef8d3e9bd25",
+      "actual_EOF": 2527,
+      "requested_registration": {
+        "source_id": "native-dependency:bevy_asset-0.19.1:server/mod.rs",
+        "snapshot": "native-dependency",
+        "path": "CARGO_REGISTRY/bevy_asset-0.19.1/src/server/mod.rs",
+        "sha256": "90bfda65679fc6cfb046dda1e2e7b5795d39e73778a15d0bc1eb7ef8d3e9bd25",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 104444,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 57,
+            "read_ranges": [
+              [
+                2010,
+                2160
+              ],
+              [
+                2340,
+                2510
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-ASSET-CAUSE-020"
+            ],
+            "read_status": "current-lens-exact-native-error-owner-receiving-ranges-read",
+            "resolved_path": "CARGO_REGISTRY/bevy_asset-0.19.1/src/server/mod.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1444,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          2010,
+          2160
+        ],
+        [
+          2340,
+          2510
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Debug for AssetServer",
+          "lines": [
+            2485,
+            2491
+          ],
+          "disposition": "retain selected lock-reading view; Debug derived onserver would expose different fields ratherthan only info lock guard"
+        }
+      ],
+      "scope_qualification": "Only actual selectedmaterial ranges, no foreignwholemodule credit.",
+      "additional_source_read": [
+        [
+          1,
+          65
+        ]
+      ],
+      "material_dependency": "AssetServer Error derive import thiserror::Error at47 verified; notwholeprefix scopecredit."
+    },
+    {
+      "scope_index": 6,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/bevy_error.rs",
+      "sha256": "ae8feb04751ba67eaa86d03f3b748ef61d2bcdb9292c72dc0273eb353fb24fe2",
+      "actual_EOF": 567,
+      "requested_registration": {
+        "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/bevy_error.rs",
+        "snapshot": "native-dependency",
+        "path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/error/bevy_error.rs",
+        "sha256": "ae8feb04751ba67eaa86d03f3b748ef61d2bcdb9292c72dc0273eb353fb24fe2",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 20851,
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 78,
+            "read_ranges": [
+              [
+                40,
+                105
+              ],
+              [
+                395,
+                415
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-OBSERVER-001"
+            ],
+            "read_status": null,
+            "resolved_path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/error/bevy_error.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_owner": "native",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1600,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          40,
+          105
+        ],
+        [
+          395,
+          415
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "From<E> for BevyError",
+          "lines": [
+            400,
+            415
+          ],
+          "disposition": "retain broad Box<dynError+Send+Sync>:From<E> conversion plus default severity/backtrace construction; not merely a onefield From derive"
+        }
+      ],
+      "scope_qualification": "Only actual selectedmaterial ranges, no foreignwholemodule credit."
+    },
+    {
+      "scope_index": 7,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/handler.rs",
+      "sha256": "800c43a7bcf3956170973151045546484c9546e3bb50635f9fab8cba7fed353d",
+      "actual_EOF": 187,
+      "requested_registration": {
+        "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/handler.rs",
+        "snapshot": "native-dependency",
+        "path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/error/handler.rs",
+        "sha256": "800c43a7bcf3956170973151045546484c9546e3bb50635f9fab8cba7fed353d",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 5503,
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 77,
+            "read_ranges": [
+              [
+                1,
+                187
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-OBSERVER-001"
+            ],
+            "read_status": null,
+            "resolved_path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/error/handler.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_owner": "native",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1599,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Display for ErrorContext",
+          "lines": [
+            43,
+            67
+          ],
+          "disposition": "retain semantic messages including on_set conditional text; Debug not equivalent"
+        },
+        {
+          "trait": "Default for FallbackErrorHandler",
+          "lines": [
+            117,
+            121
+          ],
+          "disposition": "retain chosen match_severity function pointer; deriving Default onfn field cannot select this policy. Existing Resource/Deref/DerefMut/Copy/Clone already derived."
+        }
+      ],
+      "scope_qualification": "Only actual selectedmaterial ranges, no foreignwholemodule credit."
+    },
+    {
+      "scope_index": 8,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/mod.rs",
+      "sha256": "1647c35091db53ccde7cfd43e7b106f40942404b814f599015db776308ddfd3d",
+      "actual_EOF": 82,
+      "requested_registration": {
+        "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/mod.rs",
+        "snapshot": "native-dependency",
+        "path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/error/mod.rs",
+        "sha256": "1647c35091db53ccde7cfd43e7b106f40942404b814f599015db776308ddfd3d",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 3503,
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 79,
+            "read_ranges": [
+              [
+                70,
+                82
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-OBSERVER-001"
+            ],
+            "read_status": null,
+            "resolved_path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/error/mod.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_owner": "native",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1601,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          70,
+          82
+        ]
+      ],
+      "trait_inventory": [],
+      "scope_qualification": "Only actual selectedmaterial ranges, no foreignwholemodule credit."
+    },
+    {
+      "scope_index": 9,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/observer/distributed_storage.rs",
+      "sha256": "9a1c51dbb516b0cc08c33d8a5a714041eef55650447b4bb7efaf86ce537952b1",
+      "actual_EOF": 638,
+      "requested_registration": {
+        "source_id": "native-dependency:bevy_ecs-0.19.1/src/observer/distributed_storage.rs",
+        "snapshot": "native-dependency",
+        "path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/observer/distributed_storage.rs",
+        "sha256": "9a1c51dbb516b0cc08c33d8a5a714041eef55650447b4bb7efaf86ce537952b1",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 24951,
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 73,
+            "read_ranges": [
+              [
+                216,
+                275
+              ],
+              [
+                554,
+                583
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-OBSERVER-001"
+            ],
+            "read_status": null,
+            "resolved_path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/observer/distributed_storage.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_owner": "native",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1595,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          216,
+          275
+        ],
+        [
+          554,
+          587
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "AnyNamedSystem for T:Any+System",
+          "lines": [
+            554,
+            558
+          ],
+          "disposition": "retain blanket trait delegation for arbitraryT, notstruct derive"
+        },
+        {
+          "trait": "IntoObserver for Observer/T:IntoObserverSystem/ObserverWithCondition",
+          "lines": [
+            566,
+            587
+          ],
+          "disposition": "retain identity versus Observer::new validation/state construction andconditions take/install; bespoke trait blanket bounds/marker distinctions cannot be replacedby field derive"
+        }
+      ],
+      "scope_qualification": "Only actual selectedmaterial ranges, no foreignwholemodule credit."
+    },
+    {
+      "scope_index": 10,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/observer/mod.rs",
+      "sha256": "ebea03dbd974a67dc92c11ae4232a2a25a9e653c6df28eaea70e26a5f964c78a",
+      "actual_EOF": 1916,
+      "requested_registration": {
+        "source_id": "native-dependency:bevy_ecs-0.19.1/src/observer/mod.rs",
+        "snapshot": "native-dependency",
+        "path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/observer/mod.rs",
+        "sha256": "ebea03dbd974a67dc92c11ae4232a2a25a9e653c6df28eaea70e26a5f964c78a",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 67640,
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 74,
+            "read_ranges": [
+              [
+                45,
+                64
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-OBSERVER-001"
+            ],
+            "read_status": null,
+            "resolved_path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/observer/mod.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_owner": "native",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1596,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          45,
+          64
+        ]
+      ],
+      "trait_inventory": [],
+      "scope_qualification": "Only actual selectedmaterial ranges, no foreignwholemodule credit."
+    },
+    {
+      "scope_index": 11,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/observer/runner.rs",
+      "sha256": "e8a6dca4f1ae317b6653d6f1c5fdf175fdb6ed42a5d4a6125730bc9e716f43dd",
+      "actual_EOF": 186,
+      "requested_registration": {
+        "source_id": "native-dependency:bevy_ecs-0.19.1/src/observer/runner.rs",
+        "snapshot": "native-dependency",
+        "path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/observer/runner.rs",
+        "sha256": "e8a6dca4f1ae317b6653d6f1c5fdf175fdb6ed42a5d4a6125730bc9e716f43dd",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 6815,
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 76,
+            "read_ranges": [
+              [
+                1,
+                150
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-OBSERVER-001"
+            ],
+            "read_status": null,
+            "resolved_path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/observer/runner.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_owner": "native",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1598,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "trait_inventory": [],
+      "scope_qualification": "Only actual selectedmaterial ranges, no foreignwholemodule credit."
+    },
+    {
+      "scope_index": 12,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/system/function_system.rs",
+      "sha256": "a8c0b778125f2da28ada5005a40c2bc2ab5d783fd9d080aad99361cb55641c3a",
+      "actual_EOF": 991,
+      "requested_registration": {
+        "source_id": "native-dependency:bevy_ecs-0.19.1/src/system/function_system.rs",
+        "snapshot": "native-dependency",
+        "path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/system/function_system.rs",
+        "sha256": "a8c0b778125f2da28ada5005a40c2bc2ab5d783fd9d080aad99361cb55641c3a",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 35935,
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 71,
+            "read_ranges": [
+              [
+                570,
+                630
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-OBSERVER-001"
+            ],
+            "read_status": null,
+            "resolved_path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/system/function_system.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_owner": "native",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1593,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          570,
+          630
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "IntoSystem for F",
+          "lines": [
+            576,
+            587
+          ],
+          "disposition": "retain FunctionSystem construction with SystemMeta andgenericinput/output/marker binding"
+        },
+        {
+          "trait": "IntoResult for T/Result<T,RunSystemError>/Result<T,BevyError>/Never",
+          "lines": [
+            596,
+            628
+          ],
+          "disposition": "retain Ok wrapping, identity and fallible conversion with distinct overlap restrictions; explicitNever unit/bool impls avoid generic coherence conflict"
+        }
+      ],
+      "scope_qualification": "Only actual selectedmaterial ranges, no foreignwholemodule credit."
+    },
+    {
+      "scope_index": 13,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/system/observer_system.rs",
+      "sha256": "a5ec50cfa2fdb29a0f86a8bfb1c42a266bbd199da74e8c60c30384bf59409ac6",
+      "actual_EOF": 85,
+      "requested_registration": {
+        "source_id": "native-dependency:bevy_ecs-0.19.1/src/system/observer_system.rs",
+        "snapshot": "native-dependency",
+        "path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/system/observer_system.rs",
+        "sha256": "a5ec50cfa2fdb29a0f86a8bfb1c42a266bbd199da74e8c60c30384bf59409ac6",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 2369,
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 72,
+            "read_ranges": [
+              [
+                1,
+                75
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-OBSERVER-001"
+            ],
+            "read_status": null,
+            "resolved_path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/system/observer_system.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_owner": "native",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1594,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "ObserverSystem blanketimpl",
+          "lines": [
+            15,
+            18
+          ],
+          "disposition": "retain exactSystem input lifetime/Send/static bounds"
+        },
+        {
+          "trait": "IntoObserverSystem blanketimpl",
+          "lines": [
+            40,
+            52
+          ],
+          "disposition": "retain associatedSystem andIntoSystem delegationwithmarker/lifetime/bundle constraints; no runtime serialization/derive substitute"
+        }
+      ],
+      "scope_qualification": "Only actual selectedmaterial ranges, no foreignwholemodule credit."
+    },
+    {
+      "scope_index": 14,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/world/mod.rs",
+      "sha256": "34963c05abcc51517c1db6cf1a3e1f90ae365409f75a9ceb54d6a892505681b6",
+      "actual_EOF": 4740,
+      "requested_registration": {
+        "source_id": "native-dependency:bevy_ecs-0.19.1/src/world/mod.rs",
+        "snapshot": "native-dependency",
+        "path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/world/mod.rs",
+        "sha256": "34963c05abcc51517c1db6cf1a3e1f90ae365409f75a9ceb54d6a892505681b6",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 187079,
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 80,
+            "read_ranges": [
+              [
+                3448,
+                3475
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-OBSERVER-001"
+            ],
+            "read_status": null,
+            "resolved_path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/world/mod.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_owner": "native",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1602,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          3448,
+          3475
+        ]
+      ],
+      "trait_inventory": [],
+      "scope_qualification": "Only actual selectedmaterial ranges, no foreignwholemodule credit."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Native asset events preserve generic trait availability and error shape",
+      "evidence": "Exact nativeBevyAsset eventwhole129read (originalrangeend159 retained asEOFqualification). AssetLoadFailedEvent already derivesMessage/Clone/Debug; Fromborrowed typed event erasesAssetId andclonespath/error. AssetEvent manualClone/Copy/Debug/PartialEq/Eq haveonlyA:Asset, retaining usewithnonClone/nonCopy/nonDebug/nonEq assets. NativeAssetServerErrorfamilies alreadyuseexistingthiserror::Error verifiedimport47 andexplicit source/transparent/from attributes; remainingselectedDebug readslockinfoonly.",
+      "derive_comparison": "Builtin generic derives tend to add genericparameterbounds andwouldnarrowAssetEventAPI; no equivalent no-bound projectderive demonstrated here. Error variants already derive ratherthanhandwrittenwriting. Existingthiserror source/errorformat attributes retainsemanticdetails; do notreplaceDebug withSerialize justtoformat errors.",
+      "qualification": "No dependencyrewritesrecommended merely forforeignmanualcode. Nativepackage exactmaterial only. SourceIO/state logic isreadtoinventory actualtrait context, notanoperationsverdict."
+    },
+    {
+      "contract": "Native observer/system trait adapters are behavioral conversions",
+      "evidence": "Roles3/8/10/11/14 actualregisteredranges contain inherentAPI forwarding, reexports/typealias orrunner functions/fixture, no handwrittentraitimpl inthosematerial ranges. Roles6/7/9/12/13 manualimpls inventoried individually: defaultseverity/backtrace, conditionalhumanerrorDisplay, chosenfunctionpointerDefault, blanketobserver/system conversions, conditions transfer andIntoResult coherence.",
+      "derive_comparison": "Resource/Deref/DerefMut/Copy/Clone andErrorContext mechanicaltraits alreadyderived. ManualDefault selects match_severity, notgenericfielddefault. Bespoke blankettraits for arbitraryT andassociatedsystem/marker/lifetime constraints are notderivable field projection; keep smallmanualimplementations.",
+      "qualification": "No-impl disposition limitedtoexplicitenumeratedsource ranges; no search-only/wholeSDKabsence. Observerconditionimplfinishedwith584\u2013587 directcontiguoussource, selectedrangeended583. Otherforeignfunctions/tests tailsoutside materialnotcredited.",
+      "acceptance": "Preserveexactgenericbounds, associatedtypes, lifetimes,Error/source/severity semantics andchosenhandler/condition behavior. Anyderiveproposal mustname existingmacro andproveequivalentAPI/error/wire withoutaddingserialization orremovingvalidation."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 15,
+    "source_id": "native-dependency:bevy_math-0.19.1/src/direction.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

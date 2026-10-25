@@ -1,0 +1,37 @@
+{
+  "id": "NATIVE-SUPP-CATALOG-001",
+  "lens": "audit-producer-propagation",
+  "status": "assigned receiving source queue exhausted with existing F011 and explicit cross-lens/API limits",
+  "pin": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "sources": "supplemental-catalog-sources.json",
+  "receivers": "supplemental-catalog-receivers.json",
+  "contracts": [
+    {
+      "name": "Demographic AgeBand and Sex",
+      "flow": "Canonical AgeBand.for_years/stable_id (full age43)\u2192camera server witness/model F011 raw age String\u2192runtime WitnessMatchRule.age_bands Vec<String>231\u2192actual witness_demographic_for608\u2013653 exact string classification. Sex parse_sexes returns canonical Sex; rule.sexes Vec<Sex>233 and matcher631\u2013632 retain it to actual contains.",
+      "disposition": "AgeBand erasure is existing CAM-PROP-F011; no duplicate repair. Authored selector admission keeps original age vocabulary, open external witness fallback and unknown-sex None policy.",
+      "preserve": "Fallback excluded from priority competition; only separate fallback pass648\u2013652, exact or whole-token profession/local-role policy; existing fixtures1408\u20131555/1558\u20131629 all read unchanged."
+    },
+    {
+      "name": "Road typed payload/entropy/native serialization",
+      "flow": "Full source joined root1\u2013350/native351\u20132689. Typed effect/check/transition/backing/context enums remain typed through validation and camera actual DB challenges source. Seed reaches select_quest_eligible1011\u2192StreamId.rng1026\u20131028\u2192actual weighted_index; only derived native index selects canonical definition reference.",
+      "disposition": "Proven typed retention at examined fields/selection, no new same-value Seed roundtrip. Material route serde fingerprint743\u2013751 consumes whole typed mechanical tuple into derived comparison key; true JSON bytes and BTreeSet cardinality757 read. Existing fixture JSON-prose/schema assertions retain exact serialization behavior; no general raw-string/existing-owner/aggregate exception."
+    },
+    {
+      "name": "Catalogue error receiving ports",
+      "flow": "demographic::SexSelectorError::at16\u201318 formats source path and typed parser failure to authoring diagnostic String at validator882. Actual validate_documents returns String; Core build main121\u2013122 displays it by panic, runtime quest catalog852\u2013853 uses expect; content-check actual native command36 read. Road validation String flows build181\u2013182/204\u2013205, runtime998\u20131000, native content-check10\u201311.",
+      "disposition": "Actual display-only diagnostic recipients proved; no production message\u2192classification/readmission seen in these bodies. This narrowly proves where human-readable diagnostic reaches native output; no broad error-contract clearance. Typed contextual validator error/API ownership and production expect/unwrap rule remain mandatory later lens/Rule review issues, not silently exempted."
+    }
+  ],
+  "known_findings": [
+    "CAM-PROP-F011"
+  ],
+  "cross_lens_candidates": [
+    "Raw String authoring error API despite inner structured SexSelectorError; exact final text-only recipients now established for subsequent error ownership/granularity review",
+    "Never unwrap/expect outside tests rule: observed runtime OnceLock/embedded catalogue/build source endpoints. Source-only rule inventory; no attempted fix or exemption added",
+    "Raw authored units, statuses/IDs, tuples, repeated validation, validators/aggregate states, manual serde and serde material-route signature remain mandatory later lenses; current producer proof is narrow"
+  ],
+  "acceptance": "Existing F011 repair retains canonical AgeBand/Presentation in same-meaning internal witness state and authored-selector policy; preserves source key spellings, fallback/None sex, priorities, source refs and commitment hash order. Preserve road effect/count/outcome rules, exact seed words/order and actual serialized projections. No source mutation before all13 initial discovery.",
+  "first_unfinished_cell": null,
+  "validation": "not run; no compile/runtime/family PASS"
+}

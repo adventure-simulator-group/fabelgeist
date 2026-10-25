@@ -1,0 +1,28 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-393",
+  "at": "2026-10-25T15:14:46.896306+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 767,
+  "source_id": "pr-working:crates/adventuresim-character-creator/src/export.rs",
+  "sha256": "ee364aaa0d304eb120d6f91216c6da3e186f5e20809e28ffa74f5864e568d72d",
+  "actual_compared_ranges": [
+    [
+      1211,
+      1450
+    ]
+  ],
+  "cumulative_ranges": [
+    [
+      1,
+      1450
+    ]
+  ],
+  "trait_inventory": [],
+  "analysis": "Fresh1211\u20131450 existing native GLB fixtures: clothing morph/material/independent skin/accessor correspondence, textured independent topology/PNG payload and start of shell-only equipment. No handwritten trait/codec in actual slice; tests read not executed; remaining1451\u20131841 unread.",
+  "first_unfinished": {
+    "scope_index": 767,
+    "line": 1451
+  },
+  "execution": "none"
+}

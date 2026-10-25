@@ -1,0 +1,47 @@
+--- p16base/crates/adventuresim-stdb-module/src/operation_error.rs
++++ catalog-p16head/crates/adventuresim-stdb-module/src/operation_error.rs
+@@ -0,0 +1,44 @@
++//! Strategic operation failures retain leaf causes until the reducer Display port.
++
++use adventuresim_core::{
++    autoresolve::{AuthoredThreatError, BattleResolutionError},
++    elapsed::ElapsedError,
++    physical_object::CustodyIdentityError,
++};
++use fabelgeist_geometry::GeometryError;
++
++pub type StrategicOperationResult<T> = Result<T, StrategicOperationError>;
++
++#[derive(Debug, thiserror::Error)]
++pub enum StrategicOperationError {
++    #[error(transparent)]
++    AuthoredThreat(#[from] AuthoredThreatError),
++    #[error(transparent)]
++    Resolution(#[from] BattleResolutionError),
++    #[error(transparent)]
++    Geometry(#[from] GeometryError),
++    #[error(transparent)]
++    Timing(#[from] ElapsedError),
++    #[error(transparent)]
++    Custody(#[from] CustodyIdentityError),
++    #[error("Autopsy demo autoresolve could not produce its required death")]
++    RequiredDeathUnavailable,
++    #[error("equipped weapon {item} is absent from the authored catalog")]
++    MissingWeaponDefinition { item: String },
++    #[error("equipped weapon {item} has no authored equipment geometry")]
++    MissingWeaponGeometry { item: String },
++    #[error("parametric weapon {item} has no valid physical recipe")]
++    MissingWeaponRecipe { item: String },
++    #[error("parametric weapon {item} has invalid combat geometry")]
++    InvalidWeaponCombatGeometry { item: String },
++    #[error("{0}")]
++    Operation(String),
++}
++
++impl From<String> for StrategicOperationError {
++    fn from(message: String) -> Self { Self::Operation(message) }
++}
++
++impl From<&str> for StrategicOperationError {
++    fn from(message: &str) -> Self { Self::Operation(message.to_owned()) }
++}

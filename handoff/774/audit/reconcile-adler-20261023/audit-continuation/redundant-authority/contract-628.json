@@ -1,0 +1,91 @@
+{
+  "id": "CONT07-CONTRACT-628",
+  "at": "2026-10-24T00:47:41.647609+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2730,
+      "source_id": "physical-p16:crates/strategic-web/src/routes/coordinates.rs",
+      "sha256": "8849bcd5cb1c2d0379d33b28294cd3a7acc41eca8661f8ec451dc0f5878a93a9",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/strategic-web/src/routes/coordinates.rs",
+      "actual_EOF": 17,
+      "ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2731,
+      "source_id": "physical-p16:crates/strategic-web/src/routes/party_actions.rs",
+      "sha256": "061c7eda69f59c154573d983af84afe85c6aae215d4b4385473bd2331fa701ac",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/strategic-web/src/routes/party_actions.rs",
+      "actual_EOF": 355,
+      "ranges": [
+        [
+          1,
+          266
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2732,
+      "source_id": "physical-p16:crates/strategic-web/src/location_urls.rs",
+      "sha256": "4cdfe5103f103f2628c55f1f8d3f9dd407342458647215a44b5add07c03dcb14",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/strategic-web/src/location_urls.rs",
+      "actual_EOF": 208,
+      "ranges": [
+        [
+          200,
+          203
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2733,
+      "source_id": "physical-p16:crates/adventuresim-stdb-client/src/journey_route_point_type.rs",
+      "sha256": "471cc151f0a3b11bec0a896e6b5b0f93c2a428a49d318e6121c5a366df529407",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-stdb-client/src/journey_route_point_type.rs",
+      "actual_EOF": 16,
+      "ranges": [
+        [
+          1,
+          16
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2734,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/character/occupancy.rs",
+      "sha256": "b19bf8ef16841ed00b6e678e2ed26c12fb072ca49ec363a1c1e7172379e0c15e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/character/occupancy.rs",
+      "actual_EOF": 191,
+      "ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "P16 route coordinate helpers preserve correct latitude/longitude reorder at native transport versus canonical WGS84 longitude-first constructor, rejecting bounds. Generated JourneyRoutePoint primitives are native schema coordinates, not proof of internal checked-producer retention.",
+    "PartyAction closed payload enum derives readiness/kind/summary and reducer argument tuple by exhaustive matches. Display summary is deliberately less detailed than executable payload (case-site privacy), not a canonical ID substitute. Actual reducer_call strings/JSON are final remote API port; supplied actor_id binds execution context separately from stored request parameters. Stored queue representations require their own admission/replay graph, not declared mismatches from these derived views.",
+    "local_redirect_path explicitly admits local slash prefix, rejects protocol-relative and backslashes at URL boundary; protocol/browser control normalization requires actual URI consumer before stronger security claim. PR occupancy traverses persisted parent links with visitedset, combines canonical OccupancyRequirement conflicts, and checks authored placement references before mutation. Authored catalogue/current occupancy are separate role/state projections; actual catalogue mutation/lifecycle would be required for a stale-replica finding. No source repair or tests."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2735,
+    "start_line": 1
+  }
+}

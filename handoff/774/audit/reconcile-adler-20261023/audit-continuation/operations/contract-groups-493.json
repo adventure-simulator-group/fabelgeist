@@ -1,0 +1,120 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-493",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/planar/query.rs",
+      "sha256": "6876c759c1e7a12a44cce57a8c372f1f7dcb4f926b9edc6e1486fc341a489cf6",
+      "actual_EOF": 156,
+      "actual_compared_ranges": [
+        [
+          1,
+          156
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/planar/query/tests.rs",
+      "sha256": "544ce48792225f7185f51cc90b4bc2e30be076ddb813b5011a2f3204e5cfba84",
+      "actual_EOF": 51,
+      "actual_compared_ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/policy.rs",
+      "sha256": "2a2a18dafb072f8878e496462df0257b5bdaa9481895595affbee001b0e52e46",
+      "actual_EOF": 64,
+      "actual_compared_ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/profile.rs",
+      "sha256": "e8662abeffcf5acd766443246d2f7a45d909bc367cb1b2d2e0d13676503506ce",
+      "actual_EOF": 260,
+      "actual_compared_ranges": [
+        [
+          1,
+          260
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/query.rs",
+      "sha256": "f10e81a1d2a2040a7bb9aaaf1cb83951a49f47404a6c2e7ae3db66175b393637",
+      "actual_EOF": 61,
+      "actual_compared_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/selection.rs",
+      "sha256": "c4827110d150c745990de0f5da9e210b9dfd0797122a4cd661ef7353d2142084",
+      "actual_EOF": 127,
+      "actual_compared_ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/single.rs",
+      "sha256": "328feb3454948dd70bc97472745b9766b0dee5d91302c0a5de0ea7d0464d8813",
+      "actual_EOF": 115,
+      "actual_compared_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Broad phase stable exact source membership",
+      "evidence": "Full planarquery156/tests51: finiteDVec2bounds frompoints, balancednonemptyslice medianpartitions, iterativequery, originalreferenceorderrestored, duplicates/touchingclosedbounds preserved. Tests compareexhaustive list forbounded100regions; notexecuted. Expanded distance kernel depends on actualcallerunits, no selectedgeometry semanticallyresampled."
+    },
+    {
+      "contract": "Checked physical policies retain independent domains",
+      "evidence": "Full policy64/query61: eachengineeringlength/grade positivefinite andopaque; no undocumented globalrestrictionon signed physical elevations. SupportCeilingexplicitUnbounded avoids fabricatedinfiniteposition; boundedceiling+tolerance overflow aboveallfiniteelevations hascorrect order implication, no erroneous ownerpublication proved."
+    },
+    {
+      "contract": "Exact inherited profilegrade comparison alias and stable interpolation",
+      "evidence": "Full profile260 plus full NATIVE-INITIAL05-F022 archive line24 personallyread. Finiteopposingcoordinate/elevation endpoints produce run/rise/permittedInf so invalid checkedgrade accepted, same helper/remedy; preserveAPI/cratehelper vsfullplan qualification, no newcount. height_at separately widens interpolation when nativecompletedvalue/run nonfinite, preserves finiteextremeinterpolation tests and repeatedcoordinate retaining semantics. Neither forcepositivecoordinate norcollapse stepped profiles."
+    },
+    {
+      "contract": "Selection full candidate before return and private mutation lifetime",
+      "evidence": "Full selection127/single115: street_gate_level occurs before candidatecompile inputvalidation, so malformedproperty/publicrequest ordering remains conditionalpendingactualrawrouteadmission. Level\u2192terraced retry onlynamedconstraints; geometrictranslatedfloors checked, bindapron and fullsourcecontrols before return. Single complete thresholds/duplicateentrance rejected, stablefloorselection and localconvexfloor/aprons thenfinalsurfaceadmission; append failures discardlocalproduct. Publicplan mutable fields related adoptedaggregateowners remain retained qualifications, not ignored or auto-repaired."
+    }
+  ],
+  "findings": [
+    {
+      "id": "NATIVE-INITIAL05-F022",
+      "disposition": "exactalias fresh04 support",
+      "new_unique": false
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "7 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/single/apron.rs"
+}

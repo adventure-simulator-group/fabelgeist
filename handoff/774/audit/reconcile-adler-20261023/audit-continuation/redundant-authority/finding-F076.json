@@ -1,0 +1,80 @@
+{
+  "id": "CONT07-F076",
+  "at": "2026-10-23T20:00:23.757798+00:00",
+  "classification": "source-backed selector authority contradiction with valid beech producer; mathematical source proof, no runtime run",
+  "title": "LOD1 beech cards admit foreign crown sectors through secondary ID intervals",
+  "sources": [
+    {
+      "scope_index": 1600,
+      "sha256": "918bd2a4ed873968c420e4ad7c3070043b2073a9bbdd30e27d1dbbd6c1a4d2a1",
+      "ranges": [
+        [
+          143,
+          180
+        ],
+        [
+          474,
+          519
+        ],
+        [
+          609,
+          625
+        ],
+        [
+          665,
+          686
+        ]
+      ]
+    },
+    {
+      "scope_index": 1598,
+      "sha256": "01e01e3d4c8c4c8a5d0b5d91248c5b715bbfdb40722c4f36ed15395b95a35683",
+      "ranges": [
+        [
+          532,
+          574
+        ],
+        [
+          585,
+          647
+        ]
+      ]
+    },
+    {
+      "scope_index": 1602,
+      "sha256": "0832c7f01271afcbd8d65ccc61ac2a3b0837c605f1d6239b8ece5dddc7fb64bd",
+      "ranges": [
+        [
+          33,
+          56
+        ]
+      ]
+    },
+    {
+      "scope_index": 1603,
+      "sha256": "ee16efd8a79ab3116e35ecd6f0e7ac5eb6a5e48c573e33e84eba57b4c5634913",
+      "ranges": [
+        [
+          40,
+          87
+        ],
+        [
+          97,
+          106
+        ]
+      ],
+      "coverage": "freshcriticalpartialonly; full976source remains unfinished"
+    }
+  ],
+  "earliest_failed_contract": "A LOD1 card declares one primarysector via primary_mask plus secondary-limb subrange, but range-specific includes ignoresprimarysector. Rangebuilder assumes global secondaryIDs in same spatialsector form contiguous intervals; beech producerdoesnot enforce this.",
+  "proof": [
+    "Beech builds20 primaryscaffolds withphase=crownphase+i*2.3999631+jitter, jitter in[-.21,.21]. Adjacent circularphase distance is at least1.9799631rad, larger thansectorwidth2pi/7\u2248.8976. Thus adjacent scaffoldindices cannot belong sameprimarysector.",
+    "20 scaffolds partitioned into7 spatialsectors forces a sectorwith>=3scaffolds. Each contributes5 unique secondaryIDs i*8+j,j0..4. Atleast15 IDs split into atmost2 contiguous sorted IDsubranges forces a subrange tocontain IDsfromtwo nonadjacent scaffoldindices. That inclusive numeric interval also contains secondaryIDs ofintervening scaffold(s) belonginganotherprimarysector.",
+    "includes_leaf rangebranch accepts these foreignIDs without primary_mask; includes_branch likewise acceptsdepth>=3. Valid beech producer createsdepth3twigsandleavesfor each foreignsecondarylimb. fit_tree_bake_card expandsboundsaroundforeigncontent and render_tree_card rasterizesit; orientation helper filtersboth primary+range, so orientation/sourcepopulation disagree."
+  ],
+  "qualification": "Mathematical source counterexample for current finite positiveCOMMON_BEECH producer, not randomized/native execution, particular renderedscene reproduction or claim allcards/everytreefails. Oak primaryindex*20 numbering currentlykeeps sector ranges separate; no blanketall-species bug. Suppliedcodecomments about IDgaps do notoverridebeechactualsource.",
+  "connected_repair": "Use one explicit canonical crown-source selector retaining spatialprimarysector and its actual secondarymember set. At minimum intersect both constraints when both supplied; avoid relying on globalIDinterval contiguity. Shared selector must drive fit/orientation/raster/provenancecounts. Preserve intendedtwo-runs/twofacings, deterministicID/order, per-species density andsource morphology.",
+  "acceptance": "Each current generatedbeech LOD1 card includes only its declaredprimarysector and selectedsecondarymembers acrossfit/raster/provenance, with noforeignIDs admittedbyintervalgap. Existingoak cardinality/pixels/selection andnativeatlas/LODbudget contracts preserved as intended. No added/executedtests.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

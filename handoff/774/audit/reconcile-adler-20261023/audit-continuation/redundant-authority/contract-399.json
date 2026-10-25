@@ -1,0 +1,68 @@
+{
+  "id": "CONT07-CONTRACT-399",
+  "at": "2026-10-23T21:05:29.158745+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1748,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/AGENTS.md",
+      "sha256": "b3fd110d97bc871853458c38282d3d4c18369b6d0647e96e0de6d0641dca61c8",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/AGENTS.md",
+      "actual_EOF": 17,
+      "ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1749,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/Cargo.toml",
+      "sha256": "a514b1eccfff839c875aaa5148d8299f119beb39ce645dc828e653399b6ef320",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/Cargo.toml",
+      "actual_EOF": 44,
+      "ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1750,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/README.md",
+      "sha256": "b3acfbbe37624ffc0518b11dd27945d3d6c1258e0aa6759a95e2ca395b7ad5ac",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/README.md",
+      "actual_EOF": 239,
+      "ranges": [
+        [
+          1,
+          239
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "ROOT-OWNER-HOME-029",
+    "ROOT-OWNER-METADATA-001",
+    "ROOT-OWNER-DOCUMENTATION-017"
+  ],
+  "facts": [
+    "Frozen tactical-core AGENTS17 explicitly owns combat tuning in YAML and requires typed config projection through consumers. This is source-scope evidence; current human/task instructions govern actions. No new implementation or validation was authorized by an archived instruction.",
+    "Cargo manifest44 declares native Cargo dependency/features/workspace lint metadata. It stores no mutable tactical current fact or runtime cache. No library status, external version recommendation or compilation success inferred.",
+    "README239 describes intended frame/datum, admitted value, cache identity, scheduling and server authority contracts. Prose does not establish runtime enforcement or retire source findings. Its embedded YAML default-snapshot description must be verified in actual owning implementations when reached; no generic duplicated-default finding inferred from prose alone.",
+    "Static preparation explicitly distinguished from live tactical state; source-package, executable/cache and generated-content identities retain distinct authority. Zero/None, signed/unwrapped values and typed cause descriptions preserved as documentary obligations, not source or test clearance for referenced files."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1751,
+    "start_line": 1
+  }
+}

@@ -1,0 +1,396 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-787",
+  "at": "2026-10-25T16:50:23.277354+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1006,
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_action.rs",
+      "sha256": "4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+      "actual_EOF": 1209,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/strategic_action.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/strategic_action.rs",
+        "sha256": "4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+        "bytes": 40262,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/supplemental-operation-sources.json",
+            "ranges": [
+              [
+                1,
+                1209
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "NATIVE-SUPP-OPERATION-001"
+            ]
+          }
+        ],
+        "audit_owner": "native",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 97,
+            "read_ranges": [
+              [
+                1,
+                1209
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-ACTION-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/strategic_action.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 441,
+            "read_ranges": [
+              [
+                1,
+                1209
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-ACTION-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/strategic_action.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 35,
+            "read_ranges": [
+              [
+                235,
+                275
+              ],
+              [
+                319,
+                411
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-STRATEGIC-004"
+            ],
+            "read_status": "specified_actual_owner_and_recipient_bodies_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/strategic_action.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CASE-RECEIVERS-029",
+            "json_pointer": "/related_current_sources/4",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/strategic_action.rs",
+            "read_ranges_as_recorded": [
+              [
+                319,
+                411
+              ],
+              [
+                590,
+                720
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/strategic_action.rs",
+              "sha256": "4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+              "read_ranges": [
+                [
+                  319,
+                  411
+                ],
+                [
+                  590,
+                  720
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/strategic_action.rs",
+              "scope": "Positive requested duration, clipped/zero realized interval, build_plan FnOnce and full actual validate_commit receiver; no whole1209 claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CLINICAL-RECEIVERS-045",
+            "json_pointer": "/additional_actual_source_proofs/2",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/strategic_action.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                91
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/strategic_action.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/strategic_action.rs",
+              "sha256": "4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+              "actual_lines": 1209,
+              "read_ranges": [
+                [
+                  1,
+                  91
+                ]
+              ],
+              "requested_range_limits": [
+                [
+                  1,
+                  91
+                ]
+              ],
+              "proof_mode": "Fresh actual bounded current clinical receiver/owner body. Effective range clipped to actualEOF. No whole unrelated file/role credit."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-035",
+            "json_pointer": "/fresh_current_additional_source_reads/2",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/strategic_action.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                91
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/strategic_action.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/strategic_action.rs",
+              "sha256": "4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+              "actual_lines": 1209,
+              "read_ranges": [
+                [
+                  1,
+                  91
+                ]
+              ],
+              "requested_range_limits": [
+                [
+                  1,
+                  91
+                ]
+              ],
+              "proof_mode": "Fresh actual bounded current clinical receiver/owner body. Effective range clipped to actualEOF. No whole unrelated file/role credit."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-040",
+            "json_pointer": "/additional_actual_source_proofs/0",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/strategic_action.rs",
+            "read_ranges_as_recorded": [
+              [
+                319,
+                412
+              ],
+              [
+                602,
+                666
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/strategic_action.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/strategic_action.rs",
+              "sha256": "4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+              "read_ranges": [
+                [
+                  319,
+                  412
+                ],
+                [
+                  602,
+                  666
+                ]
+              ],
+              "actual_line_count": 1209,
+              "scope": "Exact reached material source/receiving scopes only; no inference whole source outside listed range. SDK/math/hash fixture source only; no execution."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016",
+            "json_pointer": "/related_current_reads/4",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/strategic_action.rs",
+            "read_ranges_as_recorded": [
+              [
+                319,
+                411
+              ],
+              [
+                590,
+                720
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/strategic_action.rs",
+              "sha256": "4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+              "read_ranges": [
+                [
+                  319,
+                  411
+                ],
+                [
+                  590,
+                  720
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/strategic_action.rs",
+              "scope": "Positive requested duration, clipped/zero realized interval, build_plan FnOnce and full actual validate_commit receiver; no whole1209 claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/rig/pure-food-recipient-carry-forward-041.json",
+            "receipt": "RIG-CONT-PPS-PURE-FOOD-RECIPIENT-CARRY-FORWARD-041",
+            "json_pointer": "/additional_reached_ranges/0",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/strategic_action.rs",
+            "read_ranges_as_recorded": [
+              [
+                319,
+                412
+              ],
+              [
+                602,
+                666
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/strategic_action.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/strategic_action.rs",
+              "sha256": "4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+              "read_ranges": [
+                [
+                  319,
+                  412
+                ],
+                [
+                  602,
+                  666
+                ]
+              ],
+              "actual_line_count": 1209,
+              "scope": "Exact reached material source/receiving scopes only; no inference whole source outside listed range. SDK/math/hash fixture source only; no execution."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 370,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1209
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "DomainTarget",
+          "type": "Target",
+          "lines": [
+            [
+              725,
+              725
+            ]
+          ],
+          "disposition": "KEEP empty local marker"
+        },
+        {
+          "trait": "DomainRequirement",
+          "type": "Req",
+          "lines": [
+            [
+              730,
+              730
+            ]
+          ],
+          "disposition": "KEEP empty local marker"
+        },
+        {
+          "trait": "DomainCapability",
+          "type": "Cap",
+          "lines": [
+            [
+              735,
+              735
+            ]
+          ],
+          "disposition": "KEEP empty local marker"
+        },
+        {
+          "trait": "DomainInterruption",
+          "type": "Interrupt",
+          "lines": [
+            [
+              740,
+              740
+            ]
+          ],
+          "disposition": "KEEP empty local marker"
+        },
+        {
+          "trait": "DomainEffect",
+          "type": "Effect",
+          "lines": [
+            [
+              745,
+              745
+            ]
+          ],
+          "disposition": "KEEP empty local marker"
+        },
+        {
+          "trait": "PublicPreview",
+          "type": "Preview",
+          "lines": [
+            [
+              750,
+              750
+            ]
+          ],
+          "disposition": "KEEP empty local marker"
+        }
+      ],
+      "existing_derives": [
+        "All planning/fixture structural trait implementations already derived, including generic bounded records"
+      ]
+    }
+  ],
+  "groups": [
+    "Full source/fixtures consumed; partial785\u2013786 retained. Six empty marker opt-ins are necessary local semantic declarations, no available equivalent derive. No handwritten serializer, formatter or standard conversion. Do not add serialization to explicitly private action authority. Native coordinate/time/provenance/commit and public projection are semantic validation/classification. Fixtures881\u20131209 contain no additional traits or codecs; read not run."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1007,
+    "source_id": "pr-working:crates/adventuresim-core/src/strategic_currency.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

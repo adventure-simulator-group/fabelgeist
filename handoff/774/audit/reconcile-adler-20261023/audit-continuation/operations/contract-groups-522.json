@@ -1,0 +1,122 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-522",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee-combat-iteration.rs",
+      "sha256": "e1be72383593bbc4c921ecfdc904afcc7dc0b8364bef5b64efc35cb0ad11e5b3",
+      "actual_EOF": 7,
+      "actual_compared_ranges": [
+        [
+          1,
+          7
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/report.rs",
+      "sha256": "06ae9c455782ac10767b46537f84eea1e57f16391b7033fe44352edc24e0f8bc",
+      "actual_EOF": 270,
+      "actual_compared_ranges": [
+        [
+          1,
+          270
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/reviewer.rs",
+      "sha256": "bf80b110a492a275bd8550afe0af9bfc9b858b45faa71340c0f13dd6d5992ee3",
+      "actual_EOF": 85,
+      "actual_compared_ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/boundaries.rs",
+      "sha256": "41530ea3d8197242c6c5cc79ac9a35b31b9df76287a57aae530247553f3e2f2b",
+      "actual_EOF": 46,
+      "actual_compared_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/condition.rs",
+      "sha256": "543fe525702b8245d56a704a028a74138144789cf48c888b58704897bb6be7bf",
+      "actual_EOF": 160,
+      "actual_compared_ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/condition/forecast.rs",
+      "sha256": "7b2a7d5e50bff9d2fb938aa12d45a750504327c369f2534c6e0866bdef93eb58",
+      "actual_EOF": 166,
+      "actual_compared_ranges": [
+        [
+          1,
+          166
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/doors.rs",
+      "sha256": "676d9b173c594a21fd92761c7737e160d1c19c5c17a5efd8cadd784c51cb6c33",
+      "actual_EOF": 672,
+      "actual_compared_ranges": [
+        [
+          1,
+          672
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/doors/gate_tests.rs",
+      "sha256": "b2f9e246b2d68e862f6c8fea96ceccacb559e6fa33edf26af6224836fdc57d4c",
+      "actual_EOF": 100,
+      "actual_compared_ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Causal measurements and mean mutation remain diagnostic ownership",
+      "evidence": "Fulliterationentry7/report270/reviewer85. UnitparameterizedMeasurement retained untilserialization, checked_add/mean propagates typederror. Several aggregatefields mutate beforelaterfalliblefield, noatomic&mutsummarypromise orretainedretrycallerclosedinthisrole; lateriterationcontroller mustdiscardfailedaggregate. u64rawcountersboundedbyactualrun/count, arbitraryMAX preseededtoolrecordisnotordinaryproof. Revieweraveragessumrawlimbs before*.5 andweaponskillrankusescommonSwordrankcurve; sourcepresentationalcontext only, no currentextremeactorclaim."
+    },
+    {
+      "contract": "General combat impairment versus presentation forecast",
+      "evidence": "Fullcondition160/forecast166. Onegeneralblackfatigue includesmovementeffort; fatigue+encumbrance eachaddedonceintoincapacitation, performanceusesincapacitation; limb-specific injury policyretained. Projectedrates areforecastonly anddonotmutateactualimpairment; yellow100%cutoffreceiver remains. Zeroelapsedtrend returnsbeforehistorymutation, previous sampledsource and simulationelapsed owns rate. Nativefinite rate/horizon product couldoverflowforvalidextreme customhorizon; actualordinaryTimeDuration/min1ns+authoredconfig witnesses notestablished. Do not clamp forecastto1 or invent extraimpairment/speedpenalty."
+    },
+    {
+      "contract": "Door/gate runtime frame and passage mutation",
+      "evidence": "Fulldoors672/gatetests100/boundaries46. Compileall transformeddoorposes beforebuilding loop; eachspawn validatesdoorwaycentrebeforecommands. Doorphysicsmass/nativecolliderhand-offusescheckedpose/dimensions butextremenativecapacityproof notprovided, noordinarybadgenerateddoorassertion. Jointanchorworldframe/closedbasis andexplicitmotorlimits; insideauthorizedgrabgrantsboth exemption+filter, onefixedupdateowns motor. Passage revokes afterlateral/outsidebound, proximitynevergrants; filterreinstatedwhilevalidexemption. GateDatumaddsactualgateelevation once, enclosurefixedcollider+door shareauthority; sourcefixturephysicalassertions readnotrun."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "8 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-server/src/furniture.rs"
+}

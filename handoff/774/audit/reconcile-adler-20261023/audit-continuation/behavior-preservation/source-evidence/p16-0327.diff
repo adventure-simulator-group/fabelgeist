@@ -1,0 +1,18 @@
+--- p16base/crates/adventuresim-tactical-client/src/debug.rs
++++ catalog-p16head/crates/adventuresim-tactical-client/src/debug.rs
+@@ -230,12 +230,13 @@
+         return;
+     }
+ 
+     let hit = event.event();
+-    let end = hit.origin + *hit.direction * hit.length;
++    let origin = hit.origin.metres();
++    let end = origin + *hit.direction * hit.length.metres();
+ 
+     let mut asset = GizmoAsset::default();
+-    asset.line(hit.origin, end, tailwind::ROSE_600);
++    asset.line(origin, end, tailwind::ROSE_600);
+     let handle = gizmo_assets.add(asset);
+ 
+     cmd.spawn((
+         DebugRay {

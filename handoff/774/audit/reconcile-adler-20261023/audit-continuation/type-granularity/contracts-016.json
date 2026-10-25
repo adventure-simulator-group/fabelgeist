@@ -1,0 +1,71 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-016",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "authored-iteration-build-and-synthetic-provenance",
+      "sources": [
+        {
+          "scope_index": 58,
+          "ranges": [
+            [
+              1,
+              866
+            ]
+          ]
+        },
+        {
+          "scope_index": 59,
+          "ranges": [
+            [
+              1,
+              48
+            ]
+          ]
+        }
+      ],
+      "distinction": "MeleeIterationBuild is an authored reviewfixture carrying description/cataloginput provenance beside actual Combatant; syntheticstable IDs generatedfrompreset/catalogstrings are not durable databaseinventory authority. Physicalattributegroup andskillrank are separatelyconverted intoexistingStartingCharacterSpec/CombatSkills ratherthan newduplicatecharacter owner.",
+      "uses": "Roster builds canonicalcatalogweapon/armor/shield intoCombatEquipment, retains declaredinput metadata forreports andactualequipmentbody. Optionalshield isrealabsence; repeatedvambrace usesplacementoccurrence/side, notan arbitraryenum foreachordinal. ContextualMeleeIterationError retains actualsource errors plus missingfixturepurpose, notgenericmessageonlyfailure.",
+      "disposition": "Keep reviewpreset versuspersistedinstance identity andbuildprovenance boundaries. Do notcoerce everysyntheticfixtureID intoaDB-backedCharacter/Inventoryowner orunifycatalogID withphysicalinstancebecauseboth u64/string. Sharedphysicalpredicate belowsemanticrolespreferabletoredundantperpresetnewtypes. Currentconstructorscoherent; mutablebuild/runtime data relation isexistingaggregate question, noordinaryfalsecatalogreport demonstrated.",
+      "acceptance": "Actualreportrecipients/presetclassification andsharedcatalogowners remainown11rolespending; preserve authoring source, paired placements, abstractenemy/fixturepurpose, meleeonlyreviewrestriction and typederrors. Allsourcefixtureassertions/seeds/mutatorsread only; no generation/seedsearch/testexecution. Do not globallymerge unrelated acceptancegraphsbecause theyshare roster/tolerance/digestwords."
+    },
+    {
+      "id": "acceptance-observation-record-granularity",
+      "sources": [
+        {
+          "scope_index": 60,
+          "ranges": [
+            [
+              1,
+              447
+            ]
+          ]
+        },
+        {
+          "scope_index": 61,
+          "ranges": [
+            [
+              1,
+              76
+            ]
+          ]
+        },
+        {
+          "scope_index": 62,
+          "ranges": [
+            [
+              1,
+              151
+            ]
+          ]
+        }
+      ],
+      "distinction": "Evidence records intentionally separate forcedgeometry observations, defensemargin matrix, disabledcapability, fatiguecadence, contactband andtimelinelifecycle. None alone is universalclearance. RecoveryTime carries actualavailability ratherthan artificial finite duration whenincapacitated; physicalincidentenergy andtransformedenergy aredifferentobservations linkedbyfraction, not dimensionlesspercent interchangeablewithjoules.",
+      "uses": "Actualhelpers build namedmeasure/contactrecords fromexistingcanonicalcontactowner; scenarioenergytable isauthoredfixturedata. DefenseEvidence.defended isnominalnegativeattackmargin inthissource, notproof aninterceptionrandomrollsucceeded. Timelineevidence computesnormalizedequality/canceledmembership from actualoutputs andfails whenboundedcancellationwitnessmissing; it doesnotgrantwholeall13pass. CancellationIDs consumingexistingpackedattackidentity extendlocal774:F04 acceptedrepairgraph.",
+      "disposition": "Keep coherent small observationfamilies andactualproducer/projection distinction; do notcollapse all evidence intoVec<String>, combine independentfailure/availability policies, or addunsupportedpositivebounds tonecessaryzero/signedsamples. Currentnormalhelperconstructors align sourcefacts; genericpublicfieldstrengthening isqualified, notordinaryfabricatedevidence. Recipe/material/span andphasepayload obligations areconnectedotherlenses, nocoverageimported.",
+      "acceptance": "FullidentityaliasALIAS001 mustreach canceledIDcollections; restofactualreportconsumer independentlypending11. Preserve partial/gap/disabled/NoWitness states, raw source labels at actualreporttextadapter and independent geometry/diagnostic/sourceprovenance. No evidencegenerator, simulation, rendereror testexecuted; countsof programmedcases are notvalidationresults."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

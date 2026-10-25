@@ -1,0 +1,78 @@
+{
+  "id": "CONT07-CONTRACT-432",
+  "at": "2026-10-23T21:50:20.974501+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1899,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/grade.rs",
+      "sha256": "60f79c6fe38de7e44aa07d908848a9a81e03efc77be1522585275f3f8e3f2c0e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene/grade.rs",
+      "actual_EOF": 296,
+      "ranges": [
+        [
+          1,
+          296
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1900,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/grade/tests.rs",
+      "sha256": "480ab83fca39804dcdb282b16c1d3ebfb6ce3b257b1f7b89f0455cce60a10601",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene/grade/tests.rs",
+      "actual_EOF": 109,
+      "ranges": [
+        [
+          1,
+          109
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1901,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/ground.rs",
+      "sha256": "54559503a139270a829c73a46cb1ba81b69ada99dc3827350e16b575c4139d8a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene/ground.rs",
+      "actual_EOF": 182,
+      "ranges": [
+        [
+          1,
+          182
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1902,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/ground/tests.rs",
+      "sha256": "3af5fab04d729f25434e3c731429726b08d94fb12f637ad51c3be301bb25a4dc",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene/ground/tests.rs",
+      "actual_EOF": 28,
+      "ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "1899 dirty bitmap is an explicit transient cache of triangle validity: every changed vertex marks3x3adjacent cells dirty182-185 before dirty-only residual proof. It is not separately retained scene state. Full unconditional versus incremental source fixture1900 compares decisions and values; not executed. Preconditioning bounds cardinal jumps while final projection bounds full triangle gradient, distinct required operations.",
+    "1899 local f64 values are unpublished working geometry; original f32heights are copied only after convergence and finite conversion120. Failure does not publish incomplete terrain. Initial valid relief preserves originalbits; PLAYABLE procedural repair limit differs intentionally from actor movement policy.",
+    "1901 SceneGround stores semantic samples, not a heightmap duplicate: same grid convention supports mapping different physical facts. Construction from terrain derives layout once; later terrain replacement needs actual paired recipient/invalidation trace before any stale-layout finding. DerivedDeserialize and uniform_for_terrain validation gaps remain prior admission obligations, not newly counted07defects.",
+    "1901 ground_at uses urban ownership before natural sample; cover_intersects_square/cover_count inspect natural sample collection only. This is an explicit unresolved recipient question for urban cover, not yet a defect: actual scatter recipient/exclusion policy must establish whether those helpers promise final ownership semantics. 1902 source fixture covers only natural centered grid and out-of-range; no urbancoverage claimed."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1903,
+    "start_line": 1
+  }
+}

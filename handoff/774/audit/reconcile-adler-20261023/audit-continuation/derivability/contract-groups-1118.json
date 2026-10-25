@@ -1,0 +1,234 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1118",
+  "at": "2026-10-25T17:48:41.254561+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1227,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+      "sha256": "9511a258a4133480d0581e538ae88d41ccff8d90ce6a0658ff71e28267b35eb5",
+      "actual_EOF": 2973,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+        "owner": "camera",
+        "sha256": "9511a258a4133480d0581e538ae88d41ccff8d90ce6a0658ff71e28267b35eb5",
+        "base_sha256": "9c8672c460f76d522fd7768805129e9e3489378e7fc053508e564e6f9653cf32",
+        "state": "modified",
+        "bytes": 117342,
+        "audit_owner": "camera",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                2973
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-MISSION-001",
+              "CAM-PROP-ENCOUNTER-001",
+              "CAM-PROP-STRATEGIC-BATTLE-001",
+              "CAM-PROP-DEVELOPMENT-001"
+            ]
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+            "ranges": null,
+            "source_read_status": null,
+            "trace_refs": []
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 302,
+            "read_ranges": [
+              [
+                1,
+                2973
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-MISSION-BOOTSTRAP-051"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 348,
+            "read_ranges": [
+              [
+                1,
+                2973
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-MISSION-BOOTSTRAP-051"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-QUEST-IDENTITY-INVENTORY-PARTIAL-051",
+            "json_pointer": "/source_proofs/5",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+            "read_ranges_as_recorded": [
+              [
+                2157,
+                2440
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+              "sha256": "9511a258a4133480d0581e538ae88d41ccff8d90ce6a0658ff71e28267b35eb5",
+              "read_ranges": [
+                [
+                  2157,
+                  2440
+                ]
+              ],
+              "mode": "Fresh bounded actual DB/SDK/typed reconstruction receiver body source",
+              "roles": [
+                "Full materialize_generated_quest actual body2157\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01532419 plus bounded following declarations only: real native table/Serde source ports, typed GeneratedCase/Context retained until row writes, actual per-site scalar coordinate and native source states. No whole developer reducer coverage inferred.",
+                "HostileGroup call uses ThreatId.as_str().into before internal materialize_hostile_group\u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122hostile_group_authority_row\u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122parse_threat, proving an extra already-typed source\u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122String\u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122sameenum path; Camera existing F006/F009/canonical threat helper graph retains owner. Context/manifest JSON is actual persistent row authority, not false internal codec boundary."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-QUEST-IDENTITY-RECEIVER-CLOSURE-052",
+            "json_pointer": "/source_proofs/5",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+            "read_ranges_as_recorded": [
+              [
+                2157,
+                2440
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+              "sha256": "9511a258a4133480d0581e538ae88d41ccff8d90ce6a0658ff71e28267b35eb5",
+              "read_ranges": [
+                [
+                  2157,
+                  2440
+                ]
+              ],
+              "mode": "Fresh bounded actual DB/SDK/typed reconstruction receiver body source",
+              "roles": [
+                "Full materialize_generated_quest actual body2157\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01532419 plus bounded following declarations only: real native table/Serde source ports, typed GeneratedCase/Context retained until row writes, actual per-site scalar coordinate and native source states. No whole developer reducer coverage inferred.",
+                "HostileGroup call uses ThreatId.as_str().into before internal materialize_hostile_group\u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122hostile_group_authority_row\u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122parse_threat, proving an extra already-typed source\u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122String\u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122sameenum path; Camera existing F006/F009/canonical threat helper graph retains owner. Context/manifest JSON is actual persistent row authority, not false internal codec boundary."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-MISSION-BOOTSTRAP-046",
+            "json_pointer": "/current_sources/1",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                2973
+              ]
+            ],
+            "source_context": {
+              "index": 286,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+              "sha256": "9511a258a4133480d0581e538ae88d41ccff8d90ce6a0658ff71e28267b35eb5",
+              "read_ranges": [
+                [
+                  1,
+                  2973
+                ]
+              ],
+              "method": "Fresh complete P16 source +complete exact PR reverse delta; sourcecommon actualroles reconciled, not fresh wholePR claim. standalone/streams complete bodies and paired diffs byteidentity checked by samehash/source role."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-QUEST-KNOWLEDGE-050",
+            "json_pointer": "/additional_actual_source_proofs/0",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+            "read_ranges_as_recorded": [
+              [
+                2157,
+                2440
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+              "sha256": "9511a258a4133480d0581e538ae88d41ccff8d90ce6a0658ff71e28267b35eb5",
+              "read_ranges": [
+                [
+                  2157,
+                  2440
+                ]
+              ],
+              "mode": "Fresh bounded actual DB/SDK/typed reconstruction receiver body source",
+              "roles": [
+                "Full materialize_generated_quest actual body2157\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01532419 plus bounded following declarations only: real native table/Serde source ports, typed GeneratedCase/Context retained until row writes, actual per-site scalar coordinate and native source states. No whole developer reducer coverage inferred.",
+                "HostileGroup call uses ThreatId.as_str().into before internal materialize_hostile_group\u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122hostile_group_authority_row\u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122parse_threat, proving an extra already-typed source\u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122String\u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122sameenum path; Camera existing F006/F009/canonical threat helper graph retains owner. Context/manifest JSON is actual persistent row authority, not false internal codec boundary."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": 536,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          2973
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Full2973lines1111\u20131118 consumed. Native result aggregate SimulationQuestFixtureSeed1885; no handwritten trait/custom codec. Actual context-dependent mission/report/cancel/bootstrap/world/recruiter/generation/materialization/admission, explicit typed Serde owners and canonical fixed fingerprint framing; selected ordering/errors/private projections cannot mechanically derive. Final2581\u20132973 source/native fixtures only, read not run and no included-body credit."
+    }
+  ],
+  "groups": [
+    "KEEP checked aggregate/currentauthority/borrowedcontext and semantic generator/materialization mappings; fixedbytes cryptographic/version fingerprints differ derived Hash. Existing Serde/json! projection is not custom Serialize boilerplate."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1228,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap/standalone.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

@@ -1,0 +1,60 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-199",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/social_roles.rs",
+      "sha256": "328d8285856568995cc423bb2ec74bb88bfa690af6e4defcbfc4aa8f9a355415",
+      "actual_EOF": 579,
+      "actual_compared_ranges": [
+        [
+          1,
+          579
+        ]
+      ],
+      "method": "Whole P16 literal body/fixtures personally read; entire empty PR textual comparison consumed, actualmutationguards andselection analyzed nothash-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/social_roles.rs",
+      "sha256": "328d8285856568995cc423bb2ec74bb88bfa690af6e4defcbfc4aa8f9a355415",
+      "actual_EOF": 579,
+      "actual_compared_ranges": [
+        [
+          1,
+          579
+        ]
+      ],
+      "method": "Whole P16 literal body/fixtures personally read; entire empty PR textual comparison consumed, actualmutationguards andselection analyzed nothash-only."
+    }
+  ],
+  "groups": [
+    {
+      "id": "Canonical role and family mutation",
+      "locations": "social_roles1-420,465-519",
+      "trace": "No numeric arithmetic exceptfixedorganizationenumeration and roleordering; primaryassignmentkeycharacter+instance, actualexistingcharacter androle belongsactualdefinition checkedbeforeinsert. Exactexistingroleid replay accepted, conflictingrole/differentinstance duplicate rejected. Updates validateproposedrole beforeassignmentmutation. Instance replay requiresdefinition andsettlementmatch; fixed3localdefinitions dischargeexpectcleanup. Family parsedprefixnonempty/controlguard, provisionaloriginrolesremovedbeforecheckingnewfamilykind/insertingrole. copybirth removeschildprovisionalbeforecheckingparenthasdurablefamily. Thus errorcanfollowdeletion, requiring allactualcallerpropagation/outertransactionproof beforeassertingrejectedfamilyoperation leavesunchanged. No caughtfailureknownfromthisbody; no ordinarypartialfamilyclaim. Deletion gathersroles anduniqueinstancesbeforemutations, preservesinstancesstillreferencedbyothercharacters.",
+      "disposition": "No new invariant arithmeticdefect. Actualfamilyreplacementfailureordering retainedasdependency, not assumed atomicatinnerhelperlevel.",
+      "dependencies": [
+        "Actual character generation/birth/seedrole caller catches and SDK outertransaction",
+        "Canonical OrganizationDefinition kind/role identityadmission",
+        "Full cross-owner family referencinggraph"
+      ],
+      "acceptance": "Successfulroleupdates preserveexactonecurrentrole peractualorganizationinstance, familyidentityindependentofmutablehousehold. Rejectedreplacementmustnotcommitprovisionalfamilyloss withoutvalidsuccessor; instancecleanupmustpreserveremainingreferences."
+    },
+    {
+      "id": "Role-derived presentation selection",
+      "locations": "social_roles422-463,521-579",
+      "trace": "Precedence comesfromsamepubliclyrecognizable nonemptytitle role winning lexicographic(address_priority,roleid); no sumofunrelatedestatevalues. Missing/invalidrolejoins omitted andnoeligible yieldsdefaulti16zero; explicitbaselinepolicy requiresactualconsumerifabsencecannotmatchzero, notoperationoverflow. Literacy separately chooseseligiblecreationliteracypriority, not universalrank. All sourcefixturesreadnotrun, coveringassignmentid/familycopy/publicrolewinner.",
+      "disposition": "No arithmetic or indexfailure. Preserve selected-role title/precedence coherence and creationliteracy distinctpurpose.",
+      "dependencies": [
+        "Canonical authoredrole priorities/preference and gateway recipients",
+        "All13initialinventorygate"
+      ],
+      "acceptance": "Presentation precedence andtitle mustfollowonesameeligiblepublicrole withstabletieorder; no inferredcombinedrank or extra persistedestateauthority."
+    }
+  ],
+  "findings": [],
+  "status": "Two originalrolespersonallycompared. Whole04incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/strategic/approved_action.rs"
+}

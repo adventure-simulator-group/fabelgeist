@@ -1,0 +1,35 @@
+{
+  "head": "2d0631412e835e23a3f4c9460d1b2f4b48c128a9",
+  "status": "Pre-edit source plan; no P06 implementation or runtime acceptance.",
+  "spawn_observations": [
+    "spawn_connected_players drains the SpacetimeDb connected-player mailbox before querying terrain.",
+    "spawn_connected_player currently creates an enemy entity before looking up the sampled spawn elevation; missing support defaults to zero.",
+    "Mission terminal evaluation runs after spawn_connected_players. Posting AppExit alone would not prove the later terminal system cannot submit an outcome in the same update.",
+    "PartyEnrollment::AdmissionResult classifies roster sealing, so it is not the terrain-admission error owner."
+  ],
+  "spawn_plan": [
+    "When authoritative scene terrain has not arrived, wait before draining the connected-player mailbox.",
+    "Admit every drained batch spawn location before publishing any enemy or player entity commands; preserve each character-derived RNG stream, draw order and x/z distribution.",
+    "Retain ScenePlanPoint and SupportElevation in named admitted placement records; apply capsule offset at the actual checked scene-position/Transform operation.",
+    "Return a structured local spawn-support error for invalid or unavailable required geometry via the existing Bevy system Result boundary. Do not issue a fabricated battle outcome, resample a different position, silently discard a failed projection as successful, or add an implicit retry queue.",
+    "Extract the connected projection responsibility before growing the large player_projection root; keep its support-admission concern focused."
+  ],
+  "framework_evidence": {
+    "locked_bevy_ecs": "0.19.1",
+    "sources": [
+      "Cargo.lock:1792-1795",
+      "CARGO_REGISTRY/bevy_ecs-0.19.1/src/error/handler.rs:112-141",
+      "CARGO_REGISTRY/bevy_ecs-0.19.1/src/error/bevy_error.rs:20-24",
+      "CARGO_REGISTRY/bevy_ecs-0.19.1/src/error/bevy_error.rs:400-409"
+    ],
+    "finding": "Default FallbackErrorHandler uses match_severity; unclassified error From admission assigns Severity::Panic. Server source has no handler or severity override. Propagate the structured failure at the framework boundary; do not claim an error-return merely logs or waits.",
+    "validation_limit": "Static dependency/source inspection only. Hosted compilation and existing selections do not establish a new live failure scenario."
+  },
+  "capture_plan": "Use the existing terminal CaptureAdmission rejection with a named missing-terrain-support variant carrying the checked scene-plan point. Bevy Result setup and existing fallible camera setup reject required absent support. Authored flat-grid measurements remain real observations.",
+  "range_plan": "A checked optional SupportElevationRange represents owned empty support without infinities. The final shader/image packing extracts scalars. Couple retained tree image/range availability, reject unavailable required capture bounds and omit unavailable optional visual candidates.",
+  "landform_plan": "Propagate missing support through TerrainRecipeResult rather than expect, zero, infinity or NaN; collect fallible fault-scarp samples and propagate the general marching field error through sample_field. Preserve density and extraction arithmetic/order.",
+  "pending_before_source_edit": [
+    "Finish remaining consumer-body review and fixture/module selection.",
+    "Wait for the existing P04 complete hosted acceptance; current run remains live."
+  ]
+}

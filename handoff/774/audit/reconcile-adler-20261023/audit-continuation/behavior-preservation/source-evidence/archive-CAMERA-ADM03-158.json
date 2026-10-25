@@ -1,0 +1,36 @@
+{
+  "id": "CAMERA-ADM03-158",
+  "at": "2026-10-22T18:11:33.913834+00:00",
+  "members": [
+    151
+  ],
+  "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/cooking.rs",
+  "sha256": "da8832af71a29edfd807274456fa4ee5890834beec5b80ef726e55b8399eaf7b",
+  "actual_source_proof": "Fresh complete P16 cooking1-868 read three chunks1-280/281-590/591-868; complete actual PR diff only retrieve Result header. No tests present in this fragment; separate included food tests remain their own source roles.",
+  "invariant": "Cooking selects positive available canonical fractions from current actor/party ingredients at the actual fireplace, preserves return custody, and emits measured food/dish state. Raw persisted dish/lot fields and parallel vectors are not private accepted aggregates; native numeric outputs need their own policies.",
+  "all_admission_routes_currently_compared": [
+    "Closed CookingMethod exhaustive four mappings. Reducer raw fractions parse via canonical ConsumableFractionMicros::try_new (0 valid owner, selection separately rejects0); >1m errors before reducer helper. Instrument presence helper sums raw u32 row quantities, not a checked aggregate; pan/pot/oven requirement only preview path, actual placed vessel method delegated actual custody helper.",
+    "Container start gateway/living/fixture/station/object and fixture custody, no existing dish, recorded return custody resolving carried character/party. Actual loop selects DIRECT contents only (150-156), not arbitrary nested descendants despite stale doc105-107. Noncookable children remain; scoped row location must match return inventory, missing lot/fraction skipped, cooked preparation rejects. Requires >=1, invokes full helper then deletes selected child containment/object rows. No promised recursive cooking admission invented.",
+    "Helper gateway/living/no tactical, canonical fixture and exact persisted fixture string, parsed personal/party scope, vessel recorded return custody scope and existing party; ordinary path derives current carried custody. No existing dish. Nonempty equal vectors, <=32 only nonvessel; positive unique selected IDs, personal owner and not equipped or exact party owner. Canonical available fraction present, selected<=available and cookable item. Thus ratio positive <=1 and nonzero denominator on this path.",
+    "Ingredient lot finite nonnegative mass/nutrition/value/five flavors all explicitly checked366-379; growth/current contamination derives actual contamination helper, not automatically allfinite parallelarrays. Ingredient names/IDs/quantities copied; medicinal zip truncates mismatched raw source vectors and known willow/sage profiles only when skill>=1. No generic membership guarantee for every copied authored ingredient or arbitrary raw lot.",
+    "Actual contained water only WATER_ITEM_ID; Stew requires >0. Material contributions summed via checked Microliters add, public u32 ml rounded canonical Microliters, contribution total<=public water. Native mass/flavor/load aggregates and Core duration Option/quality calls preserve numeric boundary; result Option is not whole finite certificate. Native u32 water->f32 representable finite, aggregate arithmetic after admission crossref04 separately.",
+    "All preflight precedes mutation499, but partial retain_lot_fraction529 can fail checked material revision after water and earlier selected mutations; comment atomic is not independent transaction proof. Whole selections delete fraction/item/lot; partial check_sub expect dominated selected<=available, canonical bounded subtraction. Resulting fraction rawstoredword retains existing F027 public-storage bypass, not a newly unchecked reducer fraction.",
+    "Dish uses sorted/dedup display names and aligned locally constructed medicinal arrays; raw public FireplaceDish struct still admits arbitrary target/float/vector combinations outside this factory. Ready quality/contamination/nutrition remain Corefood089 numeric policy. No stricter normalized flavor/unitinterval or allweightspositive assumptions.",
+    "Retrieve gateway/living/no tactical, actual fixture/dish fixture equality, recorded return destination and existing party, optional vessel selector exact stationobject. Clock elapsed saturates native canonical; computed doneness/quality. Conservation check687 uses floating tolerance; NaN comparisons would not reject arbitrary malformed raw dish, no actual bad normal producer asserted. Creates exact one personal-or-party cookedmeal row and WHOLE amount; expect714 follows mutually exclusive branch. Creates optional containment, ensures exact material object then lotrevision1, raw/extensive fields, aligned normal medicinal zip and positive potency, contamination, deletes dish/station and refreshes.",
+    "Preview is public pure-query helper, no gateway or living gate itself; nonempty equal <=32, instrument present, positive unique fractions/owner/available/cookable. Missing fraction defaultsZERO then selectedpositive>available rejects; canonical raw fraction parse panic remains F027 lower. It lacks full lot finite/sign preflight and preparation safety factor from actual commit, so preview u32 duration is not commit authority or a guaranteed exact prediction."
+  ],
+  "counterexample_or_intentional_evidence": "Raw public persisted FireplaceDish can carry NaN fields or mismatched medicinal/provenance vectors; getters/constructor label do not seal them. Existing normal factory validates selected food fields and locally aligns its own vectors. Food lot F029 independent item-binding route and F027 raw fraction bypass remain; no actual invalid normal cooking execution asserted. u32 quantity sum/float aggregate overflow belong exact later operations, not repaired here.",
+  "connected_repair_acceptance": "Retain canonical fractions and material identities to actual SDK codec, represent admitted dish/ingredient/source correlations coherently and share commit vs preview predicates where same promise intended. Preserve deliberate zero-valid fraction owner, positive selected portions, personal/party return custody, direct-content selection, stew water and raw interrupted/contamination policy. Source comment suggesting recursive selection should match actual chosen policy; no autonomous behavior change.",
+  "dependencies": [
+    "CAMERA-ADM03-021 canonical fraction",
+    "CAMERA-ADM03-089 Corefood actual cooking helpers",
+    "CAMERA-ADM03-142/F027 raw fraction route",
+    "CAMERA-ADM03-146/F029 lot factory",
+    "P16 fireplace custody152 still pending source-specific gate",
+    "P16 inventory_container167 still pending lower custody/containment"
+  ],
+  "discovery_status": "assigned full admission source inventory exhausted WITH_FINDINGS/dependencies",
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true
+}

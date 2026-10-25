@@ -1,0 +1,45 @@
+{
+  "id": "SEGO-INITIAL09-REGISTRATION-053A",
+  "reason": "Trace carried quarter_speed choice through client resource/UI/ordered message/native virtualtime adapter",
+  "roles": [
+    {
+      "scope_index": 1472,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/debug.rs",
+      "sha256": "95f141113d44f702b7ac4ae9db824785c6bc3340413a01f3e881b52fd26cdb33",
+      "ranges": [
+        [
+          1,
+          376
+        ]
+      ],
+      "previously_scoped": true,
+      "limit": "Partial UI/main support only, no fullrole credit"
+    },
+    {
+      "scope_index": 1745,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/ui.rs",
+      "sha256": "2a2206d4b76e7db409e7cfa2b8e4337d5ea4a6fa606a95de4e8cf04ca85666e6",
+      "ranges": [
+        [
+          612,
+          635
+        ]
+      ],
+      "previously_scoped": true,
+      "limit": "Partial UI/main support only, no fullrole credit"
+    },
+    {
+      "scope_index": 2062,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/main.rs",
+      "sha256": "a52f98db1a5b753a3b5f3d54348ffa36df35e266644e667489c8a1784508b150",
+      "ranges": [
+        [
+          263,
+          300
+        ]
+      ],
+      "previously_scoped": true,
+      "limit": "Partial UI/main support only, no fullrole credit"
+    }
+  ]
+}

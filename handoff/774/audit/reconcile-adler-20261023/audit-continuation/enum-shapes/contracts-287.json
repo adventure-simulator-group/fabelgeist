@@ -1,0 +1,33 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-287",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        247
+      ],
+      "comparison": "Full exact residence authority fixture242 read. Explicitly preserves tenant versusowner, buying alongsideactive rental, occupancy independent from family membership/title, unoccupiedowned property stillreserved, and delayed capacity checkswithoutfuturepointerchange. Evidence includes deliberate dev database writes/tokencheck declarations; none executed, no historicalfixtureclaimtreatedashumanpermission. Sourcefixture supports F208/F209 qualifiers, not test pass or current runtime clearance.",
+      "disposition": "Fixture-only independent identity/history and capacity evidence",
+      "finding_refs": [
+        "SEGO-INITIAL09-F208",
+        "SEGO-INITIAL09-F209"
+      ]
+    },
+    {
+      "indices": [
+        249,
+        250,
+        251,
+        252
+      ],
+      "comparison": "Full exact properties377/household projection62/materialization111/view57 read. Explicit GeneratedResidentHome row presence is one-time census provenance, not current residence pointer or initializedBool. Aggregate unmaterialized residents and named occupants can coexist in same physical property after actual decrement/materialization; do not turn into mutually exclusiveMaterialized/Unmaterialized enum. Households/currentmember/physicalproperty/legalholding retaindifferentidentities and no generic same-number equivalence. Seeded ResidenceOccupant.holdingNone valid; actual legalacquisition requiresavailable exact property and admission capacity overeveryfutureboundary. Property registration immutablecatalogdigest, no recreationonretry; declarationsnoexecution. F209 actual propertyreservation uses resolvedMinute while publicavailabilityalso lateststatus, preserving canonical terminalpayloadneed; F208 sourceview selects owner even unoccupied plus historical affectedcharacters, billingprivacy retained. count andordinal are quantitative/index facts, no enum merelyrenamingnumbers. Potential census-familyassociation requires canonicalallocationproducer contracts before anydefectclaim; source-only aggregate followup, not09coveragefromroot.",
+      "disposition": "Existing optional provenance and independent mixed occupancy; two finding recipient support",
+      "finding_refs": [
+        "SEGO-INITIAL09-F208",
+        "SEGO-INITIAL09-F209"
+      ]
+    }
+  ],
+  "new_findings": [],
+  "limits": "Discovery only; no execution, repairs, checks, plan or clearance."
+}

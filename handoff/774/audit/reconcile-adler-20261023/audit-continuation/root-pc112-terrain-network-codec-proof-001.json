@@ -1,0 +1,56 @@
+{
+  "at": "2026-10-23T22:16:08.598870+00:00",
+  "id": "pc112-terrain-network-codec-proof-001",
+  "reads": {
+    "crates/adventuresim-tactical-netcode/src/replication.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-tactical-core/src/volumetric_terrain/recipe.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-tactical-core/src/volumetric_terrain/surface_recipe.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-world-schema/src/geology.rs": [
+      [
+        100,
+        145
+      ]
+    ],
+    "crates/adventuresim-tactical-server/src/terrain_collision.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-tactical-server/src/main.rs": [
+      [
+        665,
+        717
+      ]
+    ],
+    "crates/adventuresim-tactical-core/src/bin/generate_scene_fixtures/fault.rs": [
+      [
+        1,
+        10000
+      ]
+    ]
+  },
+  "contract": "Scene landform canonical admitted value\u2192real replicated scene component\u2192default locked native postcard serializer/deserializer and internally tagged enum incompatibility",
+  "coverage_limit": "Exact project bodies/ranges listed plus separatelyregistered native dependency ranges; static proof, no codec execution/build/test/network session. Generated fixture source is ordinary supported input example, not run/installedactive instance. Broader terrain semanticproducer, sourcevariants and other lenses remain incomplete.",
+  "disposition": "Lens07candidate003 independently resolved intoF52 exact codec contract: TerrainGeologicStructure tagkind derive alwaysinvokesdeserialize_any, lockedpostcard1.1.3 returnsWontImplement; defaultreplicate_once<C> uses RuleFns.default\u2192postcard_utils.from_buf\u2192C::deserialize. ProjectTerrainSurfaceRecipe/QuantizedLandformRecipe nesting retainsstructure, no custom adapter forlandform. Servermain passes input.landform toactualReplicatedsceneinsert; authored faultfixture yieldsvalidMassive. Thereforeanysentvalidlandformstructure cannotcomplete defaultdecode, unlike explicitSceneBuildingcustomJSONcodec. SurfaceLithology is plainexternallytagged enum, not anearlierinternallytaggedfailure. NoDB/network/runtimeclaim. Native serde1.0.229/bevyreplicon0.41.1/postcard1.1.3 cachedcrate SHA andmemberbytes match frozenCargo.lock; no packagefullbody coverage inferred. Surface rawquantizedretention/microrelief andpalette/nativeuniform recipients remain separateM64/canonicalterrainquantity obligations, not codecfixalonefamilycompletion.",
+  "finding_traces": {},
+  "frontier": {
+    "file": "crates/adventuresim-character-creator/src/garment/pattern.rs",
+    "work": "PC112 native TerrainLandform codec question source-resolved, F52record follows. Resume PC113 garment pattern authoring/remaining rig producers and remaining changed/historical inventory. Root01/parallel04/07/09 and untouched successorlenses remain initialdiscovery incomplete; no implementationplan/repairs/projectchecks."
+  }
+}

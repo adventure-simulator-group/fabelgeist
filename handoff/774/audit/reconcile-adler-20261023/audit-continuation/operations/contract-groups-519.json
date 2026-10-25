@@ -1,0 +1,99 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-519",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/support_regions.rs",
+      "sha256": "89663c0241fc8675658795b9b0c80bf2361fbde5982a3c363b64c297a322aacc",
+      "actual_EOF": 168,
+      "actual_compared_ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/support_regions/distance.rs",
+      "sha256": "ad44e57b22e6d7a14addd6a5cc842d77eb50c41fa224bd3ff8ae272390959d73",
+      "actual_EOF": 89,
+      "actual_compared_ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/terraces.rs",
+      "sha256": "3fc98886a179f315392a59d9e492821a5d2c5758d61b854f323333dc91ec0d54",
+      "actual_EOF": 203,
+      "actual_compared_ranges": [
+        [
+          1,
+          203
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/validate-city-support.rs",
+      "sha256": "92a90abaa4886c7e192fa799d406c9261c1879de3c97af39490d53c1dca4b707",
+      "actual_EOF": 140,
+      "actual_compared_ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/validate_city_support/composition.rs",
+      "sha256": "b74d49e84b2fe053e0b981b3ab55a309e07d56e7de1b2beb4f816ff563932620",
+      "actual_EOF": 105,
+      "actual_compared_ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Projected envelopes and exact dimensional contacts remain separate",
+      "evidence": "Full support_regions168/distance89: actualcontactpolygons and fixedpost projected intoonepropertyframe; nearestsource stablegapthensolidID; fixedpostclearance explicitlydifferentfromhingelinegap and supportbounds notfoundationcertification. Fresh frozenPRground_contact.rs393 dependencyfullread: canonicalGroundContact Empty/Point/Segment/Area means degeneratepoint/edge gets1/2points and distancecontains length<3 false; no automaticduplicate ofmarketallZEROquadF028. Hugecorneroperations returntypedSolidConstructionwithsourceID. No epsilon convertsnearby noncontact tocontact; currentrotatedchurchregressionsourceassertiononly."
+    },
+    {
+      "contract": "Endpoint terrace decision cannot certify runtime support",
+      "evidence": "Full terraces203: exactuniqueendmatchesnotnearestpath, availablepositiveflight run, checkedcompletedcourt/rearelevation, twoexplicitcandidates, scopedfixturewithreorderedroutes. Grade .65 trial, gateplatform and retaining geometry stillseparate. Nativeintermediates mayoverflow onarbitraryextremes butnormalprovisionalpolicy bounded; noordinarynewroute established."
+    },
+    {
+      "contract": "Support compilation and composed checks retain exact original source",
+      "evidence": "Full validate140/composition105. Exactdigest/source check, requestedpropertyexistsuniquely andmembercollectionsfilteredtogether. Selectionthencompile; structuredrejectreport. Queryeveryoriginalvertex, unownedsourceheightcheckedtolerance; acceptedboolmeansboundednative support only. Compactprojectioncheck andseatedplacements canbeexportedbeforelaterunownedvertexreject; outputs explicitlydiagnostic/hand-off, notproductioninstallationor atomicpublication. Vertexunchanged checks do notprovefulltrianglecoverage, collision,enclosure/access/capacityvisualperformance\u2014reportexplicitlyexcludes. ExistingNATIVE05F024areacoveragequalification preserved."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/collision/ground_contact.rs",
+      "sha256": "76849b38576c81c1060d2720809c0eea1ad64d3e318b70ea8ecb38719b3b17ee",
+      "actual_compared_ranges": [
+        [
+          1,
+          393
+        ]
+      ],
+      "path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/dependencies-519/ground_contact.rs",
+      "qualification": "Freshdependency read for dimensional recipient, no added originalrole/hashaliascoverage."
+    }
+  ],
+  "status": "5 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/bin/materialize-real-world-scene.rs"
+}

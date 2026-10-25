@@ -1,0 +1,103 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-300",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/artillery_openings.rs",
+      "sha256": "cf9a03acb280fa5d4e7397456d4ace1bcba402e898af3539d8301c5661c6deaa",
+      "actual_EOF": 552,
+      "actual_compared_ranges": [
+        [
+          1,
+          552
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/cathedral_clerestory.rs",
+      "sha256": "85e4cc768fd27113df0983f8999f7bd5fa56ca9ff08e57afae5b8f076feef870",
+      "actual_EOF": 122,
+      "actual_compared_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Artillery opening construction preserves the admitted frame and exact support/shape identity",
+      "source_ranges": {
+        "artillery_openings.rs": [
+          [
+            1,
+            552
+          ]
+        ]
+      },
+      "disposition": "The complete 552-line source body was personally read. The actual caller in packet299 limits rondel indices to0..3, station indices to0..2 and supplies cardinal facing directions. Thus owner/node arithmetic, fixed two jambs and two bearing-interface Vec conversions have direct bounds proofs. The nine sectional samples use t=i/8 in[0,1], with positive ordered widths .28\u21921.10 and heights .56\u21921.20. Missing radial frame, curtain or bearing produces a typed error. Geometry leaves and computed bounds are readmitted before field assignment. In-progress local graph mutation remains protected by the consuming BuildingPlan boundary established in299, rather than a claim of transactional external storage."
+    },
+    {
+      "contract": "Gun-loop support bounds and materialized geometry must refer to the same final frame",
+      "source_ranges": {
+        "artillery_openings.rs": [
+          [
+            75,
+            185
+          ],
+          [
+            410,
+            479
+          ]
+        ]
+      },
+      "disposition": "Actual wall_solid implementation was freshly read at pinned6533 wall_derivation261..304: it creates a yaw0 solid and an unrotated underside support interface. Artillery opening construction subsequently changes the solid yaw; it separately constructs the explicit head-bearing and wall-above interfaces in final tangent/facing coordinates. These are distinct records and roles. This adds source evidence to the shared solid/support-coherence question; no complete unsupported generated gun loop or new unique defect is asserted. The earlier left reveal temporary depth_sign1 is explicitly replaced with the computed sign before publication, so it is not an unresolved final sign error."
+    },
+    {
+      "contract": "Artillery state-specific output retains explicit open military and calibration-ray policies",
+      "source_ranges": {
+        "artillery_openings.rs": [
+          [
+            281,
+            552
+          ]
+        ]
+      },
+      "disposition": "The lower/upper floor values .20/5.86 are explicit modes; smoke vent exists only for lower casemate. OpenMilitary has no closure solids and zero closure thickness intentionally. Three near/middle/far calibration rays are appended with their actual vector indices; u64MAX is a temporary ArtilleryTargetId replaced by packet299 target materialization before successful aggregate output, not proof of a leaked synthetic durable ID. Recoil, stance, mounting, ray and shell clearance require the actual downstream audit, not merely this construction result. Signed or zero inapplicable values are not forced through unrelated positive-leaf policies."
+    },
+    {
+      "contract": "Clerestory helper preserves a source-qualified support-drift candidate, with no current call proven",
+      "source_ranges": {
+        "cathedral_clerestory.rs": [
+          [
+            1,
+            122
+          ]
+        ]
+      },
+      "disposition": "The complete source body was personally read. It is annotated allow(dead_code); a pinned6533 source search finds resolve_cathedral_clerestory_walls only at its definition. Its two high vertices are checked before indexing; missing roof/polygon and wrong cardinality deliberately skip creation. It builds a wall_solid at yaw0 and then sets host yaw\u03c0/2 while retaining its original support interface, which joins the archived solid/support-coherence concern. This variant does not establish ordinary generated reachability. Source proof of the helper is not proof of a failing clerestory asset. Additional finite midpoint/range arithmetic and support-node grounding remain dependent on actual roof/wall input contracts. No source fixes, generation or tests."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-building-generator/src/generator/wall_derivation.rs",
+      "sha256": "c809e10e428aa6559cf4ef46101cd34e5f8040ce82fd4a4f85c586113d52824f",
+      "personally_read_ranges": [
+        [
+          245,
+          340
+        ]
+      ],
+      "coverage": "Actual wall_solid support construction only; no full original source-role credit."
+    }
+  ],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-building-generator/src/generator/church_assembly.rs"
+}

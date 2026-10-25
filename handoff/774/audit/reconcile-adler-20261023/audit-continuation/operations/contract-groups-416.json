@@ -1,0 +1,96 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-416",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs",
+      "sha256": "256fd3e5455eea95b629cf6ee1f856cb2149bb522d91b81d8bd9820c801161e6",
+      "actual_EOF": 1409,
+      "actual_compared_ranges": [
+        [
+          1,
+          1409
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/admission.rs",
+      "sha256": "7d0001581edb1446088662238b20c1f4e4d2f8f30f69d47aac54402e9af2dc80",
+      "actual_EOF": 43,
+      "actual_compared_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/plan_families.rs",
+      "sha256": "8e07b8a223fec8cbfa46b35aedc1732f3ff056c3000abf8db68f322517119d66",
+      "actual_EOF": 190,
+      "actual_compared_ranges": [
+        [
+          1,
+          190
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/terrain_policy.rs",
+      "sha256": "ef089759439d79d013473eda445c12a1f4ee725f5aee47be890a3983a8a492a2",
+      "actual_EOF": 40,
+      "actual_compared_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/setup.rs",
+      "sha256": "ca7571cd25d303d7ef2ca543a07674e3ba3ba58b4a9abb8bb3f234f03507f9cb",
+      "actual_EOF": 94,
+      "actual_compared_ranges": [
+        [
+          1,
+          94
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/view.rs",
+      "sha256": "1ec7bad7a491c5c78bfefb2ee24f87039f35d5fc22fcca5aec8ab879f69a79d8",
+      "actual_EOF": 74,
+      "actual_compared_ranges": [
+        [
+          1,
+          74
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Finite authored plans, sample-count and caller scope",
+      "evidence": "scenarios.rs:1-1409; scenarios/admission.rs:1-43; scenarios/plan_families.rs:1-190",
+      "disposition": "Complete bodies and source fixtures personally read. Catalogue steady callers use positive speeds1/2/3.75/5.5/sprint, finite cycles1..3, finite normal configured step/rate. General crate-private steady helpers accept SignedSpeed zero: division yields infinity, saturating float-to-usize then +1 can overflow; huge admitted rate/step similarly unsafe count/allocation. Record as bounded fixture/API contract qualification, not ordinary shipped plan failure or separately counted defect. Checked authored time/speed/angle helpers panic on invalid built-in generation; they are explicit finite admission rather than unchecked bespoke constructor. Constants and windows distinguish physical time and fixed64frame fixtures; alternate sample rates can change scenario timing, no current64Hz failure claimed."
+    },
+    {
+      "contract": "Terrain toggle and capture setup ownership",
+      "evidence": "scenarios/terrain_policy.rs:1-40; setup.rs:1-94; view.rs:1-74",
+      "disposition": "Actual toggle disables outside16..80, firstsceneinitialterrain frommetadata, authored fixtures intentionally bounded. Viewer uses isolated scene terrain100x100 fixedperiod200, admitted initial scene point and root position. Camera reconstructs controller-follow base eachview to avoid accumulated offset and applies inspection orbit onlyasrequested. No spawnedscene/render proof inferred. Toggle fixture could exercise retained plan question from406, but authored locomotion owner can bypass ordinary planner; no stalecontact claimed from label alone."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "6 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer_main.rs"
+}

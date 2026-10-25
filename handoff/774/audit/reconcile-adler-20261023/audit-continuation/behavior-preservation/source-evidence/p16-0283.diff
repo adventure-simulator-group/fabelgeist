@@ -1,0 +1,13 @@
+--- p16base/crates/adventuresim-stdb-module/src/strategic/hostile_negotiation.rs
++++ catalog-p16head/crates/adventuresim-stdb-module/src/strategic/hostile_negotiation.rs
+@@ -523,9 +523,9 @@
+     spokesman_id: u64,
+     context_ref: String,
+     expected_revision: u32,
+     action_id: String,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     require_strategic_character_authority(ctx, actor_id)?;
+     if action_id.is_empty() || action_id.len() > 160 {
+         return Err("Hostile negotiation action ID is invalid".into());
+     }

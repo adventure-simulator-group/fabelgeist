@@ -1,0 +1,498 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-766",
+  "at": "2026-10-25T16:44:29.862360+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 996,
+      "source_id": "pr-working:crates/adventuresim-core/src/skill.rs",
+      "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "actual_EOF": 1165,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/skill.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/skill.rs",
+        "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 41590,
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 20,
+            "read_ranges": [
+              [
+                735,
+                824
+              ],
+              [
+                1010,
+                1165
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-STRATEGIC-002"
+            ],
+            "read_status": "exact_owner_and_receiving_bodies_read_remaining_unclaimed",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/skill.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 36,
+            "read_ranges": [
+              [
+                1,
+                160
+              ],
+              [
+                735,
+                824
+              ],
+              [
+                1010,
+                1165
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-STRATEGIC-004"
+            ],
+            "read_status": "specified_actual_owner_and_recipient_bodies_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/skill.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 81,
+            "read_ranges": [
+              [
+                700,
+                735
+              ],
+              [
+                1010,
+                1095
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-TRAINING-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/skill.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_owner": "native",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-PURE-FOOD-LIFE-PARTIAL-054",
+            "json_pointer": "/source_proofs/4",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/skill.rs",
+            "read_ranges_as_recorded": [
+              [
+                995,
+                1107
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/skill.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/skill.rs",
+              "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+              "read_ranges": [
+                [
+                  995,
+                  1107
+                ]
+              ],
+              "role": "Actual shared aptitude/language/direct training and mutablehours/TrainingGain receiver; nextPlayerSkills prefix only"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CASE-RECEIVERS-029",
+            "json_pointer": "/related_current_sources/8",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/skill.rs",
+            "read_ranges_as_recorded": [
+              [
+                690,
+                811
+              ],
+              [
+                930,
+                981
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/skill.rs",
+              "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+              "read_ranges": [
+                [
+                  690,
+                  811
+                ],
+                [
+                  930,
+                  981
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/skill.rs",
+              "scope": "Actual capped training/aptitude and weighted resolve numerical receivers. Skill-hours scalar versus rank versus labels remain distinct; no whole1165 claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SERVER-PROJECTION-EQUIPMENT-055",
+            "json_pointer": "/additional_actual_source_proofs/10",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/skill.rs",
+            "read_ranges_as_recorded": [
+              [
+                146,
+                187
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/skill.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/skill.rs",
+              "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+              "read_ranges": [
+                [
+                  146,
+                  187
+                ]
+              ],
+              "actual_line_count": 1165,
+              "read_kind": "fresh complete actual specified bodies; no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-040",
+            "json_pointer": "/additional_actual_source_proofs/4",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/skill.rs",
+            "read_ranges_as_recorded": [
+              [
+                690,
+                794
+              ],
+              [
+                825,
+                1000
+              ],
+              [
+                1008,
+                1128
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/skill.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/skill.rs",
+              "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+              "read_ranges": [
+                [
+                  690,
+                  794
+                ],
+                [
+                  825,
+                  1000
+                ],
+                [
+                  1008,
+                  1128
+                ]
+              ],
+              "actual_line_count": 1165,
+              "scope": "Exact reached material source/receiving scopes only; no inference whole source outside listed range. SDK/math/hash fixture source only; no execution."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016",
+            "json_pointer": "/related_current_reads/8",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/skill.rs",
+            "read_ranges_as_recorded": [
+              [
+                690,
+                811
+              ],
+              [
+                930,
+                981
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/skill.rs",
+              "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+              "read_ranges": [
+                [
+                  690,
+                  811
+                ],
+                [
+                  930,
+                  981
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/skill.rs",
+              "scope": "Actual capped training/aptitude and weighted resolve numerical receivers. Skill-hours scalar versus rank versus labels remain distinct; no whole1165 claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-SERVER-PLAYER-PROJECTION-026",
+            "json_pointer": "/additional_actual_receivers/10",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/skill.rs",
+            "read_ranges_as_recorded": [
+              [
+                146,
+                187
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/skill.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/skill.rs",
+              "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+              "read_ranges": [
+                [
+                  146,
+                  187
+                ]
+              ],
+              "actual_line_count": 1165,
+              "read_kind": "fresh complete actual specified bodies; no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/rig/pure-food-recipient-carry-forward-041.json",
+            "receipt": "RIG-CONT-PPS-PURE-FOOD-RECIPIENT-CARRY-FORWARD-041",
+            "json_pointer": "/additional_reached_ranges/4",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/skill.rs",
+            "read_ranges_as_recorded": [
+              [
+                690,
+                794
+              ],
+              [
+                825,
+                1000
+              ],
+              [
+                1008,
+                1128
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/skill.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/skill.rs",
+              "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+              "read_ranges": [
+                [
+                  690,
+                  794
+                ],
+                [
+                  825,
+                  1000
+                ],
+                [
+                  1008,
+                  1128
+                ]
+              ],
+              "actual_line_count": 1165,
+              "scope": "Exact reached material source/receiving scopes only; no inference whole source outside listed range. SDK/math/hash fixture source only; no execution."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1588,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1165
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "PlayerAttributes",
+          "type": "tests::Aptitudes",
+          "lines": [
+            [
+              138,
+              159
+            ]
+          ],
+          "disposition": "KEEP selector-specific synthetic aptitude fixture"
+        },
+        {
+          "trait": "PlayerBody",
+          "type": "tests::ArmHealthBody",
+          "lines": [
+            [
+              163,
+              179
+            ]
+          ],
+          "disposition": "KEEP arm-only health/default otherparts/mass/side synthetic behavior"
+        },
+        {
+          "trait": "PlayerSkills",
+          "type": "tests::PhysiologySkills / SurgerySkills / two local Hours fixtures",
+          "lines": [
+            [
+              338,
+              346
+            ],
+            [
+              373,
+              377
+            ],
+            [
+              480,
+              489
+            ],
+            [
+              523,
+              532
+            ]
+          ],
+          "disposition": "KEEP four sparse selector-driven skill fixtures, no field delegation equivalent"
+        }
+      ],
+      "existing_derives": [
+        "Skill enum_assoc::Assoc+structural; GoverningAptitudes/SkillKind structural; TrainingGain Default/structural; PlayerSkills existing blanket+ambassador declaration1099\u20131100"
+      ],
+      "absence_basis": "Whole1165line exact role personally consumed760\u2013766: skill metadata, all fixture impl/assertions, native training/aptitude/correlation/calculation and actual PlayerSkills default methods. No other handwritten trait/codec."
+    },
+    {
+      "scope_index": 997,
+      "source_id": "pr-working:crates/adventuresim-core/src/smithing.rs",
+      "sha256": "83f6b2eb7d945187bca6dc9f0fe78cbab0d25c292ce4c4096af94b4eb89a298b",
+      "actual_EOF": 78,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/smithing.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/smithing.rs",
+        "sha256": "83f6b2eb7d945187bca6dc9f0fe78cbab0d25c292ce4c4096af94b4eb89a298b",
+        "bytes": 3297,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                78
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-WEAPON-MODEL-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 190,
+            "read_ranges": [
+              [
+                1,
+                78
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SMITHING-036"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/smithing.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 248,
+            "read_ranges": [
+              [
+                1,
+                78
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SMITHING-036"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/smithing.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 361,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "ForgeQuote Debug+Serialize11 already derive"
+      ],
+      "absence_basis": "Whole78line exact smithing source personally consumed765 output: quote derives material/time, checked stock fractions and two fixtures; no handwritten trait/codec. Not executed."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Skill derivability",
+      "disposition": "Retain synthetic argument-dependent fixture behavior and semantic gameplay defaults; existing blanket/delegatable trait annotations already own ordinary forwarding, no new derive or codec needed."
+    },
+    {
+      "contract": "Smithing quote derivability",
+      "disposition": "Record writer already derived, explicit physical quote/checked stock computations are semantic mapping, not mechanical From."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 998,
+    "source_id": "pr-working:crates/adventuresim-core/src/social.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

@@ -1,0 +1,53 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-027",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "encounter-cursors-entropy-and-semantic-context",
+      "sources": [
+        {
+          "scope_index": 97,
+          "ranges": [
+            [
+              1,
+              1019
+            ]
+          ]
+        },
+        {
+          "scope_index": 98,
+          "ranges": [
+            [
+              1,
+              72
+            ]
+          ]
+        },
+        {
+          "scope_index": 99,
+          "ranges": [
+            [
+              1,
+              36
+            ]
+          ]
+        }
+      ],
+      "distinction": "Journey movement cursor, accumulated camp-rest cursor, elapsed requested minutes, roll index and absolute StrategicMinute are different quantities even though u64. Narrative kind determines which accumulated cursor boundary_minute refers to. Context Awareness finite four-state algebra differs from night/terrain and actual offered choice; accepted quest influence differs from arbitrary nearby quest. Statistical weights and basispoint chance are different scales.",
+      "uses": "first_encounter200\u2013213 computes movement boundaries; narrative485\u2013500 chooses interval from kind with the same raw completed/requested signature. select_at exposes separate index/minute API but normal loop binds them coherently. Domain enum415\u2013449 controls separate frequency/archetype/count/awareness/sneak/narrative entropy streams. Choices depend current awareness plus actual speed/archetype162\u2013185. Opaque receipt99 derives128bit observer-safe identity; retry22\u201335 compares full encounter+character+choice+expectedrevision association.",
+      "disposition": "Qualified Q003: separate coherent TravelCursor/RestCursor contextual boundary views and elapsed span would prevent absolute-clock or cross-cursor substitution; no numeric bound needed. Exact canonical repair lookup pending, no new unique count/normal malformed cursor claim. Preserve finite meaningful enums and domain-separated Seed; do not replace proper weighted vector slots with arbitrary enum on numeric index. Native storage/string ABI may remain explicit codecs; internal checked EncounterChoice owner exists and must carry through actual semantic consumers.",
+      "acceptance": "Preserve current 180/240 movement and180rest intervals, lexical candidate sort and tie/entropy domains, impossible habitat hardzero despite quest/problem curation, actual zero/empty no-interruption policy, neutral absent mounts. Retry same full request association remains explicit; opaque identity must not expose private journeyseedshape. Speed here metres/minute differs tactical metres/second; no universal speed scalar without unit adapter.",
+      "question_refs": [
+        "SEGO-INITIAL11-Q003"
+      ],
+      "finding_refs": [
+        "SEGO-INITIAL11-F002"
+      ]
+    }
+  ],
+  "new_findings": [
+    "SEGO-INITIAL11-F002"
+  ],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan.",
+  "finding_supplement": "Q003 promoted after exact metadata alias lookup; no new source or other-lens credit."
+}

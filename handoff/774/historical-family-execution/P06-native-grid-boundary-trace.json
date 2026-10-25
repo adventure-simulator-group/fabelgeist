@@ -1,0 +1,27 @@
+{
+  "head": "a15f24ad44fc22f86e1e1fd9f2ae47b6bb0ba860",
+  "observed_at": "2026-10-20T17:23:20.049912+00:00",
+  "status": "Verified native-grid representation exclusion and scene-point admission frontier, not implementation.",
+  "owner": "scene_input.rs:144-148 GeneratedObstacle",
+  "representation": "Serialize/Deserialize enum retains source-grid x/z u16 plus rock recipe. It is not an existing checked scene-plan point being erased.",
+  "producer_evidence": [
+    "generation.rs:80-121 derives row/column ordinals from the source environment raster and uses them as deterministic RNG context",
+    "generation.rs:124-140 uses the original grid cells for corridor/camera reservation predicates",
+    "generation/geographic.rs:9-63 retains the native-grid product through source-grid/detail preparation",
+    "generation/supported.rs:7-49 retains it after actual owned support installation and clears accepted bearings/approaches",
+    "detail_obstacles.rs:4-49 already admits native grid conversion into canonical ScenePlanPoint for terrain/detail kernels"
+  ],
+  "migration_boundary": "Keep grid ordinals at their actual raster/serialized ports. At each scene-geometry consumer, admit the complete native grid-to-metres result once and retain ScenePlanPoint through application helpers/support queries. Reuse TerrainDetailObstacles existing typed fields; do not rewrap them. Do not create an equivalent bespoke grid/point type just to replace a serialized primitive spelling.",
+  "arithmetic_risk": "The generator uses (index - source_half) * spacing for its native collar context, while server/capture/detail consumers use index * spacing - terrain_half. These are not guaranteed bit-identical f32 expressions. Do not unify them mechanically or move admission ahead of each complete calculation. Preserve each existing operation order and context/iteration bits.",
+  "required_support": "A serialized grid coordinate does not prove a physical hit exists after support reconstruction. Server/capture required placement must reject missing support; optional visual candidates may omit it. No zero-height substitute.",
+  "P04_boundary_spotcheck": {
+    "files": [
+      "animation/event_span.rs",
+      "animation/presentation/events.rs"
+    ],
+    "finding": "No newly suspected u64-to-usize budget truncation exists. CoalescedEventBudget compares full-width AnimationEventSpan directly, and contacts iterate/reverse typed u64 offsets without an index cast. No source change required.",
+    "scope": "Focused verification of the existing migration before acceptance, not another full bespoke-audit wave."
+  },
+  "source_unchanged": true,
+  "no_local_project_commands_or_new_tests": true
+}

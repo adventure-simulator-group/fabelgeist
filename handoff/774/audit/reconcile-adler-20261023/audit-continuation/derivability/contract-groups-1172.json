@@ -1,0 +1,40 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1172",
+  "at": "2026-10-25T18:01:59.466801+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1272,
+  "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/discovery_policy.rs",
+  "sha256": "ce9a63997e69ca2ab6dd04b3f95c73180ee30527716047bd527cc290f9fdc4f4",
+  "actual_compared_ranges": [
+    [
+      1,
+      300
+    ]
+  ],
+  "existing_derives": [
+    "PublicDiscoveryContactIdentity Clone Debug PartialEq Eq PartialOrd Ord Hash",
+    "PublicDiscoveryFingerprint/PublicDiscoveryBackoff/PublicDiscoveryReferral Clone Debug PartialEq Eq",
+    "PublicDialogueProgressFingerprint/PublicDialogueActionSemantic Clone Debug PartialEq",
+    "PublicDialogueLeadSemantic Clone Debug PartialEq Eq PartialOrd Ord",
+    "PublicDialogueAttemptKey Clone Debug PartialEq Eq Hash",
+    "GeneratedDiscoveryOutcome Clone Copy Debug PartialEq Eq"
+  ],
+  "trait_inventory": [
+    {
+      "trait": "From<BackendInvestigationLead>",
+      "type": "PublicDiscoveryReferral",
+      "lines": [
+        119,
+        133
+      ],
+      "disposition": "KEEP: selected projection + generated/core minute adaptation, not one-field derive; no enabled general conversion derive."
+    }
+  ],
+  "analysis": "Already derived discovery identity/hash/order/equality/progress and outcome types. Manual From<BackendInvestigationLead>119\u2013133 for PublicDiscoveryReferral moves selected fields and semantically reconstructs core StrategicMinute from generated minutes; keep explicit selected SDK\u2192core adapter, no enabled general conversion derive/provider per REG1171. No hand custom codec. Native selected contact/case/topic/backoff/visible-window/priority keys intentionally differ from whole-object derived ordering; existing structural equality used for semantic snapshots.",
+  "first_unfinished": {
+    "scope_index": 1272,
+    "line": 301
+  },
+  "execution": "none"
+}

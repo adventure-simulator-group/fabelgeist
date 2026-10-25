@@ -1,0 +1,110 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-987",
+  "at": "2026-10-25T17:26:22.005830+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1147,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/organization/membership.rs",
+      "sha256": "0d33ff33d3e12486c22e7724790e4c745f5f6e603ec06302c7e9fa161e3597a5",
+      "actual_EOF": 25,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/organization/membership.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/organization/membership.rs",
+        "sha256": "0d33ff33d3e12486c22e7724790e4c745f5f6e603ec06302c7e9fa161e3597a5",
+        "bytes": 903,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                25
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-DURABLE-LIFECYCLE-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 264,
+            "read_ranges": [
+              [
+                1,
+                25
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-ORGANIZATION-029"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/organization/membership.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 192,
+            "read_ranges": [
+              [
+                1,
+                25
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-ORGANIZATION-029"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/organization/membership.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 466,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Whole current-time DB accessor/current dues+role privilege predicate consumed; no handwritten trait, type or codec. Semantic chronology/privilege cannot be replaced by derivation."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Organization included membership receiver",
+      "disposition": "No derivability candidate; explicit effective-date predicate retained."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1148,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

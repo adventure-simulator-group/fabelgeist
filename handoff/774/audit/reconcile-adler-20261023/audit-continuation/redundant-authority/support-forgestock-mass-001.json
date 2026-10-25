@@ -1,0 +1,71 @@
+{
+  "id": "CONT07-SUPPORT-FORGESTOCK-MASS-001",
+  "contract": "CONT07-CONTRACT-660",
+  "at": "2026-10-24T01:30:02.381058+00:00",
+  "local_parent": "local774:M81",
+  "sources": [
+    {
+      "scope_index": 2130,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/stock.rs",
+      "sha256": "848e1187843f8082d93fa8a1adc5e8b2bc60f90336e2d496176aa32969ee596e",
+      "ranges": [
+        [
+          1,
+          38
+        ]
+      ]
+    },
+    {
+      "scope_index": 997,
+      "source_id": "pr-working:crates/adventuresim-core/src/smithing.rs",
+      "sha256": "83f6b2eb7d945187bca6dc9f0fe78cbab0d25c292ce4c4096af94b4eb89a298b",
+      "ranges": [
+        [
+          19,
+          49
+        ]
+      ]
+    },
+    {
+      "scope_index": 525,
+      "source_id": "pr-working:content/items/catalog.yaml",
+      "sha256": "87e0f51292d42ab62beeabc9f2624f635c27acf8b28ae3d8c2931eb9297f491b",
+      "ranges": [
+        [
+          3,
+          42
+        ]
+      ]
+    },
+    {
+      "scope_index": 1194,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/smithing.rs",
+      "sha256": "aecea90ad65fd73946a24653499fdfe07a626491543cb20c57f5e70ae82e4d49",
+      "ranges": [
+        [
+          97,
+          118
+        ]
+      ]
+    },
+    {
+      "scope_index": 2810,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability/mass.rs",
+      "sha256": "1f6a584fc834b98fd0a39dee168f5b8c461518b712f56906a9de26bd44fe192e",
+      "ranges": [
+        [
+          24,
+          37
+        ]
+      ]
+    }
+  ],
+  "actual_duplicate_fact": "physical mass of one unit of steel_stock/leather_stock/brass_stock/wood_stock",
+  "current_comparison": "catalogue weight_kg and ForgeStock.unit_mass_kg agree5/2/2/4",
+  "actual_recipient": "quote mass\u2192fractions conversion then same-ID actual inventory consume",
+  "classification": "current-equal redundant authority population; no observed conservation failure, no new unique union",
+  "connected_remedy": "Derive quote stock conversion and inventory mass from one canonical stock item mass owner at actual dependency-compatible receiving boundary; equality-only check does not remove duplicate authority.",
+  "qualification": "Custom parametric weapon/fitted-holder mass versus nominal item catalogue is separate intentional branch, not this stock-unit duplicate. No source edit/test/database/native run.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

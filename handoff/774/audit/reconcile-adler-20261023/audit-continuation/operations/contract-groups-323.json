@@ -1,0 +1,113 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-323",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_chausses.rs",
+      "sha256": "54ba768eb44e2df346af31606eaf56854b463e8f4bedad25d42c16ee4a8523fb",
+      "actual_EOF": 334,
+      "actual_compared_ranges": [
+        [
+          1,
+          334
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_clearance.rs",
+      "sha256": "c281c89fa8c8f954309b110c0b7a90899e2c948ee8021b52732a4ba76c25192a",
+      "actual_EOF": 220,
+      "actual_compared_ranges": [
+        [
+          1,
+          220
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_clearance/wgsl.rs",
+      "sha256": "08f1bb2b6a69e5ee4c8253d36d3f91c6bdba0eb1348ec54fab5e4ba100c11801",
+      "actual_EOF": 444,
+      "actual_compared_ranges": [
+        [
+          1,
+          444
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Clearance section cardinality is required before unsigned hull mutation, centroid division and dependent fitting",
+      "source_ranges": {
+        "device_clearance/wgsl.rs": [
+          [
+            1,
+            444
+          ]
+        ],
+        "device_clearance.rs": [
+          [
+            1,
+            220
+          ]
+        ]
+      },
+      "disposition": "Both whole bodies personally read. Fresh04shader analysis confirms adopted RIG-ADMISSION03-F012 and archive native05 NATIVE-INITIAL05-F061: count0/unique0 enters hull halves with unconditional hull-=1; unique1 returns hull0 after both halves then center/f32(hull) computes0/0. Positive frame extents alone do not prove section hull cardinality. Actual host records SECTIONS then FIT without a host min-support gate; stage itself has no empty/degenerate guard. Existing supplied frame FINISH/host postbatch proof remains labelled supplied, not transferred04source coverage. No GPU, timeout, watchdog, driver effect, malformed finalpart success or ordinary MHR body claim. Connected acceptance: handle insufficient supported section through existing source failure before unsigned/centroid math, and avoid dependent fit consumption. Preserve nearest sparse-sample policy; do not demand16uniquevertices or globally ban zero-weight preview cloth. This adds exact operations support to accepted earlier evidence, not a new global finding."
+    },
+    {
+      "contract": "Section fixed capacities, deterministic sample order and station interpolation keep their actual arithmetic boundaries",
+      "source_ranges": {
+        "device_clearance.rs": [
+          [
+            1,
+            220
+          ]
+        ],
+        "device_clearance/wgsl.rs": [
+          [
+            1,
+            444
+          ]
+        ]
+      },
+      "disposition": "All host/WGSL code read, including support,SECTIONS,FIT. Fixed13stations makes STATIONS-1/2 nonzero and last-pair clamp first<=11; t=1 at top selects pair11/12. 66float words matches2centre+64radius. Fixed8192capacity and13*8192*12 host bytes fit u64. Gather and hull scratch checks fail existing status before capacity crossing; no claim advertised capacity8192 always admits8192samples because hull shares arena after unique base. Fallback takes at most16source/list pairs, ordered distance then original key; support-list duplicate handling/dedup is deliberate. Angular cubic weights and signed modulo recover0..63slots; greave style calf denominators require actual validated recipe interior range, not barefloat proof. Gap=sumclearance+thickness+.004 and native frame/radius normalization need actual parameter/frame admission. Style codes0..3 and hand flag are native pass adapter values. No new arbitrary tuning minima or silent error fallback."
+    },
+    {
+      "contract": "Chausses cage fits preserve finite-section/status policy and actual limb-frame dependencies",
+      "source_ranges": {
+        "device_chausses.rs": [
+          [
+            1,
+            334
+          ]
+        ]
+      },
+      "disposition": "Whole host and embedded shader read. Scaled normalization avoids ordinary finite norm overflow and explicitly maps zero vector tozero; it does not prove noncollapsed hip/knee/ankle Hermite tangents. Two-segment bend fraction thigh/(thigh+shank), local half extents and endpoint denominators require actual anatomical frame guarantees; no coincident ordinary supported rig or rendered defect established. Section band nearest fallback takes min12/supported and exact vertex tie order, rejects absent cursor via Section(false); empty section sets candidate status and returns before writing carrier. Positive radius floor.005 is explicit cage policy. Conditional quilting fixed.0015 and fixedrecipe clearance/thickness/.006 margin retain roles. record_leg_cage obtains actual WholeLeg frame+support; exact landmark ordinals require source names and parameter adapter. Body vertices/carrier dispatch bound each invocation, and output shell/readback owner still controls final admission. No source edits or GPU execution."
+    }
+  ],
+  "findings": [
+    {
+      "disposition": "same adopted admission and supplied aggregate finding; fresh04 support",
+      "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+      "archive_line": 12,
+      "id": "RIG-ADMISSION03-F012",
+      "no_new_unique_count": true
+    },
+    {
+      "disposition": "same source defect; independent04 operation body proof",
+      "archive_file": "audit/continuation/native/initial05-aggregate-states/findings.jsonl",
+      "archive_line": 70,
+      "id": "NATIVE-INITIAL05-F061",
+      "no_new_unique_count": true
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-character-creator/src/device_coif.rs"
+}

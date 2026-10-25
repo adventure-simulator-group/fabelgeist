@@ -1,0 +1,61 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-792",
+  "at": "2026-10-25T16:51:30.623694+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1010,
+  "source_id": "pr-working:crates/adventuresim-core/src/strategic_place.rs",
+  "sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+  "actual_compared_ranges": [
+    [
+      221,
+      660
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "Display + Error",
+      "type": "PlaceIdentityError",
+      "lines": [
+        [
+          437,
+          453
+        ]
+      ],
+      "disposition": "OPTIONAL F002 exact fixed literals/source None"
+    },
+    {
+      "trait": "Display/FromStr",
+      "type": "StrategicPlaceId/StrategicFixtureId",
+      "lines": [
+        [
+          455,
+          623
+        ]
+      ],
+      "disposition": "KEEP semantic versioned canonical identity protocol"
+    },
+    {
+      "trait": "Serialize/Deserialize",
+      "type": "StrategicPlaceId/StrategicFixtureId",
+      "lines": [
+        [
+          625,
+          651
+        ]
+      ],
+      "disposition": "KEEP tiny canonical string and checked parsing bridge; no existing equivalent checked conversion traits"
+    }
+  ],
+  "analysis": [
+    "PlaceIdentityError437\u2013453 nine fixed literal unit variants plus empty Error exact optional F002 thiserror equivalence/source None.",
+    "StrategicPlaceId Display455\u2013506 and FromStr508\u2013553; StrategicFixtureId Display555\u2013585 and FromStr587\u2013623 implement versioned canonical framing, hexencoding, arity/order/canonical numeric parsing and checked place-fixture associations. Preserve native semantic protocol and precise errors; raw enum derives not equivalent.",
+    "StrategicPlaceId/StrategicFixtureId Serde625\u2013651 serialize canonical Display string and deserialize ownedString via checked FromStr. No existing checked TryFrom<String>/Into<String> API to derive through; retain small wire glue rather than add conversion API or raw enum/wrapper wire. No new allocation/borrowed format or error changes."
+  ],
+  "first_unfinished": {
+    "scope_index": 1010,
+    "line": 661
+  },
+  "execution": "none"
+}

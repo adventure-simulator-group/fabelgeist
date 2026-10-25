@@ -1,0 +1,60 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-095",
+  "at": "2026-10-23T01:49:43.272146+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/defense.rs",
+      "sha256": "a3019cfa64106abc38bbfa7b0962e406cc6cb1a1a663a8a0dfdee71f874201e1",
+      "actual_compared_ranges": [
+        [
+          1,
+          444
+        ]
+      ],
+      "source_evidence": "Whole fresh literal PR body; P16 actualbytes identical, independently resolvedsame ContactTimingOffset/AnimationElapsed/UnitInterval/DefenderResponse context. No hash-only otherlens transfer."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/defense.rs",
+      "sha256": "a3019cfa64106abc38bbfa7b0962e406cc6cb1a1a663a8a0dfdee71f874201e1",
+      "actual_compared_ranges": [
+        [
+          1,
+          444
+        ]
+      ],
+      "source_evidence": "Whole fresh literal PR body; P16 actualbytes identical, independently resolvedsame ContactTimingOffset/AnimationElapsed/UnitInterval/DefenderResponse context. No hash-only otherlens transfer."
+    }
+  ],
+  "groups": {
+    "committed-response-guards": "lag0 branch sets completed1 beforedivision evenwindup0; nonpositiveoffset immediatelyFinishTrade. Positive lag/windup0 givesInf division thencompleted0 deliberate endpoint, not0/0. Finiteinertia>=0 dividedby(inertia+1) staysbounded becauseMAX+1roundsMAX; u8intercepts\u2264255 yields finite learnedratio. recovery+windup overflowF032 remains despite durationleaves. Expectedbenefit can legitimatelyexceed1 up to3, sunkworkup to3; do not makeall dimensionlessbenefitUnitInterval. Finalprobability needs ratio policy, not arbitrarybenefit clipping.",
+    "alignment-native-logistic": "Finite attackmargin and finiteclamped sample innext_up0..next_down1 give finite logit; exp mayoverflowInf deliberatelyyield logistic0, validcontinuouslimit. Do not require exp intermediatefinite whenpublished logistic alreadyfinite. Unbounded rawNaNmargin/sample stillnotsealedbyclamp, joins physical computedfraction admissionF029. Nonweapon response bypass keeps rawsamplediagnostic; do not require invalid alignment sampleadmission forunusedbranch unless authoritativecontractneeds it.",
+    "response-products-and-owner-bounds": "PerformanceUnitInterval finiteunit, but multiplyingrawresponse payload doesnotseal result. Rawpublic input_reflex=MAX,precision0 inParry factor computes2*MAX*0=>NaN; normalreflexpolicyexpectedunitbounds not establishedbyrawenum. This is a primitive payload admission gap in connecteddefensegraph, not an observed normalcase. Preserve block/parry/dodge differingfactor1/2/1.5 andwhichpayload scales: performance changesparryprecision, notreflex; dodge changesreflex. UnitIntervalowner appropriateforactualunitinputs, not defensefactor allowedabove1.",
+    "shield-geometry": "Finite unitlocalcontact maps fixedanatomiclateralranges, subtractrest\u00b1.55 bounded; distance>=.8 returnsNone beforedivide, denominatorfixedpositive. Bothshieldside has no singlyrestingcoordinate andpreserves originalresponse, explicitpolicy. RawNaNcoordinate passesdistancecomparison producingNaNeffectiveness, belongs contactcoordinateadmission093, not freshgeometryowner. Purelocalresults no retainedstate/RNGclockmutation.",
+    "existing-tests-and-context": "Full444 sourceincludes existing mirror/center/logisticmonotonic/nearvswindup/firstsimultaneous/injury/interception tests, source-read only. P16 byteidentity andsame imported Coreowners justify exactsame operations, not transitive consumer/wholemodule clearance. Actual normalautoresolve preparation already075/078 bounds times toconfig-derived ordinarydurations; no giantcurrentbattleassertion."
+  },
+  "findings": [
+    {
+      "id": "ROOT-INITIAL04-F032",
+      "kind": "representable_public_API_defense_duration_ratio_overflow_masks_policy",
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/defense.rs",
+      "locations": [
+        [
+          86,
+          100
+        ]
+      ],
+      "case": "Admitted finite windup=MAX,recovery=MAX, positivecontactlag=MAX*.5, finiteinertia0, consecutive0, incap0, expectedengagement.5, decisionsample.45. Completedwork.5/sunkwork.5; recovery+windup overflowsInf so exposureMAX/Inf=0 instead of mathematical.5. Computed finishprob.5 instead of.4 choosesFinishTrade rather thanWeaponIntercept. No current ordinary configuredtime/runtime claim; checked elapsedleaves allowlargefinite values.",
+      "operation": "Finite typed durations do not preserve their computed dimensionless ratio; result staysfinite and evades finalfractionreadmission. The loss occurs before response/diagnostic probability publication.",
+      "connected_repair": "Check native ordered duration accumulation/ratio before publishing decision and use canonical computedfraction owners through response/timeline evidence. Ordinary structured arithmetic rejection valid; no arbitrary maximum portable elapsedtime, hidden default ratio or silent precision/physics widening. Preserve near/simultaneous immediateFinishTrade branch and learned interception semantics.",
+      "acceptance": "Successful decisions cannot silentlyreplace nonrepresentable denominator withzeroexposure; failure explicitbefore external mutation. Preserve existing response scenarios/order, adaptexistingtests only, no addedtests/assertions/helpers.",
+      "deduplication": "Specific committeddefense exposure ratio; related numericaldiscipline to RootF028/F030 but distinct producer and responseconsumer.",
+      "contract_ref": "ROOT-INITIAL04-CONTRACT-095"
+    }
+  ],
+  "repair": "frozen_all13_initial_then_handover",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

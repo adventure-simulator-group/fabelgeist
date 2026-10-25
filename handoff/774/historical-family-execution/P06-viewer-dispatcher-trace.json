@@ -1,0 +1,117 @@
+{
+  "head": "3544d8e99f1d9f765a813cc71b56f089e31c5118",
+  "observed_at": "2026-10-20T16:36:29.525459+00:00",
+  "status": "Concrete consumer trace; no source implementation. Remaining files are still explicit.",
+  "traces": [
+    {
+      "file": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/camera_obstruction.rs",
+      "function": "animation_play_boundary_camera",
+      "producer": "Separate player_x/player_z arguments originate in CapturePose::AnimationPlayBoundary; helper currently reconstructs Vec2 and defaults missing support to zero.",
+      "end": "Scene viewer capture_views match returns a native camera tuple; system currently returns unit.",
+      "required_change": "Carry checked ScenePlanPoint from the pose producer through this helper. Missing required terrain/support must terminate via a real fallible capture-system channel, not a default tuple or unchanged old camera; complete all early returns if making capture_views fallible."
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/city_capture.rs",
+      "function": "capture_cameras",
+      "producer": "StreetPosition produces plan points after deterministic nearest-clear-street selection; clear predicate currently checks support.",
+      "end": "Local eye closure feeds BuildingReviewCamera positions/targets, ultimately native Transform.",
+      "required_change": "Carry checked plan points through the selection record and eye closure; keep support checked until native eye-position arithmetic. Make the closure fallible and propagate through the existing Bevy Result rather than retaining expect. Preserve context fallback to the original real street and all candidate/tie ordering."
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_overlay.rs",
+      "function": "footprint overlay edges",
+      "producer": "Native footprint midpoint after completed corner/segment arithmetic.",
+      "end": "Cuboid/Transform overlay construction.",
+      "required_change": "Admit ScenePlanPoint once after midpoint calculation; keep optional no-hit branch that omits an unsupported overlay. Extract elevation only for native Transform offset."
+    },
+    {
+      "file": "crates/adventuresim-tactical-server-dispatcher/src/scene_input/geological_landforms.rs",
+      "function": "select",
+      "producer": "Four offset points constructed at a deterministic source lattice candidate.",
+      "end": "Central-difference vector gradient immediately feeds grade and downhill native numerical calculation.",
+      "required_change": "Admit the completed finite query points, then extract the four checked elevations at the subtraction/gradient kernel. Keep existing Option propagation, stride, arithmetic and recipe quantization. No retained raw height helper is needed."
+    },
+    {
+      "file": "crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/footprint.rs",
+      "function": "terrain_extrema",
+      "producer": "Polygon clipping yields exact triangle/footprint intersection points; current raw low/high sentinels track a separately optional location.",
+      "end": "JSON extrema and locations.",
+      "required_change": "Use Option<GeographicHeightControl> for observed min/max: this existing owner actually matches the point/elevation provenance here. Preserve first tie selection and complete-playable flag; serialize absent observations as null, without +/-infinity initial values."
+    },
+    {
+      "file": "crates/adventuresim-tactical-server-dispatcher/examples/inspect-city-grounding.rs",
+      "functions": [
+        "compound comparison height callback",
+        "building comparison height callback"
+      ],
+      "producer": "Playable height query or completed native vista triangle interpolation.",
+      "required_change": "Keep the callback return SupportElevation, admitting only the completed native vista result. Trace the receiving comparison operation before choosing its native mathematical endpoint; do not flatten the playable branch only to make Option types match."
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/furniture_capture.rs",
+      "functions": [
+        "setup"
+      ],
+      "producer": "Outdoor camera offset is computed from an already checked instance Position<Scene>. Market centroid is a native sum/division; three extra review positions are literal authored points.",
+      "required_change": "Reuse existing typed position projection before native offset; admit the completed offset/centroid point once. Keep SupportElevation until actual Vec3 camera arithmetic. All missing support can propagate through the existing Result<Option<Vec<BuildingReviewCamera>>>. Pre-admit camera support before ExpectedFurniture resource and overlays are published; preserve existing camera order and source layout report."
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture.rs",
+      "functions": [
+        "setup_catalog",
+        "joined_counters"
+      ],
+      "producer": "Deterministic catalogue bay/variant arithmetic produces scene plan points; GeneratedFurniture already stores Position<Scene>. Joined counters intentionally share the real elevation observed at the bay.",
+      "required_change": "Admit completed bay/member points and retain checked support into Position<Scene> construction and native catalog-camera framing. Reuse the actual shared observed bay elevation for joined counters; do not introduce independent resampling or a zero fallback. Existing Result paths reject missing support; geometry order, catalogue keys and fixture selection remain."
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/finishes.rs",
+      "functions": [
+        "stage"
+      ],
+      "producer": "Authored bay plus deterministic width/state offset; one real bay observation positions the review camera.",
+      "required_change": "Keep checked point/support through the existing fallible staging loop until actual furniture Position<Scene> and camera math. Preserve wood-state ordering, IDs and exact point arithmetic."
+    },
+    {
+      "file": "crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/solutions.rs",
+      "functions": [
+        "compare"
+      ],
+      "current": "Height callback raw values are immediately reconstructed as SupportElevation in CompoundSupportLevels.gate and .street.",
+      "required_change": "Callback takes ScenePlanPoint and yields Option<SupportElevation>; remove both readmissions and retain checked values directly. Carry the callback into quantities unchanged."
+    },
+    {
+      "file": "crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/solutions/quantities.rs",
+      "functions": [
+        "measure",
+        "perimeter_faces"
+      ],
+      "current": "Callback forwarded through measure; perimeter_faces subtracts a support elevation from native geographic height. Triangle intersection volume work uses complete native f64 kernels independently.",
+      "required_change": "Keep ScenePlanPoint and SupportElevation through callback forwarding. Admit each completed native perimeter station once and project both elevation values only for the final displacement subtraction/trapezoidal integration. Preserve missing-perimeter Option, station count and summation order; do not retype independent triangle integration merely by numeric syntax."
+    },
+    {
+      "files": [
+        "crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/terraces.rs",
+        "crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/gate_approach.rs",
+        "crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/gate_approach/profile.rs"
+      ],
+      "functions": [
+        "compare",
+        "inspect"
+      ],
+      "current": "Raw height callback forwards through terrace and gate inspection; raw street/gate/court floors pass into a separate profile function.",
+      "required_change": "Carry canonical point/elevation through every callback and height parameter. Native clamp, rise/grade and longitudinal-profile math remain exact endpoints. Readmit complete calculated absolute elevations only where retained/forwarded; serialize the checked observations at JSON. Adapt existing Goslar fixtures, preserving all scenarios and asserts."
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs.rs",
+      "current": "Ten boundary CapturePose literals retain player_x/player_z in the const ANIMATION_PLAY_VIEWS array.",
+      "required_change": "Replace retained x/z with ScenePlanPoint and propagate through the existing capture match. Provide checked compile-time literal admission using the canonical owner rather than duplicate raw-point wrappers or a per-query admission. Resolve the current non-const Vec2::is_finite call in ScenePlanPoint::from_metres before editing the const table; do not use unsafe/unchecked points or a new fixture helper."
+    }
+  ],
+  "remaining_traces": [
+    "Resolve canonical checked const point admission for the authored boundary-view table without introducing an unchecked constructor.",
+    "Finish remaining IK/ground-scatter caller bodies from the original inventory.",
+    "Choose complete image absence behavior after the recorded shader-consumer trace."
+  ],
+  "preservation": "No test/case/assertion/helper was added, no local project command ran, no source changed."
+}

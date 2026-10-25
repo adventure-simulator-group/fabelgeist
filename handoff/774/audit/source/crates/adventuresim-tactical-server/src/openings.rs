@@ -1,0 +1,99 @@
+//! Composition boundary for interactive building closures.
+
+use adventuresim_building_generator::{
+    BuildingCollision, BuildingPlan, compile_building_collision, generate as generate_building,
+};
+use adventuresim_tactical_core::prelude::*;
+use adventuresim_tactical_core::scene_input::compile_tactical_building_collider;
+use adventuresim_tactical_netcode::bevy_replicon::prelude::Replicated;
+use bevy::prelude::*;
+
+#[path = "boundaries.rs"]
+mod boundaries;
+#[path = "doors.rs"]
+mod doors;
+#[path = "windows.rs"]
+mod windows;
+pub(crate) use boundaries::{on_scene_boundary_added, spawn_generated_boundaries};
+
+pub(crate) use doors::DoorGrabber;
+pub(crate) use windows::WindowGrabber;
+
+pub(crate) struct BuildingOpeningsPlugin;
+
+impl Plugin for BuildingOpeningsPlugin {
+    fn build(&self, app: &mut App) {
+        app.add_plugins((doors::DoorServerPlugin, windows::WindowServerPlugin));
+    }
+}
+
+pub(crate) fn spawn_building_openings(
+    commands: &mut Commands,
+    building_entity: Entity,
+    building: &SceneBuilding,
+    transform: &Transform,
+    plan: &BuildingPlan,
+    collision: &BuildingCollision,
+) -> Result {
+    doors::spawn_building_doors(
+        commands,
+        building_entity,
+        building,
+        transform,
+        plan,
+        collision,
+    )?;
+    windows::spawn_building_windows(commands, building, transform, plan, collision)?;
+    Ok(())
+}
+
+pub(crate) fn on_scene_building_added(
+    event: On<Add, SceneBuilding>,
+    mut commands: Commands,
+    buildings: Query<(&SceneBuilding, &Transform)>,
+) -> Result {
+    let (building, transform) = buildings.get(event.entity)?;
+    let plan = generate_building(&building.program)?;
+    let collision = compile_building_collision(&plan)?;
+    spawn_building_openings(
+        &mut commands,
+        event.entity,
+        building,
+        transform,
+        &plan,
+        &collision,
+    )?;
+    commands.entity(event.entity).insert((
+        Replicated,
+        RigidBody::Static,
+        CollisionLayers::new(TACTICAL_TERRAIN_LAYER, LayerMask::ALL),
+        compile_tactical_building_collider(&collision)?,
+    ));
+    Ok(())
+}
+
+pub(crate) fn spawn_generated_buildings(
+    commands: &mut Commands,
+    buildings: Vec<GeneratedBuilding>,
+    establishments: &[SceneEstablishment],
+) -> Result {
+    for building in buildings {
+        let transform = building.transform()?;
+        let mut entity = commands.spawn((
+            Name::new(format!("Tactical building {}", building.placement.id)),
+            SceneBuilding {
+                id: building.placement.id,
+                program: building.placement.program,
+                orientation: building.placement.orientation,
+            },
+            transform,
+        ));
+        if let Some(establishment) = establishments
+            .iter()
+            .find(|establishment| establishment.building_id == building.placement.id)
+        {
+            entity.insert(establishment.clone());
+        }
+    }
+    Ok(())
+}

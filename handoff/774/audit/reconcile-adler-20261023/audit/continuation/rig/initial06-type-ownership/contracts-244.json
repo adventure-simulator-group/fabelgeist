@@ -1,0 +1,39 @@
+{
+  "id": "RIG-INITIAL06-GROUP-244",
+  "at": "2026-10-23T07:17:12.914322+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-067.json",
+  "groups": {
+    "core-loop-event-semantic-identity-versus-public-report": {
+      "comparison": "Fresh events215 separates internal semantic key (agent, kind, typed subject enum) and human detail from public wire event (sequence, agent, kind, detail). This is intentional diagnostic projection: sequence is delivery ordinal, agent_id simulation agent identity, character_id durable character identity, inventory_item_id different durable instance, party/contract/case/action/encounter text distinct authorities. No generic single ID wrapper warranted. F040 applies to unchanged character identity where shared codec/API permits. Internal subjects retain meaningful variants and cannot be replaced with detail string for semantic dedup; public report does not promise full subject roundtrip. CoreLoopEventKind is simulation-action observation vocabulary, not canonical strategic WorldEvent effects or live DB authority; same words Travel/Death do not make duplicate event types. Constructor detail Into<String> is actual human diagnostic text boundary. Raw case/action strings are candidates for propagation of their actual canonical identity owners at real callers, not new competing definitions established by this file alone; exact caller/ID declaration comparison remains separately queued rather than claiming coverage. No source-level canonical owner conflict beyond existing CharacterId graph proven here.",
+      "disposition": "Keep simulation semantic key/subject and public report roles distinct; preserve identity distinctions and F040 character sharing, no forced event unification."
+    },
+    "gate-endpoint-diagnostic-not-generation-acceptance": {
+      "comparison": "Fresh gate_approach122 consumes CityCompound/CityAccessSegment/ScenePlanPoint/SupportElevation and computes only endpoint grade feasibility report. Explicit verification_scope excludes complete ramp/gate sweep/support/generation acceptance. Maximum_grade is engineering ratio not probability, gate/common/court/street floor are same Scene elevation coordinate meaning supporting F023. JSON signed shortfall/difference and optionalgrade represent rejected/observed evidence; do not force positive accepted geometry leaves on report. Canonical property/member IDs versus raw report labels remain distinct. The exact route crossing check selects one actual access segment; downstream profile helper/generation correctness not inferred. Native dot/distance/subtraction is real changed arithmetic, no unchanged typed forwarding waiver. Original production fixture is read only; no filesystem/test/report execution.",
+      "disposition": "Keep endpoint diagnostic scope and numeric evidence explicit; share canonical Scene elevation per F023, no acceptance token from report."
+    },
+    "hair-design-pigment-and-kernel-material": {
+      "comparison": "Fresh hair177 HairDesign composes canonical Preset, HairShape and HairPigment; groom deliberately drops pigment to growth geometry product. HairPigment private melanin/redness shares plus linear dye differ physical role from HairMaterial native kernel/render settings. PigmentShares is legitimate raw Serde adapter to same canonical product, not compatibility path. Share bounds0..1 apply pigment/channel intensity, not every unit scalar in hair geometry, and clamped constructor versus strict decoder policies remain distinct; raw clamp NaN behavior is admission-lens qualification, not magically sealed by field privacy. F005 lower color payload/conversion may serve dye/color output, while melanin/redness remain meaningful pigment parameters and HairMaterial defaults/roughness remain actual kernel owner. variant_label is UI Debug-name formatting, not canonical parser or durable vocabulary owner. Module reexports establish dependency wiring only, no imported cap/groom/scalp body credit.",
+      "disposition": "Keep design/growth/pigment semantic products over native hair material and explicit dye color boundary, preserving strict decode versus clamp policy."
+    },
+    "wardrobe-names-and-settled-garment-owner": {
+      "comparison": "Fresh wardrobe154 owns private BTreeMap<LibraryName, SettledGarment>, insert synchronizes garment.selection.name and validates exactgarment before replacement. Name is user library identity, not catalogue item ID or character personal name; same String backing does not justify shared grammar/authority. Wardrobe saves settled copies, so runtime inventory recipe need not depend on mutable library; meaningful ownership boundary. load missingfile→emptyDefault is normal absent-userlibrary behavior, not schema compatibility fallback. Raw derived transparent Serde can construct before validate, so do not infer accepted wrapper from type name; actual load/save/insert gates distinct routes, no other-lens clearance. Native file/JSON adapters legitimate; original tempdir fixture only read, no mutations/execution. Canonical garment/rig products reused without competing cloth owner.",
+      "disposition": "Keep named user library and settled garment values separate from catalogue/runtime instances; actual copy/gate boundary remains explicit."
+    },
+    "city-furniture-original-acceptance-fixture": {
+      "comparison": "Fresh city_acceptance152 consumes canonical TacticalSceneInput/FurnitureLayout/FurnitureKind/GroupKind/Location/ScenePlanPoint and checks actual vendor grouping/reservations/supportfootprint in original fixture. Group ID, marketpatchindex, instance identity and recipekey are distinct roles, not a genericu64 or ordinal alias. Native fine/coarse terrain deltas and .5m sampling/output are report calculation, not alternate terrain owner or universal positive elevation. Canonical orientation maps FurnitureLocal supportfeet into scene; frame distinctions retained. Assertions do not implement load/generate/height_at/recipe predicates, no full gameplay/collision admission from fixture names. Stock variety roster subset intentionally Barrel/CargoStack, no duplicate complete catalogue. Source only no tests/generator/execution/newcases.",
+      "disposition": "No competing canonical owner in original city furniture fixture; keep recipe/group/instance/source patch and native report distinctions."
+    }
+  },
+  "supporting_existing_findings": [
+    "RIG-INITIAL06-F005",
+    "RIG-INITIAL06-F023",
+    "RIG-INITIAL06-F040"
+  ],
+  "source_fact_refs": [
+    "contracts-232.json",
+    "contracts-235.json",
+    "contracts-236.json"
+  ],
+  "limits": "Five fresh complete actual bodies. No called-helper/canonical-ID declaration inference or broad feature clearance; no new source/edits/execution/test/later-lens credit."
+}

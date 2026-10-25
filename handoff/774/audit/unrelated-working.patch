@@ -1,0 +1,39 @@
+diff --git a/Cargo.toml b/Cargo.toml
+index 417afbfef..cb75e4db4 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -176,6 +176,7 @@ spacetimedb-sats = { version = "=2.6.1", features = ["serde"] }
+ 
+ [workspace.lints.clippy]
+ all = { level = "warn", priority = -1 }
++indexing_slicing = "warn"
+ 
+ [patch.crates-io]
+ adventuresim-tactical-netcode = { path = "crates/adventuresim-tactical-netcode" }
+diff --git a/crates/adventuresim-character-creator/Cargo.toml b/crates/adventuresim-character-creator/Cargo.toml
+index ecbc69532..27424cdb7 100644
+--- a/crates/adventuresim-character-creator/Cargo.toml
++++ b/crates/adventuresim-character-creator/Cargo.toml
+@@ -70,3 +70,4 @@ pliron = { git = "https://github.com/pliron-org/pliron.git", rev = "2610651306ea
+ 
+ [lints.clippy]
+ all = { level = "warn", priority = -1 }
++indexing_slicing = "warn"
+diff --git a/crates/fabelgeist-mhr/Cargo.toml b/crates/fabelgeist-mhr/Cargo.toml
+index 8addc499f..507ebf2d5 100644
+--- a/crates/fabelgeist-mhr/Cargo.toml
++++ b/crates/fabelgeist-mhr/Cargo.toml
+@@ -22,3 +22,4 @@ pliron = { git = "https://github.com/pliron-org/pliron.git", rev = "2610651306ea
+ 
+ [lints.clippy]
+ all = { level = "warn", priority = -1 }
++indexing_slicing = "warn"
+diff --git a/crates/fabelgeist-numpy-storage/Cargo.toml b/crates/fabelgeist-numpy-storage/Cargo.toml
+index e8f8aafda..5ba6299e8 100644
+--- a/crates/fabelgeist-numpy-storage/Cargo.toml
++++ b/crates/fabelgeist-numpy-storage/Cargo.toml
+@@ -22,3 +22,4 @@ pliron = { git = "https://github.com/pliron-org/pliron.git", rev = "2610651306ea
+ 
+ [lints.clippy]
+ all = { level = "warn", priority = -1 }
++indexing_slicing = "warn"

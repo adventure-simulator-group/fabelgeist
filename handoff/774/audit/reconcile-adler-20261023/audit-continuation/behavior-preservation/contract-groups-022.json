@@ -1,0 +1,76 @@
+{
+  "id": "CONT08-CONTRACT-022",
+  "at": "2026-10-25T09:17:39.427101+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 94,
+      "source_id": "physical-p16:crates/adventuresim-core/src/disease/identity.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/disease/identity.rs",
+      "before_sha256": "bbf3c7a20b95f217815f48c7e830dc75efab9ecf9d7e52a79fd4ad86324388af",
+      "after_sha256": "bbf3c7a20b95f217815f48c7e830dc75efab9ecf9d7e52a79fd4ad86324388af",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0094-base-bbf3c7a20b95f217815f48c7e830dc75efab9ecf9d7e52a79fd4ad86324388af",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/bbf3c7a20b95f217815f48c7e830dc75efab9ecf9d7e52a79fd4ad86324388af",
+      "diff": "source-evidence/p16-0094.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "facts": [
+        "Full132+empty P16 diff. DiseaseId Serde snake_case canonical keys, FromStr native StrDeserializer, unit ParseDiseaseIdError exact Unknown disease Display and separate deterministic variant spelling retained. Full direct stable-key/serde/malformed rejection/coordinate fixture bodies consumed unexecuted; no key aliases added."
+      ],
+      "disposition": "Own08 source-local comparison accounted WITH retained source-policy/producer dependencies; no new08 regression.",
+      "acceptance": "Preserve strict wire keys, deterministic source IDs, original finite/nonfinite damage policy and quote/removal/repair order. Overflow-before-cap source question must receive exact qualified disposition; no tests/checks/repairs."
+    },
+    {
+      "scope_index": 95,
+      "source_id": "physical-p16:crates/adventuresim-core/src/durability.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/durability.rs",
+      "before_sha256": "7e08e94102b0e097fdb309ad3f5caaf54c6d5c313979a3c5186bb671bb231afd",
+      "after_sha256": "7e08e94102b0e097fdb309ad3f5caaf54c6d5c313979a3c5186bb671bb231afd",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0095-base-7e08e94102b0e097fdb309ad3f5caaf54c6d5c313979a3c5186bb671bb231afd",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/7e08e94102b0e097fdb309ad3f5caaf54c6d5c313979a3c5186bb671bb231afd",
+      "diff": "source-evidence/p16-0095.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          454
+        ]
+      ],
+      "facts": [
+        "Full454+empty P16 diff. DamageBins canonical normalization preserves deepest tiers first, nonfinite/negative\u21920, raw yellow/red/repairable APIs retain prior policy. Quality collapse, monotonically reduced condition and effective stat/handling calculations unchanged.",
+        "Durable removal spares-before-equipped stable ID sort, strict service keys, quote ceil/clamp/min1/nonfinite0, affordable prefix no skip, reservation subtraction, bounded signed quantity unsigned_abs, exact custody and camp-priority time preserve original failure/order law. All existing fixtures read unexecuted.",
+        "Source-conditional API arithmetic question Q007: catastrophic tier raw u8 cast/addition precedes min5, so large overload may overflow before intended cap. Unchanged P16 source; need exact adopted04 alias/actual admitted stress route before new finding or ordinary claim."
+      ],
+      "disposition": "Own08 source-local comparison accounted WITH retained source-policy/producer dependencies; no new08 regression.",
+      "acceptance": "Preserve strict wire keys, deterministic source IDs, original finite/nonfinite damage policy and quote/removal/repair order. Overflow-before-cap source question must receive exact qualified disposition; no tests/checks/repairs."
+    }
+  ],
+  "qualified_questions": [
+    {
+      "id": "CONT08-Q007",
+      "source": {
+        "scope_index": 95,
+        "sha256": "7e08e94102b0e097fdb309ad3f5caaf54c6d5c313979a3c5186bb671bb231afd",
+        "range": [
+          232,
+          265
+        ]
+      },
+      "classification": "Unchanged raw u8 catastrophic-tier arithmetic, source-conditional support only.",
+      "question": "Exact adopted04 finding and actual stress/profile admission/recipients for add-before-min5?",
+      "source_witness": "In catastrophic branch, overload*2 floor asu8 can reach255 for large finite stress relative to positive catastrophic threshold.3+u8value+qualitybonus is computed before .min(5), so cap cannot protect intermediate u8 addition.",
+      "limits": "No executed arithmetic/debug/release/ordinary battle occurrence; raw public API alone does not prove normal recipe reaches witness. Parent exact alias query pending; no new unique count.",
+      "acceptance": "Later repair must preserve tier1/2 boundaries, quality and catastrophic damage amount while saturating/checking in a sufficiently wide tier owner before bounded output. Existing fixtures/inputs retained."
+    }
+  ],
+  "next": "Original97 encounter1019 then98/99/100equipment (own100already full compared) and isolated later roles. Overall scope incomplete."
+}

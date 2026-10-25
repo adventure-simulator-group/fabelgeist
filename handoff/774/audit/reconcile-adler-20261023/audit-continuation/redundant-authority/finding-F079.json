@@ -1,0 +1,63 @@
+{
+  "id": "CONT07-F079",
+  "at": "2026-10-23T20:13:46.704958+00:00",
+  "classification": "conditional retained source replacement/cache cohort completeness defect; no ordinary mutable producer or run claimed",
+  "title": "Terrain refresh can publish success while base geometry still represents the previous source",
+  "sources": [
+    {
+      "scope_index": 1626,
+      "sha256": "e641530bea571c2b122e60d817a9ae562934f67c7488eae746bc1366af605599",
+      "ranges": [
+        [
+          109,
+          165
+        ],
+        [
+          176,
+          232
+        ]
+      ]
+    },
+    {
+      "scope_index": 1632,
+      "sha256": "9a5b7ee95b337a7ebea938ba18f6e87c6ab6bd67b1119745c9287b756925deee",
+      "ranges": [
+        [
+          44,
+          74
+        ],
+        [
+          120,
+          158
+        ]
+      ]
+    },
+    {
+      "scope_index": 1634,
+      "sha256": "0f2bab77a6c50c3112e630c06558e9a4b3612de7011b2de38930f464abd3cfe1",
+      "ranges": [
+        [
+          4,
+          17
+        ],
+        [
+          23,
+          74
+        ],
+        [
+          143,
+          189
+        ]
+      ]
+    }
+  ],
+  "earliest_failed_contract": "A successful PendingTerrainPresentation refresh must correspond to one exact retained source cohort across base/detail/fault geometry/materials. Base GroundCoverage identity omits source geometry/landform; refresh updates only detail/materials before caller removes pending.",
+  "counterexample": "After initial sampled terrain A at one scene entity, replace SceneTerrain with finite same-topology B of different heights and insert PendingTerrainPresentation, keeping vista revision unchanged. refresh_presentation rebuilds detail from B and bothmaterial projections, returnsOktrue; caller removes pending. update_coverage sees unchanged topology/revision, retaining old base A. At outer coarse region, emittedbase stilloldheights while currentterrainqueries/details consumeB. This is representable component replacement plusactual explicitrefreshoperation, not ordinary sceneproducer claim.",
+  "additional_completion_gap": "If detail Mesh asset is absent while bothmaterial assets exist, refresh silently skips mesh rebuild butreturnsOktrue, removingpending. Existing stale-material test covers materialmissingreturnfalse only; no testexecutionclaimed.",
+  "actual_recipient": "Base Mesh3d installed at spawn_base_and_fault164-171 remains rendererinput; GroundCoverage updater120-158 doesnotreplace it forsamekey. Detail Mesh3d updated66-72 from B, exposing splitgeometrycohort.",
+  "qualification": "API/component-replacement strengthening. No installedscene mutation sequence, publicplayerissue, renderedscene, actualbadfixture, normalfailednativeallocation or execution demonstrated. Immutable complete scene cohort could close this if lifecycle actuallyenforced; source currently accepts refresh without that contract. Original producer rebuilding whole entity remains legitimate.",
+  "connected_repair": "Own canonical source/presentation generation and refresh complete base/detail/fault/material/coverage products coherently, or enforce immutable source-cohort replacement so such partialreconcile cannotbe called. Include every actual geometrydependency in revision ownership; report success onlywhen everyrequired native productexists and matches. Preserve native handles where appropriate, lastgood/retry policy, canonicalownedterrain, transitioncollar and trianglecountcorrelation.",
+  "acceptance": "Explicit supported refresh ofchanged terrain/landform cannot retain old base/fault whilemarkingnewsource complete; missingrequired detailmesh retainsretry/failurestate. Unchanged immutablecohort avoidsneedlessrebuild and latevista topologybehavior retained. No tests added or executed.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

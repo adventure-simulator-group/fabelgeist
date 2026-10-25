@@ -1,0 +1,24 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-545",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        1180,
+        1181,
+        1182,
+        1183
+      ],
+      "comparison": "Fresh full1455 residence,99 acquisition,242 guarded authority fixture and282 occupancy. Exact PR supports F208 owner-only billing timestamps redacted as0 and F209 latest holding lifecycle requiring resolution only for Relinquished. Actual legal tenure, primary designation, physical occupancy, household membership, activity and owner-managed billing are independent; do not combine active/primary/occupied into a speculative exclusive state. Historical transition ledger is authority at observer minute; latest status and billing frontier distinct checkpoint. Optional holding on occupancy is meaningful seeded property without legal title; parent-home inheritance explicitly supports it, so None is not malformed home. Removed occupancy transition retains former property/holding as matching scope, no variant payload erasure; actual same-minute ordinal ensures unrelated delayed removal does not remove a newer home. NpcResidenceOutcome already Rented(HousingTier), F200 applies only its later receipt flattening. Local paid predicate immediately constructs named ResidenceChargeOutcome and all bill diagnostic amounts meaningful both success/failure; no new semantic flag. Owner/renter distinction still converts to bool at actual residence_period_charge, existing F142 exact sender support. OPEN545 timestamp arithmetic: paid due frontier saturates toMAX and billing loop can select same active due again at nowMAX; no ordinary date or executed bill witness claimed, separate invariant-operation contract. Missing effective birth in supported counts goes adult branch and may promote Dependent; normal missing-birth producer unproved, no09 finding from this uncertainty. Rental/owner inactive policies preserve actual property reservations. No fixtures executed.",
+      "finding_refs": [
+        "SEGO-INITIAL09-F142",
+        "SEGO-INITIAL09-F200",
+        "SEGO-INITIAL09-F208",
+        "SEGO-INITIAL09-F209"
+      ],
+      "disposition": "Existing residence shape findings source-supported; independent axes, title-free occupancy and retained removal scopes preserved"
+    }
+  ],
+  "new_findings": [],
+  "limits": "Pinned source discovery only. No repair, test, project check or clearance; property capacity/registration source remains next."
+}

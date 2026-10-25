@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1382",
+  "at": "2026-10-25T18:42:04.080492+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1440,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+  "sha256": "927e13d910b8e3b7dc6a9cc58ef2e936172b4ec9188948ffd5d1a524d4b89185",
+  "actual_compared_ranges": [
+    [
+      1,
+      300
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Free report builder consumes completed ECS inputs then computes scenario-specific physical/cohort/time/event admission gates with checked errors and contextual policy; no local type/manual trait/codec. No report validation executed.",
+  "first_unfinished": {
+    "scope_index": 1440,
+    "line": 301
+  },
+  "execution": "none"
+}

@@ -1,0 +1,25 @@
+{
+  "id": "RIG-INITIAL06-GROUP-102",
+  "at": "2026-10-23T01:58:02.391487+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "dialogue-member-authority-versus-authored-role-and-action-receipt": {
+      "comparison": "Fresh exact P16 dialogue_provenance181–263/265–290. Session identity, catalogue revision, expected session revision, action retry identity, character identity and authored role key have different authorities; same String/u64 does not justify borrowed equipment sequence, Seed, clock or global role enum. Role is an open authored key looked up in selected conversation and narrowed by existing ParticipantKind::Player; it is not a duplicate closed ParticipantKind declaration. Participant row binds session/role/actor/character/display name; receipt records action/resulting revision, not same object as membership or live-presence authority. Existing DialogueSessionState parser is reused for Active gate instead of maintaining another state enum; raw SDK/persistence input still differs from accepted session member. require_session_member checks session active, actual participant membership and live presence before returning session; this is contextual authority, not data-type property that belongs in low native SDK. Actual join orders gateway/catalogue/living/action/session/current presence/retry/revision/location/role/capacity/duplicate/write/refresh; a future typed boundary must preserve meaningful context/first-error/retry policy rather than eager conversions that reorder gates. These source bodies use raw external IDs/SDK rows and diagnostics but introduce no second established checked identity/error/value owner in the bounded role. Shared lifecycle/parser/catalogue semantics belong their current lower modules; DB membership/write authority stays DB. Observer-specific topic refresh internals, broadcast recipients and cache purpose are excluded, so no Camera07 freshness or producer conclusion from method call alone.",
+      "disposition": "Purpose-specific DB member/join/receipt authority and authored role lookup, canonical state/kind reused; no new06 duplicate owner established."
+    }
+  },
+  "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_provenance.rs",
+  "sha256": "f9a27db833d675b23a449676ecfd6d878c0357f2a5190f6a649341766c5ee33c",
+  "actual_eof": 1408,
+  "actual_fresh_read_ranges": [
+    [
+      181,
+      263
+    ],
+    [
+      265,
+      290
+    ]
+  ],
+  "limits": "Only new047 exact direct receiver bodies, blank264 excluded and no other provenance helper/PR counterpart/observer publication graph or other-lens credit. Audit-then-handover, no implementation/execution."
+}

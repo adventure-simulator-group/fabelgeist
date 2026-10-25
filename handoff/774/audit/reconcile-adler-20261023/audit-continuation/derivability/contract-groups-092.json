@@ -1,0 +1,88 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-092",
+  "at": "2026-10-25T12:33:04.281275+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 220,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "sha256": "1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+      "actual_EOF": 1451,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/inventory_container.rs",
+        "snapshot": "physical-p16",
+        "path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\inventory_container.rs",
+        "sha256": "1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 1451,
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-STRATEGIC-PROJECTION-007",
+            "json_pointer": "/current_sources/13",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-stdb-module/src/inventory_container.rs",
+            "read_ranges_as_recorded": [
+              [
+                1030,
+                1085
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-stdb-module/src/inventory_container.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/inventory_container.rs",
+              "sha256": "1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+              "ranges": [
+                [
+                  1030,
+                  1085
+                ]
+              ],
+              "read_kind": "fresh_actual_supplement_body"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1026,
+          1088
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Scoped1030\u20131085 material plus owning function signatures/closing bodies1026\u20131088 personally compared: liquid_used lookup, contained_water_ml custody-filtered checked accumulation and remaining_container_capacity_ml graph+liquid checked subtraction. No local handwritten trait/serializer in material.",
+      "necessary_signature_extension": "1026\u20131029 and1086\u20131088 close the scoped function contracts.",
+      "coverage_limit": "Original role is only explicit1030\u20131085 material, not full1451. Exploratory1\u2013350 and1000\u20131025/1089\u20131100 were observed for navigation/context; no broader source or child/foreign contract coverage claimed."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Contained liquid projection and capacity query",
+      "disposition": "Semantic checked contextual native queries, no trait boilerplate within exact material contract.",
+      "acceptance": "No raw conversion replacing custody, checked volume composition or native errors; no whole-file credit."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 221,
+    "source_id": "physical-p16:crates/adventuresim-stdb-module/src/item.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

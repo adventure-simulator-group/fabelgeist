@@ -1,0 +1,25 @@
+{
+  "id": "RIG-INITIAL06-GROUP-344",
+  "at": "2026-10-23T09:15:32.156033+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "canonical-replication-codecs": {
+      "comparison": "Replication plugin directly registers canonical tactical state/equipment/scene/animation components and mapped request/response owners; no second mirrored gameplay schema is authored here. Replication is transient server→client, not DB persistence. SceneBuilding JSON-inside-postcard is explicit codec boundary for internally tagged canonical BuildingProgram; it does not reconstruct primitive mirrorfields. Compact furniture/door/window fixtures retain canonical IDs/RoomIndex/StoreyIndex/LeafDimensions/Position/SpatialDirection and roundtrip source-only. Native byte/channel/event mapping legitimate; no generated SDK helper or every decoder admitted by registration name.",
+      "disposition": "canonical component/event schema reused at explicit wire codec boundary"
+    },
+    "lunge-observation-plan-actuation": {
+      "comparison": "EntityMeleeLungeRequest identifies transient ECS participants; PlannedMeleeLunge owns arrival plus movement/retained reach/closure/travel, with explicit CannotArrive/None distinction. PR raw Vec3/f32/Transform fields and repeated surface/clearance computations contrast actual complete P16observe(Position<Scene>,RigidRotation,SignedLength)→MeleeMovementPlan(MeleeLungeGeometry,movement)→arrival product. P16 actual changed producer/retained/recipient/native AABB/direction/fixture bodies completely compared to fresh PR298; supports F034 coherent typed complete plan rather than get/construct cycles. Native AABB/glam measurement is legitimate boundary. Preserve current raw invalid observation/diagnostic admission order and existing zero/untargeted/missing ECS policies; no stale whole P16 replay.",
+      "disposition": "F034 canonical accepted geometry and complete movement-plan propagation candidate"
+    },
+    "locomotion-controller-to-shared-state": {
+      "comparison": "SkeletonLocomotionInput private product admits controller-native finite quaternion/velocity with canonical GroundContact, AnimationElapsed and AnimationSampleTick; ProjectedObservation is derived body/controller-frame velocity, speed, acceleration and optional landing impact. A finite input quaternion deliberately need not be unit, so replacing it with canonical normalized RigidRotation would change policy; meaningful observation boundary differs accepted pose rotation. Canonical speed/impact/sequence/gait leaves reused at real physical cadence kernels, zero residual/downed motion distinct from absent observations. Raw numerical world/body transform and acceleration math are ports; final state is compact shared server projection, not client bone authority or DB state.",
+      "disposition": "meaningful native observation versus derived locomotion products; preserve frame/admission policy"
+    }
+  },
+  "supporting_existing_findings": [
+    "F034"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit.",
+  "qualification": "QUAL044 raw rejected evidence/classification and actual finite-but-nonunit quaternion policy retained; type equivalence never inferred from storage."
+}

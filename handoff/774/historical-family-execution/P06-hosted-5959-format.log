@@ -1,0 +1,259 @@
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-stdb-module/src/simulation/quest_fixture.rs:103:
+         });
+     Ok(())
+ }
+-
+ 
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-stdb-module/src/strategic/approved_action.rs:171:
+         result.map_err(StrategicCombatError::from)
+     }
+ }
+-
+ 
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-stdb-module/src/strategic/development_gallery.rs:39:
+             let kind = GALLERY_PUZZLE_KINDS[offset];
+             let slug = format!("puzzle-{}", kind.slug());
+             let character_id = 9_999_999_999_999_950 - offset as u64;
+-            ensure_scenario_character(ctx, character_id, &format!("{} Puzzle Tester", kind.slug()))?;
++            ensure_scenario_character(
++                ctx,
++                character_id,
++                &format!("{} Puzzle Tester", kind.slug()),
++            )?;
+             let materialized = materialize_order_errantry(
+                 ctx,
+                 character_id,
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-stdb-module/src/strategic/development_gallery.rs:46:
+                 None,
+                 ErrantryLaunch::DirectDemoCamp(kind),
+             )?;
+-            register_development_scenario(ctx, &slug, "Puzzles", &format!("{} puzzle", kind.slug().replace('-', " ")), "Solve this puzzle from its ordinary journey-camp entry state.", character_id, "/locations/camp")?;
++            register_development_scenario(
++                ctx,
++                &slug,
++                "Puzzles",
++                &format!("{} puzzle", kind.slug().replace('-', " ")),
++                "Solve this puzzle from its ordinary journey-camp entry state.",
++                character_id,
++                "/locations/camp",
++            )?;
+             register_development_subject(ctx, &slug, "case", &materialized.case_id)?;
+         }
+         i => {
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-stdb-module/src/strategic/development_gallery.rs:58:
+             let scenario_slug = format!("road-{}", definition.id);
+             let character_id = 9_999_999_999_990_000_u64.saturating_sub(ordinal as u64);
+             ensure_scenario_character(ctx, character_id, &format!("Road Tester {}", ordinal + 1))?;
+-            let occurrence_id = materialize_development_road_encounter(ctx, character_id, &definition.id)?;
+-            let label = definition
+-                .cast
+-                .first()
+-                .map_or_else(|| definition.id.replace(['-', '_'], " "), |speaker| format!("Encounter with {}", speaker.name));
+-            register_development_scenario(ctx, &scenario_slug, "Road encounters", &label, "Play this compiled encounter through its ordinary journey-camp presentation.", character_id, "/locations/camp")?;
++            let occurrence_id =
++                materialize_development_road_encounter(ctx, character_id, &definition.id)?;
++            let label = definition.cast.first().map_or_else(
++                || definition.id.replace(['-', '_'], " "),
++                |speaker| format!("Encounter with {}", speaker.name),
++            );
++            register_development_scenario(
++                ctx,
++                &scenario_slug,
++                "Road encounters",
++                &label,
++                "Play this compiled encounter through its ordinary journey-camp presentation.",
++                character_id,
++                "/locations/camp",
++            )?;
+             register_development_subject(ctx, &scenario_slug, "road_encounter", &occurrence_id)?;
++        }
+     }
+-    }
+     Ok(true)
+ }
+ 
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-stdb-module/src/strategic/development_gallery.rs:103:
+ 
+ fn materialize_static_scenarios(ctx: &ReducerContext) -> StrategicCombatResult<()> {
+     let static_scenarios = [
+-        ("health-disease-party", "Health", "Disease diagnosis party", "Diagnose a party containing every authored disease stage.", 9_999_999_999_999_998, "/characters"),
+-        ("health-wounded-party", "Health", "Wounds and surgery", "Treat wounds, retained projectiles, splints, and damaged equipment.", 9_999_999_999_999_999, "/characters"),
+-        ("knowledge-religion", "Knowledge", "Religion knowledge", "Inspect the complete bounded religion skill presentation.", 9_999_999_999_999_988, "/characters"),
+-        ("knowledge-bestiary", "Knowledge", "Bestiary knowledge", "Inspect broad bestiary category knowledge and evidence.", 9_999_999_999_999_987, "/characters"),
+-        ("knowledge-herbalism", "Knowledge", "Herbalism and foraging", "Exercise every bounded herbalism method, public grade, and the terrain-backed foraging flow.", 9_999_999_999_999_986, "/characters"),
+-        ("social-affinity", "Social", "Affinity and courtship", "Exercise visible affinity, belief, morale, and social actions.", 9_999_999_999_999_977, "/characters"),
+-        ("social-prayer", "Social", "Zealous prayer", "Exercise conviction-sensitive prayer interactions.", 9_999_999_999_999_975, "/characters"),
++        (
++            "health-disease-party",
++            "Health",
++            "Disease diagnosis party",
++            "Diagnose a party containing every authored disease stage.",
++            9_999_999_999_999_998,
++            "/characters",
++        ),
++        (
++            "health-wounded-party",
++            "Health",
++            "Wounds and surgery",
++            "Treat wounds, retained projectiles, splints, and damaged equipment.",
++            9_999_999_999_999_999,
++            "/characters",
++        ),
++        (
++            "knowledge-religion",
++            "Knowledge",
++            "Religion knowledge",
++            "Inspect the complete bounded religion skill presentation.",
++            9_999_999_999_999_988,
++            "/characters",
++        ),
++        (
++            "knowledge-bestiary",
++            "Knowledge",
++            "Bestiary knowledge",
++            "Inspect broad bestiary category knowledge and evidence.",
++            9_999_999_999_999_987,
++            "/characters",
++        ),
++        (
++            "knowledge-herbalism",
++            "Knowledge",
++            "Herbalism and foraging",
++            "Exercise every bounded herbalism method, public grade, and the terrain-backed foraging flow.",
++            9_999_999_999_999_986,
++            "/characters",
++        ),
++        (
++            "social-affinity",
++            "Social",
++            "Affinity and courtship",
++            "Exercise visible affinity, belief, morale, and social actions.",
++            9_999_999_999_999_977,
++            "/characters",
++        ),
++        (
++            "social-prayer",
++            "Social",
++            "Zealous prayer",
++            "Exercise conviction-sensitive prayer interactions.",
++            9_999_999_999_999_975,
++            "/characters",
++        ),
+     ];
+     for (slug, category, label, description, character_id, route) in static_scenarios {
+-        register_development_scenario(ctx, slug, category, label, description, character_id, route)?;
++        register_development_scenario(
++            ctx,
++            slug,
++            category,
++            label,
++            description,
++            character_id,
++            route,
++        )?;
+     }
+     Ok(())
+ }
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-stdb-module/src/strategic/development_gallery.rs:121:
+     const AUTOPSY_ID: u64 = 9_999_999_999_999_960;
+     ensure_scenario_character(ctx, AUTOPSY_ID, "Anatomist Demo")?;
+     crate::corpse::seed_autopsy_demo(ctx, AUTOPSY_ID)?;
+-    register_development_scenario(ctx, "health-autopsy", "Health", "Autopsy", "Examine a deterministic corpse through the ordinary settlement UI.", AUTOPSY_ID, "/characters")?;
++    register_development_scenario(
++        ctx,
++        "health-autopsy",
++        "Health",
++        "Autopsy",
++        "Examine a deterministic corpse through the ordinary settlement UI.",
++        AUTOPSY_ID,
++        "/characters",
++    )?;
+     Ok(())
+ }
+ 
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-stdb-module/src/strategic/development_gallery.rs:129:
+     const OUTBREAK_ID: u64 = 9_999_999_999_999_959;
+     const OUTBREAK_SETTLEMENT: &str = "dev-scenario-outbreak";
+     ensure_scenario_settlement(ctx, OUTBREAK_SETTLEMENT, "Outbreak Scenario Hamlet")?;
+-    ensure_scenario_character_at(ctx, OUTBREAK_ID, "Outbreak Investigator", OUTBREAK_SETTLEMENT)?;
++    ensure_scenario_character_at(
++        ctx,
++        OUTBREAK_ID,
++        "Outbreak Investigator",
++        OUTBREAK_SETTLEMENT,
++    )?;
+     let outbreak_problem_id = seed_outbreak_demo(ctx, OUTBREAK_ID)?;
+     crate::local_problem::discover_development_problem(
+         ctx,
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-stdb-module/src/strategic/development_gallery.rs:137:
+         &outbreak_problem_id,
+         "quest-outbreak",
+     )?;
+-    register_development_scenario(ctx, "quest-outbreak", "Quests", "Discovered outbreak", "Continue a deterministic outbreak from its ordinary rumor-derived journal entry, referral, and investigation actions.", OUTBREAK_ID, "/quests")?;
+-    register_development_subject(ctx, "quest-outbreak", "generated_problem", &outbreak_problem_id)?;
++    register_development_scenario(
++        ctx,
++        "quest-outbreak",
++        "Quests",
++        "Discovered outbreak",
++        "Continue a deterministic outbreak from its ordinary rumor-derived journal entry, referral, and investigation actions.",
++        OUTBREAK_ID,
++        "/quests",
++    )?;
++    register_development_subject(
++        ctx,
++        "quest-outbreak",
++        "generated_problem",
++        &outbreak_problem_id,
++    )?;
+     Ok(())
+ }
+ 
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-stdb-module/src/strategic/development_gallery.rs:169:
+     }
+     ensure_recurring_threat_provisions(ctx, THREAT_ID)?;
+     debug_assert!(
+-        adventuresim_core::strategic_action::assess_negotiated_withdrawal(
+-            5.0, 1.0, 0.0, 50,
+-        )
+-        .accepted
++        adventuresim_core::strategic_action::assess_negotiated_withdrawal(5.0, 1.0, 0.0, 50,)
++            .accepted
+     );
+     debug_assert!(
+         adventuresim_core::strategic_action::assess_hostile_surrender(5.0, 1.0, 0.0, 50, 6_000)
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-stdb-module/src/strategic/development_gallery.rs:191:
+         &threat_problem_id,
+         "quest-recurring-threat",
+     )?;
+-    register_development_scenario(ctx, "quest-recurring-threat", "Quests", "Combat, withdrawal, or surrender", "Follow a deterministic sapient hostile threat to its case site, then resolve it through ordinary combat, negotiated withdrawal, or whole-group pre-combat surrender.", THREAT_ID, "/quests")?;
+-    register_development_subject(ctx, "quest-recurring-threat", "generated_problem", &threat_problem_id)?;
++    register_development_scenario(
++        ctx,
++        "quest-recurring-threat",
++        "Quests",
++        "Combat, withdrawal, or surrender",
++        "Follow a deterministic sapient hostile threat to its case site, then resolve it through ordinary combat, negotiated withdrawal, or whole-group pre-combat surrender.",
++        THREAT_ID,
++        "/quests",
++    )?;
++    register_development_subject(
++        ctx,
++        "quest-recurring-threat",
++        "generated_problem",
++        &threat_problem_id,
++    )?;
+     Ok(())
+ }
+ 
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-stdb-module/src/strategic/mod.rs:16:
+ use battle_combatants::load_allied_combatants;
+ pub use combat_error::{StrategicCombatError, StrategicCombatResult};
+ pub(crate) use development_gallery::{
+-    materialize_development_scenario_gallery, materialize_gallery_item, validate_gallery_postcondition,
++    materialize_development_scenario_gallery, materialize_gallery_item,
++    validate_gallery_postcondition,
+ };
+ use std::str::FromStr;
+ mod approved_action;
+##[error]

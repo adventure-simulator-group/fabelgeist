@@ -1,0 +1,35 @@
+{
+  "id": "CONT08-Q015",
+  "classification": "Retained exact low-level API retry contract question; no established ordinary duplicate route or introduced774 regression",
+  "source": {
+    "scope_index": 1209,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/custody_objectives.rs",
+    "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+    "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/strategic/custody_objectives.rs",
+    "before_sha256": "7274d8bedc95fa40cee64bda7b7dda0c32b6d02aa01e44e754f77e1bd171bc5b",
+    "after_sha256": "7274d8bedc95fa40cee64bda7b7dda0c32b6d02aa01e44e754f77e1bd171bc5b",
+    "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1209-base-7274d8bedc95fa40cee64bda7b7dda0c32b6d02aa01e44e754f77e1bd171bc5b",
+    "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/7274d8bedc95fa40cee64bda7b7dda0c32b6d02aa01e44e754f77e1bd171bc5b",
+    "diff": "source-evidence/pr-1209.diff",
+    "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "ranges": [
+    [
+      957,
+      1015
+    ],
+    [
+      263,
+      290
+    ],
+    [
+      1180,
+      1190
+    ]
+  ],
+  "before_after": "Actual full PRdiff empty. ingest_case_outcome_fact rebuilds encoded OutcomeFact including fresh official happened_at before same-source comparison. Identical semantic request later may conflict on timestamp alone. Custody and finale higher-level wrappers short-circuit exact retries before this seam; actual ordinary route bypassing all durable wrappers not established.",
+  "trigger": "First call accepted source S at t; same case/party/kind/S at t+1 while actual refresh_clock advances. Stored fact_json retains t, reconstructed fact has t+1, fails equality. No DB/runtime execution.",
+  "repair_if_policy_confirmed": "Treat stored timestamp as authoritative for exact semantic-source retry, validate immutable attributed payload independently before reusing result; retain conflicting identity/kind rejection and generatedprovenance checks.",
+  "acceptance": "Actual low-level and relevant higher retry paths with time change and exactsame/conflicting semantic payload; do not erase durable chronology or assume DB transactional behavior."
+}

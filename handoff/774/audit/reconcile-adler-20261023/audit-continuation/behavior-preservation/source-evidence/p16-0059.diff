@@ -1,0 +1,13 @@
+--- p16base/crates/adventuresim-core/src/autoresolve/melee_iteration/error.rs
++++ catalog-p16head/crates/adventuresim-core/src/autoresolve/melee_iteration/error.rs
+@@ -8,8 +8,10 @@
+ pub type MeleeIterationResult<T> = Result<T, MeleeIterationError>;
+ 
+ #[derive(Debug, thiserror::Error)]
+ pub enum MeleeIterationError {
++    #[error(transparent)]
++    Geometry(#[from] fabelgeist_geometry::GeometryError),
+     #[error(transparent)]
+     Name(#[from] NameCatalogError),
+     #[error(transparent)]
+     Weapon(#[from] AuthoredMeleeWeaponError),

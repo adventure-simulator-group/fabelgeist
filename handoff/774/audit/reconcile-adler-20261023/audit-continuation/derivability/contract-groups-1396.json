@@ -1,0 +1,113 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1396",
+  "at": "2026-10-25T18:46:44.798245+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1454,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/art_demo/residency.rs",
+      "sha256": "9b5cf78205d9e06cf9e5020a05dfa36cec92c54a5bb40e7480790be0471a5279",
+      "actual_EOF": 336,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/art_demo/residency.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/art_demo/residency.rs",
+        "owner": "root",
+        "sha256": "9b5cf78205d9e06cf9e5020a05dfa36cec92c54a5bb40e7480790be0471a5279",
+        "base_sha256": "786cbf592beebad01909aa03ca615d601b14d37c46e19f9b686f64d6968ece4f",
+        "state": "modified",
+        "bytes": 11687,
+        "audit_owner": "root",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "root",
+            "record": "wave-01/audit-producer-propagation/root/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                336
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "ROOT-PP-DEMO-016"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 129,
+            "read_ranges": [
+              [
+                1,
+                336
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-ART-DEMO-032"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/art_demo/residency.rs"
+          },
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 445,
+            "read_ranges": [
+              [
+                1,
+                336
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-ART-DEMO-032",
+              "ROOT-OWNER-CLIENT-SOURCE-CLOSURE-083"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/art_demo/residency.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          336
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "Resource retirement/pending markers",
+        "Default/Resource ExhibitCache"
+      ],
+      "absence_basis": "Full body1395 and final301\u2013336. Native semantic current selection/last-used bounded cache and source/loading ownership, Arc error retention and per-exhibit visibility/eviction/async cancellation plus fixtures. No handwritten trait/codec. Fixtures not run."
+    }
+  ],
+  "groups": [
+    "Keep native queue/cohort/cache operations; structural cache default already derived."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1455,
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/art_demo/scenery.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

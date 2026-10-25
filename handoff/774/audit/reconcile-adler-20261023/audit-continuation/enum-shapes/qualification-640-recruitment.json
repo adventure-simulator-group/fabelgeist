@@ -1,0 +1,21 @@
+{
+  "id": "SEGO-INITIAL09-QUALIFICATION-640-RECRUITMENT",
+  "finding": "SEGO-INITIAL09-F235",
+  "status": "exact capacity-owner extension, not new unique finding",
+  "own_source": "contracts-300.json P16governance282 capacity0 Unlimited and editing/filled-slot checks independently read; current normal producer extension reported by parent root05",
+  "reported_source": "Root05 fullPR1220 governance: GeneralJoin0 created1363\u20131373; request1320/accept1407/offer1623 interpret0 Unlimited; acceptance1529 binds role and filled>=1; update847/876\u2013878 then rejects unchanged0 because0<filled. No root05 coverage imported.",
+  "correction": "Earlier F235 qualification/acceptance instruction to preserve filled-slot minimum guard must mean FINITE Limited capacity cannot fall below occupancy. It does not require preserving raw quantity0<filled rejection for Unlimited; that contradicts the actual zero-as-unlimited semantic owner. Preserve differently scoped creation/edit limits and editable GeneralJoin metadata, while make Unlimited occupancy semantics explicit. No new independent ordinary proof credited to own09 from parent message.",
+  "source_versions": [
+    {
+      "scope_index": 282,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/governance.rs",
+      "sha256": "c557181c6e91e2beb9c7f20a44324af9d5f4e95ee886d4ae1198e7c78d7f6682"
+    },
+    {
+      "scope_index": 1220,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/governance.rs",
+      "sha256": "d5eb2f18906eb28ba2703b665b769c50113ed55b73f572896659d17492443e92"
+    }
+  ],
+  "limits": "Read-only evidence/qualification correction; no source fix, test/check, implementation plan or clearance."
+}

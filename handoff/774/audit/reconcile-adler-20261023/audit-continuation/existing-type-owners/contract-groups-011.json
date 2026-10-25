@@ -1,0 +1,1274 @@
+{
+  "id": "OWN02-DELTA-CONTRACT-011",
+  "at": "2026-10-24T02:37:28.057881+00:00",
+  "lens": "audit-existing-type-owners",
+  "baseline": "adopted ROOT040/0422560/59 WITH_FINDINGS",
+  "rows": [
+    {
+      "delta_index": 237,
+      "source_scope_index": 2798,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/planar.rs",
+      "sha256": "443ff701ad79a52b06623fc199de7ea1df011b7527ed2ef8056057b9b8fac059",
+      "effective_ranges": [
+        [
+          3,
+          66
+        ]
+      ],
+      "registration": {
+        "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+        "sha256": "c8b1fb4dbce7e103d69a8c5f3182e2f5a8dfa07cbb0ef31d82d660601a5698bf",
+        "row_1based": 22,
+        "id": "NATIVE-INITIAL05-REG022",
+        "original_record": {
+          "id": "NATIVE-INITIAL05-REG022",
+          "at": "2026-10-23T01:11:05.305852+00:00",
+          "authority": "continuation/root/parallel-initial-audits-081.json",
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/planar.rs",
+          "snapshot": "pr-working",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\city_layout\\grounding\\planar.rs",
+          "sha256": "443ff701ad79a52b06623fc199de7ea1df011b7527ed2ef8056057b9b8fac059",
+          "actual_EOF": 83,
+          "material_ranges": [
+            [
+              3,
+              68
+            ]
+          ],
+          "actual_reach": "Actual GroundTriangle::intersection and outside_outline, floor coverage, geographic measure_region and foundation visit_source_intersections call clip/subtract/signed_area. Direct pure polygon helper bodies needed to distinguish coverage union versus area sum.",
+          "exclusions": "1-2 module context; distance_outside69+ and unrelated helper/test bodies excluded. No runtime/build or foreign package.",
+          "status": "prospectively_registered_before_body_analysis"
+        }
+      },
+      "qualification_reference": [
+        "Only3-66 clip/subtract/signed_area;67blank/68NEXT distance_outside doccontextuncredited,69+helperexcluded. Exactdirect registered scene-support numericalcontract only, no allplanaralgorithm/otherlenscredit."
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": [
+        {
+          "record": "CONT07-CONTRACT-638",
+          "ranges": [
+            [
+              3,
+              66
+            ]
+          ]
+        },
+        {
+          "record": "CONT07-CONTRACT-647",
+          "ranges": [
+            [
+              69,
+              83
+            ]
+          ]
+        },
+        {
+          "record": "CONT07-OVERLAY-227",
+          "proof": [
+            {
+              "contract": "CONT07-CONTRACT-647",
+              "ranges": [
+                [
+                  69,
+                  83
+                ]
+              ],
+              "disposition": "accounted exact current07 source authority roles and explicit limits",
+              "source_proof_kind": "own continuation same-lens"
+            }
+          ]
+        }
+      ],
+      "adopted_baseline_source_body_evidence": [],
+      "source_proof_qualification": "Exact personally read07 source-body evidence reused; independent02 meaning/units/frame/authority/bounds/zero analysis below. Producer01 narrative consumed as source navigation, no verdict transfer.",
+      "owner_fit_disposition": "actual-f64-planar-kernel-with-frame-input",
+      "owner_fit_reasoning": "clip/subtract/signed_area are actual double-precision halfplane/polygon equations. Keep admitted scene outline/point owners into this receiver and extract here; ScenePlanPoint f32 is not exact replacement for every DVec2 iterative numerical intermediate. Caller must prove finite/convex/ordered/frame association; private helper alone does not. Empty/degenerate clipping and origin-relative area are intentional numerical policies, no positive area everywhere.",
+      "discovery": "accounted WITH inherited findings and explicit contract questions; not clear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true
+    },
+    {
+      "delta_index": 238,
+      "source_scope_index": 2798,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/planar.rs",
+      "sha256": "443ff701ad79a52b06623fc199de7ea1df011b7527ed2ef8056057b9b8fac059",
+      "effective_ranges": [
+        [
+          69,
+          83
+        ]
+      ],
+      "registration": {
+        "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+        "sha256": "dbdc7d368a7e5bba66029cb19fbde14b76d56f77dd0063ad0fa79c18c598a7d5",
+        "row_1based": 23,
+        "id": "NATIVE-INITIAL05-REG023",
+        "original_record": {
+          "id": "NATIVE-INITIAL05-REG023",
+          "at": "2026-10-23T01:23:46.454329+00:00",
+          "authority": "continuation/root/parallel-initial-audits-081.json",
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/planar.rs",
+          "snapshot": "pr-working",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\city_layout\\grounding\\planar.rs",
+          "sha256": "443ff701ad79a52b06623fc199de7ea1df011b7527ed2ef8056057b9b8fac059",
+          "actual_EOF": 83,
+          "material_ranges": [
+            [
+              69,
+              83
+            ]
+          ],
+          "actual_reach": "Actual apron::prepare33 calls distance_outside; complete called helper before relying on threshold membership. Existingglobal3-66 unchanged.",
+          "exclusions": "1-68 alreadyqualified separate roles; no unrelatedmaterial.",
+          "status": "prospectively_registered_before_body_analysis"
+        }
+      },
+      "qualification_reference": [
+        "Only69-83 directlycalled distance_outside; existing3-66 kept,67blank/68docexcluded, no implicitwholefilewaiver."
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": [
+        {
+          "record": "CONT07-CONTRACT-638",
+          "ranges": [
+            [
+              3,
+              66
+            ]
+          ]
+        },
+        {
+          "record": "CONT07-CONTRACT-647",
+          "ranges": [
+            [
+              69,
+              83
+            ]
+          ]
+        },
+        {
+          "record": "CONT07-OVERLAY-227",
+          "proof": [
+            {
+              "contract": "CONT07-CONTRACT-647",
+              "ranges": [
+                [
+                  69,
+                  83
+                ]
+              ],
+              "disposition": "accounted exact current07 source authority roles and explicit limits",
+              "source_proof_kind": "own continuation same-lens"
+            }
+          ]
+        }
+      ],
+      "adopted_baseline_source_body_evidence": [],
+      "source_proof_qualification": "Exact personally read07 source-body evidence reused; independent02 meaning/units/frame/authority/bounds/zero analysis below. Producer01 narrative consumed as source navigation, no verdict transfer.",
+      "owner_fit_disposition": "actual-distance-kernel-not-world-coordinate-owner",
+      "owner_fit_reasoning": "distance_outside consumes the same admitted convex local outline and point, produces nonnegative measured distance when valid. Existing measured-distance leaf must match finite/zero semantics; infinity accumulator is local numerical state. Empty outline vacuous0/zeroedge require actual admitted caller before defect, not automatic narrowing of generic polygon API or Point owner substitution.",
+      "discovery": "accounted WITH inherited findings and explicit contract questions; not clear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true
+    },
+    {
+      "delta_index": 239,
+      "source_scope_index": 2799,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/compounds.rs",
+      "sha256": "1749661a3b0a1baf513595ff7076a7670510285e556b3e2cf7acbc5888f89583",
+      "effective_ranges": [
+        [
+          7,
+          100
+        ],
+        [
+          218,
+          252
+        ]
+      ],
+      "registration": {
+        "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+        "sha256": "dbdc7d368a7e5bba66029cb19fbde14b76d56f77dd0063ad0fa79c18c598a7d5",
+        "row_1based": 24,
+        "id": "NATIVE-INITIAL05-REG024",
+        "original_record": {
+          "id": "NATIVE-INITIAL05-REG024",
+          "at": "2026-10-23T01:23:46.470106+00:00",
+          "authority": "continuation/root/parallel-initial-audits-081.json",
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/compounds.rs",
+          "snapshot": "pr-working",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\scene_input\\compounds.rs",
+          "sha256": "1749661a3b0a1baf513595ff7076a7670510285e556b3e2cf7acbc5888f89583",
+          "actual_EOF": 294,
+          "material_ranges": [
+            [
+              7,
+              100
+            ],
+            [
+              218,
+              253
+            ]
+          ],
+          "actual_reach": "Actual BoundarySupportMesh::project/binding/current descriptor and physicalcell correlation needs direct SceneBoundary/GeneratedBoundary decode/native receiver plus normalfactory. Navigationvalidate_scene actualcallee found, no bodyread yet.",
+          "exclusions": "1-6 module/test-headercontext; validate wholeurban102-217/generate254+/tests excluded.",
+          "status": "prospectively_registered_before_body_analysis"
+        }
+      },
+      "qualification_reference": [
+        "Only7-100 privateboundary/Wireadmission/accessors and218-252 actualproject;253blankexcluded,101implclosing/1-6/102-217/254+generationnotcredited. Projectionnormalconstructor vs decodedphysicalcorrelation distinguished."
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": [
+        {
+          "record": "CONT07-CONTRACT-422",
+          "ranges": [
+            [
+              7,
+              100
+            ],
+            [
+              218,
+              252
+            ]
+          ]
+        },
+        {
+          "record": "CONT07-CONTRACT-638",
+          "ranges": [
+            [
+              7,
+              100
+            ],
+            [
+              218,
+              252
+            ]
+          ]
+        }
+      ],
+      "adopted_baseline_source_body_evidence": [],
+      "source_proof_qualification": "Exact personally read07 source-body evidence reused; independent02 meaning/units/frame/authority/bounds/zero analysis below. Producer01 narrative consumed as source navigation, no verdict transfer.",
+      "owner_fit_disposition": "existing-accepted-boundary-product-and-gate-alias",
+      "owner_fit_reasoning": "SceneBoundary private accepted binding already associates property/building/boundary/support. GeneratedBoundary keeps gate elevation separately and validates against binding; actual projection copies it. Exact RIG-INITIAL06-F026 redundant gate authority persists despite compatible scalar owner. Reuse canonical accepted boundary/elevation owner, remove independent gate cache in eventual repair; normal projection coherent and decoded physical-support correlation is separate defect.",
+      "discovery": "accounted WITH inherited findings and explicit contract questions; not clear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true
+    },
+    {
+      "delta_index": 240,
+      "source_scope_index": 2800,
+      "source_id": "physical-p16:crates/strategic-web/src/templates/recruitment.rs",
+      "sha256": "ac67b736f6b3d39a214a9d95831e20cbdbead9b95d1b5c8d34b11dff58001cd5",
+      "effective_ranges": [
+        [
+          325,
+          342
+        ]
+      ],
+      "registration": {
+        "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+        "sha256": "a606684d1b3b0317b659fbbc852021ba0da5b71765e34bd93880fc868c0d63fe",
+        "row_1based": 20,
+        "id": "CAMERA-INITIAL07-REG020",
+        "original_record": {
+          "registration_id": "CAMERA-INITIAL07-REG020",
+          "at": "2026-10-23T01:32:58.940288+00:00",
+          "authority": "continuation/root/parallel-initial-audits-081.json",
+          "source_id": "physical-p16:crates/strategic-web/src/templates/recruitment.rs",
+          "snapshot": "physical-p16",
+          "resolved_path": "SNAPSHOTS/p16/crates/strategic-web/src/templates/recruitment.rs",
+          "sha256": "ac67b736f6b3d39a214a9d95831e20cbdbead9b95d1b5c8d34b11dff58001cd5",
+          "actual_EOF": 587,
+          "material_ranges": [
+            [
+              325,
+              345
+            ]
+          ],
+          "reason": "Direct actual warning/text recipient of scoped PartyJoinRequest.meets_requirements bool, initialized from capability versus role requirements and not refreshed by actual role update; establish current-versus-historical purpose before redundant authority verdict.",
+          "exclusions": "Only directly referenced applicant warning/text guard; surrounding template/page/handlers and other fields uncredited. rg symbol navigation only before prospective registration; no current body analysis yet.",
+          "status": "prospectively_registered_before_body_analysis"
+        }
+      },
+      "qualification_reference": [
+        "Only325-342 actual applicant class/text guard;343-345 unrelated aggregate/form context excluded. No surrounding template/handler credit."
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": [
+        {
+          "record": "CONT07-OVERLAY-228",
+          "proof": [
+            {
+              "contract": "CAMERA-INITIAL07-CONTRACT-143",
+              "ranges": [
+                [
+                  19,
+                  35
+                ],
+                [
+                  325,
+                  342
+                ]
+              ],
+              "disposition": "Registered current warning recipient and unchanged request builder F029",
+              "source_proof_kind": "adopted prior same-lens"
+            }
+          ]
+        }
+      ],
+      "adopted_baseline_source_body_evidence": [
+        {
+          "record": "CAMERA-INITIAL07-CONTRACT-143",
+          "ranges": [
+            [
+              19,
+              35
+            ],
+            [
+              325,
+              342
+            ]
+          ]
+        }
+      ],
+      "source_proof_qualification": "Exact personally read07 source-body evidence reused; independent02 meaning/units/frame/authority/bounds/zero analysis below. Producer01 narrative consumed as source navigation, no verdict transfer.",
+      "owner_fit_disposition": "stale-requirement-result-not-new-bool-owner",
+      "owner_fit_reasoning": "Applicant stored meets_requirements is displayed as current class/recommendation, exact CAMERA-INITIAL07-F029. Reusing a bool wrapper cannot fix stale role/capability association; retain current canonical check result with assessed revision/source or derive it from live role+capability. HTML/aria name/ID serialization is actual presentation port. No permission failure alleged.",
+      "discovery": "accounted WITH inherited findings and explicit contract questions; not clear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true
+    },
+    {
+      "delta_index": 241,
+      "source_scope_index": 2801,
+      "source_id": "physical-p16:crates/strategic-web/src/routes/parties.rs",
+      "sha256": "ab69f73988cfe3ec66925ba43a1060eee98e493f0859e60be2e325e18a89ad96",
+      "effective_ranges": [
+        [
+          355,
+          581
+        ]
+      ],
+      "registration": {
+        "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+        "sha256": "a606684d1b3b0317b659fbbc852021ba0da5b71765e34bd93880fc868c0d63fe",
+        "row_1based": 21,
+        "id": "CAMERA-INITIAL07-REG021",
+        "original_record": {
+          "registration_id": "CAMERA-INITIAL07-REG021",
+          "at": "2026-10-23T01:34:12.473482+00:00",
+          "authority": "continuation/root/parallel-initial-audits-081.json",
+          "source_id": "physical-p16:crates/strategic-web/src/routes/parties.rs",
+          "snapshot": "physical-p16",
+          "resolved_path": "SNAPSHOTS\\p16\\crates\\strategic-web\\src\\routes\\parties.rs",
+          "sha256": "ab69f73988cfe3ec66925ba43a1060eee98e493f0859e60be2e325e18a89ad96",
+          "actual_EOF": 878,
+          "material_ranges": [
+            [
+              355,
+              581
+            ]
+          ],
+          "reason": "Direct complete recruitment_panel_fragment receiver constructs applicants from actual retained PartyJoinRequest; close whether current warning bool is recomputed before template, without assuming a stale stored row reaches display.",
+          "exclusions": "Only direct current bool producer-to-recipient correlation; all surrounding route/template functions and unrelated gameplay excluded. Symbol navigation only before registration.",
+          "status": "prospectively_registered_before_body_analysis"
+        }
+      },
+      "qualification_reference": [
+        "Only355-581 direct recruitment_panel_fragment; no surrounding routes/template code or queriedhelper bodycredit."
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": [],
+      "adopted_baseline_source_body_evidence": [
+        {
+          "record": "CAMERA-INITIAL07-CONTRACT-143",
+          "ranges": [
+            [
+              355,
+              581
+            ]
+          ]
+        }
+      ],
+      "source_proof_qualification": "Exact personally read07 source-body evidence reused; independent02 meaning/units/frame/authority/bounds/zero analysis below. Producer01 narrative consumed as source navigation, no verdict transfer.",
+      "owner_fit_disposition": "canonical-party-check-product-before-html",
+      "owner_fit_reasoning": "recruitment fragment joins native IDs and capabilities then retains raw vectors/summary. Existing character/party/role/check owners fit internal aggregation; terminal SDK/SQL/HTML is actual port, intervening app state is not. Exact stored request clone despite fresh current capability proves240F029. Carry M51/M45 check result and structured causes rather than unrelated numeric wrapper; unwrap defaults hide cause before terminal UI.",
+      "discovery": "accounted WITH inherited findings and explicit contract questions; not clear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true
+    },
+    {
+      "delta_index": 242,
+      "source_scope_index": 2800,
+      "source_id": "physical-p16:crates/strategic-web/src/templates/recruitment.rs",
+      "sha256": "ac67b736f6b3d39a214a9d95831e20cbdbead9b95d1b5c8d34b11dff58001cd5",
+      "effective_ranges": [
+        [
+          19,
+          35
+        ]
+      ],
+      "registration": {
+        "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+        "sha256": "a606684d1b3b0317b659fbbc852021ba0da5b71765e34bd93880fc868c0d63fe",
+        "row_1based": 22,
+        "id": "CAMERA-INITIAL07-REG022",
+        "original_record": {
+          "registration_id": "CAMERA-INITIAL07-REG022",
+          "at": "2026-10-23T01:34:12.473482+00:00",
+          "authority": "continuation/root/parallel-initial-audits-081.json",
+          "source_id": "physical-p16:crates/strategic-web/src/templates/recruitment.rs",
+          "snapshot": "physical-p16",
+          "resolved_path": "SNAPSHOTS\\p16\\crates\\strategic-web\\src\\templates\\recruitment.rs",
+          "sha256": "ac67b736f6b3d39a214a9d95831e20cbdbead9b95d1b5c8d34b11dff58001cd5",
+          "actual_EOF": 587,
+          "material_ranges": [
+            [
+              19,
+              36
+            ]
+          ],
+          "reason": "Direct RecruitmentApplicant/RecruitmentRolePanel shapes connecting registered request builder to registered warning/text; no neighboring template logic.",
+          "exclusions": "Only direct current bool producer-to-recipient correlation; all surrounding route/template functions and unrelated gameplay excluded. Symbol navigation only before registration.",
+          "status": "prospectively_registered_before_body_analysis"
+        }
+      },
+      "qualification_reference": [
+        "Only19-35 applicant and rolepanel shapes;36blank excluded, no neighboring template logic."
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": [
+        {
+          "record": "CONT07-OVERLAY-228",
+          "proof": [
+            {
+              "contract": "CAMERA-INITIAL07-CONTRACT-143",
+              "ranges": [
+                [
+                  19,
+                  35
+                ],
+                [
+                  325,
+                  342
+                ]
+              ],
+              "disposition": "Registered current warning recipient and unchanged request builder F029",
+              "source_proof_kind": "adopted prior same-lens"
+            }
+          ]
+        }
+      ],
+      "adopted_baseline_source_body_evidence": [
+        {
+          "record": "CAMERA-INITIAL07-CONTRACT-143",
+          "ranges": [
+            [
+              19,
+              35
+            ],
+            [
+              325,
+              342
+            ]
+          ]
+        }
+      ],
+      "source_proof_qualification": "Exact personally read07 source-body evidence reused; independent02 meaning/units/frame/authority/bounds/zero analysis below. Producer01 narrative consumed as source navigation, no verdict transfer.",
+      "owner_fit_disposition": "applicant-identity-association-not-option-ban",
+      "owner_fit_reasoning": "Applicant retains request plus character/profile/capability/medical projections; canonical actor and role/check product should own their association. Native optional missing/decode policy is actual distinction, not arbitrary presence field to eliminate. Normal241 joins correlate IDs, so no ordinary wrong-patient claim from independent fields; retain exact F029 stale assessment and own relevant physical/skill leaves.",
+      "discovery": "accounted WITH inherited findings and explicit contract questions; not clear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true
+    },
+    {
+      "delta_index": 243,
+      "source_scope_index": 2802,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/personality.rs",
+      "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+      "effective_ranges": [
+        [
+          54,
+          69
+        ]
+      ],
+      "registration": {
+        "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+        "sha256": "ce2472a7afafa8b002be074191b2245b1ef351e13d467e413c91eed0cfc6d2ed",
+        "row_1based": 32,
+        "id": "RIG-INITIAL06-REG-032",
+        "original_record": {
+          "id": "RIG-INITIAL06-REG-032",
+          "at": "2026-10-23T01:43:51.055128+00:00",
+          "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/personality.rs",
+          "snapshot": "pr-working",
+          "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+          "actual_EOF": 1210,
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\personality.rs",
+          "material_ranges": [
+            [
+              54,
+              69
+            ]
+          ],
+          "material_caller": "Already scoped Core starting_character generated_personality684\u2013787 declares same thirteen personality axes, current P16 DB canonical MutablePersonalityAxis55\u201369 and generation110\u2013203 separately reached. Exact PR selector definition needed to compare current branch ownership before proposing low Core shared selector.",
+          "reason": "Direct actual canonical selector definition/derive only; compare current PR definition rather than infer it from P16/hash. Register before body under081.",
+          "exclusions": "No surrounding personality label/scores/gateway schema, mutation/generation helpers70+ or whole1210 body credit; source bytes and actual endpoints qualify after read.",
+          "status": "Prospectively registered before body analysis; global pending"
+        }
+      },
+      "qualification_reference": [
+        "Only54-69 exactclosed MutablePersonalityAxis declaration/SpacetimeType derive; no label/scores/gateway/mutation/generation/tail or whole1210 credit."
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": [
+        {
+          "record": "CONT07-OVERLAY-229",
+          "proof": [
+            {
+              "contract": "CAMERA-INITIAL07-CONTRACT-155",
+              "ranges": [
+                [
+                  2,
+                  5
+                ]
+              ],
+              "disposition": "Derived challenge openness and canonical reexport identity, exact current scoped roles",
+              "source_proof_kind": "adopted prior same-lens"
+            },
+            {
+              "contract": "CAMERA-INITIAL07-CONTRACT-158",
+              "ranges": [
+                [
+                  1,
+                  666
+                ]
+              ],
+              "disposition": "153/154 actual behavioral authority versus demographic fields and historical fixture facts reconciled; exact material scope only",
+              "source_proof_kind": "adopted prior same-lens"
+            }
+          ]
+        },
+        {
+          "record": "CONT07-OVERLAY-231",
+          "proof": [
+            {
+              "contract": "CAMERA-INITIAL07-CONTRACT-150",
+              "ranges": [
+                [
+                  54,
+                  69
+                ]
+              ],
+              "disposition": "Closed mutable-axis selector only; no current-state cache defined; F011 canonical roster context",
+              "source_proof_kind": "adopted prior same-lens"
+            },
+            {
+              "contract": "CAMERA-INITIAL07-CONTRACT-155",
+              "ranges": [
+                [
+                  2,
+                  5
+                ]
+              ],
+              "disposition": "Derived challenge openness and canonical reexport identity, exact current scoped roles",
+              "source_proof_kind": "adopted prior same-lens"
+            },
+            {
+              "contract": "CAMERA-INITIAL07-CONTRACT-158",
+              "ranges": [
+                [
+                  1,
+                  666
+                ]
+              ],
+              "disposition": "153/154 actual behavioral authority versus demographic fields and historical fixture facts reconciled; exact material scope only",
+              "source_proof_kind": "adopted prior same-lens"
+            }
+          ]
+        }
+      ],
+      "adopted_baseline_source_body_evidence": [
+        {
+          "record": "CAMERA-INITIAL07-CONTRACT-150",
+          "ranges": [
+            [
+              54,
+              69
+            ]
+          ]
+        },
+        {
+          "record": "CAMERA-INITIAL07-CONTRACT-155",
+          "ranges": [
+            [
+              2,
+              5
+            ]
+          ]
+        },
+        {
+          "record": "CAMERA-INITIAL07-CONTRACT-158",
+          "ranges": [
+            [
+              1,
+              666
+            ]
+          ]
+        }
+      ],
+      "source_proof_qualification": "Exact personally read07 source-body evidence reused; independent02 meaning/units/frame/authority/bounds/zero analysis below. Producer01 narrative consumed as source navigation, no verdict transfer.",
+      "owner_fit_disposition": "exact-existing-personality-axis-owner",
+      "owner_fit_reasoning": "MutablePersonalityAxis13variants is exact existing owner for raw0..12 generator148. Reuse/exhaustive roster at lowest coherent shared owner, preserving original Nerve\u2192SelfKnowledge order, shuffle/RNG draws and2..4unique axis selection. No ALL constant exists. Axis identity differs signed potency, visible enum projection and actor identity; no duplicate axis enum.",
+      "discovery": "accounted WITH inherited findings and explicit contract questions; not clear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true
+    },
+    {
+      "delta_index": 244,
+      "source_scope_index": 2803,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_provenance.rs",
+      "sha256": "f9a27db833d675b23a449676ecfd6d878c0357f2a5190f6a649341766c5ee33c",
+      "effective_ranges": [
+        [
+          181,
+          263
+        ],
+        [
+          265,
+          290
+        ]
+      ],
+      "registration": {
+        "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+        "sha256": "ca1f708e7acb0e62131a0ca42f7bef56b28eb49846b3e187454f0b3e30eedf86",
+        "row_1based": 23,
+        "id": "CAMERA-INITIAL07-REG023",
+        "original_record": {
+          "registration_id": "CAMERA-INITIAL07-REG023",
+          "at": "2026-10-23T01:47:57.370318+00:00",
+          "authority": "continuation/root/parallel-initial-audits-081.json",
+          "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_provenance.rs",
+          "snapshot": "physical-p16",
+          "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\strategic\\dialogue_provenance.rs",
+          "sha256": "f9a27db833d675b23a449676ecfd6d878c0357f2a5190f6a649341766c5ee33c",
+          "actual_EOF": 1408,
+          "material_ranges": [
+            [
+              181,
+              290
+            ]
+          ],
+          "reason": "Direct join/member receiver establishing whether observer-specific topic refresh can be shared across multiple player participants; complete actual join function and actual membership receiver only. Existing PRfull1408 does not grant P16semantic credit.",
+          "exclusions": "All other provenance/parser/address/fact-context helpers and tests excluded. Premature previous display uncredited QUAL149; body must be freshly reread after registration.",
+          "status": "prospectively_registered_before_credited_body_analysis"
+        }
+      },
+      "qualification_reference": [
+        "Only181-263 join/265-290 membership;264blankexcluded. CameraQUAL149 prematuredisplay uncredited; freshpostregistrationbodyproof required. No otherP16provenance orPRwholeverdicttransfer."
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": [],
+      "adopted_baseline_source_body_evidence": [
+        {
+          "record": "CAMERA-INITIAL07-CONTRACT-152",
+          "ranges": [
+            [
+              181,
+              263
+            ],
+            [
+              265,
+              290
+            ]
+          ]
+        }
+      ],
+      "source_proof_qualification": "Exact personally read07 source-body evidence reused; independent02 meaning/units/frame/authority/bounds/zero analysis below. Producer01 narrative consumed as source navigation, no verdict transfer.",
+      "owner_fit_disposition": "existing-dialogue-session-action-and-revision-owners",
+      "owner_fit_reasoning": "join_dialogue_session validates catalogue/action/life/presence/revision/role before retaining participant/actions with erased raw IDs/String. Existing session/conversation/action/character/revision owners should survive pure helper and state, SDK errors only formatted at final reducer boundary. Revision increment API terminal overflow exact ROOT-INITIAL04-F033; no normal lifetime exhaustion. Idempotency/maxPlayer/revision guards preserved, catalogue leaf alone does not prove participant cohort.",
+      "discovery": "accounted WITH inherited findings and explicit contract questions; not clear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true
+    },
+    {
+      "delta_index": 245,
+      "source_scope_index": 2804,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/challenge_state.rs",
+      "sha256": "c64e6cc0ae76c920c28246e9386218ce453fc80e8cb3658f500c797456bf0fc4",
+      "effective_ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "registration": {
+        "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+        "sha256": "ae719b7285ea649dcf26c2dee0908de407f1fd679635d005107160dd907358f8",
+        "row_1based": 24,
+        "id": "CAMERA-INITIAL07-REG024",
+        "original_record": {
+          "registration_id": "CAMERA-INITIAL07-REG024",
+          "at": "2026-10-23T01:53:37.277034+00:00",
+          "authority": "continuation/root/parallel-initial-audits-081.json",
+          "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/challenge_state.rs",
+          "snapshot": "physical-p16",
+          "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\strategic\\challenge_state.rs",
+          "sha256": "c64e6cc0ae76c920c28246e9386218ce453fc80e8cb3658f500c797456bf0fc4",
+          "actual_EOF": 80,
+          "material_ranges": [
+            [
+              1,
+              80
+            ]
+          ],
+          "reason": "Direct ChallengeAuthority/RoadChallengeAuthority definitions and is_open bodies used by already scoped challenge producer/update/backend receiver; establish current open/solved projection meaning versus independently stored flag, no inference from method name.",
+          "exclusions": "Only direct80-line canonical state records/classifiers/helpers; no wider strategic module/native codecs/tests graph.",
+          "status": "prospectively_registered_before_body_analysis"
+        }
+      },
+      "qualification_reference": [
+        "Only exact80-line challenge authority state and resolution classifiers; no wider strategic or test bodies."
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": [],
+      "adopted_baseline_source_body_evidence": [
+        {
+          "record": "CAMERA-INITIAL07-CONTRACT-155",
+          "ranges": [
+            [
+              1,
+              80
+            ]
+          ]
+        }
+      ],
+      "source_proof_qualification": "Exact personally read07 source-body evidence reused; independent02 meaning/units/frame/authority/bounds/zero analysis below. Producer01 narrative consumed as source navigation, no verdict transfer.",
+      "owner_fit_disposition": "canonical-challenge-authority-product",
+      "owner_fit_reasoning": "ChallengeState already owns explicit phase/progress/resolution context; retain existing action/challenge identity and typed frozen result across dialogue/native receipts. M38/M58 connected products need actual source association, not equivalent wrappers around each flag. Complete80body is exact source proof, no all-writer/lens clearance.",
+      "discovery": "accounted WITH inherited findings and explicit contract questions; not clear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true
+    },
+    {
+      "delta_index": 246,
+      "source_scope_index": 2805,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/challenge_state.rs",
+      "sha256": "c64e6cc0ae76c920c28246e9386218ce453fc80e8cb3658f500c797456bf0fc4",
+      "effective_ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "registration": {
+        "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+        "sha256": "ae719b7285ea649dcf26c2dee0908de407f1fd679635d005107160dd907358f8",
+        "row_1based": 25,
+        "id": "CAMERA-INITIAL07-REG025",
+        "original_record": {
+          "registration_id": "CAMERA-INITIAL07-REG025",
+          "at": "2026-10-23T01:53:37.277034+00:00",
+          "authority": "continuation/root/parallel-initial-audits-081.json",
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/challenge_state.rs",
+          "snapshot": "pr-working",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\strategic\\challenge_state.rs",
+          "sha256": "c64e6cc0ae76c920c28246e9386218ce453fc80e8cb3658f500c797456bf0fc4",
+          "actual_EOF": 80,
+          "material_ranges": [
+            [
+              1,
+              80
+            ]
+          ],
+          "reason": "Direct ChallengeAuthority/RoadChallengeAuthority definitions and is_open bodies used by already scoped challenge producer/update/backend receiver; establish current open/solved projection meaning versus independently stored flag, no inference from method name.",
+          "exclusions": "Only direct80-line canonical state records/classifiers/helpers; no wider strategic module/native codecs/tests graph.",
+          "status": "prospectively_registered_before_body_analysis"
+        }
+      },
+      "qualification_reference": [
+        "Only exact80-line challenge authority state and resolution classifiers; no wider strategic or test bodies."
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": [],
+      "adopted_baseline_source_body_evidence": [
+        {
+          "record": "CAMERA-INITIAL07-CONTRACT-155",
+          "ranges": [
+            [
+              1,
+              80
+            ]
+          ]
+        }
+      ],
+      "source_proof_qualification": "Exact personally read07 source-body evidence reused; independent02 meaning/units/frame/authority/bounds/zero analysis below. Producer01 narrative consumed as source navigation, no verdict transfer.",
+      "owner_fit_disposition": "samehash-distinct-provenance-challenge",
+      "owner_fit_reasoning": "PR and P16 challenge_state have exact same hash/ranges; same actual owner fit as245, distinct source provenance does not create another defect or semantic type. Preserve frozen/native admission and writer obligations, no whole strategic graph inferred.",
+      "discovery": "accounted WITH inherited findings and explicit contract questions; not clear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true
+    },
+    {
+      "delta_index": 247,
+      "source_scope_index": 2802,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/personality.rs",
+      "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+      "effective_ranges": [
+        [
+          2,
+          5
+        ]
+      ],
+      "registration": {
+        "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+        "sha256": "84723fe282f3f1d145445f649bea6246a716c2b2e050de168d58eaf09a886038",
+        "row_1based": 33,
+        "id": "RIG-INITIAL06-REG-033",
+        "original_record": {
+          "id": "RIG-INITIAL06-REG-033",
+          "at": "2026-10-23T01:53:46.963714+00:00",
+          "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/personality.rs",
+          "snapshot": "pr-working",
+          "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+          "actual_EOF": 1210,
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\personality.rs",
+          "material_ranges": [
+            [
+              2,
+              5
+            ]
+          ],
+          "material_caller": "Scoped PRtime/mod24\u201326 imports crate personality Sociability asCharacterSociability; time/schedule283\u2013287 maps all3 values to Core strategic_schedule::SocializingSociability, whose definition254\u2013259 duplicates canonical Core personality35\u201339. Exact current reexport needed before asserting same owner/type route.",
+          "reason": "Direct canonical reexport only; existing04654\u201369 role does not cover it and P16reexport096 is not PR credit. Registered before actual body under081.",
+          "exclusions": "No line1 gateway import or schema/score/mutation/generation/tail; prior54\u201369 retained separately.",
+          "status": "Prospectively registered before body analysis; global range reconciliation pending"
+        }
+      },
+      "qualification_reference": [
+        "Only canonical Core leaf reexport2-5; no personality mutation/generation/schema bodies."
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": [
+        {
+          "record": "CONT07-OVERLAY-229",
+          "proof": [
+            {
+              "contract": "CAMERA-INITIAL07-CONTRACT-155",
+              "ranges": [
+                [
+                  2,
+                  5
+                ]
+              ],
+              "disposition": "Derived challenge openness and canonical reexport identity, exact current scoped roles",
+              "source_proof_kind": "adopted prior same-lens"
+            },
+            {
+              "contract": "CAMERA-INITIAL07-CONTRACT-158",
+              "ranges": [
+                [
+                  1,
+                  666
+                ]
+              ],
+              "disposition": "153/154 actual behavioral authority versus demographic fields and historical fixture facts reconciled; exact material scope only",
+              "source_proof_kind": "adopted prior same-lens"
+            }
+          ]
+        },
+        {
+          "record": "CONT07-OVERLAY-231",
+          "proof": [
+            {
+              "contract": "CAMERA-INITIAL07-CONTRACT-150",
+              "ranges": [
+                [
+                  54,
+                  69
+                ]
+              ],
+              "disposition": "Closed mutable-axis selector only; no current-state cache defined; F011 canonical roster context",
+              "source_proof_kind": "adopted prior same-lens"
+            },
+            {
+              "contract": "CAMERA-INITIAL07-CONTRACT-155",
+              "ranges": [
+                [
+                  2,
+                  5
+                ]
+              ],
+              "disposition": "Derived challenge openness and canonical reexport identity, exact current scoped roles",
+              "source_proof_kind": "adopted prior same-lens"
+            },
+            {
+              "contract": "CAMERA-INITIAL07-CONTRACT-158",
+              "ranges": [
+                [
+                  1,
+                  666
+                ]
+              ],
+              "disposition": "153/154 actual behavioral authority versus demographic fields and historical fixture facts reconciled; exact material scope only",
+              "source_proof_kind": "adopted prior same-lens"
+            }
+          ]
+        }
+      ],
+      "adopted_baseline_source_body_evidence": [
+        {
+          "record": "CAMERA-INITIAL07-CONTRACT-150",
+          "ranges": [
+            [
+              54,
+              69
+            ]
+          ]
+        },
+        {
+          "record": "CAMERA-INITIAL07-CONTRACT-155",
+          "ranges": [
+            [
+              2,
+              5
+            ]
+          ]
+        },
+        {
+          "record": "CAMERA-INITIAL07-CONTRACT-158",
+          "ranges": [
+            [
+              1,
+              666
+            ]
+          ]
+        }
+      ],
+      "source_proof_qualification": "Exact personally read07 source-body evidence reused; independent02 meaning/units/frame/authority/bounds/zero analysis below. Producer01 narrative consumed as source navigation, no verdict transfer.",
+      "owner_fit_disposition": "import-only-owner-location",
+      "owner_fit_reasoning": "Imports expose existing Seed/CharacterId generation owners; they provide dependency location, not mutation/generation body or proof all uses retain types. Role148/243 gives actual connected axis match independently. No additional type defect from an import.",
+      "discovery": "accounted WITH inherited findings and explicit contract questions; not clear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true
+    },
+    {
+      "delta_index": 248,
+      "source_scope_index": 2806,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/state.rs",
+      "sha256": "82a59a621b3c855886fcd18f50d917a76c60070917c5921976fed5fb0a11a6a6",
+      "effective_ranges": [
+        [
+          1707,
+          1752
+        ],
+        [
+          1895,
+          1988
+        ]
+      ],
+      "registration": {
+        "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+        "sha256": "3117bb44bc0d59d0a122508914d3836bce0ee3bb2b87071369936b153f65e4a6",
+        "row_1based": 15,
+        "id": "ROOT-INITIAL04-REG015",
+        "original_record": {
+          "id": "ROOT-INITIAL04-REG015",
+          "at": "2026-10-23T01:57:51.749361+00:00",
+          "authority": "continuation/root/parallel-initial-audits-081.json",
+          "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/state.rs",
+          "snapshot": "physical-p16",
+          "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-core\\src\\animation\\state.rs",
+          "sha256": "82a59a621b3c855886fcd18f50d917a76c60070917c5921976fed5fb0a11a6a6",
+          "actual_EOF": 2100,
+          "material_ranges": [
+            [
+              1707,
+              1752
+            ],
+            [
+              1895,
+              1989
+            ]
+          ],
+          "actual_reach": "P16 client attack_start full454 prepares fallible geometry before begin_attack_timed, but actual selection and transition mutation bodies are needed to prove rejection does not mutate an action. Exact old P16 state must not be inferred from current PR/P17 state or imported wholesale during integration.",
+          "exclusions": "Only available_strike_family, select_main_attack, select_offhand_attack and begin_attack_timed bodies; neighboring declarations/next block docs qualify after read. No whole state, schema, motor, tests or current PR behavior credit. Prior rg showed signature/navigation only, no body analysis.",
+          "status": "prospectively_registered_before_body_analysis"
+        }
+      },
+      "qualification_reference": [
+        "Only old P16 selection1707-1752 and begin transition1895-1988;1989 blank excluded. Historical parent context, not proposed replacement for current P20 state. No whole state/private helpers/tests."
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": [
+        {
+          "record": "CONT07-CONTRACT-639",
+          "ranges": [
+            [
+              1707,
+              1752
+            ],
+            [
+              1895,
+              1988
+            ]
+          ]
+        }
+      ],
+      "adopted_baseline_source_body_evidence": [],
+      "source_proof_qualification": "Exact personally read07 source-body evidence reused; independent02 meaning/units/frame/authority/bounds/zero analysis below. Producer01 narrative consumed as source navigation, no verdict transfer.",
+      "owner_fit_disposition": "historical-animation-time-versus-phase-geometry",
+      "owner_fit_reasoning": "P16 typed AnimationSampleTick/Span differ recovery/tangent/height/target coordinate rawf32 and continuation flags. Keep matching existing finite angle/position/phase owners through selection/transition until actual phase math; AnimationSampleTick is not walltime or scalar tangent. Preserve offhand idle/main queue/seam and ActionTransitionError. Historical exact sources do not replace currentP20 or prove current ordinary animation failure.",
+      "discovery": "accounted WITH inherited findings and explicit contract questions; not clear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true
+    },
+    {
+      "delta_index": 249,
+      "source_scope_index": 234,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/personality.rs",
+      "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+      "effective_ranges": [
+        [
+          161,
+          666
+        ]
+      ],
+      "registration": {
+        "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+        "sha256": "ae719b7285ea649dcf26c2dee0908de407f1fd679635d005107160dd907358f8",
+        "row_1based": 26,
+        "id": "CAMERA-INITIAL07-REG026",
+        "original_record": {
+          "registration_id": "CAMERA-INITIAL07-REG026",
+          "at": "2026-10-23T01:56:43.007623+00:00",
+          "authority": "continuation/root/parallel-initial-audits-081.json",
+          "source_id": "physical-p16:crates/adventuresim-stdb-module/src/personality.rs",
+          "snapshot": "physical-p16",
+          "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\personality.rs",
+          "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+          "actual_EOF": 1210,
+          "material_ranges": [
+            [
+              161,
+              677
+            ]
+          ],
+          "reason": "Close first unfinished P16source234 score-to-visible-personality redundant-authority contract: all actual visible projection/init/reset/axis/demographic/development/NPC/default/random producer and update paths plus direct getters/backend receiver, necessary complete score/receipt definitions. PR counterpart current consumers cannot inherit P16body/hash credit; directly compare actual equivalent roles.",
+          "exclusions": "Only exact state/projection lifecycle through assign_random_personality; morale reaction kernels678+ and tests excluded. No new source body read yet; previous1\u2013160 P16 and PR54\u201369/reexport roles remain separately preserved.",
+          "status": "prospectively_registered_before_body_analysis"
+        }
+      },
+      "qualification_reference": [
+        "Only exact personality lifecycle through assign_random_personality666;667blank/668-675 next MoraleStimulus/677next reaction doc uncredited. Prior source roles separately preserved, no whole1210 or morale/generation-helper credit."
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": [
+        {
+          "record": "CONT07-OVERLAY-230",
+          "proof": [
+            {
+              "contract": "CAMERA-INITIAL07-CONTRACT-158",
+              "ranges": [
+                [
+                  1,
+                  666
+                ]
+              ],
+              "disposition": "153/154 actual behavioral authority versus demographic fields and historical fixture facts reconciled; exact material scope only",
+              "source_proof_kind": "adopted prior same-lens"
+            }
+          ]
+        }
+      ],
+      "adopted_baseline_source_body_evidence": [
+        {
+          "record": "CAMERA-INITIAL07-CONTRACT-158",
+          "ranges": [
+            [
+              1,
+              666
+            ]
+          ]
+        }
+      ],
+      "source_proof_qualification": "Exact personally read07 source-body evidence reused; independent02 meaning/units/frame/authority/bounds/zero analysis below. Producer01 narrative consumed as source navigation, no verdict transfer.",
+      "owner_fit_disposition": "existing-personality-axis-and-signed-score-leaf",
+      "owner_fit_reasoning": "Continuous signed score is authority, visible enum is lossy presentation; existing MutablePersonalityAxis and CharacterId fit internal lifecycle. SignedUnitBasisPoints numeric bounds may fit potency but has inherited constructor-versusDeserialize admission caveat CAMERA-ADM03-F001; preserve CAMERA-ADM03-F028 actual score bypass and do not weaken sealed consumers. Deed/source/time identities differ; occurred_at replay omission remains policy-qualified, no new date bug. Native rollback dependence explicit.",
+      "discovery": "accounted WITH inherited findings and explicit contract questions; not clear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true
+    },
+    {
+      "delta_index": 250,
+      "source_scope_index": 2802,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/personality.rs",
+      "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+      "effective_ranges": [
+        [
+          1,
+          666
+        ]
+      ],
+      "registration": {
+        "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+        "sha256": "ae719b7285ea649dcf26c2dee0908de407f1fd679635d005107160dd907358f8",
+        "row_1based": 27,
+        "id": "CAMERA-INITIAL07-REG027",
+        "original_record": {
+          "registration_id": "CAMERA-INITIAL07-REG027",
+          "at": "2026-10-23T01:56:43.007623+00:00",
+          "authority": "continuation/root/parallel-initial-audits-081.json",
+          "source_id": "pr-working:crates/adventuresim-stdb-module/src/personality.rs",
+          "snapshot": "pr-working",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\personality.rs",
+          "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+          "actual_EOF": 1210,
+          "material_ranges": [
+            [
+              1,
+              677
+            ]
+          ],
+          "reason": "Close first unfinished P16source234 score-to-visible-personality redundant-authority contract: all actual visible projection/init/reset/axis/demographic/development/NPC/default/random producer and update paths plus direct getters/backend receiver, necessary complete score/receipt definitions. PR counterpart current consumers cannot inherit P16body/hash credit; directly compare actual equivalent roles.",
+          "exclusions": "Only exact state/projection lifecycle through assign_random_personality; morale reaction kernels678+ and tests excluded. No new source body read yet; previous1\u2013160 P16 and PR54\u201369/reexport roles remain separately preserved.",
+          "status": "prospectively_registered_before_body_analysis"
+        }
+      },
+      "qualification_reference": [
+        "Only exact personality lifecycle through assign_random_personality666;667blank/668-675 next MoraleStimulus/677next reaction doc uncredited. Prior source roles separately preserved, no whole1210 or morale/generation-helper credit."
+      ],
+      "lens": "02existing-type-owners",
+      "source_body_evidence": [
+        {
+          "record": "CONT07-OVERLAY-229",
+          "proof": [
+            {
+              "contract": "CAMERA-INITIAL07-CONTRACT-155",
+              "ranges": [
+                [
+                  2,
+                  5
+                ]
+              ],
+              "disposition": "Derived challenge openness and canonical reexport identity, exact current scoped roles",
+              "source_proof_kind": "adopted prior same-lens"
+            },
+            {
+              "contract": "CAMERA-INITIAL07-CONTRACT-158",
+              "ranges": [
+                [
+                  1,
+                  666
+                ]
+              ],
+              "disposition": "153/154 actual behavioral authority versus demographic fields and historical fixture facts reconciled; exact material scope only",
+              "source_proof_kind": "adopted prior same-lens"
+            }
+          ]
+        },
+        {
+          "record": "CONT07-OVERLAY-231",
+          "proof": [
+            {
+              "contract": "CAMERA-INITIAL07-CONTRACT-150",
+              "ranges": [
+                [
+                  54,
+                  69
+                ]
+              ],
+              "disposition": "Closed mutable-axis selector only; no current-state cache defined; F011 canonical roster context",
+              "source_proof_kind": "adopted prior same-lens"
+            },
+            {
+              "contract": "CAMERA-INITIAL07-CONTRACT-155",
+              "ranges": [
+                [
+                  2,
+                  5
+                ]
+              ],
+              "disposition": "Derived challenge openness and canonical reexport identity, exact current scoped roles",
+              "source_proof_kind": "adopted prior same-lens"
+            },
+            {
+              "contract": "CAMERA-INITIAL07-CONTRACT-158",
+              "ranges": [
+                [
+                  1,
+                  666
+                ]
+              ],
+              "disposition": "153/154 actual behavioral authority versus demographic fields and historical fixture facts reconciled; exact material scope only",
+              "source_proof_kind": "adopted prior same-lens"
+            }
+          ]
+        }
+      ],
+      "adopted_baseline_source_body_evidence": [
+        {
+          "record": "CAMERA-INITIAL07-CONTRACT-150",
+          "ranges": [
+            [
+              54,
+              69
+            ]
+          ]
+        },
+        {
+          "record": "CAMERA-INITIAL07-CONTRACT-155",
+          "ranges": [
+            [
+              2,
+              5
+            ]
+          ]
+        },
+        {
+          "record": "CAMERA-INITIAL07-CONTRACT-158",
+          "ranges": [
+            [
+              1,
+              666
+            ]
+          ]
+        }
+      ],
+      "source_proof_qualification": "Exact personally read07 source-body evidence reused; independent02 meaning/units/frame/authority/bounds/zero analysis below. Producer01 narrative consumed as source navigation, no verdict transfer.",
+      "owner_fit_disposition": "exact-existing-axis-fit-and-projection-distinction",
+      "owner_fit_reasoning": "Samehash PR/P16 assembled source1\u2013666 confirms canonical13axis and signed-score authority, not whole1210 or morale tail. Reuse axis243 in generator148; use numeric leaf only with exact signed/zero/admission policy, keep privacy gateway current source. Visible enum/categoricallabels are distinct lossy products, not competing numeric owner. Retain inherited score-bound finding and no source/coverage transfer to other lenses.",
+      "discovery": "accounted WITH inherited findings and explicit contract questions; not clear",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_credit": true
+    }
+  ],
+  "supporting_actual_sources": [
+    "Exact own07 body evidence reused for independently analyzed02 rows. Fresh registry already supplies architectural point/elevation versus scene point/support elevation meanings; no type fit inferred from shared array representation. Own earlier02 role148/243 exact MutablePersonalityAxis definition is explicit owner proof."
+  ],
+  "frontier": {
+    "accounted_delta_roles": 251,
+    "total": 312,
+    "first_unfinished_delta_index": 251
+  },
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

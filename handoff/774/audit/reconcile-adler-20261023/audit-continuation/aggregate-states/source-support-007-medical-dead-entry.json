@@ -1,0 +1,103 @@
+{
+  "id": "SEGO-INITIAL05-F009",
+  "at": "2026-10-25T17:34:13.283294+00:00",
+  "title": "Classify terminal medical state before invoking living-only first aid",
+  "priority": "P2",
+  "classification": "Retained source-backed medical entry life-state contract defect; conditional supported time-advancing path, no simulation reproduction or introduced774 claim",
+  "lenses": [
+    "aggregate-states",
+    "behavior-preservation"
+  ],
+  "locations": [
+    {
+      "file": "crates/adventuresim-strategic-sim/src/live_core/settlement.rs",
+      "start": 744,
+      "end": 746
+    },
+    {
+      "file": "crates/adventuresim-strategic-sim/src/live_core/settlement.rs",
+      "start": 757,
+      "end": 776
+    },
+    {
+      "file": "crates/adventuresim-strategic-sim/src/live_core/cycle.rs",
+      "start": 418,
+      "end": 444
+    }
+  ],
+  "contract_trace": "party_agents selects currently alive controlled party members and the cycle passes initial medical admission. Outbound native travel advances their condition/disease clocks; unsafe_party_agents explicitly includes !alive entries from the retained original vector. A surviving current leader can retreat and, after completed travel, the cycle invokes ensure_medically_safe for that original vector. Medical entry calls apply_visible_first_aid first; its patient lookup filters alive and returns missing first-aid patient for an existing dead character. The explicit dead-character branch, including paused-schedule cleanup, deduplicated death event and Ok(false), runs only afterward and is unreachable for that entry. Missing projection and authoritative death are incorrectly conflated at the earlier gate.",
+  "counterexample": "A previously admitted living controlled member dies during native outbound travel; another member survives, remains current party leader and completes retreat. The retained dead member reaches ensure_medically_safe and returns Err before its documented graceful dead handling. This source-supported conditional sequence does not claim a specific authored seed, successful live run, or every death path. Maintenance already checks alive before invoking entry and avoids the issue. Settlement rest is an additional conditional caller if its earlier party-location/activity observations succeed after actor death; the outbound trace does not depend on that additional case.",
+  "repair": "Own medical entry and its time-advancing callers as one life-state observation contract. Refresh/classify required current character identity as missing, dead or live before invoking any living-only first-aid operation; preserve existing dead cleanup and exactly-once telemetry. Keep missing authoritative projection as a distinct error. Retain canonical identity/current observation and structured causes through the medical flow rather than treating stale membership as proof of life or catching all first-aid errors as success. Existing survivors and living injured actors still pass actual material, permission, skill and context checks.",
+  "dependencies": [
+    "SIM-OBSERVATION-001 and CAM-PROP-F012 / RIG-PPS-F018 share actual simulation observer/callback/error functions; reuse their canonical owner and cause contracts without treating this different live/dead gate remedy as a duplicate.",
+    "Native time advancement/death/party leadership and journey outcome remain authoritative; refresh current state after time advancement, do not move tactical tick state into database or invent another cached alive flag.",
+    "Existing recovery/death telemetry and recorded_deaths idempotence must remain; no new tests or source changes during initial all13 discovery."
+  ],
+  "acceptance": "An existing authoritative dead actor reaching medical entry after travel/rest returns the intended false/terminal outcome and existing deduplicated death cleanup without a living-only first-aid call. Missing character/clock/condition errors remain distinguishable and propagate; valid living first aid and recovery ordering retain existing behavior. Already guarded maintenance and in-call death handling remain coherent.",
+  "sources": [
+    {
+      "scope_index": 1276,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/expedition.rs",
+      "sha256": "a77ae88e526acb661515b4069d678cd7b7e42f278d4e8fc4cb2f1a317440246a",
+      "personally_rechecked_ranges": [
+        [
+          31,
+          93
+        ]
+      ],
+      "role_count_credit": false
+    },
+    {
+      "scope_index": 1270,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/cycle.rs",
+      "sha256": "3b8f6cf71583d3d4384601cc98adcaa89ff36b5698bd268077eff5a3df340f9b",
+      "personally_rechecked_ranges": [
+        [
+          100,
+          118
+        ],
+        [
+          359,
+          445
+        ]
+      ],
+      "role_count_credit": false
+    },
+    {
+      "scope_index": 1290,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/settlement.rs",
+      "sha256": "652eac9d7899ae0a71dea77f7d1b4cd40beef647afa972cf51ee85de57f5acf9",
+      "personally_rechecked_ranges": [
+        [
+          82,
+          105
+        ],
+        [
+          744,
+          790
+        ],
+        [
+          1597,
+          1627
+        ],
+        [
+          1943,
+          1955
+        ],
+        [
+          304,
+          366
+        ]
+      ],
+      "role_count_credit": false
+    }
+  ],
+  "independent_discovery_support": "../behavior-preservation/question-021-medical-dead-entry.json, actual own08 full source comparisons and caller qualifications. Root independently rechecked bounded bodies before promotion.",
+  "snapshot_verification": {
+    "base_pr": "Own08 exact full base3a50\u2192PR6533 diffs empty for the source files.",
+    "merged_and_checkout": "Coordinator independently hashed complete cycle1270/expedition1276/settlement1290 at merged13fc9dcc and actualcheckout58ea2ca2: each byte-identical to actual frozenPR catalog. This verifies current source identity, not runtime behavior or all other files."
+  },
+  "deduplication": "Root169 and Adler1002 exact lookup ensure_medically_safe/apply_visible_first_aid/missing first-aid patient found RIG-PPS-F018 generic observation/identity/cause extension only. It does not identify earlier living gate bypassing dead outcome; union shared dependencies and keep discrete remedy. Root own05Q021 now closed by source caller proof, not deferred/lost.",
+  "repair_status": "not_started_initial_discovery_gate",
+  "validation": "Source-only; no tests added/run, simulation/DB execution, CI or visual validation."
+}

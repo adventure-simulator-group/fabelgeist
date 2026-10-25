@@ -1,0 +1,172 @@
+{
+  "id": "CONT07-CONTRACT-643",
+  "at": "2026-10-24T00:57:53.900363+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2843,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/coif_drape.rs",
+      "sha256": "f9ccb3bf0662590f4dd34ea6de4ce89569348359037efc93e3736a9524c3bca1",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/gpu/coif_drape.rs",
+      "actual_EOF": 72,
+      "ranges": [
+        [
+          1,
+          12
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2844,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/scalp_map.rs",
+      "sha256": "717bbedb859bc7b5df413aeea35d20cccbdf1e08dc53f2f8d692b72dc2cc662e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/hair/scalp_map.rs",
+      "actual_EOF": 147,
+      "ranges": [
+        [
+          1,
+          147
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2845,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+      "sha256": "f8844fc7362364c5217079615e4459865865020ba4a36f5b25a8997cdd9c8f92",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+      "actual_EOF": 138,
+      "ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2846,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/programme.rs",
+      "sha256": "c2a4f4450a66bd43300b427d5780df19f3191c572e9b52fd5df91f64549cf8c9",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/model/programme.rs",
+      "actual_EOF": 279,
+      "ranges": [
+        [
+          216,
+          243
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2847,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/church_programme.rs",
+      "sha256": "9d04b3ec61ac19ee40fd52dca2d0d208e0b69b5039919481d171043904ee518a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/church_programme.rs",
+      "actual_EOF": 46,
+      "ranges": [
+        [
+          24,
+          43
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2848,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/internal_partitions.rs",
+      "sha256": "e031db84160dac355e04d6bfd6519ffde63e0528341eaa4c6be4faa0fd3b6772",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/generator/internal_partitions.rs",
+      "actual_EOF": 430,
+      "ranges": [
+        [
+          7,
+          28
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2849,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/extents.rs",
+      "sha256": "7a667b7bb903784bfd856046539b87174d517867f7b5992e22988980b69e78d6",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/model/extents.rs",
+      "actual_EOF": 166,
+      "ranges": [
+        [
+          19,
+          150
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2850,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/sectioned_blade.rs",
+      "sha256": "ec1bc1f7fb4d26f6cd8dcf78ad5a89ea5f5767b292cbb91d2599232c7d2eb1da",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/sectioned_blade.rs",
+      "actual_EOF": 66,
+      "ranges": [
+        [
+          1,
+          18
+        ],
+        [
+          31,
+          59
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2851,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/mounts.rs",
+      "sha256": "524bc66482c68f2d286db6de9a009b408c0eaa9863689ea78f21bfe00e0ed9dd",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/model/mounts.rs",
+      "actual_EOF": 293,
+      "ranges": [
+        [
+          1,
+          79
+        ],
+        [
+          133,
+          228
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2852,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/trade/mod.rs",
+      "sha256": "31ccaeab48d236a489cc039794c79c2c33621751e4a8a7a1e9f94033921eec3b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/templates/settlement/trade/mod.rs",
+      "actual_EOF": 54,
+      "ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "2843 mail-coif word count derives section count expression; literal7/boundary fit layout contract requires connected device reader before duplicate-layout conclusion. Scoped declaration only, not full coif implementation credit.",
+    "2844 ScalpMap fit creates projection basis/rim/texel-area from one head/scalp snapshot; mutable crate-visible basis fields can diverge from cached texel_per_side but no actual mutation/ordinary recipient proven. Radius average is approximate physical texel scale, documented as approximate, not independent measured exact skin geometry. Empty/custom scalp degeneracy not normal mannequin claim.",
+    "2845 HairGpu private one-context construction coordinates all kernels and groomer; KernelSource cache scoped to same context. Mutex recovers poison by documented per-groom clearing contract; actual groom reset success remains nested dependency, not established merely by comment. Fresh upload padded native capacity differs intentionally from logical empty population.",
+    "2846/2847 ChurchProgram URBAN_BRICK_BASILICA retains dimensions independently from fixed required footprint28x14. Validation currently binds exact programme and footprint; architecture may intend prescribed recipe rather than arbitrary derived shape. No drift witness. Preserve ChurchProgram owner rather than proliferating duplicate preset literals.",
+    "2848 material-specific vertical wall span is a derived floor/ceiling-zone adjustment; compare actual floor/joist owner before asserting0.08/0.50 authority duplicates. Scoped helper only.",
+    "2849 shape range/attachment anchors derive geometry parameters; assembly anchor uses explicit node rather than axial midpoint. Tube lastpoint Y vs SpatialTube minmax reflects distinct shape coordinate intent pending body/admission; no current mismatch proven. Range0 for axe/beak/hammer requires actual anchor recipient contract, cannot equate axial bound API with full generated mesh bound.",
+    "2850 plan and cross-section are independent recipe choices, not redundant variant state. Fuller/point optional payloads and dimensions are source recipe, no cached generated copy in scoped declaration.",
+    "2851 socket_fit resolves actual receiving shaft identity/frame, checks insertion, wrapping, full piecewise breakpoints and low-detail conservative aperture. attachment_contact derives bounds from constructed high-detail geometry and transforms frames; implicit shaft is a temporary canonical shape projection. Return-Ok for unresolved owner relies on surrounding validation, no ordinary bypass inferred. Earlier multi-Grip selector remains separate pending question, not resolved by shaft fit.",
+    "2852 trade module imports/facade connections inventoried; no standalone stored duplicated authority in scoped prefix. Actual INPUT_ADDRESS_MAPPINGS recipient semantics preserved in earlier trade contracts."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": null
+}

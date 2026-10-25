@@ -1,0 +1,96 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-324",
+  "at": "2026-10-23T07:47:41.468583+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_gorget_cage.rs",
+      "sha256": "2f710cc44d5493e2f327fa10d5ac43434e5af8a1951496a95543701e836e0035",
+      "scope070_index": 743,
+      "actual_EOF": 292,
+      "scoped_ranges_compared": [
+        [
+          1,
+          292
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source, including all existing inline GPU regression fixtures without execution. Independently compared cage offsets, collar/bib seam, repeated support measurements, projection containment and final failure gate."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_gorget_collar.rs",
+      "sha256": "6cd43102b63b735db4a75e2516057f9cd804a0190d4acd0ced4595d37662fb52",
+      "scope070_index": 744,
+      "actual_EOF": 375,
+      "scoped_ranges_compared": [
+        [
+          1,
+          375
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source, including all existing inline GPU regression fixtures without execution. Independently compared cage offsets, collar/bib seam, repeated support measurements, projection containment and final failure gate."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_gorget_projection.rs",
+      "sha256": "9e52d00ac15a857a4516fef35e94758bc61262edf250f23a42f2d249f1713ef3",
+      "scope070_index": 745,
+      "actual_EOF": 177,
+      "scoped_ranges_compared": [
+        [
+          1,
+          177
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source, including all existing inline GPU regression fixtures without execution. Independently compared cage offsets, collar/bib seam, repeated support measurements, projection containment and final failure gate."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_gorget_sections.rs",
+      "sha256": "6ed149624cf8d096d9956c47397acde0bd944e25b1e432afaf5b0afa785ec0ef",
+      "scope070_index": 746,
+      "actual_EOF": 65,
+      "scoped_ranges_compared": [
+        [
+          1,
+          65
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source, including all existing inline GPU regression fixtures without execution. Independently compared cage offsets, collar/bib seam, repeated support measurements, projection containment and final failure gate."
+    }
+  ],
+  "groups": [
+    {
+      "id": "cage layout is one current allocation contract",
+      "comparison": "Actual743 constants are consecutive: base frame0–15; anatomy16–41;7bands×6words42–83; BIB_RAW84; four separate17×129 arrays for raw/current bib and collar, ending GORGET_FIT_WORDS. Same layout() emits all reader/writer offsets used741/742/744, so own322 pending row/column/range obligation closed. BIB_ROWS17/BIB_COLUMNS129 make all denominator counts positive and 128-period neighbor wraps meaningful. No new all-byte native Buffer validation inferred."
+    },
+    {
+      "id": "collar and bib share exact seam by construction",
+      "comparison": "CAGE consumed identically through cage_word binding to measurement fit or final shape frames. Collar interpolates top-to-base radii and oblique planes, adds bib_offset(0,angle)*t and own collar_offset; bib at t0 uses same base radius/depth/baseheight plus bib_offset(0)+collar_offset(1), matching collar t1 for valid chart values. Actual control-angle/rear sweep maps physical versus control chart rather than independently selecting anatomical angle. Anatomical top opening retains t0 zero seam shift; intended actual measured collar-specific offset remains independent support. Distinct offsets represent coupled but different physical surfaces, not gratuitous duplicated whole product."
+    },
+    {
+      "id": "support alternation has actual terminal acceptance",
+      "comparison": "record_gorget_support runs4 collar→bib fit passes, then another collar fit, then MEASURES bib without changing it and checks every last raw deficit >1e−5 sets FIT_FAILED. Thus earlier concern bounded passes alone silently certify convergence closed by exact terminal remeasurement/failure propagation before741mainpartstatus. It does not prove arbitrary physical continuous clearance or actual convergence for every body; failure remains permitted. Support data modifies outward only; envelope reuses raw/current collar arrays by exact substitutions, no cross-source stale copy. Finite baseline/request values are actual required lower input, NaN deficit cannot be assumed validated by > alone without original data gates."
+    },
+    {
+      "id": "sample interpolation and angular limits",
+      "comparison": "bib cubic clamps slopes per interval, tiny-delta returns middle; rows/columns clamp to physical array bounds. Collar uses bilinear convex interpolation to avoid cubic undershoot. Chart radii/width/depth and raw input limits still actual recipe/cage validation contracts; not arbitrary finite positive leaves guarantee derived arithmetic finite. Bib_direction has sin² upward and cos backward components, no simultaneous exact zero for ordinary finite angle, operation-purpose preserves directional seating. Recorded sampled envelope intentionally differs from continuous triangle-wide proof."
+    },
+    {
+      "id": "directional projection has explicit containment gate",
+      "comparison": "ray_depth first projected AABB rejects outside, then determinant area and relative rounding test rejects unresolved projection, direct shared-edge-oriented anchors test each triangle edge without computed third barycentric subtraction. All nonnegative weights and total>0 before normalized depth, final depth clamp within actual triangle min/max. This proves actual current intended no extrapolation on admitted ordinary finite arithmetic; raw extreme overflowing coordinate products are not a universal native safety proof. projected_edge orders same geometric edge identically before sign reversal, preserving shared-boundary comparison under reverse winding. No epsilon widens actual triangle boundary."
+    },
+    {
+      "id": "triangle sections retain source shape not vertex density proxy",
+      "comparison": "746 scans actual face triangles; horizontal boolean edge crossings yield exactly2 ends before processing, clips resulting segment to sagittal strip when band>0, updates low/high from accepted endpoints. Missing section retains infinities consumed741finite-band rejection, no invented nearest vertex support. ArrayLength faces/3 assumes actual logical face buffer, no read of unregistered native allocator body. Body index bounds from admitted surface/native producer remain exact prerequisite."
+    },
+    {
+      "id": "existing fixtures read and limits",
+      "comparison": "Full744 tests intermediate neck bulge and shifted lower support with same collar/bib seam, final sampled deficit at last grid entry sets failure; full745 tests near-edge/outside/unresolved queries at3scales and reversed winding, adjacent shared edges, clamped depth range. Test code allocates result rows larger than EVALUATE writes deliberately; no partial output uninitialized evidence extrapolated. All source read only, no GPU execution/new fixture/check/assertion. Current positive terminal fit contract distinct from unread nested skirt-status candidate."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Native device part stage/finish and current source numeric validation remain exact later cells; no blanket third-party/wholeGPU graph acceptance."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

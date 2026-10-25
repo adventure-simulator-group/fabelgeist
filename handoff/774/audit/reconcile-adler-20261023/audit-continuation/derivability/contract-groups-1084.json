@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1084",
+  "at": "2026-10-25T17:43:34.965833+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1219,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+  "sha256": "88470ea4f157d8b74f281effcb8bac261e5f3af81a84fe81562a9a549d695d6d",
+  "actual_compared_ranges": [
+    [
+      731,
+      1110
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "No handwritten trait/codec. Native roster commit and loss preview/surrender/pool accounting. Loss sort805\u2013811 selected ownerkind/id/inventoryid omits other fields, not whole-record Ord. encounter_core_terrain909\u2013917 intentional fallback classifier; BodyPart\u2192BodyRegion983\u2013991 semantic Stomach\u2192Abdomen mapping, not raw representation derive. Durable consequence/condition/corpse and random autoresolve adapters depend actual context and effects; result status1090\u20131096 const/runtime label mapping not custom serialization."
+  ],
+  "first_unfinished": {
+    "scope_index": 1219,
+    "line": 1111
+  },
+  "execution": "none"
+}

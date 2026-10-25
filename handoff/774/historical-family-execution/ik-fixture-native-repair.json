@@ -1,0 +1,81 @@
+{
+  "base_head": "2d0631412e835e23a3f4c9460d1b2f4b48c128a9",
+  "failed_run": 39444616100,
+  "failed_job": 118703103245,
+  "failed_contract": "Native all-target workspace compilation inside Clippy",
+  "failures": [
+    "E0599: fixture unwrap called on begin_posture_transition bool in locomotion.rs:452.",
+    "Five E0308 diagnostics: terminal contact fixture uses primitive weights/expectations instead of existing UnitInterval leaves at tests.rs:1798-1816.",
+    "E0599: native fixture height f32 has no metres method at tests.rs:2740.",
+    "E0425: report validation refers to cadence_frames local owned by cadence_contacts_valid at validation.rs:244."
+  ],
+  "changed_files": [
+    "crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion.rs",
+    "crates/adventuresim-tactical-client/src/animation/procedural/ik/tests.rs",
+    "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+    "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+    "crates/adventuresim-tactical-client/src/animation_viewer/report/presentation_events.rs"
+  ],
+  "fixes": [
+    "Keep existing posture-transition assertion directly on its bool result.",
+    "Use canonical UnitInterval::ZERO and ONE for existing terminal-contact fixture arguments and expectations.",
+    "Remove an inapplicable getter from the existing native uphill-height assertion; preserve its numerical expression and tolerance.",
+    "Move presentation-event ordering, uniqueness and scenario event counts into its own focused module; determine cadence applicability from the same CadenceContact frame predicate.",
+    "Keep report imports before module declarations and public functions before private helpers in the touched parent; existing tests stay last."
+  ],
+  "source_review": "Two self Code/Rule passes: canonical signatures and fixture intent, then final diff and exact event predicate move. Not independent whole-PR approval. Comment Review omitted.",
+  "fixture_metadata_checks": {
+    "crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion.rs": {
+      "function_names_unchanged": true,
+      "assertion_macro_count_before": 16,
+      "assertion_macro_count_after": 16
+    },
+    "crates/adventuresim-tactical-client/src/animation/procedural/ik/tests.rs": {
+      "function_names_unchanged": true,
+      "assertion_macro_count_before": 396,
+      "assertion_macro_count_after": 396
+    }
+  },
+  "event_predicate_text_equivalent_except_presence_repair": true,
+  "event_scope_notes": "Four cadence contacts still required when CadenceContact frames exist, one landing event when AirborneLanding frames exist; ordering/uniqueness and short-circuit order unchanged. Existing fallible cadence geometry validation remains in build_completed_report.",
+  "validation": "Static source/Git and source-name/assertion-count metadata only. No local Rust commands, project scanner or numerical/runtime probes. Runtime acceptance pending hosted CI.",
+  "hashes": {
+    "crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion.rs": "a17bff769f977736fc06588a9b7de23c7eb3aeb91f2f2582db07e8f51b2b9089",
+    "crates/adventuresim-tactical-client/src/animation/procedural/ik/tests.rs": "39eaa98a158ca45df5beb716fc37fb376579ff83b1aa7252b68b83ebb185b845",
+    "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs": "46e0169bf601414d1b5ab885a9fa69b0c32436dd3fb1269d28e06e18b5cde1bc",
+    "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs": "927e13d910b8e3b7dc6a9cc58ef2e936172b4ec9188948ffd5d1a524d4b89185",
+    "crates/adventuresim-tactical-client/src/animation_viewer/report/presentation_events.rs": "96bc4db93aefaea58374be6eba6a7eed668bfaebc77e74a40c1516b2fdf420e5"
+  },
+  "goal_scope": "All twenty requirements active. P06 source unstarted.",
+  "new_test_cases_assertions_or_fixture_helpers": false,
+  "published_head": "af3fd093ae5902d29f4ee22812adac8d42bc2177",
+  "committed_and_pushed": true,
+  "diff_check": "passed",
+  "native_compile_verification": {
+    "head": "3544d8e99f1d9f765a813cc71b56f089e31c5118",
+    "run": 39452715702,
+    "job": 118731479728,
+    "native_step": "Run Clippy with warnings denied",
+    "native_step_status": "completed",
+    "native_step_conclusion": "success",
+    "commands_rechecked_in_current_source": [
+      "cargo clippy --workspace --all-targets --all-features -- -D warnings",
+      "cargo clippy --locked --manifest-path crates/adventuresim-character-creator/Cargo.toml --all-targets --all-features -- -D warnings",
+      "cargo clippy --locked --manifest-path crates/fabelgeist-mhr/Cargo.toml --all-targets --all-features -- -D warnings",
+      "cargo clippy --locked --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml --all-targets --all-features -- -D warnings"
+    ],
+    "native_result_observed_twice": true,
+    "revision_guard_step": "Record rig contract revision completed successfully before shared rig tests",
+    "selected_steps_completed": [
+      "Test constraint graph and shell consumers",
+      "Test shared rig contracts",
+      "Test autoresolve battle-time consumers"
+    ],
+    "current_live_step": "Test MHR rig admission",
+    "constraint_artifact_verification": "constraint-artifact-verification-3544d.json",
+    "constraint_unit_executions": 67,
+    "constraint_doctest_executions": 5,
+    "scope_limit": "Native matrix proves compilation/lint coverage, not the remaining required behavioral cells or final baseline verification. Rig/autoresolve step passes await nonempty result artifact inspection. Full family acceptance remains pending.",
+    "observed_at": "2026-10-20T16:21:06.794479+00:00"
+  }
+}

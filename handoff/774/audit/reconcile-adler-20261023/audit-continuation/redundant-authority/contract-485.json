@@ -1,0 +1,224 @@
+{
+  "id": "CONT07-CONTRACT-485",
+  "at": "2026-10-23T22:41:21.585609+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2140,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/guards.rs",
+      "sha256": "5bef22cfee2f00bf4150226863178f09459655aceb38e12f0a4348e29254303d",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/guards.rs",
+      "actual_EOF": 153,
+      "ranges": [
+        [
+          1,
+          153
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2141,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/shields.rs",
+      "sha256": "d51e28586387fd2d2c00ede4449923360262960e620844aa217cef8a357aff2b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/shields.rs",
+      "actual_EOF": 106,
+      "ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2142,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/union.rs",
+      "sha256": "df45ff584dbe4a5793f6d808c2c23ef5551105c720d6349f94cc0eef0262be37",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/union.rs",
+      "actual_EOF": 65,
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2143,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/graphs.rs",
+      "sha256": "68fc28e52bc54754732311b7e557d85daab7b99b66c7f7b345227406838f7981",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/validation/graphs.rs",
+      "actual_EOF": 140,
+      "ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2144,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/melee.rs",
+      "sha256": "7b1ffa336f641cd42556a1104809cad88c913948710a3aa426b5f5f37302e616",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/validation/melee.rs",
+      "actual_EOF": 240,
+      "ranges": [
+        [
+          1,
+          240
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "M81 full existing local finding personally consumed; exact mass/membership evidence separately traced07"
+  ],
+  "facts": [
+    "2140 full153 guard dimension bounds represent requested manufacturing values, with mortise actual proportions checked together.2141 full106 shield dimension values distinguish primitive size/sampling limits from later fitting mode mechanics; no same-current cached shape state here.2142 full65 union enum variants own neighboring payload and actual shared station budgets; no variant alias inferred merely numerical similarity.",
+    "2143 full140 graph membership/cycle/order validation checks actual named nodes and member/plate references; stored authored nodes may later resolve from Frame/Between bindings as explicit preparatory transformation, not competing current graph definitions. Already qualified frame-source exact resolver must own current values; no undefined successful graph inferred by this guard.",
+    "2144 full240 exact melee checks confirm Axe unspecified root has no extra width cap, dimensions permit large API inputs; ordinary catalogue occurrence and complete constructive shape bounds remain unproven. Faceted socket requires p.fit_shaft!=Some(true), butNone alone would enter automatic fitting\u2014actual mounts check is necessary qualifier.",
+    "Fresh2851 exact1\u2013229 closes faceted-socket candidate: mounts::check81\u2013113 rejects every Socket facetsSome for shaft mount before fitting, and attachment_contact164\u2013172 repeats check for implicit shaft parent. Explicit shared-section component attachment has no automatic shaft_contact. No accepted fitted-solid faceted socket finding.",
+    "F101 exact stock comparison finished with fresh catalogue1\u201343, Core build220\u2013284/catalog1\u2013135, quote997full78/native1194full119 and amount1118:1\u2013140/item projection1136exactranges. Current all four stock masses/member list agree. Separate maintenance redundant unit-mass/measured-roster authority recorded; M81 type/aggregate remedy related not automatic alias. No tests/build/DB/browser execution."
+  ],
+  "new_local_findings": [
+    "CONT07-F101"
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2145,
+    "start_line": 1
+  },
+  "supplemental_exact_reads": [
+    {
+      "scope_index": 2130,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/stock.rs",
+      "sha256": "848e1187843f8082d93fa8a1adc5e8b2bc60f90336e2d496176aa32969ee596e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/stock.rs",
+      "ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "new_original_credit": false
+    },
+    {
+      "scope_index": 525,
+      "source_id": "pr-working:content/items/catalog.yaml",
+      "sha256": "87e0f51292d42ab62beeabc9f2624f635c27acf8b28ae3d8c2931eb9297f491b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:content/items/catalog.yaml",
+      "ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "new_original_credit": false
+    },
+    {
+      "scope_index": 850,
+      "source_id": "pr-working:crates/adventuresim-core/build.rs",
+      "sha256": "fc42ea1f2234144e94d6bfac86f254cd059799b9f9e5ae6de7f77e3125f19b7c",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/build.rs",
+      "ranges": [
+        [
+          220,
+          284
+        ]
+      ],
+      "new_original_credit": false
+    },
+    {
+      "scope_index": 937,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog.rs",
+      "sha256": "de7dd72013aa3af8ae0aae8691011a8aaa2d168db670188bcc1064cac9a23d18",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/item_catalog.rs",
+      "ranges": [
+        [
+          1,
+          135
+        ]
+      ],
+      "new_original_credit": false
+    },
+    {
+      "scope_index": 997,
+      "source_id": "pr-working:crates/adventuresim-core/src/smithing.rs",
+      "sha256": "83f6b2eb7d945187bca6dc9f0fe78cbab0d25c292ce4c4096af94b4eb89a298b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/smithing.rs",
+      "ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "new_original_credit": false
+    },
+    {
+      "scope_index": 1194,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/smithing.rs",
+      "sha256": "aecea90ad65fd73946a24653499fdfe07a626491543cb20c57f5e70ae82e4d49",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/smithing.rs",
+      "ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "new_original_credit": false
+    },
+    {
+      "scope_index": 1136,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/item.rs",
+      "sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/item.rs",
+      "ranges": [
+        [
+          72,
+          90
+        ],
+        [
+          136,
+          160
+        ],
+        [
+          286,
+          307
+        ]
+      ],
+      "new_original_credit": false
+    },
+    {
+      "scope_index": 1118,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/inventory_amount.rs",
+      "sha256": "535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/inventory_amount.rs",
+      "ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "new_original_credit": false
+    },
+    {
+      "scope_index": 2851,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/mounts.rs",
+      "sha256": "524bc66482c68f2d286db6de9a009b408c0eaa9863689ea78f21bfe00e0ed9dd",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/model/mounts.rs",
+      "ranges": [
+        [
+          1,
+          229
+        ]
+      ],
+      "new_original_credit": false
+    }
+  ]
+}

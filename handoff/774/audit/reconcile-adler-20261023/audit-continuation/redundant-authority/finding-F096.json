@@ -1,0 +1,107 @@
+{
+  "id": "CONT07-F096",
+  "at": "2026-10-23T22:08:11.067710+00:00",
+  "classification": "source-backed conditional diagnostic geometry mismatch on admitted Owned terrain; source-only witness, no execution",
+  "title": "Playable footprint extrema rebuild grid triangles after owned topology has replaced them",
+  "sources": [
+    {
+      "scope_index": 1984,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/footprint.rs",
+      "sha256": "6215062b250f11105cb0d5603a4d7ee7bf1a731d0a6b485a05baa396672913ba",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/footprint.rs",
+      "ranges": [
+        [
+          41,
+          86
+        ]
+      ],
+      "coverage": "personally read exact scoped current source; supplemental ranges do not add unique source credit"
+    },
+    {
+      "scope_index": 1983,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect-city-grounding.rs",
+      "sha256": "a3f981ab45024c01871eb5257c9064a6b9f5d04b8dd36f80fba16b1f84a66e02",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server-dispatcher/examples/inspect-city-grounding.rs",
+      "ranges": [
+        [
+          142,
+          183
+        ],
+        [
+          244,
+          294
+        ]
+      ],
+      "coverage": "personally read exact scoped current source; supplemental ranges do not add unique source credit"
+    },
+    {
+      "scope_index": 1819,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement.rs",
+      "sha256": "73463b02d4801103755fe0b5ed7fe7251892415ba3b7352dcce9b9634b454e8f",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement.rs",
+      "ranges": [
+        [
+          92,
+          162
+        ]
+      ],
+      "coverage": "personally read exact scoped current source; supplemental ranges do not add unique source credit"
+    },
+    {
+      "scope_index": 1904,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/property_support.rs",
+      "sha256": "4eb5b88b6059d622bb8663f784c3cd8eab5289a4928d2c51ab38031acc6a354a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene/property_support.rs",
+      "ranges": [
+        [
+          24,
+          46
+        ],
+        [
+          89,
+          108
+        ]
+      ],
+      "coverage": "personally read exact scoped current source; supplemental ranges do not add unique source credit"
+    },
+    {
+      "scope_index": 1905,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/queries.rs",
+      "sha256": "feacac20255eb9787f14ee21a2b7955e72d5be7b618755698965657402efc08c",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene/queries.rs",
+      "ranges": [
+        [
+          86,
+          113
+        ]
+      ],
+      "coverage": "personally read exact scoped current source; supplemental ranges do not add unique source credit"
+    },
+    {
+      "scope_index": 1822,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement/tests.rs",
+      "sha256": "a79667760aff1f020c5a0a9c92213a755852b225e44b534cd88de28e57e69d46",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement/tests.rs",
+      "ranges": [
+        [
+          207,
+          244
+        ]
+      ],
+      "coverage": "personally read exact scoped current source; supplemental ranges do not add unique source credit"
+    }
+  ],
+  "earliest_failed_contract": "An exact extrema report for current terrain must clip its actual physical triangles. After installing Owned support, the retained sample grid is extent/material metadata; independently reconstructed header-grid triangles cannot establish where the actual piecewise-linear surface has extrema.",
+  "counterexample": "Admit SceneTerrain::from_heightmap(2,2,2.0, four zero heights), whose extent is[-1,1] squared. Build BoundedSettlementTerrain::from_foundations with no foundations and four finite natural triangles forming a tent: square corners(-1,-1),(1,-1),(1,1),(-1,1) at elevation0, joined around interior point(.25,.25) at elevation2. Its finite/source cardinality/query admission accepts this unambiguous natural topology. Install it via with_property_surface. terrain_extrema over the square footprint reconstructs only header triangles[a,b,d] and[b,c,d]; clipping produces only square corners, each actual height0, so maximum_metres is0 and complete_playable_coverage istrue. Actual owned height_at at(.25,.25) is2 and the owned mesh/collider use the tent. The routine never visits that actual source vertex. No fixture or numerical code was executed.",
+  "actual_recipient": "inspect-city-grounding.rs main passes generated.terrain into inspect; inspect289 emits terrain_extrema under playable_footprint_terrain. Occupied generation installs Owned terrain, and property_support/queries explicitly ignore header-grid physical topology thereafter. The report method text calls the output linear terrain-triangle extrema and reports complete header coverage.",
+  "qualification": "The two current footprint fixtures1984 use Sampled terrain, where the reconstructed b--d grid is the actual source and their intended results agree. The witness is a valid public/admitted Owned surface; no claim that a currently shipped building has exactly this tent or that its ordinary report was run. Complete_playable_coverage currently means corner containment in header extent, not proof every actual support triangle was examined. Main report does not certify whole route/collider/renderer acceptance; the finding is wrong reported extrema within its own stated bounded method.",
+  "related_not_automatic_alias": [
+    "CONT07-F080 and local M64 selected vista/source cohort mismatch are different recipients and topology assumptions",
+    "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069 exact extrema/source role obligations",
+    "ROOT-OWNER-TERRAIN-KERNEL-063 actual owned physical source dispatch"
+  ],
+  "connected_repair": "Derive diagnostic extrema from the actual physical GeographicSurface/owned triangles at the inspected terrain, clipping that source against the requested footprint. Share the source selection with height/query/render/collider ownership, and keep header extent containment distinct from measured triangle coverage. Preserve current Sampled anti-diagonal behavior and explicit outside/partial/missing coverage; do not rebuild Owned support from its material grid.",
+  "acceptance": "An admitted owned subgrid peak inside the requested footprint is included in reported extrema even when absent from all retained header-grid vertices/diagonals. Existing Sampled fixtures retain exact extrema and source-order policy. Missing or partial physical coverage stays explicit. No new tests or execution in this audit.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

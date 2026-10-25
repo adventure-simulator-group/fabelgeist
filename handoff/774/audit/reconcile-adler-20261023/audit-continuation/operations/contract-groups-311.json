@@ -1,0 +1,225 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-311",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/exterior_access.rs",
+      "sha256": "d894566a0df2de9fac64d4c280d294f9254efa76ee57571735fec57eb1213abf",
+      "actual_EOF": 150,
+      "actual_compared_ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/finishes.rs",
+      "sha256": "8bee3e5050eda1118f1cb4b2a9e6c4dc213dd1f30619ffecbf54232a86377b96",
+      "actual_EOF": 69,
+      "actual_compared_ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/footprints.rs",
+      "sha256": "d50055faae78c0c916fbb9a3e02ea23344a86a4c673af651907043cf05c2f2cf",
+      "actual_EOF": 161,
+      "actual_compared_ranges": [
+        [
+          1,
+          161
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/geometry.rs",
+      "sha256": "ab00aade1ddd259c070bf761e9877e4c5f08ac7cf31913b4d7448ea389123509",
+      "actual_EOF": 317,
+      "actual_compared_ranges": [
+        [
+          1,
+          317
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/navigation.rs",
+      "sha256": "40fa11f523de79d81abfa08675576e692b474ac81c5f2d18ec49818ee8919688",
+      "actual_EOF": 209,
+      "actual_compared_ranges": [
+        [
+          1,
+          209
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/navigation/occupancy.rs",
+      "sha256": "39649345d93ad1f7cc7f6b7d8c27998822e433f60ca9b5143773e11cb110f76b",
+      "actual_EOF": 208,
+      "actual_compared_ranges": [
+        [
+          1,
+          208
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/navigation/portals.rs",
+      "sha256": "67827cd410e5f877c798b6202ae978793b0a49578b2ce0b534095075d3530f54",
+      "actual_EOF": 361,
+      "actual_compared_ranges": [
+        [
+          1,
+          361
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/obstruction.rs",
+      "sha256": "8d952e88a1c730d20672d0ac7fe4e79cc14a7fab083ca6943dd22639d4a7ecf8",
+      "actual_EOF": 183,
+      "actual_compared_ranges": [
+        [
+          1,
+          183
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/placement.rs",
+      "sha256": "bdb6ff8d669fb04becfeae5b400ac090c1e458b64a5fb54c215e62f43b4f23f3",
+      "actual_EOF": 213,
+      "actual_compared_ranges": [
+        [
+          1,
+          213
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/room_facing.rs",
+      "sha256": "8354b4ab6e76c9f87bd7fab5a54ef22942ccf542e4a7d2404c827c6b8c812efd",
+      "actual_EOF": 123,
+      "actual_compared_ranges": [
+        [
+          1,
+          123
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Continuous standing-body clearance must preserve slab arithmetic as well as finite endpoints",
+      "source_ranges": {
+        "exterior_access.rs": [
+          [
+            1,
+            150
+          ]
+        ],
+        "obstruction.rs": [
+          [
+            1,
+            183
+          ]
+        ]
+      },
+      "disposition": "Both complete bodies personally read. Fresh independent operations analysis found the exact existing aggregate record audit/continuation/native/initial05-aggregate-states/findings.jsonl#59 (NATIVE-INITIAL05-F058). Public StandingClearance::is_clear accepts finite Position endpoints, but (-MAX,+MAX) to (+MAX,-MAX) overflows delta to infinities; positive-quadrant obstacle near1.5 is falsely reported intersecting although ideal z=-x misses it. No ordinary route supplies MAX, no executed result or accepted enormous scene. This is same source-backed extreme public API defect, not a new unique finding. New() re-admits projected margin bounds and source-linked errors; actual Obstruction constructor validates eight corners, aggregate bounds centre/extent and checked footprint before clipping. Projection retains original source errors; equal-height edges skip division. Continuous thin-obstacle and rotated/multiple-height fixture bodies read only. Connected acceptance: supported slab arithmetic must reflect the relation or deliberately reject before boolean result, preserving contact, zero-length and continuous obstacle semantics."
+    },
+    {
+      "contract": "Rect operations validate endpoints/span; cardinal furniture orientation and bounded authored cells support actual sampling",
+      "source_ranges": {
+        "geometry.rs": [
+          [
+            1,
+            317
+          ]
+        ],
+        "footprints.rs": [
+          [
+            1,
+            161
+          ]
+        ]
+      },
+      "disposition": "Whole bodies including fixture modules read. Rect::new checks both finite endpoints and doubled half extent; negative signed inset rejects reversal but permits zero contact. overlaps requires penetration beyond epsilon; all_samples includes both edges by clamping final station. Finite enormous rectangle sampling could exceed useful u32/work capacity: this remains generic work-budget strengthening without an ordinary furniture witness, because actual catalogue sizes are bounded and placements have four cardinal yaws. Rotating one half-vector and abs is correct for those cardinal yaws, not a universal oriented AABB formula. RoomBounds rejects empty cells before mean/fold; floor_height checks nominal storey multiplication and chooses highest physical floor near nominal. FloorFootprint yaw-only containment assumes actual horizontal floor roles; arbitrary sloped-floor aggregate is not proven supported. footprints::validate compares new objects against all prior footprints, and rechecks accepted-prefix usable faces against the suffix. accepted>len can panic only if the private precondition is violated; actual caller uses the prior len. Current public validate_layout passes0."
+    },
+    {
+      "contract": "Navigation owns matching indices and reachability parents; errors drop local incomplete graphs",
+      "source_ranges": {
+        "navigation.rs": [
+          [
+            1,
+            209
+          ]
+        ],
+        "navigation/portals.rs": [
+          [
+            1,
+            361
+          ]
+        ]
+      },
+      "disposition": "Complete bodies read. Lattice cell_steps is authored1.5/.25=6; i16 cell*6 and +/-1 neighbors fit i32. Nodes/edges and lookup are extended together; source indices are produced locally. enter_front_door proves an actual entry before Occupancy::flood indexes it; construction failures do not expose nav. Exact bit node keys intentionally distinguish representations, not approximate geometric equality. Portal insert examines four bounded quadrant slots and two swept rect elbows; empty targets can produce isolated portal, but front-door/room/stair acceptance rejects missing reachability. Straight stairs verify lower/upper represented storeys and connected landings before reciprocal edges. Spiral uses actual occupied landing filters and adjacent pairs, no shortcut through flight. BFS parents derive from discovered nodes and terminate on first discovery; access paths follow these parents, not deserialized path arrays. Existing spiral aggregate/portal dependencies are preserved, no full stair-flight clearance inferred here."
+    },
+    {
+      "contract": "Furnishing candidate rollback is coherent at the actual private failure boundary",
+      "source_ranges": {
+        "navigation/occupancy.rs": [
+          [
+            1,
+            208
+          ]
+        ],
+        "placement.rs": [
+          [
+            1,
+            213
+          ]
+        ],
+        "finishes.rs": [
+          [
+            1,
+            69
+          ]
+        ],
+        "room_facing.rs": [
+          [
+            1,
+            123
+          ]
+        ]
+      },
+      "disposition": "All complete bodies personally read. Occupancy adds u32 node/edge reference counts and returns exactly the increments; consuming Change decrements each once. Arbitrary billions of overlapping additions could overflow, but accepted actual furniture footprints cannot overlap and each authored composition is at most3 objects. No ordinary counterexample promoted. If footprint admission errors after earlier group members were incremented, add returns Err and furnish exits via? dropping occupancy and local layout, so no retry-visible partial update. Explicit rejected room/access candidate removes Change and truncates placements to the exact prior len. Candidate scoring filters intentional +infinity; bounded cell-derived room extents and fixed .5 steps precede local composition. Public validate_layout rebuilds authoritative footprints/flood/paths with accepted0; stored paths/unmet budgets are not trusted authority. Finishes mutate keys only after access and use states of same finite catalogue dimensions (prior296/297); missing room returns Err and local furnished product is dropped. room_direction first verifies nonempty RoomBounds before dividing by cell count; mean is checked. Full incremental/full-check, duplicate-remove and front-entry-block fixture bodies read, not run."
+    }
+  ],
+  "findings": [
+    {
+      "disposition": "same existing finding; additional personally analyzed lens04 support",
+      "archive_key": "audit/continuation/native/initial05-aggregate-states/findings.jsonl#59",
+      "id": "NATIVE-INITIAL05-F058",
+      "no_new_unique_count": true
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "10 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-building-generator/src/lod.rs"
+}

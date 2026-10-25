@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-588",
+  "at": "2026-10-25T16:07:36.202128+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 933,
+  "source_id": "pr-working:crates/adventuresim-core/src/inventory_measurement.rs",
+  "sha256": "2ffeb2e6b78a2111a09dbe9f788673605eb597afe037e375f8f3c413bafe6011",
+  "actual_compared_ranges": [
+    [
+      1,
+      440
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Fresh221\u2013440 completes checked per-object totals and exact widened prorating, composed rational price reduction/rounding and source fixtures. PricingFactor/PriceRounding already structural derives. No additional handtrait/codec; native arithmetic and error order not mechanical conversion. Remaining source fixtures unread.",
+  "first_unfinished": {
+    "scope_index": 933,
+    "line": 441
+  },
+  "execution": "none"
+}

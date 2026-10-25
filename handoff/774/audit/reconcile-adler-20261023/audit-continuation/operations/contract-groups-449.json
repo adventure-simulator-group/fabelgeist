@@ -1,0 +1,58 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-449",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/terrain/urban/owned_tests.rs",
+      "sha256": "dec16e8dcf926fed2d6260f315e3a1a59d9697ba51fae232d6bb74b1155c23e3",
+      "actual_EOF": 259,
+      "actual_compared_ranges": [
+        [
+          1,
+          259
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/terrain/volumetric.rs",
+      "sha256": "0f2bab77a6c50c3112e630c06558e9a4b3612de7011b2de38930f464abd3cfe1",
+      "actual_EOF": 338,
+      "actual_compared_ranges": [
+        [
+          1,
+          338
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/venues.rs",
+      "sha256": "ae556b18add14ae22e1b97bc772ab06f455827e6afdff55b5659fac6ae9b9d27",
+      "actual_EOF": 100,
+      "actual_compared_ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Terrain complete presentation publication",
+      "analysis": "Full owned fixture259, volumetric338 and venues100 read. Material preparation is the fallible step before commands. Refresh verifies both material handles before replacement, no interleaving external asset mutation within exclusive stores; missing CPU mesh still returns success, which is not proof GPU mesh missing. Pending retry intentionally covers missing materials, not render-only CPU eviction. Fault patch generation .ok() drops error while base coverage still uses recipe cutout: source-conditional error-policy question pending concrete admitted generator failure, not a demonstrated ordinary hole. Prepared patch provenance and recipe alignment remain aggregate/admission dependencies. append_detail_cell is private fixed49-wide caller, so nativeu32 sums bounded; UV divisions depend admitted positive terrain physical dimensions."
+    },
+    {
+      "contract": "Owned support and venue selection",
+      "analysis": "Fixture source checks exact canonical triangles/cutouts and bearing preservation without modifying terrain, but no tests executed. Venue selection maps enum to usage then deterministic first matching operator/building/distant item; PortraitId string u64 conversion preserves MAX identity and rejectsnumericJSON. No accumulating arithmetic or failure-after-live-partial-write in venues."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista.rs"
+}

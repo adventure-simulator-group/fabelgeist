@@ -1,0 +1,45 @@
+{
+  "id": "RIG-INITIAL06-GROUP-011",
+  "at": "2026-10-22T19:22:05.368629+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "checked-spatial-bounds-vs-unbounded-numerical-aabb": {
+      "sources": [
+        "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/bounds.rs",
+        "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/clearance.rs",
+        "pr-working:crates/fabelgeist-bvh/src/aabb.rs",
+        "pr-working:crates/fabelgeist-bvh/src/cpu/mod.rs"
+      ],
+      "comparison": "Fresh full SpatialBounds98/Clearance48 and Aabb299/CPU Bvh462 (including mandatory overlays087/088). SpatialBounds<F> is finite, ordered, tagged metre-frame geometry with point/line extents valid and fallible arithmetic; ClearanceVolume<F> refines it to strictly positive extents. Aabb is raw shared-math native geometry with intentional +/-infinity EMPTY, signed expansion and ray reciprocal infinities. They cannot be merged merely because each has min/max. Bvh owns generic primitive/node correlation and candidate traversal, TriangleBvh owns triangle topology and source positions; no architectural-frame borrowing is justified. CPU Bvh and GPU GpuBvh are actual distinct host/native representations and algorithms (SAH versus Morton), both below Physics/garment callers; not independent equivalent semantic geometry owners. Generic checked SpatialBounds/Clearance belong with frame-parametric finite math rather than above all callers in Building, extending exact F001 supporting targets; application frame markers stay with their owners. Preserve accepted degenerate general bounds, strict clearance, inclusive contact and EMPTY distinctions. Raw/public Bvh and cached Ray fields do not prove admission/coherence; no clearance for those other-lens gaps."
+    },
+    "architecture-refinements-and-neutral-deletion-migration": {
+      "sources": [
+        "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs",
+        "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+        "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/length.rs",
+        "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/measurement.rs"
+      ],
+      "comparison": "Fresh full dimensions105/error28, plus recovered exact base deleted length36/measurement69. LeafDimensions is strictly positive operable leaf-local width/height/thickness over shared zero-valid CuboidDimensions. Architectural PlanDimensions has positive XZ width/depth, PlanExtents finite nonnegative XZ half extents permitting point/line and subnormal-half zero. These preserve application set-out refinements and are not equivalent to arbitrary native Collider shapes or checked signed Position/Area. Error helper is a Bevy-vector/direction adapter into canonical fabelgeist-geometry errors, not a competing neutral error owner. Current deleted length/measurement files are intentionally absent; recovered base shows the former Building PositiveLength/SignedLength/Area definitions. Current spatial_geometry reexports already compared in001 and actual neutral leaf bodies show that ownership moved to fabelgeist-geometry rather than keeping two current definitions. Historical base error mapping/negative/zero units are retained as removal evidence; no active duplicate owner or nonexistent current body is credited. Architecture-specific leaf/plan role wrappers may remain above shared numeric invariants; no forced merge into one Cuboid type."
+    },
+    "host-float-arithmetic-is-a-compute-numerical-library": {
+      "sources": [
+        "pr-working:crates/fabelgeist-compute/src/host_float/arithmetic.rs",
+        "pr-working:crates/fabelgeist-compute/src/host_float/double_float.rs",
+        "pr-working:crates/fabelgeist-compute/src/host_float/mod.rs",
+        "pr-working:crates/fabelgeist-compute/src/host_float/tests.rs"
+      ],
+      "comparison": "Fresh full host_float module86, arithmetic175, double_float360 and originaltests271. These define generated WGSL arithmetic/rounding routines and split high/low float representations, not game checked finite scalar owners. A double-float vec2 is an unevaluated sum with residual precision, not a planar coordinate, MHR quaternion member, UnitInterval or two unrelated dimensions. Runtime zero hook is an anti-optimization ABI word, not elapsed/time/count0 policy. Source libraries preserve NaN/Inf/subnormal/native arithmetic qualifications, polynomial series/reduction constants and host operation order; no ownership-based rewrite or generic finite leaf substitution is valid. Test-local Words xorshift stream generates fixed raw bit-pattern oracle samples, not the game Seed/StreamId purpose-framing contract; changing it to production RNG would alter original evidence. GPU buffers/Kernel reused from canonical lower owners (010), and no new canonical public type/competing definition introduced. Source-only review, no generated source execution, tests or tolerance changes."
+    },
+    "compute-scan-sort-and-staged-readback-roles": {
+      "sources": [
+        "pr-working:crates/fabelgeist-compute/src/readback.rs",
+        "pr-working:crates/fabelgeist-compute/src/sort/mod.rs",
+        "pr-working:crates/fabelgeist-compute/src/prefix_sum.rs"
+      ],
+      "comparison": "Fresh full Readback294, scoped Sort1\u2013305 and PrefixSum1\u2013306 including overlays090/091. ScanElementCount owns count of u32 scan elements, zero valid, and projects checked-width byte length through the shared GPU BufferByteLength. ScanError preserves semantic requested/capacity versus required/available quantities and lower GPU causes; it belongs to the scan API, not Physics ColliderCount or global game error. SortScratch/RadixSort own key/payload buffers and histogram/scan scratch; sort key significant bits, count, tile count and scatter offset have different roles even when u32. Actual sort invokes the canonical ScanElementCount for histogram elements; no independently maintained scan-count wrapper. Shared GPU byte types remain the common owner for buffer storage, while algorithm-specific slot/count policy stays Compute. Aggregated Compute Readback/PendingReadback/StagedRange/ReadbackState manage multi-buffer staged asynchronous mapping and retain shared byte offsets/lengths. GPU private Readback<T> (010) only allocates/copies one typed native byte range; matching name does not make equivalent lifecycle/API products or justify moving batch/Kernel dependencies into GPU. Native GPU result bytes are not finite/admitted game data. Sort306+ convenience/tests and Prefix307+ convenience/tests are excluded; boundary comment306 is read context, not next function credit."
+    }
+  },
+  "new_findings": [],
+  "connected_existing_finding": "RIG-INITIAL06-F001 exact generic SpatialBounds/Clearance supporting owner targets; application Leaf/Plan wrappers retained",
+  "limits": "Source-specific fresh current-lens reasoning; prior verdict/hash not used as coverage. No edits/execution or other-lens clearance."
+}

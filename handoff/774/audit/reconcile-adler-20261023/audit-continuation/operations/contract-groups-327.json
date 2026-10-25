@@ -1,0 +1,136 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-327",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_garment.rs",
+      "sha256": "33088136dedaa0cf15c3541ea4c9c3c2dd930c7cc1e4f8bb63c09c66680ccf6f",
+      "actual_EOF": 290,
+      "actual_compared_ranges": [
+        [
+          1,
+          290
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_garment/candidates.rs",
+      "sha256": "85c82bd05f3762bf1536f056c9c1d6986321e508337d7801196a565470d13649",
+      "actual_EOF": 132,
+      "actual_compared_ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_garment_kernel.rs",
+      "sha256": "7484d47aa4568e2fc5b3fed2daba4888a9f0d637e6af199bca5e4f85f218d60f",
+      "actual_EOF": 287,
+      "actual_compared_ranges": [
+        [
+          1,
+          287
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_garment_skirt.rs",
+      "sha256": "963e22ca61e7f29b6424e65db9f7d987fca66e0e9543944b1584d9873ec8e285",
+      "actual_EOF": 461,
+      "actual_compared_ranges": [
+        [
+          1,
+          461
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_garment_skirt/stations.rs",
+      "sha256": "34d0763456537f3f3ddbd56e6f961de819d7a1b6eb90b6ae6ceb4d7f8a59392b",
+      "actual_EOF": 130,
+      "actual_compared_ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Garment native support mask requires bounded container arity as well as typed closed regions",
+      "source_ranges": {
+        "device_garment.rs": [
+          [
+            1,
+            290
+          ]
+        ]
+      },
+      "disposition": "Whole body read. Exact adopted RIG-ADMISSION03-F013: record_region_support iterates arbitrary slice and host u32<<bit before any<=32 gate; typed FitRegion elements do not constrain33entry collection. Matching device_foot_sections from325 does explicitly guard<=32. Fresh current skirt callers supply1or2regions; no actual production33region caller/run shown. Same existing candidate, not a unique increment or reason to narrow enum membership. UprightSpan typed SignedLength offsets/Ratio reach preserve unrestricted signed/continuous meaning; shader validates completed frame positive extent,finite15words and orthogonality after arithmetic, writes FIT_FAILED explicitly. record_fit_status propagates actual fit failure into partstatus. Invalid native request may reject; no requirement for all ratios to be UnitInterval."
+    },
+    {
+      "contract": "Generated bindings and uniform padding preserve exact pass schema and checked joint narrowing",
+      "source_ranges": {
+        "device_garment_kernel.rs": [
+          [
+            1,
+            287
+          ]
+        ]
+      },
+      "disposition": "Complete dispatch helper/HOST shader/fixture read. Buffer names/kinds generate actual storage declarations and matching parameter insertions in one order. Word Joint uses checked RigPassParameters, rawU/F remain native uniform words. Empty word list needs exactly4pads; otherwise adds at most3 to multiple4, proving PADS[pad] within fixed4. FRAME_SOURCE redirects to actual fit buffer or explicit private16word no_fit for unused shared helpers. Intrinsic binding positions and fixed accessors are code-generation tokens, not application IDs. Private caller must supply unique valid names/matching buffer extents and count; actual generated shader compiler errors map through device_error. host_normalized scales before squaring and handleszero, avoiding ordinary finite norm overflow; nonfinite composed offsets still need admitted owning results. rem_tau explicitly expects abs<2turns. Full4vector zero/tiny/normal/large normalization fixture source read, not run; deterministic operation order is not a proof of arbitrary input validity."
+    },
+    {
+      "contract": "Garment candidate presence and drape station failure are explicit, not inferred from sentinel extrema",
+      "source_ranges": {
+        "device_garment/candidates.rs": [
+          [
+            1,
+            132
+          ]
+        ],
+        "device_garment_skirt/stations.rs": [
+          [
+            1,
+            130
+          ]
+        ]
+      },
+      "disposition": "Both entire shader/helper bodies read. BAND returns presentfalse for empty support, including near==total==0; callers must inspect presence. Nearest fallback uses min12/total and actual candidate flag, rejects nonfinite distance before choosing initial item, preserves vertex tie order. Drape station envelope concatenates actual supported skin then left/right leg arrays; declared count/index capacity must fit nativeu32 and actual buffer extents. Zero total or no finite fallback candidate atomically fails instead of publishing arbitrary points. Radius builds every fixed SEGMENTS support halfplane; integer stations17 makes denominator16. Result is sampled envelope policy, not continuous posed clearance. All candidate flags fold into FIT_FAILED before smoothing/WRAP consumes the fit."
+    },
+    {
+      "contract": "Skirt smoothing restores required radial clearance after deformation, while child fit-status propagation remains an open dependency",
+      "source_ranges": {
+        "device_garment_skirt.rs": [
+          [
+            1,
+            461
+          ]
+        ]
+      },
+      "disposition": "Whole461lines read in3chunks. Fixed17station/17depth dimensions and native GARMENT_RING_SEGMENTS determine one nonoverlapping fit layout. DRAPE_FINISH early-exitsfailed fit, grows lower stations over upper, saves REQUIRED, performs8smooth passes then adds maximum lost radial shortfall percolumn, explicitly re-establishing sampled required envelope. WRAP bounds reduce peractualshell membership; rigid step divides by actualshell top-bottom, requiring nondegenerate actual producer. Flexible blend follows torso hem and deliberately inset padding, not body adjacency alone. Actual record_skirt_layers retains child frames but extracts leg.part and torso.part carriers without retaining child DeviceRecording.checks or explicitly folding their part status; final skirt checksVecempty. This is an unresolved failure-propagation candidate until actual tube/torso producer and concrete independent child failure are traced; no successful final bad skirt/normal failure or new finding promoted. Boot324 separately retains lower-layer device checks, so do not infer universal same behavior. Current typed span offsets reject invalid scaling; actual shape-family mismatch returnsErr. No GPU/mesh generation or fixtures executed."
+    }
+  ],
+  "findings": [
+    {
+      "disposition": "same adopted admission candidate; independent04shift evidence",
+      "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+      "archive_line": 13,
+      "id": "RIG-ADMISSION03-F013",
+      "no_new_unique_count": true
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "5 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-character-creator/src/device_garment_torso.rs"
+}

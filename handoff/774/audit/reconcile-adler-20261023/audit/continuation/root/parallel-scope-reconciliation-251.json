@@ -1,0 +1,231 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-251",
+  "at": "2026-10-23T12:32:45.564265+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-072.json",
+    "sha256": "153b17c462414e6fbae07f3b89f8854c3090e134a6b15175a82c1c8e9bb423eb"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-071.json",
+    "sha256": "c8222c5a3163c7d6c6e50b378c8201af06c5ac0eb0e2b080c36f381331e17116"
+  },
+  "new_variants": [
+    {
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/trade/mod.rs",
+      "sha256": "31ccaeab48d236a489cc039794c79c2c33621751e4a8a7a1e9f94033921eec3b",
+      "path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\templates\\settlement\\trade\\mod.rs",
+      "snapshot": "pr-working",
+      "actual_line_count": 54,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "audit_owner": "rig",
+      "scope_registration": [
+        {
+          "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+          "sha256": "edd4d581342cdad822bf50d44e3ab5e81fc0458edc2961fb883718603188da7e",
+          "row_1based": 38,
+          "id": "RIG-INITIAL06-REG-038",
+          "original_record": {
+            "id": "RIG-INITIAL06-REG-038",
+            "at": "2026-10-23T11:46:21.923058+00:00",
+            "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+            "source_id": "pr-working:crates/strategic-web/src/templates/settlement/trade/mod.rs",
+            "snapshot": "pr-working",
+            "sha256": "31ccaeab48d236a489cc039794c79c2c33621751e4a8a7a1e9f94033921eec3b",
+            "actual_EOF": 54,
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\templates\\settlement\\trade\\mod.rs",
+            "material_ranges": [
+              [
+                1,
+                32
+              ]
+            ],
+            "material_caller": "Scoped trade/equipment.rs32\u201358 defines web_equipment_location(CoreEquipmentLocation)->EquipmentLocation; necessary immediate parent import bindings determine whether canonical-vs-SDK conversion or same-type identity mapping. Symbol navigation only before registration.",
+            "reason": "Direct type identity/dependency closure for current ownership06, imports only; no other trade implementation.",
+            "exclusions": "No33+ body, unrelated template/native/foreign graph or tests. Qualify trailing context after actual bounded read.",
+            "status": "prospectively_registered_before_body_analysis; global reconciliation pending"
+          }
+        }
+      ],
+      "scope_limits": "Raw1-32 retained; material3-8/25-29,context1-2/9-24/30-32 perQUAL070/mandatory249. No33+/tradebody/whole54/foreign/otherlenscredit. FreshRoot03literal250 aftersupplierregistration.",
+      "source_lens_credit": "none from scope metadata"
+    }
+  ],
+  "new_overlays": [
+    {
+      "id": "CONT-OWNER-RANGE-EXTENSION-246",
+      "at": "2026-10-23T12:32:45.564265+00:00",
+      "source_id": "pr-working:crates/strategic-web/src/location_urls.rs",
+      "sha256": "4cdfe5103f103f2628c55f1f8d3f9dd407342458647215a44b5add07c03dcb14",
+      "material_ranges": [
+        [
+          12,
+          49
+        ],
+        [
+          52,
+          78
+        ]
+      ],
+      "audit_owner": "rig",
+      "reason": "Direct existing reached definition/helper closure. Earlier whole companion display1\u201375 uncredited QUAL062; registration precedes fresh credited bounded reread.",
+      "scope_registration": [
+        {
+          "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+          "sha256": "edd4d581342cdad822bf50d44e3ab5e81fc0458edc2961fb883718603188da7e",
+          "row_1based": 37,
+          "id": "RIG-INITIAL06-REG-037",
+          "original_record": {
+            "id": "RIG-INITIAL06-REG-037",
+            "at": "2026-10-23T08:09:52.508390+00:00",
+            "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+            "source_id": "pr-working:crates/strategic-web/src/location_urls.rs",
+            "snapshot": "pr-working",
+            "sha256": "4cdfe5103f103f2628c55f1f8d3f9dd407342458647215a44b5add07c03dcb14",
+            "actual_EOF": 208,
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\location_urls.rs",
+            "material_ranges": [
+              [
+                12,
+                49
+              ],
+              [
+                52,
+                78
+              ]
+            ],
+            "material_caller": "Already scoped middleware183\u2013185 parses LocationKind; party_path206\u2013207 constructs patterns URL with LocationKind::Settlement; encode_component81\u201392 is used by actual Route::url65\u201377. Exact canonical URL kind and const-N route declaration/use comparison needed for type ownership, not method-name inference.",
+            "reason": "Direct existing reached definition/helper closure. Earlier whole companion display1\u201375 uncredited QUAL062; registration precedes fresh credited bounded reread.",
+            "exclusions": "No imports1\u201311/blank50/comment51, new unrelated template/HTTP/foreign feature or tests. Existing material76\u2013208 remains independently scoped; no whole208 waiver.",
+            "status": "prospectively_registered_before_fresh_body_analysis; global reconciliation pending"
+          }
+        }
+      ],
+      "limits": "No imports1\u201311/blank50/comment51, new unrelated template/HTTP/foreign feature or tests. Existing material76\u2013208 remains independently scoped; no whole208 waiver.",
+      "source_qualifications": "Exact12-49/52-78;50implclose/51blankexcluded perQUAL063. Priorcompanion1-75uncreditedQUAL062. Alloriginal76-112/180-208+oldoverlay093113-179retained, nowhole208waiver. FreshRoot03literal250;mandatory249."
+    }
+  ],
+  "total_variants": 2853,
+  "total_overlays": 246,
+  "mandatory_scope_qualifications": [
+    {
+      "record": "continuation/root/parallel-scope-qualification-130.json",
+      "sha256": "5dc4e5cd771612c7e050ab4af544411523317ae4b57738f1fb20f493685a50fc"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-117.json",
+      "sha256": "f3b80648900716939057b20776d756a6e37001f6910378da1a1bbaea230d348b"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-149.json",
+      "sha256": "97103899514ade32cf1e41c2794fa9c49c0cb8c6c7a2c6a4961b7492de5dc708"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-151.json",
+      "sha256": "670dd53a640b28eef7ad9d57b37f9213e1bca7117d7098691c4b0cd20c2a8f65"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-158.json",
+      "sha256": "fa0e9cc06d04fca0a0e2b5f9a333390a0ba1e71eff846a4e957c46b68b3e940e"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-170.json",
+      "sha256": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-173.json",
+      "sha256": "5763e9e965b4f4c1d402a09eab682de47336885c8d30b3c5b3d157242a496948"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-176.json",
+      "sha256": "9a321e498a00285331d4ec4fb4dc7c3a49d7bb6e3a08a44a79c2e5bf58186270"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-184.json",
+      "sha256": "5e35c8530a11d0f90bc767812758e4c504eb9ca5e776d0d1f17bf14c0853468d"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-188.json",
+      "sha256": "e15ac81028377714ef550a4cbd68546ec0fbd2ab41300f64db2a1c8686cb43ab"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-193.json",
+      "sha256": "fa718d979ab18d0f9bc7ea210e912d4cb8e971c3bbaa8702a602311d515d6e06"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-200.json",
+      "sha256": "0488f5857b999e28c0bfa68767711e5ccd0f5f7624892db7e578d0f680fa8c3c"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-208.json",
+      "sha256": "5fbee9250ddc79b5b7b1d96cf11104a38d4189b50be6afc922a7dad13ebe28c7"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-210.json",
+      "sha256": "e6967f316a6344840b02cf456d957909b3d845736e44be94ebf098ab31189b9b"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-220.json",
+      "sha256": "6037ab6a14b7e1f4a3a410940e5c00a6be8dcdff65b6fa058ae908a6df2a225f"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-224.json",
+      "sha256": "686fb52c275d5851977f8d2e2115dc56a0dabf6dede106d49006ba1eb66d1b46"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-226.json",
+      "sha256": "942720ea601333118ce0179bcfb964e2c6a9c51676dfae80e040ce0223e39d4c"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-230.json",
+      "sha256": "d9f907613cbf0616355a5d8a03d71f4f7f4a7a30c5c8e05b7dde8a45568a909c"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-231.json",
+      "sha256": "11d305a8a6be8e3c2d946a34cd6c51fdfbb2c4e3f5a4c2277d39cc6d1e8de231"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-233.json",
+      "sha256": "51dd8e5bad2466d231b06874f05233ab04557a3ac523422b029e6fedca15fefd"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-237.json",
+      "sha256": "9914b78e0deadbb7cad7c53d5c80a67943e1124e585c05f350e05766e29a3f61"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-242.json",
+      "sha256": "53c32fab5b4305553255907302730d1857acd208b5ca53f62ee1256419ceec29"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-246.json",
+      "sha256": "31c67671ea8eadc2d1404b037a0e3a08dda15b184dbcaa8881781e795031a024"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-249.json",
+      "sha256": "0e2a5dac17a6e1d5306c7fc859cf71e7fd7b8a1c29159a0eaaac870385b07562"
+    }
+  ],
+  "registered_rows": 2,
+  "input_pins": [
+    {
+      "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+      "sha256": "edd4d581342cdad822bf50d44e3ab5e81fc0458edc2961fb883718603188da7e",
+      "captured_rows": 38,
+      "selected_ids": [
+        "RIG-INITIAL06-REG-037",
+        "RIG-INITIAL06-REG-038"
+      ]
+    }
+  ],
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through245-before072.jsonl",
+    "sha256": "0378e32d695512b875a86dd6bb695f10d5f3c8d43d8838fe8ee222cbb02a869a",
+    "through": 245
+  },
+  "limits": "One new import-only PRvariant2853 and one URLdefinitionoverlay246;310->312bounded01/02roles. Mandatory249/246/allolderqualificationsretained. No regional surface nonexistent232-240 credit, oldconstantoverlay138 preserved. No other-lens clearance from metadata."
+}

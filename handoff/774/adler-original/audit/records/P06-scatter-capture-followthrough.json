@@ -1,0 +1,120 @@
+{
+  "head": "82cb2a3acccc852bba6a7ef9c706c337ba9fe765",
+  "recorded_at": "2026-10-20T22:44:26.994621+00:00",
+  "status": "Source follow-through only; uncommitted and not validated by hosted CI. No complete P06 Code/Rule pass is claimed.",
+  "traces": [
+    {
+      "family": "Litter placement and capture roots",
+      "producer": {
+        "file": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/placement.rs",
+        "line": 12,
+        "source": "pub(super) struct LitterPlacement",
+        "sha256": "67e282ab206eb3e4b2c2dc21a04b31cbb94406ef6928a25d50d6c3de34005e24"
+      },
+      "retained": {
+        "file": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/capture.rs",
+        "line": 11,
+        "source": "pub(crate) struct GroundLitterCapturePair",
+        "sha256": "8d3f738b42f4f539004861ca632d319589aaaae26374049d501792663c447ae2"
+      },
+      "consumer": {
+        "file": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/debris_capture.rs",
+        "line": 12,
+        "source": "pub(super) struct DebrisCaptureTarget",
+        "sha256": "956fab9c7124092b6da191fea6bfe707595b65ae2505203f8727081e9574afbe"
+      },
+      "contract": "Position<Scene> remains intact through placement, anchors, pair selection, debris focus and camera state. Original signed scene coordinates and finite support elevations form a checked completed root. The final mesh transformation and complete camera-frame calculation consume native vectors.",
+      "absence": "The uncomputed camera is None rather than Vec3::ZERO. Litter proximity has Option<NonnegativeLength> rather than an infinity minimum sentinel.",
+      "distances": "Canonical NonnegativeLength is retained in candidate keys, the debris target, SceneCaptureState and CaptureRecord through existing Serde f32 output. The shared 0.55 m pair separation also owns its 0.275 m half threshold.",
+      "native_preservation": "Read original and new equations: jitter multiplication and addition, cover/slope gates, yaw/scale purposes and draw order, quaternion product, per-role scale/height offsets, distance metric, deterministic tie order, midpoint/terrain snap, clearance ranking and camera offsets are retained. This is source inspection, not a numerical or renderer verdict."
+    },
+    {
+      "family": "Instanced shrubs and isolated review specimens",
+      "producer": {
+        "file": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_understory.rs",
+        "line": 306,
+        "source": "fn shrub_instance(hash: Seed, root: Position<Scene>)",
+        "sha256": "0d0b568c57159f949a15645401abb99014432198b5d911864ca0d3bb832bfbb2"
+      },
+      "retained": {
+        "file": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/review_specimens.rs",
+        "line": 12,
+        "source": "pub(crate) focus: Position<Scene>",
+        "sha256": "a93f6ba58b55bc4dd479d448ddb466d48449e6cae06dd25cfca16c412ac333b4"
+      },
+      "contract": "Checked roots reach the native GPU InstanceData adapter. The review-origin producer and spawn signature use Position<Scene>; the ECS marker retains it until actual visibility distance and camera vector calculations.",
+      "admission": "All required handles for the three review species are admitted before queuing any review-specimen entity. Missing handles return UnderstoryReviewError instead of four production expects. Common-name selection remains a separate existing identity path; this point propagation does not claim it migrated.",
+      "preservation": "Existing species order, seeds, yaw/scale arithmetic, asset handles, labels, visibility state and transforms remain. Shared placement RNG purposes now have one owner in ground_scatter. An obsolete import of foliage_transform was removed."
+    },
+    {
+      "family": "Native litter mesh admission",
+      "consumer": {
+        "file": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/batching.rs",
+        "line": 6,
+        "source": "pub(super) fn append_litter_batch(",
+        "sha256": "d7a85a360dc094019784997994e68daf5b255b054ca3d457e6a7fa9add11952b"
+      },
+      "contract": "The checked placement reaches the actual source.clone().transformed_by(transform) operation. MeshMergeError is preserved through GroundScatterError; litter::spawn finishes every batch before queuing litter anchors, diagnostics or mesh entities.",
+      "limit": "Earlier unrelated ground-scatter work can already be queued by the caller. This is not an atomicity claim for the entire scene or all asset stores."
+    },
+    {
+      "family": "Capture scheduling after terminal admission",
+      "consumer": {
+        "file": "crates/adventuresim-tactical-client/src/animation_viewer/capture/capture_schedule.rs",
+        "line": 42,
+        "source": "capture_frame.run_if(harness::ready).run_if(admission_is_open)",
+        "sha256": "de9c390cf5f7150ecef7d7f3eef8c912d1afa8072c1ad667156372060aca3519"
+      },
+      "contract": "The sequence driver and frame dispatch both require open admission before Bevy validates required system parameters. The existing terminal rejection remains earlier in the ordered Last chain.",
+      "limit": "No missing-terrain lifecycle or Bevy runtime verdict was executed; do not claim the old Single behavior prevented failure-artifact publication."
+    },
+    {
+      "family": "Grounding inspector typed helper boundaries",
+      "producer": {
+        "file": "crates/adventuresim-tactical-server-dispatcher/examples/inspect-city-grounding.rs",
+        "line": 277,
+        "source": "let levels = lod_minima(&recipe.plan, program, elevation)?;",
+        "sha256": "5dabebeb96313e79bd71f4ee20127addd44eb722275fc5ae13589033535f42c4"
+      },
+      "consumer": {
+        "file": "crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/footprint.rs",
+        "line": 35,
+        "source": "pub(super) fn terrain_extrema(terrain: &SceneTerrain, corners: [ScenePlanPoint; 4])",
+        "sha256": "0eac53030b7b473c14df1a666ff9633c5729503c4c13689676556da439ce31a0"
+      },
+      "contract": "The inspector passes checked scene corners intact rather than mapping them to native vectors in the caller. The full clipping operation projects internally. Its fixed nonempty four-corner minimum/maximum starts at the first real corner, without infinity seeds. LOD reporting accepts SupportElevation intact; an empty vertex set is None, while a nonfinite completed world elevation returns ObservationError::InvalidLodElevation.",
+      "preservation": "Existing clipping, heightfield diagonal, local vertex minimum, final scene-height addition, level order and valid serialized numbers are preserved. The same two existing footprint fixture inputs and assertions are adapted; no case or assertion was added.",
+      "limit": "Native affine triangle interpolation and final native JSON arithmetic remain; other report applicability and typed camera state are not claimed complete."
+    }
+  ],
+  "reviews": {
+    "new_partial_review": "The latest remote submissions after 2026-10-20T21:10:00Z are the two already-posted replies. No newly unanswered inline suggestion was found by the bounded API read.",
+    "source_sections_read_this_turn": [
+      "Complete litter/batching/placement/pair source, instanced shrub root path and review-specimen producer/consumers",
+      "Current viewer camera obstruction, capture state/terrain/visibility changes",
+      "Current city/furniture/overlay/catalogue/finish changes and moved catalogue source",
+      "Current manifest/plant LOD changes and setup-obstacle/vista geometry source",
+      "Current landscape/view-spec changes and all 85 lines of changed capture fixture diff",
+      "Remaining current viewer camera and landscape bodies",
+      "Complete server/dispatcher changed-file diff, with connected native source, quantities, gate, terrace and spawn bodies; the additional footprint/LOD fixes were then inspected directly"
+    ],
+    "remaining": "Finish the complete current cross-module P06 source coverage and two full Code/Rule source passes. The new source is not published as an accepted family."
+  },
+  "validation": {
+    "source_only": [
+      "git diff --check",
+      "record-source-preservation.py",
+      "Git/source/ZIP hash metadata"
+    ],
+    "local_rust_commands": false,
+    "hosted_run": null,
+    "new_tests_cases_assertions_or_fixture_helpers": false
+  },
+  "scope_limits": [
+    "Original twenty literal exits are unchanged; P08-P20 remain unfinished.",
+    "P08 retains responsibility for camera physical frame/history configuration beyond these connected subject roots.",
+    "P17 retains report applicability/aggregation outside the connected litter distance fields.",
+    "Source review has not reconciled all 4,289 lexical getter candidates or all constructors/casts/field accesses.",
+    "No Comment Review, new full bespoke-audit wave, new agents, stash restoration, generated binding edits, commit, push or merge."
+  ]
+}

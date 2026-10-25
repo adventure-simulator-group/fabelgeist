@@ -1,0 +1,888 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-310",
+  "at": "2026-10-25T14:39:06.492245+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 609,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/room_connections.rs",
+      "sha256": "56032b952a0d288a2ff259db55661d2e252fb865ca77d3df1a2bf8e0a4e4300c",
+      "actual_EOF": 68,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/room_connections.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\room_connections.rs",
+        "sha256": "56032b952a0d288a2ff259db55661d2e252fb865ca77d3df1a2bf8e0a4e4300c",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "root",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 68,
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-WALL-SOURCE-CLOSURE-039",
+            "json_pointer": "/supplier_reconciliation/verified_exact_proofs/4",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/generator/room_connections.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                68
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/room_connections.rs",
+              "sha256": "56032b952a0d288a2ff259db55661d2e252fb865ca77d3df1a2bf8e0a4e4300c",
+              "read_ranges": [
+                [
+                  1,
+                  68
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-029",
+            "json_pointer": "/additional_fresh_sources/4",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/generator/room_connections.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                68
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/room_connections.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/generator/room_connections.rs",
+              "sha256": "56032b952a0d288a2ff259db55661d2e252fb865ca77d3df1a2bf8e0a4e4300c",
+              "read_ranges": [
+                [
+                  1,
+                  68
+                ]
+              ],
+              "scope": "Only actual material source/receiving functions in these ranges; no whole-file credit outside listed ranges"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "RoomConnection Clone/Copy/Debug/Eq/PartialEq/Ord/PartialOrd4\u20138"
+      ],
+      "absence_basis": "Full RoomConnection/SharedBoundary records and requirement17\u201325/shared_boundaries27\u201368 personally read. Borrowed native checked room lookup and sorted priority/identity construction; no handwritten traits/codec. Native roles/requirements determine classification, not structural derive."
+    },
+    {
+      "scope_index": 610,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/round_towers.rs",
+      "sha256": "960deb25a489575e080a8dd78b759d18ccaccd9ffe4dc235d4a35cb236f770b3",
+      "actual_EOF": 98,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/round_towers.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\round_towers.rs",
+        "sha256": "960deb25a489575e080a8dd78b759d18ccaccd9ffe4dc235d4a35cb236f770b3",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "root",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 98,
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-WALL-SOURCE-CLOSURE-039",
+            "json_pointer": "/supplier_reconciliation/verified_exact_proofs/16",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/generator/round_towers.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                98
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/round_towers.rs",
+              "sha256": "960deb25a489575e080a8dd78b759d18ccaccd9ffe4dc235d4a35cb236f770b3",
+              "read_ranges": [
+                [
+                  1,
+                  98
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-029",
+            "json_pointer": "/additional_fresh_sources/16",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/generator/round_towers.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                98
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/round_towers.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/generator/round_towers.rs",
+              "sha256": "960deb25a489575e080a8dd78b759d18ccaccd9ffe4dc235d4a35cb236f770b3",
+              "read_ranges": [
+                [
+                  1,
+                  98
+                ]
+              ],
+              "scope": "Only actual material source/receiving functions in these ranges; no whole-file credit outside listed ranges"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Complete resolve_round_tower_wall_assemblies1\u201398 read: checked native shell/support/wall source/frame and crown identity/bond construction. No handwritten trait/type/codec; native semantic geometry and source associations cannot derive fieldwise."
+    },
+    {
+      "scope_index": 611,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+      "sha256": "a4a880f61be02405eeb1c8e2b551d9c90a0ede8737e7d59a1c67ed0155d49493",
+      "actual_EOF": 154,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\small_church.rs",
+        "sha256": "a4a880f61be02405eeb1c8e2b551d9c90a0ede8737e7d59a1c67ed0155d49493",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "root",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 154,
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-WALL-SOURCE-CLOSURE-039",
+            "json_pointer": "/supplier_reconciliation/verified_exact_proofs/25",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                154
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+              "sha256": "a4a880f61be02405eeb1c8e2b551d9c90a0ede8737e7d59a1c67ed0155d49493",
+              "read_ranges": [
+                [
+                  1,
+                  154
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-029",
+            "json_pointer": "/additional_fresh_sources/25",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                154
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/generator/small_church.rs",
+              "sha256": "a4a880f61be02405eeb1c8e2b551d9c90a0ede8737e7d59a1c67ed0155d49493",
+              "read_ranges": [
+                [
+                  1,
+                  154
+                ]
+              ],
+              "scope": "Only actual material source/receiving functions in these ranges; no whole-file credit outside listed ranges"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved",
+        "producer_followup_scope_additions": [
+          {
+            "authority": "continuation/root/producer-scope-extension-authority-022.json",
+            "candidate_record": "continuation/native/producer-registry-reconciliation/candidate-002.json",
+            "registered_before_body_analysis": [
+              {
+                "registry": "continuation/native/root-roof-producer-followup/local-source-scope-extensions.jsonl",
+                "row_1based": 20,
+                "registration_id": "NATIVE-ROOF-SCOPE-020",
+                "supplier": "native",
+                "original_record": {
+                  "id": "NATIVE-ROOF-SCOPE-020",
+                  "registered_at": "2026-10-22T04:21:55.979697+00:00",
+                  "authority": "continuation/root/producer-scope-extension-authority-022.json",
+                  "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+                  "snapshot": "pr-working",
+                  "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/generator/small_church.rs",
+                  "sha256": "a4a880f61be02405eeb1c8e2b551d9c90a0ede8737e7d59a1c67ed0155d49493",
+                  "actual_EOF": 154,
+                  "material_ranges": [
+                    [
+                      1,
+                      47
+                    ]
+                  ],
+                  "actual_caller": "belfry_enclosure_top71 necessary namespace/Dimensions declaration path",
+                  "scope": "Exact direct roof geometry/source/recipient function or necessary declarations; exclude unrelatedfixturetails.",
+                  "reason_prior_proof_insufficient": "Actual current callers newlyfound; rawpoint/numeric/state source/operation unknownwithoutbody, no nativehelper name exemption.",
+                  "credit_at_registration": "none"
+                }
+              },
+              {
+                "registry": "continuation/native/root-roof-producer-followup/local-source-scope-extensions.jsonl",
+                "row_1based": 22,
+                "registration_id": "NATIVE-ROOF-SCOPE-022",
+                "supplier": "native",
+                "original_record": {
+                  "id": "NATIVE-ROOF-SCOPE-022",
+                  "registered_at": "2026-10-22T04:22:28.875481+00:00",
+                  "authority": "continuation/root/producer-scope-extension-authority-022.json",
+                  "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+                  "snapshot": "pr-working",
+                  "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/generator/small_church.rs",
+                  "sha256": "a4a880f61be02405eeb1c8e2b551d9c90a0ede8737e7d59a1c67ed0155d49493",
+                  "actual_EOF": 154,
+                  "material_ranges": [
+                    [
+                      94,
+                      154
+                    ]
+                  ],
+                  "actual_caller": "belfry_enclosure_top72/74 Dimensions::from_program/bell_floor",
+                  "scope": "Exact actual called rawroofderivedsource/geometry helper andnecessaryrecord; no unrelatedfixture.",
+                  "reason_prior_proof_insufficient": "Actualcalleeheadernavigation and caller show numericalresult travels internalRoofFace/Enclosure branch; prior metadata source range notsemanticproof.",
+                  "credit_at_registration": "none"
+                }
+              }
+            ],
+            "effective_local_material_ranges": [
+              [
+                19,
+                23
+              ],
+              [
+                38,
+                45
+              ],
+              [
+                71,
+                76
+              ],
+              [
+                94,
+                141
+              ],
+              [
+                151,
+                154
+              ]
+            ],
+            "qualification_refs": [
+              {
+                "registry": "continuation/native/root-roof-producer-followup/local-source-scope-extensions.jsonl",
+                "row_1based": 24,
+                "registration_id": "NATIVE-ROOF-SCOPE-QUALIFICATION-001",
+                "supplier": "native",
+                "original_record": {
+                  "id": "NATIVE-ROOF-SCOPE-QUALIFICATION-001",
+                  "qualifies": [
+                    "NATIVE-ROOF-SCOPE-020",
+                    "NATIVE-ROOF-SCOPE-022"
+                  ],
+                  "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+                  "effective_material_ranges": [
+                    [
+                      19,
+                      23
+                    ],
+                    [
+                      38,
+                      45
+                    ],
+                    [
+                      71,
+                      76
+                    ],
+                    [
+                      94,
+                      141
+                    ],
+                    [
+                      151,
+                      154
+                    ]
+                  ],
+                  "excluded_incidental_displayed_roles": [
+                    [
+                      25,
+                      36
+                    ],
+                    [
+                      142,
+                      150
+                    ]
+                  ],
+                  "reason": "SmallChurchPlan and unrelatedDimensions nave_depth/depth/bell_centre are not reached by belfry helper; displayedwithoutsemanticcoverage. Existingglobal154scope preserved but this supplierdoesnotclaimthosefunctions.",
+                  "source_or_lens_credit": "none for excludedroles"
+                }
+              }
+            ],
+            "scope_limits": "Every original registration/role/caller/reason remains embedded independently. Byte overlap is not semantic role coverage, producer acceptance, owner-fit acceptance or edit ownership. none; Native qualifications trim local supplier roles only, never historical global scope.",
+            "producer_discovery": "separate actual source/recipient packet acceptance required",
+            "owner_fit": "pending exact new-role delta against owner019",
+            "source_or_other_lens_credit": "none from scope bookkeeping"
+          }
+        ],
+        "admission03_increment077_role_observations": [
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 68,
+            "registration_id": "NATIVE-ADMISSION03-REG-068",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-068",
+              "at": "2026-10-22T15:00:10.275832+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-051.json",
+              "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+              "sha256": "a4a880f61be02405eeb1c8e2b551d9c90a0ede8737e7d59a1c67ed0155d49493",
+              "snapshot": "pr-working",
+              "actual_EOF": 154,
+              "material_ranges": [
+                [
+                  71,
+                  75
+                ]
+              ],
+              "role": "Exact belfry_enclosure_top authoredOption/top scalar context calledRoot450line58; Rigconfirmsno current03 witness.",
+              "reason": "Directactualroofsupportheightrecipientfunction mustcompareactualpredicate, registerbeforebodyanalysis.",
+              "exclusions": "No unrelated SmallChurch generator/functions/tests or transferfromRigwholefunctionauthority.",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\small_church.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADM03-FINALQUAL-068",
+                "registration_id": "NATIVE-ADMISSION03-REG-068",
+                "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+                "snapshot": "pr-working",
+                "sha256": "a4a880f61be02405eeb1c8e2b551d9c90a0ede8737e7d59a1c67ed0155d49493",
+                "actual_EOF": 154,
+                "registered_requested_ranges": [
+                  [
+                    71,
+                    75
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    71,
+                    75
+                  ]
+                ],
+                "context_or_excluded_within_registration": [],
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-068",
+                  "at": "2026-10-22T15:00:10.275832+00:00",
+                  "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-051.json",
+                  "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+                  "sha256": "a4a880f61be02405eeb1c8e2b551d9c90a0ede8737e7d59a1c67ed0155d49493",
+                  "snapshot": "pr-working",
+                  "actual_EOF": 154,
+                  "material_ranges": [
+                    [
+                      71,
+                      75
+                    ]
+                  ],
+                  "role": "Exact belfry_enclosure_top authoredOption/top scalar context calledRoot450line58; Rigconfirmsno current03 witness.",
+                  "reason": "Directactualroofsupportheightrecipientfunction mustcompareactualpredicate, registerbeforebodyanalysis.",
+                  "exclusions": "No unrelated SmallChurch generator/functions/tests or transferfromRigwholefunctionauthority.",
+                  "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\small_church.rs",
+                  "status": "registered_before_direct_current03_body_analysis"
+                },
+                "qualification_history": [
+                  {
+                    "qualification_file": "root-support-batch3/source-qualifications-005.jsonl",
+                    "row_1based": 1,
+                    "payload": {
+                      "registration_id": "NATIVE-ADMISSION03-REG-068",
+                      "original_registration": {
+                        "id": "NATIVE-ADMISSION03-REG-068",
+                        "at": "2026-10-22T15:00:10.275832+00:00",
+                        "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-051.json",
+                        "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+                        "sha256": "a4a880f61be02405eeb1c8e2b551d9c90a0ede8737e7d59a1c67ed0155d49493",
+                        "snapshot": "pr-working",
+                        "actual_EOF": 154,
+                        "material_ranges": [
+                          [
+                            71,
+                            75
+                          ]
+                        ],
+                        "role": "Exact belfry_enclosure_top authoredOption/top scalar context calledRoot450line58; Rigconfirmsno current03 witness.",
+                        "reason": "Directactualroofsupportheightrecipientfunction mustcompareactualpredicate, registerbeforebodyanalysis.",
+                        "exclusions": "No unrelated SmallChurch generator/functions/tests or transferfromRigwholefunctionauthority.",
+                        "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\small_church.rs",
+                        "status": "registered_before_direct_current03_body_analysis"
+                      },
+                      "qualified_material_ranges": [
+                        [
+                          71,
+                          75
+                        ]
+                      ],
+                      "qualification": "Exact registered direct roles only; unrelated source bodies excluded",
+                      "current_admission_proof": "contracts-002.json#roof-assembly-context-and-mutable-linking",
+                      "registered_before_body": true,
+                      "root_global_reconciliation_pending": true
+                    }
+                  }
+                ],
+                "current_proof_refs": {
+                  "current_admission_proof": "contracts-002.json#roof-assembly-context-and-mutable-linking"
+                },
+                "body_rereads_for_this_normalization": 0,
+                "semantic_credit_from_metadata": false,
+                "producer_or_owner_or_later_lens_credit": false,
+                "global_reconciliation_pending": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                71,
+                75
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\small_church.rs",
+            "actual_EOF": 154,
+            "bytes": 4454
+          },
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 69,
+            "registration_id": "NATIVE-ADMISSION03-REG-069",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-069",
+              "at": "2026-10-22T15:00:32.213539+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-051.json",
+              "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+              "sha256": "a4a880f61be02405eeb1c8e2b551d9c90a0ede8737e7d59a1c67ed0155d49493",
+              "snapshot": "pr-working",
+              "actual_EOF": 154,
+              "material_ranges": [
+                [
+                  94,
+                  154
+                ]
+              ],
+              "role": "Actual Dimensions private declaration/from_program/bell_floor helper directlycalledNative068belfry; exacthelperclosure.",
+              "reason": "06872/74 actualdirectcalls reached; registerbeforehelperbodyanalysis. Width/depth/centre methods contextualclosureonlyno unrelatedgeneratorroutecredit.",
+              "exclusions": "No unrelated SmallChurch generator/functions/tests or transferfromRigwholefunctionauthority.",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\small_church.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADM03-FINALQUAL-069",
+                "registration_id": "NATIVE-ADMISSION03-REG-069",
+                "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+                "snapshot": "pr-working",
+                "sha256": "a4a880f61be02405eeb1c8e2b551d9c90a0ede8737e7d59a1c67ed0155d49493",
+                "actual_EOF": 154,
+                "registered_requested_ranges": [
+                  [
+                    94,
+                    154
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    94,
+                    102
+                  ],
+                  [
+                    104,
+                    141
+                  ],
+                  [
+                    151,
+                    154
+                  ]
+                ],
+                "context_or_excluded_within_registration": [
+                  [
+                    103,
+                    103
+                  ],
+                  [
+                    142,
+                    150
+                  ]
+                ],
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-069",
+                  "at": "2026-10-22T15:00:32.213539+00:00",
+                  "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-051.json",
+                  "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+                  "sha256": "a4a880f61be02405eeb1c8e2b551d9c90a0ede8737e7d59a1c67ed0155d49493",
+                  "snapshot": "pr-working",
+                  "actual_EOF": 154,
+                  "material_ranges": [
+                    [
+                      94,
+                      154
+                    ]
+                  ],
+                  "role": "Actual Dimensions private declaration/from_program/bell_floor helper directlycalledNative068belfry; exacthelperclosure.",
+                  "reason": "06872/74 actualdirectcalls reached; registerbeforehelperbodyanalysis. Width/depth/centre methods contextualclosureonlyno unrelatedgeneratorroutecredit.",
+                  "exclusions": "No unrelated SmallChurch generator/functions/tests or transferfromRigwholefunctionauthority.",
+                  "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\small_church.rs",
+                  "status": "registered_before_direct_current03_body_analysis"
+                },
+                "qualification_history": [
+                  {
+                    "qualification_file": "root-support-batch3/source-qualifications-005.jsonl",
+                    "row_1based": 2,
+                    "payload": {
+                      "registration_id": "NATIVE-ADMISSION03-REG-069",
+                      "original_registration": {
+                        "id": "NATIVE-ADMISSION03-REG-069",
+                        "at": "2026-10-22T15:00:32.213539+00:00",
+                        "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-051.json",
+                        "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+                        "sha256": "a4a880f61be02405eeb1c8e2b551d9c90a0ede8737e7d59a1c67ed0155d49493",
+                        "snapshot": "pr-working",
+                        "actual_EOF": 154,
+                        "material_ranges": [
+                          [
+                            94,
+                            154
+                          ]
+                        ],
+                        "role": "Actual Dimensions private declaration/from_program/bell_floor helper directlycalledNative068belfry; exacthelperclosure.",
+                        "reason": "06872/74 actualdirectcalls reached; registerbeforehelperbodyanalysis. Width/depth/centre methods contextualclosureonlyno unrelatedgeneratorroutecredit.",
+                        "exclusions": "No unrelated SmallChurch generator/functions/tests or transferfromRigwholefunctionauthority.",
+                        "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\small_church.rs",
+                        "status": "registered_before_direct_current03_body_analysis"
+                      },
+                      "qualified_material_ranges": [
+                        [
+                          94,
+                          102
+                        ],
+                        [
+                          104,
+                          141
+                        ],
+                        [
+                          151,
+                          154
+                        ]
+                      ],
+                      "qualification": "Native069 Dimensions nave_depth/depth/bell_centre142-150 incidental contextual read only; exact required from_program/width/bell_floor retained",
+                      "current_admission_proof": "contracts-002.json#roof-assembly-context-and-mutable-linking",
+                      "registered_before_body": true,
+                      "root_global_reconciliation_pending": true
+                    }
+                  }
+                ],
+                "current_proof_refs": {
+                  "current_admission_proof": "contracts-002.json#roof-assembly-context-and-mutable-linking"
+                },
+                "body_rereads_for_this_normalization": 0,
+                "semantic_credit_from_metadata": false,
+                "producer_or_owner_or_later_lens_credit": false,
+                "global_reconciliation_pending": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                94,
+                102
+              ],
+              [
+                104,
+                141
+              ],
+              [
+                151,
+                154
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\small_church.rs",
+            "actual_EOF": 154,
+            "bytes": 4454
+          },
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 70,
+            "registration_id": "NATIVE-ADMISSION03-REG-070",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-070",
+              "at": "2026-10-22T15:01:02.069491+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-051.json",
+              "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+              "sha256": "a4a880f61be02405eeb1c8e2b551d9c90a0ede8737e7d59a1c67ed0155d49493",
+              "snapshot": "pr-working",
+              "actual_EOF": 154,
+              "material_ranges": [
+                [
+                  19,
+                  23
+                ],
+                [
+                  38,
+                  46
+                ],
+                [
+                  93,
+                  93
+                ]
+              ],
+              "role": "Actualclosed SmallChurchKind declaration/Serde andfrom_use directlycalledNative069110 plusDimensionsattachedderive93. No publicunrelated SmallChurchlayoutrecord credit.",
+              "reason": "069actualfrom_program branchreachesclosedkind predicate; attachedderive completion beforeanalysis. RootG003actualmodel.rs12 CELL_SIZE_METRES1.5 alreadycurrentproof, no furtherconstantscope.",
+              "exclusions": "No unrelated SmallChurch generator/functions/tests or transferfromRigwholefunctionauthority.",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\small_church.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADM03-FINALQUAL-070",
+                "registration_id": "NATIVE-ADMISSION03-REG-070",
+                "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+                "snapshot": "pr-working",
+                "sha256": "a4a880f61be02405eeb1c8e2b551d9c90a0ede8737e7d59a1c67ed0155d49493",
+                "actual_EOF": 154,
+                "registered_requested_ranges": [
+                  [
+                    19,
+                    23
+                  ],
+                  [
+                    38,
+                    46
+                  ],
+                  [
+                    93,
+                    93
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    19,
+                    23
+                  ],
+                  [
+                    38,
+                    46
+                  ],
+                  [
+                    93,
+                    93
+                  ]
+                ],
+                "context_or_excluded_within_registration": [],
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-070",
+                  "at": "2026-10-22T15:01:02.069491+00:00",
+                  "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-051.json",
+                  "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+                  "sha256": "a4a880f61be02405eeb1c8e2b551d9c90a0ede8737e7d59a1c67ed0155d49493",
+                  "snapshot": "pr-working",
+                  "actual_EOF": 154,
+                  "material_ranges": [
+                    [
+                      19,
+                      23
+                    ],
+                    [
+                      38,
+                      46
+                    ],
+                    [
+                      93,
+                      93
+                    ]
+                  ],
+                  "role": "Actualclosed SmallChurchKind declaration/Serde andfrom_use directlycalledNative069110 plusDimensionsattachedderive93. No publicunrelated SmallChurchlayoutrecord credit.",
+                  "reason": "069actualfrom_program branchreachesclosedkind predicate; attachedderive completion beforeanalysis. RootG003actualmodel.rs12 CELL_SIZE_METRES1.5 alreadycurrentproof, no furtherconstantscope.",
+                  "exclusions": "No unrelated SmallChurch generator/functions/tests or transferfromRigwholefunctionauthority.",
+                  "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\small_church.rs",
+                  "status": "registered_before_direct_current03_body_analysis"
+                },
+                "qualification_history": [
+                  {
+                    "qualification_file": "root-support-batch3/source-qualifications-005.jsonl",
+                    "row_1based": 3,
+                    "payload": {
+                      "registration_id": "NATIVE-ADMISSION03-REG-070",
+                      "original_registration": {
+                        "id": "NATIVE-ADMISSION03-REG-070",
+                        "at": "2026-10-22T15:01:02.069491+00:00",
+                        "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-051.json",
+                        "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+                        "sha256": "a4a880f61be02405eeb1c8e2b551d9c90a0ede8737e7d59a1c67ed0155d49493",
+                        "snapshot": "pr-working",
+                        "actual_EOF": 154,
+                        "material_ranges": [
+                          [
+                            19,
+                            23
+                          ],
+                          [
+                            38,
+                            46
+                          ],
+                          [
+                            93,
+                            93
+                          ]
+                        ],
+                        "role": "Actualclosed SmallChurchKind declaration/Serde andfrom_use directlycalledNative069110 plusDimensionsattachedderive93. No publicunrelated SmallChurchlayoutrecord credit.",
+                        "reason": "069actualfrom_program branchreachesclosedkind predicate; attachedderive completion beforeanalysis. RootG003actualmodel.rs12 CELL_SIZE_METRES1.5 alreadycurrentproof, no furtherconstantscope.",
+                        "exclusions": "No unrelated SmallChurch generator/functions/tests or transferfromRigwholefunctionauthority.",
+                        "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\small_church.rs",
+                        "status": "registered_before_direct_current03_body_analysis"
+                      },
+                      "qualified_material_ranges": [
+                        [
+                          19,
+                          23
+                        ],
+                        [
+                          38,
+                          46
+                        ],
+                        [
+                          93,
+                          93
+                        ]
+                      ],
+                      "qualification": "Exact registered direct roles only; unrelated source bodies excluded",
+                      "current_admission_proof": "contracts-002.json#roof-assembly-context-and-mutable-linking",
+                      "registered_before_body": true,
+                      "root_global_reconciliation_pending": true
+                    }
+                  }
+                ],
+                "current_proof_refs": {
+                  "current_admission_proof": "contracts-002.json#roof-assembly-context-and-mutable-linking"
+                },
+                "body_rereads_for_this_normalization": 0,
+                "semantic_credit_from_metadata": false,
+                "producer_or_owner_or_later_lens_credit": false,
+                "global_reconciliation_pending": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                19,
+                23
+              ],
+              [
+                38,
+                46
+              ],
+              [
+                93,
+                93
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\small_church.rs",
+            "actual_EOF": 154,
+            "bytes": 4454
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          154
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "SmallChurchKind structural/Serialize/Deserialize19\u201323",
+        "SmallChurchPlan Clone/Debug/Serialize/Deserialize25\u201336",
+        "Dimensions Clone/Copy93\u2013102"
+      ],
+      "absence_basis": "Full exact source consumed. SmallChurchKind::from_use38\u201346 native semantic subset classifier; occupied_storey48\u201354/wall_height56\u201365/roofs67\u201369/belfry_enclosure_top71\u201375/resolve77\u201391 native program/geometry dispatch; Dimensions inherent from_program104\u2013137 and physical geometry getters139\u2013153. No handwritten trait/codec; mechanical records already derive. Child modules remain separately scoped."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "native room/tower identity and small church semantic programme",
+      "disposition": "No handwritten trait boilerplate in these full roles; existing structural/Serde derives own mechanics. Keep native semantic subset/program classification and checked geometric/source mapping.",
+      "acceptance": "No serializer added merely to replace runtime classifier; no source edits/execution/other-lens completion."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 612,
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church/appearance_tests.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

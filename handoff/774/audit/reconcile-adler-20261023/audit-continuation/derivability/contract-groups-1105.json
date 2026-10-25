@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1105",
+  "at": "2026-10-25T17:46:39.778267+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1225,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+  "sha256": "013eba5886065bb81edc072a7a9ea987b50af7766422f605d6df603f29e73010",
+  "actual_compared_ranges": [
+    [
+      2631,
+      3010
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "No handwritten trait/codec. Storefront body validates exact per-instance unique sales, current scope/equipped/atomic object/food/measured representation and checked quote/balance/cohort; native effects preserve sidecars/subtrees/individual purchases and semantic split stake/currency payments. These are contextual algorithm/admission mappings, not mechanical serialization/conversion. No derived Hash/Eq/From substitution."
+  ],
+  "first_unfinished": {
+    "scope_index": 1225,
+    "line": 3011
+  },
+  "execution": "none"
+}

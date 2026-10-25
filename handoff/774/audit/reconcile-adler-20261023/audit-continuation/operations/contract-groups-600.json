@@ -1,0 +1,70 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-600",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/collision.rs",
+      "sha256": "59ae010bf4fbedc4f9daf16fc207e3f5ca674ff20a2c5d5b6b9699d291478f97",
+      "actual_EOF": 448,
+      "actual_compared_ranges": [
+        [
+          1,
+          448
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/collision/cuboid.rs",
+      "sha256": "2d9a1cfbd92acc218b8fb3abaf6f579fde6217c2f3776ece0539c340602baec9",
+      "actual_EOF": 111,
+      "actual_compared_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/doors.rs",
+      "sha256": "117277d2c1a3694f567606dcd0e8207f647755a386fdabfca098aa8597a6e1b7",
+      "actual_EOF": 295,
+      "actual_compared_ranges": [
+        [
+          1,
+          295
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "P16 collision cuboid native projection and compilation",
+      "evidence": "Complete448+111 bodies read: finite typed centre/dimensions/radians construction preserves source cause; bounds native orientation/rotated half sum readmits SpatialBounds; canonical eight sign-coded corners each readmits Position with actual RigidRotation,12 fixededges bounded. Collision compile uses semantic wall/floor/stair/workplace IDs, excludes replaced walls/operable doors, selectedsolids map then falliblepartcollection and bars, builds unionfallback. Archstrip nativeprojection readmits final cuboid.",
+      "qualifications": [
+        "SameID map collapse and selected missingIDs silentlyfilter are aggregate/admission graph obligations, not fresh exact defect without invalid publicplan witness/current generator proof.",
+        "Bounds vs exactcorner f32rounding distinction is explicit documented policy; groundcontact calls exactsection helper, not unconditional full higherprojection.",
+        "Extreme finite inputs may overflow and reject; validfallible rejection is not forbidden. Publicmutability does not imply computedbounds automatically cached; compile recomputes."
+      ],
+      "acceptance": "No successful nonfinite computed corner/bounds; preserve exactfloorcontact semantics, authored opening subtraction and dynamicdoor authority. Frozen sourcefixtures readnotrun; no currentmerged compile defect inferred."
+    },
+    {
+      "contract": "P16 operable door dimensions, pivot and horizontal sweep",
+      "evidence": "Whole295lines: checked deserialize leaves anddirection normality, compile operable exterior only fromclosure; computedwidth/thickness/hinge and yaw readmitted with exactopening/sourcecauses. Sweep checks arm/corner/norm finite before max, includes arbitrary admitted hinge offset; fixtures use rotatedtruepivot and matchedradius.",
+      "qualifications": [
+        "P16 closed_centre-minus-hinge arm is used: prior oldcentred hinge aliases are not automatically applicable to this actualbody.",
+        "Each unitdirectionalone doesnotprove perpendicular frame or hostdimension semantics; existing accepted03/06 aggregate/admission evidence remains, no replaycredit/unique count.",
+        "Missingclosure Err and invalid/overflowcomputedgeometry rejection valid; no requirement infallible for allfinite extrema."
+      ],
+      "acceptance": "Preserve inward swing, full offsethinge sweep and contextualerror; no arbitrary physicalextent/angleclamp replacing checkedoperation."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-building-generator/src/furniture/builder.rs"
+}

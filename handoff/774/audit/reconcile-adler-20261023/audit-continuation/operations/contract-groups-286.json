@@ -1,0 +1,116 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-286",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:assets/shaders/tactical_terrain.wgsl",
+      "sha256": "3e1b93040592788f45f281cd81947315b64deedb33d1325c618959a3ca642e81",
+      "actual_EOF": 415,
+      "actual_compared_ranges": [
+        [
+          1,
+          415
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:assets/shaders/tactical_tree_aggregate_bark.wgsl",
+      "sha256": "9fbf0f983b8019500e6cdf95bd531a99a9a3b01eea1b07f27d9c4506364c4fe8",
+      "actual_EOF": 49,
+      "actual_compared_ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:assets/shaders/tactical_tree_impostor.wgsl",
+      "sha256": "131a902b24267466e1c039477a9a18a881b7fd31212c614b850fbc15673934c4",
+      "actual_EOF": 135,
+      "actual_compared_ranges": [
+        [
+          1,
+          135
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:assets/shaders/tactical_weather.wgsl",
+      "sha256": "5c0a4dc16844e0840b502186ec82a5b7b8398061d2fd4d68226c8bffebd47636",
+      "actual_EOF": 317,
+      "actual_compared_ranges": [
+        [
+          1,
+          317
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Terrain material depends on coherent axis-aligned frame, physical maps and selected geometry applicability",
+      "source_ranges": {
+        "tactical_terrain.wgsl": [
+          [
+            1,
+            415
+          ]
+        ]
+      },
+      "disposition": "All four complete exact shader bodies personally read, no shader/GPU/render execution. Terrain transforms source positions through supplied matrix; source normal conversion divides by diagonalX/Z, explicitly assumes nonzero axis-aligned scene frame. Actual frame owner must provide that restricted affine shape, not arbitrary invertible matrix. Detail patch discards coarse mesh only inside actual covered camera radius, with host-proven residual mesh extent/hand-off required; no missing actual coverage witness. Height derivative denominator has signed1e-6 floor; triplanar normalization sum1e-5 floor and parallax y.24/offsetclamp keep ordinary divisions bounded, not arbitrary nonfinite producer admission. Ground-map categorical cover/substrate, signed canopy-floor alpha, litter height/normal pairs, bloodmask and geological/material coordinate authority must agree with actual CPU generation. No duplicate gameplay authority inferred from visualproceduralnoise. Massive geological palette mode returns before bedding/foliation scalar, so do not impose a nonzero structural axis on an inapplicable Massive mode; F52 codec is separate actual registration/Serde issue. Actual uniform ordered smoothstep/ranges and finite response require producer proof, no new shader-only finding."
+    },
+    {
+      "contract": "Tree aggregate and whole-tree atlas preserve parent scale and finite index mapping",
+      "source_ranges": {
+        "tactical_tree_aggregate_bark.wgsl": [
+          [
+            1,
+            49
+          ]
+        ],
+        "tactical_tree_impostor.wgsl": [
+          [
+            1,
+            135
+          ]
+        ]
+      },
+      "disposition": "Aggregate bark keeps macro normal/PBR and explicit bounded roughness, with no trunk-relief policy. Impostor level4 faces camera but extracts horizontal/vertical scale lengths from model columns, retaining parent scale deliberately. Normal/camera vector normalization and scale length overflow retain actual admitted frame/camera prerequisites. Eight-view atlas index rounds wrappedangle*8 thenmod8, so for finite direction produces0..7 and3x3 column/row mapping; exact atlas orientation/UV image producer remains dependency, not proven by source comment. Packed floatlevel round/casti32 is raw shader dispatch branch, owning host enum policy must preserve finite valid representation. Crisp dither midpoint switch differs intentionally from continuous coverage. No art acceptance, texture bake or runtime image proof."
+    },
+    {
+      "contract": "Weather height and shelter map sampling retain range and geometric basis dependencies",
+      "source_ranges": {
+        "tactical_weather.wgsl": [
+          [
+            1,
+            221
+          ]
+        ]
+      },
+      "disposition": "textureDimensions assumed nonzero valid native textures; texels clamp0..dim-1, bilinear neighbor reads reclamp and normalized16bit RG height decoding follows host min/max. Shelters extend height range by-2/+24 and out-of-bounds returns explicit sentinel/absent flag, not a real underground blocker. Coordinate denominator floors.001 and slope/fall speed floors prevent ordinary zero divisions locally. distributed radius sqrt(vertexdata.y) requires actual normalized nonnegative particle sample; precipitation fallphase divides raw weather_motion.w, so positive finite height is real host admission dependency. Snow billboard cross(up,to_particle) degenerates for exactly vertical eye direction; rain cross(view,velocity) similarly requires nonparallel basis or explicit fallback. No actual generated particle/camera coincidence inspected, so source-derived geometric strengthening remains qualified, not current broken snowfall. Preserve source terrain/shelter identity, signed heights, camera anchoring and intentional weatherkind policy."
+    },
+    {
+      "contract": "Weather fragment outputs premultiplied coverage with fixed bounded local work",
+      "source_ranges": {
+        "tactical_weather.wgsl": [
+          [
+            222,
+            317
+          ]
+        ]
+      },
+      "disposition": "Four discrete effects use bounded procedural formulas/no dynamic loops, sqrtmax guards analytic normal remainder and fixed unit key directions cannot vanish. Kind/uniform particle data/material ranges remain actual native port contract; arbitrary invalid float kind casts are not independently accepted semantic values. Alpha computed from appearance*coverage then lowthresholddiscard, output RGB premultiplied byalpha. Actual CPU weather snapshot/intensity/physical timing must stay canonical through material/heightmap updates; shadertime/seed arithmetic alone does not establish overflow-free end-to-end state. No shaders checked or draws executed."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:content/dialogue/examples.yaml"
+}

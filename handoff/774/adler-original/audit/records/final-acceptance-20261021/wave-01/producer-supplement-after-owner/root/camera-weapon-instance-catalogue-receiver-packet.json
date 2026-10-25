@@ -1,0 +1,219 @@
+{
+  "id": "ROOT-PPS-CAMERA-WEAPON-INSTANCE-CATALOGUE-PACKET-044",
+  "lens": "audit-producer-propagation",
+  "assigned_indices": [],
+  "assigned_camera_indices": [
+    86,
+    163,
+    297,
+    583,
+    584
+  ],
+  "timestamp": "2026-10-21T21:41:09.171470+00:00",
+  "status": "assigned5 exhausted with findings; discovery/source/validation/family gates remain open",
+  "source_proofs": [
+    {
+      "index": 86,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/weapon_instance.rs",
+      "path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/weapon_instance.rs",
+      "sha256": "e07ad1f88c536b1cd68f6384d729b7ca9d77bb74613af181283a9954346f9c27",
+      "read_ranges": [
+        [
+          1,
+          439
+        ]
+      ],
+      "read_mode": "Full PR445 fresh body + exact unchanged source block matching and ROOT040 fresh changed P16combat_geometry328\u2013354; actual no-index diff shows sole function change, body policy re-reconciled",
+      "contract_trace": "Current439body differs from full fresh PR445 only whole combat_geometry328\u2013354, actually read ROOT040 and exact no-index diff reconciled now; unchanged prefix/suffix producer/SDK/source fixtures explicitly matched. StrategicOperationResult/error propagation halfmigration preserved; do not import source before connected callers complete. Canonical length re-admission before Parametric constructor dedup ROOT040, precision.value still loses existing owner into receiving geometry API.",
+      "disposition": "Producer source/retention/actual recipient accounted with existing/new findings; no validation/repair/family clearance"
+    },
+    {
+      "index": 163,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/item_catalog_validation.rs",
+      "sha256": "df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+      "read_ranges": [
+        [
+          1,
+          2053
+        ]
+      ],
+      "read_mode": "fresh full source/body read",
+      "contract_trace": "Full2053 actual raw JSON decoder/semantic validator/typed-schema admission/diagnostics and every original fixture freshly read. JSON Value is genuine rejected-source representation, not an already admitted physical promise; typed admission then discarded into raw documents before build compiler retains/reads them differs from external file serialization. Cause Serde->String inside diagnostic collection and human pathString later parsed to source lookup remain connected typed source/diagnostic requirements; exact bounds/diagnosticorder/cap128 and wire/subnormal/current fixtures preserved.",
+      "disposition": "Producer source/retention/actual recipient accounted with existing/new findings; no validation/repair/family clearance"
+    },
+    {
+      "index": 297,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/weapon_instance/appearance.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/weapon_instance/appearance.rs",
+      "sha256": "f6b8605a22c9db0d93d4152347ac800118d90203a6f9d6976e716755dd1b7094",
+      "read_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "read_mode": "fresh full source/body read",
+      "contract_trace": "Full78PR connected appearance reads source native view/object/row, checks uniqueobject and authenticates recipe/complete projections before converting persisted integer gram/mm to raw f32 fields for ConnectedWeaponAppearance native SDK output. Keep explicit invalid/ambiguousNone policy and trust/privacy restrictions; canonical DesignHash/physical types through first-party source consumers, actual SDK fields proved at boundary.",
+      "disposition": "Producer source/retention/actual recipient accounted with existing/new findings; no validation/repair/family clearance"
+    },
+    {
+      "index": 583,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/weapon_instance.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/weapon_instance.rs",
+      "sha256": "0366036a85f92aec26b1e205aa69edeb41afe565c118d2d5335e5cbb2ee4e983",
+      "read_ranges": [
+        [
+          1,
+          445
+        ]
+      ],
+      "read_mode": "fresh full source/body read",
+      "contract_trace": "Full445PR weapon/holder/native record fields, gateway-filtered backend views, personal/party initialization, body-holder fitting/replacement, combat geometry/mass, all original fixture cases freshly read. Source IDs and physical leaves still naked across first-party helper APIs, concrete String failures before actual reducer/SDK error port; camera whole graph owns repair, root source physical32 and rig design/hash supplied. True table/SpacetimeType primitive gram/mm/hash/recipe representations remain actual wire/storage ports with exact reauthentication/rounding/zero policy.",
+      "disposition": "Producer source/retention/actual recipient accounted with existing/new findings; no validation/repair/family clearance"
+    },
+    {
+      "index": 584,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/weapon_instance/appearance.rs",
+      "path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/weapon_instance/appearance.rs",
+      "sha256": "f6b8605a22c9db0d93d4152347ac800118d90203a6f9d6976e716755dd1b7094",
+      "read_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "read_mode": "Fresh wholePR appearance78 actualbody plus explicit samebytes+same actual source/retention/recipient roles",
+      "contract_trace": "P16appearance78 identical actual fullPR body and same roles; byte equality checked after freshPR body review and no-index comparison. No claim samehash alone is sourceproof. Entire source authentication/native output and optional/ambiguous policy same as297.",
+      "disposition": "Producer source/retention/actual recipient accounted with existing/new findings; no validation/repair/family clearance"
+    }
+  ],
+  "additional_fresh_sources": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_numeric.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/item_catalog_validation_numeric.rs",
+      "sha256": "a3591804f6c9134439dd3d27e42827d15a3e84c016e675123cc100e69e994f93",
+      "read_ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "material_contract_ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "scope": "Fresh material source/actual recipient only; unrelated partial functions are not coverage"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+      "sha256": "9cb076d4f2ff85b5932981983e2eeea82850c8b40b647948ca400bd4d00aad51",
+      "read_ranges": [
+        [
+          1,
+          185
+        ]
+      ],
+      "material_contract_ranges": [
+        [
+          1,
+          185
+        ]
+      ],
+      "scope": "Fresh material source/actual recipient only; unrelated partial functions are not coverage"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_surface.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/item_catalog_validation_surface.rs",
+      "sha256": "1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b",
+      "read_ranges": [
+        [
+          1,
+          219
+        ]
+      ],
+      "material_contract_ranges": [
+        [
+          1,
+          219
+        ]
+      ],
+      "scope": "Fresh material source/actual recipient only; unrelated partial functions are not coverage"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/build.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/build.rs",
+      "sha256": "fc42ea1f2234144e94d6bfac86f254cd059799b9f9e5ae6de7f77e3125f19b7c",
+      "read_ranges": [
+        [
+          90,
+          132
+        ],
+        [
+          210,
+          355
+        ]
+      ],
+      "material_contract_ranges": [
+        [
+          220,
+          344
+        ],
+        [
+          108,
+          109
+        ]
+      ],
+      "scope": "Fresh material source/actual recipient only; unrelated partial functions are not coverage"
+    }
+  ],
+  "producer_to_receiver": [
+    "Canonical evaluated design/physical/hash -> PR/P16 weapon_instance helper and row native projections. from_evaluation ROOT040 genuine persisted gram/mm round/max1; appearance reconstructs normalizedphysical values from authenticated integer projections for true SDK message. Raw internal IDs, Result String/Option policy and helper/Parametric physical constructor loss precede actual SDK table/error boundary; preserve P16 current signature improvements rather than replacing with oldPR body.",
+    "Native appearance body intentionally does not use arbitrary row values before evaluate_instance recomputes full canonical construction and compares all projections. Gateway0 is actual singleton database row key; row filter empty string range is actual SDK index scan, not an application default ID. Uniqueobject None for ambiguous/corrupt input is deliberate security/absence behavior; do not make a fallback catalog identity or leak recipe to unauthorized HTML.",
+    "Catalog raw source decoder strictly rejects duplicate mapping key/nonfinite foreign JSON scalar; Native Serde E::custom text is required decoding protocol. Semantic parser inspects invalid raw source and accumulates multiplediagnostics before typed ItemCatalogDocument check269; rejected source cannot be modeled as an already valid physical quantity. Some source false/empty/0 sentinels are branch-local invalid-source classification; preserve exact error aggregation and distinguish them from retained missing gameplay measurement.",
+    "Actual typed schema mismatch from serde_json::Error -> format String272, Book serde error->toString1398, occupancy dependency/layer decode errors -> String before CatalogDiagnostic collection. CatalogDiagnostic.path then source_coordinates reparses human pathString with split/strip/find to locate native line/column. Keep structured source/field/path/cause through internal records to final Display, rather than generic error/prose as intermediate authority. Root owns whole connected compiler/diagnostic graph; canonical schema definitions rig/camera consumed.",
+    "validate_equipment positive dimensions/grip>=0/tangent nonzero/sourceunitUV directly inspect native JSON quantities; numeric finite_in/stdcontains and positive_f32_in actual f64\u2192f32 predicate preserve smallestsubnormal semantics before typed schema decode. Strictly positive output required after f32 casting; do not treat a finitef64 source as checkedf32 or narrow tangent to normalized-only by name. Current source field generic helpers mix different physical units/ranges: later granularity/admission lens must reconcile typed policy signatures, no blind whole0..1 reuse.",
+    "Occupancy actually retains typed OccupancyRequirement for conflict/zone comparison; however it discards decode cause with.ok and independently uses native source strings for location/channel/order rules. Whole final codec should decode canonical owner once and keep rejected malformed source representable for diagnostic collection. Surface helper validates region strings then parses same Region to bodypart and returns emptystr on failure, with independent contiguous string pairs; reuse existing Region/bodypart owners through semantic helpers, preserve exact admitted chain and source diagnostic behavior.",
+    "Actual compile_items220\u2013284 reads files/native path/text, strictdecoder, collect_item_sources before validation, typed schema validation then still raw JSON document IDs/icons for asset checks and serde output to OUT_DIR Rustconstant. That file serialization is real build/runtime boundary; retained compiler document model and canonical source identity should stay typed until actual JSON/fs/native lookup. Keep original digest relativepath+NUL+source bytes, sourcefile order, icon basename policy, exact rawauthoring formatting and UTF8 charcolumn counts. parse_document otherquest caller108\u2013109 carries serde cause to actual panic Display, no internal generic flatten there.",
+    "All original fixture source2053 and occupancy/surface tests freshly read, including multiple diagnostics/exact path/message, duplicate key line3, typed overflow, books, mixed/sided occupancy, sourceUV/tangent pair, safe protection defaults/zero channels, hand-only/sheathable alternatives, subnormal positivef32 and segment countlimit. No case/helper/assertion added or executed; eventual typed helper adaptation preserves every original value and oracle."
+  ],
+  "findings": [
+    {
+      "id": "ROOT-CATALOGUE-PACKET-F001",
+      "kind": "structured_diagnostic_source_gap",
+      "source": "CatalogDiagnostic.message/path plus CatalogValidationError/validate_documents_with_sources/source_coordinates; occupancy dependency/layer/Book typed-schema error adapters",
+      "repair": "Root coherent structured diagnostic/source path/cause owner and complete compiler validation/read/write helper signatures, reusing existing canonical item/physical/placement owners; extract human text only at actual Display/Cargo process output.",
+      "acceptance": "Typed cause/classification and semantic path survive retained diagnostics and actual source coordinate lookup; exact existing diagnostic rendering/order/cap/input/source positions and invalid fixture coverage preserved.",
+      "owner": "/root"
+    },
+    {
+      "id": "ROOT-CATALOGUE-PACKET-F002",
+      "kind": "repeated_owner_admission",
+      "source": "item_catalog_validation_surface::{validate_equipment_surface_span,anatomical_body_part,contiguous_regions} and occupancy validation typeddecode.ok then rawrules",
+      "repair": "Keep admitted EquipmentAnatomicalRegion/EquipmentLocation/EquipmentChannel/OccupancyRequirement through semantic validation helpers; actual raw JSON entry preserves malformed value diagnostics.",
+      "acceptance": "No parse checked enum back from identity text or treat empty text as real anatomy; preserve chain/protection/conflict/invalid/source behavior.",
+      "owner": "/root",
+      "dependencies": [
+        "Rig/camera canonical schema/physical contracts",
+        "Later enum/admission/aggregate source policy lens"
+      ]
+    },
+    {
+      "id": "ROOT-CATALOGUE-PACKET-F003",
+      "kind": "reached_boundary_operation_candidate",
+      "source": "weapon_instance::checked_scaled_u32 casts u32::MAX asf32; actual finite value limit/round/as policy",
+      "repair": "Later invariant/admission lens must establish exact encoded range versus actual rounded f32 comparison and saturating cast semantics; do not silently change persisted rounding or mistake a typed wrapper for proof.",
+      "acceptance": "Explicit admitted native projection range consistent with checked owner and documented rounding/saturation, all actual call/body paths considered.",
+      "owner": "/root/camera_targeting",
+      "source_basis": "Static source inference only; no numeric probe or new test"
+    }
+  ],
+  "remaining_actual_receiver": [],
+  "ownership": "Root already owns whole Corebuild main/catalogue read/validate/write graph; rig explicitly confirms RIG-OWNER-CATALOG-008 was sourceproof, not diagnostic owner. Root newly whole diagnostic/validation/surface/occupancy helpers claimed separately. Camera owns whole DB physical source/recipient graph, canonical schema field/contracts and root/rig existing shared owner exclusions retained.",
+  "coverage_limit": "Five assigned bodies and exact material4 additional source/recipient proofs; 298evaluation credit corrected by camera separately from297appearance, not double counted here. No full uncalled buildquest/organization or unrelated source corpus claim.",
+  "source_repair": "frozen_until_all13_initial_inventories",
+  "validation": "not_executed"
+}

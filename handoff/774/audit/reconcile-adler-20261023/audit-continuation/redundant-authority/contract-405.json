@@ -1,0 +1,133 @@
+{
+  "id": "CONT07-CONTRACT-405",
+  "at": "2026-10-23T21:16:07.908046+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1781,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state.rs",
+      "sha256": "48d075954cf0381f63c73815380ed47c37be6c35e30c573b6839e74c21572557",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/animation/state.rs",
+      "actual_EOF": 2069,
+      "ranges": [
+        [
+          1,
+          2069
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads;1781 prior partial1-855 retained"
+    },
+    {
+      "scope_index": 1862,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/defaults.rs",
+      "sha256": "970a41a87d4738f8b9edc7a55d80caa78aed0bca9622fee03d034b297626f591",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/combat_config/defaults.rs",
+      "actual_EOF": 26,
+      "ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads;1781 prior partial1-855 retained"
+    },
+    {
+      "scope_index": 1870,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "sha256": "5d254790fa2ec7e53bc749b18bfc8f4d89a1df367c3542f8f969403641c8a970",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "actual_EOF": 71,
+      "ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads;1781 prior partial1-855 retained"
+    }
+  ],
+  "fresh_this_batch": [
+    {
+      "scope_index": 1781,
+      "ranges": [
+        [
+          856,
+          2069
+        ]
+      ]
+    },
+    {
+      "scope_index": 1862,
+      "ranges": [
+        [
+          1,
+          26
+        ]
+      ]
+    },
+    {
+      "scope_index": 1870,
+      "ranges": [
+        [
+          1,
+          71
+        ]
+      ]
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "NATIVE-OWNER-CORE-STATE-008",
+    "CAM-OWN-MOTION-CAPTURE-RECEIVER-120",
+    "NATIVE-OWNER-ANIMATION-LEAVES-002"
+  ],
+  "facts": [
+    "F092 promotes the explicit curve/global limit mismatch with actual configuration owner, default source and action consumers. It remains API/config conditional; no current default visual failure or executed counterexample.",
+    "ActionState kind/phase getters derive from payload enum; no parallel kind flag. Idle/quickstep/action direction defaults preserve absence policy. Attack Hand, StrikeFamily and AttackAnimation support offhand animation with either physical family, so they are not universally derivable from one another.",
+    "Current versus queued actions and attack preparation are different temporal states. advance_action copies the action, samples then publishes it, preserving old action on a returned sample error. Presentation-only phase override is explicitly separate private PresentedSkeleton use; no claimed authority leak without caller proof.",
+    "transition_body atomically clears downed action/stance and normalizes guard motion. Posture transition may deliberately survive airborne/grounded body changes for dive detection. Possible non-dive transition surviving Ragdolled requires exact producer/caller priority policy before a finding; not promoted by an unproven gameplay assumption.",
+    "Runtime snapshot install validates then replaces canonical RwLock config and increments epoch; thread-local animation cache checks that epoch. Default initialization comes from one validated embedded YAML LazyLock. No stale-cache or duplicate numeric default defect asserted from these bodies alone.",
+    "State normal builder and decode wrap gait_phase. Ordinary projection update body remains queued; unwrapped public support API remains qualified. Source fixtures/prose and metadata are not execution evidence."
+  ],
+  "fresh_partial_support": [
+    {
+      "scope_index": 1860,
+      "sha256": "5d114988a64595879b04e6f151d2a184cdf8f893f2f2b17a9987a3faf933d4ab",
+      "ranges": [
+        [
+          23,
+          63
+        ],
+        [
+          400,
+          479
+        ],
+        [
+          629,
+          677
+        ]
+      ],
+      "status": "exact reached definition/validator rg excerpts plus contiguous629-654; no full source coverage"
+    },
+    {
+      "scope_index": 526,
+      "sha256": "05958d54e48eba637c755f8ad89959dc6ef0aeaeeeaeb75022e07071a01ddaf3",
+      "ranges": [
+        [
+          160,
+          176
+        ]
+      ],
+      "status": "exact YAML curve stanza fresh comparison; baseline whole source not reread"
+    }
+  ],
+  "new_local_findings": [
+    "CONT07-F092"
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1782,
+    "start_line": 1
+  }
+}

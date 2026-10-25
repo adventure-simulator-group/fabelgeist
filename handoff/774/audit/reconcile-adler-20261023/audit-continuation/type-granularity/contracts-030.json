@@ -1,0 +1,75 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-030",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "food-quantities-differ-from-probability-and-physical-mass",
+      "sources": [
+        {
+          "scope_index": 107,
+          "ranges": [
+            [
+              7,
+              10
+            ],
+            [
+              156,
+              179
+            ],
+            [
+              195,
+              215
+            ],
+            [
+              247,
+              307
+            ],
+            [
+              309,
+              338
+            ]
+          ],
+          "qualification": "Only registered fragments; actualEOF848, no wholebody/flavoroperation/nativefoodlot credit."
+        }
+      ],
+      "distinction": "FlavorProfile is potency in mass-equivalent kg, not physical foodmass, independent probability or arbitraryfive genericpositive values. FoodDefinition kcal perunit, mass perunit, value perunit, hourly exponentialgrowth and cookingminutes have distinctunits. Contamination up to1e9 is unbounded-load scale relative to probabilities, not UnitInterval.",
+      "uses": "FOOD_CATALOG maps validated source capabilities into classification and typed semantic runtime view, preservingflavorcomponentvalues. contamination322\u2013328 useselapsedminutes/hourrate then boundedload; cooked330\u2013338 uses method-specifickillfactor but retainsnonzero recontaminationfloor.",
+      "disposition": "Keep coherent nutrient/flavor/contamination/calibration families and explicit unit adapters; share numeric invariant only where acceptedset/meaning match. Do not create one NonnegativeQuantity type that permits passing flavorpotency asfoodmass/calories or clamp contaminationto1. Native lotidentity/custody and actual mealconsumption remain future source roles.",
+      "acceptance": "Preserve positive tiny contamination and recontaminationfloor, actualhour conversion, stableFoodClass/CookingMethod, realzero flavorchannels and catalog quantities. No assumed flavorrelationship operations fromunread216\u2013246 or realfoodlot initialization fromthese constants."
+    },
+    {
+      "id": "foraging-selection-duration-and-private-authority-boundaries",
+      "sources": [
+        {
+          "scope_index": 108,
+          "ranges": [
+            [
+              1,
+              1278
+            ]
+          ]
+        },
+        {
+          "scope_index": 109,
+          "ranges": [
+            [
+              1,
+              25
+            ]
+          ]
+        }
+      ],
+      "distinction": "Source, biome, rarity, seasonality policy, current-vicinity target, requirement/capability/effect and rightsresource/operation are meaningful finite axes. Empty domain subject/jurisdiction enums make extra domain cases impossible while allowing standard Character/Global variants; these are purposeful typeparameters, not redundant zero-sized baggage. ForageLicenseDecision owns admitted actor/source/questiondigest association, distinct from raw PrivateRightsDecision.",
+      "uses": "sources resolve396\u2013428 lexicalstring->typed and planner685\u2013747 exact source-license binding, ALIAS006. Foragerequest validateswholehours1\u201324 at329\u2013334 while interruptedstealth487\u2013498 intentionally accepts arbitraryelapsedincludingpartial/zero. LocalTerrainMixture relationTOTAL1000 differs individualpermilleleaf; millirankskill0\u20135000 differs discovery/yield multiplier1000\u20131500 and rarityrate2300. PublicPreview570\u2013574 excludesenvironment/license/seed/DC/yield as deliberateprivacyprojection. Effects798\u2013812 clearpartialyield while stillcommittingexposure.",
+      "disposition": "Retain specialized requestduration versus generic RequestedDuration; root04F026 existing API-strengthening dependency, no ordinaryillegalrequest claim. ALIAS006 typedselection mustpreserve lexicalsort, never derivedenumOrd. ForageResolution pairedOptionDC/outcome and permits_yield/payload relationship support existing09aggregate work, notnew11uniquecount; current shownproducerpairs coherent. Licensequestion andadmitteddecision adapters are meaningfulcontract stages despite repeated actor/source facts, not blanket redundantcopy.",
+      "finding_refs": [
+        "SEGO-INITIAL11-ALIAS006"
+      ],
+      "acceptance": "Preserve wholehour request domain yet allow zero/partial elapsed, no partialyield but realnoticing/training, licenseglobal versusindependentlocallaw, signed/privateauthorityproofnotbrowser assertions, normalizedhabitat and deterministic source/item purposeframing. No privateforecast inpublicpreview or unsupportedpositiveboundonactualelapsed; no native stalecommit claim fromthis Core view."
+    }
+  ],
+  "new_findings": [
+    "SEGO-INITIAL11-ALIAS006"
+  ],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

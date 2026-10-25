@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-561",
+  "at": "2026-10-25T16:03:14.477772+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 920,
+  "source_id": "pr-working:crates/adventuresim-core/src/equipment.rs",
+  "sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Fresh equipment1\u2013220: static input-address/channel/anchor mappings and EquipmentGraph/Placement/Edge records already structural/default derives. Native equip admission begins; no handtrait/codec in prefix. Static authored keyboard/physical mapping not a derived conversion. Child armor/loadout/parametric/timing modules separate.",
+  "first_unfinished": {
+    "scope_index": 920,
+    "line": 221
+  },
+  "execution": "none"
+}

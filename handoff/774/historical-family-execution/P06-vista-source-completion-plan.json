@@ -1,0 +1,109 @@
+{
+  "recorded_at": "2026-10-21T02:14:32.222117+00:00",
+  "head": "f81712e56aa09105e62d4a72e13305093b945a17",
+  "family": "P06 continuing source completion, not a new Goal or audit wave",
+  "status": "Planned source changes implemented and focused receiver review completed; hosted verification pending. See authoritative P06-source-trace.json.",
+  "defects": [
+    "InspectionSource and PlacementGround flatten ScenePlanPoint into vista_triangle_height then reconstruct SupportElevation from its raw return.",
+    "StrategicBackdrop does the same through sampled_vista_triangle_height.",
+    "tree_root_height flattens the point into presented_height_at and re-admits its raw result.",
+    "ActiveVistaSurface flattens its local point into the seam function and re-admits its raw returned elevation; core seam queries reconstruct ScenePlanPoint.",
+    "Shared raw wrappers forward through the LOD sampling chain; earlier blanket numerical-kernel classification was too broad."
+  ],
+  "canonical_owners": {
+    "scene_absolute_point": "scene_coordinates::ScenePlanPoint",
+    "local_ring_offset": "scene_coordinates::PlanDisplacement; an east/north displacement relative to the owning LOD origin, not an absolute ScenePlanPoint",
+    "scene_elevation": "city_layout::grounding::SupportElevation",
+    "normal": "bevy::math::Dir3",
+    "support_hit": "city_layout::grounding::SurfaceHit"
+  },
+  "steps": [
+    {
+      "step": 1,
+      "action": "Carry ScenePlanPoint through vista_triangle_height, sampled_vista_triangle_height, presented_height_at, sample_vista_height and lod_transition_weight. Public final height operations return Option<SupportElevation>; no application call reconstructs the same elevation from their return."
+    },
+    {
+      "step": 2,
+      "action": "Use canonical PlanDisplacement for presented_vista_vertex_height local ring offsets and seam-offset inputs. Add a canonical ScenePlanPoint offset-from-scene-origin operation for the explicitly zero-origin seam coordinate. Keep ring-origin addition/subtraction in the actual sampling/mesh adapters; preserve existing offset-ring numeric policy, including nonzero-origin fixtures, rather than relabelling all Vec2 positions as scene points."
+    },
+    {
+      "step": 3,
+      "action": "Keep full bilinear/LOD/seam/barycentric arithmetic order and the established fallback precedence. Raw intermediate samples may remain private numerical coefficients inside the complete shared calculation, but public application boundaries retain checked owners. Do not turn a nonfinite coarser sample into an absent sample followed by a fabricated valid-own fallback by admitting intermediate values too early. Record actual private kernel bodies and native requirements; comments/private visibility alone do not justify any escape."
+    },
+    {
+      "step": 4,
+      "action": "Update PlacementGround, InspectionSource, StrategicBackdrop, ActiveVistaSurface and tree_root_height to consume those final typed operations directly. Update scene/vista mesh, grass and rock paths at the actual grid/vector/native mesh adapters. Preserve optional absent support and authority separation; sampled strategic observations do not become tactical support."
+    },
+    {
+      "step": 5,
+      "action": "Preserve typed elevation when constructing SurfaceHit. Reuse its checked leaves and Dir3; introduce a canonical typed constructor only if needed alongside the real native-geometry admission adapter, with no compatibility alias."
+    },
+    {
+      "step": 6,
+      "action": "Reconcile newly fallible/optional required vertex/color handling with its preparation callers before publication; no new expect/unwrap, silent natural fallback for invalid required support, or partial affected cohort presented as successful. Inspect and settle this path before editing outer signatures. Existing optional exterior normal-probe fallback remains separate and numerical inputs stay unchanged."
+    },
+    {
+      "step": 7,
+      "action": "Adapt all existing fixtures, including the 500/500 offset-ring diagnostics and 125/-275 pigment origins, preserving numerical inputs, ordering, assertions and cases. Do not add helpers, cases, assertions or tests. Reconcile exact callers, wildcard imports and UFCS uses again."
+    },
+    {
+      "step": 8,
+      "action": "Finish the connected source change, then perform focused Code/Rule/producer receiving-body review and preservation metadata. Only once P06 is believed source-complete revisit the existing hosted run or publish source for hosted validation. Formatting/size cleanup comes after source correctness."
+    }
+  ],
+  "assigned_files": [
+    "crates/adventuresim-tactical-core/src/vista_surface.rs",
+    "crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+    "crates/adventuresim-tactical-core/src/city_layout/grounding/surface_hit.rs",
+    "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source/presented.rs",
+    "crates/adventuresim-tactical-core/src/scene_input/furniture/ground.rs",
+    "crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/source.rs",
+    "crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/footprint/vista.rs",
+    "crates/adventuresim-tactical-client/src/presentation/vista.rs",
+    "crates/adventuresim-tactical-client/src/presentation/vista/surface.rs",
+    "crates/adventuresim-tactical-client/src/presentation/vista/strategic.rs",
+    "crates/adventuresim-tactical-client/src/presentation/vista/ground.rs",
+    "crates/adventuresim-tactical-client/src/presentation/vista/ground/tests.rs",
+    "crates/adventuresim-tactical-client/src/presentation/vista/natural.rs",
+    "crates/adventuresim-tactical-client/src/presentation/vista/grass.rs",
+    "crates/adventuresim-tactical-client/src/presentation/vista/grass/tests.rs",
+    "crates/adventuresim-tactical-client/src/presentation/vista/pigment.rs",
+    "crates/adventuresim-tactical-client/src/presentation/vista/pigment/tests.rs",
+    "crates/adventuresim-tactical-client/src/presentation/vista/error.rs",
+    "crates/adventuresim-tactical-client/src/presentation/vista/owned.rs",
+    "crates/adventuresim-tactical-client/src/presentation/vista/focused/meshes.rs",
+    "crates/adventuresim-tactical-client/src/presentation/vista/streets/prepared.rs",
+    "crates/adventuresim-tactical-client/src/presentation/generation/error.rs",
+    "crates/adventuresim-tactical-client/src/strategic_scene/world.rs",
+    "crates/adventuresim-tactical-client/src/presentation/vista/streets/prepared/extent_tests.rs",
+    "crates/adventuresim-tactical-client/src/presentation/vista/owned/tests.rs"
+  ],
+  "open_pre_edit_trace": "Settled required mesh publication plan below; normal-probe intermediate validity requires the shared aggregate, not independent checked-height probes.",
+  "limits": [
+    "Keep raw serialized VistaLod height buffers and authored metadata at the actual storage/native grid boundary; do not migrate all city/LOD schema here.",
+    "No new agents, tests, full audit waves, Comment Review, local project tools, gate weakening, ceiling increases, cache changes, DB/generated/wiki changes or PR merge.",
+    "All twenty original exits remain; P06 remains unaccepted."
+  ],
+  "normalization_evidence": {
+    "bevy_math": "0.19.1",
+    "glam": "0.33.6",
+    "source": "Local Cargo.lock and registry source read only; no numerical/runtime probes. Dir3::new divides by vector length, while Vec3::normalize/normalize_or_zero multiplies by length reciprocal. Preserve each existing consumer operation.",
+    "decision": "VistaVertexGeometry owns checked elevation and finite east/north Displacement<Scene> tangents, prepared together from the private native five-probe calculation. Consumers keep their old normalization. Do not replace independent raw normal probes with admitted-height Options whose None would conflate invalid sample with exterior absence.",
+    "remaining_signed_zero_review": "Resolved by source analysis recorded in P06-source-trace.json; no local numerical probes."
+  },
+  "required_mesh_plan": [
+    "Client-owned VistaMeshError/VistaMeshResult retain geometry causes, missing required support and missing required pigment separately. No Core -> client error dependency or database/schema change.",
+    "Natural mesh vertex/chunk/ring preparation returns the typed result; legitimate empty clipped chunks remain optional, but a required height/color/normal rejection fails the affected complete preparation. Do not drop a failed chunk and present a partial ring as successful.",
+    "Propagate results through vista_lod_meshes_with_morph, focused GroundMeshes/VistaChunks and existing preparation error wrappers. PreparedCityGround::from_scene is a generation product boundary and may return the existing client generation PreparationResult, adding the specific VistaMeshError source there; current actual production caller already uses that alias.",
+    "on_scene_vista_bundle prepares all visible ring meshes before replacing ActiveVistaSurface, despawning prior entities or adding affected assets. Invalid input logs the typed cause and leaves prior presentation intact. Existing malformed-input behavior must be explicit, not an empty-vector success claim.",
+    "Strategic backdrop prepares its complete base/ring mesh cohort and environment snapshot before commands. A PreparedBackdrop aggregate owns that ready-to-publish cohort; strategic prepare admits it before root/retained presentation changes. Existing test closures adapt to the preparation API without new helpers/cases/assertions.",
+    "Owned vista color call sites must use checked local offsets and propagate missing required pigment before mesh publication. Keep unrelated mesh/index APIs unchanged unless their contracts are directly needed; do not silently widen Core errors to client rendering causes.",
+    "Map exact required fixture calls and all downstream callers after signature edits. Do not publish/validate an incomplete family."
+  ],
+  "known_additional_completion": "Core CourtStair scene-owned support datums and selected signed floor shifts were propagated; #768 ownership exclusion verified from its current issue scope. The ignored pigment caller and Wasm error-classification arm are adapted.",
+  "includes_uncommitted_and_untracked": false,
+  "publication": "Committed and pushed; worktree clean. Hosted verification pending.",
+  "format_only_followthrough": "271aaad01 source reviewed, with exact hosted formatting in b2d0193e3; no behavior change.",
+  "stair_projection_followthrough": "P06-hosted-b2d0-growth-repair.json",
+  "material_guard_followthrough": "P06-hosted-350c-material-guard-repair.json"
+}

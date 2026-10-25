@@ -1,0 +1,63 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-211",
+  "at": "2026-10-23T05:04:14.892639+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/view_culling.rs",
+      "sha256": "6411bfc2ee44c3d991461d3817be5580974b682de88df4337e4beb492766407c",
+      "scope060_index": 1561,
+      "actual_EOF": 167,
+      "scoped_ranges_compared": [
+        [
+          1,
+          167
+        ]
+      ],
+      "actual05_comparison": "Fresh whole actual body under registered global060; app view_culling167 supplements old070 same source; generic native119 newly complete. Personally compare retained camera/page/buffer/pipeline grouping and dispatch operations. No shader/runtime/whole-package proof from name."
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/cull/node.rs",
+      "sha256": "b6f664a13608f6fe8013f3e3af8f98d3335e96daeef806a11040958b87297974",
+      "scope060_index": 2827,
+      "actual_EOF": 119,
+      "scoped_ranges_compared": [
+        [
+          1,
+          119
+        ]
+      ],
+      "actual05_comparison": "Fresh whole actual body under registered global060; app view_culling167 supplements old070 same source; generic native119 newly complete. Personally compare retained camera/page/buffer/pipeline grouping and dispatch operations. No shader/runtime/whole-package proof from name."
+    }
+  ],
+  "contract_groups": [
+    {
+      "id": "generic pipeline/page tuple",
+      "comparison": "Generic node returns unless pipeline/cache/ID/compiledpipeline/allocator/nonempty pages/globalcullbuffer exist. Every positive-capacity page requires same page compute/common bindings before dispatch. One compute entry only, no generic reset/select sequence. Native port only, no app reset defect or broader cull/plugin/backend closure."
+    },
+    {
+      "id": "current camera reset/output reuse",
+      "comparison": "App schedules cull after Prepass/before MainPass in Core3d. Both reset/main compiled from same shader/layout and retained as pair. prepare builds same active current entity's view/frustum uniform+binding and removes missing/inactive entries. cull resolves exact ViewQuery entity, requires BOTH compiled pipelines and same page compute/common/indirect, dispatches reset then select within SAMEpass before camera main pass. Source ordering closes071 reset-before-each-camera gap; no GPU execution/engine concurrency guarantee."
+    },
+    {
+      "id": "count arithmetic and native capacity",
+      "comparison": "Native casts u32 capacity to f32 before ceil/64 then float 65535 fold. RootF053 exact capacity20971201 rounds20971200→327675groups→65535x5, one required64group lost. Weaker16777217 first-ceil loss can be covered by fold overdispatch, not proof of missed invocation. Conditional public native/API arithmetic only; no actual huge page/GPU/current use. App select uses integer div_ceil/fold. Reset casts indirect.size/stride to u32, needs actual native/device capacity bound; no ordinary overflow asserted. Actual shader/native workgroup64 contract remains distinct prior070 source."
+    },
+    {
+      "id": "construction and raw page limits",
+      "comparison": "Prior actual071 triple CPU columns resize/update/clear/upload together; runner orders buffer update→batch→flush→page update. Raw public optional InstancePage and standalone BatchBuffer.reset can violate native preconditions, no current normal reset caller proved. Existing071 raw-page panic observation retained, no extra unique finding or broad thirdparty patch instruction. Backend allocation/collector/device limits remain source-specific lower obligations."
+    }
+  ],
+  "new_unique_findings": [],
+  "finding_support": [
+    "Root04 F053 exact capacity source support",
+    "Native071 raw optional-page precondition"
+  ],
+  "remaining_dependency_obligations": [
+    "Actual backend/collector/device capacity remains explicit native port contract; no new foreign graph or runtime validation.",
+    "Per-view source scheduling proven only; engine/GPU/driver behavior not asserted."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

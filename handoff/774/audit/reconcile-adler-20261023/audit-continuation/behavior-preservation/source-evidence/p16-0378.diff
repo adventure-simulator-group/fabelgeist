@@ -1,0 +1,46 @@
+--- p16base/crates/adventuresim-tactical-server/src/bot/offense/phase.rs
++++ catalog-p16head/crates/adventuresim-tactical-server/src/bot/offense/phase.rs
+@@ -9,9 +9,9 @@
+ 
+ struct MeleePursuit {
+     entity: Entity,
+     target: Entity,
+-    distance: f32,
++    distance: SignedLength,
+ }
+ 
+ #[derive(Debug, Reflect)]
+ pub(super) enum OffensiveCombatPhase {
+@@ -92,9 +92,9 @@
+     cmd: &mut Commands,
+     time: &Time<()>,
+     entity: Entity,
+     target: Entity,
+-    distance: f32,
++    distance: SignedLength,
+     input: &mut AuthoritativeMovementIntent,
+     controller: &mut OffensiveCombatAi,
+     skeleton: &SkeletonState,
+     target_skeleton: &SkeletonState,
+@@ -172,9 +172,9 @@
+ fn drive_pursuit_phase(
+     cmd: &mut Commands,
+     entity: Entity,
+     target: Entity,
+-    distance: f32,
++    distance: SignedLength,
+     input: &mut AuthoritativeMovementIntent,
+     controller: &mut OffensiveCombatAi,
+     skeleton: &SkeletonState,
+     target_skeleton: &SkeletonState,
+@@ -217,9 +217,9 @@
+         controller.phase = OffensiveCombatPhase::GuardingCommittedThreat;
+     } else if facts.weapon_is_melee
+         && facts.melee_attack_available
+         && matches!(facts.melee_recovery_seconds, Some(RecoveryTime::After(_)))
+-        && facts.dimensions.arm_reach_metres > 0.0
++        && facts.dimensions.arm_reach_metres.metres() > 0.0
+         && matches!(
+             facts.melee_lunge_delay,
+             Some(MeleeLungeArrival::NotNeeded | MeleeLungeArrival::ArrivesIn(_))
+         )

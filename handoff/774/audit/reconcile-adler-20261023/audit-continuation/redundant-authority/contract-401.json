@@ -1,0 +1,72 @@
+{
+  "id": "CONT07-CONTRACT-401",
+  "at": "2026-10-23T21:07:44.867334+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1758,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+      "sha256": "7b026fd31eb9c09c84b446dbb0b71faea9717f93c027226dfbe357c5150dd704",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+      "actual_EOF": 591,
+      "ranges": [
+        [
+          1,
+          591
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1759,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/evaluation/attack.rs",
+      "sha256": "c1787a5b36b9fd27891c2646fd70a7d5206d7a1eefe00b86d1b3068d4dba8b03",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/animation/evaluation/attack.rs",
+      "actual_EOF": 82,
+      "ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1760,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+      "sha256": "2767919da7545eecbaab9b212fc6a8e52802f6a61f3862c447903f75cf1ec6e7",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+      "actual_EOF": 327,
+      "ranges": [
+        [
+          1,
+          327
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "NATIVE-OWNER-ANIMATION-LEAVES-002"
+  ],
+  "facts": [
+    "AnimationEvaluation derives pose samples, speed and phase observations together from SkeletonState in one function. Diagnostic phases and semantic sample payloads are different consumer projections; no later mutation/independent admission contract proven from this source alone.",
+    "Dive ground contact is explicitly the structural halfway point, canonical UnitInterval::HALF. Shared contact-progress helper drives upper/lower body recovery. Repeated factor two is the mathematical half-interval normalization, not automatically a second configurable contact phase. Current directional maps agree; no legitimate changed-phase runtime counterexample asserted.",
+    "Posture transition, downed facing and attack samples have explicit precedence. Whole roll values deliberately release the action layer so base crawl/scamper remains visible. Base/lower/action layers are purpose-distinct masks, not duplicate current actions.",
+    "Attack sample continuation carries start coordinate/tangent/readiness from canonical continuation APIs; offhand preparation capability distinguishes actual authored topology. General animation fallback Thrust must be compared against action admission before treating absence as contradictory state.",
+    "Locomotion source consumes runtime_animation_config and walk/run profile globals. Need exact owning config snapshot/producer graph before deciding whether these compete with admitted server configuration; existing global cached default description in README is not proof of live authority coherence.",
+    "Gait phase offset, reverse phase and mirror metadata encode different authored topology. gait_pair is cfg(test) only; no runtime mixed-anchor defect inferred from its existence. All source fixtures read only, no test results claimed."
+  ],
+  "new_local_findings": [],
+  "pending_actual_dependencies": [
+    "runtime_animation_config/default snapshot versus per-server runtime config",
+    "SkeletonState action_kind/attack payload admission and mutation"
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1762,
+    "start_line": 1
+  }
+}

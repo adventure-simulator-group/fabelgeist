@@ -1,0 +1,90 @@
+{
+  "id": "SEGOVB-04-COURTYARD-WING-OVERFLOW-001",
+  "classification": "Source-backed public input rejection defect; no execution or ordinary authored gameplay witness claimed",
+  "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "primary_source": {
+    "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "path": "crates/adventuresim-building-generator/src/generator/layout.rs",
+    "sha256": "17c4786c8c33fef66d2328d56177c4eec565e6136f3920f66ed1f890575bcd47",
+    "actual_EOF": 267,
+    "personally_read_ranges": [
+      [
+        1,
+        110
+      ]
+    ],
+    "coverage": "Fresh narrow supporting source; no full-role credit inferred."
+  },
+  "operation": "footprint_cells checks wing*2 in u16 before rejecting an invalid courtyard aggregate.",
+  "counterexample": "A TownHouse BuildingProgram with church_programNone and edits[] can set public Footprint::Courtyard { width:10, depth:10, wing:32768, gate_width:1 }. dimensions() exposes only width/depth, which pass3..32767. wing<2 is false, then wing*2 overflowsu16 before the InvalidFootprint return. In an overflow-checking profile this panics; where multiplication wraps, twice-wing becomes0 and the footprint guard admits the invalid courtyard and treats every cell as wing. No final building success or specific runtime profile is asserted.",
+  "actual_chain": [
+    "Public BuildingProgram is a high-level input recipe intentionally allowed to describe unbuildable combinations; generate() promises rejection through GenerationError.",
+    "core.rs202..204 calls generate_unchecked; orchestration.rs1..15 calls generate_structure then actual validate_church_program/validate_workplace_edits, followed by occupied_storeys::generate_storeys.",
+    "For TownHouse with no church programme, church validation passes; workplace_edits[] passes. occupied_storeys.rs21 calls footprint_cells before room allocation.",
+    "layout.rs3..5 admits outer width/depth, then17..24 evaluates overflowing wing*2 in the aggregate rejection guard."
+  ],
+  "qualification": "This is invalid caller-authored programme data at an actual public construction boundary, not an assertion that ordinary shipped courtyard recipes use wing32768. Typed rejection is valid and sufficient; the defect is overflow before rejection. Other huge programme work-budget questions are separate. No mandatory fresh exhaustive lens03 reread was started; this is an invariant-operation extension with bounded admission dependencies.",
+  "deduplication": "Assigned archive records contained no exact wing/footprint_cells counterexample on search. Parent coordinator retains global canonical reconciliation; no unique global count is claimed.",
+  "repair_contract": "Perform the courtyard aggregate bound calculation in a checked/wider representation, returning the existing typed InvalidFootprint for overflow or impossible wing geometry before loops. Preserve width/depth error order, strict2*wing<width/depth, positive gate width and gate width<=inner span. Do not wrap, clamp or silently normalize impossible input.",
+  "acceptance": [
+    "The representable large-wing public input returns InvalidFootprint without overflow or invalid footprint publication.",
+    "Valid small courtyard geometry preserves the exact strict wing and gate relationships.",
+    "Overflow-checking and nonchecking builds have the same semantic rejection; no new compatibility path.",
+    "No tests/builds are executed in this audit turn."
+  ],
+  "dependencies": [
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-building-generator/src/generator/layout.rs",
+      "sha256": "17c4786c8c33fef66d2328d56177c4eec565e6136f3920f66ed1f890575bcd47",
+      "actual_EOF": 267,
+      "personally_read_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "coverage": "Fresh narrow supporting source; no full-role credit inferred."
+    },
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-building-generator/src/model/programme.rs",
+      "sha256": "c2a4f4450a66bd43300b427d5780df19f3191c572e9b52fd5df91f64549cf8c9",
+      "actual_EOF": 279,
+      "personally_read_ranges": [
+        [
+          86,
+          125
+        ]
+      ],
+      "coverage": "Fresh narrow supporting source; no full-role credit inferred."
+    },
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-building-generator/src/model/building_program.rs",
+      "sha256": "2ecfe5491e448871f85d33e15bc04c197311aae741054b4587143531548063a2",
+      "actual_EOF": 66,
+      "personally_read_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "coverage": "Fresh narrow supporting source; no full-role credit inferred."
+    },
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-building-generator/src/workplace/programme.rs",
+      "sha256": "90c8c58e67db25a5a69867225f789144098b2c59469c719f68f0bee98fee0438",
+      "actual_EOF": 123,
+      "personally_read_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "coverage": "Fresh narrow supporting source; no full-role credit inferred."
+    }
+  ],
+  "execution": "none"
+}

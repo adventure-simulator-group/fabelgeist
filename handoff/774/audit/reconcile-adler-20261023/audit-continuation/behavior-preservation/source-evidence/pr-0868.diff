@@ -1,0 +1,42 @@
+--- PRbase/crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/armor.rs
++++ frozen/crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/armor.rs
+@@ -2,15 +2,15 @@
+ 
+ pub(super) fn forced_armor_contacts(
+     attacker: &Combatant,
+     defender: &Combatant,
+-) -> Result<Vec<ForcedArmorContactEvidence>, String> {
+-    let definition =
+-        crate::item_catalog::definition("brigandine").ok_or("missing authored brigandine")?;
++) -> MeleeIterationResult<Vec<ForcedArmorContactEvidence>> {
++    let definition = crate::item_catalog::definition("brigandine")
++        .ok_or(MeleeIterationError::MissingEvidenceItem { item: "brigandine" })?;
+     let equipment = definition
+         .equipment
+         .as_ref()
+-        .ok_or("brigandine has no equipment metadata")?;
++        .ok_or(MeleeIterationError::MissingEvidenceEquipment { item: "brigandine" })?;
+     let placement = &equipment.placements[0];
+     Ok([("armor_surface", 0.4), ("gap", 0.95)]
+         .into_iter()
+         .map(|(coverage_contact, coordinate)| {
+@@ -36,14 +36,16 @@
+         })
+         .collect())
+ }
+ 
+-pub(super) fn mirrored_vambrace_contacts() -> Result<Vec<MirroredArmorContactEvidence>, String> {
+-    let definition = crate::item_catalog::definition("vambrace").ok_or("missing vambrace")?;
++pub(super) fn mirrored_vambrace_contacts() -> MeleeIterationResult<Vec<MirroredArmorContactEvidence>>
++{
++    let definition = crate::item_catalog::definition("vambrace")
++        .ok_or(MeleeIterationError::MissingEvidenceItem { item: "vambrace" })?;
+     let equipment = definition
+         .equipment
+         .as_ref()
+-        .ok_or("vambrace has no equipment metadata")?;
++        .ok_or(MeleeIterationError::MissingEvidenceEquipment { item: "vambrace" })?;
+     let cases = [
+         (BodySide::Left, BodyPart::LeftArm, 0_usize, 0.9_f32),
+         (BodySide::Right, BodyPart::RightArm, 1_usize, 0.9_f32),
+         (BodySide::Left, BodyPart::LeftArm, 0_usize, 0.4_f32),

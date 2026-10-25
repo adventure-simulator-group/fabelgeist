@@ -1,0 +1,113 @@
+{
+  "head": "82cb2a3acccc852bba6a7ef9c706c337ba9fe765",
+  "main": "c20169551087b86c0f639d7e8bbe151b510f410a",
+  "recorded_at": "2026-10-20T22:07:44.697062+00:00",
+  "status": "Additional connected source follow-through; P06 remains uncommitted, uncompiled, unvalidated and without two full Code/Rule passes.",
+  "changes": [
+    {
+      "family": "Obstacle reservations",
+      "producer": {
+        "file": "crates/adventuresim-tactical-core/src/scene_input/generation/geographic.rs",
+        "line": 66,
+        "source": "fn obstacle_reservations(",
+        "sha256": "b0a7c91fd0c9c09870ebcacd16ae968638ba3381e66e7d44b9ee6c7e6235236c"
+      },
+      "owner": {
+        "file": "crates/adventuresim-tactical-core/src/scene_input/buildings/reservations.rs",
+        "line": 14,
+        "source": "struct ObstacleReservation",
+        "sha256": "a9a2ff3f2cfa1da145cde73608e09303fc3d8b9233104700671328e59c912369"
+      },
+      "trace": "Checked building placement centre and collision PlanExtents now remain checked through retained obstacle reservations and apron containment. Plot centre and PlanDimensions use their canonical owners; PlanDimensions::half_extents returns PlanExtents directly.",
+      "native_boundary": "The final scene-to-local rotation, half-extent expansion and comparison project metres. Raw serialized u16 obstacle ordinals are decoded once, preserving multiply-then-subtract order, before containment.",
+      "state_and_failure": "Unused elevation fields and the fake zero reservation floor are removed. The geographical caller always supplied an empty grading-pad slice; that dead branch/parameter and unused pad methods are removed without a forwarding API. Terrain validation follows grade repair. Obstacle filtering prepares a complete retained vector before mutation/count publication and propagates GeometryError through SceneInputError.",
+      "risks": [
+        "The reservation envelope deliberately permits degenerate collision half extents; CityPlotBounds requires positive occupied dimensions and has a different f64 containment/tolerance policy. Reusing it here would change the native algorithm. Canonical checked point/extents/orientation leaves are reused instead.",
+        "The existing 1.5+4.0 metre apron is represented by its exact 5.5 metre clearance; geometry, order, seeds and literal fixture inputs are retained.",
+        "The batch filter temporarily holds a second obstacle vector during admission. There is no partial mutation on failure.",
+        "Removing the identity height rewrite replaces its opaque failure with canonical terrain validation; ordinary valid heights are unchanged. Invalid preparation is an explicit error."
+      ]
+    },
+    {
+      "family": "Native ground sample assembly",
+      "owner": {
+        "file": "crates/adventuresim-tactical-core/src/scene_ground.rs",
+        "line": 14,
+        "source": "pub(crate) fn build_scene_ground(",
+        "sha256": "7070ff92689c01106e72a8bcaba815dbf785b1db0edd7902297635c5d8b6f0cb"
+      },
+      "trace": "The caller passes its SceneTerrain instead of separately forwarding width, depth and spacing already stored in that terrain. The builder reads the canonical grid metadata internally; obstacle spacing remains the distinct serialized source-grid decoding input.",
+      "preservation": "The source creates coarse via from_heightmap(width,depth,spacing,heights) immediately before this call. Checked construction establishes the same metadata; no numeric conversion or random sampling changes. Seven inputs replace ten, allowing removal of the existing too_many_arguments allow. The result uses SceneInputResult."
+    },
+    {
+      "family": "Terrain contact raster admission",
+      "owner": {
+        "file": "crates/adventuresim-tactical-client/src/presentation/terrain/heightmap.rs",
+        "line": 17,
+        "source": "struct TerrainContactHeightmap",
+        "sha256": "839811921ba225be4c535ea62d19c6df02f248fbde4539de1780c16f12cdd749"
+      },
+      "trace": "Image and SceneElevationRange are private, closing independent record construction. Its three existing consumers obtain the checked range before consuming the image at Assets<Image>::add. The cached image/range record was already private.",
+      "coverage": "Weather, tree residency and tactical viewer consumers were inspected. No new tests were added."
+    },
+    {
+      "family": "Surface normals",
+      "owner": {
+        "file": "crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation.rs",
+        "line": 495,
+        "source": "fn slope_aligned_world_rotation(",
+        "sha256": "9b4f94526e80364851a02b320c51009e4b036671cd9c143cc299771d4da5fbfd"
+      },
+      "trace": "Dir3 now reaches the slope calculation and scree coverage helpers directly. Raw-vector projection occurs inside the existing rotation calculation; the prior native try_normalize remains. Scree accesses direction components inside its unchanged noise calculation.",
+      "preservation": "Production adds no normalization. Two existing fixture normal literals now use checked direction admission instead of raw normalize. Exact source fragments are bound in P06-normal-and-query-source-comparisons.json; fixture runtime behavior is not yet verified."
+    },
+    {
+      "family": "Foot descent policy",
+      "owner": {
+        "file": "crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/foot_clearance.rs",
+        "line": 17,
+        "source": "enum FootDescent",
+        "sha256": "a6dcab4016b78e10f99c189b19764577959143ea5f27f524c73bc90798b6973b"
+      },
+      "producer": {
+        "file": "crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts.rs",
+        "line": 436,
+        "source": "fn run_support_descent(",
+        "sha256": "ee93631b4ba8ab46b3d39516f8bb0b8dfff5fce20b60fd325eadb1e3cc889d36"
+      },
+      "trace": "The classifier produces FollowFloor or RaiseOnly. That enum remains intact through airborne clearance and floor application; only an actual conditional uses its permits_descent predicate. No bool-to-enum reconstruction is placed at intermediate consumers.",
+      "preservation": "The exact existing classifier condition and short-circuit order are source-compared. Seven literal fixture policy arguments preserve their old false/true choices. Existing assertions query the policy predicate; no cases or assertions were added."
+    }
+  ],
+  "reconciliation": {
+    "historical_inventory_entries": 185,
+    "historical_app_entries": 157,
+    "historical_native_entries": 28,
+    "remaining_unchanged_inventory_files": 14,
+    "interpretation": "All historical application-entry files are now changed or responsibility-relocated, but file participation is not proof of closure. The fourteen unchanged files belong to architectural floor/gate profiles, native affine triangle clipping and already-typed profile owners, with associated existing tests. Their native height computations do not flatten a SceneTerrain support hit.",
+    "actual_receivers_examined": [
+      "SceneTerrain sampled/owned query and property-support forwarders",
+      "Foot-clearance combined sole/toe calculation and run-reach callback bodies",
+      "Strategic SceneDocument validation, retained errors, venue preparation before command publication",
+      "Player spawn checked record through spawn_connected_player and its command boundary",
+      "Canonical native triangle/profile owners underlying unchanged query references"
+    ],
+    "pending": [
+      "Complete current caller/forwarder/fixture reconciliation for all P06 paths, not merely historical search hits.",
+      "Complete the remaining presentation/viewer/dispatcher cross-module source review and both final Code/Rule passes.",
+      "Check module ordering and official no-growth results across the final diff.",
+      "Publish only source-complete P06, then use hosted-only gates, fourteen new existing selections and exact-head artifact verification.",
+      "No complete getter audit or P06 acceptance is claimed. P08-P20 remain unfinished."
+    ]
+  },
+  "constraints": {
+    "new_tests": false,
+    "local_rust_or_runtime_checks": false,
+    "comment_review": false,
+    "new_full_audit_wave": false,
+    "new_agents": false,
+    "commit_push_merge": false,
+    "stash_preserved": true,
+    "unrelated_primary_manifest_edits_preserved": true
+  }
+}

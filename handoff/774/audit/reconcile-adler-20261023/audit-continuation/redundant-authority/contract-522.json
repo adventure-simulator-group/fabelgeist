@@ -1,0 +1,53 @@
+{
+  "id": "CONT07-CONTRACT-522",
+  "at": "2026-10-23T23:13:35.603941+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2279,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+      "actual_EOF": 484,
+      "ranges": [
+        [
+          1,
+          484
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2284,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "sha256": "dd7c6c3515b7f79314eccb5a4be41e3ec6856c0c5c26f3788df27473b1f12834",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+      "actual_EOF": 314,
+      "ranges": [
+        [
+          1,
+          314
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "RIG-ADMISSION03-F057-SUPPLEMENT-001",
+    "RIG-ADMISSION03-F058-SUPPLEMENT-001",
+    "RIG-ADMISSION03-F065"
+  ],
+  "facts": [
+    "ComputePass actual record consumes independent pipeline/reflection/layout/cache product, confirming RIG-ADMISSION03-F057-SUPPLEMENT-001 recipient. It accepts Unsigned at99\u2013105 whereas general create_bind_groups2274 wildcard omits it; retain exact F058 slow-helper qualification, do not assert all actual fallback/record paths omit integers.",
+    "ComputePass logical buffer size controls binding length231\u2013239 whereas native allocation retained independently: support F065 whole buffer allocation/extent identity. Fresh groups/uniforms built per record, no cached bindgroup invalidation asserted.",
+    "WgpuContext open derives adapter/device/queue from same request, from_parts explicitly borrows with nonblocking-validation policy; public component replacement remains unsealed product identity related F057 rather than observed wrong pairing. Surface/blitter optional presentation mode derives coherently at construction. submitted_work_done waits on explicit submission marker; comments about driver hangs not independently validated."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2285,
+    "start_line": 1
+  }
+}

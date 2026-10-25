@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1228",
+  "at": "2026-10-25T18:11:38.039466+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1297,
+  "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/travel.rs",
+  "sha256": "0eaf9c6a3df7a4747e94074b13f2712ff14106e8e8dc1570937a613eb64ae881",
+  "actual_compared_ranges": [
+    [
+      681,
+      1020
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Only native inherent coherent public camp/current matchup/postencounter state projection/diagnostic/bounded native travel/narrative driver. No handwritten trait/custom codec/type. Selected current party/journey unique identity/camp intervals produce contextual aggregates; selected challenge ordering timestamp/id not whole Ord. Stable road action hash has explicit bytes/revision grammar, not derived Hash. Existing typed presentation codec called, no manual local codec. No commands executed.",
+  "first_unfinished": {
+    "scope_index": 1297,
+    "line": 1021
+  },
+  "execution": "none"
+}

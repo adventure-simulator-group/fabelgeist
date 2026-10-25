@@ -1,0 +1,128 @@
+{
+  "packet_number": 163,
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/mounts.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          79
+        ],
+        [
+          133,
+          228
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh literal registered ranges reread after global071 publication, independently compared operation ordering and actual early branches separately from admission03 proof247. Mandatory246 material1-2/4-79/133-225;3/226-228 context. No81-132/230+/whole293/callee/P16 credit.",
+      "sha256": "524bc66482c68f2d286db6de9a009b408c0eaa9863689ea78f21bfe00e0ed9dd",
+      "actual_EOF": 293
+    }
+  ],
+  "support_only_source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/smithing.rs",
+      "status": "Supporting reread of already completed04 role; no distinct source count or new other-lens credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/mod.rs",
+      "status": "Supporting reread of already completed04 role; no distinct source count or new other-lens credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/output.rs",
+      "status": "Supporting reread of already completed04 role; no distinct source count or new other-lens credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/blade_sections.rs",
+      "status": "Supporting reread of already completed04 role; no distinct source count or new other-lens credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/blade_profile.rs",
+      "status": "Supporting reread of already completed04 role; no distinct source count or new other-lens credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/derive.rs",
+      "status": "Supporting reread of already completed04 role; no distinct source count or new other-lens credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/mesh.rs",
+      "status": "Supporting reread of already completed04 role; no distinct source count or new other-lens credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/mod.rs",
+      "status": "Supporting reread of already completed04 role; no distinct source count or new other-lens credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/polygon.rs",
+      "status": "Supporting reread of already completed04 role; no distinct source count or new other-lens credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/validation.rs",
+      "status": "Supporting reread of already completed04 role; no distinct source count or new other-lens credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation.rs",
+      "status": "Supporting reread of already completed04 role; no distinct source count or new other-lens credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/union.rs",
+      "status": "Supporting reread of already completed04 role; no distinct source count or new other-lens credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/melee.rs",
+      "status": "Supporting reread of already completed04 role; no distinct source count or new other-lens credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/material.rs",
+      "status": "Supporting reread of already completed04 role; no distinct source count or new other-lens credit."
+    }
+  ],
+  "groups": {
+    "receiving-operations": "socket_fit uses actual receiver pose/profile to compare insertion, unwrapped rim and conservative low-detail bore apothem. attachment_contact constructs actual parent/child bounds only after finding a parent or implicit shaft, and permits explicit connected assembly when separated. Such correlated construction proofs should survive in the accepted assembly owner with concrete error causes. Root anchor without physical parent intentionally bypasses contact; this behavior is not separately filed as a defect.",
+    "complete-static-route": "Single component idhead, optional roleHead, materialSteel, attached weapon.root atOrigin, no shaft/grip_clearance/mount/stretch/opposed_to/rotation/offset/insertion/anchor. Typed LoftedBlade length1,width.04,thickness.005,curvature0,planStraight,sectionDiamond,samples4,taper1,single_edge0,belly1e20,ricasso0,no fuller/point. Nonempty <=128-byte catalog ID such as arming_sword. Exact identity/Recipe/dimensions/melee/Profile gates accept; graph/ranged/shield paths ignore that shape; base/root placement and finite axial frames pass. socket_fit exits11-13; contact ownerweapon has no matching parent or implicitshaft exits160-162. New20m frame gate precedes construction and checks axial frames, not full generated extent.",
+    "finite-geometry-and-mass": "No point/fuller means no adaptive feature/groove refinement. DetailHigh sample4 gives8intervals/9fourpointdiamondrings and <=68triangles, safely below budget. All vertices finite; basecap halfwidth.02/halfdepth.0025 and tipcap halfwidth approximately6.12/halfdepth.0007 are nondegenerate and pass Region's relative distance/area tolerances; intermediate huge transverse widths are not cap-triangulated. Diamond side triangles and closed caps produce positive solid. On intervaly[.375,.5], endpoint halfwidths exceed1e18 and halfdepths >=.0016. Exact closed paired-diamond slab volume h/3*(2wa*da+wa*db+wb*da+2wb*db) therefore exceeds4e14 m3 for h=.125. Other slabs positive; Steel7850 gives total mass>3.14e18kg. Bound width<=2e18/depth<=.0025/length1 keeps overall volume<1e16 and mass<7.85e19kg; f64 geometry/physical math and f32 mass/product120 remain finite. These conservative inequalities are manual static reasoning, not executed numerical evidence or catalogue occurrence.",
+    "physical-family-dedup": "This concrete large finite transverse geometry also supports existing CAM-ADM03-F002 mass/inertia native-projection admission graph. Construction retains f64 properties then mesh::derived narrows moment_of_inertia without admission; large geometry can exceed f32 range. Do not count that as another unique physical finding. New F061 below concerns a distinct later unchecked quote-time operation before stock rejection. Exact witness support must be reconciled if newer-main source changes any gate.",
+    "limits": "One newly global exact04 role598->599, one new local operation finding60->61, total scope0712852+245/310queue. No source edits, project commands, new tests/assertions/helpers or execution claims. All initial audits then handover163; actual repair and final acceptance remain pending."
+  },
+  "findings": [
+    {
+      "id": "ROOT-INITIAL04-F061",
+      "kind": "forge_quote_unchecked_time_addition_precedes_stock_capacity_rejection",
+      "source_id": "pr-working:crates/adventuresim-core/src/smithing.rs",
+      "locations": [
+        [
+          19,
+          38
+        ]
+      ],
+      "case": "The complete statically traced accepted onecomponent root-attached Diamond LoftedBlade in this packet has finite mass>3.14e18kg. physical.mass_kg*120 is finite f32 but exceeds u64::MAX. The saturating float-to-u64 cast yields u64::MAX, then FORGE_MINUTES_BASE60 + u64::MAX overflows before the later checked stock-capacity rejection36-38. With integer overflow checks enabled this panics instead of returning Err; with checks disabled it wraps, then the later stock rejection still returns Err. Do not claim a wrong successful stock quote or ordinary catalogue occurrence.",
+      "operation": "Individually finite parameter leaves and finite computed mass do not establish representable quote duration. The quote builds unchecked time before performing inventory-range admission; a later Err cannot make that preceding operation total.",
+      "connected_repair": "Admit the full computed forge-time operation with a purpose-specific duration/minute owner and concrete structured error, preserving intended ceil/per-component arithmetic for representable results and rejecting unrepresentable demand before overflow or narrowing. Integrate canonical accepted physical evaluation and stock requirements through preview/transaction callers rather than primitive Into relays, independent duplicate derivation or a compatibility fallback. Keep actual geometry/world-extent and f32 physical-result admission in their owning connected family; choose supported accepted recipe bounds from the complete contract rather than imposing an arbitrary test-passing ratio cap.",
+      "acceptance": "Every admitted design either returns a coherent representable quote or a structured rejection without overflow-dependent behavior. Existing stock rejection and ordinary quote arithmetic stay valid. Current witness is static source+inequality evidence only; run existing hosted checks when implementation resumes, add no tests/cases/helpers/assertions.",
+      "deduplication": "Own/Native05/Camera07/Rig06 finding ledgers searched for smithing/quote time with no exact graph; earlier peer existing-proof replies had no exact quote witness. Broad mass/inertia projection stays existing CAM-ADM03-F002. Distinct from inventory line-total/weight saturation and quote narrowing findings.",
+      "evidence": "Full chain from packets152-163 and exact prospective mounts23/proof247/scope071. Supporting rereads recorded here do not count new roles. Initial source frozen6533 plus recorded material; currentmain990430b not cleared.",
+      "contract_ref": "ROOT-INITIAL04-CONTRACT-163"
+    }
+  ],
+  "id": "ROOT-INITIAL04-CONTRACT-163",
+  "at": "2026-10-23T08:00:33.806403+00:00",
+  "lens": "audit-invariant-operations",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-071.json",
+    "sha256": "c8222c5a3163c7d6c6e50b378c8201af06c5ac0eb0e2b080c36f381331e17116"
+  },
+  "mandatory_overlays": {
+    "record": "continuation/owner-range-extensions.jsonl",
+    "sha256": "0378e32d695512b875a86dd6bb695f10d5f3c8d43d8838fe8ee222cbb02a869a",
+    "through": 245
+  },
+  "mandatory_qualification170": {
+    "record": "continuation/root/parallel-scope-qualification-170.json",
+    "sha256": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c"
+  },
+  "repair": "frozen_initial_audits_then_handover",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

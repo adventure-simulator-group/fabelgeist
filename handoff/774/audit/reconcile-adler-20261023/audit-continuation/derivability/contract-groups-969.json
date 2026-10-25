@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-969",
+  "at": "2026-10-25T17:23:56.662721+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1136,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/item.rs",
+  "sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+  "actual_compared_ranges": [
+    [
+      351,
+      700
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Native stable-object grant, foraged unit issuance, DB currency classification/withdrawal ordering/checked credit and inventory mutation. No handwritten trait/codec. DB/schema joins, distinct material backing and currency insufficient-payment preflight are semantic operations, not mechanical trait conversions.",
+  "first_unfinished": {
+    "scope_index": 1136,
+    "line": 701
+  },
+  "execution": "none"
+}

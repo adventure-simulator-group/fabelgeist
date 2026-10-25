@@ -1,0 +1,104 @@
+{
+  "id": "RIG-ADMISSION03-REMAINING-DEPENDENCIES-110",
+  "at": "2026-10-22T12:15:21.806178+00:00",
+  "status": "All802 assigned source bodies/roles compared, WITH_FINDINGS. Shared authoritative receiver/definition obligations below remain explicit; no overall admission or all13 clearance.",
+  "first_unfinished_material_cell": {
+    "provider": "camera",
+    "queue_index": 509,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease.rs",
+    "role": "Actual physiological chart/administration table/view/reducer admission supporting raw clinical transport\u2192checked Dose and observer-visible history."
+  },
+  "dependencies": [
+    {
+      "id": "clinical_database_rows",
+      "actual_consumer_evidence": "CON739/ADD135/136",
+      "supplier_or_exact_contract": "Camera509 PR STDB disease.rs; P16 counterpart Camera140",
+      "remaining_or_boundary": "Exact observer-authorized chart/history view frontier and all administration dose producer/table/fixture gates. Public backend DTO u32 alone does not establish Dose0..8000 before from_backend.expect."
+    },
+    {
+      "id": "rest_party_database_authority",
+      "actual_consumer_evidence": "CON734/736/739/ADD110/134",
+      "supplier_or_exact_contract": "Root/Camera original STDB party/time/inventory sources",
+      "remaining_or_boundary": "Actual actor/party/current-location/service/inventory ownership and quantity predicates for rest/party target/pool/equipment intents; UI form gates do not supply DB authority."
+    },
+    {
+      "id": "equipment_graph_admission",
+      "actual_consumer_evidence": "CONLoadout307\u2013309 and CON739/748\u2013750",
+      "supplier_or_exact_contract": "Camera421 PR Core equipment.rs / P16 Camera55; server equipment Camera722/300",
+      "remaining_or_boundary": "Canonical EquipmentGraph.equip/attachment capacity, fit, parent ownership/cycle/replacement admission. Raw Web CharacterEquipmentGraph is only a presentation projection."
+    },
+    {
+      "id": "persisted_consumable_fraction",
+      "actual_consumer_evidence": "Rest preview current receipts; supplier-joins012 Camera021",
+      "supplier_or_exact_contract": "Actual STDB InventoryItemAmount producers and generated-view schema",
+      "remaining_or_boundary": "Canonical Fraction0..1m is now proven, but raw persisted fraction u32 validity before Web try_new.expect still needs actual producer/schema authority; no malformed DB row asserted."
+    },
+    {
+      "id": "organization_profession_threshold",
+      "actual_consumer_evidence": "CON745 ADD112",
+      "supplier_or_exact_contract": "Canonical organization definition/role validation and current registry loader",
+      "remaining_or_boundary": "Known organization role reward interval must be positive before private reward_delta divides by threshold; raw UI role name/active/payment checks do not supply the numeric predicate."
+    },
+    {
+      "id": "strategic_skills_affinity_and_family",
+      "actual_consumer_evidence": "Exact earlier Rig strategic courtship/family/social receipts",
+      "supplier_or_exact_contract": "Existing Root/Camera STDB character_skills/affinity and strategic_state/vocabulary sources",
+      "remaining_or_boundary": "Treat raw values as raw; no NaN current caller or bounded accepted type inferred. Any relied-on strategic clamp/rank/relationship grammar/source authority needs the actual owning definition and producer."
+    },
+    {
+      "id": "generation_ticket_residency",
+      "actual_consumer_evidence": "CON757\u2013763 and earlier Wasm generation/receive receipts",
+      "supplier_or_exact_contract": "Current Rust PreparationTicket/active_products/packed receive/finish/owner registry suppliers",
+      "remaining_or_boundary": "Exact opaque address, ticket ownership, product decode/mismatch and prepare/finish admission. JavaScript cache envelope and phase string do not certify all native payloads."
+    },
+    {
+      "id": "regional_map_native_commands",
+      "actual_consumer_evidence": "CON756/765 and earlier map browser/worker receipts",
+      "supplier_or_exact_contract": "Current Rust ViewRect/MapCommand, environment/city installation and native geographic owners",
+      "remaining_or_boundary": "Actual finite/native-size, source/revision/owner admission at Wasm command boundary; JS status/JSON shape is not the canonical receiver proof."
+    },
+    {
+      "id": "asset_and_source_loading",
+      "actual_consumer_evidence": "Earlier equipment assets/browser fixtures/main AppState source receipts",
+      "supplier_or_exact_contract": "Root128 GLB fixture loader; exact generation-cache/source config and native assets suppliers",
+      "remaining_or_boundary": "Actual payload topology/native descriptor/source digest admission where relied on. File names, manifest presence, MIME or checksum do not establish semantic mesh/texture content."
+    },
+    {
+      "id": "building_source_graph_and_foundation",
+      "actual_consumer_evidence": "Earlier generated catalogue/census/terrain/support/building receipts",
+      "supplier_or_exact_contract": "Root original GeneratedHomeCatalog, PropertyFoundationMesh, support/terrain/city access and map-import producers",
+      "remaining_or_boundary": "Exact factory/validation/source membership and accepted geometry lowering. Shared raw records/native kernels are not blanket validated building/city tokens."
+    },
+    {
+      "id": "capture_view_indices",
+      "actual_consumer_evidence": "CON799 exact q780 ReviewLeafPose/select_pose",
+      "supplier_or_exact_contract": "Existing capture SceneCaptureState/ReviewFixture index producers",
+      "remaining_or_boundary": "Bounds of state.view and capture camera ordinal before fixture indexing. Closed OpeningPose enum does not constrain these separate indices."
+    },
+    {
+      "id": "explicit_raw_math_ports",
+      "actual_consumer_evidence": "All native/render/solver/sampling source rows and current supporting proofs",
+      "supplier_or_exact_contract": "Per-source native numerical boundary",
+      "remaining_or_boundary": "No universal finite/unit-normal/provenance token is claimed for raw math inputs/outputs unless an actual source predicate states one. Later operation/aggregate lenses remain separate; this category is a limit, not an unread whole foreign graph obligation."
+    }
+  ],
+  "closed_direct_dependencies": [
+    "Actual Mass/InverseMass/ArealDensity explicit validity versus raw unit constructors ADD114",
+    "Actual incidence/arity/edge/coloring/count/native projection ADD115\u2013118",
+    "NPZ/NPY/ZIP current decoder ADD119/129/130; F091 retained",
+    "GarmentPose/Pivots ADD120 with actual Fit.set_pose/Particles.write current join F088",
+    "OuterLayer/SelfCollision/native traversal ADD121\u2013123/132 with F089/090 and F073 supplement",
+    "Original external tests/fixtures ADD124\u2013128 read only",
+    "P16 native grab/closed geometry orientation ADD131/133",
+    "Web pool form/clinical sanitize/active ADD134\u2013136",
+    "PR EquipmentSequence/Revision ADD137; P16 counterpart absent/no fabricated proof",
+    "TerrainPack endpoint gate ADD138 proves Web cache F092",
+    "WeightSummary current CONTRACT054 joins Native readiness actual from_mesh.valid",
+    "CombatTrainingProfile current Native023 joined in supplier012; raw skill values not certified by helper"
+  ],
+  "qualification_of_coverage_fields": "Earlier remaining_unread_local_material_routes:[] means the exact locally scoped source body has been read, never that every delegated shared definition or all admission routes elsewhere are accepted. This final dependency list supersedes any such broader reading.",
+  "no_decision_from_human_known": true,
+  "repair": "frozen",
+  "validation": "not_run",
+  "later_lens_credit": false
+}

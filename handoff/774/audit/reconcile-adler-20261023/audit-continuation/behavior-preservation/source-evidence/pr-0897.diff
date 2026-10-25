@@ -1,0 +1,99 @@
+--- PRbase/crates/adventuresim-core/src/combat/defense.rs
++++ frozen/crates/adventuresim-core/src/combat/defense.rs
+@@ -1,8 +1,11 @@
++use super::ContactTimingOffset;
+ use super::{
+     DODGE_OVEREXTENSION_SCALE, DefenderResponse, MeleeContactLocation, WEAPON_DEFENSE_REBOUND_SCALE,
+ };
+ use crate::body::{BodyPart, BodySide};
++use crate::elapsed::AnimationElapsed;
++use crate::unit_interval::UnitInterval;
+ 
+ /// A one kilogram-square-metre implement is the boundary between ordinary
+ /// one-handed rotational commitment and high-inertia pole/impact weapons.
+ const REFERENCE_HAND_WEAPON_INERTIA_KG_M2: f32 = 1.0;
+@@ -17,18 +20,18 @@
+ pub struct CommittedThreatFacts {
+     /// How long after the incoming contact the defender's committed weapon
+     /// would contact. Non-positive values mean the defender lands first or in
+     /// the same simultaneous contact batch.
+-    pub own_contact_after_incoming_seconds: f32,
+-    pub own_windup_seconds: f32,
++    pub own_contact_after_incoming_seconds: ContactTimingOffset,
++    pub own_windup_seconds: AnimationElapsed,
+     /// Expected geometric engagement of the attempted intercept, after skill
+     /// and available reaction time, on the same zero-to-one scale used by the
+     /// weapon-alignment resolver.
+     pub expected_intercept_engagement: f32,
+     /// Current medical/structural vulnerability to another contact.
+     pub incapacitation: f32,
+     pub weapon_moment_of_inertia_kg_m2: f32,
+-    pub weapon_recovery_seconds: f32,
++    pub weapon_recovery_seconds: AnimationElapsed,
+     /// Number of immediately preceding committed attacks consumed by defense.
+     /// This is short-term observation of a repeated phase relationship, not a
+     /// permanent combatant trait.
+     pub consecutive_intercepts: u8,
+@@ -56,16 +59,16 @@
+ /// Repeatedly observed interceptions add the completed work that the fighter
+ /// has learned will otherwise be discarded, breaking a fixed phase cycle.
+ #[must_use]
+ pub fn choose_committed_threat_response(facts: CommittedThreatFacts) -> CommittedThreatDecision {
+-    let windup = facts.own_windup_seconds.max(0.0);
+-    let contact_lag = facts.own_contact_after_incoming_seconds.max(0.0);
++    let windup = facts.own_windup_seconds.seconds().max(0.0);
++    let contact_lag = facts.own_contact_after_incoming_seconds.seconds().max(0.0);
+     let completed_work_fraction = if contact_lag == 0.0 {
+         1.0
+     } else {
+         (1.0 - contact_lag / windup).clamp(0.0, 1.0)
+     };
+-    if facts.own_contact_after_incoming_seconds <= 0.0 {
++    if facts.own_contact_after_incoming_seconds.seconds() <= 0.0 {
+         return CommittedThreatDecision {
+             choice: CommittedThreatChoice::FinishTrade,
+             finish_trade_probability: 1.0,
+             completed_work_fraction,
+@@ -79,9 +82,9 @@
+         * f32::from(facts.consecutive_intercepts)
+         / (f32::from(facts.consecutive_intercepts) + 1.0);
+     let sunk_attack_work =
+         completed_work_fraction * (1.0 + inertia_commitment) + learned_phase_commitment;
+-    let recovery = facts.weapon_recovery_seconds.max(0.0);
++    let recovery = facts.weapon_recovery_seconds.seconds().max(0.0);
+     let recovery_exposure = if recovery == 0.0 {
+         0.0
+     } else {
+         recovery / (recovery + windup)
+@@ -246,10 +249,10 @@
+             Self::Dodge { input_reflex } => Self::Dodge { input_reflex },
+         }
+     }
+ 
+-    pub fn scaled_for_performance(self, performance: f32) -> Self {
+-        let performance = performance.clamp(0.0, 1.0);
++    pub fn scaled_for_performance(self, performance: UnitInterval) -> Self {
++        let performance = performance.fraction().clamp(0.0, 1.0);
+         match self {
+             Self::None => Self::None,
+             Self::Block { effectiveness } => Self::Block {
+                 effectiveness: effectiveness * performance,
+@@ -387,14 +390,15 @@
+     }
+ 
+     fn threat_facts(contact_lag: f32, sample: f32) -> CommittedThreatFacts {
+         CommittedThreatFacts {
+-            own_contact_after_incoming_seconds: contact_lag,
+-            own_windup_seconds: 0.65,
++            own_contact_after_incoming_seconds: ContactTimingOffset::from_seconds(contact_lag)
++                .unwrap(),
++            own_windup_seconds: crate::elapsed::AnimationElapsed::from_seconds(0.65).unwrap(),
+             expected_intercept_engagement: 0.7,
+             incapacitation: 0.0,
+             weapon_moment_of_inertia_kg_m2: 0.4,
+-            weapon_recovery_seconds: 0.5,
++            weapon_recovery_seconds: crate::elapsed::AnimationElapsed::from_seconds(0.5).unwrap(),
+             consecutive_intercepts: 0,
+             decision_sample: sample,
+         }
+     }

@@ -1,0 +1,44 @@
+{
+  "id": "RIG-CAMERA-ADM03-570",
+  "camera_queue_index": 570,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence.rs",
+  "sha256": "df7d47666e333785437d381321a5e7b85cd6e4c453067c83f8d86ea00a30ce35",
+  "queue_ref": "continuation/admission03-queue-v002/camera_rig_support.json#/queue/23",
+  "scope_pointer": "/files/1180",
+  "actual_read_ranges": [
+    [
+      1,
+      1455
+    ]
+  ],
+  "actual_eof": 1455,
+  "current_source_absent": false,
+  "base_sha256": null,
+  "current_roles": "Residence legal interest/occupancy/billing/history and public admission receivers",
+  "invariant": "Raw holding/offer/charge/occupancy/transition/primary records are flattened storage; usable home authority is reconstructed at exactpersonalminute and differs ownership, primarydesignation and occupancy.",
+  "all_admission_routes": [
+    "closedtenure/status/chargeoutcome/transition enums, publicrawSATS/DBrecords nocheckedwholeaggregate/default/Reflect; tableprimarykeys enforceoneprimary/occupantrow butnotsemanticbinding",
+    "offersknownsettlement/threeHousingTierstatic economy; actorclockmissingErr; gatewayview reconstructs transitionfold sortedtime+precedence+ID, hidesownerbillingtimestamps forguestsusingZERO intentionalredaction",
+    "active residence requires chronologicaloccupancy+activeholding+settlement, canonicalresidencePlace and actualStrategicPresence::residence_occupancy(frontier) beforeSome; ownedinterestaloneinsufficient",
+    "move requireshistoricallyactiveholding thenactualoccupancy::admit; removalrecordshistory/refreshescurrent; publicadmission checks living/co-locatedactualtypedpresence/samefrontier/adultordependent/familyorhousehold/currentoccupancy conflicts",
+    "relinquish exactowner/noopifalreadyterminal removesoccupants/primary butretainslegalhistory; designate Activeowner andactualmove; recover OwnednotRelinquished thenactualbilling mustleaveActive",
+    "billing exactduetimehistoricaloccupants/effectiveage, stableglobal(due,id), indivisiblecost/paid-unpaidreceipt; unpaiddormants, paidnativeu64money andsaturatingnextdue, actualcurrencydeductafterloop",
+    "morale rejectsbaseline<=0/nonfinite; actualoccupiedhome/offer, nativefloat\u2192milli thenboundedleisurekernel+fixedsource; no independentfiniteoldrawmorale proof",
+    "NPCknownhome/living; currentoccupiedpropertydirectreturn, stableoldestownedrecovery elseactualavailableproperty andaffordableoffer sortedbyID, acquiredelegated",
+    "publicreducers strategiccharacterauthority, actualowner/holding checks; alloriginaltests sourceonly"
+  ],
+  "counterexample_or_intentional_boundary": "No typeofResidenceHolding acceptance from row/Result. Corehousing/presence/occupancy/acquisition/view sourcepredicates remainexactotherownerdependencies. maxclock saturatingbilldeadline/nativeFloat\u2192integer rounding are ordinaryoperationcrossrefs (no04credit), not inventedclockcap/invalidZERO. Currentlatestcachedage inpublicadmission vs historicaleffectiveagebilling preserved. No actualbadstate/run assertion.",
+  "finding_refs": [],
+  "connected_dependencies": [
+    "native/admission03/camera-support/contracts-001.json#canonical-place-codec-and-public-fixture-association-bypass",
+    "Camera/Native current03 StrategicPresence residence factory/frontier",
+    "Camera current03 residence/{occupancy,properties,acquisition,view} exactbodies",
+    "Camera current03 Corecourtship HousingTier/economy/morale",
+    "RIG-CAMERA-ADM03-552",
+    "RIG-CAMERA-ADM03-564",
+    "RIG-CAMERA-ADM03-555"
+  ],
+  "mode": "Fresh actual current admission source comparison; original tests read as source only. No project execution or earlier-lens verdict carry.",
+  "authority": "root/admission03/support-authority-053.json; Camera retains source/audit ownership; Root final audit/repair authority",
+  "disposition": "exact_source_role_compared_with_stated_limits_and_dependencies"
+}

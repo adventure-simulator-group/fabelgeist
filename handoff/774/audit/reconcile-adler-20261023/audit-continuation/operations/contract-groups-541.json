@@ -1,0 +1,141 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-541",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-color/src/color.rs",
+      "sha256": "ec95ce41e0de2b14f31c2d8a206461d2ed69f95183e18ae020c7ce956de86c74",
+      "actual_EOF": 80,
+      "actual_compared_ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-color/src/conversion.rs",
+      "sha256": "1c16766feee62bbb80b38bdcc46c18cd7c732d6f2d796a4c26e228cb4eff6f1e",
+      "actual_EOF": 472,
+      "actual_compared_ranges": [
+        [
+          1,
+          472
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-color/src/lib.rs",
+      "sha256": "2aa390bfe12f98f358c698461b399a3f3f02d3dfc2a2edf6be3c761b88d556fa",
+      "actual_EOF": 24,
+      "actual_compared_ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-color/src/space.rs",
+      "sha256": "127a0d4e4f1d78bbdb1eaf0f6bd6ec6ac4e841d6b3cd7b287fc90d914ab25a49",
+      "actual_EOF": 356,
+      "actual_compared_ranges": [
+        [
+          1,
+          356
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-color/src/transfer.rs",
+      "sha256": "81b5c5f4a55d8191a178ea71fc618c968db91c2b601fa7b72e0cadf466ecad62",
+      "actual_EOF": 271,
+      "actual_compared_ranges": [
+        [
+          1,
+          271
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Image extent arithmetic and destination mutation",
+      "finding": "SEGOVB-04-PIXEL-BUFFER-EXTENT-CANDIDATE-001",
+      "evidence": [
+        "Identical RGBA8 format width1/height1/src[]/dst[] copies0 and returnsOk despite requiring one pixel. Same-format route bypasses all declared length errors.",
+        "RGBA/BGRA or transfer branch width1/height1 with8-byte buffers validates4 then transforms both pixels, beyond requested extent. Prefix/tail meaning is an API policy question but dimension authority is inconsistent with R8 and YUV branches.",
+        "NV12 width1/height1, src[0] dst[0;4] passes computed expected1+floor(1/2)=1 then nv12_to_rgba8 indexes empty uv[0]; I420 same floor(1/4) gives empty chroma although receiver uses ceil(width/2). RGBA->NV12 can write all Y then panic in UV on exact floor-sized output, retaining partial caller dst.",
+        "width=usizeMAX,height2 overflows num_pixels before a structured error, even with empty slices; representable raw API extreme, no allocation needed."
+      ],
+      "qualification": "Source arithmetic/control-flow proof only; no caller runtime or project execution. Small odd dimensions require explicit support versus rejection policy, not guessed universal even-only restriction; receiver ChromaSubsampling::chroma_dimensions already uses ceil. Archived exact alias search found no indexed convert_pixels/num_pixels candidate; parent review pending and no new global count."
+    },
+    {
+      "contract": "Raw float color kernels versus admitted signal domains",
+      "evidence": "Color is raw RGBA vector without finite/unit admission; arbitrary t interpolation and HDR transfer overflow are not automatically broken bespoke guarantees. Documented0..1 ordinary sRGB/BT709/PQ/HLG inputs yield bounded finite arithmetic; explicit clamp/negative policies differ deliberately. linear_to_hlg allows HDRpositive but12*MAX can overflow; API strengthening unless admitted HDRrange/actualproducer defined. No global unit clamp imposed on linear gamut/ACESnegative channels."
+    },
+    {
+      "contract": "Custom primaries and inversion",
+      "evidence": "Standard enumerated primaries/white points finite; custom raw Chromaticity may divide by0 and invert_3x3 only tests absdet<1e-15, allowingNaNdet intoSomeNaN. from_xyz/to_xyz singular identity fallback is explicit currentpolicy; admission/error owner question with ConversionError::SingularMatrix, no standard-color failure proved. F64 matrix multiply output to f32 requires intended HDR/native result range, not universal finite-input guarantee."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-PIXEL-BUFFER-EXTENT-CANDIDATE-001",
+      "sources": [
+        {
+          "source_id": "pr-working:crates/fabelgeist-color/src/conversion.rs",
+          "sha256": "1c16766feee62bbb80b38bdcc46c18cd7c732d6f2d796a4c26e228cb4eff6f1e",
+          "ranges": [
+            [
+              171,
+              250
+            ],
+            [
+              251,
+              331
+            ],
+            [
+              381,
+              441
+            ]
+          ]
+        }
+      ],
+      "counterexamples": [
+        "Identical RGBA8 format width1/height1/src[]/dst[] copies0 and returnsOk despite requiring one pixel. Same-format route bypasses all declared length errors.",
+        "RGBA/BGRA or transfer branch width1/height1 with8-byte buffers validates4 then transforms both pixels, beyond requested extent. Prefix/tail meaning is an API policy question but dimension authority is inconsistent with R8 and YUV branches.",
+        "NV12 width1/height1, src[0] dst[0;4] passes computed expected1+floor(1/2)=1 then nv12_to_rgba8 indexes empty uv[0]; I420 same floor(1/4) gives empty chroma although receiver uses ceil(width/2). RGBA->NV12 can write all Y then panic in UV on exact floor-sized output, retaining partial caller dst.",
+        "width=usizeMAX,height2 overflows num_pixels before a structured error, even with empty slices; representable raw API extreme, no allocation needed."
+      ],
+      "qualification": "Source arithmetic/control-flow proof only; no caller runtime or project execution. Small odd dimensions require explicit support versus rejection policy, not guessed universal even-only restriction; receiver ChromaSubsampling::chroma_dimensions already uses ceil. Archived exact alias search found no indexed convert_pixels/num_pixels candidate; parent review pending and no new global count.",
+      "connected_contract": "One checked image extent/format plane layout controls checked arithmetic, required source/destination lengths and bounded conversion slice before any mutation; same-format and planar/packed routes obey same policy. Preserve actual format semantics and source-before-destination error order where defined.",
+      "acceptance": "Short buffers rejected coherently, zero/odd dimensions handled by explicit format policy, products checked, no accepted dimensions cause downstream indexing panic or partial dst mutation. Decide/preserve caller tail behavior explicitly; ordinary exact-sized conversion outputs unchanged."
+    }
+  ],
+  "fresh_dependencies": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-color/src/yuv.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "dependencies-541/yuv.rs",
+      "sha256": "c1035317fc3e31dda1c8c4547d8a0866cc4b46d13d508024cedaf0b7cdd355f2",
+      "actual_EOF": 503,
+      "actual_compared_ranges": [
+        [
+          1,
+          503
+        ]
+      ],
+      "disposition": "Actual packed/planar conversion receiver plus ceil chroma shape owner and fixtures personally read; no additional original role credit."
+    }
+  ],
+  "status": "5 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/fabelgeist-compute/src/host_float/arithmetic.rs"
+}

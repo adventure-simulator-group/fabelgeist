@@ -1,0 +1,93 @@
+{
+  "at": "2026-10-25T15:01:06.614502+00:00",
+  "rows": [
+    {
+      "index": 149,
+      "id": "SEGO-INITIAL05-REG088-149",
+      "source_id": "native-dependency:spacetimedb-sdk-2.6.1/src/client_cache.rs",
+      "sha256": "1815445657f053bf0d24bdf218219eed822e9626511eade5d3afa0aca3fa7ff1",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/aggregate-states/source-objects/1815445657f053bf0d24bdf218219eed822e9626511eade5d3afa0aca3fa7ff1",
+      "ranges": [
+        [
+          22,
+          79
+        ],
+        [
+          196,
+          214
+        ],
+        [
+          340,
+          406
+        ],
+        [
+          409,
+          452
+        ]
+      ],
+      "line_count": 636,
+      "reason": "native local pinned2.6.1 SDK; actual table cache/iter receiver for frozen simulator queries",
+      "origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spacetimedb-sdk-2.6.1/src/client_cache.rs",
+      "registration_evidence": "aggregate-states/source-registration-088.json",
+      "lenses": {
+        "producer-propagation": "Bounded actual receiver material pending; adopted baseline retained.",
+        "existing-type-owners": "Bounded actual receiver material pending; adopted baseline retained.",
+        "admission-contracts": "Bounded actual receiver material pending; adopted baseline retained.",
+        "invariant-operations": "Bounded actual receiver material pending; adopted baseline retained.",
+        "aggregate-states": "Bounded actual receiver material pending; adopted baseline retained.",
+        "type-ownership": "Bounded actual receiver material pending; adopted baseline retained.",
+        "redundant-authority": "Bounded actual receiver material pending; adopted baseline retained.",
+        "behavior-preservation": "Bounded actual receiver material pending; adopted baseline retained.",
+        "enum-shapes": "Bounded actual receiver material pending; adopted baseline retained.",
+        "derivability": "Bounded actual receiver material pending; adopted baseline retained.",
+        "type-granularity": "Bounded actual receiver material pending; adopted baseline retained.",
+        "magic-strings": "Bounded actual receiver material pending; adopted baseline retained.",
+        "magic-numbers": "Bounded actual receiver material pending; adopted baseline retained."
+      },
+      "qualification": "Registered before source-body read; no source coverage inferred, actual cache/query contract only."
+    },
+    {
+      "index": 150,
+      "id": "SEGO-INITIAL05-REG088-150",
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/backend_hostile_negotiations_table.rs",
+      "sha256": "ef0878fa2f385c6e35e1b4ef8e3702bbb114a81520c8cc3b6c35ddab4319065e",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/aggregate-states/source-objects/ef0878fa2f385c6e35e1b4ef8e3702bbb114a81520c8cc3b6c35ddab4319065e",
+      "ranges": [
+        [
+          24,
+          57
+        ],
+        [
+          85,
+          90
+        ],
+        [
+          106,
+          120
+        ]
+      ],
+      "line_count": 120,
+      "reason": "Actual frozen generated native table accessor invoked by1281:2405\u20132410; verify no implicit query/subscription",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-client/src/backend_hostile_negotiations_table.rs",
+      "registration_evidence": "aggregate-states/source-registration-088.json",
+      "lenses": {
+        "producer-propagation": "Bounded actual receiver material pending; adopted baseline retained.",
+        "existing-type-owners": "Bounded actual receiver material pending; adopted baseline retained.",
+        "admission-contracts": "Bounded actual receiver material pending; adopted baseline retained.",
+        "invariant-operations": "Bounded actual receiver material pending; adopted baseline retained.",
+        "aggregate-states": "Bounded actual receiver material pending; adopted baseline retained.",
+        "type-ownership": "Bounded actual receiver material pending; adopted baseline retained.",
+        "redundant-authority": "Bounded actual receiver material pending; adopted baseline retained.",
+        "behavior-preservation": "Bounded actual receiver material pending; adopted baseline retained.",
+        "enum-shapes": "Bounded actual receiver material pending; adopted baseline retained.",
+        "derivability": "Bounded actual receiver material pending; adopted baseline retained.",
+        "type-granularity": "Bounded actual receiver material pending; adopted baseline retained.",
+        "magic-strings": "Bounded actual receiver material pending; adopted baseline retained.",
+        "magic-numbers": "Bounded actual receiver material pending; adopted baseline retained."
+      },
+      "qualification": "Registered before source-body read; no source coverage inferred, actual cache/query contract only."
+    }
+  ],
+  "registry_count": 151,
+  "qualification": "Pre-read registration, not semantic coverage. Existing Adler baselines preserved."
+}

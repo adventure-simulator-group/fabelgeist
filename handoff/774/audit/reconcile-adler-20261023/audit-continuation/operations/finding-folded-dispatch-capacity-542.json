@@ -1,0 +1,43 @@
+{
+  "id": "SEGOVB-04-FOLDED-DISPATCH-CAPACITY-CANDIDATE-001",
+  "source_id": "pr-working:crates/fabelgeist-compute/src/kernel/mod.rs",
+  "sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274",
+  "ranges": [
+    [
+      28,
+      38
+    ],
+    [
+      140,
+      147
+    ],
+    [
+      292,
+      314
+    ]
+  ],
+  "counterexamples": [
+    "With a valid workgroup width1, groups_folded(u32MAX) produces x65535,y65537, beyond declared MAX_GROUPS65535 for native dimension.",
+    "With valid width64 and itemsu32MAX, groups=ceil(MAX/64)=67108864,x65535,y1025; padded last row covers flattened indices beyond u32MAX, so folded_index id.y*groups.x*width+id.x wraps into live domain before caller index<count guard."
+  ],
+  "qualification": "Pure public API/native representation counterexamples, no massive buffer allocation/runtime/ordinary workload proved; adapter may reject resources earlier. Width/size are valid for kernel construction. Exact archive alias pending.",
+  "connected_contract": "Admit full work-grid capacity and flattened padded-index representation together, with explicit supported count/error policy. Preserve zero-item no-op and ordinary folding, do not impose a physical-world size clamp.",
+  "acceptance": "Every accepted folded index identifies one intended item or safely out-of-range lane without wrap, dimensions fit native limits, and over-capacity request rejects before recording partial work.",
+  "additional_operations_support": [
+    {
+      "packet": "SEGOVB-INITIAL04-CONTRACT-612",
+      "source_id": "pr-working:crates/fabelgeist-compute/src/prefix_sum.rs",
+      "ranges": [
+        [
+          65,
+          164
+        ],
+        [
+          272,
+          303
+        ]
+      ],
+      "witness": "countu32MAX, blocks16777216, grid65535x257 includespaddedblocks; block*256+local wrapsu32 andindex<count re-entersliveprefix. Nativebuffer/device mayrejectearlier, noexecution."
+    }
+  ]
+}

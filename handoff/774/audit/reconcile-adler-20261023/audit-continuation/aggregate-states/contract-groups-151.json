@@ -1,0 +1,46 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-151",
+  "at": "2026-10-25T18:38:52.739746+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1675,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/weather.rs",
+      "sha256": "840dfc691065cd3c90f2f8bc9db2630ece62cc61ed5a2793e802ed3739d2b88e",
+      "personally_read_ranges": [
+        [
+          1,
+          402
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "WeatherOcclusionState records scene/signature/map lifecycle; activechange despawnsoldparticlesandresetsallthree beforeinstallingnewcontactheightmaprange/handle. TerrainContactHeightmap returnsprivateimage+rangefromsamesource andmaterialusesexactrange; shaderheightdata remainsoneassociatedproductbeforenativebinding. weather_surface accepts exactlyonetacticalSceneTerrainorStrategicBackdrop, both/neitherNone; scenerydata neverpromotedintotacticalauthority.",
+        "Weatherparticletype owns Falling/Impact/DistantSheet with typed precipitation selectingvalidbatches; layer-materialkind nativefloatprojection scopedatshaderport. Meshposition/data/corner/indexcolumns appendedfromsamefixedcapacity4vertex/6indexquads, currentcapacities3072/384and16*6boundnativeproducts; privategenericcapacitybypassnotarbitrarynormalproducer. Seed stream/interval/source identity preserve deterministicnativewordcast policy.",
+        "Only ActiveTacticalScene change triggers fullweatherrebuild; inplacemutableenvironment/terrainrefresh remains existing07temporaldependency question, not provedbythisread. Existing indexedbatch/contactrange andsingleauthority fixtures read/noexecution."
+      ]
+    },
+    {
+      "scope_index": 1676,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/weather/occlusion.rs",
+      "sha256": "5d2644ab73944ec770aff90913a9d15f9e76e336437b5d9654b40f66affee7ad",
+      "personally_read_ranges": [
+        [
+          1,
+          257
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Occlusion replacement buildsfullimagefirst; publishesimage then matchingtreesignatureunderexclusiveborrowonlyafterOk andactualimagehandleexists. CachedmaprangeassociatedwithactiveSceneTerrainheightmap. Missing shelterpixelOptionNone encodedalpha0, admittedheightencodedalph255; nofakephysicalzero-heightoccluder.",
+        "Exact inherited CAMERA-INITIAL07-F043 complete-fulltransform-key omission verifiedfromadoptedrecord42:signatureincludesonlyscene/cachekey/translation, rasterusesfullrotation/scale endpointsandmaxscale radii. Keepconditionalcomponentmutation qualification/noordinaryeditorfailure, reuseconnectedcanonicalcachefingerprintrepair notnewfinding. ROOT-PP-003 separately owns rawsignatureu64propagation; sharefunctionrepair, do notcollapse distinctrequirements.",
+        "Woodyraster aggregateshighestadmittedElevation<Scene> peractualcoveredtexel, checkedrangebeforeimagepublish; fixed512layoutindexclampedandsourcewidth/depthadmitted. Actualfulltransformfinite/geometryowner assumptionsremaininherited03/06. Existingbranchlimbfootprint/heightfixture sourceonly257read/notrun."
+      ]
+    }
+  ],
+  "findings": [],
+  "qualified_connected_requirements": [
+    "CAMERA-INITIAL07-F043 alias/fulltransformsignature dependency; distinct ROOT-PP-003 identity propagation shared repair."
+  ],
+  "discovery": "2 newly accounted original roles; other reads support already counted historical roles. Lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

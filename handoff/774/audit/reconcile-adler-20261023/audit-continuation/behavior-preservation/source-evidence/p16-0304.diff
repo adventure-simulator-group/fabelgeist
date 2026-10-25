@@ -1,0 +1,57 @@
+--- p16base/crates/adventuresim-stdb-module/src/time/activities.rs
++++ catalog-p16head/crates/adventuresim-stdb-module/src/time/activities.rs
+@@ -11,9 +11,9 @@
+     character_id: u64,
+     schedule: &ScheduleAllocation,
+     elapsed: u64,
+     interval_end_minute: StrategicMinute,
+-) -> Result<ActivityRisks, String> {
++) -> StrategicOperationResult<ActivityRisks> {
+     apply_activity_outcomes_inner(
+         ctx,
+         character_id,
+         schedule,
+@@ -28,9 +28,9 @@
+     character_id: u64,
+     schedule: &ScheduleAllocation,
+     elapsed: u64,
+     interval_end_minute: StrategicMinute,
+-) -> Result<ActivityRisks, String> {
++) -> StrategicOperationResult<ActivityRisks> {
+     apply_activity_outcomes_inner(
+         ctx,
+         character_id,
+         schedule,
+@@ -46,9 +46,9 @@
+     schedule: &ScheduleAllocation,
+     elapsed: u64,
+     interval_end_minute: StrategicMinute,
+     apply_leisure: bool,
+-) -> Result<ActivityRisks, String> {
++) -> crate::StrategicOperationResult<ActivityRisks> {
+     let location = activity_execution_location(ctx, character_id)?;
+     let Some(settlement_id) = location.origin_settlement_id.as_ref() else {
+         return Ok(ActivityRisks::default());
+     };
+@@ -81,9 +81,9 @@
+         .character_stats()
+         .character_id()
+         .find(character_id)
+         .ok_or("Character stats not found")?;
+-    let equipment = StrategicEquipment::load(ctx, character_id);
++    let equipment = StrategicEquipment::load(ctx, character_id)?;
+     let strength = attributes.limb_attr_by_weight_by_parts(
+         LimbAttribute::Strength,
+         &limbs,
+         LimbWeights::all_equal(),
+@@ -211,9 +211,9 @@
+     character_id: u64,
+     activity: ImmediateActivity,
+     requested_minutes: u64,
+     organization_id: Option<&str>,
+-) -> Result<(), String> {
++) -> StrategicOperationResult<()> {
+     crate::strategic::require_strategic_character_authority(ctx, character_id)?;
+     let character = crate::character::require_living_character(ctx, character_id)?;
+     crate::strategic::require_character_no_unresolved_encounter(ctx, character_id)?;
+     if let Some(party_id) = character.party_id.as_ref()

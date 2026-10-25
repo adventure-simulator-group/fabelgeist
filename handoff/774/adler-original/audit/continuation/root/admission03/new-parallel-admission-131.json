@@ -1,0 +1,27 @@
+{
+  "id": "ROOT-ADM03-PARALLEL-131",
+  "at": "2026-10-22T21:22:16.940593+00:00",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_references.rs",
+      "sha256": "e794dc0ede51c9d53d64155ee9ce8d551347ec8f659e2461c0b3d5d31b34cb6b",
+      "actual_compared_ranges": [
+        [
+          1,
+          10
+        ]
+      ],
+      "source_evidence": "Fresh exactprospective P16CURRENCY_IDS six-entry declaration; no .len/index caller-body inference."
+    }
+  ],
+  "groups": {
+    "currency-fixed-roster": "Six fixedstaticstringIDs rhenish_gulden/lubeck_mark/hamburg_mark/saxon_thaler/brandenburg_groschen/danish_mark. Arraytype[&str;6] provesnonempty/capacity6, notcurrencyclassificationoractualcataloguemembership. Thesearestableitemreferences, arbitraryUTF8nativevalue notprevalidatedItemIDcertificatefrom&str. No arithmetic/index/narrowing/mutation/failure/retryclock inthisdeclaration. Actualassignedcurrencycaller indexmapping requiresownmaterialbody, no policy/order changeinvented. Do notreplaceeverycataloguecurrency/financialamount withrosterindex orpretendallcontentuniversehasexact6currencies.",
+    "old-reference-semantic-qualification": "PersonallyfreshP16old12-27 list14MEDICATION_IDS,30-37 equipmentreferenceconstants includingWEAPON_CARRY_HIP_PLACEMENTS [RIGHT_HIP,LEFT_HIP]. Neitherfoodlistnor14currentdiseaseprofiles. Oldmislabelcorrectedwithoutsourceorbyteschange, stableorder/keys preserved. No additionaladmissionfindingfromlistdeclaration; actualmedicationassociation/placement/ItemId sourceowners remainpriorseparateproofs."
+  },
+  "scope_qualification": "OriginalREG014 exclusion label food30-37 is inaccurate: actual30-37 is equipment belt/sheath/loop/worn/hip/attachment-point constants, notfood. Existingmaterialranges unchanged and originalregistration retained. MEDICATION_IDS12-27 has14items; CURRENCY_IDS1-10 has6. No38-76/testcredit.",
+  "findings": [],
+  "status": "exact_new_currency_material_role_manually_compared",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

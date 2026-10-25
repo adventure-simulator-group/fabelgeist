@@ -1,0 +1,132 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-202",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+      "sha256": "a1005d38cb2af372af21abdfbba3af8f2209de2fa20a31d3d084792d49acbf46",
+      "actual_EOF": 2815,
+      "actual_compared_ranges": [
+        [
+          1,
+          2815
+        ]
+      ],
+      "method": "Whole P16 literal challenge body and inline fixtures read in9 bounded displays. Complete actual PR textual diff consumed: only road reducer return signature changes. No hash-only credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+      "sha256": "b7631b4632c175df4a0e7531e08f7ac9cb8deaaad24bd17eed0d978f7dc76906",
+      "actual_EOF": 2815,
+      "actual_compared_ranges": [
+        [
+          1,
+          2815
+        ]
+      ],
+      "method": "Whole P16 literal challenge body and inline fixtures read in9 bounded displays. Complete actual PR textual diff consumed: only road reducer return signature changes. No hash-only credit."
+    }
+  ],
+  "groups": [
+    {
+      "id": "Item predicates and narrative arithmetic",
+      "locations": "challenges27-205,449-604,1585-1681",
+      "trace": "Effect grant u16 quantity widens to u32. Positive i32 currency cast safe after >0; negative unsigned_abs handles i32MIN, then u64 widening. Ordinary stack consumption rejects measured/durable items, preflights u64 quantity sum, then min guards both subtractions; this helper could satisfy two represented matching rows [u32MAX,1]. Gateway availability uses sumu32 at482 and reducer held sumu32 at1619-1626, so overflow/wrap disagrees with consuming the same collection. Exact supplied NativeF047, no new count and no current normal huge holding/run claim. Currency view sumu64 needs whole stack population bound for enormous graph, no ordinary witness. Skill/religion checks reject nonfinite; finite value*1000 may overflow for rawMAX but comparison with u16 difficulty still correctly passes huge positive value, so no accepted-result nonfinite publication finding inferred from that predicate alone. Ordinary treatment excludes bandage requirements/effect because actual surgery already consumes it.",
+      "disposition": "Extend existing aggregate quantity finding with personally traced actual native consumers.",
+      "dependencies": [
+        "audit/continuation/native/initial05-aggregate-states/findings.jsonl#49 NATIVE-INITIAL05-F047",
+        "Actual party inventory writer/total quantity bounds",
+        "Canonical narrative authored effect/requirement admission",
+        "Ordinary surgery treatment authority"
+      ],
+      "acceptance": "Eligibility and consume operations must agree on exact or sufficient aggregate stock without wrapping. Preserve signed currency changes, actual surgery consumption and finite authored difficulty meaning."
+    },
+    {
+      "id": "Occurrence, camp and time mutation",
+      "locations": "challenges606-1022,1139-1243,1885-1985,2063-2433; fresh Core errantry89-129",
+      "trace": "Camp identity matches exact departure/movement/reached stop, intentionally excludes elapsed for puzzle; roadside rest adds minimum elapsed. ChanceTravel requires exact completed elapsed, preserving transient interruption. Occurrence key includes actual journey/seed/origin/boundary/roll; replay checks immutable coordinates and catalog source, private origin. Materialization validates geographic encoding before insertion, required real official clock. Group cast/roster creation follows insertion; errors propagate, requiring actual outer transaction/catches before partial committed allegation. Errantry binding uses departureZERO as unbound sentinel and later writes actual departure; valid departureZERO would remain eligible for rebinding on a later reached camp. This is a represented helper/state ambiguity, not an ordinary journey proof; retain explicit unbound-state owner dependency rather than imposing a global positive clock rule. Courier available elapsed saturated+60 and absolute saturated add remain terminal chronology policy qualifications, no normal shortened rest claim. Site origin degrees+.02 re-admitted WGS84, so unsupported edge geography rejects, not publishes invalidcoordinate. Original abstract/world coordinate distinction preserved. Fixed demo movement60/total120 safe.",
+      "disposition": "No new ordinary timing failure promoted. UnboundZERO and exhausted courier timing remain qualified connected owner contracts.",
+      "dependencies": [
+        "Canonical journey/camp bound-versus-unbound authority",
+        "Actual route geographic versus abstract coordinate producers",
+        "world_actor cast/rebind roster mutations and SDK outer callers",
+        "Canonical terminal time policy"
+      ],
+      "acceptance": "Accepted binding keeps exact reached camp identity across rest and later movement; unbound must remain distinguishable from real epoch0. Rejected cast/coordinate materialization cannot consume occurrence identity or publish partial encounter."
+    },
+    {
+      "id": "Puzzle revisions and semantic retry",
+      "locations": "challenges1246-1458",
+      "trace": "Puzzle submit authenticates gateway/living leader and exact case/party, parses normalized typed submission, exact immutable receipt checked before active contract/case/camp/revision. Whole puzzle validate and deterministic replay before check. Expected revision saturating+1 then wrong/correct receipt and retained revision; represented terminal wrong answer can lock future corrected answer (finding below). Successful solve writes fact after receipt/state; unexpected error propagates. No execution or ordinary extreme attempt history claimed. Receipt replay still requires actual living same leader/party before lookup, unlike a fully detached receipt API; preserve intended authority policy rather than assuming replay after death/disband.",
+      "disposition": "One qualified retained-state revision exhaustion record, no global unique count.",
+      "dependencies": [
+        "SEGOVB-04-PUZZLE-REVISION-001",
+        "Canonical PuzzleAuthority/Submission admission and checked replay",
+        "Case outcome fact mutation and outer reducer transaction/catches"
+      ],
+      "acceptance": "An accepted retryable wrong answer must allocate a fresh next attempt coordinate or reject/explicitly exhaust before retaining a misleading open retry state. Preserve exact normalized retry and ordinary correction behavior."
+    },
+    {
+      "id": "Narrative resolution, combat follow-up and failure receipts",
+      "locations": "challenges895-1137,1460-1767,1988-2061",
+      "trace": "Narrative combat binds exact countu16 and resulting rosterlen equals count after rebind. Pending exact encounter/follow-up early replay; mismatched active rejects. Closed combat outcome parsed before effects; receipt exact encounter/occurrence/party/initiating actor/outcome protects later replay, personality applied to initiating actor, not current leader. Existing catalog outcome parser omits mutual incapacitation/timeout, joins localF16 rather than new defect. Effects/personality/transition and overlay update precede close/receipt; errors propagate but actual callers might catch. Road resolution validates party/errantry/camp/open/revision/catalog digest, authored choice/interaction/treatment/requirements before mutation. Saturated revision on road closedstate is different from retryable wrong puzzle; cannot infer same consequence. Acceptance replay early and immutable sourced authority checked before live dialogue presence. Prototype producer IDs and final strategic enemy snapshots do not authorize tactical tick-state persistence.",
+      "disposition": "Preserve existing terminal result integration and exact receipt scopes; no blanket SDK atomicity proof from local question marks.",
+      "dependencies": [
+        "local774:F16",
+        "CAM-PROP-F006/local774:F05/local774:M30 PR return integration",
+        "Road catalog compiler validated numeric/cardinality/payload contracts packet166",
+        "Actual encounter resolver and caller catches",
+        "Canonical personality delta/event idempotency authority"
+      ],
+      "acceptance": "Successful resolution applies one exact authored payload, transition, initiating-actor development and immutable receipt. Failure must not publish reward/receipt while losing required effect or encounter state. All actual combat terminals need explicit authored follow-up policy."
+    },
+    {
+      "id": "All inline source fixtures",
+      "locations": "challenges2435-2815",
+      "trace": "All fixtures read, not executed: exact tagged challenge IDs, private truth exclusion, normalized retries, stable demo reuse, ordinary optional camp trials, fixed finale4/difficulty6, physical insight without hidden combat modifiers, closed combat follow-up and acceptance replay order. Assertions reading other modules are not credited as independent source coverage.",
+      "disposition": "Whole04 remains incomplete.",
+      "dependencies": [
+        "All13 initial inventory gate"
+      ],
+      "acceptance": "Later authorized validation must establish actual reducer behavior and failure atomicity; source assertions do not count as passing tests."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-PUZZLE-REVISION-001",
+      "kind": "Representable retained-state retryable revision exhaustion strengthening",
+      "source_variants": [
+        "physical-p16",
+        "pr-working"
+      ],
+      "locations": "challenges1304-1320,1391-1393,1425-1444",
+      "case": "Otherwise valid open unsolved puzzle at revisionu32MAX, actual accepted contract/camp/issuer and normalized wrong answer passes. Submit returns Ok with immutable challenge-attempt key containingMAX and resulting revision stillMAX. A later different correct answer with expectedMAX finds that receipt before mutable admission and fails conflicting retry; same wrong answer exact-replays forever. This is a represented accepted-state source case only, not proof of an ordinary billion-attempt history, DB run or UI failure.",
+      "operation": "A successful retryable wrong attempt retains exhausted occurrence coordinate, making every new corrected attempt collide with its immutable prior receipt.",
+      "connected_repair": "Canonical challenge attempt revision must represent explicit exhaustion or checked successor and propagate failure before receipt/state mutation. Preserve exact retry and ordinary wrong-answer correction, without wrapping, reusing prior coordinate or deleting immutable receipt to make room. Distinct consequence from closed road revision and social stale-sessionMAX qualification.",
+      "dependencies": [
+        "Canonical challenge revision/attempt identity owner",
+        "Puzzle open/solved aggregate state and actual gateway retry protocol",
+        "Outer transaction and generated DB/client publication if schema changes later authorized"
+      ],
+      "acceptance": "Accepted wrong attempt remains explicitly retryable with a fresh coordinate, or reports a defined exhausted outcome before mutation. A corrected answer must not be classified as conflicting replay merely because last revision silently saturated.",
+      "unique_count": "Not assigned; coordinator reconciliation required."
+    }
+  ],
+  "status": "Two original roles personally compared; connected caller/admission/terminal dependencies incomplete. Whole04 incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/strategic/custody_objectives.rs",
+  "fresh_dependencies": [
+    {
+      "path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/source/physical-p16-unscoped-dependency/crates/adventuresim-core/src/errantry.rs",
+      "sha256": "c745b617fe6b91b054b4f968565f295d03f9839eb329c4957d86306d65969858",
+      "actually_read_ranges": [
+        [
+          89,
+          129
+        ]
+      ],
+      "coverage": "Fresh critical camp kernel; no new whole original role credit."
+    }
+  ]
+}

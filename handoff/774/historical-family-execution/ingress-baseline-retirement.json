@@ -1,0 +1,33 @@
+{
+  "head": "2d0631412e835e23a3f4c9460d1b2f4b48c128a9",
+  "run": 39444616100,
+  "job": 118703103245,
+  "status": "in_progress",
+  "observed_step": "Run actions/checkout@v7",
+  "updated_at": "2026-10-20T15:02:09.863649+00:00",
+  "repair": "Only removed obsolete ingress.rs file ceiling after official hosted diagnostic. Existing on_melee_attack_started function ceiling unchanged.",
+  "no_local_rust_commands": true,
+  "no_new_tests": true,
+  "verification": {
+    "head": "2d0631412e835e23a3f4c9460d1b2f4b48c128a9",
+    "run": 39444616100,
+    "job": 118703103245,
+    "status": "in_progress",
+    "observed_step": "Lint tactical client WASM target",
+    "passed_steps": [
+      "Check formatting",
+      "Verify generated SpacetimeDB bindings",
+      "Test shared schema and GPU readback boundaries",
+      "Test resolved Bevy guard",
+      "Test checked FBX array encoding",
+      "Test existing FBX object-name consumers",
+      "Check semantic values and Rust growth",
+      "Check calendar API ownership"
+    ],
+    "updated_at": "2026-10-20T15:14:42.544520+00:00",
+    "exact_head_verified": "GitHub run API head_sha matches current Git head; workflow checkout explicitly pins pull_request.head.sha. Job steps rechecked twice.",
+    "all_matrix_acceptance": "pending",
+    "no_local_rust_commands": true,
+    "no_new_tests": true
+  }
+}

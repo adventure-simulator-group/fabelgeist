@@ -1,0 +1,110 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1005",
+  "at": "2026-10-25T17:29:05.738273+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1165,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/reproduction.rs",
+      "sha256": "52318f2d0b66c1d88adaa38059b677829f263cfe6f2033fc92c2c59f6671563c",
+      "actual_EOF": 690,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/reproduction.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/relationship/reproduction.rs",
+        "sha256": "52318f2d0b66c1d88adaa38059b677829f263cfe6f2033fc92c2c59f6671563c",
+        "bytes": 23628,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                690
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-HOUSEHOLD-REPAIR-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 270,
+            "read_ranges": [
+              [
+                1,
+                690
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-RELATIONSHIP-031"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/relationship/reproduction.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 208,
+            "read_ranges": [
+              [
+                1,
+                690
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-RELATIONSHIP-031"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/relationship/reproduction.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 483,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          690
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Whole native pregnancy/conception/spouse-overlap/morale/child birth/household/historical preflight/global settlement source consumed across1004\u20131005. No handwritten trait/type codec. Explicit checked planner, historical source joins, deterministic identity and child construction options semantic, not derivable field delegation. No execution/other-lens clearance."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Pregnancy, realized leisure and birth derivability",
+      "disposition": "No handwritten trait boilerplate; preserve explicit lifecycle/chronology/identity and checked representation work."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1166,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/socializing.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

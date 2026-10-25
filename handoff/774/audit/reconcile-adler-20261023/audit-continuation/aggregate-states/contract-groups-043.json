@@ -1,0 +1,47 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-043",
+  "at": "2026-10-25T11:13:18.031127+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1155,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/courtship.rs",
+      "sha256": "3f03d0db1b9cf1860a021496c4a4442a607e0dc03f6eaa309ca7318e965e323c",
+      "personally_read_ranges": [
+        [
+          1,
+          685
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole685 courtship source read. Canonical pair admission rejects self, requires ExclusiveShared canonical-world temporal scope (1162:49\u201359; subjective clocks need not match), living adults from effective birth chronology, same settlement, mutual attraction and no competing historical romantic interval/kinship. SameNone settlement passes shared validator but wedding requires actualSome sharedsettlement, NPC branch explicitlyrequiresSome; no ordinary fieldfailure without receiverpolicy. Establishment validates prior parsedstate, only same active/exposedkind idempotent, ended history final. Formal requires living father and stores approvedfather/planneddowry; Informal carries secrecyreason, snapshots weakerdeception and eligible familyobserver insight. Playerreducers check authority and formal male/female+partneraffinity+fatherapproval or mutuallyexclusive informalroute; generickind/optionalreason helper receives paired normalcalls. NPC route first filters expectedineligibility, typed eligibility alltrue corresponds actual checks, then reruns shared validator before courtship+reservation atomic writes. Existing CourtshipPairError distinguishes coded social rejection from InvalidStateString and native reducer encoding; missingcanonicalcauses remain flattened, no derivedFrom blindlyerase policy. Wedding schedule reuses shared adult/living/admission and activecourtship before reserve; cancel validates participant/reserved/preceremonytime; expire supplies actual Expired variant. This closes live caller qualification for1154 terminalstatus (these paths do not supply Reserved). Existing max-time/date/deception-snapshot numeric/representation findings retained; no new ordinary bug or execution claimed."
+    },
+    {
+      "scope_index": 1156,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/courtship_discovery.rs",
+      "sha256": "bb3280e79254b6cd420b8bb89720f0d32475c78005b1b8b56d01756a186c0e24",
+      "personally_read_ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole169 discovery source read. Immutable perobserver/day receipt binds pair/day, snapshotsInsight+weakerDeception; no mutable skill reroll within day. Pair and every living eligible baselineobserver mustreach requestedday before evaluation, dead historicalobserver excluded. First success exposes courtship and anchors mutable affinity penalty at observercurrentfrontier to avoid doubledecay, separate from effective relationship-day receipt. Percharacter while loop advances nextday only after successful evaluation and stops on exposed, pendingobserverfrontier or futureday. Uses day.saturating_add(1) and day_start saturatedtime; existing own04 ROOT-INITIAL04-F046 qualification retained, not duplicated. Original setupcohort fixed atestablishment: laternewco-locatedfamilyobserver not automaticallyadmitted, so doc everyeligiblefamily cannot imply dynamic cohort; productpolicy unproven, no new missingobserver defect. Bool evaluated versus absent/noop states is type-shape question for09, independent aggregateproof no ordinary mismatch. Missing canonicalnow fallback anchor only afterearlier successreachchecks; nativeerrorrepresentation remains causegap."
+    },
+    {
+      "scope_index": 1157,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/family.rs",
+      "sha256": "39967c3fc01c7e182d648f23a06e4a8a214c51ea7425f4672318d891fc2178e7",
+      "personally_read_ranges": [
+        [
+          1,
+          267
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole267 family source read. Bidirectional kinship IDs own subject/related/kind; household unique character index moves member by leave+join, samehousehold retry deliberatelypreserves originaljoinrole/date. Birth coordinate authoritative signedminute, Character.age_years cached display updated through settle_character_age. This supports qualification of1143 cachedage checks: timeowner calls refresh, no staleage witness established merely from secondrepresentation. Seededfamily plan bounded<=4 and roleszip exactinput, fullfamily yields reciprocalparentchild/sibling edges, shortercohorts intentionallyno parentedges. Actual finalized population producer must guarantee distinctmemberIDs/familysemantics; rawfunction arbitraryduplicates API weakness notordinarygeneratedfamilyclaim. Existing household updater samehousehold retry doesnotrewrite role, no need overwritehistoricalrole without actualfamilychangecontract. Father lookup requires establishedparentedge and malePersonality, exact relationshipdate and alive-atminute, missing/asynchronousfather distinct Result<Option>; somecallersdiscardcause deliberatelyexpectedineligibility. Relationshipconflicts scans historical intervals, not only lateststatus, matching exclusion atdate; formal dowry uses bounded wealththresholdpolicy. No tests/repairs/checks."
+    }
+  ],
+  "discovery": "Three original source roles compared WITH retained state/clock/quantity/cause findings and normal admission closure; full lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run",
+  "subsequent_source_qualification": "Packet045 supplies actual temporal-policy body; no equal-subjective-clock invariant."
+}

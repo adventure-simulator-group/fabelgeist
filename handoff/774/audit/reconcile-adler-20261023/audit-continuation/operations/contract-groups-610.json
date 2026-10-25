@@ -1,0 +1,44 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-610",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/furniture.rs",
+      "sha256": "c4d1d8c287ce1d87edbe8441dd8e4d8b23e18bbcb01281607920d8c02cf77b28",
+      "actual_EOF": 345,
+      "actual_compared_ranges": [
+        [
+          1,
+          345
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/model/room_index.rs",
+      "sha256": "09a150e0b0d2873609095c1d8e6f9cf8a4e2117df74ded1787a03d6f647f23cb",
+      "actual_EOF": 45,
+      "actual_compared_ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "P16 furniture canonicalkey recipe lookup and whole construction",
+      "evidence": "Whole345+45read. ExactOUTDOOR5/INTERIOR45/ALL50 variants, Compact/Broad enumerate2. FurnitureKeyrecipeOnceLock mapscanonicalALL once andretains perrecipeResult, requestedkeyfindsbeforeindex elseMissingRecipe; fullcompilekindmatchdispatchesactualbuilderandfinish theninterioraccessbounds withactualkeycause. RoomIndex checkedusize\u2192u16 TryFrom retainingoriginalordinal/cause;serializedu16fullrange direct zero valid.",
+      "qualifications": "PublickeynotincatalogreturnsstructuredMissingRecipe, no panic/cachepoisonassumed. Recipe-local colliderIDs explicitlyscopedperruntimeinstance; no globalIDdeduprequirement onrawlocalrecipe. RoomIndex widthadmission doesnotprove indexmemberof specificroomcohort; canonicalgenerator/indexrecipient relationship separate.",
+      "acceptance": "Preservecacheimmutableperkey/error, all50kindmapping, accessbounds andcontextual firstcause; no arbitrarynonzeroRoomIndex or migration alias."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-building-generator/src/model/storey_index.rs"
+}

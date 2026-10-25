@@ -1,0 +1,188 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-328",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_garment_torso.rs",
+      "sha256": "458442ee3b24c55c84a9ac0fbf3c4ec8c2923ff2b934b0dd2833c40b2ce89027",
+      "actual_EOF": 379,
+      "actual_compared_ranges": [
+        [
+          1,
+          379
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_garment_tube.rs",
+      "sha256": "f3a62a48644dc5a0e6e24709857dc95742ba1eaafa24535bb77ca0aa61bd3106",
+      "actual_EOF": 483,
+      "actual_compared_ranges": [
+        [
+          1,
+          483
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_gorget.rs",
+      "sha256": "ba644b18ad4daf9cdbfa3caf009737c018ee220b98b321e5338bad8e38539e95",
+      "actual_EOF": 368,
+      "actual_compared_ranges": [
+        [
+          1,
+          368
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_gorget_bib.rs",
+      "sha256": "002c0b80c36401a0849cba9cb6f2a4cecc3e6eb6bcd57bef872bd3a5b7fde726",
+      "actual_EOF": 326,
+      "actual_compared_ranges": [
+        [
+          1,
+          326
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_gorget_cage.rs",
+      "sha256": "2f710cc44d5493e2f327fa10d5ac43434e5af8a1951496a95543701e836e0035",
+      "actual_EOF": 292,
+      "actual_compared_ranges": [
+        [
+          1,
+          292
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_gorget_collar.rs",
+      "sha256": "6cd43102b63b735db4a75e2516057f9cd804a0190d4acd0ced4595d37662fb52",
+      "actual_EOF": 375,
+      "actual_compared_ranges": [
+        [
+          1,
+          375
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_gorget_projection.rs",
+      "sha256": "9e52d00ac15a857a4516fef35e94758bc61262edf250f23a42f2d249f1713ef3",
+      "actual_EOF": 177,
+      "actual_compared_ranges": [
+        [
+          1,
+          177
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_gorget_sections.rs",
+      "sha256": "6ed149624cf8d096d9956c47397acde0bd944e25b1e432afaf5b0afa785ec0ef",
+      "actual_EOF": 65,
+      "actual_compared_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Torso cage and tube attachment preserve native fit failure only at their own part boundary",
+      "source_ranges": {
+        "device_garment_torso.rs": [
+          [
+            1,
+            379
+          ]
+        ],
+        "device_garment_tube.rs": [
+          [
+            1,
+            483
+          ]
+        ]
+      },
+      "disposition": "Both complete bodies personally read, tube in three chunks. Torso seventeen sections use explicit BAND.present failure, fold candidate_status into fit and call record_fit_status on its part. Torso failed fit returns zero carriers instead of implying successful geometry. Tube frame and three joint anchors are recorded before native Hermite/band fitting; missing finite support atomically fails its own part. Actual arm attachment records a torso and retains torso.frames, but consumes torso.part.carriers and drops child part status/checks, matching the open skirt composition candidate in327. No independent child failure that escapes retained frames or final accepted malformed garment has been established; not promoted as defect. Upper/lower anchor lengths and frame extents require nondegenerate anatomical producers; generic extreme arithmetic remains conditional. record_ring checks at most96 entries; current callers are private fixed armhole/hem builders, not arbitrary empty rings. RING_AT modulo/count and RING_SOURCE average require positive count; actual fixed producer dimensions must be traced before asserting an empty-ring failure. No GPU execution or normal generated failure claimed."
+    },
+    {
+      "contract": "Gorget measurement has explicit section absence and final nonconvergence failure",
+      "source_ranges": {
+        "device_gorget.rs": [
+          [
+            1,
+            368
+          ]
+        ],
+        "device_gorget_sections.rs": [
+          [
+            1,
+            65
+          ]
+        ],
+        "device_gorget_collar.rs": [
+          [
+            1,
+            375
+          ]
+        ]
+      },
+      "disposition": "All complete native/host bodies and fixture sources read. Design.validate and closed Gorget shape gate precede dispatch. SETUP rejects nonpositive/nonfinite crown-neck height; head frame remains separately retained. Collar planes count actual edge crossings; section minimum4 plus seven bands finite bounds and positive z extent set FIT_FAILED. Horizontal triangle section count is at most2 because a triangle has zero or two Boolean side transitions; no third section array write for finite y comparisons. Broad strip clipping guards delta.x zero and first<=last. Four alternating collar/bib passes then final collar and bib measure explicitly reject residual BIB_RAW above tolerance; rejecting nonconvergence is valid policy. Fit status is folded into generated part. No continuous or posed clearance claim, and raw public malformed lower surface indexing is an owning admission dependency, not proven normal geometry."
+    },
+    {
+      "contract": "Gorget support offsets are outward sampled envelopes with shared seam and bounded chart indices",
+      "source_ranges": {
+        "device_gorget_bib.rs": [
+          [
+            1,
+            326
+          ]
+        ],
+        "device_gorget_cage.rs": [
+          [
+            1,
+            292
+          ]
+        ]
+      },
+      "disposition": "Full host/shader/fixture bodies read. Actual fixed17x129 chart and layout offsets allocate all four sample arrays without overlap. MEASURE stores new nonnegative directional deficit; ENVELOPE spreads only the fresh deficit across a3x3 periodic cell then adds it to existing support, avoiding repeated diffusion of old correction. Row clamping and explicit positive period128 bound accesses; collar bilinear interpolation bounds r1/c1. CAGE shares bib_offset at collar seam, keeps anatomical top pinned, uses monotone limited cubic for sampled bib support. Rear sweep denominator>=.1 follows UnitInterval shape input. bib_direction norm cannot vanish: sin^4+cos^2 is positive for every finite angle. Polar widths/depths and quadratic measured depth positivity remain completed native cage dependencies; no arbitrary f32 controls are accepted by this host path. A sampled envelope is intentionally not a continuous mesh clearance theorem. Fixture results are assertions read from frozen source, not runs."
+    },
+    {
+      "contract": "Directional triangle projection rejects unresolved area and forbids depth extrapolation",
+      "source_ranges": {
+        "device_gorget_projection.rs": [
+          [
+            1,
+            177
+          ]
+        ]
+      },
+      "disposition": "Complete implementation and fixture source read. Exact bounding box check, roundoff-sensitive determinant rejection, canonical shared-edge orientation, nonnegative edge weights and positive total precede normalized interpolation; final depth clamps to triangle range. Near-collinear/exterior/reversed/shared-edge fixture source covers intended ordinary finite-scale policy, not execution proof. Extreme finite coordinate products can overflow and NaN is not exhaustively rejected at every intermediate, so arbitrary extreme-native numerical validity remains contract strengthening; no ordinary generated body failure or new unique defect promoted."
+    }
+  ],
+  "findings": [
+    {
+      "disposition": "candidate retained from327; exact independent child failure still required",
+      "id": "garment-child-part-status",
+      "not_accepted_defect": true
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "8 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-character-creator/src/device_head_frame.rs"
+}

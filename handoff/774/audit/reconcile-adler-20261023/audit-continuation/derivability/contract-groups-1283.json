@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1283",
+  "at": "2026-10-25T18:22:18.379620+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1350,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/presentation.rs",
+  "sha256": "6a067389a1cdcbddd0dd3814f95e17664351794be139353572edd19928a18171",
+  "actual_compared_ranges": [
+    [
+      1,
+      300
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "PresentedSkeleton Component Debug Clone with targeted derive_more Deref(state) already; PresentedAttackPhase structural Debug Clone Copy. Inherent new takes current authoritative state/tick and initializes correlated retained phase state; selected matches/current guard-step equality is deliberately partial, not fullstruct Eq. Native prediction/tick/correction logic, no handwritten trait/codec in slice.",
+  "first_unfinished": {
+    "scope_index": 1350,
+    "line": 301
+  },
+  "execution": "none"
+}

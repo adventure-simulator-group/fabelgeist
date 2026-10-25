@@ -1,0 +1,121 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-098",
+  "at": "2026-10-23T01:55:35.007494+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/boundaries.rs",
+      "sha256": "41530ea3d8197242c6c5cc79ac9a35b31b9df76287a57aae530247553f3e2f2b",
+      "scope047_index": 2025,
+      "actual_EOF": 46,
+      "scoped_ranges_compared": [
+        [
+          1,
+          46
+        ]
+      ],
+      "actual05_comparison": "Fresh complete46. GeneratedBoundary scene and elevation become same entity Transform+SceneBoundary. OnAdd derives collider from retained fixed_support and door from same boundary/property and transform GateDatum before replicated/staticcollider commands. Checked collider/door failure occurs before replication/collider insertion; door spawning itself actual helper obligation. No second enclosure geometry authority introduced; NativeF027 raw decoded descriptor-cell gap inherited, not repaired by consuming both.",
+      "source_body_proof": "Fresh full actual scoped body personally read; original fixtures source-only, no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/authority/clock.rs",
+      "sha256": "e2a1bd81fce6833b5da2be52e337c95192e41486450c4b1fa3260f684965d6d4",
+      "scope047_index": 2028,
+      "actual_EOF": 62,
+      "scoped_ranges_compared": [
+        [
+          1,
+          62
+        ]
+      ],
+      "actual05_comparison": "Fresh full62. Private native Duration backing distinguishes instant coordinate from elapsed length; native Time elapsed origin, saturating elapsed_since/add/sub preserve zero and clock saturation. from_elapsed performs fallible native_duration admission before CombatDuration retained. No Float-to-native unchecked field or mixed animationtick coordinate. Saturated ready/expiry equality legitimate closed interval, no strict future or unique occurrence implied.",
+      "source_body_proof": "Fresh full actual scoped body personally read; original fixtures source-only, no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/authority/ranged.rs",
+      "sha256": "d35702462831557e7e11e2ea5120640b22819bc95b1bc85858cbfc7d5e95d20c",
+      "scope047_index": 2029,
+      "actual_EOF": 54,
+      "scoped_ranges_compared": [
+        [
+          1,
+          54
+        ]
+      ],
+      "actual05_comparison": "Fresh full54. Private Option windup contains ready/expires formed monotonically via same now+nonnegative durations. permits conjunction current>=ready/current<=expires/current>=cooldown. authorize only mutates on success: consume windup and set cooldown together; validated shot ownership passes through AuthorizedRangedShot, repeated authorization cannot reuse consumed windup. observe intentionally replaces pending observation. No public/Serde raw aggregate ingress here; validation lower shot contract remains authority file obligation.",
+      "source_body_proof": "Fresh full actual scoped body personally read; original fixtures source-only, no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/condition.rs",
+      "sha256": "543fe525702b8245d56a704a028a74138144789cf48c888b58704897bb6be7bf",
+      "scope047_index": 2030,
+      "actual_EOF": 160,
+      "scoped_ranges_compared": [
+        [
+          1,
+          160
+        ]
+      ],
+      "actual05_comparison": "Fresh full160. Main normal combat-state tick queries same entity state/view/limbs; updates fatigue and bleeding/imbalance, then recomputes encumbrance and entire incapacitation from current starting/blood/limbdamage/will/imbalance/trauma/fatigue/burden before source forecast and incapacitated movement/defense cancellation. This normal complete query path repairs prior raw F029 total mismatch, rather than mere delta preservation. Viewer missing skips all; limbs queried after some mutations but same TacticalPlayerView already requires limbs, so no independently proven normal missing-limbs partial path. Consequence bloodloss copy belongs Party character metadata only. Fatigue uses intentional authoritative input not actual collision speed; no action/rest only recovery then total recomputation. Leaves and math finite policy still inherited lower Core; actual bleeding/fatigue extreme API findings separate. Enrollment/order/other writer routes not blanket closed.",
+      "source_body_proof": "Fresh full actual scoped body personally read; original fixtures source-only, no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/condition/forecast.rs",
+      "sha256": "7b2a7d5e50bff9d2fb938aa12d45a750504327c369f2534c6e0866bdef93eb58",
+      "scope047_index": 2031,
+      "actual_EOF": 166,
+      "scoped_ranges_compared": [
+        [
+          1,
+          166
+        ]
+      ],
+      "actual05_comparison": "Fresh full166 incl original fixtures. Trend private previous Option and smoothed rates are server-local history, projected increase replicated presentation only; zeroelapsed no derivative/no history replace, first enrollment zero forecast. Subsequent per-source same current/previous derivative and positive horizon projection; recovery projected0, ten sources distinct same wheel. Bleeding forecast simulates future loss into projected field without mutating actual blood or incapacitation. Original fixtures explicitly retain actual0 while forecasting and compare timestep independence, not evidence arbitrary raw sources finite. No second gameplay penalty authority.",
+      "source_body_proof": "Fresh full actual scoped body personally read; original fixtures source-only, no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/ingress/work.rs",
+      "sha256": "6be424d70d473190c8983c7f8657d117cf7aedd39c7e13c8e3d0cd6021d8a3fa",
+      "scope047_index": 2039,
+      "actual_EOF": 50,
+      "scoped_ranges_compared": [
+        [
+          1,
+          50
+        ]
+      ],
+      "actual05_comparison": "Fresh full50. Recovery consumes total incapacitation performance, not fatigue separately; zero recovery/missing state intentional unadjusted path. Work charging gets same actor+hand view and same actor combat state, computes workload from actual same weapon/body/inventory then calls one charge_work mutation. Preserves existing total/fatigue relation conditional accepted starting state; does not admit whole raw state. No independent hidden oxygen/fatigue pool.",
+      "source_body_proof": "Fresh full actual scoped body personally read; original fixtures source-only, no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/protocol.rs",
+      "sha256": "bdc79a977759c6bc89210af417c605af95bdf23d383bcf29a3e1f49552590c6a",
+      "scope047_index": 2043,
+      "actual_EOF": 86,
+      "scoped_ranges_compared": [
+        [
+          1,
+          86
+        ]
+      ],
+      "actual05_comparison": "Fresh complete86. Intent/request, accepted diagnostic event, pending defense/contact, validated timing and authority result are separate lifecycle roles. Pending contact retains same attack_key,target/bodypart,contact/alignment samples,resolveinstant,precision,family,hand; public crate-local fields not an acceptance token by mere type name. None rangedtarget expressly authorized miss still consumes projectile, no invented nonempty target invariant. Resolved acceptedbool is observation of seam, not independently authoritative permission. Actual creation/consumption/identity uniqueness pending source obligations.",
+      "source_body_proof": "Fresh full actual scoped body personally read; original fixtures source-only, no execution."
+    }
+  ],
+  "comparison_groups": {
+    "normal-combat-tick": "Same-entity complete recalculation establishes total/source agreement before gameplay incapacity check.",
+    "forecast-purpose": "Private history and yellow projection separate from actual impairment.",
+    "consumed-authority": "One successful authorization consumes pending windup atomically.",
+    "intent-not-admission": "Raw pending/request records remain distinct from validated capability."
+  },
+  "new_unique_findings": [],
+  "qualifies": [
+    "NATIVE-INITIAL05-F029"
+  ],
+  "remaining_dependency_obligations": [
+    "Enrollment/replication and other mutations still exact pending; normal complete condition tick now proven recomputes total."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

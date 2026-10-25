@@ -1,0 +1,491 @@
+{
+  "at": "2026-10-22T03:56:38.235476+00:00",
+  "purpose": "Bounded follow-up to initial accepted2473 producer roles, only owner-reached10 newvariants and16 explicit overlays; metadata preparation is not another lens pass.",
+  "current_lens": "audit-existing-type-owners",
+  "start_gate": "Finish and reconcile current owner delta before reading/analyzing these contracts under producer lens. Then reconcile producer and any necessary owner-fit fixed point before admission.",
+  "items": [
+    {
+      "id": "OWNER-REACHED-PRODUCER-NEW-001",
+      "kind": "new_owner_definition_variant",
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs",
+      "sha256": "4ccc1188de7d5f8bdbf63b71160b8557f76fb524ae47f924381325da11198ee8",
+      "material_ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "scope_limits": "Actual P16 LeafDimensions definition/constructor/native projection/Serde policy; unrelated partially glimpsed PlanDimensions/PlanExtents operations receive no credit. Any further called helper needs explicit bounded extension. No whole-file, other-lens or byte-equality credit.",
+      "assigned_owner": "rig",
+      "status": "not_started; current owner lens gate still open",
+      "source_credit": "none from metadata"
+    },
+    {
+      "id": "OWNER-REACHED-PRODUCER-NEW-002",
+      "kind": "new_owner_definition_variant",
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "sha256": "3e29916a9d570f6e0d12ffb54541ee018fb068902a4e5b6c0f744db9971d9ba9",
+      "material_ranges": [
+        [
+          89,
+          100
+        ]
+      ],
+      "scope_limits": "Only checked_nonnegative admission helper89â€“100 actually called by response_parameters reference-acceleration/rate constructors. Unrelated measurement definitions1â€“88 are not scoped or credited.",
+      "assigned_owner": "camera",
+      "status": "not_started; current owner lens gate still open",
+      "source_credit": "none from metadata"
+    },
+    {
+      "id": "OWNER-REACHED-PRODUCER-NEW-003",
+      "kind": "new_owner_definition_variant",
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+      "sha256": "d2eeb3c98817ee0e266094c559b48ef3736dc8b9fcdbcd975a9f47f637213222",
+      "material_ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "scope_limits": "ReferenceAcceleration/ResponseRate definitions and necessary constructor/operation contract only. No whole217-line file or unrelated response-controller coverage. Any further reached signature dependencies require explicit extension.",
+      "assigned_owner": "camera",
+      "status": "not_started; current owner lens gate still open",
+      "source_credit": "none from metadata"
+    },
+    {
+      "id": "OWNER-REACHED-PRODUCER-NEW-004",
+      "kind": "new_owner_definition_variant",
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+      "sha256": "2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+      "material_ranges": [
+        [
+          155,
+          200
+        ]
+      ],
+      "scope_limits": "Actual retained SceneDoor geometry field definition needed by P16 grab-world source/use comparison. No whole-file, other-lens or byte-equality credit.",
+      "assigned_owner": "rig",
+      "status": "not_started; current owner lens gate still open",
+      "source_credit": "none from metadata"
+    },
+    {
+      "id": "OWNER-REACHED-PRODUCER-NEW-005",
+      "kind": "new_owner_definition_variant",
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings/window.rs",
+      "sha256": "f1d40643528b12fce9e1062c6a2e23e0192c6216cb5a5f645bbc624ef90b5c26",
+      "material_ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "scope_limits": "Actual retained SceneWindow geometry field definition needed by P16 grab-world source/use comparison. No whole-file, other-lens or byte-equality credit.",
+      "assigned_owner": "rig",
+      "status": "not_started; current owner lens gate still open",
+      "source_credit": "none from metadata"
+    },
+    {
+      "id": "OWNER-REACHED-PRODUCER-NEW-006",
+      "kind": "new_owner_definition_variant",
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+      "sha256": "c71c5590f1fb87ae1645a6e4f4ed54a0059d33b821ad0062e098821e1409b899",
+      "material_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "scope_limits": "Only finiteVec3 admission and direction error adapters necessary for current P16 coordinate constructors; no other source credit.",
+      "assigned_owner": "camera",
+      "status": "not_started; current owner lens gate still open",
+      "source_credit": "none from metadata"
+    },
+    {
+      "id": "OWNER-REACHED-PRODUCER-NEW-007",
+      "kind": "new_owner_definition_variant",
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/storey_index.rs",
+      "sha256": "399c8ab44cc2dd0c22df8ab1cb88d4284837f7aaccd08f14cb1e4fefcd58c05c",
+      "material_ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "scope_limits": "StoreyIndex ground0/ordinal/serde/error policy consumed by stair/heating source constructors; exact ranges only.",
+      "assigned_owner": "root",
+      "status": "not_started; current owner lens gate still open",
+      "source_credit": "none from metadata"
+    },
+    {
+      "id": "OWNER-REACHED-PRODUCER-NEW-008",
+      "kind": "new_owner_definition_variant",
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/timber.rs",
+      "sha256": "452e6d4196200a40485612e2a5717561e708e0ebbaa595e20cb9b26b43ba599b",
+      "material_ranges": [
+        [
+          1,
+          45
+        ],
+        [
+          139,
+          158
+        ]
+      ],
+      "scope_limits": "Canonical timber IDs, frame member and section role consumed by scoped gable/heating source constructors; exact ranges only.",
+      "assigned_owner": "root",
+      "status": "not_started; current owner lens gate still open",
+      "source_credit": "none from metadata"
+    },
+    {
+      "id": "OWNER-REACHED-PRODUCER-NEW-009",
+      "kind": "new_owner_definition_variant",
+      "source_id": "pr-working:crates/fabelgeist-physics/src/contact/count.rs",
+      "sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+      "material_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "scope_limits": "Only exact collider Count/Capacity or native shape pack/upload definitions needed for actual WGSL ownerfit. No signed_distance body or wholecolliderfile.",
+      "assigned_owner": "rig",
+      "status": "not_started; current owner lens gate still open",
+      "source_credit": "none from metadata"
+    },
+    {
+      "id": "OWNER-REACHED-PRODUCER-NEW-010",
+      "kind": "new_owner_definition_variant",
+      "source_id": "pr-working:crates/fabelgeist-physics/src/collider.rs",
+      "sha256": "296038416d7eb39fb2a5e71bbce613acc621b6ad99e7b4e12f540d45a27fb34c",
+      "material_ranges": [
+        [
+          1,
+          133
+        ],
+        [
+          212,
+          218
+        ]
+      ],
+      "scope_limits": "Only exact collider Count/Capacity or native shape pack/upload definitions needed for actual WGSL ownerfit. No signed_distance body or wholecolliderfile.",
+      "assigned_owner": "rig",
+      "status": "not_started; current owner lens gate still open",
+      "source_credit": "none from metadata"
+    },
+    {
+      "id": "OWNER-REACHED-PRODUCER-CONT-OWNER-RANGE-EXTENSION-001",
+      "kind": "incremental_owner_range",
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+      "sha256": "d2eeb3c98817ee0e266094c559b48ef3736dc8b9fcdbcd975a9f47f637213222",
+      "material_ranges": [
+        [
+          142,
+          155
+        ]
+      ],
+      "scope_limits": "Only these adapters, in addition to already scoped1â€“85; no unrelated controller/other measurement coverage.",
+      "assigned_owner": "camera",
+      "registered_reason": "Actual TryFrom<f32> constructor delegation used by serde try_from adapters for ReferenceAcceleration/ResponseRate; bounded symbol navigation only before explicit body scope.",
+      "status": "not_started; current owner lens gate still open",
+      "source_credit": "none from metadata"
+    },
+    {
+      "id": "OWNER-REACHED-PRODUCER-CONT-OWNER-RANGE-EXTENSION-002",
+      "kind": "incremental_owner_range",
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs",
+      "sha256": "4ccc1188de7d5f8bdbf63b71160b8557f76fb524ae47f924381325da11198ee8",
+      "material_ranges": [
+        [
+          101,
+          105
+        ]
+      ],
+      "scope_limits": "Only exact necessary constructor/helper tail; no whole-file or other-lens credit.",
+      "assigned_owner": "rig",
+      "registered_reason": "Actual called dimensions admission constructor tail; needed for LeafDimensions positivity policy, no unrelated PlanDimensions/PlanExtents operations.",
+      "status": "not_started; current owner lens gate still open",
+      "source_credit": "none from metadata"
+    },
+    {
+      "id": "OWNER-REACHED-PRODUCER-CONT-OWNER-RANGE-EXTENSION-003",
+      "kind": "incremental_owner_range",
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+      "sha256": "2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+      "material_ranges": [
+        [
+          201,
+          213
+        ]
+      ],
+      "scope_limits": "Only exact necessary constructor/helper tail; no whole-file or other-lens credit.",
+      "assigned_owner": "rig",
+      "registered_reason": "Actual SceneDoor constructor tail needed to connect checked source leaves and retained geometry fields.",
+      "status": "not_started; current owner lens gate still open",
+      "source_credit": "none from metadata"
+    },
+    {
+      "id": "OWNER-REACHED-PRODUCER-CONT-OWNER-RANGE-EXTENSION-004",
+      "kind": "incremental_owner_range",
+      "source_id": "physical-p16:crates/adventuresim-core/src/bestiary.rs",
+      "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+      "material_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "scope_limits": "Exact definition only in addition to existing90â€“125; no whole1558 credit.",
+      "assigned_owner": "camera",
+      "registered_reason": "ThreatId definition and string admission needed for exact owner comparison against syntactic IDs and successfully compiled catalogue membership.",
+      "status": "not_started; current owner lens gate still open",
+      "source_credit": "none from metadata"
+    },
+    {
+      "id": "OWNER-REACHED-PRODUCER-CONT-OWNER-RANGE-EXTENSION-005",
+      "kind": "incremental_owner_range",
+      "source_id": "physical-p16:crates/adventuresim-core/src/bestiary.rs",
+      "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+      "material_ranges": [
+        [
+          124,
+          137
+        ]
+      ],
+      "scope_limits": "Necessary adapter tails only; no wholebestiary credit.",
+      "assigned_owner": "camera",
+      "registered_reason": "Actual Serialize/Deserialize adapters for ThreatId distinguish syntactic try_new from catalogue-validating FromStr.",
+      "status": "not_started; current owner lens gate still open",
+      "source_credit": "none from metadata"
+    },
+    {
+      "id": "OWNER-REACHED-PRODUCER-CONT-OWNER-RANGE-EXTENSION-006",
+      "kind": "incremental_owner_range",
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/layout.rs",
+      "sha256": "f19587b5c651091d18b720268e43f9bdef0e2ca083b33b57d53cbdbccb1be298",
+      "material_ranges": [
+        [
+          151,
+          284
+        ]
+      ],
+      "scope_limits": "Exact materially reached roof records only; no source or other-lens credit.",
+      "assigned_owner": "root",
+      "registered_reason": "Actual roof face/plane/edge/child/assembly definitions consumed by scoped roof/gable constructors; necessary meaning/frame/identity/payload owner comparison.",
+      "status": "not_started; current owner lens gate still open",
+      "source_credit": "none from metadata"
+    },
+    {
+      "id": "OWNER-REACHED-PRODUCER-CONT-OWNER-RANGE-EXTENSION-007",
+      "kind": "incremental_owner_range",
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/resolved_geometry.rs",
+      "sha256": "f0fcbc815b3c695713f9dd8055470b78b871e583aad689aa45ce562c1f20fd4a",
+      "material_ranges": [
+        [
+          71,
+          514
+        ]
+      ],
+      "scope_limits": "Exact affected body tails only, no other source/lens credit.",
+      "assigned_owner": "root",
+      "registered_reason": "Complete actual audit_resolved_geometry receiver, early1â€“70 ends midpredicate; needed to compare bound/plane/shape/identifier owners through full affected receiving function.",
+      "status": "not_started; current owner lens gate still open",
+      "source_credit": "none from metadata"
+    },
+    {
+      "id": "OWNER-REACHED-PRODUCER-CONT-OWNER-RANGE-EXTENSION-008",
+      "kind": "incremental_owner_range",
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/shared_helpers.rs",
+      "sha256": "76e7f6c63abfedfdacaf9045369ed282f14c8eb113b868127679ab236368ee36",
+      "material_ranges": [
+        [
+          121,
+          134
+        ]
+      ],
+      "scope_limits": "Exact affected body tails only, no other source/lens credit.",
+      "assigned_owner": "root",
+      "registered_reason": "Tail of roof_face_contains_plan_point begun117â€“120, necessary existing polygon/point owner and cutout policy; unrelated helpers excluded.",
+      "status": "not_started; current owner lens gate still open",
+      "source_credit": "none from metadata"
+    },
+    {
+      "id": "OWNER-REACHED-PRODUCER-CONT-OWNER-RANGE-EXTENSION-009",
+      "kind": "incremental_owner_range",
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_footwear_fit.rs",
+      "sha256": "a5ff6c930746498007808fb52e47a2ef6971347270a35ce8e0eeec3c03c77b1e",
+      "material_ranges": [
+        [
+          101,
+          283
+        ]
+      ],
+      "scope_limits": "Only material namedreceiver tails; no other body/module credit.",
+      "assigned_owner": "rig",
+      "registered_reason": "Exact actual necessary native receivingbody tail from Rig pre-read registration RIG-OWNER-DELTA-EXTENSION-012",
+      "status": "not_started; current owner lens gate still open",
+      "source_credit": "none from metadata"
+    },
+    {
+      "id": "OWNER-REACHED-PRODUCER-CONT-OWNER-RANGE-EXTENSION-010",
+      "kind": "incremental_owner_range",
+      "source_id": "pr-working:crates/fabelgeist-physics/src/wgsl.rs",
+      "sha256": "a1f915887fcad485606bdc80aae9a12f5224233a774693b02d40df0f1d1ebb95",
+      "material_ranges": [
+        [
+          386,
+          413
+        ]
+      ],
+      "scope_limits": "Only material namedreceiver tails; no other body/module credit.",
+      "assigned_owner": "rig",
+      "registered_reason": "Exact actual necessary native receivingbody tail from Rig pre-read registration RIG-OWNER-DELTA-EXTENSION-013",
+      "status": "not_started; current owner lens gate still open",
+      "source_credit": "none from metadata"
+    },
+    {
+      "id": "OWNER-REACHED-PRODUCER-CONT-OWNER-RANGE-EXTENSION-011",
+      "kind": "incremental_owner_range",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/prepared.rs",
+      "sha256": "93f6d71ef4483adfa946c8c19da9692b9843eb84629a32210c1652a3978b3e4d",
+      "material_ranges": [
+        [
+          51,
+          54
+        ]
+      ],
+      "scope_limits": "Only exact current materialtail/helper contracts; no unrelatedarmorfixture coverage.",
+      "assigned_owner": "rig",
+      "registered_reason": "Necessary actual receiving/coordinate helper body from explicit pre-read RIG-OWNER-DELTA-EXTENSION-016",
+      "status": "not_started; current owner lens gate still open",
+      "source_credit": "none from metadata"
+    },
+    {
+      "id": "OWNER-REACHED-PRODUCER-CONT-OWNER-RANGE-EXTENSION-012",
+      "kind": "incremental_owner_range",
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/helmet/surface.rs",
+      "sha256": "d6e8b3b39d21c87e2a7c4d51f25b2e9e57b2a884a87b2b8fad17b24b1a2d1087",
+      "material_ranges": [
+        [
+          1,
+          119
+        ],
+        [
+          166,
+          199
+        ]
+      ],
+      "scope_limits": "Only exact current materialtail/helper contracts; no unrelatedarmorfixture coverage.",
+      "assigned_owner": "rig",
+      "registered_reason": "Necessary actual receiving/coordinate helper body from explicit pre-read RIG-OWNER-DELTA-EXTENSION-017",
+      "status": "not_started; current owner lens gate still open",
+      "source_credit": "none from metadata"
+    },
+    {
+      "id": "OWNER-REACHED-PRODUCER-CONT-OWNER-RANGE-EXTENSION-013",
+      "kind": "incremental_owner_range",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "sha256": "1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+      "material_ranges": [
+        [
+          1086,
+          1089
+        ]
+      ],
+      "scope_limits": "Exact necessary affected helper tail only, no otherbody/modulecredit",
+      "assigned_owner": "camera",
+      "registered_reason": "Actual return tail of remaining_container_capacity_ml; original material1030â€“1085 cuts checked scalar/capacity result needed for Milliliters owner comparison.",
+      "status": "not_started; current owner lens gate still open",
+      "source_credit": "none from metadata"
+    },
+    {
+      "id": "OWNER-REACHED-PRODUCER-CONT-OWNER-RANGE-EXTENSION-014",
+      "kind": "incremental_owner_range",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/family.rs",
+      "sha256": "39967c3fc01c7e182d648f23a06e4a8a214c51ea7425f4672318d891fc2178e7",
+      "material_ranges": [
+        [
+          106,
+          126
+        ]
+      ],
+      "scope_limits": "Exact necessary affected helper tail only, no otherbody/modulecredit",
+      "assigned_owner": "camera",
+      "registered_reason": "Actual settle_character_age helper body after original1â€“105 prefix; needed to compare signed birth coordinate, ageyear scalar and cachedprojection semantics.",
+      "status": "not_started; current owner lens gate still open",
+      "source_credit": "none from metadata"
+    },
+    {
+      "id": "OWNER-REACHED-PRODUCER-CONT-OWNER-RANGE-EXTENSION-015",
+      "kind": "incremental_owner_range",
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+      "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+      "material_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "scope_limits": "Exact necessary definitions/signature only, no whole3812file or unrelatedUIrolecredit",
+      "assigned_owner": "camera",
+      "registered_reason": "Actual finite_rank and SummaryIcon/Kind definitions needed for freshrank/summary recipientownerfit",
+      "status": "not_started; current owner lens gate still open",
+      "source_credit": "none from metadata"
+    },
+    {
+      "id": "OWNER-REACHED-PRODUCER-CONT-OWNER-RANGE-EXTENSION-016",
+      "kind": "incremental_owner_range",
+      "source_id": "physical-p16:crates/strategic-web/src/templates/settlement/character_skills.rs",
+      "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+      "material_ranges": [
+        [
+          2055,
+          2089
+        ]
+      ],
+      "scope_limits": "Exact necessary definitions/signature only, no whole3812file or unrelatedUIrolecredit",
+      "assigned_owner": "camera",
+      "registered_reason": "Actual ActivityEffectRates declaration and necessarypreview function signature before assigned2090â€“2140 receivingbody",
+      "status": "not_started; current owner lens gate still open",
+      "source_credit": "none from metadata"
+    },
+    {
+      "id": "OWNER-REACHED-PRODUCER-CONT-OWNER-RANGE-EXTENSION-017",
+      "kind": "incremental_owner_range",
+      "source_id": "physical-p16:crates/adventuresim-terrain/src/lib.rs",
+      "sha256": "b6f4484e8febb316766de322ff355f1d0dda5b394343be0227517c601c0f1421",
+      "material_ranges": [
+        [
+          1,
+          58
+        ],
+        [
+          270,
+          315
+        ],
+        [
+          948,
+          995
+        ]
+      ],
+      "scope_limits": "Only exact necessary producer/declaration/validator ranges; no whole terrain crate or unrelated road/content/wetland/cultivation digest authority coverage. Any further called signature/helper requires explicit extension.",
+      "assigned_owner": "rig",
+      "canonical_audit_owner": "camera",
+      "registered_reason": "Actual P16 terrain Manifest/TerrainPurpose/Entry digest fields plus load-success error/hash signature and validate_manifest admission needed for exact SourcePackageDigest authority comparison. Existing321–437 load/getters preserved.",
+      "status": "not_started; current owner lens gate still open",
+      "source_credit": "none from metadata"
+    }
+  ],
+  "counts": {
+    "obligations": 27,
+    "newvariants": 10,
+    "rangeoverlays": 17
+  },
+  "constraints": [
+    "No project execution, scanners, generators, source edits, tests, or CI.",
+    "Follow exact producer -> retained state -> operation -> recipient -> real boundary, including admission/constructor/error adapters and true native or numerical leaf projections.",
+    "Do not reopen unrelated accepted2473 contracts or claim retroactive producer credit from owner comparisons.",
+    "Register any newly reached source path/range before analysis; no widening from hash/path identity.",
+    "Preserve original scope and every finding; record exact connected repairs/acceptance and future-lens policy obligations."
+  ],
+  "previous_metadata_queue": "continuation/owner-reached-producer-followup-queue.json"
+}

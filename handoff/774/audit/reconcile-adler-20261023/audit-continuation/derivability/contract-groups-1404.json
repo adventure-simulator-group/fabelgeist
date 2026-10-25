@@ -1,0 +1,321 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1404",
+  "at": "2026-10-25T18:54:36.690024+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1462,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/collision.rs",
+      "sha256": "e57c0f4f3a2b7f4cb749b5e1ca57628e9e5ef864f1bd4365fe48313a3f426c3e",
+      "actual_EOF": 339,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/collision.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/camera/collision.rs",
+        "owner": "camera",
+        "sha256": "e57c0f4f3a2b7f4cb749b5e1ca57628e9e5ef864f1bd4365fe48313a3f426c3e",
+        "base_sha256": "862d65dcfa27ffb94110dbaf5c32fd94e248028f14f278aa9429047789ec31d9",
+        "state": "modified",
+        "bytes": 11795,
+        "audit_owner": "camera",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                339
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-CAMERA-001"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 341,
+            "read_ranges": [
+              [
+                1,
+                339
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-CAMERA-CLUSTER-070"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/camera/collision.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 582,
+            "read_ranges": [
+              [
+                1,
+                339
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-CAMERA-CLUSTER-070"
+            ],
+            "read_status": "fresh_full_current_lens_source_and_all_originalfixtures",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/camera/collision.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CAMERA-BOUNDARIES-048",
+            "json_pointer": "/current_sources/3",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-client/src/camera/collision.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                339
+              ]
+            ],
+            "source_context": {
+              "index": 319,
+              "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/collision.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/camera/collision.rs",
+              "sha256": "e57c0f4f3a2b7f4cb749b5e1ca57628e9e5ef864f1bd4365fe48313a3f426c3e",
+              "read_ranges": [
+                [
+                  1,
+                  339
+                ]
+              ],
+              "read_mode": "Fresh full actual source body including all existing in-file fixtures; physicalharness exactcomplete delta separately read, no source/check execution."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "continuation_actual_producer_source_proofs": [
+          {
+            "record": "continuation/camera/reached-role-reconciliation/eof-role-qualification-012.json",
+            "json_pointer": "/fresh_source_and_immediate_receiver_proofs/6",
+            "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/collision.rs",
+            "sha256": "e57c0f4f3a2b7f4cb749b5e1ca57628e9e5ef864f1bd4365fe48313a3f426c3e",
+            "read_ranges": [
+              [
+                140,
+                201
+              ]
+            ],
+            "proof": {
+              "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/collision.rs",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-client\\src\\camera\\collision.rs",
+              "sha256": "e57c0f4f3a2b7f4cb749b5e1ca57628e9e5ef864f1bd4365fe48313a3f426c3e",
+              "actual_EOF": 339,
+              "fresh_read_ranges": [
+                [
+                  140,
+                  201
+                ]
+              ],
+              "material_role_ranges": [
+                [
+                  152,
+                  191
+                ]
+              ],
+              "proof_mode": "fresh exact actual immediate native hit/config receiving body; no execution"
+            },
+            "limits": "Actual source-role proof for producer lens only; no owner-fit or other-lens clearance."
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": 595,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          339
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "GeometryFrame",
+          "type": "CameraView",
+          "lines": [
+            38,
+            38
+          ],
+          "disposition": "KEEP empty custom frame marker; no existing structural derive implements project coordinate trait."
+        },
+        {
+          "trait": "Default",
+          "type": "CloseCameraProfile",
+          "lines": [
+            90,
+            103
+          ],
+          "disposition": "KEEP explicit nonzero authored profile lengths/offsets; standard field Default changes behavior."
+        }
+      ],
+      "existing_derives": [
+        "structural Debug/Clone/Copy profiles/hits/debug geometry",
+        "Debug/Clone/Copy/Default BoomRecovery",
+        "Clone/Copy/Debug/PartialEq/Reflect CameraView"
+      ],
+      "absence_basis": "Complete339-line source personally consumed before interruption:1\u2013300 retained1403, final301\u2013339 read in last successful source output. Native projection/shape casts/semantic frame placement and checked staged recovery/final sweep commit; no manual codec. Child test declaration not itself coverage."
+    },
+    {
+      "scope_index": 1463,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/collision/tests.rs",
+      "sha256": "64b2d4cf55741173468cc58b7c98013529ad4004d7aa164c6d9f0728e2616e64",
+      "actual_EOF": 296,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/collision/tests.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/camera/collision/tests.rs",
+        "owner": "camera",
+        "sha256": "64b2d4cf55741173468cc58b7c98013529ad4004d7aa164c6d9f0728e2616e64",
+        "base_sha256": "f8c88a1c3c9855d3dc549be441411316e07a9577455378bfe954c9a046c83256",
+        "state": "modified",
+        "bytes": 9659,
+        "audit_owner": "camera",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                296
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-CAMERA-001"
+            ]
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+            "ranges": null,
+            "source_read_status": null,
+            "trace_refs": []
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 342,
+            "read_ranges": [
+              [
+                1,
+                296
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-CAMERA-CLUSTER-070"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/camera/collision/tests.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 583,
+            "read_ranges": [
+              [
+                1,
+                296
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-CAMERA-CLUSTER-070"
+            ],
+            "read_status": "fresh_full_current_lens_source_and_all_originalfixtures",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/camera/collision/tests.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CAMERA-BOUNDARIES-048",
+            "json_pointer": "/current_sources/4",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-tactical-client/src/camera/collision/tests.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                296
+              ]
+            ],
+            "source_context": {
+              "index": 320,
+              "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/collision/tests.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/camera/collision/tests.rs",
+              "sha256": "64b2d4cf55741173468cc58b7c98013529ad4004d7aa164c6d9f0728e2616e64",
+              "read_ranges": [
+                [
+                  1,
+                  296
+                ]
+              ],
+              "read_mode": "Fresh full actual source body including all existing in-file fixtures; physicalharness exactcomplete delta separately read, no source/check execution."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": 596,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          296
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Complete296-line native fixture body personally consumed before interruption in last successful source output. Obstacle record/inherent cuboid helper and native scene/spatial test setup/assertions only; no manual trait/codec. Historical pinned PR fixture has source-specific syntax/runtime qualifications, no tests/compile run and no merged-source verdict inferred."
+    }
+  ],
+  "groups": [
+    "Handoff bookkeeping only: records source already consumed before user interruption, no further discovery. Keep semantic/default frame policies and native fixtures. No tests, builds, checks, source fixes or native systems executed."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1464,
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/config.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

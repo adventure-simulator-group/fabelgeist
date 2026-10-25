@@ -1,0 +1,32 @@
+{
+  "revision": "13fc9dcc71ab879de364117e5462310673e43210",
+  "finding": "F38",
+  "kind": "Additional source-only witness for the same missing positive-volume physical admission; not a new test or executed reproduction",
+  "witness": {
+    "catalog_id": "arming_sword",
+    "recipe": {
+      "components": [
+        {
+          "id": "g",
+          "kind": "figureEight",
+          "width": 0.125,
+          "height": 0.03125,
+          "bar": 0.0,
+          "attach": {
+            "to": "weapon.root",
+            "at": "origin"
+          }
+        }
+      ]
+    }
+  },
+  "trace": [
+    "FigureEight schema requires width; default construction is the non-RoundTube forged branch. Root component/ID/frame guards pass; dimension validator positive width/height, but bar onlybounded(abs<=20), so bar0 accepted. Other combined shape validation branches do not reject it.",
+    "In model guards/bars figure_eight, bar0 makes bridge/inset0 and every emitted point z in[-bar,bar]=0. Counts are finite nonzero detail.sample minima, xy finite with positive width/height; solid has triangles but no enclosed volume.",
+    "Signed tetrahedral mass dot(a,cross(b,c)) is exactly0 for points on planez0. .positive() returns it, and the shared physical integrator divides per-part/total zero moments by zero mass. Validation/construction can therefore report success with nonfinite physical values, as in the original collapsed-grip witness."
+  ],
+  "same_as_base": [
+    "crates/adventuresim-weapon-model/src/model/guards/bars.rs"
+  ],
+  "limits": "No ordinary preset/editor occurrence, model generation, DB transaction, renderer/GPU run or new fixture/test/helper/assertion. Deduplicated with F38; this is not another claimed defect count."
+}

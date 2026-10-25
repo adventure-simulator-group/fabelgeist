@@ -1,0 +1,150 @@
+{
+  "recorded_at": "2026-10-21T04:57:44.208090+00:00",
+  "base_head": "66d90cacc2d95012556ec6730a35fc8a5fbfe31a",
+  "run": 39543600459,
+  "job": 119036682572,
+  "failure_kind": "Native all-target/all-feature compilation; no native Clippy lint verdict yet.",
+  "status": "Known compiler caller omissions fixed; focused source review complete, hosted verification pending.",
+  "diagnostics": {
+    "furniture_binary": 6,
+    "animation_viewer_test": 14,
+    "roots": [
+      "catalogue extraction visibility",
+      "Option-era handling of typed FurnitureRecipeError",
+      "mesh/native fixture calls not using checked query contracts",
+      "Result<Vec<Mesh>> not unpacked by old owned mesh fixtures",
+      "typed refinement callback returns Option<SupportElevation>"
+    ]
+  },
+  "repairs": [
+    "Expose the actual setup_catalog owner to its viewer ancestor, preserving its existing facade reexport; expose catalog_pair_gap only to its parent and import it under cfg(test). No forwarding function or compatibility API.",
+    "Retain FurnitureRecipeError through Result propagation in catalogue sizes, joined counters, wood finishes and room subjects; remove misleading duplicate MissingInteriorSpec error.",
+    "Use the existing BoundedSettlementTerrain owner directly at the two remaining owned mesh fixture calls and unwrap the new fallible result in fixtures.",
+    "Admit native mesh coordinate arrays as PlanDisplacement only at actual mesh-fixture comparison boundaries; preserve positions, colors and assertion bodies.",
+    "Admit the remaining authored rock lift once as SignedLength.",
+    "Use checked refinement callback leaves and final SupportElevation admission around the identical native trigonometric formula; import the owner in the test module."
+  ],
+  "caller_inventory": {
+    "interior_spec": "All tactical-client occurrences enumerated: four catalogue size calls and room subject now propagate; strategic_scene/staging already propagates; remaining unwrap is the existing numeric catalogue test. Other generator call sites already propagate or are tests.",
+    "vista_meshes": "All four call sites reviewed: production ground owner was correct; pigment fixture was correct; landform and ordered partition fixtures now use the actual property surface and fallible result.",
+    "VistaVertexColors_at": "Production owned and natural calls already retain PlanDisplacement; pigment test already admits once; two old array-native expectations now admit at the actual native fixture boundary.",
+    "refined": "All workspace callers enumerated; production refinement and core/urban/settlement fixtures already correct; terrain detail callback now matches canonical core fixture math.",
+    "vista_scatter_transform": "Production details and all six existing ground fixture calls reviewed; only the third slope/absence call still had a primitive lift.",
+    "direct_visibility": "setup_catalog called only by the viewer; catalog_pair_gap used by catalogue staging and existing parent test."
+  },
+  "review_passes": [
+    {
+      "lens": "Code",
+      "result": "No known remaining caller gap in enumerated affected signatures; no production geometry/order/seed change. Success remains unexecuted."
+    },
+    {
+      "lens": "Rules / producer-receiver",
+      "result": "Canonical owners reused; no internal raw forwarding introduced; native fixture admissions remain actual literal/mesh/kernel boundaries. Recipe causes retained to Bevy framework error adapter, no String conversion, suppression or compatibility shim."
+    }
+  ],
+  "files": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/terrain.rs",
+      "existing_test_names": [
+        "ordinary_dirt_uses_one_palette_color_regardless_of_canopy",
+        "ground_shader_layers_parallax_litter_and_normal_over_one_planar_soil_sample",
+        "cliff_shader_keeps_structure_out_of_axis_projections",
+        "terrain_sward_fills_far_lod_gaps_then_completes_with_vista_fade",
+        "terrain_presentation_remains_pending_until_terrain_arrives",
+        "terrain_reconcile_updates_once_and_retries_a_stale_material_handle",
+        "camera_local_detail_patch_samples_canonical_surface_and_morphs_to_coarse_lod",
+        "camera_local_detail_patch_respects_a_volumetric_transition_cutout",
+        "detail_relief_preserves_water_flatness_and_builds_a_crowned_rutted_road",
+        "rocky_relief_builds_ledges_and_seats_boulders_with_downhill_debris",
+        "drainage_and_creep_are_directional_and_tree_roots_form_long_coherent_ridges",
+        "presentation_ground_mask_is_deterministic_discrete_and_not_grid_aligned",
+        "grass_cover_mask_is_deterministic_and_feathers_authoritative_edges"
+      ],
+      "assertions_unchanged": 97
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/vista.rs",
+      "existing_test_names": [
+        "vista_ground_uses_continuous_palette_colors_and_geometry_normals",
+        "vista_terminal_sward_uses_the_optically_compensated_grass_pigment",
+        "vista_grass_reuses_the_playable_terminal_sward_handoff",
+        "vista_rock_lod_is_a_bounded_twelve_face_silhouette",
+        "vista_lods_build_independent_overlapping_rings",
+        "coarse_vista_cells_are_clipped_to_the_playable_hole",
+        "first_vista_ring_stitches_to_playable_height_then_blends_outward",
+        "first_vista_ring_stitches_substrate_color_without_changing_sward_coverage",
+        "first_vista_ring_reuses_every_playable_boundary_sample",
+        "finer_ring_morphs_onto_the_coarse_surface_at_its_outer_boundary",
+        "vista_vertex_colors_reuse_ground_palette_in_linear_space",
+        "distant_sward_respects_surface_and_land_cover",
+        "grass_coverage_stitches_continuously_across_the_playable_boundary",
+        "snow_palette_carries_into_vista_and_suppresses_sward",
+        "vista_tree_density_scales_with_physical_cell_area",
+        "vista_tree_cards_enter_only_at_background_angular_size",
+        "finer_color_morph_matches_coarse_color_at_outer_boundary",
+        "furniture_support_matches_presented_triangles_at_seams_and_morphs"
+      ],
+      "assertions_unchanged": 73
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/vista/ground/tests.rs",
+      "existing_test_names": [
+        "owned_vista_tree_roots_follow_support_across_detail_levels",
+        "owned_vista_rocks_use_support_normal_and_keep_the_existing_slope_gate",
+        "sampled_vista_trees_and_rocks_retain_the_presented_heightfield",
+        "goslar_property_1236_vista_scenery_uses_accepted_support",
+        "required_city_vista_scenery_matches_property_support"
+      ],
+      "assertions_unchanged": 21
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/vista/owned/landform_tests.rs",
+      "existing_test_names": [
+        "landform_cutout_crossing_playable_boundary_retains_distant_foundation_bearings"
+      ],
+      "assertions_unchanged": 4
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/vista/owned/tests.rs",
+      "existing_test_names": [
+        "ground_projection_excludes_vertical_roundoff_at_each_mesh_scale",
+        "graded_distant_garden_frontage_has_one_surface_and_complete_ring_seams",
+        "required_owned_partitions_preserve_ordered_mesh_bytes"
+      ],
+      "assertions_unchanged": 10
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture.rs",
+      "existing_test_names": [
+        "catalog_framing_contains_every_variant_envelope_corner",
+        "every_interior_recipe_family_has_a_unique_catalog_plate"
+      ],
+      "assertions_unchanged": 9
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/catalog.rs",
+      "existing_test_names": [],
+      "assertions_unchanged": 0
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/finishes.rs",
+      "existing_test_names": [],
+      "assertions_unchanged": 0
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/rooms.rs",
+      "existing_test_names": [
+        "closed_keep_door_blocks_a_camera_ray_that_static_navigation_allows",
+        "semantic_room_selection_does_not_choose_a_denser_shop_for_a_house_view",
+        "semantic_room_signatures_prioritize_work_and_living_furniture_over_storage"
+      ],
+      "assertions_unchanged": 12
+    }
+  ],
+  "limits": [
+    "Static review only; native hosted compilation and behavior still pending.",
+    "No new test, case, assertion, helper or doctest. Existing ignored fixture requirements unchanged.",
+    "Not a PR-wide canary clearance, new full audit wave or family acceptance."
+  ],
+  "repair_commit": "b1ac5caaa8c718b09e1df85265f2adb05fea94a6"
+}

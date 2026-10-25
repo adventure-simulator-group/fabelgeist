@@ -1,0 +1,140 @@
+{
+  "packet_number": 114,
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          858
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Full literal1-858 across four bounded reads. Actual getters/hook/state/fixture bodies personally compared; no imported child-method blanket coverage.",
+      "sha256": "a1b3b6e0f7f1d9884a53f8306a3e0e9e6c1a8deb26e2b13fb163f73edd39900d",
+      "actual_EOF": 858
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          862
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Complete actual PR/P16 diff plus literal all changed imports, chronology/physical structs, validity method, getter family and fixture blocks; unchanged operation blocks identical with independent actual current enum/trait contracts. Preserve current EquipmentRevision/Sequence, no stale P16 replacement.",
+      "sha256": "513ea2b3aa9c0322422e9cea57e10c00c00fe2046f10ce6d9d0cf6460c93957e",
+      "actual_EOF": 862
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory/armor.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Actual full53 literal P16 and complete actual PR empty diff; independent same Core armor/native meanings with each parent observer/receiver personally compared.",
+      "sha256": "49cd8bc000aa19cd346741cd36179b1477050c9c1949bcddc4696e486cd0461c",
+      "actual_EOF": 53
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory/armor.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Actual full53 literal P16 and complete actual PR empty diff; independent same Core armor/native meanings with each parent observer/receiver personally compared.",
+      "sha256": "49cd8bc000aa19cd346741cd36179b1477050c9c1949bcddc4696e486cd0461c",
+      "actual_EOF": 53
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory_armor.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh actual production1-78 after Camera032 registration/global052. Blank79/test80+ excluded. ArmorItem supplier and full P16 parent recipient now personally read for operations lens.",
+      "sha256": "6eccc859a14c75eb9734e96267595d482c3216028bda7e2f4cd113b8312a996b",
+      "actual_EOF": 205
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory_armor.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Actual full production1-78 previously literally read after Native026 registration/global050; current PR parent/ArmorItem contexts now personally compared, no05/07 verdict carry; blank79/test80+ excluded.",
+      "sha256": "6eccc859a14c75eb9734e96267595d482c3216028bda7e2f4cd113b8312a996b",
+      "actual_EOF": 205
+    }
+  ],
+  "groups": {
+    "inventory-local-index-and-observation": "BodyPart maps exhaustively0..6 for7-element armor arrays; nine weapon weights indexed0..8 on fixed9. AttackHand chooses explicit right/main orleft/offhand through slot, legitimate unarmed defaults not a missing-parametric-recipe fallback. Main and offhand targets are distinct accepted observation roles. Query returns current selected item; actor inventory reverse-list coherence remains relationship/native scene product requirement.",
+    "cache-lifecycle": "rebuild observes same root+hand slot and updates cached weapon/shield together; slot removal clears only when ItemOf still resolves. Getter equipped_shield trusts cached entity rather than rechecking ownership/slot, matching CameraF032 recipient half personally. Drop caller/command application order is separately pinned Camera evidence, no executed game proof or new Root duplicate. Reverse collection/comments about native dynamic scene behavior are not a substitute for actual native admission proof.",
+    "physical-retention-and-current-integration": "P16 replaces physical length/dimensions with canonical SignedLength/CuboidDimensions and retains explicit validity comparisons, but current PR adds EquipmentRevision/Sequence which must survive combined integration. Do not replay P16 rawrevision or reintroduce primitive counters/adapters. ItemProperties weight/WeaponItem precision/inertia remain raw; finite/invariant checks not inferred from component/Reflect/serde derives. F041 now has concrete balance getter consumer. inventory_weight sums raw per-item property weights and joins F035 computed carried-mass repair; quantity-vs-per-stack semantics require actual projection producer proof, no normal missing-quantity bug asserted.",
+    "armor-aggregate-and-selected": "Parent folds all matching InventoryView armor for summary, while armor_surface selects first actual authored geometry contact from separately ordered per-item list. These populations have different meanings. Exact two-MAX resistance/flexibility1 weighted fold producesInf/InfNaN, independently extends existing RootF011 across tactical receivers, no new unique finding. Preserve deliberate zero-resistance flexibility0, coverage union/minROM, and any actual impenetrable-resistance policy; do not globally ban infinity because precision/flexibility must be finite.",
+    "armor-correlated-product": "covered_parts+positive scalar coverage does not imply Some coverage_geometry in public ArmorItem. Actual chain expects it for selection and every returned layer; a coherent admitted armor product is needed before publication, not .unwrap_or_default geometry. Existing fixture intentionally has None geometries for aggregate-only folding, so do not ban valid partial diagnostic/aggregate products globally. Source child53 defines retained contacts with distinct selected/intersected/surface facts and optional durable ID; no new ID nonzero rule or whole SDK identity proof.",
+    "fixtures-and-local-mutation": "Read all existing inventory fixtures and static marker/component definitions. Rebuild has no fallible local path after query; timing getters propagate typed elapsed error and unwrap occurs only guarded Some weapon. No tests added/executed, no foreign component-hook behavior reimplemented/validated here, no project execution."
+  },
+  "findings": [
+    {
+      "id": "ROOT-INITIAL04-F041",
+      "kind": "finite_physical_balance_intermediate_ratio_overflow_at_concrete_tactical_receiver",
+      "source_id": "physical-p16:crates/adventuresim-core/src/equipment.rs",
+      "locations": [
+        [
+          440,
+          454
+        ]
+      ],
+      "receiver": {
+        "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory.rs",
+        "locations": [
+          [
+            500,
+            512
+          ]
+        ]
+      },
+      "case": "Public helper inputs finite moment=f32MAX, mass=f32MIN_POSITIVE (>0), grip_to_tip=SignedLength(1) pass explicit input guards. moment/mass overflowsInf before sqrt; helper and actual InventoryView::weapon_balance returnInf. The mathematical sqrt of this ratio is about1.7e38, itself finite f32 range. Public WeaponItem/ItemProperties fields can represent these operands. API/raw whole-physical-product strengthening only: no current admitted recipe, ordinary tiny weapon or runtime claim.",
+      "operation": "Finite admitted leaves and an eventual representable handling coefficient do not guarantee the intermediate inertia/mass ratio is representable. Returning rawf32 publishes failed computation to PlayerEquipment consumer.",
+      "connected_repair": "Prepare a coherent admitted physical weapon product and compute/readmit its handling coefficient with explicit arithmetic failure or appropriate stable numeric ordering. Propagate the existing appropriate shared balance/physical owner through actual equipment producers/getters. Preserve zero-inertia behavior and intentional invalid-input policy only where it is an actual documented admission policy; no human mass cap, arbitrary minimum weapon mass, duplicate balance wrapper or blanket UnitInterval bound.",
+      "acceptance": "Successful physical balance getter cannot silently returnInf from unchecked finite intermediate arithmetic. Existing ordinary handling and geometry behavior retained; explicit structured rejection is valid. Existing source fixtures only, no new cases/assertions/helpers.",
+      "deduplication": "Existing Root106 noted helper precondition; new full tactical receiver closes exact route. Native05 confirmed no exact duplicate. Distinct from conditioned precision F014 and armor weighted fraction F011.",
+      "contract_ref": "ROOT-INITIAL04-CONTRACT-114"
+    }
+  ],
+  "id": "ROOT-INITIAL04-CONTRACT-114",
+  "at": "2026-10-23T03:46:57.943694+00:00",
+  "lens": "audit-invariant-operations",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-053.json",
+    "sha256": "647458b6631d1e95dc0605d894414a3716fbb0e2c60ed4a6a55057300b3238d4"
+  },
+  "mandatory_overlays": {
+    "record": "continuation/owner-range-extensions.jsonl",
+    "sha256": "131e66814e193102e32ec6b780b0909788482b6f37a9e4d74145c1205a471388",
+    "through": 237
+  },
+  "mandatory_qualification170": {
+    "record": "continuation/root/parallel-scope-qualification-170.json",
+    "sha256": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c"
+  },
+  "repair": "frozen_initial_audits_then_handover",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

@@ -1,0 +1,95 @@
+{
+  "id": "NATIVE-CAMERA-SUPPORT03-CONTRACTS-015",
+  "authority": "ROOT-ADM-SUPPORT-AUTHORITY-054",
+  "lens": "audit-admission-contracts",
+  "groups": {
+    "attachment-native-capacity-and-reservation-tag": {
+      "camera_indices": [
+        496
+      ],
+      "source_evidence": "PR character/attachment_capacity full29 actual body read.",
+      "invariant": "Transaction-local Reserved differs from every actual stored inventory ID; all-u64 IDs including0/MAX legitimate at table boundary, capacity is countu16 notnonzero.",
+      "all_admission_routes": [
+        "pub(super) closed AttachmentCapacity Free/Reserved/Occupied(u64), From<EquipmentOccupancy> copies native inventory_item_id toOccupied without narrowing. No Serde/Default/Reflect/uncheckednumeric reservation sentinel.",
+        "first_free enumerates0..capacity, admitsFree or sameOccupiedID, rejectsReserved andotherIDs; capacity0→None, maxu16 enumeration yieldsordinal0..65534. Callback providesactual table state, helperdoesnot establish ownership/membership orreserveatomically."
+      ],
+      "counterexample_or_intentional": "No raw ID sentinel collision; Reserved is explicittag. Nativecallback evidence canbefabricated bycaller but helperisnotauthoritytoken.",
+      "connected_repair": "Preserve typed tag and actual native table boundary; no unnecessary NonZero narrowing.",
+      "acceptance": "Same-itemoccupancy and0capacity semantics preserved; no aggregate DB/equipment authority credit."
+    },
+    "disease-adapters-explicit-dose-and-source-policies": {
+      "camera_indices": [
+        510,
+        511,
+        512
+      ],
+      "source_evidence": "PR administration_adapter27/exposure_sources77/interval53 full actual read.",
+      "invariant": "Persisted treatment/source/interval records are raw; adapter makes only exact ruleset/dose/ID/cursor checks it actually performs.",
+      "all_admission_routes": [
+        "administration firstmatches PHYSIOLOGY_RULESET_VERSION then DoseMilliunits::try_new(rawu32), maps maxdoseerror toString, copies rawIDs/profileversion/route/region/times/sensitivity/adverse unchanged. Actual Native073 canonicalPRDose private0..8000/Default0/TryFrom checked; no standaloneSerde oraggregateAdministration seal. Profile lookup/clamps effect_at actual073 separate recipient, not everyrowcheckedprovenance.",
+        "SettlementExposureSource pub(super)publicfields no decoder/checked constructor/default; for_settlement sorts outbreaks(start,id), localproblemexactscope filter nonemptydisease/intensity>0/mitigation<10000 sortedID truncatedcurrentcap. Parses every actual DiseaseId withtypederror, rawoutbreak intensity/times copied; problem end=min(ends,resolved_orMAX), intensity delegated mitigateddisease; exact u16 mitigation filter<10000 proves UnitBasisPoints::new expect cannotreject, including0 allowed. No requirementstart<=end/nativeoutbreakintensityfinite inthisadapter.",
+        "disease_events delegates each rawepisode/from/to/immunity to actualCoreinterval_events; no normalization itself. contact_windows intersects actualpair withavailable starts/horizons, absent maps fallbackactualpair endpoints; start=max(participantstarts).saturating_add1.max(pair.start), end=min(horizons,pair.end), onlystart<=end output. Missing one participant is intentionallyfilter_map, no hallucinatedbothpresentcheck. IDs nativeu64 notclosedmembershiptoken."
+      ],
+      "counterexample_or_intentional": "A malformed persisted rawdose>8000 is rejected before Administration, but mismatched profile/stop/sensitivity raw fields remain representable and handled only at actualrelyingkernels. Rawexposurefields no finite accepted-state contract inferred. CoreDiseaseId/interval/kernel definition proof remains exact delegated dependency (some originalNative disease/admission receipts separatelyowned), no call-name clearance.",
+      "connected_repair": "Existing physiology Dose/Administration and disease source/time whole-record claims; preserve raw rejected rows and source-specific typed-error→nativeString port. Root retains dedup/repairownership.",
+      "acceptance": "RulesetbeforeDose error order, zero-validDose, explicitallwordclock/MAXopenend, inclusivecontact+1 cursor semantics, sort/truncate order retained. No new tests/execution/fullparentbodycoverage."
+    },
+    "corpse-context-and-purpose-draw-adapters": {
+      "camera_indices": [
+        507,
+        508
+      ],
+      "source_evidence": "PR corpse/autopsy_context25 and draws27 actual full bodies read.",
+      "invariant": "Current corpse row/time inputs project diagnostic context; native deterministic draw outputs preserveclosed inclusive basispoint endpoints, not source authority.",
+      "all_admission_routes": [
+        "autopsy context delegates discovered/current/buried/exhumed to corpse_location, death/current/rawhandlingbps to decomposition_band, at_scene derivedexactScene tag; rawopeningobscurationbps copied. No new checked aggregate constructor or arbitrarybps validation in adapter. CanonicalCoreautopsy lower policy pending actualsupplier, no guessed bounds fromnames.",
+        "opening_quality derivesSeed fromexactcorpseID+actorLE+revisionLE+receipt text and nonempty purpose corpse.opening-quality; index(BASIS_POINTS_PER_WHOLE+1)→u16. permission usesattemptID+exact corpse.permission purpose, samepositive10001 upper→f32/10000, includes0and1. ActualPRRootdeterminism023 privateallwordSeed, exactindexpositiveprecondition/nativeRNG; canonicalbasispoints10000 Camera003 actualdefinition. No entropy/receiptgrammar/currentDBauthority checkedhere."
+      ],
+      "counterexample_or_intentional": "ArbitrarysourceIDs/revision bits are legitimate deterministic evidence inputs, notvalidatedpermissioncredentials. No row/patient/provenance seal from resultingbounded draw/context.",
+      "connected_repair": "Preserve source-framed drawnamespace/order and exactCoreautopsypolicy; diagnosticrawbpsnotnewprivateownerbypass.",
+      "acceptance": "No0upper/nativeoverflow; exacttypedminute input roles, no fullcorpseparentbody/authorization clearance."
+    },
+    "child-curriculum-and-coarse-equipment-law": {
+      "camera_indices": [
+        505,
+        513
+      ],
+      "source_evidence": "PR continuity/curriculum61 and equipment_law81 actualfull bodies read.",
+      "invariant": "Closed focus selects bounded authored training; rawtrack ordinal and pure law projection are separate from caller and DB source authority.",
+      "all_admission_routes": [
+        "focusdraw usesnonempty character.child-focus Seedpurpose actualPRRoot023 .index4→closedfourfocus, remainingindex branchSocialLearning. focus_training returnsEXACTtwo fixedSkill/hourpairs total2or3 realhours. curriculum rawusize trackindexes botharrays directly; valid0/1 required bycaller, no ordinalowner/checkhere. Actual age6/12/16 saturatingcalendarboundaries clipped byend/start, minute intervals convertedto fractionaldayhours, not arbitrarywallclock. Parent504actualtrackcallerstillqueued, no guessed guaranteeornew currentpanicclaim.",
+        "require_item_legal checksactualCharacter exists, no currentsettlement→Ok, missingpolicy→Ok; onlywhenpolicyexists loadsinventorythrough(characterID,itemID) anddefinition, then actualWeapon/Shieldarms/Armorarmor flag→presentedorganization privilege lookup. ErrorString atDBnativeport, no typedPermissiontokenreturned. Inputu64 arbitrary bits; source-specific absencefallbackintentional, no requestauthorizationprovidedbythishelper.",
+        "enforce iteratesactualequippedIDs, everylegalErr (includingmissingrow) causesunequip; collectsremoved andrefreshescapability thencondition onlywhenchanged. No previewtransaction/atomicitypromise fromResult; potentialmutationsprecedelaterrefreshErr retained. Actuallower organization presented_privilege/settlement_policy and parentcharacter equipdefinitions mustsupplypolicies; no entireDBgraph clearance."
+      ],
+      "counterexample_or_intentional": "Rawtrack>=2 canpanic but no sourcepromise arbitrarytrackadmitted oractualbadcaller; retainexactcallerprecondition until504read. Default/no-settlement/no-policy lawful fallback deliberatelyprecedeinventorylookup. Do not strengthen by inventingpermissions ornonzeroordinal.",
+      "connected_repair": "Existing curriculumrealhours/trackordinal andequipmentlegal/compliancefunctionclaims; typeinternaltrackwhere warranted whilepreservingactualcallerprotocol. AuthorityfromDBcurrentfacts, notgenericbool.",
+      "acceptance": "Conserve2/3h authoredsplit, agecursor/order/zero durations; preservecoarse armslaw andunequipwithoutownershipchange, refreshorder. No new executablecase."
+    },
+    "narrow-fear-blood-and-disinfectant-ports": {
+      "camera_indices": [
+        503,
+        516,
+        490
+      ],
+      "ranges": {
+        "490": [
+          [
+            569,
+            605
+          ]
+        ]
+      },
+      "source_evidence": "PR fearfull8/blood exposure_windowsfull27 andalcoholactual569–605 read; requested565–568 ispreviousfunctiontail/contextonly, NOTcoverageofthatfunction.",
+      "invariant": "These adapters preserve exact selectedrow and closed disease/threat/helper contracts; raw table text/nativeindices are not admitted membership solely byparse/type name.",
+      "all_admission_routes": [
+        "enemy_fear parsesThreatId thenid.profile().combat.fear/50+1; actualRootbestiarycurrent03 source explicitly syntaxvscatalogue membership/profilepanic distinct; no unknownIDguarantee fromparsealone. NativeStringdiagnostic preservesoriginalrejectedtext.",
+        "blood windows directlydelegate deposits/typedDiseaseId/from/to to Corefilth; compatibleforeignblood iteratesactualSTARTER_DISEASES supportingBlood andtestsnonemptyreturnedwindows. No allDiseaseIds/membership/finiteDeposit/lifetime guarantee, actualCorehelperlowerreceipt pending.",
+        "bestdisinfectant actualpersonalinventory rows→excludeactualfireplacerooted→joinexistingitemdefinition→checkedConsumableFractionMicros::try_from_ratio(requiredml,alcoholservingml).unwrap_orWHOLE→actualpersonal_fraction missingDefault→compareandpositiveeffectiveness; candidatesrank(effectiveness,rowID), Corealcoholhelperreturnsindex then candidates[index]. No localnewnonempty/finitequantitytoken orownershipgrant; exactCorehelper index precondition andfractiondefinition pending source-specificsupplier/parent. Publicreturnedtuple rawID/String/u16 diagnostic/nativeport."
+      ],
+      "counterexample_or_intentional": "Do not infermembershipfromThreatIdparse, safeindexfromhelpername, or genericfinite/nonzero fromfractiontype withoutactualdefinition. Currentexactretainedcanonicalpredicates/delegatedgaps explicit; no broadforeignwaiver.",
+      "connected_repair": "Preserve catalogueidentity versusrejectedtext, ratioerrorWHOLEfallback/missingfractiondefault andactualranktieorder. Root/Camera retains canonicalfunctionrepairauthority; laterparentbodyanalysiswilljoinactualsourceproof.",
+      "acceptance": "Only actual569–605 materialcountforalcohol490; precedingtail565–567 contextualnotreadcompletefunction. Sourceerrororder/closedBloodfilter intact, no broaderDBauthorityclearance."
+    }
+  },
+  "not_part_of_native443_or_root_batches": true
+}

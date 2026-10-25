@@ -1,0 +1,42 @@
+{
+  "id": "OWN02-QUALIFICATION-CORRECTION-004",
+  "at": "2026-10-24T02:55:18.550003+00:00",
+  "affected_registry_indices": [
+    5,
+    6,
+    7,
+    11
+  ],
+  "correction": "Four streams.rs files are StreamId replay-purpose constants, not GPU buffer streams. Existing StreamId owner positive; preserve literal replay spelling and independent purposes. Previous source-body proof remains, semantic classification corrected.",
+  "source_ranges": {
+    "5": [
+      [
+        1,
+        53
+      ]
+    ],
+    "6": [
+      [
+        1,
+        18
+      ]
+    ],
+    "7": [
+      [
+        1,
+        17
+      ]
+    ],
+    "11": [
+      [
+        1,
+        149
+      ]
+    ]
+  },
+  "new_finding_count": 0,
+  "additional_literal_source_corrections": {
+    "2": "Exact native owner ShaderBuffer, CPU length overrides descriptor size by design.",
+    "13": "Actual file primarily private native IBL phase/cache identity and extraction cleanup, not a new physical parameter record."
+  }
+}

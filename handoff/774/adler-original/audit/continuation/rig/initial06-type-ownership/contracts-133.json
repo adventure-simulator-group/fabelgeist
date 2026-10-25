@@ -1,0 +1,21 @@
+{
+  "id": "RIG-INITIAL06-GROUP-133",
+  "at": "2026-10-23T03:54:32.691647+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-054.json",
+  "groups": {
+    "route-cell-and-native-pack-owner": {
+      "comparison": "Fresh all current bounded P16 terrain roles1-100/268-577/948-995, including new054Surface59-65. Surface Road/Open/SparseWoods/DeepWoods/Water/Wetland is one low routing classification with speed table; Water0 means impassable on this land route, not positive locomotion speed. This is not WorldSchema biological biome/terrain-class vocabulary or material friction merely because labels overlap. Cell stores native decoded signed elevation, crossing/cultivation bits, canopy byte and coarse percentage observations; decoder admits allu8canopy, so do not replace with UnitInterval/0..100 type from comment alone or geospatial ElevationMeters[-500,9000] for allnativei16. Manifest/Entry are authored file wire metadata; native offsets/ranges/chunk coordinates/indexes/bytecounts and Cache.clock are package storage/cache authority, not world time/entity IDs or separate terrain version. Cache retains immutable Arc<Cell> chunks associated with one package; boundedLRU clock is operational eviction bookkeeping. Derived indexes are construction-time lookups, not independently authored terrain authority. Latitude/longitude f64 is real native raster sampling port; f32ScenePosition/WGS E7cannot replace it without precision/frame policy. Geographic bounds raw f64array is not generic f32 spatial Bounds. File-content/chunk/road/wetland/cultivation digests have different authority, even when all syntaxchecked with the samehexhelper. No called terrain_feature/routing/planner/test body credit from these ranges.",
+      "disposition": "Retain low routing Surface and native file/cache products, preserve decoded broad domains and actual units/frame distinctions. New Surface completes only this bounded enum role, no whole2059 or routing feature verdict."
+    },
+    "validated-package-identity-erased-in-retention": {
+      "comparison": "Actual Manifest.package_sha256 String is syntaxchecked by valid_digest (delegates existing WorldSchema SourcePackageDigest parser from127), verified against ordered serialized unsigned manifest SHA in load, then retained unchanged inside private TerrainPack and returned as &str through package_sha256/digest. Canonical SourcePackageDigest actual047/127 already represents immutable imported PACKAGE identity at the lowest WorldSchema owner. Keeping primitive package identity after admission duplicates that responsibility and makes current internal recipients lose the existing brand. Hash-byte/string extraction during manifest signing/serialization is a real port; it does not require accepted retained package identity remainString. This differs content_sha256/decoded chunk hash/road geometry/placement/designhash and canonical Seed; do not force those other identities into SourcePackageDigest just becausehexgrammarmatches. Typed digest is syntax+meaning, while TerrainPack loader still owns actual payload/hash binding; no typedvalue alone proves currentmanifest/content. Raw decoded manifest/source diagnostics can remain a distinct external input stage, with clean accepted schema/API using canonical leaf and no compatibilitydualpath.",
+      "disposition": "F035 reuse existing low SourcePackageDigest for admitted TerrainPack package identity and internal getters/recipients, retaining source serialization/native hash ports and contextual loader authority."
+    }
+  },
+  "source_fact_refs": [
+    "contracts-047.json",
+    "contracts-127.json"
+  ],
+  "limits": "Only P16 current material union1-100/268-577/948-995. Final995blank and plan intro575-577 are documentation context only; no plan body578+ or native fixtures credit. Actual EOF2059 retained. File loader errors/indexes do not prove every element/geographicpredicate; existing CameraF009 numeric issue remains separate."
+}

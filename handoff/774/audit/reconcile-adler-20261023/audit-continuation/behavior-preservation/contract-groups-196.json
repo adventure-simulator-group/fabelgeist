@@ -1,0 +1,83 @@
+{
+  "id": "CONT08-CONTRACT-196",
+  "at": "2026-10-25T14:07:06.085039+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 758,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_underlayer/tests.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/device_underlayer/tests.rs",
+      "before_sha256": "9a7d786f66c44c67af911f91ff7336fe88ee043d457fadce28ed7bbba9c4b7c9",
+      "after_sha256": "fd8179b3a282dda66fc89a706bc4941a3153e9d96fa03dbe3519734534090a31",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0758-base-9a7d786f66c44c67af911f91ff7336fe88ee043d457fadce28ed7bbba9c4b7c9",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/fd8179b3a282dda66fc89a706bc4941a3153e9d96fa03dbe3519734534090a31",
+      "diff": "source-evidence/pr-0758.diff",
+      "diff_sha256": "9323e1f34c9b591317fe2d27c7c092d3561755c4bbc325cc915c11da3c65ddcf",
+      "head_body_read_ranges": [
+        [
+          1,
+          341
+        ]
+      ],
+      "facts": [
+        "Full341 and entire66-line actual diff. Both underlayer fixtures preserve same geometry/cuts/normals/proportions/morphs/design/tolerance/oracles; packedindices all0 bound1 replaces vectors. Names/globals intentionally remain empty and private Fit.run bypasses public body.upload; not evidence that public nonempty body withbound1/names0 is accepted.",
+        "First direct privateFit suppliesdomain UVs and verifies .004/.005offset/closededge/UVweights; second no-domain path verifies oneendpoint, frozen lower-than-upper envelope and finite normals. These actual paths do not consult names/globalstates and preserve behavior/readback bound1; no false failing public-upload assertion or executed GPU result."
+      ],
+      "disposition": "Own08 old/new comparison accounted with concrete lower2179/2332/2336 and frame-kernel receiver; retained API limits explicit.",
+      "acceptance": "Preserve exact packing, first-error, membership and floating operation order plus existing fixture oracles; no tests or checks run."
+    },
+    {
+      "scope_index": 759,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_underlayer/wgsl.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/device_underlayer/wgsl.rs",
+      "before_sha256": "073d5ef4150b8cb02e931b270d6618caef2445135a7357482eb0e848d4aa8719",
+      "after_sha256": "073d5ef4150b8cb02e931b270d6618caef2445135a7357482eb0e848d4aa8719",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0759-base-073d5ef4150b8cb02e931b270d6618caef2445135a7357482eb0e848d4aa8719",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/073d5ef4150b8cb02e931b270d6618caef2445135a7357482eb0e848d4aa8719",
+      "diff": "source-evidence/pr-0759.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "facts": [
+        "Full86 and empty actual diff. Explicit fixedorder dot/cross and quantized-group sentinel u32MAX/capacity8 unchanged. Status bit1,2,4,8,16/ALLfirstfailureorder/messages exactly match actual755check_status and757NoInfluence writer; nativeABI mapping retained.",
+        "Named scalar formatting and status generation preserved; downstream individualweld/compression algorithms remain own08 registered/material discovery, no wholekernel clearance from sharedABI read."
+      ],
+      "disposition": "Own08 old/new comparison accounted with concrete lower2179/2332/2336 and frame-kernel receiver; retained API limits explicit.",
+      "acceptance": "Preserve exact packing, first-error, membership and floating operation order plus existing fixture oracles; no tests or checks run."
+    },
+    {
+      "scope_index": 760,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_underlayer/workspace.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/device_underlayer/workspace.rs",
+      "before_sha256": "7e94d4b4a91f817e93d5b64d77f218425609896af1cada1ab2ef7aa2b1f6160a",
+      "after_sha256": "7e94d4b4a91f817e93d5b64d77f218425609896af1cada1ab2ef7aa2b1f6160a",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0760-base-7e94d4b4a91f817e93d5b64d77f218425609896af1cada1ab2ef7aa2b1f6160a",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/7e94d4b4a91f817e93d5b64d77f218425609896af1cada1ab2ef7aa2b1f6160a",
+      "diff": "source-evidence/pr-0760.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "facts": [
+        "Full90 and empty actual diff. Actual workspace allocation reuses original triangles/incidence/cuttable/sources, radixkeys/weldhash thenfacegrid reuse, fixedstatus/allother scratch layout and compression initialized f32MAX unchanged.",
+        "Same capacity max(face_count*CELLS_PER_FACE,vertices), overflow face_count+1, worklist header+4faces, constraintsets.max1*facecount*16 and sequentialsubmission ownership retained. Primitive narrowing/overflow on enormous independent input remains sourceconditional retained behavior, not new typedskin regression or resource feasibility proof."
+      ],
+      "disposition": "Own08 old/new comparison accounted with concrete lower2179/2332/2336 and frame-kernel receiver; retained API limits explicit.",
+      "acceptance": "Preserve exact packing, first-error, membership and floating operation order plus existing fixture oracles; no tests or checks run."
+    }
+  ],
+  "next": "761 wrapped tasset339 then763+ (762 earlier own174 accounted)"
+}

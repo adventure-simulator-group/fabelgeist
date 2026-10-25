@@ -1,0 +1,28 @@
+{
+  "recorded_at": "2026-10-21T01:01:26.895882+00:00",
+  "head": "5b44a561bd7543d4edadfc65265bf0255819688b",
+  "run": 39523895965,
+  "job": 118973951622,
+  "evidence": "P06-hosted-5b44-growth.log",
+  "official_diagnostics": "Function is now below limit; debug-local:presented finding is stale. No new source growth reported.",
+  "removed_entries": {
+    "functions": [
+      {
+        "path": "crates/adventuresim-tactical-client/src/presentation/terrain.rs",
+        "item": "present_pending_terrain",
+        "ceiling": 116
+      }
+    ],
+    "findings": [
+      {
+        "rule": "debug-output-branch",
+        "path": "crates/adventuresim-tactical-client/src/presentation/terrain.rs",
+        "item": "present_pending_terrain",
+        "fingerprint": "debug-local:presented",
+        "occurrences": 1
+      }
+    ]
+  },
+  "all_other_sections_and_entries_unchanged": true,
+  "limits": "This is the official checker-requested obsolete-entry cleanup, not the full official baseline export. Full export and relevant reductions remain due after all selected checks. No local checker/formatter/build/test ran."
+}

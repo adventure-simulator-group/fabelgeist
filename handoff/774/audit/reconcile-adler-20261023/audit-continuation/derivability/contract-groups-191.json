@@ -1,0 +1,125 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-191",
+  "at": "2026-10-25T13:27:27.815689+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 374,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot.rs",
+      "sha256": "8799ec6db566e8afa5b708f0f13cb671cd6ecdbd5e02ae02a75e9c237954b1ce",
+      "actual_EOF": 1248,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-tactical-server/src/bot.rs",
+        "owner": "root",
+        "sha256": "8799ec6db566e8afa5b708f0f13cb671cd6ecdbd5e02ae02a75e9c237954b1ce",
+        "base_sha256": "8626aece6d47f2087249b45ecc70c2fc943b600943ac23e3a5eb3c7cbc55619b",
+        "state": "modified",
+        "bytes": 43407,
+        "audit_owner": "native",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/supplemental-server-assignment.json",
+            "ranges": null,
+            "source_read_status": null,
+            "trace_refs": []
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 52,
+            "read_ranges": [
+              [
+                1,
+                1248
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-BOT-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-server/src/bot.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 408,
+            "read_ranges": [
+              [
+                1,
+                1248
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-BOT-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-server/src/bot.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1248
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Default",
+          "type": "CombatRandom",
+          "lines": [
+            66,
+            70
+          ],
+          "disposition": "KEEP runtime random seed plus named combat.tactical stream binding; structural Default would change source/entropy policy."
+        },
+        {
+          "trait": "Plugin",
+          "type": "BotPlugin",
+          "lines": [
+            324,
+            348
+          ],
+          "disposition": "KEEP concrete resource initialization, observer registration, ordered/condition-dependent system chain and iteration feature observer. No fieldwise derive owns this behavior."
+        }
+      ],
+      "existing_derives": "Behavior/continuation enums, components, resources and fixture recorder structures already derive required structural/native traits.",
+      "absence_basis": "All1248 actual lines consumed including all fixtures; only two handwritten traits above. Remaining inherent constructors/materializers/queries encode gameplay/fixture policy, not wire mechanics. No child defense/offense body credit."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Bot capability materialization and plugin policy",
+      "disposition": "Retain semantic random/default and native plugin registration; no unnecessary handwritten structural implementation.",
+      "acceptance": "Keep entropy/source selection, named stream, observer/system ordering and feature-specific behavior; do not add serialization for runtime classifiers or report tests as executed."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 375,
+    "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/defense.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

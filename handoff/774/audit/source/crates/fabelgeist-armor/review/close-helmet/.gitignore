@@ -1,0 +1,11 @@
+# Generated review artifacts stay local; commit recipes, summaries, and provenance.
+*.png
+*.jpg
+*.jpeg
+*.webp
+/checks/*.json
+!/checks/provenance.json
+!/checks/provenance-35.json
+/runtime/*/manifest.json
+/runtime/*/armor-readiness.json
+/runtime/summary.json

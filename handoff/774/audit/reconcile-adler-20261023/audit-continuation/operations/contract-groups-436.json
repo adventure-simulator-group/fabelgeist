@@ -1,0 +1,58 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-436",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/mod.rs",
+      "sha256": "30d5e6301edce9013871f2322401b5a982a0a0cdd70aa556bc1404b1452a3c8f",
+      "actual_EOF": 141,
+      "actual_compared_ranges": [
+        [
+          1,
+          141
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/rock.rs",
+      "sha256": "de412c389d20a623c0246c6408e57774ac07270681d32eaae84ea1baecf790ab",
+      "actual_EOF": 319,
+      "actual_compared_ranges": [
+        [
+          1,
+          319
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry.rs",
+      "sha256": "07ca0c32d3efa1bfee78bcf7c4e3a48c1a09b563519446793b09be9c1582d666",
+      "actual_EOF": 366,
+      "actual_compared_ranges": [
+        [
+          1,
+          366
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Rock surface sampling arithmetic",
+      "analysis": "Current RockRecipe integercentimeterdimensions/radius boundfinite magnitudes, with positive/nonzero aggregateadmission needed before halfextent/proxyradiusdivision. Fixed18cubicsamplinggrid boundswork andindexcount; procedureexpectsfiniteextract_surface_netsresult, notgeneralarbitraryrawrecipeguarantee. Native slabpowers finiteforordinarybounded normalizedratios. Currentrecipefixtures readseed/archetype deterministiccontainment andlithologysurface, notrun. Noadditionaltacticalcolliderauthority inferredfromrenderedboulder."
+    },
+    {
+      "contract": "Tree specimen bounds and frame transport",
+      "analysis": "Actualauthored parameterpresets enumerateboundedheights/radii/leaffactors/stems/counts. Branch/crown structsraw nativekernelinputs require nonemptyselectedbranches, finitepositivebranchspans andunitdirections; noarbitrary-input infallibilityclaim. Crowncenter(min+max)/2 canoverflowfiniteextremes andemptyselector debugassertinrelease leavesInf, butactualcaller-generated boundedbranchesneeded. Branchframetransport handlesnearopposite tangentfallback andprojectsright, recoversnearzero projection, flipsrightforcontinuity; trueunitnonzero tangent remainsprerequisite. Terminalshootreviewselectsexistingdepth3tip thenbounded3x24viewsearch, nativeleafnormalqualitydependsactualgeneratorfrontier. Fixednatural/wind/ancient/extremegnarlingfinitecoefficientsread, no sourceexecution."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves.rs"
+}

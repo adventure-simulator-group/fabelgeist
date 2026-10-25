@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1189",
+  "at": "2026-10-25T18:05:04.081420+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1281,
+  "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/generated_cases.rs",
+  "sha256": "73138f7fd9ee10974b6eb14acf7a18a5adb75129cb936b74159c0de5397cd584",
+  "actual_compared_ranges": [
+    [
+      1021,
+      1360
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Only inherent native generated case fingerprint/current readiness/synchronization and diagnostics. No handwritten trait/custom codec/type. Fingerprint deliberately strips volatile row ids/timestamps, maps generated/core stage enum, dedups existing derived semantic lead order/equality and sorts selected action id; preserve exact semantic fields rather than whole generated type derive. Current party owner/site/life/recovery/sync safe preflight requires DB context; no structural conversion. No commands executed.",
+  "first_unfinished": {
+    "scope_index": 1281,
+    "line": 1361
+  },
+  "execution": "none"
+}

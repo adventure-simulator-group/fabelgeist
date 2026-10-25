@@ -1,0 +1,152 @@
+name: Rust quality
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "AGENTS.md"
+      - ".cargo/**"
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - "crates/**"
+      - "rustfmt.toml"
+      - "rust-toolchain.toml"
+      - "rust-quality.toml"
+      - "rust-quality-baseline.toml"
+      - "justfile"
+      - "scripts/dev_stack.py"
+      - "scripts/check_calendar_api.py"
+      - "scripts/test_check_calendar_api.py"
+      - "scripts/tests/test_dev_stack.py"
+      - "scripts/tests/test_building_review_boundary.py"
+      - "scripts/capture*review.py"
+      - "scripts/capture_shop_signs.py"
+      - "scripts/capture_workplaces.py"
+      - "assets/tactical-scenes/*review*.json"
+      - ".github/workflows/rust-quality.yml"
+  pull_request:
+    paths:
+      - "AGENTS.md"
+      - ".cargo/**"
+      - "Cargo.toml"
+      - "Cargo.lock"
+      - "crates/**"
+      - "rustfmt.toml"
+      - "rust-toolchain.toml"
+      - "rust-quality.toml"
+      - "rust-quality-baseline.toml"
+      - "justfile"
+      - "scripts/dev_stack.py"
+      - "scripts/check_calendar_api.py"
+      - "scripts/test_check_calendar_api.py"
+      - "scripts/tests/test_dev_stack.py"
+      - "scripts/tests/test_building_review_boundary.py"
+      - "scripts/capture*review.py"
+      - "scripts/capture_shop_signs.py"
+      - "scripts/capture_workplaces.py"
+      - "assets/tactical-scenes/*review*.json"
+      - ".github/workflows/rust-quality.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  CARGO_TERM_COLOR: always
+  SPACETIMEDB_VERSION: "2.6.1"
+
+jobs:
+  rust-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 2
+      - name: Install pinned Rust toolchain
+        uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: nightly-2026-07-13
+          components: rustfmt, clippy
+          targets: wasm32-unknown-unknown
+      - name: Cache Rust build artifacts
+        uses: Swatinem/rust-cache@v2
+      - name: Install pinned SpacetimeDB CLI
+        run: |
+          curl -sSf https://install.spacetimedb.com | sh -s -- -y
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+          "$HOME/.local/bin/spacetime" version install "$SPACETIMEDB_VERSION"
+          "$HOME/.local/bin/spacetime" version use "$SPACETIMEDB_VERSION"
+      - name: Install configured Linux linker
+        run: >-
+          sudo apt-get update && sudo apt-get install --no-install-recommends -y
+          mold libasound2-dev libudev-dev libwayland-dev libx11-dev
+          libxcursor-dev libxinerama-dev libxkbcommon-dev libxkbcommon-x11-dev
+          libxrandr-dev libxi-dev libvulkan1 mesa-vulkan-drivers
+      - name: Check formatting
+        run: |
+          cargo fmt --all -- --check
+          cargo fmt --manifest-path crates/adventuresim-character-creator/Cargo.toml -- --check
+          cargo fmt --manifest-path crates/fabelgeist-mhr/Cargo.toml -- --check
+          cargo fmt --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml -- --check
+      - name: Test generated bindings verifier
+        run: >-
+          python3 -m unittest
+          scripts.tests.test_dev_stack.WorkflowTests.test_binding_diff_detects_changed_and_extra_files
+      - name: Check building review presentation boundary
+        run: python3 -m unittest scripts.tests.test_building_review_boundary
+      - name: Verify generated SpacetimeDB bindings
+        run: python3 scripts/dev_stack.py verify-bindings
+      - name: Test shared schema and GPU readback boundaries
+        run: |
+          cargo test --package adventuresim-world-schema --all-features
+          cargo test --package fabelgeist-gpu --lib data::gpu::buffer::readback::tests
+      - name: Test resolved Bevy guard
+        run: cargo test --locked --package fabelgeist-rust-quality --test bevy_version_guard
+      - name: Test checked FBX array encoding
+        run: >-
+          cargo test --locked --package fabelgeist-fbx --lib
+          array_encoding_tests::array_encoding_preserves_actual_main_payload_and_error_behavior
+          -- --exact --nocapture
+      - name: Check semantic values and Rust growth
+        run: |
+          cargo test --package fabelgeist-rust-quality
+          cargo run --package fabelgeist-rust-quality -- check .
+      - name: Check calendar API ownership
+        run: |
+          python3 -m unittest scripts.test_check_calendar_api
+          python3 scripts/check_calendar_api.py
+      - name: Lint tactical client WASM target
+        run: cargo clippy --package adventuresim-tactical-client --bin adventuresim-tactical-client --target wasm32-unknown-unknown -- -D warnings
+      - name: Test native and WASM deterministic draws
+        run: |
+          python3 -B -m unittest scripts.test_check_deterministic_rng
+          python3 scripts/check_deterministic_rng.py
+          cargo install wasm-bindgen-cli --version 0.2.126 --locked
+          python3 scripts/test_determinism.py
+      - name: Run Clippy with warnings denied
+        run: |
+          cargo clippy --workspace --all-targets --all-features -- -D warnings
+          cargo clippy --locked --manifest-path crates/adventuresim-character-creator/Cargo.toml --all-targets --all-features -- -D warnings
+          cargo clippy --locked --manifest-path crates/fabelgeist-mhr/Cargo.toml --all-targets --all-features -- -D warnings
+          cargo clippy --locked --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml --all-targets --all-features -- -D warnings
+      - name: Test constraint graph and shell consumers
+        timeout-minutes: 20
+        env:
+          EXPECTED_SOURCE: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          mkdir -p target/constraint-validation
+          git rev-parse HEAD | tee target/constraint-validation/source.txt
+          printf '%s\n' "$EXPECTED_SOURCE" > target/constraint-validation/pr-head.txt
+          git merge-base --is-ancestor "$EXPECTED_SOURCE" HEAD
+          export XDG_RUNTIME_DIR="$RUNNER_TEMP/constraint-runtime"
+          mkdir -p "$XDG_RUNTIME_DIR"
+          chmod 700 "$XDG_RUNTIME_DIR"
+          cargo test --locked --package fabelgeist-xpbd --package fabelgeist-shell -- --test-threads=1 2>&1 | tee target/constraint-validation/tests.log
+          git diff --exit-code -- Cargo.lock crates/adventuresim-character-creator/Cargo.lock crates/fabelgeist-mhr/Cargo.lock crates/fabelgeist-numpy-storage/Cargo.lock
+      - name: Upload constraint validation evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: constraint-validation-${{ github.run_id }}-${{ github.run_attempt }}
+          path: target/constraint-validation/
+          if-no-files-found: error

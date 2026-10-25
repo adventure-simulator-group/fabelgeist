@@ -1,0 +1,57 @@
+{
+  "at": "2026-10-23T22:42:32.596516+00:00",
+  "id": "pc120-tasset-support-native-trace-001",
+  "reads": {
+    "crates/adventuresim-character-creator/src/device_garment_tassets.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/device_wrapped_tasset.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/device_tasset_controls.wgsl": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/device_tasset_sections.wgsl": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/device_section_hull.wgsl": [
+      [
+        1,
+        10000
+      ]
+    ]
+  },
+  "contract": "Tasset suspension/model-space support and source-associated populations through native hull/metadata allocation, stages and final shell acceptance",
+  "coverage_limit": "Five complete bodies read; exact native downstream wrapped shape and source suspension caller addressed next packet. No claim that shader-internal canaries are harmless across other lenses; raw-symbol roles explicitly recorded.",
+  "disposition": "M19/M108 continuous physical source: canonical design/rootjoint position -> rawtop/bottom suspension Option<f32> retained Support metadata. Actualbodyreference MHR/model frame not tacticalquantized scene. M16 raw ordered thigh_end/waist_end/nodes/layer_nodes/samples capacities persist before GPUupload, backingvertexselection/triangles and metadatafixedslots; actualfixedSAMPLES_PER_TRIANGLE9 accounts max3edgevertices+6planeintersections and capacity+1 for hullclosure. Checked finite top>bottom andlow/high/thigh/waistconditions present, yet derived nodes=((high-low)/.025).ceil asu32+1 notclosed bygeneralfinitef32; owneradmission/operations lens mustretain rawAPIextremequalification, noactualbadbodyallocationassertion. ActualnewSupport validatesdesign beforemetadata arithmetic, publiclayerindices validity dependsadmitted ArmorLayerSurface graph. TassetDepth missingforwardnormal uses explicitdepth=e.z fallback numericalpolicy, notproven missingauthoritativegameplayfact. Wrappedhull build handlescount<3; native section validatesvertices3..HULL_LIMIT andORstatus; controls checksstatusbeforemeasurements; CopyStatusjoinsleft/right beforefinalpart. Finalmeshcheckspan verifiesfinalshellafterextrusion/fluting, importantacceptance. Preservevalidnoadditional layers, orderedleft/right components, canonunposedYup+Xleft. Shadercollect_points stilluseslast_distance=-1/best=MAX ordinal withbreak branch; native numericalcanaries require enum/state/magic lens independentassessment, notsourcegraphclearance. Distinctfrom CPU SentinelCannotArrive: actualindexselectionnative algorithm anddistancecomparisonnotretained simulationtime. M06 exact structuredcause requiredfor genericensure span/support/finalheight error. No ordinary failure/run/validation.",
+  "finding_traces": {
+    "M16": {
+      "source": [
+        "device_wrapped_tasset.rs:21-29,65-116,239-264"
+      ],
+      "trace": "Support partitions and node/population counts retainedindependently with metadata offsets thencompute scratch capacities and shaderfirst/count; carry canonical association through shared geometry/buffer owners rather than wrapperalone."
+    },
+    "M19": {
+      "source": [
+        "device_wrapped_tasset.rs:34-52,188-206,309-325"
+      ],
+      "trace": "Suspension Option<f32> crosses Support::new and record_wrapped_tassets thenretains rawmodel-spaceheightspan inmeshvalidation closure; typed continuous model coordinate/length owner mustcoveractualsource andrecipient without wrong scene datum."
+    }
+  },
+  "frontier": {
+    "file": "crates/adventuresim-character-creator/src/device_gorget.rs",
+    "work": "PC120 tasset support/slices/nativehull bodies accounted. PC121 gorgetcompletegraph andwrapped native source/suspension link; remaining all13 discovery unchanged incomplete."
+  }
+}

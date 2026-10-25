@@ -1,0 +1,51 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-001",
+  "at": "2026-10-22T18:44:40.433671+00:00",
+  "lens": "audit-invariant-operations",
+  "authority": "root/parallel-initial-audits-081.json",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/length.rs",
+      "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+      "actual_read_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "snapshot": "pr-working"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "268891d7d5556895ace4c6ce33b14953e35d5973bfce9b042e4b9d2dbc721a86",
+      "actual_read_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "snapshot": "pr-working"
+    }
+  ],
+  "groups": {
+    "positive_length_owner_file": {
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/length.rs",
+      "actual_input_guarantee": "PrivatePositiveLength f32finiteAND>0; actualconstructor checksfinite thennegative thenzero beforeSelf, customSerde sharesroute, onlyCloneCopyexistingvalues/opaqueReflect typedreplacement, no fieldmutation/publicbacking exposedhere.",
+      "operations": "Entire40readfresh. Thisfile definesnativefrom_metres/getter/customDeserializeONLY; noAdd/Mul/Div/scale/accumulate/norm/index/subtract/mutator. Nativecomputed overflowInf/underflow0 submittedtoconstructor rejectedwithoutpublishingSelf ormutatingexistingstate. Constructorcomparisonisgate notarithmetic proofaboutotherfiles. Nativegetterpublishesrawf32intentionally, downstreammath operation anditsfinalreadmission belongsitsownexactsourcecell.",
+      "disposition": "NO_BREAKING_OPERATION_IN_EXACT_OWNER_FILE; otherconsumeroperationsremainincompleteuntil04comparison",
+      "acceptance": "Preservefinitepositiveinclpositivesubnormals, distinguishzero/negative/nonfiniteerrors. Do not inferposition/collider/signedlength guarantees orreplace0withminimumfallback."
+    },
+    "unit_interval_selection": {
+      "source_id": "pr-working:crates/adventuresim-core/src/unit_interval.rs",
+      "actual_input_guarantee": "Privatef32finiteinclusive[0,1], from_fraction/TryFrom/manualSerde try_from allsharepredicate, DefaultZERO/constantsZERO/ONE/HALF valid. NoReflect/rawmutableescape shownhere; negativezero valid actualintervalpolicy.",
+      "operations": "Freshentirefile. max(self,other) isonlybespokeproducingoperation beyondadmission/constants. ForANYtwoactualadmittedfinite[0,1] operands f32maxselectsonefiniteboundednumericvalue; noaddition/multiplication/division/norm/accumulationoverflow. Eitherzero-signtreatment preservesinclusivebounds andnativecontract. Self(rawmax) thereforepreservesinvariantwithoutredundantTryFrom. fraction/From<f32> outboundtrait isactuallyFrom<UnitInterval>forf32 extraction; neitherconvertsrawfloattoSelfunchecked. No mutations/retryclocks/partialstatewritesinthisfile.",
+      "disposition": "INVARIANT_PRESERVED_FOR_ACTUAL_MAX_OPERATION; consumerscaling/sum/ratio kernelsseparate04cells",
+      "acceptance": "Retainsignedzerovalidity/native maxsemantics, 0and1closedendpoints; avoidhypotheticalNaNoperand requiringundefined/unsafeviolationofprivateowner. Rejectcomputedout-of-bound elsewhereatownercanonicalboundary, notmaxclampshere."
+    }
+  },
+  "source_edits": 0,
+  "project_execution": 0,
+  "repair": "frozen_all13_initial",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

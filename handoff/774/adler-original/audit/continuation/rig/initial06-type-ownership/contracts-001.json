@@ -1,0 +1,102 @@
+{
+  "id": "RIG-INITIAL06-GROUP-001",
+  "at": "2026-10-22T18:39:15.201019+00:00",
+  "lens": "audit-type-ownership",
+  "authority": "root/parallel-initial-audits-081.json",
+  "scope": "0142748 +197mandatoryoverlays; this group only exact21 full PR bodies",
+  "comparison_basis": "Fresh entire listed bodies, actual declarations/constructors/fields/imports/exports/manifests examined specifically for placement and competing meaning. Source hashes pin evidence only. Actual caller critical source ranges and personally consumed current03 semantic narratives support current role flow, not lens verdicts.",
+  "groups": {
+    "neutral-checked-geometry": {
+      "files": [
+        "crates/fabelgeist-geometry/src/length.rs",
+        "crates/fabelgeist-geometry/src/measurement.rs",
+        "crates/fabelgeist-geometry/src/cuboid.rs",
+        "crates/fabelgeist-geometry/src/error.rs",
+        "crates/fabelgeist-geometry/src/lib.rs",
+        "crates/fabelgeist-geometry/Cargo.toml"
+      ],
+      "ownership": "One canonical checked geometry crate already owns finite SignedLength, finite positive PositiveLength, nonnegative Area and zero-valid CuboidDimensions plus portable typed errors. No application import in actual manifest, optional bevy-math/reflect adapters. Positive->Signed is actual subset reuse, not independently maintained equivalent wrapper. Cuboid retains SignedLength axes plus nonnegative aggregate checks; do not narrow zero-valid point/line geometry to PositiveLength/LeafDimensions. Publiclib reexports actual definitions; serializer Vec3 tuple identity is native representation, not competing ownership. Shared mathematical units lack finite/bounds policy and cannot replace these owners. Necessary compatible generic finite/angle ownership relocation F001; existing exact error/sign/zero/decode order preserved."
+    },
+    "neutral-numerical-units": {
+      "files": [
+        "crates/fabelgeist-math/src/units.rs",
+        "crates/fabelgeist-math/src/lib.rs",
+        "crates/fabelgeist-math/Cargo.toml"
+      ],
+      "ownership": "Actual Metres, Ratio, RadiansPerMetre, TurnsPerMetre, PerMetre, Acceleration and model-frame AccelerationVector constructors deliberately retain ALL f32 values/derivedSerde, not finite checked values. SignedLength requires finite signed metres and UnitInterval requires finite[0,1]; equal storage/units do not make them duplicate owners. Distinct inverse metre/angular frequency units must stay distinct. Math lib owns numerical vector/matrix/transform exports and units, no game dependency; optional GPU dependency only feature/native projection. Do not consolidate via .into() or impose checked geometry invariants on unrestricted native calculations."
+    },
+    "core-shared-time-fraction-speed": {
+      "files": [
+        "crates/adventuresim-core/src/elapsed.rs",
+        "crates/adventuresim-core/src/unit_interval.rs",
+        "crates/adventuresim-core/src/linear_speed.rs",
+        "crates/adventuresim-core/Cargo.toml"
+      ],
+      "ownership": "Actual Core owns finite nonnegative f32 seconds AnimationElapsed, finite[0,1] UnitInterval, finite signed/nonnegative/strictpositive speed leaves with distinct zero policies. Tactical depends Core, Core does not depend Tactical/building; current elapsed/speed consumers HeightSpeed/PositiveAnimationDuration/Cadence reuse canonical leaves and refine roles. Core game-mechanic shared owner is presently coherent; no second AnimationElapsed definition in tactical source. UnitInterval differs unrestricted Ratio and discrete integer probabilities. Native Duration uses different representability/clock boundary, not equivalent renamed owner. Elapsed name narrower than shared use is naming/granularity question, no established competing owner from this group."
+    },
+    "building-generic-geometry-and-facade": {
+      "files": [
+        "crates/adventuresim-building-generator/src/spatial_geometry.rs",
+        "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+        "crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+        "crates/adventuresim-building-generator/Cargo.toml"
+      ],
+      "ownership": "Actual spatial facade reexports neutral length/area/cuboid/error SAME Rust definitions, no parallel scalar implementation. But generic frame GeometryFrame/Position/Displacement/Elevation/PlanDirection/SpatialDirection and RigidRotation plus frame-independent Radians are defined in application generator. Actual Tactical Scene/GateRelative/GroundRelative and FurnitureLocal implement this generator-owned trait, and Tactical turn deadline retains generator-owned Radians. Generic finite/frame arithmetic is common geometry; actual Architectural/Furniture/Scene frame markers and collision/datum projections remain their application-owned responsibilities. F001 proposes canonical generic geometry/finiteangle move to existing neutral crate via explicit optional engine/reflect adapter, preserving all distinct frames and representations; no architectural-to-scene implicit conversion."
+    },
+    "animation-length-role-refinement": {
+      "files": [
+        "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+        "crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+        "crates/adventuresim-tactical-core/src/animation/cadence_limit.rs",
+        "crates/adventuresim-tactical-core/Cargo.toml"
+      ],
+      "ownership": "Actual PositiveAnimationDuration wraps Core AnimationElapsed and rejectszero, preserving seconds; HeightDistance/HeightSpeed retain height-specific role wrappers over zero-valid length/Core speed. StepCadence is steps/sec with explicit cycles=steps/2, not sampled animation Hz or arbitrary PerSecond; authored cap owns transition relation and positive calibrated stride floor. CadenceDemand overflow is actual local operation evidence, not separate duplicate rate owner. PositiveLength/SignedLength imports travel through building facade even though canonical definition already neutral; directly import canonical neutral module in connected migration, no duplicate definition or compatibility facade solely to preserve old path. F002 is suggestion to place existing generic NonnegativeLength leaf beside neutral checked geometry while retaining actual height/cadence/elapsed role wrappers; do not unify finite>0, >=0 and signed metres."
+    }
+  },
+  "additional_actual_focused_witnesses": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/turn_deadline.rs",
+      "ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "status": "partial actual ownership witness only; entire432 source NOT cleared here",
+      "meaning": "TurnPolicy::Deadline stores generator Radians and tactical positive duration; local facing/turn policy remains Tactical."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+      "ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "status": "partial actual ownership witness only; entire270 source NOT cleared here",
+      "meaning": "Scene/Gate/Ground markers own distinct datum semantics, implement generator GeometryFrame; ArchitecturalFloor/CollisionCentre projection owns cross-frame handoff."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/furniture.rs",
+      "ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "status": "partial actual ownership witness only; entire345 source NOT cleared here",
+      "meaning": "FurnitureLocal distinct supporting-feet datum; remains producer-owned marker, generic GeometryFrame contract shared."
+    }
+  ],
+  "consumed_semantic_source_receipts": [
+    "root/admission03/contracts.jsonl#ROOT-ADM-GEOMETRY-001 (actual neutral geometry/frame/codec body semantics, not prior verdict)",
+    "native/admission03/contract-groups-001.json#/groups/authored-cadence-cap",
+    "native/admission03/contract-groups-001.json#/groups/height-and-impact-leaves",
+    "native/admission03/contract-groups-003.json#/groups/facing-turn-operand-admission"
+  ],
+  "finding_refs": [
+    "RIG-INITIAL06-F001",
+    "RIG-INITIAL06-F002"
+  ],
+  "exclusions": "No operation/admission/aggregate/granularity/enum/magic-string clearance. No P16/P17 source carry yet; distinct variants remain incomplete. No claim all generic geometry consumers exhausted by this group."
+}

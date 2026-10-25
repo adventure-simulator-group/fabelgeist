@@ -1,0 +1,74 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-491",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement/tests.rs",
+      "sha256": "a79667760aff1f020c5a0a9c92213a755852b225e44b534cd88de28e57e69d46",
+      "actual_EOF": 392,
+      "actual_compared_ranges": [
+        [
+          1,
+          392
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source/presented.rs",
+      "sha256": "62b9ee8ef4e79762a0461d366d99a44e77dded7f0a362ea105da1515af8db4ee",
+      "actual_EOF": 248,
+      "actual_compared_ranges": [
+        [
+          1,
+          248
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source/region.rs",
+      "sha256": "aab2deff4bbdbd96050f2c2016de6e735105d4d6643e4ec5854262eac1ab2bc3",
+      "actual_EOF": 146,
+      "actual_compared_ranges": [
+        [
+          1,
+          146
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/transport.rs",
+      "sha256": "09a9c25e0a7dafb032f9ea8aff1047088315596a4ffc23bcda809a40bd5574e8",
+      "actual_EOF": 115,
+      "actual_compared_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Actual support fixtures distinguish admitted source from live verification",
+      "evidence": "Full392 settlementtests: twofixtures sourcecliponce, duplicateownershipbeforeclip, exactsharedboundary versuspositiveoverlap, separateedgelevels/ceiling, postcardroundtrip andrender/physicsquery equality, ownedrefinement rejection and externalapronoverlap assertions. No execution. No existingfixture here covers natural=[] with nonemptycutfaces, so candidate490 remains independent."
+    },
+    {
+      "contract": "Presented source geometry shares canonical seam arithmetic",
+      "evidence": "Full presented248: first validates everyring dimensions/count/positivefinitespacing/origin0/strictlyexpanding, then fullring composition uses same presented_vista_vertex_height and renderer subdivision, checked PlanDisplacement and finalGeographicSurface admission. Source composition iterates completeVistaSample rather than configured selectednativecohort; relates candidate459 selectedLODauthority but actualproducer/cohortintent closure needed, no new duplicate count. Tests preserve fineplayablediagonal and rejectoffset/nonexpanding input."
+    },
+    {
+      "contract": "Complete geographic measurement versus traversal certainty",
+      "evidence": "Full region146: convexfootprint fulltriangleintersections f64areas/grades, finalcoveredarea owner checked, missingarea explicit and verticalretainingtraversal intentionally excluded. Full transport115: serializationvalidates, binaryderivecanonicaltopology ondecode and finalvalidate; human-readable explicitindices validated. u32positions count bounds doesnot automaticallyprove every usize32workbudget for enormousstandalonecells; no ordinarysmallbufferpanic or currentdecodeexecution claimed. Settlementadmission separately checks totalpresentationcount."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/transport/tests.rs"
+}

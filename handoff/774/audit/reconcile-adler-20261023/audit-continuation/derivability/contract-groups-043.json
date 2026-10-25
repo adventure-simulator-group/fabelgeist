@@ -1,0 +1,178 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-043",
+  "at": "2026-10-25T11:53:17.385154+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 134,
+      "source_id": "physical-p16:crates/adventuresim-core/src/road_encounter_catalog.rs",
+      "sha256": "62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+      "actual_EOF": 2689,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-core/src/road_encounter_catalog.rs",
+        "snapshot": "physical-p16",
+        "path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\road_encounter_catalog.rs",
+        "sha256": "62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Read-only source assignment; whole-function repair ownership remains in authoritative claims.",
+        "scope_limits": "Explicit material contracts/ranges and necessary signature dependencies only; no implied whole-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/expanded-producer-delta-map-049.json",
+        "actual_line_count": 2689,
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 33,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CHALLENGE-028",
+            "json_pointer": "/current_sources/2",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row123/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                180,
+                395
+              ],
+              [
+                995,
+                1039
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                180,
+                395
+              ],
+              [
+                995,
+                1039
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": true,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved",
+        "admission03_increment077_role_observations": [
+          {
+            "supplier": "camera",
+            "registry": "continuation/camera/admission03/source-range-registration.jsonl",
+            "row_1based": 39,
+            "registration_id": "CAMERA-ADM03-REG037",
+            "original_record": {
+              "id": "CAMERA-ADM03-REG037",
+              "at": "2026-10-22T15:14:48.029674+00:00",
+              "authority": "CONT-ROOT-ADMISSION03-DISCOVERY-AUTHORITY-043",
+              "source_id": "physical-p16:crates/adventuresim-core/src/road_encounter_catalog.rs",
+              "sha256": "62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+              "actual_EOF": 2689,
+              "ranges": [
+                [
+                  1,
+                  179
+                ],
+                [
+                  396,
+                  994
+                ]
+              ],
+              "material_caller": "Original83 rawoutcomes180-395 andimmutabledefinitions995-1039 directly reachcomplete EncounterDefinition/Transition andvalidate_definitions/itemmembership/lineIDhelpers",
+              "role": "Complete exactdirectproduction catalogue admission only; NativeRootsupport005fullPR actualsupplier for current semanticcounterpartcomparison",
+              "exclusions": "No tests1041-2689, no newcataloguecontentfiles/buildexecution/SDKgraph; original fullPRRootsource notCameraownership",
+              "status": "registered BEFORE new body analysis"
+            },
+            "local_qualifications": [
+              {
+                "registration_id": "CAMERA-ADM03-REG037",
+                "at": "2026-10-22T18:25:03.942345+00:00",
+                "source_id": "physical-p16:crates/adventuresim-core/src/road_encounter_catalog.rs",
+                "sha256": "62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+                "actual_EOF": 2689,
+                "original_registered_ranges": [
+                  [
+                    1,
+                    179
+                  ],
+                  [
+                    396,
+                    994
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    1,
+                    179
+                  ],
+                  [
+                    396,
+                    994
+                  ]
+                ],
+                "context_only_ranges": [],
+                "role": "Complete exactdirectproduction catalogue admission only; NativeRootsupport005fullPR actualsupplier for current semanticcounterpartcomparison",
+                "proof_refs": [
+                  "CAMERA-ADM03-106"
+                ],
+                "qualification": "Exact registered current role limits; reference source contract and original exclusions remain mandatory, no whole-file or included callee credit.",
+                "exclusions": "No tests1041-2689, no newcataloguecontentfiles/buildexecution/SDKgraph; original fullPRRootsource notCameraownership",
+                "source_registration_record": "continuation/camera/admission03/source-range-registration.jsonl#CAMERA-ADM03-REG037",
+                "no_source_body_credit_from_metadata": true,
+                "no_global_or_other_lens_credit": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                1,
+                179
+              ],
+              [
+                396,
+                994
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\road_encounter_catalog.rs",
+            "actual_EOF": 2689,
+            "bytes": 102348
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1039
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "All authoring/presentation records and wire enums use serde Serialize/Deserialize with explicit deny_unknown_fields, tag, snake_case and default attributes; structural Clone/Copy/Debug/Eq/order derives where declared.",
+        "CombatOutcomeKind structural Clone/Copy/Debug/PartialEq/Eq"
+      ],
+      "absence_basis": "Personally consumed every1\u20131039 body: record/enum declarations, inherent treatment/payload access, semantic outcome classification, complete definition validation, effect/item/line/prose/ID validation and embedded catalogue selection/load. No handwritten trait or serializer impl in these exactmaterial ranges. Semantic validation/error precedence and outcome aliases are not derive boilerplate.",
+      "coverage_limit": "Exact registered1\u20131039 only of2689. OUT_DIR include is a source reference, not generated-body coverage; later fixture/unregistered functions not credited."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Road encounter authoring and presentation derives already own record wire",
+      "disposition": "Retain explicit schema attributes and post-deserialization semantic validators. No new lens10 suggestion.",
+      "acceptance": "Preserve tagged enum/field default/unknown-field wire, dependent backing/mechanic checks, ignore error ordering, item/cast membership and exact String errors. Do not add Serialize to runtime classifiers merely to replace match functions."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 135,
+    "source_id": "physical-p16:crates/adventuresim-core/src/settlement_economy.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

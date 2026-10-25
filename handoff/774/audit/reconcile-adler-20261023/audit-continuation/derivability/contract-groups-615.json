@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-615",
+  "at": "2026-10-25T16:13:33.689826+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 941,
+  "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation.rs",
+  "sha256": "df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+  "actual_compared_ranges": [
+    [
+      1,
+      660
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Fresh441\u2013660 native item-kind/field compatibility, armor/weapon numerical policy and explicit carry/placement/tag relationships; equipment validation begins. No additional handtrait/codec. This multi-diagnostic semantic admission cannot be replaced by raw derived record construction; child numeric/occupancy/surface modules separate.",
+  "first_unfinished": {
+    "scope_index": 941,
+    "line": 661
+  },
+  "execution": "none"
+}

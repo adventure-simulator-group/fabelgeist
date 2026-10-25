@@ -1,0 +1,99 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-360",
+  "at": "2026-10-23T12:36:59.028372+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair_preview.rs",
+      "sha256": "800207ff944cfc7487b00bfbaa888dbe254ec85340094e9104c392b54b14ea78",
+      "scope072_index": 807,
+      "actual_EOF": 343,
+      "scoped_ranges_compared": [
+        [
+          1,
+          343
+        ]
+      ],
+      "actual05_comparison": "Fresh full preview/cache/material source and previously global066 scalp map/GPU context definitions. Actual worker identity, model snapshot, map host/shader coordinates and device buffer/scratch ownership compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair_preview/assets.rs",
+      "sha256": "1945aa84edf49348310989955b6f814cc19ae8cceaf87d85400f4bce8cf9a296",
+      "scope072_index": 808,
+      "actual_EOF": 225,
+      "scoped_ranges_compared": [
+        [
+          1,
+          225
+        ]
+      ],
+      "actual05_comparison": "Fresh full preview/cache/material source and previously global066 scalp map/GPU context definitions. Actual worker identity, model snapshot, map host/shader coordinates and device buffer/scratch ownership compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/scalp_map.rs",
+      "sha256": "717bbedb859bc7b5df413aeea35d20cccbdf1e08dc53f2f8d692b72dc2cc662e",
+      "scope072_index": 2844,
+      "actual_EOF": 147,
+      "scoped_ranges_compared": [
+        [
+          1,
+          147
+        ]
+      ],
+      "actual05_comparison": "Fresh full preview/cache/material source and previously global066 scalp map/GPU context definitions. Actual worker identity, model snapshot, map host/shader coordinates and device buffer/scratch ownership compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+      "sha256": "f8844fc7362364c5217079615e4459865865020ba4a36f5b25a8997cdd9c8f92",
+      "scope072_index": 2845,
+      "actual_EOF": 138,
+      "scoped_ranges_compared": [
+        [
+          1,
+          138
+        ]
+      ],
+      "actual05_comparison": "Fresh full preview/cache/material source and previously global066 scalp map/GPU context definitions. Actual worker identity, model snapshot, map host/shader coordinates and device buffer/scratch ownership compared."
+    }
+  ],
+  "groups": [
+    {
+      "id": "current worker source snapshot and requested identity",
+      "comparison": "807 BodyHead copies generated positions/global joints and current model faces/skin/names together, fits HeadPlacement from exact current GroomedHair head then places same body. Worker stores requested Groom and bodyArc with handle, result contains grown/placed/gpu from same closure. A replaced JoinHandle is detached, not published by current collect; current collect only joins retained worker and binds result to its stored bodyArc. Preview.placed requires groom equality ANDArc identity before drawing, so a completed obsolete result can be cached but is not selected for currentbody. Normal body regeneration mesh despawn remains parent source obligation, not inferred solely from comments."
+    },
+    {
+      "id": "exact F057 public groom identity consumer",
+      "comparison": "Current807125-142 trusts grown.groom and placed.hair.groom as cache identities. Own804 fresh source shows public groom can change without private buffers/head/scalp/texture; place copies changed label while using old generated payload. Personally consumed Camera07F057/CON267 exact finding and compare current producer/cache body: independent05 support only. Normal preview holds Arc and does not mutate groom, no ordinary badframe claim. Requested mutable HairDesign and pigment redraw remain intentionally separate."
+    },
+    {
+      "id": "native mesh and scalp channels coherent normal factories",
+      "comparison": "808 mesh uses GpuGeometry.vertices/faces from same private803 layout, native head ordinal checkedu16 then all rows singleheadweight1; positions placeholders intentionally zero because shader reads same geometry buffers. Cap mesh copies actual cap columns/faces and same head binding; their count consistency depends on actual796 original scalp producer. Materials read current pigment/form and same placed atlas/geometry, not stale growth colour. Current model/skeleton identity beyond headordinal is actual BodyHead/cache parent responsibility."
+    },
+    {
+      "id": "mip and scalp buffer adapters now exact",
+      "comparison": "808 atlas_image gathers actual797 levels; mip_image concatenates rgba in same supplied mip order and usesfirst size/levelcount. No arbitrary mismatched userlevels seal, caller passes private placed atlas. scalp_images binds actual same798shade/strands buffers to two image uploads; actual upload scheduling/format body separately queued. New2845 storage pads minimum16bytes, upload empty input pads four default elements; native logical counts continue uniforms, padding does not invent geometry rows."
+    },
+    {
+      "id": "one GPU owns kernels and serialized scratch use",
+      "comparison": "2845 HairGpu::new creates context clone, one cache and same device groomer plus field/place/strips/bake kernels. Mutex guard serializes groomer scratch recording, poison recovery documented every next groom sizes/clears but native producer bodies stillneeded to prove exact reinitialization. No arbitrary cross-device GroomedHair.place accepted guarantee or runtime GPU validation inferred from WgpuContext types. KernelSource actualcache percontext, no global kernel namespace equivalence."
+    },
+    {
+      "id": "scalp coordinate host shader comparison",
+      "comparison": "2844 ScalpMap.fit uses same grown scalp/head, narrow cone axis, projected forward/side, widest angle plus positive rim margin. uv uses same center/axis/rim and inverse concentric square pieces as actual799 map_texel, differing output scale0..1 versus texelsSIZE intentionally.796 cap uses original scalp UV while current placement changes positions, keeping texture bound to producer geometry. Sampled cone iteration/mean radius/empty directions fallback are approximate native geometry policy; no every raw Head/Surface finite nonempty acceptance theorem."
+    },
+    {
+      "id": "source role and limits",
+      "comparison": "Four full productionfiles no inline fixtures.066 newscope definitions independently own05 read now, not credited from Camera registration or scope hash. Exact native upload/dispatch/MHR model and preview parent lifecycle bodies remain separate. Existing F050 bodycache model dependency and F019 affine degeneracy stayqualified, no extra count."
+    }
+  ],
+  "new_unique_findings": [],
+  "existing_finding_support": [
+    "CAMERA-INITIAL07-F057 public groom identity used as cache key"
+  ],
+  "remaining_dependency_obligations": [
+    "Actual parent model cache/regeneration and queued preview shader/upload adapters remain independent roles."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

@@ -1,0 +1,30 @@
+{
+  "id": "RIG-INITIAL06-GROUP-269",
+  "at": "2026-10-23T07:57:02.221175+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "preparation-authority-original-fixture": {
+      "comparison": "Fresh original DB authority_tests207 exercises actual IngredientPreparationAction/FoodPreparation, lot material revision, request generation, physical object and operational custody binding. Character ID, carried row ID, lot ID, physicalObjectID, revision and attemptgeneration are distinct identities/cursors despite raw u64 arguments; no merge into generic ID. Digest is versioned semantic request binding, not randomSeed or persistedobjectidentity. Cut/Grind operation vocabulary differs from resulting preparation state, so two enums are not duplicate owners simply because mapped in one branch. Native DB test actor/condition mutation is an intentional fixture route, not proof accepted production constructor; bootstrap token gate and replay/conservation assertions observed as source only. No reducer execution or test pass claimed.",
+      "disposition": "Keep request/custody/material revision and preparation state authorities distinct; reuse canonical operation vocabulary in production and fixture."
+    },
+    "weapon-furniture-dimension-policy": {
+      "comparison": "Fresh dimensions/furniture217 validates weapon furniture components, not world furniture placement. Wheel, grip, collar, socket, mace and pommel shape parameters share canonical recipe quantities but have different strictpositive/zero-valid/bounded/scaled units. Actual signed shape factors use abs<=128, twist<=3600 degrees, counts have sampling budget, and structural relationships compare diameter/thickness/seat; equal f64 predicates do not justify one role type erasing these distinctions. Metres/NonZero-like length leaves should remain lower shared units with stricter component predicates local. No duplicate worldFurniture/Cuboid scene owner inferred from function name cuboid or rawsize array; exact recipe Box positive policy differs from zero-valid generic neutral CuboidDimensions. No universal accepted shape/physical output seal inferred from Checked result or uninspected positive helper.",
+      "disposition": "Keep shape-specific aggregate dimension relations with canonical unit leaves; distinguish weapon furniture from architectural furniture and generic cuboid roles."
+    },
+    "gltf-image-packaging-native-boundary": {
+      "comparison": "Fresh textures170 owns explicit GlbOutput Standalone versus SharedTextures packaging capability, not legacy schema paths. SurfaceTextures basecolor/normal/linear occlusion/cutout and ShellTextures normal/metalroughness have different imagechannel meanings, so generic RGBAColor cannot replace packed normal/metric images. Canonical armor Metal supplies actual source textures; png bytes, glTF JSONimage/texture indices, content-addressed filenames and buffer views are native wire packaging ports. Shell cache keyed borrowed address is local reuse, not durable shell identity; lifecycle validity needs separate proof, not ownership inference. Content digest differs from design/catalogue/asset identity. F005 semantic color leaf reuse upstream remains without branding arbitrary texturebytes; no image generation/read/write/export was executed.",
+      "disposition": "Keep packaging and channel semantics at glTF adapter, reuse canonical material source and distinguish content identity from object identity."
+    },
+    "plant-studio-editor-versus-production-recipe": {
+      "comparison": "Fresh viewer main215 reuses canonical PlantLod/Seed/Family/Recipe and only local View Full/Head/Underside, RecipeOrigin Preset/Custom, editor dirty/reframe/error flags. PlantLod differs from MHR CharacterLod or terrainring, and view preset is UI framing purpose not botanical morphology. Recipe stays canonical across load/edit/generate; native Bevy Mesh/Material/Transform and PanOrbitCamera are actual backend ports. CLI family/preset and raw JSON diagnostics belong at inputboundary, no implication RecipeOrigin certifies semantic validation. F042 actual enum-backed editor option roster remains in controls, not another family owner introduced here. Generation errors retain previous specimen by local editing behavior, not backwards-schema compatibility. No viewer/GPU/filesystem/run.",
+      "disposition": "Keep local editor/camera state distinct; reuse canonical production recipe/LOD/Seed and native rendering adapter."
+    }
+  },
+  "supporting_existing_findings": [
+    "F005",
+    "F014",
+    "F042"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit."
+}

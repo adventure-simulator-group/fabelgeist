@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1209",
+  "at": "2026-10-25T18:08:52.404722+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1292,
+  "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/survival.rs",
+  "sha256": "9b69053053efb67e000a8aeafdaf2b7a89678136f4459cf592a6e7e9f391e1ad",
+  "actual_compared_ranges": [
+    [
+      241,
+      580
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Only native current capacity/load/survival observation/telemetry/storefront/provider/equipment quote methods. No handwritten trait/custom codec/type. Context-dependent SDK projections scale/clamp/combine fields and current party/equipment condition rather than structural From. Selected maximum/min telemetry and unique public provider/quote gates semantic; no runtime Serde or deriving classifier. No commands executed.",
+  "first_unfinished": {
+    "scope_index": 1292,
+    "line": 581
+  },
+  "execution": "none"
+}

@@ -1,0 +1,105 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-080",
+  "at": "2026-10-23T01:16:24.188669+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/refinement.rs",
+      "sha256": "c8a815b0fa38e2129824d16959c687cc19518f35c40225d214b8da63c9ecc479",
+      "scope043_index": 1951,
+      "actual_EOF": 346,
+      "scoped_ranges_compared": [
+        [
+          1,
+          346
+        ]
+      ],
+      "actual05_comparison": "Fresh full346. Authoritative terrain refinement builds actual checked obstacle influences and local refined terrain; every completed base+relief admitted as SupportElevation, then constrain_max_grade before return. No partial installation on this function error. TerrainShapeSample correlates downhill/slope/concavity from same five height samples; absent edge samples intentionally omit processrelief, not fabricate measuredflat ground. Actual shape radius1.5; periodic distances use positive fixed3.1/2.15/3.7/5.3 or2.6+noise*1.4, latter requires actual noise range (lower body unread, no unitnoise inference). Fixed smoothstep intervals ordered; rock radius PositiveLength.max.35 establishes ordinary positive widths but arbitrary extreme product finiteness not guaranteed merely by leaf. Final completed height/grade gate rejects nonfinite shape result, no silent synthetic acceptedheight. Substrate Water/Road early return justifies later unreachable arms of same immutable surface selection. Roots fixed7 and boundedpositive authoredlength/width avoid arbitrary nondeterministic loops. No fullnoise/native transcendental proof.",
+      "source_body_proof": "Fresh complete frozen source personally read; inline fixtures source-only, external test module declaration not fixture-body credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/refinement/road.rs",
+      "sha256": "26635ffc6ea95de6e83b102b0bde2feb3cbced426ce746b8e16118abab9f4662",
+      "scope043_index": 1952,
+      "actual_EOF": 60,
+      "scoped_ranges_compared": [
+        [
+          1,
+          60
+        ]
+      ],
+      "actual05_comparison": "Fresh complete60 including externaltest declaration only. Road tangent picks one of8 fixed unit-direction candidates with score from six samples, deterministic firsttie; probes nonfinite/outside are not-road, not terrain replacement. Edge distance is first of24 positive .25 steps or6, so halfwidth>=.6, rutwidth bounded.14..27 and offset.38..82. Actual gaussian divisor cannotzero; across and travel directions derive SAME tangent. Completed roadrelief bounded, same returned value used by canonical refinement gate, not separate presentation authority. Existing testsbody separatelyunread.",
+      "source_body_proof": "Fresh complete frozen source personally read; inline fixtures source-only, external test module declaration not fixture-body credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/banks.rs",
+      "sha256": "a1e7915c756f7e5046405fc0347f787bca5fdfe2bd2c43fe61b32ff02bba3c6c",
+      "scope043_index": 1815,
+      "actual_EOF": 146,
+      "scoped_ranges_compared": [
+        [
+          1,
+          146
+        ]
+      ],
+      "actual05_comparison": "Fresh full146. Boundary cutface compilation gathers support triangles from same plan, actual geographic boundary candidates and complete exterior intervals; all stations sorted/dedup and windowspositive. Every meaningful source or support gap returns typed boundarycoverage evidence, contact slivers intentionally omitted. At each interval chooses first source section in canonicalsourceorder and highest eligible support, different deliberate roles. append_faces privatecall always supplies actual windows2; sign-crossing interpolation only when oneendpointbelowzero andother exceedspositivecontact bound, so nonzero denominator on that branch. Emits vertical cutfaces only, not walkable floor; completedmesh validate checksfinitefaces. No arbitrary external stations slice or fullyacceptedF024 interior coverage claim; banks can reject some malformed enclosing source independently.",
+      "source_body_proof": "Fresh complete frozen source personally read; inline fixtures source-only, external test module declaration not fixture-body credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source/presented.rs",
+      "sha256": "62b9ee8ef4e79762a0461d366d99a44e77dded7f0a362ea105da1515af8db4ee",
+      "scope043_index": 1823,
+      "actual_EOF": 248,
+      "scoped_ranges_compared": [
+        [
+          1,
+          248
+        ]
+      ],
+      "actual05_comparison": "Fresh full248 including original inline fixtures source-only. GeographicSurface::from_presented_scene starts exactfineplayable source, validates all vista rings width/depth>=2/exactheightcount/positive spacing/zeroorigin/strictlyexpandingBOTHaxes before generating anyreturned surface. Ringmeshing calls actual shared rectangle exclusion/subdivision/height policy then twoa-c triangles perretainedrectangle; checked completed point and final GroundTriangle admission. No implicit source substitution ifoffset/nonexpanding. Existingfixtures compare fineintersections/seamheights/coverage and reject malformed rings, not proof of allfloat partition edgecases. Actual vistahelper full480 read in samepacket; sourcepairs remain explicit rather than assumedcommonname.",
+      "source_body_proof": "Fresh complete frozen source personally read; inline fixtures source-only, external test module declaration not fixture-body credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/detail_obstacles.rs",
+      "sha256": "3f3f41a4aa24cbc26e90b89344ff0efd29cb7949da014bd7df1d6326bae2e702",
+      "scope043_index": 1920,
+      "actual_EOF": 50,
+      "scoped_ranges_compared": [
+        [
+          1,
+          50
+        ]
+      ],
+      "actual05_comparison": "Fresh full50. TerrainDetailObstacles maps each rawgridobstacle into same terrain-centred scene coordinates before publishing localvector. Tree checkedpoint and rock checkedpoint+positivecollisionradius admitted together; failed laterobstacle dropslocalcandidate. Ordinal x/z and obstacle_spacing are native inputport, not Scene coordinates, and API doesnot independently prove gridmembership/positive spacing; actual normal SceneInput source gate earlier073 suppliesboundedgrid context. No new typedunit guarantee from rawspacing or unexamined rockradiushelper.",
+      "source_body_proof": "Fresh complete frozen source personally read; inline fixtures source-only, external test module declaration not fixture-body credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/vista_surface.rs",
+      "sha256": "0238db91b3a926b53a353da8892a2e0ff17018d131529261be5a4cdf2cb8e405",
+      "scope043_index": 1964,
+      "actual_EOF": 480,
+      "scoped_ranges_compared": [
+        [
+          1,
+          480
+        ]
+      ],
+      "actual05_comparison": "Fresh full480. VistaVertexGeometry admits completed baseheight plus paired finite east/north displacement edges together, immutablegetters; missingneighborprobe usesactualbaseheight intentionally for boundarynormal, not missingcoarsesample errorfallback. has_height_grid checks exactheightcount/dimensions/positivefinite spacing/finite convertedorigin, environmentalcolumns separate. Native bilinear/coarsemorph/seam samples stay unadmitted until completed result, so NaNcoarsecannotbecomeabsence selectingvalidown. Actualoutsidecoarse sampling None can selectown intentionally. Region exclusion yieldsdisjointleft/right/fullheight strips plusclippedmiddle top/bottom, no duplicatedcornerrectangles under ordered rectangle/positive innerextents. Boundarysubdivision actualterrainspacing positive and countestablished. Sharedmesh/sampledheight uses SAME a-c split andvertexpolicy, choosesu>=v triangle. Raw public extent/axis/rectangle helpers retain orderedfinitepreconditions; no arbitraryinvalidclamp success inferred. lod_transition_weight uses width/radius; rectangularauthoring policy notinferred from index safety. Native float/nativeport lowercontracts remainqualified.",
+      "source_body_proof": "Fresh complete frozen source personally read; inline fixtures source-only, external test module declaration not fixture-body credit."
+    }
+  ],
+  "comparison_groups": {
+    "local-refinement-commit": "Complete heightfield and physicalgrade gate before returned candidate; noise/directhelper assumptions retained.",
+    "ring-and-playable-seam": "Actual same shared rectangle/vertex/triangle policy keeps physicalsource and presentedseams aligned.",
+    "boundary-source-selection": "Actual ordered station windows and source/support intervals; interiorcoverage andboundarycoverage separate.",
+    "native-obstacle-port": "Gridordinals/metrespacing convert to checkedscene point/radius before publishing pairedinfluences."
+  },
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Actual detailnoise range, SourceCutRegions and lower native helpers uncredited; remaining original fixture/source inventory pending."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

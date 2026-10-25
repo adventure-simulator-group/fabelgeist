@@ -1,0 +1,58 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-473",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/manifest.rs",
+      "sha256": "90d78c0c708175d63d2b3654ce3d96a08c32444ff581cf53e94f78d5f971bb96",
+      "actual_EOF": 941,
+      "actual_compared_ranges": [
+        [
+          1,
+          941
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/plant_lods.rs",
+      "sha256": "36ec27846639fcd39472f076870256cb3a37ae29dfd489fe49f7e93cbe40d0a7",
+      "actual_EOF": 113,
+      "actual_compared_ranges": [
+        [
+          1,
+          113
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/setup_obstacles.rs",
+      "sha256": "ed251a1127b90eec10478382e61cb9fc193e36c1d7c15104e43dfdefab03d3e4",
+      "actual_EOF": 166,
+      "actual_compared_ranges": [
+        [
+          1,
+          166
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Manifest finalization and screenshot-derived gates",
+      "analysis": "All941/113/166linebodies read. Pendingmanifest clones finalsame-length capture records afterreadback; caller pushesone recordbeforependingbuildanddoesnotappendwhileinflight, satisfying clone_from_slice. Finalgates recompute actualpixels/obstruction/motionpairs thenallconjuncts, withu32 canopyratio productsboundedbyu16. Profilelists nonemptywithsinglewarmup guard len-1 arithmetic. Sourcefixtures exercise missingstablepairs/partialtraversal/obstruction, no execution. ActualCPUentitycount andprovenance-derived5LOD labels retain demand-streamingqualifications, not allmeshesresident proof."
+    },
+    {
+      "contract": "Obstacle support and observation arithmetic",
+      "analysis": "CapturedObstacles fullycollects requiredsupport results beforeanyobstaclecommands, thenfixedcollider/overlay geometry. Re-admits translatedposition afterheight+offset; nativeposition_sum mayoverflowwithextremefinite typedpositions acrossmanyobstacles, callerthen re-admitsfocus; no ordinaryboundedscene witness. Count/seed24bit yaw operations fitactualrecipepopulation. Plant observationsuse exactcapturecamera VisibleEntities ratherthanaggregateViewVisibility/shadows; trianglecount0 whenCPUmesh absent is unavailableCPUtelemetry, not proofnogeometry. Fullfixturebodyread, no run."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs.rs"
+}

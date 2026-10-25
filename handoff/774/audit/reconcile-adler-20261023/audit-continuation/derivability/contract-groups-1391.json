@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1391",
+  "at": "2026-10-25T18:43:25.058211+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1449,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/art_demo.rs",
+  "sha256": "81ecb5d3d8ae44d03b83c3de1fe81332b833fcffabf776d4faeed2baad4cb708",
+  "actual_compared_ranges": [
+    [
+      1,
+      300
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Component/Resource and tagged strict Serde command/status derives already used. Free checked native command admission with finite contextual errors, queued current renderer state/native app setup/async readiness and mutation; no handwritten trait/codec in slice. Keep post-Deserialize finite gate, not unchecked raw representation derive.",
+  "first_unfinished": {
+    "scope_index": 1449,
+    "line": 301
+  },
+  "execution": "none"
+}

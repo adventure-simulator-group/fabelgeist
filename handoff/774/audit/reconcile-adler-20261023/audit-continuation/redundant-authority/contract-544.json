@@ -1,0 +1,66 @@
+{
+  "id": "CONT07-CONTRACT-544",
+  "at": "2026-10-23T23:33:36.595635+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2384,
+      "source_id": "pr-working:crates/strategic-web/src/session.rs",
+      "sha256": "6be4223e4e49787ef289a75602ec8a113d2c0b7220292db0ed9de21eee34e50d",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/session.rs",
+      "actual_EOF": 355,
+      "ranges": [
+        [
+          1,
+          355
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2385,
+      "source_id": "pr-working:crates/strategic-web/src/spacetimedb/client.rs",
+      "sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/spacetimedb/client.rs",
+      "actual_EOF": 273,
+      "ranges": [
+        [
+          1,
+          273
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2386,
+      "source_id": "pr-working:crates/strategic-web/src/spacetimedb/client/sats.rs",
+      "sha256": "dbb97caa3f3bb18aa862aacce19d0d76f82f7760e82a389f9347698d24031906",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/spacetimedb/client/sats.rs",
+      "actual_EOF": 540,
+      "ranges": [
+        [
+          1,
+          540
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Session full355body validates signedtoken\u2192opaqueid\u2192ownerkey, queries currentownergrants every request, checksforeignowner, selects currentchosenid and derivesallgrantedids fromsamerecordset. PrivateSession cannotmutateindependently; token and ownerkey shareoneissue/verifyfunction. CookieMaxAge uses same lifetimeconstant asserverexpiry; future skew intentionalindependentpolicy.",
+    "IssuedSession publictoken/ownerkey is unsealedderivedproduct; ordinaryissue derivescoherently. Actual calleradmission/persistence mustbeproven before conditional publicfield mutation promotion; no actual normalgrantmismatch asserted.",
+    "Client exactgeneratedSATSrow decode thenpresentationprojection; query_one rejects >1; errors retainedHttp/Json but concreteU::Error formattedSpacetime(String) exact RIG-PPS-F009/canonicalcausefamily. Reducer_code parsescanonicalenvelope, nothumanprose; no newclassificationauthority.",
+    "Querymetrics counters are independentmonotonic processobservations, elapsedqueryrequests differ in-flight timing. Snapshotdelta nottransactionalperrequestattribution underconcurrency; codeexplicitcontrolledrequestcontext. No gameplayauthoritydefect.",
+    "SATS converter obtains fieldnames/tagpayload fromresponse schema, checksrow/productarity andsumtagbounds, delegatesactualgeneratedrowvalidationtoSerdeWrapper. OptionSome/None tag mappingnativewirepolicy and Pascalcasefirstletter conversion remain exactrepresentationbridge; currentfixtures demonstrate severalnative shapes, no blanketSDKformat correctness claim fromfixturemetadata.",
+    "Unnamedcolumnsreject, duplicate named columns canoverwrite map but actualordinarySELECT-star unique schema producer notshownmalformed; keepadmissionratherthanindependent-cachefinding. No executedfixtures, no network."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2388,
+    "start_line": 1
+  }
+}

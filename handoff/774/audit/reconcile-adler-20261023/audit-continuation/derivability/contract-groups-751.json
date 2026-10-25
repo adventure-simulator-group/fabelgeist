@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-751",
+  "at": "2026-10-25T16:41:39.599328+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 988,
+  "source_id": "pr-working:crates/adventuresim-core/src/settlement_economy.rs",
+  "sha256": "5ebaaf60d766322d2dc8bbd0cf1a54b0c790793a11d1d3f7b98e139861a3c54e",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Storefront/SettlementResidentTab/CatalogKind structural already derive. Native service/location availability and temple-preferred rest selection, public tab construction from available services/chapters, navigability and semantic item stock classification1\u2013220 are predicates/projections, not handtrait/codec. Keep explicit capability-aware mappings."
+  ],
+  "first_unfinished": {
+    "scope_index": 988,
+    "line": 221
+  },
+  "execution": "none"
+}

@@ -1,0 +1,122 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-347",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment_assets.rs",
+      "sha256": "0c7bd7e45c9a145954daf97ac6f0c2caa23bda96e9731a5ff033a2a3ce4a9365",
+      "actual_EOF": 107,
+      "actual_compared_ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment_assets/selection.rs",
+      "sha256": "162b898d78feeae3507d19844b4b11c999c50edd7609680e5ef7c2fac89486d6",
+      "actual_EOF": 170,
+      "actual_compared_ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment_presentation.rs",
+      "sha256": "7e48b429725c7241c26a7f4f83f3306b0b6c0372240e0c2e8310249ebf6ebe97",
+      "actual_EOF": 48,
+      "actual_compared_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/food.rs",
+      "sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+      "actual_EOF": 848,
+      "actual_compared_ranges": [
+        [
+          1,
+          848
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/inventory_containers.rs",
+      "sha256": "4feda6b091c108a9cb8def2cfa8cd63c6fd7123d64c3584d308dec283048d50a",
+      "actual_EOF": 256,
+      "actual_compared_ranges": [
+        [
+          1,
+          256
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Equipment selections preserve actual record identity and immutable retained ordinals",
+      "source_ranges": {
+        "equipment_assets.rs": [
+          [
+            1,
+            107
+          ]
+        ],
+        "equipment_assets/selection.rs": [
+          [
+            1,
+            170
+          ]
+        ],
+        "equipment_presentation.rs": [
+          [
+            1,
+            48
+          ]
+        ]
+      },
+      "disposition": "All325 lines personally read. CatalogItem/CatalogPlacement pointer membership is intentional actual-record identity; private construction and immutable Arc clone prove retained ordinal in same owned equipment snapshot. Preserves withdrawal RIGPP004: no unchecked public index bug. CatalogItem::find preserves first duplicate while admit/all permit actual duplicate export records. EquipmentAssets decodes keys against one static global catalog, rejects duplicate actual selection before local publication and sorts lexical item/placement for default; no stale mutable catalog assumed. Transport PresentationId decimal completeness is caller contract; public String does not validate decimal or global graph relationships. Manifest version/release/design/surface fields dropped at this importer are existing admission/authority dependencies, not proved runtime defects or new findings by this read."
+    },
+    {
+      "contract": "Food bounded outputs, conservative malformed-input handling and arithmetic publication",
+      "source_ranges": {
+        "food.rs": [
+          [
+            1,
+            848
+          ]
+        ]
+      },
+      "disposition": "Full848 lines and fixtures read in three chunks. Cooking duration validates finite positive<=25kg, computes small overhead and uses checked u32 addition; expertise only shrinks overhead. Growth uses f64 exponent cap80 then MAX_CONTAMINATION cap. Retained components use finite nonnegative value times fraction<=1. Flavor scores have at most4 bounded0..5 entries, nonempty per closed method. Exposure/provenance scaling and FlavorProfile scaled/add_assign raw finite component overflow remain API numerical/admission dependency; no current catalog-sized failing meal proved. Three concrete representable API questions retained in candidate-food-arithmetic.json, not ordinary runtime defects: validity not preserved by scaled(MAX,2); u32 safety identity cast loses one minute at16777217/factor1; f32 doneness ratio rounds late MAXu32+1/MAXu32 to1 with zero penalty. Actual authored cooking-time upper bounds and transaction rejection must be traced before promotion. Preserve method-specific stew plateau and roast drying semantics."
+    },
+    {
+      "contract": "Containment graph capacity/depth/cycle checks preserve private topology on valid operations",
+      "source_ranges": {
+        "inventory_containers.rs": [
+          [
+            1,
+            256
+          ]
+        ]
+      },
+      "disposition": "Whole256 lines including fixtures read. new rejects duplicate object/zero exterior and measured>exterior before local graph publication. insert resolves identities, checks self/ancestor cycle, bounded ancestry and subtree depth before removing old edge. used_volume checked sum only immediate children; liquids use measured volume, vessel grandchildren not double-counted. After old edge removal, used_volume(parent)? superficially precedes rollback, but with private immutable object map and prior successful capped insertions its overflow/unknown-object failure is unreachable: each parent used<=its u64 capacity and removing an edge cannot increase sum. Capacity failure restores old edge. No fabricated private-state half-commit finding. subtree deterministic BTree traversal and cycle detection; usize len*depth needs impossible-enormous allocation to overflow and not promoted."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "5 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-core/src/investigation.rs"
+}

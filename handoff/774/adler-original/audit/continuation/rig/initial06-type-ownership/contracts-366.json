@@ -1,0 +1,24 @@
+{
+  "id": "RIG-INITIAL06-GROUP-366",
+  "at": "2026-10-23T09:32:20.148606+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "camera-volume-frame-and-physical-velocity": {
+      "comparison": "CameraView explicitly names render-view frame, distinct Scene. CameraVolume retains checked Displacement<CameraView>/CuboidDimensions and native Collider; CameraFrame/Placement/Hit use Position<Scene>/RigidRotation/SpatialDirection, UnitInterval sweep and SignedLength offset/distance. BoomRecovery uses SignedSpeed for metres/second, demonstrating appropriate physical derivative owner versus F039 wrongly Animation blend velocity elsewhere. AnimationElapsed hold is zero-valid duration, distinct renderclock. Native inverseprojection/cast/analytic damping are real ports with admitted outputs before committing retained state. No duplicate Camera-specific position/dimension primitive needed; framing offset useful role product remains. Original helperfixture module not credited from declaration.",
+      "disposition": "canonical framed geometry/speed/elapsed leaves around actual render and physics kernels"
+    },
+    "native-frame-pass-shared-layout": {
+      "comparison": "Actual WGSLsource uses shared frame_constants and canonical PartFrame first15 invariant checks; native RULE values select different anatomical numerical producer, not gameplayBodyPart or RigJointPart identity. Paramsjoint0..5 are actualnativepacked buffer ports after host canonicalordinal resolution, raw side coefficient a fitting-directionprojection. Limb/shoulder/elbow/thumb/hand/head/knee calculations intentionally have distinct landmarkspan/owner/envelope policies, cannot consolidate merely because same15framewords. Separate statusbits and retained frame roles remain; source text duplication with specialized deterministic head/foot is algorithm concern, not another host bespoke type. No untraced host-rule mapper body credit.",
+      "disposition": "native ABI/layout implementation consuming shared canonical frame invariant"
+    },
+    "animation-catalog-semantic-and-file-identity": {
+      "comparison": "AnimationPackCatalog owns mapping from canonical AnimationPackId/SkeletonFamily/MotionId/SemanticPose to AnimationAssetDirectory/Path and AuthoredAnimationFrame. File path, logical motion, pose anchor, sampling span and actual loadedclip differ identities; no String substitute or local duplicate canonical enums. Required_lastframe versus actual lastframe distinguishes minimum contract from accepted variable endpoint. Semantic mirrored counterpart and pack fallback are current content resolution policy, not legacy API compatibility path. EditorRouteResolution/ValidationReport are source-only diagnostic projection, not runtime alternative catalog authority; called builtin/validator child modules not credited from imports.",
+      "disposition": "single code-owned semantic catalog over canonical logical/file/frame identities"
+    }
+  },
+  "supporting_existing_findings": [
+    "F039"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit."
+}

@@ -1,0 +1,76 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-838",
+  "at": "2026-10-25T16:59:07.850731+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1054,
+      "source_id": "pr-working:crates/adventuresim-plant-generator/src/viewer/recipe.rs",
+      "sha256": "737948e69d20a10db0d1674d42befec8fccae79a74844a3abd6c7d448e5f30d6",
+      "actual_EOF": 90,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-plant-generator/src/viewer/recipe.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-plant-generator/src/viewer/recipe.rs",
+        "sha256": "737948e69d20a10db0d1674d42befec8fccae79a74844a3abd6c7d448e5f30d6",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 2910,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 140,
+            "read_ranges": [
+              [
+                1,
+                90
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-BOTANICAL-045"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-plant-generator/src/viewer/recipe.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1510,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "Family structural/ValueEnum and RecipeClone/tagged strict Serde already derived"
+      ],
+      "absence_basis": "Full recipe source only derived enums/inherent validated dispatch, controls view/edited typed decode and framing; no manual trait/codec."
+    }
+  ],
+  "groups": [
+    "Recipe controls deliberately expose unwrapped parameter view while persistent Serde retains family/parameters tag; inherent mapping and variant-preserving typed edit remain semantic, no transparent serializer substitution."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1055,
+    "source_id": "pr-working:crates/adventuresim-procedural-materials/src/lib.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

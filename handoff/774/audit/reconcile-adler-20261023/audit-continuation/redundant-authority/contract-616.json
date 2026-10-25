@@ -1,0 +1,116 @@
+{
+  "id": "CONT07-CONTRACT-616",
+  "at": "2026-10-24T00:42:34.253894+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2681,
+      "source_id": "report-p17:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+      "sha256": "a0aef58d11a9181ab559caf6b1f989eb84d5deded64ae19cbf885a011b1f6450",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+      "actual_EOF": 120,
+      "ranges": [
+        [
+          1,
+          120
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2682,
+      "source_id": "report-p17:crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+      "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+      "actual_EOF": 407,
+      "ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2683,
+      "source_id": "report-p17:crates/adventuresim-building-generator/Cargo.toml",
+      "sha256": "7fea1b7354749df8baa74d64f7de52d31252f38ef3e631722c694b113d60e8b7",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-building-generator/Cargo.toml",
+      "actual_EOF": 55,
+      "ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2684,
+      "source_id": "report-p17:crates/fabelgeist-geometry/Cargo.toml",
+      "sha256": "6e3f135b38a9920dc3f2cf9f0e7d2fa9b1b30d70c11b45c96a76d1f47bb330b1",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/fabelgeist-geometry/Cargo.toml",
+      "actual_EOF": 19,
+      "ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2685,
+      "source_id": "report-p17:Cargo.toml",
+      "sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:Cargo.toml",
+      "actual_EOF": 221,
+      "ranges": [
+        [
+          85,
+          85
+        ],
+        [
+          95,
+          95
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2686,
+      "source_id": "report-p17:Cargo.lock",
+      "sha256": "7478839fc1c520db3c24b75b8f0364f5109b1e8f5fa43fa5a576202468258a20",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:Cargo.lock",
+      "actual_EOF": 13101,
+      "ranges": [
+        [
+          1434,
+          1443
+        ],
+        [
+          2307,
+          2366
+        ],
+        [
+          2660,
+          2702
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "P17 ScenePlanPoint and PlanDisplacement distinguish points/translations and derive projection from admitted Position<Scene>; no editable duplicate X/Z fields beside nativeVec2. SupportElevation own finite constructor/Deserialize/max and checked translation preserve scalar elevation meaning, not generic point identity. Architectural floor/support elevation and scene coordinate frames remain distinct.",
+    "P17 manifest scopes and lock entries establish geometry shared owner with reflect feature, exact locked Bevy/Reflect/derive0.19.1. Semver requirement0.19.0 resolving0.19.1 is not a contradictory schema version nor proof that another snapshot compiled. Exact macro bodies consumed earlier apply only pinned source path; manifests supply no build/clearance credit."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2689,
+    "start_line": 1
+  }
+}

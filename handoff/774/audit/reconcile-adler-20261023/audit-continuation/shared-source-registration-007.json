@@ -1,0 +1,51 @@
+{
+  "at": "2026-10-25T10:33:24.091483+00:00",
+  "rows": [
+    {
+      "index": 94,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/clothing/regions.rs",
+      "ranges": [
+        [
+          104,
+          133
+        ]
+      ],
+      "evidence": "operations/contract-groups-592.json"
+    },
+    {
+      "index": 95,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/boundaries.rs",
+      "ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "evidence": "operations/contract-groups-606.json"
+    },
+    {
+      "index": 96,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/investigation/claims.rs",
+      "ranges": [
+        [
+          643,
+          655
+        ]
+      ],
+      "evidence": "behavior-preservation/source-registration-004.json"
+    },
+    {
+      "index": 97,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/investigation/model.rs",
+      "ranges": [
+        [
+          1287,
+          1335
+        ]
+      ],
+      "evidence": "behavior-preservation/source-registration-004.json"
+    }
+  ],
+  "registry_count": 98,
+  "correction": "006 crossvariant-dedup disposition corrected: samebytesdo notremovecontext obligation. Two reachedrigexportvariants alreadyhaveexactregistryentries, additionalrigregions94 andP16boundaries95nowexplicit. Own08P16claims96/model97added. No original2853+246denominatorchange orbaseline replay."
+}

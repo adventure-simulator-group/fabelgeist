@@ -1,0 +1,141 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-269",
+  "at": "2026-10-25T14:19:28.518681+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 536,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/wall_openings.rs",
+      "sha256": "b193dcfbc5c217956be084a3a209210d25e9577770e14850470461292970ebbc",
+      "actual_EOF": 912,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/wall_openings.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-building-generator/src/audit/wall_openings.rs",
+        "sha256": "b193dcfbc5c217956be084a3a209210d25e9577770e14850470461292970ebbc",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 41633,
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+            "row": 141,
+            "read_ranges": [
+              [
+                230,
+                270
+              ],
+              [
+                290,
+                335
+              ],
+              [
+                580,
+                612
+              ],
+              [
+                820,
+                885
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-RESOLVED-SHAPE-PORTS-075"
+            ],
+            "read_status": "affected_ranges",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/audit/wall_openings.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root"
+        ],
+        "audit_owner": "root",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-RESOLVED-GEOMETRY-036",
+            "json_pointer": "/source_proofs/6",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/audit/wall_openings.rs",
+            "read_ranges_as_recorded": [
+              [
+                230,
+                270
+              ],
+              [
+                290,
+                335
+              ],
+              [
+                580,
+                612
+              ],
+              [
+                820,
+                885
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/wall_openings.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/audit/wall_openings.rs",
+              "sha256": "b193dcfbc5c217956be084a3a209210d25e9577770e14850470461292970ebbc",
+              "read_ranges": [
+                [
+                  230,
+                  270
+                ],
+                [
+                  290,
+                  335
+                ],
+                [
+                  580,
+                  612
+                ],
+                [
+                  820,
+                  885
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1057,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          912
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "No local type/trait/Serde declaration; single semantic native audit function.",
+      "absence_basis": "Whole912-line exact PR wall opening source consumedpacket268 covers1\u2013310/311\u2013620 and packet269 covers621\u2013912. Detailed wall/opening ID/host/profile/reveal/node/bearing/tracery/closure/military-ray audit and Result/diagnostics are semantic geometry and graph relationships, not derivable field projection. No child/helper body or accepted geometry validity/pass claimed."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Wall/opening authority, geometry and load-path audit classification",
+      "disposition": "Function-only semantic checks, no trait/serializer boilerplate; preserve owning relationships and native error order.",
+      "acceptance": "No conversion/serialization derive added to runtime classifiers; exact diagnostic and Result interface retained. No native geometry execution/other-lens coverage."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 537,
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/axle.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

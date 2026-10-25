@@ -1,0 +1,66 @@
+{
+  "id": "CONT07-CONTRACT-572",
+  "at": "2026-10-24T00:10:19.991336+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2470,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/export.rs",
+      "sha256": "cc0dcb8aa0f608af65aa968955667894a687e4f44ef547919b421d7c3e1d2616",
+      "origin": "git:cbbbca08c89a8768926799371f54cf6057312e5e:crates/adventuresim-character-creator/src/export.rs",
+      "actual_EOF": 1819,
+      "ranges": [
+        [
+          1,
+          1819
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2471,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/shell.rs",
+      "sha256": "ff370d4ead428bf2bc7c6de55dcf2d22d7b358ab64054cac8e1ec34f71bda894",
+      "origin": "git:cbbbca08c89a8768926799371f54cf6057312e5e:crates/adventuresim-character-creator/src/export/shell.rs",
+      "actual_EOF": 111,
+      "ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2472,
+      "source_id": "rig-quality:crates/adventuresim-tactical-client/examples/armor_browser_probe.rs",
+      "sha256": "c1c35c5512650985dc6cf1cba8545b9db2cb63b65c3b092424893541811b1453",
+      "origin": "git:cbbbca08c89a8768926799371f54cf6057312e5e:crates/adventuresim-tactical-client/examples/armor_browser_probe.rs",
+      "actual_EOF": 231,
+      "ranges": [
+        [
+          1,
+          231
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Rig-quality export full1819 lines personally read including existing fixtures; no file export/codec/GPU/test executed. Buffer views/accessor counts/bounds derive from supplied immutable geometry, and actual native joint slots project only in skinning::append; copied tables extend together for attachments.",
+    "Rig-quality attachment metadata743\u2013747 repeats L/Rweapon and camera name/parent roster after actual append_attachment calls719\u2013742. Current entries agree; one-sided maintenance edit can desynchronize metadata and native hierarchy. Actual assembly extras recipient is a materially reached dependency before a finding is promoted; no current exported drift claimed.",
+    "Rig-quality fitted_equipment_socket_from_uv gates canonical UV domain and face-count, maps selected native faces and ranks eligible weighted/outward barycentric candidates; authoring bootstrap converts an old ray convention once and ordinary generation consumes stored UV. Stored authoring UV and per-LOD fitted transform are distinct provenance/realization roles, not interchangeable authorities.",
+    "Rig-quality shell writer derives material/accessor references from current vector lengths, retains independent shell topology and skin when provided, uses body skin only for admitted inherited topology. Actual compact/validation contract determines whether absence is a permissible shared product; no broad unsafe fallback claim from Option alone.",
+    "Rig-quality texture versus surface and texcoord precedence are public independent choices, requiring actual validation/authoring contract before claiming conflicting two-source policy. Material/PBR scalar overrides can be intended authored surface properties; no forced same-physical-material equation presumed.",
+    "Rig-quality armor_browser_probe is a diagnostic twelve-probe inventory repeated twice, not exhaustive gameplay catalogue. It reports cached kernel counts, actual output geometry and WebGPU errors separately. Default design configuration and runtime no-morph expectation do not clear custom-design admission or all generated armor. Source only, no browser run."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2473,
+    "start_line": 1
+  }
+}

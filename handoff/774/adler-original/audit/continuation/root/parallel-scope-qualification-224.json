@@ -1,0 +1,302 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-QUALIFICATION-224",
+  "at": "2026-10-23T06:24:13.229441+00:00",
+  "supplier_records": [
+    {
+      "record": {
+        "record": "continuation/native/initial05-aggregate-states/source-qualifications.jsonl",
+        "sha256": "0116382cc46a6d252b37a6bbd3d72d759dae63353cc1ee8b6ec95bebd6eb1487"
+      },
+      "row_1based": 83,
+      "original_record": {
+        "id": "NATIVE-INITIAL05-QUAL083",
+        "source_id": "pr-working:crates/adventuresim-character-creator/src/studio_ui.rs",
+        "sha256": "ab4430b01df6df4b77ee2e29a491531bd3a5782c92fd16b67a9aaba2d239b394",
+        "actual_EOF": 435,
+        "original_registered_ranges": [
+          [
+            350,
+            430
+          ],
+          [
+            202,
+            302
+          ]
+        ],
+        "qualified_material_ranges": [
+          [
+            202,
+            302
+          ],
+          [
+            357,
+            430
+          ]
+        ],
+        "context_only_ranges": [
+          [
+            350,
+            355
+          ]
+        ],
+        "excluded_ranges": [
+          [
+            303,
+            349
+          ],
+          [
+            431,
+            435
+          ]
+        ],
+        "qualification": "Old350\u2013355 formatting tail only/no whole save_designs body.430 else header has no431+ credited action; no whole animation function result. New complete output202\u2013302 read independently under global064 overlay245. No widening from incidental file load.",
+        "proof_refs": [
+          "contract-groups-254.json"
+        ]
+      }
+    },
+    {
+      "record": {
+        "record": "continuation/native/initial05-aggregate-states/source-qualifications.jsonl",
+        "sha256": "0116382cc46a6d252b37a6bbd3d72d759dae63353cc1ee8b6ec95bebd6eb1487"
+      },
+      "row_1based": 84,
+      "original_record": {
+        "id": "NATIVE-INITIAL05-QUAL084",
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/audit.rs",
+        "sha256": "aff233410d3aa23607fd4124f078c29ea13f1e7bdf0f43a02ced2c665c2133a5",
+        "actual_EOF": 73,
+        "original_registered_ranges": [
+          [
+            1,
+            85
+          ]
+        ],
+        "qualified_material_ranges": [
+          [
+            1,
+            73
+          ]
+        ],
+        "qualification": "74\u201385 nonexistent/uncredited. Actualfile is import/include wiring, not includedbody coverage.",
+        "proof_refs": [
+          "contract-groups-264.json"
+        ]
+      }
+    },
+    {
+      "record": {
+        "record": "continuation/native/initial05-aggregate-states/source-qualifications.jsonl",
+        "sha256": "0116382cc46a6d252b37a6bbd3d72d759dae63353cc1ee8b6ec95bebd6eb1487"
+      },
+      "row_1based": 85,
+      "original_record": {
+        "id": "NATIVE-INITIAL05-QUAL085",
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/wall_openings.rs",
+        "sha256": "b193dcfbc5c217956be084a3a209210d25e9577770e14850470461292970ebbc",
+        "actual_EOF": 912,
+        "original_registered_ranges": [
+          [
+            230,
+            270
+          ],
+          [
+            290,
+            335
+          ],
+          [
+            580,
+            612
+          ],
+          [
+            820,
+            885
+          ]
+        ],
+        "qualified_material_ranges": [
+          [
+            236,
+            269
+          ],
+          [
+            292,
+            335
+          ],
+          [
+            589,
+            612
+          ],
+          [
+            831,
+            885
+          ]
+        ],
+        "context_only_ranges": [
+          [
+            230,
+            235
+          ],
+          [
+            270,
+            270
+          ],
+          [
+            290,
+            291
+          ],
+          [
+            580,
+            588
+          ],
+          [
+            820,
+            830
+          ]
+        ],
+        "qualification": "Exact fragment comparison only; trailing270 windowclosure and612/885partialbranches not completecalledfunctions. No271\u2013289/336\u2013579/613\u2013819/886+ orwhole912 credit.",
+        "proof_refs": [
+          "contract-groups-264.json"
+        ]
+      }
+    }
+  ],
+  "fresh_actual_Root_evidence": {
+    "pr-working:crates/adventuresim-building-generator/src/audit.rs": {
+      "actual_EOF": 73,
+      "sha256": "aff233410d3aa23607fd4124f078c29ea13f1e7bdf0f43a02ced2c665c2133a5",
+      "actual_boundary_read": [
+        [
+          64,
+          73
+        ]
+      ],
+      "qualification": "Original1-85 retainedasrawmetadata; effective1-73 only.74-85 nonexistent/uncredited. Imports/include wiring doesnotclear includedbodies. EOF/hashverification and10lineboundaryread giveneitherfullRoot03/04semanticcoverage norcalleecredit."
+    },
+    "pr-working:crates/adventuresim-character-creator/src/studio_ui.rs": {
+      "raw_ranges_preserved": [
+        [
+          350,
+          430
+        ],
+        [
+          202,
+          302
+        ]
+      ],
+      "effective_material_ranges": [
+        [
+          202,
+          302
+        ],
+        [
+          357,
+          429
+        ]
+      ],
+      "context_only_ranges": [
+        [
+          350,
+          356
+        ],
+        [
+          430,
+          430
+        ]
+      ],
+      "actual_boundary_read": "Fresh exactold/newrolebody inRoot218/143.",
+      "qualification": "350-355save_designsformattail,356blank;430elseheaderonly/no431-435playmutation. No complete save/animationmethod or whole435credit; originalbroaderrequestedscopeselsewherestaybroader."
+    },
+    "pr-working:crates/adventuresim-building-generator/src/audit/wall_openings.rs": {
+      "raw_ranges_preserved": [
+        [
+          230,
+          270
+        ],
+        [
+          290,
+          335
+        ],
+        [
+          580,
+          612
+        ],
+        [
+          820,
+          885
+        ]
+      ],
+      "effective_material_ranges": [
+        [
+          236,
+          269
+        ],
+        [
+          292,
+          335
+        ],
+        [
+          589,
+          612
+        ],
+        [
+          831,
+          885
+        ]
+      ],
+      "context_only_ranges": [
+        [
+          230,
+          235
+        ],
+        [
+          270,
+          270
+        ],
+        [
+          290,
+          291
+        ],
+        [
+          580,
+          588
+        ],
+        [
+          820,
+          830
+        ]
+      ],
+      "fresh_actual_context_read": [
+        [
+          230,
+          235
+        ],
+        [
+          270,
+          270
+        ],
+        [
+          290,
+          291
+        ],
+        [
+          580,
+          588
+        ],
+        [
+          820,
+          830
+        ]
+      ],
+      "qualification": "270 begins windows(2).all closureheader, doesnotshow271-289callbackbody;230-235tupletail,290-291closingcontext,580-588/820-830priorconditionreportingcontext.612/885partialbranchesnotwholefunctioncredit. Noexcluded271-289/336-579/613-819/886+ orwhole912credit fromthisexactrole. Anygenuinelybroaderoriginalscopedroleisnotshrunk."
+    }
+  },
+  "qualification": "No new variants/overlays/rolequeue or ownershipchange. Preservealloriginalrawranges, nonexistent/contextlocationsnevergrantbodysemantics. Mandatory220/200/208/210/allolderqualifiersretained; no source/lenscredit fromqualificationmetadata.",
+  "all_lenses_mandatory": true,
+  "counts_unchanged": {
+    "variants": 2844,
+    "overlays": 245,
+    "bounded01_02_roles": 302
+  },
+  "source_edits": 0,
+  "project_execution": 0
+}

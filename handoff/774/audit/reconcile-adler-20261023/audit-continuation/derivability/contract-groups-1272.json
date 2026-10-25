@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1272",
+  "at": "2026-10-25T18:20:51.239010+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1334,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/contact_calibration.rs",
+  "sha256": "818826cc05de685d9d918e9e1ec5693f18cf7544fd36a7777ffa191f80e7de32",
+  "actual_compared_ranges": [
+    [
+      1,
+      300
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "AuthoredLocomotionCalibration Debug Clone already. Native cadence measurement and fit/readback helpers perform checked axes/ranges/variance/orientation/contact fitting and contextual current config selection; fixture setup in tail. No handwritten trait or codec in this actual slice; not replaceable by raw conversion derive.",
+  "first_unfinished": {
+    "scope_index": 1334,
+    "line": 301
+  },
+  "execution": "none"
+}

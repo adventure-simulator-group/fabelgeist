@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-640",
+  "at": "2026-10-25T16:20:00.037371+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 954,
+  "source_id": "pr-working:crates/adventuresim-core/src/material.rs",
+  "sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+  "actual_compared_ranges": [
+    [
+      1,
+      440
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "MaterialIdentity maps checked ObjectCustody, MaterialMeasure validates nonempty measure and exact checked totals, Portion validates ratio and prorates with explicit remainder, MaterialVessel enforces checked custody/capacity. These are semantic admission/arithmetic, not deriving mechanical From. All records/enums through440 derive structural traits; no additional handwritten trait/codec."
+  ],
+  "first_unfinished": {
+    "scope_index": 954,
+    "line": 441
+  },
+  "execution": "none"
+}

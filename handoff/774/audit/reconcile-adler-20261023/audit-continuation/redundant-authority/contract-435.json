@@ -1,0 +1,39 @@
+{
+  "id": "CONT07-CONTRACT-435",
+  "at": "2026-10-23T21:51:48.328814+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1914,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input.rs",
+      "sha256": "bde515fc144669a9902a54886ded6185c84fca86313d86ca7c44ba0626e8ae12",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input.rs",
+      "actual_EOF": 1026,
+      "ranges": [
+        [
+          1,
+          1026
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "ROOT-OWNER-SCENE-SOURCE-056 full narrative"
+  ],
+  "facts": [
+    "1914 full1026 read in three bounded untruncated ranges. digest hashes validated exact serde_json bytes on demand, not retained mutable cache. environment_snapshot accepts supplied scene_digest without recomputing; actual successful generation caller/digestrelationship pending1914children before classifying forgery/staleness. Aggregate environmental averages are original source observations, not automatically equal locally repaired terrain cover.",
+    "1914 RockRecipe dimensions and conservative sphere radius are different physical facts; generated source fixture enforces each full dimension<=2radius, not arbitraryraw wire admission. Source-only fixture equalitytoROCK_RADIUS does not prove allpublicrecipes obey; no force sphere=mesh exactshape.",
+    "1914 source.grid.width/depth versus upsampled dimensions/spacing represent two sampling resolutions. Output generated from one subdivision factor keeps commonextent; actual coarse sampled data interpolation then authoritative microrelief is preparation before sharedterrain, not independent clientphysicaltruth. Different reservedplayability corridor and camera clearance row have explicit purpose and fixtures.",
+    "1914 repair_playable_terrain captures original heights for change counts and mutates local preparation grid only after grade acceptance, then edits reserved waterfields and surface together. Repair counters are temporal observations of performed work, not final classifications. Source-environment surface and percentage evidence are orthogonal inputs with explicit priority inbase_ground_surface; no unproved equivalence.",
+    "1914 weather validator repeats an admission predicate over supplied WeatherSnapshot but no current concrete discrepancy to a canonicalvalidator proven in this batch. Fixtures1026 retained exactcase populations, assertions/source values; none executed."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1915,
+    "start_line": 1
+  }
+}

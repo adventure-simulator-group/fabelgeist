@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-871",
+  "at": "2026-10-25T17:04:29.101187+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1079,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/character.rs",
+  "sha256": "806a50bc71cade3ffdf93f52a62693f7d02d4d55a52e1cce7e5983b894ec28cf",
+  "actual_compared_ranges": [
+    [
+      3161,
+      3560
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Native hand-only/root placement selection, starter/basic/development loadout construction and source fixtures3286\u20133560 consume explicit graph/identity/privacy relationships. No further manual trait/codec/type declaration. Fixture references to child source strings do not credit child bodies or execute assertions; keep explicit semantic projections rather than generic derive."
+  ],
+  "first_unfinished": {
+    "scope_index": 1079,
+    "line": 3561
+  },
+  "execution": "none"
+}

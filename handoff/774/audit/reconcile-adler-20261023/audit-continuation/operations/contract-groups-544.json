@@ -1,0 +1,64 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-544",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-fs/src/lib.rs",
+      "sha256": "b0eda40872d0165cc3a1524083dc60e23ec7a9ee0e88d7bd88fa26e7f3a4ed6f",
+      "actual_EOF": 944,
+      "actual_compared_ranges": [
+        [
+          1,
+          944
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Native root encode/persist/decode identity",
+      "finding": "SEGOVB-04-PROJECT-ROOT-ROUNDTRIP-CANDIDATE-001",
+      "evidence": "NativeDirectory path /tmp/project -> to_file_uri file:///tmp/project. Native persist_project_root strips file:/// first, saving tmp/project without absolute slash. restore_project_root constructs relative PathBuf from that text, so selected absolute directory is lost or a distinct cwd-relative directory may be returned. Source roundtrip proof only; no filesystem writes performed.",
+      "qualification": "Ordinary POSIX selected absolute path; no live persisted workspace/current machine outcome claimed. Windowsdrive URI has different stripping behavior and must be preserved separately. Indexed archive no exact alias; broad RIG-OWNER-F009 only native cause handling. No new unique global count."
+    },
+    {
+      "contract": "URI transforms and write failure staging",
+      "evidence": "read/write decode projectrelative path before traversal; native get_directory(create) can create ancestors before final writeErr, ordinary filesystem multioperation semantics not assumed atomic. Native stdfswrite can truncate before error, API has no atomic-replacement promise. Web createWritable/write/close uses actual fallible native transaction lifecycle; no mutation executed. Blob failure cache is URI keyed permanent error only for blob scheme, native error cause owner RIG-OWNER-F009 accepted; no new unique count."
+    },
+    {
+      "contract": "String slicing and arithmetic",
+      "evidence": "Prefix/scheme stripping byte offsets use knownASCII constants; comma index and lastASCIIcolon preserve UTF8boundary, windowsdrive detection checkslen beforebyte2 and slicesASCII slash only. Dynamic path joins accept parent/absolute components unlike browser nativehandle API; admission/capability boundary question requiring actual caller policy, no blanket repositoryroot security claim. Inline IDB promises/permission mapping source read, no browser action taken."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-PROJECT-ROOT-ROUNDTRIP-CANDIDATE-001",
+      "source_id": "pr-working:crates/fabelgeist-fs/src/lib.rs",
+      "sha256": "b0eda40872d0165cc3a1524083dc60e23ec7a9ee0e88d7bd88fa26e7f3a4ed6f",
+      "ranges": [
+        [
+          99,
+          109
+        ],
+        [
+          460,
+          495
+        ],
+        [
+          605,
+          613
+        ]
+      ],
+      "counterexample": "NativeDirectory path /tmp/project -> to_file_uri file:///tmp/project. Native persist_project_root strips file:/// first, saving tmp/project without absolute slash. restore_project_root constructs relative PathBuf from that text, so selected absolute directory is lost or a distinct cwd-relative directory may be returned. Source roundtrip proof only; no filesystem writes performed.",
+      "qualification": "Ordinary POSIX selected absolute path; no live persisted workspace/current machine outcome claimed. Windowsdrive URI has different stripping behavior and must be preserved separately. Indexed archive no exact alias; broad RIG-OWNER-F009 only native cause handling. No new unique global count.",
+      "connected_contract": "Canonical native path and URI codec must preserve absolute root identity through persistence and restore, with explicit platform-aware conversion. Direct native ProjectRoot authority should avoid lossy URI stripping before PathBuf; no compatibilityfallback.",
+      "acceptance": "Absolute POSIX path persists/restores identical root independent of process cwd; Windows drive/UNC/native separators and URL escaping policy handled by owning path/URI contract. No automatic directory creation/deletion or reset required."
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "1 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/fabelgeist-garment-code/src/design.rs"
+}

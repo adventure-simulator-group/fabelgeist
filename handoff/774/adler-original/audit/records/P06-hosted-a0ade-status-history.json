@@ -1,0 +1,26 @@
+{
+  "recorded_at": "2026-10-21T01:03:21.362741+00:00",
+  "head": "a0ade500412cde0d94c85073fd734ef71db8e939",
+  "run": 39524874352,
+  "job": 118977049451,
+  "status": "in_progress",
+  "format": "Prior same-source 5b44a561b passed; current run not yet revisited.",
+  "latest_active": [
+    "Cache Rust build artifacts"
+  ],
+  "prior_run": 39519429750,
+  "prior_first_failure": "Two formatting edits requested after the df50 tactical-core compiler repair; both applied exactly in 807ab138a.",
+  "format_repair_commit": "3216f21d76ce802c55b96b1bebdac9b183c50e7e",
+  "format_evidence": "P06-hosted-39121-format-hunks.json",
+  "remaining": "Publish reviewed repair, then require exact-head gates, all 40 nonempty selected cells, artifacts and official baseline export/reductions. P06 remains unaccepted.",
+  "conclusion": null,
+  "failed": [],
+  "growth_repair_evidence": "P06-hosted-3216-growth-repair-source-review.json",
+  "format_repair_evidence": "P06-hosted-2079-format-repair.json",
+  "growth": "Two official obsolete entries removed in a0ade5004; current result not revisited.",
+  "core_compiler_repair_evidence": "P06-hosted-df50-core-repair-source-review.json",
+  "ground_consumer_repair": "Committed and published 20797fac0; focused review in P06-hosted-807a-ground-consumer-source-review.json.",
+  "prior_head": "807ab138a2dcbee4707095b87731bf7a063a7af7",
+  "baseline_repair_evidence": "P06-hosted-5b44-baseline-reduction.json",
+  "next_action": "Finish and double-check full P06 source correctness/completeness before revisiting hosted CI; latest user sequencing instruction. Current run can continue without monitoring."
+}

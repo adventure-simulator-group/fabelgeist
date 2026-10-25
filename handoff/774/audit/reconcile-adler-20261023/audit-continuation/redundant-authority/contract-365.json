@@ -1,0 +1,205 @@
+{
+  "id": "CONT07-CONTRACT-365",
+  "at": "2026-10-23T19:43:35.059985+00:00",
+  "lens": "audit-redundant-authority",
+  "members": [
+    {
+      "scope_index": 1564,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter.rs",
+      "sha256": "f62cff728e5975471e4fdf4e7860b6c8bc7a5cca3029e579b2fbdace6fde82b4",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter.rs",
+      "actual_EOF": 964,
+      "ranges": [
+        [
+          1,
+          964
+        ]
+      ],
+      "read_kind": "fresh full exact source and independent07 analysis"
+    },
+    {
+      "scope_index": 1565,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/assets.rs",
+      "sha256": "f665b74f46d6c4bbc34a478c6c53616af25118ee90528ceb68edb558a807bca2",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/assets.rs",
+      "actual_EOF": 68,
+      "ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "read_kind": "fresh full exact source and independent07 analysis"
+    },
+    {
+      "scope_index": 1566,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/batching.rs",
+      "sha256": "8c3a2661fde2fbe6cdd22710e282ee606e4a3126071315d4d202d85c211305cf",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/batching.rs",
+      "actual_EOF": 129,
+      "ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "read_kind": "fresh full exact source and independent07 analysis"
+    },
+    {
+      "scope_index": 1567,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/capture.rs",
+      "sha256": "62a7640d999653991c48ac18f49aef2c03981b53739cdb02e46983582bb71b11",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/capture.rs",
+      "actual_EOF": 122,
+      "ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "read_kind": "fresh full exact source and independent07 analysis"
+    },
+    {
+      "scope_index": 1568,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/geometry.rs",
+      "sha256": "e5e98d3e8ea4894a4d531ed56439fd85dee6fa6f6945c5f724a330d83f6531ca",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/geometry.rs",
+      "actual_EOF": 58,
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "read_kind": "fresh full exact source and independent07 analysis"
+    },
+    {
+      "scope_index": 1569,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/mesh.rs",
+      "sha256": "9f5f7ea3b29228456efef67b2ec04fa48dc8b5950f5561aa912185781d4f6932",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/mesh.rs",
+      "actual_EOF": 257,
+      "ranges": [
+        [
+          1,
+          257
+        ]
+      ],
+      "read_kind": "fresh full exact source and independent07 analysis"
+    },
+    {
+      "scope_index": 1570,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/placement.rs",
+      "sha256": "8837d5ffdc23783fd82a7946e6b46deea41b1c779cc09adf842577cdd7c6b992",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/placement.rs",
+      "actual_EOF": 78,
+      "ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "read_kind": "fresh full exact source and independent07 analysis"
+    }
+  ],
+  "contracts": [
+    {
+      "source_index": 1564,
+      "disposition": "accounted with exact current cache/frame/lifecycle and fixture-policy limits",
+      "facts": [
+        "Litter density/transition/proximity is derived per current grid sample, while actual jittered placement performs a separate local ground/slope gate. These two sample scales intentionally differ. Leaf/twig capture anchors record individual placement roots, not merged cell origin; counts track patch instances and derive leaf count from same DRY_LEAVES_PER_PATCH owner used in exact authored generator.",
+        "Original sample ground cover used for anchor subset (leaf litter only) differs broader physical transition litter placement intentionally. Missing source mesh path in batching returns success without geometry; thus anchors/diagnostics may claim a submitted placement when caller provides stale/missing native handle. Actual immutable retained MAIN_WORLD prototypes close normal produced cohort path; arbitrary native removal remains conditional, no rendered capture success claim.",
+        "Material parameters intentionally turn off live-canopy wind and distinguish dry ground pigment/surface from live oak leaf response. Fixed catalogue mesh variants are immutable source snapshots and batch offsets native coordinate projection; cache has no scene-dependent recipe inputs.",
+        "All964 lines and every existing fixture read, not run. Twig topology reference uses raw hash parity929 versus named TWIG_SIDES.rng.index2357; existing RIG-OWNER-LITTER-MESH-056 explicitly recorded this unresolved behavior policy question. New REG005 proves actual stream purpose but no numerical source proof of particular differing variant or failed test. Preserve as later behavior-lens obligation, not claim independent expected oracle must mirror current code."
+      ]
+    },
+    {
+      "source_index": 1565,
+      "disposition": "accounted with exact current cache/frame/lifecycle and fixture-policy limits",
+      "facts": [
+        "PreparedFamily Retained/Generated is ownership stage, not independent validity flag. All missing families successfully generated before any cache installation; retained handles are reused deliberately across scenes. Fixed family counts and function pointer identify catalogue; arbitrary externally inserted stale/empty retained list not newly validated, preserving admission/lifecycle limits. No current normal stale family recipe input demonstrated."
+      ]
+    },
+    {
+      "source_index": 1566,
+      "disposition": "accounted with exact current cache/frame/lifecycle and fixture-policy limits",
+      "facts": [
+        "Single placement Transform combines checked scene root and native rotation/scale, then subtracts cell corner before baking vertices; entity adds exactly same corner back. Mesh-relative and world root therefore distinct reference frames. BTreeMap batches key spatial cells, not duplicated subject identity. Existing MAIN_WORLD source survives upload while per-scene transformed mesh is RENDER_WORLD only; cache/body upload lifetimes intentionally different.",
+        "Missing source returns Ok before native merge, so do not infer successful submitted-anchor equals rendered geometry for arbitrary missing handle; full actual prepare source retains prototypes normally. Native merge errors terminate spawn before final diagnostics publication, not silent complete scene success. Fixtures preserve direct native invalid/raw construction questions separately."
+      ]
+    },
+    {
+      "source_index": 1567,
+      "disposition": "accounted with exact current cache/frame/lifecycle and fixture-policy limits",
+      "facts": [
+        "PairCandidate separation derives exact xz distance from same retained roots for local sort, then discarded. It is operation-local comparator metadata; pair roots are actual scene positions and do not compete with shared merged mesh-cell translation. maximum separation and maximum pairs independent budget/physical roles, zero intentionally empty. Stable tie order includes exact leaf/twig xz, not vertical separation; this is explicit planar capture selection, no3D-nearest claim."
+      ]
+    },
+    {
+      "source_index": 1568,
+      "disposition": "accounted with exact current cache/frame/lifecycle and fixture-policy limits",
+      "facts": [
+        "Each checked member is an orthogonal geometric input in owning patch frame. TwigCrossSection.sides exhaustive projection5/6 is one numeric topology owner, TwigBase Closed/ForkAttachment selects cap policy. Root versus stations describe native shader attachment versus geometric centreline; not assumed derivable to one unique root. Public typed members alone do not seal nondegenerate relationships; preserve aggregate concerns."
+      ]
+    },
+    {
+      "source_index": 1569,
+      "disposition": "accounted with exact current cache/frame/lifecycle and fixture-policy limits",
+      "facts": [
+        "Native arrays are constructed together per append operation; positions/normals/UV/root/color encode different geometry and shader roles, not separately authored gameplay fact. Bent twig side count derives canonical enum; ring/cap/apex counts derive emitted geometry in one kernel. Root metadata intentionally remains original anchor across rings.",
+        "Cambered local leaf plane/elevation, burial and nonlinear lift construct different geometric components, recomputed once; minY translation seats leaf, not alternative current scene ground. Normal accumulation from actual triangle faces and shared positions is operation-local derived projection. Rosette root xz projection deliberately defines patch-plane datum; no unsupported arbitrary root-Y guarantee. Malformed member correlation and numerical normalization remain prior independent admission/operations requirements."
+      ]
+    },
+    {
+      "source_index": 1570,
+      "disposition": "accounted with exact current cache/frame/lifecycle and fixture-policy limits",
+      "facts": [
+        "Source root/slope/jitter computed from current terrain/ground in one operation; yaw and scale are independent authored variation. Kind chooses separate height/scale offsets, then retained typed root/native transform consumed by batching. No cached ground classification survives later mutation in this temporary placement. Scene immutable-cohort assumption is explicit; no live terrain update promise."
+      ]
+    }
+  ],
+  "personally_consumed_prior_narratives": [
+    "RIG-OWNER-EIDOLON-LITTER-055",
+    "RIG-OWNER-LITTER-MESH-056",
+    "ROOT-OWNER-SCATTER-041"
+  ],
+  "new_material_roles": [
+    {
+      "registration": "CONT07-REG-005",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/streams.rs",
+      "sha256": "eb233a67ab87212ae64dd30075b41f4708529607aea29596bbea32c4a0acc93d",
+      "ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "disposition": "Fresh07 full53 named purpose definitions consumed. All distinct purpose namespaces; TWIG_SIDES purpose separates production RNG selection from fixture raw seed parity, preserves existing behavior question without numerical assumption.",
+      "coverage": "new source outside old2853; global all-lens material-role inventory pending, no old-universe source increment"
+    }
+  ],
+  "source_qualifications": [
+    "Broad contract extraction output truncated unrelated ROOT086 tail; exact RIG056 separately fully reread. No claim all ROOT086 or unshown additional narrative consumed.",
+    "Asset absence is a conditional caller/native lifecycle caveat, not an established normal retained prototype failure. Existing twig oracle policy remains unresolved for laterbehavior, not new unique07 finding."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "identity_count_accounting": {
+    "new_original_variant_ids": [
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/assets.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/batching.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/capture.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/geometry.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/mesh.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/placement.rs"
+    ],
+    "already_covered_fresh_reanalysis_ids": [],
+    "new_this_contract": 7,
+    "cumulative_new_original_variants": 74,
+    "cumulative_original_unique": 1832,
+    "count_basis": "Exact source_id union against Adler saved07coverage1758, not number of fresh-read rows"
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "id": "CONT07-F092",
+  "at": "2026-10-23T21:16:07.908046+00:00",
+  "classification": "source-backed explicit API/config divergence; no ordinary default bad frame asserted",
+  "title": "Accepted attack curves lose supplied limits when action admission and evaluation reread global limits",
+  "sources": [
+    {
+      "scope_index": 1781,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state.rs",
+      "sha256": "48d075954cf0381f63c73815380ed47c37be6c35e30c573b6839e74c21572557",
+      "ranges": [
+        [
+          641,
+          698
+        ],
+        [
+          764,
+          791
+        ],
+        [
+          1856,
+          1956
+        ]
+      ]
+    },
+    {
+      "scope_index": 1860,
+      "sha256": "5d114988a64595879b04e6f151d2a184cdf8f893f2f2b17a9987a3faf933d4ab",
+      "ranges": [
+        [
+          404,
+          420
+        ],
+        [
+          444,
+          449
+        ],
+        [
+          629,
+          653
+        ]
+      ],
+      "coverage": "fresh selected definition/validator excerpts only; not full source"
+    },
+    {
+      "scope_index": 1862,
+      "sha256": "970a41a87d4738f8b9edc7a55d80caa78aed0bca9622fee03d034b297626f591",
+      "ranges": [
+        [
+          1,
+          26
+        ]
+      ]
+    },
+    {
+      "scope_index": 1870,
+      "sha256": "5d254790fa2ec7e53bc749b18bfc8f4d89a1df367c3542f8f969403641c8a970",
+      "ranges": [
+        [
+          1,
+          71
+        ]
+      ]
+    },
+    {
+      "scope_index": 526,
+      "sha256": "05958d54e48eba637c755f8ad89959dc6ef0aeaeeeaeb75022e07071a01ddaf3",
+      "ranges": [
+        [
+          160,
+          176
+        ]
+      ],
+      "coverage": "fresh selected YAML tuning stanza; not new whole source credit"
+    }
+  ],
+  "earliest_failed_contract": "A curve produced under an explicit AttackCurveConfig must retain that policy through admission and evaluation, or the API must enforce that it is the installed runtime policy. The curve stores coefficients but omits the supplied limits; later methods independently select global limits.",
+  "counterexample": "With the frozen default runtime snapshot maximum_overshoot0.55, clone a valid config and set its curve overshoot_base1.0, overshoot_span0 and maximum_overshoot1.0. These are finite/nonnegative and leave all other validation unchanged. from_handling_with_config computes an admitted curve overshoot1.0. Pass it in an initial AttackSpec to begin_attack_timed: the method returnsOk while storing curve.normalized(), which clamps overshoot to global0.55. The accepted explicit curve is changed by unrelated global policy. This is source reasoning only; no config edit or API execution performed.",
+  "actual_recipient": "Current action creation1952 and queued action creation1919 normalize with global limits; queued recovery789 and coordinate admission use global limit helpers. The resulting AnimationEvaluation1759 samples the stored curve for visible attack motion.",
+  "connected_repair": "Bind a curve to its admitted limits or normalize once under an explicit canonical policy carried through action/queue/evaluation. Make supplied and installed snapshot identity coherent at the owning API. Remove independent default selection on these paths while preserving original finite/clamp policies, phase topology, continuation tangent and current default behavior.",
+  "acceptance": "A supplied valid curve cannot silently change because a different runtime snapshot is active. Queueing, direct admission, decoding and evaluation use the same policy or reject an explicit mismatch with its owning cause. Preserve current default scalar results and exact ordering. No tests added or run.",
+  "related_limits": "Runtime snapshot install/cache is a real canonical mechanism, not automatically a duplicated-default defect. Normal server/client default values may agree. Existing root M87/M01 overlap in configuration/contracts but do not establish equivalence to these exact consumers; global deduplication pending.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

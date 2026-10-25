@@ -1,0 +1,73 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-234",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        69,
+        70,
+        71
+      ],
+      "comparison": "Exact P16 model364, power168 and threat190 fully read. CombatEquipment supports both melee and ranged weapons at once; actual ranged threats receive a real melee sidearm plus ammunition/projectile. Never replace these independent loadout capabilities with exclusive melee-or-ranged state. CombatWeapon melee/ranged flags and applicability of geometry/force remain pending owner-fit candidates until actual generic item capability owner and all normal producers are traced; true/true may be legitimate hybrid capability. Generic selected weapon and per-mode snapshots are distinct view projections produced by for_melee/for_ranged, with actual selected holding side changed together; no automatic stale normal view claim. Shield side/bonus and provenance Options may require owning equipment admission, but innate/abstract armor deliberately lacks inventory/material and cannot be forced to Some. Power estimate is intentionally observer-safe bounded aid, not battle oracle; finite_log_component deliberately treats NaN/nonpositive as0 and +Inf as finite max. Exact generic damage/armor numerical admission remains other-lens concern. Threat ranged flag is carried to skill/equipment construction, but no exclusive AttackStyle::Bow equivalence is inferred without authored schema contract. UnknownThreat error retains actual source plus authored identity.",
+      "disposition": "Independent loadout capabilities and intentional observer estimate preserved; remaining generic capability owner trace open",
+      "finding_refs": []
+    },
+    {
+      "indices": [
+        72
+      ],
+      "comparison": "Exact P16 timeline139 fully read, independently joined to normal producer graph55\u201368. Kind beside conditional actor/attack/movement/response/batch/terminal Options is a retained event-shape candidate linked to coordinator whole-event finding; full namespace reconciliation pending, not a new count. Normal movement populates every motion fact; response may keep committed policy with effective None; cancellation/transformation preserve incoming and affected attack identity; contact batch owns actual member roster/order; terminal result owns BattleResolution. at(kind,time) produces a partial builder before normal writers fill it, so intermediate absence is not ordinary invalid publication. Proposed event variants must own actual applicable observations and retain legitimate unobserved target/history fields. Actual native clock64Hz quantization is an adapter; negative BattleTime intentionally projects to tick0, no fake positive-only clock rule. No inherited PR body coverage substituted.",
+      "disposition": "Source-backed whole-event conditional payload support; exact alias namespace pending",
+      "finding_refs": []
+    },
+    {
+      "indices": [
+        73,
+        74,
+        76,
+        77
+      ],
+      "comparison": "Exact P16 rewards31, BattleTime95, bestiary error51 and body179 fully read. Participant filter is an immediate living-set membership predicate and preserves recorded ordering/multiplicity, not persisted eligibility mode. BattleTime is signed finite origin-relative coordinate; negative time and overflowed transient predicate differences are intentional, checked elapsed distinction retained. UnknownThreatId is actual unit leaf cause; serde custom string is real adapter, test source never run. BodyPart flags represent independently selectable regions; Both BodySide is meaningful bilateral use, not mutually exclusive Left/Right-only. LimbWeights are continuous mixtures with intentional zero components; no enum of arbitrary coefficients. Default all-zero normalize is an API numerical admission candidate, no normal producer failure demonstrated here.",
+      "disposition": "Native predicates, signed clock, bilateral side and continuous limb mixtures preserved",
+      "finding_refs": []
+    },
+    {
+      "indices": [
+        75
+      ],
+      "ranges": {
+        "75": [
+          [
+            66,
+            125
+          ],
+          [
+            139,
+            191
+          ],
+          [
+            210,
+            294
+          ],
+          [
+            311,
+            338
+          ],
+          [
+            345,
+            396
+          ],
+          [
+            484,
+            803
+          ]
+        ]
+      },
+      "comparison": "Exact registered P16 bestiary union66\u2013125,139\u2013191,210\u2013294,311\u2013338,345\u2013396,484\u2013803 read; file1558, all omitted regions remain outside this observation. ThreatId/ReportDescription/EvidenceKind represent open authored identities; constants do not close the catalog. Compiler maps finite rig/attack/protection/temperament/activity/habitat/countermeasure spellings to existing enums after upstream validation, with authored tusk deliberately coarsened to Blunt. Reachable validators are not credited merely from expect text. Identification and location challenge are independent axes, including both enabled; countermeasure hypotheses explicitly do not claim implemented combat modifiers. HabitatRelation bridge and explanatory evidence are conditionally correlated: normal select validates required/forbidden bridge and derives evidence. Concrete direct-versus-bridged relation is a pending shape candidate; required_bridge/bridge_evidence bodies beyond803 are unread, so no final invariant or normal wrong relation claim. Immutable profile cache is process/catalog lifetime authority, not mutable duplicate state; temporary defaults are internal assembly, not ordinary published invalid profiles.",
+      "disposition": "Open IDs and independent investigation axes preserved; bridge payload extension trace open",
+      "finding_refs": []
+    }
+  ],
+  "new_findings": [],
+  "limits": "Discovery only; no execution, fixes, checks, implementation plan or lens clearance."
+}

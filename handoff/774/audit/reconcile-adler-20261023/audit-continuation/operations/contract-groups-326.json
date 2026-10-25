@@ -1,0 +1,116 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-326",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_frames.rs",
+      "sha256": "e209739488d454a1565af4a6f3663940c07b0b56ce228bf1fff65297eafd8a2d",
+      "actual_EOF": 246,
+      "actual_compared_ranges": [
+        [
+          1,
+          246
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_frames/landmarks.rs",
+      "sha256": "b68bd1cb5d9f044f3e820b516978d27fd2bf32d5c0d36e83a0e9d666aec574d1",
+      "actual_EOF": 387,
+      "actual_compared_ranges": [
+        [
+          1,
+          387
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_frames/passes.rs",
+      "sha256": "bee5ccb765304e55b8ae48d21ddbab2fac860e6b753520065e742768362c992e",
+      "actual_EOF": 341,
+      "actual_compared_ranges": [
+        [
+          1,
+          341
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_frames/tests.rs",
+      "sha256": "10bca4c1bb7cc62d88939a0f0420714d8f441a19fd156e102deeced8ae0ec21c",
+      "actual_EOF": 153,
+      "actual_compared_ranges": [
+        [
+          1,
+          153
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Frame landmarks preserve semantic slot roles and exact source rig identity before native uniform words",
+      "source_ranges": {
+        "device_frames/landmarks.rs": [
+          [
+            1,
+            387
+          ]
+        ],
+        "device_frames.rs": [
+          [
+            1,
+            246
+          ]
+        ]
+      },
+      "disposition": "Both whole bodies read. Every anatomical branch produces fixed6 FrameLandmark slots, checked joint ordinal narrowing or explicit Unused0; padding is not an actual required root landmark. Exact require_in order preserves original missing label; central and lateral side sign are semantic selection. Thumb uses exact thumb landmarks plus prefix-selected skin; general region owners use existing skin_family policy. Fixed rules0..7 match exact WGSL case codes from passes. DeviceWearer current host/cached body pairing retains existing Camera07F051 qualification: source ordinals/counts alone do not prove same realization. record creates16float/1status-word buffers,9initial ordered reduction values and4sequential passes. DeviceFrame public raw buffers/read_async assume at least15floatwords; normal record guarantees16 but arbitrary synthetic DeviceFrame is not validated by public fields. Actual read_frame checks status before reading; standalone read does not claim status admission on its own. No new source edit/owner transfer."
+    },
+    {
+      "contract": "Completed frame validation checks arithmetic after normalization, centring and region-specific mutation",
+      "source_ranges": {
+        "device_frames/passes.rs": [
+          [
+            1,
+            341
+          ]
+        ]
+      },
+      "disposition": "Complete four pass source read. Body extremes only run for head/foot; ordinary region bounds use actual owned weight and axial range. Limb/head/foot/hand/shoulder and elbow/thumbnail orientation use different actual landmarks. General near-zero normalization sets Coincident instead of invented valid axes; thumb direct normalization has no coincidence guard, but FINISH later rejects invalid/zero/NaN axes/extents before successful frame. Every finish checks all9axis dot relations,3positive extents and15finite output words. Empty-envelope sentinel is rejected; one-point envelope can be clamped topositive.018(.008thumb) dimensions, confirming that positive frame does not prove clearance section hull cardinality (same323 native05F061, not a new defect). Shoulder moves origin to anatomical upper arm and shrinks axial.48; Knee restores joint origin/.85cop height and outward side orientation. These are explicit post-bounds mutations, not hidden full-body clearance proof. Finite extreme arithmetic may reject through Invalid/NoEnvelope; rejection is permitted, no requirement for infallible native fitting."
+    },
+    {
+      "contract": "Readback failures retain actual region/error precedence and fixtures establish scoped intended frame behavior",
+      "source_ranges": {
+        "device_frames.rs": [
+          [
+            1,
+            246
+          ]
+        ],
+        "device_frames/tests.rs": [
+          [
+            1,
+            153
+          ]
+        ],
+        "device_frames/landmarks.rs": [
+          [
+            1,
+            387
+          ]
+        ]
+      },
+      "disposition": "All full bodies and fixtures read. check_status reports Coincident before NoEnvelope before Invalid; frame stage retains one status slot so collective readback source-specific region remains available. Unknown raw bits are ignored by this classifier, but actual writer flags closed1/2/4; no ordinary unknown status claim. Wearer upload verifies actual joint-count relationship and delegates remaining native source admission to GpuBody, with0UV adapter intentionally. Fixed packing fixture covers head/hand/foot/shoulder/thumb words and unconstrained twist selection; synthetic GPU fixture tests both elbow side orientation, raised arm coordinate rotation, unequal bone lengths and rejection of collinear plane. No fixture executed/GPU opened, no posed collision/shape-fidelity acceptance inferred."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-character-creator/src/device_garment.rs"
+}

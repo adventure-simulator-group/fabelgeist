@@ -1,0 +1,91 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-529",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-world-import/src/sources/road_inference.rs",
+      "sha256": "f74f07db1d321f14985590625124b5cbaccae7ff6ef35b7430a0749d2d8cfcf5",
+      "actual_EOF": 299,
+      "actual_compared_ranges": [
+        [
+          1,
+          299
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/build.rs",
+      "sha256": "1cbb4c6032d77345ba85c017d2e5f94b1600c1a4064ff586f0e1872afd63df74",
+      "actual_EOF": 121,
+      "actual_compared_ranges": [
+        [
+          1,
+          121
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/coordinates/bounds.rs",
+      "sha256": "dce84a653a604926b813c53a90d3310bf6cc6cdfcece5d0b5137a5d3ea20bcd7",
+      "actual_EOF": 49,
+      "actual_compared_ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/coordinates/terrain_projection.rs",
+      "sha256": "544933ad018de5b8ea333045594690c3f76bedc634c95faea7b34a73807408c9",
+      "actual_EOF": 83,
+      "actual_compared_ranges": [
+        [
+          1,
+          83
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/economy.rs",
+      "sha256": "ce7c60b4dca374b058a50d845ac3171642869aa47fc95b7873ac27392bff308e",
+      "actual_EOF": 358,
+      "actual_compared_ranges": [
+        [
+          1,
+          358
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Road graph inference bounded native operations",
+      "evidence": "Fullroad299. Actualsettlementnodes verifiedexistbeforeindex, canonicalsortedIDs/buckets<=256, nearest8anddegree2 gatebeforeu8increments; direct<=12000m widened before*18/10. Dijkstrapath checked_add and<=limit beforepush; actual12km/360min terrainplanthengeometrypoint/countadmission, finalu32try conversion. HashstableIDsalt0_u32.. has theoreticalfinitecollisionexhaustion; noactualSHAcollisionorordinaryroute asserted. HaversinenativeWGSinputframe gatebelongsvalidatedworld; poles/antipodalroundoff fallbackcandidate noordinarynearby12kmproofclosed. Acceptedworldlocalownedvalue discardedonErr, no partialpublishedworld."
+    },
+    {
+      "contract": "Name compile and geographic frames use canonical completed owners",
+      "evidence": "Fullbuild121: sortedfiles/digest path+NUL+bytes, mergefragments beforewholecatalogvalidation thenemitJSON/digest; duplicate repertoireIDs/refs validatedlaterrole. Recursivefilesystem traversal depends repositorycontent trust, no symlinkcyclewitnesspromoted. Fullbounds49 inclusivezeroarearectanglesintentionalquerywindows, noantimeridianwrap. Fullnativeprojection83 keepscontinuousoutofWGSsamples explicitlynative; callerlookupownsabsence. Checkedorigin\u2192fixedlatitude cosabsmin.01 scaling, frame_from ratio self/source preserves metres. Do notnarrowabstractweatheri32coordinates or rejectalloutside-sourceintermediate samples."
+    },
+    {
+      "contract": "Economy computed score and collection authority",
+      "evidence": "Fulleconomy358. Sourceprofilevalidate boundsversion/score/setordering/stockabundance; exactservicebinarysearchrequirescanonicalsortedset; rawpublicrecordmustvalidatebeforeuse. Derivedservices/stocks useBTree sets/maps, maxabundance preservesearlierprovenanceattribute (separatepolicy/aggregatequestion). Publicinferpopulation_level772 convertstou16then*85 =>65620overflowbefore saturation166; normalpopulationlevels1..7 do nottrigger, actualworldcalleradmissionnextdependency. PreciseAPIcounterexampleonly, aliaspending. Do notclampmeaningfulpopulation indiscriminately; explicitstageadmission/checkedscoreoperationneeded."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-ECONOMY-LEVEL-PRODUCT-CANDIDATE-001",
+      "disposition": "public API rawpopulationlevel772 overflow, ordinary validatedworld qualification/aliaspending"
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "5 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-world-schema/src/name_catalog_schema.rs"
+}

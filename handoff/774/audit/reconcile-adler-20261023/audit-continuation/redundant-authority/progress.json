@@ -1,0 +1,992 @@
+{
+  "at": "2026-10-25T10:47:44.431480+00:00",
+  "baseline_saved_unique_sources": 1758,
+  "new_unique_sources": 1095,
+  "current_unique_sources": 2853,
+  "scope_variants": 2853,
+  "remaining_sources": 0,
+  "mandatory_overlays": 246,
+  "overlay_exhaustion_claim": true,
+  "first_unfinished_scope072_index": null,
+  "first_unfinished_source": null,
+  "latest_contract": "CONT07-CONTRACT-666",
+  "new_accepted_unique_findings": "not asserted globally;62 localclassifiedrecords including exactaliases,maintenance,APIconditional and unresolvedpolicy",
+  "conditional_observations": [
+    "CONT07-OBS-001",
+    "CONT07-OBS-002"
+  ],
+  "whole_lens_status": "initial discovery complete WITH_FINDINGS at original2853+246overlays+currentlive snapshot and separatelyregisteredpending roles; not clear/passing",
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "new_local_finding_records": [
+    "CONT07-F070",
+    "CONT07-F071",
+    "CONT07-F072",
+    "CONT07-F073",
+    "CONT07-F074",
+    "CONT07-F075",
+    "CONT07-F076",
+    "CONT07-F077",
+    "CONT07-F078",
+    "CONT07-F079",
+    "CONT07-F080",
+    "CONT07-F081",
+    "CONT07-F082",
+    "CONT07-F083",
+    "CONT07-F084",
+    "CONT07-F085",
+    "CONT07-F086",
+    "CONT07-F087",
+    "CONT07-F088",
+    "CONT07-F089",
+    "CONT07-F090",
+    "CONT07-F091",
+    "CONT07-F092",
+    "CONT07-F093",
+    "CONT07-F094",
+    "CONT07-F095",
+    "CONT07-F096",
+    "CONT07-F097",
+    "CONT07-F098",
+    "CONT07-F099",
+    "CONT07-F100",
+    "CONT07-F101",
+    "CONT07-F102",
+    "CONT07-F103",
+    "CONT07-F104",
+    "CONT07-F105",
+    "CONT07-F106",
+    "CONT07-F107",
+    "CONT07-F108",
+    "CONT07-F109",
+    "CONT07-F110",
+    "CONT07-F111",
+    "CONT07-F112",
+    "CONT07-F113",
+    "CONT07-F114",
+    "CONT07-F115",
+    "CONT07-F116",
+    "CONT07-F117",
+    "CONT07-F118",
+    "CONT07-F119",
+    "CONT07-F120",
+    "CONT07-F121",
+    "CONT07-F122",
+    "CONT07-F123",
+    "CONT07-F124",
+    "CONT07-F125",
+    "CONT07-F126",
+    "CONT07-F127",
+    "CONT07-F128",
+    "CONT07-F129",
+    "CONT07-F130",
+    "CONT07-F131"
+  ],
+  "new_material_roles_pending_global_reconciliation": [
+    "CONT07-REG-001",
+    "CONT07-REG-002",
+    "CONT07-REG-003",
+    "CONT07-REG-004",
+    "CONT07-REG-005",
+    "CONT07-REG-006",
+    "CONT07-REG-007",
+    "CONT07-REG-008",
+    "CONT07-REG-009",
+    "CONT07-REG-010",
+    "CONT07-REG-011",
+    "CONT07-REG-012",
+    "CONT07-REG-013",
+    "CONT07-REG-014",
+    "CONT07-REG-015",
+    "CONT07-REG-016",
+    "CONT07-REG-017",
+    "CONT07-REG-018",
+    "CONT07-REG-019",
+    "CONT07-REG-020",
+    "CONT07-REG-021",
+    "CONT07-REG-022",
+    "CONT07-REG-023",
+    "CONT07-REG-024",
+    "CONT07-REG-025",
+    "CONT07-REG-026",
+    "CONT07-REG-027",
+    "CONT07-REG-028",
+    "CONT07-REG-029",
+    "CONT07-REG-030",
+    "CONT07-REG-031",
+    "CONT07-REG-032",
+    "CONT07-REG-033",
+    "CONT07-REG-034",
+    "CONT07-REG-035"
+  ],
+  "new_material_roles_personally_compared07": 41,
+  "fresh_read_rows": 1381,
+  "count_qualification": "CONT07-COUNT-QUAL-001",
+  "baseline_source_rereads": [
+    {
+      "scope_index": 75,
+      "source_id": "physical-p16:crates/adventuresim-core/src/bestiary.rs"
+    },
+    {
+      "scope_index": 148,
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_action.rs"
+    },
+    {
+      "scope_index": 236,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/family.rs"
+    },
+    {
+      "scope_index": 319,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/world_event.rs"
+    },
+    {
+      "scope_index": 365,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings.rs"
+    },
+    {
+      "scope_index": 366,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings/window.rs"
+    },
+    {
+      "scope_index": 419,
+      "source_id": "physical-p16:crates/adventuresim-terrain/src/lib.rs"
+    },
+    {
+      "scope_index": 465,
+      "source_id": "physical-p16:crates/strategic-web/src/templates/settlement/character_skills.rs"
+    },
+    {
+      "scope_index": 505,
+      "source_id": "pr-working:assets/shaders/tactical_city_ground.wgsl"
+    },
+    {
+      "scope_index": 525,
+      "source_id": "pr-working:content/items/catalog.yaml"
+    },
+    {
+      "scope_index": 526,
+      "source_id": "pr-working:content/tactical/combat.yaml"
+    },
+    {
+      "scope_index": 532,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/resolved_geometry.rs"
+    },
+    {
+      "scope_index": 534,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/shared_helpers.rs"
+    },
+    {
+      "scope_index": 602,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/heated_rooms.rs"
+    },
+    {
+      "scope_index": 608,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/room_allocation.rs"
+    },
+    {
+      "scope_index": 623,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/heating/placement.rs"
+    },
+    {
+      "scope_index": 646,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/layout.rs"
+    },
+    {
+      "scope_index": 667,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs"
+    },
+    {
+      "scope_index": 787,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment/placement.rs"
+    },
+    {
+      "scope_index": 853,
+      "source_id": "pr-working:crates/adventuresim-core/src/alcohol.rs"
+    },
+    {
+      "scope_index": 897,
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/defense.rs"
+    },
+    {
+      "scope_index": 908,
+      "source_id": "pr-working:crates/adventuresim-core/src/courtship.rs"
+    },
+    {
+      "scope_index": 939,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_schema.rs"
+    },
+    {
+      "scope_index": 944,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_occupancy.rs"
+    },
+    {
+      "scope_index": 957,
+      "source_id": "pr-working:crates/adventuresim-core/src/mission/roster.rs"
+    },
+    {
+      "scope_index": 960,
+      "source_id": "pr-working:crates/adventuresim-core/src/organization.rs"
+    },
+    {
+      "scope_index": 997,
+      "source_id": "pr-working:crates/adventuresim-core/src/smithing.rs"
+    },
+    {
+      "scope_index": 1073,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/alcohol.rs"
+    },
+    {
+      "scope_index": 1075,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/browser_session/descendants.rs"
+    },
+    {
+      "scope_index": 1146,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/organization.rs"
+    },
+    {
+      "scope_index": 1164,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/projections.rs"
+    },
+    {
+      "scope_index": 1165,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/reproduction.rs"
+    },
+    {
+      "scope_index": 1194,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/smithing.rs"
+    },
+    {
+      "scope_index": 1242,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/tactical.rs"
+    },
+    {
+      "scope_index": 1247,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/camp_rest.rs"
+    },
+    {
+      "scope_index": 1251,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/schedule.rs"
+    },
+    {
+      "scope_index": 1324,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/foot_influence.rs"
+    },
+    {
+      "scope_index": 1558,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/material.rs"
+    },
+    {
+      "scope_index": 1561,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/view_culling.rs"
+    },
+    {
+      "scope_index": 1573,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/mod.rs"
+    },
+    {
+      "scope_index": 1580,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/specimens.rs"
+    },
+    {
+      "scope_index": 1586,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/interior_lighting/mod.rs"
+    },
+    {
+      "scope_index": 1627,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/terrain/cliff_surface.rs"
+    },
+    {
+      "scope_index": 1631,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/terrain/material.rs"
+    },
+    {
+      "scope_index": 1683,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/equipment.rs"
+    },
+    {
+      "scope_index": 1722,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera.rs"
+    },
+    {
+      "scope_index": 1749,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/Cargo.toml"
+    },
+    {
+      "scope_index": 1752,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/authored_angle.rs"
+    },
+    {
+      "scope_index": 1753,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/cadence_limit.rs"
+    },
+    {
+      "scope_index": 1754,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/calibration_parameters.rs"
+    },
+    {
+      "scope_index": 1756,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/continuation_parameters.rs"
+    },
+    {
+      "scope_index": 1768,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/measurement.rs"
+    },
+    {
+      "scope_index": 1802,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/gardens/specimen.rs"
+    },
+    {
+      "scope_index": 1858,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat.rs"
+    },
+    {
+      "scope_index": 1862,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/defaults.rs"
+    },
+    {
+      "scope_index": 1865,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/maneuvers.rs"
+    },
+    {
+      "scope_index": 1870,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/runtime.rs"
+    },
+    {
+      "scope_index": 1877,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory.rs"
+    },
+    {
+      "scope_index": 1881,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory/timing.rs"
+    },
+    {
+      "scope_index": 1882,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/lib.rs"
+    },
+    {
+      "scope_index": 1886,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics.rs"
+    },
+    {
+      "scope_index": 1887,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics/controller_config.rs"
+    },
+    {
+      "scope_index": 1889,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics/quickstep.rs"
+    },
+    {
+      "scope_index": 1911,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates/velocity.rs"
+    },
+    {
+      "scope_index": 1912,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates/window.rs"
+    },
+    {
+      "scope_index": 1917,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/buildings/placement.rs"
+    },
+    {
+      "scope_index": 1923,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/establishments.rs"
+    },
+    {
+      "scope_index": 1960,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/validation.rs"
+    },
+    {
+      "scope_index": 2009,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/audit.rs"
+    },
+    {
+      "scope_index": 2010,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal.rs"
+    },
+    {
+      "scope_index": 2014,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/mod.rs"
+    },
+    {
+      "scope_index": 2017,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs"
+    },
+    {
+      "scope_index": 2026,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat.rs"
+    },
+    {
+      "scope_index": 2032,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/consequence.rs"
+    },
+    {
+      "scope_index": 2033,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/contact.rs"
+    },
+    {
+      "scope_index": 2034,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/defense.rs"
+    },
+    {
+      "scope_index": 2035,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/ingress.rs"
+    },
+    {
+      "scope_index": 2040,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/melee.rs"
+    },
+    {
+      "scope_index": 2041,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/melee/active_defense.rs"
+    },
+    {
+      "scope_index": 2042,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/melee/outcome.rs"
+    },
+    {
+      "scope_index": 2044,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/ranged.rs"
+    },
+    {
+      "scope_index": 2055,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration.rs"
+    },
+    {
+      "scope_index": 2056,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration/clock.rs"
+    },
+    {
+      "scope_index": 2057,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration/equipment.rs"
+    },
+    {
+      "scope_index": 2067,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs"
+    },
+    {
+      "scope_index": 2068,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection/dive_launch.rs"
+    },
+    {
+      "scope_index": 2069,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs"
+    },
+    {
+      "scope_index": 2074,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/scene_spawn.rs"
+    },
+    {
+      "scope_index": 2081,
+      "source_id": "pr-working:crates/adventuresim-terrain/src/digest.rs"
+    },
+    {
+      "scope_index": 2096,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/evaluation.rs"
+    },
+    {
+      "scope_index": 2097,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/evaluation/memo.rs"
+    },
+    {
+      "scope_index": 2098,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/hash.rs"
+    },
+    {
+      "scope_index": 2099,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/holders.rs"
+    },
+    {
+      "scope_index": 2113,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/mod.rs"
+    },
+    {
+      "scope_index": 2126,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/mod.rs"
+    },
+    {
+      "scope_index": 2127,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/quantities.rs"
+    },
+    {
+      "scope_index": 2130,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/stock.rs"
+    },
+    {
+      "scope_index": 2132,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation.rs"
+    },
+    {
+      "scope_index": 2151,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/validation.rs"
+    },
+    {
+      "scope_index": 2168,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/person_names.rs"
+    },
+    {
+      "scope_index": 2170,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/person_names/identity_validation.rs"
+    },
+    {
+      "scope_index": 2202,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/wrapped_tasset_carrier.wgsl"
+    },
+    {
+      "scope_index": 2203,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/wrapped_tasset_shape.wgsl"
+    },
+    {
+      "scope_index": 2204,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/wrapped_tassets.rs"
+    },
+    {
+      "scope_index": 2206,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/material.rs"
+    },
+    {
+      "scope_index": 2268,
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/cuboid.rs"
+    },
+    {
+      "scope_index": 2269,
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/error.rs"
+    },
+    {
+      "scope_index": 2270,
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/length.rs"
+    },
+    {
+      "scope_index": 2271,
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/lib.rs"
+    },
+    {
+      "scope_index": 2272,
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/measurement.rs"
+    },
+    {
+      "scope_index": 2311,
+      "source_id": "pr-working:crates/fabelgeist-math/src/units.rs"
+    },
+    {
+      "scope_index": 2356,
+      "source_id": "pr-working:crates/strategic-web/src/main.rs"
+    },
+    {
+      "scope_index": 2359,
+      "source_id": "pr-working:crates/strategic-web/src/regional_source.rs"
+    },
+    {
+      "scope_index": 2370,
+      "source_id": "pr-working:crates/strategic-web/src/routes/mod.rs"
+    },
+    {
+      "scope_index": 2371,
+      "source_id": "pr-working:crates/strategic-web/src/routes/quests.rs"
+    },
+    {
+      "scope_index": 2383,
+      "source_id": "pr-working:crates/strategic-web/src/routes/travel.rs"
+    },
+    {
+      "scope_index": 2385,
+      "source_id": "pr-working:crates/strategic-web/src/spacetimedb/client.rs"
+    },
+    {
+      "scope_index": 2387,
+      "source_id": "pr-working:crates/strategic-web/src/spacetimedb/mod.rs"
+    },
+    {
+      "scope_index": 2436,
+      "source_id": "report-p17:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs"
+    },
+    {
+      "scope_index": 2465,
+      "source_id": "report-p17:crates/adventuresim-tactical-core/src/animation/authored_angle.rs"
+    },
+    {
+      "scope_index": 2466,
+      "source_id": "report-p17:crates/adventuresim-tactical-core/src/animation/height_measurement.rs"
+    },
+    {
+      "scope_index": 2467,
+      "source_id": "report-p17:crates/adventuresim-tactical-core/src/animation/measurement.rs"
+    },
+    {
+      "scope_index": 2477,
+      "source_id": "sdk-spacetimedb-sats-2.6.1:timestamp.rs"
+    },
+    {
+      "scope_index": 2478,
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry/error.rs"
+    },
+    {
+      "scope_index": 2483,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/procedural.rs"
+    },
+    {
+      "scope_index": 2484,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/ragdoll.rs"
+    },
+    {
+      "scope_index": 2485,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/playback.rs"
+    },
+    {
+      "scope_index": 2491,
+      "source_id": "physical-p16:crates/fabelgeist-geometry/src/cuboid.rs"
+    },
+    {
+      "scope_index": 2496,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/gable_enclosure.rs"
+    },
+    {
+      "scope_index": 2525,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/defaults.rs"
+    },
+    {
+      "scope_index": 2557,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/sample_rate.rs"
+    },
+    {
+      "scope_index": 2589,
+      "source_id": "dependency-serde_json1.0.151:src/value/de.rs"
+    },
+    {
+      "scope_index": 2593,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/equipment/runtime_equipment.rs"
+    },
+    {
+      "scope_index": 2595,
+      "source_id": "pr-working:crates/adventuresim-puzzles/src/choices/sigil.rs"
+    },
+    {
+      "scope_index": 2596,
+      "source_id": "pr-working:crates/adventuresim-puzzles/src/choices/witness_path.rs"
+    },
+    {
+      "scope_index": 2670,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/Cargo.toml"
+    },
+    {
+      "scope_index": 2671,
+      "source_id": "physical-p16:Cargo.toml"
+    },
+    {
+      "scope_index": 2675,
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_schedule/allocation.rs"
+    },
+    {
+      "scope_index": 2677,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration/clock.rs"
+    },
+    {
+      "scope_index": 2679,
+      "source_id": "report-p17:crates/fabelgeist-geometry/src/measurement.rs"
+    },
+    {
+      "scope_index": 2680,
+      "source_id": "report-p17:crates/fabelgeist-geometry/src/length.rs"
+    },
+    {
+      "scope_index": 2683,
+      "source_id": "report-p17:crates/adventuresim-building-generator/Cargo.toml"
+    },
+    {
+      "scope_index": 2684,
+      "source_id": "report-p17:crates/fabelgeist-geometry/Cargo.toml"
+    },
+    {
+      "scope_index": 2685,
+      "source_id": "report-p17:Cargo.toml"
+    },
+    {
+      "scope_index": 2686,
+      "source_id": "report-p17:Cargo.lock"
+    },
+    {
+      "scope_index": 2687,
+      "source_id": "report-p17:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs"
+    },
+    {
+      "scope_index": 2688,
+      "source_id": "report-p17:crates/adventuresim-building-generator/src/spatial_geometry/error.rs"
+    },
+    {
+      "scope_index": 2690,
+      "source_id": "p16:crates/adventuresim-core/src/combat/incapacitation.rs"
+    },
+    {
+      "scope_index": 2692,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/world_actor/presence.rs"
+    },
+    {
+      "scope_index": 2710,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease/fixture_administrations.rs"
+    },
+    {
+      "scope_index": 2723,
+      "source_id": "pr-working:crates/adventuresim-stdb-client/Cargo.toml"
+    },
+    {
+      "scope_index": 2732,
+      "source_id": "physical-p16:crates/strategic-web/src/location_urls.rs"
+    },
+    {
+      "scope_index": 2734,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/character/occupancy.rs"
+    },
+    {
+      "scope_index": 2741,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/assignment.rs"
+    },
+    {
+      "scope_index": 2744,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_references.rs"
+    },
+    {
+      "scope_index": 2748,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/visuals.rs"
+    },
+    {
+      "scope_index": 2749,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/identity_morphs.rs"
+    },
+    {
+      "scope_index": 2750,
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/lib.rs"
+    },
+    {
+      "scope_index": 2751,
+      "source_id": "pr-working:crates/fabelgeist-math/src/transform.rs"
+    },
+    {
+      "scope_index": 2752,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/framed_roofs.rs"
+    },
+    {
+      "scope_index": 2753,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_editing.rs"
+    },
+    {
+      "scope_index": 2754,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/bearing.rs"
+    },
+    {
+      "scope_index": 2766,
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/coverage.rs"
+    },
+    {
+      "scope_index": 2773,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/armor.rs"
+    },
+    {
+      "scope_index": 2775,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/capability.rs"
+    },
+    {
+      "scope_index": 2776,
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment/armor.rs"
+    },
+    {
+      "scope_index": 2780,
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment/parametric_weapon.rs"
+    },
+    {
+      "scope_index": 2781,
+      "source_id": "physical-p16:crates/adventuresim-core/src/quest_generation/sampling.rs"
+    },
+    {
+      "scope_index": 2782,
+      "source_id": "physical-p16:crates/adventuresim-core/src/quest_generation/solver.rs"
+    },
+    {
+      "scope_index": 2785,
+      "source_id": "dependency-serde_json1.0.151:src/map.rs"
+    },
+    {
+      "scope_index": 2788,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/tactical.rs"
+    },
+    {
+      "scope_index": 2807,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/authority_tests.rs"
+    },
+    {
+      "scope_index": 2808,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/character/authority_tests.rs"
+    },
+    {
+      "scope_index": 2809,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/character/authority_tests.rs"
+    },
+    {
+      "scope_index": 2813,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory_armor.rs"
+    },
+    {
+      "scope_index": 2818,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory_armor.rs"
+    },
+    {
+      "scope_index": 2819,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/buildings/window.rs"
+    },
+    {
+      "scope_index": 2829,
+      "source_id": "physical-p16:crates/adventuresim-puzzles/src/lib.rs"
+    },
+    {
+      "scope_index": 2830,
+      "source_id": "physical-p16:crates/adventuresim-puzzles/src/choices.rs"
+    },
+    {
+      "scope_index": 2831,
+      "source_id": "physical-p16:crates/adventuresim-puzzles/src/choices/sigil.rs"
+    },
+    {
+      "scope_index": 2832,
+      "source_id": "physical-p16:crates/adventuresim-puzzles/src/choices/witness_path.rs"
+    },
+    {
+      "scope_index": 2833,
+      "source_id": "physical-p16:crates/adventuresim-puzzles/src/puzzles.rs"
+    },
+    {
+      "scope_index": 2834,
+      "source_id": "physical-p16:crates/adventuresim-puzzles/src/logic_grid.rs"
+    },
+    {
+      "scope_index": 2835,
+      "source_id": "physical-p16:crates/adventuresim-puzzles/src/resource_allocation.rs"
+    },
+    {
+      "scope_index": 2838,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/landing_policy.rs"
+    },
+    {
+      "scope_index": 2839,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/floors.rs"
+    },
+    {
+      "scope_index": 2843,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/coif_drape.rs"
+    },
+    {
+      "scope_index": 2844,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/scalp_map.rs"
+    },
+    {
+      "scope_index": 2845,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/mod.rs"
+    }
+  ],
+  "registered_new_material_not_yet_personally_read07": [],
+  "local_finding_records": 62,
+  "original_source_inventory_status": "2853/2853 accounted, adopted1758 exactsame-lens baseline +1095 continuation; seven deletedroles absence/base only no currentbodycredit",
+  "mandatory_overlay_receipts": 246,
+  "mandatory_overlay_unread_ranges": 0,
+  "latest_overlay_record": "CONT07-OVERLAY-RECONCILIATION-001",
+  "live_extension_registry_entries": 100,
+  "live_extensions_accounted07": 100,
+  "live_extensions_unread07": [],
+  "latest_live_extension_record": "live-delta-015-uv-writer.json",
+  "latest_question_record": "question-002-compute-group-slots.json",
+  "new_connected_roles_pending_global_inventory": [
+    "CONT07-REG-040",
+    "CONT07-REG-041"
+  ],
+  "reached_extension_roles_including_pending_global": 61,
+  "discovery_status": "CompleteWITH_FINDINGS foradoptedbaseline/mergeddeltas andexplicit100materialsnapshot; no clearance",
+  "post_completion_bounded_deltas": [
+    "live-delta-013.json",
+    "live-delta-014-contexts.json",
+    "live-delta-015-uv-writer.json"
+  ],
+  "subsequent_material_frontier": {
+    "registry": "../source-extensions.json",
+    "registry_count_observed": 173,
+    "completed_snapshot_count": 100,
+    "pending_indices": [
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109,
+      110,
+      111,
+      112,
+      113,
+      114,
+      115,
+      116,
+      117,
+      118,
+      119,
+      120,
+      121,
+      122,
+      123,
+      124,
+      125,
+      126,
+      127,
+      128,
+      129,
+      130,
+      131,
+      132,
+      133,
+      134,
+      135,
+      136,
+      137,
+      138,
+      139,
+      140,
+      141,
+      142,
+      143,
+      144,
+      145,
+      146,
+      147,
+      148,
+      149,
+      150,
+      151,
+      152,
+      153,
+      154,
+      155,
+      156,
+      157,
+      158,
+      159,
+      160,
+      161,
+      162,
+      163,
+      164,
+      165,
+      166,
+      167,
+      168,
+      169,
+      170,
+      171,
+      172
+    ],
+    "qualification": "Exact boundednewmaterial/context only; adoptedcompletedbaseline preserved."
+  },
+  "successor_resolutions": [
+    {
+      "id": "SEGO-CONT07-Q002",
+      "receipt": "../../../coordination/826-cac5-sparse-group-reconciliation.json"
+    }
+  ]
+}

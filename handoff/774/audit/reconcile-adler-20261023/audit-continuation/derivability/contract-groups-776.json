@@ -1,0 +1,49 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-776",
+  "at": "2026-10-25T16:46:10.047906+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 999,
+  "source_id": "pr-working:crates/adventuresim-core/src/social/action_kind.rs",
+  "sha256": "2b9ff5d4ad32e81e8a66e3ad09dc43d0e382c88b117b89b970876d9d3789ce92",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "Display + Error",
+      "type": "ParseSocialActionKindError",
+      "lines": [
+        [
+          152,
+          158
+        ]
+      ],
+      "disposition": "OPTIONAL_F002 fixed literal Unknown social action/source None existing thiserror"
+    },
+    {
+      "trait": "FromStr",
+      "type": "SocialActionKind",
+      "lines": [
+        [
+          160,
+          167
+        ]
+      ],
+      "disposition": "KEEP borrowed canonical Serde vocabulary and concrete parse error adapter"
+    }
+  ],
+  "analysis": [
+    "SocialActionKind already structural/Serde derives with exact command/deception renames. Native reducerkey/skill/eligibility/copy/risk tables remain runtime policy, not mechanical traits. FromStr160\u2013167 already reuses borrowed canonical Serde deserializer and maps concrete error, keep small adapter.",
+    "ParseSocialActionKindError Display152\u2013158 fixed literal Unknown social action + empty Error is exact optional F002 owning thiserror equivalent/source None."
+  ],
+  "first_unfinished": {
+    "scope_index": 999,
+    "line": 221
+  },
+  "execution": "none"
+}

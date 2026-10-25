@@ -1,0 +1,69 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-144",
+  "at": "2026-10-25T18:31:08.451501+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1642,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/grass/tests.rs",
+      "sha256": "413e7f0a46f9ade07d36de3a8527daee18a330a7bec2faad7de40f69d7b8724e",
+      "personally_read_ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Existing VistaTuftPlacement fixtures distinguish owned property support from raw sampled20m LOD, require missing/outside or steep supportNone, and preserve sampled presented-height policy for nonowned terrain. Explicit same source/setup references and conditional fixtures, all119read, no execution."
+      ]
+    },
+    {
+      "scope_index": 1643,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/ground.rs",
+      "sha256": "ba28b2b2e5c003d146de3b09771d7a8e55584f1410dc43b71c954f69ff82a830",
+      "personally_read_ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Actual source branch is property_surface: owned meshes validate LOD/coarser metadata then use bounded accepted surface; sampled uses playable stitch only for matching inner extent. Scenery SurfaceHit pairs actual support elevation and canonical Dir3; rock transform checks slope and combined signed lift in checked scene Position before native transform. Tree roots on owned scene retain actual highest support; no height0 fallback. Missing sample/normal returnsNone optional scenery, not fake ground."
+      ]
+    },
+    {
+      "scope_index": 1644,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/ground/tests.rs",
+      "sha256": "092e4f6411cb3672bfc3912437384989831eddd10bc3a27fa86b234f5df82d0a",
+      "personally_read_ranges": [
+        [
+          1,
+          300
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Fixtures construct accepted BoundedSettlementTerrain over raw0m scene/20m LOD and verify actual7m support roots across LODs, rock elevation/normal/slope gating, no outside support and unchanged sampled policy. Ignored Goslar property1236 input via FABELGEIST_SCENERY_ACCEPTANCE_INPUT and ignored12-fixture FABELGEIST_PARTITION_ACCEPTANCE_MANIFEST explicitly external dependencies; expected values/tree/rock source read, none executed or reported passed. Existing independent assertions preserve support identity versus raw sampled height difference."
+      ]
+    },
+    {
+      "scope_index": 1645,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/natural.rs",
+      "sha256": "724bf4201d7a9163847a097d79c1b60de6d72e529328bb507431b22e0e05661e",
+      "personally_read_ranges": [
+        [
+          1,
+          163
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "SampledVistaMesher builds four checked vertex tuples first then extends equal position/normal/color columns and matching indices; Err never returns partial mesh. Local/scene conversion explicit canonical PlanDisplacement; missing support, degenerate normal and pigment distinct structured errors. Empty chunk legitimateOkNone.",
+        "validate_source delegates has_height_grid and exact environment/height cardinality before width/depth arithmetic; positive normal-sample length from spacing. Pairing ordered/coincident LODs/inner extent remains aggregate input contract beyond this two-field validator. Chunk source32cells does not alone prove arbitrary post-subdivision vertex capacity; M66/F36 existing combined-native-bound repair/proof applies, no ordinary overflow witness."
+      ]
+    }
+  ],
+  "findings": [],
+  "qualified_connected_requirements": [],
+  "discovery": "4 newly accounted original roles; other reads support already counted historical roles. Lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

@@ -1,0 +1,218 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-014",
+  "at": "2026-10-22T19:40:39.706354+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "native-rand0.9.5:src/distr/weighted/weighted_index.rs",
+      "sha256": "b4559037354bcb9e0b1eab569c867dd70053de382232c7ed4d9aef3d5b049003",
+      "actual_read_ranges": [
+        [
+          1,
+          145
+        ],
+        [
+          358,
+          369
+        ]
+      ],
+      "registration_refs": [
+        {
+          "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+          "row_1based": 2,
+          "id": "ROOT-INITIAL04-REG002"
+        }
+      ],
+      "actual_EOF": 631,
+      "scope_limits": [
+        "u64 WeightedIndex private cumulative vector+total and actual checkednew/Distribution<usize>sample only; update_weights/remove/float/customWeight/testgraphs excluded"
+      ]
+    },
+    {
+      "source_id": "native-rand0.9.5:src/distr/uniform.rs",
+      "sha256": "04efcc061e1904b824e3feb68541c4e8259a46ecd2c118af6fb383b3ad37f73c",
+      "actual_read_ranges": [
+        [
+          219,
+          260
+        ],
+        [
+          268,
+          312
+        ],
+        [
+          399,
+          415
+        ],
+        [
+          190,
+          219
+        ]
+      ],
+      "registration_refs": [
+        {
+          "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+          "row_1based": 3,
+          "id": "ROOT-INITIAL04-REG003"
+        },
+        {
+          "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+          "row_1based": 9,
+          "id": "ROOT-INITIAL04-REG009"
+        }
+      ],
+      "actual_EOF": 622,
+      "scope_limits": [
+        "ActualUniform<u64> wrapper constructor/sample andstaticSampleUniform/UniformSampler/SampleBorrow bindings usedbycheckedzero-to-nonzeroupper; ranges mayendincontext, allunselectedsingle_range/testgraphs excluded",
+        "AttachedUniformdefinitionattrs/derivecontext neededforrepresentation versus canonicalconstructor guarantee; exactheader only, notextraalgorithm/testgraph."
+      ]
+    },
+    {
+      "source_id": "native-rand0.9.5:src/distr/uniform_int.rs",
+      "sha256": "30c620bc9d74263162de2e0755ae4b323abce1d6aa22c00d1b9de378480f22c0",
+      "actual_read_ranges": [
+        [
+          71,
+          160
+        ],
+        [
+          280,
+          280
+        ],
+        [
+          1,
+          70
+        ]
+      ],
+      "registration_refs": [
+        {
+          "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+          "row_1based": 4,
+          "id": "ROOT-INITIAL04-REG004"
+        },
+        {
+          "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+          "row_1based": 10,
+          "id": "ROOT-INITIAL04-REG010"
+        }
+      ],
+      "actual_EOF": 914,
+      "scope_limits": [
+        "Actualu64 UniformInt state+genericintegerconstructor/newinclusive/sample+u64macroinstantiation; sample_single/SIMD/usize/float/otherint/tests excluded",
+        "DirectimportsWideningMultiply andUniformIntderive/representation/Lemirecontract context; notsample_single/SIMD/tests graph."
+      ]
+    },
+    {
+      "source_id": "native-rand0.9.5:src/distr/weighted/mod.rs",
+      "sha256": "52379f09ea06c8ac54bdb4ecaed93fd7fc08f85866b5e3fcb4e40d0f1576bdfe",
+      "actual_read_ranges": [
+        [
+          25,
+          60
+        ],
+        [
+          85,
+          115
+        ]
+      ],
+      "registration_refs": [
+        {
+          "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+          "row_1based": 5,
+          "id": "ROOT-INITIAL04-REG005"
+        }
+      ],
+      "actual_EOF": 115,
+      "scope_limits": [
+        "Concreteu64 Weightchecked_add_assignmacro+instantiation, canonicalweightedErrorvariants/format only; floatWeight62-83 excluded."
+      ]
+    },
+    {
+      "source_id": "native-rand0.9.5:src/distr/utils.rs",
+      "sha256": "a631940e728257c9b0cb753bc64fa631958c92ce52d5b2265c7ed06a46567b8f",
+      "actual_read_ranges": [
+        [
+          16,
+          61
+        ]
+      ],
+      "registration_refs": [
+        {
+          "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+          "row_1based": 6,
+          "id": "ROOT-INITIAL04-REG006"
+        }
+      ],
+      "actual_EOF": 408,
+      "scope_limits": [
+        "ActualscalarWideningMultiplyu64\u2192u128high/low proof+u64macroinstantiation; SIMDmacrocontextonly, othernativekernels/usize/floats/tests excluded."
+      ]
+    },
+    {
+      "source_id": "native-rand0.9.5:src/distr/integer.rs",
+      "sha256": "69ac205b6fed57ae09e2f8f1b15ae3d2049b85874bc4da3f246a18188b42d8ea",
+      "actual_read_ranges": [
+        [
+          49,
+          54
+        ]
+      ],
+      "registration_refs": [
+        {
+          "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+          "row_1based": 7,
+          "id": "ROOT-INITIAL04-REG007"
+        }
+      ],
+      "actual_EOF": 307,
+      "scope_limits": [
+        "ExactStandardUniformDistribution<u64>::sample actualnext_u64nativewordprojection only; u8/u16/u32/u128/SIMD/tests excluded."
+      ]
+    },
+    {
+      "source_id": "native-rand0.9.5:src/rng.rs",
+      "sha256": "19a29d58ea169c50ae7fea0a941c405e4a8f3a9b2ac0dc0edd9f7a55e9431703",
+      "actual_read_ranges": [
+        [
+          58,
+          58
+        ],
+        [
+          95,
+          103
+        ],
+        [
+          357,
+          357
+        ]
+      ],
+      "registration_refs": [
+        {
+          "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+          "row_1based": 8,
+          "id": "ROOT-INITIAL04-REG008"
+        }
+      ],
+      "actual_EOF": 657,
+      "scope_limits": [
+        "ExactRng:RngCore traitbinding, genericrandomdelegation andblanketRngimpl; otherRngmethodalgorithms excluded."
+      ]
+    }
+  ],
+  "pin": "FrozenPRdeterminismCargoexactrand0.9.5 +lock8938-8945 actualread, library095localcode. No later0.10 substitution or projectexecution.",
+  "groups": {
+    "checked-u64-weight-construction": "All9registeredbodyrangesfreshafterregistration/peernotification. NativeWeightedIndex99-137 consumesstableactualiterator, rejects emptybeforevector, initializesfirstu64weight, pushesN-1pre-accumulationcumulatives, addsusingactualWeightu64implementationmod25-60. Thatimplementation usesu64.checked_add, updateslocaltotalonlyonSome, returnsErronoverflow. NativeconstructorreturnsErrorOverflow beforepublishingdistribution andtakesNORNGargument, so no draworacceptedcachedhalfbuildoninvalidweights. Allu64weights>=0, InvalidWeightbranchunreachableforconcreteu64 (notforallcustomWeight/X). Total0rejectsInsufficientNonZero. PositiveT<=u64MAX passedSamplernew(0,T), actualnewemptycheckalwaysvalid; nativeunwrap130 justifiedforthisconcreteconstructorroute, not anargumentforprojectproductionunwraps. All4nativeErrorvariants85-115+Displayread; Errorclassespreservedwithoutmessageparsing.",
+    "concrete-uniform-integer-admission": "Uniformwrappernew219-260 dispatchesX::Sampler viaSampleUniform trait268-312; concreteinteger macro88 mapsu64toUniformInt<u64>, actualu64instantiation280 read. SampleBorrow399-415 returnsactualborrowedvalueforu64/&u64, no copiedsecondauthority. Intnew102-113 checks0<upper BEFOREhigh-1; forpositiveupper>=1 subtractioncannotunderflow. inclusiveconstructor117-141 checksorderedbounds thenwrappingrange computationisINTENTIONAL fullwordencoding, zero meansinclusivewholeu64range peractualdocs42-43. Forprojectbelow/weightedSampler0..upperexclusive, highinclusive=upper-1<=MAX-1, rangeraw==upper in1..MAX (never0sentinel), threshold=range.wrapping_neg()%range definednonzero divisor andstaysbelowrange. Nativeascastsallty=u64/uty=u64/samplety=u64; no targetwidthnarrowing inthisinstantiation. Otherinteger/SIMD/float/sample_singleimplementations notcovered.",
+    "full-word-bounded-sampling": "Intsample145-159 loops actualRngrandom::<u64>. Rng58/95-100/357 andinteger49-54 proveblanketRng:RngCore andStandardUniformu64sample\u2192rng.next_u64, notimplicitu32, ambiententropy or differentwidth. WideningMultiplyutils16-61 u64macro usesu128productthenhigh=>>64 andlowtruncate64; (2^64-1)^2<=u128MAX, soexactwideproductcannotoverflow. For0<=word<2^64 and1<=range<=MAX, high=floor(word*range/2^64) in0..range-1; lowwordthresholdrejection changesbias/drawconsumption, neveroutofrange. Afteracceptedcandidate, low=0projectcase returnschosen<upper bywrapping_add0. Nativefullwordrange0specialcase returnsrandomu64 butnotusedbyexclusiveprojectsampling. Constructorneversamples; eachsamplercall MAYconsumeMULTIPLEu64wordsdueactualrejectionloop, no claimonewordpereachweighted/indexdraw. ExistingRejectionProbeinput0then1/u64MAX staticmathmatchesactualtwowordbehavior, notexecuted/newtest.",
+    "selected-index-and-zero-exclusion": "WeightedIndexsample358-368 drawschosen_weightin[0,T) throughsameadmittedu64sampler, thenpartition_point(cumulative<=chosen). Constructorcumulativecontainsendpointsafterweights0..N-2 monotonenondecreasingandfinalTpositive. Partition returns0..N-1, alwaysmemberofEXACTinputlength. Equalconsecutivecumulativesfromzeroentriesareskippedtogetherby<=predicate; first0bucketneverchosen, trailing0bucket hasendpointT>chosen so notselected. Selectedentryispositive. Empty/zero-only inputneverconstructed. Thisisactualconstructor+nativekernel+partitionrelationshipproof, notdatatype-name/countassumption. StandardRustslice.partition_pointactualcontract isboundedindex forsortedpredicate, no newunrelatedstdlibgraphopened.",
+    "project-weighted-order-fixedpoint": "Root006actualPRstream118-130 source-specificreconciliation: remaining=weights.clone, resultlocal, k=countoriginalnonzero. Ifempty/allzero errorcomescheckedfirstconstructorbeforeANYdraw. Ifinitialsumoverflow same. Aftervalidfirstconstruction, selectedidx<remaining.len&&entry>0 byactualnativeproof; settingentry0decreasesnonnegativeu64sumandnumberpositivesexact1. Thereforeforloopiterationj<k remainingpositives=k-j>=1andtotal<=initialadmittedT<=MAX, everylaterreconstructioncannotnewlyoverflow/beempty/zero. Subsequent?cannoterrorunderthisunchangedlocalvectorcontext, no latefailureconsumespartialRNGsequence. Exactlykdistinctoriginalindices, eachfromsameorderedvector, callerweightsunmodified. Underlyingu64wordcountdependsrejectionforeveryiteration; preservealgorithm/stableordering/nativewords ratherthanclaimfixedkworddraws. No wholeotherRNGmethods/customWeight/retainedexternaldistribution graphcredit.",
+    "foreign-codec-qualification": "WeightedIndex79-85, Uniformattrs213-219 andUniformInt69-74 showoptionalnativeDerivedDeserializeprivatebacking. TheyareNOTuniversalvalidatedtypecertificates underallcodecfeatures/customX; uncheckednativecodecstatecouldviolatecumulative/range/thresholdrelations. Actualprojectweighted_index105-114 constructsfreshlocalWeightedIndex::new(weights) eachcallandbelowfreshUniform::new(0,NonZeroUpper), no decodedforeigndistributionentryintheseactualpaths. No claimallfirstpartycodeeveravoidsnativeDeserialize; source-specificordinaryconstructorproofonly. No foreignserde/SDKpatchselected, no assumptionfeaturesdisabled. Nativefloatweights/floatUniformpolicies outsideconcreteu64proof."
+  },
+  "findings": [],
+  "disposition": "Sevenexactnativeu64samplerrolescompared andactualprojectweighted_orderinvariantproofclosedwithlowerkernels; independent05mayconsumeactualsourceproofwithouttransferring04verdict. Thispacketdoesnotcloseall04/global01/02/03newmaterialroles/validation.",
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

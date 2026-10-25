@@ -1,0 +1,75 @@
+{
+  "recorded_at": "2026-10-20T19:30:17.102066+00:00",
+  "published_head": "82cb2a3acccc852bba6a7ef9c706c337ba9fe765",
+  "status": "Implementation progress only; P06 remains uncommitted, incomplete and unvalidated.",
+  "previous_goal_turn": "No migration progress in the preceding conflict-only response. Revalidated source state and resumed the next available safe P06 source action; no blocker.",
+  "unchanged_native_source": {
+    "run_contact_within_follower_step": {
+      "identical_source": true,
+      "before_sha256": "c40075621756766c17b879972b90f555dc5cb804b1474aa3a3276cb77f62df98",
+      "after_sha256": "c40075621756766c17b879972b90f555dc5cb804b1474aa3a3276cb77f62df98"
+    },
+    "run_contact_within_leg_reach": {
+      "identical_source": true,
+      "before_sha256": "fcb02d52560e91409adc95a5b1307928c9c46d3d2dc21c9dd5d4b5b2acf28613",
+      "after_sha256": "fcb02d52560e91409adc95a5b1307928c9c46d3d2dc21c9dd5d4b5b2acf28613"
+    },
+    "project_run_contact_into_reach_intersection": {
+      "identical_source": true,
+      "before_sha256": "8280191fc12ec0d9db352ed8d68b701fef09754fe0a18c1b48e2157ce043c3bb",
+      "after_sha256": "8280191fc12ec0d9db352ed8d68b701fef09754fe0a18c1b48e2157ce043c3bb"
+    },
+    "native_slope_rotation": {
+      "identical_source": true,
+      "before_sha256": "3abe30cf68778b4f5f7d9fc509ed382114d5c40d5b8a38d89e65b18fe52985f4",
+      "after_sha256": "3abe30cf68778b4f5f7d9fc509ed382114d5c40d5b8a38d89e65b18fe52985f4"
+    },
+    "cascadeur_foot_bind_axis_keeps_flat_ground_unchanged": {
+      "identical_source": true,
+      "before_sha256": "ec60e1f912bb2d56388f6da1b097e6ecbef1ffea7d91dca242cda81c205c8397",
+      "after_sha256": "ec60e1f912bb2d56388f6da1b097e6ecbef1ffea7d91dca242cda81c205c8397"
+    },
+    "slope_alignment_is_idempotent_across_repeated_evaluation": {
+      "identical_source": true,
+      "before_sha256": "15262a06c9b8b66b5b4551b1cf4b4875661d3a7eae7268f8733171f2a657f465",
+      "after_sha256": "15262a06c9b8b66b5b4551b1cf4b4875661d3a7eae7268f8733171f2a657f465"
+    },
+    "weather_particle_native_mesh": {
+      "identical_source": true,
+      "before_sha256": "9b04f9892ee2c1f690559ef70ded006ba5945c0828867c9e554b85bc8264cb6d",
+      "after_sha256": "9b04f9892ee2c1f690559ef70ded006ba5945c0828867c9e554b85bc8264cb6d"
+    }
+  },
+  "implemented": [
+    "Run terrain callbacks, terminal settle, raised guard and propagated support predicates retain ScenePlanPoint and SupportElevation; complete native run reach/motion operations moved to terrain_contacts/run_reach.rs.",
+    "Coordinator floors remain FootClearanceFloor to native target correction; complete run/settle target responsibilities extracted instead of growing the large coordinator.",
+    "Pose-buffer contacts and ragdoll multi-terrain maximum retain checked support until native height/capsule arithmetic. SupportElevation::max owns the exact existing finite f32::max operation.",
+    "AnimationDiagnosticRecord retains Option<SupportElevation> through transparent Serde; derived clearances project at subtraction.",
+    "TerrainContactHeightmap couples Image and SceneElevationRange. Missing range, required physical texel or invalid coordinate is rejected; finite encoding-range and native image-width admission are explicit.",
+    "Tree residency admits the complete new raster before retaining or changing the active cache; image, scene digest and typed range are retained together, without a contact-heightmap expect. Bark material bounds project only into the GPU Vec4.",
+    "Weather clears the previous particles first, admits the whole image before any new particle layer, and shares checked bounds through falling, impact and sheet materials and the matching occlusion update. The tree signature is assigned only after the image update.",
+    "Woody weather occlusion moved to a focused module with its existing footprint test. Empty raster cells use Option rather than NEG_INFINITY; native raster math and alpha meaning are retained.",
+    "ActiveVistaSurface and StrategicBackdrop application queries retain checked points/elevations around complete native interpolation/stitch kernels. TerrainDetailPatch keeps its checked snapped centre; lattice points are admitted once and reused for fine/coarse samples.",
+    "Existing fixtures adapted with their original inputs, cases and assertions. The client test-only road estimator also uses an explicit uninitialized Option score with the same strict-better first-tie policy."
+  ],
+  "intentional_invariant_repairs": [
+    "Reject a nonfinite completed floor before max can hide it; retain completed sole/toe max before admission.",
+    "Reject missing required heightmap support instead of encoding a fake minimum with full alpha.",
+    "Reject an encoding range that cannot be represented by the existing native f32 raster coefficient."
+  ],
+  "native_boundary_classification": [
+    "Bevy/glam footprint production admits ScenePlanPoint before application queries; support leaves project only at ankle/capsule/finite-difference/mesh/uniform arithmetic.",
+    "Image texel ordinals and RGBA quantization are native pixel boundaries; preserve row-major order, 16-bit rounding and byte order.",
+    "The weather shelter raster is a native temporary numeric buffer. Option represents an empty pixel; 0.0 ragdoll correction is an actual no-correction result, not a fabricated support height.",
+    "Native vista interpolation functions retain their complete raw mathematical ports; checked application wrappers admit only completed elevations and do not become tactical support authorities."
+  ],
+  "not_yet_verified": [
+    "No local Rust/project tool, formatter, generator, scanner or numerical probe was run.",
+    "Static source equality and name/assertion metadata are not compilation, runtime equivalence, coverage or family acceptance.",
+    "Hosted green 82cb2a3ac and its 748 selected executions do not validate this working tree.",
+    "Formatting, complete Code/Rule source passes, all connected consumers, workflow selections, hosted checks and relevant official baseline reductions remain pending."
+  ],
+  "first_unfinished": "Continue vista/ground scenery support and all ground-scatter producers/retained points/roots, then strategic preparation, capture/viewer required-support/range callers and server/dispatcher chains. Inspect remaining existing fixture adapters as part of those paths; no new tests.",
+  "do_not_commit_or_push_partial_family": true,
+  "do_not_merge": true
+}

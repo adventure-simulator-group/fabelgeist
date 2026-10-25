@@ -1,0 +1,37 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-844",
+  "at": "2026-10-25T16:59:54.061321+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1061,
+  "source_id": "pr-working:crates/adventuresim-puzzles/src/logic_grid.rs",
+  "sha256": "c40ef50453ea8397ae1ea890892eb142f77ce9b6f8d58f5d8e2158afd75de2c4",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "Default",
+      "type": "LogicGridSpec",
+      "lines": [
+        [
+          24,
+          33
+        ]
+      ],
+      "disposition": "KEEP nonzero/enabled puzzle policy"
+    }
+  ],
+  "analysis": [
+    "LogicGridSpec Default24\u201333 carries puzzle size3, two enabled polarities and clue bound6; standard structural derive would alter policy, keep necessary manualdefault. All puzzle/clue/assignment/projection records structural/Serde already. Inherent clue prose/generation/projection/unique-solution validation native semantic; no handcodec in range."
+  ],
+  "first_unfinished": {
+    "scope_index": 1061,
+    "line": 221
+  },
+  "execution": "none"
+}

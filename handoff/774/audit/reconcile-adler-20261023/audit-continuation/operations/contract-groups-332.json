@@ -1,0 +1,122 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-332",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/skinning.rs",
+      "sha256": "7ddf91c41655775cc2ac55844fa884d4f06dd8ba6951ee0d45b4550bbde5b199",
+      "actual_EOF": 63,
+      "actual_compared_ranges": [
+        [
+          1,
+          63
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/sockets.rs",
+      "sha256": "d51e531f136697d43d673cc1e6d16764b2c6fd35661d83d9a46b45a4eb5facdf",
+      "actual_EOF": 57,
+      "actual_compared_ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/textures.rs",
+      "sha256": "94523800edefb10ca1a28ebdf93b14b034f2b22b0900e406857bbfc8a5dbf99b",
+      "actual_EOF": 170,
+      "actual_compared_ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/textures/tests.rs",
+      "sha256": "3443c2f0ebaff8646fa3ac613ba770ea48024c53e850ce0dc8fbad014bc48072",
+      "actual_EOF": 191,
+      "actual_compared_ranges": [
+        [
+          1,
+          191
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/garment.rs",
+      "sha256": "d6b09524be811c5e4202be50af529c941a917ff8f31ea61e2a73e4da17dc103e",
+      "actual_EOF": 702,
+      "actual_compared_ranges": [
+        [
+          1,
+          702
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Native export skin projection uses canonical strongest-four reduction and checked u16 port",
+      "source_ranges": {
+        "export/skinning.rs": [
+          [
+            1,
+            63
+          ]
+        ],
+        "export/sockets.rs": [
+          [
+            1,
+            57
+          ]
+        ]
+      },
+      "disposition": "Both full bodies and skin fixture source read. Skinning uses RigInfluences.strongest_four, then native_u16 Result collected before any joint bytes appended; private zip is fed aligned rows proven by export validate. This discharges a guessed raw ordinal truncation at export and differs from preview317 own reducer. Synthetic attachments append extra joint nodes after validation without generating new skin influence ordinals; no evidence a new attachment is narrowed unchecked into existing JOINTS0 here, so do not promote pre-append count observation to truncation defect. Socket nodes retain actual pelvis ordinal bound to original rig order; original joint table precedes stable Skeleton node and mesh nodes. None sockets avoids needless ROOT lookup. Complete local mutable serialization uses later exactnodes indices, not global identity reuse. No export execution."
+    },
+    {
+      "contract": "Texture packaging preserves exact content and explicit IO rejection before final GLB publication",
+      "source_ranges": {
+        "export/textures.rs": [
+          [
+            1,
+            170
+          ]
+        ],
+        "export/textures/tests.rs": [
+          [
+            1,
+            191
+          ]
+        ]
+      },
+      "disposition": "Both complete source and fixture bodies read. Standalone embeds exact bytes; SharedTextures uses digest-named sibling files and checks existing exact bytes, rejecting corrupted contents. Texture source/material indices advance in same order; optional color setswhitefactor intentionally, normal-only preserves authored factors; shell maps replace roughnessfactor1 for sampled packed texture. Raw pointer cache lives only for one export and points at borrowed stable ShellTextures, no dangling reuse lifetime established. finish may write some sibling textures then error before GLBwrite; this is explicit staging IO behavior, no declared atomic directory guarantee or publishedbadmanifest proof. Images are raw provided bytes, PNGvalidity remains authoring/admission contract; no renderer failure inferred from malformed arbitrary payload. Fixtures inspect source only, no GPU/image generation, export or file-removal executed."
+    },
+    {
+      "contract": "Garment measurement and stitched topology preserve original source cardinality and positive skin normalization",
+      "source_ranges": {
+        "garment.rs": [
+          [
+            1,
+            702
+          ]
+        ]
+      },
+      "disposition": "Complete702lines read in three bounded chunks, all inline regression fixtures included. Meters-to-centimeters multiplication is actual raw f32 boundary before external measure; extremefinite overflow remains public numerical strengthening, no normal body reachability claim. SewnSurface union roots cannot cycle because only roots linked; each original vertex assigned one group, degenerate welded faces excluded while original renderface correspondence retained. positions averages only nonempty groups. orient_faces traverses finite face adjacency once per component; inconsistent/nonmanifold raw topology is not certifiedorientable by this traversal. Public normals indexes supplied faces; finite extreme cross/norm can overflow so arbitrary rawgeometry requires coherent admission; no duplicate ordinary meshfinding promoted. transfer_skin checks source rowcount, combines duplicate identities, truncatesstrongest8, rejects nonfinite/nonpositive total before division, and PackedRigSkin.push/set_vertex re-admits ordinals. Closest-triangle barycentric denominator fallback picks firstcorner intentionally for degenerate geometry, negative-roundoff factors clipped then renormalized. Skirt transfer recursively selects ordinary form explicitly and blends three normalized rows with nonnegative smooth weights, maintaining continuous hip span under finite admitted anatomy. Actual sum/norm failure may reject; preserve source error and legitimate zero weights/signedcoordinates. Native BVH/sourceface validity and nonfinite source inputs remain owning admission dependencies, not proven badgeneratedbody. Garment warnings and completed stages remain explicitly partial authoring results, not tactical/player state."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "5 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-character-creator/src/garment/conform.rs"
+}

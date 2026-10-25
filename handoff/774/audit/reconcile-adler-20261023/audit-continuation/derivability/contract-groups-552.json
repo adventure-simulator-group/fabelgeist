@@ -1,0 +1,282 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-552",
+  "at": "2026-10-25T16:01:31.269293+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 913,
+      "source_id": "pr-working:crates/adventuresim-core/src/disease/entropy.rs",
+      "sha256": "10eb46750c66da9cd03f116270ab91b4a1acad817e28333ac2fca342773e3bd8",
+      "actual_EOF": 26,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/disease/entropy.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/disease/entropy.rs",
+        "sha256": "10eb46750c66da9cd03f116270ab91b4a1acad817e28333ac2fca342773e3bd8",
+        "bytes": 735,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/supplemental-core-receivers.json",
+            "ranges": [
+              [
+                1,
+                26
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "NATIVE-SUPP-CORE-DISEASE-001"
+            ]
+          }
+        ],
+        "audit_owner": "native",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 79,
+            "read_ranges": [
+              [
+                1,
+                26
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-DISEASE-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/disease/entropy.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 435,
+            "read_ranges": [
+              [
+                1,
+                26
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-DISEASE-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/disease/entropy.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 303,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full26 native deterministic seed functions with framed identity/time coordinates only; no types, manual traits or codecs."
+    },
+    {
+      "scope_index": 914,
+      "source_id": "pr-working:crates/adventuresim-core/src/disease/identity.rs",
+      "sha256": "bbf3c7a20b95f217815f48c7e830dc75efab9ecf9d7e52a79fd4ad86324388af",
+      "actual_EOF": 132,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/disease/identity.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/disease/identity.rs",
+        "sha256": "bbf3c7a20b95f217815f48c7e830dc75efab9ecf9d7e52a79fd4ad86324388af",
+        "bytes": 4271,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/supplemental-core-receivers.json",
+            "ranges": [
+              [
+                1,
+                132
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "NATIVE-SUPP-CORE-DISEASE-001"
+            ]
+          }
+        ],
+        "audit_owner": "native",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 80,
+            "read_ranges": [
+              [
+                1,
+                132
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-DISEASE-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/disease/identity.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 436,
+            "read_ranges": [
+              [
+                1,
+                132
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-DISEASE-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/disease/identity.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/additional_actual_source_proofs/48",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/disease/identity.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                132
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/disease/identity.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/disease/identity.rs",
+              "sha256": "bbf3c7a20b95f217815f48c7e830dc75efab9ecf9d7e52a79fd4ad86324388af",
+              "read_ranges": [
+                [
+                  1,
+                  132
+                ]
+              ],
+              "actual_line_count": 132,
+              "mode": "fresh current producer-supplement actual material source bodies; no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-036",
+            "json_pointer": "/additional_fresh_sources/13",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/disease/identity.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                132
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/disease/identity.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/disease/identity.rs",
+              "sha256": "bbf3c7a20b95f217815f48c7e830dc75efab9ecf9d7e52a79fd4ad86324388af",
+              "read_ranges": [
+                [
+                  1,
+                  132
+                ]
+              ],
+              "actual_line_count": 132,
+              "mode": "fresh current producer-supplement actual material source bodies; no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 304,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Display + Error",
+          "type": "ParseDiseaseIdError",
+          "lines": [
+            [
+              65,
+              74
+            ]
+          ],
+          "disposition": "Existing F002 exact literal-unit-error family: optional thiserror::Error with #[error(\"Unknown disease\")], exact sourceNone and fixed write_str message, no generic bounds. Owning Core849/root497 existing2.0.20 and prior pinned macro proof apply."
+        },
+        {
+          "trait": "FromStr",
+          "type": "DiseaseId",
+          "lines": [
+            [
+              76,
+              84
+            ]
+          ],
+          "disposition": "KEEP explicit Serde StrDeserializer reuse and mapping any decoding error to ParseDiseaseIdError; preserves snake_case vocabulary, no separate inverse table or raw constructor."
+        }
+      ],
+      "existing_derives": [
+        "DiseaseId Clone Copy Debug PartialEq Eq Hash snake_case Serialize Deserialize8\u20139",
+        "ParseDiseaseIdError structural65"
+      ],
+      "absence_basis": "Full132 personally read including malformed-key/variant-coordinate sourcefixtures. Canonical stable_id and deterministic stable_variant_id intentional separate native spellings; no handwritten codec beyond explicit parser."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Disease fixed error boilerplate versus native identity parser",
+      "disposition": "F002 optional exact literal error derive support; keep parser error mapping, borrowed StrDeserializer input and distinct deterministic coordinates. No new issue or fixture execution."
+    }
+  ],
+  "findings": [
+    "SEGOVB-INITIAL10-F002 additional same literal unit-error site"
+  ],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 915,
+    "source_id": "pr-working:crates/adventuresim-core/src/durability.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

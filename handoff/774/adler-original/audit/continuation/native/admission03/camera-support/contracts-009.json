@@ -1,0 +1,70 @@
+{
+  "id": "NATIVE-CAMERA-SUPPORT03-CONTRACTS-009",
+  "authority": "ROOT-ADM-SUPPORT-AUTHORITY-054",
+  "lens": "audit-admission-contracts",
+  "groups": {
+    "pr-world-event-raw-envelope-and-explicit-admission-validator": {
+      "camera_indices": [
+        474
+      ],
+      "ranges": {
+        "474": [
+          [
+            1,
+            620
+          ]
+        ]
+      },
+      "invariant": "Closed strategic occurrence vocabulary and explicit envelope validation are separate from reducer authorization, immutable currentness and safe decode. Envelope is public raw record, not unforgeable valid event.",
+      "all_admission_routes": [
+        "FullPR620 freshincludingoriginaltests400-620 readonly. WorldEventSource3/Actor2/Subject3/Place2/Payload3/Consequence5 publicdataenums +ordinarySerde; Envelope245publicallfields/deriveSerde, noDefaultReflect/privatecheckedctor. Any literal/Serde canholdinvalidrawsource; validate returnsunit anddoesnotsealimmutableSelf. Reducer mustactuallycallvalidator beforepersist/commitandafteranymutation; privateauthoritydoc meansprivacy/authorityrole, notRustvisibility guarantee.",
+        "validate261 exactfirstschema==1, theneventID andEVERYsource ID; Characteractor nonzero elseParty genericID; subjectslen1..64, eachCharacter nonzero/Case+ProblemgenericID, strictderivedenum/valueascendingorder thenuniqueSet. Duplicatevaluehitsprior>=branchbeforeduplicateSet (actualerrororderpreserved). PlaceSettlement/Strategic BOTHonlygenericvalidate_id; no canonicalStrategicPlaceId parser/member/jurisdictionlookup inthisCorefunction. occurred_at_minute all-u64 incl0 validleaf noauthority/frontiercheck.",
+        "validate_id359 rawnonempty<=192BYTES/noUnicodecontrol, allowswhitespace/case/Unicode/colonpatterns, notstrictcomponentgrammar/trim or64hex. Source/Actor/Payloadclosedmatch: ForageCharacter exactrequest andsoleactorsubject; CaseFinaleParty exactfinale andmatchingCase subject exists; FoodCharacter carrier!=0,dose!=0,protecteddose<=dose, immunity/prior<=100000, fraction<=10000, contribution/disease genericID andsoleactorsubject. OthercombinationsInconsistentDomainReference. Casepayloaddisease/party/currentliving/privacy/geography absentallbyactualparams; notimpliedbyvalidatedname.",
+        "infectiondose17 rejectsnonfinite/negative, f64(value)*1e6 then<=u64MAX-as-f64→roundnativecast; zero/-0validquantizationbutFoodpayloadrequiresdose>0, explicitdifferentpolicy. Decodepublicpayload microunitsallu64 intentionallystructuralbeforevalidator. Reverseu64tofinitef64/1e6 rawunitport. No checkedunit wrapper or new storedfinitefloat route.",
+        "Plannerspublic137/153/203 buildrawConsequence vectors. Caseparticipants183 sorts/dedupsbattle; fallbackONLYifbattleempty, trueempty allowed. Localproblem outcome firstthenparticipantSnapshot/Reputationpairs; rawfulli32fame/infamy, integerIDs and0 participants notlocalmembershipproof. Classify_retry388 comparesFULLrawenvelopeequality: NoneApply/exactReplay/differentCollision, beforemutable statebydoc; doesnotvalidateeitherargument. ActualtransactionNative069 validator/preflight/receiptjoin distinct; no retryhashauthenticitytoken.",
+        "Originaltestsquantizeinvalidinput/mismatchedpayload/subjects/replay/planamounts/order/zero-participants sourceonlyread; no execution or addedcase. Reputationcontributions referencedinlasttest followsRoot020 exactscopedpredicateonly, not test-callfullbodycredit. Existinglegacywordtestname notbackcompatimplementation route."
+      ],
+      "counterexample_or_qualification": "RawEnvelope manualmutation/derivedSerde canviolatevalidator, deliberatelyraw untilactualtransactiongate, no newchecked-ownerbypasscount. StrategicPlace strings<=192controlfree differcanonicalPlace boundedcomponent/4096encoding; preserveexistingWorld029 source-strengthening/lossfinding withoutsilentlynarrowingcanonicalPlace orclaimingallopaque192stringscanonical. No actualbadevent/runtimeclaim.",
+      "connected_repair": "Existing NativeWorldEventPlace/Envelopevalidate/validate_id whole-record dependency andCameraauthorityclaims; coherenttypedaccepted event/place/source/actor retained throughactualtransaction while rawrejectedinput staysoutside. Sharedcandidateplacepolicy needsactualcurrentrole, not blanketinto/get erasure.",
+      "acceptance": "Preserveallclosedmatch/errororder, zero/all-u64clock/native-dosepolicies, trueemptyconsequenceplan, immutableexactreplayidentity andauthorityvsobservation distinction. Tacticaltickstate notpersisted; no compatibilityschema/newtests/sourceedits."
+    },
+    "direct-p16-envelope-validator-current-transaction-closure": {
+      "camera_indices": [],
+      "source_refs": [
+        "NativeREG088 P16WorldEvent1-151/245-398",
+        "p16-direct-body-comparison-009.json completeactualsourcecomparison",
+        "Nativeoriginal069 boundedP16WorldEventcommit"
+      ],
+      "invariant": "P16 transaction calls the actual explicit validator; this closes its previously unread scalar/record admission definition without claiming full transaction authority.",
+      "all_admission_routes": [
+        "Prospective088 registered BEFORE actualP16body comparison. CompletecurrentP16material1-151/245-398 comparedlinebyline withfreshPRfullbody, nodifferences; actualEnvelope/validate/validate_id excerpts displayed. Then semanticallycomparedactualP16Native069caller: DoseOptionErr beforecommit, commit validatesexactsame schema/ID/nonzeroactor/orderedsubject/closedsource-payloadpolicy, foodmicrounit/immunity/fractionlimits beforepersist/preflight/application/receipt. ActualP16typedStrategicMinute allwords proofCamera043, notPRversionassumption.",
+        "ExactP16publicSerdeDTO andgenericPlace192 policies matchfreshPRsameactualdefinition; no typedcanonicalplace/membership/frontierseal. quantifyzeroquantizeddose vsFoodpayloaddose>0 andnativeclampimmunityupstream remainintentionaldistinctsource/validationgate. Replayclassification fullrawenvelope equality actualsamecurrentcontext. UnrelatedP16planners153-244/tests400+ excluded, despitePRfulltestsread.",
+        "Thisexplicitcurrentdefinition/callercomparison supersedesONLYNativeoriginal069 pendingCoreenvelopebody qualifier anddependency086P16-world-event-native-envelope. DoesnotclearotherDBpreflighthelpers or sourceauthority/rights/privacy fromtypename. Source-specificmaterialendpointcutsintheoriginaltransaction remainqualified."
+      ],
+      "counterexample_or_qualification": "No allP16Coreworldfile credit or automaticPRhashcarry: exactcurrentrolevalidatorroute reanalyzed withactualbodycomparison andNative069actualcaller. ExistingWorld029 Place/ID/frame/authorityloss preserved, notnewdedupcount.",
+      "connected_repair": "ExistingNativeWorldEventplace/validate recordclaim, Camera transactionfunctionownership unchanged.",
+      "acceptance": "Sameauthoritativepredicate onactualtransactionacceptedentry; preservestructuredfailure/order/doseclamp/living/currentepisode/retry/Nonepolicies independently."
+    },
+    "direct-p16-place-fixture-and-feature-native-case-site": {
+      "camera_indices": [],
+      "source_refs": [
+        "NativeREG089 P16StrategicPlace1-720",
+        "NativeREG090 P16CoreCargo9-13/29",
+        "Native043P16workspace/lock/_lib/SATSmacrochain",
+        "Camera082runtime +001namedProduct",
+        "contracts-001 PRcurrentplace semantics +case-site-sats003",
+        "p16-direct-body-comparison009"
+      ],
+      "invariant": "P16canonicalPlaceidentity syntax andFixtureassociation constructor policy actualsameasPR, withdistinctfeatureedge/proof and typedauthorityinput boundaries.",
+      "all_admission_routes": [
+        "Prospective089/090 beforeactualP16bodyreadcomparison. CompleteactualP16definitions1-720 comparedagainstfreshPRfull998 body, nodifferences; explicitlyreanalyzedcomponent25-35 privategrammar/nonempty<=256, CaseSiteprivateString/manualcheckedSerde, sixpublicPlacevariants/factories, closed11VenueKind/association predicates, exactv1/lowerhex/arity/length4096/nativecanonicalu64parser, no membershiporfrontierauthoritypromise. UnderlyingMinuteP16all-u64 proofCamera043, zero/MAXlegitimate.",
+        "P16Fixturepublicvariants323-339 bypassactualfactoryallowedkind/org-locationassociation justasPRF001; parser/manualSerde invokesfactoryandrejectsbadassociation. P16CaseSite namedprivateString/no reprCfeature49 emittednativefieldliteral matchesCamera001namedProduct bypass: freshP16CoreCargo090featureenablesoptionalworkspaceruntime29, Native043P16workspace178+lockexact2.6.1/runtimebinding siblings, Camera082implicitruntime→_lib/SATSmacro. NativegeneratedCaseSiteemptyString bypassescheckedcomponent despite manualSerde. This isexplicitP16feature/decl/currentrolecomparison, notPRbuildnamespaceinference.",
+        "Native070pureActionCoordinates/ObjectCustody/ToolReference andNative071journey Camp actualP16typedfactoryinputs rejoined: validgrammar notDBexisting/visible/reachable/currentpersonalfrontier; rawactor/caseauthority source remainscheckedactualDBconsumer. Native069WorldEventPlacegenericString192 doesNOTbecomefullcanonicalPlace becausecallerusuallydisplaysone. ValidcanonicalIDs mayexceed192; preserveownedpolicy difference/propagationfinding, no truncation/clamp/newcompatfallback."
+      ],
+      "counterexample_or_qualification": "P16 support sameF001literalassociation/F002nativeCaseSitegrammarbypass, no newgloballyuniquedefectcount. This closes086P16canonicalPlaceunreaddefinition qualifierONLYtheseexact1-720routes; P16existingtests722+notreadhere orborrowedfromPR.",
+      "connected_repair": "Root/Camera canonicalidentity/authorityclaims; useprivateacceptedfixtureassociation andsinglecanonicalCaseSite decoder, preserveopenboundedcomponents/codecs andrawrejectedsource.",
+      "acceptance": "AllactualP16construct/decode routes coherentlyretainactualsyntax/association, fullwordclocks/absence/actorauthority distinct; no family/laterlens clearance."
+    }
+  },
+  "not_part_of_native443_or_root_batches": true
+}

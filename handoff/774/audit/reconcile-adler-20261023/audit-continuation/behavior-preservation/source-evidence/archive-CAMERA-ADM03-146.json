@@ -1,0 +1,29 @@
+{
+  "id": "CAMERA-ADM03-146",
+  "at": "2026-10-22T17:35:59.515179+00:00",
+  "lens": "audit-admission-contracts",
+  "members": [
+    154
+  ],
+  "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/lot_inventory.rs",
+  "sha256": "28b22445ed307bc12de78b72d95df5b4325ba47ad3403f45292bb0c5b6efb87b",
+  "actual_source_proof": "Fresh full P16lot_inventory534; completeactualPRdiff identicalcurrentbody, noPRoriginalcount. ExistingCorefood089retained_component548-554 actualreread, no newrange. No testsdefinedinsidefragment; originaltestthreefragments141separate.",
+  "invariant": "FoodLot is nonfungible measured batch bound to exact stable quantity-one inventoryobject; source definition/owner/provenance and canonical retained fraction must remain explicit. Remaining material canzero, rawrevisionfullu64 checked exhaustion rather thanarbitrarycap.",
+  "all_admission_routes": [
+    "current_minute3 missingCharacterTime->ZERO explicitpolicy distinctrequiredtime. ensure_material11 actualscope rowexists, buildsrowownlocation/itemid, quantity==1 beforeexistingobjectidentity/item/location check ornew auto-incid0. 0 here DBauto-inc request notvalid persistedPhysicalObjectId. Itdoesnotbind separatefactoryitem_id/actor params toactualrow.",
+    "Personalcreate60 requiresCorefooddefinition(item_id), currentclockforpassedcharacter_id, ensureactualpersonalrow object, thenpublicrawFoodLot wexactoneanchor/rev1 anddefinitionmetricstimespassedquantity, defaultqualityclamp1..5, actualcontaminationdefinitiongrowth+seed(initiallot,character). Partycreate105 definitionoptional/ensureobjectErr->None, arbitrarypassedminute, analogpartyanchor+samefieldmetrics, seedlotonly. No quantity>0 orrowid/itemid/actor equalitylocalgate; passedquantity materiallydistinctrealquantity-one envelope, canrepresentquantityofcontent. Neitherfactory checks existinglot uniqueness. Normalitem168 grants knownownmatchingrow andpositivequantity; noactualbadnormalcallerclaim.",
+    "Deletepersonal/party deletesALLmatchinglots plusmedicine/provenance/contamination. personal_lot/party_lot firstmatchingSome only, lot_for_inventory Errmissing; eat145 .ok filters onlythismetadataabsence, notarbitraryhiddenerrorcause. Contamination actualrowrequired\u2192Core089contamination_at(rawanchor,growth,typedminute.elapsed_since->rawu64), no falseElapsedMinutes type.",
+    "retain225 checked_add revision BEFOREallfieldmutation ->ErrMAXpreservesrawlot; then actualCore retained_component nonfinitevalue/fraction->0 elsevalue.max0*fraction.clamp0..1, every5flavor/mass/nutrition/value/ingredientquantity, qualityunchanged. This is explicitrepairclamping kernelpolicy notprivatefiniteFoodLot admission; nativefiniteoverflow later04. Existing141revisionfixtureactualimplementationclosed.",
+    "split_lot281 rejects taken0/original0/taken>original BEFORElookup; fullmovesanchoronly, partialratio child/source rawclone/revadmit, actualstableobjectdestination, provenance+medicinesplit, clonedhiddencontamination/currentrow; no new nativeclock/samplevalidators. remove_personal329 samebounds. remove_party185 doesnotcheck0/inverted BEFOREfull-equality orratio; move_to_party349/reverse392 alsoomittaken0/original0/taken>original preflight, fullequalityincluding0 rewritesanchors beforedestinationobjectcheck. These rawargumentroutesdistinctfrom guarded split; invariantoperations/correlatedmaterialtransfercandidate, noactualbadcaller/runclaim orallcallerscounted.",
+    "split_ingredients207 ratio uncheckedinternalhelper, actualguardedsplit validbutunvalidatedpublicmove callsbroader. Source-childvectorzip equalconstructionlength here, nofalsearraytruncationclaim. Provenancedigest444 zipids/loads truncatesmismatches rawmodel140; hashframedIDs plusnativef32bits/domainSHA256. Actualnormalcooking createspairedarrays151pending; sourcelevelpublicrawarraysnotgloballyaccepted. Splits proportionalrawloads withoutindependentfinite/unitfractiongate, writesnewdigest/sourcebeforechild; consume>=.999999deleteelsemultiply/samehash, nofilelocalcodec/checkedprovenanceowner.",
+    "No modulelocalpublicreducer oractorownership guard inhelpers; authoritativecallerboundaries separatelyassigned, notautomaticallysecurityexploit. Checkedcustody/object admission/currentdefinition typedowner facts094/138 andcontainer167pending."
+  ],
+  "counterexample": "Latent factory binding gap: existing owned quantity-one utility_knife row with matching stableobject passes ensure_food_material_object; create_personal_food_lot(ctx, other_character_id, knife_row_id, apple,1) separately resolvesvalidappledefinition then createsapplelot linkedtoactualkniferow withotheractorclock/seed. No functioncomparespasseditem_id orcharacter_id withactualrow orrequiresrowitselffood. Partyfactory analogous item mismatch. Normal168 itemgrant passesmatchingvalues; noactualbadcaller,row,transaction/runassertion.",
+  "finding_refs": [
+    "CAMERA-ADM03-F029"
+  ],
+  "connected_repair_acceptance": "One checked food-lot source product should bind exactactualinventoryrow+scope/custody+knownfooddefinition and contentquantity beforecreation; deriveidentity/owner fromactualrow ratherthanparalleluncheckedargs. Preservequantity-one stableenvelopeversusmultiservingcontentquantity, zero-validmetrics, qualityclamp1..5 and0auto-inc atnativeinsert. CanonicalFraction/rawrejectederrorseparate, meaningfulshared splitrequest0<taken<=original foractualnormaltransferpaths aftercallerpolicycomparison; do notsilentlyrepairmismatchedprovenancehash. Preservecurrentexplicitmalformedcomponent0policy, exactrevisionMAXerror, sourceclonehiddenpath, seedpurpose/framing andshared SDKtransaction behavior. No compatibilityfallback/rawsuccessnewpath.",
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "later_lens_credit": false
+}

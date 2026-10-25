@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#171b1d">
+  <title>Procedural art · Fabelgeist</title>
+  <link rel="stylesheet" href="/static/art-demo/style.css">
+  <script type="module" src="/static/art-demo/demo.js"></script>
+</head>
+<body>
+  <header class="masthead">
+    <a class="wordmark" href="/art-demo">Fabelgeist<span>Developer collection</span></a>
+    <p>Procedural art <span class="edition">/ 01–04</span></p>
+  </header>
+  <main>
+    <nav class="categories" role="tablist" aria-label="Art techniques">
+      <button id="tab-armor" role="tab" aria-controls="exhibit" aria-selected="true" data-category="armor"><span>01</span> Armor</button>
+      <button id="tab-weapon" role="tab" aria-controls="exhibit" aria-selected="false" tabindex="-1" data-category="weapon"><span>02</span> Weapons</button>
+      <button id="tab-city" role="tab" aria-controls="exhibit" aria-selected="false" tabindex="-1" data-category="city"><span>03</span> Cityscape</button>
+      <button id="tab-oak" role="tab" aria-controls="exhibit" aria-selected="false" tabindex="-1" data-category="oak"><span>04</span> Oak & terrain</button>
+    </nav>
+    <section id="exhibit" role="tabpanel" aria-labelledby="tab-armor">
+      <div class="exhibit-heading">
+        <div><p class="eyebrow">Generated studies</p><h1 id="exhibit-title">Henry VIII</h1></div>
+        <p id="technique">Parametric shell · body-fitted export</p>
+      </div>
+      <nav id="specimens" aria-label="Specimens" role="tablist"></nav>
+      <div class="viewer-layout" data-reference="true">
+        <div class="stage">
+          <canvas id="game-canvas" tabindex="0" aria-label="3D exhibit. Drag or use arrow keys to orbit; scroll or use plus and minus to zoom; WASD to pan."></canvas>
+          <div id="loading" role="status" aria-live="polite"><span class="loading-mark"></span><p id="loading-message">Loading collection…</p></div>
+          <div class="stage-label" aria-hidden="true">Procedural model <span>3D</span></div>
+          <div class="interaction-hint">Drag to orbit <span>·</span> Scroll to zoom <span>·</span> WASD to pan</div>
+        </div>
+        <figure id="reference">
+          <div class="reference-image"><img id="reference-photo" alt="" decoding="async"><p id="reference-error" hidden>Photo unavailable. Open the museum record below.</p></div>
+          <figcaption><span class="eyebrow">Museum reference</span><a id="reference-source" target="_blank" rel="noopener noreferrer"></a></figcaption>
+        </figure>
+      </div>
+      <footer class="exhibit-footer"><p id="exhibit-note">Documented shape reference.</p><p id="specimen-count"></p></footer>
+    </section>
+    <noscript>This showcase requires JavaScript and a browser with WebGPU.</noscript>
+  </main>
+</body>
+</html>

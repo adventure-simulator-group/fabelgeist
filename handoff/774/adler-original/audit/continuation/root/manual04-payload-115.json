@@ -1,0 +1,57 @@
+{
+  "packet_number": 115,
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autopsy.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          648
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Full literal P16 autopsy1-648 across three bounded reads; full actual PR/P16 empty diff with independent same Core battle/BodyPart/StrategicMinute/Seed/native contracts and fixtures. No hash-only transfer."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autopsy.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          648
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Full literal P16 autopsy1-648 across three bounded reads; full actual PR/P16 empty diff with independent same Core battle/BodyPart/StrategicMinute/Seed/native contracts and fixtures. No hash-only transfer."
+    }
+  ],
+  "groups": {
+    "custody-and-aging": "exhumed precedence then explicit burial then elapsed scene/local bands are deliberate. handlingu16*2 max131070 fitsu64; effective-age saturating_add before threshold20,160 cannot change finalSkeletal classification, so no saturation-before-division defect. Minute future clamp policy delegated canonical elapsed_since. Preserve death time versus discovery time and local/interred/exhumed meanings.",
+    "post-combat-evidence": "Injuries filter matching defender and positive cut/blunt, retain explicit hitsequence/region/projectile/stress, sort and cap32 as current bounded evidence policy. Attacker and weapon identities deliberately omitted at this durable forensic boundary; do not mechanically propagate a canonical killer/cause or entire tactical tick state. Body health and blood copied/clipped under actual observation policy, not sealed solely by PostCombatBody name.",
+    "lethality-and-seed-attempts": "Lethality indexes4/5/6 on exact7healtharray, distinguishes incapacitated survivor from lethal torso/head/blood result. Death-required helper uses exact domain stream with full Seed andu16 attemptcoordinate, returnsfirst ordinary qualifying outcome, propagates resolutionerror, bounded max attempts0→None valid. No edits to RNG domains/order or invented wounds/cause clue.",
+    "bounded-quality-arithmetic": "Opening skill clamped0..5→round0..10000u16; allu32products/subtractions atmost30000plus500 fit. Evidence quality i32negative range bounded by rawu16 opening65535 and decomp8000; clamp0..10000 makes finalu16 conversion guaranteed, existing unwrap_or0 need not be preserved as a meaningful fallback. NaN rawskill casts0 under Rust behavior, an admission policy gap rather than a finite arithmetic overflow. Systemic rawbasispoint fields require their actual admitted snapshot owner; narrative threshold selection itself no unchecked indexing.",
+    "observation-selection": "F042 strongest sum ordering losesfinite injury rank on overflow. For finite nonnegative damage, individual morphology comparisons cut>1.5*blunt remain correctlyfalse when the threshold product overflows beyondf32MAX; an unexposedInf threshold alone is not a published invalid measurement. Physiology minhealth enumerates exact7 and indexes same7-part roster safely. Raw extreme health*100 display still requires actual health/format boundary contract; preserve legitimate signed overkill/diagnostic values, no global UnitInterval health rewrite.",
+    "existing-fixtures": "Every existing autopsy fixture read, including exact forensic information omission and quality/context thresholds. No execution/additions; no disease diagnosis or live DB authority proof from pure functions. Source project remains unchanged."
+  },
+  "findings": [
+    {
+      "id": "ROOT-INITIAL04-F042",
+      "kind": "finite_injury_damage_sum_overflow_loses_strongest_observation_order",
+      "source_id": "physical-p16:crates/adventuresim-core/src/autopsy.rs",
+      "locations": [
+        [
+          224,
+          242
+        ],
+        [
+          366,
+          384
+        ]
+      ],
+      "case": "Public injuries can contain first Head cutMAX/bluntMAX and later LeftArm cutMAX/bluntMAX/2; all individual values finite nonnegative. The two cut+blunt sums both overflow+Inf and compareequal although the Head total is larger. max_by can select the later weaker record; surgery_finding with skill5/Fresh/unobscured context then names its region, and bestiary_finding interprets its signature. API/raw damage-product strengthening only, no current admitted damage producer, ordinary corpse or runtime failure claimed.",
+      "operation": "Using an unadmitted finite-operand sum as an ordering key collapses distinct strengths to one overflowing key before a player-facing observation is selected.",
+      "connected_repair": "Propagate the actual canonical damage magnitude/observation owner and compare admitted representable totals or reject failed arithmetic before publishing a finding. Appropriate stable ordering is valid if numerical policy is preserved. Keep nonnegative hit damage distinct from potentially signed health, preserve true tie ordering and bounded injury-history policy; no arbitrary damage cap or new cause-of-death authority.",
+      "acceptance": "Successful strongest-injury selection cannot choose a weaker observation because different finite damage totals collapse toInf. Actual ordinary forensics, thresholds, bounded ignorance and legitimate data policies unchanged. Existing source tests only, no new cases/assertions/helpers.",
+      "deduplication": "Specific autopsy selection receiver; shares checked damage-value graph with prior physical/health findings, not a duplicate armor-weighted mean or bleeding-rate total."
+    }
+  ]
+}

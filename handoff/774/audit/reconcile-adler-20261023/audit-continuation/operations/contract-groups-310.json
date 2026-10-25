@@ -1,0 +1,146 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-310",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/heating/placement.rs",
+      "sha256": "5dbdcafe3866798548d26b03a8880417e25b5730dd9c4d2de43f81b19dc0faa3",
+      "actual_EOF": 457,
+      "actual_compared_ranges": [
+        [
+          1,
+          457
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/interior.rs",
+      "sha256": "6dfb61f15cc323392577e8773083c09ea549a3efaace1d3c92802e113ba026cd",
+      "actual_EOF": 129,
+      "actual_compared_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/architecture.rs",
+      "sha256": "ea8f3edc195be45a804f200cf4651c7855317fcb7726dfdc1dff0f256fb9bde7",
+      "actual_EOF": 281,
+      "actual_compared_ranges": [
+        [
+          1,
+          281
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/budgets.rs",
+      "sha256": "a767c9aff3ec12709517bf615d1f46bfc97bfbc85b1b8a4b7c4da138a263ce13",
+      "actual_EOF": 191,
+      "actual_compared_ranges": [
+        [
+          1,
+          191
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/church.rs",
+      "sha256": "acda6fd16215547057139382ba949b935f7da6c3418ffa32674503dc5ba7932b",
+      "actual_EOF": 109,
+      "actual_compared_ranges": [
+        [
+          1,
+          109
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/composition.rs",
+      "sha256": "1188624c62cd4c5600de9468519c5d9bcdee9322130944848beea6ebb18522ed",
+      "actual_EOF": 116,
+      "actual_compared_ranges": [
+        [
+          1,
+          116
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Heating placement checks computed geometry, actual room membership and usable-route failure before selection",
+      "source_ranges": {
+        "heating/placement.rs": [
+          [
+            1,
+            457
+          ]
+        ]
+      },
+      "disposition": "Whole body read in two bounded chunks. KitchenPair finds the actual storey and both room IDs or returns classified MissingStorey/MissingRoom; only Kitchen/CommonRoom-or-GreatHall pairs produce a normalized axis. Opening-bearing walls are skipped. Negative station limit skips before generation; station arithmetic and joist gap candidates are re-admitted as SignedLength. Finite-but-enormous allocation is an internal work-budget strengthening dependency without an ordinary generated-programme witness. floor/next_floor products, local bounds, expanded support, shaft shoulder and four-corner roof height are re-admitted. Zero roof normal.y therefore produces a typed nonfinite failure, not a published infinity. The two-opposite-corner local-to-architectural envelope assumes the actual cardinal wall axis; arbitrary rotated direction would need four corners, but this helper is private and no noncardinal generated wall witness was found. is_usable short-circuits body/shaft/operating-space/doors/support/shoulder/floor/weather predicates before returning a placement. Original plan is borrowed throughout; failure does not publish a mutated appliance."
+    },
+    {
+      "contract": "Interior public records preserve leaf types while aggregate paths and floor relationships require explicit validation",
+      "source_ranges": {
+        "interior.rs": [
+          [
+            1,
+            129
+          ]
+        ],
+        "interior/architecture.rs": [
+          [
+            1,
+            281
+          ]
+        ]
+      },
+      "disposition": "Both complete bodies personally read. Four facing values map to checked authored quarter-turn Radians. Layout records serialize independently; leaf-typed room/storey/points do not prove placement_index/path membership or floor support. Floor construction uses typed storey elevation, actual collision compilation and individually re-admitted floor top elevations/footprints; obstacles exclude physical floor/tread IDs and intentionally add structural obstructions. Contains casts metre cells through i32/i16, but also requires a real physical FloorFootprint.contains, so an out-of-range finite coordinate alone is not a demonstrated accepted alias. Actual sampled Rect support and navigation consumers remain upcoming dependencies. Straight/spiral circulation bounds, heating operating space and workplace passages reserve their intended vertical intervals; spiral well is deliberately an obstacle rather than a horizontal shortcut. Computed min/max/extent results pass native admission and errors retain geometry/collision classification."
+    },
+    {
+      "contract": "Demand counts are capped authored targets, while arrangement groups remain local until accepted",
+      "source_ranges": {
+        "interior/budgets.rs": [
+          [
+            1,
+            191
+          ]
+        ],
+        "interior/composition.rs": [
+          [
+            1,
+            116
+          ]
+        ]
+      },
+      "disposition": "All budget and composition bodies read. Every metres_per_item divisor is a positive authored constant7..200; all caps are finite1..48. area is cells.len()*positive cell area, and max1/mincap is explicit furniture demand policy even for empty rooms, not proof that an empty room is furnishable. Every BuildingUse selects an explicit trade kit. DiningTable creates2 benches, WritingDesk one chair, Counter exactly3 aligned pieces; computed offsets/rotations/points re-admit values and propagate errors. group is local so partial composition on Err is not externally retained. Atomic acceptance of the group is deferred to actual placement.rs, not inferred from the comment. direction_towards zero chooses South deterministically; no admitted unit-vector guarantee is claimed for this generic selector."
+    },
+    {
+      "contract": "Processional furniture reservations are clipped to nave geometry rather than extended through chancel fittings",
+      "source_ranges": {
+        "interior/church.rs": [
+          [
+            1,
+            109
+          ]
+        ]
+      },
+      "disposition": "Whole production and fixture body read. Route windows(2) proves pair indices, zero/one waypoint yields no segment, and computed centre/extents are checked. Only PublicProcessional segments near requested elevation are collected; actual room intersection requires strict a<b before constructing positive PlanExtents. Authored small-church route and urban church waypoint rectangles have different sources. Clipping to each nave intentionally permits altar/chancel approach ownership; no generic polygon-route exactness claim. Fixture covers3 parish seeds, no furniture overlapping reserved aisle, retained pulpit position/facing and validate_layout; fixture source read only, no execution or passing claim."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "6 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-building-generator/src/interior/exterior_access.rs"
+}

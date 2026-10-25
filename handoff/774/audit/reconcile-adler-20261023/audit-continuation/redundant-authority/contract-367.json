@@ -1,0 +1,250 @@
+{
+  "id": "CONT07-CONTRACT-367",
+  "at": "2026-10-23T19:47:27.751436+00:00",
+  "lens": "audit-redundant-authority",
+  "members": [
+    {
+      "scope_index": 1574,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants.rs",
+      "sha256": "5397178ad53d019142d2791f701111ec168b2b1636e053a1085ce9bf1b6af35a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants.rs",
+      "actual_EOF": 232,
+      "ranges": [
+        [
+          1,
+          232
+        ]
+      ],
+      "read_kind": "fresh full exact source; actual owner/caller roles independently compared07"
+    },
+    {
+      "scope_index": 1575,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants/lod.rs",
+      "sha256": "ed647cd71017f84b64945f398ad873fce7a452384db4b485eaafb29ba4de70a8",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants/lod.rs",
+      "actual_EOF": 140,
+      "ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "read_kind": "fresh full exact source; actual owner/caller roles independently compared07"
+    },
+    {
+      "scope_index": 1576,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants/streams.rs",
+      "sha256": "415b7203142daf29b1d32af8b61b4a629d995ee6e0d851d281517802908205ad",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants/streams.rs",
+      "actual_EOF": 11,
+      "ranges": [
+        [
+          1,
+          11
+        ]
+      ],
+      "read_kind": "fresh full exact source; actual owner/caller roles independently compared07"
+    },
+    {
+      "scope_index": 1577,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants/tests.rs",
+      "sha256": "25420a15928ded72b0fe13b6e069519f74758b1555d6b4439bbf6d8602217239",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants/tests.rs",
+      "actual_EOF": 301,
+      "ranges": [
+        [
+          1,
+          301
+        ]
+      ],
+      "read_kind": "fresh full exact source; actual owner/caller roles independently compared07"
+    },
+    {
+      "scope_index": 1578,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/review_specimens.rs",
+      "sha256": "8acf0ffcb0e18a04c212bb749ffd1ed34edfdf3387a3fa35c2d1085cd5785a5f",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/ground_scatter/review_specimens.rs",
+      "actual_EOF": 99,
+      "ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "read_kind": "fresh full exact source; actual owner/caller roles independently compared07"
+    },
+    {
+      "scope_index": 1580,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/specimens.rs",
+      "sha256": "fc7ff2bd7a82b647f3d159373a29f47dbed689557c87cfddb5d3a0233a064beb",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/ground_scatter/specimens.rs",
+      "actual_EOF": 147,
+      "ranges": [
+        [
+          1,
+          147
+        ]
+      ],
+      "read_kind": "fresh full exact source; actual owner/caller roles independently compared07"
+    },
+    {
+      "scope_index": 1581,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/tests.rs",
+      "sha256": "173ae946e3e1c74f3295deae3d929d675cf3047398c7fb8b8abff35408c28d62",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/ground_scatter/tests.rs",
+      "actual_EOF": 96,
+      "ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "read_kind": "fresh full exact source; actual owner/caller roles independently compared07"
+    },
+    {
+      "scope_index": 1582,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/understory.rs",
+      "sha256": "2d5aaa58b592f7182c148c4bcdd572837c6e85df8e036e622c604c92bb594d96",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/ground_scatter/understory.rs",
+      "actual_EOF": 357,
+      "ranges": [
+        [
+          1,
+          357
+        ]
+      ],
+      "read_kind": "fresh full exact source; actual owner/caller roles independently compared07"
+    }
+  ],
+  "contracts": [
+    {
+      "source_index": 1574,
+      "disposition": "accounted exact immutable cache/placement/capture/fixture roles with explicit qualifications",
+      "facts": [
+        "Placement is one operation from scene terrain+maskedground+environment+seed, exact habitat mapped from current sample; stable priority truncation gives bounded whole-scene population instead of retaining redundant count. Local herb opening samples quantized grass mask at five points, distinct from broad habitat selector. Macro community hash and per-root jitter serve distinct entropy contexts.",
+        "PlantSite retains one species/root/hash, then same actual root/species drives spawned native geometry and captureanchor. Scene presented marker intentionally freezes initial presentation; no automatic live season/ground regeneration promise. Raw hypothetical entity edits do not prove normal stale anchor. Independent plant habitat/source constructor/validation obligations remain, not inherited from other lenses."
+      ]
+    },
+    {
+      "source_index": 1575,
+      "disposition": "accounted exact immutable cache/placement/capture/fixture roles with explicit qualifications",
+      "facts": [
+        "SpecimenCache dependency is fixed PLANT_SEED plus compile-time PlantSpecies/PlantLod recipes; cache native mesh/material once, and uses union of actual generated LOD point bounds. Different LOD resolution has intentionally different triangles but same canonical recipe identity. No runtime recipe revision input demonstrated, no stale immutable cache finding.",
+        "Fresh actual species1051full44 confirms index searches same canonical ALL roster used for cache construction, stronger than independent enum discriminant indexing. Actual PlantLod1049 uses canonical fixed samples index and ALL; current mapping agrees, roster policy remains actual owning type concern. PlantLodInstance.range derives margins from same level each spawn; native VisibilityRange is initial projection, not separately authored level policy.",
+        "Private cache material+specimens coordinated prepare transition; no ordinary partial cache mutation exposed in this source. Geometry bounds combine all representations conservatively; empty/malformed generator output and panic guarantees remain own admission/aggregate issues. Full fixture distance matrix independently checks current transition intervals, not executed."
+      ]
+    },
+    {
+      "source_index": 1576,
+      "disposition": "accounted exact immutable cache/placement/capture/fixture roles with explicit qualifications",
+      "facts": [
+        "All named purposes distinct current replay roles. Species stream is shared botanical species selection purpose intentionally separate from root/community/scale entropy; no independently retained semantic classifier or duplicate live default."
+      ]
+    },
+    {
+      "source_index": 1577,
+      "disposition": "accounted exact immutable cache/placement/capture/fixture roles with explicit qualifications",
+      "facts": [
+        "Full301 fixture body consumed, including external seasonal fungi/flower inputs, winter/roads/water exclusions, independent grounded position oracle, native ECS cache/idempotence and co-located LOD grouping. These describe expected behavior; no fixtures run, no external JSON content blanket claim from include/path. Different synthetic snapshots/calendar states intentionally distinct authored inputs."
+      ]
+    },
+    {
+      "source_index": 1578,
+      "disposition": "accounted exact immutable cache/placement/capture/fixture roles with explicit qualifications",
+      "facts": [
+        "Review specimen intentionally decouples capture availability from sampled habitat distribution; it uses actual production assets with fixed authored review origin. Same marker origin copied to both native wood/leaf entities, not competing geometry generation. Name/common_name is also a semantic review selector per priorRIG058, so no display-only exemption. Three literal species/cache pairs currently agree; canonical UnderstorySpecies owner migration remains exact prior obligation, no unsupported current mismatch.",
+        "PreparedSpecimen admits all required handles before queuing any review entity; failure classification retains supplied name. Native assethandle existence after admission is not proven by Some, but arbitrary outside deletion is not normal path here."
+      ]
+    },
+    {
+      "source_index": 1580,
+      "disposition": "accounted exact immutable cache/placement/capture/fixture roles with explicit qualifications",
+      "facts": [
+        "ensure cache uses fixed seeds/parameters/material calibration; all species filled in one infallible construction operation. Initial hazel.branches sentinel assumes private complete coherent cache; malformed/external partial cache or replacement procedural assets would need explicit cohort invalidation, no actual normal mutation producer asserted.",
+        "Shared CommonHazel envelope seed couples geometry identity to measured hull source; envelope fixture recomputes actual geometry/hull independently and compares frozen measured facts. Measured contract and rendered mesh are intentionally distinct evidence, not reason to derive both away. Optional explicit fixture export writer read only, never run. Native wood COLOR physical payload removed before pigment material, preserving distinct metadata role."
+      ]
+    },
+    {
+      "source_index": 1581,
+      "disposition": "accounted exact immutable cache/placement/capture/fixture roles with explicit qualifications",
+      "facts": [
+        "All96 fixture lines consumed: authored budget/density/optical pigment coefficients and independent collar-mask sample observations. Native entity/colour observations are fixture oracles, not extra production owners. Expected mask marks same collar and original unaffected samples; no full all-fixture input validation/run claim."
+      ]
+    },
+    {
+      "source_index": 1582,
+      "disposition": "accounted exact immutable cache/placement/capture/fixture roles with explicit qualifications",
+      "facts": [
+        "UnderstoryHabitat parameters drive fresh per-operation weights; selected community species reused across four-by-four sites while per-root hash separate for jitter/presence/scale/yaw. Species and density have intentionally coherent low-frequency domains but are different sampled facts. Shared placement walk supplies checkedpoint/species/hash to actual native instance caller1562, avoiding a second retained placement generator.",
+        "Ground cover selector rejects managed bare ground/water/reeds and distinct species-specific leaf-litter policy; no text reclassification. Weight array and explicit species result array current mapping agrees; roster maintenance analogousF074, not new unique current defect. Values may exceed1 before final quantized sampling; do not collapse to normalized fraction.",
+        "All357 source/fixtures consumed, including 4096-sample populations, all three species, fixed mesh budgets and reversed source leaf-order determinism. Expected meshes are independent reference geometry; no actual fixture execution or guarantee from tests alone. NewREG007 actual streams read separately closes imported purpose source."
+      ]
+    }
+  ],
+  "personally_consumed_prior_narratives": [
+    "RIG-OWNER-GROUND-HABITAT-SPECIES-058",
+    "RIG-OWNER-GRASS-NATIVE-054",
+    "CAMERA-INITIAL07-F011 exact disease identity source; QUAL205 broad roster wording does not merge other owners"
+  ],
+  "fresh_support_reads": [
+    {
+      "scope_index": 1049,
+      "sha256": "399bccce261a43c8d5333f82c29055d43c4d8200a896856fe0a020f5fdbc83b7",
+      "ranges": [
+        [
+          1,
+          164
+        ]
+      ],
+      "coverage": "already covered original variant; critical owner definitions reread only"
+    },
+    {
+      "scope_index": 1051,
+      "sha256": "ee7ccc523ddb649b30adf8e75f5de0476d5a743c622ef0b271a5a7c2df758ab2",
+      "ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "coverage": "already covered original variant; critical owner definitions reread only"
+    }
+  ],
+  "new_material_roles": [
+    {
+      "registration": "CONT07-REG-007",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/understory/streams.rs",
+      "sha256": "af5f77b3bca6fcfb8ec098008e0b1cb339a495cf5bf3b423ad9c24c325caf916",
+      "ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "disposition": "Fresh07 full17 named current/test-only purpose definitions compared; community structure, habitat species, presence and specimen/jitter distinct entropy roles. No shadow habitat cache or alias discovered.",
+      "coverage": "new source outside original2853, global all-lens reconciliation pending; no old-universe source count increase"
+    }
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "identity_count_accounting": {
+    "new_original_variant_ids": [
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants/lod.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants/streams.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants/tests.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/review_specimens.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/tests.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/understory.rs"
+    ],
+    "already_covered_fresh_reanalysis_ids": [
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/specimens.rs"
+    ],
+    "new_this_contract": 7,
+    "cumulative_new_original_variants": 83,
+    "cumulative_original_unique": 1841,
+    "count_basis": "Exact source_id union against Adler saved07coverage1758, not number of fresh-read rows"
+  }
+}

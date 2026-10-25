@@ -1,0 +1,58 @@
+{
+  "id": "CONT08-CONTRACT-108",
+  "at": "2026-10-25T12:01:15.332280+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 372,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/mod.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/mod.rs",
+      "before_sha256": "61fe528d93435e9e3d2d263110bc870e10ee25ea61c84196be203e4e771d6741",
+      "after_sha256": "61fe528d93435e9e3d2d263110bc870e10ee25ea61c84196be203e4e771d6741",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0372-base-61fe528d93435e9e3d2d263110bc870e10ee25ea61c84196be203e4e771d6741",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/61fe528d93435e9e3d2d263110bc870e10ee25ea61c84196be203e4e771d6741",
+      "diff": "source-evidence/p16-0372.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          261
+        ]
+      ],
+      "facts": [
+        "Fresh full261 and empty P16 diff. Seed counts positive gate precedes directory/evidence creation; frozen evidence\u2192roster\u2192tactical/autoresolve\u2192summary/audit/reviewer order retained. Errors may leave earlier diagnostic artifacts; no atomic publication promise. Same keyedroster directory/names and firstseed wrapping; no execution.",
+        "Actual run_matchup receives nonzero counts, same f64 ordered metrics and resource units. Tactical/autoresolve response/armor/wound/name association unchanged. JSON serializer finishes before per-file fswrite; I/O error retains actualpath. Included report/reviewer body remains separately scoped, not cleared fromreferences."
+      ],
+      "disposition": "Own08 exact scoped source comparison accounted WITH diagnostic-output lifecycle limits.",
+      "acceptance": "Preserve seed/count/roster association,result/timeout classification,original ordered reports and typedsource promotion; no synthetic passingrun or atomicoutput guarantee. No tests/checks/source repairs."
+    },
+    {
+      "scope_index": 373,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs",
+      "before_sha256": "046e8dc719a971872db9d34ed946e572fefdc5d80d4f11e990eab4e47765bc86",
+      "after_sha256": "e8b238c454b79527cff117b2acc8ad4b32214dfd7fb3714b9949c725daf7460d",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0373-base-046e8dc719a971872db9d34ed946e572fefdc5d80d4f11e990eab4e47765bc86",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/e8b238c454b79527cff117b2acc8ad4b32214dfd7fb3714b9949c725daf7460d",
+      "diff": "source-evidence/p16-0373.diff",
+      "diff_sha256": "57d49909e57508507380a80698df98a97de041e01c8bd5a7fd0ae20d56c058cf",
+      "head_body_read_ranges": [
+        [
+          1,
+          319
+        ]
+      ],
+      "facts": [
+        "Fresh full319 plus13-line actual diff. Weapon reach canonical finite owner nowpromotes infallibly to f64, same unarmedzero. Actual batch retains one-actor roster, name/id association, seedwrapping, result classificationincludingTimeout, ordered tracewriting/flush/means/walltimer. No counters/timeoutvalues reinterpreted from passingchecks.",
+        "Autorelog onlymelee, firstcontact timeline actualfirst with actoridentity, attackstarttick BTreeMap theneventcontact comparison unchanged. Retained map duplicates/counterheadroom questions not new08 behavior. Existing exact timeout count CAMERA-INITIAL07-F034 remains retained source support, no newunique/runclaim."
+      ],
+      "disposition": "Own08 exact scoped source comparison accounted WITH diagnostic-output lifecycle limits.",
+      "acceptance": "Preserve seed/count/roster association,result/timeout classification,original ordered reports and typedsource promotion; no synthetic passingrun or atomicoutput guarantee. No tests/checks/source repairs."
+    }
+  ],
+  "next": "374bot1248 firstfreshfullbody pending;75-style remainder mustnotclearfromdiffalone."
+}

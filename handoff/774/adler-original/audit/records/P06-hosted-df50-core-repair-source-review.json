@@ -1,0 +1,48 @@
+{
+  "recorded_at": "2026-10-21T00:05:14.891315+00:00",
+  "base": "df50ed038789bde836db457aee770a1d0fb6a8b0",
+  "run": 39516818599,
+  "job": 118950848075,
+  "first_failed_contract": "Lint tactical client WASM target; adventuresim-tactical-core lib compilation",
+  "evidence": "P06-hosted-df50-wasm.log",
+  "prior_passes": [
+    "formatting",
+    "semantic values and Rust growth"
+  ],
+  "diagnostics_repaired": [
+    "Removed redundant braces in typed SceneGround admission error.",
+    "Removed unused parent UnitBasisPoints import; the actual refinement consumer has its own canonical import.",
+    "Removed unused road detail_smoothstep import.",
+    "Removed illegal/redundant caller validation, retaining validation ownership in SceneTerrain and its native mutation helper."
+  ],
+  "admission_trace": [
+    "SceneTerrain::refined checks dimensions, points and callback support results, then calls private validate before returning Some.",
+    "constrain_max_grade delegates to grade::constrain, which keeps dimensions/scale/stride/length unchanged.",
+    "grade::constrain operates in its existing local f64 values; a successful full f32 replacement is checked for finiteness before copy_from_slice.",
+    "Failure leaves the prior height slice untouched. Successful representable results use the same cast order and bits. The f64 projection, sweep order, convergence bounds and machine-epsilon calculation are unchanged."
+  ],
+  "review": "All five changed source diffs and complete refinement/admission/grade bodies inspected for Code/Rule follow-through. No new public validation API, duplicate owner, suppression, ceiling raise or compatibility path.",
+  "relevant_existing_hosted_coverage": "Existing scene:: selection includes scene::grade::tests; all previous cells and fourteen terrain-consumer cells remain required. No new tests/cases/assertions/helpers.",
+  "source_files": {
+    "crates/adventuresim-tactical-core/src/scene/grade.rs": "60f79c6fe38de7e44aa07d908848a9a81e03efc77be1522585275f3f8e3f2c0e",
+    "crates/adventuresim-tactical-core/src/scene_ground.rs": "4a0029fe42d67f827c538c0391a7ce44f91aa82ebcda3154becb51852e4e426a",
+    "crates/adventuresim-tactical-core/src/scene_input.rs": "fb5dd37ceaef299bd79c764171badab26cb554fa8be4f12a892a752f183e475d",
+    "crates/adventuresim-tactical-core/src/scene_input/refinement.rs": "c8a815b0fa38e2129824d16959c687cc19518f35c40225d214b8da63c9ecc479",
+    "crates/adventuresim-tactical-core/src/scene_input/refinement/road.rs": "26635ffc6ea95de6e83b102b0bde2feb3cbced426ce746b8e16118abab9f4662"
+  },
+  "acceptance": "Uncommitted source repair only at recording; all current-head hosted checks remain required. No local project/formatter/runtime command was used.",
+  "existing_grade_coverage_rechecked": {
+    "recorded_at": "2026-10-21T00:18:08.777635+00:00",
+    "head": "807ab138a2dcbee4707095b87731bf7a063a7af7",
+    "file": "crates/adventuresim-tactical-core/src/scene/grade/tests.rs",
+    "sha256": "480ab83fca39804dcdb282b16c1d3ebfb6ce3b257b1f7b89f0455cce60a10601",
+    "tests": {
+      "diagonal_triangle_grade_is_bounded_without_changing_valid_axis_relief": "Actual triangle slopes bounded; already-valid axis slopes preserve the whole terrain exactly.",
+      "neighboring_triangles_converge_and_repair_is_deterministic": "Repeated native repair agrees and stays in the original finite [0,7] sample range.",
+      "invalid_grade_request_preserves_samples": "Invalid native input produces TerrainGradeError and preserves the old slice.",
+      "dirty_sweeps_preserve_the_complete_unconditional_projection_result": "Native dirty/full sweep samples and convergence decisions stay exactly equal."
+    },
+    "required_hosted_cell": "terrain-scene / cargo test --locked --package adventuresim-tactical-core --features meshgen --lib scene:: -- --test-threads=1",
+    "limits": "Source read only, not executed evidence. These four unchanged child-module tests are outside the 539 names counted in changed-file text preservation. No existing case directly injects an unrepresentable completed f64->f32 grid replacement; do not claim that branch was exercised. No tests/cases/assertions/helpers were added."
+  }
+}

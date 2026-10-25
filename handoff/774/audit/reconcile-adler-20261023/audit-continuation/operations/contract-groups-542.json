@@ -1,0 +1,174 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-542",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-compute/src/host_float/arithmetic.rs",
+      "sha256": "c1f92194b17274f4c4f616f05402724d6714024a31d791d3af256b08d7b7df51",
+      "actual_EOF": 175,
+      "actual_compared_ranges": [
+        [
+          1,
+          175
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-compute/src/host_float/double_float.rs",
+      "sha256": "196e4e5928c8690f9c454f6df53c6923893063912d0e5ea63cddf199ab7f5688",
+      "actual_EOF": 360,
+      "actual_compared_ranges": [
+        [
+          1,
+          360
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-compute/src/host_float/mod.rs",
+      "sha256": "f584218ee80866588dc56bfddb3464f65635a41e317f6fbaa08a404143b42b39",
+      "actual_EOF": 86,
+      "actual_compared_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-compute/src/host_float/tests.rs",
+      "sha256": "837d9a82e8851a69388f04459ab242107ad9facba9f662cf4e5f2219cb6c2a75",
+      "actual_EOF": 271,
+      "actual_compared_ranges": [
+        [
+          1,
+          271
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-compute/src/kernel/fast.rs",
+      "sha256": "8cb7511310b96d6e799dd584a3a6f64270c73ee3abbb50a7f730831938ef2fcf",
+      "actual_EOF": 379,
+      "actual_compared_ranges": [
+        [
+          1,
+          379
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274",
+      "actual_EOF": 406,
+      "actual_compared_ranges": [
+        [
+          1,
+          406
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-compute/src/prelude.rs",
+      "sha256": "68d9ab3add92c4324cd578477317e07ec1d8928dd58d212e8e53f9aeef8926b4",
+      "actual_EOF": 16,
+      "actual_compared_ranges": [
+        [
+          1,
+          16
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-compute/src/readback.rs",
+      "sha256": "caaf8c9738e40e94a3dc17914bebeaeda33a6b37bacb74158619c9fca955af76",
+      "actual_EOF": 294,
+      "actual_compared_ranges": [
+        [
+          1,
+          294
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-compute/src/sort/mod.rs",
+      "sha256": "2cf6b4446ab00dce84c8b3169d9685d3b2e304b869f4c25d0e4322c7bedf9634",
+      "actual_EOF": 327,
+      "actual_compared_ranges": [
+        [
+          1,
+          327
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Folded work-grid arithmetic",
+      "finding": "SEGOVB-04-FOLDED-DISPATCH-CAPACITY-CANDIDATE-001",
+      "evidence": [
+        "With a valid workgroup width1, groups_folded(u32MAX) produces x65535,y65537, beyond declared MAX_GROUPS65535 for native dimension.",
+        "With valid width64 and itemsu32MAX, groups=ceil(MAX/64)=67108864,x65535,y1025; padded last row covers flattened indices beyond u32MAX, so folded_index id.y*groups.x*width+id.x wraps into live domain before caller index<count guard."
+      ],
+      "qualification": "Pure public API/native representation counterexamples, no massive buffer allocation/runtime/ordinary workload proved; adapter may reject resources earlier. Width/size are valid for kernel construction. Exact archive alias pending."
+    },
+    {
+      "contract": "Reflected uniform shape admission",
+      "evidence": "Personally consumed complete matching wrapper RIG-ADMISSION03-F058, archive audit/continuation/rig/admission03/findings.jsonl record_index60. write_uniform ignores reflected size and silently leaves zero when supplied encoded width exceeds output; accepted finding exactsame support. Scalar semantic kind versus reflected kind also requires owning reflected-shape contract, not a new global unique count."
+    },
+    {
+      "contract": "Uniform arena staging and native failure ordering",
+      "evidence": "Arena is per-batch, preventing earlier cross-thread slot reuse; chunk64KiB and uniform<=256 keep ordinary offset narrowing withinu32, actual alignment nativeadapter. prepare may consume unused uniform slot before parameterErr but prior successful command uniforms remain intact, no retry-clock guarantee. KernelCache stores source only, not device; context authority is owner lens dependency, no new04mutation proof."
+    },
+    {
+      "contract": "Host float intended IEEE limits",
+      "evidence": "Fences force host-order rounding, zero-hook required atcompile, four-step division/root walk, sqrt smallargument scaling, DF bounded series and explicit exp under/overflow. Public docs expressly qualify device subnormal flushing and sine reduction fewthousand radians; no promise allIEEEinputs sameprecision or universalfiniteoutput inferred. Actual scoped test domains read and not executed; host_pow positive-normal base/exponent constraints need producer tracing before generalizing negative/zero exponent semantics."
+    },
+    {
+      "contract": "Readback lifecycle and extent",
+      "evidence": "Typed staged offsets checked with aligned padded checkedmultiply/checked_after before native allocation/copies. Mapping failure retainsFailed, ready taken once after unmap, callbacks install one wholeenum; poisoned lock preservescompleteoutcome. Native copylength alignment and context correspondence remain owner admission dependencies; no actual invalid buffer created inthispass. RadixSort scratch growth assigns only after successful new; record validates count/storage before recording. Extreme RADIX*tiles u32capacity concerns depend actual prioradapterbufferadmission, no ordinary sort failure proved."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-FOLDED-DISPATCH-CAPACITY-CANDIDATE-001",
+      "source_id": "pr-working:crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274",
+      "ranges": [
+        [
+          28,
+          38
+        ],
+        [
+          140,
+          147
+        ],
+        [
+          292,
+          314
+        ]
+      ],
+      "counterexamples": [
+        "With a valid workgroup width1, groups_folded(u32MAX) produces x65535,y65537, beyond declared MAX_GROUPS65535 for native dimension.",
+        "With valid width64 and itemsu32MAX, groups=ceil(MAX/64)=67108864,x65535,y1025; padded last row covers flattened indices beyond u32MAX, so folded_index id.y*groups.x*width+id.x wraps into live domain before caller index<count guard."
+      ],
+      "qualification": "Pure public API/native representation counterexamples, no massive buffer allocation/runtime/ordinary workload proved; adapter may reject resources earlier. Width/size are valid for kernel construction. Exact archive alias pending.",
+      "connected_contract": "Admit full work-grid capacity and flattened padded-index representation together, with explicit supported count/error policy. Preserve zero-item no-op and ordinary folding, do not impose a physical-world size clamp.",
+      "acceptance": "Every accepted folded index identifies one intended item or safely out-of-range lane without wrap, dimensions fit native limits, and over-capacity request rejects before recording partial work."
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "9 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/fabelgeist-determinism/src/lib.rs"
+}

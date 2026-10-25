@@ -1,0 +1,42 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-996",
+  "at": "2026-10-25T17:27:42.955419+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1155,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/courtship.rs",
+  "sha256": "3f03d0db1b9cf1860a021496c4a4442a607e0dc03f6eaa309ca7318e965e323c",
+  "actual_compared_ranges": [
+    [
+      1,
+      360
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "From<String>",
+      "type": "CourtshipPairError",
+      "lines": [
+        28,
+        32
+      ],
+      "disposition": "KEEP_SMALL_MANUAL; mechanical one-arm wrapper, no existing local conversion derive."
+    },
+    {
+      "trait": "From<&str>",
+      "type": "CourtshipPairError",
+      "lines": [
+        34,
+        38
+      ],
+      "disposition": "KEEP_SMALL_MANUAL; explicit borrowed\u2192owned String wrapper, no new dependency/API expansion."
+    }
+  ],
+  "analysis": "CourtshipPairError existing structural derives. Handwritten From<String>28\u201332 wraps InvalidState; From<&str>34\u201338 owns text then wraps. KEEP necessary small impls: module manifest1072 previously personally analyzed854 exposes thiserror but no conversion derive; thiserror From would require Error semantics/source changes, no new dep solely wrapping. into_reducer_error performs semantic variant-dependent encoded rejection/raw state formatting. NpcCourtshipOutcome structural already. Native canonical pair/attraction/authority/time/courtship persistence no codec.",
+  "first_unfinished": {
+    "scope_index": 1155,
+    "line": 361
+  },
+  "execution": "none"
+}

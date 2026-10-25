@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1268",
+  "at": "2026-10-25T18:20:21.037242+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1331,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer.rs",
+  "sha256": "4544835a041e7c35f25b60d0b13e06ff22ea4ecc0efc90efdda1cd6963fb9638",
+  "actual_compared_ranges": [
+    [
+      1201,
+      1500
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "End native two-bone solve and finite/rotation sanitization; fixture source verifies selected pelvis blending, coordinate extrapolation, spline anchors/derivatives, nonfinite fallback and beginning terrain-local interpolation. No handwritten trait/type/codec. Native fallback/normalization/admission semantics retained; fixture evidence only, not executed.",
+  "first_unfinished": {
+    "scope_index": 1331,
+    "line": 1501
+  },
+  "execution": "none"
+}

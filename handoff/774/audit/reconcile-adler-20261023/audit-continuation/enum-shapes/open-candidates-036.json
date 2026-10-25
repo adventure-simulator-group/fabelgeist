@@ -1,0 +1,15 @@
+{
+  "status": "trace pending, no clearance or new finding claimed",
+  "candidates": [
+    {
+      "key": "armor-coverage-mask-and-optional-geometry",
+      "read_evidence": "1878 ArmorItem covered_parts[bool;7] beside coverage_geometry[Option;7];2813 requires Some for coveredtrue and panics otherwise; scalar fold fixtures1877 intentionally use coveredtrue/geometryNone",
+      "next_trace": "Inspect full projected_armor/actual projection admission and intended scalar-only versus admittedgeometry states. Preserve intentional scalar fixtures; do not remove supported historical products blindly. Existing aggregate/admission findings may already own repair."
+    },
+    {
+      "key": "resolved-energy-log-and-native-report",
+      "read_evidence": "2060 ResolvedEnergyLog flattens AttackResult into outcome/coverage_contact/optionalarmor and zero cut/blunt on attacker arm; final report copies independent tags and armor absence/defaultenergy fields",
+      "next_trace": "Read native TacticalMeleeLogEntry type, outcome/coverage declarations, all resolved/pending report producers and consumers before proposing variant-owned evidence. Full2060 bodyread alone does not clear this graph."
+    }
+  ]
+}

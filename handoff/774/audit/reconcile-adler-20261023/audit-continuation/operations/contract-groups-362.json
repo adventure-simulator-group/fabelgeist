@@ -1,0 +1,62 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-362",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-procedural-materials/src/shaders/tactical_tree_bark.wgsl",
+      "sha256": "226829eae04e17626eeda3721fcbe33fc5c2d51b0a73ed9c81112fe87f7dc653",
+      "actual_EOF": 517,
+      "actual_compared_ranges": [
+        [
+          1,
+          517
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-procedural-materials/src/shaders/tactical_tree_leaf_card.wgsl",
+      "sha256": "46a5f6da85cac6f612bdbeae41a1aa0cbee85b88205509e331ad526ca6fb146c",
+      "actual_EOF": 284,
+      "actual_compared_ranges": [
+        [
+          1,
+          284
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Bark packed material decoding, terrain lookup and derivative normalization",
+      "source_ranges": {
+        "tactical_tree_bark.wgsl": [
+          [
+            1,
+            517
+          ]
+        ]
+      },
+      "disposition": "All517lines personally read. Rust102 uniform order matches10 vec4 WGSL fields. Two-channel height decode normalizes65535, terrain interpolation uses actual triangle diagonal and clamps query coordinates, but requires heightmap dimensions>=2 and finite ordered height bounds. Cell specks divide by deposition.z without local guard; cotangent frame inverseSqrt of max squared tangent lacks positive floor for degenerate derivatives; normal/view/light normalization requires nonzero vectors. Public raw finite zero cell size or collapsed UV derivatives are representable kernel counterexamples, not actual current assets. Fade smoothstep requires positive ordered projection.w; loop counts 16/3 + i32(soil_optics.y) rely on documented reserved y=0. Need actual game/TextureStudio producer and mesh contracts before ordinary runtime defect promotion. Preserve intentional finite tile wrap/soil physical metres/normalized channels and raw GPU ABI. Remedies if callers do not prove constraints: validated CPU uniforms/heightmap shape and deterministic finite degenerate derivative fallback; no blanket rewrite of shader constants. No shader compilation/render."
+    },
+    {
+      "contract": "Leaf displacement and frame reconstruction require nonzero direction and nonsingular surface data",
+      "source_ranges": {
+        "tactical_tree_leaf_card.wgsl": [
+          [
+            1,
+            284
+          ]
+        ]
+      },
+      "disposition": "Entire284lines read, slots0..12 and three packed vec4 match Rust material. Shader globals.time owns wind clock; Rust comment CPU synchronized phase is stale but parameters.w is unused, no additional arithmetic defect inferred. normalize(parameters.xy) has zero-vector domain hole even if wind strength0: undefined normalization multiplied by0 need not produce finite displacement. Tangent-normal, macro-normal, tangent from UV derivative projection, cross bitangent and final normal similarly require nonzero actual inputs. Explicit representable raw uniform/degenerate geometry API strengthening questions only until actual producer and asset guarantees traced. Opacity mask/LOD16levels clamp and midpoint handoff differ intentionally across color vs depth/shadow; preserve. Motion previous=current and zero motion vector explicitly code behavior, no current motion artifact proved. Texture normalized channels and canopy/litter role distinction must survive owner migration. Acceptance: valid asset/pass behavior, zero-wind policy, finite degenerate fallback if admitted, forward/prepass consistent positions; no executing shaders."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-stdb-client/src/backend_corpse_type.rs"
+}

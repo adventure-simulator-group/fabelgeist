@@ -1,0 +1,18 @@
+{
+  "failed_run": 39430479607,
+  "failed_job": 118653923352,
+  "head": "82528917d5de0b9391b6e608ca5db8ba4a8c9271",
+  "code": "E0277",
+  "file": "crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement.rs",
+  "line": 140,
+  "repair_commit": "11d956e9f24e5173f400b731ebfb771b8c7878bd",
+  "root_cause": "Configured walk speed is NonnegativeSpeed; existing route-budget fixture still performed f32 / speed.",
+  "repair": "Keep speed typed through local retention; project metres_per_second only in the final distance/speed/tick-count equation. Preserve multiplication, addition, division, ceiling, usize saturation and minimum route window.",
+  "new_tests_cases_assertions_helpers": false,
+  "local_validation": "Git whitespace and static source checks only.",
+  "current_run": 39432660084,
+  "current_job": 118661423273,
+  "state": "live; full acceptance pending",
+  "current_head": "374977162f6a561bece01018c333d2b5c307bf8d",
+  "native_fixture_format_followup": "374977162f6a561bece01018c333d2b5c307bf8d"
+}

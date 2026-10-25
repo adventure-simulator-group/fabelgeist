@@ -1,0 +1,1503 @@
+{
+  "id": "CONT03-NEW-MATERIAL-001",
+  "at": "2026-10-24T02:56:57.613548+00:00",
+  "rows": [
+    {
+      "registry_index": 0,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/materials/palette.rs",
+      "sha256": "0ce1ea507bc49a06edff5175cc0638a0cc8e5cf7c3e33258fc41b01e5d97faa1",
+      "ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "registration": "redundant-authority/prospective-source-registration-001.json",
+      "inventory": {
+        "registry_index": 0,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/materials/palette.rs",
+        "sha256": "0ce1ea507bc49a06edff5175cc0638a0cc8e5cf7c3e33258fc41b01e5d97faa1",
+        "registered_ranges": [
+          [
+            1,
+            69
+          ]
+        ],
+        "samehash_baseline_source_refs": [],
+        "baseline_range_reuse": [],
+        "actual_uncovered_ranges": [
+          [
+            1,
+            69
+          ]
+        ],
+        "scope_qualification": "Range inventory is navigation only; complete03 baseline is directly adopted. Samehash body/range reuse requires exact material. New range still needs independent03 disposition."
+      },
+      "lens": "03admission-contracts",
+      "disposition": "borrowed native palette adapter, no new bespoke leaf admission",
+      "invariant": "BuildingPalette borrows existing TacticalBuildingMaterials/AppearanceMaterials; get selects native Handle by closed material/finish enums.",
+      "admission_routes": "pub(crate) record with pub(super) borrowed fields; no public decode/default/reflection constructor in69lines. get exhaustively matches category and uses FurnitureWood enumordinal for actual texture array lookup.",
+      "representable_counterexample_or_positive_qualification": "Palette/material cache association is aggregate/authority concern, not a new nonfinite scalar constructor. Closed FurnitureWood ordinal from existing canonical enum; arbitrary unmatched raw integer not admitted by this API.",
+      "connected_correction_and_acceptance": "Retain actual asset/palette cohort through existing owner, carry source-conditional cache key finding separately. No duplicate handle owner or generic numeric admission restriction.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_verdict_credit": true,
+      "fresh_source_body_read": "Exact full registered ranges personally read in current03 pass, after source registration, without execution."
+    },
+    {
+      "registry_index": 1,
+      "source_id": "merged774:crates/adventuresim-weapon-model-browser/src/lib.rs",
+      "sha256": "c29071eeb95db76a0909330a53328dd39f1f2d2f1dddfcecff7c448fcffe344b",
+      "ranges": [
+        [
+          1,
+          250
+        ]
+      ],
+      "registration": "local774:PC90/M84, actual received source read recorded in file_reviews",
+      "inventory": {
+        "registry_index": 1,
+        "source_id": "merged774:crates/adventuresim-weapon-model-browser/src/lib.rs",
+        "sha256": "c29071eeb95db76a0909330a53328dd39f1f2d2f1dddfcecff7c448fcffe344b",
+        "registered_ranges": [
+          [
+            1,
+            250
+          ]
+        ],
+        "samehash_baseline_source_refs": [],
+        "baseline_range_reuse": [],
+        "actual_uncovered_ranges": [
+          [
+            1,
+            250
+          ]
+        ],
+        "scope_qualification": "Range inventory is navigation only; complete03 baseline is directly adopted. Samehash body/range reuse requires exact material. New range still needs independent03 disposition."
+      },
+      "lens": "03admission-contracts",
+      "disposition": "actual JSON adapter delegates canonical library admission",
+      "invariant": "Request operation/payload shape and lower recipe/design admission before authoritative generation; no substitute invalid recipe.",
+      "admission_routes": "Private Request derived Deserialize internallytagged operation/kebab-case/deny_unknown_fields. serde_path_to_error then deserializer.end rejects trailing data. execute delegates generate_model/authoring/encode/generate/generate_holder; Generate encode first, EditorFields encode first. Diagnostic reparse never executes.",
+      "representable_counterexample_or_positive_qualification": "Unknown op/extra top-level field/unknown preset/malformed nested recipe have explicit error routes and existing source fixtures. Underlying design/public recipe invariants inherit actual03 library findings, not sealed merely by Request enum. All250lines fresh read, tests unrun.",
+      "connected_correction_and_acceptance": "Use same authoritative lower recipe/design validation and structured request cause until native JSON boundary. Preserve actual catalogue lookup and no repair/substitute fallback; no new whole library pass or codec execution.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_verdict_credit": true,
+      "fresh_source_body_read": "Exact full registered ranges personally read in current03 pass, after source registration, without execution."
+    },
+    {
+      "registry_index": 5,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/streams.rs",
+      "sha256": "eb233a67ab87212ae64dd30075b41f4708529607aea29596bbea32c4a0acc93d",
+      "ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "registration": "redundant-authority/prospective-source-registration-005.json",
+      "inventory": {
+        "registry_index": 5,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter/streams.rs",
+        "sha256": "eb233a67ab87212ae64dd30075b41f4708529607aea29596bbea32c4a0acc93d",
+        "registered_ranges": [
+          [
+            1,
+            53
+          ]
+        ],
+        "samehash_baseline_source_refs": [],
+        "baseline_range_reuse": [],
+        "actual_uncovered_ranges": [
+          [
+            1,
+            53
+          ]
+        ],
+        "scope_qualification": "Range inventory is navigation only; complete03 baseline is directly adopted. Samehash body/range reuse requires exact material. New range still needs independent03 disposition."
+      },
+      "lens": "03admission-contracts",
+      "disposition": "intentional open deterministic identity, existing owner positive",
+      "invariant": "litter stream constants are replay-purpose identities, not numbers or GPU buffers. StreamId owns purpose/framed seed derivation; unfamiliar purpose spelling is permitted.",
+      "admission_routes": "Named pub(super) const StreamId::new literals; cfg(test) additional purposes. No Deserialize/reflection/public raw scalar bypass added in this exact module.",
+      "representable_counterexample_or_positive_qualification": "All exact literals read. Different purposes must stay different and retain replay spellings, including older understory.species namespace. Do not reject unfamiliar nonempty purpose just because not in this local roster.",
+      "connected_correction_and_acceptance": "Keep canonical StreamId constructor and exact replay identity into generator; no new wrapper, token enum or positivity/range restriction. Existing Seed/native hash admission stays adopted.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_verdict_credit": true,
+      "fresh_source_body_read": "Exact full registered ranges personally read in current03 pass, after source registration, without execution."
+    },
+    {
+      "registry_index": 6,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/loose_stone/streams.rs",
+      "sha256": "80fc6b2fc6f287ef9c214f4492651b73006484371550db1c0ee58649f492d7ee",
+      "ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "registration": "redundant-authority/prospective-source-registration-006.json",
+      "inventory": {
+        "registry_index": 6,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/loose_stone/streams.rs",
+        "sha256": "80fc6b2fc6f287ef9c214f4492651b73006484371550db1c0ee58649f492d7ee",
+        "registered_ranges": [
+          [
+            1,
+            18
+          ]
+        ],
+        "samehash_baseline_source_refs": [],
+        "baseline_range_reuse": [],
+        "actual_uncovered_ranges": [
+          [
+            1,
+            18
+          ]
+        ],
+        "scope_qualification": "Range inventory is navigation only; complete03 baseline is directly adopted. Samehash body/range reuse requires exact material. New range still needs independent03 disposition."
+      },
+      "lens": "03admission-contracts",
+      "disposition": "intentional open deterministic identity, existing owner positive",
+      "invariant": "loose stone stream constants are replay-purpose identities, not numbers or GPU buffers. StreamId owns purpose/framed seed derivation; unfamiliar purpose spelling is permitted.",
+      "admission_routes": "Named pub(super) const StreamId::new literals; cfg(test) additional purposes. No Deserialize/reflection/public raw scalar bypass added in this exact module.",
+      "representable_counterexample_or_positive_qualification": "All exact literals read. Different purposes must stay different and retain replay spellings, including older understory.species namespace. Do not reject unfamiliar nonempty purpose just because not in this local roster.",
+      "connected_correction_and_acceptance": "Keep canonical StreamId constructor and exact replay identity into generator; no new wrapper, token enum or positivity/range restriction. Existing Seed/native hash admission stays adopted.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_verdict_credit": true,
+      "fresh_source_body_read": "Exact full registered ranges personally read in current03 pass, after source registration, without execution."
+    },
+    {
+      "registry_index": 7,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/understory/streams.rs",
+      "sha256": "af5f77b3bca6fcfb8ec098008e0b1cb339a495cf5bf3b423ad9c24c325caf916",
+      "ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "registration": "redundant-authority/prospective-source-registration-007.json",
+      "inventory": {
+        "registry_index": 7,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/understory/streams.rs",
+        "sha256": "af5f77b3bca6fcfb8ec098008e0b1cb339a495cf5bf3b423ad9c24c325caf916",
+        "registered_ranges": [
+          [
+            1,
+            17
+          ]
+        ],
+        "samehash_baseline_source_refs": [],
+        "baseline_range_reuse": [],
+        "actual_uncovered_ranges": [
+          [
+            1,
+            17
+          ]
+        ],
+        "scope_qualification": "Range inventory is navigation only; complete03 baseline is directly adopted. Samehash body/range reuse requires exact material. New range still needs independent03 disposition."
+      },
+      "lens": "03admission-contracts",
+      "disposition": "intentional open deterministic identity, existing owner positive",
+      "invariant": "understory stream constants are replay-purpose identities, not numbers or GPU buffers. StreamId owns purpose/framed seed derivation; unfamiliar purpose spelling is permitted.",
+      "admission_routes": "Named pub(super) const StreamId::new literals; cfg(test) additional purposes. No Deserialize/reflection/public raw scalar bypass added in this exact module.",
+      "representable_counterexample_or_positive_qualification": "All exact literals read. Different purposes must stay different and retain replay spellings, including older understory.species namespace. Do not reject unfamiliar nonempty purpose just because not in this local roster.",
+      "connected_correction_and_acceptance": "Keep canonical StreamId constructor and exact replay identity into generator; no new wrapper, token enum or positivity/range restriction. Existing Seed/native hash admission stays adopted.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_verdict_credit": true,
+      "fresh_source_body_read": "Exact full registered ranges personally read in current03 pass, after source registration, without execution."
+    },
+    {
+      "registry_index": 8,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/building_program.rs",
+      "sha256": "2ecfe5491e448871f85d33e15bc04c197311aae741054b4587143531548063a2",
+      "ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "registration": "enum-shapes/additional-source-044A.json",
+      "inventory": {
+        "registry_index": 8,
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/model/building_program.rs",
+        "sha256": "2ecfe5491e448871f85d33e15bc04c197311aae741054b4587143531548063a2",
+        "registered_ranges": [
+          [
+            1,
+            66
+          ]
+        ],
+        "samehash_baseline_source_refs": [],
+        "baseline_range_reuse": [],
+        "actual_uncovered_ranges": [
+          [
+            1,
+            66
+          ]
+        ],
+        "scope_qualification": "Range inventory is navigation only; complete03 baseline is directly adopted. Samehash body/range reuse requires exact material. New range still needs independent03 disposition."
+      },
+      "lens": "03admission-contracts",
+      "disposition": "raw authoring recipe intentionally broader than accepted generated building",
+      "invariant": "BuildingProgram is explicit high-level raw input allowed to describe unsupported combinations; generate is admission gate to accepted plan.",
+      "admission_routes": "Public fields, derived Serialize/Deserialize, fixture constructors, optional serde defaults roof_demonstrator/church_program. No claim that raw f32 pitch/height or public combinations already satisfy generated plan invariants.",
+      "representable_counterexample_or_positive_qualification": "Nonfinite/invalid footprint/unsupported public use+archetype can be represented in raw recipe, so those are not automatically constructor bypasses of an accepted type. Actual generate receiver baseline03 remains required and preserves inherited findings.",
+      "connected_correction_and_acceptance": "Retain raw versus accepted product distinction and canonical generate/audit_plan gate, no shadow validator or silent fallback. Existing typed physical/programme migration remains distinct02 obligation.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_verdict_credit": true,
+      "fresh_source_body_read": "Exact full registered ranges personally read in current03 pass, after source registration, without execution."
+    },
+    {
+      "registry_index": 9,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/settlement.rs",
+      "sha256": "5a26d13567d00297e0bec89a8425945e633f346b1593eba9d4733ece32476ffc",
+      "ranges": [
+        [
+          1,
+          257
+        ]
+      ],
+      "registration": "enum-shapes/additional-source-044B.json",
+      "inventory": {
+        "registry_index": 9,
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/settlement.rs",
+        "sha256": "5a26d13567d00297e0bec89a8425945e633f346b1593eba9d4733ece32476ffc",
+        "registered_ranges": [
+          [
+            1,
+            257
+          ]
+        ],
+        "samehash_baseline_source_refs": [],
+        "baseline_range_reuse": [],
+        "actual_uncovered_ranges": [
+          [
+            1,
+            257
+          ]
+        ],
+        "scope_qualification": "Range inventory is navigation only; complete03 baseline is directly adopted. Samehash body/range reuse requires exact material. New range still needs independent03 disposition."
+      },
+      "lens": "03admission-contracts",
+      "disposition": "raw recipe factory with explicit validated alternative",
+      "invariant": "settlement returns raw BuildingProgram; validated_settlement returns actual recipe whose generate and optional circulation validation succeeded.",
+      "admission_routes": "Public settlement/validated_settlement; fixture seed; assign_use remaps rooms/neighbors and removes non-dwelling heating. validated attempts first then1..64 purpose-derived seeds and returns first error if none succeeds.",
+      "representable_counterexample_or_positive_qualification": "Public settlement arbitrary archetype/use can create unsupported raw recipe by design. validated_settlement returns successful candidate seed with program, not nominal initial seed. Existing source fixture loops are unrun. No accepted immutable plan claim for a later-mutated public recipe.",
+      "connected_correction_and_acceptance": "All consumers needing accepted plan must use canonical generation admission; preserve deterministic attempts/draws and real failure. No forced rejection in raw builder or duplicate programme validator without actual accepted-boundary requirement.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_verdict_credit": true,
+      "fresh_source_body_read": "Exact full registered ranges personally read in current03 pass, after source registration, without execution."
+    },
+    {
+      "registry_index": 10,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/settlement/size.rs",
+      "sha256": "23584a638ed300e6bfb8e5bb95e2a330d24b705b9589838c22632f99d81a884e",
+      "ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "registration": "enum-shapes/additional-source-044B.json",
+      "inventory": {
+        "registry_index": 10,
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/settlement/size.rs",
+        "sha256": "23584a638ed300e6bfb8e5bb95e2a330d24b705b9589838c22632f99d81a884e",
+        "registered_ranges": [
+          [
+            1,
+            110
+          ]
+        ],
+        "samehash_baseline_source_refs": [],
+        "baseline_range_reuse": [],
+        "actual_uncovered_ranges": [
+          [
+            1,
+            110
+          ]
+        ],
+        "scope_qualification": "Range inventory is navigation only; complete03 baseline is directly adopted. Samehash body/range reuse requires exact material. New range still needs independent03 disposition."
+      },
+      "lens": "03admission-contracts",
+      "disposition": "closed programme band; capacity mapping broader input is explicit policy",
+      "invariant": "ServiceBuildingSize closed Small/Medium/Large physical programme band. It is not a proof of demand/capacity or an immutable accepted building.",
+      "admission_routes": "Derived Serde/Clap closed enum; for_demand/for_capacity; with_service_size mutates raw recipe by workplace/church family. Capacity mapping saturates to band, caller ServiceCapacity may span broader domain.",
+      "representable_counterexample_or_positive_qualification": "Outside-catchment capacities mapSmall/Large rather than fail; source defines broad classifier, not declared bounded admitted capacity. Parish bands authored independently, no normalization to demand. Public recipe mutation remains before generate.",
+      "connected_correction_and_acceptance": "Keep canonical usage.definition range, closedenum decode and accepted generation gate. Preserve legitimate bands and no new capacity range solely to force constructor failure; full programme/capacity association separate aggregate obligation.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_verdict_credit": true,
+      "fresh_source_body_read": "Exact full registered ranges personally read in current03 pass, after source registration, without execution."
+    },
+    {
+      "registry_index": 11,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/streams.rs",
+      "sha256": "0d8665bffe65c04fdc695d187ef0a3b91071e714eecf1e46e526af46d2738df7",
+      "ranges": [
+        [
+          1,
+          149
+        ]
+      ],
+      "registration": "redundant-authority/prospective-source-registration-008.json",
+      "inventory": {
+        "registry_index": 11,
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/skeleton/streams.rs",
+        "sha256": "0d8665bffe65c04fdc695d187ef0a3b91071e714eecf1e46e526af46d2738df7",
+        "registered_ranges": [
+          [
+            1,
+            149
+          ]
+        ],
+        "samehash_baseline_source_refs": [],
+        "baseline_range_reuse": [],
+        "actual_uncovered_ranges": [
+          [
+            1,
+            149
+          ]
+        ],
+        "scope_qualification": "Range inventory is navigation only; complete03 baseline is directly adopted. Samehash body/range reuse requires exact material. New range still needs independent03 disposition."
+      },
+      "lens": "03admission-contracts",
+      "disposition": "intentional open deterministic identity, existing owner positive",
+      "invariant": "tree skeleton stream constants are replay-purpose identities, not numbers or GPU buffers. StreamId owns purpose/framed seed derivation; unfamiliar purpose spelling is permitted.",
+      "admission_routes": "Named pub(super) const StreamId::new literals; cfg(test) additional purposes. No Deserialize/reflection/public raw scalar bypass added in this exact module.",
+      "representable_counterexample_or_positive_qualification": "All exact literals read. Different purposes must stay different and retain replay spellings, including older understory.species namespace. Do not reject unfamiliar nonempty purpose just because not in this local roster.",
+      "connected_correction_and_acceptance": "Keep canonical StreamId constructor and exact replay identity into generator; no new wrapper, token enum or positivity/range restriction. Existing Seed/native hash admission stays adopted.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_verdict_credit": true,
+      "fresh_source_body_read": "Exact full registered ranges personally read in current03 pass, after source registration, without execution."
+    },
+    {
+      "registry_index": 15,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/binding.rs",
+      "sha256": "9db0cfc4b4c3053884d835faaca49a404c9942f7f0599b3069b89729fd8d7ae3",
+      "ranges": [
+        [
+          200,
+          209
+        ]
+      ],
+      "registration": "redundant-authority/prospective-source-registration-012.json",
+      "inventory": {
+        "registry_index": 15,
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/binding.rs",
+        "sha256": "9db0cfc4b4c3053884d835faaca49a404c9942f7f0599b3069b89729fd8d7ae3",
+        "registered_ranges": [
+          [
+            200,
+            209
+          ]
+        ],
+        "samehash_baseline_source_refs": [
+          "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/binding.rs"
+        ],
+        "baseline_range_reuse": [
+          [
+            1,
+            199
+          ],
+          [
+            1,
+            199
+          ],
+          [
+            1,
+            199
+          ],
+          [
+            1,
+            199
+          ],
+          [
+            200,
+            209
+          ],
+          [
+            200,
+            209
+          ]
+        ],
+        "actual_uncovered_ranges": [],
+        "scope_qualification": "Range inventory is navigation only; complete03 baseline is directly adopted. Samehash body/range reuse requires exact material. New range still needs independent03 disposition."
+      },
+      "lens": "03admission-contracts",
+      "disposition": "exact same-hash/range adopted completed03 contract reused WITH_FINDINGS",
+      "invariant": "Existing03 accepted source range and owner invariants remain authoritative, with original admission findings/withdrawals/qualifiers retained.",
+      "admission_routes": "All original constructors/visibility/constants/Serde/native adapters already in adopted03 completed material; this entry has no genuinely uncovered body range.",
+      "representable_counterexample_or_positive_qualification": "No new unrestricted route inferred from metadata. Alternate source provenance preserved; exact bytes/ranges agree, no currentmain clearance.",
+      "connected_correction_and_acceptance": "Preserve original03 findings and relevant new connected source contracts; no baseline replay or stronger all-route guarantee from wrapper name.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_verdict_credit": true,
+      "same_lens_evidence": {
+        "adoption": "adopted-completed-audits.json admission03-progress-067",
+        "original_exact_provenance": [
+          "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/binding.rs"
+        ],
+        "overlay_or_source_exact_range": [
+          [
+            1,
+            199
+          ],
+          [
+            1,
+            199
+          ],
+          [
+            1,
+            199
+          ],
+          [
+            1,
+            199
+          ],
+          [
+            200,
+            209
+          ],
+          [
+            200,
+            209
+          ]
+        ]
+      }
+    },
+    {
+      "registry_index": 17,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/rigged.rs",
+      "sha256": "2f337baa2edb2356e1f086aacf549696c63bfac639d03c5f0a9b564d675bb397",
+      "ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "registration": "enum-shapes/source-extensions.jsonl#SEGO-INITIAL09-REGISTRATION-144A-rigged",
+      "inventory": {
+        "registry_index": 17,
+        "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/rigged.rs",
+        "sha256": "2f337baa2edb2356e1f086aacf549696c63bfac639d03c5f0a9b564d675bb397",
+        "registered_ranges": [
+          [
+            1,
+            60
+          ]
+        ],
+        "samehash_baseline_source_refs": [
+          "pr-working:crates/adventuresim-character-creator/src/export/rigged.rs"
+        ],
+        "baseline_range_reuse": [
+          [
+            1,
+            60
+          ]
+        ],
+        "actual_uncovered_ranges": [],
+        "scope_qualification": "Range inventory is navigation only; complete03 baseline is directly adopted. Samehash body/range reuse requires exact material. New range still needs independent03 disposition."
+      },
+      "lens": "03admission-contracts",
+      "disposition": "exact same-hash/range adopted completed03 contract reused WITH_FINDINGS",
+      "invariant": "Existing03 accepted source range and owner invariants remain authoritative, with original admission findings/withdrawals/qualifiers retained.",
+      "admission_routes": "All original constructors/visibility/constants/Serde/native adapters already in adopted03 completed material; this entry has no genuinely uncovered body range.",
+      "representable_counterexample_or_positive_qualification": "No new unrestricted route inferred from metadata. Alternate source provenance preserved; exact bytes/ranges agree, no currentmain clearance.",
+      "connected_correction_and_acceptance": "Preserve original03 findings and relevant new connected source contracts; no baseline replay or stronger all-route guarantee from wrapper name.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_verdict_credit": true,
+      "same_lens_evidence": {
+        "adoption": "adopted-completed-audits.json admission03-progress-067",
+        "original_exact_provenance": [
+          "pr-working:crates/adventuresim-character-creator/src/export/rigged.rs"
+        ],
+        "overlay_or_source_exact_range": [
+          [
+            1,
+            60
+          ]
+        ]
+      }
+    },
+    {
+      "registry_index": 18,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/validation.rs",
+      "sha256": "61a7e389db804f2c17d7e619c27bb5bfc88f873f11e00d05097c85b6121518fb",
+      "ranges": [
+        [
+          1,
+          164
+        ]
+      ],
+      "registration": "enum-shapes/source-extensions.jsonl#SEGO-INITIAL09-REGISTRATION-144A-validation",
+      "inventory": {
+        "registry_index": 18,
+        "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/validation.rs",
+        "sha256": "61a7e389db804f2c17d7e619c27bb5bfc88f873f11e00d05097c85b6121518fb",
+        "registered_ranges": [
+          [
+            1,
+            164
+          ]
+        ],
+        "samehash_baseline_source_refs": [
+          "pr-working:crates/adventuresim-character-creator/src/export/validation.rs"
+        ],
+        "baseline_range_reuse": [
+          [
+            1,
+            164
+          ]
+        ],
+        "actual_uncovered_ranges": [],
+        "scope_qualification": "Range inventory is navigation only; complete03 baseline is directly adopted. Samehash body/range reuse requires exact material. New range still needs independent03 disposition."
+      },
+      "lens": "03admission-contracts",
+      "disposition": "exact same-hash/range adopted completed03 contract reused WITH_FINDINGS",
+      "invariant": "Existing03 accepted source range and owner invariants remain authoritative, with original admission findings/withdrawals/qualifiers retained.",
+      "admission_routes": "All original constructors/visibility/constants/Serde/native adapters already in adopted03 completed material; this entry has no genuinely uncovered body range.",
+      "representable_counterexample_or_positive_qualification": "No new unrestricted route inferred from metadata. Alternate source provenance preserved; exact bytes/ranges agree, no currentmain clearance.",
+      "connected_correction_and_acceptance": "Preserve original03 findings and relevant new connected source contracts; no baseline replay or stronger all-route guarantee from wrapper name.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_verdict_credit": true,
+      "same_lens_evidence": {
+        "adoption": "adopted-completed-audits.json admission03-progress-067",
+        "original_exact_provenance": [
+          "pr-working:crates/adventuresim-character-creator/src/export/validation.rs"
+        ],
+        "overlay_or_source_exact_range": [
+          [
+            1,
+            164
+          ]
+        ]
+      }
+    },
+    {
+      "registry_index": 19,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/compact.rs",
+      "sha256": "4aa7045f30b54218cf1897ee3f74e1d8831a35debb7905ad3365a796e20f7ca9",
+      "ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "registration": "enum-shapes/source-extensions.jsonl#SEGO-INITIAL09-REGISTRATION-144A-compact",
+      "inventory": {
+        "registry_index": 19,
+        "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/compact.rs",
+        "sha256": "4aa7045f30b54218cf1897ee3f74e1d8831a35debb7905ad3365a796e20f7ca9",
+        "registered_ranges": [
+          [
+            1,
+            104
+          ]
+        ],
+        "samehash_baseline_source_refs": [
+          "pr-working:crates/adventuresim-character-creator/src/export/compact.rs"
+        ],
+        "baseline_range_reuse": [
+          [
+            1,
+            104
+          ]
+        ],
+        "actual_uncovered_ranges": [],
+        "scope_qualification": "Range inventory is navigation only; complete03 baseline is directly adopted. Samehash body/range reuse requires exact material. New range still needs independent03 disposition."
+      },
+      "lens": "03admission-contracts",
+      "disposition": "exact same-hash/range adopted completed03 contract reused WITH_FINDINGS",
+      "invariant": "Existing03 accepted source range and owner invariants remain authoritative, with original admission findings/withdrawals/qualifiers retained.",
+      "admission_routes": "All original constructors/visibility/constants/Serde/native adapters already in adopted03 completed material; this entry has no genuinely uncovered body range.",
+      "representable_counterexample_or_positive_qualification": "No new unrestricted route inferred from metadata. Alternate source provenance preserved; exact bytes/ranges agree, no currentmain clearance.",
+      "connected_correction_and_acceptance": "Preserve original03 findings and relevant new connected source contracts; no baseline replay or stronger all-route guarantee from wrapper name.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_verdict_credit": true,
+      "same_lens_evidence": {
+        "adoption": "adopted-completed-audits.json admission03-progress-067",
+        "original_exact_provenance": [
+          "pr-working:crates/adventuresim-character-creator/src/export/compact.rs"
+        ],
+        "overlay_or_source_exact_range": [
+          [
+            1,
+            104
+          ]
+        ]
+      }
+    },
+    {
+      "registry_index": 20,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/textures.rs",
+      "sha256": "94523800edefb10ca1a28ebdf93b14b034f2b22b0900e406857bbfc8a5dbf99b",
+      "ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "registration": "enum-shapes/source-extensions.jsonl#SEGO-INITIAL09-REGISTRATION-144A-textures",
+      "inventory": {
+        "registry_index": 20,
+        "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/textures.rs",
+        "sha256": "94523800edefb10ca1a28ebdf93b14b034f2b22b0900e406857bbfc8a5dbf99b",
+        "registered_ranges": [
+          [
+            1,
+            170
+          ]
+        ],
+        "samehash_baseline_source_refs": [
+          "pr-working:crates/adventuresim-character-creator/src/export/textures.rs"
+        ],
+        "baseline_range_reuse": [
+          [
+            1,
+            170
+          ],
+          [
+            1,
+            170
+          ],
+          [
+            1,
+            170
+          ]
+        ],
+        "actual_uncovered_ranges": [],
+        "scope_qualification": "Range inventory is navigation only; complete03 baseline is directly adopted. Samehash body/range reuse requires exact material. New range still needs independent03 disposition."
+      },
+      "lens": "03admission-contracts",
+      "disposition": "exact same-hash/range adopted completed03 contract reused WITH_FINDINGS",
+      "invariant": "Existing03 accepted source range and owner invariants remain authoritative, with original admission findings/withdrawals/qualifiers retained.",
+      "admission_routes": "All original constructors/visibility/constants/Serde/native adapters already in adopted03 completed material; this entry has no genuinely uncovered body range.",
+      "representable_counterexample_or_positive_qualification": "No new unrestricted route inferred from metadata. Alternate source provenance preserved; exact bytes/ranges agree, no currentmain clearance.",
+      "connected_correction_and_acceptance": "Preserve original03 findings and relevant new connected source contracts; no baseline replay or stronger all-route guarantee from wrapper name.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_verdict_credit": true,
+      "same_lens_evidence": {
+        "adoption": "adopted-completed-audits.json admission03-progress-067",
+        "original_exact_provenance": [
+          "pr-working:crates/adventuresim-character-creator/src/export/textures.rs"
+        ],
+        "overlay_or_source_exact_range": [
+          [
+            1,
+            170
+          ],
+          [
+            1,
+            170
+          ],
+          [
+            1,
+            170
+          ]
+        ]
+      }
+    },
+    {
+      "registry_index": 31,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/helmet/codes.rs",
+      "sha256": "0b8a7c542323af91d7989eb07067b61c68e2ffe46254a1d10477293591c3cb13",
+      "ranges": [
+        [
+          1,
+          171
+        ]
+      ],
+      "registration": "redundant-authority/prospective-source-registration-019.json",
+      "inventory": {
+        "registry_index": 31,
+        "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/helmet/codes.rs",
+        "sha256": "0b8a7c542323af91d7989eb07067b61c68e2ffe46254a1d10477293591c3cb13",
+        "registered_ranges": [
+          [
+            1,
+            171
+          ]
+        ],
+        "samehash_baseline_source_refs": [
+          "pr-working:crates/fabelgeist-armor/src/gpu/helmet/codes.rs"
+        ],
+        "baseline_range_reuse": [
+          [
+            1,
+            171
+          ],
+          [
+            1,
+            171
+          ]
+        ],
+        "actual_uncovered_ranges": [],
+        "scope_qualification": "Range inventory is navigation only; complete03 baseline is directly adopted. Samehash body/range reuse requires exact material. New range still needs independent03 disposition."
+      },
+      "lens": "03admission-contracts",
+      "disposition": "exact same-hash/range adopted completed03 contract reused WITH_FINDINGS",
+      "invariant": "Existing03 accepted source range and owner invariants remain authoritative, with original admission findings/withdrawals/qualifiers retained.",
+      "admission_routes": "All original constructors/visibility/constants/Serde/native adapters already in adopted03 completed material; this entry has no genuinely uncovered body range.",
+      "representable_counterexample_or_positive_qualification": "No new unrestricted route inferred from metadata. Alternate source provenance preserved; exact bytes/ranges agree, no currentmain clearance.",
+      "connected_correction_and_acceptance": "Preserve original03 findings and relevant new connected source contracts; no baseline replay or stronger all-route guarantee from wrapper name.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_verdict_credit": true,
+      "same_lens_evidence": {
+        "adoption": "adopted-completed-audits.json admission03-progress-067",
+        "original_exact_provenance": [
+          "pr-working:crates/fabelgeist-armor/src/gpu/helmet/codes.rs"
+        ],
+        "overlay_or_source_exact_range": [
+          [
+            1,
+            171
+          ],
+          [
+            1,
+            171
+          ]
+        ]
+      }
+    },
+    {
+      "registry_index": 36,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/grow/input.rs",
+      "sha256": "79df824a0c6fc00d93e45308c1d6f5a24ecb35216bab4b22b51d271d96a6f9e3",
+      "ranges": [
+        [
+          1,
+          22
+        ]
+      ],
+      "registration": "redundant-authority/prospective-source-registration-024.json",
+      "inventory": {
+        "registry_index": 36,
+        "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/grow/input.rs",
+        "sha256": "79df824a0c6fc00d93e45308c1d6f5a24ecb35216bab4b22b51d271d96a6f9e3",
+        "registered_ranges": [
+          [
+            1,
+            22
+          ]
+        ],
+        "samehash_baseline_source_refs": [
+          "pr-working:crates/fabelgeist-hair/src/gpu/grow/input.rs"
+        ],
+        "baseline_range_reuse": [
+          [
+            1,
+            22
+          ],
+          [
+            1,
+            22
+          ]
+        ],
+        "actual_uncovered_ranges": [],
+        "scope_qualification": "Range inventory is navigation only; complete03 baseline is directly adopted. Samehash body/range reuse requires exact material. New range still needs independent03 disposition."
+      },
+      "lens": "03admission-contracts",
+      "disposition": "exact same-hash/range adopted completed03 contract reused WITH_FINDINGS",
+      "invariant": "Existing03 accepted source range and owner invariants remain authoritative, with original admission findings/withdrawals/qualifiers retained.",
+      "admission_routes": "All original constructors/visibility/constants/Serde/native adapters already in adopted03 completed material; this entry has no genuinely uncovered body range.",
+      "representable_counterexample_or_positive_qualification": "No new unrestricted route inferred from metadata. Alternate source provenance preserved; exact bytes/ranges agree, no currentmain clearance.",
+      "connected_correction_and_acceptance": "Preserve original03 findings and relevant new connected source contracts; no baseline replay or stronger all-route guarantee from wrapper name.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_verdict_credit": true,
+      "same_lens_evidence": {
+        "adoption": "adopted-completed-audits.json admission03-progress-067",
+        "original_exact_provenance": [
+          "pr-working:crates/fabelgeist-hair/src/gpu/grow/input.rs"
+        ],
+        "overlay_or_source_exact_range": [
+          [
+            1,
+            22
+          ],
+          [
+            1,
+            22
+          ]
+        ]
+      }
+    },
+    {
+      "registry_index": 37,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/grow/profile.rs",
+      "sha256": "952ded1a5956f9cc562e2a19d85ecd6fcc07e49e5f5c663a9d2c0f20f2323e36",
+      "ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "registration": "redundant-authority/prospective-source-registration-025.json",
+      "inventory": {
+        "registry_index": 37,
+        "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/grow/profile.rs",
+        "sha256": "952ded1a5956f9cc562e2a19d85ecd6fcc07e49e5f5c663a9d2c0f20f2323e36",
+        "registered_ranges": [
+          [
+            1,
+            56
+          ]
+        ],
+        "samehash_baseline_source_refs": [
+          "pr-working:crates/fabelgeist-hair/src/gpu/grow/profile.rs"
+        ],
+        "baseline_range_reuse": [
+          [
+            1,
+            56
+          ],
+          [
+            1,
+            56
+          ]
+        ],
+        "actual_uncovered_ranges": [],
+        "scope_qualification": "Range inventory is navigation only; complete03 baseline is directly adopted. Samehash body/range reuse requires exact material. New range still needs independent03 disposition."
+      },
+      "lens": "03admission-contracts",
+      "disposition": "exact same-hash/range adopted completed03 contract reused WITH_FINDINGS",
+      "invariant": "Existing03 accepted source range and owner invariants remain authoritative, with original admission findings/withdrawals/qualifiers retained.",
+      "admission_routes": "All original constructors/visibility/constants/Serde/native adapters already in adopted03 completed material; this entry has no genuinely uncovered body range.",
+      "representable_counterexample_or_positive_qualification": "No new unrestricted route inferred from metadata. Alternate source provenance preserved; exact bytes/ranges agree, no currentmain clearance.",
+      "connected_correction_and_acceptance": "Preserve original03 findings and relevant new connected source contracts; no baseline replay or stronger all-route guarantee from wrapper name.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_verdict_credit": true,
+      "same_lens_evidence": {
+        "adoption": "adopted-completed-audits.json admission03-progress-067",
+        "original_exact_provenance": [
+          "pr-working:crates/fabelgeist-hair/src/gpu/grow/profile.rs"
+        ],
+        "overlay_or_source_exact_range": [
+          [
+            1,
+            56
+          ],
+          [
+            1,
+            56
+          ]
+        ]
+      }
+    },
+    {
+      "registry_index": 38,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/identity.rs",
+      "sha256": "9e6bb30bdee39ecc35561aa4a286e46a7645129f179f7734fcba0e78d433dc48",
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "registration": "redundant-authority/prospective-source-registration-026.json",
+      "inventory": {
+        "registry_index": 38,
+        "source_id": "pr-working:crates/fabelgeist-hair/src/identity.rs",
+        "sha256": "9e6bb30bdee39ecc35561aa4a286e46a7645129f179f7734fcba0e78d433dc48",
+        "registered_ranges": [
+          [
+            1,
+            64
+          ]
+        ],
+        "samehash_baseline_source_refs": [
+          "pr-working:crates/fabelgeist-hair/src/identity.rs"
+        ],
+        "baseline_range_reuse": [
+          [
+            1,
+            64
+          ],
+          [
+            1,
+            64
+          ]
+        ],
+        "actual_uncovered_ranges": [],
+        "scope_qualification": "Range inventory is navigation only; complete03 baseline is directly adopted. Samehash body/range reuse requires exact material. New range still needs independent03 disposition."
+      },
+      "lens": "03admission-contracts",
+      "disposition": "exact same-hash/range adopted completed03 contract reused WITH_FINDINGS",
+      "invariant": "Existing03 accepted source range and owner invariants remain authoritative, with original admission findings/withdrawals/qualifiers retained.",
+      "admission_routes": "All original constructors/visibility/constants/Serde/native adapters already in adopted03 completed material; this entry has no genuinely uncovered body range.",
+      "representable_counterexample_or_positive_qualification": "No new unrestricted route inferred from metadata. Alternate source provenance preserved; exact bytes/ranges agree, no currentmain clearance.",
+      "connected_correction_and_acceptance": "Preserve original03 findings and relevant new connected source contracts; no baseline replay or stronger all-route guarantee from wrapper name.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_verdict_credit": true,
+      "same_lens_evidence": {
+        "adoption": "adopted-completed-audits.json admission03-progress-067",
+        "original_exact_provenance": [
+          "pr-working:crates/fabelgeist-hair/src/identity.rs"
+        ],
+        "overlay_or_source_exact_range": [
+          [
+            1,
+            64
+          ],
+          [
+            1,
+            64
+          ]
+        ]
+      }
+    },
+    {
+      "registry_index": 40,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+      "sha256": "3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+      "ranges": [
+        [
+          61,
+          66
+        ]
+      ],
+      "registration": "redundant-authority/prospective-source-registration-028.json",
+      "inventory": {
+        "registry_index": 40,
+        "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+        "sha256": "3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+        "registered_ranges": [
+          [
+            61,
+            66
+          ]
+        ],
+        "samehash_baseline_source_refs": [
+          "pr-working:crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+          "physical-p16:crates/adventuresim-tactical-core/src/combat_config/procedural.rs"
+        ],
+        "baseline_range_reuse": [
+          [
+            1,
+            66
+          ],
+          [
+            1,
+            66
+          ],
+          [
+            1,
+            66
+          ],
+          [
+            1,
+            66
+          ],
+          [
+            1,
+            66
+          ],
+          [
+            1,
+            66
+          ],
+          [
+            1,
+            66
+          ],
+          [
+            1,
+            66
+          ],
+          [
+            1,
+            60
+          ],
+          [
+            61,
+            66
+          ]
+        ],
+        "actual_uncovered_ranges": [],
+        "scope_qualification": "Range inventory is navigation only; complete03 baseline is directly adopted. Samehash body/range reuse requires exact material. New range still needs independent03 disposition."
+      },
+      "lens": "03admission-contracts",
+      "disposition": "exact same-hash/range adopted completed03 contract reused WITH_FINDINGS",
+      "invariant": "Existing03 accepted source range and owner invariants remain authoritative, with original admission findings/withdrawals/qualifiers retained.",
+      "admission_routes": "All original constructors/visibility/constants/Serde/native adapters already in adopted03 completed material; this entry has no genuinely uncovered body range.",
+      "representable_counterexample_or_positive_qualification": "No new unrestricted route inferred from metadata. Alternate source provenance preserved; exact bytes/ranges agree, no currentmain clearance.",
+      "connected_correction_and_acceptance": "Preserve original03 findings and relevant new connected source contracts; no baseline replay or stronger all-route guarantee from wrapper name.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_verdict_credit": true,
+      "same_lens_evidence": {
+        "adoption": "adopted-completed-audits.json admission03-progress-067",
+        "original_exact_provenance": [
+          "pr-working:crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+          "physical-p16:crates/adventuresim-tactical-core/src/combat_config/procedural.rs"
+        ],
+        "overlay_or_source_exact_range": [
+          [
+            1,
+            66
+          ],
+          [
+            1,
+            66
+          ],
+          [
+            1,
+            66
+          ],
+          [
+            1,
+            66
+          ],
+          [
+            1,
+            66
+          ],
+          [
+            1,
+            66
+          ],
+          [
+            1,
+            66
+          ],
+          [
+            1,
+            66
+          ],
+          [
+            1,
+            60
+          ],
+          [
+            61,
+            66
+          ]
+        ]
+      }
+    },
+    {
+      "registry_index": 42,
+      "source_id": "physical-p16:crates/adventuresim-core/src/material.rs",
+      "sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+      "ranges": [
+        [
+          1198,
+          1252
+        ]
+      ],
+      "registration": "redundant-authority/prospective-source-registration-030.json",
+      "inventory": {
+        "registry_index": 42,
+        "source_id": "physical-p16:crates/adventuresim-core/src/material.rs",
+        "sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+        "registered_ranges": [
+          [
+            1198,
+            1252
+          ]
+        ],
+        "samehash_baseline_source_refs": [
+          "pr-working:crates/adventuresim-core/src/material.rs",
+          "physical-p16:crates/adventuresim-core/src/material.rs"
+        ],
+        "baseline_range_reuse": [
+          [
+            1,
+            165
+          ],
+          [
+            1,
+            130
+          ],
+          [
+            1,
+            1869
+          ],
+          [
+            1,
+            1869
+          ],
+          [
+            1,
+            73
+          ],
+          [
+            204,
+            387
+          ],
+          [
+            452,
+            614
+          ],
+          [
+            707,
+            1197
+          ],
+          [
+            1253,
+            1382
+          ],
+          [
+            1,
+            73
+          ],
+          [
+            204,
+            387
+          ],
+          [
+            452,
+            614
+          ],
+          [
+            707,
+            1197
+          ],
+          [
+            1307,
+            1382
+          ],
+          [
+            1253,
+            1306
+          ],
+          [
+            74,
+            106
+          ]
+        ],
+        "actual_uncovered_ranges": [],
+        "scope_qualification": "Range inventory is navigation only; complete03 baseline is directly adopted. Samehash body/range reuse requires exact material. New range still needs independent03 disposition."
+      },
+      "lens": "03admission-contracts",
+      "disposition": "exact same-hash/range adopted completed03 contract reused WITH_FINDINGS",
+      "invariant": "Existing03 accepted source range and owner invariants remain authoritative, with original admission findings/withdrawals/qualifiers retained.",
+      "admission_routes": "All original constructors/visibility/constants/Serde/native adapters already in adopted03 completed material; this entry has no genuinely uncovered body range.",
+      "representable_counterexample_or_positive_qualification": "No new unrestricted route inferred from metadata. Alternate source provenance preserved; exact bytes/ranges agree, no currentmain clearance.",
+      "connected_correction_and_acceptance": "Preserve original03 findings and relevant new connected source contracts; no baseline replay or stronger all-route guarantee from wrapper name.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_verdict_credit": true,
+      "same_lens_evidence": {
+        "adoption": "adopted-completed-audits.json admission03-progress-067",
+        "original_exact_provenance": [
+          "pr-working:crates/adventuresim-core/src/material.rs",
+          "physical-p16:crates/adventuresim-core/src/material.rs"
+        ],
+        "overlay_or_source_exact_range": [
+          [
+            1,
+            165
+          ],
+          [
+            1,
+            130
+          ],
+          [
+            1,
+            1869
+          ],
+          [
+            1,
+            1869
+          ],
+          [
+            1,
+            73
+          ],
+          [
+            204,
+            387
+          ],
+          [
+            452,
+            614
+          ],
+          [
+            707,
+            1197
+          ],
+          [
+            1253,
+            1382
+          ],
+          [
+            1,
+            73
+          ],
+          [
+            204,
+            387
+          ],
+          [
+            452,
+            614
+          ],
+          [
+            707,
+            1197
+          ],
+          [
+            1307,
+            1382
+          ],
+          [
+            1253,
+            1306
+          ],
+          [
+            74,
+            106
+          ]
+        ]
+      }
+    },
+    {
+      "registry_index": 43,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/action_timeline.rs",
+      "sha256": "01140a5ec824cf8258598462f8d99cde62732bf1901ffaddcafcef6ee65e66a5",
+      "ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "registration": "redundant-authority/prospective-source-registration-031.json",
+      "inventory": {
+        "registry_index": 43,
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/action_timeline.rs",
+        "sha256": "01140a5ec824cf8258598462f8d99cde62732bf1901ffaddcafcef6ee65e66a5",
+        "registered_ranges": [
+          [
+            1,
+            89
+          ]
+        ],
+        "samehash_baseline_source_refs": [
+          "pr-working:crates/adventuresim-tactical-core/src/animation/state/action_timeline.rs"
+        ],
+        "baseline_range_reuse": [
+          [
+            1,
+            89
+          ],
+          [
+            1,
+            89
+          ]
+        ],
+        "actual_uncovered_ranges": [],
+        "scope_qualification": "Range inventory is navigation only; complete03 baseline is directly adopted. Samehash body/range reuse requires exact material. New range still needs independent03 disposition."
+      },
+      "lens": "03admission-contracts",
+      "disposition": "exact same-hash/range adopted completed03 contract reused WITH_FINDINGS",
+      "invariant": "Existing03 accepted source range and owner invariants remain authoritative, with original admission findings/withdrawals/qualifiers retained.",
+      "admission_routes": "All original constructors/visibility/constants/Serde/native adapters already in adopted03 completed material; this entry has no genuinely uncovered body range.",
+      "representable_counterexample_or_positive_qualification": "No new unrestricted route inferred from metadata. Alternate source provenance preserved; exact bytes/ranges agree, no currentmain clearance.",
+      "connected_correction_and_acceptance": "Preserve original03 findings and relevant new connected source contracts; no baseline replay or stronger all-route guarantee from wrapper name.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_verdict_credit": true,
+      "same_lens_evidence": {
+        "adoption": "adopted-completed-audits.json admission03-progress-067",
+        "original_exact_provenance": [
+          "pr-working:crates/adventuresim-tactical-core/src/animation/state/action_timeline.rs"
+        ],
+        "overlay_or_source_exact_range": [
+          [
+            1,
+            89
+          ],
+          [
+            1,
+            89
+          ]
+        ]
+      }
+    },
+    {
+      "registry_index": 48,
+      "source_id": "physical-p16-commit039329:crates/adventuresim-tactical-client/src/equipment/slot_selection.rs",
+      "sha256": "95cb7d00f5f9c53287ed626304bd1914c958f7ee38933a8906a354ca12610678",
+      "ranges": [
+        [
+          1,
+          243
+        ]
+      ],
+      "registration": "enum-shapes/source-extensions.jsonl",
+      "inventory": {
+        "registry_index": 48,
+        "source_id": "physical-p16-commit039329:crates/adventuresim-tactical-client/src/equipment/slot_selection.rs",
+        "sha256": "95cb7d00f5f9c53287ed626304bd1914c958f7ee38933a8906a354ca12610678",
+        "registered_ranges": [
+          [
+            1,
+            243
+          ]
+        ],
+        "samehash_baseline_source_refs": [
+          "pr-working:crates/adventuresim-tactical-client/src/equipment/slot_selection.rs"
+        ],
+        "baseline_range_reuse": [
+          [
+            1,
+            243
+          ]
+        ],
+        "actual_uncovered_ranges": [],
+        "scope_qualification": "Range inventory is navigation only; complete03 baseline is directly adopted. Samehash body/range reuse requires exact material. New range still needs independent03 disposition."
+      },
+      "lens": "03admission-contracts",
+      "disposition": "exact same-hash/range adopted completed03 contract reused WITH_FINDINGS",
+      "invariant": "Existing03 accepted source range and owner invariants remain authoritative, with original admission findings/withdrawals/qualifiers retained.",
+      "admission_routes": "All original constructors/visibility/constants/Serde/native adapters already in adopted03 completed material; this entry has no genuinely uncovered body range.",
+      "representable_counterexample_or_positive_qualification": "No new unrestricted route inferred from metadata. Alternate source provenance preserved; exact bytes/ranges agree, no currentmain clearance.",
+      "connected_correction_and_acceptance": "Preserve original03 findings and relevant new connected source contracts; no baseline replay or stronger all-route guarantee from wrapper name.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_verdict_credit": true,
+      "same_lens_evidence": {
+        "adoption": "adopted-completed-audits.json admission03-progress-067",
+        "original_exact_provenance": [
+          "pr-working:crates/adventuresim-tactical-client/src/equipment/slot_selection.rs"
+        ],
+        "overlay_or_source_exact_range": [
+          [
+            1,
+            243
+          ]
+        ]
+      }
+    },
+    {
+      "registry_index": 49,
+      "source_id": "physical-p16-commit039329:crates/adventuresim-tactical-client/src/equipment/readiness.rs",
+      "sha256": "81632fbe7f7562ccfcfbdbeda4eb587bfcbb4fb62d60ad8c9e550837a1c968bb",
+      "ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "registration": "enum-shapes/source-extensions.jsonl",
+      "inventory": {
+        "registry_index": 49,
+        "source_id": "physical-p16-commit039329:crates/adventuresim-tactical-client/src/equipment/readiness.rs",
+        "sha256": "81632fbe7f7562ccfcfbdbeda4eb587bfcbb4fb62d60ad8c9e550837a1c968bb",
+        "registered_ranges": [
+          [
+            1,
+            72
+          ]
+        ],
+        "samehash_baseline_source_refs": [
+          "pr-working:crates/adventuresim-tactical-client/src/equipment/readiness.rs"
+        ],
+        "baseline_range_reuse": [
+          [
+            1,
+            72
+          ]
+        ],
+        "actual_uncovered_ranges": [],
+        "scope_qualification": "Range inventory is navigation only; complete03 baseline is directly adopted. Samehash body/range reuse requires exact material. New range still needs independent03 disposition."
+      },
+      "lens": "03admission-contracts",
+      "disposition": "exact same-hash/range adopted completed03 contract reused WITH_FINDINGS",
+      "invariant": "Existing03 accepted source range and owner invariants remain authoritative, with original admission findings/withdrawals/qualifiers retained.",
+      "admission_routes": "All original constructors/visibility/constants/Serde/native adapters already in adopted03 completed material; this entry has no genuinely uncovered body range.",
+      "representable_counterexample_or_positive_qualification": "No new unrestricted route inferred from metadata. Alternate source provenance preserved; exact bytes/ranges agree, no currentmain clearance.",
+      "connected_correction_and_acceptance": "Preserve original03 findings and relevant new connected source contracts; no baseline replay or stronger all-route guarantee from wrapper name.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_verdict_credit": true,
+      "same_lens_evidence": {
+        "adoption": "adopted-completed-audits.json admission03-progress-067",
+        "original_exact_provenance": [
+          "pr-working:crates/adventuresim-tactical-client/src/equipment/readiness.rs"
+        ],
+        "overlay_or_source_exact_range": [
+          [
+            1,
+            72
+          ]
+        ]
+      }
+    },
+    {
+      "registry_index": 55,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274",
+      "ranges": [
+        [
+          230,
+          406
+        ]
+      ],
+      "registration": "redundant-authority/prospective-source-registration-036.json",
+      "inventory": {
+        "registry_index": 55,
+        "source_id": "pr-working:crates/fabelgeist-compute/src/kernel/mod.rs",
+        "sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274",
+        "registered_ranges": [
+          [
+            230,
+            406
+          ]
+        ],
+        "samehash_baseline_source_refs": [
+          "pr-working:crates/fabelgeist-compute/src/kernel/mod.rs"
+        ],
+        "baseline_range_reuse": [
+          [
+            1,
+            406
+          ]
+        ],
+        "actual_uncovered_ranges": [],
+        "scope_qualification": "Range inventory is navigation only; complete03 baseline is directly adopted. Samehash body/range reuse requires exact material. New range still needs independent03 disposition."
+      },
+      "lens": "03admission-contracts",
+      "disposition": "exact same-hash/range adopted completed03 contract reused WITH_FINDINGS",
+      "invariant": "Existing03 accepted source range and owner invariants remain authoritative, with original admission findings/withdrawals/qualifiers retained.",
+      "admission_routes": "All original constructors/visibility/constants/Serde/native adapters already in adopted03 completed material; this entry has no genuinely uncovered body range.",
+      "representable_counterexample_or_positive_qualification": "No new unrestricted route inferred from metadata. Alternate source provenance preserved; exact bytes/ranges agree, no currentmain clearance.",
+      "connected_correction_and_acceptance": "Preserve original03 findings and relevant new connected source contracts; no baseline replay or stronger all-route guarantee from wrapper name.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "no_other_lens_verdict_credit": true,
+      "same_lens_evidence": {
+        "adoption": "adopted-completed-audits.json admission03-progress-067",
+        "original_exact_provenance": [
+          "pr-working:crates/fabelgeist-compute/src/kernel/mod.rs"
+        ],
+        "overlay_or_source_exact_range": [
+          [
+            1,
+            406
+          ]
+        ]
+      }
+    }
+  ],
+  "baseline": "Adopted2853variant/246overlay03 discovery WITH_FINDINGS +root38merged delta, no replay",
+  "limits": "Only current additional roles analyzed. All original findings retained; no clear verdict or cross-lens transfer."
+}

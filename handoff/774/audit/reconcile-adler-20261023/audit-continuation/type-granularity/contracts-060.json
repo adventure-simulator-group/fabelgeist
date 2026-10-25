@@ -1,0 +1,70 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-060",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "native-item-admitted-catalogue-projection-and-stacking-roles",
+      "sources": [
+        {
+          "scope_index": 221,
+          "ranges": [
+            [
+              1,
+              946
+            ]
+          ]
+        },
+        {
+          "scope_index": 222,
+          "ranges": [
+            [
+              1,
+              44
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "SEGO-INITIAL09-F198",
+        "SEGO-INITIAL09-F199",
+        "local774:M26",
+        "local774:M28",
+        "local774:M29",
+        "local774:M30"
+      ],
+      "disposition": "existing broad native item/durability payload and distinct measurement/quality migration support",
+      "trace": "221 projects payload-owning ItemKind into native CatalogItemKind+independent defaulted fields142\u2013287, exact09F198. Independently repairable277\u2013285 associates durability parameters, exact09F199. Actualunits include kg,kg*m2, geometricreach, exterior displacement/interiorcapacity, hydration, alcoholBPS, disinfectant additiveeffect, craftsmanshiptier and normalizedskill distribution; identical primitive storage notsemantic equivalence. derived balance244\u2013248 is user-facing coefficient from authoredmoment, distinctauthority. Stableobjectpolicy336\u2013348 includes measured,food,durable,medication,meleeweapon,containers/attachments; individual353\u2013403 createsone row/object per physicalunit while ordinaryfungible count stacks. Currency withdrawal and credit447\u2013550 preserve equalvalue denominations with deterministicitem/row ordering, zero request/credit valid; amount may beu64 spanningmultipleu32stacks. Signedchange552\u2013708 is delta, notpositivequantity.",
+      "qualifications": [
+        "Normal catalogue projection and intended defaults coherent; no ordinarywrongweapon/armor capability inferred from broadnative shape. Melee+ranged independent modes remain legitimate generally; fixtureexclusivecatalogue subset877 doesnotprove globalexclusivity.",
+        "Truecapability families not globallyexclusive: food/book/durability can share qualitypresentation scale but skillrank/craftquality/damage tier retain M26 semanticroles. A singleglobalitemfloatbounds owner would bewrong.",
+        "Physical stableobject insertion and generalizedchange receiving functions need wholecustody callers before claiming everypath preservesidentity; thispacket doesnotgrant a general transaction/stacking clearance. Parent own05 storefront/mergebugs are separate establishedsource cases, not rerun here.",
+        "Unknownsettlementcurrency fallback36 is currentpolicy; canonicalcurrency membership30 differs authoreditemIDsyntax. Sharedpayment0valid; do notforceCoinAmountpositive onbalances/max/credits.",
+        "222 guardedclassificationfixture verifies declared10kindmapping atsource level only; nofixture/reducer/testexecuted."
+      ],
+      "acceptance": "Retain applicable admitteditempayload/typedquantityroles and actualstableobjectcondition across nativeapplication; exacttable/rawwire adapters only, no generatedclienthandedits or blanketbounds."
+    },
+    {
+      "id": "native-module-assembly-and-production-source-fixture-helper",
+      "sources": [
+        {
+          "scope_index": 223,
+          "ranges": [
+            [
+              1,
+              95
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [],
+      "disposition": "namespace and deliberate fixture source adapter; no callee credit",
+      "trace": "lib223 declares/reexports nativeowners and typedStrategicOperationError/Result. production_source91\u201394 is a cfgtest text adapter splittingfinalcfgtest marker, actualborrowedsource text role ratherthangameplayidentifier.",
+      "qualifications": [
+        "Declarations do not automatically make unchangedchildbody affected; no childreviewcredit. Fixturehelper scans syntax bydesign, not applicationbranchingonhumanerrorprose."
+      ],
+      "acceptance": "Retain clear actualowner boundaries; no new abstractionforgenericfixturetext."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

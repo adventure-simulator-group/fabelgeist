@@ -1,0 +1,86 @@
+[
+  {
+    "path": "crates/adventuresim-tactical-client/src/presentation/vista/surface.rs",
+    "sha256": "b487f7c3b762586f17bebd06fd0a7cae7d415743566df637800b4056cc3441ac",
+    "read_ranges": [
+      [
+        1,
+        168
+      ]
+    ],
+    "trace_refs": [
+      "ROOT-PP-TERRAIN-008"
+    ],
+    "use": "Actual revision:u64 state12, wrapping update30, getter89-91 is source of urban GroundCoverage.revision46/57 and volumetric TerrainDetailPatch.vista_revision71/129. Root retains authority inventory; no independently admitted revision type established in this producer lens."
+  },
+  {
+    "path": "crates/adventuresim-tactical-client/src/presentation/vista/owned.rs",
+    "sha256": "fc443e290759faede36ab8cc231e4f16928949d389ad8e0e3b03b097815cdd55",
+    "read_ranges": [
+      [
+        1,
+        149
+      ]
+    ],
+    "trace_refs": [
+      "ROOT-PP-TERRAIN-005"
+    ],
+    "use": "Actual urban playable mesh receiver; exact clip numerical body freshly read in RIG-SUPP-NATIVE-001, no blanket renderer exemption."
+  },
+  {
+    "path": "crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+    "sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+    "read_ranges": [
+      [
+        1,
+        122
+      ]
+    ],
+    "trace_refs": [
+      "ROOT-PP-GEOMETRY-002"
+    ],
+    "use": "Canonical ScenePlanPoint owner; exact source semantics reused for scene X/Z points. Connected root geometry/support findings remain root-owned."
+  },
+  {
+    "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/materials.rs",
+    "sha256": "3611b0226c15f78d4dd5c10bb85a682798a4c5bcec6a5eec1aa09ca05d81a2e9",
+    "read_ranges": [
+      [
+        1,
+        629
+      ]
+    ],
+    "trace_refs": [
+      "ROOT-PP-TERRAIN-009"
+    ],
+    "use": "Actual tree/leaf/impostor native material owner, paired with all actual WGSL receivers freshly read here."
+  },
+  {
+    "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/presentation.rs",
+    "sha256": "eb8c1a54c7a158a3a3858b2eb9ba2b4f5c62ce6fb1fde444bc6b2c2207b824be",
+    "read_ranges": [
+      [
+        1,
+        1392
+      ]
+    ],
+    "trace_refs": [
+      "ROOT-PP-TERRAIN-009"
+    ],
+    "use": "Actual tree residency/presentation calls, root-owned oak_site_key004 remains separate from newly traced shoot identity002."
+  },
+  {
+    "path": "crates/adventuresim-tactical-core/src/volumetric_terrain/resistance.rs",
+    "sha256": "775f5d7a035eea6e401828aeceab320737bbaf8286024f65b9e65153a24d7f3b",
+    "read_ranges": [
+      [
+        1,
+        114
+      ]
+    ],
+    "trace_refs": [
+      "ROOT-PP-TERRAIN-005"
+    ],
+    "use": "Actual ScarpResistanceGrid receiver called by newly full-read fault simulation; canonical coefficient used only direct native erosion arithmetic."
+  }
+]

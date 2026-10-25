@@ -1,0 +1,60 @@
+{
+  "id": "CONT08-CONTRACT-314",
+  "at": "2026-10-25T16:20:58.851358+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 1143,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/npc_causal.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/npc_causal.rs",
+      "before_sha256": "3e8edab2fcd4988c3443a07ef35041bc7c9522ab9e6e025317b29608a41de263",
+      "after_sha256": "3e8edab2fcd4988c3443a07ef35041bc7c9522ab9e6e025317b29608a41de263",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1143-base-3e8edab2fcd4988c3443a07ef35041bc7c9522ab9e6e025317b29608a41de263",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/3e8edab2fcd4988c3443a07ef35041bc7c9522ab9e6e025317b29608a41de263",
+      "diff": "source-evidence/pr-1143.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          635
+        ]
+      ],
+      "head_body_read_method": "Fresh full body and full pinned PR diff, bounded actual scheduling/ordering/identity/error-contract comparison, fixture source-only.",
+      "facts": [
+        "Fresh full1\u2013635; full PR diff empty. Scheduler interval5million\u00b5s wakeup only, singletonID0 insertedifmissing; sender==databaseidentity beforeclockrefresh and64global lifecycleevents. Cohort livingNPCpolicy with personalminute<official, sort(personalminute,id),retainminimumfrontier only,prefix64. Entirecohort policy decisionsbeforeanyadvance, eachtarget min(official,personal+1daysaturated). No ordinaryterminalMAXoverflow/crossfrontier/actualschedulerexecution inferred; unchanged scopeproof preserves strictordering.",
+        "Private receipt key(character,day,Schedule/Housing/Romance), firstexistingdecisionnoop regardlesspayload; schedule own effectiveage chronology beforefetch <adultIneligible, priorInitialized/Preserved receipts suppressrerandomizationbutpriorIneligibledoesnot. Newdefaultonlyifallallocatedminutes0andbothorganizationNone, seedednative schedulecopiedfield-for-field; existingexplicitallocationpreserved. Housing actualstoredcharacterage/alive thenresidenceowner/nativeoutcomealltiers exact mapping, perdayreceipt. Difference from effectiveage schedule is retainedreceivingpolicy, no created regression or blanketagecoherenceclearance.",
+        "Romance noactual actorpresence recordsNoCandidate beforealive/age/currentsettlement Ineligible; present policy candidates only\u2192native stable_candidate_order ResulterrorString\u2192percandidate actualpersonalities\u2192oppositesexdirectionnormalization femaleactor/malecandidate swap, otherwiseactororder. Nativepairestablish typedCourtshipPairError\u2192reducercause; Ineligiblecontinuesorderedcandidates,firstFormal/Informalrecordsselectedtarget,elseNoCandidate. Wholepair/lifecycle recipient remainsseparaterole notclearbythissourceonly. Allfixturesread asunchangedtext:notrun; exact64prefix/daystep/frontier/twoloops/receipts/age/sex-role/private-schedule assertions preserved."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1144,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/npc_causal/romance_candidates.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/npc_causal/romance_candidates.rs",
+      "before_sha256": "6957bd242c23a68763c5e05b3d1dfc3277adedadb0338b05613bc915c1f982e3",
+      "after_sha256": "6957bd242c23a68763c5e05b3d1dfc3277adedadb0338b05613bc915c1f982e3",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1144-base-6957bd242c23a68763c5e05b3d1dfc3277adedadb0338b05613bc915c1f982e3",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/6957bd242c23a68763c5e05b3d1dfc3277adedadb0338b05613bc915c1f982e3",
+      "diff": "source-evidence/pr-1144.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "head_body_read_method": "Fresh full body and full pinned PR diff, bounded actual scheduling/ordering/identity/error-contract comparison, fixture source-only.",
+      "facts": [
+        "Fresh full1\u201328; full PR diff empty. Candidates exactsame settlementpresence index, actor excluded, npc_is_present at supplied actorrelative minute thenrequireNPCpolicyandcarryitsseed. No playerpolicy admission or sort at thisadapter; actualparent stable_candidate_order owns sort/conflicts. No currentworldclock substitute, no extra lifecycle/sourcecoverage."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    }
+  ],
+  "next": "1145 object_custody full pinned old/new source then1146 organization"
+}

@@ -1,0 +1,45 @@
+{
+  "id": "CONT08-Q022",
+  "at": "2026-10-25T17:36:54.594877+00:00",
+  "classification": "source_confirmed_error_policy_change_intent_unresolved",
+  "pins": [
+    {
+      "scope_index": 1322,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/diagnostics.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation/diagnostics.rs",
+      "before_sha256": "8abe885c592a8d11c15ed839559c222aa1d1f554aae082100978b66c43f354be",
+      "after_sha256": "255ebbf963270d5128375972f1059af2843fa7da821834bcb5df88014a122a35",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1322-base-8abe885c592a8d11c15ed839559c222aa1d1f554aae082100978b66c43f354be",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/255ebbf963270d5128375972f1059af2843fa7da821834bcb5df88014a122a35",
+      "diff": "source-evidence/pr-1322.diff",
+      "diff_sha256": "3aaa80379bbcd38cef5ac7467bf00af83b16458baba43627f8dfdbc4012e6115"
+    },
+    {
+      "scope_index": 1321,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/diagnostic_record.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation/diagnostic_record.rs",
+      "before_sha256": null,
+      "after_sha256": "5141597330c799f5d0ca0312cb48602fb6dd20520737d18c46429dcf21829330",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/5141597330c799f5d0ca0312cb48602fb6dd20520737d18c46429dcf21829330",
+      "diff": "source-evidence/pr-1321.diff",
+      "diff_sha256": "bbd68c577f6b930fdd4368eb8a105706362f96d1cc22280c820eac5c8903acbb"
+    }
+  ],
+  "before": "PRbase diagnostics write acceptsValue; to_writer/write_allnewline/60thflush each expect, any IOfailurepanics beforeframeincrement.",
+  "after": "PRhead diagnostics73\u201398 convertsSerialize\u2192Value then logs+returns onserde/IOfailure; applicationcontinues and counterunchanged.",
+  "trigger": "Any native outputwriter Err duringto_writer/newline/flush. Sourceconditional only; no actualdiskfailure/run.",
+  "observable": "Old diagnosticprocessunwinds; newloggingloop cancontinueattemptinglaterrecord atsameframecounter. Partialstream publication depends actualfailureposition; no provedduplicate validJSON/runtimewitness asserted.",
+  "qualified_contract": "Ordinary real-client optionaldiagnosticlogger differs from deterministiccapture requiredartifact acceptance. No evidence thisnonterminalpolicy was explicitlydesired merelyfromtyped refactor.",
+  "repair_if_required": "Make outputfailure an explicit owned result/state through actualloggerowner; select terminal diagnosticfailure or disable/refuse subsequentoutput deliberately, with coherent record/framepublication. Preserve sorted/widened nativeJSONwire successfulpath.",
+  "acceptance": "Original finite recordwire; source-only sourceintentdecision required for write/newline/flush errors and framecounterafterfailure. Do not claim unexecutedIOfaulttest.",
+  "status": "Open policy question, not newuniqueconfirmed gameplayregression.",
+  "coordinator_alias_lookup": {
+    "at": "2026-10-25T17:40:58.972897+00:00",
+    "result": "Root exact170current/1002archive metadata tokens foundnoexactalias. ROOT-PP-017 generatedhomephysicalrecords andM09finalcombatreportserialization distinct. Metadataabsenceisnotsemanticuniquenessproof."
+  }
+}

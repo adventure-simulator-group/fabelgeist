@@ -1,0 +1,24 @@
+{
+  "id": "RIG-INITIAL06-GROUP-345",
+  "at": "2026-10-23T09:16:20.063515+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "city-ground-material-native-abi": {
+      "comparison": "CityGroundParameters is actual WGSL ABI with surface/weather/texture_scale/traffic_transform/source_from_world; fragment uses footprint in vertex color as width/length/kind, not RGBA, and activity_wear/dampness via UV_B. Material albedo is actual color while heights/AO/ARM/traffic bytes are packed physical/presentation channels; F005 must distinguish each. Canonical scene-to-source matrix preserves geographic frame through world render projection. Native noise/stone crown/normal/interpolation are shader math, no competing gameplay paving/traffic authority or per-number Rust type owner. Imports receive no foreign helper credit.",
+      "disposition": "legitimate material/math ABI with explicit color-versus-metric channels"
+    },
+    "checked-litter-to-native-mesh": {
+      "comparison": "GroundLitterMeshData native buffers accept canonical RosetteLeaf/BentTwig/CamberedLeaf and project checked patch-local points/directions/lengths/radii only inside actual vertex/normal/UV equations. Color converts once to LinearRgba before stored Mesh color array, positive canonical F005 example; roots are patch-space UV1 coordinates, not texture-normalized UV0. Twig crosssection/base enums own source semantics and native indices only generated at mesh port. Different intermediate lengths/newcamber are genuinely computed geometry, not raw same-value forwarding. No competing litter/scene position or color owner.",
+      "disposition": "canonical typed geometry until real mesh/color numerical boundary"
+    },
+    "geographic-grade-repair-versus-support-policy": {
+      "comparison": "TerrainGradeLimit finite nonnegativef32 is maximum procedural terrain repair rise/run; zero intentionally admits level terrain. It is distinct policy from actor movement limits or architectural SupportGrade even when storage/predicate match. GeographicGrade is f64 measured geographic diagnostic and DiagnosticCount is work cardinality, not the same bound leaf; precision and authority retained. HeightmapCell local row/column ordinals identify failed kernel sample. constrain operates native f64 height arrays and actual sweep/gradient projection then quantizes finalf32; it is a bounded numerical kernel, not alternate accepted scene surface owner. Shared checked numeric backing could be composed beneath useful limit roles, but no forced loss of role/precision or replacement with UnitInterval.",
+      "disposition": "meaningful terrain-repair bound versus measured geographic quantities; true numerical work kernel"
+    }
+  },
+  "supporting_existing_findings": [
+    "F005"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit."
+}

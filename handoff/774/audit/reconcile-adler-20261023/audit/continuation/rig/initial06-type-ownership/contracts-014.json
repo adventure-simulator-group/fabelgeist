@@ -1,0 +1,51 @@
+{
+  "id": "RIG-INITIAL06-GROUP-014",
+  "at": "2026-10-22T19:31:16.962768+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "shell-contact-stage-versus-canonical-dynamics": {
+      "sources": [
+        "pr-working:crates/fabelgeist-shell/src/ccd.rs",
+        "pr-working:crates/fabelgeist-shell/src/surface_contact.rs",
+        "pr-working:crates/fabelgeist-shell/src/surface_contact/solve.rs"
+      ],
+      "comparison": "Fresh full CCD394/SurfaceContacts623/solve309 and actual current03 source-specific narratives711/713/715 personally consumed for comparison, not verdict reuse. Shell owns contact Pair/Contact, mutable ContactState borrow and cached surface/seam/static geometry because they coordinate this thin-shell algorithm. XPBD owns signed ConstraintGradient, particle inverse mass, EffectiveInverseMass, ProjectionDepth and RelativeNormalSpeed corrections; actual sample produces signed four-body gradients (1,-bary... or opposite edges), resolve consumes them through canonical operations. They are not positive probabilities or duplicate copies of the lower dynamics fields. Contact.time is a conservative f64 [0,1] path coordinate, not f32 UnitInterval probability/runtime elapsed seconds or whole strategic minutes. The native f64 geometry evaluation and f32 direction/gradient projections are actual numerical ports; keep precision/source authority distinctions. Source-owned safe-time/proximity semantics and prescribed versus dynamic motion belong contact operations, not a second universal collision authority. SurfaceContacts uses shared lower Aabb/Bvh and XPBD native records; no gameplay/Building dependency or equivalent type owner found. Full original tests consume these same definitions and deliberately retain native bit patterns/pin/motion cases; no new tests, source execution or oracle changes."
+    },
+    "fixed-spatial-candidate-record-not-a-second-bound-value": {
+      "sources": [
+        "pr-working:crates/fabelgeist-shell/src/surface_contact/broad_phase.rs"
+      ],
+      "comparison": "Fresh full73. Private broad_phase::Bounds owns paired Vec<Aabb>/Bvh, while FixedBounds groups face/edge/vertex indexes plus source offsets for static versus dynamic particles. The name Bounds is an index aggregate, not an independently maintained SpatialBounds<F> value or replacement for generic BVH. Actual new derives boxes from precise source face/edge/vertex arrays, and query delegates canonical Bvh.query_aabb. Source offsets and returned primitive addresses have feature-specific domains; shared native usize is not proof they equal buffer byte offsets or RigJointOrdinal. No need to move generic math/geometry into Shell; coherent aggregate owner remains local. Source shape/finite/provenance predicates retain admission/aggregate qualifications, no blanket private-record exemption."
+    },
+    "outer-layer-affine-samples-and-bounded-direction-distinction": {
+      "sources": [
+        "pr-working:crates/fabelgeist-shell/src/outer_layer.rs",
+        "pr-working:crates/fabelgeist-shell/src/outer_layer/surface.rs"
+      ],
+      "comparison": "Fresh exact OuterLayer1\u2013116/surface1\u2013169. OuterLayer owns a one-sided fixed TriangleBvh surface with inward direction and clearance policy; it is different from dynamic four-body SurfaceContacts and Physics MeshCollider native pipeline. ClippedSample point+three BarycentricWeight values are a clipped affine surface sample, not an admitted game position/probability distribution. Actual clipped starts canonical one-hot ZERO/ONE weights and interpolates through XPBD ClippingFraction, then project_surface uses canonical mass response and distinct position/speed correction APIs including the freshly scoped NormalSpeedCorrection tail012. No independently maintained barycentric/dynamics wrapper or Building framed coordinate borrowing. Raw Vec3 geometric ports do not imply normalized checked direction/finite arithmetic from constructor name; actual raw topology/admission issues remain separate. OuterLayer117+ and surface170+ tests excluded; no unrelated mesh parser graph."
+    },
+    "self-collision-grid-and-native-fixed-point-port": {
+      "sources": [
+        "pr-working:crates/fabelgeist-shell/src/selfcollision.rs",
+        "pr-working:crates/fabelgeist-shell/src/wgsl.rs"
+      ],
+      "comparison": "Fresh full SelfCollision283 and WGSL361. Shell owns the hash-table/bucket/adjacency/correction cache and its rebuild scheduling because it is a dynamic thin-shell contact policy; canonical Compute RadixSort/SortScratch/KernelBatch and GPU Buffer/Upload/Params are reused. Particle IDs, hashed bucket keys, reordered slots, neighbor-list offsets and contributor counts are distinct domains despite u32. Corrective native atomic i32 triples represent metres scaled by2^20, fourth lane counts contributors; they are not game signed basis points, constraint multipliers, physical mass or checked integer coordinates. The direct host parameter source and shader recipient match this algorithm boundary. Hash/clear/sort/range/solve/apply are separate native stages, not duplicate semantic type owners; retain cache/admission/numerical gaps from other lenses. Generic low numerical layers must not import game clocks, probability leaves or Building frames merely to avoid primitives. No static/built-state certification inferred from private fields."
+    },
+    "original-contact-native-word-fixture": {
+      "sources": [
+        "pr-working:crates/fabelgeist-shell/src/surface_contact/solve/tests.rs",
+        "pr-working:crates/fabelgeist-shell/tests/fixtures/contact_masses.json"
+      ],
+      "comparison": "Fresh full tests45 and entire JSON4396 parsed as single source artifact; root cases array has36 records, one common key schema corrected/initial_velocities/inverse_masses/pair/predicted/previous/resolved/thickness/velocities/with_velocity. Actual first/last records and schema were inspected against the actual test reader: raw u32 FP words feed canonical ParticleInverseMass and resolve, preserving -0 and extreme native words. This artifact defines no competing Rust bespoke owner; explicit type-ownership nonapplicability to constructor location, while physical roles are evidenced by the reader and current canonical dynamics definitions. Existing native-vector fixture helper is only referenced, not separately read or credited, and no numerical acceptance/codec correctness is inferred. No test or decode execution, case/fixture/assertion changes or other-lens credit."
+    }
+  },
+  "new_findings": [],
+  "source_fact_support": [
+    "rig/admission03/contract-groups.jsonl#RIG-ADMISSION03-CONTRACT-711",
+    "rig/admission03/contract-groups.jsonl#RIG-ADMISSION03-CONTRACT-713",
+    "rig/admission03/contract-groups.jsonl#RIG-ADMISSION03-CONTRACT-714",
+    "rig/admission03/contract-groups.jsonl#RIG-ADMISSION03-CONTRACT-715",
+    "rig/admission03/contract-groups.jsonl#RIG-ADMISSION03-CONTRACT-721"
+  ],
+  "limits": "All ownership comparisons newly performed in06 with fresh actual bodies; prior verdict/count/hash not semantic credit. Original tests read only, fixture metadata not operation validation. Whole06 incomplete."
+}

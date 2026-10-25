@@ -1,0 +1,64 @@
+{
+  "id": "CONT07-CONTRACT-467",
+  "at": "2026-10-23T22:25:24.814325+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2063,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/mod.rs",
+      "sha256": "294366e9eac449d161658a404c461baaf901a04a89e96ea87909a819e322e88a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/mission/mod.rs",
+      "actual_EOF": 362,
+      "ranges": [
+        [
+          1,
+          362
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2064,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/systems.rs",
+      "sha256": "cc4bc873f502d3a08fc30a6f3d40d1d0752a81dfdee70651fb2c04737b64d6b8",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/mission/systems.rs",
+      "actual_EOF": 320,
+      "ranges": [
+        [
+          1,
+          320
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2065,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/terminal.rs",
+      "sha256": "a381bfd75836c7f9f37ad73df102d94cfb8e8b2afb79592549e12b3ddbde1347",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/mission/terminal.rs",
+      "actual_EOF": 303,
+      "ranges": [
+        [
+          1,
+          303
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "2063 full362 MissionState owns private enrollment/terminal state and distinct continuous hold durations for each side. Hold is historical duration of readiness condition, not redundant current defeated flag. Snapshot counts derive current queries; required enemy count is mission objective, not necessarily number currently loaded. Defeat takes three continuous seconds and recovery resets only affected side.",
+    "2064 full320 actual check counts incapacitation or yielded; combatant yielded and injury incapacitation are independent defeat causes, not duplicated boolean. Loading/connected counts versus enrollment identity history are separate and unseen character after seal is rejected before current counts. Exact duplicateCharacterId cardinality admission needs enrollment/projection source, not inferred safe solely by NonZero expected count.",
+    "2065 full303 terminal lifecycle makes frozen resolution+receipt inseparable, retries same frozen payload and only Accepted produces presentation; ambiguous timeout enters TransportFailed without retry/presentation. Desired terminal result vs observed durable acknowledgment are separate authority roles and not competing truth; no stale or cross-request callback claim without actual stdb transport proof.",
+    "2064 standalone absence of connection accepts locally by explicit standalone contract and does not assert durable strategic write. Presentation outcome derived exhaustively from accepted resolution. Combat may continue after frozen snapshot, but receipt is explicit terminal snapshot/history; no claim of latest-state receipt requirement without explicit freeze/scheduling contract. Acceptance/retry fixtures read only, none executed."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2066,
+    "start_line": 1
+  }
+}

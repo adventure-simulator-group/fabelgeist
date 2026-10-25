@@ -1,0 +1,912 @@
+fn audit_wall_opening_assemblies(
+    plan: &BuildingPlan,
+    issues: &mut Vec<AuditIssue>,
+) -> Result<()> {
+    use crate::{
+        ClosureKind, OpeningHeadKind, OpeningProfile, OpeningUse, ResolvedItemId,
+        WallMaterialClass, WallSourceId,
+    };
+    let expected_walls = wall_counts::expected_wall_count(plan);
+    if plan.wall_assemblies.len() != expected_walls {
+        issues.push(issue(
+            "legacy_wall_not_migrated",
+            format!(
+                "resolved {} of {expected_walls} storey walls",
+                plan.wall_assemblies.len()
+            ),
+        ));
+    }
+    let solids = plan
+        .resolved_geometry
+        .solids
+        .iter()
+        .map(|solid| (solid.id, solid))
+        .collect::<std::collections::HashMap<_, _>>();
+    let surfaces = plan
+        .resolved_geometry
+        .surfaces
+        .iter()
+        .map(|surface| (surface.id, surface))
+        .collect::<std::collections::HashMap<_, _>>();
+    let nodes = plan
+        .resolved_geometry
+        .structural_nodes
+        .iter()
+        .map(|node| (node.id, node))
+        .collect::<std::collections::HashMap<_, _>>();
+    let mut wall_ids = std::collections::HashSet::new();
+    let mut wall_sources = std::collections::HashSet::new();
+    for wall in &plan.wall_assemblies {
+        if !wall_ids.insert(wall.id)
+            || !wall_sources.insert(wall.source)
+            || !wall_frame::valid(wall)
+        {
+            issues.push(issue(
+                "invalid_wall_authority",
+                format!(
+                    "wall {} has duplicate source/ID or a non-cardinal local frame",
+                    wall.id.0
+                ),
+            ));
+        }
+        if !wall.has_valid_structural_thickness() {
+            issues.push(issue(
+                "wall_profile_thickness",
+                format!(
+                    "wall {} violates its material/profile thickness table",
+                    wall.id.0
+                ),
+            ));
+        }
+        let requires_semantic_frame = matches!(
+            plan.archetype,
+            BuildingArchetype::TownHouse
+                | BuildingArchetype::HallHouse
+                | BuildingArchetype::FachwerkCottage
+                | BuildingArchetype::FachwerkMerchantHouse
+                | BuildingArchetype::RenaissanceTownHall
+        );
+        if requires_semantic_frame
+            && wall.material == WallMaterialClass::TimberInfill
+            && !plan.timber_frame.as_ref().is_some_and(|frame| {
+                frame.bays.iter().any(|bay| {
+                    bay.wall == Some(wall.id)
+                        && bay.member_ids.len() >= 4
+                        && bay.member_ids.iter().all(|id| {
+                            frame.members.iter().any(|member| {
+                                member.id == *id
+                                    && member.structural
+                                    && member.role != crate::TimberMemberRole::Ornament
+                            })
+                        })
+                })
+            })
+        {
+            issues.push(issue(
+                "missing_authoritative_timber_frame",
+                format!(
+                    "timber wall {} suppresses its source without an opening-first semantic load bay",
+                    wall.id.0
+                ),
+            ));
+        }
+        wall_frame::audit_radial(plan, wall, &solids, issues);
+        if wall.host_solids.is_empty()
+            || wall.host_solids.iter().any(|id| {
+                solids.get(id).is_none_or(|solid| {
+                    wall.replaced_by_owner
+                        .map_or(solid.owner != wall.owner, |owner| solid.owner != owner)
+                })
+            })
+        {
+            issues.push(issue(
+                "invalid_wall_host_union",
+                format!("wall {} does not own an exact resolved host set", wall.id.0),
+            ));
+        }
+        if !nodes.contains_key(&wall.support_node) {
+            issues.push(issue(
+                "unsupported_wall_assembly",
+                format!("wall {} has no structural support node", wall.id.0),
+            ));
+        }
+        if matches!(wall.source, WallSourceId::StoreyWall { .. })
+            && wall.frame.outside_room.is_none()
+            && wall.replaced_by_owner.is_none()
+        {
+            let expected_face =
+                wall.frame.origin.dot(wall.frame.outward) + wall.thickness_metres * 0.5;
+            let discontinuous = wall
+                .host_solids
+                .iter()
+                .filter_map(|id| solids.get(id))
+                .filter(|solid| {
+                    matches!(
+                        solid.role,
+                        SolidRole::WallHost
+                            | SolidRole::OpeningJamb
+                            | SolidRole::OpeningSill
+                            | SolidRole::OpeningHead
+                            | SolidRole::OpeningSpandrel
+                    ) && !(wall.material == WallMaterialClass::TimberInfill
+                        && solid.role == SolidRole::WallHost)
+                })
+                .any(|solid| {
+                    let centre = Vec2::new(solid.centre.metres().x, solid.centre.metres().z);
+                    let radial_extent = wall.frame.outward.x.abs() * solid.size.metres().x * 0.5
+                        + wall.frame.outward.y.abs() * solid.size.metres().z * 0.5;
+                    (centre.dot(wall.frame.outward) + radial_extent - expected_face).abs() > 0.015
+                });
+            if discontinuous {
+                issues.push(issue(
+                    "discontinuous_exterior_wall_face",
+                    format!(
+                        "wall {} projects a displaced leaf/fin beyond its collinear exterior plane",
+                        wall.id.0
+                    ),
+                ));
+            }
+        }
+    }
+    let mut opening_ids = std::collections::HashSet::new();
+    for opening in &plan.opening_assemblies {
+        let Some(wall) = plan
+            .wall_assemblies
+            .iter()
+            .find(|wall| wall.id == opening.host_wall)
+        else {
+            issues.push(issue(
+                "opening_without_host",
+                format!("opening {} has no wall", opening.id.0),
+            ));
+            continue;
+        };
+        if !opening_ids.insert(opening.id)
+            || opening.host_source != wall.source
+            || !wall.opening_ids.contains(&opening.id)
+        {
+            issues.push(issue(
+                "invalid_opening_authority",
+                format!(
+                    "opening {} is duplicated or drifts from its host",
+                    opening.id.0
+                ),
+            ));
+        }
+        let Some(void) = plan
+            .resolved_geometry
+            .voids
+            .iter()
+            .find(|void| void.id == opening.void_id)
+        else {
+            issues.push(issue(
+                "shallow_wall_opening",
+                format!("opening {} has no void", opening.id.0),
+            ));
+            continue;
+        };
+        let depth = opening.frame.outward.x.abs()
+            * (void.bounds.max().metres().x - void.bounds.min().metres().x)
+            + opening.frame.outward.y.abs()
+                * (void.bounds.max().metres().z - void.bounds.min().metres().z);
+        if void.role != VoidRole::WallOpening
+            || void.owner != opening.owner
+            || void.subtracts_from != opening.owner
+            || depth + 0.01 < wall.thickness_metres
+        {
+            issues.push(issue(
+                "shallow_wall_opening",
+                format!(
+                    "opening {} is not a connected full-depth subtraction",
+                    opening.id.0
+                ),
+            ));
+        }
+        let (
+            profile_exterior_width,
+            profile_interior_width,
+            profile_exterior_height,
+            profile_interior_height,
+        ) = match opening.profile {
+            OpeningProfile::ArrowLoop {
+                exterior_width_metres,
+                interior_width_metres,
+                exterior_height_metres,
+                interior_height_metres,
+            }
+            | OpeningProfile::GunLoop {
+                exterior_width_metres,
+                interior_width_metres,
+                exterior_height_metres,
+                interior_height_metres,
+                ..
+            } => (
+                exterior_width_metres,
+                interior_width_metres,
+                exterior_height_metres,
+                interior_height_metres,
+            ),
+            profile => (
+                profile.exterior_width_metres(),
+                profile.interior_width_metres(),
+                profile.clear_height_metres(),
+                profile.clear_height_metres(),
+            ),
+        };
+        let expected_depth_sign = if opening.frame.tangent.x.abs() > 0.5 {
+            if opening.frame.outward.y >= 0.0 {
+                1
+            } else {
+                -1
+            }
+        } else if opening.frame.outward.x <= 0.0 {
+            1
+        } else {
+            -1
+        };
+        let sectional_shape_matches = matches!(void.shape,
+            crate::ResolvedVoidShape::SectionalOpening {
+                opening: resolved_opening,
+                exterior_width_metres,
+                interior_width_metres,
+                exterior_height_metres,
+                interior_height_metres,
+                exterior_depth_sign,
+            } if resolved_opening == opening.id
+                && (exterior_width_metres-profile_exterior_width).abs() <= 0.001
+                && (interior_width_metres-profile_interior_width).abs() <= 0.001
+                && (exterior_height_metres-profile_exterior_height.min(opening.profile.clear_height_metres())).abs() <= 0.001
+                && (interior_height_metres-profile_interior_height.min(opening.profile.clear_height_metres())).abs() <= 0.001
+                && exterior_depth_sign == expected_depth_sign);
+        let slices_valid = opening.sectional_void.len() >= 5
+            && opening.sectional_void.first().is_some_and(|slice| {
+                slice.depth_fraction.abs() <= 0.001
+                    && (slice.width_metres - profile_exterior_width).abs() <= 0.001
+            })
+            && opening.sectional_void.last().is_some_and(|slice| {
+                (slice.depth_fraction - 1.0).abs() <= 0.001
+                    && (slice.width_metres - profile_interior_width).abs() <= 0.001
+            })
+            && opening.sectional_void.windows(2).all(|pair| {
+                pair[1].depth_fraction > pair[0].depth_fraction
+                    && pair[1].width_metres + 0.001 >= pair[0].width_metres
+                    && pair[1].height_metres + 0.001 >= pair[0].height_metres
+            })
+            && opening.sectional_void.iter().all(|slice| {
+                let expected_width = profile_exterior_width
+                    + (profile_interior_width - profile_exterior_width) * slice.depth_fraction;
+                let expected_height = profile_exterior_height
+                    + (profile_interior_height - profile_exterior_height) * slice.depth_fraction;
+                (slice.width_metres - expected_width).abs() <= 0.002
+                    && (slice.height_metres - expected_height).abs() <= 0.002
+            });
+        if !sectional_shape_matches || !slices_valid {
+            issues.push(issue(
+                "false_splayed_wall_opening",
+                format!(
+                    "opening {} lacks an ordered connected throat-to-mouth free-space field",
+                    opening.id.0
+                ),
+            ));
+        }
+        let profile_valid = match opening.profile {
+            OpeningProfile::Rectangular {
+                width_metres,
+                height_metres,
+            } => {
+                width_metres >= 0.68
+                    && height_metres
+                        >= if matches!(opening.host_source, WallSourceId::RoofChildFront { .. }) {
+                            0.68
+                        } else {
+                            1.0
+                        }
+            }
+            OpeningProfile::Segmental {
+                width_metres,
+                spring_height_metres,
+                rise_metres,
+                intrados_depth_metres,
+            } => {
+                width_metres >= 0.75
+                    && spring_height_metres
+                        >= if opening.use_kind == OpeningUse::Gate {
+                            1.8
+                        } else {
+                            0.8
+                        }
+                    && rise_metres > 0.12
+                    && intrados_depth_metres >= 0.12
+            }
+            OpeningProfile::PointedTwoCentred {
+                width_metres,
+                spring_height_metres,
+                apex_height_metres,
+                arc_radius_metres,
+            } => {
+                let half_span = width_metres * 0.5;
+                let rise = apex_height_metres - spring_height_metres;
+                let constructed_radius =
+                    half_span + (rise * rise - half_span * half_span) / (2.0 * half_span.max(0.01));
+                width_metres >= 0.35
+                    && apex_height_metres > spring_height_metres + 0.40
+                    && arc_radius_metres > width_metres * 0.5
+                    && (arc_radius_metres - constructed_radius).abs() <= 0.01
+            }
+            OpeningProfile::ArrowLoop {
+                exterior_width_metres,
+                interior_width_metres,
+                exterior_height_metres,
+                interior_height_metres,
+            } => {
+                exterior_width_metres < interior_width_metres
+                    && exterior_height_metres <= interior_height_metres
+                    && exterior_width_metres <= 0.22
+            }
+            OpeningProfile::GunLoop {
+                exterior_width_metres,
+                interior_width_metres,
+                exterior_height_metres,
+                interior_height_metres,
+                traverse_degrees,
+                recoil_metres,
+                crew_clearance_metres,
+                ..
+            } => {
+                exterior_width_metres < interior_width_metres
+                    && exterior_height_metres < interior_height_metres
+                    && traverse_degrees >= 20.0
+                    && recoil_metres >= 0.65
+                    && crew_clearance_metres >= 1.0
+            }
+        };
+        let use_profile_match = matches!(
+            (opening.use_kind, opening.profile),
+            (OpeningUse::Door, OpeningProfile::Rectangular { .. })
+                | (OpeningUse::Gate, OpeningProfile::Segmental { .. })
+                | (
+                    OpeningUse::Window,
+                    OpeningProfile::Rectangular { .. }
+                        | OpeningProfile::Segmental { .. }
+                        | OpeningProfile::PointedTwoCentred { .. }
+                )
+                | (OpeningUse::ArrowLoop, OpeningProfile::ArrowLoop { .. })
+                | (OpeningUse::GunLoop, OpeningProfile::GunLoop { .. })
+                | (
+                    OpeningUse::BellOpening,
+                    OpeningProfile::PointedTwoCentred { .. }
+                )
+        );
+        if !profile_valid || !use_profile_match {
+            issues.push(issue(
+                "invalid_opening_profile",
+                format!(
+                    "opening {} has an invalid or substituted section",
+                    opening.id.0
+                ),
+            ));
+        }
+        let exact_piece = |id: ResolvedItemId, role: SolidRole| {
+            solids
+                .get(&id)
+                .is_some_and(|solid| solid.owner == opening.owner && solid.role == role)
+        };
+        if !exact_piece(opening.jamb_solids[0], SolidRole::OpeningJamb)
+            || !exact_piece(opening.jamb_solids[1], SolidRole::OpeningJamb)
+            || !(exact_piece(opening.head_solid, SolidRole::OpeningHead)
+                || gable_openings::shared_head(plan, opening))
+            || !exact_piece(opening.spandrel_solid, SolidRole::OpeningSpandrel)
+            || opening.reveal_surfaces.len() < 6
+            || opening.reveal_surfaces.iter().any(|id| {
+                surfaces.get(id).is_none_or(|surface| {
+                    surface.owner != opening.owner
+                        || !matches!(
+                            surface.role,
+                            SurfaceRole::LeftJambReveal
+                                | SurfaceRole::RightJambReveal
+                                | SurfaceRole::WeatherSill
+                                | SurfaceRole::Intrados
+                                | SurfaceRole::ExteriorThroat
+                                | SurfaceRole::InteriorMouth
+                        )
+                })
+            })
+        {
+            issues.push(issue(
+                "missing_opening_reveal_piece",
+                format!("opening {} lacks exact jamb/head/reveal IDs", opening.id.0),
+            ));
+        }
+        let opening_offset = (opening.frame.origin - wall.frame.origin).dot(opening.frame.tangent);
+        let exterior_width_for_layout = opening.profile.exterior_width_metres();
+        let jambs_on_declared_reveals =
+            opening.jamb_solids.iter().enumerate().all(|(index, id)| {
+                let side = if index == 0 { -1.0_f32 } else { 1.0 };
+                let side_width = if side < 0.0 {
+                    wall.length_metres * 0.5 + opening_offset - exterior_width_for_layout * 0.5
+                } else {
+                    wall.length_metres * 0.5 - opening_offset - exterior_width_for_layout * 0.5
+                };
+                solids.get(id).is_some_and(|solid| {
+                    let expected = opening.frame.origin
+                        + opening.frame.tangent
+                            * side
+                            * (exterior_width_for_layout + side_width)
+                            * 0.5;
+                    Vec2::new(solid.centre.metres().x, solid.centre.metres().z).distance(expected)
+                        <= 0.015
+                })
+            });
+        if !jambs_on_declared_reveals {
+            issues.push(issue(
+                "false_opening_head_load_path",
+                format!(
+                    "opening {} jambs drift from their measured springing/reveal lines",
+                    opening.id.0
+                ),
+            ));
+        }
+        let splayed_profile = match opening.profile {
+            OpeningProfile::ArrowLoop {
+                exterior_width_metres,
+                interior_width_metres,
+                exterior_height_metres,
+                interior_height_metres,
+                ..
+            }
+            | OpeningProfile::GunLoop {
+                exterior_width_metres,
+                interior_width_metres,
+                exterior_height_metres,
+                interior_height_metres,
+                ..
+            } => Some((
+                exterior_width_metres,
+                interior_width_metres,
+                exterior_height_metres,
+                interior_height_metres,
+            )),
+            _ => None,
+        };
+        if let Some((exterior_width, interior_width, exterior_height, interior_height)) =
+            splayed_profile
+        {
+            let exact_splayed_jamb = |id: ResolvedItemId, expected_side: i8| {
+                solids.get(&id).is_some_and(|solid| {
+                    matches!(
+                        solid.shape,
+                        crate::ResolvedSolidShape::SplayedReveal {
+                            exterior_width_metres,
+                            interior_width_metres,
+                            side,
+                            exterior_depth_sign,
+                        } if (exterior_width_metres - exterior_width).abs() <= 0.001
+                            && (interior_width_metres - interior_width).abs() <= 0.001
+                            && side == expected_side
+                            && exterior_depth_sign == expected_depth_sign
+                    )
+                })
+            };
+            let tangent_depth = opening.frame.tangent.x.abs()
+                * (void.bounds.max().metres().x - void.bounds.min().metres().x)
+                + opening.frame.tangent.y.abs()
+                    * (void.bounds.max().metres().z - void.bounds.min().metres().z);
+            let exact_splayed_head = solids.get(&opening.head_solid).is_some_and(|solid| {
+                matches!(
+                    solid.shape,
+                    crate::ResolvedSolidShape::SplayedHead {
+                        exterior_clear_height_metres,
+                        interior_clear_height_metres,
+                        exterior_depth_sign,
+                    } if (exterior_clear_height_metres - exterior_height).abs() <= 0.001
+                        && (interior_clear_height_metres - interior_height).abs() <= 0.001
+                        && exterior_depth_sign == expected_depth_sign
+                )
+            });
+            let sampled_host = opening.sectional_void.iter().all(|slice| {
+                let plan = opening.frame.origin
+                    + opening.frame.outward
+                        * (wall.thickness_metres * (0.5 - slice.depth_fraction));
+                let clear_top = opening.sill_elevation_metres + slice.height_metres;
+                let free_point = Vec3::new(plan.x, clear_top - 0.015, plan.y);
+                let head_point = Vec3::new(plan.x, clear_top + 0.015, plan.y);
+                let side_height = opening.sill_elevation_metres + slice.height_metres * 0.5;
+                let side_offset = slice.width_metres * 0.5 + 0.015;
+                let side_points = [-1.0_f32, 1.0].map(|side| {
+                    let side_plan = plan + opening.frame.tangent * side * side_offset;
+                    Vec3::new(side_plan.x, side_height, side_plan.y)
+                });
+                let host_solids = [
+                    opening.jamb_solids[0],
+                    opening.jamb_solids[1],
+                    opening.head_solid,
+                    opening.spandrel_solid,
+                ];
+                let contains = |point| {
+                    host_solids.iter().any(|id| {
+                        solids.get(id).is_some_and(|solid| {
+                            opening_host_contains_point(opening, wall, solid, point)
+                        })
+                    })
+                };
+                !contains(free_point)
+                    && contains(head_point)
+                    && side_points.into_iter().all(contains)
+            });
+            if !exact_splayed_jamb(opening.jamb_solids[0], -1)
+                || !exact_splayed_jamb(opening.jamb_solids[1], 1)
+                || !exact_splayed_head
+                || !sampled_host
+                || (tangent_depth - interior_width).abs() > 0.02
+            {
+                issues.push(issue(
+                    "false_splayed_wall_opening",
+                    format!(
+                        "opening {} does not resolve its sampled narrow throat, broad mouth, and rising head into physical host masonry",
+                        opening.id.0
+                    ),
+                ));
+            }
+        } else if opening.jamb_solids.iter().any(|id| {
+            solids.get(id).is_some_and(|solid| {
+                matches!(solid.shape, crate::ResolvedSolidShape::SplayedReveal { .. })
+            })
+        }) {
+            issues.push(issue(
+                "false_splayed_wall_opening",
+                format!(
+                    "opening {} substitutes a splay for its declared profile",
+                    opening.id.0
+                ),
+            ));
+        }
+        let resolved_surface_roles = opening
+            .reveal_surfaces
+            .iter()
+            .filter_map(|id| {
+                plan.resolved_geometry
+                    .surfaces
+                    .iter()
+                    .find(|surface| surface.id == *id && surface.owner == opening.owner)
+                    .map(|surface| surface.role)
+            })
+            .collect::<Vec<_>>();
+        if !resolved_surface_roles.contains(&crate::SurfaceRole::LeftJambReveal)
+            || !resolved_surface_roles.contains(&crate::SurfaceRole::RightJambReveal)
+            || !resolved_surface_roles.contains(&crate::SurfaceRole::WeatherSill)
+            || !resolved_surface_roles.contains(&crate::SurfaceRole::Intrados)
+            || !resolved_surface_roles.contains(&crate::SurfaceRole::ExteriorThroat)
+            || !resolved_surface_roles.contains(&crate::SurfaceRole::InteriorMouth)
+        {
+            issues.push(issue(
+                "missing_opening_reveal_surface",
+                format!(
+                    "opening {} lacks exact reveal, weather-sill, or intrados surfaces",
+                    opening.id.0
+                ),
+            ));
+        }
+        // Surface identity belongs to the opening's exact reveal multiset.
+        // Several structural bays may legitimately share a church assembly
+        // owner, so owner+role alone can select a neighbouring sill/intrados.
+        let shaped_surface = |role| {
+            opening.reveal_surfaces.iter().find_map(|id| {
+                surfaces
+                    .get(id)
+                    .filter(|surface| surface.owner == opening.owner && surface.role == role)
+                    .copied()
+            })
+        };
+        let sill_and_intrados_valid = shaped_surface(crate::SurfaceRole::WeatherSill).is_some_and(|surface| matches!(surface.shape,
+                crate::ResolvedSurfaceShape::WeatherSill { interior_elevation_metres, exterior_elevation_metres, drip_depth_metres }
+                    if exterior_elevation_metres + 0.02 < interior_elevation_metres && drip_depth_metres >= 0.02))
+            && shaped_surface(crate::SurfaceRole::Intrados).is_some_and(|surface| match (opening.profile, surface.shape) {
+                (OpeningProfile::Segmental { width_metres, spring_height_metres, rise_metres, .. }, crate::ResolvedSurfaceShape::SegmentalIntrados { clear_span_metres, spring_height_metres: spring, rise_metres: rise }) => (clear_span_metres-width_metres).abs() <= 0.001 && (spring-spring_height_metres).abs() <= 0.001 && (rise-rise_metres).abs() <= 0.001,
+                (OpeningProfile::PointedTwoCentred { width_metres, spring_height_metres, apex_height_metres, arc_radius_metres }, crate::ResolvedSurfaceShape::PointedIntrados { clear_span_metres, spring_height_metres: spring, apex_height_metres: apex, arc_radius_metres: radius }) => (clear_span_metres-width_metres).abs() <= 0.001 && (spring-spring_height_metres).abs() <= 0.001 && (apex-apex_height_metres).abs() <= 0.001 && (radius-arc_radius_metres).abs() <= 0.001,
+                (OpeningProfile::Rectangular { .. } | OpeningProfile::ArrowLoop { .. } | OpeningProfile::GunLoop { .. }, crate::ResolvedSurfaceShape::Planar) => true,
+                _ => false,
+            });
+        if !sill_and_intrados_valid {
+            issues.push(issue(
+                "invalid_opening_weather_or_intrados",
+                format!(
+                    "opening {} has a flat/uphill sill or substituted intrados",
+                    opening.id.0
+                ),
+            ));
+        }
+        let head = nodes.get(&opening.head_node);
+        let spandrel_node = nodes.get(&opening.spandrel_node);
+        if head.is_none_or(|head| {
+            head.kind != crate::StructuralNodeKind::OpeningHead
+                || head.supported_by.len() != 2
+                || !opening
+                    .jamb_nodes
+                    .iter()
+                    .all(|jamb| head.supported_by.contains(jamb))
+        }) || opening.jamb_nodes.iter().any(|jamb| {
+            nodes.get(jamb).is_none_or(|node| {
+                node.kind != crate::StructuralNodeKind::OpeningJamb
+                    || !node.supported_by.contains(&wall.support_node)
+            })
+        }) || spandrel_node.is_none_or(|node| {
+            node.kind != crate::StructuralNodeKind::OpeningSpandrel
+                || node.supported_by != [opening.head_node]
+        }) {
+            issues.push(issue(
+                "false_opening_head_load_path",
+                format!(
+                    "opening {} head does not bear through two grounded jambs",
+                    opening.id.0
+                ),
+            ));
+        }
+        let head_solid = solids.get(&opening.head_solid);
+        let spandrel_solid = solids.get(&opening.spandrel_solid);
+        let bearing_interfaces = opening.head_bearing_interfaces.map(|id| {
+            plan.resolved_geometry
+                .support_interfaces
+                .iter()
+                .find(|interface| {
+                    interface.id == id
+                        && interface.owner == opening.owner
+                        && interface.node == opening.head_node
+                })
+        });
+        let wall_above = plan
+            .resolved_geometry
+            .support_interfaces
+            .iter()
+            .find(|interface| {
+                interface.id == opening.wall_above_interface
+                    && interface.owner == opening.owner
+                    && interface.node == opening.spandrel_node
+            });
+        let contact_valid = crate::geometry_index::try_any(head_solid, |head_solid| {
+            Result::<bool>::Ok(
+                crate::geometry_index::try_all(
+                    bearing_interfaces.into_iter().zip(opening.jamb_solids),
+                    |(interface, jamb_id)| {
+                        let Some(interface) = interface else {
+                            return Ok(false);
+                        };
+                        let Some(jamb) = solids.get(&jamb_id) else {
+                            return Ok(false);
+                        };
+                        let bounds = head_solid.cuboid_bounds()?;
+                        let (head_min, head_max) = (bounds.min().metres(), bounds.max().metres());
+                        let (jamb_min, jamb_max) = resolved_solid_bounds(jamb);
+                        let contact_min =
+                            head_min.max(jamb_min).max(interface.bounds.min().metres());
+                        let contact_max =
+                            head_max.min(jamb_max).min(interface.bounds.max().metres());
+                        let size = contact_max - contact_min;
+                        Result::<bool>::Ok(
+                            size.min_element() > 0.001 && {
+                                let mut extents = [size.x, size.y, size.z];
+                                extents.sort_by(f32::total_cmp);
+                                extents[1] * extents[2] >= 0.01
+                            },
+                        )
+                    },
+                )? && crate::geometry_index::try_any(spandrel_solid, |spandrel| {
+                    Result::<bool>::Ok(
+                        spandrel.supported_by == [opening.spandrel_node]
+                            && crate::geometry_index::try_any(wall_above, |interface| {
+                                let bounds = head_solid.cuboid_bounds()?;
+                                let (head_min, head_max) =
+                                    (bounds.min().metres(), bounds.max().metres());
+                                let (spandrel_min, spandrel_max) = resolved_solid_bounds(spandrel);
+                                let contact_min = head_min
+                                    .max(spandrel_min)
+                                    .max(interface.bounds.min().metres());
+                                let contact_max = head_max
+                                    .min(spandrel_max)
+                                    .min(interface.bounds.max().metres());
+                                let size = contact_max - contact_min;
+                                Result::<bool>::Ok(
+                                    size.min_element() > 0.001 && {
+                                        let mut extents = [size.x, size.y, size.z];
+                                        extents.sort_by(f32::total_cmp);
+                                        extents[1] * extents[2] >= 0.02
+                                    },
+                                )
+                            })?,
+                    )
+                })?,
+            )
+        })?;
+        if !contact_valid {
+            issues.push(issue("false_opening_head_load_path", format!("opening {} head lacks measured two-ended bearing or distinct upper-spandrel contact; head={:?} spandrel={:?} bearings={:?} wall_above={:?}", opening.id.0, head_solid.map(|solid| (solid.centre, solid.size)), spandrel_solid.map(|solid| (solid.centre, solid.size)), bearing_interfaces.map(|interface| interface.map(|interface| (interface.bounds.min().metres(), interface.bounds.max().metres()))), wall_above.map(|interface| (interface.bounds.min().metres(), interface.bounds.max().metres())))));
+        }
+        let wide_cathedral_light = opening.use_kind == OpeningUse::Window
+            && matches!(opening.profile, OpeningProfile::PointedTwoCentred { width_metres, .. } if width_metres >= 0.90);
+        if wide_cathedral_light {
+            let tracery_node = opening.tracery_node.and_then(|id| nodes.get(&id));
+            let tracery_solids = plan
+                .resolved_geometry
+                .solids
+                .iter()
+                .filter(|solid| {
+                    solid.owner == opening.owner
+                        && solid.role == SolidRole::Mullion
+                        && opening
+                            .tracery_node
+                            .is_some_and(|node| solid.supported_by == [node])
+                })
+                .collect::<Vec<_>>();
+            let bearing = opening.tracery_node.and_then(|node| {
+                plan.resolved_geometry
+                    .support_interfaces
+                    .iter()
+                    .find(|interface| interface.owner == opening.owner && interface.node == node)
+            });
+            let sill = opening.sill_solid.and_then(|id| solids.get(&id));
+            let mullion_bears = tracery_solids.first().is_some_and(|mullion| {
+                sill.is_some_and(|sill| {
+                    bearing.is_some_and(|interface| {
+                        let (mullion_min, mullion_max) = resolved_solid_bounds(mullion);
+                        let (sill_min, sill_max) = resolved_solid_bounds(sill);
+                        let contact_min = mullion_min
+                            .max(sill_min)
+                            .max(interface.bounds.min().metres());
+                        let contact_max = mullion_max
+                            .min(sill_max)
+                            .min(interface.bounds.max().metres());
+                        let size = contact_max - contact_min;
+                        size.min_element() > 0.001 && size.x.max(size.z) >= 0.06
+                    })
+                })
+            });
+            if tracery_node.is_none_or(|node| {
+                node.kind != crate::StructuralNodeKind::MullionBearing
+                    || node.supported_by != [wall.support_node]
+            }) || tracery_solids.len() < 2
+                || !mullion_bears
+                || opening.closure_solids.len() < 2
+                || opening.closure_solids.iter().any(|id| {
+                    solids
+                        .get(id)
+                        .is_none_or(|solid| solid.role != SolidRole::LeadedGlazing)
+                })
+            {
+                issues.push(issue(
+                    "unsupported_cathedral_tracery",
+                    format!(
+                        "opening {} lacks stone mullion/transom bearing or subdivided glazing",
+                        opening.id.0
+                    ),
+                ));
+            }
+        } else if opening.tracery_node.is_some() {
+            issues.push(issue(
+                "unsupported_cathedral_tracery",
+                format!(
+                    "opening {} declares tracery outside a principal cathedral light",
+                    opening.id.0
+                ),
+            ));
+        }
+        let illegal_closure = match opening.use_kind {
+            OpeningUse::ArrowLoop | OpeningUse::GunLoop => {
+                opening.closure.layers != [ClosureKind::OpenMilitary]
+                    || !opening.closure_solids.is_empty()
+            }
+            OpeningUse::Window => !window_closure_is_legal(opening, plan.church.as_ref()),
+            OpeningUse::Door | OpeningUse::Gate => {
+                !opening.closure.layers.contains(&ClosureKind::DoorLeaf)
+            }
+            OpeningUse::BellOpening => opening.closure.layers != [ClosureKind::TimberLouvre],
+        };
+        if illegal_closure {
+            issues.push(issue(
+                "illegal_opening_closure",
+                format!(
+                    "opening {} has an illegal glazing/closure policy",
+                    opening.id.0
+                ),
+            ));
+        }
+        if matches!(
+            opening.use_kind,
+            OpeningUse::ArrowLoop | OpeningUse::GunLoop
+        ) && (opening.stance_surface.is_none()
+            || opening.ray_indices.len() != 3
+            || opening.ray_indices.iter().any(|index| {
+                plan.resolved_geometry
+                    .projected_defense_rays
+                    .get(*index)
+                    .is_none_or(|ray| ray.owner != opening.owner || ray.throat != opening.void_id)
+            })
+            || (opening.use_kind == OpeningUse::GunLoop && opening.mount_solid.is_none()))
+        {
+            issues.push(issue(
+                "inoperable_military_opening",
+                format!(
+                    "opening {} lacks stance/mount/near-mid-far rays",
+                    opening.id.0
+                ),
+            ));
+        }
+        let head_shape = solids.get(&opening.head_solid).map(|solid| solid.shape);
+        let head_matches = match opening.profile {
+            OpeningProfile::Segmental {
+                width_metres,
+                spring_height_metres,
+                rise_metres,
+                intrados_depth_metres,
+            } => {
+                opening.head_kind == OpeningHeadKind::SegmentalArch
+                    && matches!(
+                        head_shape,
+                        Some(crate::ResolvedSolidShape::SegmentalArchRing {
+                            clear_span_metres,
+                            spring_height_metres: resolved_spring,
+                            rise_metres: resolved_rise,
+                            ring_depth_metres,
+                        }) if (clear_span_metres - width_metres).abs() <= 0.001
+                            && (resolved_spring - spring_height_metres).abs() <= 0.001
+                            && (resolved_rise - rise_metres).abs() <= 0.001
+                            && (ring_depth_metres - intrados_depth_metres).abs() <= 0.001
+                    )
+            }
+            OpeningProfile::PointedTwoCentred {
+                width_metres,
+                spring_height_metres,
+                apex_height_metres,
+                arc_radius_metres,
+            } => {
+                opening.head_kind == OpeningHeadKind::PointedVoussoir
+                    && matches!(
+                        head_shape,
+                        Some(crate::ResolvedSolidShape::PointedArchRing {
+                            clear_span_metres,
+                            spring_height_metres: resolved_spring,
+                            apex_height_metres: resolved_apex,
+                            arc_radius_metres: resolved_radius,
+                            ..
+                        }) if (clear_span_metres - width_metres).abs() <= 0.001
+                            && (resolved_spring - spring_height_metres).abs() <= 0.001
+                            && (resolved_apex - apex_height_metres).abs() <= 0.001
+                            && (resolved_radius - arc_radius_metres).abs() <= 0.001
+                    )
+            }
+            OpeningProfile::Rectangular { .. } => matches!(
+                opening.head_kind,
+                OpeningHeadKind::TimberLintel
+                    | OpeningHeadKind::TimberFrameMember { .. }
+                    | OpeningHeadKind::StoneLintel
+            ),
+            OpeningProfile::ArrowLoop {
+                exterior_height_metres,
+                interior_height_metres,
+                ..
+            }
+            | OpeningProfile::GunLoop {
+                exterior_height_metres,
+                interior_height_metres,
+                ..
+            } => matches!(
+                (opening.head_kind, head_shape),
+                (
+                    OpeningHeadKind::StoneLintel,
+                    Some(crate::ResolvedSolidShape::SplayedHead {
+                        exterior_clear_height_metres,
+                        interior_clear_height_metres,
+                        ..
+                    })
+                ) if (exterior_clear_height_metres - exterior_height_metres).abs() <= 0.001
+                    && (interior_clear_height_metres - interior_height_metres).abs() <= 0.001
+            ),
+        };
+        if !head_matches {
+            issues.push(issue(
+                "opening_head_profile_mismatch",
+                format!("opening {} head does not match its section", opening.id.0),
+            ));
+        }
+    }
+    wall_counts::audit_opening_count(plan, issues);
+
+    Ok(())
+}

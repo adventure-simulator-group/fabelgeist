@@ -1,0 +1,41 @@
+{
+  "id": "CONT07-F116",
+  "lens": "audit-redundant-authority",
+  "classification": "source-confirmed leader-role reconstruction from observer-filtered ordering; API conditional",
+  "title": "Filtered party order substitutes for the actual leader identity",
+  "sources": {
+    "2375": [
+      [
+        368,
+        407
+      ],
+      [
+        482,
+        484
+      ]
+    ],
+    "2405": [
+      [
+        153,
+        167
+      ]
+    ],
+    "2397": [
+      [
+        271,
+        315
+      ]
+    ]
+  },
+  "fact": "get_active_party_members reads the actual PartyView leader_id, removes members ahead of the observer, sorts surviving members with a surviving actual leader first, and returns only Vec<CharacterView>. profile_membership then calls the first surviving character the leader implicitly when deciding whether the active member can leave. Sorting is a display order and cannot preserve an omitted leader identity.",
+  "counterexample": "Let actual leader L be omitted by character_not_ahead_of_observer and let active living nonleader A be the lowest-id survivor. The actual producer returns A first; profile_membership(A,returned_members) renders no Leave party action because first.id==A. An otherwise identical projection with visible L renders Leave. No actual DB population or divergent-frontier run claimed.",
+  "limits": [
+    "The admitted divergent-frontier native mutation graph and a concrete ordinary route state remain to be established; the source conditional does not assert present live incidence.",
+    "If a caller passes an arbitrary Vec not sorted by leadership the public-in-crate helper likewise lacks explicit role; ordinary caller evidence here is the observer-filtered producer, not a generic unsorted-vector claim.",
+    "No permission bypass or unauthorized DB mutation is claimed; this is visible action availability. Root confirmed no exact accepted alias; global dedup remains coordinator-owned."
+  ],
+  "suggested_connected_remedy": "Carry explicit authorized party role or leader identity through the observer projection and derive Leave availability from it. Keep sorting for display only and preserve omission of future member facts.",
+  "acceptance_contract": "Filtering or sorting visible members cannot change the active character actual leadership role or hide Leave solely because the true leader is absent from the visible list.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

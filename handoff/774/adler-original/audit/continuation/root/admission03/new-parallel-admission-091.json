@@ -1,0 +1,40 @@
+{
+  "id": "ROOT-ADM-NEWPARALLEL-091",
+  "at": "2026-10-22T19:16:52.574540+00:00",
+  "lens": "audit-admission-contracts",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs",
+      "sha256": "64c0cb1ac75e094cf6521bf61ea6ad9eef9aa1a1ab63ca34ae3d395d3a66969a",
+      "actual_read_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "registration_id": "RIG-INITIAL06-REG-003",
+      "exclusions": "No tests, unrelated GPU label owners or foreign SDK graph; exact direct definition only"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/mod.rs",
+      "sha256": "7a84c8ef7c760fd6292dac52b88418a52a7e4831a5a3579e05d9fd19e4e856ad",
+      "actual_read_ranges": [
+        [
+          7,
+          13
+        ]
+      ],
+      "registration_id": "RIG-INITIAL06-REG-004",
+      "exclusions": "Other module declarations/reexports excluded; no texture/color implementation graph"
+    }
+  ],
+  "actual_admission_analysis": {
+    "buffer-label": "Separate03actualconstructoranalysis: privateString withonlyinfallibleFromowned/borrowedspelling and readonlyborrow. Meaning isdiagnosticexactspelling, notvalidatednonemptyidentifierorboundedstring, soallStringvaluesincl emptyUnicode remainvalid; no implicitothersemanticpolicyborrowedfromStreamId/rigJointName. Stringconstructors preserveUTF8. DerivedCloneEqno publicrawfield/Deserialize/Reflect/Defaultuncheckedpath. No need toconvertintothislabelatarefactorinternalidentityport: actualdiagnosticstring literal/formatconstruction ismeaningfulentry, keepBufferLabel throughBufferDefinitionuntilnativeallocationdescriptor. Receivingdefinition/nativeallocationalreadygloballyscopedownproducer/materialroles, notclearedbythissmallfile. No numeric/codecvalidationrequiredmerelybecauseitisa bespoke type.",
+    "gpu-export-identity": "Exact7-13 exportscanonicalsharedmathmodules/types andgpuitems, no duplicateconstructibleowner/newleafentryorvalidationbypass. Domainmathsemanticsmustcomeactualshareddefinitions, nativeMHRtypesremainsemanticallydifferent. Unseenexportedimplementationsand1-6moduledeclarationsnotcovered, no broadGPUmathadmissioncertificate. Thisisgenuinecurrentownerbindingqualification, no compatibilitypathintroduced."
+  },
+  "disposition": "Exacttwo newregisteredroles03accounted; no newindependentadmissionfinding and no final/otherlensclearance",
+  "source_edits": 0,
+  "project_execution": 0,
+  "repair": "frozen",
+  "validation": "not_run"
+}

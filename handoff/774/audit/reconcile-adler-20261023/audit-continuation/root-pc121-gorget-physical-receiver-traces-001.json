@@ -1,0 +1,67 @@
+{
+  "at": "2026-10-23T22:42:57.794187+00:00",
+  "id": "pc121-gorget-physical-receiver-traces-001",
+  "reads": {
+    "crates/adventuresim-character-creator/src/device_gorget.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/device_gorget_cage.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/device_gorget_bib.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/device_gorget_collar.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/device_gorget_projection.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/device_gorget_sections.rs": [
+      [
+        1,
+        10000
+      ]
+    ]
+  },
+  "contract": "Gorget design clearance/neck proportions through internal fitting APIs to exact native WGSL measurements, retained cage and final geometry",
+  "coverage_limit": "Six full source and existingtest bodies read only. Complete native ray arithmetic read, no GPUproof/execution, other-lens contract remainsincomplete.",
+  "disposition": "M19 existingphysicalgapextends record_fitted_gorget clearance/collar_padding locals -> record_gorget_support(rawf32pair) -> record_collar_fit/record_bib_fit/record_bib_measure rawpadding -> actual Word::F uniform. Numericalhelpername/nativepurpose doesnotmake earlier internalAPI a finalprimitiveport. Keep model-spacecontinuousgap vsdimensionlesscollarheight/pitch; publicconstant *_NECK_RATIO producers rawbefore meaningful policycomposition, typedRatio cannotbeassumedUnitInterval allsubsequentvalues. Nativecage physicalheight/distance/angle vsgrid/countoffset independentroles mustretain exactfixedlayout. Actualcollar/bibshareseam andalternating4passes followedfinalbibdeficitcheck tolerant1e-5: sourcepositiveexistingdependencymeasurement, not proofcontinuousenclosure; comment explicitlysampledenvelope notcontinuous. Plane reductions count>=4sections, validBand finite/depthgate before cageacceptance; fitfailedfoldedtopartstatus andheadframe stagedfinal. Projection ray_depth rejectsoutside/unresolvable determinant, nonnegativeweights clampactualdepthrange; preservearea-unit1e-10 vsdimensionlessroundoff16eps andheighttolerance1e-6. Existingtests prove intended transformedcanonicalframe/seam/exteriorquery/supportnonconvergence contracts only assourceoracles, notexecuted. Bodylayer triangleindexing stillrelieswholeArmorLayerSurfaceadmission, rootM16/M108and#780. Native hit/depthvec2 andrawMIN/MAXidentitiesare actualWGSLport, shapes/magic lenses mustindependentlyjudgeexplicitpresence andfallthrough. No newunique accepteddefect fromthese bodies.",
+  "finding_traces": {
+    "M19": {
+      "source": [
+        "device_gorget.rs:243-244,294-311",
+        "device_gorget_collar.rs:22-64",
+        "device_gorget_bib.rs:21-92"
+      ],
+      "trace": "CanonicalLength extracted beforethree internalpadding/gapreceivers andcallbacks, onlyWord::F packingactualnativeboundary. Sharedphysicalrepair shouldcoverallconnectedfittingstageswithsameunitowner."
+    },
+    "M16": {
+      "source": [
+        "device_gorget_cage.rs:8-33",
+        "device_gorget.rs:334-368",
+        "device_gorget_bib.rs:53-88"
+      ],
+      "trace": "Exactcage offsets/plane7words/band6words/periodic129columns sourcedonce inlayout, nativepackproofpositive. Body/layerface population provenance stillmustcarry throughGPU buffers asassociation rather thanindependentcount."
+    }
+  },
+  "frontier": {
+    "file": "crates/fabelgeist-armor/src/gpu/wrapped_tasset_carrier.wgsl",
+    "work": "PC121 fullgorget graph bodies accounted. Next PC122 remainingwrappedshaderreceivers+suspensionproducer and remaininggarment/creator/rigbody inventory; all13gate incomplete, noimplementationplan/repairs/checks."
+  }
+}

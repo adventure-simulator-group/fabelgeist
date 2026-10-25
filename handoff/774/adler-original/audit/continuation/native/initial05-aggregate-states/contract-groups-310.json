@@ -1,0 +1,127 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-310",
+  "at": "2026-10-23T07:29:35.222316+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/construction_controls.rs",
+      "sha256": "3f3fa3760c04b76557e2a6927b461eb83c134a41d561952d22579c3f3f286599",
+      "scope069_index": 715,
+      "actual_EOF": 93,
+      "scoped_ranges_compared": [
+        [
+          1,
+          93
+        ]
+      ],
+      "actual05_comparison": "Fresh complete exact source; truncated combined display recovered with bounded7181–174/175–248 and7191–175/176–334 reads. Actual host/device row/count/status/frame/skin relationships, no GPU execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/design_input.rs",
+      "sha256": "9140c84ddc9d85554f2a063e1ccf8e162cf046d680f663bf44c91986a4589904",
+      "scope069_index": 716,
+      "actual_EOF": 119,
+      "scoped_ranges_compared": [
+        [
+          1,
+          119
+        ]
+      ],
+      "actual05_comparison": "Fresh complete exact source; truncated combined display recovered with bounded7181–174/175–248 and7191–175/176–334 reads. Actual host/device row/count/status/frame/skin relationships, no GPU execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_body.rs",
+      "sha256": "7f528ffbfd597a6199b1ef50c86f045e36ae230acb0b5957c2504f6285a99bd3",
+      "scope069_index": 717,
+      "actual_EOF": 26,
+      "scoped_ranges_compared": [
+        [
+          1,
+          26
+        ]
+      ],
+      "actual05_comparison": "Fresh complete exact source; truncated combined display recovered with bounded7181–174/175–248 and7191–175/176–334 reads. Actual host/device row/count/status/frame/skin relationships, no GPU execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_bracer.rs",
+      "sha256": "ff37e035a52f79f4970f87fb21acef7702a0e9cf0ab288cf551e1c35d78365c4",
+      "scope069_index": 718,
+      "actual_EOF": 248,
+      "scoped_ranges_compared": [
+        [
+          1,
+          248
+        ]
+      ],
+      "actual05_comparison": "Fresh complete exact source; truncated combined display recovered with bounded7181–174/175–248 and7191–175/176–334 reads. Actual host/device row/count/status/frame/skin relationships, no GPU execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_chausses.rs",
+      "sha256": "54ba768eb44e2df346af31606eaf56854b463e8f4bedad25d42c16ee4a8523fb",
+      "scope069_index": 719,
+      "actual_EOF": 334,
+      "scoped_ranges_compared": [
+        [
+          1,
+          334
+        ]
+      ],
+      "actual05_comparison": "Fresh complete exact source; truncated combined display recovered with bounded7181–174/175–248 and7191–175/176–334 reads. Actual host/device row/count/status/frame/skin relationships, no GPU execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_clearance.rs",
+      "sha256": "c281c89fa8c8f954309b110c0b7a90899e2c948ee8021b52732a4ba76c25192a",
+      "scope069_index": 720,
+      "actual_EOF": 220,
+      "scoped_ranges_compared": [
+        [
+          1,
+          220
+        ]
+      ],
+      "actual05_comparison": "Fresh complete exact source; truncated combined display recovered with bounded7181–174/175–248 and7191–175/176–334 reads. Actual host/device row/count/status/frame/skin relationships, no GPU execution."
+    }
+  ],
+  "groups": [
+    {
+      "id": "construction UI edits correlated controls",
+      "comparison": "Controls compare discriminant and reset newly selected construction to usual typed tiling. Thickness immediately bounds bevel; current holes bound radius, lacing option removed when no adequate holes, radius clamped to actual plate max. Full Construction.validate error displayed after edit, not rollback or accepted-state token. Native millimetre slider converts shown range/current values in same1000 scale then divides on change. Raw mutation/validation failure can remain UI state intentionally; no universal native finite state guarantee or blanket valid UI construction beyond actual lower constants/validators. Armory306 conditional finish error/retry remains a distinct followthrough candidate, not promoted from this UI alone."
+    },
+    {
+      "id": "authored or supplied dedicated designs use same validation path",
+      "comparison": "load_breastplate_design/load_bracer_design decode actual included authored bytes when path absent or read user file then same parse→validate; no silent default fallback after parse/numeric failure. Context preserves file/authored provenance. Original tests include optional typo rejection, absent authored vs typedDefault distinction, independent parameter roundtrip, exampleDefault, malformed/missing/out-of-range fields and duplicate fields. Read source only; underlying exact armor validators/canonical controls remain separate source analysis, no proof from tests being present."
+    },
+    {
+      "id": "DeviceBody is a memoized upload, not independent binding certificate",
+      "comparison": "Private OnceLock stores first successful GpuBody. Failed upload returnsErr and leaves empty; racing successful closures choose first initialized copy, with comment either copy same requiring actual realization immutability. Reused getter does not invoke closure or inspect source changes. Clone derives ordinary wrapper cloning but no native OnceLock behavior proof needed here. Personally consumed CameraF051/CONTRACT254 exact current mutable RuntimeBody + Realization route; own05 has now actual717 implementation only, 726/827 not yet source-compared so do not award them count/coverage or assert normal producer mutation. Need one immutable accepted realization/device association or coordinated replacement for F051, preserve sharing and retry after failure."
+    },
+    {
+      "id": "bracer records one matching body/support/atlas and morph order",
+      "comparison": "generate validates direct ForearmSurfaceInput actual698 counts then resolves lowarm/wrist against same names; supports table uses same skin-family policy. BodySurface new receives same positions/normals/faces/skin/joints and unused UV zero rows; DeviceSeams consumes matching face/texcoord-face topology and uploads actual atlas. Support/axial buffers sized vertex_count×4 with u64 widening, nonempty count checked before dispatch, native joint adapter used for ordinals. Surface+bracer commands same batch/status, submit before each ordered morph upload/record; names gathered from same morph slice order then read returns product. It checks coincident and empty-selection status before result, not other actual lower status semantics not read here. GpuBody::new/SeamTopology/DeviceBracer/read/status scratch-init remain actual queued lower contracts, no native waiver or proof buffer minimum read[0] by function name."
+    },
+    {
+      "id": "bracer support predicate preserves actual role",
+      "comparison": "Shader guards invocation v<count, reads same eight-index/eight-weight layout, derives wrist-minus-lowarm length² and flags <=0 coincident landmarks, then computes along coordinate and support margin−.1..1.1 with included weight>=.35; output axial clamps0..1 for supported surface operation. These depend finite actual source joint/position/skin inputs; count checks alone do not prove finite derived division or all status reset semantics. No raw NaN/extreme normal MHR failure asserted, no new numerical finding from symbols alone. Support includes neighbor joints deliberately; fitted ownership and support policy distinct."
+    },
+    {
+      "id": "chausses cage and native parameter correspondence",
+      "comparison": "record_leg_cage derives WholeLeg frame and support same side. record_fitted_chausses resolves hip/knee/ankle via actual host names, carries actual part carrier_count and binds frame/body positions/joints/support/status andcarrier buffer to same generated shader. CAGE guards carrier ID<count; fits ordered Hermite hip-knee/ankle branch with source chain lengths, scaled normalization; support-section uses nearby band or up to12 nearest supported vertices with deterministic distance thenvertex tie, flags status when no section. Bounds and minimum radius derive selected same skin; quilt relief only actual PaddedChausses. Count+word layout host matches Params declarations, zero padding explicit. Raw degenerate joints/frame extents or arbitrary mismatched buffer remain input/lower geometry requirements; no claim all public typed leaves guarantee valid leg cage. Native wgsl MATH/FRAME/accessor bodies and DevicePart shelling remain separate."
+    },
+    {
+      "id": "clearance aggregate derives allocation and dispatch from same constants",
+      "comparison": "STATIONS13,SECTION_WORDS66 andCAPACITY8192 drive exact u64 byte products and section grid dispatch; current carrier count goes uniform+dispatch_items, cuff and style/hand tags derive current fit. Style match maps Greave/Cuisse/Rerebrace/Mitten payload into fixed8 words, unused pads zero, halfwidth special UpperArm/LowerLeg intentional policy. Support bit0 current region, bit1 extra forearm forHand/foot forLowerLeg, names-based included vectors share actual rig count; buffers bind current body frame and status. Public ClearanceFit independent region/style/count/cuff and carriers are broad request product, helper does not prove count<=buffer or cuff<=count/region-style applicability. Exact actual caller/native shader status and capacity rejection need scoped lower source, not guessed promise from comment. No ordinary carrier overrun or GPU run asserted."
+    },
+    {
+      "id": "consumed source-backed drape normal route qualification",
+      "comparison": "Personally read CameraCONTRACT252 narrative after own308 bodies. Actual supplier facts identify automatic outcome as first-success-prefix, worker cancellation and UI dirty/running guard with full drape key body+lining+ordered article/selection. This closes hypothetical middle-hole claim, not arbitrary Some(fitted). Same narrative explicitly says dirty is cleared before fallible prepare and old ready may remain on failure; parent export regenerates current data and may reject. Retain normalfailed-prepare completion qualification and independently compare queued762/763/786/831/832/834 when reached, no source count or lens verdict transferred from supplier."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Native body/seam/bracer/read status-init and shader helpers, full DeviceWearer/Realization/RuntimeBody ownership/capacity callers remain exact queued obligations.",
+    "Supplied drape normal UI/worker chain supplier proof personally consumed but own unreviewed source roles retain inventory; no blanket same-lens coverage."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

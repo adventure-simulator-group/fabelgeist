@@ -1,0 +1,79 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1042",
+  "at": "2026-10-25T17:34:57.154395+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1202,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/social_roles.rs",
+      "sha256": "328d8285856568995cc423bb2ec74bb88bfa690af6e4defcbfc4aa8f9a355415",
+      "actual_EOF": 579,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/social_roles.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/social_roles.rs",
+        "sha256": "328d8285856568995cc423bb2ec74bb88bfa690af6e4defcbfc4aa8f9a355415",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 18976,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 766,
+            "read_ranges": [
+              [
+                1,
+                579
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-POPULATION-ROLE-CLOSURE-121"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/social_roles.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1412,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          579
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "SocialOrganizationInstance/CharacterOrganizationRole Clone/Debug/table"
+      ],
+      "absence_basis": "Whole social role source across1041\u20131042 consumed. No handwritten trait/codec. Native checked definition/role/instance joins, borrowed nonempty family coordinate parse, exact selected provenance, precedence/literacy choice and lifecycle cleanup semantic. Fullfixtures521\u2013579 read not run."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Social organization role authority derivability",
+      "disposition": "Existing schema derives; preserve context-specific validation/borrowed classifier and selected tuple priority, no raw conversion derive."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1203,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/approved_action.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

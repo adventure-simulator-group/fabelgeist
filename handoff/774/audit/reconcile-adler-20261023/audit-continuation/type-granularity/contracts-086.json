@@ -1,0 +1,41 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-086",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "saved-schedule-versus-admitted-execution-and-book-training-roles",
+      "sources": [
+        {
+          "scope_index": 311,
+          "ranges": [
+            [
+              1,
+              741
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "local774:M23",
+        "local774:M50",
+        "local774:M51",
+        "local774:M53",
+        "SEGO-INITIAL09-F250",
+        "SEGO-INITIAL09-F296",
+        "SEGO-INITIAL09-F366"
+      ],
+      "disposition": "Existing schedule/book/personality migration support plus qualified constant-return simplification Q014.",
+      "trace": "ActivityExecutionLocation4\u201360 carries policy with applicable origin settlement; native economic provenance differs actual physical settlement presence(F366). effective_location_schedule71\u201389 reconstructs existing ValidatedSchedule before redistribution, showing actual admission owner exists but is discarded in retained native schedule. Organization schedule128\u2013193 requires active identity and membership but deliberately keeps inactive saved choice, exactF250. Training228\u2013416 uses SkillHours as a record of per-skill columns, not a scalar hour newtype; DailySchedule is another projection of one daily allocation. Real elapsed, daily allotment, effective learned hours, direct trained hours, correlation-derived hours and mastery excess are different roles, M51. Native personality Sociability is remapped281\u2013289 to same three-state SocializingSociability for training, existing M50/M51 owner reconciliation rather than inventing another role owner. Reading target477\u2013516 returns rank/aptitude tuple; written medium rank, target rank, governing aptitude and lower/upper book band differ even withf32storage. Existing BookTarget already owns Written/Religion/Bestiary payloads while Terrain/Skill still rematch raw text429\u2013438/508. BookCandidate693\u2013697 retains personal source priorityF296; actual owned OR on-site eligibility is independent from which preferred source label is chosen. Actual reading helper641\u2013725 has constant0 excess result; Q014 records potential removal after private caller closure.",
+      "qualifications": [
+        "Full741 lines read, no execution. Saved invalid organization activity becomes leisure in effective copy without mutating saved user preference; do not clear inactive organization ID or force every saved allocation into immediate selected-operation payload.",
+        "Core ActivityLocation is generic policy, native context additionally carries actual provenance. Source absent occupancy defaults JourneyCamp policy; no ordinary false camp presence claim without full doctrine.",
+        "Ordinary skill pointer helper441\u2013474 excludes Religion/Bestiary because family storage differs; no ordinary unreachablepanic asserted. Preserve trained versus untrained correlations, inherited languages, rank5 asymptotic unlimited ceiling, exact bounded book gain and source priority.",
+        "Book personal provenance is priority label, not exclusive physical access: owned plus bookstore availability can both be true. Derive explicit Personal priority overBookstore rather than declaration-orderOrd or assuming purchase/permission from label.",
+        "Q014 constant result is a simplification candidate only, not normal incorrect mastery award or proposed new wrapper. Parent exact lookup says M51/M23 shared dependencies but no exact prior constant-return remedy; private call closure still pending."
+      ],
+      "acceptance": "Keep admitted schedule and supported target contracts through actual native application receivers, distinct training stages, canonical personality vocabulary and source priority. Any constant-return simplification requires complete private caller closure and preserves intentionally no reading mastery-excess policy."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

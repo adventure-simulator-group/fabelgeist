@@ -1,0 +1,892 @@
+{
+  "packet": "camera-weapon-physical-receiver-packet",
+  "owner": "/root",
+  "lens": "audit-producer-propagation-supplement-after-owner",
+  "purpose": "Read-only actual physical weapon model/derive/memo/codec producer and receiving contracts; camera716-cell authority and exact repair ownership unchanged. Reuse exact prior roles/ranges only after explicit source reconciliation, never samepath/hash alone.",
+  "assigned_camera_indices": [
+    381,
+    382,
+    383,
+    384,
+    385,
+    386,
+    387,
+    388,
+    389,
+    390,
+    419,
+    420,
+    421,
+    449,
+    450,
+    586,
+    587,
+    588,
+    589,
+    590,
+    591,
+    592,
+    593,
+    666
+  ],
+  "obligations": [
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/codec.rs",
+      "path": "crates/adventuresim-weapon-model/src/codec.rs",
+      "sha256": "1a32ed016049692514041f1111820fc2513464dcd4f23b45a4f65f8b084c9b60",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 429,
+          "read_ranges": [
+            [
+              1,
+              111
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-WEAPON-CONSTRUCTION-058"
+          ],
+          "read_status": "complete",
+          "resolved_path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/codec.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "index": 381
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/derive.rs",
+      "path": "crates/adventuresim-weapon-model/src/derive.rs",
+      "sha256": "c21331b47fbf9aff7837343abc27e7f572acb622fd7baaf8a86a3dfb0fc92edd",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 421,
+          "read_ranges": [
+            [
+              1,
+              47
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-WEAPON-CONSTRUCTION-058"
+          ],
+          "read_status": "complete",
+          "resolved_path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/derive.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "index": 382
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/derived_properties.rs",
+      "path": "crates/adventuresim-weapon-model/src/derived_properties.rs",
+      "sha256": "fc35cb85ad750d9eb943b55cde7f20e3dc6cffd2d3ac119bef96732eb32402c5",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+          "row": 121,
+          "read_ranges": [
+            [
+              1,
+              22
+            ]
+          ],
+          "contract_refs": [
+            "ROOT-OWNER-OUTPUT-AND-SOURCE-ENDPOINTS-073"
+          ],
+          "read_status": "full",
+          "resolved_path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/derived_properties.rs"
+        },
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 423,
+          "read_ranges": [
+            [
+              1,
+              22
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-WEAPON-CONSTRUCTION-058"
+          ],
+          "read_status": "complete",
+          "resolved_path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/derived_properties.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "index": 383
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/design/generated.rs",
+      "path": "crates/adventuresim-weapon-model/src/design/generated.rs",
+      "sha256": "676cdac09cfd5549f08dcaad5876f3053c52b04c49fb59a70b09df15c766df03",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+          "row": 122,
+          "read_ranges": [
+            [
+              1,
+              47
+            ]
+          ],
+          "contract_refs": [
+            "ROOT-OWNER-OUTPUT-AND-SOURCE-ENDPOINTS-073"
+          ],
+          "read_status": "full",
+          "resolved_path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/design/generated.rs"
+        },
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 433,
+          "read_ranges": [
+            [
+              1,
+              47
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-WEAPON-CONSTRUCTION-058"
+          ],
+          "read_status": "complete",
+          "resolved_path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/design/generated.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "index": 384
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/evaluation.rs",
+      "path": "crates/adventuresim-weapon-model/src/evaluation.rs",
+      "sha256": "bf99629f5204b4bcdab31adcee2f5029e28085143bb3b3e00e2987c1ad2e7b4d",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 417,
+          "read_ranges": [
+            [
+              1,
+              59
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-WEAPON-CONSTRUCTION-058"
+          ],
+          "read_status": "complete",
+          "resolved_path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/evaluation.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "index": 385
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/evaluation/memo.rs",
+      "path": "crates/adventuresim-weapon-model/src/evaluation/memo.rs",
+      "sha256": "88583e6c11bc5fe78178b4843cc1910a8f58f14083ba7bbd62ceebfe50f4ffb6",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 419,
+          "read_ranges": [
+            [
+              1,
+              106
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-WEAPON-CONSTRUCTION-058"
+          ],
+          "read_status": "complete",
+          "resolved_path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/evaluation/memo.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "index": 386
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/lib.rs",
+      "path": "crates/adventuresim-weapon-model/src/lib.rs",
+      "sha256": "617d4da8bd91ac58b857ad94c1a1d44d417e90055976d46637e567caeb218bad",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+          "row": 413,
+          "read_ranges": [
+            [
+              1,
+              50
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-SCALE-001",
+            "CAM-OWN-AUTORESOLVE-001",
+            "CAM-OWN-CONFIG-001"
+          ],
+          "read_status": null,
+          "resolved_path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/lib.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "index": 387
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/mesh.rs",
+      "path": "crates/adventuresim-weapon-model/src/mesh.rs",
+      "sha256": "13432d88e00f3227259bb5b938b0a72a40e300fa4cec4f0d92b020d07eca2418",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "root",
+          "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+          "row": 123,
+          "read_ranges": [
+            [
+              1,
+              145
+            ]
+          ],
+          "contract_refs": [
+            "ROOT-OWNER-OUTPUT-AND-SOURCE-ENDPOINTS-073"
+          ],
+          "read_status": "full",
+          "resolved_path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/mesh.rs"
+        },
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 431,
+          "read_ranges": [
+            [
+              1,
+              145
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-WEAPON-CONSTRUCTION-058"
+          ],
+          "read_status": "complete",
+          "resolved_path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/mesh.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "index": 388
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/mod.rs",
+      "path": "crates/adventuresim-weapon-model/src/model/mod.rs",
+      "sha256": "485c06d11de0a974d67d404c21cde555b41f4126f6a3ffdac7cf5ba7727dc8ad",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 425,
+          "read_ranges": [
+            [
+              1,
+              273
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-WEAPON-CONSTRUCTION-058"
+          ],
+          "read_status": "complete",
+          "resolved_path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/model/mod.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "index": 389
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/output.rs",
+      "path": "crates/adventuresim-weapon-model/src/model/output.rs",
+      "sha256": "6cfe3fe6963b9fe8617ab5eeb7c811619a98aef2ddfbfc4c2f502a00bfb6e2e2",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 427,
+          "read_ranges": [
+            [
+              1,
+              365
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-WEAPON-CONSTRUCTION-058"
+          ],
+          "read_status": "complete",
+          "resolved_path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/model/output.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "index": 390
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/lib.rs",
+      "path": "crates/adventuresim-weapon-model/src/lib.rs",
+      "sha256": "617d4da8bd91ac58b857ad94c1a1d44d417e90055976d46637e567caeb218bad",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 17,
+          "read_ranges": [
+            [
+              1,
+              50
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-SCALE-001",
+            "CAM-OWN-AUTORESOLVE-001",
+            "CAM-OWN-CONFIG-001"
+          ],
+          "read_status": "complete",
+          "resolved_path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/camera/worktree/crates/adventuresim-weapon-model/src/lib.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "index": 419
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/recipe/mod.rs",
+      "path": "crates/adventuresim-weapon-model/src/recipe/mod.rs",
+      "sha256": "6df2420e23ec21a7d706b89d8af5a999f4798fbff05d5fb6d7a3b5e647b2ff4e",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 18,
+          "read_ranges": [
+            [
+              1,
+              265
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-SCALE-001",
+            "CAM-OWN-AUTORESOLVE-001",
+            "CAM-OWN-CONFIG-001"
+          ],
+          "read_status": "complete",
+          "resolved_path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/camera/worktree/crates/adventuresim-weapon-model/src/recipe/mod.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "index": 420
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/recipe/quantities.rs",
+      "path": "crates/adventuresim-weapon-model/src/recipe/quantities.rs",
+      "sha256": "5e3c814a60c0d09d75c9eccfbd371f9412b76b95fefbce3c66c86ff03266bed5",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 19,
+          "read_ranges": [
+            [
+              1,
+              98
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-SCALE-001",
+            "CAM-OWN-AUTORESOLVE-001",
+            "CAM-OWN-CONFIG-001"
+          ],
+          "read_status": "complete",
+          "resolved_path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/camera/worktree/crates/adventuresim-weapon-model/src/recipe/quantities.rs"
+        },
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 434,
+          "read_ranges": [
+            [
+              1,
+              98
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-WEAPON-CONSTRUCTION-058"
+          ],
+          "read_status": "complete",
+          "resolved_path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/camera/worktree/crates/adventuresim-weapon-model/src/recipe/quantities.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "index": 421
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/validation.rs",
+      "path": "crates/adventuresim-weapon-model/src/validation.rs",
+      "sha256": "fd79af94c541daf7519b52218301f4cc66dbd7614d444583271a2e955ed02aff",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 89,
+          "read_ranges": [
+            [
+              1,
+              72
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-AUTORESOLVE-001",
+            "CAM-OWN-CHARACTER-007",
+            "CAM-OWN-CONDITION-011"
+          ],
+          "read_status": "complete",
+          "resolved_path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/camera/worktree/crates/adventuresim-weapon-model/src/validation.rs"
+        },
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 436,
+          "read_ranges": [
+            [
+              1,
+              72
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-WEAPON-CONSTRUCTION-058"
+          ],
+          "read_status": "complete",
+          "resolved_path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/camera/worktree/crates/adventuresim-weapon-model/src/validation.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "index": 449
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/recipe/validation.rs",
+      "path": "crates/adventuresim-weapon-model/src/recipe/validation.rs",
+      "sha256": "e40db02777c0f7401b0e90bc493f420be7630091f469a9baa7f0ef1a6f7c965a",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 90,
+          "read_ranges": [
+            [
+              1,
+              180
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-AUTORESOLVE-001",
+            "CAM-OWN-CHARACTER-007",
+            "CAM-OWN-CONDITION-011"
+          ],
+          "read_status": "partial",
+          "resolved_path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/camera/worktree/crates/adventuresim-weapon-model/src/recipe/validation.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "index": 450
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/evaluation.rs",
+      "path": "crates/adventuresim-weapon-model/src/evaluation.rs",
+      "sha256": "bf99629f5204b4bcdab31adcee2f5029e28085143bb3b3e00e2987c1ad2e7b4d",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 416,
+          "read_ranges": [
+            [
+              1,
+              59
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-WEAPON-CONSTRUCTION-058"
+          ],
+          "read_status": "complete",
+          "resolved_path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/camera/worktree/crates/adventuresim-weapon-model/src/evaluation.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "index": 586
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/evaluation/memo.rs",
+      "path": "crates/adventuresim-weapon-model/src/evaluation/memo.rs",
+      "sha256": "88583e6c11bc5fe78178b4843cc1910a8f58f14083ba7bbd62ceebfe50f4ffb6",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 418,
+          "read_ranges": [
+            [
+              1,
+              106
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-WEAPON-CONSTRUCTION-058"
+          ],
+          "read_status": "complete",
+          "resolved_path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/camera/worktree/crates/adventuresim-weapon-model/src/evaluation/memo.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "index": 587
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/derive.rs",
+      "path": "crates/adventuresim-weapon-model/src/derive.rs",
+      "sha256": "c21331b47fbf9aff7837343abc27e7f572acb622fd7baaf8a86a3dfb0fc92edd",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 420,
+          "read_ranges": [
+            [
+              1,
+              47
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-WEAPON-CONSTRUCTION-058"
+          ],
+          "read_status": "complete",
+          "resolved_path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/camera/worktree/crates/adventuresim-weapon-model/src/derive.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "index": 588
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/model/mod.rs",
+      "path": "crates/adventuresim-weapon-model/src/model/mod.rs",
+      "sha256": "485c06d11de0a974d67d404c21cde555b41f4126f6a3ffdac7cf5ba7727dc8ad",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 424,
+          "read_ranges": [
+            [
+              1,
+              273
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-WEAPON-CONSTRUCTION-058"
+          ],
+          "read_status": "complete",
+          "resolved_path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/camera/worktree/crates/adventuresim-weapon-model/src/model/mod.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "index": 589
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/model/output.rs",
+      "path": "crates/adventuresim-weapon-model/src/model/output.rs",
+      "sha256": "6cfe3fe6963b9fe8617ab5eeb7c811619a98aef2ddfbfc4c2f502a00bfb6e2e2",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 426,
+          "read_ranges": [
+            [
+              1,
+              365
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-WEAPON-CONSTRUCTION-058"
+          ],
+          "read_status": "complete",
+          "resolved_path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/camera/worktree/crates/adventuresim-weapon-model/src/model/output.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "index": 590
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/codec.rs",
+      "path": "crates/adventuresim-weapon-model/src/codec.rs",
+      "sha256": "1a32ed016049692514041f1111820fc2513464dcd4f23b45a4f65f8b084c9b60",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 428,
+          "read_ranges": [
+            [
+              1,
+              111
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-WEAPON-CONSTRUCTION-058"
+          ],
+          "read_status": "complete",
+          "resolved_path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/camera/worktree/crates/adventuresim-weapon-model/src/codec.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "index": 591
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/quantities.rs",
+      "path": "crates/adventuresim-weapon-model/src/recipe/quantities.rs",
+      "sha256": "5e3c814a60c0d09d75c9eccfbd371f9412b76b95fefbce3c66c86ff03266bed5",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 435,
+          "read_ranges": [
+            [
+              1,
+              98
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-WEAPON-CONSTRUCTION-058"
+          ],
+          "read_status": "complete",
+          "resolved_path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/recipe/quantities.rs"
+        },
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 710,
+          "read_ranges": [
+            [
+              1,
+              98
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-WEAPON-VALIDATOR-116"
+          ],
+          "read_status": "complete",
+          "resolved_path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/recipe/quantities.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "index": 592
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/validation.rs",
+      "path": "crates/adventuresim-weapon-model/src/validation.rs",
+      "sha256": "fd79af94c541daf7519b52218301f4cc66dbd7614d444583271a2e955ed02aff",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 437,
+          "read_ranges": [
+            [
+              1,
+              72
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-WEAPON-CONSTRUCTION-058"
+          ],
+          "read_status": "complete",
+          "resolved_path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/validation.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "index": 593
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/mod.rs",
+      "path": "crates/adventuresim-weapon-model/src/recipe/mod.rs",
+      "sha256": "6df2420e23ec21a7d706b89d8af5a999f4798fbff05d5fb6d7a3b5e647b2ff4e",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 708,
+          "read_ranges": [
+            [
+              1,
+              265
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-WEAPON-VALIDATOR-116"
+          ],
+          "read_status": "complete",
+          "resolved_path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-weapon-model/src/recipe/mod.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "index": 666
+    }
+  ],
+  "limits": [
+    "No source edits/checks/tests/runtime/Git changes/agents",
+    "Preserve exact f64 physical math/native f32 mesh port, quantization/wire/rating/hash/source failure order",
+    "Existing fixtures source-only; no new cases/assertions/helpers",
+    "Record actual new receiving queues before following, do not label private helper a native boundary"
+  ]
+}

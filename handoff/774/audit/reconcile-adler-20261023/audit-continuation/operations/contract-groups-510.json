@@ -1,0 +1,33 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-510",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/tests/road.rs",
+      "sha256": null,
+      "source_state": "deleted",
+      "actual_compared_ranges": [],
+      "deleted_base_evidence": {
+        "sha256": "d35e66e32b787fd9b115f5aead54a0f66ea2c69a2a150e3a2816293600f7ce60",
+        "actual_compared_ranges": [
+          [
+            1,
+            27
+          ]
+        ],
+        "path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/deleted-base/pr-working/crates/adventuresim-tactical-core/src/scene_input/tests/road.rs"
+      },
+      "method": "Exact source absence personally checked in frozen PR and working-overlay trees; recovered BASE read only as deletion evidence, never credited as a current body."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Deleted road fixture is replaced by the actual refinement owner fixture",
+      "evidence": "No current body at old path in PR6533 or working-overlay36c979. Recovered base27 is old seeded road profile assertion. Current refinement/road/tests.rs32 personally read509 retains corresponding fixture with checked ScenePlanPoint and same7.0231724 bit assertion; actual refinement/road.rs declares new test module. Old scene_input.rs1026 personally read503 does not declare old mod road. This is explicit deleted-role disposition, not current-body coverage or test execution."
+    }
+  ],
+  "status": "One original deleted role accounted by exact absence and replacement evidence; lens04 incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-core/src/scene_input/urban.rs"
+}

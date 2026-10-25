@@ -1,0 +1,94 @@
+{
+  "at": "2026-10-25T09:04:27.971396+00:00",
+  "new_records": [
+    {
+      "index": 71,
+      "source_id": "pr-working:crates/strategic-web/static/background-fetch.js",
+      "sha256": "00cfcd2e251b7d8b3020a2493c94a0907b7cf2afbeccc841331a2f81aabf2c86",
+      "ranges": [
+        [
+          1,
+          83
+        ]
+      ],
+      "evidence": "operations/contract-groups-578.json#fresh_dependencies"
+    },
+    {
+      "index": 72,
+      "source_id": "pr-working:crates/strategic-web/static/strategic-navigation.js",
+      "sha256": "1419143934b4dacd73085c81a770534d63fbad34612ff6cc25bb886c430e6bff",
+      "ranges": [
+        [
+          1,
+          209
+        ]
+      ],
+      "evidence": "operations/contract-groups-578.json#fresh_dependencies"
+    },
+    {
+      "index": 73,
+      "source_id": "pr-working:crates/strategic-web/src/routes/characters.rs",
+      "sha256": "10dd792473dbbed42eb10675903a838cb0858f13323b7029982c0c7e08a0e0b0",
+      "ranges": [
+        [
+          1,
+          15
+        ],
+        [
+          52,
+          87
+        ]
+      ],
+      "evidence": "operations/contract-groups-581.json#fresh_dependencies"
+    },
+    {
+      "index": 74,
+      "source_id": "pr-working:vendor/bevy_ahoy/src/kcc.rs",
+      "sha256": "270d6b20992ae497744d528d70421ca20075b2f22be9c0dff36f2c41978e72ba",
+      "ranges": [
+        [
+          145,
+          195
+        ]
+      ],
+      "evidence": "operations/contract-groups-583.json#fresh_dependencies"
+    },
+    {
+      "index": 75,
+      "source_id": "pinned-registry:bevy_time-0.19.1/src/stopwatch.rs",
+      "sha256": "0f89469949a788d5c34a3e2608a6feb5af224c57692f0a421f1846fcfc51e87f",
+      "ranges": [
+        [
+          115,
+          165
+        ]
+      ],
+      "evidence": "operations/contract-groups-583.json#fresh_dependencies"
+    },
+    {
+      "index": 76,
+      "source_id": "pr-working:crates/adventuresim-plant-generator/src/viewer/capture.rs",
+      "sha256": "de950524563388fee6bf5f849cc9cf10683a7eb8befcacdb3ebb8a0d562b3521",
+      "ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "evidence": "enum-shapes/registration-504A.json"
+    },
+    {
+      "index": 77,
+      "source_id": "pr-working:crates/adventuresim-puzzles/src/choices/sigil.rs",
+      "sha256": "938e02bc3b641badd397f25bab13110ca2a7bb2cac9f7a1e93c722478f0b89a5",
+      "ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "evidence": "enum-shapes/registration-506A-material.json"
+    }
+  ],
+  "scope_policy": "Actual semantic/native call paths only; characters import context1\u201315 +condition52\u201387, sigil fixture63\u201383 excluded, plant actual one capture56, native KCC/time115\u2013165 bounded. No unrelated directory expansion or inferred audit clearance."
+}

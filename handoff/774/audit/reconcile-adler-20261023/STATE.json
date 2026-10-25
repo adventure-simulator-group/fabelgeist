@@ -1,0 +1,219 @@
+{
+  "id": "ROOT-HANDOVER-253",
+  "created_at": "2026-10-23T14:08:15.726258+00:00",
+  "user_request": "Ok, now we need to do the handover. Do you have a document prepared?",
+  "timing": "Direct request hands over now, with initial audits unfinished. Supersedes earlier expectation to finish audits before handover timing only; no source repair gate relaxed.",
+  "goal": "Original #774 continuation and all twenty families remain incomplete. No goal-complete claim.",
+  "source_edits": 0,
+  "project_execution": 0,
+  "repairs_allowed": false,
+  "agent_state_observation": {
+    "root": "preparing handover only",
+    "camera_discovery": "interrupted",
+    "native_discovery": "interrupted",
+    "rig_discovery": "completed own turn; initial09 incomplete"
+  },
+  "scope": {
+    "path": "audit\\continuation\\cumulative-source-scope-parallel-072.json",
+    "sha256": "153b17c462414e6fbae07f3b89f8854c3090e134a6b15175a82c1c8e9bb423eb",
+    "bytes": 18415142
+  },
+  "source_variants": 2853,
+  "mandatory_overlays": {
+    "path": "audit\\continuation\\owner-range-extensions.jsonl",
+    "sha256": "f72b47d0ba315b4bb19a15bbea493ca30e1cd911127b01c43ab89c347a723b0d",
+    "bytes": 824729,
+    "count": 246
+  },
+  "bounded01_02_queue": {
+    "path": "audit\\continuation\\bounded01-02-newmaterial-queue-087.json",
+    "sha256": "4c98dc8915372067e9b87643c2f593a4c8290f3856f8b45158dfd10578773a19",
+    "bytes": 1303482,
+    "roles": 312
+  },
+  "initial_audits": {
+    "01": {
+      "status": "Historical initial evidence retained;312 new-material roles require bounded independent reconciliation"
+    },
+    "02": {
+      "status": "Historical initial evidence retained;312 new-material roles require bounded independent reconciliation"
+    },
+    "03": {
+      "status": "Exact072 current roles accounted WITH_FINDINGS; not final clearance",
+      "evidence": {
+        "path": "audit\\continuation\\root\\admission03-progress-067.json",
+        "sha256": "81914886d757470ee9f9b02f2a0a711219cc5a77eeff5c7e746a6a034ede4743",
+        "bytes": 25206
+      }
+    },
+    "04": {
+      "status": "incomplete",
+      "completed": 612,
+      "of": 2853,
+      "finding_records": 61,
+      "latest": {
+        "path": "audit\\continuation\\root\\initial04-invariant-operations\\contract-groups-165.json",
+        "sha256": "bfe12e89f193abff4e34dc804c9ba7dd98cbb782ac438728fff2e301c72980b7",
+        "bytes": 10409
+      },
+      "authority": {
+        "path": "audit\\continuation\\root\\initial04-invariant-operations\\scope-authority-001.json",
+        "sha256": "32dfc157ef4af4a004ce2bc58e76248096076f0af98fd6d3f3590c6c7e6ecda5",
+        "bytes": 1105775
+      }
+    },
+    "05": {
+      "status": "incomplete",
+      "completed": 1472,
+      "of": 2853,
+      "progress": {
+        "path": "audit\\continuation\\native\\initial05-aggregate-states\\progress-457.json",
+        "sha256": "09b0c8300eed3cd858b3c8cc524df2104099956ba48f3fe4005ffca922873a14",
+        "bytes": 788
+      },
+      "data": {
+        "id": "NATIVE-INITIAL05-PROGRESS-457",
+        "scope": "0722853+246; all mandatory qualifiers; REG056 duplicate existing2741 role, not new scope",
+        "global_source_variants_compared": 1472,
+        "unread_global_initial05": 1381,
+        "qualified_new_findings": 64,
+        "qualified_finding_aliases": [
+          "F063 exact Rig03F018 support perQUAL095"
+        ],
+        "whole_inventory_status": "incomplete",
+        "latest_packet_sha256": "61337de2492e329aace980dcc5697e633e33078c0ffed37a4179046a3667f897",
+        "next_unread_cell": "975solver979 then969assembly1443 andquestfixtures; no10/13",
+        "repair": "frozen",
+        "validation": "not_established",
+        "latest_qualification_sha256": "688a19a93ccb61d304ef27d231ddfde7ebe469a7f04256a40d69658c2151f3f5",
+        "latest_qualification": "qualification-426.json"
+      }
+    },
+    "06": {
+      "status": "local discovery exhausted WITH_FINDINGS; final repaired clearance not established",
+      "completed": 2853,
+      "overlay_roles": 246,
+      "completion": {
+        "path": "audit\\continuation\\rig\\initial06-type-ownership\\completion-483.json",
+        "sha256": "0544592d568a90c5a9633a007b4eb1e4d3f09c28af35972e398bbe9cbd72f74d",
+        "bytes": 2395
+      },
+      "reference_qualification": {
+        "path": "audit\\continuation\\rig\\initial06-type-ownership\\reference-qualification-484.json",
+        "sha256": "be69b363c25440220bf74e33acac3209f9a4da13a20a64106705da25a1da420b",
+        "bytes": 1254
+      }
+    },
+    "07": {
+      "status": "incomplete",
+      "completed": 1758,
+      "of": 2853,
+      "progress": {
+        "path": "audit\\continuation\\camera\\initial07-redundant-authority\\progress.jsonl",
+        "sha256": "8f4b85aa3f6bdd02f2aa07f1d05f0a9d7f3048c7a661903fd8a68d92945bdb6b",
+        "bytes": 99961
+      },
+      "data": {
+        "at": "2026-10-23T14:00:57.271330+00:00",
+        "current_scope_variants": 2853,
+        "inventoried_variants": 1758,
+        "remaining_variants": 1095,
+        "first_unfinished_scope072_index": 1492,
+        "mandatory_overlays": 246,
+        "status": "Incomplete whole07; no repairs/other-lens credit"
+      },
+      "latest_contract": "CAMERA-INITIAL07-CONTRACT-354",
+      "finding_records": 69
+    },
+    "08": {
+      "status": "not started"
+    },
+    "09": {
+      "status": "incomplete",
+      "completed": 132,
+      "of": 2853,
+      "finding_records": 11,
+      "resume": {
+        "path": "audit\\continuation\\rig\\initial09-enum-shapes\\resume-frontier-021.json",
+        "sha256": "230395108f15897ea67ad87b5ec26735f3c989545a55d82d07eeec9aa9a32379",
+        "bytes": 2806
+      },
+      "first_unfinished": {
+        "scope_index": 1790,
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/tests.rs",
+        "actual_eof": 1969,
+        "remaining": "Originalfullfixture/sourcebodyrequiresactual09comparison. Native003 fullactualsource narrative available but no inheritedverdict/bodycredit; preserve rawNaN/unknownpack/wire-normalization/counterMAX oracles, newtestsexecutionforbidden."
+      }
+    },
+    "10": {
+      "status": "not started"
+    },
+    "11": {
+      "status": "not started"
+    },
+    "12": {
+      "status": "not started"
+    },
+    "13": {
+      "status": "not started"
+    }
+  },
+  "duplicate_registration": {
+    "id": "NATIVE-INITIAL05-REG056",
+    "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/assignment.rs",
+    "existing_global_index": 2741,
+    "existing_material_ranges": [
+      [
+        1,
+        72
+      ]
+    ],
+    "new_variants": 0,
+    "new_overlays": 0,
+    "new_bounded01_02_roles": 0,
+    "qualification": {
+      "path": "audit\\continuation\\native\\initial05-aggregate-states\\qualification-426.json",
+      "sha256": "688a19a93ccb61d304ef27d231ddfde7ebe469a7f04256a40d69658c2151f3f5",
+      "bytes": 2608
+    },
+    "rule": "Fresh role reread supports surprise finding; no additional global scope or count."
+  },
+  "remote": {
+    "observed_at": "2026-10-23T14:07:04.109Z",
+    "pr_url": "https://github.com/adventure-simulator-group/fabelgeist/pull/774",
+    "state": "closed",
+    "merged": true,
+    "head": "6223320d09f4691b6de54382d9709b233274d435",
+    "merge_commit": "13fc9dcc71ab879de364117e5462310673e43210",
+    "merged_at": "2026-10-23T04:38:21Z",
+    "main": "990430b77a9f63548ffcb642074185f61ddb3322",
+    "scope_limit": "Remote metadata only. No current-main code delta reviewed or accepted by the frozen source audit."
+  },
+  "saved_implementation": {
+    "path": "IMPLEMENTATION_CHECKOUT",
+    "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "status": "clean; read-only Git status and rev-parse verified during handover"
+  },
+  "primary_preservation": {
+    "included_in_package": false,
+    "reason": "Unrelated GPU work and backups stay with Adler"
+  },
+  "older_checkpoint": {
+    "path": "audit\\continuation\\root\\audit-checkpoint-252.json",
+    "sha256": "8ca35a693e2863439a3ab7ea3a74f267268b44e2d2bd3a9a5ec1e11ca1603a83",
+    "bytes": 13520
+  },
+  "stage_authority": {
+    "path": "audit\\continuation\\root\\user-audit-handover-steering-163.json",
+    "sha256": "fdc25f34245a1113a30a5d8902d832c18725740b3bcd638ead039a5b85802e74",
+    "bytes": 1456
+  },
+  "parallel_authority": {
+    "path": "audit\\continuation\\root\\parallel-initial-audits-081.json",
+    "sha256": "aba3b7bb1566b8ff7d83bf4002816dbff619025f6f7b865589f0d6dab216e049",
+    "bytes": 4424
+  },
+  "skills": "audit\\skills",
+  "next": "Finish remaining initial audits and exact deltas before any implementation; explicitly reconcile merged/new main with frozen source before code integration. Preserve mandatory P16/P17 and all connected repairs, final13 lenses, independent reviews and same-head hosted validation.",
+  "package_note": "Audit evidence is under audit/. Worktrees, frozen source snapshots, Git objects and unrelated GPU changes are not included. Embedded historical record hashes refer to original bytes; use PACKAGE-MANIFEST.json to map them to exported bytes."
+}

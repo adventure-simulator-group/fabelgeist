@@ -1,0 +1,13 @@
+--- PRbase/crates/adventuresim-character-creator/src/device_foot_sections.rs
++++ frozen/crates/adventuresim-character-creator/src/device_foot_sections.rs
+@@ -48,9 +48,9 @@
+         let mut masks = vec![0u32; self.host.joint_names.len()];
+         for (bit, region) in regions.iter().enumerate() {
+             let owned = self.host.owned_joints(&region.owners());
+             for (mask, owns) in masks.iter_mut().zip(owned) {
+-                *mask |= owns << bit;
++                *mask |= u32::from(owns) << bit;
+             }
+         }
+         let gpu = self.gpu;
+         let support = gpu.scratch(self.body.vertex_count as u64 * 4, "footwear support")?;

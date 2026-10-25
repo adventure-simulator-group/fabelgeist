@@ -1,0 +1,43 @@
+{
+  "id": "RIG-CAMERA-ADM03-584",
+  "camera_queue_index": 584,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+  "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+  "queue_ref": "continuation/admission03-queue-v002/camera_rig_support.json#/queue/37",
+  "scope_pointer": "/files/1204",
+  "actual_read_ranges": [
+    [
+      1,
+      1586
+    ]
+  ],
+  "actual_eof": 1586,
+  "current_source_absent": false,
+  "base_sha256": null,
+  "current_roles": "Strategic authority storage, replay validator, gateway and retained journey/combat records",
+  "invariant": "Raw public DB/SATS rows are storage/transport shapes; accepted replay/lifecycle/source authority is established only by explicit checked factories/parsers and actual mutation recipients.",
+  "all_admission_routes": [
+    "QuestGenerationAuthority publicmetadata+JSON fields; validate71\u2013137 checks canonicalJSON commitment, decodes Developer context or GenerationContext, GeneratedCase andTrace; exactcanonical/publicIDs/Seed/catalog/trace/settlement/name/scope checks, qg::validate thenactualregeneration equality before returnedcontext/manifest",
+    "ValidatedQuestGenerationAuthority has pubcratefields/Clone, no unforgeableacceptedtoken; actual547onlyconsumes directvalidator result",
+    "ContractAuthority.parsed_state andMissionAuthority.parsed_state delegate flattenedstate parser; publicrows notsealedbythese optionalmethods",
+    "Case/Outcome/Fact/Custody/Continuity/Finale/Interaction/Mission/Capability/Candidate/Hostile/Receipt rows retain rawIDs/counts/timestamps/correlations; private tablevisibility hidesobservertruth butnotinternalvalidity",
+    "Incident/Recruitment ID publicStringrecords andclosedenums; Journey rawE7/BPs/fatigue/elapsed records haveSATS/Defaults butno field/range/correlation gate; Party defaultcamp50/walking480 notconstructorvalidation",
+    "gatewayregistration rejectsZEROidentity, digestmust64lowerhex, Some/schema3 orNone/schema0; singletonfirstsender claims, rotationssameidentity; viewsrequireactualsender; strategiccharacter helper gatewayORownedsimulation",
+    "quantitytarget requiresliving/itemexists/partyleaderforpartyscope; quantityallu32incl0 isretainedtargetnotpositiveinventoryamount",
+    "hostile_row requiresnonemptyID, clampsenemycount1..MAX anddifficulty>=1, actualthreatprofile/escalation/drop; materializeexistingexactbinding/roster beforeOk",
+    "hostileresolution rejectsCaptureTargetKilled, nonDefeatedloot, expectedresolution/capturesubject mismatch; capturesubjectNone versusSomesemantics otherwisebroader"
+  ],
+  "counterexample_or_intentional_boundary": "Full1586lines actualread; no source/codeexecution. ClosedSDKsum route sharedCamera082 onlyforactualunitvariants; datacarryingJourneyEndpoint remainsrawrecordSum, no wholeSDKgateinference. Publicrawrows plusoptionalparsed_state are not acceptedaggregates; correlatedstate and currentmembership/provenance remainactualconsumer duties. Preserve allu64Seed/clock vsnonnegativef32elapsed, nonemptyrootprerequisiteabsence andsignedcoordinates.",
+  "finding_refs": [],
+  "connected_dependencies": [
+    "RIG-CAMERA-ADM03-547",
+    "Camera current03 qg::validate/generate/developer compile actual lower predicates",
+    "Camera current03 strategic_state Contract/Mission parsers",
+    "camera/admission03/sdk-runtime-sum-admission-082.json",
+    "RIG-CAMERA-ADM03-574",
+    "RIG-CAMERA-ADM03-626"
+  ],
+  "mode": "Fresh actual current admission source comparison; original tests read as source only. No project execution or earlier-lens verdict carry.",
+  "authority": "root/admission03/support-authority-053.json; Camera retains source/audit ownership; Root final audit/repair authority",
+  "disposition": "exact_source_role_compared_with_stated_limits_and_dependencies"
+}

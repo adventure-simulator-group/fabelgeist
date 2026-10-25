@@ -1,0 +1,122 @@
+{
+  "id": "CONT07-CONTRACT-439",
+  "at": "2026-10-23T21:53:52.444733+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1932,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/interior.rs",
+      "sha256": "bafc30c78120a7b81fdf782b1d30782169a0f8632dcb973eac202b39c69847f0",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/furniture/interior.rs",
+      "actual_EOF": 103,
+      "ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1933,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/interior/tests.rs",
+      "sha256": "503801e4a1878c3ff962d59f4526020b82b8d798fbb60de2c5e232b686c7d11f",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/furniture/interior/tests.rs",
+      "actual_EOF": 87,
+      "ranges": [
+        [
+          1,
+          87
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1934,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/occupancy.rs",
+      "sha256": "7eefddd45148b9b0b86dfc05fc848c5fb8ff0051308ae8100b0abdbc167dc4e7",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/furniture/occupancy.rs",
+      "actual_EOF": 71,
+      "ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1935,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/placement.rs",
+      "sha256": "f226a17d7921f5b1daa506cdfc8c4b0eac80e8bb72f3bde9d77a6b7f9753207f",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/furniture/placement.rs",
+      "actual_EOF": 180,
+      "ranges": [
+        [
+          1,
+          180
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1936,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/reservations.rs",
+      "sha256": "b361b5c1876380f15da1ee02bbcf6e5ae2d8c383edea537249f181fed5144026",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/furniture/reservations.rs",
+      "actual_EOF": 288,
+      "ranges": [
+        [
+          1,
+          288
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1937,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/sites.rs",
+      "sha256": "6d8f288eef2299e042a77faacb58e434d25b22050e52471dd63fdf83231ac799",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/furniture/sites.rs",
+      "actual_EOF": 117,
+      "ranges": [
+        [
+          1,
+          117
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1938,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/sites/local.rs",
+      "sha256": "b2b2005dcb98e5278b4ae6b5b4d420ada6aa8fd169cbc2ac6a285c0a3175d5b2",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/furniture/sites/local.rs",
+      "actual_EOF": 93,
+      "ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "1932 interior install projects each placement into instances then appends original interior proof. A later conversion error could leave caller-mutated instances without the proof, but no retained failed result or normal retry recipient proven here. append is explicitly additive, not replacement by building id. Source1933 confirms successful projection/cardinality/room identity/determinism only, not failure atomicity. F085 physical-building alias remains independently recorded.",
+    "1934 Occupancy stores immutable footprint copies in every intersected bucket; source footprints do not mutate after insertion, so no invalidation dependency. Multiple bucket copies are broad-phase acceleration for same exact SAT predicate, not independent placement authorities. Source fixture compares broad and exact result, unexecuted.",
+    "1935 all candidate support/sample/instance admission completes before occupancy insertion and group publication106-117. Five-corner group grade and per-kit support .045 are different physical constraints. Chosen playable versus vista scope directs the accepted instances into exactly one output collection. No group with partial instances is published on candidate rejection.",
+    "1936 routes preserve accepted approach and complete closed gate-sweep geometry independent of dynamic gate state; these are prospective exclusions, not duplicate current door pose. Obstacles decode original input obstacle spacing with final terrain extent; sample-grid resolution is intentionally independent. Route endpoint fallback IDENTITY only affects zero-vector routeorientation and needs actual accepted source if challenging it.",
+    "1937 site recipes privately retain half-extents/local routes from one plan/bounds pair. collect keys distant recipe cache by full occupied program and computes placement-specific world routes after cloning; recipe cache does not retain world-centre/orientation, avoiding stale placement reuse here. Actual GeneratedBuildingRecipes public cache admission remains separately queued.",
+    "1938 LocalReservation retains collision-relative displacement, not scene absolute coordinate. place projects current placement and computes final checked footprint each time; no cached world transform. Local and scene route equations currently agree but serve distinct frame interfaces. No divergent authoritative bounds proven."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1939,
+    "start_line": 1
+  }
+}

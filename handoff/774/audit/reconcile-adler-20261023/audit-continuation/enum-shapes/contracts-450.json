@@ -1,0 +1,36 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-450",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        912
+      ],
+      "comparison": "Fresh full3842 including test bodies as source only. AcquisitionAttempt constructor/consumer conditional fields establishes F299. DiseaseId, TransmissionVector, Symptom, TerminalFailure and Critical(cause) DiseaseEvent own finite semantics. DiseaseDefinition supports multiple routes plus primary route (current catalog primary is supported), independent impairment channels/symptoms and authored physiology curves must coexist. Elemental associations derived by ID, no redundant persisted discriminator established. InfectionEpisode minimal identity/timestamps; evaluated disease state derived from it. DiseaseState Critical tag plus terminal_failure Option merits downstream state-owner trace; actual evaluate sets both coherently and severity remains meaningful even incubating/resolved. Do not force all symptom/attribute payloads exclusively by stage or discard severity/observations. clean_handling is a carried sanitation choice entering blood affordance, independent protected wound cut-route; actual native supply producer needed before precise owner migration. Presence ended/horizon Option meanings are independent actual versus prospective time, preserving solo lagging-clock restriction. Insert result bool local changed/duplicate evidence only pending actual callers. Acquisitions simultaneous per minute and newly infected source eligible next minute; zero exposure/free no event and bounded failure policies retained. Native numerical kernels/temporary predicates are legitimate; tests not executed.",
+      "finding_refs": [
+        "SEGO-INITIAL09-F299"
+      ],
+      "disposition": "Exact conditional-decision finding; finite owners positive; downstream sanitation/state traces open"
+    },
+    {
+      "indices": [
+        913
+      ],
+      "comparison": "Fresh26 typed Seed/StreamId and StrategicMinute propagation; distinct deterministic acquisition/severity input associations, no semantic flag or conditional payload.",
+      "finding_refs": [],
+      "disposition": "Typed entropy coordinate inputs positive"
+    },
+    {
+      "indices": [
+        914
+      ],
+      "comparison": "Fresh132 finite DiseaseId serde vocabulary/parsing owner; snake_case storage and separate variant coordinate spelling intentionally distinct. No duplicated enum suggestion; source-only fixtures exercise canonical/malformed keys.",
+      "finding_refs": [],
+      "disposition": "Existing canonical finite vocabulary positive"
+    }
+  ],
+  "new_findings": [
+    "SEGO-INITIAL09-F299"
+  ],
+  "limits": "Pinned source only. No execution, repairs or clearance."
+}

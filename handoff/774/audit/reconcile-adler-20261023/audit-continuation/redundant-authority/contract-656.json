@@ -1,0 +1,59 @@
+{
+  "id": "CONT07-CONTRACT-656",
+  "at": "2026-10-24T01:20:48.701653+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1985,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/footprint/vista.rs",
+      "sha256": "afc09243786283c9ec9fbf8d0c66525bfae0998f3b4c10c3df6035813b8080b3",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/footprint/vista.rs",
+      "actual_EOF": 204,
+      "ranges": [
+        [
+          1,
+          204
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1964,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/vista_surface.rs",
+      "sha256": "0238db91b3a926b53a353da8892a2e0ff17018d131529261be5a4cdf2cb8e405",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/vista_surface.rs",
+      "actual_EOF": 480,
+      "ranges": [
+        [
+          1,
+          43
+        ],
+        [
+          75,
+          174
+        ],
+        [
+          212,
+          310
+        ],
+        [
+          384,
+          452
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Exact nonzero-origin playable seam now traced: lod.scene_point(local) adds origin for vista interpolation, then native_presented_vista_vertex_height passes local unchanged into zero-centered SceneTerrain stitch. Outline clipping/subdivision likewise operates local\u00b1playableHalf, while emitted triangles add origin. This is independent coordinate ownership for same scene seam; source-confirmed conditional CONT07-F128, normal origin0 coherent.",
+    "Diagnostic fixture1985 intentionally has origins500 but tests footprint far from local playable seam and submillimetre terrain, so fixture existence does not establish displaced seam correct. Actual extrema includes production local-clipping helper; no execution or assertion these tests failed. Distinct from prior F080 retained versus selected cohort and smooth versus triangle policy."
+  ],
+  "new_local_findings": [
+    "CONT07-F128"
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": null
+}

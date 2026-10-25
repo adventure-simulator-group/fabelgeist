@@ -1,0 +1,34 @@
+{
+  "id": "CONT07-CONTRACT-537",
+  "at": "2026-10-23T23:30:04.009652+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2371,
+      "source_id": "pr-working:crates/strategic-web/src/routes/quests.rs",
+      "sha256": "60584d6a541687989c1813acb39304738e37dd1bd1a9e17cf281551b36057b68",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/routes/quests.rs",
+      "actual_EOF": 2102,
+      "ranges": [
+        [
+          1,
+          350
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Baseline-covered quests role fresh bounded reread1\u2013350 only, no full2102body reread claim and no uniqueinventory increment. Request acceptance projection derives boolean/message from same Executed/Requested outcome. Turnin reward is pre-call observed contractgold and report_contract authoritative outcome checked, not retained localcurrentreward cache; actual mutation/concurrency receipt policy remains dependency if used as realized reward.",
+    "Surrenderoperation reducer and extraacceptargument choose from same enum; route rejects missinganswer before call. Context/revision supplied to canonical reducer, no competing authority proven solely browser fields."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2372,
+    "start_line": 1
+  }
+}

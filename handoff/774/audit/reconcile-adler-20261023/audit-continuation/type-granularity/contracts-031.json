@@ -1,0 +1,59 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-031",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "preparation-action-material-state-and-question-bound-authority",
+      "sources": [
+        {
+          "scope_index": 110,
+          "ranges": [
+            [
+              1,
+              405
+            ]
+          ]
+        },
+        {
+          "scope_index": 111,
+          "ranges": [
+            [
+              1,
+              72
+            ]
+          ]
+        }
+      ],
+      "distinction": "IngredientPreparationAction is requested Cut/Grind operation, not resulting material preparation state. Domain receipt versus public presentation are different authority projections even if both retain action. MedicinalMaterialComponent identifies intervention profile + version, separate from item catalogue identity and material object revision. Empty extension enums deliberately allow only shared base cases.",
+      "uses": "preparation_rights_question146\u2013157 binds actor/object/place Alter. decide159\u2013172 derives private decision provenance digest. PreparationPlanAuthority197 accepts generic PrivateRightsDecision<()> and planner235\u2013236 checks Allowed kind only; unlike actual ForageLicenseDecision (108658\u2013681) it does not refine association to the supplied coordinates/action. Normal sourcefixture supplies coherentquestion. Physical duration290\u2013311 derives from operation+skill+tool, while genericauthority can carry independently chosen RequestedDuration.",
+      "disposition": "Qualified Q005: an admitted preparation-specific question/decision association would prevent Allowed decision from different object/actor/purpose being used by this planner. Exact alias lookup pending, no ordinarywrongrecipient or newunique count. Keep distinct operation/state, material receipt/publicpreview and profile/version roles; do not remove role wrappers because actionfields overlap. Actual terminal partial interval correctly wait-only, no inventedcompletion.",
+      "acceptance": "Any associated decision must bind actual actor/object/place/Alter and same proof digest without trusting bare Allowed discriminant. Preserve real native authority source, durations derivedfrom skills/tools and terminal wait-only policy. No unused domain vocabulary added to justifytypes, no sourceedit or fixtureexecution.",
+      "question_refs": [
+        "SEGO-INITIAL11-Q005"
+      ]
+    },
+    {
+      "id": "measured-inventory-count-fraction-capacity-mass-and-pricing",
+      "sources": [
+        {
+          "scope_index": 112,
+          "ranges": [
+            [
+              1,
+              804
+            ]
+          ]
+        }
+      ],
+      "distinction": "ItemQuantity is nonzero fungible count; ConsumableFractionMicros is a fixed-point whole-item fraction with realzero. MeasurementBasis immutable capacity/mass/value/tare differs mutable remainingamount and standard catalogue basis. MeasurementKind controls whether container survives empty; bulk measured lot is not unopened stack. PricingFactor positive rational can exceed1, unlike consumablefraction; mass/value fixedunits are not interchangeable though bothu64.",
+      "uses": "effective_totals214\u2013275 admits singletonmeasuredrow+instancebasis and computescheckedproratedmass/value, or fullunopenedstackfromstandardbasis. BareOptioncrossproducts failthrough typederrors. prorated_floor283\u2013291 widens multiplication beforefloor; checked_aggregate_price311\u2013360 aggregateswholeline, composes/cancels rationalfactors androunds once by actual sale direction. Microsratio52\u201363 roundsup/capsatwhole, scale78\u201386 floors; these arepurpose-specific rounding contracts.",
+      "disposition": "Keep meaningful distinctcount/fraction/basis/remaining/mass/value/pricingroles and coherent measured/unopened stages. Share invariant under common numeric helper only where it retains unit and rounding; no universalFraction replacing positive unboundedpricingfactor or preservingcontainerzero asmissingobject. Existing09 shape obligations and native physicalcustody findings are dependencies, notnew11unique. Module header claims schemaunimplemented but body alone cannot establish actualcurrentreceiversunused; no such inference.",
+      "acceptance": "Immutableinstancebasis stays attached after opening/recipechanges; quantity1 measuredstate, actualzero contents retaincontainer tare and no depletabletare. Preserve real fractionalrounding/microunits, overflowerrors, actualline-total beforepricing and no arbitrarycurrency/massunit guesses. Native individualobject/lotcustody still futureown11; no claim merchant sale now safe from arithmeticfixtures."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan.",
+  "qualified_later_finding_refs": [
+    "SEGO-INITIAL11-F004"
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-059",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "contained-water-volume-and-unavailable-mass",
+      "sources": [
+        {
+          "scope_index": 220,
+          "ranges": [
+            [
+              1030,
+              1140
+            ]
+          ],
+          "qualification": "Only registered scoped1030\u20131140 read; surrounding1451linebody not credited."
+        }
+      ],
+      "finding_refs": [
+        "archive:ROOT-INITIAL04-F035",
+        "local774:M29",
+        "local774:M30"
+      ],
+      "disposition": "existing required failure-versus-mass and physicalvolume support",
+      "trace": "contained_water_ml1034\u20131057 requires every water containerobject, resolves root custody and checkedaddsu64 ml. Its concrete missingobject/custody/overflow errors are not successful infinite quantity;173 receiver previouslyread converts them toInfmass, exactROOT-INITIAL04-F035. Remainingcapacity1060\u20131087 combines actual graph volume and liquid Milliliters with checked arithmetic; filling1090\u20131138 preserves custody,currentnonwatercontents and zero remainingcapacity no-op.",
+      "qualifications": [
+        "Validzero carried water and zero remainingcapacity are distinct from unavailable/failed source. No humanBodyMass cap on carriedmass; overload semanticsROOT-INITIAL04-F037 remain dependency, notpermissiontosuccessfullyfabricateInf.",
+        "Only scopedrange read, firstlines are tail of liquid_used; no fullgraph/fixtureadmission credit and no new ordinarywatercreation or physicalsum failure inferred."
+      ],
+      "acceptance": "Keep canonicalvolume/mass roles and explicit sourcefailure untilactualreceiver policy; preserve checkedcapacity/custody and legitimatezerocases."
+    },
+    {
+      "id": "tincture-portion-versus-medical-dose-granularity",
+      "sources": [
+        {
+          "scope_index": 217,
+          "ranges": [
+            [
+              466,
+              478
+            ],
+            [
+              502,
+              565
+            ]
+          ],
+          "qualification": "Previously personally read full217 in058; bounded finding refinement, same-source evidence reused."
+        }
+      ],
+      "finding_refs": [
+        "SEGO-INITIAL11-F006"
+      ],
+      "disposition": "qualified distinct strengthening finding after exactalias lookup",
+      "trace": "Request dose_milliunits is admitted as DoseMilliunits1..1000 at512\u2013515, but542 converts it to a fraction of the currently remaining bottle.543 multiplies remainingcomponent.potency_units by that fraction, then544 constructs a new DoseMilliunits for the actual medicinal standarddose. Original pinnedpotency466\u2013478 may be0.1..1, and current remainingpotency changes across administrations. A full-bottle request is therefore not necessarily one standard medicinal dose. The same type can interchange the relative physical selection with its scaled clinical result, hiding a real dimension conversion.",
+      "qualifications": [
+        "Current arithmetic is coherent; no overdose, ordinary wrong clinical effect or failed physical conservation established, and no execution.",
+        "Parent exact root170+Adler1002 metadata lookup found no exact portion-versus-realized-dose remedy. M103 and M29 are connecteddependencies; prior dose positive/no-op distinction is different.",
+        "Bottle portion is relative to current remaining amount, not original bottle or absolute standarddose; preserve repeat-administration semantics."
+      ],
+      "acceptance": "One explicit portion-to-realizeddose conversion preserving currentpolicy and versioned privatephysiology source; seeF006."
+    }
+  ],
+  "new_findings": [
+    "SEGO-INITIAL11-F006"
+  ],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

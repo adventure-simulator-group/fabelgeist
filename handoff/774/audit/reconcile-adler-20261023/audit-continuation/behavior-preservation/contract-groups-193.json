@@ -1,0 +1,83 @@
+{
+  "id": "CONT08-CONTRACT-193",
+  "at": "2026-10-25T14:04:05.044951+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 747,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_head_frame.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/device_head_frame.rs",
+      "before_sha256": "e937c1be953b37a56e3564900bbd24fc4c3c901acdbbb91483bfa120510106ca",
+      "after_sha256": "0ba82a07830e04fce84a96018b01826029ddf86029936f1a328c91e41330406c",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0747-base-e937c1be953b37a56e3564900bbd24fc4c3c901acdbbb91483bfa120510106ca",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/0ba82a07830e04fce84a96018b01826029ddf86029936f1a328c91e41330406c",
+      "diff": "source-evidence/pr-0747.diff",
+      "diff_sha256": "f2d3dbacba0d1199bb2b1f3d24535cc08f571565e0654eb2b6e2ff360e9ba0d3",
+      "head_body_read_ranges": [
+        [
+          1,
+          327
+        ]
+      ],
+      "facts": [
+        "Full327 and entire348-line actual diff. Four shaders relocated unchanged; fixed host_float add/sub/mul/div/sqrt and zero-hook ABI retained, unlike generic frame732 native operations. Same bodytop NaNskip/orderedmax, head\u2192jaw\u2192left_eye\u2192right_eye first lookup and canonical error causes/checkedu32 adapter826.",
+        "Same top/orient/bounds/finish dispatch order, native sentinelarray/order, all8 membership sum/.30support/.55span and 1e-6coincidence fail fallback. Retains sum-before-half center and explicit per-coordinate axis accumulation, .018minimumextent/.001orthogonality/3.4e38finite gates. No runtime/GPU deterministic-success claim; actual generic frame versus head special kernels intentionally remain distinct."
+      ],
+      "disposition": "Own08 old/new comparison accounted with concrete lower2179/2332/2336 and frame-kernel receiver; retained API limits explicit.",
+      "acceptance": "Preserve exact packing, first-error, membership and floating operation order plus existing fixture oracles; no tests or checks run."
+    },
+    {
+      "scope_index": 748,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_limb.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/device_limb.rs",
+      "before_sha256": "e0d892a94ac4639bcb6d76efd6ffe7b88eaab221e530f54832fba6daafd8355d",
+      "after_sha256": "e0d892a94ac4639bcb6d76efd6ffe7b88eaab221e530f54832fba6daafd8355d",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0748-base-e0d892a94ac4639bcb6d76efd6ffe7b88eaab221e530f54832fba6daafd8355d",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/e0d892a94ac4639bcb6d76efd6ffe7b88eaab221e530f54832fba6daafd8355d",
+      "diff": "source-evidence/pr-0748.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          212
+        ]
+      ],
+      "facts": [
+        "Full212 and empty actual diff. Actual Greave clearance, Cuisse/Rerebrace proximaltrim\u2192clearance, Poleyn/Couter/Spaulder no trim and unsupported error retained. Frames/status/part carried through own184726 finish, same side outward +/-1, .65thigh/1.5arm/.030morphreserve.",
+        "Native per-shell carrier mapping/ordered extent dispatch\u2192trim and .30minimum remaining span, radial1e-6 denominator, clamp/proximal interpolation/op order unchanged. Custom zero-span/malformed shell associations retained conditional input concerns, not changed type regression; no run."
+      ],
+      "disposition": "Own08 old/new comparison accounted with concrete lower2179/2332/2336 and frame-kernel receiver; retained API limits explicit.",
+      "acceptance": "Preserve exact packing, first-error, membership and floating operation order plus existing fixture oracles; no tests or checks run."
+    },
+    {
+      "scope_index": 750,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_section_hull.wgsl",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/device_section_hull.wgsl",
+      "before_sha256": "8e5c9749f683eebbb88a1f1946bafc14ae3c6ac5c489c9ee9b740c60f1c7d43f",
+      "after_sha256": "8e5c9749f683eebbb88a1f1946bafc14ae3c6ac5c489c9ee9b740c60f1c7d43f",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0750-base-8e5c9749f683eebbb88a1f1946bafc14ae3c6ac5c489c9ee9b740c60f1c7d43f",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/8e5c9749f683eebbb88a1f1946bafc14ae3c6ac5c489c9ee9b740c60f1c7d43f",
+      "diff": "source-evidence/pr-0750.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          59
+        ]
+      ],
+      "facts": [
+        "Full59 WGSL and empty actual diff. Shared section hull preserves count<3\u21920, stable lexicographic insertion, exact duplicate removal incl geometrically equal signedzero, monotone twochain strictcross>0 and endpoint removal.",
+        "Radius baseline.012, absdet<1e-8 skip, inclusive edge0..1 and strictlygreater distance retained. Actual clothing721 receiver own182 already read; independent other consumers remain separate. NaN/extreme/customdegenerate behavior retained API limit, no new regression or device run."
+      ],
+      "disposition": "Own08 old/new comparison accounted with concrete lower2179/2332/2336 and frame-kernel receiver; retained API limits explicit.",
+      "acceptance": "Preserve exact packing, first-error, membership and floating operation order plus existing fixture oracles; no tests or checks run."
+    }
+  ],
+  "next": "751 tasset controls46 then752 sections79/753 torso342"
+}

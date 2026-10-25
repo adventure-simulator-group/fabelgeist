@@ -1,0 +1,228 @@
+{
+  "id": "CONT07-CONTRACT-358",
+  "at": "2026-10-23T19:16:19.269578+00:00",
+  "lens": "audit-redundant-authority",
+  "members": [
+    {
+      "scope_index": 1508,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/assembly.rs",
+      "sha256": "cbda2d52d625c9e1eb7fbb5d5aec2690066609512d42c9e95dfad4291ae59890",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/assembly.rs",
+      "actual_EOF": 355,
+      "ranges": [
+        [
+          1,
+          355
+        ]
+      ],
+      "read_kind": "fresh full actual source plus personally consumed/reanalyzed exact prior narrative"
+    },
+    {
+      "scope_index": 1509,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/assembly/input.rs",
+      "sha256": "f034c1a0aa3a41421c9cf823b2fa3c3b491889188a8e4ecc228a50d8e96c3399",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/assembly/input.rs",
+      "actual_EOF": 153,
+      "ranges": [
+        [
+          1,
+          153
+        ]
+      ],
+      "read_kind": "fresh full actual source plus personally consumed/reanalyzed exact prior narrative"
+    },
+    {
+      "scope_index": 1510,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/assembly/packing.rs",
+      "sha256": "73f096fbf7bd766dea82037bb3b7f9f83b1e3a20a5ef36355ff36dc6b9990cc1",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/assembly/packing.rs",
+      "actual_EOF": 75,
+      "ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "read_kind": "fresh full actual source plus personally consumed/reanalyzed exact prior narrative"
+    },
+    {
+      "scope_index": 1511,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/assembly/props.rs",
+      "sha256": "58055c79f3fdfbfcee3824dd3008ebe3b966a6697615b1e1fcf8f0f4efb80ff4",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/assembly/props.rs",
+      "actual_EOF": 50,
+      "ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "read_kind": "fresh full actual source plus personally consumed/reanalyzed exact prior narrative"
+    },
+    {
+      "scope_index": 1512,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/assembly/ranges.rs",
+      "sha256": "93018a75b7998c586b48974ab837dc5cefa3d9bf9af497c987bda989e6840615",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/assembly/ranges.rs",
+      "actual_EOF": 134,
+      "ranges": [
+        [
+          1,
+          134
+        ]
+      ],
+      "read_kind": "fresh full actual source plus personally consumed/reanalyzed exact prior narrative"
+    },
+    {
+      "scope_index": 1513,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/assembly/tests.rs",
+      "sha256": "98a39ca62ce098e89154d81e8e8a1f955c7d8b33909c59ce4737664c4ddc23ca",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/assembly/tests.rs",
+      "actual_EOF": 449,
+      "ranges": [
+        [
+          1,
+          449
+        ]
+      ],
+      "read_kind": "fresh full actual source plus personally consumed/reanalyzed exact prior narrative"
+    },
+    {
+      "scope_index": 1533,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/furniture.rs",
+      "sha256": "07988f23128ecaaf0ea6916b865309979ba36c6f62650f7171667f470f848cf9",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/furniture.rs",
+      "actual_EOF": 127,
+      "ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "read_kind": "fresh full actual source plus personally consumed/reanalyzed exact prior narrative"
+    }
+  ],
+  "contracts": [
+    {
+      "source_index": 1508,
+      "disposition": "accounted exact07 roles; no new finding",
+      "facts": [
+        "Part.transform is the placement pose while local_transform is the component pose; shader Building records distinguish owner and component rows via actual tagged levels. They are separate frames/roles, not duplicate matrices to collapse. component_index cache exists only within one pack and keys exact local matrix/UV bits.",
+        "PackedCity buildings/batches/native bytes are produced once for a snapshot. count and capacity are derived upload metadata required by native consumers, not independently authored policy; overflow/narrowing gates remain existing operations/admission questions. Source buffers do not prove arbitrary future mutable native assets coherent.",
+        "Pending publication carries exact candidate root and frame while resident CityGpuScene is last successful publication. Assembly retains previous scene/readiness on pack/upload failure, marks candidate failure, and swaps only on success. Published marker is CPU publication, READY native render readiness: distinct phases, not two equal readiness booleans. Source roots despawn only after successful upload.",
+        "Empty successful publication intentionally clears old owner scene. A disappeared candidate root is discarded. Another resident city cannot satisfy exact candidate marker. No all-hosted/native GPU validation from source."
+      ]
+    },
+    {
+      "source_index": 1509,
+      "disposition": "accounted exact07 roles; no new finding",
+      "facts": [
+        "A pending frame is future publication, not an independent current resident frame; set_publication stages it until assembly. clear resets both parts/buildings/publication as a cohort.",
+        "Prototype key uses compiled Arc identity plus TimberInfill material handle. Fresh critical materials.rs147-240 shows each appearance receives a newly added infill asset and full palette is from same private material resource. New prospective REG001 palette::get1-69 personally read: TimberInfill always returns that appearance.infill; all other choices derive same appearance/assets. Thus key identifies complete chosen palette within this installed resource, not by accidental RGB equality. No material-resource hot replacement guarantee inferred.",
+        "Group.from_parts takes first same-root placement transform. Fresh furniture.rs53-105 creates every production furniture mesh child with Transform::IDENTITY under its root; props reader uses those immediate-child global transforms. Same-root transform equality is the actual static producer contract, not a general arbitrary Part equality validator. Raw same-root differing matrices remain explicit API input precondition, no normal bad producer asserted."
+      ]
+    },
+    {
+      "source_index": 1510,
+      "disposition": "accounted exact07 roles; no new finding",
+      "facts": [
+        "Geometry cache is scoped to one pack(&World) borrow and mesh AssetId, so actual asset snapshot cannot change during that pack. It is not a long-lived key requiring asset revision across replacement. Component matrix/UV dedup likewise one-pack exact-bit lookup.",
+        "Radius and level bitset summarize prototype parts; each placement gets its own native transform record. Shared owner Arc list is a referenced population, not another authoritative building list. First fade policy relies actual group consistency; props obtains it once from root furniture kind, current building groups have None. No arbitrary rawPart consistency seal."
+      ]
+    },
+    {
+      "source_index": 1511,
+      "disposition": "accounted exact07 roles; no new finding",
+      "facts": [
+        "Only VistaFurniturePresentation with actual Outdoor location creates prop owners. Immediate child geometry/material snapshots are copied once before static parent/children retirement; dynamic interactive/interior objects excluded. Native world transform is not the same role as local component transform.",
+        "Outdoor fade comes from shared furniture::outdoor_range; it is not copied per-kind thresholds here. Owner count versus part count are different populations logged separately."
+      ]
+    },
+    {
+      "source_index": 1512,
+      "disposition": "accounted exact07 roles; no new finding",
+      "facts": [
+        "Arc pointer identities refer to retained Arc owner groups during RangeGroups lifetime, so live groups cannot alias a freed allocation. Actual repeated pointer shares same immutable owner list, while repeated range submissions intentionally retain draw multiplicity.",
+        "finish creates sorted owner lists, draw ranges and derived capacity together. Vec group-key memoization is same-call dedup; not independent authoritative membership or a uniqueness promise. Original fixtures deliberately preserve duplicate owners/draws.",
+        "Range address/capacity assert/expect and unchecked width/add arithmetic remain actual source-backed operational concerns, including localF36; this07 comparison neither fixes nor clears them. Native ABI metadata is a coherently computed snapshot only."
+      ]
+    },
+    {
+      "source_index": 1513,
+      "disposition": "accounted exact07 roles; no new finding",
+      "facts": [
+        "Original component/placement fixtures compare separate pose roles, LOD surface flags, shared geometry, source byte extents and draw capacity at actual receiving ports. Expected numeric vectors/byte counts are independent oracles, not maintained production policy.",
+        "Exact optional regional-map fixture verifies separate owner buffers/frame reanchor, failed replacement retains prior frame/buildings/readiness, successful replacement changes buffers then awaits readiness. Optional env branch is read source only; no runtime configured/executed branch claim.",
+        "Owner-specific reset and static-only prop selection preserve independent Scene/RegionalMap authorities and interactive/interior exclusion. No arbitrary mesh/matrix/native capacity proof from bounded fixture."
+      ]
+    },
+    {
+      "source_index": 1533,
+      "disposition": "accounted exact07 roles; no new finding",
+      "facts": [
+        "FurnitureMeshCache owns one immutable recipe mesh snapshot per actual FurnitureKey; miss calls one key.recipe source then converts its meshes. Recipe identity versus placed furniture identity are distinct. No independent recipe calculation or duplicated default maintained here.",
+        "Outdoor fade is centrally owned by outdoor_range for both native per-child VisibilityRange and GPU props encoding. Every production mesh child uses Transform::IDENTITY under same parent; this closes exact first-transform grouping dependency for normal static props. No dynamic future child deformation allowed merely by private cache.",
+        "Vista updates despawn prior vista furniture roots then spawn current typed positions/orientations. Current rendering markers do not confer collision/gameplay authority. Full observer-only source read adds one ahead-of-frontier source variant; no unseen visibility module body credit."
+      ]
+    }
+  ],
+  "personally_consumed_prior_narratives": [
+    "audit/continuation/rig/admission03/contract-groups.jsonl#RIG-ADMISSION03-CONTRACT-430",
+    "audit/continuation/rig/admission03/contract-groups.jsonl#RIG-ADMISSION03-CONTRACT-431",
+    "audit/continuation/rig/admission03/contract-groups.jsonl#RIG-ADMISSION03-CONTRACT-432",
+    "audit/continuation/rig/admission03/contract-groups.jsonl#RIG-ADMISSION03-CONTRACT-433",
+    "audit/continuation/rig/admission03/contract-groups.jsonl#RIG-ADMISSION03-CONTRACT-434",
+    "audit/continuation/rig/admission03/contract-groups.jsonl#RIG-ADMISSION03-CONTRACT-435",
+    "audit/continuation/rig/admission03/contract-groups.jsonl#RIG-ADMISSION03-CONTRACT-447",
+    "audit/continuation/rig/admission03/contract-groups.jsonl#RIG-ADMISSION03-CONTRACT-084"
+  ],
+  "new_material_roles": [
+    {
+      "registration": "CONT07-REG-001",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/materials/palette.rs",
+      "sha256": "0ce1ea507bc49a06edff5175cc0638a0cc8e5cf7c3e33258fc41b01e5d97faa1",
+      "ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "disposition": "Actual palette selector shares one appearance/material asset authority; prototype infill identity dependency resolved for same installed resource. No new07 defect.",
+      "coverage": "new exact source role personally analyzed for07; not included in old2853 denominator; other lenses and global registration reconciliation pending"
+    }
+  ],
+  "fresh_supporting_bodies": [
+    {
+      "scope_index": 1521,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/materials.rs",
+      "sha256": "b40a4b3063040003cdd4e0cfee6573ce1e51f131dde1d14cf4dbf25c13295916",
+      "ranges": [
+        [
+          140,
+          240
+        ]
+      ],
+      "credit": "fresh critical palette factory/cohort definition only; full source display had truncated line285-286, no full1521/other-lens credit"
+    }
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "identity_count_accounting": {
+    "new_original_variant_ids": [
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/assembly.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/assembly/input.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/assembly/packing.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/assembly/props.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/assembly/ranges.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/assembly/tests.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/furniture.rs"
+    ],
+    "already_covered_fresh_reanalysis_ids": [],
+    "new_this_contract": 7,
+    "cumulative_new_original_variants": 19,
+    "cumulative_original_unique": 1777,
+    "count_basis": "Exact source_id union against Adler saved07coverage1758, not number of fresh-read rows"
+  }
+}

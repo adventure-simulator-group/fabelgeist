@@ -1,0 +1,36 @@
+{
+  "id": "RIG-INITIAL06-GROUP-006",
+  "at": "2026-10-22T18:58:38.645223+00:00",
+  "lens": "audit-type-ownership",
+  "actual_mhr_source": {
+    "source_id": "pr-working:crates/fabelgeist-mhr/src/math.rs",
+    "sha256": "20b8033a4cd2771f494d9a73e0820bd9c27c5cdce23c097687360719bfc46b0a",
+    "actual_eof": 357,
+    "actual_fresh_read_ranges": [
+      [
+        1,
+        357
+      ]
+    ]
+  },
+  "actual_registered_competitor": {
+    "registration_id": "RIG-INITIAL06-REG-002",
+    "source_id": "pr-working:crates/fabelgeist-math/src/transform.rs",
+    "sha256": "db425ac10c79f92ed75f446051d52b90811ab3c5b2c5f28304959c9445182564",
+    "actual_eof": 322,
+    "actual_fresh_read_ranges": [
+      [
+        1,
+        110
+      ]
+    ],
+    "exclusions": "111+from_mat4/composition/inverse/tests and vector/matrix helper bodies excluded. OriginalREG002110+wording qualified: actual110 closingbrace ismaterial, exclusion begins111."
+  },
+  "current_contract_comparison": "Fresh scopedMHR full357: Transform is native Momentum rigid-plus-uniform-scale f64state: translation3, quaternionXYZW4, scalarScale; compose/FBXEuler-order/rowmajorinput/conversion pack8 semanticsownedbyMHR formatloader/backend. ActualscopedSkeleton136 consumes this exact state with f64 FBXprops andbindpose tree, to_skel_state castschecked-layout native8 floats withoutclaimfinite. NewactualsharedmathTransform1-110 instead stores POSITIONvector/EULERdegrees3/vector3 nonuniformscale with ordinarySerde andbuildsCOLUMNmajorTRS rotationRzRyRx. These definitions are different representedcontracts, not equalownership basedonname; replacingMHRnativequaternion/uniformstate with genericEuler/nonuniform record would change format/scale/precision/representation semantics. KeepMHRnative adapter/core appropriate toformat, genericTRS mathwith mathowner. SharedmathVec3precision notread/norneeded to establish this independentlyconcrete difference, no unsupportedf32claim. Neither ownerisfinitecheckedRigidRotation orframedPosition; actualnumericalraw representation notsecond checkedgeometryowner.",
+  "dependency_and_users": "MHRmath referenced byactualSkeleton::bind_pose and FBX Character invertbindprojection; genericsharedmath lib explicitlyexports transform module, no game/MHRdependency inactualMathCargo. Typed nativepack is exactMHR boundary, not instruction to move model-specific jointstate into genericEuler module or introduce MHR->Tactical/Building. ParentMHRSourcecharacter1-110/modeldef1-180 partialwitnesses staynotwholecoverage.",
+  "disposition": "Distinct native numerical owners justified after actual definitions +caller comparison; no consolidationfinding. Existing MHRnumericalthresholds/finitebehavior/precision/kernel correctness belongotherlenses; no newquaternion/vector/inversegraph needed for this06question.",
+  "source_edits": 0,
+  "project_execution": 0,
+  "new_cases": 0,
+  "later_lens_credit": false
+}

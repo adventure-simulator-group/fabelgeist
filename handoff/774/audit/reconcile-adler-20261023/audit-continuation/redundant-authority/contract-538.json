@@ -1,0 +1,50 @@
+{
+  "id": "CONT07-CONTRACT-538",
+  "at": "2026-10-23T23:30:17.619205+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2372,
+      "source_id": "pr-working:crates/strategic-web/src/routes/scene_assets.rs",
+      "sha256": "1c8846c66fb8bbf851e770ac75472794fa7c32b45112e5736e3ee1110bc53685",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/routes/scene_assets.rs",
+      "actual_EOF": 121,
+      "ranges": [
+        [
+          1,
+          121
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2373,
+      "source_id": "pr-working:crates/strategic-web/src/routes/scene_equipment.rs",
+      "sha256": "2ecdbb109e62b9227c8b94ae71714cab987c49a1cb9c47c4e87afb39560ac210",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/routes/scene_equipment.rs",
+      "actual_EOF": 306,
+      "ranges": [
+        [
+          1,
+          306
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Scene assets obtains canonicalcase-site location before selecting currentvicinity, then passes same capturedidentity, scenekey, origin, minute and profile to one importedscene builder. Propertycatalog publishing is explicit downstreamauthority handoff; no localcurrentdocument cache. Related ROOT-PP010/011 coordinate/errorpropagation inherited, no newunique.",
+    "Equipment full306body reads authoritative worn, inventory, occupancy, object and recipe records; presentation id derives actualitemrow and appearance associations match bothcharacter+row thenphysicalobjectid. Sorting deterministic; optionalweapon/holder reflect actual recipepresence. Separate queries can observe different DBtimes but no actual transactionalversion guarantee or concrete admitted mismatch demonstrated; pending consistency obligation not blanket staleprojection finding.",
+    "GeneratedAppearance hash32 gate checksshape, not thatrecipebytes/hash/generatorversion agree; actual producer association, recipient regeneration validation remains prerequisite (related wholeproduct admission, not newautomatic07defect). Missinglocation or parent/point failsclosed in occupancy; semantic exhaustiveanchor match uses SDKtypedowner.",
+    "Current actor visibility distinguishes party/settlement/explicitgrants, none==none grantsnoaccess. Publicjoinrequest data extends explicitgrants byactualparty; actual authority exposure policy remainsowningDBdomain, no unsupportedsecurityconclusion."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2374,
+    "start_line": 1
+  }
+}

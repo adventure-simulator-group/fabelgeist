@@ -1,0 +1,218 @@
+[
+  {
+    "id": "MHR-LAYOUT-01",
+    "status": "incomplete",
+    "source_cells": [
+      162,
+      163,
+      164,
+      95
+    ],
+    "meaning": "Exact model/set names, model-column identity and joint+seven-channel row identity through dense transform operations",
+    "producer": "model_def.rs82-112 parses external text; token admission279/283 and218/224 creates typed names/channels/rows; Contribution18-22 retains row+column until matrix densification95-100",
+    "state": "ParameterTransform45-55 uses typed name/table/matrix/mask/set/limit records",
+    "operations": [
+      "layout.rs90-110 offsets flatten only inside dense adapter; ParameterMatrix row/add/append/tensor_transpose247-275 index actual contiguous coefficient memory",
+      "ModelParameterColumn::native_index116-118 feeds only actual numeric parameter Vec indexing in apply_limits74 and Creator proportions22; fixture evaluate24 does same before TensorData31",
+      "JointParameterTable::tensor_values157-158 feeds TensorData native array at model.rs269; tensor_transpose266-275 feeds TensorData347",
+      "ModelParameterRow::as_slice280-282 feeds same-owner copy_from_slice260 and existing assertion arrays in tests29/38/63/71/84/140",
+      "Exact parameter names survive internal lookup; no raw text getter exists on ModelParameterName/ParameterSetName"
+    ],
+    "receivers_pending": [
+      "Creator proportion-to-name raw original producer gap RIG-PP-002",
+      "All parameter table users outside MHR and portable skeletal metadata consumers"
+    ],
+    "boundary_disposition": "intentional proven boundary for named native dense projections, subject to remaining consumer graph; no claim that all public raw APIs are unconditionally valid"
+  },
+  {
+    "id": "MHR-LAYOUT-FIXTURE-01",
+    "status": "source-read",
+    "source_cells": [
+      164
+    ],
+    "disposition": "intentional proven boundary",
+    "evidence": "tests.rs1-143 preserves raw authored .model source text, row/name/column values and numeric assertion arrays; tests construct typed skeleton rows and decode through real parser. as_slice calls terminate directly in equality assertions; no retained application primitive state."
+  },
+  {
+    "id": "MHR-FK-01",
+    "status": "source-read-core-path-closed-consumer-graph-pending",
+    "source_cells": [
+      159,
+      165,
+      161,
+      180,
+      181
+    ],
+    "producer": "SkeletonBuilder visit creates Option<RigJointOrdinal> parents in traversal order; skel_state.rs123-157 follows typed parent chains and returns named typed PrefixMultiplicationLevel source/target vectors",
+    "state": "model.rs80 stores native Burn integer tensors only after checked upload; cbbb model/tensor_upload.rs9-33 owns that actual adapter",
+    "primitive_escapes": [
+      "PR model.rs283/288 -> Vec<i32> -> TensorData291/292; retained only as Burn tensor",
+      "cbbb tensor_upload.rs21/26 -> native i32 Vec -> TensorData29/30, same order and errors",
+      "Gather consumer PR model.rs540-546 (cbbb524-530) calls Tensor::select and select_assign with the actual i32 tensors; no wrapper reconstruction"
+    ],
+    "endpoint": "Burn select/select_assign IndexingUpdateOp::Add on tensor numerical skeleton state. These framework index tensors require native integer words; canonical ordinals retained until upload.",
+    "fixture_evidence": "skel_state.rs160-302 uses numeric TensorData and typed parent/Transform traversal; fixture .into_data/Vec escapes terminate in mathematical comparison/assertions."
+  },
+  {
+    "id": "MHR-TENSOR-01",
+    "status": "incomplete",
+    "source_cells": [
+      161,
+      180,
+      157
+    ],
+    "producer": "Mhr::new239-403 consumes typed Character/ParameterTransform into native tensors",
+    "primitive_escapes": [
+      "typed layout tensor_transpose/tensor_values -> TensorData transform/offsets",
+      "RigJointTable::as_native_slice359/367/374 -> concat -> TensorData shapes [1,joints,3/4/8]",
+      "PackedRigSkin::iter -> canonical joint -> checked i32 at326 -> TensorData388; native vertex slot separately checked327 -> TensorData392",
+      "Mesh face vertex indices -> checked i32 at339 -> TensorData386; distinct from joint ordinals",
+      "Count/shape getters num_joints405,num_vertices409,num_model_parameters415 provide actual tensor allocation/shape observations; device423 retains checked device reference"
+    ],
+    "operations": [
+      "forward_with447-525 multiplies native coefficients/transform, invokes tensor FK and corrective native kernels, skins at607-625, and emits native tensor MhrOutput48-59",
+      "skin612-623 selects exact joint/vertex tensors and accumulates weighted native position vectors; source order unchanged",
+      "correctives.rs complete actual NN tensor receiver read: source NPZ sparse native indices cast/checked within densification then TensorData; forward/pose_features keep seven-channel native tensor layout"
+    ],
+    "endpoint": "Burn TensorData creation, native tensor gather/matmul/reduction and tensor readback. No primitive output is treated as admitted joint table until Creator readback validates shape/count.",
+    "receivers_pending": [
+      "All Creator tensor readback/retained state/native upload/export paths",
+      "Other zero_parameters/forward consumers and correctives native archive adapter dependency"
+    ]
+  },
+  {
+    "id": "MHR-OVERLAY-01",
+    "status": "source-read",
+    "source_cells": [
+      180,
+      181
+    ],
+    "disposition": "intentional proven boundary",
+    "evidence": "cbbb cell180 full identical text linked to PR cell161 plus exact archive textual delta read. Only FK upload extracted to cell181; all native conversion/TensorData/gather semantics and call position remain same. This overlay must apply atop reconciled PR source, not replace newer unrelated bodies."
+  },
+  {
+    "id": "MHR-METADATA-01",
+    "status": "source-read",
+    "source_cells": [
+      156,
+      157
+    ],
+    "disposition": "non-applicable",
+    "evidence": "Manifest package/dependency/lint entries are Cargo native metadata and README code examples pass native Burn Tensor values directly to public numerical API. README contains no executing producer/receiver body; runtime contract references are checked against actual source in MHR-TENSOR-01 rather than trusted as coverage."
+  },
+  {
+    "id": "FBX-METADATA-01",
+    "status": "source-read",
+    "source_cells": [
+      150
+    ],
+    "disposition": "non-applicable",
+    "evidence": "Cargo metadata owns fabelgeist-rig/num_enum dependencies and native compressed-format decoding feature selection; no application primitive producer/retained-state path."
+  },
+  {
+    "id": "FBX-NAME-01",
+    "status": "incomplete",
+    "source_cells": [
+      151,
+      152,
+      153,
+      154,
+      159
+    ],
+    "producer": "lib.rs295-299 decodes source byte property once to FbxQualifiedName then FbxObjectName",
+    "admission": "object_name.rs22-38 cuts first NUL-one suffix, lossy-decodes UTF8 and strips final namespace only in format owner",
+    "state": "Object.name/qualified lib.rs51/56, NodeAnimation.name animation.rs55 and Take.name65 retain types; MHR BlendShapes41 retains FbxObjectName",
+    "operations": [
+      "object_name.rs42-45 direct owner conversion into RigJointName at SkeletonBuilder102 without raw caller forwarding",
+      "Display/Debug derive are presentation text; no public string accessor or unchecked mutable name payload",
+      "lib.rs363-376 graph traversal uses native FBX i64 object IDs and file-order links, independently of typed rig ordinals"
+    ],
+    "receivers_pending": [
+      "All external/native display/format call sites if any beyond known MHR names/diagnostics",
+      "Animation API consumer search currently finds no in-repository Take caller; retained owner trace remains bounded to actual public API"
+    ]
+  },
+  {
+    "id": "FBX-DURATION-01",
+    "status": "source-read-api-consumer-pending",
+    "source_cells": [
+      152,
+      151
+    ],
+    "producer": "Scene::takes182-235 calculates declared/inferred f64 source seconds and admits via FbxAnimationDuration::from_seconds225",
+    "state": "Take.duration68 is checked owner; no internal f64 duration storage after admission",
+    "primitive_escapes": [
+      "seconds91-93 is public raw getter; repository rg across *.rs found declaration only and no Take/.takes consumer, so no in-repository receiver or internal readmission was observed",
+      "Curve times/TransformChannel sample keep native FBX f64 key-time numerical interpolation at106-147; these are source-format sampling values, separate from admitted take duration"
+    ],
+    "disposition": "non-applicable for unobserved internal escape path; public getter existence is inventoried rather than assumed native proof",
+    "acceptance": "If a new caller is found during remaining scope, reopen getter trace through its actual receiver; no runtime behavior/shape guarantee inferred."
+  },
+  {
+    "id": "FBX-ARRAY-01",
+    "status": "source-read-native-path-closed",
+    "source_cells": [
+      153,
+      151
+    ],
+    "producer": "read_props467 reads native u32 wire field, constructs FbxArrayEncoding exactly once",
+    "state": "Typed enum is passed into decode_array427 and matched431-440 to uncompressed or zlib bytes",
+    "native_endpoint": "std::io::Read/ZlibDecoder decompression plus exact little-endian element conversion to Prop arrays471-499; raw wire byte/tag/count/width fields are intrinsic binary decoder values",
+    "error": "UnsupportedFbxArrayEncoding.reported_code is original native rejected u32 for diagnostics. No in-repository code reconstructs typed encoding from it. Owning additional-source enum read in full.",
+    "scope_limit": "Array-encoding fixture module is another owner cell; linked production native endpoint only, no fixture coverage claimed from its absence."
+  },
+  {
+    "id": "CREATOR-SKELETON-01",
+    "status": "incomplete",
+    "source_cells": [
+      95,
+      79,
+      114
+    ],
+    "producer": "proportions::model_parameters15-25 produces native f32 coefficient Vec immediately for generation TensorData25. ModelParameterColumn native index22 selects actual vector slot; CharacterProportions::get remains scalar at this numerical handoff.",
+    "state": "joint_bases27-73 returns RigJointTable<JointProportionBasis>; generation73-90 validates readback8-channel chunks/count, divides only translation by100 and collects typed states/bases",
+    "operations": [
+      "joint_bases retains typed joint+channel row and model column while dividing scalar translation coefficients by centimetres-per-metre58; actual portable numerical basis layout remains fixed",
+      "generation28-82 is real Burn readback: Tensor::into_data/into_vec and chunks native format, shape/count checked before canonical table creation",
+      "existing skeletal fixture11-164 uses actual TensorData/readback native numerical ports, retains typed parent/skin table in the rest of its mathematical parity assertions"
+    ],
+    "receivers_pending": [
+      "GeneratedCharacter definition/main and every state/base consumer",
+      "Core JointProportionBasis retained metadata/native Bevy animation consumer",
+      "Raw BodyProportion MHR-name producer RIG-PP-002"
+    ]
+  },
+  {
+    "id": "CREATOR-UNIFORM-01",
+    "status": "incomplete",
+    "source_cells": [
+      97
+    ],
+    "producer": "RigPassParameters::insert_joint73-79 accepts checked joint and parameter-role enum",
+    "primitive_escapes": [
+      "parameter.to_string + checked u32::try_from(joint)78 feed PassParameters::insert, not an arbitrary string lookup inside application logic"
+    ],
+    "receivers_pending": [
+      "PassParameters insert/build uniform ABI body",
+      "Every device shader binding declaration and typed parameter producer"
+    ]
+  },
+  {
+    "id": "RIG-PP-002",
+    "status": "actionable-candidate",
+    "disposition": "migration gap",
+    "location": "unchanged pr-working crates/adventuresim-core/src/character_proportions.rs54-67 BodyProportion::mhr_parameter -> scoped Creator proportions.rs20/42 ModelParameterName::from",
+    "scenario": "An internal authored MHR parameter identity is returned as raw static text and immediately reconstructed into the same model name owner in two application lookup paths. No serialization/parser boundary occurs between the mapping and receiver. Diagnostic strings are separate actual presentation ports.",
+    "rule": "Producer-propagation lens and crates/AGENTS typed producer propagation/composite checked leaves",
+    "smallest_connected_repair": "Move or adapt the BodyProportion-to-MHR-name mapping to an appropriate canonical shared/integration owner returning ModelParameterName, retaining Core independence from MHR. Update both lookups and actual diagnostics/underlayer label consumer together. No raw getter/re-admission forwarding shim.",
+    "dependencies": [
+      "Core BodyProportion role mapping",
+      "MHR ModelParameterName owner placement/import layering",
+      "Creator proportions::{model_parameters,joint_bases}",
+      "underlayer_equipment/proportions.rs88 label consumer fullyread: actualdiagnosticformatonly, notapplicationlookup. BothCreatorlookupreceiversstillrequiretypedmappingrepair."
+    ],
+    "acceptance": "One owning authored mapping emits typed parameter identity; lookup receivers consume it directly while native text diagnostic/file-label endpoints format it only when required. Existing exact spelling/order/coefficient values and errors preserved.",
+    "coordinator_notified": true,
+    "validation": "not executed"
+  }
+]

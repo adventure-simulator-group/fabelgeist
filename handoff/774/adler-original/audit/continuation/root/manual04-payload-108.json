@@ -1,0 +1,58 @@
+{
+  "packet_number": 108,
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/capability.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          555
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Full literal P16 DB capability1-555, including previously partial support ranges; each producer/retained field/projection/refresh operation personally compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          694
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Full literal PR DB capability1-694, actual raw hand selections/geometry/error paths compared against changed P16 product preparation, not inferred from helper filenames."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/capability/equipment_projection.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          266
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Full literal P16 helper1-266; exact CheckedStrategicWeapon/NativeHands/selection/admit/projection/timing bodies compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability/equipment_projection.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Confirmed global050 source registration before complete literal PR1-85 read; exact differing catalogue panics, raw dimension unpack and timing compared."
+    }
+  ],
+  "groups": {
+    "prepare-before-publication": "P16 NativeHands selects exact same two-slot observations, admits needed weapon leaves, loads parametric geometry with concrete lookup/recipe causes and computes all combat projections before StrategicEquipment publication. Old PR used panic on missing physical recipe and delayed projections to combat_equipment. Preserve P16 ordering/whole retained product rather than cherry-pick only its SignedLength signature. CheckedStrategicWeapon currently proves selected reach finite only; its name does not prove weight/precision/balance/skills or catalogue/item coherence.",
+    "index-and-map-safety": "All hand index values originate position on actual two-element items or [0,1], so parallel two-slot indexing is safe on this private producer path. hand_side's any-nonzero→Right is not evidence of arbitrary external index admission; actual private callers limited0/1. BodyPart exhaustive index7; peripheral explicit0..3→4. Weatherproofing at most7*u16MAX fitsu32 and final div7/min10000 safe u16. Map/transposes prepare local products and propagate error before external capability update; no local partial vector commit.",
+    "existing-numeric-graphs": "Full load confirms F035 contained-water Result errors fabricateInf and dry+water addition raw; F036 ammunition sum remains unchecked. Conditioned precision in capability and CombatWeapon joins F014 independently actual recipients, so fixing only final load callers insufficient. ranged_force_joules=40*weight.max(.5) can overflow finite mass; this is an additional computed-output obligation in the same whole physical product repair, not ordinary authored/runtime evidence. Local nonmelee attack interval clamps result .35..3 before elapsed admission, so a deliberately bounded gameplay interval differs from carrying a successful exact physical measurement.",
+    "physical-policy-differences": "Capability projection intentionally selects row-level reach/weight/balance while combat projection selects per-instance geometry; preserve documented policy rather than substitute one blindly. CharacterLimbs PlayerBody adapter reports constant70 andRight, whereas combatant preparation can use character condition weight. This is a canonical body-product propagation question requiring actual producer/consumer context, no newly asserted normal mismass. StrategicEquipment armor arrays use observed outermost item metadata, while aggregate armor stats and geometry are different projections; unwrap_or_default coverage is not proof that missing authored coverage was admitted.",
+    "refresh-and-errors": "evaluate first loads attributes/disease/skills/body/stats then equipment; refresh computes both capabilities and combat power before first table mutation. Float PartialEq can force repeated updates if raw NaN survives, but no normal writer producing such NaN established here. Physiological rounded band controls presence-close/update/familiarity-reset ordering; actual social helper failure/transaction policy not inferred from signatures. Missing condition explicit defaults and native row string errors remain concrete-error graph obligations; no blanket transaction proof.",
+    "fixtures-and-authority": "All existing fixture bodies read, not executed or edited. Tactical CombatEquipment remains transient; no new strategic tactical tick persistence. Full graph needs meaningful checked products, no compatibility wrappers/aliases or indiscriminate .into replacement. Native wire/SDK formatting is an actual boundary, unlike repeated internal primitive conversions."
+  },
+  "findings": []
+}

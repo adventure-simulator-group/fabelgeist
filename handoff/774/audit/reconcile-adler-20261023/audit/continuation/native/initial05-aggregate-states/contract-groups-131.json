@@ -1,0 +1,124 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-131",
+  "at": "2026-10-23T03:26:32.207120+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_state.rs",
+      "sha256": "b704a73eded4ae15345f15781c8f117d919e7f97e047e08e31bb068c912072f8",
+      "scope052_index": 154,
+      "actual_EOF": 573,
+      "scoped_ranges_compared": [
+        [
+          1,
+          573
+        ]
+      ],
+      "actual05_comparison": "Fresh actual full573 including all original lifecycle fixtures; personally compared each parse branch, public sum construction and relational admission. Core parser facts close269 parsed-state delegation only, not all downstream DB lifecycle writers.",
+      "source_body_proof": "Fresh P16 full source plus complete actual counterpart source diff and personal PR current-role semantic comparison."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_state.rs",
+      "sha256": "b704a73eded4ae15345f15781c8f117d919e7f97e047e08e31bb068c912072f8",
+      "scope052_index": 1015,
+      "actual_EOF": 573,
+      "scoped_ranges_compared": [
+        [
+          1,
+          573
+        ]
+      ],
+      "actual05_comparison": "Complete actual PR/P16 production and fixture diff empty; personally compared PR current role parse branches, public payload construction and same storage-wrapper recipients. Same contract semantics justified explicitly, not hash verdict.",
+      "source_body_proof": "Fresh P16 full source plus complete actual counterpart source diff and personal PR current-role semantic comparison."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/leadership.rs",
+      "sha256": "0fb805b67bc7cb231e00841a0fc40b44ddd96f52a54c08fe16f434e9435daf53",
+      "scope052_index": 117,
+      "actual_EOF": 89,
+      "scoped_ranges_compared": [
+        [
+          1,
+          89
+        ]
+      ],
+      "actual05_comparison": "Fresh full89 including original fixtures; actual unique living set versus nonunique vote sequence contrasted with normal governance party:voter unique row key.",
+      "source_body_proof": "Fresh P16 full source plus complete actual counterpart source diff and personal PR current-role semantic comparison."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/leadership.rs",
+      "sha256": "0fb805b67bc7cb231e00841a0fc40b44ddd96f52a54c08fe16f434e9435daf53",
+      "scope052_index": 949,
+      "actual_EOF": 89,
+      "scoped_ranges_compared": [
+        [
+          1,
+          89
+        ]
+      ],
+      "actual05_comparison": "Complete actual PR/P16 full source diff empty; independently compared unique-voter relational precondition and actual generic API versus normal DB producer. Same source contract, not blanket caller equivalence.",
+      "source_body_proof": "Fresh P16 full source plus complete actual counterpart source diff and personal PR current-role semantic comparison."
+    }
+  ],
+  "contract_groups": [
+    {
+      "id": "contract-accepted-state",
+      "ranges": [
+        [
+          20,
+          93
+        ]
+      ],
+      "comparison": "ContractState parse matches exact status/option tuple; Paid requires paid>=accepted, Withdrawn may retain prior acceptance, Offered none. Public variant Paid can be directly constructed with reversed valid clocks; parser return does not make public enum an intrinsically chronology-sealed type. Existing Camera03 strategic-state113 records same distinction; normal authority_model.parsed_state calls parser, so no current bad reader assertion. No party grammar/membership/currentauthority proof from String. Preserve withdrawn optional history, not every None invalid."
+    },
+    {
+      "id": "mission-binding-outcome-sums",
+      "ranges": [
+        [
+          95,
+          230
+        ]
+      ],
+      "comparison": "Binding both IDs or neither; committed resolution selects no extra payload for Defeated/DrivenOff/Surrendered, Captured requires subject+version, CaptureTargetKilled requires subject no version. Bound/Failed/Cancelled reject all resolution payload. Failed/Cancelled can discard a complete supplied binding intentionally: output sum does not retain it, not halfbinding acceptance. CustodyVersion allu32 incl0 deliberate. Enum shape ensures variant field cardinality but not subject membership or outcome contract; authority_model resolution contract supplies objective-specific gate. Optional binding explicitly legitimate as original fixture confirms."
+    },
+    {
+      "id": "relationship-terminal-products",
+      "ranges": [
+        [
+          241,
+          419
+        ]
+      ],
+      "comparison": "Commitment terminal reason/status matrix exact; Reserved needs no resolved/reason; terminal effective date not compared because cancellation before future effective date legitimate. Courtship formal father+no secrecy vs informal secrecy+no father+zero dowry, independent active/exposed/ended payload; Marriage active no clock vs terminalSome; Pregnancy active none, Born bothchild+clock, Ended onlyclock. No due/birth/age/parent DB membership guarantee from these shape parsers, public variants still broader accepted syntax where crossfields require parser. Raw FlatMissionState intentionally broad boundary DTO. Error Display preserves static cause."
+    },
+    {
+      "id": "existing-lifecycle-fixtures",
+      "ranges": [
+        [
+          421,
+          573
+        ]
+      ],
+      "comparison": "All original fixtures source-read only: rejects partial acceptance/backward payment, halfbinding/missing captureversion, wrong terminal reasons and partial courtship/marriage/pregnancy; explicitly allows custodyversion0 and unbound committed capture. Fixtures constrain intended all-or-none relationships, not generated runtime execution or every external ingress."
+    },
+    {
+      "id": "unique-voter-election",
+      "ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "comparison": "Living input dedup viaBTreeSet, invalid voter/candidate filtered, incumbent excluded, greatesttally thenlowestID. Live66% and deadhalf thresholds intentional including sole-survivor system ballot; current leader need not retain threshold. Generic votes slice does not dedup voter; F034 can count same valid leaf tuple three times. Normal actual governance129 put_vote uses party:voter primarykey/update, filters current living and collects unique table rows, so normal producer satisfies hidden precondition. No native DB failure or huge collection overflow asserted; threshold native arithmetic capacity distinct unneeded graph. Existing fixtures all source-read not executed."
+    }
+  ],
+  "new_unique_findings": [
+    "NATIVE-INITIAL05-F034"
+  ],
+  "remaining_dependency_obligations": [
+    "DB actual lifecycle transitions and normal callers remain separate queued sources; exact parser proof does not seal raw table. PR governance counterpart remains unread, P16 producer129 proof not automatically PR caller coverage."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

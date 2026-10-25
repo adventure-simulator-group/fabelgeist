@@ -1,0 +1,165 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-022",
+  "at": "2026-10-25T11:36:21.105122+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 90,
+      "source_id": "physical-p16:crates/adventuresim-core/src/composite.rs",
+      "sha256": "d12458450a9186177a47c1b404529e9f6128dfd204fd63817b8a4fd8cf27e72f",
+      "actual_EOF": 386,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-core/src/composite.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-core/src/composite.rs",
+        "sha256": "d12458450a9186177a47c1b404529e9f6128dfd204fd63817b8a4fd8cf27e72f",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 12330,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 552,
+            "read_ranges": [
+              [
+                1,
+                386
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-CORE-BUILD-COMPOSITE-067"
+            ],
+            "read_status": "full_current_lens_PR_and_complete_physicaldelta_or_samepathSHAequality",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/composite.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CONCENTRATION-002",
+            "json_pointer": "/current_sources/8",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-core/src/composite.rs",
+            "read_ranges_as_recorded": [
+              [
+                325,
+                370
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-core/src/composite.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/composite.rs",
+              "sha256": "d12458450a9186177a47c1b404529e9f6128dfd204fd63817b8a4fd8cf27e72f",
+              "ranges": [
+                [
+                  325,
+                  370
+                ]
+              ],
+              "current_supplement": "actual_body_read"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CORE-MELEE-RECEIVERS-049",
+            "json_pointer": "/current_sources/34",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-core/src/composite.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                386
+              ]
+            ],
+            "source_context": {
+              "index": 619,
+              "source_id": "physical-p16:crates/adventuresim-core/src/composite.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/composite.rs",
+              "sha256": "d12458450a9186177a47c1b404529e9f6128dfd204fd63817b8a4fd8cf27e72f",
+              "assignment_sha256": "d12458450a9186177a47c1b404529e9f6128dfd204fd63817b8a4fd8cf27e72f",
+              "fingerprint_matches": true,
+              "read_ranges": [
+                [
+                  1,
+                  386
+                ]
+              ],
+              "read_status": "fresh full actual body and existing fixtures; identical PR/P16 paired bodies independently exact-byte compared, not inferred from name",
+              "disposition": "source read complete; connected melee scheduling/evidence/report receiver reconciliation still open"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CORE-MELEE-CONTACT-023",
+            "json_pointer": "/source_reads/25",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-core/src/composite.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                386
+              ]
+            ],
+            "source_context": {
+              "index": 619,
+              "source_id": "physical-p16:crates/adventuresim-core/src/composite.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/composite.rs",
+              "sha256": "d12458450a9186177a47c1b404529e9f6128dfd204fd63817b8a4fd8cf27e72f",
+              "assignment_sha256": "d12458450a9186177a47c1b404529e9f6128dfd204fd63817b8a4fd8cf27e72f",
+              "fingerprint_matches": true,
+              "read_ranges": [
+                [
+                  1,
+                  386
+                ]
+              ],
+              "read_status": "fresh full actual body and existing fixtures; identical PR/P16 paired bodies independently exact-byte compared, not inferred from name",
+              "disposition": "source read complete; connected melee scheduling/evidence/report receiver reconciliation still open"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1319,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          386
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "PlayerInfo<At,Bd,Es,Eq,Sl> Default Debug ambassador::Delegate; each Player* delegation has exact target field and named trait bound"
+      ],
+      "absence_basis": "Full docs/declarations/builders and convenience functions read. Traits are already derived/delegated. Remaining generic type-state builders and multi-facet calculations are inherent semantic APIs, not hand traits."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Existing ambassador::Delegate already owns five field forwarding traits with explicit per-field bounds. Keep type-state replacement builders and multiple-component computation intact.",
+      "qualification": "Doc examples read, not executed. No scope beyond exact386-line source."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 91,
+    "source_id": "physical-p16:crates/adventuresim-core/src/courtship.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

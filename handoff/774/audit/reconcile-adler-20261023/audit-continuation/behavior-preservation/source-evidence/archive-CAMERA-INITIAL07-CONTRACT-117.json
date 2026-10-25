@@ -1,0 +1,74 @@
+{
+  "id": "CAMERA-INITIAL07-CONTRACT-117",
+  "at": "2026-10-23T00:52:16.561222+00:00",
+  "lens": "audit-redundant-authority",
+  "members": [
+    {
+      "scope041_index": 204,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "sha256": "da8832af71a29edfd807274456fa4ee5890834beec5b80ef726e55b8399eaf7b",
+      "actual_EOF": 868,
+      "material_ranges": [
+        [
+          1,
+          868
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-041.json#/files/204"
+    },
+    {
+      "scope041_index": 205,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/fireplace_custody.rs",
+      "sha256": "91a13115f15cf32eabd8971f881e1eb15a9177e089cc8e72d8c7ef0495cdb168",
+      "actual_EOF": 656,
+      "material_ranges": [
+        [
+          1,
+          656
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-041.json#/files/205"
+    },
+    {
+      "scope041_index": 1103,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "sha256": "05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+      "actual_EOF": 868,
+      "material_ranges": [
+        [
+          1,
+          868
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-041.json#/files/1103"
+    },
+    {
+      "scope041_index": 1104,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/fireplace_custody.rs",
+      "sha256": "91a13115f15cf32eabd8971f881e1eb15a9177e089cc8e72d8c7ef0495cdb168",
+      "actual_EOF": 656,
+      "material_ranges": [
+        [
+          1,
+          656
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-041.json#/files/1104"
+    }
+  ],
+  "actual_source_proof": "Personally consumed actual ADM03-158/159 complete cooking868/custody656 narratives; fresh07 cooking1-110/191-306/307-491/492-608/611-681/719-868 and custody1-143/196-322/324-374/405-515/530-656. Actual complete PR/P16 diffs personally compared: cooking only retrieve Result alias, custody no textual delta; current roles compared independently. Current07 CoreFood057 actual policy facts joined for immutable catalogue/doneness/material units. Remaining lines supported by personally read whole-body prior source narratives, no verdict-only carry.",
+  "contracts": [
+    "Dish check, target duration, ready quality/nutrition retention, raw microbial concentration and growth are frozen preparation-epoch inputs/results. Retrieval659-667 derives doneness/current quality/nutrition from that retained input and current elapsed time; recomputing from current chef skills or current catalogue would change the intended historical recipe. Raw and cooked growth are distinct alternatives interpolated by heat progress; mass versus concentration versus per-source microbial loads have distinct units. Dish display_name is presentation derived once, never parsed to select gameplay method; typed method drives actual retrieval.",
+    "Station key embeds actor/fixture and optional vessel identity; retained actor/fixture copies are recomputed and checked25-78 before dish/camp/retrieval recipients. Normal placement555-565 and dish assembly563-598 initialize correlated fields together; retrieval uses station identity and canonical fixture validator before native row writes. Existing raw public record bypass/correlation gaps remain admission findings, not evidence normal factory mutates identity alone. Canonical structured station identity should replace duplicated parsable key/components at the actual schema boundary.",
+    "Dish return custody and instrument return custody can describe different things for an independent nonvessel dish lane; current party is not authoritative for the recorded return destination. Vessel assembly243-267 freezes original carried custody and checks selected scope. Retrieval638-655 returns dish to recorded destination and verifies vessel lane. Death cleanup199-239 chooses recorded extant party, otherwise personal estate, otherwise abandons installed tool; explicit estate disposition policy is not a compatibility fallback. Current camp equality is against full journey identity; service/location availability is recomputed from current canonical settlement/organization.",
+    "Normal vessel custody moves the same stable InventoryObject root to fireplace556-565 and back649-653; children keep object edges. Station instrument item identity is crosschecked against actual object54-57, not trusted as a separate mutable catalogue. Camp clear scans stations/dishes via validators; death cleanup validates/plans before removal. Rehome helper and party/camp lifecycle source-specific ownership remain separate queued actual sources; this packet gives no whole-helper invalidation guarantee.",
+    "Ingredient stock reduction and dish extensive mass/flavors/nutrition/provenance are one processing transition, not two interchangeable measures. Intensive quality is not required to scale with quantity; selected amount and material metadata use different precision. Cooking retains exact contribution decomposition and recomputes its digest from same arrays; output medicine and contamination are heat-adjusted provenance, not independent current infection truth. Earlier03 zip/cast/raw-record/partial-mutation issues preserved without inventing transaction rollback guarantees.",
+    "Preview832-866 repeats instrument and timing input evaluation: it uses raw catalogue safety minutes856-858 while commit382-390 includes cut/ground preparation factor; commit also includes actual contained water mass469-470. Preview is a pure public helper, not a retained commit certificate; no actual production caller located in the food/Web source navigation and no claimed observed wrong UI prediction. Exact later callers must be dispositioned before whole07 closure. Prefer one shared evaluated cooking input/plan with explicit preview versus commit context rather than synchronize two policy copies with assertions."
+  ],
+  "findings": [],
+  "qualifications": [
+    "Snapshot quality and original custody deliberately differ from current skill/party. Rawdish/station mismatch does not establish an ordinary bad producer. No native database mutation or runtime performed."
+  ],
+  "connected_repair_acceptance": "Preserve processing-epoch recipe/skill/provenance and recorded custody; derive structured station components from one canonical identity; compose preview and commit around the same preparation-sensitive timing policy where the same question is intended. Preserve distinct vessel/nonvessel lanes, direct-content behavior, stew water requirement and estate policy.",
+  "status": "Exact four source07 inventories with explicit later helper/caller dependencies; no global clearance"
+}

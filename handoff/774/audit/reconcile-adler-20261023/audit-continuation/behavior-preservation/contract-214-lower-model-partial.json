@@ -1,0 +1,54 @@
+{
+  "id": "CONT08-CONTRACT-214-LOWER-PARTIAL",
+  "at": "2026-10-25T14:37:17.030130+00:00",
+  "rows": [
+    {
+      "scope_index": 2322,
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/model_def.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-mhr/src/model_def.rs",
+      "before_sha256": "1df9360ffe2b900dccae124c8899ed6ff1b7dbae64deedd71905d867c2f76214",
+      "after_sha256": "aba9d2376e3b4633b05e1d51ec5f2baa54f29bcb5b57e511b1694612585c657a",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-2322-base-1df9360ffe2b900dccae124c8899ed6ff1b7dbae64deedd71905d867c2f76214",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/aba9d2376e3b4633b05e1d51ec5f2baa54f29bcb5b57e511b1694612585c657a",
+      "diff": "source-evidence/pr-2322.diff",
+      "diff_sha256": "cdcc8d83d541524133ed707a4c78469b48176327489908cc187223537adafb34",
+      "head_body_read_ranges": [
+        [
+          1,
+          145
+        ]
+      ],
+      "base_body_read_ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "diff_read": "prefix1\u2013130 only",
+      "disposition": "partial: exactlookup/row/limits/nativeadapterproof for824, parserremaining unread"
+    },
+    {
+      "scope_index": 2323,
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/model_def/layout.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-mhr/src/model_def/layout.rs",
+      "before_sha256": null,
+      "after_sha256": "add108e99167c2fa9f7550558f56bdd7f28bf7e5d5b6537fc516b9481a2ef247",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/add108e99167c2fa9f7550558f56bdd7f28bf7e5d5b6537fc516b9481a2ef247",
+      "diff": "source-evidence/pr-2323.diff",
+      "diff_sha256": "caca7d11253c03314b54f2824bb7f7362cb261352b86c6ea7a17d5c29f98db77",
+      "head_body_read_ranges": [
+        [
+          1,
+          303
+        ]
+      ],
+      "base_status": "newsplitfile; old2322 native row/columnprefix compared",
+      "disposition": "partial: allbodyread but complete affectedold append/tensor receivers notyetcompared; no fullsourcecredit"
+    }
+  ]
+}

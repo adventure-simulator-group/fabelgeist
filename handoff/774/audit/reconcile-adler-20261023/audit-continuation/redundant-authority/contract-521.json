@@ -1,0 +1,152 @@
+{
+  "id": "CONT07-CONTRACT-521",
+  "at": "2026-10-23T23:13:14.640186+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2274,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+      "sha256": "e88c8b37e80959ef7b47ce22d914becb64f57221b2adf497036ebd98881eef95",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+      "actual_EOF": 303,
+      "ranges": [
+        [
+          1,
+          303
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2275,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "sha256": "45ea805bbc9988317e2dba4679cf6984d153c17764ae93a3204a6289ae126b77",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+      "actual_EOF": 53,
+      "ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2276,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "sha256": "f22d2556b12cbeeb849f2fa27db9d3e549e365e3bcb8cc4633e0e1e51166a9c9",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+      "actual_EOF": 178,
+      "ranges": [
+        [
+          1,
+          178
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2277,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "sha256": "3e25d7e25d9d85032c723926167bf505637c2e31d7f05503b9e4d5f08bd12600",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+      "actual_EOF": 89,
+      "ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2278,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "sha256": "fc1fbee2e072e88d28d41f4f7422b7d7eae85e5307406406722b378fdf4bbbc9",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+      "actual_EOF": 58,
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2280,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "f795df445833d7fae4fca22e42c07b01eb3b7f09e4033708bb68673597149204",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "actual_EOF": 187,
+      "ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2281,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs",
+      "sha256": "7ad0f885d284243d61ff532ba8151cf91916f1535ff64a9c8e29a5e855f128b0",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs",
+      "actual_EOF": 42,
+      "ranges": [
+        [
+          1,
+          42
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2282,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/parameters/parameter.rs",
+      "sha256": "8057e3bc54fcc2941ab0b231989785cbbff9c222088d96a10920c55572a4bf24",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-gpu/src/data/gpu/parameters/parameter.rs",
+      "actual_EOF": 129,
+      "ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2283,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+      "sha256": "d43420951ea5f0f3ca07b9e7945387e830a858e14314cc634dde30079018a17a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+      "actual_EOF": 73,
+      "ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "RIG-ADMISSION03-F065",
+    "RIG-ADMISSION03-F058-SUPPLEMENT-001",
+    "RIG-ADMISSION03-F057-SUPPLEMENT-001"
+  ],
+  "facts": [
+    "Buffer native Arc versus public logical size/usage can diverge, and read/write_at observe copies; exact adopted RIG-ADMISSION03-F065 support, no additional count. Constructor derives usage from native buffer and from_upload derives logical allocation/upload extent from same bytes. ByteLength/Offset and Upload occupancy are derived views with checked offset addition, not duplicated caches.",
+    "Slow bind-group uniform packing independently matches PassParameter and silently omits Unsigned/unsupported fields at128; exact RIG-ADMISSION03-F058-SUPPLEMENT-001 with corrected scope (actual slow fallback). Fast path earlier read separately. Shared schema-aware packing is one connected repair, not new unique07finding.",
+    "ComputePipeline has mutable shader/layout/reflection/native pipeline plus entry-point-only shared cache and compile earlyreturn; exact RIG-ADMISSION03-F057-SUPPLEMENT-001 support. No automatic ordinary shader replacement/device-crossing assertion. Reflection is generated at prepare, stored independently afterward; actual pass recipients remain to read.",
+    "Readback derives Vec capacity and byte length at construction, enforces element divisibility/size and copies exactly logical length despite allocation padding. Parameters map one value per key; variant conversions explicit (signed i32 to Unsigned remains native admission semantics, not second same-fact state). Shader language inferred per parse call, no retained stale classification."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2279,
+    "start_line": 1
+  }
+}

@@ -1,0 +1,226 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-329",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_head_frame.rs",
+      "sha256": "0ba82a07830e04fce84a96018b01826029ddf86029936f1a328c91e41330406c",
+      "actual_EOF": 327,
+      "actual_compared_ranges": [
+        [
+          1,
+          327
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_limb.rs",
+      "sha256": "e0d892a94ac4639bcb6d76efd6ffe7b88eaab221e530f54832fba6daafd8355d",
+      "actual_EOF": 212,
+      "actual_compared_ranges": [
+        [
+          1,
+          212
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_piece.rs",
+      "sha256": "01c4a60fd64a4c0fc9c1c368d85e1c693d5e1e09849c67bead477704da65362f",
+      "actual_EOF": 34,
+      "actual_compared_ranges": [
+        [
+          1,
+          34
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_section_hull.wgsl",
+      "sha256": "8e5c9749f683eebbb88a1f1946bafc14ae3c6ac5c489c9ee9b740c60f1c7d43f",
+      "actual_EOF": 59,
+      "actual_compared_ranges": [
+        [
+          1,
+          59
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_tasset_controls.wgsl",
+      "sha256": "32bc1fd7a7801d3b07d0548993ba36759133b5862c0e9555cb1d5a648335d0e5",
+      "actual_EOF": 46,
+      "actual_compared_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_tasset_sections.wgsl",
+      "sha256": "25e8e4bad34876c629cbe03e94881db6f908393e145312d6e73ea6ad3e4665fd",
+      "actual_EOF": 79,
+      "actual_compared_ranges": [
+        [
+          1,
+          79
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_torso.rs",
+      "sha256": "78af7acbb8b527b1d3f6ee10c15b101334e9423e7da77ad40283325c2e9579a5",
+      "actual_EOF": 342,
+      "actual_compared_ranges": [
+        [
+          1,
+          342
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_torso_wgsl.rs",
+      "sha256": "4dffbe38bb680f965cffc46852aae9e943835b6757ac34145233a7cc8c25d467",
+      "actual_EOF": 258,
+      "actual_compared_ranges": [
+        [
+          1,
+          258
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_underlayer.rs",
+      "sha256": "b42e82c29ce8e08f7e378abc16f0f9823aea7c2580456c37cbaa4084ea781591",
+      "actual_EOF": 416,
+      "actual_compared_ranges": [
+        [
+          1,
+          416
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_underlayer/plan.rs",
+      "sha256": "7eb172df559ec4825c756c36b416e163b5703de648a9e6a84af309ca71c56fe9",
+      "actual_EOF": 156,
+      "actual_compared_ranges": [
+        [
+          1,
+          156
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Head framing rejects failed numerical reconstruction after all reductions",
+      "source_ranges": {
+        "device_head_frame.rs": [
+          [
+            1,
+            327
+          ]
+        ]
+      },
+      "disposition": "Complete host and native bodies read. TOP ignores NaN but not infinity; FINISH validates actual reduced bounds, recomputed fifteen frame words, positive extents and orthonormal axes, so overflow in midpoint, differences or naive normalization does not silently become an accepted PartFrame here. Coincident normalized landmarks flag status even with finite fallback axis. Zero supporting vertices retain infinity sentinels and NO_ENVELOPE failure. Parameters use checked joint ordinals and matching native array layout. Deterministic host_float rounding preserves operation order, not universal validity. DeviceFrame status consumer remains separately recorded prior326; no ordinary failure or need for infallible extreme arithmetic claimed."
+    },
+    {
+      "contract": "Limb proximal trim and shared hull retain owning degeneracy gates",
+      "source_ranges": {
+        "device_limb.rs": [
+          [
+            1,
+            212
+          ]
+        ],
+        "device_piece.rs": [
+          [
+            1,
+            34
+          ]
+        ],
+        "device_section_hull.wgsl": [
+          [
+            1,
+            59
+          ]
+        ],
+        "device_tasset_controls.wgsl": [
+          [
+            1,
+            46
+          ]
+        ],
+        "device_tasset_sections.wgsl": [
+          [
+            1,
+            79
+          ]
+        ]
+      },
+      "disposition": "All five complete bodies read. Limb trim partitions carriers by actual shell ranges, initializes reduction bounds, caps trim to70percent span to preserve ordered rows; high==low denominator remains a raw degenerate producer dependency, not an established generated shell case. DeviceRecording distinguishes frame checks, part and additional validations; dropping one is not justified by existence of the other. Shared hull guards originalcount<3; after unique compaction one-point input returns0 without the old unconditional hull underflow, and tasset section caller rejects vertices<3 or>HULL_LIMIT before averaging/radial evaluation. This is distinct from admitted prior clearance shader F012 in323. Triangle slab collector writes at most9 points per face (three original candidates plus six plane crossings), requiring matching host capacity. Tasset controls use positive radii then sampled allowance; actual fixed node indices0/12/25 require host measured section count>=26 and nodes>1. Those host constants/allocation are frontier dependencies, not presumed established from shader alone. No GPU execution."
+    },
+    {
+      "contract": "Torso percentile and native semantic coordinates propagate explicit failure before publication",
+      "source_ranges": {
+        "device_torso.rs": [
+          [
+            1,
+            342
+          ]
+        ],
+        "device_torso_wgsl.rs": [
+          [
+            1,
+            258
+          ]
+        ]
+      },
+      "disposition": "Both complete bodies read. Input.check establishes array and morph cardinality plus rig count correspondence; GpuBody and SeamTopology are separate actual admission gates, not proof by this check alone. Named landmarks collect exact fixed9 before private record_torso indexes JOINT_PARAMETERS. Width rank breaks finite ties by vertex index and chooses floor(count*9/10); no samples/degenerate chosen width sets status. counter*9 could overflow for hundreds of millions of native samples, but no supported resource-reachable asset shown; keep conditional contract strengthening. unit/frame do not themselves prove arbitrary extreme arithmetic finite; selection status and downstream breastplate/read/skin rules own publication admission. Morph submissions precede final error but retained Rust armor is returned only after status/read succeeds; no DB/world mutation or rollback assertion. No mandatory orthogonal-clavicle policy invented."
+    },
+    {
+      "contract": "Underlayer realizes one frozen cut topology across all samples and reads aggregate status before return",
+      "source_ranges": {
+        "device_underlayer.rs": [
+          [
+            1,
+            416
+          ]
+        ],
+        "device_underlayer/plan.rs": [
+          [
+            1,
+            156
+          ]
+        ]
+      },
+      "disposition": "Both entire bodies including incidence fixture source read. Public fit uses CutPlan.new with validated design and nonempty cut faces; private Fit always includes base realization, so surfaces.next expect is supported and normal path shell chunk size is positive. Proportion samples update constraints before frozen wearer directions; morph constraints replace set0 while retaining proportion sets, intentionally using shared compression envelope. Final workspace status and each realization normal status checked before FittedUnderlayer publication; all positions explicitly finite checked. Private shell_surfaces assumes exact buffer lengths/count/status cardinality generated by its owning allocations, no raw public malformed slicing route inferred. read_skin re-admits native joint ordinals through PackedRigSkin. CutPlan.from_cut directly indexes raw public SourcePoint.triangle and face membership: exact adopted RIG-ADMISSION03-F021, not a new finding. Public incidence likewise relies on source topology indices; actual Workspace/GpuBody producer bounds must be inspected at next frontier. Arithmetic source counts/capacity/index additions narrow to nativeu32 without universal resource proof; no ordinary-size overflow demonstrated. Preserve cut-edge separate shading vertices, inner reversed winding, UV seams and genuine barycentric policies; do not force arbitrary scaled clip planes to unit normals."
+    }
+  ],
+  "findings": [
+    {
+      "id": "RIG-ADMISSION03-F021",
+      "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+      "archive_line": 21,
+      "disposition": "same adopted latent raw cut membership gap; fresh04index evidence",
+      "no_new_unique_count": true
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "10 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-character-creator/src/device_underlayer/shell.rs"
+}

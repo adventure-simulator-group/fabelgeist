@@ -1,0 +1,111 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-176",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/fireplace_custody.rs",
+      "sha256": "91a13115f15cf32eabd8971f881e1eb15a9177e089cc8e72d8c7ef0495cdb168",
+      "actual_EOF": 656,
+      "actual_compared_ranges": [
+        [
+          1,
+          656
+        ]
+      ],
+      "method": "Complete P16 literal body personally read. Entire PR textual diff consumed; empty custody diff and single preparation return error change independently assessed against actual state operations."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/ingredient_preparation.rs",
+      "sha256": "9e75b9aba8942a342cb8fefc7b4d41940349122a52c86c976547d280e751a509",
+      "actual_EOF": 652,
+      "actual_compared_ranges": [
+        [
+          1,
+          652
+        ]
+      ],
+      "method": "Complete P16 literal body personally read. Entire PR textual diff consumed; empty custody diff and single preparation return error change independently assessed against actual state operations."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/fireplace_custody.rs",
+      "sha256": "91a13115f15cf32eabd8971f881e1eb15a9177e089cc8e72d8c7ef0495cdb168",
+      "actual_EOF": 656,
+      "actual_compared_ranges": [
+        [
+          1,
+          656
+        ]
+      ],
+      "method": "Complete P16 literal body personally read. Entire PR textual diff consumed; empty custody diff and single preparation return error change independently assessed against actual state operations."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/ingredient_preparation.rs",
+      "sha256": "8424b8d20fe3619b57687d4e31b3715b141fe47d21a1f21d7c78ed11958c0b9f",
+      "actual_EOF": 652,
+      "actual_compared_ranges": [
+        [
+          1,
+          652
+        ]
+      ],
+      "method": "Complete P16 literal body personally read. Entire PR textual diff consumed; empty custody diff and single preparation return error change independently assessed against actual state operations."
+    }
+  ],
+  "dependency_reads": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/preparation_authority.rs",
+      "sha256": "4f06d127e8d7d358ded01b2d1b7eba9116644b53146a476dd780e98344689613",
+      "ranges": [
+        [
+          337,
+          438
+        ]
+      ],
+      "coverage": "fresh critical loader body only, source role remains incomplete"
+    }
+  ],
+  "groups": [
+    {
+      "id": "Exact fireplace custody transitions",
+      "locations": "fireplace_custody1-656",
+      "trace": "Canonical fixture parser restricts Fireplace; persisted station key recomputed using actor/fixture/object identity, instrument and return-custody presence coordinated, actual object/item/location checked. Dish ties station actor and fixture. Journey camp compares exact party, departure and movement coordinates against current authority; no clock numeric arithmetic introduced. Camp clearance validates scanned rows before checking exactplace/member so malformed unrelated state can block gate; no normal malformed row asserted. Death cleanup resolves every recorded return and prevalidates subtree before dish deletion. Existing party return wins, else personalestate, absent actor deliberately abandons tool atstation. Quantity always1 for physical vessels; rehome recipients own subtree conservation and accepted custody, not inferred here.",
+      "disposition": "No new arithmetic, narrowing or indexing failure. Exact native-to-operational custody retains checked owner through transition; unresolved graph is actual rehome/SDK mutation failure policy. Do not count full source as full dependency closure.",
+      "dependencies": [
+        "Inventory container rehome/prevalidate and merge_empty_container full graph",
+        "Canonical strategic place/custody membership and native schema adapters",
+        "Death transition outer transaction/catch behavior"
+      ],
+      "acceptance": "Successful placement/retrieval/death cleanup preserves exact vessel identity, subtree custody and returned estate/party policy. Rejection cannot leave one logical operation partly committed. Preserve no-remote-transfer restriction and abandoned tool policy."
+    },
+    {
+      "id": "Preparation tool and replay authority",
+      "locations": "ingredient_preparation1-159,184-455; fresh preparation_authority337-438",
+      "trace": "Cutting weapon hash length-frames fixed numeric/native bytes and all five DamageBins tiers, not collapsed scalar condition. Carried tools must resolve actorcarried and not fireplace-rooted; choosing lexicographic minimum gives deterministic binding. Grinder fallbackhands is intentional slower affordance, not missing authority. Receipt exact replay compares full immutable submittedtuple before mutable live state, conflicting request fields reject. Required character clock read returnsErr. Attemptgeneration equality then exact lot/row/object/revision/custody/skill/place/material admitted by loader. Fresh loader literal branch proves authority.skill onlyKnife/Bludgeon, protecting final unreachable arm. Private expected-generation absent0 is genuine initial occurrence; not missing chronology. Actual plan reloaded and validated twice before wait with material receipt check.",
+      "disposition": "No new hash-delimiter alias, indexing or forged effect witness. Material receipt complete admission and planner duplicate effect behavior remain owning dependencies; do not infer all curve/potency/ingredient records from this loader excerpt.",
+      "dependencies": [
+        "preparation_authority remaining complete source audit",
+        "Canonical material receipt/planner ownership",
+        "P16 typedresult integration vs PRString"
+      ],
+      "acceptance": "Accepted plan/replay retains unique actual submitted attempt identity, whole immutable material authority and exact tool/skill policy. Preserve all five damage tiers, intentional hands alternative and real initialgeneration0."
+    },
+    {
+      "id": "Wait, terminal attempt and material commit",
+      "locations": "ingredient_preparation161-178,457-652",
+      "trace": "Injury/disease preflight safe prefix retains explicit terminal bool even when event exactly atend. Expected terminal represented with current+safe saturating time; whole outer wait determines clock exhaustion. Effect actor/duration/action/revision checked; absentwait fails before mutation, effectcommit guarded before expect. Current planner may theoretically emit repeated samekind effects overwritten by localOption, but actual canonical planner producer not yet audited here, no forged accepted plan claimed. Wait false with expectedcompletion returns divergenceErr; interruption incrementsgeneration checked before retained terminalreceipt, leaves material unchanged under explicit policy. Completion rechecks currentactor/encounter/time and all material/tool/skill/duration/next facts after wait. Materialrevision increment checked, then publishes lot, skillgain, morale, capability and completionreceipt. u32duration to f32 hours remainsfinite; full checkedtraining gain local774:M51 still applies. Later failure needs native transaction/catch proof before claiming time/lot partially committed; no runtime claim.",
+      "disposition": "No new partial-commit or terminal/replay defect proved. Exhausted generation/revision returns explicit error, not wrap. Preserve existing source fixtures read in174 as supplied acceptance evidence only.",
+      "dependencies": [
+        "Native advance_character_wait_time and SDK rollback/error catches",
+        "Core action/preparation planner completeproducer",
+        "local774:M51",
+        "preparation_authority whole material admission"
+      ],
+      "acceptance": "A completed attempt conserves material quantity and advances revision exactly once; interruption advances distinct attemptgeneration and receipt without materialchange, with explicit clock policy. Rejected logical work does not accidentally consume retry clock or publish partial retained result."
+    }
+  ],
+  "findings": [],
+  "status": "Four source roles compared; whole lens and connected dependencies incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/food/lot_inventory.rs"
+}

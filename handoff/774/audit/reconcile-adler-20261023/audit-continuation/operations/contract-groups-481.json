@@ -1,0 +1,58 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-481",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+      "sha256": "7b026fd31eb9c09c84b446dbb0b71faea9717f93c027226dfbe357c5150dd704",
+      "actual_EOF": 591,
+      "actual_compared_ranges": [
+        [
+          1,
+          591
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/evaluation/attack.rs",
+      "sha256": "c1787a5b36b9fd27891c2646fd70a7d5206d7a1eefe00b86d1b3068d4dba8b03",
+      "actual_EOF": 82,
+      "actual_compared_ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+      "sha256": "2767919da7545eecbaab9b212fc6a8e52802f6a61f3862c447903f75cf1ec6e7",
+      "actual_EOF": 327,
+      "actual_compared_ranges": [
+        [
+          1,
+          327
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Semantic evaluation preserves checked result publication",
+      "analysis": "All three complete591/82/327linebodies personally read inexactPRvariant. Evaluation constructs localvectors/result andpropagates checkednorm/weight/curve/progress failures, no retainedSkeletonwrite. Airbornehorizontalnorm re-admits NonnegativeSpeed beforepose; phase wrapping finite; boundedunitphase\u00d72/smoothstep re-admitted. Downedroll nearwholeearlyexit meanslargef32integercoordinates do notnarrowparitythroughi64 withfractionalphase; currentordinaryrollsretainspanpolicy."
+    },
+    {
+      "contract": "Blend and locomotion arithmetic",
+      "analysis": "Raisedlocaldirection andquickstepnormalize feedpositive-contribution totals; zero direction yieldsnocandidateormotionfallback insteaddivisionbyzero. append_scaled computeswholecheckedlocalbatch beforeextending output. BlendWeight additiveallowedabove1, doesnot globallyunitclamp. Run-vs-walk reference difference dependsvalidated authoredsnapshot/crossprofilepolicy; malformedconfigurationcanproducecheckederror ratherthan publishNaN, no defaultordinaryfailure asserted. Actual current fixedpositiveprofiles separatefrom genericrawhelperinputs. Allsourcefixture bodiesread, no tests run."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-core/src/animation/event_span.rs"
+}

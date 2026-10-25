@@ -1,0 +1,70 @@
+{
+  "id": "CONT07-CONTRACT-430",
+  "at": "2026-10-23T21:49:39.358618+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1894,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/regional_environment.rs",
+      "sha256": "99f2deee42dd6e28ccfc6f469eafe5983c1bade295e1bf5f089a798fca1d8422",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/regional_environment.rs",
+      "actual_EOF": 104,
+      "ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1895,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/regional_map.rs",
+      "sha256": "3e21ceb6c449abd106a26ce32d246c70609ea373b36cfedb144252d328dd6d9b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/regional_map.rs",
+      "actual_EOF": 245,
+      "ranges": [
+        [
+          1,
+          245
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1896,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/regional_terrain.rs",
+      "sha256": "07827e19ec2ffdae7d67b51850ae950b1d00fb8fe119a5a75329e24fd7e6f852",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/regional_terrain.rs",
+      "actual_EOF": 112,
+      "ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "ROOT-OWNER-RATIO-003 full narrative",
+    "ROOT-OWNER-ZERO-LENGTH-007 full narrative",
+    "ROOT-OWNER-FRAMES-004 full narrative",
+    "ROOT-PPS-PHYSICAL-SOURCE-CONTRACTS-029 full narrative/sourceproofs",
+    "ROOT-PPS-TERRAIN-DISPATCH-WEB-037 full narrative plus selected1894/1896 proofs; large complete proof list was truncated and not claimed fully consumed"
+  ],
+  "facts": [
+    "1894 RegionalEnvironment privately owns immutable terrain and admitted connections. Capacity counts are transient reductions over those exact connections; no independently retained point-count authority. RegionalConnection dedup is consecutive and min2; it does not enforce globally unique/closed-loop-free geometry, which must not be inferred from error text.",
+    "1895 MapOverlay privately retains one source provenance, checked markers and optional route. Constructor current/selected booleans and BTreeSet are temporary validation state, not independently mutable caches. MapMarker place kind versus rank has explicit admission match; CurrentSelected encodes simultaneous orthogonal roles. No duplicated mutable selection source is proved within this contract; actual upstream selection policy remains separately scoped.",
+    "1895 MapSpan zoom derives new checked extent from existing extent and admitted ratio; min/max span and ratio limits are different bounds. MapRoute Computed versus Estimate is route provenance, not duplicate measured geometry.",
+    "1896 terrain retains immutable requested origin/scale, source digest and exact4225 optional observations. Side65 owns vertex count by multiplication; spacing match owns five presentation scales. Source absolute elevation is deliberately different from scene-local graded floor. Explicit holes are not fabricated zero; no independently mutable scale/spacing cache is present."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1897,
+    "start_line": 1
+  }
+}

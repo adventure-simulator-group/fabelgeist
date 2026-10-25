@@ -1,0 +1,109 @@
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client/src/presentation/vista.rs:549:
+                             *color,
+                             expected
+                                 .at(
+-                                    PlanDisplacement::try_from(Vec2::new(
+-                                        position[0],
+-                                        position[2],
+-                                    ))
++                                    PlanDisplacement::try_from(
++                                        Vec2::new(position[0], position[2],)
++                                    )
+                                     .unwrap(),
+                                     Vec2::splat(9.0),
+                                 )
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client/src/presentation/vista.rs:549:
+                             *color,
+                             expected
+                                 .at(
+-                                    PlanDisplacement::try_from(Vec2::new(
+-                                        position[0],
+-                                        position[2],
+-                                    ))
++                                    PlanDisplacement::try_from(
++                                        Vec2::new(position[0], position[2],)
++                                    )
+                                     .unwrap(),
+                                     Vec2::splat(9.0),
+                                 )
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client/src/presentation/vista.rs:549:
+                             *color,
+                             expected
+                                 .at(
+-                                    PlanDisplacement::try_from(Vec2::new(
+-                                        position[0],
+-                                        position[2],
+-                                    ))
++                                    PlanDisplacement::try_from(
++                                        Vec2::new(position[0], position[2],)
++                                    )
+                                     .unwrap(),
+                                     Vec2::splat(9.0),
+                                 )
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client/src/presentation/vista.rs:549:
+                             *color,
+                             expected
+                                 .at(
+-                                    PlanDisplacement::try_from(Vec2::new(
+-                                        position[0],
+-                                        position[2],
+-                                    ))
++                                    PlanDisplacement::try_from(
++                                        Vec2::new(position[0], position[2],)
++                                    )
+                                     .unwrap(),
+                                     Vec2::splat(9.0),
+                                 )
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client/src/presentation/vista.rs:549:
+                             *color,
+                             expected
+                                 .at(
+-                                    PlanDisplacement::try_from(Vec2::new(
+-                                        position[0],
+-                                        position[2],
+-                                    ))
++                                    PlanDisplacement::try_from(
++                                        Vec2::new(position[0], position[2],)
++                                    )
+                                     .unwrap(),
+                                     Vec2::splat(9.0),
+                                 )
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/catalog.rs:22:
+             (index / CATALOG_COLUMNS) as f32 - 3.0,
+         ) * CATALOG_BAY_SPACING_METRES;
+         let keys = FurnitureVariant::ALL.map(|variant| FurnitureKey::natural(kind, variant));
+-        let [compact, broad] = keys.map(|key| {
+-            key.interior_spec()
+-                .map(|spec| spec.size_metres.metres())
+-        });
++        let [compact, broad] =
++            keys.map(|key| key.interior_spec().map(|spec| spec.size_metres.metres()));
+         let sizes = [compact?, broad?];
+         let pair_width = sizes[0].x + sizes[1].x + catalog_pair_gap(kind);
+         for (variant, key) in keys.into_iter().enumerate() {
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/finishes.rs:30:
+         .map(|(index, kind)| {
+             let bay = Vec2::new(100.0, (index as f32 - 2.0) * CATALOG_BAY_SPACING_METRES);
+             let key = FurnitureKey::natural(kind.kind(), FurnitureVariant::Compact);
+-            let size = key
+-                .interior_spec()?
+-                .size_metres
+-                .metres();
++            let size = key.interior_spec()?.size_metres.metres();
+             let width = size.x * FurnitureWoodState::ALL.len() as f32
+                 + CATALOG_PAIR_GAP_METRES * (FurnitureWoodState::ALL.len() - 1) as f32;
+             for (state_index, state) in FurnitureWoodState::ALL.into_iter().enumerate() {
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client/src/presentation/vista.rs:549:
+                             *color,
+                             expected
+                                 .at(
+-                                    PlanDisplacement::try_from(Vec2::new(
+-                                        position[0],
+-                                        position[2],
+-                                    ))
++                                    PlanDisplacement::try_from(
++                                        Vec2::new(position[0], position[2],)
++                                    )
+                                     .unwrap(),
+                                     Vec2::splat(9.0),
+                                 )

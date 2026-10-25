@@ -1,0 +1,66 @@
+{
+  "id": "CONT07-F115",
+  "lens": "audit-redundant-authority",
+  "classification": "source-confirmed historical timestamp substituted for current day; API-conditional presentation defect",
+  "title": "The physician notebook calls the latest observation Today",
+  "sources": {
+    "2399": [
+      [
+        721,
+        740
+      ],
+      [
+        866,
+        891
+      ],
+      [
+        923,
+        996
+      ],
+      [
+        1091,
+        1105
+      ],
+      [
+        1129,
+        1140
+      ],
+      [
+        2024,
+        2029
+      ]
+    ],
+    "2357": [
+      [
+        39,
+        47
+      ],
+      [
+        127,
+        169
+      ],
+      [
+        182,
+        222
+      ]
+    ],
+    "2377": [
+      [
+        740,
+        764
+      ]
+    ]
+  },
+  "fact": "The route obtains the actual target CharacterTime and passes it to sanitize. sanitize uses that minute for active administrations but drops it from MedicalPresentation. physiology_dialog then uses the latest observation minute as today for all relative labels and labels the latest timeline boundary Today. An observation timestamp and current patient time are distinct temporal facts.",
+  "counterexample": "Supply a valid authorized chart observed at minute1440 and current_minute4320 to the public sanitize API, with no newer chart. The retained reading remains at1440; its notebook label is Today because last_minute1440 is passed as today, while its actual age is2 days. This needs no malformed vectors, out-of-range value, or clock reversal. No rendering/DB execution claimed.",
+  "limits": [
+    "No ordinary DB sequence producing this age gap has yet been established; the native chart-production/retention contract remains a dependency.",
+    "Using the latest observed range for graph scale can remain intentional; the incorrect current-day label is separate from graph geometry and historical observations must remain historical.",
+    "Current patient minute and observer minute may differ for other-character views; the intended observer reference clock must be chosen from the actual privacy/chronology contract rather than blindly expose another frontier.",
+    "Parent and archive exact-identity reconciliation pending; no global unique count."
+  ],
+  "suggested_connected_remedy": "Retain an explicitly named authorized reference minute through medical presentation and derive relative labels from it, or label the last observation as latest rather than today. Keep observation timestamps and graph range distinct.",
+  "acceptance_contract": "A historical reading cannot be labelled Today merely because it is the newest available reading; displayed observation ages and active-medication reference obey one explicit authorized clock policy.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

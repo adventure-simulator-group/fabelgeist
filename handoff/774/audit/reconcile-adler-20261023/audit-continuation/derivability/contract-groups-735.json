@@ -1,0 +1,47 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-735",
+  "at": "2026-10-25T16:39:16.633487+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 985,
+  "source_id": "pr-working:crates/adventuresim-core/src/rights.rs",
+  "sha256": "452c9b104be14352c93d247f83a87de98fa79b10c86d3b51d28eaa252a927b07",
+  "actual_compared_ranges": [
+    [
+      1,
+      880
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "OrganizationPrivilegeEvidenceValue",
+      "lines": [
+        [
+          692,
+          701
+        ]
+      ],
+      "disposition": "KEEP explicit generic empty opt-in local bounds; no project derive"
+    },
+    {
+      "trait": "thirteen local rights/organization/public allowance marker opt-ins",
+      "lines": [
+        [
+          808,
+          859
+        ]
+      ],
+      "disposition": "KEEP empty opt-ins no owning matching derive"
+    }
+  ],
+  "analysis": [
+    "OrganizationPrivilegeEvidenceValue692\u2013701 generic empty local opt-in preserves required generic marker bounds; thirteen fixture opt-ins808\u2013859 similarly empty and no existing owning derive for local traits. Structural generic records/enums already derive.",
+    "PrivateRightsDecision::sanitized775\u2013784 intentionally reveals only allowance/one generic unavailable rejection and omits evidence/provenance/consumption. Semantic trust projection not mechanical conversion or wire serialization; no other new handwritten traits661\u2013880."
+  ],
+  "first_unfinished": {
+    "scope_index": 985,
+    "line": 881
+  },
+  "execution": "none"
+}

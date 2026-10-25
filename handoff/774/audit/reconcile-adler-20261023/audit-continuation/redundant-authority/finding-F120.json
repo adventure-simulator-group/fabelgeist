@@ -1,0 +1,45 @@
+{
+  "id": "CONT07-F120",
+  "contract": "CONT07-CONTRACT-608",
+  "at": "2026-10-24T00:32:01.326215+00:00",
+  "lens": "audit-redundant-authority",
+  "title": "Sparse shader group identity is compacted into positional pipeline layout order",
+  "classification": "source-confirmed API-conditional interface identity defect; no ordinary kernel occurrence claim",
+  "sources": [
+    {
+      "scope_index": 2636,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+      "ranges": [
+        [
+          17,
+          54
+        ]
+      ]
+    },
+    {
+      "scope_index": 2280,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+      "sha256": "f795df445833d7fae4fca22e42c07b01eb3b7f09e4033708bb68673597149204",
+      "ranges": [
+        [
+          85,
+          108
+        ],
+        [
+          142,
+          176
+        ]
+      ]
+    }
+  ],
+  "producer": "Reflection groups native naga bindings by actual group number in BTreeMap. For each actual number, it pushes layout densely and reflection metadata separately retaining actual index. No empty group placeholders or group0-only rejection.",
+  "recipient": "ComputePipeline prepares with interface.layouts and compiles using layouts.iter().map(Some) as positional native PipelineLayoutDescriptor.bind_group_layouts. Explicit metadata group.index is not consulted for those positions.",
+  "source_witness": "A supplied valid compute shader with a read_write storage buffer only at @group(1) @binding(0) and a main that updates it produces one reflected layout. The dense layout vector places this at index0, omitting native shader group1; interface and compiled positional schema disagree. Static source witness only; no shader/device execution.",
+  "normal_qualification": "First-party current kernels using contiguous groups beginning0 are unaffected by this witness. No normal group1-only caller, device validation transcript or runtime incident established. Group holes beyond existing device limits are not needed; group1 itself is the bounded example.",
+  "connected_repair": "Retain native group identity through positional layout construction, including intentionally sparse slots, or explicitly reject unsupported group topology at admission before presenting interface as accepted. Coordinate dispatch bind-group indexing with the same group owner; preserve current contiguous0 ordering.",
+  "acceptance": "Accepted group1-only interface must retain its group1 placement in the compiled schema and actual bind operations; unsupported sparse interface must fail explicitly before false schema. Existing contiguous group0 kernels retain binding order. No execution authorized.",
+  "dedup": "reconcile_engine reports no exact saved09 alias; root global reconciliation pending. Separate from inherited mutable shader/module cache finding RIG-ADMISSION03-F057-SUPPLEMENT-001.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

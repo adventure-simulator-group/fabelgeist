@@ -1,0 +1,88 @@
+{
+  "id": "NATIVE-SUPP-CAMERA-SDK-001",
+  "pinned_lock_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+  "packages": [
+    {
+      "name": "spacetimedb",
+      "version": "2.6.1",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "b6eff5017248ff2e35e03564df947fdf3e963f7198be6ae1d9e894c2efb2ea15",
+      "dependencies": [
+        "anyhow",
+        "bytemuck",
+        "bytes",
+        "derive_more 0.99.20",
+        "getrandom 0.2.17",
+        "http",
+        "log",
+        "rand 0.8.8",
+        "scoped-tls",
+        "serde_json",
+        "spacetimedb-bindings-macro",
+        "spacetimedb-bindings-sys",
+        "spacetimedb-lib",
+        "spacetimedb-primitives",
+        "spacetimedb-query-builder"
+      ]
+    },
+    {
+      "name": "spacetimedb-bindings-macro",
+      "version": "2.6.1",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "checksum": "fce86c7657dcb42a33ce55f0100f98964dc15b64e79f06803a478676b74d6c82",
+      "dependencies": [
+        "heck 0.4.1",
+        "humantime",
+        "proc-macro2",
+        "quote",
+        "spacetimedb-primitives",
+        "syn 2.0.119"
+      ]
+    }
+  ],
+  "read_files": [
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spacetimedb-2.6.1/src/rt.rs",
+      "observed_sha256": "9dae2fdd25e809c3fae6780569a1e6ce1a9d76d99feaac6a38a884faaa5ebf16",
+      "read_ranges": [
+        [
+          1,
+          90
+        ],
+        [
+          200,
+          225
+        ],
+        [
+          628,
+          655
+        ],
+        [
+          1025,
+          1065
+        ],
+        [
+          1086,
+          1098
+        ],
+        [
+          1374,
+          1393
+        ]
+      ]
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spacetimedb-bindings-macro-2.6.1/src/reducer.rs",
+      "observed_sha256": "5d9af3fa69cda0c4377ddc6e3da0ead36b83bcb5f7cda7e53d78534b9bfd0fba",
+      "read_ranges": [
+        [
+          1,
+          204
+        ]
+      ]
+    }
+  ],
+  "trace": "#[reducer] macro reducer_impl creates FnInfo::INVOKE\u2192rt::invoke_reducer deserializes BSATN\u2192Reducer::invoke calls original function\u2192IntoReducerResult Result<(),E:Display>::into_result maps Err.to_string().into Box<str>\u2192__call_reducer__\u2192convert_err_to_errno\u2192write_to_sink\u2192sys::raw::bytes_sink_write. Thus typed application errors are supported until SDK Display; no internal String wrapper needed.",
+  "disposition": "intentional proven framework text endpoint; earlier internal String maps remain CAM-PROP-F006 migration gaps",
+  "acceptance": "Retain original canonical error variant/cause to each actual reducer entry; preserve transactional evaluation and settlement order; SDK performs sole final error formatting."
+}

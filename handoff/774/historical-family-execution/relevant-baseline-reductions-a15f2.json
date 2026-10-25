@@ -1,0 +1,255 @@
+{
+  "head": "a15f24ad44fc22f86e1e1fd9f2ae47b6bb0ba860",
+  "official_source": "official-quality-baseline-a15f2.toml",
+  "reductions": [
+    {
+      "kind": "files",
+      "old": {
+        "path": "crates/adventuresim-core/src/autoresolve.rs",
+        "ceiling": 1476
+      },
+      "official": {
+        "path": "crates/adventuresim-core/src/autoresolve.rs",
+        "ceiling": 1356
+      }
+    },
+    {
+      "kind": "files",
+      "old": {
+        "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+        "ceiling": 2745
+      },
+      "official": {
+        "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+        "ceiling": 2717
+      }
+    },
+    {
+      "kind": "files",
+      "old": {
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+        "ceiling": 1112
+      },
+      "official": {
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+        "ceiling": 884
+      }
+    },
+    {
+      "kind": "files",
+      "old": {
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+        "ceiling": 1209
+      },
+      "official": {
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+        "ceiling": 1181
+      }
+    },
+    {
+      "kind": "files",
+      "old": {
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+        "ceiling": 688
+      },
+      "official": {
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+        "ceiling": 627
+      }
+    },
+    {
+      "kind": "files",
+      "old": {
+        "path": "crates/adventuresim-tactical-client/src/player.rs",
+        "ceiling": 1002
+      },
+      "official": {
+        "path": "crates/adventuresim-tactical-client/src/player.rs",
+        "ceiling": 712
+      }
+    },
+    {
+      "kind": "files",
+      "old": {
+        "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+        "ceiling": 724
+      },
+      "official": {
+        "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+        "ceiling": 698
+      }
+    },
+    {
+      "kind": "files",
+      "old": {
+        "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+        "ceiling": 2018
+      },
+      "official": {
+        "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+        "ceiling": 1993
+      }
+    },
+    {
+      "kind": "functions",
+      "old": {
+        "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion.rs",
+        "item": "apply",
+        "ceiling": 202
+      },
+      "official": {
+        "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion.rs",
+        "item": "apply",
+        "ceiling": 191
+      }
+    },
+    {
+      "kind": "functions",
+      "old": {
+        "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+        "item": "apply_terrain_leg_ik",
+        "ceiling": 2678
+      },
+      "official": {
+        "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+        "item": "apply_terrain_leg_ik",
+        "ceiling": 2632
+      }
+    },
+    {
+      "kind": "functions",
+      "old": {
+        "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/observation.rs",
+        "item": "refresh_raised_support_after_propagation",
+        "ceiling": 169
+      },
+      "official": {
+        "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/observation.rs",
+        "item": "refresh_raised_support_after_propagation",
+        "ceiling": 115
+      }
+    },
+    {
+      "kind": "functions",
+      "old": {
+        "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation.rs",
+        "item": "finalize_leg_rotation_chains",
+        "ceiling": 148
+      },
+      "official": {
+        "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation.rs",
+        "item": "finalize_leg_rotation_chains",
+        "ceiling": 139
+      }
+    },
+    {
+      "kind": "functions",
+      "old": {
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+        "item": "capture_frame",
+        "ceiling": 282
+      },
+      "official": {
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+        "item": "capture_frame",
+        "ceiling": 267
+      }
+    },
+    {
+      "kind": "functions",
+      "old": {
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+        "item": "guard_step_liveness_metrics",
+        "ceiling": 111
+      },
+      "official": {
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+        "item": "guard_step_liveness_metrics",
+        "ceiling": 104
+      }
+    },
+    {
+      "kind": "functions",
+      "old": {
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+        "item": "scenario_metrics",
+        "ceiling": 171
+      },
+      "official": {
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+        "item": "scenario_metrics",
+        "ceiling": 147
+      }
+    },
+    {
+      "kind": "functions",
+      "old": {
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+        "item": "build_completed_report",
+        "ceiling": 585
+      },
+      "official": {
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+        "item": "build_completed_report",
+        "ceiling": 523
+      }
+    },
+    {
+      "kind": "functions",
+      "old": {
+        "path": "crates/adventuresim-tactical-client/src/player.rs",
+        "item": "CombatTargeting<'_,'_>::acquire",
+        "ceiling": 124
+      },
+      "official": {
+        "path": "crates/adventuresim-tactical-client/src/player.rs",
+        "item": "CombatTargeting<'_,'_>::acquire",
+        "ceiling": 117
+      }
+    },
+    {
+      "kind": "functions",
+      "old": {
+        "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+        "item": "TacticalCombatConfig::validate",
+        "ceiling": 341
+      },
+      "official": {
+        "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+        "item": "TacticalCombatConfig::validate",
+        "ceiling": 315
+      }
+    },
+    {
+      "kind": "functions",
+      "old": {
+        "path": "crates/adventuresim-tactical-server/src/combat/ingress.rs",
+        "item": "on_melee_attack_started",
+        "ceiling": 120
+      },
+      "official": {
+        "path": "crates/adventuresim-tactical-server/src/combat/ingress.rs",
+        "item": "on_melee_attack_started",
+        "ceiling": 118
+      }
+    }
+  ],
+  "applied": true,
+  "file_ceiling_reductions": 8,
+  "function_ceiling_reductions": 11,
+  "no_new_rows_or_ceilings": true,
+  "findings_unchanged": true,
+  "before_sha256": "198302dd4360ba947f29bb080484b55be6c3fa050422e3235e6aab55c2d8abb3",
+  "after_sha256": "8de107697570abcd3e448996666f6f9186dbe7f80acca551682ec9c0b9fe249a",
+  "source_change": "rust-quality-baseline.toml only; all Rust, YAML, workflow and fixture sources remain identical to successful a15f24ad4.",
+  "published_head": "82cb2a3acccc852bba6a7ef9c706c337ba9fe765",
+  "hosted_run": 39466774426,
+  "hosted_job": 118780099699,
+  "status": "Accepted: current-head run 39466774426 succeeds; all nineteen reductions match its official export.",
+  "review_passes": [
+    "Exact official row values and relevant paths verified against successful head export.",
+    "Reparsed full TOML: only 19 decreases changed, all other rows and finding entries unchanged; Rust/YAML/workflow/tests identical."
+  ],
+  "review_by": "implementation agent; not independent full-PR review",
+  "acceptance_evidence": "rig-artifact-verification-82cb2.json"
+}

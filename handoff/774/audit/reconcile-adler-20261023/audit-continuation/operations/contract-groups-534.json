@@ -1,0 +1,150 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-534",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/limb.rs",
+      "sha256": "e5efa7b1f098c5fd6844c77f4e7f14cd6b1bf626f09208a349deb98166db78aa",
+      "actual_EOF": 478,
+      "actual_compared_ranges": [
+        [
+          1,
+          478
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/limb/joint_cup.rs",
+      "sha256": "412277a3c18b8e02e997ff34764650af39c0d0229d3fa6f3de23b4edaa9e5718",
+      "actual_EOF": 268,
+      "actual_compared_ranges": [
+        [
+          1,
+          268
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/metal/bake.rs",
+      "sha256": "48d91d7bad79387e928424c9c868a5137fc880d3764258c53f82224e65f9c7ec",
+      "actual_EOF": 262,
+      "actual_compared_ranges": [
+        [
+          1,
+          262
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/metal/finish.rs",
+      "sha256": "644af66b116514a18cfcf826612c00ad8368777bafcdad735c44166fdc55d535",
+      "actual_EOF": 134,
+      "actual_compared_ranges": [
+        [
+          1,
+          134
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+      "sha256": "8dee677fcdf79dbea5c29ec06b65413435faef45bb0d8d0da7a35516f25e4a2c",
+      "actual_EOF": 126,
+      "actual_compared_ranges": [
+        [
+          1,
+          126
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/metal/ornament.rs",
+      "sha256": "6a9f887c5c746b8b70fc8a3c9741ffa1a68dd3580a61483ca88fbc244dcb4152",
+      "actual_EOF": 198,
+      "actual_compared_ranges": [
+        [
+          1,
+          198
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/metal/textures.rs",
+      "sha256": "b7eedf258c742117f1e6dbcb5abfeb71614f57e3001a6bd335b88c160ffca0ee",
+      "actual_EOF": 335,
+      "actual_compared_ranges": [
+        [
+          1,
+          335
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/mod.rs",
+      "sha256": "e2c32d059f773c9dc53ca214859713765404865e75e82302ea6b978145960199",
+      "actual_EOF": 331,
+      "actual_compared_ranges": [
+        [
+          1,
+          331
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/material.rs",
+      "sha256": "ab288766a2010d8edd2795c541884dda9c55367deaf0105f1a7e8a0574c0f0fe",
+      "actual_EOF": 103,
+      "actual_compared_ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/ornament.rs",
+      "sha256": "5aaf7f24806502832feef0cc0a9d5e572e80199b63c1d371b05a14fd6cb361ef",
+      "actual_EOF": 189,
+      "actual_compared_ranges": [
+        [
+          1,
+          189
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Metal finite arithmetic and raster bounds",
+      "evidence": "Public textures validates Metal and size32..1024 before bake. Density<=3000 and length<=.4 make density*5<=15000, most_steps<=822 and n*n<=1048576; finish3 words and slopes2 words widen allocations to u64. Scratch atomic maximum only accepts positive groove bits; deterministic RNG wrapping deliberate. Output byte roughness saturation intentional. Image dimensions and decoded pixel cardinality belong engraving decoder already read531; arbitrary raw ReliefImage is not exposed through this public bake API."
+    },
+    {
+      "contract": "Ornament denominators and loop bounds",
+      "evidence": "Validated repeats1..8, strands1..6, positive tiles through Engraving, size>=32 keep soft/period denominators positive. Zero legal motif amplitude/leaf is guarded by max(room,soft) or max(axis,soft), not incorrectly rejected. Finite color/roughness admitted. No GPU result or cross-device determinism run claimed."
+    },
+    {
+      "contract": "Limb chart mutation and shape constraints",
+      "evidence": "shape validates LimbArmorDesign before greave/cuisse/rerebrace/spaulder/joint branches. Fixed along rows16, cup24 and extension12. lames==1 branch prevents division by zero; wider pattern and profile constraints remain owned by actual design validation. Intermediate local PartRecipe is dropped on failure before publication. Current output geometry fitting remains separate acceptance."
+    },
+    {
+      "contract": "Public DevicePart and native query boundary",
+      "evidence": "DevicePart forwards shell indexing and PartSlots finish; retained context and bounds delegated to PartBuild/layout/staging, next source cells. build_in validates every host PartFrame before upload, records all shells then submits and reads; closure errors leave no published BuiltPart. nearest_points handles empty queries/targets but unchecked usize-to-u32 narrowing at enormous public slice lengths remains native-representation admission question, no ordinary workload proof."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "10 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/fabelgeist-armor/src/gpu/part.rs"
+}

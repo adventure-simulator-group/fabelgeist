@@ -1,0 +1,93 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-090",
+  "at": "2026-10-25T15:12:42.520694+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1285,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/policy.rs",
+      "sha256": "d056fbef7a8fa3486dd75f7f51b2cb3cc942a71163499480d0c52023c76930ba",
+      "personally_read_ranges": [
+        [
+          1,
+          598
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "LiveRunner retains aligned profiles/Character IDs and trace/semantic keys in separate vectors; actual constructors and sole event writer already traced1268/1278 preserve order and equal lengths. Per-Character/per-case maps and progress sets encode separate lifecycle facts, so do not collapse terminal/intake/traveled/backoff authorities merely because keys overlap. Named identity records can replace positional primitive tuple keys using existing owners.",
+        "PublicInterventionOffer allows quote and inventory ID independently; actual producer in settlement remains pending. Selection should carry actual carried/prepared versus purchased offer payload and public score/profile/route binding, not invent mutual exclusion before examining available carried-stock and shop preference policy.",
+        "MedicalActionContext and MedicalChoice+reason tuples represent condition, symptom, location, available intervention and two venue plans. Factory first guards ready/nonsymptomatic, settlement and actual available natural care, then chooses intervention only when affordable. Complete checked care proposal should own its valid venue/payment/offer payload; no current arbitrary admission exploited. Public chart rank/recentness and intervention scoring use observer-safe weighted differential only, not private disease truth.",
+        "live_attributes/skills/personality construct actual generated SDK DTOs from canonical profile and match every enum variant explicitly. These are real native serialization adapters, not warning-sign primitive re-admission. Native schedule quarter-hour quantization deliberately leaves remainder leisure; crime reallocated to legal labor for this harness policy. Checked daily allocation must survive internal schedule planning, preserving quarter-hour/disabled activity semantics and sum bounds.",
+        "reducer_call receives actual nested native result, preserves authoritative server rejection text/code at its true wire port, but dispatch/build callback errors stringify native causes; receiver disconnect also conflated with timeout. Exact adopted CAM-PROP-F012 whole error graph, no duplicate source error finding."
+      ]
+    },
+    {
+      "scope_index": 1286,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/quest_coverage.rs",
+      "sha256": "3d43a767b929a84550f716de78fab88ac13f0dd845501e3f7b62dc1b6ede9dc5",
+      "personally_read_ranges": [
+        [
+          1,
+          260
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "QuestCoverageEvidence stores independent direct/generated identities and milestone booleans. Actual bootstrap uses matching public fixture and semantic keys with owner/party/contract/case; validation checks booleans and metrics, not identity relationships or completeness of final roster. Empty final_agents vacuously pass its alive/critical/stranding loops, but normal producer constructs every configured agent or fails. This is a checked report/API strengthening candidate, not an ordinary false accepted run from the proven producer.",
+        "First-unmet QuestCoverageMetric failure is structured and deterministic. Keep direct safe abandonment as explicit permitted alternative; generated completion currently already required, so successfulcompletion OR is redundant predicate but not a gameplay bug. Report metric consistency currently checks attempts equals directattempts+intakes. Stronger validation should consume one admitted coverage report with exact fixture/roster association, preserving existing scope rather than inventing extra success requirements.",
+        "Failure artifact projection copies same final-agent fields/metrics/coverage and bounded trace from actual report; category/reason labels are final native JSON strings. IO create_new protects existing output, typed serde/IO cause currently formatted toString in this wrapper; shared CAM-PROP-F012/FailureReportError repair should retain cause and original operation rather than parallel string error owner."
+      ]
+    },
+    {
+      "scope_index": 1287,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/report.rs",
+      "sha256": "73996e2153ad432112dc56113c74b29200ad3ab6dbb85e236343407ccbec39d7",
+      "personally_read_ranges": [
+        [
+          1,
+          172
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "CoreLoopMetrics is public serializable report shape used as mutable internal counters; meaningful event/count/currency/duration/physical leaves should retain canonical owners through operations to this final wire view. Report definitions alone do not prove all monotonic/bounds relationships; actual producers currently varied checked/saturating/direct arithmetic, to reconcile with operation lens findings rather than mirror wrappers.",
+        "FinalAgentState independently stores Character/agent identity, gold/fullcoin amount, life/condition/public symptoms, location/journey, carried mass/capacity, and elapsed. Actual1268 factory joins by same Character ID and constructs full list or returnsErr; no ordinary cross-person value association proved. Raw capability prose and services are outward presentation labels. Typed canonical projected state should survive receiving validation, no loss of precise public quantities.",
+        "CoreLoopReport relates profiles/roster, trace/truncation/count, elapsedmax, fixture/imported provenance optional pair and optional coverage. Actual validated mode/constructor sets artifact+digest together and trace/key cap coherently. Public Deserialize merely deniesunknownfields, does not admit version/semantic relationships. Retain checked report envelope/coverage and explicit unavailable provenance where meaningful; do not equate raw JSON derivation with semantic acceptance."
+      ]
+    },
+    {
+      "scope_index": 1288,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/run_error.rs",
+      "sha256": "5f8680ad8019206c22009e97209b468c4b8148340f16a0e939d5100f2fb53500",
+      "personally_read_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "CoreLoopRunError already distinguishes operation-only failure from failure to record it, retaining both originalerror and FailureReportError; this is correct correlated outcome design. Native encoding/IO typed causes preserved by existing thiserror derives. Transparent Operation source behavior deliberate, compound FailureReport source is original operation while secondary report cause stays inspectable in payload. Do not combine into generic String or global errors file."
+      ]
+    },
+    {
+      "scope_index": 1289,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/schema_types.rs",
+      "sha256": "1652605409faa40d7ba5189405b89e55e69d935fdc07478507e9639da63b6bff",
+      "personally_read_ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Exhaustive generated SDK status/bodyregion/intervention/surgery mapping is the explicit true storage/reducer transport boundary; canonical semantics retained on application side. No primitive forwarding shim or duplicate application enum owner needed. Fixtures are existing example mappings read only, not run."
+      ]
+    }
+  ],
+  "findings": [
+    "CAM-PROP-F012 (native dispatch/callback/return cause graph, added support)",
+    "SEGO-INITIAL09-F381 (same complete medical decision/venue/offer payload repair, added own05 support)"
+  ],
+  "cross_lens_reconciliation": "Own09 exact F381/contracts589 confirmed MedicalChoice/context remedy. Public report/coverage DTOs have normal coherent full-roster producer; no independently actionable forged-report claim without an actual untrusted receiving path. Offer actual source1290 allows both quote and inventory deliberately, pending bounded full consumer closure.",
+  "discovery": "Five original source roles fully read, explicit boundary positives and API strengthening candidates retained; lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

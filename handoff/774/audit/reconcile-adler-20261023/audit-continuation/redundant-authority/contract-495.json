@@ -1,0 +1,64 @@
+{
+  "id": "CONT07-CONTRACT-495",
+  "at": "2026-10-23T22:54:32.438659+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2165,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/name_catalog_schema.rs",
+      "sha256": "c50dcf6eef9aa348c8c259b105a9734f1e25ee2e57a043ee484a3892e9795dfa",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-world-schema/src/name_catalog_schema.rs",
+      "actual_EOF": 199,
+      "ranges": [
+        [
+          1,
+          199
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2166,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/name_catalog_validation.rs",
+      "sha256": "555b21fb6dddac260f0a951252041fd40a0d3e02dd8bb0d649fda9a528e0ed77",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-world-schema/src/name_catalog_validation.rs",
+      "actual_EOF": 576,
+      "ranges": [
+        [
+          1,
+          576
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2167,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/name_catalog_validation/derivations.rs",
+      "sha256": "7178c20d189f6254be6bd97094c550465c0b137c2c2e3ccf0b8f033cc80d435d",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-world-schema/src/name_catalog_validation/derivations.rs",
+      "actual_EOF": 214,
+      "ranges": [
+        [
+          1,
+          214
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Name catalog full schema199, validator576 including existingfixtures, derivations214 personally read. Authored observation count and production relative frequency explicitly distinct; source quantitative/sample/record-unit are provenance semantics, not cached current counts.",
+    "Repertoire frequency and derivation frequency duplicate sampling authority as a checked provenance assertion: exact target key maps enforce frequency equality and exactly one derivation per eligible family/form/surname; duplicate or dangling observations rejected. Historical observation spelling need not equal selected current form. No current contradictory admitted frequency proof.",
+    "Forms share multiple same-sex families deliberately; canonical form family membership checked against repertoire entry. Surname display variants selected by culture/sex rather than wrong duplicate name authority; validator demands compatible form for each admitted sex.",
+    "Source URL validator merely https prefix is admission/string concern, no inferred07 defect; retain prior URL-role obligations independently. No execution or outside-source attestation."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2174,
+    "start_line": 1
+  }
+}

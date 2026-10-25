@@ -1,0 +1,507 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-675",
+  "dimension": "shared-live-source-extensions",
+  "rows": [
+    {
+      "index": 94,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/clothing/regions.rs",
+      "sha256": "3819e9e4805a3004655e303c8a9e84b2d28892ea2d2b193ea9d094a31afc8f5a",
+      "actual_compared_ranges": [
+        [
+          104,
+          133
+        ]
+      ],
+      "actual_EOF": 162,
+      "registration": {
+        "source_id": "rig-quality:crates/adventuresim-character-creator/src/clothing/regions.rs",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/fresh-dependencies/592/crates/adventuresim-character-creator/src/clothing/regions.rs",
+        "sha256": "3819e9e4805a3004655e303c8a9e84b2d28892ea2d2b193ea9d094a31afc8f5a",
+        "ranges": [
+          [
+            104,
+            133
+          ]
+        ],
+        "line_count": 162,
+        "provenance": "Onlystatedrangespersonallyread; no fullcoverageunlessrangesreachactualEOF. Riggitexactcbbbca08c89a8768926799371f54cf6057312e5e. SerdeJSONcratec841b55e...matchesfrozenrigCargo.lockandactualmemberbytes; no otherSDKcoverage.",
+        "registration_evidence": "operations/contract-groups-592.json",
+        "reason": "007 corrects priorcrossvariantdedup in006: actualreachedrig/P16context differsfromoriginalPRvariant, even ifbodybytesidentical. Originpersonallycomparedcontext inoperationpacket; no needlessbodyreread.",
+        "qualification": "Distinct variant/context remains material despite equal bodybytes. Only listedranges; no original2853 increment or automaticotherlenscoverage.",
+        "lenses": {
+          "producer-propagation": "Bounded newvariant material delta pending; completedbaseline/snapshots retained.",
+          "existing-type-owners": "Bounded newvariant material delta pending; completedbaseline/snapshots retained.",
+          "admission-contracts": "Own03 exactvariantcontext admissioncomparison; admission-contracts/contract-groups-008.json. No clearance.",
+          "invariant-operations": "Originsourceproof inoperations/contract-groups-592.json",
+          "aggregate-states": "Bounded newvariant material delta pending; completedbaseline/snapshots retained.",
+          "type-ownership": "Own06independent exactvariantcontextcomparison; type-ownership/contract-groups-016.json. No clearance.",
+          "redundant-authority": "Own07exactnewvariantcontextsourcecompared; live-delta-014-contexts.json; no clearance.",
+          "behavior-preservation": "Bounded newvariant material delta pending; completedbaseline/snapshots retained.",
+          "enum-shapes": "Bounded newvariant material delta pending; completedbaseline/snapshots retained.",
+          "derivability": "Bounded newvariant material delta pending; completedbaseline/snapshots retained.",
+          "type-granularity": "Bounded newvariant material delta pending; completedbaseline/snapshots retained.",
+          "magic-strings": "Bounded newvariant material delta pending; completedbaseline/snapshots retained.",
+          "magic-numbers": "Bounded newvariant material delta pending; completedbaseline/snapshots retained."
+        },
+        "status": "Exact source bytesverified, distinctboundedvariantregistered; no clearance"
+      },
+      "evidence": "SEGOVB-INITIAL04-CONTRACT-675",
+      "method": "Reuse exact same-lens sourcevariant/revision/SHA and actual registered ranges already personally read; reconciled source-specific operation/qualification in675. No fresh body-read or other-lens/hash-only coverage.",
+      "prior_04_proof": [
+        "592:fresh rig-quality actualcbbb regions104\u2013133"
+      ],
+      "status": "EXISTING_SAME_LENS_EVIDENCE_RECONCILED_WITH_FINDINGS"
+    },
+    {
+      "index": 95,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/boundaries.rs",
+      "sha256": "41530ea3d8197242c6c5cc79ac9a35b31b9df76287a57aae530247553f3e2f2b",
+      "actual_compared_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "actual_EOF": 46,
+      "registration": {
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/boundaries.rs",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/fresh-dependencies/606/crates/adventuresim-tactical-server/src/boundaries.rs",
+        "sha256": "41530ea3d8197242c6c5cc79ac9a35b31b9df76287a57aae530247553f3e2f2b",
+        "ranges": [
+          [
+            1,
+            46
+          ]
+        ],
+        "line_count": 46,
+        "provenance": "Exact git0393295; onlystatedranges personallyread; separate live registration pendingcoordinator, no wholebodycreditwherepartial.",
+        "registration_evidence": "operations/contract-groups-606.json",
+        "reason": "007 corrects priorcrossvariantdedup in006: actualreachedrig/P16context differsfromoriginalPRvariant, even ifbodybytesidentical. Originpersonallycomparedcontext inoperationpacket; no needlessbodyreread.",
+        "qualification": "Distinct variant/context remains material despite equal bodybytes. Only listedranges; no original2853 increment or automaticotherlenscoverage.",
+        "lenses": {
+          "producer-propagation": "Bounded newvariant material delta pending; completedbaseline/snapshots retained.",
+          "existing-type-owners": "Bounded newvariant material delta pending; completedbaseline/snapshots retained.",
+          "admission-contracts": "Own03 exactvariantcontext admissioncomparison; admission-contracts/contract-groups-008.json. No clearance.",
+          "invariant-operations": "Originsourceproof inoperations/contract-groups-606.json",
+          "aggregate-states": "Bounded newvariant material delta pending; completedbaseline/snapshots retained.",
+          "type-ownership": "Own06independent exactvariantcontextcomparison; type-ownership/contract-groups-016.json. No clearance.",
+          "redundant-authority": "Own07exactnewvariantcontextsourcecompared; live-delta-014-contexts.json; no clearance.",
+          "behavior-preservation": "Bounded newvariant material delta pending; completedbaseline/snapshots retained.",
+          "enum-shapes": "Bounded newvariant material delta pending; completedbaseline/snapshots retained.",
+          "derivability": "Bounded newvariant material delta pending; completedbaseline/snapshots retained.",
+          "type-granularity": "Bounded newvariant material delta pending; completedbaseline/snapshots retained.",
+          "magic-strings": "Bounded newvariant material delta pending; completedbaseline/snapshots retained.",
+          "magic-numbers": "Bounded newvariant material delta pending; completedbaseline/snapshots retained."
+        },
+        "status": "Exact source bytesverified, distinctboundedvariantregistered; no clearance"
+      },
+      "evidence": "SEGOVB-INITIAL04-CONTRACT-675",
+      "method": "Reuse exact same-lens sourcevariant/revision/SHA and actual registered ranges already personally read; reconciled source-specific operation/qualification in675. No fresh body-read or other-lens/hash-only coverage.",
+      "prior_04_proof": [
+        "606:fresh actualP16boundaries1\u201346"
+      ],
+      "status": "EXISTING_SAME_LENS_EVIDENCE_RECONCILED_WITH_FINDINGS"
+    },
+    {
+      "index": 96,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/investigation/claims.rs",
+      "sha256": "19ecf9355e0b4d4745fc425ac8c9f8f38f238fc9bb89dc91d4c2da28d0ec3c3a",
+      "actual_compared_ranges": [
+        [
+          643,
+          655
+        ]
+      ],
+      "actual_EOF": 1771,
+      "registration": {
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/investigation/claims.rs",
+        "sha256": "19ecf9355e0b4d4745fc425ac8c9f8f38f238fc9bb89dc91d4c2da28d0ec3c3a",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-material-19ecf9355e0b4d4745fc425ac8c9f8f38f238fc9bb89dc91d4c2da28d0ec3c3a",
+        "ranges": [
+          [
+            643,
+            655
+          ]
+        ],
+        "line_count": 1771,
+        "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+        "before_revision": "a120390947c89b703dc74c4255a13c035d054c50",
+        "before_sha256": "19ecf9355e0b4d4745fc425ac8c9f8f38f238fc9bb89dc91d4c2da28d0ec3c3a",
+        "registration_evidence": "behavior-preservation/source-registration-004.json",
+        "reason": "Actual224development rumor receiving boundary referenced1646/1658; establish frozen Result owner and native gating/material journal publication.",
+        "qualification": "Distinct variant/context remains material despite equal bodybytes. Only listedranges; no original2853 increment or automaticotherlenscoverage.",
+        "lenses": {
+          "producer-propagation": "Bounded newvariant material delta pending; completedbaseline/snapshots retained.",
+          "existing-type-owners": "Bounded newvariant material delta pending; completedbaseline/snapshots retained.",
+          "admission-contracts": "Own03 exactvariantcontext admissioncomparison; admission-contracts/contract-groups-008.json. No clearance.",
+          "invariant-operations": "Bounded newvariant material delta pending; completedbaseline/snapshots retained.",
+          "aggregate-states": "Bounded newvariant material delta pending; completedbaseline/snapshots retained.",
+          "type-ownership": "Own06independent exactvariantcontextcomparison; type-ownership/contract-groups-016.json. No clearance.",
+          "redundant-authority": "Own07exactnewvariantcontextsourcecompared; live-delta-014-contexts.json; no clearance.",
+          "behavior-preservation": "Originsourceproof inbehavior-preservation/source-registration-004.json",
+          "enum-shapes": "Bounded newvariant material delta pending; completedbaseline/snapshots retained.",
+          "derivability": "Bounded newvariant material delta pending; completedbaseline/snapshots retained.",
+          "type-granularity": "Bounded newvariant material delta pending; completedbaseline/snapshots retained.",
+          "magic-strings": "Bounded newvariant material delta pending; completedbaseline/snapshots retained.",
+          "magic-numbers": "Bounded newvariant material delta pending; completedbaseline/snapshots retained."
+        },
+        "status": "Exact source bytesverified, distinctboundedvariantregistered; no clearance"
+      },
+      "evidence": "SEGOVB-INITIAL04-CONTRACT-675",
+      "method": "Every exact registered material range personally read and analyzed for04 in its stated sourcevariant/context; no imported lens coverage.",
+      "status": "PERSONALLY_READ_WITH_FINDINGS"
+    },
+    {
+      "index": 97,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/investigation/model.rs",
+      "sha256": "ce5e06fe7f483ecbd5c30af9a9475686d4c7acf147a8bb8de2e8a9e738211cb4",
+      "actual_compared_ranges": [
+        [
+          1287,
+          1335
+        ]
+      ],
+      "actual_EOF": 1399,
+      "registration": {
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/investigation/model.rs",
+        "sha256": "ce5e06fe7f483ecbd5c30af9a9475686d4c7acf147a8bb8de2e8a9e738211cb4",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-material-ce5e06fe7f483ecbd5c30af9a9475686d4c7acf147a8bb8de2e8a9e738211cb4",
+        "ranges": [
+          [
+            1287,
+            1335
+          ]
+        ],
+        "line_count": 1399,
+        "revision": "039329518e264f19206cf5b0b98d177433f40c17",
+        "before_revision": "a120390947c89b703dc74c4255a13c035d054c50",
+        "before_sha256": "ce5e06fe7f483ecbd5c30af9a9475686d4c7acf147a8bb8de2e8a9e738211cb4",
+        "registration_evidence": "behavior-preservation/source-registration-004.json",
+        "reason": "Actual224development rumor receiving boundary referenced1646/1658; establish frozen Result owner and native gating/material journal publication.",
+        "qualification": "Distinct variant/context remains material despite equal bodybytes. Only listedranges; no original2853 increment or automaticotherlenscoverage.",
+        "lenses": {
+          "producer-propagation": "Bounded newvariant material delta pending; completedbaseline/snapshots retained.",
+          "existing-type-owners": "Bounded newvariant material delta pending; completedbaseline/snapshots retained.",
+          "admission-contracts": "Own03 exactvariantcontext admissioncomparison; admission-contracts/contract-groups-008.json. No clearance.",
+          "invariant-operations": "Bounded newvariant material delta pending; completedbaseline/snapshots retained.",
+          "aggregate-states": "Bounded newvariant material delta pending; completedbaseline/snapshots retained.",
+          "type-ownership": "Own06independent exactvariantcontextcomparison; type-ownership/contract-groups-016.json. No clearance.",
+          "redundant-authority": "Own07exactnewvariantcontextsourcecompared; live-delta-014-contexts.json; no clearance.",
+          "behavior-preservation": "Originsourceproof inbehavior-preservation/source-registration-004.json",
+          "enum-shapes": "Bounded newvariant material delta pending; completedbaseline/snapshots retained.",
+          "derivability": "Bounded newvariant material delta pending; completedbaseline/snapshots retained.",
+          "type-granularity": "Bounded newvariant material delta pending; completedbaseline/snapshots retained.",
+          "magic-strings": "Bounded newvariant material delta pending; completedbaseline/snapshots retained.",
+          "magic-numbers": "Bounded newvariant material delta pending; completedbaseline/snapshots retained."
+        },
+        "status": "Exact source bytesverified, distinctboundedvariantregistered; no clearance"
+      },
+      "evidence": "SEGOVB-INITIAL04-CONTRACT-675",
+      "method": "Every exact registered material range personally read and analyzed for04 in its stated sourcevariant/context; no imported lens coverage.",
+      "status": "PERSONALLY_READ_WITH_FINDINGS"
+    },
+    {
+      "index": 98,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/shell.rs",
+      "sha256": "ff370d4ead428bf2bc7c6de55dcf2d22d7b358ab64054cac8e1ec34f71bda894",
+      "actual_compared_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "actual_EOF": 111,
+      "registration": {
+        "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/shell.rs",
+        "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+        "sha256": "ff370d4ead428bf2bc7c6de55dcf2d22d7b358ab64054cac8e1ec34f71bda894",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/fresh-dependencies/659/crates/adventuresim-character-creator/src/export/shell.rs",
+        "ranges": [
+          [
+            1,
+            111
+          ]
+        ],
+        "reason": "Immediate actual CompactShell.rigged surface/texcoords consumer, needed to decide remapped UV cohort. Firstparty helper only; no blanket export expansion. Exact frozen Git recovery before body read, not current worktree.",
+        "line_count": 111,
+        "registration_evidence": "operations/fresh-dependency-registration-659.json",
+        "qualification": "Actualreachedrig-qualityreceiverexactcontext/ranges; equalPRbytesnotcoverageorvariantremoval. No wholeexportexpansion.",
+        "lenses": {
+          "producer-propagation": "Boundednewvariantmaterialdelta pending; adoptedbaseline/source snapshots retained.",
+          "existing-type-owners": "Boundednewvariantmaterialdelta pending; adoptedbaseline/source snapshots retained.",
+          "admission-contracts": "Independentadmission-contractsexactmaterialcomparison; admission-contracts/contract-groups-009.json; no clearance.",
+          "invariant-operations": "Origin04sourceproof659",
+          "aggregate-states": "Boundednewvariantmaterialdelta pending; adoptedbaseline/source snapshots retained.",
+          "type-ownership": "Independenttype-ownershipexactmaterialcomparison; type-ownership/contract-groups-017.json; no clearance.",
+          "redundant-authority": "Independentredundant-authorityexactmaterialcomparison; redundant-authority/live-delta-015-uv-writer.json; no clearance.",
+          "behavior-preservation": "Boundednewvariantmaterialdelta pending; adoptedbaseline/source snapshots retained.",
+          "enum-shapes": "Boundednewvariantmaterialdelta pending; adoptedbaseline/source snapshots retained.",
+          "derivability": "Boundednewvariantmaterialdelta pending; adoptedbaseline/source snapshots retained.",
+          "type-granularity": "Boundednewvariantmaterialdelta pending; adoptedbaseline/source snapshots retained.",
+          "magic-strings": "Boundednewvariantmaterialdelta pending; adoptedbaseline/source snapshots retained.",
+          "magic-numbers": "Boundednewvariantmaterialdelta pending; adoptedbaseline/source snapshots retained."
+        },
+        "status": "Exactfrozenbytesverifiedandboundedreceiverregistered; no clearance"
+      },
+      "evidence": "SEGOVB-INITIAL04-CONTRACT-675",
+      "method": "Reuse exact same-lens sourcevariant/revision/SHA and actual registered ranges already personally read; reconciled source-specific operation/qualification in675. No fresh body-read or other-lens/hash-only coverage.",
+      "prior_04_proof": [
+        "659:fresh actualrig-quality shell1\u2013111 +fresh-dependency-registration-659.json"
+      ],
+      "status": "EXISTING_SAME_LENS_EVIDENCE_RECONCILED_WITH_FINDINGS"
+    },
+    {
+      "index": 99,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/export.rs",
+      "sha256": "cc0dcb8aa0f608af65aa968955667894a687e4f44ef547919b421d7c3e1d2616",
+      "actual_compared_ranges": [
+        [
+          633,
+          670
+        ],
+        [
+          810,
+          840
+        ]
+      ],
+      "actual_EOF": 1819,
+      "registration": {
+        "source_id": "rig-quality:crates/adventuresim-character-creator/src/export.rs",
+        "revision": "cbbbca08c89a8768926799371f54cf6057312e5e",
+        "sha256": "cc0dcb8aa0f608af65aa968955667894a687e4f44ef547919b421d7c3e1d2616",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/fresh-dependencies/659/crates/adventuresim-character-creator/src/export.rs",
+        "ranges": [
+          [
+            633,
+            670
+          ],
+          [
+            810,
+            840
+          ]
+        ],
+        "reason": "Exact actual export validates originalshells then usesCompactShell remapping and passes material/UV writer. Selected firstparty critical ranges only, not whole export or adjacent skin/socket bodies.",
+        "line_count": 1819,
+        "registration_evidence": "operations/fresh-dependency-registration-659-export.json",
+        "qualification": "Actualreachedrig-qualityreceiverexactcontext/ranges; equalPRbytesnotcoverageorvariantremoval. No wholeexportexpansion.",
+        "lenses": {
+          "producer-propagation": "Boundednewvariantmaterialdelta pending; adoptedbaseline/source snapshots retained.",
+          "existing-type-owners": "Boundednewvariantmaterialdelta pending; adoptedbaseline/source snapshots retained.",
+          "admission-contracts": "Independentadmission-contractsexactmaterialcomparison; admission-contracts/contract-groups-009.json; no clearance.",
+          "invariant-operations": "Origin04sourceproof659",
+          "aggregate-states": "Boundednewvariantmaterialdelta pending; adoptedbaseline/source snapshots retained.",
+          "type-ownership": "Independenttype-ownershipexactmaterialcomparison; type-ownership/contract-groups-017.json; no clearance.",
+          "redundant-authority": "Independentredundant-authorityexactmaterialcomparison; redundant-authority/live-delta-015-uv-writer.json; no clearance.",
+          "behavior-preservation": "Boundednewvariantmaterialdelta pending; adoptedbaseline/source snapshots retained.",
+          "enum-shapes": "Boundednewvariantmaterialdelta pending; adoptedbaseline/source snapshots retained.",
+          "derivability": "Boundednewvariantmaterialdelta pending; adoptedbaseline/source snapshots retained.",
+          "type-granularity": "Boundednewvariantmaterialdelta pending; adoptedbaseline/source snapshots retained.",
+          "magic-strings": "Boundednewvariantmaterialdelta pending; adoptedbaseline/source snapshots retained.",
+          "magic-numbers": "Boundednewvariantmaterialdelta pending; adoptedbaseline/source snapshots retained."
+        },
+        "status": "Exactfrozenbytesverifiedandboundedreceiverregistered; no clearance"
+      },
+      "evidence": "SEGOVB-INITIAL04-CONTRACT-675",
+      "method": "Reuse exact same-lens sourcevariant/revision/SHA and actual registered ranges already personally read; reconciled source-specific operation/qualification in675. No fresh body-read or other-lens/hash-only coverage.",
+      "prior_04_proof": [
+        "659:fresh actualrig-quality export633\u2013670/810\u2013840 +fresh-dependency-registration-659-export.json"
+      ],
+      "status": "EXISTING_SAME_LENS_EVIDENCE_RECONCILED_WITH_FINDINGS"
+    },
+    {
+      "index": 100,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/contracts.rs",
+      "sha256": "082a7174a1ca9b578bf1a52852a7d09d952c4af3c6d0705ee7b5442692175e33",
+      "actual_compared_ranges": [
+        [
+          1,
+          291
+        ],
+        [
+          338,
+          384
+        ]
+      ],
+      "actual_EOF": 384,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/contracts.rs",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "sha256": "082a7174a1ca9b578bf1a52852a7d09d952c4af3c6d0705ee7b5442692175e33",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/enum-shapes/source-objects/082a7174a1ca9b578bf1a52852a7d09d952c4af3c6d0705ee7b5442692175e33",
+        "line_count": 384,
+        "ranges": [
+          [
+            1,
+            291
+          ],
+          [
+            338,
+            384
+          ]
+        ],
+        "registration_evidence": "enum-shapes/registration-568A.json + contracts-568.json sourcebodydisposition",
+        "reason": "Actual PR1213:151\u2013160/191\u2013200 passes named ContractInteractionStage to record_dialogue_contract_issuer_interaction then accept_contract/report_contract; PR1227:52\u201357 consumes exact Report interaction. F002 retained Contract state and F234 admitted approved action need these exact live issuers/consumers, not module adjacency.",
+        "qualification": "Own09fullbodyfirstread narrowed shared actualmaterial to1\u2013291/338\u2013384; tracking294\u2013336 remains own09supportonly andnotsharedbody obligation. NativePR/P16variants distinct; no otherlenscredit.",
+        "lenses": {
+          "producer-propagation": "Boundednewmaterial delta pending; completedsource snapshots retained.",
+          "existing-type-owners": "Boundednewmaterial delta pending; completedsource snapshots retained.",
+          "admission-contracts": "Boundednewmaterial delta pending; completedsource snapshots retained.",
+          "invariant-operations": "Boundednewmaterial delta pending; completedsource snapshots retained.",
+          "aggregate-states": "Boundednewmaterial delta pending; completedsource snapshots retained.",
+          "type-ownership": "Boundednewmaterial delta pending; completedsource snapshots retained.",
+          "redundant-authority": "Boundednewmaterial delta pending; completedsource snapshots retained.",
+          "behavior-preservation": "Boundednewmaterial delta pending; completedsource snapshots retained.",
+          "enum-shapes": "Origin09fullactualsourcebody + narrowedmaterialcontract568",
+          "derivability": "Boundednewmaterial delta pending; completedsource snapshots retained.",
+          "type-granularity": "Boundednewmaterial delta pending; completedsource snapshots retained.",
+          "magic-strings": "Boundednewmaterial delta pending; completedsource snapshots retained.",
+          "magic-numbers": "Boundednewmaterial delta pending; completedsource snapshots retained."
+        },
+        "status": "Materialsourcebytes/ranges registered, no clearance"
+      },
+      "evidence": "SEGOVB-INITIAL04-CONTRACT-675",
+      "method": "Every exact registered material range personally read and analyzed for04 in its stated sourcevariant/context; no imported lens coverage.",
+      "status": "PERSONALLY_READ_WITH_FINDINGS"
+    },
+    {
+      "index": 101,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade/streams.rs",
+      "sha256": "f0317997a922b05065564f3a5b4963d424f0efd3a2c4ed70dbb72a1de6c9569e",
+      "actual_compared_ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "actual_EOF": 18,
+      "registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/inventory_trade/streams.rs",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "sha256": "f0317997a922b05065564f3a5b4963d424f0efd3a2c4ed70dbb72a1de6c9569e",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/enum-shapes/source-objects/f0317997a922b05065564f3a5b4963d424f0efd3a2c4ed70dbb72a1de6c9569e",
+        "line_count": 18,
+        "ranges": [
+          [
+            1,
+            18
+          ]
+        ],
+        "registration_evidence": "enum-shapes/registration-568A.json + contracts-568.json sourcebodydisposition",
+        "reason": "Actual PR1225:1371\u20131374 conditionally supplies named loot seed and maximum gold to inventory_trade_streams::gold. Concrete current hostile-battle loot policy and include_random_gold result must be traced to real optional gold receiver. Distinct from P16 commit helper bytes.",
+        "qualification": "Own09fullbodyfirstread narrowed shared actualmaterial to1\u2013291/338\u2013384; tracking294\u2013336 remains own09supportonly andnotsharedbody obligation. NativePR/P16variants distinct; no otherlenscredit.",
+        "lenses": {
+          "producer-propagation": "Boundednewmaterial delta pending; completedsource snapshots retained.",
+          "existing-type-owners": "Boundednewmaterial delta pending; completedsource snapshots retained.",
+          "admission-contracts": "Boundednewmaterial delta pending; completedsource snapshots retained.",
+          "invariant-operations": "Boundednewmaterial delta pending; completedsource snapshots retained.",
+          "aggregate-states": "Boundednewmaterial delta pending; completedsource snapshots retained.",
+          "type-ownership": "Boundednewmaterial delta pending; completedsource snapshots retained.",
+          "redundant-authority": "Boundednewmaterial delta pending; completedsource snapshots retained.",
+          "behavior-preservation": "Boundednewmaterial delta pending; completedsource snapshots retained.",
+          "enum-shapes": "Origin09fullactualsourcebody + narrowedmaterialcontract568",
+          "derivability": "Boundednewmaterial delta pending; completedsource snapshots retained.",
+          "type-granularity": "Boundednewmaterial delta pending; completedsource snapshots retained.",
+          "magic-strings": "Boundednewmaterial delta pending; completedsource snapshots retained.",
+          "magic-numbers": "Boundednewmaterial delta pending; completedsource snapshots retained."
+        },
+        "status": "Materialsourcebytes/ranges registered, no clearance"
+      },
+      "evidence": "SEGOVB-INITIAL04-CONTRACT-675",
+      "method": "Every exact registered material range personally read and analyzed for04 in its stated sourcevariant/context; no imported lens coverage.",
+      "status": "PERSONALLY_READ_WITH_FINDINGS"
+    },
+    {
+      "index": 102,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/scalp.rs",
+      "sha256": "64a5cc8196a567a3b4d071c355bc491a23956d815c57d4805277bf15b1135304",
+      "actual_compared_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "actual_EOF": 412,
+      "registration": {
+        "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/scalp.rs",
+        "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+        "sha256": "64a5cc8196a567a3b4d071c355bc491a23956d815c57d4805277bf15b1135304",
+        "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/fresh-source-666-scalp.rs",
+        "ranges": [
+          [
+            1,
+            129
+          ]
+        ],
+        "reason": "Actual GpuScalp public upload boundary needed to qualify edge_closest first-corner cull; exact body read, no native-execution or other-lens coverage.",
+        "personal_read_qualification": "Full source displayed and consumed, but registration requests only1\u2013135 actual type/read/upload boundary; cut_scalp downstream not needed to prove custom uploaded route.",
+        "line_count": 412,
+        "registration_evidence": "operations/fresh-dependency-registration-666.json",
+        "qualification": "Only selected1\u2013129 is shared material; source metadata describes EOF412. Root registered identity/range without importing another lens verdict.",
+        "status": "Material source registered; no clearance",
+        "lenses": {
+          "producer-propagation": "Bounded new material delta pending; completed baselines retained.",
+          "existing-type-owners": "Bounded new material delta pending; completed baselines retained.",
+          "admission-contracts": "Bounded new material delta pending; completed baselines retained.",
+          "invariant-operations": "Origin04 actual selected contract read in packet666",
+          "aggregate-states": "Bounded new material delta pending; completed baselines retained.",
+          "type-ownership": "Bounded new material delta pending; completed baselines retained.",
+          "redundant-authority": "Bounded new material delta pending; completed baselines retained.",
+          "behavior-preservation": "Bounded new material delta pending; completed baselines retained.",
+          "enum-shapes": "Bounded new material delta pending; completed baselines retained.",
+          "derivability": "Bounded new material delta pending; completed baselines retained.",
+          "type-granularity": "Bounded new material delta pending; completed baselines retained.",
+          "magic-strings": "Bounded new material delta pending; completed baselines retained.",
+          "magic-numbers": "Bounded new material delta pending; completed baselines retained."
+        }
+      },
+      "evidence": "SEGOVB-INITIAL04-CONTRACT-675",
+      "method": "Reuse exact same-lens sourcevariant/revision/SHA and actual registered ranges already personally read; reconciled source-specific operation/qualification in675. No fresh body-read or other-lens/hash-only coverage.",
+      "prior_04_proof": [
+        "666:fresh actualPRscalp1\u2013129 +fresh-dependency-registration-666.json"
+      ],
+      "status": "EXISTING_SAME_LENS_EVIDENCE_RECONCILED_WITH_FINDINGS"
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Exact rig and tactical source contexts retained",
+      "evidence": "94 exactactualrigcbbb fresh592regions104\u2013133 reused: checkedcanonicalcoverage/source association; equalPRbytesnotautomaticvariantcredit.95 actualP16fresh606boundaries46 reused: actualCityGate passage/guardexemptionhand-off to transientserver; right-hingecentre606qualifiedAPIroute preserved.98/99 exact659cbbbshell111/exportselected633\u2013670/810\u2013840 reused: validate\u2192compact\u2192Writer; surfacefallbackUVleftoldcohort exactNATIVE-INITIAL05-F062 alias.",
+      "qualifications": [
+        "Rootverification coordination/780-d000-uv-authority-reconciliation.json reports exactsuccessorfix (maps-onlysurface/soletexcoords/remaponce) on6manifesthashes, butthisfrozenhistoricalcbbbbodyremainsold. No own04successor coverage or integration/finalvalidation claim transferred.",
+        "Onlyactualregisteredselectedranges credited, no otherexport/sourcemodule extension inferred. Existing592UV/skin/socket/targetmaterial numericqualifications retained, no duplicateduniqueissue."
+      ],
+      "acceptance": "Retain actualused-vertex UV mapping/cohort andtargetformatcontracts, sourcevariantqualifiedresolution; actualhandedgatecentre andtransientauthority, no sourcefixes."
+    },
+    {
+      "contract": "Fresh actual P16 development rumor and immutable journal notice",
+      "evidence": "96 actualphysicalP16643\u2013655 read: disableddevcapability rejects beforelivingcheck/impl, realcharacterlivenessbeforedelegate.97 actualphysicalP161287\u20131335 read: publiccase/source/summary/label nonempty andUTF8byte caps1024/160beforelookup; hashedsourceID lookup thenexactowner/case/source/content/time equality forreplay, conflictingretryErr, wholeinsertotherwise.",
+      "qualifications": [
+        "FreshactualP16context, notPRsameSHAcredit. stablehashcollision detectedbyexactsource/comparison yieldsstructuredcollision ratherthansilentoverwrite, no mathematicalcollisionfreeidentityclaim. Actuallivingcharacter/databasepermission gate callerowned; wrapperdoesnotauthorizerealscenarioexecution.",
+        "No arithmetic exceptnativeidentityhash delegated, no bodycoverageforhash/implfromcallalone. Missingnotice meansabsence, not observedfailure, actualAPIcause policy remains."
+      ],
+      "acceptance": "Currentdevelopment/livingauthority andexactimmutable retrycontext retained; conflictinghash/contentretryrejects beforewrite, fullstructuredcause whereboundaryrequires."
+    },
+    {
+      "contract": "Fresh PR contract and loot contexts reconciled with earlier P16 operation proof",
+      "evidence": "100 actualPR6533selected1\u2013291/338\u2013384 freshlydisplayedandread initsowncontext; 101 actualPR18 freshlyread. Sameactualtransitionsas669P16: receipt/currentparty/leader/liveissuer/stage checks, consume-before-laterclock/site/disclosure gate andparty/contractupdates; abandonchecks beforeupdates. Lootpresence/amountStreamIDs independent, u32positiveMAXsafe becausebelowMAX<=MAX-1before+1.",
+      "qualifications": [
+        "NotautomaticPRfromP16hashidentity. PRtracking294\u2013336excludedfromthisnewregistrationandnotnewwholefilecredit. ActualDBouterreducertransaction requiredbeforepartialcommitconclusion; no DB/lootdrawexecuted.",
+        "Lootmaximum0 privateAPIexpectspositiveonlyifpresencebranchselected, normalactualpositivecaller needed; no ordinaryzero claim. Typedstages/opaqueStringIDdelimiters retaincanonicalowningpolicy, no newcountfromformatting."
+      ],
+      "acceptance": "Oneatomiccurrentcontract/receipt/disclosure/party logicaltransition underactualDBtransaction andactualpositive lootmaximum; preserveindependentdeterministicdraws andconditionalabsence."
+    },
+    {
+      "contract": "Actual custom scalp upload boundary closes corner-cull admission qualification",
+      "evidence": "102 exactnew666PRscalp1\u2013129 proof reused: publicupload acceptsSurface, computesareas/nativecounts/boundarypoints(.002/.001), uploadsactualnormals/UVs/topology withoutmaximumtriangleedgecheck. Finding666 valid.1mtriangle/Bboundaryquery route therefore notexcludedbythishostboundary.",
+      "qualifications": [
+        "No currentauthoredbundledscalpcoarseness/GPU/run proven; noothercut_scalpbodycredit. SourceAPIcounterexamplevalidfullnormal/UV/indexcohort andfiniteordinaryscale, notmalformedrawarrays.",
+        "Nativewholetriangle/vertex/boundary counts asu32 andfield/cohort/area admission areadditionalsharedownercontracts, not automaticordinarynewoverflowfinding."
+      ],
+      "acceptance": "Conservativeclosestpointpruning foractualsupportedcustomsurfaces, coherentfinitehost/nativecohort/counts beforeGPUrecording; no arbitrarysmalltriangle physicaldomain clamp."
+    }
+  ],
+  "findings": [],
+  "first_unfinished_live_index": null,
+  "status": "current registry source discovery accounted WITH_FINDINGS; no lens clearance",
+  "execution": "none"
+}

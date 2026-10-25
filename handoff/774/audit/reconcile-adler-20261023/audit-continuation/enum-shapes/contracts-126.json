@@ -1,0 +1,67 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-126",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        2402
+      ],
+      "ranges": {
+        "2402": [
+          [
+            1,
+            60
+          ],
+          [
+            195,
+            340
+          ],
+          [
+            486,
+            660
+          ],
+          [
+            806,
+            873
+          ],
+          [
+            944,
+            958
+          ],
+          [
+            1235,
+            1247
+          ],
+          [
+            1517,
+            1649
+          ],
+          [
+            2005,
+            2071
+          ],
+          [
+            2287,
+            2355
+          ]
+        ]
+      },
+      "comparison": "Fresh exact nine frozen union ranges of character_skills3812,746 lines total; no missing gaps or full3812 body credit. Earlier080B supports remain separate. F104 closed profession reward enum reflattening; F052 actual monogram payload definition support. ActivityEffectRates prayer_morale plus multiplier/limit/scale conditional product and leisure/profession optional effect overlays are candidates, but actual values(), constructors and full schedule dispatch are unread outside these slices. Do not infer exclusive effects: gold/reputation/morale/fatigue can coexist, and leisure overrides displayed values intentionally when supplied. practice_allowed independent from membership admission and stored accrued history; do not erase prior practice values when currently disallowed. Bestiary is_primary membership and current summary armor-precedence derived observations; actual capabilities may overlap, not a new exclusive tier type without core contract. CharacterSkillHours intentionally returns0 for multi-axis Religion/Bestiary; specialized getters own their separate channels, not evidence no learning. Schedule context Boolean sets actual HTML column spans, but full edit/action/preview owner not yet read, no global UI mode verdict. Current physical aptitude and native rank formulas not cleared. Full helper/caller bodies outside scoped slices remain fixed-point gaps.",
+      "disposition": "F104 enum reuse gap; other state products remain evidence gaps",
+      "finding_refs": [
+        "SEGO-INITIAL09-F104",
+        "SEGO-INITIAL09-F052"
+      ]
+    }
+  ],
+  "new_findings": [
+    "SEGO-INITIAL09-F104"
+  ],
+  "open_candidates": [
+    {
+      "id": "SEGO-INITIAL09-OPEN-126",
+      "details": "ActivityEffectRates.values/prayer constructors, leisure/profession overlay combinations and full schedule/action/preview context; SummaryIconKind language constructors across unscoped gaps. Must register added material before following; no inherited whole-body verdict."
+    }
+  ],
+  "limits": "No source edits/checks/tests/plan/clearance. Next2403 rank82."
+}

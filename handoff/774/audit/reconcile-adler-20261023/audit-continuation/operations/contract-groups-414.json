@@ -1,0 +1,156 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-414",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/subject_motion.rs",
+      "sha256": "863b3c4fafe43198495f75878f9544b5af7fd3cccd198a88c0cc37042c390981",
+      "actual_EOF": 126,
+      "actual_compared_ranges": [
+        [
+          1,
+          126
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness/material.rs",
+      "sha256": "082b2d608e351444908c81cc624ab3627828ff0ec19111f32e708ac8f21caad3",
+      "actual_EOF": 29,
+      "actual_compared_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness/readiness.rs",
+      "sha256": "64c3ae627a9e6e8b449c355a123aa9007228513e88cc07c9d3ec6f6783ecff34",
+      "actual_EOF": 285,
+      "actual_compared_ranges": [
+        [
+          1,
+          285
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness/skinning.rs",
+      "sha256": "f9807d42e32e69b0b93111a10c857c336aef6267956556595625cbcf95d475b9",
+      "actual_EOF": 48,
+      "actual_compared_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness/topology.rs",
+      "sha256": "2a13ec33b49d92daf80c15f8c4220d8ea184e6aad88dd7ccc4d7d6d3c341e59c",
+      "actual_EOF": 66,
+      "actual_compared_ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/inspection.rs",
+      "sha256": "c3de8aecc1b589906a434397d0d78e51dc0b78c77453936e6f8c904a97a1bb7a",
+      "actual_EOF": 67,
+      "actual_compared_ranges": [
+        [
+          1,
+          67
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/mod.rs",
+      "sha256": "40cfb0af104c5b99efdf25346bf83168023b20c4305655f392ef49dcca1ab584",
+      "actual_EOF": 179,
+      "actual_compared_ranges": [
+        [
+          1,
+          179
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/acceptance_limits.rs",
+      "sha256": "df0755d84bee3dcbea4124ffdf5f53bb89e513796b87e1577bdfafbdf7fd17f0",
+      "actual_EOF": 220,
+      "actual_compared_ranges": [
+        [
+          1,
+          220
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/body_response_validation.rs",
+      "sha256": "b3292ab6c13201b261d597d9aa15c5e07143c7503fd78ecb229aab8c7bb967ca",
+      "actual_EOF": 133,
+      "actual_compared_ranges": [
+        [
+          1,
+          133
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/bones.rs",
+      "sha256": "1178bf380da9126c00678608493b9d252af9746d853d347d5f334d451586b5bb",
+      "actual_EOF": 138,
+      "actual_compared_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/html.rs",
+      "sha256": "48cf5febbcb02887e500a960eb52ab06b5abfc9f55e4bdbf236319f5d89da684",
+      "actual_EOF": 99,
+      "actual_compared_ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Fixture projection and equipment readiness",
+      "evidence": "capture/subject_motion.rs:1-126; harness/material.rs:1-29; harness/readiness.rs:1-285; harness/skinning.rs:1-48; harness/topology.rs:1-66",
+      "disposition": "Actual locomotion input admitted before projection; fixture action saturation/expect presumes bounded authored ticks. WeightSummary rejects nonfinite/negative coefficients and off-unit finite or overflowing sums; nonempty vertices required. Readiness distinguishes Missing/Loading/Failed and skin/morph/material source availability, no GPU rendering proof inferred. Occupancy requirement_index narrowing/first-compatible parent selection assumes bounded authored harness catalogue; no new ordinary overflow or exhausted-parent witness here. Actual garment capacity allocation remains separate dependency from count/name readiness."
+    },
+    {
+      "contract": "Capture setup and report arithmetic policy",
+      "evidence": "inspection.rs:1-67; mod.rs:1-179; report/acceptance_limits.rs:1-220; report/body_response_validation.rs:1-133; report/bones.rs:1-138; report/html.rs:1-99",
+      "disposition": "Plan construction precedes output invalidation/publish, capture physiology is a fixture not persisted tactical state. Acceptance bounds scenario-specific and preserve current authored continuity policy; no thresholds edited. Cadence actual contact successors and measured distances validated; absent unrequested scenario intentionally vacuous. Lateral range native fold can sanitize missing/nonfinite observations to zero; downstream whole-report finite requirement still unresolved. CapturedBones preserves lexical fold/tie order intentionally and exposes reduced report hierarchy, not complete authored chain. HTML follows admitted catalogue labels; open-label injection/API ownership unproved as actual capture input."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "11 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
+}

@@ -1,0 +1,13 @@
+--- PRbase/crates/adventuresim-tactical-client/examples/armor_fixture/shell_validation.rs
++++ frozen/crates/adventuresim-tactical-client/examples/armor_fixture/shell_validation.rs
+@@ -186,9 +186,9 @@
+         design_hash: [0; 32],
+         surface_domain: "concave-metal-fixture".into(),
+         normals: Vec::new(),
+         texcoords: Vec::new(),
+-        joint_indices: Vec::new(),
++        joint_indices: Default::default(),
+         joint_weights: Vec::new(),
+         trim: None,
+         grids: Vec::new(),
+         morphs: Vec::new(),

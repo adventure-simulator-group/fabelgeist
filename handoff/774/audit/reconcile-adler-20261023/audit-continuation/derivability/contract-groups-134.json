@@ -1,0 +1,89 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-134",
+  "at": "2026-10-25T12:49:02.622951+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 275,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/development_scenarios.rs",
+      "sha256": "0a3344aa8f11ea2768169b64f3d7b887260bc7fd53e818c8bfff3b55b01ee394",
+      "actual_EOF": 573,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/development_scenarios.rs",
+        "snapshot": "physical-p16",
+        "path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\strategic\\development_scenarios.rs",
+        "sha256": "0a3344aa8f11ea2768169b64f3d7b887260bc7fd53e818c8bfff3b55b01ee394",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Read-only source assignment; whole-function repair ownership remains in authoritative claims.",
+        "scope_limits": "Explicit material contracts/ranges and necessary signature dependencies only; no implied whole-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/expanded-producer-delta-map-049.json",
+        "actual_line_count": 573,
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 124,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-DEVELOPMENT-032",
+            "json_pointer": "/current_sources/3",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row250/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                340
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                340
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": true,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          468
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "Clone/Debug/table DevelopmentScenario,DevelopmentScenarioSubject,DevelopmentScenarioUpdateReceipt5\u201344",
+        "Clone/Debug/SpacetimeType BackendDevelopmentScenario46\u201355,BackendDevelopmentQuest57\u201369"
+      ],
+      "absence_basis": "Registered1\u2013340 plus necessary backend_development_quests closing body341\u2013468 personally consumed. All named schema/native output derives already present. Metadata/character/capability validation, scenario registration, provisions and exact subject-to-safe-summary joins/classification/sort-bounds semantic functions; no manual trait/serializer.",
+      "necessary_signature_extension": "341\u2013468 closes query beginning325 whose scopedmaterial ends340.",
+      "coverage_limit": "Only registered1\u2013340 plus necessaryquery341\u2013468. Exploratory469\u2013573 read but not material credit; child scenario_characters not inferred."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Capability-gated development scenario/quest metadata projections",
+      "disposition": "No derivabilitycandidate in exactmaterial; existing native/table derives retained.",
+      "acceptance": "Do not substitute raw serialization for safe summary/context selection or expose private manifests; no fixture/reducer execution."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 276,
+    "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

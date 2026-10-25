@@ -1,0 +1,23 @@
+{
+  "recorded_at": "2026-10-20T19:04:07.578656+00:00",
+  "published_head": "82cb2a3acccc852bba6a7ef9c706c337ba9fe765",
+  "scope": "Focused current-source equivalence/admission follow-through, not project execution or a whole audit wave.",
+  "sampled_grid_triangle_numerical_body_identical_to_published_source": true,
+  "slope_rotation_kernel_source_identical_to_published_source": true,
+  "slope_kernel_fixture_file_identical_to_published_source": true,
+  "old_native_height_panic_helpers_removed": true,
+  "proof_limits": "These exact source comparisons cover the named bodies only. New error paths, fixtures and all connected P06 consumers still require complete source migration and hosted validation.",
+  "intentional_repairs": [
+    "Missing edge-clamped physical support now returns the canonical TerrainSupportError through TerrainRecipeError rather than panicking.",
+    "Completed invalid fault-height candidates are rejected before native min/max reduction can hide them. Empty native scarp buffers fail explicitly.",
+    "FootClearanceFloor::minimum_height and ordinary_terrain_target check their completed floor before target.max. This intentionally rejects invalid completed floor arithmetic; it does not change finite expressions.",
+    "Completed native query points in Result-based foot/flight geometry operations reject nonfinite coordinates with the existing AnimationValueError::Overflow(WorldPosition), instead of manufacturing an available scene point. Real missing support remains None."
+  ],
+  "canonical_native_boundaries": [
+    "Core sampled triangle computation receives ScenePlanPoint and projects only at its grid calculation.",
+    "Native erosion field returns its complete signed scalar equation to the actual marching sampler, which retains its existing finite-field/snap admission. This value is not an absolute support elevation forwarded between application APIs.",
+    "Scarp grid minimum remains ScenePlanPoint through its producer, retained cache, erosion and resistance constructor; the native resistance stencil projects it once for coordinate arithmetic.",
+    "Slope alignment application forwarders retain Dir3; only the complete rotation kernel receives the unchanged native vector.",
+    "Movement test Walker::on_colliders immediately constructs the actual Bevy Transform/collider fixture; its numerical inputs remain fixture/framework boundaries, not another application support query."
+  ]
+}

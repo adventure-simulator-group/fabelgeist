@@ -1,0 +1,15 @@
+diff --git a/crates/adventuresim-character-creator/Cargo.lock b/crates/adventuresim-character-creator/Cargo.lock
+index 0caf776fb..d9454d126 100644
+--- a/crates/adventuresim-character-creator/Cargo.lock
++++ b/crates/adventuresim-character-creator/Cargo.lock
+@@ -5029,10 +5029,8 @@ dependencies = [
+ [[package]]
+ name = "fabelgeist-geometry"
+ version = "0.1.0"
+ dependencies = [
+- "bevy_math",
+- "bevy_reflect",
+  "serde",
+  "thiserror 2.0.20",
+ ]
+ 

@@ -1,0 +1,32 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-125",
+  "at": "2026-10-25T17:48:52.215686+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1599,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/wood_mesh.rs",
+      "sha256": "5e281ec79d0b5d56ebfbfefce2f7bd8f1bc297a809be6a8983b1b7c68df18d85",
+      "personally_read_ranges": [
+        [
+          1,
+          1370
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full1370 wood mesh source and all original fixtures read in four bounded ranges. Visible branch vector grouped by is_limb_tip and each nonempty slice swept as one curve, so adjacent endpoint/hierarchy/terminator coherence is meaningful aggregate requirement, not established by individually finite branches. Normal append_branch_curve producer copies same curve depth/groups and marks last, so maxdepth/group filters preserve whole axes. Mid-upright filter intentionally changes root/bole representation; curve adjacency under arbitrary filtered paths still needs source disposition, no ordinary fixture failure. Fixed quality enum radial counts>=3 and positive axial spacing, empty visible mesh valid. Mesh columns emitted in lockstep; root color channel generated from final positions and only when depth0 exists. Native u32 bases, length-derived step count and total mesh capacities require accepted geometry bounds under owning source."
+      ]
+    }
+  ],
+  "findings": [
+    "RIG-ADMISSION03-F034 branch/leaf geometric contract"
+  ],
+  "qualified_connected_requirements": [
+    "Q026: two individually noncoincident adjacent branches reversing exactly have direction+next direction zero in tangent normalization699\u2013700. Current flat slice/terminal-bit API admits that aggregate; no normal generated cusp demonstrated or executed. Reconcile with inherited frame/axis remedy, not invent global prohibition of finite bends.",
+    "Transported branch frame already has explicit near-antiparallel handling, but it receives the averaged tangent only after normalization; that fallback does not itself establish the predecessor average valid.",
+    "RootFlareField and relief/clip/hash code are cfg(test) comparison fixture only; current production uses explicit sweeps. Preserve exact native UV seam, root-height payload, physical spacing and representation budgets. Existing test arbitrary equal start/end radii is legitimate cylinder, do not universally enforce strict taper from generator-specific fixture."
+  ],
+  "discovery": "1 newly accounted original roles; other reads support already counted historical roles. Lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

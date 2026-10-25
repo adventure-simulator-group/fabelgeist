@@ -1,0 +1,179 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-141",
+  "at": "2026-10-25T12:55:27.897610+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 282,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/governance.rs",
+      "sha256": "c557181c6e91e2beb9c7f20a44324af9d5f4e95ee886d4ae1198e7c78d7f6682",
+      "actual_EOF": 1653,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/governance.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-stdb-module/src/strategic/governance.rs",
+        "owner": "camera",
+        "sha256": "c557181c6e91e2beb9c7f20a44324af9d5f4e95ee886d4ae1198e7c78d7f6682",
+        "base_sha256": "d5eb2f18906eb28ba2703b665b769c50113ed55b73f572896659d17492443e92",
+        "state": "modified",
+        "bytes": 52796,
+        "audit_owner": "camera",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                1653
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-GOVERNANCE-001",
+              "CAM-PROP-ENCOUNTER-001"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 73,
+            "read_ranges": [
+              [
+                1,
+                1653
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-GOVERNANCE-047"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/strategic/governance.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 317,
+            "read_ranges": [
+              [
+                1,
+                1653
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-GOVERNANCE-047"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/strategic/governance.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-TIME-PACKET-011",
+            "json_pointer": "/source_reads/34",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-stdb-module/src/strategic/governance.rs",
+            "read_ranges_as_recorded": [
+              [
+                149,
+                216
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/governance.rs",
+              "sha256": "c557181c6e91e2beb9c7f20a44324af9d5f4e95ee886d4ae1198e7c78d7f6682",
+              "read_ranges": [
+                [
+                  149,
+                  216
+                ]
+              ],
+              "method": "Fresh bounded actual body read; no whole module claim",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/strategic/governance.rs"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 127,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-GOVERNANCE-034",
+            "json_pointer": "/current_sources/0",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row253/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1653
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                1653
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": 73,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1653
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        {
+          "type": "RecruitmentOfferBindingFields",
+          "lines": [
+            1113,
+            1124
+          ],
+          "traits": [
+            "Clone",
+            "Copy"
+          ]
+        }
+      ],
+      "absence_basis": "Every source body consumed in four bounded reads. Only one local borrowed authority-coordinate record already derives structural Clone/Copy. Reducers, voting/leadership, teardown, recruitment requirements and member/asset transfer functions contain no manual traits/serialization."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "party governance, leader election and exact recruitment-offer authority",
+      "disposition": "No derivability finding. Retain context-sensitive party initialization defaults, partial recruitment-requirement projection, role classification and live authority comparisons. serde_json admission delegates ApprovedPartyAction already-derived checked representation rather than a local handwritten adapter. Asset/membership transfer and policy outcomes are semantic state transitions, not boilerplate conversion.",
+      "qualification": "No transactional/runtime or aggregate-state clearance; source functions not executed."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 283,
+    "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/hostile_negotiation.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

@@ -1,0 +1,465 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-223",
+  "at": "2026-10-25T13:50:44.272208+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 440,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/calendar.rs",
+      "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "actual_EOF": 698,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-world-schema/src/calendar.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-world-schema/src/calendar.rs",
+        "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 25367,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 110,
+            "read_ranges": [
+              [
+                1,
+                360
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-CONTINUITY-014"
+            ],
+            "read_status": "partial",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-world-schema/src/calendar.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-CANONICAL-SPATIAL-CLOCK-CLOSURE-053",
+            "json_pointer": "/source_proofs/12",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-world-schema/src/calendar.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                698
+              ]
+            ],
+            "source_context": {
+              "index": 459,
+              "source_id": "physical-p16:crates/adventuresim-world-schema/src/calendar.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/adventuresim-world-schema/src/calendar.rs",
+              "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+              "read_ranges": [
+                [
+                  1,
+                  698
+                ]
+              ],
+              "role": "fresh current clock/angle/frame/velocity owner source, worldlib explicitly scoped; actual receiving contract disposition pending",
+              "timestamp": "2026-10-21T22:37:14.129105+00:00"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CANONICAL-SPATIAL-CLOCK-053",
+            "json_pointer": "/current_sources/12",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-world-schema/src/calendar.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                698
+              ]
+            ],
+            "source_context": {
+              "index": 459,
+              "source_id": "physical-p16:crates/adventuresim-world-schema/src/calendar.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/adventuresim-world-schema/src/calendar.rs",
+              "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+              "read_ranges": [
+                [
+                  1,
+                  698
+                ]
+              ],
+              "role": "fresh current clock/angle/frame/velocity owner source, worldlib explicitly scoped; actual receiving contract disposition pending",
+              "timestamp": "2026-10-21T22:37:14.129105+00:00"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1141,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved",
+        "admission03_increment050_role_observations": [
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 26,
+            "registration_id": "NATIVE-ADMISSION03-REG-026",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-026",
+              "at": "2026-10-22T07:58:04.633575+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "physical-p16:crates/adventuresim-world-schema/src/calendar.rs",
+              "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+              "snapshot": "physical-p16",
+              "actual_EOF": 698,
+              "material_ranges": [
+                [
+                  1,
+                  410
+                ]
+              ],
+              "role": "Exact P16 StrategicMinute canonical private representation/admission/word/zero/day constants and methods for actual time24\u201333 constructors and sourced clock callers; counterpart to Native006 PRbody proof",
+              "reason": "Actual P16 receiver requires canonical constructor/constants; no PR hash/verdict substitute.",
+              "exclusions": "No unrelated activitybody/CalendarYear independent role/after410tests or fullfeaturegraph.",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\src\\calendar.rs",
+              "status": "registered_before_direct_definition_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADMISSION03-QUAL-026",
+                "registration_id": "NATIVE-ADMISSION03-REG-026",
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-026",
+                  "at": "2026-10-22T07:58:04.633575+00:00",
+                  "authority": "continuation/root/admission03-discovery-authority-043.json",
+                  "source_id": "physical-p16:crates/adventuresim-world-schema/src/calendar.rs",
+                  "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+                  "snapshot": "physical-p16",
+                  "actual_EOF": 698,
+                  "material_ranges": [
+                    [
+                      1,
+                      410
+                    ]
+                  ],
+                  "role": "Exact P16 StrategicMinute canonical private representation/admission/word/zero/day constants and methods for actual time24\u201333 constructors and sourced clock callers; counterpart to Native006 PRbody proof",
+                  "reason": "Actual P16 receiver requires canonical constructor/constants; no PR hash/verdict substitute.",
+                  "exclusions": "No unrelated activitybody/CalendarYear independent role/after410tests or fullfeaturegraph.",
+                  "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\src\\calendar.rs",
+                  "status": "registered_before_direct_definition_body_analysis"
+                },
+                "original_requested_context_ranges": [
+                  [
+                    1,
+                    410
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    1,
+                    410
+                  ]
+                ],
+                "qualification": "P16StrategicMinute supportingallwordu64+methods/constant; actualPRbody+fulltextdelta/currentrolecompare, incidentalCalendarYear andtestheaders notindependentbodycredit.",
+                "current_admission_proof_refs": [
+                  "contract-groups-049.json#p16-time-counterpart-admission-current-role-comparison"
+                ],
+                "frozen_hash_eof_verified": true,
+                "semantics_from_hash_or_ranges": false,
+                "global_reconciliation": "Root authority; raw original registration retained; no globalacceptance from this localqualification",
+                "producer_owner_later_lens_credit": false
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                1,
+                410
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\src\\calendar.rs",
+            "actual_EOF": 698,
+            "bytes": 25367
+          }
+        ],
+        "admission03_increment077_role_observations": [
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 120,
+            "registration_id": "NATIVE-ADMISSION03-REG-120",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-120",
+              "at": "2026-10-22T18:24:32.499473+00:00",
+              "authority": "043/054; Root direct lower followthrough after completion069; no counts change",
+              "source_id": "physical-p16:crates/adventuresim-world-schema/src/calendar.rs",
+              "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+              "snapshot": "physical-p16",
+              "actual_EOF": 698,
+              "material_ranges": [
+                [
+                  10,
+                  10
+                ]
+              ],
+              "role": "Actual P16 MINUTES_PER_DAY used by canonical whole schedule validator; no other calendar graph",
+              "actual_caller": "Native033 saved-schedule preview actual saved source writers OR Native008 private embedded name catalogue generation/render",
+              "reason": "Exact remaining lower source contract dispatched Root before admission03 acceptance; registered before body analysis",
+              "exclusions": "Exact registered production roles only; no source edits/tests/runtime/other lenses; no Petnames or quest candidate builder",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\src\\calendar.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADM03-FOLLOWTHROUGH-QUAL-120",
+                "registration_id": "NATIVE-ADMISSION03-REG-120",
+                "source_id": "physical-p16:crates/adventuresim-world-schema/src/calendar.rs",
+                "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+                "actual_EOF": 698,
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-120",
+                  "at": "2026-10-22T18:24:32.499473+00:00",
+                  "authority": "043/054; Root direct lower followthrough after completion069; no counts change",
+                  "source_id": "physical-p16:crates/adventuresim-world-schema/src/calendar.rs",
+                  "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+                  "snapshot": "physical-p16",
+                  "actual_EOF": 698,
+                  "material_ranges": [
+                    [
+                      10,
+                      10
+                    ]
+                  ],
+                  "role": "Actual P16 MINUTES_PER_DAY used by canonical whole schedule validator; no other calendar graph",
+                  "actual_caller": "Native033 saved-schedule preview actual saved source writers OR Native008 private embedded name catalogue generation/render",
+                  "reason": "Exact remaining lower source contract dispatched Root before admission03 acceptance; registered before body analysis",
+                  "exclusions": "Exact registered production roles only; no source edits/tests/runtime/other lenses; no Petnames or quest candidate builder",
+                  "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\src\\calendar.rs",
+                  "status": "registered_before_direct_current03_body_analysis"
+                },
+                "qualified_material_ranges": [
+                  [
+                    10,
+                    10
+                  ]
+                ],
+                "context_and_exclusions": "Only exact registered material; all unrelated source roles excluded.",
+                "actual_current_proof_refs": [
+                  "continuation/native/admission03/camera-lower-followthrough/schedule-contracts-001.json"
+                ],
+                "status": "bounded_actual_current_admission_roles_compared_with_stated_findings_and_qualifications",
+                "counts_credit": "No128 count change; Root global scope reconciliation pending",
+                "producer_owner_credit": false,
+                "repair": "frozen",
+                "validation": "not_run"
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                10,
+                10
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\src\\calendar.rs",
+            "actual_EOF": 698,
+            "bytes": 25367
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          698
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Display",
+          "type": "CalendarYear / StrategicMinute",
+          "lines": [
+            [
+              37,
+              41
+            ],
+            [
+              93,
+              98
+            ]
+          ],
+          "disposition": "KEEP small native integer formatter delegation; owning manifest has no equivalent derive_more and adding a dependency is unwarranted."
+        },
+        {
+          "trait": "TryFrom<i32>",
+          "type": "CalendarYear",
+          "lines": [
+            68,
+            74
+          ],
+          "disposition": "KEEP checked positive-year admission and exact static error."
+        },
+        {
+          "trait": "From<CalendarYear> for i32",
+          "lines": [
+            76,
+            80
+          ],
+          "disposition": "KEEP small checked-owner getter bridge required by existing Serde into representation; no available conversion derive in owning manifest."
+        }
+      ],
+      "existing_derives": "CalendarYear structural/Serde try_from i32 into i32 and feature-gated SpacetimeType; StrategicMinute structural/Default/Serde transparent and native schema already derive.",
+      "absence_basis": "Full698-line body and fixtures personally consumed before checkpoint resumption. Remaining inherent clock/day/year/rounding/checked/saturating policies are semantic; no handwritten serialization. Derived raw schema admission is not independent admission clearance.",
+      "source_read_receipts": [
+        {
+          "scope_index": 2670,
+          "ranges": [
+            [
+              1,
+              31
+            ]
+          ],
+          "purpose": "Exact owning normal/build dependencies; no derive_more/thiserror normal dependency."
+        }
+      ]
+    },
+    {
+      "scope_index": 2670,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/Cargo.toml",
+      "sha256": "3c5bed9bdba2fe4d9a73522f70749beccc5240021b04af3755167af288735655",
+      "actual_EOF": 31,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-world-schema/Cargo.toml",
+        "snapshot": "physical-p16",
+        "path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\Cargo.toml",
+        "sha256": "3c5bed9bdba2fe4d9a73522f70749beccc5240021b04af3755167af288735655",
+        "bytes": 728,
+        "actual_line_count": 31,
+        "scope_kind": "materially_reached_admission_contract",
+        "audit_owner": "native",
+        "material_ranges": [
+          [
+            1,
+            31
+          ]
+        ],
+        "admission03_scope_observations": [
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 14,
+            "registration_id": "NATIVE-ADMISSION03-REG-014",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-014",
+              "at": "2026-10-22T07:38:46.560337+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "physical-p16:crates/adventuresim-world-schema/Cargo.toml",
+              "sha256": "3c5bed9bdba2fe4d9a73522f70749beccc5240021b04af3755167af288735655",
+              "snapshot": "physical-p16",
+              "actual_EOF": 31,
+              "material_ranges": [
+                [
+                  1,
+                  31
+                ]
+              ],
+              "role": "Exact P16 basispoints optionalspacetimedb_lib derive namespace/dependencyversion/reexport chain toalreadyactualCamera2.6.1namedproductmacro. Definition59samecontract freshcompared; theseareonlydirectregistration/dependency/reexportedges.",
+              "reason": "Camera confirmed SATS001 PRonly andnoP16namespace/versionproof, soexactmissingdirectedgesprospectivelyregisteredbeforebody under043.",
+              "exclusions": "Dependency/reexportonly, notnewdecodersemantics/foreignpackageallsource/otherlensorwholemanifestwherebounded. No tests/projectexecution.",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\Cargo.toml",
+              "status": "registered_before_direct_dependency_reexport_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADMISSION03-QUAL-014",
+                "registration_id": "NATIVE-ADMISSION03-REG-014",
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-014",
+                  "at": "2026-10-22T07:38:46.560337+00:00",
+                  "authority": "continuation/root/admission03-discovery-authority-043.json",
+                  "source_id": "physical-p16:crates/adventuresim-world-schema/Cargo.toml",
+                  "sha256": "3c5bed9bdba2fe4d9a73522f70749beccc5240021b04af3755167af288735655",
+                  "snapshot": "physical-p16",
+                  "actual_EOF": 31,
+                  "material_ranges": [
+                    [
+                      1,
+                      31
+                    ]
+                  ],
+                  "role": "Exact P16 basispoints optionalspacetimedb_lib derive namespace/dependencyversion/reexport chain toalreadyactualCamera2.6.1namedproductmacro. Definition59samecontract freshcompared; theseareonlydirectregistration/dependency/reexportedges.",
+                  "reason": "Camera confirmed SATS001 PRonly andnoP16namespace/versionproof, soexactmissingdirectedgesprospectivelyregisteredbeforebody under043.",
+                  "exclusions": "Dependency/reexportonly, notnewdecodersemantics/foreignpackageallsource/otherlensorwholemanifestwherebounded. No tests/projectexecution.",
+                  "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\Cargo.toml",
+                  "status": "registered_before_direct_dependency_reexport_body_analysis"
+                },
+                "original_requested_context_ranges": [
+                  [
+                    1,
+                    31
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    1,
+                    31
+                  ]
+                ],
+                "qualification": "Exact direct namespace/reexport route supporting P16 namedproductSATS macro witness; no general firstpartycodec orforeignpackagecredit.",
+                "current_admission_proof_refs": [
+                  "contract-groups-043.json#p16-basispoints-all-adapter-routes",
+                  "p16-basispoints-admission-witness-042.json"
+                ],
+                "frozen_hash_eof_verified": true,
+                "semantics_from_hash_or_ranges": false,
+                "global_reconciliation": "Root authority; raw original registration retained; no globalacceptance from this localqualification",
+                "producer_owner_later_lens_credit": false
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                1,
+                31
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-world-schema\\Cargo.toml",
+            "actual_EOF": 31,
+            "bytes": 728
+          }
+        ],
+        "scope_limits": "Only exact qualified directly reached definitions/native decoder routes; no implied whole-file/SDK or other-lens coverage.",
+        "producer_inventory_accounting": "bounded_new_material_role_qualification_pending_after_initial_admission03",
+        "admission_discovery": "source_backed_packet_acceptance_pending"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "Manifest normal serde/serde_json/determinism/optional SpacetimeType/strum derive dependencies; build dependencies separately declared.",
+      "absence_basis": "Full31-line exact owning manifest consumed as direct dependency for calendar derive availability. No Rust trait implementation; normal dependencies do not contain derive_more or thiserror. No native dependency expansion or compiler run."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Calendar value formatting/conversion and exact available derive support",
+      "disposition": "Retain small handwritten delegation and checked conversion; derived serialization already owns mechanical wire writing.",
+      "acceptance": "Preserve positive year admission, exact error/native output, integer formatter flags, schema feature and temporal arithmetic. No added dependency solely for cleanup; no implementation or validation run."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 441,
+    "source_id": "physical-p16:crates/adventuresim-world-schema/src/coordinates.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

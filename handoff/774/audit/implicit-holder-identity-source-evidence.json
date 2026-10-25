@@ -1,0 +1,36 @@
+{
+  "revision": "13fc9dcc71ab879de364117e5462310673e43210",
+  "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+  "finding": "F40",
+  "classification": "Source-only additional receiving witness; no runtime/test execution.",
+  "construction": "default_holder_design(&weapon) for catalogwar_hammer and one roleGrip/kindgrip no-id component length.125 radius.0078125 attachweapon.root/origin. Default sourcecatalog holderparameters all within holder_identity ranges.",
+  "earliest_failed_relationship": "Canonical Construction resolves component-0 in a cloned recipe; holder reads original component.id.expect instead of associated resolved product.",
+  "locations": [
+    "src/holders.rs:160-184",
+    "src/catalog.rs:99-130",
+    "src/validation.rs:34-86",
+    "src/model/placement.rs:34-87"
+  ],
+  "source_hashes": [
+    {
+      "file": "crates/adventuresim-weapon-model/src/holders.rs",
+      "sha256": "d99cadde4f1dc9227c791e6b25dab8869a68bc888b93fa6854a2a43460148635",
+      "base_identical": true
+    },
+    {
+      "file": "crates/adventuresim-weapon-model/src/catalog.rs",
+      "sha256": "0f579abd98b3de2924ebba3a1addc74b37c30c098af4667ae23b6fdaaef398e2",
+      "base_identical": true
+    },
+    {
+      "file": "crates/adventuresim-weapon-model/src/validation.rs",
+      "sha256": "fd79af94c541daf7519b52218301f4cc66dbd7614d444583271a2e955ed02aff",
+      "base_identical": true
+    },
+    {
+      "file": "crates/adventuresim-weapon-model/src/model/placement.rs",
+      "sha256": "243d594fbb5904b60ec01daa6e25decb1ace121320b548926f0400a909222fc3",
+      "base_identical": true
+    }
+  ]
+}

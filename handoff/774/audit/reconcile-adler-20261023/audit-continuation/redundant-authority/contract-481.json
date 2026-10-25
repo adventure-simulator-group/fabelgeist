@@ -1,0 +1,93 @@
+{
+  "id": "CONT07-CONTRACT-481",
+  "at": "2026-10-23T22:36:43.735303+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2120,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/blade_clearance.rs",
+      "sha256": "2713092a69c38b46af629689c142effe251b16d0f6ebc1af5a578becb89bd236",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/blade_clearance.rs",
+      "actual_EOF": 223,
+      "ranges": [
+        [
+          1,
+          223
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2121,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/blade_form.rs",
+      "sha256": "03b18c6871c30fe26fb12471c1dbc38c0c844e483a7f0a1030edcba32bcfd400",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/blade_form.rs",
+      "actual_EOF": 128,
+      "ranges": [
+        [
+          1,
+          128
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2122,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/blade_profile.rs",
+      "sha256": "f3534f8ad0f7697e0d2bf20a51798c986ec64f56d8228d616dad7e2c520841c5",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/blade_profile.rs",
+      "actual_EOF": 158,
+      "ranges": [
+        [
+          1,
+          158
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2123,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/facing.rs",
+      "sha256": "1a50ad5faa518b5ed479870cc03f08e55cd30322c639cd308608aa827fd78d7f",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/facing.rs",
+      "actual_EOF": 116,
+      "ranges": [
+        [
+          1,
+          116
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2124,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/generic_blade.rs",
+      "sha256": "f62beb086aeebe31dc2acfaaf14bcfa20d845022c5416fa0caf05635f405ebb9",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/generic_blade.rs",
+      "actual_EOF": 113,
+      "ranges": [
+        [
+          1,
+          113
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "2120 full223 clearance Cut is normalized conservative interval bound, while2110 actual GrooveCut is dimensional current surface. They use same admitted groove envelope but one upper bound over interval and one current section, so similar trapezoid interpolation alone is not duplicate current authority. Bounds deliberately require slack and stricter separation to preserve wall geometry; no weakening to sampled-only validation.",
+    "2121 full128 FullerGroove on_face/envelope are canonical and shared by actual geometry, transition cutoffs and validation. PointCurve owns immutable Bernstein points derived once from admitted monotone start/body derivative; minimum_width_slope is analytic bound and width_at numerical evaluation, distinct properties of same private curve. No writable stale cache or global source.",
+    "2122 full158 BladeProfile unifies Lofted and Section input semantics, then actual body/dimensions and manufacturing clearance consume same values. Derivative is analytical derivative of current body expression, not independently retained dimensions; current Straight/Leaf/Cleaver coefficients agree. Section/Recessed exactly requires fuller presence. Accepted envelope/tip and finite geometric kernel guarantees still need actual construction, not hashes or validation labels.",
+    "2123 full116 relative opposed_to explicitly resolves another directional head then overwrites own side/offset sign in cloned prepared recipe; authored independent direction and relative target have explicit precedence, not simultaneous conflicting current truths. Recursive lookup detects missing parent/non-directional/cycle; resulting all-or-error list built before apply mutation. Existing explicit reference offsets fixture read only.",
+    "2124 full113 shared continuous generic blade section_dimensions feeds actual model ring; same envelope closes ridge and edge at terminal tip. Diamond/triangular full thickness follows width proportion, wedge retains distal-thickness envelope and fixed edge floor, distinct authored section policies. heel_center is source mounting datum derived from asymmetry, not duplicated shape centroid. No test/build/model execution."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2125,
+    "start_line": 1
+  }
+}

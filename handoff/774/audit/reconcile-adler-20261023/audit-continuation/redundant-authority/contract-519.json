@@ -1,0 +1,65 @@
+{
+  "id": "CONT07-CONTRACT-519",
+  "at": "2026-10-23T23:12:26.538483+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2262,
+      "source_id": "pr-working:crates/fabelgeist-garment-code/src/design.rs",
+      "sha256": "752a641161b3427416832ced038eb618e4491be51882ee13d53c4d4e69ec373a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-garment-code/src/design.rs",
+      "actual_EOF": 763,
+      "ranges": [
+        [
+          1,
+          763
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2263,
+      "source_id": "pr-working:crates/fabelgeist-garment-code/src/measure/mod.rs",
+      "sha256": "dbbbf373f7069a15074d0e348f36707aa24f9125146cc3cb60579a75fd5e3452",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-garment-code/src/measure/mod.rs",
+      "actual_EOF": 791,
+      "ranges": [
+        [
+          1,
+          791
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2264,
+      "source_id": "pr-working:crates/fabelgeist-garment-code/src/measure/section.rs",
+      "sha256": "be4a376452c89f7275b6f7c4692168b16814d28e82539b5d76d13e2c0e02193f",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-garment-code/src/measure/section.rs",
+      "actual_EOF": 356,
+      "ranges": [
+        [
+          1,
+          356
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Design retains shared Rc<RefCell<Value>> and path; clones/subviews resolve current tree rather than retaining independently mutable subtree caches. deep_copy explicitly snapshots. ParamSpec is generated on request, no long-lived invalidation failure established.",
+    "Body private params and insertion order updated together. set recomputes dependencies; insert is incremental assembly. Measurer.body fills measurements with insert and calls eval_dependencies before returning (333\u2013367), closing ordinary partial-builder stale-derived-values candidate. Public insert on an already complete Body remains possible; receiver dependency proof required before separate07 finding.",
+    "Measurer owns immutable mesh/landmark observations and derives level scans/measurements fresh. Skin girths, joint widths, inferred levels, and derived garment policy quantities are distinct roles; no competing current authority inferred from names.",
+    "Section meshes borrow arrays, cross_section/assemble creates fresh segment adjacency and used bitmap coherently. Key quantization reconciles shared edges; flattened views and hull/tape girths derive each call, not persistent independent caches. Open chains intentionally retained; Ring type doc closure vs permissive algorithm is an admission concern, not duplicated cache authority.",
+    "No executable validation; prior body reads2262/2263 retained across context and new2264fullbody consumed. Remaining referenced garment receivers and whole inventory remain unfinished."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2266,
+    "start_line": 1
+  }
+}

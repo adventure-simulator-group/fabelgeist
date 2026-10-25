@@ -1,0 +1,323 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-169",
+  "at": "2026-10-23T02:08:40.390051+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-049.json",
+    "sha256": "b1535d16d5fc9727f0e46a56965826f0d52e4ec6b3c778db072de4b57b83025d"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-048.json",
+    "sha256": "0a8726775d1512e4245b2b88b95c147bb06ae3bb376f6f291ffeab70a5510425"
+  },
+  "new_variants": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/authority_tests.rs",
+      "sha256": "79cb2928c581b94b83b90e220abb46105033b5e89588d1c7ba20e497772a0992",
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\relationship\\authority_tests.rs",
+      "snapshot": "physical-p16",
+      "actual_line_count": 75,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "audit_owner": "camera",
+      "scope_registration": [
+        {
+          "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+          "sha256": "ae719b7285ea649dcf26c2dee0908de407f1fd679635d005107160dd907358f8",
+          "row_1based": 28,
+          "id": "CAMERA-INITIAL07-REG028",
+          "original_record": {
+            "registration_id": "CAMERA-INITIAL07-REG028",
+            "at": "2026-10-23T02:02:46.547836+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/authority_tests.rs",
+            "snapshot": "physical-p16",
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\relationship\\authority_tests.rs",
+            "sha256": "79cb2928c581b94b83b90e220abb46105033b5e89588d1c7ba20e497772a0992",
+            "actual_EOF": 75,
+            "material_ranges": [
+              [
+                1,
+                75
+              ]
+            ],
+            "reason": "Existing isolated authority fixture is a direct CharacterPersonality table writer; inspect complete containing fixture so behavioral-versus-demographic mutation and any later reproject are actually established before every-writer cache claim. Current13 projection lifecycle exact dependency, not test addition/execution.",
+            "exclusions": "Existing source only; unrelated character fixture functions1\u2013248 excluded. No new tests/cases/assertions/helpers, no runtime/reset/seed, no wider relationship/character graph.",
+            "status": "prospectively_registered_before_body_analysis"
+          }
+        }
+      ],
+      "scope_limits": "Only full relationship authority fixture1-75; source comparison under exact snapshot, no new tests or execution.",
+      "source_lens_credit": "none from scope metadata"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/character/authority_tests.rs",
+      "sha256": "26d2e3fb9b68e8445ac7f7364922ebd8e06e0bd37bd1060b3830ea6526e50b85",
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\character\\authority_tests.rs",
+      "snapshot": "physical-p16",
+      "actual_line_count": 303,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          249,
+          303
+        ]
+      ],
+      "audit_owner": "camera",
+      "scope_registration": [
+        {
+          "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+          "sha256": "ae719b7285ea649dcf26c2dee0908de407f1fd679635d005107160dd907358f8",
+          "row_1based": 30,
+          "id": "CAMERA-INITIAL07-REG030",
+          "original_record": {
+            "registration_id": "CAMERA-INITIAL07-REG030",
+            "at": "2026-10-23T02:02:46.547836+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "physical-p16:crates/adventuresim-stdb-module/src/character/authority_tests.rs",
+            "snapshot": "physical-p16",
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\character\\authority_tests.rs",
+            "sha256": "26d2e3fb9b68e8445ac7f7364922ebd8e06e0bd37bd1060b3830ea6526e50b85",
+            "actual_EOF": 303,
+            "material_ranges": [
+              [
+                249,
+                303
+              ]
+            ],
+            "reason": "Existing isolated authority fixture is a direct CharacterPersonality table writer; inspect complete containing fixture so behavioral-versus-demographic mutation and any later reproject are actually established before every-writer cache claim. Current13 projection lifecycle exact dependency, not test addition/execution.",
+            "exclusions": "Existing source only; unrelated character fixture functions1\u2013248 excluded. No new tests/cases/assertions/helpers, no runtime/reset/seed, no wider relationship/character graph.",
+            "status": "prospectively_registered_before_body_analysis"
+          }
+        }
+      ],
+      "scope_limits": "Only resident projection authority fixture249-303; character fixture1-248 excluded, no new tests or execution.",
+      "source_lens_credit": "none from scope metadata"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/character/authority_tests.rs",
+      "sha256": "26d2e3fb9b68e8445ac7f7364922ebd8e06e0bd37bd1060b3830ea6526e50b85",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\character\\authority_tests.rs",
+      "snapshot": "pr-working",
+      "actual_line_count": 303,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          249,
+          303
+        ]
+      ],
+      "audit_owner": "camera",
+      "scope_registration": [
+        {
+          "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+          "sha256": "ae719b7285ea649dcf26c2dee0908de407f1fd679635d005107160dd907358f8",
+          "row_1based": 31,
+          "id": "CAMERA-INITIAL07-REG031",
+          "original_record": {
+            "registration_id": "CAMERA-INITIAL07-REG031",
+            "at": "2026-10-23T02:02:46.547836+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "pr-working:crates/adventuresim-stdb-module/src/character/authority_tests.rs",
+            "snapshot": "pr-working",
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\character\\authority_tests.rs",
+            "sha256": "26d2e3fb9b68e8445ac7f7364922ebd8e06e0bd37bd1060b3830ea6526e50b85",
+            "actual_EOF": 303,
+            "material_ranges": [
+              [
+                249,
+                303
+              ]
+            ],
+            "reason": "Existing isolated authority fixture is a direct CharacterPersonality table writer; inspect complete containing fixture so behavioral-versus-demographic mutation and any later reproject are actually established before every-writer cache claim. Current13 projection lifecycle exact dependency, not test addition/execution.",
+            "exclusions": "Existing source only; unrelated character fixture functions1\u2013248 excluded. No new tests/cases/assertions/helpers, no runtime/reset/seed, no wider relationship/character graph.",
+            "status": "prospectively_registered_before_body_analysis"
+          }
+        }
+      ],
+      "scope_limits": "Only resident projection authority fixture249-303; character fixture1-248 excluded, no new tests or execution.",
+      "source_lens_credit": "none from scope metadata"
+    }
+  ],
+  "new_overlays": [
+    {
+      "id": "CONT-OWNER-RANGE-EXTENSION-230",
+      "at": "2026-10-23T02:08:40.390051+00:00",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/personality.rs",
+      "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+      "material_ranges": [
+        [
+          161,
+          666
+        ]
+      ],
+      "audit_owner": "camera",
+      "reason": "Close first unfinished P16source234 score-to-visible-personality redundant-authority contract: all actual visible projection/init/reset/axis/demographic/development/NPC/default/random producer and update paths plus direct getters/backend receiver, necessary complete score/receipt definitions. PR counterpart current consumers cannot inherit P16body/hash credit; directly compare actual equivalent roles.",
+      "scope_registration": [
+        {
+          "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+          "sha256": "ae719b7285ea649dcf26c2dee0908de407f1fd679635d005107160dd907358f8",
+          "row_1based": 26,
+          "id": "CAMERA-INITIAL07-REG026",
+          "original_record": {
+            "registration_id": "CAMERA-INITIAL07-REG026",
+            "at": "2026-10-23T01:56:43.007623+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "physical-p16:crates/adventuresim-stdb-module/src/personality.rs",
+            "snapshot": "physical-p16",
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\personality.rs",
+            "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+            "actual_EOF": 1210,
+            "material_ranges": [
+              [
+                161,
+                677
+              ]
+            ],
+            "reason": "Close first unfinished P16source234 score-to-visible-personality redundant-authority contract: all actual visible projection/init/reset/axis/demographic/development/NPC/default/random producer and update paths plus direct getters/backend receiver, necessary complete score/receipt definitions. PR counterpart current consumers cannot inherit P16body/hash credit; directly compare actual equivalent roles.",
+            "exclusions": "Only exact state/projection lifecycle through assign_random_personality; morale reaction kernels678+ and tests excluded. No new source body read yet; previous1\u2013160 P16 and PR54\u201369/reexport roles remain separately preserved.",
+            "status": "prospectively_registered_before_body_analysis"
+          }
+        }
+      ],
+      "limits": "Only exact state/projection lifecycle through assign_random_personality; morale reaction kernels678+ and tests excluded. No new source body read yet; previous1\u2013160 P16 and PR54\u201369/reexport roles remain separately preserved.",
+      "source_qualifications": "Only exact personality lifecycle through assign_random_personality666;667blank/668-675 next MoraleStimulus/677next reaction doc uncredited. Prior source roles separately preserved, no whole1210 or morale/generation-helper credit."
+    },
+    {
+      "id": "CONT-OWNER-RANGE-EXTENSION-231",
+      "at": "2026-10-23T02:08:40.390051+00:00",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/personality.rs",
+      "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+      "material_ranges": [
+        [
+          1,
+          666
+        ]
+      ],
+      "audit_owner": "camera",
+      "reason": "Close first unfinished P16source234 score-to-visible-personality redundant-authority contract: all actual visible projection/init/reset/axis/demographic/development/NPC/default/random producer and update paths plus direct getters/backend receiver, necessary complete score/receipt definitions. PR counterpart current consumers cannot inherit P16body/hash credit; directly compare actual equivalent roles.",
+      "scope_registration": [
+        {
+          "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+          "sha256": "ae719b7285ea649dcf26c2dee0908de407f1fd679635d005107160dd907358f8",
+          "row_1based": 27,
+          "id": "CAMERA-INITIAL07-REG027",
+          "original_record": {
+            "registration_id": "CAMERA-INITIAL07-REG027",
+            "at": "2026-10-23T01:56:43.007623+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "pr-working:crates/adventuresim-stdb-module/src/personality.rs",
+            "snapshot": "pr-working",
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\personality.rs",
+            "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+            "actual_EOF": 1210,
+            "material_ranges": [
+              [
+                1,
+                677
+              ]
+            ],
+            "reason": "Close first unfinished P16source234 score-to-visible-personality redundant-authority contract: all actual visible projection/init/reset/axis/demographic/development/NPC/default/random producer and update paths plus direct getters/backend receiver, necessary complete score/receipt definitions. PR counterpart current consumers cannot inherit P16body/hash credit; directly compare actual equivalent roles.",
+            "exclusions": "Only exact state/projection lifecycle through assign_random_personality; morale reaction kernels678+ and tests excluded. No new source body read yet; previous1\u2013160 P16 and PR54\u201369/reexport roles remain separately preserved.",
+            "status": "prospectively_registered_before_body_analysis"
+          }
+        }
+      ],
+      "limits": "Only exact state/projection lifecycle through assign_random_personality; morale reaction kernels678+ and tests excluded. No new source body read yet; previous1\u2013160 P16 and PR54\u201369/reexport roles remain separately preserved.",
+      "source_qualifications": "Only exact personality lifecycle through assign_random_personality666;667blank/668-675 next MoraleStimulus/677next reaction doc uncredited. Prior source roles separately preserved, no whole1210 or morale/generation-helper credit."
+    },
+    {
+      "id": "CONT-OWNER-RANGE-EXTENSION-232",
+      "at": "2026-10-23T02:08:40.390051+00:00",
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/authority_tests.rs",
+      "sha256": "79cb2928c581b94b83b90e220abb46105033b5e89588d1c7ba20e497772a0992",
+      "material_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "audit_owner": "camera",
+      "reason": "Existing isolated authority fixture is a direct CharacterPersonality table writer; inspect complete containing fixture so behavioral-versus-demographic mutation and any later reproject are actually established before every-writer cache claim. Current13 projection lifecycle exact dependency, not test addition/execution.",
+      "scope_registration": [
+        {
+          "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+          "sha256": "ae719b7285ea649dcf26c2dee0908de407f1fd679635d005107160dd907358f8",
+          "row_1based": 29,
+          "id": "CAMERA-INITIAL07-REG029",
+          "original_record": {
+            "registration_id": "CAMERA-INITIAL07-REG029",
+            "at": "2026-10-23T02:02:46.547836+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/authority_tests.rs",
+            "snapshot": "pr-working",
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\relationship\\authority_tests.rs",
+            "sha256": "79cb2928c581b94b83b90e220abb46105033b5e89588d1c7ba20e497772a0992",
+            "actual_EOF": 75,
+            "material_ranges": [
+              [
+                1,
+                75
+              ]
+            ],
+            "reason": "Existing isolated authority fixture is a direct CharacterPersonality table writer; inspect complete containing fixture so behavioral-versus-demographic mutation and any later reproject are actually established before every-writer cache claim. Current13 projection lifecycle exact dependency, not test addition/execution.",
+            "exclusions": "Existing source only; unrelated character fixture functions1\u2013248 excluded. No new tests/cases/assertions/helpers, no runtime/reset/seed, no wider relationship/character graph.",
+            "status": "prospectively_registered_before_body_analysis"
+          }
+        }
+      ],
+      "limits": "Existing source only; unrelated character fixture functions1\u2013248 excluded. No new tests/cases/assertions/helpers, no runtime/reset/seed, no wider relationship/character graph.",
+      "source_qualifications": "Only full relationship authority fixture1-75; source comparison under exact snapshot, no new tests or execution."
+    }
+  ],
+  "total_variants": 2810,
+  "total_overlays": 232,
+  "mandatory_scope_qualifications": [
+    {
+      "record": "continuation/root/parallel-scope-qualification-130.json",
+      "sha256": "5dc4e5cd771612c7e050ab4af544411523317ae4b57738f1fb20f493685a50fc"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-117.json",
+      "sha256": "f3b80648900716939057b20776d756a6e37001f6910378da1a1bbaea230d348b"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-149.json",
+      "sha256": "97103899514ade32cf1e41c2794fa9c49c0cb8c6c7a2c6a4961b7492de5dc708"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-151.json",
+      "sha256": "670dd53a640b28eef7ad9d57b37f9213e1bca7117d7098691c4b0cd20c2a8f65"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-158.json",
+      "sha256": "fa0e9cc06d04fca0a0e2b5f9a333390a0ba1e71eff846a4e957c46b68b3e940e"
+    }
+  ],
+  "registered_rows": 6,
+  "input_pins": [
+    {
+      "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+      "sha256": "ae719b7285ea649dcf26c2dee0908de407f1fd679635d005107160dd907358f8",
+      "captured_rows": 31,
+      "selected_ids": [
+        "CAMERA-INITIAL07-REG026",
+        "CAMERA-INITIAL07-REG027",
+        "CAMERA-INITIAL07-REG028",
+        "CAMERA-INITIAL07-REG029",
+        "CAMERA-INITIAL07-REG030",
+        "CAMERA-INITIAL07-REG031"
+      ]
+    }
+  ],
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through229-before049.jsonl",
+    "sha256": "f157cf85a99bee8e6a468948cb6b63a4ef602aa632d570b5a12196b2a8871b25",
+    "through": 229
+  },
+  "limits": "Three new source variants2810 and three overlays232, six exact roles; all prior mandatory qualifications retained. User163 exhaustive audits then handover, no implementation."
+}

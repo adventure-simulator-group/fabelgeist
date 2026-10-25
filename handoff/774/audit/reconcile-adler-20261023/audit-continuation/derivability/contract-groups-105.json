@@ -1,0 +1,159 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-105",
+  "at": "2026-10-25T12:38:21.155647+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 245,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/residence.rs",
+      "sha256": "c7ba3678d9c73cdd365cf91f5e8b4d115c161f1b454f4508128e6dd16408461a",
+      "actual_EOF": 1455,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/residence.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-stdb-module/src/residence.rs",
+        "owner": "camera",
+        "sha256": "c7ba3678d9c73cdd365cf91f5e8b4d115c161f1b454f4508128e6dd16408461a",
+        "base_sha256": "df7d47666e333785437d381321a5e7b85cd6e4c453067c83f8d86ea00a30ce35",
+        "state": "modified",
+        "bytes": 49700,
+        "audit_owner": "camera",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                1455
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-HOUSEHOLD-REPAIR-001"
+            ]
+          },
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-db-shared-proofs.json",
+            "ranges": [
+              [
+                1,
+                1455
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-HOUSEHOLD-REPAIR-001"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 57,
+            "read_ranges": [
+              [
+                1,
+                1455
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-RESIDENCE-033"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/residence.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 217,
+            "read_ranges": [
+              [
+                1,
+                1455
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-RESIDENCE-033"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/residence.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 94,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-RESIDENCE-023",
+            "json_pointer": "/current_sources/0",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row221/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1455
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                1455
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": 57,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1455
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "Clone/Debug table six residence records20\u2013163",
+        "Clone/Copy/Debug/PartialEq/Eq/SpacetimeType ResidenceTenure,HoldingStatus,ChargeOutcome,TransitionKind",
+        "Clone/Debug/SpacetimeType BackendCharacterResidenceStatus168\u2013183",
+        "Clone/Copy/Debug/PartialEq/Eq NpcResidenceOutcome1157\u20131164"
+      ],
+      "absence_basis": "Full1455lines personally read1\u2013365/366\u2013730/731\u20131095/1096\u20131455. No handwritten trait/serializer. Existing native/table derives own mechanical structure. Transition stable_id and explicit precedence, historical occupancy/admission, owner-only bill timestamp sanitization, conserved billing/morale and private borrowed LeisureMoraleSourceId classification are semantic inherent/free functions. Derived Ord would not replace chronological precedence; no serialization added for runtime classifier.",
+      "coverage_limit": "No child view/properties/occupancy/acquisition/authority_tests body coverage inferred from includes/modules/source fixture strings."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Residence private legal/billing authority versus historical safe occupancy",
+      "disposition": "No new derivability finding; native table/projection derives adequate. Keep semantic time/context classification and sanitization.",
+      "acceptance": "Equivalent cleanup must preserve private bills/unrelated occupant IDs, explicit transition precedence, borrower lifetime and native error semantics; no database or fixture execution."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 246,
+    "source_id": "physical-p16:crates/adventuresim-stdb-module/src/residence/acquisition.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

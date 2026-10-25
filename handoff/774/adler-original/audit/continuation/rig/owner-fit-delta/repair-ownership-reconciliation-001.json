@@ -1,0 +1,42 @@
+{
+  "id": "RIG-OWNER-DELTA-REPAIR-OWNERSHIP-001",
+  "authority": "Read-only comparison with exported records/parallel-ownership/*-claims.json; no claims or ledgers changed. Audit assignment is not repair transfer.",
+  "findings": [
+    {
+      "finding": "F001",
+      "existing_owner": "Rig KernelBatch::copy_buffer, rig_garments-claims.json#/claims/272",
+      "new_connected_scope": "RadixSort::record raw needed extent is newly explicit; exact function not found in exported claims. Root must reconcile one complete owner for sort callers + existing Rig copy helper before repair.",
+      "dependency": "Existing BufferByteLength; compute already depends GPU, no crate barrier."
+    },
+    {
+      "finding": "F002",
+      "existing_owners": [
+        "Native predicates can_grab_door_from_inside/can_grab_window_from_inside and exact fixtures, native_reports-claims.json#/claims/127 (native-exact-128)",
+        "Camera WorldGrabTargets::pointed/visible, camera_targeting-claims.json#/claims/1"
+      ],
+      "repair_rule": "Consume these existing whole-function owners; do not create a competing Rig predicate/client claim. Coordinate typed Scene point/direction/halfwidth API; preserve invalid actor Transform=>false and zero halfwidth."
+    },
+    {
+      "finding": "F003",
+      "existing_owners": [
+        "Rig soap_rest_preview, rig_garments-claims.json#/claims/424",
+        "Rig travel_provision_forecast/travel_provision_forecast_for_minutes, rig_garments-claims.json#/claims/425",
+        "Camera canonical Web cause/query/clock/quantity/get_character_capability APIs retained by those transfers"
+      ],
+      "new_connected_scope": "Actual Core alcohol retained roles, rest helper/template cleansing-point roles and supply-demand tuple owners have no exact standalone matching claim in these searched files; Root must assign whole connected functions before repair. Existing transferred helper ownership is preserved."
+    },
+    {
+      "finding": "F004",
+      "existing_owner_context": "Rig ClearanceFit/style_words/greave_words/record_clearance_fit claim290; DeviceWearer::record_mitten only claim292",
+      "new_connected_scope": "record_boot and device_footwear_fit::{record_section_fit,record_ankle_fairing} are not in exported exact claims. Propose single Rig whole connected producer/recorder scope for Root reconciliation; no transfer inferred from adjacent mitten claim.",
+      "dependency": "Existing continuous SignedLength and original Millimeters/PlateGauge; Native canonical leaf/scaled_by owner native-exact-018 retains authority."
+    },
+    {
+      "finding": "F005",
+      "existing_owner_context": "Canonical Radians is generator orientation.rs; Native native-exact-023 owns max addition/direction propagation only, not all Radians methods. Root coordinates neutral geometry placement.",
+      "new_connected_scope": "CoordSurface::{styled_dome,full_dome,fan_dome,shell}, latitudes and actual helmet physical host helper signatures have no exact exported function claim. Root must reconcile whole scope with existing Rig host physical/041 graph before edits.",
+      "dependency": "Move existing canonical Radians to coherent neutral geometry without duplicate owner/Armor->generator cycle. Preserve Native separately claimed max/direction methods."
+    }
+  ],
+  "status": "Concrete repair/acceptance/dependency inventory; source freeze and all13 gate remain, no repair authorization expanded"
+}

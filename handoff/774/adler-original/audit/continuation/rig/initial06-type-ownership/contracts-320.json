@@ -1,0 +1,24 @@
+{
+  "id": "RIG-INITIAL06-GROUP-320",
+  "at": "2026-10-23T08:55:12.511013+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "canonical-equipment-input-selection": {
+      "comparison": "MappedSlot uses canonical EquipmentLocation and shared Core INPUT_ADDRESS_MAPPINGS/InputAddressMapping. Local location_index is an ordinal inside this mapping, not a second anatomical identity; depth is checked u16 projection of actual eligible preview order. Keyboard and HUD call the same eligible_mapped_slot and apply_slot; Defined/Empty/Unknown distinctions remain meaningful. Original fixtures compare both hands and reverse ECS entity allocation while preserving canonical topology locations/channels and ordered preview/HUD targets. No copied anatomical/input enum or alternative occupancy owner is introduced.",
+      "disposition": "shared canonical mapping and meaningful local selection product"
+    },
+    "pose-observation-quantities": {
+      "comparison": "P17 LegBones uses canonical BoneRole for anatomical mapping; body-local signed foot track and world-travel projected knee bend become SignedLength. Inter-foot separation uses the existing animation NonnegativeLength despite being a general geometric distance, supporting F002 neutral quantity ownership. AngularMagnitudeDegrees remains explicit degrees; KneeHemisphereDot is a signed directional observation distinct from UnitInterval. Observation::Measured/Unavailable/NotApplicable preserve missing bone, zero frames, degenerate axis and applicability separately from actual numeric zero. Native vector/angle math re-admits into each existing leaf.",
+      "disposition": "canonical identities/observation states; supports existing neutral nonnegative length relocation"
+    },
+    "debris-capture-scene-products": {
+      "comparison": "DebrisCaptureTarget/Candidate/CaptureObstacle retain Position<Scene>, NonnegativeLength separations/radius and optional typed camera. ScenePlanPoint is projected only for terrain queries; observed ECS transform admission precedes target selection. Temporary planar distances, weighted score and native camera normalization are numerical ports; chosen focus/camera re-admit canonical scene geometry. No building-versus-scene frame interchange or separate semantic position owner; general capture/obstacle distances support existing F002 quantity move out of animation. SignedAngleDegrees provides explicit angular unit projection, not a probability wrapper.",
+      "disposition": "coherent scene geometry composition; existing F002 general-distance users"
+    }
+  },
+  "supporting_existing_findings": [
+    "F002"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit."
+}

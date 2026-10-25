@@ -1,0 +1,78 @@
+{
+  "id": "CONT07-CONTRACT-581",
+  "at": "2026-10-24T00:16:33.681886+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2515,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/presentation/interior_lighting/shutters.rs",
+      "sha256": "7407591681d7c7627ec87f5d627b59ca7972544e2096d7f7ea0104ebb8204ad4",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-client/src/presentation/interior_lighting/shutters.rs",
+      "actual_EOF": 115,
+      "ranges": [
+        [
+          1,
+          79
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2516,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/presentation/recipe_mesh.rs",
+      "sha256": "31c7b18fa239684452edb0b7b11e6727f19a146a3588f239231c59c0501daa52",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-client/src/presentation/recipe_mesh.rs",
+      "actual_EOF": 87,
+      "ranges": [
+        [
+          40,
+          87
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2517,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/presentation/windows.rs",
+      "sha256": "2d77a52e25f3ddce4d5ddba62a3d79b48c9479e298e4e1e89e3abbe4b25e157e",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-client/src/presentation/windows.rs",
+      "actual_EOF": 77,
+      "ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2518,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/strategic_scene/instances.rs",
+      "sha256": "66149a921888d0c9cf3f530e5c3d909dc4950a182bbaefc83c15ff8f7adf792b",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-client/src/strategic_scene/instances.rs",
+      "actual_EOF": 95,
+      "ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "P16 shutter illumination derives open aperture from actual replicated casement GlobalTransform and original window tangent, retaining only thresholded change and per-aperture contribution history. It reconstructs lighting from base_samples after any aperture change; source lighting is independent from retained render samples. Comparing worldtransformed axis to scene-frame tangent requires actual roottransform identity/rotation contract before a mixed-frame defect is promoted.",
+    "P16 recipe_mesh projects original native position minus suppliedlocalorigin once; normals/UVs/indices share immutable batch, tangent generation is explicit material capability policy. Material enum support versus actual map use remains separate generation capability, not all classes necessarily normal mapped.",
+    "P16 casement OnAdd selects primary material via the enum-owned WindowLeafKind::material and spawns remaining material batches as children of the same leaf; body andhardware followsame replicated transform. This is one closure realization, not separate scalar-angle rendering authority. Supported replacement lifecycle still conditional.",
+    "P16 strategic building instances obtains one generated building datum and uses it for door/window pose conversion and geometry; actual descriptors and transforms are inserted from the same leaf. PreparedBuildingGeometry plan/collision are retained with SceneBuilding descriptor to avoid independent regeneration. Arbitrary SceneBuilding replacement may need lifecycle proof, prior actual cached-view findings remain."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2519,
+    "start_line": 1
+  }
+}

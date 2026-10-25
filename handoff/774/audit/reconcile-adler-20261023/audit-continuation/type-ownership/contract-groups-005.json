@@ -1,0 +1,86 @@
+{
+  "id": "SEGO-CONT06-NEW-MATERIAL-005",
+  "at": "2026-10-25T07:03:59.289787+00:00",
+  "lens": "audit-type-ownership",
+  "receipts": [
+    {
+      "extension_index": 21,
+      "source_id": "native-dependency:bevy_replicon-0.41.1/src/shared/replication/registry/rule_fns.rs",
+      "sha256": "07f3f73daff9344750ec08f54bd9acc8abec4a946040369ce1573c2b6a6b1073",
+      "personally_read_ranges": [
+        [
+          40,
+          145
+        ],
+        [
+          162,
+          225
+        ]
+      ],
+      "ownership_comparison": "Pinned nativeRuleFns<C> ownsconcretecomponentserialize/deserialize/in-place/consume functionassociation; UntypedRuleFns transmutation representsframeworktypeerasure, notanotherapplicationcomponent/vocabularyowner. Defaultcodec delegatesactualC serde; nativewrapper cannotestablishbespokeinvariant unlessCdecoder does. new_as<T> distinctexplicitwireadaptation requiringcanonicalC conversions, not apppermissiontointroduce equivalentuncheckedDTO everywhere. Source40beginsmidtype-restoreand162midinplacebody; no broadunsafe/nativeframeworksoundnessproof.",
+      "status": "WITH inheritedcodecfinding andexplicitpartiallimits; no clearance"
+    },
+    {
+      "extension_index": 22,
+      "source_id": "native-dependency:bevy_replicon-0.41.1/src/shared/replication/rules.rs",
+      "sha256": "037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+      "personally_read_ranges": [
+        [
+          1,
+          58
+        ],
+        [
+          262,
+          281
+        ],
+        [
+          890,
+          920
+        ]
+      ],
+      "ownership_comparison": "RepliconAppRuleExt routesordinaryreplicate<C> toRuleFns<C>::default andwith-filter policy, keepingsamecomponenttype asserdeowner. ReplicationModeOnce versusOnChange isnativeupdatepolicy, not tacticalactionstage. ProtocolHasher/ReplicationRegistry ownnativeprotocol/registration identitiesdistinctappentityIDs. Exactregistration901\u2013920endsmidinsert; no wholefilter/ruleconstructionproof. Actualpostcardport compatibility isexistingROOTF52/related03finding, notnew06typeplacementdefect.",
+      "status": "WITH inheritedcodecfinding andexplicitpartiallimits; no clearance"
+    },
+    {
+      "extension_index": 23,
+      "source_id": "native-dependency:postcard-1.1.3/src/de/deserializer.rs",
+      "sha256": "20f5ff69404628e4d765f58ceb91b6ac8879ce998aef6dfe49a2fdb2c5f20ac2",
+      "personally_read_ranges": [
+        [
+          208,
+          236
+        ]
+      ],
+      "ownership_comparison": "Pinnedpostcard deserialize_any unsupported andbool accepts only0/1 thenvisit_bool. Thisnativebinarycodec ownsbyteinterpretation; itdoesnotdefineapplicationsemanticenum or admitanyrawintegerasBool. No duplicatecheckedboolownerneeded. RequiredinternallytaggedSerde representation isseparateupstreamapplicationdecodercontract; preserveexactexistingprotocolerrorfinding.",
+      "status": "WITH inheritedcodecfinding andexplicitpartiallimits; no clearance"
+    },
+    {
+      "extension_index": 24,
+      "source_id": "native-dependency:serde_derive-1.0.229/src/de/enum_internally.rs",
+      "sha256": "9d898dbc1c46262f695ef7ba1660b2af70de48e07bbac8f44b740326b7c5b303",
+      "personally_read_ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "ownership_comparison": "Serde derives internallytaggedenum byTaggedContentVisitor via deserialize_any thenmatchesgeneratedvariantdispatch. Thisisgenericcompiler/codegenerationowner, notsecondapplicationtagvocabulary. Canonicalenum ownsvariantnames/fields. Actualnon-self-describingpostcard incompatibility exactROOTF52 mechanism retained; changingsemantictypes alonecannotfixnativecodecroute. All106scopedlinesread, helperbodycalls outsideactualrange notcredited.",
+      "status": "WITH inheritedcodecfinding andexplicitpartiallimits; no clearance"
+    },
+    {
+      "extension_index": 25,
+      "source_id": "native-dependency:bevy_replicon-0.41.1/src/postcard_utils.rs",
+      "sha256": "4a9f413f61885f1581e0a3ddadb2528459e45bd2ea029a7a08ad3b2ab085d537",
+      "personally_read_ranges": [
+        [
+          120,
+          143
+        ]
+      ],
+      "ownership_comparison": "Replicon from_buf delegatesT::deserialize throughpostcard BufFlavor andadvances actualnativecursor; C/T remainsapplicationserdeowner. Separateentity_from_buf usescanonicalcompactEntity codec, notnewpersistentcharacterID. The24lineboundsincludeonlyBufFlavor docprefix, notimplementation; no entirecursor/error/lifetimeproof. Thisisactualcodecport, notpermissionforsilentprimitiveadaptersbeforeit.",
+      "status": "WITH inheritedcodecfinding andexplicitpartiallimits; no clearance"
+    }
+  ],
+  "new_unique_findings": [],
+  "limits": "Exactselectednativefunctions only. Frameworktypeerasure/codeccompilerrole notclaimedwholeupstreamsoundness; no execution/sourcechanges."
+}

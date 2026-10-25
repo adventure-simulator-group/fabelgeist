@@ -1,0 +1,63 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-075",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "dialogue-admitted-prompt-ballot-and-participant-role-granularity",
+      "sources": [
+        {
+          "scope_index": 278,
+          "ranges": [
+            [
+              1,
+              616
+            ]
+          ]
+        },
+        {
+          "scope_index": 279,
+          "ranges": [
+            [
+              1,
+              781
+            ]
+          ]
+        },
+        {
+          "scope_index": 280,
+          "ranges": [
+            [
+              1,
+              351
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "local774:M99",
+        "local774:M100",
+        "local774:M48",
+        "local774:M53",
+        "local774:M97",
+        "SEGO-INITIAL09-F224",
+        "SEGO-INITIAL09-F225",
+        "SEGO-INITIAL09-F227",
+        "SEGO-INITIAL09-F320",
+        "SEGO-INITIAL09-F360"
+      ],
+      "disposition": "Existing dialogue graph supports payload, authority, policy and cardinality distinction; no new unique granularity finding.",
+      "trace": "Resolved prompt278:1\u201379 uses actual organization promotion targets and returns coherent Single/choices/min1/max1; static prompt and resolved choice graph are different stages. Selection mode, cardinality and vote resolution policy are independent axes, not interchangeable enum wrappers. Topic and answer reducers validate action ID127/401 then use immutable retry receipts before stale revision gates. Prompt choice admission430\u2013445 enforces duplicate rejection and selected subset; current winning ballots487\u2013505 preserve deterministic policy-specific ordering and final state599\u2013603 supports F227. Submitted per-person ballots are not final committed result. Actual testimony topic expands at most one claim event252\u2013318; choice caller529\u2013542 passes None and source start280:263\u2013274 passes None. F224 and F320 are connected but distinct runtime and authored-context repairs. Schema279 raw persistence/public projections keep dialogue catalogue revision, mutable session revision, event sequence, row identity and source-span references distinct. Participant character Option plus actor String is actual player versus persistent-resident shape; backend owner is observer, not speaker. Start280 binds parsed session owner, persistent NPC, canonical navigable place and personal frontier, then validates presence and dialogue cardinality; route selection alone is not presence authority.",
+      "qualifications": [
+        "Normal source constructors maintain correlated participant, prompt and result fields. No ordinary bad ballot, source leak, wrong NPC or missing testimony event established. Unread full authored catalogue must still establish which prompt choices carry testimony; this packet does not infer malformed content.",
+        "Min choices0 can allow resolved empty Multi ballot; no NonEmpty restriction. Mode YesNo/Single/Multi is not lifecycle Open/Resolved and should not collapse vote policy. Current fixture source tests are read, never executed.",
+        "CorpsePermissionTopicId278:81\u2013113 is actual structured tagged boundary parser and preserves colons in corpse ID; scope is typed while approach remains canonical permission leaf migration under M97. Ordinary topic syntax is separate.",
+        "DialogueSessionState279 has only Active; that alone is not a new redundant-owner verdict before all state consumers/lifecycle are accounted. Existing mutable raw state string and parser remain source evidence within M99.",
+        "created_micros is signed Unix epoch; actor personal StrategicMinute, daily window, event ordinal and session revision have different units/authority. Preserve signed pre-epoch, end1440, zero-valid initial revision and generated auto-inc codec. No blanket numeric wrapper or invented bounds.",
+        "Do not hand-edit generated SDK bindings. Public observer projection duplicates rows intentionally by viewer and retains actual redaction; it does not create separate authority."
+      ],
+      "acceptance": "Retain named role identities and admitted prompt/ballot/participant products through full native/generated/web graph, preserving all exact retry, cardinality, privacy and policy semantics under existing shared repairs."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

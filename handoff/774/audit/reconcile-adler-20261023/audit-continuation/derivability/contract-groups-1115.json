@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1115",
+  "at": "2026-10-25T17:48:10.533482+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1227,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+  "sha256": "9511a258a4133480d0581e538ae88d41ccff8d90ce6a0658ff71e28267b35eb5",
+  "actual_compared_ranges": [
+    [
+      1441,
+      1820
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "No handwritten trait/codec. Developer visible witness projection1442\u20131506 and private demographic lookup1508\u20131518 intentionally different authority inputs. generated_npc_presence_version1520\u20131550 uses selected fields, version domain, explicit length-prefixed LEbytes and fixed FNV arithmetic; derive Hash not equivalent/stable and would add irrelevant fields. Scene terrain classifier1552\u20131563 semantic mapping; generator/currentsettlement/candidate fixture loops preserve validated generation/selection/context with exact errors rather than derive."
+  ],
+  "first_unfinished": {
+    "scope_index": 1227,
+    "line": 1821
+  },
+  "execution": "none"
+}

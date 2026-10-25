@@ -1,0 +1,43 @@
+{
+  "id": "SEGOVB-04-THREAT-PROFILE-MEMBERSHIP-CANDIDATE-001",
+  "lens": "04",
+  "source_id": "pr-working:crates/adventuresim-core/src/bestiary.rs",
+  "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+  "ranges": [
+    [
+      45,
+      65
+    ],
+    [
+      93,
+      95
+    ],
+    [
+      108,
+      133
+    ],
+    [
+      484,
+      500
+    ]
+  ],
+  "status": "source-backed bounded API candidate; no ordinary runtime witness or global unique-count claim",
+  "contract": "A syntactically valid ThreatId is not proof of membership in the immutable profile catalog required by an infallible get.expect.",
+  "witness": "ThreatId::try_new accepts a lexical ID absent from catalog; its public profile method forwards to public profile(id), which expects catalog membership and can panic.",
+  "qualifications": [
+    "Preserve CONT-CAMERA-OWNER-THREAT-ADMISSION-QUALIFICATION-006 syntax versus catalog-member distinction. Do not narrow the lexical constructor by assumption.",
+    "No actual authored unknown-ID runtime path established. Parent confirms local774:M97 unrelated; M41/M46 mention ThreatId but no exact public lookup finding."
+  ],
+  "connected_dependencies": [
+    "audit/continuation/camera/owner-fit-delta/findings.jsonl#10",
+    "local774:M46",
+    "CONT-CAMERA-OWNER81-F001",
+    "CONT-CAMERA-OWNER-REACHED-PP-F001"
+  ],
+  "acceptance_constraints": [
+    "Make catalog membership/fallibility explicit at the actual profile boundary while preserving lexical IDs for appropriate open construction.",
+    "Retain existing ID ordering and exact catalog startup authority; no fabricated backward compatibility path."
+  ],
+  "execution": "none",
+  "source_edits": false
+}

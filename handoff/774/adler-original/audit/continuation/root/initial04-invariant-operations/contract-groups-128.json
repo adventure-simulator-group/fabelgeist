@@ -1,0 +1,106 @@
+{
+  "packet_number": 128,
+  "source_roles": [
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/cull/node.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh actual full119 after prospective Camera040 and independent current Root04 arithmetic/dispatch comparison after global060. Earlier Root03 read is not other-lens clearance; contracts independently resolved using actual node and public capacity declaration.",
+      "sha256": "b6f664a13608f6fe8013f3e3af8f98d3335e96daeef806a11040958b87297974",
+      "actual_EOF": 119
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/allocator/resources.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          182
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh literal full182 already globally registered exact role, independently compared public capacity/buffers, preparation and native port operations; no allocator/BatchBuffer/IdAllocator/helper child body or native wholepackage credit.",
+      "sha256": "27170c66f375325cae411ea34e591c86aabb86e9d13a3d18da7144037b5ecd9c",
+      "actual_EOF": 182
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass/view_culling.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          167
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh full literal167 current independent Root04 operations comparison; actual reset/select order, current-view binding, integer grid and byte-derived draw count reviewed. No project execution/rendered result or whole shader/native implementation claim.",
+      "sha256": "6411bfc2ee44c3d991461d3817be5580974b682de88df4337e4beb492766407c",
+      "actual_EOF": 167
+    }
+  ],
+  "groups": {
+    "current-view-reset": "Actual firstparty plugin31-39 orders Core3d cull afterPrepass/beforeMainPass. prepare retains active camera membership and updates/creates its own uniform; current ViewQuery selects exact binding. finish queues reset/main from same shader/layout. Each admitted nonempty page requires compute/common/indirect, then resets before select within same pass. Generic native node lacks reset but does not establish missing firstparty reset; no defect inferred from absence in one helper.",
+    "grid-arithmetic": "F053 records concrete fully folded float rounding case, not the weaker16777217 example whose 2Doverdispatch may cover a rounded-away group. Current firstparty select160-164 uses exact u32div_ceil64 then min/ceil65535; those computations fit fullu32 count without pre-add overflow. Actual shader indexing, resource-limited capacities and native pipeline registration remain separate source obligations. Draw reset157-158 derives count from actual indirect bytes then narrowsu64tou32; no ordinary oversized native buffer proved, so no invented huge nativeallocation failure. Preserve canonical typed byte/layout/population/grid contract at the real receiving boundary.",
+    "native-page-coherence": "Public InstancePage has independently optional buffers/groups and rawu32capacity. update122 publishes capacity then checks source/meta but unwraps output/indirect. Raw incoherent page can panic; Native05actual071 already records this exact precondition with qualified normal builder preparation, so no new unique finding. No normal partial-page producer or successful inconsistent GPU submission asserted. Carry coherent prepared resource set at firstparty boundary, not scalar count wrapping plus unchecked parallel options; native ABI extraction remains legitimate.",
+    "allocation-and-failure": "flush uses one batch_capacity to derive uniform/indirect/metadata extents, aligns/grows each then marks batch dirty and flushes if triple present. usize->u64 is lossless on current64bit host; products/alignadd require actual batch storage/capacity guarantees, not fabricated feasibleusizeMAX vector. Childcapacity/flush/ensure implementations not compared here, so no whole native arithmetic clearance. alloc/free identity allocation comes from children, no arbitrary uniqueness guarantee inferred. Optional warmup resources/pipelines return before dispatch, not a successful rejected pipeline cache hit.",
+    "scope-and-acceptance": "These three exact sources are operation-inventoried with findings/qualified supplier obligations, not clearances of all native GPU states. No backend/plugin/pipeline/collector/shader/test source expansion or source changes. No rendered/multicamera repro, native allocation or project execution. Canonical launch/byte cross-PR work already remains pending in coordination replies; do not patch or fork a thirdparty package merely from raw native API evidence without resolving actual firstparty usage and device limits."
+  },
+  "findings": [
+    {
+      "id": "ROOT-INITIAL04-F053",
+      "kind": "native_float_ceil_count_can_undersize_fully_folded_dispatch_grid",
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/cull/node.rs",
+      "locations": [
+        [
+          89,
+          107
+        ]
+      ],
+      "supporting_source_roles": [
+        {
+          "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/allocator/resources.rs",
+          "locations": [
+            [
+              32,
+              47
+            ],
+            [
+              113,
+              122
+            ]
+          ]
+        }
+      ],
+      "case": "Raw public compute_capacity20971201 (=64*(65535*5)+1) rounds tof3220971200 under nearest-even. node computes327675 groups then folded native grid(65535,5,1), exactly327675 groups, whereas hardcoded64-instance width requires327676. Native API/configuration arithmetic only: actual accepted huge GPU page, ordinary firstparty registration/use and shader/runtime omission unproved. No native buffers allocated or dispatch executed. The smaller16777217 example only proves pre-fold rounding and does not by itself establish undersized final grid.",
+      "operation": "Integer population is converted to a lower precision float before ceiling division; later 2Dfolding cannot always recover the lost workgroup. Checked leaf count alone does not establish a grid covers that population.",
+      "connected_repair": "At actual firstparty scheduling/receiving authority, carry canonical integer population and checked exact WorkgroupGrid through native dispatch, and reconcile any used generic native route with actual supported capacity/device limits and shader indexing. Reuse existing canonical launch owner/firstparty per-view route where appropriate; no duplicate scheduler or arbitrary precision-threshold cap. This is a supplier constraint to resolve, not unconditional instruction to edit the external package.",
+      "acceptance": "Every supported successful launch covers its admitted population under actual per-workgroup layout and device limits without precision-losing count conversion; unsupported configurations reject before publication/submission. Preserve per-view reset/order and legitimate native conversion. Existing tests only; no normal large-page failure claimed.",
+      "deduplication": "No exact RootF001-052; Native05 explicitly had no floatceil record and own newnode05 role still pending. Related to existing #779 canonical launch integration, not a new blanket thirdparty ownership claim. Native rawoptional-page precondition already recorded071 and not counted again.",
+      "contract_ref": "ROOT-INITIAL04-CONTRACT-128"
+    }
+  ],
+  "id": "ROOT-INITIAL04-CONTRACT-128",
+  "at": "2026-10-23T05:02:01.957782+00:00",
+  "lens": "audit-invariant-operations",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-060.json",
+    "sha256": "9c771508afa4365c34514e6d2aa71353b520228280271efcbf9611fc19da9ff2"
+  },
+  "mandatory_overlays": {
+    "record": "continuation/owner-range-extensions.jsonl",
+    "sha256": "e7f32dbf953ff76417492b323e263ab3b8210163691823732b7a9bff5eb8deee",
+    "through": 243
+  },
+  "mandatory_qualification170": {
+    "record": "continuation/root/parallel-scope-qualification-170.json",
+    "sha256": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c"
+  },
+  "repair": "frozen_initial_audits_then_handover",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

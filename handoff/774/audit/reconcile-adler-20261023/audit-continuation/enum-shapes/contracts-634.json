@@ -1,0 +1,18 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-634",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        1393,
+        1394,
+        1395
+      ],
+      "comparison": "Fresh full ragdoll definition602/drive237/entry359. RagdollJointKind and JointSpecKind already own spherical twist/swing versus hinge axis/limits; AnchorAt Child|Midpoint|Role owns optional role anchor. Missing driving bone produces Ok(None) definition, optional far-joint axis uses explicit anatomical fallback, not fake observation. CapsuleSelector and FlexDirection are real authored choices; fifteen body and fourteen joint indices are native topology ordinals, not arbitrary enum names. Kinematic flag maps explicitly to native RigidBody Kinematic/Dynamic at actual spawn232\u2013236 and controls controller-root terrain exemption and seed velocity zero; no conditionally absent definition payload or new owner proposed from Boolean spelling alone. BodySeed complete pose/velocities represent actual entry state, zero initial kinematic velocity is deliberate physical value. Joint-body/seed/spawn body Options permit partial mappings and joints only spawn when both actual bodies/seeds exist; geometry admission is separate pending1396. Local driven and ancestor tables are derived graph predicates, not retained semantic choices: driven requires actual mapped entity+transform before expect, held undriven ancestors preserve child physics frame. Readback keeps authored scale, recomputes actual twist hierarchy and reapplies physics pose after procedural passes. Terrain penetration max starts neutral0 over available capsule samples; missing terrain means no available contact constraint, not proof actual measured global terrainclearance. Native no-contact policy must stay distinct from unknown diagnostic observations. Live-world affine accumulates available native transform chain; identity for missing root is local kernel fallback, not new observed rig measurement. Positive sample interval and explicit native denominator floor preserve coincident-source policy. Source fixtures read only, no test or physics execution.",
+      "finding_refs": [],
+      "disposition": "Existing joint/anchor payload enums appropriate; native physics mode adapter and partial sparse mapping policies retained"
+    }
+  ],
+  "new_findings": [],
+  "limits": "Discovery only. Next1396 geometry66/1397ragdoll336; actual retained Ragdolling definition pending. No execution, repair or clearance."
+}

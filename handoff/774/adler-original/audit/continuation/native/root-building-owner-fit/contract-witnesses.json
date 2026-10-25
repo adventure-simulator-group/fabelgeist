@@ -1,0 +1,211 @@
+{
+  "id": "NATIVE-ROOT-BUILDING-OWNER-WITNESSES-001",
+  "lens": "audit-existing-type-owners",
+  "roles": {
+    "G": {
+      "name": "Architectural geometry and shape fields",
+      "meaning": "Architectural points/elevations differ from displacement, local solid coordinates, section dimensions and unitless side signs.",
+      "units": "Position/Elevation metres, SignedLength finite signed metres, PositiveLength finite strictly >0, NonnegativeLength finite >=0 (existing neutral relocation), Area finite >=0 square metres. Degrees and nonwrapping Radians stay distinct.",
+      "frame": "Architectural X/Z plan and Y elevation; project/lift at actual equations. No Scene alias. Solid inverse-transform SAT scratch is solid-local.",
+      "authority": "Reuse single canonical geometry leaves and existing Wall/Opening/Resolved records. A checked envelope does not admit an independent shape payload.",
+      "bounds_zero_admission": "Public raw derived-Serde profiles/frames admit a broader set before validation; do not claim finite/positive normalization from successful constants or envelope. Ground elevation0, closure thickness/swing0, signed offsets and degenerate contact bounds remain representable. CuboidDimensions zero-capable differs positive PlanDimensions/LeafDimensions; ClearanceVolume cannot replace all SpatialBounds.",
+      "collections_config_serde": "Retain source geometry in records/Vec/enum payloads and coherent constructor APIs, not just leaf callsites. Preserve exact source conversion and first-error order. Actual mesh/Quat/codec/math adapters can extract at their concrete operation.",
+      "dependency_fit": "Neutral geometry is already the shared owner. Existing animation NonnegativeLength needs agreed neutral move; do not introduce another equivalent leaf. Root canonical geometry/resolved kernels and Rig whole source records/functions keep their existing authority.",
+      "refs": [
+        "records/final-acceptance-20261021/wave-01/audit-existing-type-owners/root/contracts.jsonl#ROOT-OWNER-GEOMETRY-002",
+        "records/final-acceptance-20261021/wave-01/audit-existing-type-owners/root/contracts.jsonl#ROOT-OWNER-FRAMES-004",
+        "records/final-acceptance-20261021/wave-01/audit-existing-type-owners/root/contracts.jsonl#ROOT-OWNER-ZERO-LENGTH-007",
+        "records/final-acceptance-20261021/wave-01/audit-existing-type-owners/root/contracts.jsonl#ROOT-OWNER-RESOLVED-SHAPE-PORTS-075",
+        "records/final-acceptance-20261021/wave-01/audit-existing-type-owners/rig/contracts.jsonl#RIG-OWNER-WINDOW-OPENING-PRODUCERS-067",
+        "continuation/root/owner-fit-delta/source-role-owner-comparison-002.json#CONT-ROOT-OWNER-ROLES-002"
+      ]
+    },
+    "R": {
+      "name": "Room and occupied-storey identity",
+      "meaning": "RoomIndex is room ordinal; StoreyIndex occupied-storey ordinal, never interchangeable with each other, wall-vector addresses, bay slots or rig ordinals.",
+      "units": "Dimensionless identity/ordinal with role, no metric geometry conversion.",
+      "frame": "Room membership belongs to a particular storey/program or church geometric classifier, not vector-position inference.",
+      "authority": "RoomIndex accepts every u16 incl0 without proving membership; from_ordinal checks only usize overflow. StoreyIndex is usize internally, from_serialized accepts all u16; serialization checks u16. Ground0 is explicit.",
+      "bounds_zero_admission": "StoreyIndex::from_elevation preserves round(elevation/positiveheight), rejecting nonfinite, belowground and >u16MAX. Replacing raw saturating cast in a caller requires preserving its actual rejected-input behavior. Room0 real where authored/classified; exterior None remains absence; editor synthetic0 has distinct authority.",
+      "collections_config_serde": "Carry RoomIndex/StoreyIndex through retained metadata, map values and APIs. Extract index only at actual array/slice/RNG packed-word/Serde operations. Church filters empty rooms while preserving original IDs; do not reenumerate membership.",
+      "dependency_fit": "Reuse exact existing owners, not new room/storey wrappers. Root fresh RoomIndex/shared-boundary comparison plus this fresh StoreyIndex definition and Rig source graph fit. Root retains canonical audit queue/code claims; Rig whole room/wall source repair authority unchanged.",
+      "refs": [
+        "continuation/root/owner-fit-delta/source-role-owner-comparison-002.json#CONT-ROOT-OWNER-ROLES-002",
+        "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl#ROOT-PPS-WALL-SOURCE-CLOSURE-039",
+        "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl#RIG-PPS-029",
+        "records/final-acceptance-20261021/wave-01/audit-existing-type-owners/rig/contracts.jsonl#RIG-OWNER-INTERIOR-GENERATION-078"
+      ]
+    },
+    "T": {
+      "name": "Checked timber section component propagation",
+      "meaning": "TimberMemberId identifies the original physical member; member.start/end are Position<Architectural>, section_metres PlanDimensions is an already admitted positive finite section pair.",
+      "units": "Section component metres, not elevation or ratio. Candidate base and derived head top are architectural elevation; component height remains strict-positive admitted dimension.",
+      "frame": "Member section axes are cross-section coordinates; copying x as scalar height is explicit existing source-axis selection, not a plan-position frame conversion.",
+      "authority": "Existing typed IDs preserve source support/member ownership; no regeneration or nonzero restriction on public all-u64 IDs.",
+      "bounds_zero_admission": "Checked PlanDimensions component x is already positive/finite. Extraction retained as RectangularRoofWindow.head_height before build loses admitted leaf. Newly computed intersection bounds, rotated positions or resized cuboids are new results and legitimately need admission.",
+      "collections_config_serde": "Keep exact checked component through Candidate/RectangularRoofWindow records and helper calls; consume into actual head-height equation. Original member and serialized fixture counters unchanged.",
+      "dependency_fit": "Existing PlanDimensions/PositiveLength canonical definitions fit; source first-party record APIs belong Rig, Root geometry kernels remain Root. No new local Height owner or raw-forwarding adapter needed.",
+      "refs": [
+        "records/final-acceptance-20261021/wave-01/audit-existing-type-owners/root/contracts.jsonl#ROOT-OWNER-GEOMETRY-002",
+        "records/final-acceptance-20261021/wave-01/audit-existing-type-owners/rig/contracts.jsonl#RIG-OWNER-WINDOW-OPENING-PRODUCERS-067",
+        "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl#RIG-PPS-029"
+      ]
+    },
+    "P": {
+      "name": "Roof geometry and topology",
+      "meaning": "RoofAssemblyId, ResolvedItemId, StructuralNodeId and WallAssemblyId are existing distinct referents; face polygons/cutouts, edge points, abutment points and normal/constant plane data retain geometry separately.",
+      "units": "Polygon/edge/sample points architectural metres; thickness metres; pitch degrees. Plane normal and constant form one scaled plane equation, not automatically normalized direction plus unchanged constant.",
+      "frame": "Roof face/end/sample geometry is Architectural; RoofFootprintLoop GridPoint integer lattice retains quantization, not continuous PlanPoint. Ordered holes have opposite winding; edges have1/2 adjacent faces.",
+      "authority": "Typed parent/child/face/support/drainage references already canonical and stay typed across all31 sources. Do not replace typed roof ID by raw slot or unrelated identity. IDs public allbits/Serde do not imply nonzero or referential membership.",
+      "bounds_zero_admission": "layout169–199 raw plane permits nonfinite/zero normal and divides normal.y; normalizing vector alone changes plane authority. Existing Plan/SpatialDirection normalized leaves are not exact whole-plane owners. Missing checked plane/roof polygon aggregate contract remains a later admission/aggregate obligation, not proof no reusable point/length leaves exist.",
+      "collections_config_serde": "Keep cutout/vertex/edge/sample order and optional facade_wall/parent/flashing/terminal absence; no dedup/sorting beyond current policy. Public derived-Serde roof structs are not admitted aggregates solely because IDs are typed.",
+      "dependency_fit": "Reuse canonical framed points/elevations, length/degree leaves where actual policy fits, and existing typed IDs. Explicit plane/polygon/topology aggregate policy missing; no fake existing generic Direction owner. Separate new layout151–284 proof does not alter Root old1–150/285–452 disposition.",
+      "refs": [
+        "records/final-acceptance-20261021/wave-01/audit-existing-type-owners/root/contracts.jsonl#ROOT-OWNER-GEOMETRY-002",
+        "records/final-acceptance-20261021/wave-01/audit-existing-type-owners/root/contracts.jsonl#ROOT-OWNER-FRAMES-004",
+        "records/final-acceptance-20261021/wave-01/audit-existing-type-owners/root/contracts.jsonl#ROOT-OWNER-RESOLVED-SHAPE-PORTS-075",
+        "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl#RIG-PPS-029"
+      ]
+    },
+    "N": {
+      "name": "Actual numerical/native operations and fixture evidence",
+      "meaning": "Numerical kernels and actual Bevy/mesh/Serde/codec recipients can use native vectors/scalars/indices; first-party semantic records remain typed obligations.",
+      "units": "Exact numerical units at equations: barycentric/coverage parameters unitless; areas square metres; tolerances lengths. Pictogram normalized coordinates are not architectural metres.",
+      "frame": "Projection/inverse transform/glyph local frame retains its actual axis meaning; canonical Scene/Architectural not selected from Vec2/Vec3 representation alone.",
+      "authority": "Native mesh index/array offset, packed ID equation, bit/RNG words and fixture byte oracle are concrete ports. Test fixtures can deliberately contain invalid/unowned source IDs and broader raw rejection attempts.",
+      "bounds_zero_admission": "No premature positive/finite refinement of signed offsets, zero contact/closure, Inf reduction identity or invalid evidence. Native numerical extraction not blanket private-function exemption.",
+      "collections_config_serde": "Preserve all original source fixture cases, populations, order, IDs, seeds and assertions. Read-only evidence; no tests executed/added/changed.",
+      "dependency_fit": "Shared API checked bounds lost into overlap tuples remains Root canonical shared repair, even though lower SAT is numerical. Fixture numerical helpers are actual consumers and must consume agreed final contracts once.",
+      "refs": [
+        "records/final-acceptance-20261021/wave-01/audit-existing-type-owners/root/contracts.jsonl#ROOT-OWNER-GEOMETRY-002",
+        "records/final-acceptance-20261021/wave-01/audit-existing-type-owners/root/contracts.jsonl#ROOT-OWNER-RESOLVED-SHAPE-PORTS-075",
+        "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl#RIG-PPS-029"
+      ]
+    }
+  },
+  "dependency_comparisons": [
+    {
+      "id": "NATIVE-ROOT-BUILDING-DEPENDENCY-000",
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/walls.rs",
+      "sha256": "0ccc94972996dae71d762e7019f9814a02a26ff12a2eabe8709f7c791c8b9930",
+      "resolved_path": "crates/adventuresim-building-generator/src/model/walls.rs",
+      "read_ranges": [
+        [
+          1,
+          353
+        ]
+      ],
+      "evidence_mode": "fresh exact allowed body read",
+      "comparison": "G/R/P: exact raw public/Serde/accessor declarations compared, native bounds envelope does not admit profiles. Existing model wholegraph owner proof RIG067 semantically rechecked from fresh definition.",
+      "registration": "already global full353 producer and owner source scope; read as necessary dependency",
+      "scope_extension": "none by supplier; Root registered first",
+      "remaining_actual_unread_role_cells": []
+    },
+    {
+      "id": "NATIVE-ROOT-BUILDING-DEPENDENCY-001",
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/layout.rs",
+      "sha256": "f19587b5c651091d18b720268e43f9bdef0e2ca083b33b57d53cbdbccb1be298",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\model\\layout.rs",
+      "read_ranges": [
+        [
+          151,
+          284
+        ]
+      ],
+      "evidence_mode": "fresh exact allowed body read",
+      "comparison": "P: new range only; Roof IDs/section/frame/plane/topology compared independently from Root old layout1–150/285–452.",
+      "registration": "Root registration overlay006 before fresh bodyread; mandatory owner-range-extensions.jsonl",
+      "scope_extension": "none by supplier; Root registered first",
+      "remaining_actual_unread_role_cells": []
+    },
+    {
+      "id": "NATIVE-ROOT-BUILDING-DEPENDENCY-002",
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/storey_index.rs",
+      "sha256": "399c8ab44cc2dd0c22df8ab1cb88d4284837f7aaccd08f14cb1e4fefcd58c05c",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\model\\storey_index.rs",
+      "read_ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "evidence_mode": "fresh exact allowed body read",
+      "comparison": "R: existing occupied-storey role, usize internal/all-u16packed/ground0/from_elevation checkedrounded admission, native Serde/error/fixtures preserved.",
+      "registration": "Root registration cumulative-source-scope-owner-delta-005 before fresh bodyread; producer supplement queued separately",
+      "scope_extension": "none by supplier; Root registered first",
+      "remaining_actual_unread_role_cells": []
+    },
+    {
+      "id": "NATIVE-ROOT-BUILDING-DEPENDENCY-003",
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/timber.rs",
+      "sha256": "452e6d4196200a40485612e2a5717561e708e0ebbaa595e20cb9b26b43ba599b",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\model\\timber.rs",
+      "read_ranges": [
+        [
+          1,
+          45
+        ],
+        [
+          139,
+          158
+        ]
+      ],
+      "evidence_mode": "fresh exact allowed body read",
+      "comparison": "T: existing distinct all-u64 Timber IDs and already checked Architectural positions/positive PlanDimensions section, no nonzero or membership promise.",
+      "registration": "Root registration cumulative-source-scope-owner-delta-005 before fresh bodyread; producer supplement queued separately",
+      "scope_extension": "none by supplier; Root registered first",
+      "remaining_actual_unread_role_cells": []
+    },
+    {
+      "id": "NATIVE-ROOT-BUILDING-DEPENDENCY-004",
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/resolved_geometry_helpers.rs",
+      "sha256": "e6f71c899743f84ee65814398d45e0b9a98d21945a3d5cf6b483a47a368a742c",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\audit\\resolved_geometry_helpers.rs",
+      "read_ranges": [
+        [
+          1,
+          445
+        ]
+      ],
+      "evidence_mode": "Root exact fresh body/owner supplier narrative; Native additional actual reads0",
+      "comparison": "resolved_solid_bounds returns raw(Vec3,Vec3) derived from canonical Position<Architectural>/CuboidDimensions/Radians; result crosses repeated internal containment/overlap/bond consumers. Exact existing SpatialBounds<Architectural> fits ordered minima/maxima, incl degenerate extents; preserve overflow diagnosis rather than silently narrow after rawarithmetic. Architectural successfulpoints/signedmetre tolerance reusableleaves; inverse rotated triangles/localvectors are separate solidlocalframe, notScene. Actual SAT cross/dot/normalization and fixed3vertex reduction may use native scratch inside equation; functionprivacy does not exempt typed API or retained pointarray/boundtuple. Signed tolerance intentionally negative on containment sampling, PositiveLength would reject supportedvalue. Canonical PlanDirection and Radians fit exact admittedaxes only; raw arbitrarydirection input must preserve its sourceadmission policy. GeometricID lookups already typed; packed native sourceindex distinct from ID. Preserve15axis iteration/order and 8/4/8 samplegrid, zero-axis filtering, actual fixturethreecases without newtests. Existing ROOT-PPS-RESOLVED-GEOMETRY-036 sourcegap plus ROOT-OWNER-RESOLVED-SHAPE-PORTS-075 remainsconnectedrepair.",
+      "registration": "Already globally scoped; full resolved_geometry1–514 Root overlay007 before proof",
+      "source_witness": "continuation/root/owner-fit-delta/audit-owner-comparison-005.json#CONT-ROOT-OWNER-AUDIT-005/groups/0",
+      "scope_extension": "none",
+      "remaining_actual_unread_role_cells": []
+    },
+    {
+      "id": "NATIVE-ROOT-BUILDING-DEPENDENCY-005",
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/resolved_geometry.rs",
+      "sha256": "f0fcbc815b3c695713f9dd8055470b78b871e583aad689aa45ce562c1f20fd4a",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\audit\\resolved_geometry.rs",
+      "read_ranges": [
+        [
+          1,
+          514
+        ]
+      ],
+      "evidence_mode": "Root exact fresh body/owner supplier narrative; Native additional actual reads0",
+      "comparison": "New overlay007 proves whole514-line receiver rather than former1–70 prefix. Canonical Position/SpatialBounds/CuboidDimensions/Radians/Area survive sources but are peeled into rawtuple helper APIs; keep owners into complete helperoperations. Identity sets and wall/opening/member ownership compare exact existing IDs, native output messageformatting may project numericwords only there. Timber maxsection/endpoint radius and drainageoutwarddrop are lengths/elevationdifferences, not rawunitless Ratio. Source typed section doesnot guarantee absentmap_or0 is measured zero; laterstate/behaviorlens preserves qualification. Rootsharedhelper point-in-polygon and roofouter/cutoutprojection use Architectural planpoints; arbitrary concave/cutout lists do NOT match strictconvex PlanPolygon. Reuse framed pointleaf/explicit polygonshape where policy supports, preserve inside/outside empty/edge/raycrossing arithmetic, no re-hull. Direction::ALL discretevocabulary already exists; raw directionvector used at mathboundary distinct from length. AuditIssue.code staticstrings classify prior to output and should closedcause owner (laterstrings); messageString is humancontext. Unrelated sharedhelper135–171 explicitlyexcluded. Existing schema_version raw2 and bondcount/membership predicates require laterenum/aggregate/admission analysis; no blanketsourceclearance.",
+      "registration": "Already globally scoped; full resolved_geometry1–514 Root overlay007 before proof",
+      "source_witness": "continuation/root/owner-fit-delta/audit-owner-comparison-005.json#CONT-ROOT-OWNER-AUDIT-005/groups/2",
+      "scope_extension": "none",
+      "remaining_actual_unread_role_cells": []
+    }
+  ],
+  "source_supplier_refs": {
+    "geometry": "records/final-acceptance-20261021/wave-01/audit-existing-type-owners/root/contracts.jsonl#ROOT-OWNER-GEOMETRY-002",
+    "frames": "records/final-acceptance-20261021/wave-01/audit-existing-type-owners/root/contracts.jsonl#ROOT-OWNER-FRAMES-004",
+    "zero": "records/final-acceptance-20261021/wave-01/audit-existing-type-owners/root/contracts.jsonl#ROOT-OWNER-ZERO-LENGTH-007",
+    "shape": "records/final-acceptance-20261021/wave-01/audit-existing-type-owners/root/contracts.jsonl#ROOT-OWNER-RESOLVED-SHAPE-PORTS-075",
+    "wall": "records/final-acceptance-20261021/wave-01/audit-existing-type-owners/rig/contracts.jsonl#RIG-OWNER-WINDOW-OPENING-PRODUCERS-067",
+    "interior": "records/final-acceptance-20261021/wave-01/audit-existing-type-owners/rig/contracts.jsonl#RIG-OWNER-INTERIOR-GENERATION-078",
+    "producer": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl#RIG-PPS-029",
+    "rootproducer": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl#ROOT-PPS-WALL-SOURCE-CLOSURE-039",
+    "rootfresh": "continuation/root/owner-fit-delta/source-role-owner-comparison-002.json#CONT-ROOT-OWNER-ROLES-002",
+    "rootaudit": "continuation/root/owner-fit-delta/audit-owner-comparison-005.json#CONT-ROOT-OWNER-AUDIT-005"
+  },
+  "source_role_semantic_carry": "Only explicit roles in actual RIG029/Root039 narrative and existing Root/Rig owner matrices consumed after comparing actual units/frame/admission/dependency; no path/hash/range/verdict-only credit.",
+  "source_read_limits": "Church assembly fresh1–460/1530–1812 plus exact full-body supplier461–1529; others exact ranges fresh, audit EOF and partial prefixes explicitly qualified.",
+  "no_other_lens_credit": true
+}

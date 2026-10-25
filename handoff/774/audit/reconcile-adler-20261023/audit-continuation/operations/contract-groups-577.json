@@ -1,0 +1,50 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-577",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/travel.rs",
+      "sha256": "6aabf6b42ea20cd7b12e0ce9e5b3cba26c21b29cee6652b53f307ed65bf1063e",
+      "actual_EOF": 1579,
+      "actual_compared_ranges": [
+        [
+          1,
+          1579
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Travel renderer preserves actual movement/elapsed/clocks and route-leg boundaries with explicit display serialization.",
+      "evidence": "Full1579linebody personallyread includingfixtures. Quotient/remainder clock display finite; walkingu16->f32 /60 finite, actual0..1440 control prerequisite. Round-trip planner uses outbound+actual return.minutes with saturating_add, route start offsets use saturating_add, reversedstops use total.saturating_sub. Total nativeclock terminal saturation alreadyROOT04F019/F021, no newordinaryMAXclaim. ITinerarycamp sort thenmerge same movementandconnectedelapsedinterval, endmax saturating endpoint andsub; followingwalking subtract only guardedpositive order. Explicitformats no delimiterin numericpayload fields. Actualadmittedterrainweights five+urban0 fromprevious217 sourceproof prevents apparentfivecomponentloss.",
+      "qualifications": "No renderer/JS/testexecution. format_persisted_itinerary uses total_movement*2 forcasesite while nearby planner usesoutbound+actualreturn.minutes: source-levelauthority mismatch needs actual asymmetricpersistedroute producer/consumer proof beforeordinaryfinding. Merging nestedcamp overwritesaverage_fatigue_end evenifnewcampendsbeforeold; actualproductionactual/forecastintervalpartition needed beforedeclaringbadpersistenttimeline. No genericoverlapban or pro-rata/restorative conflation (archiveROOT04F018).",
+      "acceptance": "Onecanonicalfullitineraryprojection owning realoutbound/returndurations, elapsedmovement correspondence and actual+forecastcampmerge; preserve halfopenelapsed/actualforecast distinctions and legitimateasymmetry. Terminalclock policy error/rejection explicit ratherthanfabricatedzero or silentnonprogress."
+    },
+    {
+      "contract": "Encounter/camp controls retain exact revision, context and canonical choices; missing evidence is explicit.",
+      "evidence": "EncounterPresentation parseErr renders authoredrecord unavailable. Contactchoice IDs includechallenge/encounter+revision+target/choice; treatment freshrequesttoken and membershiprevision. Onlyauthoritativeavailable_choices rendered; clinicaltreatmentdecision exactenum. Parser ThreatId lexicalok thenprofile/displayname requires catalogue-membercontract: same previouslynotedpublicprofile authority candidate, actualenemyproducer membership stillprerequisite, notnarrowlexicalID globally. Fixed feyspeech introduction[0] requires canonicalnonemptycompiledpart, existingcataloguebodyproofprerequisite. Weatherthreshold displayonly; campfire smoke useslastactualcamp movementequality bydesign.",
+      "qualifications": "No NPC/campmutation or permissionrun. Genericroadhistory repeatsopening withpersistedresponse intentionaltranscript notnewretry. Authoreddestructivecontrols are data notagentpermission. Displayavailabilitydoesnotprove reducertransaction/retry behavior.",
+      "acceptance": "Keep exact identity/revision payloads and canonical permission atreducers, structuredunavailableauthoredpresentation, catalogue-memberlookup beforeprofilewithoutglobalThreatIdconstructor narrowing, and one readable fatigue/encumbrance meaning."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [
+    {
+      "source_id": "pr-working:crates/strategic-web/src/routes/travel.rs",
+      "sha256": "64146fe8563b4e15f539d9f28b47f2380bcae0191509deca6956fff1468bc42c",
+      "actual_compared_ranges": [
+        [
+          260,
+          410
+        ]
+      ],
+      "method": "Focused fresh outbound/return plan producer reread; no additional whole role coverage."
+    }
+  ],
+  "status": "1 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/strategic-web/static/dialogue-client.js"
+}

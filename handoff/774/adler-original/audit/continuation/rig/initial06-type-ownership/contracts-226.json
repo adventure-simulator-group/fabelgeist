@@ -1,0 +1,37 @@
+{
+  "id": "RIG-INITIAL06-GROUP-226",
+  "at": "2026-10-23T06:47:14.430536+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-066.json",
+  "groups": {
+    "contact-geometry-sampling-and-clock-distinction": {
+      "comparison": "Fresh P16 contact161 couples random unit samples, optional BodyPart and canonical SignedLength weapon reach. It differs resolved MeleeContactLocation/AttackResult/AuthorizedAttack. Actual target-local surface point/normal calculation is a geometric kernel; MeleeContactAtTime is spatial metres, not time. windup_duration converts actual SampleSpan/rate to checked AnimationElapsed then CombatDuration, a real unit port. resolve passes ReportedPrecision.get unchanged to Core methods: existing F034 propagation evidence, preserving finite-only signed/>1 reported precision versus positive ContactPrecision. Forced surface coordinate clamps [0,1) using next_down, distinct from inclusive fraction admission. Preserve raw rejected geometry evidence and signed reach. No new full contact/result/clock owner.",
+      "disposition": "Reuse canonical contact/precision/length/sample/time owners with actual numerical ports; preserve F034 and source-policy distinctions."
+    },
+    "generated-carry-authority-versus-identities": {
+      "comparison": "Fresh weapon_carry157 uses canonical recommended HolderKind, known item references, EquipmentChannel and attachment selections; fits actual holder to weapon instance and resolves authored placement index. Character u64 shares existing F040 durable-character identity; inventory/parent instance IDs, catalogue placement/point IDs and u16 placement ordinal have distinct authorities. Kit association and writes belong DB, not low shared schema. Single Containment parent/order0 is feature-specific selection, not all channel ordering/singleton policy. Actual catalogue/holder factory reused, no second enum or copied reference roster. String/typed operation contexts are boundary layers; no assertion of all writes committing or new global error owner.",
+      "disposition": "Keep DB carry-kit association/write authority and canonical catalogue/holder/channel owners; preserve distinct character/inventory/placement identities."
+    },
+    "world-grab-native-targeting-port": {
+      "comparison": "Fresh grab_world141 consumes transient Entity/native transforms plus canonical TacticalEquipmentPhysical/SceneDoor/SceneWindow, producing existing GrabSelection/TargetingCandidate for pointer and outline. Door/window checked centres, directions and dimensions are extracted before can_grab helpers: canonical typed geometry can propagate until actual helper math; no blanket native-world exemption. visible84–99 raycast is actual Vec3/Dir3/distance/mask numerical port, consistent with 203/218. Stable entity bits are transient tie order, not persistent item ID. Selection kinds distinguish resources despite Entity representation. Hand occupancy and outline observe UI state, not server permission authority. No competing geometry/selection owner introduced or helper-body admission inferred.",
+      "disposition": "Keep canonical targeting/typed geometry until numerical ports; transient targets and server/DB authority remain distinct."
+    },
+    "strategic-presentation-not-second-inventory": {
+      "comparison": "Fresh strategic_scene equipment150 consumes canonical EquipmentAppearance/PresentationId/AppearanceAnchor/catalogue and shared tactical mesh generators. Wardrobe appearances plus spawned entities is a presentation lifecycle cache, not another persistent InventoryGraph. Catalogue ID, PresentationId, Entity, attachment point and generated presentation occupancy string differ namespaces. ZERO striking head is explicit presentation-only policy, so do not force positive combat head length here. Checked Cuboid/grip pass into TacticalEquipmentPhysical, native anchor vector is an actual port. GeneratorVersion/DesignHash/recipe reuse existing canonical products. Held slot mapping uses actual LeftHand/RightHand plus Held channel, distinct from coarse clinical/body-region taxonomies. Cache coherence/unknown catalogue filtering remain other-lens qualifications, no accepted-state seal from type names.",
+      "disposition": "Keep canonical appearance source products and presentation-only entities/topology, distinct from persistent inventory authority."
+    }
+  },
+  "source_fact_refs": [
+    "contracts-039.json",
+    "contracts-177.json",
+    "contracts-188.json",
+    "contracts-203.json",
+    "contracts-217.json",
+    "contracts-218.json"
+  ],
+  "supporting_existing_findings": [
+    "RIG-INITIAL06-F034",
+    "RIG-INITIAL06-F040"
+  ],
+  "limits": "Four full P16 bodies freshly read and compared to actual canonical definitions/current recipient meaning. New066 Hair roles remain pending. No source edits, execution, scope growth, counterpart hash credit or later-lens verdict."
+}

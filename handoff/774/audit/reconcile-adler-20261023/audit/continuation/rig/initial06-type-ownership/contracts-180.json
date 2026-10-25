@@ -1,0 +1,71 @@
+{
+  "id": "RIG-INITIAL06-GROUP-180",
+  "at": "2026-10-23T05:41:27.183904+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-061.json",
+  "groups": {
+    "visual-traffic-tiles-not-routing-authority": {
+      "comparison": "Fresh traffic127 owns64m appearance tiles, pixel gutter/interior scale, Road segment numeric projection and WheelStroke rendering strength. TrafficTile integer coordinates are metre-aligned texture cache address, not terrain package/WGS tile identity or strategic route authority. Road local forward/length and quad-clearance/union sampling are actual native numerical kernels. No stored gameplay traffic/impairment or canonical city road duplicate inferred from these scratch records; arrays/directions here differ accepted shared scene bounds.",
+      "disposition": "Retain visual raster/cache owner and real numerical projections."
+    },
+    "canonical-body-to-cloth-morph-transfer": {
+      "comparison": "Fresh draped85 consumes canonical GeneratedCharacter/DrapedGarment and CharacterMorphs, samples body TriangleBvh once then interpolates ordered morph deltas through fixed barycentric coordinates. Face ordinals and weights are local geometry interpolation, not RigJointOrdinal or weapon skill/probability. Degenerate determinant produces explicit error; new deformed normals are garment kernel output, not a duplicated authored normal owner. Existing F003 canonical cloth composition applies, while morph source/destination arrays are genuine numerical ports.",
+      "disposition": "Preserve body/garment/morph owners and local barycentric transfer."
+    },
+    "city-geographic-gpu-frame-adapter": {
+      "comparison": "Fresh frame103 consumes canonical RegionalCityInput and WGS microdegrees into native TerrainCoordinate projection. City east/up/north is deliberately reflected to map east/up/south; CityFrame keeps world transform, inverse-transpose normal transform and handedness together. Vec4 padding and Mat4 are native GPU ABI, not four geometry scalars masquerading as shared Position. Absolute source elevation differs local scene relative height. Moving window updates small frame buffer while geometry remains canonical city frame. No new geographic identity or copy of accepted scene input; keep explicit frame adapter.",
+      "disposition": "Preserve geographic/city frame distinction and correlated native GPU transforms."
+    },
+    "interior-instance-canonical-projections": {
+      "comparison": "Fresh interior103 reuses InteriorLayout/Placement and retains per-building layout proof. FurnitureInstanceId is derived by canonical purpose StreamId using building identity, room ordinal, storey and exact placement facts; Seed entropy and furniture identity remain separate roles. Local architectural placement plus base support elevation projects to checked Position and BuildingOrientation; native arithmetic is actual frame transform. Room/Storey stay typed in FurnitureLocation, not recomputed unrelated indices. Existing neutral geometry/datum propagation remains, no new competing room or layout owner.",
+      "disposition": "Retain canonical building/interior/furniture identities and frame projection."
+    },
+    "held-transfer-is-tactical-topology-operation": {
+      "comparison": "Fresh transfer95 uses canonical EquipmentHand/Location/Channel, TacticalEquipmentAnchor and ReachableTarget to plan held versus wearable/attachment root swap. Depthu16 selects sorted reachable target, not daily duration or capacity volume. Actual helper preflight precedes deferred mutations; this local bool result is not durable permission or universally validated graph. Native Entities/queries/commands are tactical server ports, no DB persistence. Keep shared occupancy/topology vocabulary and hand slot distinct physical item identity; no new parallel equipment taxonomy here.",
+      "disposition": "Preserve canonical equipment values and transient topology mutation owner."
+    },
+    "support-clearance-is-physical-not-new-movement-rule": {
+      "comparison": "Fresh support_obstacles87 consumes existing grounding surfaces and Tree/Rock obstacle lattice coordinates, expands collision radius by canonical humanoid controller skin clearance then filters intersecting discs. This physical accepted-bearing/approach envelope differs grading region and movement allowance, as source comments explicitly state. Repair counter records removed obstacles, not an identity or clock. Original kassel fixture compares full envelope/region order, read only; no new executed test or extra hidden movement penalty. Keep shared surface/rock radius owners and numerical projection.",
+      "disposition": "Retain physical support clearance and existing shared collision meaning."
+    },
+    "daily-allocation-minute-product-duplicated-at-db": {
+      "comparison": "Fresh time/model98 owns durable WorldClock versus personal CharacterTime, both share StrategicMinute but different timeline authority; epoch micros and scan key remain separate. ScheduleAllocation repeats all ten minute fields of actual canonical Core DailySchedule plus two optional organization keys. Fresh supporting actual Core allocation104\u2013170 shows DailySchedule raw durations and DailySchedulePlan organization associations; fresh DB schedule728\u2013741 maps all ten fields unchanged into DailySchedule, including labor/prayer/thievery/raiding name-only differences. Actual allocated_minutes calls another array projection of same budget. This is the same daily minute product, not calendar position or accepted ValidatedSchedule. Keep organization membership authority at DB and exact raw-versus-validated distinction, but compose/reuse canonical daily minutes instead of independently maintaining ten copies. Native SpacetimeType representation must be supported explicitly (feature-gated low derive or genuine outer storage codec); no Core\u2192DB dependency or compatibility flattening path. ImmediateActivity is explicit player action discriminator with service_id separate, not complete DailySchedule sum or socializing omission bug from names alone.",
+      "disposition": "F041 migration: share canonical ten-field daily minute product, retain organization references, raw/accepted distinction and DB clocks."
+    },
+    "woody-growth-native-numerics": {
+      "comparison": "Fresh growth_axes88 uses canonical Seed/StreamId and OakGnarlingParameters to construct trunk/shoot polyline geometry. Crown/lean phases are numeric radians, shoot ordinal/group indices are mesh branching provenance, not CharacterId/Seed equivalence or a repeated scene anatomy taxonomy. Nonlinear bent positions/radii/directions are actual local geometry kernel; inclusive random draw and fixed five shoots preserve purpose/draw policy. No ownership move to strategic flora authority or canonical unit direction required for every intermediate vector.",
+      "disposition": "Keep deterministic botanical geometry kernel and canonical parameter/RNG owners."
+    }
+  },
+  "supporting_actual_bodies": [
+    {
+      "source_index": 1251,
+      "ranges": [
+        [
+          728,
+          741
+        ]
+      ],
+      "role": "Actual ScheduleAllocation\u2192DailySchedule unchanged ten-field conversion, not whole source credit."
+    },
+    {
+      "path": "crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+      "ranges": [
+        [
+          104,
+          170
+        ]
+      ],
+      "role": "Fresh already-compared103 canonical daily raw minute/typed plan definitions."
+    }
+  ],
+  "source_fact_refs": [
+    "contracts-003.json",
+    "contracts-005.json",
+    "contracts-097.json",
+    "contracts-103.json",
+    "contracts-176.json",
+    "contracts-177.json"
+  ],
+  "limits": "Eight complete source bodies freshly read incl original fixtures. Two already-scoped support ranges reexamined; no whole support source credit, execution/source edits/new scope or other lens."
+}

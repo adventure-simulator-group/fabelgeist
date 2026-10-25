@@ -1,0 +1,20 @@
+{
+  "failed_run": 39426858999,
+  "failed_job": 118641483626,
+  "failed_head": "78099c4a5967737ebff1be614c19c6c230b92ae3",
+  "earliest_gate": "Lint tactical client WASM target",
+  "diagnostics": [
+    "question_mark: terrain_leg.rs::OrdinaryLeg::solve",
+    "collapsible_if: ik/mod.rs::apply_terrain_leg_ik",
+    "collapsible_if: player.rs::apply_direct_combat_controls"
+  ],
+  "fix_commits": [
+    "7e3edf096ef44b3577755086448d394f9f641d63",
+    "f9070a1b1e34f25eff098ed1c48b57d2478f66dc"
+  ],
+  "behavior": "None propagation, short-circuit order, error logging and continue behavior preserved. No suppression or lint-policy change.",
+  "format_only_run": 39428699111,
+  "format_only_job": 118647748346,
+  "format_only_fix": "f9070a1b1e34f25eff098ed1c48b57d2478f66dc",
+  "validation": "Exact hosted formatter output applied. Newest head must pass full matrix; earlier passing gates are not transferred."
+}

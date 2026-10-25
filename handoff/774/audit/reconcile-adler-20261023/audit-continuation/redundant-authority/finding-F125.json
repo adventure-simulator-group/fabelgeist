@@ -1,0 +1,88 @@
+{
+  "id": "CONT07-F125",
+  "contract": "CONT07-CONTRACT-651",
+  "at": "2026-10-24T01:10:50.966722+00:00",
+  "title": "Packed input rank lets valid within-channel order override channel and attachment depth",
+  "classification": "source-confirmed ordering representation mismatch; API/admitted-catalog-extension conditional",
+  "sources": [
+    {
+      "scope_index": 2409,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/trade/equipment.rs",
+      "sha256": "3229ebb47a71f62dc45c5b0406a116e0785dcdf26ea485deff0f757edc4cdaac",
+      "ranges": [
+        [
+          276,
+          304
+        ],
+        [
+          344,
+          369
+        ],
+        [
+          549,
+          565
+        ]
+      ]
+    },
+    {
+      "scope_index": 2417,
+      "source_id": "pr-working:crates/strategic-web/static/equipment-toggle.js",
+      "sha256": "86df6350e2e09720ae1d8293a48a484f6e0aa4154787e29dd06156ee7c1e6b37",
+      "ranges": [
+        [
+          28,
+          99
+        ]
+      ]
+    },
+    {
+      "scope_index": 939,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "sha256": "96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+      "ranges": [
+        [
+          147,
+          171
+        ],
+        [
+          193,
+          204
+        ]
+      ]
+    },
+    {
+      "scope_index": 944,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+      "sha256": "9cb076d4f2ff85b5932981983e2eeea82850c8b40b647948ca400bd4d00aad51",
+      "ranges": [
+        [
+          114,
+          140
+        ]
+      ]
+    },
+    {
+      "scope_index": 1880,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory/ordering.rs",
+      "sha256": "a16a4fd249e9a9fa97fa44588caa57dc7a15e35ef78bfd5e194267419a507f20",
+      "ranges": [
+        [
+          7,
+          20
+        ],
+        [
+          49,
+          55
+        ]
+      ]
+    }
+  ],
+  "producer_and_recipient": "Canonical equipment ordering separates channel and within-channel u16 order. UI packs depth*100000+channel.order*1000+order and JS compares scalar to select placement/attachment and occupants, while Rust badges use same packed sort.",
+  "static_witness": "Same mapped location/depth: Accessory(channel60, order65535) produces125535, outranking Mount(channel70, order0)70000. Both nonsingleton channel orders satisfy actual PR validator. Lower channel therefore wins although canonical channel-first root ordering places Mount outermost. Rank125535 can also exceed a depth1 lower-channel rank100000. No oversized graph or JS number precision edge is needed.",
+  "normal_qualification": "No current authored catalogue item with such large order or gameplay reproduction established. Singleton channels require0, so invalid BaseClothing high-order witness is explicitly excluded. This is actual admitted API/catalogue extension range and source receiver behavior, not blanket current equipment malfunction.",
+  "connected_repair": "Carry structured depth/channel/order rank through native JSON and compare lexicographically in browser and badges, or use one canonical ordering owner whose accepted encoding proves injective order preservation for full admitted fields. Do not silently narrow all u16 order to1000 or rely on current catalogue samples.",
+  "acceptance": "Every admitted order range preserves channel priority and depth semantics without collisions/spill; Rust badges and JS selection agree for same roots/requirements. Preserve capacity, fit-zone, side, input mapping and deterministic tie policy.",
+  "dedup": "Root M10 already owns migration/capacity/ordering and leaves u16 protocol bounds open; this is additional exact arithmetic/recipient evidence, no automatic new global unique count. Parent previously no exact alias.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

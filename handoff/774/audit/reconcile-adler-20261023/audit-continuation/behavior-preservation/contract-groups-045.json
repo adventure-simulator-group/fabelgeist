@@ -1,0 +1,61 @@
+{
+  "id": "CONT08-CONTRACT-045",
+  "at": "2026-10-25T09:58:03.107681+00:00",
+  "lens": "08behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 156,
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_time.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/strategic_time.rs",
+      "before_sha256": "3af84cd2d335ef14e2ae8034345fcdcb999a93b4adeabd1a2e1f58beb780f57c",
+      "after_sha256": "3af84cd2d335ef14e2ae8034345fcdcb999a93b4adeabd1a2e1f58beb780f57c",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0156-base-3af84cd2d335ef14e2ae8034345fcdcb999a93b4adeabd1a2e1f58beb780f57c",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/3af84cd2d335ef14e2ae8034345fcdcb999a93b4adeabd1a2e1f58beb780f57c",
+      "diff": "source-evidence/p16-0156.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          860
+        ]
+      ],
+      "facts": [
+        "Fresh full860 +actualempty P16diff. MinuteOfDay valid0..<day and shared6\u201320daylight, full1..1440walkingrange noon/midnight windows, startinclusive/endexclusive walking predicate, nextstart deliberately tomorrow whenalreadyinside. Camp clears carriedfatigue beforeown schedule, summary/inputmember association and maxpeaks unchanged.",
+        "Forecast preserves initial empty-members rejection, original memberorder, separateelapsed/movement, exactcamp/walk publication sequence, clipping/daywindow and512materializedsegments; no arbitrary daycap introduced. Existing ordinary/night/partition/slider/cappedfixtures readunexecuted.",
+        "Retained endpoint nonprogress is exact ROOT-INITIAL04-F019: canonicalMAX+movement1+walking480+finite nonempty member reaches duration0 then saturating+1MAX, emitsnosegment, bypasses512count. Freshown08 connectedactualcalendar440:96\u2013153/260\u2013286 confirmsMAX/new/saturatingaddition/elapsed/daystart, no calendarwholefilecredit. Samebase behavior, APIterminalonly/noordinaryclock/noexecution.",
+        "Lunarphase integerremainder beforef64, illuminationrem_euclid; officialclock signedelapsed saturatingsub/max0 thenu128multiply/divide andsaturatingworldstart; inverseceil/checkedi64 remain same. Allocatedminutes integer sum, trainingfloatorder, healingcap and convalescencedoubling64/binarysearch unchanged; lower actualStrategicMinute/provisioning/adapters remain separately scoped."
+      ],
+      "disposition": "Own08 full actual localcomparison accounted; exact retained terminal APIdefect aliasF019, no introduced774regression or ordinaryforecastclaim.",
+      "acceptance": "Preserve allu64canonicalclock values, validzeromovement, daily/nightwindows/memberorder andnativefloatlaw. ExistingF019 repair must make eachstep progress or terminate explicit finiteclockoutcome; no globalheadroombound. No tests/checks/repairs."
+    }
+  ],
+  "partial_sources": [
+    {
+      "scope_index": 440,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/calendar.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-world-schema/src/calendar.rs",
+      "before_sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "after_sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0440-base-64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "diff": "source-evidence/p16-0440.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          96,
+          153
+        ],
+        [
+          260,
+          286
+        ]
+      ],
+      "disposition": "Fresh own08 actual bounded callee proof only; no completecalendar/wholefilecredit."
+    }
+  ],
+  "next": "157stub onward exactfrontier; original440 remainspartial; no graph/lensclearance."
+}

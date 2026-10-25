@@ -1,0 +1,98 @@
+{
+  "id": "CONT07-CONTRACT-592",
+  "at": "2026-10-24T00:22:56.241729+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2562,
+      "source_id": "pinned-registry:spacetimedb-bindings-macro-2.6.1/src/sats.rs",
+      "sha256": "bf26e6331c7cf9a560ecec507b5e06b11bc77460dec17ac0d553cff5278a5bc4",
+      "origin": "archive:audit/continuation/camera/admission03/dependency-snapshots/spacetimedb-bindings-macro-2.6.1/sats.rs",
+      "actual_EOF": 752,
+      "ranges": [
+        [
+          54,
+          85
+        ],
+        [
+          87,
+          96
+        ],
+        [
+          98,
+          143
+        ],
+        [
+          273,
+          287
+        ],
+        [
+          295,
+          329
+        ],
+        [
+          331,
+          637
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2563,
+      "source_id": "dependency-bevy_reflect_derive0.19.1:src/lib.rs",
+      "sha256": "68c37f689d5b216ac404890b22b31426549fd9305c561cfdb51fa5ce4c299964",
+      "origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_reflect_derive-0.19.1/src/lib.rs",
+      "actual_EOF": 907,
+      "ranges": [
+        [
+          60,
+          117
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2564,
+      "source_id": "dependency-bevy_reflect_derive0.19.1:src/from_reflect.rs",
+      "sha256": "5bcdff556cc6df65e841b8ac5170ec8d83b1ce4883237327ea8f0ffe7171d067",
+      "origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_reflect_derive-0.19.1/src/from_reflect.rs",
+      "actual_EOF": 353,
+      "ranges": [
+        [
+          25,
+          56
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2565,
+      "source_id": "dependency-bevy_reflect_derive0.19.1:src/impls/opaque.rs",
+      "sha256": "7c0a7b4e1416658fd161b6874b82ac4603390c3e41c30e8425f1b4bb764742ca",
+      "origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_reflect_derive-0.19.1/src/impls/opaque.rs",
+      "actual_EOF": 131,
+      "ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "PinnedSATSmacro ASTcollectsfield/variantnamesandtypesonce; generatedproductlength,fieldidentenum, sequentialnamedconstruction andduplicate/missingfield checks derivefromthat one population. Sumtagsandnamesderivefromsamevariantlist. No independently authoredmirrorrosterwithinmacro observed.",
+    "PinnedSATSderiveconstructsrawproductfieldsandtypedvariantpayloads directly; #[sats]extractor acceptscrate/nameonly in scopedbody, no #[serde(try_from)] invocation implied. Bespokeconstructoradmission mustbeprovidedbyleafSATSDeserializeorownmanualimplementation; retainexistingadmissionevidence ratherthanclaimSerdeguardsautomaticallyapply. NoSATSdecodeexecuted.",
+    "BevyReflectderive0.19.1 choosesopaque versusstruct/tuple/enumfromoneReflectDerive metadata; FromReflect auto generation followssamepolicy. Opaquefrom_reflect clonesexacttypedvalue(orremote typedwrapper), not rawprimitivefieldreconstruction; dynamicfieldwriteauthorityisnotautomaticallyintroducedbyopaqueReflect.",
+    "OpaqueReflect::try_apply typechecksandclonesoneadmittedwholevalue. Its TypeInfo andReflectKindderivefromsameopaqueimplementation; FromReflectremote wrapper preservesexplicitremotetypeassociation. No reflectionexecution/compilerexpandedcode validation, no unrelatedSDKsourcecoverage."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2566,
+    "start_line": 1
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "id": "RIG-ADMISSION03-CATALOGUE-SCHEMA-WITNESS-001",
+  "lens": "audit-admission-contracts",
+  "source_refs": [
+    {
+      "queue_index": 316,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "sha256": "96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+      "actual_fresh_ranges": [
+        [
+          19,
+          40
+        ],
+        [
+          380,
+          430
+        ],
+        [
+          492,
+          500
+        ]
+      ],
+      "actual_EOF": 618
+    },
+    {
+      "queue_index": 26,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "sha256": "115d9400063d89f5782dc3c34be2b9f2af774ca438768a9059f815b531d71b1f",
+      "actual_fresh_ranges": [
+        [
+          1,
+          623
+        ]
+      ],
+      "actual_EOF": 623
+    }
+  ],
+  "actual_semantic_comparison": "Complete actual source-body diff between assigned PRschema618 and P16schema623 reviewed. Only added geometryimport/physicalserde module, dimensions nativearray\u2192CuboidDimensions/customarraySerde, grip/reach rawf32\u2192SignedLength differ. Other declaration/Serde/default/ItemKind/capability routes explicitly compared against current respective main-validator and runtime loader roles, not hash or priorverdict.",
+  "required_capability_omission": {
+    "PR": "ItemDefinition22\u201340 derivesDeserialize and #[serde(default)] capabilities39\u201340. Capabilities492\u2013500 derivesDefault+Deserialize with allfive Option fields; Default makes allNone. ItemKind380\u2013430 has Food unitvariant, Container onlyslot, Weapon/Armor no intrinsic capabilityguard.",
+    "P16": "Same ordinary admission policy at ItemDefinition26\u201344 and Capabilities497\u2013505, ItemKind385\u2013435. No customwholeItemDefinitionDeserialize or postdecodepresencevalidator in actual complete schema.",
+    "joined_main": "Camera actual CAMERA-ADM03-026 main537 invokes validate_capabilities onlywhen capabilitiesfieldpresent; typedItemCatalogDocument decode269 cannotrestorethe omittedkindrequirement. Currentmaincompleteactual PR/P16bodydiff has no delta, but P16semanticapplication independently compared above.",
+    "counterexample": "For otherwisevalidrequired-kindobject, omittingcapabilities yieldsDefaultNone andskipsrequired helper checks. This is conceptualsourceproof only, no new fixture/case/testexecuted.",
+    "ownership": "Camera canonical main-validator finding; no duplicateclaimtransfer. Rig schema/runtime admission inventory pending full connected packet."
+  },
+  "target_f32_dimensions": {
+    "PR": "EquipmentPhysical native[f32;3] decoder permits representablezero axes; sourcepositivecheck is in f64 beforefinaltypeddecode.",
+    "P16": "EquipmentPhysical dimensions_m:CuboidDimensions uses actual item_catalog_physical_serde.rs1\u201318 <[f32;3]>::deserialize\u2192CuboidDimensions::from_metres. Actual genericCuboid accepts0 bydesign; positiveLeaf policy mustnotgloballynarrowCuboid.",
+    "registered_dependency_route": "Rig021\u2013023/025 pinnedserde_core1.0.229 +serde_json1.0.151 current PR/P16Cargo.lock. Normal Value.deserialize_f32169\u2013193/313\u2192Number.deserialize_any535\u2013547\u2192PrimitiveVisitor visit_f64(impls449\u2013456/222\u2013242) casts to f32 and preserves sign, doesnotrejectunderflow0. Arbitraryprecisionnumberroute582\u2013599 parses targetf32 directly; no positive-role validator there.",
+    "counterexample": "A finitepositivef64 below halfsmallestpositivef32 (e.g.1e-100) passes mainpositivef64 predicate, then targetf32becomes0 and PRnativearray/P16genericCuboid acceptsit. Existing positive_f32_in actualhelper27\u201349 alreadyrejects exactlythis stored<=0 case for shieldblock/surfacecoverage; maindimensions do not use it.",
+    "limits": "Demonstrates sourcegate+typedValue decode mismatch; no runtime/build/testsrun, no claimfrommetadata/oldverdict. Full runtime textdecoder/cachedphysicalprojection routes remain their exact later packet obligations."
+  },
+  "source_gate_comparison": "Camera main026 is actual current-lens source proof, not buildcallmetadata. P16 helper014\u2013019 fresh bodies read and complete PR/P16bodydiff independently checked with actualcallroles; helper packet forthcoming. No original802 per-source completion awarded by this narrow supplier witness."
+}

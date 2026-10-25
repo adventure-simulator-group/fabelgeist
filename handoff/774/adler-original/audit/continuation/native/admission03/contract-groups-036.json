@@ -1,0 +1,109 @@
+{
+  "id": "NATIVE-ADMISSION03-CONTRACT-GROUPS-036",
+  "lens": "audit-admission-contracts",
+  "groups": {
+    "native-bevy-observer-result-and-error-boundary": {
+      "indices": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "read_ranges_by_index": {
+        "1": [
+          [
+            1468,
+            1483
+          ]
+        ],
+        "2": [
+          [
+            40,
+            105
+          ],
+          [
+            395,
+            415
+          ]
+        ],
+        "3": [
+          [
+            1,
+            187
+          ]
+        ],
+        "4": [
+          [
+            70,
+            82
+          ]
+        ],
+        "5": [
+          [
+            216,
+            275
+          ],
+          [
+            554,
+            583
+          ]
+        ],
+        "6": [
+          [
+            45,
+            64
+          ]
+        ],
+        "7": [
+          [
+            1,
+            150
+          ]
+        ],
+        "8": [
+          [
+            570,
+            630
+          ]
+        ],
+        "9": [
+          [
+            1,
+            75
+          ]
+        ],
+        "10": [
+          [
+            3448,
+            3475
+          ]
+        ]
+      },
+      "read_mode": "Fresh exact originallyscoped foreignmaterialranges thislens; fullunrelatednativefilesNOTread/credited; context/splitdeclarations qualifiedbelow.",
+      "invariant": "Bevy observer/system result andboxederror are actualnativeframeworkports. They do notvalidateapplicationevent semantic invariants; a legitimate finaltypedError→BevyError conversion differsfromprematureappstringerasure.",
+      "all_admission_routes": {
+        "1": "Actualapp1468–1483: completeadd_observer1474–1477 delegatesWorldmethod; remainingdoc/get_error_handlerhead1479–1483 contextearlierpinonly,nocoverageofunreadbodyornewsourcecontract.",
+        "2": "ActualBevyError40–105/395–415: privateboxedInner errorcarrier, new82 genericBox<dynError+Send+Sync>:From<E>→Self::from(error).with_severity; From<E>400–415 actuallyboxesoriginalE viaerror.into preservingtypederrorchain withdefaultPanicseverity/backtrace. Rawstr/String conversion intentionallynativeport, notrequiringE:ErrorbecauseBoxconversioncanacceptstr. trace99–105signatureonlynotcompletehelperbody; no typedapplicationvalidationinferred.",
+        "3": "Actualfull187 assignederrorhandlercontract: ErrorContext closedSDKvariantmetadata/System/RunCondition/Command/Observer, FallbackErrorHandlerpubfunctionpointer CopyClone/Defaultmatch_severity. Nativeerrorseverity selectsignore/trace/debug/info/warn/error/panic, Displayonlyrealdiagnosticformatboundary; replacingfunctionpointer doesnotchangeadmissionofapplicationtypes. Deprecatedforeignalias123–125 contextonly—notadoptedorprojectcompatibilitypath. No foreignsourceedit.",
+        "4": "Actual70–82 exportsnativeerrors andResult<T=(),E=BevyError> aliasonly; thisisrawResultcarrier, notacceptedstate/token orstringcodec.",
+        "5": "ActualObservernew224–244 into_system thenexclusive-systemassert beforeSelf, originaltypedobservererrorrunner andNonehandlerinitialized. IntoObserver560–575 identityobserver oractualtypedObserver::new(system). AnyNamedSystem554–558 nativeDebugNameoutput. Originalrequested216–275/554–583 retained asread; with_dynamic_runner246–275 andconditionimpl578–583 onlypartialneighborcontext, notactuallyusedbycurrenttypedadd_observerchain andno independentfullfunction/nativeadmissioncredit. No claimcompleteObserverallroutes/full638.",
+        "6": "Actualadd_observer55–57 spawnsobserver.into_observer; preserves typedEvent genericroute. trigger59–64 partialneighborheadcontextonly, no separatetriggerbodyorraw-event-validationcredit.",
+        "7": "Actualrunner1–150 (EOF186): requiredunsafe nativeEvent/Trigger pointermatchpreconditions25–40, conditions/duplicate-triggerlogic; completeobserver_system_runner35–124 downcastsactualsystem, RunSystemError::Failed110→configuredorfallbackhandler+Observername/tick thenqueue_deferred. No appsemanticrawfieldvalidation/rollbackguarantee. Existingtest126–149 readsourceonly; beyond150unreadnotcredited.",
+        "8": "Actual570–630: FunctionSystem IntoSystem genericsrequireSystemParamFunctionOut:IntoResult<Out>; plainOut→Ok, Result<Out,RunSystemError>identity, Result<Out,BevyError>→RunSystemErrorvia?, Neverdeclaredoutputs. SourcecustomtypedResult<_,E>doesnotuniversallybecomeobserveroutputbyE:Display; actualfinalsignaturemustfitframeworkcarrier. 630nextimplsignaturecontextonly,no full991file.",
+        "9": "Actual1–75(EOF85): ObserverSystemOutdefault() requiresSystemInOn andSendstatic, IntoObserverSystem blanketIntoSystem wrapsactualtypedfunction; notinputcodec/semanticvalidator. Existingtest54–73sourceonly,75nexttestattributecontextnotbodycredit.",
+        "10": "Actual3448–3475: completefallback_error_handler3461–3466 readsoptionalresourceorDefault SDKfunctionpointer. Dynamicbundle3448–3456 separateadjacentnativeAPIandnextresourcepointerdocs3469–3475 contextearlierrequestedreadonly, notapplicationnewcontract or wholeWorld4740filecoverage."
+      },
+      "counterexample_or_qualification": "Exactcurrentfirstpartyjoins: Native281/322setup app.add_observer/nativefallibleResult andREG009plugin313–321, geometry/capturehelpers returnactualBevyResult; typedGeometryError canbeconvertedatthisnativeoutputport whileownercause/context shouldsurviveuntilhere. BevyErrorFromboxedE retainsoriginalerror, soearlyformat/map_errString isnotrequiredbyframeworkbounds. Nativeunit/frame/validzero/admissionbounds notapplicablebeyondactualEvent/System/typeerror contracts; no finitegeometry/event/state guaranteefrom SDKtrait. Scopedpartialneighborfunctions not silentlycompleted orwaived, no newlynecessarypartialbody materialdependency inactualtypedchain. No fullSDK/sourcehash/verdictclearance.",
+      "connected_repair": "Existing Native observer/error/nativeboundary whole-functionclaims, sameRoot/Rig geometrytypederror graph. Nativeconversionwhereframeworkrequires justified; earlyapplayererasuresremainexistingfindings, no newduplicatecount.",
+      "acceptance": "Retaintypedcauses andstructuredroles throughapphelpersuntilactualframeworkErrorport, exactEgenericconstraints andhandler/default/semanticnonvalidation policies. Preserve fixedcurrentforeignranges/qualifications andsourceidentity; no tests/run/project/sourceedits/foreignlibrarychanges.",
+      "later_lens_credit": false
+    }
+  },
+  "later_lens_credit": false
+}

@@ -1,0 +1,43 @@
+{
+  "id": "SEGOVB-04-URBAN-BUCKET-WORK-CAPACITY-CANDIDATE-001",
+  "classification": "Public admitted shape/API derived native work-capacity gap; no ordinary giant generated scene/run claimed",
+  "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/ground/urban.rs",
+  "sha256": "f126fe289f242ec3ba4166575dca79fcbc5be9c21e74c7f0fe63988d97907aff",
+  "ranges": [
+    [
+      36,
+      93
+    ]
+  ],
+  "dependency": {
+    "variant": "PR6533",
+    "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/dependencies-502/city_layout.rs",
+    "sha256": "d5aacb8a24fecfd5dadee9361c1b6c3d32bd19171bfc0bc984cd8b2efb183c8f",
+    "actual_compared_ranges": [
+      [
+        1,
+        338
+      ]
+    ],
+    "fact": "SPATIAL_BUCKET_METRES=32; ordinary generator original CITY_RADIUS_X1300/CITY_RADIUS_Y1260 and actual surveyed graph remain different producer scope. Full source personally read, no originalrole count transfer."
+  },
+  "witness": "Public UrbanGroundLookup::new(&[Corridor{startZERO,end(1e10,0),half_width1,validsurface}],[],[]) directly reaches SpatialBuckets::new. All inputs pass CityStreetPatch::is_valid: finite endpoints/distance_squared1e20 positive/width1 in1..20. street bounds nativebucket x=-1..312500000,y=-1..0 ->625000004 bucket insertions for ONE shape. Endpointf32 x1e10 exact; +1 roundssame. No allocation/execution attempted.",
+  "defect": "Shape count and independently finite geometry do not bound materialized bucket rectangle or work, and infallible constructor starts huge nested insertion before any native-grid/work admission. f32\u2192i32 saturation for larger inputs also needs representation contract; no incorrect broadphasegeometry result independently asserted.",
+  "qualifications": [
+    "Current normal city generator bounded geography, no actual extreme asset installed",
+    "Parent indexed1002 archive record search found only distinctF028 markettopology, not an exhaustive semantic no-alias proof",
+    "RootM61/M66/F36 composedwork budgets related; require exact defect/remedy before merging",
+    "No global arbitrary physicalextent clamp required"
+  ],
+  "remedy_contract": "Admit completed nativecell rectangle/count/work before materialization with structured rejection, or use authority-equivalent bounded representation; preserve exact geometric queries and stable source order.",
+  "acceptance": [
+    "One valid very long shape cannot cause unbounded bucket expansion without structured capacity decision",
+    "Check both axis representation and total cells/work before loops/allocation",
+    "Normalcrossbucket street/yard priorities and disk/point ownership unchanged",
+    "Preserve finitephysicalcoordinates and explicit admission scope; no silent geometry truncation"
+  ],
+  "new_unique_count": null,
+  "execution": "none",
+  "additional_support": "Fresh04 packet506 full furniture Occupancy71/reservations288/placement180 reads16m inclusivecell expansion for valid longstreet route. Same derived nativecell/work admission dependency; prior32murban constructor may reach earliest work explosion. No independentunique count or actualOOMrun."
+}

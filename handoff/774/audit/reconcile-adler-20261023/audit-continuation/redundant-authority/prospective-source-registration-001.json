@@ -1,0 +1,21 @@
+{
+  "id": "CONT07-REG-001",
+  "at": "2026-10-23T19:14:07.086522+00:00",
+  "status": "prospective before body analysis",
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/materials/palette.rs",
+  "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "sha256": "0ce1ea507bc49a06edff5175cc0638a0cc8e5cf7c3e33258fc41b01e5d97faa1",
+  "bytes": 4111,
+  "actual_EOF": 69,
+  "requested_material_ranges": [
+    [
+      1,
+      69
+    ]
+  ],
+  "reason": "Immediate BuildingPalette get owning definition consumed by scoped assembly/input.rs79-107. Must verify whether the prototype-key TimberInfill material assetID uniquely identifies the complete material palette. This is a first-party helper body, not blanket materials/SDK expansion. Exclude unrelated fixture/helper material if actual body contains it.",
+  "adler_scope072_membership": "not present as its own source variant; current1521materials.rs declares modpalette but does not include its actual body",
+  "coverage": "not yet analyzed; requires separate per-lens new-material reconciliation",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

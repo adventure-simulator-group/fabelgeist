@@ -1,0 +1,92 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-418",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/browser_runtime.rs",
+      "sha256": "afb6d3b0ff97037051e1fae2f1c9340a31fe07a1b34a6bc244d0110010c429d3",
+      "actual_EOF": 507,
+      "actual_compared_ranges": [
+        [
+          1,
+          507
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/browser_runtime/forge_view.rs",
+      "sha256": "be717339d13100a2187fb5bbe385c1c074f5625fb45e7e40254f2f35f40551f3",
+      "actual_EOF": 44,
+      "actual_compared_ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera.rs",
+      "sha256": "4d7aab7742753836f2384c8cd1095148537193d23ba45c3f5bac3762dabc6fa9",
+      "actual_EOF": 185,
+      "actual_compared_ranges": [
+        [
+          1,
+          185
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/aim.rs",
+      "sha256": "cbbc59d3f49773f1c5030d3399c0dc94533f46afd5e022ea3adda5eda284c339",
+      "actual_EOF": 94,
+      "actual_compared_ranges": [
+        [
+          1,
+          94
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Browser retained view mutation and generation boundary",
+      "evidence": "browser_runtime.rs:1-507; browser_runtime/forge_view.rs:1-44",
+      "disposition": "Forge recipe deserialized/generated before geometryspawn, degenerate extentmin.001 guard. Existing preview despawn and mode change occur before recipe admission, so rejected replacement intentionally can leave nooldpreview; no transactional preservation promise inferred. Browser queue drains multiple commands while Bevy Commands are deferred and clients query is snapshot: repeated enter commands can see sameempty query; actualnormalduplicateentryproducer not proved, sessionauthority dependency retained. Forge viewport delegated to admitted StrategicView rect consumer. Unbounded yaw arithmetic candidate below distinct from artdemo wrapped orbit."
+    },
+    {
+      "contract": "Camera observation ownership and geometric operation",
+      "evidence": "camera.rs:1-185; camera/aim.rs:1-94",
+      "disposition": "Aim observation cleared eachframe and only published complete checked endpoints for ranged raisedguard; multiplecamera finalobservation selection relies configured ownership. Rayinputs are native physicsboundaries; completed positions checked, but muzzle_delta.length intermediate can overflow for huge finite admitted endpoints before native cast. No normal camera/config witness established and no nativephysicscontractrejection asserted. Blockage compares current hitentities intentionally. Captureoffset uses typedrigidrotation and checkeddisplacement."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-FORGE-YAW-ACCUMULATION-CANDIDATE-001",
+      "status": "source-backed bounded command-sequence counterexample; normal UI reachability and exact semantic alias pending",
+      "evidence": [
+        "browser_runtime.rs:108-115",
+        "browser_runtime.rs:184-195",
+        "browser_runtime.rs:242-249",
+        "browser_runtime.rs:405-415"
+      ],
+      "contract": "Finite accepted per-command deltas do not guarantee finite retained camera yaw after accumulation.",
+      "witness": "From defaultyaw0, a bounded128 OrbitForge commands each with finite delta_x=f32::MAX, delta_y0 accumulates128*(MAX*0.008)>MAX in f32. Yaw becomesinfinity and persists; apply_preview_view constructs quaternion fromthatyaw and replacespreviewroot. JSON finitef32 boundary doesnotbound deltas.",
+      "qualification": "No ordinary mouse movement or livebrowserfailure claimed. Normal art_demo::OrbitView wraps each yaw and is distinct. CLI/runtime commandbridge can accept finite large values; no threatmodel/security claim.",
+      "repair_cluster": "forge-view-angle-operation",
+      "dependencies": [
+        "exact archive alias decision",
+        "angle wrapping/readmission ownership consistent with view policy"
+      ],
+      "acceptance": "Each operation preserves usable finite view under finite accepted deltas and bounded repetition, or rejects withpriorview retained. Preserve manual orbit, pitch\u00b11.2, zoom0.9..4.5 and designpreviewscale; no arbitraryglobaldelta cap inferred."
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/camera/collision.rs"
+}

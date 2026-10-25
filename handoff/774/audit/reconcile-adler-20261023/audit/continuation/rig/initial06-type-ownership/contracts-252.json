@@ -1,0 +1,61 @@
+{
+  "id": "RIG-INITIAL06-GROUP-252",
+  "at": "2026-10-23T07:28:26.610337+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-069.json",
+  "groups": {
+    "animation-catalogue-identity-and-asset-path": {
+      "comparison": "Fresh catalog_id134 distinguishes MotionId (checked filename stem), AnimationPackId, composite MotionKey, AnimationAssetDirectory and AnimationAssetPath, plus authored clipframeu16. Same CowString does not make stem/directory/path/pack interchangeable: stem rejects separators/control and . or ..; directory allows interior pathseparators but rejects traversal/absolute syntax; path is actual asset adapter. AuthoredAnimationFrame uses configured clip rate and is not AnimationSampleTick or elapsedclock. Constant stems and mirrored suffix live in actual motion owner, not English display dispatch. CatalogError preserves raw invalid stem/directory diagnostics, no libraryname grammar substitution. Unchecked derived path From<String> remains nativeassetpath acceptance scope rather than automatically safe path from wrapper; no admission verdict from privacy. Owner remains client catalogue because this is asset loading metadata; no duplicated low clock/rig owner demonstrated.",
+      "disposition": "Keep catalogue stem/pack/path/directory and authored clip frame identities distinct, preserve actual wire/native asset boundary."
+    },
+    "js-generation-opaque-job-and-rust-owner": {
+      "comparison": "Fresh strategic-generation117 JavaScript orchestrates Rust-owned generation job/preparation APIs, optional cache/pool, cancellation and metrics. JSON.parse only discovers opaque jobs; receive uses actual samepreparation/job/bytes before cachewrite, no independent accepted Rust product schema authored here. Scene/regional-map ownernames are wire selection of presentation context, not gameauthority. Invalidcached codes generation/product-decode and mismatch mirror Rust exception names at actual cross-languageboundary; no allerrors fallback/regeneration: unavailable dependencies rethrow, only invalidpersistedproduct evicted. Metrics milliseconds/bytes/workers/phase statuses are nativeobservability not gameplaytime/quantity. Existing recipe/cachebinding findings retain actual Rustsource lower obligations; code names do not prove payloadidentity. No newforeign/runtime/browser/caches execution or importedpool/cachebodycredit.",
+      "disposition": "Keep JS transport orchestration and opaque job boundary below Rust product admission authority, preserve error classification and cancellation."
+    },
+    "botanical-ui-duplicates-canonical-organ-roster": {
+      "comparison": "Fresh controls151 generic serde_json editor hardcodes corolla FreePetals/RayAndDisk/FusedBell, leaf_arrangement BasalRosette/Alternate/Whorl and fertile_surface Gills/Pores/Ridges/Enclosed at131–145. Fresh exact canonical flower/mod11–25 and fungus/mod11–18 show those same complete closed enums and Serde names. UI choices currently agree but independently own vocabulary membership; canonical enum should supply stable choices/labels or typed editing rather than parallel String rosters. This supports new F042 suggestion/shared Camera07F011 vocabulary family, no current drift/runtimefailure claimed. Family/species/PlantLod remain real botanical types, raw JSON editing/native RGBu8 is legitimate UI adapter followed by parameters.edited; not allarraysgenericprobability. Preserve raw rejectedrecipe/errors and strict source validation after edit, no silentlydropping unknownfuturevalue. Generic geometry/Pigment canonical owners lowerplantlibrary, viewerowns widgets and authoringworkflow. No save/UI execution.",
+      "disposition": "F042: let canonical botanical organ enums own UI choice roster; keep generic editing and source diagnostic boundary, current agreement qualified."
+    },
+    "foundation-bank-native-surface-construction": {
+      "comparison": "Fresh banks146 consumes canonical PropertySupportSurface/GeographicSurface/GroundTriangle/SupportLimits and returns nativecutface triangles. Groundsourceversusownedloweredsurface are distinct authorities; boundariessectionbegin/endf64 are interpolationparameters, not clocks/acceptedUnitIntervalowner. Sharedclipgeometrymaymovelow F001 while propertyreservation/cutfillcoverage and SupportDiagnostic staygrounding. Actual orderedsectionselection/sourceorder, highest supportplane and marginaluncovered-tolerance errors mustremain if generickernelshared. Native height subtraction/interpolation/f64→Vec3f32 projection creates changedgeometry; actualtrianglecross>0 is nondegeneracy check not fullfinite/unitnormalcertificate. No freshbadcaller/runtimeclaim; originalaggregateoutputobligations retained. Canonical diagnostics preserve measured/permitted/sourcepoint onrejection, not forcingacceptedpositivegeometryintorawfailureevidence.",
+      "disposition": "Keep source-versus-owned support relationships and diagnostics in grounding; native triangle kernel distinct from accepted support product."
+    }
+  },
+  "supporting_existing_findings": [
+    "RIG-INITIAL06-F001",
+    "RIG-INITIAL06-F042"
+  ],
+  "source_fact_refs": [
+    "contracts-122.json",
+    "contracts-208.json",
+    "contracts-232.json",
+    "contracts-245.json"
+  ],
+  "supporting_source_reads": [
+    {
+      "source_id": "pr-working:crates/adventuresim-plant-generator/src/flower/mod.rs",
+      "sha256": "83c15bd86ae01aa5de6426169bfd4477ce693e0219aef61c0f9090fd25475432",
+      "ranges": [
+        [
+          11,
+          25
+        ]
+      ],
+      "scope_pointer": "/files/1038",
+      "status": "Fresh canonical organ enum comparison only, no new whole-source credit"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-plant-generator/src/fungus/mod.rs",
+      "sha256": "cf0b28024bc4799fa267dfb4e1c5a544a3d1f46a3c423e98e84650479629ab20",
+      "ranges": [
+        [
+          11,
+          18
+        ]
+      ],
+      "scope_pointer": "/files/1043",
+      "status": "Fresh canonical organ enum comparison over earlier full208 body, no duplicate coverage"
+    }
+  ],
+  "limits": "Four fresh complete current sources and exact supporting canonical enum definitions. No new source or body scope, no edits/save/UI/project/test/browser execution/later-lens credit."
+}

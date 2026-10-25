@@ -1,0 +1,136 @@
+{
+  "id": "CONT08-CONTRACT-106",
+  "at": "2026-10-25T11:59:02.913858+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 360,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/physics.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/physics.rs",
+      "before_sha256": "14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b",
+      "after_sha256": "35c74e188c90bf25618bfb0170d513f1c0b342473c22acccaca79c50447c857f",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0360-base-14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/35c74e188c90bf25618bfb0170d513f1c0b342473c22acccaca79c50447c857f",
+      "diff": "source-evidence/p16-0360.diff",
+      "diff_sha256": "0824ce21fced44c0e370462fcc0d0995ede90da307bc441d11fabad0db93ada9",
+      "head_body_read_ranges": [
+        [
+          1,
+          1762
+        ]
+      ],
+      "facts": [
+        "Fresh full1762, all original in-file fixtures, complete408-line actual P16 diff; old critical kernel/cap/lifecycle bodies personally read. Default QuickstepPush preserves ZERO direction, identity orientation/origin,inactive,tick0 while distinct optional acknowledgement retains0 asobserved. New Scene position/rotation/plan direction ports preserve actual native axes through exact receiving projections.",
+        "Target scaling retains product-then-division/nonpositive-leg fallback. Native interpolation, monotone tangent,force clamp/reversal-noise .02,clock+1 sampling,supportceil/contact threshold and attack endpoint>= retain numerical order. New checkedobserved travel returns early on nonfinite completed travel; no actual ordinary nonfinite transform producer established.",
+        "SUPPORT005 retains actual finite capped recipient witness; no uncapped Inf permission. SUPPORT006 actual unchanged cfg(test) raw distance initializer now targets SignedLength; source-only migration, no compiler check. New diagnostics use Option skeleton tick rather than zero sentinel, intended observation change without gameplaypenalty.",
+        "Unchanged ground/dive/ordinary control branches personally consumed: same mass/limb health,one force authority,crouch scale1,locomotion pace,traction/turn/reversal and slide laws. All original .990/.9999/1/1.01 boundaries, force/legprofile/gap/drift/burden/turn/pace fixtures preserved; no execution or cross-native wholegraphclearance."
+      ],
+      "disposition": "Own08 exact scoped source comparison accounted WITH explicit behavior/migration supports and connected questions.",
+      "acceptance": "Preserve all original numeric fixture inputs/endpoint/tolerances, signed and zero semantics,actuator authority and native projections;repair only authorized after initialdiscovery. No checks/tests/source edits."
+    },
+    {
+      "scope_index": 361,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/physics/quickstep.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/physics/quickstep.rs",
+      "before_sha256": "10c98a5fec7f36e1567f37c82b15e65c990d8412f2a1a1a9f67982adaef10223",
+      "after_sha256": "b14b69313123c2918b34a7aaa2c076821c05d7756edcfbee08561a4071504278",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0361-base-10c98a5fec7f36e1567f37c82b15e65c990d8412f2a1a1a9f67982adaef10223",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/b14b69313123c2918b34a7aaa2c076821c05d7756edcfbee08561a4071504278",
+      "diff": "source-evidence/p16-0361.diff",
+      "diff_sha256": "a173801cc60ca70ba314f585b18c4762844040e5f8dda05f0989f5e6e510fb7a",
+      "head_body_read_ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "facts": [
+        "Fresh full81 plus actual15-line diff. begin normalizes direction once, samezero inactive; accepts checked rotation/origin supplied by previous caller audits. Saturating elapsed tick fallback, action durationround,min1, contact durationround/min2/half floor and recovery+2 remain exact. Existing odd-span actuator/timeline question retained; no new parity policy imposed."
+      ],
+      "disposition": "Own08 exact scoped source comparison accounted WITH explicit behavior/migration supports and connected questions.",
+      "acceptance": "Preserve all original numeric fixture inputs/endpoint/tolerances, signed and zero semantics,actuator authority and native projections;repair only authorized after initialdiscovery. No checks/tests/source edits."
+    },
+    {
+      "scope_index": 362,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/player.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/player.rs",
+      "before_sha256": "7950d432247add4cf942e8eaf9a0dfeed6199326e4518094a1d616d1cd89a645",
+      "after_sha256": "ebf883ac714ec8f48c9377495da01713b01e9f4ba9e7bd5e4edda78dc320ee68",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0362-base-7950d432247add4cf942e8eaf9a0dfeed6199326e4518094a1d616d1cd89a645",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/ebf883ac714ec8f48c9377495da01713b01e9f4ba9e7bd5e4edda78dc320ee68",
+      "diff": "source-evidence/p16-0362.diff",
+      "diff_sha256": "0d64747526ca065242acd13c5aa3cc882c4b0a916aa00cdef97947a9436d5022",
+      "head_body_read_ranges": [
+        [
+          1,
+          650
+        ]
+      ],
+      "facts": [
+        "Fresh full650 plus complete49-line P16 diff. CharacterDimensions signed finite leaves preserve default .840348/1.9/exactcanonical armreach; public finite zero/negative still admitted (specific receivers own max/fallback policy). Default const admission does not alter authored value.",
+        "Actual TacticalPlayerViewer and perhand inventory selection, stats no parallel fatigue penalty, raw limb injury/clamp and default skill/attribute projection,stream draw order/identity and wheel fixtures unchanged. New finite dimension leaf admission intended; no positive anatomy seal or normal recipe for extreme support005 inferred."
+      ],
+      "disposition": "Own08 exact scoped source comparison accounted WITH explicit behavior/migration supports and connected questions.",
+      "acceptance": "Preserve all original numeric fixture inputs/endpoint/tolerances, signed and zero semantics,actuator authority and native projections;repair only authorized after initialdiscovery. No checks/tests/source edits."
+    },
+    {
+      "scope_index": 363,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+      "before_sha256": "e3b88b223ae8d99d6fbcb634fbb1dd3990f9f42f4440309a341f3da3b8c0a0ce",
+      "after_sha256": "e3b88b223ae8d99d6fbcb634fbb1dd3990f9f42f4440309a341f3da3b8c0a0ce",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0363-base-e3b88b223ae8d99d6fbcb634fbb1dd3990f9f42f4440309a341f3da3b8c0a0ce",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/e3b88b223ae8d99d6fbcb634fbb1dd3990f9f42f4440309a341f3da3b8c0a0ce",
+      "diff": "source-evidence/p16-0363.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "facts": [
+        "Fresh full122 and emptydiff. Scene planarX/Z east/north projection, finite signed values,translated checkedcomplete result, serde numericvector and zero preserved. Included spatial_tests body separately scoped, no creditfrommodule declaration."
+      ],
+      "disposition": "Own08 exact scoped source comparison accounted WITH explicit behavior/migration supports and connected questions.",
+      "acceptance": "Preserve all original numeric fixture inputs/endpoint/tolerances, signed and zero semantics,actuator authority and native projections;repair only authorized after initialdiscovery. No checks/tests/source edits."
+    },
+    {
+      "scope_index": 364,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_coordinates/velocity.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/scene_coordinates/velocity.rs",
+      "before_sha256": "f961ea0bc8da4a4bb23bba732b32f43172c9ab2aaa83bd4ff8319efb4faaf077",
+      "after_sha256": "f961ea0bc8da4a4bb23bba732b32f43172c9ab2aaa83bd4ff8319efb4faaf077",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0364-base-f961ea0bc8da4a4bb23bba732b32f43172c9ab2aaa83bd4ff8319efb4faaf077",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/f961ea0bc8da4a4bb23bba732b32f43172c9ab2aaa83bd4ff8319efb4faaf077",
+      "diff": "source-evidence/p16-0364.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "facts": [
+        "Fresh full38 and emptydiff. Signed finite nativeVec3 velocity axis projection X/east,Y/up,Z/north and ZERO/default preserve reverse/rest motion. Constructor error order east\u2192up\u2192north retained; no unsigned speed substitution."
+      ],
+      "disposition": "Own08 exact scoped source comparison accounted WITH explicit behavior/migration supports and connected questions.",
+      "acceptance": "Preserve all original numeric fixture inputs/endpoint/tolerances, signed and zero semantics,actuator authority and native projections;repair only authorized after initialdiscovery. No checks/tests/source edits."
+    }
+  ],
+  "support": [
+    "source-support-005-quickstep-capped-scale.json",
+    "source-support-006-p16-lunge-fixture.json"
+  ],
+  "next": "365building438 effective ranges then366window129 and367audit196."
+}

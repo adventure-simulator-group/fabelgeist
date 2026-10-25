@@ -1,0 +1,130 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-168",
+  "at": "2026-10-25T13:11:14.983989+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 324,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation_viewer/harness.rs",
+      "sha256": "301ac4dfe279a9dde47a582987736d16158cea960a0398b2a59f57a63859511d",
+      "actual_EOF": 511,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation_viewer/harness.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-tactical-client/src/animation_viewer/harness.rs",
+        "owner": "native",
+        "sha256": "301ac4dfe279a9dde47a582987736d16158cea960a0398b2a59f57a63859511d",
+        "base_sha256": "ed20b1e997850b7b95cc52c88c55fad7855c2cf9c7a8e08ec3f610656517ee13",
+        "state": "modified",
+        "bytes": 19194,
+        "audit_owner": "native",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [],
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 21,
+            "read_ranges": [
+              [
+                1,
+                511
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-REPORT-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-client/src/animation_viewer/harness.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 227,
+            "read_ranges": [
+              [
+                1,
+                511
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-REPORT-001",
+              "NATIVE-OWNER-HARNESS-006"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-client/src/animation_viewer/harness.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 377,
+            "read_ranges": [
+              [
+                1,
+                511
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-REPORT-001",
+              "NATIVE-OWNER-HARNESS-006"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-client/src/animation_viewer/harness.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          511
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": {
+        "ArmorHarness12\u201328": [
+          "Clone",
+          "Copy",
+          "Debug",
+          "ValueEnum",
+          "Serialize snake_case"
+        ],
+        "CapturedArmor143\u2013144": [
+          "Component"
+        ],
+        "ArmorCapture146\u2013153": [
+          "Resource"
+        ]
+      },
+      "absence_basis": "All511 lines personally consumed in two bounded reads. Only inherent harness/cache/capture methods, systems and fixture functions, no handwritten traits/serializer. JSON manifests use serde_json values of explicit selected output fields, not a custom trait."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "animation armor harness selection and capture readiness",
+      "disposition": "No derivability cleanup. Preserve authored piece/placement/cohort selection, camera focus and native Bevy required state. ArmorCapture::new198\u2013215 writes a manifest and depends on harness; a raw Default derive cannot replace its state initialization/side effects. Existing CLI/JSON/component/resource derives already cover mechanical behavior.",
+      "qualification": "No captures, writes, renderer, systems or tests executed; source-only. Child material/museum/readiness/skinning/topology bodies not credited."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 325,
+    "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/quickstep.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

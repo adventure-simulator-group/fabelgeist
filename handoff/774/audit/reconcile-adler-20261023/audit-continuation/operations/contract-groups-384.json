@@ -1,0 +1,58 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-384",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/settlement.rs",
+      "sha256": "652eac9d7899ae0a71dea77f7d1b4cd40beef647afa972cf51ee85de57f5acf9",
+      "actual_EOF": 2043,
+      "actual_compared_ranges": [
+        [
+          1,
+          2043
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/settlement_activity.rs",
+      "sha256": "d63da6e7d914ed703ad1850a7f61871078405ae1ed305e011d36cb54e8f45636",
+      "actual_EOF": 427,
+      "actual_compared_ranges": [
+        [
+          1,
+          427
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Visible first aid and medical recovery authority",
+      "evidence": "settlement.rs1\u2013221 and737\u20131495: selects alive colocated simulator-owned party clinicians, buys material with public quote/reserve, calls authoritative treatment; cut takes precedence over fracture per visit. Recovery loop bounded MAX_RECOVERY_ACTIONS, re-reads character/condition/symptoms after schedule authority synchronizes time; avoids private infection state. Chart selection requires fresh nonfuture patient observation, confidence, no gaps, colocated owned clinician. Known interventions suppress additional offers; route/profile/dose passed to reducer.",
+      "qualification": "No DB invocation or medical behavior proof from execution. Generic raw condition and visible nutrition sums can exceed finite values only if producers admit sufficiently extreme/invalid rows; those producers are separate dependencies. Death observation and optional survival defaults retain existing CAM-PROP-F023/RIG-PPS-F018 observation qualification, no duplicate finding."
+    },
+    {
+      "contract": "Rest sponsorship, time accounting and quote arithmetic",
+      "evidence": "settlement.rs223\u2013736,836\u20131495: budget uses patient personal gold plus min(own stake, treasury); sponsor excludes patient, requires live same-party same-settlement actor, reserves medical amount and selects deterministic spendable order. Care totals checked_add, costs and withdrawals revalidated; elapsed rests measured authoritative clocks with elapsed_since, metrics saturating. Natural rest nonprogress bound excludes symptomatic cases; all cases retain outer finite recovery bound.",
+      "qualification": "Saturating budget values are estimates, authoritative reducers own payment/clinical mutations. No claim SDK reducer errors partially commit. Personal_gold and treasury sum<u64> need cardinality/issuance bounds for extreme exhaustion, no ordinary overflow witness. Original stable observation minute must remain distinct from later effective policy decisions."
+    },
+    {
+      "contract": "Settlement activity and repair lifecycle",
+      "evidence": "settlement.rs1497\u20132043: activity installs schedule then reads observable venue, checks party still at original settlement around time-consuming steps; departure config changes journey-local window rather than pretending elapsed wait. Repairs reserve all outstanding quotes, quantize condition and rank affordable orders, wait by authoritative current clock and check death/medical state. Before retrieval revalidates location and current medical reserve/purse; verifies equipped placement and each stored attachment target.",
+      "qualification": "Repair wait loop has no independent iteration counter: progress depends on authoritative rest/ensure_medically_safe advancing current clock toward ready_at. Source text alone does not establish a normal no-progress rest path or current terminal-minute defect. Do not promote to duplicate terminal replay merely because saturating arithmetic exists. Rest spending can reduce retrieval budget; deliberate late recheck leaves item in custody instead of claiming funds reserved physically."
+    },
+    {
+      "contract": "Public profile conversions, venue admission and diagnostic arithmetic",
+      "evidence": "settlement_activity.rs1\u2013427: enum conversions exhaustive; public economy profile copies service/stock inputs into minimal shared placeholder then validates before storefront use. Unique provider requires exactly one record and public presence; navigability uses canonical economy helper. Venue selects food-supported temple or purse >= saturated reserve+cost. signed_delta orders before unsigned subtraction; diagnostic control characters sanitized and240char limit.",
+      "qualification": "Minimal economy profile is an explicit projection for navigability, not private/full economy authority. Saturating reserve+cost can equal MAX with insufficient mathematical budget only at represented extreme; no public normal cost/purse witness. Float diagnostics preserve raw supplied values; no independent semantic admission. No tests run."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-strategic-sim/src/live_core/survival.rs"
+}

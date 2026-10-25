@@ -1,0 +1,67 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-005",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "native-database-function-boundaries",
+      "sources": [
+        {
+          "scope_index": 20,
+          "ranges": [
+            [
+              1,
+              228
+            ],
+            [
+              330,
+              465
+            ],
+            [
+              560,
+              655
+            ],
+            [
+              660,
+              695
+            ],
+            [
+              703,
+              712
+            ],
+            [
+              1025,
+              1065
+            ],
+            [
+              1086,
+              1098
+            ],
+            [
+              1228,
+              1308
+            ],
+            [
+              1374,
+              1393
+            ]
+          ]
+        },
+        {
+          "scope_index": 21,
+          "ranges": [
+            [
+              1,
+              204
+            ]
+          ]
+        }
+      ],
+      "distinction": "Native Args/SerDeArgs model encoded reducer/view argument products; function kind, typed context and dispatcher distinguish reducer/caller-specific/anonymous authority. Marker records and generated FnInfo handle have actual generic registration/schema purpose, not pass-through game wrappers.",
+      "uses": "Reducer invokes a typed result then IntoReducerResult formats only at native Result<(),Box<str>> endpoint; errno/sink are explicit ABI. ViewReturn encodes Vec/Option as rowdata or RawQuery header, preserving caller/anonymous view dispatch. Native Typed ReducerArg/ContextArg and generated FnInfo enforce signatures, not semantic correlation between independently valid game args.",
+      "disposition": "Keep meaningful application error and argument owners internally; reducer Display wire support does not require String throughout domain helpers. Native tuple products and raw ID words are required ABI adapters; do not propose enum per numeric function index or duplicate framework context. Public wrapper types can earn their place through authority/unit even absent extra bounds; actual game constructors need own11 source.",
+      "acceptance": "Trace application typed errors/IDs/context to final native reducer boundary and actual client receiver. Preserve error formatting/protocol only there, without compatibility dual paths in application. Native ABI compatibility comments are external evidence, no permission to editSDK. View panic behavior and reducer result behavior differ; no runtime rollback/execution proof or generated client source edits."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

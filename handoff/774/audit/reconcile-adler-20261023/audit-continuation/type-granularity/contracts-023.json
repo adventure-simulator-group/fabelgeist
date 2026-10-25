@@ -1,0 +1,62 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-023",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "concentration-not-handling-probability-or-damage-category",
+      "sources": [
+        {
+          "scope_index": 87,
+          "ranges": [
+            [
+              1,
+              113
+            ]
+          ]
+        },
+        {
+          "scope_index": 88,
+          "ranges": [
+            [
+              1,
+              111
+            ]
+          ]
+        },
+        {
+          "scope_index": 89,
+          "ranges": [
+            [
+              1,
+              32
+            ]
+          ]
+        }
+      ],
+      "distinction": "ContactPrecision nonnegative unbounded dimensionless concentration prevents conflating physical working-section concentration with handling accuracy, hit chance or categorical damage tag. Values2/4 are valid; concentrated_fraction is a separate bounded projection. Point/edge/broad area calibration has same area dimension but distinct reference roles; control length is different dimension.",
+      "uses": "precision_for_design chooses maximum usable working head, not sum; furniture is excluded, shaft supplies fallback if no head. Metres are explicitly projected to millimetres before area ratios. handling_accuracy77\u201380 uses grip lever/balance independently of contact precision. resistance106\u2013111 returns+Inf for zero concentration; this represents no finite concentrated-resistance threshold, actual downstream armor recipient original2773 remains separately pending own11.",
+      "disposition": "Keep ContactPrecision purpose even if another generic nonnegative scalar validator exists. Reuse numeric leaf beneath role if useful, never clamp toUnitInterval or encode weapon class. Positive calibration and nonnegative precision policies differ; no new type per individual reference constant solely because names differ. Explicit no-concentrated-channel result may replace nonfinite resistance projection if actual receiver requires; do not claim ordinary malformed collision or infer physicalfinite threshold from absence.",
+      "acceptance": "Preserve zero concentration actualblunt policy, authored4 precision, max-head-not-sum, furniture exclusion, control-accuracy independence and current conditionedprecision once. Full kernel math retains operations; no fixture execution, catalog completeness or missingcallee coverage from tests."
+    },
+    {
+      "id": "composite-facet-container-purpose-and-typed-availability",
+      "sources": [
+        {
+          "scope_index": 90,
+          "ranges": [
+            [
+              1,
+              386
+            ]
+          ]
+        }
+      ],
+      "distinction": "PlayerInfo generic facets provide compile-time availability for separate Attributes/Body/Essentials/Equipment/Skills and delegate convenience operations. Empty() type slots differ from runtime absence of one physical part. This container does not create canonical player authority or prove cross-facet same-character correlation.",
+      "uses": "builder175\u2013247 each consumed slot once; skill_check284\u2013293 passes identical stored facets, melee/ranged wrappers299\u2013385 use attacker and defender independently. Generic context prevents omitting facets required by a method, not tactical/strategic mixing or stale native rows.",
+      "disposition": "Keep reusable capability container rather than force whole Character into every kernel or duplicate wrappers perfacet. No standalone finite validators for synthetic fields absenthere. A checked same-authority snapshot may earn separate identity/lifetime role at nativeboundary, but no ordinary cross-player mixedsource proved from genericcontainer alone.",
+      "acceptance": "Preserve independent facets and typeavailability; actual caller authority must remain explicit. Do not infer all facets alwayspresent or unify Combatant read-only snapshot with mutable strategic authority. Documentationexamples read, not executed."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

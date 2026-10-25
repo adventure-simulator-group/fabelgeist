@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-931",
+  "at": "2026-10-25T17:16:09.822625+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1119,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/inventory_container.rs",
+  "sha256": "1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+  "actual_compared_ranges": [
+    [
+      1,
+      760
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Prior slice retained.361\u2013760 checked carried destination projection, complete subtree row/food/amount/condition rehome, strict deletion preflight and linked state cleanup, exact backing validation and start of checked empty-container merge consumed. Native contextual effects only; no handwritten trait/codec. Semantic mappings and side effects are not equivalent structural From derives.",
+  "first_unfinished": {
+    "scope_index": 1119,
+    "line": 761
+  },
+  "execution": "none"
+}

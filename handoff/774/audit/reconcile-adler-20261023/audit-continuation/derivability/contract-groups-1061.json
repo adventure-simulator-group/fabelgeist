@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1061",
+  "at": "2026-10-25T17:40:10.263283+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1209,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/custody_objectives.rs",
+  "sha256": "7274d8bedc95fa40cee64bda7b7dda0c32b6d02aa01e44e754f77e1bd171bc5b",
+  "actual_compared_ranges": [
+    [
+      351,
+      730
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Native checked custody-seeding/continuity/arrival policy, not handwritten trait or serializer. Requirement alternatives map to asset/subject subsets and validate exact authored coverage376\u2013428; existing ObjectiveExpression Serde456\u2013458 retains wire owner. Continuity guards use contextual party/site/custody-version/time authority and typed objective-to-fact classification, not generic derived conversions/equality. No additional handtrait declarations."
+  ],
+  "first_unfinished": {
+    "scope_index": 1209,
+    "line": 731
+  },
+  "execution": "none"
+}

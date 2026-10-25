@@ -1,0 +1,60 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-864",
+  "at": "2026-10-25T17:03:28.440650+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1079,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/character.rs",
+  "sha256": "806a50bc71cade3ffdf93f52a62693f7d02d4d55a52e1cce7e5983b894ec28cf",
+  "actual_compared_ranges": [
+    [
+      361,
+      760
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "From<&CharacterAttributes>",
+      "type": "PlayerAttributeValues",
+      "lines": [
+        [
+          467,
+          487
+        ]
+      ],
+      "disposition": "KEEP foreign Core target/scoped DB-ID omission and borrowed value projection"
+    },
+    {
+      "trait": "From<CharacterAttributes>",
+      "type": "PlayerAttributeValues",
+      "lines": [
+        [
+          489,
+          493
+        ]
+      ],
+      "disposition": "KEEP owned adapter delegates exact borrowed mapping"
+    },
+    {
+      "trait": "From<(u64,PlayerAttributeValues)>",
+      "type": "CharacterAttributes",
+      "lines": [
+        [
+          495,
+          516
+        ]
+      ],
+      "disposition": "KEEP ID injection and flattening into persistence row, no owning generic derive"
+    }
+  ],
+  "analysis": [
+    "Three attribute conversions467\u2013516: borrowed CharacterAttributes to foreign CorePlayerAttributeValues omits DB character_id and field-copies floats; owned delegates borrowed; reverse consumes separate character_id+values to persistent row. Keep small explicit boundary conversions: target foreign Core owner cannot derive reference to module DB type without reversing dependency, owning module has no general conversion derive, preserve borrowed/owned API and ID omission/injection.",
+    "All visible DBstats/skills/limbs/equipment rows structural/table/native macros already. Native death settlement and equipment graph/cycle/custody/association mutation semantic, not trait boilerplate. No manual wirecodec in consumed range."
+  ],
+  "first_unfinished": {
+    "scope_index": 1079,
+    "line": 761
+  },
+  "execution": "none"
+}

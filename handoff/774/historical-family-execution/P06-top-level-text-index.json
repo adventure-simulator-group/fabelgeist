@@ -1,0 +1,395 @@
+{
+  "scope": "Regex index of file-starting declaration lines for manual source reading; not a Rust parser, project gate or style verdict. cfg/attributes/macro context require source inspection.",
+  "new_descent_candidates": [
+    {
+      "file": "crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+      "from": {
+        "line": 2951,
+        "kind": "fn",
+        "rank": 8,
+        "text": "fn ik_tuning() -> InverseKinematicsConfig {"
+      },
+      "to": {
+        "line": 2956,
+        "kind": "mod",
+        "rank": 1,
+        "text": "mod tests;"
+      }
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+      "from": {
+        "line": 827,
+        "kind": "fn",
+        "rank": 8,
+        "text": "fn collect_bones("
+      },
+      "to": {
+        "line": 856,
+        "kind": "fn",
+        "rank": 7,
+        "text": "pub(super) fn jitter_frames(frames: &[FrameSample]) -> Vec<JitterFrame<BoneRole>> {"
+      }
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/art_demo/district.rs",
+      "from": {
+        "line": 29,
+        "kind": "fn",
+        "rank": 7,
+        "text": "pub(super) fn curate(input: &mut TacticalSceneInput) -> ArtDemoPreparationResult<PreparedOutdoorFurniture> {"
+      },
+      "to": {
+        "line": 58,
+        "kind": "mod",
+        "rank": 1,
+        "text": "mod tests {"
+      }
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/art_demo/exhibits.rs",
+      "from": {
+        "line": 201,
+        "kind": "fn",
+        "rank": 8,
+        "text": "fn weapon(world: &mut World, id: ExhibitId, catalog_id: &str) -> ArtDemoPreparationResult<()> {"
+      },
+      "to": {
+        "line": 239,
+        "kind": "mod",
+        "rank": 1,
+        "text": "mod tests {"
+      }
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/art_demo/scenery.rs",
+      "from": {
+        "line": 200,
+        "kind": "fn",
+        "rank": 8,
+        "text": "fn root_slope(terrain: &SceneTerrain, centre: GeographicHeightControl) -> Vec2 {"
+      },
+      "to": {
+        "line": 214,
+        "kind": "mod",
+        "rank": 1,
+        "text": "mod tests {"
+      }
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter.rs",
+      "from": {
+        "line": 494,
+        "kind": "fn",
+        "rank": 8,
+        "text": "fn leaf_litter_proximity(ground: &SceneGround, grid_x: usize, grid_z: usize) -> f32 {"
+      },
+      "to": {
+        "line": 526,
+        "kind": "mod",
+        "rank": 1,
+        "text": "mod tests {"
+      }
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants.rs",
+      "from": {
+        "line": 194,
+        "kind": "fn",
+        "rank": 8,
+        "text": "fn habitat(surface: GroundSurface, e: &SceneEnvironment) -> PlantHabitat {"
+      },
+      "to": {
+        "line": 219,
+        "kind": "mod",
+        "rank": 1,
+        "text": "mod tests;"
+      }
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/ground_scatter/understory.rs",
+      "from": {
+        "line": 135,
+        "kind": "fn",
+        "rank": 8,
+        "text": "fn ground_allows_species(surface: GroundSurface, species: UnderstorySpecies) -> bool {"
+      },
+      "to": {
+        "line": 153,
+        "kind": "mod",
+        "rank": 1,
+        "text": "mod tests {"
+      }
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista.rs",
+      "from": {
+        "line": 2,
+        "kind": "mod",
+        "rank": 1,
+        "text": "mod strategic;"
+      },
+      "to": {
+        "line": 3,
+        "kind": "use",
+        "rank": 0,
+        "text": "use adventuresim_tactical_core::scene_coordinates::ScenePlanPoint;"
+      }
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/weather.rs",
+      "from": {
+        "line": 300,
+        "kind": "fn",
+        "rank": 8,
+        "text": "fn weather_sheet_mesh(segments: usize, layers: usize) -> Mesh {"
+      },
+      "to": {
+        "line": 336,
+        "kind": "mod",
+        "rank": 1,
+        "text": "mod tests {"
+      }
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/weather/occlusion.rs",
+      "from": {
+        "line": 140,
+        "kind": "fn",
+        "rank": 8,
+        "text": "fn rasterize_weather_branch("
+      },
+      "to": {
+        "line": 206,
+        "kind": "mod",
+        "rank": 1,
+        "text": "mod tests {"
+      }
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/strategic_scene/buildings.rs",
+      "from": {
+        "line": 115,
+        "kind": "fn",
+        "rank": 7,
+        "text": "pub(super) fn prepare_venues("
+      },
+      "to": {
+        "line": 182,
+        "kind": "mod",
+        "rank": 1,
+        "text": "mod tests {"
+      }
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+      "from": {
+        "line": 3346,
+        "kind": "fn",
+        "rank": 8,
+        "text": "fn focused_tree_lod_queued("
+      },
+      "to": {
+        "line": 3363,
+        "kind": "struct",
+        "rank": 3,
+        "text": "struct VistaTreeObservation {"
+      }
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+      "from": {
+        "line": 3856,
+        "kind": "fn",
+        "rank": 8,
+        "text": "fn capture_index(manifest: &SceneCaptureManifest) -> String {"
+      },
+      "to": {
+        "line": 3887,
+        "kind": "mod",
+        "rank": 1,
+        "text": "mod capture_lighting_tests {"
+      }
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture.rs",
+      "from": {
+        "line": 126,
+        "kind": "enum",
+        "rank": 4,
+        "text": "enum CatalogAdmissionError {"
+      },
+      "to": {
+        "line": 137,
+        "kind": "const",
+        "rank": 2,
+        "text": "const fn catalog_views() -> [CaptureViewSpec; CATALOG.len() + 2 + finishes::LABELS.len()] {"
+      }
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/erosional_terrain.rs",
+      "from": {
+        "line": 75,
+        "kind": "fn",
+        "rank": 8,
+        "text": "fn field("
+      },
+      "to": {
+        "line": 149,
+        "kind": "mod",
+        "rank": 1,
+        "text": "mod tests {"
+      }
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/scene/ground.rs",
+      "from": {
+        "line": 61,
+        "kind": "impl",
+        "rank": 6,
+        "text": "impl SceneGround {"
+      },
+      "to": {
+        "line": 182,
+        "kind": "mod",
+        "rank": 1,
+        "text": "mod tests;"
+      }
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/scene/queries.rs",
+      "from": {
+        "line": 61,
+        "kind": "impl",
+        "rank": 6,
+        "text": "impl SceneTerrain {"
+      },
+      "to": {
+        "line": 167,
+        "kind": "mod",
+        "rank": 1,
+        "text": "mod tests;"
+      }
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+      "from": {
+        "line": 95,
+        "kind": "impl",
+        "rank": 6,
+        "text": "impl From<adventuresim_building_generator::spatial_geometry::Position<Scene>> for ScenePlanPoint {"
+      },
+      "to": {
+        "line": 103,
+        "kind": "mod",
+        "rank": 1,
+        "text": "mod tests {"
+      }
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+      "from": {
+        "line": 338,
+        "kind": "fn",
+        "rank": 7,
+        "text": "pub(crate) fn oriented_rectangles_overlap("
+      },
+      "to": {
+        "line": 366,
+        "kind": "mod",
+        "rank": 1,
+        "text": "mod tests {"
+      }
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/scene_input/generation/geographic.rs",
+      "from": {
+        "line": 66,
+        "kind": "fn",
+        "rank": 8,
+        "text": "fn obstacle_reservations("
+      },
+      "to": {
+        "line": 96,
+        "kind": "mod",
+        "rank": 1,
+        "text": "mod tests;"
+      }
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/scene_input/refinement/road.rs",
+      "from": {
+        "line": 8,
+        "kind": "fn",
+        "rank": 7,
+        "text": "pub(super) fn road_surface_relief("
+      },
+      "to": {
+        "line": 63,
+        "kind": "mod",
+        "rank": 1,
+        "text": "mod tests;"
+      }
+    },
+    {
+      "file": "crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/solutions.rs",
+      "from": {
+        "line": 69,
+        "kind": "fn",
+        "rank": 7,
+        "text": "pub(super) fn compare("
+      },
+      "to": {
+        "line": 148,
+        "kind": "const",
+        "rank": 2,
+        "text": "const fn positive_comparison_length("
+      }
+    },
+    {
+      "file": "crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/solutions.rs",
+      "from": {
+        "line": 148,
+        "kind": "const",
+        "rank": 2,
+        "text": "const fn positive_comparison_length("
+      },
+      "to": {
+        "line": 158,
+        "kind": "mod",
+        "rank": 1,
+        "text": "mod input_tests {"
+      }
+    },
+    {
+      "file": "crates/adventuresim-tactical-server-dispatcher/src/scene_input/geological_landforms.rs",
+      "from": {
+        "line": 254,
+        "kind": "fn",
+        "rank": 8,
+        "text": "fn mapped_lithology("
+      },
+      "to": {
+        "line": 298,
+        "kind": "mod",
+        "rank": 1,
+        "text": "mod tests {"
+      }
+    },
+    {
+      "file": "crates/adventuresim-tactical-server/src/player_projection.rs",
+      "from": {
+        "line": 1985,
+        "kind": "fn",
+        "rank": 8,
+        "text": "fn player_collider() -> Collider {"
+      },
+      "to": {
+        "line": 2001,
+        "kind": "fn",
+        "rank": 7,
+        "text": "pub(crate) fn on_player_added("
+      }
+    }
+  ]
+}

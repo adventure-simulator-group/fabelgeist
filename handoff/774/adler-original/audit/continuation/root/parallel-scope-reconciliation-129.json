@@ -1,0 +1,117 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-129",
+  "at": "2026-10-22T21:12:05.379166+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-032.json",
+    "sha256": "de4bd2c89906482e001808c3b85789adf4439a9f5a657747b9bf56f79b11598b"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-031.json",
+    "sha256": "f6a282ad4dfe2bb5627dacb517d4b6fdda8db2098f43f8b1575eaac4064c6b53"
+  },
+  "new_variants": [],
+  "new_overlays": [
+    {
+      "id": "CONT-OWNER-RANGE-EXTENSION-219",
+      "at": "2026-10-22T21:12:05.379166+00:00",
+      "source_id": "physical-p16:crates/adventuresim-core/src/quest_generation/solver.rs",
+      "sha256": "5d9b71ab4620264dce7604d0c9662f52009a887d00225927ef217087e0f10ba2",
+      "material_ranges": [
+        [
+          380,
+          407
+        ]
+      ],
+      "audit_owner": "camera",
+      "reason": "Actual solver68 circumstance_candidates(demographic) gate must compare whether label-derived allowed circumstances reach a positive candidate, exact child/demographic receiver only",
+      "scope_registration": [
+        {
+          "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+          "sha256": "3091834b138dcf824606f60bbb970d78fd9876c8773515692335849017a25d14",
+          "row_1based": 12,
+          "id": "CAMERA-INITIAL07-REG012",
+          "original_record": {
+            "id": "CAMERA-INITIAL07-REG012",
+            "at": "2026-10-22T21:08:32.049956+00:00",
+            "authority": "CONT-ROOT-PARALLEL-INITIAL-AUDITS-081",
+            "source_id": "physical-p16:crates/adventuresim-core/src/quest_generation/solver.rs",
+            "sha256": "5d9b71ab4620264dce7604d0c9662f52009a887d00225927ef217087e0f10ba2",
+            "actual_EOF": 979,
+            "material_ranges": [
+              [
+                380,
+                408
+              ]
+            ],
+            "material_caller": "Actual solver68 circumstance_candidates(demographic) gate must compare whether label-derived allowed circumstances reach a positive candidate, exact child/demographic receiver only",
+            "exclusions": "Description helper409+ and all unrelated solver functions excluded; trailing blank qualified after bounded read",
+            "status": "registered BEFORE new body analysis"
+          }
+        }
+      ],
+      "limits": "Description helper409+ and all unrelated solver functions excluded; trailing blank qualified after bounded read",
+      "source_qualifications": "Fresh exact prospective direct helper/body tail. Solver408blank excluded; earlier reputational whole440 display uncredited, old85-356 remains separate."
+    },
+    {
+      "id": "CONT-OWNER-RANGE-EXTENSION-220",
+      "at": "2026-10-22T21:12:05.379166+00:00",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/reputation.rs",
+      "sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+      "material_ranges": [
+        [
+          357,
+          360
+        ]
+      ],
+      "audit_owner": "camera",
+      "reason": "Existing local_reputation350-356 scoped prefix requires actual completed aggregate read recipient, distinguishing current terminal projection from immutable event authority",
+      "scope_registration": [
+        {
+          "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+          "sha256": "3091834b138dcf824606f60bbb970d78fd9876c8773515692335849017a25d14",
+          "row_1based": 13,
+          "id": "CAMERA-INITIAL07-REG013",
+          "original_record": {
+            "id": "CAMERA-INITIAL07-REG013",
+            "at": "2026-10-22T21:10:53.339802+00:00",
+            "authority": "CONT-ROOT-PARALLEL-INITIAL-AUDITS-081",
+            "source_id": "physical-p16:crates/adventuresim-stdb-module/src/reputation.rs",
+            "sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+            "actual_EOF": 440,
+            "material_ranges": [
+              [
+                357,
+                360
+              ]
+            ],
+            "material_caller": "Existing local_reputation350-356 scoped prefix requires actual completed aggregate read recipient, distinguishing current terminal projection from immutable event authority",
+            "exclusions": "Earlier premature full440 display beyond existing85-356 role is explicitly uncredited;1-84/361-440 remain excluded unless already scoped independently; fresh357-360 read occurs only after this registration",
+            "status": "registered BEFORE credited body analysis"
+          }
+        }
+      ],
+      "limits": "Earlier premature full440 display beyond existing85-356 role is explicitly uncredited;1-84/361-440 remain excluded unless already scoped independently; fresh357-360 read occurs only after this registration",
+      "source_qualifications": "Fresh exact prospective direct helper/body tail. Solver408blank excluded; earlier reputational whole440 display uncredited, old85-356 remains separate."
+    }
+  ],
+  "total_variants": 2783,
+  "total_overlays": 220,
+  "registered_rows": 2,
+  "input_pins": [
+    {
+      "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+      "sha256": "3091834b138dcf824606f60bbb970d78fd9876c8773515692335849017a25d14",
+      "captured_rows": 13,
+      "selected_ids": [
+        "CAMERA-INITIAL07-REG012",
+        "CAMERA-INITIAL07-REG013"
+      ]
+    }
+  ],
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through218-before032.jsonl",
+    "sha256": "94bfd76c60b11c72bc304cdedcb6f3b38e8185dca95a25a934aa11ecb8be2e24",
+    "through": 218
+  },
+  "limits": "OnlyP16solver380-407 actualcircumstanceproducer andDBreputation357-360 lookuptail. Blank408/previousprematurewholemodulecontext excluded. All oldroles preserved, no otherlenscredit."
+}

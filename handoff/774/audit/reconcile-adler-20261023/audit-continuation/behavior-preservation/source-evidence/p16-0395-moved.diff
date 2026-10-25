@@ -1,0 +1,186 @@
+--- P16base/melee.rs86–177+308–349
++++ P16head/melee/geometry.rs1–137
+@@ -1,12 +1,65 @@
++//! Complete checked contact geometry and native actor observation preparation.
++
++use super::*;
++
++#[derive(Clone, Copy)]
++pub(super) struct CompletionActors<'a> {
++    pub(super) attacker_look: &'a CharacterLook,
++    pub(super) attacker_transform: &'a Transform,
++    pub(super) defender_look: &'a CharacterLook,
++    pub(super) defender_transform: &'a Transform,
++    pub(super) dimensions: &'a CharacterDimensions,
++}
++
++#[derive(Clone, Copy)]
++pub(super) struct CompletionAuthorization<'a> {
++    pub(super) event: &'a MeleeAttackIntent,
++    pub(super) authority: &'a MeleeAttackAuthority,
++    pub(super) now: CombatInstant,
++}
++
++pub(super) struct MeleeCompletionGeometry {
++    pub(super) surface_distance: SignedLength,
++    pub(super) reach: SignedLength,
++    pub(super) contact_at_time: MeleeContactAtTime,
++    pub(super) facts: MeleeIntentFacts,
++}
++
++impl MeleeCompletionGeometry {
++    pub(super) fn observe(
++        actors: CompletionActors<'_>,
++        authorization: CompletionAuthorization<'_>,
++        attacker: &TacticalPlayerView<'_, '_, '_>,
++        sides: &Query<&TacticalCombatSide>,
++        states: &Query<&mut TacticalCombatState>,
++        config: &TacticalCombatConfig,
++    ) -> MeleeGeometryResult<Self> {
++        let reach = melee_interaction_range(actors.dimensions.arm_reach_metres, attacker.weapon_reach())?;
++        let center_separation = actors.attacker_transform.translation.xz()
++            .distance(actors.defender_transform.translation.xz());
++        let surface_distance = SignedLength::from_metres((center_separation
++            - adventuresim_core::combat::HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES).max(0.0))?;
++        let contact_at_time = contact_at_completion(
++            attacker, authorization.authority, surface_distance, reach,
++            authorization.event.strike_family.melee_style(),
++            config.ai.ordinary.offense.melee_measure_reach_fraction,
++        )?;
++        let facts = completion_intent_facts(
++            actors, authorization, attacker, surface_distance, sides, states, config,
++        )?;
++        Ok(Self { surface_distance, reach, contact_at_time, facts })
++    }
++}
++
+ fn contact_at_completion(
+     attacker: &TacticalPlayerView<'_, '_, '_>,
+     authority: &MeleeAttackAuthority,
+-    surface_distance: f32,
+-    reach: f32,
++    surface_distance: SignedLength,
++    reach: SignedLength,
+     attack_style: MeleeAttackStyle,
+     fallback_reach_fraction: f32,
+-) -> MeleeContactAtTime {
++) -> fabelgeist_geometry::GeometryResult<MeleeContactAtTime> {
+     let grip_to_tip_metres = attacker.weapon_grip_to_tip();
+     let striking_head_length_metres = attacker.weapon_striking_head_length();
+     let body_material = attacker.weapon_body_material();
+     let striking_material = attacker.weapon_striking_material();
+@@ -26,9 +79,9 @@
+             grip_to_tip_metres,
+             striking_head_length_metres,
+             distal_headed,
+             fallback_reach_fraction,
+-        ),
++        )?,
+         effective_reach_metres: reach,
+         grip_to_tip_metres,
+         total_length_metres: attacker.weapon_total_length(),
+         striking_head_length_metres,
+@@ -38,29 +91,21 @@
+         striking_material,
+     })
+ }
+ 
+-#[expect(
+-    clippy::too_many_arguments,
+-    reason = "validation facts join both live actor projections"
+-)]
+ fn completion_intent_facts(
+-    event: &MeleeAttackIntent,
++    actors: CompletionActors<'_>,
++    authorization: CompletionAuthorization<'_>,
+     attacker: &TacticalPlayerView<'_, '_, '_>,
+-    authority: &MeleeAttackAuthority,
+-    attacker_look: &CharacterLook,
+-    attacker_transform: &Transform,
+-    defender_look: &CharacterLook,
+-    defender_transform: &Transform,
+-    attacker_dimensions: &CharacterDimensions,
+-    weapon_reach: f32,
+-    surface_distance: f32,
+-    now: CombatInstant,
++    surface_distance: SignedLength,
+     sides: &Query<&TacticalCombatSide>,
+     states: &Query<&mut TacticalCombatState>,
+     config: &TacticalCombatConfig,
+-) -> MeleeIntentFacts {
+-    MeleeIntentFacts {
++) -> fabelgeist_geometry::GeometryResult<MeleeIntentFacts> {
++    let CompletionActors { attacker_look, attacker_transform, defender_look, defender_transform,
++        dimensions: attacker_dimensions } = actors;
++    let CompletionAuthorization { event, authority, now } = authorization;
++    Ok(MeleeIntentFacts {
+         attacker: event.attacker,
+         target: event.target,
+         attacker_side: sides.get(event.attacker).ok().copied(),
+         target_side: sides.get(event.target).ok().copied(),
+@@ -74,61 +119,19 @@
+             .map(TacticalCombatState::is_incapacitated),
+         attack_capability: adventuresim_core::combat::melee_attack_capability(attacker, attacker),
+         reported_precision: event.reported_precision,
+         arm_reach: attacker_dimensions.arm_reach_metres,
+-        weapon_reach,
++        weapon_reach: attacker.weapon_reach(),
+         range_latency_tolerance: config
+             .realtime_authority
+             .melee
+             .range_latency_tolerance_metres,
+         separation: surface_distance,
+         authority_permits: authority.permits(event.target, event.body_part, now),
+         body_part: event.body_part,
+-        attacker_position: attacker_transform.translation,
+-        target_position: defender_transform.translation,
++        attacker_position: Position::from_metres(attacker_transform.translation)?,
++        target_position: Position::from_metres(defender_transform.translation)?,
+         attacker_yaw: attacker_look.yaw,
+         target_yaw: defender_look.yaw,
+-    }
++    })
+ }
+ 
+-    let reach = melee_interaction_range(attacker_dimensions.arm_reach_metres, weapon_reach);
+-    let center_separation = attacker_transform
+-        .translation
+-        .xz()
+-        .distance(defender_transform.translation.xz());
+-    let surface_distance = (center_separation
+-        - adventuresim_core::combat::HUMANOID_MELEE_MINIMUM_CENTER_SEPARATION_METRES)
+-        .max(0.0);
+-    let contact_at_time = contact_at_completion(
+-        &attacker_view,
+-        authority,
+-        surface_distance,
+-        reach,
+-        attack_style,
+-        config.ai.ordinary.offense.melee_measure_reach_fraction,
+-    );
+-    let facts = completion_intent_facts(
+-        &event,
+-        &attacker_view,
+-        authority,
+-        attacker_look,
+-        attacker_transform,
+-        defender_look,
+-        defender_transform,
+-        attacker_dimensions,
+-        weapon_reach,
+-        surface_distance,
+-        now,
+-        &q_sides,
+-        &q_states,
+-        &config,
+-    );
+-    let contact_sample = event.contact_sample;
+-    let defense_alignment_sample = event.defense_alignment_sample;
+-    let Some(completion) = MeleeCompletion::prepare(
+-        facts,
+-        authority,
+-        &spatial,
+-        &q_scene_items,
+-        &config,
+-        attack_key,
+-        surface_distance,

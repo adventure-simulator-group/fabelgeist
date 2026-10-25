@@ -1,0 +1,132 @@
+--- before/crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs#capture_lighting_tests
++++ after/crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs#capture_lighting_tests
+@@ -255,7 +255,7 @@
+             ]
+         );
+         for view in plates {
+-            assert_eq!(view.fov_degrees, 80.0);
++            assert_eq!(view.fov_degrees.degrees(), 80.0);
+             if view.slug == "tree-family-se-playable-only" {
+                 assert!(!view.vista_visible);
+             } else {
+@@ -318,39 +318,65 @@
+                 .iter()
+                 .any(|view| view.slug == "forest-floor-debris-detail")
+         );
+-        let target = Vec3::new(4.0, 1.25, -2.0);
+-        let (camera, observed_target, up) = debris_detail_camera(target, None, 37.0);
+-        assert_eq!(observed_target, target);
++        let target = Position::from_metres(Vec3::new(4.0, 1.25, -2.0)).unwrap();
++        let view = debris_detail_camera(
++            target,
++            None,
++            adventuresim_tactical_core::animation::SignedAngleDegrees::from_degrees(37.0).unwrap(),
++        )
++        .unwrap();
++        let camera = view.position.metres();
++        let observed_target = view.target.metres();
++        let up = view.native_up();
++        assert_eq!(observed_target, target.metres());
+         assert_eq!(up, Vec3::Y);
+-        assert!((camera.y - target.y - 1.35).abs() < 0.00001);
+-        assert!((camera.xz().distance(target.xz()) - 1.15).abs() < 0.00001);
++        assert!((camera.y - target.metres().y - 1.35).abs() < 0.00001);
++        assert!((camera.xz().distance(target.metres().xz()) - 1.15).abs() < 0.00001);
+         assert_eq!(
+             views
+                 .iter()
+                 .find(|view| view.slug == "forest-floor-debris-detail")
+                 .unwrap()
+-                .fov_degrees,
++                .fov_degrees
++                .degrees(),
+             44.0
+         );
+ 
+-        let leaves = [Vec3::new(4.0, 0.0, 3.0), Vec3::new(0.1, 0.0, 0.0)];
+-        let twigs = [Vec3::new(4.2, 0.0, 3.0), Vec3::new(0.4, 0.0, 0.0)];
+-        let pair = debris_capture_target(&leaves, &twigs, 0.55).unwrap();
+-        assert_eq!(pair.focus, Vec3::new(4.1, 0.0, 3.0));
+-        assert!((pair.leaf_distance_metres - 0.1).abs() < 0.00001);
+-        assert!((pair.twig_distance_metres - 0.1).abs() < 0.00001);
+-        assert_eq!(debris_capture_target(&[leaves[1]], &[twigs[0]], 0.55), None);
++        let leaves = [Vec3::new(4.0, 0.0, 3.0), Vec3::new(0.1, 0.0, 0.0)]
++            .map(|point| Position::from_metres(point).unwrap());
++        let twigs = [Vec3::new(4.2, 0.0, 3.0), Vec3::new(0.4, 0.0, 0.0)]
++            .map(|point| Position::from_metres(point).unwrap());
++        let pair = DebrisCaptureTarget::nearest(
++            &leaves,
++            &twigs,
++            GroundLitterCapturePair::MAXIMUM_SEPARATION,
++        )
++        .unwrap();
++        assert_eq!(pair.focus.metres(), Vec3::new(4.1, 0.0, 3.0));
++        assert!((pair.leaf_distance.metres() - 0.1).abs() < 0.00001);
++        assert!((pair.twig_distance.metres() - 0.1).abs() < 0.00001);
++        assert_eq!(
++            DebrisCaptureTarget::nearest(
++                &[leaves[1]],
++                &[twigs[0]],
++                GroundLitterCapturePair::MAXIMUM_SEPARATION
++            ),
++            None
++        );
+ 
+         let terrain = SceneTerrain::from_heightmap(2, 2, 1.0, vec![1.0, 1.0, 1.0, 1.0]).unwrap();
+-        let snapped = terrain_snapped_debris_capture_target(
+-            &[Vec3::new(-0.2, 0.0, -0.1)],
+-            &[Vec3::new(0.1, 0.0, -0.1)],
+-            0.55,
++        let snapped = DebrisCaptureTarget::terrain_snapped(
++            &[Position::from_metres(Vec3::new(-0.2, 0.0, -0.1)).unwrap()],
++            &[Position::from_metres(Vec3::new(0.1, 0.0, -0.1)).unwrap()],
++            GroundLitterCapturePair::MAXIMUM_SEPARATION,
+             &terrain,
+         )
+         .unwrap();
+-        let ground = terrain.height_at(snapped.focus.xz()).unwrap();
+-        assert!(snapped.focus.y >= ground);
++        let ground = terrain
++            .height_at(ScenePlanPoint::from(snapped.focus))
++            .unwrap()
++            .metres();
++        assert!(snapped.focus.metres().y >= ground);
+     }
+ 
+     #[test]
+@@ -443,11 +469,25 @@
+                 .join("../../assets/tactical-scenes/valley-distant-ridge.json"),
+         )
+         .unwrap();
+-        let (_, minimum, maximum, valley, peak) = vista_metrics(&input);
+-        assert!(minimum < maximum);
+-        assert_eq!(valley.y, minimum);
+-        assert_eq!(peak.y, maximum);
+-        assert!(maximum - minimum > 100.0);
++        let geometry = vista_geometry::VistaCaptureGeometry::from_source(&input)
++            .unwrap()
++            .unwrap();
++        let minimum = geometry.minimum();
++        let maximum = geometry.maximum();
++        assert!(minimum.elevation.metres() < maximum.elevation.metres());
++        let valley = Vec3::new(
++            minimum.point.metres().x,
++            minimum.elevation.metres(),
++            minimum.point.metres().y,
++        );
++        let peak = Vec3::new(
++            maximum.point.metres().x,
++            maximum.elevation.metres(),
++            maximum.point.metres().y,
++        );
++        assert_eq!(valley.y, minimum.elevation.metres());
++        assert_eq!(peak.y, maximum.elevation.metres());
++        assert!(geometry.relief().metres() > 100.0);
+     }
+ 
+     #[test]
+@@ -495,4 +535,3 @@
+         }));
+     }
+ }
+-

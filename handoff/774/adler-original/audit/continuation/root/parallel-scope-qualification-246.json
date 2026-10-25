@@ -1,0 +1,55 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-QUALIFICATION-246",
+  "registration_id": "ROOT-INITIAL04-REG023",
+  "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/mounts.rs",
+  "sha256": "524bc66482c68f2d286db6de9a009b408c0eaa9863689ea78f21bfe00e0ed9dd",
+  "actual_EOF": 293,
+  "original_requested_ranges_retained": [
+    [
+      1,
+      79
+    ],
+    [
+      133,
+      228
+    ]
+  ],
+  "qualified_material_ranges": [
+    [
+      1,
+      2
+    ],
+    [
+      4,
+      79
+    ],
+    [
+      133,
+      225
+    ]
+  ],
+  "context_only_ranges": [
+    [
+      3,
+      3
+    ],
+    [
+      226,
+      228
+    ]
+  ],
+  "fresh_Root_actual_read": [
+    [
+      1,
+      79
+    ],
+    [
+      133,
+      228
+    ]
+  ],
+  "qualification": "Exact socket_fit and attachment_contact only. Blank3 and blank226/next connected_through_assembly documentation227-228 are context only. No function body credit for81-132/230-293 or whole293. socket_fit LoftedBlade returns11-13; root attachment with no shaft and no parent owner weapon returns160-162 before mortise/geometry helpers. Calls in other branches do not clear their callee bodies. All previous qualifications retained; metadata alone grants no semantic credit.",
+  "all_lenses_mandatory": true,
+  "source_edits": 0,
+  "project_execution": 0
+}

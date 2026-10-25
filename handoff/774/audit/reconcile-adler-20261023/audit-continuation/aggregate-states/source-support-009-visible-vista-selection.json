@@ -1,0 +1,111 @@
+{
+  "id": "SEGO-INITIAL05-F011",
+  "at": "2026-10-25T18:37:24.266485+00:00",
+  "title": "Retain the selected visible vista rings with their support-sampling policy",
+  "priority": "P2",
+  "classification": "Source-backed valid configuration/aggregate mismatch; finite checked custom scene witness, no rendering execution or introduced774 regression claim",
+  "lenses": [
+    "aggregate-states"
+  ],
+  "locations": [
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/surface.rs",
+      "start": 29,
+      "end": 35
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista/surface.rs",
+      "start": 105,
+      "end": 114
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/vista.rs",
+      "start": 114,
+      "end": 125
+    }
+  ],
+  "contract_trace": "on_scene_vista_bundle limits visible_lods to maximum_lods and PreparedVistaLod::prepare_all uses only the next visible ring as its coarser source. ActiveVistaSurface::update independently retains the first two original bundle rings regardless of that selection. Its presented_height_at morphs to the retained second ring. terrain_detail_patch_mesh uses that result for unmorphed fine vertices within eight metres of its camera-local centre. Retained sampled heights can therefore differ from the actual selected visible first-ring mesh even though both sources and configuration are individually valid.",
+  "counterexample": "Static accepted finite scene: nonowned flat terrain3x3 spacing2, height10, playable halfextent2; first VistaLod5x5 spacing2 height20 with origin0, second5x5 spacing4 height40, matching environments and maximum_lods1. At local(3,0) first-ring rendered mesh has no coarser source and seam height15 (between boundaryx2 height10 and x4 height20). ActiveVistaSurface nevertheless uses second-ring morph weight3/4, producing vista35 then seam22.5. A detail-patch centre0 includes that vertex at radialdistance3, below its8m morphstart, and publishes22.5. This is source/numerical algebra only, not a new test or executed customscene; no default shipped terrain or ordinary player-visible failure is asserted. maximum_lods0 is also a required valid selection policy and must not retain unrendered sample authority.",
+  "repair": "Make one prepared visible-ring selection own the LOD references, coarser relationships, clipping/inner extents and retained sampling state used by publication. Feed ActiveVistaSurface from that actual prepared/selected product rather than independently taking two bundle rings. Keep no-visible-rings explicit and preserve checked ScenePlanPoint/SupportElevation until the native mesh projection. Reconcile source identity, revision and native frame owners with M61/M66/M72/M76; do not add a second editable visibility count or compatibility fallback.",
+  "dependencies": [
+    "Whole PreparedVistaLod::prepare_all/on_scene_vista_bundle/ActiveVistaSurface::update/presented_height_at and terrain_detail_patch_mesh/update path. Shared function repair must keep canonical owned-terrain topology policy and exact material publication.",
+    "Canonical vista_surface::lod_transition_weight/native_presented_height_at/stitch relation; preserve valid0/1/all/>sourcecount selection policy.",
+    "Existing source fixtures and configured headless/skyviewer settings only; add no tests."
+  ],
+  "acceptance": "Every retained vista sample used by a camera-local patch follows exactly the LOD/coarser selection and geometry policy actually rendered for that scene. Zero visible rings give no unrendered support; one visible ring never morphs against an unrendered second ring. Preserve clipping, deterministic geometry/pigment order, owned support and independent tactical/strategic authority.",
+  "sources": [
+    {
+      "scope_index": 1674,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/surface.rs",
+      "sha256": "b487f7c3b762586f17bebd06fd0a7cae7d415743566df637800b4056cc3441ac",
+      "personally_rechecked_ranges": [
+        [
+          29,
+          35
+        ],
+        [
+          93,
+          115
+        ]
+      ],
+      "role_count_credit": false
+    },
+    {
+      "scope_index": 1636,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista.rs",
+      "sha256": "b571c37d64c20535df90dc5b14ebddd2cc22010885764fbeae66c78ad6970d6c",
+      "personally_rechecked_ranges": [
+        [
+          114,
+          136
+        ]
+      ],
+      "role_count_credit": false
+    },
+    {
+      "scope_index": 1656,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/prepared.rs",
+      "sha256": "c3c5dda2b43208a48d70060c29d876025c47aca6e4fe836ea002b2ec651ca44d",
+      "personally_rechecked_ranges": [
+        [
+          19,
+          60
+        ]
+      ],
+      "role_count_credit": false
+    },
+    {
+      "scope_index": 1626,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/terrain.rs",
+      "sha256": "e641530bea571c2b122e60d817a9ae562934f67c7488eae746bc1366af605599",
+      "personally_rechecked_ranges": [
+        [
+          173,
+          320
+        ]
+      ],
+      "role_count_credit": false
+    },
+    {
+      "scope_index": 1964,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/vista_surface.rs",
+      "sha256": "0238db91b3a926b53a353da8892a2e0ff17018d131529261be5a4cdf2cb8e405",
+      "personally_rechecked_ranges": [
+        [
+          279,
+          303
+        ],
+        [
+          384,
+          480
+        ]
+      ],
+      "role_count_credit": false
+    }
+  ],
+  "base_comparison": "Bounded comparison confirms same independent take(2) at base3a50b708 and merged13fc9dcc; not introduced by774. Merged surface, facade, prepared and core hashes match frozen catalog. Actual primary58ea is older ancestor, not later source.",
+  "deduplication": "Exact focused lookup of adopted Adler1002 and local171 found related ROOT-OWNER-F015 revision/extent identity, M61 graphics selected-prefix propagation and M76 scene identity; their recorded defects/remedies do not describe retained unrendered coarser selection. M61 was read in full and its current trace claims consistent selected prefixes only for renderer/prepared consumers. Own08 notified for exact independent alias check; global uniqueness not assumed.",
+  "repair_status": "not_started_initial_discovery_gate",
+  "validation": "Source bodies and explicit finite arithmetic only. No tests, builds, renderer, scanner, hosted CI or source modification.",
+  "rule_support": []
+}

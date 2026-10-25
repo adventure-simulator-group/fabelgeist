@@ -1,0 +1,74 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-141",
+  "at": "2026-10-23T03:31:35.651135+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/inventory_containers.rs",
+      "sha256": "4feda6b091c108a9cb8def2cfa8cd63c6fd7123d64c3584d308dec283048d50a",
+      "scope052_index": 932,
+      "actual_EOF": 256,
+      "scoped_ranges_compared": [
+        [
+          1,
+          256
+        ]
+      ],
+      "actual05_comparison": "Fresh fullPR256 and completeactualP16diffempty; personally compared each current variant graphadmission, retainedprivate maps, insertioncycle/depth/capacity arithmetic, remove/subtree and alloriginalfixture relations. Samecontract justified nothash-only.",
+      "source_body_proof": "Actual wholePRbody and completeactualP16counterpartdiff/currentrolecomparison."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/inventory_containers.rs",
+      "sha256": "4feda6b091c108a9cb8def2cfa8cd63c6fd7123d64c3584d308dec283048d50a",
+      "scope052_index": 2747,
+      "actual_EOF": 256,
+      "scoped_ranges_compared": [
+        [
+          1,
+          256
+        ]
+      ],
+      "actual05_comparison": "Fresh fullPR256 and completeactualP16diffempty; personally compared each current variant graphadmission, retainedprivate maps, insertioncycle/depth/capacity arithmetic, remove/subtree and alloriginalfixture relations. Samecontract justified nothash-only.",
+      "source_body_proof": "Actual wholePRbody and completeactualP16counterpartdiff/currentrolecomparison."
+    }
+  ],
+  "contract_groups": [
+    {
+      "id": "object-volume-admission",
+      "ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "comparison": "Object rawpublic tuple: strictid, exterior>0 requiredbyGraphnew, measured<=exterior, duplicateID rejected. CapacityNone noncontainer vsSome0 zero-capacitycontainer intentional shape, not positiveblindnarrowing; measuredSome0 empty material legitimate. Exterior and interior capacity serve displacement vs interioramount distinct, no assumption capacity<=exterior. Graphdefaultemptyvalid; constructorbuildslocalallornothing. Strictvolumeleafnativeu64check not inferredfromname; calledactualchecked_add behavior neededexactleaflater ifnotalreadyqualified."
+    },
+    {
+      "id": "retained-graph-and-atomic-insertion",
+      "ranges": [
+        [
+          48,
+          148
+        ]
+      ],
+      "comparison": "Private objects+parentmap, noSerde/Reflect/mutobjectgetter. Insert validatesknownparentcontainer+child, directself, ancestorcycle/visited/depth, subtree depth combined<=16 BEFOREedgechange. Descendant traversal reliesprivatepreviousacyclicgraph invariant, noarbitraryrawcyclesingress. Removesoldedge beforeusedvolume toavoid doublecountsamereparent; checkedimmediateamount+child<=capacity thencommitsedge, restoresoldedge oncapacityfailure. used_volume uses currentmeasured or exterior, notgrandchilddoublecount. Its error afteroldremove cannotoccuronvalidretainedstate: membershipguaranteed and oldparentremovalonlydecreasesdestination sum, prioracceptedcapacity boundednativeword. Thus source supportsactualpreservingoperation, no speculative partialmutationdefectsolelybecausequestionmark followsremove. Removeonlydecreasesconstraints."
+    },
+    {
+      "id": "subtree-and-existing-fixtures",
+      "ranges": [
+        [
+          150,
+          256
+        ]
+      ],
+      "comparison": "subtree checksknownroot, BFS parentmap BTreeorder, repeatedchildcyclefail andtraversalbound, immutablequery; matchingdeterministicorderfixture. Existing exactfit/oneover, liquidcurrentamount/notgrandchildren, directself/cycle/max16ancestry, duplicateID, subtree orderingfixturesreadnotrun. Childparentmembership and no cycles derive actualcontrolledinsert, not typedID alone. Topologyexplicitlyunrelated equipmentattachmentgraph, no sharedowner substitution assumption."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Milliliters canonical checked_add definition and actualDB custody/graph rebuildreceivers remainownexactsource obligations, no familyclearance. No wholeSQL/transaction proof."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

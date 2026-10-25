@@ -1,0 +1,441 @@
+{
+  "pr-working:rust-quality-baseline.toml": {
+    "keys": [
+      "files",
+      "functions",
+      "findings"
+    ],
+    "sections": {
+      "files": 209,
+      "functions": 485,
+      "findings": 1369
+    },
+    "meaning": "external semantic checker registry or no-growth baseline input, not an application value producer"
+  },
+  "rig-quality:rust-quality.toml": {
+    "keys": [
+      "file_limit",
+      "function_limit",
+      "census_minimum",
+      "census_summary_limit",
+      "excluded_paths",
+      "scopes",
+      "semantic_families",
+      "exceptions"
+    ],
+    "sections": {
+      "file_limit": "int",
+      "function_limit": "int",
+      "census_minimum": "int",
+      "census_summary_limit": "int",
+      "excluded_paths": 1,
+      "scopes": 148,
+      "semantic_families": 10,
+      "exceptions": 21
+    },
+    "meaning": "external semantic checker registry or no-growth baseline input, not an application value producer"
+  },
+  "pr-working:content/items/catalog.yaml": {
+    "keys": [
+      "schema_version",
+      "items"
+    ],
+    "record_count": 184,
+    "record_field_sets": [
+      {
+        "fields": [
+          "base_value",
+          "display_name",
+          "exterior_volume_ml",
+          "id",
+          "kind",
+          "presentation",
+          "tags",
+          "weight_kg"
+        ],
+        "count": 41
+      },
+      {
+        "fields": [
+          "base_value",
+          "capabilities",
+          "display_name",
+          "exterior_volume_ml",
+          "id",
+          "kind",
+          "presentation",
+          "tags",
+          "weight_kg"
+        ],
+        "count": 56
+      },
+      {
+        "fields": [
+          "base_value",
+          "capabilities",
+          "display_name",
+          "equipment",
+          "exterior_volume_ml",
+          "flexibility",
+          "id",
+          "kind",
+          "padding",
+          "presentation",
+          "range_of_motion",
+          "resistance",
+          "slot",
+          "tags",
+          "weight_kg"
+        ],
+        "count": 42
+      },
+      {
+        "fields": [
+          "base_value",
+          "capabilities",
+          "carry",
+          "display_name",
+          "equipment",
+          "exterior_volume_ml",
+          "handling",
+          "id",
+          "kind",
+          "melee",
+          "moment_of_inertia_kg_m2",
+          "preferred_attack",
+          "presentation",
+          "ranged",
+          "reach_m",
+          "skills",
+          "slot",
+          "tags",
+          "weight_kg"
+        ],
+        "count": 21
+      },
+      {
+        "fields": [
+          "base_value",
+          "block",
+          "capabilities",
+          "display_name",
+          "equipment",
+          "exterior_volume_ml",
+          "id",
+          "kind",
+          "presentation",
+          "slot",
+          "tags",
+          "weight_kg"
+        ],
+        "count": 5
+      },
+      {
+        "fields": [
+          "base_value",
+          "capabilities",
+          "carry",
+          "display_name",
+          "equipment",
+          "exterior_volume_ml",
+          "handling",
+          "id",
+          "kind",
+          "melee",
+          "moment_of_inertia_kg_m2",
+          "precision",
+          "presentation",
+          "ranged",
+          "reach_m",
+          "skills",
+          "slot",
+          "tags",
+          "weight_kg"
+        ],
+        "count": 6
+      },
+      {
+        "fields": [
+          "base_value",
+          "capabilities",
+          "display_name",
+          "equipment",
+          "exterior_volume_ml",
+          "id",
+          "kind",
+          "presentation",
+          "tags",
+          "weight_kg"
+        ],
+        "count": 3
+      },
+      {
+        "fields": [
+          "animation_pack",
+          "base_value",
+          "capabilities",
+          "carry",
+          "display_name",
+          "equipment",
+          "exterior_volume_ml",
+          "handling",
+          "id",
+          "kind",
+          "melee",
+          "moment_of_inertia_kg_m2",
+          "preferred_attack",
+          "presentation",
+          "ranged",
+          "reach_m",
+          "skills",
+          "slot",
+          "tags",
+          "weight_kg"
+        ],
+        "count": 2
+      },
+      {
+        "fields": [
+          "base_value",
+          "capabilities",
+          "display_name",
+          "exterior_volume_ml",
+          "id",
+          "kind",
+          "presentation",
+          "slot",
+          "tags",
+          "weight_kg"
+        ],
+        "count": 1
+      },
+      {
+        "fields": [
+          "base_value",
+          "display_name",
+          "equipment",
+          "exterior_volume_ml",
+          "id",
+          "kind",
+          "presentation",
+          "tags",
+          "weight_kg"
+        ],
+        "count": 7
+      }
+    ],
+    "belt_record": [
+      {
+        "id": "belt",
+        "display_name": "Belt",
+        "weight_kg": 0.35,
+        "exterior_volume_ml": 438,
+        "base_value": 4,
+        "tags": [
+          "clothing"
+        ],
+        "presentation": {
+          "icon": "belt-armor"
+        },
+        "equipment": {
+          "physical": {
+            "dimensions_m": [
+              0.42,
+              0.1,
+              0.24
+            ],
+            "grip_to_tip_m": 0.0,
+            "anchor_offset_m": [
+              0.0,
+              0.0,
+              0.0
+            ]
+          },
+          "material": "vegetable_tanned_leather",
+          "placements": [
+            {
+              "id": "worn",
+              "occupancy": [
+                {
+                  "location": "left_belt",
+                  "channel": "accessory"
+                },
+                {
+                  "location": "right_belt",
+                  "channel": "accessory"
+                },
+                {
+                  "location": "front_belt",
+                  "channel": "accessory"
+                },
+                {
+                  "location": "back_belt",
+                  "channel": "accessory"
+                }
+              ],
+              "surface": [
+                {
+                  "regions": [
+                    "stomach"
+                  ],
+                  "anchor": "center",
+                  "coverage": 0.18
+                }
+              ]
+            }
+          ],
+          "attachment_points": [
+            {
+              "id": "left",
+              "channel": "mount",
+              "capacity": 1,
+              "order": 0,
+              "locations": [
+                "left_belt"
+              ],
+              "accepts_tags": [
+                "sheath",
+                "bag"
+              ],
+              "surface_uv": {
+                "domain": "mhr_body_v1",
+                "uv": [
+                  0.376270294,
+                  0.70954299
+                ]
+              },
+              "tangent_direction": [
+                0.0,
+                -0.819152,
+                -0.573576
+              ]
+            },
+            {
+              "id": "right",
+              "channel": "mount",
+              "capacity": 1,
+              "order": 1,
+              "locations": [
+                "right_belt"
+              ],
+              "accepts_tags": [
+                "sheath",
+                "bag"
+              ],
+              "surface_uv": {
+                "domain": "mhr_body_v1",
+                "uv": [
+                  0.12568365,
+                  0.70954299
+                ]
+              },
+              "tangent_direction": [
+                0.0,
+                -0.819152,
+                -0.573576
+              ]
+            },
+            {
+              "id": "front",
+              "channel": "mount",
+              "capacity": 1,
+              "order": 2,
+              "locations": [
+                "front_belt"
+              ],
+              "accepts_tags": [
+                "bag"
+              ],
+              "surface_uv": {
+                "domain": "mhr_body_v1",
+                "uv": [
+                  0.002930095,
+                  0.70724386
+                ]
+              },
+              "tangent_direction": [
+                0.0,
+                1.0,
+                0.0
+              ]
+            },
+            {
+              "id": "back",
+              "channel": "mount",
+              "capacity": 1,
+              "order": 3,
+              "locations": [
+                "back_belt"
+              ],
+              "accepts_tags": [
+                "bag"
+              ],
+              "surface_uv": {
+                "domain": "mhr_body_v1",
+                "uv": [
+                  0.250950813,
+                  0.704910517
+                ]
+              },
+              "tangent_direction": [
+                0.0,
+                1.0,
+                0.0
+              ]
+            }
+          ]
+        },
+        "kind": "simple"
+      }
+    ]
+  },
+  "pr-working:assets/equipment/procedural/manifest.json": {
+    "keys": [
+      "assets",
+      "lod",
+      "mhr_release",
+      "schema_version"
+    ],
+    "record_count": 58,
+    "record_field_sets": [
+      {
+        "fields": [
+          "armor_design_hash",
+          "armor_generator_version",
+          "coverage",
+          "file",
+          "item_id",
+          "material",
+          "morph_targets",
+          "placement_id",
+          "surface_uv_domain",
+          "triangles"
+        ],
+        "count": 55
+      },
+      {
+        "fields": [
+          "coverage",
+          "file",
+          "item_id",
+          "material",
+          "morph_targets",
+          "placement_id",
+          "triangles"
+        ],
+        "count": 3
+      }
+    ],
+    "belt_record": [
+      {
+        "coverage": 0.18000000715255737,
+        "file": "belt--worn.glb",
+        "item_id": "belt",
+        "material": "vegetable_tanned_leather",
+        "morph_targets": 47,
+        "placement_id": "worn",
+        "triangles": 634
+      }
+    ]
+  }
+}

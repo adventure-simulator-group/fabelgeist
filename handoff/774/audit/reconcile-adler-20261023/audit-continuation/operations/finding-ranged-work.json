@@ -1,0 +1,47 @@
+{
+  "id": "SEGOVB-04-RANGED-WORK-001",
+  "classification": "actual source operation omission in supported tactical ranged graph; no actor/session/run witness",
+  "source_variants": [
+    "physical-p16",
+    "pr-working"
+  ],
+  "locations": {
+    "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress.rs": [
+      [
+        432,
+        499
+      ]
+    ],
+    "physical-p16:crates/adventuresim-tactical-server/src/combat/ranged.rs": [
+      [
+        34,
+        81
+      ],
+      [
+        243,
+        327
+      ]
+    ],
+    "physical-p16:crates/adventuresim-tactical-server/src/combat/melee/active_defense.rs": [
+      [
+        151,
+        186
+      ]
+    ],
+    "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress/work.rs": [
+      [
+        21,
+        50
+      ]
+    ]
+  },
+  "trace": "Supported player/AI ranged starts schedule actual skeleton attack and authority without charge_started_attack_work or equivalent ranged work; actual authorized hit prepares passive Block/Parry response and scales it for defender performance, then consumes ammo/response and publishes injury/velocity without charging WeaponDefense work. Equivalent melee starts and committed weapon defense have explicit single-pool charge calls. Pinned source callsite inventory finds tactical-server charge_work only in dodge, melee start, melee active defense.",
+  "contract": "Root AGENTS combat legibility requires weapon work and defenses to contribute to the single visible general fatigue value. Core workload doc says charged once when an action begins. This is absent contribution, not NaN/overflow finding ROOT-INITIAL04-F030 and not a new pool requirement.",
+  "qualification": [
+    "No particular authored actor or exact shield intercept session executed; supported source branch with usable ranged weapon/ammo and weapon defense is the witness boundary.",
+    "Do not blindly reuse melee swing-travel/inertia work for drawing/firing a ranged implement. Canonical physical work model for actual ranged action/defense must be decided at the shared action owner.",
+    "Dodge already has separate explicit charge; do not charge again merely because a projectile resolves during a dodge. Preserve admitted miss ammunition and dry-fire cooldown policies."
+  ],
+  "connected_repair": "Unify once-per-actual-action workload correlation across melee, ranged, defense and prebegun dodge. Carry actual implement/mass/duration and checked computed work into TacticalCombatState::charge_work, preserve general visible fatigue/total incapacitation performance without speed penalties or parallel oxygen pools.",
+  "acceptance": "Every actual admitted ranged weapon action and actual weapon/shield defense contributes appropriate canonical work exactly once. Failed preparation must not charge; miss/dry-fire charge must reflect declared actual physical action policy. Melee/dodge existing once-per-action accounting and wheel behavior stay coherent. No hidden alternate penalty or unqualified arbitrary work constant."
+}

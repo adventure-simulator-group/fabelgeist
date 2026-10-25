@@ -1,0 +1,85 @@
+{
+  "contract": {
+    "id": "CAMERA-ADM03-083",
+    "at": "2026-10-22T14:42:50.535765+00:00",
+    "lens": "audit-admission-contracts",
+    "members": [
+      52,
+      53,
+      54,
+      418,
+      419,
+      420
+    ],
+    "actual_source_proof": "Full P16 encounter1019, choice72, receipt36 previously freshly read in bounded chunks; actual complete PR counterpart body diffs empty and each current contract/role compared. Full existing tests read as source only, no execution.",
+    "contracts": {
+      "records_and_closed_leaves": "Terrain4/Awareness4/NarrativeKind2 and Choice5 closed enums; Archetype3 derived Serde snake_case and feature SATS, exact unit-enum route082 applies after actual declaration comparison. Context, quest influence, local problem, selection and narrative selection are public raw records with primitive minute/index/count/awareness/speed/bonus and String identity; no Default/Serde/Reflect on these aggregates. AcceptedActiveQuest naming does not authenticate a public literal. Choice FromStr enumerates exact five lower-case tokens, unknown rejects; no extra deserializer/default/reflection/alias route. Actual available_choices enforces awareness/archetype/speed conditions separately from token parsing.",
+      "canonical_factories": "Encounter180 and narrative240/180 boundary iterators use (completed,completed+requested] with saturation and canonical index; quotient then+1 safe for u64MAX, index*interval bounded by end. Public select_at accepts independent index/minute, hence broader raw aggregate than iterator output; actual DB accepted state/correlation remains separate. Enemy count uses max1, safe spread and saturated addition; scaling widens u16 product to u32 before ceiling/max/min. Awareness thresholds use saturating u16 adds. Sustainable strategic speed intentionally applies fatigue/encumbrance/logistics/terrain factors with bounded arithmetic and final>=1; combat no-fatigue-speed-penalty rule does not prohibit strategic overland policy.",
+      "weights_and_narrative": "Encounter weights depend immutable Threat profiles and authored quest/problem bonuses; additive frequency may exceed10000 and means guaranteed roll, not proven UnitBasisPoints violation. Three u32 archetype weights widen to u64, zero total returnsNone; weighted_index expect still depends actual RNG and catalogue validation receipts. Narrative filters trigger and positive weights, lexical String IDs, then cloned identity; settlement/pending encounter gate rejects overlapping production. No actual all-catalogue validation credit from expect.",
+      "receipt_identity": "Opaque ID factory creates enc: plus32lowerASCIIhex from two domain-separated u64 draws, deterministic but no uniqueness theorem. retry_matches compares all four raw ID/character/choice/revision inputs only; enc:abc existing fixture proves equality helper deliberately does not validate grammar/choice/authority. Keep raw request/rejection evidence broad; accepted stored receipt admission is actual DB boundary, not this helper.",
+      "all_routes": "Public literal/mutation admits any primitive values to raw records; enum variants and exact token parser are exhaustive. Archetype native unit sum has known-tag/name decode082; no scalar backing bypass. Constants/defaults used by factories are actual bounded values, not a guarantee for arbitrary public inputs. Existing tests cover boundaries/chunking/determinism/choice/causal weights but have not run."
+    },
+    "counterexamples_or_qualification": "sneak_succeeds402-412 accepts full u16 scores then ordinary u16 addition of rng.index(1000) as u16. For admitted score65535 and a permitted nonzero draw, the sum overflows before comparison (debug panic/release wrap). Static conditional counterexample, no claimed seed or executed failure. Actual RNG bounded-domain body remains explicit dependency. Encounter weight u32 multiplication could depend authored bounds; do not claim overflow until actual compiler/profile admission compared.",
+    "connected_repair": "Preserve full score meaning by widening mathematical sneak sums, rather than inventing a <=1000 input cap; retain raw evidence separately from canonical accepted identity/choice/authority records. Coherent accepted encounter/receipt constructors should gate actual caller provenance and correlations, without making the equality helper silently authenticate raw input. No compatibility path or new tests.",
+    "dependencies": [
+      "Exact RNG index/weighted_index implementation/current stream semantics; source fact not yet joined",
+      "Actual RoadEncounterCatalogue positive/sorted/weight bounds and Threat profile compiler bounds (RootG024 current proof available)",
+      "Original DB encounter/request/receipt source roles enforce accepted quest/choice/action ownership and aggregate correlation; not covered by Core raw helper"
+    ],
+    "repair_status": "frozen",
+    "validation_status": "not_run",
+    "later_lens_credit": false
+  },
+  "finding": {
+    "id": "CAMERA-ADM03-F022",
+    "at": "2026-10-22T14:42:50.535765+00:00",
+    "contract": "CAMERA-ADM03-083",
+    "sources": [
+      "physical-p16:crates/adventuresim-core/src/encounter.rs",
+      "pr-working:crates/adventuresim-core/src/encounter.rs"
+    ],
+    "ranges": [
+      [
+        402,
+        412
+      ]
+    ],
+    "kind": "admitted full-primitive input violates arithmetic precondition; operations overlap cross-reference",
+    "finding": "sneak_succeeds402-412 accepts full u16 scores then ordinary u16 addition of rng.index(1000) as u16. For admitted score65535 and a permitted nonzero draw, the sum overflows before comparison (debug panic/release wrap). Static conditional counterexample, no claimed seed or executed failure. Actual RNG bounded-domain body remains explicit dependency. ",
+    "connected_repair": "Widen sneak score sums to preserve mathematical comparison across full u16 input domain; do not invent narrower score invariant. Conditional nonzero RNG draw, no runtime reproduction. Actual RNG route dependency retained.",
+    "validation_status": "not_run",
+    "repair_status": "frozen"
+  },
+  "source_pins": [
+    {
+      "index": 52,
+      "source_id": "physical-p16:crates/adventuresim-core/src/encounter.rs",
+      "sha256": "aad69b12c6ade6caa59828876caede30c0a0fe2577b11fdd91f84594d2471dd5"
+    },
+    {
+      "index": 53,
+      "source_id": "physical-p16:crates/adventuresim-core/src/encounter/choice.rs",
+      "sha256": "3a327aeb8ec9f72d67960b0cdc94f7ece677c4a963d5ce8e1db7af3fd8025206"
+    },
+    {
+      "index": 54,
+      "source_id": "physical-p16:crates/adventuresim-core/src/encounter/receipt.rs",
+      "sha256": "79edfeebdc4b5bdd4dfd8272b5b15981bf986c1acdcc4bca4b92d3fe3022b1b1"
+    },
+    {
+      "index": 418,
+      "source_id": "pr-working:crates/adventuresim-core/src/encounter.rs",
+      "sha256": "aad69b12c6ade6caa59828876caede30c0a0fe2577b11fdd91f84594d2471dd5"
+    },
+    {
+      "index": 419,
+      "source_id": "pr-working:crates/adventuresim-core/src/encounter/choice.rs",
+      "sha256": "3a327aeb8ec9f72d67960b0cdc94f7ece677c4a963d5ce8e1db7af3fd8025206"
+    },
+    {
+      "index": 420,
+      "source_id": "pr-working:crates/adventuresim-core/src/encounter/receipt.rs",
+      "sha256": "79edfeebdc4b5bdd4dfd8272b5b15981bf986c1acdcc4bca4b92d3fe3022b1b1"
+    }
+  ]
+}

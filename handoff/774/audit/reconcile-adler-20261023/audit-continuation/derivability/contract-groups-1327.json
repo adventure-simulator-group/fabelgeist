@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1327",
+  "at": "2026-10-25T18:30:34.221727+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1379,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/solver.rs",
+  "sha256": "a677e882ad829a28f90793efb5ccfadcef1512255ef4b1c5105e9f8365e9f543",
+  "actual_compared_ranges": [
+    [
+      1,
+      300
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "TwoBoneSolution/Chain Debug Clone Copy already. Inherent const constructor and native continuity/reach/solver/snapshot/current parent transform kernels only; no handwritten trait/codec. Six-argument contextual native chain constructor is not handwritten From; exact native finite/Option/error operations retain semantics.",
+  "first_unfinished": {
+    "scope_index": 1379,
+    "line": 301
+  },
+  "execution": "none"
+}

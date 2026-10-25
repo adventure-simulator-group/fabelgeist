@@ -1,0 +1,272 @@
+# Third-party notices
+
+## bevy_ahoy character controller
+
+`vendor/bevy_ahoy/` retains Jan Hohenheim's bevy_ahoy 0.2.0 source under
+MIT OR Apache-2.0. Both licenses accompany the source. The local corrections
+change the speculative stair-support query using the existing contact skin and
+compute platform point motion without artificial drift on static terrain.
+They preserve character travel limits and authored movement parameters.
+
+See [source provenance and patch contract](vendor/bevy_ahoy/UPSTREAM.md).
+
+## microlp bounded city packing solver
+
+The shared city compiler uses the pinned `microlp` 0.6.0 Cargo dependency for
+continuous linear feasibility within one existing street block. The dependency
+is by Alexey Zatelepin and Specy, under Apache-2.0; it is not vendored or modified.
+Physical geometry and access validation remain Fabelgeist contracts.
+
+- Source: <https://github.com/Specy/microlp/>
+- Published version: <https://crates.io/crates/microlp/0.6.0>
+- Source revision: `22f625e4112967946e9dcd2bc87378424b2d265e`
+- License: <https://github.com/Specy/microlp/blob/22f625e4112967946e9dcd2bc87378424b2d265e/LICENSE>
+
+## Art demo museum photographs
+
+`assets/art-demo/references/` contains CC0 photographs from the Metropolitan
+Museum of Art. Each image's museum and object record are recorded in
+`assets/art-demo/catalog.json`.
+See [museum photograph attribution](assets/art-demo/ATTRIBUTION.md) for the
+object list and source licensing policies.
+
+## Heraldic source artwork
+
+`assets/heraldry/` retains unmodified Wikimedia Commons SVGs of a German lion
+and two Wernigerode-style eagles. The lion is by Tom Lemmens (Tom-L), after
+Rinaldum; the eagles are by Tom Lemmens (Tom-L) and Heralder. All are used under
+[Creative Commons Attribution-ShareAlike 3.0 Unported](https://creativecommons.org/licenses/by-sa/3.0/).
+
+[Source artwork attribution](assets/heraldry/ATTRIBUTION.md) records each title,
+source page, creator, historical model, limitations and file hash. No pigment
+datasets or paint-model adaptations accompany these original drawings.
+
+## Bevy PBR shader
+
+`assets/shaders/tactical_interior_material.wgsl` adapts Bevy 0.19.1's
+`crates/bevy_pbr/src/render/pbr.wgsl` under the MIT license. The license is
+retained in `assets/shaders/BEVY_LICENSE_MIT.txt`.
+
+- Source: <https://github.com/bevyengine/bevy/blob/v0.19.1/crates/bevy_pbr/src/render/pbr.wgsl>
+
+`assets/shaders/tactical_atmosphere_functions.wgsl`,
+`tactical_atmosphere_sky_view_lut.wgsl` and
+`tactical_atmosphere_render_sky.wgsl` adapt Bevy 0.19.1's atmosphere
+shaders under the same MIT license. They correct the forward lookup-coordinate
+mapping, sky lookup texel-centre generation and planet-ground sampling radius.
+They also match atmospheric transport to each anti-aliasing depth sample.
+The Bruneton-derived segment sampling function retains its additional notice in
+`assets/shaders/BRUNETON_LICENSE.txt`.
+
+- Sources: <https://github.com/bevyengine/bevy/tree/v0.19.1/crates/bevy_pbr/src/atmosphere>
+
+## Meta Momentum Human Rig
+
+The character authoring pipeline uses Meta's Momentum Human Rig (MHR) v1.0.1.
+Its FBX rigs, model definition, and pose-corrective tensors are downloaded from
+the official release into an ignored local cache and are not included in this
+repository. Deliberately exported character meshes, skeleton data, and other
+artifacts derived from MHR remain subject to the upstream Apache License 2.0
+notice requirements.
+
+- Project and source: <https://github.com/facebookresearch/MHR>
+- Pinned release: <https://github.com/facebookresearch/MHR/releases/tag/v1.0.1>
+- License: <https://github.com/facebookresearch/MHR/blob/main/LICENSE>
+- Release archive SHA-256:
+  `e4f4f205cd87c0fa106577ba1de4fc763e4eb197c924461d2ef7e6944e9d6b94`
+
+## Hipparcos star catalogue
+
+The tactical sky includes a magnitude-limited derivative of the Hipparcos
+Main Catalogue produced by the European Space Agency Hipparcos mission. The
+source table is distributed by the Centre de Données astronomiques de
+Strasbourg as catalogue I/239. Fabelgeist retains only the HIP identifier,
+ICRS position, Johnson V magnitude, and B-V colour index for entries at or
+brighter than magnitude 6.5.
+
+- Source catalogue: <https://cdsarc.cds.unistra.fr/ftp/cats/I/239/>
+- Catalogue documentation: <https://cdsarc.cds.unistra.fr/ftp/cats/I/239/ReadMe>
+- Mission and catalogue overview:
+  <https://www.cosmos.esa.int/web/hipparcos/catalogues>
+- Credit: ESA, 1997, *The Hipparcos and Tycho Catalogues*, ESA SP-1200
+
+## Fantastic-disease folklore research
+
+The fantastic-disease content paraphrases historical dictionary, scholarly,
+library-catalogue, and public-domain sources. Source text is not redistributed:
+
+- *Frühneuhochdeutsches Wörterbuch*, “Mar” and “Bilwis” entries:
+  <https://www.fwb-online.de/go/mar.s.0m_1709314623> and
+  <https://fwb-online.de/lemma/bilwis.s.1f>
+- Thomas Schürmann, “Der Nachzehrerglauben in Mitteleuropa,”
+  *Ethnographisch-Archäologische Zeitschrift* 50 (2009):
+  <https://www.eaz-journal.org/index.php/eaz/article/download/851/907/2938>
+- Georgius Agricola, *De re metallica* (1556), public-domain English
+  translation: <https://www.gutenberg.org/files/38015/38015-h/38015-h>
+- Folger Shakespeare Library catalogue record for Agricola,
+  *De animantibus subterraneis* (1549):
+  <https://catalog.folger.edu/record/367251>
+- D. L. Ashliman's research collection, “The Mare in Scandinavian Belief,”
+  used only for explicitly later comparative variants:
+  <https://sites.pitt.edu/~dash/nightmare.html#mart>
+- *Deutsche Biographie*, “Paracelsus,” used for the 1566 abridged publication
+  history of *Liber de nymphis*:
+  <https://www.deutsche-biographie.de/sfz93903.html?language=en>
+- New York Public Library research catalogue, *Liber de nymphis, sylphis,
+  pygmaeis et salamandris*, used for the Huser/Basel 1591 textual history:
+  <https://test.nypl.org/research/research-catalog/bib/pb9916825293506421>
+
+## Strategic map data
+
+The generated Paper map and terrain-routing packs adapt Viabundus Pre-modern
+Street Map 2, Copernicus DEM GLO-30, and Copernicus Land Monitoring Service
+forest data offline. Their canonical redistribution notice is
+[MAP_DATA_LICENSE.md](MAP_DATA_LICENSE.md). It applies CC BY-SA 4.0 to the
+project-owned contributions, excludes the generated data artifacts from the
+software AGPL, identifies modifications, and retains the source-specific
+attribution, liability, and no-endorsement terms. The compiler copies that
+notice beside every generated map or terrain pack.
+
+## Game Icons
+
+The strategic web interface vendors monochrome SVG artwork from
+[Game-Icons.net](https://game-icons.net/), obtained from Iconify's
+`@iconify-json/game-icons` package version 1.2.4.
+
+- License:
+  [Creative Commons Attribution 3.0](https://creativecommons.org/licenses/by/3.0/)
+- Upstream repository and license:
+  <https://github.com/game-icons/icons/blob/master/license.txt>
+- Iconify collection: <https://icon-sets.iconify.design/game-icons/>
+
+Upstream contributors (the complete roster in the upstream license): Lorc,
+Delapouite, John Colburn, Felbrigg, John Redman, Carl Olsen, Sbed, PriorBlue,
+Willdabeast, Viscious Speed, Lord Berandas, Irongamer, HeavenlyDog, Lucas,
+Faithtoken, Skoll, Andy Meneely, Cathelineau, Kier Heyl, Aussiesim, Sparker,
+Zeromancer, Rihlsul, Quoting, Guard13007, DarkZaitzev, SpencerDub,
+GeneralAce135, Zajkonur, Catsu, Starseeker, Pepijn Poolman, Pierre Leducq,
+Caro Asercion, and SeregaCthtuf. Some upstream folders are expressly CC0;
+the vendored compilation is conservatively treated as CC BY 3.0 because its
+Iconify metadata does not preserve per-glyph authorship or CC0 status.
+
+Vendored icon names:
+
+acrobatic, anatomical-head, ancient-sword, anvil, arm, arm-bandage, armor-cuisses,
+armor-vest,
+awareness, bandage-roll, barbute, bed, beer-stein, belt-armor, biceps,
+bleeding-eye, bleeding-wound, bo, bordered-shield, bow-arrow, bowie-knife,
+bracer, brain, bread, breastplate, broad-dagger, broadsword, brodie-helmet,
+broken-heart, bullseye, byzantin-temple, caduceus, calendar, campfire,
+camping-tent, castle, chain-mail, check-mark, chest-armor, church, clothes,
+coins, coma, conversation, crested-helmet, cross-mark, crossbow, crossed-swords,
+crown, daggers, death-skull, dodge, duration, eye-target, flame, flanged-mace,
+gothic-cross, greaves, halberd, hammer-nails, hammer-sickle, heart-beats,
+heart-minus, heavy-helm, helmet, help, holy-symbol, hood, house, human-ear,
+inner-self, juggler, knapsack, layered-armor, leg, light-helm, lockpicks,
+mailed-fist, mail-shirt, meal, medical-pack, metal-skirt, mounted-knight,
+muscular-torso, musket, night-sleep, open-book, open-chest, person,
+piercing-sword, plain-arrow,
+plain-dagger, pocket-bow, prayer, pteruges, relic-blade, rifle, roman-shield,
+rose, round-shield, running-ninja, saber-slash, samara-mosque, scales, scalpel,
+shield, shield-echoes, shirt, shop, skirt, sleeveless-jacket, spear-hook,
+spears, snowflake-1, spiked-halo, split-cross, stiletto, stomach, stopwatch,
+sun, sword-brandish, sword-clash, sword-hilt, templar-shield, terror, tightrope,
+torch, treasure-map, trousers, two-handed-sword, visored-helm, warhammer,
+water-bottle, water-drop, waterskin, weight, wingfoot, wood-axe, wood-club.
+
+The files in `crates/strategic-web/static/icons/game/` were converted from
+Iconify JSON bodies into standalone SVGs. The anatomical-head variant removes the targeting
+reticle from Game Icons headshot; other artwork is unchanged. CSS
+masks supply colour at runtime.
+
+## Font Awesome Free
+
+The Religion skill icons `fontawesome-cross.svg`,
+`fontawesome-star-and-crescent.svg`, and `fontawesome-star-of-david.svg` are
+from Font Awesome Free 7.3.1 by Fonticons, Inc. They are licensed under
+[Creative Commons Attribution 4.0](https://creativecommons.org/licenses/by/4.0/).
+
+- Sources: <https://fontawesome.com/icons/cross>,
+  <https://fontawesome.com/icons/star-and-crescent>, and
+  <https://fontawesome.com/icons/star-of-david>
+- License: <https://fontawesome.com/license/free>
+
+## NASA Scientific Visualization Studio CGI Moon Kit
+
+`assets/textures/moon/lroc_color_2k.jpg` is the unmodified 2048 x 1024 JPEG
+of the December 2025 equirectangular LROC colour mosaic from NASA's
+Scientific Visualization Studio CGI Moon Kit (item 4720), downloaded from:
+<https://svs.gsfc.nasa.gov/vis/a000000/a004700/a004720/lroc_color_2k.jpg>.
+Its SHA-256 is
+`f7130a1822681fa7512d7dcfd40db8c10b9ba4f06777910348698260ed7a2170`.
+
+The map was assembled by Ernie Wright (USRA) from Lunar Reconnaissance
+Orbiter Camera WAC imagery and LOLA laser-altimeter albedo data. Credit:
+NASA's Scientific Visualization Studio; NASA/GSFC; Arizona State University.
+The source page describes it as a base-colour map centered on 0 degrees
+longitude: <https://svs.gsfc.nasa.gov/4720>.
+
+NASA states that its imagery and 3D-rendering media, including texture maps,
+generally are not subject to copyright in the United States. This use follows
+NASA's media guidelines, acknowledges NASA as the source, and does not imply
+NASA endorsement: <https://www.nasa.gov/nasa-brand-center/images-and-media/>.
+
+### HYDE 3.5
+
+Generated strategic map tiles and terrain packs include a cultivated-land
+classification derived from HYDE 3.5 c9 historical cropland-area data. See the
+HYDE source contract in `scripts/world_source_init.py`,
+`MAP_DATA_LICENSE.md`, and the generated source release metadata for provenance
+and applicable terms.
+
+## Strategic web fonts
+
+The strategic website loads Cinzel by Natanael Gama, EB Garamond by the
+EB Garamond project authors, and UnifrakturCook through Google Fonts. These
+fonts are distributed under the SIL Open Font License 1.1. Font files are
+served by Google Fonts rather than bundled with the strategic website.
+
+Source, copyright, and license notices:
+
+- [Cinzel](https://github.com/google/fonts/tree/main/ofl/cinzel)
+- [EB Garamond](https://github.com/google/fonts/tree/main/ofl/ebgaramond)
+- [UnifrakturCook](https://github.com/google/fonts/tree/main/ofl/unifrakturcook)
+
+## Shop sign fonts
+
+Text-only shop signs bundle unmodified Grenze Gotisch Bold by Omnibus-Type and
+UnifrakturCook Bold from Google Fonts. Both are distributed under the SIL Open
+Font License 1.1. The complete copyright and license notices accompany the fonts
+in `crates/adventuresim-building-generator/assets/fonts/`.
+
+- Grenze Gotisch source:
+  <https://github.com/Omnibus-Type/Grenze-Gotisch/blob/master/fonts/ttf/GrenzeGotisch-Bold.ttf>
+- Grenze Gotisch SHA-256:
+  `822606a1aaf0dd58c653ca8b324c6ce7f5686dc91861d094537c4f486a610ddb`
+- UnifrakturCook source:
+  <https://github.com/google/fonts/blob/main/ofl/unifrakturcook/UnifrakturCook-Bold.ttf>
+- UnifrakturCook SHA-256:
+  `ea002fa9c65f1a612af100e00d87ab65f16381f450020ec3d021f3dbf79a6dcd`
+
+## Historical paint measurements and colorimetry
+
+`crates/adventuresim-heraldry/references/data/measured-paint-data.json` contains
+selected measurements by Anna Sofia Reichert, Ana Belén López-Baldomero,
+Francisco Moronta-Montero, Ana López-Montes, Eva María Valero and Carolina
+Cardell, from [their 2025 dataset, version 3](https://doi.org/10.6084/m9.figshare.28639103.v3),
+under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Changes: selected
+gum-Arabic/parchment specimens, retained 400–780 nm at 5 nm spacing, normalized
+metadata, and recomputed spatial standard deviations from source pixel cubes.
+
+The same file separately contains adapted CIE 1931 2° observer and D65
+illuminant tables by the International Commission on Illumination (CIE),
+under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). Sources:
+[observer](https://doi.org/10.25039/CIE.DS.xvudnb9b) and
+[illuminant](https://doi.org/10.25039/CIE.DS.hjfjmt59). Changes: selected
+400–780 nm rows at 5 nm spacing. These adapted tables retain CC BY-SA 4.0;
+the pigment measurements retain their separate CC BY 4.0 notice.
+
+Source metadata, specimen paths and checksums accompany the data. Exports
+using measured paints carry these credits and license links. These licenses
+apply to the identified data, not the generator's software. No endorsement is
+implied. See the crate's `references/MEASURED_PAINT.md` for calibration limits.

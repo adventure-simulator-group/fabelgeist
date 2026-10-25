@@ -1,0 +1,30 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-442",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/materials.rs",
+      "sha256": "3611b0226c15f78d4dd5c10bb85a682798a4c5bcec6a5eec1aa09ca05d81a2e9",
+      "actual_EOF": 629,
+      "actual_compared_ranges": [
+        [
+          1,
+          629
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Tree surface numerical adapters",
+      "analysis": "Namedcurated materialcoefficientsfinite, canopy_ao_strength1-exp(-.078*max(radius,0)) staysunitforordinarypositivepresetandMAXradius (exponentlargefiniteorInfnegativeexp0), so no spuriousoverflowfinding. Barkterrainwidth/depth half andtypedordered SceneElevationRange exported asnativeuniforms; shaderdenominator/flatheightpolicy remainsactualshaderboundary, noassumedfinitegeneric guarantee. Surfacecolors unit-linearconversion/currentconstantsoilscopefinite; reciprocalnamedFOREST_SOIL_TILE_METRESpositivecurrentconstantdependency. Cheapaggregatebark intentionallyseparatepipelinelayoutpreservingcolor/roughness whileomittingclose-relief, not duplicateownerdefect. Leafparams take rawprivate floats withactualboundednamed presets, no externalinvalidadmissionproven. Whole629sourcefixturesread, stringassertionsnotshaderexecution orpersonalfullshadercoverage."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "1 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/presentation.rs"
+}

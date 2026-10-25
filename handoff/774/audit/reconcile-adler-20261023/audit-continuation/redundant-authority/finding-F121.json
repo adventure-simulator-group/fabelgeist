@@ -1,0 +1,43 @@
+{
+  "id": "CONT07-F121",
+  "contract": "CONT07-CONTRACT-610",
+  "at": "2026-10-24T00:39:06.560964+00:00",
+  "title": "Nearest-grid early return can exceed the supplied maximum radius",
+  "classification": "source-confirmed API-conditional finite-radius contract mismatch",
+  "sources": [
+    {
+      "scope_index": 2644,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/grid.rs",
+      "sha256": "c09704f7670decebc3e4eb9ff4ea525870f197f4302a4e16407c5e298f988996",
+      "ranges": [
+        [
+          113,
+          154
+        ]
+      ]
+    },
+    {
+      "scope_index": 2300,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/ops/interpolate.rs",
+      "sha256": "695c1097efb81ad14d92b7d55949e67524b0e3949da155df54fac940c6f5b92a",
+      "ranges": [
+        [
+          267,
+          287
+        ],
+        [
+          307,
+          318
+        ]
+      ]
+    }
+  ],
+  "producer_and_recipient": "nearest_k derives max_rings=ceil(max_radius/cell), accumulates accepted grid points and returns kth-nearest results when kth distance<=ring*cell. Only exhaustion path retains distance<=max_radius. nearest forwards early result directly.",
+  "static_valid_input_witness": "PointGrid::new(1.0), insert point(0.5,0,0) in any accepted group, query origin with k1/max_radius0.1. Ring0 finds distance0.5 but fails threshold0. Ring1 finds no new point but 0.5<=1 passes; returns that point outside0.1. All values/counts finite and bounded; no malformed point or zero count needed. No execution.",
+  "normal_qualification": "Actual Interpolate guide blending uses infinite radius, unaffected. Its finite edge query uses returned distance through smoothstep(0,edge,d); an excessive distance saturates to same1 as None fallback edge, so this witness proves no ordinary thinning result change there. Other actual finite consumers remain to trace.",
+  "connected_repair": "Apply exact requested Euclidean maximum radius before any successful return, coordinated with existing shell stopping criterion and group filter. Preserve infinite search and nearest ordering; no arbitrary spatial cap.",
+  "acceptance": "Every returned accepted point distance<=finite max_radius on every exit; empty/no-near point yields explicit empty/None. Infinite-radius and present matching group semantics unchanged.",
+  "dedup": "Native05F006/RigADM03F075 concern k0/capacity/coordinate arithmetic, distinct. Engine09 confirms no exact saved alias. Root global union pending.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

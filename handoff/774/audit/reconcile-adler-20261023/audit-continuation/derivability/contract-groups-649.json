@@ -1,0 +1,49 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-649",
+  "at": "2026-10-25T16:21:29.586508+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 958,
+  "source_id": "pr-working:crates/adventuresim-core/src/morale.rs",
+  "sha256": "f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "From<MoraleEventKind>",
+      "type": "MoraleSourceKind",
+      "lines": [
+        [
+          94,
+          119
+        ]
+      ],
+      "disposition": "KEEP distinct closed vocabulary variant mapping"
+    },
+    {
+      "trait": "Display",
+      "type": "IncapacitationStatus",
+      "lines": [
+        [
+          204,
+          208
+        ]
+      ],
+      "disposition": "KEEP small literal as_str formatter, no existing owning Display derive"
+    }
+  ],
+  "analysis": [
+    "MoraleEventKind/MoraleSourceKind/IncapacitationStatus already structural+Serde+conditional SpacetimeType derives; StrategicIncapacitation Default already derive.",
+    "From<MoraleEventKind> for MoraleSourceKind94\u2013119 maps corresponding variants into larger source vocabulary, preserve explicit enum semantic mapping/no existing owning mapping derive. IncapacitationStatus Display204\u2013208 small write_str(as_str), retain no existing owning Display derive; do not add serialization to replace classifier. Native mastery calculations not trait boilerplate."
+  ],
+  "first_unfinished": {
+    "scope_index": 958,
+    "line": 221
+  },
+  "execution": "none"
+}

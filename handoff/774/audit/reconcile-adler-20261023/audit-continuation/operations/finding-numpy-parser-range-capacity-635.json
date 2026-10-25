@@ -1,0 +1,51 @@
+{
+  "id": "SEGOVB-04-NUMPY-PARSER-RANGE-CAPACITY-CANDIDATE-001",
+  "sources": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-numpy-storage/src/npy.rs",
+      "sha256": "68819769cfa8ef5618a5db759768165d38063bff4ba263f40c6e4d36fbdb547b",
+      "ranges": [
+        [
+          117,
+          169
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-numpy-storage/src/zip.rs",
+      "sha256": "7e9b70f0870cf014d25bd11d783636ca6cb413bc69b6dfa00c12eee0241695de",
+      "ranges": [
+        [
+          101,
+          126
+        ],
+        [
+          145,
+          171
+        ],
+        [
+          205,
+          228
+        ]
+      ]
+    }
+  ],
+  "witnesses": [
+    "NPY magic+version2 with10 or11 total bytes passes minimum10 but reads8..12; malformed public byte API panics rather than Err.",
+    "Otherwise syntactically accepted NPY shape(usizeMAX,2), U8 dtype computes product before payload bound and overflows checked arithmetic; release modulo can admit a different payload cardinality.",
+    "ZIP central fixed46-byte header with declared name length1 and no following name byte passes fixed header check but slices missing variable name before rejection. ZIP64/raw native offset plus length addition and advertised decode capacity require checked representability before bounds/allocation."
+  ],
+  "qualification": "Malformed or extreme representable byte API routes, not known current valid authored asset failures. No parser execution, constructed archive run, actual allocation or new unique global count. Exact existing admission aliases pending parent comparison.",
+  "repair_boundary": "Whole parser checked ranges/cardinality/offset conversion and decode work admission before indexing/allocation; structured contextual errors preserve actual physical tensor dtype/shape semantics.",
+  "acceptance": [
+    "Malformed short extended header and truncated variable central fields return errors.",
+    "Shape/cardinality/byte products and all archive offsets remain checked in native host representation.",
+    "Valid stored/deflated/ZIP64 and ordinary NumPy arrays retain exact dtype/order/payload behavior."
+  ],
+  "consumed_exact_alias": {
+    "id": "RIG-ADMISSION03-F091",
+    "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+    "record_index": 99,
+    "disposition": "same exact malformed header, shape/byte overflow, ZIP variable field and public payload desync; additional04 support, no new defect count"
+  }
+}

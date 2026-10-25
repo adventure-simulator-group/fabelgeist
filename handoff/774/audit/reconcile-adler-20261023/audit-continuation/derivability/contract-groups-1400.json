@@ -1,0 +1,42 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1400",
+  "at": "2026-10-25T18:47:13.941187+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1458,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/browser_runtime.rs",
+  "sha256": "afb6d3b0ff97037051e1fae2f1c9340a31fe07a1b34a6bc244d0110010c429d3",
+  "actual_compared_ranges": [
+    [
+      1,
+      300
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "Default",
+      "type": "ForgePreviewView",
+      "lines": [
+        96,
+        104
+      ],
+      "disposition": "KEEP nonzero native framing distance1.75."
+    },
+    {
+      "trait": "Plugin",
+      "type": "BrowserRuntimePlugin",
+      "lines": [
+        133,
+        154
+      ],
+      "disposition": "KEEP native setup/schedule/resources, not derivable."
+    }
+  ],
+  "analysis": "BrowserMode structural/Default Strategic/Resource and tagged command/view Deserialize already derived. KEEP manual ForgePreviewView Default96\u2013104 nonzero1.75 distance (field default changes framing); KEEP Plugin BrowserRuntimePlugin133\u2013154 native stateful scheduling/resources. Remaining current browser queue/native renderer mode, viewport/command/deferred mutation semantics not structural trait derivation; no manual codec in slice.",
+  "first_unfinished": {
+    "scope_index": 1458,
+    "line": 301
+  },
+  "execution": "none"
+}

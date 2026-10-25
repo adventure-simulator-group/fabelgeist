@@ -1,0 +1,26 @@
+--- base/generation/error.rs
++++ head/presentation/preparation.rs
+@@ -1,4 +1,5 @@
+-//! Preparation failures retain their owning causes until the presentation boundary.
++//! Shared preparation failures retain causes until the presentation boundary.
++use crate::presentation::vista::VistaMeshError;
+ use adventuresim_building_generator::{
+     GenerationError, interior::InteriorLayoutError, spatial_geometry::GeometryError,
+ };
+@@ -46,6 +47,8 @@
+     #[error(transparent)]
+     Geometry(#[from] GeometryError),
+     #[error(transparent)]
++    VistaMesh(#[from] VistaMeshError),
++    #[error(transparent)]
+     Interior(#[from] Box<InteriorLayoutError>),
+     // The graphics parser currently exposes prose at its external YAML boundary.
+     // Keep that boundary classified here without branching on its message.
+@@ -81,6 +84,7 @@
+             Self::SceneInput(_) => "generation/scene-input",
+             Self::Building(_) => "generation/building",
+             Self::Geometry(_) => "generation/geometry",
++            Self::VistaMesh(_) => "generation/vista-mesh",
+             Self::Interior(_) => "generation/interior",
+             Self::GraphicsConfiguration { .. } => "generation/graphics-configuration",
+             Self::NotPrepared { .. } => "generation/not-prepared",

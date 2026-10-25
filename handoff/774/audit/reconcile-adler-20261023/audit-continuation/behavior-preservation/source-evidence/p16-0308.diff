@@ -1,0 +1,13 @@
+--- p16base/crates/adventuresim-stdb-module/src/time/clock.rs
++++ catalog-p16head/crates/adventuresim-stdb-module/src/time/clock.rs
+@@ -86,9 +86,9 @@
+ fn advance_married_family_by(
+     ctx: &ReducerContext,
+     character_id: u64,
+     elapsed: u64,
+-) -> Result<(), String> {
++) -> StrategicOperationResult<()> {
+     if elapsed == 0
+         || ctx
+             .db
+             .npc_policy()

@@ -1,0 +1,97 @@
+{
+  "id": "CONT07-CONTRACT-419",
+  "at": "2026-10-23T21:33:51.047668+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1839,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/single.rs",
+      "sha256": "328feb3454948dd70bc97472745b9766b0dee5d91302c0a5de0ea7d0464d8813",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/single.rs",
+      "actual_EOF": 115,
+      "ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1840,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/single/apron.rs",
+      "sha256": "f9e32dcc77548278629c776402165e95ee25eee417165f1020b9e82c2eca7d37",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/single/apron.rs",
+      "actual_EOF": 281,
+      "ranges": [
+        [
+          1,
+          281
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1841,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/single/apron/surface.rs",
+      "sha256": "b0385be5c59e01fd9faacffa45e1165daeeb9bf9c81ca5b6b56ef2cf9956e988",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/single/apron/surface.rs",
+      "actual_EOF": 120,
+      "ranges": [
+        [
+          1,
+          120
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1842,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/single/bearing.rs",
+      "sha256": "2f03defda63188c2d3cda5491164f2ed5c6366a272ca14509e1a899f51c92ba2",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/single/bearing.rs",
+      "actual_EOF": 66,
+      "ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1843,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/single/floor.rs",
+      "sha256": "5e5981b110fe26b972a64d993e58a3d3c8cd3452696b75eb45b9f21a08fd19f9",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/single/floor.rs",
+      "actual_EOF": 115,
+      "ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "RIG-OWNER-SUPPORT-MESH-APRON-064",
+    "ROOT-OWNER-SCENE-SOURCE-056"
+  ],
+  "facts": [
+    "1839 normal single-building producer rejects empty/duplicate entrance IDs, preserves all admitted doorway order but sorts constructed architectural-floor entries for deterministic apron assembly. One SelectedFloor.elevation feeds stored floor_bearing, mesh convex floor and returned MemberSupport before source validation/admission. Public returned plan fields could be manually mismatched, but actual normal source constructs them coherently; no current mutation/consumer mismatch established.",
+    "1840 PreparedApron retains outer/edge/direction/run and derived source endpoints once. These coordinate equivalent geometry within a private immutable prepared record, no later independent setter. Current caller passes same request policy into floor_interval and append_to; mixed-policy private method hypothetical is not an actual current path. Opposing approaches reserve contact-sized natural strip deliberately.",
+    "1840/1841 floor interval versus generated ramp/stairs are feasibility calculation and final physical mesh; final mesh grade rechecked against same supplied bounds. Full landing intentionally stays at selected floor. Source endpoints can differ by crossfall; those are independent measured points, not duplicates.",
+    "1842 bearing region is exact floor polygon, bearing rectangle is bounding contact/diagnostic geometry, plot is larger property ownership. They are different geometric roles; constructor proves polygon inside plot, not that they should be collapsed.",
+    "1843 selected preferred height averages ALL constructed-doorway source observations in f64, then clamps into full bearing/all-apron constraint intersection. Sorted lowest entrance identity selects returned threshold only. Qualifies1839 comment and supplier064 wording; do not infer first-door-only height authority. doors/aprons zip is coordinated by single parent collect, no separate mutation occurs on actual path.",
+    "No new07finding; conditional public plan mutation, error-loss and arithmetic/aggregate issues stay separate. No checks or13-lens/overlay clearance."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1844,
+    "start_line": 1
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-104",
+  "at": "2026-10-25T12:37:52.414251+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 244,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/reputation.rs",
+      "sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+      "actual_EOF": 440,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/reputation.rs",
+        "snapshot": "physical-p16",
+        "path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\reputation.rs",
+        "sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 440,
+        "producer_reached_contract_observations": [
+          {
+            "record": "continuation/camera/receivers.jsonl",
+            "receipt": "row-2",
+            "json_pointer": "",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-stdb-module/src/reputation.rs",
+            "read_ranges_as_recorded": [
+              [
+                253,
+                356
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-stdb-module/src/reputation.rs",
+              "sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+              "read_ranges": [
+                [
+                  253,
+                  356
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 93,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-INCIDENT-036",
+            "json_pointer": "/current_sources/2",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row220/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                85,
+                350
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                85,
+                350
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "continuation_actual_producer_source_proofs": [
+          {
+            "record": "continuation/native/new-variant-producer-role-reconciliation.json",
+            "json_pointer": "/fresh_bounded_source_proofs/0",
+            "source_id": "physical-p16:crates/adventuresim-stdb-module/src/reputation.rs",
+            "sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+            "read_ranges": [
+              [
+                253,
+                356
+              ]
+            ],
+            "proof": {
+              "source_id": "physical-p16:crates/adventuresim-stdb-module/src/reputation.rs",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\reputation.rs",
+              "sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+              "actual_line_count": 440,
+              "read_ranges": [
+                [
+                  253,
+                  356
+                ]
+              ],
+              "actual_contract": "Full record_event258-348: raw source_kind copied only into native event insert; fame/infamy validation, retry absence/existence, settlement check, contributions305-311, actual settlement/edge aggregate get-or-zero and saturating native update. local_reputation350-356 is prefix only; no whole-function claim.",
+              "mode": "fresh bounded source read, no project command or execution"
+            },
+            "limits": "Actual source-role proof for producer lens only; no owner-fit or other-lens clearance."
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          78,
+          360
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "Clone/Debug/table CaseReputationParticipant78\u201389"
+      ],
+      "absence_basis": "Union registered85\u2013350 and253\u2013356, owning record/signatures/closing bodies78\u2013360 personally consumed. No manual trait/serializer. Contextual participant/charge snapshots, offense settlement, route contribution and reputation event projection are semantic functions; table record already derived.",
+      "necessary_signature_extension": "78\u201384 owning record;357\u2013360 local_reputation closing projection.",
+      "coverage_limit": "Only scoped78\u2013360 material context, not full440. Exploratory61\u201377/361\u2013375 no broader role credit."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Reputation immutable event and cohort projections",
+      "disposition": "No derivability candidate in exactmaterial; preserve semantic route/cohort filtering and native delta projection.",
+      "acceptance": "No field-only derive replaces contextual actor/event identities and idempotency; no generated binding edits."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 245,
+    "source_id": "physical-p16:crates/adventuresim-stdb-module/src/residence.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

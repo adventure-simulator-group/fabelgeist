@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1227",
+  "at": "2026-10-25T18:11:28.725972+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1297,
+  "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/travel.rs",
+  "sha256": "0eaf9c6a3df7a4747e94074b13f2712ff14106e8e8dc1570937a613eb64ae881",
+  "actual_compared_ranges": [
+    [
+      341,
+      680
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Only native inherent provisioning/current finance/provider/public quote/food-water forecast/command and coherent camp observation. No handwritten trait/custom codec/type. Public provision inputs synthesize current cohort/supply/window/reserve with checked bounds; selected payer tuple ordering and finance signature compare explicit native fields, not whole-row Eq/Ord. Existing derived equality used where requested; no commands executed.",
+  "first_unfinished": {
+    "scope_index": 1297,
+    "line": 681
+  },
+  "execution": "none"
+}

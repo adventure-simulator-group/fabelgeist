@@ -1,0 +1,143 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-263",
+  "at": "2026-10-25T14:17:34.349970+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 526,
+      "source_id": "pr-working:content/tactical/combat.yaml",
+      "sha256": "05958d54e48eba637c755f8ad89959dc6ef0aeaeeeaeb75022e07071a01ddaf3",
+      "actual_EOF": 344,
+      "requested_registration": {
+        "source_id": "pr-working:content/tactical/combat.yaml",
+        "snapshot": "pr-working",
+        "path": "content/tactical/combat.yaml",
+        "owner": "root",
+        "sha256": "05958d54e48eba637c755f8ad89959dc6ef0aeaeeeaeb75022e07071a01ddaf3",
+        "base_sha256": "2b18caf92c2b58bf9d7305e8119e8f3b49bea9bf076e5eb0ed24a223160ca743",
+        "state": "modified",
+        "bytes": 13718,
+        "audit_owner": "root",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "root",
+            "record": "wave-01/audit-producer-propagation/root/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                344
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "ROOT-PP-PRESENTATION-011",
+              "ROOT-PP-AUTHORED-CLOSURE-018",
+              "ROOT-PP-CONFIG-PORTS-028",
+              "camera/traces.jsonl#CAM-PROP-BUILD-001"
+            ]
+          },
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/progress.json",
+            "ranges": [
+              [
+                1,
+                344
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": []
+          },
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/unchanged-owners-002.json",
+            "ranges": [
+              [
+                1,
+                344
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": []
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 76,
+            "read_ranges": [
+              [
+                1,
+                344
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-AUTHORED-016",
+              "ROOT-OWNER-MOTOR-013"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/content/tactical/combat.yaml"
+          },
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 333,
+            "read_ranges": [
+              [
+                1,
+                344
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-AUTHORED-016",
+              "ROOT-OWNER-MOTOR-013",
+              "ROOT-OWNER-MOTOR-CLOSURE-072"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/content/tactical/combat.yaml"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          344
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "Authored YAML data document, no Rust trait/Serde implementation body.",
+      "absence_basis": "Full344-line combat config personally consumed: schema/resolution/autoresolve/realtime/movement/AI/input/targeting/presentation/animation/IK/ragdoll records with explicit native units, authored zero/signed/positive values and policy. No type/codec implementation exists in document. Rust defaults/admission/native consumers and other-lens operation adequacy separately traced; not inferred from source data."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Authored shared combat and animation configuration values",
+      "disposition": "Non-Rust data role has no handwritten trait to derive; preserve semantic configuration/default provider ownership.",
+      "acceptance": "No positive-only narrowing or data/runtime consistency approval from no-derive disposition; no configuration/check/runtime edits/execution."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 528,
+    "source_id": "pr-working:crates/adventuresim-building-generator/Cargo.toml"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

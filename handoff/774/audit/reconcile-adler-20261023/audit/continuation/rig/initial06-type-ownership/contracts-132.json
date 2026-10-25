@@ -1,0 +1,37 @@
+{
+  "id": "RIG-INITIAL06-GROUP-132",
+  "at": "2026-10-23T03:52:28.362714+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-054.json",
+  "groups": {
+    "clip-topology-and-weight-ownership": {
+      "comparison": "Fresh full PRplayback_contributions43/weighted71/continuation92/Core sample_values207; supporting actual animation mod125-170 declarations only. Core BlendWeight owns finite nonnegative unbounded contribution, not UnitInterval: independent clip weights may exceed1 and zero retains declared topology. Core CyclePhase signed unwrapped cycle coordinate differs CycleDelta signed displacement; only named periodic operations wrap. Same storage invariant does not erase coordinate/displacement distinction or move these shared evaluator leaves into client. ClipMirror binary authored original/mirrored selection differs numeric mirrored contribution. Actual WeightedClip coalesces by clip handle+layer+same ClipTime sample+locomotion phase and checked-adds total/mirrored weights. ExtrapolatedSpan and ContinuationSpan encode different interpolation topology/anchor sets; their repeated weight/clip fields are already composed canonical leaves, not duplicate accepted quantity definitions. PlaybackContributions privately retains all three topology sets and checks aggregate BlendWeight overflow; is_bind means all empty, not all weightszero. Do not normalize away zero-weight topology or force sum1. Continuation absent-anchor branch is existing resolution behavior, not a second clip owner or new compatibility API; behavior review belongs its own policy lens, no silent removal here. Called resolver/frame/ClipTime definitions remain separately inventoried; the product source alone is not their admission proof.",
+      "disposition": "Keep shared evaluator quantity/phase/mirror owners in TacticalCore, client-owned clip/anchor resolution/topology products and canonical typed fields through aggregation. No duplicate owner from repeated clip/weight fields or unit backed floats."
+    },
+    "fixed-sample-phase-and-procedural-clock": {
+      "comparison": "Fresh full PRpose interpolation42/display_history17/proceduralclock36/heightvalues39. PoseInterpolation privately wraps canonical UnitInterval with source-specific ratio-from-fixed-sample-clock and error context; meaningful local projection, not a competing general fraction implementation. Scalar extraction occurs in actual elapsed/interval numerical ratio; elapsed is nonnegative span, interval positive duration, clamped phase is dimensionless. FixedAnimationStep coherently pairs canonical AnimationSampleTick and elapsed delta; optional clock override is deterministic presentation tooling, not strategic wall/authority time. PosePresentationMode tracks authored display history independent of visibility/physics pinning; keep that lifecycle distinction. HeightValues retains existing canonical SignedLength and HeightDistance; add/sub/advance_offset computes changed metre values and re-admits overflow, legitimate math ports. Its high Building facade import is existing F001 direct neutral-owner migration, not a reason to erase height-role maximumdelta or introduce another checked metre type.",
+      "disposition": "Preserve meaningful local interpolation/history/tool-clock roles over shared Core leaves; extend F001 direct neutral length import, no new canonical fraction/time implementation."
+    },
+    "bind-pose-and-capture-identities": {
+      "comparison": "Fresh full PRbind_pose48/capture_ids29 including original readonly fixture; supporting AuthoredBindTransform actual mod167-170. Captured bind localTransform+ownerEntity is an original pose baseline, current mutableTransform plus optional skeletal offset is display state; repeated fields intentionally have different authority/lifetime. Capture only Added Transform without captured component, follows ancestry to an AnimationRigScene owner and restores only bind-mode playback. No second canonical joint/rig asset identity inferred from BevyEntity. capture_entity_id encodes index+generation or PLACEHOLDER and capture_target uses actual AnimationTargetId formatting; these Strings are explicit external report encodings, not retained gameplay IDs or substitute canonical RigJointName. Existing fixture establishes stable format intent, no execution. Native Transform/Vec3 here is actual Bevy scene animation port, not a blanket exemption for every upstream retained pose.",
+      "disposition": "Keep authored baseline/current display/tool capture products distinct and native capture encoding at output boundary; no duplicate rig identity or geometry owner in these sources."
+    }
+  },
+  "supporting_existing_scope_ranges": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/mod.rs",
+      "ranges": [
+        [
+          125,
+          170
+        ]
+      ],
+      "limits": "declarations only; whole810 main source remains incomplete"
+    }
+  ],
+  "source_fact_refs": [
+    "contracts-001.json",
+    "contracts-002.json"
+  ],
+  "limits": "Ten exact PR sources fresh full; no P16 or whole animation mod/ClipTime/resolver/helper proof. Source-only existing tests, no runtime or later-lens verdict. New054 TerrainSurface overlay remains pending own comparison."
+}

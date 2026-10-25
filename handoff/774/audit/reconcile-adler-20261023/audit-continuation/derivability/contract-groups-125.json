@@ -1,0 +1,207 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-125",
+  "at": "2026-10-25T12:45:09.459791+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 269,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "actual_EOF": 1586,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+        "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 51546,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 332,
+            "read_ranges": [
+              [
+                420,
+                540
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-INCIDENT-049"
+            ],
+            "read_status": "scoped_definition_and_receiving_body_only",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/strategic/authority_model.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 361,
+            "read_ranges": [
+              [
+                1,
+                1586
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-AUTHORITY-MODEL-053"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/strategic/authority_model.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "continuation/camera/traces.jsonl",
+            "receipt": "CONT-CAMERA-PP-009",
+            "json_pointer": "/exact_source_proofs/2",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1586
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+              "resolved_path": "SNAPSHOTS/p16/crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+              "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+              "actual_lines": 1586,
+              "read_ranges": [
+                [
+                  1,
+                  1586
+                ]
+              ],
+              "role": "Index551 exact same source roles as index268: incident/source types, source digest branch distinction, native schema, admitted authority, mission/hostile and receiving paths. Both frozen variant fingerprints verified; corresponding PR semantic bodies actually inspected, no prior verdict credit.",
+              "proof_mode": "Counterpart exact same-byte semantic proof: all listed roles individually reconciled against actual PR body. Not an independent fresh P16 whole-file read or automatic equality coverage."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/native/source-reads.json",
+            "receipt": "row-1",
+            "json_pointer": "/2",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1586
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+              "resolved_path": "SNAPSHOTS/p16/crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+              "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+              "actual_lines": 1586,
+              "read_ranges": [
+                [
+                  1,
+                  1586
+                ]
+              ],
+              "role": "Index551 exact same source roles as index268: incident/source types, source digest branch distinction, native schema, admitted authority, mission/hostile and receiving paths. Both frozen variant fingerprints verified; corresponding PR semantic bodies actually inspected, no prior verdict credit.",
+              "proof_mode": "Counterpart exact same-byte semantic proof: all listed roles individually reconciled against actual PR body. Not an independent fresh P16 whole-file read or automatic equality coverage."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 118,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-ENCOUNTER-033",
+            "json_pointer": "/current_sources/4",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row245/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                680,
+                765
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                680,
+                765
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "delta_observation_index": 119,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-MISSION-BOOTSTRAP-046",
+            "json_pointer": "/additional_actual_source_proofs/4",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row245/proofs/1",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                185
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                185
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "Fresh actual bounded current receiving body read",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1239,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1586
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "Every declared authority/query/native record in exactfull1586 body already Clone/Debug and table or SpacetimeType; appropriate Copy/PartialEq/Eq native enums/records and JourneyCampInterval Default",
+        "ValidatedQuestGenerationAuthority44\u201348 Clone/Debug only; semantic checked replay builder retained"
+      ],
+      "absence_basis": "Fullsource personally consumed124actual1\u2013800 plus fresh801\u20131200/1201\u20131586. No handwritten trait/serializer. Existing native/table derives with field schema defaults own mechanical storage/wire. Contract/Mission parsed_state checked flattened tuple validation, explicit protocol commitment hashing, safe count/power/distance/publiccase projection, semantic JourneyEndpoint/terrain/stage selectors, gateway registration and hostile baseline normalization/replay are not raw derive opportunities.",
+      "source_read_receipts": [
+        "SEGOVB-INITIAL10-CONTRACT-124 actual1\u2013800",
+        "Thispacket fresh801\u20131586 closes whole registered1\u20131586 material"
+      ],
+      "coverage_limit": "Full this exactrole only; native generated table bodies/foreign receiver contracts and other variant contexts not inferred."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Strategic case, mission, journey and governance authority records",
+      "disposition": "No new derivabilityfinding; all mechanical structure already native/table derived, semantic checked construction retained.",
+      "acceptance": "Preserve private authority versus safe gateway projection, flattened native error admission, explicit protocol framing and no tactical tick persistence; no source mutation or checks."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 270,
+    "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/battle_combatants.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

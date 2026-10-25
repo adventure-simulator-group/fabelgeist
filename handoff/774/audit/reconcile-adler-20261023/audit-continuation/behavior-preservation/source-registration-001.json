@@ -1,0 +1,37 @@
+{
+  "id": "CONT08-REG001",
+  "at": "2026-10-25T08:11:44.522811+00:00",
+  "kind": "Additional material ranges of an existing native source, discovered while following actual new error recipient.",
+  "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/bevy_error.rs",
+  "scope_index": 6,
+  "sha256": "ae8feb04751ba67eaa86d03f3b748ef61d2bcdb9292c72dc0273eb353fb24fe2",
+  "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/ae8feb04751ba67eaa86d03f3b748ef61d2bcdb9292c72dc0273eb353fb24fe2",
+  "prior_scoped_ranges": [
+    [
+      40,
+      105
+    ],
+    [
+      395,
+      415
+    ]
+  ],
+  "material_ranges": [
+    [
+      7,
+      25
+    ],
+    [
+      228,
+      285
+    ],
+    [
+      381,
+      421
+    ]
+  ],
+  "reason": "Need actual BevyError severity/default conversion to distinguish typed Err from recovery; caller411/main410 routes new projection errors here.",
+  "registration_timing": "These bounded bodies were personally consumed before saving this registration; no prospective-before-read claim. No other-lens coverage inferred; coordinator should include newly material ranges in its next synchronization.",
+  "evidence": "Native6 From<E>400\u2013414 sets Severity::Panic; Severity/getter228\u2013285; Result severity mapping381\u2013396. Native7 full187 already scoped and freshly read.",
+  "limits": "Native6 broad extra context106\u2013145 was displayed but not a required new material role; no whole native6 coverage claimed."
+}

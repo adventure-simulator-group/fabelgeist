@@ -1,0 +1,82 @@
+{
+  "id": "CONT07-CONTRACT-474",
+  "at": "2026-10-23T22:31:23.402789+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2088,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/solids.rs",
+      "sha256": "b139a5600efc6654b3209ce230bb22ba7713836752f49c867f7b6996bcabb0c2",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/construction/solids.rs",
+      "actual_EOF": 389,
+      "ranges": [
+        [
+          1,
+          389
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2089,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/surface_refinement.rs",
+      "sha256": "0c28888bf192ddcf2768b572e9cbd672a5ec2af2bc0c38d46af448782d987a65",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/construction/surface_refinement.rs",
+      "actual_EOF": 236,
+      "ranges": [
+        [
+          1,
+          125
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2090,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/sweep.rs",
+      "sha256": "bc84a0894a2e914f9cb85a5cce28eb921372426af3bc8909e54563274a0c4f93",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/construction/sweep.rs",
+      "actual_EOF": 359,
+      "ranges": [
+        [
+          1,
+          359
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2091,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/sweep/path.rs",
+      "sha256": "fff604760f978f0efae2a138eee46df45a887c3abe89b2bdbe94a56f20afb2d1",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/construction/sweep/path.rs",
+      "actual_EOF": 146,
+      "ranges": [
+        [
+          1,
+          146
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "ROOT-PPS-CAMERA-WEAPON-SHAPE-PACKET-041 and ROOT-PPS-WEAPON-SHARED-HELPER-OWNERSHIP-042 supplied per-source range narratives personally consumed; no inherited lens verdict"
+  ],
+  "facts": [
+    "2088 full389 actual prism/shaped_plate read Region.boundary for side walls and Region.triangles for caps, representing same polygon at distinct topological roles. Fresh2089 exact1\u2013125 split_edges100\u2013111 updates boundary with every admitted midpoint then installs corresponding face roster, closing stale boundary candidate in2087.refine. Region private use of temporary mids map ensures same index for both incident triangles.",
+    "2088 radial profiles derive stations/budget before actual subdivide from same chord; smoothing groups derive local slope discontinuities, not alternate geometry. Hollow profile outer/inner radii are different surfaces and signed volume orientation is derived from actual resulting faces. Shared receiving polygon segments explicit handoff, not infer fixed radial counts must equal smooth LOD count.",
+    "2089 only1\u2013125 personally read/reanalyzed, not full236. improve_surface_cells preserves classify boundary through callback guard and height/edge checks; delegated collapse/remove bodies not independently reviewed here and signature of refine_rational_surface125 does not constitute body coverage. Any later registered ranges remain distinct mandatory queue.",
+    "2090 full359 and2091 full146: Section::Round explicitly owns equal width/depth while Oval retains both, not a silent ignored independent Round depth dimension. Sweep closed flag is derived from same endpoint test then passed to path/frame solver; closed seam explicitly uses first row geometry and equal first/last frames/scales.",
+    "2091 sampled points/scales/progress arrays generated in one loop plus same terminal append, after input/room cardinality check. Tangents and transported normals derive same immutable sampled path; no update invalidation needed. Progress is authored station-parameter progression, not asserted normalized arc length, so uneven segment lengths do not independently prove twist drift.",
+    "2090 bend scales use immutable limits snapshot to propagate room constraints, then reconcile closed endpoints. fit_bends computes automatic room while ring_scales is alternative supplied room; need actual authoring contract before labeling intentional selection as config loss. Expected structural topology versus tessellation detail remains distinct; no source/model/GPU execution."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2095,
+    "start_line": 1
+  }
+}

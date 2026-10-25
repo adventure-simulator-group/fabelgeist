@@ -1,0 +1,204 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-299",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator.rs",
+      "sha256": "ee32e08bcb89ab05f78431b7ce484c3ca71d2b9d7f7516f7ee38835cd0372aee",
+      "actual_EOF": 124,
+      "actual_compared_ranges": [
+        [
+          1,
+          124
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/artillery_castle.rs",
+      "sha256": "14b02a0705bb6723b34d844c890603f50c3752efba281e3fefc495c1f4b70c71",
+      "actual_EOF": 1859,
+      "actual_compared_ranges": [
+        [
+          1,
+          1859
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Generator inclusion graph preserves focused owner ports; mutable local construction failure is not a published transaction",
+      "source_ranges": {
+        "generator.rs": [
+          [
+            1,
+            124
+          ]
+        ],
+        "artillery_castle.rs": [
+          [
+            1,
+            1859
+          ]
+        ]
+      },
+      "disposition": "Bothcompleteexactbodiespersonallyread. Rootgenerator124imports/includes pointstoactualorchestration/geometryowners, not coveragecreditforthem. Actualfresharchitectural_envelopeconsumesSelfandpropagates?, so constructionErrdiscardsownedworkingplan. generatevseditorauditseparation personallyreadcore190..311: tests/inspectionauditexplicit, no blanketgenerate()completeauditpromise. Remaininglaterpipeline sourcechecks separate. No sourcefix/plan/test/build/CI."
+    },
+    {
+      "contract": "Artillery authored MVP arithmetic has bounded role sets and local index proofs",
+      "source_ranges": {
+        "artillery_castle.rs": [
+          [
+            1,
+            1859
+          ]
+        ]
+      },
+      "disposition": "Full1859linesread in7contiguouschunks1..270/271..540/541..810/811..1080/1081..1350/1351..1620/1621..1859. Fourcurtains builtbeforetheir0..3indices; towers.take4 ensuresrondelindex ininputrange; twochordinterfaces nth0/1 falliblyrequired beforelaterdirections0/1 on sameunchangedtower. Station3facings,32sector/32stair/4drains,2bond,6arcsteps andfixedrequiredtargetsbounded. nearest_curtainactualhelper checksgetforbothcandidateindices beforechoosingreturnedindex. candidateindexfromstations.enumerate andfirstSome ensuresrays[0] valid whenlaterpushed. IDs countloopsordinarysmall, no arbitraryu64overflowclaim. SignedditchnegativeY intentional. Profile/asincrossfall/angles denominators actualfixedpositive. towercentre/radius/earlyadmissionstillrequiresactualowningprogramcontract; no proofallrawRoundTowerinputs valid."
+    },
+    {
+      "contract": "Artillery mutable shape and route results are readmitted where numeric guarantee is lost",
+      "source_ranges": {
+        "artillery_castle.rs": [
+          [
+            1,
+            1859
+          ]
+        ]
+      },
+      "disposition": "Projectedsolid/Position/CuboidDimensions/Radians/SpatialBounds returntypederrors; mutationscompute/readmitbeforefieldassign butmultifieldlocalplanmaypartiallychangebeforelaterErr, handledbyowningSelfdrop, notdatabase rollback. Longfall/shapeprofile enumrawnumericfields androute/samplevectorsremain aggregateownerdependencies.32sectorbounds samplegridstart/mid/end withcardinalextrema alignedto32sectors; no genericarc-boundsexactness asserted. Requiredtargetselectiontakeindependent mayproducefewerthanneeded; downstreamcoverageauditnotlocalselection aloneownsacceptance. Routecoarsepoints resampledceil(distance/.30) andskipsstep0afterfirstsegment whilepreceding0..stepsalsoomitendpoint: potential>.30joinspacing requiresactualconsumerwork/clearancecontractbeforedefect, no guaranteedmax.30claiminvented. Overallnativeframe/routeauditremainsunreadwhereunaccounted."
+    },
+    {
+      "contract": "Denied bridge removal may recycle an interface ordinal retained in the aggregate",
+      "source_ranges": {
+        "artillery_castle.rs": [
+          [
+            1124,
+            1153
+          ],
+          [
+            1219,
+            1236
+          ]
+        ]
+      },
+      "disposition": "Saved source-conditional candidate SEGOVB-04-ARTILLERY-SUPPORT-ID-001 withfreshactualprojected_solid andrecipient/outerport evidence. No completedgeneratedasset/currentlookupfailureasserted; laterpipelinecleanupnotexhaustivelytraced. Do notmechanicallydedupwithroofpitchorclerestoryboundsdrift. State-specificabsentremovableID preservedintentional."
+    }
+  ],
+  "findings": [
+    "SEGOVB-04-ARTILLERY-SUPPORT-ID-001"
+  ],
+  "fresh_dependencies": [
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-building-generator/src/generator/artillery_route_geometry.rs",
+      "sha256": "0e9b881b97d9e68a76d403136309615fc45b53d616bc256e558dd2405172041a",
+      "personally_read_ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "coverage": "fresh narrow supporting bodies only; no full originalpath/lenscoverage transfer",
+      "actual_EOF": 39
+    },
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-building-generator/src/generator/defense_geometry.rs",
+      "sha256": "9be64466a067aa68da9f86e66bee50a578c2cb5e6f84aa01c6d517e9ef95b9a7",
+      "personally_read_ranges": [
+        [
+          155,
+          220
+        ]
+      ],
+      "coverage": "fresh narrow supporting bodies only; no full originalpath/lenscoverage transfer"
+    },
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-building-generator/src/generator/core.rs",
+      "sha256": "f9cad0ec57715ef451e89d64fc3b833ffba8beb778e82d9a286f269d71849e4d",
+      "personally_read_ranges": [
+        [
+          190,
+          311
+        ]
+      ],
+      "coverage": "fresh narrow supporting bodies only; no full originalpath/lenscoverage transfer",
+      "actual_EOF": 311
+    },
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-building-generator/src/generator/architectural_envelope.rs",
+      "sha256": "c8fd52807c339da9d087b132a0bed8c76c0a73f0bb3a0477bc2477d987bcb72e",
+      "personally_read_ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "coverage": "fresh narrow supporting bodies only; no full originalpath/lenscoverage transfer",
+      "actual_EOF": 68
+    },
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-building-generator/src/audit/bearing.rs",
+      "sha256": "426ca5b68aff61bdf650125502698d909d7c426408627fabf2172720f564bd29",
+      "personally_read_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "coverage": "fresh narrow supporting bodies only; no full originalpath/lenscoverage transfer",
+      "actual_EOF": 138
+    },
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-building-generator/src/model/resolved_networks.rs",
+      "sha256": "f6935151a38ae59a0722eb9ffec6584b50ba1b3c89356185b7b9cdc2eb60dfe9",
+      "personally_read_ranges": [
+        [
+          60,
+          115
+        ]
+      ],
+      "coverage": "fresh narrow supporting bodies only; no full originalpath/lenscoverage transfer"
+    },
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-building-generator/src/generator/framed_roofs.rs",
+      "sha256": "a59c1c293c17b206f5608ab7911c49309758f10c5c16101742cdbc6fcbe8a54b",
+      "personally_read_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "coverage": "fresh narrow supporting bodies only; no full originalpath/lenscoverage transfer",
+      "actual_EOF": 46
+    },
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-building-generator/src/generator/church_ground.rs",
+      "sha256": "9d5eb0be97cc353483ebe92f8d4580ec238d1c1cf2f0693fe2b1b9888dff5278",
+      "personally_read_ranges": [
+        [
+          1,
+          60
+        ],
+        [
+          220,
+          280
+        ]
+      ],
+      "coverage": "fresh narrow supporting bodies only; no full originalpath/lenscoverage transfer"
+    }
+  ],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-building-generator/src/generator/artillery_openings.rs"
+}

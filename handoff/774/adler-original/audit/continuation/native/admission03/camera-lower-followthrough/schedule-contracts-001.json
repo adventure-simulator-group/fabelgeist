@@ -1,0 +1,290 @@
+{
+  "id": "NATIVE-ADM03-LOWER-FOLLOWTHROUGH-001",
+  "at": "2026-10-22T18:29:20.140619+00:00",
+  "authority": "043/054; Root dispatched exact two lower fixedpoint gaps after Native completion069",
+  "lens": "audit-admission-contracts",
+  "source_roles": [
+    {
+      "registration_id": "NATIVE-ADMISSION03-REG-114",
+      "source_id": "physical-p16:crates/strategic-web/src/schedule.rs",
+      "sha256": "87bb6b40cc4c57605e3b8c0601b6db29818a0a548aa8d3d4c3b136f55411f001",
+      "actual_EOF": 99,
+      "requested_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "effective_material_ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "context_or_exclusions": "78 blank contextual; Preview79–99 excluded"
+    },
+    {
+      "registration_id": "NATIVE-ADMISSION03-REG-115",
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+      "sha256": "031ee090102b5cc2ed9889b336ac1144ef7eb705cacc6fee37cbe8e7f6bafd0e",
+      "actual_EOF": 364,
+      "requested_ranges": [
+        [
+          1,
+          283
+        ]
+      ],
+      "effective_material_ranges": [
+        [
+          1,
+          282
+        ]
+      ],
+      "context_or_exclusions": "283 blank; existing tests284–364 excluded, no execution"
+    },
+    {
+      "registration_id": "NATIVE-ADMISSION03-REG-116",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/stationary.rs",
+      "sha256": "4247ba159aa9a5ceb6183f7a4e23023b27e47cd6c48c46e66565120fe89e1ca8",
+      "actual_EOF": 263,
+      "requested_ranges": [
+        [
+          195,
+          263
+        ]
+      ],
+      "effective_material_ranges": [
+        [
+          195,
+          263
+        ]
+      ],
+      "context_or_exclusions": "Only exact registered material; all unrelated source roles excluded."
+    },
+    {
+      "registration_id": "NATIVE-ADMISSION03-REG-117",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/schedule.rs",
+      "sha256": "6cbe8772bb5c9f5bd4f48d7dffa099df1b8a39a8a1cf69a83bc4a5ad0b938c73",
+      "actual_EOF": 741,
+      "requested_ranges": [
+        [
+          71,
+          194
+        ],
+        [
+          728,
+          741
+        ]
+      ],
+      "effective_material_ranges": [
+        [
+          71,
+          193
+        ],
+        [
+          728,
+          741
+        ]
+      ],
+      "context_or_exclusions": "194 blank; 1–70/195–727 other time/training functions excluded"
+    },
+    {
+      "registration_id": "NATIVE-ADMISSION03-REG-118",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/model.rs",
+      "sha256": "8b5882561331877cca6e022666a6fc03c813375df88bcdda95752cddd3cd1a1e",
+      "actual_EOF": 98,
+      "requested_ranges": [
+        [
+          39,
+          60
+        ],
+        [
+          75,
+          98
+        ]
+      ],
+      "effective_material_ranges": [
+        [
+          39,
+          56
+        ],
+        [
+          75,
+          81
+        ],
+        [
+          83,
+          98
+        ]
+      ],
+      "context_or_exclusions": "57/82 blank; requested58–60 are following ImmediateActivity doc only, no semantic credit;61–74 excluded"
+    },
+    {
+      "registration_id": "NATIVE-ADMISSION03-REG-119",
+      "source_id": "physical-p16:crates/adventuresim-core/src/activity.rs",
+      "sha256": "d8ee276214a67b09ca6571d03b1adce2dc200e6201284a9a8e25b6053aa72a15",
+      "actual_EOF": 243,
+      "requested_ranges": [
+        [
+          28,
+          28
+        ]
+      ],
+      "effective_material_ranges": [
+        [
+          28,
+          28
+        ]
+      ],
+      "context_or_exclusions": "Only exact registered material; all unrelated source roles excluded."
+    },
+    {
+      "registration_id": "NATIVE-ADMISSION03-REG-120",
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/calendar.rs",
+      "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "actual_EOF": 698,
+      "requested_ranges": [
+        [
+          10,
+          10
+        ]
+      ],
+      "effective_material_ranges": [
+        [
+          10,
+          10
+        ]
+      ],
+      "context_or_exclusions": "Only exact registered material; all unrelated source roles excluded."
+    },
+    {
+      "registration_id": "NATIVE-ADMISSION03-REG-121",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/npc_causal.rs",
+      "sha256": "f148788fb9f35b6fd5762cb3905c229568da28a9fc3b0556b662fa5ec10b6532",
+      "actual_EOF": 635,
+      "requested_ranges": [
+        [
+          195,
+          265
+        ]
+      ],
+      "effective_material_ranges": [
+        [
+          195,
+          264
+        ]
+      ],
+      "context_or_exclusions": "265 blank"
+    },
+    {
+      "registration_id": "NATIVE-ADMISSION03-REG-122",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/simulation.rs",
+      "sha256": "caa8a155d38c326bf43174ed106f7b885196bcc23fcddb76af341a1acb380e0c",
+      "actual_EOF": 610,
+      "requested_ranges": [
+        [
+          348,
+          495
+        ]
+      ],
+      "effective_material_ranges": [
+        [
+          349,
+          494
+        ]
+      ],
+      "context_or_exclusions": "348 closing attribute context completed by128;495 blank"
+    },
+    {
+      "registration_id": "NATIVE-ADMISSION03-REG-127",
+      "source_id": "physical-p16:crates/adventuresim-core/src/npc_policy.rs",
+      "sha256": "51c449efd5edf6380249bcc04ebf5a9a38cc9a1f20cab731e2bf80d6b958e18a",
+      "actual_EOF": 296,
+      "requested_ranges": [
+        [
+          126,
+          139
+        ]
+      ],
+      "effective_material_ranges": [
+        [
+          126,
+          136
+        ]
+      ],
+      "context_or_exclusions": "137 blank and138–139 next helper docs contextual only, no next-helper credit"
+    },
+    {
+      "registration_id": "NATIVE-ADMISSION03-REG-128",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/simulation.rs",
+      "sha256": "caa8a155d38c326bf43174ed106f7b885196bcc23fcddb76af341a1acb380e0c",
+      "actual_EOF": 610,
+      "requested_ranges": [
+        [
+          344,
+          347
+        ]
+      ],
+      "effective_material_ranges": [
+        [
+          344,
+          347
+        ]
+      ],
+      "context_or_exclusions": "Attached reducer/expect attributes for122; closing delimiter348 already contextual122"
+    }
+  ],
+  "original_packet_unchanged": "camera-support/completion-069.json; 128 role count unchanged; this is extra bounded lower source evidence",
+  "groups": {
+    "canonical-p16-whole-schedule-and-effective-transform": {
+      "invariant": "Private ValidatedSchedule owns ten quarter-hour-multiple activity minutes with widened total <=1440. Raw DailySchedule/ScheduleAllocation, organization associations, editable plan and fixture inputs are separate broader contracts.",
+      "actual_sources": [
+        "REG1141–77",
+        "REG1151–282",
+        "REG11928",
+        "REG12010"
+      ],
+      "all_admission_routes": [
+        "P16 ActivityMinutes20 privateu16, sole TryFrom28–36 requires multiple of actual ACTIVITY_SEGMENT_MINUTES15 (11928), zero valid and no standalone day cap; no Serde/Default/Reflect/raw From. Public OrganizationAllocation::Scheduled holds checked minutes plus open String and permits direct zero/blank construction despite parse39–59 requiring both positive minutes and trimmed nonblank ID together or exact zero/None. Public DailySchedulePlan fields likewise permit correlated recomposition; existing Root F005 family qualification, no current bad caller claimed.",
+        "Whole helper113–132 first sums all10 rawu16 into u64 and rejects > actual MINUTES_PER_DAY=24*60=1440 (12010), then checks every component modulo15, then parses both org tuples. It does not itself equate tuple minutes to activities[apprenticeship/practice]; actual Web11411–40 and DB116203–250 pass exactly matching source fields, so that normal caller binding is source-proved. Zero/allzero valid, no arbitrary nonzero/day-max policy added to standalone ActivityMinutes.",
+        "Raw DailySchedule public tenu16 derives Default0 and ordinary denyunknown Serde, so raw day overflow/non-quarterhours intentionally representable. Private ValidatedSchedule179 sole TryFrom181–197 repeats widened day total then validates all9 redistribution components AND reading. No Default/Serde/Reflect/unchecked From or mutable raw payload; Clone/Copy only existing canonical values. No raw decoder route mints this accepted token.",
+        "ValidatedSchedule::effective_at221–282 retains reading, maps9 authored activities to location availability; unavailable valid quarter-hour segments are redistributed among available positive authored weights using owned deterministic stream, or remain leisure when all weights0. Fixed9 source array and admitted <=1440 input bound every segment count/addition; redistribution preserves total/quarterhour property and never increases original allocated total. Allzero/None/reading policy retained. Existing Rig069 actual P16 index/below and Native087 current weighted-index native boundary contracts are explicitly reused, not PR RNG inference or new statistical audit.",
+        "Web114effective42–62 first checks private ValidatedSchedule::try_from(core_allocation64–77), then uses canonical effective_at and copies all10 redistributed numeric fields back into cloned raw transport. IDs are preserved as raw metadata, not newly validated organization membership. Native033 SomeLocation expects this Result because saved input is assumed valid; None branch merely clones raw input and performs no numeric admission. No automatic equivalence of these branches."
+      ],
+      "counterexample_or_intentional": "Raw DailySchedule with combat_training_minutes1 and allother0 is legal native/Serde source, rejected by canonical TryFrom; allzero schedule accepted. Organization public variants/plan remain broader than parser token. This proof does not fabricate invalid gameplay data or execute a case.",
+      "connected_repair_acceptance": "Keep one private accepted complete-day allocation through saved write and preview/effective operations, preserve raw rejected transport and optional organization binding separately. Preserve total<=1440, zero, 15-minute segments, reading exclusion, exact redistribution/RNG stream/order; replace preview expect only through coherent accepted input or fallible typed cause, not fallback schedule."
+    },
+    "actual-saved-db-writes-and-membership": {
+      "actual_sources": [
+        "REG116195–263",
+        "REG11771–193/728–741",
+        "REG11839–56/75–98",
+        "REG121195–264",
+        "REG127126–136",
+        "REG122349–494+128344–347"
+      ],
+      "invariant": "Normal player schedule reducer validates complete numeric day and matching organization tuples before installing a normalized raw storage row. This is a receiver guarantee, not intrinsic validity of public table/SDK records or every alternate writer.",
+      "all_admission_routes": [
+        "P16 update_training_schedule195–263 requires strategic actor authority then living actor then ensure_character_time; whole-allocation helper receives EXACT corresponding ten fields and organization tuples. Successful plan maps eight direct activities plus canonical parsed apprenticeship/practice minutes+trimmed IDs to new raw ScheduleAllocation. validate_organization_schedule occurs BEFORE schedule table update259–261; actual condition refresh follows. No universal preflight/transaction rollback claim: ensure_character_time may insert missing defaults before later request error.",
+        "P16 time/schedule default92–97 creates raw allzero/None; ensure99–126 initializes official personal time and schedule only when missing, leaving existing raw records untouched. Missing schedule default meets numeric private validator. effective_location_schedule71–90 independently TryFrom.expect of all10 then canonical effective_at; core_schedule728–741 is exact ten-field mapping. effective_organization_schedule157–193 eligibility filtering zeroes minutes without clearing raw IDs, preserves numeric day/quarterhours but is not a whole normalized correlation token.",
+        "Membership validator128–153 for positive apprenticeship requires ID and actual require_activity_membership; positive practice additionally requires resolved membership_role.practice_allowed. Personally consumed Camera139 P16 organization175 exact source narrative (c6543ebb...16b17fc), full actual counterpart diff and fresh current membership facts: active row and inclusive paid-through at actor clock, known organization role/actual assignment; raw membership row broader. This closes direct normal membership dependency, not whole embedded Core organization catalogue source or every skill predicate.",
+        "NPC initialize_saved_schedule_once195–264 uses only raw-empty not-yet-initialized saved row and effective adulthood, then direct initial_npc_schedule126–136. Actual policy fixed labor360, social60+15*index(5), allother defaults0 including apprenticeship/practice; Rig069 actual same-P16 nonzero native bound proves index0..4 on actual32/64bit collections. Thus all components multiples15, total420..480<=1440, orgNone consistent. Existing nonempty saved schedule intentionally preserved, not revalidated by NPC policy. No PR counterpart inference.",
+        "Actual alternate fixture writer configure_simulation_character349–494 is isolated by owned_run and fresh ordinary once-only character, matching profile IDs, known settlement/solo leader. Local predicate434 checks only downtime.allocated_minutes()<=1440, NOT component multiples15 or organization minutes/IDs. It copies raw request at470 and table.update474, then condition refresh491/capability refresh492. Safe representable request with one combat minute and allother0 passes its local schedule predicate but private ValidatedSchedule rejects. Attributes/skills/ownership/other profile gates still required; no asserted actual executed request or committed corrupt row.",
+        "Current Camera157 actual P16 condition refresh1517–1558 evidence: party projection, party morale support/refresh_one/capability, possible expired-holyday refresh and holyday demand. Its only direct saved-schedule uses are raw prayer reads; no direct effective_location_schedule call. This is a bounded direct callee join, NOT exclusion of every indirect capability/holyday failure or a database commit/rollback proof."
+      ],
+      "counterexample_or_intentional": "NATIVE-LOWER-ADM03-F001 is an actual source-level missing fixture admission gate and relying preview/effective expect precondition mismatch. Normal player write + authored NPC/default routes are valid. Raw table/SATS/SDK field construction remains broader. Claim is not that a current saved bad row exists or that configure returns successfully after every downstream call.",
+      "connected_repair_acceptance": "Make simulation write use the same authoritative whole numeric allocation and coherent organization association policy appropriate to fixture, so every intended saved writer preserves private schedule invariant before update. Keep fixture isolation, no live data mutation/reseed, actual membership authority, None behavior, allzero schedules, error order and original fixtures. Root retains whole-function/repair claims; no source edits or new tests."
+    }
+  },
+  "findings": [
+    "NATIVE-LOWER-ADM03-F001"
+  ],
+  "limits": [
+    "Exact source roles only, no broad table mutability/caller graph clearance. Source-only narrow lookup of CharacterTrainingSchedule writers identified default, player reducer, NPC and fixture writes; other references may read/delete, no unrelated body coverage claimed.",
+    "No Petnames, quest candidate builder, later lens, new test or project execution.",
+    "No independent generated Sex array proof is needed for this schedule group."
+  ],
+  "repair": "frozen",
+  "validation": "not_run",
+  "later_lens_credit": false
+}

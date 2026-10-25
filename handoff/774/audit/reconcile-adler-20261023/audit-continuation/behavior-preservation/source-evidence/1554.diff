@@ -1,0 +1,731 @@
+--- base/crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass.rs
++++ catalog-head/crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass.rs
+@@ -12,14 +12,17 @@
+ //! share one lattice walk and one batching path. Native and wasm run the same
+ //! renderer: the fork's WebGPU draw path loops `draw_indexed_indirect` where
+ //! the native backend issues `multi_draw_indexed_indirect`.
+ 
+-mod streams;
+-mod variation;
+ use fabelgeist_determinism::Seed;
+ use std::sync::Arc;
+ 
+-use adventuresim_tactical_core::prelude::{SceneEnvironment, SceneGround, SceneTerrain};
++use adventuresim_building_generator::spatial_geometry::GeometryResult;
++use adventuresim_tactical_core::{
++    city_layout::grounding::{SupportElevation, SupportQuery},
++    prelude::{SceneEnvironment, SceneGround, SceneTerrain},
++    scene_coordinates::ScenePlanPoint,
++};
+ use bevy::{
+     camera::{primitives::Aabb, visibility::NoFrustumCulling},
+     color::Color,
+     light::NotShadowCaster,
+@@ -38,18 +41,97 @@
+     grass_pigment, grass_scatter_density,
+ };
+ 
+ use super::cover_mask::CoverageMask;
++pub(in crate::presentation) use batches::spawn_tuft_batches;
++pub(crate) use diagnostics::GrassTriangleCount;
++pub(in crate::presentation) use material::TacticalGrassInstancedMaterial;
++
+ mod batches;
+ mod culling;
+ mod diagnostics;
+-pub(in crate::presentation) use batches::spawn_tuft_batches;
+ mod material;
++mod streams;
++mod variation;
+ mod view_culling;
+-pub(crate) use diagnostics::GrassTriangleCount;
+-pub(in crate::presentation) use material::TacticalGrassInstancedMaterial;
++
++const TIERS: [GrassMeshLod; 4] = [
++    GrassMeshLod::Near,
++    GrassMeshLod::NearEdge,
++    GrassMeshLod::Far,
++    GrassMeshLod::Vista,
++];
++
++/// Maximum blade reach above a tuft root: authored ribbon height times the
++/// largest height/species scaling the mesh generator produces.
++const TUFT_HEIGHT_MARGIN_METRES: f32 = 1.5;
++
++/// Grass rejects any site steeper than this surface normal tilt.
++pub(in crate::presentation) const MINIMUM_GRASS_SLOPE_NORMAL_Y: f32 = 0.72;
++
++/// Instance batches keyed by LOD tier, then by species within the tier.
++pub(in crate::presentation) type TierSpeciesBatches =
++    [[Vec<InstanceData>; GrassSpecies::ALL.len()]; TIERS.len()];
+ 
+ pub(crate) struct InstancedGrassPlugin;
++
++/// Marks scenes whose instanced sward has been generated.
++#[derive(Component)]
++pub(super) struct InstancedGrassPresented;
++
++/// Smoothing state for the grass interaction uniforms.
++#[derive(Resource, Default)]
++pub(in crate::presentation) struct InstancedGrassInteractionState {
++    previous_position: Option<Vec3>,
++    smoothed_velocity: Vec3,
++    /// Last values written to the materials, to skip redundant asset writes
++    /// (each write re-uploads the uniform and re-queues the batch).
++    written: Option<(Vec3, Vec3)>,
++}
++
++/// The command buffer and asset stores a sward spawn writes through.
++pub(in crate::presentation) struct GrassWorld<'a, 'w, 's> {
++    pub(in crate::presentation) commands: &'a mut Commands<'w, 's>,
++    pub(in crate::presentation) meshes: &'a mut Assets<Mesh>,
++    pub(in crate::presentation) materials: &'a mut Assets<TacticalGrassInstancedMaterial>,
++}
++
++/// The playable scene's authoritative terrain, cover mask, and community profile.
++struct ScenePlacement<'a> {
++    terrain: &'a SceneTerrain,
++    ground: &'a SceneGround,
++    mask: CoverageMask,
++    profile: GrassCommunityProfile,
++    communities: GrassCommunityField,
++}
++
++/// The scene-wide pigment and wind inputs every tuft mesh and material shares.
++#[derive(Clone, Copy)]
++pub(in crate::presentation) struct TuftPigment {
++    pub(in crate::presentation) color: Color,
++    pub(in crate::presentation) density: f32,
++    pub(in crate::presentation) dryness: f32,
++    pub(in crate::presentation) wind_scale: f32,
++}
++
++/// Site sampling shared by playable terrain and vista heightfields. Both use
++/// the same lattice walk, species selection, and batching below.
++pub(in crate::presentation) trait TuftPlacement {
++    /// Inclusive cell range to walk, in whole `cell_spacing` steps.
++    fn lattice_bounds(&self, cell_spacing: f32) -> (IVec2, IVec2);
++
++    /// Whether this jittered lattice cell may carry tufts at all.
++    fn cell_allows(&self, cell_hash: Seed, cell: IVec2, cell_spacing: f32, jitter: f32) -> bool;
++
++    /// Ground-cover coverage at a tuft centre; 0 leaves the site bare.
++    fn coverage(&self, centre: ScenePlanPoint) -> u8;
++
++    /// Ground height at a tuft centre, or `None` where the slope rejects grass.
++    fn height(&self, centre: ScenePlanPoint) -> Option<SupportElevation>;
++
++    /// Which community - and so which species pool - claims this site.
++    fn community(&mut self, centre: ScenePlanPoint) -> GrassCommunity;
++}
+ 
+ impl Plugin for InstancedGrassPlugin {
+     fn build(&self, app: &mut App) {
+         app.add_plugins((
+@@ -73,62 +155,42 @@
+         );
+     }
+ }
+ 
+-/// Marks scenes whose instanced sward has been generated.
+-#[derive(Component)]
+-pub(super) struct InstancedGrassPresented;
+-
+-/// Instanced counterpart of the grass portion of `present_ground_scatter`.
+-/// Builds the playable scene's sward once per scene, alongside the vista rings
+-/// that `presentation::vista` spawns from the same lattice and batching path.
+-fn present_instanced_grass(
+-    scenes: super::scene_mask::InstancedGrassSceneQuery,
+-    mut commands: Commands,
+-    mut meshes: ResMut<Assets<Mesh>>,
+-    mut materials: ResMut<Assets<TacticalGrassInstancedMaterial>>,
+-    settings: Res<crate::presentation::TacticalGraphicsSettings>,
+-) {
+-    for (entity, _scene_id, terrain, ground, environment, fault_scarp) in &scenes {
+-        if !settings.config.grass.enabled {
+-            commands.entity(entity).insert(InstancedGrassPresented);
+-            continue;
+-        }
+-        let started = web_time::Instant::now();
+-        let (grass_color, grass_dryness) = grass_pigment(environment);
+-        let grass_density = grass_scatter_density(
+-            bps(environment.canopy_bps),
+-            bps(environment.water_bps),
+-            bps(environment.cultivation_bps),
+-            bps(environment.weather.snow_cover_bps),
+-        ) * settings.config.grass.density_scale;
+-        let wind_scale = 0.16 + bps(environment.weather.wind_speed_bps) * 0.36;
+-        let grass = &settings.config.grass;
+-        let base_seed = stable_text_seed(&environment.scene_digest).xor_word(0x6772_6173_735f_6c6f);
+-        let mut batches = prepare_scene_tufts(terrain, ground, environment, grass, fault_scarp);
+-        spawn_tuft_batches(
+-            GrassWorld {
+-                commands: &mut commands,
+-                meshes: &mut meshes,
+-                materials: &mut materials,
+-            },
+-            &mut batches,
+-            "Instanced grass",
+-            (),
+-            base_seed,
+-            TuftPigment {
+-                color: grass_color,
+-                density: grass_density,
+-                dryness: grass_dryness,
+-                wind_scale,
+-            },
+-            grass,
+-        );
+-        tracing::info!(
+-            elapsed_ms = started.elapsed().as_millis(),
+-            "Generated instanced tactical grass"
+-        );
+-        commands.entity(entity).insert(InstancedGrassPresented);
++impl TuftPlacement for ScenePlacement<'_> {
++    fn lattice_bounds(&self, cell_spacing: f32) -> (IVec2, IVec2) {
++        let half = Vec2::new(self.terrain.width(), self.terrain.depth()) * 0.5;
++        (
++            (-half / cell_spacing).floor().as_ivec2(),
++            (half / cell_spacing).ceil().as_ivec2(),
++        )
++    }
++
++    fn cell_allows(&self, cell_hash: Seed, cell: IVec2, cell_spacing: f32, jitter: f32) -> bool {
++        cell_allows_grass(
++            self.terrain,
++            self.ground,
++            cell_hash,
++            cell.x,
++            cell.y,
++            cell_spacing,
++            jitter,
++        )
++    }
++
++    fn coverage(&self, centre: ScenePlanPoint) -> u8 {
++        self.mask.coverage_byte(centre)
++    }
++
++    fn height(&self, centre: ScenePlanPoint) -> Option<SupportElevation> {
++        let hit = self
++            .terrain
++            .surface_below(SupportQuery::unbounded(centre))?;
++        (hit.normal.y >= MINIMUM_GRASS_SLOPE_NORMAL_Y).then_some(hit.elevation)
++    }
++
++    fn community(&mut self, centre: ScenePlanPoint) -> GrassCommunity {
++        self.communities.at(centre, self.profile)
+     }
+ }
+ 
+ pub(in crate::presentation) fn prepare_scene_tufts(
+@@ -136,11 +198,11 @@
+     ground: &SceneGround,
+     environment: &SceneEnvironment,
+     grass: &crate::presentation::config::GrassConfig,
+     fault_scarp: Option<&adventuresim_tactical_core::prelude::TerrainLandformRecipe>,
+-) -> TierSpeciesBatches {
++) -> GeometryResult<TierSpeciesBatches> {
+     if !grass.enabled {
+-        return Default::default();
++        return Ok(Default::default());
+     }
+     let masked_ground = fault_scarp.map(|recipe| {
+         super::scene_mask::scatter_ground_without_patch(ground, recipe.transition_collar())
+     });
+@@ -148,9 +210,9 @@
+     let base_seed = stable_text_seed(&environment.scene_digest).xor_word(0x6772_6173_735f_6c6f);
+     let mut placement = ScenePlacement {
+         terrain,
+         ground,
+-        mask: CoverageMask::new(ground, stable_text_seed(&environment.scene_digest)),
++        mask: CoverageMask::new(ground, stable_text_seed(&environment.scene_digest))?,
+         profile: GrassCommunityProfile::from_environment(environment),
+         communities: GrassCommunityField::new(base_seed),
+     };
+     let mut batches = TierSpeciesBatches::default();
+@@ -176,160 +238,10 @@
+         GrassMeshLod::Vista,
+         grass.placement.vista_patch_spacing_m,
+         grass,
+     );
+-    batches
+-}
+-
+-/// Every gameplay/viewer camera drives eidolon's per-instance compute cull.
+-#[expect(
+-    clippy::type_complexity,
+-    reason = "the Bevy camera filter selects uncoupled gameplay cameras and excludes the offscreen cloud pass"
+-)]
+-fn enable_camera_cull_compute(
+-    mut commands: Commands,
+-    cameras: Query<
+-        Entity,
+-        (
+-            With<Camera3d>,
+-            Without<CullComputeCamera>,
+-            // The grass never renders on the offscreen cloud layer, and the
+-            // compute cull must follow the gameplay camera.
+-            Without<crate::presentation::TacticalCloudOffscreenCamera>,
+-        ),
+-    >,
+-) {
+-    for camera in &cameras {
+-        commands.entity(camera).insert(CullComputeCamera);
+-    }
+-}
+-
+-/// Smoothing state for the grass interaction uniforms.
+-#[derive(Resource, Default)]
+-pub(in crate::presentation) struct InstancedGrassInteractionState {
+-    previous_position: Option<Vec3>,
+-    smoothed_velocity: Vec3,
+-    /// Last values written to the materials, to skip redundant asset writes
+-    /// (each write re-uploads the uniform and re-queues the batch).
+-    written: Option<(Vec3, Vec3)>,
+-}
+-
+-fn update_instanced_grass_interaction(
+-    time: Res<Time>,
+-    interactors: Query<&GlobalTransform, With<GrassInteractor>>,
+-    mut state: ResMut<InstancedGrassInteractionState>,
+-    mut materials: ResMut<Assets<TacticalGrassInstancedMaterial>>,
+-    settings: Res<crate::presentation::TacticalGraphicsSettings>,
+-) {
+-    let Some(position) = interactors.iter().next().map(GlobalTransform::translation) else {
+-        if state.written.take().is_some() {
+-            for (_, material) in materials.iter_mut() {
+-                material.interaction = Vec4::ZERO;
+-                material.interaction_motion = Vec4::ZERO;
+-            }
+-        }
+-        state.previous_position = None;
+-        state.smoothed_velocity = Vec3::ZERO;
+-        return;
+-    };
+-    let delta_seconds = time.delta_secs().max(1.0 / 240.0);
+-    let velocity = state
+-        .previous_position
+-        .map(|previous| ((position - previous) / delta_seconds).clamp_length_max(8.0))
+-        .unwrap_or_default();
+-    let response = 1.0 - (-delta_seconds * 10.0).exp();
+-    state.smoothed_velocity = state.smoothed_velocity.lerp(velocity, response);
+-    state.previous_position = Some(position);
+-
+-    // Idle interactors converge to constants; stop dirtying material assets
+-    // once the written values are close enough that no motion is visible.
+-    if state
+-        .written
+-        .is_some_and(|(written_position, written_velocity)| {
+-            written_position.distance_squared(position) < 1e-6
+-                && written_velocity.distance_squared(state.smoothed_velocity) < 1e-6
+-        })
+-    {
+-        return;
+-    }
+-
+-    let speed = state.smoothed_velocity.length();
+-    for (_, material) in materials.iter_mut() {
+-        let interaction = &settings.config.grass.interaction;
+-        material.interaction = position.extend(interaction.radius_m);
+-        material.interaction_motion = Vec4::new(
+-            state.smoothed_velocity.x,
+-            state.smoothed_velocity.y,
+-            state.smoothed_velocity.z,
+-            (interaction.minimum_push + speed * 0.11)
+-                .clamp(interaction.minimum_push, interaction.maximum_push),
+-        );
+-    }
+-    state.written = Some((position, state.smoothed_velocity));
+-}
+-
+-/// Number of tuft columns/rows that subdivide one placement cell, per tier.
+-fn tufts_per_cell_side(lod: GrassMeshLod) -> i32 {
+-    match lod {
+-        GrassMeshLod::Near | GrassMeshLod::NearEdge => 12,
+-        GrassMeshLod::Far => 4,
+-        GrassMeshLod::Vista => 2,
+-    }
+-}
+-
+-/// Eidolon fade bands per tier: `xy` fade-in, `zw` fade-out, mirroring the
+-/// legacy `grass_lod_visibility` crossfade margins. The near tier's epsilon
+-/// fade-in keeps the dither-level math well-defined at zero distance.
+-///
+-/// `range_scale` contracts every band edge uniformly, so tier hand-offs stay
+-/// contiguous while the geometric sward trades reach for vertex throughput.
+-/// Near-tier cost scales with the square of its radius, making this the
+-/// single most effective grass performance lever.
+-fn tier_visibility_range(lod: GrassMeshLod, range_scale: f32) -> Vec4 {
+-    let scale = range_scale.clamp(0.35, 1.0);
+-    (match lod {
+-        // #560's legacy near band (0..14 m) splits into a full-detail field and
+-        // a slimmer edge ring; the ring covers most of the band's area, so most
+-        // near verts move to the nine-vertex 6x6 mesh. The instanced tiers
+-        // reproduce the legacy `grass_lod_visibility` bands so the native and
+-        // wasm swards fade out at the same distances (~50 m terminal).
+-        GrassMeshLod::Near => Vec4::new(0.0, 0.001, 4.0, 6.0),
+-        GrassMeshLod::NearEdge => Vec4::new(4.0, 6.0, 7.0, 14.0),
+-        GrassMeshLod::Far => Vec4::new(7.0, 14.0, 36.0, 44.0),
+-        // The vista fade-in shares the far tier's fade-out endpoints so the
+-        // complementary crossfade partition hands off exactly.
+-        GrassMeshLod::Vista => Vec4::new(34.0, 42.0, 42.0, 50.0),
+-    }) * scale
+-}
+-
+-fn configured_tier_visibility_range(
+-    lod: GrassMeshLod,
+-    grass: &crate::presentation::config::GrassConfig,
+-) -> Vec4 {
+-    let tier = match lod {
+-        GrassMeshLod::Near => &grass.lod.near,
+-        GrassMeshLod::NearEdge => &grass.lod.near_edge,
+-        GrassMeshLod::Far => &grass.lod.far,
+-        GrassMeshLod::Vista => &grass.lod.vista,
+-    };
+-    Vec4::new(
+-        tier.fade_in_m[0],
+-        tier.fade_in_m[1],
+-        tier.fade_out_m[0],
+-        tier.fade_out_m[1],
+-    )
+-}
+-
+-const TIERS: [GrassMeshLod; 4] = [
+-    GrassMeshLod::Near,
+-    GrassMeshLod::NearEdge,
+-    GrassMeshLod::Far,
+-    GrassMeshLod::Vista,
+-];
+-
+-/// Maximum blade reach above a tuft root: authored ribbon height times the
+-/// largest height/species scaling the mesh generator produces.
+-const TUFT_HEIGHT_MARGIN_METRES: f32 = 1.5;
++    Ok(batches)
++}
+ 
+ /// Tight bounds over a batch's actual instances. The initial implementation
+ /// used one whole-terrain slab per batch; a fitted box keeps Bevy's
+ /// batch-level frustum test and the compute cull's chunk test conservative
+@@ -347,100 +259,8 @@
+     Aabb {
+         center: ((minimum + maximum) * 0.5).into(),
+         half_extents: ((maximum - minimum) * 0.5).into(),
+     }
+-}
+-
+-/// Site sampling shared by playable terrain and vista heightfields. Both use
+-/// the same lattice walk, species selection, and batching below.
+-pub(in crate::presentation) trait TuftPlacement {
+-    /// Inclusive cell range to walk, in whole `cell_spacing` steps.
+-    fn lattice_bounds(&self, cell_spacing: f32) -> (IVec2, IVec2);
+-
+-    /// Whether this jittered lattice cell may carry tufts at all.
+-    fn cell_allows(&self, cell_hash: Seed, cell: IVec2, cell_spacing: f32, jitter: f32) -> bool;
+-
+-    /// Ground-cover coverage at a tuft centre; 0 leaves the site bare.
+-    fn coverage(&self, centre: Vec2) -> u8;
+-
+-    /// Ground height at a tuft centre, or `None` where the slope rejects grass.
+-    fn height(&self, centre: Vec2) -> Option<f32>;
+-
+-    /// Which community - and so which species pool - claims this site.
+-    fn community(&mut self, centre: Vec2) -> GrassCommunity;
+-}
+-
+-/// The command buffer and asset stores a sward spawn writes through.
+-pub(in crate::presentation) struct GrassWorld<'a, 'w, 's> {
+-    pub(in crate::presentation) commands: &'a mut Commands<'w, 's>,
+-    pub(in crate::presentation) meshes: &'a mut Assets<Mesh>,
+-    pub(in crate::presentation) materials: &'a mut Assets<TacticalGrassInstancedMaterial>,
+-}
+-
+-/// Instance batches keyed by LOD tier, then by species within the tier.
+-pub(in crate::presentation) type TierSpeciesBatches =
+-    [[Vec<InstanceData>; GrassSpecies::ALL.len()]; TIERS.len()];
+-
+-/// The playable scene's authoritative terrain, cover mask, and community profile.
+-struct ScenePlacement<'a> {
+-    terrain: &'a SceneTerrain,
+-    ground: &'a SceneGround,
+-    mask: CoverageMask,
+-    profile: GrassCommunityProfile,
+-    communities: GrassCommunityField,
+-}
+-
+-impl TuftPlacement for ScenePlacement<'_> {
+-    fn lattice_bounds(&self, cell_spacing: f32) -> (IVec2, IVec2) {
+-        let half = Vec2::new(self.terrain.width(), self.terrain.depth()) * 0.5;
+-        (
+-            (-half / cell_spacing).floor().as_ivec2(),
+-            (half / cell_spacing).ceil().as_ivec2(),
+-        )
+-    }
+-
+-    fn cell_allows(&self, cell_hash: Seed, cell: IVec2, cell_spacing: f32, jitter: f32) -> bool {
+-        cell_allows_grass(
+-            self.terrain,
+-            self.ground,
+-            cell_hash,
+-            cell.x,
+-            cell.y,
+-            cell_spacing,
+-            jitter,
+-        )
+-    }
+-
+-    fn coverage(&self, centre: Vec2) -> u8 {
+-        self.mask.coverage_byte(centre)
+-    }
+-
+-    fn height(&self, centre: Vec2) -> Option<f32> {
+-        let hit = self.terrain.surface_below(
+-            adventuresim_tactical_core::city_layout::grounding::SupportQuery::unbounded(
+-                adventuresim_tactical_core::scene_coordinates::ScenePlanPoint::from_metres(
+-                    bevy::math::Vec2::new(centre.x, centre.y),
+-                )?,
+-            ),
+-        )?;
+-        (hit.normal.y >= MINIMUM_GRASS_SLOPE_NORMAL_Y).then_some(hit.elevation.metres())
+-    }
+-
+-    fn community(&mut self, centre: Vec2) -> GrassCommunity {
+-        self.communities.at(centre, self.profile)
+-    }
+-}
+-
+-/// Grass rejects any site steeper than this surface normal tilt.
+-pub(in crate::presentation) const MINIMUM_GRASS_SLOPE_NORMAL_Y: f32 = 0.72;
+-
+-/// The scene-wide pigment and wind inputs every tuft mesh and material shares.
+-#[derive(Clone, Copy)]
+-pub(in crate::presentation) struct TuftPigment {
+-    pub(in crate::presentation) color: Color,
+-    pub(in crate::presentation) density: f32,
+-    pub(in crate::presentation) dryness: f32,
+-    pub(in crate::presentation) wind_scale: f32,
+ }
+ 
+ /// Walks the jittered placement cells and fills per-species instance vectors
+ /// with tuft placements.
+@@ -481,8 +301,11 @@
+                     );
+                     let jitter = variation.jitter * footprint * 0.35;
+                     let centre =
+                         cell_origin + Vec2::new(tuft_x as f32, tuft_z as f32) * footprint + jitter;
++                    let Some(centre) = ScenePlanPoint::from_metres(centre) else {
++                        continue;
++                    };
+                     let coverage = placement.coverage(centre);
+                     if coverage == 0 {
+                         continue;
+                     }
+@@ -492,9 +315,9 @@
+                     let community = placement.community(centre);
+                     let species = grass_species(community, variation.species);
+                     let batch = &mut species_batches[species.index()];
+                     batch.push(InstanceData {
+-                        position: Vec3::new(centre.x, height, centre.y),
++                        position: Vec3::new(centre.metres().x, height.metres(), centre.metres().y),
+                         scale: 1.0,
+                         rotation: variation.rotation,
+                         index: batch.len() as u32,
+                         batch_id: 0,
+@@ -505,8 +328,197 @@
+             }
+         }
+     }
+     emitted
++}
++
++/// Instanced counterpart of the grass portion of `present_ground_scatter`.
++/// Builds the playable scene's sward once per scene, alongside the vista rings
++/// that `presentation::vista` spawns from the same lattice and batching path.
++fn present_instanced_grass(
++    scenes: super::scene_mask::InstancedGrassSceneQuery,
++    mut commands: Commands,
++    mut meshes: ResMut<Assets<Mesh>>,
++    mut materials: ResMut<Assets<TacticalGrassInstancedMaterial>>,
++    settings: Res<crate::presentation::TacticalGraphicsSettings>,
++) {
++    for (entity, _scene_id, terrain, ground, environment, fault_scarp) in &scenes {
++        if !settings.config.grass.enabled {
++            commands.entity(entity).insert(InstancedGrassPresented);
++            continue;
++        }
++        let started = web_time::Instant::now();
++        let (grass_color, grass_dryness) = grass_pigment(environment);
++        let grass_density = grass_scatter_density(
++            bps(environment.canopy_bps),
++            bps(environment.water_bps),
++            bps(environment.cultivation_bps),
++            bps(environment.weather.snow_cover_bps),
++        ) * settings.config.grass.density_scale;
++        let wind_scale = 0.16 + bps(environment.weather.wind_speed_bps) * 0.36;
++        let grass = &settings.config.grass;
++        let base_seed = stable_text_seed(&environment.scene_digest).xor_word(0x6772_6173_735f_6c6f);
++        let mut batches =
++            match prepare_scene_tufts(terrain, ground, environment, grass, fault_scarp) {
++                Ok(batches) => batches,
++                Err(error) => {
++                    warn!(%error, ?entity, "Invalid instanced grass ground mask");
++                    continue;
++                }
++            };
++        spawn_tuft_batches(
++            GrassWorld {
++                commands: &mut commands,
++                meshes: &mut meshes,
++                materials: &mut materials,
++            },
++            &mut batches,
++            "Instanced grass",
++            (),
++            base_seed,
++            TuftPigment {
++                color: grass_color,
++                density: grass_density,
++                dryness: grass_dryness,
++                wind_scale,
++            },
++            grass,
++        );
++        tracing::info!(
++            elapsed_ms = started.elapsed().as_millis(),
++            "Generated instanced tactical grass"
++        );
++        commands.entity(entity).insert(InstancedGrassPresented);
++    }
++}
++
++/// Every gameplay/viewer camera drives eidolon's per-instance compute cull.
++#[expect(
++    clippy::type_complexity,
++    reason = "the Bevy camera filter selects uncoupled gameplay cameras and excludes the offscreen cloud pass"
++)]
++fn enable_camera_cull_compute(
++    mut commands: Commands,
++    cameras: Query<
++        Entity,
++        (
++            With<Camera3d>,
++            Without<CullComputeCamera>,
++            // The grass never renders on the offscreen cloud layer, and the
++            // compute cull must follow the gameplay camera.
++            Without<crate::presentation::TacticalCloudOffscreenCamera>,
++        ),
++    >,
++) {
++    for camera in &cameras {
++        commands.entity(camera).insert(CullComputeCamera);
++    }
++}
++
++fn update_instanced_grass_interaction(
++    time: Res<Time>,
++    interactors: Query<&GlobalTransform, With<GrassInteractor>>,
++    mut state: ResMut<InstancedGrassInteractionState>,
++    mut materials: ResMut<Assets<TacticalGrassInstancedMaterial>>,
++    settings: Res<crate::presentation::TacticalGraphicsSettings>,
++) {
++    let Some(position) = interactors.iter().next().map(GlobalTransform::translation) else {
++        if state.written.take().is_some() {
++            for (_, material) in materials.iter_mut() {
++                material.interaction = Vec4::ZERO;
++                material.interaction_motion = Vec4::ZERO;
++            }
++        }
++        state.previous_position = None;
++        state.smoothed_velocity = Vec3::ZERO;
++        return;
++    };
++    let delta_seconds = time.delta_secs().max(1.0 / 240.0);
++    let velocity = state
++        .previous_position
++        .map(|previous| ((position - previous) / delta_seconds).clamp_length_max(8.0))
++        .unwrap_or_default();
++    let response = 1.0 - (-delta_seconds * 10.0).exp();
++    state.smoothed_velocity = state.smoothed_velocity.lerp(velocity, response);
++    state.previous_position = Some(position);
++
++    // Idle interactors converge to constants; stop dirtying material assets
++    // once the written values are close enough that no motion is visible.
++    if state
++        .written
++        .is_some_and(|(written_position, written_velocity)| {
++            written_position.distance_squared(position) < 1e-6
++                && written_velocity.distance_squared(state.smoothed_velocity) < 1e-6
++        })
++    {
++        return;
++    }
++
++    let speed = state.smoothed_velocity.length();
++    for (_, material) in materials.iter_mut() {
++        let interaction = &settings.config.grass.interaction;
++        material.interaction = position.extend(interaction.radius_m);
++        material.interaction_motion = Vec4::new(
++            state.smoothed_velocity.x,
++            state.smoothed_velocity.y,
++            state.smoothed_velocity.z,
++            (interaction.minimum_push + speed * 0.11)
++                .clamp(interaction.minimum_push, interaction.maximum_push),
++        );
++    }
++    state.written = Some((position, state.smoothed_velocity));
++}
++
++/// Number of tuft columns/rows that subdivide one placement cell, per tier.
++fn tufts_per_cell_side(lod: GrassMeshLod) -> i32 {
++    match lod {
++        GrassMeshLod::Near | GrassMeshLod::NearEdge => 12,
++        GrassMeshLod::Far => 4,
++        GrassMeshLod::Vista => 2,
++    }
++}
++
++/// Eidolon fade bands per tier: `xy` fade-in, `zw` fade-out, mirroring the
++/// legacy `grass_lod_visibility` crossfade margins. The near tier's epsilon
++/// fade-in keeps the dither-level math well-defined at zero distance.
++///
++/// `range_scale` contracts every band edge uniformly, so tier hand-offs stay
++/// contiguous while the geometric sward trades reach for vertex throughput.
++/// Near-tier cost scales with the square of its radius, making this the
++/// single most effective grass performance lever.
++fn tier_visibility_range(lod: GrassMeshLod, range_scale: f32) -> Vec4 {
++    let scale = range_scale.clamp(0.35, 1.0);
++    (match lod {
++        // #560's legacy near band (0..14 m) splits into a full-detail field and
++        // a slimmer edge ring; the ring covers most of the band's area, so most
++        // near verts move to the nine-vertex 6x6 mesh. The instanced tiers
++        // reproduce the legacy `grass_lod_visibility` bands so the native and
++        // wasm swards fade out at the same distances (~50 m terminal).
++        GrassMeshLod::Near => Vec4::new(0.0, 0.001, 4.0, 6.0),
++        GrassMeshLod::NearEdge => Vec4::new(4.0, 6.0, 7.0, 14.0),
++        GrassMeshLod::Far => Vec4::new(7.0, 14.0, 36.0, 44.0),
++        // The vista fade-in shares the far tier's fade-out endpoints so the
++        // complementary crossfade partition hands off exactly.
++        GrassMeshLod::Vista => Vec4::new(34.0, 42.0, 42.0, 50.0),
++    }) * scale
++}
++
++fn configured_tier_visibility_range(
++    lod: GrassMeshLod,
++    grass: &crate::presentation::config::GrassConfig,
++) -> Vec4 {
++    let tier = match lod {
++        GrassMeshLod::Near => &grass.lod.near,
++        GrassMeshLod::NearEdge => &grass.lod.near_edge,
++        GrassMeshLod::Far => &grass.lod.far,
++        GrassMeshLod::Vista => &grass.lod.vista,
++    };
++    Vec4::new(
++        tier.fade_in_m[0],
++        tier.fade_in_m[1],
++        tier.fade_out_m[0],
++        tier.fade_out_m[1],
++    )
+ }
+ 
+ #[cfg(test)]
+ mod tests {

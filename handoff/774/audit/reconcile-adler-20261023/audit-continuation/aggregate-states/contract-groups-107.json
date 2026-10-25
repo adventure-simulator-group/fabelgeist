@@ -1,0 +1,182 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-107",
+  "at": "2026-10-25T16:51:09.144183+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1485,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/generation_tests.rs",
+      "sha256": "8acbe54a829e4f8c3f5e3d2fc5b4efe91415a6ebf0ea601ed3d98c46f410d6e6",
+      "personally_read_ranges": [
+        [
+          1,
+          394
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full394 generation fixtures read. Direct empty RuntimeBody/GeneratedArmor literals deliberately bypass production GPU/body preparation to isolate cache/renderer state; no ordinary malformed native body inferred. Actual fixture chain keeps fit across hold/drop/rebuild/new held owner, then changes shape only when worn by new owner. Invalid placement recovers after correction because key install clears failed/resolved and stale sockets. Readiness empty/pending/visible/failed and cache eviction oracles source-read, not run; no current validation claim."
+      ]
+    },
+    {
+      "scope_index": 1486,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers.rs",
+      "sha256": "f57dcb58da364002292182c580ca197bfaa3ad85fc820f2dc6ce95d078b25dc0",
+      "personally_read_ranges": [
+        [
+          1,
+          193
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full193 canonical LayerSelection/OutfitPlan/support algorithm read. LayerSelection stores actual CatalogPlacement, Eq/Hash/Ord use exact item/placement lexical identity; do not derive structural Ord or conflate pointer identity. M07 should propagate this successful admission upstream, not replace with duplicate catalogue owners. OutfitPlan sorts/dedups canonical selections before building corresponding LayerPlan, and indexes only that associated list. Ancestor/support keys retain full ordered transitive layers and body shape, not flat IDs.",
+        "Typed layer errors are converted into Strings by per-owner outfits and later support failures, exact M06. First invalid selection prevents partial valid outfit from becoming authoritative. next_fit recursively chooses missing innermost dependencies under LayerPlan acyclic construction; no infinite-retry/loop allegation without actual cycle bypass. Existing source association/admitted plan must survive, preserving deterministic lexical selection order."
+      ]
+    },
+    {
+      "scope_index": 1487,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers_tests.rs",
+      "sha256": "3ffe851b3adc14ac721684061b3d858a69bdf83e8114530b5f8c2639cda5dcdd",
+      "personally_read_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full62 layer fixtures read. Outfit allocation/order/unrelated opposite limb does not affect fit key, but changing supporting quilted layer does. Support key retains own lower layers. Missing innermost support built first and cached failure propagated with useful cause. These are actual intended key semantics; no GPU/check run or new test."
+      ]
+    },
+    {
+      "scope_index": 1488,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/mesh_tests.rs",
+      "sha256": "469e30265983c8cf91c3a69cd688876287af3f9ba0efb71f2800256415e23933",
+      "personally_read_ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full137 mesh fixtures read. Material ranges partition first/second triangle while unused far body vertex intentionally excluded from shared rigid center. Packed skin joint rows reduce duplicate joint2 influences into canonical VEC4 [2,0,0,0] native port, tied to matching weight rows. Dropped parts keep relative positions/UV/materials and strip joint attributes. Fixture empty metadata/foreign dummy rig used for isolated native render check does not establish whole production aggregate admission."
+      ]
+    },
+    {
+      "scope_index": 1489,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/meshes.rs",
+      "sha256": "6a50a68295abda59aac92334c8dbb8a78d1d363d9ae39dd86ca676d57754164e",
+      "personally_read_ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full160 mesh consumer read. GeneratedArmor indices/component ranges/materials and all vertex columns must be one admitted aggregate (M16/F50); independent checked skin table does not prove arbitrary vertex ordinal belongs to normals/UV/weights. Triangle chunks silently ignore remainder and referenced_center indexes positions and yields nonfinite for empty geometry; actual whole generated source policy must establish divisibility/nonempty where required or return useful error. Do not add blanket global caps or pretend native Mesh validates these semantics.",
+        "Material partition group match uses actual optional authored material, untagged faces deliberately get item catalogue material. Each native draw compacts shared vertices consistently across positions/normals/UV/skin, preserves triangle order and same common origin. Native u16 skin encoding remains fallible and checked, not warning canary by itself. Array extraction at Bevy Mesh/material port is legitimate; raw intermediate aggregate must retain original source/layout until that port."
+      ]
+    },
+    {
+      "scope_index": 1490,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/morphs.rs",
+      "sha256": "166a50824e9c051fa93ab7ce03790a3e36f362ad1b2326c98ce4e1da7fe7490c",
+      "personally_read_ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full77 BodyShapeKey construction/application read. Actual raw character\u2192canonical morph/proportion and identity names feed bitwise key. M17 must associate names/ordered weights/targets/source, not use equal product length as identity proof. targets.len == positions.len*weights.len does not independently establish normals cardinality and zip can truncate; zero position count plus zero target product reaches chunks(0), while actual CanonicalBody chart construction rejects empty body first. API weakening remains qualified, no ordinary production panic claimed.",
+        "prepare_shape applies to a local clone and clears its device before publishing fresh fitted body; direct partial mutation does not prove global cache corruption on Err. Preserve exact per-target accumulation order, normalize_or_zero normal policy and native morph delta semantics. Existing checked proportions are stored bitwise then readmitted; no invented probability bounds or collapsing signed skeletal controls."
+      ]
+    },
+    {
+      "scope_index": 1491,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/rig.rs",
+      "sha256": "376e2b436adccb5e961cafbb25082a1e38c1cabe2e56d0d9ccbada3fa69a1a7b",
+      "personally_read_ranges": [
+        [
+          1,
+          190
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full190 FittingRig source read. Nodes hold parent GltfNodeOrdinal separately from RigJointTable node references, canonical typed distinction already prevents node/joint ordinal confusion. Constructor checks parent uniqueness, membership and finite consistent proportion basis reference; per-joint global evaluation bounds traversal and rejects reachable cycles before fit correction. Actual CanonicalBody passes same skin to body and FittingRig, establishing normal correspondence. Independent generic tables still need whole source/layout admission, not counts alone.",
+        "Fit offsets are rest-proportion changes rather than current animation pose. Leg correction moves pelvis descendants, not body-world root, matching animation contract. Positions/joint rows/weights and global states zip rely on M16/F50 aggregate association; derived translation/matrix inversion must preserve finite rigid/uniform-scale guarantees and errors. Actual caller mutates a local body clone before cache insertion; no normal partial cache write asserted."
+      ]
+    },
+    {
+      "scope_index": 1492,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/rig_tests.rs",
+      "sha256": "4361cea596a62d622535d10bf3c8e217573ebb98a64ec6dee0ac5e28a95eb2da",
+      "personally_read_ranges": [
+        [
+          1,
+          161
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full161 rig fixtures read. Actual parent rotation and coupled signed proportions test morph then rest-skin offset without double deformation. Shape key changes with identity/proportion controls; missing target cardinality rejects. Test direct joint table/state replacement is isolated fixture construction and does not prove current native source mismatch. Existing assertions read only."
+      ]
+    },
+    {
+      "scope_index": 1493,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/sockets.rs",
+      "sha256": "a45cb5eedc27be4cfec5bdd354ffbd7db75dc898d4a3f5dd1e06044c3fe47936",
+      "personally_read_ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full89 socket producer/fixture read. Selects only belt attachment point locations (left/right/front/back), requires root/pelvis and tangent, builds shared garment surface points and transforms chosen point into actual pelvis bind-local coordinates. This supplies positive producer support for documented pelvis-local receiver: no arbitrary parent-local composition. Lower/upper midpoint and side sign are geometry policies, not new authoritative anatomical state. Missing root/empty referenced surface/unsupported location intentionally yields no socket.",
+        "Generated indices\u2192positions and body names\u2192states rely on same M16/F50 admitted aggregates; finite extremal sums/zero sign and inverse bind need real native result policy, not another parallel bounds cache. Socket IDs come from actual CatalogItem definitions; retain canonical attachment-point owner through map rather than raw String internally. No ordinary wrong-limb socket construction from current catalogue demonstrated."
+      ]
+    },
+    {
+      "scope_index": 1494,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/skin.rs",
+      "sha256": "7d3de24eaaf295e510aeb41c6bd8e6f5d5204beea0b976cbc16cb617d862c7a4",
+      "personally_read_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full111 skin binding and transfer fixture read. Owner-scoped RigJointName\u2192Entity map resolves entire ordered part table or None; partial unavailable bones remove native skin rather than keep stale partial list. Native SkinnedMesh receives original exact inverse binds and actual wearer joints. Duplicate names would replace map entry, so original rig source admission must control uniqueness/owner; fixture one joint per owner coherent. Held/dropped intentionally unbound, worn transfers select new wearer without rebinding shared original assets. No render/run result."
+      ]
+    },
+    {
+      "scope_index": 1495,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/slot_selection.rs",
+      "sha256": "95cb7d00f5f9c53287ed626304bd1914c958f7ee38933a8906a354ca12610678",
+      "personally_read_ranges": [
+        [
+          1,
+          243
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full243 slot selection plus original fixtures read. MappedSlot binds location/depth/location_index from actual mapping; loop handles empty locations without modulo evaluation and depth conversion fails gracefully. Existing input mappings small known indices keep start arithmetic bounded by actual repeated chosen index; no arbitrary external usize accepted normal. SEGO-INITIAL09-F258 exact active-hand/session relationship gains current PR helper support; test applies pure slot state to default inactive session intentionally, preserving pure helper usefulness.",
+        "Unknown held catalogue item explicitly fails eligible slot selection, empty hand picks occupied target, defined item checks actual authored placements/attachment availability. Repeated input cycles eligible anatomical locations rather than HUD coordinates. Preview/HUD consistent ordering fixture reverses entity allocation; raw request depth/target still checked by authoritative server revision/identity, not conflated with static catalogue placement ordinal."
+      ]
+    }
+  ],
+  "findings": [
+    "M06 structured fitting/layer failure cache",
+    "M07 retained catalogue item/placement",
+    "M15/M16 source/population/layout association",
+    "M17 exact morph identity and endpoint correspondence",
+    "F50 canonical influence reduction/admission",
+    "SEGO-INITIAL09-F258 active grab payload exact alias"
+  ],
+  "qualified_connected_requirements": [
+    "Original native body/source invariants must precede direct indexing, chunks and zips; current actual canonical factory rejects empty positions. No ordinary malformed asset or executed GPU failure asserted.",
+    "Actual sockets producer supports pelvis-local belt receiver; opposite bone mismatch remains unproved, not an independent defect."
+  ],
+  "discovery": "Eleven full original roles personally source-accounted; lens incomplete and no source fix/check.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

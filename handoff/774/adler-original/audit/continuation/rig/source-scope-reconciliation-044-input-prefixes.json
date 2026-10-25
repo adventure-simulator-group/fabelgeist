@@ -1,0 +1,144 @@
+{
+  "id": "RIG-CONT-PPS-SOURCE-SCOPE-RECONCILIATION-044-INPUT-PREFIXES",
+  "index_sha256": "f62ce7c8978caaf2840a292786422a2c509498a72ab22a46e812e78fac63d558",
+  "input_prefix_qualifications": [
+    {
+      "path": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+      "indexed_sha256": "6cfd484d22fe2d5972a1de6a3a2f0ca7b54c89b2b459ccba7efd61c0193ae583",
+      "current_sha256_at_check": "6cfd484d22fe2d5972a1de6a3a2f0ca7b54c89b2b459ccba7efd61c0193ae583",
+      "indexed_prefix_length_bytes": 581215,
+      "current_length_bytes_at_check": 581215,
+      "qualification": "exact-current-input-bytes",
+      "limit": "Only exact indexed prefix participates in044 map; subsequent appended observations remain outside this bounded input."
+    },
+    {
+      "path": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+      "indexed_sha256": "f0e53b1f18b85876dd81c01dfeacfffaf3b1d60ca13eaa9b59f33d2de7f8d674",
+      "current_sha256_at_check": "f0e53b1f18b85876dd81c01dfeacfffaf3b1d60ca13eaa9b59f33d2de7f8d674",
+      "indexed_prefix_length_bytes": 1013571,
+      "current_length_bytes_at_check": 1013571,
+      "qualification": "exact-current-input-bytes",
+      "limit": "Only exact indexed prefix participates in044 map; subsequent appended observations remain outside this bounded input."
+    },
+    {
+      "path": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+      "indexed_sha256": "7a3e5ac1e865c46d53a1055a1f793466f9f89353ed26ca668f5a3aa934db6253",
+      "current_sha256_at_check": "7a3e5ac1e865c46d53a1055a1f793466f9f89353ed26ca668f5a3aa934db6253",
+      "indexed_prefix_length_bytes": 446159,
+      "current_length_bytes_at_check": 446159,
+      "qualification": "exact-current-input-bytes",
+      "limit": "Only exact indexed prefix participates in044 map; subsequent appended observations remain outside this bounded input."
+    },
+    {
+      "path": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+      "indexed_sha256": "512940c3d587e1ff6c1a7539f0fec9e485b7b2a4ca066b030089fb00c6b8bb74",
+      "current_sha256_at_check": "512940c3d587e1ff6c1a7539f0fec9e485b7b2a4ca066b030089fb00c6b8bb74",
+      "indexed_prefix_length_bytes": 631913,
+      "current_length_bytes_at_check": 631913,
+      "qualification": "exact-current-input-bytes",
+      "limit": "Only exact indexed prefix participates in044 map; subsequent appended observations remain outside this bounded input."
+    },
+    {
+      "path": "continuation/camera/coverage.jsonl",
+      "indexed_sha256": "642b85f666275ab1a5cf037683ee3bb0c5896a3e3c158245a4a989cdf6dd567d",
+      "current_sha256_at_check": "80bc803792f8fc1cc22d8d844be3b6f63915b889b7596686a319ea4b4286683e",
+      "indexed_prefix_length_bytes": 12683,
+      "current_length_bytes_at_check": 14261,
+      "qualification": "exact-indexed-prefix-plus-later-appends",
+      "limit": "Only exact indexed prefix participates in044 map; subsequent appended observations remain outside this bounded input."
+    },
+    {
+      "path": "continuation/camera/findings.jsonl",
+      "indexed_sha256": "0c8b09695b8d838405d732b4a6a0661d376c4d9b231230047c6e437d9ff7148f",
+      "current_sha256_at_check": "c7fe2d266be77835ec6e399069349b02f99aedf6147e7eeeba7ae0db1e9fb240",
+      "indexed_prefix_length_bytes": 1828,
+      "current_length_bytes_at_check": 5102,
+      "qualification": "exact-indexed-prefix-plus-later-appends",
+      "limit": "Only exact indexed prefix participates in044 map; subsequent appended observations remain outside this bounded input."
+    },
+    {
+      "path": "continuation/camera/progress.jsonl",
+      "indexed_sha256": "753a01dccf0e9908ab3657490691b3ddd2b77b3ac2e41fe3d817d24b4b7b43e8",
+      "current_sha256_at_check": "f7f4eb85d167c59cb854dc4552a5d1a770cad92cacbf2a2f748e9e47b971d2bf",
+      "indexed_prefix_length_bytes": 1311,
+      "current_length_bytes_at_check": 4016,
+      "qualification": "exact-indexed-prefix-plus-later-appends",
+      "limit": "Only exact indexed prefix participates in044 map; subsequent appended observations remain outside this bounded input."
+    },
+    {
+      "path": "continuation/camera/receivers.jsonl",
+      "indexed_sha256": "53d9116d367bc3bf8f3c9798cd5f79cf04ce90d81e11a32c5aed54d7cf26f76f",
+      "current_sha256_at_check": "53d9116d367bc3bf8f3c9798cd5f79cf04ce90d81e11a32c5aed54d7cf26f76f",
+      "indexed_prefix_length_bytes": 1688,
+      "current_length_bytes_at_check": 1688,
+      "qualification": "exact-current-input-bytes",
+      "limit": "Only exact indexed prefix participates in044 map; subsequent appended observations remain outside this bounded input."
+    },
+    {
+      "path": "continuation/camera/sources.jsonl",
+      "indexed_sha256": "e047a1dc695a9f8626018c9ee620327ba575cd16a9b4ac4f24e52fecda8c3bb2",
+      "current_sha256_at_check": "e047a1dc695a9f8626018c9ee620327ba575cd16a9b4ac4f24e52fecda8c3bb2",
+      "indexed_prefix_length_bytes": 3942,
+      "current_length_bytes_at_check": 3942,
+      "qualification": "exact-current-input-bytes",
+      "limit": "Only exact indexed prefix participates in044 map; subsequent appended observations remain outside this bounded input."
+    },
+    {
+      "path": "continuation/camera/traces.jsonl",
+      "indexed_sha256": "7f2a7def099fec03a7e64c567f86e6359b2ca4659572dd0a34123d3090354d00",
+      "current_sha256_at_check": "6d71ea84825f461cafe98446af772c3a8afd950d7e9023a1be5f616734ebc355",
+      "indexed_prefix_length_bytes": 43580,
+      "current_length_bytes_at_check": 73542,
+      "qualification": "exact-indexed-prefix-plus-later-appends",
+      "limit": "Only exact indexed prefix participates in044 map; subsequent appended observations remain outside this bounded input."
+    },
+    {
+      "path": "continuation/rig/progress-042.json",
+      "indexed_sha256": "b6665b0f221debeeeff1f3a6f71a69545f5a35b8ef2fe501603e402a81411127",
+      "current_sha256_at_check": "b6665b0f221debeeeff1f3a6f71a69545f5a35b8ef2fe501603e402a81411127",
+      "indexed_prefix_length_bytes": 1184,
+      "current_length_bytes_at_check": 1184,
+      "qualification": "exact-current-input-bytes",
+      "limit": "Only exact indexed prefix participates in044 map; subsequent appended observations remain outside this bounded input."
+    },
+    {
+      "path": "continuation/rig/pure-food-recipient-carry-forward-041.json",
+      "indexed_sha256": "f321e2d41397fc64048d0ec386923c3f60be891c1547836e2622923622fd3d02",
+      "current_sha256_at_check": "f321e2d41397fc64048d0ec386923c3f60be891c1547836e2622923622fd3d02",
+      "indexed_prefix_length_bytes": 11584,
+      "current_length_bytes_at_check": 11584,
+      "qualification": "exact-current-input-bytes",
+      "limit": "Only exact indexed prefix participates in044 map; subsequent appended observations remain outside this bounded input."
+    },
+    {
+      "path": "continuation/rig/range-schema-errata-043.json",
+      "indexed_sha256": "14cf59ff84488a4f8bd45dcc4706947f6e062ecd755d7167a2180800eb4afae4",
+      "current_sha256_at_check": "14cf59ff84488a4f8bd45dcc4706947f6e062ecd755d7167a2180800eb4afae4",
+      "indexed_prefix_length_bytes": 2997,
+      "current_length_bytes_at_check": 2997,
+      "qualification": "exact-current-input-bytes",
+      "limit": "Only exact indexed prefix participates in044 map; subsequent appended observations remain outside this bounded input."
+    },
+    {
+      "path": "continuation/rig/web-request-reconciliation-039.json",
+      "indexed_sha256": "a8da289761930b0983922ccacc77168d94a2f29ebf1e49eda7cc8d44dd5cfce6",
+      "current_sha256_at_check": "a8da289761930b0983922ccacc77168d94a2f29ebf1e49eda7cc8d44dd5cfce6",
+      "indexed_prefix_length_bytes": 43308,
+      "current_length_bytes_at_check": 43308,
+      "qualification": "exact-current-input-bytes",
+      "limit": "Only exact indexed prefix participates in044 map; subsequent appended observations remain outside this bounded input."
+    },
+    {
+      "path": "continuation/root/pure8-packet.json",
+      "indexed_sha256": "58f9ada2be814a6eebcbbfb84ffb9d7d0aff98c9198208d16e6f4fc0ef56fffb",
+      "current_sha256_at_check": "58f9ada2be814a6eebcbbfb84ffb9d7d0aff98c9198208d16e6f4fc0ef56fffb",
+      "indexed_prefix_length_bytes": 11454,
+      "current_length_bytes_at_check": 11454,
+      "qualification": "exact-current-input-bytes",
+      "limit": "Only exact indexed prefix participates in044 map; subsequent appended observations remain outside this bounded input."
+    }
+  ],
+  "reproduction": "Before reproducing044, use each input file's first indexed_prefix_length_bytes and verify indexed_sha256. Four camera JSONL files received later appends; exact indexed prefixes prove older IDs/pointers used here remain unchanged. Index source_context observations themselves are preserved verbatim in044.",
+  "unresolved_input_changes": [],
+  "coverage_change": "none"
+}

@@ -1,0 +1,81 @@
+{
+  "id": "CONT07-CONTRACT-561",
+  "at": "2026-10-23T23:46:39.724754+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2426,
+      "source_id": "pr-working:crates/strategic-web/static/strategic-generation-write-queue.js",
+      "sha256": "d20d0b2685068cdcb5c197635e8b65ae1818dc30424a9a9f9bc2fc8cfd7894d1",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/static/strategic-generation-write-queue.js",
+      "actual_EOF": 97,
+      "ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2427,
+      "source_id": "pr-working:crates/strategic-web/static/strategic-generation.js",
+      "sha256": "990b58405ed9b2c9110031b9c0cfa98557a4803f43ed2cff46e64afa9d136101",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/static/strategic-generation.js",
+      "actual_EOF": 117,
+      "ranges": [
+        [
+          1,
+          117
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2428,
+      "source_id": "pr-working:crates/strategic-web/static/strategic-renderer.js",
+      "sha256": "37325cf5d7929ee9c30e7443412975c9f522fbc48fb147dd754d77f8bda24f00",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/static/strategic-renderer.js",
+      "actual_EOF": 261,
+      "ranges": [
+        [
+          1,
+          261
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2429,
+      "source_id": "pr-working:crates/strategic-web/static/strategic-scene-request.js",
+      "sha256": "115d5bb4d13aa19a2db6ec66612d6dfce39867927ce807bb8d5a1703991bc5c4",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/static/strategic-scene-request.js",
+      "actual_EOF": 80,
+      "ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "CONT07-F086 prior local source-conditional finding now actualJSrecipient support; no global duplicate increment"
+  ],
+  "facts": [
+    "Deferredqueue97 privatependingMap/retainedBytes/inflightcounts updatecoherently forreplace/remove/flush, freezescheckedlimits, structuredClone transfersownership afteradmission. Phaseaccepting\u2192draining rejectsnewwrites; closepromiseidempotent andalllanessettle, no stalecountauthority identified.",
+    "Generation117 ordinaryreceipt occursbeforecache.put nativeownershiptransfer. Cachehitpassesactualwasm_receive_job forrequestedpreparation/job; onlyexplicitRustdecode/mismatcherrors evict andregenerate. Availability/dependency errors failreadinessintentionally. ModuleSHA revision derivesexactcompiledWasmbytes inrenderer, graphicsconfigsupplied separatelytoactualregionaljobdiscovery.",
+    "Renderer261 Forge WeakMaps perroot pluscurrentForgeDesign sameobjectreference; encode/quote derivefromonejson andnativerecipecommandactualsamecatalogue/design. Humaneditorconstraints fromnativewasmowner rather thanduplicatedsliderbounds. Failednativequote disables submission butoldhiddenrecipe/preview remains; no claim ordinarydisabledsubmit commits stale data.",
+    "SceneRequests80 confirms ownCONT07-F086 exactidentity weakness: resident/current/failedsame-location earlyreturns do notcompare venues/sceneinput/sourcegeneration. Runtimefetch+preparation cancellation gates avoidolderrequest install; this isnot allasyncunguarded. Contentreplacement supportedAPI conditional remains, ordinaryfrozenpack/nodefetchedsame semanticlocation mayintentional; no newunique.",
+    "Preparation owner waits previouspendingrelease andactualnativefinish, cancelsownedgenerationonfailure. Renderer bodytacticalflag followsactualenter/exitcommand; asynchronouserrorcouldleaveflagpending but noactualruntimefailuretracepromoted."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2430,
+    "start_line": 1
+  }
+}

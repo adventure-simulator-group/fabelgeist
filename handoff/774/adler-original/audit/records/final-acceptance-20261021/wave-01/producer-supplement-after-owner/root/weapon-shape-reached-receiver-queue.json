@@ -1,0 +1,17 @@
+{
+  "packet": "camera-weapon-shape33",
+  "source_repairs": "frozen",
+  "state": "Exact material receiving queue accounted by041; findings open, not audit/family clearance",
+  "paths": [
+    "model/groove_sections.rs",
+    "model/groove_transitions.rs",
+    "construction/polygon.rs",
+    "construction/sweep.rs",
+    "construction/sweep/path.rs",
+    "construction/solids.rs::prism/shaped_plate",
+    "construction/surface_refinement.rs::Region::split_edges"
+  ],
+  "purpose": "Exact source extraction/retained callback/input\u2192actual numerical geometry/triangulation/end output recipients; no unrelated whole-file waiver or automatic coverage.",
+  "absent_probe": "No model/groove_body.rs exists; actual source uses groove_sections/groove_transitions; nonexistent path not claimed as source coverage.",
+  "closure": "camera-weapon-shape-receiver-packet.json"
+}

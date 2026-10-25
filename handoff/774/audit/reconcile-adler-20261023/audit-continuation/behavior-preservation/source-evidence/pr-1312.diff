@@ -1,0 +1,13 @@
+--- PRbase/crates/adventuresim-tactical-client/src/animation/bind_pose.rs
++++ frozen/crates/adventuresim-tactical-client/src/animation/bind_pose.rs
+@@ -38,9 +38,9 @@
+ ) {
+     for (bind, offset, mut transform) in &mut nodes {
+         if playbacks
+             .get(bind.owner)
+-            .is_ok_and(|playback| playback.use_authored_bind_pose)
++            .is_ok_and(|playback| playback.plan.is_bind())
+         {
+             *transform = bind.local;
+             transform.translation += offset.map(|offset| offset.0).unwrap_or_default();
+         }

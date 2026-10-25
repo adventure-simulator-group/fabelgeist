@@ -1,0 +1,195 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-385",
+  "at": "2026-10-25T15:12:50.471008+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 762,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/drape_preview.rs",
+      "sha256": "c6e605a97a1a017db71939375f50395488a049834eebd77c4a09ee1058360077",
+      "actual_EOF": 312,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-character-creator/src/drape_preview.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-character-creator/src/drape_preview.rs",
+        "owner": "rig",
+        "sha256": "c6e605a97a1a017db71939375f50395488a049834eebd77c4a09ee1058360077",
+        "base_sha256": "d92a7708e1edfbce1b61cf0a3e01fee2c47caf895b5978218544822d1e66410b",
+        "state": "modified",
+        "bytes": 10484,
+        "audit_owner": "rig",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/sources.json",
+            "ranges": [
+              [
+                1,
+                312
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-GARMENT-05"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 205,
+            "read_ranges": [
+              [
+                1,
+                312
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-DRAPE-OWNERS-035"
+            ],
+            "read_status": "full-source-read-current-lens",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-character-creator/src/drape_preview.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          312
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "DrapeJob Resource/Default13",
+        "DrapeMesh Component48",
+        "MailMaterials Resource/Default52"
+      ],
+      "absence_basis": "Full exact source read1\u2013190/191\u2013312. DrapeJob scheduling/native cached material/texture141\u2013159 input, Bevy poll165\u2013225/spawn_garment228\u2013278/refresh_mail281\u2013312 semantic geometry/material/resource functions. No handwritten trait/codec; structural/framework derives already present, no serialization for runtime classifier."
+    },
+    {
+      "scope_index": 763,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/drape_worker.rs",
+      "sha256": "6e96818d06560c10bd8f74d121d84fc812726274dedc89b59f85bce7d0e6ca73",
+      "actual_EOF": 131,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-character-creator/src/drape_worker.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-character-creator/src/drape_worker.rs",
+        "sha256": "6e96818d06560c10bd8f74d121d84fc812726274dedc89b59f85bce7d0e6ca73",
+        "bytes": 4610,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/additional-sources-010.json",
+            "ranges": [
+              [
+                1,
+                131
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-RECEIVER-01"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 206,
+            "read_ranges": [
+              [
+                1,
+                131
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-DRAPE-OWNERS-035"
+            ],
+            "read_status": "full-source-read-current-lens",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-character-creator/src/drape_worker.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 242,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Default",
+          "type": "DrapeWorker<T>",
+          "lines": [
+            23,
+            34
+          ],
+          "disposition": "KEEP necessary small generic impl without T:Default bound. All T-bearing fields are empty Vec/Option; builtin derive imposes T:Default although current API accepts any T. Owning681manifest provides no equivalent bound-free Default derive; do not add dependency solely cleanup."
+        },
+        {
+          "trait": "Drop",
+          "type": "DrapeWorker<T>",
+          "lines": [
+            36,
+            41
+          ],
+          "disposition": "KEEP native cancellation side effect: atomic store(true, Relaxed), no mechanical field derive equivalent."
+        }
+      ],
+      "existing_derives": [
+        "DrapeProgress Default43"
+      ],
+      "absence_basis": "Full exact source consumed. Native generic worker state/cancellation/poll/spawn semantics and borrowed tag slice53\u2013131 retain Send+static bound only on operating methods, not Default/Drop. No codec or other handwritten trait."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "native asynchronous drape worker lifecycle and preview",
+      "disposition": "Keep generic unbounded Default and effectful cancellation Drop; remaining records/framework traits already derive, native scheduling/material mapping semantic.",
+      "acceptance": "Do not add T:Default, alter Send/static operation bounds or drop cancellation; no worker/UI/GPU execution."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 764,
+    "source_id": "pr-working:crates/adventuresim-character-creator/src/equipment_catalog.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

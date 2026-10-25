@@ -1,0 +1,37 @@
+--- PRbase/crates/adventuresim-character-creator/src/wardrobe_tab.rs
++++ frozen/crates/adventuresim-character-creator/src/wardrobe_tab.rs
+@@ -219,9 +219,11 @@
+     for entity in &garments {
+         scene.commands.entity(entity).despawn();
+     }
+     if let Some((selection, garment)) = shown {
+-        spawn(&mut scene, &mut mail, &selection, garment);
++        if let Err(error) = spawn(&mut scene, &mut mail, &selection, garment) {
++            wardrobe.fit_problems = Some(format!("{error:#}"));
++        }
+     }
+ }
+ 
+ /// Take the running drape's progress, and show it when the design is shown.
+@@ -291,9 +293,9 @@
+     scene: &mut PreviewScene,
+     mail: &mut drape_preview::MailMaterials,
+     selection: &GarmentSelection,
+     mut garment: DrapedGarment,
+-) {
++) -> Result<()> {
+     // The wardrobe shows the garment standing still: no skin to animate it.
+     garment.indices.clear();
+     garment.weights.clear();
+     let material = mail.material_for(&mut scene.images, selection);
+@@ -303,9 +305,9 @@
+         &mut scene.materials,
+         garment,
+         material,
+         (WardrobeGarment, Visibility::Hidden),
+-    );
++    )
+ }
+ 
+ /// Show the wardrobe's body and garment on its tab only.
+ pub(super) fn display(

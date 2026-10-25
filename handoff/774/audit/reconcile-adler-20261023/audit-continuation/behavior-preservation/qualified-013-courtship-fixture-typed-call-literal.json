@@ -1,0 +1,51 @@
+{
+  "id": "CONT08-QUAL013",
+  "classification": "retained source assertion mismatch; source-only not executed regression",
+  "source": {
+    "scope_index": 1169,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/courtship.rs",
+    "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+    "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/relationship/tests/courtship.rs",
+    "before_sha256": "4a9668f265691ff206541f97fd9c54bf6d980153ebe8bc954f946118ff263fc8",
+    "after_sha256": "4a9668f265691ff206541f97fd9c54bf6d980153ebe8bc954f946118ff263fc8",
+    "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1169-base-4a9668f265691ff206541f97fd9c54bf6d980153ebe8bc954f946118ff263fc8",
+    "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/4a9668f265691ff206541f97fd9c54bf6d980153ebe8bc954f946118ff263fc8",
+    "diff": "source-evidence/pr-1169.diff",
+    "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "ranges": [
+    [
+      23,
+      41
+    ]
+  ],
+  "actual_producer": {
+    "scope_index": 1155,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/courtship.rs",
+    "sha256": "3f03d0db1b9cf1860a021496c4a4442a607e0dc03f6eaa309ca7318e965e323c",
+    "ranges": [
+      [
+        428,
+        500
+      ]
+    ],
+    "own08_full_read": "contract-groups-318.json"
+  },
+  "source_assembly": {
+    "scope_index": 1161,
+    "ranges": [
+      [
+        156,
+        170
+      ]
+    ],
+    "own08_full_read": "contract-groups-319.json"
+  },
+  "facts": [
+    "Fixture literal at1169:32 requires father_of_at(ctx, partner_id, StrategicMinute::new(minute)); actual begin_formal_courtship1155:471 passes minute that validate_canonical_courtship_pair alreadyreturnsStrategicMinute.",
+    "Own fullPRdiffs for1169/1155/1161 empty; sourceconcat actualmodulebody not fixtureassertion expansion. Bothbefore/afterretainstaleoracle.",
+    "No test/compiler/nativeexecution; do not countasnew774regression ornewunique absentglobaldedup."
+  ],
+  "connected_acceptance": "Preserve actual canonicallivingfather/effectivechronology rejection contract; correct sourceoracle around alreadytypedcall with semanticassertions whereappropriate, no source/testchangeauthorizedduringdiscovery."
+}

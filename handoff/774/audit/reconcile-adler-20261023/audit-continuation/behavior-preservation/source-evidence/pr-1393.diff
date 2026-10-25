@@ -1,0 +1,799 @@
+--- PRbase/crates/adventuresim-tactical-client/src/animation/ragdoll/definition.rs
++++ frozen/crates/adventuresim-tactical-client/src/animation/ragdoll/definition.rs
+@@ -5,23 +5,198 @@
+ //! position, so `bone = body * bind_rotation`; joint anchors and axes are
+ //! owner-space bind data; and the runtime multiplies every length by the
+ //! owner's live scale.
+ 
++use adventuresim_building_generator::spatial_geometry::{GeometryResult, Radians};
+ use adventuresim_tactical_core::prelude::*;
+ use bevy::prelude::*;
+ 
+ use super::super::procedural::BoneRole;
++use super::geometry::CapsuleShape;
++use BoneRole::*;
++use CapsuleSelector as Capsule;
+ 
+ /// Index of the pelvis body: the kinematic root that rides the
+ /// authoritative controller.
+ pub(super) const PELVIS_BODY: usize = 0;
+ 
+-#[derive(Debug, Clone, Copy, PartialEq)]
+-pub(super) struct CapsuleShape {
+-    pub(super) radius: f32,
+-    /// Cylinder length between the hemispherical caps.
+-    pub(super) length: f32,
+-}
++const BODY_SPECS: [BodySpec; 15] = [
++    BodySpec {
++        kinematic: true,
++        ..body(Pelvis, Capsule::Pelvis, axis(Pelvis, Chest, Vec3::Y))
++    },
++    body(Chest, Capsule::Chest, axis(Chest, Head, Vec3::Y)),
++    body(Head, Capsule::Head, axis(Chest, Head, Vec3::Y)),
++    body(
++        ThighLeft,
++        Capsule::Thigh,
++        axis(ThighLeft, ShinLeft, Vec3::NEG_Y),
++    ),
++    body(
++        ShinLeft,
++        Capsule::Shin,
++        axis(ShinLeft, FootLeft, Vec3::NEG_Y),
++    ),
++    body(
++        FootLeft,
++        Capsule::Foot,
++        axis(FootLeft, ToeLeft, Vec3::NEG_Z),
++    ),
++    body(
++        ThighRight,
++        Capsule::Thigh,
++        axis(ThighRight, ShinRight, Vec3::NEG_Y),
++    ),
++    body(
++        ShinRight,
++        Capsule::Shin,
++        axis(ShinRight, FootRight, Vec3::NEG_Y),
++    ),
++    body(
++        FootRight,
++        Capsule::Foot,
++        axis(FootRight, ToeRight, Vec3::NEG_Z),
++    ),
++    body(
++        UpperArmLeft,
++        Capsule::UpperArm,
++        axis(UpperArmLeft, ForearmLeft, Vec3::NEG_Y),
++    ),
++    body(
++        ForearmLeft,
++        Capsule::Forearm,
++        axis(ForearmLeft, HandLeft, Vec3::NEG_Y),
++    ),
++    body(
++        HandLeft,
++        Capsule::Hand,
++        axis(ForearmLeft, HandLeft, Vec3::NEG_Y),
++    ),
++    body(
++        UpperArmRight,
++        Capsule::UpperArm,
++        axis(UpperArmRight, ForearmRight, Vec3::NEG_Y),
++    ),
++    body(
++        ForearmRight,
++        Capsule::Forearm,
++        axis(ForearmRight, HandRight, Vec3::NEG_Y),
++    ),
++    body(
++        HandRight,
++        Capsule::Hand,
++        axis(ForearmRight, HandRight, Vec3::NEG_Y),
++    ),
++];
++
++const JOINT_SPECS: [JointSpec; 14] = [
++    spherical(
++        Pelvis,
++        Chest,
++        AnchorAt::Midpoint,
++        axis(Chest, Head, Vec3::Y),
++        0.5,
++        0.4,
++    ),
++    spherical(
++        Chest,
++        Head,
++        AnchorAt::Role(NeckOne),
++        axis(Chest, Head, Vec3::Y),
++        0.6,
++        0.8,
++    ),
++    spherical(
++        Pelvis,
++        ThighLeft,
++        AnchorAt::Child,
++        axis(ThighLeft, ShinLeft, Vec3::NEG_Y),
++        0.9,
++        0.4,
++    ),
++    hinge(
++        ThighLeft,
++        ShinLeft,
++        axis(ShinLeft, FootLeft, Vec3::NEG_Y),
++        FlexDirection::Backward,
++        (0.0, 2.3),
++    ),
++    hinge(
++        ShinLeft,
++        FootLeft,
++        axis(ShinLeft, FootLeft, Vec3::NEG_Y),
++        FlexDirection::Backward,
++        (-0.5, 0.5),
++    ),
++    spherical(
++        Pelvis,
++        ThighRight,
++        AnchorAt::Child,
++        axis(ThighRight, ShinRight, Vec3::NEG_Y),
++        0.9,
++        0.4,
++    ),
++    hinge(
++        ThighRight,
++        ShinRight,
++        axis(ShinRight, FootRight, Vec3::NEG_Y),
++        FlexDirection::Backward,
++        (0.0, 2.3),
++    ),
++    hinge(
++        ShinRight,
++        FootRight,
++        axis(ShinRight, FootRight, Vec3::NEG_Y),
++        FlexDirection::Backward,
++        (-0.5, 0.5),
++    ),
++    spherical(
++        Chest,
++        UpperArmLeft,
++        AnchorAt::Child,
++        axis(UpperArmLeft, ForearmLeft, Vec3::NEG_Y),
++        1.5,
++        0.6,
++    ),
++    hinge(
++        UpperArmLeft,
++        ForearmLeft,
++        axis(ForearmLeft, HandLeft, Vec3::NEG_Y),
++        FlexDirection::Forward,
++        (0.0, 2.5),
++    ),
++    spherical(
++        ForearmLeft,
++        HandLeft,
++        AnchorAt::Child,
++        axis(ForearmLeft, HandLeft, Vec3::NEG_Y),
++        0.6,
++        0.4,
++    ),
++    spherical(
++        Chest,
++        UpperArmRight,
++        AnchorAt::Child,
++        axis(UpperArmRight, ForearmRight, Vec3::NEG_Y),
++        1.5,
++        0.6,
++    ),
++    hinge(
++        UpperArmRight,
++        ForearmRight,
++        axis(ForearmRight, HandRight, Vec3::NEG_Y),
++        FlexDirection::Forward,
++        (0.0, 2.5),
++    ),
++    spherical(
++        ForearmRight,
++        HandRight,
++        AnchorAt::Child,
++        axis(ForearmRight, HandRight, Vec3::NEG_Y),
++        0.6,
++        0.4,
++    ),
++];
+ 
+ #[derive(Debug, Clone)]
+ pub(super) struct RagdollBody {
+     pub(super) role: BoneRole,
+@@ -34,18 +209,11 @@
+     pub(super) kinematic: bool,
+ }
+ 
+ #[derive(Debug, Clone, Copy, PartialEq)]
+-pub(super) enum RagdollJointKind {
+-    Spherical {
+-        twist_axis: Vec3,
+-        swing: f32,
+-        twist: f32,
+-    },
+-    Hinge {
+-        axis: Vec3,
+-        limits: (f32, f32),
+-    },
++pub(super) struct JointAngleLimits {
++    pub(super) minimum: Radians,
++    pub(super) maximum: Radians,
+ }
+ 
+ #[derive(Debug, Clone, Copy)]
+ pub(super) struct RagdollJoint {
+@@ -60,8 +228,45 @@
+ #[derive(Debug, Clone)]
+ pub(super) struct RagdollDefinition {
+     pub(super) bodies: Vec<RagdollBody>,
+     pub(super) joints: Vec<RagdollJoint>,
++}
++
++/// A direction read from two bind positions, with a fallback for rigs that
++/// lack the far joint.
++#[derive(Clone, Copy)]
++struct BindAxis {
++    from: BoneRole,
++    to: BoneRole,
++    fallback: Vec3,
++}
++
++struct BodySpec {
++    role: BoneRole,
++    capsule: CapsuleSelector,
++    /// The capsule runs from the bone along this axis.
++    axis: BindAxis,
++    kinematic: bool,
++}
++
++struct JointSpec {
++    parent: BoneRole,
++    child: BoneRole,
++    anchor: AnchorAt,
++    kind: JointSpecKind,
++}
++
++#[derive(Debug, Clone, Copy, PartialEq)]
++pub(super) enum RagdollJointKind {
++    Spherical {
++        twist_axis: Vec3,
++        swing: Radians,
++        twist: Radians,
++    },
++    Hinge {
++        axis: Vec3,
++        limits: JointAngleLimits,
++    },
+ }
+ 
+ #[derive(Clone, Copy)]
+ enum CapsuleSelector {
+@@ -73,8 +278,35 @@
+     Foot,
+     UpperArm,
+     Forearm,
+     Hand,
++}
++
++enum AnchorAt {
++    Child,
++    Midpoint,
++    /// A joint between parent and child bodies, falling back to the child.
++    Role(BoneRole),
++}
++
++enum JointSpecKind {
++    Spherical {
++        twist: BindAxis,
++        swing_limit: f32,
++        twist_limit: f32,
++    },
++    Hinge {
++        bone: BindAxis,
++        flex: FlexDirection,
++        limits: (f32, f32),
++    },
++}
++
++/// Which way a hinged limb folds, in character terms.
++#[derive(Clone, Copy)]
++enum FlexDirection {
++    Forward,
++    Backward,
+ }
+ 
+ impl CapsuleSelector {
+     fn select(self, capsules: &RagdollCapsulesConfig) -> RagdollCapsuleConfig {
+@@ -91,57 +323,93 @@
+         }
+     }
+ }
+ 
+-/// A direction read from two bind positions, with a fallback for rigs that
+-/// lack the far joint.
+-#[derive(Clone, Copy)]
+-struct BindAxis {
+-    from: BoneRole,
+-    to: BoneRole,
+-    fallback: Vec3,
+-}
+-
+-struct BodySpec {
+-    role: BoneRole,
+-    capsule: CapsuleSelector,
+-    /// The capsule runs from the bone along this axis.
+-    axis: BindAxis,
+-    kinematic: bool,
+-}
+-
+-enum AnchorAt {
+-    Child,
+-    Midpoint,
+-    /// A joint between parent and child bodies, falling back to the child.
+-    Role(BoneRole),
+-}
+-
+-enum JointSpecKind {
+-    Spherical {
+-        twist: BindAxis,
+-        swing_limit: f32,
+-        twist_limit: f32,
+-    },
+-    Hinge {
+-        bone: BindAxis,
+-        flex: FlexDirection,
+-        limits: (f32, f32),
+-    },
+-}
+-
+-/// Which way a hinged limb folds, in character terms.
+-#[derive(Clone, Copy)]
+-enum FlexDirection {
+-    Forward,
+-    Backward,
+-}
+-
+-struct JointSpec {
+-    parent: BoneRole,
+-    child: BoneRole,
+-    anchor: AnchorAt,
+-    kind: JointSpecKind,
++impl BindAxis {
++    fn resolve(self, bind: &impl Fn(BoneRole) -> Option<Transform>) -> Vec3 {
++        bind(self.from)
++            .zip(bind(self.to))
++            .and_then(|(from, to)| (to.translation - from.translation).try_normalize())
++            .unwrap_or(self.fallback)
++    }
++}
++
++impl RagdollDefinition {
++    /// Build the ragdoll from a character's owner-space bind transforms.
++    /// `None` when a driving bone is missing from the rig.
++    pub(super) fn from_bind_pose(
++        bind: impl Fn(BoneRole) -> Option<Transform>,
++        capsules: &RagdollCapsulesConfig,
++    ) -> GeometryResult<Option<Self>> {
++        let forward = character_forward(&bind);
++        let Some(bodies) = BODY_SPECS
++            .iter()
++            .map(|spec| {
++                let bind_transform = bind(spec.role)?;
++                let capsule = spec.capsule.select(capsules);
++                let direction = spec.axis.resolve(&bind);
++                Some(RagdollBody {
++                    role: spec.role,
++                    bind: bind_transform,
++                    shape: CapsuleShape {
++                        radius: capsule.radius_metres,
++                        length: capsule.length_metres,
++                    },
++                    collider_local: Transform::from_translation(
++                        direction * (capsule.length_metres.metres() * 0.5),
++                    )
++                    .with_rotation(Quat::from_rotation_arc(Vec3::Y, direction)),
++                    kinematic: spec.kinematic,
++                })
++            })
++            .collect::<Option<Vec<_>>>()
++        else {
++            return Ok(None);
++        };
++        let body_index = |role: BoneRole| bodies.iter().position(|body| body.role == role);
++        let mut joints = Vec::with_capacity(JOINT_SPECS.len());
++        for spec in &JOINT_SPECS {
++            let (Some(parent), Some(child)) = (body_index(spec.parent), body_index(spec.child))
++            else {
++                return Ok(None);
++            };
++            let child_position = bodies[child].bind.translation;
++            let anchor = match spec.anchor {
++                AnchorAt::Child => child_position,
++                AnchorAt::Midpoint => (bodies[parent].bind.translation + child_position) * 0.5,
++                AnchorAt::Role(role) => bind(role).map_or(child_position, |t| t.translation),
++            };
++            let kind = match spec.kind {
++                JointSpecKind::Spherical {
++                    twist,
++                    swing_limit,
++                    twist_limit,
++                } => RagdollJointKind::Spherical {
++                    twist_axis: twist.resolve(&bind),
++                    swing: Radians::new(swing_limit)?,
++                    twist: Radians::new(twist_limit)?,
++                },
++                JointSpecKind::Hinge { bone, flex, limits } => RagdollJointKind::Hinge {
++                    axis: hinge_axis(bone.resolve(&bind), flex, forward),
++                    limits: JointAngleLimits {
++                        minimum: Radians::new(limits.0)?,
++                        maximum: Radians::new(limits.1)?,
++                    },
++                },
++            };
++            joints.push(RagdollJoint {
++                parent,
++                child,
++                anchor,
++                kind,
++            });
++        }
++        Ok(Some(Self { bodies, joints }))
++    }
++
++    pub(super) fn body_of(&self, role: BoneRole) -> Option<usize> {
++        self.bodies.iter().position(|body| body.role == role)
++    }
+ }
+ 
+ const fn axis(from: BoneRole, to: BoneRole, fallback: Vec3) -> BindAxis {
+     BindAxis { from, to, fallback }
+@@ -190,189 +458,8 @@
+         kind: JointSpecKind::Hinge { bone, flex, limits },
+     }
+ }
+ 
+-use BoneRole::*;
+-use CapsuleSelector as Capsule;
+-
+-const BODY_SPECS: [BodySpec; 15] = [
+-    BodySpec {
+-        kinematic: true,
+-        ..body(Pelvis, Capsule::Pelvis, axis(Pelvis, Chest, Vec3::Y))
+-    },
+-    body(Chest, Capsule::Chest, axis(Chest, Head, Vec3::Y)),
+-    body(Head, Capsule::Head, axis(Chest, Head, Vec3::Y)),
+-    body(
+-        ThighLeft,
+-        Capsule::Thigh,
+-        axis(ThighLeft, ShinLeft, Vec3::NEG_Y),
+-    ),
+-    body(
+-        ShinLeft,
+-        Capsule::Shin,
+-        axis(ShinLeft, FootLeft, Vec3::NEG_Y),
+-    ),
+-    body(
+-        FootLeft,
+-        Capsule::Foot,
+-        axis(FootLeft, ToeLeft, Vec3::NEG_Z),
+-    ),
+-    body(
+-        ThighRight,
+-        Capsule::Thigh,
+-        axis(ThighRight, ShinRight, Vec3::NEG_Y),
+-    ),
+-    body(
+-        ShinRight,
+-        Capsule::Shin,
+-        axis(ShinRight, FootRight, Vec3::NEG_Y),
+-    ),
+-    body(
+-        FootRight,
+-        Capsule::Foot,
+-        axis(FootRight, ToeRight, Vec3::NEG_Z),
+-    ),
+-    body(
+-        UpperArmLeft,
+-        Capsule::UpperArm,
+-        axis(UpperArmLeft, ForearmLeft, Vec3::NEG_Y),
+-    ),
+-    body(
+-        ForearmLeft,
+-        Capsule::Forearm,
+-        axis(ForearmLeft, HandLeft, Vec3::NEG_Y),
+-    ),
+-    body(
+-        HandLeft,
+-        Capsule::Hand,
+-        axis(ForearmLeft, HandLeft, Vec3::NEG_Y),
+-    ),
+-    body(
+-        UpperArmRight,
+-        Capsule::UpperArm,
+-        axis(UpperArmRight, ForearmRight, Vec3::NEG_Y),
+-    ),
+-    body(
+-        ForearmRight,
+-        Capsule::Forearm,
+-        axis(ForearmRight, HandRight, Vec3::NEG_Y),
+-    ),
+-    body(
+-        HandRight,
+-        Capsule::Hand,
+-        axis(ForearmRight, HandRight, Vec3::NEG_Y),
+-    ),
+-];
+-
+-const JOINT_SPECS: [JointSpec; 14] = [
+-    spherical(
+-        Pelvis,
+-        Chest,
+-        AnchorAt::Midpoint,
+-        axis(Chest, Head, Vec3::Y),
+-        0.5,
+-        0.4,
+-    ),
+-    spherical(
+-        Chest,
+-        Head,
+-        AnchorAt::Role(NeckOne),
+-        axis(Chest, Head, Vec3::Y),
+-        0.6,
+-        0.8,
+-    ),
+-    spherical(
+-        Pelvis,
+-        ThighLeft,
+-        AnchorAt::Child,
+-        axis(ThighLeft, ShinLeft, Vec3::NEG_Y),
+-        0.9,
+-        0.4,
+-    ),
+-    hinge(
+-        ThighLeft,
+-        ShinLeft,
+-        axis(ShinLeft, FootLeft, Vec3::NEG_Y),
+-        FlexDirection::Backward,
+-        (0.0, 2.3),
+-    ),
+-    hinge(
+-        ShinLeft,
+-        FootLeft,
+-        axis(ShinLeft, FootLeft, Vec3::NEG_Y),
+-        FlexDirection::Backward,
+-        (-0.5, 0.5),
+-    ),
+-    spherical(
+-        Pelvis,
+-        ThighRight,
+-        AnchorAt::Child,
+-        axis(ThighRight, ShinRight, Vec3::NEG_Y),
+-        0.9,
+-        0.4,
+-    ),
+-    hinge(
+-        ThighRight,
+-        ShinRight,
+-        axis(ShinRight, FootRight, Vec3::NEG_Y),
+-        FlexDirection::Backward,
+-        (0.0, 2.3),
+-    ),
+-    hinge(
+-        ShinRight,
+-        FootRight,
+-        axis(ShinRight, FootRight, Vec3::NEG_Y),
+-        FlexDirection::Backward,
+-        (-0.5, 0.5),
+-    ),
+-    spherical(
+-        Chest,
+-        UpperArmLeft,
+-        AnchorAt::Child,
+-        axis(UpperArmLeft, ForearmLeft, Vec3::NEG_Y),
+-        1.5,
+-        0.6,
+-    ),
+-    hinge(
+-        UpperArmLeft,
+-        ForearmLeft,
+-        axis(ForearmLeft, HandLeft, Vec3::NEG_Y),
+-        FlexDirection::Forward,
+-        (0.0, 2.5),
+-    ),
+-    spherical(
+-        ForearmLeft,
+-        HandLeft,
+-        AnchorAt::Child,
+-        axis(ForearmLeft, HandLeft, Vec3::NEG_Y),
+-        0.6,
+-        0.4,
+-    ),
+-    spherical(
+-        Chest,
+-        UpperArmRight,
+-        AnchorAt::Child,
+-        axis(UpperArmRight, ForearmRight, Vec3::NEG_Y),
+-        1.5,
+-        0.6,
+-    ),
+-    hinge(
+-        UpperArmRight,
+-        ForearmRight,
+-        axis(ForearmRight, HandRight, Vec3::NEG_Y),
+-        FlexDirection::Forward,
+-        (0.0, 2.5),
+-    ),
+-    spherical(
+-        ForearmRight,
+-        HandRight,
+-        AnchorAt::Child,
+-        axis(ForearmRight, HandRight, Vec3::NEG_Y),
+-        0.6,
+-        0.4,
+-    ),
+-];
+-
+ /// Owner-space character forward, read from the feet so the definition does
+ /// not assume which way the authored rig faces; the controller convention
+ /// (`-Z`) is the fallback.
+ fn character_forward(bind: &impl Fn(BoneRole) -> Option<Transform>) -> Vec3 {
+@@ -384,89 +471,8 @@
+             Vec3::new(toe.x - foot.x, 0.0, toe.z - foot.z).try_normalize()
+         })
+         .sum::<Vec3>();
+     measured.try_normalize().unwrap_or(Vec3::NEG_Z)
+-}
+-
+-impl BindAxis {
+-    fn resolve(self, bind: &impl Fn(BoneRole) -> Option<Transform>) -> Vec3 {
+-        bind(self.from)
+-            .zip(bind(self.to))
+-            .and_then(|(from, to)| (to.translation - from.translation).try_normalize())
+-            .unwrap_or(self.fallback)
+-    }
+-}
+-
+-impl RagdollDefinition {
+-    /// Build the ragdoll from a character's owner-space bind transforms.
+-    /// `None` when a driving bone is missing from the rig.
+-    pub(super) fn from_bind_pose(
+-        bind: impl Fn(BoneRole) -> Option<Transform>,
+-        capsules: &RagdollCapsulesConfig,
+-    ) -> Option<Self> {
+-        let forward = character_forward(&bind);
+-        let bodies = BODY_SPECS
+-            .iter()
+-            .map(|spec| {
+-                let bind_transform = bind(spec.role)?;
+-                let capsule = spec.capsule.select(capsules);
+-                let direction = spec.axis.resolve(&bind);
+-                Some(RagdollBody {
+-                    role: spec.role,
+-                    bind: bind_transform,
+-                    shape: CapsuleShape {
+-                        radius: capsule.radius_metres,
+-                        length: capsule.length_metres,
+-                    },
+-                    collider_local: Transform::from_translation(
+-                        direction * (capsule.length_metres * 0.5),
+-                    )
+-                    .with_rotation(Quat::from_rotation_arc(Vec3::Y, direction)),
+-                    kinematic: spec.kinematic,
+-                })
+-            })
+-            .collect::<Option<Vec<_>>>()?;
+-        let body_index = |role: BoneRole| bodies.iter().position(|body| body.role == role);
+-        let joints = JOINT_SPECS
+-            .iter()
+-            .map(|spec| {
+-                let parent = body_index(spec.parent)?;
+-                let child = body_index(spec.child)?;
+-                let child_position = bodies[child].bind.translation;
+-                let anchor = match spec.anchor {
+-                    AnchorAt::Child => child_position,
+-                    AnchorAt::Midpoint => (bodies[parent].bind.translation + child_position) * 0.5,
+-                    AnchorAt::Role(role) => bind(role).map_or(child_position, |t| t.translation),
+-                };
+-                let kind = match spec.kind {
+-                    JointSpecKind::Spherical {
+-                        twist,
+-                        swing_limit,
+-                        twist_limit,
+-                    } => RagdollJointKind::Spherical {
+-                        twist_axis: twist.resolve(&bind),
+-                        swing: swing_limit,
+-                        twist: twist_limit,
+-                    },
+-                    JointSpecKind::Hinge { bone, flex, limits } => RagdollJointKind::Hinge {
+-                        axis: hinge_axis(bone.resolve(&bind), flex, forward),
+-                        limits,
+-                    },
+-                };
+-                Some(RagdollJoint {
+-                    parent,
+-                    child,
+-                    anchor,
+-                    kind,
+-                })
+-            })
+-            .collect::<Option<Vec<_>>>()?;
+-        Some(Self { bodies, joints })
+-    }
+-
+-    pub(super) fn body_of(&self, role: BoneRole) -> Option<usize> {
+-        self.bodies.iter().position(|body| body.role == role)
+-    }
+ }
+ 
+ /// The hinge axis about which a positive angle folds `bone_direction`
+ /// toward the flex direction: rotating `v` about `v × f` moves `v` toward
+@@ -517,9 +523,11 @@
+     }
+ 
+     #[test]
+     fn definition_roots_at_a_kinematic_pelvis_and_lists_joints_parent_first() {
+-        let definition = RagdollDefinition::from_bind_pose(upright_bind, &capsules()).unwrap();
++        let definition = RagdollDefinition::from_bind_pose(upright_bind, &capsules())
++            .unwrap()
++            .unwrap();
+         assert_eq!(definition.bodies.len(), 15);
+         assert_eq!(definition.joints.len(), 14);
+         assert!(definition.bodies[PELVIS_BODY].kinematic);
+         assert_eq!(definition.bodies[PELVIS_BODY].role, Pelvis);
+@@ -537,9 +545,11 @@
+     }
+ 
+     #[test]
+     fn knee_and_elbow_hinges_fold_the_limb_the_anatomical_way() {
+-        let definition = RagdollDefinition::from_bind_pose(upright_bind, &capsules()).unwrap();
++        let definition = RagdollDefinition::from_bind_pose(upright_bind, &capsules())
++            .unwrap()
++            .unwrap();
+         let forward = character_forward(&upright_bind);
+         assert!(forward.dot(Vec3::NEG_Z) > 0.99);
+         let fold = |axis: Vec3, limb: Vec3| axis.cross(limb);
+         let knee = definition
+@@ -553,9 +563,9 @@
+         assert!(
+             fold(axis, Vec3::NEG_Y).dot(Vec3::Z) > 0.99,
+             "knee folds the foot backward"
+         );
+-        assert_eq!(limits.0, 0.0);
++        assert_eq!(limits.minimum.radians(), 0.0);
+         let elbow = definition
+             .joints
+             .iter()
+             .find(|joint| definition.bodies[joint.child].role == ForearmRight)
+@@ -570,9 +580,11 @@
+     }
+ 
+     #[test]
+     fn capsules_run_from_the_bone_along_the_limb() {
+-        let definition = RagdollDefinition::from_bind_pose(upright_bind, &capsules()).unwrap();
++        let definition = RagdollDefinition::from_bind_pose(upright_bind, &capsules())
++            .unwrap()
++            .unwrap();
+         let thigh = &definition.bodies[definition.body_of(ThighLeft).unwrap()];
+         assert!(thigh.collider_local.translation.y < 0.0);
+         assert!((thigh.collider_local.rotation * Vec3::Y).dot(Vec3::NEG_Y) > 0.99);
+         assert_eq!(thigh.shape.radius, capsules().thigh.radius_metres);
+@@ -580,7 +592,11 @@
+ 
+     #[test]
+     fn a_rig_missing_a_driving_bone_has_no_ragdoll() {
+         let missing_head = |role: BoneRole| (role != Head).then(|| upright_bind(role)).flatten();
+-        assert!(RagdollDefinition::from_bind_pose(missing_head, &capsules()).is_none());
+-    }
+-}
++        assert!(
++            RagdollDefinition::from_bind_pose(missing_head, &capsules())
++                .unwrap()
++                .is_none()
++        );
++    }
++}

@@ -1,0 +1,52 @@
+{
+  "id": "CONT07-CONTRACT-593",
+  "at": "2026-10-24T00:25:37.107029+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2566,
+      "source_id": "dependency-bevy_reflect_derive0.19.1:src/impls/common.rs",
+      "sha256": "6e65257643e17c838d46d84974d833438e1635cbde5beceb9ffafb0da69e1f96",
+      "origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_reflect_derive-0.19.1/src/impls/common.rs",
+      "actual_EOF": 257,
+      "ranges": [
+        [
+          1,
+          80
+        ],
+        [
+          82,
+          172
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2567,
+      "source_id": "dependency-bevy_reflect_derive0.19.1:src/remote.rs",
+      "sha256": "0aa256befa40e782f57b2924d697041ca71ebb4107d124fb006ea9f026ef0811",
+      "origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_reflect_derive-0.19.1/src/remote.rs",
+      "actual_EOF": 500,
+      "ranges": [
+        [
+          21,
+          212
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Common Reflect implementation dispatches as_any/reflection through the same exact whole self value (or explicit remote wrapper .0). Reflect::set accepts only an exact typed whole value and replaces self. Shared PartialReflect methods delegate to the same derive data and attributes; no independently cached bespoke primitive was identified in these scoped generators.",
+    "Remote reflect metadata explicitly chooses a remote type and repr-transparent wrapper(pub RemoteTy). ReflectRemote conversions preserve that whole remote identity. These are explicit remote APIs, not evidence that a normal opaque bespoke owner exposes primitive fields or bypasses its admission contract. No SDK memory-safety or runtime execution claim."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2568,
+    "start_line": 1
+  }
+}

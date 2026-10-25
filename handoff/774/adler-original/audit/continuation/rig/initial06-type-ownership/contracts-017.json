@@ -1,0 +1,36 @@
+{
+  "id": "RIG-INITIAL06-GROUP-017",
+  "at": "2026-10-22T19:46:50.198497+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "relief-source-and-decoded-native-products": {
+      "sources": [
+        "pr-working:crates/fabelgeist-armor/src/engraving.rs",
+        "pr-working:crates/fabelgeist-armor/src/ornament.rs"
+      ],
+      "comparison": "Fresh Engraving249/Ornament189 including existingtests. Engraving owns source imagePath/Ornament, Relief Height physicalmetredepth versus Normal slopesstrength, turnradians, image repeats and recessroughness. Source/discriminated data product meaningful, not duplicate generic image or Geometry. ReliefImage private dimensions+ReliefPixels Heightf32/Slopes[f32;2] differs MetalTextures RGBAbytes/DepthMap uvscale and raw garment color. Actual decode normalRGB [-1,1] then z.max(.05) produces rise/run; height whiteuntouched vsblackcut distinct signedphysicaldepth. Frame-independent raw radians could consume future neutralRadians F001; do not move feature relief/image IO policy into Building/Core. Ornament/Motif stronglytyped variants own distinct amplitude/slant/radius/leaf/strands fields; Rope slant up to3 is not UnitInterval, amplitude[0,1]differentsemanticquantityfromprobability. Dynamicnamepicker labels no gameplayidentity owner. PublicrawSerde/sourcevalidation separate acceptedstate; no source validation upgrade or file/image decodergraph credit."
+    },
+    "native-metal-device-composition": {
+      "sources": [
+        "pr-working:crates/fabelgeist-armor/src/gpu/metal/mod.rs",
+        "pr-working:crates/fabelgeist-armor/src/gpu/metal/bake.rs"
+      ],
+      "comparison": "Fresh MetalGpu126/bake262. MetalGpu owns finish feature kernels, composes canonical WgpuContext/KernelCache/ArcKernel/KernelBatch/BufferUpload/PassParameters and native readbacks; correct lower shared owner, not duplicate GPU. Separate instance from ArmorGpu permits same context/cache and standalone use, no required wholefeature merge. Actual textures validates Metal then size32..1024 before cut decode, bake pairs engraving with Cut borrowedsource. Native scratch takes64-bit WORD count (x4) versus ArmorGpu.scratch BYTE count: same name does not mean interchangeable units; canonicalGPUByteLength projection at actual allocation and possible earlier shared-byte API migration must preserve conversion/max1word/zeroallocation policy. Native status/textureword rows not Rigjoint ordinals or BP. Selected feature Stringerrors contextual wrapper, no universalerror type invented. Partially shared render parameter descriptors keep exact source/native boundaries; no wholesale parent library dependency."
+    },
+    "source-shape-to-native-motif-port": {
+      "sources": [
+        "pr-working:crates/fabelgeist-armor/src/gpu/metal/ornament.rs"
+      ],
+      "comparison": "Fresh actual GPUornament198 matched actual Motif.words86\u201394 and bake.record_ornament174\u2013190. Native code0..5 plus pairfloats/strands/fillets are the WGSL adapter for the existing canonical Armor::Motif product, not another application enum owner; source motif state must remain authoritative, no new ArmorGPU motif owner. Actual hand-written WGSL constants mirror source words; this duplication remains visible to redundant-authority/enum/strings inventories, not cleared merely because native. Cell x/y, antialiastexelwidth, signedcurveoffset/slope and shader coverage are generated numerical quantities, not game UnitInterval source probability. Normal host rotation converted sin/cos at trigonometricport; earlier source angle owner candidate retained. Macro or typedmapping repair must preserve exactnativecodes/fieldinterpretations and draw geometry; no implementation chosen here."
+    },
+    "finish-sampling-and-native-slope-ports": {
+      "sources": [
+        "pr-working:crates/fabelgeist-armor/src/gpu/metal/finish.rs",
+        "pr-working:crates/fabelgeist-armor/src/gpu/metal/textures.rs"
+      ],
+      "comparison": "Fresh finish134/textures335 and bake caller. Seed32 passes unchanged from Metal.source into native Params seed32 and lcg_skip/next/draw ports; actual scratchsequence indexed by scratch draw5 and finishlayers/lattice versus canonical Determinism Seed64/Stream RNG. Width, sequence and purpose distinction must be preserved; canonicalSeed owner projection may be useful upstream but this native state is not a second canonical64-bitproceduralRng, nor excuse for an arbitrary host seed API copy. Full helper lcg implementation not read here, so sequence equivalence/merge remains explicitly unclaimed. Finish output triple signedslopes+roughnessoffset is different from physicalPosition, normalizeddirection and color; textures channels saturate/truncatef32toRGBA8 via bitshift layout, height atomicu32usesorderedpositivefloatbits not physicalintegerheight. CanonicalCompute host_float fences reused consistently inactualshader equations; no independent wrapper or numerical-correctness/later-lens credit. Physical wavinessmetres\u00d7tiles/metre produces dimensionlessslope; tiledunitcoordinates/derivative units cannot allbeNonnegativeLength. Engraving height+normal adapter checks specificReliefPixels pairing before dispatch; nativeGPU productsnotacceptedgameDTOs."
+    }
+  },
+  "new_findings": [],
+  "limits": "Fresh exact full bodies; native code mirroring and upstream generic typed projections remain candidates for assigned other initial inventories/repair later. No call-name/hash/existing verdict credit. Whole06 incomplete."
+}

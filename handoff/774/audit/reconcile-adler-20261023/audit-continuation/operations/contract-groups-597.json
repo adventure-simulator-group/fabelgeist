@@ -1,0 +1,37 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-597",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation/presentation.rs",
+      "sha256": "6a067389a1cdcbddd0dd3814f95e17664351794be139353572edd19928a18171",
+      "actual_EOF": 867,
+      "actual_compared_ranges": [
+        [
+          1,
+          867
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "P16 gait/action presentation mutable state",
+      "evidence": "Whole867 lines personally reread: copied previous/authoritative SkeletonState, bounded .1elapsed, checked forward source gaps and phase deltas, circular difference; quickstep min1 preparation/saturating double span, capped visual endpoint, same action candidate advances before publish; fixtures include stale queued followup, delayed packets, quickstep released guard.",
+      "disposition": "Additional exactvariant support for prior399 contract; same auxiliary diagnostics/phase accumulators can update before later error, so not blanket atomicity claim. No later-failure/retry witness established in this read. presentation_tick marks once before advance; do not invent automatic retry entitlement.",
+      "dependencies": [
+        "prior399 separately reviewed helper bodies; their source coverage is not transferred to this role or substituted for present read",
+        "CAM-PROP-F001 checked duration cap API migration remains shared owner gap, different from arithmetic failure; no duplicate finding",
+        "tactical authority remains authoritative SkeletonState; client interpolation intentional"
+      ],
+      "acceptance": "Preserve bounded progress, no reverse action, coalesced quickstep tail and fixed repeat zeroelapsed. Any future whole-update rejection policy must cover auxiliary state and presentation tick explicitly."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "1 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs"
+}

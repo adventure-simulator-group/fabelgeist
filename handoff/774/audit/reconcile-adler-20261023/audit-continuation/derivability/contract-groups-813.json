@@ -1,0 +1,37 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-813",
+  "at": "2026-10-25T16:54:43.805322+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1023,
+  "source_id": "pr-working:crates/adventuresim-core/src/water_source.rs",
+  "sha256": "2892720bfed0f3280e91d03da01cf985b234731e8f08d449a76bf97f7cfdb556",
+  "actual_compared_ranges": [
+    [
+      1,
+      250
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "DomainRightsSubject/DomainRightsResource/DomainRightsOperation/DomainJurisdiction",
+      "type": "WaterRightsSubject/WaterRightsResource/WaterRightsOperation/WaterRightsJurisdiction",
+      "lines": [
+        [
+          190,
+          201
+        ]
+      ],
+      "disposition": "KEEP four empty local semantic marker opt-ins"
+    }
+  ],
+  "analysis": [
+    "OutbreakWaterFlow and error already structural derives. Native conservation/idempotence/private/public projection, dose mutation and framed digest are semantic, not Serialize/Hash derive. Four empty local rights marker opt-ins190/193/198/201 required explicit local declaration, no available custom derive. No handwritten wire codec here."
+  ],
+  "first_unfinished": {
+    "scope_index": 1023,
+    "line": 251
+  },
+  "execution": "none"
+}

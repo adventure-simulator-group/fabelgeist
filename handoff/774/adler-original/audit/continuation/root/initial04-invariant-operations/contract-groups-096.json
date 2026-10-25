@@ -1,0 +1,68 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-096",
+  "at": "2026-10-23T01:53:38.114832+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_provenance.rs",
+      "sha256": "f9a27db833d675b23a449676ecfd6d878c0357f2a5190f6a649341766c5ee33c",
+      "actual_compared_ranges": [
+        [
+          181,
+          263
+        ],
+        [
+          265,
+          290
+        ]
+      ],
+      "source_evidence": "Fresh literal body after REG023, independently compared for arithmetic and state transitions; blank264 and all other provenance bodies excluded."
+    }
+  ],
+  "support_ranges": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs",
+      "ranges": [
+        [
+          112,
+          144
+        ]
+      ],
+      "meaning": "Only actual session row fields and state token definition read; no whole schema04 credit."
+    }
+  ],
+  "groups": {
+    "join-capacity-and-retry": "Iterator count bounded by actual retained table cardinality; usize::from authored role.max is widening, no narrowing overflow. Role map lookup checks Player kind and capacity before insert. Existing membership returns Ok without another increment; applied action receipt returns before expected_revision comparison, preserving idempotency. Do not move revision/type admission eagerly across retry guards. String ID concatenation is formatting with native allocation failure semantics, no numeric identity truncation here.",
+    "revision-and-errors": "Unchecked u64 successor F033 needs explicit failure policy. Internal String errors remain the shared canonical operation-error migration obligation from P16 handoff; SDK reducer formatting does not require primitive error retention in mutually calling helpers. Do not independently certify transaction rollback from this body alone: actual SDK/reducer boundary owns commit semantics.",
+    "topic-and-presence": "Joining actor refreshes topic options after membership/revision/receipt writes; preserve CameraF030 actor-specific cache ownership qualification, separate from revision arithmetic. Member helper only reads and validates active session, matching character and live presence before returning row; absence is explicit error. Named enum labels and successful parse do not prove every retained row field coherent.",
+    "scope-and-stage": "Only two registered function bodies, no264 blank, surrounding parser/fact helpers, tests or PR fullsource credit. Inventory only under user163; no implementation or project execution."
+  },
+  "findings": [
+    {
+      "id": "ROOT-INITIAL04-F033",
+      "kind": "representable_retained_revision_transition_contract_gap",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_provenance.rs",
+      "locations": [
+        [
+          210,
+          212
+        ],
+        [
+          243,
+          261
+        ]
+      ],
+      "case": "A represented active DialogueSession row with revision=u64MAX and a matching expected_revision passes the equality guard. If other ordinary join gates succeed, native revision+=1 at252 has no explicit overflow result. Schema117-132 retains raw public u64 revision. This is retained-state/API contract strengthening; no normal session reaching MAX, database corruption, or runtime failure claimed.",
+      "operation": "An admitted counter value does not imply a representable successor. Participant insertion occurs before the unchecked transition, and refresh can fail after multiple writes; real reducer transaction semantics must govern rollback rather than inferring partial public commits from local statement order.",
+      "connected_repair": "Use the canonical session revision owner with a checked successor before dependent writes and preserve the concrete overflow/error cause through internal helpers to the reducer boundary. Keep retry receipt ordering and actor membership/capacity semantics. No wrapping revision identity, arbitrary small cap, compatibility field or second counter.",
+      "acceptance": "A successful join retains a monotone representable revision shared by session and receipt. A missing successor returns a structured operation failure before dependent work; actual reducer transaction rollback and retry behavior remain coherent. Existing tests only, no additional cases/assertions/helpers.",
+      "deduplication": "Strategic dialogue revision successor, related to P15 chronology discipline but distinct from native battle tick quantization and real-clock arithmetic.",
+      "contract_ref": "ROOT-INITIAL04-CONTRACT-096"
+    }
+  ],
+  "repair": "frozen_initial_audits_then_handover",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

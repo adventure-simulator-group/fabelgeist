@@ -1,0 +1,121 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-279",
+  "at": "2026-10-25T14:22:43.308813+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 551,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/doors.rs",
+      "sha256": "117277d2c1a3694f567606dcd0e8207f647755a386fdabfca098aa8597a6e1b7",
+      "actual_EOF": 295,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/doors.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-building-generator/src/doors.rs",
+        "sha256": "117277d2c1a3694f567606dcd0e8207f647755a386fdabfca098aa8597a6e1b7",
+        "bytes": 11431,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/server-receivers-002.json",
+            "ranges": [
+              [
+                1,
+                295
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "NATIVE-PP-SERVER-RECEIVERS-002"
+            ]
+          }
+        ],
+        "audit_owner": "native",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 68,
+            "read_ranges": [
+              [
+                1,
+                295
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-DOORS-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/doors.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 424,
+            "read_ranges": [
+              [
+                1,
+                295
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-DOORS-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/doors.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 152,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          295
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Deserialize",
+          "type": "DoorSpec<F: GeometryFrame>",
+          "lines": [
+            36,
+            72
+          ],
+          "disposition": "KEEP derived SerializedLeaf primitive wire view plus checked leaf/direction/angle construction, retaining opening and source ID in DoorError Geometry cause and exact error order. Raw fieldwise derive bypasses identity-aware admission; no existing equivalent generic TryFrom wire API."
+        }
+      ],
+      "existing_derives": "DoorSpec generic structural/Serialize with bound=\"\" already; DoorError/DoorErrorCause existing thiserror/Serialize and source/from geometry conversions already derive.",
+      "absence_basis": "Full295-line exact PR door module and fixtures consumed. Sweep radius, operable opening authority filter and native source/frame/hinge/swing/dimension projection semantic operations. No body credit for child admission_tests or geometry types; fixtures read, not run."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Opening/source-aware generic door wire and native leaf projection",
+      "disposition": "Existing derived wire/error records; keep explicit checked deserializer/native semantic operations.",
+      "acceptance": "Preserve generic bounds, native raw wire/direction normalization, physical opening/source diagnostic, signed swing and typed error source. No geometry/operation/admission/other-lens clearance."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 552,
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/doors/admission_tests.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

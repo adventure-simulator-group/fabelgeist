@@ -1,0 +1,221 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-993",
+  "at": "2026-10-25T17:26:59.986870+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1148,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak.rs",
+      "sha256": "7231d6f5c0ea33a0f938db9887dab36dff87fdb6341d8bf2099ada481593c41e",
+      "actual_EOF": 2111,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/outbreak.rs",
+        "sha256": "7231d6f5c0ea33a0f938db9887dab36dff87fdb6341d8bf2099ada481593c41e",
+        "bytes": 80288,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                2111
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-DURABLE-LIFECYCLE-001"
+            ]
+          },
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/supplemental-operation-shared-links.json",
+            "ranges": [
+              [
+                1,
+                2111
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-DURABLE-LIFECYCLE-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 265,
+            "read_ranges": [
+              [
+                1,
+                2111
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-OUTBREAK-030"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/outbreak.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 194,
+            "read_ranges": [
+              [
+                1,
+                2111
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-OUTBREAK-030"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/outbreak.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-FORAGE-OUTBREAK-020",
+            "json_pointer": "/current_shared_actual_source_proofs/1/source_records/1",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/outbreak.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                2111
+              ]
+            ],
+            "source_context": {
+              "packet_obligation": 22,
+              "assigned_camera_index": 250,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak.rs",
+              "sha256": "7231d6f5c0ea33a0f938db9887dab36dff87fdb6341d8bf2099ada481593c41e",
+              "read_ranges": [
+                [
+                  1,
+                  2111
+                ]
+              ],
+              "method": "Fresh whole P16 actual body and full PR reverse textual delta; byteidentical common chronology/water/authorityfixture bodies verified by both pinned hashes. All existing fixtures read, not executed.",
+              "disposition": "accounted with explicit clock-absence/cause/episode/material roles and connected actual SDK/numerical recipients; camera716 coverage authority unchanged",
+              "owner_proof_refs": [
+                {
+                  "supplier": "camera",
+                  "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+                  "row": 194,
+                  "read_ranges": [
+                    [
+                      1,
+                      2111
+                    ]
+                  ],
+                  "contract_refs": [
+                    "CAM-OWN-OUTBREAK-030"
+                  ],
+                  "read_status": "complete",
+                  "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/outbreak.rs"
+                }
+              ],
+              "original_producer_refs": []
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-MATERIAL-OUTBREAK-014",
+            "json_pointer": "/source_reads/1",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/outbreak.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                2111
+              ]
+            ],
+            "source_context": {
+              "packet_obligation": 22,
+              "assigned_camera_index": 250,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak.rs",
+              "sha256": "7231d6f5c0ea33a0f938db9887dab36dff87fdb6341d8bf2099ada481593c41e",
+              "read_ranges": [
+                [
+                  1,
+                  2111
+                ]
+              ],
+              "method": "Fresh whole P16 actual body and full PR reverse textual delta; byteidentical common chronology/water/authorityfixture bodies verified by both pinned hashes. All existing fixtures read, not executed.",
+              "disposition": "accounted with explicit clock-absence/cause/episode/material roles and connected actual SDK/numerical recipients; camera716 coverage authority unchanged",
+              "owner_proof_refs": [
+                {
+                  "supplier": "camera",
+                  "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+                  "row": 194,
+                  "read_ranges": [
+                    [
+                      1,
+                      2111
+                    ]
+                  ],
+                  "contract_refs": [
+                    "CAM-OWN-OUTBREAK-030"
+                  ],
+                  "read_status": "complete",
+                  "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/outbreak.rs"
+                }
+              ],
+              "original_producer_refs": []
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 467,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          2111
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "OutbreakAuthority/OutbreakPatientAuthority/OutbreakSourcePresenceSpan/WaterMaterialLot/OutbreakWaterSource/WaterOutputLot/ContainerWaterContribution/WaterCollectionReceipt Clone/Debug/table"
+      ],
+      "absence_basis": "Whole outbreak source personally consumed across988\u2013993. No handwritten trait or codec. Native volume/material custody, private SHA provenance, snapshot/replay comparisons and checked canonical vocabulary projection; patient physiology/death/observer-relative historical presence/remediation/exposure joins must remain explicit. Serde calls reuse existing owners. Tail1841\u20132111 source/fixtures read not run; children independent. No other-lens findings or clearance inferred."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Private outbreak material and observer projection derivability",
+      "disposition": "Native structural/schema derives cover records; preserve semantic validation, selected immutable provenance equality, fixed digest encoding and representation conversions."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1149,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak/authority_tests.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

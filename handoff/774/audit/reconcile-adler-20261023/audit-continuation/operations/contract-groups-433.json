@@ -1,0 +1,74 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-433",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/loose_stone.rs",
+      "sha256": "91ff28710a9a14a819f4922ea771cfe62fa7d385fb63f2b561f10444600c057d",
+      "actual_EOF": 676,
+      "actual_compared_ranges": [
+        [
+          1,
+          676
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/loose_stone/spawn.rs",
+      "sha256": "8ae3f85f7348aa4417fecbfc8408f36dda93ea3e4c707f0e79bc673e0cac3ef7",
+      "actual_EOF": 250,
+      "actual_compared_ranges": [
+        [
+          1,
+          250
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/mod.rs",
+      "sha256": "1577f17b44515d9e38cd44b010e81127ddace5a721dfc82688cc46be04c341fa",
+      "actual_EOF": 522,
+      "actual_compared_ranges": [
+        [
+          1,
+          522
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants.rs",
+      "sha256": "5397178ad53d019142d2791f701111ec168b2b1636e053a1085ce9bf1b6af35a",
+      "actual_EOF": 232,
+      "actual_compared_ranges": [
+        [
+          1,
+          232
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Pebble topology/LOD arithmetic",
+      "analysis": "Actual patch mesh has fixed49candidates,6/16radial segments and2/3ring profiles; all capacities/base+ring indexes bounded, mesh and billboard use same named survival/root/radius streams for ordinary sparse/denseLOD identity. Woodland intentionally skips billboard and scales mesh. Source normals use finitebounded trigonometric direction and positive minimumradius. Half-extent derived from admitted ground scale can be arbitraryextreme, where native influence squared-distance ratio mayInf/Inf; no installed hugeground witness. Native completed placement height+offset lacks freshreadmission but bounded ordinary terrain staysnormal. debug_assert nonzero hero count assumes actual fixedvariant survival; no precise all-zero variant proved, no test run."
+    },
+    {
+      "contract": "Ground scatter partial failure and retry",
+      "analysis": "spawn_ground_foliage queues understory before fallible litter mesh merge; present_ground_scatter marks GroundScatterPresented only after whole success. Thus failed litter can retain queued shrub entities and retry later duplicates unless failure boundary discards commands; actual native error on canonical matched litter prototype not established. Preserve this source-conditional failure-atomicity question, not ordinary duplication finding. Local litter map itself publishes onlyaftermerges (packet432), distinct broader caller boundary. Cache prototypes/materials installed before placement are intentional reusable residentassets, not tacticalstate."
+    },
+    {
+      "contract": "Lighting updates and botanical bounds",
+      "analysis": "Celestial updates compare retained writtenvectors and skip assetwrites under visualtolerance; newly allocated materials afterunchanged snapshot may need explicitinitial lighting, lifecycleproducerpending, no renderedmismatchasserted. Grass pigment/density use saturated basispoints and finiteclamped coefficients. Plant sampling re-admits sites/root withheightoffset, rejectscover/slope/missinghabitat, usesweighted_indexerrorinstead ofpanic whenallzero. Stableprioritysort then truncates512 actualspecimens; this limits retainedoutput butnotinitial candidatework/memory. Extreme terrain dimension maystillcausehuge enumeration; upstream boundedscene/workpolicyneeded, nocurrentfixturehang. Sourceplantmeshcachefrontierremaining."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants/lod.rs"
+}

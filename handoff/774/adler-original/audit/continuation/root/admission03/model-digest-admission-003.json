@@ -1,0 +1,218 @@
+{
+  "contract": {
+    "id": "ROOT-ADM-MODEL-DIGEST-003",
+    "at": "2026-10-22T06:06:19.148197+00:00",
+    "lens": "audit-admission-contracts",
+    "invariant_and_routes": [
+      {
+        "concept": "Room/Storey ordinals",
+        "sources": [
+          "pr-working:crates/adventuresim-building-generator/src/model/room_index.rs",
+          "pr-working:crates/adventuresim-building-generator/src/model/storey_index.rs"
+        ],
+        "evidence": "RoomIndex privateu16 permitsALLu16 including0, from_ordinal checksusizeoverflow with actualcause; infalliblefrom_serialized/transparentSerde admit samefullrange. StoreyIndex privateusize intentionally ALLusize, new unrestricted, constants0/1; manualcodec usesu16 and fallibleencode. Existingoversized65536 test explicitly acceptsconstruction thenexpectsencodefailure: notinvariantbypass. from_elevation has stricter calculatedpackedsubset: finite roundedquotient, rejectnegative/>65535, negativefraction roundingto-0legitGROUND. OpaqueReflect ordinaryclone/nooverride matches RootG002. No membership/listlength/injectivity promise inferred."
+      },
+      {
+        "concept": "Timber identity/member record",
+        "sources": [
+          "pr-working:crates/adventuresim-building-generator/src/model/timber.rs"
+        ],
+        "evidence": "Exact1\u201345 openall-u64 publictuple IDs with Default0 andderivedSerde; no nonzero/membershipconstraint. Member attachedderive138 newlyregistered beforebody, fields139\u2013157 public/derivedSerde compose Position<Architectural>/PlanDimensions/typedIDs andother owningfields; strictposition/dimension routes G001/G002, no rawconstructor for those leaves introduced here. Array2 supportslots structurallyfixed. Cross-reference/material aggregatecontracts not invented from labels. No other timber declarations46\u2013135/159+ credit."
+      },
+      {
+        "concept": "Immutable source package digest",
+        "sources": [
+          "pr-working:crates/adventuresim-world-schema/src/source_package.rs",
+          "physical-p16:crates/adventuresim-world-schema/src/source_package.rs"
+        ],
+        "evidence": "PrivateString exactly64 ASCIIlowerhex bytes; sole rawfrom_hex rejectswronglength/upper/nonhex/nonASCII, noDefault ormutablegetters. ManualDeserialize callsfrom_hex; Clone/Display/immutableas_str copy/expose alreadycheckedbytes. Actual PRfull53 source consumed; P16 sameactualdeclaration/predicate/codec/immutableauthority roles explicitly compared, notoldverdict ormereSHAcredit. Conceptualempty/63/65/A/nonASCII rejected; all64lowerASCII valid, no packageexistence/contentprovenance beyonddigestgrammar."
+      },
+      {
+        "concept": "Terrain digest native producers",
+        "sources": [
+          "pr-working:crates/adventuresim-terrain/src/digest.rs",
+          "physical-p16:crates/adventuresim-terrain/src/digest.rs"
+        ],
+        "evidence": "Exactfull28 PRactualbody consumed and P16 sameactualhelper/purposecontract compared: valid_digest callscheckedfrom_hex thenbool; nativeSHA256 lowerhex/String/readerhelperreturns rawString, not a secondcheckedownerroute. Earlier discardedowner/rawManifest propagation finding remains; no falseadmissionclearance for external manifestfields. Readerrors propagate beforeoutput. Hashsyntax constructor checks stillauthoritative; no rawDigestfield/serde bypass here."
+      },
+      {
+        "concept": "Model source/layout and accepted roof graph",
+        "sources": [
+          "pr-working:crates/adventuresim-building-generator/src/model/layout.rs"
+        ],
+        "evidence": "Full452 current source scoped byoriginal1\u2013150/285\u2013452 plusmandatoryoverlay006151\u2013284. PublicRoom/WallSegment/Opening/StoreyPlan/RoofPiece/Dormer/SquareTower/Stair/Battlement derivedSerde permit broad rawrecipe values. Typedclosedenums constrainkinds only. Do notpretend finite/positive/planeunit ormembership inferred. RoofPiece/Dormer documentedinputrecipes distinctfromacceptedRoofAssembly, but publicgraphfields/derivedSerde offer no acceptedgraph admission; F001 records explicitrelationshipcommentcounterexamples. TypedIDs default0allbits remainopen purposeidentities. RoofPlaneEquation coupledscalednormal+constant, notunitDirection; underside usesnormal.length andfixedXZdivide, no impliednonzerofinitepolicy."
+      },
+      {
+        "concept": "Tower lattice leaves and checked parity",
+        "sources": [
+          "pr-working:crates/adventuresim-building-generator/src/model.rs",
+          "pr-working:crates/adventuresim-building-generator/src/model/layout.rs"
+        ],
+        "evidence": "ProspectiveRootREG002 beforebody, exactcoremodel1\u2013169 read; actualmaterial1\u201312/16\u2013169, unrelatedconstants13\u201315contextonly. GridPoint openpublici32XZ/new/derivedSerde, Cell openi16XZ/new/derivedSerde, Direction fourclosednativevariants/Serde. CellDiameter privateu16 positive1..65535: newreject0; gridunitsmethod rejects<=0/nonmultiple30/quotient>u16MAX beforeconstruct; manualSerde new. GridLength privatei32positive:new/manualSerde reject<=0, nodefault orpublicrawpayload. GRIDUNITSPERCELL30. RoundTower anchor/diameterprivate, newenforces x,z rem_euclid30 parity0foreven/15forodd includingnegativeanchors; serdewire callsnew, thenchordfields only. No alternateanchor/diametermutator; withchordmethods preserveparity. Otherpublicwallheight/thickness/roof fields are broadsourcepolicy, not newpositivepromise. ChordInterface typedDirection/GridLength usescanonicalleafroutes. NoReflection onthese lattice/towertypes."
+      }
+    ],
+    "counterexamples": [
+      {
+        "input": "Room65535 againstshorterroomlist",
+        "disposition": "Ownerdoesnotclaimmembership; listreference proof belongsaggregate consumer, not constructorbypass."
+      },
+      {
+        "input": "StoreyIndex::new(65536)",
+        "disposition": "Intentionalbroadusize admitted, serialization rejects; explicitexistingtestcontract."
+      },
+      {
+        "input": "Diameter0 orGridLength0/negative; nonwholecell gridunits; paritymismatchedRoundTower",
+        "disposition": "Everyactualraw/Serdeconstructorrejects correspondingcheckedinvariant. Publicunrelatedtowerrawfields havebroaderpolicy, notclaimedcheckedfinite."
+      },
+      {
+        "input": "RoofEdge internal3adjacentfaces orboundary0faces; GabledAssembly shed_high_sideSome",
+        "disposition": "Publicliteral/derivedSerde canrepresentstate contrarytodocumentedacceptedgraphrelationship. Strengthening/admissiondesigngapF001, notfabricatedexistingcheckedctorbypass."
+      }
+    ],
+    "findings": [
+      "ROOT-ADM-F001"
+    ],
+    "pending": [],
+    "discovery": "exact assigned8 source roles plus1 new necessaryparent signature role inventoried WITH_FINDINGS",
+    "repair": "frozen_initial_all13",
+    "validation": "not_established",
+    "limits": "Allactualparentconstructor/serde helperroutes above read. Cross-field plane/topology correctness separatelyrequiredlateraggregate lens; no skippedlenscredit. Currentrawnativebehavior notsilentlynarrowed."
+  },
+  "source_pins": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/room_index.rs",
+      "sha256": "09a150e0b0d2873609095c1d8e6f9cf8a4e2117df74ded1787a03d6f647f23cb",
+      "read_ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "source_read": "full exactnecessarysourcebody_thislens",
+      "contract_refs": [
+        "ROOT-ADM-MODEL-DIGEST-003"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/storey_index.rs",
+      "sha256": "399c8ab44cc2dd0c22df8ab1cb88d4284837f7aaccd08f14cb1e4fefcd58c05c",
+      "read_ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "source_read": "full exactnecessarysourcebody_thislens",
+      "contract_refs": [
+        "ROOT-ADM-MODEL-DIGEST-003"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/timber.rs",
+      "sha256": "452e6d4196200a40485612e2a5717561e708e0ebbaa595e20cb9b26b43ba599b",
+      "read_ranges": [
+        [
+          1,
+          45
+        ],
+        [
+          138,
+          158
+        ]
+      ],
+      "source_read": "full exactnecessarysourcebody_thislens",
+      "contract_refs": [
+        "ROOT-ADM-MODEL-DIGEST-003"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/source_package.rs",
+      "sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+      "read_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "source_read": "full exactnecessarysourcebody_thislens",
+      "contract_refs": [
+        "ROOT-ADM-MODEL-DIGEST-003"
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/source_package.rs",
+      "sha256": "41c0ba047957303e9d8afaacbe445e2c2c4196cb5643ca053bbad80b7549a360",
+      "read_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "source_read": "Actualsame-body definition/predicate/codec/currentpurposecomparison againstfreshPRbody; nofreshP16bodyclaim",
+      "contract_refs": [
+        "ROOT-ADM-MODEL-DIGEST-003"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-terrain/src/digest.rs",
+      "sha256": "80e021f45fedb26ff313fe42e19a49503716be0c710173af5285e572bfe5ce98",
+      "read_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "source_read": "full exactnecessarysourcebody_thislens",
+      "contract_refs": [
+        "ROOT-ADM-MODEL-DIGEST-003"
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-terrain/src/digest.rs",
+      "sha256": "80e021f45fedb26ff313fe42e19a49503716be0c710173af5285e572bfe5ce98",
+      "read_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "source_read": "Actualsame-body definition/predicate/codec/currentpurposecomparison againstfreshPRbody; nofreshP16bodyclaim",
+      "contract_refs": [
+        "ROOT-ADM-MODEL-DIGEST-003"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/layout.rs",
+      "sha256": "f19587b5c651091d18b720268e43f9bdef0e2ca083b33b57d53cbdbccb1be298",
+      "read_ranges": [
+        [
+          1,
+          452
+        ]
+      ],
+      "source_read": "full exactnecessarysourcebody_thislens",
+      "contract_refs": [
+        "ROOT-ADM-MODEL-DIGEST-003"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model.rs",
+      "sha256": "f4e45aaf2f0f5190009ff9de1d465f436714224bb541e947fe46af32087f2408",
+      "read_ranges": [
+        [
+          1,
+          12
+        ],
+        [
+          16,
+          169
+        ]
+      ],
+      "source_read": "full exactnecessarysourcebody_thislens",
+      "contract_refs": [
+        "ROOT-ADM-MODEL-DIGEST-003"
+      ]
+    }
+  ],
+  "qualification": "RootF004 PropertyIdnewfinding isseparateidentitydecoder, no changeSourcePackageDigestpredicate; exactpriorbody/currentrolesonly."
+}

@@ -1,0 +1,27 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-732",
+  "lens": "audit-enum-shapes",
+  "groups": [],
+  "retrace": "bounded-retrace-732.json",
+  "open_observation_dispositions": [
+    {
+      "id": "OPEN710-RoofChild",
+      "status": "bounded-not-promoted",
+      "evidence": "Ordinary intersecting roof wing constructs CrossGable with facadeNone and emptysplit; TransverseGable dormer maps samegeometric kind then attempts split and optionalfacadebinding. split_cross_gable returns empty if no suitableeave or exactly3 IDs on success; drainage consumer explicitlyrequireslen3. Facade association depends concrete matching StoreyWall and mayuseparent supportnodes otherwise.",
+      "conclusion": "No universal CrossGable=>Somefacade/threeedges invariant. The kind is geometricclassification and metadata records actual laterresolution/provenance. A source/projection distinction mayhelp otherlens acceptance, but no exact09invalidstate/ordinaryfailure established from rawOption/Vecalone. Do not forceallCrossGablesintofacadevariant ordiscard meaningfulbuildstagehistory.",
+      "limits": "No unscoped roofs audit1296+bodyread or completefinalvalidatorclearance; rootmixedabutment/physicalgeometry findings untouched."
+    },
+    {
+      "id": "OPEN711-Personality",
+      "status": "qualified finding F494",
+      "finding_refs": [
+        "SEGO-INITIAL09-F494"
+      ],
+      "conclusion": "Actualconsumer selection now traced; public helperpolicy naming gap remains API-only, proper normalNPC/player producerqualification saved."
+    }
+  ],
+  "new_findings": [
+    "SEGO-INITIAL09-F494"
+  ],
+  "limits": "Alreadyaccounted exactfrozenroles retraced only, no new source registration/coveragecount, no tests/projectchecks/sourceedits/nativeexecution."
+}

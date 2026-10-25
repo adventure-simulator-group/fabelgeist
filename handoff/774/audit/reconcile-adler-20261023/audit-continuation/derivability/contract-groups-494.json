@@ -1,0 +1,35 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-494",
+  "at": "2026-10-25T15:52:48.038454+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 891,
+  "source_id": "pr-working:crates/adventuresim-core/src/combat.rs",
+  "sha256": "7d00629a7da937cf41b5bc49a86df7119cc7054743dce1f70ac2507a7aba59b0",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "Mul<f32>",
+      "type": "AttackResult",
+      "lines": [
+        [
+          148,
+          182
+        ]
+      ],
+      "disposition": "KEEP selective variant/nested physical energy semantics; not uniform field multiplication."
+    }
+  ],
+  "analysis": "Fresh combat1\u2013220: AttackResult already Serde structural. Hand Mul<f32>148\u2013182 KEEP: variant-dependent only damage/force and nested optional ArmorImpact energies multiply, physical_contact and other impact identity fields retained; generic fieldwise derive would change booleans/metadata and Core has no ready arithmetic derive. DefenderResponse already builtinDefault annotated None and Serde. Other damage/condition functions semantic. No childmodule credit.",
+  "first_unfinished": {
+    "scope_index": 891,
+    "line": 221
+  },
+  "execution": "none"
+}

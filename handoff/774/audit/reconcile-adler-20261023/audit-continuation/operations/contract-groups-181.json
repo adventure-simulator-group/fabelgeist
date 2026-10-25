@@ -1,0 +1,97 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-181",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/herbalism.rs",
+      "sha256": "98a9b9265a294f16c734dc7a90ca9cbb9f7770b359a71fdbdc4e19a3736ad934",
+      "actual_EOF": 600,
+      "actual_compared_ranges": [
+        [
+          1,
+          600
+        ]
+      ],
+      "method": "Whole literal P16 module/helper/tests read; actual complete PR textual diff consumed, typed return owner change and complete unchanged helper independently analyzed."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/herbalism/ingredient.rs",
+      "sha256": "0da336a33dfe2ce0319629649c1fe2192f15f73e04a7899d12cc9613f2f49156",
+      "actual_EOF": 21,
+      "actual_compared_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "method": "Whole literal P16 module/helper/tests read; actual complete PR textual diff consumed, typed return owner change and complete unchanged helper independently analyzed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/herbalism.rs",
+      "sha256": "22a0312534bd03b91e900595bd44d7bffe8b159545dfd65c8eccfe207f8cb0b8",
+      "actual_EOF": 600,
+      "actual_compared_ranges": [
+        [
+          1,
+          600
+        ]
+      ],
+      "method": "Whole literal P16 module/helper/tests read; actual complete PR textual diff consumed, typed return owner change and complete unchanged helper independently analyzed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/herbalism/ingredient.rs",
+      "sha256": "0da336a33dfe2ce0319629649c1fe2192f15f73e04a7899d12cc9613f2f49156",
+      "actual_EOF": 21,
+      "actual_compared_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "method": "Whole literal P16 module/helper/tests read; actual complete PR textual diff consumed, typed return owner change and complete unchanged helper independently analyzed."
+    }
+  ],
+  "groups": [
+    {
+      "id": "Medicinal food fraction and dose settlement",
+      "locations": "herbalism177-272",
+      "trace": "Consume rejects nonfinitefraction, clamps actualfraction0..1 and zero no-op. All loaded profiles/potencies checked before dose loop; finite nonnegativepotency times fraction remainsfinite and <=source, then checked rounded DoseMilliunits canrejectabove8000. Subtract used<=source preventsnegative exceptrounding benign. Source split validatesfinitefraction0..1 but doesnot itself admit potency values; for finite nonnegative source gives finite childandremaining. Existing foodsource graph must admit complete carrier/profile/potency relation. Per-rowdose canrejectafter prior row mutation; no committed partial claim without SDKtransaction/catchproof.",
+      "disposition": "No new admitted finite arithmetic failure. Whole local774:M29 measuredfood/medicineassociation and source-splitting graph remains. RawNaNpotency not assumed acceptedvalue.",
+      "dependencies": [
+        "local774:M29",
+        "Native disease administer_intervention_component and checked DoseMilliunits",
+        "SDKtransaction/internal error catches"
+      ],
+      "acceptance": "Accepted medicineconsumption/split conserves admitted finite component quantity under explicit rounding and exactcarrier association. Reject unsupported dose before logical partialpublication; preserve true zero component no-op."
+    },
+    {
+      "id": "Tincture vessel recipe and shared maturation clock",
+      "locations": "herbalism1-175,274-499; ingredient1-21",
+      "trace": "Vesselmembership actualcatalogtag. Spiritquantity>0 guards -=1; exactserving150ml capacitypreflight beforecontainerwrite. Startrequirespersonalresolvedroot, noexistingprocess, exactly150mlspirit and one directchild before direct[0]. Ingredientcanonicalpersonalbacking requiresquantity1, Groundpreparation and approximate50gmass. RawNaNmass wouldpasstolerancepredicate but no finite admittedmassNaNwitness; admission lens concern, not new finiteoperation. Actual herbalismcheck>=.5, fixed10minsetup and checked sharedworldreadytime before exactingredient consumption. Fixed50gsourceprovenance and checked canonicalpinnedpotency.1..1.0. Maturationflag distinguishes elapsedeligibility frommaterializedcomponent and installs once. Sharedworldclock intentionallysurvivescustodytransfer, distinct frompersonalwaitclock.",
+      "disposition": "No new indexing/underflow/timeoverflow failure; whole logical wait/material mutation failure stilltransactiondependency. Ingredienthelper explicitlydeletes all food/privatepayload/amount/edge/object/backingrow, no sourcefile edit.",
+      "dependencies": [
+        "Canonical inventorycustody and tincture vessel/liquid whole state",
+        "Native refresh_clock and timeadvance semantics",
+        "local774:M28/M29 material/food measured source graph"
+      ],
+      "acceptance": "Successful recipe consumes exactly admitted50gsource once andpinscurrentpotency/profile at actualworldstart with checkedreadytime; transferdoesnotrerollmaturation. Preserve privatepayload and stable physical identity."
+    },
+    {
+      "id": "Tincture administration precision and retention",
+      "locations": "herbalism502-600",
+      "trace": "Tincturedose1..1000 checkedbeforecustody/materialization. Mature flagrequired, componentexists, effectstandard_doses=remainingpotency*requestedservingfraction. Canonical doseconversionchecksrange; zero rounded effect promoted MINIMUM_NONZERO intentionally. Subtracts computedunroundedstandarddose; liquidremoval usesceil fractionalremainingvolume withminimum1ml and saturatingsub. Atordinarypinnedpotency.1 andrequested1milli, computed .1milli rounds0 thenapplies1milli whileatleast1mlremoved; precision/conservation policy needscanonical gameplaydecision, not automaticallyoverflow/bug. Finitepositive pinnedpotency<=1 andfraction<=1 keepsarithmeticbounded, remainder nonnegative. Processing/liquid/component rawnative association remainsopen. Mutation/materializationbeforelaterfallibleclinicalcall needs transactionproof before partialpersistent allegation. Source fixtureonlypinsstructural lifecycle andwasreadnotrun.",
+      "disposition": "No new confirmed count. Record deliberateminimum-dose and wholemilliliter rounding as acceptancequalification so canonical ownerrepair doesnot silently change gameplay.",
+      "dependencies": [
+        "Canonical DoseMilliunits precision/minimum policy",
+        "Native container volume and potency relationship",
+        "Whole clinical terminal/transaction graph"
+      ],
+      "acceptance": "Successful dose/potency/liquid settlement follows one explicit rounding/minimum policy with finitequantity and actualcarrier. Any finalchange mustpreserve deliberate minimumpositiveeffect or explicitlyresolveit, not silentlycap/zero. Nativegeneratedbindingsregeneratedonlyafterlaterauthorizedschemaedits."
+    }
+  ],
+  "findings": [],
+  "status": "Four source roles compared; whole lens/overlays/connecteddependencies incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/inventory_amount.rs"
+}

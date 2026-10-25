@@ -1,0 +1,131 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-092",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "runtime-fit-recovery-fixtures-and-stage-order",
+      "sources": [
+        {
+          "scope_index": 331,
+          "ranges": [
+            [
+              1,
+              395
+            ]
+          ]
+        },
+        {
+          "scope_index": 332,
+          "ranges": [
+            [
+              1,
+              75
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "local774:M07",
+        "SEGO-INITIAL09-F174"
+      ],
+      "disposition": "Preserve current physical fit history distinct from present wearer state; source fixtures only.",
+      "trace": "Generation fixture33186\u2013228 retains LastFit across held/dropped/rebuilt and second wearer holding, only refits after new wearer actually equips. Meaningful physical fit history is not duplicate current owner. Canonical body and fitted body have distinct evaluation/retention roles. Invalid presentation placement239 then corrected249 demonstrates intended recoverability and cannot be removed by treating first failure as permanent. visuals33216\u201335 stages placeholder/preparation/generation/skin/renderbinding in explicit engine order. Orphan removal40\u201349 is based on actual item component, not an unrelated lifecycle Boolean.",
+      "qualifications": [
+        "All395+75 lines personally read; source tests were not executed. Empty RuntimeBody/GeneratedArmor are intentional isolated fixtures and do not establish ordinary empty canonical geometry.",
+        "CACHED_FIT_LIMIT is actual cache capacity, last_used is recency ordinal not CharacterId despite fixture uses id values; zero legitimately represents earliest recency. No body-key/shape equivalence inferred solely from fixture."
+      ],
+      "acceptance": "Preserve previous physical fit, invalid-input recovery and current orphan cleanup when strengthening canonical presentation owners. Do not tie current held owner to historical fit identity."
+    },
+    {
+      "id": "predicted-attack-mode-timing-frame-and-acquisition-roles",
+      "sources": [
+        {
+          "scope_index": 333,
+          "ranges": [
+            [
+              1,
+              575
+            ]
+          ]
+        },
+        {
+          "scope_index": 334,
+          "ranges": [
+            [
+              1,
+              409
+            ]
+          ]
+        },
+        {
+          "scope_index": 335,
+          "ranges": [
+            [
+              1,
+              199
+            ]
+          ]
+        },
+        {
+          "scope_index": 336,
+          "ranges": [
+            [
+              1,
+              454
+            ]
+          ]
+        },
+        {
+          "scope_index": 337,
+          "ranges": [
+            [
+              1,
+              82
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "SEGO-INITIAL09-F255",
+        "SEGO-INITIAL09-F256",
+        "SEGO-INITIAL09-F115",
+        "SEGO-INITIAL11-F001",
+        "local774:M55"
+      ],
+      "disposition": "Exact existing selected-mode distance interpretation and acquired-observation payload support; retain distinct sample/time/frame and local control identity roles.",
+      "trace": "AttackState33391\u2013127 ranged Boolean chooses meaning of reach and completion message340\u2013374: weapon extension plus anatomy for melee, full ray range for ranged. PreparedMelee336140\u2013148 and Ranged174\u2013188 initialize coherent states, exactF256 remedy. This selected prediction mode differs equipment nonempty capability set F115, hybrids remain valid and main-hand priority is policy. AttackTarget3349\u201315 owns Body versus hitbox Entity, BodyPart and Position<HitboxLocal>; acquired ResolvedChoice retains scene point before siblingOption lowering212\u2013216, exactF255. Retained last scene point survives disappearing hitbox333321\u2013334, legitimate history. MeleePlaybackTiming33519\u201325 gives absolute AnimationSampleTick start/contact/end plus relative input delay AnimationElapsed; tick, span and time are distinct. animation_ticks120\u2013145 min-one-sample differs delay_ticks130\u2013132 permitting0. Acquisition reach versus maximum movement33481\u201385 and body separation-minus-minimum285\u2013292 versus collider surface clearance297\u2013315 need purpose-specific roles atop common finite length, support11F001. HitPerformed3375\u201311 is measured ray, while PredictedContact18\u201321 owns hit payload; contact result and debug ray product distinct. LocalCharacterId33373 selects local control role but its raw u64 should retain canonical Character identity without erasing extra local-selection meaning, M55 related identity propagation.",
+      "qualifications": [
+        "All575+409+199+454+82 lines personally read; fixtures only as source, no client/native execution. No invalid current target pair, wrong reach or completion observed.",
+        "F255 must preserve actual fixture targetNone/pointSome333500\u2013508 and last-known observation; do not globally force Some/Some on retained fixed-world-point aim. Unresolved BodyStableChoice ideal point is needed for same-body fallback, not duplicate resolved point.",
+        "Fists extension0 with positive anatomy is valid333518\u2013523. Animation delay0, partial elapsed and NotNeeded arrival are valid; no blanket PositiveAnimationDuration substitution. SignedAngleDegrees threshold and time sample conversions are intrinsic numerical ports, not arbitrary bounds.",
+        "Melee contact geometry334285 uses center separation minus humanoid minimum, while actual shape clearance314 uses collider radii; current arithmetic is explicit and coherent. Their common SignedLength cannot alone prevent interchange, same11F001 role-repair family; no new numerical failure.",
+        "Pinned source333 uses BodyFacingTurn for current facing, parent F53 owns independently established tiny-duration arithmetic; this receiver does not re-prove or clear that numerical kernel. M55 identity wrapper is related ordinary full-u64 role, not proof browser scoped grant or native existence."
+      ],
+      "acceptance": "Retain exact selected mode and complete target observation through immediate/buffered preparation, local facing, measured ray and current protocol; preserve clock epochs, full identities, HitboxLocal versus Scene, last observations, hybrid policy and zero extension/delay semantics."
+    },
+    {
+      "id": "quickstep-diagnostic-actuator-history-versus-live-state",
+      "sources": [
+        {
+          "scope_index": 338,
+          "ranges": [
+            [
+              1,
+              128
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [],
+      "disposition": "Meaningful existing payload variants, no duplicate role simplification.",
+      "trace": "ObservedQuickstepActuator33821\u201328 distinguishes active start from retained inactive start, preserving common tick access43\u201349. QuickstepTraceObservation stores prior observation to emit transitions31\u201335/81\u201385, not second authority. AnimationSampleTick differs PlayerInputTick acknowledgment99/119; render Transform versus replicated snapshot translation are intentionally both logged. Snapshot melee lunge.quickstep can activate actuator independently from Dodge animation88\u201389, so no forced equality of animation action and actuator ownership.",
+      "qualifications": [
+        "Full128 lines source read; no logging/client action executed. Diagnostic mismatch is a conditional warning path, not evidence mismatch happens normally.",
+        "Retained inactive tick is meaningful transition evidence; do not delete as ignored payload or substitute current sample tick. Wrapper Resource/Component role is not redundant scalar merely because it stores one Option."
+      ],
+      "acceptance": "Keep current actuator start history and input/animation clock distinctions; use actual diagnostic output ports without creating another state authority."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

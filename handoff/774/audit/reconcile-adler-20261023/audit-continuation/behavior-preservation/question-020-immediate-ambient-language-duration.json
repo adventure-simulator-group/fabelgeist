@@ -1,0 +1,88 @@
+{
+  "id": "CONT08-Q020",
+  "at": "2026-10-25T17:08:52.024708+00:00",
+  "classification": "retained_immediate_activity_normalization_leaks_into_ambient_language_duration",
+  "status": "source-confirmed accepted ordinary-input path conditional on below-cap language gain; no runtime execution; not introduced774",
+  "sources": [
+    {
+      "scope_index": 1244,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/activities.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/time/activities.rs",
+      "before_sha256": "a47b028b15d0e416ae19b84b18f616bff39ea8f7a951526e32996cc70ed48915",
+      "after_sha256": "a47b028b15d0e416ae19b84b18f616bff39ea8f7a951526e32996cc70ed48915",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1244-base-a47b028b15d0e416ae19b84b18f616bff39ea8f7a951526e32996cc70ed48915",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/a47b028b15d0e416ae19b84b18f616bff39ea8f7a951526e32996cc70ed48915",
+      "diff": "source-evidence/pr-1244.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ranges": [
+        [
+          248,
+          256
+        ],
+        [
+          313,
+          348
+        ]
+      ]
+    },
+    {
+      "scope_index": 1251,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/schedule.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/time/schedule.rs",
+      "before_sha256": "08c054563be5757fc2da0ce95af4c995e5a8f8d1acf549bc5dbc65f2c3443077",
+      "after_sha256": "08c054563be5757fc2da0ce95af4c995e5a8f8d1acf549bc5dbc65f2c3443077",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1251-base-08c054563be5757fc2da0ce95af4c995e5a8f8d1acf549bc5dbc65f2c3443077",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/08c054563be5757fc2da0ce95af4c995e5a8f8d1acf549bc5dbc65f2c3443077",
+      "diff": "source-evidence/pr-1251.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ranges": [
+        [
+          228,
+          301
+        ],
+        [
+          317,
+          342
+        ]
+      ]
+    },
+    {
+      "scope_index": 1252,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/settlement_rest.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/time/settlement_rest.rs",
+      "before_sha256": "f63df87344c6f358a0bcaa63481d349415e8e5481acb42031232d17cf20db125",
+      "after_sha256": "f63df87344c6f358a0bcaa63481d349415e8e5481acb42031232d17cf20db125",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1252-base-f63df87344c6f358a0bcaa63481d349415e8e5481acb42031232d17cf20db125",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/f63df87344c6f358a0bcaa63481d349415e8e5481acb42031232d17cf20db125",
+      "diff": "source-evidence/pr-1252.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ranges": [
+        [
+          430,
+          446
+        ]
+      ]
+    }
+  ],
+  "own_lower_proof": "contract-groups-264.json exactPR Core skill native apply_language_training; retained capped real-hour semantics, no other-lens verdict transferred.",
+  "trigger": "An authorized living character at a settlement, no blocking incident/encounter, valid Prayer activity requested60minutes, survives fullinterval, with positive settlement language coefficient and enough remaining innate cap. Effective selectedschedule carries60prayer but apply_training receives1440elapsed. Ambient oral language exposure becomes1440/60*2/3=16 realhours before coefficient instead of60/60*2/3=2/3 realhour.",
+  "observable": "Native direct oral-language award (or excess hours feeding mastery morale) is based on canonical schedule scale instead of actual60minute personal duration. Personalclock advances60. Ordinary1..24hour inputs share16hambient exposure absent clipping/cap.",
+  "qualifications": [
+    "Native language training caps/sanitization stillapply; already capped actors may show no addedskill, so do not claim every actor gains24x.",
+    "No concrete authored actor/session or DB execution performed. Both complete PRbase/head diffsempty, therefore retained behavior and connected repair candidate, notnew774regression.",
+    "Selected prayer/other schedule activity normalization itself is coherent and mustnot be changed by simply replacing1440with60 for everykernel."
+  ],
+  "connected_repair": "Separate actual elapsed duration from daily-allocation normalization at the native training adapter; selected activities receive exact selected hours while ambient exposure receives actual elapsed settlement time. Preserve schedule/core activity scaling and existing language coefficients/caps/order.",
+  "acceptance": [
+    "For below-cap actor same settlement language coefficients, immediate60minute awards2/3 ambientrealhour, immediate1440awards16, with selectedactivity gains60/1440minutes respectively.",
+    "Daily rest continues actualelapsed language and saved allocation, no double scaling, same clippedterminal prefix/no postterminalgains."
+  ],
+  "dedup_disposition": "Exact inherited alias confirmed coordinator: native repair separates actual settled duration from allocation-normalization multiplier across immediate/camp/stationary training; union independent08 witness, no new unique count.",
+  "exact_retained_alias": "NATIVE-INITIAL05-F051"
+}

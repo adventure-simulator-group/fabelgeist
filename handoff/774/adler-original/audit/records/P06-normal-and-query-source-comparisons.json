@@ -1,0 +1,31 @@
+{
+  "head": "82cb2a3acccc852bba6a7ef9c706c337ba9fe765",
+  "scope": "Three exact native source fragment comparisons; no Rust/numerical/runtime probe. Fixture numeric literal inputs are retained; direction fixtures now use checked Dir3 admission rather than raw normalize.",
+  "proofs": [
+    {
+      "label": "slope rotation math; only dereference of the received canonical Dir3 replaces the old caller dereference",
+      "normalized_source_sha256": "28f6c5bc7577f95156628440bf18d78436e41be2de99b466866467abd14ae4f5",
+      "status": "exact source comparison after documented type/projection normalization; not execution"
+    },
+    {
+      "label": "scree field math after the point projection; normal now remains Dir3 at the helper signature",
+      "normalized_source_sha256": "c979faf1c424c7cc9e906da9109d3afcee93c12e4d8625a2a4ae616c234bd401",
+      "status": "exact source comparison after documented type/projection normalization; not execution"
+    },
+    {
+      "label": "terrain triangle/stride interpolation and normal; moved surface query owner qualification only",
+      "normalized_source_sha256": "5400c800ef178ed63491165a73a22bd0158f73e3929471cdda27e158b06cd5f7",
+      "status": "exact source comparison after documented type/projection normalization; not execution"
+    },
+    {
+      "label": "Descent classifier condition and short-circuit order; the same true/false outcome selects FollowFloor/RaiseOnly",
+      "normalized_source_sha256": "75a5a06a1f5dfe435dd67acd0687518808486b0d768e3c318d013f198cc1903c",
+      "status": "Exact source condition comparison; not execution"
+    }
+  ],
+  "limits": [
+    "These fragment comparisons are not a complete Code/Rule pass or runtime proof.",
+    "Support query and normal callback reconciliation remains separate from later geometry/report families."
+  ],
+  "recorded_at": "2026-10-20T22:07:44.697062+00:00"
+}

@@ -1,0 +1,129 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-492",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/transport/tests.rs",
+      "sha256": "f1626212844a10fa14c660515f8ee6d36ce40b28dbd366ce85dac26e3db59243",
+      "actual_EOF": 98,
+      "actual_compared_ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/location.rs",
+      "sha256": "a11423ff0d43b8b2f1167c4fe16aa9b53f3da611fa697c38fb90105d69178f1d",
+      "actual_EOF": 46,
+      "actual_compared_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/measurement.rs",
+      "sha256": "6bf7e931e120e7f023858ffebeedc30845b61f861c39ec75d03c500564192bc1",
+      "actual_EOF": 261,
+      "actual_compared_ranges": [
+        [
+          1,
+          261
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/mesh.rs",
+      "sha256": "d126f49c7be7d94e3c1e6bd19e6479542f155aaee7fedfccaa1c471706eed66e",
+      "actual_EOF": 242,
+      "actual_compared_ranges": [
+        [
+          1,
+          242
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/mesh/assembly.rs",
+      "sha256": "500f6c56dfff2ce9e890472eb9d589737a74c9dd2e4c8584dc9644bd80f422a8",
+      "actual_EOF": 67,
+      "actual_compared_ranges": [
+        [
+          1,
+          67
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/mesh/grid.rs",
+      "sha256": "8c28100b68a4934760fdb6e468d601a8a4f29890d5ee8837120d992250b837f3",
+      "actual_EOF": 279,
+      "actual_compared_ranges": [
+        [
+          1,
+          279
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/mesh/union.rs",
+      "sha256": "9cdb98cd62ba36d980b2849b02eecb067caa56a6cd6f62c6ad3f7ef8f008412a",
+      "actual_EOF": 37,
+      "actual_compared_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Diagnostic failed controls cannot re-enter geometry",
+      "evidence": "Full location46/measurement261: failednativecoordinates explicitRejected no positionconversion; finitef64metres/area checked, cardinalitydiagnosticadapter saturatingf64\u2192u64 is presentationonly. Unmeasurableexplicitvariant; discrepancy_value minimumunmeasurable becomes0numeric, requires receiverproof beforefalseacceptanceclaim. No geometricnativeproduct repair throughdiagnostics."
+    },
+    {
+      "contract": "Mesh index mutations fail before appending and private aggregate lifetimes",
+      "evidence": "Full mesh242/assembly67/grid279/union37. vertex_start checked_add/u32totalbefore appending; nativeindices offsetsboundedbytotal. Canonicalcompoundprofiles private, finite cuts retain\u00b1half then dedupbydeclaredcontacttolerance; no independentcountzero divisor route proved. Supportandretainingfaces retaineddistinct; floorunion clips onlyownfloor. append_outside_floor couldpartiallyappendbeforelaterfailure butactualcallers compilelocalproducts, pendingretainedcallerproof notnewordinarymutationfinding."
+    },
+    {
+      "contract": "Robust grade arithmetic exact inherited alias",
+      "evidence": "Full mesh maximum_grade personallyread and fullcanonical NATIVE-INITIAL05-F023 at archive findings.jsonl row24/line25 personallyread. 1e-12 slope1 triangle squarednormalunderflow returns0, same defect/remedy. Preserve incompletecompleteSurface/ordinaryproducerqualification, no duplicate count. See qualification-grade-underflow-alias-492.json."
+    },
+    {
+      "contract": "Exact admitted extreme foundation volume loses finite f64 result",
+      "evidence": "New source/API candidate finding-foundation-volume-promotion-492.json closes specific from_prisms admission and running-sum gate, proves f32 depth overflow beforef64. Normal xz but extreme finiteheights; no ordinarygeneratedtrigger/run. Alias-search absence indexed only."
+    },
+    {
+      "contract": "Actual codec fixture contracts",
+      "evidence": "Full98 transporttests personallyread: bitwisepositions/cutfaces andvolume roundtrip assertions, malformedindex/pair/reversedheight/member/nonfinitecutface rejection. No execution or invented codec result."
+    }
+  ],
+  "findings": [
+    {
+      "id": "NATIVE-INITIAL05-F023",
+      "disposition": "exactalias fresh04 support",
+      "new_unique": false
+    },
+    {
+      "id": "SEGOVB-04-FOUNDATION-VOLUME-PROMOTION-CANDIDATE-001",
+      "evidence_file": "finding-foundation-volume-promotion-492.json",
+      "new_unique": null
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "7 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/planar/query.rs"
+}

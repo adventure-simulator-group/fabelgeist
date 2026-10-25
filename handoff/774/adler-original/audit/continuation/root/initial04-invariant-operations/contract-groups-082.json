@@ -1,0 +1,41 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-082",
+  "at": "2026-10-23T01:10:30.033466+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+      "sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+      "actual_compared_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "source_evidence": "Fresh whole actual body used in Root152 source review, independent04 translation/projection and component-construction reasoning here; mandatory149/151 nonexistent tails excluded."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_coordinates/velocity.rs",
+      "sha256": "f961ea0bc8da4a4bb23bba732b32f43172c9ab2aaa83bd4ff8319efb4faaf077",
+      "actual_compared_ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "source_evidence": "Fresh whole actual body used in Root152 source review, independent04 translation/projection and component-construction reasoning here; mandatory149/151 nonexistent tails excluded."
+    }
+  ],
+  "groups": {
+    "point-operations": "translated performs actualnativeVec2addition thenTryFrom finitecomponents before Self publication; finiteMAX+MAX returns existing GeometryError and cannotmutateoriginalCopy point. offset_from_origin justcopiesalreadyfinite vector into distinct displacement withnoarithmetic, justifiedinfallibility. FromPosition<Scene> copiesfinite x/z into sceneplanpoint anddiscardsy as actualdimensionalprojection, sameframe not architectural/localposition equivalence; no repeated extraction/readmissionneededforunchangedcomponents. GeometricvalueerrorreportsXorZ asplanaxes, notnativeyheight.",
+    "velocity-operation": "PublicthreefieldproductcontainsfiniteSignedSpeed leaves, alltriplesvalidinclzero/negative; default/ZERO legitimate. FromVec3 builds threecheckedleaveslefttoright, shortcircuitErr dropslocal partialvalues and never publishespartialSelf. Vec3::newfromstoredfiniteleaves cannotlosefiniteguarantee; actualnativevectorport, no normalization/lengthsquaredor speedmagnitude promise fromcomponentfinite alone.",
+    "admission-references-and-shape": "ScenePlanPoint andPlanDisplacement privatevectors, manualpointSerde checksfinite. OpaqueReflect doesnotexpose primitivefields foruncheckedindividualmutation inthis source; no claim aboutallotherReflectionnative APIs. Positions/displacements/directions/elevation remainmeaningfuldistinctroles; no alternateframe collapse. Fullsourceexistingtests readonly, no run/newassertions.",
+    "qualified-scope": "042mandatory149 PRbody1-122 only, nonexistent123-155 excluded;151 P16velocity1-38 only, nonexistent39-44 excluded. Historicalreceipts retainedwitherrata. No newsource/materialrole, no admission03 verdicttransfer."
+  },
+  "findings": [],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

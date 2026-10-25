@@ -1,0 +1,40 @@
+{
+  "recorded_at": "2026-10-21T03:10:25.663243+00:00",
+  "base_head": "f81712e56aa09105e62d4a72e13305093b945a17",
+  "scope": "Unpublished f817 native consumer repair, including staged/unstaged/untracked files. Implementation-agent focused Code/Rule/producer review; not an independent review or fourth full audit wave.",
+  "correctness": "No remaining actionable source issue identified in this repair after adapting the extra public integration caller. Exact-head compilation and existing checks remain required.",
+  "traces": [
+    {
+      "owner": "CityPlotBounds::centre -> ScenePlanPoint",
+      "path": "settlement/tests.rs existing member support fixture retains centre() through bound.height_at/coarse_height_at; metres() ends at native GroundTriangle and Avian ray math.",
+      "preservation": "Original fixture numbers, order and assertions unchanged."
+    },
+    {
+      "owner": "AuthoredThreatError -> CoreLoopError::AuthoredThreat",
+      "path": "core autoresolve/threat.rs -> live_core/bootstrap.rs::run_core_loop_inner CoreLoopResult -> run_core_loop CoreLoopRunResult -> main.rs Box<dyn Error>. From retains the actual threat cause; no display-text intermediate.",
+      "operations": "AuthoredThreatError derives Clone/Eq from its already Clone/Eq String, UnknownThreatId and ElapsedError payloads. All added CoreLoopError matches handle the new variant. Canonical error/reducer owners are public rather than duplicated."
+    },
+    {
+      "owner": "FailureRecorder / FailureReportError / CoreLoopRunError",
+      "path": "FailureRecorder::write accepts &CoreLoopError, retains the earlier recorded typed error precedence or clones actual fallback cause. Stable schema-v9 category/reason/message projection remains redacted. JSON/io/lock errors retain structured classifications; compound run failure owns both original and report errors.",
+      "preservation": "Report field schema, safe projection text, create_new file behavior, original threat construction order and prior DB side effects unchanged."
+    },
+    {
+      "boundary": "existing integration diagnostic-text assertion",
+      "path": "tests/core_loop_live.rs renders run_core_loop error after expect_err solely for its existing contains/message assertions. Other public production caller uses ? into the standard CLI error box.",
+      "preservation": "No added tests, cases, assertions or fixture helpers."
+    }
+  ],
+  "rule_support": [
+    "AGENTS.md architecture/no compatibility paths and bounded debugging",
+    "crates/AGENTS.md semantic producers/structured classification/canonical owner/owning result alias"
+  ],
+  "verification": "Static source/Git/rg reads and git diff --check only. No local Cargo, test, formatter, linter, parser, project scanner or runtime probe.",
+  "workflow": "Existing live_core::tests:: unit selection added to hosted gates. Previous 40 groups preserved plus strategic-bootstrap = 41; all 16 Creator vectors unchanged. Owning existing failure-security suite is included in the live_core tests module, not a separate failure_security submodule.",
+  "limits": [
+    "Older unrelated simulator String/SDK errors remain; no claim of whole simulator error migration.",
+    "P06 remains unaccepted; earlier source traces retained, not recast as fresh full review.",
+    "Live DB integration is compiled by all-targets gates; it is not run by the new unit filter. No DB reset/reseed.",
+    "Calibrated/native renderer and frozen/offline ignored acceptance remain unavailable."
+  ]
+}

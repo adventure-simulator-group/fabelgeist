@@ -1,0 +1,22 @@
+{
+  "recorded_at": "2026-10-21T02:44:14.153468+00:00",
+  "failed_head": "350c73c1978f78c732c45727236b2cf65bd4e041",
+  "run": 39533317208,
+  "job": 119004086644,
+  "first_failure": "Lint tactical client WASM target: three Rust borrow errors in volumetric::refresh_presentation",
+  "evidence": "P06-hosted-350c-first-failure.log",
+  "repair_head": "f81712e56aa09105e62d4a72e13305093b945a17",
+  "repair": "Bind both AssetMut guards mutably and end each guard scope after assignment, before the next asset-store mutable borrow.",
+  "source_proof": "Pinned bevy_asset 0.19.1 assets.rs::get_mut returns AssetMut borrowing both the asset and queued event buffer. DerefMut marks changed and its notifier Drop appends Modified. Lexical scopes release both borrows while preserving notifications; get_mut_untracked is not used.",
+  "publication_review": "Both handles are checked with immutable get before preparing the replacement. The function exclusively borrows Assets and neither terrain_material nor the assignments remove material IDs. No external system can run between these synchronous accesses. The prepared material values, base/detail order, depth bias and detail mask assignments are unchanged. Missing required pixel preparation still exits before material replacement. This is an affected-path guarantee, not a global renderer transaction.",
+  "passed_before_failure": [
+    "formatting",
+    "generated binding/presentation checks",
+    "schema/GPU boundary tests",
+    "Bevy guard",
+    "FBX array/object-name consumers",
+    "semantic/growth gate",
+    "calendar ownership"
+  ],
+  "verification_limits": "Current exact-head hosted run is pending. No local project checks, new tests/cases/assertions/helpers or agents. This repair makes no new numerical or gameplay policy."
+}

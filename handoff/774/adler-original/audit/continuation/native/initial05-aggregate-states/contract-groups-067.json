@@ -1,0 +1,101 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-067",
+  "at": "2026-10-23T00:31:45.092165+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "native-dependency:spacetimedb-bindings-macro-2.6.1/src/reducer.rs",
+      "sha256": "5d9af3fa69cda0c4377ddc6e3da0ead36b83bcb5f7cda7e53d78534b9bfd0fba",
+      "scope040_index": 21,
+      "actual_EOF": 204,
+      "scoped_ranges_compared": [
+        [
+          1,
+          204
+        ]
+      ],
+      "qualified_partial_context": null,
+      "actual05_comparison": "Fresh full204 source. ReducerArgs private optionalname+one lifecycle: parser rejects duplicate lifecycle orname before publishing args. Same original typed function signature determines all generated argument types/names, context/rest trait assertions, function marker and invocation pointer; generic type/const params rejected, lifetimes retained. Generated reducer return type checked against IntoReducerResult, actual020rt generic E:Display accepts bespoke application errors. Tuple/native dispatcher retains parameter order, not application cross-field validation; generated SpacetimeType fields can still admit raw aggregate payloads according actual035SATS proof. Explicit name registration changes function identity metadata deliberately, no duplicate argument arrays authored independently here. No code generation/compiler run.",
+      "source_body_proof": "Fresh exact globally scoped native macro/runtime receiving bodies personally read, prefixes/tails remain qualified; no whole SDK/host graph exemption."
+    },
+    {
+      "source_id": "native-dependency:spacetimedb-bindings-macro-2.6.1/src/view.rs",
+      "sha256": "48fc81bd0f4780c85900aac82084c05599116c565c7beecd4d26239cf7d0a78a",
+      "scope040_index": 22,
+      "actual_EOF": 364,
+      "scoped_ranges_compared": [
+        [
+          190,
+          361
+        ]
+      ],
+      "qualified_partial_context": "190-194 prefix and361closing context, rest parser362+excluded",
+      "actual05_comparison": "Fresh exact190-361 only, not full364 or earlier signature parser. Actual reference context gate and declared output are required. Vec/Option original function body is emitted unchanged, RawQuery return adapted at native port, implQuery produces RawQuery with same declared row type. Context type drives matching ViewRegistrar/ViewDispatcher/ViewKind function pointer; generated FnInfo uses same name/arg metadata/effective return schema. Actual trait assertions require ViewContextArg/ViewReturn/ViewArg, not arbitrary Result<T,Display>. Primary-key accessor assertion only when parsed identifier+row type known; does not prove uniqueness of actual rows or all runtime data validity. Prefix190-194 and omitted macroclosing362-364 remain context/excluded; no whole view parser or SQL execution proof.",
+      "source_body_proof": "Fresh exact globally scoped native macro/runtime receiving bodies personally read, prefixes/tails remain qualified; no whole SDK/host graph exemption."
+    },
+    {
+      "source_id": "native-dependency:spacetimedb-2.6.1/src/rt.rs",
+      "sha256": "9dae2fdd25e809c3fae6780569a1e6ce1a9d76d99feaac6a38a884faaa5ebf16",
+      "scope040_index": 20,
+      "actual_EOF": 1436,
+      "scoped_ranges_compared": [
+        [
+          1,
+          200
+        ],
+        [
+          203,
+          225
+        ],
+        [
+          330,
+          465
+        ],
+        [
+          628,
+          655
+        ],
+        [
+          660,
+          695
+        ],
+        [
+          1025,
+          1065
+        ],
+        [
+          1086,
+          1098
+        ],
+        [
+          1228,
+          1295
+        ],
+        [
+          1374,
+          1393
+        ]
+      ],
+      "qualified_partial_context": "Args schema628-635, Procedure649-655, with_read_args1290-1295 only context; no complete body/arity validation credit",
+      "actual05_comparison": "Fresh all nine original exact runtime ranges read. invoke_reducer48-57 decodes native SerDeArgs then invokes same reducer/context; Invoke view89-128 decodes then serializes native ViewReturn into owned bytes. Reducer trait ties tuple Args to function; concrete macro637-647 destructures SAME tuple and calls Func(ctx,args...) then IntoReducerResult. IntoReducerResult219-224 accepts any E:Display and stringifies only at native SDK boundary, legitimate terminal representation. ViewReturn344-386 supports Vec/Option and query shapes, Option serializes0or1rows from sameOption; type-specific dispatch ViewContext versus AnonymousContext keeps authority distinction. Host entry reconstructs sender+connection+timestamp together, then chooses registered function ID; host supplies valid IDs/handles and wire framing preconditions, not untrusted application raw integers guaranteed safe. Actual timestamp u64as i64 is native bit projection, no strategicminute semantics. convert_err_to_errno preserves success0 versus error write+HOST_CALL_FAILURE. write_to_sink1377-1393 advances by host-reported written length; success-progress and handle validity are native ABI preconditions, no foreign host proof/runtime claim. Partial Args schema tail628-635, Procedure invoke649-655 and with_read_args1290-1295 are only bounded context; NO unscoped tuple decoding/schema naming, full procedure, buffer refill or host transactional rollback claim. Prior actual035SATS namedProduct/sum proof stays source-specific, not everySDKversion.",
+      "source_body_proof": "Fresh exact globally scoped native macro/runtime receiving bodies personally read, prefixes/tails remain qualified; no whole SDK/host graph exemption."
+    }
+  ],
+  "comparison_groups": {
+    "same-signature-registration-dispatch": "Same typed function source produces context/argument/output assertions and registered invocation identity; direct tuple function association explicit, not independent raw columns.",
+    "native-boundary-erasure": "Generic reducer E:Display conversion legitimate at actual terminal SDK adapter, observer BevyError and view Vec/Option/query constraints differ. Application correlation/admission remains in its own model and gates.",
+    "bounded-ABI-preconditions": "Native valid registration IDs, byte handles and sink progress are actual port assumptions, not whole host correctness or application rollback evidence."
+  },
+  "new_unique_findings": [],
+  "prior_actual05_joins": [
+    "contract-groups-035.json actual SATSProduct/unit/dataSum role qualifications",
+    "contract-groups-065.json actual native BevyObserver output requirements"
+  ],
+  "remaining_dependency_obligations": [
+    "Application reducer/view aggregate sources remain own cells; raw SATS versus checked aggregate findings preserved. No native ABI full validation/rollback guarantee inferred."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

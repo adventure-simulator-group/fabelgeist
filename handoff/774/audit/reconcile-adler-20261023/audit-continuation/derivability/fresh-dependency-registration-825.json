@@ -1,0 +1,27 @@
+{
+  "id": "SEGOVB-INITIAL10-REG-825",
+  "lens": "10 audit-derivability",
+  "sources": [
+    {
+      "source_id": "pr-working:crates/adventuresim-dialogue/Cargo.toml",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-dialogue/Cargo.toml",
+      "sha256": "6f2c4bfbf6d202fdadfc88465dfacd0ffd8461259578bde3f185ad0b47ab844b",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/derivability/fresh-dependencies-825/dialogue-Cargo.toml",
+      "actual_EOF": 23,
+      "actual_compared_ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "material_ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "reason": "Exact PR runtime and build dependency availability for policy1031 manual error and runtime1034. No thiserror/derive_more; preserve small manual impl, no dependency just cleanup. Samebytes shared118P16 does not erase separate PR context.",
+      "status": "Actual bounded own10 source consumed; provenance not other-lens coverage."
+    }
+  ]
+}

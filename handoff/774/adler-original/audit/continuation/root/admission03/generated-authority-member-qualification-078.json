@@ -1,0 +1,78 @@
+{
+  "id": "ROOT-ADM-G078",
+  "at": "2026-10-22T18:17:57.098143+00:00",
+  "lens": "audit-admission-contracts",
+  "qualifies": "RIG-NATIVE20-ADM03-F002 source-specific context-vs-manifest confusion; personallyconsumedactualfinding andfreshcriticalalreadygloballyfullscopedsources",
+  "actual_sources": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/model.rs",
+      "sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+      "actual_material_read_ranges": [
+        [
+          305,
+          320
+        ],
+        [
+          1144,
+          1177
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/projections.rs",
+      "sha256": "4277df1f4841a51dafe10f9ef950ca7dec6f434358cc8aa5a98f742766825102",
+      "actual_material_read_ranges": [
+        [
+          776,
+          806
+        ],
+        [
+          849,
+          887
+        ],
+        [
+          913,
+          949
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+      "sha256": "9511a258a4133480d0581e538ae88d41ccff8d90ce6a0658ff71e28267b35eb5",
+      "actual_material_read_ranges": [
+        [
+          2157,
+          2166
+        ],
+        [
+          2398,
+          2414
+        ],
+        [
+          2495,
+          2510
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "actual_material_read_ranges": [
+        [
+          71,
+          137
+        ]
+      ]
+    }
+  ],
+  "scope": "Allfourexistingglobalvariants alreadyfull/currentadmission source-scoped; no genuinelynewvariant/range registration. Fresh directfields/signature/serialization/validator/helperbodies only. Incidentalmodel299\u2013304/321\u2013355/1138\u20131143/1178\u20131204 andauthority139\u2013160 contextnotmaterial; bootstrapwholemethod notclaimed beyondexactsignature/bindings, no fullgraphcredit.",
+  "producer": "Actualmaterialize_generated_quest signature context:&GenerationContext/generated:&GeneratedCase, optionalcontext_snapshot_override. Nooverride branch serializes EXACTGenerationContext into context_snapshot_json2398\u20132401; insertsit2412 andseparately serializesgeneratedmanifest2413\u20132414. Developerbranch2495\u20132510 serializesDeveloperGenerationContext; actualshapeofthatseparatetype notfreshread here andallpossibleoverrideJSON qualification preserved.",
+  "member_error": "validated_generated_authority_candidate firstcallsactualvalidator thenreturns(case_id,manifest_json,context_snapshot_json). exactly_one preserves (manifest,context); reducer849\u2013887 filtersknownauthority anddelegates. generated_investigability917 selects(_,manifest_json) i.e context; from_str<GeneratedCase>918\u2013920 thenok()? dropsfaileddecode.",
+  "shape_proof": "FreshGenerationContext305\u2013320 ordinaryderivedSerialize with fixedfields seed/entropy/settlement/scope/ordinal/now/weather/requested_family/witnesses, noflatten/customserializer/default. GeneratedCase1144\u20131177 derivedDeserialize requires catalog_revision:String andmanyotherrequirednonoptionalfields, no field/containerdefault. Thus actualordinarynooverride serializer CANNOTprovidecatalog_revision, decoder Err missingfield, ->None. Source-backednormalserializedcontextdecodefailure\u2014not merely hypotheticalmalformedrawJSON. No runtimeexecution or claimall possibleoverrides fail. JSONderive/String missingfield contract established canonicalSerde/nativeparser evidence, nottypenameguess.",
+  "validation": "Freshcompletevalidate_quest_generation_authority71\u2013137 actuallycheckscontextcommitment, decodesoptionalDeveloper/baseotherwiseGenerationContext, decodesactualFIRSTmanifest separately, bindsIDs/seed/catalogue/trace/settlement/scope, callsmanifestvalidate andexactgenerationreplay thenreturns EXISTING ValidatedQuestGenerationAuthority{context,manifest}. Context/manifest identities were already available typed atfactoryreturn butcandidate discards thatproduct andretainsStringtuple. Source-backed stronger API shouldreuseexistingcanonicalvalidatedreturn ratherthan inventparallelvalidator/wrapper.",
+  "disposition": "RetainRigF002 asconcretewrongtuplemember plusordinaryserializedcontext source-backedfailure; actualconsumerappliesmodifieronlySome perRigDB536freshproof, no observedgameplayoutcome/executedbugreport. Use actualvalidatedmanifest.cause andpreserveintentionalManualNone/nonHostileNone, ambiguous/invalidauthorityerrorpolicies. No compatibilityshim/fallbackwrongblob/redundantreparse.",
+  "source_edits": 0,
+  "project_execution": 0,
+  "repair": "frozen_initial_all13",
+  "later_lens_credit": false
+}

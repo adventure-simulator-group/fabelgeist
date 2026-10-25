@@ -1,0 +1,46 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-613",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation/procedural.rs",
+      "sha256": "8b82644fdbb52e00c1b40a850239bb273c956668c89805efae19800b35f42487",
+      "actual_EOF": 1813,
+      "actual_compared_ranges": [
+        [
+          1,
+          1813
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "P16 fixedtick posecache, additive look/jump andmirror mutation",
+      "evidence": "Entire1813personallyread sequential1\u2013300/301\u2013610/611\u2013920/921\u20131220/1221\u20131520/1521\u20131813. Fixedcachecapturesfirstlogicaltick andrestoresknownbonesrepeat,clearswhenliveclockunset. Lookbase restoredbeforeauthored layers andretainedpreoffset; owneryaw currentTransform notstaleglobal. Jumpanticipation previousbase/applied/tick de-duplicatesamountpelvisrelease andbounded.125perobservedtick. Mirror snapshotsglobals+parents beforewholebodyreflection, computesdesiredparentframe, checksderivedSRTfinitebeforeinterpolationwrite.",
+      "qualifications": [
+        "RawbaseQuaternion/SRTmustvalidactualrig; nativepost-checkinterpolation canoverflowforoppositefiniteextremetranslations butactualordinaryboundedrig producer notasserted. No fullfinite-guarantee inferredmerelyfromintermediateSRTcheck.",
+        "Fixedcache doesnotpopulatealreadycachednewbone untilnewtick; actualasset/entitylifecycle policy separate, no ordinarymultiviewnewbonefailureclaimed.",
+        "Jumpchargeper-observedtickconstant intentionallyexistingmotionpolicy, not automaticallyelapsedintegrationbug. Guardlookdivisor positive allowssmallvalue andclampsangleextreme; preserve zeroangles andnoordinarylooknonfiniteclaim."
+      ],
+      "acceptance": "Preserveallbase+offset/idempotentlogicaltick semantics, actualmirrorcharacterframe and upperbody/leglayerownership; no arbitraryquaternionnormalizationpolicy substitution."
+    },
+    {
+      "contract": "P16 checked height commit andlanding-chain retention",
+      "evidence": "Productionheight updatecopiescheckedstate, invalidadvance skipsowner, rootheightadditionfinitecheckedbeforetransformwrite; quickstep excludesheightlayer. Guardrunsplityaw try_normalizesintentionthenpairedinversepelvis/spine. Landingstorespriorpropagatedfootpositions, clearswhenunsupported/discontinuous, tick/frame resynchronization andcheckedsegments/landinganalyticresultbeforeactualchainwrites. Sourcefixtures fullread forworldfeet/reservelate-reach,50mmfollower,wraptick,terrainposture,mirrorinvolution/anatomicalside.",
+      "qualifications": [
+        "Heightstate canadvancebeforea laterrootnativeadditionrejects; actualwholeupdatepolicy mustcoverbothcomponents ifrepaired, no newordinaryfiniteextremecase promoted.",
+        "previous_world_positions[foot] assumesrigfootentitybelongsHumanoidBonequery; malformedrigmembership remainsowningaggregateadmission, no actualmissingfootproducerclaimed. Landingmemorytick/pelvischangesbeforelatersegmenterror meansno blankettxnassertion.",
+        "Sole-offsetliteral .085fixture supportsdefaultauthoredrig only; CAMERA07F065 configured.1m aliasremainsqualified, no newunique defect. Flightapexzerolegal/configqualification frompriorheight findingpreserved."
+      ],
+      "acceptance": "Preserveactualfootplants/resynchronization/release andseparatetransientpresentationauthority; no tests/project/GPUexecution."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "1 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-building-generator/src/model.rs"
+}

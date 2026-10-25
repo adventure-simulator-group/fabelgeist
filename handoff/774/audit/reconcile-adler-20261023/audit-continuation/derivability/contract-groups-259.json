@@ -1,0 +1,178 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-259",
+  "at": "2026-10-25T14:15:30.906552+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 516,
+      "source_id": "pr-working:assets/shaders/tactical_shrub_leaf_instanced.wgsl",
+      "sha256": "0f80c3f51e71056d7249e91d9dda6b82980138f76358602cf5aa887976e8aa52",
+      "actual_EOF": 197,
+      "requested_registration": {
+        "source_id": "pr-working:assets/shaders/tactical_shrub_leaf_instanced.wgsl",
+        "snapshot": "pr-working",
+        "path": "assets/shaders/tactical_shrub_leaf_instanced.wgsl",
+        "sha256": "0f80c3f51e71056d7249e91d9dda6b82980138f76358602cf5aa887976e8aa52",
+        "bytes": 7894,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-root-receivers-001.json",
+            "ranges": [
+              [
+                1,
+                197
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-SUPP-NATIVE-001"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 367,
+            "read_ranges": [
+              [
+                1,
+                197
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-PEBBLE-SHRUB-SHADERS-057"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/assets/shaders/tactical_shrub_leaf_instanced.wgsl"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 132,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          197
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "WGSL texture/uniform/vertex-output declarations and functions; no Rust traits/Serde.",
+      "absence_basis": "Full197-line shrub leaf instance shader consumed: TacticalShrubLeafInstancedUniform/ShrubLeafVertexOutput, vertex/fragment, native instance wind/sway, front/back texture gradients, pigment/AO and shadow/visibility semantics. No Rust derive body or imported host/library source credit."
+    },
+    {
+      "scope_index": 517,
+      "source_id": "pr-working:assets/shaders/tactical_stars.wgsl",
+      "sha256": "929fdce1cb1b288bcc885f481a2fd64d20f60dc513e16ebd534b84d700e7ca98",
+      "actual_EOF": 61,
+      "requested_registration": {
+        "source_id": "pr-working:assets/shaders/tactical_stars.wgsl",
+        "snapshot": "pr-working",
+        "path": "assets/shaders/tactical_stars.wgsl",
+        "sha256": "929fdce1cb1b288bcc885f481a2fd64d20f60dc513e16ebd534b84d700e7ca98",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 2197,
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 138,
+            "read_ranges": [
+              [
+                1,
+                61
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-CELESTIAL-002"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/assets/shaders/tactical_stars.wgsl"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_owner": "native",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-SKY-CLOUD-010",
+            "json_pointer": "/source_reads/12",
+            "source_id_as_recorded": "pr-working:assets/shaders/tactical_stars.wgsl",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                61
+              ]
+            ],
+            "source_context": {
+              "obligation": 157,
+              "source_id": "pr-working:assets/shaders/tactical_stars.wgsl",
+              "sha256": "929fdce1cb1b288bcc885f481a2fd64d20f60dc513e16ebd534b84d700e7ca98",
+              "read_ranges": [
+                [
+                  1,
+                  61
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1637,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "WGSL uniform/vertex input-output declarations and functions; no Rust traits/Serde.",
+      "absence_basis": "Full61-line star shader consumed: StarVertex/StarVertexOutput, vertex/fragment, equatorial/world frame/physical viewport pixel expansion, radiance/flux profile semantic. Host native attributes/binding owner separately uncredited."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Instanced leaf and celestial native shader records",
+      "disposition": "Non-Rust shader declarations/functions; no derivability replacement within exact sources.",
+      "acceptance": "No native layout/operation/visual correctness or other-lens clearance from no-Rust-trait disposition; no shader execution/edits."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 518,
+    "source_id": "pr-working:assets/shaders/tactical_terrain.wgsl"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

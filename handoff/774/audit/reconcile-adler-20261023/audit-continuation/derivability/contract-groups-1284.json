@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1284",
+  "at": "2026-10-25T18:22:24.732901+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1350,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/presentation.rs",
+  "sha256": "6a067389a1cdcbddd0dd3814f95e17664351794be139353572edd19928a18171",
+  "actual_compared_ranges": [
+    [
+      301,
+      600
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Native synchronized state/cadence/attack/quickstep advancement and posture-specific speed policy; existing source fixture assertions for rendered authoritative packet phase/tail. No handwritten trait/codec/type declaration. Checked elapsed/tick/phase propagation and selected classification are semantic, no replacement derive recommendation.",
+  "first_unfinished": {
+    "scope_index": 1350,
+    "line": 601
+  },
+  "execution": "none"
+}

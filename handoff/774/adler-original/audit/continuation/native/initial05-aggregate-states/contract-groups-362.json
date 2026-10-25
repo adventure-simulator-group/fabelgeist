@@ -1,0 +1,94 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-362",
+  "at": "2026-10-23T12:38:31.204948+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/strategic-web/src/location_urls.rs",
+      "sha256": "4cdfe5103f103f2628c55f1f8d3f9dd407342458647215a44b5add07c03dcb14",
+      "scope072_index": 2355,
+      "actual_EOF": 208,
+      "scoped_ranges_compared": [
+        [
+          12,
+          49
+        ],
+        [
+          52,
+          208
+        ]
+      ],
+      "effective_material_ranges": [
+        [
+          12,
+          49
+        ],
+        [
+          52,
+          196
+        ],
+        [
+          200,
+          208
+        ]
+      ],
+      "actual05_comparison": "Fresh exact merged global072 roles: original URL76-112/180-208 plus overlay093113-179 and new24612-49/52-78; trade imports only per249. No imports URL1-11,excluded50-51, trade33+ or tests helper bodies credited."
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/trade/mod.rs",
+      "sha256": "31ccaeab48d236a489cc039794c79c2c33621751e4a8a7a1e9f94033921eec3b",
+      "scope072_index": 2852,
+      "actual_EOF": 54,
+      "scoped_ranges_compared": [
+        [
+          1,
+          32
+        ]
+      ],
+      "effective_material_ranges": [
+        [
+          3,
+          8
+        ],
+        [
+          25,
+          29
+        ]
+      ],
+      "actual05_comparison": "Fresh exact merged global072 roles: original URL76-112/180-208 plus overlay093113-179 and new24612-49/52-78; trade imports only per249. No imports URL1-11,excluded50-51, trade33+ or tests helper bodies credited."
+    }
+  ],
+  "groups": [
+    {
+      "id": "route parameter count and interpolation relation",
+      "comparison": "2355 Route<N> stores private static pattern and takes exactlyN display arguments. url splits one open and closed placeholder each argument then asserts none left; encode_component percent-encodes UTF8 bytes outside unreserved ASCII before concatenation. Thus external caller cannot mismatch array arity, but private new(pattern) itself does not validate placeholder count; exact registered patterns producer stillneeded to justify normal expects. No claim arbitrary private static invalid pattern exists or normal route panics."
+    },
+    {
+      "id": "kind and place parse before dispatch",
+      "comparison": "LocationKind closed two variants with exact as_str/FromStr pairing; path dispatches matching typed constant route. SettlementPlace distinguishes canonical venue from exact local chapter via organization_chapter_at(settlement,slug). Middleware optional kind grammar and correlated id+place check before next.run, unknown values404. This checks chapter membership for supplied settlement rather than string syntax alone; actual route-family applicability and organization catalogue lower semantics remain separate source obligations. No generic arbitrarykind/id/place product accepted-state seal inferred."
+    },
+    {
+      "id": "URL component versus whole URL purpose",
+      "comparison": "with_query encodes name/value separately, appends before original fragment and preserves it, separator depends on existingquery. local_redirect_path intentionally admits leading slash only, excludes//andbackslash, returns ownedrawstring; this is scoped local redirect predicate, not full URL normalization/security audit. party_path receives same typed Settlement kind and exact settlement/character values; route/current path pattern identity lowerstillqueued."
+    },
+    {
+      "id": "service and presence adapters",
+      "comparison": "service_place uses actualCore service\u2192venue lookup then parsedVenue expects, so known service caller and lower fixedcatalogue must establish membership. place_service maps eight known venues toservice names and excludes square/residences/keep;repair_service delegatesactualparse. npc_location/npc_place roundtrip public square id\u2194internaloverview, intentionally stable presentation/native adapter, no duplicate strategic location authority claim. Broader arbitraryrawinput no normalexpect justification from name alone."
+    },
+    {
+      "id": "trade import role source-backed nonapplicability",
+      "comparison": "2852 exactmaterial3-8 imports Core EncumbranceSummary/input mappings and aliases canonical equipment location/channel;25-29 imports Web spacetimedb projection types. It defines no record, mutable field, constructor, collection relation or executable mutation. Under05 this exact import-only role has source-backed N/A; any equipment conversion/helper bodies are separately queued and not covered. Context1-2/9-24/30-32 displayed but not analyzed as new material per mandatory249;33+ excluded."
+    },
+    {
+      "id": "membership and accounting clarification",
+      "comparison": "Source360 own reread2844/2845 scalp-map/GPU context had prior coverage286;360 is supplemental current producer/receiver analysis only for those, does not increase distinct source count. Counts computed by source ID union already correctly added only807/808; no correction to3611366 needed. New072 URL/trade roles compared here; all old mandatory overlays/qualifications preserved, no verdict/hash carry."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Exact Route::new patterns producer and known service caller/canonical catalogue contracts remain pending relevant original roles."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

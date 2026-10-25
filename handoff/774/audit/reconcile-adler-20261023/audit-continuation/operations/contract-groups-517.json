@@ -1,0 +1,46 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-517",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/export-city-scene.rs",
+      "sha256": "2b6ea6abaeb692db9921b48233e4e180f82d6db8b98c0b1d291d7d17e09ea770",
+      "actual_EOF": 176,
+      "actual_compared_ranges": [
+        [
+          1,
+          176
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect-city-grounding.rs",
+      "sha256": "a3f981ab45024c01871eb5257c9064a6b9f5d04b8dd36f80fba16b1f84a66e02",
+      "actual_EOF": 328,
+      "actual_compared_ranges": [
+        [
+          1,
+          328
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Offline capture preserves exact source geography and synthetic identity distinction",
+      "evidence": "Full export176: schema/inferencerules/finalpackchecked; WGS84explicitcoordinateadmission, StrategicMinuteparsecanonicalallrepresentabletime. Operators deliberatelysyntheticappearancefixture, enumeratedIDs notpersistentresidentauthority; no globalnonzero persistentownerimposed. Sourcecompoundcorners actualvalidated plotcorners; sourceexportprovenance metadata. Separateoutputwrites mayleaveearlierdiagnosticfile onlaterIOerror, no game-state transaction asserted."
+    },
+    {
+      "contract": "Inspection coordinate arithmetic and source/collision ownership",
+      "evidence": "Full inspect328. Buildinglocalgeometry origin uses horizontalcollisionboundscentre only; verticaloffset canonicalbaseelevation (colliderbottom explicitlylabelled incorrect), transformedpositions readmitted. Doorhinge+halftangentwidth exactopeningcentre, enumLODexplicit fallbacknormalpolicy (not backwardcompat). Completedminimum+elevation readmitted, failure typedratherthaninfiniteJSON elevation. ComparecandidateJSON[1] parsedbytypedProposedCompoundLevels, missingvalues propagates later. Radiusfilter affectsdiagnosticscope; no ordinarygameplay clamp. Childcomparison/triangulationroles remainnextscope, notcreditedbythisread."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/footprint.rs"
+}

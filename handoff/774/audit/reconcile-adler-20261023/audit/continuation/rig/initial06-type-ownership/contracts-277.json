@@ -1,0 +1,31 @@
+{
+  "id": "RIG-INITIAL06-GROUP-277",
+  "at": "2026-10-23T08:05:33.172407+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "motion-source-load-versus-clip-admission": {
+      "comparison": "Fresh motion175 distinguishes MotionLoadState native asyncassetavailability from MotionClipAdmission Pending/Unavailable/Ready checked LoadedClip. Same three-like states are different responsibilities: AssetServer remains handle/path/revision authority, while actualclip validates singleanimation/targets/sourceframe/duration before semantic publication. Nested Option pending-versusunavailable is explicitly wire/internalpoll encoding, not a new duplicate asset owner. AnimationAssetPath, MotionKey, source revision, native AssetId and AnimationTargetId are distinct namespaces. Positive ClipDuration versus requiredlast catalogueframe and elapsedplayback time retain units. Optional missing asset pose selection is current capability policy, not legacy schema compatibility; malformedsource diagnostics remain. No task/IO/loading/runtime or invokedhelper proof from source-only reading.",
+      "disposition": "Keep native load lifecycle and semantic clip admission distinct; reuse canonical path/motion/target/time owners."
+    },
+    "gltf-texture-original-fixture": {
+      "comparison": "Fresh full texture tests191 use canonical PackedRigSkin/RigJointTable/ROOT and RiggedMesh/Shell capability products with GlbOutput SharedTextures. Material basecolor/metallic/roughness versus normal/occlusion/cutout image roles remain distinct. Native PNGbytes, glTFsourceindices/URIs/JSON and content hashes are legitimate representationports, not candidate gameplaybespokeIDs. Fixture independent export/parse assertions check authoredproperties and sharedcontentcorruption; they do not create duplicate materialdefault owner or accepted production proof. Source contains temporaryfiles/write/delete but none executed. F005 shared semantic color upstream and F031 canonicalLOD remain applicable at actualproductionAPI, no forced arbitrarybytebranding.",
+      "disposition": "Preserve native export/channel/packaging boundaries and canonical rig types; fixture source only, no execution."
+    },
+    "prediction-sample-clock-and-lunge-timing": {
+      "comparison": "Fresh action_clock201 retains NonnegativeSpeed/ForwardLungeAcceleration/PositiveAnimationDuration in MeleeAcquisitionTiming, and correlated start/contact/end SampleTicks plus elapsed inputdelay in MeleePlaybackTiming. Countspan versus absoluteclientprediction tick versus nativecombatseconds are distinct clocks/units, not one u64/f32. Actual conversion native rounding/saturating integerboundary preserves finiteoverflow error and ZEROdelay versus at-leastONEanimation span. Surface_measure/reach/maxtravel rawf32 parameters retain metres semantic through lungecalculation, supporting F034 checked lower SignedLength/geometry API propagation, not reuse unrelated AnimationQuantity or strictlypositive. Acquisition purposefulmelee movement delay differs rangedtargeting, do not merge both policies. CallerCombatConfig snapshot reuses owner. Sourceoriginalcontinuationclockfixture only, no actualpredictionrun.",
+      "disposition": "Keep client prediction tick/span/native elapsed distinctions and coherent timing product; propagate established geometry leaves through lunge inputs."
+    },
+    "public-party-readiness-authority": {
+      "comparison": "Fresh party_readiness198 reads strategic durable membership/alive/status/illness authority, distinct from transient tactical incapacitation wheel and private physiologicaldetails. PubliclyReady aggregate count+combatpower is limited authorized projection, not fullmemberhealth disclosure or duplicate combatstate. Leader/companion recovery permission depends on public readiness and exactjourney/casesite origin, not generic status-enum truth. CharacterId versus PartyId versus settlement/casesite JourneyEndpoint authority remain separate; typedplace endpoint can be retained internally while rawString appears at reducer boundary. Canonical Ready status reused, no independent sameenum declared. Repeated predicates across simulator/publicserver could share purepolicy after actualsamecontract comparison, not replace DBmembership authority with localreport. No called readiness/schema/backend membership body or runtimecredit.",
+      "disposition": "Keep strategic public readiness/recovery authority separate from tactical/private health, reuse canonical IDs/status/journey vocabulary."
+    }
+  },
+  "supporting_existing_findings": [
+    "F005",
+    "F031",
+    "F034",
+    "F039"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit."
+}

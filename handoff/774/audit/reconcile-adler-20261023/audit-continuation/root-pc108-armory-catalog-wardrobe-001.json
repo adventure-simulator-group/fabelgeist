@@ -1,0 +1,114 @@
+{
+  "at": "2026-10-23T22:07:50.297228+00:00",
+  "id": "pc108-armory-catalog-wardrobe-001",
+  "reads": {
+    "crates/adventuresim-character-creator/src/armory.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/armory_scene.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/armory_ui.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/equipment_catalog.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/bare_body.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/export/shell.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/export/textures.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/export.rs": [
+      [
+        780,
+        875
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/generation.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/wardrobe.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/wardrobe_tab.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/library_name.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/fabelgeist-armor/src/gpu/metal/tests.rs": [
+      [
+        1,
+        10000
+      ]
+    ]
+  },
+  "contract": "Editor catalog selection, fitting result retention, library admission, worker preview/final recipient and native export cache scope",
+  "coverage_limit": "Actual full bodies as listed; existing fixture source observed only, never run. Cloth finalization/capture and cache-key operations remain connected graph dependencies; historical variants and other twelve lenses receive no inferred credit.",
+  "disposition": "M105 exact record semantics confirmed: EquipmentItemSelection deliberately selects all duplicate spellings, CatalogItem identity is record-sensitive; mutable catalog publicitems and separately cloned OwnedCatalogPlacement preclude blind pointer-key replacement. wearable.any(nonemptySurface) then exhibits.filter(nonemptySurface) guarantees placements[0] normally; ordered fitting threads preserve correspondence. Armory Region is UI grouping distinct from medical BodyRegion and fitting FitRegion. M107 retained UI ordinals/-1 unselected sentinel is source-backed strengthening, not ordinary current bad index proof. BareBody compares actual recipe minus outfit/name plus model lod/correctives; actual model loading/mutation identity still separate. Shell TextureImages cache is newly constructed per export, every ShellTextures borrowed from immutable shells slice through one Writer.append; no ordinary dangling/recycled-pointer stale-cache bug demonstrated. Native JSON accessor IDs/component tag integers are actual glTF ports; Views/associated shell contracts still M16/M20. LibraryName admitted/retained in Wardrobe and Showing::Saved, editable incomplete name String remains legitimate UI boundary; TryFrom String cause gap joins M06. Wardrobe load/insert/save validate but derived Deserialize bypass exact RIG-ADMISSION03-F022, not a claim normal load skips validation. CAMERA-INITIAL07-F060 worker finalfailure/retained-preview candidate independently reproduced source portions, garment finalization/capture bodies pending before root disposition. Material existing tests explicitly check invalidsize16/MAX, NaN roughness, deterministic seedchanges and zero finish; these are acceptance fixture references, no runtime/CI/clearance.",
+  "finding_traces": {
+    "M06": {
+      "source": [
+        "crates/adventuresim-character-creator/src/armory.rs:90-110,442-464",
+        "crates/adventuresim-character-creator/src/wardrobe_tab.rs:58-65,242-251,279-289",
+        "crates/adventuresim-character-creator/src/library_name.rs:11-18"
+      ],
+      "trace": "Admitted fitting/native causes erased to formatted String before retained Exhibit.fitted and wardrobe problem state, not just final egui label. Preserve typed fit/drift/warning outcomes until actual presentation; LibraryName admission error also unstructured before librarysave. Already transferred #780 fitting body ownership includes these connected consumers; no claim current peer successor still unfixed."
+    },
+    "M105": {
+      "source": [
+        "crates/adventuresim-character-creator/src/armory_ui.rs:155-198",
+        "crates/adventuresim-character-creator/src/equipment_catalog.rs:18-43,72-87"
+      ],
+      "trace": "Editor clones OwnedCatalogPlacement item's record, passes borrowed CatalogItem over clone to set_default; recordpointer would differ from originalcatalog, so stable/snapshot semantics must be reconciled ratherthan blindly retain arbitrary borrowed pointer keys. EquipmentItemSelection.ids intentionally lexical duplicate-inclusive export filter, distinct from actual CatalogItem record identity."
+    },
+    "M106": {
+      "source": [
+        "crates/fabelgeist-armor/src/gpu/metal/tests.rs:40-64,97-114,117-190"
+      ],
+      "trace": "Existing source fixtures preserve LCG deterministic output/different seed, zero density/waviness, actualsize32..1024 rejection and Height vsNormal depth semantics. None executed."
+    }
+  },
+  "frontier": {
+    "file": "crates/adventuresim-character-creator/src/garment.rs",
+    "work": "PC108 editor/wardrobe/native export scope traced. PC109 actual garment stage/finish/capture and raw simulation/settings producers, then remaining changed-source inventory plus all preserved historical pending variants. Initial all13 inventory incomplete; no plan, source edits or checks."
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "id": "CONT08-Q004",
+  "status": "resolved_with_explicit_API_behavior_qualification; no new defect promoted",
+  "sources": [
+    1464,
+    1467,
+    1468,
+    1779,
+    1465
+  ],
+  "old_new_trace": "Old raw coefficient interpolation may becomeInf before downstream damping floor. New checked_lerp admits finite signed complete CameraProfile before retained blend/derivative commit. Huge opposite finite endpoints can reject; rig_history54 fails before56/57; rig58\u201360 warns/skips frame.",
+  "intent_evidence": "Captured PR44\u201345 finite signed shaping and128\u2013135 rejects unrepresentable final owned operation result before affected replacement. Actual blended CameraProfile stores ResponseShapingTime; finite coefficient is operation result, not blanket positivity.",
+  "ordinary_qualification": "Exact defaults .18/.34 vs .055/.08 and unit blend exclude huge opposite witness; representable custom signed/zero/negative coefficients retain law. No runtime execution.",
+  "acceptance": "Preserve difference-form interpolation and later damping floor, supported signs/zero; reject unrepresentable owned coefficient before affected commit."
+}

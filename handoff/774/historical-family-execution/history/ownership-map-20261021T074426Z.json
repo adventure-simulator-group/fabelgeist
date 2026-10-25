@@ -1,0 +1,222 @@
+{
+  "record_kind": "superseded snapshot; provenance only, not current instructions",
+  "superseded_by": "../execution-ledger.json",
+  "archived_at": "2026-10-21T07:44:26.207345+00:00",
+  "snapshot": {
+    "version": 1,
+    "updated_at": "2026-10-21T07:29:42.350014+00:00",
+    "goal": "existing #726 / PR #774",
+    "base_head": "8f2b901881f8aa8035a03cd99dbfefb7bbdf8926",
+    "verified_main": "3a50b708381ad00c116445c2c999a49c3943088b",
+    "coordinator": "/root",
+    "policy": [
+      "Read this map AND all claim files before editing. Each owner writes only its own claim file; together these files are the authoritative shared ownership map.",
+      "Before editing, add each exact file/function to your claim file. A reserved whole subtree belongs to its named owner. New overlapping claims require coordinator transfer or agreement with current owner before editing.",
+      "The first active trace to reach an unclaimed shared problem function owns its whole connected repair across affected families. Notify coordinator and affected owners. Do not introduce temporary primitive adapters or duplicate types.",
+      "Record family requirements satisfied by each shared repair; do not mark whole families complete from one shared function. If overlaps become extensive, transfer or combine under one owner.",
+      "No subagent pushes, hosted requests, external posts, additional agents, local project checks or new tests. Source-complete local commits + evidence return to coordinator.",
+      "Coordinator integrates only source-complete connected increments in dependency order, then runs hosted CI. Formatting/size cleanup follows source correctness."
+    ],
+    "owners": [
+      {
+        "owner": "/root",
+        "families": [
+          "P06",
+          "P19",
+          "P20",
+          "P15"
+        ],
+        "worktree": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree",
+        "claims_file": "root-claims.json",
+        "scope": [
+          "Terrain support queries, support datums, vista/foundation/boundary projection and current connected error repairs",
+          "Animation support/foot-influence/continuation connected functions, including semantic_route, pose_buffer and procedural IK",
+          "Shared canonical units/contracts, manifests, locks, workflow and quality baseline: coordinate requests before changes",
+          "P15 client/server equipment chronology and local DB capacity reservation query; exact claims in root-claims"
+        ],
+        "status": "implementing; coordinator owns integration/final hosted validation"
+      },
+      {
+        "owner": "/root/camera_targeting",
+        "families": [
+          "P08",
+          "P16"
+        ],
+        "worktree": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/camera/worktree",
+        "claims_file": "camera_targeting-claims.json",
+        "scope": [
+          "crates/adventuresim-tactical-client/src/camera/**",
+          "crates/adventuresim-tactical-client/src/targeting.rs",
+          "Melee-lunge/aim connected client player/action_clock and server combat/ingress functions; claim exact functions after tracing",
+          "Camera view/capture receiver functions: coordinate exact function transfers with root before edits"
+        ],
+        "status": "reserved; explicit transfer of prior P08/P16 trace ownership from coordinator"
+      },
+      {
+        "owner": "/root/rig_garments",
+        "families": [
+          "P09",
+          "P10",
+          "P11",
+          "P12",
+          "P13",
+          "P14"
+        ],
+        "worktree": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/rig-garments/worktree",
+        "claims_file": "rig_garments-claims.json",
+        "scope": [
+          "crates/fabelgeist-rig/**",
+          "crates/fabelgeist-mhr/**",
+          "crates/adventuresim-character-creator/**",
+          "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/**",
+          "crates/adventuresim-core/src/equipment_assets.rs",
+          "Connected joint/skin/topology/layout/garment/catalogue selection functions: claim exact additional files before edits"
+        ],
+        "status": "reserved; combine because shared producer records and fitting/generation functions overlap extensively; explicit transfer of prior P09-P14 trace ownership"
+      },
+      {
+        "owner": "/root/native_reports",
+        "families": [
+          "P17",
+          "P18"
+        ],
+        "contributes_to": [
+          "P02 native error follow-through"
+        ],
+        "worktree": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/viewer-reports/worktree",
+        "claims_file": "native_reports-claims.json",
+        "scope": [
+          "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/**",
+          "crates/adventuresim-tactical-server/src/bin/melee-combat-iteration.rs",
+          "crates/adventuresim-tactical-server/src/iteration.rs: report observation/output and resolve_tactical_server_melee_duel; coordinate if gameplay/rig functions need changes",
+          "P17 animation_viewer capture/report measurements, actual HTML/validation consumers and physics optional logged tick; claim exact functions before edits, coordinate camera view and rig identity overlaps"
+        ],
+        "status": "P18 and shared geometry source-complete in separate commits/worktrees; P17 viewer reporting active after explicit transfer"
+      }
+    ],
+    "pending": [],
+    "historical_accepted": {
+      "families": [
+        "P01",
+        "P02",
+        "P03",
+        "P04",
+        "P05",
+        "P07"
+      ],
+      "head": "82cb2a3acccc852bba6a7ef9c706c337ba9fe765",
+      "evidence": "rig-artifact-verification-82cb2.json",
+      "policy": "Preserve implementation and evidence. Subsequent edits need reconciliation and current-head validation, not resetting history or treating historical CI as current."
+    },
+    "explicit_transfers": [
+      {
+        "from": "/root",
+        "to": "/root/camera_targeting",
+        "files_functions": [
+          "crates/adventuresim-building-generator/src/spatial_geometry/measurement.rs::SignedLength::from_metres (actual owner verified by camera agent; const admission only, preserve bounds/errors)",
+          "New canonical SceneVelocity module in crates/adventuresim-tactical-core/src/scene_coordinates/ and scene_coordinates.rs module/reexport (do not edit spatial.rs::GateDatum)",
+          "Camera-local checked signed blend derivative owner"
+        ],
+        "families": [
+          "P08",
+          "P16"
+        ],
+        "contract": "Reuse canonical SignedSpeed components and frame Scene; no duplicate finite-length/speed owner. Coordinate shared physical leaf policy changes before implementation.",
+        "superseded_by": "Shared leaf relocation transferred to native_reports; camera must not retain edits to old measurement owner."
+      },
+      {
+        "from": "/root",
+        "to": "/root/camera_targeting",
+        "files_functions": [
+          "crates/adventuresim-tactical-client/src/debug.rs::draw_camera_rig",
+          "crates/adventuresim-tactical-client/src/ui.rs::update_camera_ui",
+          "crates/adventuresim-tactical-client/src/animation_viewer/view.rs::update_view_camera",
+          "crates/adventuresim-tactical-client/src/tactical_scene_viewer/camera_obstruction.rs",
+          "crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs::CameraObstructionObservation and build_manifest (whole function owner)",
+          "crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_terrain.rs: camera-obstruction connected error receiver (claim exact path/functions after trace)",
+          "Additional capture view_camera tuple producers/receivers: reserved to camera agent, enumerate exact functions before edit"
+        ],
+        "families": [
+          "P08",
+          "P16"
+        ],
+        "contract": "Finish connected camera/aim physical contracts through native ports; root consumes agreed contracts and will not independently edit these shared functions."
+      },
+      {
+        "from": "/root",
+        "to": "/root/rig_garments",
+        "files_functions": [
+          "crates/fabelgeist-armor/src: GeneratedArmor and gpu/body::{BodySurface,Skin} plus connected packed-skin producer/consumer functions; agent must enumerate exact paths/functions before edits",
+          "crates/fabelgeist-rig/src: canonical admitted packed influence owner and native tensor/GPU/glTF adapters"
+        ],
+        "families": [
+          "P09",
+          "P10",
+          "P12",
+          "P13",
+          "P14"
+        ],
+        "contract": "Keep 4/8 influence layout, weights and memory costs unchanged. All slots including zero-weight ordinals admitted once with real table/layout bounds; typed views thereafter, raw words only at actual native packing endpoints. No duplicate rig/mesh/glTF ordinal owners."
+      },
+      {
+        "from": "/root",
+        "to": "/root/camera_targeting",
+        "files_functions": [
+          "animation_viewer/view.rs::update_view_camera",
+          "tactical_scene_viewer.rs::{setup_scene,capture_views,benchmark_leaf_representations,benchmark_tree_lighting,benchmark_scene_performance} whole camera producer/receiver functions",
+          "tactical_scene_viewer/capture_state.rs camera records",
+          "tactical_scene_viewer/{view_specs.rs,view_specs/plants.rs,debris_capture.rs,interior_capture.rs,furniture_capture.rs,interior_furniture_capture/rooms.rs,interior_furniture_capture/catalog.rs,interior_furniture_capture/finishes.rs,city_capture.rs,building_review/cameras.rs,fixed_city_cameras.rs} camera packet producer/receiver functions; exact claims required",
+          "tactical-core animation/authored_angle.rs::SignedAngleDegrees::from_degrees (const admission and neutral SignedAngle classification only)"
+        ],
+        "families": [
+          "P08",
+          "P16"
+        ],
+        "contract": "Root has no active capture-file edits. Preserve P06 typed support and bound datums, use existing checked positions until actual camera/math/serialization ports. Root owns AnimationQuantity enum and supplies SignedAngle."
+      },
+      {
+        "from": "/root (including prior camera const-only transfer)",
+        "to": "/root/native_reports",
+        "files_functions": [
+          "New crates/fabelgeist-geometry canonical scalar and portable error owners",
+          "building-generator spatial_geometry::{PositiveLength,SignedLength,Area,GeometryError,GeometryResult,GeometryRole,CoordinateAxis} actual definitions relocation; native geometry error adapter and all necessary connected receivers",
+          "Shared affected Cargo manifests and both root/Creator locks; fabelgeist-armor direct rig dependency"
+        ],
+        "families": [
+          "P08",
+          "P12",
+          "P14",
+          "P16"
+        ],
+        "contract": "Promote existing actual definitions, do not duplicate or forward primitive adapters. Geometry crate must stay reachable by Core without building-generator or mandatory Bevy dependency; optional reflect adapter is allowed. Preserve constructor values/error classifications/Serde and moved doctest semantics. Add exact bounded native millimetre conversion preserving existing armor arithmetic. Root retains integration/validation authority."
+      },
+      {
+        "from": "/root",
+        "to": "/root/native_reports",
+        "files_functions": [
+          "crates/adventuresim-tactical-client/src/animation_viewer/report/** and capture.rs: P17 measurements/observations/actual HTML and validation receivers",
+          "crates/adventuresim-tactical-core/src/physics.rs: optional skeleton_tick tracing only; coordinate any whole-function repair with camera P16 owner"
+        ],
+        "families": [
+          "P17"
+        ],
+        "contract": "Continue existing P17 traces; no audit restart. Preserve all real thresholds and required unavailable evidence failures. No sentinel restorations or new tests. Root retains terrain/IK/continuation functions and integration. Claim every additional connected producer before edits."
+      },
+      {
+        "from": "/root/native_reports completed shared geometry task",
+        "to": "/root/camera_targeting",
+        "files_functions": [
+          "fabelgeist-geometry/src/measurement.rs::SignedLength::{min,max}",
+          "camera/collision.rs::BoomRecovery::place typed cap",
+          "tactical-core/src/physics.rs::apply_character_motor optional skeleton_tick log projections (P17)"
+        ],
+        "families": [
+          "P08",
+          "P16",
+          "P17"
+        ],
+        "contract": "Canonical same-owner cap returns checked leaf without primitive re-admission; native signed-zero semantics retained. Camera owns entire overlapping motor function; P17 agent consumes optional logs and does not edit that function."
+      }
+    ]
+  }
+}

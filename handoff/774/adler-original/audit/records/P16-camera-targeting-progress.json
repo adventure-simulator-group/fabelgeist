@@ -1,0 +1,59 @@
+{
+  "owner": "/root/camera_targeting",
+  "family_status_ref": "execution-ledger.json",
+  "head": "a120390947c89b703dc74c4255a13c035d054c50",
+  "source_only": true,
+  "validation": "No executable checks run. P16 remains incomplete and not compile-ready; family status is authoritative only in execution-ledger.json.",
+  "shared_commits": [
+    {
+      "commit": "5213677dd",
+      "scope": "checked cuboid axis storage preserving pinned native ports"
+    },
+    {
+      "commit": "a12039094",
+      "scope": "neutral canonical CuboidDimensions relocation and optional native adapter feature"
+    }
+  ],
+  "implemented_uncommitted": [
+    "explicit bounded versus movement-prevalidated targeting",
+    "checked client/server-independent lunge quantities and body dimensions",
+    "typed quickstep displacement source/receiver calculations and two optional skeleton tick logs",
+    "checked core catalogue axes/reach/grip and native generated projection",
+    "typed PlayerEquipment/CombatWeapon/contact geometry/autoresolve retained measures",
+    "typed report f32-to-f64 physical conversion",
+    "checked strategic retained equipment with no native Item DTO retention",
+    "direct eight checked-load receiver error propagation",
+    "typed tactical equipment dimensions/grip/head and disjoint real native mesh receivers",
+    "cohesive client acquisition/contact modules with checked scene/hitbox-local points",
+    "typed server lunge request/arrival/authority contact graph and bot pursuit/standoff decisions",
+    "checked quickstep scene origin and RigidRotation retained through native motor endpoints; both real callers admit before skeleton mutation",
+    "prepared per-item physical/weapon and body-mass connected-player state after existing terrain/random/Position preparation and before commands",
+    "native iteration physical log fields and report owning f32-to-f64 conversion preserving P18 Measurement/Timing error categories",
+    "condition/time direct transitive StrategicCharacterResult propagation started; not yet closed",
+    "native strategic parametric geometry errors and dry-inventory mass cause now propagate through checked StrategicEquipment::load",
+    "actual native Item.reach storage projection and existing strategic-sim fixture axis getters"
+  ],
+  "pending": [
+    "complete transitive StrategicCharacterResult propagation from mental/readiness/time/capability APIs through all actual helpers/reducers (social, character/death, strategic encounters/trade/governance, food/item, disease/surgery, continuity/residence/relationship and simulation)",
+    "review direct typed-result tails and old contextual map_err/is_ok/ignored-result consumers so new physical causes are not flattened or swallowed",
+    "remaining unchanged Core catalogue/contact/autoresolve source callers and existing fixture adaptation",
+    "remaining existing server/client physical fixtures and source receiver closure",
+    "source review every changed signature/body including manual formatting and maintainability before concrete source-complete P16 commit"
+  ],
+  "preservation": [
+    "selected strategic DTO reach and metadata intentionally differ from per-instance CombatWeapon projection; root approved preserving both source meanings",
+    "ranged CombatWeapon keeps uninstanced projection while selected/melee projection uses first melee instance geometry",
+    "native Vec3 serde tuple_struct identity/axis order preserved in canonical cuboid; authored catalogue retains its original array serde via actual boundary adapter",
+    "signed offsets/displacements and original f32 max/min/clamp order retained",
+    "CannotArrive remains explicit"
+  ],
+  "coordination_pending": [],
+  "coordination_resolved": [
+    "root transferred stdb-module pure canonical geometry dependency plus relevant lock edge; applied",
+    "root transferred server equipment::drop_hand; typed final native Collider projection applied",
+    "root transferred spawn admission/player projection; whole checked preparation applied",
+    "root transferred begin_authoritative_quickstep/on_player_input/apply_defend_intent; checked source admission before mutation applied",
+    "strategic-sim extra dependency request withdrawn after reading actual fixture; no edge required",
+    "integration formatting checkpoint is separate; do not import/reset partial P16 or integration overlays"
+  ]
+}

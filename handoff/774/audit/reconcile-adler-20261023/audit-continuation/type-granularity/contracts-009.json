@@ -1,0 +1,27 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-009",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "p16-package-identity-data",
+      "sources": [
+        {
+          "scope_index": 39,
+          "ranges": [
+            [
+              1,
+              13103
+            ]
+          ],
+          "qualification": "Complete structured TOML schema/data inspection, not line-by-line source or dependency implementation coverage; method and all raw records saved structured-cargo-lock-009.json."
+        }
+      ],
+      "distinction": "Package name/version/source/checksum identities describe dependency resolution, not game units or bespoke role wrappers. Multiple dependency versions are not evidence that their Rust types are interchangeable or that equivalent game owners should be duplicated.",
+      "uses": "P16 lock selects framework/numeric/derive/codec versions and48 source-less local package edges. Native owner records match exact independently scoped provider variants where present; dependency feature availability must be read in actual relevant manifests, not inferred from lock membership alone.",
+      "disposition": "No application newtype/enum/helper definition exists in parsed lock data; non-applicable11 schema role with source-version context retained. Foreign checksums/versions remain actual Cargo adapter data; no bespoke type per packageversion or attempts to deduplicate unrelated native types.",
+      "acceptance": "Keep exact snapshot qualification; no claim all selected dependency bodies, derive semantics, feature gates or package graph constraints are audited from the lock. No dependency resolution/build or Cargo execution."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

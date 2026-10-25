@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1289",
+  "at": "2026-10-25T18:23:04.835405+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1356,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural.rs",
+  "sha256": "8b82644fdbb52e00c1b40a850239bb273c956668c89805efae19800b35f42487",
+  "actual_compared_ranges": [
+    [
+      1,
+      280
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Procedural facade and native component/cache/snapshot types use existing Component/Resource/Debug/Default/Clone/Copy derives. Native fixed-tick cache and look/jump systems mutate current Bevy state; no handwritten trait/codec in actual slice. Partial numeric/state predicates are semantic, not whole derived Eq.",
+  "first_unfinished": {
+    "scope_index": 1356,
+    "line": 281
+  },
+  "execution": "none"
+}

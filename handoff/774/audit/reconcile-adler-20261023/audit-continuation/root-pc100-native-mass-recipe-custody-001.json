@@ -1,0 +1,87 @@
+{
+  "at": "2026-10-23T21:26:31.094265+00:00",
+  "id": "pc100-native-mass-recipe-custody-001",
+  "reads": {
+    "crates/adventuresim-stdb-module/src/weapon_instance.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-stdb-module/src/weapon_instance/evaluation.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-stdb-module/src/weapon_instance/appearance.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-stdb-module/src/smithing.rs": [
+      [
+        91,
+        10000
+      ]
+    ],
+    "crates/adventuresim-core/src/smithing.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-stdb-module/src/inventory_container.rs": [
+      [
+        1,
+        425
+      ],
+      [
+        466,
+        477
+      ],
+      [
+        523,
+        980
+      ],
+      [
+        1311,
+        10000
+      ]
+    ],
+    "crates/adventuresim-stdb-module/src/food/fireplace_custody.rs": [
+      [
+        260,
+        330
+      ],
+      [
+        510,
+        670
+      ]
+    ]
+  },
+  "contract": "Authenticated recipe mass and fixed-point stock through real forge, native capability and Web mass formula; custody/source guarantees before storage projection",
+  "coverage_limit": "Full weapon/evaluation/appearance/smithing/container bodies read; fireplace full graph remains partial, recipe effects/GPU ownership separate, all13 initial discovery incomplete.",
+  "disposition": "F46 source-backed additional parametric mass path shares exact Web formula/remedy. Actual connected appearance rounds persisted gram/mm scalars into native f32 wire intentionally, while authoritative mass evaluates full source; preserve the distinct observations and rounding rather than require equal unrounded and rounded outputs. Native authenticated recipe evaluation correctly rejects tampering by comparing all projections, but Option erases detailed failure before ordinary caller expect; M81/M84 typed causes and canonical physical IDs/recipe fingerprints still pending full propagation. checked_scaled_u32 f32(u32MAX) representation error is historical ROOTCATALOGUEPACKETF003, no duplicate ordinary-recipe claim. Native inventory_container strongly prevalidates delete_subtree and rehome_subtree exact backing/custody before mutation, stable PhysicalObjectId and Milliliters owners are already available but raw IDs/volumes re-admitted repeatedly inside application. Empty-container merge checks quantities; do not claim unchecked overflow. Fireplace root row removed on placement, descendants retained; don\u2019t assert root double-count. Concrete nested-content mass exclusion still pending ordinary materialization proof. Native contained-water error maps to infinity (capability.rs426-427), a missing/error state rather than physical mass; M30/M01 explicit error/availability contract, no new unexplained native sentinel acceptable by default.",
+  "finding_traces": {
+    "M81": {
+      "source": [
+        "crates/adventuresim-stdb-module/src/weapon_instance.rs",
+        "crates/adventuresim-stdb-module/src/weapon_instance/evaluation.rs",
+        "crates/adventuresim-core/src/smithing.rs"
+      ],
+      "trace": "ForgeQuote retains raw minutes/material IDs/mass/required total micros; total requirements can span multiple whole fractions and must not become a single ConsumableFractionMicros. Native availability/consume splits into checked per-row fractions, then forge installs authenticated recipe. Preserve rounding-up per material and cumulative checked total, full-precision physical source vs persisted rounded metrics. Constructor errors currently formatted/Option-erased before application use; native storage/SDK wire is later than those helpers."
+    },
+    "M29": {
+      "source": [
+        "crates/adventuresim-stdb-module/src/inventory_container.rs"
+      ],
+      "trace": "Full container source retains raw stable IDs/row IDs/quantities/volumes across graph, rehome/delete/merge; existing typed PhysicalObjectId/OperationalCustody/InventoryLocation/Milliliters/Microliters repeatedly extracted/re-admitted before true DB/query/hash boundary. Strong preflight/ownership/quantity-positive branches must be retained while one canonical connected repair covers all native operations and Web projections."
+    }
+  },
+  "frontier": {
+    "file": "crates/adventuresim-stdb-module/src/food/fireplace_custody.rs:1",
+    "work": "PC100 native recipe/amount sources and generic containment read; PC101 finish fireplace producer/custody and final Web contained-water receiver proof, then resume older mandatory producer frontiers. No plan/repair/check before all13 discovery."
+  }
+}

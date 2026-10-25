@@ -1,0 +1,181 @@
+[
+  {
+    "id": "RIG-SUPP-GEOMETRY-001",
+    "lens": "audit-producer-propagation",
+    "status": "source-frozen; first-trace whole connected owner rig",
+    "family_reference": "P06 original canonical point/elevation/checked shared geometry producer\u2192retainedstate\u2192actual kernel; no independent family verdict",
+    "locations": [
+      {
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/single/apron.rs",
+        "functions": [
+          "prepare",
+          "PreparedApron",
+          "source_pair",
+          "floor_interval",
+          "append_to"
+        ],
+        "lines": [
+          28,
+          88,
+          110,
+          128,
+          198,
+          227
+        ]
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/single/apron/surface.rs",
+        "function": "ApronSurfaceGeometry::compile",
+        "lines": [
+          9,
+          15,
+          20,
+          65
+        ]
+      }
+    ],
+    "scenario": "source_pair receives canonical GeographicSurface elevation_at and .metres into returned [f32;2], stored through PreparedApron.source and ApronSurfaceGeometry.source before native floor/ramp/stair kernels. Same prepare also strips admitted doorway ScenePlanPoint/PlanDirection and PositiveLength landing into retained raw edge/direction/landing; derived outer/offset/run retained raw before subsequent application methods. One whole PreparedApron contract must close all fields, not repeated partial migration.",
+    "repair": "Keep canonical checked leaves from original producer through PreparedApron/ApronSurfaceGeometry/caller floor selection. Admit newly calculated geometric points/displacements/positive run at their actual output once with original failure behavior. Native edge_at/triangle barycentric/stair vector outputs extract only actual math. Root canonical operations/diagnostic cause/site/Root009stairs/Root019main_height contracts consumed rather than duplicate types.",
+    "acceptance": "No original checked elevation/landing/direction/threshold is stripped just to cross retained apron state or application API. Exact f32+f64 arithmetic, negative/crossed floor rejection, original ramp/stair threshold/mesh winding and firstfailure preserved; all existing fixture inputs/count/order/assertions unchanged.",
+    "authority": "Root explicit full shared function transfer and first-trace rule; exact authoritativeclaims reference, no source changes."
+  },
+  {
+    "id": "RIG-SUPP-GEOMETRY-002",
+    "dedup": "ROOT-PP-014",
+    "lens": "audit-producer-propagation",
+    "status": "source-frozen exact retained-tolerance extension",
+    "locations": [
+      {
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/mesh.rs",
+        "lines": [
+          22,
+          32,
+          44,
+          80,
+          193,
+          208,
+          237
+        ]
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/single/bearing.rs",
+        "line": 15
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/replacement.rs",
+        "lines": [
+          14,
+          58,
+          76,
+          83
+        ]
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement.rs",
+        "lines": [
+          22,
+          33,
+          43,
+          114,
+          153,
+          185,
+          197,
+          217,
+          299
+        ]
+      }
+    ],
+    "scenario": "Already checked PositiveLength contact tolerance copied into retained raw mesh/property/settlement fields before later indexed support/ceiling numerical calculations. Serde wire constructors validate then retain primitive, so actualnativearray and private field context alone do not preserve existing leaf. CornerSupportProbe rawfield extension remains root-owned original014.",
+    "repair": "Retain checked strictpositive tolerance for PropertySupportMesh and BoundedPropertyTerrain; carry root canonical getter to all actual numerical ports. BoundedSettlement constructor/Serde/compile/query must retain original zero-capable contract as well: empty plans produces0 and validation accepts>=0. Do not invent absence or reject existingzero. Root canonical policy/leaf choice and later13lenses reconcile before source changes.",
+    "ownership": "Rig whole exact mesh/Serde/construction/query +disjoint retained terrain functions; root canonical getter/CornerProbe andclaimeddiagnostic/site owners. No duplicate whole-function edits.",
+    "acceptance": "No admitted policy length erased into retained primitive; native triangle/raycast/interpolation/comparison extracts only final operands. Preserve exactzero,numericalorder,canonicalMemberIDs/nativebuffers,oldfailureclassification/wire shape and all existing cases/assertions."
+  },
+  {
+    "id": "RIG-SUPP-GEOMETRY-003",
+    "lens": "audit-producer-propagation",
+    "disposition": "source-backed existing fixture checked-point propagation gap",
+    "status": "initial-discovery-frozen; root transferred whole exact function to rig",
+    "family_reference": "P06 canonical point propagation through existing acceptance receiver; no independent family verdict",
+    "location": {
+      "path": "crates/adventuresim-tactical-core/src/city_layout/compiled/support/tests.rs",
+      "function": "required_population_seed_matrix_retains_capacity_and_exact_members_on_gentle_source_relief",
+      "lines": [
+        105,
+        118
+      ]
+    },
+    "scenario": "member.court_threshold_metres is ScenePlanPoint. Fixture extracts .metres into homogeneous [Vec2] alongside member.contact.centre_metres, iterates unchanged coordinates then ScenePlanPoint::from_metres before elevations_at. No coordinate arithmetic/native boundary between threshold extraction and re-admission.",
+    "repair": "Retain typed ScenePlanPoint collection and canonical checked centre from root plot owner; native numerical error/tolerance assertion stillextracts only its scalar comparison. Complete whole fixture API adaptation under authoritativeclaim; same cases/inputs/assertions, no new tests.",
+    "acceptance": "No checked threshold erased/re-admitted solely to iterate existing fixture. All current population/seed combinations/order and every geometry/assertion remain unchanged, no runtime check claimed."
+  },
+  {
+    "id": "RIG-SUPP-GEOMETRY-004",
+    "lens": "audit-producer-propagation",
+    "disposition": "migration gap",
+    "status": "source-backed; repair frozen until all13 initial passes",
+    "owner": "root",
+    "family_reference": "P06 connected scene/support diagnostic contract; not automatic family completion or historical regression",
+    "locations": [
+      {
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+        "function": "CompoundSupportPlan::validate_displacement_at",
+        "lines": [
+          382,
+          400
+        ]
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/compound.rs",
+        "function": "compile route_to/binding",
+        "lines": [
+          59,
+          76
+        ]
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/selection.rs",
+        "function": "CompoundSupportRequest::select route rejection",
+        "lines": [
+          36,
+          49
+        ]
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/diagnostic.rs",
+        "function": "SupportDiagnostic::new/for_mesh and SupportDiagnosticLocation::from_attempt_metres",
+        "lines": [
+          1,
+          233
+        ]
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/surface.rs",
+        "function": "PropertySupportSurface::rejection",
+        "lines": [
+          132,
+          155
+        ]
+      },
+      {
+        "path": "crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure.rs",
+        "function": "BoundarySupportError::new/binding/construction/cell",
+        "lines": [
+          118,
+          192
+        ]
+      }
+    ],
+    "scenario": "Already checked ScenePlanPoint is projected to Vec2 solely across diagnostic factory/caller helpers then reconstructed by SupportDiagnosticLocation::from_attempt_metres. This is separate from ROOT001 direct placement assignment. Newly computed court_end/intersection/invalid native points genuinely need an explicit attempted-coordinate role, so blindly treating every factory raw parameter as same erasure would change its purpose.",
+    "repair": "Root owns complete diagnostic factory/caller graph. Carry checked DiagnosticLocation for existing checked points, preserve explicit computed/rejected native attempt coordinates at real admission, adapt all callers together with their existing whole-function owners; rig mesh assembly receiver consumes final root contract. No primitive forwarding compatibility API. Include parallel surface::rejection and BoundarySupportError factories and their complete existing caller graph; no success or error path may use raw point forwarding solely to reconstruct the canonical location.",
+    "acceptance": "Checked point guarantee survives helper/diagnostic storage; native invalid/computed location and scalar measurement failure reporting preserve original role, values, first failure, f32/f64 order and wire/display. All affected existing fixtures unchanged in cases/assertions.",
+    "evidence": [
+      "supplemental-geometry-receivers-002.json",
+      "supplemental-geometry-sources.json",
+      "root/coverage.jsonl#ROOT-PP-GEOMETRY-002",
+      "root/additional-sources-028.json"
+    ],
+    "trace_refs": [
+      "RIG-SUPP-GEOMETRY-002"
+    ]
+  }
+]

@@ -1,0 +1,66 @@
+{
+  "id": "CONT08-SUPPORT-001-P16-SIGNED-COMPARISON",
+  "at": "2026-10-25T09:03:10.047620+00:00",
+  "lens": "08 behavior-preservation",
+  "kind": "Source-confirmed cfg(test) receiving migration gap; global dedup pending.",
+  "pin": {
+    "base": "a120390947c89b703dc74c4255a13c035d054c50",
+    "head": "039329518e264f19206cf5b0b98d177433f40c17"
+  },
+  "sources": [
+    {
+      "scope_index": 58,
+      "sha256": "e1dac77a2c5ef7c2bb50b886c9b7340c83f2fcee27fe767788e48463ad6f737c",
+      "range": [
+        844,
+        864
+      ]
+    },
+    {
+      "scope_index": 60,
+      "sha256": "a806a6dd4779dabe9e140cdc109d4450a5d400c0460b862e157ad4f73b58c345",
+      "range": [
+        22,
+        34
+      ]
+    },
+    {
+      "scope_index": 452,
+      "sha256": "c84b2c054d772b9b8037209e1d8542238c397c5dc0148ca5f68c86ef5fc9b9b2",
+      "range": [
+        1,
+        107
+      ]
+    },
+    {
+      "scope_index": 451,
+      "sha256": "4be1dea1bfca250604d52c9c8ea026aac5e3608d4d8cf35168f0cdc60ff4a7ab",
+      "range": [
+        1,
+        16
+      ]
+    },
+    {
+      "scope_index": 450,
+      "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+      "range": [
+        1,
+        40
+      ]
+    }
+  ],
+  "before": "WeaponContactBandEvidence.surface_measure_metres:f32; <=0.000_1 performs primitive comparison.",
+  "after": "Field is SignedLength; source58:862 retains raw-float comparison whereas same assertion block845 converts center_separation_metres.metres(). Actual owner is private f32 wrapper deriving PartialEq/Serialize/Default only, no PartialOrd<f32>.",
+  "trigger": "Compilation of cfg(test) acceptance_evidence_exercises_surface_gaps_and_nonbinary_defense source after new physical evidence projection. No runtime input or project compiler invoked.",
+  "observable_limit": "Static missing receiving operation is proven from defining modules. No captured compiler diagnostic or claim that this is the first/only compile failure. Normal non-test executable does not include that function.",
+  "connected_remedy": "Use the actual numeric observation .metres at this fixture threshold, preserving signed/zero semantics; do not broaden canonical owner with primitive compatibility operators. Global repair gated by all initial lenses.",
+  "acceptance": "Existing contact-band threshold and incident/transformed energy assertions stay intact; eventual authorized relevant test build and assertions must accept same admitted physical evidence. No new test added.",
+  "dedup": "Exact inherited CAM-PPS-F001 personally consumed; source support/alias only, no new unique defect.",
+  "existing_finding": "CAM-PPS-F001",
+  "existing_evidence": "audit/records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/findings.jsonl:2",
+  "additional_exact_support": {
+    "location": "source58:672\u2013677",
+    "proof": "Current full58 read retains movement_displacement_metres.unwrap().abs(); own fresh full72:17 defines Option<SignedLength>, actual full452 has no abs. This is second exact receiving obligation already in CAM-PPS-F001.",
+    "qualification": "No compiler/test run; preserve all existing numerical assertions/inputs/count/order using final native observation."
+  }
+}

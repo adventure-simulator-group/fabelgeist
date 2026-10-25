@@ -1,0 +1,56 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-117",
+  "at": "2026-10-25T17:41:57.363747+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1562,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_understory.rs",
+      "sha256": "99e5f51d7e539f2618ce3e0fa233173442b3f4bbefffb3df4fc0203ad2f22fd3",
+      "personally_read_ranges": [
+        [
+          1,
+          322
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full322 instanced understory read. Closed3 species mapping indexes fixed3 vectors; same nonempty shared Arc placements drive3 representations after all required mesh/material handles are present. Actual terrain height/normal and slope gate retained before checked Position<Scene>, then native InstanceData yaw/scale/hash encoding. Fitted bounds called only after nonempty check; constant4.5 headroom is authored bound, not empirically calibrated GPU clearance. Adjacent cambered/card fade endpoints exactly26..34, branches independent44..52. Source material fields copied wholesale to native shader ABI, no GPU execution. Missing bark native material uses visual fallback but missing leaf source skips species; no biological authority fabricated. Per-species publication may be partial, no fallible transaction promise."
+      ]
+    },
+    {
+      "scope_index": 1563,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/layers.rs",
+      "sha256": "0e61965bb7febc3e4d4ebcb0aee7aefd10c0985e79dd8d912e9bf332a3566fdc",
+      "personally_read_ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full18 marker/category source read. Closed GroundScatterLayer variants distinguish six actual representation roles; Presented and GrassInteractor are genuine ECS presence markers with no hidden payload. Do not turn native ECS marker presence into arbitrary application boolean."
+      ]
+    },
+    {
+      "scope_index": 1579,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/scene_mask.rs",
+      "sha256": "59bb666eebc24c7e9602dd6f5881f920b34f7eb6b1b65b313378330d402d58d7",
+      "personally_read_ranges": [
+        [
+          1,
+          67
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full67 scene mask read ahead. Query excludes per-renderer Presented marker and requires same entity SceneId/terrain/ground/environment. Collar masking copies exact grid and edits only coverage cells using current coordinates, then reconstructs canonical SceneGround with same dimensions/scale and restores urban source. from_samples expect relies on actual original grid invariant and unchanged cardinality; no extra width*depth mismatch created here. Water+bare is a presentation scatter exclusion product, not persistent strategic hydrology mutation."
+      ]
+    }
+  ],
+  "findings": [],
+  "qualified_connected_requirements": [
+    "Historical full proofs1564\u20131570 and1573 carried in012;1579 counted ahead, no recount later."
+  ],
+  "discovery": "3 newly accounted original roles; other reads support already counted historical roles. Lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

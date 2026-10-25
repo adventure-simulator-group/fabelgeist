@@ -1,0 +1,191 @@
+{
+  "version": 2,
+  "derived_from": "../execution-ledger.json",
+  "ledger_sha256": "f003ad64b0f34eab9d3f3ff8b50eb23f826899ce4a3a2286df8a39c743b4d81a",
+  "updated_at": "2026-10-23T14:08:15.726258+00:00",
+  "authority": "Generated family/owner summary only. Exact file/function ownership and transfer exclusions belong to existing per-agent claim files. Family status belongs to execution-ledger.json.",
+  "goal": "existing #726 / PR #774",
+  "integration_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "published_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "verified_main": "3a50b708381ad00c116445c2c999a49c3943088b",
+  "coordinator": "/root",
+  "policy": [
+    "Read the ledger and all applicable existing claim files before editing.",
+    "Claim exact files/functions before edits. First trace owner repairs the whole shared function for every affected family; coordinate transfers/exclusions in claims, then update the ledger dependencies.",
+    "No competing edits, duplicate owners/types or temporary primitive adapters.",
+    "Credit shared repairs to affected requirements without declaring those families complete automatically.",
+    "Parallel read-only discovery is authorized during the initial all-thirteen-lens inventory gate. Source edits/integrations/publication are frozen until every initial lens discovery is complete and shared repairs are reconciled. Then resume isolated implementation with one coordinator and exact existing ownership claims.",
+    "Only request hosted CI, including pushing, after a family/increment is presumed source-complete through known producers, unchanged callers and receiving bodies. Integrate no unfinished parallel source just for compiler feedback. If compilation reveals an unknown gap, reopen and finish its connected repair before another run.",
+    "Formatting and file/function-size cleanup follows source correctness.",
+    "Prohibited; source/Git/rg and ignored stdlib text/JSON/TOML/hash/ZIP bookkeeping remain allowed.",
+    "Use existing tests only; add no tests/cases/assertions/fixture helpers/doctests. Preserve existing fixtures except explicit previously authorized adaptations."
+  ],
+  "owners": [
+    {
+      "owner": "/root",
+      "families": [
+        "P01",
+        "P02",
+        "P03",
+        "P04",
+        "P05",
+        "P06",
+        "P07",
+        "P15",
+        "P19",
+        "P20"
+      ],
+      "worktree": "SNAPSHOTS/pr-working",
+      "branch": "codex/774-review-contracts",
+      "claims_file": "root-claims.json",
+      "scope_authority": "parallel-ownership/root-claims.json",
+      "family_status": {
+        "P01": {
+          "source": "complete_preserved",
+          "integration": "integrated",
+          "validation": "blocked_at_semantic_quality_before_contract_execution"
+        },
+        "P02": {
+          "source": "complete_preserved",
+          "integration": "integrated",
+          "validation": "blocked_at_semantic_quality_before_contract_execution"
+        },
+        "P03": {
+          "source": "complete_preserved",
+          "integration": "integrated",
+          "validation": "blocked_at_semantic_quality_before_contract_execution"
+        },
+        "P04": {
+          "source": "complete_preserved",
+          "integration": "integrated",
+          "validation": "blocked_at_semantic_quality_before_contract_execution"
+        },
+        "P05": {
+          "source": "complete_preserved",
+          "integration": "integrated",
+          "validation": "blocked_at_semantic_quality_before_contract_execution"
+        },
+        "P06": {
+          "source": "reopened",
+          "integration": "integrated_prior_increment_repair_pending",
+          "validation": "blocked_at_semantic_quality_before_contract_execution"
+        },
+        "P07": {
+          "source": "complete_preserved",
+          "integration": "integrated",
+          "validation": "blocked_at_semantic_quality_before_contract_execution"
+        },
+        "P15": {
+          "source": "complete",
+          "integration": "integrated",
+          "validation": "blocked_at_semantic_quality_before_contract_execution"
+        },
+        "P19": {
+          "source": "complete",
+          "integration": "integrated",
+          "validation": "blocked_at_semantic_quality_before_contract_execution"
+        },
+        "P20": {
+          "source": "complete",
+          "integration": "integrated",
+          "validation": "blocked_at_semantic_quality_before_contract_execution"
+        }
+      }
+    },
+    {
+      "owner": "/root/camera_targeting",
+      "families": [
+        "P08",
+        "P16"
+      ],
+      "worktree": "SNAPSHOTS/physical-p16",
+      "branch": "codex/774-camera-targeting-parallel",
+      "claims_file": "camera_targeting-claims.json",
+      "scope_authority": "parallel-ownership/camera_targeting-claims.json",
+      "family_status": {
+        "P08": {
+          "source": "reopened",
+          "integration": "integrated_prior_increment_repair_pending",
+          "validation": "blocked_at_semantic_quality_before_contract_execution"
+        },
+        "P16": {
+          "source": "implementing",
+          "integration": "not_integrated",
+          "validation": "not_run_for_current_changes"
+        }
+      }
+    },
+    {
+      "owner": "/root/rig_garments",
+      "families": [
+        "P09",
+        "P10",
+        "P11",
+        "P12",
+        "P13",
+        "P14"
+      ],
+      "worktree": "SNAPSHOTS/rig-quality",
+      "branch": "codex/774-rig-quality-repair",
+      "claims_file": "rig_garments-claims.json",
+      "scope_authority": "parallel-ownership/rig_garments-claims.json",
+      "family_status": {
+        "P09": {
+          "source": "reopened",
+          "integration": "integrated_prior_increment_repair_pending",
+          "validation": "blocked_at_semantic_quality_before_contract_execution"
+        },
+        "P10": {
+          "source": "complete",
+          "integration": "integrated",
+          "validation": "blocked_at_semantic_quality_before_contract_execution"
+        },
+        "P11": {
+          "source": "reopened",
+          "integration": "integrated_prior_increment_repair_pending",
+          "validation": "blocked_at_semantic_quality_before_contract_execution"
+        },
+        "P12": {
+          "source": "reopened",
+          "integration": "integrated_prior_increment_repair_pending",
+          "validation": "blocked_at_semantic_quality_before_contract_execution"
+        },
+        "P13": {
+          "source": "complete",
+          "integration": "integrated",
+          "validation": "blocked_at_semantic_quality_before_contract_execution"
+        },
+        "P14": {
+          "source": "reopened",
+          "integration": "integrated_prior_increment_repair_pending",
+          "validation": "blocked_at_semantic_quality_before_contract_execution"
+        }
+      }
+    },
+    {
+      "owner": "/root/native_reports",
+      "families": [
+        "P17",
+        "P18"
+      ],
+      "worktree": "SNAPSHOTS/report-p17",
+      "branch": "codex/774-viewer-reports-parallel",
+      "claims_file": "native_reports-claims.json",
+      "scope_authority": "parallel-ownership/native_reports-claims.json",
+      "family_status": {
+        "P17": {
+          "source": "implementing",
+          "integration": "waiting_for_source_repairs_and_shared_dependency",
+          "validation": "not_run_for_current_changes"
+        },
+        "P18": {
+          "source": "complete",
+          "integration": "integrated",
+          "validation": "blocked_at_semantic_quality_before_contract_execution"
+        }
+      }
+    }
+  ],
+  "shared_repairs_record": "../execution-ledger.json#shared_repairs",
+  "historical_ownership_snapshot": "../history/ownership-map-20261021T074426Z.json"
+}

@@ -1,0 +1,45 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-254",
+  "at": "2026-10-23T06:09:04.135601+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/studio_ui.rs",
+      "sha256": "ab4430b01df6df4b77ee2e29a491531bd3a5782c92fd16b67a9aaba2d239b394",
+      "scope064_index": 834,
+      "actual_EOF": 435,
+      "scoped_ranges_compared": [
+        [
+          202,
+          302
+        ],
+        [
+          350,
+          430
+        ]
+      ],
+      "actual05_comparison": "Fresh exact existing source scope plus new overlay245 actual UI output role, own current aggregate gate/recipient comparison; partial old function contexts qualified."
+    }
+  ],
+  "contract_groups": [
+    {
+      "id": "load and export state seam",
+      "comparison": "Output202–302 actual recipe load replaces recipe, resets inventory, sets dirty=true before generated is calculated, so immediate same-frame export is disabled by !dirty; failed load preserves recipe and only status changes. generated also requires no running drape. Export passes current model, recipe, catalogue and optional ready drape as distinct inputs; this UI gate alone does not establish ready geometry belongs to current recipe/model epoch. Actual export/drape completion/cache lower roles remain independent inventory; no stale normal export finding inferred from this signature. Completed drape with problems deliberately allowed to export with warnings. Animation additionally requires walk.ready, a separate purpose from export, not contradictory validity."
+    },
+    {
+      "id": "native controls and recipients",
+      "comparison": "Actual sliders edit one WalkPreview.simulation record and ignore-weights flag live as intended. Toggling self-collision/gravity/stiffness/thickness is direct future simulation policy, not an immutable source cache promise. ready gates physics toggles and play button while simulation-settings expansion remains live; no universal all-write validator inferred from slider ranges. Individual native egui ranges are represented source facts, not proof arbitrary programmatic settings cannot bypass them. Reset replaces the same settings with default. Actual player target is resolved through current optional entity then Query get_mut before pause. Remaining else/unpause body431+ excluded, so no complete transition result inferred."
+    },
+    {
+      "id": "scoped fragments are context only",
+      "comparison": "Old350–355 is save-designs result formatting tail, not actual file write/transaction body. mesh357–359 only delegates owning controls, no called-body coverage. Original350–430 stops at an else header, so no431–435 play/unpause/playing-state assignment or full animation function clearance. Output202–302 is complete current added function body; other UI/header/schema/export methods excluded. No execution or new cases."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Actual export_character and drape job result provenance/recipe correspondence pending owning current05 roles, no speculative unscoped graph."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

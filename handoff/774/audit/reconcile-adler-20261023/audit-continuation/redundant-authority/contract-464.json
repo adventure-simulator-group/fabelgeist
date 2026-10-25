@@ -1,0 +1,52 @@
+{
+  "id": "CONT07-CONTRACT-464",
+  "at": "2026-10-23T22:23:50.421909+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2046,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/doors.rs",
+      "sha256": "676d9b173c594a21fd92761c7737e160d1c19c5c17a5efd8cadd784c51cb6c33",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/doors.rs",
+      "actual_EOF": 672,
+      "ranges": [
+        [
+          1,
+          672
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2047,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/doors/gate_tests.rs",
+      "sha256": "b2f9e246b2d68e862f6c8fea96ceccacb559e6fa33edf26af6224836fdc57d4c",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/doors/gate_tests.rs",
+      "actual_EOF": 100,
+      "ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "NATIVE-OWNER-DOORS-002 personally read full supplier narrative in CONT07-CONTRACT-463"
+  ],
+  "facts": [
+    "2046 full672: SceneDoor replicated geometry and private DoorController retain same admitted pose assembled together in spawn_door; door hinge/leaf/joint are distinct current physics parts versus fixed doorway target. No ordinary independent mutation/replacement of immutable controller geometry shown; report_unseated_doors observes actual physics drift instead of asserting target equals actual.",
+    "Door passage exemptions own grant history, controller collision exclusion derives from it. try_open_from_inside inserts both; update_door_passages Retain reestablishes exclusions and Revoke removes both before character move/physics prepare. No current drift proved for supported grant/revoke paths. Lifetime/despawn or independent external filter producers remain distinct dependencies if reached.",
+    "Motor target is derived per fixed update from any retained exemption; it is desired angle, not independent stored actual door rotation. Different closing/opening torques explicit purpose; finite raw failed physical observations preserved. SceneDoor size and controller half-width computed once from same pose, not mutable-cache defect without replacement producer.",
+    "2047 full100 fixture uses same generated boundary and GateDatum as actual callback and checks physical gate ray/open position/joint target. It is source-only unexecuted and cannot clear native physics/door seating. Building collision centre datum uses actual collision and building translation/orientation; doorway midpoint reconstruction agrees with compiler hinge semantics freshly qualified earlier."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2054,
+    "start_line": 1
+  }
+}

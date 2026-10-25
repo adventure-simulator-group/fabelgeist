@@ -1,0 +1,178 @@
+{
+  "id": "CONT08-CONTRACT-142",
+  "at": "2026-10-25T12:49:09.507540+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 515,
+      "source_id": "pr-working:assets/shaders/tactical_shrub_bark_instanced.wgsl",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:assets/shaders/tactical_shrub_bark_instanced.wgsl",
+      "before_sha256": "696467dcd07aed5f94b0dfb6d9605560daf85fd74e780da49e2449c840e15844",
+      "after_sha256": "696467dcd07aed5f94b0dfb6d9605560daf85fd74e780da49e2449c840e15844",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0515-base-696467dcd07aed5f94b0dfb6d9605560daf85fd74e780da49e2449c840e15844",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/696467dcd07aed5f94b0dfb6d9605560daf85fd74e780da49e2449c840e15844",
+      "diff": "source-evidence/pr-0515.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "facts": [
+        "Full119+emptydiff. Shrubbark instance transform, yaw-onlynormal reconstruction and uniformflatpigment preserve existing nativeassumptions; metricrootheight vertexcolor intentionallynotpigment. Dithercomplement andLambert/shadow/exposure same; actualCPUparenttransformadmission remainsseparate, no genericarbitraryaffinenormal correctnessinferred."
+      ],
+      "disposition": "Exact own08 shaderbody comparison accounted WITH explicitCPU/nativeframe/policy limits, not rendererclearance.",
+      "acceptance": "Retain CPU\u2192WGSL layout, native units/frames/sampling/normalprojection, branch andclamp/round/floor/discard order andallthresholds. NoGPU/projectchecks/tests."
+    },
+    {
+      "scope_index": 516,
+      "source_id": "pr-working:assets/shaders/tactical_shrub_leaf_instanced.wgsl",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:assets/shaders/tactical_shrub_leaf_instanced.wgsl",
+      "before_sha256": "0f80c3f51e71056d7249e91d9dda6b82980138f76358602cf5aa887976e8aa52",
+      "after_sha256": "0f80c3f51e71056d7249e91d9dda6b82980138f76358602cf5aa887976e8aa52",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0516-base-0f80c3f51e71056d7249e91d9dda6b82980138f76358602cf5aa887976e8aa52",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/0f80c3f51e71056d7249e91d9dda6b82980138f76358602cf5aa887976e8aa52",
+      "diff": "source-evidence/pr-0516.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          197
+        ]
+      ],
+      "facts": [
+        "Full197+emptydiff. Native12texture/samplerbindings anduniformlayout retained evenunusednormalmaps. Instanceworldwind/sway andyaw-derivednormal,front/backtextureGrad choice, pigmentmix and canopyalphaAO unchanged. SamecomplementaryLODdither, opacitycutoff andwrappedtransmission/shadowclamp/exposure. No newclaimednormalmapbehavior fromcomments andnoGPUrun."
+      ],
+      "disposition": "Exact own08 shaderbody comparison accounted WITH explicitCPU/nativeframe/policy limits, not rendererclearance.",
+      "acceptance": "Retain CPU\u2192WGSL layout, native units/frames/sampling/normalprojection, branch andclamp/round/floor/discard order andallthresholds. NoGPU/projectchecks/tests."
+    },
+    {
+      "scope_index": 517,
+      "source_id": "pr-working:assets/shaders/tactical_stars.wgsl",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:assets/shaders/tactical_stars.wgsl",
+      "before_sha256": "929fdce1cb1b288bcc885f481a2fd64d20f60dc513e16ebd534b84d700e7ca98",
+      "after_sha256": "929fdce1cb1b288bcc885f481a2fd64d20f60dc513e16ebd534b84d700e7ca98",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0517-base-929fdce1cb1b288bcc885f481a2fd64d20f60dc513e16ebd534b84d700e7ca98",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/929fdce1cb1b288bcc885f481a2fd64d20f60dc513e16ebd534b84d700e7ca98",
+      "diff": "source-evidence/pr-0517.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "facts": [
+        "Full61+emptydiff. Equatorialtoworlddirection,w0matrixprojection, horizon/visibilitygate andphysicalpixels clipoffset retain originalorder. Magnitudeflux/pow andradialdiscard threshold unchanged; CPUskyseed/time/orientation/projectioninput separatelymaterial."
+      ],
+      "disposition": "Exact own08 shaderbody comparison accounted WITH explicitCPU/nativeframe/policy limits, not rendererclearance.",
+      "acceptance": "Retain CPU\u2192WGSL layout, native units/frames/sampling/normalprojection, branch andclamp/round/floor/discard order andallthresholds. NoGPU/projectchecks/tests."
+    },
+    {
+      "scope_index": 518,
+      "source_id": "pr-working:assets/shaders/tactical_terrain.wgsl",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:assets/shaders/tactical_terrain.wgsl",
+      "before_sha256": "3e1b93040592788f45f281cd81947315b64deedb33d1325c618959a3ca642e81",
+      "after_sha256": "3e1b93040592788f45f281cd81947315b64deedb33d1325c618959a3ca642e81",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0518-base-3e1b93040592788f45f281cd81947315b64deedb33d1325c618959a3ca642e81",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/3e1b93040592788f45f281cd81947315b64deedb33d1325c618959a3ca642e81",
+      "diff": "source-evidence/pr-0518.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          415
+        ]
+      ],
+      "facts": [
+        "Full415+emptydiff. Fullnativeuniform/texturelayout andsource_from_world frame used beforematerialsampling; axisalignednormalinverse andcontinuousgeological/triplanarmaterial paths unchanged. Camera-localdetail discard strictdistance, canopylittercategoricalblend/heightnormal/parallaxclamps andsamecrossfades/nativeGPU precision retained.",
+        "Groundcoverbyte decoding/rounding,water/wetland/cliff/slopeprecedence, grass aggregatehand-off andsignedoutsideplayablebound distance, bloodmix/snowcontinuous response androughnessclamps unchanged. No assumptionshaderbilinear/continuouspolicy isidenticaltoCPUplacement/discretesupport; those actualproducersremainseparate. No visual/GPU/shadercompiledclaim."
+      ],
+      "disposition": "Exact own08 shaderbody comparison accounted WITH explicitCPU/nativeframe/policy limits, not rendererclearance.",
+      "acceptance": "Retain CPU\u2192WGSL layout, native units/frames/sampling/normalprojection, branch andclamp/round/floor/discard order andallthresholds. NoGPU/projectchecks/tests."
+    },
+    {
+      "scope_index": 519,
+      "source_id": "pr-working:assets/shaders/tactical_tree_aggregate_bark.wgsl",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:assets/shaders/tactical_tree_aggregate_bark.wgsl",
+      "before_sha256": "9fbf0f983b8019500e6cdf95bd531a99a9a3b01eea1b07f27d9c4506364c4fe8",
+      "after_sha256": "9fbf0f983b8019500e6cdf95bd531a99a9a3b01eea1b07f27d9c4506364c4fe8",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0519-base-9fbf0f983b8019500e6cdf95bd531a99a9a3b01eea1b07f27d9c4506364c4fe8",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/9fbf0f983b8019500e6cdf95bd531a99a9a3b01eea1b07f27d9c4506364c4fe8",
+      "diff": "source-evidence/pr-0519.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "facts": [
+        "Full49+emptydiff. Aggregatetreebark usesmacro normal,worldmicrovariationandroughnessclamp. PBR/prepassresponse same, intentionalomitrootcontact/materialrelief notintroducedregression."
+      ],
+      "disposition": "Exact own08 shaderbody comparison accounted WITH explicitCPU/nativeframe/policy limits, not rendererclearance.",
+      "acceptance": "Retain CPU\u2192WGSL layout, native units/frames/sampling/normalprojection, branch andclamp/round/floor/discard order andallthresholds. NoGPU/projectchecks/tests."
+    },
+    {
+      "scope_index": 520,
+      "source_id": "pr-working:assets/shaders/tactical_tree_impostor.wgsl",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:assets/shaders/tactical_tree_impostor.wgsl",
+      "before_sha256": "131a902b24267466e1c039477a9a18a881b7fd31212c614b850fbc15673934c4",
+      "after_sha256": "131a902b24267466e1c039477a9a18a881b7fd31212c614b850fbc15673934c4",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0520-base-131a902b24267466e1c039477a9a18a881b7fd31212c614b850fbc15673934c4",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/131a902b24267466e1c039477a9a18a881b7fd31212c614b850fbc15673934c4",
+      "diff": "source-evidence/pr-0520.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          135
+        ]
+      ],
+      "facts": [
+        "Full135+emptydiff. NativeLODlevelround4switch, wholecardinherits horizontal/verticalscalelength, rootworld/camera basis andwind phase unchanged. Dither crisp midpoint interval(-8,8] andatlasnearest8/3columns yaw-quarterturn/roundmod retained. Opacity.2threshold andsymmetricwraplighting/ambientcontrol same; no bakeimage/CPUviewport execution."
+      ],
+      "disposition": "Exact own08 shaderbody comparison accounted WITH explicitCPU/nativeframe/policy limits, not rendererclearance.",
+      "acceptance": "Retain CPU\u2192WGSL layout, native units/frames/sampling/normalprojection, branch andclamp/round/floor/discard order andallthresholds. NoGPU/projectchecks/tests."
+    },
+    {
+      "scope_index": 521,
+      "source_id": "pr-working:assets/shaders/tactical_weather.wgsl",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:assets/shaders/tactical_weather.wgsl",
+      "before_sha256": "5c0a4dc16844e0840b502186ec82a5b7b8398061d2fd4d68226c8bffebd47636",
+      "after_sha256": "5c0a4dc16844e0840b502186ec82a5b7b8398061d2fd4d68226c8bffebd47636",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0521-base-5c0a4dc16844e0840b502186ec82a5b7b8398061d2fd4d68226c8bffebd47636",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/5c0a4dc16844e0840b502186ec82a5b7b8398061d2fd4d68226c8bffebd47636",
+      "diff": "source-evidence/pr-0521.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          317
+        ]
+      ],
+      "facts": [
+        "Full317+emptydiff. Nativeweatheruniformkindround/intensityclamp, quantizedheight16bits bilinear andshelterbound/sentinel+coverage rules preserved. Fourupwindtests/max, signedfloorcameraanchor and sqrt radialdistribution stay same.",
+        "Rain/snow/splash/sheetbranches maintain exactkind/particleselection,windphase/order, terrain re-observation afterdrift, shelterdiscard andnativecamerabasis. Fragmentcoverage/sqrtmax/threshold andpremultipliedalpha arithmetic unchanged. CPUweatherkind/shelter/height/extent/nativebufferadmission remainownsource, no shaderorweatherpresentationrun."
+      ],
+      "disposition": "Exact own08 shaderbody comparison accounted WITH explicitCPU/nativeframe/policy limits, not rendererclearance.",
+      "acceptance": "Retain CPU\u2192WGSL layout, native units/frames/sampling/normalprojection, branch andclamp/round/floor/discard order andallthresholds. NoGPU/projectchecks/tests."
+    }
+  ],
+  "next": "522dialogue45,523org707,524services246,525catalog5632,526combat344 etc."
+}

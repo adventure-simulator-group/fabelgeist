@@ -1,0 +1,339 @@
+{
+  "id": "CONT08-CONTRACT-420",
+  "at": "2026-10-25T18:40:14.474338+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 1413,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs",
+      "before_sha256": null,
+      "after_sha256": "be3851ecaa6b17fc8df5be03a931a840d86dde66294c07bb268dfe7aaa9cae4b",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/be3851ecaa6b17fc8df5be03a931a840d86dde66294c07bb268dfe7aaa9cae4b",
+      "diff": "source-evidence/pr-1413.diff",
+      "diff_sha256": "52a542ddff19462ebb0bcba6c709bb2544a4fe32766d362ff298cc5b2be21661",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "head_body_read_method": "Fresh full heads of newextracted children + actual removed oldcapture kernels allread; actual1428/1448/1427 wholehead/full diffs; exact nativeREG009 source kernel, no runtime verdict.",
+      "facts": [
+        "New admission authority is terminal Open\u2192Rejected\u2192Terminated; can_drive identical applied/inflight/index gates plus Open. Required finite terrain/geometry/locomotion observations produce typed failure instead of old zero/default fallback. This is explicit boundary strengthening, not evidence an ordinary prepared viewer is rejected.",
+        "Old capture.rs1252\u20131261 timeout failure writes failure.txt with panic on writefailure; new fail_capture162\u2013167 logs failed artifact write and still emits exit1. This failure-path policy is deliberately visible in own source; no I/O failure run/normal claim. admit_ik_support now rejects absent active ordinary support rather than fabricated flight/cadence; actual Option producer own408 retained."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1414,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/capture_schedule.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation_viewer/capture/capture_schedule.rs",
+      "before_sha256": null,
+      "after_sha256": "fc43df34f82478bf3b387906033df195b64b4cdbc32c6b9c4e53415a51ee1308",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/fc43df34f82478bf3b387906033df195b64b4cdbc32c6b9c4e53415a51ee1308",
+      "diff": "source-evidence/pr-1414.diff",
+      "diff_sha256": "b5cf084d5ae4d71d5898251109d94412fdede8b19ff19f12b70fca604b283287",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "head_body_read_method": "Fresh full heads of newextracted children + actual removed oldcapture kernels allread; actual1428/1448/1427 wholehead/full diffs; exact nativeREG009 source kernel, no runtime verdict.",
+      "facts": [
+        "Extracted schedule compared actual old1428base162\u2013184: same Startup/PreUpdate chain/camera Offset-beforePropagate/overlay-afterPropagate/Last inspect\u2192harness\u2192events\u2192capture order. New reject_capture before capture and Open run conditions terminate typed rejection even while harness notready; no scheduler execution."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1415,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/frame_clock.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation_viewer/capture/frame_clock.rs",
+      "before_sha256": null,
+      "after_sha256": "d37afe5c70931612e23068f7982db7bac0b7aedbd2dfd726c6981aff6863b81f",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/d37afe5c70931612e23068f7982db7bac0b7aedbd2dfd726c6981aff6863b81f",
+      "diff": "source-evidence/pr-1415.diff",
+      "diff_sha256": "356745af7bacb24cf6d1b94de754167f14b41d383cb57873eb50345c236fc7e9",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "head_body_read_method": "Fresh full heads of newextracted children + actual removed oldcapture kernels allread; actual1428/1448/1427 wholehead/full diffs; exact nativeREG009 source kernel, no runtime verdict.",
+      "facts": [
+        "Moved old1412 tick helper and original0\u21921\u21922 fixture unchanged wrapping native tick order; frame0elapsed0 else reciprocal64Hz same currentlocomotion_rate typed interval.",
+        "Fresh REG009 native fixed.rs70\u2013108/116\u2013180 shows old from_hz\u2192set_timestep_hz\u21921.0/hz\u2192Duration::from_secs_f64\u2192nonzero set_timestep. New uses identical f64 reciprocal and native rounding through try_from_secs_f64, then from_duration same setter; errors become exit1 before snapshot/sideeffects when interval unrepresentable/zero. No executed clock proof, normal/default interval unchanged."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1416,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/global_bones.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation_viewer/capture/global_bones.rs",
+      "before_sha256": null,
+      "after_sha256": "974eb0a6fc0c028f246576cd03e2ba83b772d47befe3a2593663c1d38339dd68",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/974eb0a6fc0c028f246576cd03e2ba83b772d47befe3a2593663c1d38339dd68",
+      "diff": "source-evidence/pr-1416.diff",
+      "diff_sha256": "045bdae56cecf79f8560e89c16ad48b204ca01da1e9b2671b1fd60714c46868d",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          59
+        ]
+      ],
+      "head_body_read_method": "Fresh full heads of newextracted children + actual removed oldcapture kernels allread; actual1428/1448/1427 wholehead/full diffs; exact nativeREG009 source kernel, no runtime verdict.",
+      "facts": [
+        "Exact extraction old1412 global-bone loop: same ownerfilter, native translation/rotation/scale, optionalName\u2192<unnamed>, target capture and stable sort(name,target). GlobalBoneFrame fields preserve original action/time/source data through seconds adapter."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1417,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/overlay.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation_viewer/capture/overlay.rs",
+      "before_sha256": null,
+      "after_sha256": "52776510686b004cc99d1cc9373424cffdfbad85172cc116f47bb8b15a13f0aa",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/52776510686b004cc99d1cc9373424cffdfbad85172cc116f47bb8b15a13f0aa",
+      "diff": "source-evidence/pr-1417.diff",
+      "diff_sha256": "c62fb9578347ee05418b4d71fa7255e4c3752bb4a1c22400621f3c942c73602a",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "head_body_read_method": "Fresh full heads of newextracted children + actual removed oldcapture kernels allread; actual1428/1448/1427 wholehead/full diffs; exact nativeREG009 source kernel, no runtime verdict.",
+      "facts": [
+        "Same14 anatomical overlay edges and exact widths/colors/.55 support threshold/.05+support*.15; Gameplay view excluded and same owner bone filter. Typed speed/support failures now warn/skip overlay, no false ordinaryfinite claim."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1418,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/readiness.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation_viewer/capture/readiness.rs",
+      "before_sha256": null,
+      "after_sha256": "2e535e01db3e5692c7f0955fab779a341ffe7d4edb246f4a987e288231223868",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/2e535e01db3e5692c7f0955fab779a341ffe7d4edb246f4a987e288231223868",
+      "diff": "source-evidence/pr-1418.diff",
+      "diff_sha256": "055ba4c0147621ce4eaf990eb65f4e41d36e20357ae79b534718e663162558a4",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "head_body_read_method": "Fresh full heads of newextracted children + actual removed oldcapture kernels allread; actual1428/1448/1427 wholehead/full diffs; exact nativeREG009 source kernel, no runtime verdict.",
+      "facts": [
+        "Exact old1412 readiness at697\u2013711: warmup decrement before readiness; frame0requiredmotion processed and last observed playback settled; resetcountwhenmissing then2consecutiveframes before capture. No timeout or warmup order changed on admitted source; multi-subject behavior remains last iteration playback as old."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1419,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+      "before_sha256": null,
+      "after_sha256": "6255135aec06f6ce010b7bb960723b059db57684bf009fa48ad2fe9a8e754d23",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/6255135aec06f6ce010b7bb960723b059db57684bf009fa48ad2fe9a8e754d23",
+      "diff": "source-evidence/pr-1419.diff",
+      "diff_sha256": "530aba7bae6ce65bc8af24c3faffbb924cbb0df8d977ad5047fee7ba28fd6bf5",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          214
+        ]
+      ],
+      "head_body_read_method": "Fresh full heads of newextracted children + actual removed oldcapture kernels allread; actual1428/1448/1427 wholehead/full diffs; exact nativeREG009 source kernel, no runtime verdict.",
+      "facts": [
+        "Moved old1412 repeated snapshot/mismatch: same scenario/frame/bonekeys/contact/landing/eventcount and visual .0005m/.05deg, dot>=1-.000001 quantization guard; leg diagnostics .0005point/.001scalar/.05angle thresholds same.",
+        "Own1431 lexical iteration adapter preserves first mismatch/ties; Some/None support observations now compared explicitly, intentionally distinguish missing from0. Original missing/extra bone and hiddenIK mutation fixtures moved with same oracles, not executed."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1420,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+      "before_sha256": null,
+      "after_sha256": "40836a3c9a7e347f98f9ecf51aca3df955494d854e67f805e1cff8e54d02ec8a",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/40836a3c9a7e347f98f9ecf51aca3df955494d854e67f805e1cff8e54d02ec8a",
+      "diff": "source-evidence/pr-1420.diff",
+      "diff_sha256": "ce720ca105809a92ee88d080c9d44502aa0b03d240e695f7c005cc6119404ac3",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          136
+        ]
+      ],
+      "head_body_read_method": "Fresh full heads of newextracted children + actual removed oldcapture kernels allread; actual1428/1448/1427 wholehead/full diffs; exact nativeREG009 source kernel, no runtime verdict.",
+      "facts": [
+        "Compared actual old1412 initial/translation/ragdoll/collectbones kernels: same horizontal=current+worldvel*dt, quickstep nonnegativeverticaloffset, enabledterrain+ .95, disabledholdY; ragdoll fall(frame+4)/8 clamped/.62 smoothstep and1.25rotation same.",
+        "Required missing/nonfinite rootterrain or rootposition now typed terminal rejection versus old unwrap_default/NaN publication; ordinary prepared terrain witness not established. Boneclearance remains optionalterrainobservation; authoredplane fromvisibleRootY-.95 remains explicit no terrain fallback. Same17 captured semantic labels via1431."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1421,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/subject_motion.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation_viewer/capture/subject_motion.rs",
+      "before_sha256": null,
+      "after_sha256": "863b3c4fafe43198495f75878f9544b5af7fd3cccd198a88c0cc37042c390981",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/863b3c4fafe43198495f75878f9544b5af7fd3cccd198a88c0cc37042c390981",
+      "diff": "source-evidence/pr-1421.diff",
+      "diff_sha256": "c54ba8164d657bd8ca530c6792ae1f0f682dc0c0d5e0cd94b33211675f43b246",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          126
+        ]
+      ],
+      "head_body_read_method": "Fresh full heads of newextracted children + actual removed oldcapture kernels allread; actual1428/1448/1427 wholehead/full diffs; exact nativeREG009 source kernel, no runtime verdict.",
+      "facts": [
+        "Exact old1412 action/facing/project order: postroot motion beginattack8 contact+19, other+64, quickstep half ticks, same Thrust except exact stationarySwing, same0/start and posture warmup/4..48jump. New tickadd saturates atMAX versus old primitiveadd; terminal/API boundary only, no practical capture lifetime overflow claimed.",
+        "Actual typed motion admission returns terminal LocomotionErr from current1412 before sample publication; same successful projection/bodyfacing/dive counteryaw multiplicationorder+normalize, no all-skeleton transaction assertion."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1427,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/inspection.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation_viewer/inspection.rs",
+      "before_sha256": "a5c975231a88345d9809c211eab21b0e393f7221517ca6c11731184a2dc5bee0",
+      "after_sha256": "c3de8aecc1b589906a434397d0d78e51dc0b78c77453936e6f8c904a97a1bb7a",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1427-base-a5c975231a88345d9809c211eab21b0e393f7221517ca6c11731184a2dc5bee0",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/c3de8aecc1b589906a434397d0d78e51dc0b78c77453936e6f8c904a97a1bb7a",
+      "diff": "source-evidence/pr-1427.diff",
+      "diff_sha256": "8ce028361890c5edf10c02a9c89d4427ddf70f38aede1b42518478a9e3f01bde",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          67
+        ]
+      ],
+      "head_body_read_method": "Fresh full heads of newextracted children + actual removed oldcapture kernels allread; actual1428/1448/1427 wholehead/full diffs; exact nativeREG009 source kernel, no runtime verdict.",
+      "facts": [
+        "Same report prettyJSON orbitdegrees/diffuse/cuirassalpha .2 vs1 and material metallic0/roughness1/Blend rules. File publication moved from constructor into publish AFTER plan admission (actual1428) while same admitted reportbytes retained; no filesystem run."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1428,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/mod.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation_viewer/mod.rs",
+      "before_sha256": "cefcc08ea977c8c3007f35b066f4940b58d619d94a2aff9db51ae80225581bf4",
+      "after_sha256": "40cfb0af104c5b99efdf25346bf83168023b20c4305655f392ef49dcca1ab584",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1428-base-cefcc08ea977c8c3007f35b066f4940b58d619d94a2aff9db51ae80225581bf4",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/40cfb0af104c5b99efdf25346bf83168023b20c4305655f392ef49dcca1ab584",
+      "diff": "source-evidence/pr-1428.diff",
+      "diff_sha256": "2390acb95cb090873bfcb665b828089951285471408da44ff4b851ba05af5c09",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          179
+        ]
+      ],
+      "head_body_read_method": "Fresh full heads of newextracted children + actual removed oldcapture kernels allread; actual1428/1448/1427 wholehead/full diffs; exact nativeREG009 source kernel, no runtime verdict.",
+      "facts": [
+        "Actual whole179head/full diff read with exact base1428 schedule. Startup terrain classification same own416; build admitted sequence before inspection publish/directory/invalidate/bodyreport vs old app construction. Invalid plan no report writes; cleanpreflight behavior strengthened. Actual typed-finite plan child recipes remain frontier1441+, not asserted globally valid.",
+        "Same plugins/physics simulationfalse/presentationtrue/window960x720/VSynccolor/camera/resources; extracted1414 schedule independently checked. fixedclock prepared actual1448 through1415 native proof, no f32 reciprocal rounding substitution."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1431,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/bones.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation_viewer/report/bones.rs",
+      "before_sha256": null,
+      "after_sha256": "1178bf380da9126c00678608493b9d252af9746d853d347d5f334d451586b5bb",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/1178bf380da9126c00678608493b9d252af9746d853d347d5f334d451586b5bb",
+      "diff": "source-evidence/pr-1431.diff",
+      "diff_sha256": "e05b2ebc6def157ec4ed8a92c41910f7badbb9a9272c258866db8428c29f530b",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "head_body_read_method": "Fresh full heads of newextracted children + actual removed oldcapture kernels allread; actual1428/1448/1427 wholehead/full diffs; exact nativeREG009 source kernel, no runtime verdict.",
+      "facts": [
+        "New138body compared old1412 TRACKED_BONE_NAMES/tracked_bone/parent_bone kernels. Exact17 bone role\u2194label and reducedparents preserve original JSONlabels and hierarchy. CapturedBones iteration explicitly sorts report labels lexically; not enumorder, so arithmetic folds/firstmismatch old BTreeMap<String> order retained. Serialize emits same labelkey map, rejects unsupportedrole instead of implicit arbitrarystring; producer1420 filters supportedroles."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1448,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer_main.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation_viewer_main.rs",
+      "before_sha256": "2d0e09eb6ec7e07f460b2f1510c84c761ac51d6de7fab3aaf97bd1908edef4da",
+      "after_sha256": "e0f7a9dac82a710fe98097b0b6baaa166da0f386c1c3314819bef4cabb95864d",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1448-base-2d0e09eb6ec7e07f460b2f1510c84c761ac51d6de7fab3aaf97bd1908edef4da",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/e0f7a9dac82a710fe98097b0b6baaa166da0f386c1c3314819bef4cabb95864d",
+      "diff": "source-evidence/pr-1448.diff",
+      "diff_sha256": "e412830b8b4eb89af40a6c90cd966eae3bb3c370ba7166d6ec72a6d061d4eca1",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "head_body_read_method": "Fresh full heads of newextracted children + actual removed oldcapture kernels allread; actual1428/1448/1427 wholehead/full diffs; exact nativeREG009 source kernel, no runtime verdict.",
+      "facts": [
+        "Whole131head/full actualdiff: same CLIdefaults/readYAML/installRuntime/assetroot/bodyJSON/exitstatus; fixedclock constructed BEFORE runtime snapshot now errors exit1 rather than nativepanics at appbuild for unrepresentableinterval. Exact nativeconversion1415/REG009 preserves representable f64 reciprocal rounding. Inspection constructor now preparesbytes, actual1428 publishes after plan admission; no CLI or renderer run."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    }
+  ],
+  "next": "1412 maincapture sourcefull/diff consumed but remaining reportmodel BodyAngle/event payload wire receivers pending; next1422 harness511 and its children; preserve pending capture graph."
+}

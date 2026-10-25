@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1176",
+  "at": "2026-10-25T18:03:06.219263+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1276,
+  "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/expedition.rs",
+  "sha256": "a77ae88e526acb661515b4069d678cd7b7e42f278d4e8fc4cb2f1a317440246a",
+  "actual_compared_ranges": [
+    [
+      1,
+      340
+    ]
+  ],
+  "existing_derives": [
+    "AuthoritySurrenderOutcome Clone Copy Debug PartialEq Eq"
+  ],
+  "trait_inventory": [],
+  "analysis": "AuthoritySurrenderOutcome already derives Clone Copy Debug PartialEq Eq. Only native free/inherent LiveRunner methods; no handwritten trait/custom codec. Current controlled party/site unique surrender selection; party agent membership/life/condition and public survival projections aggregate context/custody/food/water. Diagnostics formats selected/redacted fields and computed deltas with exact precision rather than hand Display/Serde, no new runtime serializer needed. No execution.",
+  "first_unfinished": {
+    "scope_index": 1276,
+    "line": 341
+  },
+  "execution": "none"
+}

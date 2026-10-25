@@ -1,0 +1,53 @@
+{
+  "id": "CONT07-F075",
+  "classification": "ignored configuration authority / representation migration gap; default behavior qualifier",
+  "title": "MatureOak accepts generic woody parameters that its producers discard",
+  "at": "2026-10-23T19:53:09.783398+00:00",
+  "sources": [
+    {
+      "scope_index": 1592,
+      "sha256": "07ca0c32d3efa1bfee78bcf7c4e3a48c1a09b563519446793b09be9c1582d666",
+      "ranges": [
+        [
+          14,
+          36
+        ]
+      ]
+    },
+    {
+      "scope_index": 1594,
+      "sha256": "16e43f82ef10e80570e1a742bc302d72fc23eb2c2293b8300c5ca652cc2a656d",
+      "ranges": [
+        [
+          5,
+          16
+        ],
+        [
+          67,
+          73
+        ],
+        [
+          104,
+          117
+        ]
+      ]
+    },
+    {
+      "scope_index": 1598,
+      "sha256": "01e01e3d4c8c4c8a5d0b5d91248c5b715bbfdb40722c4f36ed15395b95a35683",
+      "ranges": [
+        [
+          44,
+          62
+        ]
+      ],
+      "credit": "fresh critical role only inside unfinished full1358 source; NO full-source coverage"
+    }
+  ],
+  "disagreement": "WoodyPlantParameters stores form plus height/crown/stems/count/leafbounds. Generic leaf entry matches MatureOak then calls procedural_oak_leaves without the parameters; actualleaf path hardcodes16 leaves, petiole.003+.004*draw,length.1+.06*draw,width.065+.04*draw. Generic skeleton entry similarly discards payload forMatureOak. A representable otherwise same parameter record changing leaves_per_shoot32 or leaf bounds changes retained requested settings but these producers return unchangedoak. Current ENGLISH_OAK_PARAMETERS count,length,petiole happen to agree with hardcoded defaults; no claim current shipped oak is broken or measured runtime divergence.",
+  "qualification": "Dedicated matureoak algorithm is intentionally specialized; fixing representation need not force oak to obey every generic shrubparameter or alter current silhouette. This is misleading independently representable configuration/authority migration, not proven normal nondefault oak call, no new globally unique defect claim. Width is independently sampled currently; do not silently impose storedratio and change current output.",
+  "connected_repair": "Make matureoak own one explicit recipe/configuration consumed by its specialized producers, or use form-owned payloads that omit unsupported generic fields. Preserve actual dedicated gnarling/canopy inputs and deterministic source behavior; do not retain ignored generic settings as a parallel claim.",
+  "acceptance": "Accepted matureoak configuration cannot claim producer settings that are silently discarded; fixed defaults either owned by one canonical recipe or unsupported fields absent. Existing seed streams, current morphology and parameter behavior for beech/shrub preserved. No tests added/executed.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

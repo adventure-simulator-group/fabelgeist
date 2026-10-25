@@ -1,0 +1,229 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-261",
+  "at": "2026-10-25T14:16:26.317442+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 520,
+      "source_id": "pr-working:assets/shaders/tactical_tree_impostor.wgsl",
+      "sha256": "131a902b24267466e1c039477a9a18a881b7fd31212c614b850fbc15673934c4",
+      "actual_EOF": 135,
+      "requested_registration": {
+        "source_id": "pr-working:assets/shaders/tactical_tree_impostor.wgsl",
+        "snapshot": "pr-working",
+        "path": "assets/shaders/tactical_tree_impostor.wgsl",
+        "sha256": "131a902b24267466e1c039477a9a18a881b7fd31212c614b850fbc15673934c4",
+        "bytes": 5630,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-root-receivers-003.json",
+            "ranges": [
+              [
+                1,
+                135
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-SUPP-TREE-001"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 466,
+            "read_ranges": [
+              [
+                1,
+                135
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-TERRAIN-TREE-SHADERS-070"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/assets/shaders/tactical_tree_impostor.wgsl"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 135,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          135
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "WGSL native material source, no Rust trait or Serde implementation.",
+      "absence_basis": "Full135-line tree impostor shader consumed: TacticalTreeImpostorMaterial uniform, texture/sampler, vertex/fragment scale/frame/billboard/atlas/visibility/light mappings. Native semantic shader functions cannot be replaced by Rust derives in this source; host/imported sources uncredited."
+    },
+    {
+      "scope_index": 521,
+      "source_id": "pr-working:assets/shaders/tactical_weather.wgsl",
+      "sha256": "5c0a4dc16844e0840b502186ec82a5b7b8398061d2fd4d68226c8bffebd47636",
+      "actual_EOF": 317,
+      "requested_registration": {
+        "source_id": "pr-working:assets/shaders/tactical_weather.wgsl",
+        "snapshot": "pr-working",
+        "path": "assets/shaders/tactical_weather.wgsl",
+        "sha256": "5c0a4dc16844e0840b502186ec82a5b7b8398061d2fd4d68226c8bffebd47636",
+        "bytes": 14981,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "root",
+            "record": "wave-01/audit-producer-propagation/root/unchanged-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                317
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "ROOT-PP-SURFACE-ENDPOINTS-012"
+            ]
+          }
+        ],
+        "audit_owner": "root",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 85,
+            "read_ranges": [
+              [
+                1,
+                317
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-WEATHER-GPU-020"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/assets/shaders/tactical_weather.wgsl"
+          },
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 413,
+            "read_ranges": [
+              [
+                1,
+                317
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-WEATHER-GPU-020",
+              "ROOT-OWNER-NATIVE-DEPENDENCY-CLOSURE-082"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/assets/shaders/tactical_weather.wgsl"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 147,
+            "read_ranges": [
+              [
+                1,
+                317
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-ENVIRONMENT-004"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/assets/shaders/tactical_weather.wgsl"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root",
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-WEATHER-NOISE-GPU-006",
+            "json_pointer": "/source_proofs/2",
+            "source_id_as_recorded": "pr-working:assets/shaders/tactical_weather.wgsl",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                317
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:assets/shaders/tactical_weather.wgsl",
+              "path": "SNAPSHOTS/pr-working/assets/shaders/tactical_weather.wgsl",
+              "sha256": "5c0a4dc16844e0840b502186ec82a5b7b8398061d2fd4d68226c8bffebd47636",
+              "read_ranges": [
+                [
+                  1,
+                  317
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 136,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          317
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "WGSL uniform/texture/native vertex records and kernels, no Rust traits/Serde.",
+      "absence_basis": "Full317-line weather shader personally consumed1\u2013180/181\u2013317. WeatherVertex/WeatherVertexOutput, decoded_height/terrain_height/shelter_height/shelter_test/precipitation_exposure/camera_anchor/distributed_xz/vertex/fragment native functions, with explicit terrain/shelter/native particle/frame/shading semantics. No Rust derivability target; no host producer/library imported body credit."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Tree impostor and weather native shader semantics",
+      "disposition": "No handwritten Rust implementation in complete WGSL roles; explicit declarations/functions enumerated.",
+      "acceptance": "Keep native format/layout/producer handoff and shader math outside this no-derive disposition; no compile/render/runtime/other-lens clearance."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 522,
+    "source_id": "pr-working:content/dialogue/examples.yaml"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

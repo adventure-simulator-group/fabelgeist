@@ -1,0 +1,30 @@
+{
+  "id": "ROOT-ADM03-PARALLEL-185",
+  "at": "2026-10-23T03:50:37.664461+00:00",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-terrain/src/lib.rs",
+      "sha256": "b6f4484e8febb316766de322ff355f1d0dda5b394343be0227517c601c0f1421",
+      "registration_id": "CAMERA-INITIAL07-REG038",
+      "actual_compared_ranges": [
+        [
+          59,
+          65
+        ]
+      ],
+      "source_evidence": "Fresh literal59-65 after registration; independently read already scoped54-58/66-100 context to complete actual six-variant enum/current speed/cell role. No route/decoder/build graph verdict."
+    }
+  ],
+  "groups": {
+    "terrain-surface": "New59-65 adds Road/Open(default)/SparseWoods/DeepWoods/Water; existing66Wetland completes six-variant Surface and67closingbrace. Existing57-58 serde snakecase and actual69-80 speed match independently read: road5000/open1250/sparse1000/deep750/water0/wetland500. Zero water speed intentionally distinguishes impassability, not positive speed admission failure. Actual Cell81-99 retains surface plus crossing/cultivation/canopy/hilly/wetland facts with different meanings; no uniform redundant-owner inference from related land classes.",
+    "scope": "Only missing exact enum variant role59-65 globally added, existing contexts54-58/66-100 independently resolved but no whole2059 terrain/route/pack decoder credit. Mandatory184 excludes unrelated nonexistent tactics49-68 globally."
+  },
+  "mandatory_qualification184": {
+    "record": "continuation/root/parallel-scope-qualification-184.json",
+    "sha256": "5e35c8530a11d0f90bc767812758e4c504eb9ca5e776d0d1f17bf14c0853468d"
+  },
+  "status": "exact_registered_source_semantic_admission_compared",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

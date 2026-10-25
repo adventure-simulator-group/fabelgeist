@@ -1,0 +1,166 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-342",
+  "at": "2026-10-25T14:54:24.277987+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 672,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/tests.rs",
+      "sha256": "4d0e7f06245f70e6d3ae6904a2870cfea7f6a052fa5da512e1dd5a8768e1cbfc",
+      "actual_EOF": 99,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/tests.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-building-generator/src/spatial_geometry/tests.rs",
+        "owner": "root",
+        "sha256": "4d0e7f06245f70e6d3ae6904a2870cfea7f6a052fa5da512e1dd5a8768e1cbfc",
+        "base_sha256": "a324c5c5af53aab4bfb758243bb6bc37d08f073d04cbdecb75055e4eda096f1b",
+        "state": "modified",
+        "bytes": 4353,
+        "audit_owner": "root",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [],
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 38,
+            "read_ranges": [
+              [
+                1,
+                99
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-GEOMETRY-002",
+              "ROOT-OWNER-FRAMES-004"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/spatial_geometry/tests.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Complete three spatial fixtures8\u201345/48\u201381/84\u201398 read. Native postcard/Serde/reflection/role/error arithmetic assertions; no handwritten traits/new types/codecs. Fixtures read not run; no production/framework source coverage transferred."
+    },
+    {
+      "scope_index": 673,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs.rs",
+      "sha256": "495d427c43e115c3500736607942c7f99cd34f8e3044ce73028de1c6c8080054",
+      "actual_EOF": 175,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-building-generator/src/spiral_stairs.rs",
+        "sha256": "495d427c43e115c3500736607942c7f99cd34f8e3044ce73028de1c6c8080054",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 5623,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 246,
+            "read_ranges": [
+              [
+                1,
+                175
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-INTERIOR-ROOF-CLOSURE-090"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/spiral_stairs.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-027",
+            "json_pointer": "/fresh_current_source_reads/2",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                175
+              ]
+            ],
+            "source_context": {
+              "assigned_index": 522,
+              "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs.rs",
+              "sha256": "495d427c43e115c3500736607942c7f99cd34f8e3044ce73028de1c6c8080054",
+              "read_ranges": [
+                [
+                  1,
+                  175
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1581,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          175
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full exact source consumed. Module/reexport assembly separate children; landings31\u201351/owns_landing53\u201356/well_bounds58\u201369 native source/role geometry classifiers; resolve71\u2013110 selected native flight/occupied-floor/bearing materialization; foundation112\u2013129/append131\u2013175 checked native source/coordinate/role/interface construction. No handwritten trait/codec; semantic native geometry mapping is not derive equivalent."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "spatial admission fixtures and native spiral source materialization",
+      "disposition": "No handwritten trait boilerplate. Keep native semantic source/role/geometry construction and checked error/coordinate mapping explicit.",
+      "acceptance": "No execution/other-lens correctness claim; children remain independently scoped. No added serializer for runtime classifier."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 674,
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/flight.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

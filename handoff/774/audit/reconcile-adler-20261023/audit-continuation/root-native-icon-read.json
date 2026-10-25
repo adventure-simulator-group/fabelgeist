@@ -1,0 +1,32 @@
+{
+  "at": "2026-10-23T19:37:11.601291+00:00",
+  "source_id": "native-dependency:tiny-skia-0.11.4/src/pixmap.rs",
+  "sha256": "a7845a931a40b5b24eaa24b6053121e61bfe8b3fffa4c0db89f58c368fb9bc56",
+  "ranges": [
+    [
+      150,
+      188
+    ],
+    [
+      385,
+      430
+    ]
+  ],
+  "body_complete": false,
+  "lens": "producer-propagation",
+  "proof": "Pixmap native PNG API and actual encoder writes/demultiplication read; error type png0.17 exact frozen lockfile+cratehash proven. Unread native methods/other lenses receive no coverage.",
+  "native_crate_sha256": "83d13394d44dae3207b52a326c0c85a8bf87f1541f23b0d143811088497b09ab",
+  "disposition": "M85 same archived native owner gap, no extra source denominator or wholeSDK expansion.",
+  "additional_native_contract": {
+    "source_id": "native-dependency:png-0.17.16/src/encoder.rs",
+    "sha256": "2befe627874fd46476bca960d8f89038479403b9611cbba4b37aadc42ac3658d",
+    "ranges": [
+      [
+        1,
+        100
+      ]
+    ],
+    "actual_cause": "EncodingError::IoError(ioError)/Format(FormatError)/Parameter(ParameterError)/LimitsExceeded; actualtypeinspectneeded, no blanket source-chain guaranteeforinnerprivatefields.",
+    "body_complete": false
+  }
+}

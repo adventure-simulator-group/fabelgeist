@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1138",
+  "at": "2026-10-25T17:53:13.934595+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1244,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/activities.rs",
+  "sha256": "a47b028b15d0e416ae19b84b18f616bff39ea8f7a951526e32996cc70ed48915",
+  "actual_compared_ranges": [
+    [
+      1,
+      350
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "ActivityRisks already Clone/Copy/Debug/Default; no handtrait/codec. Native scheduled/immediate outcome computation depends currentlocation/equipment/cohort/population/personality and effects, not structural From. immediate_activity_schedule179\u2013203 maps semantic activity to distinct minutes/organization fields, not Defaultderive. Immediate activity current authority/duration/organization/injury/disease/time/environment/effective interval/training/outcome admission retains checked error and selected elapsed policy."
+  ],
+  "first_unfinished": {
+    "scope_index": 1244,
+    "line": 351
+  },
+  "execution": "none"
+}

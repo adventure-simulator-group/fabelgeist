@@ -1,0 +1,46 @@
+{
+  "id": "RIG-INITIAL06-GROUP-039",
+  "at": "2026-10-22T20:37:23.592202+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "single-fatigue-work-versus-blood-flow-and-native-energy": {
+      "sources": [
+        "pr-working:crates/adventuresim-core/src/combat/fatigue.rs",
+        "physical-p16:crates/adventuresim-core/src/combat/fatigue.rs",
+        "pr-working:crates/adventuresim-core/src/combat/wounds.rs"
+      ],
+      "comparison": "Fresh PRFatigue263/Wounds134 including originaltests; actual full PR/P16Fatiguediff empty, personallysamecanonicalElapsed/Speed/config/currentpure/tacticalcalculationcontractcarry. CombatActionWorkload is metabolicenergy chargedonce fromactual actionkind and mechanicalquantities, not second fatiguepool/per-musclebudget. Work enum owns workload-selection policy, workload rawjoules numericaloutputnotvalidatedenergytoken. Fatigue functions retaincanonicalElapsed/NonnegativeSpeed from001/002 until explicitseconds/metres/s numerical kernels; parameters canonical038. Bodymass/mass/inertia/metabolicjoules/power/endurance have differentunits and nonhuman/unrestrictednativevalues; no humanBodyMass20..300 or clinicaldose reuse. Weapon workload/locomotion/recovery mutate samefatigue rawfraction only; checkedUnitInterval appropriateacceptedoutput owner iflaterselected, no new hiddenperformancepolicy. CombatWound keeps canonicalBodyPart plus open/internaltrauma and bloodFRACTIONPERSECOND rate, not numericUnitIntervaltotal orStrategicMinute/injuryrecoveryduration. Flow sum*time yields bloodlosschanged quantity thenclamp, acuteinjury separateintentionalpenalty perAGENTS; no instruction tomergeinjury/fatigue. Publicraw fields/Serde/default/nonfinite behaviors preserved, no genericnormalized guarantee fromname."
+    },
+    "pure-battle-snapshots-canonical-facets-and-mode-specific-view": {
+      "sources": [
+        "pr-working:crates/adventuresim-core/src/autoresolve/model.rs",
+        "physical-p16:crates/adventuresim-core/src/autoresolve/model.rs",
+        "pr-working:crates/adventuresim-core/src/autoresolve/power.rs",
+        "physical-p16:crates/adventuresim-core/src/autoresolve/power.rs",
+        "pr-working:crates/adventuresim-core/src/autoresolve/threat.rs",
+        "physical-p16:crates/adventuresim-core/src/autoresolve/threat.rs"
+      ],
+      "comparison": "Fresh full PRModel363/Power168/Threat187; fullactualP16diffs consumed andfreshchangedModel1\u2013100/290\u2013325,Power21\u201380,Threat1\u201324/106\u2013156; unchangedbodies explicitlysamecontractcarry/currentproducers compared. CombatBody/Essentials/Skills/Armor/Weapon/Equipment are framework-neutral purebattle snapshots, not transientBevyEntity resources or persistedDBtickauthority. CombatBody usescanonicalBodyPart/BodySide and7nativehealthslots; PlayerAttributeValues from037 alreadycanonical and threat_attributes70\u201387 constructsit directly. CombatSkills is deliberate combat/command/expertise subset with Cooking/Herbalism/Terrain0, not complete strategicCharacterSkills; BestiaryHours canonicalworldschema reused notduplicatef32. Core traitfacet adapters exposeexistingproduct ratherthanrequiringDB/Bevydependencies. P16Weapon lengthfields+PlayerEquipmentgetters preservecanonicalSignedLength with zeroDefault/unarmed; PRrawf32same-role migrationmustnotregressP16. Actual changed producers admit sourceconstants and actualpower kernels projectmetres at finalarithmetic. Weapon.precision rawf32 is convertedback to existingContactPrecision at power40; propagateexistingowner earlier whenexactproduceradmission agrees, not invent anotherprecisiontype. Native power observeru64score derived fromf64log/readiness/rounding differshealth/damage/sourceSeed/schemaID; not certifiedoutcomeorcapability. CombatArmor contains coverage geometry plus physicalsurfacevalues; contactprojectioncopiesfiveunchanged fields but traitarmor_surface explicitlyallowsaggregate strategicprotection as onesurface (fresh Equipment626\u2013638), so do not mistakenlyassert everyrecordisreal singleitemlayer orforcecollapse allarmor stages. Canonicalper-mode borrowedEquipmentview is coherent sharedAPI candidate: currentfor_melee/for_ranged clonewholeEquipment thenreplace weapon+holding_side while originalweapon/melee/ranged remainindependent. ActualnormalThreat54\u201355/159\u2013167 retainsbasebowreach0 plusmeleesidearm; actualPower101\u2013124 correctlyrequests per-mode clones. This supports existingCamera07F009 connectedviewrepair, not newuniquedefect orclaim allcallers wrong. Removeindependentselected/base weapon authority via explicit per-modeborrowedview across allactualrecipients, preserveunarmed/fallbackabsence/ammo/heldside policy; othermobility/schedulingreceivers queued. AuthoredThreatError actualP16addsGeometry sourceerror and typedlength producer, preservesCoreGeometry low dependency no fallbacklabels/rawunwrap."
+    },
+    "contact-facts-versus-computed-contact-disposition": {
+      "sources": [
+        "pr-working:crates/adventuresim-core/src/combat/contact_geometry.rs"
+      ],
+      "comparison": "Fresh fullPRContactGeometry488 incloriginaltests. MeleeContactAtTimeFacts is raw committed/currentdistances+weaponmaterial/geometry/style input; MeleeContactAtTime is computedclassification/lever/energyfraction/accuracy/material and cause. Overlappingthree distancefields expressprovenance ofinput/result, not sameindependently authoredvalueowner; one canonicalcommontyped distancevaluecanbe propagated withoutcollapsing stage. scheduled/actual/ideal measure relativeline-to-targetframe differworldPosition/Furnituregeometry andabsolutebattleclock, zero closedmeasure valid; effective reachstrictpositive actualpredicate, rawsource negative/nonfinite classification intentional. Body/materialstyle canonicalCore inputs andpurecontactpolicy lowestCore; no dependency onrenderer/tacticalclock/serverDB. Native arithmetic genuinegeometryport butretainedFacts/Result host primitive lengths/probability-like outputs remain earlierpropagationcandidates for existingcoherentfinitegeometry/UnitInterval where exactadmission permits. Invalidresult deliberatelyretainsinvalidrawinputfacts, so blindlyreplaceallfieldswithcheckedlength woulderase diagnostic/rejectedsource evidence. Contactclassification/cause are different decisionfacts (sumshape belongs09later), no separateCoreduplicateowner. Testsreadsourceonly, no runtime proof."
+    },
+    "duplicate-weapon-skill-value-owner-current-witness": {
+      "sources": [
+        "pr-working:crates/adventuresim-core/src/equipment.rs",
+        "pr-working:crates/adventuresim-core/src/item_catalog_schema.rs"
+      ],
+      "comparison": "Fresh full PRequipment1182 and PRschema618, supportingcriticalowner witness ONLY untilremainingwhole-source graphcomparison. Actual schemaWeaponSkills469\u2013490 andruntimeWeaponSkillDistribution320\u2013334 duplicate same9rawf32 weaponleafweight fields; From336\u2013349 copiesall9unchanged. Same units/authority/zeroDefault, not a physical/numericalprojection or change to nativepacking. RuntimeoptionalSpacetimeType doesnotnecessitate separatehostvalue: sameCoreoptionalfeature alreadyexists and single sharedvaluefilecanbeusedbybuildschema/runtime, whileSkilldependentmethods liveCore-side (buildsource noCore\u2192buildcycle). REAL serde boundarypolicy differs: sourcefieldsdefault0/denyunknown vs runtimeallfieldsrequired/unknownignored. Preserve each inputcontract through explicit format adapters or deliberatelyresolvedadmissionpolicy ratherthan naivealias/deriveunification. Bothalreadyproducecomplete9fieldvalue afterdecode; onecanonicalretainedweights product shouldtravelunchangedthroughcatalogue/runtime/CombatWeapon/DB/ECS; only truewireparser/SDKadapter remainsdifferent. Relativeweights may>1 andsumarbitrary; invalid/nonfinite/nativeweights().normalization policies notUnitInterval. Tinypositive sourcef64\u2192targetunderflow existingadmissionfinding separate; do not silently normalize/clamp or changeorderedfloatingexpressions whilemovingowner. CurrentEquipment/Schema completebodyreads recorded inpending-current-role-039, notwholecellcoverage yet (canonicalfit/surface/animationpack/parametric/directhelperrolejoins pending)."
+    }
+  },
+  "new_findings": [
+    "RIG-INITIAL06-F008"
+  ],
+  "supports_existing": [
+    "Camera07F009 per-modeview design, no newunique bug"
+  ],
+  "limits": "Exactsource-specificownercomparisons only. Equipment/Schema/MeleeResolution broadercells explicitlypending lowerjoins; no wholefeature or otherlens credit."
+}

@@ -1,0 +1,66 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-173",
+  "at": "2026-10-23T04:09:21.208957+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/road_encounter_catalog.rs",
+      "sha256": "62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+      "scope054_index": 134,
+      "actual_EOF": 2689,
+      "scoped_ranges_compared": [
+        [
+          1,
+          2689
+        ]
+      ],
+      "actual05_comparison": "Fresh bounded complete PR1-550/551-1100/1101-1650/1651-2200/2201-2689 source bodies and original fixtures; complete actual P16/PR diff empty, personal current counterpart contract/role comparison. Initial oversized display truncated and gives no missing-body credit; fresh batches complete."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/road_encounter_catalog.rs",
+      "sha256": "62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+      "scope054_index": 987,
+      "actual_EOF": 2689,
+      "scoped_ranges_compared": [
+        [
+          1,
+          2689
+        ]
+      ],
+      "actual05_comparison": "Fresh bounded complete PR1-550/551-1100/1101-1650/1651-2200/2201-2689 source bodies and original fixtures; complete actual P16/PR diff empty, personal current counterpart contract/role comparison. Initial oversized display truncated and gives no missing-body credit; fresh batches complete."
+    }
+  ],
+  "contract_groups": [
+    {
+      "id": "raw-authored-versus-private-accepted-catalogue",
+      "comparison": "Public ordinary Serde DTOs permit dangling speaker/choice/mechanic correlations; they are authoring inputs. validate_definitions387-770 checks unique IDs, positive version/weight<=10000, at least one trigger, cast unique/nonblank and all spoken references, cast nature/backing, choices3..8+ignore, nonblank choice fields and goal-neutral prose. Runtime definitions993-1002 decodes then BOTH semantic and item-reference validators before retaining private OnceLock Vec; only immutable static slice exposed. Thus raw invalid literal is not accepted global catalogue bypass, no independent mutable caches. Build include constants/source-map producer remains separately scoped; no invented build proof from include."
+    },
+    {
+      "id": "backing-state-to-effects-and-patient",
+      "comparison": "Payload enums distinguish Character/NarrativeOnly/Blocked and shared interactions; Character must be mortal, blocked requires numeric #issue+reason, narrative requires reason. Treatment must find same definition Patient with Allowed or Unavailable (refusal excluded, availability deliberately not forceAllowed); actual live patient/treatment authority remains DB recipient. SharedSystems requires nonempty actions and exact presence equivalence for combat transition, information, inventory and personality; ignore exactly IgnoreTravel. Standalone prose-only nonignore may not declare requirements/checks/effects/personality/active transition. These are declaration consistency gates, not proof a real actor consented or skill outcome happened."
+    },
+    {
+      "id": "choice-collection-and-outcome-lifecycle",
+      "comparison": "Requirement quantities/hours/currency positive, IDs grammar; checks1..10000; nonzero bounded personality delta abs<=10000 with unique axes and single virtue. Ignore permits bounded travel delay but no effects/requirements/checks/personality/reward/outcome tags; duration is intentional time consequence despite consequence-free wording. Nonignore route signatures requirements/checks/effects/transition require at least2 distinct, not every choice pair unique; personality-only distinction deliberately excluded by actual validator/fixture. Combat count1..8, exact four payload slots; positive rewards only victory; defeat/escape/surrender may consume/remove coin and have personality effects, preserving authored moral outcomes. Direct choice effects/questtags forbidden when combat rewards exist. Closed outcome parser maps stalemate defeat, avoided escape, surrendered surrender. No collapsed lifecycle optional fields."
+    },
+    {
+      "id": "reference-membership-and-order",
+      "comparison": "SpokenLine speaker resolved within SAME definition cast, review markers validated with supernatural iambic requirement, length<=2048. Item references independently visits requirements/effects AND all four combat payloads using current item catalogue predicate; validates ID grammar separately from membership. Combat payload tags unique, payload list lengths<=8; top-level raw eligibility/tags remain open authored identifiers not closed enums. Catalog source metadata/digest provenance distinct from gameplay truth; sources returns separately decoded Vec, original fixture len-equality only source observation, not a private paired-product seal."
+    },
+    {
+      "id": "weighted-selection-membership",
+      "comparison": "select_quest_eligible1011-1030 derives eligible reference Vec from accepted static definitions, filters eligibility and positiveweights then sorts IDs; derives weights from SAME ordered Vec; no independent matching-length/order mutation. Empty returnsNone; native selected index belongs same weights after checked sampler success (Native018/Root04-014 actual native witness, no fixed-one-word promise). Eachweight<=10000 but no explicit total catalogue count/sum bound in public validator; expect bounded assumes embedded content cardinality. Do not infer mathematical universal u64 sum bound from per-leafweight; current authored build collection capacity remains source-specific supporting obligation."
+    },
+    {
+      "id": "original-fixture-observations",
+      "comparison": "All original1041-2689 fixtures source-read only. They exercise semantic rejection, backing/mechanic equivalence, treatment2 routes, exact cast/route speaker lookups, deterministic eligible selection, required ignore, unique mechanical alternatives, combat count and nonvictory reward rejection, individual story item/currency/provenance/virtue/delay correlations. Story fixtures intentionally keep mortal experts authority separate from playerCommand skill and no persistent dog/horse/death/injury effects from prose. Expected catalogue values assertions are evidence of intended normal content, not executed passes nor generic validity by test presence."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Native155 catalogue-dependent positive-weight expects now joined actual immutable ordered definitions selection and perweight checks; literal authored catalogue count/total and source-map build membership still exact build/content roles, not cleared by name. Actual DB actor/live choice authorization separate."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

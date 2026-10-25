@@ -1,0 +1,44 @@
+{
+  "id": "RIG-INITIAL06-GROUP-218",
+  "at": "2026-10-23T06:35:14.170583+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-065.json",
+  "groups": {
+    "native-transport-endpoint-and-session-owner": {
+      "comparison": "Fresh Aeronetbackend80/mod73–170 compare nativeClientConfig/ConnectTarget/WebSocketClient marker/Connectingoneshotreceivers, ClientErrortransportcreate/connectionlayers andplatformspecificsocket request ports. WebSocketserverURL endpoint isnotdurableCharacterId/party/placekey, ClientconfigintoconversionisrealexternalAPIadapter. Actual firstparty client1973 fresh577–608 storesplayer_idandserver_urlseparately, queuesWebSocketClient::connect(websocket_config,normalize_server_url) atnativeconnectionboundary; no lowerlibraryownsplayeridentity/auth/gameadmission. Nativebackendcreates/splitsWebSocketstream, reportsconnectedfront-endandawaitssessionloop; queuedconnectcommand isnotfinishedconnection/canonicalgamejoinedstate. Preserve nativecause wrappers andrealprotocolconnectionlifecycle, do notforceStrategicOperationError/CoregameIDintoAeronet. NativeunknownTLSstream panic isactualdependencyunrelatedpolicy, nofirstpartyforeignpatchsuggested. Helpernormalization/configinternalsnotreadhere, no semanticaliasclaim fromfunctionname.",
+      "disposition": "Keep native endpoint/transport/session errors and first-party player/auth authorities distinct, project only at actual connect boundary."
+    },
+    "native-collider-query-interface-and-velocity": {
+      "comparison": "Fresh AvianCollider245–280 actualcontact_manifolds_with_context signature andSimpleCollider::aabb268–270 delegatescontext-freequery, swept_aabb277–280 headerONLY. NativeVector/Rotation/Scalar/Aabb aregenericphysicsports, notcanonicalfiniteframedSpatialBounds/Clearance/CollisionCuboid semanticowners (202/203 actualdefinitions). Fresh rigidbody389–440 actualLinearVelocity(pubVector) withmutablederef/Reflect/optionalSerde/ZERO, MaxLinearSpeed doc/attrs onlynot441+declaration. Velocity isdirectionalsignedvector notNonnegativeSpeedscalar. Fresh firstparty2068dive_launch12–40 takescanonicalyaw/NonnegativeSpeed/DiveDirection/Trajectory, computesactualrotatedhorizontalVec3 andmutatesnativeLinearVelocityXZ preservingY, groundedslideintentionallyunchanged. Realnativeport withcanonicalinputs, no secondgameSpeedowner orsimulationclock/persistentDBstate. No nativeallfinite/unit-speedguarantee andno hiddenmovementfatiguepenalty; checkednormal/dimensiondefinitionsseparate.",
+      "disposition": "Keep solver native vector/query/velocity owner and canonical first-party frame/angle/scalar-speed meanings separated at actual numerical operations."
+    }
+  },
+  "supporting_actual_source_reads": [
+    {
+      "scope_index": 1973,
+      "ranges": [
+        [
+          577,
+          608
+        ]
+      ],
+      "status": "supportingcalleronly; full1514sourceincomplete"
+    },
+    {
+      "scope_index": 2068,
+      "ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "status": "freshsupportingactualproduction1–40; originalwhole2068proof176preserved;42–76testcontextno new completefixturecredit"
+    }
+  ],
+  "source_fact_refs": [
+    "contracts-176.json",
+    "contracts-202.json",
+    "contracts-203.json"
+  ],
+  "limits": "Four exactnativevariantrolesfreshread and currentactualfirstpartyboundarycomparison; no wholeSDK/package/query/MaxLinearSpeedheaderbodycredit, newsource/range/sourceedits/execution/otherlens."
+}

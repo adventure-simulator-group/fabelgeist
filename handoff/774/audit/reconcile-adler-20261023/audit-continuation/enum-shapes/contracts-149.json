@@ -1,0 +1,33 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-149",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        2492,
+        2493,
+        2494,
+        2495,
+        2496,
+        2497
+      ],
+      "ranges": {
+        "2492": [
+          [
+            1,
+            34
+          ],
+          [
+            56,
+            470
+          ]
+        ]
+      },
+      "comparison": "Fresh PR6533 roof geometry scoped1\u201334+56\u2013470; resolution738/assemblies277/cutting484/gable210/abutments251 full EOF. Roof shape dispatch currently carries kind plus common pitch/ridge and optional shed high side. Normal primary Shed selects East for Z/North for X; church indices1/2 forceNorth/South and actual recipe axis upstream untraced. Geometry wrong-axis Some takes default, API conditional-payload candidate; no normal wrong-slope claim. Flat/conical unused authored pitch/axis must not be discarded without editing/recipe contract. resolve_one_roof carries source_piece_index/source_tower_index Options; observed callers give one source or tower, square and round use same index slot; dormer producer2538 and actual owning definitions/consumers still pending. parent/phase updated together on actual attachment; distinction Primary vsAttachedChild candidate, no observed incoherent pair. Edge kind plus flashing/drainage Options needs richer applicability contract: OpeningCut generated withSome flashing in cutting198\u2013205, split eave cut hasNone56\u201359, rejected abutment becomesOpeningCut withNone178\u2013179. Do not force allOpeningCut payloadless, or assume kind alone determines flashing presence. Abutment samples complete commonproduct; wall/tower kind selects actualhost query, no kind-dependent samplepayload established. Child facade_wall onlyoptional in observedCrossGable/Tower, dormerunread. Numerical local parity/inside/reverse predicates are immediate geometry controls, no forcedretainedenum. sourceintersection Option is actualnoncoverage; no inventedheight. Gable update optionalrecipe reconstructs fromrecipe when available otherwise transforms existinggeometry; actualcalls pending. Numeric axis bounds, packed identity capacity and actual physical validation remain unproved, not cleared by typed enum use. Tests source read only, neverexecuted.",
+      "disposition": "Open conditional source/phase/shed-side candidates retained; independent geometry controls and legitimate optional edge treatments preserved",
+      "finding_refs": []
+    }
+  ],
+  "new_findings": [],
+  "limits": "Discovery only. No execution/repairs/checks/plan/clearance. Later model/recipe/dormer owners untraced."
+}

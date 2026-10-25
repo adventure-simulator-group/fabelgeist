@@ -1,0 +1,64 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-089",
+  "at": "2026-10-25T15:11:01.334819+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1282,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/investigation_policy.rs",
+      "sha256": "beeb9c30e9b583a3e744dcc7350e83c2c5ce40a2d65d5184cd48c0a463a93ea1",
+      "personally_read_ranges": [
+        [
+          1,
+          528
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "SelectedCaseSitePlan groups outbound/return forecasts with walking schedule, departure wait, insulation and recovery. The projections must refer to the same route, roster order, schedule and clock; public fields currently permit unrelated valid forecasts. Actual generating evaluator/thermal recipients remain pending; no normal mismatched forecast asserted. Existing ItineraryForecast member-index access fails unavailable rather than indexing without bounds.",
+        "Projected action readiness/survival uses canonical StrategicIncapacitation status and fatigue policy; it collapses all nonfatigue impairment into pain intentionally for total status projection, not a new hidden channel. Floating capacity max0.01 and raw calories remain owner/admission concerns; no nonfinite ordinary input claim.",
+        "Action-plan search preserves actual window/night/wait preference order, checks bounded walking windows and uses checked or saturating duration arithmetic. Failure-reason classifier independently accepts counts/flags whose relation requires the real evaluator. Named outcome and candidate evidence should retain joint projection validity rather than fabricated combinations; existing coherent normal caller not assumed invalid.",
+        "balanced_party_groups requires positive party_size; actual CoreLoopConfig validate2..8 precedes bootstrap caller. Empty profile input returns empty after division only if positive size. Public helper can strengthen checked input, but no ordinary divide-by-zero under current validated runner. Capacity allocation sums exactly population, groups nonempty for configured range, stable role/agent ordering retained.",
+        "Current contact wait uses actual canonical DailyPresenceWindow and actual contact identity, returns unavailable for suppressed/unknown presence. Projected action state prioritizes travel permission then bounded supported wait reasons, otherwise Blocked. Active camp projection admits exactly one interval and rejects overlap; independent total/completed/interval relationships remain shared checked journey observation work, not a second interval taxonomy."
+      ]
+    },
+    {
+      "scope_index": 1283,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/journey_policy.rs",
+      "sha256": "1d73fd41a4bac82f26a1c7973b3df5685a7dd306d0b3b9c04dd8e665d76f089c",
+      "personally_read_ranges": [
+        [
+          1,
+          216
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "PostRestProgress validates completed<=total, no regression, no overshoot, and only permits short rest with explicit interruption; terminal state change deliberately permits zero progress. Native Result<&static str> diagnostics are stable codes but do not yet carry structured specific failure with related observation payload. Preserve terminal clipping policy.",
+        "Alive-to-dead joins by Character ID; terminal elapsed joins matching IDs and uses checked monotonic time before minimum. Missing/empty returns None instead of fabricated zero. Duplicates or mismatched rosters remain representable caller input; real sources create actual identity snapshots, so no current arbitrary duplicate/death claim.",
+        "PublicPostEncounterJourneyState flags/counts independently represent active destination/matching unique journey/actor/unsafe/evacuation/camp relation. Classifier rejects mismatched journey and overlapping camps, holds unavailable actor or unsafe non-evacuation, otherwise respects current camp. Payload-bearing checked public observation should supply this coherent record before receiving policy; no inferred ordinary malformed sender.",
+        "PublicRoutePoint admits canonical latitude/longitude owners once at degree/E7 native boundary. Elevationi16 is native route precision, should retain canonical datum owner internally where fit, no arbitrary precision widening/narrowing. Effective inventory fraction uses existing checked ConsumableFractionMicros; expect relies on public authoritative input, leaves wrong wire fraction rejection policy to actual decoder instead of new neutral adapter."
+      ]
+    },
+    {
+      "scope_index": 1284,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/mod.rs",
+      "sha256": "48d31c75f2d06657271422a7fcd7b492ec6623da3e77a4db2beffaef3cdd9005",
+      "personally_read_ranges": [
+        [
+          1,
+          260
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Module root imports canonical Core/world-schema/native-SDK types and explicit adapters; generated schema type mismatch mappings are legitimate SDK boundary conversions. calendar_minute crosses generated StrategicMinute codec to canonical owner; do not create another minute type. Include/module structure itself is not a semantic primitive or aggregate candidate.",
+        "All LiveRunner implementation units receive the same root-owned state and native connection via super; actual subscription installation is in the only bootstrap caller, confirming no implicit install through module imports. Importing generated table access traits or wildcard schema types does not populate a cache, reinforcing F007.",
+        "Public reexports preserve focused existing error/report/config/coverage owners. Test source concatenation is existing structural fixture evidence, not runtime semantic execution. Complete tests.rs source is a separate scoped path, not credited from include_str or module listing."
+      ]
+    }
+  ],
+  "findings": [
+    "SEGO-INITIAL05-F007 (actual module imports are not subscription installation)"
+  ],
+  "discovery": "Three original roles source-compared with explicit aggregate/context qualifications; lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

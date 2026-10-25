@@ -1,0 +1,110 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-500",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics/movement_speed.rs",
+      "sha256": "2bdf24f3de20d1901bfc475d799d3a07781d9c5e22733caaea0d2365250edd0f",
+      "actual_EOF": 522,
+      "actual_compared_ranges": [
+        [
+          1,
+          522
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/player/attack_timing.rs",
+      "sha256": "b12efd1cc517a4644ee8742fcde084e4fec7ecf93bf35234fd1d7ba0b3ffaf31",
+      "actual_EOF": 41,
+      "actual_compared_ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/player/combat_state.rs",
+      "sha256": "bfc02321b1d2716ffaf92d38902b547713a76a9de7a350ece7f35449e9dddf37",
+      "actual_EOF": 211,
+      "actual_compared_ranges": [
+        [
+          1,
+          211
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/player/input_tick.rs",
+      "sha256": "e9d4d32a4beaa8f4a1631034abbb4cdd7db4e43bccd80935b3eb7e7674d4e27f",
+      "actual_EOF": 33,
+      "actual_compared_ranges": [
+        [
+          1,
+          33
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/regional_environment.rs",
+      "sha256": "99f2deee42dd6e28ccfc6f469eafe5983c1bade295e1bf5f089a798fca1d8422",
+      "actual_EOF": 104,
+      "actual_compared_ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/regional_map.rs",
+      "sha256": "3e21ceb6c449abd106a26ce32d246c70609ea373b36cfedb144252d328dd6d9b",
+      "actual_EOF": 245,
+      "actual_compared_ranges": [
+        [
+          1,
+          245
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/regional_terrain.rs",
+      "sha256": "07827e19ec2ffdae7d67b51850ae950b1d00fb8fe119a5a75329e24fd7e6f852",
+      "actual_EOF": 112,
+      "actual_compared_ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Actual movement cap and shared fatigue projection",
+      "evidence": "Full movement522/attacktiming41/combatstate211 personallyread. Motion speed selectedcap*boundedanaloguemagnitude admittedNonnegativeSpeed; run5.5/guard2 fallback references andactualjog/sprint/injury/burden regimes explicit. No directfatigue-to-speedpenalty; stat/injury/mass effects remainseparate. Effort calculation namedexhaustion feeds onegeneral fatigue policy at owningseam, notnewoxygenpool. TacticalCombatState explicitlytransientserverauthority, charge_workupdatesfatigueandincapacitation delta, forecastpresentationonly. Rawpublicstatecorrelatedfields remain inheritedaggregate/admission concerns; no newinvalidnormalstate witness inferred from rawmutableliteral. Attacktiming completedbounded .08..75/.08..55 admittedelapsed, no NaNownerpublished."
+    },
+    {
+      "contract": "Wrapping player input chronology independent from animation/sample/equipment clocks",
+      "evidence": "Full input_tick33: allu32includingfirst0valid, wrappingnext andforwardhalf-window intentional. Do not apply equipmentinitial1windowtoinput or makeallIDspositive."
+    },
+    {
+      "contract": "Immutable geographic presentation bounds and marker state",
+      "evidence": "Full regionalenvironment104/map245/terrain112: connectionadjacentdedupthen>=2, totalpointcheckedaddition and8192/65536caps; geographicWGS rolesexplicitfor thispresentation boundary, notglobalweatherabstractlattice. Mapspan40..8192000 andzoom.05..20 multiplyf64thenclamp/re-admit, markersuniqueactualplacekind/rank/current/selected constraints. Terrainexact65\u00b2optionalverticesmissingholespreserved, fixedspacing5scales andsignedElevationMeters; no inventedheight/surfaceclaims. Producerobserveradmission knowledge authority remainsoutsidecontainer."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "7 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-core/src/scene.rs"
+}

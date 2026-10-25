@@ -1,0 +1,45 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-587",
+  "at": "2026-10-25T16:07:29.915237+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 933,
+  "source_id": "pr-working:crates/adventuresim-core/src/inventory_measurement.rs",
+  "sha256": "2ffeb2e6b78a2111a09dbe9f788673605eb597afe037e375f8f3c413bafe6011",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "TryFrom<u32>",
+      "type": "ConsumableFractionMicros",
+      "lines": [
+        [
+          104,
+          110
+        ]
+      ],
+      "disposition": "KEEP checked try_new maximum-one lattice and concrete error."
+    },
+    {
+      "trait": "From<ConsumableFractionMicros> for u32",
+      "lines": [
+        [
+          112,
+          116
+        ]
+      ],
+      "disposition": "KEEP small native extraction; no owning Into derive, no dependency added."
+    }
+  ],
+  "analysis": "Fresh inventory_measurement1\u2013220: quantity uses existing NonZeroU32 transparent Serde; fraction and record/error kinds structural traits. Hand TryFrom<u32>104\u2013110 KEEP finite-lattice upper-bound gate/exact MeasurementError; From fraction\u2192u32112\u2013116 KEEP small extraction, no owning Into derive. Native ratio/checked arithmetic/basis validation not raw construction. effective_totals body incomplete.",
+  "first_unfinished": {
+    "scope_index": 933,
+    "line": 221
+  },
+  "execution": "none"
+}

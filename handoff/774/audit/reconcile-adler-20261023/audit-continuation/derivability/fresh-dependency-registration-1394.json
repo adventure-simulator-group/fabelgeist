@@ -1,0 +1,53 @@
+{
+  "id": "SEGOVB-INITIAL10-DEPENDENCIES-1394",
+  "purpose": "Exact selective boxing From derive equivalence and thiserror helper compatibility; bounded source-only support, no macro execution.",
+  "sources": [
+    {
+      "source_id": "registry:thiserror-impl-2.0.20/src/attr.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-impl-2.0.20/src/attr.rs",
+      "sha256": "d3c7fa9e8269973f140e5382f753664ac32bee44c09875f678100b890aea4d06",
+      "actual_EOF": 358,
+      "ranges": [
+        [
+          69,
+          122
+        ]
+      ],
+      "saved_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/derivability/dependency-1394-thiserror-attr.rs",
+      "package_sha256": "bc04cd3e1236dd4a98afca4569f2deb3f120e5422a4023be2cb683f8486292af",
+      "package_member_verified_exact": true,
+      "lock_reference": "Frozen pr-working Cargo.lock thiserror-impl2.0.20 checksum; owning manifest1301 thiserror.workspace=true, derive_more from enabled19."
+    },
+    {
+      "source_id": "registry:thiserror-impl-2.0.20/src/ast.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/thiserror-impl-2.0.20/src/ast.rs",
+      "sha256": "c717fffeb2923b2840d58fd02923a1926a48fa8336039f57a9e94f9275ae7ec6",
+      "actual_EOF": 185,
+      "ranges": [
+        [
+          85,
+          128
+        ]
+      ],
+      "saved_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/derivability/dependency-1394-thiserror-ast.rs",
+      "package_sha256": "bc04cd3e1236dd4a98afca4569f2deb3f120e5422a4023be2cb683f8486292af",
+      "package_member_verified_exact": true,
+      "lock_reference": "Frozen pr-working Cargo.lock thiserror-impl2.0.20 checksum; owning manifest1301 thiserror.workspace=true, derive_more from enabled19."
+    },
+    {
+      "source_id": "installed-rust-src:nightly-2026-07-13/alloc/src/boxed/convert.rs",
+      "path": "/home/brunosegovia/.rustup/toolchains/nightly-2026-07-13-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/boxed/convert.rs",
+      "sha256": "1534b6cd36659f2753a6633dd4bd25d7f9bbccb0ff1d83e3adc5fb52569fb45e",
+      "actual_EOF": 748,
+      "ranges": [
+        [
+          19,
+          36
+        ]
+      ],
+      "saved_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/derivability/dependency-1394-alloc-boxed-convert.rs",
+      "qualification": "Installed standard-library source corroboration only; no frozen project compiler/version execution or third-party repair scope. From<T> for Box<T>33\u201335 delegates exactly Box::new."
+    }
+  ],
+  "execution": "none"
+}

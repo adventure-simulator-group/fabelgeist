@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-575",
+  "at": "2026-10-25T16:05:30.211527+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 928,
+  "source_id": "pr-working:crates/adventuresim-core/src/foraging.rs",
+  "sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Fresh foraging1\u2013220: closed policy/biome/rarity/source enums already structural snake_case Serde; resource record structural. Source ID/name/description/license policy and rarity discovery rates are native classifiers, no handtrait/codec. Authored resource table continues; no additional source coverage.",
+  "first_unfinished": {
+    "scope_index": 928,
+    "line": 221
+  },
+  "execution": "none"
+}

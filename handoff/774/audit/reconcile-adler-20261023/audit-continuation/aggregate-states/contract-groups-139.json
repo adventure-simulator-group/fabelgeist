@@ -1,0 +1,29 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-139",
+  "at": "2026-10-25T18:28:19.807999+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1626,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/terrain.rs",
+      "sha256": "e641530bea571c2b122e60d817a9ae562934f67c7488eae746bc1366af605599",
+      "personally_read_ranges": [
+        [
+          1,
+          1509
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Production detail-patch grid builds position, UV, validity and indices from the same 49x49 cells; dummy native height0 is never authoritative missing support because all four corner-valid bits gate each emitted cell. Output mesh/count/centre/vista revision are replaced together after generation; pending presentation retained on unavailable sources or errors, removed only successful publication.",
+        "Fine/coarse surface morph is explicit radius policy; canonical points and SupportElevation survive into terrain queries before final native mesh floats. Urban ownership skips independent detail publication. Partial-update behavior of volumetric child remains a connected-source dependency, not proven by this facade.",
+        "Private cfg(test) relief helpers derive signed concavity/slope/directional road/boulder/root visual offsets from coherent source observations. Flat-water relief0, fallback flat visual direction and native kernel numeric coefficients are intentional test policies, not persisted measurements or unavailable-height sentinels. Infinite fold identities are bounded nonempty fixture reductions.",
+        "Existing fixtures assert delayed terrain/environment availability, two distinct base/detail materials, stable reconcile handles and missing-material retry, canonical triangle-centroid support and fine/coarse morph, collar cutout, water flatness and positive road crown/negative ruts, directional strata/debris/drainage, deterministic packed ground and grass mask pixels. Read all1509 lines; did not execute fixtures or infer passing rendering/CI."
+      ]
+    }
+  ],
+  "findings": [],
+  "qualified_connected_requirements": [],
+  "discovery": "1 newly accounted original roles; other reads support already counted historical roles. Lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

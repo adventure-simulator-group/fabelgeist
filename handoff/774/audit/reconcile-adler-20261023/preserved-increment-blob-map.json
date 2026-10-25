@@ -1,0 +1,1814 @@
+{
+  "P16": {
+    "commit": "039329518e264f19206cf5b0b98d177433f40c17",
+    "parent": "a120390947c89b703dc74c4255a13c035d054c50",
+    "comparison": "Actual single preserved increment; blob identity only, no semantic implementation/integration/acceptance verdict.",
+    "paths": [
+      {
+        "file": "Cargo.lock",
+        "parent_blob": "2e82d62d2638cd900b066a73f0d91082106c3677",
+        "preserved_blob": "f0068932e5c3980690b241f7c2aff8a7a09686e9",
+        "merged_blob": "2e82d62d2638cd900b066a73f0d91082106c3677",
+        "observed_main_blob": "c9353ee29066992688d70bace4ca4edbb66739c9",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "different-source"
+      },
+      {
+        "file": "crates/adventuresim-core/Cargo.toml",
+        "parent_blob": "836dbedec318207c670e28348522314a63d277dd",
+        "preserved_blob": "6b17fbc219034865c293e0875e158694fd9a0197",
+        "merged_blob": "836dbedec318207c670e28348522314a63d277dd",
+        "observed_main_blob": "836dbedec318207c670e28348522314a63d277dd",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-core/build/combat_resolution.rs",
+        "parent_blob": "142f6775ebd567bbfdf47e5e8142d974ec3eb12d",
+        "preserved_blob": "8ec42c61b00b8eab81ac88036f977a14690f21a2",
+        "merged_blob": "142f6775ebd567bbfdf47e5e8142d974ec3eb12d",
+        "observed_main_blob": "142f6775ebd567bbfdf47e5e8142d974ec3eb12d",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-core/src/autoresolve.rs",
+        "parent_blob": "38e9e93154e06307c59fb5e70ff81a4b90013295",
+        "preserved_blob": "540726ca89331aee179dd731698ce009bda61bd9",
+        "merged_blob": "38e9e93154e06307c59fb5e70ff81a4b90013295",
+        "observed_main_blob": "38e9e93154e06307c59fb5e70ff81a4b90013295",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-core/src/autoresolve/authored_weapon.rs",
+        "parent_blob": "0186d4895b4022c3fcdbda24b64713d2ed79e8ca",
+        "preserved_blob": "193069c97ea0fae799f36d275c20a9011d776b08",
+        "merged_blob": "0186d4895b4022c3fcdbda24b64713d2ed79e8ca",
+        "observed_main_blob": "0186d4895b4022c3fcdbda24b64713d2ed79e8ca",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-core/src/autoresolve/error.rs",
+        "parent_blob": "5c2cd83a285479cd796f8f45ec3b31c9335fdd33",
+        "preserved_blob": "83c0edc9ae58a9ea07bfa106da51ca43b79382ac",
+        "merged_blob": "5c2cd83a285479cd796f8f45ec3b31c9335fdd33",
+        "observed_main_blob": "5c2cd83a285479cd796f8f45ec3b31c9335fdd33",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-core/src/autoresolve/melee_defense.rs",
+        "parent_blob": "7be0b2ef2c085026b7b6a5c77ffb2c17c1417913",
+        "preserved_blob": "4131e2f42daf1bcf26c4b64abc85bd7124062284",
+        "merged_blob": "7be0b2ef2c085026b7b6a5c77ffb2c17c1417913",
+        "observed_main_blob": "7be0b2ef2c085026b7b6a5c77ffb2c17c1417913",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-core/src/autoresolve/melee_exchange.rs",
+        "parent_blob": "bdf745f41dc2c7c2b5ebde572b494a5f64679e60",
+        "preserved_blob": "4f908ba368817858929932539f7eb9b73e831302",
+        "merged_blob": "bdf745f41dc2c7c2b5ebde572b494a5f64679e60",
+        "observed_main_blob": "bdf745f41dc2c7c2b5ebde572b494a5f64679e60",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+        "parent_blob": "795f62b1832f802b658d5bca24477088fdff1b38",
+        "preserved_blob": "142b640164c4860adc700b7958763405e8f57221",
+        "merged_blob": "795f62b1832f802b658d5bca24477088fdff1b38",
+        "observed_main_blob": "795f62b1832f802b658d5bca24477088fdff1b38",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-core/src/autoresolve/melee_iteration/error.rs",
+        "parent_blob": "82ec522b76c36482e3a7bcce672424205ad3ddc4",
+        "preserved_blob": "536919299fab1498e452e79d57aee05c2c9e3a5a",
+        "merged_blob": "82ec522b76c36482e3a7bcce672424205ad3ddc4",
+        "observed_main_blob": "82ec522b76c36482e3a7bcce672424205ad3ddc4",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-core/src/autoresolve/melee_iteration/evidence.rs",
+        "parent_blob": "0b3403e92ae51bcda57d46cb7498be4acce93203",
+        "preserved_blob": "e06208deb234e81e2095b8b44eb33725e9c565ef",
+        "merged_blob": "0b3403e92ae51bcda57d46cb7498be4acce93203",
+        "observed_main_blob": "0b3403e92ae51bcda57d46cb7498be4acce93203",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/timeline.rs",
+        "parent_blob": "a2212eba05966eb358b1de164cea19240ff59dda",
+        "preserved_blob": "0348647ecf6fdfb3983c3c99595245eb1f86322a",
+        "merged_blob": "a2212eba05966eb358b1de164cea19240ff59dda",
+        "observed_main_blob": "a2212eba05966eb358b1de164cea19240ff59dda",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-core/src/autoresolve/melee_movement.rs",
+        "parent_blob": "b7205ccefdbb7ba2027ebd69b226b0512c82cde9",
+        "preserved_blob": "385a13af8e205350a2a022ef53f90e7dff589697",
+        "merged_blob": "b7205ccefdbb7ba2027ebd69b226b0512c82cde9",
+        "observed_main_blob": "b7205ccefdbb7ba2027ebd69b226b0512c82cde9",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+        "parent_blob": "e56d184ac970f87f1aca275be2e1c4863762ef76",
+        "preserved_blob": "76f0226c470c0aa7272a7d62b0406f864792191d",
+        "merged_blob": "e56d184ac970f87f1aca275be2e1c4863762ef76",
+        "observed_main_blob": "e56d184ac970f87f1aca275be2e1c4863762ef76",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-core/src/autoresolve/melee_round/mod.rs",
+        "parent_blob": "2baf681e104881b9b0ddf67f258ffcd96fc478f7",
+        "preserved_blob": "59ef5d94a3c481c50cac00eaed330f5ee95ba2f0",
+        "merged_blob": "2baf681e104881b9b0ddf67f258ffcd96fc478f7",
+        "observed_main_blob": "2baf681e104881b9b0ddf67f258ffcd96fc478f7",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-core/src/autoresolve/melee_round/scheduling.rs",
+        "parent_blob": "a43f1c1962307eb81b1a72e6fa6271766801a17f",
+        "preserved_blob": "6c0ea1a32a7db4902a6acb2441a8d690ec4f7686",
+        "merged_blob": "a43f1c1962307eb81b1a72e6fa6271766801a17f",
+        "observed_main_blob": "a43f1c1962307eb81b1a72e6fa6271766801a17f",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-core/src/autoresolve/model.rs",
+        "parent_blob": "d06567c39d00f2e8319772272807da6c86f48dfa",
+        "preserved_blob": "653826eb92419de91649cb12766f263273103dd1",
+        "merged_blob": "d06567c39d00f2e8319772272807da6c86f48dfa",
+        "observed_main_blob": "d06567c39d00f2e8319772272807da6c86f48dfa",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-core/src/autoresolve/power.rs",
+        "parent_blob": "f4c6df68225fa92dfbf3b8d372aeaa05afbb625e",
+        "preserved_blob": "a5a856e6086ffcb7365e377db046a88632278784",
+        "merged_blob": "f4c6df68225fa92dfbf3b8d372aeaa05afbb625e",
+        "observed_main_blob": "f4c6df68225fa92dfbf3b8d372aeaa05afbb625e",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-core/src/autoresolve/threat.rs",
+        "parent_blob": "bb551123f207bbf86a7cb07a27ff135477606c43",
+        "preserved_blob": "1efc07c746d877e793f352e1e7fb4f6e0dbd0f1b",
+        "merged_blob": "bb551123f207bbf86a7cb07a27ff135477606c43",
+        "observed_main_blob": "bb551123f207bbf86a7cb07a27ff135477606c43",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-core/src/autoresolve/timeline.rs",
+        "parent_blob": "bc75db4a7293851dc731f5d32d48a840f24377a5",
+        "preserved_blob": "5f0c52f479f2be21e35797f1c7c7fb39ac404e7a",
+        "merged_blob": "bc75db4a7293851dc731f5d32d48a840f24377a5",
+        "observed_main_blob": "bc75db4a7293851dc731f5d32d48a840f24377a5",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-core/src/capability.rs",
+        "parent_blob": "a647ad16d41bc56abe565e012b17a5ef918a6d66",
+        "preserved_blob": "201f9c7d905d55514eae386bf8a8c513db836938",
+        "merged_blob": "a647ad16d41bc56abe565e012b17a5ef918a6d66",
+        "observed_main_blob": "a647ad16d41bc56abe565e012b17a5ef918a6d66",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-core/src/combat.rs",
+        "parent_blob": "3ca56e4d56b5b0012e70bc5c506497e8a50fe745",
+        "preserved_blob": "0c172fcca948c6f8ce9510063c0fa36dc2fc1c33",
+        "merged_blob": "3ca56e4d56b5b0012e70bc5c506497e8a50fe745",
+        "observed_main_blob": "3ca56e4d56b5b0012e70bc5c506497e8a50fe745",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-core/src/combat/config.rs",
+        "parent_blob": "cfb9a8f1f3b27115066d0a4ba9aeabc7f6a8e468",
+        "preserved_blob": "9828bfa4b26327cb7b3471328ab77fd4eb9bf1bc",
+        "merged_blob": "cfb9a8f1f3b27115066d0a4ba9aeabc7f6a8e468",
+        "observed_main_blob": "cfb9a8f1f3b27115066d0a4ba9aeabc7f6a8e468",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-core/src/combat/contact_geometry.rs",
+        "parent_blob": "0cc7a809becdfcc5e2ea4af7e6441dc17134f55f",
+        "preserved_blob": "27b99809171b68e76103231aa1197e000431522c",
+        "merged_blob": "0cc7a809becdfcc5e2ea4af7e6441dc17134f55f",
+        "observed_main_blob": "0cc7a809becdfcc5e2ea4af7e6441dc17134f55f",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-core/src/combat/weapon_contact.rs",
+        "parent_blob": "1e624b5584e9726832114aa652d6c4aef96b5ae9",
+        "preserved_blob": "8bd2bb4e458dd6308ee5264776665659184c9b72",
+        "merged_blob": "1e624b5584e9726832114aa652d6c4aef96b5ae9",
+        "observed_main_blob": "1e624b5584e9726832114aa652d6c4aef96b5ae9",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-core/src/combat/weapon_contact/tests.rs",
+        "parent_blob": "d94fd2a47854d564369a5512a2c9b0f8ac3a6297",
+        "preserved_blob": "a02d53ed21f917e15628c2b659b1878e331aa01d",
+        "merged_blob": "d94fd2a47854d564369a5512a2c9b0f8ac3a6297",
+        "observed_main_blob": "d94fd2a47854d564369a5512a2c9b0f8ac3a6297",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-core/src/equipment.rs",
+        "parent_blob": "72e2ee49455fc5f6845a13dfefa1a74531afeb44",
+        "preserved_blob": "8032fdc6a86055839a3c5886abb348151904468c",
+        "merged_blob": "72e2ee49455fc5f6845a13dfefa1a74531afeb44",
+        "observed_main_blob": "72e2ee49455fc5f6845a13dfefa1a74531afeb44",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-core/src/equipment/parametric_weapon.rs",
+        "parent_blob": "d8df32ab0183692f481f29b5520ab9f98480c912",
+        "preserved_blob": "28cb703d7ca73b87315217b5f2f999eb5e226308",
+        "merged_blob": "d8df32ab0183692f481f29b5520ab9f98480c912",
+        "observed_main_blob": "d8df32ab0183692f481f29b5520ab9f98480c912",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-core/src/item_catalog.rs",
+        "parent_blob": "53e59e7caa7c56927daad25b9e5d25fe4a04adea",
+        "preserved_blob": "378f6a27c3edd1e04ac568a1aaa365e5b220f9b4",
+        "merged_blob": "53e59e7caa7c56927daad25b9e5d25fe4a04adea",
+        "observed_main_blob": "53e59e7caa7c56927daad25b9e5d25fe4a04adea",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-core/src/item_catalog_physical_serde.rs",
+        "parent_blob": null,
+        "preserved_blob": "4815d5e9096cd6ef083f0e8efb881d69de919dc5",
+        "merged_blob": null,
+        "observed_main_blob": null,
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-core/src/item_catalog_projection.rs",
+        "parent_blob": null,
+        "preserved_blob": "2ab00ca53d298d26978b22063b78beccb5e8bfcd",
+        "merged_blob": null,
+        "observed_main_blob": null,
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-core/src/item_catalog_schema.rs",
+        "parent_blob": "72fb75a62008aea24198891e8dbf8cd287025030",
+        "preserved_blob": "e9f02b9d05e01e46d04dce8a580715a9d88dc417",
+        "merged_blob": "72fb75a62008aea24198891e8dbf8cd287025030",
+        "observed_main_blob": "b52bdfb043c8018a2c24c8d3355d16aea1748215",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "different-source"
+      },
+      {
+        "file": "crates/adventuresim-core/src/stub.rs",
+        "parent_blob": "516655ad0082b33f87f0192319afb27f83ff0c41",
+        "preserved_blob": "574324308e3a67e5b614ecd9933eb0330a2e058c",
+        "merged_blob": "516655ad0082b33f87f0192319afb27f83ff0c41",
+        "observed_main_blob": "516655ad0082b33f87f0192319afb27f83ff0c41",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/Cargo.toml",
+        "parent_blob": "3ff9deb05f26b494d31ce156e467195acc14108f",
+        "preserved_blob": "052da63d7b8d38d8787760c4a586d42b6c78c1fa",
+        "merged_blob": "3ff9deb05f26b494d31ce156e467195acc14108f",
+        "observed_main_blob": "3ff9deb05f26b494d31ce156e467195acc14108f",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/capability.rs",
+        "parent_blob": "3836a33875b93975f11f6dfdada4c53a768ce0ea",
+        "preserved_blob": "6f012c37e12d6c305767fe329b15971d76fd788b",
+        "merged_blob": "3836a33875b93975f11f6dfdada4c53a768ce0ea",
+        "observed_main_blob": "3836a33875b93975f11f6dfdada4c53a768ce0ea",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/capability/combatant.rs",
+        "parent_blob": "42e662da5494c9cb649b3965eb09f7c1d3188141",
+        "preserved_blob": "272ba57b8d5524475d35da157de02e708c1ba400",
+        "merged_blob": "42e662da5494c9cb649b3965eb09f7c1d3188141",
+        "observed_main_blob": "42e662da5494c9cb649b3965eb09f7c1d3188141",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/capability/equipment_projection.rs",
+        "parent_blob": "b8acf8846028016dd5ff77c2a6dd6a100da593d2",
+        "preserved_blob": "fddbd3f37de499b427c46a81fcb2b80743d1ed97",
+        "merged_blob": "b8acf8846028016dd5ff77c2a6dd6a100da593d2",
+        "observed_main_blob": "b8acf8846028016dd5ff77c2a6dd6a100da593d2",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/capability/mass.rs",
+        "parent_blob": "aa78704d023b241beb26434ade1efa48be43adf5",
+        "preserved_blob": "164e2375d2498306fa157de9ff57ab6547004ebe",
+        "merged_blob": "aa78704d023b241beb26434ade1efa48be43adf5",
+        "observed_main_blob": "aa78704d023b241beb26434ade1efa48be43adf5",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/character.rs",
+        "parent_blob": "6a1cdce3d64ce79dfe8ca017becfbfbb9be8986e",
+        "preserved_blob": "ab794dbf6d3f84207a0d4639dfabd62a1b912187",
+        "merged_blob": "a474a5e60e8697c1de319da5ce470cd4a62a7287",
+        "observed_main_blob": "a474a5e60e8697c1de319da5ce470cd4a62a7287",
+        "merged_relation": "different-source",
+        "observed_main_relation": "different-source"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/character/weapon_carry.rs",
+        "parent_blob": "18c5314016056e29578f79eae7bc4257da13b813",
+        "preserved_blob": "1dc2a4389ac562ed0cc8afa2ddf8145b83e46447",
+        "merged_blob": "04d54841d1bce242528fd1c98ceafedc2560690c",
+        "observed_main_blob": "04d54841d1bce242528fd1c98ceafedc2560690c",
+        "merged_relation": "different-source",
+        "observed_main_relation": "different-source"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/condition.rs",
+        "parent_blob": "bdc470d795940aee28e60528b56120a9e09ba232",
+        "preserved_blob": "6af4ef5579b21a276cacd0910867528ef57dc7a0",
+        "merged_blob": "bdc470d795940aee28e60528b56120a9e09ba232",
+        "observed_main_blob": "bdc470d795940aee28e60528b56120a9e09ba232",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/continuity.rs",
+        "parent_blob": "d162a8f81e1dd48b3e0db8e6f04fc67d75173c0e",
+        "preserved_blob": "740c7b4e8940f727ef6af5dd0c3ba06d365a754b",
+        "merged_blob": "d162a8f81e1dd48b3e0db8e6f04fc67d75173c0e",
+        "observed_main_blob": "d162a8f81e1dd48b3e0db8e6f04fc67d75173c0e",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/corpse.rs",
+        "parent_blob": "35a6f6761eb009760c87bc566bb7b277f5a50e52",
+        "preserved_blob": "df995cbe9fe4f8ccab735b7959c3d816d0dba6d3",
+        "merged_blob": "35a6f6761eb009760c87bc566bb7b277f5a50e52",
+        "observed_main_blob": "35a6f6761eb009760c87bc566bb7b277f5a50e52",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/disease.rs",
+        "parent_blob": "b3f5435464866afdfb3cb48e059be0251a65408d",
+        "preserved_blob": "62e2ad7837c4887b08fffde1c0c0494108eebce2",
+        "merged_blob": "b3f5435464866afdfb3cb48e059be0251a65408d",
+        "observed_main_blob": "b3f5435464866afdfb3cb48e059be0251a65408d",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/equipment_law.rs",
+        "parent_blob": "c49725ae4c2a09c3c554d12ec4e4022477ffe7af",
+        "preserved_blob": "706e494121fb9eb31a5b3f55fffddc5b856f6743",
+        "merged_blob": "c49725ae4c2a09c3c554d12ec4e4022477ffe7af",
+        "observed_main_blob": "c49725ae4c2a09c3c554d12ec4e4022477ffe7af",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/filth.rs",
+        "parent_blob": "bc1c06067719a1dc4616de1737a938f03a4b6bd9",
+        "preserved_blob": "055cb8fc712b2ebe6e15c8da560461ae9e1a44c6",
+        "merged_blob": "bc1c06067719a1dc4616de1737a938f03a4b6bd9",
+        "observed_main_blob": "bc1c06067719a1dc4616de1737a938f03a4b6bd9",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/food/authority_tests.rs",
+        "parent_blob": "f8f2c5ba416fe33d75d2367931374266d8aa4cf0",
+        "preserved_blob": "4f901423b9554a24b4be6f037be2aba97cc301c7",
+        "merged_blob": "f8f2c5ba416fe33d75d2367931374266d8aa4cf0",
+        "observed_main_blob": "f8f2c5ba416fe33d75d2367931374266d8aa4cf0",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/food/consumption.rs",
+        "parent_blob": "28a834828b3966fd7438565f3866c82ed869a5e3",
+        "preserved_blob": "93c4edeb3f9158084b2348387b1b8bd068975027",
+        "merged_blob": "28a834828b3966fd7438565f3866c82ed869a5e3",
+        "observed_main_blob": "28a834828b3966fd7438565f3866c82ed869a5e3",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/food/cooking.rs",
+        "parent_blob": "57ae3a7417e2f462a32d2d12c9cb85bf183e1a7e",
+        "preserved_blob": "ca5f32d71582a964d5c9c32fbc046733efa31ac0",
+        "merged_blob": "57ae3a7417e2f462a32d2d12c9cb85bf183e1a7e",
+        "observed_main_blob": "57ae3a7417e2f462a32d2d12c9cb85bf183e1a7e",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/food/ingredient_preparation.rs",
+        "parent_blob": "f9036dc00887bea10f15efb881899107243cdb36",
+        "preserved_blob": "a74fa1c39dbc1cecc0e8b82bcfc41b07394c03e4",
+        "merged_blob": "f9036dc00887bea10f15efb881899107243cdb36",
+        "observed_main_blob": "f9036dc00887bea10f15efb881899107243cdb36",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/foraging.rs",
+        "parent_blob": "9523f3ecf9fdcc8b065c4fd202f5f9bd9d9864b9",
+        "preserved_blob": "3fe7fbad52bff7d6bfb53647039452e5d65060ec",
+        "merged_blob": "9523f3ecf9fdcc8b065c4fd202f5f9bd9d9864b9",
+        "observed_main_blob": "9523f3ecf9fdcc8b065c4fd202f5f9bd9d9864b9",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/herbalism.rs",
+        "parent_blob": "584f11c46ad2135791485c194f07b835abfce4c8",
+        "preserved_blob": "4586eb144733635686c9310eaafaf57173a2fa3d",
+        "merged_blob": "584f11c46ad2135791485c194f07b835abfce4c8",
+        "observed_main_blob": "584f11c46ad2135791485c194f07b835abfce4c8",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/item.rs",
+        "parent_blob": "409cde4b480882d1e1778f5f5c0c0dcd7d7ed8fa",
+        "preserved_blob": "bff4e92f2742560c227b3f87e8104570ea4402bf",
+        "merged_blob": "409cde4b480882d1e1778f5f5c0c0dcd7d7ed8fa",
+        "observed_main_blob": "409cde4b480882d1e1778f5f5c0c0dcd7d7ed8fa",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/lib.rs",
+        "parent_blob": "50c62bddee2b88c9d07e1a8ef6512648adf772e4",
+        "preserved_blob": "ce45d039494a801025607f267c9c6596db23dad7",
+        "merged_blob": "50c62bddee2b88c9d07e1a8ef6512648adf772e4",
+        "observed_main_blob": "50c62bddee2b88c9d07e1a8ef6512648adf772e4",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/npc_causal.rs",
+        "parent_blob": "81c08813de2786955f13e9f6aba5c9b149721790",
+        "preserved_blob": "0a802fea28dcc32fa90a8cd4cf8154f107f506d2",
+        "merged_blob": "81c08813de2786955f13e9f6aba5c9b149721790",
+        "observed_main_blob": "81c08813de2786955f13e9f6aba5c9b149721790",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/operation_error.rs",
+        "parent_blob": null,
+        "preserved_blob": "316f663818463ed120e0c2d6aca83eb22e91c38b",
+        "merged_blob": null,
+        "observed_main_blob": null,
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/organization.rs",
+        "parent_blob": "bbd4dfb70b690c8bceaa16e27a11f7866fc4034d",
+        "preserved_blob": "7587630764cef141e1bb34b8ca0e6ba6d8514e10",
+        "merged_blob": "bbd4dfb70b690c8bceaa16e27a11f7866fc4034d",
+        "observed_main_blob": "bbd4dfb70b690c8bceaa16e27a11f7866fc4034d",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/outbreak.rs",
+        "parent_blob": "3d5f689b2969ef773068129ba65b69b02a062bc1",
+        "preserved_blob": "9020ceebaf378c81d1e274012bfd3629072cdfd6",
+        "merged_blob": "3d5f689b2969ef773068129ba65b69b02a062bc1",
+        "observed_main_blob": "3d5f689b2969ef773068129ba65b69b02a062bc1",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/relationship/chronology.rs",
+        "parent_blob": "18f0d1bdc2189552642b19d8acae7ef75a025abb",
+        "preserved_blob": "ce1d6d47ab7d4f8ac010f3ea24ee770f19428a36",
+        "merged_blob": "18f0d1bdc2189552642b19d8acae7ef75a025abb",
+        "observed_main_blob": "18f0d1bdc2189552642b19d8acae7ef75a025abb",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/relationship/mod.rs",
+        "parent_blob": "1ab02b767f457679d8cfc0b83355ec4790fe96c8",
+        "preserved_blob": "eed3ebec4c70527af4a72513db192d2d360f6a1b",
+        "merged_blob": "1ab02b767f457679d8cfc0b83355ec4790fe96c8",
+        "observed_main_blob": "1ab02b767f457679d8cfc0b83355ec4790fe96c8",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/relationship/reproduction.rs",
+        "parent_blob": "a88774f8e1b31e4a0820206684471d8154ee9d48",
+        "preserved_blob": "e46ae5070e259de0d49d1e97bb41622129901326",
+        "merged_blob": "a88774f8e1b31e4a0820206684471d8154ee9d48",
+        "observed_main_blob": "a88774f8e1b31e4a0820206684471d8154ee9d48",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/repair.rs",
+        "parent_blob": "b38ce0ebc126d7e780dfbdcd10eae48cd6719969",
+        "preserved_blob": "55fd322a01683c6cf97a673b285e1f4783206dac",
+        "merged_blob": "b38ce0ebc126d7e780dfbdcd10eae48cd6719969",
+        "observed_main_blob": "b38ce0ebc126d7e780dfbdcd10eae48cd6719969",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/residence.rs",
+        "parent_blob": "226209e879e08a5e427736402b7e0edd9f618d3f",
+        "preserved_blob": "a4badba26f0ef7cf13547c182132892950a30206",
+        "merged_blob": "226209e879e08a5e427736402b7e0edd9f618d3f",
+        "observed_main_blob": "226209e879e08a5e427736402b7e0edd9f618d3f",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/settlement_population/resident_persistence.rs",
+        "parent_blob": "fe0deb9c9e94fe0212bcd21b384da8922e57d761",
+        "preserved_blob": "93404ec476859dba93da84da71ec7da957b990a1",
+        "merged_blob": "fe0deb9c9e94fe0212bcd21b384da8922e57d761",
+        "observed_main_blob": "fe0deb9c9e94fe0212bcd21b384da8922e57d761",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/simulation.rs",
+        "parent_blob": "f3ff58f7dc39a872385ba9550a72e7036b3cb83b",
+        "preserved_blob": "4a89c070640425aa708f13b95556cc0f05aeb6ec",
+        "merged_blob": "f3ff58f7dc39a872385ba9550a72e7036b3cb83b",
+        "observed_main_blob": "f3ff58f7dc39a872385ba9550a72e7036b3cb83b",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/simulation/disease_fixture.rs",
+        "parent_blob": "3e9ea4ac768a85221628f9c4ab62d03923003ff0",
+        "preserved_blob": "d72b8ee1bc9fb4688b181d0cad496f9fae9fcab0",
+        "merged_blob": "3e9ea4ac768a85221628f9c4ab62d03923003ff0",
+        "observed_main_blob": "3e9ea4ac768a85221628f9c4ab62d03923003ff0",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/simulation/quest_fixture.rs",
+        "parent_blob": "a1f8231a918f2da706c551abfcb31a48b1fcdd74",
+        "preserved_blob": "09094a66adb68779c7ee4fa0fd33cdf550238700",
+        "merged_blob": "a1f8231a918f2da706c551abfcb31a48b1fcdd74",
+        "observed_main_blob": "a1f8231a918f2da706c551abfcb31a48b1fcdd74",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/smithing.rs",
+        "parent_blob": "8e1caf0ff581f66e34d198f3e2fafbf28cac6662",
+        "preserved_blob": "c39e42f9d07d1a0c313d49254dcc5b64ec1a19e8",
+        "merged_blob": "8e1caf0ff581f66e34d198f3e2fafbf28cac6662",
+        "observed_main_blob": "8e1caf0ff581f66e34d198f3e2fafbf28cac6662",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/social.rs",
+        "parent_blob": "1fe72b59d2f12138fc8062fe6905d67fa9f536b8",
+        "preserved_blob": "006e18d5e66e492d1d085c1241e4e1e47dafab0b",
+        "merged_blob": "1fe72b59d2f12138fc8062fe6905d67fa9f536b8",
+        "observed_main_blob": "1fe72b59d2f12138fc8062fe6905d67fa9f536b8",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/strategic/approved_action.rs",
+        "parent_blob": "a913773bac6d8980357d7786a43bca67edefb430",
+        "preserved_blob": "833094dc582cd5b51df36a66850a6c17bdffa3d5",
+        "merged_blob": "a913773bac6d8980357d7786a43bca67edefb430",
+        "observed_main_blob": "a913773bac6d8980357d7786a43bca67edefb430",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/strategic/battle_combatants.rs",
+        "parent_blob": "82a90be2dd1a5050199ba36597e88dc4493fa022",
+        "preserved_blob": "68fc87ac9d5f9dc1f9fd9fc753d1cd733a4e176d",
+        "merged_blob": "82a90be2dd1a5050199ba36597e88dc4493fa022",
+        "observed_main_blob": "82a90be2dd1a5050199ba36597e88dc4493fa022",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+        "parent_blob": "3de0a089cd58fd01543c11356902225b66b2ad41",
+        "preserved_blob": "1a474d2b9a6a7f1c626dfd49411991ff3bd6ac25",
+        "merged_blob": "3de0a089cd58fd01543c11356902225b66b2ad41",
+        "observed_main_blob": "3de0a089cd58fd01543c11356902225b66b2ad41",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/strategic/combat_error.rs",
+        "parent_blob": "6c1541b3ffab6a3a26941618591f16d82c7caea3",
+        "preserved_blob": null,
+        "merged_blob": "6c1541b3ffab6a3a26941618591f16d82c7caea3",
+        "observed_main_blob": "6c1541b3ffab6a3a26941618591f16d82c7caea3",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/strategic/development_gallery.rs",
+        "parent_blob": "d1d336b75c2c065000266b0c87514cfcf1920d4a",
+        "preserved_blob": "f80a8b9915cb56b59dbf3c0c46b283550f02aa67",
+        "merged_blob": "d1d336b75c2c065000266b0c87514cfcf1920d4a",
+        "observed_main_blob": "d1d336b75c2c065000266b0c87514cfcf1920d4a",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/strategic/dialogue_effects.rs",
+        "parent_blob": "e1fbeb0fd5784cdd7b875fc184d728ba84dc42a9",
+        "preserved_blob": "9f60543269375a780701fa449e0a0418a029cade",
+        "merged_blob": "e1fbeb0fd5784cdd7b875fc184d728ba84dc42a9",
+        "observed_main_blob": "e1fbeb0fd5784cdd7b875fc184d728ba84dc42a9",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs",
+        "parent_blob": "38943030ed5707b3a7840e6488d797b27fffd4b4",
+        "preserved_blob": "0e2acbf63e5ff3e568357dbb56d854e8f135a2e4",
+        "merged_blob": "38943030ed5707b3a7840e6488d797b27fffd4b4",
+        "observed_main_blob": "38943030ed5707b3a7840e6488d797b27fffd4b4",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/strategic/dialogue_sessions.rs",
+        "parent_blob": "92c9735c2c7d49e7eca00061cac622348d5fea17",
+        "preserved_blob": "bb6c8897dc0032ee3942c7167534f2e535900dc8",
+        "merged_blob": "92c9735c2c7d49e7eca00061cac622348d5fea17",
+        "observed_main_blob": "92c9735c2c7d49e7eca00061cac622348d5fea17",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+        "parent_blob": "2c0b4913c81fa6f89510a5b2bf6c62ec693f2add",
+        "preserved_blob": "dec3410944c3a9a04debe3db2982ec5d51bd2038",
+        "merged_blob": "2c0b4913c81fa6f89510a5b2bf6c62ec693f2add",
+        "observed_main_blob": "2c0b4913c81fa6f89510a5b2bf6c62ec693f2add",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/strategic/governance.rs",
+        "parent_blob": "3c66ffd7534b14a2f9dd6ae977b485b5dd951a09",
+        "preserved_blob": "de1abf5b10c5fae6fd1bbc4631e7b0ec78ac00a7",
+        "merged_blob": "3c66ffd7534b14a2f9dd6ae977b485b5dd951a09",
+        "observed_main_blob": "3c66ffd7534b14a2f9dd6ae977b485b5dd951a09",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/strategic/hostile_negotiation.rs",
+        "parent_blob": "6d02bd9eed6c85970d80fd8942b749ed320649be",
+        "preserved_blob": "b6b0a4d91fe97e6b007a7c384ccfb6d755b6eb78",
+        "merged_blob": "6d02bd9eed6c85970d80fd8942b749ed320649be",
+        "observed_main_blob": "6d02bd9eed6c85970d80fd8942b749ed320649be",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/strategic/hostile_surrender.rs",
+        "parent_blob": "4f0b1423fe99c9da19befa58f92099bc7b6d5c12",
+        "preserved_blob": "490951d2f8739e50c8281ce3bdd7a27a6e746c31",
+        "merged_blob": "4f0b1423fe99c9da19befa58f92099bc7b6d5c12",
+        "observed_main_blob": "4f0b1423fe99c9da19befa58f92099bc7b6d5c12",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/strategic/incidents.rs",
+        "parent_blob": "97602f7bf8961bf96a6698dc6c2600d6a9eeb036",
+        "preserved_blob": "e2513c3be4cb1582280b7b0cf6221a42deccd9fe",
+        "merged_blob": "97602f7bf8961bf96a6698dc6c2600d6a9eeb036",
+        "observed_main_blob": "97602f7bf8961bf96a6698dc6c2600d6a9eeb036",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/strategic/inventory_trade.rs",
+        "parent_blob": "56c79313e6fdf736f5f00f2971e8537edc88433d",
+        "preserved_blob": "5858ebf8956f0a96a5654c66122ef074edf5e5a6",
+        "merged_blob": "56c79313e6fdf736f5f00f2971e8537edc88433d",
+        "observed_main_blob": "56c79313e6fdf736f5f00f2971e8537edc88433d",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/strategic/mission_bootstrap.rs",
+        "parent_blob": "f81d693da7d589fb8295931442850ca28946dd94",
+        "preserved_blob": "e01b7d969456611407f3f30d10506a6ed0a4202a",
+        "merged_blob": "f81d693da7d589fb8295931442850ca28946dd94",
+        "observed_main_blob": "f81d693da7d589fb8295931442850ca28946dd94",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/strategic/mission_roster/authority_tests.rs",
+        "parent_blob": "11304153381fda7237d5515b1aa851bd16918e69",
+        "preserved_blob": "99e1848c367d304837ac5a9c8d9708c11520768d",
+        "merged_blob": "11304153381fda7237d5515b1aa851bd16918e69",
+        "observed_main_blob": "11304153381fda7237d5515b1aa851bd16918e69",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/strategic/mod.rs",
+        "parent_blob": "e177d466256fc58322137873341a7fdb6744ac45",
+        "preserved_blob": "6da0cf1d75d6b2ed74adca0481d6975aedd46322",
+        "merged_blob": "e177d466256fc58322137873341a7fdb6744ac45",
+        "observed_main_blob": "e177d466256fc58322137873341a7fdb6744ac45",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/strategic/party_readiness.rs",
+        "parent_blob": "40c6e218895a82ddffe77ad339ebaa1a0575ca88",
+        "preserved_blob": "84dce8101422af2482a79ce87949bbc343502581",
+        "merged_blob": "40c6e218895a82ddffe77ad339ebaa1a0575ca88",
+        "observed_main_blob": "40c6e218895a82ddffe77ad339ebaa1a0575ca88",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/strategic/tests/authority_trade_dialogue.rs",
+        "parent_blob": "0cd470ccfb604d38577aee07a7b75ddd1fda77f9",
+        "preserved_blob": "1a45b203e4165f78b11531dbcb7160da5e5f5363",
+        "merged_blob": "0cd470ccfb604d38577aee07a7b75ddd1fda77f9",
+        "observed_main_blob": "0cd470ccfb604d38577aee07a7b75ddd1fda77f9",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs",
+        "parent_blob": "752847f13a84a9a9a3f561341a2f230636c7e374",
+        "preserved_blob": "8bbb4bad3f146e6a9817d3366e4aed68ca28bb67",
+        "merged_blob": "752847f13a84a9a9a3f561341a2f230636c7e374",
+        "observed_main_blob": "752847f13a84a9a9a3f561341a2f230636c7e374",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/surgery.rs",
+        "parent_blob": "833a18f053639bb556b66cddfb3b9af6fd5c34a6",
+        "preserved_blob": "efb514db26343b7a9d1f9927d212ecb29b9ed610",
+        "merged_blob": "833a18f053639bb556b66cddfb3b9af6fd5c34a6",
+        "observed_main_blob": "833a18f053639bb556b66cddfb3b9af6fd5c34a6",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/surgery/authority_tests.rs",
+        "parent_blob": "08aff7bdc49b08c079be7695337205056ea39d77",
+        "preserved_blob": "760c6415d94a17e845235b15bbbd2d7e957ed2ec",
+        "merged_blob": "08aff7bdc49b08c079be7695337205056ea39d77",
+        "observed_main_blob": "08aff7bdc49b08c079be7695337205056ea39d77",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/time/activities.rs",
+        "parent_blob": "f2fca0af6de52b6f7fe9d145a1791cdd687a1b41",
+        "preserved_blob": "e35b68b17515ec3e08b40fc5e2066b3864d3f9b7",
+        "merged_blob": "f2fca0af6de52b6f7fe9d145a1791cdd687a1b41",
+        "observed_main_blob": "f2fca0af6de52b6f7fe9d145a1791cdd687a1b41",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/time/advancement.rs",
+        "parent_blob": "18d0599882b25ff510b375a5e05c747b2f8125da",
+        "preserved_blob": "80f417487d36b6927993cff69e600c900b5d9fc2",
+        "merged_blob": "18d0599882b25ff510b375a5e05c747b2f8125da",
+        "observed_main_blob": "18d0599882b25ff510b375a5e05c747b2f8125da",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/time/camp_rest.rs",
+        "parent_blob": "2f77dc4548feaff836aa0bd9a7096a98bf8a49db",
+        "preserved_blob": "754ab8086d2d4ab59afe839a4905d2e5bc78ee67",
+        "merged_blob": "2f77dc4548feaff836aa0bd9a7096a98bf8a49db",
+        "observed_main_blob": "2f77dc4548feaff836aa0bd9a7096a98bf8a49db",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/time/clock.rs",
+        "parent_blob": "42c114ce4ad6a791efe54af557c0fb88c909df38",
+        "preserved_blob": "52988a724b35d1c827e7d6dddc31afb0bb7581e3",
+        "merged_blob": "42c114ce4ad6a791efe54af557c0fb88c909df38",
+        "observed_main_blob": "42c114ce4ad6a791efe54af557c0fb88c909df38",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/time/mod.rs",
+        "parent_blob": "8cee806412841490aa876d39510c938ec0cec363",
+        "preserved_blob": "55cf53dcd8705287fb053e96bf1ee528cc556d5f",
+        "merged_blob": "8cee806412841490aa876d39510c938ec0cec363",
+        "observed_main_blob": "8cee806412841490aa876d39510c938ec0cec363",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/time/schedule.rs",
+        "parent_blob": "495977b502b62adaa7a68a5c6ccf4d7aa7689a7d",
+        "preserved_blob": "24b6b7f7b58e59ca0411e9a2ecefe6080a2d3258",
+        "merged_blob": "495977b502b62adaa7a68a5c6ccf4d7aa7689a7d",
+        "observed_main_blob": "495977b502b62adaa7a68a5c6ccf4d7aa7689a7d",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/time/settlement_rest.rs",
+        "parent_blob": "965aec5634dad55bab94097ddccbf54049135848",
+        "preserved_blob": "b9610bfae4842e986de07e8ccb22b367367b8b0e",
+        "merged_blob": "965aec5634dad55bab94097ddccbf54049135848",
+        "observed_main_blob": "965aec5634dad55bab94097ddccbf54049135848",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/time/stationary.rs",
+        "parent_blob": "b4516fd30bc450d22c9fecf52b9b06580d6984c8",
+        "preserved_blob": "684b6113e198cdf6eb3ed4cd87ab52b8875cc913",
+        "merged_blob": "b4516fd30bc450d22c9fecf52b9b06580d6984c8",
+        "observed_main_blob": "b4516fd30bc450d22c9fecf52b9b06580d6984c8",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/weapon_instance.rs",
+        "parent_blob": "5940310a9bf4b0b9cfb4b400f34ec2418f08c99b",
+        "preserved_blob": "6a972c1b6f189432b6a4f469174cf351f6bb64aa",
+        "merged_blob": "5940310a9bf4b0b9cfb4b400f34ec2418f08c99b",
+        "observed_main_blob": "5940310a9bf4b0b9cfb4b400f34ec2418f08c99b",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-stdb-module/src/world_actor.rs",
+        "parent_blob": "5ab4eab5c647aa4a85852ccb5e88038431f535da",
+        "preserved_blob": "fd48c306f4810d9720f2ed7b841a504c646ae084",
+        "merged_blob": "5ab4eab5c647aa4a85852ccb5e88038431f535da",
+        "observed_main_blob": "5ab4eab5c647aa4a85852ccb5e88038431f535da",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-strategic-sim/src/profile.rs",
+        "parent_blob": "94c77ead5e0ec3fd7bfb76a9063ca7dc2125e03e",
+        "preserved_blob": "94bd4e37d6f8e9389c3aa5ff706f1da3f1fa9c20",
+        "merged_blob": "94c77ead5e0ec3fd7bfb76a9063ca7dc2125e03e",
+        "observed_main_blob": "94c77ead5e0ec3fd7bfb76a9063ca7dc2125e03e",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/animation_viewer/harness.rs",
+        "parent_blob": "6e8115fbdf1274250f5e7490c00f994145b1ff06",
+        "preserved_blob": "7c088601dd8d41db116537d0d94b1a73352df8a8",
+        "merged_blob": "6e8115fbdf1274250f5e7490c00f994145b1ff06",
+        "observed_main_blob": "a87b397fb6a6288c2c24a39e5af93e140fb0aab6",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "different-source"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/animation_viewer/scenarios/quickstep.rs",
+        "parent_blob": "d6f9923ee1e1d70c9a255eb3b1f133c6c2b9868e",
+        "preserved_blob": "e598a00b922db9e49a7a939b0dcaa2a0ea6ec420",
+        "merged_blob": "d6f9923ee1e1d70c9a255eb3b1f133c6c2b9868e",
+        "observed_main_blob": "d6f9923ee1e1d70c9a255eb3b1f133c6c2b9868e",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/debug.rs",
+        "parent_blob": "a0d0e2ada99079a51957d5d266a21647333b6e1d",
+        "preserved_blob": "f4d6aef21eeb4358ac46de4d1b864ee951dbb075",
+        "merged_blob": "f2b8bef601aa33f1619016d7e9ca9ccffb9fe7b0",
+        "observed_main_blob": "f2b8bef601aa33f1619016d7e9ca9ccffb9fe7b0",
+        "merged_relation": "different-source",
+        "observed_main_relation": "different-source"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/equipment.rs",
+        "parent_blob": "7bee9630a5fc779556f547f7f893e1163f521373",
+        "preserved_blob": "a92e31265d8bdffabcbcfd8cf0a61445a5dc4aac",
+        "merged_blob": "62e7978bb4eb6b53f11544eecde25456b0fb0b0a",
+        "observed_main_blob": "62e7978bb4eb6b53f11544eecde25456b0fb0b0a",
+        "merged_relation": "different-source",
+        "observed_main_relation": "different-source"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/equipment/grab_world.rs",
+        "parent_blob": "a8e6e871c57706d0e92171cdea772e8878dbd5e6",
+        "preserved_blob": "2efece70acecdd3138139c57363c15605249aa2e",
+        "merged_blob": "71676c485cd891b9737d683030e346776d157060",
+        "observed_main_blob": "71676c485cd891b9737d683030e346776d157060",
+        "merged_relation": "different-source",
+        "observed_main_relation": "different-source"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/equipment/placeholder_visual.rs",
+        "parent_blob": "83cd7a1eaf19697ab769dbe720164cffe2610c22",
+        "preserved_blob": "8cada81c78a33e42cc7a0f5f281f3541364e2372",
+        "merged_blob": "83cd7a1eaf19697ab769dbe720164cffe2610c22",
+        "observed_main_blob": "83cd7a1eaf19697ab769dbe720164cffe2610c22",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/generation_tests.rs",
+        "parent_blob": "afadc22a2d304740e1f961078a03ade0b6266844",
+        "preserved_blob": "e47984ba9414ab81aa3d8d58644d4b97afcc5910",
+        "merged_blob": "df99d4fd465f776308aced1eeb543bea16f18fb6",
+        "observed_main_blob": "df99d4fd465f776308aced1eeb543bea16f18fb6",
+        "merged_relation": "different-source",
+        "observed_main_relation": "different-source"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/equipment/visuals.rs",
+        "parent_blob": "f560535b49d2c05d01c0baa9ffc89f48de03aea5",
+        "preserved_blob": "d0d80107d95c0bd42c5f420e1197dfcfeac7b1d9",
+        "merged_blob": "f560535b49d2c05d01c0baa9ffc89f48de03aea5",
+        "observed_main_blob": "f560535b49d2c05d01c0baa9ffc89f48de03aea5",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/player.rs",
+        "parent_blob": "ad8ef59e860df91568bb704b4e061e843dcb2447",
+        "preserved_blob": "7f9258b6a6997cae5d6158f95e3fa5c68f7a7b8b",
+        "merged_blob": "ad8ef59e860df91568bb704b4e061e843dcb2447",
+        "observed_main_blob": "ad8ef59e860df91568bb704b4e061e843dcb2447",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/player/acquisition.rs",
+        "parent_blob": null,
+        "preserved_blob": "c887a6cbe29d21e1e1a642361004ad9fbc097e46",
+        "merged_blob": null,
+        "observed_main_blob": null,
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/player/action_clock.rs",
+        "parent_blob": "620f82dc615a29f62ac98adc446b064f17984a53",
+        "preserved_blob": "7568ba98207332662b0064e2a641a612a45c6c4d",
+        "merged_blob": "620f82dc615a29f62ac98adc446b064f17984a53",
+        "observed_main_blob": "620f82dc615a29f62ac98adc446b064f17984a53",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/player/attack_start.rs",
+        "parent_blob": "5c8385e48c5add1fd6609c3ae0a8cebff24a0629",
+        "preserved_blob": "cea9d451d3c345758fb062eed6ca04d28ab5e0df",
+        "merged_blob": "5c8385e48c5add1fd6609c3ae0a8cebff24a0629",
+        "observed_main_blob": "5c8385e48c5add1fd6609c3ae0a8cebff24a0629",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/player/contact.rs",
+        "parent_blob": null,
+        "preserved_blob": "beddd90b33ef570ae48c355b1c0b020cbbf36c35",
+        "merged_blob": null,
+        "observed_main_blob": null,
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/strategic_scene/equipment.rs",
+        "parent_blob": "bbbc1bbaac5f85ec65ae3273134213cac11a869f",
+        "preserved_blob": "dc413fdada5f17ad77b687a011631431198f0dc5",
+        "merged_blob": "bbbc1bbaac5f85ec65ae3273134213cac11a869f",
+        "observed_main_blob": "bbbc1bbaac5f85ec65ae3273134213cac11a869f",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/targeting.rs",
+        "parent_blob": "349fbe592054b78d1a0c6b9135920cdeb0c293c1",
+        "preserved_blob": "c5c24677ff67599dc770a3455162cf8e46334b1b",
+        "merged_blob": "349fbe592054b78d1a0c6b9135920cdeb0c293c1",
+        "observed_main_blob": "349fbe592054b78d1a0c6b9135920cdeb0c293c1",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-core/src/combat.rs",
+        "parent_blob": "fff1a179c88fd24bff6e279d2dedefd0b4a1a140",
+        "preserved_blob": "f7923bc0ea7e9887960dbd43dadc93d0e9084e90",
+        "merged_blob": "fff1a179c88fd24bff6e279d2dedefd0b4a1a140",
+        "observed_main_blob": "fff1a179c88fd24bff6e279d2dedefd0b4a1a140",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-core/src/combat_config.rs",
+        "parent_blob": "5b8b9c62f2ec11c260d25f7cbbb2b3dcf52cf344",
+        "preserved_blob": "2eb787dfdb36f58875d0db691f4e1044636d9238",
+        "merged_blob": "5b8b9c62f2ec11c260d25f7cbbb2b3dcf52cf344",
+        "observed_main_blob": "5b8b9c62f2ec11c260d25f7cbbb2b3dcf52cf344",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-core/src/combat_config/ai_offense.rs",
+        "parent_blob": "fa87f04653f0c38606b14d12102d74df2a770f17",
+        "preserved_blob": "8c992695281b65a70d310f949f3f924a8b838bcd",
+        "merged_blob": "fa87f04653f0c38606b14d12102d74df2a770f17",
+        "observed_main_blob": "fa87f04653f0c38606b14d12102d74df2a770f17",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-core/src/inventory.rs",
+        "parent_blob": "7341ae9c17e516bb9b9a51f167969cbe17e4c780",
+        "preserved_blob": "d2117932aafdb7cdab3e8ca58e213bc1803add76",
+        "merged_blob": "7ce298607e56c251a5841035d17b1601292ad542",
+        "observed_main_blob": "7ce298607e56c251a5841035d17b1601292ad542",
+        "merged_relation": "different-source",
+        "observed_main_relation": "different-source"
+      },
+      {
+        "file": "crates/adventuresim-tactical-core/src/lib.rs",
+        "parent_blob": "fe0f0d60ec2676841a1cf9315271d5ce8fdcfeec",
+        "preserved_blob": "0cf1b6fda85460657480730db3ec56d7fc6eb5df",
+        "merged_blob": "3834677dae7efa2917cff646da08aac3fa9d3c6f",
+        "observed_main_blob": "3834677dae7efa2917cff646da08aac3fa9d3c6f",
+        "merged_relation": "different-source",
+        "observed_main_relation": "different-source"
+      },
+      {
+        "file": "crates/adventuresim-tactical-core/src/physics.rs",
+        "parent_blob": "e5b226a281ab8a70a73b4fa8c4ec836382d5de0c",
+        "preserved_blob": "85f213b5ca4a4c462aafa658370c0d937d439bf7",
+        "merged_blob": "e5b226a281ab8a70a73b4fa8c4ec836382d5de0c",
+        "observed_main_blob": "e5b226a281ab8a70a73b4fa8c4ec836382d5de0c",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-core/src/physics/quickstep.rs",
+        "parent_blob": "a30be241781b55fbf063e7cc55f8ef812e9f090a",
+        "preserved_blob": "e6cc643fa83795ff676599f5d514197b94b618e2",
+        "merged_blob": "a30be241781b55fbf063e7cc55f8ef812e9f090a",
+        "observed_main_blob": "a30be241781b55fbf063e7cc55f8ef812e9f090a",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-core/src/player.rs",
+        "parent_blob": "9d9a7fe4d0da49a45fcc5127992f0c91fdd92c2b",
+        "preserved_blob": "69e1dd0168807d9a01370cbd722e5c2dbc4763ad",
+        "merged_blob": "9d9a7fe4d0da49a45fcc5127992f0c91fdd92c2b",
+        "observed_main_blob": "9d9a7fe4d0da49a45fcc5127992f0c91fdd92c2b",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/audit.rs",
+        "parent_blob": "6e370878ec4cf4f9d6d6e8d19c6a5357bf19ccb1",
+        "preserved_blob": "1b76f20f9e4b76423092d70b303246e1966f484a",
+        "merged_blob": "9eec452ba5c56682bc04f970710da87d3685369f",
+        "observed_main_blob": "9eec452ba5c56682bc04f970710da87d3685369f",
+        "merged_relation": "different-source",
+        "observed_main_relation": "different-source"
+      },
+      {
+        "file": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal.rs",
+        "parent_blob": "faa63d049b24aa36c98961fee362e3115c8851b1",
+        "preserved_blob": "a7e476307a4618522753b6b7551a88a8d43c2c3d",
+        "merged_blob": "b00a47da22140ab08c51db137b5c8f6b6685bd78",
+        "observed_main_blob": "b00a47da22140ab08c51db137b5c8f6b6685bd78",
+        "merged_relation": "different-source",
+        "observed_main_relation": "different-source"
+      },
+      {
+        "file": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal/autoresolve.rs",
+        "parent_blob": "6e3ed5b6a09e6fb4da7c4dfb20fa6004a78423f7",
+        "preserved_blob": "ecf00a8aaad9f3dbf412000038872496d4f4e7e2",
+        "merged_blob": "65adec66ac9e1dbead7eafb2b0e223d4b8cf2c1e",
+        "observed_main_blob": "65adec66ac9e1dbead7eafb2b0e223d4b8cf2c1e",
+        "merged_relation": "different-source",
+        "observed_main_relation": "different-source"
+      },
+      {
+        "file": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/error.rs",
+        "parent_blob": "23aaede7ed3d135e070201975e4f0fd7b8eac03c",
+        "preserved_blob": "86fc1467214b9c7574eddf95f258087982f69649",
+        "merged_blob": "23aaede7ed3d135e070201975e4f0fd7b8eac03c",
+        "observed_main_blob": "23aaede7ed3d135e070201975e4f0fd7b8eac03c",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/measurement.rs",
+        "parent_blob": "c4697c50ea34a1b6cb4963caef4c5e6f8c889aa1",
+        "preserved_blob": "9718707c243b1ae2177f8810376f5bd2145e18b4",
+        "merged_blob": "f21dbb79b694bdeda71991f8f21eda49468a4305",
+        "observed_main_blob": "f21dbb79b694bdeda71991f8f21eda49468a4305",
+        "merged_relation": "different-source",
+        "observed_main_relation": "different-source"
+      },
+      {
+        "file": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs",
+        "parent_blob": "e3b651dd8e7492ae1c08b4f7627390c92e4cae87",
+        "preserved_blob": "e5e00cc224df773c9dcbe093d3b947894423e8d7",
+        "merged_blob": "3ae8fbdd5ecafda9a65f16af0a4bf888147449e4",
+        "observed_main_blob": "3ae8fbdd5ecafda9a65f16af0a4bf888147449e4",
+        "merged_relation": "different-source",
+        "observed_main_relation": "different-source"
+      },
+      {
+        "file": "crates/adventuresim-tactical-server/src/bot.rs",
+        "parent_blob": "578d143c62f51c6c96109758fecde7444e8aa28d",
+        "preserved_blob": "d3f3141a5f39b2f0ff899eedfbcbd5c5739dcc9b",
+        "merged_blob": "578d143c62f51c6c96109758fecde7444e8aa28d",
+        "observed_main_blob": "578d143c62f51c6c96109758fecde7444e8aa28d",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-server/src/bot/offense.rs",
+        "parent_blob": "020869f4865354051a5aee4af071d11513905e92",
+        "preserved_blob": "2051203f9879c2db3992ef8bfea51161832e6dce",
+        "merged_blob": "020869f4865354051a5aee4af071d11513905e92",
+        "observed_main_blob": "020869f4865354051a5aee4af071d11513905e92",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-server/src/bot/offense/facts.rs",
+        "parent_blob": "9babaeb87f67ff4538f37b6db819ccd150a8ea17",
+        "preserved_blob": "b60b62a25aaaf528dcdda474bf411056f076552c",
+        "merged_blob": "9babaeb87f67ff4538f37b6db819ccd150a8ea17",
+        "observed_main_blob": "9babaeb87f67ff4538f37b6db819ccd150a8ea17",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-server/src/bot/offense/phase.rs",
+        "parent_blob": "3ae9504947618fa2d8baec5b03da02f2d04ddb05",
+        "preserved_blob": "baf22d0c50578de531a0b185412dd056797536d4",
+        "merged_blob": "3ae9504947618fa2d8baec5b03da02f2d04ddb05",
+        "observed_main_blob": "3ae9504947618fa2d8baec5b03da02f2d04ddb05",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-server/src/bot/offense/ranged.rs",
+        "parent_blob": "44f0357c8b9f507b16f398baf5ae612bcf65374d",
+        "preserved_blob": "fc7e8d26b1e1fcf8e0c084593d30a23aef360efe",
+        "merged_blob": "44f0357c8b9f507b16f398baf5ae612bcf65374d",
+        "observed_main_blob": "44f0357c8b9f507b16f398baf5ae612bcf65374d",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-server/src/bot/offense/tactics.rs",
+        "parent_blob": "46ea30d63dfa4b32789e10f53f52c112ced67c51",
+        "preserved_blob": "84ea23cedc83e0853d5978eeb3f3b032c9ca2e77",
+        "merged_blob": "46ea30d63dfa4b32789e10f53f52c112ced67c51",
+        "observed_main_blob": "46ea30d63dfa4b32789e10f53f52c112ced67c51",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-server/src/combat.rs",
+        "parent_blob": "db736322a183dd20ff67d70a96242eb9d28bd126",
+        "preserved_blob": "f05db255f7d1c29ee2f9a8870473d623dac845e4",
+        "merged_blob": "db736322a183dd20ff67d70a96242eb9d28bd126",
+        "observed_main_blob": "db736322a183dd20ff67d70a96242eb9d28bd126",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-server/src/combat/authority.rs",
+        "parent_blob": "4c120856814dddd0e362ba0c5c3d1447b8878f7c",
+        "preserved_blob": "08d97232deb8de938a4fa4bc12e33e777397aecc",
+        "merged_blob": "4c120856814dddd0e362ba0c5c3d1447b8878f7c",
+        "observed_main_blob": "4c120856814dddd0e362ba0c5c3d1447b8878f7c",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-server/src/combat/contact.rs",
+        "parent_blob": "27f13ee2e22b8f1cde2d4fe384907aef7e708752",
+        "preserved_blob": "ab25761ff6df25738f1eb40f0c105a7745ba3006",
+        "merged_blob": "27f13ee2e22b8f1cde2d4fe384907aef7e708752",
+        "observed_main_blob": "27f13ee2e22b8f1cde2d4fe384907aef7e708752",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-server/src/combat/ingress.rs",
+        "parent_blob": "89fec648992f7d805e4ebc7797a3447b336fc9c5",
+        "preserved_blob": "e49a7e70d929be61b58627b492b145423318718a",
+        "merged_blob": "89fec648992f7d805e4ebc7797a3447b336fc9c5",
+        "observed_main_blob": "89fec648992f7d805e4ebc7797a3447b336fc9c5",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-server/src/combat/ingress/attack_start.rs",
+        "parent_blob": "9b27d1e66f8b25e30a0a1d74ca1507c701632868",
+        "preserved_blob": "f2f74522988128fd1c8fbc457700e6e4a451e32e",
+        "merged_blob": "9b27d1e66f8b25e30a0a1d74ca1507c701632868",
+        "observed_main_blob": "9b27d1e66f8b25e30a0a1d74ca1507c701632868",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-server/src/combat/ingress/lunge.rs",
+        "parent_blob": "11f421d7e66d1003923972430fa8cd4f1280cb72",
+        "preserved_blob": "2ec7d4bb8cef55d95aea7078344d7057c3f24bf2",
+        "merged_blob": "11f421d7e66d1003923972430fa8cd4f1280cb72",
+        "observed_main_blob": "11f421d7e66d1003923972430fa8cd4f1280cb72",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-server/src/combat/melee.rs",
+        "parent_blob": "d0eb217d6cf8558fc2040438f8632dec03a3bb19",
+        "preserved_blob": "e583a26db462cd66a99ae4cf603d7006032f40ad",
+        "merged_blob": "d0eb217d6cf8558fc2040438f8632dec03a3bb19",
+        "observed_main_blob": "d0eb217d6cf8558fc2040438f8632dec03a3bb19",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-server/src/combat/melee/geometry.rs",
+        "parent_blob": null,
+        "preserved_blob": "88163a261e3730d1ad716af4cda24334f4d7ede2",
+        "merged_blob": null,
+        "observed_main_blob": null,
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-server/src/combat/ranged.rs",
+        "parent_blob": "505e63ed13cb8b9f929648d1e373b3e42803cf99",
+        "preserved_blob": "2925c784cb9895def3156453b4dd4248fe915aa8",
+        "merged_blob": "505e63ed13cb8b9f929648d1e373b3e42803cf99",
+        "observed_main_blob": "505e63ed13cb8b9f929648d1e373b3e42803cf99",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-server/src/combat/ranged/outcome.rs",
+        "parent_blob": "96ef1037e3b5a6f235888ea71e9ca15dff32a6db",
+        "preserved_blob": "68b8593dac2b6d0ee1a2bf951caeb29f201cd32b",
+        "merged_blob": "96ef1037e3b5a6f235888ea71e9ca15dff32a6db",
+        "observed_main_blob": "96ef1037e3b5a6f235888ea71e9ca15dff32a6db",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-server/src/equipment.rs",
+        "parent_blob": "78b083496f4f87c4c5bc0c1864f8774d4f909af0",
+        "preserved_blob": "8be8c4cb5d8db236573d47e717cc9309e2f839cf",
+        "merged_blob": "572b8fbbc7128b2450769629c320ad2ae9bea463",
+        "observed_main_blob": "572b8fbbc7128b2450769629c320ad2ae9bea463",
+        "merged_relation": "different-source",
+        "observed_main_relation": "different-source"
+      },
+      {
+        "file": "crates/adventuresim-tactical-server/src/iteration.rs",
+        "parent_blob": "56c81652948fea6d92a1765df9cc40939d5797a5",
+        "preserved_blob": "8bb9be91ec491eb1bdc63917bafd4cc78db81b21",
+        "merged_blob": "56c81652948fea6d92a1765df9cc40939d5797a5",
+        "observed_main_blob": "56c81652948fea6d92a1765df9cc40939d5797a5",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-server/src/iteration/equipment.rs",
+        "parent_blob": "6b0d326ea39e5ed1fce99e7e9740433ab99e5a17",
+        "preserved_blob": "4e2276966636731076c463a5768f30da7da69d09",
+        "merged_blob": "6b0d326ea39e5ed1fce99e7e9740433ab99e5a17",
+        "observed_main_blob": "6b0d326ea39e5ed1fce99e7e9740433ab99e5a17",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-server/src/iteration/logging.rs",
+        "parent_blob": "0d6be6ec2693ce2faa3a551dc1c5a69f409779d0",
+        "preserved_blob": "eea4f1650677f5ac333c245dbae4e4c07b123ee0",
+        "merged_blob": "0d6be6ec2693ce2faa3a551dc1c5a69f409779d0",
+        "observed_main_blob": "0d6be6ec2693ce2faa3a551dc1c5a69f409779d0",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-server/src/iteration/logging/resolution.rs",
+        "parent_blob": "34600de8b903bc261aef21df17939fc900c23c03",
+        "preserved_blob": "aad353034a43fde993eff0cdc9dd27723657770e",
+        "merged_blob": "34600de8b903bc261aef21df17939fc900c23c03",
+        "observed_main_blob": "34600de8b903bc261aef21df17939fc900c23c03",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-server/src/main.rs",
+        "parent_blob": "23d8c064b65c7242f7226fef57a6303aa3556413",
+        "preserved_blob": "e0f2d5f9a7222b3e110f90200850e1c99c0ada1b",
+        "merged_blob": "23d8c064b65c7242f7226fef57a6303aa3556413",
+        "observed_main_blob": "23d8c064b65c7242f7226fef57a6303aa3556413",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-server/src/player_projection.rs",
+        "parent_blob": "5bd51b919223279623bc728d4356e092e27c0448",
+        "preserved_blob": "89a7840c4e9e40b8743e9289149f1706758fdaaf",
+        "merged_blob": "5bd51b919223279623bc728d4356e092e27c0448",
+        "observed_main_blob": "5bd51b919223279623bc728d4356e092e27c0448",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-server/src/player_projection/item_geometry.rs",
+        "parent_blob": null,
+        "preserved_blob": "a42878ee445c1ca725d4760479dde0b58326a750",
+        "merged_blob": null,
+        "observed_main_blob": null,
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-server/src/player_projection/projection_equipment.rs",
+        "parent_blob": "0418cbc7c2c6f3a8f05c8a02683a25cff956803c",
+        "preserved_blob": "480182b3a69956754ad98a208947cf723b63d1ac",
+        "merged_blob": "0418cbc7c2c6f3a8f05c8a02683a25cff956803c",
+        "observed_main_blob": "0418cbc7c2c6f3a8f05c8a02683a25cff956803c",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-server/src/player_projection/spawn_admission.rs",
+        "parent_blob": "e41ded70709805c037dc14f912a4e36695d3a595",
+        "preserved_blob": "a14d8437c5038baed1d57f9cb6d174a7cf435e1c",
+        "merged_blob": "e41ded70709805c037dc14f912a4e36695d3a595",
+        "observed_main_blob": "e41ded70709805c037dc14f912a4e36695d3a595",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-server/src/scene_spawn.rs",
+        "parent_blob": "10d61430c4fedd31872c110c1d0646e27c40b841",
+        "preserved_blob": "f1b27bba7367c8bf9832fe62ec1447d96dce7f79",
+        "merged_blob": "10d61430c4fedd31872c110c1d0646e27c40b841",
+        "observed_main_blob": "10d61430c4fedd31872c110c1d0646e27c40b841",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/fabelgeist-geometry/src/measurement.rs",
+        "parent_blob": "800457fbace1d51d5e975e79f3f30fce6aa45f2e",
+        "preserved_blob": "c6430750b465591a26a14f8d4299fdf20e030e8f",
+        "merged_blob": "1ca89018e525af6b5643767d87d80297ea0bb3b6",
+        "observed_main_blob": "1ca89018e525af6b5643767d87d80297ea0bb3b6",
+        "merged_relation": "different-source",
+        "observed_main_relation": "different-source"
+      }
+    ]
+  },
+  "P17": {
+    "commit": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+    "parent": "18360adba0fb43add88c75dfbd2f45d7e71d8ace",
+    "comparison": "Actual single preserved increment; blob identity only, no semantic implementation/integration/acceptance verdict.",
+    "paths": [
+      {
+        "file": "crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+        "parent_blob": "50e1c31321297a19b2c3b240c4a540bfbd0c7153",
+        "preserved_blob": "dde7180ab198a33527d6b5c740e60f98df857cdd",
+        "merged_blob": "50e1c31321297a19b2c3b240c4a540bfbd0c7153",
+        "observed_main_blob": "50e1c31321297a19b2c3b240c4a540bfbd0c7153",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/animation/bouncy_bones.rs",
+        "parent_blob": "9107cba3a3d24cb85558aa3c11067df21b1c7ac2",
+        "preserved_blob": "eba1766db46b56a154a6f579d1cdae534d8fa026",
+        "merged_blob": "9107cba3a3d24cb85558aa3c11067df21b1c7ac2",
+        "observed_main_blob": "9107cba3a3d24cb85558aa3c11067df21b1c7ac2",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+        "parent_blob": "8bdd33b05699f49ceb18ff2aa5c6adb8678f778e",
+        "preserved_blob": "5f10475db9f39f7a892d9831b4e13593b7367e6b",
+        "merged_blob": "8bdd33b05699f49ceb18ff2aa5c6adb8678f778e",
+        "observed_main_blob": "8bdd33b05699f49ceb18ff2aa5c6adb8678f778e",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs",
+        "parent_blob": "f5441b61e85ae828d429e8cc3ab4dfa961dfaf5c",
+        "preserved_blob": "e7e184a1a2212572d811fd3fdeee5da99bb0328f",
+        "merged_blob": "f5441b61e85ae828d429e8cc3ab4dfa961dfaf5c",
+        "observed_main_blob": "f5441b61e85ae828d429e8cc3ab4dfa961dfaf5c",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/animation_viewer/capture/global_bones.rs",
+        "parent_blob": "8ad94ae223b371f7988bd6fadc583f9eab4819c5",
+        "preserved_blob": "bcc4726130c3cb2b39453116687048745deb9152",
+        "merged_blob": "8ad94ae223b371f7988bd6fadc583f9eab4819c5",
+        "observed_main_blob": "8ad94ae223b371f7988bd6fadc583f9eab4819c5",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+        "parent_blob": "e2b590c68fed0574cdb31aba96c00972513575cd",
+        "preserved_blob": "eb76b2912977d52ef400cca81acf5d4877206576",
+        "merged_blob": "e2b590c68fed0574cdb31aba96c00972513575cd",
+        "observed_main_blob": "e2b590c68fed0574cdb31aba96c00972513575cd",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+        "parent_blob": "76e3742eed3bc4f72287a13ccc2d79391d8c2a94",
+        "preserved_blob": "47326b56ca209c61b357a3e2c9aef707ab9fbf36",
+        "merged_blob": "76e3742eed3bc4f72287a13ccc2d79391d8c2a94",
+        "observed_main_blob": "76e3742eed3bc4f72287a13ccc2d79391d8c2a94",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/animation_viewer/capture/sample.rs",
+        "parent_blob": null,
+        "preserved_blob": "e379fc3b3731d71ebe9d7bf938539962d3497c36",
+        "merged_blob": null,
+        "observed_main_blob": null,
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/animation_viewer/mod.rs",
+        "parent_blob": "a3488f26f42625e1f5eb465f3042d561b6d9f0b1",
+        "preserved_blob": "e264674118d6a300b05963132ffef1195a579727",
+        "merged_blob": "a3488f26f42625e1f5eb465f3042d561b6d9f0b1",
+        "observed_main_blob": "a3488f26f42625e1f5eb465f3042d561b6d9f0b1",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/acceptance_limits.rs",
+        "parent_blob": "298af9648be8903bf3e2d57554d0caca4376c583",
+        "preserved_blob": "d6a6bbe20ab85e4cd915385e12454f027e3e14dc",
+        "merged_blob": "298af9648be8903bf3e2d57554d0caca4376c583",
+        "observed_main_blob": "298af9648be8903bf3e2d57554d0caca4376c583",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/biomechanics_validation.rs",
+        "parent_blob": null,
+        "preserved_blob": "e2be0d8297db7ba68a57a5fce617b7153bdbfaf4",
+        "merged_blob": null,
+        "observed_main_blob": null,
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/body_response_validation.rs",
+        "parent_blob": "c84ff5c18d0b5e0559285f78822f34dfe5be1060",
+        "preserved_blob": "c742e20564ccfa820379f757547f87026dd4db6f",
+        "merged_blob": "c84ff5c18d0b5e0559285f78822f34dfe5be1060",
+        "observed_main_blob": "c84ff5c18d0b5e0559285f78822f34dfe5be1060",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/continuity_validation.rs",
+        "parent_blob": null,
+        "preserved_blob": "1c6e34334e0fac6023c06b4b27fb7c1be49ec24f",
+        "merged_blob": null,
+        "observed_main_blob": null,
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/height_validation.rs",
+        "parent_blob": null,
+        "preserved_blob": "2f46d65446f7aaf0dc311fbb8f0e03213798d2f8",
+        "merged_blob": null,
+        "observed_main_blob": null,
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/html.rs",
+        "parent_blob": "f8bf9081d52e4821df3ecc68cc8bfbcb17340939",
+        "preserved_blob": "33c271f132a3416f1113f981bd33ab7a7d7f6502",
+        "merged_blob": "f8bf9081d52e4821df3ecc68cc8bfbcb17340939",
+        "observed_main_blob": "f8bf9081d52e4821df3ecc68cc8bfbcb17340939",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/landing_validation.rs",
+        "parent_blob": null,
+        "preserved_blob": "b4fba27afce6337c2591492b12b78b3de72e86f3",
+        "merged_blob": null,
+        "observed_main_blob": null,
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+        "parent_blob": "b7f556d2ad2e5461e428a24423d6947b1e9726a9",
+        "preserved_blob": "9f42b0b61c1ab65bddc5b3a9876afdb1b58779c7",
+        "merged_blob": "b7f556d2ad2e5461e428a24423d6947b1e9726a9",
+        "observed_main_blob": "b7f556d2ad2e5461e428a24423d6947b1e9726a9",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/clearance.rs",
+        "parent_blob": null,
+        "preserved_blob": "cd0c1f46d5d39a193ddcd4ee9b6467f2451e5bf5",
+        "merged_blob": null,
+        "observed_main_blob": null,
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/continuity.rs",
+        "parent_blob": null,
+        "preserved_blob": "4896743e504394ccc522c5115f703b56e48ef530",
+        "merged_blob": null,
+        "observed_main_blob": null,
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/facing.rs",
+        "parent_blob": null,
+        "preserved_blob": "47580184de64db4df6e8926163d9b55fa1d225d2",
+        "merged_blob": null,
+        "observed_main_blob": null,
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/guard_liveness.rs",
+        "parent_blob": null,
+        "preserved_blob": "af3b5ad485c4d5ae691fbb11ba1cffdb4aeb999a",
+        "merged_blob": null,
+        "observed_main_blob": null,
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height.rs",
+        "parent_blob": null,
+        "preserved_blob": "e1de43078763351b3f78ece5ba35588e344c19f3",
+        "merged_blob": null,
+        "observed_main_blob": null,
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height_peaks.rs",
+        "parent_blob": "0210c2538a10cb8ba97d21dec3cdf8cd5da2f5fa",
+        "preserved_blob": "d4be28f41ac3d001bff08fdf24b7f479cd42eba1",
+        "merged_blob": "0210c2538a10cb8ba97d21dec3cdf8cd5da2f5fa",
+        "observed_main_blob": "0210c2538a10cb8ba97d21dec3cdf8cd5da2f5fa",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/pose.rs",
+        "parent_blob": null,
+        "preserved_blob": "ca4cafdea2cf9a3d35fda33b970eef7aae11d45a",
+        "merged_blob": null,
+        "observed_main_blob": null,
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/support_slip.rs",
+        "parent_blob": "0e5757691b97d9dd1b5ff88a7831e6c213451460",
+        "preserved_blob": "b08bbc1358a42afb7389c7369df082c4f3816734",
+        "merged_blob": "0e5757691b97d9dd1b5ff88a7831e6c213451460",
+        "observed_main_blob": "0e5757691b97d9dd1b5ff88a7831e6c213451460",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+        "parent_blob": "3dbfef0433ee96648a504407dac3a8784f7b6c79",
+        "preserved_blob": "c43f4dce70ad641bebe02bd23fd1cd7a6a63d408",
+        "merged_blob": "3dbfef0433ee96648a504407dac3a8784f7b6c79",
+        "observed_main_blob": "3dbfef0433ee96648a504407dac3a8784f7b6c79",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+        "parent_blob": "0f8470338b1dd6dcd7974abe3a83cf0ff3e3aa05",
+        "preserved_blob": "1c73f30c22bc48514c33e05352f33fba17d78fd2",
+        "merged_blob": "0f8470338b1dd6dcd7974abe3a83cf0ff3e3aa05",
+        "observed_main_blob": "0f8470338b1dd6dcd7974abe3a83cf0ff3e3aa05",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/observation.rs",
+        "parent_blob": null,
+        "preserved_blob": "80a61983bae09960930521d3c2986245bdf0df77",
+        "merged_blob": null,
+        "observed_main_blob": null,
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+        "parent_blob": "5723da1a36ca843bb38d402262ef0499ad6f8ea0",
+        "preserved_blob": "29a5f757efdb6063a318953172ce520b009f6bb0",
+        "merged_blob": "5723da1a36ca843bb38d402262ef0499ad6f8ea0",
+        "observed_main_blob": "5723da1a36ca843bb38d402262ef0499ad6f8ea0",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+        "parent_blob": "a79eb2e89718b426d709e26cd48f9684f9b54d52",
+        "preserved_blob": "1adc5112b91dca6ad19a5fcb8c2db348e9f7aa27",
+        "merged_blob": "39f840b52dcdbf0d4224cdfe87906e784f1de832",
+        "observed_main_blob": "39f840b52dcdbf0d4224cdfe87906e784f1de832",
+        "merged_relation": "different-source",
+        "observed_main_relation": "different-source"
+      },
+      {
+        "file": "crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+        "parent_blob": "358e87fe07305e77249296a95bbb8cf7cbeba4c3",
+        "preserved_blob": "254a2445bcbc343c0fa4628e711b2c3051b06990",
+        "merged_blob": "358e87fe07305e77249296a95bbb8cf7cbeba4c3",
+        "observed_main_blob": "358e87fe07305e77249296a95bbb8cf7cbeba4c3",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+        "parent_blob": "32a405bbe0c13ecb1ac0bbc3e4540a1d90e32d05",
+        "preserved_blob": "813fb120c29794978da108c7e8e5a1beabf6d739",
+        "merged_blob": "32a405bbe0c13ecb1ac0bbc3e4540a1d90e32d05",
+        "observed_main_blob": "32a405bbe0c13ecb1ac0bbc3e4540a1d90e32d05",
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      }
+    ]
+  },
+  "rig": {
+    "commit": "cbbbca08c89a8768926799371f54cf6057312e5e",
+    "parent": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "comparison": "Actual single preserved increment; blob identity only, no semantic implementation/integration/acceptance verdict.",
+    "paths": [
+      {
+        "file": "crates/adventuresim-character-creator/src/clothing.rs",
+        "parent_blob": "c0921e649f67d0f1ac17b019e98675a62a9cc8b8",
+        "preserved_blob": "bb657c11e890862d2936a56cbe2df9a0e3788383",
+        "merged_blob": "9eed3d16b220bc1a02d65242d40fb12eab9d8e6c",
+        "observed_main_blob": "9eed3d16b220bc1a02d65242d40fb12eab9d8e6c",
+        "merged_relation": "different-source",
+        "observed_main_relation": "different-source"
+      },
+      {
+        "file": "crates/adventuresim-character-creator/src/clothing/validation.rs",
+        "parent_blob": "f5863395ab2cf480ac44fd5fb3ec25cd420fc594",
+        "preserved_blob": "bbd468a0048236000a87c40891f4c5c7ead9fc65",
+        "merged_blob": "9384f659b7ddf359bbd158a2f353f6d981349f88",
+        "observed_main_blob": "9384f659b7ddf359bbd158a2f353f6d981349f88",
+        "merged_relation": "different-source",
+        "observed_main_relation": "different-source"
+      },
+      {
+        "file": "crates/adventuresim-character-creator/src/export.rs",
+        "parent_blob": "faa3a84698067343e9bea7a746e6432fe1106cf0",
+        "preserved_blob": "6ad2f5b1e98f289650e12468686cd166c2c66af1",
+        "merged_blob": "9518576c4a06fdfa774037c96cba1ab9b275afb6",
+        "observed_main_blob": "644aa41870efcaf91898fb219631d17c957c16aa",
+        "merged_relation": "different-source",
+        "observed_main_relation": "different-source"
+      },
+      {
+        "file": "crates/adventuresim-character-creator/src/export/shell.rs",
+        "parent_blob": "a072a5a4b68ba0b5b99b8b2886918a8a0b46012a",
+        "preserved_blob": "251a92294b713d4566e8a51b24d17b59cff34822",
+        "merged_blob": "551d99f0659237d4d95145feb87f201bb0b63409",
+        "observed_main_blob": "570059b5ac6c6017b3256b56a9bc6ac4d3a67f54",
+        "merged_relation": "different-source",
+        "observed_main_relation": "different-source"
+      },
+      {
+        "file": "crates/adventuresim-tactical-client/examples/armor_browser_probe.rs",
+        "parent_blob": "272e9fa5f322e83843f0fda203dd2c3909218f6e",
+        "preserved_blob": "32dabc01770e34eac2dae3951acec9d98b787094",
+        "merged_blob": "487f71bfd00a68de7a59f640d4e3b87fbfbf7d6e",
+        "observed_main_blob": "487f71bfd00a68de7a59f640d4e3b87fbfbf7d6e",
+        "merged_relation": "different-source",
+        "observed_main_relation": "different-source"
+      },
+      {
+        "file": "crates/fabelgeist-mhr/src/model.rs",
+        "parent_blob": "f7ac2dcd867f9cca3af60ca515790bf52f55f9a0",
+        "preserved_blob": "401c9e5e0b26f9d515801c9f780f1b2275637c09",
+        "merged_blob": "ada5c874fa8bea8aba46f55ac4cdd2b7008a7b48",
+        "observed_main_blob": "ada5c874fa8bea8aba46f55ac4cdd2b7008a7b48",
+        "merged_relation": "different-source",
+        "observed_main_relation": "different-source"
+      },
+      {
+        "file": "crates/fabelgeist-mhr/src/model/tensor_upload.rs",
+        "parent_blob": null,
+        "preserved_blob": "164455ddd2bff79fb6893767c7b96772ace9955a",
+        "merged_blob": null,
+        "observed_main_blob": null,
+        "merged_relation": "exact-parent",
+        "observed_main_relation": "exact-parent"
+      },
+      {
+        "file": "rust-quality.toml",
+        "parent_blob": "6d7a456e87204c58be941f76be47d1a6bc798828",
+        "preserved_blob": "a5ef09daf5055e5cc0f1777327c38fcae709222a",
+        "merged_blob": "1a94684113b9579ec3e98d9c14b7f62c630598b8",
+        "observed_main_blob": "8e424f99850cf6ce22c08bcf52ce1581fa0e1342",
+        "merged_relation": "different-source",
+        "observed_main_relation": "different-source"
+      }
+    ]
+  }
+}

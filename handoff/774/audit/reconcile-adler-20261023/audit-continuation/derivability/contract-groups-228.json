@@ -1,0 +1,566 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-228",
+  "at": "2026-10-25T13:54:17.744798+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 449,
+      "source_id": "physical-p16:crates/fabelgeist-geometry/src/error.rs",
+      "sha256": "78064ad3e76e6e39580db42af5da259e24a922d69fbe0953704cb9715f26a5c3",
+      "actual_EOF": 95,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/fabelgeist-geometry/src/error.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/fabelgeist-geometry/src/error.rs",
+        "sha256": "78064ad3e76e6e39580db42af5da259e24a922d69fbe0953704cb9715f26a5c3",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 2663,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 87,
+            "read_ranges": [
+              [
+                1,
+                95
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-AUTORESOLVE-001",
+              "CAM-OWN-CHARACTER-007",
+              "CAM-OWN-CONDITION-011"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/fabelgeist-geometry/src/error.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "native",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1129,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Serialize",
+          "type": "DirectionError",
+          "lines": [
+            84,
+            95
+          ],
+          "disposition": "KEEP exact string boundary: Zero/Infinite/NaN map to zero/infinite/nan via serialize_str. Ordinary renamed unit-enum derive calls serialize_unit_variant(type/index/name), a different native-format contract, despite JSON textual similarity. Existing thiserror derive already owns Error/Display."
+        }
+      ],
+      "existing_derives": "CoordinateAxis/GeometryRole snake_case Serialize and structural traits; DirectionError/GeometryError existing thiserror, GeometryError native Serialize already derive.",
+      "absence_basis": "Full95-line module consumed; preserve typed GeometryError source DirectionError. Source receipt228 selected serde derive514\u2013538 proves unit variant operation."
+    },
+    {
+      "scope_index": 451,
+      "source_id": "physical-p16:crates/fabelgeist-geometry/src/lib.rs",
+      "sha256": "4be1dea1bfca250604d52c9c8ea026aac5e3608d4d8cf35168f0cdc60ff4a7ab",
+      "actual_EOF": 16,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/fabelgeist-geometry/src/lib.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/fabelgeist-geometry/src/lib.rs",
+        "sha256": "4be1dea1bfca250604d52c9c8ea026aac5e3608d4d8cf35168f0cdc60ff4a7ab",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 632,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 88,
+            "read_ranges": [
+              [
+                1,
+                16
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-AUTORESOLVE-001",
+              "CAM-OWN-CHARACTER-007",
+              "CAM-OWN-CONDITION-011"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/fabelgeist-geometry/src/lib.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-CANONICAL-SPATIAL-CLOCK-CLOSURE-053",
+            "json_pointer": "/source_proofs/9",
+            "source_id_as_recorded": "physical-p16:crates/fabelgeist-geometry/src/lib.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                16
+              ]
+            ],
+            "source_context": {
+              "index": 448,
+              "source_id": "physical-p16:crates/fabelgeist-geometry/src/lib.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/fabelgeist-geometry/src/lib.rs",
+              "sha256": "4be1dea1bfca250604d52c9c8ea026aac5e3608d4d8cf35168f0cdc60ff4a7ab",
+              "read_ranges": [
+                [
+                  1,
+                  16
+                ]
+              ],
+              "role": "fresh whole current unit/reexport/dependency/surface/obstacle/grab/itemreference producer source; exact actual receiving path disposition pending",
+              "timestamp": "2026-10-21T22:37:06.828171+00:00"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CANONICAL-SPATIAL-CLOCK-053",
+            "json_pointer": "/current_sources/9",
+            "source_id_as_recorded": "physical-p16:crates/fabelgeist-geometry/src/lib.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                16
+              ]
+            ],
+            "source_context": {
+              "index": 448,
+              "source_id": "physical-p16:crates/fabelgeist-geometry/src/lib.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/fabelgeist-geometry/src/lib.rs",
+              "sha256": "4be1dea1bfca250604d52c9c8ea026aac5e3608d4d8cf35168f0cdc60ff4a7ab",
+              "read_ranges": [
+                [
+                  1,
+                  16
+                ]
+              ],
+              "role": "fresh whole current unit/reexport/dependency/surface/obstacle/grab/itemreference producer source; exact actual receiving path disposition pending",
+              "timestamp": "2026-10-21T22:37:06.828171+00:00"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1130,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          16
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "Reexports/module assembly only.",
+      "absence_basis": "Full16-line source consumed; no local implementation/type body. Child modules own separate coverage; earlier450/452 are retained actual reviews, not reread."
+    },
+    {
+      "scope_index": 453,
+      "source_id": "physical-p16:crates/fabelgeist-math/Cargo.toml",
+      "sha256": "6aaf0cb94d1603d0d6cdd07f1bee8021c3c29c841d01d144143faa4be39a6321",
+      "actual_EOF": 17,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/fabelgeist-math/Cargo.toml",
+        "snapshot": "physical-p16",
+        "path": "crates/fabelgeist-math/Cargo.toml",
+        "sha256": "6aaf0cb94d1603d0d6cdd07f1bee8021c3c29c841d01d144143faa4be39a6321",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 487,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 15,
+            "read_ranges": [
+              [
+                1,
+                17
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SCALE-001",
+              "CAM-OWN-AUTORESOLVE-001",
+              "CAM-OWN-CONFIG-001"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/fabelgeist-math/Cargo.toml"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-CANONICAL-SPATIAL-CLOCK-CLOSURE-053",
+            "json_pointer": "/source_proofs/7",
+            "source_id_as_recorded": "physical-p16:crates/fabelgeist-math/Cargo.toml",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                17
+              ]
+            ],
+            "source_context": {
+              "index": 417,
+              "source_id": "physical-p16:crates/fabelgeist-math/Cargo.toml",
+              "path": "SNAPSHOTS/physical-p16/crates/fabelgeist-math/Cargo.toml",
+              "sha256": "6aaf0cb94d1603d0d6cdd07f1bee8021c3c29c841d01d144143faa4be39a6321",
+              "read_ranges": [
+                [
+                  1,
+                  17
+                ]
+              ],
+              "role": "fresh whole current unit/reexport/dependency/surface/obstacle/grab/itemreference producer source; exact actual receiving path disposition pending",
+              "timestamp": "2026-10-21T22:37:06.828111+00:00"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CANONICAL-SPATIAL-CLOCK-053",
+            "json_pointer": "/current_sources/7",
+            "source_id_as_recorded": "physical-p16:crates/fabelgeist-math/Cargo.toml",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                17
+              ]
+            ],
+            "source_context": {
+              "index": 417,
+              "source_id": "physical-p16:crates/fabelgeist-math/Cargo.toml",
+              "path": "SNAPSHOTS/physical-p16/crates/fabelgeist-math/Cargo.toml",
+              "sha256": "6aaf0cb94d1603d0d6cdd07f1bee8021c3c29c841d01d144143faa4be39a6321",
+              "read_ranges": [
+                [
+                  1,
+                  17
+                ]
+              ],
+              "role": "fresh whole current unit/reexport/dependency/surface/obstacle/grab/itemreference producer source; exact actual receiving path disposition pending",
+              "timestamp": "2026-10-21T22:37:06.828111+00:00"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1096,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "Manifest already enables serde/bytemuck derive; optional native wgpu, no derive_more/thiserror.",
+      "absence_basis": "Full17-line dependency/feature manifest consumed; no Rust trait implementation."
+    },
+    {
+      "scope_index": 454,
+      "source_id": "physical-p16:crates/fabelgeist-math/src/units.rs",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "actual_EOF": 120,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/fabelgeist-math/src/units.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/fabelgeist-math/src/units.rs",
+        "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 3578,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 0,
+            "read_ranges": [
+              [
+                1,
+                120
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SCALAR-DEFINITIONS-001",
+              "CAM-OWN-CONFIG-001"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/fabelgeist-math/src/units.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 346,
+            "read_ranges": [
+              [
+                1,
+                120
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SCALAR-DEFINITIONS-001"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/fabelgeist-math/src/units.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CORE-TRAITS-005",
+            "json_pointer": "/current_sources/6",
+            "source_id_as_recorded": "physical-p16:crates/fabelgeist-math/src/units.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                120
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/fabelgeist-math/src/units.rs",
+              "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/fabelgeist-math/src/units.rs",
+              "ranges": [
+                [
+                  1,
+                  120
+                ]
+              ],
+              "read_kind": "actual_body_read"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1084,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          120
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "All seven scalar/vector unit wrappers already structural/Default/transparent Serialize+Deserialize derive.",
+      "absence_basis": "Full120-line module consumed. Inherent named-unit constructors/getters are explicit numerical/native boundary APIs, not duplicated trait implementations. Unrestricted primitive unit policy preserved; derive adequacy is not admission clearance."
+    },
+    {
+      "scope_index": 455,
+      "source_id": "physical-p16:crates/strategic-web/AGENTS.md",
+      "sha256": "4ebb7231eb7131504bdc30dc8105b0fdb2538d387f983876b2330319dd4432b0",
+      "actual_EOF": 39,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/strategic-web/AGENTS.md",
+        "snapshot": "physical-p16",
+        "path": "crates/strategic-web/AGENTS.md",
+        "sha256": "4ebb7231eb7131504bdc30dc8105b0fdb2538d387f983876b2330319dd4432b0",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 2362,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 374,
+            "read_ranges": [
+              [
+                1,
+                39
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-ROUTE-SOURCE-054"
+            ],
+            "read_status": "applicable_rules_read",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/strategic-web/AGENTS.md"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-038",
+            "json_pointer": "/fresh_current_source_reads/5",
+            "source_id_as_recorded": "physical-p16:crates/strategic-web/AGENTS.md",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                39
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 569,
+              "source_id": "physical-p16:crates/strategic-web/AGENTS.md",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/strategic-web/AGENTS.md",
+              "expected_sha256": "4ebb7231eb7131504bdc30dc8105b0fdb2538d387f983876b2330319dd4432b0",
+              "observed_sha256": "4ebb7231eb7131504bdc30dc8105b0fdb2538d387f983876b2330319dd4432b0",
+              "read_ranges": [
+                [
+                  1,
+                  39
+                ]
+              ],
+              "proof_mode": "Fresh full material source/fixtures read; identical-hash PR/P16 variants explicitly reconciled after byte fingerprints, preserving downstream role distinctions. Source only; no project execution.",
+              "read_status": "full-source-read-receiver-reconciliation-in-progress"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/camera/traces.jsonl",
+            "receipt": "CONT-CAMERA-PP-008",
+            "json_pointer": "/exact_source_proofs/5",
+            "source_id_as_recorded": "physical-p16:crates/strategic-web/AGENTS.md",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                39
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 569,
+              "source_id": "physical-p16:crates/strategic-web/AGENTS.md",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\strategic-web\\AGENTS.md",
+              "sha256": "4ebb7231eb7131504bdc30dc8105b0fdb2538d387f983876b2330319dd4432b0",
+              "read_ranges": [
+                [
+                  1,
+                  39
+                ]
+              ],
+              "actual_line_count": 39,
+              "proof_origin": "RIG-PPS-038 exact full-source read, source-backed producer graph and original fixtures; current continuation independently verifies frozen bytes and joins receiving contracts. Not a new full-file read.",
+              "material_disposition": "Applicable strategic UI rules, not executable producer coverage; exact P16 counterpart retained separately.",
+              "disposition": "accounted-with-findings"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/rig/web-request-reconciliation-039.json",
+            "receipt": "RIG-CONT-PPS-WEB-REQUEST-RECONCILIATION-039",
+            "json_pointer": "/source_dispositions/5",
+            "source_id_as_recorded": "physical-p16:crates/strategic-web/AGENTS.md",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                39
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 569,
+              "source_id": "physical-p16:crates/strategic-web/AGENTS.md",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\strategic-web\\AGENTS.md",
+              "sha256": "4ebb7231eb7131504bdc30dc8105b0fdb2538d387f983876b2330319dd4432b0",
+              "read_ranges": [
+                [
+                  1,
+                  39
+                ]
+              ],
+              "actual_line_count": 39,
+              "proof_origin": "RIG-PPS-038 exact full-source read, source-backed producer graph and original fixtures; current continuation independently verifies frozen bytes and joins receiving contracts. Not a new full-file read.",
+              "material_disposition": "Applicable strategic UI rules, not executable producer coverage; exact P16 counterpart retained separately.",
+              "disposition": "accounted-with-findings"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1259,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "Non-Rust instruction document.",
+      "absence_basis": "Full39-line frozen strategic-interface guide personally consumed. Source audit evidence only, not current authorization; typed command/stableID/server authority and UI/native ownership constraints retained."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Portable geometry native error wire and mathematical unit representation",
+      "disposition": "Retain exact string serializer; all scoped structural/unit carriers already derive. No new finding.",
+      "acceptance": "Preserve native string versus variant serializer operation, error sources, unit raw scalar/array shape and optional native features. No source/check/whole-child credit."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 456,
+    "source_id": "physical-p16:crates/strategic-web/src/main.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

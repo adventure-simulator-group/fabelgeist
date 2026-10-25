@@ -1,0 +1,118 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-081",
+  "at": "2026-10-23T01:08:01.878727+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/allocator/resources.rs",
+      "sha256": "27170c66f375325cae411ea34e591c86aabb86e9d13a3d18da7144037b5ecd9c",
+      "actual_compared_ranges": [
+        [
+          1,
+          182
+        ]
+      ],
+      "source_evidence": "Actual exact complete bounded source bodies read for manual147 in this goal session; independent04 arithmetic/index/mutation reasoning below, not admission03 verdict transfer."
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/allocator/core.rs",
+      "sha256": "203681714cad9e19d57130e093b1736e04ac387de5369ec56c12fe72f4f227e8",
+      "actual_compared_ranges": [
+        [
+          1,
+          56
+        ],
+        [
+          84,
+          112
+        ]
+      ],
+      "source_evidence": "Actual exact complete bounded source bodies read for manual147 in this goal session; independent04 arithmetic/index/mutation reasoning below, not admission03 verdict transfer."
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/allocator/batch_buffer.rs",
+      "sha256": "f16e4c87e35b57bf6dfcd2f8315f055e665d5c7d07b36722e247a9b2be1c4721",
+      "actual_compared_ranges": [
+        [
+          1,
+          226
+        ],
+        [
+          228,
+          230
+        ]
+      ],
+      "source_evidence": "Actual exact complete bounded source bodies read for manual147 in this goal session; independent04 arithmetic/index/mutation reasoning below, not admission03 verdict transfer."
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/prepare/batcher.rs",
+      "sha256": "2d86931db56a5e517f84b400fb9e5a15968d553b5e543da880d12d6193920b84",
+      "actual_compared_ranges": [
+        [
+          1,
+          118
+        ]
+      ],
+      "source_evidence": "Actual exact complete bounded source bodies read for manual147 in this goal session; independent04 arithmetic/index/mutation reasoning below, not admission03 verdict transfer."
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/prepare/instance_buffer_updater.rs",
+      "sha256": "9ca918f8a35c0e2bf7b50aece5d43c1f31fd3510b72463d88155e812701a2f0f",
+      "actual_compared_ranges": [
+        [
+          1,
+          152
+        ]
+      ],
+      "source_evidence": "Actual exact complete bounded source bodies read for manual147 in this goal session; independent04 arithmetic/index/mutation reasoning below, not admission03 verdict transfer."
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/prepare/page_prepare_runner.rs",
+      "sha256": "b40981bbae360e987668adfd785a7a553b89baf39823ed53d173263bdf849be4",
+      "actual_compared_ranges": [
+        [
+          1,
+          118
+        ]
+      ],
+      "source_evidence": "Actual exact complete bounded source bodies read for manual147 in this goal session; independent04 arithmetic/index/mutation reasoning below, not admission03 verdict transfer."
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/prepare/core.rs",
+      "sha256": "aa281e28468d05c840eccdb908fce2cfeff7a3a27066b3db55852d15affccda0",
+      "actual_compared_ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "source_evidence": "Actual exact complete bounded source bodies read for manual147 in this goal session; independent04 arithmetic/index/mutation reasoning below, not admission03 verdict transfer."
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/allocator/utils.rs",
+      "sha256": "ee4e51d4aa4627685f22098b0ad292b9ea7a86e8f76a8537aa66898f73dbb340",
+      "actual_compared_ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "source_evidence": "Actual exact complete bounded source bodies read for manual147 in this goal session; independent04 arithmetic/index/mutation reasoning below, not admission03 verdict transfer."
+    }
+  ],
+  "actual_source_read_receipt": "ROOT-ADM03-PARALLEL-147 (source facts only; every04 disposition below is newly reasoned)",
+  "groups": {
+    "native-buffer-row-invariants": "BatchBuffer.ensure_capacity resizes allthree Vecs together beforecapacityassignment; update checksrecordedcapacity thenupdates sameindex andmarksdirty. clear onlyindexes afterbounds andzero-check; flush sorts/dedupsdirtyindices andcoalescescontiguousnativeindices, then sameinclusive range across allthree typed macroinstantiations228-230. This guaranteesparallelwrites only forcoherent nativeinstance assembledthrough thosemethods. PublicVec/capacity/dirty mutation canbypass it, andreset clearslengths butretainscapacity. Actualdirectreset\u2192smallupdate canpanic, but no first-partycaller/resetpath or currentbug established. Treat nativeAPIpreconditions explicitly, not bespoke validity from publicfields and not SDK/vendorpatchmandate.",
+    "native-integer-arithmetic": "update batch+1, flush end+1/i+1 andbyteoffset*size require nativeindex/capacity contracts. A coherentallocated Vec range cannotreachusizeMAX (Vec nativeisize allocationbound), so trueinrange ends+1 fitusize; arbitrarypubliccapacity/dirty fields provide no suchproof. GPUbytealignment capacity+3 andnativebyteproducts mustfitu64 anddevicebufferbounds. InstanceAllocator trait sizes/offsets areu32, withactualInstanceAllocation; do notinfer arbitraryBatchBuffer publicusizecapacity boundedbythattrait withoutactual allocationproducer. Existingfirst-partyshader/capacity repair graph must preservecheckedcountsbefore frameworkport; no blanketthird-party correctness clearance.",
+    "native-page-normal-order": "InstanceBufferUpdater creates source/outputtogether forpositivecapacity; PagePrepareRunner callsupdater\u2192batcher\u2192noncomputeoutputwrites\u2192flush\u2192updatebindgroups. Pageflush allocates indirect/uniform/metadata fromsame logicalbatchcapacity before bindgroupupdate. Thus normalconstructed pageconditionalunwrap prerequisites established byactual directrunner, while arbitrarypublicInstancePage update withmissingoutput/indirect canpanic. Optionnativebuffers representcapacity/allocationstage, not game observationabsence. Keepapplication extraction atactual bufferdescriptor/ABIoperation.",
+    "native-partial-side-effects": "Buffer resize createsGPUbuffer, optionallysubmitscopy, thenreplaceshandle. Source clears/writes and noncomputeoutputwrites issueGPUqueueoperations beforelaterbatchflush/bindgroupupdate. No native wholeframe transactionalrollback promise or typed Result implied; firstparty prep mustvalidatebeforetheseirreversiblequeueeffects if rejecting an application logicalupdate. Coherent existingrunner doesnotreadhalfconstructed localmetadata; sourceupload explicitlyrewrites batch_id fromnative Write record.",
+    "native-batches-and-absence": "Batcher skipsmissinginput/ID/mesh/nonindexedmesh beforeoneBatchDatarecord. It uses allocationoffset ifpresent else0, meshfirstindex/basevertex fallback0, andu32narrowing forinstancecounts/rangeend: actualnativepolicies, not authoredparticularabsence=>measurement0 permission. Index/offset/end andsource-instancecount needcheckedfirstpartycapacitybeforeport. NativeGPUculledinstancecount0 is deliberate computeoutputinitialization; wasmfirstinstance0 accompaniedseparatevertexbufferoffset, preserveplatformpolicy. BatchRanges entityparallelrow pushedwithsame registration asbatch andlookupindex, clearsall3together; rawpublicmutability no seal.",
+    "bounded-scope": "Only NativeREG013-021 actual direct pinned definitions/implementations compared. allocatorcore59-81 BatchKey excluded, batch_buffer tests232+ excluded; macro228-230 included. data_offset/Buffer.check_bounds/backend allocator internals not claimedread or guaranteed bynames, their actualnativeconditions remain relevant at correspondingfirstpartycalls. No new04 unique finding or wholedependencyownershipproposal; all13initial required and repairfreeze unchanged."
+  },
+  "findings": [],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

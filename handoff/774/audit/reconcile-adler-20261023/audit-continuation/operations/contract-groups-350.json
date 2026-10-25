@@ -1,0 +1,54 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-350",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/knowledge.rs",
+      "sha256": "eff9843bb7a8c4e0459b990f5684deae4c827ec824b58334789ec8e1cce55ffd",
+      "actual_EOF": 1330,
+      "actual_compared_ranges": [
+        [
+          1,
+          1330
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Knowledge immutable envelopes preserve chronology, exact shared provenance and checked supersession",
+      "source_ranges": {
+        "knowledge.rs": [
+          [
+            1,
+            1330
+          ]
+        ]
+      },
+      "disposition": "Entire1330 lines and every inline fixture personally read. Nonzero IDs/revisions private; confidence bounded UnitBasisPoints with exact public bands. KnowledgeLineage requires initial1/None versus later>=2/Some. Envelope validates source<=learned<=observer clock and shared recipient/subject/proposition/shared minute plus observer-private visibility. Supersession checks distinct record ID, same observer/subject/proposition, exact prior, checked_add(1) equality and learned chronology; MAX explicitly rejected (fixture read not executed). This is independent concrete policy support for custody terminal-version candidate, not source-fix authorization or claim shared generic owner fits every custody API. Sharing clones exact immutable fact/revision attribution and checks distinct recipient/time and shareable visibility. Contradiction stores exact immutable revisions and same-observer chronology, domain rationale is intentionally caller-owned."
+    },
+    {
+      "contract": "Knowledge mutation replay and public projection require authoritative recipients",
+      "source_ranges": {
+        "knowledge.rs": [
+          [
+            310,
+            450
+          ],
+          [
+            700,
+            798
+          ]
+        ]
+      },
+      "disposition": "Fresh complete source analysis. ProjectionGrant fields private and minting pub(crate) only; viewer scope/time checked before coarse confidence and presentation publication, public disclosures do not expose owner reference. Presentation is supplied by trusted domain adapter; arbitrary trait implementation is not a direct hidden-truth leak without mintable grant/current caller proof. AuthoritativeTruth has no conversion into observer record. Receipt classification checks duplicate matching request before exact-input replay/collision, only Apply should mutate; classify itself does not mutate. Trait payload Eq semantics, database uniqueness and authentication/persistence receiver are separate dependencies; no claim current DB integration closed from pure module alone."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "1 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-core/src/life_simulation.rs"
+}

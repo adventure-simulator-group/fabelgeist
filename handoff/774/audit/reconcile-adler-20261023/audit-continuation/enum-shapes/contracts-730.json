@@ -1,0 +1,249 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-730",
+  "lens": "audit-enum-shapes",
+  "groups": [],
+  "shared_material_reads": [
+    {
+      "shared_index": 118,
+      "source_id": "physical-p16:crates/adventuresim-dialogue/Cargo.toml",
+      "sha256": "6f2c4bfbf6d202fdadfc88465dfacd0ffd8461259578bde3f185ad0b47ab844b",
+      "ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "contract": "contracts-730.json",
+      "status": "fresh exact registered variant ranges read and reanalyzed09",
+      "disposition": "Exact member manifest source/dependencyfeature availability only, no sourcebody/execution or09conditionalpayload. Existing hand-written meaningfuladmission/error contracts preserved; dependencyabsence not instructiontoadddependency.",
+      "frozen_unique_credit": false,
+      "other_lens_credit": false,
+      "execution": "none"
+    },
+    {
+      "shared_index": 121,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/Cargo.toml",
+      "sha256": "a514b1eccfff839c875aaa5148d8299f119beb39ce645dc828e653399b6ef320",
+      "ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "contract": "contracts-730.json",
+      "status": "fresh exact registered variant ranges read and reanalyzed09",
+      "disposition": "Exact member manifest source/dependencyfeature availability only, no sourcebody/execution or09conditionalpayload. Existing hand-written meaningfuladmission/error contracts preserved; dependencyabsence not instructiontoadddependency.",
+      "frozen_unique_credit": false,
+      "other_lens_credit": false,
+      "execution": "none"
+    },
+    {
+      "shared_index": 122,
+      "source_id": "registry:derive_more-impl-2.1.1/src/from.rs",
+      "sha256": "dbcea1f655618518d366313124b59d50181928e1f0a092ff8796d5accec81fd6",
+      "ranges": [
+        [
+          1,
+          322
+        ]
+      ],
+      "contract": "contracts-730.json",
+      "status": "fresh exact registered variant ranges read and reanalyzed09",
+      "disposition": "Native From derive branches direct-field construction vs explicit types/forward conversion; solefield returnsvaluewithouttupleindex, multifiedindexes nativeAST. has_explicit_from and variantOption private derivedsyntax, not gameplaymode. Constructoradmission mustremainchecked where needed; no uncheckedFrom recommended by09.",
+      "frozen_unique_credit": false,
+      "other_lens_credit": false,
+      "execution": "none"
+    },
+    {
+      "shared_index": 124,
+      "source_id": "pinned-registry:serde_derive-1.0.229/src/internals/check.rs",
+      "sha256": "86ea817316638ec33f70ecdf9634a31c934fd3df84533e3e315816dc130f0bff",
+      "ranges": [
+        [
+          369,
+          395
+        ]
+      ],
+      "contract": "contracts-730.json",
+      "status": "fresh exact registered variant ranges read and reanalyzed09",
+      "disposition": "Native serde check rejects transparent togetherwith from/try_from/into. These are actual incompatible macroconfiguration alternatives checked atderive boundary; no applicationenumshapeornewSDKrepair. Serialize andcheckedDeserialize implementations cannot be mechanically combined underincompatiblecontainerattrs.",
+      "frozen_unique_credit": false,
+      "other_lens_credit": false,
+      "execution": "none"
+    },
+    {
+      "shared_index": 125,
+      "source_id": "pinned-registry:serde_derive-1.0.229/src/ser.rs",
+      "sha256": "18b3a4d06cd721c402835b17f008a63fdbaad379734f0fd4132aa28d8ea5c1de",
+      "ranges": [
+        [
+          514,
+          538
+        ]
+      ],
+      "contract": "contracts-730.json",
+      "status": "fresh exact registered variant ranges read and reanalyzed09",
+      "disposition": "Native serde unit enum uses serialize_unit_variant, not serialize_str; Rust variantindex/name/type visible toserializer. Actualboundaryformatsemantics differ, no universalwireequivalenceassumption, no new09payloadgap.",
+      "frozen_unique_credit": false,
+      "other_lens_credit": false,
+      "execution": "none"
+    },
+    {
+      "shared_index": 126,
+      "source_id": "pinned-registry:serde_derive-1.0.229/src/de.rs",
+      "sha256": "a04fdb321ce47b479b42b2dd0ca1cfd57db88e06451d7dc95303c582fedc135c",
+      "ranges": [
+        [
+          300,
+          320
+        ],
+        [
+          435,
+          444
+        ]
+      ],
+      "contract": "contracts-730.json",
+      "status": "fresh exact registered variant ranges read and reanalyzed09",
+      "disposition": "Native serde checked try_from path deserializesrawtype thenTryFrom map_err; preservesactualadmission. AST Field styles tuple/newtype/struct genuinelydifferentinputforms, no retained applicationbooleanchoice.",
+      "frozen_unique_credit": false,
+      "other_lens_credit": false,
+      "execution": "none"
+    },
+    {
+      "shared_index": 130,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_classification.rs",
+      "sha256": "a65529b45c53a783feaa8905b9fba38d95d28e97b01fe8198d4ffeee0a57c58d",
+      "ranges": [
+        [
+          8,
+          22
+        ]
+      ],
+      "contract": "contracts-730.json",
+      "status": "fresh exact registered variant ranges read and reanalyzed09",
+      "disposition": "Actual P16 CatalogItemKind defaultSimple and properfinitevocabulary read; commoncapabilitycombinations notexclusivekindinference, no forcedonecapabilityperenum or handmadegeneratedbindingedit.",
+      "frozen_unique_credit": false,
+      "other_lens_credit": false,
+      "execution": "none"
+    },
+    {
+      "shared_index": 131,
+      "source_id": "pinned-registry:bevy_ecs_macros-0.19.1/src/lib.rs",
+      "sha256": "ee0b935d492a294197b26f2db38ff3eea4dcad569d17dadfb913cb15618673fc",
+      "ranges": [
+        [
+          16,
+          20
+        ],
+        [
+          214,
+          239
+        ]
+      ],
+      "contract": "contracts-730.json",
+      "status": "fresh exact registered variant ranges read and reanalyzed09",
+      "disposition": "Native MapEntities derives selectedannotatedfields and recursivelymapsactualEntity/Vec; optionaloverridemethod overrides generatedmappingexplicitly. Generic identitymappingis realserialization/replicationadapter, not semanticcharacterIDenum. No applicationidentitytruncationor10equivalenceclearance.",
+      "frozen_unique_credit": false,
+      "other_lens_credit": false,
+      "execution": "none"
+    },
+    {
+      "shared_index": 132,
+      "source_id": "pinned-registry:bevy_ecs_macro_logic-0.19.1/src/map_entities.rs",
+      "sha256": "be35a0c5898b7d60c5fbbada7977a1a9edba77895ddad9950fe541baa0f12059",
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "contract": "contracts-730.json",
+      "status": "fresh exact registered variant ranges read and reanalyzed09",
+      "disposition": "Native MapEntities derives selectedannotatedfields and recursivelymapsactualEntity/Vec; optionaloverridemethod overrides generatedmappingexplicitly. Generic identitymappingis realserialization/replicationadapter, not semanticcharacterIDenum. No applicationidentitytruncationor10equivalenceclearance.",
+      "frozen_unique_credit": false,
+      "other_lens_credit": false,
+      "execution": "none"
+    },
+    {
+      "shared_index": 133,
+      "source_id": "pinned-registry:bevy_ecs-0.19.1/src/entity/map_entities.rs",
+      "sha256": "2a3f91a6dfa09402301d1fab24afda22aff2fbca098c2a6f0ba69bfd37a2e4dc",
+      "ranges": [
+        [
+          1,
+          1
+        ],
+        [
+          54,
+          66
+        ],
+        [
+          172,
+          178
+        ]
+      ],
+      "contract": "contracts-730.json",
+      "status": "fresh exact registered variant ranges read and reanalyzed09",
+      "disposition": "Native MapEntities derives selectedannotatedfields and recursivelymapsactualEntity/Vec; optionaloverridemethod overrides generatedmappingexplicitly. Generic identitymappingis realserialization/replicationadapter, not semanticcharacterIDenum. No applicationidentitytruncationor10equivalenceclearance.",
+      "frozen_unique_credit": false,
+      "other_lens_credit": false,
+      "execution": "none"
+    },
+    {
+      "shared_index": 149,
+      "source_id": "native-dependency:spacetimedb-sdk-2.6.1/src/client_cache.rs",
+      "sha256": "1815445657f053bf0d24bdf218219eed822e9626511eade5d3afa0aca3fa7ff1",
+      "ranges": [
+        [
+          22,
+          79
+        ],
+        [
+          196,
+          214
+        ],
+        [
+          340,
+          406
+        ],
+        [
+          409,
+          452
+        ]
+      ],
+      "contract": "contracts-730.json",
+      "status": "fresh exact registered variant ranges read and reanalyzed09",
+      "disposition": "Actual native/generated tableaccessor delegates localcache iter/count, noimplicitserverquery/subscription. Tableinit andtablequerybuilder separate fromsubscribing; emptycache not proofauthoritativeemptytable. Supports exact existing root05 SEGO-INITIAL05-F007 subscriptionrepair, no duplicate09findingorSDKrepair. Rowrefcount reflects overlappingqueries, not selectedbusinessstatus; transportgeneratedfieldowners distinct fromcanonicaladmission.",
+      "frozen_unique_credit": false,
+      "other_lens_credit": false,
+      "execution": "none"
+    },
+    {
+      "shared_index": 150,
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/backend_hostile_negotiations_table.rs",
+      "sha256": "ef0878fa2f385c6e35e1b4ef8e3702bbb114a81520c8cc3b6c35ddab4319065e",
+      "ranges": [
+        [
+          24,
+          57
+        ],
+        [
+          85,
+          90
+        ],
+        [
+          106,
+          120
+        ]
+      ],
+      "contract": "contracts-730.json",
+      "status": "fresh exact registered variant ranges read and reanalyzed09",
+      "disposition": "Actual native/generated tableaccessor delegates localcache iter/count, noimplicitserverquery/subscription. Tableinit andtablequerybuilder separate fromsubscribing; emptycache not proofauthoritativeemptytable. Supports exact existing root05 SEGO-INITIAL05-F007 subscriptionrepair, no duplicate09findingorSDKrepair. Rowrefcount reflects overlappingqueries, not selectedbusinessstatus; transportgeneratedfieldowners distinct fromcanonicaladmission.",
+      "frozen_unique_credit": false,
+      "other_lens_credit": false,
+      "execution": "none"
+    }
+  ],
+  "new_findings": [],
+  "limits": "No macroexpansion/build/clientexecution, schema/generator/sourceedits orotherlensacceptance. Nativeexactdependencyboundedmaterialonly."
+}

@@ -1,0 +1,24 @@
+{
+  "id": "SEGO-INITIAL09-REGISTRATION-648",
+  "lens": "audit-enum-shapes",
+  "records": [
+    {
+      "source_id": "pr-working:assets/art-demo/catalog.json",
+      "pin": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_blob": "68323d77cb405046faf993693b3bcc9557394ca2",
+      "sha256": "765076511ef7f6d1e7ea00204088128519329399059e93ad89a53e5587192c37",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/enum-shapes/source-objects/765076511ef7f6d1e7ea00204088128519329399059e93ad89a53e5587192c37",
+      "actual_eof": 154,
+      "ranges": [
+        [
+          1,
+          154
+        ]
+      ],
+      "registration": "source-registration-648.json",
+      "audit_status": "registered before body read; no audit coverage",
+      "material_reason": "Actual changed source1452 Exhibit::catalog103\u2013105 deserializes kind+asset from this sole authored producer; get112\u2013116 and spawn131\u2013160 consume it. Needed to distinguish current ordinary missing/extra asset from public serde shape suggestion, and verify exact scenery IDs that reach1455 prepare_input. This is direct producer data, not directory adjacency."
+    }
+  ],
+  "limits": "Prospective own role separate frozen2853; no body read yet, no audit credit."
+}

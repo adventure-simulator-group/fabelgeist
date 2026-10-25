@@ -1,0 +1,456 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-318",
+  "at": "2026-10-25T14:41:01.003846+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 621,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/geometry_index.rs",
+      "sha256": "d2e0b7635bddd25114a9b505fbe03ea8ac464fff52e2bba8a9dc62a28d88ac71",
+      "actual_EOF": 268,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/geometry_index.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-building-generator/src/geometry_index.rs",
+        "sha256": "d2e0b7635bddd25114a9b505fbe03ea8ac464fff52e2bba8a9dc62a28d88ac71",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 9363,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 242,
+            "read_ranges": [
+              [
+                1,
+                268
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-INTERIOR-ROOF-CLOSURE-090"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/geometry_index.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1577,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "producer_followup_scope_additions": [
+          {
+            "authority": "continuation/root/producer-scope-extension-authority-022.json",
+            "candidate_record": "continuation/native/producer-registry-reconciliation/candidate-002.json",
+            "registered_before_body_analysis": [
+              {
+                "registry": "continuation/native/root-roof-producer-followup/local-source-scope-extensions.jsonl",
+                "row_1based": 26,
+                "registration_id": "NATIVE-ROOF-SCOPE-025",
+                "supplier": "native",
+                "original_record": {
+                  "id": "NATIVE-ROOF-SCOPE-025",
+                  "registered_at": "2026-10-22T04:26:02.069641+00:00",
+                  "authority": "continuation/root/producer-scope-extension-authority-022.json",
+                  "source_id": "pr-working:crates/adventuresim-building-generator/src/geometry_index.rs",
+                  "snapshot": "pr-working",
+                  "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/geometry_index.rs",
+                  "sha256": "d2e0b7635bddd25114a9b505fbe03ea8ac464fff52e2bba8a9dc62a28d88ac71",
+                  "actual_EOF": 268,
+                  "material_ranges": [
+                    [
+                      1,
+                      40
+                    ]
+                  ],
+                  "actual_caller": "roof_contacts21/33 ResolvedSolid::yaw_bounds",
+                  "scope": "Exact called record constructor andtypedbounds operation; unrelatedfunctions/Serde/fixtures excluded.",
+                  "reason_prior_proof_insufficient": "Need actual sourcebody proof constructor retains checkedgeometry vs rawrecord and actual yaw math; oldername/owner/hash notenough.",
+                  "credit_at_registration": "none"
+                }
+              }
+            ],
+            "effective_local_material_ranges": [
+              [
+                1,
+                39
+              ]
+            ],
+            "qualification_refs": [
+              {
+                "registry": "continuation/native/root-roof-producer-followup/local-source-scope-extensions.jsonl",
+                "row_1based": 28,
+                "registration_id": "NATIVE-ROOF-SCOPE-QUALIFICATION-002",
+                "supplier": "native",
+                "original_record": {
+                  "id": "NATIVE-ROOF-SCOPE-QUALIFICATION-002",
+                  "qualifies": [
+                    "NATIVE-ROOF-SCOPE-025",
+                    "NATIVE-ROOF-SCOPE-026"
+                  ],
+                  "effective_material_roles": {
+                    "pr-working:crates/adventuresim-building-generator/src/geometry_index.rs": [
+                      [
+                        1,
+                        39
+                      ]
+                    ],
+                    "pr-working:crates/adventuresim-building-generator/src/model/resolved_shapes.rs": [
+                      [
+                        360,
+                        380
+                      ]
+                    ]
+                  },
+                  "excluded_incidental_displayed_roles": {
+                    "model/resolved_shapes.rs": [
+                      [
+                        381,
+                        391
+                      ]
+                    ],
+                    "geometry_index.rs": [
+                      [
+                        40,
+                        40
+                      ]
+                    ]
+                  },
+                  "reason": "Actual yaw_bounds body doesnotcallcuboid_envelope; that separatemethod was incidentaldisplay and receivesno source/rolecredit. Only actuallycalled ResolvedSolid::new copyrecord andyaw kernel aretraced.",
+                  "source_or_lens_credit": "none for excludedroles"
+                }
+              }
+            ],
+            "scope_limits": "Every original registration/role/caller/reason remains embedded independently. Byte overlap is not semantic role coverage, producer acceptance, owner-fit acceptance or edit ownership. none; Native qualifications trim local supplier roles only, never historical global scope.",
+            "producer_discovery": "separate actual source/recipient packet acceptance required",
+            "owner_fit": "pending exact new-role delta against owner019",
+            "source_or_other_lens_credit": "none from scope bookkeeping"
+          }
+        ],
+        "admission03_increment046_role_observations": [
+          {
+            "supplier": "root",
+            "registry": "continuation/root/admission03/source-range-registration.jsonl",
+            "row_1based": 4,
+            "registration_id": "ROOT-ADM-REG-004",
+            "original_record": {
+              "id": "ROOT-ADM-REG-004",
+              "at": "2026-10-22T06:38:59.563185+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "pr-working:crates/adventuresim-building-generator/src/geometry_index.rs",
+              "snapshot": "pr-working",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\geometry_index.rs",
+              "sha256": "d2e0b7635bddd25114a9b505fbe03ea8ac464fff52e2bba8a9dc62a28d88ac71",
+              "actual_EOF": 268,
+              "material_ranges": [
+                [
+                  75,
+                  78
+                ],
+                [
+                  113,
+                  132
+                ]
+              ],
+              "actual_reach": "OpeningObstacles::new/intersects actual private member/index relationship needs BoundsIndex backing visibility/new/overlapping directdefined contract. Rig confirmsno current03 witness/assignedqueue role. Symbolnavigationonly beforehand; alreadyglobal source remains originalsupplier scope, Rootboundedshareddependency proof only.",
+              "exclusions": "No othergeometryindexfunctions, SDK fullgraph or implicitwholefilecredit. Register newlynecessary signatureadapterdefinitions before bodies.",
+              "status": "prospectively_registered_before_body_analysis"
+            },
+            "local_qualifications": [],
+            "effective_material_ranges": [
+              [
+                75,
+                78
+              ],
+              [
+                113,
+                132
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\geometry_index.rs",
+            "actual_EOF": 268,
+            "bytes": 9363
+          },
+          {
+            "supplier": "root",
+            "registry": "continuation/root/admission03/source-range-registration.jsonl",
+            "row_1based": 5,
+            "registration_id": "ROOT-ADM-REG-005",
+            "original_record": {
+              "id": "ROOT-ADM-REG-005",
+              "at": "2026-10-22T06:39:23.032052+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "pr-working:crates/adventuresim-building-generator/src/geometry_index.rs",
+              "snapshot": "pr-working",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\geometry_index.rs",
+              "sha256": "d2e0b7635bddd25114a9b505fbe03ea8ac464fff52e2bba8a9dc62a28d88ac71",
+              "actual_EOF": 268,
+              "material_ranges": [
+                [
+                  102,
+                  111
+                ],
+                [
+                  134,
+                  200
+                ]
+              ],
+              "actual_reach": "Fresh scoped BoundsIndex new119/query127 delegate to BoundsNode sole nodefactory/query; exactprivate leaf indexprovenance ismaterial to Obstacles recipient indexedmember lookup. Declarations andtwofunctions only, registeredbeforebody.",
+              "exclusions": "Otherindexfunctions1-74/80-100/202+ excluded; no arbitrary SDKgraph.",
+              "status": "prospectively_registered_before_body_analysis"
+            },
+            "local_qualifications": [],
+            "effective_material_ranges": [
+              [
+                102,
+                111
+              ],
+              [
+                134,
+                200
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\geometry_index.rs",
+            "actual_EOF": 268,
+            "bytes": 9363
+          },
+          {
+            "supplier": "root",
+            "registry": "continuation/root/admission03/source-range-registration.jsonl",
+            "row_1based": 6,
+            "registration_id": "ROOT-ADM-REG-006",
+            "original_record": {
+              "id": "ROOT-ADM-REG-006",
+              "at": "2026-10-22T06:39:45.403433+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "pr-working:crates/adventuresim-building-generator/src/geometry_index.rs",
+              "snapshot": "pr-working",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\geometry_index.rs",
+              "sha256": "d2e0b7635bddd25114a9b505fbe03ea8ac464fff52e2bba8a9dc62a28d88ac71",
+              "actual_EOF": 268,
+              "material_ranges": [
+                [
+                  1,
+                  8
+                ]
+              ],
+              "actual_reach": "BoundsNode::new145 direct MAX_LEAF_BOUNDS premise requires bound literal/import owner header. Exactheaderonlybeforebody.",
+              "exclusions": "Header notothergeometry methods, no wholefilecoverage.",
+              "status": "prospectively_registered_before_body_analysis"
+            },
+            "local_qualifications": [],
+            "effective_material_ranges": [
+              [
+                1,
+                8
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\geometry_index.rs",
+            "actual_EOF": 268,
+            "bytes": 9363
+          },
+          {
+            "supplier": "root",
+            "registry": "continuation/root/admission03/source-range-registration.jsonl",
+            "row_1based": 7,
+            "registration_id": "ROOT-ADM-REG-007",
+            "original_record": {
+              "id": "ROOT-ADM-REG-007",
+              "at": "2026-10-22T06:40:18.455304+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "pr-working:crates/adventuresim-building-generator/src/geometry_index.rs",
+              "snapshot": "pr-working",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\geometry_index.rs",
+              "sha256": "d2e0b7635bddd25114a9b505fbe03ea8ac464fff52e2bba8a9dc62a28d88ac71",
+              "actual_EOF": 268,
+              "material_ranges": [
+                [
+                  11,
+                  11
+                ]
+              ],
+              "actual_reach": "Symbol-only navigation locates actual MAX_LEAF_BOUNDS at11, outsideprospectiveheader1-8. Directpositive recursionbase premise only; registeredbeforeliteral read.",
+              "exclusions": "No otherheader/methodscope; previous1-8 contextualonlynotconstantproof.",
+              "status": "prospectively_registered_before_body_analysis"
+            },
+            "local_qualifications": [],
+            "effective_material_ranges": [
+              [
+                11,
+                11
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\geometry_index.rs",
+            "actual_EOF": 268,
+            "bytes": 9363
+          }
+        ],
+        "admission03_increment077_role_observations": [
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 72,
+            "registration_id": "NATIVE-ADMISSION03-REG-072",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-072",
+              "at": "2026-10-22T15:04:12.410615+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-051.json",
+              "source_id": "pr-working:crates/adventuresim-building-generator/src/geometry_index.rs",
+              "sha256": "d2e0b7635bddd25114a9b505fbe03ea8ac464fff52e2bba8a9dc62a28d88ac71",
+              "snapshot": "pr-working",
+              "actual_EOF": 268,
+              "material_ranges": [
+                [
+                  13,
+                  40
+                ]
+              ],
+              "role": "Exact ResolvedSolid::yaw_bounds method directlyusedRoot458new/touching; checkedleafinputdoesnotautomaticallyprovecomputednativeboundingoutput.",
+              "reason": "Actualmethoddefinition outsideNative024publicenvelopedefinition; directcanonicalreceiverregisterbeforebodyanalysis.",
+              "exclusions": "Otherquery_bounds/cuboid_bounds/index impls/tests excluded; no wholefilegraph orrepairtransfer.",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\geometry_index.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADM03-FINALQUAL-072",
+                "registration_id": "NATIVE-ADMISSION03-REG-072",
+                "source_id": "pr-working:crates/adventuresim-building-generator/src/geometry_index.rs",
+                "snapshot": "pr-working",
+                "sha256": "d2e0b7635bddd25114a9b505fbe03ea8ac464fff52e2bba8a9dc62a28d88ac71",
+                "actual_EOF": 268,
+                "registered_requested_ranges": [
+                  [
+                    13,
+                    40
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    13,
+                    39
+                  ]
+                ],
+                "context_or_excluded_within_registration": [
+                  [
+                    40,
+                    40
+                  ]
+                ],
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-072",
+                  "at": "2026-10-22T15:04:12.410615+00:00",
+                  "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-051.json",
+                  "source_id": "pr-working:crates/adventuresim-building-generator/src/geometry_index.rs",
+                  "sha256": "d2e0b7635bddd25114a9b505fbe03ea8ac464fff52e2bba8a9dc62a28d88ac71",
+                  "snapshot": "pr-working",
+                  "actual_EOF": 268,
+                  "material_ranges": [
+                    [
+                      13,
+                      40
+                    ]
+                  ],
+                  "role": "Exact ResolvedSolid::yaw_bounds method directlyusedRoot458new/touching; checkedleafinputdoesnotautomaticallyprovecomputednativeboundingoutput.",
+                  "reason": "Actualmethoddefinition outsideNative024publicenvelopedefinition; directcanonicalreceiverregisterbeforebodyanalysis.",
+                  "exclusions": "Otherquery_bounds/cuboid_bounds/index impls/tests excluded; no wholefilegraph orrepairtransfer.",
+                  "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\geometry_index.rs",
+                  "status": "registered_before_direct_current03_body_analysis"
+                },
+                "qualification_history": [
+                  {
+                    "qualification_file": "root-support-batch3/source-qualifications-005.jsonl",
+                    "row_1based": 5,
+                    "payload": {
+                      "registration_id": "NATIVE-ADMISSION03-REG-072",
+                      "original_registration": {
+                        "id": "NATIVE-ADMISSION03-REG-072",
+                        "at": "2026-10-22T15:04:12.410615+00:00",
+                        "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-051.json",
+                        "source_id": "pr-working:crates/adventuresim-building-generator/src/geometry_index.rs",
+                        "sha256": "d2e0b7635bddd25114a9b505fbe03ea8ac464fff52e2bba8a9dc62a28d88ac71",
+                        "snapshot": "pr-working",
+                        "actual_EOF": 268,
+                        "material_ranges": [
+                          [
+                            13,
+                            40
+                          ]
+                        ],
+                        "role": "Exact ResolvedSolid::yaw_bounds method directlyusedRoot458new/touching; checkedleafinputdoesnotautomaticallyprovecomputednativeboundingoutput.",
+                        "reason": "Actualmethoddefinition outsideNative024publicenvelopedefinition; directcanonicalreceiverregisterbeforebodyanalysis.",
+                        "exclusions": "Otherquery_bounds/cuboid_bounds/index impls/tests excluded; no wholefilegraph orrepairtransfer.",
+                        "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\geometry_index.rs",
+                        "status": "registered_before_direct_current03_body_analysis"
+                      },
+                      "qualified_material_ranges": [
+                        [
+                          13,
+                          39
+                        ]
+                      ],
+                      "qualification": "Native072 next-method documentation40 excluded; exact yaw_bounds13-39 only",
+                      "current_admission_proof": "contracts-002.json#immutable-contact-index-and-native-host-ranking",
+                      "registered_before_body": true,
+                      "root_global_reconciliation_pending": true
+                    }
+                  }
+                ],
+                "current_proof_refs": {
+                  "current_admission_proof": "contracts-002.json#immutable-contact-index-and-native-host-ranking"
+                },
+                "body_rereads_for_this_normalization": 0,
+                "semantic_credit_from_metadata": false,
+                "producer_or_owner_or_later_lens_credit": false,
+                "global_reconciliation_pending": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                13,
+                39
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\geometry_index.rs",
+            "actual_EOF": 268,
+            "bytes": 9363
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          268
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full exact source consumed: ResolvedSolid inherent checked yaw_bounds14\u201338/query_bounds41\u201345/cuboid_bounds50\u201372; private BoundsIndex75\u201378/BoundsNode102\u2013111 with semantic checked recursive construction and ordered native queries113\u2013200; overlapping_solids80\u2013100 borrowed iterator native index mapping; two fixtures207\u2013231/238\u2013267 read not run. No handwritten trait/codec; native conservative spatial authority/checked errors and borrowing have no structural derive equivalent."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "native geometric index and borrowed candidates",
+      "disposition": "No handwritten trait boilerplate in exact full role. Keep native checked geometry, topology-sensitive partition admission, deterministic source-order index and borrowed output.",
+      "acceptance": "No serializer/native-index exposure or new trait needed. No execution/other-lens correctness verdict."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 622,
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/geometry_index/checked.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

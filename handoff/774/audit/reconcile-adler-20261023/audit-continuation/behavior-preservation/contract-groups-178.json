@@ -1,0 +1,130 @@
+{
+  "id": "CONT08-CONTRACT-178",
+  "at": "2026-10-25T13:41:27.224800+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 697,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/bare_body.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/bare_body.rs",
+      "before_sha256": "68cef7d12e388a580394d74d3162513902fc9a8c6539ae328aac33e1240bd4cb",
+      "after_sha256": "68cef7d12e388a580394d74d3162513902fc9a8c6539ae328aac33e1240bd4cb",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0697-base-68cef7d12e388a580394d74d3162513902fc9a8c6539ae328aac33e1240bd4cb",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/68cef7d12e388a580394d74d3162513902fc9a8c6539ae328aac33e1240bd4cb",
+      "diff": "source-evidence/pr-0697.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "facts": [
+        "Full71+empty diff. BareBody key removes inventory/name and retains model LOD/correctives and remaining recipe, same generated mesh/skin material/visibility. Unbranded model/content replacement question retained, not774 regression; no actual new body result inferred."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 698,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/bracer.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/bracer.rs",
+      "before_sha256": "298d83d2c5e8894b091d95487e213e1ce00d85617f7753b8bb5ca85ff45a21f5",
+      "after_sha256": "2fd643dd2bc33e9b844cdd3c185c7ca9d474fe5ca773d8759d54854129ce64ef",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0698-base-298d83d2c5e8894b091d95487e213e1ce00d85617f7753b8bb5ca85ff45a21f5",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/2fd643dd2bc33e9b844cdd3c185c7ca9d474fe5ca773d8759d54854129ce64ef",
+      "diff": "source-evidence/pr-0698.diff",
+      "diff_sha256": "96bb2045ebef1494ef7079b49c1b64271675d7d3dc45a09d316ca80e18d3f928",
+      "head_body_read_ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "facts": [
+        "Full119+actual diff. Typed forearm exact lowarm/wrist/upperarm vocabulary and unrestricted twist helper preserve old label and support boundaries (upperarm remains intentionally distinct from uparm). validate keeps domain/row/face-count/name-global/morph shape checks, adds packed-bound equals name count and morph-global cardinality before fitting.",
+        "New error enum retains exact old display messages and missing owner label. Stronger rejection concerns inconsistent public products, not proven normal-source output change; lower matched-product contract remains separate existing finding. No all mesh-index/UV consistency guarantee inferred."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 699,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/chainmail_export_test.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/chainmail_export_test.rs",
+      "before_sha256": "361de46e10528fba199ed3d0524ce266a8c3a4f8d10971a2ebd4b5d32408fa2f",
+      "after_sha256": "ddcb7701a02cc8c90582fb80bae74cc92d26569f07adba9058ed9ac6ec3274cb",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0699-base-361de46e10528fba199ed3d0524ce266a8c3a4f8d10971a2ebd4b5d32408fa2f",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/ddcb7701a02cc8c90582fb80bae74cc92d26569f07adba9058ed9ac6ec3274cb",
+      "diff": "source-evidence/pr-0699.diff",
+      "diff_sha256": "efbd0266b31d5284c7a01c28ba4681f23b8e9448efec58ffa37b2606362ebe6a",
+      "head_body_read_ranges": [
+        [
+          1,
+          88
+        ]
+      ],
+      "facts": [
+        "Full88+actual diff. Ignored asset-dependent export acceptance fixture still requires exact generated/cached body equality, same geometry/contacts/diagnostic data and material normal/base texture/alpha/metallic assertions. transfer_skin tuple becomes named product preserving indices+weights association. Fixture remains ignored, not run; no file or asset outputs produced."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 700,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/character_export.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/character_export.rs",
+      "before_sha256": "74b258d7decbf8f4228014651a18a29cb7076634a0a1c08a99e168c580a73ade",
+      "after_sha256": "c9393d3d4e81d9809e517eab1d8e1de81eb24c37ab646a009d44f0f3449dd4a3",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0700-base-74b258d7decbf8f4228014651a18a29cb7076634a0a1c08a99e168c580a73ade",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/c9393d3d4e81d9809e517eab1d8e1de81eb24c37ab646a009d44f0f3449dd4a3",
+      "diff": "source-evidence/pr-0700.diff",
+      "diff_sha256": "7f42a20f45953ad5aa78287784d4c93d5d36664cf82eb2155e0b856aa6b2f4ea",
+      "head_body_read_ranges": [
+        [
+          1,
+          248
+        ]
+      ],
+      "facts": [
+        "Full248+actual diff. Export ordering loadout\u2192body/morphs\u2192selected armor\u2192lining/draped warnings\u2192shells/metals\u2192draped/hair\u2192final rigged GLB unchanged. Material now actual retained selected item not ID relookup, matching764/923 actual identity policy; native UV/metal/trim/lacing/component sequence and scalar parameters retained.",
+        "Positional fitted garment/morph/mail association and partial drape warning policy remain unchanged concerns, not new08 regression/closed by typed rig. Actual final exporter and morph algorithms remain upcoming scoped cells; no GLB generation/load success."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 701,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/character_export/draped.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-character-creator/src/character_export/draped.rs",
+      "before_sha256": "2c0a2e659aa914d0b575343dc1ae1fd7216cfa370462be0bfb1308745105526e",
+      "after_sha256": "2c0a2e659aa914d0b575343dc1ae1fd7216cfa370462be0bfb1308745105526e",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0701-base-2c0a2e659aa914d0b575343dc1ae1fd7216cfa370462be0bfb1308745105526e",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/2c0a2e659aa914d0b575343dc1ae1fd7216cfa370462be0bfb1308745105526e",
+      "diff": "source-evidence/pr-0701.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          79
+        ]
+      ],
+      "facts": [
+        "Full79+empty diff. Borrowed supplied fitted results versus empty/no worn versus owned sequential drape, saturating missing count and warning-before-export policy retained. Clearance/contact warnings accumulate against body then prior garments, source face offset/order unchanged. This does not establish each omitted result retains inventory identity; public supplied fitted validation stays conditional."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    }
+  ],
+  "next": "702 character_export/hair133 then703+"
+}

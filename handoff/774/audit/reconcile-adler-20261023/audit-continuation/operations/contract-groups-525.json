@@ -1,0 +1,115 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-525",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/curves.rs",
+      "sha256": "b5accc11c18f0ac90310414f5db75ca9ef76661bea923b658513fed644cea66e",
+      "actual_EOF": 170,
+      "actual_compared_ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/solids.rs",
+      "sha256": "b139a5600efc6654b3209ce230bb22ba7713836752f49c867f7b6996bcabb0c2",
+      "actual_EOF": 389,
+      "actual_compared_ranges": [
+        [
+          1,
+          389
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/surface_refinement.rs",
+      "sha256": "0c28888bf192ddcf2768b572e9cbd672a5ec2af2bc0c38d46af448782d987a65",
+      "actual_EOF": 236,
+      "actual_compared_ranges": [
+        [
+          1,
+          236
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/sweep.rs",
+      "sha256": "bc84a0894a2e914f9cb85a5cce28eb921372426af3bc8909e54563274a0c4f93",
+      "actual_EOF": 359,
+      "actual_compared_ranges": [
+        [
+          1,
+          359
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/sweep/path.rs",
+      "sha256": "fff604760f978f0efae2a138eee46df45a887c3abe89b2bdbe94a56f20afb2d1",
+      "actual_EOF": 146,
+      "actual_compared_ranges": [
+        [
+          1,
+          146
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/design/holders.rs",
+      "sha256": "a65bbc070c0a58592007ca71019a3bcff35344396aed36f9ab5bdb6d007094cb",
+      "actual_EOF": 36,
+      "actual_compared_ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Curve and solid sampling use native f64 under checked manufacturing caller constraints",
+      "evidence": "Fullcurves170/solids389. Adaptivecurve at least2segments afterDetail.samples, depth8bounded; endpointsretained duringcompaction. Nativeprivate subdivide requiresnonemptysource andpositivechord, radialprofile checksconstruction_budget beforeallocation; arbitraryemptyprofile/sides0 toprivateinfallible sockets notpublicrecipewitness. Prismoutlinecanonicaltriangulationbeforeindexing; explicitminimumfeature/actualrecipescaller guarantees remainadmissiondependency. No claim allprivatearraykernelsadmitarbitraryrawinputs or ordinarycataloguefailures."
+    },
+    {
+      "contract": "Surface refinement preserves conformity and staged edge admission",
+      "evidence": "Fullsurface236: mids sharedbyundirectededge,0/1/2/3mids cases preserveboundary; completedtrianglebudgetbeforefacesallocation, onoverbudgettemporarypoints truncatedbeforeattemptedcompaction.12boundedrounds finalErrmayretainpreviousrefinementsin&mutRegion, callerdiscardvsretryownsatomicity; noordinaryretainedretryestablished. Rationalquadratic/positiveaffinedenominatorprecondition essential tohalf-budgetmidpointproof, notanyheightclosure. Edge64ULPmargin tightensacceptance, doesnotweakenmaximum. ExistingconstructedRegionnativeindicescheckedupstream, uncheckedmapsnotunprovenpublicindices."
+    },
+    {
+      "contract": "Swept frame mutation and composed work bound",
+      "evidence": "Fullsweep359/path146. Inputlen>=2/nonrepeatedadjacent, closedtwistwholeturn; outlineSectionclosedvocabulary; radius/twist/axialstationscomposeconstruction_budget before sampledpathvectors. ring_scalescardinalitychecked, emptyorzero/NaNprivateSweep fieldsarenotadmittedpublicsource. Paralleltransport detectsnear reversal, closedholonomyseam correctedandlastframeidentical. Bendradiusdistances alterlimits only, fullsimplepathcheckseparatecallerdependency. Nativeoutputfinalvalidation responsiblefinitefloat32/manufacturingclearance; no massiveopaqueSolid appendglobalclosureclaimed."
+    },
+    {
+      "contract": "Holder captures fitted recipe identity across custody",
+      "evidence": "Fullholders36 capturescomplete WeaponDesign +kind/material/dimensions, holderremainsreproduciblewhenemptyorweaponchangesholder; notpersistentiteminstanceidentity. Derivedform/dimensions validateddownstream, noarithmetic/mutationinthisdeclaration. Zero/positiveclearanceownerpolicy preservedratherthanunilaterallynarrowing."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/mod.rs",
+      "sha256": "7327c75b4030df58f3b59c44b7b691713289908715ecb4c6adae4b0829806fc1",
+      "actual_compared_ranges": [
+        [
+          1,
+          200
+        ]
+      ],
+      "actual_EOF": 230,
+      "qualification": "Only1\u2013200freshdependencyread; no whole230/currentoriginalrolecredit. Budget262144 finite triangles, MODEL_FRAME_EXTENT20, Detailminsegments andSolidappendsource reviewed."
+    }
+  ],
+  "status": "6 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-weapon-model/src/icon.rs"
+}

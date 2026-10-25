@@ -1,0 +1,97 @@
+{
+  "id": "CONT07-CONTRACT-651",
+  "at": "2026-10-24T01:10:50.893685+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2409,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/trade/equipment.rs",
+      "sha256": "3229ebb47a71f62dc45c5b0406a116e0785dcdf26ea485deff0f757edc4cdaac",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/templates/settlement/trade/equipment.rs",
+      "actual_EOF": 1169,
+      "ranges": [
+        [
+          192,
+          311
+        ],
+        [
+          334,
+          371
+        ],
+        [
+          539,
+          569
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2417,
+      "source_id": "pr-working:crates/strategic-web/static/equipment-toggle.js",
+      "sha256": "86df6350e2e09720ae1d8293a48a484f6e0aa4154787e29dd06156ee7c1e6b37",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/static/equipment-toggle.js",
+      "actual_EOF": 431,
+      "ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 939,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "sha256": "96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "actual_EOF": 618,
+      "ranges": [
+        [
+          140,
+          219
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 944,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+      "sha256": "9cb076d4f2ff85b5932981983e2eeea82850c8b40b647948ca400bd4d00aad51",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+      "actual_EOF": 185,
+      "ranges": [
+        [
+          106,
+          149
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1880,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory/ordering.rs",
+      "sha256": "a16a4fd249e9a9fa97fa44588caa57dc7a15e35ef78bfd5e194267419a507f20",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/inventory/ordering.rs",
+      "actual_EOF": 130,
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Packed input rank question resolved against exact PR schema/validator/recipient: order is explicitly within channel u16, nonsingleton channels allow any order<=u16MAX. Scalar channel*1000+order spills across channel range and depth*100000; actual JS selects largest scalar. Canonical tactical root order retains channel then order as separate keys. Promote CONT07-F125 source/admitted-extension conditional, no current ordinary high-order catalogue assertion.",
+    "JS candidate selection pairs target identity/attachment capacity with scalar rank, so rank mismatch affects actual chosen placement/parent and displayed input badge order, not merely a debug numeric serialization. Preserve capacity constraints and deterministic tie handling when replacing packing with structured comparison; raw inputRanks JSON boundary remains native schema rather than introducing arbitrary leaf cap1000."
+  ],
+  "new_local_findings": [
+    "CONT07-F125"
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": null
+}

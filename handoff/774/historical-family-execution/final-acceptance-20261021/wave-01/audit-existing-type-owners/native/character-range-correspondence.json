@@ -1,0 +1,65 @@
+{
+  "id": "NATIVE-OWNER-CHARACTER-RANGE-CORRESPONDENCE-012",
+  "historical_read": {
+    "source_id": "git-commit:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/character.rs",
+    "git_commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "observed_sha256": "517f93978b1b2a9fe9debaaa7d6386aa3200cda88348cd23a9ef6e5e94b5004a",
+    "total_lines": 3985,
+    "read_ranges": [
+      [
+        435,
+        572
+      ]
+    ],
+    "original_mislabeled_record": {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/character.rs",
+      "observed_sha256": "517f93978b1b2a9fe9debaaa7d6386aa3200cda88348cd23a9ef6e5e94b5004a",
+      "read_ranges": [
+        [
+          435,
+          572
+        ]
+      ],
+      "read_status": "exact_owner_and_receiving_bodies_read_remaining_unclaimed",
+      "owner_fit_disposition": "ActualDBattributes/stats/skills row declarations and PlayerAttributeValues adapters read. NativeSDK rowfields legitimatewire/native schema, no automaticpermission to flatten internal calculated checks. caloriesreservoir/focushours not UnitInterval.",
+      "trace_refs": [
+        "NATIVE-OWNER-STRATEGIC-002"
+      ],
+      "source_repair": "frozen",
+      "validation": "none"
+    }
+  },
+  "current_frozen_source": {
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/character.rs",
+    "archive_member": "pr-working/files/crates/adventuresim-stdb-module/src/character.rs",
+    "observed_sha256": "806a50bc71cade3ffdf93f52a62693f7d02d4d55a52e1cce7e5983b894ec28cf",
+    "total_lines": 3983,
+    "read_ranges": [
+      [
+        435,
+        572
+      ]
+    ],
+    "actual_current_range_reread": true
+  },
+  "exact_range_correspondence": {
+    "historical_range": [
+      435,
+      572
+    ],
+    "current_range": [
+      435,
+      572
+    ],
+    "byte_identical": true,
+    "occurrences_in_current": 1,
+    "range_sha256": "a911227161bb89c437791a62bf990fee20887f9f9881a0cdf8e445790e2574ee",
+    "method": "Exact entire138-line UTF8 text occurrence comparison; actual frozen range reread. No Rust parser/project/runtime command."
+  },
+  "complete_textual_delta": "--- historical-git6533-character\n+++ frozen-pr-working-character\n@@ -3060,9 +3060,7 @@\n                     .equipment_occupancy()\n                     .id()\n                     .find(attachment_occupancy_id(parent_id, point_id, index))\n-                    .map_or(AttachmentCapacity::Free, |row| {\n-                        AttachmentCapacity::Occupied(row.inventory_item_id)\n-                    })\n+                    .map_or(AttachmentCapacity::Free, AttachmentCapacity::from)\n             })\n             .or_else(|| {\n                 replace_occupied.then(|| {\n",
+  "whole_file_equivalent": false,
+  "scope_limit": "Only435–572 attrs/stats/skills/declaration+PlayerAttributeValues adapters covered. HistoricalGit3985 vs frozenW3983 differ at attachment-capacity map_or3060+; that receiver is not cleared by this range correspondence. P16/primary variants remain independent.",
+  "owner_use_ref": "contracts.jsonl#NATIVE-OWNER-STRATEGIC-002",
+  "source_edits": "none",
+  "validation": "no projectchecks/tests"
+}

@@ -1,0 +1,124 @@
+{
+  "packet_number": 165,
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-dialogue/src/authoring_schema.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          347
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh complete actual literal P16body, independent04 operation/encoding/reference comparison for full original owner+producer scope, no additional overlay. Called parents separately scoped."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-dialogue/src/authoring_schema.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          347
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh whole-file actual git diff --no-index PR against fully literally read P16body exited0,emptyoutput. Independently authored operationcomparison applies to complete exactPRscope; no hash/verdict-only credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-dialogue/src/authoring_schema/policy.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          102
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh complete actual literal P16body, independent04 operation/encoding/reference comparison for full original owner+producer scope, no additional overlay. Called parents separately scoped."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-dialogue/src/authoring_schema/policy.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          102
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh whole-file actual git diff --no-index PR against fully literally read P16body exited0,emptyoutput. Independently authored operationcomparison applies to complete exactPRscope; no hash/verdict-only credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-dialogue/src/catalog_revision.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh complete actual literal P16body, independent04 operation/encoding/reference comparison for full original owner+producer scope, no additional overlay. Called parents separately scoped."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-dialogue/src/catalog_revision.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh whole-file actual git diff --no-index PR against fully literally read P16body exited0,emptyoutput. Independently authored operationcomparison applies to complete exactPRscope; no hash/verdict-only credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-dialogue/src/condition_validation.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh complete actual literal P16body, independent04 operation/encoding/reference comparison for full original owner+producer scope, no additional overlay. Called parents separately scoped."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-dialogue/src/condition_validation.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh whole-file actual git diff --no-index PR against fully literally read P16body exited0,emptyoutput. Independently authored operationcomparison applies to complete exactPRscope; no hash/verdict-only credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-dialogue/src/prompt.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh complete actual literal P16body, independent04 operation/encoding/reference comparison for full original owner+producer scope, no additional overlay. Called parents separately scoped."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-dialogue/src/prompt.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh whole-file actual git diff --no-index PR against fully literally read P16body exited0,emptyoutput. Independently authored operationcomparison applies to complete exactPRscope; no hash/verdict-only credit."
+    }
+  ],
+  "groups": {
+    "authored-products-and-validation": "AuthoringDocument/conversation/topic/response/turn/prompt/choice own strict outer namedproducts and tagged fragment/effect/condition vocabularies. Metadata defaults preserve one participant/one selection/firstresponse/Lore, intentionalempty effects/on_start/result_turns and absentprompt/promotiontarget. These are authoring inputs, not correlated validatedruntimeproducts. Role min/max and prompt min/max/choicecount require actual validation throughbuild/runtime; thisdeclarationalone cannotprove ranges/references. Keepauthoring role/topic/contract/profession/flag identities and narrationprose distinct through internalassembly while nativeYAML/JSONprojection remains exact.",
+    "fact-operation": "Condition All/Any/Not traversal recursively checks allcontainedFact nodes; no primitive count/numeric arithmetic occurshere. FactKey participant_roles exhaustivelyenumerates one/tworole dependencies and omits unrelated keys, so unknownroles are reported separately from value mismatch. ParticipantSex requires canonicalworld Sex-backed FactValue; allotherkeys rejectSex but admitBool/Integer/Text. This partial kindrelation mustpreserve authored genericfact semantics and actualruntimecomparisons; do notclaim allkey/value relationships admittedbyenumshapealone or invent a bypass before runtimeparentsemanticsread. Deepconditionrecursion hasno localdepthbudget, but exactpublicinputpath and earlierparserlimits remainuntraced; no acceptedstackfailureclaim.",
+    "policy-propagation": "PromptMode/ResolutionPolicy useone enum each across authoredsnake_case serde and persistedTitleCase stable_id/parse, distinguishingnativeencodings from duplicated semantictypes. Parse rejectswrongvocabulary andunknown tokens withconcrete classification, notfabricateddefault. Existingcross-vocabularyfixture source readonly. Preserve authored/persisted exactspellings and future sharedbuild/runtime ownership rather thanforcingbothports toonestringencoding.",
+    "revision-operation": "Versioned digestdomain plus entrycount/pathlength, JSONkind tags, arraylengths andorderedvalues, sortedobjectkeys andlength-delimitedkey/value bytes distinguish structure and boundaries. Unlike unframedorganization graph, no concatenationalias shownhere. Caller entryorder remains significant bydesign; canonical caller collectionorder isseparatelyscoped. usize->u64 counts are concretehashframing format projections on currenttargets. Existingfixedvector/objectorder source fixtures read butnotexecuted; digest text istransportrepresentation, purposecatalogrevision owner shouldsurviveinternalconsumers.",
+    "runtime-prompt-input": "Prompt andChoice reuse canonicalpolicyenums and effect/turn owners, butpublic fields+Deserialize are rawruntimeinputs; accepted min/max/respondent/choiceeffects correlationsbelongactualvalidator/selectionoperation notdeclaration. ConcreteID roleclasses shouldpropagate throughresponse/DBreceivers rather than repeatedprimitive conversions. Parent Effect/Turn/DialogueError/Role/runtimeoperation bodies andbuild validation580/lib1785 remainown04unread andnotcreditedfromimports.",
+    "counterpart-and-limits": "FreshfullP16source literal read forfivefiles and five actual complete PR-versus-P16 gitdiffs each exited0withemptyoutput. Independentlyauthored sameoperationscomparison forPRfullroles; fulloriginalowner/producerunion/noadditionaloverlayverifiedbothsnapshots. Ten new04roles602->612/findings61unchanged. Current0722853+246/312queue allmandatoryqualifiers retained; no sourceedits/projectexecution/newtests/otherlenscredit. All initialaudits thenhandover163, implementationdeferred."
+  },
+  "findings": []
+}

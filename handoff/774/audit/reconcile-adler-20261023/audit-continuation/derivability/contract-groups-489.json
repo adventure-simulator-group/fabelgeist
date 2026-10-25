@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-489",
+  "at": "2026-10-25T15:51:55.462712+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 887,
+  "source_id": "pr-working:crates/adventuresim-core/src/case.rs",
+  "sha256": "7b919041dbce7f4e53f859aab2c5b7c6b16dd110b1452ecfa598555bda9055b0",
+  "actual_compared_ranges": [
+    [
+      1,
+      440
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Fresh221\u2013440 completes OutcomeFact enums and evaluation records: all wire/structural traits already derived. ObjectiveExpression::new is validation, evaluate filters case/party facts then DNF satisfaction/impossibility; progress performs objective-specific impossible precedence and saturating/count-capped accumulation. None is mechanical trait conversion/delegation. required_count body continues441; remaining source unread.",
+  "first_unfinished": {
+    "scope_index": 887,
+    "line": 441
+  },
+  "execution": "none"
+}

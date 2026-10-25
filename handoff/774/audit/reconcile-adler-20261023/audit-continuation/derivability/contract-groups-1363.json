@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1363",
+  "at": "2026-10-25T18:38:38.749690+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1412,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+  "sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+  "actual_compared_ranges": [
+    [
+      301,
+      600
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Capture driver native simulation tick/body/guard/ground/facing/motion coordination with typed rejection and return paths; UI label/gizmo projection, event sample mapping and capture multi-source readiness gate. No manual trait/type/codec in this slice; cannot derive behavior or native event projection.",
+  "first_unfinished": {
+    "scope_index": 1412,
+    "line": 601
+  },
+  "execution": "none"
+}

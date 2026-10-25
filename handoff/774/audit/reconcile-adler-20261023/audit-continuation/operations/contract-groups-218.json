@@ -1,0 +1,84 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-218",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs",
+      "sha256": "0d84cd735fae1cf275ad3e2003b55b209f41cdf0c4dc22c8acdeb1b7809864d2",
+      "actual_EOF": 1029,
+      "actual_compared_ranges": [
+        [
+          1,
+          1029
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs",
+      "sha256": "ff33eb4a42abbfa737b312019fdfc7c457688d66bd84fb81af2364ed30fa9cfe",
+      "actual_EOF": 1029,
+      "actual_compared_ranges": [
+        [
+          1,
+          1029
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Case-site departure, fallback route and actual abstract weather boundary",
+      "source_ranges": {
+        "travel_reducers.rs": [
+          [
+            1,
+            363
+          ]
+        ]
+      },
+      "disposition": "Full P16 body and all actual PR typed-result deltas consumed. Case departure requires one authoritative location, revalidates leader/party after synchronous clock reconciliation and exact disclosed destination twice. Fixed digest lengths are tiny and two generated route points prove [0]/[1]. However fallback explicitly preserves abstract encode mode, then unconditionally calls WGS84CoordinateE7::new for weather at73\u201379. A valid full-i32 abstract position outside Earth bounds therefore returns error at this actual recipient; this strengthens the existing RIG-PPS-F019 coordinate API graph, not a new unique defect or permission to globally constrain abstract worlds. Valid short/zero-distance generated fallback routes do not pass external-route geometry admission; actual internal route contract must deliberately preserve zero-distance policy. No live abstract-world run asserted."
+    },
+    {
+      "contract": "Movement bounds, clock synchronization and location commits",
+      "source_ranges": {
+        "travel_reducers.rs": [
+          [
+            281,
+            780
+          ],
+          [
+            856,
+            1029
+          ]
+        ]
+      },
+      "disposition": "Proposed leg is min(total,next-window), actual movement helper returns a common prefix; subtraction saturates only after expected <=total relation. Arrival clears location alternatives and exact camp authority validates fireplace custody before forecast refresh. Actual zero-distance case-site return bypasses elapsed advancement intentionally. Direct settlement arrival optionally advances solo time; party time already committed is not double-counted. Several fallible location/condition/objective/incident children follow writes, leaving SDK reducer rollback semantics as a dependency; no DB atomicity proof from source comments. Actual companion evacuation bypass is preserved, not withdrawn F086 resurrected. Membership uniqueness remains packet215 writer dependency. Native forecast has existing terminal-clock nonprogress Root04F019; this recipient adds no ordinary clock reachability proof."
+    },
+    {
+      "contract": "Configuration mutation and clock-domain constraints",
+      "source_ranges": {
+        "travel_reducers.rs": [
+          [
+            781,
+            855
+          ]
+        ]
+      },
+      "disposition": "Camp fatigue explicitly10..100. Daily walking0..1440; positive walking additionally requires valid daylight window; start time checked0..1439, immutable once wilderness anchor exists. Changed camped itinerary is persisted then forecast refreshed; exhaustion/partial failure depends on actual helper and transaction boundary. No hidden new fatigue pool/penalty introduced, no new finding."
+    }
+  ],
+  "findings": [
+    {
+      "existing": "audit/records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/findings.jsonl#19 RIG-PPS-F019",
+      "support": "Actual abstract-aware route fallback retains raw/typed hybrid coordinates then unconditionally re-admits origin as WGS84 for weather; preserve full abstract i32 and signed elevation policy.",
+      "new_unique_claim": false
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "2 original roles personally compared; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/surgery.rs"
+}

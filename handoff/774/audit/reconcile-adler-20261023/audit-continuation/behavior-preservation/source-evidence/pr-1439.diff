@@ -1,0 +1,51 @@
+--- PRbase/crates/adventuresim-tactical-client/src/animation_viewer/report/presentation_events.rs
++++ frozen/crates/adventuresim-tactical-client/src/animation_viewer/report/presentation_events.rs
+@@ -0,0 +1,48 @@
++//! Ordering, uniqueness and scenario counts of captured presentation events.
++
++use super::{FrameSample, LocomotionPresentationPayload, PresentationEventSample, ScenarioId};
++
++pub(super) fn presentation_events_valid(
++    frames: &[FrameSample],
++    presentation_events: &[PresentationEventSample],
++) -> bool {
++    presentation_events
++        .iter()
++        .zip(presentation_events.iter().skip(1))
++        .all(|(previous, current)| {
++            previous.scenario != current.scenario
++                || !previous.payload.same_stream(current.payload)
++                || current.advances_from(previous)
++        })
++        && presentation_events
++            .iter()
++            .enumerate()
++            .all(|(index, event)| {
++                !presentation_events.iter().take(index).any(|previous| {
++                    previous.owner == event.owner
++                        && previous.scenario == event.scenario
++                        && previous.payload == event.payload
++                })
++            })
++        && (!frames
++            .iter()
++            .any(|frame| frame.scenario.is(ScenarioId::CadenceContact))
++            || presentation_events
++                .iter()
++                .filter(|event| {
++                    event.scenario.is(ScenarioId::CadenceContact) && event.payload.is_contact()
++                })
++                .count()
++                == 4)
++        && (!frames
++            .iter()
++            .any(|frame| frame.scenario.is(ScenarioId::AirborneLanding))
++            || presentation_events
++                .iter()
++                .filter(|event| {
++                    event.scenario.is(ScenarioId::AirborneLanding)
++                        && matches!(event.payload, LocomotionPresentationPayload::Landing { .. })
++                })
++                .count()
++                == 1)
++}

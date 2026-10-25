@@ -1,0 +1,137 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-366",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/claims.rs",
+      "sha256": "19ecf9355e0b4d4745fc425ac8c9f8f38f238fc9bb89dc91d4c2da28d0ec3c3a",
+      "actual_EOF": 1771,
+      "actual_compared_ranges": [
+        [
+          1,
+          1771
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/geometry.rs",
+      "sha256": "5ef59715ebf0d62efa679bd211e134b1201827fc745a706c82127cd792385a59",
+      "actual_EOF": 29,
+      "actual_compared_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/mod.rs",
+      "sha256": "d46affb3494921f1aad34b7d508474aa92f244275766431dfb94da9e43cf535b",
+      "actual_EOF": 46,
+      "actual_compared_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Claim/lead/referral publication verifies authority, chronology and observer payload before consumption",
+      "source_ranges": {
+        "claims.rs": [
+          [
+            1,
+            1771
+          ]
+        ]
+      },
+      "disposition": "Whole1771 lines personally read. Safe correction/revision labels resolve only sameobserver/case or belief; sanitize strips nonexact location pins. Text byte limits/control rejection and bps<=10000 at true staging boundaries; exact generated testimony additionally validates manifest site and abstract/geographic distinction. Rumor receives exact private authority and publiccase alias, validates immutable referral and receipts, grants only intended witness and issue graph, then records replay receipt. Testimony preflight validates all plan sites and optional presentation text lengths before loop, per-index authored refs checked and consumed receipts required; withheld-only partition intentional. Existing receipt branch grants referrals and continues; transcript return linkage remains authority owner dependency, not blanket bypass proof. Correction collects affected exact capability IDs before mutation and resets only unsupported after replacement lead exists, preserving live alternative support. Current require_actor gate trusts registered gateway, not arbitrary browser capability. No project or transaction execution."
+    },
+    {
+      "contract": "Belief revision count narrowing can reuse logical sequence identity",
+      "source_ranges": {
+        "claims.rs": [
+          [
+            1270,
+            1320
+          ],
+          [
+            1660,
+            1699
+          ]
+        ]
+      },
+      "disposition": "receive_investigation_claim counts existing owner/belief revisions, saturating_add1 as usize then unchecked asu16. Represented state with65535prior revisions yields next0 (regresses after65535); next count65536 yields1, colliding with ordinary firstrevisionID. DB collision behavior/rollback not run, no current65535-history witness. share_belief contains same narrowing but semantic share receipt and recipient ID bound to source currentrevision normally prevent repeated identicalshare from accumulating: retain as same unsafe kernel, not proven ordinary duplicate reachability. Connected revision repair must select explicit exhaustion policy before receipt consumption/belief update; preserve semantic replay and supersedes/currentrevision associations. Existing Knowledge checked-revision policy is supporting design evidence, not automatically sameowner. Terminal arithmetic distinct from u32MAX capability/custody saturation."
+    },
+    {
+      "contract": "Claim staging identity comparison may accept an unconsumable differently labeled receipt",
+      "source_ranges": {
+        "claims.rs": [
+          [
+            778,
+            936
+          ],
+          [
+            1251,
+            1271
+          ]
+        ]
+      },
+      "disposition": "Representable internal staging API two-call counterexample: same valid PipelineInput/claim identity and same publiccase/statement, new receiptID plus distinct printable safe_source_label. Existing-claim comparison omits safe_source_label/confidence although the new SafeClaimReceipt retains new values; receive compares both against old authority and returns mismatch. Staging returns success but creates receipt it cannot consume. Actual generated sameclaim/differentlabel producer not established; accepted producer policy may require immutable labels. Treat as qualified API aggregate question requiring either reject conflicting metadata at stage or reuse canonical authority values with explicit provenance meaning; do not overwrite another claim silently. NATIVE-PS-F032 typed PipelineInput internal codec migration shares this body, not exact defect alias. No fresh unique global count asserted."
+    },
+    {
+      "contract": "Lead/belief sharing is semantic replay scoped to co-located living party peers",
+      "source_ranges": {
+        "claims.rs": [
+          [
+            1550,
+            1771
+          ]
+        ]
+      },
+      "disposition": "Both sharing bodies require living recipient, same nonempty party and contextual place, own source, canonical payload<=4096 then action receipt idempotency. Lead copy preserves source correction reference across observer boundary, safe label sanitization later prevents crossobserver correction identity leak; current copied prior corrected state intentionally retained. Shared belief recipient identity includes source currentrevision, preserving revisions as distinct snapshots; semantic sharing receipt prevents repeated identical payload writes under different actionIDs. Clone provenance labels come from sender. Payload length can reject large accepted individually bounded components; explicit rejection allowed, no infallibility demand. Actual Core compound framing alreadyread earlier; no title/path-only dedup."
+    },
+    {
+      "contract": "Area containment uses bounded widening and explicit coordinate policy; module includes preserve macro authority",
+      "source_ranges": {
+        "geometry.rs": [
+          [
+            1,
+            29
+          ]
+        ],
+        "mod.rs": [
+          [
+            1,
+            46
+          ]
+        ]
+      },
+      "disposition": "Both fullbodies read. Geographic-mode mismatch false; distance optional failure false; u32radius widened tou64 before+1 tolerance so no arithmetic overflow atMAXradius. Actual coordinate_distance owner separate inherited/dependency evidence, no new read credit. Macro declarations intentionally included at same scope; child result/routeadmission separate macrofree. No arithmetic in module assembly, tests included but unread testroles remain incomplete."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-BELIEF-REVISION-NARROWING-CANDIDATE-001",
+      "kind": "represented terminal API counterexample",
+      "ordinary_runtime_witness": false,
+      "acceptance": "Revision sequence must not regress or reuse an existing ID after successful admitted history; explicit precommit exhaustion policy."
+    },
+    {
+      "id": "SEGOVB-04-CLAIM-STAGING-METADATA-CANDIDATE-001",
+      "kind": "source-backed internal API aggregate question",
+      "ordinary_runtime_witness": false,
+      "acceptance": "Every successful staged receipt must match immutable authority at consumption, or conflict must be rejected while staging."
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-stdb-module/src/investigation/model.rs"
+}

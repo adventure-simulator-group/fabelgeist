@@ -1,0 +1,25 @@
+{
+  "id": "RIG-INITIAL06-GROUP-030",
+  "at": "2026-10-22T20:12:33.661844+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "surface-sampling-product-versus-physics-and-garment-mesh": {
+      "sources": [
+        "pr-working:crates/fabelgeist-hair/src/surface.rs"
+      ],
+      "comparison": "Fresh exact Surface1\u2013146/215\u2013244 only. Surface owns triangle positions/normals/UVs plus private areaCDF and TriangleBvh, SurfacePoint carries native triangle ordinal/barycentric-derived root position/normal/UV. It is not ShellMesh rest-edge mechanics nor GarmentMesh panel product nor Physics Collider state, even though all contain positions/triangles. Current Surface.new computes CDF and BVH from input; sample_at and closest retain canonical source surface interpretation. Public backing mutation can desynchronize caches, existing admission/aggregate issue not repaired by inventing another mesh type. Area/sample share/UV are numerical coordinates; normalized UVs are not generic probabilities and zero-area/invalidsource not certified by type. World length values need Hair anatomical frame; sourceports remain raw numerical mesh. PLY parser147\u2013214 and tests245+ excluded, no parser proof. This closes contracts028 direct Surface.new dependency only for exact current constructor/ownership, not all caller validity."
+    },
+    "look-semantic-config-to-evaluated-native-operation-stack": {
+      "sources": [
+        "pr-working:crates/fabelgeist-hair/src/look.rs",
+        "pr-working:crates/fabelgeist-hair/src/look/groom.rs",
+        "pr-working:crates/fabelgeist-hair/src/ops/clump.rs",
+        "pr-working:crates/fabelgeist-hair/src/ops/curl.rs",
+        "pr-working:crates/fabelgeist-hair/src/ops/orient.rs"
+      ],
+      "comparison": "Fresh full Look469/groom193/Clump233/Curl141/Orient129 including original scoped tests. Look composes canonical Hairdo plus shared unit-only Math Metres/Ratio/PerMetre/TurnsPerMetre/RadiansPerMetre/AccelerationVector and Hair count/seed/flag leaves. These unit-only unrestricted leaves do not imply finite/positive/unit-ratio admission; no higher checked Core/Building substitution by same unit. HairSeed is signed32 native dataset seed, deliberately different from Seed64 source state and Hairdo guides64 input; actual Look.guides450\u2013457 projects word asu64 at caller. Preserving sequence/sign extension part of direct API migration. groom turns config into operation graph and true numerical transformations: Curl source turns/m divided3 at119, Curl.apply75 multiplies3 to physical phase, signed clump twist radians/m multiplied arc length, normalized share factors, head-local direction projections and integration. Source high-level Look versus evaluated Op graph differ authority/stage, so not duplicate independent authoring. But operation host structs retain physical guide_distance/radius/memory/angularspread as raw fields and some unchanged handoff reaches generic GuideMap; neutral shared units remain available and must be propagated through coherent host APIs where unchanged before numerical ports, not blanket numerical-module exemption. Actual Clump/Curl keep canonical StrandId until rng::word boundary and GuideMap currentordinal is distinct. Orient uses canonical GrowthField placed from Follicles, not duplicate authored growth configuration. Existing defaults zero/noop, signed twist, raw Serde/extrapolating blends preserved. General finite/UnitInterval checked admission cannot be inferred or silently added. Actual tests only normal fixtures, no runtime execution. Full GPU operation packing/receivers still queued; exact owner decision cannot waive that pending comparison."
+    }
+  },
+  "new_findings": [],
+  "limits": "Source-specific fresh ownership analysis; remaining Hair GPU/operations and complete application inventory incomplete."
+}

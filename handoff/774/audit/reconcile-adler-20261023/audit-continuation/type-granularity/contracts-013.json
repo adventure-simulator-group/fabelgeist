@@ -1,0 +1,34 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-013",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "battle-participant-versus-strategic-input-and-outcome",
+      "sources": [
+        {
+          "scope_index": 50,
+          "ranges": [
+            [
+              1,
+              2879
+            ]
+          ]
+        }
+      ],
+      "distinction": "CombatantStrategicState is durable input to fresh transient Combatant; CombatantOutcome and BattleOutcome are committed result projections. Separate types prevent strategic callers supplying retained duel scheduling state and preserve tactical/strategic authority even with shared leaves. Combatant identity differs inventoryinstance IDs and ordinals; no CharacterId narrowing inferred without actualownerfit.",
+      "uses": "from_strategic_state initializes timing/wounds/duel state and subtractsfatigueonce fromstartingincapacitation before retainingcurrentfatigue. movement method explicitly keepsphysicalarmor/mass/limb effect separate from total impairment performance. State uses BattleTime for instants, AnimationElapsed fordurations, SignedSpeed forclosing direction and UnitInterval for performance. ranged_attack_progress is accumulatedattackcredit thatmayexceed1; it is not a unitfraction.",
+      "disposition": "Keep strategicallyadmitted input, transient simulation and durableoutput record boundaries. CurrentlargeCombatant has several phase-specific clusters; existingenum/aggregate obligations remain useful, but recordsize/fieldcountalone doesnotjustify generic universalCombatState or blanketadditionalnewtypeperfield. Clock/unit/frame/authority distinctions are alreadymeaningful; names do notestablish acceptedrange or prove extra validators required.",
+      "acceptance": "Actual child scheduler/identity/leaves and strategic/native recipients remain independentrolespending11. Preserve signed BattleTime (fixture\u2212.1), zero durations wherevalid, meaningfulinactiveattackhistory/terminalcause and currentfatigue once. Publicmutable fields strengthen separately; sourcefixtures are intentionalpartial/negative contexts, not normalbadproducer evidence."
+    },
+    {
+      "id": "battle-observation-and-native-kernel-roles",
+      "sources": [],
+      "distinction": "BattleRecorder owns summary/log/timeline sequencing; AttackResult, AttackEffect and BattleAttackOutcome separate attempted physical result, actualbody effect and display outcome. Telemetry named measures distinguish planned/ideal/actualcontact versuscenterseparation even where underlyingSignedLengthshared. Defeated/yielded/incapacitated/lethal aredifferentpredicates; timeout andmutualincapacitation aredifferentterminaloutcomes.",
+      "uses": "record_attack derives appliedcut/blunt shares and records exactinstance provenance; physicalContact ToAttacker becomesBlocked versus noncontact Missed. Armorabsorbedhit keeps positivecontact value despitezerohealthdamage. Postmortem receivesbounded projected evidence49. OpeningVolleyPlan countfields and nativepopulationindices are local numerical roles. BodyPart\u2192fixed7index is explicitnativearrayadapter, not arbitrarynumberenum.",
+      "disposition": "Retain typed physicalresult/policyhistory/observation distinctions without collapsing all fractions intoimpairment or allmetres intounqualifieddistance. Actualcontact_stress copiesAttackResult.contact_force; upstream physicalunit not yet established for11, so do not choose Force/Energy wrapper frommisleadingfieldname. Named planned/actualfields may share commonunitowner; add rolewrappers onlywhereactualAPI mixup warrants. Existing rootM88 eventpayload family, rootF04 fullidentity and inheritedNative05F065 surprise lifecycle are related dependencies, not automatic11 findings/aliases.",
+      "acceptance": "Completeactualchild andproducer/recipient traces before sharedrepairdesign. Preserve precommittedversuseffective defense, independent armor/health/miss channels, meaningfulnullabstractequipmentIDs, generalfatigueperformance and zero/partial/nohit outcomes. Entire testsource1333\u20132879 read as evidence; no seedsearch/resolve/test run or assertionpass claimed. Surprise opener callsource supportsnavigationonly until childlifecycleown11read."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

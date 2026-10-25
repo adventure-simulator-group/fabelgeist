@@ -1,0 +1,185 @@
+{
+  "id": "CONT07-CONTRACT-648",
+  "at": "2026-10-24T01:05:47.897026+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1745,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/ui.rs",
+      "sha256": "2a2206d4b76e7db409e7cfa2b8e4337d5ea4a6fa606a95de4e8cf04ca85666e6",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/ui.rs",
+      "actual_EOF": 1039,
+      "ranges": [
+        [
+          711,
+          771
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1877,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory.rs",
+      "sha256": "513ea2b3aa9c0322422e9cea57e10c00c00fe2046f10ce6d9d0cf6460c93957e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/inventory.rs",
+      "actual_EOF": 862,
+      "ranges": [
+        [
+          1,
+          34
+        ],
+        [
+          35,
+          165
+        ],
+        [
+          600,
+          652
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2044,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/ranged.rs",
+      "sha256": "1a644ecf10b57c8e5f34d503a9002cd71bd5ecdf4736d1dd689925c65a91f10e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/combat/ranged.rs",
+      "actual_EOF": 325,
+      "ranges": [
+        [
+          65,
+          120
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2030,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/condition.rs",
+      "sha256": "543fe525702b8245d56a704a028a74138144789cf48c888b58704897bb6be7bf",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/combat/condition.rs",
+      "actual_EOF": 160,
+      "ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2032,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/consequence.rs",
+      "sha256": "9e767c76aa28c3742a0d11658983b2ce4abfd2fb63bc89962d5f1c02b3e396d0",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/combat/consequence.rs",
+      "actual_EOF": 308,
+      "ranges": [
+        [
+          1,
+          77
+        ],
+        [
+          110,
+          163
+        ],
+        [
+          227,
+          241
+        ],
+        [
+          272,
+          308
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2026,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat.rs",
+      "sha256": "847551347ed20961db50cd3ef65998a772b1d732f26b4810f4ccb725685547ba",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/combat.rs",
+      "actual_EOF": 1148,
+      "ranges": [
+        [
+          482,
+          512
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2040,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/melee.rs",
+      "sha256": "fe64843450cc6ba428fd3c9c1fec3a5fcb5b65b3cbf3a5c21997548d3a355dd6",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/combat/melee.rs",
+      "actual_EOF": 473,
+      "ranges": [
+        [
+          131,
+          165
+        ],
+        [
+          350,
+          378
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2035,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/ingress.rs",
+      "sha256": "7b8e51061494a9d8a04960207b16657e3494be1831663d62e911f8a690429d3a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/combat/ingress.rs",
+      "actual_EOF": 1210,
+      "ranges": [
+        [
+          274,
+          311
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1892,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/player/combat_state.rs",
+      "sha256": "bfc02321b1d2716ffaf92d38902b547713a76a9de7a350ece7f35449e9dddf37",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/player/combat_state.rs",
+      "actual_EOF": 211,
+      "ranges": [
+        [
+          1,
+          117
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2471,
+      "source_id": "rig-quality:crates/adventuresim-character-creator/src/export/shell.rs",
+      "sha256": "ff370d4ead428bf2bc7c6de55dcf2d22d7b358ab64054cac8e1ec34f71bda894",
+      "origin": "git:cbbbca08c89a8768926799371f54cf6057312e5e:crates/adventuresim-character-creator/src/export/shell.rs",
+      "actual_EOF": 111,
+      "ranges": [
+        [
+          1,
+          83
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "UI cache recipient personally re-read1745:711\u2013766 and actual inventory public child components/holding-hook mutations1877. Text derives quantity/slot/weapon/armor/shield fields but scheduled only Changed<InventoryItems>; child quantity replacement alone need not touch relationship target. Actual ranged consume2044:100\u2013113 replaces quantity while stack remains, despawns only on final arrow. Native/client replication path for quantity not traced, so classify API/change-invalidation finding, not ordinary multiplayer HUD ammunition reproduction.",
+    "Actual same-update combat condition order and pending contacts now traced: total cache recomputed before contacts, consequence mutates injury/trauma/imbalance without total refresh, later admission/performance read cache. charge_work atomic fatigue delta already positive contrast. Source-confirmed injury-derived stale readiness/performance candidate promoted separately qualified CONT07-F123. No event loop or fight execution.",
+    "Rig-quality shell writer53\u201358 actual fallback selects shell.surface UV when texcoords None, writes original UV count; compact extension remaps all geometry but source.surface tuple unchanged. This supplies concrete recipient for SEGO-INITIAL09-SUPPORT-144-SURFACE-UV, source-only/API qualified; ordinary surface-only compacting caller not established. Preserve separate support from M21/M16; no automatic numbered unique union."
+  ],
+  "new_local_findings": [
+    "CONT07-F122",
+    "CONT07-F123"
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": null
+}

@@ -1,0 +1,83 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-021",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "combat-energy-health-and-incapacity-unit-boundaries",
+      "sources": [
+        {
+          "scope_index": 79,
+          "ranges": [
+            [
+              1,
+              1137
+            ]
+          ]
+        }
+      ],
+      "distinction": "Contact force fields and cut/blunt damage here are physical Joules, not Newton force or normalized health fraction. calculate_damage448\u2013466 retains energy; health_damage473\u2013489 converts via per-region Joule capacity, apportion495\u2013511 returns applied normalized limb-health shares; balance_damage is incapacity. Same f32 representation does not erase these distinct units.",
+      "uses": "Actual resolve_ranged265\u2013314 enters common physical kernel; contact energy partitions through armor before normalized injury. AttackResult distinguishes affected recipient while ToAttacker also represents zero-effect miss; actual downstream readers already read in67/68 discriminate before applying damage. Mul scales delivered energy and effect while preserving contact classification; common numeric scale is not evidence each semantic unit is same owner.",
+      "disposition": "Retain source-backed strengthening candidate for meaningful ContactEnergy versus AppliedHealthDamage/Incapacity roles, sharing actual nonnegative finite numeric invariant below roles where appropriate. Exact existing root/archive remedy lookup pending; no duplicate count or claimed runtime unit mixup. Avoid force-type inference from field names: units are source-established. Faceted player traits are independent input capabilities, not reason to create one universal giant combat context.",
+      "acceptance": "An energy cannot be passed as normalized applied health without the named body-capacity conversion; preserve zero energy/no effective contact, signed policy margins separately, armor material provenance and current RNG/equations. No finite-positive bound that excludes legitimate zero; no test execution.",
+      "question_refs": [
+        "SEGO-INITIAL11-Q002"
+      ]
+    },
+    {
+      "id": "configuration-common-invariants-beneath-physical-roles",
+      "sources": [
+        {
+          "scope_index": 80,
+          "ranges": [
+            [
+              1,
+              122
+            ]
+          ]
+        }
+      ],
+      "distinction": "CombatResolutionParameters groups physical contact/fatigue versus AutoresolveParameters strategic scheduling/movement abstraction. Positive elapsed spans share AnimationElapsed but are not battle coordinates; physical drive force, gravity, traction, energy transfer and stagger resistance differ despite positive finite validation. Ordered timing windows are relational bounds, not separate scalar validators.",
+      "uses": "Validators inspect raw role projections and ordered min/max; current explicit jitter<=SECOND111 confirms Q001 upper bound is actual source policy, not merely an accidental build grouping. Positive movement/formation policy belongs config, while SignedLength underlying permits signed coordinates elsewhere.",
+      "disposition": "Keep coherent nested contact/fatigue families and shared elapsed owner. Do not invent bespoke type per config field with same predicate, or flatten every physical quantity into universalPositiveFloat. Q001 stays qualified policy question: no >1-second acceptance change authorized merely from unit evidence.",
+      "acceptance": "Preserve current positive/ordered configuration policy and real nonnegative elapsed lower-level domain; use coherent ordered-window owner only where actual recipients demand it. No source emission execution; generated include adapter remains a separate material role."
+    },
+    {
+      "id": "contact-facts-revalidation-result-and-surface-frame",
+      "sources": [
+        {
+          "scope_index": 81,
+          "ranges": [
+            [
+              1,
+              489
+            ]
+          ]
+        }
+      ],
+      "distinction": "Scheduled surface measure, current surface measure and authored ideal measure are different facts; lever arm uses a grip-local origin. Input facts and revalidated contact result represent distinct stages. Intended/haft/pommel energy transfer is distinct from invalid miss with cause. Materials can genuinely be absent for abstract equipment.",
+      "uses": "resolve141\u2013158 converts current surface gap to grip-relative lever; close200\u2013239 selects pommel/haft, positive242\u2013284 selects authored head versus body, native ratios produce energy fractions. ideal accuracy287\u2013302 ignores scheduled measure deliberately; fixtures467\u2013477 preserve authored ideal independently. Zero current measure may still produce physical haft contact; InvalidGeometry is semantic miss, not always GeometryError.",
+      "disposition": "Keep named factual fields and input/result boundaries; do not collapse scheduled and ideal authority or confuse surface measure with center separation (F001 adjacent anchor dependency). Result enum owning invalidation payload is compatible with existing own09 aggregate obligation, but no fresh unique shape finding asserted. SignedLength sharing is useful below meaningful local anchor roles; no added positivity on every retained lever, no sentinel replacement that discards true abstract material absence.",
+      "acceptance": "Preserve original operation order/native complete kernels, zero-contact policy, continuous energy conservation, negative temporary grip lever before pommel conversion, material selection and miss cause. No claim tests passed from reading fixtures."
+    },
+    {
+      "id": "relative-contact-offset-earns-role-with-shared-finite-predicate",
+      "sources": [
+        {
+          "scope_index": 82,
+          "ranges": [
+            [
+              1,
+              57
+            ]
+          ]
+        }
+      ],
+      "distinction": "ContactTimingOffset is signed own-contact minus incoming-contact time, BattleTime is a coordinate and AnimationElapsed a nonnegative duration. Equal finite f32 predicate with BattleTime does not make relative offset redundant: it prevents using deadline or absolute coordinate as timing advantage.",
+      "uses": "between_contacts24\u201332 explicitly subtracts coordinates and rejects overflow; Duration conversion40\u201345 only supplies existing saturating authoritative difference, therefore nonnegative subset, not universal nonnegative offset policy.",
+      "disposition": "Preserve purpose-specific clock/relative offset distinction, share finite arithmetic helper only beneath roles if it reduces competing validation. No consolidation into AnimationElapsed and no extra wrap/normalization.",
+      "acceptance": "Negative/zero/positive ordering and same-battle coordinate relationship survive, overflow remains fallible; Duration adapter does not authorize changing relative-time domain."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

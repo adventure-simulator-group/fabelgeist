@@ -1,0 +1,80 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-252",
+  "at": "2026-10-23T06:07:46.282116+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/detail/cuboids.rs",
+      "sha256": "1bc389873b2835026a9bd59935dcc2392411f1bbe05047c3cfdf8adfe9b15960",
+      "scope064_index": 546,
+      "actual_EOF": 254,
+      "scoped_ranges_compared": [
+        [
+          1,
+          254
+        ]
+      ],
+      "actual05_comparison": "Fresh exact whole scoped PR body and original inline fixtures, current05 geometry/index/selection/cache relationships manually compared. No other-lens or module-callee body credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/detail/solids.rs",
+      "sha256": "7c09ee54b3d9ae39bd91d4b22a275373eaa3a5516f95a1835b997ce165488cf2",
+      "scope064_index": 549,
+      "actual_EOF": 260,
+      "scoped_ranges_compared": [
+        [
+          1,
+          260
+        ]
+      ],
+      "actual05_comparison": "Fresh exact whole scoped PR body and original inline fixtures, current05 geometry/index/selection/cache relationships manually compared. No other-lens or module-callee body credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/detail/stove_tiles.rs",
+      "sha256": "7b113cb3c338df1fb2d706bf81cf21ca7f48b8523e220dad89c0dda00ef0adad",
+      "scope064_index": 550,
+      "actual_EOF": 249,
+      "scoped_ranges_compared": [
+        [
+          1,
+          249
+        ]
+      ],
+      "actual05_comparison": "Fresh exact whole scoped PR body and original inline fixtures, current05 geometry/index/selection/cache relationships manually compared. No other-lens or module-callee body credit."
+    }
+  ],
+  "contract_groups": [
+    {
+      "id": "render member versus structural envelope",
+      "comparison": "Cuboid placement derives one yaw/crossfall/longfall rotation, with intentional historical roof-role yaw convention; timber seam cover expands visible size except aperture-selected gable members. Actual same wall frame is used to extend the dominant local horizontal axis inward and shift centre half the missing depth. This is deliberate visible sealing, not an invariant that visible extents equal structural collider. Computed centre re-admitted; raw output render_size and vertex arithmetic not wholly readmitted, so finite leaf types alone do not establish computed-geometry validity for extremes. Existing geometry aggregate/numeric graph qualification retained, no ordinary bad member/new unique claim."
+    },
+    {
+      "id": "positions normals UV and face membership",
+      "comparison": "append_cuboid_faces creates one fixed8point box and six fixed4index faces, pairing each face position with matching UV array, normal and material; no caller-owned index array can desynchronize cardinality here. World-normal versus local grain axis intentionally different roles. Interior plaster only for inward exterior-wall side. Wall UV uses same world point and canonical tangent sign chosen by dominant represented component with X ties; no normalization/change to authored scale, so reverse tangent shares phase. Actual original scale/reversal/generated-wall fixtures read, no execution."
+    },
+    {
+      "id": "cache lifetime and boundary incidence",
+      "comparison": "SolidDetailCompiler retains immutable borrow of plan and computes panel_boundary_edges from that same plan at construction. Rust shared borrow prevents safe plan mutation while compiler lives, so no stale-cache defect inferred. Each triangle always has3vertices and same3edge flags. Edge keys are sorted unordered quantized endpoints with wall ID; edge count exactly1 marks visible outer cap, internal shared edges suppressed. Quantization, i64 native capacity and u8 incidence accumulation rely on admitted topology/coordinate bounds; raw duplicate/nonmanifold or extreme public plan is not sealed here, but no actual generated nonmanifold case or new unique boundary bug established. compile(plan,solid) assumes source association, not brand proving arbitrary external solid belongs to plan."
+    },
+    {
+      "id": "shape recipient and dynamic leaf pairing",
+      "comparison": "Solid append first gives actual tiled stove parts dedicated skin, skips RoundTowerShell handled separately, and omits timber jamb/reveal structural solids only when same actual wall is in frame bay because infill/frame owns visible finish. Shape match delegates cylinder/bell/arch or copies same cuboid. Window pane/shutter path finds current opening containing same solid ID to choose state; factory local mesh triangles transformed from SAME solid centre/rotation and preserve each vertex UV. Actual final world render vertices are not checked by merely successful local Builder; no false global numeric guarantee. Native index validity assumes actual Builder output, not arbitrary raw user mesh."
+    },
+    {
+      "id": "stove shell lattice tied to selected physical set",
+      "comparison": "stove_tiles selects exact heating part solidID and TiledStove kind, unions checked bounds of that same selected set, renders each cuboid once then exposes only outside-plane non-kitchen/non-down faces. Per-face tile intersections share one global lattice and clip to actual face bounds; earthen backing recessed .003 and edge reveals terminate inside existing body, intentionally no new collision. Both same face positions/UV and normals retained for unexposed face. Division/count loops depend on actual positive projected shell extents, not generic cuboid zero-valid guarantee. Raw degenerate/extreme input can violate capacity/geometry prerequisites; no ordinary authored stove failure asserted."
+    },
+    {
+      "id": "original stove fixtures",
+      "comparison": "Full original source fixture checks three seeds/two archetypes: every detail vertex within canonical selected solid bound, positive triangle winding, recessed material/edge count and bounded ordinary triangle budget500..2000, heating LOD excludes dedicated tile materials and plan audit empty. These are read assertions, not actual executed validation or universal input proof."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Accepted plan/frame/topology and direct mesh/native helper roles remain owning independent inventory.",
+    "Current064 overlay245 Creator output202–302 pending own focused05 role comparison; no existing source credit inferred."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

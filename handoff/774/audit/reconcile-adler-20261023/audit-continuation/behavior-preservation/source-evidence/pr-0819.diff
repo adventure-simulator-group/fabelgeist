@@ -1,0 +1,58 @@
+--- PRbase/crates/adventuresim-character-creator/src/main.rs
++++ frozen/crates/adventuresim-character-creator/src/main.rs
+@@ -73,9 +73,9 @@
+     CharacterRecipe, IdentityGroup,
+     bracer::{ForearmMorphSample, ForearmSide, ForearmSurfaceInput},
+     clothing::{GarmentSpecification, generate_clothing_shells},
+     device_torso::TorsoSurfaceInput,
+-    equipment_catalog::ItemCatalog,
++    equipment_catalog::{self, EquipmentItemSelection, ItemCatalog},
+     export::{
+         GlbOutput, MHR_ANATOMICAL_UV_DOMAIN, RiggedMesh, RiggedMorphTarget, RiggedShell,
+         RiggedSocket, SurfaceUvLayout, export_rigged_glb, fitted_equipment_socket_from_uv,
+     },
+@@ -169,12 +169,14 @@
+ #[derive(Component, Clone)]
+ struct CharacterMesh;
+ 
+ struct GeneratedCharacter {
+-    joint_proportions: Vec<adventuresim_core::character_proportions::JointProportionBasis>,
++    joint_proportions: fabelgeist_rig::RigJointTable<
++        adventuresim_core::character_proportions::JointProportionBasis,
++    >,
+     positions: Vec<[f32; 3]>,
+     normals: Vec<[f32; 3]>,
+-    global_joint_states: Vec<[f32; 8]>,
++    global_joint_states: fabelgeist_rig::RigJointTable<[f32; 8]>,
+     /// This body on the armor device, once a piece has uploaded it.
+     device: adventuresim_character_creator::device_body::DeviceBody,
+ }
+ 
+@@ -198,9 +200,9 @@
+         let defaults = catalog
+             .items
+             .iter()
+             .filter_map(|item| {
+-                let design = catalog.design(&item.id)?;
++                let design = catalog.design(item)?;
+                 Some((item.id.clone(), design.recipe()?.clone()))
+             })
+             .collect();
+         let designs = adventuresim_character_creator::armor_design_input::ArmorDesigns {
+@@ -230,14 +232,15 @@
+         );
+     }
+ 
+     if args.generate_equipment {
++        let selection = EquipmentItemSelection::admit(&catalog, &args.equipment_item)?;
+         generate_equipment_assets(
+             &args.equipment_output,
+             &model,
+             &recipe,
+             &catalog,
+-            &args.equipment_item,
++            &selection,
+         )?;
+         println!(
+             "Generated equipment under {}",
+             args.equipment_output.display()

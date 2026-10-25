@@ -1,0 +1,98 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-132",
+  "at": "2026-10-25T12:48:19.967453+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 273,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/custody_objectives.rs",
+      "sha256": "7274d8bedc95fa40cee64bda7b7dda0c32b6d02aa01e44e754f77e1bd171bc5b",
+      "actual_EOF": 1677,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/custody_objectives.rs",
+        "snapshot": "physical-p16",
+        "path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\strategic\\custody_objectives.rs",
+        "sha256": "7274d8bedc95fa40cee64bda7b7dda0c32b6d02aa01e44e754f77e1bd171bc5b",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Read-only source assignment; whole-function repair ownership remains in authoritative claims.",
+        "scope_limits": "Explicit material contracts/ranges and necessary signature dependencies only; no implied whole-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/expanded-producer-delta-map-049.json",
+        "actual_line_count": 1677,
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 122,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-TRADE-MISSION-042",
+            "json_pointer": "/additional_actual_source_proofs/2",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row248/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1225,
+                1305
+              ],
+              [
+                1460,
+                1645
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1225,
+                1305
+              ],
+              [
+                1460,
+                1645
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": null,
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": true,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1173,
+          1305
+        ],
+        [
+          1419,
+          1677
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Registered1225\u20131305/1460\u20131645 plus owning function signatures/guards/closing bodies1173\u20131241 and1419\u20131677 personally consumed. No manual trait/serializer in exactmaterial. Finale effect/receipt, objective resolution classifier, mission capability-to-candidate contextual identity map and exact generated group selection/bound mission preflight are semantic functions; serde_json native OutcomeFact parsing delegates existing checked implementation.",
+      "necessary_signature_extension": "1173\u20131224 closes execute_case_finale owning signature/guards;1419\u20131459+1646\u20131677 closes ensure_bound_mission_authority admission and commit/candidate body.",
+      "coverage_limit": "Not whole1677 source. Exploratory1120\u20131172/1307\u20131325/1390\u20131418 observed only; no other material/foreign receiver credit."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Case finale and observer-bound mission approach context",
+      "disposition": "No derivabilitycandidate within exact material; retain native checked/borrowed projection and identity construction.",
+      "acceptance": "No raw From/Serde replaces contextual mission identity, generated provenance/objective/custody/observer checks or private receipt effects; no execution."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 274,
+    "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/development_gallery.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

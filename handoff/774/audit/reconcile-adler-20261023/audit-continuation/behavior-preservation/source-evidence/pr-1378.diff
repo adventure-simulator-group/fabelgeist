@@ -1,0 +1,300 @@
+--- PRbase/crates/adventuresim-tactical-client/src/animation/procedural/ik/settle/planning.rs
++++ frozen/crates/adventuresim-tactical-client/src/animation/procedural/ik/settle/planning.rs
+@@ -0,0 +1,297 @@
++//! Balance-capture planning from real rendered stance observations.
++
++use super::*;
++
++impl LegIkMemory {
++    /// Prepare a balance capture only from an actual selected foot observation.
++    pub(in crate::animation::procedural) fn begin_settle_if_needed(
++        &mut self,
++        rig: &HumanoidRig,
++        transforms: &TransformHelper,
++        frame: ObservedRigFrame,
++        terrain: Option<&SceneTerrain>,
++        raised_handoff: bool,
++    ) -> AnimationValueResult<()> {
++        let (rig_origin, rig_rotation) = (frame.origin(), frame.rotation());
++        // A real root remains the authored COM approximation for sparse rigs;
++        // it is never substituted for an unobserved swing foot.
++        let projected_com = projected_body_center(rig, transforms).unwrap_or(rig_origin);
++        let has_recent_velocity = self.recent_movement_velocity.length_squared() > 0.0025;
++        let stance_known =
++            self.left_foot_world_target.is_some() && self.right_foot_world_target.is_some();
++        let stance_safe = stance_known
++            && terrain.is_some_and(|terrain| {
++                settle_stance_is_safe(
++                    projected_com,
++                    self.left_foot_world_target,
++                    self.right_foot_world_target,
++                    terrain,
++                )
++            });
++        if !(raised_handoff || has_recent_velocity || (stance_known && !stance_safe)) {
++            return Ok(());
++        }
++        let rendered_left = rig.get(&BoneRole::FootLeft).and_then(|&foot| {
++            transforms
++                .compute_global_transform(foot)
++                .ok()
++                .map(|global| global.translation())
++        });
++        let rendered_right = rig.get(&BoneRole::FootRight).and_then(|&foot| {
++            transforms
++                .compute_global_transform(foot)
++                .ok()
++                .map(|global| global.translation())
++        });
++        let visible_left = settle_visible_foot(self.left_last_rendered_world, rendered_left);
++        let visible_right = settle_visible_foot(self.right_last_rendered_world, rendered_right);
++        let direction = if has_recent_velocity {
++            self.recent_movement_velocity.normalize_or_zero()
++        } else {
++            balance_recovery_direction(
++                projected_com,
++                self.left_foot_world_target,
++                self.right_foot_world_target,
++                rig_rotation * Vec3::NEG_Z,
++            )
++        };
++        let capture_point = if has_recent_velocity {
++            projected_capture_point(
++                projected_com,
++                self.recent_movement_velocity.clamp_length_max(
++                    ik_tuning()
++                        .maximum_settle_capture_speed_metres_per_second
++                        .metres_per_second(),
++                ),
++                ik_tuning().assumed_center_of_mass_height_metres,
++            )
++        } else {
++            projected_com
++        };
++        let support_foot = choose_settle_support(
++            self.left_support_weight,
++            self.right_support_weight,
++            visible_left,
++            visible_right,
++            projected_com,
++            direction,
++        );
++        let acquired = self.support_was_acquired(support_foot);
++        let Some(swing_start) = (if support_foot == LeadFoot::Left {
++            visible_right
++        } else {
++            visible_left
++        }) else {
++            return Ok(());
++        };
++        let side = settle_swing_side(rig_origin, rig_rotation, swing_start, support_foot);
++        let landing_target = checked_foot_target(plan_settle_landing(
++            rig_origin,
++            rig_rotation,
++            capture_point,
++            direction,
++            side,
++        ))?;
++        checked_foot_target(capture_point)?;
++        // Preserve observation-before-seed, then selected support ownership,
++        // then the complete settle payload publication in that order.
++        seed_settle_from_rendered_feet(self, visible_left, visible_right, rig_origin, rig_rotation);
++        retain_settle_support(self, support_foot, visible_left, visible_right, acquired);
++        self.settle = Some(LocomotionSettleState {
++            support_foot,
++            swing_start,
++            capture_point,
++            landing_target,
++            progress: SettleProgress::ZERO,
++            elapsed_seconds: AnimationElapsed::ZERO,
++            raised_handoff,
++        });
++        Ok(())
++    }
++}
++
++pub(in crate::animation::procedural) fn balance_recovery_direction(
++    projected_com: Vec3,
++    left_foot: Option<Vec3>,
++    right_foot: Option<Vec3>,
++    body_forward: Vec3,
++) -> Vec3 {
++    let unsupported_offset = match (left_foot, right_foot) {
++        (Some(left), Some(right)) => {
++            let segment = right.xz() - left.xz();
++            let closest = if segment.length_squared() > 0.000001 {
++                let progress = ((projected_com.xz() - left.xz()).dot(segment)
++                    / segment.length_squared())
++                .clamp(0.0, 1.0);
++                left.xz() + segment * progress
++            } else {
++                (left.xz() + right.xz()) * 0.5
++            };
++            projected_com.xz() - closest
++        }
++        (Some(foot), None) | (None, Some(foot)) => projected_com.xz() - foot.xz(),
++        (None, None) => Vec2::ZERO,
++    };
++    Vec3::new(unsupported_offset.x, 0.0, unsupported_offset.y)
++        .try_normalize()
++        .unwrap_or_else(|| body_forward.with_y(0.0).normalize_or_zero())
++}
++
++pub(in crate::animation::procedural) fn projected_capture_point(
++    com: Vec3,
++    velocity: Vec3,
++    com_height: SignedLength,
++) -> Vec3 {
++    let omega = (9.81 / com_height.metres().max(0.25)).sqrt();
++    com + velocity.with_y(0.0) / omega
++}
++
++pub(in crate::animation::procedural) fn choose_settle_support(
++    left_weight: Option<UnitInterval>,
++    right_weight: Option<UnitInterval>,
++    left_foot: Option<Vec3>,
++    right_foot: Option<Vec3>,
++    projected_com: Vec3,
++    direction: Vec3,
++) -> LeadFoot {
++    let preferred = match (left_weight, right_weight) {
++        (Some(left), Some(right)) if (left.fraction() - right.fraction()).abs() > 0.05 => {
++            Some(if left > right {
++                LeadFoot::Left
++            } else {
++                LeadFoot::Right
++            })
++        }
++        (Some(left), None) if left.fraction() > 0.05 => Some(LeadFoot::Left),
++        (None, Some(right)) if right.fraction() > 0.05 => Some(LeadFoot::Right),
++        _ => None,
++    };
++    if let Some(foot) = preferred {
++        return foot;
++    }
++    match (left_foot, right_foot) {
++        (Some(left), Some(right)) => {
++            // In flight, retain the foot behind the moving body so the other
++            // foot can capture ahead of its projected center.
++            if (left - projected_com).dot(direction) <= (right - projected_com).dot(direction) {
++                LeadFoot::Left
++            } else {
++                LeadFoot::Right
++            }
++        }
++        (Some(_), None) => LeadFoot::Left,
++        (None, Some(_)) => LeadFoot::Right,
++        (None, None) => LeadFoot::Left,
++    }
++}
++
++pub(in crate::animation::procedural) fn plan_settle_landing(
++    rig_origin: Vec3,
++    rig_rotation: Quat,
++    capture_point: Vec3,
++    direction: Vec3,
++    side: FootTrackSide,
++) -> Vec3 {
++    let direction = direction
++        .with_y(0.0)
++        .try_normalize()
++        .unwrap_or(rig_rotation * Vec3::NEG_Z);
++    let lateral =
++        rig_rotation * Vec3::X * (foot_track_inner_metres().metres() + 0.04) * side.coefficient();
++    let mut target = capture_point
++        .with_y(rig_origin.y + measured_ankle_sole_offset_metres().metres())
++        + direction * ik_tuning().settle_capture_point_margin_metres.metres()
++        + lateral;
++    // The capture-point requirement is stronger than the anatomical track
++    // correction, so restore its forward margin if the corridor clamp erodes
++    // it during diagonal movement.
++    target = constrain_foot_to_track(target, rig_origin, rig_rotation, side);
++    let shortfall = ik_tuning().settle_capture_point_margin_metres.metres()
++        - (target - capture_point).dot(direction);
++    if shortfall > 0.0 {
++        target += direction * shortfall;
++    }
++    target
++}
++
++pub(in crate::animation::procedural) fn settle_swing_side(
++    rig_origin: Vec3,
++    rig_rotation: Quat,
++    swing_start: Vec3,
++    support_foot: LeadFoot,
++) -> FootTrackSide {
++    let authored_side = (rig_rotation.inverse() * (swing_start - rig_origin)).x;
++    if authored_side.abs() > 0.001 {
++        FootTrackSide::from_native_x(authored_side)
++    } else {
++        match support_foot {
++            LeadFoot::Left => FootTrackSide::PositiveX,
++            LeadFoot::Right => FootTrackSide::NegativeX,
++        }
++    }
++}
++
++#[cfg(test)]
++mod tests {
++    use super::*;
++
++    #[test]
++    fn settle_landing_is_ahead_of_the_capture_point() {
++        let com = Vec3::new(0.0, 1.0, 0.0);
++        let velocity = Vec3::new(0.8, 0.0, -2.0);
++        let direction = velocity.normalize();
++        let capture = projected_capture_point(
++            com,
++            velocity,
++            adventuresim_building_generator::spatial_geometry::SignedLength::from_metres(1.0)
++                .unwrap(),
++        );
++        let landing = plan_settle_landing(
++            Vec3::ZERO,
++            Quat::IDENTITY,
++            capture,
++            direction,
++            FootTrackSide::NegativeX,
++        );
++        assert!((landing - capture).dot(direction) >= 0.119);
++        assert!(landing.is_finite());
++    }
++
++    #[test]
++    fn settle_landing_retains_the_actual_swing_track() {
++        let origin = Vec3::new(2.0, 0.0, -3.0);
++        let rotation = Quat::from_rotation_y(0.7);
++        for local_x in [-0.14_f32, 0.14_f32] {
++            let swing_start = origin + rotation * Vec3::new(local_x, 0.085, 0.2);
++            let support_foot = if local_x < 0.0 {
++                LeadFoot::Left
++            } else {
++                LeadFoot::Right
++            };
++            let side = settle_swing_side(origin, rotation, swing_start, support_foot);
++            assert_eq!(side.coefficient(), local_x.signum());
++            let capture = origin + rotation * Vec3::NEG_Z * 0.2;
++            let landing =
++                plan_settle_landing(origin, rotation, capture, rotation * Vec3::NEG_Z, side);
++            let landing_local = rotation.inverse() * (landing - origin);
++            assert!(landing_local.x * local_x.signum() >= foot_track_inner_metres().metres());
++        }
++    }
++
++    #[test]
++    fn unsupported_idle_recovers_from_feet_toward_projected_com() {
++        let com = Vec3::new(0.0, 1.0, -0.45);
++        let left = Vec3::new(-0.12, 0.085, 0.0);
++        let right = Vec3::new(0.12, 0.085, 0.1);
++        let direction = balance_recovery_direction(com, Some(left), Some(right), Vec3::Z);
++        assert!(direction.dot(Vec3::NEG_Z) > 0.95);
++        let landing = plan_settle_landing(
++            Vec3::ZERO,
++            Quat::IDENTITY,
++            com,
++            direction,
++            FootTrackSide::NegativeX,
++        );
++        assert!((landing - com).dot(direction) >= 0.119);
++    }
++}

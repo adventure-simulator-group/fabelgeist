@@ -1,0 +1,16 @@
+{
+  "id": "SEGOVB-INITIAL10-REG1171",
+  "source_id": "pr-working:crates/adventuresim-strategic-sim/Cargo.toml",
+  "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-strategic-sim/Cargo.toml",
+  "sha256": "6c4b6aca99dd4eacdda5f4723be9bd9a87b9cab7cb08b18f54ba170826b1bff5",
+  "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/derivability/dependency-sources/6c4b6aca99dd4eacdda5f4723be9bd9a87b9cab7cb08b18f54ba170826b1bff5",
+  "line_count": 23,
+  "actual_compared_ranges": [
+    [
+      1,
+      23
+    ]
+  ],
+  "material_contract": "Owning crate dependency support for exact Display wrappers on departure reason enums; manifest has serde and thiserror, no derive_more or other Display derive provider. Keep small Display forwarding as_str rather than introduce dependency/runtime Serde solely for this.",
+  "coverage": "Actual own10 bounded dependency read only; not shared registration/cross-lens coverage."
+}

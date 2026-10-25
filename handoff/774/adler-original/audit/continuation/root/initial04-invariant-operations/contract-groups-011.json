@@ -1,0 +1,43 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-011",
+  "at": "2026-10-22T19:26:18.161229+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-xpbd/src/dynamics/projection.rs",
+      "sha256": "5bb8e91c0567547ebdbb72da14d8b7e9384b3caded29267f1f3d96ac49ececf3",
+      "actual_read_ranges": [
+        [
+          1,
+          206
+        ]
+      ],
+      "scope_limits": "Existing0191-200 plusRig06REG005201-206 prospectivelyregisteredbeforebody. Lowerconstraint/mass/nativevector/callerimplementations notimplicitlycovered."
+    }
+  ],
+  "contracts": {
+    "gradient-and-affine-weights": "Freshentire206. ConstraintGradient From<f64>uncheckednarrowing; contributionrawcomponentscalemultiplication, inverse_response mass*g*g uncheckedfinite/overflow. BarycentricWeightprivate0/1constants andinterpolateusinguncheckedClippingFraction; commentexplicitaffine/notclamped, signedoutside[0,1]mayvalid. contribution/inverse_response.powi/velocity.dot*weight/mass_share division eachnativekernel maylosefinite/sign/divisorcontracts, nofallible result/readmission. ClippingFractionpubFrom<f32>acceptsallbitpatterns andnativepoint interpolationdifferencecanoverflowfiniteinputs. Theseareactualnumericowneroperations, not excusefor extracting/re-admittingeverycaller; F006 callsforfinishedowner/publicstatecontracts.",
+    "response-and-activity": "EffectiveInverseMasspubsuperrawfloat, contact<=1e-12inactive, distance<1e-12inactive (differentendpointintentional), layer<=0inactive. NaNcomparisons allfalse\u2192Active, InfActive. Sumrawtermscanoverflow; addingCompliancePerSubstep uncheckedadd canoverflowbutlowercomplianceadmissionnotreadhere. Empty sum0expectedinactive; no assertnonemptyrequired. ProjectionDepthpubFromunvalidatedfloat, activity<=0inactive elseActive; directcontactcorrectiondepth*gradient*inverseMass/response no activepositivefinite token. Signeddepth/inactive0 meaningful, no blanketpositiveleafsubstitution. RelativeNormalSpeedactivitynegativeActive, NaNInactive; speedcorrection sameuncheckedratio. IncomingNormalSpeed.incoming min(0) validfinite-negative-selectionpreservesfiniteforsuitableinputs butwouldmaskNaN ifupstreamuncheckedpathproducedit; Sumcanoverflow. MassResponseSharederiveduncheckeddivide, thenmultiplydepth/speed; outputsseparatePositionCorrection/NormalSpeedCorrection unitsmeaningful.",
+    "output-direction-operation": "PositionCorrectionpubsuperfloatandNormalSpeedCorrectionprivatefloat eachalong rawVec3 multiplies3components, nofinite/unitnormalcheck/resultadmission. Nativekerneloutputisrawvector, no guaranteeexternalcalleracceptsit. Actualcaller/normal/mass/complianceproducersareseparatelyscopedcells; no currentordinarysolverfailureconfirmed. Newtail201-206 confirmsrealSpeedCorrectionunit distinctfromPositionCorrection, notduplicateconceptdespitesamecomponentformula. Doesnotjustifyreusingpositioncorrectionforspeed merelybecausefieldf32. No retainedstate update/retryclockinsideexactowner, so typedResultfailure/rollbacksemanticsmustbeimplemented atactualmutationcaller. No newtest/execution."
+  },
+  "findings": [
+    {
+      "id": "ROOT-INITIAL04-F006",
+      "class": "bespoke_type_migration_gap_with_representable_API_counterexamples; current_bad_simulation_call_not_established",
+      "source": "pr-working:crates/fabelgeist-xpbd/src/dynamics/projection.rs",
+      "operations": "Unchecked scalar admission, f64\u2192f32 narrowing, accumulation, interpolation, activityclassification and response division do not express finite physical/correctable response contracts.",
+      "counterexamples": [
+        "ConstraintGradient::from(f64::MAX) narrowsfinitef64 toInfinitef32at17, retaininga gradientbespoketype withnonfinitevalue. No actualtriangleproducingthismagnitudeidentified.",
+        "ProjectionDepth::from(f32::NAN).activity() returnsProjectionActivity::Active127-132 becauseNaN<=0false; EffectiveInverseMassNaN similarlyselectsActive. ThisispublicAPIclassification, notexecutedsolverloop.",
+        "ClippingFraction::from(NaN) canproduceall-NaN pointfromfiniteZERO/X at71-74; finiteorderedendpointinterpolation canoverflow other-point beforefractionmultiplication. No implementedfinite/[0,1]admission inthisowner.",
+        "EffectiveInverseMasssum(empty) produces0 (validinactiveaggregate) butcontact_correction/relativevelocitycorrection acceptthatsameunqualifiedresponse anddividebyrawresponse; activepositivefiniteprecondition notrepresentedbyparameter type. Concretezero-divisionpublicationneedsordinarymass/gradientactualcallercontext, notassumedclosedhere."
+      ],
+      "acceptance": "Finish numericalownerandactualproducer/caller propagation: admit finite physical scalars andcheckedf64narrowing atrealnativeentry, checked/readmittedcomputedresponse/corrections afteroverflow-proneproducts/sums/ratios, and classify inactive versus finitevaliddivisor beforecorrection. Preserve signedgradients/affineweights/signedspeed andvalidzerostaticresponse, originalthresholddifferences/contactdraw/order; do not impose[0,1]onunboundedaffinebarycentricweight or silentlyclampNaN to0. Clippingfraction bounds mustfollowactualclippingoperationcontext. RawVec3 remainsappropriateinsideactualnumericalkernel/nativeport butnotapermanentescape aroundcomputedacceptedvalueguarantees. Reusecanonicalfinite/physicalownerswithoutcollapsingposition versus normal-speedcorrection. No speculativeworkaround/testor actualruntimeclaim."
+    }
+  ],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

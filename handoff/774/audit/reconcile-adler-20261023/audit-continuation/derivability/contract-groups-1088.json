@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1088",
+  "at": "2026-10-25T17:44:07.051690+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1220,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/governance.rs",
+  "sha256": "d5eb2f18906eb28ba2703b665b769c50113ed55b73f572896659d17492443e92",
+  "actual_compared_ranges": [
+    [
+      731,
+      1110
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "No handwritten trait/codec. Recruitment create/update/delete/save/rename and whole-number party-check targets validate exact role capacity/precision/rating/ownership/admission; role_requirements1102\u20131110 clears nonrecruitment checks and is semantic projection, not mechanical From. Native row field assignment/cleanup does not justify derives or validation removal."
+  ],
+  "first_unfinished": {
+    "scope_index": 1220,
+    "line": 1111
+  },
+  "execution": "none"
+}

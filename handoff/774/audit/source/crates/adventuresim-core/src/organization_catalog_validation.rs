@@ -1,0 +1,986 @@
+use serde_json::{Map, Value};
+use std::collections::BTreeSet;
+
+const SKILLS: &[&str] = &[
+    "will",
+    "insight",
+    "charm",
+    "command",
+    "deception",
+    "physiology",
+    "cooking",
+    "herbalism",
+    "religion",
+    "bestiary",
+    "surgery",
+    "polearm",
+    "axe",
+    "bludgeon",
+    "sword",
+    "knife",
+    "bow",
+    "crossbow",
+    "firearm",
+    "throw",
+    "block",
+    "dodge",
+    "stealth",
+    "balance",
+    "terrain_plains",
+    "terrain_forest",
+    "terrain_hills",
+    "terrain_wetlands",
+    "terrain_urban",
+    "terrain_snow",
+    "tailoring",
+    "smithing",
+];
+const RELIGIONS: &[&str] = &[
+    "roman_catholic",
+    "lutheran",
+    "reformed",
+    "anglican",
+    "eastern_orthodox",
+    "islamic",
+    "judaism",
+];
+const BESTIARY: &[&str] = &[
+    "beast",
+    "undead",
+    "human",
+    "werekin",
+    "elf",
+    "dwarf",
+    "fey",
+    "spirit",
+    "greenskin",
+    "insectoid",
+    "draconid",
+    "construct",
+    "wildmen",
+];
+const TERRAINS: &[&str] = &["plains", "forest", "hills", "urban"];
+const WRITTEN_LANGUAGES: &[&str] = &[
+    "German", "Low", "Latin", "Hebrew", "Yiddish", "Elven", "Dwarfish",
+];
+
+fn object<'a>(
+    value: &'a Value,
+    source: &str,
+    path: &str,
+) -> Result<&'a Map<String, Value>, String> {
+    value
+        .as_object()
+        .ok_or_else(|| format!("{source}: {path} must be an object"))
+}
+
+fn text<'a>(object: &'a Map<String, Value>, source: &str, field: &str) -> Result<&'a str, String> {
+    object
+        .get(field)
+        .and_then(Value::as_str)
+        .filter(|s| !s.trim().is_empty())
+        .ok_or_else(|| format!("{source}: {field} must be a non-empty string"))
+}
+
+fn array<'a>(
+    object: &'a Map<String, Value>,
+    source: &str,
+    field: &str,
+) -> Result<&'a Vec<Value>, String> {
+    object
+        .get(field)
+        .and_then(Value::as_array)
+        .ok_or_else(|| format!("{source}: {field} must be an array"))
+}
+
+fn keys(
+    object: &Map<String, Value>,
+    allowed: &[&str],
+    source: &str,
+    path: &str,
+) -> Result<(), String> {
+    for key in object.keys() {
+        if !allowed.contains(&key.as_str()) {
+            return Err(format!("{source}: {path} contains unknown field {key:?}"));
+        }
+    }
+    Ok(())
+}
+
+fn stable_id(value: &str) -> bool {
+    !value.is_empty()
+        && value
+            .bytes()
+            .all(|byte| byte.is_ascii_lowercase() || byte.is_ascii_digit() || byte == b'_')
+}
+
+fn unique_strings(values: &[Value], source: &str, path: &str) -> Result<BTreeSet<String>, String> {
+    let mut seen = BTreeSet::new();
+    for (index, value) in values.iter().enumerate() {
+        let Some(value) = value.as_str().filter(|value| !value.is_empty()) else {
+            return Err(format!(
+                "{source}: {path}[{index}] must be a non-empty string"
+            ));
+        };
+        if !seen.insert(value.to_owned()) {
+            return Err(format!("{source}: {path} contains duplicate {value:?}"));
+        }
+    }
+    Ok(seen)
+}
+
+fn requirements(values: &[Value], source: &str, path: &str) -> Result<(), String> {
+    for (index, value) in values.iter().enumerate() {
+        let at = format!("{path}[{index}]");
+        let req = object(value, source, &at)?;
+        match text(req, source, "kind")? {
+            "skill_rating" => {
+                keys(req, &["kind", "skill", "minimum", "leaf"], source, &at)?;
+                let skill = text(req, source, "skill")?;
+                if !SKILLS.contains(&skill) {
+                    return Err(format!(
+                        "{source}: {at}.skill references unknown skill {skill:?}"
+                    ));
+                }
+                let minimum = req
+                    .get("minimum")
+                    .and_then(Value::as_f64)
+                    .ok_or_else(|| format!("{source}: {at}.minimum must be a number"))?;
+                if !(0.0..=5.0).contains(&minimum) {
+                    return Err(format!("{source}: {at}.minimum must be between 0 and 5"));
+                }
+                let leaf = req.get("leaf");
+                match skill {
+                    "religion" => {
+                        let leaf = leaf.and_then(Value::as_str).ok_or_else(|| {
+                            format!("{source}: {at}.leaf is required for religion")
+                        })?;
+                        if !RELIGIONS.contains(&leaf) {
+                            return Err(format!("{source}: {at}.leaf is invalid for religion"));
+                        }
+                    }
+                    "bestiary" => {
+                        let leaf = leaf.and_then(Value::as_str).ok_or_else(|| {
+                            format!("{source}: {at}.leaf is required for bestiary")
+                        })?;
+                        if !BESTIARY.contains(&leaf) {
+                            return Err(format!("{source}: {at}.leaf is invalid for bestiary"));
+                        }
+                    }
+                    _ if leaf.is_some() => {
+                        return Err(format!("{source}: {at}.leaf is forbidden for {skill}"));
+                    }
+                    _ => {}
+                }
+            }
+            "professed_religion" => {
+                keys(req, &["kind", "religion"], source, &at)?;
+                let religion = text(req, source, "religion")?;
+                if !RELIGIONS.contains(&religion) {
+                    return Err(format!(
+                        "{source}: {at}.religion references unknown religion {religion:?}"
+                    ));
+                }
+            }
+            kind => {
+                return Err(format!(
+                    "{source}: {at}.kind has unknown requirement {kind:?}"
+                ));
+            }
+        }
+    }
+    Ok(())
+}
+
+fn professed_religions(values: &[Value]) -> BTreeSet<&str> {
+    values
+        .iter()
+        .filter_map(|value| {
+            let requirement = value.as_object()?;
+            (requirement.get("kind")?.as_str()? == "professed_religion")
+                .then(|| requirement.get("religion")?.as_str())
+                .flatten()
+        })
+        .collect()
+}
+
+pub fn validate_documents(
+    documents: &[Value],
+    sources: &[String],
+    policy: &Value,
+    policy_source: &str,
+) -> Result<(), String> {
+    let mut ids = BTreeSet::new();
+    let mut starting_professions = BTreeSet::new();
+    let mut chapter_location_pairs = BTreeSet::new();
+    for (document, source) in documents.iter().zip(sources) {
+        let org = object(document, source, "organization")?;
+        keys(
+            org,
+            &[
+                "id",
+                "name",
+                "description",
+                "kind",
+                "historical_fantasy_note",
+                "service_id",
+                "public_threat_referrals",
+                "errantry_issuance",
+                "starting_role",
+                "roles",
+                "entry_role_ids",
+                "chapters",
+                "recognition",
+                "admission",
+                "dues",
+                "activity",
+                "privileges",
+            ],
+            source,
+            "organization",
+        )?;
+        if !org
+            .get("public_threat_referrals")
+            .is_some_and(Value::is_boolean)
+        {
+            return Err(format!(
+                "{source}: organization.public_threat_referrals must be a boolean"
+            ));
+        }
+        if org
+            .get("errantry_issuance")
+            .is_some_and(|value| !value.is_boolean())
+        {
+            return Err(format!(
+                "{source}: organization.errantry_issuance must be a boolean"
+            ));
+        }
+        let id = text(org, source, "id")?;
+        if !stable_id(id) {
+            return Err(format!(
+                "{source}: organization id {id:?} is not snake_case"
+            ));
+        }
+        if !ids.insert(id.to_owned()) {
+            return Err(format!("{source}: duplicate organization id {id:?}"));
+        }
+        text(org, source, "name")?;
+        text(org, source, "description")?;
+        let organization_kind = text(org, source, "kind")?;
+        if !matches!(
+            organization_kind,
+            "professional_association"
+                | "religious_organization"
+                | "noble_house"
+                | "lordship"
+                | "civic_community"
+                | "family"
+        ) {
+            return Err(format!(
+                "{source}: organization.kind {organization_kind:?} is invalid"
+            ));
+        }
+        let mut role_ids = BTreeSet::new();
+        for (index, role) in array(org, source, "roles")?.iter().enumerate() {
+            let at = format!("roles[{index}]");
+            let role = object(role, source, &at)?;
+            keys(
+                role,
+                &[
+                    "id",
+                    "name",
+                    "profession",
+                    "address_priority",
+                    "social_precedence",
+                    "address_title",
+                    "publicly_recognizable",
+                    "creation_literacy",
+                    "description",
+                    "requirements",
+                    "practice_allowed",
+                    "practice_reward_interval_minutes",
+                    "privileges",
+                ],
+                source,
+                &at,
+            )?;
+            text(role, source, "profession")?;
+            for field in ["address_priority", "social_precedence"] {
+                if role.get(field).is_some_and(|value| {
+                    value
+                        .as_i64()
+                        .is_none_or(|n| !(-32768..=32767).contains(&n))
+                }) {
+                    return Err(format!("{source}: {at}.{field} must be an i16"));
+                }
+            }
+            if role
+                .get("publicly_recognizable")
+                .is_some_and(|value| !value.is_boolean())
+            {
+                return Err(format!(
+                    "{source}: {at}.publicly_recognizable must be a boolean"
+                ));
+            }
+            if let Some(language) = role.get("creation_literacy") {
+                let language = language.as_str().ok_or_else(|| {
+                    format!("{source}: {at}.creation_literacy must be a Written language")
+                })?;
+                if !WRITTEN_LANGUAGES.contains(&language) {
+                    return Err(format!("{source}: {at}.creation_literacy is unknown"));
+                }
+            }
+            let role_id = text(role, source, "id")?;
+            if !stable_id(role_id) {
+                return Err(format!("{source}: {at}.id {role_id:?} is not snake_case"));
+            }
+            if !role_ids.insert(role_id) {
+                return Err(format!("{source}: duplicate role id {role_id:?}"));
+            }
+            text(role, source, "name")?;
+            text(role, source, "description")?;
+            requirements(
+                array(role, source, "requirements")?,
+                source,
+                &format!("{at}.requirements"),
+            )?;
+            let practice_allowed = role
+                .get("practice_allowed")
+                .and_then(Value::as_bool)
+                .ok_or_else(|| format!("{source}: {at}.practice_allowed must be a boolean"))?;
+            let cadence = role
+                .get("practice_reward_interval_minutes")
+                .and_then(Value::as_u64)
+                .ok_or_else(|| {
+                    format!("{source}: {at}.practice_reward_interval_minutes must be a u32")
+                })?;
+            if cadence > u32::MAX as u64 || (practice_allowed && cadence == 0) {
+                return Err(format!(
+                    "{source}: {at}.practice_reward_interval_minutes must be positive when practice is allowed"
+                ));
+            }
+            if !practice_allowed && cadence != 0 {
+                return Err(format!(
+                    "{source}: {at}.practice_reward_interval_minutes must be zero when practice is forbidden"
+                ));
+            }
+            validate_privileges(
+                array(role, source, "privileges")?,
+                source,
+                &format!("{at}.privileges"),
+            )?;
+        }
+        if role_ids.is_empty() {
+            return Err(format!("{source}: roles must not be empty"));
+        }
+        let entry_role_ids = unique_strings(
+            array(org, source, "entry_role_ids")?,
+            source,
+            "entry_role_ids",
+        )?;
+        if entry_role_ids
+            .iter()
+            .any(|id| !role_ids.contains(id.as_str()))
+        {
+            return Err(format!(
+                "{source}: entry_role_ids references an unknown role"
+            ));
+        }
+        if let Some(starting_role) = org.get("starting_role") {
+            let starting_role = object(starting_role, source, "starting_role")?;
+            keys(
+                starting_role,
+                &["profession", "adult_role_id", "old_role_id"],
+                source,
+                "starting_role",
+            )?;
+            let profession = text(starting_role, source, "profession")?;
+            if ![
+                "merchant",
+                "weaponsmith",
+                "armourer",
+                "tailor",
+                "herbalist",
+                "cook",
+                "learned_religious_practitioner",
+                "witch_hunter",
+                "knight",
+                "forester",
+            ]
+            .contains(&profession)
+            {
+                return Err(format!(
+                    "{source}: starting_role.profession {profession:?} is invalid"
+                ));
+            }
+            starting_professions.insert(profession.to_owned());
+        }
+        let chapters = array(org, source, "chapters")?;
+        let mut chapter_settlements = BTreeSet::new();
+        for (index, chapter) in chapters.iter().enumerate() {
+            let at = format!("chapters[{index}]");
+            let chapter = object(chapter, source, &at)?;
+            keys(
+                chapter,
+                &[
+                    "settlement_id",
+                    "location_id",
+                    "building_name",
+                    "building_kind",
+                    "representative_title",
+                    "representative_profession",
+                ],
+                source,
+                &at,
+            )?;
+            let settlement_id = text(chapter, source, "settlement_id")?;
+            let location_id = text(chapter, source, "location_id")?;
+            if !location_id.starts_with("organization-")
+                || location_id.len() > 96
+                || !location_id.bytes().all(|byte| {
+                    byte.is_ascii_lowercase()
+                        || byte.is_ascii_digit()
+                        || matches!(byte, b'-' | b'_')
+                })
+            {
+                return Err(format!(
+                    "{source}: {at}.location_id must be a bounded organization-* location ID"
+                ));
+            }
+            if !chapter_settlements.insert(settlement_id) {
+                return Err(format!(
+                    "{source}: chapters contains duplicate settlement {settlement_id:?}"
+                ));
+            }
+            if !chapter_location_pairs.insert((settlement_id.to_owned(), location_id.to_owned())) {
+                return Err(format!(
+                    "{source}: chapter location {location_id:?} is already authored at {settlement_id:?}"
+                ));
+            }
+            text(chapter, source, "building_name")?;
+            if !matches!(
+                text(chapter, source, "building_kind")?,
+                "guildhall" | "workshop" | "college" | "confraternity" | "commandery" | "lodge"
+            ) {
+                return Err(format!("{source}: {at}.building_kind is invalid"));
+            }
+            text(chapter, source, "representative_title")?;
+            text(chapter, source, "representative_profession")?;
+        }
+        let recognition = object(
+            org.get("recognition")
+                .ok_or_else(|| format!("{source}: recognition is required"))?,
+            source,
+            "recognition",
+        )?;
+        match text(recognition, source, "kind")? {
+            "universal" => keys(recognition, &["kind"], source, "recognition")?,
+            "settlements" => {
+                keys(
+                    recognition,
+                    &["kind", "settlement_ids"],
+                    source,
+                    "recognition",
+                )?;
+                unique_strings(
+                    array(recognition, source, "settlement_ids")?,
+                    source,
+                    "recognition.settlement_ids",
+                )?;
+            }
+            kind => return Err(format!("{source}: recognition.kind {kind:?} is invalid")),
+        }
+        if let Some(admission) = org.get("admission") {
+            let admission = object(admission, source, "admission")?;
+            keys(
+                admission,
+                &["joining_fee", "requirements"],
+                source,
+                "admission",
+            )?;
+            if admission
+                .get("joining_fee")
+                .is_some_and(|fee| fee.as_u64().is_none_or(|n| n > u32::MAX as u64))
+            {
+                return Err(format!("{source}: admission.joining_fee must be a u32"));
+            }
+            requirements(
+                array(admission, source, "requirements")?,
+                source,
+                "admission.requirements",
+            )?;
+        }
+        if let Some(dues) = org.get("dues") {
+            let dues = object(dues, source, "dues")?;
+            keys(dues, &["amount", "interval_days"], source, "dues")?;
+            let amount = dues.get("amount").and_then(Value::as_u64).unwrap_or(0);
+            let days = dues
+                .get("interval_days")
+                .and_then(Value::as_u64)
+                .unwrap_or(0);
+            if amount == 0 || amount > u32::MAX as u64 || days == 0 || days > u32::MAX as u64 {
+                return Err(format!(
+                    "{source}: dues amount and interval_days must be positive u32 values"
+                ));
+            }
+        }
+        if let Some(starting_role) = org.get("starting_role").and_then(Value::as_object) {
+            let adult = text(starting_role, source, "adult_role_id")?;
+            let old = text(starting_role, source, "old_role_id")?;
+            if adult == old {
+                return Err(format!(
+                    "{source}: starting_role adult and old roles must be distinct"
+                ));
+            }
+            if !role_ids.contains(adult) || !role_ids.contains(old) {
+                return Err(format!(
+                    "{source}: starting_role references a missing adult or old role"
+                ));
+            }
+            if array(org, source, "chapters")?.is_empty() {
+                return Err(format!(
+                    "{source}: starting_role organizations must have a playable chapter"
+                ));
+            }
+            if recognition.get("kind").and_then(Value::as_str) == Some("settlements") {
+                let recognized = array(recognition, source, "settlement_ids")?;
+                if !chapters.iter().any(|chapter| {
+                    chapter
+                        .get("settlement_id")
+                        .is_some_and(|settlement_id| recognized.contains(settlement_id))
+                }) {
+                    return Err(format!(
+                        "{source}: starting_role organization has no chapter in a recognized settlement"
+                    ));
+                }
+            }
+            let admission_requirements = org
+                .get("admission")
+                .and_then(Value::as_object)
+                .and_then(|admission| admission.get("requirements"))
+                .and_then(Value::as_array)
+                .map_or(&[][..], Vec::as_slice);
+            for role_id in [adult, old] {
+                let role_requirements = array(org, source, "roles")?
+                    .iter()
+                    .find_map(|role| {
+                        let role = role.as_object()?;
+                        (role.get("id")?.as_str()? == role_id)
+                            .then(|| role.get("requirements")?.as_array())
+                            .flatten()
+                    })
+                    .map_or(&[][..], Vec::as_slice);
+                let religions = professed_religions(admission_requirements)
+                    .into_iter()
+                    .chain(professed_religions(role_requirements))
+                    .collect::<BTreeSet<_>>();
+                if religions.len() > 1 {
+                    return Err(format!(
+                        "{source}: starting_role role {role_id:?} conflicts with admission religion"
+                    ));
+                }
+            }
+        }
+        let activity = object(
+            org.get("activity")
+                .ok_or_else(|| format!("{source}: activity is required"))?,
+            source,
+            "activity",
+        )?;
+        keys(activity, &["training", "reward"], source, "activity")?;
+        if !["gold", "fame"].contains(&text(activity, source, "reward")?) {
+            return Err(format!("{source}: activity.reward must be gold or fame"));
+        }
+        let training = array(activity, source, "training")?;
+        let mut total = 0.0;
+        for (index, entry) in training.iter().enumerate() {
+            let at = format!("activity.training[{index}]");
+            let entry = object(entry, source, &at)?;
+            let kind = text(entry, source, "kind")?;
+            let weight = entry
+                .get("weight")
+                .and_then(Value::as_f64)
+                .unwrap_or(f64::NAN);
+            if !weight.is_finite() || weight <= 0.0 {
+                return Err(format!("{source}: {at}.weight must be positive and finite"));
+            }
+            total += weight;
+            match kind {
+                "fixed_skill" => {
+                    keys(entry, &["kind", "skill", "weight"], source, &at)?;
+                    let skill = text(entry, source, "skill")?;
+                    if !SKILLS.contains(&skill) || ["religion", "bestiary"].contains(&skill) {
+                        return Err(format!(
+                            "{source}: {at}.skill references invalid fixed skill {skill:?}"
+                        ));
+                    }
+                }
+                "religion" => {
+                    keys(entry, &["kind", "religion", "weight"], source, &at)?;
+                    if !RELIGIONS.contains(&text(entry, source, "religion")?) {
+                        return Err(format!("{source}: {at}.religion is unknown"));
+                    }
+                }
+                "bestiary" => {
+                    keys(entry, &["kind", "category", "weight"], source, &at)?;
+                    if !BESTIARY.contains(&text(entry, source, "category")?) {
+                        return Err(format!("{source}: {at}.category is unknown"));
+                    }
+                }
+                "terrain" => {
+                    keys(entry, &["kind", "terrain", "weight"], source, &at)?;
+                    if !TERRAINS.contains(&text(entry, source, "terrain")?) {
+                        return Err(format!("{source}: {at}.terrain is unknown"));
+                    }
+                }
+                "written" => {
+                    keys(entry, &["kind", "language", "weight"], source, &at)?;
+                    if !WRITTEN_LANGUAGES.contains(&text(entry, source, "language")?) {
+                        return Err(format!("{source}: {at}.language is unknown"));
+                    }
+                }
+                "equipped_weapon_skills" => keys(entry, &["kind", "weight"], source, &at)?,
+                _ => {
+                    return Err(format!(
+                        "{source}: {at}.kind has unknown training target {kind:?}"
+                    ));
+                }
+            }
+        }
+        if !training.is_empty() && (total - 1.0).abs() > 0.000_001 {
+            return Err(format!(
+                "{source}: activity training weights total {total}, expected 1"
+            ));
+        }
+        validate_privileges(array(org, source, "privileges")?, source, "privileges")?;
+    }
+    for profession in [
+        "merchant",
+        "weaponsmith",
+        "armourer",
+        "tailor",
+        "herbalist",
+        "cook",
+        "learned_religious_practitioner",
+        "witch_hunter",
+        "knight",
+        "forester",
+    ] {
+        if documents.len() > 1 && !starting_professions.contains(profession) {
+            return Err(format!(
+                "organization catalog has no eligible starting organization for {profession}"
+            ));
+        }
+    }
+    let policies = policy
+        .as_array()
+        .ok_or_else(|| format!("{policy_source}: root must be an array"))?;
+    let mut policy_ids = BTreeSet::new();
+    for (index, value) in policies.iter().enumerate() {
+        let at = format!("policies[{index}]");
+        let row = object(value, policy_source, &at)?;
+        keys(
+            row,
+            &["settlement_id", "restrict_arms", "restrict_armor"],
+            policy_source,
+            &at,
+        )?;
+        let id = text(row, policy_source, "settlement_id")?;
+        if !policy_ids.insert(id) {
+            return Err(format!(
+                "{policy_source}: duplicate settlement policy {id:?}"
+            ));
+        }
+        for field in ["restrict_arms", "restrict_armor"] {
+            if row.get(field).is_some_and(|value| !value.is_boolean()) {
+                return Err(format!("{policy_source}: {at}.{field} must be a boolean"));
+            }
+        }
+    }
+    Ok(())
+}
+
+fn validate_privileges(values: &[Value], source: &str, path: &str) -> Result<(), String> {
+    let privileges = unique_strings(values, source, path)?;
+    for privilege in privileges {
+        if !matches!(
+            privilege.as_str(),
+            "bear_arms"
+                | "wear_armor"
+                | "forage_high_game"
+                | "forage_low_game"
+                | "forage_fish"
+                | "forage_plants"
+        ) {
+            return Err(format!(
+                "{source}: {path} contains unknown privilege {privilege:?}"
+            ));
+        }
+    }
+    Ok(())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use serde_json::json;
+
+    fn valid_organization() -> Value {
+        json!({
+            "id": "test_body",
+            "name": "Test Body",
+            "description": "A validator fixture.",
+            "kind": "professional_association",
+            "roles": [{
+                "id": "member", "name": "Member", "description": "A member.",
+                "profession": "member",
+                "publicly_recognizable": true, "social_precedence": 0,
+                "address_priority": 0, "address_title": "member",
+                "requirements": [], "practice_allowed": true,
+                "practice_reward_interval_minutes": 480, "privileges": []
+            }],
+            "entry_role_ids": ["member"],
+            "chapters": [{
+                "settlement_id": "viabundus-0",
+                "location_id": "organization-test-body",
+                "building_name": "Test Hall",
+                "building_kind": "guildhall",
+                "representative_title": "Test Warden",
+                "representative_profession": "administrator"
+            }],
+            "recognition": {"kind": "settlements", "settlement_ids": ["viabundus-0"]},
+            "admission": {"joining_fee": 0, "requirements": []},
+            "activity": {
+                "training": [{"kind": "fixed_skill", "skill": "cooking", "weight": 1.0}],
+                "reward": "gold"
+            },
+            "privileges": [],
+            "public_threat_referrals": false
+        })
+    }
+
+    fn validate(organization: Value, policy: Value) -> Result<(), String> {
+        validate_documents(
+            &[organization],
+            &["fixture.yaml".into()],
+            &policy,
+            "policies.yaml",
+        )
+    }
+
+    #[test]
+    fn rejects_missing_typed_leaf_and_forbidden_leaf() {
+        let mut missing = valid_organization();
+        missing["admission"]["requirements"] =
+            json!([{"kind": "skill_rating", "skill": "religion", "minimum": 1.0}]);
+        assert!(
+            validate(missing, json!([]))
+                .unwrap_err()
+                .contains("leaf is required")
+        );
+
+        let mut forbidden = valid_organization();
+        forbidden["admission"]["requirements"] = json!([
+            {"kind": "skill_rating", "skill": "cooking", "leaf": "roman_catholic", "minimum": 1.0}
+        ]);
+        assert!(
+            validate(forbidden, json!([]))
+                .unwrap_err()
+                .contains("leaf is forbidden")
+        );
+    }
+
+    #[test]
+    fn accepts_written_training_and_rejects_unknown_written_language() {
+        let mut written = valid_organization();
+        written["activity"]["training"] =
+            json!([{"kind": "written", "language": "Latin", "weight": 1.0}]);
+        assert!(validate(written, json!([])).is_ok());
+
+        let mut unknown = valid_organization();
+        unknown["activity"]["training"] =
+            json!([{"kind": "written", "language": "atlantean", "weight": 1.0}]);
+        assert!(
+            validate(unknown, json!([]))
+                .unwrap_err()
+                .contains("language is unknown")
+        );
+    }
+
+    #[test]
+    fn rejects_non_string_and_duplicate_settlement_ids() {
+        let mut non_string = valid_organization();
+        non_string["chapters"][0]["settlement_id"] = json!(7);
+        assert!(
+            validate(non_string, json!([]))
+                .unwrap_err()
+                .contains("settlement_id must be a non-empty string")
+        );
+
+        let mut duplicate = valid_organization();
+        duplicate["recognition"]["settlement_ids"] = json!(["viabundus-0", "viabundus-0"]);
+        assert!(
+            validate(duplicate, json!([]))
+                .unwrap_err()
+                .contains("duplicate")
+        );
+    }
+
+    #[test]
+    fn rejects_duplicate_roles_and_invalid_role_literacy() {
+        let mut duplicate = valid_organization();
+        let role = duplicate["roles"][0].clone();
+        duplicate["roles"] = json!([role.clone(), role]);
+        assert!(
+            validate(duplicate, json!([]))
+                .unwrap_err()
+                .contains("duplicate role")
+        );
+
+        let mut invalid_literacy = valid_organization();
+        invalid_literacy["roles"][0]["creation_literacy"] = json!("Atlantean");
+        assert!(
+            validate(invalid_literacy, json!([]))
+                .unwrap_err()
+                .contains("creation_literacy is unknown")
+        );
+    }
+
+    #[test]
+    fn rejects_duplicate_or_foreign_chapter_locations() {
+        let mut duplicate = valid_organization();
+        let chapter = duplicate["chapters"][0].clone();
+        duplicate["chapters"].as_array_mut().unwrap().push(chapter);
+        assert!(
+            validate(duplicate, json!([]))
+                .unwrap_err()
+                .contains("duplicate settlement")
+        );
+
+        let mut foreign = valid_organization();
+        foreign["chapters"][0]["location_id"] = json!("inn");
+        assert!(
+            validate(foreign, json!([]))
+                .unwrap_err()
+                .contains("bounded organization-*")
+        );
+    }
+
+    #[test]
+    fn rejects_non_boolean_policy_flags() {
+        let policy = json!([{
+            "settlement_id": "viabundus-0",
+            "restrict_arms": "yes",
+            "restrict_armor": false
+        }]);
+        assert!(
+            validate(valid_organization(), policy)
+                .unwrap_err()
+                .contains("must be a boolean")
+        );
+    }
+
+    #[test]
+    fn validates_unknown_and_duplicate_privileges_at_both_levels() {
+        let mut duplicate_org = valid_organization();
+        duplicate_org["privileges"] = json!(["forage_fish", "forage_fish"]);
+        assert!(
+            validate(duplicate_org, json!([]))
+                .unwrap_err()
+                .contains("duplicate")
+        );
+
+        let mut unknown_role = valid_organization();
+        unknown_role["roles"][0]["privileges"] = json!(["royal_hunt"]);
+        assert!(
+            validate(unknown_role, json!([]))
+                .unwrap_err()
+                .contains("unknown privilege")
+        );
+
+        let mut duplicate_role = valid_organization();
+        duplicate_role["roles"][0]["privileges"] = json!(["forage_high_game", "forage_high_game"]);
+        assert!(
+            validate(duplicate_role, json!([]))
+                .unwrap_err()
+                .contains("duplicate")
+        );
+    }
+
+    #[test]
+    fn rejects_bad_starting_role_mappings() {
+        let mut same_role = valid_organization();
+        same_role["starting_role"] = json!({
+            "profession": "cook",
+            "adult_role_id": "member",
+            "old_role_id": "member"
+        });
+        assert!(
+            validate(same_role, json!([]))
+                .unwrap_err()
+                .contains("must be distinct")
+        );
+
+        let mut missing_role = valid_organization();
+        missing_role["starting_role"] = json!({
+            "profession": "cook",
+            "adult_role_id": "member",
+            "old_role_id": "master"
+        });
+        assert!(
+            validate(missing_role, json!([]))
+                .unwrap_err()
+                .contains("missing")
+        );
+    }
+
+    #[test]
+    fn rejects_starting_chapter_outside_scoped_recognition() {
+        let mut organization = valid_organization();
+        let mut master = organization["roles"][0].clone();
+        master["id"] = json!("master");
+        master["name"] = json!("Master");
+        organization["roles"].as_array_mut().unwrap().push(master);
+        organization["starting_role"] = json!({
+            "profession": "cook",
+            "adult_role_id": "member",
+            "old_role_id": "master"
+        });
+        organization["recognition"]["settlement_ids"] = json!(["viabundus-99"]);
+        assert!(
+            validate(organization, json!([]))
+                .unwrap_err()
+                .contains("no chapter in a recognized settlement")
+        );
+    }
+
+    #[test]
+    fn rejects_starting_role_religion_conflict() {
+        let mut organization = valid_organization();
+        organization["admission"]["requirements"] =
+            json!([{"kind": "professed_religion", "religion": "lutheran"}]);
+        organization["roles"][0]["requirements"] =
+            json!([{"kind": "professed_religion", "religion": "roman_catholic"}]);
+        let mut master = organization["roles"][0].clone();
+        master["id"] = json!("master");
+        master["name"] = json!("Master");
+        master["requirements"] = json!([]);
+        organization["roles"].as_array_mut().unwrap().push(master);
+        organization["starting_role"] = json!({
+            "profession": "cook",
+            "adult_role_id": "member",
+            "old_role_id": "master"
+        });
+        assert!(
+            validate(organization, json!([]))
+                .unwrap_err()
+                .contains("conflicts with admission religion")
+        );
+    }
+
+    #[test]
+    fn build_and_runtime_share_organization_catalog_validation() {
+        let build = include_str!("../build.rs");
+        assert!(build.contains("#[path = \"src/organization_catalog_validation.rs\"]"));
+    }
+}

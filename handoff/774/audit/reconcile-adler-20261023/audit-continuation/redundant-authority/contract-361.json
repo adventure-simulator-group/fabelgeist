@@ -1,0 +1,113 @@
+{
+  "id": "CONT07-CONTRACT-361",
+  "at": "2026-10-23T19:32:47.993156+00:00",
+  "lens": "audit-redundant-authority",
+  "members": [
+    {
+      "scope_index": 1527,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/clouds.rs",
+      "sha256": "ed0d069d3ad4096d18a89716b34158f0db25d84009ea752a90e7beb367de52c4",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/clouds.rs",
+      "actual_EOF": 1692,
+      "ranges": [
+        [
+          1,
+          1692
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1530,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/config.rs",
+      "sha256": "e2ec96c28d8458610bba86df77c1adceae1cdfe0e71ab972e227c362f72f0fe1",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/config.rs",
+      "actual_EOF": 414,
+      "ranges": [
+        [
+          1,
+          414
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1531,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/doors.rs",
+      "sha256": "8630bc42b038441854accd960c9a849477567598d424f8c4e01a259414666f0e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/doors.rs",
+      "actual_EOF": 61,
+      "ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    }
+  ],
+  "contracts": [
+    {
+      "source_index": 1527,
+      "disposition": "accounted exact07 roles; existing findings and caller qualifications preserved",
+      "facts": [
+        "Cloud material shell geometry, camera-following raster proxy, stable reference eye and representative atmospheric altitude serve different purposes; native hemisphere tessellation is deliberately different from optical bake texture sampling. Scene-relative curvature is fixed from one owner. Cloud active/Visibility writes are coordinated on all shown environment/celestial/empty-deck paths and benchmark visibility is independent policy.",
+        "CloudBakeKey retains layers and seed but excludes request wind. Fresh exact shader507 full1-177 confirms compensation reads live material.motion.xy; request advection is baked with captured wind and each subsequent request copies completed.request.wind_velocity. Key changes reset/drop pending/queued state; stale completions with different key are rejected. Same-key wind-only changes do not reset trajectory. This independently supports existing conditional CAMERA-INITIAL07-F041; no ordinary installed weather transition or runtime manifestation proven, no new unique finding.",
+        "end_ready, pending, queued, elapsed_seconds represent distinct temporal pipeline phases. Same-key first endpoint installs both native image endpoints; subsequent completion queues; rollover swaps endpoint handles and recycles older image before scheduling next request. Warm-start endpoint one is deliberate when prebaked initial bytes are supplied. Freeze changes elapsed advancement while async work may finish. No independent current-time cache presumed from historical endpoint numbers.",
+        "Prebaked bytes are caller-selected initial art without weather provenance guaranteed by this source; reset uses supplied bytes for a newly selected key. Preserve existing capture/warm-start qualification rather than certify arbitrary cached bytes. Setup creates one cloud layer, so shared resource state is coherent for actual single-shell installation; arbitrary additional material entities are not certified.",
+        "Offscreen target retains setup resolution scale and follows live main-camera pixel target; cloud quality scale is read each update. A future live resolution_scale or feature-enable mutation would require rebuilding setup-owned native resources, but no actual runtime settings mutation producer is proven here. Do not promote this API ownership observation into normal stale configuration defect. Native and wasm readiness have distinct capability contracts.",
+        "Fixtures supply independent expected geometry/profile/seam/temporal lifecycle oracles; textual shader assertions are not proof of semantic equivalence. No tests were executed. Existing raw numeric profile migration and seed/material producer obligations remain independent lenses, not cleared by current07 inventory."
+      ]
+    },
+    {
+      "source_index": 1530,
+      "disposition": "accounted exact07 roles; existing findings and caller qualifications preserved",
+      "facts": [
+        "Configuration has no hidden serde defaults; required fields select authored rendering/grass/window policy. Validation consumes those fields directly and does not retain a separately selected valid/invalid label. Headless mutation is an explicit intentional coordinated feature policy, not a second representation of current visible settings.",
+        "Four grass tiers and four shadow tier booleans encode orthogonal tier policy; fading, native topology, density, width and interaction measures are different dependencies. Raw public fields and post-admission mutation preserve existing admission/aggregate concerns; no07 guarantee inferred merely from validation or parsing. Error text is diagnostic, not a semantic consumer here.",
+        "Cloud bounds agree with current native clamp endpoints but two copies alone do not show current disagreement. Config runtime hot replacement is not promised by this source. Shipped YAML fixture and unknown-field fixture are independent contract observations, not an extra production default authority."
+      ]
+    },
+    {
+      "source_index": 1531,
+      "disposition": "accounted exact07 roles; existing findings and caller qualifications preserved",
+      "facts": [
+        "Door mesh/material are native projections installed on SceneDoor Add, using exact dimension cache and canonical palette owner. GrabTargetOutline self entity references ownership/selection target, not a separately generated door identity. Replicated open state/closure visibility are distinct mutable presentation facts managed by the closure system.",
+        "Opening ownership uses canonical CityGate predicate and both closure visibility/membership receive the same building/opening identity. Current source is initial installation, so independently mutating size/material identity later would need a rebuild contract; no normal SceneDoor geometry mutation producer was demonstrated and no stale mesh runtime defect asserted. Marker identity versus native render component is intentional lifecycle classification."
+      ]
+    }
+  ],
+  "fresh_support_reads": [
+    {
+      "scope_index": 507,
+      "source_id": "pr-working:assets/shaders/tactical_clouds.wgsl",
+      "sha256": "a04c3a457fc4e9bdf80cb0bb2eca4eb2364d8d3b5233f9942c740594b3084e66",
+      "ranges": [
+        [
+          1,
+          177
+        ]
+      ],
+      "coverage": "already covered original variant; fresh critical shader comparison only, no duplicate source count"
+    }
+  ],
+  "existing_findings_supported": [
+    "CAMERA-INITIAL07-F041 qualified same-key wind trajectory discrepancy; no ordinary installed transition asserted"
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "identity_count_accounting": {
+    "new_original_variant_ids": [
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/clouds.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/config.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/presentation/doors.rs"
+    ],
+    "already_covered_fresh_reanalysis_ids": [],
+    "new_this_contract": 3,
+    "cumulative_new_original_variants": 36,
+    "cumulative_original_unique": 1794,
+    "count_basis": "Exact source_id union against Adler saved07coverage1758, not number of fresh-read rows"
+  }
+}

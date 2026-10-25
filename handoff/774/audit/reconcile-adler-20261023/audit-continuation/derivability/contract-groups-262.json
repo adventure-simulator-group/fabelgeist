@@ -1,0 +1,527 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-262",
+  "at": "2026-10-25T14:17:22.179005+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 522,
+      "source_id": "pr-working:content/dialogue/examples.yaml",
+      "sha256": "0b88481c5969b3dba36855dd3f2cdeff3895abda9e9696cd76e1f9eb263dbc7f",
+      "actual_EOF": 45,
+      "requested_registration": {
+        "source_id": "pr-working:content/dialogue/examples.yaml",
+        "snapshot": "pr-working",
+        "path": "content/dialogue/examples.yaml",
+        "sha256": "0b88481c5969b3dba36855dd3f2cdeff3895abda9e9696cd76e1f9eb263dbc7f",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 2333,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 744,
+            "read_ranges": [
+              [
+                1,
+                45
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-DIALOGUE-FACT-CLOSURE-118"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/content/dialogue/examples.yaml"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-DIALOGUE-040",
+            "json_pointer": "/current_sources/25",
+            "source_id_as_recorded": "pr-working:content/dialogue/examples.yaml",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                45
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 701,
+              "source_id": "pr-working:content/dialogue/examples.yaml",
+              "resolved_path": "SNAPSHOTS/pr-working/content/dialogue/examples.yaml",
+              "expected_sha256": "0b88481c5969b3dba36855dd3f2cdeff3895abda9e9696cd76e1f9eb263dbc7f",
+              "observed_sha256": "0b88481c5969b3dba36855dd3f2cdeff3895abda9e9696cd76e1f9eb263dbc7f",
+              "read_ranges": [
+                [
+                  1,
+                  45
+                ]
+              ],
+              "proof_mode": "Fresh PR complete body read; identical counterpart whole-source SHA verified when packet supplies paired variant",
+              "disposition": "accounted-current-producer-supplement-receiver-packet"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-032",
+            "json_pointer": "/fresh_current_source_reads/25",
+            "source_id_as_recorded": "pr-working:content/dialogue/examples.yaml",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                45
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 701,
+              "source_id": "pr-working:content/dialogue/examples.yaml",
+              "resolved_path": "SNAPSHOTS/pr-working/content/dialogue/examples.yaml",
+              "expected_sha256": "0b88481c5969b3dba36855dd3f2cdeff3895abda9e9696cd76e1f9eb263dbc7f",
+              "observed_sha256": "0b88481c5969b3dba36855dd3f2cdeff3895abda9e9696cd76e1f9eb263dbc7f",
+              "read_ranges": [
+                [
+                  1,
+                  45
+                ]
+              ],
+              "proof_mode": "Fresh PR complete body read; identical counterpart whole-source SHA verified when packet supplies paired variant",
+              "disposition": "accounted-current-producer-supplement-receiver-packet"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1403,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Complete exact JSON-compatible YAML/JSON decoded/parsed and every object field/array element/scalar kind traversed; structured declarative-data analysis, not line-by-line Rust body/consumer validation.",
+      "actual_compared_ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "Non-Rust declarative JSON-compatible YAML/JSON; no Rust trait/Serde implementation body.",
+      "absence_basis": "Complete parsed root ['conversations'] with array counts {'conversations': 2} and node kinds {'dict': 38, 'list': 17, 'str': 57, 'bool': 2, 'int': 5, 'NoneType': 2} personally inspected. All object field paths and tagged kind/op values enumerated in declarative-source-enumeration-262.json. Dialogue/item/native geometry values and consumers remain semantic contracts, not trait bodies. No Rust producer/decoder/native consumer or data-validity approval inferred."
+    },
+    {
+      "scope_index": 523,
+      "source_id": "pr-working:content/dialogue/organizations.yaml",
+      "sha256": "57f566bbee311d7f54aa2cb344abbb5b0119fcdf7e321d2a2f2bda43bc2dcf67",
+      "actual_EOF": 707,
+      "requested_registration": {
+        "source_id": "pr-working:content/dialogue/organizations.yaml",
+        "snapshot": "pr-working",
+        "path": "content/dialogue/organizations.yaml",
+        "sha256": "57f566bbee311d7f54aa2cb344abbb5b0119fcdf7e321d2a2f2bda43bc2dcf67",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 26146,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 746,
+            "read_ranges": [
+              [
+                1,
+                707
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-DIALOGUE-FACT-CLOSURE-118"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/content/dialogue/organizations.yaml"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-DIALOGUE-040",
+            "json_pointer": "/current_sources/27",
+            "source_id_as_recorded": "pr-working:content/dialogue/organizations.yaml",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                707
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 703,
+              "source_id": "pr-working:content/dialogue/organizations.yaml",
+              "resolved_path": "SNAPSHOTS/pr-working/content/dialogue/organizations.yaml",
+              "expected_sha256": "57f566bbee311d7f54aa2cb344abbb5b0119fcdf7e321d2a2f2bda43bc2dcf67",
+              "observed_sha256": "57f566bbee311d7f54aa2cb344abbb5b0119fcdf7e321d2a2f2bda43bc2dcf67",
+              "read_ranges": [
+                [
+                  1,
+                  707
+                ]
+              ],
+              "proof_mode": "Fresh PR complete body read; identical counterpart whole-source SHA verified when packet supplies paired variant",
+              "disposition": "accounted-current-producer-supplement-receiver-packet"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-032",
+            "json_pointer": "/fresh_current_source_reads/27",
+            "source_id_as_recorded": "pr-working:content/dialogue/organizations.yaml",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                707
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 703,
+              "source_id": "pr-working:content/dialogue/organizations.yaml",
+              "resolved_path": "SNAPSHOTS/pr-working/content/dialogue/organizations.yaml",
+              "expected_sha256": "57f566bbee311d7f54aa2cb344abbb5b0119fcdf7e321d2a2f2bda43bc2dcf67",
+              "observed_sha256": "57f566bbee311d7f54aa2cb344abbb5b0119fcdf7e321d2a2f2bda43bc2dcf67",
+              "read_ranges": [
+                [
+                  1,
+                  707
+                ]
+              ],
+              "proof_mode": "Fresh PR complete body read; identical counterpart whole-source SHA verified when packet supplies paired variant",
+              "disposition": "accounted-current-producer-supplement-receiver-packet"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1405,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Complete exact JSON-compatible YAML/JSON decoded/parsed and every object field/array element/scalar kind traversed; structured declarative-data analysis, not line-by-line Rust body/consumer validation.",
+      "actual_compared_ranges": [
+        [
+          1,
+          707
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "Non-Rust declarative JSON-compatible YAML/JSON; no Rust trait/Serde implementation body.",
+      "absence_basis": "Complete parsed root ['conversations'] with array counts {'conversations': 1} and node kinds {'dict': 234, 'list': 93, 'str': 427, 'int': 20, 'NoneType': 15, 'bool': 23} personally inspected. All object field paths and tagged kind/op values enumerated in declarative-source-enumeration-262.json. Dialogue/item/native geometry values and consumers remain semantic contracts, not trait bodies. No Rust producer/decoder/native consumer or data-validity approval inferred."
+    },
+    {
+      "scope_index": 524,
+      "source_id": "pr-working:content/dialogue/services.yaml",
+      "sha256": "72e3e18751e06c9334390f98ed3dec812147d32f089fd7dd4a03429b0c192556",
+      "actual_EOF": 246,
+      "requested_registration": {
+        "source_id": "pr-working:content/dialogue/services.yaml",
+        "snapshot": "pr-working",
+        "path": "content/dialogue/services.yaml",
+        "sha256": "72e3e18751e06c9334390f98ed3dec812147d32f089fd7dd4a03429b0c192556",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 38465,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 745,
+            "read_ranges": [
+              [
+                1,
+                246
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-DIALOGUE-FACT-CLOSURE-118"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/content/dialogue/services.yaml"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-DIALOGUE-040",
+            "json_pointer": "/current_sources/26",
+            "source_id_as_recorded": "pr-working:content/dialogue/services.yaml",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                246
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 702,
+              "source_id": "pr-working:content/dialogue/services.yaml",
+              "resolved_path": "SNAPSHOTS/pr-working/content/dialogue/services.yaml",
+              "expected_sha256": "72e3e18751e06c9334390f98ed3dec812147d32f089fd7dd4a03429b0c192556",
+              "observed_sha256": "72e3e18751e06c9334390f98ed3dec812147d32f089fd7dd4a03429b0c192556",
+              "read_ranges": [
+                [
+                  1,
+                  246
+                ]
+              ],
+              "proof_mode": "Fresh PR complete body read; identical counterpart whole-source SHA verified when packet supplies paired variant",
+              "disposition": "accounted-current-producer-supplement-receiver-packet"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-032",
+            "json_pointer": "/fresh_current_source_reads/26",
+            "source_id_as_recorded": "pr-working:content/dialogue/services.yaml",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                246
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 702,
+              "source_id": "pr-working:content/dialogue/services.yaml",
+              "resolved_path": "SNAPSHOTS/pr-working/content/dialogue/services.yaml",
+              "expected_sha256": "72e3e18751e06c9334390f98ed3dec812147d32f089fd7dd4a03429b0c192556",
+              "observed_sha256": "72e3e18751e06c9334390f98ed3dec812147d32f089fd7dd4a03429b0c192556",
+              "read_ranges": [
+                [
+                  1,
+                  246
+                ]
+              ],
+              "proof_mode": "Fresh PR complete body read; identical counterpart whole-source SHA verified when packet supplies paired variant",
+              "disposition": "accounted-current-producer-supplement-receiver-packet"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1404,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Complete exact JSON-compatible YAML/JSON decoded/parsed and every object field/array element/scalar kind traversed; structured declarative-data analysis, not line-by-line Rust body/consumer validation.",
+      "actual_compared_ranges": [
+        [
+          1,
+          246
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "Non-Rust declarative JSON-compatible YAML/JSON; no Rust trait/Serde implementation body.",
+      "absence_basis": "Complete parsed root ['conversations'] with array counts {'conversations': 5} and node kinds {'dict': 551, 'list': 234, 'str': 967, 'int': 59, 'bool': 33, 'NoneType': 51} personally inspected. All object field paths and tagged kind/op values enumerated in declarative-source-enumeration-262.json. Dialogue/item/native geometry values and consumers remain semantic contracts, not trait bodies. No Rust producer/decoder/native consumer or data-validity approval inferred."
+    },
+    {
+      "scope_index": 525,
+      "source_id": "pr-working:content/items/catalog.yaml",
+      "sha256": "87e0f51292d42ab62beeabc9f2624f635c27acf8b28ae3d8c2931eb9297f491b",
+      "actual_EOF": 5632,
+      "requested_registration": {
+        "source_id": "pr-working:content/items/catalog.yaml",
+        "snapshot": "pr-working",
+        "path": "content/items/catalog.yaml",
+        "owner": "root",
+        "sha256": "87e0f51292d42ab62beeabc9f2624f635c27acf8b28ae3d8c2931eb9297f491b",
+        "base_sha256": "7d2f5824a307b4434e9ffd066d092f97a5dc0c4362adbbcd3062c28b0993d915",
+        "state": "modified",
+        "bytes": 161039,
+        "audit_owner": "root",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [],
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 75,
+            "read_ranges": [
+              [
+                1,
+                5632
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-AUTHORED-016"
+            ],
+            "read_status": "full_native_JSON_document_and_connected_schema_roles",
+            "resolved_path": "SNAPSHOTS/pr-working/content/items/catalog.yaml"
+          },
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 352,
+            "read_ranges": [
+              [
+                1,
+                5632
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-AUTHORED-016",
+              "ROOT-OWNER-CLOSURE-INDEX-079"
+            ],
+            "read_status": "full_native_JSON_document_and_connected_schema_roles",
+            "resolved_path": "SNAPSHOTS/pr-working/content/items/catalog.yaml"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Complete exact JSON-compatible YAML/JSON decoded/parsed and every object field/array element/scalar kind traversed; structured declarative-data analysis, not line-by-line Rust body/consumer validation.",
+      "actual_compared_ranges": [
+        [
+          1,
+          5632
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "Non-Rust declarative JSON-compatible YAML/JSON; no Rust trait/Serde implementation body.",
+      "absence_basis": "Complete parsed root ['schema_version', 'items'] with array counts {'items': 184} and node kinds {'dict': 1367, 'int': 1010, 'list': 914, 'str': 2320, 'float': 1437, 'bool': 92} personally inspected. All object field paths and tagged kind/op values enumerated in declarative-source-enumeration-262.json. Dialogue/item/native geometry values and consumers remain semantic contracts, not trait bodies. No Rust producer/decoder/native consumer or data-validity approval inferred."
+    },
+    {
+      "scope_index": 527,
+      "source_id": "pr-working:content/tactical/garden-hazel-envelope.json",
+      "sha256": "1743fa13a7526af557706f78d50f5d61e3f8bcd8f82d5b1b2f3a0e6e1370bc65",
+      "actual_EOF": 77,
+      "requested_registration": {
+        "source_id": "pr-working:content/tactical/garden-hazel-envelope.json",
+        "snapshot": "pr-working",
+        "path": "content/tactical/garden-hazel-envelope.json",
+        "sha256": "1743fa13a7526af557706f78d50f5d61e3f8bcd8f82d5b1b2f3a0e6e1370bc65",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 1301,
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+            "row": 114,
+            "read_ranges": [
+              [
+                1,
+                77
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-RIGID-HULL-058"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/content/tactical/garden-hazel-envelope.json"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root"
+        ],
+        "audit_owner": "root",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-GARDEN-HULL-021",
+            "json_pointer": "/source_proofs/3",
+            "source_id_as_recorded": "pr-working:content/tactical/garden-hazel-envelope.json",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                77
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:content/tactical/garden-hazel-envelope.json",
+              "path": "SNAPSHOTS/pr-working/content/tactical/garden-hazel-envelope.json",
+              "sha256": "1743fa13a7526af557706f78d50f5d61e3f8bcd8f82d5b1b2f3a0e6e1370bc65",
+              "read_ranges": [
+                [
+                  1,
+                  77
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1047,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Complete exact JSON-compatible YAML/JSON decoded/parsed and every object field/array element/scalar kind traversed; structured declarative-data analysis, not line-by-line Rust body/consumer validation.",
+      "actual_compared_ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "Non-Rust declarative JSON-compatible YAML/JSON; no Rust trait/Serde implementation body.",
+      "absence_basis": "Complete parsed root ['hull_metres', 'max_height_metres', 'min_height_metres', 'seed', 'vertex_count', 'geometry_revision'] with array counts {'hull_metres': 17} and node kinds {'dict': 2, 'list': 18, 'float': 36, 'int': 3} personally inspected. All object field paths and tagged kind/op values enumerated in declarative-source-enumeration-262.json. Dialogue/item/native geometry values and consumers remain semantic contracts, not trait bodies. No Rust producer/decoder/native consumer or data-validity approval inferred."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Complete declarative dialogue/item/native envelope value inventories",
+      "disposition": "Exact structured source enumeration establishes no handwritten Rust trait/serializer in each data role, not extension-only/hash-only exclusion.",
+      "acceptance": "Keep native schema, semantic condition/effect/item/geometry admission and serialization implementation separately traced. No archive scripts/project checks/build/runtime execution."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 526,
+    "source_id": "pr-working:content/tactical/combat.yaml"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

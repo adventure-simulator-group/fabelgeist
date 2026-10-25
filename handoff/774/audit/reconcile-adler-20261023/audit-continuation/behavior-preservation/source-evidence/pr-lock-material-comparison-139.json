@@ -1,0 +1,560 @@
+{
+  "old_packages": 1124,
+  "new_packages": 1126,
+  "added": [
+    {
+      "name": "fabelgeist-geometry",
+      "version": "0.1.0",
+      "dependencies": [
+        "bevy_math",
+        "bevy_reflect",
+        "serde",
+        "thiserror 2.0.20"
+      ]
+    },
+    {
+      "name": "fabelgeist-rig",
+      "version": "0.1.0",
+      "dependencies": [
+        "derive_more 2.1.1",
+        "serde",
+        "serde_json",
+        "strum 0.27.2"
+      ]
+    }
+  ],
+  "removed": [],
+  "changed": [
+    {
+      "key": [
+        "adventuresim-character-creator",
+        "0.1.0",
+        null
+      ],
+      "before": {
+        "name": "adventuresim-character-creator",
+        "version": "0.1.0",
+        "dependencies": [
+          "adventuresim-core",
+          "adventuresim-world-schema",
+          "anyhow",
+          "async-lock",
+          "base64 0.22.1",
+          "bevy",
+          "bevy_egui",
+          "blake3",
+          "bytemuck",
+          "clap",
+          "egui_extras",
+          "fabelgeist-armor",
+          "fabelgeist-bvh",
+          "fabelgeist-cloth",
+          "fabelgeist-compute",
+          "fabelgeist-determinism",
+          "fabelgeist-garment-code",
+          "fabelgeist-garment-fit",
+          "fabelgeist-gpu",
+          "fabelgeist-hair",
+          "fabelgeist-math",
+          "fabelgeist-shell",
+          "image",
+          "pollster",
+          "rand 0.9.5",
+          "rayon",
+          "serde",
+          "serde_json",
+          "thiserror 2.0.20",
+          "tokio"
+        ]
+      },
+      "after": {
+        "name": "adventuresim-character-creator",
+        "version": "0.1.0",
+        "dependencies": [
+          "adventuresim-core",
+          "adventuresim-world-schema",
+          "anyhow",
+          "async-lock",
+          "base64 0.22.1",
+          "bevy",
+          "bevy_egui",
+          "blake3",
+          "bytemuck",
+          "clap",
+          "derive_more 2.1.1",
+          "egui_extras",
+          "fabelgeist-armor",
+          "fabelgeist-bvh",
+          "fabelgeist-cloth",
+          "fabelgeist-compute",
+          "fabelgeist-determinism",
+          "fabelgeist-garment-code",
+          "fabelgeist-garment-fit",
+          "fabelgeist-geometry",
+          "fabelgeist-gpu",
+          "fabelgeist-hair",
+          "fabelgeist-math",
+          "fabelgeist-rig",
+          "fabelgeist-shell",
+          "image",
+          "pollster",
+          "rand 0.9.5",
+          "rayon",
+          "serde",
+          "serde_json",
+          "thiserror 2.0.20",
+          "tokio"
+        ]
+      }
+    },
+    {
+      "key": [
+        "adventuresim-core",
+        "0.1.0",
+        null
+      ],
+      "before": {
+        "name": "adventuresim-core",
+        "version": "0.1.0",
+        "dependencies": [
+          "adventuresim-dialogue",
+          "adventuresim-puzzles",
+          "adventuresim-weapon-model",
+          "adventuresim-world-schema",
+          "ambassador",
+          "blanket",
+          "enum-assoc",
+          "enumflags2",
+          "fabelgeist-determinism",
+          "serde",
+          "serde-saphyr",
+          "serde_json",
+          "sha2",
+          "spacetimedb",
+          "spacetimedb-sats",
+          "thiserror 2.0.20"
+        ]
+      },
+      "after": {
+        "name": "adventuresim-core",
+        "version": "0.1.0",
+        "dependencies": [
+          "adventuresim-dialogue",
+          "adventuresim-puzzles",
+          "adventuresim-weapon-model",
+          "adventuresim-world-schema",
+          "ambassador",
+          "blanket",
+          "enum-assoc",
+          "enumflags2",
+          "fabelgeist-determinism",
+          "fabelgeist-geometry",
+          "serde",
+          "serde-saphyr",
+          "serde_json",
+          "sha2",
+          "spacetimedb",
+          "spacetimedb-sats",
+          "thiserror 2.0.20"
+        ]
+      }
+    },
+    {
+      "key": [
+        "adventuresim-tactical-client",
+        "0.1.0",
+        null
+      ],
+      "before": {
+        "name": "adventuresim-tactical-client",
+        "version": "0.1.0",
+        "dependencies": [
+          "adventuresim-building-generator",
+          "adventuresim-character-creator",
+          "adventuresim-core",
+          "adventuresim-plant-generator",
+          "adventuresim-procedural-materials",
+          "adventuresim-procedural-textures",
+          "adventuresim-tactical-core",
+          "adventuresim-tactical-netcode",
+          "adventuresim-weapon-model",
+          "adventuresim-world-schema",
+          "anyhow",
+          "bevy",
+          "bevy_egui",
+          "bevy_eidolon",
+          "bevy_flair",
+          "bevy_mod_outline",
+          "blake3",
+          "bytemuck",
+          "ciborium",
+          "clap",
+          "console_error_panic_hook",
+          "fabelgeist-armor",
+          "fabelgeist-bvh",
+          "fabelgeist-determinism",
+          "fabelgeist-math",
+          "flate2",
+          "gltf",
+          "pollster",
+          "postcard",
+          "semver",
+          "serde",
+          "serde-saphyr",
+          "serde_json",
+          "thiserror 2.0.20",
+          "toml",
+          "tracing",
+          "tracing-subscriber",
+          "tracing-tracy",
+          "tracy-client-sys 0.28.0",
+          "wasm-bindgen",
+          "wasm-bindgen-futures",
+          "web-time"
+        ]
+      },
+      "after": {
+        "name": "adventuresim-tactical-client",
+        "version": "0.1.0",
+        "dependencies": [
+          "adventuresim-building-generator",
+          "adventuresim-character-creator",
+          "adventuresim-core",
+          "adventuresim-plant-generator",
+          "adventuresim-procedural-materials",
+          "adventuresim-procedural-textures",
+          "adventuresim-tactical-core",
+          "adventuresim-tactical-netcode",
+          "adventuresim-weapon-model",
+          "adventuresim-world-schema",
+          "anyhow",
+          "bevy",
+          "bevy_egui",
+          "bevy_eidolon",
+          "bevy_flair",
+          "bevy_mod_outline",
+          "blake3",
+          "bytemuck",
+          "ciborium",
+          "clap",
+          "console_error_panic_hook",
+          "derive_more 2.1.1",
+          "fabelgeist-armor",
+          "fabelgeist-bvh",
+          "fabelgeist-determinism",
+          "fabelgeist-geometry",
+          "fabelgeist-math",
+          "fabelgeist-rig",
+          "flate2",
+          "gltf",
+          "pollster",
+          "postcard",
+          "semver",
+          "serde",
+          "serde-saphyr",
+          "serde_json",
+          "strum 0.27.2",
+          "thiserror 2.0.20",
+          "toml",
+          "tracing",
+          "tracing-subscriber",
+          "tracing-tracy",
+          "tracy-client-sys 0.28.0",
+          "wasm-bindgen",
+          "wasm-bindgen-futures",
+          "web-time"
+        ]
+      }
+    },
+    {
+      "key": [
+        "fabelgeist-armor",
+        "0.1.0",
+        null
+      ],
+      "before": {
+        "name": "fabelgeist-armor",
+        "version": "0.1.0",
+        "dependencies": [
+          "blake3",
+          "bytemuck",
+          "fabelgeist-compute",
+          "fabelgeist-garment-code",
+          "fabelgeist-gpu",
+          "fabelgeist-math",
+          "image",
+          "pollster",
+          "postcard",
+          "serde",
+          "serde_json",
+          "spade",
+          "thiserror 2.0.20"
+        ]
+      },
+      "after": {
+        "name": "fabelgeist-armor",
+        "version": "0.1.0",
+        "dependencies": [
+          "blake3",
+          "bytemuck",
+          "fabelgeist-compute",
+          "fabelgeist-garment-code",
+          "fabelgeist-geometry",
+          "fabelgeist-gpu",
+          "fabelgeist-math",
+          "fabelgeist-rig",
+          "image",
+          "pollster",
+          "postcard",
+          "serde",
+          "serde_json",
+          "spade",
+          "thiserror 2.0.20"
+        ]
+      }
+    },
+    {
+      "key": [
+        "adventuresim-tactical-core",
+        "0.1.0",
+        null
+      ],
+      "before": {
+        "name": "adventuresim-tactical-core",
+        "version": "0.1.0",
+        "dependencies": [
+          "adventuresim-building-generator",
+          "adventuresim-core",
+          "adventuresim-world-schema",
+          "avian3d",
+          "bevy",
+          "bevy_ahoy",
+          "bevy_enhanced_input",
+          "bevy_math",
+          "bytemuck",
+          "ciborium",
+          "fabelgeist-determinism",
+          "libm",
+          "microlp",
+          "noiz",
+          "postcard",
+          "rayon",
+          "serde",
+          "serde_json",
+          "sha2",
+          "smallvec",
+          "strum 0.28.0",
+          "thiserror 2.0.20"
+        ]
+      },
+      "after": {
+        "name": "adventuresim-tactical-core",
+        "version": "0.1.0",
+        "dependencies": [
+          "adventuresim-building-generator",
+          "adventuresim-core",
+          "adventuresim-world-schema",
+          "avian3d",
+          "bevy",
+          "bevy_ahoy",
+          "bevy_enhanced_input",
+          "bevy_math",
+          "bytemuck",
+          "ciborium",
+          "derive_more 2.1.1",
+          "fabelgeist-determinism",
+          "fabelgeist-geometry",
+          "libm",
+          "microlp",
+          "noiz",
+          "postcard",
+          "rayon",
+          "serde",
+          "serde-saphyr",
+          "serde_json",
+          "sha2",
+          "smallvec",
+          "strum 0.28.0",
+          "thiserror 2.0.20"
+        ]
+      }
+    },
+    {
+      "key": [
+        "adventuresim-building-generator",
+        "0.1.0",
+        null
+      ],
+      "before": {
+        "name": "adventuresim-building-generator",
+        "version": "0.1.0",
+        "dependencies": [
+          "ab_glyph",
+          "adventuresim-procedural-textures",
+          "adventuresim-world-schema",
+          "bevy",
+          "bevy_egui",
+          "bevy_mod_outline",
+          "bevy_panorbit_camera",
+          "clap",
+          "earcut",
+          "fabelgeist-determinism",
+          "geo",
+          "postcard",
+          "serde",
+          "serde_json",
+          "thiserror 2.0.20"
+        ]
+      },
+      "after": {
+        "name": "adventuresim-building-generator",
+        "version": "0.1.0",
+        "dependencies": [
+          "ab_glyph",
+          "adventuresim-procedural-textures",
+          "adventuresim-world-schema",
+          "bevy",
+          "bevy_egui",
+          "bevy_mod_outline",
+          "bevy_panorbit_camera",
+          "clap",
+          "earcut",
+          "fabelgeist-determinism",
+          "fabelgeist-geometry",
+          "geo",
+          "postcard",
+          "serde",
+          "serde_json",
+          "thiserror 2.0.20"
+        ]
+      }
+    },
+    {
+      "key": [
+        "adventuresim-tactical-server",
+        "0.1.0",
+        null
+      ],
+      "before": {
+        "name": "adventuresim-tactical-server",
+        "version": "0.1.0",
+        "dependencies": [
+          "adventuresim-building-generator",
+          "adventuresim-core",
+          "adventuresim-stdb-client",
+          "adventuresim-tactical-core",
+          "adventuresim-tactical-netcode",
+          "adventuresim-weapon-model",
+          "adventuresim-world-schema",
+          "bevy",
+          "clap",
+          "fabelgeist-determinism",
+          "rand 0.9.5",
+          "ron",
+          "serde",
+          "serde-saphyr",
+          "serde_json",
+          "spacetimedb-sdk"
+        ]
+      },
+      "after": {
+        "name": "adventuresim-tactical-server",
+        "version": "0.1.0",
+        "dependencies": [
+          "adventuresim-building-generator",
+          "adventuresim-core",
+          "adventuresim-stdb-client",
+          "adventuresim-tactical-core",
+          "adventuresim-tactical-netcode",
+          "adventuresim-weapon-model",
+          "adventuresim-world-schema",
+          "bevy",
+          "clap",
+          "fabelgeist-determinism",
+          "fabelgeist-geometry",
+          "rand 0.9.5",
+          "ron",
+          "serde",
+          "serde-saphyr",
+          "serde_json",
+          "spacetimedb-sdk",
+          "thiserror 2.0.20"
+        ]
+      }
+    },
+    {
+      "key": [
+        "fabelgeist-fbx",
+        "0.1.0",
+        null
+      ],
+      "before": {
+        "name": "fabelgeist-fbx",
+        "version": "0.1.0",
+        "dependencies": [
+          "anyhow",
+          "derive_more 2.1.1",
+          "flate2",
+          "num_enum"
+        ]
+      },
+      "after": {
+        "name": "fabelgeist-fbx",
+        "version": "0.1.0",
+        "dependencies": [
+          "anyhow",
+          "derive_more 2.1.1",
+          "fabelgeist-rig",
+          "flate2",
+          "num_enum"
+        ]
+      }
+    },
+    {
+      "key": [
+        "adventuresim-stdb-module",
+        "0.1.0",
+        null
+      ],
+      "before": {
+        "name": "adventuresim-stdb-module",
+        "version": "0.1.0",
+        "dependencies": [
+          "adventuresim-core",
+          "adventuresim-dialogue",
+          "adventuresim-puzzles",
+          "adventuresim-weapon-model",
+          "adventuresim-world-schema",
+          "fabelgeist-determinism",
+          "log",
+          "petname",
+          "serde",
+          "serde_json",
+          "sha2",
+          "spacetimedb"
+        ]
+      },
+      "after": {
+        "name": "adventuresim-stdb-module",
+        "version": "0.1.0",
+        "dependencies": [
+          "adventuresim-core",
+          "adventuresim-dialogue",
+          "adventuresim-puzzles",
+          "adventuresim-weapon-model",
+          "adventuresim-world-schema",
+          "fabelgeist-determinism",
+          "log",
+          "petname",
+          "serde",
+          "serde_json",
+          "sha2",
+          "spacetimedb",
+          "thiserror 2.0.20"
+        ]
+      }
+    }
+  ],
+  "format_before": 4,
+  "format_after": 4
+}

@@ -1,0 +1,38 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-696",
+  "at": "2026-10-25T16:33:39.596244+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 972,
+  "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/model.rs",
+  "sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "Debug / Serialize / Deserialize",
+      "type": "open_catalog_id! SiteKind/WitnessDemographic/Circumstance/EvidenceKind",
+      "lines": [
+        [
+          99,
+          153
+        ]
+      ],
+      "disposition": "KEEP active text debug and borrowed scalar serialization + checked String admission. Raw derive changes storage/wire; no existing conversion adapter"
+    }
+  ],
+  "analysis": [
+    "id_type!24\u201358 already derives structural/Serde; checked inherent constructors not trait boilerplate. TemplateFamily/CanonicalCause/SiteRole/Reliability/EvidenceCheckStat already derive structural/Serde. Stable native variant IDs/labels distinct semantics.",
+    "open_catalog_id!99\u2013153 emits custom Debug136\u2013140 of active text only (no quotes/struct wrapper/padding), borrowed Serialize141\u2013145 of active as_str and checked Deserialize146\u2013151 via ownedString then try_new/Error::custom. KEEP: raw structural derives expose len+63byte capacity, transparent incompatible twofield representation; adding new conversion traits/owned String allocation solely to remove these necessary small impls not equivalent cleanup. Existing serde derivation cannot directly call inherent borrowed as_str/try_new without adapter. Four macro invocations reached through220; full cohort pending remainder."
+  ],
+  "first_unfinished": {
+    "scope_index": 972,
+    "line": 221
+  },
+  "execution": "none"
+}

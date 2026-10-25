@@ -1,0 +1,24 @@
+--- p16base/crates/adventuresim-core/src/capability.rs
++++ catalog-p16head/crates/adventuresim-core/src/capability.rs
+@@ -1,6 +1,8 @@
+ //! Shared automatic capability tags used by strategic recruitment and tactical UI.
+ 
++#[cfg(test)]
++use fabelgeist_geometry::SignedLength;
+ use serde::{Deserialize, Serialize};
+ 
+ use crate::prelude::*;
+ 
+@@ -378,10 +380,10 @@
+         }
+         fn weapon_precision(&self) -> f32 {
+             0.0
+         }
+-        fn weapon_reach(&self) -> f32 {
+-            0.0
++        fn weapon_reach(&self) -> SignedLength {
++            SignedLength::ZERO
+         }
+         fn weapon_holding_side(&self) -> Option<BodySide> {
+             None
+         }

@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-705",
+  "at": "2026-10-25T16:35:10.765883+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 975,
+  "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/solver.rs",
+  "sha256": "5d9b71ab4620264dce7604d0c9662f52009a887d00225927ef217087e0f10ba2",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "SolvedVariables CloneCopy already derives. Native solver18\u2013216 validates persistent witness bounds, weighted candidate traversal, forward rejection/backtrack and selected bindings, with explicit trace/error contracts. No handwritten trait/codec; do not replace runtime classification with serialization."
+  ],
+  "first_unfinished": {
+    "scope_index": 975,
+    "line": 221
+  },
+  "execution": "none"
+}

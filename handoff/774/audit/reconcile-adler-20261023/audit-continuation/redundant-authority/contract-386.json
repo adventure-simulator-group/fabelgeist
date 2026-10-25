@@ -1,0 +1,59 @@
+{
+  "id": "CONT07-CONTRACT-386",
+  "at": "2026-10-23T20:46:41.295425+00:00",
+  "lens": "audit-redundant-authority",
+  "source": {
+    "scope_index": 1699,
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+    "sha256": "f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1",
+    "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+    "actual_EOF": 4477,
+    "ranges": [
+      [
+        1,
+        2700
+      ]
+    ],
+    "fresh_this_batch": [
+      [
+        1001,
+        2700
+      ]
+    ],
+    "read_kind": "fresh exact partialsource,5boundeduntruncatedreads; prior1-1000 retained"
+  },
+  "coverage_status": "partial only; no full source-variant increment and no coverage.jsonl row",
+  "facts": [
+    "CurrentbenchmarkoverlappingVistaTerrain visibilitywriters F087 freshactualconsumer/reportproof, notonlymetadata. Freshsupportreread1555:54-80 closesvistagrass dualmarker.",
+    "Feature_state/ requested_feature_state hardcodeatmosphere/envlighttrue/mapsize64 whileotherfieldsreadconfig. observednativepresence/imagesizecanstillrejectchangedsettings; recorddescriptive observed.settings authoritycandidate untilremainingcapture/testsreview, no automaticfalseacceptancefinding.",
+    "TreeLightingconfigured-mode guardappliesonceacrossexistingmaterials/entities; actualfrozenbaselinewarmupandfixedscene producer neededbeforecallinglate-targetnormalcontamination. Globaltreeisolation handlesnewLODentitiesinperformancepath, so no blanketF042alias.",
+    "Capturecanopy/minute overrides explicitlypublishedincapturestate1608/1611; underlyinginput/digest retainedasinputprovenance, notclaimallcurrentenvironmentcontenthash. Sourceweatherunchanged; no falsehashfindingfromoverridealone.",
+    "FPSbudgetderivedtarget60/rate, p95/headroom/frameoverbudgetfields actualdifferentmathematicalobservations computedtogether. GPUmarginalpercentilesummedhelper readingactualdiagnosticpathset notprovennested/exclusive; no fabricatedstatisticalruntimeconclusion.",
+    "Targethardwaredescriptor/matcherdrift F088 maintenance+evidencelimit, notexternalM5specverification oractualwronghost. Command::system_profiler source readonly, notexecuted. Nativefilewrites/captureapp/renderentrypointsnotinvoked."
+  ],
+  "fresh_support_reads": [
+    {
+      "scope_index": 1555,
+      "sha256": "55a8f28f05846eea9e2cd7460a1a1aaecb83c64af31573ed82a2bb2f5bdaf196",
+      "ranges": [
+        [
+          54,
+          80
+        ]
+      ],
+      "status": "alreadycoveredsource freshdualmarkercomparison"
+    }
+  ],
+  "new_local_findings": [
+    "CONT07-F087",
+    "CONT07-F088"
+  ],
+  "next_cell": {
+    "scope_index": 1699,
+    "start_line": 2701,
+    "scope_end": 4477
+  },
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true
+}

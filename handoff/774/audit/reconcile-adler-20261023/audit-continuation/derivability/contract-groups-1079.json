@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1079",
+  "at": "2026-10-25T17:42:52.647125+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1217,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs",
+  "sha256": "aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576",
+  "actual_compared_ranges": [
+    [
+      1,
+      350
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Native tables LocalChatMessage, DialogueSession/Participant/Event/Prompt/Action/Answer/TopicKnowledge/TopicOption/InvestigationBinding already Clone/Debug; backend records already Clone/Debug/SpacetimeType. DialogueSessionState/PromptState already structural derives; inherent stable_id/parse preserve const runtime labels and String error, not custom Serde. ParsedDialogueSessionId154\u2013176 borrowed length/control/prefix/u64/nonempty-nonce parser; retain no derived FromStr ownership/error change. Chat projection41\u201391 expands each row to audience/otherparty viewer scopes with conditional resident identity; not mechanical From. No handwritten trait/codec."
+  ],
+  "first_unfinished": {
+    "scope_index": 1217,
+    "line": 351
+  },
+  "execution": "none"
+}

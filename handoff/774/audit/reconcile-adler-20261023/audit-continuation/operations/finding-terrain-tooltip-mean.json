@@ -1,0 +1,87 @@
+{
+  "id": "SEGOVB-04-TERRAIN-TOOLTIP-MEAN-001",
+  "lens": "audit-invariant-operations",
+  "classification": "Ordinary-sized source arithmetic/presentation defect, no browser execution",
+  "operation": "terrain_skill_rows enumerates six terrain abilities and divides direct-hour sum by6 but effective-hour sum by5. The resulting aggregate tooltip reports6/5 of the actual mean effective hours.",
+  "counterexample": "For six direct terrain fields of100h each, actual canonical PlayerSkills::effective_skill_hours adds five .20*100 one-pass correlations, yielding200h for each leaf. Mean direct=100 and mean effective=200. Current six-entry sum1200 /5=240; SkillTooltip retains100 direct, computes140 correlated, and accessible_description says240 effective hours. Correct same-six-leaf aggregation would show100 correlated and200 effective. This is static source reasoning, not an executed synthetic fixture or actor state.",
+  "actual_recipient": "terrain_skill_rows passes the incorrect average to SkillTooltip::aggregate; rank::skill_rank_bar_with_tooltip serializes it into data-skill-tooltip and adds accessible_description into data-strategic-tooltip. The terrain rank average itself divides six and is unaffected by this specific divisor bug.",
+  "acceptance": "Give the actual six-leaf terrain presentation aggregate one coherent member set/count for direct, effective and rank projections; preserve current one-pass correlations, intuitive zero-direct transfer, six leaf ordering, healthy-vs-injured rank policy and tooltip accessibility. Do not change canonical correlation coefficients or gameplay ranks to make the tooltip agree. No source changes or tests requested during discovery.",
+  "dedup": "Coordinator confirmed exact same defect as local774:F47 after packet267. This record adds personally read lens04 support, not a new unique root defect. Root PC102/103 source and receiver evidence remains separately owned; no coverage transferred.",
+  "dependencies": [
+    "Canonical Skill terrain member set and effective-hours authority",
+    "UI aggregate tooltip projection; no generated binding edit"
+  ],
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/strategic-web/src/templates/settlement/character_skills.rs",
+      "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+      "ranges": [
+        [
+          1258,
+          1336
+        ],
+        [
+          1912,
+          2005
+        ],
+        [
+          2018,
+          2055
+        ]
+      ],
+      "coverage": "full role packet267"
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+      "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+      "ranges": [
+        [
+          1258,
+          1336
+        ],
+        [
+          1912,
+          2005
+        ],
+        [
+          2018,
+          2055
+        ]
+      ],
+      "coverage": "full role packet267"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/skill.rs",
+      "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "ranges": [
+        [
+          831,
+          892
+        ],
+        [
+          1099,
+          1125
+        ]
+      ],
+      "coverage": "fresh critical support, no whole-role coverage transfer"
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills/rank.rs",
+      "sha256": "e9f11b0fa05841fb640d4c44507b6b8628ea52fdabffb0e657c88c96d888489c",
+      "ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "coverage": "fresh critical support, no whole-role coverage transfer"
+    }
+  ],
+  "source_edits": false,
+  "project_execution": "none",
+  "canonical_alias": "local774:F47",
+  "related_witnesses": [
+    "This source witness: all six direct terrain hours100 gives each effective200; tooltip240 instead of mean200.",
+    "Coordinator supplied complementary F47 witness: single1000h terrain leaf. Preserved as supplied proof, not a personally executed case."
+  ]
+}

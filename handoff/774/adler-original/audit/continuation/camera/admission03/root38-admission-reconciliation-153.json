@@ -1,0 +1,999 @@
+{
+  "id": "CAMERA-ADM03-153",
+  "at": "2026-10-22T17:55:14.981855+00:00",
+  "lens": "audit-admission-contracts",
+  "supplier_completion": {
+    "record": "continuation/root/admission03/camera-extra38-completion-070.json",
+    "sha256": "5b20c887159bcf09bb81a5e70808f7eb616a6c2540e55af324b0adcac36f483d"
+  },
+  "pins": [
+    {
+      "record": "root/admission03/camera-support-extra40/coverage.jsonl",
+      "sha256": "babfa362e3908a633dea79184618d27930a6cfa1cc55faccffe9ebdf1bff4521"
+    },
+    {
+      "record": "root/admission03/camera-support-extra40/progress.json",
+      "sha256": "01774bd5c319a1f59d2803008e0b009af51e246c7ce1bc708e2903870fab0a5e"
+    },
+    {
+      "record": "root/admission03/camera-support-extra40/findings.jsonl",
+      "sha256": "8e26a07049cb93421be5924144908e46f59077e910be3f99adc78de6f7f411ad"
+    },
+    {
+      "record": "root/admission03/camera-support-extra40/qualifications.jsonl",
+      "sha256": "42de23ad79f1c29008a3d3f726c21fa1ada86f15f393b9aa98a0b54fb9171414"
+    },
+    {
+      "record": "root/admission03/support-authority-068.json",
+      "sha256": "6479151ff114e0983dd7da4c1759c8e64e323ad751eef1fabf5746c63ffdc8b9"
+    },
+    {
+      "record": "root/admission03/support-authority-069.json",
+      "sha256": "144976c198ce71065add197da983e2c797debac593a0876b37365602975652a2"
+    },
+    {
+      "record": "root/admission03/camera-support-extra40/contracts-001.json",
+      "sha256": "e3f0959545af7be220ab9aa9a315837df808b38e69121dd7b90de2f26f2d0613"
+    },
+    {
+      "record": "root/admission03/camera-support-extra40/contracts-002.json",
+      "sha256": "44eb31bac06be6c620d3607c830c77808831ce990ca998f8e95ac4cf41a111c0"
+    },
+    {
+      "record": "root/admission03/camera-support-extra40/contracts-003.json",
+      "sha256": "e19c8bbb62e0367fcebe015239ff16208b29b9c249c487081805bec7af8db396"
+    },
+    {
+      "record": "root/admission03/camera-support-extra40/contracts-004.json",
+      "sha256": "38a480dd4970737c72458ae0baadcfa012ac21746f21e09330a455c8acdb5645"
+    },
+    {
+      "record": "root/admission03/camera-support-extra40/contracts-005.json",
+      "sha256": "3bee8f53aeb2e8aa5c5dc4023d41e62e370368fbffcefedf66fd11dc3b8fc425"
+    },
+    {
+      "record": "root/admission03/camera-support-extra40/contracts-006.json",
+      "sha256": "37b5f63aef066f739b8dbe4ebf4741a90b08fd0e077cad7c550eccd916e4dbf5"
+    },
+    {
+      "record": "root/admission03/camera-support-extra40/contracts-007.json",
+      "sha256": "c3ac08bef9f4fe7d9a4e9c8266c2e69511d941fc529ef0d42ff2731642e37bf1"
+    },
+    {
+      "record": "root/admission03/camera-support-extra40/contracts-008.json",
+      "sha256": "52b357ad58f92a521388ff5b4353444a4f7a924f1c1924690a0be4db5edf6c05"
+    },
+    {
+      "record": "root/admission03/camera-support-extra40/contracts-009.json",
+      "sha256": "f524c0dca3d1bdd9656f734bb835163efe335327833d631ffe961ba1eb8e069b"
+    },
+    {
+      "record": "root/admission03/camera-support-extra40/contracts-010.json",
+      "sha256": "99ca9174648fe88ccb5c12ade5f9787858f30bffdc3045a7d7f35210e2fdb6b8"
+    },
+    {
+      "record": "root/admission03/camera-support-extra40/contracts-011.json",
+      "sha256": "0f7e113f1e7022f572d3b6e94163972ad011b9311e837038075814c9c36fe5c6"
+    },
+    {
+      "record": "root/admission03/camera-support-extra40/contracts-012.json",
+      "sha256": "0fd4f341f074d087b61121913a5f776d8495d3e0c2186f37a851b6cd3bb6d773"
+    },
+    {
+      "record": "root/admission03/camera-support-extra40/contracts-013.json",
+      "sha256": "7c2c07cb2794966219027013023517a6d879814a0d3d927f16748508436f0e5e"
+    },
+    {
+      "record": "root/admission03/camera-support-extra40/contracts-014.json",
+      "sha256": "6d6156eb1e92df885f88344770f83b1a73ee993fce10bfa7c758113bf93b6cdf"
+    }
+  ],
+  "source_roles": [
+    {
+      "queue_index": 799,
+      "support_queue_index": 9,
+      "source_id": "pr-working:crates/adventuresim-world-schema/build.rs",
+      "sha256": "1cbb4c6032d77345ba85c017d2e5f94b1600c1a4064ff586f0e1872afd63df74",
+      "scope_pointer": "/files/2155",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          1,
+          121
+        ]
+      ],
+      "actual_EOF": 121,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-001.json",
+        "sha256": "e3f0959545af7be220ab9aa9a315837df808b38e69121dd7b90de2f26f2d0613",
+        "pointer": "/source_roles/9"
+      },
+      "actual_current_contract_and_all_routes_compared": "Fresh full PRbuild121. Recursively collect yaml extensions, sort paths, reject empty filelist; strict JSON-compatible typed NameCatalogDocument decode for each, merge all lists, apply fragments to actual repertoire (unknown target panics authoring error), THEN canonical validate before serializing/emitting immutable JSON/digest. Each digest input is relativepath+NUL+actualtext. strip_prefix(root) ensures generated source path relative. Fragment allocation extends each sex/family/form/surname list, duplicate target/catalogue semantics rejected by canonical validator afterwards. Embedded runtime private OnceLock parses this actual built product; this is actual source pipeline proof, no build/content execution or generated output correctness claim.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 802,
+      "support_queue_index": 11,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/name_catalog_schema.rs",
+      "sha256": "c50dcf6eef9aa348c8c259b105a9734f1e25ee2e57a043ee484a3892e9795dfa",
+      "scope_pointer": "/files/2165",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          1,
+          199
+        ]
+      ],
+      "actual_EOF": 199,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-001.json",
+        "sha256": "e3f0959545af7be220ab9aa9a315837df808b38e69121dd7b90de2f26f2d0613",
+        "pointer": "/source_roles/11"
+      },
+      "actual_current_contract_and_all_routes_compared": "Fresh full199. All authoring schema products public raw fields/ordinary Serde denyunknown, aggregate Default empty lists and field defaults permit partial evidence documents before merge. Closed historical record/tradition/register/surname enums enforce known variants. CalendarYear and Culture/Sex refer separately scoped canonical leaves; no field-name or derive-generated-array proof. Optional sample_size/observed_count allow None/0 where actual validator permits. Relative frequencies u64 are sampling scores not probabilities/observed counts. These raw DTOs are not private accepted catalogue tokens; string IDs/URLs/text/reference correlations validated separately. Fragments legitimately partial before build resolution.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 803,
+      "support_queue_index": 12,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/name_catalog_validation.rs",
+      "sha256": "555b21fb6dddac260f0a951252041fd40a0d3e02dd8bb0d649fda9a528e0ed77",
+      "scope_pointer": "/files/2166",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          1,
+          576
+        ]
+      ],
+      "actual_EOF": 576,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-001.json",
+        "sha256": "e3f0959545af7be220ab9aa9a315837df808b38e69121dd7b90de2f26f2d0613",
+        "pointer": "/source_roles/12"
+      },
+      "actual_current_contract_and_all_routes_compared": "Fresh full576 in1-290/291-576 incl original412+ tests sourceonly. Canonical validator rejects unresolved fragments/empty required source/family/form/surname/repertoire lists. ID grammar nonempty lowerASCII/digit/underscore, global kind-specific uniqueness; sources require nonblank provenance + https prefix, quantitative sample Some0 rejects but None allowed (no fullURLvalidity). Observations unique/known source/nonblank locator/derivation/spelling; counts deliberately broad. Families actual closed Sex; forms nonblank text/nonempty unique existing family links allsameSex. Surnames unique and every identity has known nonblank display form. Repertoire ID/selector uniqueness and inclusive period nonoverlap (sameculture/tradition), every Sex group nonempty positive unique correctlysexed family; ordinary Everyday forms known+nativeculture+family/unique pair/positive/checkedsum-u64 and each eligiblefamily covered. Surname frequencies positive unique hereditarycommoner only and cultural forms cover every Sex (specific or None). Derivations actualnextsource13 gate completes shared provenance. Raw formtext validator does not promise <=160/controlfree or every generated projection succeeds; final rendering independently checked/fallible. Do not infer global valid source contents from existing test assertions.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 804,
+      "support_queue_index": 13,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/name_catalog_validation/derivations.rs",
+      "sha256": "7178c20d189f6254be6bd97094c550465c0b137c2c2e3ccf0b8f033cc80d435d",
+      "scope_pointer": "/files/2167",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          1,
+          214
+        ]
+      ],
+      "actual_EOF": 214,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-001.json",
+        "sha256": "e3f0959545af7be220ab9aa9a315837df808b38e69121dd7b90de2f26f2d0613",
+        "pointer": "/source_roles/13"
+      },
+      "actual_current_contract_and_all_routes_compared": "Fresh full214. Build derivation targets exact tuple(repertoire, optionalfamily/form/surname) andfrequency after preceding canonical uniqueness gates. Every derivation ID unique/grammar, operation/rationale/nonempty observations/positivefrequency, known repertoire, exact valid targetshape family-only/family+form/surname-only, known IDs and form belongsfamily, frequency EXACT target, unique coveredtarget and distinct known observations. Final coveredcount equals targetcount; all insertions required actualtarget so count equality proves coverage, subtraction cannot underflow on accepted loop path. Private helper target maps/raw String tuples are temporary workrecords not actual format boundary. Public authoring fields remain intentionally broader than validated catalogue.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 805,
+      "support_queue_index": 14,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/person_names.rs",
+      "sha256": "e41326d6c8ae20b958581c0027d3b5bdd79a58faf43a142e446f52dc4a8f70ec",
+      "scope_pointer": "/files/2168",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          1,
+          849
+        ]
+      ],
+      "actual_EOF": 849,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-001.json",
+        "sha256": "e3f0959545af7be220ab9aa9a315837df808b38e69121dd7b90de2f26f2d0613",
+        "pointer": "/source_roles/14"
+      },
+      "actual_current_contract_and_all_routes_compared": "Fresh full PR849 split1-240/241-510/511-849 incl ALL existing493+ tests sourceonly. NameFamilyId/NameFormId/SurnameId public String wrappers unchecked new/transparentSerde intentionally open references; PersonalNameIdentity raw public ordinarySerde and authored constructor permit invalid metadata until validate/render. NameStableSeed/selectionSeed retain all deterministic words, no numeric probability constraint. RenderedPersonalName private String noDefault/Reflect/SATS/rawFrom/mutator, all new/TryFromString/&str/manualDeserialize share nonempty/no trim change/<=160 Unicode chars/no controls; Display/into_string output only. Generate chooses matching culture/tradition/inclusivebirthyear, actual weighted family/form/surname streams, independent selector; missing repertoire/empty candidates/sampling errors explicit. Inherited Some surname is retained unchecked raw identity; generation Result does not make identity an accepted membership token. Render FIRST identity.validate including metadata that authored text ignores, then authored/native form/translated family/raw historical spelling, optional culturally/sex-specific surname (specific beats neutral), and EVERY completed displayed String reenters RenderedPersonalName::new. Missing cultural/register forms Err, no fake name/default. Private OnceLock parses actualbuild validatedJSON, not public replacement; no general catalogue membership from open ID constructor. Raw caller-provided sex affects surname selection, not actor authority. Root023 actual deterministic weighted-index contract separate from rendering validity, source streams preserved.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 806,
+      "support_queue_index": 15,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/person_names/error.rs",
+      "sha256": "d61ede6d1993fc5dd57a526c714ccd91c133b235f1cd8dc86d019b11ae1c479a",
+      "scope_pointer": "/files/2169",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          1,
+          34
+        ]
+      ],
+      "actual_EOF": 34,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-001.json",
+        "sha256": "e3f0959545af7be220ab9aa9a315837df808b38e69121dd7b90de2f26f2d0613",
+        "pointer": "/source_roles/15"
+      },
+      "actual_current_contract_and_all_routes_compared": "Fresh full34. Closed typed NameCatalogError variants preserve missing-entry IDs and category distinctions no-membership/empty/invalidrender/nativeassociation/sampling; Display only final human explanation. Sampling currently stores native error String so structured cause propagation is a separate later-error-lens concern, not actual successful admission. Error implements stdError with default no source; no hidden checked constructor/serde/reflection route.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 807,
+      "support_queue_index": 16,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/person_names/identity_validation.rs",
+      "sha256": "d1d7a7cff2bd6d44336c622d4f9e451f72c6166a16eb2702d128d32adc27525b",
+      "scope_pointer": "/files/2170",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "actual_EOF": 169,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-001.json",
+        "sha256": "e3f0959545af7be220ab9aa9a315837df808b38e69121dd7b90de2f26f2d0613",
+        "pointer": "/source_roles/16"
+      },
+      "actual_current_contract_and_all_routes_compared": "Fresh full169 incl original66+ tests sourceonly. PersonalNameIdentity.validate checks actualimmutablecatalogue: resolved family exists, native form exists, form associatedfamily+nativeculture+Everyday; unresolved recorded text canonicalRenderedName and every candidate exists, empty candidates legitimate; authored text canonicalRenderedName. Optional surname always must exist even authored display ignores it. It does not seal mutable public identity, actor permission, all potential display cultures/registers/sex or membership of future fields. Actual render revalidates before read so normal consumer content gate intact. ExactPR freshproof closes Native PRname render dependency; P16Native008 proof remains independent counterpart not automatically credited.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 728,
+      "support_queue_index": 0,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/mod.rs",
+      "sha256": "294366e9eac449d161658a404c461baaf901a04a89e96ea87909a819e322e88a",
+      "scope_pointer": "/files/2063",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          1,
+          158
+        ]
+      ],
+      "actual_EOF": 362,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-002.json",
+        "sha256": "44eb31bac06be6c620d3607c830c77808831ce990ca998f8e95ac4cf41a111c0",
+        "pointer": "/source_roles/0"
+      },
+      "actual_current_contract_and_all_routes_compared": "Fresh exactPRmission/mod1-158 of362 ONLY. Private MissionState timeout/required enemy count/enrollment/reconnectgrace/hold/terminal, new actualNonZero expectedparty delegates PartyEnrollment::new, allpubliccrate methods forward actualsame storedowner. Frozen terminal/time operations actualdelegates to separately read terminal2. No Serde/Reflect/Default forMissionState; cratevisibleconstructor accepts actualraw required count/Timer, not authoritative roster/capability seal. Combat snapshot/product/method actualbody outside158 NOT credited, tick_timeout156-158 onlypartial/context (no claimcompletepredicate); enrollment/hold loweractualdefinitions retain existingRig/Camera obligations. Source-specific facade review notwhole362 proof.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 729,
+      "support_queue_index": 1,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/systems.rs",
+      "sha256": "cc4bc873f502d3a08fc30a6f3d40d1d0752a81dfdee70651fb2c04737b64d6b8",
+      "scope_pointer": "/files/2064",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          52,
+          320
+        ]
+      ],
+      "actual_EOF": 320,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-002.json",
+        "sha256": "44eb31bac06be6c620d3607c830c77808831ce990ca998f8e95ac4cf41a111c0",
+        "pointer": "/source_roles/1"
+      },
+      "actual_current_contract_and_all_routes_compared": "Fresh exactPRsystems52-320 incl original279+ testsourceonly. commit freezes actualresolution+consequence receipt once thenbeginterminal onlywhenRunning. submit withnoSpacetimeDb intentionally resolves standalone locally asAccepted, connectedsubmit queuesandawaits eventual nested reducer result, synchronousenqueueerror schedulesbackoff; queue success never strategicacceptance. Mailbox results onlyaccepted branchpresents once, rejectionslogretry; deadline stall exitsError withoutoutcome/retry, presentationfinished exitsSuccess. Liveparty loop actualenrollmentobserve rejectsafterseal/despawnsunknown beforecount; loadingpresence beginsenrollment; abandoned=>Failed; snapshotincap/yield/enemycounts thenactualholdlower owner. Timeoutguard firstticks andonlyrunningcommitsFailed. Primitive nativecounts/timing snapshot workrecords not codec boundary or acceptedrosterproof. Required enrollment/hold/receipt bodies separate; no source1-51constants/imports credit.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 730,
+      "support_queue_index": 2,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/terminal.rs",
+      "sha256": "a381bfd75836c7f9f37ad73df102d94cfb8e8b2afb79592549e12b3ddbde1347",
+      "scope_pointer": "/files/2065",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          1,
+          303
+        ]
+      ],
+      "actual_EOF": 303,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-002.json",
+        "sha256": "44eb31bac06be6c620d3607c830c77808831ce990ca998f8e95ac4cf41a111c0",
+        "pointer": "/source_roles/2"
+      },
+      "actual_current_contract_and_all_routes_compared": "Fresh full303 incloriginal206+ tests unchangedsourceonly. Private TerminalLifecycle Running(Default)/RetryScheduled(frozen,notbefore)/Submitting(frozen,deadline)/TransportFailed/Presenting(outcome,remaining)/Finished; privateTerminalState tuple noSerde/Reflect/rawFrom exposes onlyoperations. begin onlyRunning, clones same inseparablefrozenresolution+receipt thenSubmitting; retrydue onlyRetry and>=deadline; enqueuefailure onlySubmitting. callbackAccepted onlySubmitting->Presenting andreturnsoutcome; Rejected preservesexactfrozenbackoff; acktimeout onlySubmitting>=deadline->TransportFailed no retry/presentation; delay nativeDuration saturating; presentationonlyonceFinished. FullDurationincl0/MAXvalid native policy. FrozenTerminal publiccratefields/rawSDKreceipt notprivatevalidatedbusinessreceipt; internal TerminalSubmissionResult publiccrateenum represents callback event, facade alone doesnotauthenticate arbitrarycaller. Actualnormalconnectedproducer separatelyfreshstdb8 nestedOk(Ok), standalone1 explicitpolicy. No invented exploit/transaction guarantee. Closedresolutionmapping Victory forDefeated/DrivenOff/Captured, DefeatFailed/CaptureTargetKilled.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 732,
+      "support_queue_index": 3,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection/dive_launch.rs",
+      "sha256": "92c5c2966afd08f99f1107fb60067033371cb1a4139a5d3c348ad79f27ee7bd9",
+      "scope_pointer": "/files/2068",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "actual_EOF": 101,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-002.json",
+        "sha256": "44eb31bac06be6c620d3607c830c77808831ce990ca998f8e95ac4cf41a111c0",
+        "pointer": "/source_roles/3"
+      },
+      "actual_current_contract_and_all_routes_compared": "Freshfull101 includingoriginal42+ tests sourceonly. Nativevelocity port accepts canonicalRadians+NonnegativeSpeed andclosedDiveDirection/Trajectory; extracts rawonlyactualQuat native multiply andLinearVelocitywrite. GroundedSlide returnsbeforeANYvelocitywrite preservingallincludingvertical; otherlaunches updateonlyxz. DiveLaunch pubsuperfields ordinaryinternalclosedproduct notprivate jointseal. Finiteleaves donotprovecompletedextreme vector representability; nativeportqualification/noactualbadconfig. SameactualRoot100 P16dive policy explicitlycompared, nothashcarry.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 733,
+      "support_queue_index": 4,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+      "sha256": "40f9695ff7352badc2fff5fb1cc7a15d68a36ea48dcfd36083f2c7c5145096e9",
+      "scope_pointer": "/files/2069",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          1,
+          162
+        ]
+      ],
+      "actual_EOF": 162,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-002.json",
+        "sha256": "44eb31bac06be6c620d3607c830c77808831ce990ca998f8e95ac4cf41a111c0",
+        "pointer": "/source_roles/4"
+      },
+      "actual_current_contract_and_all_routes_compared": "Freshfull162. AuthoritativeFacing pubsuper product stores rawQuat/Vec3/optionalAttackFacing alongside typedtick/elapsed and borrowed samecombatconfig; no universal pose/validatedconfigseal. Actualtransition locksroot andsetsrest; downedalign callsfallibleturn thenrotation, free/aim routes actualtypedhalfturn/step; ordinaryupright attackdeadline/nativevector orbodyturn result beforeassignment. advance_projected_posture can advanceSkeleton BEFOREsubsequentfalliblefacing, no atomictransactionpromise. Finaltransitionrotation nativeproduct.normalize thenTransform+physicsRotation writes withoutnew aggregatefiniteadmission. Aimreleaseonlysettlesexistingroll, freecannotseednewroll. Typedclock/turnoperands extraction nativekernel, rawprivatehelper notboundary; full lowerNativeanimation/facing separate.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 734,
+      "support_queue_index": 5,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection/projection_equipment.rs",
+      "sha256": "2ac9b1b21c4c3c62b6815b0885c43e18995cc9bed66fde7d692bcd7c00a07f81",
+      "scope_pointer": "/files/2070",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          1,
+          139
+        ]
+      ],
+      "actual_EOF": 139,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-002.json",
+        "sha256": "44eb31bac06be6c620d3607c830c77808831ce990ca998f8e95ac4cf41a111c0",
+        "pointer": "/source_roles/5"
+      },
+      "actual_current_contract_and_all_routes_compared": "Freshfull139 actualPR projection equipment. OptionalweaponappearanceNone assertsnoauthoreddefaultrecipe beforelegitimateNone. Present recipe version/decode/catalogueassociation/hash/derive allassert/expect, then canonicalcombatgeometry Option. Root separatelyfreshlydisplayed full currentPR ParametricWeaponCombatGeometry siblingbody: ALLsevenrawf32finite, mass/total/grip>0, grip<=total, head0..total, inertia/balance/precision>=0 beforeSelf, publicrawfields stillbypass; actualP16G067 hascheckedSignedLengthleaves instead. Conditionedprecision catalogueassociation/resultfinite remaininggap. Appearance/holdercopy expecthashlength; holdermass additionallyversion/catalogue/hash/derive. Armor absentprotectedparts legitimateNone; Someparts requiresactualcatalogueequipment/selectedplacement/material expects, slotfirstpart andcoveragegeometryfromplacement, rawSDKresistance/coverage/motion/padding/flexibility copiedunsealed. ActualPR731parent commands precede thesehelpers, joinsNativeF004 actuallatefailurefamily; noactualbadrowclaim. Wholeallmetadata prepare beforeanyCommands required; no primitive extraction concession at helperboundary.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 735,
+      "support_queue_index": 6,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection/spawn_admission.rs",
+      "sha256": "036e9735654b7050eab0212a18012e9ade1badc0ceebe3f5c093235c48ff228f",
+      "scope_pointer": "/files/2071",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          1,
+          108
+        ]
+      ],
+      "actual_EOF": 108,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-002.json",
+        "sha256": "44eb31bac06be6c620d3607c830c77808831ce990ca998f8e95ac4cf41a111c0",
+        "pointer": "/source_roles/6"
+      },
+      "actual_current_contract_and_all_routes_compared": "Freshfull108. Private PreparedPlayerSpawns vector but AdmittedPlayer pubsuperfields rawConnectedPlayer/recipient/checkedPosition/nativeCollider; no mass/allitemmetadata. Prepareeveryapplicableplayer first: Enemy fixture actualnamedentryorErr thenbehavior; nonenemywithoutmatchingloading skipsintentionally. Fixednativecollider->checkedspawnheightoffset, actualdeterministic -5..5ScenePlanPoint/requiredheight/completedPosition checkedbeforepush, thenentirebatchOk. Project consumesbatch andcalls actualspawn PR731; thatspawn stillperformsfalliblemetadata AFTERCommands. Headercomplete-batch promise thereforeonlyposition/recipientpreparation, NOTactualcompleteitemadmission; NativeF004 applies. Tacticaltickstate staysnative/transient. Quantityzero/legitnonparametricNone retaineddistinct duringfuturecompletepreparation, not skip malformedapplicableplayer.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 736,
+      "support_queue_index": 7,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/startup.rs",
+      "sha256": "a2f5959d603a1f54ed2b719eb96e15c4101b6834d30aae545d19e8c4c3e46983",
+      "scope_pointer": "/files/2075",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          1,
+          120
+        ]
+      ],
+      "actual_EOF": 120,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-002.json",
+        "sha256": "44eb31bac06be6c620d3607c830c77808831ce990ca998f8e95ac4cf41a111c0",
+        "pointer": "/source_roles/7"
+      },
+      "actual_current_contract_and_all_routes_compared": "Freshfull120 incloriginal76+tests sourceonly. Startupscene/defaultassetpaths intentionaluser/defaultselection, notcompatibilityAPI. Combatnativefile metadata1..64KiB, UTF8/YAMLactualdecode thenconfig.validate beforeOk; TOCTOUmetadata checknotpostreadsizecap (fileIOport qualification noactualchangingfileclaim). Private functionreturnsrawpublicTacticalCombatConfig, laterStartupInputspubcratefields permitmutation; successfulload validatesonevalue notopaque acceptedconfigseal. Installs runtime snapshot/digest withexpects afteractualsamevalidate/nointerveningwrite; exactlowercanonicalvalidate/snapshot separatelyCamera currentproof, no Resultnameassumption. Errors erasecauseearlyString nativeIO/context forP16errorgraph repair; defaultsresolutionexpect andrulepaniccleanup remainexistingRustscope, noneexecuted.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 737,
+      "support_queue_index": 8,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/stdb.rs",
+      "sha256": "ab24f2abcf0306df9967ba4f53671ead170142f7fd1a0697bf116389584da5b8",
+      "scope_pointer": "/files/2076",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          1,
+          191
+        ]
+      ],
+      "actual_EOF": 191,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-002.json",
+        "sha256": "44eb31bac06be6c620d3607c830c77808831ce990ca998f8e95ac4cf41a111c0",
+        "pointer": "/source_roles/8"
+      },
+      "actual_current_contract_and_all_routes_compared": "Freshfull191. Privateconn/mailboxes onlyArcMutex callbacks retainraw SDK rows; oninsert capturesclone, drainstdmemtake, no semanticitem/characteradmission. Actualreadiness privateIdentity andonlypublishaftertry_identitySome once, avoidsSDKpanickingidentity beforehandshake; notsemanticrow/authoritytoken. submit_terminal actualnativeSDKcall boundarytakes rawresolution+receipt; callbackOk(Ok)Accepted vsOk(Err)RejectedString vsnativeErrformattedRejected. QueueResultseparatefromacceptance, resultmailboxcallbacks noECSmutation. Connectionbuild/error/disconnectcallbacks andframe_tick nativeport; process exits1 onfatalconnecterror explicitpolicy. Mutexunwrap anddisconnectblockingloop existingnativepanic/error-work retained; no unprovencurrentpoisonedmutex/inputfailure. No DBtacticalstatepersist introduced; actualstrategicconsequences endpoint remainsseparateauthority gate.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 817,
+      "support_queue_index": 25,
+      "source_id": "pr-working:crates/strategic-web/src/spacetimedb/client.rs",
+      "sha256": "6bc35a3128851500c7a70018333c89db4676a6abc1608e2e8cc57f16a02b3dcb",
+      "scope_pointer": "/files/2385",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          1,
+          273
+        ]
+      ],
+      "actual_EOF": 273,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-003.json",
+        "sha256": "e19c8bbb62e0367fcebe015239ff16208b29b9c249c487081805bec7af8db396",
+        "pointer": "/source_roles/25"
+      },
+      "actual_current_contract_and_all_routes_compared": "FreshfullPRclient273 incloriginal222+ existingtests sourceonly. Private http/base/database/token/sharedAtomicmetrics but new returnsResultonlyfornativeClient::build, acceptsrawURL/database/tokenstrings atnativeHTTPformatport; no stronger grammar/membership/authorityseal. QuerynativePOST rawSQL/token, requestcountbeforeattempt/elapsed saturatingmeasurement nativeInstant, non-success bodyerrors convertedtoString (bodyreadfailure defaultempty), HTTP/JSON nativecauses typed; successfulHTTP parses rawQueryResponse. query_sats delegatesactualstrictadapter26; query_one rejects>1 beforepop, Noneempty legitimate. query_sats_into/query_one_sats_into alwaysdecodeactualgeneratedT first thenTryFromU allorErr; conversioncauses erasedDisplayString early, structuredP16errorgraph pending. U isnotautomaticallysemanticseal merelyTryFrom. callnativePOST JSONargs acceptsHTTPsuccess withno businessreceipt; actualendpointbusinessguardseparatelyowned. Metrics publicrawsnapshot+atomics fullu64 withwrappingfetch_add andsaturatingdelta, commentmonotonicispracticalnotunboundedmathcertificate; noactualoverflowclaim. NativeIOtimeouts/paths nativeconfigports, no checkedbespokeURLinventedsolelyfromString.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 818,
+      "support_queue_index": 26,
+      "source_id": "pr-working:crates/strategic-web/src/spacetimedb/client/sats.rs",
+      "sha256": "dbb97caa3f3bb18aa862aacce19d0d76f82f7760e82a389f9347698d24031906",
+      "scope_pointer": "/files/2386",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          1,
+          540
+        ]
+      ],
+      "actual_EOF": 540,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-003.json",
+        "sha256": "e19c8bbb62e0367fcebe015239ff16208b29b9c249c487081805bec7af8db396",
+        "pointer": "/source_roles/26"
+      },
+      "actual_current_contract_and_all_routes_compared": "FreshfullPRsats540 in1-280/281-540 inclALLoriginal260+tests sourceonly. ActualnativeSQL->SATS JSON bridge: emptyresponseOkempty; ONLYfirstresultconsumed; everycolumnnamed, rowarray/exactschemaarity beforezip; eachvalue transformedthenSerdeWrapper<T>actualSATSdeserialize, allrowscollectResult no failedrowfilter. Arrays U8 actualunprefixedevenhex (emptyallowed), otherarray eachrecursive. Products exactarity; identity specialone __identity__field string optional0x/nonemptyhex/strip-leading-zero preserveszero0x0 thennativeSATSrangegate (noidentitymembership/nonzeropolicy). Emptyproductemptyarray; allnamedproduct object elsepositionalarray preservesmixedunamedtuplepolicy. Sums requirearrayexact2/tagu64 andactualvariantget thenknownoptiontwo nameslowercase some/none vsuppercasefirstlettergeneralname; unknown/missing generalname defaultsUnknown andmissingnestedtype Null forwarded sofinalTdecoder ownsconcretewiretyping, notgenericsemanticvalidator. Actualsumtag cast u64 asusize occursBEFORE boundsget; on32-bit tag2^32 wraps0 (latentformat-widthadmissiongap), native64unknownreject intact; no current32-bitwebtarget/runtimeclaim. Namedcolumn/productobjects useMap.insert withoutuniqueness: duplicatedsamefield overwritesearlierwirevalue afteraritycheck, soexactgeneratedT mayreceivevalidcollapsedobjectwhileextraordinarySQL/productfield silentlylost; staticrawschemaAPIroute only/noactualbadqueryclaim. Bothneedcheckednativeformatadmission beforecollection. ExistingSDKknownfield/tag/rangechecking source-backed throughpriorNativeoriginalG060/CameraSATSpackets, but no manualSerdeboundedbespoketype guarantee: SATSderivebypasses distinctcanonicalconstructor asalreadyF001/RootF007. Raw scalar values pass toactualT codec; wrappertypename notprivateacceptedbusinessstate. Preserveallvalidhex/identityzero/options/data-carryingsums/mixedtuple/emptyresult/errorclasses andactualrequestone-rowpolicy.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 801,
+      "support_queue_index": 10,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/economy.rs",
+      "sha256": "ce7c60b4dca374b058a50d845ac3171642869aa47fc95b7873ac27392bff308e",
+      "scope_pointer": "/files/2162",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          1,
+          358
+        ]
+      ],
+      "actual_EOF": 358,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-004.json",
+        "sha256": "38a480dd4970737c72458ae0baadcfa012ac21746f21e09330a455c8acdb5645",
+        "pointer": "/source_roles/10"
+      },
+      "actual_current_contract_and_all_routes_compared": "FreshfullPR358. Closed ProsperityTier/SettlementService/SettlementActionService/StockCategory/Provenance ordinarySerde+SATS knownenumdeclaration; actualadapters independentlyscoped, no semanticcollectionseal fromderive. SettlementStock public abundanceu8 docs1..5 butliteral/Serde/SATS broad; EconomyProfile publicrawfields/collections/ordinarydecoders, validate currentversion+score<=1000/nonemptybounded servicesstock/limits10,8,17/strictsortedunique sets+abundance1..5 only; doesNOTrecomputetier/stockprovenance/specializationrelationships (no claimrequiredunlessactualconsumerneeds). stage_placeholder intentionallystagedvalidminimal Inn/generalgoods1, notcompatfallback. infer calculates actualindustryscale12/28/48/fallback5 andscore capped1000, BTreeSetservices/Mapstock canonicalorder, stabletop8specializations thenvalidate beforeOk. But population_level i32->max1->u16try unwrap_or1 then*u16(85) BEFOREsaturatingadds; rawlevel65535 causesdebugoverflow/releasewrap. LatentAPIarithmeticprecondition notactualcurrentimportclaim; canonicallevelowner/actualproducerdomain mustguideproperadmissionorwidening. Industrialoutputs cardinality exactlowerprofilepending, no inventedoverflowfromsum. has_service binarysearch requiresvalidatedsort whilepublicrawprofilecanbreakassumption; preserve rawauthoring vsacceptedprivateprofile asconnectedmigration. Stockmaxmergesprovenancefirstexisting whileabundancemax intentionalactualpolicy; no inferredprovenancebug. ActualIndustryEvidence scale/category methods/types separatepreviouslyscopedowner proof required, no newwholegraph.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 819,
+      "support_queue_index": 27,
+      "source_id": "pr-working:crates/strategic-web/src/templates/interface_help.rs",
+      "sha256": "c78ba1ba7989dbb10ddda4b92fd1118f802fa26bb36d5e5623449ffb567af9c9",
+      "scope_pointer": "/files/2394",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          60,
+          94
+        ]
+      ],
+      "actual_EOF": 119,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-004.json",
+        "sha256": "38a480dd4970737c72458ae0baadcfa012ac21746f21e09330a455c8acdb5645",
+        "pointer": "/source_roles/27"
+      },
+      "actual_current_contract_and_all_routes_compared": "Fresh exact60-94 only. Lines60-65 tailofunreadparent/wheelmethod context notwholepredicatecredit. stats_labels renderscheckbox; regional_reading rawf32sound/str/Markup toescapedMaud/format percentages anddataimpaired sound<1; nocheckedUnitInterval/no semantichealth/privacy authority. NativeUIformat extraction actualport, formattedstringnotdesiredpersistenthealthstate. Lowerbody_region_icon/bodymodel/templateauthority separate; no whole119promise.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 824,
+      "support_queue_index": 32,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_health/notebook.rs",
+      "sha256": "ddcf5b6d32ce9793570df94471b1a5098b3bed2ea8bf83e36cc6f0381915183f",
+      "scope_pointer": "/files/2400",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "actual_EOF": 27,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-004.json",
+        "sha256": "38a480dd4970737c72458ae0baadcfa012ac21746f21e09330a455c8acdb5645",
+        "pointer": "/source_roles/32"
+      },
+      "actual_current_contract_and_all_routes_compared": "Freshfull27. Notebook presentation borrowsMedicalPresentation/latestChartReading, displayscount/confidence_bps/100 andactualdiseasecandidateorder, uncertaintyexplanation, dynamictooltipIDs enumerate. No constructor/codec/authoritygate, rawpresentationcaller mustalreadybeobserverauthorized. Actualsourceadmitszeroobservations/latestoutsidecollection structurally; no actualbadcaller/confirmeddiagnosisclaim. Confidenceintegerformat nativeUIport, notauthorityorcanonicalprobabilityseal; lowerphysiology_likelihood actualparent separatelyqueued31.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 825,
+      "support_queue_index": 33,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_health/segments.rs",
+      "sha256": "75b12a94fe2b1cd0fc29b530c43478d275fd9454c9af1e6cb9a8e388ee797692",
+      "scope_pointer": "/files/2401",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "actual_EOF": 72,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-004.json",
+        "sha256": "38a480dd4970737c72458ae0baadcfa012ac21746f21e09330a455c8acdb5645",
+        "pointer": "/source_roles/33"
+      },
+      "actual_current_contract_and_all_routes_compared": "Freshfull72. assessed_humours OptionNone empty intentionally; Some raw signedhumourvalues abs*rawscale nativepresentation result, nofinite/unitseal andno hiddengameplaypool. PhysicalDamage pubsuperfourf32 fields new derivescut/frost/fracture/blunt withmin/max toremainingdamage; caller rawnegative/nonfinite physicaldamage/injury canbreak documentedbound, notprivateacceptedaggregate. Exactnormalcaller31 andrawMedical/limbinjurycanonicalinputs remainpending; no currentbadrowclaimed. PreserveunknownhumourNonevs0/signedassessment/rawdiagnostics andonevisiblefatiguepool; typesshouldretainexistingmeaningthroughdisplay withoutblanketUnitIntervalallhumours.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 826,
+      "support_queue_index": 34,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills/rank.rs",
+      "sha256": "e9f11b0fa05841fb640d4c44507b6b8628ea52fdabffb0e657c88c96d888489c",
+      "scope_pointer": "/files/2403",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "actual_EOF": 82,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-004.json",
+        "sha256": "38a480dd4970737c72458ae0baadcfa012ac21746f21e09330a455c8acdb5645",
+        "pointer": "/source_roles/34"
+      },
+      "actual_current_contract_and_all_routes_compared": "Freshfull82. SkillRankBarOptions publicsettlementvisibility optionstr/defaultNone isUIformatconfig, nosemanticadmissionclaim. skill_rank_tier callsseparatelyownedfinite_rank then0..5tiers; bar directrawrank/effectiverank bypassesfinite_rank: rank.clamp0..5 leavesNaN, secondeffective.clamp0..NaN panics. LatentdirectpublicsettlementAPIroute noactualnormalbadcaller/runclaim. finiteeffectiveNaN remainsNaNdisplay otherwise; no acceptedboundedrank. Fixactualrank admission/renderproduct ratherthanblindlysilentvalue substitution; preserveactual0..5/traineddamage/accessibletext/tooltipsandrawrejected diagnostic values. finite_rank helperdefinition notreadhere/no sourcecredit; exactpredicatepending ifnormalcallerpolicyrelevant. serde_json tooltipexpect knownserializationnotautomaticfiniteness; helperboundarynotcodecport, finalnativeUIformatactualport.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 810,
+      "support_queue_index": 18,
+      "source_id": "pr-working:crates/strategic-web/src/medical/administrations.rs",
+      "sha256": "44013b88072ffed197f1fb44e9b5de838612f08282374c95e9544cf6ed0fbfd2",
+      "scope_pointer": "/files/2358",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "actual_EOF": 28,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-005.json",
+        "sha256": "3bee8f53aeb2e8aa5c5dc4023d41e62e370368fbffcefedf66fd11dc3b8fc425",
+        "pointer": "/source_roles/18"
+      },
+      "actual_current_contract_and_all_routes_compared": "Freshfull28. active administration presentationfilter requires stoppedNone, actualintervention_profile(preparationID,version)Some, current>=administered ANDcurrent<administered.saturating_add(duration); endexclusive/zero-duration inactive/MAXsaturation intentionalnativeclockpolicy. Clonesalreadyprovidedrows; no observerauthority atthispurehelper. Profilelookup exactcataloguepredicate separateCorephysiologyalready scoped; no name-basedmembershipproof. Doesnotstoretacticalfatigue/pool, sourceclocktypeduntilactualcomparisons.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 812,
+      "support_queue_index": 20,
+      "source_id": "pr-working:crates/strategic-web/src/routes/dialogue/claims.rs",
+      "sha256": "6ce1fead82db25ebeebc1f64944e44bf410b5ea3b28b9f46480cd04128130197",
+      "scope_pointer": "/files/2362",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "actual_EOF": 127,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-005.json",
+        "sha256": "3bee8f53aeb2e8aa5c5dc4023d41e62e370368fbffcefedf66fd11dc3b8fc425",
+        "pointer": "/source_roles/20"
+      },
+      "actual_current_contract_and_all_routes_compared": "Freshfull127 includingoriginal90-123testsourceonly; externalhttp_tests125-127 declaration notexternalbodycredit. Private serializableClaimView builtONLYmatchingtriple(eventsequence,claimorder,EXACTdisplayedtext) thenretainschallengeToken/optionalresponses/assessment/resolution. assessment_strength rawf32.clamp0..1 NOTNaNadmission; affinitydelta signedrealizedvalueunclamped deliberate. WitnessApproachRequest rawdecodedstrings+u64revision boundary only; handler requiresactualsessioncharacter/parseclosedClaimChallengeApproach thenpassesrawtoken/session/action/revision toDBreducer, conflictmapsallerrors, rebuiltviewcheckedseparatelyparent19. No authorization inferredfromstringID/ClaimView typename; databaseactualgate isauthority. OptionalunresolvedresolutionNull distinctfromresolveddidnotyield/negativeaffinity; rawSDKproducer finiteassessmentpolicy pendingalreadyCore/socialfindingfamily, no newuniqueactualbadcallerclaim.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 822,
+      "support_queue_index": 30,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_details/summary.rs",
+      "sha256": "8296a4e8146021634980e305ecae90f3794704fc74dd9865c9be8d4de2a57a4e",
+      "scope_pointer": "/files/2398",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "actual_EOF": 56,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-005.json",
+        "sha256": "3bee8f53aeb2e8aa5c5dc4023d41e62e370368fbffcefedf66fd11dc3b8fc425",
+        "pointer": "/source_roles/30"
+      },
+      "actual_current_contract_and_all_routes_compared": "Freshfull56. Summaryrail consumesoptionalcapability/attributes/skills plusactualtraining/religioncontext anddelegatescharacter_summary_icons29 thenrendersno-notablesoractualiconlist. skill_rank_tier invokesseparatefinite_rank unlikebar, no rawrankcheckedstatecreatedhere. IconkindclosedMask/Monogram actualparentmodel, names/paths/labels formattednativeUI; no actorauthority/capability seal frompresentationhelper. Exactparenticonselection/policy remainsrole29; arbitraryprovidedMarkupnotvalidatedgameplaystate.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 828,
+      "support_queue_index": 36,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/chrome/portraits.rs",
+      "sha256": "382210b89e6af39f692ff2a32955d40440b11028c00b996d9250d01005cc2890",
+      "scope_pointer": "/files/2405",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          1,
+          237
+        ]
+      ],
+      "actual_EOF": 237,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-005.json",
+        "sha256": "3bee8f53aeb2e8aa5c5dc4023d41e62e370368fbffcefedf66fd11dc3b8fc425",
+        "pointer": "/source_roles/36"
+      },
+      "actual_current_contract_and_all_routes_compared": "Freshfull237 includingALLoriginal170+tests sourceonly. CharacterPortraitView publiccrate rawID/borrowedname/flags/links/MarkupUIproduct, notauth/validatedRenderedName. Actualoverlayno-members rendersnothing, nativeglyphfirstcharOption '?' ispresentationemptynamepolicy, no semanticactorfallback. Partyoverlay choosesactualpartyifnonempty elseactivecharacterOption (distinctnobodypolicy); equalityderivedactive/selectedID, notificationactualalive&&count>0/persistonlymanualsocial. Actualhrefsstaticlocationroute+u64, aliveactivecheckcontrolsactionvisibility only; DBactualpermissionnotHTML. Profilemembershipbutton displayedonlyalive+firstpartyleader!=member; UIhiding notauthclaim. No wheelmath/gameplaynewpool: actualplaceholderwheeldataidloadsstrategicconditionseparate. OwnedStringextractiononlynativeformat links/text/style finalports; retainnames/inventoryIDs untilthosewherepropagationowned.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 831,
+      "support_queue_index": 39,
+      "source_id": "pr-working:vendor/bevy_ahoy/src/lib.rs",
+      "sha256": "a0b15625d3086b64fd425b8bccae4f18370ae8f1f64b2633b9b3736523cc580d",
+      "scope_pointer": "/files/2435",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          282,
+          331
+        ]
+      ],
+      "actual_EOF": 552,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-005.json",
+        "sha256": "3bee8f53aeb2e8aa5c5dc4023d41e62e370368fbffcefedf66fd11dc3b8fc425",
+        "pointer": "/source_roles/39"
+      },
+      "actual_current_contract_and_all_routes_compared": "Fresh EXACTvendor282-331 ONLY. CharacterLook full286-324 publicnative yaw/pitchf32 withDefault0/Reflect(andfeatureSerde) permitsrawnativeobservations; from_quat/to_euler andto/applyQuat nativeframeworkports preserveexistingrollvsnewroll0 policy, no finiteadmissioncertificate. Thisvendorframeworkinputislegitimateprimitiveboundary; internalcallerbespokeangles shouldremaincheckeduntilactualfieldwrite/read, notrepeatedrawprivatehelpers. Next CharacterControllerState derive326-329 andorientationfield331 readasexactpartialdeclaration; remainingcontrollerfields/methods NOTcredited. Rawreflectstateingress belongsnativeframeworkauthority, not hiddencompatiblebespoketypealias.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 809,
+      "support_queue_index": 17,
+      "source_id": "pr-working:crates/strategic-web/src/medical.rs",
+      "sha256": "c8ff9c47a5df84de241e85a1466c1e22dcbb7991c868d86d46f9cd4c9fd37651",
+      "scope_pointer": "/files/2357",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          1,
+          505
+        ]
+      ],
+      "actual_EOF": 505,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-006.json",
+        "sha256": "37b5f63aef066f739b8dbe4ebf4741a90b08fd0e077cad7c550eccd916e4dbf5",
+        "pointer": "/source_roles/17"
+      },
+      "actual_current_contract_and_all_routes_compared": "FreshfullPRmedical505 in1-260/261-505 includingALLoriginal300+tests sourceonly. PublicMedicalPresentation Default/rawfields+ChartReading/Differential/Gap/Admin/HumourVitals products are mutablepresentationdata, notobserverauthorization/finite/unit/chronologyseals. Moduleonlyimportsobserverprojectionrows/publicdiseasedefinitions, noprivateinfectioninput; callingpurefunctiondoesnotauthenticateanobserver. sanitizefiltersreadingonlywhenbothgapNone, thenfilter_map requiresALLfourarrays exactly7 else silentlydropsrow; gaps requirebothends elsemissinghalfgapdrops, sorted/dedup notorderedspanvalidation. Keepsband/minutes/confidence raw, clampslikelihoodu16to10000, signedi16humours dividedby10000 intoallsevenfinitefloatregions (fulli16 may>unit, no acceptedboundedtype). LatestreadingSome impliesregionalSome so concealed_other else aggregate always0 inactualfunction; nodeceptiveprivatehumourinference orhiddenpenalty claimed. ExistingreadingNone/explicitgapdifferentpolicy shouldpreservevalidabsencewithoutsilentlyacceptingmalformedquantizedrow. Actualadministrations mapsEVERYrow through from_backend, canonicalDoseMilliunits::try_new(...).expect withoutpublicAPIwholeinputseal. Personallyconsumed Nativecontract-groups073 canonical-body-mass-dose-and-closed-regions exactactualPRfull1169: privateu32dose0..8000/DefaultZERO/STANDARD1000/checkedTryFrom, noSerde/Reflect/rawincomingFrom, tinypositivefloatstandarddoseround0valid. Thus actualrawSDKdose>8000 reachesexpectpanic inpublicsanitize; noactualbadDBrow/runclaim. Makeconnectedrawprojection->acceptedpresentation falliblebeforepublication, preservezero-validdose andstructuredcause; don'tpresumeallSDKrecordfieldsalreadycanonical. NativeDBadapteractualexistingResultStringpathdiffers. Displaynameunknownpreparation usesreadablepublicIDintentionalpresentationlabel fallback, notsemanticacceptedpreparation; activefilteractualRoot18 knownprofile required. typical_disease_effects parsesclosedactualDiseaseId elseempty, usesONLYpubliccanonicaldefinition/symptomregions/humours, aggregatesbroad>=4regionssystemic vsfocal, positiveweightsdeterministicsort/tiebreak/take5 plusoptionalParacelsianassociation; no actualpatientinfectionstate/diagnosisrevealed. ExactCoreDiseaseId/definition/currentclosedregion methods priorCamera/Nativeownerproofs distinct, thisdoesnotproveallauthoredcataloguecontent. Traits/noSerdeonpresentationdoNOTmakethemprivateacceptedmedicalstate. No additionalfatiguepool orperformancechanges.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 814,
+      "support_queue_index": 22,
+      "source_id": "pr-working:crates/strategic-web/src/routes/settlements/medical.rs",
+      "sha256": "4a65105b858f1a7597d6f005ffd1840aced5a93d6655837cb0ad03d4f1fdb502",
+      "scope_pointer": "/files/2376",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          1,
+          567
+        ]
+      ],
+      "actual_EOF": 567,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-007.json",
+        "sha256": "c3ac08bef9f4fe7d9a4e9c8266c2e69511d941fc529ef0d42ff2731642e37bf1",
+        "pointer": "/source_roles/22"
+      },
+      "actual_current_contract_and_all_routes_compared": "FreshfullPRsettlements/medical567 in1-285/286-567 includingALLoriginal237-281/342-360testsourceonly. parse_surgery_limb delegatesactualcanonicalBodyRegion slug (Native073 exactknownlower), rawPath strings/patientu64/nativeformclosedprocedure+optionalprojectile/soap/defaultfalse/actionID arewireDTOs notacceptedauthority. GET sessionactor, exactlocationresolutionvalidbuilding, activeactor, actualpartyfind elsegeneratedDbCharacter->CharacterView fallible; co-location checks active pluspatientoractualalivecontextsameID/party, contextqueryerror->empty intentionallyfailclosedforcontext thenrequiresotherphysicalpresence. Requiredinjury/projectile/inventory/definition fetchfailreturnsunavailable, notemptyfabricatedhealth. ActualgeneratedSATSclientRoot003 + TryFromprojectionsemanticgates remainseparate. Selectdisinfectantfromactualcataloguepositiveeffectiveness, delegatebest_disinfectant thenuseindex actualsamevector; canonicalhelperbounds lowerproofseparate (no arbitraryindexseal). Inventorycountnative sums/bandagekit/splintnotalreadyused excludesactualsplintidentity; rawquantityaggregatearithmetic notsemanticseal andoperationlenspending. Missingcapability currently0 UIestimatevsactualprocedureauthority atDB, earlyerror/absenceerasure retainsP16errorgraph obligation. POST requires sessionactor+knownlimb thenDBtreat_limb withtypedclosedSurgeryProcedure atactualSATSunitcodec/optionalIDs/Noneplan fields; actualDB consent/revision/inventory/authority gate cannotbeinferredfromHTMLGET. Logsfailedreducerthenredirect: redirectisnavigationnotproceduresuccessreceipt. schedule_allocation_reducer_arg actualgeneratedSATSserializeport retainsoptionencoding, notDailySchedulequarterhour/day admission. Repairhandlers parsecanonicalservice+actualactiveactor thenrawinventory/order/settlementIDs/filter/limit passedtoactualDBgates; no clientclaimedserviceauthority, postedlimitnotlocalbounded, serverpredicateisowner. Alchemyrequiresactualsession andexplicitunmodellednotice notlegacyfallback. show_settlement fetch distinguishNone/Err, activateentry, parallelaliases/description/actor; corpsesqueryscopedownerthenactualsettlement+non-scene filter/sort, selectedcorpse actualposition beforeindex so unwrap-freeindexassociationproven. Alias/description errors logthenempty UIpolicy, no claimdataavailability/authority. NativeHTML/JSON/URL/SQL exactports warrantprimitiveextraction; privatehelpersandrawqueryresultstorage do not. Loweractive/session/location/URL/sql/repair/alcohol predicates alreadyotherownersremainqualified; no newforeignmaterial orwholeDBprivacyclaim.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 830,
+      "support_queue_index": 38,
+      "source_id": "pr-working:crates/strategic-web/static/dialogue-client.js",
+      "sha256": "dd5524466d59c0e52e3a527e31b8cc005ebf64f581b89a08801e2195943fcf19",
+      "scope_pointer": "/files/2414",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          250,
+          397
+        ],
+        [
+          480,
+          712
+        ]
+      ],
+      "actual_EOF": 825,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-008.json",
+        "sha256": "52b357ad58f92a521388ff5b4353444a4f7a924f1c1924690a0be4db5edf6c05",
+        "pointer": "/source_roles/38"
+      },
+      "actual_current_contract_and_all_routes_compared": "Fresh exactPRJS250-397/480-712, outputtruncation348-355 corrected byfresh345-360, plusprospectivelyregisteredRoot040 actualnecessaryhelper4-72/100-108 only. No whole825/externalbootstrap/partialclaimResponsePanel480header closurecredit. NativeJSON/request/DOMEscapedtext ports legitimatelyuseprimitives; browserobjects aremutable/rawtransportnotacceptedserverauthority. ActualnewactionID usescryptoUUID orauthoredDate+randomfallback asopaque idempotencytoken, no cryptographiccapabilityclaim. Request rejectsnonHTTPok withstatus beforeJSON, viewitselfnotruntimevalidatedJSschema. Currenttopicbinding capturesgeneration/npc/session/revision andhelperpayloadchecksselection+npc/nonemptysession/topic, responsehelpercomparesgeneration/npc/session/currentrevision; chooseTopic/answer additionallyresponse sessionmatches before render, staleasyncdoesnotreplacecurrentview. Actualcontextmutationtoken+generation/npc/path/session/revisionallmatch, finishonlycurrent; helpergap isnowactualdirectproof notmethodname. createRetriableAction privatependingID retainedthroughambiguouserrors andreseton409/422/success, actualOrdererrantrybutton usesit; originaltopic/answer/witnessresponsesgeneratefreshIDs eachuserretry andserveractualidempotencypolicyseparate. Completionusesnormalizedexactknownlabel/ID, multiuniqueIDs/nonblank/noambiguousprefix; knownpromptchoicesonlytypedfreeinput doesnotguesshiddentopics. Promptmode/min/max createcontrols andlocalchoicecountchecks notserverpermission; serveractualcatalogue/known-topic/currentrevision guardsseparate. Claimcontrol nativeassessment Mathmin/max nofinitecertificate anddirectiondefaultuncertain; textsactualtextContent/TextNodes, period/claim/explanationdistinctstyling, no factualtruthfromlabel. source.edit_urldirectnativehref suppliedservercheckedrelativepathactualCameraF025, developerhidingnotpathvalidation/securityauthority; relnoopener. JSONu64revision safeJSrepresentation remainsactualparentwiretypequestion pendingRoot19, no automaticfull-wordpreservationclaim. Partialstart480claimcontrols usesbinding/token/revisionandstale-responsegate, butunreadparentpanelstartnotfulladmissioncredit. render storesview thenrebuildsactualevents/fragments/prompt/context, noqualitativefeedbackastruth/privatetidingsleak (actualtidingspanelunavailable). Scopeends712midclicklistener: laterclose/bootstrap/listeners notcredited. Registered040subhelpers73-99/109-115 incidental/unanalysed excluded, actualsourcepolicies/authoritativewitnessDBnotinferredfrombrowserchecks.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 816,
+      "support_queue_index": 24,
+      "source_id": "pr-working:crates/strategic-web/src/routes/settlements/residences.rs",
+      "sha256": "f95d9bc6d0274f4525b6a04742e81bd574abbeb74fc78e7d0cab24879d33b34b",
+      "scope_pointer": "/files/2379",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          1,
+          417
+        ]
+      ],
+      "actual_EOF": 417,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-009.json",
+        "sha256": "f524c0dca3d1bdd9656f734bb835163efe335327833d631ffe961ba1eb8e069b",
+        "pointer": "/source_roles/24"
+      },
+      "actual_current_contract_and_all_routes_compared": "FreshfullPRresidences417 in1-235/236-417 incloriginal391+tests sourceonly. Rawquery/form decodedoptionalnotice/holding/propertyStrings defaultNone noacceptedsemanticidentity. GET allowsclosedresidences/keep ORactualorgchapterstandalonebuilding, actualsettlementquery+activecharacter+currentsettlementID, keepTown/City/Capital only, thenresidencesensurephysicalhomesbeforefetch. GeneratedSATS offers/status bothrequiredorunavailable; offerssorttypedtiers/filteravailable_at<=actualcharacterclock, statusretainsactualcharacterID/sortsprimary/currentsettlement/holding, can_restactualactive&&occupied&&same settlement. Observerfamilyqueryownerkey+observerID thenrechecksreturnedchildscope/sort; relationship/spouse refsactualfetch/projection/lookup, no arbitrarynamefromID. BUT clockerror/absent->StrategicMinuteZERO feedsdateduecalculationsANDavailabilityfilter, relationshiperror->None, childrenerror->empty, relatedqueryerrorsskip. These are lossyavailability/error-to-semanticdefaults inconnectedP16errorgraph; ZEROisvalidclockbutmissingclocknotobservedZERO. Do notclaimnormalbadDB/privacybreach. Private closedResidenceTier Cheap/Moderate/Fancy/Current andOperation5 parsedexactstrings, reducersuccesslabels totalnativeformatmapping noDTOserdealias. POST requiresactualsessioncharacter/knownoperation+tier; rent/buy nonemptyproperty queryactualsettlement+tierexact beforeargs; Currenttiercannotbuy/rentbecauseexpectedNone; otherthreeholdingtrimnonblankANDCurrent only. FinalDBgate ownscharacter/location/cash/ownership/currentrevision; HTTPqueryfiltersnottransaction/admittedPropertyIdseal. SDKpropertystringstillraw (RootF004canonicalconstructor/decoderrepair separate); opaqueholding IDs intentionallyidentitynotgrammarinvented. HTTPcallOk successnotice afteractualendpointstatus; errorlogsandcollapsesallhousing_error_codeto unavailable, structurederrorloss preservedforP16graph, notcompatAPI. KnownnoticecodesarbitraryqueryinputonlyUItext not proofappliedaction. NativeURL/JSON/SQLescapedstrings finalformatports; retainactualtypedIDs/tier/clock throughbusinesshelpers wherecanonicalownersavailable. RelationshipPresentation/publicrawmaturity/deadline products notprivateacceptedfamily state; currentCoreFamilyLifecycle findings/DBauthority independent.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 815,
+      "support_queue_index": 23,
+      "source_id": "pr-working:crates/strategic-web/src/routes/settlements/party/location_personal.rs",
+      "sha256": "ba5a8c93dc9d1b62072610c5b016d87ce2db0c85f953822d5730ad4e9651f1f9",
+      "scope_pointer": "/files/2378",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          86,
+          382
+        ]
+      ],
+      "actual_EOF": 382,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-010.json",
+        "sha256": "99ca9174648fe88ccb5c12ade5f9787858f30bffdc3045a7d7f35210e2fdb6b8",
+        "pointer": "/source_roles/23"
+      },
+      "actual_current_contract_and_all_routes_compared": "FreshexactPRlocation_personal86-382 (actualEOF382) includingoriginal368+testsourceonly; earlier1-85 routefunctions notread/credited. Actualrender resolveslocation/notfound/unavailable, validbuilding, actualactiveactor+atlocation+selectedcharacterIDEQUALactiveID beforepersonalqueries. FetchesSDKattributes/skills/limbs/schedule/memberships/org/time/capability/profile/stats/condition/morale/religion/medical/injury/food/canonicalitemprojection thenpassesactualrefs; no hiddenprivatepersonality: explicitNone andcan_examinefalse. Mostqueryfailures->empty/None, missingclock->StrategicMinuteZERO feedsactivity/professionpreview; sameP16errorgraph default/error distinction asRoot009, notproofobservedzerohealthy/emptyinventory. ReadsfirstofpotentialVecs notquery_one/cardinalityseal, actualschema cardinalitylowerseparate. Originsettlementofactualcasesitepinusedbeforepreview, outdooronlyactualraidingflag elseineligible, innfromactualeconomy.has_service sortedprofileprecondition separateRoot004. Fame/infamy rawinteger/100 nativepresentation; Optionreligionabsent0knowncheck intentionalnoreligionpolicy distinctqueryfailure. NativeSQLfilters realactor IDs; globalFoodLot/AmountqueriespassedtoUIunusedinactualRoot29, no claimedfilteredprivacy iffutureconsumerchanges. Medicalqueryactualobserver=patient=active, contentsanitize6 notauthorityitself. Session/activeownership/location/DBcapabilityhelpers theiractualowners remainseparate; frontendatlocationguardnotfullserverprocedureadmission.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 821,
+      "support_queue_index": 29,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_details.rs",
+      "sha256": "20df400f0369e7c2cb2ed08d3bd943f6ec5ac1ce6ee3d4db328401632767f82f",
+      "scope_pointer": "/files/2397",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          1,
+          485
+        ]
+      ],
+      "actual_EOF": 1065,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-010.json",
+        "sha256": "99ca9174648fe88ccb5c12ade5f9787858f30bffdc3045a7d7f35210e2fdb6b8",
+        "pointer": "/source_roles/29"
+      },
+      "actual_current_contract_and_all_routes_compared": "FreshexactPRcharacter_details1-485 ONLY of1065, split1-250/251-485. CharacterStatsPanel/SheetView rawborrowedindependentlyoptionalDBprojections/config/UIstrings/Markup struct publiccratefields noacceptedactor/finite/unit/authorityseal. NativeHTMLcomposition boundary normalcaller23 requiresactiveandpassespersonalityNone; otherrawcallerscanpasspersonalitySome, templatealoneisnotobserverpermissiongate. Sheetexecutesactualattributes/summary/bio/skills composition, preservesoptionalempty/noactivitiespreviewpolicy. Actualpersonalcookingdisabled intentionallyenvironmentalentrypoint, authorsactualURLactions/surgerylimbplaceholder/foraging/schedule/social thenlayout; delegatedHTMLhealth/skills meaning stayscanonicalowners andUIcontrolsnotgameplayauth. PartyStatsbuildsselectedsamecomponentrails, hasnoschedule/memberships/previewandnativeZEROorganizationclock intentionallyirrelevantbecausememberships/presentationNone (DISTINCTfromRoot009missingobservedclockreplacement). Conditionalpartyactions compareactive_character.party_id == selected.party_id; None==None canpresentRequestkick fordistinctunaffiliatedcharacters, latentassociation/UIgap (noactualnormalcaller/runclaim), canonicalSomeidentityassociation shouldgovernsame-partyview, DBpermissionsstillauthority. Literalroleconditionsforleader/currentpartyonlycontrolbuttons, notserverauthorization. religion_name hardcodedobservedlabels/unknownfaith genericpresentation notcanonicalOfficialReligionparser/compatAPI. character_bio_rail461+ ONLYsignatureandfirst485partialbody read, noremainingbio/personality_tags/organizationmethodbodycredit. ActualSummaryIconselection is IMPORTED character_skills::character_summary_icons at16, notdefinedhere; Root005 source30'sparent29shorthand is corrected by qualification001, no falsehelperbodyclosure. Noacceptednamegrammar merelyrawCharacterView.name/nativeHTMLdisplay; canonicalRenderedNameproducersseparatelyowned.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 829,
+      "support_queue_index": 37,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/chrome/residences.rs",
+      "sha256": "a227365e91a54e459db0526c1f78de353612e16c8c7ecace7217807b41e43295",
+      "scope_pointer": "/files/2406",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          1,
+          489
+        ]
+      ],
+      "actual_EOF": 489,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-011.json",
+        "sha256": "0f7e113f1e7022f572d3b6e94163972ad011b9311e837038075814c9c36fe5c6",
+        "pointer": "/source_roles/37"
+      },
+      "actual_current_contract_and_all_routes_compared": "FreshfullPRchromeresidences489 in1-260/261-489 includingALLoriginal328+tests sourceonly; externaltest_support importnotexternalbodycredit. Publicresidencepage takesrawgeneratedoffers/holdings/family plusactiveID/canrestbool, buildsUI notacceptedownership/businessstate. NormalRoot009 caller ensurephysicalhomes/generatedquery/unavailable checks andactualcharacterstatus filtering/timeavailability; pubfunctioncanreceivearbitraryraw SDKrecords. Privateclosedtier/stage/activitymatches total, earlychildalwayscare independentfocus; raw maturityu16/100 labels can>100 whilehousehold_progress clampsnativevisual100, no acceptedUnitBPSseal. RawSomepartner+missingcourtshipkind fallsbackInformal display (notcanonicalcoupledrelationshipadmission); acceptedfamilyproductshouldretainactualrelationships/absentcause. Wedding/pregnancy progress explicitlyboundedmin beforemultiply withconstantsyear/270 nofullu64overflow, calendartextnativeformat. Residence_meter rawu32value/max withsaturating_mul100 then/max.max1: highfullwordvalue==max==u32MAX gives1%ratherthan100%. Offers ownermaintenance+tax nativeu32addition BEFOREdisplay/max normalrawSDKvaluescanoverflowdebug/wraprelease. StaticrawpublicpresentationAPIwitness only/noactualserverpricesbad. Widencompletecanonicalmoney/ratiooperation beforeformat, donotnarrowvalidsourcepricesorinventsilentdefaultcap. Emptyoffers nativecomparisonmax1 isUIdenominatorabsencepolicy, nofakecurrencyobservation. HoldingsUIactualholderIDcomparison preventsnonownerforms, activesameSettlement controlsdesignate andinactiveOwnercontrolsrecover; DBactualownership/payment/revisionpredicate distinctfrombuttonpresence. Rawproperty/holdingIDextractatnativehiddenfield/URLports, retaincanonicalpurposeidentitythroughbusinesshelpers. Rawstage/adult/alive/primary/occupiedflags notsealedfamily/holdingcorrelation; no privatechilddiagnosis or hiddenfatiguepool. Confirmationstrings onlyclosedtier+numericvalues; nativeMarkupport notdatasemanticfactory. NormalRoot009 lossyclockerror->ZERO andfamilyempty strengthensseparateowningprojectiongate, notUInumericfallbackclearance.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 827,
+      "support_queue_index": 35,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/chrome.rs",
+      "sha256": "6e0b987c91569ce5bab73c83667ce05e6dd0327c96f5d3519075a27cbe82407b",
+      "scope_pointer": "/files/2404",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          1,
+          800
+        ]
+      ],
+      "actual_EOF": 800,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-012.json",
+        "sha256": "0fd4f341f074d087b61121913a5f776d8495d3e0c2186f37a851b6cd3bb6d773",
+        "pointer": "/source_roles/35"
+      },
+      "actual_current_contract_and_all_routes_compared": "FreshfullPRchrome800 in1-280/281-560/561-800 includingALLoriginal498+tests sourceonly; CSS/include test_support references notexternalbodycredit. PublicUIfunctions borrowrawSettlementView/optionalactor/party/aliases/description/corpse/familyproducts, no acceptedlocation/observer/finite/ownership seal. NormalRoot007 settlement handlerfiltersaliases/descriptions/currentcorpsesowner+settlement andusesselectedpositionbeforeindex; templatepublicAPIitselfnotforeignrowfilter. Settlementkeep onlyTown/City/Capital, actualclosedservicesstock/prosperity/religions/languages convertfinalUIports; population0 explicitlyMISSINGheadcountlabel notzeroobservedpeople, broadpopulation_leveli32 nativequalitativelabels intentional. Publicsquarelink callsactualCoreplayer_visible_npc_tabs thenvisible_npc_taboverview.expect; testsassertbutno actualcallee-bodyproofhere, exactCorecatalogue/tabguaranteeloweralreadyCamera/Rigscope notmethodnamecredit. Residenttitle matchresidences/keep elseorgchapterSomeguard thenexpectsafe; unknownlocation_nochapterusespublicsquarepresentationlabel nativeUIpolicy, route24rejectsunknown beforecall buttemplateitselfnotcheckedplace. Orgforchapter iteration localchapterexpect requiresactualCoreiteratorinvariantseparate; chapterstandalonepolicy/Coreeconomyguard ownership notimpliedbysort. HomeUIonlyshowsrestwhenprovidedbool, rawboolnotbusinessrestpermission. PublicRelationshipPresentationDefaultempty/Wedding/Child publicfields rawString/u64/u16/closedenums flags retainopenassociations (Root011 missingkind/displaydefaults andunitmaturity gaps); no privateacceptedfamily product ornativeSerde claims. Aliasestrim/optionalprefix/canonicalcaselowercomparison/BTreeSetdistinct/sorted/take8+remainingcount; no claimcanonicalpersonalnamegrammar, noaliasactualsettlementfilter atthishelper. Descriptionpreference EnglishthenSettlementkindthenID deterministic, noauthoritativefactualrank. format_numberu32ASCIIdecimal ensurefirstgroups1..3/bytechunksvalidUTF8, expectprotectedbyactualASCIIproducer (Rustpaniccleanupseparate); distanceu64/f64km1decimal intentionalnativepresentationprecision andtimefullu64 div/mod60 nointermediatemultiplyoverflow. VisualStageKind closedknown10 unitvariants directtag/label; arbitrarytitle/descriptiontext finalnativeMarkup notunvalidatedgameplaystate. No newhiddencombatpenalty/fatiguepool/strategicpersistence. Originaltestsource demonstratesexpectedUIoraclesonly, not actualCoretabvalidity/renderexecution.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 820,
+      "support_queue_index": 28,
+      "source_id": "pr-working:crates/strategic-web/src/templates/quest.rs",
+      "sha256": "795707cb240810e0ed362225083f430b2e4eb47186cd95bc2fde5bbba43d3052",
+      "scope_pointer": "/files/2396",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          1,
+          1067
+        ]
+      ],
+      "actual_EOF": 1067,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-013.json",
+        "sha256": "7c2c07cb2794966219027013023517a6d879814a0d3d927f16748508436f0e5e",
+        "pointer": "/source_roles/28"
+      },
+      "actual_current_contract_and_all_routes_compared": "FreshfullPRquesttemplate1067 in1-260/261-525/526-800/801-1067 includingALLoriginal589+testsourceonly; include_str routes/CSS/test-supportotherfiles notbodycredit. CaseSitePagePresentation/RecoveryNotice/Negotiation/Surrender/QuestCounterparty publicrawfields representUIprojections notsealedsite/actor/capability/authoritycorrelation. ActualCaseSite rawSDKvalueString extractedatnativeURL/HTMLports; inputsiteassociation/permission belongsRig813actualroute+DBgates, notdataknownbecauseUIlabel. MapselectedID findsactualnearbyentry beforedetail; nofakeunfounddestination. Restshownonlyunresolved; combatcontrolsbooleans+allowtactical/resolved/reportvictor nativepresentationpolicy, notservereligibility. Negotiate/surrenderonlyunresolvedSome row actualspokesman/context/revision/actiontoken copiedfromsameproduct; Offer rendersaccepttrue/false, Demandseparateclosedmode. Per-counterpartycontact usesitsowncharacter/contactref/revision andRequestdecision; treatmentactualalive+SomeLimb+RequestORemergency, sameproductmembershiprevision/context, unwrap_or_default onlyAFTERimmutableSomeguardsoabsencecannotnormalproduceemptylimb (rawSomeempty remainsnotcanonicalslug). No blanketprivateacceptedpermissionproduct. SourceUIcannotauthenticategeneratedcase/proposition/custody/sealedroster; actualserverownsall. Recoverytext explicitlydistinguishesresourceblockedrest/supplies/normalwithdrawaltimeandrisk, no fakeguarantee/newfatiguepool. AutoresolveReport fullrawsummary/victor/seed/log getsinfo-streamrows, rawstringsnotoutcomeseal; zeroNone emptylegitimate. Resolvedlootbrowser matchesactualcatalogue/pooleditem IDs/targetsandfoodlotpartyinventoryidentity; unknownbasevalue0/weightdash/displaylabel UIpolicy notaccepteditemadmission. Currencyperrowu32value*quantity widened tou64 BEFOREmultiply, fullu32productfitsu64; contrastRoot011 ownerupkeepu32overflow. Stakeu64 nativeformat. inventory_target findsfirstitem ID else0desiredtarget policy, noownershipprooffromtargetlabel. Stagedlootform usespresentation.action_id rawpath/hiddenapply UIprotocol, no equivalentrefinterpretationuntilactualendpointreceipt. Templateuseslegitimatefinalformatprimitives, retaincheckedpurposeIDs/quantities/revisions betweenbusinesspreparationhelpers andrawSDK/templateproductmatchingasactualscope allows. Existingtestsoraclesonlyexpectedrendering, notexecution/serverauthority/canonicalcodecproof.",
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    },
+    {
+      "queue_index": 811,
+      "support_queue_index": 19,
+      "source_id": "pr-working:crates/strategic-web/src/routes/dialogue.rs",
+      "sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+      "scope_pointer": "/files/2361",
+      "mandatory_current_role_overlays": [],
+      "actual_read_ranges": [
+        [
+          24,
+          62
+        ],
+        [
+          175,
+          378
+        ],
+        [
+          939,
+          1030
+        ],
+        [
+          1320,
+          1897
+        ]
+      ],
+      "actual_EOF": 1897,
+      "source_receipt": {
+        "record": "continuation/root/admission03/camera-support-extra40/contracts-014.json",
+        "sha256": "6d6156eb1e92df885f88344770f83b1a73ee993fce10bfa7c758113bf93b6cdf",
+        "pointer": "/source_roles/19"
+      },
+      "actual_current_contract_and_all_routes_compared": {
+        "original_ranges": "Fresh24-62/175-378/939-1030/1320-1897 includingALL1792+originaltests sourceonly; REG041371-387/392-423 freshafterprospective registration. Nowhole1897claim.",
+        "representations": "Participantprojectionexplicitdropsowner_authority, retainsrawIDs/role/name/optionalcharacter. ActualConversationView privateSerialize numericu64revision; incomingTopic/Answer/Joinexpected_revisionu64 no customcodec/cap. ActualRoot008JSJSONNumber cannotroundtripvalid2^53+1; conditionalhighwordformatgap,noactualcurrentrevision/runclaim. Sevenfieldlengthframednpc_social_revision contentfingerprintString nottemporal/capabilityseal. Event/Fragment/Topic/Prompt/EditSource privateUIrecords notacceptedidentity/sourcealignmenttokens. edit_source callsCoregithub_edit_url actualfinalnativeformat; P16Camera136drivepathqualification andnormalgeneratedrelativepaths known, exactPRlibraryNative024 actualproofstillRootconsumptionpending (doNOTinferPRbodyfromP16hash).",
+        "build_view": "Freshfull1333-1503: actualowner/sessionSQLSome, participantmustincludeactorcharacterelseForbidden; participants/namesMapsortedbutduplicaterolesoverwrite. Claimobserver/sessionquerysort(event,order), eventsowner/sessionquerysortsequence; actualclaimjoin exactevent/order/displaytext viaRoot005source20. Eventfragment/sourceRefsJSONunwrap_or_default silentlyemptyonmalformed; sources.get(index) mapsmismatchNone; promptchoice/sourceRefs same, topicmissingcategoryDefault/sourceparseNone, multipleopenprompts sortedpoplast notuniquenessgate. RawSDKstring/Vecdecodingnotacceptedpayloadcorrelation. NoactualbadDBrowclaim; preservelegitNoneSourceRefs/emptyhistory whilemakingmalformedobservedpayload anexplicitstructuredfailure beforeViewpublication. Actualordererrantryoffer specificconversation+expectedrepresentativeIDandNPCcharacterNone, actualDBacceptance ownspermission.",
+        "handlers": "Actualsessioncharacterrequired; startparseNPCu64/actualresident/homeSettlementprojection thenbinding/navigationgates andDBstartwithcurrentCATALOG_DIGEST. NativeSystemTime_microsfallback0 sessionString notunique-tokenproof,noactualcollisionclaim. CodedContactUnavailable only mapsintentionaloutcome; reducer/projection/missingsession errorsdistinguisheduntilHTTPmapping. Viewownerbuild_view; topic/answer/join rawrequests forwardedactualactor/revision/cataloguehash toDBcanonicalbusinessgates thenrebuild. Answer firstprivateborrowedSessionIDprefixnonempty/no :prompt:, privatePromptRow splitonce exactmarker/nonempty/noadditionalmarker plusexactsessionequality; notprefixspoof, notknown-session/actorauthcertificate. OriginalchoiceVecStringnativeJSONunwrapstylecleanup no semanticchoiceadmission. ActualREG041 nonorgNPC requiresconversation!=orgrepresentative, orgrequiresknownorg/chapter/exacteffectivelocation+representativefields/expectedID. WebstartnotNPCpresencecheck; actualDBownsco-location/presence/livingauthority.",
+        "lower_tabs": "PersonallyconsumedNativecamera-support017 settlement-storefront-current-membership-predicates actualPRfull552: factoryalwaysOverview/Residences, conditionalkeep/services/orgstandalonebuilding; exactvisible_npc_tabstringmembership andnavigableconstructedlist. ClosesRoot012overviewfactory/currentwebnavigationlower; orgiteratorchapterexpect remainsseparateactualcanonicalorgsourceobligation,no name-basedwholefeatureseal. Rawprovidedprofile/tabIDsnotpermissiontoken.",
+        "partial_limits": "NPCsocial939-1030 ONLY: actualrelationshipobserver/statusactorfilters, activecommitmentlookup, clockqueryErrvisiblebutmissingclockZERO, closedband/romancechoice derivation; rest1031+returnnotread. Receipt1320-1331 tailonly, precedingmutationuncredited. NativePRlibrary024 exactSourceRef/URL/Resolve predicates stillsource-specificpendingRootconsumption. Alltests sourceonly, externalrouter/presence/fullunreadfunctions excluded."
+      },
+      "range_qualification": "All explicitpartial/incidental/external/include andnewRoot040/041limits inliteral source narrative mandatory; reading exactpartial declaration doesnotcredit wholefunction orfile. Full original requested scope neverreduced tooverlaidnarrowernewrole.",
+      "discovery_status": "exact scoped current admission roles inventoried WITH_FINDINGS; lowerdependencies/rangequalifications preserved"
+    }
+  ],
+  "personal_current_semantic_comparison": "Personally read all14actualsource-backedRootcontracts001-014 with38exactroles+9findings+2mandatoryquals. Namesbuild/schema/derive/validator/render chain actualcontentgate distinctopenreferencewrappers; sourcecounts/pins merelyidentitycheck. CurrentPR canongeometry rawprivateleaves versusP16SignedLength distinct. Terminal privateprotocol guarantees frozenretry callback actualnestedOk/standaloneexplicitpolicy separatefromrawSDKconsequencevalidity andnativeinputlatency. PRspawnlateitem metadata remainsNativeF004, completebatchcurrentonlypositions/recipientsnotallitems. SATS bridge exactshape/hex/option/dataSum/nativecodec handledwithoutsemanticconstructorinference;32bitindex andduplicatefieldoverwritequalifications actualstatic notcurrenttargetbadrow. Nativequantity/clock/readableUIStringports legitimate, rawmissingclock->ZERO inhousing/personal isavailabilityerrorloss distinctpurposefulzero whenmembershipsNone. NormalMedicalsanitize filtersall4arrays7/sortsreadings, canonicalDose>8000expectlatent; normalDBadminchecked0..8000+rejectactive0 separately, notobservedbadrow. RawHTMLbuttons/hiddenforms doNOTauthority. ReflectedvendorCharacterLookrawallowed preserve broadnativeQuat inputpolicy. JSregisteredguards actualgeneration+npc/session/revision/currentbinding preventstalerender, unrelatedwholeJSnotcredited; sourceURLRootQUAL002 actualPRlibrary pointer/actualCoreURLF025driveprefixgap remains. BrowserJSONNumber losesu64 highrevision conditionalstatic notcurrentrequest; choose exactdecimalwire notwordcap/dualformat. Dialogue rawpersistedJSONmalformed->empty/default/multipleprompts last hidesinvalidstate; concretefalliblecompleteConversationView product, legitimateempty/None distinguished. Surfacewidgets rawmaturity/signedhumours/residencemeters notUnitInterval allvalues; NaNrankclamp bounds andu32total/meterpremature saturation remain source-backedqualifiedfindings, noactualnormalbadproducer/runclaim. PartyNone==None notsameactualSomeparty association, serverpermissions remainindependent. Coretabs lowercurrentPRNative017 matched actualalwaysOverview/exactmembership, Root012overviewexpect lowerclosed; organizationiteratoractualfilter/chapter separate. PartialRoot27previousmethodtail/Root29bio/Root39nextcontroller/Root38panels remainuncredited fullfunctions.",
+  "mandatory_qualifications": "RootQUAL001 actualSummaryIcons implementation comesfromcharacter_skills import, notRoot29body; renderdelegationonly. RootQUAL002 personallymatchedNative024 currentPR authoring/build/runtime/SourceRef/URL/resolve toRoot19actualcallroles; oldP16Camera136 notPRhashcredit, rawSDKpayloadF009 stillnotfixed bycanonicalresolver. Rig813/823 exactreturned2 onlyaccepted152 andexcludedRoot38; medicalnormalreadingsort actual169/source505 vsrawmutablealternate gapclamp preserved.",
+  "finding_selection": "All9RootExtraF001-F009 retainedwithliteralcounterexample/connectedrepair/actualbadcaller/runtimequalifications. No newdedupcount orsourceownertransfer: SATStag32bitconditional/duplicatefieldschema; economy populationrawpremultiplication; rawrankNaN; publicrawSDKdose>8000; NonepartyUIassociation; residencetotal/meter rawfullword; browserrevisionhighword; malformeddialogueview payload/default. Later04/05/errorlens intersections preservedwithoutclaimingthosepassesdone.",
+  "new_material": "RootprospectiveREG040 JSdirecthelpers4-72/100-108 andREG041NPCwrapper371-387/392-423 personallycurrentactualrolecomparedfromsource-backedRootnarratives. Globalmetadata/01-02delta Rootpending; no autonomoussourceledgertransfer/newrowcount. Actualsource ranges aboveoriginal38, newmaterialseparateregisteredoverlay refsmandatory.",
+  "partition": "Root retained38 exact40minuspositions21/31 returnedtoRig; Root100accepted137/Rig162accepted152disjoint,Native130/RigNative20pending. Camera original844/finalsourceaudit authority unchanged.",
+  "overall_status": "ongoing; accepted exact38 WITH_FINDINGS; no global03/all13/source/repair/laterlensclearance",
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "later_lens_credit": false
+}

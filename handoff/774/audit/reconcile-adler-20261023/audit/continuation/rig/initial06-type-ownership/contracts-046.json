@@ -1,0 +1,25 @@
+{
+  "id": "RIG-INITIAL06-GROUP-046",
+  "at": "2026-10-22T21:00:44.608233+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "world-language-and-bestiary-vocabulary-have-distinct-modalities": {
+      "sources": [
+        "pr-working:crates/adventuresim-world-schema/src/language.rs",
+        "pr-working:crates/adventuresim-world-schema/src/bestiary.rs"
+      ],
+      "comparison": "Fresh actual PR Language original120\u2013308/315\u2013530 plus prospectively registered0231\u2013119/024309\u2013314/026531\u2013563, and Bestiary original1\u2013112/140\u2013285 plus025113\u2013139. OralLanguage8 and WrittenLanguage7 differ taxonomy and skill modality: spokenEast/WestCentral/Romani versus writtenGerman/Hebrew; overlapping Low/Latin/Yiddish/Elven/Dwarfish does not make two independentowners of identicalconcept. LanguageDescriptor is derivedstaticdisplaytext/native/monogram/style, notcanonicalidentity/provenancerecord; keepcanonicalenumsharedlowWorldSchema usedCoreBook/DB/Web, noappmoduleduplicateenum. Oral/WrittenLanguageHours andBestiaryHours own directstudyvectors8/7/13, not arbitraryduplicateVec<f32>weight containers. Effectivecorrelatedprojection is computedfromdirecthours(nonrecursive) with actualwritten/bestiarydirectgating; innateoraltransfer differsformaltraining, donotmerge allcorrelation kernels bysharedf32/durationunit. Canonical closedcategory enums supply stableindices; privategenericRigJointTable/counts notsameidentityauthority. Directstudyhours vs realelapsedtrainingbudget vs normalizedcommon-languagecoefficient vs rank/quality distinct. Rawpublicfields+Serde/SATS/Defaultzero anddirect_mut remainunsealed admissionqualifications, effectiveclampsnotstrongerrowcertificate. SettlementLanguageProfile3GermanBPs sum10000 plusYiddishindependentincidence<=1000 is onecorrelatedworlddemographicproduct, notsimple4probabilitysum norBodyPartcoverage; actualinference531\u2013563 usescheckedWGS microdegreeowners then integerinterpolation, meaningfulchangedmath not unchangedownershipbridge. No newWorldSchema->Core/game/tacticaldependency; librarycurrentownercoherent. Explicitnewhelpersregisteredbeforefreshbody; initializationmoduleimportcontextonlynotread/credited, testsLanguage565+andBestiary286+excluded."
+    },
+    "geographic-coordinate-owner-versus-raw-travel-copy": {
+      "sources": [
+        "pr-working:crates/adventuresim-world-schema/src/coordinates.rs",
+        "pr-working:crates/adventuresim-world-schema/src/lib.rs"
+      ],
+      "comparison": "Fresh fullPRcoordinates1\u2013512 incloriginaltests; supportingactualLibTravelGeometryPoint1768\u20131850 only(no wholeLibcellcredit). CanonicalLatitude/LongitudeE7 andMicrodegrees are meaningfullydifferent axis andprecision brands, samecheckedWGS84degreeframe but differentquantization; E7->micro truncatestoward0, micro->E7exact*10. UnboundedCoordinateE7 abstractstrategicframe explicitlyNOTWGS84 so retainseparateowner, do notreplacewithLatitude ormetresPosition/PlanDirection/Radians. Coordinates constructors allownegativeand0 withinaxisbounds; manualSerdedelegatescanonicalnew, pairprivatefields composecheckedleaves. Current consumerslanguageprofile andTraveltestsource useexactowners, no duplicategeographicdefinitionfoundbycompetingdeclarationnavigationoutsidefile; no declaration-searchcountsasbodycredit. TravelGeometryPoint1782\u20131809 however is exactrawsameE7pairduplication: constructorchecksLongitudeE7/LatitudeE7 thenstores.get; gettersrecreatecanonicalleafandexpect. Itcontainsnoextraedgeprovenance/membership/routeauthority; thoseareseparateTravelEdgeProvenance enum. ReusecanonicalWgs84CoordinateE7 inedgegeometry orpurposewrapperCOMPOSINGit, remove rawcoordinateparallelowner/reconstruction. Existingserde/SATSflatfieldformat isactualboundarypolicytoimplementatport or deliberatelycleanfinalAPI; lowWorldSchemacanonicaltypescanoptionalSATS withoutCore->DBcycle. Need sharedstrictSDKadapter/admission route underall13findings, no blindderiveallowingprivatefieldbypass, no compatdualpath. Primitive longitude_latitude_degrees/latitude_longitude_degrees are explicitactualnativeorderedpair projections, legitimate realunit/portboundary unlikeunchangedrawretention. Sourcefulltests368\u2013512 usecanonicalaxis/precision/tupleorder; Travelpointtest alone notconstructorproof, actualLib1788\u20131809 readjoinsit. SupportingWaterDistanceMeters1833+partiallyshown notcurrentclearedwholecontract."
+    }
+  },
+  "new_findings": [
+    "RIG-INITIAL06-F012"
+  ],
+  "limits": "WorldLib3500+cellincomplete; pending023\u2013026newrolesactualproofnotglobalcredit. Whole06incomplete; no09/12/sourceedits/projectexecution."
+}

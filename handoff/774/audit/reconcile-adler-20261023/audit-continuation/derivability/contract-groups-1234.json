@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1234",
+  "at": "2026-10-25T18:12:32.403104+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1299,
+  "source_id": "pr-working:crates/adventuresim-strategic-sim/src/profile.rs",
+  "sha256": "765a5b37cbc4ffd63fff90bddf75a154a779a77bc8dbfd6d26d1bbf929c8fd9e",
+  "actual_compared_ranges": [
+    [
+      301,
+      600
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Native personality seeded distributions/build classifier/matched activity mutation and fixture helpers only; no handwritten trait/custom codec/type. Persona/build semantics depend on viability and multiple inputs; not Default/From. Existing derived profile equality/Serde direct core attributes wire tested by source assertions (not run). Combat fixture imports/calls do not grant child source coverage.",
+  "first_unfinished": {
+    "scope_index": 1299,
+    "line": 601
+  },
+  "execution": "none"
+}

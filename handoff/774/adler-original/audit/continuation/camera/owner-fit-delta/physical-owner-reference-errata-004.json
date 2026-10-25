@@ -1,0 +1,75 @@
+{
+  "id": "CONT-CAMERA-OWNER-PHYSICAL-REFERENCE-ERRATA-004",
+  "qualifies": "CONT-CAMERA-OWNER-PHYSICAL-003",
+  "packet_sha256": "c39eb3f4125dcb7180afb70165dbfb7287580cbcff861d7061dcb60ea55d8af5",
+  "corrections": [
+    {
+      "json_pointer": "/fit_cases/dependency/definitions/0/ranges",
+      "recorded": [
+        [
+          1,
+          42
+        ]
+      ],
+      "correct": [
+        [
+          1,
+          17
+        ]
+      ],
+      "actual_source": {
+        "id": "CONT-CAMERA-OWNER-SOURCE-032",
+        "source_id": "physical-p16:crates/fabelgeist-math/Cargo.toml",
+        "sha256": "6aaf0cb94d1603d0d6cdd07f1bee8021c3c29c841d01d144143faa4be39a6321",
+        "read_ranges": [
+          [
+            1,
+            17
+          ]
+        ],
+        "actual_EOF": 17,
+        "proof_mode": "fresh exact complete manifest source read; dependency contract only",
+        "lens": "audit-existing-type-owners"
+      }
+    },
+    {
+      "json_pointer": "/fit_cases/dependency/definitions/1/ranges",
+      "recorded": [
+        [
+          1,
+          80
+        ]
+      ],
+      "correct": [
+        [
+          1,
+          21
+        ]
+      ],
+      "actual_source": {
+        "id": "CONT-CAMERA-OWNER-SOURCE-033",
+        "source_id": "physical-p16:crates/fabelgeist-geometry/Cargo.toml",
+        "sha256": "a301b39ec718fa3959414680a15d2fa22226c216298da879aed86b9a1fb62165",
+        "read_ranges": [
+          [
+            1,
+            21
+          ]
+        ],
+        "actual_EOF": 21,
+        "proof_mode": "fresh exact complete manifest source read; dependency contract only",
+        "lens": "audit-existing-type-owners"
+      }
+    },
+    {
+      "json_pointer": "/fit_cases/physical/fit",
+      "qualification": "Typo Newtown means Newton physical force unit. BodyMassKg actual doc is living-character physiological mass20..300, rather than a taxonomy restriction to human; numeric bounds mismatch/general weapon/carried/nonhuman-size role unchanged."
+    }
+  ],
+  "disposition": "Reference endpoint correction only. Prior003 did not claim fresh source reads for these manifest reference ranges; nonexistent tails receive zero credit. Fresh full real17/21-line manifest proof now supplies exact dependency contract.",
+  "source_coverage_counts_unchanged": true,
+  "source_edits": 0,
+  "project_commands": 0,
+  "other_lens_credit": "none",
+  "clearance": "none"
+}

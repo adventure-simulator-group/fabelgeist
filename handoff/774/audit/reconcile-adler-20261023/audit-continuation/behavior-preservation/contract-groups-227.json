@@ -1,0 +1,61 @@
+{
+  "id": "CONT08-CONTRACT-227",
+  "at": "2026-10-25T14:50:28.699589+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 865,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "before_sha256": "c5b960f8d0dd085ccff0f0d2c779a27934c270c6fcbdf476530d1520f4929013",
+      "after_sha256": "2f56c5185ec61241a7e4607eef02ebb4051e24dee918f5200585d586a4d971a8",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0865-base-c5b960f8d0dd085ccff0f0d2c779a27934c270c6fcbdf476530d1520f4929013",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/2f56c5185ec61241a7e4607eef02ebb4051e24dee918f5200585d586a4d971a8",
+      "diff": "source-evidence/pr-0865.diff",
+      "diff_sha256": "83781bbb58eb6ad42470bd8cfcf0dac8c4d0fecfa43a7ffec6bb19b227155ecd",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          866
+        ]
+      ],
+      "head_body_read_method": "865 own0058fullbodyreuse +completevariant/fresh252\u2013370;866fresh46; entireactualPRdiff consumed.",
+      "facts": [
+        "Full866PRbody accounted byown0058full866 andcompleteexplicitvariantdiff (only3geometryfixture/nativeprojection hunks); entire410lineactualPRdiff consumed andcurrent252\u2013370 freshlyread. Authoredroster samebuildorder/defaultname/stablehashIDs/skills; Stringerror\u2192typedName/Weapon/Shield/Armor preserves originalmessage text andfirstfailureorder.",
+        "Actualoldauthored_melee_weapon removedinPRdiff104\u2013192 compared new858full127: sameequipmentdefaults/materials/derivedgeometry/skill/balance andcycle windup+recovery math, nowcheckedtimingerror; closes own858 oldproducer extractiondependency. Armoroccurrence prefixcount modulo placementslen.max1, lastperbodypartoverwrite andweightaccumulation retained; no wholeauthoringadmission proof.",
+        "Allfixtureinputs/propertyseedbounds/assertions preserved; wrappers/results/nativeobservations only. PRfields atsurface_measure/centerseparationremainf32, so P16CAM-PPS-F001 SignedLengthcomparisonmigration gap isisolatedsource qualification ratherthan currentPRfailure. No testexecuted/no implicitboundedseeds passed."
+      ],
+      "disposition": "Own08 actual old/new source comparison accounted, with retained exact-source/API qualifications and remaining connected scope stated.",
+      "acceptance": "Retain canonical source identity, ordinal/wire/native geometry, first errors and original fixture oracles. No tests, checks, exports or GPU execution."
+    },
+    {
+      "scope_index": 866,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_iteration/error.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/autoresolve/melee_iteration/error.rs",
+      "before_sha256": null,
+      "after_sha256": "9864f16e67033ea8f14d686f25f2b71c78ff6e8866be6f8459df6384c4c5b647",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/9864f16e67033ea8f14d686f25f2b71c78ff6e8866be6f8459df6384c4c5b647",
+      "diff": "source-evidence/pr-0866.diff",
+      "diff_sha256": "afe485a78f7f05e5ad1128547098a7be83d8599a317ef36a64b0e4be8c48648e",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "head_body_read_method": "865 own0058fullbodyreuse +completevariant/fresh252\u2013370;866fresh46; entireactualPRdiff consumed.",
+      "facts": [
+        "Full46body+entireaddition andown0059inversevariantdiff. MeleeIterationError retains exacthumanerrorlabels fromoriginal865stringreturnpaths whilewrappingName/AuthoredWeapon/Battle/Elapsed/Fraction transparently, no P16Geometryvariant inPR.",
+        "Remainingevidence MissingOpponent/Item/Equipment/cancelerrors actualproducers next867\u2013869; typederror identity/firstfailure preserved/no nativecallerallcoverage. No compiler/check/testrun."
+      ],
+      "disposition": "Own08 actual old/new source comparison accounted, with retained exact-source/API qualifications and remaining connected scope stated.",
+      "acceptance": "Retain canonical source identity, ordinal/wire/native geometry, first errors and original fixture oracles. No tests, checks, exports or GPU execution."
+    }
+  ],
+  "next": "867evidence448 then868armor76/869timeline151"
+}

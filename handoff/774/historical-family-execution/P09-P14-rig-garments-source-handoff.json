@@ -1,0 +1,1773 @@
+{
+  "owner": "/root/rig_garments",
+  "authority": "execution-ledger.json remains the authority for family implementation/integration/validation verdicts",
+  "source_commit": "6aee89ebf17bf3e823ff9003bca82596f608da0f",
+  "source_scope": "One connected source increment across original P09-P14 producer/receiver traces; source review only, no executable validation verdict",
+  "original_requirements_implemented": {
+    "P09": [
+      "Canonical joint columns begin at MHR FBX/native tensor and glTF readback, continue through generated/runtime/wearer/fitting/morph/hair records and actual native render/export receivers.",
+      "PackedRigSkin retains exact u32 fixed4/8 storage, admits every slot against actual source rig count, yields typed ordinals, preserves selection/append/order and exposes words only at native GPU/JSON/glTF/fixture ports.",
+      "Unavailable skin-node assets remain pending; no fabricated joint name. Counts are checked at owning actual upload/receiver boundaries, without claiming equal extents prove rig identity."
+    ],
+    "P10": [
+      "Option<RigJointOrdinal> topology from SkeletonBuilder through bind_pose, typed prefix levels, preview, proportions, append and export.",
+      "Native i32 gather conversion is checked only when Mhr::new builds TensorData. Root traversal, child order and duplicate-name first lookup are retained."
+    ],
+    "P11": [
+      "MHR owns JointChannel, JointParameterRow, ModelParameterColumn, exact parameter/set names, named contributions and typed offset/mask/parameter tables.",
+      "Parser, row-major dense layout mutation, insertion order, duplicate accumulation/reference expansion, parameter sets/limits, blend append, Mhr::new tensor transpose and Creator joint_bases all use the completed contracts."
+    ],
+    "P12": [
+      "Garment normal offset and upright top/bottom offsets retain canonical fabelgeist_geometry::SignedLength.",
+      "Named JointHeightAnchor/JointReachTarget retain RigJointName and actual unrestricted Ratio; raw f32 only at position+normal kernel or Word::F.",
+      "Millimeters::signed_length and scaled_by preserve exact original division/product ordering through the shared geometry APIs."
+    ],
+    "P13": [
+      "Nearest cursor/candidate/band/envelope presence is explicit and payload use is gated in original garment/skirt/chausses searches.",
+      "Finite distance ceilings, earliest ordinal/index ties, branch/loop order and numerical reduction identities are preserved.",
+      "Absent support/candidates propagate through existing fit/part failure status before downstream cage payload use; uniform word order is unchanged."
+    ],
+    "P14": [
+      "Core owns bound CatalogItem/CatalogPlacement and an owning immutable view for retained Creator exhibits; arbitrary unrelated item/placement input pairs are removed.",
+      "Actual selection, design, runtime armor/clothing, fitting roles, asset lookup, cache/layer keys, armory/editor and output receivers retain bound handles.",
+      "Native authored CLI/manifest/ECS/recipe keys are admitted at input edges; IDs project at metadata/serialized/cache-key output. Static asset/runtime queries require static handles; Creator owned snapshots borrow canonical handles without raw key readmission.",
+      "Authored duplicate record export order, first exact-name lookup, lexical asset default placement, runtime clothing classifier and pure fitting side policy are preserved."
+    ]
+  },
+  "pending": [
+    "Root integrates the source increment and the c4a8ae5f5 canonical shared geometry/manifests/locks dependency (including armor -> rig); no manifests or locks changed here.",
+    "Root reconciles camera_targeting physical field changes in the shared existing runtime_equipment/generation_tests.rs fixture: dimensions CuboidDimensions, grip/head SignedLength. My changes there are name/state/skin/selection only.",
+    "Independent source Code/Rule review and existing hosted formatting/Clippy/quality/no-growth/registry checks remain required; none was executed locally.",
+    "Existing hosted MHR/rig/Creator/tactical equipment and GPU fixture commands remain required at the final integrated head. Source inspection is not a compilation, shader execution, numerical or behavior PASS."
+  ],
+  "source_code_rule_findings_addressed": [
+    "Removed repeated decoded_skin_joints, late export RigJointTable collection, parent -1 state, raw interchangeable MHR row/column records, duplicate WholeJoint and duplicate four-influence reducer.",
+    "Closed all admitted packed skin producer/readback/trim/construction/render/export receivers; no unchecked/testing bypass or max+1 invented production bound.",
+    "Replaced semantically mixed upright tuples and absent shader cursor/candidate sentinels with named/explicit states.",
+    "Removed internal armory/editor string readmission, stale FittedPiece.item uses and unrelated catalogue material/socket receivers.",
+    "Resolved actual source review issues including SkinInfluence Clone for per-vertex allocation, literal ordinal type inference, returned catalogue borrow lifetime, fallible skin/native width propagation, and weighted cloth absence handling.",
+    "Extracted focused MHR skeleton/skin/layout/tests, preview binding and shader candidate/station modules alongside the source repair; no gate/baseline/registry edits.",
+    "Explicit ownership entries for 16 transferred trace paths were recorded late during metadata reconciliation. This timing is retained in the claim file; no claim that those entries predated edits."
+  ],
+  "preservation": [
+    "Packed numeric u32 row memory and slot/weight order retained; zero-weight slots are checked but not altered.",
+    "Original distinct preview slot-sort/zero-total behavior remains separate from duplicate-combining runtime/glTF strongest_four.",
+    "FBX object IDs, glTF graph nodes, rig ordinals and mesh vertices remain distinct roles.",
+    "No new tests/cases/assertions/fixture helpers/doctests. Existing fixture numeric inputs, order/count and physical assertions retained except the explicit authorized impossible unused-skin adaptation below.",
+    "The existing unweighted physics fixture was renamed unweighted_physics_preserves_rest_shape and now owns ClothBinding::Unweighted; removed u32::MAX/NaN unused skin payload is representationally excluded, not executed rejection coverage.",
+    "Pure numerical fixtures declare explicit authored skin extent; empty unused names/states do not prove full Wearer coherence or rig identity."
+  ],
+  "existing_hosted_command_selections": [
+    {
+      "workflow": ".github/workflows/rust-quality.yml",
+      "selection": "Check formatting; root and excluded Creator/MHR manifests"
+    },
+    {
+      "workflow": ".github/workflows/rust-quality.yml",
+      "selection": "Workspace and excluded Creator/MHR all-target/all-feature Clippy plus fabelgeist-rust-quality check"
+    },
+    {
+      "workflow": ".github/workflows/rust-quality.yml",
+      "selection": "Test shared rig contracts: cargo test --locked --package fabelgeist-rig"
+    },
+    {
+      "workflow": ".github/workflows/rust-quality.yml",
+      "selection": "Test MHR rig admission: cargo test --locked --manifest-path crates/fabelgeist-mhr/Cargo.toml -- --test-threads=1"
+    },
+    {
+      "workflow": ".github/workflows/rust-quality.yml",
+      "selection": "Creator contract selections armor-frames, clothing, device-frames, gorget-bib, gorget-collar, wrapped-tasset, export, garment, runtime-equipment, skin-rules, torso-domain, underlayer-design, character-morphs, animation-preview, device-bracer, device-breastplate"
+    },
+    {
+      "workflow": ".github/workflows/rust-quality.yml",
+      "selection": "Test tactical equipment contracts: cargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client equipment:: -- --test-threads=1"
+    }
+  ],
+  "changed_files": [
+    "crates/adventuresim-character-creator/src/animation_preview.rs",
+    "crates/adventuresim-character-creator/src/animation_preview/binding.rs",
+    "crates/adventuresim-character-creator/src/animation_preview/cloth_render.rs",
+    "crates/adventuresim-character-creator/src/animation_preview/colliders.rs",
+    "crates/adventuresim-character-creator/src/armor_design_input.rs",
+    "crates/adventuresim-character-creator/src/armor_frames.rs",
+    "crates/adventuresim-character-creator/src/armor_layer.rs",
+    "crates/adventuresim-character-creator/src/armor_metal.rs",
+    "crates/adventuresim-character-creator/src/armor_recipes.rs",
+    "crates/adventuresim-character-creator/src/armory.rs",
+    "crates/adventuresim-character-creator/src/armory_scene.rs",
+    "crates/adventuresim-character-creator/src/armory_ui.rs",
+    "crates/adventuresim-character-creator/src/bracer.rs",
+    "crates/adventuresim-character-creator/src/chainmail_export_test.rs",
+    "crates/adventuresim-character-creator/src/character_export.rs",
+    "crates/adventuresim-character-creator/src/character_export/hair.rs",
+    "crates/adventuresim-character-creator/src/character_morphs.rs",
+    "crates/adventuresim-character-creator/src/character_morphs/hair.rs",
+    "crates/adventuresim-character-creator/src/clothing.rs",
+    "crates/adventuresim-character-creator/src/clothing/error.rs",
+    "crates/adventuresim-character-creator/src/clothing/fitting.rs",
+    "crates/adventuresim-character-creator/src/clothing/regions.rs",
+    "crates/adventuresim-character-creator/src/clothing/rig.rs",
+    "crates/adventuresim-character-creator/src/clothing/validation.rs",
+    "crates/adventuresim-character-creator/src/device_bracer.rs",
+    "crates/adventuresim-character-creator/src/device_chausses.rs",
+    "crates/adventuresim-character-creator/src/device_clearance.rs",
+    "crates/adventuresim-character-creator/src/device_equipment.rs",
+    "crates/adventuresim-character-creator/src/device_fit.rs",
+    "crates/adventuresim-character-creator/src/device_frames.rs",
+    "crates/adventuresim-character-creator/src/device_frames/landmarks.rs",
+    "crates/adventuresim-character-creator/src/device_frames/tests.rs",
+    "crates/adventuresim-character-creator/src/device_garment.rs",
+    "crates/adventuresim-character-creator/src/device_garment/candidates.rs",
+    "crates/adventuresim-character-creator/src/device_garment_skirt.rs",
+    "crates/adventuresim-character-creator/src/device_garment_skirt/stations.rs",
+    "crates/adventuresim-character-creator/src/device_garment_torso.rs",
+    "crates/adventuresim-character-creator/src/device_garment_tube.rs",
+    "crates/adventuresim-character-creator/src/device_gorget_bib.rs",
+    "crates/adventuresim-character-creator/src/device_gorget_collar.rs",
+    "crates/adventuresim-character-creator/src/device_torso.rs",
+    "crates/adventuresim-character-creator/src/device_underlayer.rs",
+    "crates/adventuresim-character-creator/src/device_underlayer/plan.rs",
+    "crates/adventuresim-character-creator/src/device_underlayer/tests.rs",
+    "crates/adventuresim-character-creator/src/device_wrapped_tasset.rs",
+    "crates/adventuresim-character-creator/src/drape_preview.rs",
+    "crates/adventuresim-character-creator/src/equipment_catalog.rs",
+    "crates/adventuresim-character-creator/src/equipment_export.rs",
+    "crates/adventuresim-character-creator/src/export.rs",
+    "crates/adventuresim-character-creator/src/export/assembly.rs",
+    "crates/adventuresim-character-creator/src/export/compact.rs",
+    "crates/adventuresim-character-creator/src/export/morphs.rs",
+    "crates/adventuresim-character-creator/src/export/rigged.rs",
+    "crates/adventuresim-character-creator/src/export/skeleton.rs",
+    "crates/adventuresim-character-creator/src/export/skinning.rs",
+    "crates/adventuresim-character-creator/src/export/textures/tests.rs",
+    "crates/adventuresim-character-creator/src/export/validation.rs",
+    "crates/adventuresim-character-creator/src/garment.rs",
+    "crates/adventuresim-character-creator/src/garment/drape.rs",
+    "crates/adventuresim-character-creator/src/garment/lining.rs",
+    "crates/adventuresim-character-creator/src/garment/placement.rs",
+    "crates/adventuresim-character-creator/src/garment/settled.rs",
+    "crates/adventuresim-character-creator/src/garment/settled/tests.rs",
+    "crates/adventuresim-character-creator/src/garment/shading.rs",
+    "crates/adventuresim-character-creator/src/garment/stages.rs",
+    "crates/adventuresim-character-creator/src/garment/validation.rs",
+    "crates/adventuresim-character-creator/src/generation.rs",
+    "crates/adventuresim-character-creator/src/hair/groom.rs",
+    "crates/adventuresim-character-creator/src/hair/placement.rs",
+    "crates/adventuresim-character-creator/src/hair_preview.rs",
+    "crates/adventuresim-character-creator/src/hair_preview/assets.rs",
+    "crates/adventuresim-character-creator/src/inventory.rs",
+    "crates/adventuresim-character-creator/src/inventory/loadout.rs",
+    "crates/adventuresim-character-creator/src/inventory/occupancy.rs",
+    "crates/adventuresim-character-creator/src/inventory/tests.rs",
+    "crates/adventuresim-character-creator/src/inventory_article_editor.rs",
+    "crates/adventuresim-character-creator/src/item_design.rs",
+    "crates/adventuresim-character-creator/src/main.rs",
+    "crates/adventuresim-character-creator/src/outfit.rs",
+    "crates/adventuresim-character-creator/src/parametric_equipment.rs",
+    "crates/adventuresim-character-creator/src/preview.rs",
+    "crates/adventuresim-character-creator/src/proportions.rs",
+    "crates/adventuresim-character-creator/src/review_export.rs",
+    "crates/adventuresim-character-creator/src/runtime_equipment.rs",
+    "crates/adventuresim-character-creator/src/runtime_equipment/clothing.rs",
+    "crates/adventuresim-character-creator/src/runtime_equipment/warmup.rs",
+    "crates/adventuresim-character-creator/src/skin_rules.rs",
+    "crates/adventuresim-character-creator/src/studio_cache.rs",
+    "crates/adventuresim-character-creator/src/studio_generation.rs",
+    "crates/adventuresim-character-creator/src/torso_domain.rs",
+    "crates/adventuresim-character-creator/src/underlayer/mail_regions.rs",
+    "crates/adventuresim-character-creator/src/underlayer/pattern.rs",
+    "crates/adventuresim-character-creator/src/underlayer_armor.rs",
+    "crates/adventuresim-character-creator/src/underlayer_equipment.rs",
+    "crates/adventuresim-character-creator/src/underlayer_equipment/proportions.rs",
+    "crates/adventuresim-character-creator/src/wardrobe.rs",
+    "crates/adventuresim-character-creator/src/wardrobe_tab.rs",
+    "crates/adventuresim-character-creator/tests/device_bracer.rs",
+    "crates/adventuresim-character-creator/tests/device_breastplate.rs",
+    "crates/adventuresim-character-creator/tests/skeletal_proportions.rs",
+    "crates/adventuresim-core/src/equipment_assets.rs",
+    "crates/adventuresim-core/src/equipment_assets/selection.rs",
+    "crates/adventuresim-tactical-client/examples/armor_browser_probe.rs",
+    "crates/adventuresim-tactical-client/examples/armor_fixture/anime_tests.rs",
+    "crates/adventuresim-tactical-client/examples/armor_fixture/mod.rs",
+    "crates/adventuresim-tactical-client/examples/armor_fixture/pauldron_tests.rs",
+    "crates/adventuresim-tactical-client/examples/armor_fixture/shell_validation.rs",
+    "crates/adventuresim-tactical-client/examples/armor_fixture/tasset_tests.rs",
+    "crates/adventuresim-tactical-client/examples/runtime_equipment_bench.rs",
+    "crates/adventuresim-tactical-client/examples/runtime_equipment_ports.rs",
+    "crates/adventuresim-tactical-client/src/animation_viewer/harness/readiness.rs",
+    "crates/adventuresim-tactical-client/src/equipment.rs",
+    "crates/adventuresim-tactical-client/src/equipment/render_binding.rs",
+    "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/body.rs",
+    "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/generation.rs",
+    "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/generation_tests.rs",
+    "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers.rs",
+    "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers_tests.rs",
+    "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/mesh_tests.rs",
+    "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/meshes.rs",
+    "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/rig.rs",
+    "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/rig_tests.rs",
+    "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/sockets.rs",
+    "crates/adventuresim-tactical-client/src/equipment/skin.rs",
+    "crates/fabelgeist-armor/src/construction.rs",
+    "crates/fabelgeist-armor/src/design.rs",
+    "crates/fabelgeist-armor/src/error.rs",
+    "crates/fabelgeist-armor/src/gpu/body.rs",
+    "crates/fabelgeist-armor/src/gpu/bracer.rs",
+    "crates/fabelgeist-armor/src/gpu/breastplate/mod.rs",
+    "crates/fabelgeist-armor/src/skin.rs",
+    "crates/fabelgeist-armor/src/tiling/embedded.rs",
+    "crates/fabelgeist-armor/src/tiling/mod.rs",
+    "crates/fabelgeist-armor/src/tiling/tests.rs",
+    "crates/fabelgeist-armor/src/trim.rs",
+    "crates/fabelgeist-armor/src/trim/split.rs",
+    "crates/fabelgeist-armor/src/trim/tests.rs",
+    "crates/fabelgeist-mhr/src/character.rs",
+    "crates/fabelgeist-mhr/src/character/skeleton.rs",
+    "crates/fabelgeist-mhr/src/character/skin.rs",
+    "crates/fabelgeist-mhr/src/model.rs",
+    "crates/fabelgeist-mhr/src/model_def.rs",
+    "crates/fabelgeist-mhr/src/model_def/layout.rs",
+    "crates/fabelgeist-mhr/src/model_def/tests.rs",
+    "crates/fabelgeist-mhr/src/skel_state.rs",
+    "crates/fabelgeist-rig/src/lib.rs",
+    "crates/fabelgeist-rig/src/skin.rs",
+    "crates/fabelgeist-rig/src/table.rs"
+  ],
+  "file_function_owners": [
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/fabelgeist-mhr/src/model_def.rs",
+      "functions": [
+        "ParameterTransform::{num_parameters,parameter_index,row,apply_limits}",
+        "parse_model_definition",
+        "append_blend_shape_parameters",
+        "parse_expression",
+        "parse_parameter_transform",
+        "parse_parameter_sets",
+        "parse_limits",
+        "existing tests fixture/API adaptation only"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/fabelgeist-mhr/src/model_def/layout.rs",
+      "functions": [
+        "new canonical JointChannel, JointParameterRow, ModelParameterColumn, ModelParameterName, ParameterSetName, JointParameterTable, ModelParameterTable and ParameterMatrix owners"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/fabelgeist-mhr/src/model.rs",
+      "functions": [
+        "Mhr::new"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/proportions.rs",
+      "functions": [
+        "model_parameters",
+        "joint_bases"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/tests/skeletal_proportions.rs",
+      "functions": [
+        "evaluate",
+        "skeletal_proportions_match_mhr_joints_and_skinned_vertices_in_motion"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/device_garment.rs",
+      "functions": [
+        "BAND::Band",
+        "BAND::band_bounds",
+        "DeviceWearer::record_candidate_status",
+        "candidate status shader bridge",
+        "UprightSpan",
+        "DeviceWearer::record_upright"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/device_garment_skirt.rs",
+      "functions": [
+        "FAULD_SECTION::main",
+        "DRAPE_STATIONS::{envelope,main}",
+        "DRAPE_FINISH::main",
+        "WRAP::main",
+        "DeviceWearer::record_fitted_skirt",
+        "skirt_span"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/device_garment_torso.rs",
+      "functions": [
+        "TORSO_SECTIONS::main",
+        "DeviceWearer::record_fitted_torso"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/device_garment_tube.rs",
+      "functions": [
+        "TUBE_FIT::main",
+        "DeviceWearer::record_fitted_tube"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/device_chausses.rs",
+      "functions": [
+        "CAGE::{enclosing_section,main}",
+        "DeviceWearer::record_fitted_chausses",
+        "cage_source"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/device_garment/candidates.rs",
+      "functions": [
+        "BAND::{Band,project,band_bounds}",
+        "CANDIDATE_STATUS::main",
+        "DeviceWearer::record_candidate_status"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/device_garment_skirt/stations.rs",
+      "functions": [
+        "DRAPE_STATIONS::{EnvelopePoint,envelope_count,envelope,include,main}"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/fabelgeist-mhr/src/model_def/tests.rs",
+      "functions": [
+        "existing skeleton",
+        "existing parse",
+        "parses_weights_and_parameter_order",
+        "a_joint_reference_copies_scaled_terms",
+        "duplicate_assignments_accumulate",
+        "a_bare_constant_becomes_an_offset",
+        "parses_sets_and_limits",
+        "blend_shape_columns_are_appended_without_joint_influence"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/fabelgeist-rig/src/lib.rs",
+      "functions": [
+        "RigJointName::{index_in,require_in}",
+        "packed skin/count module reexports"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/fabelgeist-rig/src/table.rs",
+      "functions": [
+        "RigJointTable serialization",
+        "RigJointTable::{get_mut,map,as_native_slice,joint_count}"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/fabelgeist-rig/src/skin.rs",
+      "functions": [
+        "RigJointCount::{from_native_joint_count,from_table,len,is_empty}",
+        "PackedRigSkin::{from_native,empty,repeated,len,is_empty,clear,joint_count,iter,vertex,weighted_vertex,native_words,push,set_vertex,select,append,encode}",
+        "RigInfluences::{whole_joint,strongest_four,native_u16}",
+        "RigSkinError"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/fabelgeist-mhr/src/character.rs",
+      "functions": [
+        "Skeleton fields",
+        "Character::inverse_bind_pose",
+        "SkinWeights::index",
+        "Skeleton::{len,is_empty,joint_index,bind_pose}",
+        "SkeletonBuilder::{joint_ids,visit}",
+        "Character::from_fbx_bytes",
+        "parse_skeleton",
+        "parse_skin"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/fabelgeist-mhr/src/skel_state.rs",
+      "functions": [
+        "PrefixMultiplicationLevel",
+        "prefix_multiplication_levels",
+        "prefix_levels_cover_every_ancestor_product existing fixture adaptation"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/fabelgeist-armor/src/design.rs",
+      "functions": [
+        "Millimeters::signed_length",
+        "GeneratedArmor::joint_indices reserved P09 connected migration"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/clothing.rs",
+      "functions": [
+        "GarmentSpecification::normal_offset_metres",
+        "GarmentSpecification::from_catalog",
+        "generate_clothing_shells fitting offset handoff",
+        "existing offset fixture operands"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/clothing/fitting.rs",
+      "functions": [
+        "ClothingShell::refit",
+        "fitted_surface"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/clothing/error.rs",
+      "functions": [
+        "ClothingError::NormalOffset"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/runtime_equipment/clothing.rs",
+      "functions": [
+        "RuntimeClothing::generate"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/equipment_export.rs",
+      "functions": [
+        "EquipmentExporter::garment"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/outfit.rs",
+      "functions": [
+        "clothing_specifications"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-core/src/equipment_assets.rs",
+      "functions": [
+        "EquipmentAssetEntry",
+        "EquipmentAssets::{from_json,file_for,default_file_for,entries}",
+        "selection module reexport"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-core/src/equipment_assets/selection.rs",
+      "functions": [
+        "CatalogItem catalogue admission/access/placement iteration",
+        "CatalogPlacement private relationship/access/identity methods"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/equipment_catalog.rs",
+      "functions": [
+        "ItemCatalog::{item,placement,material,design,placed_design,wearable}",
+        "EquipmentItemSelection::admit",
+        "validate_armor_recipes"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/runtime_equipment.rs",
+      "functions": [
+        "RuntimeCatalogItem::{from_catalog,clothing_placement}",
+        "RuntimeBody::{fit_body,wearer}",
+        "generate",
+        "generate_runtime_armor",
+        "runtime_equipment_material",
+        "is_runtime_armor",
+        "is_runtime_clothing",
+        "is_runtime_equipment",
+        "generate_vambrace",
+        "generate_breastplate",
+        "generate_parametric",
+        "catalog_item"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/armor_frames.rs",
+      "functions": [
+        "Side::from_placement"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/armor_recipes.rs",
+      "functions": [
+        "recipe",
+        "DedicatedGenerator::for_item",
+        "is_parametric",
+        "fit_region"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/item_design.rs",
+      "functions": [
+        "CatalogDesigns::{default_for,default_at,default_in,set_default}"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/inventory.rs",
+      "functions": [
+        "CatalogArticle::{resolve,design}"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/inventory/loadout.rs",
+      "functions": [
+        "CatalogPiece",
+        "Inventory::loadout"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/device_fit.rs",
+      "functions": [
+        "Fitted::placement",
+        "fit_recipe",
+        "fit_recipe_async",
+        "record_recipe",
+        "assemble_recipe"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/skin_rules.rs",
+      "functions": [
+        "attach",
+        "limb_joint"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/parametric_equipment.rs",
+      "functions": [
+        "fitted_design",
+        "assembled",
+        "fitted_item",
+        "fitted_catalog_item",
+        "is_steel",
+        "piece_name",
+        "is_rigid",
+        "fit",
+        "selected",
+        "every_catalog_armor_fits_the_measured_body_and_its_morphs"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/device_equipment.rs",
+      "functions": [
+        "fit_body",
+        "wearer",
+        "fitted"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/underlayer_equipment.rs",
+      "functions": [
+        "fitted",
+        "fitted_trunk_hose",
+        "with_body"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/underlayer_armor.rs",
+      "functions": [
+        "fit_underlayer",
+        "fit_underlayer_async",
+        "fit_trunk_hose",
+        "fit_trunk_hose_async"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/device_underlayer.rs",
+      "functions": [
+        "FittedUnderlayer::joint_indices",
+        "fit",
+        "fit_async",
+        "Fit::{run,record_skin}",
+        "read_skin"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/device_underlayer/plan.rs",
+      "functions": [
+        "CutPlan::new"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/underlayer/pattern.rs",
+      "functions": [
+        "required_frames",
+        "regions",
+        "hose"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/underlayer/mail_regions.rs",
+      "functions": [
+        "knee"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/review_export.rs",
+      "functions": [
+        "ReviewPiece",
+        "export",
+        "catalog_pieces",
+        "worn_pieces",
+        "review_record"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/runtime_equipment/warmup.rs",
+      "functions": [
+        "warm_up"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/inventory/occupancy.rs",
+      "functions": [
+        "Occupancy::from_catalog",
+        "Article::occupancy",
+        "Candidate::from_catalog"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/inventory_article_editor.rs",
+      "functions": [
+        "catalog_article",
+        "catalog_shape"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/armory_ui.rs",
+      "functions": [
+        "list",
+        "editor"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/armory.rs",
+      "functions": [
+        "Exhibit::{placements,item,errors}",
+        "exhibits",
+        "fit_exhibits"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/armory_scene.rs",
+      "functions": [
+        "spawn_exhibit"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/studio_generation.rs",
+      "functions": [
+        "regenerate_mesh",
+        "PreviewScene::spawn_equipment"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/studio_cache.rs",
+      "functions": [
+        "fit_keys"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/character_export.rs",
+      "functions": [
+        "export_character",
+        "catalog_metals",
+        "catalog_shells"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/main.rs",
+      "functions": [
+        "GeneratedCharacter::{joint_proportions,global_joint_states}"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/armor_design_input.rs",
+      "functions": [
+        "ArmorPlacement::from_catalog",
+        "ArmorDesigns::selected",
+        "parse",
+        "existing catalogue fixture call operand adaptation"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-tactical-client/src/equipment.rs",
+      "functions": [
+        "procedural_equipment_file"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers.rs",
+      "functions": [
+        "LayerSelection::{admit,definition,key}",
+        "LayerSelection Eq/Hash/Ord exact identity policy",
+        "OutfitPlan::{new,ancestors,supports}",
+        "FitKey::support_keys",
+        "outfits",
+        "RuntimeEquipmentBodyCache::next_fit"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/generation.rs",
+      "functions": [
+        "FitKey::{for_presentation,selection_for_presentation,install}",
+        "RuntimeEquipmentBodyCache::{start,finish,prepare_shape,resolve}",
+        "generate_runtime_equipment_models",
+        "CachedEquipment::attach"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/meshes.rs",
+      "functions": [
+        "equipment_parts",
+        "runtime_equipment_material"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/sockets.rs",
+      "functions": [
+        "garment_sockets"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-tactical-client/examples/runtime_equipment_ports.rs",
+      "functions": [
+        "main",
+        "wrapped"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-tactical-client/examples/runtime_equipment_bench.rs",
+      "functions": [
+        "prepared_device_reuses_pipelines_for_a_new_wearer",
+        "main",
+        "gorget_fits_sparse_body_sections",
+        "puffed_garments_fit_sparse_wearers_without_morph_targets",
+        "puffed_garment_extremes_are_closed_finite_shells",
+        "puffed_sleeve_seats_over_generated_padding"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-tactical-client/examples/armor_browser_probe.rs",
+      "functions": [
+        "run",
+        "wrapped"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-tactical-client/examples/armor_fixture/pauldron_tests.rs",
+      "functions": [
+        "pauldron_shared_saddle_fits_body_and_completed_cuirass"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-tactical-client/examples/armor_fixture/tasset_tests.rs",
+      "functions": [
+        "wrapped_waist_assembly_fits_completed_fauld_and_morph",
+        "wrapped_tassets_reject_nonpositive_final_section_radii",
+        "wrapped_tassets_fit_final_height_with_rigid_separate_thigh_ownership"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/inventory.rs",
+      "functions": [
+        "Inventory::fit"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/inventory/occupancy.rs",
+      "functions": [
+        "Occupancy::from_catalog",
+        "Article::occupancy"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/fabelgeist-armor/src/gpu/body.rs",
+      "functions": [
+        "BodySurface fields",
+        "GpuBody::{fields,new}",
+        "Correspondence::{fields,record,read,finish}",
+        "Skin::{fields,append}"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/fabelgeist-armor/src/skin.rs",
+      "functions": [
+        "Skin influence record",
+        "blend",
+        "existing single fixture and existing blend tests operand adaptation"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/fabelgeist-armor/src/gpu/bracer.rs",
+      "functions": [
+        "DeviceBracer::rig_joints",
+        "DeviceBracer::{record,read_async}"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/fabelgeist-armor/src/gpu/breastplate/mod.rs",
+      "functions": [
+        "DeviceBreastplate::rig_joints",
+        "DeviceBreastplate::{record,read_async}"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/fabelgeist-armor/src/tiling/embedded.rs",
+      "functions": [
+        "embedded skin interpolation and GeneratedArmor output"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/fabelgeist-armor/src/trim/split.rs",
+      "functions": [
+        "skin interpolation and appended vertex skin"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/fabelgeist-armor/src/trim/tests.rs",
+      "functions": [
+        "existing fixture and existing joint buffer append adaptation"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/inventory/occupancy.rs",
+      "functions": [
+        "Candidate::from_catalog"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/fabelgeist-armor/src/error.rs",
+      "functions": [
+        "GenerateError::Skin"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/export/skinning.rs",
+      "functions": [
+        "append",
+        "existing dropping_minor_influences_preserves_world_translation fixture adaptation; replace duplicate strongest_four by canonical RigInfluences operation"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/underlayer_equipment/proportions.rs",
+      "functions": [
+        "samples joint parents/state/basis/skin propagation"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/device_frames/landmarks.rs",
+      "functions": [
+        "Wearer::owned_joints",
+        "packing_tests existing rig fixture adaptation"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/device_frames.rs",
+      "functions": [
+        "DeviceWearer::{record,record_thumb_frame} whole-joint membership table native upload"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/fabelgeist-armor/src/trim.rs",
+      "functions": [
+        "TrimError::Skin",
+        "GeneratedArmor::trimmed skin mutation error propagation"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/fabelgeist-armor/src/construction.rs",
+      "functions": [
+        "ConstructionError::Skin"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/fabelgeist-armor/src/tiling/mod.rs",
+      "functions": [
+        "GeneratedArmor::constructed skin error propagation"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/armor_layer.rs",
+      "functions": [
+        "ArmorLayerSurface::joint_indices",
+        "ArmorLayerSurface::from_generated"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/export/compact.rs",
+      "functions": [
+        "CompactShell::joints",
+        "CompactShell::{new,rigged} typed skin selection"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/export/validation.rs",
+      "functions": [
+        "validate",
+        "validate_shell"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/character_export/hair.rs",
+      "functions": [
+        "ExportedHair::joint_indices",
+        "ExportedHair::{grow,shell}"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/character_morphs/hair.rs",
+      "functions": [
+        "CharacterMorphs::hair",
+        "remove WholeJoint duplicate after canonical RigInfluences producer"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/hair_preview/assets.rs",
+      "functions": [
+        "mesh",
+        "cap_mesh"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/hair/groom.rs",
+      "functions": [
+        "GroomedHair::grow identity head ordinal literal admission"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/rig.rs",
+      "functions": [
+        "FittingRig::{fields,new,global,fit}",
+        "RigNode::parent",
+        "GltfNodeOrdinal actual retained native graph identifier distinct from rig column ordinal"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/animation_preview.rs",
+      "functions": [
+        "rebuild"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/garment/drape.rs",
+      "functions": [
+        "transfer_skin receiving output fields"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/garment/settled.rs",
+      "functions": [
+        "SettledDrape garment construction and transfer_skin output"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/chainmail_export_test.rs",
+      "functions": [
+        "existing native fixture transfer_skin receiver adaptation"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/garment.rs",
+      "functions": [
+        "SkinTransfer named record",
+        "transfer_skin",
+        "transfer_skirt_skin"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/animation_preview.rs",
+      "functions": [
+        "WalkPreview::joints",
+        "BodySkin::indices",
+        "ClothSkin::{indices,new}",
+        "rebuild",
+        "skin_mesh",
+        "skin",
+        "deform_cloth",
+        "skinned_positions",
+        "blend_point",
+        "existing blend fixtures adaptation"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/animation_preview/cloth_render.rs",
+      "functions": [
+        "ClothSkin::weld_seams typed selection"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/animation_preview/colliders.rs",
+      "functions": [
+        "posed_colliders typed matrix receiver"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/preview.rs",
+      "functions": [
+        "spawn_body",
+        "spawn_clothing"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/device_clearance.rs",
+      "functions": [
+        "DeviceWearer::record_support membership column"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/garment/placement.rs",
+      "functions": [
+        "prepare typed hip lookup and propagated missing-joint result"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/device_wrapped_tasset.rs",
+      "functions": [
+        "DeviceWearer::record_wrapped_tasset joint lookup receiver"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-tactical-client/src/equipment/render_binding.rs",
+      "functions": [
+        "ProceduralEquipmentPart::{joint_names,new}",
+        "existing render fixture adaptation"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-tactical-client/src/equipment/skin.rs",
+      "functions": [
+        "sync_procedural_equipment_skins native Bevy joint entity projection",
+        "existing skeletal_proportions_follow_equipment_transfer_without_rebinding_shared_assets fixture adaptation"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-tactical-client/src/animation_viewer/harness/readiness.rs",
+      "functions": [
+        "existing complete wear binding fixture ProceduralEquipmentPart::new adaptation"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/fabelgeist-mhr/src/character/skeleton.rs",
+      "functions": [
+        "Skeleton columns and methods",
+        "SkeletonBuilder::visit",
+        "ParsedSkeleton",
+        "parse_skeleton"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/fabelgeist-mhr/src/character/skin.rs",
+      "functions": [
+        "SkinWeights",
+        "SkinInfluence",
+        "parse_skin"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/export.rs",
+      "functions": [
+        "attachment_test_skeleton existing fixture operands",
+        "exports_four_normalized_skin_influences_and_a_zero_animation_rig",
+        "rejects_non_normalized_weights",
+        "exports_clothing_as_a_separately_materialed_skinned_primitive",
+        "exports_textured_garment_with_independent_topology_and_skin",
+        "exports_shell_only_equipment_without_character_attachment_geometry",
+        "exports_independent_skinned_armor_topology_with_named_morph_targets",
+        "fitted_socket_resolves_uv_per_lod_and_bootstrap_recovers_the_anchor"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/export/assembly.rs",
+      "functions": [
+        "compact_components_keep_names_hinges_skin_and_all_morphs"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/export/textures/tests.rs",
+      "functions": [
+        "existing export_equipment_with_maps fixture typed rig/skin inputs"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/export/morphs.rs",
+      "functions": [
+        "rejects_incompatible_channels_and_non_finite_deltas"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/rig_tests.rs",
+      "functions": [
+        "existing body,leg_height_correction_moves_pelvis_descendants_but_not_body_world,coupled_proportions_match_morph_then_skin_and_do_not_deform_twice fixture wrappers"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/character_morphs.rs",
+      "functions": [
+        "skeletal_fit_corrects_surface_without_counting_bone_translation_twice",
+        "flexible_fit_reconstructs_the_direct_endpoint_with_exported_influences"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/tests/device_breastplate.rs",
+      "functions": [
+        "TorsoFixture::{fields,new,input} existing fixture adaptation"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/tests/device_bracer.rs",
+      "functions": [
+        "Forearm::{fields,new,input} existing fixture adaptation"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-tactical-client/examples/armor_fixture/mod.rs",
+      "functions": [
+        "load native glTF column/skin admission",
+        "joint_states native bind-pose decode"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-tactical-client/examples/armor_fixture/anime_tests.rs",
+      "functions": [
+        "existing ordinal skin assertion operands"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-tactical-client/examples/armor_fixture/shell_validation.rs",
+      "functions": [
+        "concave_closed_metal_does_not_require_every_offset_to_support_its_outer_face"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/animation_preview/binding.rs",
+      "functions": [
+        "ClothBinding weighted/unweighted payload owner",
+        "skin_mesh native VEC4 adapter preserving original preview slot-sort/fallback",
+        "skin native Bevy entity projection"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/drape_preview.rs",
+      "functions": [
+        "poll",
+        "spawn_garment"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/device_underlayer/tests.rs",
+      "functions": [
+        "Fixture::{fields,new}",
+        "wearer",
+        "a_cut_shell_is_closed_offset_by_its_layers_and_carries_surface_coordinates",
+        "a_frozen_envelope_keeps_the_layers_below_the_facing_sheet_on_every_sample"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/device_frames/tests.rs",
+      "functions": [
+        "Fixture::{fields,constructor} and existing ordinal indexing fixture adapters"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/fabelgeist-armor/src/tiling/tests.rs",
+      "functions": [
+        "sleeve existing literal skin extent3"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/armor_metal.rs",
+      "functions": [
+        "existing square and grid GeneratedArmor fixture skin extent1"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/garment/lining.rs",
+      "functions": [
+        "existing plate GeneratedArmor fixture skin extent1"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/wardrobe.rs",
+      "functions": [
+        "garment"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/garment/stages.rs",
+      "functions": [
+        "input",
+        "completed"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/garment/settled/tests.rs",
+      "functions": [
+        "existing wearer and garment fixtures empty rig metadata and skin extent1"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/garment/validation.rs",
+      "functions": [
+        "existing empty DrapedGarment skin fixture"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/mesh_tests.rs",
+      "functions": [
+        "material_parts_preserve_skin_uvs_and_relative_position_when_dropped existing literal skin extent3"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/device_gorget_bib.rs",
+      "functions": [
+        "bib_seats_on_lower_equipment_in_the_canonical_wearer_frame"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/device_gorget_collar.rs",
+      "functions": [
+        "intermediate_neck_bulge_and_shared_bib_seam_clear_the_measured_body",
+        "bib_seating_rechecks_the_shifted_collar_against_a_side_neck_bulge"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/wardrobe_tab.rs",
+      "functions": [
+        "spawn",
+        "refresh existing spawn receiver failure state"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/garment/shading.rs",
+      "functions": [
+        "DrapedGarment::from_pattern empty typed skin producer",
+        "existing deformed_normals_remain_smooth_across_material_seams fixture adaptation"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-tactical-client/src/equipment.rs",
+      "functions": [
+        "procedural_equipment_uses_live_rig_while_worn_and_rest_pose_when_dropped existing joint column fixture adaptation"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-core/src/equipment_assets/selection.rs",
+      "functions": [
+        "OwnedCatalogPlacement canonical owning view",
+        "CatalogItem::retained_placements",
+        "OwnedCatalogPlacement::{item,selection}"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/armory.rs",
+      "functions": [
+        "Exhibit::{placements,item,errors}",
+        "exhibits",
+        "fit_exhibits"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/inventory.rs",
+      "functions": [
+        "CatalogArticle::design_for"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/equipment_catalog.rs",
+      "functions": [
+        "material"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/character_export.rs",
+      "functions": [
+        "catalog_metals",
+        "catalog_shells",
+        "export_character"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/studio_generation.rs",
+      "functions": [
+        "PreviewScene::spawn_equipment",
+        "regenerate_mesh"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers.rs",
+      "functions": [
+        "OutfitPlan::{ancestors,supports}",
+        "FitKey::support_keys"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/generation.rs",
+      "functions": [
+        "RuntimeEquipmentPresentation::fail_fit"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/equipment_export.rs",
+      "functions": [
+        "EquipmentExporter::sockets"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/device_frames.rs",
+      "functions": [
+        "Wearer::upload"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/device_fit.rs",
+      "functions": [
+        "Realization::upload"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/device_garment.rs",
+      "functions": [
+        "DeviceWearer::record_region_support"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/bracer.rs",
+      "functions": [
+        "ForearmSurfaceInput::{joint_indices,joint_names,global_joint_states,validate}",
+        "ForearmMorphSample::global_joint_states"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/clothing/regions.rs",
+      "functions": [
+        "waist_joints"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/clothing/rig.rs",
+      "functions": [
+        "ClothingRig::{names,new}"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/clothing/validation.rs",
+      "functions": [
+        "decoded_skin_joints (removed duplicate adapter)"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/device_bracer.rs",
+      "functions": [
+        "ForearmSide::joint",
+        "generate_bracer_on_device_async"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/device_torso.rs",
+      "functions": [
+        "TorsoSurfaceInput::{joint_indices,joint_names,global_joint_states,check,joints_named}",
+        "generate_breastplate_on_device_async"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/export/rigged.rs",
+      "functions": [
+        "RiggedMesh::{joint_proportions,joint_indices,joint_names,joint_parents,global_joint_states,global_transforms}",
+        "RiggedShell::joint_indices"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/export/skeleton.rs",
+      "functions": [
+        "nodes",
+        "validate_proportions",
+        "append_attachment"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/generation.rs",
+      "functions": [
+        "generate_character"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/hair/placement.rs",
+      "functions": [
+        "HeadSkin::{joint_indices,joint_names,global_joint_states}",
+        "HeadPlacement::{head_joint,fit,identity}",
+        "HeadExtent::of",
+        "HeadPlacementError::InconsistentRig"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/hair_preview.rs",
+      "functions": [
+        "BodyHead::{joint_indices,joint_names,global_joint_states,new,placement}"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/inventory/tests.rs",
+      "functions": [
+        "ids",
+        "own_designs_must_keep_the_catalog_construction"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-character-creator/src/torso_domain.rs",
+      "functions": [
+        "TorsoSkinDomain::{joint_indices,joint_names,triangle_indices}",
+        "JointSkinOwnership",
+        "retains_original_face_identity_and_excludes_limb_dominated_skin",
+        "malformed_skin_and_missing_support_return_errors",
+        "mixed_shoulder_skin_keeps_the_fitting_domains_thresholds"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/body.rs",
+      "functions": [
+        "try_build_runtime_body",
+        "build_runtime_body"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/generation_tests.rs",
+      "functions": [
+        "empty_body",
+        "character_key",
+        "empty_armor"
+      ]
+    },
+    {
+      "owner": "/root/rig_garments",
+      "file": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/layers_tests.rs",
+      "functions": [
+        "selection",
+        "key",
+        "fitting_keys_ignore_outfit_order_and_unrelated_limbs",
+        "evicted_fit_rebuilds_innermost_support_and_propagates_failure"
+      ]
+    }
+  ],
+  "local_operations": "Plain source/Git/rg and stdlib text/JSON/Git-path metadata only. No Cargo/build/check/test/fmt/Clippy/metadata, scanner/parser/generator, runtime/numerical probe, push/CI or external post.",
+  "worktree_state": "Git status clean at repair commit 8be48645f4a92ab41723240ea2e957472706fc39; source-control state only.",
+  "independent_review_repairs": [
+    {
+      "review_base": "6aee89ebf17bf3e823ff9003bca82596f608da0f",
+      "reviewer": "/root/rig_cluster_review",
+      "commit": "8be48645f4a92ab41723240ea2e957472706fc39",
+      "functions": [
+        {
+          "file": "crates/adventuresim-character-creator/src/clothing.rs",
+          "function": "admission_tests::absent_landmark_keeps_its_identity_and_error_classification",
+          "finding": "Existing cfg(test) receiver still supplied raw skin/name/state arrays to the migrated signature.",
+          "repair": "Admit unchanged [[0;8]] against explicit authored extent1 and wrap the existing ROOT name and zero state in canonical RigJointTable values. Original weights, input values and missing C_NECK assertion are unchanged."
+        },
+        {
+          "file": "crates/fabelgeist-mhr/src/skel_state.rs",
+          "item": "PrefixMultiplicationLevel declaration and attached documentation",
+          "finding": "Introduced struct followed free functions, contrary to item ordering.",
+          "repair": "Move declaration and its documentation immediately after imports, above channel; no behavior or fixture edits."
+        }
+      ],
+      "claim_timing": "Both exact repair claims recorded before their source edits.",
+      "validation": "No project checks, formatter, scanner/parser/generator, tests, runtime probes or CI executed. Awaiting independent source re-review; no PASS claim.",
+      "independent_source_rereview": {
+        "reviewer": "/root/rig_cluster_review",
+        "reviewed_comparison": "8be48645f4a92ab41723240ea2e957472706fc39 versus 6aee89ebf17bf3e823ff9003bca82596f608da0f",
+        "result": "Both demonstrated findings closed from source; no additional demonstrated correctness or producer-completeness finding in the focused original P09-P14 review.",
+        "limit": "Reviewer executed no project validation and claimed no executable validation PASS; family ledger verdict remains root-owned."
+      }
+    }
+  ],
+  "post_source_quality_repair": {
+    "authority": "execution-ledger.json remains authoritative; this records only the owned bounded repair provenance and source review",
+    "base": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "branch": "codex/774-rig-quality-repair",
+    "source_commit": "cbbbca08c89a8768926799371f54cf6057312e5e",
+    "bounded_evidence": {
+      "run": "39576450512",
+      "job": "119143045807",
+      "step": "Check semantic values/Rust growth",
+      "log": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-plan-execution-20261020/hosted-6533e44-semantic-quality.log",
+      "lines": "78-99",
+      "scope": "Only root-assigned P09-P14 implementor subset; no new audit"
+    },
+    "changed_paths_and_functions": [
+      {
+        "path": "crates/adventuresim-character-creator/src/clothing.rs",
+        "functions": [
+          "generate_clothing_shells"
+        ]
+      },
+      {
+        "path": "crates/adventuresim-character-creator/src/clothing/validation.rs",
+        "functions": [
+          "validate_body_inputs",
+          "Result<T> owning error alias",
+          "validated_placeholder_faces result alias use only"
+        ]
+      },
+      {
+        "path": "crates/adventuresim-character-creator/src/export.rs",
+        "functions": [
+          "export_rigged_glb"
+        ]
+      },
+      {
+        "path": "crates/adventuresim-character-creator/src/export/shell.rs",
+        "functions": [
+          "append_views"
+        ]
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/examples/armor_browser_probe.rs",
+        "functions": [
+          "Probe::ALL",
+          "run",
+          "main item ordering"
+        ]
+      },
+      {
+        "path": "crates/fabelgeist-mhr/src/model.rs",
+        "functions": [
+          "Mhr::new",
+          "tensor_upload module declaration"
+        ]
+      },
+      {
+        "path": "crates/fabelgeist-mhr/src/model/tensor_upload.rs",
+        "functions": [
+          "fk_levels"
+        ]
+      },
+      {
+        "path": "rust-quality.toml",
+        "functions": [
+          "exact boundary_adapter item SkeletonBuilder<'a>::visit in character/skeleton.rs",
+          "exact boundary_adapter item parse_skin in character/skin.rs",
+          "exact boundary_adapter item JointChannel::from_model_token in model_def/layout.rs"
+        ]
+      }
+    ],
+    "per_finding_disposition": [
+      {
+        "findings": [
+          "clothing.rs production growth506>500",
+          "generate_clothing_shells growth237>234"
+        ],
+        "source_repair": "Existing validation module now owns the complete unchanged typed body/cardinality/joint-extent/face-bound admission; selection/fitting logic and public receiver stay in clothing.rs.",
+        "limit": "Hosted quality confirmation pending; no local project execution."
+      },
+      {
+        "findings": [
+          "export.rs production growth838>836",
+          "export_rigged_glb growth269>268"
+        ],
+        "source_repair": "Existing shell export module now owns native shell position/normal/index/optional admitted-skin buffer-view emission; Writer consumes the same ordered view records.",
+        "limit": "Hosted quality confirmation pending; no GLB generation or fixture execution."
+      },
+      {
+        "findings": [
+          "armor_browser_probe.rs::run growth107>100"
+        ],
+        "source_repair": "Probe owns the unchanged authored twelve-case inventory in ALL; run keeps the same two rounds, dispatch, timing, error handling, inputs, mesh checks and result schema.",
+        "limit": "No browser/probe execution; no cases/helpers/assertions added."
+      },
+      {
+        "findings": [
+          "Mhr::new growth155>140"
+        ],
+        "source_repair": "Focused tensor_upload module owns actual checked ordinal-to-i32 conversion and native FK TensorData upload; caller remains at the same constructor position and runtime gathers consume the same pair ordering.",
+        "limit": "No tensor/runtime/numerical execution; native tensor pair API remains unchanged."
+      },
+      {
+        "findings": [
+          "SkeletonBuilder<'a>::visit col_type raw-string branch",
+          "parse_skin TransformLink raw-string branch"
+        ],
+        "source_repair": "Two exact item boundary_adapter scopes classify FBX properties at their native decode boundary; source root/child/collision/bind-matrix policy is untouched.",
+        "limit": "Official hosted baseline reductions remain root-owned; no baseline edits made."
+      },
+      {
+        "findings": [
+          "JointChannel::from_model_token tx/ty/tz/rx/ry/rz/sc raw-string branches"
+        ],
+        "source_repair": "One exact item boundary_adapter scope classifies Momentum model-file token decoding; existing closed JointChannel immediately feeds typed JointParameterRow in both parser receivers.",
+        "limit": "No blanket module/file exemption; no source matching vocabulary changed back to raw strings."
+      }
+    ],
+    "source_receiver_review": [
+      "Re-read RuntimeClothing::generate, equipment export garment generation, outfit::clothing and the existing absent-landmark fixture; public argument types and error classification remain unchanged.",
+      "Re-read shell::Writer::append and export accessor/material assembly; ordered shell buffer writes happen at the original position before skeleton attachment processing.",
+      "Re-read Mhr FK gather loop and both model-token parser receivers; native source/target order, checked width conversion order and proper decoded vocabulary are preserved.",
+      "Reviewed exact staged source diff; no test blocks, numeric fixture data, case counts/order, assertions, manifests, locks, schemas, generated files, baseline or excluded HUD/DB functions changed."
+    ],
+    "preservation": "Original check precedence, arithmetic/filter expressions, iteration order, upload/buffer-write order, native representations and every existing fixture input/assertion are retained.",
+    "remaining_external_work": [
+      "Root integration and independent source review as selected by coordinator.",
+      "Official hosted rust-quality baseline generation and only relevant reductions by root.",
+      "Existing hosted formatting/quality/compilation/tests remain required at the integrated head; no validation PASS claimed here."
+    ],
+    "local_execution": "Plain source/Git/rg and stdlib ignored JSON metadata only; no local Cargo/build/check/test/fmt/Clippy/metadata/scanner/parser/generator/runtime/numerical/browser probe.",
+    "claims": "All eight exact path/function entries were recorded before source edits in parallel-ownership/rig_garments-claims.json; the validation error-alias use was additionally recorded before that edit."
+  }
+}

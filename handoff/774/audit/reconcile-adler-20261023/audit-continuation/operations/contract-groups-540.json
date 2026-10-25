@@ -1,0 +1,70 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-540",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/cloth/mod.rs",
+      "sha256": "2318544fe5a77b517ae01b26f7d4b65b288c0be78c63aa9a90034bd2a7385c05",
+      "actual_EOF": 93,
+      "actual_compared_ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/fabric.rs",
+      "sha256": "37cf4430a9923bb91663a7eb0eadee8674fd3489e172a5f8d164a929d6ba1313",
+      "actual_EOF": 156,
+      "actual_compared_ranges": [
+        [
+          1,
+          156
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/lib.rs",
+      "sha256": "73854d3247aafeacaca9882c0d9666e5b83e482dd9924374ff0dec2b6a77cef9",
+      "actual_EOF": 34,
+      "actual_compared_ranges": [
+        [
+          1,
+          34
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-cloth/src/surface_contact.rs",
+      "sha256": "fe0e9ecb46d3101535274523f58c8b35f92d8e1f4d69d6b37b5826cac9120001",
+      "actual_EOF": 1,
+      "actual_compared_ranges": [
+        [
+          1,
+          1
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Fabric conversion, radius and solver forwarding",
+      "evidence": "Fabric presets have finite positive thickness, density and nonnegative compliances/friction/damping. particle_radius halves finite thickness without amplification. Public raw mutable fields/with_* admit arbitrary values; shared Shell receives material and actual operations must own arithmetic/error policy, no caller-independent guarantee inferred. Cloth new clones complete mesh fields into ShellMesh and only publishes on Shell::new success; scalar material conversion performs no narrowing."
+    },
+    {
+      "contract": "Retained mutations before fallible step",
+      "evidence": "record_step/step/interleaved assign fabric.thickness into shell.material before delegation. No actual admitted thickness error or failed-step retained invariant break established in these forwarding bodies. apply_fabric deliberately applies all material fields; density pertains constructed mesh masses and is not in ShellMaterial. Surface-contact module is one-line shared owner reexport, no duplicate physics body claimed."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/fabelgeist-color/src/color.rs"
+}

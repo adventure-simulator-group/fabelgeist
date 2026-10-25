@@ -1,0 +1,40 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-467",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        954
+      ],
+      "comparison": "Fresh1869 including source-only fixtures. MaterialPreparation Cooked(CookingLane), ProcessKind Cook lane and Domain carry applicable payloads; quantity wrappers/portion/error results preserve zero/transient versus nonempty stored snapshot distinction. MaterialMeasureZERO deliberate accumulation/loss/rounding value; no enum over arbitrary measured amounts, solid knownvolume0 valid. Portion split returns optional complete remainder instead of redundant depletedflag; truth component zero removed from vectors using NonZero, not unknown component. ProcessTiming private constructor checkedready relation; CookingTimingStatus Early/Ready/Late and PassiveTimingStatus Maturing/ReadyToMaterialize/Materialized own exact timing payloads. Materialized observation remains historical even queried earlier (explicit source-only fixture1643), so no collapse into query-time phase nor ordinary future-materialization claim. ExtensiveChangeKind Gain/Loss named choice shares positive magnitude valid for both, not inapplicable duplicatepayload. SourceLotContribution captures complete immutable source plus actual consumed measure/truth; optional remainder independent actualretirement not another custodyauthority. TransformationReceipt valid source/output/conservation/private policy product, actualretry Apply/Replay(receipt)/Collision correctpayloadsum. Replay compares exact sources as well as digest, no forced digest-onlymode. MaterialVessel capacity independent containment identity; raw source/custodyassociation separate domains, preservemultiplecomponents/contaminants and loss/rounding distinctions. Sanitized presentation adapter responsibleactualprivacy, no test-based cross-lens clearance.",
+      "finding_refs": [],
+      "disposition": "Existing applicable timing/process/retry enums and complete optional remainder positive"
+    },
+    {
+      "indices": [
+        955
+      ],
+      "comparison": "Fresh106. HostileGroupBinding Unbound|Bound(typedID) exact applicablepayload, unboundrandom mission legitimate; victory Allies/Enemies/Stalemate and persistent resolution Defeated/DrivenOff/Captured/CaptureTargetKilled distinctsemanticowners. No neighboringconditionalpayload in thismodule. Authority ID serde admission and exactreceiptconsequencequantities remain other-lens obligations, not cleared by constructor tests.",
+      "finding_refs": [],
+      "disposition": "Existing explicit unbound/bound owner positive"
+    },
+    {
+      "indices": [
+        956
+      ],
+      "comparison": "Fresh96. MissionEnemyRoster private nonemptyunique capturedvector owns count derived at transport, errorsfinite; actualenemy population may exceedparty16limit, no forcedsharedlimit/duplicatecount. IDs rawnative identitybutnotenumindices.",
+      "finding_refs": [],
+      "disposition": "Captured roster and derived count positive; semantic party/enemy limits distinct"
+    },
+    {
+      "indices": [
+        957
+      ],
+      "comparison": "Fresh91. TacticalPartyRoster privateboundednonemptyuniquevector and derivedexpectedcount, no initializedbool or retainedparallelpopulationcount. Captured enrollmentorder preservesactualmembership; party16limitdistinctfromhostilecardinality. Tests sourceonly.",
+      "finding_refs": [],
+      "disposition": "Existing roster owner positive"
+    }
+  ],
+  "new_findings": [],
+  "limits": "Pinned source only. No execution, repairs or clearance."
+}

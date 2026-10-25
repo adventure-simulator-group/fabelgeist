@@ -1,0 +1,96 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-929",
+  "at": "2026-10-25T17:15:55.151558+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1118,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/inventory_amount.rs",
+      "sha256": "535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6",
+      "actual_EOF": 241,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/inventory_amount.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/inventory_amount.rs",
+        "sha256": "535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6",
+        "bytes": 7706,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                241
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-CUSTODY-FOOD-RECEIVERS-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 251,
+            "read_ranges": [
+              [
+                1,
+                241
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-OBJECT-CUSTODY-AMOUNT-084"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/inventory_amount.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 451,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          241
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "InventoryItemAmount/PartyItemAmount Clone/Debug/table"
+      ],
+      "absence_basis": "Full exact measured quantity source consumed, including fixture207\u2013241. No manual traits/codecs; native definition classification, checked persisted fraction, consume and move effects preserve identity/amount semantics. Structural derives already cover rows."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Measured amount derivability",
+      "disposition": "Retain fixed-point checked semantic operations and concrete missing-state errors. No additional serializer or raw construction derive; fixtures read only."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1119,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/inventory_container.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

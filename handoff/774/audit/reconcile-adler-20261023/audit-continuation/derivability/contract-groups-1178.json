@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1178",
+  "at": "2026-10-25T18:03:23.678891+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1276,
+  "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/expedition.rs",
+  "sha256": "a77ae88e526acb661515b4069d678cd7b7e42f278d4e8fc4cb2f1a317440246a",
+  "actual_compared_ranges": [
+    [
+      681,
+      1020
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Only inherent LiveRunner native idle return/surrender/recovery planning. Live public authority confirmed after command, selected context/site/provenance keys retained. Actor enum construction synthesizes role/operation from current party and recovery state; not From/default boilerplate. No handwritten trait/custom codec/local data type. No calls executed.",
+  "first_unfinished": {
+    "scope_index": 1276,
+    "line": 1021
+  },
+  "execution": "none"
+}

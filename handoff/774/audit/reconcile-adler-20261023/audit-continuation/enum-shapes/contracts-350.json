@@ -1,0 +1,96 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-350",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        471,
+        472,
+        473,
+        474,
+        475,
+        476,
+        477,
+        478,
+        479
+      ],
+      "ranges": {
+        "471": [
+          [
+            1,
+            165
+          ],
+          [
+            250,
+            279
+          ]
+        ],
+        "472": [
+          [
+            1,
+            40
+          ],
+          [
+            120,
+            133
+          ]
+        ],
+        "473": [
+          [
+            1,
+            137
+          ]
+        ],
+        "474": [
+          [
+            479,
+            507
+          ]
+        ],
+        "475": [
+          [
+            118,
+            209
+          ]
+        ],
+        "476": [
+          [
+            1,
+            170
+          ]
+        ],
+        "477": [
+          [
+            721,
+            747
+          ]
+        ],
+        "478": [
+          [
+            65,
+            169
+          ],
+          [
+            179,
+            268
+          ]
+        ],
+        "479": [
+          [
+            748,
+            809
+          ],
+          [
+            901,
+            939
+          ]
+        ]
+      },
+      "comparison": "Exact frozen unions only. Replication choices already use ReplicationMode, generic component/filter bundles and type-specific serialization functions; no numeric-index enum proposal. Client/server event registries bind event TypeId, message codec and trigger function together through generic constructors; unsafe erased-call safety contract remains explicit, no ordinary mismatched registration established. Mapped serialization clones/maps typed payload, ordinary serializers preserve the payload own Deserialize. Independent server-message delivery is a native transport policy axis, not conditional gameplay payload. RuleFns permits replacing in-place and consume callbacks independently because insertion/update/history are distinct operations; replacing them with one exclusive variant would lose supported combinations. consume_as_deserialize sets ignore_mapping before fallible decode, but actual context reuse/failure lifetime remains untraced and no ordinary corruption claim is promoted. Scoped fragments end inside declarations; no full-library credit or inference about unread tails.",
+      "finding_refs": [],
+      "disposition": "Existing typed native choices and independent codec axes; qualified context lifecycle question retained"
+    }
+  ],
+  "new_findings": [],
+  "limits": "Read-only exact source analysis; no execution, repair, plan or clearance."
+}

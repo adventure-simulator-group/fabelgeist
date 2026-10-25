@@ -1,0 +1,56 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-514",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-netcode/src/client.rs",
+      "sha256": "7efcd68002b4980f4d901f87a84c47dc0f697e35551b4fb3a13bc6ce80a1e770",
+      "actual_EOF": 1514,
+      "actual_compared_ranges": [
+        [
+          1,
+          1514
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-netcode/src/client/melee_preparation.rs",
+      "sha256": "bc62caee41b6c642c35101af3a0f5dee241c87afceff2d426fc038ec8740cf03",
+      "actual_EOF": 178,
+      "actual_compared_ranges": [
+        [
+          1,
+          178
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Held observation clock belongs to the previous sampled state",
+      "evidence": "Full client1514/melee178. Sprint update stagescopy, accumulates elapsed for previous downstate beforepress/release transitions, commits only checkedOk. MouseHeldAttack49\u201355 resets freshpress then accumulatescurrent endingframe delta; releasedstate excludesendingdelta. Same bounded ordinarysample witness as existinglens07CROSS-LENS002, notnewcount. Endingframe convention explicit sprint187\u2013189. Currentmousefixture731\u2013773 startsdelta0 and reuses holdtime onrelease; it doesnotcover unevenpress/release intervals. Bothmain/offhand use helper, holdclassificationandlocalvisualprogress share wrong sampledclock. Exacttypeguarantee finite clock preserved but semanticduration not."
+    },
+    {
+      "contract": "Attack preparation failure stages held clocks and completed progress",
+      "evidence": "EachHeldAttack islocalvalue, main/offhand checked_add and completed UnitInterval admitted before PreparedAttackInput publish. Positive threshold can make ratioInf but clamp1 is intentional completedprogress; zeroelapsed/strictpositive denominator produces0, not0/0. Onerrorpreviousattackedge retired, forcedtrigger notconsumed untilpublish; outercaps/sprint/posture/guard alreadymutated so notclaimwholeDirectControltransaction. Noordinaryfiniteclockoverflow onauthoredconfig/time demonstrated."
+    },
+    {
+      "contract": "Transient controls, sequence wrapping and network publication",
+      "evidence": "Fullclientqueuefunctions: jump/posturesequence wrapping intentional; localPlayerInputTick wrapping_next gives transportclock, not persistentID. Sender stampsscriptedrequests with simulationtick and sendsordinaryrequests; serveradmission remains owningboundary for rawmovement/look. Reconnectcredential process resource survives transport and onlyselectedmatchingCharacterId token used. Config validation/runtime install before clientresource replace; noDB tacticalstate. Existingkeyboard/controller latch/dive/roll/groundcontact fixtures personallyreadasassertionsonly, notruns."
+    }
+  ],
+  "findings": [
+    {
+      "id": "lens07:CROSS-LENS002",
+      "disposition": "same mouse elapsed-sampling candidate; independent04 source support",
+      "new_unique": false
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-netcode/src/message.rs"
+}

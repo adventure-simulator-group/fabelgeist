@@ -1,0 +1,86 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-089",
+  "at": "2026-10-23T01:35:19.591569+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/timeline.rs",
+      "sha256": "8be8fb9671dfce44ce30fa2a7738cc1ff52df15d2ee5517e8eef0aa1733c3d1a",
+      "actual_compared_ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "source_evidence": "Fresh whole literal currentPR source, except build.rs exact identical already fully read P16 body080 with independently compared current module/generation context. Diff verifies current changes, no hash-only verdict carry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/threat.rs",
+      "sha256": "58a5e53d2fdf5283f4e7ba8a58f1335f894bb6b4ab4524f3684f92bbca8dc106",
+      "actual_compared_ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "source_evidence": "Fresh whole literal currentPR source, except build.rs exact identical already fully read P16 body080 with independently compared current module/generation context. Diff verifies current changes, no hash-only verdict carry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/timeline.rs",
+      "sha256": "4e83c1f6cda9e4f7a8f9a19ac6c54119c67701f6d4dae37641c5e6b7b94b753d",
+      "actual_compared_ranges": [
+        [
+          1,
+          139
+        ]
+      ],
+      "source_evidence": "Fresh whole literal currentPR source, except build.rs exact identical already fully read P16 body080 with independently compared current module/generation context. Diff verifies current changes, no hash-only verdict carry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_exchange.rs",
+      "sha256": "24f36a32ff70fea580b9c7b902884edc25bf7c01b0d6feb3e03b35f257c93935",
+      "actual_compared_ranges": [
+        [
+          1,
+          293
+        ]
+      ],
+      "source_evidence": "Fresh whole literal currentPR source, except build.rs exact identical already fully read P16 body080 with independently compared current module/generation context. Diff verifies current changes, no hash-only verdict carry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/build.rs",
+      "sha256": "fc42ea1f2234144e94d6bfac86f254cd059799b9f9e5ae6de7f77e3125f19b7c",
+      "actual_compared_ranges": [
+        [
+          1,
+          509
+        ]
+      ],
+      "source_evidence": "Fresh whole literal currentPR source, except build.rs exact identical already fully read P16 body080 with independently compared current module/generation context. Diff verifies current changes, no hash-only verdict carry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/build/combat_resolution.rs",
+      "sha256": "edfd993d879e1cb771859c76510e7e78e3f612d2f22bacdff5a8ce923970d2ce",
+      "actual_compared_ranges": [
+        [
+          1,
+          275
+        ]
+      ],
+      "source_evidence": "Fresh whole literal currentPR source, except build.rs exact identical already fully read P16 body080 with independently compared current module/generation context. Diff verifies current changes, no hash-only verdict carry."
+    }
+  ],
+  "groups": {
+    "threat-input-and-bounds": "Actual authored profile/multiplier producers previously traced073: difficulty.max1 i32 converts below2^31; two u32 basis-point multipliers and fixedu16/1000 training multiplier bound all multiplications far belowf32MAX, includingbow2 andmoraleu8 scaling. Local combatant has not escaped on typed timing/sidearm admission failure. Primitive reach/grip/length/range constants finite and nonnegative, melee/ranged0 distinct applicability. P16 checked geometry integration changes errors but not source policy. No human-only mass restriction on supported nonhuman threat bodies.",
+    "timeline-quantization": "Current event holds BattleTime independently from native64Hz tick, so tick quantization/saturating float-to-u64 is native projection, not identity or replacement clock. Negative signedtime clips0; multiply huge acceptedtime may overflow then cast saturates byRustpolicy. Must not reuse tick for collision-free attack identity: RootF027 still required. Primitiveoptionalmeasure fields retain migration obligation; event at constructor just initializes None/empty; with_terminal local ownership. No new unique arithmetic bug.",
+    "timeline-evidence": "Singleton arrays prove [0], loops fixedtwo refs; firstcontact index+1<=actualVec.len, slice valid even absentcontact.64seed cancellation search bounded/earliest retained. Battles clone inputs and return local owned results; failure does not externally commit state. Primitive0.4 currentfixture adaptation tocheckedlength ordinary; no new tests/helpers. Cancellation comparisons inherit F027 IDcollision risk without claiming fixedIDs normal evidence collides.",
+    "exchange-operations": "Performance readmitted before multiplying rawprecision; rawprecision API not universally finite merely because performance isUnitInterval. Downstream04 contact/precision graphs remain separate, no blanket finite guarantee. Attacker selects for_melee but defender keeps base equipment, joining CameraF009 normal mixedloadout receiver; no new unique finding. Pure exchange returns aggregate only after computation, no external mutation/RNG consumption. Whole432case fixture uses3templates*2style*2fatigue*2dodge*2weight*3quality*3actual; templates explicitly3, opponents[0] existing roster producer proof. Preserve equation/draw/oracleintent with typed APIs, testsource read only.",
+    "build-host-and-native-emission": "build.rs exactbytesP16, same actual modulepaths/token-syntax APIs and serialized item inputs currentPR; source diagnostics bounded actual strings as080, no new numeric policy. Combat compiler validates f64positive/fractions/order before writing generated text. f64positive alone does not prove f32representability. Current nativef32 literal emission leaves formation/lunge-distance/threshold raw while P16 wraps SignedLength; checked durations/speeds reject invalid emitted constants. Emitter is actual format boundary, generated retained AutoresolveParameters consumer is not a blanket primitive exemption. Current config ordinaryvalues previously actualread080. build source decode ignores duplicated autoresolve mirrors and uses canonicalmovement/AI fields; preserve CameraF005 qualification, do not silently activate keys. File write failures/build panic are isolated generation failure, not player-state transaction."
+  },
+  "findings": [],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

@@ -1,0 +1,33 @@
+{
+  "id": "SEGOVB-INITIAL10-F006",
+  "classification": "source-backed maintenance suggestion",
+  "source_id": "physical-p16:crates/strategic-web/src/spacetimedb/types.rs",
+  "sha256": "df37c376e240735c231aaeca1737d1a0392643d37ab962f902a7d02df42ece02",
+  "ranges": [
+    [
+      302,
+      400
+    ],
+    [
+      980,
+      1025
+    ]
+  ],
+  "problem": "CatalogItemView handwrites fieldwise Default even though both explicit enum variants are already their owners derived defaults and all remaining fields use the same native defaults.",
+  "equivalent_implementation": "Add Default to CatalogItemView existing derive list and remove only manual Default980\u20131025.",
+  "source_proof": [
+    "Nongeneric record302\u2013400 contains String/Vec/Option/f32/u32/u16/u8/bool and Slot/CatalogItemKind/MeleeAttackStyle/WeaponSkillDistribution. Manual defaults980\u20131025 are empty/None/zero/false; latter two custom fields already explicitly call Default.",
+    "Exact frozen original116 item_catalog_schema.rs451\u2013472 defines Slot #[derive(Default)] #[default]None. Personal exact read dependency236 retained, not new baseline credit.",
+    "Exact frozen item_classification.rs8\u201322 defines CatalogItemKind #[derive(Default)] #[default]Simple; fresh-dependency-registration-236.json. Built-in Default derive therefore invokes same individual defaults without new generic bounds."
+  ],
+  "acceptance": [
+    "Preserve all record fields/visibility/owned outputs and exact default values.",
+    "Do not derive additional wire traits or remove semantic generated-row/core conversions.",
+    "No changes to generated SDK; keep native schema/checked identities/error contracts."
+  ],
+  "qualifications": [
+    "Optional mechanical cleanup, no runtime defect/compiler/test claim.",
+    "Full2523-line frozen owning role and exact record/default dependencies personally consumed; no child/generatedSDK or other-lens coverage transfer.",
+    "No unique global issue count inferred."
+  ]
+}

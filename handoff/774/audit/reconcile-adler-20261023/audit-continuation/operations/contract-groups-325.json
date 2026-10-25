@@ -1,0 +1,86 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-325",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_foot_frame.rs",
+      "sha256": "646358891b65b2efa4bb01c0c6ee805b0c111adc1eff16949499a91436d131a5",
+      "actual_EOF": 323,
+      "actual_compared_ranges": [
+        [
+          1,
+          323
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_foot_sections.rs",
+      "sha256": "43e6ef537032e0b98f260630a6d174d8d9b13226c31ee172162a50b37e8fd131",
+      "actual_EOF": 414,
+      "actual_compared_ranges": [
+        [
+          1,
+          414
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_footwear_fit.rs",
+      "sha256": "a5ff6c930746498007808fb52e47a2ef6971347270a35ce8e0eeec3c03c77b1e",
+      "actual_EOF": 284,
+      "actual_compared_ranges": [
+        [
+          1,
+          284
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Foot frame reductions reject missing support or invalid computed axes/extents before owned frame use",
+      "source_ranges": {
+        "device_foot_frame.rs": [
+          [
+            1,
+            323
+          ]
+        ]
+      },
+      "disposition": "Whole host and four embedded shaders personally read. Ordered positive/negative infinity sentinels initialize one floor and3min/3max bounds. Floor selects actual side x sign and non-NaN y; arbitrary body with no selected side leaves sentinel, and FINISH rejects nonfinite reduced values or nonorthonormal axes, nonpositive extents or nonfinite first15words. Normalized near-zero vector sets Coincident and deliberate temporaryYaxis; this is failure-stage placeholder, not successful repair. Completed frame.check/read from324 preserves status before host result. Exact host_float arithmetic intentionally prevents device fused-operation drift; no claim software arithmetic makes arbitrary sums/norms finite. Actual positive MHR foot/anterior/ankle geometry is producer input, not proven by raw rig labels. No ordinary current foot frame failure or GPU run."
+    },
+    {
+      "contract": "Footwear sections keep fixed profile layout and bounded mask shifts, with dependent sparse-support guarantees still explicit",
+      "source_ranges": {
+        "device_foot_sections.rs": [
+          [
+            1,
+            414
+          ]
+        ]
+      },
+      "disposition": "Whole414lines read in two chunks. record_any_region_support ensures<=32 before u32mask<<bit; empty0regions is representable and yieldsno support, distinct from forced nonempty policy. Source joint membership table and eight fixed weight slots stay coherent with admitted rig count. Native point buffers allocate16bytes/vertex and profile48sections*6words=288words. Ordered encoding agrees positive0/1 and signed sentinel order. NEAREST/SLICE/ENCLOSE run in sequence and use actual support w; all-sentinel/zero-support profile has no explicit failure status in this helper, so actual frame/lower-layer success and final part checks remain dependencies rather than inferred complete section. Sample interpolation denominator47 is fixed nonzero; minimum radius.008 and exponent2..4 require positive actual frame halfheight. Bounds pair index is actual1or2pair allocation from324; arbitrary wrong pair API use is not an ordinary witness. No new duplicate for inherited physical clearance type propagation."
+    },
+    {
+      "contract": "Footwear fitting preserves outward-only layer expansion and explicit native topology assumptions",
+      "source_ranges": {
+        "device_footwear_fit.rs": [
+          [
+            1,
+            284
+          ]
+        ]
+      },
+      "disposition": "Whole host/FIT/FAIR body read. ModesEnvelope/Layer map explicit pass codes; unused radii buffer4bytes is not indexed by FIT. Sole interior fan is intentionally retained; Layer transition.04 and fairing window-.05..+.08 use actual lowest of2garment hems. 48profile samples choose adjacent index<=46 and smoothed neighbors clamp0..47. Radius/height denominator guarantees rely on successful measured profile/frame, not native float names. FAIR allocates2*n floats via count*8bytes;64even passes alternate exact halves with storage barriers and use final first half. Inferred ring_size requires nonempty finite initial ring and uniform carrier row arity; FIT comment mentions central fan, so actual extremity producer must prove layout before this is cleared. No completed ordinary mismatch established; parent notified unresolved producer dependency, not a new finding. If ring_size0, n/size and i/size lack guard; actual part producer/failed-frame status must decide reachability. Outward max smoothing/final expansion intentionally do not shrink a fitted boot; no posed clearance guarantee. No GPU/shader/test execution."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-character-creator/src/device_frames.rs"
+}

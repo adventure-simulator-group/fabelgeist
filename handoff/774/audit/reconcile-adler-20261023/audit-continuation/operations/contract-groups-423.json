@@ -1,0 +1,159 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-423",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/skin.rs",
+      "sha256": "7d3de24eaaf295e510aeb41c6bd8e6f5d5204beea0b976cbc16cb617d862c7a4",
+      "actual_EOF": 111,
+      "actual_compared_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/slot_selection.rs",
+      "sha256": "95cb7d00f5f9c53287ed626304bd1914c958f7ee38933a8906a354ca12610678",
+      "actual_EOF": 243,
+      "actual_compared_ranges": [
+        [
+          1,
+          243
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/main.rs",
+      "sha256": "11642eae7fcc7b877302b99cb6eb0cb62ee45c7fe0df07541fb06607c159f875",
+      "actual_EOF": 609,
+      "actual_compared_ranges": [
+        [
+          1,
+          609
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/movement_audio.rs",
+      "sha256": "f5c454510c3069982a265c36de6013d01d6c00c12aff6c90c05b60ddcb610292",
+      "actual_EOF": 370,
+      "actual_compared_ranges": [
+        [
+          1,
+          370
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/player/action_clock.rs",
+      "sha256": "1b21e39987ef8116d961373662e3566233e45bff974103bf29e399d4defaa9dd",
+      "actual_EOF": 201,
+      "actual_compared_ranges": [
+        [
+          1,
+          201
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/player/attack_start.rs",
+      "sha256": "9217876cb451796dde9e82c22f7a9533fbe263ebe21068756fb672e66eb622cf",
+      "actual_EOF": 453,
+      "actual_compared_ranges": [
+        [
+          1,
+          453
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/player/quickstep_trace.rs",
+      "sha256": "d4c445ad8881a51294103c9f7ee9ef4024f1a3d64692356dfa8ac21f93604346",
+      "actual_EOF": 128,
+      "actual_compared_ranges": [
+        [
+          1,
+          128
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Skin transfer and slot cycling",
+      "analysis": "Owner/name table is rebuilt each sync; incomplete desired joint lookup removes existing skin, complete mapping updates joints and uses part bindposes. Existing same-joints/different-bindposes only would not update, but actual generation replaces entities, so no established stale-binding route. Repeated input index comes from a prior eligible bounded location; loop over empty mapping never enters modulus, depth narrowing fails rather than truncates. Personally read transfer/drop and reversed-allocation fixtures; not run."
+    },
+    {
+      "contract": "Main binary admission and modes",
+      "analysis": "Native and WASM graphics/audio parse before app run; native asset directory validated; initial_tactical gates connection spawn while persistent strategic boot uses false. Explicit present/window modes map exhaustively. Render error policy intentionally ignores pipeline errors for continuing presentation; no renderer success implied. Current main establishes custom audio configuration install path for arithmetic candidate, not a native execution witness."
+    },
+    {
+      "contract": "Movement audio and temporal retention",
+      "analysis": "Wind basis points saturate to unit and threshold strictly below one prevents zero divisor; positive exponent and unit volume bound wind gain. Tactical Player filter prevents strategic display audio state; grounded dive active edge retained only after valid position and output queued. Invalid position leaves state for retry. Spatial point admission precedes native coordinate publication. Pitch interpolation endpoints finite positive ordered; completed base*pitch not readmitted, see candidate. Extremely large radius squared may overflow and collapse spatial distinction but no ordinary admitted asset witness promoted."
+    },
+    {
+      "contract": "Predicted attack timing publication",
+      "analysis": "animation_ticks/delay_ticks reject nonfinite seconds-product then deliberately retain finite saturating native integer conversion; elapsed checked-add precedes deadline construction. Tick addition/subtraction explicitly saturates, with bounded terminal ordering delegated to begin_attack_timed. Prepared melee/ranged AttackState is built before skeleton admission and command publication, and failed preparation leaves no ECS attack state. Busy melee buffers explicitly. Buffered retry retains request when weapon/target/admission fails; no assumed failed-clock consumption. Seconds-versus-sample minimum and continuation replicated clock distinct intentional contracts. Fresh quickstep trace observes/logs mismatch only, no movement mutation; cached observation deliberately emits only changed action/actuator/start tick."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-AUDIO-PITCH-PRODUCT-CANDIDATE-001",
+      "kind": "source-backed admitted custom-configuration arithmetic candidate",
+      "operation": "movement_audio.rs:303-310",
+      "admission": "audio_config.rs:120-132,175-197 positive finite rustle pitches and positive ordered pitch range",
+      "witness": "Representable admitted config tall_grass_rustle_pitch=f32::MAX, movement.pitch_randomization=[2,2]. Interpolated pitch remains 2 for every inclusive sample; base_speed*pitch overflows to Inf, published to PlaybackSettings.speed. Rustle route actual play_locomotion_audio -> spawn_rustle -> spawn_spatial_sound. No randomized endpoint assumption required.",
+      "consumer": "main.rs native --audio-config load and wasm_run/wasm_boot parse install validated config; movement sound ECS playback settings receive unadmitted completed speed.",
+      "qualifications": [
+        "No custom configuration installed, no native audio execution or actual playback failure asserted.",
+        "Frozen assets/config/tactical-audio.yaml actual pitches1.12/.88, range.94..1.06 produce normal finite speeds.",
+        "Root searched 1002 archived records for playback/spawn_spatial_sound/pitch_randomization and overflow terms, no indexed exact match; this is not exhaustive semantic alias proof.",
+        "Finite operands alone are insufficient; no demand for arbitrary restrictive pitch maximum if completed-product rejection or safe arithmetic owns the policy."
+      ],
+      "dependencies": [
+        "existing audio admission owner and actual playback speed boundary",
+        "main custom configuration admission",
+        "archive canonical alias resolution pending"
+      ],
+      "acceptance": [
+        "Every admitted rustle base/range combination must yield finite positive native playback speed or reject before sound publication, with explicit failure policy.",
+        "Preserve authored volume/pitch randomization and deterministic sample selection; exercise current normal configuration and representative extreme finite product."
+      ]
+    }
+  ],
+  "fresh_dependencies": [
+    {
+      "source": "pr-working:crates/adventuresim-tactical-client/src/audio_config.rs",
+      "ranges": [
+        [
+          1,
+          206
+        ]
+      ],
+      "coverage": "already personally credited role, fresh full dependency reread; no extra credit"
+    },
+    {
+      "source": "dependencies-423/tactical-audio.yaml",
+      "ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "coverage": "fresh exact PR asset dependency, provenance.json; no original role credit"
+    }
+  ],
+  "status": "7 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings.rs"
+}

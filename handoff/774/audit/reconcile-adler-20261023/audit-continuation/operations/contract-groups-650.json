@@ -1,0 +1,84 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-650",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/inventory_containers.rs",
+      "sha256": "4feda6b091c108a9cb8def2cfa8cd63c6fd7123d64c3584d308dec283048d50a",
+      "actual_EOF": 256,
+      "actual_compared_ranges": [
+        [
+          1,
+          175
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2747"
+    },
+    {
+      "source_id": "physical-p16:crates/strategic-web/src/routes/parties.rs",
+      "sha256": "ab69f73988cfe3ec66925ba43a1060eee98e493f0859e60be2e325e18a89ad96",
+      "actual_EOF": 878,
+      "actual_compared_ranges": [
+        [
+          355,
+          581
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2801"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/enrollment.rs",
+      "sha256": "9d6646ad8d4c3da14afcf544a8426c44afd33921fc4c39d20f4e2c09a49aa5f1",
+      "actual_EOF": 189,
+      "actual_compared_ranges": [
+        [
+          1,
+          125
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2814"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/receipt.rs",
+      "sha256": "24e17b0e16c1731ef4fa81d7e8f2448cd42b12b6b75dbbe16bc502f0f606508d",
+      "actual_EOF": 102,
+      "actual_compared_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2815"
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Canonical containment mutation and checked capacity preservation",
+      "evidence": "Inventory1\u2013175 read. Graph owns private object/parent maps; construction rejects duplicate ID/nonpositive exterior/more measured than exterior. insert checks cycle/depth including descendants before remove/replace; computes immediate child displacement only and checked capacity, restoring prior parent on fit failure.",
+      "qualifications": [
+        "After remove(child), used_volume(parent)? syntactically precedes restoration, but private valid graph inductively preserves each existing parent used<=capacity<=u64MAX and object membership, so that sum cannot overflow or find unknown object under current public mutations. No ordinary lost-parent defect promoted from ? alone.",
+        "Native traversal MAX_DEPTH*objectlen and theoretical index/count work capacities remain actual allocation-domain premise; no infeasible huge graph or externally corrupted private map invented."
+      ],
+      "acceptance": "All admitted moves maintain acyclic depth<=16 and immediate-volume capacity; rejection retains prior membership, preserve measured liquid vs vessel exterior and no double-count grandchildren."
+    },
+    {
+      "contract": "Recruitment capability projection and exact tactical enrollment/receipt operations",
+      "evidence": "Parties355\u2013581/enrollment1\u2013125/receipt1\u201376 read. Recruitment local queries collect actual member capability cohorts, aggregate checks, compute candidate contribution via canonical helpers and render. Enrollment seals once expected observed distinct IDs and no loading; Duration saturating empty timer, nonempty resets, sealed membership reconnect only. Receipt maps exact body injury fields, adds contact-only character defaults, sorts party then truncates; maps complete contacts.",
+      "qualifications": [
+        "Recruitment query errors can omit rows/default contributions and refresh calls are external reducer side effects; no consistent-snapshot or actual failure/run asserted. Current chronology/observer capability qualification remains actual query/API owner.",
+        "Observed enrollment IDs are role-correct but actual authorized party membership must be enforced by caller; expected count alone not membership proof. Reconnect grace0 intentionally can immediately abandon even nonempty since zero>=zero, policy/config premise not new ordinary defect.",
+        "Receipt truncation can omit high-ID party while contacts retained if accumulator exceedsMAX; actual accumulator/native participant admission and reducer maximum/contacts membership must establish coherence. No actual oversized accepted party or duplicate defect count."
+      ],
+      "acceptance": "Actual authoritative participant membership/capacity and exact consequence fields survive receipt projection; enrollment timer/state/reconnect behavior and UI aggregation preserve canonical helper contracts without persisting transient tactical tick state."
+    }
+  ],
+  "findings": [],
+  "status": "Qualified material ranges personally analyzed; whole04 remains incomplete.",
+  "first_unfinished": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/report.rs",
+  "source_edits": false,
+  "project_execution": "none"
+}

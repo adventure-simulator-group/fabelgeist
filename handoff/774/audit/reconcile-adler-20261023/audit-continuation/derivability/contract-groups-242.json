@@ -1,0 +1,381 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-242",
+  "at": "2026-10-25T14:04:46.208939+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 478,
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/replication/registry/rule_fns.rs",
+      "sha256": "07f3f73daff9344750ec08f54bd9acc8abec4a946040369ce1573c2b6a6b1073",
+      "actual_EOF": 348,
+      "requested_registration": {
+        "source_id": "pinned-bevy_replicon-0.41.1:src/shared/replication/registry/rule_fns.rs",
+        "snapshot": "pinned-bevy_replicon-0.41.1",
+        "path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_replicon-0.41.1\\src\\shared\\replication\\registry\\rule_fns.rs",
+        "sha256": "07f3f73daff9344750ec08f54bd9acc8abec4a946040369ce1573c2b6a6b1073",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "native",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 348,
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-TACTICAL-RECEIVERS-044",
+            "json_pointer": "/additional_actual_source_proofs/40",
+            "source_id_as_recorded": "pinned-bevy_replicon-0.41.1:src/shared/replication/registry/rule_fns.rs",
+            "read_ranges_as_recorded": [
+              [
+                65,
+                115
+              ]
+            ],
+            "source_context": {
+              "source_id": "pinned-bevy_replicon-0.41.1:src/shared/replication/registry/rule_fns.rs",
+              "sha256": "07f3f73daff9344750ec08f54bd9acc8abec4a946040369ce1573c2b6a6b1073",
+              "actual_line_count": 348,
+              "read_ranges": [
+                [
+                  65,
+                  115
+                ]
+              ],
+              "resolved_path": "CARGO_REGISTRY/bevy_replicon-0.41.1/src/shared/replication/registry/rule_fns.rs",
+              "method": "Fresh exact installed dependency body only at actual receiving callback/byte/physical/network ports; package versions matched existing Cargo.lock, no project execution or whole dependency clearance."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-COMBAT-RECEIVER-CLOSURE-020",
+            "json_pointer": "/source_reads/40",
+            "source_id_as_recorded": "pinned-bevy_replicon-0.41.1:src/shared/replication/registry/rule_fns.rs",
+            "read_ranges_as_recorded": [
+              [
+                65,
+                115
+              ]
+            ],
+            "source_context": {
+              "source_id": "pinned-bevy_replicon-0.41.1:src/shared/replication/registry/rule_fns.rs",
+              "sha256": "07f3f73daff9344750ec08f54bd9acc8abec4a946040369ce1573c2b6a6b1073",
+              "actual_line_count": 348,
+              "read_ranges": [
+                [
+                  65,
+                  115
+                ]
+              ],
+              "resolved_path": "CARGO_REGISTRY/bevy_replicon-0.41.1/src/shared/replication/registry/rule_fns.rs",
+              "method": "Fresh exact installed dependency body only at actual receiving callback/byte/physical/network ports; package versions matched existing Cargo.lock, no project execution or whole dependency clearance."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved",
+        "admission03_increment050_role_observations": [
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 21,
+            "registration_id": "NATIVE-ADMISSION03-REG-021",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-021",
+              "at": "2026-10-22T07:51:31.565580+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "pinned-bevy_replicon-0.41.1:src/shared/replication/registry/rule_fns.rs",
+              "sha256": "07f3f73daff9344750ec08f54bd9acc8abec4a946040369ce1573c2b6a6b1073",
+              "snapshot": "pinned-bevy_replicon-0.41.1",
+              "actual_EOF": 348,
+              "material_ranges": [
+                [
+                  116,
+                  169
+                ],
+                [
+                  179,
+                  268
+                ]
+              ],
+              "role": "Complete actually reached Replicon RuleFns default/new_as/function-pointer decoder/in-place/consume and From<T> adapter route for originalNative71 replication-native boundary",
+              "reason": "Original65\u2013115 ends at with_in_place body and lacks actual default Deserialize route. Admission03 must establish exact generic decoder admission rather than assume native codec validates application invariant.",
+              "exclusions": "No Diffable/diff decoder graph, registry implementation, unrelated package or native app business policy.",
+              "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_replicon-0.41.1\\src\\shared\\replication\\registry\\rule_fns.rs",
+              "status": "registered_before_direct_adapter_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADMISSION03-QUAL-021",
+                "registration_id": "NATIVE-ADMISSION03-REG-021",
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-021",
+                  "at": "2026-10-22T07:51:31.565580+00:00",
+                  "authority": "continuation/root/admission03-discovery-authority-043.json",
+                  "source_id": "pinned-bevy_replicon-0.41.1:src/shared/replication/registry/rule_fns.rs",
+                  "sha256": "07f3f73daff9344750ec08f54bd9acc8abec4a946040369ce1573c2b6a6b1073",
+                  "snapshot": "pinned-bevy_replicon-0.41.1",
+                  "actual_EOF": 348,
+                  "material_ranges": [
+                    [
+                      116,
+                      169
+                    ],
+                    [
+                      179,
+                      268
+                    ]
+                  ],
+                  "role": "Complete actually reached Replicon RuleFns default/new_as/function-pointer decoder/in-place/consume and From<T> adapter route for originalNative71 replication-native boundary",
+                  "reason": "Original65\u2013115 ends at with_in_place body and lacks actual default Deserialize route. Admission03 must establish exact generic decoder admission rather than assume native codec validates application invariant.",
+                  "exclusions": "No Diffable/diff decoder graph, registry implementation, unrelated package or native app business policy.",
+                  "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_replicon-0.41.1\\src\\shared\\replication\\registry\\rule_fns.rs",
+                  "status": "registered_before_direct_adapter_body_analysis"
+                },
+                "original_requested_context_ranges": [
+                  [
+                    116,
+                    169
+                  ],
+                  [
+                    179,
+                    268
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    116,
+                    169
+                  ],
+                  [
+                    179,
+                    268
+                  ]
+                ],
+                "qualification": "Directactual RuleFns codec/in-place/consume route andnativeFrom adapter only; no blanket firstpartybody/foreignwholefile waiver.",
+                "current_admission_proof_refs": [
+                  "contract-groups-047.json#native-network-physics-codec-boundaries"
+                ],
+                "frozen_hash_eof_verified": true,
+                "semantics_from_hash_or_ranges": false,
+                "global_reconciliation": "Root authority; raw original registration retained; no globalacceptance from this localqualification",
+                "producer_owner_later_lens_credit": false
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                116,
+                169
+              ],
+              [
+                179,
+                268
+              ]
+            ],
+            "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_replicon-0.41.1\\src\\shared\\replication\\registry\\rule_fns.rs",
+            "actual_EOF": 348,
+            "bytes": 11816
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          55,
+          169
+        ],
+        [
+          179,
+          268
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "From<RuleFns<C>>",
+          "type": "UntypedRuleFns",
+          "lines": [
+            55,
+            71
+          ],
+          "disposition": "KEEP native function-pointer type erasure via transmute plus TypeId/ShortName authority; not fieldwise owned conversion derive."
+        },
+        {
+          "trait": "Default",
+          "type": "RuleFns<C>",
+          "lines": [
+            179,
+            186
+          ],
+          "disposition": "KEEP exact generic codec function installation and bounds; fieldwise Default does not install selected callbacks."
+        }
+      ],
+      "existing_derives": "No equivalent structural derive for context-bearing native function pointer record.",
+      "absence_basis": "Each stated range personally reread and reconciled under this separately named pinned-bevy_replicon namespace; original470 different namespace/selectedranges remains independent evidence. No hash-only role credit. Native postcard/map_entities/ignore_mapping and owned clone/Into adapters are semantic functions. Not whole348-line source.",
+      "necessary_signature_extension": {
+        "additional_ranges": [
+          [
+            55,
+            64
+          ]
+        ],
+        "reason": "Registered65 begins inside type-erasing From body; consume whole exact trait implementation."
+      }
+    },
+    {
+      "scope_index": 479,
+      "source_id": "pinned-bevy_replicon-0.41.1:src/shared/replication/rules.rs",
+      "sha256": "037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+      "actual_EOF": 1386,
+      "requested_registration": {
+        "source_id": "pinned-bevy_replicon-0.41.1:src/shared/replication/rules.rs",
+        "snapshot": "pinned-bevy_replicon-0.41.1",
+        "path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_replicon-0.41.1\\src\\shared\\replication\\rules.rs",
+        "sha256": "037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "native",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 1386,
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-TACTICAL-RECEIVERS-044",
+            "json_pointer": "/additional_actual_source_proofs/41",
+            "source_id_as_recorded": "pinned-bevy_replicon-0.41.1:src/shared/replication/rules.rs",
+            "read_ranges_as_recorded": [
+              [
+                748,
+                809
+              ],
+              [
+                901,
+                939
+              ]
+            ],
+            "source_context": {
+              "source_id": "pinned-bevy_replicon-0.41.1:src/shared/replication/rules.rs",
+              "sha256": "037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+              "actual_line_count": 1386,
+              "read_ranges": [
+                [
+                  748,
+                  809
+                ],
+                [
+                  901,
+                  939
+                ]
+              ],
+              "resolved_path": "CARGO_REGISTRY/bevy_replicon-0.41.1/src/shared/replication/rules.rs",
+              "method": "Fresh exact installed dependency body only at actual receiving callback/byte/physical/network ports; package versions matched existing Cargo.lock, no project execution or whole dependency clearance."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-COMBAT-RECEIVER-CLOSURE-020",
+            "json_pointer": "/source_reads/41",
+            "source_id_as_recorded": "pinned-bevy_replicon-0.41.1:src/shared/replication/rules.rs",
+            "read_ranges_as_recorded": [
+              [
+                748,
+                809
+              ],
+              [
+                901,
+                939
+              ]
+            ],
+            "source_context": {
+              "source_id": "pinned-bevy_replicon-0.41.1:src/shared/replication/rules.rs",
+              "sha256": "037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+              "actual_line_count": 1386,
+              "read_ranges": [
+                [
+                  748,
+                  809
+                ],
+                [
+                  901,
+                  939
+                ]
+              ],
+              "resolved_path": "CARGO_REGISTRY/bevy_replicon-0.41.1/src/shared/replication/rules.rs",
+              "method": "Fresh exact installed dependency body only at actual receiving callback/byte/physical/network ports; package versions matched existing Cargo.lock, no project execution or whole dependency clearance."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          748,
+          809
+        ],
+        [
+          892,
+          955
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "AppRuleExt for App",
+          "lines": [
+            892,
+            955
+          ],
+          "disposition": "KEEP registration mutating native hasher, required component policy, registry/scope and priority/filter insertion. Extension defaults carry native generic bounds/priority selection, not derivable trait delegation."
+        }
+      ],
+      "existing_derives": "Documentation sample components/nativeSerde derive already used; exploratory ReplicationRules Resource/Deref/Default/Clone958\u2013959 not whole type body credited.",
+      "absence_basis": "Exact material748\u2013809/901\u2013939 personally consumed plus implementationheader/resource adapter892\u2013900 and final bundle registration closure940\u2013955. All scoped methods native semantic registration; no standard trait/serde boilerplate. Different namespace/ranges from471 freshly analyzed, not hash stamp. Not whole1386-line dependency.",
+      "necessary_signature_extension": {
+        "additional_ranges": [
+          [
+            892,
+            900
+          ],
+          [
+            940,
+            955
+          ]
+        ],
+        "reason": "Actual enclosing trait implementation start and full reached bundle registration body."
+      }
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Native typed callback erasure and registry mutation",
+      "disposition": "Keep bespoke behavioral/native trait implementations; no derivability replacement.",
+      "acceptance": "Preserve TypeId/function correspondence, generic native codec bounds, context/error policies and exact registration priorities/filters. No library-wide/other-lens clearance."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 480,
+    "source_id": "pinned-registry:avian3d-0.7.0/Cargo.toml"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

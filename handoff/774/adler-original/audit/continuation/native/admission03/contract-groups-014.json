@@ -1,0 +1,41 @@
+{
+  "id": "NATIVE-ADMISSION03-CONTRACT-GROUPS-014",
+  "lens": "audit-admission-contracts",
+  "groups": {
+    "hand-native-target-admission": {
+      "indices": [
+        195
+      ],
+      "invariant": "Client-only hand/worldtarget and weaponlocal secondary grip rawnativeposition/optionalquat, with checkedUnitIntervalweight; closedHandSide and optionalabsence meaningful.",
+      "routes": "HandIkTarget publicVec3/OptionQuat/typedweight, HumanoidIkTargets publicOptions DefaultNone, HeldWeaponConstraint publicnativeowner/closedside/OptionVec3, allliteral routes, noSerde/Reflect/rawweightadmission. Private HandChain only2codeowned typed constants. Derivedoffhandtarget rawweapontransformpoint +weightONE thenordinaryliteral; applyhand finiteObservedRigFrame factory current194 andcheckedsegmentmeasure204 precede analyticnativeChain207. ArmMemoryrawbends onlynative normalizedsolverresult. set_bone_world_rotation checkscandidatefinite thennativenormalize; set_world_transform checkslocaltranslation/rotationfinite butnotuniversalunit/scale guarantee. Full391 incl all194–212/353–391originaltestsread.",
+      "counterexample": "DirectHandIkTarget translationNaN/rotationNaN representable rawsource; actualsolver mayreturnNone/finitewriteguard skips, not invalidUnitInterval. Missingtargets/socket/bones intentionallyinert, weight0skip. Broadrawtargetcontract mustnotpromote tocheckedScenePosition/unitRotation solelyfieldname.",
+      "repair": "Existing raw target/weapon/worldframe owner-strengthening support only, no new03 checkedconstructorbypass. Preservemissingfallback and authoredsocketnativescale semantics.",
+      "acceptance": "Allnewrefinedweight/length/frameadmissions useactualcurrentcanonicalgate; rawposition/quaternion remainexplicit inputdomain, no tacticreplication/persistence. Later04/05/11 separate.",
+      "connected_repair": "Existing connected-repair-map whole-function/record claims unchanged; read-only supplier only; no laterlenscredit."
+    },
+    "ordinary-ik-pelvis-state-admission": {
+      "indices": [
+        196,
+        197
+      ],
+      "invariant": "Private OrdinaryLocomotionIkState defaultPending/missingevaluation, trackingcheckedSignedLength; helperrecordsclosedroles/checkedweights. Rawtarget/nativepose remainsbroader.",
+      "routes": "PelvisShiftState private enum DefaultPending/Tracking{checkedSignedLength}; only advance usesalreadytypeddesired/current orcheckedadvance_pelvis_shift thenliteral. OrdinaryState privatefields DefaultPending/None, noSerde/Reflect/rawfactory. actualclockdedup returnscheckedfixedelapsed/typedZERO orcanonicalNativeDuration→Elapsed. OrdinaryLeg superpublicrecordtypedroles/foot/UnitInterval, norawinputweight/newdecode. Actualcomputeddesiredpelvis_nativefold→SignedLengthchecked beforeobserve, targethelperResult andcheckedLimbSegments→nativeTwoBoneChain. Support outputs onlyexistingUnitInterval/constant. Memoryliteral uses typedleaves/rawtargets andactualpublish gate209, so semanticbodydoesnotassertallrawfieldsfinite.",
+      "counterexample": "Nativeauthorpos maybad, actualcanonicalterrainquery/checkedsegment/publish guardrejectrelevanttargets. Assignment memory.left/right_foot_target=targets303–315 copiesnativeworldcoords intorawfield withowner-like role; frame/correlatedmigration remainsowner/11 obligation, nofiniteadmissionclearance inferred. ZeroelapsedholdsTracking; firstsamplePendingtakesdesired, no fabricatedzeroobservation. Full526/121 incl original387–526tests readunexecuted.",
+      "repair": "Existing precise rawframe/source propagation claims support; no newrefinedadmissionbypass. CanonicalSignedLength Root001 currentbodycheckedSerde/private/defaultzero; frame194 andlength204 currentNativeactualproofconsumed.",
+      "acceptance": "EveryretainednewSignedLength checkedandallclosed/defaultbranches valid, preserve actualclockauthority/None/zero/nativeerrorpolicies. No generalgeometryorcolumnalignmentclaim.",
+      "connected_repair": "Existing connected-repair-map whole-function/record claims unchanged; read-only supplier only; no laterlenscredit."
+    },
+    "propagated-endpoint-admission": {
+      "indices": [
+        199
+      ],
+      "invariant": "Observed rendered endpoints finite before namedendpoint-retention; orientations finite nonunitallowed, reportedcontactweights0..1, optionalobservationsnotzeroassumption. WholeLegMemory remainsrawstagingtype.",
+      "routes": "Private observe_rendered_endpoints snapshotsfourOptionalVec3 andtwoOptionalQuat fromactualSDKGlobalTransform, checksallpositions thenallrotations beforewrites63–68; no newtypes/Serde/Reflect/default. Actualrefresh frame::from_global194, endpointgate thenownerprojectionfiltersfinite andrealframecopy; seedQuickstep actualworld+ownerfinite gate208 consumed. observed_support_weight buildsSomeONE/ZEROonly after actualnativepoint/terrain ordisabledsemanticpolicy; missingpoint/terrain→None. Remaining coordination/sequence helpers chooseexistingtypedleaves/constants/closedbool; no uncheckedrawnumericadmission. refreshRun nativeanklefilterfinite beforelookup; outputtypedobservedweightcopy.",
+      "counterexample": "EndpointNaN returnsWorldPosition beforeallendpointwrites; badrotationreturnsBodyOrientation. Subsequentpublicrawrecord/directstate paths remainbroader (group013), namedhelperdoesnotmakeallmemoryprivatefinite. ModeDisabled yieldssemanticconfidencewithoutterrain, intentionallydifferentactualsurface evidence. Full453lines read, nooriginaltestsinthefile. CanonicalScenePlanPoint/SupportElevation current03supplierdefinitioncomparisonrequested separately; no extra source scope claimed fromcallname.",
+      "repair": "Existing raw-publicationboundary/scene-authority ownerclaims support, no new03constructorbypass; F003explicitValidated finitepromise separate.",
+      "acceptance": "Namedobservationaladmission gates retainfiniteendpoints+realoptionalframe with errororder, typedsupportvaluesneverrawfloats; all source-specific terrain/disabled/missingpolicies preserved, no universalvalidatedmemoryclaim.",
+      "connected_repair": "Existing connected-repair-map whole-function/record claims unchanged; read-only supplier only; no laterlenscredit."
+    }
+  },
+  "later_lens_credit": false
+}

@@ -1,0 +1,166 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-103",
+  "at": "2026-10-25T16:36:40.471181+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1460,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera.rs",
+      "sha256": "4d7aab7742753836f2384c8cd1095148537193d23ba45c3f5bac3762dabc6fa9",
+      "personally_read_ranges": [
+        [
+          1,
+          185
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "CameraRigObservation binds frame positions, velocity, distances, hard collision, soft occlusion and subject context from one actual observation. Anchor, focus and collision origin have deliberately different roles. CameraAimObservation keeps camera/muzzle origins, resolved targets and optional hit identities; blocked requires a muzzle hit different from the camera hit. No all-points-hit constraint. One observation resource is overwritten per camera; actual intended camera singleton matters, but no normal multi-camera witness. Mode/debug booleans each represent a policy axis, not every predicate requiring an enum."
+      ]
+    },
+    {
+      "scope_index": 1461,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/aim.rs",
+      "sha256": "cbbc59d3f49773f1c5030d3399c0dc94533f46afd5e022ea3adda5eda284c339",
+      "personally_read_ranges": [
+        [
+          1,
+          94
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Whole aim construction completes in a closure and old aim is cleared first; Err never publishes stale previous aim. Actual camera/controller positions are admitted at the native boundary. Muzzle displacement/norm can overflow despite finite component leaves, while zero displacement is legitimate; derived-direction fallback must distinguish these if claiming coherent geometry. Existing F02 geometric-result cause contract is the shared dependency, no normal extreme caller asserted."
+      ]
+    },
+    {
+      "scope_index": 1462,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/collision.rs",
+      "sha256": "e57c0f4f3a2b7f4cb749b5e1ca57628e9e5ef864f1bd4365fe48313a3f426c3e",
+      "personally_read_ranges": [
+        [
+          1,
+          339
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "CloseCameraProfile independently admitted finite start/full distances do not establish start>full. Equal distances can create 0/0 at the blend, then downstream Position admission rejects; reversed endpoints reverse intended framing. Actual shipped defaults1.8>.65 are coherent. Record as aggregate-policy/admission strengthening question at canonical camera config, not an ordinary broken camera or invented positivity policy. CameraVolume center, size and native shape are one constructed collider relation; independent pub(crate) mutation is a representable weakness without an actual bad mutator witness.",
+        "F02 exact sweep160\u2013168 converts failed Dir3 into full-clear fraction1/hitNone, conflating legitimate zero displacement and unrepresentable derived geometry. Native physics hit joins fraction/entity/normal from one response. BoomRecovery prepares distance/velocity together, holds use explicit duration policy. place works on a local recovery clone, checks final swept candidate and position before committing; no unswept framing-offset or global partial-write claim."
+      ]
+    },
+    {
+      "scope_index": 1463,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/collision/tests.rs",
+      "sha256": "64b2d4cf55741173468cc58b7c98013529ad4004d7aa164c6d9f0728e2616e64",
+      "personally_read_ranges": [
+        [
+          1,
+          296
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full296 existing camera fixture source read; no execution. Historical assert!(...).unwrap()108\u2013113 is exact CAMERA-ADM03-F013/CAM-PROP-F013, but direct PR6533\u2192merged13fc comparison removes only the unit unwrap. Retain historical finding as resolved in merged source, not current compilation failure or a green-check claim. Existing clear wall/corner/lag/near-plane/doorway recovery oracles remain."
+      ]
+    },
+    {
+      "scope_index": 1464,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/config.rs",
+      "sha256": "62f911a33b3857f7f42007f9773937a09e031bc7944bcf57536a64a030a6b9fa",
+      "personally_read_ranges": [
+        [
+          1,
+          142
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Default CameraProfile/RigConfig values are actual coherent authored constants; role-specific positivity/order cannot follow from SignedLength alone. CAMERA-INITIAL07-F067 exact duplicated close defaults currently agree; one const factory must preserve signed offsets and operation order. Do not merge independent smoothing axes merely because literals agree."
+      ]
+    },
+    {
+      "scope_index": 1465,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/rig.rs",
+      "sha256": "1ec50b293b57a16a3f213a4e26d2a6a6f3d69500f61d3f586939745bc2978d01",
+      "personally_read_ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Profile advance commits before pose input/prepare. It is an independent temporal transition intentionally retained across a failed pose observation, so do not claim whole system atomicity. Observe clones pose history, prepare mutates the candidate, and commit/transform/debug occur only after complete success. Error clears debug. Native elapsed cap then checked AnimationElapsed and Offset\u2192Aim scheduling are actual ports/ordering."
+      ]
+    },
+    {
+      "scope_index": 1466,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/rig/observation.rs",
+      "sha256": "a0a88df02f4d557950c09e55645900e75731a2817d9d422b636fe3126f062ef1",
+      "personally_read_ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Input binds subject identity/origin/anchor/rotation/profile/blend/elapsed from the same observation. prepare_follow updates only local next history before fallible later geometry, so no global shoulder partial commit. Hard collision excludes intended soft occluders. Soft observation83\u2013103 derived norm/Dir3 fallback is existing F02 dependency, with legitimate zero distinct from invalid derived geometry. Maximum follow error normalization also needs representable-result contract without assuming normal huge positions."
+      ]
+    },
+    {
+      "scope_index": 1467,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/rig_history.rs",
+      "sha256": "6b8831f4120039b41df17cb9365f3d4e37f1db57259aa4e5573e0fd8c9f8e4ff",
+      "personally_read_ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "CameraRigState resets history for first observation, changed subject or teleport; otherwise clones. Subject and last anchor commit with candidate history. Profile blend/velocity54\u201357 prepared together and remain independent of positional history reset. Finite-component anchor norm can overflow and trigger reset; no unprovided world bound or normal failure asserted."
+      ]
+    },
+    {
+      "scope_index": 1468,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/smoothing.rs",
+      "sha256": "6f9948b9cd1412b7351a88e92a460780579e7d89ad0a9ae6bbfb4dd99102842a",
+      "personally_read_ranges": [
+        [
+          1,
+          269
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Damped focus returns complete checked position+velocity. Private vector/scalar analytic stencil is a genuine native numerical kernel. CAMERA-ADM03-F012 exact independently valid profile/metrics combination can reverse x/y clamp bounds before CameraResult; actual normal positive defaults coherent. CameraViewMetrics Ratio does not prove usable aspect/FOV, distance SignedLength does not prove nonnegative projected extents. Fix whole actual admission/fallible receiver without blanket PositiveLength/UnitInterval. ScreenWindow may legitimately exceed1, zero window valid, signed ScreenError also exceeds1. Profile interpolation readmits every field before whole result."
+      ]
+    },
+    {
+      "scope_index": 1469,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/values.rs",
+      "sha256": "6a14958f0a7593181730db9d73a69a54302cf39b9706819553ee8edece85a19f",
+      "personally_read_ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "FramingOffset view right/up differs from MuzzleOffset controller-forward frame and cannot be unified by common lengths. Private ScreenWindow constructor enforces finite nonnegative half extents, including0 and>1; ScreenError admits finite signed values including offscreen>1. Raw generic Ratio has broader numerical meaning, not proof these owners lack their own gates. SignedBlendVelocity is finite signed fraction/time and CameraError retains geometry/speed/animation causes. No global error-file consolidation implied."
+      ]
+    }
+  ],
+  "findings": [
+    "F02 derived camera geometry/error-state alias",
+    "CAMERA-ADM03-F012 exact coupled config/metrics admission",
+    "CAMERA-INITIAL07-F067 duplicate close defaults",
+    "CAMERA-ADM03-F013 / CAM-PROP-F013 historical compile defect resolved in merged hunk"
+  ],
+  "qualified_source_questions": [
+    "Close framing ordered start/full range at actual config admission: defaults coherent; equal/reversed public finite values need explicit intended policy; no normal input or new unique defect claim."
+  ],
+  "merged_bounded_evidence": {
+    "path": "crates/adventuresim-tactical-client/src/camera/collision/tests.rs",
+    "comparison": "6533e444fa37552927070cc8d8190907fd3b413e..13fc9dcc71ab879de364117e5462310673e43210",
+    "actual_hunk": "assert!(...) trailing .unwrap() removed; original assertion preserved",
+    "qualification": "Source inspection only, not executed compilation and not full merged-delta dimension completion."
+  },
+  "discovery": "Ten full original roles personally consumed; saved aliases/limits. Initial aggregate lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

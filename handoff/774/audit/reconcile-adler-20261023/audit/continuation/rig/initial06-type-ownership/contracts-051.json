@@ -1,0 +1,22 @@
+{
+  "id": "RIG-INITIAL06-GROUP-051",
+  "at": "2026-10-22T21:21:55.372341+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "fixed-consumable-fraction-is-not-material-microunits-or-arbitrary-ratio": {
+      "sources": [
+        "pr-working:crates/adventuresim-core/src/inventory_measurement.rs",
+        "physical-p16:crates/adventuresim-core/src/inventory_measurement.rs"
+      ],
+      "comparison": "Consumed actual Camera current03 contracts021 source facts, then personally fresh full PR inventory_measurement1-804 including all original tests. Compared complete actual PR/P16 bodies (no textual delta), canonical definitions, current pure measurement/pricing inputs, returned products and fixture uses explicitly for P16; not a hash/verdict carry. ItemQuantity private NonZeroU32 is a fungible item count; generic GPU/mesh/range counts can be zero and differ in width/meaning. No alias to those counts. ConsumableFractionMicros private u32 inclusive0..1e6 is a quantized fraction of one consumable, not an unbounded positive MaterialComponentMicrounits quantity, exact nonzero rational Portion, UnitBasisPoints precision or floating combat UnitInterval. Its ratio constructor rounds UP and caps at whole, scale_floor rounds DOWN, checked multiplier stays<=whole; retain those policies. PricingFactor is a positive rational price multiplier that may exceed1, unlike Portion<=1 or ConsumableFraction0..1. Same two integers do not justify merging these meanings. Exact u128 multiplication/cancellation/division and outgoing raw .get/as_unit_f32 are actual arithmetic/quantity/format projections, not a second retained fraction owner. whole_divided_by asserts nonzero parts; do not invent infallibility for arbitrary input. Shared Core is coherent low owner for item/fraction and pure integer price arithmetic; no DB/tactical dependency needed. No competing complete type found in actual compared owners."
+    },
+    "immutable-basis-versus-mutable-remaining-and-derived-totals": {
+      "sources": [
+        "pr-working:crates/adventuresim-core/src/inventory_measurement.rs",
+        "physical-p16:crates/adventuresim-core/src/inventory_measurement.rs"
+      ],
+      "comparison": "MeasurementProfile standard definition basis versus MeasuredInventoryRow captured instance basis/remaining amount versus EffectiveTotals computed mass/value are distinct stages. Immutable object basis may differ from current definition; do not replace it with catalogue lookup or collapse the captured snapshot into mutable remaining amount. Depletable/BulkLot/Containerized express different recoverable-tare and singleton policies, not equipment kind or material preparation. Public raw profiles/rows/pricing data have no accepted-state seal; complete validate/effective_totals gates retain their separate responsibility. Native integer basis capacity is in the definition-specific fixed unit, and mass documentation says fixed game subunit without establishing milligrams here. Navigation found no actual external MeasurementBasis/Profile producer in current PR crates; this alone is not proof about external/future users. Therefore do not force canonical Milligrams/Microliters onto these arithmetic basis fields from names or the isolated soap/bottle fixtures. That differs from F014, whose adapter explicitly constructs Milligrams then discards it. A concrete admitted consumer/scale proof is required before strengthening this prototype quantity API. Preserve zero remaining/tare, unopened counts, measured singleton/instance basis, floor partitions and once-rounded aggregate prices. Full original tests372-804 use the canonical same profile/row/fraction types and raw rejected input fixtures, not parallel production owners. P16 same complete declarations, operations and fixtures explicitly compared under the same roles; no whole inventory feature/persistence completion claim."
+    }
+  },
+  "limits": "Only exact current06 source contracts; no execution, inferred inventory persistence, new test or other-lens credit. Whole06 incomplete,09/12 not started."
+}

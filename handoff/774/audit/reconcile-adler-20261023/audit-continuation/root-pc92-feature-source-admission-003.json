@@ -1,0 +1,65 @@
+{
+  "at": "2026-10-23T20:32:12.973477+00:00",
+  "id": "pc92-feature-source-admission-003",
+  "reads": {
+    "crates/adventuresim-terrain/src/builder/features.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-terrain/src/terrain_feature.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-world-schema/src/terrain_feature.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-world-schema/src/geologic_window.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-world-import/src/bin/build-strategic-map/terrain_features.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-world-schema/src/lib.rs": [
+      [
+        1764,
+        1820
+      ]
+    ]
+  },
+  "contract": "Native builder feature sources, geographic routepoint alternate admission and exact source-boundary distinction",
+  "coverage_limit": "Actual stated sources read; independent all13 lenses and remaining feature producers/decoder/overlay scopes incomplete.",
+  "disposition": "SourceFeatures fullnative roadmask arrays preserve actualfullprecisionformat, while checkedWgs84BoundsE7 islost through clip_polyline/clip_polygon and reenforced ineachnumerichelper; nativepointformat doesnotexcuse separateboundsAPIerasure. ExactM37/RIGPPS008sharedrepair. TerrainFeatureFault trace rawTravelGeometryPoint serdegetters causeF43 exactarchiveRootF007subroute, notnewglobalcount. WorldMappedGeologicWindow is EPSG3034 metricrectangle distinctfromscene/3035cultivationsquare; itsvaliditypredicatelocallyboundsdimensions butproducerpolygoncontainment proof stillrequiresownsource, notinferredfromdoccomment. Mappedfaultmodernactivity/capabilityseparateaxes, no implicationhistoricalactive; no forcedexclusiveenum. SourceFeature identityandproof/cause/aggregate paths needtracebeforepromotingnewfinding.",
+  "finding_traces": {
+    "M37": {
+      "source": [
+        "crates/adventuresim-world-import/src/bin/build-strategic-map.rs:617-730,731-837",
+        "crates/adventuresim-world-schema/src/lib.rs:1778-1808"
+      ],
+      "trace": "Actual Package/build retainsWgs84BoundsE7 but extracts longitude_latitude_degrees array through clip_polyline/clip_polygon into receiving clippingequations; carry canonicalenvelope untilactualinequality/intersection/nativearithmetic. ExactRIG-PPS-F008 distinguishesnativeSourceRoad.Point f64payload (requiredunchangedWKT/JSONhash/binarybits) from thisboundspropagationgap. TravelGeometryPoint successfulcheckedaxisconstructor discardsguarantees before publicstate/getter re-admission; concrete alternateadmissionfailureseparatelyF43/RootF007. No blanket earlyE7quantization or coordinateorderchange."
+    },
+    "M94": {
+      "source": [
+        "crates/adventuresim-world-import/src/bin/build-strategic-map/terrain_features.rs:24-71",
+        "crates/adventuresim-terrain/src/builder/features.rs:1-13"
+      ],
+      "trace": "Actual DocumentedBaseFeaturesbuild gives explicit SHA256(no-cultivation) andcanonicalCultivationRulesVersion evenwhen emptycultivatedgeometry; FinalFeaturesoverwriteswith actualcultivatedsource. Never force zero/empty sourcefield simplybecause count0 or use packageidentity for wetland/cultivationsourcedigests. Finalsource featurevectors copiedfrom validatedworld, initialBaseemptyintentional. Native fullprecisionmaskgeometry is concretewire/kerneldata, notadmittedruntimeE7."
+    }
+  },
+  "frontier": {
+    "file": "crates/strategic-web/src/routes/foraging.rs",
+    "work": "PC92 actual source/route/forage SDK consumers and feature producer/proof dependencies, plusPC91weather/PC04condition and everyolderpendingcell. F43 exactRootF007subroute linked, no all13clearance/plan/repairs/checks."
+  }
+}

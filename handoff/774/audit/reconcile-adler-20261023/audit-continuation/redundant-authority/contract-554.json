@@ -1,0 +1,39 @@
+{
+  "id": "CONT07-CONTRACT-554",
+  "at": "2026-10-23T23:41:12.279354+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2408,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/social.rs",
+      "sha256": "47798a9e18725976c31dea0c575a58421295ee33bb98fb4a90be4bc3bb23db05",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/templates/settlement/social.rs",
+      "actual_EOF": 1573,
+      "ranges": [
+        [
+          500,
+          560
+        ],
+        [
+          620,
+          752
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Exact social template500\u2013560/620\u2013752 read; no unrelated1573fullfileclaim. Player/NPC context maps canonical LocalChatKind andactualsubjectid into nativeDOMdata, selfchat derivesactiveid anddisablescomposer directly. NPC service location resolves canonicalCorehelper, fixtures explicitlyseparatefrompeople.",
+    "Conversation tab698\u2013710 andpanel713\u2013718 arrays separatelyauthor samefourids/labels/defaultLoreselection. Currentagree; one-sidedvalidedit leaves ARIAcontrol/panel mismatched orselectionincoherent. Source maintenance obligation: oneowned category roster shouldderiveboth; browsercurrentcategoryrouting tobecomparedbeforeglobalalias/remedy. No currentbadHTML/browserrun claimed.",
+    "Channel filter6roster currentlocal/party/settlement/dm/guild/info displaypopulation independentfromTopicCategory; do notmerge merelybothchatvocabulary. Input local_contextpresence andis_selfchat derivedfromsameactualcontext, no extra retainedauthority."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2409,
+    "start_line": 1
+  }
+}

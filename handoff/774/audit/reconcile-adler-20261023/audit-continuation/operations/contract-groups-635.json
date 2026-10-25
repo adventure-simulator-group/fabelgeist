@@ -1,0 +1,91 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-635",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-numpy-storage/src/npy.rs",
+      "sha256": "68819769cfa8ef5618a5db759768165d38063bff4ba263f40c6e4d36fbdb547b",
+      "actual_EOF": 260,
+      "actual_compared_ranges": [
+        [
+          1,
+          186
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2666"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-numpy-storage/src/zip.rs",
+      "sha256": "7e9b70f0870cf014d25bd11d783636ca6cb413bc69b6dfa00c12eee0241695de",
+      "actual_EOF": 232,
+      "actual_compared_ranges": [
+        [
+          1,
+          232
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2667"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-shell/src/outer_layer/surface.rs",
+      "sha256": "b5fe1c6379d3472d00a1a574d652c8393269192f2273a1575b7a569c6bc1fc26",
+      "actual_EOF": 215,
+      "actual_compared_ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2668"
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/routes/inventory_forms.rs",
+      "sha256": "cd34587835aa6f2448bb0cff2e893950703e9da622db14c7da7ad65ee0b39718",
+      "actual_EOF": 150,
+      "actual_compared_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2669"
+    }
+  ],
+  "groups": [
+    {
+      "contract": "NumPy and ZIP checked native ranges/cardinalities before decode publication",
+      "evidence": "Personally read npy1\u2013186/zip1\u2013232. NPZ delegation633 connects these bodies. Dtype parsing selects little-endian native widths; rejects unsupported descriptor/Fortran order. Parser computes header/payload ranges then builds local array; ZIP maps/owns read-only bytes, scans EOCD with saturated starting bounds, fills local entries and decodes stored/deflate.",
+      "qualifications": [
+        "Concrete malformed/extreme API counterexamples saved separately; no actual asset/run.",
+        "to_f32 F64 cast may overflow/nonfinite; to_i64 float conversion saturates, to_bool iterates raw bytes regardless dtype. These APIs carry raw tensor conversion policy rather than a finite bespoke guarantee. Public shape/dtype mutation can diverge bytes; actual consumers must retain canonical cohort."
+      ],
+      "acceptance": "Checked whole parser ranges/count/offset/decode capacities and explicit conversion policy, preserving legal dtype/native payload semantics."
+    },
+    {
+      "contract": "Outer-layer clipped triangle projection and inverse-mass native arithmetic",
+      "evidence": "Surface1\u2013169 read. Finite geometry clipping starts basis barycentric weights, processes3 plate edges; crossing branch supplies dp/(dp\u2212dq), interpolates point and weights. Empty polygon loops no modulo evaluation. Projection weights native effective inverse mass and velocity, skips inactive denominator, then updates all three vertices; surface residual scans matching triangle interiors.",
+      "qualifications": [
+        "Barycentric/native inverse-response methods are referenced, not newly read here. Finite extreme geometry/masses can lose determinant/ratio/weighted-sum guarantees; actual canonical owner/helper evidence remains required.",
+        "Face membership and position/velocity/mass cohorts prerequisite; no ordinary bad face or actual solver failure asserted."
+      ],
+      "acceptance": "Preserve finite clipped barycentric cohort and actual inverse-mass/position result contracts, inactive/pinned policies and physical tolerance without blanket dimension narrowing."
+    },
+    {
+      "contract": "Compact inventory form admission before retained transfer",
+      "evidence": "Inventory form1\u201350 read. Filters empty tokens on each side, checks resulting equal cardinality, parses IDs/quantities, rejects zero before collecting local entries. No arithmetic or retained mutation in bounded parser.",
+      "qualifications": "Independent empty-token filtering may align different raw positions by intended compact encoding policy; no actual malformed browser transfer/receiver witness. Duplicate IDs and total quantities are downstream aggregate obligations, not proven here.",
+      "acceptance": "Preserve positive parsed quantity and exact intended ID/quantity association through native transfer owner; structured errors before mutation."
+    }
+  ],
+  "findings": [
+    "SEGOVB-04-NUMPY-PARSER-RANGE-CAPACITY-CANDIDATE-001"
+  ],
+  "status": "Qualified material ranges personally analyzed; whole04 remains incomplete.",
+  "first_unfinished": "native-dependency:spacetimedb-lib-2.6.1/src/lib.rs",
+  "source_edits": false,
+  "project_execution": "none"
+}

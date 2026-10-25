@@ -1,0 +1,188 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-254",
+  "at": "2026-10-25T14:14:20.685366+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 506,
+      "source_id": "pr-working:assets/shaders/tactical_cloud_composite.wgsl",
+      "sha256": "bc687e4b087232f3d4cea9b9f05393ece9f197db7269d1df1467ea686a8730d4",
+      "actual_EOF": 20,
+      "requested_registration": {
+        "source_id": "pr-working:assets/shaders/tactical_cloud_composite.wgsl",
+        "snapshot": "pr-working",
+        "path": "assets/shaders/tactical_cloud_composite.wgsl",
+        "sha256": "bc687e4b087232f3d4cea9b9f05393ece9f197db7269d1df1467ea686a8730d4",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 747,
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 143,
+            "read_ranges": [
+              [
+                1,
+                20
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-CLOUD-003"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/assets/shaders/tactical_cloud_composite.wgsl"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_owner": "native",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-SKY-CLOUD-010",
+            "json_pointer": "/source_reads/17",
+            "source_id_as_recorded": "pr-working:assets/shaders/tactical_cloud_composite.wgsl",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                20
+              ]
+            ],
+            "source_context": {
+              "obligation": 162,
+              "source_id": "pr-working:assets/shaders/tactical_cloud_composite.wgsl",
+              "sha256": "bc687e4b087232f3d4cea9b9f05393ece9f197db7269d1df1467ea686a8730d4",
+              "read_ranges": [
+                [
+                  1,
+                  20
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1642,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          20
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "WGSL fragment source, no Rust trait/Serde code.",
+      "absence_basis": "Full20-line native texture/sampler binding and viewport texture-composite fragment consumed. Imported Bevy vertex/view definitions and runtime material consumer separately uncredited."
+    },
+    {
+      "scope_index": 507,
+      "source_id": "pr-working:assets/shaders/tactical_clouds.wgsl",
+      "sha256": "a04c3a457fc4e9bdf80cb0bb2eca4eb2364d8d3b5233f9942c740594b3084e66",
+      "actual_EOF": 177,
+      "requested_registration": {
+        "source_id": "pr-working:assets/shaders/tactical_clouds.wgsl",
+        "snapshot": "pr-working",
+        "path": "assets/shaders/tactical_clouds.wgsl",
+        "sha256": "a04c3a457fc4e9bdf80cb0bb2eca4eb2364d8d3b5233f9942c740594b3084e66",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 6327,
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 142,
+            "read_ranges": [
+              [
+                1,
+                177
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-CLOUD-003"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/assets/shaders/tactical_clouds.wgsl"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_owner": "native",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-SKY-CLOUD-010",
+            "json_pointer": "/source_reads/16",
+            "source_id_as_recorded": "pr-working:assets/shaders/tactical_clouds.wgsl",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                177
+              ]
+            ],
+            "source_context": {
+              "obligation": 161,
+              "source_id": "pr-working:assets/shaders/tactical_clouds.wgsl",
+              "sha256": "a04c3a457fc4e9bdf80cb0bb2eca4eb2364d8d3b5233f9942c740594b3084e66",
+              "read_ranges": [
+                [
+                  1,
+                  177
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1641,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          177
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "WGSL uniform/texture/sampler declarations and functions, no Rust trait implementations.",
+      "absence_basis": "Full177-line cloud shader consumed: shell_center/ray_sphere_roots/cloud_coordinate/wind_compensated_direction/sample_cloud_surface/vertex/fragment; selected native binding layouts, dome/frame/optical interpolation and lighting semantic. No derive-equivalent serializer, no imported/native producer body credit."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Cloud material/composite native shader functions",
+      "disposition": "Exact non-Rust shader roles contain no handwritten Rust trait or serialization body; semantic kernels retained.",
+      "acceptance": "Native material/binding/projection/optical handoff remain separate consumer contracts; no shader compile/render/runtime or other-lens clearance."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 508,
+    "source_id": "pr-working:assets/shaders/tactical_foliage.wgsl"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

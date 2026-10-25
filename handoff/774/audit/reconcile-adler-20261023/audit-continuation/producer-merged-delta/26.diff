@@ -1,0 +1,14 @@
+diff --git a/crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/rooms.rs b/crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/rooms.rs
+index 2f93b9526..9e5076867 100644
+--- a/crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/rooms.rs
++++ b/crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/rooms.rs
+@@ -321,9 +321,8 @@ fn room_contains(room: &Room, point: Vec2) -> bool {
+ 
+ #[cfg(test)]
+ mod tests {
+     use super::*;
+-    use adventuresim_building_generator::spatial_geometry::Position;
+     #[test]
+     fn closed_keep_door_blocks_a_camera_ray_that_static_navigation_allows() {
+         use adventuresim_building_generator::{
+             BuildingArchetype, BuildingProgram, compile_building_collision, generate,

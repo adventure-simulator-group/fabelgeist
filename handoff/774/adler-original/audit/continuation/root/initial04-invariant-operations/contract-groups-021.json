@@ -1,0 +1,64 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-021",
+  "at": "2026-10-22T20:06:06.197707+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/attribute.rs",
+      "sha256": "a3a9b63b62a8ecc73b592de825f4ac0350567eeb093391bda9fb7f7723a64455",
+      "actual_read_ranges": [
+        [
+          1,
+          164
+        ]
+      ],
+      "source_evidence": "Fresh full body current04; original test/doctest source inspected only, not run/modified."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/body.rs",
+      "sha256": "febe5d8b193afe3cefa2292965bb42c15d4a5d25aef8a2f3c9fea757b3720317",
+      "actual_read_ranges": [
+        [
+          1,
+          179
+        ]
+      ],
+      "source_evidence": "Fresh full body current04; original test/doctest source inspected only, not run/modified."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/armor.rs",
+      "sha256": "3aeb6961c084a063132b1d1302d006c8cbf59cacaf960081e799b7ce46d37930",
+      "actual_read_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "source_evidence": "Fresh full body current04; original test/doctest source inspected only, not run/modified."
+    }
+  ],
+  "groups": {
+    "attributes-read-and-sum": "PlayerAttributeValues plain publicf32/Serde/optionalSATSrecord no sealedconditioningrange. Enumdispatch readsactualmatchinglimb, nonlimbreturns0; simple attr raw*health unchecked. limb fold usesfourlimbs, weightandhealth clamp0..1, thenraw*weight*health+sum; clamp doesnotrejectNaN, boundedweightsalone donotcertifyfinite rawattributes or boundedtotal. Finiteconditioningleaf policy mustrespectbestiary/nonhuman/modifiedvalues fromactualdata, no hard5cap merelydoc65. From<closedattribute> legitimateenumcomposition. Traits acceptexternalimplementations, rawgettercontract no finiteguarantee; actualproducer/corecheckedowners neededwholegraph. Native4limbiteration tiedactualenumflags notindexcountnarrows.",
+    "limb-weights-normalization": "Fixedfactoryweights justone/half/quarter/primary.75+.25 arefinite nonnegativeunit-total, untouchedzerootherlimbsvalid; staticenumshift0..6fitsu8 andclosedBodySideBoth intentional. Allrawpublicfloats/default0representable; no universalnormalizationcertificate. normalizeF009 producesNaN/losesnormalization fromordinarypublicfinitecases. by_part nonlimbs0 actual policy. Clone/copy/publicmutation broadrawweights, no privateadmissionfromname.",
+    "contact-partition": "Rawincident.max0 rejectsnegativevia explicitclampandNaN->0nativefloatmax policy, butpositiveInfpasses; precision.concentrated_fraction/resistance methods actualseparateownerbody fromCamera040narrative, no universalsealfromname. Finiteadmittedconcentration0..1andnonnegativefiniteincident yieldedge/bluntpartition; actualprecisionabove1 remainsvalid andzero precision deliberatelyinfiniteresistance. Negative/nonfinite rawsurface resistance/padding canbreakpartition e.g negative resistance yieldspenetrated>edge/stoppednegative; infinityincidentcanproduceNaN. CurrentrawpublicArmorSurface/ArmorImpact areDTOs notcheckedenergyunits, existingphysical/contactpropagationgap not extraunique privateconstructorbypass. Preservezero/precision4 semantics, padding budgetcountedonce, no hiddenfatigue/impairment/changes tolimbinjury. debug_assertabsolute.001 isexistingdebug conservationoracle, notfinitevalidator or universalexactlarge-scaleconservationproof. Onlynewtypedownerpropagationattrueinput/computedpublication canestablishvalidarithmetic; donotblanketclampinvalidcomputedresults.",
+    "observations-and-existing-oracles": "ArmorImpactOutcome closed3states; outputcarriessamecurrentsurface/predicatevalue, historiesdistinctfromliveauthority. Actualtests source covers100resistance/zero/nonzero/precision0..4 andfiniteenergies0.01..200; notexecuted andnotproofextremeinputs. Attribute test rawschema denyunknown verifies structuralroundtriponly, notnumericadmission. No newcases/assertions/helpers."
+  },
+  "findings": [
+    {
+      "id": "ROOT-INITIAL04-F009",
+      "class": "representable_public_API_normalization_counterexample; no_current_zero_weight_normalizing_caller_or_run_claim",
+      "source": "pr-working:crates/adventuresim-core/src/body.rs",
+      "operation": "LimbWeights::normalize135-143 unconditionally divides eachcomponent by rawfour-term total and returns publicweights.",
+      "counterexample": "LimbWeights::default().normalize() yields0/0 fourNaNs; a publicfinite nonnegative record withallfourcomponents f32::MAX sums toInf and normalizes toall0 instead of a unit-total nonemptyweight vector. This is source-level public API counterexample, no execution/currentordinarycall asserted.",
+      "acceptance": "Make actual limb-weight meaning explicit at canonical producer/operation owner, propagate checkedfinite nonnegativeweights/normalization ratherthan adding validatorsateveryconsumer. Preserve legitimate zero/selectiveweights and abilitytoexpress no limb contribution; zero normalization must be explicitly no-contribution or typed rejection, not invented all-equal fallback. Use overflow-safe normalization or reject computedinvalidtotal beforepublishing an acceptednormalizedstate. Keep body-side Both and actuallimb weighting/workload semantics; do not force allrawweights to UnitInterval orsum1 withoutactualrole."
+    }
+  ],
+  "prior_finding_support": [
+    "Existing canonicalattributes/physicalcontact/energywholegraphpropagation remains open, no extraunique classification here."
+  ],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

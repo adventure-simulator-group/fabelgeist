@@ -1,0 +1,48 @@
+{
+  "recorded_at": "2026-10-21T00:49:05.540036+00:00",
+  "base": "807ab138a2dcbee4707095b87731bf7a063a7af7",
+  "status": "Focused implementation-agent Code/Rule source review complete for the repair; compilation, formatting and execution remain pending. Earlier full-family source-completeness claim is superseded by the actual missed-consumer diagnostics.",
+  "files": {
+    ".github/workflows/rust-quality.yml": "09958de7059f0512065dca80e78ddbd787e9c30f7186ff727950ad6c5384096e",
+    "crates/adventuresim-tactical-client/src/movement_audio.rs": "f5c454510c3069982a265c36de6013d01d6c00c12aff6c90c05b60ddcb610292",
+    "crates/adventuresim-tactical-client/src/presentation/ground_scatter/cover_mask.rs": "5d2662fa8f5c9fad7ea8d6428397a79a7df3bba69053a7b778d29b31ea74bfb6",
+    "crates/adventuresim-tactical-client/src/presentation/ground_scatter/instanced_grass.rs": "4ebc106478d263a859403c114c4711598dd570927f2706abf5e7123bc37a9c91",
+    "crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants.rs": "5397178ad53d019142d2791f701111ec168b2b1636e053a1085ce9bf1b6af35a",
+    "crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants/tests.rs": "25420a15928ded72b0fe13b6e069519f74758b1555d6b4439bbf6d8602217239",
+    "crates/adventuresim-tactical-client/src/presentation/terrain.rs": "a63b151d688b27c2f42ad8b339b471dfd49d239517efdb12511efe2d307a3e6f",
+    "crates/adventuresim-tactical-client/src/presentation/terrain/cliff_surface.rs": "cf8143d0fb1820eebb4f01d1aa21abbe65a2373af1ae68117d6a1cf78d39ff30",
+    "crates/adventuresim-tactical-client/src/presentation/terrain/ground_map.rs": "bbf75ad65cfa71106ead637d07a5e9459e19e1d02733186f198acdb94db447f7",
+    "crates/adventuresim-tactical-client/src/presentation/terrain/material.rs": "be5f1ca4e6b11d18c8ce8c36e0f360d08e2edd36ba694977b9c616ba5982c70f",
+    "crates/adventuresim-tactical-client/src/presentation/terrain/urban.rs": "fac0c620e75b538d09a0d61bdc8a276e21e98c67505c9edac52aa4576ae6982d",
+    "crates/adventuresim-tactical-client/src/presentation/terrain/urban/owned_tests.rs": "dec16e8dcf926fed2d6260f315e3a1a59d9697ba51fae232d6bb74b1155c23e3",
+    "crates/adventuresim-tactical-client/src/presentation/terrain/volumetric.rs": "616d6e793ee4c404d5e19da377d89c4c849be05921b0d1f4492c191fbee6c84d",
+    "crates/adventuresim-tactical-client/src/presentation/vista/focused.rs": "5849e3f37a586cb829d7bed92f8ba85e99edddcd41689345305c9c6c02ca5756",
+    "crates/adventuresim-tactical-client/src/weather_audio.rs": "35e0527b4916af005b7cf251be2808a43f5226c23fefc9287f14ae511c6b27e9"
+  },
+  "evidence": "P06-hosted-807a-wasm.log; P06-hosted-807a-ground-consumer-plan.json",
+  "code_review": [
+    "Movement GlobalTransform observations admit canonical Position<Scene> before audio work. Both event producers and five connected helpers retain it. ScenePlanPoint::from is a lossless frame-preserving plan projection; remaining metres extraction is proximity vector arithmetic, exact seed-bit framing, or the Bevy Transform adapter. Failed dive position admission precedes state-edge publication.",
+    "Rain listener admits its scene-plan point at the native Transform boundary. The established missing-ground ambient SoftGround selection is preserved. Saturated UnitBasisPoints reaches rain_mix without a primitive argument; scalar extraction occurs in its complete gain calculation. Clamp, powf, smoothstep and mix ordering remain unchanged.",
+    "Required ground raster point admission returns GeometryError rather than silently treating invalid coordinates as absent urban ownership. Valid-query natural fallback and all native raster/noise/byte operations stay unchanged. GeometryResult propagates through mask, material, scene tuft and plant preparation.",
+    "Terrain spawning owns one base/fault/detail cohort, prepares the required texture first and propagates its error. Parent system handles each scene result without aborting the remaining scenes. Refresh validates its material handles and prepares the texture before replacement. FocusedGround propagates the geometry cause before commands. Grass and botanical errors publish neither completion tags nor affected entities; botanical cache preparation follows mask success.",
+    "Reconciled exact ground_at/surface_at/refined/rewrite_heights/cover_intersects_square method references and searched UFCS names. Existing late-vista refinement fixture now adapts point/support leaves with identical formula, spacing and assertions. Other production callers use typed points or admit newly completed native grid/offset candidates.",
+    "Read receiving SpatialBuckets::at and city street/yard contains implementations: the remaining Vec2 projections enter bucket quantization, point/segment distance or convex-quad kernels, without retained primitive scene state or immediate point re-admission. Existing patch aggregate raw fields are outside this support-query family; no claim that all city geometry is migrated.",
+    "No new tests/cases/assertions/helpers: all fixture changes adapt existing Result/type boundaries. Existing weather-audio tests added to hosted selection as one nonempty required cell. The 39 prior cells and sixteen Creator vectors remain."
+  ],
+  "rule_review": [
+    "Canonical geometry and basis-point owners reused; no equivalent wrappers, schema/generated changes, compatibility paths, lint suppressions or ceiling increases.",
+    "Native units/frame escape reasons checked at actual receiving bodies, including sound_seed and rain_mix, rather than accepting comments or method names as proof.",
+    "Imports/mods/constants/aliases/records/traits/impls/public functions/private functions reconciled in newly expanded audio/raster/instanced-grass modules. Existing test module stays last. Existing instanced-grass algorithm bodies and tests moved with their item documentation.",
+    "Existing material refresh expects replaced with explicit existing unavailable-handle outcome. Scene spawning extraction owns preparation/publication responsibility and reduces the oversized parent; official baseline reduction still awaits hosted evidence.",
+    "Root IK files are untouched by this repair. Tactical/strategic authority and the four primary checkout manifest edits are preserved."
+  ],
+  "coverage_limits": [
+    "This is focused source review, not independent review or a fourth full bespoke audit wave. All twenty original family exits remain binding.",
+    "UnitBasisPoints has preexisting unchecked transparent Deserialize/SpacetimeType paths; this producer explicitly saturates. No infallible cross-owner conversion assumes wider admission safety.",
+    "SceneGround raw metadata/serde/reflection admission and unrelated audio configuration fields are not claimed migrated. Invalid required raster coordinates propagate, but this does not prove every malformed aggregate is safe.",
+    "No local project commands or numerical probes; no runtime or calibrated-renderer verdict. Hosted diagnostics may expose further missed consumers. Seven ignored production/offline acceptance cases remain explicit.",
+    "The 4310-getter search inventory remains unreviewed as a whole; pending families retain their assigned producer/consumer traces. Search counts are not a completeness verdict."
+  ],
+  "published_head": "20797fac0b1d4405b66461f2fdc3244ef1c8fd16",
+  "hosted_run": 39523636007
+}

@@ -1,0 +1,170 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1225",
+  "at": "2026-10-25T18:11:09.662967+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1296,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/thermal_projection.rs",
+      "sha256": "b1ad1a9d5dee6a7f75cb4b9fa78ab15e596d4a30a536f7781bba38550bc3b3b4",
+      "actual_EOF": 343,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/thermal_projection.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-strategic-sim/src/live_core/thermal_projection.rs",
+        "sha256": "b1ad1a9d5dee6a7f75cb4b9fa78ab15e596d4a30a536f7781bba38550bc3b3b4",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 12059,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 649,
+            "read_ranges": [
+              [
+                1,
+                343
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SIM-SURVIVAL-THERMAL-100"
+            ],
+            "read_status": "fresh-current-lens-full-source-read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/thermal_projection.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-SIMULATION-OBSERVATION-RECEIVER-CLOSURE-050",
+            "json_pointer": "/source_proofs/20",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/live_core/thermal_projection.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                343
+              ]
+            ],
+            "source_context": {
+              "index": 651,
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/thermal_projection.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/thermal_projection.rs",
+              "sha256": "b1ad1a9d5dee6a7f75cb4b9fa78ab15e596d4a30a536f7781bba38550bc3b3b4",
+              "read_ranges": [
+                [
+                  1,
+                  343
+                ]
+              ],
+              "actual_line_count": 343,
+              "supplier_trace": "RIG-PPS-036",
+              "disposition": "Supplier producer/retained-state/operation/actual receiving-body inventory accounted with findings; Camera must explicitly consume before716 credit.",
+              "source_roles": [],
+              "actual_receiver_closure": "Root047/048/049 source facts plus full Rig036 survival/expedition/economy and Native022 cycle/travel/recovery receipts close the prior fifteen shared receiving obligations. No blanket source or native exemption."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/current_sources/20",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/live_core/thermal_projection.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                343
+              ]
+            ],
+            "source_context": {
+              "index": 651,
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/thermal_projection.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/thermal_projection.rs",
+              "sha256": "b1ad1a9d5dee6a7f75cb4b9fa78ab15e596d4a30a536f7781bba38550bc3b3b4",
+              "read_ranges": [
+                [
+                  1,
+                  343
+                ]
+              ],
+              "actual_line_count": 343,
+              "supplier_trace": "RIG-PPS-036",
+              "disposition": "Supplier producer/retained-state/operation/actual receiving-body inventory accounted with findings; Camera must explicitly consume before716 credit.",
+              "source_roles": [],
+              "actual_receiver_closure": "Root047/048/049 source facts plus full Rig036 survival/expedition/economy and Native022 cycle/travel/recovery receipts close the prior fifteen shared receiving obligations. No blanket source or native exemption."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-036",
+            "json_pointer": "/fresh_current_source_reads/4",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/live_core/thermal_projection.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                343
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/thermal_projection.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/thermal_projection.rs",
+              "sha256": "b1ad1a9d5dee6a7f75cb4b9fa78ab15e596d4a30a536f7781bba38550bc3b3b4",
+              "read_ranges": [
+                [
+                  1,
+                  343
+                ]
+              ],
+              "actual_line_count": 343,
+              "mode": "fresh current producer-supplement actual material source bodies; no execution",
+              "camera_assigned_index": 651,
+              "expected_sha256": "b1ad1a9d5dee6a7f75cb4b9fa78ab15e596d4a30a536f7781bba38550bc3b3b4",
+              "fingerprint_matches_assignment": true
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1352,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          343
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "PublicThermalProjection Clone Copy Debug PartialEq",
+        "PublicRoundTripRoute/PublicThermalTraveler Clone Copy Debug PartialEq Eq",
+        "RoundTripThermalProjection Clone Copy Debug"
+      ],
+      "absence_basis": "Full343 actual thermal source consumed. No handwritten trait/custom codec. Native geographic/abstract distance, checked forecast bounds/itinerary state, conservative clothing/weather/shelter/zero stationary sentinel and chained route/recovery/action/return state are semantic algorithms. Already structural derives apply suitable aggregates; no Default/From/Serde substitution can replace context/checks/error/zero behavior. No operation executed."
+    }
+  ],
+  "groups": [
+    "Thermal projections already derive structures; explicit bounded semantic state transformations remain native."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1297,
+    "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/travel.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

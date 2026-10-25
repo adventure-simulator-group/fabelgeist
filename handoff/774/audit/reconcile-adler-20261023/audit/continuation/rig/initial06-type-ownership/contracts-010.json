@@ -1,0 +1,108 @@
+{
+  "id": "RIG-INITIAL06-GROUP-010",
+  "at": "2026-10-22T19:18:45.351073+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "physics-collider-count-vs-native-byte-owner": {
+      "sources": [
+        "pr-working:crates/fabelgeist-physics/Cargo.toml",
+        "pr-working:crates/fabelgeist-physics/src/contact.rs",
+        "pr-working:crates/fabelgeist-physics/src/contact/count.rs"
+      ],
+      "comparison": "Fresh actual Physics manifest, full Collisions and Count/Capacity bodies. Physics owns ColliderCount as full host usize list cardinality, ColliderCapacity as allocation-policy native u32 slots and ColliderCapacityFit as its decision. GPU owns BufferByteLength/Offset/Upload, distinct unit/authority. set_colliders/update_colliders retain and compare full host cardinality, native Count.bind projects u32 only at Params insertion; capacity rounding/truncation and test extremes are preserved source behavior, not an owner equivalence. Count is not a rig ordinal, mesh vertex count or buffer byte length. Physics depends downwards on GPU/Compute/Math/XPBD/BVH; none acquires a Physics/Game Core dependency from these roles. Collisions owns analytic list/mesh/hook composition and radius policy. No second canonical byte owner or wrong shared scalar borrowing identified. Existing propagation/numeric/admission gaps are not cleared: native casts/private helpers do not earn blanket exemptions."
+    },
+    "physics-shape-and-shader-port": {
+      "sources": [
+        "pr-working:crates/fabelgeist-physics/src/collider.rs",
+        "pr-working:crates/fabelgeist-physics/src/wgsl.rs"
+      ],
+      "comparison": "Fresh exact Collider1\u2013133/212\u2013218 and full WGSL413 including global overlay010. Physics Shape/Collider owns analytic source enum and native 16-float packing; shader Collider data/settings layout is an actual ABI port with kind bitcast, friction and thickness, not an independently maintained semantic owner. The world-space math Vec3/xyzw raw shape fields do not promise the finite Architectural/Scene framed geometry contract. A physics world coordinate must not borrow a Building frame just for a matching Vec3 shape. Sphere/capsule radii, plane offset, particle radius, friction and thickness are different established roles, not interchangeable UnitInterval or generic all-finite checked input tokens. Native Surface distance/normal, triangle IDs and shader Params count are equation/ABI records; checked physical owner and native projection belong on opposite sides of explicit packing. No signed_distance134\u2013211 body credit. No blanket finite/unit/positive assertion from type names or shader equations."
+    },
+    "physics-mesh-and-bvh-owner": {
+      "sources": [
+        "pr-working:crates/fabelgeist-physics/src/mesh.rs",
+        "pr-working:crates/fabelgeist-bvh/Cargo.toml",
+        "pr-working:crates/fabelgeist-bvh/src/gpu/mod.rs",
+        "pr-working:crates/fabelgeist-bvh/src/gpu/shaders.rs"
+      ],
+      "comparison": "Fresh full MeshCollider205, BVH manifest23 and exact GpuBvh/TraversalConfig ranges. MeshCollider owns vertex/triangle topology and MeshSurface contact policy; BVH owns generic primitive candidates, Morton ordering, node/parent/right-child/index buffers and retained count/capacity. Its API already receives shared GPU Buffer and PassParameters. Mesh positions are vec4-padded native math coordinates, triangle indices address vertices while BVH leaves address primitive ordinals; shared u32 representation does not make them a common identity. GpuBvh private native counts are not ColliderCount host cardinality; capacity.max1 and count0 empty build intentionally differ. MeshCollider validates triangles against actual source positions, packs/uploads and passes primitive count through record_build/record_refit, then binds BVH generated traversal names. TraversalConfig owns extensible shader callback/prefix/binding spelling, not BufferLabel diagnostic identity or arbitrary game ID. BVH only promises box candidates; exact collision testing remains Physics. Coherent downward dependency GPU/Compute/Math remains, no project-specific Building owner or duplicate portable checked geometry implied. Other GpuBvh ranges and earlier shader kernels excluded; no whole tree/finite admission certificate."
+    },
+    "physics-original-count-and-upload-oracles": {
+      "sources": [
+        "pr-working:crates/fabelgeist-physics/src/contact/tests.rs",
+        "pr-working:crates/fabelgeist-physics/src/contact/count/tests.rs",
+        "pr-working:crates/fabelgeist-physics/tests/fixtures/collider-capacity.txt"
+      ],
+      "comparison": "Fresh original source tests54/19 and raw capacity fixture11. Tests reuse actual Physics Count/Capacity and shared GPU buffer lengths; local bytes helper returns native contents rather than defining a competing byte owner. Fixture intentionally retains raw host counts at and above u32MAX and established truncating allocation outcomes; do not change rejected/extreme evidence to a narrower admitted type. No new owner declarations or ownership repair; no tests executed or fixture changed."
+    },
+    "gpu-buffer-extent-upload-and-definition-owner": {
+      "sources": [
+        "pr-working:crates/fabelgeist-gpu/Cargo.toml",
+        "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/extent.rs",
+        "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/mod.rs",
+        "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/readback.rs",
+        "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/upload.rs",
+        "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs"
+      ],
+      "comparison": "Fresh actual manifest43/extent53/buffer178/readback89/upload58 and BufferDefinition1\u2013135. GPU is the lowest shared native buffer API owner for logical u64 byte length, u64 byte address, borrowed NoUninit upload bytes, use flags and diagnostic label. They are different responsibilities despite common bytes; length0/offset0/all-u64 are legitimate quantities, while Buffer.new rejects zero allocation and write_at performs checked endpoint/capacity checks. Readback<T> owns host allocation and AnyBitPattern copy layout, not a bespoke numerical value or domain validator. BufferUpload occupancy/with_empty_word is native binding policy, not a game empty-state certificate. BufferUse/UsageSelection map native flags, preserving unspecified versus explicit flags; merging into Physics/Compute would reverse dependencies or duplicate generic APIs. Buffer has public raw/native fields and does not certify device/size coherence solely by its name. Definition136\u2013138 test declaration is excluded from bounded proof. Exact direct BufferLabel semantics separately registered003 and consumed below; global acceptance pending."
+    },
+    "gpu-parameter-reflection-and-native-layout-owner": {
+      "sources": [
+        "pr-working:crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+        "pr-working:crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs",
+        "pr-working:crates/fabelgeist-gpu/src/data/gpu/parameters/parameter.rs",
+        "pr-working:crates/fabelgeist-gpu/src/data/gpu/shader.rs",
+        "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs"
+      ],
+      "comparison": "Fresh full bind-group303, parameters42/129, shader73 and reflection209. GPU owns PassParameter and shader reflection records because it maps native Naga member offsets/binding indices/names and wgpu resources. These public records/IndexMap are dynamic native interface values, not admitted application config or a shared game vocabulary. Shader binding names select ABI members; diagnostic BufferLabel preserves spelling but has no lookup authority. UniformMember offset/size u32 are native reflected byte fields; group/binding/member indices differ from logical buffer address/length and primitive count even where a byte projection is explicit. Actual scalar packing, u32 variant and matrices use native layouts; general create_bind_groups and ComputePass differ in accepted/packed variants, so shared semantic ownership is not behavioral equivalence. GPU data modules reexport canonical fabelgeist-math rather than maintaining a second Vec/Matrix/Transform owner (new REG004 actual7\u201313 below); preserve Euler-degree/nonuniform transform versus MHR quaternion/uniform distinction from006. Texture/color lower implementation not analyzed or inferred; actual native resource variant boundary suffices for current ownership roles."
+    },
+    "gpu-shader-pipeline-pass-and-context-owner": {
+      "sources": [
+        "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+        "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs",
+        "pr-working:crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs",
+        "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/compute_shader.rs"
+      ],
+      "comparison": "Fresh full ComputePass484/Pipeline187/Context314/Shader88. Shader source/native module, reflected interface/layout and compiled per-entry-point pipeline are different stages within the same GPU owner, not rival definitions for one admitted shader. Raw public fields/defaults/cache clones do not prove stage coherence or device provenance; these existing redundant-authority/admission concerns are not cleared. WgpuContext wraps native Instance/Adapter/Device/Queue and distinguishes borrowed device blocking-validation policy from its owned setup, while KernelBatch uses this canonical context below Compute. The actual pass binds shared PassParameters resources, writes native uniforms and dispatches native workgroups; it should not receive game-specific checked angle/frame owners by accidental imports. Context optional platform presentation resources remain lower native adapter concerns; no duplicated Bevy renderer authority or entire blitter/texture implementation claim. Existing original tests read source only."
+    },
+    "compute-kernel-is-algorithm-owner-not-a-second-gpu-owner": {
+      "sources": [
+        "pr-working:crates/fabelgeist-compute/Cargo.toml",
+        "pr-working:crates/fabelgeist-compute/src/kernel/fast.rs",
+        "pr-working:crates/fabelgeist-compute/src/kernel/mod.rs",
+        "pr-working:crates/fabelgeist-compute/src/prelude.rs"
+      ],
+      "comparison": "Fresh Compute manifest33/prelude16/Kernel406/FastPath379. Compute explicitly privately imports canonical GPU Buffer/Context/PassParameters/reflection, and defines algorithmic Kernel/KernelCache/KernelBatch above GPU. Kernel owns source workgroup shape, dispatch sizing and compiled interface; batch owns encoder/uniform arena/submission callbacks, while FastPath/CompiledLayout/Prepared retain native cache/record state. They are not duplicate Buffer, length or GPU context owners. Native UniformArena stride/slot offsets and fixed chunk bytes are actual local packing operations; they could consume shared byte leaves as a propagation repair, but do not establish an independently maintained competing semantic type owner. KernelBatch.copy_buffer raw u64 is likewise an existing shared-leaf propagation candidate, not a new byte owner. Actual physical caller chains: Physics/BVH counts \u2192 KernelBatch dispatch_items/groups_for \u2192 FastPath/ComputePass \u2192 native dispatch, preserving item counts versus workgroup dimensions and zero no-op. Cache source/device identity and native field mutability remain other-lens findings, not ownership clearance. Existing test imports correctly live in higher Compute rather than creating GPU\u2192Compute dependency."
+    }
+  },
+  "new_findings": [],
+  "additional_definition_proofs": {
+    "RIG-INITIAL06-REG-003": {
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs",
+      "sha256": "64c0cb1ac75e094cf6521bf61ea6ad9eef9aa1a1ab63ca34ae3d395d3a66969a",
+      "actual_EOF": 28,
+      "fresh_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "comparison": "Fresh full28 after registration. BufferLabel private String preserves exact open diagnostic spelling, constructed from owned/borrowed text and borrowed native &str projection. Its native descriptor recipient is BufferDefinition.allocate_native129, not a shader parameter lookup. Correct shared GPU owner; no bounded grammar, membership or equivalence with RigJointName/game IDs.",
+      "scope_status": "registered prospectively, Root global reconciliation pending"
+    },
+    "RIG-INITIAL06-REG-004": {
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/mod.rs",
+      "sha256": "7a84c8ef7c760fd6292dac52b88418a52a7e4831a5a3579e05d9fd19e4e856ad",
+      "actual_EOF": 13,
+      "fresh_ranges": [
+        [
+          7,
+          13
+        ]
+      ],
+      "comparison": "Fresh material7\u201313 after registration. GPU data::math/matrix/transform/vector are actual reexports of fabelgeist-math; PassParameter references the same Rust definitions, not separately maintained wrappers. No duplicate ownership or alias-based compatibility path: this is module API reexport. Declaration/import1\u20136 and external vector implementation remain excluded.",
+      "scope_status": "registered prospectively, Root global reconciliation pending"
+    }
+  },
+  "limits": "Exact fresh source/ranges plus actual already compared Math/Rig/Geometry meanings. No foreign GPU SDK blanket credit, broader shader/algorithm graph, runtime checks, source edits or later-lens clearance."
+}

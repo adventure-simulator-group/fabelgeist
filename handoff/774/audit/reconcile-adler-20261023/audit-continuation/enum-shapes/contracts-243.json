@@ -1,0 +1,16 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-243",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        100
+      ],
+      "comparison": "Exact P16 equipment1182 fully read including test bodies, never executed. EquipmentGraphPlacement body occupancy and parent-edge lists support many-to-many attachment and containment; no evidence establishes an exclusive one-body-or-one-parent enum. Multi-point parents are intentional, atomic preflight validates all edges/body conflicts before insertion, and child removal order preserves ancestry. Empty generic placement API remains an admission question, not grounds to forbid source fixtures or invent a root role. Graph predicates (has_children/would_cycle/conflicts) are immediate queries; attachment identity/capacity remain checked association obligations outside simple enum shape. Input string/key and row/column are actual explicit compact QWERTY mapping, including multi-anchor selection and authored outside-to-inside order; do not reorder by derived enum discriminants or create enum of arbitrary keyboard coordinates. WeaponSkillDistribution explicitly supports hybrid melee/ranged skill families, preserving all nine independent weighted leaves and tiny positive weight normalization. validate(melee,ranged) receives independent capability predicates; allfalse and allzero distribution are intentional unarmed/nonweapon defaults, and unknown item returns empty rather than sword fallback. Public sums/overflow and canonical family admission remain separate. PlayerEquipment weapon_is_unarmed is explicitly independent of zero weapon mass; no infer-empty-hands by weight. Encumbrance zero capacity is fully penalized even with zero burden, and +Inf saturation is deliberate; preserve no hidden duplicate fatigue penalty. Armor aggregate surface has optional material/instance provenance by design and partial body region/empty selected parts are meaningful. Existing actual trait defaults and source comment claims do not grant downstream adapters/override bodies coverage.",
+      "disposition": "Independent hybrid equipment capabilities, graph associations and actual default policies preserved",
+      "finding_refs": []
+    }
+  ],
+  "new_findings": [],
+  "limits": "Discovery only; no execution, fixes, checks, implementation plan or lens clearance."
+}

@@ -1,0 +1,75 @@
+{
+  "id": "RIG-INITIAL06-GROUP-155",
+  "at": "2026-10-23T05:01:40.032964+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-060.json",
+  "groups": {
+    "server-resources-and-cli-boundary": {
+      "comparison": "Fresh full server lib51 and focused actual main Args60–117/resources265–278, player_projection531–558/956–972 and stdb161–186. The library duplicates the same five consumed Args fields and identical SceneVistaBundleResource while the binary owns the real CLI parser and larger option set. Shared modules use crate::Args for projection/preparation and SDK connection URL/database; both wrappers represent the same server ECS retained resources. The library documents reflection/linking rather than execution, so there is no demonstrated divergent value or runtime failure. Keep CLI-only options at parsing boundary; one authoritative minimal runtime resource/configuration definition belongs to server and is shared by binary and feature-gated library. Underlying SceneVistaBundle remains Netcode-owned, not another scene schema or a reason to put Bevy Resource into Core. No full main/player_projection/stdb coverage from focused supporting bodies.",
+      "disposition": "F037 consolidate shared runtime resources without duplicating reflection stubs or forcing entire CLI Args into library consumers."
+    },
+    "checked-leaves-and-useful-role-products": {
+      "comparison": "Fresh full grounding query61/policy64, IK parameters64 and pose buffer config46. SupportCeiling Bounded(SupportElevation)/Unbounded is a useful algebraic query, not infinite-position sentinel; native TryFrom checks XZ then Y. SupportElevation repeats canonical scene Elevation (F023), while SupportGrade positive finite rise/run ratio differs metre length and movement slope. KneeTargetAmplification is positive finite unbounded factor. SettleProgress accepts negative finite, ctor caps above1 but from_arithmetic only finite and completion uses >=1; UnitInterval would erase actual policy. PoseBufferConfig composes existing sample rate/positive duration/length/contact scale/calibration intervals and actual min/max relations; reuse checked low leaves, preserve meaning and aggregate constraints. Generic building-owned PositiveLength facade remains F001, not a new bespoke scalar for each field.",
+      "disposition": "Keep useful query/ratio/progress/config products; share established geometry owners without merging equal predicates across different meanings."
+    },
+    "cache-preparation-and-engine-ports": {
+      "comparison": "Fresh full BareBody71, PreparedFacade building60, tree leaf selection61, furniture overlay64 and SupportedSceneTerrain56. BodyKey deliberately clears recipe inventory/name while retaining body identity plus raw LOD/correctives; it is a derived cache key, not alternative CharacterRecipe authority. F031 canonical CharacterLod propagation applies while retaining platform cap and loader policy. PreparedFacade retains source BuildingProgram with derived origins/signs/shell/timber, an actual preparation stage rather than independent plan. Leaf sorting/group/shootid and sparse lane/4 versus detailed75% are distinct render policies; shoot identity to named Seed stream is an explicit random-purpose projection, not SceneBuildingId or generic RNG owner. Furniture overlay retains ScenePlanPoint until engine Transform/Cuboid/Color ports. SupportedSceneTerrain is a correlated stage product after validation/reconstruction with repaired terrain/buildings/obstacles/report; public fields or successful Result do not certify every ingress. No unrelated called-helper gate credit.",
+      "disposition": "Keep actual cache/stage products and low canonical leaves; preserve native rendering and deterministic replay boundaries."
+    },
+    "closed-puzzle-owner-and-entrypoint-declarations": {
+      "comparison": "Fresh full WitnessPath75 with original malformed/roundtrip fixtures: canonical closed Ash/Moon/Thorn, stable submitted IDs distinct display labels, FromStr delegates same enum Serde; no English parser authority. Puzzle crate is below Core/Web. Fresh full stdb-module lib93 defines module/reexport topology and test-only source slicing, not duplicate value definitions or whole called modules; tactical transient state remains separate. Fresh strategic scene PreparationError65 composes boxed generation/geometry/placement/conversation causes, different stage from presentation::preparation error115 consumed in148 despite same name. Local result aliases/Arc sharing are not compatibility forwarding APIs.",
+      "disposition": "Keep low puzzle ownership, structured error-stage boundaries and module topology; no module-wide semantic credit."
+    },
+    "configuration-render-fixtures-and-runtime-snapshot": {
+      "comparison": "Fresh full graphics YAML96, combat runtime71, grass streams32, landform view specs84 and firearm dimension validation70. YAML is authored source values, not checked runtime state; width gains1.333/1.8/limit1.65 and push1.35 legitimately exceed1 unlike root occlusion .52. Normal authored values do not close generic graphics admission findings. Tactical config RwLock/AtomicU64 version and per-thread copied animation snapshot are one installed config and cache generation, not another authored owner or EquipmentSequence/clock/Seed. Grass named StreamIds reuse low determinism, blade_angle native radians is final sampling formula. Capture suites reuse CaptureViewSpec/Pose, distances/degrees/warmup flags without alternate view schema or automatic ordinal safety. Firearm validator applies shape-specific dimension/correlation predicates; flap ±3600 degrees/octagonal ratio±128 are not wrapped angle or UnitInterval. No new scalar owner merely same storage.",
+      "disposition": "Keep canonical config/view/determinism and shape owners; authored fixtures/native computations do not substitute for admission."
+    }
+  },
+  "source_fact_refs": [
+    "contracts-001.json",
+    "contracts-005.json",
+    "contracts-083.json",
+    "contracts-148.json"
+  ],
+  "supporting_only": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/main.rs",
+      "ranges": [
+        [
+          60,
+          117
+        ],
+        [
+          265,
+          278
+        ]
+      ],
+      "whole_source_complete": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+      "ranges": [
+        [
+          531,
+          558
+        ],
+        [
+          956,
+          972
+        ]
+      ],
+      "whole_source_complete": false
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/stdb.rs",
+      "ranges": [
+        [
+          161,
+          186
+        ]
+      ],
+      "whole_source_complete": false
+    }
+  ],
+  "limits": "18 exact full sources/fixtures freshly read, focused supporting bodies explicitly partial. No source edits, project execution, new tests or other lens."
+}

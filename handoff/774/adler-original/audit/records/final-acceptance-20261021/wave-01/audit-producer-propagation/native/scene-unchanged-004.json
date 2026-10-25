@@ -1,0 +1,61 @@
+{
+  "id": "NATIVE-PP-SCENE-UNCHANGED-004",
+  "read_files": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/benchmark_progress.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "48f3dcce49a18b3b0443bc967e65538a8f12d99a961dd874f4ce90a3af42160d",
+      "read_ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "read_status": "full",
+      "contract": "Whole native benchmark constructor/progress callback and original mode selection; raw modes later enum/identity lens, actual source vectors initialized with preserved capacities/order."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/triangle_census.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "fb0fc3bbca6503d19caafadaef01a99600a6fdcd0ab42a316a90c94913284861",
+      "read_ranges": [
+        [
+          1,
+          507
+        ]
+      ],
+      "read_status": "full",
+      "contract": "Whole569-ish source read: both native terrain-wireframe and triangle-census camera ports fail to project newly typed capture Position; PP027. Numeric render triangle/tuft counting loops, GPU visibility ranges and final JSON fully read; real native counts remain exact. Missing vista spacing defaults0 is report observation gap candidate, keep native image/census paths in scene report repair closure."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+      "read_ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "read_status": "full",
+      "contract": "Full actual Position/Displacement/Elevation definitions/constructors/Serde and existing compile-fail examples; no implicit native conversion/Deref or Position.to_array. Canonical finite frame identity retained until explicit metres()."
+    },
+    {
+      "source_id": "registry:bevy_transform-0.19.1/src/components/transform.rs",
+      "path": "CARGO_REGISTRY/bevy_transform-0.19.1/src/components/transform.rs",
+      "sha256": "f2dfe5e97c277df925eb6f9eaf38d94f9bb810c9c8a3afc716ed918e33e0ce8b",
+      "read_ranges": [
+        [
+          129,
+          149
+        ],
+        [
+          176,
+          192
+        ]
+      ],
+      "read_status": "exact_native_port_bodies",
+      "contract": "Transform::from_translation(Vec3) and looking_at(Vec3, impl TryInto<Dir3>) concrete native ports"
+    }
+  ]
+}

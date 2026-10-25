@@ -1,0 +1,97 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-589",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+      "sha256": "896ecc0389806812fad940c671d539b4c767e5a2e38d8a5865403c65b5377579",
+      "actual_EOF": 244,
+      "actual_compared_ranges": [
+        [
+          1,
+          244
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+      "sha256": "b25c00d6c145fc8ff6ba17b58925569f5377ec0ff736dd1ff61b53d6199d2a68",
+      "actual_EOF": 390,
+      "actual_compared_ranges": [
+        [
+          1,
+          390
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+      "sha256": "fc63aaa5df83ab829486d1421eda4b014bf7be462cc7451b0b2c28d19c862e99",
+      "actual_EOF": 618,
+      "actual_compared_ranges": [
+        [
+          1,
+          618
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "P17whole-report assembly requires exactplannedframe/cohort andcurrentartifact evidence beforeacceptance; scoreandacceptance remain distinct.",
+      "evidence": "mod244/model390/validation618fullbodiespersonallyread includingallfixturetails. capture_scenarios_complete exactlenandzipscenario/frame plusallREPORT_BONES present. required_ik_support missingOption->Unavailabletypederror, has_finite_bone_transforms checksposition/quaternioncomponentsallframes. OuteracceptanceANDscomplete/artifacts/finite/continuity/biomechanics/contacts/event/repeated/semanticroute/jitterdiagnostics/distinctviews. Scoreweights16+8+4+2+1<=31 fitsu8, catastrophic/guardfailureexact31, ratio1-score/31finiteUnitInterval andqualityunavailablewhenincomplete; prior586hardcoded31questiondischargedbyactualweightowner. Countu64incrementsboundedactualVec<isizeMAX (nonzeroFrameSample) no nativeoverflowforrealallocatedframes.",
+      "qualifications": "No tests/native/GPUrun. ExactplanfromprivateCaptureSequence::new assertednonempty; rawmanuallyconstructedemptyCompletedCapture notordinarypath. has_finite_bone_transforms coversreportbonesonly, notglobaltracealljoints/rawbodyfields; expectedunitframe/wholetracefinitepolicy remainsseparate, no wholeF016clearance. Metricscomputedbeforefinitegate canreturnErr, whichisvalidcapturefailure ratherthanimpliedpartialgreenpublication.",
+      "acceptance": "Onecanonicalrequested/observedcohort, finitevalidnativeframes andactualcurrentartifactreceipts; acceptanceallrequiredgates andqualitysubsetscoreclear. Preserveexplicitunavailableandindependentvisualreview, no scoreasstand-inforrenderedacceptance."
+    },
+    {
+      "contract": "Artifactwriting andinvalidation preservefailuretruth across currentcapturepublication.",
+      "evidence": "NativeSDKsourceproofbelow: screenshot save_to_disk clonesimage, convertsRGB andcalls syncsave_with_format, logsErrandreturnsunit. Observerthenadvancesregardless. SummaryinvalidationleavesoldPNG; artifactmetadataonlylen>0. Newconditionalwrite-receiptcandidate recordedbelow. Globaltrace/manifest/indexwrites explicitpaniconIOerror orAppExitErroronserialization; notatomicallyoneset, completedmanifestmayremainifindexwritefails butprocessErrorexplicit.",
+      "qualifications": "No IO/nativecaptureexecuted. Sourcepanicsforlocaltooloutputerrors intentionalfatalpolicy ratherthangameplaytransactionrollback. No asyncimagewrite-raceclaim: exactnativehelperdischargedthatfalsehypothesis. Existingoutputs/permissionsorpathcollision areconditionalcounterexamples, notactualcurrentcorruption.",
+      "acceptance": "Falliblecurrentviewwriteacknowledgement beforecompleteness/acceptedexit, deliberatepublicationpolicyforcompleteartifactset andspecificfailureartifact/cause; do not inferpermissionforagentdestructivecleanupfromarchivedtoolcode."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-CAPTURE-ARTIFACT-WRITE-RECEIPT-CANDIDATE-001",
+      "status": "source-backed conditional nativefilesystem failure counterexample; no filesystem/capture/GPUexecution",
+      "source_variant": "report-p17",
+      "operation": "report/mod.rs invalidate_previous_report removesonlymanifest/index/failure/globaltrace. ExistingPNGnamesremain. capture.rs screenshotobserver calls save_to_disk(path)(captured), ignoresnativewriteoutcome (helperreturnsunit), advancesview/index andbuildreport. capture_artifacts_written checksmetadata.len>0 only.",
+      "witness": "AnexpectedcurrentframePNG alreadyexists frompriorrun andisnotwritable, whileoutputdirectory/summarypathsremainwritable; nativeimage savefailsopeningandoldnonemptyPNGstays. Or expected*.png pathisexistingnonemptydirectory, nativewritesfail butmetadata.len>0stilltrue. Sourceartifactgate seesoldfile/directoryaswrittenfornewcapture. Withotherwisevalidnewcapturethatgatefails toreflectIOerror; noactualoverallpassrunclaimed.",
+      "qualification": [
+        "Bevy native save_to_disk isSYNCHRONOUS, nottheinitialsuspectedasyncwrite race: exactSDKfunctionread dischargespendingwrite timingclaim.",
+        "SDKerror logged ratherthanpropagated; sourcecounterexampleconditionalonrepresentedfilesystemfailure/collision, notnormalcurrentoutput/run claim.",
+        "No deletion/permissionchange/captureexecutionperformed. Metadataexistencealone alsoisnotimage/pixel/provenanceverification.",
+        "Targeted1002recordaliassearchnoexactsave_to_disk/capture_artifacts_written record, notexhaustivesemanticuniqueness."
+      ],
+      "repair_cluster": "native-capture-artifact-commit-authority",
+      "dependencies": [
+        "capture screenshotcompletion ownsfalliblenativewrite",
+        "reportartifactcompleteness/currentcaptureidentity",
+        "failurepublication beforeacceptedmanifest/exit",
+        "pinnedBevyfunctionorfirstpartyfalliblesaveowner"
+      ],
+      "acceptance": "Eachrequiredviewhasacknowledgedsuccessfulwriteforcurrentcapturebeforeartifactcomplete/acceptedexit; oldnonemptyfile/directorycannotstandinforcurrentimage. Failedwriteproducesexplicitterminalartifactfailure; preserveunrelateduserfiles/outputpolicy andactualthree-view/renderedpixelproof. Noimplementation/testnow."
+    }
+  ],
+  "fresh_dependencies": [
+    {
+      "source_id": "pinned-registry:bevy_render-0.19.1/src/view/window/screenshot.rs",
+      "sha256": "f49e4ca4f0929fc51a5c55fc002294c6009ae7a4c1c07dc6ef6c8ff737df0c5b",
+      "actual_EOF": 702,
+      "actual_compared_ranges": [
+        [
+          125,
+          240
+        ]
+      ],
+      "method": "Focused exactnative save_to_disk andtrigger boundaryread only; fullmemberbytescheckedagainstcachedcratechecksumfc86a32b2eef9859e1e7d323c6d1a9150fe77aa17c30fd05abebc12f645929dc whichmatchesfrozenP17Cargo.lock. UnreadSDKremainder hasno auditcoverage."
+    }
+  ],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "report-p17:crates/adventuresim-tactical-core/src/animation/authored_angle.rs"
+}

@@ -1,0 +1,182 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-291",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/collision/cuboid.rs",
+      "sha256": "2d9a1cfbd92acc218b8fb3abaf6f579fde6217c2f3776ece0539c340602baec9",
+      "actual_EOF": 111,
+      "actual_compared_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/detail.rs",
+      "sha256": "00f757ddff51e8079daf3a85241adea4b79272687b86f5e166a917ced784681f",
+      "actual_EOF": 815,
+      "actual_compared_ranges": [
+        [
+          1,
+          815
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/detail/arches.rs",
+      "sha256": "6dbbe4e6cf369367992513b5e2f6d7cafaeb65c605749cfa617b31e75147a9d9",
+      "actual_EOF": 59,
+      "actual_compared_ranges": [
+        [
+          1,
+          59
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/detail/arches/glazing.rs",
+      "sha256": "a0180fe822c3d5e6c8e77ab94e971e103c5ff964b4c4004bfd7c41f040829ade",
+      "actual_EOF": 93,
+      "actual_compared_ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/detail/arches/tests.rs",
+      "sha256": "6c4607f114fbd47c88b5dff769aa2784f78c716455011d66113ac1e02ff70bcf",
+      "actual_EOF": 46,
+      "actual_compared_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/detail/cuboids.rs",
+      "sha256": "1bc389873b2835026a9bd59935dcc2392411f1bbe05047c3cfdf8adfe9b15960",
+      "actual_EOF": 254,
+      "actual_compared_ranges": [
+        [
+          1,
+          254
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/detail/kit.rs",
+      "sha256": "da20f3ab034ae60df35d55ff3f9a26f4e2c220b163d33026b807b07e2d60b913",
+      "actual_EOF": 130,
+      "actual_compared_ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/detail/kit/tests.rs",
+      "sha256": "d64c8d404606c77fbcc11783c96bf4e8a7845bd1e789173c132e86f3b5e1b9fb",
+      "actual_EOF": 80,
+      "actual_compared_ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Cuboid topology preserves all checked corners or returns the source geometry error",
+      "source_ranges": {
+        "cuboid.rs": [
+          [
+            1,
+            111
+          ]
+        ]
+      },
+      "disposition": "Allbody+fixture read.8signcodedcorners and12staticedges establish arrayindices; everycomputedcorner readmitted Position, localarray abandonedonerror. CollisionCuboid::corners readmits productQuat throughRigidRotation andmapsoriginalsource/cause. f32cornerordering intentionallyretained toground-contact semantics; no alternateboundsrounding substituted. Overflowrejection valid, not requireinfalliblefinitearithmetic. Fixtureobserves8corners12uniqueedges, notexecuted."
+    },
+    {
+      "contract": "Exact/static building detail preserves render authority and dynamic closure exclusion with local construction",
+      "source_ranges": {
+        "detail.rs": [
+          [
+            1,
+            815
+          ]
+        ]
+      },
+      "disposition": "Wholebodyincludingallfixtures personallyread. mesh_mut indicesderivedfromexistingposition orpushlen, fixedtriangleindicesinfixturesnotproductionunprovenaccess. compile_detail builds localdetail; append?failure meansno publishedpartialdetail. Actualinfallibleappend_roofs/masonry/remap operations remain nativecomputedmeshdependency, not successguarantee from outerResult. Staticexclude usesfirstexistingoperabledoorleaf pluscompiledwindowleaves; multipleclosureID intent requiresactualdoorscompiler nowupcoming. Interior/exteriormaterialandmetric2mUV intentionalrenderroles; collisionseparatelycompiled. Alltestsreadonly, no claimedpassorvisualQA."
+    },
+    {
+      "contract": "Arch rendering shares collision sections and glazing retains metric crown interpolation",
+      "source_ranges": {
+        "arches.rs": [
+          [
+            1,
+            59
+          ]
+        ],
+        "glazing.rs": [
+          [
+            1,
+            93
+          ]
+        ],
+        "tests.rs": [
+          [
+            1,
+            46
+          ]
+        ]
+      },
+      "disposition": "All3completebodiesread. Fixed4faceindices/modulo safe; internalverticalstripcaps suppressed, onlyoutercapsretained. Normalzero skipsdegeneratefaces; nativefinite/normclosure stillsource/shapeprereq. glazing:firstSome proveslastunwrapnonempty (styleguideline issue not arithmeticpanic); crown segment b-a division requires positiveorderedstripwidth guaranteedonlybyvalidarchgeometry. Pane .19metre pitch \u2192ceilusize loops notarbitraryboundedforunboundedrawprofile; actualacceptedbuildingextentneededbeforeordinaryworkbudgetdefect. Bothfaces useopposite normals andsamecrown, preservehollowcut. Testclosedmeshacceptance readnotrun."
+    },
+    {
+      "contract": "Render cuboid expansion and instancing preserve exact physical placement authority",
+      "source_ranges": {
+        "cuboids.rs": [
+          [
+            1,
+            254
+          ]
+        ],
+        "kit.rs": [
+          [
+            1,
+            130
+          ]
+        ],
+        "kit/tests.rs": [
+          [
+            1,
+            80
+          ]
+        ]
+      },
+      "disposition": "All3completebodies+fixturesread. Timberseamcoversrenderonly andfascia/roofyaw signpolicy explicit; physicalcollision unchanged. Projecteddepth chooseslargerX/Zalignment andguards>0 beforedivision, re-admits shiftedcentre; expandedrendersize remainsrawVec3 andcomputedcorners/UVflowthroughLodMesh, so finiteleaves alone do not prove resultingfinitegeometry. Actualcardinalwall/ordinarybuildingbounds dependency retained, no nearzeroalignmentordinarywitness. Sixstaticfaceindexarrays valid. CanonicalUVtangent dominantcomponentowns ties andreversals, notinferexactaxisfromfloatnoise. BuildingKit excludesonlyeligiblecuboidtimber, keepsgablefacemasksunexpanded; localconstructor errors discardsentirekit. Public rawTimberComponent/TimberInstanceSerde do not establish validatedsize/rigidMat4; computedactualinstanceproducer tracedhere, nativeexternaladmissionotherlensquestion. Fixtureschecktransformpositions/normals/UVandtriangleconservationreadnotexecuted. No sourcefix."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "8 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-building-generator/src/detail/solids.rs"
+}

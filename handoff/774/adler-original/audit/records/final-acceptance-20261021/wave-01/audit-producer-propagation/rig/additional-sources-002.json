@@ -1,0 +1,108 @@
+[
+  {
+    "snapshot": "pr-working-unchanged-receiver",
+    "path": "crates/fabelgeist-gpu/src/data/gpu/parameters/mod.rs",
+    "observed_sha256": "7ad0f885d284243d61ff532ba8151cf91916f1535ff64a9c8e29a5e855f128b0",
+    "line_count": 42,
+    "read_ranges": [
+      [
+        1,
+        42
+      ]
+    ],
+    "coverage": "source-read-full",
+    "reason": "Actual PassParameters String->PassParameter map insertion/get; complete file read."
+  },
+  {
+    "snapshot": "pr-working-unchanged-receiver",
+    "path": "crates/fabelgeist-gpu/src/data/gpu/parameters/parameter.rs",
+    "observed_sha256": "8057e3bc54fcc2941ab0b231989785cbbff9c222088d96a10920c55572a4bf24",
+    "line_count": 129,
+    "read_ranges": [
+      [
+        1,
+        129
+      ]
+    ],
+    "coverage": "source-read-full",
+    "reason": "Actual f32->Number(f64) and u32->Unsigned conversions feeding native uniform packing; complete file read."
+  },
+  {
+    "snapshot": "pr-working-unchanged-receiver",
+    "path": "crates/fabelgeist-gpu/src/data/gpu/compute/pass/mod.rs",
+    "observed_sha256": "80e026906d336daf2078cbeae5c04c49d737da5056542fa81c9fa03e96f2452d",
+    "line_count": 484,
+    "read_ranges": [
+      [
+        1,
+        115
+      ]
+    ],
+    "coverage": "partial-source-read-actual-receiver-covered",
+    "reason": "Actual fallback uniform Number/Unsigned little-endian byte packing in ComputePass::record; only reached body range read."
+  },
+  {
+    "snapshot": "pr-working-unchanged-receiver",
+    "path": "crates/fabelgeist-compute/src/kernel/mod.rs",
+    "observed_sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274",
+    "line_count": 406,
+    "read_ranges": [
+      [
+        1,
+        165
+      ],
+      [
+        216,
+        347
+      ]
+    ],
+    "coverage": "partial-source-read-actual-receiver-covered",
+    "reason": "Actual KernelBatch dispatch/dispatch_items routes to native fast path or ComputePass::record, then WGPU dispatch_workgroups."
+  },
+  {
+    "snapshot": "pr-working-unchanged-receiver",
+    "path": "crates/fabelgeist-compute/src/kernel/fast.rs",
+    "observed_sha256": "8cb7511310b96d6e799dd584a3a6f64270c73ee3abbb50a7f730831938ef2fcf",
+    "line_count": 379,
+    "read_ranges": [
+      [
+        1,
+        205
+      ],
+      [
+        254,
+        379
+      ]
+    ],
+    "coverage": "partial-source-read-actual-receiver-covered",
+    "reason": "Actual fast prepare -> write_uniform -> queue.write_buffer; native f32/u32 little-endian words."
+  },
+  {
+    "snapshot": "pr-working-unchanged-receiver",
+    "path": "crates/fabelgeist-gpu/src/data/gpu/bind_group.rs",
+    "observed_sha256": "e88c8b37e80959ef7b47ce22d914becb64f57221b2adf497036ebd98881eef95",
+    "line_count": 303,
+    "read_ranges": [
+      [
+        1,
+        148
+      ]
+    ],
+    "coverage": "partial-source-read-actual-receiver-covered",
+    "reason": "Alternative general bind-group native uniform packer read but not on the traced KernelBatch path; no general correctness verdict inferred."
+  },
+  {
+    "snapshot": "pr-working-unchanged-receiver",
+    "path": "crates/fabelgeist-geometry/src/measurement.rs",
+    "observed_sha256": "72ee58eb8ae01af4b7f17ef81f007dfa63c7dc818a1ed71ce5bbba0707236e70",
+    "line_count": 104,
+    "read_ranges": [
+      [
+        1,
+        92
+      ]
+    ],
+    "coverage": "partial-source-read-actual-receiver-covered",
+    "reason": "Canonical SignedLength actual finite admission, direct u16 millimetre conversion, scaled_by product and metres getter; root owns whole shared owner audit."
+  }
+]

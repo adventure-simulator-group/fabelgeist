@@ -1,0 +1,326 @@
+{
+  "id": "CONT08-CONTRACT-006",
+  "at": "2026-10-25T08:29:33.049012+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 15,
+      "source_id": "native-dependency:bevy_math-0.19.1/src/direction.rs",
+      "sha256": "0aef18fddadf5d5361c4c11f0b9d5561637a7cee6dabde16dfd2816dcf2e521c",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/0aef18fddadf5d5361c4c11f0b9d5561637a7cee6dabde16dfd2816dcf2e521c",
+      "read_ranges": [
+        [
+          1,
+          205
+        ],
+        [
+          550,
+          660
+        ]
+      ],
+      "scope": "Original bounded native direction ranges plus already registered admission03 expansions007/008, not whole1511 lines.",
+      "comparison": "Native bevy_math0.19.1 constructors unchanged; actual changed direction adapter668/orientation671 and camera collision1462 personally compared. P16 orientation44 also compared to own base/head.",
+      "native_law": [
+        "Dir2/3 new_and_length computes length, accepts finite length>0 and divides vector by length; InvalidDirectionError classification distinguishes NaN, infinite, otherwise zero. No component rescaling avoids length overflow/underflow.",
+        "new_unchecked stores supplied vector with debug normalized assertion; owning from_normalized first checks native admission then native is_normalized and retains the represented vector. Lifting plan X/Z uses same existing normalized vector, not a new normalize.",
+        "Camera1462:161\u2013168 still uses Dir3::new(delta) and returns no obstruction for invalid delta as old native code did. UnitInterval wraps the same1 fallback. Newly retained hit normal uses existing strict from_normalized owner instead of retaining arbitrary native normal data."
+      ],
+      "trigger_and_observable_behavior": "Zero/tiny length underflow vectors still reject Zero; huge finite components whose squared-length overflows still reject Infinite; NaN still classifies NaN. Supported normalized finite direction vectors retain native value/order. New camera normal rejection is tracked as a separate recipient/input qualification, not attributed to a changed native constructor.",
+      "disposition": "Scoped native08 contract accounted; camera and physics normal producer family not cleared.",
+      "acceptance": "Preserve native length/normalization behavior and class mapping; establish actual physics-normal guarantee before asserting every hit remains accepted. No native SDK execution."
+    },
+    {
+      "scope_index": 44,
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "before_sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+      "before_status": "present",
+      "after_sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/0044-base-05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+      "diff": "source-evidence/0044.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "body_read_ranges": [
+        [
+          1,
+          142
+        ]
+      ],
+      "read_method": "Personally read complete exact body and entire actual diff.",
+      "contract": "P16 orientation owner, unchanged in isolated P16",
+      "old_new_comparison": [
+        "Entire142-line head read. Its exact P16 base/head diff is empty; this is an unchanged owner reached by material P16 callers.",
+        "Radians admits any finite signed unwrapped value; PlanDirection/SpatialDirection retain native normalize_or_zero order and already-normalized values; RigidRotation rejects nonfinite/unnormalized quaternions without repairing them.",
+        "Own PR671 old/new comparison below independently accounts the earlier adapter/default changes. No P16 change is invented from a shared source identity."
+      ],
+      "disposition": "Bounded local own08 behavior comparison with explicit connected-source qualifications; no source-family clearance.",
+      "limits": [
+        "Incoming P16 orientation callers and all frame-projection operations remain separate pending sources."
+      ],
+      "acceptance": "Keep original numerical operation and clamp/order, explicit supported zero/sign semantics and final owning error boundaries. Rejection changes require actual producer/consumer evidence and intentional policy.",
+      "execution": "No source repair, test, build, compiler, native run or project check."
+    },
+    {
+      "scope_index": 671,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "before_sha256": "b494250a425b69b4bd7bb609d270493f9dcf2f5af97242517f0b9c85b96c73e5",
+      "before_status": "present",
+      "after_sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/0671-base-b494250a425b69b4bd7bb609d270493f9dcf2f5af97242517f0b9c85b96c73e5",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+      "diff": "source-evidence/0671.diff",
+      "diff_sha256": "cff1832130b7395141fc0117aca1a515eac766e8b848fcf08ee4c9b30bde2497",
+      "body_read_ranges": [
+        [
+          1,
+          142
+        ]
+      ],
+      "read_method": "Own full142-line body read via exact same-SHA source44 plus independently consumed PR base/head diff and adapter668 bodies.",
+      "contract": "PR native orientation admission mapping",
+      "old_new_comparison": [
+        "Full same142-line body as own44 read, exact PR diff consumed. Only Radians adds native f32 Default(0); four direction-error adapters now call portable helper668.",
+        "Finite signed/unwrapped radians, ZERO/turn constants and Serde admission remain. Dir2/3 constructor and normalized gates preserve old order and data; no new normalization/wrapping."
+      ],
+      "disposition": "Bounded local own08 behavior comparison with explicit connected-source qualifications; no source-family clearance.",
+      "limits": [
+        "Native normalized predicate implementation and every unrelated quaternion caller are not wholly audited by this local change."
+      ],
+      "acceptance": "Keep original numerical operation and clamp/order, explicit supported zero/sign semantics and final owning error boundaries. Rejection changes require actual producer/consumer evidence and intentional policy.",
+      "execution": "No source repair, test, build, compiler, native run or project check."
+    },
+    {
+      "scope_index": 668,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "before_sha256": "095fd3f98befa41a2c1fc9f6be5571d96cc2896c8c2365be7b2a3404b88ba4cc",
+      "before_status": "present",
+      "after_sha256": "c71c5590f1fb87ae1645a6e4f4ed54a0059d33b821ad0062e098821e1409b899",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/0668-base-095fd3f98befa41a2c1fc9f6be5571d96cc2896c8c2365be7b2a3404b88ba4cc",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/c71c5590f1fb87ae1645a6e4f4ed54a0059d33b821ad0062e098821e1409b899",
+      "diff": "source-evidence/0668.diff",
+      "diff_sha256": "ef40bd26aed56c1c7698ec94f762bdd0497802194666bb318e5c41e93176070f",
+      "body_read_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "read_method": "Personally read complete exact body and entire actual diff.",
+      "contract": "Portable mapping of native direction failure",
+      "old_new_comparison": [
+        "Full28-line body and full old/new diff read. Existing finite-vector axis iteration/order is unchanged. Old inline native error payload becomes canonical DirectionError through exact Zero/Infinite/NaN exhaustive mapping.",
+        "Old manual GeometryError Clone/Eq and serialize_direction_error move to canonical2269; exact enum variant/order, messages and source classification personally compared. Native type identity changes intentionally at the portable adapter; no compatibility alias promised."
+      ],
+      "disposition": "Bounded local own08 behavior comparison with explicit connected-source qualifications; no source-family clearance.",
+      "limits": [
+        "This local portable boundary does not establish that every other error producer retains all identity, cause or Display data."
+      ],
+      "acceptance": "Keep original numerical operation and clamp/order, explicit supported zero/sign semantics and final owning error boundaries. Rejection changes require actual producer/consumer evidence and intentional policy.",
+      "execution": "No source repair, test, build, compiler, native run or project check."
+    },
+    {
+      "scope_index": 2269,
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/error.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "before_sha256": null,
+      "before_status": "absent at exact base",
+      "after_sha256": "78064ad3e76e6e39580db42af5da259e24a922d69fbe0953704cb9715f26a5c3",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/78064ad3e76e6e39580db42af5da259e24a922d69fbe0953704cb9715f26a5c3",
+      "diff": "source-evidence/2269.diff",
+      "diff_sha256": "56fc8aef0447480a8836daa0fd41886c849790483182990f84da5886ff88beea",
+      "body_read_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "read_method": "Personally read complete exact body and entire actual diff.",
+      "contract": "Canonical portable geometry error behavior",
+      "old_new_comparison": [
+        "Full95-line new definition read. Compared against complete removed error668 old definitions/methods visible in exact diff: coordinate/role enum order/names and GeometryError variant order/messages match.",
+        "DirectionError retains exact native Display text for three variants and exact lowercase zero/infinite/nan serialized payload. Source remains delegated through GeometryError::Direction; derived Clone/Eq reproduces old explicit branch values."
+      ],
+      "disposition": "Bounded local own08 behavior comparison with explicit connected-source qualifications; no source-family clearance.",
+      "limits": [
+        "No wire bytes encoded or external consumer executed. Native child concrete type changes from Bevy InvalidDirectionError to portable owner as intended."
+      ],
+      "acceptance": "Keep original numerical operation and clamp/order, explicit supported zero/sign semantics and final owning error boundaries. Rejection changes require actual producer/consumer evidence and intentional policy.",
+      "execution": "No source repair, test, build, compiler, native run or project check."
+    },
+    {
+      "scope_index": 449,
+      "source_id": "physical-p16:crates/fabelgeist-geometry/src/error.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "before_sha256": "78064ad3e76e6e39580db42af5da259e24a922d69fbe0953704cb9715f26a5c3",
+      "before_status": "present",
+      "after_sha256": "78064ad3e76e6e39580db42af5da259e24a922d69fbe0953704cb9715f26a5c3",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/0449-base-78064ad3e76e6e39580db42af5da259e24a922d69fbe0953704cb9715f26a5c3",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/78064ad3e76e6e39580db42af5da259e24a922d69fbe0953704cb9715f26a5c3",
+      "diff": "source-evidence/0449.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "body_read_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "read_method": "Reuse of own full95-line source2269 reading only after exact same-hash identity and independent P16 empty diff; own changed recipient evidence retained.",
+      "contract": "P16 canonical portable geometry error owner",
+      "old_new_comparison": [
+        "Exact P16 head matches full own08 PR2269 body by SHA; independently saved P16 before/after pins and empty actual diff. Existing error scalar/class mapping unchanged in isolated P16.",
+        "Actual P16 aliases350 and new logging408 recipients were read in packet004; native observer error-owner migration finding remains, not repaired by source identity."
+      ],
+      "disposition": "Bounded local own08 behavior comparison with explicit connected-source qualifications; no source-family clearance.",
+      "limits": [
+        "No all-P16 error graph or compiler verdict."
+      ],
+      "acceptance": "Keep original numerical operation and clamp/order, explicit supported zero/sign semantics and final owning error boundaries. Rejection changes require actual producer/consumer evidence and intentional policy.",
+      "execution": "No source repair, test, build, compiler, native run or project check."
+    },
+    {
+      "scope_index": 1462,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/collision.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "before_sha256": "862d65dcfa27ffb94110dbaf5c32fd94e248028f14f278aa9429047789ec31d9",
+      "before_status": "present",
+      "after_sha256": "e57c0f4f3a2b7f4cb749b5e1ca57628e9e5ef864f1bd4365fe48313a3f426c3e",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1462-base-862d65dcfa27ffb94110dbaf5c32fd94e248028f14f278aa9429047789ec31d9",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/e57c0f4f3a2b7f4cb749b5e1ca57628e9e5ef864f1bd4365fe48313a3f426c3e",
+      "diff": "source-evidence/1462.diff",
+      "diff_sha256": "1481451057cc1d52a4409eba6f5256f9a2a0ce6310a02cf6782c538ef40b1e88",
+      "body_read_ranges": [
+        [
+          1,
+          339
+        ]
+      ],
+      "read_method": "Personally read complete exact body and entire actual diff.",
+      "contract": "Camera collision bounds, recovery and strict normal output",
+      "old_new_comparison": [
+        "Full339-line head and all450 diff lines consumed in bounded calls after an earlier450-line display truncated; no coverage from missing output.",
+        "Projection inverse/corner traversal, min/max size and local-center expression retain native order, with finite/nonnegative owning outputs admitted afterward. Close defaults1.8/.65/.38/.12 and blend smoothstep order unchanged.",
+        "Sweep uses same delta/direction fallback, same native cast origin/rotation/distance/filter/predicate, and same fraction division/clamp. New CameraHit retains entity+strict normalized normal; old ShapeHitData had more metadata. Actual downstream use and native normal guarantees remain pending.",
+        "Endpoint retains focus/anchor and shoulder lerp order. Recovery preserves strict retract, hysteresis<= and hold behavior for admitted nonnegative elapsed; local damping still uses same scalar law. Successful placement performs same eight refinements/final sweep/lerp, but now prepares replacement BoomRecovery locally and commits only after finite outputs pass.",
+        "New failure behavior rejects nonfinite/negative extent, nonfinite owned position/speed/fraction or malformed normal before replacement; no broad assertion that every old finite-used-output API case was invalid."
+      ],
+      "disposition": "Bounded local own08 behavior comparison with explicit connected-source qualifications; no source-family clearance.",
+      "limits": [
+        "Critical damping dependency1468 personally compared; elapsed/Ratio/ScreenWindow/Position types and actual physics normal producer/camera update error route remain separate pending cells. No visual/GPU/physics run."
+      ],
+      "acceptance": "Keep original numerical operation and clamp/order, explicit supported zero/sign semantics and final owning error boundaries. Rejection changes require actual producer/consumer evidence and intentional policy.",
+      "execution": "No source repair, test, build, compiler, native run or project check."
+    },
+    {
+      "scope_index": 1468,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/smoothing.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "before_sha256": "c81cefbcff12a8b4cf30a78f570d5f52d8df8fcc014e101c7dea3c432d593ff8",
+      "before_status": "present",
+      "after_sha256": "6f9948b9cd1412b7351a88e92a460780579e7d89ad0a9ae6bbfb4dd99102842a",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/1468-base-c81cefbcff12a8b4cf30a78f570d5f52d8df8fcc014e101c7dea3c432d593ff8",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/6f9948b9cd1412b7351a88e92a460780579e7d89ad0a9ae6bbfb4dd99102842a",
+      "diff": "source-evidence/1468.diff",
+      "diff_sha256": "8cd4631005b8ecea080463b55cf92da09d1f4c48e2c209bc7c9eb9611065dc21",
+      "body_read_ranges": [
+        [
+          1,
+          269
+        ]
+      ],
+      "read_method": "Personally read complete exact body and entire actual diff.",
+      "contract": "Camera damping, view metrics, profile blend and sweet spot",
+      "old_new_comparison": [
+        "Full269-line body and all329 diff lines personally read. critical_damp_vec3/scalar retain omega=2/smooth.max(.0001), displacement, exp, temporary, velocity and result expression order exactly after scalar extraction.",
+        "damp_focus retains horizontal then vertical calculations; new FocusSample admits complete position/velocity before publication. View metrics retain native perspective aspect.max(.1), tan(fov*.5) and nonperspective constants.",
+        "blend_profile retains FloatExt scalar difference-form lerp order and field order; finite signed ResponseShapingTime1779 stores original scalar. Sweet-spot right/up projection, half-height, allowed bounds/clamp, target and screen-error zero fallback are unchanged.",
+        "Existing tests remain with typed wrappers; a new reversing-mode-blend fixture is read as source intent only. No fixtures executed."
+      ],
+      "disposition": "Bounded local own08 behavior comparison with explicit connected-source qualifications; no source-family clearance.",
+      "limits": [
+        "Signed shaping time must not be confused with a separate positive smoothing value. checked_lerp now rejects a nonfinite time owner before downstream floor; huge opposite finite time values can expose this API difference, and actual retained profile consumers need separate trace."
+      ],
+      "acceptance": "Keep original numerical operation and clamp/order, explicit supported zero/sign semantics and final owning error boundaries. Rejection changes require actual producer/consumer evidence and intentional policy.",
+      "execution": "No source repair, test, build, compiler, native run or project check."
+    },
+    {
+      "scope_index": 1779,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/shaping_time.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "before_sha256": null,
+      "before_status": "absent at exact base",
+      "after_sha256": "daf4c6b1cf6f43edc45f91ac44fb6fe70ae0848a2e1b23b8bc313ba24d887a87",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/daf4c6b1cf6f43edc45f91ac44fb6fe70ae0848a2e1b23b8bc313ba24d887a87",
+      "diff": "source-evidence/1779.diff",
+      "diff_sha256": "cf729ff58cc5ab2b6cbb27886788cea9faa9d82a0adf177914e83bf7728b5f28",
+      "body_read_ranges": [
+        [
+          1,
+          63
+        ]
+      ],
+      "read_method": "Personally read complete exact body and entire actual diff.",
+      "contract": "Finite signed response-shaping time and native bounded kernels",
+      "old_new_comparison": [
+        "Full63-line new source and full added diff read. Admission rejects only nonfinite: negative, zero and subnormal finite seconds remain valid; no floor or normalization at leaf boundary.",
+        "advance_settle retains progress + elapsed/time then min1 before output admission, allowing transient infinite quotient to cap. advance_guard keeps same addition/division then clamp0..1. checked_lerp uses pinned FloatExt difference form then admits the blended finite owner.",
+        "Actual camera1468 consumes shaping seconds through its old max(.0001) floor; old negative/zero smoothing still reaches that floor unchanged on direct admitted values."
+      ],
+      "disposition": "Bounded local own08 behavior comparison with explicit connected-source qualifications; no source-family clearance.",
+      "limits": [
+        "Complete settle/guard/lerp actual producer and recipient inventory is not exhausted. No broad all-animation arithmetic guarantee from this one owner."
+      ],
+      "acceptance": "Keep original numerical operation and clamp/order, explicit supported zero/sign semantics and final owning error boundaries. Rejection changes require actual producer/consumer evidence and intentional policy.",
+      "execution": "No source repair, test, build, compiler, native run or project check."
+    }
+  ],
+  "partial_sources": [
+    {
+      "scope_index": 16,
+      "source_id": "native-dependency:parry3d-0.27.0/Cargo.toml",
+      "sha256": "e9a4996484162b4fcda871bf170f0224ad27e1fff77ef5c88a8d8eafdfc89b9a",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/e9a4996484162b4fcda871bf170f0224ad27e1fff77ef5c88a8d8eafdfc89b9a",
+      "read_ranges": [
+        [
+          60,
+          87
+        ]
+      ],
+      "facts": "Actual manifest declares default required-features/std/spade and required-features dim3/f32. This is metadata source reading, not yet a behavior/precision receiving comparison.",
+      "status": "Partial own08 native role; actual Avian/Parry precision and collider constructor paths next."
+    }
+  ],
+  "qualified_questions": [
+    {
+      "id": "CONT08-Q003",
+      "status": "Pending connected proof, no defect promoted.",
+      "sources": [
+        1462,
+        15,
+        671
+      ],
+      "question": "Does actual native shape-hit normal admission guarantee every formerly usable hit passes strict normalized direction? Trace exact native normal producer and actual camera recipient before ordinary claim."
+    },
+    {
+      "id": "CONT08-Q004",
+      "status": "Extreme API finite-owner policy qualification, no ordinary failure asserted.",
+      "sources": [
+        1468,
+        1779
+      ],
+      "question": "checked_lerp can reject opposite huge finite shaping times whose old difference-form interpolation becomes infinity before later damping floor/omega. Determine whether the blended time is itself intended finite retained state; ordinary profiles not presumed to reach witness."
+    }
+  ],
+  "next_frontier": "Original16 native Parry precision feature role and incoming Avian collider math; native17 image encoding plus concrete icon recipient. Camera normal, profile/time and update failure routes remain partial."
+}

@@ -1,0 +1,502 @@
+{
+  "lens": "audit-existing-type-owners",
+  "method": "Fresh full PR source body read thislens followed by exact same-lens identical-line block bookkeeping and manual reading of EVERY distinct P16 line; stdlib text metadata only, no parser/project check or behavioral equivalence claim. P16 mandatory isolated snapshot preserves pre-rig/P15 paths and must not be substituted wholesale.",
+  "pairs": [
+    {
+      "base_source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/generation_tests.rs",
+      "base_sha256": "8acbe54a829e4f8c3f5e3d2fc5b4efe91415a6ebf0ea601ed3d98c46f410d6e6",
+      "base_full_read_ranges": [
+        [
+          1,
+          394
+        ]
+      ],
+      "target_source_id": "physical-p16:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/generation_tests.rs",
+      "target_sha256": "b9ebdeb456f436026036cd6eeb640ee942b80fb5b4bd885d6c9cd78af795defe",
+      "target_ranges": [
+        [
+          1,
+          395
+        ]
+      ],
+      "identical_source_blocks": [
+        {
+          "base": [
+            1,
+            48
+          ],
+          "target": [
+            1,
+            48
+          ]
+        },
+        {
+          "base": [
+            50,
+            50
+          ],
+          "target": [
+            50,
+            50
+          ]
+        },
+        {
+          "base": [
+            53,
+            78
+          ],
+          "target": [
+            53,
+            78
+          ]
+        },
+        {
+          "base": [
+            80,
+            142
+          ],
+          "target": [
+            81,
+            143
+          ]
+        },
+        {
+          "base": [
+            146,
+            260
+          ],
+          "target": [
+            147,
+            261
+          ]
+        },
+        {
+          "base": [
+            262,
+            394
+          ],
+          "target": [
+            263,
+            395
+          ]
+        }
+      ],
+      "distinct_source_blocks": [
+        {
+          "kind": "replace",
+          "base": [
+            49,
+            49
+          ],
+          "target": [
+            49,
+            49
+          ],
+          "base_lines": [
+            "        joint_indices: Default::default(),"
+          ],
+          "target_lines": [
+            "        joint_indices: vec![],"
+          ]
+        },
+        {
+          "kind": "replace",
+          "base": [
+            51,
+            52
+          ],
+          "target": [
+            51,
+            52
+          ],
+          "base_lines": [
+            "        joint_names: vec![\"l_lowarm\".into()].into(),",
+            "        global_joint_states: Default::default(),"
+          ],
+          "target_lines": [
+            "        joint_names: vec![\"l_lowarm\".into()],",
+            "        global_joint_states: vec![],"
+          ]
+        },
+        {
+          "kind": "replace",
+          "base": [
+            79,
+            79
+          ],
+          "target": [
+            79,
+            80
+          ],
+          "base_lines": [
+            "        selection: layers::LayerSelection::admit(\"vambrace\", \"left\").unwrap(),"
+          ],
+          "target_lines": [
+            "        item: \"vambrace\".into(),",
+            "        placement: \"left\".into(),"
+          ]
+        },
+        {
+          "kind": "replace",
+          "base": [
+            143,
+            145
+          ],
+          "target": [
+            144,
+            146
+          ],
+          "base_lines": [
+            "                dimensions_m: Vec3::splat(0.2),",
+            "                grip_to_tip_m: 0.0,",
+            "                striking_head_length_m: 0.0,"
+          ],
+          "target_lines": [
+            "                dimensions_m: fabelgeist_geometry::CuboidDimensions::from_metres(Vec3::splat(0.2)).unwrap(),",
+            "                grip_to_tip_m: fabelgeist_geometry::SignedLength::from_metres(0.0).unwrap(),",
+            "                striking_head_length_m: fabelgeist_geometry::SignedLength::from_metres(0.0).unwrap(),"
+          ]
+        },
+        {
+          "kind": "replace",
+          "base": [
+            261,
+            261
+          ],
+          "target": [
+            262,
+            262
+          ],
+          "base_lines": [
+            "        joint_indices: Default::default(),"
+          ],
+          "target_lines": [
+            "        joint_indices: vec![],"
+          ]
+        }
+      ]
+    },
+    {
+      "base_source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment.rs",
+      "base_sha256": "c7869ebb6e2c2a67a4c47e9504c0ced6da6566f95fba9320181d49b1142a54fd",
+      "base_full_read_ranges": [
+        [
+          1,
+          1745
+        ]
+      ],
+      "target_source_id": "physical-p16:crates/adventuresim-tactical-client/src/equipment.rs",
+      "target_sha256": "de5de9948499820d3cad696afbcdc3f1d2473f3abac518c580de6440f3f8dd8a",
+      "target_ranges": [
+        [
+          1,
+          1764
+        ]
+      ],
+      "identical_source_blocks": [
+        {
+          "base": [
+            1,
+            64
+          ],
+          "target": [
+            1,
+            64
+          ]
+        },
+        {
+          "base": [
+            66,
+            153
+          ],
+          "target": [
+            69,
+            156
+          ]
+        },
+        {
+          "base": [
+            155,
+            244
+          ],
+          "target": [
+            158,
+            247
+          ]
+        },
+        {
+          "base": [
+            245,
+            246
+          ],
+          "target": [
+            267,
+            268
+          ]
+        },
+        {
+          "base": [
+            253,
+            346
+          ],
+          "target": [
+            281,
+            374
+          ]
+        },
+        {
+          "base": [
+            355,
+            376
+          ],
+          "target": [
+            375,
+            396
+          ]
+        },
+        {
+          "base": [
+            379,
+            380
+          ],
+          "target": [
+            398,
+            399
+          ]
+        },
+        {
+          "base": [
+            383,
+            1152
+          ],
+          "target": [
+            402,
+            1171
+          ]
+        },
+        {
+          "base": [
+            1154,
+            1436
+          ],
+          "target": [
+            1173,
+            1455
+          ]
+        },
+        {
+          "base": [
+            1440,
+            1745
+          ],
+          "target": [
+            1459,
+            1764
+          ]
+        }
+      ],
+      "distinct_source_blocks": [
+        {
+          "kind": "replace",
+          "base": [
+            65,
+            65
+          ],
+          "target": [
+            65,
+            68
+          ],
+          "base_lines": [
+            "const PICKUP_RANGE_M: f32 = 2.0;"
+          ],
+          "target_lines": [
+            "const PICKUP_RANGE_M: fabelgeist_geometry::SignedLength = match fabelgeist_geometry::SignedLength::from_metres(2.0) {",
+            "    Ok(value) => value,",
+            "    Err(_) => panic!(\"authored pickup range must be finite\"),",
+            "};"
+          ]
+        },
+        {
+          "kind": "replace",
+          "base": [
+            154,
+            154
+          ],
+          "target": [
+            157,
+            157
+          ],
+          "base_lines": [
+            "    next_sequence: EquipmentSequence,"
+          ],
+          "target_lines": [
+            "    next_sequence: u32,"
+          ]
+        },
+        {
+          "kind": "insert",
+          "base": [
+            245,
+            244
+          ],
+          "target": [
+            248,
+            266
+          ],
+          "base_lines": [],
+          "target_lines": [
+            "fn icon_uv(slug: &str) -> egui::Rect {",
+            "    let index = EQUIPMENT_ICON_SLUGS",
+            "        .iter()",
+            "        .position(|candidate| *candidate == slug)",
+            "        .unwrap_or(0);",
+            "    let column = (index % EQUIPMENT_ICON_COLUMNS) as f32;",
+            "    let row = (index / EQUIPMENT_ICON_COLUMNS) as f32;",
+            "    egui::Rect::from_min_max(",
+            "        egui::pos2(",
+            "            column / EQUIPMENT_ICON_COLUMNS as f32,",
+            "            row / EQUIPMENT_ICON_ROWS as f32,",
+            "        ),",
+            "        egui::pos2(",
+            "            (column + 1.0) / EQUIPMENT_ICON_COLUMNS as f32,",
+            "            (row + 1.0) / EQUIPMENT_ICON_ROWS as f32,",
+            "        ),",
+            "    )",
+            "}",
+            ""
+          ]
+        },
+        {
+          "kind": "replace",
+          "base": [
+            247,
+            252
+          ],
+          "target": [
+            269,
+            280
+          ],
+          "base_lines": [
+            "    let item =",
+            "        adventuresim_core::equipment_assets::CatalogItem::find(item_catalog::catalog(), item_id)?;",
+            "    match placement_id {",
+            "        Some(id) => PROCEDURAL_EQUIPMENT_ASSETS.file_for(item.placement(id)?),",
+            "        None => PROCEDURAL_EQUIPMENT_ASSETS.default_file_for(item),",
+            "    }"
+          ],
+          "target_lines": [
+            "    let item = item_catalog::definition(item_id)?;",
+            "    let placement = match placement_id {",
+            "        Some(id) => Some(",
+            "            item.equipment",
+            "                .as_ref()?",
+            "                .placements",
+            "                .iter()",
+            "                .find(|placement| placement.id == id)?,",
+            "        ),",
+            "        None => None,",
+            "    };",
+            "    PROCEDURAL_EQUIPMENT_ASSETS.file_for(item, placement)"
+          ]
+        },
+        {
+          "kind": "delete",
+          "base": [
+            347,
+            354
+          ],
+          "target": [
+            375,
+            374
+          ],
+          "base_lines": [
+            "    let Ok(action_state) = action_states.get(actor) else {",
+            "        warn!(",
+            "            ?actor,",
+            "            \"Equipment action not sent: authoritative revision is unavailable\"",
+            "        );",
+            "        (session.active, session.selection, session.repeated_input) = (None, None, None);",
+            "        return;",
+            "    };"
+          ],
+          "target_lines": []
+        },
+        {
+          "kind": "replace",
+          "base": [
+            377,
+            378
+          ],
+          "target": [
+            397,
+            397
+          ],
+          "base_lines": [
+            "    let sequence = session.next_sequence;",
+            "    session.next_sequence = sequence.next();"
+          ],
+          "target_lines": [
+            "    session.next_sequence = session.next_sequence.wrapping_add(1);"
+          ]
+        },
+        {
+          "kind": "replace",
+          "base": [
+            381,
+            382
+          ],
+          "target": [
+            400,
+            401
+          ],
+          "base_lines": [
+            "        sequence,",
+            "        expected_revision: action_state.revision,"
+          ],
+          "target_lines": [
+            "        sequence: session.next_sequence,",
+            "        expected_revision: action_states.get(actor).map_or(0, |state| state.revision),"
+          ]
+        },
+        {
+          "kind": "replace",
+          "base": [
+            1153,
+            1153
+          ],
+          "target": [
+            1172,
+            1172
+          ],
+          "base_lines": [
+            "                joint_names: vec![\"root\".into(), \"c_spine0\".into()].into(),"
+          ],
+          "target_lines": [
+            "                joint_names: vec![\"root\".into(), \"c_spine0\".into()],"
+          ]
+        },
+        {
+          "kind": "replace",
+          "base": [
+            1437,
+            1439
+          ],
+          "target": [
+            1456,
+            1458
+          ],
+          "base_lines": [
+            "            dimensions_m: Vec3::new(0.25, 1.4, 0.08),",
+            "            grip_to_tip_m: 1.15,",
+            "            striking_head_length_m: 0.25,"
+          ],
+          "target_lines": [
+            "            dimensions_m: fabelgeist_geometry::CuboidDimensions::from_metres(Vec3::new(0.25, 1.4, 0.08)).unwrap(),",
+            "            grip_to_tip_m: fabelgeist_geometry::SignedLength::from_metres(1.15).unwrap(),",
+            "            striking_head_length_m: fabelgeist_geometry::SignedLength::from_metres(0.25).unwrap(),"
+          ]
+        }
+      ]
+    }
+  ]
+}

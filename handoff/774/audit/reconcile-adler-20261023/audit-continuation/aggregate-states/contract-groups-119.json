@@ -1,0 +1,88 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-119",
+  "at": "2026-10-25T17:43:05.745919+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1574,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants.rs",
+      "sha256": "5397178ad53d019142d2791f701111ec168b2b1636e053a1085ce9bf1b6af35a",
+      "personally_read_ranges": [
+        [
+          1,
+          232
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full232 botanical placement and presentation read. Every PlantSite groups checked root/species/seed; repeated anchor metadata is derived from same accepted sites. Mask error happens before cache preparation/publication. Accepted candidates computed across whole terrain, stable sorted by hash+position bits then capped512, preserving spatial fairness rather than row-order truncation. Shared macro-cell species weighted RNG and per-root jitter deliberately use distinct purposes. Native grid casts/work cost require exact terrain admission/capacity (F021/M61), output limit512 alone does not bound candidate scan/allocation. Ground/water/roads/winter exclusion rests actual habitat producer, no arbitrary every-scene species presence guarantee. Same scene digest/SceneId into stable text seed is retained identity propagation graph M68/M90, actual deterministic hash is legitimate bit boundary."
+      ]
+    },
+    {
+      "scope_index": 1575,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants/lod.rs",
+      "sha256": "ed647cd71017f84b64945f398ad873fce7a452384db4b485eaafb29ba4de70a8",
+      "personally_read_ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full140 botanical cache/LOD consumer and fixtures read. Same ordered PlantSpecies::ALL produces specimen vector indexed by canonical species.index, same PlantLod::ALL produces fixed3 meshes; exact canonical order still owning generator dependency. Private Option material and nonempty specimens normal prepare writes together before spawn. Generated point bounds aggregate all LOD meshes; empty geometry would leave infinity bounds, requires actual generator nonempty guarantee, not ordinary current claim. Co-located tiers share same transform/bounds/species and matching transition endpoints. Native Aabb/Mesh projection is final geometry port. No fixtures executed."
+      ]
+    },
+    {
+      "scope_index": 1576,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants/streams.rs",
+      "sha256": "415b7203142daf29b1d32af8b61b4a629d995ee6e0d851d281517802908205ad",
+      "personally_read_ranges": [
+        [
+          1,
+          11
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full11 named StreamId declarations read; actual generation-purpose namespaces separate site/community/species/jitter/presence/yaw/scale. Declaration strings are deterministic replay contract, not arbitrary retained display category."
+      ]
+    },
+    {
+      "scope_index": 1577,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/plants/tests.rs",
+      "sha256": "25420a15928ded72b0fe13b6e069519f74758b1555d6b4439bbf6d8602217239",
+      "personally_read_ranges": [
+        [
+          1,
+          301
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full301 existing botanical fixtures source-read only. Full frozen assets names, seasonal budgets, grounded/repeatable placement, water/road/stone/winter exclusions, dense sward rejection, shared mesh/material count27/1 and exact3-LOD group/idempotency assertions retained as acceptance obligations. No fixture generation, ECS run or tests added/executed; source assertions are not passing validation."
+      ]
+    },
+    {
+      "scope_index": 1578,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/ground_scatter/review_specimens.rs",
+      "sha256": "8acf0ffcb0e18a04c212bb749ffd1ed34edfdf3387a3fa35c2d1085cd5785a5f",
+      "personally_read_ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full99 review-specimen producer read. PreparedSpecimen admits all required mesh/material handles before collecting all3 species and before any capture entity publication. Late missing species returns owning typed error without partial spawn. Common-name string is actual human-facing label/capture diagnostics, species association currently authored tuple matches canonical cache slots. Checked Position<Scene> retained to actual transform port. No captures or proof asset existence beyond handle presence."
+      ]
+    }
+  ],
+  "findings": [
+    "F021 native grid capacity",
+    "M61 accepted render layout",
+    "RIG-OWNER-F021 loose-stone positive physical leaf"
+  ],
+  "qualified_connected_requirements": [
+    "1579 already fully read/accounted117; no recount. Generator canonical species/LOD order and nonempty geometry remain reached source obligations, not inferred from preset expect."
+  ],
+  "discovery": "5 newly accounted original roles; other reads support already counted historical roles. Lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

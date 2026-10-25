@@ -1,0 +1,37 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-786",
+  "at": "2026-10-25T16:50:14.389958+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1006,
+  "source_id": "pr-working:crates/adventuresim-core/src/strategic_action.rs",
+  "sha256": "4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+  "actual_compared_ranges": [
+    [
+      441,
+      880
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "DomainTarget/DomainRequirement/DomainCapability/DomainInterruption/DomainEffect/PublicPreview",
+      "lines": [
+        [
+          725,
+          750
+        ]
+      ],
+      "disposition": "KEEP six explicit empty local marker opt-ins; structural traits already derived"
+    }
+  ],
+  "analysis": [
+    "Canonical ID macro already structural derive; try_new checks lexical contract. Private nonserializable plan/provenance records already derive structural comparisons with declared custom bounds. Public-plan construction is sanitized field subset plus semantic completion classifier, not raw serialization/From derive. Replan/idempotence validation semantic, preserve.",
+    "Six fixture marker opt-ins725/730/735/740/745/750 implement empty traits defined143\u2013148; no available local marker derive, keep necessary small impls. Other fixture types already structural derive."
+  ],
+  "first_unfinished": {
+    "scope_index": 1006,
+    "line": 881
+  },
+  "execution": "none"
+}

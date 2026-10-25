@@ -1,0 +1,65 @@
+{
+  "id": "CONT07-CONTRACT-471",
+  "at": "2026-10-23T22:27:30.285125+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2079,
+      "source_id": "pr-working:crates/adventuresim-terrain/src/builder.rs",
+      "sha256": "39502f30860a433c74e3d1309365d46fda323b7406ee627123dfcd50630442a1",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-terrain/src/builder.rs",
+      "actual_EOF": 646,
+      "ranges": [
+        [
+          1,
+          646
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2080,
+      "source_id": "pr-working:crates/adventuresim-terrain/src/builder/features.rs",
+      "sha256": "53ccce034630b1e64dade5ff2b76cb7dbc2901d5d661ce09df9d964125a3ca92",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-terrain/src/builder/features.rs",
+      "actual_EOF": 13,
+      "ranges": [
+        [
+          1,
+          13
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2081,
+      "source_id": "pr-working:crates/adventuresim-terrain/src/digest.rs",
+      "sha256": "80e021f45fedb26ff313fe42e19a49503716be0c710173af5285e572bfe5ce98",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-terrain/src/digest.rs",
+      "actual_EOF": 28,
+      "ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "2079 full646 offline builder derives each encoded Surface and crossing/wetland/cultivation flags from same prepared source masks; Surface Road precedence over water and explicit crossing are orthogonal traversal/underlying-water observations, not contradictory second authority. Canopy-only forest classification and raw canopy are coherent same-source projection; flags carry useful independent detail.",
+    "2079 source native hilly classification deliberately uses original float DSM neighbor gradients while encoded elevation rounds/clamps to integer; no invariant that rounded local heights must reconstruct same classification. Source resolution versus latitude-dependent tile pixel geometry represents declared nominal source product, not direct spacing owner. Need actual strategic consumer before claim classification physically inconsistent.",
+    "2079 manifest content digest hashes actual compressed pack; perchunk decoded digest hashes decoded bytes; package digest hashes manifest with selfdigest zero. These identify distinct payload layers, not redundant current truth. Source road geometry/wetland/cultivation provenance intentionally hash separate inputs.2081 full28 shared hashing delegates digest syntax to canonical SourcePackageDigest.",
+    "2080 full13 public Features carries source vector payloads plus provenance digests; builder copies source digests without re-fetching original upstream bytes. Such metadata cannot establish semantic source correspondence by itself, but arbitrary corruption or mismatched caller payload is not ordinary producer proof. Need actual offline source loader/feature stage before accepted association finding.",
+    "2079 bounded polygon rasterization XOR across source polygons may cancel overlapping independent polygons; this is an operations/topology candidate, not independent07current authority finding. Current feature upstream disjointness/admission not yet established. Missing forest intentionally optional; missing elevation allowed only explicit reviewed offshore cells marked impassable water. No dataset/build execution."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2082,
+    "start_line": 1
+  }
+}

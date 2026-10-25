@@ -1,0 +1,31 @@
+{
+  "recorded_at": "2026-10-21T05:02:39.452568+00:00",
+  "base_head": "b1ac5caaa8c718b09e1df85265f2adb05fea94a6",
+  "run": 39546921003,
+  "job": 119047071794,
+  "unique_hunks": 3,
+  "changes": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/presentation/vista.rs",
+      "hosted_occurrences": 6,
+      "exact_old_matches": 1,
+      "old": "                            *color,\n                            expected\n                                .at(\n                                    PlanDisplacement::try_from(Vec2::new(\n                                        position[0],\n                                        position[2],\n                                    ))\n                                    .unwrap(),\n                                    Vec2::splat(9.0),\n                                )\n",
+      "new": "                            *color,\n                            expected\n                                .at(\n                                    PlanDisplacement::try_from(\n                                        Vec2::new(position[0], position[2],)\n                                    )\n                                    .unwrap(),\n                                    Vec2::splat(9.0),\n                                )\n"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/catalog.rs",
+      "hosted_occurrences": 1,
+      "exact_old_matches": 1,
+      "old": "            (index / CATALOG_COLUMNS) as f32 - 3.0,\n        ) * CATALOG_BAY_SPACING_METRES;\n        let keys = FurnitureVariant::ALL.map(|variant| FurnitureKey::natural(kind, variant));\n        let [compact, broad] = keys.map(|key| {\n            key.interior_spec()\n                .map(|spec| spec.size_metres.metres())\n        });\n        let sizes = [compact?, broad?];\n        let pair_width = sizes[0].x + sizes[1].x + catalog_pair_gap(kind);\n        for (variant, key) in keys.into_iter().enumerate() {\n",
+      "new": "            (index / CATALOG_COLUMNS) as f32 - 3.0,\n        ) * CATALOG_BAY_SPACING_METRES;\n        let keys = FurnitureVariant::ALL.map(|variant| FurnitureKey::natural(kind, variant));\n        let [compact, broad] =\n            keys.map(|key| key.interior_spec().map(|spec| spec.size_metres.metres()));\n        let sizes = [compact?, broad?];\n        let pair_width = sizes[0].x + sizes[1].x + catalog_pair_gap(kind);\n        for (variant, key) in keys.into_iter().enumerate() {\n"
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/finishes.rs",
+      "hosted_occurrences": 1,
+      "exact_old_matches": 1,
+      "old": "        .map(|(index, kind)| {\n            let bay = Vec2::new(100.0, (index as f32 - 2.0) * CATALOG_BAY_SPACING_METRES);\n            let key = FurnitureKey::natural(kind.kind(), FurnitureVariant::Compact);\n            let size = key\n                .interior_spec()?\n                .size_metres\n                .metres();\n            let width = size.x * FurnitureWoodState::ALL.len() as f32\n                + CATALOG_PAIR_GAP_METRES * (FurnitureWoodState::ALL.len() - 1) as f32;\n            for (state_index, state) in FurnitureWoodState::ALL.into_iter().enumerate() {\n",
+      "new": "        .map(|(index, kind)| {\n            let bay = Vec2::new(100.0, (index as f32 - 2.0) * CATALOG_BAY_SPACING_METRES);\n            let key = FurnitureKey::natural(kind.kind(), FurnitureVariant::Compact);\n            let size = key.interior_spec()?.size_metres.metres();\n            let width = size.x * FurnitureWoodState::ALL.len() as f32\n                + CATALOG_PAIR_GAP_METRES * (FurnitureWoodState::ALL.len() - 1) as f32;\n            for (state_index, state) in FurnitureWoodState::ALL.into_iter().enumerate() {\n"
+    }
+  ],
+  "scope": "Exact hosted formatter output only. No local formatter/project checks, no input/behavior/test/assertion changes. Native compilation remains pending."
+}

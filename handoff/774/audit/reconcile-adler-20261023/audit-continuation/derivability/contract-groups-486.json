@@ -1,0 +1,80 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-486",
+  "at": "2026-10-25T15:51:20.076276+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 885,
+      "source_id": "pr-working:crates/adventuresim-core/src/book.rs",
+      "sha256": "1b4aac417b1f0ea794ff7f2832552b2ce1561a7d2cbede9129b274e29dc394ef",
+      "actual_EOF": 529,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/book.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/book.rs",
+        "sha256": "1b4aac417b1f0ea794ff7f2832552b2ce1561a7d2cbede9129b274e29dc394ef",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 17405,
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 31,
+            "read_ranges": [
+              [
+                1,
+                345
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-STRATEGIC-004"
+            ],
+            "read_status": "specified_actual_owner_and_recipient_bodies_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/book.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_owner": "native",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1589,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          345
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "BoundedBookGain Clone Copy Debug Default PartialEq12",
+        "BookCandidate borrowed record Clone Debug PartialEq257"
+      ],
+      "absence_basis": "Exact scoped1\u2013345 personally read: rank/shape/skill classifiers, bounded training integration, borrowed candidate sort/dedup, first whole fixture through344. No handwritten trait or codec;529EOF tail is outside this registered material and not credited."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Book semantic classification and study computation are not mechanical trait conversions",
+      "disposition": "Keep native target-family cap/skill-subset classifiers and capped/correlated training functions. Do not add Serde or From traits to replace semantic functions; all structural traits already derived. No new derivability finding."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 886,
+    "source_id": "pr-working:crates/adventuresim-core/src/capability.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

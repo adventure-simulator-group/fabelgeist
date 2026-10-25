@@ -1,0 +1,93 @@
+{
+  "id": "CONT07-CONTRACT-499",
+  "at": "2026-10-23T22:56:31.146672+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2180,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/bracer.rs",
+      "sha256": "b97ad57cfea2e265e2b9cb6f861344e248047f68def1a29063ef6a0e2916a032",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/gpu/bracer.rs",
+      "actual_EOF": 486,
+      "ranges": [
+        [
+          1,
+          486
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2181,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/breastplate/mod.rs",
+      "sha256": "512f6fc4ad56ec5cfcbc18c361c88c6983b4647620502f4ed53971bbda10d1c3",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/gpu/breastplate/mod.rs",
+      "actual_EOF": 332,
+      "ranges": [
+        [
+          1,
+          332
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2182,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/chart.rs",
+      "sha256": "c8a582694544c0d94a6e1c77a7ffc592e381c7645cc6139db94b43b188298f7a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/gpu/chart.rs",
+      "actual_EOF": 352,
+      "ranges": [
+        [
+          1,
+          352
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2183,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/coord.rs",
+      "sha256": "e073c60baec3de6c13a0be2aa8462446cd66d5a0c2608643e248fbe421a8063a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/gpu/coord.rs",
+      "actual_EOF": 304,
+      "ranges": [
+        [
+          1,
+          304
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2184,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/footwear.rs",
+      "sha256": "096a17eb2099072d734e2b7bc72caa643585c202de0f2a42e81d0b412c30e48a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/gpu/footwear.rs",
+      "actual_EOF": 310,
+      "ranges": [
+        [
+          1,
+          310
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Bracer486 retains private cloned design alongside buffers generated from same borrowed design; derives hash from retained design and readback counts from privateLayout. Face labels/indices repeat mesh topology order as host-vsGPU port; pending actual bracer WGSL comparison before claimcurrentagreement.",
+    "Breastplate332 same immutabledesign/hash coordination, stores basebody and correspondence for target morph displacement, separate morphs temporal endpoints not competing currentbodytruth. Both Bracer read_async446\u2013459 and Breastplate288\u2013301 zip recordedslotswith externally supplied names; public source association question retained pendingactual callsites, no normal mismatch asserted.",
+    "Chart352 derives columns/indices/grid/count once from same PlateChart, passes ChartSlots to dispatch; numeric boundarycode uses exhaustive enum match, unlike implicit discriminant roster. Layout/dispatch direct caller association remains question for recipe receiver; no demonstratedmutationcachebug.",
+    "Coord304 computes reflected origin/axes/hinge from same nativeframe and shape; frame-local inverse reapplies reflection correctly. Hinge is sharedphysical placement, not unrelated value normalized todefault. Shape passcount and kernelpass are coordinated ABI roles; no current missingpass proof.",
+    "Footwear310 hostdimensions feed WGSLformatAROUND/BOOT_ROWS fromsame constants; toe cap connects lastouterringto onefan tip, lames count fromd.lame_count; FOOT_DESIGN slotsmatch actualfoot_design order. Differentlame/toe/boot shapestates purposeful distinct geometry, no duplicatecurrentauthority."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2185,
+    "start_line": 1
+  }
+}

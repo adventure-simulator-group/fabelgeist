@@ -1,0 +1,95 @@
+{
+  "id": "CONT07-CONTRACT-585",
+  "at": "2026-10-24T00:19:18.892200+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2533,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/church_apse.rs",
+      "sha256": "075279208015858b1ae308c7ae36a1eb58062aec9ad5469816af6cbc1524380e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/generator/church_apse.rs",
+      "actual_EOF": 75,
+      "ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2534,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/defense_geometry.rs",
+      "sha256": "9be64466a067aa68da9f86e66bee50a578c2cb5e6f84aa01c6d517e9ef95b9a7",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/generator/defense_geometry.rs",
+      "actual_EOF": 443,
+      "ranges": [
+        [
+          1,
+          443
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2535,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/dormer_layout.rs",
+      "sha256": "ac744d01f3dada293a02952e68c7f68a18395eb0dd035cccb85298a703d3d5a4",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/generator/dormer_layout.rs",
+      "actual_EOF": 171,
+      "ranges": [
+        [
+          1,
+          171
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2536,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_child_enclosure.rs",
+      "sha256": "e40c96a484c04ef51cdd5139e5f0dc6bf3be92f09516dfc1cd0de27493ea7eed",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/generator/roof_child_enclosure.rs",
+      "actual_EOF": 78,
+      "ranges": [
+        [
+          1,
+          42
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2537,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_contacts.rs",
+      "sha256": "4cd1f8a5d9662f277ac4d7707ddefda519e4cf56d107132f8c7a403c3a3c28d1",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/generator/roof_contacts.rs",
+      "actual_EOF": 106,
+      "ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "PR ApseRoof selects five-facet authored geometry by sourcepieceindex4 and five ChurchApse walls; it retains outline and polygons from one wallset. This structural source classification is specific frozen authored convention; general programvariant identity support requires explicit semantic producer before claiming runtime misclassification.",
+    "PR dormant hierarchy layout explicitly queries actual parent roof plane at both cheeks to pick enclosure seam depth; authored search budget and fallback depth are presentation/generation policy, not independently retained measured actual contact. Root-height plane query omits prior cutouts; need admitted overlappingdormer/cutout inputs before claiming physical seam witness.",
+    "PR TransverseGable ridge_seam_depth73 reconstructs ridgeheight with literal48degrees while recipe155\u2013158 separately authors48degreecovering. Current values agree; same profile pitch has competing authoring sites and can drift afterone-sidededit. This maintenance population is recorded separately from halfhipshoulder0.55 duplicate inCON578, no current badgeometry asserted.",
+    "PR direction_vector and DormerLayout inward/tangent maps differpurpose: facingoutward versus intohost and desiredridgeorientation. Current mappings agreewithroles, no demandtomergemere Directionmatch syntax.",
+    "PR RoofContacts explicitly documents immutablewallpieces lifetime; actual constructorindexesonlywallowner solids before weathering. Current touching uses same cachedhostboundversusfreshweatherbounds; newroofsolids are intentionallynotnewwallhosts. This closes generic growinggeometrycacheinvalidation candidate fornormalconstruction.",
+    "PR abutment host selects actual wallsource/height/normal/along with explicit towercornerreturn and ChurchArcadepriority; optionalmissinghost leads current sample rejection/rollback caller. No forcefallbackhost or cached label competing withactualwallauthority.",
+    "PR roof_child_enclosure derives allbottomcorners fromactualparentcoverplane or explicitparentbase fallback. Parent recipe top and transformed enclosingfaces are different authored/realization roles; no current height equality requirement added."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2538,
+    "start_line": 1
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "id": "CONT07-CONTRACT-486",
+  "at": "2026-10-23T22:42:43.173857+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2145,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/profile_body.rs",
+      "sha256": "61700ca065257a0767b2822007dd0e7a849d9db4409cbfbf0d72e34a1288df8e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/validation/profile_body.rs",
+      "actual_EOF": 75,
+      "ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2146,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/ranged.rs",
+      "sha256": "acc9367a5c6d0cb212f5849f0ab28e4f31ee0eed68e061570d78e68cd54758c6",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/validation/ranged.rs",
+      "actual_EOF": 137,
+      "ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2147,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/shields.rs",
+      "sha256": "dd78ed4067d190dd3c562e6e356372eb39e8e1c6c96b1498ea265f2f9284a84d",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/validation/shields.rs",
+      "actual_EOF": 126,
+      "ranges": [
+        [
+          1,
+          126
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "2145 full75 visible profile-body dimensions are authoritative outer geometry; cover inset and ribs are explicit internal construction constraints. Same admitted section profile bounds feed structural thickness/curvature checks, not independent mutable width measurements. ProfileGrip adds anatomical limits intentionally beyond generic ProfileBody.",
+    "2146 full137 mechanical ranged constraints operate on same typed recipe dimension inputs, preserving distinct part clearance/relative length vs absolute dimension gate. Firearm family/lock type/body proportions intentionally constrain allowed combinations; source typed enum already owns distinct values, no duplication merely related fields.",
+    "2147 full126 shared common macro keeps round/shaped fitting envelope policy coordinated while outline-specific checks differ. Steel material threshold checks actual explicit material; default None semantics depend actual shield geometry producer, not generic ComponentConstructor.one default. Do not infer default material inconsistency without that source.",
+    "Fresh2849 full166 needed source dependency: Shape::Axe axial range[0,0], attachment Origin iszero, no hidden width threshold. Fresh2851:133\u2013172 exact parent gate permits weapon.root when no shaft/parent. Together with already read complete Recipe gates and current shapes::Axe dispatch, supports F102 duplicated absent-root default cap with conditional large API geometry effect, no ordinary catalogue/run assertion.",
+    "F102 uses one explicit source-level recipe witness and exact default/explicit-root comparison. Full generated numerical success not tested; does not claim current shipped axe preset or measured mass. Other physical shape/source admission obligations retained, no semantic credit from helper hashes."
+  ],
+  "new_local_findings": [
+    "CONT07-F102"
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2148,
+    "start_line": 1
+  },
+  "supplemental_exact_reads": [
+    {
+      "scope_index": 2849,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/extents.rs",
+      "sha256": "7a667b7bb903784bfd856046539b87174d517867f7b5992e22988980b69e78d6",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/model/extents.rs",
+      "ranges": [
+        [
+          1,
+          166
+        ]
+      ],
+      "new_original_credit": false
+    }
+  ]
+}

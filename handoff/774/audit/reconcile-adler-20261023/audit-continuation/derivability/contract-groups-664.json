@@ -1,0 +1,120 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-664",
+  "at": "2026-10-25T16:23:36.575645+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 962,
+      "source_id": "pr-working:crates/adventuresim-core/src/personality.rs",
+      "sha256": "3251416fba119a8dbdfb3ce1f48abfd7bda014d55dd3ec2b3e38e4dd7e3e9b15",
+      "actual_EOF": 202,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/personality.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/personality.rs",
+        "sha256": "3251416fba119a8dbdfb3ce1f48abfd7bda014d55dd3ec2b3e38e4dd7e3e9b15",
+        "bytes": 5024,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+            "ranges": null,
+            "source_read_status": null,
+            "trace_refs": []
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                202
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-MISSION-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+            "row": 45,
+            "read_ranges": [
+              [
+                80,
+                145
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-ROAD-026"
+            ],
+            "read_status": "explicit_partial_supporting_definitions_receivers",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/personality.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 182,
+            "read_ranges": [
+              [
+                1,
+                202
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-STARTING-LIFE-075"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/personality.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root",
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 341,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          202
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "personality_enum! expands structural/Serde/conditional native SpacetimeType derives; Personality structural+Serde already derives"
+      ],
+      "absence_basis": "Entire202lines personally consumed663 output, all macro vocabularies, conviction strength, canonical name functions, neutral constructor/non-neutral classifier and fixtures; no handwritten trait/codec."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Personality derivability",
+      "disposition": "No hand trait target. Neutral is inherent semantic chosen axes/sex/presentation, not an existing hand Default; do not add defaults/Serde solely to replace classifier. Stable lowercase wire and title-case variant names remain distinct."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 963,
+    "source_id": "pr-working:crates/adventuresim-core/src/physical_object.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

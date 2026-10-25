@@ -1,0 +1,99 @@
+{
+  "id": "RIG-ADMISSION03-REGISTRATION-PROOF-MAP-109",
+  "at": "2026-10-22T12:15:21.806178+00:00",
+  "purpose": "Reference reconciliation only: early additional receipt numbering differs from prospective registration numbering. No semantic or global acceptance from this map.",
+  "exceptions": [
+    {
+      "registration_suffix": 13,
+      "actual_current_lens_proof_refs": [
+        "reflection-witness-001.json#/actual_routes/0",
+        "source-qualifications.jsonl#RIG-ADMISSION03-REGISTER-013"
+      ]
+    },
+    {
+      "registration_suffix": 14,
+      "actual_current_lens_proof_refs": [
+        "additional-contracts.jsonl#RIG-ADMISSION03-ADDITIONAL-001"
+      ]
+    },
+    {
+      "registration_suffix": 15,
+      "actual_current_lens_proof_refs": [
+        "additional-contracts.jsonl#RIG-ADMISSION03-ADDITIONAL-002"
+      ]
+    },
+    {
+      "registration_suffix": 16,
+      "actual_current_lens_proof_refs": [
+        "additional-contracts.jsonl#RIG-ADMISSION03-ADDITIONAL-003"
+      ]
+    },
+    {
+      "registration_suffix": 17,
+      "actual_current_lens_proof_refs": [
+        "additional-contracts.jsonl#RIG-ADMISSION03-ADDITIONAL-004"
+      ]
+    },
+    {
+      "registration_suffix": 18,
+      "actual_current_lens_proof_refs": [
+        "additional-contracts.jsonl#RIG-ADMISSION03-ADDITIONAL-005"
+      ]
+    },
+    {
+      "registration_suffix": 19,
+      "actual_current_lens_proof_refs": [
+        "additional-contracts.jsonl#RIG-ADMISSION03-ADDITIONAL-006"
+      ]
+    },
+    {
+      "registration_suffix": 20,
+      "actual_current_lens_proof_refs": [
+        "additional-contracts.jsonl#RIG-ADMISSION03-ADDITIONAL-007"
+      ]
+    },
+    {
+      "registration_suffix": 21,
+      "actual_current_lens_proof_refs": [
+        "additional-contracts.jsonl#RIG-ADMISSION03-ADDITIONAL-008"
+      ]
+    },
+    {
+      "registration_suffix": 22,
+      "actual_current_lens_proof_refs": [
+        "additional-contracts.jsonl#RIG-ADMISSION03-ADDITIONAL-009"
+      ]
+    },
+    {
+      "registration_suffix": 23,
+      "actual_current_lens_proof_refs": [
+        "additional-contracts.jsonl#RIG-ADMISSION03-ADDITIONAL-010"
+      ]
+    },
+    {
+      "registration_suffix": 24,
+      "actual_current_lens_proof_refs": [
+        "additional-contracts.jsonl#RIG-ADMISSION03-ADDITIONAL-011"
+      ]
+    },
+    {
+      "registration_suffix": 25,
+      "actual_current_lens_proof_refs": [
+        "additional-contracts.jsonl#RIG-ADMISSION03-ADDITIONAL-012"
+      ]
+    },
+    {
+      "registration_suffix": 28,
+      "actual_current_lens_proof_refs": [
+        "contract-groups.jsonl#RIG-ADMISSION03-CONTRACT-065",
+        "source-qualifications.jsonl#RIG-ADMISSION03-QUALIFICATION-REG028"
+      ]
+    }
+  ],
+  "all_other_rows": "Retain actual source_id, exact ranges and original registration_id/registration_ref in additional-contracts.jsonl; late rows029\u2013138 use matching numeric suffix. Reflection002\u2013012 already supplied by reflection-witness001 and individual route receipts. No registration is silently dropped because its suffix differs.",
+  "mandatory_qualifications": [
+    "source-qualifications.jsonl",
+    "reference-qualifications.jsonl"
+  ],
+  "new_material_gate": "Current global046 includes onlyREG001\u2013035. REG036\u2013138 still need Root source-scope reconciliation and any exact earlier-lens qualification before leaving admission; no credit from current admission verdict."
+}

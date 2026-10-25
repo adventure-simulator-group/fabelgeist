@@ -1,0 +1,32 @@
+{
+  "id": "RIG-INITIAL06-GROUP-272",
+  "at": "2026-10-23T08:00:03.918151+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "home-catalogue-versus-scene-binding": {
+      "comparison": "Fresh properties148 compares GeneratedHome catalogue to actual generated/distant SceneBuilding placement: same buildingID, centre/orientation, dwelling use and footprint dimensions converted by cell size. PropertyId includes settlement/building binding, distinct from sceneBuildingId or its rawserializedword. Home catalogue supplies strategic housing/rent/resident authority while SceneBuilding provides physical placement; two products are not equivalent because both contain dimensions. Canonical shared lower units/typed IDs may propagate at boundary without moving full architecturalplan into Core/worldschema. Actual tuple centre/orientation/program is short-lived projection for comparing two building representations, not a second durable geometry owner. Scene point metre versus footprintcell count remains distinct. Original binding fixtures only source-read, no generation or passingtests.",
+      "disposition": "Keep strategic home catalogue and physical scene building authorities separate with explicit same-source binding and canonical lower leaves."
+    },
+    "body-fit-original-fixture": {
+      "comparison": "Fresh full rig_tests161 uses canonical CharacterProportions/BodyProportion, JointProportionBasis, PackedRigSkin, RigJointTable and GltfNodeOrdinal to test body-local morph then skin fitting. GltfNodeOrdinal differs from canonicaljoint ordinal and morph control index; BoneRole/name topology separate. Native packed states/vertex arrays are real shader/MHR ports, not accepted rig identity by arraylength. Fixture resets jointcount for a changed name table, no proof count alone certifies sameasset membership. BodyShapeKey includes bodycontrols/character identity/reference and differs from skin/node identity. Deformation oracle intentionally recomputes expected affine math; no new independent production owner, asset/GPU/test execution or passclaim. F040 character seed identity and F032 skin policy remain exact prior graphs.",
+      "disposition": "Reuse canonical rig/proportion products while preserving native and fixture namespaces; no duplicate production owner from oracle data."
+    },
+    "scene-document-presentation-authority": {
+      "comparison": "Fresh world177 keeps SceneDocument location plus Result<TacticalSceneInput,sharedPreparationError> and optional WASM preparationticket. This is request/preparation identity and presentation resource, not tactical movement/state authority. parse calls exactinputvalidate then retained source document; PreparedStrategicScene and PreparedBackdrop are downstream generation/presentation products, not new authoritative source. F037 duplicated scene bundle/config lifecycle graph remains; Location String/request revision/context must not be confused with SceneDigest or sourcepackage digestF035. RetainedScene digest/root/pendingvenues represent renderpublication, not accepted membership from name. Tactical transient state remains Bevy; source document does not persist damage/enemies. Existing raw source/error retains diagnostics, no all-called-helper admission or atomicpublication guarantee inferred.",
+      "disposition": "Keep document/request/preparation and renderpublication identities distinct from scene source and tactical transient authority; reuse canonical input products."
+    },
+    "attack-input-transactional-product": {
+      "comparison": "Fresh melee_preparation178 uses AttackInputObservation raw controllertrigger/buttons plus checked AnimationElapsed, computes private HeldAttack and MeleePreparation, then publishes one PreparedAttackInput. Observation raw analog value is native inputboundary, not guaranteed UnitInterval; completed preparationprogress is explicitly clamped and admitted UnitInterval. Elapsedhold seconds versus positive configured holdduration are different roles, and AttackHand versus Preferred/Alternate/Offhand selection are different vocabularies. Temporary product earns its role as whole fallible prepare before mutable publish; repeating retained fields at commit is not independently maintained authority definition. AnimationQuantity/error ownership F039 applies only wrongmeaning leaves, not this actual animation time. Release resets elapsed to ZERO intentionally, no strictpositive clock or newfatigue pool. No runtime event sequence or recipient correctness inferred.",
+      "disposition": "Keep raw observation, checked elapsed/progress and prepared publication product distinct; share canonical time/hand/selection owners."
+    }
+  },
+  "supporting_existing_findings": [
+    "F032",
+    "F035",
+    "F037",
+    "F039",
+    "F040"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit."
+}

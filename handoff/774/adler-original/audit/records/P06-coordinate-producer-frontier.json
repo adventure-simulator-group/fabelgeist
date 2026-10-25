@@ -1,0 +1,43 @@
+{
+  "head": "2d0631412e835e23a3f4c9460d1b2f4b48c128a9",
+  "status": "Focused P06 producer-frontier evidence. No source changes or acceptance claim.",
+  "confirmed_records_and_forwarders": [
+    {
+      "owner": "presentation/ground_scatter/understory.rs::ShrubPlacement",
+      "trace": "placements computes world_x/world_z, retains both f32 fields, instanced_understory destructures them before terrain query.",
+      "action": "Admit one ScenePlanPoint after the complete deterministic grid/jitter coordinate calculation and retain it through the placement record and renderer; preserve RNG and iteration order."
+    },
+    {
+      "owner": "presentation/ground_scatter/mod.rs::foliage_transform",
+      "trace": "world_x/world_z parameters are recombined into Vec2 only to query terrain and build Transform. litter::forest_floor_patch_transform separately forwards its computed point as two raw coordinates.",
+      "action": "Carry the canonical ScenePlanPoint through the helper signature; admit at the completed litter jitter kernel rather than inside the next query consumer. Native Transform packing uses final metres."
+    },
+    {
+      "owner": "presentation/ground_scatter/grass.rs",
+      "trace": "cell_allows_grass computes render_centre:Vec2, forwards it through grass_patch_placement_with_spacing, then splits it into raw x/z for grass_patch_transform.",
+      "action": "Retain ScenePlanPoint across the application placement helpers; project for the actual cover/native geometry or Transform operation, not before a forwarder that admits the same point again."
+    },
+    {
+      "owner": "presentation/ground_scatter/plants.rs::PlantSite and PlantCaptureAnchor",
+      "trace": "The complete placement kernel derives the root from sampled support and retains it for production Transform and capture framing.",
+      "action": "Trace and reuse Position<Scene> where the root crosses retained application records; projection at the actual native Transform or camera math is valid. Do not mistake the final computed 3D root for the original support-elevation scalar."
+    },
+    {
+      "owner": "presentation/ground_scatter/instanced_grass.rs::TuftPlacement",
+      "trace": "The trait height(centre:Vec2)->Option<f32> is implemented by ScenePlacement and VistaTuftPlacement. Both owned-support paths project SurfaceHit.elevation.metres() before the trait result crosses into scatter_cell_tufts.",
+      "action": "Carry ScenePlanPoint and SupportElevation through the shared trait and both implementations; admit centre once after the complete deterministic lattice/jitter calculation, and project height only at InstanceData Vec3 packing. Keep coverage/community point forwarding typed too; native mask/hash kernels remain explicit endpoints."
+    },
+    {
+      "owner": "presentation/vista/grass.rs::VistaTuftPlacement",
+      "trace": "Owned branch flattens SupportElevation; sampled branch computes the native finite-difference normal and slope gate before returning the sampled float.",
+      "action": "Retain the admitted elevation through the trait. Admit the sampled branch only after its whole native height/slope calculation. Preserve the exact owned/source distinction, centre-relative origin, central differences, missing-neighbor centre-height fallback and slope threshold."
+    },
+    {
+      "owner": "presentation/vista/ground.rs::tree_root_height",
+      "trace": "Owned branch returns a raw projection of SurfaceHit.elevation; sampled branch forwards the native presented-height query. This method is absent from the height_at-name inventory.",
+      "action": "Carry the same SupportElevation result and ScenePlanPoint across the root-height application API, trace all callers through retained tree placement and native endpoints; preserve the sampled-versus-owned authority policy. The separate scenery_surface already retains SurfaceHit."
+    }
+  ],
+  "coverage_limit": "The frozen 185-query inventory is not a complete file or API list. The shared TuftPlacement trait and tree_root_height paths also erase checked support without a height_at call. Trace their downstream retainers and native endpoints before P06 edits. No P06 implementation or acceptance is claimed.",
+  "native_boundaries": "Keep scratch grid indices, noise/jitter arithmetic, native vectors inside complete geometry kernels and final GPU/Transform packing native. A private helper name alone is not boundary evidence."
+}

@@ -1,0 +1,116 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-175",
+  "at": "2026-10-25T13:17:21.489443+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 339,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/presentation/environment.rs",
+      "sha256": "b6c219d19f45e18cf058bfa3ec4a06e826e50c2ae83d122e8d421f418dc31dbc",
+      "actual_EOF": 577,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-tactical-client/src/presentation/environment.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-tactical-client/src/presentation/environment.rs",
+        "sha256": "b6c219d19f45e18cf058bfa3ec4a06e826e50c2ae83d122e8d421f418dc31dbc",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 21534,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 112,
+            "read_ranges": [
+              [
+                1,
+                270
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-CAMERA-015"
+            ],
+            "read_status": "partial",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-client/src/presentation/environment.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "native",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-SKY-CLOUD-010",
+            "json_pointer": "/source_reads/6",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-tactical-client/src/presentation/environment.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                270
+              ]
+            ],
+            "source_context": {
+              "obligation": 98,
+              "source_id": "physical-p16:crates/adventuresim-tactical-client/src/presentation/environment.rs",
+              "sha256": "b6c219d19f45e18cf058bfa3ec4a06e826e50c2ae83d122e8d421f418dc31dbc",
+              "read_ranges": [
+                [
+                  1,
+                  270
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1143,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          284
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Default",
+          "type": "TacticalCameraSetup",
+          "lines": [
+            192,
+            200
+          ],
+          "disposition": "KEEP: explicit direction NEG_Z and vertical FOV 80 differ from fieldwise defaults; existing derive would change camera setup."
+        }
+      ],
+      "existing_derives": "ActiveTacticalScene Resource/Debug/Clone/Default; TacticalCameraSetup Resource/Clone/Copy; camera markers Component already derive.",
+      "absence_basis": "Read complete requested 1\u2013270 material and enclosing apply_active_environment_fog through284. Remaining functions are solar/cloud/fog/ambient policy, explicit MSAA/tonemapping translation and concrete camera setup, not manual trait/serialization mechanics.",
+      "coverage_limit": "Registered 1\u2013270 plus owning function completion through284 only; not whole577-line source. Exploratory fixture prefix286\u2013300 not credited."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Camera setup defaults and presentation policy",
+      "disposition": "Retain semantic default and explicit native enum/environment mappings; no equivalent available derive identified.",
+      "acceptance": "Preserve NEG_Z/80-degree defaults, fog conditional updates and native camera configuration; no added serialization or default substitution."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 340,
+    "source_id": "physical-p16:crates/adventuresim-tactical-client/src/strategic_scene/equipment.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

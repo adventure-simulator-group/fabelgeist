@@ -1,0 +1,15 @@
+diff --git a/crates/adventuresim-character-creator/src/garment/dressing.rs b/crates/adventuresim-character-creator/src/garment/dressing.rs
+index a9f6442e6..33d9c238c 100644
+--- a/crates/adventuresim-character-creator/src/garment/dressing.rs
++++ b/crates/adventuresim-character-creator/src/garment/dressing.rs
+@@ -93,9 +93,9 @@ impl Dressing {
+                     .iter()
+                     .zip(weights)
+                     .max_by(|a, b| a.1.total_cmp(b.1))
+                     .expect("skin influences are never empty");
+-                parts.get(*joint as usize).copied().unwrap_or(true)
++                parts.get(usize::from(*joint)).copied().unwrap_or(true)
+             })
+             .collect();
+         Self {
+             body: fabelgeist_bvh::TriangleBvh::new(

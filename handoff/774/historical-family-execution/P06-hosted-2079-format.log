@@ -1,0 +1,80 @@
+##[group]Run cargo fmt --all -- --check
+[36;1mcargo fmt --all -- --check[0m
+[36;1mcargo fmt --manifest-path crates/adventuresim-character-creator/Cargo.toml -- --check[0m
+[36;1mcargo fmt --manifest-path crates/fabelgeist-mhr/Cargo.toml -- --check[0m
+[36;1mcargo fmt --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml -- --check[0m
+shell: /usr/bin/bash -e {0}
+env:
+  CARGO_TERM_COLOR: always
+  SPACETIMEDB_VERSION: 2.6.1
+  CARGO_HOME: /home/runner/.cargo
+  CARGO_INCREMENTAL: 0
+  CACHE_ON_FAILURE: false
+##[endgroup]
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client/src/presentation/terrain/urban.rs:184:
+         let terrain = SceneTerrain::new(8, 8, 1.0, |_| 0.0)
+             .unwrap()
+             .refined(0.5, |point, base| {
+-                SupportElevation::from_metres(
+-                    base.metres() + point.metres().x.sin() * 0.02,
+-                )
++                SupportElevation::from_metres(base.metres() + point.metres().x.sin() * 0.02)
+             })
+             .unwrap();
+         let fine_count = terrain.mesh().count_vertices();
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client/src/presentation/terrain/urban.rs:184:
+         let terrain = SceneTerrain::new(8, 8, 1.0, |_| 0.0)
+             .unwrap()
+             .refined(0.5, |point, base| {
+-                SupportElevation::from_metres(
+-                    base.metres() + point.metres().x.sin() * 0.02,
+-                )
++                SupportElevation::from_metres(base.metres() + point.metres().x.sin() * 0.02)
+             })
+             .unwrap();
+         let fine_count = terrain.mesh().count_vertices();
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client/src/presentation/terrain/urban.rs:184:
+         let terrain = SceneTerrain::new(8, 8, 1.0, |_| 0.0)
+             .unwrap()
+             .refined(0.5, |point, base| {
+-                SupportElevation::from_metres(
+-                    base.metres() + point.metres().x.sin() * 0.02,
+-                )
++                SupportElevation::from_metres(base.metres() + point.metres().x.sin() * 0.02)
+             })
+             .unwrap();
+         let fine_count = terrain.mesh().count_vertices();
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client/src/presentation/terrain/urban.rs:184:
+         let terrain = SceneTerrain::new(8, 8, 1.0, |_| 0.0)
+             .unwrap()
+             .refined(0.5, |point, base| {
+-                SupportElevation::from_metres(
+-                    base.metres() + point.metres().x.sin() * 0.02,
+-                )
++                SupportElevation::from_metres(base.metres() + point.metres().x.sin() * 0.02)
+             })
+             .unwrap();
+         let fine_count = terrain.mesh().count_vertices();
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client/src/presentation/terrain/urban.rs:184:
+         let terrain = SceneTerrain::new(8, 8, 1.0, |_| 0.0)
+             .unwrap()
+             .refined(0.5, |point, base| {
+-                SupportElevation::from_metres(
+-                    base.metres() + point.metres().x.sin() * 0.02,
+-                )
++                SupportElevation::from_metres(base.metres() + point.metres().x.sin() * 0.02)
+             })
+             .unwrap();
+         let fine_count = terrain.mesh().count_vertices();
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client/src/presentation/terrain/urban.rs:184:
+         let terrain = SceneTerrain::new(8, 8, 1.0, |_| 0.0)
+             .unwrap()
+             .refined(0.5, |point, base| {
+-                SupportElevation::from_metres(
+-                    base.metres() + point.metres().x.sin() * 0.02,
+-                )
++                SupportElevation::from_metres(base.metres() + point.metres().x.sin() * 0.02)
+             })
+             .unwrap();
+         let fine_count = terrain.mesh().count_vertices();
+##[error]Process completed with exit code 1.

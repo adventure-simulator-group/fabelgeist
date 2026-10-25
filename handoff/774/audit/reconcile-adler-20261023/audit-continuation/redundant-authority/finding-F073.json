@@ -1,0 +1,77 @@
+{
+  "id": "CONT07-F073",
+  "classification": "configuration authority propagation gap; source-backed representable authored policy discrepancy",
+  "title": "Accepted grass compensation and mask-feather settings are ignored by production policy",
+  "sources": [
+    {
+      "scope_index": 1530,
+      "sha256": "e2ec96c28d8458610bba86df77c1adceae1cdfe0e71ab972e227c362f72f0fe1",
+      "ranges": [
+        [
+          134,
+          154
+        ],
+        [
+          303,
+          312
+        ]
+      ]
+    },
+    {
+      "scope_index": 1550,
+      "sha256": "d375436ca9d226ccb6fbc5b65afcaf94a6b9c3e4bfa90fc1016da8cb958a7281",
+      "ranges": [
+        [
+          165,
+          184
+        ]
+      ]
+    },
+    {
+      "scope_index": 1555,
+      "sha256": "55a8f28f05846eea9e2cd7460a1a1aaecb83c64af31573ed82a2bb2f5bdaf196",
+      "ranges": [
+        [
+          46,
+          53
+        ]
+      ]
+    },
+    {
+      "scope_index": 1557,
+      "sha256": "137a4589cc0b7945de4fb4d552dd9dab6a3e4f0d42f426b4d5d439881a0f7bb9",
+      "ranges": [
+        [
+          34,
+          45
+        ]
+      ]
+    },
+    {
+      "scope_index": 1628,
+      "sha256": "bbf75ad65cfa71106ead637d07a5e9459e19e1d02733186f198acdb94db447f7",
+      "ranges": [
+        [
+          133,
+          167
+        ]
+      ]
+    },
+    {
+      "scope_index": 499,
+      "sha256": "b922faa3643a9e55508cbf50304273912d9be0b7e0282d271f1b243c75c40307",
+      "ranges": [
+        [
+          45,
+          90
+        ]
+      ]
+    }
+  ],
+  "disagreement": "Parser admits per-tier width_compensation/width_compensation_limit and positive transition.cover_mask_feather_m. Actual material and culling use GrassMeshLod::width_compensation(density), whose fixedNear/NearEdge/Vista constants andFar1.65 limit never consume config. Mask hardcodes4.8m when deriving radius. Set valid feather2.4 or vista compensation2.0 at initial YAML input; accepted config changes but corresponding native policy stays4.8/1.8. Current shipped values agree, so no claim default image already differs.",
+  "qualification": "Exact frozen git navigation confirms optional compensation fields only declared, no production config consumer; feather only declaration/validation while mask uses literal. terrain_gap_fill_fraction DOES have terrain/material consumer and is explicitly excluded. Legacy fade/row reference tables not falsely labeled current runtime authority.",
+  "connected_repair": "Choose one authored canonical policy: propagate admitted configuration to compensation/mask factories and conservative bounds, deriving shared results once, or remove unsupported settings/parallel policy. Preserve density normalizers, fixed replay bytes, native culling and intentional authored visual calibration.",
+  "acceptance": "Changing an admitted initial value changes same owned corresponding uniform/bound/mask policy, or unsupported field is rejected/removed by clean schema. Default configured rendering preserved. No added/executed tests.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

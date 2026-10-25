@@ -1,0 +1,74 @@
+{
+  "id": "SEGOVB-04-GUIDE-EDGE-CORNER-CULL-CANDIDATE-001",
+  "lens": "04",
+  "status": "source-backed finite-scale custom-surface API defect; ordinary bundled-asset failure not established",
+  "source": {
+    "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/wgsl/guides.rs",
+    "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "sha256": "bcd60aee22ae82fae270b38599aca660f0432c0a6baf72d58241a88da4cfa840",
+    "ranges": [
+      [
+        149,
+        211
+      ],
+      [
+        316,
+        346
+      ]
+    ]
+  },
+  "witness": "Surface::new positions A(0,0,0),B(.1,0,0),C(0,.1,0), normals+Z, UVdefault, triangle[0,1,2]. Surface.boundary(.002) includes B at start of openedge(1,2). upload_scalp copies topology and boundary without maximum triangle-edge admission. Actual edge_closest host max_distance=.01. At p=B, distance(p,A)=.1>.01+.03, so onlytriangle skipped and closest.w=0 despite true distance0; guide_select then skips this hairline candidate. This is not floating extreme/zero normal/malformed topology.",
+  "support": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-hair/src/surface.rs",
+      "sha256": "117cfab53d13fbb84de5149685248b1c6a0b6d5578fb8ffdb522d08af10ccd60",
+      "ranges": [
+        [
+          36,
+          63
+        ],
+        [
+          108,
+          140
+        ]
+      ],
+      "method": "Prior own04 original630 plus current narrow receiver reread"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/guides.rs",
+      "sha256": "ff313e8605d4893263109f7c930fcc81eb6c71aae6a7cffdbcafd10a44137aea",
+      "ranges": [
+        [
+          186,
+          207
+        ]
+      ],
+      "method": "Prior own04 completed original2287 plus current actualhost reread"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/scalp.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "64a5cc8196a567a3b4d071c355bc491a23956d815c57d4805277bf15b1135304",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/fresh-source-666-scalp.rs",
+      "ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "reason": "Actual GpuScalp public upload boundary needed to qualify edge_closest first-corner cull; exact body read, no native-execution or other-lens coverage.",
+      "personal_read_qualification": "Full source displayed and consumed, but registration requests only1\u2013135 actual type/read/upload boundary; cut_scalp downstream not needed to prove custom uploaded route."
+    }
+  ],
+  "qualifications": [
+    "No GPU dispatch, bundled scalp topology or live generated hairline failure demonstrated. Actual retained guide layout also depends spacing/greedy stage, but invalid nearest-point rejection is already visible at receiving kernel.",
+    "Do not impose small triangles as a new arbitrary physical geometry restriction: use an actual conservative triangle bound or closest-point calculation.",
+    "Alias matching pending exact semantic comparison; no unique global count claimed."
+  ],
+  "connected_repair": "Conservative scalp closest-point pruning and hairline/root attachment authority; preserve supported custom mesh scales and true nearest within max_distance.",
+  "acceptance": [
+    "Any valid finite triangle containing query or with closest distance<=max_distance is not rejected solely by distance to its first corner.",
+    "Cover reordered triangle vertex indices/coarse topology and preserve genuine out-of-range rejection; current authored topology and GPU parity verified only in later authorized validation."
+  ],
+  "execution": "none"
+}

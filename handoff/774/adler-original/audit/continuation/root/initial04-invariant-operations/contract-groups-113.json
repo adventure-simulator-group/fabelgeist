@@ -1,0 +1,99 @@
+{
+  "packet_number": 113,
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/physics/controller_config.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Actual complete literal18 in each variant; P16 prospectively registered Camera033/global053, PR existing scope1887 confirmed. Same native assignments independently compared, no inherited verdict.",
+      "sha256": "56773ae80325116c0e2383940bec1f3f8a05d95d97a2c76596982c717b5dbc62",
+      "actual_EOF": 18
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/physics/plugin.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          88
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Each actual full88-line plugin independently read after Camera034035 registration/global053; explicit current/native import and scheduling context compared.",
+      "sha256": "c165c0efe7988bed6982ef9f1fe32fd78cd0fe603c3e5e4581435bad0bde0353",
+      "actual_EOF": 88
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics/controller_config.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Actual complete literal18 in each variant; P16 prospectively registered Camera033/global053, PR existing scope1887 confirmed. Same native assignments independently compared, no inherited verdict.",
+      "sha256": "56773ae80325116c0e2383940bec1f3f8a05d95d97a2c76596982c717b5dbc62",
+      "actual_EOF": 18
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics/plugin.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          88
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Each actual full88-line plugin independently read after Camera034035 registration/global053; explicit current/native import and scheduling context compared.",
+      "sha256": "c165c0efe7988bed6982ef9f1fe32fd78cd0fe603c3e5e4581435bad0bde0353",
+      "actual_EOF": 88
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration/logging/decisions.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh actual full89 after Camera037 prospective registration/global053, exact event/query/native tick projection bodies personally compared for operations lens.",
+      "sha256": "1e132304f3127343f18a77a99b9d18205c3057788ce99700525a0d16e27a8768",
+      "actual_EOF": 89
+    }
+  ],
+  "groups": {
+    "motor-native-port": "Direct controller mutation deliberately zeroes native horizontal acceleration/friction before own target-speed integration, then assigns gravity/step and slope.cos. It contains no fallible per-field operation after partial writes, but relies on admitted coherent motor tuning for finite fields; it does not validate arbitrary config. Finite f32 degree conversion scales down and cosine remains bounded; raw NaN config can still propagate NaN, no ordinary validated-config failure asserted. Preserve signed physical gravity and correct angle/speed/height units at this actual native port, not a competing per-controller scalar policy.",
+    "physics-mode-and-order": "Full simulation branch takes precedence over presentation bool; schedules motor before native MoveCharacters. Presentation and fixture modes register Disabled ordinary rigid bodies and distinct solver/collider phases. No application count arithmetic/index mutation here; foreign scheduler semantics, geometric collision validation and whole mode admission not proven by this wiring. CPU/debug gizmo defaults do not establish gameplay-value validity.",
+    "decision-log-publication": "All three callbacks query actor before mutating log and append one fully built entry; optional target query failure staysNone by explicit log policy. Tick and TacticalElapsed.from_tick_count retain observation coordinates, not identity replacement for full attack_key. Canceled and transformed events carry original occurrence keys and concrete distinct status/cause; withdrawal/yield continuation statuses differ intentionally. No numeric increment here and no external game state mutation. Vec allocation failure is ordinary native allocation behavior, not a reason to invent operational recovery wrappers.",
+    "diagnostic-boundary": "These accepted defense/continuation callbacks are distinct from raw attack-start intent metrics in CameraF035. This record does not clear start-acceptance correlation or prove current observed run. Preserve raw-event versus accepted-occurrence diagnostic distinction and RootF027 key integration.",
+    "scope": "Exact five complete sources only; no whole motor, foreign Ahoy/Avian/Bevy bodies, report mean accumulator or animation/simulation source credit. All initial audits then handover, no implementation."
+  },
+  "findings": [],
+  "id": "ROOT-INITIAL04-CONTRACT-113",
+  "at": "2026-10-23T03:41:54.020243+00:00",
+  "lens": "audit-invariant-operations",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-053.json",
+    "sha256": "647458b6631d1e95dc0605d894414a3716fbb0e2c60ed4a6a55057300b3238d4"
+  },
+  "mandatory_overlays": {
+    "record": "continuation/owner-range-extensions.jsonl",
+    "sha256": "131e66814e193102e32ec6b780b0909788482b6f37a9e4d74145c1205a471388",
+    "through": 237
+  },
+  "mandatory_qualification170": {
+    "record": "continuation/root/parallel-scope-qualification-170.json",
+    "sha256": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c"
+  },
+  "repair": "frozen_initial_audits_then_handover",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

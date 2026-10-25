@@ -1,0 +1,28 @@
+{
+  "id": "SEGOVB-04-CLI-NATIVE-DURATION-001",
+  "classification": "source-backed malformed CLI admission reaches panic; no CLI invocation or ordinary default failure",
+  "source_variants": [
+    "physical-p16",
+    "pr-working"
+  ],
+  "source_ranges": {
+    "crates/adventuresim-tactical-server/src/main.rs": [
+      [
+        100,
+        110
+      ],
+      [
+        174,
+        182
+      ]
+    ]
+  },
+  "case": "With otherwise valid required args/startup inputs, explicit --party-reconnect-grace NaN, a negative f32 supplied through option=value, or sufficiently large finite seconds pass raw f32 parsing and reach Duration::from_secs_f32. The native contract panics for nonfinite/negative/overflow. --timeout analog uses Timer::from_seconds then same native constructor when timeout enabled.",
+  "qualifications": [
+    "No command/server was executed. Shipped timeout300s and resolved PARTY_RECONNECT_GRACE10s remain representable.",
+    "Pinned Cargo.lock Bevy_time0.19.1 and clap_builder4.6.6 actual cached source read; installed Rust standard-library source documents/implements the panic and float nonfinite parser, supplemental dependency proof only, not original audit scope coverage.",
+    "Clap expected_party_members has explicit 1.. parser and NonZeroU32 expect is supported; do not conflate with unbounded raw f32 args. no_timeout is distinct deliberate applicability state, not numeric sentinel."
+  ],
+  "connected_repair": "Admit enabled mission timeout and reconnect grace at CLI/startup owner into checked native-duration-capable quantities with structured diagnostic before constructing MissionState. Preserve disabled timeout separately and explicitly decide zero grace/timeout policy; do not add arbitrary duration cap or compatibility path.",
+  "acceptance": "All accepted CLI time values construct native timers without panic; nonfinite/negative/out-of-native-range reject through normal CLI/startup error. Defaults and no-timeout semantics remain coherent. No tests/checks/builds run."
+}

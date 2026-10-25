@@ -1,0 +1,132 @@
+--- PRbase/crates/adventuresim-tactical-client/src/animation/skeletal_proportions.rs
++++ frozen/crates/adventuresim-tactical-client/src/animation/skeletal_proportions.rs
+@@ -19,8 +19,29 @@
+ 
+ #[derive(serde::Deserialize)]
+ struct NodeExtras {
+     adventuresim_proportions: Option<JointProportionBasis>,
++}
++
++struct BoneReference {
++    entity: Entity,
++    parent: Option<Entity>,
++    role: Option<BoneRole>,
++    bind: Transform,
++    offset: Vec3,
++}
++
++impl BoneReference {
++    fn global(&self, nodes: &BTreeMap<Entity, Self>, deformed: bool) -> Transform {
++        let mut local = self.bind;
++        if deformed {
++            local.translation += self.offset;
++        }
++        match self.parent.and_then(|parent| nodes.get(&parent)) {
++            Some(parent) => parent.global(nodes, deformed).mul_transform(local),
++            None => local,
++        }
++    }
+ }
+ 
+ pub(super) fn load_skeletal_bases(
+     mut commands: Commands,
+@@ -36,29 +57,8 @@
+             Ok(NodeExtras {
+                 adventuresim_proportions: None,
+             }) => {}
+             _ => error!(?entity, "invalid exported skeletal proportion basis"),
+-        }
+-    }
+-}
+-
+-struct BoneReference {
+-    entity: Entity,
+-    parent: Option<Entity>,
+-    name: Option<String>,
+-    bind: Transform,
+-    offset: Vec3,
+-}
+-
+-impl BoneReference {
+-    fn global(&self, nodes: &BTreeMap<Entity, Self>, deformed: bool) -> Transform {
+-        let mut local = self.bind;
+-        if deformed {
+-            local.translation += self.offset;
+-        }
+-        match self.parent.and_then(|parent| nodes.get(&parent)) {
+-            Some(parent) => parent.global(nodes, deformed).mul_transform(local),
+-            None => local,
+         }
+     }
+ }
+ 
+@@ -77,9 +77,9 @@
+         Entity,
+         &AuthoredBindTransform,
+         Option<&SkeletalJointBasis>,
+         Option<&ChildOf>,
+-        Option<&Name>,
++        Option<&AuthoredRigJoint>,
+         Option<&SkeletalJointOffset>,
+     )>,
+     new_bones: Query<
+         &AuthoredBindTransform,
+@@ -119,9 +119,9 @@
+             entity,
+             BoneReference {
+                 entity,
+                 parent: parent.map(ChildOf::parent),
+-                name: name.map(|name| name.as_str().to_owned()),
++                role: name.and_then(|identity| identity.role()),
+                 bind: bind.local,
+                 offset: basis
+                     .map(|basis| Vec3::from_array(basis.0.translation(proportions)))
+                     .unwrap_or_default(),
+@@ -144,11 +144,14 @@
+ 
+ /// Longer legs raise the pelvis instead of lowering both feet through the floor.
+ /// Animation still supplies its authored root motion and contact timing.
+ fn preserve_neutral_ground_height(rig: &mut BTreeMap<Entity, BoneReference>) {
+-    let named = |name: &str| rig.values().find(|bone| bone.name.as_deref() == Some(name));
+-    let (Some(left), Some(right), Some(root)) = (named("l_foot"), named("r_foot"), named("root"))
+-    else {
++    let named = |role| rig.values().find(|bone| bone.role == Some(role));
++    let (Some(left), Some(right), Some(root)) = (
++        named(BoneRole::FootLeft),
++        named(BoneRole::FootRight),
++        named(BoneRole::Pelvis),
++    ) else {
+         return;
+     };
+     let correction = [left, right]
+         .iter()
+@@ -194,8 +197,9 @@
+                 .id();
+             let root = world
+                 .spawn((
+                     Name::new("root"),
++                    AuthoredRigJoint::new("root".into()),
+                     AuthoredBindTransform {
+                         owner,
+                         local: Transform::from_xyz(0.0, 1.0, 0.0),
+                     },
+@@ -205,8 +209,9 @@
+             for (side, sign) in [("l", 1.0), ("r", -1.0)] {
+                 let hip = world
+                     .spawn((
+                         Name::new(format!("{side}_upleg")),
++                        AuthoredRigJoint::new(format!("{side}_upleg").into()),
+                         ChildOf(root),
+                         AuthoredBindTransform {
+                             owner,
+                             local: Transform::from_xyz(sign * 0.1, 0.0, 0.0),
+@@ -215,8 +220,9 @@
+                     ))
+                     .id();
+                 world.spawn((
+                     Name::new(format!("{side}_foot")),
++                    AuthoredRigJoint::new(format!("{side}_foot").into()),
+                     ChildOf(hip),
+                     AuthoredBindTransform {
+                         owner,
+                         local: Transform::from_xyz(0.0, -1.0, 0.0),

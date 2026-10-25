@@ -1,0 +1,72 @@
+{
+  "id": "CONT08-SUPPORT-005-QUICKSTEP-CAPPED-SCALE",
+  "at": "2026-10-25T11:59:02.913858+00:00",
+  "lens": "08 behavior-preservation",
+  "source": {
+    "scope_index": 360,
+    "source_id": "physical-p16:crates/adventuresim-tactical-core/src/physics.rs",
+    "base": "a120390947c89b703dc74c4255a13c035d054c50",
+    "head": "039329518e264f19206cf5b0b98d177433f40c17",
+    "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/physics.rs",
+    "before_sha256": "14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b",
+    "after_sha256": "35c74e188c90bf25618bfb0170d513f1c0b342473c22acccaca79c50447c857f",
+    "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0360-base-14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b",
+    "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/35c74e188c90bf25618bfb0170d513f1c0b342473c22acccaca79c50447c857f",
+    "diff": "source-evidence/p16-0360.diff",
+    "diff_sha256": "0824ce21fced44c0e370462fcc0d0995ede90da307bc441d11fabad0db93ada9"
+  },
+  "old_ranges": [
+    [
+      215,
+      227
+    ],
+    [
+      489,
+      550
+    ]
+  ],
+  "new_ranges": [
+    [
+      230,
+      245
+    ],
+    [
+      498,
+      582
+    ]
+  ],
+  "classification": "API/custom-input qualified behavior change; no global unique finding count; intent reconciliation required",
+  "witness": "Finite config reference target f32::MAX, reference leg2, observed leg2, finite lunge gap.7, active attack quickstep with travel below gap, finite direction/origin/velocity/mass and normal duration/profile. Public CharacterDimensions362 and validated config351 permit these finite positive source values.",
+  "before": "Product MAX*2 overflows+Inf then/2 stays+Inf; actual caller523\u2013529 caps .min(.7) to finite .7 before quickstep_motion_target.",
+  "after": "243\u2013244 returns Overflow for unbounded scale,547\u2013549 warns/continues before finite cap548; current motor step does not integrate the otherwise-finite capped target.",
+  "qualification": [
+    "No default/normal authored recipe, production gameplay occurrence or simulation run established. Source-only finite custom/public state witness.",
+    "Uncapped public quickstep_target API finite-output guarantee is intentional. Candidate concerns connected capped recipient, not blanket permission to retain unowned Inf.",
+    "Actual force/support laws beyond target retain native arithmetic; no final accumulated trajectory, network convergence or rollback success claimed.",
+    "Related product-before-bound family SUPPORT004 has different locations/domain/repair; do not automatically sum or alias.",
+    "Actual full changed path and all existing1762-line fixtures consumed, no test execution."
+  ],
+  "connected_remedy": "Admit the complete capped target at this recipient, preserving old product/division order and nonpositive leg fallback; keep uncapped API finite guarantee. Use bounded kernel owning lunge cap or equivalent checked saturation, not generic permissive leaf or reordered arithmetic.",
+  "acceptance": "Existing reference/.8/1.2 scale, authored0/3/6/9/12 displacement and attack gaps.501/.70/currentmaximum remain; finite extreme scaling with finite cap preserves completed target and explicit no-cap overflow. No fixtures/checks added.",
+  "additional_exact_receivers": [
+    {
+      "source": {
+        "scope_index": 390,
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress/lunge.rs",
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-server/src/combat/ingress/lunge.rs",
+        "before_sha256": "6ce3ba9b4f6c1fef1cd90580466b74bde537c4ec2dac0f1cecec0fcda437c12b",
+        "after_sha256": "266a1dafe1f65fe3bb52d1d0cc91a35eb3ac61bd95c23db020c31708bcd64846",
+        "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0390-base-6ce3ba9b4f6c1fef1cd90580466b74bde537c4ec2dac0f1cecec0fcda437c12b",
+        "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/266a1dafe1f65fe3bb52d1d0cc91a35eb3ac61bd95c23db020c31708bcd64846",
+        "diff": "source-evidence/p16-0390.diff",
+        "diff_sha256": "71ee0bcc0c23f7ef6b0651df47b808bf69a710f68eed93de27ae82ad68f7c6ce"
+      },
+      "locations": "entities169\u2013192, especially190;geometryfinitecollisioncap72\u201378",
+      "old": "OldactualPlannedMeleeLunge::admit receivesrawscaledInf thenminfinitecollisionclearance;old planned_melee_lunge likewisecapsbeforemelee_lunge.",
+      "witness": "FinitecustomMAXtarget/referenceleg2/observedleg2/defaultarmreach/weapon.8,targetX2.4,ordinaryfinitecylinders. Oldfinitecollisionlimit andforwardgap, new190Errbeforecap;defaulttuningdoesnotreach.",
+      "repair": "Ownboundedscale+collisioncapwithinactualcompletegeometryrecipient,keepuncappedAPIstrictfinite; no genericunownedInf/changedproductorder."
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "id": "CONT07-CONTRACT-529",
+  "at": "2026-10-23T23:21:39.794033+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2328,
+      "source_id": "pr-working:crates/fabelgeist-physics/src/contact.rs",
+      "sha256": "1717eaf74703d45e8205f525cc260cdb0da09133ef0377331011df5867b2f436",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-physics/src/contact.rs",
+      "actual_EOF": 261,
+      "ranges": [
+        [
+          1,
+          261
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2329,
+      "source_id": "pr-working:crates/fabelgeist-physics/src/wgsl.rs",
+      "sha256": "a1f915887fcad485606bdc80aae9a12f5224233a774693b02d40df0f1d1ebb95",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-physics/src/wgsl.rs",
+      "actual_EOF": 413,
+      "ranges": [
+        [
+          1,
+          413
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2481,
+      "source_id": "pr-working:crates/fabelgeist-physics/src/contact/count.rs",
+      "sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-physics/src/contact/count.rs",
+      "actual_EOF": 55,
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2482,
+      "source_id": "pr-working:crates/fabelgeist-physics/src/collider.rs",
+      "sha256": "296038416d7eb39fb2a5e71bbce613acc621b6ad99e7b4e12f540d45a27fb34c",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-physics/src/collider.rs",
+      "actual_EOF": 218,
+      "ranges": [
+        [
+          1,
+          218
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2551,
+      "source_id": "pr-working:crates/fabelgeist-physics/src/mesh.rs",
+      "sha256": "227950fb9466ae2c9f5c59c33322ac2c4f43a1d9eb743669e7f65fb6cdeba9dc",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-physics/src/mesh.rs",
+      "actual_EOF": 205,
+      "ranges": [
+        [
+          1,
+          205
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "RIG-ADMISSION03-F081",
+    "RIG-ADMISSION03-F073-SUPPLEMENT-001",
+    "RIG-ADMISSION03-F054-SUPPLEMENT-001"
+  ],
+  "facts": [
+    "Collisions privateanalyticlist/buffer/capacity updatedtogether byset/update withwholecountgate; record derivescountfromlist. Capacitiesareallocationpolicy notlivelistcount andprivate. Fullword truncation remainsRIG-ADMISSION03-F073-SUPPLEMENT001, noextraordinarycountclaim.",
+    "CPUCollider.pack deriveskind/payload/settingsfromoneshape eachcall. IndependentWGSLdiscriminantscurrentlymatch0Plane1Sphere2Capsule3Box; no currentwrongcode. NativequeryCPU/GPUboxzerosignnormal discrepancy savedF113 withvalidrotation positiveextents, distinctfromF081 malformedshapeadmission.",
+    "MeshColliderinitialmembershipgate positive: rejects emptytriangles andoutofvertexextentbeforeupload. Publicbuffers/BVH/count relationship unsealed F054-SUPPLEMENT001; write_positions thenexplicitrecord_refit stagedAPI notautomaticallydefect. Currentrecord_bounds derivesmarginfromcurrentsurface; queryalsoexpandsmargin, overwidebroadphase conservative, notduplicateimpairment.",
+    "Particlecurrent/previous independenttemporalstates intentionallysweptqueriesandfriction; record_push_out copiescurrenttoprevious intentionallystaticrecovery. RESPONSE sharedanalytic/meshstring owner, avoidingindependentresponsepolicy. Hitbest point/distance/normal updatedcoherently eachquery."
+  ],
+  "new_local_findings": [
+    "CONT07-F113"
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2331,
+    "start_line": 1
+  }
+}

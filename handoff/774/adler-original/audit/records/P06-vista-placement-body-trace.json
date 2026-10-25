@@ -1,0 +1,68 @@
+{
+  "head": "a15f24ad44fc22f86e1e1fd9f2ae47b6bb0ba860",
+  "observed_at": "2026-10-20T17:04:30.268210+00:00",
+  "status": "Additional P06 producer and native-boundary trace; no source implementation or acceptance.",
+  "native_vista_boundary": {
+    "file": "crates/adventuresim-tactical-core/src/vista_surface.rs",
+    "functions": [
+      "presented_vista_vertex_height",
+      "stitch_vista_height_to_playable_edge"
+    ],
+    "evidence": "The stitch function computes clamped boundary, outside-distance weight and playable_height.lerp(vista_height, weight). It is a complete interpolation kernel, not an application forwarding helper.",
+    "decision": "Admit its completed boundary query point, keep SupportElevation until the actual lerp, and preserve native interpolated output admission at the application wrapper. Missing playable support retains the actual vista sample, not zero. Preserve exact clamp/weight/lerp and vista offset conventions."
+  },
+  "application_vista_wrappers": [
+    {
+      "file": "presentation/vista/surface.rs",
+      "function": "ActiveVistaSurface::presented_height_at",
+      "change": "Accept ScenePlanPoint and return Option<SupportElevation>. Pass through an existing terrain elevation without erasure. Retain scene-digest guard, first-LOD selection and actual native stitch result admission."
+    },
+    {
+      "file": "presentation/vista/strategic.rs",
+      "function": "StrategicBackdrop::height_at",
+      "change": "Accept checked point and return checked elevation through both playable and native vista branches. Preserve LOD walk, inner-extent progression and visual-only authority; no tactical terrain registration."
+    },
+    {
+      "file": "presentation/vista/ground.rs",
+      "function": "tree_root_height",
+      "change": "Keep checked point/elevation through owned support and sampled vista branches; downstream details.rs admits the completed world jitter point once and projects metres only in tree/card placement math."
+    }
+  ],
+  "art_demo": {
+    "file": "art_demo/scenery.rs",
+    "functions": [
+      "oak_exhibit_site",
+      "spawn_oak",
+      "root_slope"
+    ],
+    "current": "Candidate selection observes a real support hit, drops it into a raw position/exposure tuple, ranks it, then re-queries the same support and defaults to zero. spawn_oak re-queries again and root_slope expects it.",
+    "change": "Use a named candidate/site record retaining the existing ScenePlanPoint, SupportElevation and checked scene root. Preserve exposure-first and slope-second tie ordering. Use retained support at spawn/view framing instead of recomputing it; absence is handled during optional candidate admission.",
+    "native_neighbor_policy": "root_slope is a complete finite-difference ranking/orientation calculation. Its missing-neighbor use of the real centre sample is a numerical boundary estimate, not a support observation. Preserve and explicitly explain that estimator; never reconstruct a SupportElevation claiming an absent neighbor was measured."
+  },
+  "strategic_required_support": {
+    "files": [
+      "strategic_scene/street.rs",
+      "strategic_scene/buildings.rs"
+    ],
+    "current": "Street::arrange substitutes zero for missing frontage elevation; prepare_venues substitutes zero at origin and reuses a different-location anchor height when the approach query misses.",
+    "change": "Require actual checked backdrop support before constructing street/frontage or outdoor venue placement. Keep canonical position/elevation through retained placement and native Transform endpoints. Missing source support must become a coherent preparation rejection, not another physical location estimate.",
+    "error_propagation": "Inspect the existing String-returning preparation chain through its final UI/text boundary. Keep the new support rejection structured through application functions; do not merely stringify it immediately inside Street::arrange or introduce a generic Other(String) to hide the remaining chain. This is part of finishing this connected support-admission path, not a new whole-repository error migration."
+  },
+  "capture_required_support": {
+    "file": "tactical_scene_viewer.rs:1860-2135",
+    "current": "Obstacle, focus, standing camera, animation origin and understory review queries default missing support to zero.",
+    "change": "Pre-admit required support before dependent scene/camera commands. Reuse checked observations for repeated focus queries; keep real native centroid/clamp calculation and candidate ordering. Debris candidates remain optional and may be omitted when unsupported.",
+    "no_fake_observation": "An empty obstacle population can choose a real authored origin as a camera location, but support must still be queried there; the zero-vector location is not itself a height observation."
+  },
+  "scene_input_native_shape": {
+    "file": "scene_input.rs:330-351",
+    "function": "terrain_shape_sample",
+    "decision": "Admit completed centre and four offset query points. Retain canonical support until central differences and concavity average. Preserve east/west/north/south order, optional edge rejection, radius equation and native output coefficients; do not invent a sampled slope type merely from the matching word height."
+  },
+  "remaining_work": [
+    "Complete the strategic preparation error and retained-position consumers before choosing its final typed error surface.",
+    "Finish any remaining original candidate bodies/fixtures as the atomic API migration is prepared.",
+    "P04 full exact-head hosted acceptance remains the first unfinished implementation step."
+  ],
+  "preservation": "No source changes, tests, cases, helpers, suppressions, local Rust/project commands or broader audit waves."
+}

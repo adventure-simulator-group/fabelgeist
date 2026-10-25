@@ -1,0 +1,132 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-068",
+  "at": "2026-10-23T00:33:03.729905+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/components.rs",
+      "sha256": "e2053ee2dbf1a837b1a4e80d2d2afa22c0ecc2231bf586041222082971b9cbea",
+      "scope040_index": 31,
+      "actual_EOF": 193,
+      "scoped_ranges_compared": [
+        [
+          1,
+          193
+        ]
+      ],
+      "actual05_comparison": "Actual native InstanceData couples position/scale/rotation/index/batch/seed; invalid sentinel sets batchMAX explicitly, other fields default intentionally do not constitute a valid application batch. with_batch_id changes only native batch identity, no membership proof. InstanceMaterialData Arc<Vec> plus color/visibility is raw native boundary; extract_component takes SAME entity data+GlobalTransform+Aabb in one tuple and clones together when any changed, a positive extraction-coherence contract. Public InstanceBuffer lengthusize/capacityu32 and ComputeSource count/capacity are separate raw GPU port metadata; valid bounds/count conversion must be established by owning builders, not from native record name. InstanceUniforms mirrors transform/history/Aabb/color/fade tuple; From<material> uses intentionalMAX halfextents placeholder, not actual tight geometry claim. MaterialBindGroupData clone retains same native key. No actual buffer allocation or public application validation proven.",
+      "source_body_proof": "Fresh complete exact pinned Git-dependency material files personally read, no unrelated foreign module/graph/implementation inferred."
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/cull/bindings.wgsl",
+      "sha256": "31551b31caac91e5decc47ac147154bba899d469dad8c0113e0a476ae53dc7d4",
+      "scope040_index": 32,
+      "actual_EOF": 12,
+      "scoped_ranges_compared": [
+        [
+          1,
+          12
+        ]
+      ],
+      "actual05_comparison": "Actual cull bindings tie source/read-write instance arrays, indirect args and batch metadata to explicit group/binding slots; camera single uniform and per-batch instance uniform arrays separate. This declares native recipient index spaces; does not itself check sourcecount/output capacity/batch range or dispatch cardinality. Must retain caller buffer and count proofs, no arbitrary commonlength assumption or allGPUgraph exemption.",
+      "source_body_proof": "Fresh complete exact pinned Git-dependency material files personally read, no unrelated foreign module/graph/implementation inferred."
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/cull/resources.rs",
+      "sha256": "bedf4e9e3cb681d6cd4ef75b146537e8e2c4876cad464addd82ba0bc5cdc83ab",
+      "scope040_index": 33,
+      "actual_EOF": 18,
+      "scoped_ranges_compared": [
+        [
+          1,
+          18
+        ]
+      ],
+      "actual05_comparison": "CameraCullData reprC/ShaderType declaration keeps one viewposition and fixed6 frustumplanes, matches scoped shader counterpart034 exact logicalshape. GlobalCullBuffer pairs native buffer+bindgroup rawhandles, no factory here proving corresponding binding/byte capacity. Nativeprojection boundary requiring renderer construction, not a missing application bespoke gameplay owner by itself.",
+      "source_body_proof": "Fresh complete exact pinned Git-dependency material files personally read, no unrelated foreign module/graph/implementation inferred."
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/cull/types.wgsl",
+      "sha256": "63c3f55c90686a73788212c94f4d979fd2bc3240dd143c6b5e778d949d68fd65",
+      "scope040_index": 34,
+      "actual_EOF": 37,
+      "scoped_ranges_compared": [
+        [
+          1,
+          37
+        ]
+      ],
+      "actual05_comparison": "Actual WGSL InstanceData pos_and_scale packs semantic CPUpositionXYZ+scaleW with same rotation/index/batch/seed fields; indirect draw atomicinstancecount distinct from indexcount/basevertex/firstinstance. BatchMetadata carries batchID +start/end index interval rawu32, no native ordered bound admission in declarations. CameraCullData fixed6 planes and InstanceUniforms same order/semantic fields as CPU033/031. Logical source correspondence is compared; no shader compilation/ABI byte alignment/runtime count safety proof or whole culling kernel expansion.",
+      "source_body_proof": "Fresh complete exact pinned Git-dependency material files personally read, no unrelated foreign module/graph/implementation inferred."
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/bindings.wgsl",
+      "sha256": "8fdf638edbf13ddc04a1a8392f3b873ec730f86f085522de471108c623ac129b",
+      "scope040_index": 35,
+      "actual_EOF": 6,
+      "scoped_ranges_compared": [
+        [
+          1,
+          6
+        ]
+      ],
+      "actual05_comparison": "Actual render storage instance_uniforms atgroup2/binding0 versus material uniformgroup3/binding0 keeps distinct buffer authorities, agrees current render types037. Declaration only, no data admission or dynamic GPU buffer index capacity proof.",
+      "source_body_proof": "Fresh complete exact pinned Git-dependency material files personally read, no unrelated foreign module/graph/implementation inferred."
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/io_types.wgsl",
+      "sha256": "3529f71ec77f88963ee969691ef2dd2f871abf490a8a4beed073b98ff10974b9",
+      "scope040_index": 36,
+      "actual_EOF": 48,
+      "scoped_ranges_compared": [
+        [
+          1,
+          48
+        ]
+      ],
+      "actual05_comparison": "Actual shader Vertex fixed native attribute locations couple instanced pos_scale/rotation/index/batch/seed to corresponding CPUdata declaration. Optional mesh normal/UV/tangent/color/skin fields compile-featureconditional; raw fourjoint indices/weights require actual mesh+rig producers, no skin validation from shader inputs. VertexOutput carries current clip/world/normal/UV/tangent/local/batch observations together but no actual vertex shaderbody in this scope; no fabricated transform result proof.",
+      "source_body_proof": "Fresh complete exact pinned Git-dependency material files personally read, no unrelated foreign module/graph/implementation inferred."
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/types.wgsl",
+      "sha256": "9bd27e4a4bb61b319e4ee13ae7e1407be2fdd432471ef6e9aede72e206321d90",
+      "scope040_index": 37,
+      "actual_EOF": 15,
+      "scoped_ranges_compared": [
+        [
+          1,
+          15
+        ]
+      ],
+      "actual05_comparison": "Render InstanceUniforms declares same logicalcolor/visibility/current+previousworld/Aabbcenter/halfextent product as nativeCPU031 and cull034. MaterialUniforms debugcolor is deliberately separate role. These are native shader interoperability declarations, not refined finite geometry or valid ordered fade-range owner. No arbitrary type merge based on equal fieldshape.",
+      "source_body_proof": "Fresh complete exact pinned Git-dependency material files personally read, no unrelated foreign module/graph/implementation inferred."
+    },
+    {
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/utils.wgsl",
+      "sha256": "e681dfe05b5df31bfba37904eae24631e48be8a91e90910253cba046bdecfcc9",
+      "scope040_index": 38,
+      "actual_EOF": 43,
+      "scoped_ranges_compared": [
+        [
+          1,
+          43
+        ]
+      ],
+      "actual05_comparison": "Actual matrix helper uses posXYZ+uniformscaleW+Yrotation scalar, combines parent_transform * instance_local in explicit order. Source mathematical role is native transform boundary, raw negative/zero scale can be deliberate, no blanket positive length imposed. Dither helper selects either lod_range.xy or.zw from same actual camera distance and divides by selected upper-lower; actual requirement is positive nonzero width and intended band ordering. Native vec4 declaration does not establish it, so actual first-party graphics/litter fade admission must be compared when owning source roles reached. No current bad native range/caller/run or automatic defect in library; no new foreign module graph.",
+      "source_body_proof": "Fresh complete exact pinned Git-dependency material files personally read, no unrelated foreign module/graph/implementation inferred."
+    }
+  ],
+  "comparison_groups": {
+    "native-shader-record-correspondence": "Actual CPU and WGSL field roles/current+previous frames/locations/array cardinality independently compared, not hash-based schema sameness. No runtime ABI compilation or blanket native validation proof.",
+    "extraction-correlation": "Same entity data+transform+Aabb extracted together, positive native state association; mutable raw buffer metadata and fadeband intervals require actual owning producers.",
+    "foreign-port-conditions": "Capacity/index-space/fade denominator and mesh skin membership preconditions recorded for later first-party recipient comparisons, no foreign graph exemption."
+  },
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Exact first-party litter/scatter/native buffer and visibility-range construction roles remain own unread current05 cells. Earlier03 graphics/native observer receipts are navigation only, not05 aggregate fit credit."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

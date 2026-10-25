@@ -1,0 +1,120 @@
+{
+  "id": "CAMERA-INITIAL07-CONTRACT-175",
+  "at": "2026-10-23T02:53:06.972792+00:00",
+  "lens": "audit-redundant-authority",
+  "members": [
+    {
+      "scope050_index": 324,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation_viewer/harness.rs",
+      "sha256": "301ac4dfe279a9dde47a582987736d16158cea960a0398b2a59f57a63859511d",
+      "actual_EOF": 511,
+      "material_ranges": [
+        [
+          1,
+          511
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-050.json#/files/324",
+      "role_qualification": "Full original source; original tests source-only"
+    },
+    {
+      "scope050_index": 325,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/quickstep.rs",
+      "sha256": "760ecbcf0a6723b9624547541159758a8e9e117606b3c827969cbd9733645aab",
+      "actual_EOF": 190,
+      "material_ranges": [
+        [
+          1,
+          190
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-050.json#/files/325",
+      "role_qualification": "Full original source; original tests source-only"
+    },
+    {
+      "scope050_index": 326,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/camera/smoothing.rs",
+      "sha256": "7a8b095a7fa6c14074686fd57c5fbfb86cafbc3e5fad5e78a0db2531b6c2d3f8",
+      "actual_EOF": 247,
+      "material_ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-050.json#/files/326",
+      "role_qualification": "P16 smoothing scoped1-100 only; camera_view_metrics98-100 prefix is context,101-247 excluded, no actualFOV body proof"
+    },
+    {
+      "scope050_index": 327,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/debug.rs",
+      "sha256": "f86ccdaa306872d20b45f9b648814e7402ce790ec333f451406062e7ca0af0d7",
+      "actual_EOF": 341,
+      "material_ranges": [
+        [
+          1,
+          341
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-050.json#/files/327",
+      "role_qualification": "Full original source; original tests source-only"
+    },
+    {
+      "scope050_index": 1422,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness.rs",
+      "sha256": "ed20b1e997850b7b95cc52c88c55fad7855c2cf9c7a8e08ec3f610656517ee13",
+      "actual_EOF": 511,
+      "material_ranges": [
+        [
+          1,
+          511
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-050.json#/files/1422",
+      "role_qualification": "Full original source; original tests source-only"
+    },
+    {
+      "scope050_index": 1444,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/quickstep.rs",
+      "sha256": "33077519d29facefe510e67394af05f51874b1324ce3b4a8de4f27b657852e9c",
+      "actual_EOF": 183,
+      "material_ranges": [
+        [
+          1,
+          183
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-050.json#/files/1444",
+      "role_qualification": "Full original source; original tests source-only"
+    },
+    {
+      "scope050_index": 1472,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/debug.rs",
+      "sha256": "95f141113d44f702b7ac4ae9db824785c6bc3340413a01f3e881b52fd26cdb33",
+      "actual_EOF": 376,
+      "material_ranges": [
+        [
+          1,
+          376
+        ]
+      ],
+      "scope_record": "continuation/cumulative-source-scope-parallel-050.json#/files/1472",
+      "role_qualification": "Full original source; original tests source-only"
+    }
+  ],
+  "actual_source_proof": "Personally consumed Native048 harness/quickstep, Native018 actual PR scenario, NativeRootSupport001 exact smoothing/debug and RigRoot145 full PR debug narratives. Fresh P16 harness14-50/102-162/157-197/198-380, quickstep1-190 full, smoothing1-100 exact, debug50-110/111-235/260-305; complete actual PR/P16 diffs for all three full counterpart pairs explicitly compared. Harness physical projection differences, quickstep raw-versus-fallible distance and debug native hit/render formatting differences preserved. Existing tests from full actual narratives read source-only; no old verdict credit.",
+  "contracts": [
+    "ArmorHarness chooses an authored review roster; actual placements resolve current catalogue definitions and all placements, then spawn physical proxies/topology. Manifest records requested roster and renderer identity once, not current resolved geometry. Immutable recipe chosen before any fit plus RuntimeEquipmentBodyCache.with_breastplate validation establishes coordinated review input, not a second independently mutable production catalogue. Museum roster lower source is separately scoped for PR; no implicit P16 child definition proof from reference or equal names.",
+    "ArmorCapture.ready is recomputed from actual captured-item count and each current visual status on every readiness update; failed is terminal capture lifecycle. Missing/loading clears readiness, failed emits explicit failure+exit, preparation frames delay wait counter. These are work status versus requested harness, not two competing accepted armor owners. Count equality alone does not prove expected identity set or graph semantics, and this code does not claim such a seal; actual normal spawn produces roster once and topology/visual bodies remain separately scoped.",
+    "Review camera derives current focus from subject/head/orbit on read; fixed helmet/torso distances are independent inspection policy, not camera gameplay policy mirrors. Gameplay view intentionally returns None. Native vectors are final rendering ports; no admitted rigid camera claim inferred. Existing tests independently inspect parent attachment/wearer skin and closed graph/fixture intent rather than becoming runtime authority.",
+    "Quickstep fixture computes stimulus from canonical default motor parameters and biological/total mass constants with distinct meanings. Planar speed integration, vertical observer path and action/release/landing frames describe authored deterministic stimulus; they are not cached live actor movement. Each helper reuses shared duration/force equations and sample rate. Repeated calculations support one model, not independently authored tables. Existing literal expected ticks/distances are independent acceptance oracles; do not replace them by same implementation expression merely to eliminate equality.",
+    "P16 quickstep completed displacement is checked SignedLength before trackingforce, PR remains raw numeric input; target displacement also fallible only in P16. Both use checked authored speed/time snapshots and same default policy. Biological70 versus total93.9 accounts carried mass, not conflicting bodymass. Constant fixture leg agility is an intentionally authored stimulus rather than live character attribute, and all lower motor/default semantics remain separately inventoried.",
+    "Analytic damp_focus computes horizontal and vertical native kernel temporaries, then admits both full Position and SceneVelocity before returning FocusSample. Position and velocity are independent integration state, neither derivable solely from the other. No retained partially updated pair is published on local error. Critical damp scalar/vector equations repeat dimensional algorithm across scalar/vector arity, not independently maintained factual authority. Smoothing1-100 cannot establish later camera_view_metrics/FOV policy; that body is explicitly outside this bounded source role.",
+    "DebugGameSpeed is requested local debug control: one toggle builds the same request used for client relative_speed and sends request to server. Current client preference, network request and actual server clock are distinct stages; receiver permission/current clock proof is not inferred from send. DebugDumpWorldTrigger resets before event emission so pending request flag is consumed once. Collider/hitbox toggles update current query members on keypress; no promise of future spawned-collider visibility inheritance established from this source.",
+    "Hit rays and camera-rig gizmos are historical hit or latest published debug samples, independent of gameplay collision authority. Ray Timer controls display lifetime only; screenshot wall timestamp identifies an output filename and fallback0 is not official game clock. Colors/bodypart match is local diagnostic display. BRP input mocks are intentional external input port, not accepted combat-state owner. Preserve fresh native/raw versus typed P16 hit endpoint differences; original IK tests are separate source-only oracles."
+  ],
+  "findings": [],
+  "existing_finding_support": [],
+  "connected_repair_acceptance": "Keep requested fixture/initial manifest, current visual readiness and terminal failure distinct. Continue one canonical motor/default owner through authored fixtures and retain independent expected-value evidence. Keep current camera integration pair atomic, exact bounded FOV context excluded, debug request versus authoritative response distinct. Native ports unwrap actual typed quantities without inventing duplicate checked owners or turning historical debug evidence into current gameplay state.",
+  "status": "Seven exact full/bounded variants inventoried; direct child roster/visual/motor and server request receivers retain their own queued obligations, no broad feature clearance"
+}

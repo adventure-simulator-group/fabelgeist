@@ -1,0 +1,619 @@
+[
+  {
+    "id": "RIG-SUPP-PP-001",
+    "lens": "audit-producer-propagation",
+    "disposition": "source-backed error propagation blocker",
+    "status": "initial-discovery-frozen",
+    "owner": "rig_garments",
+    "locations": [
+      {
+        "path": "crates/adventuresim-tactical-client/src/presentation/terrain/volumetric.rs",
+        "functions": [
+          "spawn_base_and_fault",
+          "spawn_presentation",
+          "refresh_presentation"
+        ],
+        "lines": [
+          39,
+          95,
+          143,
+          159
+        ]
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/presentation/terrain.rs",
+        "functions": [
+          "present_pending_terrain"
+        ],
+        "lines": [
+          109,
+          166
+        ]
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/presentation/preparation.rs",
+        "functions": [
+          "PreparationError",
+          "PreparationError::code"
+        ],
+        "lines": [
+          22,
+          95
+        ]
+      }
+    ],
+    "trace_refs": [
+      "RIG-SUPP-LANDFORM-001",
+      "ROOT-PP-PRESENTATION-011"
+    ],
+    "counterexample": "Admitted QuantizedLandformRecipe permits origin_cm outside current terrain; from_quantized validates parameter bounds only108-161. terrain_landform_patch159-218.validate? calls recipe.validate67-83, which can return OutsidePlayable80. spawn_base_and_fault159 .ok erases this cause into None. coverage.mesh still sees present landform162; no patch spawned173. spawn_presentation returnsOk136, terrain::present_pending_terrain removes PendingTerrainPresentation157-162. Failure is accepted as completed successful presentation. Other extraction failures likewise erased.",
+    "repair": "Return and propagate the canonical TerrainRecipeError through owning render/preparation error, including exact transparent cause variant+stable wasm classification as appropriate; unify refresh/spawn result receivers and actual existing fixtures; perform fallible patch preparation before publishing success/partial presentation. Preserve prepared patch precedence, truly absent recipe state, exact scene geometry/command behavior on success. No text/GeometryError-prose adapter.",
+    "acceptance": "Every actual generation failure retains classified owning cause at actual presentation receiver and never successfully fabricates absent patch/removes pending marker. Existing success fixtures/geometry inputs/order/assertions preserved; hosted validation later, none run.",
+    "dependencies": [
+      "All13initialpassesbeforeanyfix",
+      "SharedPreparationErrorownerextensioncoordinatedwithroot; no competing broad mutation",
+      "All affectedP06/sceneryfamilies share one whole-function repair; no repeat family migrations"
+    ]
+  },
+  {
+    "id": "RIG-SUPP-PP-002",
+    "lens": "audit-producer-propagation",
+    "disposition": "source-backed retained Seed/identity propagation gap",
+    "status": "initial-discovery-frozen",
+    "owner": "rig_garments",
+    "locations": [
+      {
+        "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/identity.rs",
+        "functions": [
+          "shoot_identity"
+        ],
+        "lines": [
+          4,
+          20
+        ]
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves.rs",
+        "functions": [
+          "TreeLeaf",
+          "leaf_shadow_selector"
+        ],
+        "lines": [
+          23,
+          58
+        ]
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/arrangement.rs",
+        "functions": [
+          "procedural_oak_leaves",
+          "procedural_beech_leaves",
+          "procedural_multistem_shrub_leaves"
+        ],
+        "lines": [
+          4,
+          279
+        ]
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/selection.rs",
+        "functions": [
+          "sparse_woody_far_card_retained",
+          "detailed_flat_card_leaf_retained",
+          "sparse_woody_far_card_leaves",
+          "detailed_flat_card_group_leaves"
+        ],
+        "lines": [
+          1,
+          61
+        ]
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor/raster.rs",
+        "functions": [
+          "stratified_tree_bake_leaves",
+          "existingfixtures"
+        ],
+        "lines": [
+          97,
+          142
+        ]
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor.rs",
+        "functions": [
+          "tree_source_geometry_hash"
+        ],
+        "lines": [
+          707,
+          744
+        ]
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/presentation/obstacles/mod.rs",
+        "functions": [
+          "oak_review_terminal_specimen"
+        ],
+        "lines": [
+          39,
+          124
+        ]
+      }
+    ],
+    "trace_refs": [
+      "RIG-SUPP-TREE-001"
+    ],
+    "trace": "StreamId.seed produces Seed, identity helper immediately .to_u64, retained TreeLeaf.shoot_id:u64 across all3builders. It is reconstructed toSeed at shadow selector56, selection26/59, raster122. Typed identity needed across retained biological grouping/sampling; native u64 only at framed contexts/numeric hash encoding.",
+    "repair": "Keep canonical checked value or purpose-specific shoot identity with owned Seed behavior from original producer through retained leaf/group equality/order and all consumers. Resolve ownership/granularity together after initial lenses. Project only at actual framed numeric hash contexts and exact source geometry hash float-narrowing. Adapt existing literal ordinal fixtures without new cases/helpers/assertions.",
+    "preservation": [
+      "Exact streamlabel and ordered branchgroup/coordinatebitwords",
+      "Unsigned word sorting/equality and first shoot/leaf order",
+      "Actual source_geometry_hash converts shoot word to f32 then to_bits737: preserve this exact odd narrowing",
+      "Actual native raster <=depthtie/NaN behavior and mesh/color buffers",
+      "Root oak_site_key004 remains separate root-owned function"
+    ],
+    "acceptance": "No checked Seed->raw retained identity->Seed re-admission between these first-party APIs; native hash bytes/f32 narrowing and all existing fixtures unchanged. No validation executed.",
+    "dependencies": [
+      "All13initialpassesbeforefix",
+      "Root confirms first-trace disjoint graph ownership; future shared typed identity choice reconciled once"
+    ]
+  },
+  {
+    "id": "RIG-SUPP-PP-003",
+    "lens": "audit-producer-propagation",
+    "status": "source-backed initial discovery; repair frozen",
+    "owner": "rig_garments",
+    "locations": [
+      {
+        "path": "crates/adventuresim-tactical-client/src/strategic_scene/staging.rs",
+        "functions": [
+          "ConversationPose::in_building",
+          "floor_height",
+          "obstacles"
+        ],
+        "lines": [
+          20,
+          130
+        ]
+      }
+    ],
+    "trace": "InteriorWaypoint.position_metres is canonical ArchitecturalPlanPoint (interior.rs56-59); caller peels Vec2 at staging40 and forwards floor_height89 raw point; actual collision query computes heightf32 returned to caller then re-admittedElevation48. InteriorPlacement.key.interior_spec returns checked CuboidDimensions; obstacles115 strips same size then forwards raw into CollisionCuboid::from_metres123, whose canonical body collision68 re-admits identical dimensions; yaw likewise checkedRadians->radians124->Radians.new69. Native computed center is new geometric arithmetic, unlike unchanged size/yaw forwarding.",
+    "repair": "Complete one connected repair across ConversationPose::in_building/floor_height/obstacles: retain canonical ArchitecturalPlanPoint/Elevation/CuboidDimensions/Radians from source through internal APIs and retained candidate/clearance facts; use existing typed cuboid fields rather than roundtrip through native adapter. Carry owning geometry/collision failures to actual strategic preparation result. Root canonical coordinate/polygon/extent owners remain root-owned; no duplicate frame/type or forwarding adapter.",
+    "preservation": [
+      "Ground-only path traversal, first occurrence bit-key policy, clearance cached by exact floor bits",
+      "Current floor candidate filters including tilt==0,absheight<=0.3,max ordering,zero fallback",
+      "Daylight descending stable ordering and resident spacing, exact transform origin/subtraction/rotation",
+      "Original furniture worldsize/yaw, dummy ResolvedItemId(0) and clearance geometry until later ownership lens decides identity role",
+      "All existing fixtures/inputs/count/order/assertions unchanged"
+    ],
+    "dependencies": [
+      "Parent accepted wholefunction owner; all13initialpasses gate",
+      "Canonical geometry/scene coordinate/GeneratedBuilding transform receiver contracts root-owned",
+      "ROOT-PP-002 if related extents cross this graph; reuse canonical owners"
+    ],
+    "acceptance": "No checked point/height/size/yaw stripped merely to cross application APIs or re-admit same fact; actual numerical kernels extract locally and explicit typed result crosses receivers. No execution/PASS claim.",
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-001"
+    ]
+  },
+  {
+    "id": "RIG-SUPP-CODE-001",
+    "lens": "audit-producer-propagation / concrete receiving fixture closure",
+    "status": "demonstrated source type mismatch; repair frozen",
+    "owner": "rig_garments",
+    "locations": [
+      {
+        "path": "crates/adventuresim-tactical-client/src/strategic_scene/views.rs",
+        "functions": [
+          "tests::every_building_shares_one_street_camera"
+        ],
+        "lines": [
+          321,
+          365
+        ]
+      }
+    ],
+    "trace": "Street.front typed Position<Scene> at street.rs32; existing fixture assigns Vec3::ZERO at views331. No implicit Rust conversion exists.",
+    "repair": "Use existing canonical Position::ORIGIN for unchanged zero-valued front in this one existing fixture. No new tests/helpers/assertions or inputs/count/order changes.",
+    "acceptance": "Existing strategic-scene fixture compiles against typed Street field; hosted existing checks later, none run.",
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-001"
+    ]
+  },
+  {
+    "id": "RIG-SUPP-PP-004",
+    "status": "actionable retained cause loss; source frozen",
+    "owner": "rig_garments",
+    "locations": [
+      {
+        "path": "crates/adventuresim-tactical-client/src/strategic_scene/status.rs",
+        "functions": [
+          "SceneAssetFailure",
+          "capture_asset_failures",
+          "status_error"
+        ],
+        "lines": [
+          85,
+          101
+        ]
+      }
+    ],
+    "trace": "Bevy0.19.1 UntypedAssetLoadFailedEvent has typed AssetPath and AssetLoadError; capture_asset_failures98 ignores error and stores generic path prose in SceneAssetFailure Option<String>; status_error223 then publishes it. Error distinctions are lost before real JSON endpoint.",
+    "repair": "Retain actual native path and owning error payload through SceneAssetFailure and compose presentation at status_error/Status publication. Preserve selected asset filtering and first/last-event semantics; no String error adapter.",
+    "acceptance": "Actual asset failure cause remains available until final native JSON text mapping, existing readiness behavior and fixtures preserved. No execution claimed.",
+    "lens": "audit-producer-propagation",
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-001"
+    ],
+    "governing_rule": "crates/AGENTS.md semantic values/types: carry checked leaves through composite APIs; native conversion at actual boundary only."
+  },
+  {
+    "id": "RIG-SUPP-PP-005",
+    "status": "actionable terminal diagnostic cause discard; source frozen",
+    "owner": "rig_garments",
+    "locations": [
+      {
+        "path": "crates/adventuresim-tactical-client/src/browser_runtime.rs",
+        "functions": [
+          "spawn_forge_scene"
+        ],
+        "lines": [
+          329,
+          336
+        ]
+      }
+    ],
+    "trace": "WeaponModel::generate returns owning error; let Ok(generated) else branch logs only catalog_id plus generic phrase, while preceding Serde decode branch correctly logs concrete error at316.",
+    "repair": "Handle generation error explicitly and retain/render its concrete cause in actual native diagnostic operation. Preserve design, return/no-preview behavior, part/material/mesh arithmetic.",
+    "acceptance": "Actual generation failure output identifies original concrete cause; no source/error-as-prose branch introduced.",
+    "lens": "audit-producer-propagation",
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-001"
+    ],
+    "governing_rule": "crates/AGENTS.md semantic values/types: carry checked leaves through composite APIs; native conversion at actual boundary only."
+  },
+  {
+    "id": "RIG-SUPP-PP-006",
+    "status": "actionable precision defect and retained identity migration gap; source frozen",
+    "owner": "rig_garments",
+    "locations": [
+      {
+        "path": "crates/strategic-web/static/strategic-renderer.js",
+        "functions": [
+          "persistent tactical click command"
+        ],
+        "lines": [
+          242,
+          252
+        ]
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/browser_runtime.rs",
+        "functions": [
+          "BrowserCommand::EnterTactical",
+          "drain_browser_commands"
+        ],
+        "lines": [
+          62,
+          66
+        ]
+      },
+      {
+        "path": "crates/adventuresim-tactical-netcode/src/client.rs",
+        "functions": [
+          "AdventureSimulatorClient",
+          "announce_join"
+        ],
+        "lines": [
+          577,
+          624
+        ]
+      }
+    ],
+    "trace": "MissionServerView.character_id is unbounded u64 from CharacterView.id, emitted exactly as decimal DOM attribute. Number(dataset.characterId) loses integers above2^53, then JSON u64 command drives local control and JoinRequest. Additional raw retained AdventureSimulatorClient.player_id is rewrapped CharacterId at announce_join616; LocalCharacterId retains raw strategic identity and compares CharacterId.0. Distinct strategic roster uses exact decimal String PortraitId serde.",
+    "scenario": "Admitted strategic character9007199254740993 becomes9007199254740992 before Rust command decoding; wrong identity can be joined/controlled. This is deterministic source reasoning, no probe executed.",
+    "repair": "Lossless decimal-string command admission into existing tactical_core::CharacterId, carry canonical identity through Args/local selection/client state and actual typed JoinRequest. Keep transport client/entity authority distinct; no equivalent type or raw forwarding adapter. Existing constructor/fixture adaptation only.",
+    "acceptance": "Every existing real DOM/CLI/viewer producer reaches canonical CharacterId without lossy Number or unchecked primitive internal state/re-admission; actual join payload remains same identity for full u64 range; all existing fixtures preserved.",
+    "lens": "audit-producer-propagation",
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-001"
+    ],
+    "governing_rule": "crates/AGENTS.md semantic values/types: carry checked leaves through composite APIs; native conversion at actual boundary only.",
+    "classification": "Preexisting baseline3a50 precision defect + mandatory connected current migration gap; actual full baseline static renderer source read, SHA in supplemental-root-receivers-008.json.",
+    "dependencies": [
+      "Native owns animation_viewer::run existing LocalCharacterId constructor body; consumes canonical identity without competing body edit.",
+      "Camera confirms no LocalCharacterId/AdventureSimulatorClient exact function claim; camera owns separate physical geometry.",
+      "ui::on_new_player_added_hook must compare canonical CharacterId from Args; actual formatted #ID is native text port."
+    ]
+  },
+  {
+    "id": "RIG-SUPP-PP-007",
+    "status": "actionable retained fitting failure prose/marker roundtrip; source frozen",
+    "owner": "rig_garments with native harness receiving dependency",
+    "locations": [
+      {
+        "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment.rs",
+        "functions": [
+          "RuntimeEquipmentBodyCache",
+          "prepare_runtime_equipment_body"
+        ],
+        "lines": [
+          35,
+          112
+        ]
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/equipment/runtime_equipment/generation.rs",
+        "functions": [
+          "RuntimeEquipmentBodyCache::start",
+          "finish",
+          "resolve",
+          "generate_runtime_equipment_models",
+          "RuntimeEquipmentPresentation::fail_fit"
+        ],
+        "lines": [
+          163,
+          439
+        ]
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/equipment/readiness.rs",
+        "functions": [
+          "EquipmentReadiness::check"
+        ],
+        "lines": [
+          53,
+          71
+        ]
+      }
+    ],
+    "trace": "models stores Result<CachedEquipment,String>; finish240 formats owning error; start190 constructs anyhow from cached prose; resolve437 stores prose. Failed canonical body/design discards error into bool; unit Failed marker then check returns generic static str before JSON/native harness final serialization.",
+    "repair": "One canonical owning fitting/preparation cause payload retained in cache and equipment failure state; preserve cause through support lookup and readiness until actual JSON/native capture display. Native owns harness/readiness whole receiving functions and consumes same cause. Preserve failure visibility/resolved/pending/cache behavior, existing fixture inputs/count/order/assertions.",
+    "acceptance": "No owning error is reconstructed from cached text; failed payload names actual cause until native display. All existing marker constructors/fixtures adapted without new helpers/tests/assertions.",
+    "lens": "audit-producer-propagation",
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-001"
+    ],
+    "governing_rule": "crates/AGENTS.md semantic values/types: carry checked leaves through composite APIs; native conversion at actual boundary only."
+  },
+  {
+    "id": "RIG-SUPP-PP-008",
+    "status": "actionable checked identity internal propagation gap; source frozen",
+    "owner": "rig_garments",
+    "locations": [
+      {
+        "path": "crates/adventuresim-tactical-client/src/presentation/venues.rs",
+        "functions": [
+          "select_building"
+        ],
+        "lines": [
+          61,
+          79
+        ]
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/strategic_scene/buildings.rs",
+        "functions": [
+          "SelectedBuildings::prepare"
+        ],
+        "lines": [
+          76,
+          83
+        ]
+      },
+      {
+        "path": "crates/adventuresim-tactical-client/src/presentation/generation/venue.rs",
+        "functions": [
+          "VenueRequest::placements"
+        ],
+        "lines": [
+          29,
+          38
+        ]
+      }
+    ],
+    "trace": "Both checked PortraitId producers peel .0 and feed Iterator<u64> to select_building; function retains Vec<u64> and compares establishment.operator_character_id.0. Actual operator owner is existing tactical_core::CharacterId, not SceneCharacterId. No native ID numerical operation or codec occurs in selection.",
+    "repair": "Use existing CharacterId meaning through operator selection, with one explicit checked portrait-to-character identity projection at the canonical presentation owner; keep portrait presentation role distinct as required by later ownership/granularity lens. Full shared selection function/callers repaired once.",
+    "acceptance": "No raw u64 carried through selected building/operator membership; preserve first matching establishment/usage/building/distant fallback order.",
+    "lens": "audit-producer-propagation",
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-001"
+    ],
+    "governing_rule": "crates/AGENTS.md semantic values/types: carry checked leaves through composite APIs; native conversion at actual boundary only.",
+    "authority": "Parent explicitly confirms full shared select_building/SelectedBuildings::prepare/VenueRequest::placements rig ownership; no root overlap2026-10-21."
+  },
+  {
+    "id": "RIG-SUPP-PP-009",
+    "lens": "audit-producer-propagation",
+    "status": "actionable source gap; repair frozen",
+    "owner": "rig_garments with explicit shared dependencies",
+    "locations": [
+      "browser_runtime.rs::pending_commands287\u2013293 / drain_browser_commands208"
+    ],
+    "trace": "Poisoned Mutex failure becomes successful empty Vec via unwrap_or_default; previously accepted commands silently disappear before any actual native diagnostic.",
+    "repair": "Explicit handled owning command queue failure through whole drain; preserve actual operation/disposition and original queue ownership.",
+    "authority": "Whole browser drain already rig-owned PP006; root confirmation of additional error handling pending.",
+    "acceptance": "Source owner retained through actual receiving body, exact behavior/errors/fixtures preserved; existing hosted commands later only. No source execution/validation performed.",
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-003",
+      "RIG-SUPP-STRATEGIC-002"
+    ]
+  },
+  {
+    "id": "RIG-SUPP-PP-010",
+    "lens": "audit-producer-propagation",
+    "status": "actionable source gap; repair frozen",
+    "owner": "rig_garments with explicit shared dependencies",
+    "locations": [
+      "interior/footprints.rs::validate64\u201367 -> architecture::Floor::placement_clear106\u2013122"
+    ],
+    "trace": "Canonical CuboidDimensions checked nonnegative y is peeled to raw scalar then re-admitted PositiveLength. This is stricter positive-height refinement, not same-type readmission.",
+    "repair": "Use typed y_length()->SignedLength and root-owned checked PositiveLength refinement; preserve NegativeExtent/ZeroExtent rolePositiveLength/axisX rejection, height arithmetic and native collision tolerance/order.",
+    "authority": "Parent accepted whole footprints::validate rig ownership; canonical geometry refinement root-owned.",
+    "acceptance": "Source owner retained through actual receiving body, exact behavior/errors/fixtures preserved; existing hosted commands later only. No source execution/validation performed.",
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-003",
+      "RIG-SUPP-STRATEGIC-002"
+    ]
+  },
+  {
+    "id": "RIG-SUPP-PP-011",
+    "lens": "audit-producer-propagation",
+    "status": "actionable source gap; repair frozen",
+    "owner": "rig_garments with explicit shared dependencies",
+    "locations": [
+      "interior/navigation/portals.rs::Navigation::enter_front_door10\u201335"
+    ],
+    "trace": "Already checked Entrance threshold/approach become raw Vec2 and unchanged values are re-admitted into same ArchitecturalPlanPoint for insert_portal and ensure_node after separate swept arithmetic.",
+    "repair": "Retain typed original entrance leaves into application callbacks; native locals only within actual swept kernel. Preserve first entry/portal graph connections/errors/tolerance.",
+    "authority": "Parent accepted whole Navigation::enter_front_door rig ownership; canonical scene/architectural coordinate owner root-owned.",
+    "acceptance": "Source owner retained through actual receiving body, exact behavior/errors/fixtures preserved; existing hosted commands later only. No source execution/validation performed.",
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-003",
+      "RIG-SUPP-STRATEGIC-002"
+    ]
+  },
+  {
+    "id": "RIG-SUPP-PP-012",
+    "lens": "audit-producer-propagation",
+    "status": "actionable source gap; repair frozen",
+    "owner": "rig_garments with explicit shared dependencies",
+    "locations": [
+      "presentation/generation/tests.rs::grounded_test_building444\u2013447"
+    ],
+    "trace": "Existing fixture peels placement.centre_metres already ScenePlanPoint, immediately readmits same ScenePlanPoint before CityPlotBounds::new.",
+    "repair": "Pass unchanged typed point in existing helper; preserve every existing input/count/order/assertion, no new fixture/helper.",
+    "authority": "Connected existing fixture adaptation; parent notified, exact claim acceptance pending.",
+    "acceptance": "Source owner retained through actual receiving body, exact behavior/errors/fixtures preserved; existing hosted commands later only. No source execution/validation performed.",
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-003",
+      "RIG-SUPP-STRATEGIC-002"
+    ]
+  },
+  {
+    "id": "RIG-SUPP-PP-013",
+    "lens": "audit-producer-propagation",
+    "status": "actionable same-owner composite readmission; source frozen",
+    "owner": "rig_garments",
+    "locations": [
+      {
+        "path": "crates/adventuresim-building-generator/src/collision.rs",
+        "functions": [
+          "compile_building_collision"
+        ],
+        "lines": [
+          206,
+          213
+        ]
+      },
+      {
+        "path": "crates/adventuresim-building-generator/src/axle.rs",
+        "functions": [
+          "collision"
+        ],
+        "lines": [
+          55,
+          85
+        ]
+      }
+    ],
+    "earliest_producer": "windows.rs::compile_window_bars73\u201385 produces WindowBarSpec checked Position<Architectural>,CuboidDimensions,Radians after actual bar offset/sizing/atan2 arithmetic; windows/spec.rs48 retains them.",
+    "trace": "compile_building_collision peels those exact leaves to native vectors/scalar and passes unchanged to CollisionCuboid::from_metres; constructor67\u201371 reconstructs same owners. No native arithmetic or wire requirement between. Collision topology/corners uses checked leaves and actual numerical rotation native port. Axle collision computes new size/rotation but unchanged solid.centre.metres()71 re-admits same Position into composite; retain existing point while admitting newly calculated leaves.",
+    "repair": "Consume typed bar.centre,size,yaw directly in typed CollisionCuboid fields; authored cross/long0 have canonical Radians::ZERO leaf. Complete whole function across all affected building/geometry/furniture families once. Keep actual selection/sorting/flatmap/fallbackbounds/error/shape/kernel topology and arithmetic.",
+    "acceptance": "No checked WindowBarSpec fields leave owners for identical composite readmission; existing collision fixtures preserve inputs/count/order/assertions under later hosted acceptance.",
+    "authority": "Root explicitly assigns first-traced whole compile_building_collision2026-10-21; canonical geometry leaves root-owned.",
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-004"
+    ]
+  },
+  {
+    "id": "RIG-SUPP-PP-014",
+    "lens": "audit-producer-propagation",
+    "status": "actionable shared builder producer/retained state gap; source frozen",
+    "owner": "rig_garments",
+    "locations": [
+      {
+        "path": "crates/adventuresim-building-generator/src/furniture/builder.rs",
+        "functions": [
+          "Builder::member",
+          "Builder::support",
+          "Builder::finish",
+          "Builder::cuboid",
+          "Builder::wood_member",
+          "Builder::timber",
+          "Builder::collider"
+        ],
+        "lines": [
+          8,
+          305
+        ]
+      },
+      {
+        "path": "crates/adventuresim-building-generator/src/windows/leaf.rs",
+        "functions": [
+          "compile_window_leaf"
+        ],
+        "lines": [
+          19,
+          125
+        ]
+      }
+    ],
+    "earliest_producer": "Canonical CuboidDimensions enters window leaf, rawmetres then identical glass size passes Builder::cuboid->member; member admits typed Position/dimensions/rotation for corners then discards them.",
+    "trace": "member89\u201393 admits checked leaves for CuboidCorners; same unchanged centre,size readmitted as collider141\u2013148. Checked corners at105 become raw vectors, support retains Vec<Vec3>12 until finish recenters then readmits Position296. Member/finish/support share one source problem across every furniture/collision/mesh family.",
+    "repair": "Retain existing canonical leaves once through whole builder/member/collider/support state and actual checked window input. Author initial native geometry at true literal/numerical leaf boundaries; no parallel primitive forwarding path. Complete actual authored constructor callers together; native numerical face/UV/winding/recentering kernels may extract locally.",
+    "dependencies": [
+      "Root owns canonical checked geometry operations/conversions; no duplicate pose/height/seed owner.",
+      "Actual all authored constructor callers still must be fully traced before initial inventory/repair closure; file list search is not coverage."
+    ],
+    "preservation": [
+      "Exact f32 corner permutation/face winding/UV/normal transforms/support tolerance/dedup and recenter order",
+      "First construction_error preserved; collision Solid/Decoration ownership and supports/sourceID policy",
+      "No new tests/helpers/assertions; existing constructor fixtures only"
+    ],
+    "acceptance": "No native word roundtrip for unchanged admitted member leaves or private support collection; actual native kernels and newly calculated coordinates retain checked boundaries and all existing behavior.",
+    "authority": "Root explicitly assigns complete shared graph2026-10-21.",
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-005"
+    ],
+    "receiving_closure": "All actual Builder API callers and complete checked-envelope dispatch/helper bodies read, exact evidence012+011; whole shared function ownership listed authoritative claims. Actual native face/UV/profile/math/upload boundaries separately proved."
+  },
+  {
+    "id": "RIG-SUPP-PP-015",
+    "lens": "audit-producer-propagation",
+    "status": "actionable shared visual identity API gap; source frozen",
+    "owner": "rig_garments",
+    "locations": [
+      {
+        "path": "crates/adventuresim-tactical-client/src/presentation/buildings/materials.rs",
+        "functions": [
+          "TacticalBuildingMaterials::for_building",
+          "BuildingAppearance::for_building"
+        ],
+        "lines": [
+          70,
+          84
+        ]
+      }
+    ],
+    "trace": "Checked SceneBuildingId or FurnitureInstanceId peeled at observers/cache/doors/windows/viewers into rawu64 through material API then appearance API before Seed conversion/StreamId RNG. No native codec/math requires those internal raw identity parameters. Function meaning serves both identity authorities; do not falsely constrain it to building ID.",
+    "repair": "One existing canonical identity-to-Seed purpose projection and typed Seed/internal API, decided with later ownership/granularity lenses; preserve exact u64word/RNGstream/draw/distribution/order. All actual production and viewer callers migrate together; no equivalent duplicate Seed owner.",
+    "dependencies": [
+      "Native viewer readiness first-trace owner coordination pending, no competing function edits.",
+      "Actual untraced viewer/boundary/source callers remain initial inventory cells; searchhits not coverage."
+    ],
+    "acceptance": "Typed identity/Seed crosses internal visual APIs until actual deterministic native RNG bit ports; every existing caller and fixture preserves appearance for exact input words.",
+    "authority": "Root explicitly assigns complete shared API + all reached callers2026-10-21.",
+    "trace_refs": [
+      "RIG-SUPP-STRATEGIC-005"
+    ],
+    "shared_function_ownership": {
+      "rig": "TacticalBuildingMaterials/BuildingAppearance visual API and disjoint production/viewer callers as exact247claims",
+      "root": [
+        "BoundaryBatches::insert_boundary",
+        "projection::project_pending"
+      ],
+      "dependency": "Root consumes same canonical Seed material contract; no duplicate or competing boundary claim."
+    }
+  }
+]

@@ -1,0 +1,13 @@
+--- p16base/crates/adventuresim-stdb-module/src/equipment_law.rs
++++ catalog-p16head/crates/adventuresim-stdb-module/src/equipment_law.rs
+@@ -63,9 +63,9 @@
+ /// Auto-unequip prohibited items. Inventory ownership is unchanged.
+ pub fn enforce_equipment_compliance(
+     ctx: &ReducerContext,
+     character_id: u64,
+-) -> Result<Vec<u64>, String> {
++) -> crate::StrategicOperationResult<Vec<u64>> {
+     let equipped = crate::character::equipped_wearable_ids(ctx, character_id);
+     let mut removed = Vec::new();
+     for inventory_item_id in equipped {
+         if require_item_legal(ctx, character_id, inventory_item_id).is_err() {

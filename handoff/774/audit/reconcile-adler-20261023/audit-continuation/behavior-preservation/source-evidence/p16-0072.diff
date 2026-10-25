@@ -1,0 +1,19 @@
+--- p16base/crates/adventuresim-core/src/autoresolve/timeline.rs
++++ catalog-p16head/crates/adventuresim-core/src/autoresolve/timeline.rs
+@@ -9,13 +9,13 @@
+     pub time_seconds: BattleTime,
+     pub kind: MeleeTimelineKind,
+     pub combatant_id: Option<u64>,
+     pub target_id: Option<u64>,
+-    pub engagement_distance_before_metres: Option<f32>,
+-    pub engagement_distance_after_metres: Option<f32>,
++    pub engagement_distance_before_metres: Option<SignedLength>,
++    pub engagement_distance_after_metres: Option<SignedLength>,
+     pub movement_action: Option<MeleeMovementAction>,
+     pub movement_elapsed_seconds: Option<AnimationElapsed>,
+-    pub movement_displacement_metres: Option<f32>,
++    pub movement_displacement_metres: Option<SignedLength>,
+     pub movement_velocity_before_metres_per_second: Option<SignedSpeed>,
+     pub movement_velocity_after_metres_per_second: Option<SignedSpeed>,
+     pub movement_speed_limit_metres_per_second: Option<NonnegativeSpeed>,
+     pub readiness_before_seconds: Option<BattleTime>,

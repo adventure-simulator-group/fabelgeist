@@ -1,0 +1,67 @@
+--- PRbase/crates/adventuresim-character-creator/src/inventory/occupancy.rs
++++ frozen/crates/adventuresim-character-creator/src/inventory/occupancy.rs
+@@ -1,9 +1,9 @@
+ //! Where each article sits on the body, and whether a set of worn articles fits together.
+ 
+ use super::{Article, EquipConflict, InventoryItemId};
+ use crate::{
+-    equipment_catalog::ItemCatalog,
++    equipment_catalog::{CatalogPlacement, ItemCatalog},
+     garment::{Construction, GarmentSelection, SettledGarment},
+     item_catalog_schema::{
+         EquipmentChannel, EquipmentDefinition, EquipmentLocation, OccupancyRequirement,
+         ParentRequirement,
+@@ -19,8 +19,15 @@
+     pub parents: Vec<ParentRequirement>,
+ }
+ 
+ impl Occupancy {
++    pub(crate) fn from_catalog(selection: CatalogPlacement<'_>) -> Self {
++        Self {
++            body: selection.occupancy.clone(),
++            parents: selection.parents.clone(),
++        }
++    }
++
+     fn on_body(channel: EquipmentChannel, locations: &[EquipmentLocation]) -> Self {
+         Self {
+             body: locations
+                 .iter()
+@@ -60,13 +67,10 @@
+ impl Article {
+     pub fn occupancy(&self, catalog: &ItemCatalog) -> Result<Occupancy, EquipConflict> {
+         match self {
+             Self::Catalog(article) => {
+-                let (_, placement) = article.resolve(catalog)?;
+-                Ok(Occupancy {
+-                    body: placement.occupancy.clone(),
+-                    parents: placement.parents.clone(),
+-                })
++                let placement = article.resolve(catalog)?;
++                Ok(Occupancy::from_catalog(placement))
+             }
+             Self::Draped(selection) | Self::Settled(SettledGarment { selection, .. }) => Ok(
+                 Occupancy::on_body(selection.channel(), &garment_locations(selection)),
+             ),
+@@ -100,8 +104,21 @@
+     pub id: InventoryItemId,
+     pub occupancy: Occupancy,
+     pub equipment: Option<&'a EquipmentDefinition>,
+     pub attachment_tags: &'a [String],
++}
++
++impl<'a> Candidate<'a> {
++    pub(super) fn from_catalog(id: InventoryItemId, selection: CatalogPlacement<'a>) -> Self {
++        let equipment = selection.item().definition().equipment.as_ref();
++        Self {
++            id,
++            occupancy: Occupancy::from_catalog(selection),
++            equipment,
++            attachment_tags: equipment
++                .map_or(&[], |equipment| equipment.attachment_tags.as_slice()),
++        }
++    }
+ }
+ 
+ /// Worn articles joined into one conflict-free equipment graph.
+ #[derive(Debug, Default)]

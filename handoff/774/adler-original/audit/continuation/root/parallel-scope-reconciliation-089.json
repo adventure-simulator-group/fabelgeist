@@ -1,0 +1,148 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-089",
+  "at": "2026-10-22T19:07:26.449084+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-018.json",
+    "sha256": "9c0f966cbeb5b61e2c492d28c70afd52374a12a0f3d964e7a6ea3978bff594d7"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-017.json",
+    "sha256": "edc9c04b3ceea9fe660ee7b13ca85001e8df2a381de4c6f47c5bdc5ad1b3f249"
+  },
+  "new_variants": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_editing.rs",
+      "snapshot": "pr-working",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\roof_editing.rs",
+      "sha256": "53655cb95df237464c4b34646936dd085323800bf11a21f2f7762de11dd29b17",
+      "bytes": 12083,
+      "actual_line_count": 351,
+      "scope_kind": "materially_reached_parallel_initial05_dependency",
+      "audit_owner": "native",
+      "material_ranges": [
+        [
+          1,
+          149
+        ],
+        [
+          150,
+          229
+        ]
+      ],
+      "scope_limits": "Exact separate registered ranges only; roof_editingtests230+ andbearingtests59+ excluded. No wholeaudit/editor/helpergraph or verdictcredit.",
+      "parallel_reached_registrations": [
+        {
+          "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+          "sha256": "a55052656e8d8119bf9df849d6786c589de4ad51b3a635ed898256cddf1e69bc",
+          "row_1based": 1,
+          "id": "NATIVE-INITIAL05-REG-001",
+          "original_record": {
+            "id": "NATIVE-INITIAL05-REG-001",
+            "at": "2026-10-22T19:01:26.898201+00:00",
+            "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081 prospective direct necessary material before body; source freeze retained",
+            "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_editing.rs",
+            "snapshot": "pr-working",
+            "sha256": "53655cb95df237464c4b34646936dd085323800bf11a21f2f7762de11dd29b17",
+            "actual_EOF": 351,
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\roof_editing.rs",
+            "material_ranges": [
+              [
+                1,
+                149
+              ]
+            ],
+            "role": "Exact set_roof_pitch and reconstruct_roof_pitch complete current direct aggregate edit/caller bodies; gable_enclosure::update_pitch onlyactualcaller symbolline131",
+            "actual_reached_by": "Initial05 gable_enclosure update_pitch114\u2013135 uses two-polygonzip againstmutableunbounded enclosures; actualrelationship retention requires caller recipe/context/commit semantics, not blanket zips shorter defect",
+            "exclusions": "refresh_edge_weathering150\u2013229 and originaltests230+ excluded unless actuallydirectlyneeded and registered separately; no unrelatedwholemodule graph or newtest/execution",
+            "status": "prospectively_registered_before_current_body_analysis",
+            "source_credit": 0,
+            "global_scope": "newvariant017pendingRootreconciliation and per-lens source fixedpoint; no otherlens semanticcredit",
+            "repair": "frozen"
+          }
+        },
+        {
+          "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+          "sha256": "a55052656e8d8119bf9df849d6786c589de4ad51b3a635ed898256cddf1e69bc",
+          "row_1based": 2,
+          "id": "NATIVE-INITIAL05-REG-002",
+          "original_record": {
+            "id": "NATIVE-INITIAL05-REG-002",
+            "at": "2026-10-22T19:02:41.588358+00:00",
+            "authority": "081 prospectively registered direct actualcallee before body",
+            "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_editing.rs",
+            "snapshot": "pr-working",
+            "sha256": "53655cb95df237464c4b34646936dd085323800bf11a21f2f7762de11dd29b17",
+            "actual_EOF": 351,
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\roof_editing.rs",
+            "material_ranges": [
+              [
+                150,
+                229
+              ]
+            ],
+            "actual_reached_by": "REG001 reconstruct_roof_pitch146 actual refresh_edge_weathering(assembly,geometry)?",
+            "role": "Exact complete direct helper recomputing physical edge treatment and support-interface state after correlated roof pitch mutation",
+            "exclusions": "Originaltests230\u2013351 excluded; no unrelatededitor/callergraph",
+            "status": "registered_before_direct_body_analysis",
+            "global_scope": "newpathREG001+thisrange pendingRootreconciliation; no otherlenscredit",
+            "repair": "frozen"
+          }
+        }
+      ],
+      "producer_inventory_accounting": "bounded_01_02_newmaterial_comparison_pending",
+      "admission_discovery": "incomplete_exact_new_roles"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/bearing.rs",
+      "snapshot": "pr-working",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\audit\\bearing.rs",
+      "sha256": "426ca5b68aff61bdf650125502698d909d7c426408627fabf2172720f564bd29",
+      "bytes": 4971,
+      "actual_line_count": 138,
+      "scope_kind": "materially_reached_parallel_initial05_dependency",
+      "audit_owner": "native",
+      "material_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "scope_limits": "Exact separate registered ranges only; roof_editingtests230+ andbearingtests59+ excluded. No wholeaudit/editor/helpergraph or verdictcredit.",
+      "parallel_reached_registrations": [
+        {
+          "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+          "sha256": "a55052656e8d8119bf9df849d6786c589de4ad51b3a635ed898256cddf1e69bc",
+          "row_1based": 3,
+          "id": "NATIVE-INITIAL05-REG-003",
+          "original_record": {
+            "id": "NATIVE-INITIAL05-REG-003",
+            "at": "2026-10-22T19:05:59.328035+00:00",
+            "authority": "081 prospective direct necessary actualreceiver before body",
+            "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/bearing.rs",
+            "snapshot": "pr-working",
+            "sha256": "426ca5b68aff61bdf650125502698d909d7c426408627fabf2172720f564bd29",
+            "actual_EOF": 138,
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\audit\\bearing.rs",
+            "material_ranges": [
+              [
+                1,
+                58
+              ]
+            ],
+            "role": "Exact audit_positive_bearing complete production function, direct current meaning of SupportInterface bounds as physical bearing evidence, model/resolved_networks85\u201386 explicitly delegates positive contact to bearing audit",
+            "actual_reached_by": "Initial05 registeredroofpitch physicalweatherupdates butretained interfacebounds; resolve_one_roof producer559\u2013569+SupportInterface85\u201386 requirement andboundeddeclaredconsumer nav audit_positive_bearing8",
+            "exclusions": "Existingtests59+ excluded; no whole structural/auditgraph or projectexecution; only actual direct bearing receiver",
+            "status": "registered_before_direct_body_analysis",
+            "global_scope": "newsource017pendingRootreconciliation andotherinitiallenses",
+            "repair": "frozen"
+          }
+        }
+      ],
+      "producer_inventory_accounting": "bounded_01_02_newmaterial_comparison_pending",
+      "admission_discovery": "incomplete_exact_new_roles"
+    }
+  ],
+  "total_variants": 2755,
+  "mandatory_overlays": 197,
+  "limits": "Metadata-only Native05REG001/002roofeditor1-229andREG003bearing1-58. Allpriorfull/boundedrolespreserved; separatelyregisteredrangesretained. No sourceexecution/repair/verdictcredit."
+}

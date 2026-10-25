@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-909",
+  "at": "2026-10-25T17:13:10.683349+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1104,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/fireplace_custody.rs",
+  "sha256": "91a13115f15cf32eabd8971f881e1eb15a9177e089cc8e72d8c7ef0495cdb168",
+  "actual_compared_ranges": [
+    [
+      1,
+      360
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Full prefix canonical fixture/station/dish validation, camp occupancy gates and death cleanup preflight/return custody routing consumed. Local StationCleanup enum models contextual side effects and has no trait impl. No handwritten traits/codecs; explicit authority/custody/state policy retained.",
+  "first_unfinished": {
+    "scope_index": 1104,
+    "line": 361
+  },
+  "execution": "none"
+}

@@ -1,0 +1,170 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-381",
+  "at": "2026-10-25T15:11:07.363156+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 753,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_torso.rs",
+      "sha256": "78af7acbb8b527b1d3f6ee10c15b101334e9423e7da77ad40283325c2e9579a5",
+      "actual_EOF": 342,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-character-creator/src/device_torso.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-character-creator/src/device_torso.rs",
+        "owner": "rig",
+        "sha256": "78af7acbb8b527b1d3f6ee10c15b101334e9423e7da77ad40283325c2e9579a5",
+        "base_sha256": "ed04ce788c18ef9fafbd648d7c2f8e3f2aaeadd3b83492ed443bc9f9c4608377",
+        "state": "modified",
+        "bytes": 12195,
+        "audit_owner": "rig",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/sources.json",
+            "ranges": [
+              [
+                1,
+                342
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-DEVICE-FIT-02"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 197,
+            "read_ranges": [
+              [
+                1,
+                342
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-UNDERLAYER-NATIVE-033"
+            ],
+            "read_status": "full-source-read-current-lens",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-character-creator/src/device_torso.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          342
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full exact source read1\u2013220/221\u2013342. Borrowed TorsoSurfaceInput/TorsoOutputs86\u2013106, inherent checks/joint/member lookup108\u2013154, native sync/async fit157\u2013264, semantic ordered status267\u2013279 and native shader ABI/pass recording283\u2013342. No handwritten Rust trait/codec. Preserve native checked cohort/member/error/representation policy."
+    },
+    {
+      "scope_index": 754,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_torso_wgsl.rs",
+      "sha256": "4dffbe38bb680f965cffc46852aae9e943835b6757ac34145233a7cc8c25d467",
+      "actual_EOF": 258,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-character-creator/src/device_torso_wgsl.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-character-creator/src/device_torso_wgsl.rs",
+        "sha256": "4dffbe38bb680f965cffc46852aae9e943835b6757ac34145233a7cc8c25d467",
+        "bytes": 8904,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/additional-sources-011.json",
+            "ranges": [
+              [
+                1,
+                258
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-DEVICE-NATIVE-01"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 198,
+            "read_ranges": [
+              [
+                1,
+                258
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-UNDERLAYER-NATIVE-033"
+            ],
+            "read_status": "full-source-read-current-lens",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-character-creator/src/device_torso_wgsl.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 239,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          258
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full exact source read1\u2013160/161\u2013258. Rust torso_source13\u201359 composes native shader ABI/failure/helper snippets; remaining FRAME_READERS/FRAME/WIDTHS/RANK/HALF_WIDTH/SUPPORT raw WGSL62\u2013258 native compute programs. No handwritten Rust trait/codec; shader record layout is not Serde projection."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "breastplate native checked input and torso shader representation",
+      "disposition": "No handwritten trait boilerplate; retain borrowed cohort admission, typed joint lookup, native status precedence/fit/kernel mapping.",
+      "acceptance": "No generic derive/new wire bypassing semantic fit/validation, no GPU/check execution."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 755,
+    "source_id": "pr-working:crates/adventuresim-character-creator/src/device_underlayer.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

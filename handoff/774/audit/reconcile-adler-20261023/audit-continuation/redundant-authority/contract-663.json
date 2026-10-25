@@ -1,0 +1,147 @@
+{
+  "id": "CONT07-CONTRACT-663",
+  "at": "2026-10-24T01:42:46.615138+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 908,
+      "source_id": "pr-working:crates/adventuresim-core/src/courtship.rs",
+      "sha256": "df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/courtship.rs",
+      "actual_EOF": 1153,
+      "ranges": [
+        [
+          15,
+          35
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1165,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/reproduction.rs",
+      "sha256": "52318f2d0b66c1d88adaa38059b677829f263cfe6f2033fc92c2c59f6671563c",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/relationship/reproduction.rs",
+      "actual_EOF": 690,
+      "ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1164,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/projections.rs",
+      "sha256": "21ca8c10819955044eb13b938fbd469c82394fafb8353c1b4af33d72b8edc688",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/relationship/projections.rs",
+      "actual_EOF": 255,
+      "ranges": [
+        [
+          107,
+          210
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2379,
+      "source_id": "pr-working:crates/strategic-web/src/routes/settlements/residences.rs",
+      "sha256": "f95d9bc6d0274f4525b6a04742e81bd574abbeb74fc78e7d0cab24879d33b34b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/routes/settlements/residences.rs",
+      "actual_EOF": 417,
+      "ranges": [
+        [
+          202,
+          256
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2406,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/chrome/residences.rs",
+      "sha256": "a227365e91a54e459db0526c1f78de353612e16c8c7ecace7217807b41e43295",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/templates/settlement/chrome/residences.rs",
+      "actual_EOF": 489,
+      "ranges": [
+        [
+          1,
+          65
+        ],
+        [
+          75,
+          113
+        ],
+        [
+          135,
+          165
+        ],
+        [
+          270,
+          300
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2402,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+      "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/templates/settlement/character_skills.rs",
+      "actual_EOF": 3812,
+      "ranges": [
+        [
+          60,
+          90
+        ],
+        [
+          795,
+          850
+        ],
+        [
+          1650,
+          1695
+        ],
+        [
+          1760,
+          1825
+        ],
+        [
+          1910,
+          1990
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2747,
+      "source_id": "physical-p16:crates/adventuresim-core/src/inventory_containers.rs",
+      "sha256": "4feda6b091c108a9cb8def2cfa8cd63c6fd7123d64c3584d308dec283048d50a",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/inventory_containers.rs",
+      "actual_EOF": 256,
+      "ranges": [
+        [
+          1,
+          175
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Pregnancy progress actual source mismatch: Core gestation280days producer is used by establish_pregnancy due=conceived+GESTATION_MINUTES. Relationship projection selects active pregnancy at observer minute, exposes actual due; residence route derives ceiling actual days_remaining. Template independently uses270 as whole gestation denominator, actual aria and visible meter consume it. At actualday140 remaining140, meter floor130*100/270=48 instead of50; first10days remain0 while actual pregnancy elapsed progresses. Due-day label stillcorrect. No runtime/rendering performed; source-confirmed separate policy owner.",
+    "Housing billing period30days currently agrees canonical Core constant; UI four repeated literal labels are maintenance duplicate policy, distinct from gestation280/270 disagreement. Wedding annual display window is own presentation policy; do not infer samegestationowner.",
+    "Socialfamily summary rank and tooltip both intentionally use direct trained hours (74\u201385,1650\u20131694); unlike combat/terrain summary, no correlated-effective input claimed there. Current consistent direct summary is not evidence for secondwrongeffective-hour defect; no newfinding inferred merely differentfamilies.",
+    "Containment earlyremove rollback question closed under private graph invariant: newobjects has noedges; each successful insert admits used+child<=destinationcapacity with checkedadd; maps private, no method mutates objects/capacity after construction. Remove reduces nonnegativevolume. Thus used_volume overflow/unknownobject error after child removal cannot arise through this admitted API; failed fits restoreoldparent. Do not promote an unreachable fallible branch as current loss-of-parent bug."
+  ],
+  "new_local_findings": [
+    "CONT07-F129"
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": null
+}

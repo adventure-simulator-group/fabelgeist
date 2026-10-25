@@ -1,0 +1,60 @@
+--- PRbase/crates/adventuresim-core/src/combat/contact_timing.rs
++++ frozen/crates/adventuresim-core/src/combat/contact_timing.rs
+@@ -0,0 +1,57 @@
++//! Signed timing of the defender's committed contact relative to an incoming one.
++
++use crate::battle_time::BattleTime;
++use crate::elapsed::{ElapsedError, ElapsedResult};
++use serde::{Deserialize, Serialize};
++use std::time::Duration;
++
++/// Positive seconds mean the own contact lands later. Negative seconds mean
++/// it lands first; zero is simultaneous contact. No wrapping or normalization.
++#[derive(Clone, Copy, Debug, PartialEq, Serialize, Deserialize)]
++#[serde(try_from = "f32", into = "f32")]
++pub struct ContactTimingOffset(f32);
++
++impl ContactTimingOffset {
++    pub fn from_seconds(seconds: f32) -> ElapsedResult<Self> {
++        if !seconds.is_finite() {
++            return Err(ElapsedError::NonFiniteContactOffset);
++        }
++        Ok(Self(seconds))
++    }
++
++    /// Subtract battle coordinates in their original f32 order; the signed
++    /// difference owns the contact policy's relative timing.
++    pub fn between_contacts(
++        own_contact: BattleTime,
++        incoming_contact: BattleTime,
++    ) -> ElapsedResult<Self> {
++        let seconds = own_contact.seconds() - incoming_contact.seconds();
++        if !seconds.is_finite() {
++            return Err(ElapsedError::ContactOffsetOverflow);
++        }
++        Self::from_seconds(seconds)
++    }
++
++    pub fn seconds(self) -> f32 {
++        self.0
++    }
++}
++
++impl From<Duration> for ContactTimingOffset {
++    /// The authoritative clock's existing saturating difference is nonnegative;
++    /// its u64 seconds range has a finite f32 representation.
++    fn from(duration: Duration) -> Self {
++        Self(duration.as_secs_f32())
++    }
++}
++impl From<ContactTimingOffset> for f32 {
++    fn from(offset: ContactTimingOffset) -> Self {
++        offset.0
++    }
++}
++impl TryFrom<f32> for ContactTimingOffset {
++    type Error = ElapsedError;
++    fn try_from(seconds: f32) -> ElapsedResult<Self> {
++        Self::from_seconds(seconds)
++    }
++}

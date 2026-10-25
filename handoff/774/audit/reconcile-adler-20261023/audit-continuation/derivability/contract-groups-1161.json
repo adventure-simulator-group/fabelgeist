@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1161",
+  "at": "2026-10-25T17:59:54.286743+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1267,
+  "source_id": "pr-working:crates/adventuresim-strategic-sim/src/lifecycle/runner.rs",
+  "sha256": "8e66bfc1f9b0ca9fbf5210ffa925235c3a1965e8165b6992d35f0b5278c638ae",
+  "actual_compared_ranges": [
+    [
+      1,
+      340
+    ]
+  ],
+  "existing_derives": [
+    "ScenarioState Clone Debug PartialEq Eq"
+  ],
+  "trait_inventory": [],
+  "analysis": "ScenarioState already derives Clone Debug PartialEq Eq. Inherent new initializes nonzero/domain-dependent billing funds/deadlines/private canary/morale; no hand Default, arbitrary derived default differs. Simulation advancement/current state/event cadence and metric projection synthesize authority assertions; no hand trait/custom codec. Existing serde Serialize imported for typed digest later. No run/behavior conclusion imported.",
+  "first_unfinished": {
+    "scope_index": 1267,
+    "line": 341
+  },
+  "execution": "none"
+}

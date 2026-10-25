@@ -1,0 +1,30 @@
+{
+  "derived_from": "execution-ledger.json#latest_hosted_attempt",
+  "ledger_sha256": "1f278dbfcf5564b7fc8f87154b0f374855a894cc3718ff136510e266fbee6442",
+  "current_family_status_record": "execution-ledger.json#items",
+  "head": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "run": 39576450512,
+  "job": 119143045807,
+  "status": "completed",
+  "conclusion": "failure",
+  "completed_at": "2026-10-21T09:28:22Z",
+  "result_checked_at": "2026-10-21T09:32:22.691070+00:00",
+  "url": "https://github.com/adventure-simulator-group/fabelgeist/actions/runs/39576450512",
+  "first_failed_contract": "Semantic/growth checker: scoped production/function growth, moved/native model-token decoder registry entries, and three stale baseline entries; checker tests themselves passed.",
+  "first_failure_evidence": "hosted-6533e44-semantic-quality.log",
+  "repair_commit": null,
+  "other_failed_stage": "Constraint artifact upload failed after its validation stage was skipped. Rig upload alone is not acceptance.",
+  "passed_scope": [
+    "Check formatting",
+    "Test generated bindings verifier",
+    "Check building review presentation boundary",
+    "Verify generated SpacetimeDB bindings",
+    "Test shared schema and GPU readback boundaries",
+    "Test resolved Bevy guard",
+    "Test checked FBX array encoding",
+    "Test existing FBX object-name consumers"
+  ],
+  "not_executed": "Downstream lint, constraint and selected migration behavioral contracts did not establish acceptance.",
+  "covers_current_integration_head": true,
+  "covers_current_worktree": false
+}

@@ -1,0 +1,115 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1018",
+  "at": "2026-10-25T17:31:07.352401+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1184,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/properties.rs",
+      "sha256": "80864f0168cb8abf7dcd17c08ea7405e6124f2968ad6eb83dbca7e0a5aab4e26",
+      "actual_EOF": 377,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/properties.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/residence/properties.rs",
+        "sha256": "80864f0168cb8abf7dcd17c08ea7405e6124f2968ad6eb83dbca7e0a5aab4e26",
+        "bytes": 13026,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-db-sources.json",
+            "ranges": [
+              [
+                1,
+                377
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-SUPP-DB-001",
+              "RIG-SUPP-DB-002"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 224,
+            "read_ranges": [
+              [
+                1,
+                377
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-RESIDENCE-033"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/residence/properties.rs"
+          },
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 311,
+            "read_ranges": [
+              [
+                1,
+                377
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-DB-RESIDENCE-RUNNER-050"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/residence/properties.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera",
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 500,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          377
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "SettlementPropertyManifest/SettlementProperty/HouseholdPropertyOccupancy Clone/Debug/table",
+        "AvailableResidenceProperty Clone/Debug/SpacetimeType"
+      ],
+      "absence_basis": "Whole generated property registration/availability/physical capacity/population allocation source read. No handwritten trait/codec. Native generated catalog validated parser/digest invoked; output and registration field projection contextual physical/history/offer joins, not missing manual trait derive. All children distinct obligations."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Physical residence property registration derivability",
+      "disposition": "Existing structural derives; preserve catalogue admission, contextual projection and transactional population/capacity authority. No new finding."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1185,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence/properties/households.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

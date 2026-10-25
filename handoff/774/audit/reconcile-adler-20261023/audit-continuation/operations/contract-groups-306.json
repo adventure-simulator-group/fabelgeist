@@ -1,0 +1,86 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-306",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_child_fronts.rs",
+      "sha256": "bfc0adfdc7ef954824b16575482226a60207a37fc09f9df184c033c1ab6ec06f",
+      "actual_EOF": 159,
+      "actual_compared_ranges": [
+        [
+          1,
+          159
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_wall_opening.rs",
+      "sha256": "660dfa713c666751b218e80dbb4137ab1288791fc49c65f2b813f3cb57e4108e",
+      "actual_EOF": 416,
+      "actual_compared_ranges": [
+        [
+          1,
+          416
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_wall_opening/surfaces.rs",
+      "sha256": "6629b1c563e91250df52b20f9165459f9e5d413ec424f2f2cc246839c7ac94ea",
+      "actual_EOF": 274,
+      "actual_compared_ranges": [
+        [
+          1,
+          274
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Roof child front replacement preserves the dependency direction and consumes construction failures locally",
+      "source_ranges": {
+        "roof_child_fronts.rs": [
+          [
+            1,
+            159
+          ]
+        ]
+      },
+      "disposition": "The complete159-line body was personally read. Dormer enumeration identifies the actual child and front enclosure; missing child/front skips the optional conversion. It removes that enclosure and builds the wall before successful output, while failure propagates through the consuming local plan. Child roof nodes depend on the child wall; that wall depends on parent support/facade nodes, avoiding the documented reverse cycle. Bounds derive from actual front polygon; an empty polygon produces nonfinite base and a fallible node error, rather than a proven ordinary accepted empty front. Height minimum1.15 and opening clamps are explicit policy, not proof every aggregate can fit: negative side width is rejected by later dimensions. The caller immediately pushes wall before walls[len-1], proving that index. Roof/owner ID arithmetic still requires the actual bounded dormer graph, not generic integer closure."
+    },
+    {
+      "contract": "Rectangular roof opening constructs checked geometric leaves but relies on role-specific aggregate admission",
+      "source_ranges": {
+        "roof_wall_opening.rs": [
+          [
+            1,
+            416
+          ]
+        ]
+      },
+      "disposition": "All416lines were personally read. Fixed two jamb arrays and positional tuples are bounded; nodes, solids, reveals, closure and bearings are built in a fixed order. Errors return no completed wall/opening pair; local graph mutation before error is not independently retry-transactional. Native Position/CuboidDimensions/Radians/SpatialBounds admission handles failed arithmetic. Positive leaf admission alone does not prove opening_width<wall_width, sill+clear+head fitting wall height, or orthogonal frame; actual candidate/child producers and final structural audit own these relations. Gable may reuse an existing head member and therefore omits a duplicate head solid. Ornamental frame is selected only for programmes without the semantic timber-frame owner; no duplicate structural overlay was introduced."
+    },
+    {
+      "contract": "Roof opening surfaces, glass and bearing metadata retain actual frame and coverage qualifications",
+      "source_ranges": {
+        "surfaces.rs": [
+          [
+            1,
+            274
+          ]
+        ]
+      },
+      "disposition": "The full274-line body was personally read. Nine sectional samples use denominator8; two side/mouth records and fixed bearing IDs are bounded. Native bounds are readmitted after computation. Closure dimensions use max(.04, opening_width*.92-.10) and the analogous height, so this helper alone does not cover the entire declared opening. Gable caller304 explicitly resizes fixed glass to the full clear width/height; roof-child-front caller does not perform that same resize. No closed-aperture or collision failure is asserted without exact role-specific window/render/collision consumers; fixed main-gable and dormer/operable modes cannot be conflated. Weather-sill bounds and semantic downhill profile have distinct roles. Explicit head and wall-above bearing cubes must overlap actual final solids; gable caller304 replaces them with measured intersections. Other callers retain final structural-audit dependency. No generated asset run, code changes, tests, checks or plan."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-building-generator/src/generator/room_allocation.rs"
+}

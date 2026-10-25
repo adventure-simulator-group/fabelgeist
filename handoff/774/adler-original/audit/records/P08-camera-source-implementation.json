@@ -1,0 +1,54 @@
+{
+  "owner": "/root/camera_targeting",
+  "family": "P08",
+  "status": "source implementation and corrections committed; coordinator source/hosted acceptance pending",
+  "commits": [
+    "99760970b",
+    "9069fa159",
+    "bda1fab71",
+    "d559ceff3"
+  ],
+  "dependencies": [
+    "dcf7b49d7 neutral signed-angle diagnostic",
+    "c4a8ae5f5 canonical portable scalar geometry"
+  ],
+  "canonical_contracts": [
+    "fabelgeist_geometry::SignedLength finite signed metres; zero and negative offsets retained",
+    "Position<Scene>, Displacement<CameraView>, RigidRotation, SpatialDirection<Scene>, CuboidDimensions",
+    "adventuresim_core::linear_speed::SignedSpeed",
+    "adventuresim_tactical_core::scene_coordinates::SceneVelocity with east/up/north SignedSpeed leaves",
+    "AnimationElapsed and ResponseShapingTime reused",
+    "SignedAngleDegrees checked authored degrees, neutral SignedAngle classification",
+    "camera ScreenWindow finite nonnegative unbounded NDC extents; ScreenError finite signed NDC, Ratio components",
+    "private signed fraction/second blend derivative"
+  ],
+  "closure": [
+    "CameraRigConfig/CameraProfile literal admission -> blend_profile -> observation-backed CameraPoseHistory -> complete prepared replacement -> CameraFrame/CameraVolume/BoomRecovery/CameraPlacement -> final physics/Transform ports",
+    "Complete optional CameraRigObservation/CameraAimObservation -> typed collision/soft payloads -> actual Gizmos/UI projection; absent controller clears current aim instead of retaining stale active endpoints",
+    "Authored CapturePose lengths/angles/FOV + SceneCaptureState camera positions -> tree/plant/debris/landscape/building/fixed camera producers -> SceneCameraView/CaptureCameraPlacement -> actual Transform/looking_at and CaptureRecord array/scalar serialization",
+    "animation_capture_camera_offset returns checked scene Displacement until animation_viewer native Transform translation"
+  ],
+  "preservation": [
+    "Critical damping scalar/vector formulas and coefficient operation order unchanged; f32 arithmetic retained",
+    "Independent profile blend advancement, subject/teleport reset predicate, signed offsets/speeds and valid zero retained",
+    "Maximum eight framing sweeps, native hit precedence, final sweep, hold/hysteresis and retraction/recovery order retained",
+    "Existing six collision, three smoothing, two mode/aim fixtures adapted; no tests/cases/assertions/test helpers added",
+    "Capture/source fixtures retain authored numeric geometry, inputs, loop counts and assertions; unused muzzle blockage point arguments removed as planned",
+    "Canonical min/max operate directly on admitted leaves with native f32 min/max signed-zero policy"
+  ],
+  "source_review_findings": [
+    "Coordinator found two inline SignedLength signatures malformed by a broad import text edit; repaired in 9069fa159 and all changed camera signatures reread",
+    "Initial observe path mutated last_anchor before complete preparation; 9069fa159 changed it to prepare-copy then explicit commit",
+    "Known new large rig system extracted in d559ceff3; formatter/official no-growth checks remain coordinator work"
+  ],
+  "hosted_commands_selected": [
+    "cargo test --locked --package adventuresim-tactical-client --lib --features remote-types camera:: -- --test-threads=1",
+    "existing tactical_scene_viewer capture/library fixtures under the repository hosted quality selection; coordinator chooses exact supported feature gate"
+  ],
+  "validation_limits": [
+    "No local Cargo/build/check/test/fmt/Clippy/metadata/scanner/parser/generator/runtime/numerical probe was run",
+    "Plain source/Git/rg and stdlib JSON metadata only; whitespace diff check is not compile/runtime acceptance",
+    "No hosted or live camera verdict is claimed",
+    "Unusable/nonfinite geometry now rejects through typed owning results; no placeholder current observation or positivity narrowing introduced"
+  ]
+}

@@ -1,0 +1,724 @@
+{
+  "id": "ROOT-PPS-CAMERA-WEAPON-SHAPE-PACKET-041",
+  "lens": "audit-producer-propagation",
+  "mode": "Camera33 scoped receiver proof; no root240 cell inflation",
+  "timestamp": "2026-10-21T21:31:22.992514+00:00",
+  "status": "assigned33 exhausted with findings; all13 gate closed; no family or audit clearance",
+  "assigned_camera_indices": [
+    667,
+    668,
+    669,
+    670,
+    671,
+    672,
+    673,
+    674,
+    675,
+    676,
+    677,
+    678,
+    679,
+    680,
+    681,
+    682,
+    683,
+    684,
+    685,
+    686,
+    687,
+    688,
+    689,
+    690,
+    691,
+    692,
+    694,
+    695,
+    696,
+    697,
+    698,
+    699,
+    700
+  ],
+  "assigned_indices": [],
+  "source_proofs": [
+    {
+      "index": 667,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/shape.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/shape.rs",
+      "sha256": "90377b5e271e70583bf0f28043e2acc4a8a46b0981f5585b9abe6fed440a9feb",
+      "read_ranges": [
+        [
+          1,
+          102
+        ]
+      ],
+      "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+      "contract_trace": "Shape enum retains typed variant parameters through Serde kind dispatch and model::ComponentConstructor matching (fresh ROOT040); variant tag codec itself not primitive application forwarding. Actual validation dispatch670 covers all variants, while specific dimensional/relationship predicates follow below.",
+      "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+    },
+    {
+      "index": 668,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/validation.rs",
+      "sha256": "e40db02777c0f7401b0e90bc493f420be7630091f469a9baa7f0ef1a6f7c965a",
+      "read_ranges": [
+        [
+          1,
+          207
+        ]
+      ],
+      "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+      "contract_trace": "Full current Recipe207 validation actual body already fresh in ROOT040: finite dimensional field decoding differs from manufacturing validation; source bounds/order, per-component graph, serialized size budget and actual error classifications retained. This is explicit exact role/body reconciliation for newly assigned668, not blanket child coverage.",
+      "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+    },
+    {
+      "index": 669,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/contoured_plate.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/validation/contoured_plate.rs",
+      "sha256": "068b75564fa3b26dd52bdf4473b5f92acc0f5001c3b8fdf57dbf482582def0e7",
+      "read_ranges": [
+        [
+          1,
+          135
+        ]
+      ],
+      "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+      "contract_trace": "Contoured plate width/length and station/profile Ratio/Metres owners survive outer APIs, then positions accepts Iterator<f64> stripped at ridge61/profile110 and retains raw Vec before ordered endpoint predicate. Carry actual Ratio sequence to helper. check_point typed Ratio closure is sound; actual polynomial/ridge-width/thickness comparisons may extract at equation. Terminal zero station and authored boundary closure/count invariants must remain.",
+      "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+    },
+    {
+      "index": 670,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/dimensions.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/validation/dimensions.rs",
+      "sha256": "352602b462e8dfa78bb2bb05442c2e09a381a2d9547cd630c4a8f4bbfb28ae20",
+      "read_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+      "contract_trace": "Dimensions::check matches every Shape and forwards typed parameter references to each family-specific validator, no loss at this outer dispatch. Helpers positive/nonnegative/bounded still primitive semantic APIs as ROOT040; actual child predicates below must retain exact sign/local range and first failure.",
+      "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+    },
+    {
+      "index": 671,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/graphs.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/validation/graphs.rs",
+      "sha256": "68fc28e52bc54754732311b7e557d85daab7b99b66c7f7b345227406838f7981",
+      "read_ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+      "contract_trace": "graphs tube copies checked point coordinates into raw Vec<Point> at52\u201358 before validate_simple_path; actual sweep246\u2013261 and segment_distance149\u2013183 compute intersections. Guard graph keeps node names/paths raw through binding_order and lookup; authored mesh indices are actual flat buffer representation but validation enforces role/count/topology, not a general blanket primitive exemption.",
+      "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+    },
+    {
+      "index": 672,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/melee.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/validation/melee.rs",
+      "sha256": "7b1ffa336f641cd42556a1104809cad88c913948710a3aa426b5f5f37302e616",
+      "read_ranges": [
+        [
+          1,
+          240
+        ]
+      ],
+      "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+      "contract_trace": "Melee typed Shape dispatch; BladeProfile::from strips finite typed leaves before retained profile and validate (687). Fuller dimensions and local scaling/clearance computations must keep dimensionless Ratio distinct from Metres. Profile poles may be zero; taper<1, shaft/guard/hand limits and actual optional source policies preserved. Numeric predicates do not imply every Ratio is0..1.",
+      "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+    },
+    {
+      "index": 673,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/profile_body.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/validation/profile_body.rs",
+      "sha256": "61700ca065257a0767b2822007dd0e7a849d9db4409cbfbf0d72e34a1288df8e",
+      "read_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+      "contract_trace": "Profile-body actual bounded2+ station windows -> extrema -> ellipse cover and rib constraints; local finite reducer infinity identity never persists as application state on this proven nonempty path, distinct from CurveQuality unbounded policy. ribs depth may be absent and is selected as real no-rib contribution0, not a missing measurement; retain explicit optional state until equation.",
+      "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+    },
+    {
+      "index": 674,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/ranged.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/validation/ranged.rs",
+      "sha256": "acc9367a5c6d0cb212f5849f0ab28e4f31ee0eed68e061570d78e68cd54758c6",
+      "read_ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+      "contract_trace": "Actual ranged mechanical checks bow/arrow/quiver/crossbow/bolt/firearm/pouch and detailed lock/barrel/family conditions. Typed inputs survive dispatch, unwrap only after required presence paths. Common0 missing backing thickness is equation contribution, not fabricated actual observation. Preserve integer sample counts and actual physical limit inequalities/order.",
+      "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+    },
+    {
+      "index": 675,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/shields.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/validation/shields.rs",
+      "sha256": "dd78ed4067d190dd3c562e6e356372eb39e8e1c6c96b1498ea265f2f9284a84d",
+      "read_ranges": [
+        [
+          1,
+          126
+        ]
+      ],
+      "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+      "contract_trace": "Shield shared macro typed fields -> local physical range equations; faces uses actual Detail.radial/samples and triangle budget. fitting_mode determines required optional spacing, material determines thickness threshold; zero/nonnegative boss/curvature differs positive fitting requirements. Strip Count/Metres into first-party Detail/budget helpers remains connected signature work; actual native allocation/index math at downstream Solid.",
+      "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+    },
+    {
+      "index": 676,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/spear.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/validation/spear.rs",
+      "sha256": "e4dc7b816f841bc608cbf66f2a805ed4995455628dd8fbc3f3b382cebb875763",
+      "read_ranges": [
+        [
+          1,
+          174
+        ]
+      ],
+      "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+      "contract_trace": "Spear/socket/timber wrapping inputs stay typed then minimum_neck_axis/outer_barrel_radius/wrapping_contact carry raw root/depth/height/crest arguments. Actual scalar equations preserve dimensional versus dimensionless role, helical phase/degrees, support hierarchy and original underlay/tenon/overlap policies; negative/signed intermediate operations not positivity clamped.",
+      "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+    },
+    {
+      "index": 677,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/terminal_profile.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/validation/terminal_profile.rs",
+      "sha256": "b6aa86403a4ac871e54be65a54e59784cd802e4652e10822d7320a4f68ca3e69",
+      "read_ranges": [
+        [
+          1,
+          42
+        ]
+      ],
+      "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+      "contract_trace": "Terminal profile optional selection vs payload, ordered stations with explicit annular zero-length jumps and zero terminal radius. Array extraction feeds direct original predicates; keep authored finite signed source owner and preserve non-strict pair axial order versus strict triple progress rather than universally positive station gaps.",
+      "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+    },
+    {
+      "index": 678,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/tests.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/validation/tests.rs",
+      "sha256": "481e012a9c0d417acd568644f7df538ede44645e0cbd1918449cf7fd50e190e1",
+      "read_ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+      "contract_trace": "All original101 fixture lines source-read. Actual JSON mutations -> finite Recipe decode -> validate/model generation,14 clearance cases, original supported boundary, negative length/sample65535, zero minimum counts, diamond taper0.99/1/2 and shield budget. Native JSON ingress is genuine numeric source; do not strengthen source decoder to reject cases that existing fixture intentionally decodes before manufacturing failure. No execution/new cases/assertions.",
+      "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+    },
+    {
+      "index": 679,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/archery.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/validation/dimensions/archery.rs",
+      "sha256": "2bf36119d6be6bf23e5ec2b0ac46959b1929cde3e1ba99b900143e97118dd421",
+      "read_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+      "contract_trace": "All archery dimensions before ranged relationships: positive lengths versus merely bounded grip/reflex/recurve/clearance/backing and Ratio abs<=128 interim authored policy. Count upper constraints actual sampler budget; preserve order/actual later validation rather than inferred positive guarantee from names.",
+      "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+    },
+    {
+      "index": 680,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/blades.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/validation/dimensions/blades.rs",
+      "sha256": "3fb5785ee55629d966055979c2414e4b1f7daba4e1599cd0afc575285a407e39",
+      "read_ranges": [
+        [
+          1,
+          275
+        ]
+      ],
+      "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+      "contract_trace": "All blade/section/diamond/axe/spear/fork/partisan/glaive/beak/bill/pick/hammer dimensional branches fresh275. Metres and Ratio both historically pass shared scalar bounds helper; changing positive to Metres-only would break acuteness/other dimensionless role. Separate semantic unit admission/signatures while retaining exact numeric thresholds and subsequent form relationships. No claim sourcename alone establishes units.",
+      "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+    },
+    {
+      "index": 681,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/crossbow.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/validation/dimensions/crossbow.rs",
+      "sha256": "17be9e75d18a697aaa64ae36410bf3f3f49adea7fa79e851272027716ebc9993",
+      "read_ranges": [
+        [
+          1,
+          87
+        ]
+      ],
+      "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+      "contract_trace": "Full crossbow/bolt/quiver original bounds, typed references forwarded; bounded dimensions intentionally broader at first stage than later mechanical constraints, preserve exact combined acceptance/first error. Optional sample/radial count remains owner until actual sampler/allocation.",
+      "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+    },
+    {
+      "index": 682,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/firearm.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/validation/dimensions/firearm.rs",
+      "sha256": "870b68813086125b863525172135665a0c2d366955bcd75025ecc3e164a99a46",
+      "read_ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+      "contract_trace": "Full firearm/ball/pouch fields and optional dimensions; Degrees +/-3600 differs arbitrary wrapping or normalized angle, octagonal_ratio bound128 differs UnitRatio. Real countupper/lock/bore constraints distinct receiver674; no narrowing source acceptance by convenience wrapper.",
+      "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+    },
+    {
+      "index": 683,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/furniture.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/validation/dimensions/furniture.rs",
+      "sha256": "5cf9bbef830041b5ac7355e8496ebcb7c9137917882d3b414a60cf059c97fe12",
+      "read_ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+      "contract_trace": "All furniture217 wheel/cuboid/socket/pommel/collar/sleeve/mace/grip/oval/slab checks read. Dimensional calculations such as wheel diameter/2-seat_height are newly computed result; perfield unchecked semantic forwarding into scalar helpers shares canonical source owner repair. No blind positive narrowing of currently merely bounded optional diameter/radius/pommel terms.",
+      "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+    },
+    {
+      "index": 684,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/guards.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/validation/dimensions/guards.rs",
+      "sha256": "5bef22cfee2f00bf4150226863178f09459655aceb38e12f0a4348e29254303d",
+      "read_ranges": [
+        [
+          1,
+          153
+        ]
+      ],
+      "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+      "contract_trace": "Full guard/mortise/knuckle/ring/tube/figure8 dimension and budget predicates, valid twist/angle source +/-3600; authored node/member/plate count inspected before allocation. Physical section-width/depth/rotation role versus sample count separate. Actual relationships retained at predicate, not inferred from type names.",
+      "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+    },
+    {
+      "index": 685,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/shields.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/validation/dimensions/shields.rs",
+      "sha256": "d51e28586387fd2d2c00ede4449923360262960e620844aa217cef8a357aff2b",
+      "read_ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+      "contract_trace": "Full round/shaped shield dimension sources106; source accepts bounded optional geometry before later relationships675, and0 extra curvature must stay valid. Actual fitting/shape enum and optional material do not justify raw internal record forwarding.",
+      "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+    },
+    {
+      "index": 686,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/union.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/validation/dimensions/union.rs",
+      "sha256": "df45ff584dbe4a5793f6d808c2c23ef5551105c720d6349f94cc0eef0262be37",
+      "read_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+      "contract_trace": "All bentbar/spatialtube/loftedblade/shaft checks65: enum payload typed, raw scalar/sign/count predicate signatures still shared source repair; centerline point array remains typed until loop. Do not change samples0 accepted at this stage if actual later Detail floor handles it under current valid input policy.",
+      "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+    },
+    {
+      "index": 687,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/blade_profile.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/blade_profile.rs",
+      "sha256": "f3534f8ad0f7697e0d2bf20a51798c986ec64f56d8228d616dad7e2c520841c5",
+      "read_ranges": [
+        [
+          1,
+          158
+        ]
+      ],
+      "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+      "contract_trace": "Concrete main F016: From<&LoftedBladeParameters>/From<&SectionBladeParameters> strips Metres/Ratio into retained BladeProfile f64. body/progress/point_start/point_curve/dimensions/center/validate receive or return raw dimensional/dimensionless values before caller retains profile/stations/callback inputs. Actual trigonometric/polynomial operation needs primitive locally; carry owners across intervening first-party signatures and result records. Source f64/local sign/0/belly/curvature/ratio policy preserved.",
+      "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+    },
+    {
+      "index": 688,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/generic_blade.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/generic_blade.rs",
+      "sha256": "f62beb086aeebe31dc2acfaaf14bcfa20d845022c5416fa0caf05635f405ebb9",
+      "read_ranges": [
+        [
+          1,
+          113
+        ]
+      ],
+      "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+      "contract_trace": "Generic BladeParameters already owns typed source leaves; heel_center returns raw model-local point, point_curve/section_dimensions produce raw dimensional arrays -> model helper/state before Solid/native mesh. New computation results must be admitted at source result, preserving exact taper/profile/edge thickness formulas. Validation maps point curve generic error to Proportion; structured lower failure and deliberate public classification differ.",
+      "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+    },
+    {
+      "index": 689,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/assembly.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/assembly.rs",
+      "sha256": "7ebda01419b989011e98bad30754c5c1fbdbebf10d1b163afcdd7ac1cf08406e",
+      "read_ranges": [
+        [
+          1,
+          211
+        ]
+      ],
+      "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+      "contract_trace": "Mount/AttachmentAnchor/NodeBinding payload enums proper typed state shape; raw named component/frame/node/socket IDs retained through BTreeSet binding_order String cycle cause and lookup. Keep optional typed offset/rotation until geometric equation; immutable original labels and lexical node tie order distinguish prose label from actual identity. Rig canonical definitions retained; whole operation/codec cause owner agreed with camera before edits.",
+      "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+    },
+    {
+      "index": 690,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/facing.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/facing.rs",
+      "sha256": "1a50ad5faa518b5ed479870cc03f08e55cd30322c639cd308608aa827fd78d7f",
+      "read_ranges": [
+        [
+          1,
+          116
+        ]
+      ],
+      "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+      "contract_trace": "directions returns typed Direction, source primitive extraction only inside explicit new offset abs*sign arithmetic then Metres::new for newly computed result; this is legitimate new result admission, no unchanged-value rewrap. Cause String for cycles/missing/nondirectional references before validate maps Facing and placement propagates generic requires structured source chain. Original opposite end fixture exact two signs/mounted-vs-attached equivalence stays.",
+      "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+    },
+    {
+      "index": 691,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/blade_clearance.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/blade_clearance.rs",
+      "sha256": "2713092a69c38b46af629689c142effe251b16d0f6ebc1af5a578becb89bd236",
+      "read_ranges": [
+        [
+          1,
+          223
+        ]
+      ],
+      "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+      "contract_trace": "Clearance holds typed Fuller reference but BladeProfile already erased; features retains raw axial bounds and Cut retained raw dimensionless center/mouth/floor versus physical depth. Actual inside/lower_dimensions/tip_interval/interval recursive predicates establish unit/frame roles and budget4096/depth18/epsilon64. Carry owners through records/closures/recursive signatures to actual arithmetic. Preserve opposing-faces removal relation, max/min/tie and tiplimit branch.",
+      "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+    },
+    {
+      "index": 692,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/blade_form.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/blade_form.rs",
+      "sha256": "03b18c6871c30fe26fb12471c1dbc38c0c844e483a7f0a1030edcba32bcfd400",
+      "read_ranges": [
+        [
+          1,
+          128
+        ]
+      ],
+      "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+      "contract_trace": "PointCurve::new accepts raw y/end/width (metres), slope finite dimensionless and roundness, retains four raw axial/width control points. Actual Bernstein polynomial/52step width inversion read. Establish checked composite and return owners after actual result; preserve zero width at terminaltip and nonpositive slope versus finite input policy. FullerGroove::on_face bool is actual front/back semantic candidate; envelope physical y versus dimensionless smooth phase distinguished, later enum/granularity lenses decide.",
+      "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+    },
+    {
+      "index": 694,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/sweep.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/construction/sweep.rs",
+      "sha256": "bc84a0894a2e914f9cb85a5cce28eb921372426af3bc8909e54563274a0c4f93",
+      "read_ranges": [
+        [
+          1,
+          359
+        ]
+      ],
+      "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+      "contract_trace": "Assigned230\u2013300 includes actual validate_simple_path246\u2013261; fresh full359 closes segment distance/Section/Sweep/vertex/native triangle recipients plus SampledPath/TransportFrames. Tube validator checked points stripped before this API: raw retention Sweep widths/depth/twist/scales, transported vectors and sampled points are first-party contracts, not final external ABI. Preserve f64 math/closed wholeturn policy, degeneracy, radius/taper/normal and exact vertex/cap order.",
+      "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+    },
+    {
+      "index": 695,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/shield.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/recipe/shield.rs",
+      "sha256": "79748be2d554ea693f007368284343c25f229e022bbf6d4715070909ca52c749",
+      "read_ranges": [
+        [
+          1,
+          231
+        ]
+      ],
+      "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+      "contract_trace": "Fresh full shield231 expands assignment original1\u201370. ShapedShield::outline_resolution computes actual rounded/even count -> validation triangle budget and model shield source. Typed source fields are finite Metres/Ratio/Degrees/Count, fittingmode/material enums and optional mirrored; currently raw first-party sampler parameters must consume them until actual arithmetic. Expanded later-lens source obligation explicit.",
+      "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+    },
+    {
+      "index": 696,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/blade_sections.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/model/blade_sections.rs",
+      "sha256": "dd0179727083b89f6f7161f05e32ca61612ce7f8f30c01271e57c20cb883df16",
+      "read_ranges": [
+        [
+          1,
+          274
+        ]
+      ],
+      "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+      "contract_trace": "BladeProfile retained raw -> blade_sections ring callback and station Vec<raw axial f64> -> section dimensions/refinement -> Solid triangles/cap Region. p.validate errors flattened toString15. Actual body/math/cross-section every branch fresh, surface/classification IDs distinct from mesh indices. baseline empty-edge infinity is no usable edge; minstep fallback obscures empty before later area/budget checks, needs explicit state design without changing accepted closed tip/onepoint cap behavior.",
+      "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+    },
+    {
+      "index": 697,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/blade_reduction.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/model/blade_reduction.rs",
+      "sha256": "e4b1f3a3312fcfd952603a0dc1b72248df17dab354594e98f33578e8809c8065",
+      "read_ranges": [
+        [
+          1,
+          161
+        ]
+      ],
+      "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+      "contract_trace": "Envelope floor from typed grooves computes new ratio but rawreturn/NormalCheck interval,tolerance,broad/normal,param retained through actual analytic error comparison. f64 unit/angle return causeString before caller and detailed formatted normal error should be structured with original measurements/source; actual normalize/cross/dot/acos are proven equations. Preserve additional normal budget independent of baseline chorderror and exact sample/order.",
+      "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+    },
+    {
+      "index": 698,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/generic_blade.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/model/generic_blade.rs",
+      "sha256": "518d70e1fcd856fc197048624dea1480297abb2c4cf30b22e130ce5a98263cb2",
+      "read_ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+      "contract_trace": "Generic blade typed source -> raw station Vec/ring callback/section_dimension result -> actual triangulated mesh. validate_form toString5 premature pureerror erasure; actual cap reverse flag and typed model-local coordinates versus normalizedwidth role still distinct. Every branch triangular/diamond/asymmetric singleedge exact ring shape preserved.",
+      "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+    },
+    {
+      "index": 699,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/lofted_blade.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/model/lofted_blade.rs",
+      "sha256": "5a70afd50394b12fee4b39a09ae58f9cd0386b234559ae419bb5036045b70191",
+      "read_ranges": [
+        [
+          1,
+          9
+        ]
+      ],
+      "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+      "contract_trace": "Loft adapter keeps typed profile source only until From erases it; samples Count extracted and Detail.samples returns usize -> BladeSampling::Loft count. Repair whole canonical sampler/count and profile graph, native actual iteratorrange/index only at leaf loop. No new sourcefields/alias wrappers at adapter.",
+      "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+    },
+    {
+      "index": 700,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/blades.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/model/blades.rs",
+      "sha256": "fcc04f50403bdcd25927bf4e6412ffdea4fc6c18a6c193a8e224b049e3477171",
+      "read_ranges": [
+        [
+          1,
+          241
+        ]
+      ],
+      "scope": "Full fresh source body except validation668 exact full207 current body reconciled with fresh ROOT040 admission/producer role proof; no execution",
+      "contract_trace": "Actual every blade/section/axe/diamond/fork/partisan/glaive body read241. Some get() end directly at equation, others (unchanged thickness/raw outline) passed into first-party Solid::prism/shaped_plate -> retained Region/Solid; actual receiving loops now proved. Negative side/orientation derived Direction sign is arithmetic, do not type fullsignedcoordinates as positive. Preserve all original source shapes, exact float sampling/order and solid winding/positive volume policy.",
+      "disposition": "Accounted exact producer source and recipient roles; actionable connected migrations and later-lens candidates remain open"
+    }
+  ],
+  "additional_fresh_sources": [
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/groove_sections.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/model/groove_sections.rs",
+      "sha256": "652cb4741bb36aa46baa4bfc2a15521ad5a939675d8ea36ae8517a7374b08175",
+      "read_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "material_contract_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "scope": "Actual necessary receiving bodies only; unrelated or partial glimpse is not whole-function coverage"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/groove_transitions.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/model/groove_transitions.rs",
+      "sha256": "86c133cddbd27493d2a2f90105a4fab5e4a0bbbbd5fc1a6dedd0d3d74dd60f14",
+      "read_ranges": [
+        [
+          1,
+          109
+        ]
+      ],
+      "material_contract_ranges": [
+        [
+          1,
+          109
+        ]
+      ],
+      "scope": "Actual necessary receiving bodies only; unrelated or partial glimpse is not whole-function coverage"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/polygon.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/construction/polygon.rs",
+      "sha256": "660aa84bce2b4252168df40b15a47bdb710ba829c03ea76bf45584a0c6e1bc9f",
+      "read_ranges": [
+        [
+          1,
+          318
+        ]
+      ],
+      "material_contract_ranges": [
+        [
+          1,
+          318
+        ]
+      ],
+      "scope": "Actual necessary receiving bodies only; unrelated or partial glimpse is not whole-function coverage"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/sweep/path.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/construction/sweep/path.rs",
+      "sha256": "fff604760f978f0efae2a138eee46df45a887c3abe89b2bdbe94a56f20afb2d1",
+      "read_ranges": [
+        [
+          1,
+          146
+        ]
+      ],
+      "material_contract_ranges": [
+        [
+          1,
+          146
+        ]
+      ],
+      "scope": "Actual necessary receiving bodies only; unrelated or partial glimpse is not whole-function coverage"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/solids.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/construction/solids.rs",
+      "sha256": "b139a5600efc6654b3209ce230bb22ba7713836752f49c867f7b6996bcabb0c2",
+      "read_ranges": [
+        [
+          1,
+          118
+        ],
+        [
+          280,
+          389
+        ]
+      ],
+      "material_contract_ranges": [
+        [
+          5,
+          9
+        ],
+        [
+          70,
+          113
+        ],
+        [
+          290,
+          321
+        ]
+      ],
+      "scope": "Actual necessary receiving bodies only; unrelated or partial glimpse is not whole-function coverage"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/surface_refinement.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/construction/surface_refinement.rs",
+      "sha256": "0c28888bf192ddcf2768b572e9cbd672a5ec2af2bc0c38d46af448782d987a65",
+      "read_ranges": [
+        [
+          1,
+          125
+        ]
+      ],
+      "material_contract_ranges": [
+        [
+          60,
+          112
+        ]
+      ],
+      "scope": "Actual necessary receiving bodies only; unrelated or partial glimpse is not whole-function coverage"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/mod.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-weapon-model/src/construction/mod.rs",
+      "sha256": "7327c75b4030df58f3b59c44b7b691713289908715ecb4c6adae4b0829806fc1",
+      "read_ranges": [
+        [
+          1,
+          230
+        ]
+      ],
+      "material_contract_ranges": [
+        [
+          1,
+          230
+        ]
+      ],
+      "scope": "Actual necessary receiving bodies only; unrelated or partial glimpse is not whole-function coverage"
+    }
+  ],
+  "producer_to_receiver": [
+    "Typed Recipe dimensional leaves -> first-party validator positive/nonnegative/bounded or raw positions iterator -> exact source constraints/shape dependencies; retain existing finitef64 scalar guarantees and exact local Ratio-versus-Metres predicates through helper signatures. Actual final std scalar predicates/arithmetic may extract locally; wrapping a private helper in native-boundary prose does not excuse lost units.",
+    "Canonical Loft/Section BladeProfile::from loses all admitted scalar leaves -> retained BladeProfile -> PointCurve raw controls/Clearance Cut -> station Vec/callback -> GrooveCut/transition brackets/NormalCheck raw fields -> exact polynomial/vector/triangle equations -> Region/Solid retained point/topology -> root physical/renderer outputs already ROOT040. This is one connected profile/sampling source repair, not33 independent type wrappers.",
+    "Actual groove section/transitions read: source typed FullerGroove -> normalized envelope and physical cut footprint -> sorted station cutoffs and ring callback -> normal analytic comparison -> Solid triangle. Raw primitive signatures in recursive interval/feature/sample helpers retain semantically distinct axial length, shape-local point, unitnormal, Ratio and radians/degrees; not all Point[f64;3] values have the same role. Preserve exact local reference frame, signed coordinates and alldoubleprecision.",
+    "Graph typed points -> raw copy -> validate_simple_path -> actual bounded pair intersection/segment distance. Sweep defaults/source parameters -> SampledPath retains raw geometry/scales/progress -> TransportFrames -> Solid::sweep twist/section/caps. Count code actual native allocation/range conversions are distinct from internal application budget/family fields. Explicit actual bodies now prove endpoint; source wrappers stay across first-party APIs instead of calling intermediate helpers native.",
+    "Region triangulate actual planarmath reads input, checks finite/len/simple/nondegenerate, stable ear ties then improvement; Region::refine max-edge creates midpoint topology, split_edges preserves boundary ordering/diagonal quality. Polygon triangulate best=-1 initially represents no selected ear, selectedOption is separate authority; later redundant-authority/enum lens must inspect and repair explicit policy. Bounded nonempty min/max identity differs retained no-data states; preserve exact ordering/quality and accepted terminalcollapsedcap source policies.",
+    "Construction actual vector math add/sub/rotate uses f64 at the final scalar equations; this does not waive public application PhysicalProperties/ModelStats/Source frame records. Typed result admission must happen where newly computed point/dimension/normal is produced with agreed ownership/error policy; no f32 narrowing and no compatibility raw forwarding signatures.",
+    "Original source fixtures validation101/facing116 and parent model/memo/DB tests ROOT040 retain all source recipe mutations, expected values, iteration/case counts and assertions. This packet does not execute them or add any assertion/helper/case. Actual authored JSON ingress/source numeric constraints remain distinguishable from an internal checked-value roundtrip."
+  ],
+  "findings": [
+    {
+      "id": "ROOT-WEAPON-SHAPE-F001",
+      "kind": "incomplete_migration",
+      "dedup": [
+        "CAM-OWNER-F016",
+        "ROOT-WEAPON-PACKET-F001"
+      ],
+      "source": "BladeProfile::From/PointCurve/Clearance::Cut and whole profile/sampling/groove/NormalCheck/Solid point graph",
+      "repair": "Keep existing finitef64 dimensional/Ratio/angle owners through retained records and whole first-party source/receiving APIs; introduce agreed purpose-specific point/dimensional result owners at actual new computation/admission, retain until real scalar/mesh/wire ports.",
+      "acceptance": "No unchanged admitted scalar erasure/re-admission or raw internal application forwarding; exact frame/precision/zero/signed/source local rules and deterministic geometry/fixtures preserved."
+    },
+    {
+      "id": "ROOT-WEAPON-SHAPE-F002",
+      "kind": "structured_cause_gap",
+      "dedup": [
+        "ROOT-WEAPON-PACKET-F002"
+      ],
+      "source": "Recipe::binding_order/facing/PointCurve -> BladeProfile/model::blade validate toString -> construction/normal errors to genericString -> application caller",
+      "repair": "Keep specific dependency/geometry/normal-budget failures and concrete RecipeError through whole model/helper/source chain; deliberately mapped public validation category retains its original semantics while cause stays structured.",
+      "acceptance": "No genericString purecause forwarding; same firstfailure/input acceptance/diagnostic context and deterministic mutation order."
+    },
+    {
+      "id": "ROOT-WEAPON-SHAPE-F003",
+      "kind": "later_lens_policy_candidate_not_yet_repaired",
+      "source": "BladeSampling baseline_stations empty-edgeInf; Polygon triangulate selectedOption plus best=-1; scalar validation helpers accepting mixed unit roles",
+      "repair": "Resolve explicit no-edge/selection state and unit-granularity/admission contracts under remaining focused lenses before implementation; no assumed sign/range strengthening or ordinary reducer waiver.",
+      "acceptance": "Explicit state/unit authorities preserve actual old geometry/empty/normal/tie policies; all later lens inventory complete before source changes."
+    }
+  ],
+  "ownership": "Camera exact whole existing profile/model physical graph consumes root mesh/derived/holders and rig canonical Recipe/DesignHash. Newly reached shared helper repair assignment must be explicitly reconciled into claims before edits, no competing path-wide permission.",
+  "remaining_actual_receiver": [],
+  "coverage_limit": "All assigned requested source roles and actual material receiving branches described above, not every unrelated model constructor or every uncalled surface_refinement method. Expanded shield231 and actual7 receiver records must enter future-lens scope; no automatic owner-fit/admission clearance.",
+  "source_repair": "frozen_until_all13_initial_inventories",
+  "validation": "not_executed"
+}

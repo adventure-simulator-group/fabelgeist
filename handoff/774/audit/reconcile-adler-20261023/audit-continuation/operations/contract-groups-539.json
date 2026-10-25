@@ -1,0 +1,93 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-539",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-bvh/src/aabb.rs",
+      "sha256": "0074a09a772019820c52e9b1e4cb603c12473a575d992332cf89844c4d1fff36",
+      "actual_EOF": 299,
+      "actual_compared_ranges": [
+        [
+          1,
+          299
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-bvh/src/cpu/mod.rs",
+      "sha256": "c38b573a2cc782cf12b477bf67c5fd77c4b35c756c91569d8b2e0c36a75273b2",
+      "actual_EOF": 462,
+      "actual_compared_ranges": [
+        [
+          1,
+          462
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Ray slab arithmetic and actual triangle receiver",
+      "finding": "SEGOVB-04-BVH-PARALLEL-BOUNDARY-CANDIDATE-001",
+      "evidence": "TriangleBvh of finite trianglea(0,0,0),b(1,0,0),c(0,1,0), ray origin(0,.25,-1), direction(0,0,1), max10. Exact ray_triangle gives u0/v.25/distance1, but box slab x0*Inf isNaN while opposite side isInf; component f32min ignoresNaN so near.xInf, enterInf versus exit1 prunes triangle. No executable witness/run.",
+      "qualification": "Ordinary-sized legal public BVH API geometry with axis-parallel ray on nonflat x boundary; no game-runtime caller incidence established. Frozen exact Vec3 min/max receiver read verifies NaN behavior dependency. Archive exact alias pending, no global unique count."
+    },
+    {
+      "contract": "Other numerical and mutation boundaries",
+      "evidence": "Aabb EMPTY infinities intentional union/extend neutral element; surface area/center/extents can overflow for extreme finite geometry, SAH then may degrade rather than ordinary query miss proved here. Closest and radius square overflow questions require their own admitted-range policy, no blanketfinite-output guarantee inferred. BVH refit/update_positions require same topology/count; raw mismatched arrays are admission issue. update_positions mutates before triangle indexing panic, but no valid admitted input failure established. SAH unsplittable cohorts terminate, traversal uses growableVec stack rather than hard64depth truncation. raycast strict distance<limit excludes exact maximum while ray_triangle allows<=; preserve as endpoint policy question pending external contract."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-BVH-PARALLEL-BOUNDARY-CANDIDATE-001",
+      "sources": [
+        {
+          "source_id": "pr-working:crates/fabelgeist-bvh/src/aabb.rs",
+          "sha256": "0074a09a772019820c52e9b1e4cb603c12473a575d992332cf89844c4d1fff36",
+          "actual_compared_ranges": [
+            [
+              1,
+              299
+            ]
+          ]
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-bvh/src/cpu/mod.rs",
+          "sha256": "c38b573a2cc782cf12b477bf67c5fd77c4b35c756c91569d8b2e0c36a75273b2",
+          "actual_compared_ranges": [
+            [
+              1,
+              462
+            ]
+          ]
+        }
+      ],
+      "counterexample": "TriangleBvh of finite trianglea(0,0,0),b(1,0,0),c(0,1,0), ray origin(0,.25,-1), direction(0,0,1), max10. Exact ray_triangle gives u0/v.25/distance1, but box slab x0*Inf isNaN while opposite side isInf; component f32min ignoresNaN so near.xInf, enterInf versus exit1 prunes triangle. No executable witness/run.",
+      "qualification": "Ordinary-sized legal public BVH API geometry with axis-parallel ray on nonflat x boundary; no game-runtime caller incidence established. Frozen exact Vec3 min/max receiver read verifies NaN behavior dependency. Archive exact alias pending, no global unique count.",
+      "connected_contract": "Conservative slab intersection needs explicit parallel-axis and boundary handling, including flat boxes and signed zero; do not reject all axis-aligned rays or alter intended positive max-distance semantics. Same method should respect EMPTY miss contract; direct EMPTY ray currently yieldsSome0 for ordinary nonzero-direction ray.",
+      "acceptance": "All accepted exact triangle hits survive box broadphase including boundary/parallel/flat cases; empty boxes always miss; ordinary interior/exterior/finite max constraints preserved. Add no compatibility path."
+    }
+  ],
+  "fresh_dependencies": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-math/src/vector/vec3.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "dependencies-539/vec3.rs",
+      "sha256": "83d359f9d5ae866cc3935577b48f93d9916081bceb05ac92748c91e98672c143",
+      "actual_EOF": 263,
+      "actual_compared_ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "disposition": "Immediate Vec3 min/max/product arithmetic owner personally read, no original2853 credit. Coordinator registration requested if absent62 registry."
+    }
+  ],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/fabelgeist-cloth/src/cloth/mod.rs"
+}

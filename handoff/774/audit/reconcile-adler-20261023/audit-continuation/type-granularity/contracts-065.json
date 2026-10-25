@@ -1,0 +1,74 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-065",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "repair-quality-rank-condition-energy-and-escrow",
+      "sources": [
+        {
+          "scope_index": 242,
+          "ranges": [
+            [
+              1,
+              726
+            ]
+          ]
+        },
+        {
+          "scope_index": 243,
+          "ranges": [
+            [
+              1,
+              61
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "local774:M26",
+        "local774:M30",
+        "local774:M10",
+        "SEGO-INITIAL09-F206",
+        "SEGO-INITIAL09-F207"
+      ],
+      "disposition": "exactdurabilitysemanticrole and escrowapplicability support",
+      "trace": "242 ItemCondition nativebins normalizeaggregate atactualread/write33\u201350; namedDamageBins alreadycommonaggregatebutqualitytier, repairrank andconditionfractionhave differentdomain. Submitskill180\u2192repairable188\u2192durations204/quote206/target243; targetrestorationfraction differsinputdamage andelapsedrepairtime, stablequotedcost notmarketcurrentprice. Restoreplacementandtargetlist425\u2013435 exact09F206. Explicitnativeowner0smithcustody240\u2013242 withphysicalInventoryLocationRepair229 exact09F207; same rowID notsamehumanowner. Impact562\u2013598 takes physicalstress againstdurabilityyield/fractureenergy, thenconditionfraction/tier; do notreuseUnitIntervalforJoules. Fieldrepairavailablebudget509 andusedduration557 samecommonminuteunit butseparateallocation/resultrole, validzero.243 usespurposedStreamIdsto independentlyderive3..5service rank and existingSettlementServiceforactualavailability.",
+      "qualifications": [
+        "Preservecraftquality1..5 versus repairrank0..5 anddamage-tier1..5; no commonu8wrapperorpositivitybanonzeroability. Existingnormalization, qualitycap,routine80/20repair split and yellowfieldrepairrank<=2 intentional.",
+        "Repairquote may0underexistingformula andamountbalance/maximumvalidzero. No genericpositiveCoinAmountappliedtoeveryprice/cost/balance.",
+        "Bulk submit318\u2013321 suppressesgenericOperationerrorsbutpropagatestypedothercauses, actualP16exceptionpolicy; typedfailurecategoriesmustdistinguishnormalineligiblefrommissingauthority. No newpartialtransactionfailureclaimedfromthissource.",
+        "Smithspecialist fallbacktoGeneralBlacksmith24351\u201353 intentionalservicepolicy, notcompatibilityschemafallback. No symbolrename/materialgamepolicy invented.",
+        "Savedoccupancy requirementindex/order/capacityindex differentM10roles despiteu16storage; guardedfixtures682\u2013708 sourceonly. Nativeowner0notgloballyinvalidCharacterId; sharedescrowcodecmustreplaceinteriorfakehumanassociationwithoutinventingnormalzerocharacter."
+      ],
+      "acceptance": "Carry canonicalquality,skillrank,damagetier,conditionfraction andphysicalstress through fullrepair/nativeimpact functions. Applicableescrow/restorationpayload, typedcause andexactphysicalidentity preserved; zeroability/time/currentno-op remainlegitimate."
+    },
+    {
+      "id": "reputation-source-event-projected-contribution-and-offense-severity",
+      "sources": [
+        {
+          "scope_index": 244,
+          "ranges": [
+            [
+              85,
+              360
+            ]
+          ],
+          "qualification": "Onlyregistered85\u2013360; nofull440bodycredit."
+        }
+      ],
+      "finding_refs": [
+        "local774:M32"
+      ],
+      "disposition": "exactreputation-stage/provenance migration support and distinctseverityrole",
+      "trace": "244 recordsdurableeventnonnegativefame/infamydeltas265\u2013270 thenprojectscontributions305\u2013311 andapplieslocalaggregates336\u2013337; originatingactiondelta, attenuateddestinationcontribution andretainedlocaltotal aredifferentstage/authority despitei32storage. Partycaseparticipantsnapshot121\u2013145 ishistoricalboundroster; actualbattleparticipantspreferred96\u2013118 beforelivingfallback. Discoveredoffense severity1..5 clamps at165 butlegalgravityisnotcraftquality/repairrank/skilllevel; kind/source/eventIDsopenpayload requireownactualclosedownertrace. Offense settlement239\u2013243 isindependentprocessedstate, notevidenceoffenseendedorbadconducterased.",
+      "qualifications": [
+        "Noordinaryreputationfeedbackloopprovenhere; terminal-import concern remainsM32sourcequestionwithfutureingress. Eventretrybypassesfullmutableinputcomparison272\u2013274 asdocumentedno-op; no normalcollidingevent-IDclaim.",
+        "Missinglocalreputation\u21920,0 iscurrentemptyaggregatepolicy, notzeroidenticaltounavailableeverywhere. Alloffenseeligibilityisnotnewperoffensecapitalpunishmentflag148\u2013149.",
+        "Root sourceassertiontransactionsemanticscommentsare evidenceonly; no newDBexecutionoratomicityclearance."
+      ],
+      "acceptance": "Typednamedsourceevent,contribution,aggregate andlegalgravityroles preventstage/unitsubstitution; preserveprivatesource/actualroster, nonnegativedelta anddeterministicorder."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

@@ -1,0 +1,65 @@
+{
+  "id": "CONT07-CONTRACT-479",
+  "at": "2026-10-23T22:35:22.729083+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2115,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/placement.rs",
+      "sha256": "243d594fbb5904b60ec01daa6e25decb1ace121320b548926f0400a909222fc3",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/model/placement.rs",
+      "actual_EOF": 156,
+      "ranges": [
+        [
+          1,
+          156
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2116,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/placement/anchors.rs",
+      "sha256": "d7d808f132cf5cb9b8b7ed612cab252cbafc14dd0b690bf3ec1774c60f1bd7d6",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/model/placement/anchors.rs",
+      "actual_EOF": 137,
+      "ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2117,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/placement/fitting.rs",
+      "sha256": "1c4e18d75b0af80b31df9117e68879dad923acac69e5a4a34365b533be070413",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/model/placement/fitting.rs",
+      "actual_EOF": 141,
+      "ranges": [
+        [
+          1,
+          141
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "2115 full156 cloned resolved recipe and ResolvedComponent copies represent explicit authored versus resolved construction stages. Offset computed then written to cloned component before register and retained same offset/rotation in ResolvedComponent; shapes consume resolved record, not original mutable recipe. Failure before graph publication drops local whole graph.",
+    "2116 full137 frame positions and rotations maps coordinate with same component id after current fitting; body base/bottom are explicit samepoint semantic aliases, top/center/origin distinct. Hand frame GRIP_* overwritten for current Grip-role, then controlling grip stored once as weapon.grip. Need actual role-cardinality/source semantics before treating first global grip_width in2115 versus last controlling grip as defect; potential multi-grip ambiguity retained.",
+    "2116 attachment overlap direction reclassifies target terminal frame suffix root/base/bottom versus top/other, while actual frame origin/rotation carry geometry. This semantic protocol needs complete typed frame contract but current paired register names agree; arbitrary authored custom frame outward sense not established in this body. No automatic new wrong orientation finding.",
+    "2117 full141 mounted normalizes ComponentEnd into attach in local resolved stage, shapes fit actual shaft radius and wall then set shaft_contact from same radius; subsequent range/register occur after mutations. Authored socket outer diameter and fitted actual diameter are preparation stages, not silent current caches. Guards preserve canonical receiving contact and may intentionally differ noncontact visual crown geometry.",
+    "2117 seat radius derives actual already resolved parent geometry and child offset; lathed and plate styles are separate conditional shape policies. Parent zero rotation limitation returns no seating optimization rather than publishing guessed geometry. Publicly visible original scaling fields with resolved profile need actual pommel producer before duplicate scaling claim; no stale cache inferred from clone alone."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2118,
+    "start_line": 1
+  }
+}

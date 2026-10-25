@@ -1,0 +1,22 @@
+--- p16base/crates/adventuresim-stdb-module/src/strategic/approved_action.rs
++++ catalog-p16head/crates/adventuresim-stdb-module/src/strategic/approved_action.rs
+@@ -100,9 +100,9 @@
+         self,
+         ctx: &ReducerContext,
+         leader_id: u64,
+         requester_id: u64,
+-    ) -> StrategicCombatResult<()> {
++    ) -> StrategicOperationResult<()> {
+         let result = match self {
+             Self::TravelToSettlement { settlement_id } => {
+                 travel_to_settlement(ctx, leader_id, settlement_id)
+             }
+@@ -167,7 +167,7 @@
+                 expected_version,
+                 true,
+             ),
+         };
+-        result.map_err(StrategicCombatError::from)
++        result.map_err(StrategicOperationError::from)
+     }
+ }

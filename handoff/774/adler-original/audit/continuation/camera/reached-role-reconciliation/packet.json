@@ -1,0 +1,162 @@
+{
+  "id": "CONT-CAMERA-EXISTING-FROZEN-ROLE-RECONCILIATION-010",
+  "at": "2026-10-22T02:06:39.066350+00:00",
+  "lens": "audit-producer-propagation",
+  "input_index_sha256": "a8fe2eb9e3af471b1f33a5eaf40c2252bc26e74fea442616c37e1b47e7c84ff6",
+  "original_source_scope_sha256": "4d86b879a0cc688c2d8165631ed7f85b1589a6402aba0eae5f1ef8fe03d26c2c",
+  "input_receipts": [
+    {
+      "path": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+      "index_sha256": "6cfd484d22fe2d5972a1de6a3a2f0ca7b54c89b2b459ccba7efd61c0193ae583",
+      "observed_sha256": "6cfd484d22fe2d5972a1de6a3a2f0ca7b54c89b2b459ccba7efd61c0193ae583",
+      "matches": true
+    },
+    {
+      "path": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+      "index_sha256": "f0e53b1f18b85876dd81c01dfeacfffaf3b1d60ca13eaa9b59f33d2de7f8d674",
+      "observed_sha256": "f0e53b1f18b85876dd81c01dfeacfffaf3b1d60ca13eaa9b59f33d2de7f8d674",
+      "matches": true
+    },
+    {
+      "path": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+      "index_sha256": "7a3e5ac1e865c46d53a1055a1f793466f9f89353ed26ca668f5a3aa934db6253",
+      "observed_sha256": "7a3e5ac1e865c46d53a1055a1f793466f9f89353ed26ca668f5a3aa934db6253",
+      "matches": true
+    },
+    {
+      "path": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+      "index_sha256": "512940c3d587e1ff6c1a7539f0fec9e485b7b2a4ca066b030089fb00c6b8bb74",
+      "observed_sha256": "512940c3d587e1ff6c1a7539f0fec9e485b7b2a4ca066b030089fb00c6b8bb74",
+      "matches": true
+    },
+    {
+      "path": "continuation/camera/coverage.jsonl",
+      "index_sha256": "80bc803792f8fc1cc22d8d844be3b6f63915b889b7596686a319ea4b4286683e",
+      "observed_sha256": "80bc803792f8fc1cc22d8d844be3b6f63915b889b7596686a319ea4b4286683e",
+      "matches": true
+    },
+    {
+      "path": "continuation/camera/findings.jsonl",
+      "index_sha256": "c7fe2d266be77835ec6e399069349b02f99aedf6147e7eeeba7ae0db1e9fb240",
+      "observed_sha256": "c7fe2d266be77835ec6e399069349b02f99aedf6147e7eeeba7ae0db1e9fb240",
+      "matches": true
+    },
+    {
+      "path": "continuation/camera/progress.jsonl",
+      "index_sha256": "f7f4eb85d167c59cb854dc4552a5d1a770cad92cacbf2a2f748e9e47b971d2bf",
+      "observed_sha256": "f7f4eb85d167c59cb854dc4552a5d1a770cad92cacbf2a2f748e9e47b971d2bf",
+      "matches": true
+    },
+    {
+      "path": "continuation/camera/receivers.jsonl",
+      "index_sha256": "53d9116d367bc3bf8f3c9798cd5f79cf04ce90d81e11a32c5aed54d7cf26f76f",
+      "observed_sha256": "53d9116d367bc3bf8f3c9798cd5f79cf04ce90d81e11a32c5aed54d7cf26f76f",
+      "matches": true
+    },
+    {
+      "path": "continuation/camera/sources.jsonl",
+      "index_sha256": "e047a1dc695a9f8626018c9ee620327ba575cd16a9b4ac4f24e52fecda8c3bb2",
+      "observed_sha256": "e047a1dc695a9f8626018c9ee620327ba575cd16a9b4ac4f24e52fecda8c3bb2",
+      "matches": true
+    },
+    {
+      "path": "continuation/camera/traces.jsonl",
+      "index_sha256": "6d71ea84825f461cafe98446af772c3a8afd950d7e9023a1be5f616734ebc355",
+      "observed_sha256": "6d71ea84825f461cafe98446af772c3a8afd950d7e9023a1be5f616734ebc355",
+      "matches": true
+    },
+    {
+      "path": "continuation/camera/camera716-final-receipt.json",
+      "index_sha256": "9df7ed4f8a5d6091e195be434661d7090cd3c6f6ad5de12ede6acd80611b848a",
+      "observed_sha256": "9df7ed4f8a5d6091e195be434661d7090cd3c6f6ad5de12ede6acd80611b848a",
+      "matches": true
+    },
+    {
+      "path": "continuation/rig/progress-042.json",
+      "index_sha256": "b6665b0f221debeeeff1f3a6f71a69545f5a35b8ef2fe501603e402a81411127",
+      "observed_sha256": "b6665b0f221debeeeff1f3a6f71a69545f5a35b8ef2fe501603e402a81411127",
+      "matches": true
+    },
+    {
+      "path": "continuation/rig/pure-food-recipient-carry-forward-041.json",
+      "index_sha256": "f321e2d41397fc64048d0ec386923c3f60be891c1547836e2622923622fd3d02",
+      "observed_sha256": "f321e2d41397fc64048d0ec386923c3f60be891c1547836e2622923622fd3d02",
+      "matches": true
+    },
+    {
+      "path": "continuation/rig/range-schema-errata-043.json",
+      "index_sha256": "14cf59ff84488a4f8bd45dcc4706947f6e062ecd755d7167a2180800eb4afae4",
+      "observed_sha256": "14cf59ff84488a4f8bd45dcc4706947f6e062ecd755d7167a2180800eb4afae4",
+      "matches": true
+    },
+    {
+      "path": "continuation/rig/web-request-reconciliation-039.json",
+      "index_sha256": "a8da289761930b0983922ccacc77168d94a2f29ebf1e49eda7cc8d44dd5cfce6",
+      "observed_sha256": "a8da289761930b0983922ccacc77168d94a2f29ebf1e49eda7cc8d44dd5cfce6",
+      "matches": true
+    },
+    {
+      "path": "continuation/root/pure8-packet.json",
+      "index_sha256": "58f9ada2be814a6eebcbbfb84ffb9d7d0aff98c9198208d16e6f4fc0ef56fffb",
+      "observed_sha256": "58f9ada2be814a6eebcbbfb84ffb9d7d0aff98c9198208d16e6f4fc0ef56fffb",
+      "matches": true
+    },
+    {
+      "path": "continuation/native/source-reads.json",
+      "index_sha256": "e3c6d343a57aee4b22470341c90ac37a02ce9381ea1adc8f8d3cd3fbf5d58624",
+      "observed_sha256": "e3c6d343a57aee4b22470341c90ac37a02ce9381ea1adc8f8d3cd3fbf5d58624",
+      "matches": true
+    },
+    {
+      "path": "continuation/native/receiver-reads.json",
+      "index_sha256": "ed515df1f41f2cdac0f12f0ce33c068a3ee8dfdf641bc028c6febbee7f34b2ad",
+      "observed_sha256": "ed515df1f41f2cdac0f12f0ce33c068a3ee8dfdf641bc028c6febbee7f34b2ad",
+      "matches": true
+    },
+    {
+      "path": "continuation/native/findings.json",
+      "index_sha256": "638bd65742a22ff9d7f51ca4b67586ee9ae8c16a8785e6fabdfc604fe6f91af7",
+      "observed_sha256": "638bd65742a22ff9d7f51ca4b67586ee9ae8c16a8785e6fabdfc604fe6f91af7",
+      "matches": true
+    },
+    {
+      "path": "continuation/native/world5-final-packet.json",
+      "index_sha256": "7ba1ee61682039e3d002173a202f44ec73e61a760013e2d9f06388f69ea81a90",
+      "observed_sha256": "7ba1ee61682039e3d002173a202f44ec73e61a760013e2d9f06388f69ea81a90",
+      "matches": true
+    }
+  ],
+  "scope": "Every explicit observation in the refreshed collector naming an already-frozen source identity, plus every incomplete metadata observation on those identities. New outside-frozen variants/aliases and their endpoint errata remain Rig044/coordinator scope.",
+  "qualified_role_observations": 2206,
+  "qualified_source_variants": 1119,
+  "incomplete_metadata_role_observations_reconciled": 200,
+  "source_variants_including_metadata_only": 1123,
+  "semantic_navigation_groups": 16,
+  "per_role_files": [
+    "qualified-roles.jsonl",
+    "metadata-roles.jsonl",
+    "producer-contracts.json",
+    "semantic-comparisons.json",
+    "chronological-closures.json"
+  ],
+  "remaining_concrete_unread_role_or_recipient_obligations": [],
+  "first_unfinished_cell": null,
+  "discovery": "bounded_existing_frozen_producer_role_reconciliation_exhausted_WITH_FINDINGS",
+  "how_credit_was_decided": "Actual source-role narratives and producer/retained/operation/recipient contracts in current supplementary traces and exact later closure receipts; source IDs/SHA/ranges are provenance, never semantic credit. Same-range roles are retained individually, not excluded by a range test. Initial producer trace refs are preserved per source and inside current contract receipts; unspecified initial roles receive no automatic credit.",
+  "qualifications": [
+    "No unrelated function/tail or whole file newly admitted from matching bytes or receipt volume. Current source ranges retain their exact declared scope and explicit PR/P16 counterpart qualifications.",
+    "Four roster/authority-fixture source-ID omissions are explicitly resolved to CAM054 historical91/231 source bodies and CONT008 actual request/server closure.",
+    "Historical pending text is closed only by exact later semantic receipts, never ignored or reopened as fresh unread scope. All propagation defects, missing-owner strengthening and later shape/availability/precision/behavior questions remain actionable.",
+    "LocalCharacterId finding is qualified owner-fit strengthening per prior append-only correction; strategic component decoder and native world-event StrategicPlaceId retention remain concrete migration gaps.",
+    "This does not perform existing-owner delta, admission, another lens, source repair, family acceptance, independent review or validation. Outside-frozen158 variants/3alias identity/endpoint qualifications are separate."
+  ],
+  "next": "Coordinator combine bounded existing-frozen role reconciliation with new-variant producer reconciliation and metadata qualifications, then existing-owner fit delta. Preserve all13 source freeze.",
+  "source_changes": 0,
+  "new_source_reads_in_this_followup": 0,
+  "project_commands": 0,
+  "tests_added": 0,
+  "authoritative_ledgers_modified": false,
+  "owner_fit": "not_performed",
+  "validation": "none",
+  "overall_lens_clearance": "not awarded because findings and remaining coordinator scope gates exist"
+}

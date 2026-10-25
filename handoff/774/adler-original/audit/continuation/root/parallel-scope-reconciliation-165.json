@@ -1,0 +1,104 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-165",
+  "at": "2026-10-23T01:52:05.656842+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-047.json",
+    "sha256": "8e839a14285ab302a71ebd6b5318db2f610e6b7e50b592b2cc57a76fe5ddc33a"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-046.json",
+    "sha256": "0cb2963974c08802747f3819cd0a51e095ca2a684326dc0d77f76249928b2fb3"
+  },
+  "new_variants": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_provenance.rs",
+      "sha256": "f9a27db833d675b23a449676ecfd6d878c0357f2a5190f6a649341766c5ee33c",
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\strategic\\dialogue_provenance.rs",
+      "snapshot": "physical-p16",
+      "actual_line_count": 1408,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          181,
+          263
+        ],
+        [
+          265,
+          290
+        ]
+      ],
+      "audit_owner": "camera",
+      "scope_registration": [
+        {
+          "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+          "sha256": "ca1f708e7acb0e62131a0ca42f7bef56b28eb49846b3e187454f0b3e30eedf86",
+          "row_1based": 23,
+          "id": "CAMERA-INITIAL07-REG023",
+          "original_record": {
+            "registration_id": "CAMERA-INITIAL07-REG023",
+            "at": "2026-10-23T01:47:57.370318+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_provenance.rs",
+            "snapshot": "physical-p16",
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\strategic\\dialogue_provenance.rs",
+            "sha256": "f9a27db833d675b23a449676ecfd6d878c0357f2a5190f6a649341766c5ee33c",
+            "actual_EOF": 1408,
+            "material_ranges": [
+              [
+                181,
+                290
+              ]
+            ],
+            "reason": "Direct join/member receiver establishing whether observer-specific topic refresh can be shared across multiple player participants; complete actual join function and actual membership receiver only. Existing PRfull1408 does not grant P16semantic credit.",
+            "exclusions": "All other provenance/parser/address/fact-context helpers and tests excluded. Premature previous display uncredited QUAL149; body must be freshly reread after registration.",
+            "status": "prospectively_registered_before_credited_body_analysis"
+          }
+        }
+      ],
+      "scope_limits": "Only181-263 join/265-290 membership;264blankexcluded. CameraQUAL149 prematuredisplay uncredited; freshpostregistrationbodyproof required. No otherP16provenance orPRwholeverdicttransfer.",
+      "source_lens_credit": "none from scope metadata"
+    }
+  ],
+  "new_overlays": [],
+  "total_variants": 2804,
+  "total_overlays": 228,
+  "mandatory_scope_qualifications": [
+    {
+      "record": "continuation/root/parallel-scope-qualification-130.json",
+      "sha256": "5dc4e5cd771612c7e050ab4af544411523317ae4b57738f1fb20f493685a50fc"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-117.json",
+      "sha256": "f3b80648900716939057b20776d756a6e37001f6910378da1a1bbaea230d348b"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-149.json",
+      "sha256": "97103899514ade32cf1e41c2794fa9c49c0cb8c6c7a2c6a4961b7492de5dc708"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-151.json",
+      "sha256": "670dd53a640b28eef7ad9d57b37f9213e1bca7117d7098691c4b0cd20c2a8f65"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-158.json",
+      "sha256": "fa0e9cc06d04fca0a0e2b5f9a333390a0ba1e71eff846a4e957c46b68b3e940e"
+    }
+  ],
+  "registered_rows": 1,
+  "input_pins": [
+    {
+      "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+      "sha256": "ca1f708e7acb0e62131a0ca42f7bef56b28eb49846b3e187454f0b3e30eedf86",
+      "captured_rows": 23,
+      "selected_ids": [
+        "CAMERA-INITIAL07-REG023"
+      ]
+    }
+  ],
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through228-before047.jsonl",
+    "sha256": "f8bacc06835805d7381293438115c263d0ff8ee01e34e70c9fa9540c7d231794",
+    "through": 228
+  },
+  "limits": "CameraREG023one new exactP16boundedvariant2804,228overlaysunchanged; allpriorqualifications retained, user163auditthenhandover/noimplementation applies."
+}

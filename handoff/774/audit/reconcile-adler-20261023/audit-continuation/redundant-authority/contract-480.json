@@ -1,0 +1,51 @@
+{
+  "id": "CONT07-CONTRACT-480",
+  "at": "2026-10-23T22:36:00.595159+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2118,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/shapes.rs",
+      "sha256": "1bdea66bbc76b2483d53a48a954b78b725ae186d4121befd5781664c8a71e0d0",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/model/shapes.rs",
+      "actual_EOF": 393,
+      "ranges": [
+        [
+          1,
+          393
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2119,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/assembly.rs",
+      "sha256": "7ebda01419b989011e98bad30754c5c1fbdbebf10d1b163afcdd7ac1cf08406e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/assembly.rs",
+      "actual_EOF": 211,
+      "ranges": [
+        [
+          1,
+          211
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "2118 full393 typed Shape dispatch exhaustive; physical parts derive from resolved component and material default at one producer. Smoothing-specific records and actual blade/socket solids are separate roles. Shape::ProfileGrip/ProfileBody intentionally share one geometry family while semantic role remains component metadata; no forced alias/removal from shared constructor.",
+    "2118 fitted sleeve uses resolved shaft_contact to derive hollow bore and placement fitting sets top_radius=radius, closing independent taper mismatch on ordinary fitted sleeve. Faceted socket branch precedes shaft_contact branch: when facetsSome and wallNone it constructs solid faceted_lathe even if fitting supplied shaft_contact. Need actual SocketParameters validation/admission before promoting accepted fitted-solid socket mismatch; do not assert normal catalog fixture.",
+    "2118 grip seat radius is actual child-specific fitted lower radius; ordinary p.width/thickness sets nominal outer body ellipse and transition, different contact boundary constraints. Hollow sockets with explicit wall compute inner radii from same profile; p.wall None otherwise deliberately allows solid nonfitted socket, so absence alone not defect.",
+    "2119 full211 named attachment target frame versus attachment at enum are distinct target/source roles; NodeBinding Frame versus Between owns neighbors coherently, ordered bindings derived per call with cycle detection. Undefined dependency actual guard-node resolver remains required, not inferred successful merely from topological order.",
+    "2119 canonical reserved frame key constants are already shared by placement and controlling-hand selection, positively qualifying low-level same-text duplication. Individual authored component frame names remain extensible; no blanket collapse to fixed global enum. GuardMember material/twist/taper are local recipe inputs, not cached classifications; no source generation/tests run."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2120,
+    "start_line": 1
+  }
+}

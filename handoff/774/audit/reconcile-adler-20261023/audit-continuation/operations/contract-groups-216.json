@@ -1,0 +1,50 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-216",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/tests/authority_trade_dialogue.rs",
+      "sha256": "ea82a6a6d486b3ab9be06fcd3627eb304db68230316556c7f90fb69eef6238b8",
+      "actual_EOF": 761,
+      "actual_compared_ranges": [
+        [
+          1,
+          761
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/tests/authority_trade_dialogue.rs",
+      "sha256": "32c5e6e23e6687a365a8b7a7920e5a7dc0a6d6cc722250448159318a90f60899",
+      "actual_EOF": 761,
+      "actual_compared_ranges": [
+        [
+          1,
+          761
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Exact authority, inventory, travel and dialogue fixture operations",
+      "source_ranges": {
+        "authority_trade_dialogue.rs": [
+          [
+            1,
+            761
+          ]
+        ]
+      },
+      "disposition": "Full P16 fixture body and actual PR textual delta consumed. Fixed tiny arithmetic in carrying-capacity example and exact stable minute inputs are bounded. Source-string position/order/count assertions check textual presence, not runtime conservation, rollback, boundary admission, or execution of the referenced reducers. Thus the storefront checked-adder delta and rollback comments provide no DB execution proof for packet211 measured-stack/liquidation findings. Pure closed HostileResolutionKind contract cases distinguish captured subject/result/loot; tiny HashSet provenance and viewer cases are bounded. Existing fixtures do not cover terminal revisions, membership duplicates, nested liquidation roots, measured personal purchases, or huge history/event counts. Fixtures read only, not run; no new finding and no transitive reducer coverage."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "2 original roles personally compared; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/strategic/travel_planning.rs"
+}

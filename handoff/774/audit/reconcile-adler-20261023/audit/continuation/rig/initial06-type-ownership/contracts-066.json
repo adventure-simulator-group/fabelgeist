@@ -1,0 +1,12 @@
+{
+  "id": "RIG-INITIAL06-GROUP-066",
+  "at": "2026-10-23T00:35:52.971308+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "party-versus-enemy-captured-authority": {
+      "comparison": "Fresh full PR enemy_roster96 and roster91 including original tests; actual complete P16 deltas none, each constructor/count/accessor/error/test current role personally compared. Both products retain private Vec<u64>, nonempty unique IDs and input order, but party roster has actual <=16 protocol limit while hostile roster deliberately exceeds16 and only requires cardinality representable as NonZeroU32. These are different enrollment authority sets, not independently maintained equivalent types; sharing a small private uniqueness helper is optional implementation reuse, not reason for public generic roster with policy flags or compatibility aliases. Actual original tests admit ID0 (enemy0..=16 reversed; party0..limit), so no automatic substitution of nonzero PlayerActor/Custody/PhysicalObject IDs; a durable-character reference here is not authenticated actor proof or world-event subject. Neither constructor checks living membership/DB authority despite party documentation; enclosing authenticated capture operation owns that predicate. Both only Clone/Debug/Eq, noDefault/Serde/Reflect/mutable field escape; output Vec projection is real transport/application ownership transfer but rebuilding separately stored count would lose canonical product. NonZeroU32 count is computed from private vector; no rival Count owner needed or u16 RigJointCount reuse. Private snapshot cardinality/order and current capture authority remain strategic shared Core responsibility; transient server entities/EnemyStats are different runtime data, no tactical tick persistence. EnemyRosterError and TacticalRosterError preserve distinct bounds/diagnostic context rather than forced broad shared error solely from Empty/Duplicate overlap.",
+      "disposition": "Keep party and enemy snapshot authorities distinct in shared Core; canonical count remains derived"
+    }
+  },
+  "limits": "Exact full four scoped variants; source proofs only, no DB capture/caller or whole mission feature inference, no execution/source edits/other-lens credit. Whole06 incomplete."
+}

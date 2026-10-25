@@ -1,0 +1,141 @@
+{
+  "packet_number": 122,
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/disease.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          60
+        ],
+        [
+          127,
+          205
+        ],
+        [
+          345,
+          353
+        ],
+        [
+          390,
+          437
+        ],
+        [
+          440,
+          510
+        ],
+        [
+          930,
+          1277
+        ],
+        [
+          1282,
+          1405
+        ],
+        [
+          1510,
+          1530
+        ],
+        [
+          1556,
+          1559
+        ],
+        [
+          1564,
+          1619
+        ],
+        [
+          1723,
+          1808
+        ],
+        [
+          1811,
+          2091
+        ],
+        [
+          2093,
+          2160
+        ],
+        [
+          2214,
+          2271
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "All actual effective scoped roles literally read in bounded displays; new Root018 constants1811-2091 freshly reread after global058. Scope metadata qualifiers inspected, including no material wall_minute1560-1563, no private regional2162-2212 and prior adjacent1811-1837 context now superseded only by prospectively registered new role. Complete actual PR/P16 diff empty establishes shared text, not PR whole3842 or P16 excluded-role coverage.",
+      "sha256": "67ed6e9a0fb5f392097f85dfa4a4d06e212e404e22c658790def8f40b86bf954",
+      "actual_EOF": 3842
+    }
+  ],
+  "support_only_source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/physiology.rs",
+      "actual_compared_ranges": [
+        [
+          119,
+          257
+        ],
+        [
+          381,
+          446
+        ],
+        [
+          724,
+          790
+        ]
+      ],
+      "complete_scoped_comparison": false,
+      "source_evidence": "Scoped enum/index/finite helper, newly Root019 kernel fresh after058 and phenotype/HMAC producer support only. First newkernel display after registration and fresh second afterglobal. No whole1169-source operations credit."
+    }
+  ],
+  "groups": {
+    "fixed-definition-producer": "Exact12 STARTER_DISEASES entries map already compared closed DiseaseId ordinal0..11 in matching order. All authored durations finite positive small integer multiples of DAY1440; products fitu64 and conversion to f32 finite. Symptom arrays all nonempty length3/4; evaluate chooses0/1/full length so slicing is safe on actual private definition factory. Public raw DiseaseDefinition does not replace evaluate's immutable definition result. Incomplete unrelated label/diagnostic prefixes accounted only within their scoped declarations, not whole method or disease identity revelation policy.",
+    "evaluated-bounds": "Severity draws finite0..1 from canonical seed and clamps innate factor, then min0.2 or1.85 for nonpositive immunity; actual output<=1.85. Fixed duration curve has positive rise/recovery and bounded progress0..1. Actual d.peak vitals/attributes<=0.8, so scaled values finite. Private VitalImpairment scaled/add operations are reached through this producer, not arbitrary public f32MAX fields. A feasible slice of such bounded episodes on current64-bit targets cannot supply enough magnitude for f32MAX overflow; do not fabricate allMAX evaluated episodes or assert observed arithmetic failure. Duplicate/membership semantics remain an independent aggregate question.",
+    "exposure-and-observation": "Finite nonnegative dose multiplied by prevention<=0.94 and affordance0..1 remains bounded; unavoidable/residual complements retain route meaning. Physiology competence clamp0..5, blood care bounded constants and closed route0 are explicit policies. NaN/raw admission handling is not established merely by clamp; existing broader clinical admission graph retains it. Historical practitioners use strongest per-ID matching inclusive span then canonical bounded party check, not duplicate raw contribution sum. No normal duplicate exposure or nonfinite dose identified.",
+    "terminal-presence-support": "Additional source support for existing F046 clock-exhaustion graph: elapsed_presence_window477-486 with span_start/joint_now/from/to allMAX and absent span_end returnsSome(MAX,MAX) because strict-open from+1 saturates backMAX. Should terminate empty/failed strict advancement, not replay the excluded minute. Native05 confirmed no separate finding; keep same canonical terminal-clock repair support, not a new unique count. Actual first_presence1379-1402 uses canonical iter_after_through, whose self<end guard correctly prevents this replay; do not conflate those paths.",
+    "actual-clinical-curves": "Fresh Root018 actual ten5-point arrays are strictly increasing, start0/end finite, losses0..0.72. Fixed regional arrays seven finite nonnegative weights; deliberately normalized later rather than declared sum1. Meter collections2/3 distinct variants; private_meter uses them by typed Meter index0..9. Existing phenotype724-738 raw0.72..1.28 and positive finite ten-term mean yield finite multiplier bounded about0.56..1.78. Thus actual loss*severity*phenotype stays finite before explicit[-1,2] clinical clamp. Retain negative losses, values above1 and distinct global-versus-regional observation roles; no extra hidden combat fatigue penalty.",
+    "kernel-api-boundary": "F048 belongs to generic public physiology interpolation, not a demonstrated corrupt disease table. Empty/duplicate-span/endpoints explicitly use finite-or-zero policy; interior difference is still f32 before f64 widening. windows2 guarantees pair cardinality, first guards last.expect; no index panic on empty. Actual sorted finite small suppliers avoid the extreme but do not seal broader raw public curves. Support source remains incomplete as a whole.",
+    "identity-and-authority": "Outbreak key uses exact character bytes/domain/outbreak text, disease affected limb consumes full episodeu64 Into<Seed> and index4 on actual four-element array. Legitimate lossless Into at that canonical seed construction is not a migration escape. Preserve actual RNG/framing/order and private phenotype secret; no current native hash/runtime validation claimed. Pure strategic disease consequences remain strategic; no tactical tick persistence or diagnostic shortcut added.",
+    "scope-and-validation": "No full PR3842 or P16 unscoped remainder clearance from empty diff. Excluded wall-clock helper1560-1563, events/curves not registered, private regional2162-2212 and tests remain separate cells where scoped. Newly registered constants now complete only their own role. No source changes, project execution or test additions."
+  },
+  "findings": [
+    {
+      "id": "ROOT-INITIAL04-F048",
+      "kind": "clinical_interpolation_subtracts_in_f32_before_widening_to_f64",
+      "source_id": "physical-p16:crates/adventuresim-core/src/physiology.rs",
+      "locations": [
+        [
+          408,
+          444
+        ]
+      ],
+      "case": "Public MeterCurve with strictly increasing points[(minute0,loss-f32MAX),(minute2,loss+f32MAX)] and age1 has finite endpoints and representable mathematical midpoint0. Actual441 computes right.loss-left.loss in f32, overflowsInf, then widens and returnsInf. API-only signed raw-curve strengthening; actual referenced disease tables are finite0..0.72 and do not trigger it. No executed clinical result or bad shipped curve claimed.",
+      "operation": "Widening after an overflow-prone difference loses the guarantee that an interpolation between finite endpoints returns a finite representable value.",
+      "connected_repair": "Admit the canonical coherent curve/loss product and perform difference/interpolation in appropriate precision before narrowing/readmitting the result, or explicitly reject failed arithmetic. Preserve signed loss and actual clinical endpoints, ordered times and empty/duplicate-span policy as deliberately resolved from callers. Do not hide overflow with zero, impose UnitInterval on loss, or duplicate a generic float owner.",
+      "acceptance": "Successful interpolation between admitted finite ordered endpoints retains a finite result within its actual semantic interval or returns structured rejection; representable midpoint cannot becomeInf from pre-widening subtraction. Existing fixtures only, no new cases/assertions/helpers.",
+      "deduplication": "Native05 no exact F001-F041; RootF005 RNG range width is related arithmetic discipline but different canonical owner/native operation, not exact clinical repair credit.",
+      "contract_ref": "ROOT-INITIAL04-CONTRACT-122"
+    }
+  ],
+  "id": "ROOT-INITIAL04-CONTRACT-122",
+  "at": "2026-10-23T04:32:59.292110+00:00",
+  "lens": "audit-invariant-operations",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-058.json",
+    "sha256": "93e47bb408cea71ef8c41710dfe61aa5958c957367ff8e834737e034b5398fb3"
+  },
+  "mandatory_overlays": {
+    "record": "continuation/owner-range-extensions.jsonl",
+    "sha256": "e7f32dbf953ff76417492b323e263ab3b8210163691823732b7a9bff5eb8deee",
+    "through": 243
+  },
+  "mandatory_qualification170": {
+    "record": "continuation/root/parallel-scope-qualification-170.json",
+    "sha256": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c"
+  },
+  "repair": "frozen_initial_audits_then_handover",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

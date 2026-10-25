@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1046",
+  "at": "2026-10-25T17:35:34.186200+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1204,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+  "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+  "actual_compared_ranges": [
+    [
+      731,
+      1110
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Encounter receipts, route terrain vocabulary/points/weights/spans/plans, gateway, party members/inventory/condition/targets/stake/state schema all structural/table/SpacetimeType derives. JourneyTerrainKind const ID/from ID native vocabulary, no handtrait. Gateway registration/digest/schema/authority and quantity target reducer semantic validation, not construction derive. No manual codec.",
+  "first_unfinished": {
+    "scope_index": 1204,
+    "line": 1111
+  },
+  "execution": "none"
+}

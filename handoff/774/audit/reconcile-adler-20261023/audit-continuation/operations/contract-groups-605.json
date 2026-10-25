@@ -1,0 +1,120 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-605",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/city_layout/compound.rs",
+      "sha256": "8d64dedb165f7ed83c658f1f3126c264e7d67aef759ccaeed83843d99190c86b",
+      "actual_EOF": 93,
+      "actual_compared_ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/city_layout/compound/boundary.rs",
+      "sha256": "d9fb76fe3c22007ad7491c759dc3d5f4d6a2e9725cb73b08f6a349eade427d5e",
+      "actual_EOF": 266,
+      "actual_compared_ranges": [
+        [
+          1,
+          266
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+      "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+      "actual_EOF": 407,
+      "actual_compared_ranges": [
+        [
+          1,
+          407
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/defaults.rs",
+      "sha256": "970a41a87d4738f8b9edc7a55d80caa78aed0bca9622fee03d034b297626f591",
+      "actual_EOF": 26,
+      "actual_compared_ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+      "sha256": "12d9a293dfa9ba0ecf15b2410b1301587ca902296fd26db8ffd25601ca07626d",
+      "actual_EOF": 262,
+      "actual_compared_ranges": [
+        [
+          1,
+          262
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_coordinates/window.rs",
+      "sha256": "9e148e80284c8a960dc0fe0495783563bae67ec6bbf07abbdf6f82ff8edf5601",
+      "actual_EOF": 136,
+      "actual_compared_ranges": [
+        [
+          1,
+          136
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings/identity.rs",
+      "sha256": "53af66cb68d475328494f071fc1fc64701c6c2fbd3204ffb79a82bbfd318a7b0",
+      "actual_EOF": 40,
+      "actual_compared_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "P16 property enclosure and support elevation arithmetic",
+      "evidence": "Complete93+266+407lines read. Fixedmember nativecentre/length/orientation/cap extents readmitted with actualelementerror, gateposts/leaf/pivot checked before result; packingframe explicitzero beforegrading. SupportElevation admitsfinite signedY andtranslatedreadmitscomputed sum. Compoundplan fieldsprivate, compile delegates owningbound policy; elevations_at returns actualdistinctretaining levels andemptyoutside, selectedownedregions only. Unittranslationbasis clones candidate andcheckedtranslatesfloor/profile/stair, neverinstalled asactualplan.",
+      "qualifications": [
+        "Boundary publicraw geometry and gateIDdomain OR require authoritativeproducer/membership, no implicitu64prefixreservation from transparent ID alone; no actualcurrentpropertycollision claimed.",
+        "contains/elevations_at passage normalization dependsaccepted CityAccessSegment nonzero length and compiledplan; do not banlegitimate signed elevation or claim arbitrarypublicproperty fromprivateplan API.",
+        "Point displacementvalidation explicitdiagnostic only: emptyheightfold0 is not wholecutfillacceptance, complete triangle comparison isseparate. Nativefinite support difference overflow becomesdisplacementInf thenrejectsboundedthreshold; not nonfinitepublication."
+      ],
+      "acceptance": "Preserve distinct gate/building/grounddatums, fullreservation andexactelementidentity; whole published support acceptance belongs completegeometry comparisons, notpoint-only fold."
+    },
+    {
+      "contract": "P16 scene datum conversion and paired leaf pose",
+      "evidence": "Full262+136+40 read. CollisionCentreDatum checkedorientation; pointsubtractorigin thennative_transform, inverse anddisplacement readmitfinaltypedvalues. ArchitecturalFloorDatum bindsfloorY, GateDatum pointsgateY only. Door/window construct convertedpoints/directions/radians andnativequaternion product together, privatepairedposeaccessors preserveidentity/dimensions/barstate. Nativequaternion productretained distinctfromsummed serializedyaw intentionally preservesf32order.",
+      "qualifications": "Falliblefiniteextreme conversion mayreject computedoverflow, valid rejection. Quaternionsemanticframe requiresactualBuildingOrientation validproducer andcheckedRigidRotation; no globalproofonlyfrom rawdegreefinite. FullSceneBuildingId u64includeszero unchanged; packedconsumer constraintsnotownerclamp.",
+      "acceptance": "Preserve exactnativeproduct/operationorder, pointsvsdisplacements andarchitectural/gate/scene frame separation, contextual opening/source errors and source-level fixtures without claimingexecution."
+    },
+    {
+      "contract": "Compiled-in tactical config initialization",
+      "evidence": "Whole26 read: oneLazyLock parses actualembeddedYAML andcallsvalidate; bothfailurebranches explicitpanic forcompiledinvalidcontent. Defaults returncanonicalwithoutdeserialization recursion/runtime snapshot lock.",
+      "qualifications": "No currentYAML/compiler/runtimevalidation executed; allowedcustomconfig needactualinstallation policy beyonddefaultprojection. No arbitraryallfiniteSDK promise imposed.",
+      "acceptance": "Preserve canonical config validation, avoidrecursingthroughruntime lock and preserve actualauthored quantities."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "7 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-tactical-server/src/doors.rs"
+}

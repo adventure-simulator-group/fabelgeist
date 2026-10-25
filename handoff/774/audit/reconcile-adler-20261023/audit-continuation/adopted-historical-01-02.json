@@ -1,0 +1,56 @@
+{
+  "id": "adopt-historical-01-02-fixedpoint-042",
+  "at": "2026-10-23T23:03:19.048079+00:00",
+  "authority": "Adler040/042 exactcompleted source-backed inventories retained by latestSTATE and087 queue; continuation reuses completed evidence, not fullscope replay. Direct human instruction explicitly reinforces reuse for completed03/06.",
+  "baseline": {
+    "source_roles": 2560,
+    "overlays": 59,
+    "status": "complete WITH_FINDINGS for exactprior010scope",
+    "anchor": "audit/continuation/root/initial01-02-fixedpoint-acceptance-042.json",
+    "anchor_sha256": "bc52071d80c8a0777124e95ed499dff6971a64f338549cbb8de437dbe579a176",
+    "verified_linked_evidence": [
+      {
+        "path": "audit/continuation/root/producer-fixedpoint-acceptance-040.json",
+        "original_sha256": "8a9e33950e7bf719ad20c903ee1475c5825e495decbe7c17e623e6ffbd5648fb",
+        "exported_sha256": "8a9e33950e7bf719ad20c903ee1475c5825e495decbe7c17e623e6ffbd5648fb",
+        "bytes": 1458,
+        "qualification": "Normalized export original\u2192packaged mapping verified fromEVIDENCE; sourcefingerprints retained. Packagebytes notnewsemanticcoverage."
+      },
+      {
+        "path": "audit/continuation/root/current-owner-acceptance-035.json",
+        "original_sha256": "ea1b73b507d23a07bf726059dd452bae27443c4a553651572c5f6bbb6ba47444",
+        "exported_sha256": "ea1b73b507d23a07bf726059dd452bae27443c4a553651572c5f6bbb6ba47444",
+        "bytes": 1719,
+        "qualification": "Normalized export original\u2192packaged mapping verified fromEVIDENCE; sourcefingerprints retained. Packagebytes notnewsemanticcoverage."
+      },
+      {
+        "path": "audit/continuation/root/owner-helper-delta2-041.json",
+        "original_sha256": "29523c4da4036815c8bcc777c284f2fe9551618cfeefef35d37ed6df180a2e7b",
+        "exported_sha256": "29523c4da4036815c8bcc777c284f2fe9551618cfeefef35d37ed6df180a2e7b",
+        "bytes": 7066,
+        "qualification": "Normalized export original\u2192packaged mapping verified fromEVIDENCE; sourcefingerprints retained. Packagebytes notnewsemanticcoverage."
+      },
+      {
+        "path": "audit/continuation/cumulative-source-scope-producer-fixedpoint-010.json",
+        "original_sha256": "57c0e5956c9ec89f35e67a647105aa6952fe4e1b8f6cc06e9626065979eef761",
+        "exported_sha256": "b9d7f7d9f52a22c77b8b970ac53f638965fac920f592485150a0a8cae39fa741",
+        "bytes": 14741925,
+        "qualification": "Normalized export original\u2192packaged mapping verified fromEVIDENCE; sourcefingerprints retained. Packagebytes notnewsemanticcoverage."
+      }
+    ]
+  },
+  "required_delta": {
+    "queue": "audit/continuation/bounded01-02-newmaterial-queue-087.json",
+    "sha256": "841f3e99adf9df5a25c44585ca5d726a7ae09d15f02f87eda9fbc2fe80160f21",
+    "roles": 312,
+    "mandatory_overlays": "Preserve all246current072overlayqualifications;59prioroverlaycoverage notdiscarded. Rolevariantdelta/overlay count notsimple arithmetic union.",
+    "merged_revision_delta": "Adopted03/06 38path comparison is navigation only;01/02requireactualown producer/owner-fit dispositions.",
+    "new_material": "audit-continuation/source-extensions.json"
+  },
+  "claims": {
+    "producer01": "root, after savedPC131/Creatorremainingfrontier",
+    "existing_owners02": "reconcile_qualifications, after07 closure; confirmeddirectagentacknowledgment",
+    "no_overlap": "Same source bytes may be reached byseparate lenses; sourcecontractproof cannottransfer silently."
+  },
+  "validation": "No plan, repair, projectexecution, finalclearance orcompletewave. Openfindings and allunreadotherlenses remain."
+}

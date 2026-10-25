@@ -1,0 +1,603 @@
+{
+  "id": "CONT03-NEW-MATERIAL-003",
+  "at": "2026-10-24T03:03:55.503780+00:00",
+  "rows": [
+    {
+      "registry_index": 21,
+      "source_id": "native-dependency:bevy_replicon-0.41.1/src/shared/replication/registry/rule_fns.rs",
+      "sha256": "07f3f73daff9344750ec08f54bd9acc8abec4a946040369ce1573c2b6a6b1073",
+      "ranges": [
+        [
+          40,
+          145
+        ],
+        [
+          162,
+          225
+        ]
+      ],
+      "registration_evidence": "root-native-codec-registration-001.json",
+      "invariant": "Native erased codec function association",
+      "admission_routes_and_positive_evidence": "From<RuleFns<C>> constructs TypeId/name and typed function callbacks together. New40\u201364 includes native restoration/conversion tail;170\u2013174 only new_diff signature/prefix. Remaining exact typed callback/default ranges adopted; no full unscoped restoration assertion.",
+      "representable_counterexample_and_limits": "Exact rootF52 codec capability failure remains. No arbitrary gameplay component admitted merely because genericSerialize/Deserialize bounds; TypeId/native schema contract and history policy retained.",
+      "source_body_evidence": [
+        {
+          "registry_index": 21,
+          "source_id": "native-dependency:bevy_replicon-0.41.1/src/shared/replication/registry/rule_fns.rs",
+          "sha256": "07f3f73daff9344750ec08f54bd9acc8abec4a946040369ce1573c2b6a6b1073",
+          "ranges": [
+            [
+              40,
+              145
+            ],
+            [
+              162,
+              225
+            ]
+          ],
+          "read_kind": "fresh personally read exact registered source ranges",
+          "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/07f3f73daff9344750ec08f54bd9acc8abec4a946040369ce1573c2b6a6b1073",
+          "contract": "CONT07-EXTENSION-CONTRACT-003",
+          "disposition": "independently reanalyzed07; exact qualifications retained in contract",
+          "other_lens_credit": false
+        }
+      ],
+      "fresh03_read": "Exact uncovered native ranges, reading661\u2013805 and coif222\u2013248/276\u2013294/381\u2013391 personally read; surrounding samehash material adopted03.",
+      "disposition": "accounted03 WITH existing findings and explicit limitations",
+      "connected_correction_and_acceptance": "Preserve actual native codec/canonical type or existing accepted authoring admission; do not flatten cause/substitute data or invent stricter numeric domain. Retain specific source/API conditions and existing fixtures without execution.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "other_lens_verdict_credit": false
+    },
+    {
+      "registry_index": 22,
+      "source_id": "native-dependency:bevy_replicon-0.41.1/src/shared/replication/rules.rs",
+      "sha256": "037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+      "ranges": [
+        [
+          1,
+          58
+        ],
+        [
+          262,
+          281
+        ],
+        [
+          890,
+          920
+        ]
+      ],
+      "registration_evidence": "root-native-codec-registration-001.json",
+      "invariant": "Native replication registration boundary",
+      "admission_routes_and_positive_evidence": "Additional280\u2013281 is method documentation/signature context;890\u2013900 native resource registration inserts required Replicated then delegates same registry. No new gameplay constructor/deserializer. Exact replicate_once/default-codec path retained from actual prior source bodies.",
+      "representable_counterexample_and_limits": "Schema hash/registration does not prove decoder capability; internal taggedcomponent rootF52 remains, with actual runtime receiving route and no execution.",
+      "source_body_evidence": [
+        {
+          "registry_index": 22,
+          "source_id": "native-dependency:bevy_replicon-0.41.1/src/shared/replication/rules.rs",
+          "sha256": "037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+          "ranges": [
+            [
+              1,
+              58
+            ],
+            [
+              262,
+              281
+            ],
+            [
+              890,
+              920
+            ]
+          ],
+          "read_kind": "fresh personally read exact registered source ranges",
+          "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/037067988f3a32a853119845258b674e601d60aaaf0891737d171b4e4229b6d6",
+          "contract": "CONT07-EXTENSION-CONTRACT-003",
+          "disposition": "independently reanalyzed07; exact qualifications retained in contract",
+          "other_lens_credit": false
+        }
+      ],
+      "fresh03_read": "Exact uncovered native ranges, reading661\u2013805 and coif222\u2013248/276\u2013294/381\u2013391 personally read; surrounding samehash material adopted03.",
+      "disposition": "accounted03 WITH existing findings and explicit limitations",
+      "connected_correction_and_acceptance": "Preserve actual native codec/canonical type or existing accepted authoring admission; do not flatten cause/substitute data or invent stricter numeric domain. Retain specific source/API conditions and existing fixtures without execution.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "other_lens_verdict_credit": false
+    },
+    {
+      "registry_index": 23,
+      "source_id": "native-dependency:postcard-1.1.3/src/de/deserializer.rs",
+      "sha256": "20f5ff69404628e4d765f58ceb91b6ac8879ce998aef6dfe49a2fdb2c5f20ac2",
+      "ranges": [
+        [
+          208,
+          236
+        ]
+      ],
+      "registration_evidence": "root-native-codec-registration-001.json",
+      "invariant": "Native codec explicit capability and boolean rejection",
+      "admission_routes_and_positive_evidence": "deserialize_any returns WontImplement; bool accepts only encoded0/1 and otherwise DeserializeBadBool, no arbitrary u8 accepted as bool. Current deserialize_nonhuman flag explicitfalse.",
+      "representable_counterexample_and_limits": "Finite/game value invariants remain underlying type Deserialize responsibility. Internally tagged Landform\u2192deserialize_any contradiction exactrootF52; no new unique finding or successfulnetwork claim.",
+      "source_body_evidence": [
+        {
+          "registry_index": 23,
+          "source_id": "native-dependency:postcard-1.1.3/src/de/deserializer.rs",
+          "sha256": "20f5ff69404628e4d765f58ceb91b6ac8879ce998aef6dfe49a2fdb2c5f20ac2",
+          "ranges": [
+            [
+              208,
+              236
+            ]
+          ],
+          "read_kind": "fresh personally read exact registered source ranges",
+          "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/20f5ff69404628e4d765f58ceb91b6ac8879ce998aef6dfe49a2fdb2c5f20ac2",
+          "contract": "CONT07-EXTENSION-CONTRACT-003",
+          "disposition": "independently reanalyzed07; exact qualifications retained in contract",
+          "other_lens_credit": false
+        }
+      ],
+      "fresh03_read": "Exact uncovered native ranges, reading661\u2013805 and coif222\u2013248/276\u2013294/381\u2013391 personally read; surrounding samehash material adopted03.",
+      "disposition": "accounted03 WITH existing findings and explicit limitations",
+      "connected_correction_and_acceptance": "Preserve actual native codec/canonical type or existing accepted authoring admission; do not flatten cause/substitute data or invent stricter numeric domain. Retain specific source/API conditions and existing fixtures without execution.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "other_lens_verdict_credit": false
+    },
+    {
+      "registry_index": 24,
+      "source_id": "native-dependency:serde_derive-1.0.229/src/de/enum_internally.rs",
+      "sha256": "9d898dbc1c46262f695ef7ba1660b2af70de48e07bbac8f44b740326b7c5b303",
+      "ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "registration_evidence": "root-native-codec-registration-001.json",
+      "invariant": "Generated internally tagged enum admission protocol",
+      "admission_routes_and_positive_evidence": "Serde derive filters skipped variants, builds canonical visitor then unconditionally deserialize_any; unit variants also dynamic visitor. Type-directed native protocol, no shadow gameplay type.",
+      "representable_counterexample_and_limits": "Postcard cannot perform this protocol; same admitted Rust enum values therefore fail actual native codec, existingrootF52 support. Preserve caller error/no fallback, no derive execution.",
+      "source_body_evidence": [
+        {
+          "registry_index": 24,
+          "source_id": "native-dependency:serde_derive-1.0.229/src/de/enum_internally.rs",
+          "sha256": "9d898dbc1c46262f695ef7ba1660b2af70de48e07bbac8f44b740326b7c5b303",
+          "ranges": [
+            [
+              1,
+              106
+            ]
+          ],
+          "read_kind": "fresh personally read exact registered source ranges",
+          "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/9d898dbc1c46262f695ef7ba1660b2af70de48e07bbac8f44b740326b7c5b303",
+          "contract": "CONT07-EXTENSION-CONTRACT-003",
+          "disposition": "independently reanalyzed07; exact qualifications retained in contract",
+          "other_lens_credit": false
+        }
+      ],
+      "fresh03_read": "Exact uncovered native ranges, reading661\u2013805 and coif222\u2013248/276\u2013294/381\u2013391 personally read; surrounding samehash material adopted03.",
+      "disposition": "accounted03 WITH existing findings and explicit limitations",
+      "connected_correction_and_acceptance": "Preserve actual native codec/canonical type or existing accepted authoring admission; do not flatten cause/substitute data or invent stricter numeric domain. Retain specific source/API conditions and existing fixtures without execution.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "other_lens_verdict_credit": false
+    },
+    {
+      "registry_index": 25,
+      "source_id": "native-dependency:bevy_replicon-0.41.1/src/postcard_utils.rs",
+      "sha256": "4a9f413f61885f1581e0a3ddadb2528459e45bd2ea029a7a08ad3b2ab085d537",
+      "ranges": [
+        [
+          120,
+          143
+        ]
+      ],
+      "registration_evidence": "root-native-codec-registration-001.json",
+      "invariant": "Native entity codec adapter",
+      "admission_routes_and_positive_evidence": "Fresh134\u2013143 entity_from_buf creates actual postcard deserializer and delegates compact_entity; preceding from_buf120\u2013133 same-lens adopted. NativeEntity wirecodec differs gameCharacterId.",
+      "representable_counterexample_and_limits": "No new application all-route guarantee or independent entity model; preserve exact componentmap/sourceassociation. ExistingrootF52 from_buf source proof remains; bytecursor/Entitycodec native.",
+      "source_body_evidence": [
+        {
+          "registry_index": 25,
+          "source_id": "native-dependency:bevy_replicon-0.41.1/src/postcard_utils.rs",
+          "sha256": "4a9f413f61885f1581e0a3ddadb2528459e45bd2ea029a7a08ad3b2ab085d537",
+          "ranges": [
+            [
+              120,
+              143
+            ]
+          ],
+          "read_kind": "fresh personally read exact registered source ranges",
+          "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/4a9f413f61885f1581e0a3ddadb2528459e45bd2ea029a7a08ad3b2ab085d537",
+          "contract": "CONT07-EXTENSION-CONTRACT-003",
+          "disposition": "independently reanalyzed07; exact qualifications retained in contract",
+          "other_lens_credit": false
+        }
+      ],
+      "fresh03_read": "Exact uncovered native ranges, reading661\u2013805 and coif222\u2013248/276\u2013294/381\u2013391 personally read; surrounding samehash material adopted03.",
+      "disposition": "accounted03 WITH existing findings and explicit limitations",
+      "connected_correction_and_acceptance": "Preserve actual native codec/canonical type or existing accepted authoring admission; do not flatten cause/substitute data or invent stricter numeric domain. Retain specific source/API conditions and existing fixtures without execution.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "other_lens_verdict_credit": false
+    },
+    {
+      "registry_index": 28,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/bracer_wgsl.rs",
+      "sha256": "4d241c6f7e175f29b96322988a5847431b5894612786ac6173cabb719b9642c9",
+      "ranges": [
+        [
+          1,
+          426
+        ]
+      ],
+      "registration_evidence": "redundant-authority/prospective-source-registration-016.json",
+      "invariant": "Actual generated/native WGSL kernel source, host layout/coded parameter association required; not a new Rust accepted gameplay value.",
+      "admission_routes_and_positive_evidence": "Rust constants/String builders compose static bindings and canonical host constants/codes. No Deserialize/reflection/builder route for application bespoke leaf added. Shader float/vector/index words are actual device representation; source/body read at exact registered ranges in own07 and reanalyzed independently03, with fresh header/tail/native builder confirmation.",
+      "representable_counterexample_and_limits": "Arbitrary raw GPU words or inconsistent buffers can violate kernel input contract; keep host admission, layout/capacity/source product obligations and inherited API-only image-density/group-domain/signed-zero findings. Do not infer normal producer invalid or force unit/positive restrictions on signed coordinates, empty counts or dimensionless ratios. This is actual native-port reasoning, not blanket shader-module exemption.",
+      "source_body_evidence": [
+        {
+          "registry_index": 28,
+          "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/bracer_wgsl.rs",
+          "sha256": "4d241c6f7e175f29b96322988a5847431b5894612786ac6173cabb719b9642c9",
+          "ranges": [
+            [
+              1,
+              426
+            ]
+          ],
+          "read_kind": "exact own07 prior registered body evidence reused",
+          "reuse_reference": "CONT07-REG-016",
+          "contract": "CONT07-CONTRACT-501",
+          "disposition": "registered full source personally read07; no other-lens credit",
+          "other_lens_credit": false,
+          "no_original_unique_increment": true
+        }
+      ],
+      "specific_shared_source_limits": "Bracer fixed sample/layout constants and deterministic folds; whole domain/name/vertex association remains.",
+      "disposition": "accounted03 native boundary WITH existing source/host-admission obligations",
+      "connected_correction_and_acceptance": "Preserve canonical host parameter/source/layout products and structured native failure; no accepted device capability merely because host enum admits a variant. Match actual GPU kernel contract at input adapter before invocation, no new equivalent game wrappers in WGSL.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "other_lens_verdict_credit": false
+    },
+    {
+      "registry_index": 29,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/bracer_contour_wgsl.rs",
+      "sha256": "1dcc2d531a53792a6bf2d8a1725d0aa2e081cd60bb86247bf5146588d32f16a4",
+      "ranges": [
+        [
+          1,
+          266
+        ]
+      ],
+      "registration_evidence": "redundant-authority/prospective-source-registration-017.json",
+      "invariant": "Actual generated/native WGSL kernel source, host layout/coded parameter association required; not a new Rust accepted gameplay value.",
+      "admission_routes_and_positive_evidence": "Rust constants/String builders compose static bindings and canonical host constants/codes. No Deserialize/reflection/builder route for application bespoke leaf added. Shader float/vector/index words are actual device representation; source/body read at exact registered ranges in own07 and reanalyzed independently03, with fresh header/tail/native builder confirmation.",
+      "representable_counterexample_and_limits": "Arbitrary raw GPU words or inconsistent buffers can violate kernel input contract; keep host admission, layout/capacity/source product obligations and inherited API-only image-density/group-domain/signed-zero findings. Do not infer normal producer invalid or force unit/positive restrictions on signed coordinates, empty counts or dimensionless ratios. This is actual native-port reasoning, not blanket shader-module exemption.",
+      "source_body_evidence": [
+        {
+          "registry_index": 29,
+          "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/bracer_contour_wgsl.rs",
+          "sha256": "1dcc2d531a53792a6bf2d8a1725d0aa2e081cd60bb86247bf5146588d32f16a4",
+          "ranges": [
+            [
+              1,
+              266
+            ]
+          ],
+          "read_kind": "exact own07 prior registered body evidence reused",
+          "reuse_reference": "CONT07-REG-017",
+          "contract": "CONT07-CONTRACT-501",
+          "disposition": "registered full source personally read07; no other-lens credit",
+          "other_lens_credit": false,
+          "no_original_unique_increment": true
+        }
+      ],
+      "specific_shared_source_limits": "Contour row and crossings require admitted source mesh and capacity; degenerate gap policy operation question.",
+      "disposition": "accounted03 native boundary WITH existing source/host-admission obligations",
+      "connected_correction_and_acceptance": "Preserve canonical host parameter/source/layout products and structured native failure; no accepted device capability merely because host enum admits a variant. Match actual GPU kernel contract at input adapter before invocation, no new equivalent game wrappers in WGSL.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "other_lens_verdict_credit": false
+    },
+    {
+      "registry_index": 30,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/chart/chart_wgsl.rs",
+      "sha256": "2b31c7fe9b829a50fc2c3411ebf7f12d06a54f079f88b86c4cf1165c17e6bb80",
+      "ranges": [
+        [
+          1,
+          226
+        ]
+      ],
+      "registration_evidence": "redundant-authority/prospective-source-registration-018.json",
+      "invariant": "Actual generated/native WGSL kernel source, host layout/coded parameter association required; not a new Rust accepted gameplay value.",
+      "admission_routes_and_positive_evidence": "Rust constants/String builders compose static bindings and canonical host constants/codes. No Deserialize/reflection/builder route for application bespoke leaf added. Shader float/vector/index words are actual device representation; source/body read at exact registered ranges in own07 and reanalyzed independently03, with fresh header/tail/native builder confirmation.",
+      "representable_counterexample_and_limits": "Arbitrary raw GPU words or inconsistent buffers can violate kernel input contract; keep host admission, layout/capacity/source product obligations and inherited API-only image-density/group-domain/signed-zero findings. Do not infer normal producer invalid or force unit/positive restrictions on signed coordinates, empty counts or dimensionless ratios. This is actual native-port reasoning, not blanket shader-module exemption.",
+      "source_body_evidence": [
+        {
+          "registry_index": 30,
+          "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/chart/chart_wgsl.rs",
+          "sha256": "2b31c7fe9b829a50fc2c3411ebf7f12d06a54f079f88b86c4cf1165c17e6bb80",
+          "ranges": [
+            [
+              1,
+              226
+            ]
+          ],
+          "read_kind": "exact own07 prior registered body evidence reused",
+          "reuse_reference": "CONT07-REG-018",
+          "contract": "CONT07-CONTRACT-502",
+          "disposition": "registered full source personally read07; no other-lens credit",
+          "other_lens_credit": false,
+          "no_original_unique_increment": true
+        }
+      ],
+      "specific_shared_source_limits": "Chart nativeParams/hostframe/layout; source coordinate is not genericunitprobability.",
+      "disposition": "accounted03 native boundary WITH existing source/host-admission obligations",
+      "connected_correction_and_acceptance": "Preserve canonical host parameter/source/layout products and structured native failure; no accepted device capability merely because host enum admits a variant. Match actual GPU kernel contract at input adapter before invocation, no new equivalent game wrappers in WGSL.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "other_lens_verdict_credit": false
+    },
+    {
+      "registry_index": 32,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/helmet/shape.rs",
+      "sha256": "97e23604f5ed995bc4d619d8e37747acc42671ba34e7236a8184b1e3d175a35d",
+      "ranges": [
+        [
+          1,
+          539
+        ]
+      ],
+      "registration_evidence": "redundant-authority/prospective-source-registration-020.json",
+      "invariant": "Actual generated/native WGSL kernel source, host layout/coded parameter association required; not a new Rust accepted gameplay value.",
+      "admission_routes_and_positive_evidence": "Rust constants/String builders compose static bindings and canonical host constants/codes. No Deserialize/reflection/builder route for application bespoke leaf added. Shader float/vector/index words are actual device representation; source/body read at exact registered ranges in own07 and reanalyzed independently03, with fresh header/tail/native builder confirmation.",
+      "representable_counterexample_and_limits": "Arbitrary raw GPU words or inconsistent buffers can violate kernel input contract; keep host admission, layout/capacity/source product obligations and inherited API-only image-density/group-domain/signed-zero findings. Do not infer normal producer invalid or force unit/positive restrictions on signed coordinates, empty counts or dimensionless ratios. This is actual native-port reasoning, not blanket shader-module exemption.",
+      "source_body_evidence": [
+        {
+          "registry_index": 32,
+          "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/helmet/shape.rs",
+          "sha256": "97e23604f5ed995bc4d619d8e37747acc42671ba34e7236a8184b1e3d175a35d",
+          "ranges": [
+            [
+              1,
+              539
+            ]
+          ],
+          "read_kind": "exact own07 prior registered body evidence reused",
+          "reuse_reference": "CONT07-REG-020",
+          "contract": "CONT07-CONTRACT-502",
+          "disposition": "registered full source personally read07; no other-lens credit",
+          "other_lens_credit": false,
+          "no_original_unique_increment": true
+        }
+      ],
+      "specific_shared_source_limits": "Helmet Slot/VertexKind/PostMap/CheekRow generated fromcanonicalmacro, currentnormaldesignbounds remain.",
+      "disposition": "accounted03 native boundary WITH existing source/host-admission obligations",
+      "connected_correction_and_acceptance": "Preserve canonical host parameter/source/layout products and structured native failure; no accepted device capability merely because host enum admits a variant. Match actual GPU kernel contract at input adapter before invocation, no new equivalent game wrappers in WGSL.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "other_lens_verdict_credit": false
+    },
+    {
+      "registry_index": 33,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/wgsl/common.rs",
+      "sha256": "ffd989fed5f4bc512ee53fc408db1d2ecb6bcd81464b5c3eecc8ce4e4eef71e0",
+      "ranges": [
+        [
+          1,
+          446
+        ]
+      ],
+      "registration_evidence": "redundant-authority/prospective-source-registration-021.json",
+      "invariant": "Actual generated/native WGSL kernel source, host layout/coded parameter association required; not a new Rust accepted gameplay value.",
+      "admission_routes_and_positive_evidence": "Rust constants/String builders compose static bindings and canonical host constants/codes. No Deserialize/reflection/builder route for application bespoke leaf added. Shader float/vector/index words are actual device representation; source/body read at exact registered ranges in own07 and reanalyzed independently03, with fresh header/tail/native builder confirmation.",
+      "representable_counterexample_and_limits": "Arbitrary raw GPU words or inconsistent buffers can violate kernel input contract; keep host admission, layout/capacity/source product obligations and inherited API-only image-density/group-domain/signed-zero findings. Do not infer normal producer invalid or force unit/positive restrictions on signed coordinates, empty counts or dimensionless ratios. This is actual native-port reasoning, not blanket shader-module exemption.",
+      "source_body_evidence": [
+        {
+          "registry_index": 33,
+          "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/wgsl/common.rs",
+          "sha256": "ffd989fed5f4bc512ee53fc408db1d2ecb6bcd81464b5c3eecc8ce4e4eef71e0",
+          "ranges": [
+            [
+              1,
+              446
+            ]
+          ],
+          "read_kind": "exact own07 prior registered body evidence reused",
+          "reuse_reference": "CONT07-REG-021",
+          "contract": "CONT07-CONTRACT-525",
+          "disposition": "registered fullsourcepersonallyread07; nootherlenscredit",
+          "other_lens_credit": false,
+          "no_original_unique_increment": true
+        }
+      ],
+      "specific_shared_source_limits": "GPU negativegroup sentinel actualadapter; signedzero collider source/APIcandidate no ordinaryruntimeclaim.",
+      "disposition": "accounted03 native boundary WITH existing source/host-admission obligations",
+      "connected_correction_and_acceptance": "Preserve canonical host parameter/source/layout products and structured native failure; no accepted device capability merely because host enum admits a variant. Match actual GPU kernel contract at input adapter before invocation, no new equivalent game wrappers in WGSL.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "other_lens_verdict_credit": false
+    },
+    {
+      "registry_index": 34,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/wgsl/groom.rs",
+      "sha256": "955f005be356cd5dac7fef18bd1c669d248c1fdf2632f5a787a7b10222be2ae2",
+      "ranges": [
+        [
+          1,
+          1609
+        ]
+      ],
+      "registration_evidence": "redundant-authority/prospective-source-registration-022.json",
+      "invariant": "Actual generated/native WGSL kernel source, host layout/coded parameter association required; not a new Rust accepted gameplay value.",
+      "admission_routes_and_positive_evidence": "Rust constants/String builders compose static bindings and canonical host constants/codes. No Deserialize/reflection/builder route for application bespoke leaf added. Shader float/vector/index words are actual device representation; source/body read at exact registered ranges in own07 and reanalyzed independently03, with fresh header/tail/native builder confirmation.",
+      "representable_counterexample_and_limits": "Arbitrary raw GPU words or inconsistent buffers can violate kernel input contract; keep host admission, layout/capacity/source product obligations and inherited API-only image-density/group-domain/signed-zero findings. Do not infer normal producer invalid or force unit/positive restrictions on signed coordinates, empty counts or dimensionless ratios. This is actual native-port reasoning, not blanket shader-module exemption.",
+      "source_body_evidence": [
+        {
+          "registry_index": 34,
+          "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/wgsl/groom.rs",
+          "sha256": "955f005be356cd5dac7fef18bd1c669d248c1fdf2632f5a787a7b10222be2ae2",
+          "ranges": [
+            [
+              1,
+              1609
+            ]
+          ],
+          "read_kind": "exact own07 prior registered body evidence reused",
+          "reuse_reference": "CONT07-REG-022",
+          "contract": "CONT07-CONTRACT-525",
+          "disposition": "registered fullsourcepersonallyread07; nootherlenscredit",
+          "other_lens_credit": false,
+          "no_original_unique_increment": true
+        }
+      ],
+      "specific_shared_source_limits": "ImageDensity unsupportedGPU versusCPUgeneric exact07F110/09F080 APIalias, normalUniform/Balding qualified.",
+      "disposition": "accounted03 native boundary WITH existing source/host-admission obligations",
+      "connected_correction_and_acceptance": "Preserve canonical host parameter/source/layout products and structured native failure; no accepted device capability merely because host enum admits a variant. Match actual GPU kernel contract at input adapter before invocation, no new equivalent game wrappers in WGSL.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "other_lens_verdict_credit": false
+    },
+    {
+      "registry_index": 35,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/wgsl/guides.rs",
+      "sha256": "bcd60aee22ae82fae270b38599aca660f0432c0a6baf72d58241a88da4cfa840",
+      "ranges": [
+        [
+          1,
+          1129
+        ]
+      ],
+      "registration_evidence": "redundant-authority/prospective-source-registration-023.json",
+      "invariant": "Actual generated/native WGSL kernel source, host layout/coded parameter association required; not a new Rust accepted gameplay value.",
+      "admission_routes_and_positive_evidence": "Rust constants/String builders compose static bindings and canonical host constants/codes. No Deserialize/reflection/builder route for application bespoke leaf added. Shader float/vector/index words are actual device representation; source/body read at exact registered ranges in own07 and reanalyzed independently03, with fresh header/tail/native builder confirmation.",
+      "representable_counterexample_and_limits": "Arbitrary raw GPU words or inconsistent buffers can violate kernel input contract; keep host admission, layout/capacity/source product obligations and inherited API-only image-density/group-domain/signed-zero findings. Do not infer normal producer invalid or force unit/positive restrictions on signed coordinates, empty counts or dimensionless ratios. This is actual native-port reasoning, not blanket shader-module exemption.",
+      "source_body_evidence": [
+        {
+          "registry_index": 35,
+          "source_id": "pr-working:crates/fabelgeist-hair/src/gpu/wgsl/guides.rs",
+          "sha256": "bcd60aee22ae82fae270b38599aca660f0432c0a6baf72d58241a88da4cfa840",
+          "ranges": [
+            [
+              1,
+              1129
+            ]
+          ],
+          "read_kind": "exact own07 prior registered body evidence reused",
+          "reuse_reference": "CONT07-REG-023",
+          "contract": "CONT07-CONTRACT-527",
+          "disposition": "registered fullsourcepersonallyread07; nootherlenscredit",
+          "other_lens_credit": false,
+          "no_original_unique_increment": true
+        }
+      ],
+      "specific_shared_source_limits": "Groupclamp/capacity exact07F111 distinct09map/interpolation; normalpresets0..2 qualified.",
+      "disposition": "accounted03 native boundary WITH existing source/host-admission obligations",
+      "connected_correction_and_acceptance": "Preserve canonical host parameter/source/layout products and structured native failure; no accepted device capability merely because host enum admits a variant. Match actual GPU kernel contract at input adapter before invocation, no new equivalent game wrappers in WGSL.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "other_lens_verdict_credit": false
+    },
+    {
+      "registry_index": 39,
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+      "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+      "ranges": [
+        [
+          661,
+          805
+        ]
+      ],
+      "registration_evidence": "redundant-authority/prospective-source-registration-027.json",
+      "invariant": "Private reading preview, existing catalogue admission",
+      "admission_routes_and_positive_evidence": "Fresh661\u2013805 completes existing with_reading body and effective_schedule. Catalogue filter constructs BookCandidate from canonical admitted item/book, personal or stockedcontext, actualreadable rank/aptitude gate, canonical select/rank_band/rate. effective schedule zeros ineligible organizationminute fields before commonpreview.",
+      "representable_counterexample_and_limits": "No new public constructor/Serde/reflection route; raw incoming native skills/profile/schedule retain inherited admission issues, and local eligibility agreement with nativepolicy remains source question. NaN comparisons fail candidate gate rather than prove allinputfinite. Valid zero realized minutes preserved; no ordinary brokenbook claimed.",
+      "source_body_evidence": [
+        {
+          "registry_index": 39,
+          "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills.rs",
+          "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+          "ranges": [
+            [
+              661,
+              805
+            ]
+          ],
+          "read_kind": "exact own07 prior registered body evidence reused",
+          "reuse_reference": "CONT07-REG-027",
+          "contract": "CONT07-CONTRACT-550",
+          "disposition": "registered before actual07 body analysis",
+          "other_lens_credit": false,
+          "no_original_unique_increment": true
+        }
+      ],
+      "fresh03_read": "Exact uncovered native ranges, reading661\u2013805 and coif222\u2013248/276\u2013294/381\u2013391 personally read; surrounding samehash material adopted03.",
+      "disposition": "accounted03 WITH existing findings and explicit limitations",
+      "connected_correction_and_acceptance": "Preserve actual native codec/canonical type or existing accepted authoring admission; do not flatten cause/substitute data or invent stricter numeric domain. Retain specific source/API conditions and existing fixtures without execution.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "other_lens_verdict_credit": false
+    },
+    {
+      "registry_index": 41,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/helmets.rs",
+      "sha256": "7d1c8a8edd1deaaf9419984a9301b0fc7f3679b8e2f45ad8492a63d3c9df9a42",
+      "ranges": [
+        [
+          222,
+          248
+        ],
+        [
+          276,
+          294
+        ],
+        [
+          381,
+          391
+        ]
+      ],
+      "registration_evidence": "redundant-authority/prospective-source-registration-029.json",
+      "invariant": "Public raw coif design and contextual validate branch",
+      "admission_routes_and_positive_evidence": "CoifDesign publicfields derivesSerde, defaults use8/4mm fit, neck1000, flaps110/130mm,width1000. HelmetDesign::catalog constructs normaldefaults. Newly reachedvalidate branch checks neck800..1100,front60..150,back70..170,width750..1200; CloseHelmet validate_shape branch retained.",
+      "representable_counterexample_and_limits": "Leaf Millimeters/Permille and derivedSerde alone do not seal contextual design invariants; raw design is authoring input and generator/validate boundary remains actualacceptedgate. Public neck0 is representable but rejected by contextualvalidator. Keep inheritedrawdesign/API/receiver qualifications; no ordinarydefaultbadcoif ornewunique finding inferred.",
+      "source_body_evidence": [
+        {
+          "registry_index": 41,
+          "source_id": "pr-working:crates/fabelgeist-armor/src/helmets.rs",
+          "sha256": "7d1c8a8edd1deaaf9419984a9301b0fc7f3679b8e2f45ad8492a63d3c9df9a42",
+          "ranges": [
+            [
+              222,
+              248
+            ],
+            [
+              276,
+              294
+            ],
+            [
+              381,
+              391
+            ]
+          ],
+          "read_kind": "exact own07 prior registered body evidence reused",
+          "reuse_reference": "CONT07-REG-029",
+          "contract": "CONT07-CONTRACT-603",
+          "disposition": "registered-before-body-read",
+          "other_lens_credit": false,
+          "no_original_unique_increment": true
+        }
+      ],
+      "fresh03_read": "Exact uncovered native ranges, reading661\u2013805 and coif222\u2013248/276\u2013294/381\u2013391 personally read; surrounding samehash material adopted03.",
+      "disposition": "accounted03 WITH existing findings and explicit limitations",
+      "connected_correction_and_acceptance": "Preserve actual native codec/canonical type or existing accepted authoring admission; do not flatten cause/substitute data or invent stricter numeric domain. Retain specific source/API conditions and existing fixtures without execution.",
+      "repair": "frozen",
+      "validation": "not_run",
+      "other_lens_verdict_credit": false
+    }
+  ],
+  "baseline": "Adopted completed03 and38merged; only additional material",
+  "limits": "Source-body reuse distinguished from fresh reads; independent03 reasoning, no coverage/verdict transfer or execution."
+}

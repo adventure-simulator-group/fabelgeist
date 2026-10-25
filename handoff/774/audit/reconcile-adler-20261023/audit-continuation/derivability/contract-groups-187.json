@@ -1,0 +1,663 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-187",
+  "at": "2026-10-25T13:25:43.077310+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 365,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+      "sha256": "2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+      "actual_EOF": 438,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+        "snapshot": "physical-p16",
+        "path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-core\\src\\scene_input\\buildings.rs",
+        "sha256": "2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+        "bytes": 16151,
+        "actual_line_count": 438,
+        "scope_kind": "materially_reached_existing_owner_definition",
+        "audit_owner": "rig",
+        "material_ranges": [
+          [
+            155,
+            200
+          ]
+        ],
+        "scope_limits": "Actual retained SceneDoor geometry field definition needed by P16 grab-world source/use comparison. No whole-file, other-lens or byte-equality credit.",
+        "scope_extension_authority": "Root explicitly accepted Rig registered owner-definition dependency before actual body comparison.",
+        "owner_fit_delta_status": "incomplete_scoped_before_definition_comparison",
+        "producer_inventory_accounting": {
+          "status": "incomplete_new_owner_reached_contract_supplement_before_admission",
+          "initial2473_completion": "preserved only exact prior roles"
+        },
+        "source_or_other_lens_credit": "none from metadata registration",
+        "producer_followup_scope_additions": [
+          {
+            "authority": "continuation/root/producer-scope-extension-authority-022.json",
+            "candidate_record": "continuation/native/producer-registry-reconciliation/candidate-002.json",
+            "registered_before_body_analysis": [
+              {
+                "registry": "continuation/rig/owner-reached-producer-followup/additional-sources.jsonl",
+                "row_1based": 2,
+                "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-002",
+                "supplier": "rig",
+                "original_record": {
+                  "id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-002",
+                  "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+                  "sha256": "2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+                  "requested_ranges": [
+                    [
+                      214,
+                      221
+                    ]
+                  ],
+                  "reason": "Actual SceneDoorError wrapper fields/sourcecause needed for alreadyread Deserialize error recipient204\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153209; next GeneratedBuilding223+ excluded.",
+                  "status": "pre_read_registration_pending_root",
+                  "new_variant": false
+                },
+                "per_registration_qualification": {
+                  "registry": "continuation/rig/owner-reached-producer-followup/source-qualifications.jsonl",
+                  "row_1based": 2,
+                  "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-002",
+                  "supplier": "rig",
+                  "original_record": {
+                    "id": "RIG-OWNER-REACHED-PRODUCER-SOURCE-QUALIFICATION-002",
+                    "registration_ref": "additional-sources.jsonl#line=2",
+                    "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-002",
+                    "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+                    "snapshot": "p16",
+                    "sha256": "2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+                    "actual_EOF": 438,
+                    "original_registered_ranges": [
+                      [
+                        214,
+                        221
+                      ]
+                    ],
+                    "qualified_material_ranges": [
+                      [
+                        214,
+                        221
+                      ]
+                    ],
+                    "body_proof": "fresh bounded current producer source read after applicable prospective authorization; no owner verdict/hash carry",
+                    "qualification": "Only exact registered role; original exclusions preserved.",
+                    "scope_and_owner_gate": "Root authoritative global reconciliation and necessary owner delta pending; no other lens/repair credit",
+                    "authority": "Root global007/overlays018/019 acknowledged before source body read."
+                  }
+                },
+                "effective_registration_material_ranges": [
+                  [
+                    214,
+                    221
+                  ]
+                ],
+                "proof_classification": "actual_proof_registration_subject_to_separate_producer_acceptance",
+                "independent_producer_proof": true
+              },
+              {
+                "registry": "continuation/rig/owner-reached-producer-followup/additional-sources.jsonl",
+                "row_1based": 39,
+                "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-039",
+                "supplier": "rig",
+                "original_record": {
+                  "id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-039",
+                  "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+                  "snapshot": "p16",
+                  "sha256": "2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+                  "actual_EOF": 438,
+                  "material_ranges": [
+                    [
+                      22,
+                      106
+                    ]
+                  ],
+                  "reached_role": "CollisionCentreDatum::new/native_transform and CityGate::door actual BuildingOrientation finite-yaw authority/native direction/Serde; exact record/impl/codec required, other generated-building fields107\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153154 excluded.",
+                  "why_existing_proof_insufficient": "Direct typed datum/orientation definition reached in exact current leaf producer; PR source evidence does not automatically prove P16 role.",
+                  "authority": "continuation/root/producer-scope-extension-authority-022.json",
+                  "status": "locally_registered_before_actual_body_analysis",
+                  "new_variant": false
+                },
+                "per_registration_qualification": {
+                  "registry": "continuation/rig/owner-reached-producer-followup/source-qualifications.jsonl",
+                  "row_1based": 39,
+                  "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-039",
+                  "supplier": "rig",
+                  "original_record": {
+                    "id": "RIG-OWNER-REACHED-PRODUCER-SOURCE-QUALIFICATION-039",
+                    "registration_ref": "additional-sources.jsonl#line=39",
+                    "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-039",
+                    "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+                    "snapshot": "p16",
+                    "sha256": "2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+                    "actual_EOF": 438,
+                    "original_registered_ranges": [
+                      [
+                        22,
+                        106
+                      ]
+                    ],
+                    "qualified_material_ranges": [
+                      [
+                        27,
+                        85
+                      ]
+                    ],
+                    "body_proof": "fresh bounded current producer source read after applicable prospective authorization; no owner verdict/hash carry",
+                    "qualification": "22\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u015326 navigation; world_to_local87\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u015394 and TacticalBuildingPlacement96\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153106 displayed but no role/owner credit.",
+                    "scope_and_owner_gate": "Root authoritative global reconciliation and necessary owner delta pending; no other lens/repair credit"
+                  }
+                },
+                "effective_registration_material_ranges": [
+                  [
+                    27,
+                    85
+                  ]
+                ],
+                "proof_classification": "actual_proof_registration_subject_to_separate_producer_acceptance",
+                "independent_producer_proof": true
+              },
+              {
+                "registry": "continuation/rig/owner-reached-producer-followup/additional-sources.jsonl",
+                "row_1based": 47,
+                "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-047",
+                "supplier": "rig",
+                "original_record": {
+                  "id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-047",
+                  "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+                  "snapshot": "p16",
+                  "sha256": "2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+                  "actual_EOF": 438,
+                  "material_ranges": [
+                    [
+                      1,
+                      21
+                    ]
+                  ],
+                  "reached_role": "Actual SceneBuildingId declaration and imported OpeningAssemblyId used by assigned SceneDoor/Window IDs and material/visibility/log recipients; exact source native record identity only.",
+                  "why_existing_proof_insufficient": "Complete directly reached current typed identity definition/function tail required, no implicit same-file credit.",
+                  "authority": "continuation/root/producer-scope-extension-authority-022.json",
+                  "status": "locally_registered_before_actual_body_analysis",
+                  "new_variant": false
+                },
+                "per_registration_qualification": {
+                  "registry": "continuation/rig/owner-reached-producer-followup/source-qualifications.jsonl",
+                  "row_1based": 47,
+                  "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-047",
+                  "supplier": "rig",
+                  "original_record": {
+                    "id": "RIG-OWNER-REACHED-PRODUCER-SOURCE-QUALIFICATION-047",
+                    "registration_ref": "additional-sources.jsonl#line=47",
+                    "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-047",
+                    "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+                    "snapshot": "p16",
+                    "sha256": "2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+                    "actual_EOF": 438,
+                    "original_registered_ranges": [
+                      [
+                        1,
+                        21
+                      ]
+                    ],
+                    "qualified_material_ranges": [
+                      [
+                        1,
+                        21
+                      ]
+                    ],
+                    "body_proof": "fresh bounded current producer source read after applicable prospective authorization; no owner verdict/hash carry",
+                    "qualification": "Only exact registered role; original exclusions preserved.",
+                    "scope_and_owner_gate": "Root authoritative global reconciliation and necessary owner delta pending; no other lens/repair credit"
+                  }
+                },
+                "effective_registration_material_ranges": [
+                  [
+                    1,
+                    21
+                  ]
+                ],
+                "proof_classification": "actual_proof_registration_subject_to_separate_producer_acceptance",
+                "independent_producer_proof": true
+              }
+            ],
+            "effective_local_material_ranges": [
+              [
+                1,
+                21
+              ],
+              [
+                27,
+                85
+              ],
+              [
+                214,
+                221
+              ]
+            ],
+            "qualification_refs": [
+              {
+                "registry": "continuation/rig/owner-reached-producer-followup/source-qualifications.jsonl",
+                "row_1based": 2,
+                "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-002",
+                "supplier": "rig",
+                "original_record": {
+                  "id": "RIG-OWNER-REACHED-PRODUCER-SOURCE-QUALIFICATION-002",
+                  "registration_ref": "additional-sources.jsonl#line=2",
+                  "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-002",
+                  "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+                  "snapshot": "p16",
+                  "sha256": "2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+                  "actual_EOF": 438,
+                  "original_registered_ranges": [
+                    [
+                      214,
+                      221
+                    ]
+                  ],
+                  "qualified_material_ranges": [
+                    [
+                      214,
+                      221
+                    ]
+                  ],
+                  "body_proof": "fresh bounded current producer source read after applicable prospective authorization; no owner verdict/hash carry",
+                  "qualification": "Only exact registered role; original exclusions preserved.",
+                  "scope_and_owner_gate": "Root authoritative global reconciliation and necessary owner delta pending; no other lens/repair credit",
+                  "authority": "Root global007/overlays018/019 acknowledged before source body read."
+                }
+              },
+              {
+                "registry": "continuation/rig/owner-reached-producer-followup/source-qualifications.jsonl",
+                "row_1based": 39,
+                "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-039",
+                "supplier": "rig",
+                "original_record": {
+                  "id": "RIG-OWNER-REACHED-PRODUCER-SOURCE-QUALIFICATION-039",
+                  "registration_ref": "additional-sources.jsonl#line=39",
+                  "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-039",
+                  "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+                  "snapshot": "p16",
+                  "sha256": "2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+                  "actual_EOF": 438,
+                  "original_registered_ranges": [
+                    [
+                      22,
+                      106
+                    ]
+                  ],
+                  "qualified_material_ranges": [
+                    [
+                      27,
+                      85
+                    ]
+                  ],
+                  "body_proof": "fresh bounded current producer source read after applicable prospective authorization; no owner verdict/hash carry",
+                  "qualification": "22\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u015326 navigation; world_to_local87\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u015394 and TacticalBuildingPlacement96\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153106 displayed but no role/owner credit.",
+                  "scope_and_owner_gate": "Root authoritative global reconciliation and necessary owner delta pending; no other lens/repair credit"
+                }
+              },
+              {
+                "registry": "continuation/rig/owner-reached-producer-followup/source-qualifications.jsonl",
+                "row_1based": 47,
+                "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-047",
+                "supplier": "rig",
+                "original_record": {
+                  "id": "RIG-OWNER-REACHED-PRODUCER-SOURCE-QUALIFICATION-047",
+                  "registration_ref": "additional-sources.jsonl#line=47",
+                  "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-047",
+                  "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+                  "snapshot": "p16",
+                  "sha256": "2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+                  "actual_EOF": 438,
+                  "original_registered_ranges": [
+                    [
+                      1,
+                      21
+                    ]
+                  ],
+                  "qualified_material_ranges": [
+                    [
+                      1,
+                      21
+                    ]
+                  ],
+                  "body_proof": "fresh bounded current producer source read after applicable prospective authorization; no owner verdict/hash carry",
+                  "qualification": "Only exact registered role; original exclusions preserved.",
+                  "scope_and_owner_gate": "Root authoritative global reconciliation and necessary owner delta pending; no other lens/repair credit"
+                }
+              }
+            ],
+            "scope_limits": "Every original registration/role/caller/reason remains embedded independently. Byte overlap is not semantic role coverage, producer acceptance, owner-fit acceptance or edit ownership. none; Native qualifications trim local supplier roles only, never historical global scope.",
+            "producer_discovery": "separate actual source/recipient packet acceptance required",
+            "owner_fit": "pending exact new-role delta against owner019",
+            "source_or_other_lens_credit": "none from scope bookkeeping"
+          }
+        ],
+        "admission03_increment046_role_observations": [
+          {
+            "supplier": "rig",
+            "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+            "row_1based": 28,
+            "registration_id": "RIG-ADMISSION03-REGISTER-028",
+            "original_record": {
+              "id": "RIG-ADMISSION03-REGISTER-028",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+              "snapshot": "physical-p16",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-core\\src\\scene_input\\buildings.rs",
+              "sha256": "2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+              "actual_EOF": 438,
+              "material_ranges": [
+                [
+                  149,
+                  154
+                ]
+              ],
+              "reason": "Scoped155\u2013158 record fields lack declaration/derive/visibility header; direct missing parent record admission-route metadata only. Door155\u2013221 and orientation27\u201385 already scoped.",
+              "exclusions": "Unrelated building placement/validation excluded",
+              "status": "prospectively_registered_before_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "RIG-ADMISSION03-QUALIFICATION-REG028",
+                "registration": "RIG-ADMISSION03-REGISTER-028",
+                "original_ranges": [
+                  [
+                    149,
+                    154
+                  ]
+                ],
+                "material_ranges": [
+                  [
+                    151,
+                    154
+                  ]
+                ],
+                "qualification": "149\u2013150 preceding function tail/blank context only, no unrelated role credit; exact SceneBuilding attached derive/visibility header."
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                151,
+                154
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-core\\src\\scene_input\\buildings.rs",
+            "actual_EOF": 438,
+            "bytes": 16151
+          }
+        ],
+        "admission03_increment050_role_observations": [
+          {
+            "supplier": "rig",
+            "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+            "row_1based": 133,
+            "registration_id": "RIG-ADMISSION03-REG-133",
+            "original_record": {
+              "id": "RIG-ADMISSION03-REG-133",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+              "snapshot": "p16",
+              "path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-core\\src\\scene_input\\buildings.rs",
+              "sha256": "2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+              "actual_eof": 438,
+              "ranges": [
+                [
+                  25,
+                  94
+                ]
+              ],
+              "material_caller": "q783/786 canonical BuildingOrientation construction/manualSerde/opaqueReflection beforedatum",
+              "reason": "Explicit concrete direct lower admission/helper obligation; prospective before actual body/currentcounterpart comparison.",
+              "exclusions": "Only reached constructor/helper/decoder roles, no unrelated production/tests or other-lens/source credit.",
+              "status": "prospectively_registered_before_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "RIG-ADMISSION03-SOURCE-QUALIFICATION-REG133",
+                "registration_ref": "RIG-ADMISSION03-REG-133",
+                "qualified_material_ranges": [
+                  [
+                    27,
+                    94
+                  ]
+                ],
+                "original_context_ranges": [
+                  [
+                    25,
+                    94
+                  ]
+                ],
+                "qualification": "Only exact actual material compared as stated inAD133; incidentalotherdeclarations/tests receive no credit."
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                27,
+                94
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-core\\src\\scene_input\\buildings.rs",
+            "actual_EOF": 438,
+            "bytes": 16151
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          220
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Deserialize<'de>",
+          "type": "BuildingOrientation",
+          "lines": [
+            33,
+            44
+          ],
+          "disposition": "KEEP finite canonical interval [-pi,pi) rejection and exact message. Constructor from_radians wraps, so deserialization is not equivalent to deriving through that constructor."
+        },
+        {
+          "trait": "From<DistantBuildingPlacement>",
+          "type": "TacticalBuildingPlacement",
+          "lines": [
+            139,
+            149
+          ],
+          "disposition": "KEEP occupied_program constructs fixture/settlement program plus service-size policy, not fieldwise record copying."
+        },
+        {
+          "trait": "Deserialize<'de>",
+          "type": "SceneDoor",
+          "lines": [
+            179,
+            212
+          ],
+          "disposition": "KEEP named borrowed-independent native decoding then checked dimensions/position/directions; wraps cause with exact building/opening IDs. Structural derive would lose contextual error contract."
+        }
+      ],
+      "existing_derives": "Orientation Serialize/structural/opaque reflection; placement and SceneBuilding native Serde/structural; SceneDoor Serialize and SceneDoorError thiserror context/source already derive.",
+      "absence_basis": "Registered1\u2013106/149\u2013200 union plus enclosing conversion/deserializer and its error definition completed through220. Distant placement111\u2013137 read as direct occupied_program receiver. No full438 source or later fixtures credited.",
+      "coverage_limit": "Only1\u2013220 personally read/analyzed for registered material;221\u2013438 unreviewed in this role."
+    },
+    {
+      "scope_index": 366,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings/window.rs",
+      "sha256": "f1d40643528b12fce9e1062c6a2e23e0192c6216cb5a5f645bbc624ef90b5c26",
+      "actual_EOF": 129,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings/window.rs",
+        "snapshot": "physical-p16",
+        "path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-core\\src\\scene_input\\buildings\\window.rs",
+        "sha256": "f1d40643528b12fce9e1062c6a2e23e0192c6216cb5a5f645bbc624ef90b5c26",
+        "bytes": 5819,
+        "actual_line_count": 129,
+        "scope_kind": "materially_reached_existing_owner_definition",
+        "audit_owner": "rig",
+        "material_ranges": [
+          [
+            1,
+            45
+          ]
+        ],
+        "scope_limits": "Actual retained SceneWindow geometry field definition needed by P16 grab-world source/use comparison. No whole-file, other-lens or byte-equality credit.",
+        "scope_extension_authority": "Root explicitly accepted Rig registered owner-definition dependency before actual body comparison.",
+        "owner_fit_delta_status": "incomplete_scoped_before_definition_comparison",
+        "producer_inventory_accounting": {
+          "status": "incomplete_new_owner_reached_contract_supplement_before_admission",
+          "initial2473_completion": "preserved only exact prior roles"
+        },
+        "source_or_other_lens_credit": "none from metadata registration",
+        "producer_followup_scope_additions": [
+          {
+            "authority": "continuation/root/producer-scope-extension-authority-022.json",
+            "candidate_record": "continuation/native/producer-registry-reconciliation/candidate-002.json",
+            "registered_before_body_analysis": [
+              {
+                "registry": "continuation/rig/owner-reached-producer-followup/additional-sources.jsonl",
+                "row_1based": 1,
+                "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-001",
+                "supplier": "rig",
+                "original_record": {
+                  "id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-001",
+                  "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings/window.rs",
+                  "sha256": "f1d40643528b12fce9e1062c6a2e23e0192c6216cb5a5f645bbc624ef90b5c26",
+                  "requested_ranges": [
+                    [
+                      46,
+                      76
+                    ]
+                  ],
+                  "reason": "Actual SceneWindow::deserialize nativeDTO\u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122LeafDimensions/Position/Direction reconstruction tail needed to close new retainedfield definition producer path;45 onlyheader. Fixture77+ excluded.",
+                  "status": "pre_read_registration_pending_root",
+                  "new_variant": false
+                },
+                "per_registration_qualification": {
+                  "registry": "continuation/rig/owner-reached-producer-followup/source-qualifications.jsonl",
+                  "row_1based": 1,
+                  "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-001",
+                  "supplier": "rig",
+                  "original_record": {
+                    "id": "RIG-OWNER-REACHED-PRODUCER-SOURCE-QUALIFICATION-001",
+                    "registration_ref": "additional-sources.jsonl#line=1",
+                    "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-001",
+                    "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings/window.rs",
+                    "snapshot": "p16",
+                    "sha256": "f1d40643528b12fce9e1062c6a2e23e0192c6216cb5a5f645bbc624ef90b5c26",
+                    "actual_EOF": 129,
+                    "original_registered_ranges": [
+                      [
+                        46,
+                        76
+                      ]
+                    ],
+                    "qualified_material_ranges": [
+                      [
+                        46,
+                        76
+                      ]
+                    ],
+                    "body_proof": "fresh bounded current producer source read after applicable prospective authorization; no owner verdict/hash carry",
+                    "qualification": "Only exact registered role; original exclusions preserved.",
+                    "scope_and_owner_gate": "Root authoritative global reconciliation and necessary owner delta pending; no other lens/repair credit",
+                    "authority": "Root global007/overlays018/019 acknowledged before source body read."
+                  }
+                },
+                "effective_registration_material_ranges": [
+                  [
+                    46,
+                    76
+                  ]
+                ],
+                "proof_classification": "actual_proof_registration_subject_to_separate_producer_acceptance",
+                "independent_producer_proof": true
+              }
+            ],
+            "effective_local_material_ranges": [
+              [
+                46,
+                76
+              ]
+            ],
+            "qualification_refs": [
+              {
+                "registry": "continuation/rig/owner-reached-producer-followup/source-qualifications.jsonl",
+                "row_1based": 1,
+                "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-001",
+                "supplier": "rig",
+                "original_record": {
+                  "id": "RIG-OWNER-REACHED-PRODUCER-SOURCE-QUALIFICATION-001",
+                  "registration_ref": "additional-sources.jsonl#line=1",
+                  "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-001",
+                  "source_id": "physical-p16:crates/adventuresim-tactical-core/src/scene_input/buildings/window.rs",
+                  "snapshot": "p16",
+                  "sha256": "f1d40643528b12fce9e1062c6a2e23e0192c6216cb5a5f645bbc624ef90b5c26",
+                  "actual_EOF": 129,
+                  "original_registered_ranges": [
+                    [
+                      46,
+                      76
+                    ]
+                  ],
+                  "qualified_material_ranges": [
+                    [
+                      46,
+                      76
+                    ]
+                  ],
+                  "body_proof": "fresh bounded current producer source read after applicable prospective authorization; no owner verdict/hash carry",
+                  "qualification": "Only exact registered role; original exclusions preserved.",
+                  "scope_and_owner_gate": "Root authoritative global reconciliation and necessary owner delta pending; no other lens/repair credit",
+                  "authority": "Root global007/overlays018/019 acknowledged before source body read."
+                }
+              }
+            ],
+            "scope_limits": "Every original registration/role/caller/reason remains embedded independently. Byte overlap is not semantic role coverage, producer acceptance, owner-fit acceptance or edit ownership. none; Native qualifications trim local supplier roles only, never historical global scope.",
+            "producer_discovery": "separate actual source/recipient packet acceptance required",
+            "owner_fit": "pending exact new-role delta against owner019",
+            "source_or_other_lens_credit": "none from scope bookkeeping"
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Deserialize<'de>",
+          "type": "SceneWindow",
+          "lines": [
+            35,
+            75
+          ],
+          "disposition": "KEEP native leaf decode plus checked admission and contextual IDs/cause; plain Deserialize derive would change diagnostics/admission order."
+        }
+      ],
+      "existing_derives": "SceneWindow Serialize/structural/Component; contextual SceneWindowError thiserror/structural already.",
+      "absence_basis": "Registered1\u201345 plus full owning Deserialize through75 personally completed. NativeWindow named Deserialize view already derives mechanical decoder; explicit mapping admits geometry and adds context.",
+      "coverage_limit": "Fixture77\u2013129 additionally viewed but not needed/credited as material proof; not whole129 role obligation."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Building orientation and opening geometry wire admission",
+      "disposition": "Retain custom checked/contextual deserializers; existing named native views already derive mechanical decoding. No raw-transparent bypass or error-context deletion.",
+      "acceptance": "Preserve exact interval rejection, geometry admission order, IDs/native causes in diagnostics, source/destination wire shape and occupied-program selection."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 367,
+    "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/audit.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

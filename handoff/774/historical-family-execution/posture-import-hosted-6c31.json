@@ -1,0 +1,35 @@
+{
+  "head": "6c31bf753d7f2f08080aa31ac242e1dfeaf94cb8",
+  "run": 39434297927,
+  "job": 118667133316,
+  "failed": [],
+  "in_progress": [
+    {
+      "name": "Run Clippy with warnings denied",
+      "status": "in_progress",
+      "conclusion": null,
+      "number": 19
+    }
+  ],
+  "passed": [
+    "Set up job",
+    "Run actions/checkout@v7",
+    "Install pinned Rust toolchain",
+    "Cache Rust build artifacts",
+    "Install pinned SpacetimeDB CLI",
+    "Install configured Linux linker",
+    "Check formatting",
+    "Test generated bindings verifier",
+    "Check building review presentation boundary",
+    "Verify generated SpacetimeDB bindings",
+    "Test shared schema and GPU readback boundaries",
+    "Test resolved Bevy guard",
+    "Test checked FBX array encoding",
+    "Test existing FBX object-name consumers",
+    "Check semantic values and Rust growth",
+    "Check calendar API ownership",
+    "Lint tactical client WASM target",
+    "Test native and WASM deterministic draws"
+  ],
+  "acceptance": "Only individually successful gates are established. Native Clippy matrix, rig/animation/configuration behavioral selections, official baseline export and full P04 acceptance remain pending."
+}

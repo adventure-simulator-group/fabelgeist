@@ -1,0 +1,32 @@
+{
+  "id": "CONT08-REG005",
+  "at": "2026-10-25T13:11:32.938142+00:00",
+  "lens": "08 behavior-preservation",
+  "kind": "prospective effective-range extension, existing shared109",
+  "source_id": "pinned-registry:glam-0.32.1/src/features/impl_serde.rs",
+  "sha256": "da9b8a13b57b257793481f554e6888a8fb0c82a7669e52d7e2d2af74701f0061",
+  "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/derivability/fresh-dependencies-006/glam-0.32.1/src/features/impl_serde.rs",
+  "line_count": 1638,
+  "existing_material_ranges": [
+    [
+      73,
+      86
+    ],
+    [
+      730,
+      748
+    ],
+    [
+      1044,
+      1062
+    ]
+  ],
+  "prospective_material_ranges": [
+    [
+      87,
+      140
+    ]
+  ],
+  "reason": "Compare exact old native Vec3 Deserialize visitor with new canonical CuboidDimensions Vec3 tuple-struct visitor; serialization alreadyexactlyregistered109:73\u201386. Frozen PR bevy_math0.19.1\u2192glam0.32.1 actual lock checksum verified againstexisting native109 evidence; no wholeSDK scope.",
+  "qualification": "Prospective registration before newlyselectedbodyread; no auditcredit from registration itself, no neworiginal2853 role and no automatic other-lens coverage."
+}

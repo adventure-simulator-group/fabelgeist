@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-983",
+  "at": "2026-10-25T17:25:50.803211+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1145,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/object_custody.rs",
+  "sha256": "a9bb1a3335b7d10b135f817c54c903577af4b2df12ca9d1c10a9ca52d48b2d5c",
+  "actual_compared_ranges": [
+    [
+      1,
+      290
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "PersistedOperationalCustody already structural+SpacetimeType. decode_custody32\u201354 performs checked character/party/object/canonical place/fixture admission with exact errors, encode56\u201374 changes payload wrappers and canonical formatting; not equivalent raw From/Serde derive. Carried destination filters actor/kinds; persisted location joins current DB/backing/repair. same_backing_row270\u2013289 compares selected row identity, explicitly excludes fireplace and adjacent fields, so whole derived PartialEq differs. No handtrait.",
+  "first_unfinished": {
+    "scope_index": 1145,
+    "line": 291
+  },
+  "execution": "none"
+}

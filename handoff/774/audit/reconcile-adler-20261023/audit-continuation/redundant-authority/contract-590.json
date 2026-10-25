@@ -1,0 +1,125 @@
+{
+  "id": "CONT07-CONTRACT-590",
+  "at": "2026-10-24T00:22:01.111803+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2552,
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/furniture.rs",
+      "sha256": "c4d1d8c287ce1d87edbe8441dd8e4d8b23e18bbcb01281607920d8c02cf77b28",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-building-generator/src/furniture.rs",
+      "actual_EOF": 345,
+      "ranges": [
+        [
+          1,
+          12
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2553,
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/model/room_index.rs",
+      "sha256": "09a150e0b0d2873609095c1d8e6f9cf8a4e2117df74ded1787a03d6f647f23cb",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-building-generator/src/model/room_index.rs",
+      "actual_EOF": 45,
+      "ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2554,
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/model/storey_index.rs",
+      "sha256": "399c8ab44cc2dd0c22df8ab1cb88d4284837f7aaccd08f14cb1e4fefcd58c05c",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-building-generator/src/model/storey_index.rs",
+      "actual_EOF": 137,
+      "ranges": [
+        [
+          79,
+          90
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2555,
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/plan_geometry.rs",
+      "sha256": "a767ca4e45d2c04ddf94d1f23452ecbb3a5c6c864bc8ce63fc673e6f39e5b92b",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-building-generator/src/plan_geometry.rs",
+      "actual_EOF": 341,
+      "ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2556,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/presentation/interior_lighting/field.rs",
+      "sha256": "cbc42cdf56bc3c26ad2b18de8e3c7729729adf374864c725afb51d3739be7dd0",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-client/src/presentation/interior_lighting/field.rs",
+      "actual_EOF": 206,
+      "ranges": [
+        [
+          130,
+          142
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2557,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/sample_rate.rs",
+      "sha256": "744e4868234738f05d7030c0cbae4c057fcbad21d41987b955e6895f3f9d5093",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/animation/sample_rate.rs",
+      "actual_EOF": 86,
+      "ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2558,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/prefix_sum.rs",
+      "sha256": "d37a82c99c0d23659bf6b0533ccb96435592ed4e2f3e62d9b5867d5c36a6e5c7",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-compute/src/prefix_sum.rs",
+      "actual_EOF": 408,
+      "ranges": [
+        [
+          19,
+          23
+        ],
+        [
+          44,
+          64
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "P16 FurnitureLocal definescoordinatepurposeonly; nofurnitureOnceLockbody orcachelifecyclecreditfromimports. RoomIndexstoresu16and checkedfromordinalretainsrawrejectedvalueandRecipeOrdinalRole; P16ordinalerror issharedwithStorey, notduplicateidentityowneroverthese distinctaxes.",
+    "P16 ArchitecturalPlanPoint storesonecheckedfiniteVec2; PlanVertexprojectsnativemetreswithoutreclassifyingframe. OpaqueReflect/manualSerde re-admits position atboundary; polygonaggregatevalidationoutside1\u201349notcredited.",
+    "P16 shutterlightingtailinitializes cachedopenness0foreachsingleopeningcontributionlist. Constructor/projection proofoutside130\u2013142notclaimed; own2515syncsubsequentlyderivescurrentaperture fromactualtransform. No semanticdefaultsaffectingfuturetime asserted.",
+    "P16 AnimationSampleRate declaration privatelyretains authoredfrequency and checkedreciprocalinterval for bit-preserving serialization; these are coherentpairednativeviews ratherthancompetingauthors. OnlyAnimationFrequencyfinitepositiveadmissionbody1\u201343readthisrole; SampleRateconstructor44+notinferredfromcomment.",
+    "PR ScanElementCount oneu32elementcountderivesu64byteextent usingnativeu32wordsize. Genericzeroallowed byowner; operationcapacity/dispatchlimits separate. Doesnotjustifyusingprefixcountforcolliders/BVHvertices/triangles or waive executableboundarychecks."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2559,
+    "start_line": 1
+  }
+}

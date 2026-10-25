@@ -1,0 +1,257 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-331",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/equipment_export.rs",
+      "sha256": "a8541e9383d61945925725c89b8c8c6cc448ddd898fa2538379cf18a075d19e3",
+      "actual_EOF": 343,
+      "actual_compared_ranges": [
+        [
+          1,
+          343
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/equipment_layers.rs",
+      "sha256": "2b9b34141b3bd8d1b9bc98b9db3af749035fa68190e135d31183a2c89fd70b86",
+      "actual_EOF": 244,
+      "actual_compared_ranges": [
+        [
+          1,
+          244
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export.rs",
+      "sha256": "ee364aaa0d304eb120d6f91216c6da3e186f5e20809e28ffa74f5864e568d72d",
+      "actual_EOF": 1841,
+      "actual_compared_ranges": [
+        [
+          1,
+          1841
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/assembly.rs",
+      "sha256": "18536af7cd15eb7df601912a927e135d22188621101eeeeef3df177185e4df5e",
+      "actual_EOF": 312,
+      "actual_compared_ranges": [
+        [
+          1,
+          312
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/compact.rs",
+      "sha256": "4aa7045f30b54218cf1897ee3f74e1d8831a35debb7905ad3365a796e20f7ca9",
+      "actual_EOF": 104,
+      "actual_compared_ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/glb.rs",
+      "sha256": "99b359ccf03e94e704e08e8f66f7b23c4dcf00a358ac7b1fabd98993530d26f8",
+      "actual_EOF": 38,
+      "actual_compared_ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/morphs.rs",
+      "sha256": "011541992d2e75b8667bab9997cf8a277922440568411095d1a1f4a20ea22ee7",
+      "actual_EOF": 163,
+      "actual_compared_ranges": [
+        [
+          1,
+          163
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/rigged.rs",
+      "sha256": "2f337baa2edb2356e1f086aacf549696c63bfac639d03c5f0a9b564d675bb397",
+      "actual_EOF": 60,
+      "actual_compared_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/shell.rs",
+      "sha256": "6d0c444527f9a25d6aaf8e23e15ab8d973c489f6edb3a75429444c15c4132038",
+      "actual_EOF": 80,
+      "actual_compared_ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/skeleton.rs",
+      "sha256": "ac761936db58c742f2c58ab7381b8e26a8b6f819bfb91c0b29c54170fe96abff",
+      "actual_EOF": 69,
+      "actual_compared_ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/validation.rs",
+      "sha256": "61a7e389db804f2c17d7e619c27bb5bfc88f873f11e00d05097c85b6121518fb",
+      "actual_EOF": 164,
+      "actual_compared_ranges": [
+        [
+          1,
+          164
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Export compaction must remap every retained per-vertex channel identically",
+      "source_ranges": {
+        "export/compact.rs": [
+          [
+            1,
+            104
+          ]
+        ],
+        "export/shell.rs": [
+          [
+            1,
+            80
+          ]
+        ],
+        "export/rigged.rs": [
+          [
+            1,
+            60
+          ]
+        ],
+        "export/validation.rs": [
+          [
+            1,
+            164
+          ]
+        ]
+      },
+      "disposition": "All four full bodies read. Fresh concrete same-defect proof of adopted native05 F062: valid four-row independent shell, face[1,2,3], surface Some(four distinct UV rows,maps), texcoordsNone passes pre-validation. CompactShell remaps geometry/skin/morphs and explicit texcoords, but retains original surface slice; Writer fallback emits original4UV rows against3positions and binds wrong UV0 to oldposition1. Exact archive continuation/native/initial05-aggregate-states/findings.jsonl#71, no new unique increment. Remedy shared ordered remap for surface UV as well, retaining texture refs and body-indexed precompaction socket computation; explicittexcoords route already correct. No authored unused-vertex mesh/render/export run asserted. Body position/normal NaN omission from validate is exact adopted RIG-ADMISSION03-F015#15; fresh main serializer writes raw f32 bytes, no actual invalidmodel claim. Skin rows validate sum but not all individual nonnegative; canonical skinning boundary is next dependency before accepting complete output-contract claim."
+    },
+    {
+      "contract": "GLB construction preserves local indices, ordered morph channels and hierarchy after admitted input",
+      "source_ranges": {
+        "export.rs": [
+          [
+            1,
+            1841
+          ]
+        ],
+        "export/assembly.rs": [
+          [
+            1,
+            312
+          ]
+        ],
+        "export/morphs.rs": [
+          [
+            1,
+            163
+          ]
+        ],
+        "export/skeleton.rs": [
+          [
+            1,
+            69
+          ]
+        ],
+        "export/glb.rs": [
+          [
+            1,
+            38
+          ]
+        ]
+      },
+      "disposition": "All complete bodies personally read; main1841 lines consumed in eight bounded chunks including every inline fixture, no fixture execution. BufferBuilder pads before actual byte append; views/accessors use immediately pushed local indices. Morph validate requires identical ordered unique nonblank target names and finite cardinality-matched deltas across emitted primitives; compact picks same used rows. Assembly zips one part with one generated primitive, preserves all target weights/names, hinge and physical plate-edge metadata; drops edges whose vertices are not rendered deliberately. Skeleton validates proportions, input parent<joint implies acyclic ancestry, actual attachment appends names/parents/global together; lower gltf joint budget precheck is before appending3 sockets, so final checked skin/joint conversion remains next dependency, no unproved truncation assertion. Matrix f64-to-f32 and inverse/composed pose validity need checked transform owner; input global states missing finite gate already qualified inF015, not new complete currentfailure here. GLB u32 chunk/total narrowing lacks explicit >4GiB rejection, conditional enormous-output capacity question, not an ordinary generated artifact claim. File write failure may leave output partial; source does not promise atomic publication and no run performed. Validation precedes serialization; texture helper may have separate earlier file effects, next frontier."
+    },
+    {
+      "contract": "Socket arithmetic uses explicit geometric rejection and exact anatomical source correspondence",
+      "source_ranges": {
+        "export.rs": [
+          [
+            113,
+            610
+          ]
+        ]
+      },
+      "disposition": "Full actual helper and relying callers read as part of main. Public UV resolver checks canonicaldomain and face count, uses sorted body face identity for selected faces, validates UV indices via get, chooses eligible weighted/outward face by stable alignment/weight/index order and rejects no candidate. Canonical f32 source coordinates widened to f64 before determinant/interpolation avoids f32 intermediate overflow; normalization rejects nonfinite/degenerate norms. Tangent projected onto normal plane then normalized, socket offset is pelvis-local via actual root transform; transform inverse still requires valid nonzero scale. UV edge epsilon permits tiny barycentric extrapolation intentionally, not a requirement to force every source UV to UnitInterval. Bootstrap is separate explicit authoring utility, not generation fallback. Public malformed shell/body raw topology can index before export validate, owned admission correspondence dependency; no normal bad socket or runtime claim. Palm ray chooses closest positive valid surface under bounded width, calibrated handed frame uses actual thumb signs and positive clearance; source fixture assertions read only."
+    },
+    {
+      "contract": "Equipment export staging and layer reconstruction retain exact order and explicit partial-failure policy",
+      "source_ranges": {
+        "equipment_export.rs": [
+          [
+            1,
+            343
+          ]
+        ],
+        "equipment_layers.rs": [
+          [
+            1,
+            244
+          ]
+        ]
+      },
+      "disposition": "Both full bodies and fixtures read. LayerPlan builds pairwise direct support edges from typed locations/channels and explicit overrides, rejects direct contradiction and global cycle before fitting. Stable topological order proves each support visited first; reversed order transitively marks ancestors before their parents, preserving cache dependencies. Public outer index remains actual input ordinal caller contract, not reusable global owner. Export filtered selection requires new/empty staging directory, otherwise fails before generation. Full export writes each asset and later removes stale GLBs, writes manifest last; error can leave partial staging files, no transactional whole-directory guarantee inferred. Actual armor design lacks generator returnsErr, no placeholder fallback. Garment path assumes single generated shell/target from single specification; owning producer correspondence already inspected321, not guessed by length alone. Socket data generated from current fitted garment and actual authored atlas; no source deletion/publication/execution performed. Shared texture references/late IO error semantics remain helper frontier."
+    }
+  ],
+  "findings": [
+    {
+      "id": "NATIVE-INITIAL05-F062",
+      "archive_file": "audit/continuation/native/initial05-aggregate-states/findings.jsonl",
+      "archive_line": 71,
+      "disposition": "same exact UV remap defect; independent fresh04support",
+      "no_new_unique_count": true
+    },
+    {
+      "id": "RIG-ADMISSION03-F015",
+      "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+      "archive_line": 15,
+      "disposition": "same adopted latent body finite gate; fresh04byte-publication support",
+      "no_new_unique_count": true
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "11 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-character-creator/src/export/skinning.rs"
+}

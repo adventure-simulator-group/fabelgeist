@@ -1,0 +1,27 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-065",
+  "at": "2026-10-25T12:04:52.969119+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_ROLE_INCOMPLETE",
+  "source_id": "physical-p16:crates/adventuresim-stdb-module/src/character.rs",
+  "scope_index": 178,
+  "sha256": "1c346cbf22b4b7ad34cdd6b515b08d015c43e6489f953aa3a75ea40d8e3c675c",
+  "actual_compared_ranges": [
+    [
+      1801,
+      2700
+    ]
+  ],
+  "trait_inventory": [],
+  "existing_derives": "CharacterCreationMode structural Clone/Copy/Debug/Eq/PartialEq, CharacterCreationOptions borrowed Clone/Copy/Debug, NpcLifeFacts Clone/Debug/Eq/PartialEq; no added handwritten trait in1801\u20132700.",
+  "semantic_contracts": "Actual creation/language/life/personality/equipment/organization initialization constructors and component validation start consumed. These map generated profile policies/defaults/authoritative rows rather than mechanical serialization; retain borrowed options/native Result and explicit mixed source precedence.",
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 178,
+    "source_id": "physical-p16:crates/adventuresim-stdb-module/src/character.rs",
+    "next_line": 2701,
+    "actual_EOF": 3987
+  },
+  "execution": "none",
+  "limits": "Actual1801\u20132700 plus063/064prior1\u20131800; fullrole pending2701\u20133987."
+}

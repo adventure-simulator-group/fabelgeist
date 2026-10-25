@@ -1,0 +1,91 @@
+{
+  "head": "82cb2a3acccc852bba6a7ef9c706c337ba9fe765",
+  "recorded_at": "2026-10-20T21:29:24.493789+00:00",
+  "status": "Focused receiver traces, not a completed PR-wide audit",
+  "confirmed_fixed_in_source": [
+    "Combat/fatigue heterogeneous validators",
+    "Typed axis integrator elapsed handoff",
+    "Redundant checked temporal/pose leaf projection for validation",
+    "Vista extrema primitive retention and absence sentinels",
+    "Tree species retained as typed component and capture record, with explicit stable Serde labels",
+    "Litter placement roots through typed anchors, debris selection/state and serialized distances",
+    "Shrub GPU adapter and isolated review-specimen roots",
+    "Inspector footprint corners and LOD support elevation helper signatures"
+  ],
+  "examined_boundaries": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/pose_buffer.rs:sample_source_clip",
+      "receiver": "Bevy 0.19.1 AnimationClip::sample_clamped",
+      "evidence": "Read installed bevy_animation-0.19.1/src/lib.rs:382-400: time parameter is f32 and is passed directly to the engine curve sampler. ClipTime remains typed until this call."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/bot/offense/tactics.rs; bot/defense.rs; bot/offense/phase.rs",
+      "receiver": "CombatRandom::range_f32 -> DeterministicRng::range_f32",
+      "evidence": "Read bot.rs:85-87 and fabelgeist-determinism/src/stream.rs:91-94: native min+unit*(max-min) numerical sampling. Finite/ordered bounds still required. No sampling order/formula change."
+    },
+    {
+      "path": "crates/adventuresim-core/src/battle_time.rs",
+      "receiver": "Clock coordinate construction, checked addition, tolerance arithmetic",
+      "evidence": "The owning API accepts elapsed/time leaves and projects only inside the complete calculation."
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/power.rs",
+      "receiver": "Native tempo sqrt/reciprocal and ranged power reduction",
+      "evidence": "Checked attack intervals enter the complete local power calculation; no raw duration is forwarded to another application API."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/animation/state/guard_footwork.rs",
+      "receiver": "Native duration clamp, sample-rate multiplication and ceil-to-tick kernel",
+      "evidence": "Checked minimum/maximum durations project inside the complete reach/support-to-tick calculation."
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve.rs:opening_volley_plan / schedule_ranged_attacks",
+      "receiver": "Native range/speed/interval division, ceil/count and fractional progress arithmetic",
+      "evidence": "Inspected current bodies around lines 1044-1082 and 1196-1223. The selected checked interval is projected within the complete attack-count/progress calculation, without forwarding raw seconds to another application API. This covers these paths, not all autoresolve projections."
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/player/action_clock.rs:animation_ticks / delay_ticks / rounded_samples",
+      "receiver": "Native sample-rate multiplication then finite checked rounding to AnimationSampleSpan",
+      "evidence": "The public application entry points accept AnimationElapsed. The inner helper receives a completed native sample count, not extracted elapsed seconds; it checks finiteness before rounding/admission."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/defense.rs:pending defense response",
+      "receiver": "Complete delay/window comparison and normalized reflex calculation",
+      "evidence": "Config keeps its typed window. The calculation reads native platform elapsed seconds and the checked window locally; no raw duration is forwarded to another application function."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/combat_config/ragdoll.rs:MuscleRelease",
+      "receiver": "Declared Serde try_from/into Option<f32> wire adapter",
+      "evidence": "Read the enum Serde attributes and its conversion bodies. Never encodes as None; After retains PositiveAnimationDuration until serialization."
+    },
+    {
+      "path": "crates/adventuresim-core/src/combat/defense.rs:choose_committed_threat_response",
+      "receiver": "Complete committed work/recovery-exposure and benefit ratio arithmetic",
+      "evidence": "Checked windup, timing offset and recovery project only inside the complete probability calculation; no raw duration is forwarded or retained."
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_defense.rs:autoresolve_melee_reaction_timing",
+      "receiver": "Complete native affine reaction sample and reflex normalization",
+      "evidence": "Configured spans stay checked into the owning calculation; completed displacement_time_seconds is re-admitted once before retention. Other computed report scalars remain separate."
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/joint_melee.rs; melee_round/scheduling.rs",
+      "receiver": "Native fixed-step subdivision, round-coordinate multiplication and affine initiative sampling",
+      "evidence": "Read complete round/window and scheduling bodies. Inputs are checked; derived window, coordinate, delay and jitter are admitted before forwarding or retained schedule publication. RNG call/affine arithmetic order stays unchanged."
+    }
+  ],
+  "still_pending": [
+    "All 4,310 named lexical getter candidates remain an inventory to reconcile by family; counts are not defects or a completed audit. Constructors/casts/fields and additional getter names remain separate.",
+    "P06 source review completed and published; hosted acceptance remains. See P06-source-code-rule-review.json.",
+    "P08 camera measures/history, P09-P16 producer families, P17 report retention/applicability, P18 f64 statistics, P19 influence and P20 continuation remain unimplemented.",
+    "GlobalBoneSample time and capture scenario distance are retained raw report measurements assigned to P17.",
+    "Preserve all twenty original exits; no full bespoke-audit wave or new test has been added."
+  ],
+  "latest_extension": {
+    "recorded_at": "2026-10-20T23:17:33.407468+00:00",
+    "head": "39121ddae304f977f944eccfe4eab307644d763c",
+    "report": "P06-source-code-rule-review.json",
+    "named_getter_candidates": 4310,
+    "status": "Published P06 source trace completed. No complete PR-wide getter/cast/constructor verdict; CI is pending."
+  }
+}

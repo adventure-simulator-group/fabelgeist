@@ -1,0 +1,2167 @@
+{
+  "id": "CONT-ROOT-ADMISSION03-SCOPE-RECONCILIATION-046",
+  "at": "2026-10-22T07:13:39.313339+00:00",
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-admission03-011.json",
+    "sha256": "f5a0131d043d42ddb6dd21bfcfd8f64efb6b7698b12ec52b4cd5eb4da10d6216"
+  },
+  "scope": {
+    "record": "continuation/cumulative-source-scope-admission03-012.json",
+    "sha256": "14f23a0fbe6b502e1fb92af04434263aff1541101d94659997f9b5047d80c006"
+  },
+  "mandatory_overlays": {
+    "record": "continuation/owner-range-extensions.jsonl",
+    "sha256": "5fae5ca0ffa7230b778aee81c03865951a9b3e70d46486b841bcff6d3ed5626b"
+  },
+  "total_variants": 2595,
+  "total_overlays": 81,
+  "new_registrations": 48,
+  "new_source_ids": [
+    "pinned-registry:serde-saphyr-1.2.0/src/de/api.rs",
+    "pinned-registry:serde-saphyr-1.2.0/src/de/options.rs",
+    "pinned-registry:serde-saphyr-1.2.0/src/de/deserializer.rs",
+    "pinned-registry:serde-saphyr-1.2.0/src/parse_scalars.rs",
+    "pinned-registry:serde-saphyr-1.2.0/src/de/with_deserializer.rs",
+    "physical-p16:crates/adventuresim-weapon-model/src/model/placement.rs",
+    "physical-p16:crates/adventuresim-weapon-model/src/recipe/facing.rs",
+    "physical-p16:crates/adventuresim-terrain/src/terrain_feature.rs",
+    "physical-p16:crates/adventuresim-core/src/item_catalog_fit.rs",
+    "physical-p16:crates/adventuresim-core/src/item_catalog_surface.rs",
+    "physical-p16:crates/adventuresim-core/src/item_catalog_validation_numeric.rs",
+    "physical-p16:crates/adventuresim-core/src/item_catalog_validation_material.rs",
+    "physical-p16:crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+    "physical-p16:crates/adventuresim-core/src/item_catalog_validation_surface.rs",
+    "physical-p16:crates/adventuresim-core/src/item_catalog_validation.rs",
+    "dependency-serde_core1.0.229:src/de/impls.rs",
+    "dependency-serde_json1.0.151:src/value/de.rs",
+    "dependency-serde_json1.0.151:src/number.rs",
+    "physical-p16:crates/adventuresim-weapon-model/src/catalog.rs",
+    "physical-p16:crates/adventuresim-core/src/equipment_assets.rs",
+    "physical-p16:crates/adventuresim-tactical-client/src/equipment/runtime_equipment.rs",
+    "physical-p16:crates/fabelgeist-determinism/src/lib.rs"
+  ],
+  "new_overlay_ids": [
+    "CONT-OWNER-RANGE-EXTENSION-065",
+    "CONT-OWNER-RANGE-EXTENSION-066",
+    "CONT-OWNER-RANGE-EXTENSION-067",
+    "CONT-OWNER-RANGE-EXTENSION-068",
+    "CONT-OWNER-RANGE-EXTENSION-069",
+    "CONT-OWNER-RANGE-EXTENSION-070",
+    "CONT-OWNER-RANGE-EXTENSION-071",
+    "CONT-OWNER-RANGE-EXTENSION-072",
+    "CONT-OWNER-RANGE-EXTENSION-073",
+    "CONT-OWNER-RANGE-EXTENSION-074",
+    "CONT-OWNER-RANGE-EXTENSION-075",
+    "CONT-OWNER-RANGE-EXTENSION-076",
+    "CONT-OWNER-RANGE-EXTENSION-077",
+    "CONT-OWNER-RANGE-EXTENSION-078",
+    "CONT-OWNER-RANGE-EXTENSION-079",
+    "CONT-OWNER-RANGE-EXTENSION-080",
+    "CONT-OWNER-RANGE-EXTENSION-081"
+  ],
+  "input_pins": [
+    {
+      "supplier": "root",
+      "record": "continuation/root/admission03/source-range-registration.jsonl",
+      "sha256": "cde50f8e14f84c1785dadab0fbecc5f98ac832614cb7aa5f56fa4b57bacac0ec",
+      "captured_rows": 18,
+      "previously_reconciled_rows": 2
+    },
+    {
+      "supplier": "root",
+      "record": "continuation/root/admission03/source-qualifications.jsonl",
+      "sha256": "99a0fc9dedd24c74078df9a760b50497459368c60bbe9acc99b52a10c38e46c6",
+      "captured_rows": 10,
+      "kind": "role_qualifications"
+    },
+    {
+      "supplier": "camera",
+      "record": "continuation/camera/admission03/source-range-registration.jsonl",
+      "sha256": "d5ff4a23194d152b2b51b84d6cd8818eb4addf2b21b601c6945a3509c02a0181",
+      "captured_rows": 7,
+      "previously_reconciled_rows": 3
+    },
+    {
+      "supplier": "rig",
+      "record": "continuation/rig/admission03/source-range-registration.jsonl",
+      "sha256": "9cf1853a62c63503046497ae0f779bc26815061358006a1cb480c0bfa676cafe",
+      "captured_rows": 35,
+      "previously_reconciled_rows": 13
+    },
+    {
+      "supplier": "rig",
+      "record": "continuation/rig/admission03/source-qualifications.jsonl",
+      "sha256": "f44bf1a5bb85b48fa3d6585d083c8f6aafc168880da845d7da39e10a04e8a258",
+      "captured_rows": 31,
+      "kind": "role_qualifications"
+    },
+    {
+      "supplier": "native",
+      "record": "continuation/native/admission03/source-range-registration.jsonl",
+      "sha256": "3c1d0658cd636f993d4be046a837adeb81f41f9e9dac696e53d450a21f05b7b5",
+      "captured_rows": 9,
+      "previously_reconciled_rows": 3
+    }
+  ],
+  "role_qualifications": [
+    {
+      "supplier": "root",
+      "registry": "continuation/root/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "id": "ROOT-ADM-SCOPE-QUAL-001",
+        "registration_id": "ROOT-ADM-REG-001",
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/model/timber.rs",
+        "actual_material_body_ranges": [
+          [
+            138,
+            138
+          ]
+        ],
+        "original_ranges": [
+          [
+            136,
+            138
+          ]
+        ],
+        "qualification": "ActualattachedMemberderivedeclaration138 only; previousclosingbrace136/blank137context. Member139\u2013158 already scoped."
+      },
+      "registration_id_resolved": "ROOT-ADM-REG-001"
+    },
+    {
+      "supplier": "root",
+      "registry": "continuation/root/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "id": "ROOT-ADM-SCOPE-QUAL-002",
+        "registration_id": "ROOT-ADM-REG-002",
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/model.rs",
+        "actual_material_body_ranges": [
+          [
+            1,
+            12
+          ],
+          [
+            16,
+            169
+          ]
+        ],
+        "original_ranges": [
+          [
+            1,
+            169
+          ]
+        ],
+        "qualification": "Exactcorelatticeconstructor/Serde/typegraph; unrelatedroof/wallconstants13\u201315incidentallydisplayedcontext, no independentcredit."
+      },
+      "registration_id_resolved": "ROOT-ADM-REG-002"
+    },
+    {
+      "supplier": "root",
+      "registry": "continuation/root/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "id": "ROOT-ADM-QUAL-REG-011",
+        "registration_id": "ROOT-ADM-REG-011",
+        "at": "2026-10-22T07:09:56.777249+00:00",
+        "source_id": "pinned-registry:serde-saphyr-1.2.0/src/de/api.rs",
+        "effective_material_ranges": [
+          [
+            84,
+            99
+          ]
+        ],
+        "original_prospective_ranges": [
+          [
+            84,
+            112
+          ]
+        ],
+        "qualification": "OnlyactualtypedgraphicsYAMLadmissionhelper/optionpolicy material, contextualnextfn/docs/propertyerrorbranches excluded asdescribedG022. Preserveoriginalscope/ranges, no retroactive narrowing ofotherroles.",
+        "status": "source_specific_material_role_qualification"
+      },
+      "registration_id_resolved": "ROOT-ADM-REG-011"
+    },
+    {
+      "supplier": "root",
+      "registry": "continuation/root/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "id": "ROOT-ADM-QUAL-REG-012",
+        "registration_id": "ROOT-ADM-REG-012",
+        "at": "2026-10-22T07:09:56.777249+00:00",
+        "source_id": "pinned-registry:serde-saphyr-1.2.0/src/de/options.rs",
+        "effective_material_ranges": [
+          [
+            248,
+            264
+          ],
+          [
+            499,
+            527
+          ]
+        ],
+        "original_prospective_ranges": [
+          [
+            248,
+            265
+          ],
+          [
+            499,
+            527
+          ]
+        ],
+        "qualification": "OnlyactualtypedgraphicsYAMLadmissionhelper/optionpolicy material, contextualnextfn/docs/propertyerrorbranches excluded asdescribedG022. Preserveoriginalscope/ranges, no retroactive narrowing ofotherroles.",
+        "status": "source_specific_material_role_qualification"
+      },
+      "registration_id_resolved": "ROOT-ADM-REG-012"
+    },
+    {
+      "supplier": "root",
+      "registry": "continuation/root/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "id": "ROOT-ADM-QUAL-REG-013",
+        "registration_id": "ROOT-ADM-REG-013",
+        "at": "2026-10-22T07:09:56.777249+00:00",
+        "source_id": "pinned-registry:serde-saphyr-1.2.0/src/de/deserializer.rs",
+        "effective_material_ranges": [
+          [
+            978,
+            989
+          ]
+        ],
+        "original_prospective_ranges": [
+          [
+            978,
+            991
+          ]
+        ],
+        "qualification": "OnlyactualtypedgraphicsYAMLadmissionhelper/optionpolicy material, contextualnextfn/docs/propertyerrorbranches excluded asdescribedG022. Preserveoriginalscope/ranges, no retroactive narrowing ofotherroles.",
+        "status": "source_specific_material_role_qualification"
+      },
+      "registration_id_resolved": "ROOT-ADM-REG-013"
+    },
+    {
+      "supplier": "root",
+      "registry": "continuation/root/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "id": "ROOT-ADM-QUAL-REG-014",
+        "registration_id": "ROOT-ADM-REG-014",
+        "at": "2026-10-22T07:09:56.777249+00:00",
+        "source_id": "pinned-registry:serde-saphyr-1.2.0/src/parse_scalars.rs",
+        "effective_material_ranges": [
+          [
+            271,
+            334
+          ]
+        ],
+        "original_prospective_ranges": [
+          [
+            271,
+            351
+          ]
+        ],
+        "qualification": "OnlyactualtypedgraphicsYAMLadmissionhelper/optionpolicy material, contextualnextfn/docs/propertyerrorbranches excluded asdescribedG022. Preserveoriginalscope/ranges, no retroactive narrowing ofotherroles.",
+        "status": "source_specific_material_role_qualification"
+      },
+      "registration_id_resolved": "ROOT-ADM-REG-014"
+    },
+    {
+      "supplier": "root",
+      "registry": "continuation/root/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "id": "ROOT-ADM-QUAL-REG-015",
+        "registration_id": "ROOT-ADM-REG-015",
+        "at": "2026-10-22T07:09:56.777249+00:00",
+        "source_id": "pinned-registry:serde-saphyr-1.2.0/src/de/api.rs",
+        "effective_material_ranges": [
+          [
+            136,
+            141
+          ]
+        ],
+        "original_prospective_ranges": [
+          [
+            136,
+            145
+          ]
+        ],
+        "qualification": "OnlyactualtypedgraphicsYAMLadmissionhelper/optionpolicy material, contextualnextfn/docs/propertyerrorbranches excluded asdescribedG022. Preserveoriginalscope/ranges, no retroactive narrowing ofotherroles.",
+        "status": "source_specific_material_role_qualification"
+      },
+      "registration_id_resolved": "ROOT-ADM-REG-015"
+    },
+    {
+      "supplier": "root",
+      "registry": "continuation/root/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "id": "ROOT-ADM-QUAL-REG-016",
+        "registration_id": "ROOT-ADM-REG-016",
+        "at": "2026-10-22T07:09:56.777249+00:00",
+        "source_id": "pinned-registry:serde-saphyr-1.2.0/src/de/deserializer.rs",
+        "effective_material_ranges": [
+          [
+            484,
+            501
+          ]
+        ],
+        "original_prospective_ranges": [
+          [
+            484,
+            525
+          ]
+        ],
+        "qualification": "OnlyactualtypedgraphicsYAMLadmissionhelper/optionpolicy material, contextualnextfn/docs/propertyerrorbranches excluded asdescribedG022. Preserveoriginalscope/ranges, no retroactive narrowing ofotherroles.",
+        "status": "source_specific_material_role_qualification"
+      },
+      "registration_id_resolved": "ROOT-ADM-REG-016"
+    },
+    {
+      "supplier": "root",
+      "registry": "continuation/root/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "id": "ROOT-ADM-QUAL-REG-017",
+        "registration_id": "ROOT-ADM-REG-017",
+        "at": "2026-10-22T07:09:56.777249+00:00",
+        "source_id": "pinned-registry:serde-saphyr-1.2.0/src/de/with_deserializer.rs",
+        "effective_material_ranges": [
+          [
+            120,
+            147
+          ]
+        ],
+        "original_prospective_ranges": [
+          [
+            120,
+            160
+          ]
+        ],
+        "qualification": "OnlyactualtypedgraphicsYAMLadmissionhelper/optionpolicy material, contextualnextfn/docs/propertyerrorbranches excluded asdescribedG022. Preserveoriginalscope/ranges, no retroactive narrowing ofotherroles.",
+        "status": "source_specific_material_role_qualification"
+      },
+      "registration_id_resolved": "ROOT-ADM-REG-017"
+    },
+    {
+      "supplier": "root",
+      "registry": "continuation/root/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "id": "ROOT-ADM-QUAL-REG-018",
+        "registration_id": "ROOT-ADM-REG-018",
+        "at": "2026-10-22T07:09:56.777249+00:00",
+        "source_id": "pinned-registry:serde-saphyr-1.2.0/src/de/deserializer.rs",
+        "effective_material_ranges": [
+          [
+            577,
+            623
+          ]
+        ],
+        "original_prospective_ranges": [
+          [
+            577,
+            675
+          ]
+        ],
+        "qualification": "OnlyactualtypedgraphicsYAMLadmissionhelper/optionpolicy material, contextualnextfn/docs/propertyerrorbranches excluded asdescribedG022. Preserveoriginalscope/ranges, no retroactive narrowing ofotherroles.",
+        "status": "source_specific_material_role_qualification"
+      },
+      "registration_id_resolved": "ROOT-ADM-REG-018"
+    },
+    {
+      "supplier": "root",
+      "registration_id": "ROOT-ADM-REG-001",
+      "existing_044_role_additional_qualification": {
+        "supplier": "root",
+        "registry": "continuation/root/admission03/source-range-registration.jsonl",
+        "row_1based": 1,
+        "registration_id": "ROOT-ADM-REG-001",
+        "original_record": {
+          "id": "ROOT-ADM-REG-001",
+          "at": "2026-10-22T05:56:08.989528+00:00",
+          "authority": "continuation/root/admission03-discovery-authority-043.json",
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/model/timber.rs",
+          "snapshot": "pr-working",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\model\\timber.rs",
+          "sha256": "452e6d4196200a40485612e2a5717561e708e0ebbaa595e20cb9b26b43ba599b",
+          "actual_EOF": 310,
+          "material_ranges": [
+            [
+              136,
+              138
+            ]
+          ],
+          "actual_reach": "Full admission routes of already scoped TimberFrameMember139\u2013158 need exact attached derive attributes immediately preceding declaration; navigation only before body.",
+          "exclusions": "Only derive/signature context; no other timber types or operations46\u2013135/159+ newly credited.",
+          "status": "prospectively_registered_before_body_analysis"
+        },
+        "local_qualifications": [
+          {
+            "id": "ROOT-ADM-SCOPE-QUAL-001",
+            "registration_id": "ROOT-ADM-REG-001",
+            "source_id": "pr-working:crates/adventuresim-building-generator/src/model/timber.rs",
+            "actual_material_body_ranges": [
+              [
+                138,
+                138
+              ]
+            ],
+            "original_ranges": [
+              [
+                136,
+                138
+              ]
+            ],
+            "qualification": "ActualattachedMemberderivedeclaration138 only; previousclosingbrace136/blank137context. Member139\u2013158 already scoped."
+          }
+        ],
+        "effective_material_ranges": [
+          [
+            138,
+            138
+          ]
+        ],
+        "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\model\\timber.rs",
+        "actual_EOF": 310,
+        "bytes": 9977
+      },
+      "limits": "Preserve all prior original scoped roles; qualifies only this prospective new admission role, no global source narrowing."
+    },
+    {
+      "supplier": "root",
+      "registration_id": "ROOT-ADM-REG-002",
+      "existing_044_role_additional_qualification": {
+        "supplier": "root",
+        "registry": "continuation/root/admission03/source-range-registration.jsonl",
+        "row_1based": 2,
+        "registration_id": "ROOT-ADM-REG-002",
+        "original_record": {
+          "id": "ROOT-ADM-REG-002",
+          "at": "2026-10-22T05:57:47.322305+00:00",
+          "authority": "continuation/root/admission03-discovery-authority-043.json",
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/model.rs",
+          "snapshot": "pr-working",
+          "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\model.rs",
+          "sha256": "f4e45aaf2f0f5190009ff9de1d465f436714224bb541e947fe46af32087f2408",
+          "actual_EOF": 331,
+          "material_ranges": [
+            [
+              1,
+              169
+            ]
+          ],
+          "actual_reach": "Assigned layout.rs RoundTower::new/manualDeserialize and tower_anchor_matches_diameter require exact GridPoint/CellDiameter/GridLength constructors/Serde and grid constants; Room/WallSegment fields require Cell/Direction open-versus-checked distinction. Parentmodule symbol outline located declarations/impls; no body analysis yet.",
+          "exclusions": "No siblingmodule bodies/reexports170\u2013199 or fixtures200+; no unrelated feature graph. Actual material narrowing follows source proof, original prospective range retained.",
+          "status": "prospectively_registered_before_body_analysis"
+        },
+        "local_qualifications": [
+          {
+            "id": "ROOT-ADM-SCOPE-QUAL-002",
+            "registration_id": "ROOT-ADM-REG-002",
+            "source_id": "pr-working:crates/adventuresim-building-generator/src/model.rs",
+            "actual_material_body_ranges": [
+              [
+                1,
+                12
+              ],
+              [
+                16,
+                169
+              ]
+            ],
+            "original_ranges": [
+              [
+                1,
+                169
+              ]
+            ],
+            "qualification": "Exactcorelatticeconstructor/Serde/typegraph; unrelatedroof/wallconstants13\u201315incidentallydisplayedcontext, no independentcredit."
+          }
+        ],
+        "effective_material_ranges": [
+          [
+            1,
+            12
+          ],
+          [
+            16,
+            169
+          ]
+        ],
+        "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\model.rs",
+        "actual_EOF": 331,
+        "bytes": 9328
+      },
+      "limits": "Preserve all prior original scoped roles; qualifies only this prospective new admission role, no global source narrowing."
+    },
+    {
+      "supplier": "rig",
+      "registry": "continuation/rig/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "registration_id": "RIG-ADMISSION03-REGISTER-002",
+        "source_id": "dependency-bevy_reflect_derive0.19.1:src/lib.rs",
+        "sha256": "68c37f689d5b216ac404890b22b31426549fd9305c561cfdb51fa5ce4c299964",
+        "actual_EOF": 907,
+        "original_ranges": [
+          [
+            60,
+            117
+          ]
+        ],
+        "actual_material_body_ranges": [
+          [
+            60,
+            117
+          ]
+        ],
+        "body_read": "Fresh exact bounded source body read after prospective043 registration; metadata alone no coverage.",
+        "qualification": "Adjacent docs/next headers outside listed material ranges are context only; common comparisons/debug functions are supporting context, no independent unrelated reflected-type admission credit. Source field/enum reflection branches are not analyzed."
+      },
+      "registration_id_resolved": "RIG-ADMISSION03-REGISTER-002"
+    },
+    {
+      "supplier": "rig",
+      "registry": "continuation/rig/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "registration_id": "RIG-ADMISSION03-REGISTER-003",
+        "source_id": "dependency-bevy_reflect_derive0.19.1:src/from_reflect.rs",
+        "sha256": "5bcdff556cc6df65e841b8ac5170ec8d83b1ce4883237327ea8f0ffe7171d067",
+        "actual_EOF": 353,
+        "original_ranges": [
+          [
+            25,
+            59
+          ]
+        ],
+        "actual_material_body_ranges": [
+          [
+            25,
+            56
+          ]
+        ],
+        "body_read": "Fresh exact bounded source body read after prospective043 registration; metadata alone no coverage.",
+        "qualification": "Adjacent docs/next headers outside listed material ranges are context only; common comparisons/debug functions are supporting context, no independent unrelated reflected-type admission credit. Source field/enum reflection branches are not analyzed."
+      },
+      "registration_id_resolved": "RIG-ADMISSION03-REGISTER-003"
+    },
+    {
+      "supplier": "rig",
+      "registry": "continuation/rig/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "registration_id": "RIG-ADMISSION03-REGISTER-004",
+        "source_id": "dependency-bevy_reflect_derive0.19.1:src/impls/opaque.rs",
+        "sha256": "7c0a7b4e1416658fd161b6874b82ac4603390c3e41c30e8425f1b4bb764742ca",
+        "actual_EOF": 131,
+        "original_ranges": [
+          [
+            1,
+            131
+          ]
+        ],
+        "actual_material_body_ranges": [
+          [
+            1,
+            131
+          ]
+        ],
+        "body_read": "Fresh exact bounded source body read after prospective043 registration; metadata alone no coverage.",
+        "qualification": "Adjacent docs/next headers outside listed material ranges are context only; common comparisons/debug functions are supporting context, no independent unrelated reflected-type admission credit. Source field/enum reflection branches are not analyzed."
+      },
+      "registration_id_resolved": "RIG-ADMISSION03-REGISTER-004"
+    },
+    {
+      "supplier": "rig",
+      "registry": "continuation/rig/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "registration_id": "RIG-ADMISSION03-REGISTER-005",
+        "source_id": "dependency-bevy_reflect_derive0.19.1:src/impls/common.rs",
+        "sha256": "6e65257643e17c838d46d84974d833438e1635cbde5beceb9ffafb0da69e1f96",
+        "actual_EOF": 257,
+        "original_ranges": [
+          [
+            1,
+            174
+          ]
+        ],
+        "actual_material_body_ranges": [
+          [
+            1,
+            80
+          ],
+          [
+            82,
+            172
+          ]
+        ],
+        "body_read": "Fresh exact bounded source body read after prospective043 registration; metadata alone no coverage.",
+        "qualification": "Adjacent docs/next headers outside listed material ranges are context only; common comparisons/debug functions are supporting context, no independent unrelated reflected-type admission credit. Source field/enum reflection branches are not analyzed."
+      },
+      "registration_id_resolved": "RIG-ADMISSION03-REGISTER-005"
+    },
+    {
+      "supplier": "rig",
+      "registry": "continuation/rig/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "registration_id": "RIG-ADMISSION03-REGISTER-006",
+        "source_id": "dependency-bevy_reflect_derive0.19.1:src/remote.rs",
+        "sha256": "0aa256befa40e782f57b2924d697041ca71ebb4107d124fb006ea9f026ef0811",
+        "actual_EOF": 500,
+        "original_ranges": [
+          [
+            21,
+            241
+          ]
+        ],
+        "actual_material_body_ranges": [
+          [
+            21,
+            212
+          ]
+        ],
+        "body_read": "Fresh exact bounded source body read after prospective043 registration; metadata alone no coverage.",
+        "qualification": "Adjacent docs/next headers outside listed material ranges are context only; common comparisons/debug functions are supporting context, no independent unrelated reflected-type admission credit. Source field/enum reflection branches are not analyzed."
+      },
+      "registration_id_resolved": "RIG-ADMISSION03-REGISTER-006"
+    },
+    {
+      "supplier": "rig",
+      "registry": "continuation/rig/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "registration_id": "RIG-ADMISSION03-REGISTER-007",
+        "source_id": "dependency-bevy_reflect_derive0.19.1:src/registration.rs",
+        "sha256": "c069e2d3114fe1ba4276ce53531d7a1fd0b7bad25b9da0d56ffeb294736bd7aa",
+        "actual_EOF": 59,
+        "original_ranges": [
+          [
+            1,
+            59
+          ]
+        ],
+        "actual_material_body_ranges": [
+          [
+            1,
+            59
+          ]
+        ],
+        "body_read": "Fresh exact bounded source body read after prospective043 registration; metadata alone no coverage.",
+        "qualification": "Adjacent docs/next headers outside listed material ranges are context only; common comparisons/debug functions are supporting context, no independent unrelated reflected-type admission credit. Source field/enum reflection branches are not analyzed."
+      },
+      "registration_id_resolved": "RIG-ADMISSION03-REGISTER-007"
+    },
+    {
+      "supplier": "rig",
+      "registry": "continuation/rig/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "registration_id": "RIG-ADMISSION03-REGISTER-008",
+        "source_id": "dependency-bevy_reflect_derive0.19.1:src/derive_data.rs",
+        "sha256": "113809d703c47d2d0c5d22bcb8be364a9c158c2878bbdbccd7034b57ba95a1dd",
+        "actual_EOF": 1422,
+        "original_ranges": [
+          [
+            184,
+            327
+          ],
+          [
+            489,
+            500
+          ]
+        ],
+        "actual_material_body_ranges": [
+          [
+            184,
+            322
+          ],
+          [
+            489,
+            498
+          ]
+        ],
+        "body_read": "Fresh exact bounded source body read after prospective043 registration; metadata alone no coverage.",
+        "qualification": "Adjacent docs/next headers outside listed material ranges are context only; common comparisons/debug functions are supporting context, no independent unrelated reflected-type admission credit. Source field/enum reflection branches are not analyzed."
+      },
+      "registration_id_resolved": "RIG-ADMISSION03-REGISTER-008"
+    },
+    {
+      "supplier": "rig",
+      "registry": "continuation/rig/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "registration_id": "RIG-ADMISSION03-REGISTER-009",
+        "source_id": "dependency-bevy_reflect_derive0.19.1:src/container_attributes.rs",
+        "sha256": "a672e1d7725e7a2417f0542e59726962d0cf1489fe4bea11ffa798ec5b09b778",
+        "actual_EOF": 693,
+        "original_ranges": [
+          [
+            390,
+            400
+          ],
+          [
+            621,
+            663
+          ]
+        ],
+        "actual_material_body_ranges": [
+          [
+            395,
+            399
+          ],
+          [
+            621,
+            637
+          ],
+          [
+            660,
+            662
+          ]
+        ],
+        "body_read": "Fresh exact bounded source body read after prospective043 registration; metadata alone no coverage.",
+        "qualification": "Adjacent docs/next headers outside listed material ranges are context only; common comparisons/debug functions are supporting context, no independent unrelated reflected-type admission credit. Source field/enum reflection branches are not analyzed."
+      },
+      "registration_id_resolved": "RIG-ADMISSION03-REGISTER-009"
+    },
+    {
+      "supplier": "rig",
+      "registry": "continuation/rig/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "registration_id": "RIG-ADMISSION03-REGISTER-010",
+        "source_id": "dependency-bevy_reflect0.19.1:src/reflect.rs",
+        "sha256": "8b9875e0690eaae0626088bc3a143a38f23918c2a216ff7c3d699dd7311f9601",
+        "actual_EOF": 652,
+        "original_ranges": [
+          [
+            489,
+            502
+          ],
+          [
+            540,
+            560
+          ]
+        ],
+        "actual_material_body_ranges": [
+          [
+            494,
+            496
+          ],
+          [
+            547,
+            549
+          ]
+        ],
+        "body_read": "Fresh exact bounded source body read after prospective043 registration; metadata alone no coverage.",
+        "qualification": "Adjacent docs/next headers outside listed material ranges are context only; common comparisons/debug functions are supporting context, no independent unrelated reflected-type admission credit. Source field/enum reflection branches are not analyzed."
+      },
+      "registration_id_resolved": "RIG-ADMISSION03-REGISTER-010"
+    },
+    {
+      "supplier": "rig",
+      "registry": "continuation/rig/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "registration_id": "RIG-ADMISSION03-REGISTER-011",
+        "source_id": "dependency-bevy_reflect0.19.1:src/type_registry.rs",
+        "sha256": "f3dd9ddf699c436941878566cd59d7dca62f67ccd4ddbdcea62b3aeb5afdb76d",
+        "actual_EOF": 1123,
+        "original_ranges": [
+          [
+            881,
+            919
+          ]
+        ],
+        "actual_material_body_ranges": [
+          [
+            881,
+            911
+          ]
+        ],
+        "body_read": "Fresh exact bounded source body read after prospective043 registration; metadata alone no coverage.",
+        "qualification": "Adjacent docs/next headers outside listed material ranges are context only; common comparisons/debug functions are supporting context, no independent unrelated reflected-type admission credit. Source field/enum reflection branches are not analyzed."
+      },
+      "registration_id_resolved": "RIG-ADMISSION03-REGISTER-011"
+    },
+    {
+      "supplier": "rig",
+      "registry": "continuation/rig/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "registration_id": "RIG-ADMISSION03-REGISTER-012",
+        "source_id": "dependency-bevy_reflect0.19.1:src/reflect.rs",
+        "sha256": "8b9875e0690eaae0626088bc3a143a38f23918c2a216ff7c3d699dd7311f9601",
+        "actual_EOF": 652,
+        "original_ranges": [
+          [
+            504,
+            506
+          ],
+          [
+            534,
+            540
+          ],
+          [
+            574,
+            576
+          ]
+        ],
+        "actual_material_body_ranges": [
+          [
+            504,
+            506
+          ],
+          [
+            534,
+            540
+          ],
+          [
+            574,
+            576
+          ]
+        ],
+        "body_read": "Fresh exact bounded source body read after prospective043 registration; metadata alone no coverage.",
+        "qualification": "Adjacent docs/next headers outside listed material ranges are context only; common comparisons/debug functions are supporting context, no independent unrelated reflected-type admission credit. Source field/enum reflection branches are not analyzed."
+      },
+      "registration_id_resolved": "RIG-ADMISSION03-REGISTER-012"
+    },
+    {
+      "supplier": "rig",
+      "registry": "continuation/rig/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "registration_id": "RIG-ADMISSION03-REGISTER-013",
+        "source_id": "dependency-bevy_reflect_derive0.19.1:src/container_attributes.rs",
+        "sha256": "a672e1d7725e7a2417f0542e59726962d0cf1489fe4bea11ffa798ec5b09b778",
+        "actual_EOF": 693,
+        "original_ranges": [
+          [
+            219,
+            246
+          ]
+        ],
+        "actual_material_body_ranges": [
+          [
+            219,
+            225
+          ],
+          [
+            228,
+            246
+          ]
+        ],
+        "body_read": "Fresh exact bounded source body read after prospective043 registration; metadata alone no coverage.",
+        "qualification": "Adjacent docs/next headers outside listed material ranges are context only; common comparisons/debug functions are supporting context, no independent unrelated reflected-type admission credit. Source field/enum reflection branches are not analyzed."
+      },
+      "registration_id_resolved": "RIG-ADMISSION03-REGISTER-013"
+    },
+    {
+      "supplier": "rig",
+      "registry": "continuation/rig/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "id": "RIG-ADMISSION03-EOF-001",
+        "queue_index": 3,
+        "source_id": "native-dependency:bevy_asset-0.19.1:event.rs",
+        "sha256": "22ff08ca5948660f8ea0ea2a1a0e9c977b3c9a44bd8c5c538014a9b8200ed0ca",
+        "actual_EOF": 129,
+        "original_ranges": [
+          [
+            1,
+            159
+          ]
+        ],
+        "actual_material_body_ranges": [
+          [
+            1,
+            129
+          ]
+        ],
+        "actual_read": "Fresh full actual129body read and current admission route comparison, not oldrangereadclaim.",
+        "qualification": "All actual native event definitions/conversions/predicates/format/Eq routes lie1\u2013129. Nonexistent130\u2013159 receivesno credit and createsno sourceobligation. Previous1\u2013159range remains immutable originalmetadata; no priorlensrestart."
+      },
+      "registration_id_resolved": null
+    },
+    {
+      "supplier": "rig",
+      "registry": "continuation/rig/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "registration_id": "RIG-ADMISSION03-REGISTER-020",
+        "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_validation.rs",
+        "sha256": "df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+        "original_ranges": [
+          [
+            1,
+            1492
+          ]
+        ],
+        "actual_material_body_ranges": [
+          [
+            1,
+            1492
+          ]
+        ],
+        "qualification": "Actual Camera026 fullPRbody sourceproof +completeactualP16bodydiff/current P16schema/helperrole comparison, P16criticalpredicate bodies freshly reread; no P16existingtests1493+ credit.",
+        "no_nonexistent_or_unrelated_credit": true
+      },
+      "registration_id_resolved": "RIG-ADMISSION03-REGISTER-020"
+    },
+    {
+      "supplier": "rig",
+      "registry": "continuation/rig/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "registration_id": "RIG-ADMISSION03-REGISTER-021",
+        "source_id": "dependency-serde_core1.0.229:src/de/impls.rs",
+        "sha256": "2f8e2ef9d343875bb996319e69feae0dee2287e2548cedd8d3c752b64812331c",
+        "original_ranges": [
+          [
+            81,
+            153
+          ],
+          [
+            222,
+            243
+          ],
+          [
+            449,
+            457
+          ]
+        ],
+        "actual_material_body_ranges": [
+          [
+            129,
+            152
+          ],
+          [
+            222,
+            242
+          ],
+          [
+            450,
+            456
+          ]
+        ],
+        "qualification": "Actual primitive f32 visitor chooses f64 cast with signedzero preservation, no positive/finite check; unrelatedNonZero/Saturating generic branches contextual only.",
+        "no_nonexistent_or_unrelated_credit": true
+      },
+      "registration_id_resolved": "RIG-ADMISSION03-REGISTER-021"
+    },
+    {
+      "supplier": "rig",
+      "registry": "continuation/rig/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "registration_id": "RIG-ADMISSION03-REGISTER-022",
+        "source_id": "dependency-serde_json1.0.151:src/value/de.rs",
+        "sha256": "ceda1bf415aafde89caa83bf275811b70d393717d4e1038e0c61822d2da02993",
+        "original_ranges": [
+          [
+            169,
+            194
+          ],
+          [
+            310,
+            314
+          ]
+        ],
+        "actual_material_body_ranges": [
+          [
+            169,
+            193
+          ],
+          [
+            313,
+            313
+          ]
+        ],
+        "qualification": "Actual Value f32 decoder uses Number.deserialize_any normally or target method underarbitraryprecision; no owner-specificbounds.",
+        "no_nonexistent_or_unrelated_credit": true
+      },
+      "registration_id_resolved": "RIG-ADMISSION03-REGISTER-022"
+    },
+    {
+      "supplier": "rig",
+      "registry": "continuation/rig/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "registration_id": "RIG-ADMISSION03-REGISTER-023",
+        "source_id": "dependency-serde_json1.0.151:src/number.rs",
+        "sha256": "70b83c36286f6c58123f544f27db2b54a1135f928fe33b08b521b2997773f862",
+        "original_ranges": [
+          [
+            582,
+            619
+          ]
+        ],
+        "actual_material_body_ranges": [
+          [
+            582,
+            600
+          ],
+          [
+            602,
+            618
+          ]
+        ],
+        "qualification": "Actual Number targetf32 dispatcher delegates nativefloat visitor/parse; no positive-role check. No unrelatedJSONalgorithm.",
+        "no_nonexistent_or_unrelated_credit": true
+      },
+      "registration_id_resolved": "RIG-ADMISSION03-REGISTER-023"
+    },
+    {
+      "supplier": "rig",
+      "registry": "continuation/rig/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "registration_id": "RIG-ADMISSION03-REGISTER-024",
+        "source_id": "physical-p16:crates/adventuresim-weapon-model/src/catalog.rs",
+        "sha256": "0f579abd98b3de2924ebba3a1addc74b37c30c098af4667ae23b6fdaaef398e2",
+        "original_ranges": [
+          [
+            1,
+            3
+          ],
+          [
+            70,
+            87
+          ]
+        ],
+        "actual_material_body_ranges": [
+          [
+            1,
+            3
+          ],
+          [
+            74,
+            87
+          ]
+        ],
+        "qualification": "Actual privateOnceLock gameplay JSON Serde loader returns typeddesign; default_design exactfirstIDclone, no explicitidentity/Recipe.validate here, typedfieldSerde admission remains. Exclude70\u201372 trailingregisteredIDlistcontext. No authoredJSONdataset/preset/holder factory acceptance.",
+        "no_nonexistent_or_unrelated_credit": true
+      },
+      "registration_id_resolved": "RIG-ADMISSION03-REGISTER-024"
+    },
+    {
+      "supplier": "rig",
+      "registry": "continuation/rig/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "registration_id": "RIG-ADMISSION03-REGISTER-025",
+        "source_id": "dependency-serde_json1.0.151:src/number.rs",
+        "sha256": "70b83c36286f6c58123f544f27db2b54a1135f928fe33b08b521b2997773f862",
+        "original_ranges": [
+          [
+            535,
+            580
+          ]
+        ],
+        "actual_material_body_ranges": [
+          [
+            535,
+            580
+          ]
+        ],
+        "qualification": "Actual Number.deserialize_any normalFloat\u2192visit_f64; direct called decoder macro only, not all serdeJSON package.",
+        "no_nonexistent_or_unrelated_credit": true
+      },
+      "registration_id_resolved": "RIG-ADMISSION03-REGISTER-025"
+    },
+    {
+      "supplier": "rig",
+      "registry": "continuation/rig/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "registration_id": "RIG-ADMISSION03-REGISTER-014",
+        "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_fit.rs",
+        "sha256": "a15e1319cc1730ca71c4b6e36a50f3514e43c62b5c006ac28115aefb620c02e3",
+        "original_ranges": [
+          [
+            1,
+            46
+          ]
+        ],
+        "actual_material_body_ranges": [
+          [
+            1,
+            46
+          ]
+        ],
+        "qualification": "Fresh prospectiveP16exactproductionbody read; actual PRcounterpart bodydiff/current source role compared separately in CONTRACT042\u2013047. OriginalP16testtails145+/160+ excluded."
+      },
+      "registration_id_resolved": "RIG-ADMISSION03-REGISTER-014"
+    },
+    {
+      "supplier": "rig",
+      "registry": "continuation/rig/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "registration_id": "RIG-ADMISSION03-REGISTER-015",
+        "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_surface.rs",
+        "sha256": "9f49d61c21b245ad0793daea4f28f1f74769c76680ef383553454b688c9f6cbd",
+        "original_ranges": [
+          [
+            1,
+            47
+          ]
+        ],
+        "actual_material_body_ranges": [
+          [
+            1,
+            47
+          ]
+        ],
+        "qualification": "Fresh prospectiveP16exactproductionbody read; actual PRcounterpart bodydiff/current source role compared separately in CONTRACT042\u2013047. OriginalP16testtails145+/160+ excluded."
+      },
+      "registration_id_resolved": "RIG-ADMISSION03-REGISTER-015"
+    },
+    {
+      "supplier": "rig",
+      "registry": "continuation/rig/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "registration_id": "RIG-ADMISSION03-REGISTER-016",
+        "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_validation_numeric.rs",
+        "sha256": "a3591804f6c9134439dd3d27e42827d15a3e84c016e675123cc100e69e994f93",
+        "original_ranges": [
+          [
+            1,
+            49
+          ]
+        ],
+        "actual_material_body_ranges": [
+          [
+            1,
+            49
+          ]
+        ],
+        "qualification": "Fresh prospectiveP16exactproductionbody read; actual PRcounterpart bodydiff/current source role compared separately in CONTRACT042\u2013047. OriginalP16testtails145+/160+ excluded."
+      },
+      "registration_id_resolved": "RIG-ADMISSION03-REGISTER-016"
+    },
+    {
+      "supplier": "rig",
+      "registry": "continuation/rig/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "registration_id": "RIG-ADMISSION03-REGISTER-017",
+        "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_validation_material.rs",
+        "sha256": "823eb461e0534843b71a2b8199e6428fd9a558cf9bc1387beedf87500bf71f8a",
+        "original_ranges": [
+          [
+            1,
+            17
+          ]
+        ],
+        "actual_material_body_ranges": [
+          [
+            1,
+            17
+          ]
+        ],
+        "qualification": "Fresh prospectiveP16exactproductionbody read; actual PRcounterpart bodydiff/current source role compared separately in CONTRACT042\u2013047. OriginalP16testtails145+/160+ excluded."
+      },
+      "registration_id_resolved": "RIG-ADMISSION03-REGISTER-017"
+    },
+    {
+      "supplier": "rig",
+      "registry": "continuation/rig/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "registration_id": "RIG-ADMISSION03-REGISTER-018",
+        "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+        "sha256": "9cb076d4f2ff85b5932981983e2eeea82850c8b40b647948ca400bd4d00aad51",
+        "original_ranges": [
+          [
+            1,
+            144
+          ]
+        ],
+        "actual_material_body_ranges": [
+          [
+            1,
+            144
+          ]
+        ],
+        "qualification": "Fresh prospectiveP16exactproductionbody read; actual PRcounterpart bodydiff/current source role compared separately in CONTRACT042\u2013047. OriginalP16testtails145+/160+ excluded."
+      },
+      "registration_id_resolved": "RIG-ADMISSION03-REGISTER-018"
+    },
+    {
+      "supplier": "rig",
+      "registry": "continuation/rig/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "registration_id": "RIG-ADMISSION03-REGISTER-019",
+        "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_validation_surface.rs",
+        "sha256": "1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b",
+        "original_ranges": [
+          [
+            1,
+            159
+          ]
+        ],
+        "actual_material_body_ranges": [
+          [
+            1,
+            159
+          ]
+        ],
+        "qualification": "Fresh prospectiveP16exactproductionbody read; actual PRcounterpart bodydiff/current source role compared separately in CONTRACT042\u2013047. OriginalP16testtails145+/160+ excluded."
+      },
+      "registration_id_resolved": "RIG-ADMISSION03-REGISTER-019"
+    },
+    {
+      "supplier": "rig",
+      "registry": "continuation/rig/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "id": "RIG-ADMISSION03-QUALIFICATION-REG026",
+        "registration": "RIG-ADMISSION03-REGISTER-026",
+        "actual_ranges": [
+          [
+            1,
+            106
+          ]
+        ],
+        "original_requested_ranges": [
+          [
+            1,
+            107
+          ]
+        ],
+        "qualification": "EOF106 determined preread; nonexistent107 receives no credit. P16selection submodule absent; attempted metadata lookup only, no027registration orsourcebody credit. Actual P16 API must compare its own declarations."
+      },
+      "registration_id_resolved": "RIG-ADMISSION03-REGISTER-026"
+    },
+    {
+      "supplier": "rig",
+      "registry": "continuation/rig/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "id": "RIG-ADMISSION03-QUALIFICATION-REG028",
+        "registration": "RIG-ADMISSION03-REGISTER-028",
+        "original_ranges": [
+          [
+            149,
+            154
+          ]
+        ],
+        "material_ranges": [
+          [
+            151,
+            154
+          ]
+        ],
+        "qualification": "149\u2013150 preceding function tail/blank context only, no unrelated role credit; exact SceneBuilding attached derive/visibility header."
+      },
+      "registration_id_resolved": "RIG-ADMISSION03-REGISTER-028"
+    },
+    {
+      "supplier": "rig",
+      "registry": "continuation/rig/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "id": "RIG-ADMISSION03-QUALIFICATION-REG030",
+        "registration": "RIG-ADMISSION03-REGISTER-030",
+        "original_ranges": [
+          [
+            108,
+            151
+          ]
+        ],
+        "material_ranges": [
+          [
+            108,
+            142
+          ]
+        ],
+        "qualification": "EOF142 verified before body read; nonexistent143\u2013151 no credit or obligation."
+      },
+      "registration_id_resolved": "RIG-ADMISSION03-REGISTER-030"
+    },
+    {
+      "supplier": "rig",
+      "registry": "continuation/rig/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "id": "RIG-ADMISSION03-QUALIFICATION-REG029-MATERIAL",
+        "registration": "RIG-ADMISSION03-REGISTER-029",
+        "qualified_material_ranges": [
+          [
+            1,
+            29
+          ],
+          [
+            51,
+            89
+          ]
+        ],
+        "qualification": "Only exact Position/SpatialDirection material body credit; registered adjacent declarations/blank/partialneighbor lines context only, nonexistentline credit excluded."
+      },
+      "registration_id_resolved": "RIG-ADMISSION03-REGISTER-029"
+    },
+    {
+      "supplier": "rig",
+      "registry": "continuation/rig/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "id": "RIG-ADMISSION03-QUALIFICATION-REG030-MATERIAL",
+        "registration": "RIG-ADMISSION03-REGISTER-030",
+        "qualified_material_ranges": [
+          [
+            109,
+            142
+          ]
+        ],
+        "qualification": "Only exact Position/SpatialDirection material body credit; registered adjacent declarations/blank/partialneighbor lines context only, nonexistentline credit excluded."
+      },
+      "registration_id_resolved": "RIG-ADMISSION03-REGISTER-030"
+    },
+    {
+      "supplier": "rig",
+      "registry": "continuation/rig/admission03/source-qualifications.jsonl",
+      "original_record": {
+        "id": "RIG-ADMISSION03-QUALIFICATION-TRAVEL-DISPLAY",
+        "source_id": "physical-p16:crates/strategic-web/src/routes/travel.rs",
+        "initial_actual_material_ranges": [
+          [
+            145,
+            180
+          ],
+          [
+            390,
+            535
+          ]
+        ],
+        "earlier_incidental_display": [
+          [
+            1,
+            696
+          ]
+        ],
+        "additional_registered_actual_analysis_ranges": [
+          [
+            59,
+            119
+          ],
+          [
+            181,
+            193
+          ],
+          [
+            358,
+            389
+          ]
+        ],
+        "qualification": "Full file was displayed by an overbroad reader call; only exact original material and direct registered034 envelopes are admission analyzed/credited. No original whole-file scope, unrelated source-contract, originaltest-tail credit inferred."
+      },
+      "registration_id_resolved": null
+    },
+    {
+      "supplier": "rig",
+      "registration_id": "RIG-ADMISSION03-REGISTER-002",
+      "existing_044_role_additional_qualification": {
+        "supplier": "rig",
+        "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+        "row_1based": 2,
+        "registration_id": "RIG-ADMISSION03-REGISTER-002",
+        "original_record": {
+          "id": "RIG-ADMISSION03-REGISTER-002",
+          "at": "2026-10-22T05:48:04.127386+00:00",
+          "authority": "continuation/root/admission03-discovery-authority-043.json; Root explicitly requested bounded actual opaque/remote helper proof",
+          "source_id": "dependency-bevy_reflect_derive0.19.1:src/lib.rs",
+          "snapshot": "pinned-cargo-bevy_reflect_derive-0.19.1",
+          "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_reflect_derive-0.19.1\\src\\lib.rs",
+          "sha256": "68c37f689d5b216ac404890b22b31426549fd9305c561cfdb51fa5ce4c299964",
+          "actual_EOF": 907,
+          "material_ranges": [
+            [
+              60,
+              117
+            ]
+          ],
+          "reason": "Reflect derive dispatch to opaque implementation and FromReflect; necessary direct admission route of current checked geometry and Native remote elapsed/fraction wrappers.",
+          "exclusions": "No tests/new execution/whole package, unrelated struct/enum reflection routes or unrelated remote assertions.",
+          "status": "registered_before_body_analysis"
+        },
+        "local_qualifications": [
+          {
+            "registration_id": "RIG-ADMISSION03-REGISTER-002",
+            "source_id": "dependency-bevy_reflect_derive0.19.1:src/lib.rs",
+            "sha256": "68c37f689d5b216ac404890b22b31426549fd9305c561cfdb51fa5ce4c299964",
+            "actual_EOF": 907,
+            "original_ranges": [
+              [
+                60,
+                117
+              ]
+            ],
+            "actual_material_body_ranges": [
+              [
+                60,
+                117
+              ]
+            ],
+            "body_read": "Fresh exact bounded source body read after prospective043 registration; metadata alone no coverage.",
+            "qualification": "Adjacent docs/next headers outside listed material ranges are context only; common comparisons/debug functions are supporting context, no independent unrelated reflected-type admission credit. Source field/enum reflection branches are not analyzed."
+          }
+        ],
+        "effective_material_ranges": [
+          [
+            60,
+            117
+          ]
+        ],
+        "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_reflect_derive-0.19.1\\src\\lib.rs",
+        "actual_EOF": 907,
+        "bytes": 34914
+      },
+      "limits": "Preserve all prior original scoped roles; qualifies only this prospective new admission role, no global source narrowing."
+    },
+    {
+      "supplier": "rig",
+      "registration_id": "RIG-ADMISSION03-REGISTER-003",
+      "existing_044_role_additional_qualification": {
+        "supplier": "rig",
+        "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+        "row_1based": 3,
+        "registration_id": "RIG-ADMISSION03-REGISTER-003",
+        "original_record": {
+          "id": "RIG-ADMISSION03-REGISTER-003",
+          "at": "2026-10-22T05:48:04.138490+00:00",
+          "authority": "continuation/root/admission03-discovery-authority-043.json; Root explicitly requested bounded actual opaque/remote helper proof",
+          "source_id": "dependency-bevy_reflect_derive0.19.1:src/from_reflect.rs",
+          "snapshot": "pinned-cargo-bevy_reflect_derive-0.19.1",
+          "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_reflect_derive-0.19.1\\src\\from_reflect.rs",
+          "sha256": "5bcdff556cc6df65e841b8ac5170ec8d83b1ce4883237327ea8f0ffe7171d067",
+          "actual_EOF": 353,
+          "material_ranges": [
+            [
+              25,
+              59
+            ]
+          ],
+          "reason": "Opaque FromReflect reconstruction generation; necessary direct admission route of current checked geometry and Native remote elapsed/fraction wrappers.",
+          "exclusions": "No tests/new execution/whole package, unrelated struct/enum reflection routes or unrelated remote assertions.",
+          "status": "registered_before_body_analysis"
+        },
+        "local_qualifications": [
+          {
+            "registration_id": "RIG-ADMISSION03-REGISTER-003",
+            "source_id": "dependency-bevy_reflect_derive0.19.1:src/from_reflect.rs",
+            "sha256": "5bcdff556cc6df65e841b8ac5170ec8d83b1ce4883237327ea8f0ffe7171d067",
+            "actual_EOF": 353,
+            "original_ranges": [
+              [
+                25,
+                59
+              ]
+            ],
+            "actual_material_body_ranges": [
+              [
+                25,
+                56
+              ]
+            ],
+            "body_read": "Fresh exact bounded source body read after prospective043 registration; metadata alone no coverage.",
+            "qualification": "Adjacent docs/next headers outside listed material ranges are context only; common comparisons/debug functions are supporting context, no independent unrelated reflected-type admission credit. Source field/enum reflection branches are not analyzed."
+          }
+        ],
+        "effective_material_ranges": [
+          [
+            25,
+            56
+          ]
+        ],
+        "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_reflect_derive-0.19.1\\src\\from_reflect.rs",
+        "actual_EOF": 353,
+        "bytes": 13260
+      },
+      "limits": "Preserve all prior original scoped roles; qualifies only this prospective new admission role, no global source narrowing."
+    },
+    {
+      "supplier": "rig",
+      "registration_id": "RIG-ADMISSION03-REGISTER-004",
+      "existing_044_role_additional_qualification": {
+        "supplier": "rig",
+        "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+        "row_1based": 4,
+        "registration_id": "RIG-ADMISSION03-REGISTER-004",
+        "original_record": {
+          "id": "RIG-ADMISSION03-REGISTER-004",
+          "at": "2026-10-22T05:48:04.150042+00:00",
+          "authority": "continuation/root/admission03-discovery-authority-043.json; Root explicitly requested bounded actual opaque/remote helper proof",
+          "source_id": "dependency-bevy_reflect_derive0.19.1:src/impls/opaque.rs",
+          "snapshot": "pinned-cargo-bevy_reflect_derive-0.19.1",
+          "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_reflect_derive-0.19.1\\src\\impls\\opaque.rs",
+          "sha256": "7c0a7b4e1416658fd161b6874b82ac4603390c3e41c30e8425f1b4bb764742ca",
+          "actual_EOF": 131,
+          "material_ranges": [
+            [
+              1,
+              131
+            ]
+          ],
+          "reason": "Opaque Reflect/PartialReflect apply/clone/kind generation; necessary direct admission route of current checked geometry and Native remote elapsed/fraction wrappers.",
+          "exclusions": "No tests/new execution/whole package, unrelated struct/enum reflection routes or unrelated remote assertions.",
+          "status": "registered_before_body_analysis"
+        },
+        "local_qualifications": [
+          {
+            "registration_id": "RIG-ADMISSION03-REGISTER-004",
+            "source_id": "dependency-bevy_reflect_derive0.19.1:src/impls/opaque.rs",
+            "sha256": "7c0a7b4e1416658fd161b6874b82ac4603390c3e41c30e8425f1b4bb764742ca",
+            "actual_EOF": 131,
+            "original_ranges": [
+              [
+                1,
+                131
+              ]
+            ],
+            "actual_material_body_ranges": [
+              [
+                1,
+                131
+              ]
+            ],
+            "body_read": "Fresh exact bounded source body read after prospective043 registration; metadata alone no coverage.",
+            "qualification": "Adjacent docs/next headers outside listed material ranges are context only; common comparisons/debug functions are supporting context, no independent unrelated reflected-type admission credit. Source field/enum reflection branches are not analyzed."
+          }
+        ],
+        "effective_material_ranges": [
+          [
+            1,
+            131
+          ]
+        ],
+        "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_reflect_derive-0.19.1\\src\\impls\\opaque.rs",
+        "actual_EOF": 131,
+        "bytes": 4885
+      },
+      "limits": "Preserve all prior original scoped roles; qualifies only this prospective new admission role, no global source narrowing."
+    },
+    {
+      "supplier": "rig",
+      "registration_id": "RIG-ADMISSION03-REGISTER-005",
+      "existing_044_role_additional_qualification": {
+        "supplier": "rig",
+        "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+        "row_1based": 5,
+        "registration_id": "RIG-ADMISSION03-REGISTER-005",
+        "original_record": {
+          "id": "RIG-ADMISSION03-REGISTER-005",
+          "at": "2026-10-22T05:48:04.160660+00:00",
+          "authority": "continuation/root/admission03-discovery-authority-043.json; Root explicitly requested bounded actual opaque/remote helper proof",
+          "source_id": "dependency-bevy_reflect_derive0.19.1:src/impls/common.rs",
+          "snapshot": "pinned-cargo-bevy_reflect_derive-0.19.1",
+          "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_reflect_derive-0.19.1\\src\\impls\\common.rs",
+          "sha256": "6e65257643e17c838d46d84974d833438e1635cbde5beceb9ffafb0da69e1f96",
+          "actual_EOF": 257,
+          "material_ranges": [
+            [
+              1,
+              174
+            ]
+          ],
+          "reason": "Direct common Reflect methods called by opaque implementation; necessary direct admission route of current checked geometry and Native remote elapsed/fraction wrappers.",
+          "exclusions": "No tests/new execution/whole package, unrelated struct/enum reflection routes or unrelated remote assertions.",
+          "status": "registered_before_body_analysis"
+        },
+        "local_qualifications": [
+          {
+            "registration_id": "RIG-ADMISSION03-REGISTER-005",
+            "source_id": "dependency-bevy_reflect_derive0.19.1:src/impls/common.rs",
+            "sha256": "6e65257643e17c838d46d84974d833438e1635cbde5beceb9ffafb0da69e1f96",
+            "actual_EOF": 257,
+            "original_ranges": [
+              [
+                1,
+                174
+              ]
+            ],
+            "actual_material_body_ranges": [
+              [
+                1,
+                80
+              ],
+              [
+                82,
+                172
+              ]
+            ],
+            "body_read": "Fresh exact bounded source body read after prospective043 registration; metadata alone no coverage.",
+            "qualification": "Adjacent docs/next headers outside listed material ranges are context only; common comparisons/debug functions are supporting context, no independent unrelated reflected-type admission credit. Source field/enum reflection branches are not analyzed."
+          }
+        ],
+        "effective_material_ranges": [
+          [
+            1,
+            80
+          ],
+          [
+            82,
+            172
+          ]
+        ],
+        "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_reflect_derive-0.19.1\\src\\impls\\common.rs",
+        "actual_EOF": 257,
+        "bytes": 9292
+      },
+      "limits": "Preserve all prior original scoped roles; qualifies only this prospective new admission role, no global source narrowing."
+    },
+    {
+      "supplier": "rig",
+      "registration_id": "RIG-ADMISSION03-REGISTER-006",
+      "existing_044_role_additional_qualification": {
+        "supplier": "rig",
+        "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+        "row_1based": 6,
+        "registration_id": "RIG-ADMISSION03-REGISTER-006",
+        "original_record": {
+          "id": "RIG-ADMISSION03-REGISTER-006",
+          "at": "2026-10-22T05:48:04.172420+00:00",
+          "authority": "continuation/root/admission03-discovery-authority-043.json; Root explicitly requested bounded actual opaque/remote helper proof",
+          "source_id": "dependency-bevy_reflect_derive0.19.1:src/remote.rs",
+          "snapshot": "pinned-cargo-bevy_reflect_derive-0.19.1",
+          "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_reflect_derive-0.19.1\\src\\remote.rs",
+          "sha256": "0aa256befa40e782f57b2924d697041ca71ebb4107d124fb006ea9f026ef0811",
+          "actual_EOF": 500,
+          "material_ranges": [
+            [
+              21,
+              241
+            ]
+          ],
+          "reason": "Native supplied remote opaque checked wrapper generation/constructor forwarding; necessary direct admission route of current checked geometry and Native remote elapsed/fraction wrappers.",
+          "exclusions": "No tests/new execution/whole package, unrelated struct/enum reflection routes or unrelated remote assertions.",
+          "status": "registered_before_body_analysis"
+        },
+        "local_qualifications": [
+          {
+            "registration_id": "RIG-ADMISSION03-REGISTER-006",
+            "source_id": "dependency-bevy_reflect_derive0.19.1:src/remote.rs",
+            "sha256": "0aa256befa40e782f57b2924d697041ca71ebb4107d124fb006ea9f026ef0811",
+            "actual_EOF": 500,
+            "original_ranges": [
+              [
+                21,
+                241
+              ]
+            ],
+            "actual_material_body_ranges": [
+              [
+                21,
+                212
+              ]
+            ],
+            "body_read": "Fresh exact bounded source body read after prospective043 registration; metadata alone no coverage.",
+            "qualification": "Adjacent docs/next headers outside listed material ranges are context only; common comparisons/debug functions are supporting context, no independent unrelated reflected-type admission credit. Source field/enum reflection branches are not analyzed."
+          }
+        ],
+        "effective_material_ranges": [
+          [
+            21,
+            212
+          ]
+        ],
+        "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_reflect_derive-0.19.1\\src\\remote.rs",
+        "actual_EOF": 500,
+        "bytes": 18221
+      },
+      "limits": "Preserve all prior original scoped roles; qualifies only this prospective new admission role, no global source narrowing."
+    },
+    {
+      "supplier": "rig",
+      "registration_id": "RIG-ADMISSION03-REGISTER-007",
+      "existing_044_role_additional_qualification": {
+        "supplier": "rig",
+        "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+        "row_1based": 7,
+        "registration_id": "RIG-ADMISSION03-REGISTER-007",
+        "original_record": {
+          "id": "RIG-ADMISSION03-REGISTER-007",
+          "at": "2026-10-22T05:48:04.181312+00:00",
+          "authority": "continuation/root/admission03-discovery-authority-043.json; Root explicitly requested bounded actual opaque/remote helper proof",
+          "source_id": "dependency-bevy_reflect_derive0.19.1:src/registration.rs",
+          "snapshot": "pinned-cargo-bevy_reflect_derive-0.19.1",
+          "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_reflect_derive-0.19.1\\src\\registration.rs",
+          "sha256": "c069e2d3114fe1ba4276ce53531d7a1fd0b7bad25b9da0d56ffeb294736bd7aa",
+          "actual_EOF": 59,
+          "material_ranges": [
+            [
+              1,
+              59
+            ]
+          ],
+          "reason": "Actual generated type-data registration for FromReflect/Serialize/Deserialize; necessary direct admission route of current checked geometry and Native remote elapsed/fraction wrappers.",
+          "exclusions": "No tests/new execution/whole package, unrelated struct/enum reflection routes or unrelated remote assertions.",
+          "status": "registered_before_body_analysis"
+        },
+        "local_qualifications": [
+          {
+            "registration_id": "RIG-ADMISSION03-REGISTER-007",
+            "source_id": "dependency-bevy_reflect_derive0.19.1:src/registration.rs",
+            "sha256": "c069e2d3114fe1ba4276ce53531d7a1fd0b7bad25b9da0d56ffeb294736bd7aa",
+            "actual_EOF": 59,
+            "original_ranges": [
+              [
+                1,
+                59
+              ]
+            ],
+            "actual_material_body_ranges": [
+              [
+                1,
+                59
+              ]
+            ],
+            "body_read": "Fresh exact bounded source body read after prospective043 registration; metadata alone no coverage.",
+            "qualification": "Adjacent docs/next headers outside listed material ranges are context only; common comparisons/debug functions are supporting context, no independent unrelated reflected-type admission credit. Source field/enum reflection branches are not analyzed."
+          }
+        ],
+        "effective_material_ranges": [
+          [
+            1,
+            59
+          ]
+        ],
+        "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_reflect_derive-0.19.1\\src\\registration.rs",
+        "actual_EOF": 59,
+        "bytes": 2432
+      },
+      "limits": "Preserve all prior original scoped roles; qualifies only this prospective new admission role, no global source narrowing."
+    },
+    {
+      "supplier": "rig",
+      "registration_id": "RIG-ADMISSION03-REGISTER-008",
+      "existing_044_role_additional_qualification": {
+        "supplier": "rig",
+        "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+        "row_1based": 8,
+        "registration_id": "RIG-ADMISSION03-REGISTER-008",
+        "original_record": {
+          "id": "RIG-ADMISSION03-REGISTER-008",
+          "at": "2026-10-22T05:48:52.375819+00:00",
+          "authority": "continuation/root/admission03-discovery-authority-043.json",
+          "source_id": "dependency-bevy_reflect_derive0.19.1:src/derive_data.rs",
+          "snapshot": "pinned-cargo-bevy_reflect_derive-0.19.1",
+          "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_reflect_derive-0.19.1\\src\\derive_data.rs",
+          "sha256": "113809d703c47d2d0c5d22bcb8be364a9c158c2878bbdbccd7034b57ba95a1dd",
+          "actual_EOF": 1422,
+          "material_ranges": [
+            [
+              184,
+              327
+            ],
+            [
+              489,
+              500
+            ]
+          ],
+          "reason": "Opaque parse dispatch and direct no-fields type registration metadata; direct called supporting route from REGISTER002\u2013007, registered before body analysis.",
+          "exclusions": "No unrelated reflection/serialization/derive package graph.",
+          "status": "registered_before_body_analysis"
+        },
+        "local_qualifications": [
+          {
+            "registration_id": "RIG-ADMISSION03-REGISTER-008",
+            "source_id": "dependency-bevy_reflect_derive0.19.1:src/derive_data.rs",
+            "sha256": "113809d703c47d2d0c5d22bcb8be364a9c158c2878bbdbccd7034b57ba95a1dd",
+            "actual_EOF": 1422,
+            "original_ranges": [
+              [
+                184,
+                327
+              ],
+              [
+                489,
+                500
+              ]
+            ],
+            "actual_material_body_ranges": [
+              [
+                184,
+                322
+              ],
+              [
+                489,
+                498
+              ]
+            ],
+            "body_read": "Fresh exact bounded source body read after prospective043 registration; metadata alone no coverage.",
+            "qualification": "Adjacent docs/next headers outside listed material ranges are context only; common comparisons/debug functions are supporting context, no independent unrelated reflected-type admission credit. Source field/enum reflection branches are not analyzed."
+          }
+        ],
+        "effective_material_ranges": [
+          [
+            184,
+            322
+          ],
+          [
+            489,
+            498
+          ]
+        ],
+        "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_reflect_derive-0.19.1\\src\\derive_data.rs",
+        "actual_EOF": 1422,
+        "bytes": 50622
+      },
+      "limits": "Preserve all prior original scoped roles; qualifies only this prospective new admission role, no global source narrowing."
+    },
+    {
+      "supplier": "rig",
+      "registration_id": "RIG-ADMISSION03-REGISTER-009",
+      "existing_044_role_additional_qualification": {
+        "supplier": "rig",
+        "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+        "row_1based": 9,
+        "registration_id": "RIG-ADMISSION03-REGISTER-009",
+        "original_record": {
+          "id": "RIG-ADMISSION03-REGISTER-009",
+          "at": "2026-10-22T05:48:52.388281+00:00",
+          "authority": "continuation/root/admission03-discovery-authority-043.json",
+          "source_id": "dependency-bevy_reflect_derive0.19.1:src/container_attributes.rs",
+          "snapshot": "pinned-cargo-bevy_reflect_derive-0.19.1",
+          "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_reflect_derive-0.19.1\\src\\container_attributes.rs",
+          "sha256": "a672e1d7725e7a2417f0542e59726962d0cf1489fe4bea11ffa798ec5b09b778",
+          "actual_EOF": 693,
+          "material_ranges": [
+            [
+              390,
+              400
+            ],
+            [
+              621,
+              663
+            ]
+          ],
+          "reason": "opaque flag parse/read and actual clone implementation dispatch; direct called supporting route from REGISTER002\u2013007, registered before body analysis.",
+          "exclusions": "No unrelated reflection/serialization/derive package graph.",
+          "status": "registered_before_body_analysis"
+        },
+        "local_qualifications": [
+          {
+            "registration_id": "RIG-ADMISSION03-REGISTER-009",
+            "source_id": "dependency-bevy_reflect_derive0.19.1:src/container_attributes.rs",
+            "sha256": "a672e1d7725e7a2417f0542e59726962d0cf1489fe4bea11ffa798ec5b09b778",
+            "actual_EOF": 693,
+            "original_ranges": [
+              [
+                390,
+                400
+              ],
+              [
+                621,
+                663
+              ]
+            ],
+            "actual_material_body_ranges": [
+              [
+                395,
+                399
+              ],
+              [
+                621,
+                637
+              ],
+              [
+                660,
+                662
+              ]
+            ],
+            "body_read": "Fresh exact bounded source body read after prospective043 registration; metadata alone no coverage.",
+            "qualification": "Adjacent docs/next headers outside listed material ranges are context only; common comparisons/debug functions are supporting context, no independent unrelated reflected-type admission credit. Source field/enum reflection branches are not analyzed."
+          }
+        ],
+        "effective_material_ranges": [
+          [
+            395,
+            399
+          ],
+          [
+            621,
+            637
+          ],
+          [
+            660,
+            662
+          ]
+        ],
+        "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_reflect_derive-0.19.1\\src\\container_attributes.rs",
+        "actual_EOF": 693,
+        "bytes": 25089
+      },
+      "limits": "Preserve all prior original scoped roles; qualifies only this prospective new admission role, no global source narrowing."
+    },
+    {
+      "supplier": "rig",
+      "registration_id": "RIG-ADMISSION03-REGISTER-010",
+      "existing_044_role_additional_qualification": {
+        "supplier": "rig",
+        "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+        "row_1based": 10,
+        "registration_id": "RIG-ADMISSION03-REGISTER-010",
+        "original_record": {
+          "id": "RIG-ADMISSION03-REGISTER-010",
+          "at": "2026-10-22T05:48:52.401855+00:00",
+          "authority": "continuation/root/admission03-discovery-authority-043.json",
+          "source_id": "dependency-bevy_reflect0.19.1:src/reflect.rs",
+          "snapshot": "pinned-cargo-bevy_reflect-0.19.1",
+          "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_reflect-0.19.1\\src\\reflect.rs",
+          "sha256": "8b9875e0690eaae0626088bc3a143a38f23918c2a216ff7c3d699dd7311f9601",
+          "actual_EOF": 652,
+          "material_ranges": [
+            [
+              489,
+              502
+            ],
+            [
+              540,
+              560
+            ]
+          ],
+          "reason": "Actual Any downcast/take enforcing typed opaque replacement; direct called supporting route from REGISTER002\u2013007, registered before body analysis.",
+          "exclusions": "No unrelated reflection/serialization/derive package graph.",
+          "status": "registered_before_body_analysis"
+        },
+        "local_qualifications": [
+          {
+            "registration_id": "RIG-ADMISSION03-REGISTER-010",
+            "source_id": "dependency-bevy_reflect0.19.1:src/reflect.rs",
+            "sha256": "8b9875e0690eaae0626088bc3a143a38f23918c2a216ff7c3d699dd7311f9601",
+            "actual_EOF": 652,
+            "original_ranges": [
+              [
+                489,
+                502
+              ],
+              [
+                540,
+                560
+              ]
+            ],
+            "actual_material_body_ranges": [
+              [
+                494,
+                496
+              ],
+              [
+                547,
+                549
+              ]
+            ],
+            "body_read": "Fresh exact bounded source body read after prospective043 registration; metadata alone no coverage.",
+            "qualification": "Adjacent docs/next headers outside listed material ranges are context only; common comparisons/debug functions are supporting context, no independent unrelated reflected-type admission credit. Source field/enum reflection branches are not analyzed."
+          }
+        ],
+        "effective_material_ranges": [
+          [
+            494,
+            496
+          ],
+          [
+            547,
+            549
+          ]
+        ],
+        "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_reflect-0.19.1\\src\\reflect.rs",
+        "actual_EOF": 652,
+        "bytes": 26810
+      },
+      "limits": "Preserve all prior original scoped roles; qualifies only this prospective new admission role, no global source narrowing."
+    },
+    {
+      "supplier": "rig",
+      "registration_id": "RIG-ADMISSION03-REGISTER-011",
+      "existing_044_role_additional_qualification": {
+        "supplier": "rig",
+        "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+        "row_1based": 11,
+        "registration_id": "RIG-ADMISSION03-REGISTER-011",
+        "original_record": {
+          "id": "RIG-ADMISSION03-REGISTER-011",
+          "at": "2026-10-22T05:48:52.411790+00:00",
+          "authority": "continuation/root/admission03-discovery-authority-043.json",
+          "source_id": "dependency-bevy_reflect0.19.1:src/type_registry.rs",
+          "snapshot": "pinned-cargo-bevy_reflect-0.19.1",
+          "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_reflect-0.19.1\\src\\type_registry.rs",
+          "sha256": "f3dd9ddf699c436941878566cd59d7dca62f67ccd4ddbdcea62b3aeb5afdb76d",
+          "actual_EOF": 1123,
+          "material_ranges": [
+            [
+              881,
+              919
+            ]
+          ],
+          "reason": "ReflectDeserialize type data delegates actual Deserialize<T>; direct called supporting route from REGISTER002\u2013007, registered before body analysis.",
+          "exclusions": "No unrelated reflection/serialization/derive package graph.",
+          "status": "registered_before_body_analysis"
+        },
+        "local_qualifications": [
+          {
+            "registration_id": "RIG-ADMISSION03-REGISTER-011",
+            "source_id": "dependency-bevy_reflect0.19.1:src/type_registry.rs",
+            "sha256": "f3dd9ddf699c436941878566cd59d7dca62f67ccd4ddbdcea62b3aeb5afdb76d",
+            "actual_EOF": 1123,
+            "original_ranges": [
+              [
+                881,
+                919
+              ]
+            ],
+            "actual_material_body_ranges": [
+              [
+                881,
+                911
+              ]
+            ],
+            "body_read": "Fresh exact bounded source body read after prospective043 registration; metadata alone no coverage.",
+            "qualification": "Adjacent docs/next headers outside listed material ranges are context only; common comparisons/debug functions are supporting context, no independent unrelated reflected-type admission credit. Source field/enum reflection branches are not analyzed."
+          }
+        ],
+        "effective_material_ranges": [
+          [
+            881,
+            911
+          ]
+        ],
+        "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_reflect-0.19.1\\src\\type_registry.rs",
+        "actual_EOF": 1123,
+        "bytes": 41420
+      },
+      "limits": "Preserve all prior original scoped roles; qualifies only this prospective new admission role, no global source narrowing."
+    },
+    {
+      "supplier": "rig",
+      "registration_id": "RIG-ADMISSION03-REGISTER-012",
+      "existing_044_role_additional_qualification": {
+        "supplier": "rig",
+        "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+        "row_1based": 12,
+        "registration_id": "RIG-ADMISSION03-REGISTER-012",
+        "original_record": {
+          "id": "RIG-ADMISSION03-REGISTER-012",
+          "authority": "continuation/root/admission03-discovery-authority-043.json",
+          "source_id": "dependency-bevy_reflect0.19.1:src/reflect.rs",
+          "snapshot": "pinned-cargo-bevy_reflect-0.19.1",
+          "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_reflect-0.19.1\\src\\reflect.rs",
+          "sha256": "8b9875e0690eaae0626088bc3a143a38f23918c2a216ff7c3d699dd7311f9601",
+          "actual_EOF": 652,
+          "material_ranges": [
+            [
+              504,
+              506
+            ],
+            [
+              534,
+              540
+            ],
+            [
+              574,
+              576
+            ]
+          ],
+          "reason": "Direct Any downcast bodies enforcing opaque replacement identity",
+          "status": "registered_before_body_analysis",
+          "exclusions": "Only exact called helper, no other methods."
+        },
+        "local_qualifications": [
+          {
+            "registration_id": "RIG-ADMISSION03-REGISTER-012",
+            "source_id": "dependency-bevy_reflect0.19.1:src/reflect.rs",
+            "sha256": "8b9875e0690eaae0626088bc3a143a38f23918c2a216ff7c3d699dd7311f9601",
+            "actual_EOF": 652,
+            "original_ranges": [
+              [
+                504,
+                506
+              ],
+              [
+                534,
+                540
+              ],
+              [
+                574,
+                576
+              ]
+            ],
+            "actual_material_body_ranges": [
+              [
+                504,
+                506
+              ],
+              [
+                534,
+                540
+              ],
+              [
+                574,
+                576
+              ]
+            ],
+            "body_read": "Fresh exact bounded source body read after prospective043 registration; metadata alone no coverage.",
+            "qualification": "Adjacent docs/next headers outside listed material ranges are context only; common comparisons/debug functions are supporting context, no independent unrelated reflected-type admission credit. Source field/enum reflection branches are not analyzed."
+          }
+        ],
+        "effective_material_ranges": [
+          [
+            504,
+            506
+          ],
+          [
+            534,
+            540
+          ],
+          [
+            574,
+            576
+          ]
+        ],
+        "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_reflect-0.19.1\\src\\reflect.rs",
+        "actual_EOF": 652,
+        "bytes": 26810
+      },
+      "limits": "Preserve all prior original scoped roles; qualifies only this prospective new admission role, no global source narrowing."
+    },
+    {
+      "supplier": "rig",
+      "registration_id": "RIG-ADMISSION03-REGISTER-013",
+      "existing_044_role_additional_qualification": {
+        "supplier": "rig",
+        "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+        "row_1based": 13,
+        "registration_id": "RIG-ADMISSION03-REGISTER-013",
+        "original_record": {
+          "id": "RIG-ADMISSION03-REGISTER-013",
+          "authority": "continuation/root/admission03-discovery-authority-043.json",
+          "source_id": "dependency-bevy_reflect_derive0.19.1:src/container_attributes.rs",
+          "snapshot": "pinned-cargo-bevy_reflect_derive-0.19.1",
+          "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_reflect_derive-0.19.1\\src\\container_attributes.rs",
+          "sha256": "a672e1d7725e7a2417f0542e59726962d0cf1489fe4bea11ffa798ec5b09b778",
+          "actual_EOF": 693,
+          "material_ranges": [
+            [
+              219,
+              246
+            ]
+          ],
+          "reason": "Direct opaque keyword parser branch used by from_input",
+          "status": "registered_before_body_analysis",
+          "exclusions": "Only exact called helper, no other methods."
+        },
+        "local_qualifications": [
+          {
+            "registration_id": "RIG-ADMISSION03-REGISTER-013",
+            "source_id": "dependency-bevy_reflect_derive0.19.1:src/container_attributes.rs",
+            "sha256": "a672e1d7725e7a2417f0542e59726962d0cf1489fe4bea11ffa798ec5b09b778",
+            "actual_EOF": 693,
+            "original_ranges": [
+              [
+                219,
+                246
+              ]
+            ],
+            "actual_material_body_ranges": [
+              [
+                219,
+                225
+              ],
+              [
+                228,
+                246
+              ]
+            ],
+            "body_read": "Fresh exact bounded source body read after prospective043 registration; metadata alone no coverage.",
+            "qualification": "Adjacent docs/next headers outside listed material ranges are context only; common comparisons/debug functions are supporting context, no independent unrelated reflected-type admission credit. Source field/enum reflection branches are not analyzed."
+          }
+        ],
+        "effective_material_ranges": [
+          [
+            219,
+            225
+          ],
+          [
+            228,
+            246
+          ]
+        ],
+        "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\bevy_reflect_derive-0.19.1\\src\\container_attributes.rs",
+        "actual_EOF": 693,
+        "bytes": 25089
+      },
+      "limits": "Preserve all prior original scoped roles; qualifies only this prospective new admission role, no global source narrowing."
+    }
+  ],
+  "limits": "Pure source/hash/range reconciliation; no semantic coverage. 042 exact2560/59 initial01/02 acceptance remains historical; all newly material roles need bounded qualification after current03 discovery. Initial03-13 and all repairs remain incomplete.",
+  "source_edits": 0,
+  "project_execution": 0
+}

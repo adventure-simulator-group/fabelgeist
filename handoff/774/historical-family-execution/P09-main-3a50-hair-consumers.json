@@ -1,0 +1,19 @@
+{
+  "family": "P09",
+  "status": "Name-leaf integration is complete; the original P09 ordered-column and ordinal migration remains pending and unaccepted.",
+  "incoming_main": "3a50b708381ad00c116445c2c999a49c3943088b",
+  "canonical_owner": "fabelgeist_rig::RigJointName leaves already carried through new hair names; reuse RigJointTable/RigJointOrdinal for the subsequent column/ordinal migration.",
+  "files": [
+    "crates/adventuresim-character-creator/src/hair/placement.rs",
+    "crates/adventuresim-character-creator/src/hair_preview.rs",
+    "crates/adventuresim-character-creator/src/character_morphs/hair.rs",
+    "crates/adventuresim-character-creator/src/character_export/hair.rs"
+  ],
+  "trace": "MHR Skeleton.names/global_joint_states/skin_weights -> owned BodyHead and borrowed HeadSkin -> HeadPlacement name lookup/raw head ordinal -> retained head_joint:u32 -> WholeJoint eight-influence skin -> morph-translation removal / preview / export native packing.",
+  "requirements": [
+    "Propagate the canonical ordered joint column and checked ordinal through the retained head binding; remove head usize/u32 reconstruction before application operations.",
+    "Keep 8-slot full-head influence order/weights and existing name equality/order; pack only at actual CPU tensor, GPU mesh or glTF endpoints.",
+    "Do not create a hair-only joint name/ordinal equivalent or erase names back to String. Current integration uses C_HEAD/L_EYE/R_EYE directly.",
+    "Preserve head fit, axes, eye facing, geometry, morph correspondence and all original P09 exits. No other family is marked complete."
+  ]
+}

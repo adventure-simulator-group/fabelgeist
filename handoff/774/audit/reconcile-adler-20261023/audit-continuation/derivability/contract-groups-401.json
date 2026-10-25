@@ -1,0 +1,40 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-401",
+  "at": "2026-10-25T15:18:07.874209+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 780,
+  "source_id": "pr-working:crates/adventuresim-character-creator/src/garment.rs",
+  "sha256": "d6b09524be811c5e4202be50af529c941a917ff8f31ea61e2a73e4da17dc103e",
+  "actual_compared_ranges": [
+    [
+      1,
+      240
+    ]
+  ],
+  "existing_derives": [
+    "DrapeInput/DrapedGarment Clone40/55",
+    "DrapeStage Debug/Clone/Copy/PartialEq/Eq70"
+  ],
+  "trait_inventory": [
+    {
+      "trait": "Display",
+      "type": "DrapeStage",
+      "lines": [
+        82,
+        91
+      ],
+      "disposition": "Optional exact existing derive_more Display equivalent; F008. Nongeneric exact four literal/progress formats."
+    }
+  ],
+  "analysis": "Fresh1\u2013240 root garment native records/methods and partial SewnSurface. measured_body99\u2013142 native centimetre/kernel handoff, clear_panels157\u2013212 native geometric transform, SewnSurface219\u2013240 partial. All unrelated child bodies uncredited. Finding F008 bounded formatter plus exact dependency macro/feature proof; full role remains pending.",
+  "dependency_evidence": "fresh-dependency-registration-401.json",
+  "findings": [
+    "SEGOVB-INITIAL10-F008"
+  ],
+  "first_unfinished": {
+    "scope_index": 780,
+    "line": 241
+  },
+  "execution": "none"
+}

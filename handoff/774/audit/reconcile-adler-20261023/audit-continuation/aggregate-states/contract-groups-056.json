@@ -1,0 +1,53 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-056",
+  "at": "2026-10-25T11:52:00.757116+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1202,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/social_roles.rs",
+      "sha256": "328d8285856568995cc423bb2ec74bb88bfa690af6e4defcbfc4aa8f9a355415",
+      "personally_read_ranges": [
+        [
+          1,
+          579
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole579 private organization-role authority read. Instance definition/scope ID constructed together and replay compares metadata; assigned_role resolves actual instance definition then catalog role, assignment key character+instance, ordinary insert validates actual character and role, update preserves same assignment identity. Same character may hold many independent instances intentionally; one-role-per-instance index and key duplicate rejection. Birth-family identity separate household; private parser retains provisional origin distinction and actual family payload. Birthcopy/ensure remove provisional assignments before potential missingparent/kind/role failure, so caller error propagation is essential: no ordinary caught-error survivor proven here. ensure_family existing definition comparison omits settlement scope check but canonical family construction settlementNone; malformed independent row alone not admitted witness. Title/precedence selects same winning publicly recognizable role, literacy intentionally selects same priority among literacy-bearing roles, independent profession any-match. Actual ownership/ID/raw booleans/native String errors remain existing migration work; source-substring tests only read, not runtime proof."
+    },
+    {
+      "scope_index": 1203,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/approved_action.rs",
+      "sha256": "dc45100de7c1f6bfa836ee8b4634f1b502be0aab07d778f21595785bf2eadca1",
+      "personally_read_ranges": [
+        [
+          1,
+          173
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole173 approved action enum and execute read. Tagged JSON owns action-specific payload shape; distinct settlement/casesite travel variants, no independent action bool. kind derived by exhaustive variant match, deliberately many-to-one travel tag. Dispatch consumes payload into existing authoritative reducer; leader used for leader actions while investigation original requester with approved flag preserves attribution but needs current approval/membership caller trace. Autoresolve directly returns canonical typed StrategicCombatResult; other branches retain native String-to-StrategicCombatError adapter, connected error migration still outstanding. Raw field types/three separate check targets/role quantity/requirements need canonical owners/admissions in receiving functions, not invented new envelopes. Payload-derived tag versus independently stored PartyActionRequest.action_kind must be checked by actual approval receiver, no wrong dispatch proven from storage representation alone."
+    },
+    {
+      "scope_index": 1204,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "personally_read_ranges": [
+        [
+          1,
+          1586
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole1586 authority schema/functions read. Quest authority commitment canonically hashes JSON with framed versioned bytes; validator checks metadata/seed/catalog/scope/trace, validates manifest, regenerates from exact standard or developer context and compares full result before returns context+manifest. Duplicate cached metadata intentional replay-verified storage boundary; public fields of Validated struct do not themselves enforce pairing, actual callers1191/1128 previously traced include rootF19 swapped local tuple obligation. Private trust gateway guard used for contracts/journey/route/proposed-actions; direct public tables are deliberately different authority/projection roles, not blanket player visibility assertion. backend contracts max site distance and exact counted hostile groups use canonical typed/key site association and checked power/count sum, drop invalid groups/results; missing-row/cause conflation existing validation/migration concern, no ordinary missing mandatory hostile row witness. Contract parsed_state and Mission parsed_state expose canonical sum conversion for lifecycle-sensitive consumption, actual all consumers still separate dependencies. Party live place/camp/wilderness anchor/progress, Journey endpoint/total/completed/camp histories, route points/spans/forecast weather digest fields retain cross-row coherence obligations: declarations alone no actual violating setter witness. Recruitment expires/current roles, incident ID/key/site/hostile capability, capture resolution/subject/version/loot, roster snapshot/current escalation, party inventory individual condition columns and contribution entitlement vs reserve/count require canonical distinct owners; none inherently interchangeable. Actual gateway registration admits exact lowercase64 digest with schema3 or None/schema0, authenticates nonzero identity, owner rotation checked; first claimant trust intentional source policy, no new authorization redesign. Inventory target party scope requires actual living current leader, known item, derives owner+scope+item key and updates one row. Hostile materialization computes canonical bounded initial row, compares immutable base/typed-query mirror before replay and materializes corresponding roster; roster failure after insert must propagate through callers. Mission resolution helper rejects killedcapture successful result, nondefeat loot and selected expected mismatch; expectedNone path still depends actual binding caller. Native raw fields, paired Options and generic errors remain existing migration requirements; source graph not declared closed."
+    }
+  ],
+  "outstanding_connected_dependencies": [
+    "Actual leader approval revalidates request party/requester and payload-derived action tag before execute.",
+    "All flattened state consumers must own canonical state parse and post-write lifecycle relationship, not declarations alone.",
+    "Actual copied birth-family/hostile roster callers must propagate unexpected errors before partial state can commit; no ordinary caught failure proven here.",
+    "Route/camp/capture/roster/continuity/finale constructors and transitions reached in following strategic source roles remain independently unfinished."
+  ],
+  "acceptance": "Reconcile with existing aggregate/producer/type-shape findings, require coherent admitted payloads through actual storage transitions and receiving bodies. Preserve native schema boundary and intentional independent authorities; no duplicate wrappers or new tests.",
+  "discovery": "Three original roles WITH inherited findings and receiver qualifications; no full lens clearance.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

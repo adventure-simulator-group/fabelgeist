@@ -1,0 +1,549 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-020",
+  "at": "2026-10-25T11:35:33.152069+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 81,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/contact_geometry.rs",
+      "sha256": "49172abd688b3e643d98f8214b92848a339da49622b13331988449baffcb93f5",
+      "actual_EOF": 489,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-core/src/combat/contact_geometry.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-core/src/combat/contact_geometry.rs",
+        "owner": "camera",
+        "sha256": "49172abd688b3e643d98f8214b92848a339da49622b13331988449baffcb93f5",
+        "base_sha256": "8be98e18f4aa0d7bb6fbc302c7a10e6df912a744927240f6a4618ce41541e75f",
+        "state": "modified",
+        "bytes": 21798,
+        "audit_owner": "camera",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                489
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-MELEE-001",
+              "CAM-PROP-CLOCK-001",
+              "CAM-PROP-CONDITION-001",
+              "CAM-PROP-EQUIPMENT-001"
+            ]
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+            "ranges": [
+              [
+                1,
+                489
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": []
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 22,
+            "read_ranges": [
+              [
+                1,
+                489
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-AUTORESOLVE-001",
+              "CAM-OWN-COMBAT-FRACTIONS-003",
+              "CAM-OWN-COMBAT-PHYSICAL-002",
+              "CAM-OWN-CONFIG-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/combat/contact_geometry.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 37,
+            "read_ranges": [
+              [
+                1,
+                489
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-AUTORESOLVE-001",
+              "CAM-OWN-CONFIG-001",
+              "CAM-OWN-COMBAT-PHYSICAL-002",
+              "CAM-OWN-COMBAT-FRACTIONS-003"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/combat/contact_geometry.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-AUTORESOLVE-003",
+            "json_pointer": "/current_sources/17",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-core/src/combat/contact_geometry.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                489
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-core/src/combat/contact_geometry.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/combat/contact_geometry.rs",
+              "sha256": "49172abd688b3e643d98f8214b92848a339da49622b13331988449baffcb93f5",
+              "ranges": [
+                [
+                  1,
+                  489
+                ]
+              ],
+              "read_kind": "actual_body_read"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": 22,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          489
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "MeleeContactAtTimeFacts Clone Copy Debug PartialEq",
+        "MeleeContactClassification and InvalidationCause Clone Copy Debug PartialEq Eq Serialize Deserialize snake_case",
+        "MeleeContactAtTime Clone Copy Debug PartialEq Serialize Deserialize"
+      ],
+      "absence_basis": "Entire geometry and fixtures consumed: only inherent constructors plus physical classification/energy computations; no manual trait."
+    },
+    {
+      "scope_index": 82,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/contact_timing.rs",
+      "sha256": "3b347473e5083f9fd02f59949b49f45eb7bf03e75c288b167cf003e2acc6ca89",
+      "actual_EOF": 57,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-core/src/combat/contact_timing.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-core/src/combat/contact_timing.rs",
+        "sha256": "3b347473e5083f9fd02f59949b49f45eb7bf03e75c288b167cf003e2acc6ca89",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 1881,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 13,
+            "read_ranges": [
+              [
+                1,
+                57
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SCALE-001",
+              "CAM-OWN-AUTORESOLVE-001",
+              "CAM-OWN-CONFIG-001"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/combat/contact_timing.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-AUTORESOLVE-003",
+            "json_pointer": "/current_sources/20",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-core/src/combat/contact_timing.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                57
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-core/src/combat/contact_timing.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/combat/contact_timing.rs",
+              "sha256": "3b347473e5083f9fd02f59949b49f45eb7bf03e75c288b167cf003e2acc6ca89",
+              "ranges": [
+                [
+                  1,
+                  57
+                ]
+              ],
+              "read_kind": "actual_body_read"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1095,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "From<Duration> for ContactTimingOffset",
+          "lines": [
+            40,
+            46
+          ],
+          "disposition": "Retain native clock conversion duration.as_secs_f32, not raw field delegation."
+        },
+        {
+          "trait": "From<ContactTimingOffset> for f32",
+          "lines": [
+            47,
+            51
+          ],
+          "disposition": "Keep small native boundary getter, no available equivalent conversion derive established."
+        },
+        {
+          "trait": "TryFrom<f32> for ContactTimingOffset",
+          "lines": [
+            52,
+            57
+          ],
+          "disposition": "Retain checked finite admission and typed ElapsedError; derived Serde already routes through it."
+        }
+      ],
+      "existing_derives": [
+        "ContactTimingOffset Clone Copy Debug PartialEq Serialize Deserialize using try_from/into"
+      ]
+    },
+    {
+      "scope_index": 85,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/fatigue_config.rs",
+      "sha256": "a899b7bacdfbcbc116a93ff6adc283bfb56bea396687713dc3677ff505522ce9",
+      "actual_EOF": 46,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-core/src/combat/fatigue_config.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-core/src/combat/fatigue_config.rs",
+        "sha256": "a899b7bacdfbcbc116a93ff6adc283bfb56bea396687713dc3677ff505522ce9",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 1705,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 6,
+            "read_ranges": [
+              [
+                1,
+                46
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SCALAR-DEFINITIONS-001",
+              "CAM-OWN-CONFIG-001"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/combat/fatigue_config.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CONFIG-001",
+            "json_pointer": "/current_sources/3",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-core/src/combat/fatigue_config.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                46
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-core/src/combat/fatigue_config.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/combat/fatigue_config.rs",
+              "sha256": "a899b7bacdfbcbc116a93ff6adc283bfb56bea396687713dc3677ff505522ce9",
+              "ranges": [
+                [
+                  1,
+                  46
+                ]
+              ],
+              "current_supplement": "actual_body_read"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1089,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "CombatFatigueParameters Debug Clone Copy PartialEq Serialize Deserialize deny_unknown_fields"
+      ],
+      "absence_basis": "Full source has no manual trait; validate owns physical positivity and cross-field duration order."
+    },
+    {
+      "scope_index": 86,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/incapacitation.rs",
+      "sha256": "a38c469cbc09f75a1d55f0050c74c54c9dba3adb5dfe9e13e88142dc10cff7e3",
+      "actual_EOF": 115,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-core/src/combat/incapacitation.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-core/src/combat/incapacitation.rs",
+        "sha256": "a38c469cbc09f75a1d55f0050c74c54c9dba3adb5dfe9e13e88142dc10cff7e3",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 3835,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 40,
+            "read_ranges": [
+              [
+                1,
+                115
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-AUTORESOLVE-001",
+              "CAM-OWN-CONFIG-001",
+              "CAM-OWN-COMBAT-PHYSICAL-002",
+              "CAM-OWN-COMBAT-FRACTIONS-003"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/combat/incapacitation.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-AUTORESOLVE-003",
+            "json_pointer": "/current_sources/23",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-core/src/combat/incapacitation.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                115
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-core/src/combat/incapacitation.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/combat/incapacitation.rs",
+              "sha256": "a38c469cbc09f75a1d55f0050c74c54c9dba3adb5dfe9e13e88142dc10cff7e3",
+              "ranges": [
+                [
+                  1,
+                  115
+                ]
+              ],
+              "read_kind": "actual_body_read"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1104,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "From<RecoveryTime> for Option<AnimationElapsed>",
+          "lines": [
+            22,
+            26
+          ],
+          "disposition": "Retain semantic enum-to-option wire representation After\u2192Some/CannotRecover\u2192None; derived enum encoding would differ. Existing Serialize uses into policy already."
+        }
+      ],
+      "existing_derives": [
+        "RecoveryTime Clone Copy Debug PartialEq Serialize into Option<AnimationElapsed>"
+      ],
+      "absence_basis": "Remaining arithmetic/availability functions and fixtures are semantic bodies; no manual serializer."
+    },
+    {
+      "scope_index": 89,
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/weapon_contact_config.rs",
+      "sha256": "ad51483d70e3e95165e16c92b3d3e270e381db2c9aa9135056cb6484e3e1b287",
+      "actual_EOF": 32,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-core/src/combat/weapon_contact_config.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-core/src/combat/weapon_contact_config.rs",
+        "sha256": "ad51483d70e3e95165e16c92b3d3e270e381db2c9aa9135056cb6484e3e1b287",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 1107,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 7,
+            "read_ranges": [
+              [
+                1,
+                32
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SCALAR-DEFINITIONS-001",
+              "CAM-OWN-CONFIG-001"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/combat/weapon_contact_config.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CONFIG-001",
+            "json_pointer": "/current_sources/4",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-core/src/combat/weapon_contact_config.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                32
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-core/src/combat/weapon_contact_config.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/combat/weapon_contact_config.rs",
+              "sha256": "ad51483d70e3e95165e16c92b3d3e270e381db2c9aa9135056cb6484e3e1b287",
+              "ranges": [
+                [
+                  1,
+                  32
+                ]
+              ],
+              "current_supplement": "actual_body_read"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1090,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "WeaponContactParameters Debug Clone Copy PartialEq Serialize Deserialize deny_unknown_fields"
+      ],
+      "absence_basis": "Full source has no manual trait; validation retains finite/positive versus nonnegative precision rules."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "All mechanical record encoding already derives, including checked f32 admission adapters and optional recovery wire mapping. Keep semantic conversions, physical validation and contact classifiers.",
+      "qualification": "Fixtures read not run, no unrelated descendant or other-lens credit."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 83,
+    "source_id": "physical-p16:crates/adventuresim-core/src/combat/defense.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

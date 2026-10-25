@@ -1,0 +1,37 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-669",
+  "at": "2026-10-25T16:24:20.974960+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 964,
+  "source_id": "pr-working:crates/adventuresim-core/src/physiology.rs",
+  "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+  "actual_compared_ranges": [
+    [
+      1,
+      660
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "Display",
+      "type": "InterventionRoute",
+      "lines": [
+        [
+          468,
+          472
+        ]
+      ],
+      "disposition": "KEEP small exact as_str formatter no existing owning Display derive"
+    }
+  ],
+  "analysis": [
+    "InterventionRoute468\u2013472 small exact write_str(as_str) Display retained, no owning general Display derive. Route already structural/Serde/native conditional derives. InterventionProfile already Clone/Copy/Debug; authored14-profile medicine-effect table and MeterVector::from_const inherent assembler no trait boilerplate."
+  ],
+  "first_unfinished": {
+    "scope_index": 964,
+    "line": 661
+  },
+  "execution": "none"
+}

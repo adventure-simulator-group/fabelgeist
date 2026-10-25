@@ -1,0 +1,151 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-415",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+      "sha256": "aa04ddf1b466365d8e27a43076eab1904f9d1d4abfd1715e2af1578f5d4e5636",
+      "actual_EOF": 2050,
+      "actual_compared_ranges": [
+        [
+          1,
+          2050
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/catastrophic_contacts.rs",
+      "sha256": "ad414c150521528e44dbcc6acc18f8631e8d868339839a74e49be89c99b04865",
+      "actual_EOF": 65,
+      "actual_compared_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height_peaks.rs",
+      "sha256": "629837c2166162e41ef076b43d5c7f4e41714ad0da7c193423ff758e251a0cac",
+      "actual_EOF": 50,
+      "actual_compared_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/support_slip.rs",
+      "sha256": "6bfdf963fc4f4564695be1a4a716194532e1afdb9afbbc602cf13373eb463352",
+      "actual_EOF": 55,
+      "actual_compared_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+      "sha256": "46e0169bf601414d1b5ab885a9fa69b0c32436dd3fb1269d28e06e18b5cde1bc",
+      "actual_EOF": 234,
+      "actual_compared_ranges": [
+        [
+          1,
+          234
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+      "sha256": "71dab9d14d4296c98d6828de5f19e3998f8b3716a32f4bb28d665196edb9c376",
+      "actual_EOF": 352,
+      "actual_compared_ranges": [
+        [
+          1,
+          352
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/presentation_events.rs",
+      "sha256": "96bc4db93aefaea58374be6eba6a7eed668bfaebc77e74a40c1516b2fdf420e5",
+      "actual_EOF": 48,
+      "actual_compared_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+      "sha256": "927e13d910b8e3b7dc6a9cc58ef2e936172b4ec9188948ffd5d1a524d4b89185",
+      "actual_EOF": 792,
+      "actual_compared_ranges": [
+        [
+          1,
+          792
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Finite and complete capture gate actually required",
+      "evidence": "model.rs:1-352, especially304-312; mod.rs:1-234; validation.rs:1-792",
+      "disposition": "build report explicitly finite-checks all retained FrameSample bone transforms and final validation_passed requires it plus expected17roles per planned frame, files, jitter, repeated and scenario gates. Therefore nonfinite main-view bones cannot pass simply because extrema folds sanitize NaN/missing values. This materially qualifies packet413 helper counterexample. Only view0 FrameSamples/global frames retained; other views rely repeated checker, so later-view nonfinite predicate gap remains source-qualified observation boundary, no actual native corruption/run claimed. Global nonreport transforms and other diagnostic fields not covered by bone-only finite predicate; do not imply full native trace finite admission."
+    },
+    {
+      "contract": "Metric native reductions and policy distinctions",
+      "evidence": "metrics.rs:1-2050; metrics/catastrophic_contacts.rs:1-65; metrics/height_peaks.rs:1-50; metrics/support_slip.rs:1-55",
+      "disposition": "Whole production and fixture bodies consumed. Reduced hierarchy and body-local transforms, first real pre-roll exclusion, terrain first-cycle warmup, run vs walk support, acquired plant vs release, source-specific contact and swing accepted explicitly. Supported-foot displacement readmitted as NonnegativeLength and rejects nonfinite active measurements. Other extrema folds sanitize absent/nonfinite, but main retained bone finite gate mitigates wholecapture claim. Actual visualheight peak count gated when requested. No added threshold weakening."
+    },
+    {
+      "contract": "Event ordering and artifact publication",
+      "evidence": "presentation_events.rs:1-48; validation.rs:588-716; mod.rs:39-142",
+      "disposition": "Uniqueness checks all earlier sameowner/scenario/payload, required catalogue event counts. Ordering compares only adjacent same-stream events; interleaved streams could hide reversed perstream order as raw helper API, but actual emitter ordinary reversed sequence unproved. Scoring bounded0..31, incomplete artifacts score0 and acceptance separately required. Writes global trace/manifest/HTML before final verdict intentionally produces inspectable failed artifacts; no atomic filesystem publication guarantee inferred."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-FLIGHT-SOLE-DATUM-CANDIDATE-001",
+      "status": "source-backed alternate-admitted-config mismatch; exact alias pending",
+      "evidence": [
+        "metrics.rs:942-964",
+        "metrics.rs:966-1008",
+        "validation.rs:157-181",
+        "core combat_config.rs measured_ankle_sole_offset_metres",
+        "capture/root_motion.rs:16-48"
+      ],
+      "contract": "Flight sole clearance must subtract the same measured ankle-to-sole datum as contact clearance and actual IK.",
+      "witness": "Flight helper subtracts fixed0.085; contact helper subtracts configured measured_ankle_sole_offset_metres. At admitted measured offset0.10 and finite captured ankle clearance0.14, true sole clearance0.04 becomesreported0.055, crossing run minimum0.05. Other gates remain necessary; no complete accepted run synthesized/executed.",
+      "qualification": "Current YAML uses0.085, so current supplied fixture datum agrees. API/config change conditional; no ordinary current dataset failure. Could extend existing magic-number/type-owner finding; no global unique count.",
+      "repair_cluster": "native-foot-clearance-datum-authority",
+      "dependencies": [
+        "exact canonical alias decision",
+        "preserve current visual acceptance thresholds"
+      ],
+      "acceptance": "Flight/contact/solver use same active datum; current0.085 behavior preserved, signed elevation and optional absence distinct."
+    }
+  ],
+  "fresh_dependencies": [
+    {
+      "source": "contract-groups-413.json#SEGOVB-04-REPEATED-BONE-NONFINITE-CANDIDATE-001",
+      "conclusion": "Finite main-view bones explicitly required by validation. Candidate limited to helper/later-view comparison gap because onlyview0 recorded. Other-view diagnostics and counters must also match; no actual complete erroneous capture accepted."
+    }
+  ],
+  "status": "8 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs"
+}

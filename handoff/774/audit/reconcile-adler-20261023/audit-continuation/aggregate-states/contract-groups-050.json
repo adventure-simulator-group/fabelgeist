@@ -1,0 +1,22 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-050",
+  "at": "2026-10-25T11:34:11.013316+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1188,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/settlement_population.rs",
+      "sha256": "99cd12b58bafddf20c526c07061a1c822636fc87670178ddb36eda2587275fcc",
+      "personally_read_ranges": [
+        [
+          1,
+          759
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole759 settlementpopulation source read. Residentprofile contains presentation metadata/traversalID, actual Character+Personality own live name/age/sex/presentation; ResolvedSettlementResident ephemeraljoin is legitimate projection ratherthan duplicated storedperson. Public gateway row explicitly omitssex/projectionID/privateexplanation, filtersdialogue-capable conversation player+NPC roles and missingcomponents failclosed. projectionID derivedfromsame characterID in actualpersistence child next1190, broad publicschema mutablebypass notordinarywriterproof. DailySchedule start/end and separate context/health suppression express independentcauses; historicalqueryreconstructs outbreak/aliveatobserverclock beforetypedStrategicPresence/DailyPresenceWindow, latestquery intentionally uses currentflags. No code inferred WGS84 coordinates fromvenues; canonical_npc_place intentionally aliases overview/public-square and validates knownvenue or exactorganizationchapter. Businessoperator ID serializes typedBusinessId, normalrow checks businessID/operator and uniqueoperator, settlement derivedfromBusinessId; actualBusinessId schema/context mustbe reused, no equivalentStringID owner introduced. PopulationLocation strips organizationprefix into borrowedidentity and mapscontextpurpose; strings decoded once but retainedprofile/service/organization/conversation leaves remain typedowner/association migration from originalscope. Determinism uses named stream enum and stable seedcoordinate strings toderive upper-half residentidentity; coordinate string is not blindlyinterchangeable with entropySeed, keep hashing/reproducibility policy when choosingbespokeidentity owner. ensurepopulation delegates actualdraft/persistenceowners, then organizationrepresentative binds canonicalinstitution andconversation, clearsservice, createscanonicalfamilygroups andcensushomes; complete draft/modeladmission child next. Original fixtureGenerationExplanation deliberatelyimmutableinput+generatedprofile; liveprojection doesnot rewritehistoricalprovenance. Existingwrapped/daytimeschedule, independent suppression, explicitprivacyprojection andinstitutionbinding tests consumed, notrun. MissingcomponentError/Option distinctions remain causegaps, no new unique defect."
+    }
+  ],
+  "discovery": "One original source role compared WITH original owner/cause/quantity/association findings; full lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

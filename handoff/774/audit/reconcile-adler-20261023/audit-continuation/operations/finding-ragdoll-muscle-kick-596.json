@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-04-RAGDOLL-MUSCLE-KICK-OVERFLOW-CANDIDATE-001",
+  "lens": "04",
+  "status": "source-backed conditional typed-configuration/kernel candidate; no ordinary authored extreme or runtime failure claimed",
+  "variant": "physical-p16 039329518e264f19206cf5b0b98d177433f40c17",
+  "operation": "muscles.rs84\u2013106 constructs a PD kick then calls native clamp_length_max and writes AngularVelocity without readmission",
+  "witness": "Unit parent/child relative rotations with pose error pi about X, zero spins, finite admitted proportional_gain=f32::MAX, derivative_gain=0, tone/envelope=1, positive elapsed1s and maximum kick60. PI*MAX overflows X to Inf; clamp_length_max computes infinite length and Inf/Inf produces NaN, threshold NaN<=epsilon is false; NaN kick reaches child spin. This is a typed custom-config/kernel case, not a claim that ordinary authored gains or current physics produce it.",
+  "contracts": [
+    "response_parameters.rs177\u2013215 admits finite nonnegative unbounded MuscleTone and AngularStiffness; public RagdollMusclesConfig40\u201359 exposes those typed coefficients",
+    "muscles.rs49\u201363 checked age/envelope does not validate subsequent native kick; age is committed before loop",
+    "do not ban zero damping, passive tone, legitimate angular axes, or arbitrarily cap physical coefficients"
+  ],
+  "dependencies": [
+    "ragdoll configuration installation and actual physics finite/unit frame remain separate source obligations; no normal-asset witness",
+    "damp_joints141\u2013153 likewise native relative-spin arithmetic depends on finite physics state; not independently counted as same config counterexample",
+    "existing alias navigation across1002 supplied wrappers found no exact apply_muscles/damp_joints record; not exhaustive semantic uniqueness proof"
+  ],
+  "repair_boundary": "Own finite native PD integration and result admission before any retained spin write; preserve legal coefficients with overflow-safe arithmetic or structured reject. Define whether age should advance on rejected whole update rather than assuming rollback policy.",
+  "acceptance": [
+    "unit normal rotations and finiteMAX coefficient must not publish nonfinite spin; structured rejection is acceptable",
+    "normal gain600/damping20 fixture semantics and equal/opposite pelvis exception preserved",
+    "zero elapsed must not create movement even if an intermediate gain product is extreme; avoid NaN masking by clamps"
+  ],
+  "evidence_kind": "source arithmetic only; no code execution/tests"
+}

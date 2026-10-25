@@ -1,0 +1,34 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-591",
+  "at": "2026-10-25T16:08:05.836581+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 934,
+  "source_id": "pr-working:crates/adventuresim-core/src/investigation.rs",
+  "sha256": "670a2ae0df206f175978278ad2644e91d75c22a88cfa1ef89759171da672147b",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "DomainKnowledgeSubject/DomainProposition/DomainKnowledgeSource/DomainVisibilityRule/DomainBelief",
+      "lines": [
+        [
+          115,
+          138
+        ]
+      ],
+      "disposition": "KEEP five explicit empty local knowledge opt-ins; structural traits already derived, no existing matching derives."
+    }
+  ],
+  "analysis": "Fresh investigation1\u2013220: stage/provenance enums structural Serde/cfgSpacetimeType; stable_id! twelve wrappers already structural/Serde. Native checked lexical constructor/stable labels retained. Five explicit empty knowledge trait opt-ins115/122/128/132/138 KEEP (no ready owning derive); no imported trait-body credit. Evidence adapter checks native identities and frames stable numeric hash, not mechanical From/codec. Envelope body continues.",
+  "first_unfinished": {
+    "scope_index": 934,
+    "line": 221
+  },
+  "execution": "none"
+}

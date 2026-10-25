@@ -1,0 +1,67 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-017",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "integrated-motion-magnitude-versus-intent-and-anchor",
+      "sources": [
+        {
+          "scope_index": 63,
+          "ranges": [
+            [
+              1,
+              392
+            ]
+          ]
+        },
+        {
+          "scope_index": 66,
+          "ranges": [
+            [
+              1,
+              234
+            ]
+          ]
+        }
+      ],
+      "distinction": "AxisMotion deliberately separates velocitybefore/after, nonnegativespeedlimit andsigneddisplacement. MeleeMovementAction isrequest, notobservedmotion; inertiacanretainpositivecoastingwhileClose requested. Grounddrive force/mass/acceleration aredifferent physicalunits, allcurrentlyhostf32 inputs. Centerseparation versusgapprojection differsphysicalanchor despite commonmetre scalar.",
+      "uses": "Integratorexplicitnativef32 kernelreturnscheckedSignedLength/SignedSpeed andbinds elapsed. Actualmobilitycallercomputesphysicaldrive, ordersbounds via maxreach+bodyfloor andselectslunge/guard speed. EveryMovement producerfillsdisplacement/distance/speed/readiness/phasefacts before recorder; optionalrecordshape isrootM88 migration, not ordinarymissingevent.",
+      "disposition": "F001 records actualsame-record anchor reinterpretation. Keep common scalar predicates beneath distinctroles; do notcollapse intent and realizedsign or force everymovementlengthstrictlypositive. Orderedclippingbounds is anadmissionrelation: rawhelpercanacceptindependentSignedLengths but actualshownmobilityproducerorders them; noordinaryreversedclamp claim.",
+      "finding_refs": [
+        "SEGO-INITIAL11-F001"
+      ],
+      "acceptance": "Explicitanchorprojection plus sourcephysicalunits/checkedleafhandoffs, with unchangednativef32kernel/order and currentzero/partialpolicies. Actualnativetacticalcorrelation elsewherepending11; no numericaltestsrun."
+    },
+    {
+      "id": "target-selection-and-defense-history-roles",
+      "sources": [
+        {
+          "scope_index": 64,
+          "ranges": [
+            [
+              1,
+              72
+            ]
+          ]
+        },
+        {
+          "scope_index": 65,
+          "ranges": [
+            [
+              1,
+              239
+            ]
+          ]
+        }
+      ],
+      "distinction": "Populationordinaltarget andflankingfraction returnedfromassignment havedifferentroles; side association islocalpopulationcontract, not finiteenumforarbitraryindex. DefenseCommitment records kind, conditionalretainedpower andrecoveryelapsed, separatelyfrom attempted/effective DefenderResponse andphase.",
+      "uses": "Assignment choosesfromactiveopponentindices andconsumerreusescurrentlists; noordinarytargetmixup. Phaseadaptation iselapsedreadiness delay ratherthan extraattackwork; phasegetterdoesnotmutateschedule. commit_defensive_action distinguishessameweapon cancellation, offhand powertransformation, neutralguard/recovery. response_name/choice projectexistingDefenderResponse toactualtypedchoice/reporttext.",
+      "disposition": "Small namedtargetselectionrecord can improve tupleboundary without duplicateparticipantidentityowner. Keep commitmentpolicyhistory andeffectiveaction/remainingpower distinctions; optionalpowerappliesonlytransformedbranch butactualprivateconstructorcoherent. Existingenumshapegraphsupport doesnotjustifythrowingaway failedattempt/precommit history. RootF04 identitydependency retainsfullu64 IDs; no newuniquealias here.",
+      "acceptance": "Actualtiming/policy/defensepresentationconsumers independentlypending11. Preserve generalfatigueactionwork, realzero recovery, shieldoffhandpolicy, simultaneouscancellationsemantics and meaningfulnegativecontactoffset. No newdisable-fatiguepool/movementpenalty or tests/implementation."
+    }
+  ],
+  "new_findings": [
+    "SEGO-INITIAL11-F001"
+  ],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

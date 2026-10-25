@@ -1,0 +1,97 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-028",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "equipment-graph-instance-and-local-attachment-address",
+      "sources": [
+        {
+          "scope_index": 100,
+          "ranges": [
+            [
+              1,
+              319
+            ],
+            [
+              940,
+              1182
+            ]
+          ]
+        }
+      ],
+      "distinction": "EquipmentGraph keys are stable inventory instances, not catalog items; an attachment address is the correlated parent-instance + authored point ID + capacity index. Body occupancy location/channel/order differs from parent attachment. Keyboard row/column is interface geometry, not physical equipment location.",
+      "uses": "equip217\u2013279 preflights conflicts, parent presence and cycle before mutation; parents may attach multiple points to the same parent and body occupancy may be genuinely empty for attached descendants. Multiple body locations per input and outside-in channel traversal are intentional. Edges keep local point namespace tied to parent instance.",
+      "disposition": "Preserve graph relationship and named edge record; meaningful inventory/attachment/capacity role owners prevent wrong namespace substitutions without arbitrary bounds. Do not create enum variants for keyboard coordinates or every capacity ordinal. Body/parent vectors are simultaneous relationships, not automatically an exclusive enum. Public graph mutation exposure remains admission/aggregate ownership concern; no normal failed-preflight mutation inferred.",
+      "acceptance": "Keep many-to-many addresses and authored order, genuine zero capacity index, cycle/conflict preflight and descendants-first removal. Stable inventory identity cannot be replaced with catalog string; no tactical durable-authority transfer or source implementation."
+    },
+    {
+      "id": "weapon-skill-weight-family-and-encumbrance-mass-summary",
+      "sources": [
+        {
+          "scope_index": 100,
+          "ranges": [
+            [
+              321,
+              528
+            ],
+            [
+              530,
+              939
+            ]
+          ]
+        }
+      ],
+      "distinction": "WeaponSkillDistribution is a nine-leaf relative weight family that may combine melee and ranged. Positive entries are normalized at weighted_check, not necessarily already summing1. Canonical catalog WeaponSkills and runtime distribution share actual leaf shape but boundary representation can differ; do not justify duplicate validation solely by storage. EncumbranceSummary burden and capacity share mass units but differ physical role, and remaining_multiplier differs penalty_fraction.",
+      "uses": "weights sanitizes invalid leaves, validate403\u2013419 checks raw nonnegative weights and requested family support. weighted_check421\u2013432 computes normalized score, empty weights returns0. EncumbranceSummary combines masses before penalty, saturates nonfinite values by explicit existing finite_nonnegative policy, zero capacity returns fully penalized. PlayerEquipment projects actual selected implement and armor layer; explicit unarmed classification avoids zero-weight heuristic. Geometry/contact precision/inertia/timing fields retain distinct physical meanings.",
+      "disposition": "Preserve reusable semantic weight family and native boundary conversions, no UnitInterval per unnormalized weight or forced exclusive melee/ranged category. Keep one shared mass invariant beneath burden/capacity roles where useful; do not collapse total mass and dimensionless penalty. ALIAS003 selected equipment mismatch remains canonical separate issue: broad trait only correct when backed by selected view. No assertion legacy-looking method docs prove current autoresolve never uses real pacing.",
+      "acceptance": "Preserve positive tiny weights, hybrid mix, empty unknown item without sword fallback, mass/penalty zero policies and exactly-once burden contribution to incapacitation. No extra fatigue movement-speed penalty introduced; strategic travel model remains separate role. Source fixtures demonstrate specified policies, not executed acceptance."
+    },
+    {
+      "id": "individual-layer-versus-aggregate-and-engaged-surface",
+      "sources": [
+        {
+          "scope_index": 101,
+          "ranges": [
+            [
+              1,
+              94
+            ]
+          ]
+        }
+      ],
+      "distinction": "WearableProtection is one instance at body region/channel/order, LayeredArmor aggregate loses identity by design for summary, ArmorSurface is one actually engaged layer with real optional instance/material for abstract projections. Similar resistance/padding/flexibility fields do not make these records redundant.",
+      "uses": "aggregate53\u201381 combines union coverage, sums energy resistance/padding, resistance-weighted flexibility and minimum mobility. outermost86\u201394 retains one specific instance for wear, deterministic ordering distinct from aggregate. BodyPart adapter40\u201349 is schema/physics boundary with matching actual seven anatomical categories.",
+      "disposition": "Preserve per-layer, summary and sampled contact stages; share common physical leaf validators without substituting aggregate for actual contacted item or forcing abstract identity Some. Placement/order versus coverage fraction are different roles. Existing associated body/geometry aggregate remediation remains applicable; no unique normal double-wear claim from these functions.",
+      "acceptance": "Actual wear consumes one retained engaged layer, aggregate stays summary. Zero-resistance flexibility is explicitly0, real anatomical gap remains None, no new positive resistance rule or artificial coverage expansion."
+    },
+    {
+      "id": "physical-weapon-geometry-and-cadence-projection",
+      "sources": [
+        {
+          "scope_index": 102,
+          "ranges": [
+            [
+              1,
+              65
+            ]
+          ]
+        },
+        {
+          "scope_index": 103,
+          "ranges": [
+            [
+              1,
+              97
+            ]
+          ]
+        }
+      ],
+      "distinction": "ParametricWeaponCombatGeometry coherently projects mass, full length, grip-to-tip, head extent, inertia, handling balance and concentration from physical recipe. Head length differs grip lever and full extent despite common SignedLength. MeleeAttackTiming preparation versus recovery share elapsed invariant but are separate lifecycle phases, not absolute deadlines.",
+      "uses": "new19\u201351 checks actual physical relations and nonnegative precision/inertia; melee_reach maps grip-to-tip54\u201355. conditioned_precision59\u201363 scales instance concentration by actual catalog condition once, requiring associated catalog ID. Timing17\u201343 uses inertia, explicit unarmed state and style; equal inertia avoids arbitrary weapon family cadence classification.",
+      "disposition": "Keep coherent geometry projection and timing record, common length/elapsed arithmetic below meaningful roles. No universal quantity framework or per-field wrappers only to rename same safe field. Associated catalog/instance condition identity remains an explicit future recipient obligation; do not assume arbitrary caller mismatches occur normally. Unarmed bool carries real independent classification; zero mass is not a substitute.",
+      "acceptance": "Preserve authored full/grip/head relations, positive mass/grip with zero head/inertia/precision allowed, exactly-once condition scaling and actual physical/style timing. No Unsupported maxprecision, zero-duration floor in shared elapsed or source behavior change."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

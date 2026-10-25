@@ -1,0 +1,177 @@
+{
+  "purpose": "First-lens per-source status reconciliation only",
+  "file": "supplemental-root-sources.json",
+  "changed_rows": [
+    {
+      "index": 17,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/ui.rs",
+      "root_cell": 141,
+      "current_disposition": "inventory-accounted-with-findings",
+      "evidence_refs": [
+        "supplemental-root-receivers-007.json#protocol/browser/native-js",
+        "supplemental-root-receivers-008.json#ui/combat_state-and-player-receivers",
+        "root/traces.jsonl#ROOT-PP-CLIENT-DIAGNOSTICS-019"
+      ]
+    },
+    {
+      "index": 18,
+      "source_id": "pr-working:crates/strategic-web/tests/strategic-scene.browser.cjs",
+      "root_cell": 256,
+      "current_disposition": "inventory-accounted-with-findings",
+      "evidence_refs": [
+        "supplemental-root-receivers-007.json#strategic-scene-request/strategic-renderer/strategic-scene/browser_runtime",
+        "supplemental-root-receivers-008.json#native-join-identity-and-worker",
+        "supplemental-root-authored-scene-inventory.json"
+      ]
+    },
+    {
+      "index": 19,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/buildings.rs",
+      "root_cell": 103,
+      "current_disposition": "inventory-accounted-with-findings",
+      "evidence_refs": [
+        "supplemental-root-receivers-007.json#presentation/venues-and-interior",
+        "supplemental-root-receivers-008.json#generation/venue-and-recipes",
+        "supplemental-root-receivers-009.json#generator/lod/interior",
+        "supplemental-root-receivers-010.json",
+        "supplemental-root-receivers-011.json",
+        "supplemental-root-receivers-012.json",
+        "supplemental-geometry-trace.json#extent-actual-endpoints"
+      ]
+    },
+    {
+      "index": 20,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/cached_views/demand_tests.rs",
+      "root_cell": 104,
+      "current_disposition": "inventory-accounted-with-findings",
+      "evidence_refs": [
+        "supplemental-root-receivers-007.json#cached_views/travel/environment_tests",
+        "supplemental-root-receivers-008.json#generation/ownership/requests/tests/travel_fixtures",
+        "supplemental-root-receivers-009.json#diagnostic-callbacks"
+      ]
+    },
+    {
+      "index": 21,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/mod.rs",
+      "root_cell": 105,
+      "current_disposition": "inventory-accounted-with-findings",
+      "evidence_refs": [
+        "supplemental-root-receivers-007.json#protocol/cached_views/readiness/instances/visibility",
+        "supplemental-root-receivers-008.json#generation/ownership-and-js-worker",
+        "supplemental-root-receivers-009.json#shadow/light/render-diagnostics",
+        "supplemental-geometry-trace.json",
+        "receiver-reconciliation-shared-proofs.json"
+      ]
+    },
+    {
+      "index": 22,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/preparation.rs",
+      "root_cell": 106,
+      "current_disposition": "inventory-accounted-with-findings",
+      "evidence_refs": [
+        "supplemental-root-receivers-008.json#generation/ownership/requests/venue/worker_products/wasm/wasm_error",
+        "supplemental-root-receivers-008.json#strategic-generation-pool/cache/worker/write-queue",
+        "root/traces.jsonl#ROOT-PP-SOURCE-OWNERS-027",
+        "root/traces.jsonl#ROOT-PP-CONFIG-PORTS-028"
+      ]
+    },
+    {
+      "index": 23,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/staging.rs",
+      "root_cell": 107,
+      "current_disposition": "inventory-accounted-with-findings",
+      "evidence_refs": [
+        "supplemental-root-receivers-007.json#collision/plan_geometry/interior",
+        "supplemental-root-receivers-009.json#interior/footprints/navigation/geometry",
+        "supplemental-root-receivers-010.json#collision/window/native-component",
+        "supplemental-geometry-trace.json"
+      ]
+    },
+    {
+      "index": 24,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/status.rs",
+      "root_cell": 108,
+      "current_disposition": "inventory-accounted-with-findings",
+      "evidence_refs": [
+        "supplemental-root-receivers-007.json#status/characters-and-equipment/readiness",
+        "supplemental-root-receivers-008.json#runtime-equipment-failure-cache-and-generation",
+        "supplemental-root-strategic-shared-proofs.json",
+        "native/progress.json#source108",
+        "receiver-reconciliation-shared-proofs.json"
+      ]
+    },
+    {
+      "index": 25,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/street.rs",
+      "root_cell": 109,
+      "current_disposition": "inventory-accounted-with-findings",
+      "evidence_refs": [
+        "supplemental-root-receivers-007.json#protocol/instances/visibility/native-js",
+        "supplemental-root-receivers-007.json#cached_views/travel",
+        "supplemental-root-receivers-008.json#strategic-renderer",
+        "supplemental-digest-traces.json",
+        "supplemental-geometry-trace.json"
+      ]
+    },
+    {
+      "index": 26,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/tests.rs",
+      "root_cell": 110,
+      "current_disposition": "inventory-accounted-with-findings",
+      "evidence_refs": [
+        "supplemental-root-receivers-007.json#protocol/cached_views/instances/visibility",
+        "supplemental-root-receivers-008.json#generation/tests-and-worker",
+        "supplemental-root-receivers-009.json#diagnostic-callbacks",
+        "supplemental-root-strategic-closure.json"
+      ]
+    },
+    {
+      "index": 27,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/views.rs",
+      "root_cell": 111,
+      "current_disposition": "inventory-accounted-with-findings",
+      "evidence_refs": [
+        "supplemental-root-receivers-007.json#protocol/cached_views/visibility-and-native-renderer",
+        "supplemental-root-receivers-008.json#prepared-mesh/recipe-mesh",
+        "supplemental-root-receivers-009.json#lighting/shadows/render_diagnostics",
+        "supplemental-geometry-trace.json"
+      ]
+    },
+    {
+      "index": 28,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/world.rs",
+      "root_cell": 112,
+      "current_disposition": "inventory-accounted-with-findings",
+      "evidence_refs": [
+        "supplemental-root-receivers-007.json#protocol/cached_views/travel/instances",
+        "supplemental-root-receivers-008.json#generation/venue/installation",
+        "supplemental-root-receivers-009.json#generator-and-interior",
+        "supplemental-db-traces.jsonl#RIG-SUPP-DB-003",
+        "supplemental-digest-traces.json",
+        "supplemental-geometry-trace.json",
+        "receiver-reconciliation-shared-proofs.json"
+      ]
+    },
+    {
+      "index": 29,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/strategic_scene/equipment.rs",
+      "root_cell": 262,
+      "current_disposition": "inventory-accounted-with-findings",
+      "evidence_refs": [
+        "supplemental-root-receivers-007.json#pr-working-strategic_scene/equipment",
+        "supplemental-root-receivers-007.json#equipment/readiness",
+        "supplemental-root-receivers-008.json#runtime-equipment/generation-and-player",
+        "receiver-closure.json#RIG-RUNTIME-02",
+        "supplemental-root-strategic-shared-proofs.json",
+        "receiver-reconciliation-current.json#supplemental-history-reconciliation"
+      ]
+    }
+  ],
+  "changed_count": 13,
+  "history": "Each row preserves the prior status and original trace_refs in discovery_history.",
+  "source_coverage_change": "None; existing SHA/source IDs/read ranges retained. Only13 previously pending strategic/UI/browser metadata rows updated. Earlier17 rows untouched.",
+  "claims_or_master_ledger_change": "None",
+  "no_clearance": "Inventory accounted with actionable findings and exact proven native boundaries is distinct from clear/fixed/validated.",
+  "result_sha256": "47d402bd7df975037d2e2d5eb89d74f1300569547556deaf51b838e3e38f0e01",
+  "exact_receiver_reference_format": "Each changed row records actual existing receiver metadata file + zero-based row + exact source ID/SHA/read ranges. Descriptive groups retained separately; closure records point to existing strategic/DB/digest/geometry reconciliation without claiming additional source reads."
+}

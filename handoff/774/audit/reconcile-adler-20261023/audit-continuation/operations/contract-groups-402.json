@@ -1,0 +1,133 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-402",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/dive.rs",
+      "sha256": "26b5e25b95cf1676bd54e0138ece10b0c150bf9787a1b47818b88746e3b9bfb2",
+      "actual_EOF": 152,
+      "actual_compared_ranges": [
+        [
+          1,
+          152
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+      "sha256": "b9328929e65c3617acb6340dc0db4ed3db4b260b76b791e7cd1fb8ed1b3cd441",
+      "actual_EOF": 355,
+      "actual_compared_ranges": [
+        [
+          1,
+          355
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/height_values.rs",
+      "sha256": "185b3d1b5dd499737ed32495e54f252665053c4d330711e358639a88f58bd240",
+      "actual_EOF": 39,
+      "actual_compared_ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+      "sha256": "6aef5ced10b1d430e513c990cd005b5e6ff4bdf8c98505b3dccd48d17cb6ac62",
+      "actual_EOF": 267,
+      "actual_compared_ranges": [
+        [
+          1,
+          267
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Height candidate state and signed metre arithmetic",
+      "evidence": "height.rs1\u2013355/height_values.rs1\u201339 full: advance_height consumesCopy self andcommitsonlyOk; firstobservationseedsamplitude/compensation/history, repeatselapsed0, landingsequencecheckedboundedcoalescing, absorption/recovery speedsownmetre/second, transitiondifference/additionreadmitted signedlength. Rootheightseparatefromlandingpelvis, activequickstep resetsheight/plants. Groundedwavewrapsphase; repeatedlandedidentitynotreplayed.",
+      "qualification": "Nativepelvisapply checksdeltafinite butnottransform.translation+delta completedfinite; actualgeometryhugepositions notnormalproved. Propertyfirstobservation0timeadoptsauthoredcompensation intentionallysourcecontract, notzeroelapsedadvanceregession. Conditionchangespartialself discardedonErr; nofailedoperationretainedpartialheightclaim. Run-apexzero ratio actualconfigurationAPIcounterexamplebelow."
+    },
+    {
+      "contract": "Dive bounded scalar and unit-quaternion native boundary",
+      "evidence": "dive.rs1\u2013152 complete: phase/groundcontact piecewise smoothstep, finitecheckthenclampDiveInfluenceunit; directionalangle=authorednonnegativeangle*fraction, authored/bindslerpthenleanquaternionnormalization; sourcefixturesallfourdirections,guardindependentatfull,releaseexact0.",
+      "qualification": "Quaternionunit/finitenativeinputs assumedfromauthoredrig; zero/hugeinvalidQuaternion APIquestions commonposeownergraph, no ordinarydivefailure. Multiplyingfiniteanglebyunitfractiondoesnotnumericallyexceedfiniteangle; hugefiniteangles trigonometricprecision notitselfbespokeinvariantviolation. No testsrun."
+    },
+    {
+      "contract": "Canonical gait producer and periodic support aliases",
+      "evidence": "tactical-core/animation/locomotion.rs1\u2013267 full fresh04: gaitprofile copiesruntimecheckedheightleaves, ordinaryrunblendfromwalk/runreferences, profileflight=runflight*runfraction; motionnormfiniteguard, downedminimumintentional, guardstepseparate, step phase raw speed*elapsed/(step.max(.01)*2). Support usesdistance.min(1-distance) withoutwrappinginput.",
+      "qualification": "Preserve native kernel operand order. Native05F008 (archive initial05/findings.jsonl row10) exactunwrappedphase2 bilateral-supportwrongresult: ownfull04read addssupport, no newunique. Native05F009 row11 accepted equalwalk/runreferences makesblend0/0, existingconfiggraph; currentYAML2/5.5 safe. PeriodicCyclePhaseintentionallyfiniteunwrapped, do notgloballynarrowtoUnitInterval. FloatoverflowwithcheckedfinalCycleDelta rejected; rawLocomotionProfile independentlyvalidzero/signedfields needsaggregateboundary asacceptedotherlensbaseline."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-ZERO-RUN-APEX-COMPENSATION-CANDIDATE-001",
+      "classification": "Admitted nonnegative configuration API counterexample; no current authored config/live failure.",
+      "operation": "height.rs281\u2013304 authored_height_compensation divides locomotion_profile(...).flight_apex by run_locomotion_profile().flight_apex, checksfinite beforecompensation. combat_config.rs655\u2013680 accepts run.flight_apex0; locomotion.rs46 documents0groundedcurve.",
+      "witness": "Copy otherwisevalidcurrentPRconfig, set animation.locomotion.run.flight_apex_metres=HeightDistanceZERO. Allotherfieldsnormal inclwalk2/run5.5. Wholegaitvalidatoronlyfinite_nonnegativeflight, positivedistance/radiusconstraints unchanged; runtimeinstall validatesandpublishes. Uprightgroundedunarmedloweredguard SkeletonState at2m/s: locomotionprofileflight0, runflight0, ratio0/0NaN\u2192Err. advance_height rejectswholecandidate, so a supportedgroundedrun configuration cannot update height history/landing treatment. No execution.",
+      "qualification": "ActualauthoredYAMLrunapex.12, others0; noordinarycurrentconfigfailure. This is acceptedconfiguration arithmetic handling gap; ordinaryrejectionisvalidoverflowpolicybut semanticzeroheight advertisedgroundedcurve shouldhaveexplicitcompensationpolicy. No decisiontoforceallflightheightpositive. Fullglobalsemanticdedup pendingparent; Native05 indexedflight/heightsearchnoexact record, searchabsence notproofunique.",
+      "dependencies": [
+        "HeightDistance zero semantics",
+        "TacticalCombatConfig gait acceptance/runtime snapshot",
+        "Authored height compensation and landing history state"
+      ],
+      "acceptance": "Define zero-run-apex compensation behavior usingcanonicalblend/heightpolicy without0/0; preserve legitimatezeroheight, signedoffsets, knownYAML.12 andunchanged landing/history firstobservation/repeatedticksemantics. If contractrequiresrejectconfig instead, makeownercrossfieldpolicy explicit ratherthan lateperframefailure; no compatibilityfallback orarbitraryglobalpositiveheight rule."
+    }
+  ],
+  "fresh_dependencies": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "5d114988a64595879b04e6f151d2a184cdf8f893f2f2b17a9987a3faf933d4ab",
+      "actual_compared_ranges": [
+        [
+          78,
+          104
+        ],
+        [
+          640,
+          684
+        ],
+        [
+          725,
+          815
+        ]
+      ],
+      "method": "Fresh critical dependency reads; no additional original-role coverage for existing or partial-body roles."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "sha256": "5d254790fa2ec7e53bc749b18bfc8f4d89a1df367c3542f8f969403641c8a970",
+      "actual_compared_ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "method": "Fresh critical dependency reads; no additional original-role coverage for existing or partial-body roles."
+    },
+    {
+      "source_id": "pr-working:content/tactical/combat.yaml",
+      "sha256": "05958d54e48eba637c755f8ad89959dc6ef0aeaeeeaeb75022e07071a01ddaf3",
+      "actual_compared_ranges": [
+        [
+          157,
+          252
+        ]
+      ],
+      "method": "Fresh critical dependency reads; no additional original-role coverage for existing or partial-body roles."
+    }
+  ],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/evaluation_clock.rs"
+}

@@ -1,0 +1,32 @@
+{
+  "id": "RIG-INITIAL09-GROUP-008",
+  "at": "2026-10-23T12:43:05.574729+00:00",
+  "lens": "audit-enum-shapes",
+  "scope": "cumulative-source-scope-parallel-072.json",
+  "groups": {
+    "equipment-graph-and-capabilities": {
+      "comparison": "Fresh full PR equipment1182 in successive bounded reads including every original fixture, complete actual P16body/current-role delta comparison already displayed. EquipmentGraphPlacement body and parents intentionally coexist and parents may be multiple; no exclusive BodyORParent enum. Edge is complete parent/point/capacity product; bool has_children/would_cycle/validate computed predicates, no storedflag. Publicnodes bypass gates is aggregate/admission issue, not fixed by enum. WeaponSkillDistribution continuous independent familyweights; validate(melee,ranged) explicitly allows hybrid and requires positive familytotals only activefamilies. PlayerEquipment optional holding side is independent absence/capability, not proof only armed canhave physicalvalues; unarmed explicitly not inferred zero mass. Trait booleanmethod queries do not themselves retain contradictory alternative equipment here. Encumbrance burden/capacity continuous andzero capacity meaningful, not separate overloadedflag. Actual PR/P16raw-versus-SignedLength method/test delta preserved; no shape difference or importing stale signatures.",
+      "disposition": "Independent topology/capabilities and computed predicates justified; cadence modeF007 separately scoped"
+    },
+    "armor-products": {
+      "comparison": "Fresh PRarmor full94 (old1-39 +mandatoryoverlay20340-94) and actual fullP16same-body/currentrole comparison. Wearable layer has independent coverage/resistance/padding/flex/range; LayeredArmor result no redundantstateflag. ArmorSurface optional inventoryidentity and optionalmaterial can be absent for aggregate/native abstraction and are not documented all-or-none; no forced pairedstate. Coverage absence is outer Option return; BodyPart/Channel closedindependentaxes and exactmapping seven categories doesnotencode conditionalpayload. OutermostOption ordinaryemptyselection, not separateinitializedstatus.",
+      "disposition": "Independent physical/provenance values and explicit absence appropriate"
+    },
+    "loadout-subset": {
+      "comparison": "Fresh all39. LoadoutSlot closed11 subset of full24 EquipmentLocation, no inactive payload/flags; exhaustive From gives canonical target. Restricted producerpurpose supports subset, not new numeric-index aliases. No boolwireadapter or statehistory.",
+      "disposition": "Existing restricted enum shape appropriate"
+    },
+    "physical-weapon-product": {
+      "comparison": "Fresh PR66 and complete actual P16typedlength delta/current-role comparison63. Mass/inertia/balance/precision/total/grip/head form one correlated physicalproduct, not variant-specificinactivefields. Headlength0 is intentionally valid noheadgeometry; do not remove retained total/grip/physical recipecontext when0. Optionnew failure is predicate result, no redundantacceptedbool. Actual P16 SignedLength changes valuepolicyonly, not usealternativeweaponstate.",
+      "disposition": "Complete physical product appropriate; stronger private/admitted representation otherlens"
+    },
+    "cadence-mode": {
+      "comparison": "Fresh full PRtiming97 +P16identicalbody/currentrole incloriginalfixtures; fresh actual Inventory timing17+exactP16samebody. Currentcaller computes weaponOption once then discards shape to inertia map_or0 and weapon.is_none; Corecallee carries unarmedbool and neighboringinertia, ignoresinertia forunarmedbranch. Concrete source productMeleeCadenceSource::{Unarmed,Weapon{moment_of_inertia_kg_m2}} removes semanticflag/inapplicableinertia combination; style remains independentenum. Normalcaller currently coherent, so migration suggestion not actual currenttimingfailure. Preserve fallback0.3 only weaponmalformedinertia handling, fixedunarmed0.36 and exactstyle scales/contactshares; do not requireweaponbodyinertiatoalwaysfiniteatthisexistingrawpolicyboundary.",
+      "disposition": "F007 semantic API choice should own weapon-only input; normal source currently pairs values correctly"
+    }
+  },
+  "finding_refs": [
+    "RIG-INITIAL09-F007"
+  ],
+  "limits": "All original scope/context exclusions retained; no whole caller/nativepackage credit."
+}

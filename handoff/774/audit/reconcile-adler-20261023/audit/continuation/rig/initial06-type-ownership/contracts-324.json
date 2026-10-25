@@ -1,0 +1,26 @@
+{
+  "id": "RIG-INITIAL06-GROUP-324",
+  "at": "2026-10-23T08:58:26.003538+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "offensive-ai-authority": {
+      "comparison": "OffensiveCombatAi owns transient Bevy target Entity and phase; it borrows authoritative TacticalCombatState/SkeletonState/viewer/config, selects opposing nonyielded targets and delegates OffensiveFacts/phase. No durable DB actor owner should replace native Entity here. Actual initiative uses checked AnimationElapsed then native_duration only at Timer boundary; MeleeLungeArrival and RecoveryTime preserve explicit unavailable states. PR native target separation and raw arm/weapon lengths versus P16 SignedLength input/field/fixture changes were completely compared. P16 rejects invalid separation before target-facing mutation; migration must preserve raw rejected diagnostic evidence and current semantic policies, not blindly replay all P16. Supports F034 canonical quantity propagation.",
+      "disposition": "coherent server transient controller; existing F034 quantity migration users"
+    },
+    "rest-contract-reference-fixtures": {
+      "comparison": "Original rest fixtures distinguish StrategicMinute instant/time-of-day from requested/elapsed durations and InjuryRecoveryMinutes; services reuse world-schema SettlementActionService/SettlementService and exposure versus field shelters remain different purposes. ScheduleAllocation exact camp filtering supports F041 complete schedule owner. Source-text assertions exercise preflight/payment/terminal-needs ordering but are reference evidence, not independently read production predicates or actual runtime success. Numeric days/cost/prayer/healing-rate examples do not establish competing owners or justify merging currency, duration and physiological response quantities.",
+      "disposition": "original behavioral/source-order reference; no competing definition introduced"
+    },
+    "device-fitted-frame": {
+      "comparison": "DeviceWearer borrows ArmorGpu/GpuBody/canonical Wearer; DeviceFrame is native Buffer+status, readback constructs existing armor::PartFrame rather than another host frame owner. FrameFailure enum supplies actual status bits and shared WGSL constants; canonical FitRegion/Side/landmarks define interpretation. RigJointName family and RigJointMembership table stay typed until u32 buffer upload, and landmark device_word conversion is actual GPU port. Wearer upload compares canonical rig counts then builds BodySurface. Staged versus checked readback remain distinct execution products, not redundant physical frame types. FRAME_WORDS describes byte layout; no unrelated universal geometry or RGBA owner.",
+      "disposition": "coherent canonical host frame/rig composition with native device status/readback boundary"
+    }
+  },
+  "supporting_existing_findings": [
+    "F034",
+    "F041"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit.",
+  "qualification": "Prior QUAL044 raw rejected evidence and diagnostic classification order remain mandatory; no wholesale P16 source signature replay."
+}

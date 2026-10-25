@@ -1,0 +1,83 @@
+{
+  "id": "CONT07-CONTRACT-508",
+  "at": "2026-10-23T23:01:34.997667+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2212,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/lacing.rs",
+      "sha256": "cce09840d83fc6c71d1020fc45961df2a0c9b4c2a85d5702bc0f65d6fad902a4",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/tiling/lacing.rs",
+      "actual_EOF": 321,
+      "ranges": [
+        [
+          1,
+          321
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2213,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/layout.rs",
+      "sha256": "9d9424e679eb33b176ce1687f202f9a81fcf765ef6d910fdd02bb1f409711fc2",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/tiling/layout.rs",
+      "actual_EOF": 342,
+      "ranges": [
+        [
+          1,
+          342
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2214,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/mod.rs",
+      "sha256": "7ff5bfe0408afa8433957ee7575dd1fbb9f83d6afe4bb3af59a581a81724280d",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/tiling/mod.rs",
+      "actual_EOF": 137,
+      "ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2215,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/surface.rs",
+      "sha256": "b11e892b1c5cebf91866d5ffeed3801659fd98201fe446753a33aadf65598020",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/tiling/surface.rs",
+      "actual_EOF": 441,
+      "ranges": [
+        [
+          1,
+          441
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Lacing321 Layout342 tilingmod137 GridSurface441 full freshread. Layout derivesrows/runs/slopes fromone immutablebase surface/plate/radius; allLacerholes callcanonical Plate.holes and rise useslayout.slopes, no separately recomputed plate-hole authority.",
+    "GridSurface.realized deliberatelypreserves base spacing/orientation to keep materialcorrespondence onmorph; actualpositions andframes computed target realization. This is namedreferenceframe/history, not invalidationfailure when targetpositionschange. Bilineargridinterpolation/extrapolation is deliberate smoothsurfacepolicy; skin corners clampwithinbasecell as a different influencepolicy.",
+    "Constructed.platelayout chooses basefit once; derivedplate/lacing meshes both shareconstructiondesignhash intentionally same design/provenance, not proveduniquegeometryassetkey. Non-grid shells deliberatelyomitted percontract. No unobservedworldphysics/clothrun.",
+    "Root confirmed supplementalconcrete receiver aliases: Bracer/Breastplate separate domain/name roster\u2192M16 source-domain and M17 morphidentity/wholematchedproduct; actual Embedded direct_positionsextendsM17actualrecipient, exporteroracle-onlywordingmustnotlimitremedy. PauldronRIG-ADMISSION03-F052 exactaliasalso closes rootPC128A/Bpendingquestion, no newunique07defect. SurfaceGrid regularandaliassample populationsremain distinct."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2216,
+    "start_line": 1
+  },
+  "existing_finding_source_support": [
+    "M16",
+    "M17",
+    "RIG-ADMISSION03-F052"
+  ]
+}

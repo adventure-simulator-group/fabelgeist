@@ -1,0 +1,33 @@
+{
+  "id": "CONT07-F071",
+  "at": "2026-10-23T19:22:51.709643+00:00",
+  "lens": "audit-redundant-authority",
+  "classification": "maintenance strengthening: closed appearance roster and ordinal association independently repeated",
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/materials.rs",
+  "sha256": "b40a4b3063040003cdd4e0cfee6573ce1e51f131dde1d14cf4dbf25c13295916",
+  "locations": [
+    [
+      27,
+      68
+    ],
+    [
+      206,
+      239
+    ]
+  ],
+  "authoritative_fact": "All supported BuildingAppearance identities and the appearance whose material bundle a selector receives.",
+  "representations": [
+    "Closed8-variant BuildingAppearance enum declaration27-37",
+    "Separately written ALL8-element array59-68",
+    "Vec<AppearanceMaterials> collected in ALL order234-239 and indexed with appearance asusize215/223"
+  ],
+  "disagreement": "Current enum/ALL order agrees. A one-sided ALL reordering changes which complete palette for_building/for_distant_building returns without changing the enum meaning; adding a constructor-returned variant without updating the roster leaves no corresponding indexed bundle. These are maintenance counterexamples, not installed wrong appearance, bad caller or runtime evidence.",
+  "actual_receiver": "Both material selectors return BuildingPalette using positional vector lookup; prototype grouping and every palette.get consume that resulting appearance. Fresh REG001 confirms get derives the entire material family from that selected AppearanceMaterials.",
+  "connected_repair": "Let canonical enum identity/iteration or an enum-keyed/lazy creation mechanism own complete appearance membership and association, removing the independent positional roster contract. Preserve the authored prosperity/variant mapping and deliberately weighted100-way appearance selection, which are separate policies rather than duplicate roster facts.",
+  "acceptance": "A variant cannot silently select another appearance because a separately maintained ALL order changed. Keep all current palette values, deterministic seed/draw mapping and native asset-cohort uniqueness; no new tests during audit.",
+  "dedup": "Same broad roster-maintenance class as Camera07F011, but QUAL205 prevents an automatic shared-root merge. This exact BuildingAppearance source/consumer graph has no exact packaged/local finding found in metadata searches; no global unique total asserted.",
+  "repair_status": "frozen",
+  "validation_status": "source_only_not_run",
+  "normal_bad_caller_claim": false,
+  "no_other_lens_credit": true
+}

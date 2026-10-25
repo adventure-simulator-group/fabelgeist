@@ -1,0 +1,37 @@
+{
+  "id": "RIG-ADMISSION03-BOOK-SCHEMA-WITNESS-008",
+  "lens": "audit-admission-contracts",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "sha256": "96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+      "material_ranges": [
+        [
+          502,
+          534
+        ]
+      ],
+      "coverage_ref": "RIG-ADMISSION03-CONTRACT-053"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "sha256": "115d9400063d89f5782dc3c34be2b9f2af774ca438768a9059f815b531d71b1f",
+      "material_ranges": [
+        [
+          507,
+          539
+        ]
+      ],
+      "coverage_ref": "RIG-ADMISSION03-CONTRACT-051"
+    }
+  ],
+  "actual_admission_routes": "FullPR/P16schemaalreadyreadandactualbodydiff/currentcataloguecontractscompared048\u2013053; exactBook/BookTargetdeclarationsfreshlyrereadherebothvariants. PublicBookordinaryderiveSerde(denyunknown), noDefault/Reflect/SATS/checkedctor/try_from: publicmediumWrittenLanguage,targetBookTarget,qualityrawu8 andsettlement_allowlistVec<String>defaultempty. Docsquality1..5butownBookdecode/literalacceptnative0..255. BookTargettaggedkindclosed5caseenumdenyunknown: Written carriesclosedWrittenLanguage, ReligionclosedOfficialReligion, BestiaryclosedBestiaryCategory, TerrainrawString, SkillrawString. Unknownvariantrejectedbyserde; empty/arbitraryTerrain/Skill/allowliststringsstructurallyrepresentable. No targetmembership/localallowlist/qualitypredicateinsideSchemaowner. AuthoredBooksimpleitemmetadatanotpersistedinventoryflattening.",
+  "actual_counterexample_or_intentional": "Quality0/255, emptyterrain/skill/allowliststringspassrawBookstructuralroute; sourcecompiledsemanticbookvalidator andNativebook_shape_is_valid separatelyownactualquality/targetpolicies. No canonicalcompiledBooksealfromderiveSerde/targettypename, no currentbadcaller/runtimeclaim.",
+  "connected_gate_refs": [
+    "continuation/camera/admission03/item-main-admission-026.json",
+    "continuation/rig/admission03/catalogue-schema-receiver-witness-001.json"
+  ],
+  "limits": "Exactschema/rawDTOdefinitiononly; no Bookhelper/gameplay/fullcatalogueclearanceornewsource. Native actualquality/family/terrain gates mustcompareexplicitly; noexecution/newtests.",
+  "repair": "frozen",
+  "validation": "not_run"
+}

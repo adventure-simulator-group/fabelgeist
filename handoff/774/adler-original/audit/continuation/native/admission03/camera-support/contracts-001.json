@@ -1,0 +1,58 @@
+{
+  "id": "NATIVE-CAMERA-SUPPORT03-CONTRACTS-001",
+  "authority": "ROOT-ADM-SUPPORT-AUTHORITY-054",
+  "lens": "audit-admission-contracts",
+  "groups": {
+    "authored-gameplay-item-reference-constants": {
+      "camera_indices": [
+        433
+      ],
+      "ranges": {
+        "433": [
+          [
+            1,
+            76
+          ]
+        ]
+      },
+      "invariant": "Authored stable open item names consumed by separately validated catalogue; constants are not runtime membership proof.",
+      "all_admission_routes": [
+        "Full76 read. Currency array6, medication array14 exact12-27, carry kit IDs/placements, required gameplay19 are fixed raw &str declarations with authored lowercase identifiers. MEDICATION_IDS order14 is actual declaration, not inferred from physiology profile count. No own parser/Serde/Reflect/Default or validated item constructor. Runtime cfg merely reexports validate_gameplay_references from separate assigned434, not covered by reexport name."
+      ],
+      "counterexample_or_qualification": "No checked-value claim or rejection route; constants remain authored input to actual catalogue/reference admission. No whitelist narrowing of all open item identities.",
+      "connected_repair": "Existing Core item/canonical reference propagation under Root; keep open names and independent actual catalogue existence.",
+      "acceptance": "Preserve exact14 medication IDs/order and required-list contents; validate references at owned catalogue load, not constant type-name inference."
+    },
+    "canonical-place-codec-and-public-fixture-association-bypass": {
+      "camera_indices": [
+        468
+      ],
+      "ranges": {
+        "468": [
+          [
+            1,
+            998
+          ]
+        ]
+      },
+      "invariant": "Canonical versioned strategic identity syntax is distinct from DB existence/visibility/reachability. Fixture constructors additionally promise allowed place-kind and matching chapter association.",
+      "all_admission_routes": [
+        "Full998 read including existing tests722-998 source only. StrategicIdentityComponent privateString21-40 sole public try_new rejects empty/>256bytes/notASCIIalnum or colon underscore hyphen dot. No Deserialize/Default/Reflect/uncheckedFrom/mutable accessor for component. Place public variants contain checked components, closed VenueKind11, typed CaseSiteId, StrategicMinute or allword u64 movement; no DB-membership, current-clock ordering or geography promise. Zero/full-u64 departure/movement intentional existing calendar policy, not narrowed.",
+        "CaseSiteId private named String49-52; try_new delegates component, manual denyunknown Serde109-118 same gate, Serialize named{value}; From<String>75-78 invokes gate then expect (panic on rejected input, no invalid Self). Deref/as_str/Display/into_string output only. Feature spacetimedb derives SpacetimeType49: exact runtime macro namespace/generated named-record route must independently join Camera current macro proof before claiming it sealed; manual Serde alone cannot qualify SATS.",
+        "All six place factories242-296 check each raw component; display455-505 lowerhexencodes component bytes, serializes exact v1/family fields; FromStr508-552 checks total<=4096, exact prefix/version/family/arity, closed venue IDs, decodehex lowercase-only/double-length bound/UTF8/componentgate. Journey canonical_u64709-719 rejects nondigits/overflow and leading zero via roundtrip; full0/MAX otherwise valid. CaseSite goes checked constructor. Manual Serde631-635 invokes this parser. No Default/Reflect/deriveddecoder directly on Place.",
+        "Fixture factories342-405: Service only SettlementVenue with actual kind.is_service; Chapter either exact matching ChapterVenue org/location or service venue; OutbreakSource only CaseSite plus checked outbreak component; Fireplace allowed non-public-square SettlementVenue/ChapterVenue/JourneyCamp, rejects settlement/residence/casesite. Actual closed-kind service and fireplace policy is defined160-203; no catalogue alias guessing.",
+        "FixtureDisplay555-585 encodes nestedplace/canonicalcomponents. FromStr587-622 exact v1/arity<=MAX(4096*2+256*4+64), bounded decode_place682-699 then nested Place parse, exact component decode; invokes SAME associated factory for all four cases. Manual Serde645-649 delegates parser. Existingtests confirm factory and codec association rejection, never inspect every publicliteral construction route.",
+        "Public StrategicFixtureId enum323-339 permits literal Service/Chapter/OutbreakSource/Fireplace independently of validating associated factories. This is an admission route, not a raw unpublished wire DTO. A Service containing a valid Settlement shell can be constructed, displayed/serialized, but parser rejects it; mutable enum assignment can replace association after factory creation. Place closed component structure generally preserves grammar, conditional CaseSite SATS remains separate pending route."
+      ],
+      "counterexample_or_qualification": "NATIVE-CAMERA-SUPPORT03-F001 public fixture association bypass. Source-only representable Service{place: StrategicPlaceId::settlement(\"lubeck\")?} violates service factory. No actual bad production caller or test execution. Conditional CaseSite SATS exact dependency proof pending Camera, not assumed from derives.",
+      "connected_repair": "Hide fixture payload/variants behind a checked canonical owner or invariant-preserving private record with public read-only kind/view; retain same authoritative factory in parse/Serde. Root final repair/function authority and Camera audit/source authority unchanged. Independently replace production expect in infallible CaseSite conversion under Rust API rule without fallback or silently dropping rejection.",
+      "acceptance": "Every construction/mutation/decoder of accepted fixture must preserve exact service/chapter/outbreak/fireplace associations; preserve v1 syntax, open grammar within bounds, zero/allword clocks and personal-time DB admission as distinct authority. No new tests/execution/source edits.",
+      "proof_refs": [
+        "queue-plan-resolved-002.json original Camera468 exact sourceID/SHA/current roles",
+        "Camera strategic-calendar-itinerary-admission-043.json actual P16 allword StrategicMinute; PR current calendar policy separate exact Root proof",
+        "Camera SATS001 named-record helper navigation only pending actual runtime derive edge; no generated-route credit here"
+      ]
+    }
+  },
+  "not_part_of_native443_or_root_batches": true
+}

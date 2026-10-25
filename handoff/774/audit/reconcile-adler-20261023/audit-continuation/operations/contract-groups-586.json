@@ -1,0 +1,110 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-586",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/acceptance_limits.rs",
+      "sha256": "cd50789f7bb51a70cba222126924e2bd09537e91732baaeaa87a5a5b764bf5a3",
+      "actual_EOF": 288,
+      "actual_compared_ranges": [
+        [
+          1,
+          288
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/biomechanics_validation.rs",
+      "sha256": "9211b4536a6ae6cf42e37da786ff675287b5d917b2231ba82415e9ed4e84109a",
+      "actual_EOF": 64,
+      "actual_compared_ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/body_response_validation.rs",
+      "sha256": "bd29a229e56b7d1e2bf3637893267470180968b4d88e10c970ab9067d78c2439",
+      "actual_EOF": 103,
+      "actual_compared_ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/continuity_validation.rs",
+      "sha256": "2d2788cbd744673baa618011298af0a711c24b8063a8fe651eb4c15922cd68d0",
+      "actual_EOF": 27,
+      "actual_compared_ranges": [
+        [
+          1,
+          27
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/height_validation.rs",
+      "sha256": "a40eb11dc1cb1c214bdd2fc118536d9e879075175c3688f4650f680c43bec3d3",
+      "actual_EOF": 35,
+      "actual_compared_ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/html.rs",
+      "sha256": "ad225bb5b1a00479327871963669e407028cc5e4550fe10134be12a2030bacf1",
+      "actual_EOF": 142,
+      "actual_compared_ranges": [
+        [
+          1,
+          142
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/landing_validation.rs",
+      "sha256": "f68a28a4d7d79923b5d9b1d5bec979b4518498f9d3d25a91f89911b2916a95cb",
+      "actual_EOF": 30,
+      "actual_compared_ranges": [
+        [
+          1,
+          30
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "P17acceptance bounds preservevalidquantity computations and distinguish measured, unavailable andnotapplicablescenarioevidence.",
+      "evidence": "acceptance288/bio64/body103/continuity27/height35/html142/landing30completebodiespersonallyread. Thresholdconstruction fixedfinitePositive/Nonnegativebespoketypes and propagationResult. Terrainverticalbound addsrelief thenHeightDistancecheckedbeforepublish; largefiniteoverflowrejectsvalidly ratherthanrequiringinfallible sum. Cadence fourcontacts successorship/wrapping semanticowner, rootdistance-phase*canonicalstep checkedSignedLength, tolerancecheckedcomparisons. Leanrange signedtypedmin/max; lateralrange difference checkedNonnegativeLength. Vectordifferencenormoverflow leads<=gatefalse, notaccidentalvalidpass. Verticalrange/heightgain/peaks useactualMeasuredpresence, unavailablerequiredmetricfails. Landingemptytruemeansscenarioabsent, nonemptyneedscompressionallframes,kneeobservation, oneeventspan andfinalsettledcompression.",
+      "qualifications": "No report/test/native/GPUexecution. Scenarios.iter.all emptytrue andspecializednotapplicablesuccess requireouterrequestedcohort/completeness authority (existingNATIVE05F016), notreadaswholecapturepass. Scenario-specificcommentsclaimpreviousmeasurements onlysuppliedhistoricalevidence, nofreshvisualacceptance. Thresholdchoices remainproduct/biomechanicalpolicy, notpermissionto weakenchecks.",
+      "acceptance": "Keep finitecomputedResult rejection andexplicitrequiredobservations, exactspecializedscenarioapplicability andonecanonicalacceptedcohort; no empty/missingframegreenreport dueoptionalhelpertruth. Preservelegitimatemotion-specificbounds andactualcadencecounterwrap."
+    },
+    {
+      "contract": "Review HTML andplayback preserve observation distinctions withoutstandinginfornativevisualproof.",
+      "evidence": "HTMLserializationfallible andpropagates; reportboneunknown->serdeError. Numericformats usecheckedmetrictypes, measured/unavailable/notapplicabletextdistinguished. Inlineplayback modulo usesframeslength; emptylistshowremovessrc/No completedcaptureframes; contactstepmax1preventsnonprogress. EmptylisttimeriNaNdoesnotindexundefinedandscenarioselectionresetsi0.",
+      "qualifications": "No renderedHTML/browserrun orvisualapproval. Scenario/screenshot/source strings interpolatedrawHTML/inlineJSON relycanonicalcontrolledcapturereport producer; arbitraryconstructedmaliciousmanifest notclaimednormal. Fixed31denominatormustremainconsistentcanonicalqualityowner, implementationbodypendingmetrics/model. Tooldisplaydoesnotadmitrawframesorproveactualhardwarecapture.",
+      "acceptance": "Presentationpreservesexplicitmissingstates andcanonicalreportidentity; completeness/finitegatebeforeacceptedreport, user-visibleactualimagesforfuturevisualreview. Anyunsupportedexternalmanifestboundary needsproperencoding/admissionatownerwithoutcompatibilityfallback."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "7 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs"
+}

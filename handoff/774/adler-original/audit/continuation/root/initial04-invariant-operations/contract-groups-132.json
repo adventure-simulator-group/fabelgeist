@@ -1,0 +1,106 @@
+{
+  "packet_number": 132,
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/organization.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          36
+        ],
+        [
+          88,
+          246
+        ],
+        [
+          316,
+          645
+        ]
+      ],
+      "actual_material_operation_ranges": [
+        [
+          1,
+          35
+        ],
+        [
+          89,
+          246
+        ],
+        [
+          317,
+          632
+        ]
+      ],
+      "context_only_ranges": [
+        [
+          36,
+          36
+        ],
+        [
+          88,
+          88
+        ],
+        [
+          316,
+          316
+        ],
+        [
+          633,
+          645
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh literal exact original effective union in three bounded displays; actual full PR/P16diff empty. Mandatory208 independently corrects context: derive36 does not cover excluded SecondPersonRegister, tests actually start634 and633-645 is partial test context, not complete fixture coverage. No37-87/247-315/646+ or whole1251 source credit. Original broad PRwhole1251 remains separately incomplete.",
+      "sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+      "actual_EOF": 1251
+    }
+  ],
+  "groups": {
+    "static-schema-and-runtime-input": "Scoped declarations keep role/organization/chapter/settlement references, trainingtargets and recognition records. Includes generated build-time JSON then OnceLock parses it with expect; actual build-validator body/constants not compared here, so comment about build validation is a supplier obligation, not proof arbitrary rawSerde inputs are sound. No arithmetic on duesamount/interval/trainingweight occurs in this bounded role; their zero/finite/crossreference gates belong to actual catalogue admission and consumers. Stable content identity can be bespoke and extensible without replacing content with institution-shaped enums or preserving rawString across every internal API.",
+    "initial-social-role": "Actual hash input prefixes settlement byte-length before settlement and actor-domain-key fields; modulo4 selects closed role tuples, urban changes draw2 mapping deliberately. Length prefix resolves settlement/domain boundary, so do not transfer F055 unframed-pair case to this alreadyframed operation. Caller must supply explicit actor-domain key, not established by raw &str parameter alone; actual normal Character/NPC caller namespace remains independent role. Hash kernel/draw distribution not verified by this caller; deterministicstream outputs/order must remain deliberate during future canonical owner propagation.",
+    "lookup-and-membership": "Recognition compares requested settlement to authored list. chapter_at_location binds both settlement+location; servicechapter selects organization by same chapter membership before expect, with immutable static catalogue so no intervening mutation invalidates the selected chapter. role privilege is organizationglobal OR additive role privilege; missing role canstill return global privilege by current helper rule, not independently a proven DB authorization bypass. Actual membership/active/dues policy belongs to native caller. Canonical bound organization-role/chapter context should retain validated crossreferences instead of separate unbound raw ids; no forced duplicate enum/catalogue owner.",
+    "institution-and-venue": "Stable chapter identity and physical service NPC venue are intentionally different. service location mapping applies only recognized available service; otherwise returns authored chapter location. Standalonebuilding compares actual effective venue with authored location. These purpose distinctions do not imply stale cache or two competing authorities. Existing service profile helpers mayremain actualnative ports with typed conversions; raw service strings in internal owning schema are not justified solely by persistence comment or .into().",
+    "representative-identity": "F055 concerns delimiter ambiguity before hashing, not inevitable64bit collision or highbit capacity byitself. exact_representative_fields_match separately verifies numeric id/home settlement/organization and conversation category; those later checks canreject inconsistent binding but do not make the representative id encoding injective. No existing DB overwrite, successful wrong NPCconversation or ordinary catalogue collision claimed. Preserve actual full identity/context through canonical allocation/hash and retained reference consumers.",
+    "scope-and-validation": "Original P16union retained, body operation ranges corrected208; partial test634-645 explicitly context-only, no complete first/secondfixture clearance. PRwhole1251 not marked complete from P16subset/emptydiff. No source edits, commands/tests, buildcatalogue execution or other-lens verdict."
+  },
+  "findings": [
+    {
+      "id": "ROOT-INITIAL04-F055",
+      "kind": "organization_representative_identity_has_unframed_pair_preimage_alias",
+      "source_id": "physical-p16:crates/adventuresim-core/src/organization.rs",
+      "locations": [
+        [
+          604,
+          610
+        ]
+      ],
+      "case": "Public pair(settlement_id='a:b',organization_id='c') and pair('a','b:c') both format exactsame resident:organization-representative:a:b:c bytes beforestablehash and highbitOR, so return identical id deterministically. Source-level rawAPI case only: actual authored/caller IDgrammars and ordinary DBcollision unproved, no execution or wrong conversation claimed.",
+      "operation": "Distinct structured identity inputs are flattened using an unescaped delimiter, losing field boundaries before canonical hashing/namespace tagging. This is stronger than a possible hash collision, but does not promise any finite hash canbe globally collision-free.",
+      "connected_repair": "Carry canonical settlement/organization identities and use unambiguous framed identity derivation or coherent checked allocation at the owning representative identity boundary. Reuse appropriate existing canonical derivation owner, not another ad-hoc concatenation or arbitrary ban on otherwise supported punctuation. Propagate the admitted id with its bound context through retention/lookups; preserve intended representative namespace distinction and deliberate deterministic contract without compatibility aliases/fallback ids.",
+      "acceptance": "Distinct supported component pairs cannot alias solely because component boundaries were lost before hashing, and malformed unsupported identities reject at their real boundary. Inherent finite hash collision policy remains separate. Existing tests only.",
+      "deduplication": "No exact existing RootF001-054; bounded Nativefinding-record search found no representative/unframed/framing record, exact peer dedup reply pending. Related deterministic framing/identity graph, distinct from F027 truncated actor/occurrence encoding.",
+      "contract_ref": "ROOT-INITIAL04-CONTRACT-132"
+    }
+  ],
+  "id": "ROOT-INITIAL04-CONTRACT-132",
+  "at": "2026-10-23T05:19:46.971365+00:00",
+  "lens": "audit-invariant-operations",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-061.json",
+    "sha256": "23569734f79bc8f8cff823978905b4f8571394e34cc8fb83a8a85f28baa5929c"
+  },
+  "mandatory_overlays": {
+    "record": "continuation/owner-range-extensions.jsonl",
+    "sha256": "a73ae9d6549ad3fa18a9f89c1b081508e2d464c98a8ba0e9c9b8b2341fc005a3",
+    "through": 244
+  },
+  "mandatory_qualification170": {
+    "record": "continuation/root/parallel-scope-qualification-170.json",
+    "sha256": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c"
+  },
+  "repair": "frozen_initial_audits_then_handover",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

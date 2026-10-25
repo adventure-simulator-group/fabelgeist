@@ -1,0 +1,75 @@
+{
+  "recorded_at": "2026-10-21T05:20:27.228716+00:00",
+  "base_head": "1f7c193bb6cf310f5daad9cc4f8a6855109204f2",
+  "status": "BELIEVED SOURCE-COMPLETE; static source review, not compiled or runtime acceptance.",
+  "plan": "P02-authored-sidearm-evidence-propagation-plan.json",
+  "files": [
+    "crates/adventuresim-core/src/autoresolve.rs",
+    "crates/adventuresim-core/src/autoresolve/authored_weapon.rs",
+    "crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+    "crates/adventuresim-core/src/autoresolve/melee_iteration/error.rs",
+    "crates/adventuresim-core/src/autoresolve/melee_iteration/evidence.rs",
+    "crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/armor.rs",
+    "crates/adventuresim-core/src/autoresolve/melee_iteration/evidence/timeline.rs",
+    "crates/adventuresim-core/src/autoresolve/threat.rs",
+    "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/error.rs"
+  ],
+  "shared_owner": "CombatWeapon::from_authored_melee_definition in autoresolve/authored_weapon.rs; one actual constructor, two callers, no forwarding/free-helper alias.",
+  "source_reviews": [
+    {
+      "lens": "Code / behavior",
+      "scope": "Shared weapon constructor, threat setup, all pure roster/evidence helpers, native run callers and error entry point.",
+      "result": "The existing classification order, inertia/style call, default recipe lookup, derive_properties, grip/length/head/balance/cadence expressions and resulting CombatWeapon fields remain. Ranged sidearm admission precedes affected equipment mutations. Cancellation search, seed order, workload order, names, armor and successful reports remain. Existing test module is byte-identical."
+    },
+    {
+      "lens": "Rules / producer receiver",
+      "scope": "Current root, crates and core guides plus affected native bin.",
+      "result": "Canonical ElapsedError/FractionError/NameCatalogError/BattleResolutionError and actual weapon-model validation vector are retained. Error owners follow the shared constructor and pure iteration responsibilities; local-type constructor is associated. Native main keeps the resulting IterationError. No new tuning, storage/schema/DB change, compatibility alias, local project check, test, assertion, helper, suppression or ceiling change."
+    }
+  ],
+  "error_trace": {
+    "sidearm": "melee_attack_timing / checked_add -> AuthoredMeleeWeaponError::Timing -> AuthoredThreatError::Sidearm -> existing StrategicCombatError or CoreLoopError -> actual SDK/CLI boundary. Missing fixed knife definition is explicit.",
+    "recipe": "default_design / derive_properties -> structured missing-recipe or full typed ValidationError vector -> shared constructor error -> threat or iteration error, with no string-only translation.",
+    "roster": "NameCatalogError / typed catalogue failures / shared weapon error -> MeleeIterationError -> core evidence or native IterationError::Preparation -> main.",
+    "timeline": "BattleResolutionError -> MeleeIterationError::Resolution -> native IterationError::Preparation -> main. Three resolve_battle calls plus simultaneous/cancellation helpers retain their causes.",
+    "fatigue": "ElapsedError and FractionError -> MeleeIterationError::Timing/Performance -> native Preparation -> main.",
+    "native_direct_resolution": "Existing direct batch/matchup BattleResolutionError -> IterationError::Resolution is unchanged. Unrelated tactical setup/I/O/report String errors remain explicitly outside this increment."
+  },
+  "all_callers": [
+    "Shared constructor: threat equipment and authored roster equipment only.",
+    "Roster: purpose/build/equipment/armor chain; acceptance evidence; native run; unchanged core/server tests.",
+    "Acceptance evidence: core existing fixture test and native run.",
+    "AuthoredThreatError: strategic typed reducers and bootstrap retain transparent nested variant; no new exhaustive-match caller.",
+    "Native IterationError: run -> main already typed; added Preparation cause handles the two new pure result signatures."
+  ],
+  "test_preservation": [
+    {
+      "path": "crates/adventuresim-core/src/autoresolve.rs",
+      "existing_test_module_byte_identical": true,
+      "test_sha256": "e35cd5daa8c89dd407df9dede2d3d55d692611d35a06e95454b24002a261297b"
+    },
+    {
+      "path": "crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "existing_test_module_byte_identical": true,
+      "test_sha256": "4a8da64ce7628292877db921355ec1894c8352445572a74d4431d5f1ed3e51a7"
+    }
+  ],
+  "underlying_trait_evidence": "Actual weapon-model ValidationError derives Clone/Eq/PartialEq; ElapsedError does too. AuthoredMeleeWeaponError and AuthoredThreatError preserve those traits required by CoreLoopError. No fabricated string cause to retain Eq.",
+  "limits": [
+    "No new direct failure-case test was added or run; current checks only reuse existing valid-path/fixture commands.",
+    "Existing armour evidence uses the catalogue placement contract; no placement policy, payload or index migration is claimed.",
+    "Native unrelated operation errors and the remaining 13 planned families are unfinished; no PR-wide migration clearance.",
+    "P06/current P02 acceptance, hosted artifacts and relevant official baseline reductions are pending."
+  ],
+  "superseded_hosted": {
+    "run": 39547355157,
+    "job": 119048432750,
+    "status": "completed",
+    "conclusion": "cancelled",
+    "reason": "Cancelled once this connected source omission was known; not acceptance for the repair."
+  },
+  "source_commit": "596fb3b8778c1461a7831ea1adb65262c9caa933",
+  "current_head": "64cafc95febbac5c869c573241e312f181ec0206",
+  "published": true,
+  "validation_pending": true
+}

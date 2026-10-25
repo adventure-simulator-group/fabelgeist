@@ -1,0 +1,36 @@
+{
+  "head": "a15f24ad44fc22f86e1e1fd9f2ae47b6bb0ba860",
+  "observed_at": "2026-10-20T16:57:07.556284+00:00",
+  "status": "Resolved implementation choices from static source, not implementation or acceptance. No P06 source changed.",
+  "const_point_admission": {
+    "owner": "crates/adventuresim-tactical-core/src/scene_coordinates.rs:ScenePlanPoint::from_metres",
+    "locked_dependency": "bevy_math 0.19.1 -> glam 0.32.1",
+    "source_evidence": [
+      "glam-0.32.1/src/f32/vec2.rs:90-92: Vec2::new is const",
+      "glam-0.32.1/src/f32/vec2.rs:430-432: is_finite is exactly component-wise f32::is_finite conjunction",
+      "nightly-2026-07-13 library/core/src/num/f32.rs:703-711: f32::is_finite const since 1.83.0"
+    ],
+    "change": "Make the existing checked from_metres leaf const by using the identical component-wise checks and an explicit if/Some/None instead of non-const Vec2::is_finite/then_some. Do not add an unchecked or panic-at-runtime point constructor.",
+    "authored_boundary": "Adapt the existing capture v! macro with a literal boundary-view form that performs checked ScenePlanPoint admission inside a const block, then stores the checked point in CapturePose. Invalid authored coordinates must fail compile-time evaluation. Replace the ten old raw x/z entries; do not retain a legacy variant or create a new fixture helper. Existing full pose-expression macro use remains for other authored poses.",
+    "style": "When editing the canonical point file, apply imports/reexports before module declarations and keep its existing test modules after all production impls."
+  },
+  "heightmap_absence_contract": {
+    "source_evidence": [
+      "presentation/terrain.rs:40-88 currently substitutes minimum height and writes alpha=255",
+      "procedural-materials/src/shaders/tactical_tree_bark.wgsl:63-104 decodes every input without alpha",
+      "assets/shaders/tactical_weather.wgsl:31-52 decodes every input without alpha"
+    ],
+    "decision": "Build the image and checked elevation range together. Return a structured absence/admission error if the physical range is unavailable or any required encoded sample has no support. Never turn a missing hit into the minimum, and do not claim that writing unused alpha fixes the consumers. Preserve the complete image bytes/interpolation/quantization for supported inputs; no shader schema change is needed for a fully admitted image.",
+    "owner": "Extract heightmap encoding from the oversized terrain presentation root into its own owning module. A named image-plus-range record avoids positional tuple erasure and incoherent retained bindings. The named range retains canonical SupportElevation endpoints.",
+    "consumer_policy": "Optional weather/tree presentation may remain unavailable on this error, without publishing a new-scene material or reusing another scene image as current. Required viewer setup/capture propagates the typed rejection. Admit the new image/range before mutating retained tree cache state; weather already clears the old scene before admission.",
+    "migration_risk": "Previously unsupported raster positions were silently imputed. Scenes with incomplete physical support now expose that absence. Existing sampled/owned fixtures and hosted presentation selections must establish supported-path preservation; missing-scene and calibrated renderer scenarios are not newly covered by unauthorized tests."
+  },
+  "clamped_landform_queries": {
+    "source_evidence": "scene/admission.rs:55-62 validates finite positive scale and finite represented extents; therefore native rectangular clamp bounds are finite.",
+    "decision": "Both terrain landform helpers currently implement the same bounded rectangular clamp then expect a hit. Reuse one explicit typed clamped-query owner and propagate missing support through TerrainRecipeResult. Preserve the exact old clamp calculation and keep arbitrary source points distinct from admitted scene-plan points. Do not add zero/NaN/infinity substitutions.",
+    "pending_detail": "Choose the smallest coherent shared query API during implementation; both density families and fallible marching callbacks must migrate together."
+  },
+  "all_twenty_original_exit_requirements_preserved": true,
+  "no_local_project_execution": true,
+  "no_new_tests_or_cases": true
+}

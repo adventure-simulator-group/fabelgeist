@@ -1,0 +1,41 @@
+{
+  "id": "ROOT-ADM-BOUNDSINDEX-014",
+  "at": "2026-10-22T06:40:50.002165+00:00",
+  "lens": "audit-admission-contracts",
+  "source_id": "pr-working:crates/adventuresim-building-generator/src/geometry_index.rs",
+  "sha256": "d2e0b7635bddd25114a9b505fbe03ea8ac464fff52e2bba8a9dc62a28d88ac71",
+  "read_ranges": [
+    [
+      1,
+      8
+    ],
+    [
+      11,
+      11
+    ],
+    [
+      75,
+      78
+    ],
+    [
+      102,
+      132
+    ],
+    [
+      134,
+      200
+    ]
+  ],
+  "prospective_registrations": [
+    "ROOT-ADM-REG-004",
+    "ROOT-ADM-REG-005",
+    "ROOT-ADM-REG-006",
+    "ROOT-ADM-REG-007"
+  ],
+  "range_qualification": "102-111 BoundsNode plus113-132 alreadyregistered factory;112 blankcontext.1-8 onlyheadercontext, actualbaseconstant11 separatelyregisteredbeforebody. No othergeometryindexmethods orchecked.rscredit.",
+  "all_admission_routes": "BoundsIndex privatebounds/root andprivate BoundsNode enumvariants/backing; noSerde/Default/Reflect/publicrawconstructor. Sole BoundsIndex::new collects typedfiniteordered SpatialBounds, initializes contiguous0..len IDs, constructsNoneforempty; nodefactorysplit_first guardsnonempty, <=8leafcopiesindices, elsebounds.union ofadmittedvalues then extent/centre checks onlyactuallyneeded branchsort arithmetic before recursivelypartitioning indices. No external sourceindices suppliedbycaller. Recursivepartitions preserve exactindexset andmatchingvectorsize; query returnsstoredindices whose sourcebounds overlap andsorts. OpeningObstacles builds membervector thenboundsmap fromsameorder andusesreturnedindices: exactcardinality/provenance retained.",
+  "counterexample": "A typed leaf valid atlargecoordinate remainsallowedwithoutunuseddoubledcentrecheck; branches actualneeded extent/centre overflowfails. No blanketpositiveextent ornondegenerateBounds required. Invalid Position manufacturedthroughRootG007 is a priorcanonicalbackinggap that canpropagate, not a secondlocalfactoryroute; Boundsunion siblingconstructor repairpreservesthiskernel.",
+  "disposition": "Directcalleeadmission/provenance gatecomplete. RootObstacle pendingclosed; existingearlyrawbounds escape andcanonicalcoordinate encapsulation findingsremain, noalllensclearance.",
+  "repair": "frozen_initial_all13",
+  "validation": "not_established"
+}

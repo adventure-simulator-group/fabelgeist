@@ -1,0 +1,66 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-406",
+  "at": "2026-10-23T13:21:05.936420+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/case.rs",
+      "sha256": "7b919041dbce7f4e53f859aab2c5b7c6b16dd110b1452ecfa598555bda9055b0",
+      "scope072_index": 887,
+      "actual_EOF": 921,
+      "scoped_ranges_compared": [
+        [
+          1,
+          921
+        ]
+      ],
+      "actual05_comparison": "Fresh full actual source including all original inline fixtures; source-specific aggregate contracts below."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/celestial.rs",
+      "sha256": "c31595528b5df5ab5137bb15789e202abcc096187f12ba1f5f207d7299726b06",
+      "scope072_index": 888,
+      "actual_EOF": 169,
+      "scoped_ranges_compared": [
+        [
+          1,
+          169
+        ]
+      ],
+      "actual05_comparison": "Fresh full actual source including all original inline fixtures; source-specific aggregate contracts below."
+    }
+  ],
+  "groups": [
+    {
+      "id": "objective tree admission and raw persisted shape remain distinct",
+      "comparison": "887 full921: constructor337-366 admits nonempty alternatives and nonempty paths, <=16 paths and <=32 leaves, globally unique objective IDs and nonzero Defeat count. Public fields and ordinary derived Serde can independently bypass these whole-tree conditions. evaluate368-402 treats raw empty path as all-satisfied and empty expression as all-impossible; those are concrete representable raw aggregate cases, not actual normal DB writes. Status and contract enum stable IDs are exact closed mappings; typed ID new grammar is separate from derived transparent Serde."
+    },
+    {
+      "id": "fact filtering and threshold semantics need identity-bearing collection admission",
+      "comparison": "887 evaluator filters same case and party, then matching payload-specific group/site/recipient/through criteria444-574. ObjectiveImpossible is checked before progress, deliberately making that objective impossible even if other facts match. Matching counts are saturating u32 sum then min(required), a correct threshold policy because required <=u32MAX, not a division ratio. It does not deduplicate OutcomeFactId: one valid count1 fact supplied twice can satisfy count2. Persistence normal primary-key uniqueness may close that actual producer route, but not arbitrary API slices. Exact peer dedup requested; retained qualified observation pending response rather than claimed ordinary exploit."
+    },
+    {
+      "id": "custody map binds object key and performs fallible admission before commit",
+      "comparison": "887603-621 finds map by next.object, returns Ok(false) for same source ID, checks version and case on change and requires first version0, then inserts only after all fallible local checks. Same-source retry does not compare different payload/case/version, so whole request fingerprint agreement belongs to upstream receipt authority rather than assumed here. Map value/key coherence can be fabricated by public BTreeMap callers; this routine normal insertion uses next.object as key."
+    },
+    {
+      "id": "custody native version exhaustion is a separate occurrence boundary",
+      "comparison": "887 current.version.saturating_add(1) allows currentMAX -> nextMAX for a fresh source ID and holder while case/object match. Repeating with another new source changes custody without a distinguishable version advance. API-only native-capacity witness; no normal long-lived row, current bad caller or run claimed. Exact prior finding query pending, not yet a new unique finding in this packet. Valid initial0 and ordinary next versions remain intentional."
+    },
+    {
+      "id": "case fixtures are source evidence only",
+      "comparison": "887624-921 all original fixtures freshly read: stable status spoof rejection, DNF partial and alternative progress, typed challenge isolation, optional challenge not gating finale, impossible-path isolation, case/party/group filtering and initial/version-gap/source-idempotent custody. No execution or additions; no MAX version/duplicate fact guarantee inferred from these fixtures."
+    },
+    {
+      "id": "celestial projections preserve deliberate independent journey and lunar clocks",
+      "comparison": "888 full169: canonical coordinate degrees and minute-of-day/year fractions feed bounded trigonometric projections; equatorial horizon transform normalizes with f64 hypot. For actual finite geographic inputs, vector is rotation of a unit equatorial direction so positive length, not arbitrary zero raw vector normalization. Same phase input derives phase and illumination; journey absolute time can move solar/lunar hour angles independently from fixed lunar clock by explicit API purpose, not stale correlated state. Public CelestialDirections can be fabricated independently and has no accepted-state seal. Lower canonical coordinate/calendar/lunar functions remain exact separately scoped contracts; no raw decoder admission inferred. All92-169 original fixtures read, not run."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Normal DB fact key uniqueness and custody whole-request retry fingerprint remain exact producer dependencies; API native exhaustion/duplicate facts retained pending dedup, no ordinary failure claim."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

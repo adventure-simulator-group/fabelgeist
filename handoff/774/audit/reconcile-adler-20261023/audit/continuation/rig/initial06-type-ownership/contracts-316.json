@@ -1,0 +1,23 @@
+{
+  "id": "RIG-INITIAL06-GROUP-316",
+  "at": "2026-10-23T08:47:04.769704+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "bot-defense-reaction-state": {
+      "comparison": "Defense module reuses canonical DefendRequest, MeleeAction/StartedIntent, AnimationElapsed, TacticalCombatState/Side and shared AiDefenseConfig/CombatRandom. PendingBotReaction is native Timer plus chosen request for transient server timing, not persisted strategic clock. BotReactionAttempt borrows look/frame context and retains typed windup until actual delay arithmetic then native Duration/Timer. DefenseChances dodge_chance is authored/reflected f64 compared to unit_f64 draw; existing CoreUnitInterval actualdefinition is f32, so direct consolidation would narrow precision and is not justified by matching0..1 meaning alone. Finite/range admission of raw reflected payload remains prior03 concern; this file has no new duplicate checkedf64 owner. Requires_facing policy and chosen defense have different roles, not alternative truth schemas.",
+      "disposition": "Coherent transient reaction/intent state; do not force f32 shared fraction into f64 draw policy."
+    },
+    "authored-review-feature-owner": {
+      "comparison": "ScenarioId::features composes typed ScenarioFeature sets from one scenario identity through motion/terrain/guard/transition/action policy methods; no independent string parser or copied ScenarioId enum here. Feature categories answer cross-cutting behavior traits and are not the same concept as catalogue identity. Exact match groups preserve multiple simultaneous features, including terrain prefix/named and raised guard release/restart; replacing all with one enum would erase combinations. Existing central authored policy is a coherent owner for these mappings, imported shared types instead of new declarations. Current ownership does not clear later enum/string granularity or repeated roster policy across other modules.",
+      "disposition": "Correct central typed feature mapping owner, no new duplicate vocabulary."
+    },
+    "device-bracer-native-identity-propagation": {
+      "comparison": "Bracer fitter consumes canonical ForearmSurfaceInput/Side, BracerDesign, RigJointName/Table/Ordinal/Membership and returns canonical GeneratedArmor. Landmark names resolve to ordinal once, retained as typed pair until RigPassParameters::insert_joint actual native GPUu32 boundary; support membership maps canonicalenum tou32 at upload, no independently authored index vocabulary. Armor-owned GpuBody/DeviceSurface/ForearmSkin/DeviceBracer are successive native construction stages, creator owns wearer selection/projection context. Source morph positions/normal uploads are true GPU ports, not competing meshes. WGSL uses shared STATUS/read_points text and exact8lane skin, no wholesale nativeprefix exemption; actual parameter/storage/dispatch and statusread paths compared. Existing neutral lower mesh/rig claims remain, no new typeownership move.",
+      "disposition": "Positive canonical rig identity propagation through explicit native shader port."
+    }
+  },
+  "supporting_existing_findings": [],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit.",
+  "navigation_only": "rg dodge_chance/UnitInterval declaration located f64 config and Coref32 leaf; no new body credit from symbol search. Actual CoreUnitInterval definition previously personally read in284."
+}

@@ -1,0 +1,42 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-503",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input.rs",
+      "sha256": "bde515fc144669a9902a54886ded6185c84fca86313d86ca7c44ba0626e8ae12",
+      "actual_EOF": 1026,
+      "actual_compared_ranges": [
+        [
+          1,
+          1026
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Production scene input bounds differ from standalone physical API domains",
+      "evidence": "Full1026 lines personallyread1\u2013350/351\u2013700/701\u20131026. Nativevalidate_grid countwidth/depth2..max, spacing.25..2000, sourceheights\u00b112000, environmentalbasispoints<=10000. Thus candidate498 uniform-MAX is NOT an admittedordinaryTacticalSceneInput source; it remains publicSceneTerrain/landform APIconditional. Preservephysicaldomain and actualproductionbound. Upsampling constrained601side andparallelheights/envnearestsample cardinality, interpolation bounded sourceheights."
+    },
+    {
+      "contract": "Authoritative repair and measured environment source consistency",
+      "evidence": "Microrelief changesauthoritativeheightfield before terrainconstruction, boundedamplitude .275 andreservedcorridor/water exclusions, wholegrade solver transactional beforewatercellrepair; no render-only displacement/hiddentacticalDBpersistence. Repaircounts bounded601\u00b2fitu32, environmentavg<=601\u00b2*10000fitu64 andnativeu16; environment_snapshot rawpubliccall canbe unvalidated butactualordinaryproducer proof stays separate. Treeclearance versusnarrowrockcorridor explicitnativepolicy."
+    },
+    {
+      "contract": "Weather arithmetic validation pending exact owner contract",
+      "evidence": "validate_weather compares dewpoint to temperature_deci_c+5, nativeintegeraddition beforestructuredErr. Fullweatherfield/admission route for nearMAXtemperature notyet closed inthispacket; exactalias lookup requested. No newordinaryweatherpanic or positivity/geographicnarrowing asserted. Existingprecipitation cloudpresence/intensitycorrelation andpressure/wind/lift bounds preserved."
+    },
+    {
+      "contract": "Actual production-format and topology fixture contracts",
+      "evidence": "Fulltestsassertstableversions/digest, failclosedunknownfields andsize, sourcegridrefinement/extent, citystreetpriority/bareyards, landformauthoredsurfacetruth, narrowregionalhorizonpeak, deterministicrocks/collisionproxy, connectedplayabilityrepair/cameraclearance. Sourceassertionsonly; no fixtures loaded/run andno testspass claim. Metadata-before-fsread race filebudget question needsactualboundary intent, not newpromoteddefect."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "1 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-core/src/scene_input/buildings/identity.rs"
+}

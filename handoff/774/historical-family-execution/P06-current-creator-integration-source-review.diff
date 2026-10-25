@@ -1,0 +1,1292 @@
+--- before/crates/adventuresim-character-creator/src/character_export/hair.rs
++++ after/crates/adventuresim-character-creator/src/character_export/hair.rs
+@@ -0,0 +1,133 @@
++//! The character's hair as a rigged shell: the fine cut of cards, skinned
++//! wholly to the head, their atlas tinted with the hair's colour and cut out
++//! by its coverage.
++use super::*;
++use crate::hair_preview;
++use adventuresim_character_creator::export::SurfaceTextures;
++use adventuresim_character_creator::hair::{
++    GroomedHair, HAIR_ROUGHNESS, HairDesign, HairGeometry, HairGpu, PlacedHair,
++};
++use fabelgeist_hair::lod::Form;
++use image::ImageEncoder;
++use std::sync::OnceLock;
++
++/// The shell's name in the exported scene.
++const SHELL_NAME: &str = "hair";
++/// A tangent-space normal map that leaves every normal as it is.
++const FLAT_NORMAL: [u8; 4] = [128, 128, 255, 255];
++/// Games draw hair as its finest cut of cards.
++const EXPORTED_FORM: Form = Form::Cards { level: 0 };
++
++/// Hair grown and placed for export, owning what its shell borrows.
++pub(super) struct ExportedHair {
++    cards: HairGeometry,
++    joint_indices: fabelgeist_rig::PackedRigSkin<8>,
++    joint_weights: Vec<[f32; 8]>,
++    textures: SurfaceTextures,
++    morphs: Vec<MorphDelta>,
++}
++
++/// The hair kernels exports grow on: a device of their own, opened and
++/// compiled once for the process, as an export may run without a window.
++fn export_gpu() -> Result<&'static HairGpu> {
++    static GPU: OnceLock<Result<HairGpu, String>> = OnceLock::new();
++    GPU.get_or_init(|| HairGpu::headless().map_err(|error| format!("{error:#}")))
++        .as_ref()
++        .map_err(|error| anyhow::anyhow!("opening the hair GPU: {error}"))
++}
++
++impl ExportedHair {
++    /// Grow `design`, place it on the `generated` body's head, and follow
++    /// the head through every one of the body's morph channels.
++    pub(super) fn grow(
++        model: &BodyModel,
++        generated: &GeneratedCharacter,
++        morphs: &CharacterMorphs,
++        design: HairDesign,
++    ) -> Result<Self> {
++        let gpu = export_gpu()?;
++        let hair = GroomedHair::grow(design.groom(), gpu)?;
++        let placed = hair_preview::BodyHead::new(model, generated).place(gpu, &hair)?;
++        let placement = *placed.placement();
++        let cards = placed.geometry(gpu, EXPORTED_FORM)?;
++        let count = cards.positions.len();
++        let skin = fabelgeist_rig::RigInfluences::<8>::whole_joint(placement.head_joint);
++        Ok(Self {
++            morphs: morphs.hair(model, &hair, &cards, &placement)?,
++            textures: SurfaceTextures {
++                base_color_png: Some(tinted_atlas(&placed, design)?),
++                normal_png: encode(&FLAT_NORMAL, 1, 1)?,
++                occlusion_png: None,
++                cutout: true,
++            },
++            cards,
++            joint_indices: fabelgeist_rig::PackedRigSkin::repeated(
++                skin.joints,
++                count,
++                generated.global_joint_states.joint_count(),
++            )?,
++            joint_weights: vec![skin.weights; count],
++        })
++    }
++
++    pub(super) fn targets(&self) -> Vec<RiggedMorphTarget<'_>> {
++        self.morphs.iter().map(MorphDelta::rigged).collect()
++    }
++
++    pub(super) fn shell<'a>(&'a self, targets: &'a [RiggedMorphTarget<'a>]) -> RiggedShell<'a> {
++        RiggedShell {
++            plate_edges: &[],
++            surface: None,
++            textures: Some(self.textures.clone()),
++            texcoords: Some(&self.cards.texcoords),
++            hinge: None,
++            name: SHELL_NAME,
++            positions: &self.cards.positions,
++            normals: &self.cards.normals,
++            faces: &self.cards.faces,
++            joint_indices: Some(&self.joint_indices),
++            joint_weights: Some(&self.joint_weights),
++            morph_targets: targets,
++            base_color: [1.0; 4],
++            metallic: 0.0,
++            roughness: HAIR_ROUGHNESS,
++        }
++    }
++}
++
++/// The atlas's largest level in the hair's colour, sRGB, its coverage as
++/// alpha: glTF takes a texture's colour as the whole base colour.
++fn tinted_atlas(hair: &PlacedHair, design: HairDesign) -> Result<Vec<u8>> {
++    let levels = hair.atlas_levels();
++    let level = levels.first().context("the hair atlas has no levels")?;
++    let color = design.pigment.color();
++    let tinted: Vec<u8> = level
++        .rgba
++        .as_chunks::<4>()
++        .0
++        .iter()
++        .flat_map(|&[shade, _, _, coverage]| {
++            let shade = f32::from(shade) / f32::from(u8::MAX);
++            let [red, green, blue] = color.map(|channel| srgb_byte(channel * shade));
++            [red, green, blue, coverage]
++        })
++        .collect();
++    encode(&tinted, level.width, level.height)
++}
++
++/// A linear channel as an sRGB byte.
++fn srgb_byte(linear: f32) -> u8 {
++    let encoded = Color::linear_rgb(linear, 0.0, 0.0).to_srgba().red;
++    (encoded.clamp(0.0, 1.0) * f32::from(u8::MAX)).round() as u8
++}
++
++fn encode(pixels: &[u8], width: u32, height: u32) -> Result<Vec<u8>> {
++    let mut bytes = Vec::new();
++    image::codecs::png::PngEncoder::new(&mut bytes).write_image(
++        pixels,
++        width,
++        height,
++        image::ExtendedColorType::Rgba8,
++    )?;
++    Ok(bytes)
++}
+--- before/crates/adventuresim-character-creator/src/character_morphs/hair.rs
++++ after/crates/adventuresim-character-creator/src/character_morphs/hair.rs
+@@ -0,0 +1,55 @@
++//! Hair placed again on every sampled head, for the body's morph channels.
++use super::*;
++use adventuresim_character_creator::hair::{GroomedHair, HairGeometry, HeadPlacement, HeadSkin};
++
++impl CharacterMorphs {
++    /// One target per body channel: `base`, the hair as `placement` puts it
++    /// on the recipe's own head, carried to where the same placement puts it
++    /// on the sampled head. Like clothing, a fit target keeps only what the
++    /// head joint does not carry.
++    pub(crate) fn hair(
++        &self,
++        model: &BodyModel,
++        hair: &GroomedHair,
++        base: &HairGeometry,
++        placement: &HeadPlacement,
++    ) -> Result<Vec<MorphDelta>> {
++        let character = &model.mhr.character;
++        self.samples
++            .iter()
++            .map(|sample| {
++                let skin = HeadSkin {
++                    positions: &sample.positions,
++                    joint_indices: &character.skin_weights.index,
++                    joint_weights: &character.skin_weights.weight,
++                    joint_names: &character.skeleton.names,
++                    global_joint_states: &sample.global_joint_states,
++                };
++                let sampled = HeadPlacement::fit(&skin, hair.head())?;
++                let placed = base.carried(placement, &sampled);
++                let mut delta = MorphDelta::between(
++                    sample.name.clone(),
++                    &base.positions,
++                    &base.normals,
++                    &placed.positions,
++                    &placed.normals,
++                )?;
++                let count = base.positions.len();
++                let skin = fabelgeist_rig::RigInfluences::<8>::whole_joint(placement.head_joint);
++                let joints = fabelgeist_rig::PackedRigSkin::repeated(
++                    skin.joints,
++                    count,
++                    self.reference_joints.joint_count(),
++                )?;
++                remove_skeletal_translation(
++                    &mut delta.positions,
++                    sample,
++                    &self.reference_joints,
++                    &joints,
++                    &vec![skin.weights; count],
++                );
++                Ok(delta)
++            })
++            .collect()
++    }
++}
+--- before/crates/adventuresim-character-creator/src/hair/groom.rs
++++ after/crates/adventuresim-character-creator/src/hair/groom.rs
+@@ -0,0 +1,233 @@
++//! A hairstyle grown on the bust, and the same hair placed on a character,
++//! both on the GPU.
++
++use anyhow::Result;
++use fabelgeist_gpu::prelude::Buffer;
++use fabelgeist_hair::gpu::{GpuGroom, GpuLods, head_shape};
++use fabelgeist_hair::lod::Form;
++use fabelgeist_hair::{Head, LodSettings, MeshCollider, Surface};
++use fabelgeist_math::Vec3;
++use std::sync::Arc;
++
++use super::gpu::{BodyField, Draping, GpuScalpTexture, longest};
++use super::scalp_map::ScalpMap;
++use super::{Groom, HairGpu, HeadPlacement, ScalpCap};
++
++/// Edge of the surface-nets cells the scalp is cut from, metres: the size the
++/// hair crate's viewer and dataset grow on.
++const SCALP_CELL: f32 = 0.004;
++/// How far the scalp cap's collider answers, metres: further from the skin
++/// than this is outside and needs no exact distance.
++const BODY_REACH: f32 = 0.1;
++/// How far the body field reaches past the hair as carried, metres: the
++/// drape and the shrinkwrap move hair a few centimetres, and the field must
++/// cover where it goes.
++const FIELD_MARGIN: f32 = 0.08;
++
++/// A hairstyle grown on the mannequin bust, in the bust's frame: metres, up
++/// along +Y, the face towards +Z. The strands stay on the GPU they grew on.
++pub struct GroomedHair {
++    pub groom: Groom,
++    on_gpu: GpuGroom,
++    /// The box the strands are in.
++    bounds: [Vec3; 2],
++    /// The longest strand, metres.
++    longest: f32,
++    /// Whether the hair hangs free, and so is draped on a character.
++    drapes: bool,
++    head: Head,
++    scalp: Surface,
++    /// Where on the scalp's texture each point of the scalp lies.
++    scalp_map: ScalpMap,
++    /// The hair lying on the scalp, baked into its textures on the GPU.
++    scalp_texture: Arc<GpuScalpTexture>,
++}
++
++/// The skin hair must stay out of, in model space.
++pub struct BodySurface<'a> {
++    pub positions: &'a [[f32; 3]],
++    pub faces: &'a [[u32; 3]],
++}
++
++/// Hair on a character's head, ready to draw at every level of detail, on
++/// the GPU it was placed on.
++pub struct PlacedHair {
++    pub groom: Groom,
++    pub(super) lods: GpuLods,
++    /// What the hair is kept clear of, as the hair crate's kernels read it:
++    /// the character's body as a field, or the bust's shapes.
++    pub(super) body: Buffer,
++    /// The longest strand, metres.
++    pub(super) longest: f32,
++    placement: HeadPlacement,
++    cap: ScalpCap,
++    scalp_texture: Arc<GpuScalpTexture>,
++}
++
++impl GroomedHair {
++    /// Grow `groom` on the mannequin bust on `gpu`, and bake the hair lying
++    /// on its scalp.
++    pub fn grow(groom: Groom, gpu: &HairGpu) -> Result<Self> {
++        let look = groom.look();
++        let head = look.head(&Head::mannequin());
++        let (scalp, on_gpu, bounds) = {
++            let mut groomer = gpu.groomer();
++            let scalp = groomer.cut_scalp(&head, SCALP_CELL)?;
++            let grown = groomer.grow_look(&look, &head, &scalp)?;
++            let bounds = groomer.measure_bounds(&grown)?;
++            (scalp.read(&groomer)?, grown, bounds)
++        };
++        let scalp_map = ScalpMap::fit(&head, &scalp);
++        let scalp_texture = Arc::new(GpuScalpTexture::bake(gpu, &on_gpu, &head, &scalp_map)?);
++        let longest = longest(gpu, &on_gpu)?;
++        Ok(Self {
++            groom,
++            on_gpu,
++            bounds,
++            longest,
++            drapes: look.drape.enabled(),
++            head,
++            scalp,
++            scalp_map,
++            scalp_texture,
++        })
++    }
++
++    /// The bust this hair grew on.
++    pub fn head(&self) -> &Head {
++        &self.head
++    }
++
++    /// Carry the strands onto a character, drape them on its `body`, and
++    /// prepare every level of detail there, clear of it ([`Draping`]).
++    pub fn place(
++        &self,
++        gpu: &HairGpu,
++        placement: &HeadPlacement,
++        body: &BodySurface<'_>,
++    ) -> Result<PlacedHair> {
++        let field = BodyField::sample(gpu, body, self.carried_bounds(placement))?;
++        let draping = Draping {
++            bust: &self.head,
++            placement,
++            drapes: self.drapes,
++        };
++        let placed = draping.place(gpu, &self.on_gpu, &field)?;
++        let collider = MeshCollider::new(
++            body.positions
++                .iter()
++                .copied()
++                .map(Vec3::from_array)
++                .collect(),
++            body.faces.to_vec(),
++            BODY_REACH,
++        );
++        self.prepare(gpu, &placed, placement, field.buffer, &collider)
++    }
++
++    /// This hair left on its own bust, as the hair crate grew it, with every
++    /// level of detail prepared against the bust: what drawing it on a
++    /// character is measured against. The bust's surface comes beside it.
++    pub fn on_bust(&self, gpu: &HairGpu) -> Result<(PlacedHair, Surface)> {
++        let bust = self.head.mesh(SCALP_CELL);
++        let collider =
++            MeshCollider::new(bust.positions.clone(), bust.triangles.clone(), BODY_REACH);
++        let shape = super::gpu::upload(gpu.context(), &head_shape(&self.head), "hair bust shape")?;
++        let placement = HeadPlacement::identity(fabelgeist_rig::RigJointOrdinal::from(0usize));
++        let placed = self.prepare(gpu, &self.on_gpu, &placement, shape, &collider)?;
++        Ok((placed, bust))
++    }
++
++    /// The box the strands are in once `placement` carries them, and as far
++    /// again as they may move.
++    fn carried_bounds(&self, placement: &HeadPlacement) -> [Vec3; 2] {
++        let [lo, hi] = self.bounds;
++        let corners = (0..8u32).map(|corner| {
++            let pick =
++                |bit: u32, low: f32, high: f32| if corner >> bit & 1 == 0 { low } else { high };
++            Vec3::from_array(placement.point([
++                pick(0, lo.x, hi.x),
++                pick(1, lo.y, hi.y),
++                pick(2, lo.z, hi.z),
++            ]))
++        });
++        let (low, high) = corners.fold(
++            (Vec3::splat(f32::INFINITY), Vec3::splat(f32::NEG_INFINITY)),
++            |(low, high), corner| (low.min(corner), high.max(corner)),
++        );
++        let margin = Vec3::splat(FIELD_MARGIN);
++        [low - margin, high + margin]
++    }
++
++    /// Every level of detail of `strands`, placed by `placement` and kept
++    /// clear of `body`, and the scalp cap under them, laid on `skin`.
++    fn prepare(
++        &self,
++        gpu: &HairGpu,
++        strands: &GpuGroom,
++        placement: &HeadPlacement,
++        body: Buffer,
++        skin: &MeshCollider,
++    ) -> Result<PlacedHair> {
++        let center = Vec3::from_array(placement.point(self.head.cranium.center.to_array()));
++        let lods =
++            gpu.groomer()
++                .lods_against(strands, center, &LodSettings::default(), Some(&body))?;
++        let cap = ScalpCap::fit(&self.scalp, &self.head, &self.scalp_map, placement, skin);
++        Ok(PlacedHair {
++            groom: self.groom,
++            lods,
++            body,
++            longest: self.longest,
++            placement: *placement,
++            cap,
++            scalp_texture: self.scalp_texture.clone(),
++        })
++    }
++}
++
++impl PlacedHair {
++    pub fn placement(&self) -> &HeadPlacement {
++        &self.placement
++    }
++
++    /// The scalp under the hair, fitted to the character's skull.
++    pub fn cap(&self) -> &ScalpCap {
++        &self.cap
++    }
++
++    /// The hair lying on the scalp, baked into textures over the cap's
++    /// texture coordinates.
++    pub fn scalp_texture(&self) -> &GpuScalpTexture {
++        &self.scalp_texture
++    }
++
++    /// Every form this hair can be drawn in, finest first: each strand
++    /// level with all its strands, then each cut of cards.
++    pub fn forms(&self) -> Vec<Form> {
++        let strands = (0..self.lods.levels.len()).map(|level| Form::Strands { level, share: 1.0 });
++        let cards = (0..self.lods.cards.len()).map(|level| Form::Cards { level });
++        strands.chain(cards).collect()
++    }
++
++    /// Points along each strand at strand `level`.
++    pub fn strand_points(&self, level: usize) -> usize {
++        self.lods
++            .levels
++            .get(level)
++            .map_or(0, |level| level.points as usize)
++    }
++
++    /// Strands in the groom.
++    pub fn strand_count(&self) -> usize {
++        self.lods.strand_count()
++    }
++
++    /// The cards in cut `level`.
++    pub fn card_count(&self, level: usize) -> usize {
++        self.lods
++            .cards
++            .get(level)
++            .map_or(0, |cut| cut.cards as usize)
++    }
++}
+--- before/crates/adventuresim-character-creator/src/hair/placement.rs
++++ after/crates/adventuresim-character-creator/src/hair/placement.rs
+@@ -0,0 +1,266 @@
++//! Where the mannequin bust's head lies on a character.
++//!
++//! The bust's head is matched to the character's by its extent: as wide as
++//! the character's head across the ears, as deep from the back of the skull
++//! to the tip of the nose, its crown at the character's crown, and turned to
++//! face where the eyes look. Height scales with the mean of width and depth,
++//! which keeps the hair's fall from stretching with a long face.
++
++use fabelgeist_hair::Head;
++use fabelgeist_rig::{RigJointName, RigJointOrdinal};
++
++/// Vertices carried at least this much by the head joint belong to the head.
++const HEAD_SKIN_SHARE: f32 = 0.5;
++
++/// The skinned body the hair is placed on, in model space (metres, +Y up).
++pub struct HeadSkin<'a> {
++    pub positions: &'a [[f32; 3]],
++    pub joint_indices: &'a fabelgeist_rig::PackedRigSkin<8>,
++    pub joint_weights: &'a [[f32; 8]],
++    pub joint_names: &'a fabelgeist_rig::RigJointTable<RigJointName>,
++    /// Each joint's rest transform: translation, rotation quaternion, scale.
++    pub global_joint_states: &'a fabelgeist_rig::RigJointTable<[f32; 8]>,
++}
++
++/// Why a head could not be found on a body.
++#[derive(Debug, thiserror::Error)]
++pub enum HeadPlacementError {
++    #[error("head skin and rig columns are inconsistent")]
++    InconsistentRig,
++    #[error("the skeleton has no `{0}` joint")]
++    MissingJoint(RigJointName),
++    #[error("no vertices are skinned to the head")]
++    NoHeadVertices,
++    #[error("the eyes do not look away from the head joint")]
++    NoFacing,
++}
++
++/// The affine map from the bust's head frame to a character's model space.
++#[derive(Clone, Copy, Debug)]
++pub struct HeadPlacement {
++    origin: [f32; 3],
++    /// The bust's +X, +Y and +Z in model space, each scaled.
++    axes: [[f32; 3]; 3],
++    /// The scale along each bust axis, for carrying normals.
++    scale: [f32; 3],
++    /// The index of the head joint, which the hair is skinned to.
++    pub head_joint: RigJointOrdinal,
++}
++
++impl HeadPlacement {
++    pub fn fit(skin: &HeadSkin<'_>, bust: &Head) -> Result<Self, HeadPlacementError> {
++        if skin.positions.len() != skin.joint_indices.len()
++            || skin.positions.len() != skin.joint_weights.len()
++            || skin.joint_names.len() != skin.global_joint_states.len()
++            || skin.joint_indices.joint_count() != skin.joint_names.joint_count()
++        {
++            return Err(HeadPlacementError::InconsistentRig);
++        }
++        let joint = |name: RigJointName| {
++            name.index_in(skin.joint_names)
++                .ok_or(HeadPlacementError::MissingJoint(name))
++        };
++        let head = joint(RigJointName::C_HEAD)?;
++        let [left, right] = [joint(RigJointName::L_EYE)?, joint(RigJointName::R_EYE)?];
++        let at = |index: RigJointOrdinal| {
++            let state = skin.global_joint_states[index];
++            [state[0], state[1], state[2]]
++        };
++        let eyes = scale(add(at(left), at(right)), 0.5);
++        let mut forward = sub(eyes, at(head));
++        forward[1] = 0.0;
++        let forward = normalize(forward).ok_or(HeadPlacementError::NoFacing)?;
++        let up = [0.0, 1.0, 0.0];
++        let side = cross(up, forward);
++
++        let extent = HeadExtent::of(skin, head, [side, up, forward])
++            .ok_or(HeadPlacementError::NoHeadVertices)?;
++        let bust_extent = HeadExtent::of_bust(bust);
++        let width = extent.side[1] - extent.side[0];
++        let depth = extent.forward[1] - extent.forward[0];
++        let scale_side = width / (bust_extent.side[1] - bust_extent.side[0]);
++        let scale_forward = depth / (bust_extent.forward[1] - bust_extent.forward[0]);
++        let scale_up = 0.5 * (scale_side + scale_forward);
++        let factors = [scale_side, scale_up, scale_forward];
++
++        // Model-space coordinates, along each axis, of the bust's origin.
++        let centre = |range: [f32; 2]| 0.5 * (range[0] + range[1]);
++        let origin_side = centre(extent.side) - scale_side * centre(bust_extent.side);
++        let origin_forward = centre(extent.forward) - scale_forward * centre(bust_extent.forward);
++        let origin_up = extent.crown - scale_up * bust_extent.crown;
++        let origin = add(
++            add(scale(side, origin_side), scale(up, origin_up)),
++            scale(forward, origin_forward),
++        );
++        Ok(Self {
++            origin,
++            axes: [
++                scale(side, scale_side),
++                scale(up, scale_up),
++                scale(forward, scale_forward),
++            ],
++            scale: factors,
++            head_joint: head,
++        })
++    }
++
++    /// A point of the bust's frame, in model space.
++    pub fn point(&self, p: [f32; 3]) -> [f32; 3] {
++        let [x, y, z] = self.axes;
++        add(
++            add(self.origin, scale(x, p[0])),
++            add(scale(y, p[1]), scale(z, p[2])),
++        )
++    }
++
++    /// A normal of the bust's frame, in model space: carried by the inverse
++    /// transpose, so it stays square to the stretched surface.
++    pub fn normal(&self, n: [f32; 3]) -> [f32; 3] {
++        let [x, y, z] = self.axes;
++        let [sx, sy, sz] = self.scale;
++        let carried = add(
++            scale(x, n[0] / (sx * sx)),
++            add(scale(y, n[1] / (sy * sy)), scale(z, n[2] / (sz * sz))),
++        );
++        normalize(carried).unwrap_or(n)
++    }
++
++    /// A model-space point, back in the bust's frame.
++    pub fn bust_point(&self, p: [f32; 3]) -> [f32; 3] {
++        let offset = sub(p, self.origin);
++        let [sx, sy, sz] = self.scale;
++        let [x, y, z] = self.axes;
++        [
++            dot(offset, x) / (sx * sx),
++            dot(offset, y) / (sy * sy),
++            dot(offset, z) / (sz * sz),
++        ]
++    }
++
++    /// A direction of the bust's frame, in model space: carried as a tangent
++    /// is, stretched with the frame.
++    pub fn direction(&self, d: [f32; 3]) -> [f32; 3] {
++        let [x, y, z] = self.axes;
++        normalize(add(add(scale(x, d[0]), scale(y, d[1])), scale(z, d[2]))).unwrap_or(d)
++    }
++
++    /// A model-space direction, back in the bust's frame: the inverse of
++    /// [`Self::direction`].
++    pub fn bust_direction(&self, d: [f32; 3]) -> [f32; 3] {
++        let [x, y, z] = self.axes;
++        let [sx, sy, sz] = self.scale;
++        normalize([
++            dot(d, x) / (sx * sx),
++            dot(d, y) / (sy * sy),
++            dot(d, z) / (sz * sz),
++        ])
++        .unwrap_or(d)
++    }
++
++    /// The bust left where it stands, skinned to `head_joint`: hair drawn
++    /// on its own bust.
++    pub fn identity(head_joint: RigJointOrdinal) -> Self {
++        Self {
++            origin: [0.0; 3],
++            axes: [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
++            scale: [1.0; 3],
++            head_joint,
++        }
++    }
++
++    /// A model-space normal, back in the bust's frame: the inverse of
++    /// [`Self::normal`].
++    pub fn bust_normal(&self, n: [f32; 3]) -> [f32; 3] {
++        let [x, y, z] = self.axes;
++        normalize([dot(n, x), dot(n, y), dot(n, z)]).unwrap_or(n)
++    }
++}
++
++/// A head's extent along the side and forward axes, and its crown's height.
++struct HeadExtent {
++    side: [f32; 2],
++    forward: [f32; 2],
++    crown: f32,
++}
++
++impl HeadExtent {
++    fn of(
++        skin: &HeadSkin<'_>,
++        head: RigJointOrdinal,
++        [side, up, forward]: [[f32; 3]; 3],
++    ) -> Option<Self> {
++        let mut extent: Option<Self> = None;
++        for (index, position) in skin.positions.iter().enumerate() {
++            let share: f32 = skin
++                .joint_indices
++                .vertex(index)
++                .iter()
++                .zip(&skin.joint_weights[index])
++                .filter(|(joint, _)| **joint == head)
++                .map(|(_, weight)| weight)
++                .sum();
++            if share < HEAD_SKIN_SHARE {
++                continue;
++            }
++            let [s, u, f] = [
++                dot(*position, side),
++                dot(*position, up),
++                dot(*position, forward),
++            ];
++            let grown = extent.get_or_insert(Self {
++                side: [s, s],
++                forward: [f, f],
++                crown: u,
++            });
++            grown.side = [grown.side[0].min(s), grown.side[1].max(s)];
++            grown.forward = [grown.forward[0].min(f), grown.forward[1].max(f)];
++            grown.crown = grown.crown.max(u);
++        }
++        extent
++    }
++
++    /// The bust's head: across its ears, from the back of its skull to the
++    /// tip of its nose, and up to its crown.
++    fn of_bust(bust: &Head) -> Self {
++        let [left, right] = bust.ears;
++        let cranium = bust.cranium;
++        let nose = bust.nose;
++        Self {
++            side: [left.center.x - left.radii.x, right.center.x + right.radii.x],
++            forward: [
++                cranium.center.z - cranium.radii.z,
++                nose.center.z + nose.radii.z,
++            ],
++            crown: cranium.center.y + cranium.radii.y,
++        }
++    }
++}
++
++fn add(a: [f32; 3], b: [f32; 3]) -> [f32; 3] {
++    [a[0] + b[0], a[1] + b[1], a[2] + b[2]]
++}
++
++fn sub(a: [f32; 3], b: [f32; 3]) -> [f32; 3] {
++    [a[0] - b[0], a[1] - b[1], a[2] - b[2]]
++}
++
++fn scale(a: [f32; 3], s: f32) -> [f32; 3] {
++    [a[0] * s, a[1] * s, a[2] * s]
++}
++
++fn dot(a: [f32; 3], b: [f32; 3]) -> f32 {
++    a[0] * b[0] + a[1] * b[1] + a[2] * b[2]
++}
++
++fn cross(a: [f32; 3], b: [f32; 3]) -> [f32; 3] {
++    [
++        a[1] * b[2] - a[2] * b[1],
++        a[2] * b[0] - a[0] * b[2],
++        a[0] * b[1] - a[1] * b[0],
++    ]
++}
++
++fn normalize(a: [f32; 3]) -> Option<[f32; 3]> {
++    let length = dot(a, a).sqrt();
++    (length > 0.0 && length.is_finite()).then(|| scale(a, 1.0 / length))
++}
+--- before/crates/adventuresim-character-creator/src/hair_preview.rs
++++ after/crates/adventuresim-character-creator/src/hair_preview.rs
+@@ -0,0 +1,343 @@
++//! The hair on the previewed character.
++//!
++//! A worker thread grows a hairstyle on the hair crate's bust (once per
++//! style) and places it on the generated body (once per body): the strands
++//! are carried onto the character's head and every level of detail is
++//! prepared there, kept outside the character's own skin. The studio then
++//! draws the level the Hair page picks, skinned wholly to the head joint so
++//! it follows the walk preview, and paints the scalp under it.
++use super::*;
++use adventuresim_character_creator::hair::{
++    BodySurface, Groom, GroomedHair, HairDesign, HairGpu, HeadPlacement, HeadSkin, PlacedHair,
++    variant_label,
++};
++use bevy::camera::visibility::NoFrustumCulling;
++use fabelgeist_hair::lod::Form;
++use fabelgeist_rig::RigJointName;
++use std::sync::Arc;
++use std::thread::JoinHandle;
++
++mod assets;
++mod gpu;
++mod layers;
++#[cfg(test)]
++mod render_test;
++mod scalp_shade;
++mod scalp_upload;
++mod strand_shading;
++
++use assets::HairAssets;
++pub(super) use gpu::HairGpuPlugin;
++use layers::HairLayer;
++pub(super) use layers::{ShownLayers, show as show_layers};
++pub(super) use strand_shading::HairShadingPlugin;
++
++/// The hair mesh shown on the character: the design and the form it draws.
++#[derive(Component)]
++pub(super) struct HairMesh {
++    design: HairDesign,
++    form: Form,
++}
++
++/// The grown and placed hair, and the worker preparing the next.
++#[derive(Resource, Default)]
++pub(super) struct HairPreview {
++    grown: Option<Arc<GroomedHair>>,
++    placed: Option<PlacedStyle>,
++    worker: Option<Worker>,
++    /// The studio's render device, for growing hair on; there once the
++    /// renderer has started.
++    gpu: Option<gpu::StudioHairGpu>,
++}
++
++/// Hair placed on one generated body.
++pub(super) struct PlacedStyle {
++    pub(super) hair: PlacedHair,
++    /// The device the hair lies on, where its levels of detail are built.
++    pub(super) gpu: gpu::StudioHairGpu,
++    body: Arc<GeneratedCharacter>,
++    atlas: Handle<Image>,
++    /// The scalp's baked textures.
++    scalp: scalp_shade::ScalpImages,
++}
++
++struct Worker {
++    groom: Groom,
++    body: Arc<GeneratedCharacter>,
++    handle: JoinHandle<Result<Prepared>>,
++}
++
++/// What a worker hands back.
++struct Prepared {
++    grown: Arc<GroomedHair>,
++    placed: PlacedHair,
++    gpu: gpu::StudioHairGpu,
++}
++
++/// A body's copy of what placing hair on it reads, for the worker to own.
++pub(super) struct BodyHead {
++    positions: Vec<[f32; 3]>,
++    faces: Vec<[u32; 3]>,
++    joint_indices: fabelgeist_rig::PackedRigSkin<8>,
++    joint_weights: Vec<[f32; 8]>,
++    joint_names: fabelgeist_rig::RigJointTable<RigJointName>,
++    global_joint_states: fabelgeist_rig::RigJointTable<[f32; 8]>,
++}
++
++impl BodyHead {
++    pub(super) fn new(model: &BodyModel, generated: &GeneratedCharacter) -> Self {
++        let character = &model.mhr.character;
++        Self {
++            positions: generated.positions.clone(),
++            faces: character.mesh.faces.clone(),
++            joint_indices: character.skin_weights.index.clone(),
++            joint_weights: character.skin_weights.weight.clone(),
++            joint_names: character.skeleton.names.clone(),
++            global_joint_states: generated.global_joint_states.clone(),
++        }
++    }
++
++    /// Where the bust's head lies on this body.
++    pub(super) fn placement(&self, hair: &GroomedHair) -> Result<HeadPlacement> {
++        let skin = HeadSkin {
++            positions: &self.positions,
++            joint_indices: &self.joint_indices,
++            joint_weights: &self.joint_weights,
++            joint_names: &self.joint_names,
++            global_joint_states: &self.global_joint_states,
++        };
++        Ok(HeadPlacement::fit(&skin, hair.head())?)
++    }
++
++    /// `hair` placed on this body on `gpu`, kept outside its skin.
++    pub(super) fn place(&self, gpu: &HairGpu, hair: &GroomedHair) -> Result<PlacedHair> {
++        let placement = self.placement(hair)?;
++        let body = BodySurface {
++            positions: &self.positions,
++            faces: &self.faces,
++        };
++        hair.place(gpu, &placement, &body)
++    }
++}
++
++impl HairPreview {
++    /// The placed hair, if it is `groom` on `body`.
++    fn placed(&self, groom: Groom, body: &Arc<GeneratedCharacter>) -> Option<&PlacedStyle> {
++        self.placed
++            .as_ref()
++            .filter(|placed| placed.hair.groom == groom && Arc::ptr_eq(&placed.body, body))
++    }
++
++    /// Start preparing `groom` on `body` unless that is placed or under way
++    /// already; true when a worker started. A worker on another style or
++    /// body is left to finish and its hair dropped.
++    fn request(&mut self, groom: Groom, body: &Arc<GeneratedCharacter>, head: BodyHead) -> bool {
++        let under_way = self
++            .worker
++            .as_ref()
++            .is_some_and(|worker| worker.groom == groom && Arc::ptr_eq(&worker.body, body));
++        if self.placed(groom, body).is_some() || under_way {
++            return false;
++        }
++        let grown = self.grown.clone().filter(|grown| grown.groom == groom);
++        let gpu = self.gpu.clone();
++        let handle = std::thread::spawn(move || {
++            let gpu = gpu.context("the renderer has no device to grow hair on")?;
++            let kernels = gpu.kernels()?;
++            let grown = match grown {
++                Some(grown) => grown,
++                None => Arc::new(GroomedHair::grow(groom, kernels)?),
++            };
++            let placed = head.place(kernels, &grown)?;
++            Ok(Prepared { grown, placed, gpu })
++        });
++        self.worker = Some(Worker {
++            groom,
++            body: body.clone(),
++            handle,
++        });
++        true
++    }
++
++    /// Take the worker's hair once it has finished.
++    fn collect(
++        &mut self,
++        images: &mut Assets<Image>,
++        uploads: &scalp_upload::ScalpUploads,
++    ) -> Result<()> {
++        if !self
++            .worker
++            .as_ref()
++            .is_some_and(|worker| worker.handle.is_finished())
++        {
++            return Ok(());
++        }
++        let Some(worker) = self.worker.take() else {
++            return Ok(());
++        };
++        let prepared = worker
++            .handle
++            .join()
++            .map_err(|_| anyhow::anyhow!("the hair worker panicked"))??;
++        let atlas = images.add(assets::atlas_image(&prepared.placed));
++        let scalp = assets::scalp_images(&prepared.placed, images, uploads);
++        self.grown = Some(prepared.grown);
++        self.placed = Some(PlacedStyle {
++            hair: prepared.placed,
++            gpu: prepared.gpu,
++            body: worker.body,
++            atlas,
++            scalp,
++        });
++        Ok(())
++    }
++}
++
++/// A level of detail the Hair page offers, and its name there.
++pub(super) struct FormChoice {
++    pub(super) form: Form,
++    pub(super) label: String,
++}
++
++impl HairPreview {
++    /// The levels of detail of the placed hair, finest first; none until
++    /// it is placed.
++    pub(super) fn form_choices(&self) -> Vec<FormChoice> {
++        let Some(placed) = &self.placed else {
++            return Vec::new();
++        };
++        let hair = &placed.hair;
++        hair.forms()
++            .into_iter()
++            .map(|form| FormChoice {
++                form,
++                label: match form {
++                    Form::Strands { level, .. } => {
++                        format!("Strands, {} points each", hair.strand_points(level))
++                    }
++                    Form::Cards { level } => format!("Cards, {} strips", hair.card_count(level)),
++                },
++            })
++            .collect()
++    }
++
++    /// How many strands `form` draws of the placed hair's, and of how many.
++    pub(super) fn strands_drawn(&self, form: Form) -> Option<StrandsDrawn> {
++        let hair = &self.placed.as_ref()?.hair;
++        Some(StrandsDrawn {
++            drawn: hair.strands_drawn(form),
++            all: hair.strand_count(),
++        })
++    }
++
++    /// Whether hair is still being grown or placed.
++    pub(super) fn preparing(&self) -> bool {
++        self.worker.is_some()
++    }
++}
++
++/// Strands drawn out of a groom's.
++pub(super) struct StrandsDrawn {
++    pub(super) drawn: usize,
++    pub(super) all: usize,
++}
++
++/// Keep the shown hair in step with the recipe and the Hair page: grow and
++/// place a new style, place it again on every body the studio regenerates
++/// (which despawns it with the rest of the character), and redraw it when
++/// its colour or level of detail changes.
++#[expect(
++    clippy::too_many_arguments,
++    reason = "Bevy injects the studio, body caches, the shown meshes and their assets"
++)]
++pub(super) fn refresh(
++    mut commands: Commands,
++    mut preview: ResMut<HairPreview>,
++    mut studio: ResMut<Studio>,
++    mut cache: ResMut<studio_cache::StudioCache>,
++    model: Res<BodyModel>,
++    walk: Res<WalkPreview>,
++    shown: Query<(Entity, &HairMesh)>,
++    mut assets: HairAssets,
++    mut contexts: EguiContexts,
++) {
++    let uploads = assets.uploads.clone();
++    if let Err(error) = preview.collect(&mut assets.images, &uploads) {
++        studio.status = format!("Hair could not be placed: {error:#}");
++    }
++    let wanted = studio.recipe.hair.map(|design| (design, studio.hair_form));
++    for (entity, mesh) in &shown {
++        if Some((mesh.design, mesh.form)) != wanted {
++            commands.entity(entity).despawn();
++        }
++    }
++    let Some((design, form)) = wanted else {
++        return;
++    };
++    // A level of detail is drawn once its slider is let go.
++    if studio.dirty || walk.joints.is_empty() || studio_generation::dragging(&mut contexts) {
++        return;
++    }
++    let recipe = studio.recipe.clone();
++    let body = match cache.body(&model, &recipe) {
++        Ok(body) => body,
++        Err(error) => {
++            studio.status = format!("{error:#}");
++            return;
++        }
++    };
++    let Some(placed) = preview.placed(design.groom(), &body) else {
++        if preview.request(design.groom(), &body, BodyHead::new(&model, &body)) {
++            studio.status = format!(
++                "Growing {} hair",
++                variant_label(design.preset).to_lowercase()
++            );
++        }
++        return;
++    };
++    if shown
++        .iter()
++        .any(|(_, mesh)| (mesh.design, mesh.form) == (design, form))
++    {
++        return;
++    }
++    let Some(skin) = animation_preview::skin(&walk) else {
++        return;
++    };
++    let drawn = assets.hair(placed, design, form).and_then(|hair| {
++        let cap = assets.scalp_cap(placed, design)?;
++        Ok((hair, cap))
++    });
++    let (hair, (cap, cap_material)) = match drawn {
++        Ok(drawn) => drawn,
++        Err(error) => {
++            studio.status = format!("Hair could not be drawn: {error:#}");
++            return;
++        }
++    };
++    let shown = studio.hair_layers;
++    if let Some((mesh, material)) = hair {
++        // Its mesh holds no positions to bound it by: they lie on the GPU.
++        commands.spawn((
++            CharacterMesh,
++            HairMesh { design, form },
++            HairLayer::Hair,
++            shown.visibility(HairLayer::Hair),
++            Name::new("Hair"),
++            skin.clone(),
++            Mesh3d(mesh),
++            MeshMaterial3d(material),
++            NoFrustumCulling,
++        ));
++    }
++    commands.spawn((
++        CharacterMesh,
++        HairMesh { design, form },
++        HairLayer::Scalp,
++        shown.visibility(HairLayer::Scalp),
++        Name::new("Scalp"),
++        skin,
++        Mesh3d(cap),
++        MeshMaterial3d(cap_material),
++    ));
++}
+--- before/crates/adventuresim-character-creator/src/hair_preview/assets.rs
++++ after/crates/adventuresim-character-creator/src/hair_preview/assets.rs
+@@ -0,0 +1,225 @@
++//! Meshes, materials and the card atlas the previewed hair is drawn with.
++use super::scalp_shade::{ScalpImages, ScalpShading};
++use super::scalp_upload::ScalpUploads;
++use super::strand_shading::{HairShading, StrandShading};
++use super::*;
++use adventuresim_character_creator::hair::{AtlasLevel, GpuGeometry, HAIR_ROUGHNESS, ScalpCap};
++use bevy::{
++    asset::RenderAssetUsages,
++    image::{ImageAddressMode, ImageFilterMode, ImageSampler, ImageSamplerDescriptor},
++    mesh::{Indices, VertexAttributeValues},
++    render::render_resource::{Extent3d, TextureDimension, TextureFormat},
++};
++
++/// How far hair's highlights lean from white towards its pigment's hue.
++const HIGHLIGHT_HUE: f32 = 0.4;
++/// Coverage under which a card casts no shadow and writes no depth.
++const SHADOW_COVERAGE: f32 = 0.5;
++
++/// The assets hair is made of.
++#[derive(bevy::ecs::system::SystemParam)]
++pub(crate) struct HairAssets<'w> {
++    pub(super) meshes: ResMut<'w, Assets<Mesh>>,
++    hair_materials: ResMut<'w, Assets<HairShading>>,
++    scalp_materials: ResMut<'w, Assets<ScalpShading>>,
++    pub(super) images: ResMut<'w, Assets<Image>>,
++    pub(super) uploads: Res<'w, ScalpUploads>,
++}
++
++impl HairAssets<'_> {
++    /// `form` of the placed hair, built on the GPU and drawn from there:
++    /// its mesh, skinned wholly to the head joint, and its material. None
++    /// for a form the hair has not.
++    pub(super) fn hair(
++        &mut self,
++        placed: &PlacedStyle,
++        design: HairDesign,
++        form: Form,
++    ) -> Result<Option<(Handle<Mesh>, Handle<HairShading>)>> {
++        let Some(geometry) = placed.hair.gpu_geometry(placed.gpu.kernels()?, form)? else {
++            return Ok(None);
++        };
++        let mesh = mesh(&geometry, placed.hair.placement().head_joint)?;
++        let material = material(design, form, placed.atlas.clone(), &geometry);
++        Ok(Some((
++            self.meshes.add(mesh),
++            self.hair_materials.add(material),
++        )))
++    }
++
++    /// The scalp cap under `placed`, skinned wholly to the head joint and
++    /// shaded as hair of `design`, blended over the skin.
++    pub(super) fn scalp_cap(
++        &mut self,
++        placed: &PlacedStyle,
++        design: HairDesign,
++    ) -> Result<(Handle<Mesh>, Handle<ScalpShading>)> {
++        let hair = &placed.hair;
++        let mesh = cap_mesh(hair.cap(), hair.placement().head_joint)?;
++        Ok((
++            self.meshes.add(mesh),
++            self.scalp_materials
++                .add(scalp_shade::material(design, &placed.scalp)),
++        ))
++    }
++}
++
++/// The material `form` of hair of `design` is drawn with, shaded as strands
++/// ([`HairShading`]). A card is cut out of `atlas`: its coverage becomes a
++/// share of each pixel's samples, hashed per card as the hair crate's
++/// renderer does, while shadows and depth cut it at half. A ribbon is one
++/// strand, solid. Hair's highlights lean towards its pigment's hue: light
++/// reflected inside a strand is coloured by it, and white highlights over
++/// dark pigment read as grey hair. Its vertices are drawn from `geometry`,
++/// where they were built.
++pub(super) fn material(
++    design: HairDesign,
++    form: Form,
++    atlas: Handle<Image>,
++    geometry: &GpuGeometry,
++) -> HairShading {
++    let cards = matches!(form, Form::Cards { .. });
++    HairShading {
++        base: StandardMaterial {
++            base_color_texture: cards.then_some(atlas),
++            alpha_mode: AlphaMode::Mask(SHADOW_COVERAGE),
++            double_sided: true,
++            cull_mode: None,
++            ..hair_surface(design)
++        },
++        extension: StrandShading::new(geometry),
++    }
++}
++
++/// The surface of hair of `design`, wherever it is drawn: its colour, a
++/// rough dielectric's sheen, and highlights leaning towards its hue.
++pub(super) fn hair_surface(design: HairDesign) -> StandardMaterial {
++    let [red, green, blue] = design.pigment.color();
++    let brightest = red.max(green).max(blue);
++    let tint = |channel: f32| {
++        if brightest == 0.0 {
++            // Black has no hue to tint the dielectric highlight.
++            1.0
++        } else {
++            1.0 + (channel / brightest - 1.0) * HIGHLIGHT_HUE
++        }
++    };
++    StandardMaterial {
++        base_color: Color::linear_rgb(red, green, blue),
++        specular_tint: Color::linear_rgb(tint(red), tint(green), tint(blue)),
++        perceptual_roughness: HAIR_ROUGHNESS,
++        metallic: 0.0,
++        ..default()
++    }
++}
++
++/// The mesh `geometry` is drawn with, skinned wholly to `head_joint`: its
++/// triangles, and every vertex's skin. Its vertices are drawn from where
++/// they were built, so its positions only count them.
++pub(super) fn mesh(
++    geometry: &GpuGeometry,
++    head_joint: fabelgeist_rig::RigJointOrdinal,
++) -> Result<Mesh> {
++    let count = geometry.vertices();
++    let head = u16::try_from(usize::from(head_joint))
++        .context("the head joint index exceeds a skin index")?;
++    Ok(Mesh::new(
++        PrimitiveTopology::TriangleList,
++        RenderAssetUsages::RENDER_WORLD,
++    )
++    .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, vec![[0.0f32; 3]; count])
++    .with_inserted_attribute(
++        Mesh::ATTRIBUTE_JOINT_INDEX,
++        VertexAttributeValues::Uint16x4(vec![[head, 0, 0, 0]; count]),
++    )
++    .with_inserted_attribute(
++        Mesh::ATTRIBUTE_JOINT_WEIGHT,
++        vec![[1.0f32, 0.0, 0.0, 0.0]; count],
++    )
++    .with_inserted_indices(Indices::U32(geometry.faces().into_flattened())))
++}
++
++/// The scalp `cap` as a mesh skinned wholly to `head_joint`, with its
++/// tangents along the texture and how much it shows as vertex alpha.
++pub(super) fn cap_mesh(
++    cap: &ScalpCap,
++    head_joint: fabelgeist_rig::RigJointOrdinal,
++) -> Result<Mesh> {
++    let count = cap.positions.len();
++    let head = u16::try_from(usize::from(head_joint))
++        .context("the head joint index exceeds a skin index")?;
++    Ok(Mesh::new(
++        PrimitiveTopology::TriangleList,
++        RenderAssetUsages::default(),
++    )
++    .with_inserted_attribute(Mesh::ATTRIBUTE_POSITION, cap.positions.clone())
++    .with_inserted_attribute(Mesh::ATTRIBUTE_NORMAL, cap.normals.clone())
++    .with_inserted_attribute(Mesh::ATTRIBUTE_UV_0, cap.texcoords.clone())
++    .with_inserted_attribute(Mesh::ATTRIBUTE_TANGENT, cap.tangents.clone())
++    .with_inserted_attribute(Mesh::ATTRIBUTE_COLOR, scalp_shade::colors(&cap.opacity))
++    .with_inserted_attribute(
++        Mesh::ATTRIBUTE_JOINT_INDEX,
++        VertexAttributeValues::Uint16x4(vec![[head, 0, 0, 0]; count]),
++    )
++    .with_inserted_attribute(
++        Mesh::ATTRIBUTE_JOINT_WEIGHT,
++        vec![[1.0f32, 0.0, 0.0, 0.0]; count],
++    )
++    .with_inserted_indices(Indices::U32(cap.faces.as_flattened().to_vec())))
++}
++
++/// The card atlas with its mip chain, shade as grey and coverage as alpha.
++pub(super) fn atlas_image(hair: &PlacedHair) -> Image {
++    mip_image(&hair.atlas_levels())
++}
++
++/// The scalp's baked textures, copied into images on the GPU.
++pub(super) fn scalp_images(
++    hair: &PlacedHair,
++    images: &mut Assets<Image>,
++    uploads: &ScalpUploads,
++) -> ScalpImages {
++    let texture = hair.scalp_texture();
++    ScalpImages {
++        shade: uploads.image(texture.shade(), images),
++        strands: uploads.image(texture.strands(), images),
++    }
++}
++
++/// An image of `levels`, a mip chain largest first, filtered linearly.
++fn mip_image(levels: &[AtlasLevel]) -> Image {
++    let (width, height) = levels
++        .first()
++        .map_or((1, 1), |level| (level.width, level.height));
++    let base = levels
++        .first()
++        .map_or_else(Vec::new, |level| level.rgba.clone());
++    let mut image = Image::new(
++        Extent3d {
++            width,
++            height,
++            depth_or_array_layers: 1,
++        },
++        TextureDimension::D2,
++        base,
++        TextureFormat::Rgba8Unorm,
++        RenderAssetUsages::RENDER_WORLD,
++    );
++    // The whole chain, largest level first, as wgpu uploads mipmaps.
++    image.data = Some(
++        levels
++            .iter()
++            .flat_map(|level| level.rgba.iter().copied())
++            .collect(),
++    );
++    image.texture_descriptor.mip_level_count = levels.len() as u32;
++    image.sampler = ImageSampler::Descriptor(ImageSamplerDescriptor {
++        address_mode_u: ImageAddressMode::ClampToEdge,
++        address_mode_v: ImageAddressMode::ClampToEdge,
++        mag_filter: ImageFilterMode::Linear,
++        min_filter: ImageFilterMode::Linear,
++        mipmap_filter: ImageFilterMode::Linear,
++        ..default()
++    });
++    image
++}
+--- before/crates/fabelgeist-armor/src/error.rs
++++ after/crates/fabelgeist-armor/src/error.rs
+@@ -1,11 +1,16 @@
+ //! Why armor generation failed.
+ 
++use fabelgeist_compute::ReadbackError;
+ use thiserror::Error;
+ 
+ use crate::DesignError;
+ 
+ #[derive(Debug, Error)]
+ pub enum GenerateError {
++    #[error("armor skin: {0}")]
++    Skin(#[from] fabelgeist_rig::RigSkinError),
++    #[error("armor GPU readback: {0}")]
++    Readback(#[from] ReadbackError),
+     #[error("armor plate shell: {0}")]
+     PlateShell(#[from] PlateShellFailure),
+     #[error(

@@ -1,0 +1,115 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-116",
+  "at": "2026-10-23T02:44:52.238778+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/lib.rs",
+      "sha256": "064901692ab50417dd140de61f50e78b074753457b6084cbc770b833a92369b4",
+      "scope049_index": 2061,
+      "actual_EOF": 51,
+      "scoped_ranges_compared": [
+        [
+          1,
+          51
+        ]
+      ],
+      "actual05_comparison": "Fresh full51. Feature-gated reflection/iteration linktarget reexports modules but runs no server systems byitself. Stand-in Args andSceneVistaBundleResource are compilation/type-registration integrationrecords, not authoritative runtimevalidatedStartupInputs. Their Defaultzeros/empty values are not normal server launch fallback and mustnotbe narrowed basedonruntime assumptions. No aggregate lifecycle/mutation here beyondnative resource data; actualmodulebody contracts separate, no entiretreecoverage frompubmod.",
+      "source_body_proof": "Fresh complete scoped actualPR source; complete P16 actualdiff and currentrolecomparison where specified."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/main.rs",
+      "sha256": "a52f98db1a5b753a3b5f3d54348ffa36df35e266644e667489c8a1784508b150",
+      "scope049_index": 2062,
+      "actual_EOF": 726,
+      "scoped_ranges_compared": [
+        [
+          1,
+          726
+        ]
+      ],
+      "actual05_comparison": "Fresh full726 in1–370/371–726, original dump fixtures all source-read no execution. Args rawlaunchfields include required/expected cardinalities, enemyfixture, timeout/grace andmission/claimstrings; only expected_party CLIrange1.. explicitlycloses NonZeroexpect, no assumed finitepositive floatduration gate. StartupInputs loads scene+combat beforeApp andcapturesVista fromsameinput, theninsertresources. NormalSDK mailboxes pump before spawn+ApplyDeferred, outcome afterspawn+condition+terminalcallbacks; failackafterresults/beforeoutcome, presentationaftertimeout. Movement intent restored beforemotor, postcollision trace/facing/locomotion/snapshot chained afterAhoy; F029 specificcondition/damage ordering retained, no universal total refresh on everymutation. Dumpmode bypassesSDK join/missionauthority and useswholeworldreflection; parsedWorldAsset.write_to_world thenflush andmarkreplicated evenErr, so parsebeforewrite isnotwholeappatomicadmission. No normalmalformeddump/runclaim, existingF004rawnative aggregategraph. Captures/restores reverseInventoryItems+ItemOf+holdingcache withremapping; originalsourcedumpfixtures assertthese correlatedvalues ratherthangenericrawserde guarantee. Scene input generateResult completes beforefirstCommands, thenobstacle/buildingfalliblebatch calls precedeothergarden/furniture/terrain Commands; not proofwhole-scene publicationatomic iflaterhelperErr. Native deferreddiscard/partialworld behavior andrecipientfullbodies remainseparate, no newexecutedrollbackdefectasserted. Strategiccreate_tactical_server_for_request calledafterlocalgeometry and delegates capturedroster creation toDB; comments not a source-backedexactmembershipproof. LoadedSceneInput andVistaresource computedsameinput inmain, butpub(crate) broaderreplacement paths notsealbytype. Debugclock delegatesnative, no hiddenfatigue/movementpenalty. Sourceframes/identity/errorports preserved.",
+      "source_body_proof": "Fresh complete scoped actualPR source; complete P16 actualdiff and currentrolecomparison where specified."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/scene_setup.rs",
+      "sha256": "509b65bb9f1ea69a74c597bd8571a0868c3503a9f6d4d9fd741d75488adf71a3",
+      "scope049_index": 2073,
+      "actual_EOF": 63,
+      "scoped_ranges_compared": [
+        [
+          1,
+          63
+        ]
+      ],
+      "actual05_comparison": "Fresh full63. Vista bundle derives properties/digest/playableextent/distantbuildings/establishments/streets/yards/parishes/compounds/gardens/LODs fromsameinput, empty furniturevectors intentional projectionroles, digestexpect reliesactualvalidatednormalcaller main128–137; pub(crate) rawcaller maybypass, no actualbadcaller claimed. Worldbounds fouroppositehalfspaces derivewidth/depth samecentreaxisconvention; rawhelperparams notfinite/positive sealed, normalmain fromplayablegrid fields. SceneGeometryPlugin merelyregisters eachactualobserver; no validation fromregistrationname or entireobserverproofcredit. No internal independentmutablecachedauthority.",
+      "source_body_proof": "Fresh complete scoped actualPR source; complete P16 actualdiff and currentrolecomparison where specified."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/scene_spawn.rs",
+      "sha256": "377b39cdfd69aee6164a0d9df1f235f810f0211b299e506d97b5bd521719bbaf",
+      "scope049_index": 2074,
+      "actual_EOF": 33,
+      "scoped_ranges_compared": [
+        [
+          1,
+          33
+        ]
+      ],
+      "actual05_comparison": "Fresh fullPR33, P16counterpart full40 completeactualdiff andpersonalreceivercomparison. authoritative_terrain iterates, returnsNone if0, Some if1, explicitAmbiguousTerrain Err ifsecond; lookup completes before callerpublishesbatch. Optionalterrain intentionalstandalone support absence; not silentlyselectfirst ofmany. SceneSpawnError closed typedcauses preserveGeometry/Support/sourcecharactercontext. P16 addsEquipmentProjectionError andBodyMass{character,cause}, actualearlierpreparation105/106 consumes, not automaticPRtypedbodymassgate. No terrainphysical/height semanticguarantee inferredfromQuery cardinality.",
+      "source_body_proof": "Fresh complete scoped actualPR source; complete P16 actualdiff and currentrolecomparison where specified."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/scene_spawn.rs",
+      "sha256": "0ed8029897a512fc8ebb39248471b4febef60c0a7c7657673a9df6b393d9838a",
+      "scope049_index": 417,
+      "actual_EOF": 40,
+      "scoped_ranges_compared": [
+        [
+          1,
+          40
+        ]
+      ],
+      "actual05_comparison": "Fresh fullPR33, P16counterpart full40 completeactualdiff andpersonalreceivercomparison. authoritative_terrain iterates, returnsNone if0, Some if1, explicitAmbiguousTerrain Err ifsecond; lookup completes before callerpublishesbatch. Optionalterrain intentionalstandalone support absence; not silentlyselectfirst ofmany. SceneSpawnError closed typedcauses preserveGeometry/Support/sourcecharactercontext. P16 addsEquipmentProjectionError andBodyMass{character,cause}, actualearlierpreparation105/106 consumes, not automaticPRtypedbodymassgate. No terrainphysical/height semanticguarantee inferredfromQuery cardinality. P16 completeactualdiff consumed: separateaddedEquipment/BodyMass errorvariants only, samecardinalitybody. No PR counterpart/hash-only clearance.",
+      "source_body_proof": "Fresh complete scoped actualPR source; complete P16 actualdiff and currentrolecomparison where specified."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/startup.rs",
+      "sha256": "a2f5959d603a1f54ed2b719eb96e15c4101b6834d30aae545d19e8c4c3e46983",
+      "scope049_index": 2075,
+      "actual_EOF": 120,
+      "scoped_ranges_compared": [
+        [
+          1,
+          120
+        ]
+      ],
+      "actual05_comparison": "Fresh full120 includingoriginaldefault/runtimeYAMLfixtures sourceonlynotexecuted. StartupInputs public(crate) scene+combat are rawproduct but load actualTacticalSceneInput::load thenload_combat_config; combatfilebytes1..64KiB andUTF8/YAML thenvalidate beforefactorysuccess. Runtime install anddigest sameimmutablecombat immediately after validation, no interveningmutation. Globalinstall happensbeforeSelfreturned, no automatic transactionalrollbackifnativeglobalinstaller/digestErr; calledimplementation ownscoped proofpending. Defaultpaths explicitcommitteddevelopmentauthoredinputs, not invalidinputfallback. PrimitiveformatString errors areboundarypresentation, no typeerasurefindingfromthatpurposealone. Defaultsfixture andmodifiedenergytransfer .4→.35 prove intended runtimeconfiguration authority atsource, no execution. Scene/config loadedonce not independentdriftingdefaults inmain; no wholeconfigsealedtypefromfactoryalone.",
+      "source_body_proof": "Fresh complete scoped actualPR source; complete P16 actualdiff and currentrolecomparison where specified."
+    }
+  ],
+  "comparison_groups": {
+    "normal-loaded-input-snapshot": "Scene+config actualvalidationbeforeApp andsameimmutableinput→Vista/resources, rawpubcrateproduct broader.",
+    "native-dump-aggregate": "Whole reflected world restore trusts reverse relationships/nativecache; parsebeforewrite isnotwholepublishatomic, no actualbadrestoreclaimed.",
+    "published-scene-batch": "GeneratedrecipeResult beforeCommands, several laterfalliblehelpers requireactualpreflight/publicationcontract, no universalrollbackinference.",
+    "authoritative-terrain": "Optionalempty/onesource andexplicitambiguousErr distinguishedbeforebatch.",
+    "schedule-relations": "Concrete Update/FixedPostUpdate ordering ratherthan inferredglobalrefresh."
+  },
+  "new_unique_findings": [],
+  "independent_cross_lens_supports": [
+    "NATIVE-CAMERA-SUPPORT03-F004",
+    "NATIVE-INITIAL05-F029"
+  ],
+  "remaining_dependency_obligations": [
+    "No exact upstreamcapturedroster/receiptcontactmembershipcap runtimeproof fromMaincomment; existing pendingconditionalreceiptqualification retained. Exact sceneobstacle/openings/furniture/terrainobserver bodies stillownscopedroles, no wholebatchatomicityfromResultsignature."
+  ],
+  "external_head_notice": {
+    "source": "Parent trusted message, not a source snapshot update",
+    "live_pr_head_reported": "6223320d09f4691b6de54382d9709b233274d435",
+    "frozen_pr_retained": "6533e444fa37552927070cc8d8190907fd3b413e plus exact frozen overlay",
+    "effect": "Future handover reconciliation only; no silent source switch or current source evidence credit."
+  },
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

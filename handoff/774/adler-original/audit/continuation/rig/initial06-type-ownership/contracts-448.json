@@ -1,0 +1,40 @@
+{
+  "id": "RIG-INITIAL06-GROUP-448",
+  "at": "2026-10-23T11:25:06.510814+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "drafts": {
+      "comparison": "Personally consumed full actual572 source narrative/tests, fresh1–73 and complete identical PR/P16 body comparison. ResidentDraft is a transient plan with deliberately mutable sibling fields, different from persisted actual Character. Canonical Sex/Presentation/SurnameId/BusinessId are reused. Local DefaultPresence and StrategicServiceEndpoint distinguish construction intent, rather than duplicating persistent authority. Seed text identifies deterministic resident recipe; it is not automatically interchangeable with RNG Seed or resulting Character identity. Location/profession/role strings need their actual vocabulary owner, not a universal string wrapper.",
+      "disposition": "transient plan product and canonical demographic leaves justified"
+    },
+    "roles": {
+      "comparison": "Personally consumed full actual582 narrative/tests, fresh1–73 and complete identical counterpart comparison. Core owns static OrganizationKind and role definitions. DB SocialOrganizationInstance and CharacterOrganizationRole own relational identity and live assignment; they are not duplicate catalogue definitions. Family instance identity remains independent of residence/household. Local instance-key formatting and current-assignment lookup belong with that authority; native table fields are not proof of all helper gates.",
+      "disposition": "shared static vocabulary versus live relational authority boundary justified"
+    },
+    "dev": {
+      "comparison": "Personally consumed full actual591 narrative/tests, fresh1–66 and complete identical counterpart comparison. DevelopmentScenario, subject and update receipt are capability-gated metadata and idempotency evidence, different from actual Character/quest ownership. Backend projections intentionally expose selected metadata, not hidden generation JSON. Scan hash/revision are change tracking, not semantic identity certification. No gameplay owner should be moved into this development-only module.",
+      "disposition": "development metadata and public projection roles distinct"
+    },
+    "advance": {
+      "comparison": "Personally consumed Native045 exact full582 advancement narrative/tests, fresh1–57/298–338 and complete counterpart signature delta. StrategicMinute is absolute clock, requested elapsed minutes and InjuryRecoveryMinutes are unit amounts, and clipped realized activity may be zero or non-quarter-hour. Canonical daily plan is not interchangeable with selected realized interval. DB owns lifecycle/party lookup and mutation order; Core owns numeric clocks/schedule value definitions. Actual leader clock return differs from furthest-advanced prose but creates no new type owner. Existing sourced-clock error-loss and canonical schedule propagation remain connected work, not a new duplicate finding.",
+      "disposition": "canonical clock/schedule owners with DB advancement policy; preserve clipped interval semantics"
+    },
+    "rest": {
+      "comparison": "Personally consumed Native046 exact full651 settlement-rest narrative/tests, fresh25–53/477–505 and complete counterpart signature delta. SettlementRestProvision is a local venue/context tag, not permission; live service/residence/sponsorship gates own authority. Request duration, completed recovery, training elapsed, minute-of-day and coin cost are distinct. Zero no-op and internal short catch-up are intentional; no broad strict-positive wrapper. Public daily allocation and interval realization must use canonical products without collapsing their different validation policies.",
+      "disposition": "local context enum justified; share underlying canonical time and schedule products"
+    }
+  },
+  "supporting_existing_findings": [
+    "F041"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit.",
+  "actual03_narrative_refs": [
+    "rig/admission03/camera-support/contracts.jsonl#RIG-CAMERA-ADM03-572",
+    "rig/admission03/camera-support/contracts.jsonl#RIG-CAMERA-ADM03-582",
+    "rig/admission03/camera-support/contracts.jsonl#RIG-CAMERA-ADM03-591",
+    "native/admission03/contract-groups-045.json#activity-clipped-interval-and-clock-advance-admission",
+    "native/admission03/contract-groups-046.json#camp-settlement-and-stationary-sourced-admission"
+  ],
+  "no_claim": "No executed tests or whole-file fresh redisplay."
+}

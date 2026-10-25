@@ -1,0 +1,14 @@
+{
+  "id": "SEGOVB-04-SDK-TIMESTAMP-MIN-MAGNITUDE-QUALIFICATION-001",
+  "status": "pinnedSDKsource API arithmetic qualification; overflowcheckingbuildconditional, no firstparty/normalclockfailureproved",
+  "source_id": "sdk-spacetimedb-sats-2.6.1:timestamp.rs",
+  "operation": "to_duration_since_unix_epoch negativebranch applies -micros in i64 before asu64.",
+  "witness": "Timestamp::from_micros_since_unix_epoch(i64MIN) islosslesslyadmitted. Negative magnitude2^63 fitsDurationu64micros, but -i64MIN overflows withoverflowchecking andpanicsbeforedocumentedErr(durationbeforeepoch). Inuncheckedbuild negationwraps andasu64incidentallyyieldscorrect2^63; doNOTclaimalwaysbadreleasebehavior.",
+  "qualification": [
+    "Fulli64retainedabsoluteepochnativeowner remainscorrectNATIVE-OWNER-F005 exactarchive record4; do notnarroworclampMIN/negativeclock merelyforhelper.",
+    "ActualCoreofficial_minute conversionport takesexacti64coefficients withitsown widen/saturatingpolicy, notautomaticallythisSDKhelper. No actualcurrentfirstpartyMINcaller/reducerwallclock or SDKrun.",
+    "OtherSDKAdd/Sub/Display/SystemTimeconversion documentedpanics orunwrapsupportedbounds needactualcallerpolicy; no blanketSDK arithmeticrewrite."
+  ],
+  "connected_contract": "native-wallclock-fullword-conversion-capability",
+  "acceptance": "AnychosenbeforeepochDurationconversion coversfulladmittedi64magnitudewithoutdebug/release divergence orrejectsexplicitlyunderdeclaredpolicy. Preserveofficialgameclockseparatefromnativeepoch, structuredunknown/out-of-rangecause."
+}

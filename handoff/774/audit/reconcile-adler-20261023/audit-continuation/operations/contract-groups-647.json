@@ -1,0 +1,80 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-647",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-world-schema/build.rs",
+      "sha256": "1cbb4c6032d77345ba85c017d2e5f94b1600c1a4064ff586f0e1872afd63df74",
+      "actual_EOF": 121,
+      "actual_compared_ranges": [
+        [
+          1,
+          121
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2736"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/name_catalog_schema.rs",
+      "sha256": "c50dcf6eef9aa348c8c259b105a9734f1e25ee2e57a043ee484a3892e9795dfa",
+      "actual_EOF": 199,
+      "actual_compared_ranges": [
+        [
+          1,
+          199
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2737"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/name_catalog_validation.rs",
+      "sha256": "555b21fb6dddac260f0a951252041fd40a0d3e02dd8bb0d649fda9a528e0ed77",
+      "actual_EOF": 576,
+      "actual_compared_ranges": [
+        [
+          1,
+          410
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2738"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/name_catalog_validation/derivations.rs",
+      "sha256": "7178c20d189f6254be6bd97094c550465c0b137c2c2e3ccf0b8f033cc80d435d",
+      "actual_EOF": 214,
+      "actual_compared_ranges": [
+        [
+          1,
+          214
+        ]
+      ],
+      "method": "Every listed qualified material body range personally read and analyzed for lens04. Original exact registration/exclusions retained; no whole foreign file/package credit.",
+      "scope_pointer": "/files/2739"
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Compiled personal-name catalogue extension, frequency and provenance validation",
+      "evidence": "Personally read exact P16 build1\u2013121/schema1\u2013199/validation1\u2013410/derivations1\u2013214. Sorted source files hashed with path+NUL+text, local documents appended then fragments resolved into first matching target, whole aggregate validated before generated output write. Duplicate catalogue IDs/selectors/frequencies and dangling/wrong-culture/form/sex links rejected. Form-frequency totals checked_add per family.",
+      "qualifications": [
+        "Family/surname frequency totals not independently summed here: exact sampling owner may return SamplingError for unrepresentable cumulative weights. Existing531 source qualification preserves that policy choice; do not automatically make every schema sum infallible or invent bad authored names.",
+        "Fragment mutation is local build aggregate before validation/publication, not partial runtime accepted state. Failed-build old OUT_DIR output/reuse is build-system policy not tested/asserted. Source paths/URLs are evidence metadata, no external pages browsed."
+      ],
+      "acceptance": "Canonical catalogue references/selectors remain unambiguous, sampling errors retained through actual chooser instead of expect; exact frequency/observation provenance distinct from source counts."
+    },
+    {
+      "contract": "Derivation target arithmetic and local validation error state",
+      "evidence": "Target key includes repertoire plus exact optional family/form/surname shape; validate links then exact target frequency lookup before covered-target insertion. Thus covered_targets subset targets and len subtraction on missing coverage cannot underflow. Boolean target_count atmost3 fitsu8. Repeated observations rejected by exact membership set.",
+      "qualifications": "Private mutable sets can be partially filled before Err, but sole whole-validation local scope immediately returns error and does not publish these sets; no retained-state corruption.",
+      "acceptance": "Preserve exact target frequency equality/complete provenance and shape while rejecting local validation errors before compiled catalogue publication."
+    }
+  ],
+  "findings": [],
+  "status": "Qualified material ranges personally analyzed; whole04 remains incomplete.",
+  "first_unfinished": "pr-working:crates/adventuresim-weapon-model/src/catalog.rs",
+  "source_edits": false,
+  "project_execution": "none"
+}

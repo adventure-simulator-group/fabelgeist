@@ -1,0 +1,37 @@
+{
+  "id": "CONT08-CONTRACT-249",
+  "at": "2026-10-25T15:12:44.311149+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 954,
+      "source_id": "pr-working:crates/adventuresim-core/src/material.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/material.rs",
+      "before_sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+      "after_sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0954-base-ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+      "diff": "source-evidence/pr-0954.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          1869
+        ]
+      ],
+      "head_body_read_method": "Fresh complete source and empty actual PR differential; public API casts, future-record timing, retry and database transaction limits explicit.",
+      "facts": [
+        "Fresh full1869-line body in four contiguous reads and empty actual PR differential. Milligrams f64kg*1e6/round/u64, component f32\u2192f64*1e6 optionalzero, Microliters f32multiply/round andwhole-mL conversions keepnative cast/threshold order. u64MAX floatrounding boundary not strengthened here; exactprivateintegeradd/sub/overflow andPortionNonZero<=whole/u128floor split retained.",
+        "MaterialIdentity retains exact ObjectCustody; vessel NonZero capacity andimmediatecheckedvolume; private snapshot nonemptymeasure/duplicatecomponent gates same. ProcessTiming checkedstart+duration andexactearly/equal/late endpoints preserved. Passive Some(materialized_at) checksreadybound thenreturns regardless current clock, explicitlyoldfixture accepts futurematerialized row; no invented newchronologyrestriction.",
+        "Conservation sumscompleteinputs/outputs, subtractsexplicitloss thenroundingdifference (onlylossallowed) <=one subunit; exactprivatecomponent/contaminant changes required. Receipt source-nonempty\u2192source lot/objectunique\u2192output lot/objectunique\u2192digest/bulk/privateconservation errororder same; no cross-source/output freshidentity policy implied.",
+        "Inputdigest sortsbylot andframesactuallot/object/revision/source+consumedmeasures/custodytags; retry alsorequires completeexactsourceequality so private truth/preparation omissionsfromdigest alone notcollisionwitness. validate_material_commit freshmatchinglot mustbeunique, exactidentity/custody\u2192revision\u2192overconsume\u2192snapshot equality inthatorder. CallermustapplysameSDKtransaction; purevalidationdoesnotperformmutation/replayguard itself.",
+        "Public sanitized projection doesn\u2019tread private truth, callersuppliesobserver-safepresentation; not automaticprivacyvalidation. Exact932Milliliters checkedvolume receiver nowconnected. Alloriginalunits/portion/privateconservation/custody/timing/MAX/replay/snapshot/physicalaliasfixtures readonly, no tests or native decoder executed. No introduced774behaviorchange locally established; actualDBmaterialcommitcaller lifecycle remainsindependent."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    }
+  ],
+  "next": "961organization_catalog_validation986 then962+ frontier"
+}

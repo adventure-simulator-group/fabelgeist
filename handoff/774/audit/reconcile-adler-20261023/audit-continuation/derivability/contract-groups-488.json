@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-488",
+  "at": "2026-10-25T15:51:48.371137+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 887,
+  "source_id": "pr-working:crates/adventuresim-core/src/case.rs",
+  "sha256": "7b919041dbce7f4e53f859aab2c5b7c6b16dd110b1452ecfa598555bda9055b0",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Fresh partial case source: id! macro already structural/transparentSerde, checked prefix/ASCII/length new() semantic; no conversion derive imposed. CaseStatus/ContractStatus native stable IDs deliberately differ variant spellings. Case/Contract/objective payload records already Serde/structural derives; ValidationError only derives, no manual Error/Display. ObjectiveRequirement enum continues past220, incomplete.",
+  "first_unfinished": {
+    "scope_index": 887,
+    "line": 221
+  },
+  "execution": "none"
+}

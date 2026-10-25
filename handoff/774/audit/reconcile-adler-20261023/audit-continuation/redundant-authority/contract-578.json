@@ -1,0 +1,120 @@
+{
+  "id": "CONT07-CONTRACT-578",
+  "at": "2026-10-24T00:14:41.828774+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2492,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_geometry.rs",
+      "sha256": "91328984a11b2f161fe96001c235234a6d0ff01037d253cecac5a2dabf59e20e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/generator/roof_geometry.rs",
+      "actual_EOF": 470,
+      "ranges": [
+        [
+          1,
+          34
+        ],
+        [
+          56,
+          470
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2493,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_resolution.rs",
+      "sha256": "28e7fdd050516198f0b523e4cc1e05f5485f1797fa94776c17e749acd33edc22",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/generator/roof_resolution.rs",
+      "actual_EOF": 738,
+      "ranges": [
+        [
+          1,
+          738
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2494,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+      "sha256": "be333fcb0e9e981f14bcbccb3decbda82d7ad87fd758d1f3dbc75b311ca345cd",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+      "actual_EOF": 277,
+      "ranges": [
+        [
+          1,
+          277
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2495,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_cutting.rs",
+      "sha256": "e2ef028f462708ee81a496944390463c7cdbbab84163bebed8bc335690bb84db",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/generator/roof_cutting.rs",
+      "actual_EOF": 484,
+      "ranges": [
+        [
+          1,
+          484
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2496,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/gable_enclosure.rs",
+      "sha256": "dd13cae2d6e503271f19d7b30abc921198c79f954a5a74368982ac567597f2e8",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/generator/gable_enclosure.rs",
+      "actual_EOF": 210,
+      "ranges": [
+        [
+          1,
+          210
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2497,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_abutments.rs",
+      "sha256": "13371703dd83b55b1536cde9ee3fadd4a768080d6a2cb5d4c0b678cd8cea19c6",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/generator/roof_abutments.rs",
+      "actual_EOF": 251,
+      "ranges": [
+        [
+          1,
+          251
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "CAMERA-INITIAL07-F006",
+    "NATIVE-INITIAL05-F004 referenced only by F006",
+    "NATIVE-INITIAL05-F002",
+    "ROOT-INITIAL04-F001",
+    "ROOT-INITIAL04-F002"
+  ],
+  "facts": [
+    "PR roof face production derives polygon, plane, bounds, edge incidence, drainage geometry and supports in one call. Geometry and projected plane are retained public associated representations; actual constructors initially coordinate them. Authored nominal pitch may differ from individual hip-face slope and is not asserted same current fact without consumer contract.",
+    "PR half-hip roof covering roof_geometry125 and enclosure roof_resolution596 independently author shoulder fraction0.55 and the derived eave/shoulder coordinates. Current values agree; a one-sided topology-policy edit would open or intersect the enclosure. Actual gable_enclosure instead sections resolved face planes/undersides and rebuilds them during pitch update; retain exact combined geometry-owner remedy, no current rendered gap claimed.",
+    "PR roof_assemblies phases retain recipe/parent/child links while actual cut operations coordinate edges/cutouts/flashing. Temporary tower vertical_cut explicitly replaces both polygon and plane before cut consumer; no persisted current tower pitch mismatch inferred from scratch copy.",
+    "PR roof_cutting updates corresponding support-interface bounds when shortening moved treatment solids383\u2013392. This supplies positive qualification for inherited CAMERA-INITIAL07-F006/NATIVE05F004 stale descriptors after pitch editing; deletion branch retaining interface membership remains conditional until final refit/reconciliation recipient is traced.",
+    "PR roof_abutments station and edge masks remain exact inherited ROOT-INITIAL04-F001/NATIVE-INITIAL05-F002 identity allocator findings; derived norm/work overflow remains ROOT-INITIAL04-F002. Full supplied narratives personally consumed. Do not add separate07 unique count or claim ordinary long curated edge.",
+    "PR roof_abutments232\u2013245 rewrites every Tower child using current kind's edge_ids inside Wall/Tower loop. Mixed parent with both kinds can erase tower associations in Wall pass. Saved conditional candidate roof-mixed-abutment-association.json; ordinary curated mixed topology and final recipient still pending, no current runtime failure claimed.",
+    "PR cached contact index built once from original walls/solids is intended host geometry snapshot while new roof weathering is appended; index correctness depends on documented immutable host lifetime. Newly generated flashing is not automatically a new wall host.",
+    "PR roof_surface_height_at/underside query original face polygons but omit cutouts. Current source only establishes nominal covering-plane query; actual consumers beyond resolved support-top need trace before declaring actual-hole query defect. No source authority credit for unscoped helper bodies."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2498,
+    "start_line": 1
+  }
+}

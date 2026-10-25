@@ -1,0 +1,102 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-208",
+  "at": "2026-10-25T13:39:00.248118+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 409,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration/logging/resolution.rs",
+      "sha256": "3454be3e36e9ce85770800d62425263aa87627bdcea264b6ab2803d24d3eeb02",
+      "actual_EOF": 167,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration/logging/resolution.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-tactical-server/src/iteration/logging/resolution.rs",
+        "owner": "native",
+        "sha256": "3454be3e36e9ce85770800d62425263aa87627bdcea264b6ab2803d24d3eeb02",
+        "base_sha256": "a61ef59cb4da06988229325123ef72662197b3c568ea9822b2d27ee6cb1d7616",
+        "state": "modified",
+        "bytes": 6796,
+        "audit_owner": "native",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [],
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 45,
+            "read_ranges": [
+              [
+                1,
+                167
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-ITERATION-001",
+              "NATIVE-OWNER-F007",
+              "NATIVE-OWNER-F008"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-server/src/iteration/logging/resolution.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 401,
+            "read_ranges": [
+              [
+                1,
+                167
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-ITERATION-001",
+              "NATIVE-OWNER-F007",
+              "NATIVE-OWNER-F008"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-server/src/iteration/logging/resolution.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          167
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "ResolvedEnergyLog plain semantic intermediate; no handwritten trait/serializer.",
+      "absence_basis": "Full167-line body read. Outcome/coverage/defense classification, native event\u2192selected log projection and serialized_name delegates existing Serde into JSON string. Do not add serde solely to replace semantic classifiers; actual output records already derive Serialize in408."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Resolved contact to diagnostic classification",
+      "disposition": "No manual trait/writer candidate; retain contextual semantic mapping and existing serializer delegation.",
+      "acceptance": "Preserve checked geometry result, owned string output/native field shapes and contact classification. No compiler or runtime assertion from review."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 410,
+    "source_id": "physical-p16:crates/adventuresim-tactical-server/src/main.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

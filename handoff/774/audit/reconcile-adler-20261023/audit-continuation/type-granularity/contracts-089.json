@@ -1,0 +1,58 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-089",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "simulation-profile-policy-identities-and-reproducible-execution",
+      "sources": [
+        {
+          "scope_index": 321,
+          "ranges": [
+            [
+              1,
+              1325
+            ]
+          ]
+        },
+        {
+          "scope_index": 322,
+          "ranges": [
+            [
+              315,
+              380
+            ]
+          ]
+        },
+        {
+          "scope_index": 323,
+          "ranges": [
+            [
+              1,
+              790
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "local774:M50",
+        "local774:M51",
+        "local774:M53",
+        "SEGO-INITIAL09-F252",
+        "SEGO-INITIAL09-F253",
+        "SEGO-INITIAL09-F250"
+      ],
+      "disposition": "Keep meaningful policy/unit/identity roles; union exact existing fixture/quest policy shape support, no redundant-type finding.",
+      "trace": "Profile32367\u201383 uses canonical PlayerAttributeValues, Personality, Seed, DailySchedule and SkillHours while native bootstrap maps them to generated database rows. Agent index (u32/usize), deterministic profile seed, persistent Character identity and simulation run ID differ:321261\u2013270/414\u2013440. Policy seed and server autoresolve randomness are explicitly distinct1323. Generated weights249\u2013252 are independent nonnegative relative preferences, not a normalized distribution; risk tolerance, recovery-health threshold, quest propensity and spending propensity differ as role quantities even when current generated range is0..1. Equipment utility32127\u201334 combines dimensioned protection/mobility/price/reach by explicit objective weights and is not itself a probability or health fraction. Distinct role/type owners can share invariant primitives without a universal validator. AgentBuild.role/equipment style/personality/quest policy are distinct axes, while activity_only bypasses propensity at788\u2013793/890\u2013908, exactF253. Matched activity pair323462\u2013493 deliberately shares original circumstances and profile_seed while changing only named preference/schedule; no distinct seed per clone required. Native live schedule322338\u2013364 rounds to quarter-hours, removes unavailable practice and reallocates crime to labor for the evaluator. Absolute clocks become relative simulation budgets321641\u2013659/749\u2013762/1200\u20131205; real wall timeout Duration remains a separate clock.",
+      "qualifications": [
+        "Full1325+790 and only registered policy315\u2013380 personally read. Policy381+ not credited; registered range begins/ends inside functions. Test source read, no simulation/native/reducer execution.",
+        "Normal generated schedule allocates at most720+480=1200 minutes/day. Public deserialized/mutable profile relationships are strengthening questions, not ordinary invalid generated profile proof. Preserve canonical personality sex/presentation/inclination distinctions and dedicated generated source, no new body schema or blanket bound.",
+        "F252 optional designated-party and lane plan correlation is coherent in current straight-line code; pending generated projection remains meaningful asynchronous absence. F253 allows MayChooseQuest0, and fixture/continuation precedence; do not force Civilian iff ActivityOnly.",
+        "Report3211070\u20131324 constructs complete final roster and separates deployment origin/database/nonce from unavailable binary digest. Profile and final state index association is source-backed for this producer, not blanket external report admission proof. final gold u32 cap differs actual u64 personal coins retained in same report; no ordinary denomination bug inferred here.",
+        "Both subscription lists personally read195\u2013252/372\u2013395 omit hostile negotiation table. This is support only for parent own05F007 when later source consumer/cache roles are reached; no receiver proof or new granularity alias imported."
+      ],
+      "acceptance": "Preserve actual generated invariants, deterministic stream bytes and independent policy/identity/time roles through native adapters. Reuse canonical owners; retain explicit quest-policy and fixture association products rather than infer constraints from current generated combinations. No arbitrary normalized-weight policy or changed simulator authority surface."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

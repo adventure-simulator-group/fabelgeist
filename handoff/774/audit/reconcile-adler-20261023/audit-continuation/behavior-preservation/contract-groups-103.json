@@ -1,0 +1,170 @@
+{
+  "id": "CONT08-CONTRACT-103",
+  "at": "2026-10-25T11:53:23.518559+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 345,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+      "before_sha256": "62a3215d6f52174d7351776d55c5f7f07adf340abada8e8aff653d674f389095",
+      "after_sha256": "62a3215d6f52174d7351776d55c5f7f07adf340abada8e8aff653d674f389095",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0345-base-62a3215d6f52174d7351776d55c5f7f07adf340abada8e8aff653d674f389095",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/62a3215d6f52174d7351776d55c5f7f07adf340abada8e8aff653d674f389095",
+      "diff": "source-evidence/p16-0345.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          135
+        ]
+      ],
+      "facts": [
+        "Personally consumed full135 and empty P16 diff. Finite signed authored degrees remain unwrapped and convert once through to_radians; signed speed is distinct from nonnegative angular magnitude/speed. Zero and negative-zero admission unchanged; no normalization introduced."
+      ],
+      "disposition": "Own08 exact scoped source comparison accounted WITH explicit cross-variant/connected qualifications; not family clearance.",
+      "acceptance": "Preserve signed/unwrapped/zero-valid values, positive duration policy, endpoint and native arithmetic order; adapt receiving observations without weakening existing fixtures. No tests/checks/source repairs."
+    },
+    {
+      "scope_index": 346,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "before_sha256": "3e29916a9d570f6e0d12ffb54541ee018fb068902a4e5b6c0f744db9971d9ba9",
+      "after_sha256": "3e29916a9d570f6e0d12ffb54541ee018fb068902a4e5b6c0f744db9971d9ba9",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0346-base-3e29916a9d570f6e0d12ffb54541ee018fb068902a4e5b6c0f744db9971d9ba9",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/3e29916a9d570f6e0d12ffb54541ee018fb068902a4e5b6c0f744db9971d9ba9",
+      "diff": "source-evidence/p16-0346.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          53
+        ],
+        [
+          63,
+          100
+        ]
+      ],
+      "facts": [
+        "Personally consumed full100 for context; material union1\u201353,63\u2013100 only,54\u201362 sample_span context uncredited. Empty P16 diff. NonnegativeLength finite>=0 arithmetic rejects overflow; half underflow to zero retained. PositiveDuration rejects zero canonical elapsed; positive/nonnegative age distinction and native seconds projection unchanged."
+      ],
+      "disposition": "Own08 exact scoped source comparison accounted WITH explicit cross-variant/connected qualifications; not family clearance.",
+      "acceptance": "Preserve signed/unwrapped/zero-valid values, positive duration policy, endpoint and native arithmetic order; adapt receiving observations without weakening existing fixtures. No tests/checks/source repairs."
+    },
+    {
+      "scope_index": 347,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/mod.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/animation/mod.rs",
+      "before_sha256": "75fc12083762ad42e6fa03e9dbbd10e448c72c7940847b8c105add09c96e3c66",
+      "after_sha256": "75fc12083762ad42e6fa03e9dbbd10e448c72c7940847b8c105add09c96e3c66",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0347-base-75fc12083762ad42e6fa03e9dbbd10e448c72c7940847b8c105add09c96e3c66",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/75fc12083762ad42e6fa03e9dbbd10e448c72c7940847b8c105add09c96e3c66",
+      "diff": "source-evidence/p16-0347.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "facts": [
+        "Personally consumed full86 and empty P16 diff. Reexports preserve exact same owners and included fixture paths. No included body or broader module coverage from a reexport."
+      ],
+      "disposition": "Own08 exact scoped source comparison accounted WITH explicit cross-variant/connected qualifications; not family clearance.",
+      "acceptance": "Preserve signed/unwrapped/zero-valid values, positive duration policy, endpoint and native arithmetic order; adapt receiving observations without weakening existing fixtures. No tests/checks/source repairs."
+    },
+    {
+      "scope_index": 348,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+      "before_sha256": "d2eeb3c98817ee0e266094c559b48ef3736dc8b9fcdbcd975a9f47f637213222",
+      "after_sha256": "d2eeb3c98817ee0e266094c559b48ef3736dc8b9fcdbcd975a9f47f637213222",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0348-base-d2eeb3c98817ee0e266094c559b48ef3736dc8b9fcdbcd975a9f47f637213222",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/d2eeb3c98817ee0e266094c559b48ef3736dc8b9fcdbcd975a9f47f637213222",
+      "diff": "source-evidence/p16-0348.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          99
+        ],
+        [
+          126,
+          141
+        ],
+        [
+          156,
+          162
+        ],
+        [
+          170,
+          217
+        ]
+      ],
+      "facts": [
+        "Personally consumed full217 for context; effective material1\u201399,126\u2013141,156\u2013162,170\u2013217 only. Empty P16 diff. Exponential rate may yield -Inf exponent and exp zero; linear fraction clamps product to1. Difference-form inertial interpolation, strictly positive reference acceleration/distribution and finite nonnegative unbounded muscle/stiffness admission unchanged. Distinct cross-PR compression helper comparison saved SUPPORT004; P16 empty diff cannot clear PR migration."
+      ],
+      "disposition": "Own08 exact scoped source comparison accounted WITH explicit cross-variant/connected qualifications; not family clearance.",
+      "acceptance": "Preserve signed/unwrapped/zero-valid values, positive duration policy, endpoint and native arithmetic order; adapt receiving observations without weakening existing fixtures. No tests/checks/source repairs."
+    },
+    {
+      "scope_index": 349,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/sample_tick.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/animation/sample_tick.rs",
+      "before_sha256": "ce44941a09ab6edf1bfe96d5617ad84d777c4bc3e0c8735d65ed6b369d727990",
+      "after_sha256": "ce44941a09ab6edf1bfe96d5617ad84d777c4bc3e0c8735d65ed6b369d727990",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0349-base-ce44941a09ab6edf1bfe96d5617ad84d777c4bc3e0c8735d65ed6b369d727990",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/ce44941a09ab6edf1bfe96d5617ad84d777c4bc3e0c8735d65ed6b369d727990",
+      "diff": "source-evidence/p16-0349.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "facts": [
+        "Personally consumed full110 and empty P16 diff. Distinct u64 tick/span checked/saturating/wrapping policies unchanged; snapshot MAX\u21920 differs explicitly from deadline no-wrap. Positive-duration conversion round/min1/saturating u64 behavior, including intermediate Inf product, retained; separate action-clock finite rounded_samples policy not conflated."
+      ],
+      "disposition": "Own08 exact scoped source comparison accounted WITH explicit cross-variant/connected qualifications; not family clearance.",
+      "acceptance": "Preserve signed/unwrapped/zero-valid values, positive duration policy, endpoint and native arithmetic order; adapt receiving observations without weakening existing fixtures. No tests/checks/source repairs."
+    },
+    {
+      "scope_index": 350,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/combat.rs",
+      "before_sha256": "6da9d5558329053c0ceaadbcb7a19730884fc55bbc50cdd90af9b9305346b48c",
+      "after_sha256": "98f3cb6b60b6672e3bdb730f6c922c012120f3763add4beb906040f1be122c2f",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0350-base-6da9d5558329053c0ceaadbcb7a19730884fc55bbc50cdd90af9b9305346b48c",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/98f3cb6b60b6672e3bdb730f6c922c012120f3763add4beb906040f1be122c2f",
+      "diff": "source-evidence/p16-0350.diff",
+      "diff_sha256": "31ca9cf055c49ac82f2324f6c6d08266785118363e8fc220215db23a4eec25d7",
+      "head_body_read_ranges": [
+        [
+          1,
+          310
+        ]
+      ],
+      "facts": [
+        "Personally consumed full310,1\u2013225 in101 plus226\u2013310 now, and complete actual P16 diff. Transparent geometry/animation/timing/performance errors, finite SignedLength geometry fields and epsilon checked1e-5. Melee interaction positive arm/weapon sum retains numerical order; public nonfinite and unrepresentable whole-output inputs now fail owned admission intentionally.",
+        "Actual334 caller precombines positive reach then passes zero weapon, matching old335 combined reach and zero weapon: no double arm. Finite signed separation, nonpositive gap, <=epsilon endpoints and capped movement preserve law. Arrival speed/acceleration nonpositive CannotArrive, nonpositive distance safety ticks, exact physical travel formula and extra sample unchanged. Existing .10/.11/.51/1.01 and .4/.8/.404/.441 fixtures consumed unchanged, no tests run."
+      ],
+      "disposition": "Own08 exact scoped source comparison accounted WITH explicit cross-variant/connected qualifications; not family clearance.",
+      "acceptance": "Preserve signed/unwrapped/zero-valid values, positive duration policy, endpoint and native arithmetic order; adapt receiving observations without weakening existing fixtures. No tests/checks/source repairs."
+    }
+  ],
+  "connected_support": "source-support-004-landing-compression-clamp.json",
+  "next": "351 combat_config then352+; all246 mandatory overlays,remaining37merged/current effective live extensions pending own08."
+}

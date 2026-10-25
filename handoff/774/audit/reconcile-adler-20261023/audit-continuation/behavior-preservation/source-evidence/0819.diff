@@ -1,0 +1,68 @@
+diff --git a/crates/adventuresim-character-creator/src/main.rs b/crates/adventuresim-character-creator/src/main.rs
+index 3726675cd..a48116cab 100644
+--- a/crates/adventuresim-character-creator/src/main.rs
++++ b/crates/adventuresim-character-creator/src/main.rs
+@@ -72,11 +72,11 @@ use adventuresim_character_creator::profiling;
+ use adventuresim_character_creator::{
+     CharacterRecipe, IdentityGroup,
+     bracer::{ForearmMorphSample, ForearmSide, ForearmSurfaceInput},
+     clothing::{GarmentSpecification, generate_clothing_shells},
+     device_torso::TorsoSurfaceInput,
+-    equipment_catalog::ItemCatalog,
++    equipment_catalog::{self, EquipmentItemSelection, ItemCatalog},
+     export::{
+         GlbOutput, MHR_ANATOMICAL_UV_DOMAIN, RiggedMesh, RiggedMorphTarget, RiggedShell,
+         RiggedSocket, SurfaceUvLayout, export_rigged_glb, fitted_equipment_socket_from_uv,
+     },
+     item_catalog_schema::{EquipmentLocation, ItemDefinition},
+@@ -168,14 +168,16 @@ impl Studio {
+ 
+ #[derive(Component, Clone)]
+ struct CharacterMesh;
+ 
+ struct GeneratedCharacter {
+-    joint_proportions: Vec<adventuresim_core::character_proportions::JointProportionBasis>,
++    joint_proportions: fabelgeist_rig::RigJointTable<
++        adventuresim_core::character_proportions::JointProportionBasis,
++    >,
+     positions: Vec<[f32; 3]>,
+     normals: Vec<[f32; 3]>,
+-    global_joint_states: Vec<[f32; 8]>,
++    global_joint_states: fabelgeist_rig::RigJointTable<[f32; 8]>,
+     /// This body on the armor device, once a piece has uploaded it.
+     device: adventuresim_character_creator::device_body::DeviceBody,
+ }
+ 
+ fn main() -> Result<()> {
+@@ -197,11 +199,11 @@ fn main() -> Result<()> {
+     if let Some(path) = &args.write_armor_designs {
+         let defaults = catalog
+             .items
+             .iter()
+             .filter_map(|item| {
+-                let design = catalog.design(&item.id)?;
++                let design = catalog.design(item)?;
+                 Some((item.id.clone(), design.recipe()?.clone()))
+             })
+             .collect();
+         let designs = adventuresim_character_creator::armor_design_input::ArmorDesigns {
+             defaults,
+@@ -229,16 +231,17 @@ fn main() -> Result<()> {
+             args.armor_review_selection,
+         );
+     }
+ 
+     if args.generate_equipment {
++        let selection = EquipmentItemSelection::admit(&catalog, &args.equipment_item)?;
+         generate_equipment_assets(
+             &args.equipment_output,
+             &model,
+             &recipe,
+             &catalog,
+-            &args.equipment_item,
++            &selection,
+         )?;
+         println!(
+             "Generated equipment under {}",
+             args.equipment_output.display()
+         );

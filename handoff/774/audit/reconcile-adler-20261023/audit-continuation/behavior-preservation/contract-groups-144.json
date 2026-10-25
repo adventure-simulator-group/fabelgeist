@@ -1,0 +1,35 @@
+{
+  "id": "CONT08-CONTRACT-144",
+  "at": "2026-10-25T12:56:12.731160+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 525,
+      "source_id": "pr-working:content/items/catalog.yaml",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:content/items/catalog.yaml",
+      "before_sha256": "7d2f5824a307b4434e9ffd066d092f97a5dc0c4362adbbcd3062c28b0993d915",
+      "after_sha256": "87e0f51292d42ab62beeabc9f2624f635c27acf8b28ae3d8c2931eb9297f491b",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0525-base-7d2f5824a307b4434e9ffd066d092f97a5dc0c4362adbbcd3062c28b0993d915",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/87e0f51292d42ab62beeabc9f2624f635c27acf8b28ae3d8c2931eb9297f491b",
+      "diff": "source-evidence/pr-0525.diff",
+      "diff_sha256": "8d80a7fd209bdbb8d6c7ac02af550e54405ee2bfefc5bb03fb741faf952fbb8e",
+      "head_body_read_ranges": [
+        [
+          1,
+          5632
+        ]
+      ],
+      "semantic_display": "All 184 exact JSON records personally consumed, records0\u201359 in143 and60\u2013183 in144; compact lossless actualpayload display with originalsource ranges, not metadata-only.",
+      "facts": [
+        "Remaining source1561\u20135630 complete records60\u2013183 consumed. Weapon skill blends, ranged reach versus physical reach, signed anchor offsets, zero grip distances for nonweapons, durability quality/wear/failure shares, layer/parent/channel/fit-zone selections and armor surfaces retain actual authored values.",
+        "Food including zero calories, culinary fat, medication/ingredient capability mixtures, alcohol serving/hydration/ABV, book medium/target variants, zero-value quest tokens retain payloads and order. Already-present display-name encoding corruption is byte-preserved, not introduced by this diff.",
+        "Only record159 identity/display_name leather_belt/Leather belt\u2192belt/Belt changes. Actual four ordered attachment channels/capacities/UV/tangents unchanged, matching source502 manifest rename and500/501 identical icon bytes. GLB absent frozen Git inventory remains source004/139 qualification; no binary release/runtime inference."
+      ],
+      "disposition": "Source-local comparison completed WITH explicit material-recipient and asset-availability limits; canonical clean rename intended, no compatibility alias required.",
+      "acceptance": "Preserve exact catalogue payloads and record ordering; canonical belt consumers must use belt, and actual generated/released asset availability requires separate evidence. No executed validation."
+    }
+  ],
+  "next": "528 building Cargo then original529 onward; no original catalogue restart."
+}

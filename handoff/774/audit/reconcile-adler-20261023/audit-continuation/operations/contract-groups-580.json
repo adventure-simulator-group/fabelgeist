@@ -1,0 +1,88 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-580",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/strategic-web/static/equipment-toggle.js",
+      "sha256": "86df6350e2e09720ae1d8293a48a484f6e0aa4154787e29dd06156ee7c1e6b37",
+      "actual_EOF": 431,
+      "actual_compared_ranges": [
+        [
+          1,
+          431
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/static/party-trade.js",
+      "sha256": "8bf14d47ad93735cea07acc1e20ad479d0edb2abffc2fd4cd3a6b2b1545c570f",
+      "actual_EOF": 677,
+      "actual_compared_ranges": [
+        [
+          1,
+          677
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/static/portrait-navigation.js",
+      "sha256": "13f4ed6879eaf8ddf932abef7e3d0d76543326721b3628c5a163448049a54bc3",
+      "actual_EOF": 44,
+      "actual_compared_ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Equipment selection operates on admitted index/capacity/rank and exact object identity; retained controls remain tied to mutation context.",
+      "evidence": "equipment-toggle431fullbody consumed,1\u2013115previousfocused578/576 and116\u2013431now. Perrequirementtargetsortusesnumericrank andparentIDdifference, selectedCapacitycountsboundedrequirements, occupiedIndex=used-freeguard>=0. Numberu16/u32 exact butJSONu64parent/objectIDs loseprecision underexistingRIG-OWNER-F026; samepreciseprojectiongap notnewcount. source576 packedrank candidate nowfullreceiverbody support. Mouse/spacechooseslot thenmutation via strategicSubmitMutation withoriginPage; actualmutationownerpendingfreshproof.",
+      "qualifications": "No browser/fixture/mutationexecution. JSONmalformedtargets/emptytarget arrays canthrow inexported attachmentTargetsForPlacement, actualcallersmustestablishselection; noordinarycallwitness. Preview/modalpersistonpagechangequestions requiremutationoriginPagepolicy beforeclaimstalecommit.",
+      "acceptance": "Structuredlexicographicrank/currentcanonicalordering, exactidentityrepresentation, one selectedcapacity reservation perrequirement and authoritative checkedmutation preserving previousstateonfailure."
+    },
+    {
+      "contract": "Trade staging arithmetic and lifecycle publish one coherent draft and do not silently accept failed target mutation.",
+      "evidence": "party-trade677fullbodyread. Individual available/target/quantityu32 numbers exactJS; clampstagedamount0..remaining valid finiteinputs, provisioningregex10digitsandMAXu32 gates. Goldprice*quantity canexceed2^53 ifbothfullu32, actualauthoredpriceboundsneeded beforeordinaryprecisionclaim; displayed draftonlybackendstillownsactualcurrency. Wholemapserialization preserveskeys/valueassociation; no parallelarray zip reorder. New mountleak candidate recordedbelow. saveInventoryTarget mutatesvisibletext/data beforeunawaited strategicFetch, no rollbackorack: actualHTTPerror leavesoptimisticUIpendingwithoutexplicitstatus; conditionalfailureprojection linkedsharedstructurederrorgraph.",
+      "qualifications": "No commerce/DB/browserrun. DelimiterCSVsafeonlyif canonicalitemIDs excludecommas; nativeIDsremainstringratherthanJSNumbers inmostmaps. Item_id grouping/value-percatalogue cancollapseperinstancemass/value, connectedexistinglocalM01/M29/M81 but actualmerchantpricingpolicy neededbeforepricealias. BackendmayrejectstaleIDs; no guaranteedwrongDBcommit.",
+      "acceptance": "Representpendingvsconfirmedtarget, rollback/reconcileonfailure; exactu32quantities, canonicalgross/netpricingandfullsafeintermediatesiflargepricesupported. Draft lifetime acceptance inconnectedfinding."
+    },
+    {
+      "contract": "Portrait active selection and scroll restoration remain within current mounted root.",
+      "evidence": "portrait-navigation44fullbodyread. URLpathnamefilterthenstablepriority/longestpathsorted, selected optional; boundingrect finitebrowsercoordinates andscrolladjustment localrail. lifecyclelisteners bound toAbortController/root andremounted; noasynchronouscallback retainingoldroot.",
+      "qualifications": "Browsergeometry/URLcontract sourceonly, no DOMrun. This scopedroot/lifecycle pattern doesnottransferclearance toglobaldialoguequery callbacks.",
+      "acceptance": "Currentmountedroot exclusivelyowns activearia/tab/scroll updates; preservecharacterprofile/inventorypriorities andresidentselection."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-TRADE-DRAFT-MOUNT-LEAK-CANDIDATE-001",
+      "status": "source-backed ordinary finite draft/navigation sequence; no browser witness executed",
+      "operation": "party-trade.js global window.strategicTradeUi.state maps survive strategic-page-unmounting (only bodyclass and WeakMap opener deletion). New page mount calls initializeProvisioningDraft; absent valid provisioningquery it returns without reset. updateMerchantOfferForm reads complete retained merchantDraft/Sells and publishes all rows as comma-separated hidden form fields.",
+      "witness": "On merchantpageA stageonebuy itemA, then softnavigate to merchantpageB (different page/currentinventorycontext; no commit orcancel). PageB form startswithout A; stageonebuy B. updateMerchantOfferForm serializes retained buys A andB, while currentpage A wasnotstaged/shown. If oldinventorysale ID persists, samehidden oldsale submission occurs. Nativebackend mayreject stale inventory, but oldsamecatalogbuy remains representable and currentUI lacks coherent retainedintent.",
+      "qualifications": [
+        "Source state/write/lifecycle paths personallyconsumed; no actual commerce/DB/DOM run.",
+        "Explicit persistent crosspagecart could beintentional onlywith visible binding/reconciliation; no such restorationpresent inthisscript. Must trace anyexternalreset hook beforecalling allfrontend paths failing.",
+        "Different service/server mightreject olditem andavoidcommit; observed sourcegap is hidden stale draft included in newform, not guaranteed badDBcommit.",
+        "No globalunique count fromindexedaliasabsence; connected clientmount authority with578butdifferent retainedstate/remedy."
+      ],
+      "repair_cluster": "strategic-trade-draft-context-authority",
+      "dependencies": [
+        "page/inventoryscope identity for retained draft",
+        "actual form mount/reset owner",
+        "server checked trade payload and partialfailuretransaction policy"
+      ],
+      "acceptance": "New page/scope owns an explicit draft: clear oldpending maps orrestore/revalidate/display them againstexactcurrentcontext before submission. No invisible oldrow in newform; failure preserves/reconcilesvisiblependingintent; sourcequalified tests onlyafterdiscovery gate."
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/strategic-web/static/physical-evidence.js"
+}

@@ -1,0 +1,36 @@
+{
+  "id": "CONT07-F081",
+  "at": "2026-10-23T20:28:28.353618+00:00",
+  "classification": "maintenance strengthening; current roster/order/count agree, no current runtimewrongmaterial",
+  "title": "City ground material identity is repeated in an ordinal, roster and fixed builder count",
+  "sources": [
+    {
+      "scope_index": 1662,
+      "sha256": "7166792f47fb4800916b03dd90a149033382ed4a4f2d2e7b058a1237a4586f71",
+      "ranges": [
+        [
+          10,
+          30
+        ]
+      ]
+    },
+    {
+      "scope_index": 1665,
+      "sha256": "e71c17fce89d8304542afd21ad84fde3cec70c08368bc21c27f318146268e48a",
+      "ranges": [
+        [
+          24,
+          64
+        ]
+      ]
+    }
+  ],
+  "earliest_failed_contract": "One closed CityGroundKind declaration must own complete orderedmapping fromkindtoitsbuilderandback. Currentenumordinal, handwrittenALLorder andliteralbuildercount5 can driftindependently.",
+  "counterexample": "Reordering only ALL list leavesexhaustivekindmaterialmatch andordinalindexvalid butzip emits eachbuildergeometry underwrongCityGroundKind, soactual1660spawn useswrongmaterial/yardmarker. AddingkindwithFrom mappingandmaterialmatch butretainingcount5 indexesoutofbounds. Currentall5 declarations/order/roster/count agree; this is futuremaintenancecounterexample, notexecutededit.",
+  "actual_recipient": "PreparedCityGround::new indexesbuilderbykind.index thenzipALL reconstructsbatchkind. CityGroundAssets::spawn/spawn_focused consumeskind.material/is_yard, publishingnativewrongmaterial/markerifdrift.",
+  "qualification": "Suggestion/contractstrengthening withactualconsumer, no installedbadasset/currentruntimefailure or actualfutureeditrun. SamegeneralclassF071/F074/F011 butdifferentconcretepavingrepairgraph; QUAL205 forbidsautomaticglobalmerge orsum. Authoredstone-spacing/garden/prioritypolicyremainsdistinctdata.",
+  "connected_repair": "Makecanonicalkinddeclaration derivecompleteiteration/count/ordinalassociation oruseenumkeyedbuilders preservingkindidentitythroughconstruction. Preserveall5currentdeterministicbatchorder/materials/markers andnativewirelayout.",
+  "acceptance": "Sourceaddition/reordercannotcompileorproducegeometrywithdifferentkindwithoutonecanonicaldeclarationupdate; currentbatch/material/nativegeometryorder remains as intended. No tests added or executed.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

@@ -1,0 +1,44 @@
+{
+  "id": "CAMERA-ADM03-026",
+  "at": "2026-10-22T06:14:34.752773+00:00",
+  "lens": "audit-admission-contracts",
+  "members": [
+    432
+  ],
+  "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation.rs",
+  "sha256": "df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+  "actual_read_ranges": [
+    [
+      1,
+      2053
+    ]
+  ],
+  "invariant": "Strict authored itemcontent combines syntax/shape, numericvalue/targetrepresentation, closedkind/material/occupancy vocabularies, stableIDs, actualsupportedregistrymembership and explicit mode/capabilityrelations; raw runtimeItemDefinitiondecode alone is not this whole gate.",
+  "all_admission_routes": {
+    "parse": "parse_document133\u2013135 ->privateStrictValue.Deserialize139\u2013203 recursiveBool/i64/u64/string/null/seq/map; f64requiresNumber.from_f64 finite; maprejectsduplicatekey BEFORE insertion. RawdirectValueargumentto validate_documents cannotcarryduplicatekeys/nonfiniteNumber but remainsstructurally/semanticallyuntrusted. No leafDefault/Reflect/rawuncheckedconstructortoStrictValue exported.",
+    "top_gate": "validate_documents205 delegates with emptysources; with_sources212\u2013311 checksdocs<=32, eachprovidedsource<=2MiB, itemcount<=4096; validatesallroots/schema1/itemarrays andeachitem, thenactualItemCatalogDocument typeddecode269 (fieldwidth/shape/defaultboundary) beforeOk. Currency/medication authoredIDs mustequalactualgameplayregistrysets275\u2013300. Diagnostics truncate128 onlyafter collecting; anynonempty remainsfailure. files/sources diagnosticsdata maydescribeinvalidsource andnotadmittedgameIDs.",
+    "identity_and_common": "validate_item313\u2013544 rejectsunknownroot/itemfields; itemID nonempty<=64 lowercaseASCII/digit/underscore globalunique362\u2013372/1447\u20131453, no lexicographicorderpredicate; displaynonempty<=256bytes, <=32validuniquetags; weightfinite0..10000; exteriorvolumeinteger1..1m; basevalueu64required then typed schemafurtherwidth; iconnonempty<=64lowercase/digit/hyphen withnoendhyphen, buildlaterfileexists; kinds exact10case list443\u2013456; kind/slot andkind-exclusivefieldchecks. No generalitemidentityclosedmemberlist exceptcurrency/medicationmechanics-backedsets.",
+    "weapon": "Weaponhandling one/twohanded1058+, optionalanimationpack syntaxvalid_id (openidentityowneritselfbroadergroup007; thisauthoredcontentcontextdeliberatelyrestrictssyntax); reach/inertiafinite0..10000, at leastmelee/ranged, meleeauthoredprecisionforbiddenandpreferredattackSwing/Stab, rangedonlyprecisionfinite0..10000. Skills9allowedleafweightsallfinite>=0,sum1\u00b11e\u22124, eachactiveweaponmodepositiveweightsum; targetf32modepositivityneedsactualschema/projectioncomparison.",
+    "carry": "validate_weapon_carry546\u2013635: carrysheathable/hand_only; explicitplacements. sheathableatleastoneexactone orderzero containmentparent plusattachmenttag; handonlyallplacements exactone left/righthand Heldroot, emptyparents andnosheathabletag. Fullrelationslater05notcleared, butdirectrawentryroutes andactualgateenumerated.",
+    "equipment": "validate_equipment637\u20131056 requiresobject/knownfields, actualequipmentmaterial helper, weapononlystrikingmaterial. Physicaldimensions690\u2013701 exactly3 finitePOSITIVEf64; gripdistanceoptional/default0finite>=0; optionalanchoroffset3finite signed. No targetf32-positivecheck inmain dimensionpredicate; typeddecode269 maypreserveorfail dependingactualCuboiddecoder, pendingRigschema comparison. Placementnonempty, stableuniqueIDs, parent/occupancyatleastone; exactoccupancy/dependencyhelperscalled805\u2013812. Protectionsevenbodypartunique; armor/clothingnonempty; nonarmorprotected requires equipmentprotection; surfacehelper857. AttachmenttagsvalidIDs, protectionflex/rangefinite0..1/resistancepadding0..1m, armorstatsnotduplicatepayload. AttachmentpointIDsunique,channelsknown, capacity1..u16MAX, uniquevalidlocations/tags; optionaluvobjectexact{domain,uv}, validIDdomain/2finiteunitcoords; tangent3finitef64/norm\u00b2>1e\u221212 andpairpresenceUV/tangent. Unboundedcomponentf64\u2192f32invalidityrequiresactualschemaadapter, no assumedfiniteoutput.",
+    "capabilities": "validate_capabilities1148\u20131384 rejectsunknownkeysvocabularydurability/food/alcohol/container/book. Repairablekinddurabilityrequired INSIDEhelper1210; quality1..5, yield/fracturefinite0..1m,yield>0/fracture>=yield, wear/failure/edge/handlingfinite0..1. Food12classclosed, nutrition/value/growthfinite0..1m, quality1..5, fiveflavorsfinite0..1000; foodkindnutritionrequired INSIDEhelper1278. Alcoholservinginteger1..10000/ABV<=10000/hydration<=serving; boolmetadata anddisinfectionfullu16. Containercapacity1..1m, kindrequiredcapabilityINSIDEhelper1354. BookonlySimple, typedBookdecode1374 thenlegalquality/bookleafshape; settlementallowlist<=64uniqueIDsnonempty<=96 lowercase/digit/_/hyphen; actualtargetclosedlegalranktables1386\u20131445. OUTER537 invokeshelperonlyifcapabilitiesfieldPRESENT, suspectedmissingrequiredkindbypass awaits exactPRschema defaultcomparison; P16actualschema factsalreadyreceivedfromRig.",
+    "diagnostics": "PublicCatalogDiagnostic rawsource_index/path/message safeinvalidinputevidence; privateCatalogValidationErrorfactory309 holdsactualfiles/rawsources andexposesdiagnostics only. source_coordinates107\u2013131 toleratesunknownpaths/fallbackoffset, notruntimegamecoordinate. No metadata/serde-derivedproofthesevaluesarevaliditemmembers.",
+    "existing_tests": "Full1493\u20132053 read: existingpositive-f32shieldblock0/1e\u2212100/smallestsubnormal cases1499\u20131524; structuredschema/ID/sourcecoordinates, strictduplicatekeys, typedintegeroverflow, supportedregistry, books, placements/layers/atomic/surfacepairs/defaults/carry checks. Testsnotrun/newlyauthored; directhelpertestsdoNOTprovewholekindrequiredchecksarecalled."
+  },
+  "representable_counterexamples_or_intentional": [
+    "IDunknownauthoredwordwithvalidgrammarallowedexceptexplicitmechanicalcurrency/medicationsets; no whitelistingallitems orAnimationPackIdowner.",
+    "Strictparse duplicatedmappingkey rejects, unlikeplainValueconstructwhichcannotrepresentduplicates.",
+    "Tinypositivef64equipmentdimensionscanroundzeroatf32target unlessactualtypedadapterenforcespositive role; needactualRigschemaevidence, genericzero-validCuboidaloneinsufficient.",
+    "Omittedcapabilities skipshelperrequired-kindtests entirely at537; RigschemaP16DefaultallNone confirmsP16route; PRcounterpartproofrequestedbeforePRfinalfindingcredit.",
+    "Document/stagevalidationseparatefromsource-mapcollectionbeforegate; preserve rawrejectedkeysvalues."
+  ],
+  "connected_repair": "Closeexactrequiredcapabilityomission gate atouteritemkindboundarywithoutinventingdefaults; enforceintendedtargetnumericpolicy afterconversionwhereactualrolepositive, notblanketCuboidpositive. Coherent build/runtime compiledcontentadmission should useauthoritativepredicate throughrawschema/default/directDTO routes. Keepdiagnostic source text/path/firsterrorandalloriginalrawrejectedinputs. Childhelper/schema/projectionsourcefacts mustcomposeexactly; no allcatalogueclearance.",
+  "pending_actual_dependencies": [
+    "Rig exactPRtypedItemDefinition/Capabilities/ItemKind default/decode counterpart foromissionfinding",
+    "Rig currentnumeric/occupancy/surface/material/physicaldecoder helpers andP16maincurrentrolecomparison",
+    "Actualruntimeproject_generated_weapon numericalproducerroute suppliedinCamera014\u2013018/Rootdefaultcatalogue forthcoming"
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "other_lens_credit": false
+}

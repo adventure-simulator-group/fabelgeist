@@ -1,0 +1,81 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-085",
+  "at": "2026-10-23T01:18:53.560841+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_movement.rs",
+      "sha256": "086c2055231445836bac21e3ffa931c0909cd95def8d4fa7e4f041a2fe629e86",
+      "actual_compared_ranges": [
+        [
+          1,
+          389
+        ]
+      ],
+      "source_evidence": "Fresh full actual currentPR body, source-only existingmovementoracles and mode/physicalinterfaces independently compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_defense.rs",
+      "sha256": "6c64790c60c4ad2b52d4e3a18e312b8be73cb714ec27aa194f9a345d17eda293",
+      "actual_compared_ranges": [
+        [
+          1,
+          221
+        ]
+      ],
+      "source_evidence": "Fresh full actual currentPR body, source-only existingmovementoracles and mode/physicalinterfaces independently compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/model.rs",
+      "sha256": "20d6bb98602db1d3dbc649b575e54c27fb766279d064deed4a13fcc0c695af72",
+      "actual_compared_ranges": [
+        [
+          1,
+          363
+        ]
+      ],
+      "source_evidence": "Fresh full actual currentPR body, source-only existingmovementoracles and mode/physicalinterfaces independently compared."
+    }
+  ],
+  "groups": {
+    "PR-axis-and-opposed-numerics": "ActualPRalreadyreadmitsfinalvelocities andexplicitchecksafter_acceleration, butleavesrawdistance/displacement unchecked. Existing P16 typed displacement/geometryerror improves rejectedoverflow withoutalteringnativef32arithmeticorder; aggregateF028 remains. Zeroaccelerationcoasts, elapsedtypednonnegative, signedclose/retreatand collisionclip signs preserved. Rawmin/max incoherence canpanicclamp andrequireswholebounds contract, notpositiveallSignedLength. Purekernel localstateonly, error doesnotpartiallymutateexternalactor.",
+    "PR-defense": "Currenttiming typedBattleTime/elapsed/fractionretainschecked chronologicaldifference, earlyremainingzero prevents0/0recovery, positive remaining/zero windup clampsInf to0existingpolicy. Interceptwindowgatespositive response_delay; admittednormalreflexwindowpositive perconfig, currentrawNaNsample andmutableparameter inconsistency areadmissionproblemsnotnewfinitecounter. Scheduled commit straightassignsonephase and resetsadaptation; P16distanceleaf strengthensinput butdoesnotsealwholephase. F027 currentidentitylossconfirmed independently.",
+    "PR-model-index-and-operations": "Fixedhealth/armor arrays7 usealreadyprovenclosedBodyPartindex0..6. Currenttotal_damage sumofrawnegativehealthcanoverflowfinitecomponents, no claim arbitrarybody/rawprofilehasfinite-outputseal; existingF009physicaladmission/accumulationgraph applies. Preserve signedinjuryhealth, BodyMass humanversusnonhuman/equippedbiologicalmeaning, no globalUnitIntervalhealth. Physicalconditionoverride1 deliberatelyavoidsdoublecount wheel fatigue/burden; Skillmatch explicitunsupportedbattleCooking/Herbalism/terrain0 unchanged, Bestiarycanonicalownerdelegated.",
+    "PR-selected-equipment": "for_melee/ranged cloneoneinventory/armorview andreplaceweapon+holdingside only; base/melee/ranged publicfields remain CameraF009normalmixed-loadoutprojection graph. Allrawphysicalgetters are applicationinterfaces, not terminalnativeports. P16typedSignedLength signatures mustpropagatethroughthese traits/state/callers ratherthan extracting/readmitting perhelper. Noneweapon naturallyzero weaponcontribution/defaultunarmeddistribution doesnotjustify wholemissing-observation\u2192zero elsewhere. ArmorSurface lookup capturescurrentprotection onlyoncontains, rawsample/geometrywholeadmission existingF007.",
+    "source-oracles": "FullcurrentPR389movementfixtures read, preserving step partition/collisionfloor/coasting/instant reversal/addedmass behavior and unchangedinputorder duringP16APIadaptation. No tests/assertions/helpersadded orrun; nootherlensverdictcredit."
+  },
+  "finding_qualifications": [
+    {
+      "id": "ROOT-INITIAL04-F027-CURRENT-PR-085",
+      "finding": "ROOT-INITIAL04-F027",
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_defense.rs",
+      "sha256": "6c64790c60c4ad2b52d4e3a18e312b8be73cb714ec27aa194f9a345d17eda293",
+      "ranges": [
+        [
+          178,
+          190
+        ]
+      ],
+      "qualification": "ActualPR attack_id acceptsfullu64 anddiscardsupper32 viawrapping_shl, samecounter IDs1/4294967297 atsamestart. Rawdistance commit vsP16SignedLength doesnotrepairidentityloss. No normalhighID/runtimeclaim."
+    },
+    {
+      "id": "ROOT-INITIAL04-F028-CURRENT-PR-085",
+      "finding": "ROOT-INITIAL04-F028",
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_movement.rs",
+      "sha256": "086c2055231445836bac21e3ffa931c0909cd95def8d4fa7e4f041a2fe629e86",
+      "ranges": [
+        [
+          70,
+          77
+        ]
+      ],
+      "qualification": "ActualPR opposedkernel same .5MAXdistance/two .4MAXretreatdisplacements overflowrawsumInf thenfraction0 andchange distancewithoutactor displacement. P16finalSignedLengthadmission stilldoesnotfixaggregate masking. PRalso lacks displacementadmission: beforeMAX/afterMAX atelapsed0 canoverflowtheirsum thenmultiply0\u2192NaN publishedOk; P16returnsGeometryError fornonfinite computeddisplacement, an existingmigrationimprovement. InternalAPI/staticcase only, actual guarded/lunge speedconfig normalbound preserved."
+    }
+  ],
+  "findings": [],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

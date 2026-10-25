@@ -1,0 +1,32 @@
+--- PRbase/crates/adventuresim-character-creator/src/garment/settled/tests.rs
++++ frozen/crates/adventuresim-character-creator/src/garment/settled/tests.rs
+@@ -45,11 +45,15 @@
+         settled: None,
+         obstacles: vec![],
+         positions,
+         faces,
+-        names: vec![],
+-        joints: vec![],
+-        indices: vec![[0; 8]; count],
++        names: Default::default(),
++        joints: Default::default(),
++        indices: fabelgeist_rig::PackedRigSkin::from_native(
++            vec![[0; 8]; count],
++            fabelgeist_rig::RigJointCount::from_native_joint_count(1),
++        )
++        .unwrap(),
+         weights: vec![[1., 0., 0., 0., 0., 0., 0., 0.]; count],
+     }
+ }
+ 
+@@ -84,9 +88,9 @@
+         normals: vec![],
+         texcoords,
+         positions,
+         faces,
+-        indices: vec![],
++        indices: Default::default(),
+         weights: vec![],
+         stage: DrapeStage::Settling { step: 1, of: 1 },
+     }
+ }

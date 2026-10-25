@@ -1,0 +1,26 @@
+{
+  "id": "RIG-INITIAL06-GROUP-302",
+  "at": "2026-10-23T08:35:37.275688+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "shrub-leaf-native-shader-ownership": {
+      "comparison": "TacticalShrubLeafInstancedUniform is actual shader ABI: four Vec4 blocks pack wind direction/strength, opacity/normal/AO/transmission, roughness/thickness/pigment and ambient shading. They are not interchangeable RGBA despite same storage. Native instance/world/clip positions, normals/UV and dither lane are explicit GPU stage products, consuming canonical Eidolon imports instead of new Rust identity. Wind/render clock is presentation globals.time, not StrategicMinute or animation sample span; raw shader float arithmetic appropriate. Commented shared calibration with tree foliage may be policy reuse concern for redundancy lens, not evidence identical complete materials should share one host type. No new canonical gameplay type authored; F005 native metric/color distinction retained.",
+      "disposition": "Actual native shader layout and numerical ports, no new ownership consolidation established."
+    },
+    "navigation-and-incremental-occupancy": {
+      "comparison": "Navigation owns private graph nodes/edges/entry/room membership and exact lookup keys using StoreyIndex/RoomIndex/ArchitecturalPlanPoint. RoomNodes groups domain location membership, NavigationPointKey bitwise XY+storey preserves exact lookup identity rather than duplicate world coordinate leaf. Occupancy borrows same Navigation and tracks reference counts plus swept rectangles for candidate additions; Change is a consumed inverse delta and Flood is derived reachability, not independent navigation owners. Local usize edge/node addresses differ from room/storey IDs; canonical Rect/PlanExtents/SignedLength retained until actual midpoint/expansion equations. Native grid integer loop and distance-squared ranking are true kernels. Original reference fixture is independent reachability evidence, not a new generic model. Correlated private graph/delta safety remains aggregate lens; no public external graph acceptance implied here.",
+      "disposition": "Coherent immutable graph, derived occupancy and reachability products with canonical spatial owners."
+    },
+    "grounded-layout-original-fixtures": {
+      "comparison": "Original fixtures construct canonical CitySceneLayout, GeographicSurface, CompoundGradingPolicy and SelectedCityGrounding; use SceneBuildingId versus CityPropertyId for distinct authority roles and preserve source placement identity/Seed/program/horizontal frame while vertical support changes. PositiveLength stair/cutfill bounds differ from signed SupportElevation and native triangle source. Assertions cover promotion/order stability and missing/duplicate owner rejection without authoring competing support or layout schemas. Fixture six-metre provisional cutfill does not own a runtime default. No test execution/new cases, and called helper bodies not covered by fixture usage alone.",
+      "disposition": "Canonical ownership/frame contracts exercised by original fixtures; supports lower F001/F023 only."
+    }
+  },
+  "supporting_existing_findings": [
+    "F005",
+    "F001",
+    "F023"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit."
+}

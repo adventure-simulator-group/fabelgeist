@@ -1,0 +1,120 @@
+{
+  "at": "2026-10-23T22:10:08.792228+00:00",
+  "id": "pc109-garment-stage-finalization-001",
+  "reads": {
+    "crates/adventuresim-character-creator/src/garment.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/garment/drape.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/garment/outfit.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/garment/stages.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/garment/settled.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/garment/settled/packed.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/garment/settled/tests.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/garment/selection.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/garment/validation.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/garment/placement.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/adventuresim-character-creator/src/garment/shading.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/fabelgeist-garment-fit/src/lib.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/fabelgeist-xpbd/src/solver.rs": [
+      [
+        1,
+        10000
+      ]
+    ],
+    "crates/fabelgeist-shell/src/shell.rs": [
+      [
+        1,
+        72
+      ],
+      [
+        215,
+        290
+      ]
+    ]
+  },
+  "contract": "Garment admitted settings through numerical solver and packed saved binding; preview/final success, topology identity and current labels traced to recipients",
+  "coverage_limit": "Full bodies listed, source-only; no fixture execution. Native GPU receiving owner source counts/errors stay coordinated826/780; final shader equations and affected unchanged garment-code/fit authoring/producers remain graph obligations. No other lens coverage imported.",
+  "disposition": "M108 raw admitted garment steps/substeps/iterations/gravity/damping/preview/body_fit/resolution survive as primitives across StageSettings\u2192FitSettings\u2192SolverSettings/HostContactSchedule\u2192Fit.step\u2192Shell.step_interleaved\u2192XPBD/PassParameters; only final native WGSL uniform encoding is actual scalar port. Preserve zero steps, zero gravity/damping/body_fit and host-contact interval0 GPU-only semantics, max1 iterations/substeps policies rather than invent positivity/ranges. Exact low-math Metres/Ratio/AccelerationVector units are policy-free; applicationbounds belong canonicaladmission and cm\u2192m transform is mathematicaladapter. RIG-ADMISSION03-F016/F022 confirmed: base64codec checks recordwidth, not semanticfinite/ordinal/cardinality invariants; normal Wardrobe.load validates. CAMERA-INITIAL07-F055 count-only BodyTopology permits same-count reordered faces, exact saved SurfaceBinding.triangle receiver is Wearer.frame; no actual installedmodel topology change claimed. CAMERA-INITIAL07-F056 rename cache confirmed: same_setup excludes name, Finish reuses old DrapedGarment without refreshing label, OutfitOutcome and nativePreview use it; material-only physical reuse remains valid. CAMERA-INITIAL07-F060 confirmed source/API failure path: simulate publishes finalSettling preview before transfer_skin rejects allzero/invalid weights; worker final empty prefix leaves prior preview, marksfinishedtrue, settled/save accepts same stage even error; saved capture needs no finalskin and can succeed over valid geometry. Warning-only contacts are deliberately usable, do not turn all warnings into failure. Drape cancellation suppresses stale worker publication, not used as failure witness. Zero step Settling0of0 explicitly admitted, preserve. Existing capture/wear/invalidpackedarray/changedtopology/normalizedtransfer/seam fixtures source observed only.",
+  "finding_traces": {
+    "M06": {
+      "source": [
+        "garment/selection.rs:207-223",
+        "garment/validation.rs:6-21",
+        "garment/outfit.rs:15-23,58-63",
+        "garment/drape.rs:45-50,118-123"
+      ],
+      "trace": "Cloth native/geometry causes become anyhow and warningString before retained outcome/worker/wardrobe state, with cancellation and warning-only quality as semanticallydifferent variants; preserve each andformatonlyatUI. Nativeparam paths tuple/rawkeys actualGPU boundary and independent ownership stillpending."
+    },
+    "M16": {
+      "source": [
+        "garment.rs:40-66,157-318,462-521",
+        "garment/settled.rs:45-59,63-103,184-198",
+        "garment/placement.rs:67-75"
+      ],
+      "trace": "Typed PackedRigSkin/RigJointOrdinal propagation already survives actualskintransfer; physical vertices/faces/UV/weights/bodytopology still raw parallelpopulations, nativeVec access isactualend. Joining geometry validates actualsource and cardinality beforeSewnSurface/TriangleBvh rather than declaring namedprivate helper anativeboundary. ClothBodyTopologycounts!=orderedconnectivityidentity. Allzero transfer weights explicitfailure whereas some otherpreviewrows intentionalzero; donotmergepolicies blindly."
+    }
+  },
+  "frontier": {
+    "file": "crates/adventuresim-character-creator/src/clothing.rs",
+    "work": "PC109 garment actualproducer/finalization/serialization/source-native solver traced with exact Adler aliases. PC110 garment dressing/fitting/export/clothing receiver paths, then connected default terrain codec question and remaining full changed/historical inventory. Initial all13 discovery incomplete; no implementationplan, repairs or projectchecks."
+  }
+}

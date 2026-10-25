@@ -1,0 +1,59 @@
+{
+  "recorded_at": "2026-10-21T03:25:02.904555+00:00",
+  "head": "3a9b72c7ffaec06ab2895081d1902e8df5e33709",
+  "includes_uncommitted_untracked": false,
+  "scope": "P02 error follow-through from the current partial review: AuthoredThreatError and BattleResolutionError production receivers. Focused implementation-agent Code/Rule/producer source review; no independent review or full audit wave.",
+  "source_status": "BELIEVED COMPLETE for these two newly typed cause paths, not a whole simulator/strategic/runner generic-error migration. Exact-head hosted validation still required.",
+  "source_traces": [
+    {
+      "path": "AuthoredThreatError -> authored_threat_combatant -> autoresolve_enemy_with_countermeasure -> autoresolve_enemy",
+      "proof": "Both strategic wrappers now return canonical AuthoredThreatResult, retaining the original error. backend_contracts and case_site_presentation_view preserve their existing .ok() absence policies; neither formats errors."
+    },
+    {
+      "path": "typed enemy collection and BattleResolutionError -> autoresolve_mission -> ApprovedPartyAction::execute -> approve_party_action_request; direct mission reducer and existing authority_test_mission_roster reducer",
+      "proof": "AuthoredThreatResult<Vec<_>> collection and resolve_battle ? feed StrategicCombatError source variants. The typed mission branch returns directly from action dispatch; unrelated old String branches enter Operation(String) once. Existing authority-test feature is in all-features Clippy; no test added."
+    },
+    {
+      "path": "typed enemy collection and BattleResolutionError -> resolve_random_encounter_battle -> resolve_strategic_encounter reducer",
+      "proof": "Both Sneak-failure and Attack paths retain StrategicCombatResult<String> through ?. Combat order, RNG seed framing, commit calls and outcome serialization unchanged."
+    },
+    {
+      "path": "simulation_quest_fixture_enemy_power -> seed_simulation_quest_fixture reducer",
+      "proof": "Power projection preserves AuthoredThreatResult until the reducer owns it in StrategicCombatResult. Other fixture checks and row inputs unchanged."
+    },
+    {
+      "path": "AuthoredThreatError/BattleResolutionError -> autopsy_demo_outcome -> seed_autopsy_demo -> materialize_gallery_item -> materialize_development_scenario_gallery -> bootstrap_development_world; direct dev_bootstrap_gallery reducer",
+      "proof": "Structured cause variants propagate through all entry points. Required-death None becomes explicit RequiredDeathUnavailable with exactly the old display text. Existing selected types, three fixed seeds, 128-attempt bound, body authority writes and gallery loop order unchanged."
+    },
+    {
+      "path": "BattleResolutionError -> tactical-server run_autoresolve_batch -> run_matchup -> run -> native main",
+      "proof": "IterationError::Resolution retains the canonical core cause to IterationResult at main. Existing other setup/equipment/I/O/report String failures enter Operation(String); no claim those families are migrated."
+    },
+    {
+      "path": "remaining core/strategic profile resolve_battle receivers",
+      "proof": "rg enumerated existing fixture/test callers; they retain existing unwrap admission at test boundaries. The core death-required helper already returns BattleResolutionResult. No additional production stringification of these two causes found in the enumerated receiver paths."
+    }
+  ],
+  "actual_boundary": {
+    "source": "Pinned spacetimedb 2.6.1 src/rt.rs:208-223 and bindings-macro reducer.rs:151-155, read directly.",
+    "contract": "SDK accepts Result<(), E: Display> and formats at IntoReducerResult::into_result. No reducer argument or stored schema type changes. No generated file hand editing."
+  },
+  "rule_support": [
+    "AGENTS.md architecture/clean API/no compatibility paths/bounded debugging",
+    "crates/AGENTS.md canonical owners/primitive escape receivers/typed classification/cohesive Result aliases"
+  ],
+  "preservation": "Static source metadata preserves existing test names/assertion counts. Lockfile byte comparison proves only two direct references to already-resolved thiserror 2.0.20; no package/version/cache/gate change. git diff --check passes.",
+  "limits": [
+    "No local build/check/test/fmt/Clippy/project scanner/parser/generator/runtime probe, no agents, new tests/cases/assertions/helpers, fourth full audit wave, Comment Review or merge.",
+    "SDK view omission policies remain; typed errors do not make those views report causes they previously omitted.",
+    "No DB reset or live authority acceptance. All-features compilation covers the existing authority-test reducer but does not execute it.",
+    "P06 remains unaccepted; P08-P20 unimplemented. This focused review is not PR-wide clearance."
+  ],
+  "published_head": "6baeb445cbc4a0b9307d7e2557ced3216c3a3adf",
+  "publication": "Committed and pushed; exact-head hosted run39538920174 pending.",
+  "includes_uncommitted_and_untracked": false,
+  "latest_followthrough": {
+    "status": "The sidearm and pure iteration evidence graph was found incomplete on1f7c and is now repaired locally. Pending hosted validation.",
+    "report": "P02-authored-sidearm-evidence-source-review.json"
+  }
+}

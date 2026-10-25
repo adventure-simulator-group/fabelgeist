@@ -1,0 +1,39 @@
+{
+  "id": "CONT07-EXTENSION-CONTRACT-005",
+  "at": "2026-10-24T01:47:32.286792+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-garment-code/src/pattern/core.rs",
+      "sha256": "78a40a867edc2528c4d5bd02bd24b48e21b4e8fdf0e70e4c0cac759b680efa50",
+      "ranges": [
+        [
+          102,
+          154
+        ]
+      ],
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/78a40a867edc2528c4d5bd02bd24b48e21b4e8fdf0e70e4c0cac759b680efa50",
+      "registration": "CONT07-REG-037",
+      "read_kind": "fresh personally read exact registered source ranges"
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/static/live-state.js",
+      "sha256": "1a235da51b576fb096554b01baa053556d34a91ad588b5dedb611f2b76ed6e13",
+      "ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/redundant-authority/recovered-new-material/1a235da51b576fb096554b01baa053556d34a91ad588b5dedb611f2b76ed6e13",
+      "registration": "CONT07-REG-038",
+      "read_kind": "fresh personally read exact registered source ranges"
+    }
+  ],
+  "facts": [
+    "REG037 actualcomputed cache consumerread inCON664; REG038 full104body liveupdate producerread beforeCON666. No other-lens credit."
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "other_lens_credit": false
+}

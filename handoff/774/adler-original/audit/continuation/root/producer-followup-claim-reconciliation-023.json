@@ -1,0 +1,292 @@
+{
+  "id": "CONT-ROOT-PRODUCER-FOLLOWUP-CLAIM-RECONCILIATION-023",
+  "at": "2026-10-22T04:38:09.351311+00:00",
+  "lens": "audit-producer-propagation",
+  "new_claims": [
+    {
+      "index": 279,
+      "path": "crates/adventuresim-building-generator/src/generator/roof_geometry.rs",
+      "functions": [
+        "roof_plane",
+        "roof_polygon_bounds",
+        "roof_face_polygons",
+        "same_roof_vertex",
+        "clip_plan_polygon_to_rect",
+        "signed_plan_area",
+        "convex_plan_hull",
+        "clip_plan_polygon_to_convex",
+        "roof_plane_height",
+        "plan_point_in_convex_polygon",
+        "plan_point_in_polygon",
+        "roof_surface_height_at",
+        "roof_underside_height_at",
+        "ray_segment_intersection"
+      ],
+      "prior_same_path_claims": []
+    },
+    {
+      "index": 280,
+      "path": "crates/adventuresim-building-generator/src/generator/roof_resolution.rs",
+      "functions": [
+        "resolve_one_roof"
+      ],
+      "prior_same_path_claims": []
+    },
+    {
+      "index": 281,
+      "path": "crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+      "functions": [
+        "resolve_roof_assemblies"
+      ],
+      "prior_same_path_claims": []
+    },
+    {
+      "index": 282,
+      "path": "crates/adventuresim-building-generator/src/generator/roof_cutting.rs",
+      "functions": [
+        "split_cross_gable_parent_eave",
+        "clip_plan_polygon_to_child_above_parent",
+        "cut_parent_roof_face",
+        "bind_child_valleys",
+        "trim_roof_edge_treatments_for_cut",
+        "trim_roof_boundary_edges_for_cut",
+        "unique_roof_cut_points"
+      ],
+      "prior_same_path_claims": []
+    },
+    {
+      "index": 283,
+      "path": "crates/adventuresim-building-generator/src/generator/gable_enclosure.rs",
+      "functions": [
+        "polygons",
+        "clip_to_underside",
+        "update_pitch",
+        "existing enclosure_sections_match_both_ridge_axes_across_pitch_and_overhang fixture API adaptation only, same cases/oracle"
+      ],
+      "prior_same_path_claims": []
+    },
+    {
+      "index": 284,
+      "path": "crates/adventuresim-building-generator/src/generator/roof_abutments.rs",
+      "functions": [
+        "resolve_roof_abutment_contours"
+      ],
+      "prior_same_path_claims": []
+    },
+    {
+      "index": 285,
+      "path": "crates/adventuresim-building-generator/src/generator/roof_child_enclosure.rs",
+      "functions": [
+        "append; excludes bond_front_wall"
+      ],
+      "prior_same_path_claims": []
+    },
+    {
+      "index": 286,
+      "path": "crates/adventuresim-building-generator/src/generator/roof_internal_cut.rs",
+      "functions": [
+        "split_internal_edges",
+        "split_caps",
+        "interior_cut"
+      ],
+      "prior_same_path_claims": []
+    },
+    {
+      "index": 287,
+      "path": "crates/adventuresim-building-generator/src/generator/roof_dormers.rs",
+      "functions": [
+        "append",
+        "extend_ridge",
+        "remove_rear_gable",
+        "append_enclosures",
+        "attach_to_parent"
+      ],
+      "prior_same_path_claims": []
+    },
+    {
+      "index": 288,
+      "path": "crates/adventuresim-building-generator/src/generator/church_apse.rs",
+      "functions": [
+        "ApseRoof whole reached record and from_source"
+      ],
+      "prior_same_path_claims": []
+    },
+    {
+      "index": 289,
+      "path": "crates/adventuresim-building-generator/src/generator/roof_enclosure_material.rs",
+      "functions": [
+        "for_walls"
+      ],
+      "prior_same_path_claims": []
+    },
+    {
+      "index": 290,
+      "path": "crates/adventuresim-building-generator/src/generator/roof_contacts.rs",
+      "functions": [
+        "RoofContacts whole reached record, new, touching",
+        "abutment_host"
+      ],
+      "prior_same_path_claims": []
+    },
+    {
+      "index": 291,
+      "path": "crates/adventuresim-building-generator/src/generator/roof_drainage.rs",
+      "functions": [
+        "finalize_roof_drainage"
+      ],
+      "prior_same_path_claims": []
+    },
+    {
+      "index": 292,
+      "path": "crates/adventuresim-building-generator/src/generator/roof_edge_binding.rs",
+      "functions": [
+        "bind_coincident_primary_roof_edges",
+        "primary_roof_junction_kind"
+      ],
+      "prior_same_path_claims": []
+    },
+    {
+      "index": 293,
+      "path": "crates/adventuresim-building-generator/src/generator/roof_finalization.rs",
+      "functions": [
+        "refit_roof_edge_treatments",
+        "bind_roof_junctions",
+        "yaw_bounds"
+      ],
+      "prior_same_path_claims": []
+    },
+    {
+      "index": 294,
+      "path": "crates/adventuresim-building-generator/src/generator/roof_outlets.rs",
+      "functions": [
+        "consolidate_roof_outlet_stations"
+      ],
+      "prior_same_path_claims": []
+    },
+    {
+      "index": 295,
+      "path": "crates/adventuresim-building-generator/src/generator/roof_split_drainage.rs",
+      "functions": [
+        "supplement_split_eave_drainage"
+      ],
+      "prior_same_path_claims": []
+    },
+    {
+      "index": 296,
+      "path": "crates/adventuresim-building-generator/src/generator/dormer_layout.rs",
+      "functions": [
+        "DormerLayout whole record and new",
+        "seam_depth_at_height",
+        "recipe"
+      ],
+      "prior_same_path_claims": []
+    },
+    {
+      "index": 297,
+      "path": "crates/adventuresim-building-generator/src/generator/shed_dormers.rs",
+      "functions": [
+        "seam_depth",
+        "underside_height; unrelated fixtures excluded"
+      ],
+      "prior_same_path_claims": []
+    },
+    {
+      "index": 298,
+      "path": "crates/adventuresim-building-generator/src/generator/roof_plan_sampling.rs",
+      "functions": [
+        "RoofPlanSampling whole record, new, origins"
+      ],
+      "prior_same_path_claims": []
+    },
+    {
+      "index": 299,
+      "path": "crates/adventuresim-building-generator/src/generator/roof_weather.rs",
+      "functions": [
+        "contains",
+        "recipient_offsets"
+      ],
+      "prior_same_path_claims": []
+    },
+    {
+      "index": 300,
+      "path": "crates/adventuresim-building-generator/src/generator/defense_geometry.rs",
+      "functions": [
+        "direction_vector only; later functions excluded"
+      ],
+      "prior_same_path_claims": []
+    },
+    {
+      "index": 301,
+      "path": "crates/adventuresim-building-generator/src/model/layout.rs",
+      "functions": [
+        "RoofPlaneEquation/RoofFace/RoofEdge/RoofAbutmentSample whole reached declarations and RoofFace::underside_height_at; Rig Room/WallSegment excluded"
+      ],
+      "prior_same_path_claims": []
+    },
+    {
+      "index": 302,
+      "path": "crates/adventuresim-building-generator/src/roof_enclosure.rs",
+      "functions": [
+        "RoofEnclosureFace::new only; existing tessellation/residual ownership unchanged"
+      ],
+      "prior_same_path_claims": []
+    },
+    {
+      "index": 303,
+      "path": "crates/adventuresim-building-generator/src/geometry_index.rs",
+      "functions": [
+        "ResolvedSolid::yaw_bounds only; unrelated query/partition functions excluded"
+      ],
+      "prior_same_path_claims": []
+    },
+    {
+      "index": 304,
+      "path": "crates/adventuresim-building-generator/src/model/resolved_shapes.rs",
+      "functions": [
+        "ResolvedSolid::new only; cuboid_envelope not reached in this supplement"
+      ],
+      "prior_same_path_claims": []
+    },
+    {
+      "index": 305,
+      "path": "crates/adventuresim-core/src/quest_catalog.rs",
+      "functions": [
+        "Monster/Catalog/CatalogDocument whole coherent compiled identity representation and complete compile, monster, monsters, catalog functions; exact raw source DTO, validation and existing fixtures integration"
+      ],
+      "prior_same_path_claims": []
+    }
+  ],
+  "existing_preserved": {
+    "rig_garments": [
+      382,
+      389,
+      390,
+      391,
+      394,
+      395,
+      404
+    ],
+    "camera_targeting": [
+      268,
+      269
+    ],
+    "root": [
+      103
+    ]
+  },
+  "limits": "Exact whole-function ownership metadata only. Incidental rg-displayed outside-range declarations receive no source coverage. No source edits or later-lens credit. Supporting producer findings remain actionable.",
+  "pins": [
+    {
+      "record": "continuation/root/owner-reached-producer-followup/completion-direct-five-002.json",
+      "sha256": "077d35878b6e8dc215aac40c42ef8582720060d186eafcf490535197e7512547"
+    },
+    {
+      "record": "continuation/camera/owner-reached-producer-followup/completion-001.json",
+      "sha256": "517323f401348e9245ed13ddb042a116eb829fef4f61f4f0ee96acc38f081780"
+    },
+    {
+      "record": "continuation/native/root-roof-producer-followup/progress.json",
+      "sha256": "b0c855449b2f892eed19beb354a354320b6cf602b56a96586daa5f6f3ab3fcf9"
+    }
+  ]
+}

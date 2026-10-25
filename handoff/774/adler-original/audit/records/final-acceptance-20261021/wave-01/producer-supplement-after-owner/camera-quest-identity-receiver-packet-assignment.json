@@ -1,0 +1,198 @@
+{
+  "supplier": "root",
+  "owner": "camera",
+  "mode": "Read-only current producer supplement; preserve native pure quest/case/investigation exactrepair owners; camera DB recipients unchanged",
+  "indices": [
+    173,
+    174,
+    175,
+    136,
+    643
+  ],
+  "obligations": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/assembly.rs",
+      "path": "crates/adventuresim-core/src/quest_generation/assembly.rs",
+      "sha256": "a54013572d9b0b6a8385c70e2aac6dbd516dfd40a72e87ede1c8ab6e9ea48ff7",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+          "row": 89,
+          "read_ranges": [
+            [
+              1,
+              1443
+            ]
+          ],
+          "contract_refs": [
+            "NATIVE-OWNER-QUEST-002",
+            "NATIVE-OWNER-F015"
+          ],
+          "read_status": null,
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_generation/assembly.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 173
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/model.rs",
+      "path": "crates/adventuresim-core/src/quest_generation/model.rs",
+      "sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+          "row": 86,
+          "read_ranges": [
+            [
+              1,
+              1230
+            ]
+          ],
+          "contract_refs": [
+            "NATIVE-OWNER-QUEST-001"
+          ],
+          "read_status": null,
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_generation/model.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 174
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/validation.rs",
+      "path": "crates/adventuresim-core/src/quest_generation/validation.rs",
+      "sha256": "a58991cdececa54b76db9d44b4f5dd1702ef3c8d132e37350fcba62b5bf9e827",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+          "row": 90,
+          "read_ranges": [
+            [
+              1,
+              1121
+            ]
+          ],
+          "contract_refs": [
+            "NATIVE-OWNER-QUEST-002",
+            "NATIVE-OWNER-F015"
+          ],
+          "read_status": null,
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_generation/validation.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 175
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/case.rs",
+      "path": "crates/adventuresim-core/src/case.rs",
+      "sha256": "7b919041dbce7f4e53f859aab2c5b7c6b16dd110b1452ecfa598555bda9055b0",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+          "row": 41,
+          "read_ranges": [
+            [
+              1,
+              185
+            ]
+          ],
+          "contract_refs": [
+            "NATIVE-OWNER-STRATEGIC-004"
+          ],
+          "read_status": "specified_actual_owner_and_recipient_bodies_read",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/case.rs"
+        },
+        {
+          "supplier": "native",
+          "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+          "row": 88,
+          "read_ranges": [
+            [
+              1,
+              185
+            ]
+          ],
+          "contract_refs": [
+            "NATIVE-OWNER-QUEST-001"
+          ],
+          "read_status": null,
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/case.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 136
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/knowledge.rs",
+      "path": "crates/adventuresim-core/src/knowledge.rs",
+      "sha256": "eff9843bb7a8c4e0459b990f5684deae4c827ec824b58334789ec8e1cce55ffd",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 639,
+          "read_ranges": [
+            [
+              1,
+              355
+            ],
+            [
+              760,
+              815
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-KNOWLEDGE-ADAPTER-095"
+          ],
+          "read_status": "fresh-current-lens-scoped-definition-receiver-read",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/knowledge.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 643
+    }
+  ],
+  "requirements": [
+    "Actual qggenerate/assembly/model/validate source\u2192retained identities/age/profession/Seed/custody/provenance/typedcause\u2192actual downstream DB/Core/native recipients. Exact original D1native supplemental-quest-closure facts only reuse for named coveredroles, not whole verdict.",
+    "Camera current046 pending missionbootstrap2973 freshbody +freshCoremodel320\u2013505/questcatalog608\u2013668/selector352\u2013390 andauthority_model1\u2013185 coveractual age/witness/rawcandidate retention. Materialize_generated_quest2157\u20132419 actualnativeSdk write body fresh; native016 current case/knowledge1\u2013320/760\u2013806 actualDBreceivers andcamera029/040current typedcause/identity proofs available.",
+    "Preserve mixed GeneratedFinale.subject_id role (actualSubject vsFabricatedClaim proposition), strictCaseIDvsbroaderInvestigationID, F022Asset/Subject/Objective andPP032Seed semantics. No blanket newwrapper fromname; distinguish missingowner strengthening vsalreadycheckedescape and realSerde/hash/mathnative boundary.",
+    "Read all assigned actualbody roles plus materially needed unchanged receiverbodies, metadata exacthash/ranges/EOF and any explicitly reusedcurrentproof. Existing fixtures cases/inputs/order/assertions sourceonly.",
+    "Save rootallowedignoredmetadata receipt, percell contracts/receiving closure andtrueunread. No source/Git/project/check/test/CI/runtime/parser/scanner/generator/probe/agents/externalposts or nextlens."
+  ]
+}

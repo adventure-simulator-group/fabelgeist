@@ -1,0 +1,149 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-157",
+  "at": "2026-10-23T01:26:10.841520+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-044.json",
+    "sha256": "b9c5935329c18a10a21a8e34265350a0785d30eb08a029f517cf142080fdaae4"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-043.json",
+    "sha256": "7f0e34f856d4eb9da1f82c738ea9bf0ebd4f83a51fc7438a25c77320a89737f2"
+  },
+  "new_variants": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/compounds.rs",
+      "sha256": "1749661a3b0a1baf513595ff7076a7670510285e556b3e2cf7acbc5888f89583",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\scene_input\\compounds.rs",
+      "snapshot": "pr-working",
+      "actual_line_count": 294,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          7,
+          100
+        ],
+        [
+          218,
+          252
+        ]
+      ],
+      "audit_owner": "native",
+      "scope_registration": [
+        {
+          "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+          "sha256": "dbdc7d368a7e5bba66029cb19fbde14b76d56f77dd0063ad0fa79c18c598a7d5",
+          "row_1based": 24,
+          "id": "NATIVE-INITIAL05-REG024",
+          "original_record": {
+            "id": "NATIVE-INITIAL05-REG024",
+            "at": "2026-10-23T01:23:46.470106+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/compounds.rs",
+            "snapshot": "pr-working",
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\scene_input\\compounds.rs",
+            "sha256": "1749661a3b0a1baf513595ff7076a7670510285e556b3e2cf7acbc5888f89583",
+            "actual_EOF": 294,
+            "material_ranges": [
+              [
+                7,
+                100
+              ],
+              [
+                218,
+                253
+              ]
+            ],
+            "actual_reach": "Actual BoundarySupportMesh::project/binding/current descriptor and physicalcell correlation needs direct SceneBoundary/GeneratedBoundary decode/native receiver plus normalfactory. Navigationvalidate_scene actualcallee found, no bodyread yet.",
+            "exclusions": "1-6 module/test-headercontext; validate wholeurban102-217/generate254+/tests excluded.",
+            "status": "prospectively_registered_before_body_analysis"
+          }
+        }
+      ],
+      "scope_limits": "Only7-100 privateboundary/Wireadmission/accessors and218-252 actualproject;253blankexcluded,101implclosing/1-6/102-217/254+generationnotcredited. Projectionnormalconstructor vs decodedphysicalcorrelation distinguished.",
+      "source_lens_credit": "none from scope metadata"
+    }
+  ],
+  "new_overlays": [
+    {
+      "id": "CONT-OWNER-RANGE-EXTENSION-227",
+      "at": "2026-10-23T01:26:10.841520+00:00",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/planar.rs",
+      "sha256": "443ff701ad79a52b06623fc199de7ea1df011b7527ed2ef8056057b9b8fac059",
+      "material_ranges": [
+        [
+          69,
+          83
+        ]
+      ],
+      "audit_owner": "native",
+      "reason": null,
+      "scope_registration": [
+        {
+          "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+          "sha256": "dbdc7d368a7e5bba66029cb19fbde14b76d56f77dd0063ad0fa79c18c598a7d5",
+          "row_1based": 23,
+          "id": "NATIVE-INITIAL05-REG023",
+          "original_record": {
+            "id": "NATIVE-INITIAL05-REG023",
+            "at": "2026-10-23T01:23:46.454329+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/planar.rs",
+            "snapshot": "pr-working",
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\city_layout\\grounding\\planar.rs",
+            "sha256": "443ff701ad79a52b06623fc199de7ea1df011b7527ed2ef8056057b9b8fac059",
+            "actual_EOF": 83,
+            "material_ranges": [
+              [
+                69,
+                83
+              ]
+            ],
+            "actual_reach": "Actual apron::prepare33 calls distance_outside; complete called helper before relying on threshold membership. Existingglobal3-66 unchanged.",
+            "exclusions": "1-68 alreadyqualified separate roles; no unrelatedmaterial.",
+            "status": "prospectively_registered_before_body_analysis"
+          }
+        }
+      ],
+      "limits": "1-68 alreadyqualified separate roles; no unrelatedmaterial.",
+      "source_qualifications": "Only69-83 directlycalled distance_outside; existing3-66 kept,67blank/68docexcluded, no implicitwholefilewaiver."
+    }
+  ],
+  "total_variants": 2800,
+  "total_overlays": 227,
+  "mandatory_scope_qualifications": [
+    {
+      "record": "continuation/root/parallel-scope-qualification-130.json",
+      "sha256": "5dc4e5cd771612c7e050ab4af544411523317ae4b57738f1fb20f493685a50fc"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-117.json",
+      "sha256": "f3b80648900716939057b20776d756a6e37001f6910378da1a1bbaea230d348b"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-149.json",
+      "sha256": "97103899514ade32cf1e41c2794fa9c49c0cb8c6c7a2c6a4961b7492de5dc708"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-151.json",
+      "sha256": "670dd53a640b28eef7ad9d57b37f9213e1bca7117d7098691c4b0cd20c2a8f65"
+    }
+  ],
+  "registered_rows": 2,
+  "input_pins": [
+    {
+      "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+      "sha256": "dbdc7d368a7e5bba66029cb19fbde14b76d56f77dd0063ad0fa79c18c598a7d5",
+      "captured_rows": 24,
+      "selected_ids": [
+        "NATIVE-INITIAL05-REG023",
+        "NATIVE-INITIAL05-REG024"
+      ]
+    }
+  ],
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through226-before044.jsonl",
+    "sha256": "af037af0b4d4c1eb01973c0a0b85a5ccbcd3c9b3d9a9cd01a0ee0f2f2c9daa58",
+    "through": 226
+  },
+  "limits": "NativeREG023-024 one newboundary variant2800 plusplanar69-83 roleoverlay227. Allpreviousroles/EOF149/151/SDK117/Bevy130preserved. No sourceedits/projectexecution/authorizationchange."
+}

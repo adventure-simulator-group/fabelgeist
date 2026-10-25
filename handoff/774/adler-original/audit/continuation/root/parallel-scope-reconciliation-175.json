@@ -1,0 +1,309 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-175",
+  "at": "2026-10-23T02:56:17.288451+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-051.json",
+    "sha256": "17a341b1ef7f323d9091325e03aac691c0f443d407b49c990920033043bfe682"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-050.json",
+    "sha256": "50f66e3bf7b00825a1c463b6cf0261dd046988baed47ff6627faab839e83e488"
+  },
+  "new_variants": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-mesh/src/lib.rs",
+      "sha256": "6a0d874f4c07665cb0c5f3e477bd5a79d6c431a46aea2be921a7fab150e5e04b",
+      "path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-mesh\\src\\lib.rs",
+      "snapshot": "pr-working",
+      "actual_line_count": 22,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          1,
+          22
+        ]
+      ],
+      "audit_owner": "rig",
+      "scope_registration": [
+        {
+          "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+          "sha256": "f728d5c02b720014205ad6bbf008b04f4359a2a070f9374903c15c6981ff87e5",
+          "row_1based": 34,
+          "id": "RIG-INITIAL06-REG-034",
+          "original_record": {
+            "id": "RIG-INITIAL06-REG-034",
+            "at": "2026-10-23T02:52:08.291160+00:00",
+            "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+            "source_id": "pr-working:crates/fabelgeist-mesh/src/lib.rs",
+            "snapshot": "pr-working",
+            "sha256": "6a0d874f4c07665cb0c5f3e477bd5a79d6c431a46aea2be921a7fab150e5e04b",
+            "actual_EOF": 22,
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-mesh\\src\\lib.rs",
+            "material_ranges": [
+              [
+                1,
+                22
+              ]
+            ],
+            "material_caller": "Current scoped PlantMesh definition39-44 holds positions/normals/colors/indices and into_bevy57-66 emits native mesh. Existing scoped fabelgeist-mesh manifest2312 declares a lower common mesh library; actual MeshData definition/default and public export are the direct competing-owner candidate needed for ownership comparison, rather than assuming same collection fields mean interchangeable mesh semantics.",
+            "reason": "Prospective direct first-party competing definition/export before body analysis; no native GPU or full graph requested.",
+            "exclusions": "Only library export/declaration/default. Exclude data methods70+, GPU conversion204+, tests240+, topology algorithms and all foreign packages. Exact endpoints qualified after actual read.",
+            "status": "Registered before body; global reconciliation pending"
+          }
+        }
+      ],
+      "scope_limits": "Exact fresh03 admission174 only; MeshData declaration excludes12-40/69+ under qualification173. Native config gaps complete prior bounded roles, no foreign/native/runtime or other-lens verdict.",
+      "source_lens_credit": "none from scope metadata"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-mesh/src/data.rs",
+      "sha256": "41c300bd088e2a69594225a867cee9f1bc3fe5f19410bf77d3c8de73a383f1b4",
+      "path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-mesh\\src\\data.rs",
+      "snapshot": "pr-working",
+      "actual_line_count": 293,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          1,
+          11
+        ],
+        [
+          41,
+          68
+        ]
+      ],
+      "audit_owner": "rig",
+      "scope_registration": [
+        {
+          "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+          "sha256": "f728d5c02b720014205ad6bbf008b04f4359a2a070f9374903c15c6981ff87e5",
+          "row_1based": 35,
+          "id": "RIG-INITIAL06-REG-035",
+          "original_record": {
+            "id": "RIG-INITIAL06-REG-035",
+            "at": "2026-10-23T02:52:08.291160+00:00",
+            "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+            "source_id": "pr-working:crates/fabelgeist-mesh/src/data.rs",
+            "snapshot": "pr-working",
+            "sha256": "41c300bd088e2a69594225a867cee9f1bc3fe5f19410bf77d3c8de73a383f1b4",
+            "actual_EOF": 293,
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-mesh\\src\\data.rs",
+            "material_ranges": [
+              [
+                1,
+                69
+              ]
+            ],
+            "material_caller": "Current scoped PlantMesh definition39-44 holds positions/normals/colors/indices and into_bevy57-66 emits native mesh. Existing scoped fabelgeist-mesh manifest2312 declares a lower common mesh library; actual MeshData definition/default and public export are the direct competing-owner candidate needed for ownership comparison, rather than assuming same collection fields mean interchangeable mesh semantics.",
+            "reason": "Prospective direct first-party competing definition/export before body analysis; no native GPU or full graph requested.",
+            "exclusions": "Only library export/declaration/default. Exclude data methods70+, GPU conversion204+, tests240+, topology algorithms and all foreign packages. Exact endpoints qualified after actual read.",
+            "status": "Registered before body; global reconciliation pending"
+          }
+        }
+      ],
+      "scope_limits": "Exact fresh03 admission174 only; MeshData declaration excludes12-40/69+ under qualification173. Native config gaps complete prior bounded roles, no foreign/native/runtime or other-lens verdict.",
+      "source_lens_credit": "none from scope metadata"
+    }
+  ],
+  "new_overlays": [
+    {
+      "id": "CONT-OWNER-RANGE-EXTENSION-234",
+      "at": "2026-10-23T02:56:17.288451+00:00",
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+      "sha256": "3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+      "material_ranges": [
+        [
+          61,
+          66
+        ]
+      ],
+      "audit_owner": "native",
+      "reason": null,
+      "scope_registration": [
+        {
+          "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+          "sha256": "9e23e89dad33d1b2fcf5b94dbcece6f9a136d83d3bfd76f961509bb19cb3de91",
+          "row_1based": 30,
+          "id": "NATIVE-INITIAL05-REG030",
+          "original_record": {
+            "id": "NATIVE-INITIAL05-REG030",
+            "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+            "sha256": "3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+            "snapshot": "physical-p16",
+            "actual_EOF": 66,
+            "material_ranges": [
+              [
+                61,
+                66
+              ]
+            ],
+            "role": "Finish actual ProceduralAnimationConfig::validate direct callee; old1\u201360 cuts inside Err construction, topP16config calls this method.",
+            "actual_caller": "P16wholecombatconfig351/scopedchildrecords2483\u20132485",
+            "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+            "at": "2026-10-23T02:52:16.844288+00:00",
+            "status": "registered_before_fresh_body_analysis",
+            "qualification": "Complete counterpart diff navigation previously consumed; excluded identical byte regions were not assigned semantic credit. This registration precedes fresh bounded actual analysis.",
+            "source_edits": 0,
+            "other_lens_credit": false
+          }
+        }
+      ],
+      "limits": null,
+      "source_qualifications": "Exact fresh03 admission174 only; MeshData declaration excludes12-40/69+ under qualification173. Native config gaps complete prior bounded roles, no foreign/native/runtime or other-lens verdict."
+    },
+    {
+      "id": "CONT-OWNER-RANGE-EXTENSION-235",
+      "at": "2026-10-23T02:56:17.288451+00:00",
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/playback.rs",
+      "sha256": "6eac571d575402a1ccbcdda6ad103850b9f52fed3f9bc602d558ea5629d23fdd",
+      "material_ranges": [
+        [
+          26,
+          48
+        ]
+      ],
+      "audit_owner": "native",
+      "reason": null,
+      "scope_registration": [
+        {
+          "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+          "sha256": "9e23e89dad33d1b2fcf5b94dbcece6f9a136d83d3bfd76f961509bb19cb3de91",
+          "row_1based": 31,
+          "id": "NATIVE-INITIAL05-REG031",
+          "original_record": {
+            "id": "NATIVE-INITIAL05-REG031",
+            "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/playback.rs",
+            "sha256": "6eac571d575402a1ccbcdda6ad103850b9f52fed3f9bc602d558ea5629d23fdd",
+            "snapshot": "physical-p16",
+            "actual_EOF": 48,
+            "material_ranges": [
+              [
+                26,
+                48
+              ]
+            ],
+            "role": "Finish actual AnimationPlaybackConfig declaration and validate/default direct callee; old1\u201325 cuts declaration; topP16config calls method.",
+            "actual_caller": "P16wholecombatconfig351/scopedchildrecords2483\u20132485",
+            "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+            "at": "2026-10-23T02:52:16.844312+00:00",
+            "status": "registered_before_fresh_body_analysis",
+            "qualification": "Complete counterpart diff navigation previously consumed; excluded identical byte regions were not assigned semantic credit. This registration precedes fresh bounded actual analysis.",
+            "source_edits": 0,
+            "other_lens_credit": false
+          }
+        }
+      ],
+      "limits": null,
+      "source_qualifications": "Exact fresh03 admission174 only; MeshData declaration excludes12-40/69+ under qualification173. Native config gaps complete prior bounded roles, no foreign/native/runtime or other-lens verdict."
+    },
+    {
+      "id": "CONT-OWNER-RANGE-EXTENSION-236",
+      "at": "2026-10-23T02:56:17.288451+00:00",
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/ragdoll.rs",
+      "sha256": "af87991f5cb3f8fd2a6398ea5135c5daacd24c7b9c2b23181ebecec7bc516ad3",
+      "material_ranges": [
+        [
+          61,
+          80
+        ]
+      ],
+      "audit_owner": "native",
+      "reason": null,
+      "scope_registration": [
+        {
+          "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+          "sha256": "9e23e89dad33d1b2fcf5b94dbcece6f9a136d83d3bfd76f961509bb19cb3de91",
+          "row_1based": 32,
+          "id": "NATIVE-INITIAL05-REG032",
+          "original_record": {
+            "id": "NATIVE-INITIAL05-REG032",
+            "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/ragdoll.rs",
+            "sha256": "af87991f5cb3f8fd2a6398ea5135c5daacd24c7b9c2b23181ebecec7bc516ad3",
+            "snapshot": "physical-p16",
+            "actual_EOF": 112,
+            "material_ranges": [
+              [
+                60,
+                80
+              ]
+            ],
+            "role": "Direct RagdollCapsulesConfig declaration used RagdollConfig.capsules; fills gap between globallyscoped1\u201359 and81\u2013112, no new foreign graph.",
+            "actual_caller": "P16wholecombatconfig351/scopedchildrecords2483\u20132485",
+            "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+            "at": "2026-10-23T02:52:16.844316+00:00",
+            "status": "registered_before_fresh_body_analysis",
+            "qualification": "Complete counterpart diff navigation previously consumed; excluded identical byte regions were not assigned semantic credit. This registration precedes fresh bounded actual analysis.",
+            "source_edits": 0,
+            "other_lens_credit": false
+          }
+        }
+      ],
+      "limits": null,
+      "source_qualifications": "Only declaration61-80; blank60 displayed context uncredited under Root176, old1-59/81-112 separate. Playback has no Default implementation. Actual03 proof174 with effective qualification176, no other-lens credit."
+    }
+  ],
+  "total_variants": 2818,
+  "total_overlays": 236,
+  "mandatory_scope_qualifications": [
+    {
+      "record": "continuation/root/parallel-scope-qualification-130.json",
+      "sha256": "5dc4e5cd771612c7e050ab4af544411523317ae4b57738f1fb20f493685a50fc"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-117.json",
+      "sha256": "f3b80648900716939057b20776d756a6e37001f6910378da1a1bbaea230d348b"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-149.json",
+      "sha256": "97103899514ade32cf1e41c2794fa9c49c0cb8c6c7a2c6a4961b7492de5dc708"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-151.json",
+      "sha256": "670dd53a640b28eef7ad9d57b37f9213e1bca7117d7098691c4b0cd20c2a8f65"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-158.json",
+      "sha256": "fa0e9cc06d04fca0a0e2b5f9a333390a0ba1e71eff846a4e957c46b68b3e940e"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-170.json",
+      "sha256": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-173.json",
+      "sha256": "5763e9e965b4f4c1d402a09eab682de47336885c8d30b3c5b3d157242a496948"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-176.json",
+      "sha256": "9a321e498a00285331d4ec4fb4dc7c3a49d7bb6e3a08a44a79c2e5bf58186270"
+    }
+  ],
+  "registered_rows": 5,
+  "input_pins": [
+    {
+      "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+      "sha256": "f728d5c02b720014205ad6bbf008b04f4359a2a070f9374903c15c6981ff87e5",
+      "captured_rows": 35,
+      "selected_ids": [
+        "RIG-INITIAL06-REG-034",
+        "RIG-INITIAL06-REG-035"
+      ]
+    },
+    {
+      "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+      "sha256": "9e23e89dad33d1b2fcf5b94dbcece6f9a136d83d3bfd76f961509bb19cb3de91",
+      "captured_rows": 32,
+      "selected_ids": [
+        "NATIVE-INITIAL05-REG030",
+        "NATIVE-INITIAL05-REG031",
+        "NATIVE-INITIAL05-REG032"
+      ]
+    }
+  ],
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through233-before051.jsonl",
+    "sha256": "d631d56fb336f5b0e6975e849b6a45be00e57f92833fe45aeaa1712a269ee04d",
+    "through": 233
+  },
+  "limits": "Two new variants2818 and three overlays236, five exact registered roles; all earlier qualifications plus173 retained. All13 initial audits then handover under163, no implementation. Native ragdoll effective61-80 excludes blank60 under176; playback Default not inferred."
+}

@@ -1,0 +1,51 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-614",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model.rs",
+      "sha256": "f4e45aaf2f0f5190009ff9de1d465f436714224bb541e947fe46af32087f2408",
+      "actual_EOF": 331,
+      "actual_compared_ranges": [
+        [
+          1,
+          331
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Primitivegrid/cell conversions andneighbor operation",
+      "evidence": "Complete331read. GridPointfulli32 timesfixed.05 fitsf32finite; CellDiameteru16strictnonzero*30fitsi32, gridunitconversiondivisibility/rangeguardbeforecast; GridLengthpositivei32 projectsfinite. Cellcentre convertsbefore+.5/scale, safe finite. PublicCellneighbor directi16additioncandidate. Direction4offset/opposite exhaustive. Sourceplayerbuildcontractfixtures readnotrun.",
+      "finding": "SEGOVB-04-BUILDING-CELL-NEIGHBOR-ENDPOINT-CANDIDATE-001",
+      "qualifications": [
+        "Representable publicAPI counterexample only. Actualnormalfootprintwidth/depth<=32767 coordinates0..32766 provideonecellmargin, personallyprovedpacket307, so no ordinarynormal-generatedfailure. Playerbuild/maxendpoint actualcaller stilluntraced here; no UI/runtimeclaim. Separate from litter i32 spatialhash exactNATIVE05F021/RIGROOTSUPPLEMENT002 despite sharedneighborcapacityprinciple."
+      ],
+      "acceptance": "Everyrepresentable sourceCell endpoint has explicit neighbor-exhaustion/error/widerrepresentation policy; ordinaryfootprintwallgeometry preserves currentdirection/order; no tests executed."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-BUILDING-CELL-NEIGHBOR-ENDPOINT-CANDIDATE-001",
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model.rs",
+      "ranges": [
+        [
+          113,
+          136
+        ]
+      ],
+      "witness": "Public Cell::new(0,i16::MAX).neighbour(Direction::North) adds1ini16; overflow-check buildpanics, uncheckedbuildwrapstoMIN. Allendpointcells arecurrentlyconstructor/Serdeaccepted; no explicitwrapping policy. Finitefullwordgridcoordinates unlike boundednormalgenerator.",
+      "qualification": "Representable publicAPI counterexample only. Actualnormalfootprintwidth/depth<=32767 coordinates0..32766 provideonecellmargin, personallyprovedpacket307, so no ordinarynormal-generatedfailure. Playerbuild/maxendpoint actualcaller stilluntraced here; no UI/runtimeclaim. Separate from litter i32 spatialhash exactNATIVE05F021/RIGROOTSUPPLEMENT002 despite sharedneighborcapacityprinciple.",
+      "repair_boundary": "Checked neighbor/explicitbounded-grid operation policy orwiderkey where appropriate; preservefulli16signedCellincludingzero/negative, do notnarrowgeneralowner toordinaryfootprint or silentlywrap adjacency.",
+      "acceptance": "Everyrepresentable sourceCell endpoint has explicit neighbor-exhaustion/error/widerrepresentation policy; ordinaryfootprintwallgeometry preserves currentdirection/order; no tests executed.",
+      "alias_status": "NoexactCellneighborindexedarchivehit; parentglobaldedupnotasserted."
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "1 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pinned-registry:spacetimedb-bindings-macro-2.6.1/src/lib.rs"
+}

@@ -1,0 +1,497 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-701",
+  "at": "2026-10-25T16:34:33.563769+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 972,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/model.rs",
+      "sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+      "actual_EOF": 1230,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/model.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/quest_generation/model.rs",
+        "sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+        "bytes": 41036,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+            "ranges": null,
+            "source_read_status": null,
+            "trace_refs": []
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+            "ranges": [
+              [
+                1,
+                1230
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": []
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                325,
+                465
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-MISSION-001"
+            ]
+          },
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/supplemental-quest-sources.json",
+            "ranges": [
+              [
+                1,
+                1230
+              ]
+            ],
+            "source_read_status": "full source incl existing inline fixtures where present",
+            "trace_refs": [
+              "NATIVE-SUPP-QUEST-IDENTITY-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 185,
+            "read_ranges": [
+              [
+                1,
+                1230
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SHARED-QUEST-WORLD-ACTOR-089"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_generation/model.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 86,
+            "read_ranges": [
+              [
+                1,
+                1230
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-QUEST-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_generation/model.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera",
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-QUEST-IDENTITY-INVENTORY-PARTIAL-051",
+            "json_pointer": "/source_proofs/1",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/quest_generation/model.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1230
+              ]
+            ],
+            "source_context": {
+              "index": 174,
+              "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/model.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_generation/model.rs",
+              "sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+              "read_ranges": [
+                [
+                  1,
+                  1230
+                ]
+              ],
+              "mode": "Fresh complete actual source body; former assigned ranges may be scoped, actual full currentEOF recorded",
+              "roles": [
+                "Fresh full model1230: Seed and StrategicMinute retained in context/manifest. Successful Site/Witness/Evidence/Action/Track/etc wrappers retained in many aggregate references; native Row/JSON port is not at pure model field storage. Raw IDs/age/profession/case/template/ordinal/weights/targets are distinct semantic purposes before assembly/sampling/validation.",
+                "VisibleWitnessCandidateInput age/presentation/appearance/profession/location strings drive current catalogue matching and commitment; sex=None is intentional observer privacy, not a missing-data error or permission to derive sex from visible presentation. Presence version is content commitment, not an ordinary monotonic revision. Dynamic authored location IDs are supported.",
+                "GeneratedAction.kind typed but target_kind+rawtarget_id mixes Site/Area/Contact/Cohort; ReferredContactActionState reverts canonical InvestigationActionKind to raw method and resident character to decimal String before pure mutation/equality. Exact callback/typed cause/SDK boundary follows Camera/Native owners, not a primitive adapter.",
+                "Public ID tuple macro plus derived Deserialize can bypass checked try_new; open_catalog_id from_static validates length only while try_new validates ASCII key shape. Record all routes for later admission lens, not established typed guarantees from constructor presence. Error strings and InvalidManifest(Vec<String>) require structured pure cause graph rather than later formatting before internal replay.",
+                "Testimony demeanor -1/0/1 are explicit semantic deception/sincerity/ambiguity signals, not absent measurement. Later enum/rawnumber lens must decide explicit shape; cannot classify every signed number as cannot-arrive sentinel. Testimony/public delivery/private withheld/referral ordering source behavior remains unchanged."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-QUEST-IDENTITY-RECEIVER-CLOSURE-052",
+            "json_pointer": "/source_proofs/1",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/quest_generation/model.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1230
+              ]
+            ],
+            "source_context": {
+              "index": 174,
+              "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/model.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_generation/model.rs",
+              "sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+              "read_ranges": [
+                [
+                  1,
+                  1230
+                ]
+              ],
+              "mode": "Fresh complete actual source body; former assigned ranges may be scoped, actual full currentEOF recorded",
+              "roles": [
+                "Fresh full model1230: Seed and StrategicMinute retained in context/manifest. Successful Site/Witness/Evidence/Action/Track/etc wrappers retained in many aggregate references; native Row/JSON port is not at pure model field storage. Raw IDs/age/profession/case/template/ordinal/weights/targets are distinct semantic purposes before assembly/sampling/validation.",
+                "VisibleWitnessCandidateInput age/presentation/appearance/profession/location strings drive current catalogue matching and commitment; sex=None is intentional observer privacy, not a missing-data error or permission to derive sex from visible presentation. Presence version is content commitment, not an ordinary monotonic revision. Dynamic authored location IDs are supported.",
+                "GeneratedAction.kind typed but target_kind+rawtarget_id mixes Site/Area/Contact/Cohort; ReferredContactActionState reverts canonical InvestigationActionKind to raw method and resident character to decimal String before pure mutation/equality. Exact callback/typed cause/SDK boundary follows Camera/Native owners, not a primitive adapter.",
+                "Public ID tuple macro plus derived Deserialize can bypass checked try_new; open_catalog_id from_static validates length only while try_new validates ASCII key shape. Record all routes for later admission lens, not established typed guarantees from constructor presence. Error strings and InvalidManifest(Vec<String>) require structured pure cause graph rather than later formatting before internal replay.",
+                "Testimony demeanor -1/0/1 are explicit semantic deception/sincerity/ambiguity signals, not absent measurement. Later enum/rawnumber lens must decide explicit shape; cannot classify every signed number as cannot-arrive sentinel. Testimony/public delivery/private withheld/referral ordering source behavior remains unchanged."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-QUEST-KNOWLEDGE-050",
+            "json_pointer": "/current_sources/1",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/quest_generation/model.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1230
+              ]
+            ],
+            "source_context": {
+              "index": 174,
+              "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/model.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_generation/model.rs",
+              "sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+              "read_ranges": [
+                [
+                  1,
+                  1230
+                ]
+              ],
+              "mode": "Fresh complete actual source body; former assigned ranges may be scoped, actual full currentEOF recorded",
+              "roles": [
+                "Fresh full model1230: Seed and StrategicMinute retained in context/manifest. Successful Site/Witness/Evidence/Action/Track/etc wrappers retained in many aggregate references; native Row/JSON port is not at pure model field storage. Raw IDs/age/profession/case/template/ordinal/weights/targets are distinct semantic purposes before assembly/sampling/validation.",
+                "VisibleWitnessCandidateInput age/presentation/appearance/profession/location strings drive current catalogue matching and commitment; sex=None is intentional observer privacy, not a missing-data error or permission to derive sex from visible presentation. Presence version is content commitment, not an ordinary monotonic revision. Dynamic authored location IDs are supported.",
+                "GeneratedAction.kind typed but target_kind+rawtarget_id mixes Site/Area/Contact/Cohort; ReferredContactActionState reverts canonical InvestigationActionKind to raw method and resident character to decimal String before pure mutation/equality. Exact callback/typed cause/SDK boundary follows Camera/Native owners, not a primitive adapter.",
+                "Public ID tuple macro plus derived Deserialize can bypass checked try_new; open_catalog_id from_static validates length only while try_new validates ASCII key shape. Record all routes for later admission lens, not established typed guarantees from constructor presence. Error strings and InvalidManifest(Vec<String>) require structured pure cause graph rather than later formatting before internal replay.",
+                "Testimony demeanor -1/0/1 are explicit semantic deception/sincerity/ambiguity signals, not absent measurement. Later enum/rawnumber lens must decide explicit shape; cannot classify every signed number as cannot-arrive sentinel. Testimony/public delivery/private withheld/referral ordering source behavior remains unchanged."
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-QUEST-KNOWLEDGE-050",
+            "json_pointer": "/additional_actual_source_proofs/10",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/quest_generation/model.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                175
+              ],
+              [
+                270,
+                320
+              ],
+              [
+                870,
+                913
+              ],
+              [
+                1180,
+                1230
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/model.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_generation/model.rs",
+              "sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+              "read_ranges": [
+                [
+                  1,
+                  175
+                ],
+                [
+                  270,
+                  320
+                ],
+                [
+                  870,
+                  913
+                ],
+                [
+                  1180,
+                  1230
+                ]
+              ],
+              "actual_line_count": 1230,
+              "role": "Exact reused ID/open-ID/Weight/GenerationContext/error/hash/candidate declarations; bounded helper/output role",
+              "mode": "Fresh exact producer-supplement source-body read; only listed ranges, no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-037",
+            "json_pointer": "/fresh_current_source_reads/4",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/quest_generation/model.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                175
+              ],
+              [
+                270,
+                320
+              ],
+              [
+                870,
+                913
+              ],
+              [
+                1180,
+                1230
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/model.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_generation/model.rs",
+              "sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+              "read_ranges": [
+                [
+                  1,
+                  175
+                ],
+                [
+                  270,
+                  320
+                ],
+                [
+                  870,
+                  913
+                ],
+                [
+                  1180,
+                  1230
+                ]
+              ],
+              "actual_line_count": 1230,
+              "role": "Exact reused ID/open-ID/Weight/GenerationContext/error/hash/candidate declarations; bounded helper/output role",
+              "mode": "Fresh exact producer-supplement source-body read; only listed ranges, no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 349,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved",
+        "admission03_increment050_role_observations": [
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 57,
+            "registration_id": "NATIVE-ADMISSION03-REG-057",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-057",
+              "at": "2026-10-22T09:06:18.375316+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/model.rs",
+              "sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+              "snapshot": "pr-working",
+              "actual_EOF": 1230,
+              "material_ranges": [
+                [
+                  1,
+                  161
+                ],
+                [
+                  288,
+                  341
+                ],
+                [
+                  1190,
+                  1230
+                ]
+              ],
+              "role": "ExactactualIDmacros/openSiteKind/Weight/GenerationContext/WitnessCandidate/Candidate/scopedID helpersdirectlyusedbyoriginal96/97/98; Rootoriginalwholemodelauthorityretained",
+              "reason": "Currentmodelwitnessnotavailable, exactdirectdefinitionsmustcompareadmissionnotinferfromnew/try_new; registerbeforebodyread.",
+              "exclusions": "Othermodelrecords/transitionfunctions/generatedcasevalidate/assembly/catalogparser notread/credited; no authoritytransfer/laterlens.",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-core\\src\\quest_generation\\model.rs",
+              "status": "registered_before_direct_definition_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADMISSION03-QUAL-057",
+                "registration_id": "NATIVE-ADMISSION03-REG-057",
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-057",
+                  "at": "2026-10-22T09:06:18.375316+00:00",
+                  "authority": "continuation/root/admission03-discovery-authority-043.json",
+                  "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/model.rs",
+                  "sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+                  "snapshot": "pr-working",
+                  "actual_EOF": 1230,
+                  "material_ranges": [
+                    [
+                      1,
+                      161
+                    ],
+                    [
+                      288,
+                      341
+                    ],
+                    [
+                      1190,
+                      1230
+                    ]
+                  ],
+                  "role": "ExactactualIDmacros/openSiteKind/Weight/GenerationContext/WitnessCandidate/Candidate/scopedID helpersdirectlyusedbyoriginal96/97/98; Rootoriginalwholemodelauthorityretained",
+                  "reason": "Currentmodelwitnessnotavailable, exactdirectdefinitionsmustcompareadmissionnotinferfromnew/try_new; registerbeforebodyread.",
+                  "exclusions": "Othermodelrecords/transitionfunctions/generatedcasevalidate/assembly/catalogparser notread/credited; no authoritytransfer/laterlens.",
+                  "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-core\\src\\quest_generation\\model.rs",
+                  "status": "registered_before_direct_definition_body_analysis"
+                },
+                "original_requested_context_ranges": [
+                  [
+                    1,
+                    161
+                  ],
+                  [
+                    288,
+                    341
+                  ],
+                  [
+                    1190,
+                    1230
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    1,
+                    161
+                  ],
+                  [
+                    288,
+                    341
+                  ],
+                  [
+                    1190,
+                    1230
+                  ]
+                ],
+                "qualification": "Exactmodelmacros/SiteKind/Weight/rawContext/Candidate/scopedID only; F007publictuple/derivedSerde andF008staticfactorysyntax gaps. Othermodelroles/Rustmacroexpansions after161 excluded.",
+                "current_admission_proof_refs": [
+                  "contract-groups-075.json#exact-model-dependency-contracts-and-two-alternate-route-gaps"
+                ],
+                "frozen_hash_eof_verified": true,
+                "semantics_from_hash_or_ranges": false,
+                "global_reconciliation": "Root authority; raw original registration retained; no globalacceptance from this localqualification",
+                "producer_owner_later_lens_credit": false
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                1,
+                161
+              ],
+              [
+                288,
+                341
+              ],
+              [
+                1190,
+                1230
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-core\\src\\quest_generation\\model.rs",
+            "actual_EOF": 1230,
+            "bytes": 41036
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1230
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Debug / Serialize / Deserialize",
+          "type": "open_catalog_id! SiteKind, WitnessDemographic, Circumstance, EvidenceKind",
+          "lines": [
+            [
+              99,
+              153
+            ],
+            [
+              155,
+              160
+            ],
+            [
+              171,
+              180
+            ],
+            [
+              192,
+              196
+            ]
+          ],
+          "disposition": "KEEP active-text custom Debug and borrowed serialize_str; checked ownedString deserialization through inherent try_new. Structural derive changes 2field storage/wire; no existing owned conversion adapter; adding one merely relocates these necessary tiny bodies."
+        }
+      ],
+      "existing_derives": [
+        "Structural/Serde already on ID macro, all quest records/closed vocabularies; Candidate Clone1190 already derive; GenerationError structural only already derive"
+      ],
+      "absence_basis": "Whole1230line exact model personally analyzed695\u2013701, every declaration/macro/runtime transition/projection/hash. No other handtrait/codec; GenerationError does not implement Error/Display, do not add solely cleanup."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Open catalogue ID representation and typed model",
+      "disposition": "Preserve scalar checked active-text wire, borrowed serializer, exact formatter flags and private capacity. Runtime semantic visibility/graph mutations/commitments remain explicit; no new derivability finding."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 973,
+    "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/projection.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

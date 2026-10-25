@@ -1,0 +1,37 @@
+{
+  "id": "NATIVE-CAMERA-SUPPORT03-CONTRACTS-050",
+  "authority": "ROOT-ADM-SUPPORT-AUTHORITY-054",
+  "lens": "audit-admission-contracts",
+  "groups": {
+    "p16-camp-itinerary-http-form-admission": {
+      "camera_indices": [
+        343
+      ],
+      "ranges": {
+        "343": [
+          [
+            1,
+            90
+          ]
+        ]
+      },
+      "invariant": "HTTP form is raw authored input; submitted time-of-day must be checked, walking quantity is explicitly clamped/rounded to native minutes rather than a finite raw input guarantee.",
+      "all_admission_routes": [
+        "TravelConfigurationForm3–9 ordinary Deserialize accepts walking_hours f32, bool defaultfalse and raw timeString. Two route wrappers11–26 delegate same save helper; path_id ignored deliberately, actual selected sessioncharacter controls request.",
+        "save28–71 requires session.character_id_u64 else redirect; clamps walking_hours0..HOURS_PER_DAY, multiplies MINUTES_PER_HOUR, rounds/casts u16. NaN native cast yields0, infinities clamp endpoints; this does not reject malformed floating source as finite. No division/unchecked indexing here.",
+        "Time split_once colon then each u16 parse, exact StrategicMinuteOfDay::from_hour_minute gate before native reducer JSON call. Personally consumed Camera strategic-calendar-itinerary-admission-043.json actual P16Core full860: privateu16, hour<24/minute<60/new<1440, no Serde/default/rawFrom. Thus hour24/minute60 rejected,0:0 valid; exact text grammar is parse-u16 plus single split, not fixed two-digit HH:MM.",
+        "Reducer call native string keys/final primitive values, error converted toString in HTTPresponse after native client; sessioncharacter is not independent server authorization proof. CampQuery73–79 derivedDefault/Deserialize Options admit absent/false/empty/rawstrings; do not infer receipt authenticity.",
+        "DirectDemoContractId81–90 only declaration plus first parser prefix is scoped. Remaining parser/body91+ and unrelated camp handlers excluded; no complete parser conclusion. No existing tests in1–90."
+      ],
+      "counterexample_or_intentional_evidence": [
+        "Finite source is not promised: NaNwalking becomes0 at native float→u16 adapter. Actual Coreforecast independently rejects walking0; actual reducer validation remains separate. Do not narrow full f32 source from output bounds.",
+        "Raw receipt/error/road_occurrence query Strings are navigation/render data not checked decision tokens."
+      ],
+      "connected_repair": "Propagate checked minute-of-day through first-party forms and native final adapter; if rejecting nonfinite raw hours is desired require explicit ingress gate, preserve zero/rounding/source errors until implementation policy. Existing Root/Camera claims only; no repair transfer.",
+      "qualifications": [
+        "Requested exact1–90 read, file EOF1246 not whole-file coverage. Canonical actual timer receipt consumed, not name/hash carry."
+      ]
+    }
+  },
+  "not_part_of_native443_or_root_batches": true
+}

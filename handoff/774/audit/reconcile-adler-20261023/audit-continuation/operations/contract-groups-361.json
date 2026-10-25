@@ -1,0 +1,101 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-361",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-plant-generator/src/viewer/main.rs",
+      "sha256": "a82177376083409276cc58189b2edcc8320c03798f8ff1f29d5009a8c1b214e6",
+      "actual_EOF": 215,
+      "actual_compared_ranges": [
+        [
+          1,
+          215
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-plant-generator/src/viewer/recipe.rs",
+      "sha256": "737948e69d20a10db0d1674d42befec8fccae79a74844a3abd6c7d448e5f30d6",
+      "actual_EOF": 90,
+      "actual_compared_ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-procedural-materials/src/lib.rs",
+      "sha256": "3d5a061b676b7715c8db2c3687f4feadd02dd94e6e1cd51dded341c287c43396",
+      "actual_EOF": 174,
+      "actual_compared_ranges": [
+        [
+          1,
+          174
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Plant draft regeneration retains the last valid specimen, but framing consumes draft dimensions",
+      "source_ranges": {
+        "viewer/main.rs": [
+          [
+            1,
+            215
+          ]
+        ],
+        "viewer/recipe.rs": [
+          [
+            1,
+            90
+          ]
+        ],
+        "viewer/controls.rs": [
+          [
+            57,
+            71
+          ],
+          [
+            93,
+            115
+          ]
+        ]
+      },
+      "disposition": "Startup validates decoded recipes. edited only performs serde decoding, allowing semantic-invalid authoring drafts; rebuild clears dirty, validates through generate, and only despawns old specimen on success. Rejection retains old mesh and error, a coherent authoring policy. Frame specimen may independently set reframe, then chained frame_camera reads current draft. Representable finite height f32MAX gives eye.z = 1.65*MAX = Inf in full view, although generation rejects this recipe. This is a bounded draft-to-camera API counterexample, not a live UI/GPU witness or a demand that drafts always be valid. Raw edit_value has no semantic numeric bound. Exact dependency: either frame the last successfully generated recipe or make framing validate/reject while retaining the prior camera; acceptance must cover invalid finite dimensions, old-mesh retention, error retention and valid preset framing. No execution."
+    },
+    {
+      "contract": "Material binding publication and specialization preserve packed ABI roles",
+      "source_ranges": {
+        "procedural-materials/src/lib.rs": [
+          [
+            1,
+            174
+          ]
+        ]
+      },
+      "disposition": "Entire Rust body read: textures/samplers paired at declared locations, three Vec4 leaf uniforms share binding12; bark ten Vec4 groups share102, separate terrain/soil texture slots. Specialization only disables culling and idempotently adds the two transmission defines; no arithmetic or state consuming failure. Public raw Vec4 numeric/physical constraints and shader operations require actual WGSL and producers, not arbitrary narrowing of packed GPU ABI. Shader bodies next; no compile or render."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-PLANT-DRAFT-FRAMING-CANDIDATE-001",
+      "kind": "source-backed authoring API counterexample",
+      "ordinary_runtime_witness": false,
+      "dependencies": [
+        "RIGOWNER-F019 botanical validated recipe owner graph; preserve invalid draft editing",
+        "actual camera/UI numeric entry and engine transform handling unexecuted"
+      ],
+      "acceptance": "Rejected invalid recipe must not publish nonfinite camera transform; preserve the last valid mesh and intended draft editing."
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-procedural-materials/src/shaders/tactical_tree_bark.wgsl"
+}

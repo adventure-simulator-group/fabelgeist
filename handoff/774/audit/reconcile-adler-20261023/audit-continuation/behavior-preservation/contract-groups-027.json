@@ -1,0 +1,108 @@
+{
+  "id": "CONT08-CONTRACT-027",
+  "at": "2026-10-25T09:30:32.823418+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 108,
+      "source_id": "physical-p16:crates/adventuresim-core/src/foraging.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/foraging.rs",
+      "before_sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+      "after_sha256": "36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0108-base-36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/36f7697b4153a422ef8b025ecf1bdb95f98eb19533041b64544bc0104e3d2a34",
+      "diff": "source-evidence/p16-0108.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          1278
+        ]
+      ],
+      "facts": [
+        "Full1278 and actual empty P16 diff consumed. Year-round policy, all resources/IDs/biomes/yield ranges/source order retained. Normalized terrain requires each<=1000 before safe four-term sum; whole-hour60..1440 duration, source1..5, unique canonical BTreeSet and localavailability admission precede computation. Exact error/validation precedence preserved.",
+        "Discovery multiplicative u64 arithmetic/source+resource division/RNG roles and source iteration order unchanged. Bounded skill<=5000, habitat<=1000 and fixed catalogue yields keep actual scoped arithmetic; independent public resource mutation is not introduced by this diff. Stealth partial-time saturating DC/single draw and training leaf ordering retained.",
+        "Rights digest source/operation/global jurisdiction, typed private decision binding, actor/source/order matching and local restriction legality unchanged. Shared planner exact coordinates/provenance, requirements, sanitized preview, AttemptSearch and partial exposure but no partial yield retain semantics. Actual DB authority assembly/commit and shared plan boundary remain separate pending. All deterministic/budget/rights/partial-time fixtures read unexecuted."
+      ],
+      "disposition": "Own08 source-local full body/differential accounted; unchanged isolatedP16, connected DB/planner dependencies explicit.",
+      "acceptance": "Preserve catalogue keys/order, source+item stream separation, admission/error precedence, integer operation/truncation and exact partial completion exposure/yield policy. No tests/checks/repairs."
+    },
+    {
+      "scope_index": 109,
+      "source_id": "physical-p16:crates/adventuresim-core/src/foraging/sampling.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/foraging/sampling.rs",
+      "before_sha256": "66d67a552e4a0f212e7a776678140af4965c40239a052e0f845c73143537d6e0",
+      "after_sha256": "66d67a552e4a0f212e7a776678140af4965c40239a052e0f845c73143537d6e0",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0109-base-66d67a552e4a0f212e7a776678140af4965c40239a052e0f845c73143537d6e0",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/66d67a552e4a0f212e7a776678140af4965c40239a052e0f845c73143537d6e0",
+      "diff": "source-evidence/p16-0109.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "facts": [
+        "Full25 plus actual empty diff. Separate fractional-yield/base-yield/stealth StreamIds and source/item framed Seed::derive byte order retain exact deterministic draws. Native NonZero upper expectation receives actual resolve108 bounds1000/fixed inclusive catalogue ranges/1001, all positive; raw helper super visibility and unchanged scope, no new ordinary zero-bound panic."
+      ],
+      "disposition": "Own08 source-local full body/differential accounted; unchanged isolatedP16, connected DB/planner dependencies explicit.",
+      "acceptance": "Preserve catalogue keys/order, source+item stream separation, admission/error precedence, integer operation/truncation and exact partial completion exposure/yield policy. No tests/checks/repairs."
+    }
+  ],
+  "additional_native_contracts": [
+    {
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/gjk/gjk.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/parry3d-0.27.0/src/query/gjk/gjk.rs",
+      "sha256": "893b9246ae77eb21d8a3f10afaeeb05e36bfdb774ce6e98579f614ac32e57a68",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/native-parry-893b9246ae77eb21d8a3f10afaeeb05e36bfdb774ce6e98579f614ac32e57a68",
+      "material_ranges": [
+        [
+          634,
+          822
+        ]
+      ],
+      "line_count": 822,
+      "head_body_read_ranges": [
+        [
+          634,
+          822
+        ]
+      ],
+      "facts": [
+        "Exact prospective material ranges personally consumed afterREG003.",
+        "directional_distance forwards Minkowski ray result. Ray direction normalized by length (relativezero returnsNone); ldir initialized normalizedray and updated only normalized negprojection; all successful branches return ldir. Dist/projection degeneracy and last-chance iterations preserve existing scalar/return law. Result witness accumulation unchanged. No executed numerical tolerance proof, lower native normalize_and_length implementation or every shape pair cleared."
+      ],
+      "disposition": "Fresh bounded own08 native producer read; Q003 still qualified no concrete malformed-normal witness."
+    },
+    {
+      "source_id": "native-dependency:parry3d-0.27.0/src/query/contact/contact_support_map_support_map.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/parry3d-0.27.0/src/query/contact/contact_support_map_support_map.rs",
+      "sha256": "fcb9e37067085e862b6a23bfbe73a4bc39ff56ceefc90031f9c0b10766430562",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/native-parry-fcb9e37067085e862b6a23bfbe73a4bc39ff56ceefc90031f9c0b10766430562",
+      "material_ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "line_count": 73,
+      "head_body_read_ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "facts": [
+        "Exact prospective material ranges personally consumed afterREG003.",
+        "Nearzero-impact support-map contact picks normalized translation or X, then GJKclosest_points; returned normal transported unchanged, intersection falls back EPA.closest_points, failure returnsNoIntersection. This narrows producer graph without establishing every GJK/EPA output norm or actual ordinary scene shape guarantee."
+      ],
+      "disposition": "Fresh bounded own08 native producer read; Q003 still qualified no concrete malformed-normal witness."
+    }
+  ],
+  "next": "Original110 herbalism405; Q003 contact/GJKclosest/EPA normalization and actual diagnostic recipients remain independent. No all-native/library or camera clear."
+}

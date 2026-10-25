@@ -1,0 +1,132 @@
+{
+  "id": "NATIVE-PP-SCENE-UNCHANGED-003",
+  "read_files": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/lod.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "4fd2d2aefa94b99bee1c8d2784f8399ed4f70bec9c3dfe9431d737192ef4a0e1",
+      "read_ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "read_status": "full"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/readiness.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "da0f087a671bf4958225ba9cd45f834cff0b0d651c9ab03c1ebcc9242a01b1e0",
+      "read_ranges": [
+        [
+          1,
+          301
+        ]
+      ],
+      "read_status": "full"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/building_review/gardens.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "5936937971ea96478c9d052b5421c59c54e8866c41c7ed76fee9f3023f04371d",
+      "read_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "read_status": "full"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/capture_resolution.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "9a666b81058f7de3538f158dac1c48a0d09280839f879f80de70c70abf967bd7",
+      "read_ranges": [
+        [
+          1,
+          63
+        ]
+      ],
+      "read_status": "full"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/parish.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "339e2d9cf79db85aa113576b820a43ccaa57d6f41046eff717ae3b87648bf99d",
+      "read_ranges": [
+        [
+          1,
+          312
+        ]
+      ],
+      "read_status": "full"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/gable.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "c06c6a2a44625d95f4179ea3a8ff362ce6bbc5d39db4adbf2f67b69f057b918d",
+      "read_ranges": [
+        [
+          1,
+          164
+        ]
+      ],
+      "read_status": "full"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/heating.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "3d4bcbe72d6cb1483399822f0ff4cc18aef6446b0b7efe38be75eb4ebe2497d3",
+      "read_ranges": [
+        [
+          1,
+          304
+        ]
+      ],
+      "read_status": "full"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/facade.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "a3ffee68cadb7373c2eab3a1b6df13f042b47bc33cf0177aba1fe4b7883928ad",
+      "read_ranges": [
+        [
+          1,
+          323
+        ]
+      ],
+      "read_status": "full"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/compound.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "418b8b501a48ca00cf36acd6e0db1a33f980ec90d01b5ce30e1dac82d062ef77",
+      "read_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "read_status": "full"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/garden.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "sha256": "0c939fe50254edf2c21b75afc2b9d464c12cde349a94d535c3f8a10f06edac06",
+      "read_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "read_status": "full"
+    }
+  ],
+  "contracts": [
+    "Every view_specs module is now fully read. All authored named view producers feed actual const CaptureViewSpec admission/builder, retained typed pose/angle state, root viewer selection and camera numerical kernels. Scalar selectors/booleans/string roles catalogued for later lenses, no full-suite clearance.",
+    "Actual building LOD selector writes native VisibilityRange extremes only at Bevy visibility API, caches original native range, typed ReviewLod retained through selection/evidence. f32::MAX is deliberate native visibility unbounded endpoint, not report absence.",
+    "Whole building/garden readiness observes actual typed identity/geometry plus native assets and rejects absent readiness before readback. Time<Real> raw f64 pending_since is retained authored tool clock; include in PP023 connected timing repair, distinct from benchmark/GPU elapsed. Rendered-buildings map converts SceneBuildingId to u64 internal key, actual palette API also takes nativeu64; later owner granularity trace remains root-wide task.",
+    "Garden transforms feed actual native comparison kernel (Quat/Vec3) and asset IDs native GPU sets; structured garden readiness cause currently static labels retained only at timeout diagnostic, reserved later enum/string/error policy lenses.",
+    "Capture physical pixel dimensions UVec2 feed actual native WindowResolution port and observed image dimensions. All fixtures read, no execution."
+  ]
+}

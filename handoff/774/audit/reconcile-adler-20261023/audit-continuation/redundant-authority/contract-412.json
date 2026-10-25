@@ -1,0 +1,83 @@
+{
+  "id": "CONT07-CONTRACT-412",
+  "at": "2026-10-23T21:26:32.752441+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1806,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/boundaries.rs",
+      "sha256": "e66d93cefb4883a44af53783082b0b68b858239941caff7321c9e1f4def9c9d4",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/boundaries.rs",
+      "actual_EOF": 106,
+      "ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1807,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/compound.rs",
+      "sha256": "22142125daa3ad166d22b90691982c18b7e3de421212d6d49f62079e9ec0b26b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/compound.rs",
+      "actual_EOF": 304,
+      "ranges": [
+        [
+          1,
+          304
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1808,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/compound/profiles.rs",
+      "sha256": "6ab4bf585e63e8be980b2d6913fe980abd7d17f035499e321ada84e8b0bd2b0b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/compound/profiles.rs",
+      "actual_EOF": 171,
+      "ranges": [
+        [
+          1,
+          171
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1809,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/diagnostic.rs",
+      "sha256": "520b5ce55ac4b5404d138e55e4d055f098d08b02377b7779dbc54bd970f3db62",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/diagnostic.rs",
+      "actual_EOF": 233,
+      "ranges": [
+        [
+          1,
+          233
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "RIG-OWNER-SUPPORT-BOUNDARY-KERNELS-063",
+    "ROOT-OWNER-GARDEN-SUPPORT-057"
+  ],
+  "facts": [
+    "1806 exterior retains exact declared halfplanes and partitions boundary stations against all regions; projected endpoint and crossing calculations complement each other. predicate_error73-76 is numerical roundoff bound, distinct from passed contact/segment tolerance. Covered-boundary owner index tie-break removes duplicates, not durable physical identity. No independently retained current boundary cache.",
+    "1807 constructor validates source member IDs against property, orientations and unique route bindings before creating a private plan. Passage region derives from selected passage, split from gate post/contact edge, court/profile/stairs from coordinated construction. validate_bearings compares actual mesh support to bound member elevation, intentionally choosing nearest matching elevation at retaining edges; upper or mean height would conflate separate surfaces.",
+    "1808 Level treatment first coordinates court and rear elevations to front floor; generated court profile then uses those updated levels. Terraced treatment retains separate member/court elevations and constructs stairs. Profile points with repeated ordinate encode vertical retaining faces; stairs provide separate explicit walkable crossing. CourtSupportConstruction profile+stairs have different spatial roles, not duplicate alternatives.",
+    "1808 passage knots derive street/gate/court support from current levels and the actual door sweep extent. No second hand-maintained gate-platform width authority in this body.",
+    "1809 diagnostics snapshot immutable property/member IDs and attempted treatment at rejection time; they are history rather than live cache requiring later property invalidation. diagnostic_unit derives once from constraint before constructing a typed SupportViolation. Public diagnostic fields can represent inconsistent manual values, but no concrete consumer/current mutator path proved; admission/enum-shape obligations remain distinct.",
+    "No new redundant-authority defect established. Existing required support error-loss remains open; no execution/checks or all13/overlay clearance."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1810,
+    "start_line": 1
+  }
+}

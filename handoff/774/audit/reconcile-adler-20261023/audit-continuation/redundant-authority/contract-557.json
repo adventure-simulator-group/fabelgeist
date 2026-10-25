@@ -1,0 +1,70 @@
+{
+  "id": "CONT07-CONTRACT-557",
+  "at": "2026-10-23T23:43:45.796232+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2414,
+      "source_id": "pr-working:crates/strategic-web/static/dialogue-client.js",
+      "sha256": "dd5524466d59c0e52e3a527e31b8cc005ebf64f581b89a08801e2195943fcf19",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/static/dialogue-client.js",
+      "actual_EOF": 825,
+      "ranges": [
+        [
+          4,
+          72
+        ],
+        [
+          100,
+          108
+        ],
+        [
+          250,
+          397
+        ],
+        [
+          480,
+          712
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2415,
+      "source_id": "pr-working:crates/strategic-web/static/equipment-icons/belt--worn.png",
+      "sha256": "5b4ab9883c3153a5f2aaff6dc07d118e75eb7f8b1f17e99a562c9186f2fa438c",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/static/equipment-icons/belt--worn.png",
+      "actual_EOF": null,
+      "ranges": [],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2416,
+      "source_id": "pr-working:crates/strategic-web/static/equipment-icons/leather_belt--worn.png",
+      "sha256": null,
+      "origin": "archive-recovered-deleted-base:audit/continuation/deleted-source/pr-working/crates/strategic-web/static/equipment-icons/leather_belt--worn.png",
+      "actual_EOF": null,
+      "ranges": [],
+      "read_kind": "deleted role: exact recovered base personally compared to retained relocation; no current body",
+      "current_body_coverage": false,
+      "source_state": "deleted",
+      "recovered_base_sha256": "5b4ab9883c3153a5f2aaff6dc07d118e75eb7f8b1f17e99a562c9186f2fa438c"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "DialogueJS exact250\u2013397/480\u2013712 +mandatory1344\u201372/100\u2013108 read. Currentview bindings check generation+NPC+session+revision before asyncresult andeditor/action callbacks; contextualmutation also path/token. currentSocial visualregard explicitlyqualitative, ownabouttopic callbacks compare socialrevision+subject. No staleunconditionalreplacement claimed inthesescopedreceivers.",
+    "Completion/submission useactualpromptchoice catalogue, dedupselectedids andrejectambiguousduplicates; free text doesnotinventhidden topics. PromptYesNo/Multi stringsnativeJSONenumrepresentation, actualauthorityanswersrevision/digestgate retainedWebDB recipients. Directclaimresponse matching differences requireactualsourceofresponse, no maliciousserverassumption.",
+    "Actualcategoryrecipient enumeratesrendereddata panels and filters samecategory topics, specialtidings/about scopes intentionalindependent socialpolicy. Strengthens duplicatedtabs/panels maintenancepopulation in554, but no currentmissingcategoryorbrowserrun.",
+    "Currentbelt portrait binary personallyviewed fromexacthash; deletedleather_belt base isidenticalbytes andsameSHA. Binary depicts beltstrip, no embeddednumeric/policycode identified; semanticassetname\u2192item/placement association remainsactualportraitresolverdependency, notmetadata-onlyglobalclearance. Deletedrow no currentbodycredit; rename/identityrecord preserved.",
+    "Allbinarycoverage ranges empty bydesign andEOFnull; textlinecoverage notfabricated. Hash equality independentlychecked withstdlibonly, no checks/tests/build/runtime."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2417,
+    "start_line": 1
+  }
+}

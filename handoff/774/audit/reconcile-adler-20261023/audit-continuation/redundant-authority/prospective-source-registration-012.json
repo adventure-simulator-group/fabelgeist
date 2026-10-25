@@ -1,0 +1,27 @@
+{
+  "id": "CONT07-REG-012",
+  "at": "2026-10-23T21:28:15.565263+00:00",
+  "status": "newly discovered exact signature dependency read and explicitly registered; not original-scope credit beyond199",
+  "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/binding.rs",
+  "sha256": "9db0cfc4b4c3053884d835faaca49a404c9942f7f0599b3069b89729fd8d7ae3",
+  "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/binding.rs",
+  "scope072_index": 1811,
+  "original_requested_ranges": [
+    [
+      1,
+      199
+    ]
+  ],
+  "new_material_ranges": [
+    [
+      200,
+      209
+    ]
+  ],
+  "reason": "Complete current BoundaryAdmissionError tail200-204 and BoundarySupportProjection205-209 required by exact project return1812:60-63. Public mesh/gate_elevation compared with private mesh.binding.gate to inventory duplicate-datum candidate and coherent constructor. No defect promoted without actual admission/consumer proof.",
+  "new_variants": 0,
+  "new_range_overlay_candidate": 1,
+  "all_lenses_reconciliation": "mandatory new material; no other-lens credit",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

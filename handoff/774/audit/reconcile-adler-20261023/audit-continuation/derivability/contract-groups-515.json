@@ -1,0 +1,35 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-515",
+  "at": "2026-10-25T15:55:48.955738+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 908,
+  "source_id": "pr-working:crates/adventuresim-core/src/courtship.rs",
+  "sha256": "df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45",
+  "actual_compared_ranges": [
+    [
+      1,
+      440
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "Iterator",
+      "type": "DuePeriods",
+      "lines": [
+        [
+          300,
+          312
+        ]
+      ],
+      "disposition": "KEEP stateful chronological due-date progression with checked terminal timeline and inclusivefrontier."
+    }
+  ],
+  "analysis": "Fresh221\u2013440 native housingcatalog order/cost validation, paymentplanning and refreshablemorale arithmetic. DuePeriods Iterator300\u2013312 KEEP finite timeline cursor mutation with inclusivefrontier and checked overflowtermination; no existingderiveexpresses stateful iteratorpolicy. Records structural/default already; nootherhandtrait/codec. Remaining440+unread.",
+  "first_unfinished": {
+    "scope_index": 908,
+    "line": 441
+  },
+  "execution": "none"
+}

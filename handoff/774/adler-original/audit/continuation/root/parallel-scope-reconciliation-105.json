@@ -1,0 +1,238 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-105",
+  "at": "2026-10-22T20:23:17.834639+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-024.json",
+    "sha256": "94d83a814f1749e84f767515a75508a8e1562cf9a6c3e64fe6c1518580e4c812"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-023.json",
+    "sha256": "d1769161d3c94cf5f7f77c78b19d43bd7f7635472571cd1712c45d4e182a3cff"
+  },
+  "new_variants": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/shell_plan.rs",
+      "snapshot": "pr-working",
+      "path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\gpu\\shell_plan.rs",
+      "sha256": "9633486e811f70b72f53994c453b650937f50e40c01021779089fbf4c86159ba",
+      "bytes": 6295,
+      "actual_line_count": 177,
+      "scope_kind": "materially_reached_parallel_initial_dependency",
+      "audit_owner": "native",
+      "material_ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "scope_limits": "133blank/134-177 original tests excluded; no shader/foreign GPU implementation or unrelated native graph",
+      "parallel_reached_registrations": [
+        {
+          "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+          "sha256": "7bebece349095977825133f10940612664e95fb8aa3357f2c8727c86e9e27567",
+          "row_1based": 7,
+          "id": "NATIVE-INITIAL05-REG007",
+          "original_record": {
+            "id": "NATIVE-INITIAL05-REG007",
+            "at": "2026-10-22T20:11:37.011804+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/shell_plan.rs",
+            "snapshot": "pr-working",
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\gpu\\shell_plan.rs",
+            "sha256": "9633486e811f70b72f53994c453b650937f50e40c01021779089fbf4c86159ba",
+            "actual_EOF": 177,
+            "material_ranges": [
+              [
+                1,
+                132
+              ]
+            ],
+            "actual_caller": "gpu/part/layout.rs98-117 PartLayout::push calls ShellPlan::new; final_indices170-190/faces184 and sources206 require matching topology/address membership",
+            "role": "Direct host shell topology constructor/VertexSource encoding/face ordering backing current part aggregate; necessary comparison before native layout pairing",
+            "exclusions": "133blank/134-177 original tests excluded; no shader/foreign GPU implementation or unrelated native graph",
+            "status": "prospective_registered_before_body_analysis"
+          }
+        }
+      ],
+      "producer_inventory_accounting": "bounded01_02_newmaterial_comparison_pending",
+      "admission_discovery": "Root104 actual newroles manual03 comparison separate, no otherlens verdict"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/capability.rs",
+      "snapshot": "physical-p16",
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\combat\\capability.rs",
+      "sha256": "877f8932ea920a91c610829b96a637ad6d361189a28f41d464376763ca8d160c",
+      "bytes": 2219,
+      "actual_line_count": 72,
+      "scope_kind": "materially_reached_parallel_initial_dependency",
+      "audit_owner": "camera",
+      "material_ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "scope_limits": "46+ cfg/test source excluded; no unrelated functions/package.",
+      "parallel_reached_registrations": [
+        {
+          "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+          "sha256": "b2b854ae03171e06f730e6ffe1f244461f41081441d0f6e592f6c9a11402f758",
+          "row_1based": 5,
+          "id": "CAMERA-INITIAL07-REG005",
+          "original_record": {
+            "id": "CAMERA-INITIAL07-REG005",
+            "at": "2026-10-22T20:12:49.729439+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "physical-p16:crates/adventuresim-core/src/combat/capability.rs",
+            "snapshot": "physical-p16",
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\combat\\capability.rs",
+            "sha256": "877f8932ea920a91c610829b96a637ad6d361189a28f41d464376763ca8d160c",
+            "actual_EOF": 72,
+            "ranges": [
+              [
+                1,
+                45
+              ]
+            ],
+            "material_reach": "Direct P16 combat melee capability reexport/actual autoresolve can_attack_melee uses selected equipment/body classification; actual same predicate vs retained capability flags comparison. PR counterpart global023 source893 freshread, not automatic P16 proof.",
+            "registered_before_body_analysis": true,
+            "exclusions": "46+ cfg/test source excluded; no unrelated functions/package.",
+            "source_inventory_credit": false
+          }
+        }
+      ],
+      "producer_inventory_accounting": "bounded01_02_newmaterial_comparison_pending",
+      "admission_discovery": "Root104 actual newroles manual03 comparison separate, no otherlens verdict"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment/armor.rs",
+      "snapshot": "pr-working",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-core\\src\\equipment\\armor.rs",
+      "sha256": "1eb52192b9ef4b1d23b4a696a3f4b370baf3076b3184e4b576ec681f426e47f1",
+      "bytes": 3238,
+      "actual_line_count": 94,
+      "scope_kind": "materially_reached_parallel_initial_dependency",
+      "audit_owner": "rig",
+      "material_ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "scope_limits": "Only declarations1\u201339; helper40\u201394 excluded, no wholeequipment graph/foreign/sourceedit",
+      "parallel_reached_registrations": [
+        {
+          "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+          "sha256": "b9d682173b1f86b9765e12f7eb5e6a9e631399a88babb98cffaaf07d5c58c5a4",
+          "row_1based": 15,
+          "id": "RIG-INITIAL06-REG-015",
+          "original_record": {
+            "id": "RIG-INITIAL06-REG-015",
+            "at": "2026-10-22T20:17:18.663259+00:00",
+            "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+            "source_id": "pr-working:crates/adventuresim-core/src/equipment/armor.rs",
+            "snapshot": "pr-working",
+            "sha256": "1eb52192b9ef4b1d23b4a696a3f4b370baf3076b3184e4b576ec681f426e47f1",
+            "actual_EOF": 94,
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-core\\src\\equipment\\armor.rs",
+            "material_ranges": [
+              [
+                1,
+                39
+              ]
+            ],
+            "material_caller": "pr-working Corecombat/armor.rs35\u201387 retains ArmorSurface input and ArmorImpact.surface; equipmentmodule authored protection versus derived combat surface owner definition required",
+            "reason": "Direct canonical record declarations/Serde and native unit fields before actual ownership body comparison; no globalvariant matches actualsourceID",
+            "exclusions": "Only declarations1\u201339; helper40\u201394 excluded, no wholeequipment graph/foreign/sourceedit",
+            "status": "prospectively_registered_before_body_analysis; pendingglobal"
+          }
+        }
+      ],
+      "producer_inventory_accounting": "bounded01_02_newmaterial_comparison_pending",
+      "admission_discovery": "Root104 actual newroles manual03 comparison separate, no otherlens verdict"
+    }
+  ],
+  "new_overlays": [
+    {
+      "id": "CONT-OWNER-RANGE-EXTENSION-201",
+      "at": "2026-10-22T20:23:17.834639+00:00",
+      "source_id": "pr-working:crates/fabelgeist-hair/src/head.rs",
+      "sha256": "5d1dcadadba0fa88cbd668791a3a995a7ef83af5fdbaa3b699b828531f339335",
+      "material_ranges": [
+        [
+          284,
+          427
+        ]
+      ],
+      "audit_owner": "native",
+      "reason": "Actual direct surface_nets production callee body284-427 required by existing Head::mesh/scalp relationship; original1-283 retained, tests429+ excluded.",
+      "scope_registration": [
+        {
+          "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+          "sha256": "7bebece349095977825133f10940612664e95fb8aa3357f2c8727c86e9e27567",
+          "row_1based": 8,
+          "id": "NATIVE-INITIAL05-REG008",
+          "original_record": {
+            "id": "NATIVE-INITIAL05-REG008",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "at": "2026-10-22T20:20:20.056195+00:00",
+            "source_id": "pr-working:crates/fabelgeist-hair/src/head.rs",
+            "snapshot": "pr-working",
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-hair\\src\\head.rs",
+            "sha256": "5d1dcadadba0fa88cbd668791a3a995a7ef83af5fdbaa3b699b828531f339335",
+            "actual_EOF": 475,
+            "material_ranges": [
+              [
+                284,
+                427
+              ]
+            ],
+            "actual_caller": "Existing scopedHead::mesh218-224 invokes surface_nets andbuilds Surface; scalp228-253 remaps returned geometry. Exact row/topology aggregate relationship is required, no unrelated extraction graph.",
+            "role": "Direct surface_nets full production body: grid corner/cache/vertex index correspondence and emitted triangles before accepted sourceSurface.",
+            "exclusions": "Original1-283 unchanged;428blank/429+tests excluded, no new testsourcecoverage or execution",
+            "status": "prospective_registered_before_body_analysis"
+          }
+        }
+      ],
+      "limits": "Original1-283 unchanged;428blank/429+tests excluded, no new testsourcecoverage or execution",
+      "source_qualifications": "428blank excluded, no originaltestbody/sourceexecution or wholeothermodule coverage."
+    }
+  ],
+  "total_variants": 2777,
+  "total_overlays": 201,
+  "registered_rows": 4,
+  "input_pins": [
+    {
+      "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+      "sha256": "7bebece349095977825133f10940612664e95fb8aa3357f2c8727c86e9e27567",
+      "captured_rows": 8,
+      "selected_ids": [
+        "NATIVE-INITIAL05-REG007",
+        "NATIVE-INITIAL05-REG008"
+      ]
+    },
+    {
+      "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+      "sha256": "b2b854ae03171e06f730e6ffe1f244461f41081441d0f6e592f6c9a11402f758",
+      "captured_rows": 5,
+      "selected_ids": [
+        "CAMERA-INITIAL07-REG005"
+      ]
+    },
+    {
+      "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+      "sha256": "b9d682173b1f86b9765e12f7eb5e6a9e631399a88babb98cffaaf07d5c58c5a4",
+      "captured_rows": 17,
+      "selected_ids": [
+        "RIG-INITIAL06-REG-015"
+      ]
+    }
+  ],
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through200-before024.jsonl",
+    "sha256": "20b305e1da400078ebb19dba8b9a46a093552d5cbb504492d090965956d32eae",
+    "through": 200
+  },
+  "duplicate_registration_qualification": "RigREG016 P16equipment/armor is ALREADY023/files101 whole94; no newvariant/overlay/01-02delta. RigQUAL010 and Root104QUAL001 retain originalwhole94 and actualpartial39 semantics.",
+  "limits": "Metadata-only three actual new sources (ShellPlan132/P16Capability45/PRProtection39) plus actual existing Headcallee144line extension. RigREG016 duplicate correctlyexcluded from newmaterial, fullP16protection94 retained. Root104/106 actual03manualproof separate; all13before source/validation freeze unchanged."
+}

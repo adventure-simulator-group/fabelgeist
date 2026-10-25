@@ -1,0 +1,452 @@
+{
+  "revision": "990430b77a9f63548ffcb642074185f61ddb3322",
+  "workflow": ".github/workflows/rust-quality.yml",
+  "sha256": "5c2ceb3c325776e498988e77ac4244d1ad60ea11783ac9366e83c034933a1cde",
+  "mode": "Source-selected planned hosted checks only; no validation execution or new tests. Recheck workflow at actual finalhead.",
+  "steps": [
+    {
+      "name": "Install pinned Rust toolchain",
+      "source_lines": [
+        66,
+        71
+      ],
+      "run_source": null,
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Cache Rust build artifacts",
+      "source_lines": [
+        72,
+        73
+      ],
+      "run_source": null,
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Install pinned SpacetimeDB CLI",
+      "source_lines": [
+        74,
+        79
+      ],
+      "run_source": "curl -sSf https://install.spacetimedb.com | sh -s -- -y\necho \"$HOME/.local/bin\" >> \"$GITHUB_PATH\"\n\"$HOME/.local/bin/spacetime\" version install \"$SPACETIMEDB_VERSION\"\n\"$HOME/.local/bin/spacetime\" version use \"$SPACETIMEDB_VERSION\"",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Install configured Linux linker",
+      "source_lines": [
+        80,
+        85
+      ],
+      "run_source": "sudo apt-get update && sudo apt-get install --no-install-recommends -y\nmold libasound2-dev libudev-dev libwayland-dev libx11-dev\nlibxcursor-dev libxinerama-dev libxkbcommon-dev libxkbcommon-x11-dev\nlibxrandr-dev libxi-dev libvulkan1 mesa-vulkan-drivers",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Check formatting",
+      "source_lines": [
+        86,
+        93
+      ],
+      "run_source": "format_status=0\ncargo fmt --all -- --check || format_status=1\ncargo fmt --manifest-path crates/adventuresim-character-creator/Cargo.toml -- --check || format_status=1\ncargo fmt --manifest-path crates/fabelgeist-mhr/Cargo.toml -- --check || format_status=1\ncargo fmt --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml -- --check || format_status=1\nexit \"$format_status\"",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Test generated bindings verifier",
+      "source_lines": [
+        94,
+        97
+      ],
+      "run_source": "python3 -m unittest\nscripts.tests.test_dev_stack.WorkflowTests.test_binding_diff_detects_changed_and_extra_files",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Check building review presentation boundary",
+      "source_lines": [
+        98,
+        99
+      ],
+      "run_source": "python3 -m unittest scripts.tests.test_building_review_boundary",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Verify generated SpacetimeDB bindings",
+      "source_lines": [
+        100,
+        101
+      ],
+      "run_source": "python3 scripts/dev_stack.py verify-bindings",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Test shared schema and GPU readback boundaries",
+      "source_lines": [
+        102,
+        105
+      ],
+      "run_source": "cargo test --package adventuresim-world-schema --all-features\ncargo test --package fabelgeist-gpu --lib data::gpu::buffer::readback::tests",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Test resolved Bevy guard",
+      "source_lines": [
+        106,
+        107
+      ],
+      "run_source": "cargo test --locked --package fabelgeist-rust-quality --test bevy_version_guard",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Test checked FBX array encoding",
+      "source_lines": [
+        108,
+        112
+      ],
+      "run_source": "cargo test --locked --package fabelgeist-fbx --lib\narray_encoding_tests::array_encoding_preserves_actual_main_payload_and_error_behavior\n-- --exact --nocapture",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Test existing FBX object-name consumers",
+      "source_lines": [
+        113,
+        114
+      ],
+      "run_source": "cargo test --locked --package fabelgeist-fbx",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Check semantic values and Rust growth",
+      "source_lines": [
+        115,
+        118
+      ],
+      "run_source": "cargo test --package fabelgeist-rust-quality\ncargo run --package fabelgeist-rust-quality -- check .",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Check calendar API ownership",
+      "source_lines": [
+        119,
+        122
+      ],
+      "run_source": "python3 -m unittest scripts.test_check_calendar_api\npython3 scripts/check_calendar_api.py",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Lint tactical client WASM target",
+      "source_lines": [
+        123,
+        124
+      ],
+      "run_source": "cargo clippy --package adventuresim-tactical-client --bin adventuresim-tactical-client --target wasm32-unknown-unknown -- -D warnings",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Test native and WASM deterministic draws",
+      "source_lines": [
+        125,
+        130
+      ],
+      "run_source": "python3 -B -m unittest scripts.test_check_deterministic_rng\npython3 scripts/check_deterministic_rng.py\ncargo install wasm-bindgen-cli --version 0.2.126 --locked\npython3 scripts/test_determinism.py",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Run Clippy with warnings denied",
+      "source_lines": [
+        131,
+        136
+      ],
+      "run_source": "cargo clippy --workspace --all-targets --all-features -- -D warnings\ncargo clippy --locked --manifest-path crates/adventuresim-character-creator/Cargo.toml --all-targets --all-features -- -D warnings\ncargo clippy --locked --manifest-path crates/fabelgeist-mhr/Cargo.toml --all-targets --all-features -- -D warnings\ncargo clippy --locked --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml --all-targets --all-features -- -D warnings",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Test constraint graph and shell consumers",
+      "source_lines": [
+        137,
+        151
+      ],
+      "run_source": "set -euo pipefail\nmkdir -p target/constraint-validation\ngit rev-parse HEAD | tee target/constraint-validation/source.txt\nprintf '%s\\n' \"$EXPECTED_SOURCE\" > target/constraint-validation/pr-head.txt\ngit merge-base --is-ancestor \"$EXPECTED_SOURCE\" HEAD\nexport XDG_RUNTIME_DIR=\"$RUNNER_TEMP/constraint-runtime\"\nmkdir -p \"$XDG_RUNTIME_DIR\"\nchmod 700 \"$XDG_RUNTIME_DIR\"\ncargo test --locked --package fabelgeist-xpbd --package fabelgeist-shell -- --test-threads=1 2>&1 | tee target/constraint-validation/tests.log\ngit diff --exit-code -- Cargo.lock crates/adventuresim-character-creator/Cargo.lock crates/fabelgeist-mhr/Cargo.lock crates/fabelgeist-numpy-storage/Cargo.lock",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Upload constraint validation evidence",
+      "source_lines": [
+        152,
+        158
+      ],
+      "run_source": null,
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Record rig contract revision",
+      "source_lines": [
+        159,
+        167
+      ],
+      "run_source": "set -euo pipefail\nrevision=\"$(git rev-parse HEAD)\"\ntest \"$revision\" = \"$EXPECTED_RIG_REVISION\"\nmkdir -p target/rig-contracts\nprintf '%s\\n' \"$revision\" | tee target/rig-contracts/revision.txt",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Test shared rig contracts",
+      "source_lines": [
+        168,
+        171
+      ],
+      "run_source": "set -o pipefail\ncargo test --locked --package fabelgeist-rig 2>&1 | tee target/rig-contracts/rig.log",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Test shared scalar geometry contracts",
+      "source_lines": [
+        172,
+        177
+      ],
+      "run_source": "set -euo pipefail\ncargo check --locked --package adventuresim-core --no-default-features\ncargo test --locked --package adventuresim-building-generator --lib spatial_geometry:: -- --test-threads=1 2>&1 | tee target/rig-contracts/geometry-admission.log\ncargo test --locked --package fabelgeist-geometry --doc 2>&1 | tee target/rig-contracts/geometry-doc.log",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Test native iteration report producers",
+      "source_lines": [
+        178,
+        181
+      ],
+      "run_source": "set -euo pipefail\ncargo test --locked --package adventuresim-tactical-server --features iteration --lib iteration:: -- --test-threads=1 2>&1 | tee target/rig-contracts/native-iteration.log",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Test autoresolve battle-time consumers",
+      "source_lines": [
+        182,
+        186
+      ],
+      "run_source": "set -euo pipefail\ncargo test --locked --package adventuresim-core --lib autoresolve:: -- --test-threads=1 2>&1 | tee target/rig-contracts/autoresolve.log\ncargo test --locked --package adventuresim-core --lib combat::defense:: -- --test-threads=1 2>&1 | tee target/rig-contracts/contact-defense.log",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Test MHR rig admission",
+      "source_lines": [
+        187,
+        190
+      ],
+      "run_source": "set -o pipefail\ncargo test --locked --manifest-path crates/fabelgeist-mhr/Cargo.toml -- --test-threads=1 2>&1 | tee target/rig-contracts/mhr.log",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Test strategic bootstrap failure contracts",
+      "source_lines": [
+        191,
+        197
+      ],
+      "run_source": "set -euo pipefail\ntest \"$(git rev-parse HEAD)\" = \"$EXPECTED_SOURCE\"\ncargo test --locked --package adventuresim-strategic-sim --lib live_core::tests:: -- --test-threads=1 2>&1 | tee target/rig-contracts/strategic-bootstrap.log",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Test creator rig family contracts",
+      "source_lines": [
+        198,
+        225
+      ],
+      "run_source": "set -euo pipefail\ncreator_contract() {\n  local label=\"$1\"\n  shift\n  local log=\"target/rig-contracts/creator-${label}\"\n  printf '%q ' cargo test --locked --manifest-path crates/adventuresim-character-creator/Cargo.toml \"$@\" > \"${log}.command.txt\"\n  printf '\\n' >> \"${log}.command.txt\"\n  cargo test --locked --manifest-path crates/adventuresim-character-creator/Cargo.toml \"$@\" 2>&1 | tee \"${log}.log\"\n}\ncreator_contract armor-frames --lib armor_frames:: -- --test-threads=1 --nocapture\ncreator_contract clothing --lib clothing:: -- --test-threads=1 --nocapture\ncreator_contract device-frames --lib device_frames:: -- --test-threads=1 --nocapture\ncreator_contract gorget-bib --lib device_gorget_bib:: -- --test-threads=1 --nocapture\ncreator_contract gorget-collar --lib device_gorget_collar:: -- --test-threads=1 --nocapture\ncreator_contract wrapped-tasset --lib device_wrapped_tasset:: -- --test-threads=1 --nocapture\ncreator_contract export --lib export:: -- --test-threads=1 --nocapture\ncreator_contract garment --lib garment:: -- --test-threads=1 --nocapture\ncreator_contract runtime-equipment --lib runtime_equipment:: -- --test-threads=1 --nocapture\ncreator_contract skin-rules --lib skin_rules:: -- --test-threads=1 --nocapture\ncreator_contract torso-domain --lib torso_domain:: -- --test-threads=1 --nocapture\ncreator_contract underlayer-design --lib underlayer::tests::invalid_cut_and_construction_ranges_are_rejected -- --exact --test-threads=1 --nocapture\ncreator_contract character-morphs --bin adventuresim-character-creator character_morphs:: -- --test-threads=1 --nocapture\ncreator_contract animation-preview --bin adventuresim-character-creator animation_preview:: -- --test-threads=1 --nocapture\ncreator_contract device-bracer --test device_bracer -- --test-threads=1 --nocapture\ncreator_contract device-breastplate --test device_breastplate -- --test-threads=1 --nocapture",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Test tactical animation and audio contracts",
+      "source_lines": [
+        226,
+        231
+      ],
+      "run_source": "set -o pipefail\ncargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client animation:: -- --test-threads=1 2>&1 | tee target/rig-contracts/animation.log\ncargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client movement_audio::tests:: -- --test-threads=1 2>&1 | tee target/rig-contracts/audio.log\ncargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client weather_audio::tests:: -- --test-threads=1 2>&1 | tee target/rig-contracts/weather-audio.log",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Test existing animation report consumers",
+      "source_lines": [
+        232,
+        235
+      ],
+      "run_source": "set -euo pipefail\ncargo test --locked --package adventuresim-tactical-client --features debug --bin animation-viewer animation_viewer::report:: -- --test-threads=1 2>&1 | tee target/rig-contracts/animation-reports.log",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Test tactical equipment contracts",
+      "source_lines": [
+        236,
+        239
+      ],
+      "run_source": "set -o pipefail\ncargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client equipment:: -- --test-threads=1 2>&1 | tee target/rig-contracts/equipment.log",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Test equipment chronology and mapped requests",
+      "source_lines": [
+        240,
+        244
+      ],
+      "run_source": "set -euo pipefail\ncargo test --locked --package adventuresim-tactical-server --bin adventuresim-tactical-server equipment:: -- --test-threads=1 2>&1 | tee target/rig-contracts/equipment-chronology.log\ncargo test --locked --package adventuresim-tactical-netcode --lib message::equipment_action_mapping_tests:: -- --test-threads=1 2>&1 | tee target/rig-contracts/equipment-mapping.log",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Test gameplay camera contracts",
+      "source_lines": [
+        245,
+        248
+      ],
+      "run_source": "set -euo pipefail\ncargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client camera:: -- --test-threads=1 2>&1 | tee target/rig-contracts/camera.log",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Test shared animation value contracts",
+      "source_lines": [
+        249,
+        252
+      ],
+      "run_source": "set -euo pipefail\ncargo test --locked --package adventuresim-tactical-core --lib animation:: -- --test-threads=1 2>&1 | tee target/rig-contracts/tactical-core-animation.log",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Test canonical combat configuration",
+      "source_lines": [
+        253,
+        260
+      ],
+      "run_source": "set -euo pipefail\ntest \"$(git rev-parse HEAD)\" = \"$EXPECTED_SOURCE\"\ncargo test --locked --package adventuresim-tactical-core --lib combat_config:: -- --test-threads=1 2>&1 | tee target/rig-contracts/tactical-core-combat-config.log\ngrep -Eq '^test result: ok\\. [1-9][0-9]* passed; 0 failed;' target/rig-contracts/tactical-core-combat-config.log",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Test server configuration startup",
+      "source_lines": [
+        261,
+        268
+      ],
+      "run_source": "set -euo pipefail\ntest \"$(git rev-parse HEAD)\" = \"$EXPECTED_SOURCE\"\ncargo test --locked --package adventuresim-tactical-server --bin adventuresim-tactical-server startup::tests:: -- --test-threads=1 2>&1 | tee target/rig-contracts/tactical-server-startup.log\ngrep -Eq '^test result: ok\\. [1-9][0-9]* passed; 0 failed;' target/rig-contracts/tactical-server-startup.log",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Test authoritative maneuver consumers",
+      "source_lines": [
+        269,
+        272
+      ],
+      "run_source": "set -euo pipefail\ncargo test --locked --package adventuresim-tactical-server --bin adventuresim-tactical-server player_projection::tests:: -- --test-threads=1 2>&1 | tee target/rig-contracts/maneuver-consumers.log",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Test shared terrain support contracts",
+      "source_lines": [
+        273,
+        286
+      ],
+      "run_source": "set -euo pipefail\ntest \"$(git rev-parse HEAD)\" = \"$EXPECTED_SOURCE\"\ncargo test --locked --package adventuresim-tactical-core --features meshgen --lib scene:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-scene.log\ncargo test --locked --package adventuresim-tactical-core --features meshgen --lib scene_input:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-scene-input.log\ncargo test --locked --package adventuresim-tactical-core --features meshgen --lib scene_coordinates:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-scene-coordinates.log\ncargo test --locked --package adventuresim-tactical-core --features meshgen --lib city_layout::grounding:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-grounding.log\ncargo test --locked --package adventuresim-tactical-core --features meshgen --lib volumetric_terrain:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-landforms.log\ncargo test --locked --package adventuresim-tactical-core --features meshgen --lib erosional_terrain:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-erosion.log\ncargo test --locked --package adventuresim-tactical-core --features meshgen --lib marching_tetrahedra:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-extraction.log\ncargo test --locked --package adventuresim-tactical-server --bin adventuresim-tactical-server doors::gate_tests:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-server-gates.log",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Test terrain presentation and retained scene consumers",
+      "source_lines": [
+        287,
+        294
+      ],
+      "run_source": "set -euo pipefail\ntest \"$(git rev-parse HEAD)\" = \"$EXPECTED_SOURCE\"\ncargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client presentation:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-presentation.log\ncargo test --locked --package adventuresim-tactical-client --bin adventuresim-tactical-client strategic_scene:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-strategic.log",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Test existing terrain capture and art-demo consumers",
+      "source_lines": [
+        295,
+        303
+      ],
+      "run_source": "set -euo pipefail\ntest \"$(git rev-parse HEAD)\" = \"$EXPECTED_SOURCE\"\ncargo test --locked --package adventuresim-tactical-client --features debug --bin tactical-scene-viewer tactical_scene_viewer:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-viewer.log\ncargo test --locked --package adventuresim-tactical-client --bin art-demo art_demo:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-art-demo.log\ncargo test --locked --package adventuresim-tactical-client --features debug --bin animation-viewer animation_viewer::capture:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-animation-capture.log",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Test dispatcher terrain selection and inspection consumers",
+      "source_lines": [
+        304,
+        311
+      ],
+      "run_source": "set -euo pipefail\ntest \"$(git rev-parse HEAD)\" = \"$EXPECTED_SOURCE\"\ncargo test --locked --package adventuresim-tactical-server-dispatcher --lib scene_input:: -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-dispatcher.log\ncargo test --locked --package adventuresim-tactical-server-dispatcher --example inspect-city-grounding -- --test-threads=1 2>&1 | tee target/rig-contracts/terrain-inspection.log",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Export semantic family baseline snapshot",
+      "source_lines": [
+        312,
+        318
+      ],
+      "run_source": "set -euo pipefail\ntest \"$(git rev-parse HEAD)\" = \"$EXPECTED_SOURCE\"\ncargo run --locked --package fabelgeist-rust-quality -- baseline . | tee target/rig-contracts/quality-baseline.toml",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Verify required rig contract execution",
+      "source_lines": [
+        319,
+        386
+      ],
+      "run_source": "python3 - <<'PY'\nimport json\nimport os\nimport re\nfrom pathlib import Path\n\nevidence = Path(\"target/rig-contracts\")\nrevision = (evidence / \"revision.txt\").read_text().strip()\nif not re.fullmatch(r\"[0-9a-f]{40}\", revision) or revision != os.environ[\"EXPECTED_RIG_REVISION\"]:\n    raise SystemExit(\"Recorded rig revision does not match the required PR head\")\nrequired = [\n    \"rig\", \"autoresolve\", \"contact-defense\", \"mhr\", \"strategic-bootstrap\",\n    \"geometry-admission\", \"geometry-doc\", \"native-iteration\",\n    \"camera\", \"equipment-chronology\", \"equipment-mapping\",\n    \"animation\", \"audio\", \"weather-audio\", \"animation-reports\", \"equipment\", \"maneuver-consumers\",\n    \"creator-armor-frames\", \"creator-clothing\",\n    \"creator-device-frames\", \"creator-gorget-bib\",\n    \"creator-gorget-collar\", \"creator-wrapped-tasset\",\n    \"creator-export\", \"creator-garment\",\n    \"creator-runtime-equipment\", \"creator-skin-rules\",\n    \"creator-torso-domain\", \"creator-underlayer-design\",\n    \"creator-character-morphs\", \"creator-animation-preview\",\n    \"creator-device-bracer\", \"creator-device-breastplate\",\n    \"terrain-scene\",\n    \"terrain-scene-input\",\n    \"terrain-scene-coordinates\",\n    \"terrain-grounding\",\n    \"terrain-server-gates\",\n    \"terrain-landforms\",\n    \"terrain-erosion\",\n    \"terrain-extraction\",\n    \"terrain-presentation\",\n    \"terrain-strategic\",\n    \"terrain-viewer\",\n    \"terrain-art-demo\",\n    \"terrain-dispatcher\",\n    \"terrain-inspection\",\n    \"terrain-animation-capture\",\n]\ncells = []\nfor label in required:\n    log = evidence / f\"{label}.log\"\n    text = log.read_text() if log.is_file() else \"\"\n    text = re.sub(r\"\\x1b\\[[0-?]*[ -/]*[@-~]\", \"\", text)\n    results = re.findall(\n        r\"^test result: ok\\. (\\d+) passed; (\\d+) failed; (\\d+) ignored;\",\n        text, re.MULTILINE,\n    )\n    passed, failed, ignored = (\n        sum(int(result[index]) for result in results)\n        for index in range(3)\n    )\n    cells.append({\n        \"cell\": label, \"log\": str(log), \"revision\": revision,\n        \"passed\": passed, \"failed\": failed, \"ignored\": ignored,\n        \"accepted\": bool(results) and passed > 0 and failed == 0,\n    })\n(evidence / \"required-cells.json\").write_text(\n    json.dumps(cells, indent=2) + \"\\n\"\n)\nmissing = [cell[\"cell\"] for cell in cells if not cell[\"accepted\"]]\nif missing:\n    raise SystemExit(f\"Missing or empty required test results: {missing}\")\nPY",
+      "status": "planned hosted execution only; not run in reconciliation"
+    },
+    {
+      "name": "Upload rig contract evidence",
+      "source_lines": [
+        387,
+        393
+      ],
+      "run_source": null,
+      "status": "planned hosted execution only; not run in reconciliation"
+    }
+  ],
+  "required_evidence_cells": [
+    "rig",
+    "autoresolve",
+    "contact-defense",
+    "mhr",
+    "strategic-bootstrap",
+    "geometry-admission",
+    "geometry-doc",
+    "native-iteration",
+    "camera",
+    "equipment-chronology",
+    "equipment-mapping",
+    "animation",
+    "audio",
+    "weather-audio",
+    "animation-reports",
+    "equipment",
+    "maneuver-consumers",
+    "creator-armor-frames",
+    "creator-clothing",
+    "creator-device-frames",
+    "creator-gorget-bib",
+    "creator-gorget-collar",
+    "creator-wrapped-tasset",
+    "creator-export",
+    "creator-garment",
+    "creator-runtime-equipment",
+    "creator-skin-rules",
+    "creator-torso-domain",
+    "creator-underlayer-design",
+    "creator-character-morphs",
+    "creator-animation-preview",
+    "creator-device-bracer",
+    "creator-device-breastplate",
+    "terrain-scene",
+    "terrain-scene-input",
+    "terrain-scene-coordinates",
+    "terrain-grounding",
+    "terrain-server-gates",
+    "terrain-landforms",
+    "terrain-erosion",
+    "terrain-extraction",
+    "terrain-presentation",
+    "terrain-strategic",
+    "terrain-viewer",
+    "terrain-art-demo",
+    "terrain-dispatcher",
+    "terrain-inspection",
+    "terrain-animation-capture"
+  ],
+  "acceptance": [
+    "Every required hosted job/stage must succeed at exact final pushedhead.",
+    "Inspect logs/artifacts actual command/feature/target/filter and nonempty expected fixture execution; matching job title/green summary insufficient.",
+    "Preserve historical failed attempts as historical, no baseline waiver without explicit authority.",
+    "Use existing tests/cases/assertions/fixtures; none added. If existingchecks cannot establish a required runtime/visualcontract, record precise unresolved acceptance dependency.",
+    "Unknown compilegap reopens source family; finish connected repairs before another push/run."
+  ]
+}

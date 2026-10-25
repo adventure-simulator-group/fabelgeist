@@ -1,0 +1,13 @@
+--- p16base/crates/adventuresim-stdb-module/src/npc_causal.rs
++++ catalog-p16head/crates/adventuresim-stdb-module/src/npc_causal.rs
+@@ -481,9 +481,9 @@
+ #[reducer]
+ pub fn run_npc_causal_tick(
+     ctx: &ReducerContext,
+     _schedule: NpcCausalSchedule,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     if ctx.sender() != ctx.database_identity() {
+         return Err("NPC causal processing may only be invoked by its scheduler".into());
+     }
+     let official_minute = crate::time::refresh_clock(ctx)?;

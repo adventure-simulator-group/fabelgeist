@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-875",
+  "at": "2026-10-25T17:08:54.656830+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1086,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/condition.rs",
+  "sha256": "294cb300d2e6c3cee8a6ed923a24ab450efd97cfb87254a10c7743943bc4d6f8",
+  "actual_compared_ranges": [
+    [
+      1,
+      360
+    ]
+  ],
+  "existing_derives": [
+    "Clone/Debug/PartialEq/table as declared"
+  ],
+  "trait_inventory": [],
+  "analysis": "All declared durable condition/needs/exposure/morale/projection/demand records already derive Clone/Debug and relevant PartialEq/table macros. ExposureLocation has only contextual inherent position projection; initialization, DB location/route lookup, coordinate conversion and weather/exposure advancement are semantic native operations, no handwritten trait or codec in consumed prefix.",
+  "first_unfinished": {
+    "scope_index": 1086,
+    "line": 361
+  },
+  "execution": "none"
+}

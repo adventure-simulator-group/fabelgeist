@@ -1,0 +1,13 @@
+--- PRbase/crates/adventuresim-tactical-client/src/animation_viewer/harness/readiness.rs
++++ frozen/crates/adventuresim-tactical-client/src/animation_viewer/harness/readiness.rs
+@@ -197,9 +197,9 @@
+                     .spawn((
+                         ProceduralEquipmentPart::new(
+                             item,
+                             default(),
+-                            vec!["c_head".into()],
++                            vec!["c_head".into()].into(),
+                             Vec3::ZERO,
+                         ),
+                         Name::new(*name),
+                         Mesh3d(mesh.clone()),

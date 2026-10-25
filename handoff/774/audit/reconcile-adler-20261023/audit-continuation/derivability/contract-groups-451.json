@@ -1,0 +1,35 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-451",
+  "at": "2026-10-25T15:40:09.869108+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 857,
+  "source_id": "pr-working:crates/adventuresim-core/src/autoresolve.rs",
+  "sha256": "cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+  "actual_compared_ranges": [
+    [
+      1,
+      1760
+    ]
+  ],
+  "existing_derives": [
+    "Prior444\u2013447 derives retained"
+  ],
+  "trait_inventory": [
+    {
+      "trait": "Display",
+      "type": "BattleAttackOutcome",
+      "lines": [
+        404,
+        413
+      ],
+      "disposition": "KEEP per445."
+    }
+  ],
+  "analysis": "Fresh1541\u20131760 personally consumed: authored-profile safety margin, native synthetic attack helper and deterministic/symmetric/simultaneous/canceled/surprise timeline fixture bodies. No new trait/codec or local generic representation. No fixture or deterministic seed search executed. Remaining1761\u20132878 unread.",
+  "first_unfinished": {
+    "scope_index": 857,
+    "line": 1761
+  },
+  "execution": "none"
+}

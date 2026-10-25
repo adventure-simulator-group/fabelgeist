@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1159",
+  "at": "2026-10-25T17:59:32.015020+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1265,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_event.rs",
+  "sha256": "9403e2e3d8bc995c0483da0502427442f1c526ee1b513db2a9b5beac3078a5b0",
+  "actual_compared_ranges": [
+    [
+      701,
+      1050
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Remaining native preflight selected immutable fields, canonical consequence ordering/cohort provenance and three contextual commit adapters consumed. No handwritten trait/custom codec/type. Canonical set ordering preserves correlated variants/participant IDs; derived tuple/whole-object Ord cannot replace validation. Food-water path performs checked dose quantization and immunity scaling; current case cohort is synthesized after stable request. Initial native fixtures only assertions, not run.",
+  "first_unfinished": {
+    "scope_index": 1265,
+    "line": 1051
+  },
+  "execution": "none"
+}

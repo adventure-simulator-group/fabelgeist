@@ -1,0 +1,77 @@
+{
+  "id": "CONT07-CONTRACT-609",
+  "at": "2026-10-24T00:37:48.893959+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2637,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/head.rs",
+      "sha256": "5d1dcadadba0fa88cbd668791a3a995a7ef83af5fdbaa3b699b828531f339335",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-hair/src/head.rs",
+      "actual_EOF": 475,
+      "ranges": [
+        [
+          1,
+          283
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2638,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/haircut.rs",
+      "sha256": "707b015e87fe4c3b69df96658a1f904b186775ff7d80b7e3f2a3b68fb9a0f02b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-hair/src/haircut.rs",
+      "actual_EOF": 409,
+      "ranges": [
+        [
+          1,
+          373
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2639,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/hairstyle.rs",
+      "sha256": "b5f8a3df2ec5973448ef2183c300de94346d3a00051e77fb1ed61a8c98ec68a2",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-hair/src/hairstyle.rs",
+      "actual_EOF": 173,
+      "ranges": [
+        [
+          1,
+          173
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2640,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/hairdo/tied.rs",
+      "sha256": "cfc6af7986e8029ebca3d23cf4a7d67e0478f87af9972c3a8908baa6d31a0786",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-hair/src/hairdo/tied.rs",
+      "actual_EOF": 111,
+      "ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Head derives distance/gradient/crown/UV directly from current geometric fields, and scalp compacts positions/normals/UVs with one remap. mesh sampling bounds remain mannequin constants even though Head fields public; custom expanded head may be truncated, but actual first-party non-mannequin producer/admission and intent are untraced. Do not claim exact SDF globally from prose: Ellipsoid explicitly uses distance bound approximation.",
+    "Haircut.cut is documented as historical starting preset; current lengths/clip/fringe are intentionally independently customizable, so changed dimensions do not make preset history stale. Hairstyle arrangement is current operation, other fields tunable controls. derived tied/stands/sweep follow current arrangement/part. Cut/Arrangement ALL and names agree with enum rosters; manual roster maintenance population, no current mismatch.",
+    "Haircut.scaled uses fixed mannequin crown0.115 and dome reference0.09, whereas Head.crown derives supplied cranium. Fringe FRONT0.1 and length0.1 share mannequin assumptions, unlike line which takes head hairline. Retain custom-head semantic question, no ordinary supported expanded-head defect yet. Tied::new builds private immutable axis/kind/point from current Hairdo and Head; frame uses literal0.002 matching generation ds0.002. This duplicate step policy currently agrees, and immutable per-build geometry is a cache product rather than a second editable current-authority object."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2641,
+    "start_line": 1
+  }
+}

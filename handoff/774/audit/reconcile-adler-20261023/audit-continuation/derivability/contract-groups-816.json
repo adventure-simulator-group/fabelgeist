@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-816",
+  "at": "2026-10-25T16:55:21.180891+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1024,
+  "source_id": "pr-working:crates/adventuresim-core/src/weather.rs",
+  "sha256": "62c3d0b44fa30ce15dab8e231cc5ef90e631e633d9ef4ea34091c5c8c3f3fde9",
+  "actual_compared_ranges": [
+    [
+      331,
+      660
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Atmospheric diagnosis, precipitation/cloud morphology, pressure-wind/temperature signals, canonical period start and snow overlays native functions only; no additional manual trait or codec in consumed range. Keep deliberate physical/category policy rather than force serialization/runtime classifier derive."
+  ],
+  "first_unfinished": {
+    "scope_index": 1024,
+    "line": 661
+  },
+  "execution": "none"
+}

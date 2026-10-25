@@ -1,0 +1,117 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1066",
+  "at": "2026-10-25T17:40:56.385777+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1211,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/development_scenarios.rs",
+      "sha256": "0a3344aa8f11ea2768169b64f3d7b887260bc7fd53e818c8bfff3b55b01ee394",
+      "actual_EOF": 573,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/development_scenarios.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/strategic/development_scenarios.rs",
+        "owner": "camera",
+        "sha256": "0a3344aa8f11ea2768169b64f3d7b887260bc7fd53e818c8bfff3b55b01ee394",
+        "base_sha256": "9aa999b5592f20cddcee89e2d32b3b6a16b6c3004ab7a9a5ce5407fd25816965",
+        "state": "modified",
+        "bytes": 19279,
+        "audit_owner": "camera",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                573
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-DEVELOPMENT-001",
+              "CAM-PROP-STRATEGIC-PROJECTION-001"
+            ]
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+            "ranges": null,
+            "source_read_status": null,
+            "trace_refs": []
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                573
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-DEVELOPMENT-001"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 290,
+            "read_ranges": [
+              [
+                1,
+                573
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-DEVELOPMENT-SCENARIOS-094"
+            ],
+            "read_status": "fresh-current-lens-full-source-read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/development_scenarios.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          573
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "Native table Clone/Debug and backend Clone/Debug/SpacetimeType."
+      ],
+      "absence_basis": "Allsource1065\u20131066 consumed. No handwritten trait/codec. Final public quest projection351\u2013468 combines scenario membership/symptom/status/currentcontract/road authority and selected metadata; deriving raw conversion would not preserve contextual privacy joins. Incident reducer470\u2013517 validates exact request/retry/scenario authority; tests519\u2013573 native assertions read only."
+    }
+  ],
+  "groups": [
+    "KEEP metadata admission, contextual safe projections and selected retry equality; runtime quest-kind/status classifiers do not justify new serialization."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1212,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

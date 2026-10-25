@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1129",
+  "at": "2026-10-25T17:51:27.476975+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1238,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/surgery.rs",
+  "sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+  "actual_compared_ranges": [
+    [
+      351,
+      730
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "InjuryRecoveryMinutes/InjuryPreview/InjurySettlement already structural derives; inherent const new/get/NONE preserves value semantics, no handtrait. Preview/settlement maps simulated blood interval\u2192elapsed/terminal/alive via actual DB wounds/clock/recovery and mutation effects; not raw From. Native healing/convalescence/splint/provenance/infection exposure and itemconsumption policy, no handwritten trait/codec. Selected splint ordering by id differs fullrow Ord."
+  ],
+  "first_unfinished": {
+    "scope_index": 1238,
+    "line": 731
+  },
+  "execution": "none"
+}

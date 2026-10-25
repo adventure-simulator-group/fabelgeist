@@ -1,0 +1,750 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-005",
+  "at": "2026-10-25T11:18:35.784925+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 26,
+      "source_id": "native-dependency:tiny-skia-0.11.4/src/pixmap.rs",
+      "sha256": "a7845a931a40b5b24eaa24b6053121e61bfe8b3fffa4c0db89f58c368fb9bc56",
+      "actual_EOF": 603,
+      "requested_registration": {
+        "source_id": "native-dependency:tiny-skia-0.11.4/src/pixmap.rs",
+        "snapshot": "native-dependency",
+        "path": "CARGO_REGISTRY/tiny-skia-0.11.4/src/pixmap.rs",
+        "sha256": "a7845a931a40b5b24eaa24b6053121e61bfe8b3fffa4c0db89f58c368fb9bc56",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 18734,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 86,
+            "read_ranges": [
+              [
+                155,
+                182
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-CLIENT-EQUIPMENT-026"
+            ],
+            "read_status": "current-lens-exact-native-encoding-error-owner-ranges-read",
+            "resolved_path": "CARGO_REGISTRY/tiny-skia-0.11.4/src/pixmap.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-022",
+            "json_pointer": "/fresh_current_source_reads/12",
+            "source_id_as_recorded": "native-dependency:tiny-skia-0.11.4/src/pixmap.rs",
+            "read_ranges_as_recorded": [
+              [
+                155,
+                182
+              ]
+            ],
+            "source_context": {
+              "assigned_index": 407,
+              "source_id": "native-dependency:tiny-skia-0.11.4/src/pixmap.rs",
+              "sha256": "a7845a931a40b5b24eaa24b6053121e61bfe8b3fffa4c0db89f58c368fb9bc56",
+              "read_ranges": [
+                [
+                  155,
+                  182
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-022",
+            "json_pointer": "/additional_actual_source_proofs/5",
+            "source_id_as_recorded": "native-dependency:tiny-skia-0.11.4/src/pixmap.rs",
+            "read_ranges_as_recorded": [
+              [
+                385,
+                430
+              ]
+            ],
+            "source_context": {
+              "source_id": "native-dependency:tiny-skia-0.11.4/src/pixmap.rs",
+              "sha256": "a7845a931a40b5b24eaa24b6053121e61bfe8b3fffa4c0db89f58c368fb9bc56",
+              "read_ranges": [
+                [
+                  385,
+                  430
+                ]
+              ],
+              "scope": "actual PixmapRef encode demultiply\u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122PNG Encoder/write_header/write_image_data native bytes and IO source edge"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1465,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          155,
+          182
+        ],
+        [
+          385,
+          439
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Debug PixmapRef",
+          "lines": [
+            430,
+            438
+          ],
+          "disposition": "retain redacted dataellipsis andcomputedwidth/height view, Debugderivewoulddumpdifferentdata/size structure"
+        }
+      ],
+      "necessary_signature_extension": {
+        "ranges": [
+          [
+            431,
+            439
+          ]
+        ],
+        "reason": "OriginalmaterialendedatDebugimplheader430; exactfmtbodynecessarytodistinguishredactedviewfromstructuralderive."
+      }
+    },
+    {
+      "scope_index": 27,
+      "source_id": "native-dependency:wgpu-29.0.4/src/api/buffer.rs",
+      "sha256": "c7d2c13d8031a9416d5562ec970a46470da331544d3a5e15bc8fb7dae2a9de32",
+      "actual_EOF": 1121,
+      "requested_registration": {
+        "source_id": "native-dependency:wgpu-29.0.4/src/api/buffer.rs",
+        "snapshot": "native-dependency",
+        "path": "CARGO_REGISTRY/wgpu-29.0.4/src/api/buffer.rs",
+        "sha256": "c7d2c13d8031a9416d5562ec970a46470da331544d3a5e15bc8fb7dae2a9de32",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 44446,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 69,
+            "read_ranges": [
+              [
+                835,
+                880
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-NATIVE-CAUSE-023"
+            ],
+            "read_status": "current-lens-exact-native-cause-definition-and-trait-ranges-read",
+            "resolved_path": "CARGO_REGISTRY/wgpu-29.0.4/src/api/buffer.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1452,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          835,
+          880
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Display/Error BufferAsyncError",
+          "lines": [
+            854,
+            860
+          ],
+          "disposition": "retain fixedsemanticmessage andsmallmarker; mechanicalClone/Eq/Debugalreadyderived, no nativeavailableDisplay/Errorderive proven"
+        }
+      ]
+    },
+    {
+      "scope_index": 28,
+      "source_id": "native-dependency:wgpu-29.0.4/src/api/device.rs",
+      "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+      "actual_EOF": 877,
+      "requested_registration": {
+        "source_id": "native-dependency:wgpu-29.0.4/src/api/device.rs",
+        "snapshot": "native-dependency",
+        "path": "CARGO_REGISTRY/wgpu-29.0.4/src/api/device.rs",
+        "sha256": "e79012fa7e520c9a87a25c3779e4d279d18090c8784a57d76673830a5d81e260",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 32771,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 70,
+            "read_ranges": [
+              [
+                685,
+                750
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-NATIVE-CAUSE-023"
+            ],
+            "read_status": "current-lens-exact-native-cause-definition-and-trait-ranges-read",
+            "resolved_path": "CARGO_REGISTRY/wgpu-29.0.4/src/api/device.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1453,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          685,
+          754
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Display/Error RequestDeviceError",
+          "lines": [
+            719,
+            745
+          ],
+          "disposition": "retaincfgvariant formatting andsource forwardsinnerError.source ratherthanwrappinginneritself; transparentErrorderive notautomaticallysamechain"
+        },
+        {
+          "trait": "From<CoreRequestDeviceError>",
+          "lines": [
+            748,
+            754
+          ],
+          "disposition": "retaincfgCore variant wrapping; no same-layoutFromderive ordinarystruct"
+        }
+      ],
+      "necessary_signature_extension": {
+        "ranges": [
+          [
+            751,
+            754
+          ]
+        ],
+        "reason": "CompleteactualCoreFrombodystartedat748\u2013750; no wholedevicefilecredit."
+      }
+    },
+    {
+      "scope_index": 29,
+      "source_id": "native-dependency:wgpu-29.0.4/src/api/surface.rs",
+      "sha256": "c66e417d97814893f1293cd0f5e5e11443101a7aa3df4ffa0004f49079bb70b5",
+      "actual_EOF": 517,
+      "requested_registration": {
+        "source_id": "native-dependency:wgpu-29.0.4/src/api/surface.rs",
+        "snapshot": "native-dependency",
+        "path": "CARGO_REGISTRY/wgpu-29.0.4/src/api/surface.rs",
+        "sha256": "c66e417d97814893f1293cd0f5e5e11443101a7aa3df4ffa0004f49079bb70b5",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 19946,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 71,
+            "read_ranges": [
+              [
+                430,
+                505
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-NATIVE-CAUSE-023"
+            ],
+            "read_status": "current-lens-exact-native-cause-definition-and-trait-ranges-read",
+            "resolved_path": "CARGO_REGISTRY/wgpu-29.0.4/src/api/surface.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1454,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          430,
+          509
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Display/Error CreateSurfaceError",
+          "lines": [
+            485,
+            508
+          ],
+          "disposition": "retaincfgbackend/rawhandle formatting/source delegation andstdfeatureNonebranch, no deriveequivalence fromdisplayalone"
+        }
+      ],
+      "necessary_signature_extension": {
+        "ranges": [
+          [
+            506,
+            509
+          ]
+        ],
+        "reason": "CompleteactualError::source matchclosingcurrentrawhandlecfgbranch."
+      }
+    },
+    {
+      "scope_index": 30,
+      "source_id": "native-dependency:wgpu-types-29.0.4/src/adapter.rs",
+      "sha256": "27486df080a81f4a668f47b4f68f1eb5b2fc72f14b51175db2fd678e0f5b7085",
+      "actual_EOF": 301,
+      "requested_registration": {
+        "source_id": "native-dependency:wgpu-types-29.0.4/src/adapter.rs",
+        "snapshot": "native-dependency",
+        "path": "CARGO_REGISTRY/wgpu-types-29.0.4/src/adapter.rs",
+        "sha256": "27486df080a81f4a668f47b4f68f1eb5b2fc72f14b51175db2fd678e0f5b7085",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 11637,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 72,
+            "read_ranges": [
+              [
+                175,
+                300
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-NATIVE-CAUSE-023"
+            ],
+            "read_status": "current-lens-exact-native-cause-definition-and-trait-ranges-read",
+            "resolved_path": "CARGO_REGISTRY/wgpu-types-29.0.4/src/adapter.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1455,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          175,
+          300
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Error RequestAdapterError",
+          "lines": [
+            214,
+            214
+          ],
+          "disposition": "retain smallmarker"
+        },
+        {
+          "trait": "Display RequestAdapterError",
+          "lines": [
+            215,
+            262
+          ],
+          "disposition": "retainprioritizedper-backenddiagnosis andNoop/customenvironmentpolicy, notmechanicalenumdisplay"
+        }
+      ]
+    },
+    {
+      "scope_index": 31,
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/components.rs",
+      "sha256": "e2053ee2dbf1a837b1a4e80d2d2afa22c0ecc2231bf586041222082971b9cbea",
+      "actual_EOF": 193,
+      "requested_registration": {
+        "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/components.rs",
+        "snapshot": "native",
+        "path": "LOCAL_PATH_REDACTED",
+        "sha256": "e2053ee2dbf1a837b1a4e80d2d2afa22c0ecc2231bf586041222082971b9cbea",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 5033,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 158,
+            "read_ranges": [
+              [
+                1,
+                193
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-EIDOLON-LITTER-055"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "LOCAL_PATH_REDACTED"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1517,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          193
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Debug InstanceMaterialData",
+          "lines": [
+            78,
+            86
+          ],
+          "disposition": "retaininstancescountsummary vsfulldata; structuralDebugnot equivalent"
+        },
+        {
+          "trait": "Sync/ExtractComponent InstanceMaterialData",
+          "lines": [
+            88,
+            102
+          ],
+          "disposition": "retaincustomquerytuple/filter/out tuple,data+GlobalTransform+Aabb; existingExtractComponentderivealwaysQueryData&Self/OutSelf not equivalent"
+        },
+        {
+          "trait": "From<&InstanceMaterialData> InstanceUniforms",
+          "lines": [
+            139,
+            148
+          ],
+          "disposition": "retainborrowedcolor/range withMAXextent sentinel anddefaultotherfields, notdirectfieldcopy"
+        },
+        {
+          "trait": "Sync/ExtractComponent MaterialBindGroupData<M>",
+          "lines": [
+            171,
+            187
+          ],
+          "disposition": "retainexactgenericbounds; actualmacro inspectedgeneratesbothimplsunderSelf:Clone, existingmanualSync isunconditionalwhileExtract requiresDataEqHashCloneSendSyncstatic. Plainderive changesavailability."
+        }
+      ]
+    },
+    {
+      "scope_index": 32,
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/cull/bindings.wgsl",
+      "sha256": "31551b31caac91e5decc47ac147154bba899d469dad8c0113e0a476ae53dc7d4",
+      "actual_EOF": 12,
+      "requested_registration": {
+        "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/cull/bindings.wgsl",
+        "snapshot": "native",
+        "path": "LOCAL_PATH_REDACTED",
+        "sha256": "31551b31caac91e5decc47ac147154bba899d469dad8c0113e0a476ae53dc7d4",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 668,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 164,
+            "read_ranges": [
+              [
+                1,
+                12
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-EIDOLON-LITTER-055"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "LOCAL_PATH_REDACTED"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1523,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          12
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "EntireexactWGSL import/binding/layout declaration source personallyread; shaderlanguage hasnoRusttraitimpl orSerdeimplementation toderive. No unrelatedhostinterfaceclearance."
+    },
+    {
+      "scope_index": 33,
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/cull/resources.rs",
+      "sha256": "bedf4e9e3cb681d6cd4ef75b146537e8e2c4876cad464addd82ba0bc5cdc83ab",
+      "actual_EOF": 18,
+      "requested_registration": {
+        "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/cull/resources.rs",
+        "snapshot": "native",
+        "path": "LOCAL_PATH_REDACTED",
+        "sha256": "bedf4e9e3cb681d6cd4ef75b146537e8e2c4876cad464addd82ba0bc5cdc83ab",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 414,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 163,
+            "read_ranges": [
+              [
+                1,
+                18
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-EIDOLON-LITTER-055"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "LOCAL_PATH_REDACTED"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1522,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Entire18-lineRustdeclaration source personallyread, CameraCullDataalreadyderivesClone/Copy/Pod/Zeroable/Default/ShaderType andGlobalCullBufferResource; nohandwrittenimpl."
+    },
+    {
+      "scope_index": 34,
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/cull/types.wgsl",
+      "sha256": "63c3f55c90686a73788212c94f4d979fd2bc3240dd143c6b5e778d949d68fd65",
+      "actual_EOF": 37,
+      "requested_registration": {
+        "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/cull/types.wgsl",
+        "snapshot": "native",
+        "path": "LOCAL_PATH_REDACTED",
+        "sha256": "63c3f55c90686a73788212c94f4d979fd2bc3240dd143c6b5e778d949d68fd65",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 728,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 165,
+            "read_ranges": [
+              [
+                1,
+                37
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-EIDOLON-LITTER-055"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "LOCAL_PATH_REDACTED"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1524,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "EntireexactWGSL import/binding/layout declaration source personallyread; shaderlanguage hasnoRusttraitimpl orSerdeimplementation toderive. No unrelatedhostinterfaceclearance."
+    },
+    {
+      "scope_index": 35,
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/bindings.wgsl",
+      "sha256": "8fdf638edbf13ddc04a1a8392f3b873ec730f86f085522de471108c623ac129b",
+      "actual_EOF": 6,
+      "requested_registration": {
+        "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/bindings.wgsl",
+        "snapshot": "native",
+        "path": "LOCAL_PATH_REDACTED",
+        "sha256": "8fdf638edbf13ddc04a1a8392f3b873ec730f86f085522de471108c623ac129b",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 275,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 160,
+            "read_ranges": [
+              [
+                1,
+                6
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-EIDOLON-LITTER-055"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "LOCAL_PATH_REDACTED"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1519,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          6
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "EntireexactWGSL import/binding/layout declaration source personallyread; shaderlanguage hasnoRusttraitimpl orSerdeimplementation toderive. No unrelatedhostinterfaceclearance."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Native graphics error and redacted diagnostic implementations",
+      "evidence": "Exactmaterial26\u201330readplusminimaltraitbodyclosures. DebugPixmapRef omitsbytes,RequestDevice/CreateSurface source skipswrapperanddelegatesunderfeaturecfg,RequestAdapterDisplaychoosesper-backenddiagnosispriority. Thesearesemantic/diagnosticcontracts alreadyinventoried separately; othermechanicaltraitsarealreadyderived.",
+      "derive_comparison": "BuiltinDebug/Serde changesoutput/behavior, notvaliddisplayreplacement. Noverifiedexistingforeignerror-derive equivalent exactcfgcausechain, so retainnecessarymanualimpls ratherthanchangeSDKdependencies.",
+      "acceptance": "Preserveborrowedmessageformat/sourcechain/redactionandactualcfgno-backend branches; no automatictransparenterrorchainornewserialization."
+    },
+    {
+      "contract": "Exact existing ExtractComponent macro comparison closes native generic proposal",
+      "evidence": "Eidoloncomponents193fullread. ExistingmechanicalFrom/Into/Deref/Reflect/Pod/ShaderType/Defaultderivesactive. MaterialData Debugsummarizeslen, customExtractownsqueryfilterandtupleoutput. Directmacrodependencyfull76 andexport/docs27\u201362read: macroalwaysQueryData&Self/OutSelf/filterattr andemitsSyncComponentplusExtractwithSelf:Clone; defaulttargetSelf. DirectInstancedMaterialtrait1\u201370 andAsBindGroup::Data500\u2013504read, exactpackage/source provenancefile005.",
+      "disposition": "No equivalentderive recommendation forMaterialBindGroupData: existingunconditionalSync andmoreconstrainedExtract aredifferentimplementationdomains; simplederivewouldchangebounds. Keepnecessarymanualadapters.",
+      "qualification": "Source-backedcomparisononly, no nativepackagebuild/test. Freshdependenciesonlynamedranges; no wholeBevy/Eidoloncoverage. DeclarativeWGSL/nativeheaderroles32\u201335 explicitlyenumerated, notsearch-onlynone.",
+      "acceptance": "Anyderive replacement mustpreserveSync/Extract availability, associatedquery/filter/outputtypes andborrowed/ownedconversion semantics, exactnativeABI/cohorts andpayloadsummary policy."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 36,
+    "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/io_types.wgsl"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

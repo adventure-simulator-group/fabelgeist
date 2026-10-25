@@ -1,0 +1,31 @@
+{
+  "id": "CAMERA-ADM03-SATS-BASISPOINTS-001",
+  "at": "2026-10-22T05:51:06.051518+00:00",
+  "active_lens": "audit-admission-contracts",
+  "subject": "PRworld-schema basis_points Unit/SignedUnitBasisPoints feature-gated SpacetimeType decoding",
+  "source_registration_refs": [
+    "CAMERA-ADM03-REG-001",
+    "CAMERA-ADM03-REG-002",
+    "CAMERA-ADM03-REG-003"
+  ],
+  "actual_route": [
+    "macro lib278\u2013293 SpacetimeType invokes sats_derive and derive_deserialize287 independently of Serde",
+    "lib251\u2013265 parse input; sats54\u201368 extracts struct fields including private names/types into Product",
+    "sats98\u2013143 only sats(crate/name) attribute customization; actual basispoint #[serde(transparent)] has no SATS validation effect",
+    "sats87\u201396 representation detector and295\u2013329 fastpath predicate: neither basispoint declaration has repr(C), so no unsafe primitive fastpath for these concrete types",
+    "sats331\u2013354 adds genericDeserialize bounds; actual structs nongeneric",
+    "sats359\u2013524 Product generates Deserialize400\u2013407 invoking product visitor; seq431\u2013436 decodes each primitive then Ok(Type{field:value}); named446\u2013465 same rawfield literal after missing/duplicate validation",
+    "validate_seq438\u2013443/validate_named467\u2013488 only primitivefield decoding/presence, not Unit/Signed bounds; no constructor/new callback",
+    "Actual privatefield visibility cannot stop generated impl emitted in type context. Seq rawu16=10001 or rawi16=\u221210001 reaches fieldliteral though checkednew rejects. No enum, reprCunsafe, table/reducer or wholeforeigngraph credit."
+  ],
+  "result": "Concrete separate SATS admission bypass established for these two actual structs; Serde bypass remains independently concrete.",
+  "connected_remedy": "Authoritative Unit/Signed numeric bound must govern every deserialize/validate route, including SATS; reconcile derives with explicit checked custom adapter or coherent boundaryrepresentation under schema authority. Do not assume Serde try_from repairs SATS generated field literals. Existing explicit saturating constructor remains deliberate. No compatibility path/new tests/source edits.",
+  "reusable_limit": "Other named-field structs using this exact pinned macro may reuse concrete generateProduct behavior after their actual declarations/attributes/invariants/currentroles are compared. Tuple/enum/othermacroversions not blanket covered.",
+  "pins": {
+    "lib.rs": "4ddcdb3edbf28ff93e4d013fa71135ce98698acc219481abaadf9a27005193ff",
+    "sats.rs": "bf26e6331c7cf9a560ecec507b5e06b11bc77460dec17ac0d553cff5278a5bc4"
+  },
+  "remaining_actual_adapter_obligation": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

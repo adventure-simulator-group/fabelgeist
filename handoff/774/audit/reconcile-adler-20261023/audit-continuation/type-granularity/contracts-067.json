@@ -1,0 +1,60 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-067",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "resident-identity-demography-service-and-observer-presence",
+      "sources": [
+        {
+          "scope_index": 253,
+          "ranges": [
+            [
+              1,
+              759
+            ]
+          ]
+        },
+        {
+          "scope_index": 254,
+          "ranges": [
+            [
+              1,
+              585
+            ]
+          ]
+        },
+        {
+          "scope_index": 255,
+          "ranges": [
+            [
+              1,
+              299
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "local774:M42",
+        "local774:M53",
+        "local774:M50",
+        "local774:M35",
+        "SEGO-INITIAL09-F157",
+        "SEGO-INITIAL09-F210"
+      ],
+      "disposition": "existing canonical resident and service migration support; useful semantic boundaries preserved",
+      "trace": "253 ResolvedSettlementResident joins canonical Character name/age and private personality sex/presentation; no second persisted person record. Backend projection deliberately exposes Presentation and AgeBand but omits private Sex and traversal ID. ResidentDraft254 owns typed sex/presentation, optional exact age and surname; finalizing household demographics occurs before insertion.255 PreparedResident constructs provider from business-or-service, passes conditional override to GenerationInput, then carries profile age to actual life age/name year; ordinary combinations are coherent, exact09F157. DefaultPresence typed selection25425\u201334 immediately drops to retained bool73 and native presence255261, exact09F210. Service endpoint None/Service wrapper25437\u201348 immediately projects Option text70; within M53 migration, retaining an optional canonical service value removes this duplicate Option-shaped carrier while preserving meaningful absence. Service role is broader than mapped storefront subset and must not reject unmapped physician/surgeon authorities. Stable resident seed text373\u2013384 is a generation coordinate hashed under distinct streams, not a general random Seed or another persistent person ID. BusinessId is already retained as canonical composite across native assignment387\u2013418.",
+      "qualifications": [
+        "AgeBand is a classification from exact age, not the exact birth coordinate or creation life state. Family exact ages and inherited surnames have source authority distinct from generic profile defaults; no ordinary mismatch or private demographic leak established.",
+        "Visible descriptive height/build/hair/profession/local role can be open prose; do not turn every actual label into a closed enum. Branches on canonical provider/service roles need typed identity through internal helpers rather than infer profession from mutable text.",
+        "Provider may come from business with no canonical service endpoint: no forced equivalence provider==service.is_some. Additional businesses deliberately map to generic venue without owning first canonical service slot.",
+        "PreparedResident.age_band duplicates profile.age in current construction; a direct projection is possible locally, but no independently proven drift or discrete repair finding is asserted. No arbitrary layer of wrappers for cached read-only local facts.",
+        "DailyPresenceWindow can end at1440, while MinuteOfDay denotes0..1439. Provider schedule255251 covers full day; preserve end-coordinate distinction, wrap overnight and interval boundary rules rather than reuse a narrower owner by spelling.",
+        "Observed scheduled presence253487\u2013511 explicitly binds observer frontier and exact canonical place; duration-only availability517\u2013553 intentionally does not construct observer-scoped presence. Context suppression and health suppression are independent causes; actual historical reconstruction prevents using latest flags for lagging observers.",
+        "Current private factories and retry checks are positive evidence. Historical generation explanation retains original input/profile, not current resident authority. Fixture source read only; no generation/reducer/test execution."
+      ],
+      "acceptance": "Retain canonical age/presentation, meaningful exact-age/name/identity and service-role distinctions through actual producer/consumer boundaries. Preserve privacy, source draw bytes/order, business identity, deliberate optional service and daily-endpoint semantics without redundant Option enums or universal person records."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

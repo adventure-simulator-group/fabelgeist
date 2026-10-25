@@ -1,0 +1,60 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-566",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/strategic-web/src/routes/settlements/rest.rs",
+      "sha256": "c28f905d16256a1947973448f3c88a630b140b67d3fe9cbcc77554cf9082d04d",
+      "actual_EOF": 840,
+      "actual_compared_ranges": [
+        [
+          1,
+          840
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Rest requested duration arithmetic rejects unsupported intervals before mutation while retaining meaningful zero/range/error policy.",
+      "evidence": "Full840 read. hoursHH:MM checksminutefield2ASCIIdigits/<60 and checkedhours*60+minutes, optionalrequested mustmatch; daysusesaturatingday*1440, but bothpublicsettlement/traveladapters rejectabovefixedmax, so saturationdoesnotadmitoverflowMAX. Settlement>=day/travel>0 separateintentionalbounds. NativeRestForm stringboundariesandtypedRestDurationError retaincause, canonicalservice/SATS enumforwarded.",
+      "qualifications": "No parser/test/backendrun. parsed_rest_minutesrawhelper intentionallydoesnotenforcemax; actualtwoadaptersdo. minunitfallbacklogging doesnotaffectadmission. No mechanicalnewdurationowner beforecanonicalrestcontracts."
+    },
+    {
+      "contract": "Post-rest summary is observation delta with required input/error distinction and sufficient arithmetic range.",
+      "evidence": "before/afterstate separatelyqueried aroundcommittedreducer; query_single erasesErrintoNone, inventoryerror=>empty, missingtime=>summaryminutes0 andmissinglimbs/skills=>emptydeltas. This extends existingrequiredobservationcausegraph, not proof rested0. Currency totalu32sum mayoverflowmultiplefullrangequantities; reputationsignedi32subtractionbeforef32castcanoverflowoppositesignextremes. Freshgeneratedexacttype read establishesi32, discharging earlierhypothesisordinarydecreasingu32underflow. Ordinaryreputationdecrease is signednegative deltaandvalid.",
+      "qualifications": "No currentinventoryaggregate>u32MAX or opposite-reputationextremes established; nativecapacity/APIarithmetic questions only. Need sourceadmission/actualordinaryproducerbeforepromoting. fullboardcost derivesrequestedminutes andadditionalfromnetcurrencychange, so grosscost/earnings interpretationrequirescanonicalsummarypolicy andactualfee/earnproducerproof; do not equate netdelta with transactionalreceipt.",
+      "acceptance": "Requiredavailableobservations/cause retained throughsummary; checked/wider count/difference arithmetic preservinglegitimatefullsourcewidths andsigneddecreases. Actualelapsed/fee/grossearnings meaningsexplicit atonecanonicalowner."
+    },
+    {
+      "contract": "Actions retain authoritative command result and actual navigation outcome without pretending local projections roll back mutation.",
+      "evidence": "Rest callErr returnsBADREQUESTgenericnotice, callOk rereadsandredirectscasesiteifinterrupted; successfulstatecouldbecommittedbeforelaterprojectionreadfailure. TravelExecuted/Requested HTTP204/202, navigationstreamcommittedstateactualsource. Forge recipecommaseparatedu8words checkednonempty beforecommand; true recipevalidationfinalreducer. Herbalistpaireditem/quantityonecall playeronly, successnoticeonlyafterOk.",
+      "qualifications": "Sourceonly, noHTTP/native/DBrun. Preparedcourses selfscope/policy intentional. BoundedformHTTPhelpers differfromcanonicalsemanticrecipeadmission; preserve actualowner/errorcause."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [
+    {
+      "source_id": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-client/src/character_settlement_reputation_type.rs",
+      "sha256": "fb0c3f00ff6ec75a99d6053871e23ef12e31108af4342f236de077e4d8f2e881",
+      "actual_EOF": 65,
+      "actual_compared_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "copy": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/fresh-dependencies/566/crates/adventuresim-stdb-client/src/character_settlement_reputation_type.rs",
+      "reason": "Exact generated backend reputation i32 field widths and codec; no source change or originalscope credit."
+    }
+  ],
+  "status": "1 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/strategic-web/src/routes/settlements/rest_preview.rs",
+  "later_qualification": {
+    "source": "parent /root own06 extension70 source evidence, not own04 sourcebody coverage",
+    "qualification": "Core reputation actual984:71\u201376 uses i64 arithmetic clamped0..REPUTATION_CAP100000. Opposite-i32-extreme summarydifference witness is discharged for rows produced exclusivelythroughthatpolicy. Module1179publication/admission+otherwriters mustestablishexclusivity beforedropping rawschema/APIqualification; SDKstillfulli32. No normal subtraction failure promoted."
+  }
+}

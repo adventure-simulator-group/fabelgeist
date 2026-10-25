@@ -1,0 +1,81 @@
+{
+  "id": "CONT07-CONTRACT-452",
+  "at": "2026-10-23T22:07:46.625197+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1982,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/export-city-scene.rs",
+      "sha256": "2b6ea6abaeb692db9921b48233e4e180f82d6db8b98c0b1d291d7d17e09ea770",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server-dispatcher/examples/export-city-scene.rs",
+      "actual_EOF": 176,
+      "ranges": [
+        [
+          1,
+          176
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1983,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect-city-grounding.rs",
+      "sha256": "a3f981ab45024c01871eb5257c9064a6b9f5d04b8dd36f80fba16b1f84a66e02",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server-dispatcher/examples/inspect-city-grounding.rs",
+      "actual_EOF": 328,
+      "ranges": [
+        [
+          1,
+          328
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1984,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/footprint.rs",
+      "sha256": "6215062b250f11105cb0d5603a4d7ee7bf1a731d0a6b485a05baa396672913ba",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/footprint.rs",
+      "actual_EOF": 153,
+      "ranges": [
+        [
+          1,
+          153
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1985,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/footprint/vista.rs",
+      "sha256": "afc09243786283c9ec9fbf8d0c66525bfae0998f3b4c10c3df6035813b8080b3",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/footprint/vista.rs",
+      "actual_EOF": 204,
+      "ranges": [
+        [
+          1,
+          204
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "1982 offline operators are explicit appearance fixtures, not current persistent residents. Absolute/lunar clocks intentionally share the requested offline minute in this producer; no live-clock equality assumed. Original source schema/inference and final terrain-purpose checks precede production capture. Repeated captured WGS ingress is current primitive propagation gap, not two independent geographic authority values.",
+    "1983 report compares exact retained program/floor versus deliberate counterfactual incorrect collider-bottom offset; alternate diagnostic value is not installed gameplay state. Terrace candidates are proposed states, not current floor authority. Explicit building selection permits a subset; absent/empty report handling differs from1977 but no universal all-buildings acceptance claim present.",
+    "1984 exact extrema routine reconstructs retained header-grid triangles even when actual height_at dispatches Owned support1905. Fresh public admitted-owned-tent witness proves a conditional diagnostic topology mismatch in F096: method can miss subgrid source vertices yet report complete header extent coverage. Existing source fixtures only cover Sampled terrain. This is distinct from F080/M64 selected vista cohort.",
+    "1985 vista extrema returns explicit clipped area rather than silently substituting playable/other LOD source, and shared morph helpers control heights. Vista a--c versus sampled b--d diagonal is deliberate. Fixture origin500 with small playable at0 does not exercise near playable seam at that offset; local/playable-origin relationship remains later actual source/renderer comparison question, no new proven finding here.",
+    "Supplemental fresh1819 settlement.rs1-230 and1822 settlement/tests.rs207-302 confirm accepted owned source is independent of retained metadata grid, query/mesh/collider dispatch same owned topology. No new unique original count from these already-covered source rereads."
+  ],
+  "new_local_findings": [
+    "CONT07-F096"
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1986,
+    "start_line": 1
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-930",
+  "at": "2026-10-25T17:16:02.327911+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1119,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/inventory_container.rs",
+  "sha256": "1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+  "actual_compared_ranges": [
+    [
+      1,
+      360
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "InventoryObject/InventoryContainment/ContainerLiquid already table+Clone/Debug. Prefix unique backing object lookup/insertion, checked carried/repair adapters, fireplace/nesting gates, deletion/reconciliation and subtree preflight consumed. Only native contextual functions; no handwritten trait/codec and raw From would bypass identity/custody admission.",
+  "first_unfinished": {
+    "scope_index": 1119,
+    "line": 361
+  },
+  "execution": "none"
+}

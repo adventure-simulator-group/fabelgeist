@@ -1,0 +1,78 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-006",
+  "at": "2026-10-24T02:35:26.375479+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 988,
+      "source_id": "pr-working:crates/adventuresim-core/src/settlement_economy.rs",
+      "sha256": "5ebaaf60d766322d2dc8bbd0cf1a54b0c790793a11d1d3f7b98e139861a3c54e",
+      "personally_read_ranges": [
+        [
+          1,
+          552
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Storefront availability is derived from the same profile service roster, while stock independently requires the category. Basic travel provisions deliberately bypass broader commodity stock in a visible market/inn; food-capable ingredients and cooking tools have explicit dual-role rules. Public id plus independently supplied CatalogKind can disagree, so a raw API can classify an item incorrectly; normal catalogue callers must be compared before claiming an ordinary trade error. NPC tabs bind actual availability, keep presence and standalone organization chapter together; no arbitrary location label is made navigable.",
+      "acceptance": "Retain canonical identities, source profile association, deterministic ordering and actual capacity/bridge policies through admitted records and receiving APIs. No new tests.",
+      "repair": "not started",
+      "validation": "source inspected; not run"
+    },
+    {
+      "scope_index": 989,
+      "source_id": "pr-working:crates/adventuresim-core/src/settlement_population.rs",
+      "sha256": "427a6f6e78d9b203d41f9186e0c4722a1622a9f1d3e2916b43e1b69b73ef601e",
+      "personally_read_ranges": [
+        [
+          1,
+          667
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Population choices filter hard zeros and required missing bridges, sort stable identities, build weights from those same entries and copy selected value and provenance together. Private candidate tables are bounded and small; products widen to u64. Optional planned age deliberately overrides the weighted age relation before age-dependent facts; service-provider input separately requires a profession override but missing service ID becomes explicit textual unknown provenance. Public input products can disagree; actual household/provider producers need correlation proof, not rejection of the documented planned-age route. Independent relation streams preserve deterministic entropy draws.",
+      "acceptance": "Retain canonical identities, source profile association, deterministic ordering and actual capacity/bridge policies through admitted records and receiving APIs. No new tests.",
+      "repair": "not started",
+      "validation": "source inspected; not run"
+    },
+    {
+      "scope_index": 992,
+      "source_id": "pr-working:crates/adventuresim-core/src/settlement_property.rs",
+      "sha256": "da9742eb9634c5f1b14cca267784dd6d55e2b08ff0434a6d1c265eaed145bdbf",
+      "personally_read_ranges": [
+        [
+          1,
+          226
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Home validation binds settlement, population, canonical building seed, unique property identity and its exact building ID. It rejects zero capacity, nonfinite pose and nonpositive extents, reserves exactly the first home in each tier and excludes that reserve from resident capacity. Allocation revalidates, admits unique nonempty positive family counts, checks total before narrowing, consumes same home capacity and fills the remaining abstract population. Greedy first-fit may conservatively reject a whole-family layout despite enough aggregate capacity; no promise of optimal bin packing or ordinary false failure established. Parsing produces a mutable raw catalogue; validation returns unit rather than sealing it. Exact ROOT-PP-017 owns retained pose/identity migration, with fresh aggregate support here.",
+      "acceptance": "Retain canonical identities, source profile association, deterministic ordering and actual capacity/bridge policies through admitted records and receiving APIs. No new tests.",
+      "repair": "not started",
+      "validation": "source inspected; not run"
+    },
+    {
+      "scope_index": 993,
+      "source_id": "pr-working:crates/adventuresim-core/src/settlement_property/tests.rs",
+      "sha256": "37706ca3f62b5b44d61a78f6ec146281ba11990c9a218f0182be06e9f23a2c3b",
+      "personally_read_ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "aggregate_trace_and_disposition": "All 99 fixture lines read: reject scope mismatch, duplicate property IDs and NaN dimensions; reserve supply excluded from housing; allocations conserve population and per-home capacity with vacant reserves; impossible family count/capacity fails. These existing source assertions are acceptance references, not executed evidence.",
+      "acceptance": "Retain canonical identities, source profile association, deterministic ordering and actual capacity/bridge policies through admitted records and receiving APIs. No new tests.",
+      "repair": "not started",
+      "validation": "source inspected; not run"
+    }
+  ],
+  "archive_aliases": [
+    {
+      "id": "ROOT-PP-017",
+      "source": "audit/records/final-acceptance-20261021/wave-01/audit-producer-propagation/root/findings.jsonl#17",
+      "relationship": "Same home identity/pose retained-record migration, now with whole aggregate validation/allocation support."
+    }
+  ],
+  "new_unique_findings": [],
+  "discovery": "With inherited findings and qualified API obligations; no clearance",
+  "repair": "not started",
+  "validation": "not run"
+}

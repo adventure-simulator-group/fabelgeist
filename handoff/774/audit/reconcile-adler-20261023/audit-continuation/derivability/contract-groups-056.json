@@ -1,0 +1,248 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-056",
+  "at": "2026-10-25T11:59:41.672848+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 162,
+      "source_id": "physical-p16:crates/adventuresim-core/src/weather.rs",
+      "sha256": "62c3d0b44fa30ce15dab8e231cc5ef90e631e633d9ef4ea34091c5c8c3f3fde9",
+      "actual_EOF": 958,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-core/src/weather.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-core/src/weather.rs",
+        "sha256": "62c3d0b44fa30ce15dab8e231cc5ef90e631e633d9ef4ea34091c5c8c3f3fde9",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 31155,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 104,
+            "read_ranges": [
+              [
+                1,
+                958
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-WEATHER-013"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/weather.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CONDITION-WEATHER-009",
+            "json_pointer": "/current_sources/2",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-core/src/weather.rs",
+            "read_ranges_as_recorded": [
+              [
+                170,
+                390
+              ],
+              [
+                590,
+                645
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-core/src/weather.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/weather.rs",
+              "sha256": "62c3d0b44fa30ce15dab8e231cc5ef90e631e633d9ef4ea34091c5c8c3f3fde9",
+              "ranges": [
+                [
+                  170,
+                  390
+                ],
+                [
+                  590,
+                  645
+                ]
+              ],
+              "read_kind": "fresh_actual_supplement_body"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1137,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          958
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Default for AtmosphericSnapshot",
+          "lines": [
+            83,
+            98
+          ],
+          "disposition": "KEEP semantic humidity5000/pressure10132 default with empty cloud layers, not derived native zero default."
+        },
+        {
+          "trait": "Default for WeatherSnapshot",
+          "lines": [
+            123,
+            139
+          ],
+          "disposition": "KEEP current rules version,10Ctemperature,clear precipitation and AtmosphericSnapshot semantic default; derived zeros would change policy."
+        }
+      ],
+      "existing_derives": [
+        "Precipitation and CloudForm structural/Default and snake_case Serialize/Deserialize, Precipitation conditional SpacetimeType",
+        "CloudLayerSnapshot structural/Default/Serialize/Deserialize",
+        "AtmosphericSnapshot/WeatherSnapshot structural/Serialize/Deserialize",
+        "IntervalWeather Clone/Copy"
+      ],
+      "absence_basis": "Full exactweather source including diagnostics/generation/ground/snow functions and fixtures personally consumed. Only manual traits are seeded semantic Defaults. Wire writing already derives and semantic record constructors calculate observations, not mechanical serialization."
+    },
+    {
+      "scope_index": 163,
+      "source_id": "physical-p16:crates/adventuresim-core/src/weather/field.rs",
+      "sha256": "8f11cdffeb39e9e0ca929c9cf3ac853b89c6d926c5bdd4d42c0ec9208e36cede",
+      "actual_EOF": 61,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-core/src/weather/field.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-core/src/weather/field.rs",
+        "sha256": "8f11cdffeb39e9e0ca929c9cf3ac853b89c6d926c5bdd4d42c0ec9208e36cede",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 2274,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 105,
+            "read_ranges": [
+              [
+                1,
+                61
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-WEATHER-013"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/weather/field.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1138,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full exactsource contains correlated lattice/random interpolation helpers only; no local type or handwritten trait."
+    },
+    {
+      "scope_index": 164,
+      "source_id": "physical-p16:crates/adventuresim-core/src/weather/streams.rs",
+      "sha256": "441a11bfce5d076e3dc78875c0f4bfbe8622178c5c1a4cba2c7e0077f5ea2ea8",
+      "actual_EOF": 11,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-core/src/weather/streams.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-core/src/weather/streams.rs",
+        "sha256": "441a11bfce5d076e3dc78875c0f4bfbe8622178c5c1a4cba2c7e0077f5ea2ea8",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 753,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 106,
+            "read_ranges": [
+              [
+                1,
+                11
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-WEATHER-013"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/weather/streams.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1139,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          11
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full exactsource contains named StreamId constants only; no local type or handwritten trait."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Weather observation wire derives versus meaningful defaults",
+      "disposition": "Retain semantic Defaults/current version and environmental calibration; no new lens10 finding.",
+      "acceptance": "Do not replace pressure/humidity/temperature/version defaults with native zeros; preserve existing wire attributes and no blanket raw construction/admission changes."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 165,
+    "source_id": "physical-p16:crates/adventuresim-dialogue/build.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

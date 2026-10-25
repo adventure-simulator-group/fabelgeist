@@ -1,0 +1,89 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-144",
+  "at": "2026-10-22T21:58:45.789310+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-039.json",
+    "sha256": "4fdfd266ef11592b221defd2fd358129e47d0f85558d3f19cc6efccdbba97728"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-038.json",
+    "sha256": "91f1797e466c99c071bfae18ecc0ae7828d2f9f4e91470bed4ce6febd8dfb2e6"
+  },
+  "new_variants": [
+    {
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation/procedural/rig.rs",
+      "sha256": "5da088286521af8e54c621b356ceb3fa949d3870c3748494352eda9016277bec",
+      "path": "SNAPSHOTS\\p17\\crates\\adventuresim-tactical-client\\src\\animation\\procedural\\rig.rs",
+      "snapshot": "report-p17",
+      "actual_line_count": 514,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          50,
+          79
+        ]
+      ],
+      "audit_owner": "rig",
+      "scope_registration": [
+        {
+          "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+          "sha256": "ca600af0baa8d39e1ba899b9a9a1e2d8cfa1a9783ebb90e742b4155bb1573a74",
+          "row_1based": 31,
+          "id": "RIG-INITIAL06-REG-031",
+          "original_record": {
+            "id": "RIG-INITIAL06-REG-031",
+            "at": "2026-10-22T21:56:42.711510+00:00",
+            "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+            "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation/procedural/rig.rs",
+            "snapshot": "report-p17",
+            "sha256": "5da088286521af8e54c621b356ceb3fa949d3870c3748494352eda9016277bec",
+            "actual_EOF": 514,
+            "resolved_path": "SNAPSHOTS\\p17\\crates\\adventuresim-tactical-client\\src\\animation\\procedural\\rig.rs",
+            "material_ranges": [
+              [
+                50,
+                79
+              ]
+            ],
+            "material_caller": "New globalP17report/bones6\u2013106 uses BoneRole as actual map key/report roster; existing scoped PRproceduralRig owner not automatic P17 declaration credit",
+            "reason": "Direct canonical used enum definition and derives only, syntax outline established endpoints; registered before body analysis",
+            "exclusions": "No authored rig binding/classification methods80+/native pose systems/tests; no whole514source credit",
+            "status": "Prospectively registered before body analysis; global pending"
+          }
+        }
+      ],
+      "scope_limits": "OnlyP17BoneRole enum+derive50-79; no80+bindings/classifier/posefunctions/tests orwhole514. Reportsubset17vsclosedenum27 meaningfulprojection, no PRhashverdictcarry.",
+      "source_lens_credit": "none from scope metadata"
+    }
+  ],
+  "new_overlays": [],
+  "total_variants": 2790,
+  "total_overlays": 224,
+  "mandatory_scope_qualifications": [
+    {
+      "record": "continuation/root/parallel-scope-qualification-130.json",
+      "sha256": "5dc4e5cd771612c7e050ab4af544411523317ae4b57738f1fb20f493685a50fc"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-117.json",
+      "sha256": "f3b80648900716939057b20776d756a6e37001f6910378da1a1bbaea230d348b"
+    }
+  ],
+  "registered_rows": 1,
+  "input_pins": [
+    {
+      "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+      "sha256": "ca600af0baa8d39e1ba899b9a9a1e2d8cfa1a9783ebb90e742b4155bb1573a74",
+      "captured_rows": 31,
+      "selected_ids": [
+        "RIG-INITIAL06-REG-031"
+      ]
+    }
+  ],
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through224-before039.jsonl",
+    "sha256": "8d8a2dcec70e77b4fb9429c5598d9d112c4f8adffba9bf1c553a5cb0b7fe1320",
+    "through": 224
+  },
+  "limits": "One newP17semanticBoneRole sourcevariant50-79, nooverlay/newposebody. Allpriorqualifiedroles SDK117/Bevy130 preserved. Allinitiallensesrequired beforeimplementation/projectexecution."
+}

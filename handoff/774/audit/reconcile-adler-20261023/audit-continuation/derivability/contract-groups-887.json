@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-887",
+  "at": "2026-10-25T17:10:25.482925+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1090,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/corpse.rs",
+  "sha256": "ae853a404a9463c18ad6bf2d0b06e86f6fc35061f88cd34e823fc3df0aebbc3f",
+  "actual_compared_ranges": [
+    [
+      1,
+      760
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Prior slice retained.361\u2013760 idempotent receipt keys, skill/discipline classification, realized injury/pathology findings, observer-scoped/burial-redacted public projection, enemy corpse snapshot and complete-body/pathology persistence consumed. AutopsyFindingKind structural derives already; native serde_json calls reuse snapshot codec, not a handwritten serializer. No handwritten traits/codecs in slice; no prior other-lens verdict transferred.",
+  "first_unfinished": {
+    "scope_index": 1090,
+    "line": 761
+  },
+  "execution": "none"
+}

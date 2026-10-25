@@ -1,0 +1,130 @@
+{
+  "id": "CONT08-CONTRACT-172",
+  "at": "2026-10-25T13:33:00.978750+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 675,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/viewer/player_build_scene.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/viewer/player_build_scene.rs",
+      "before_sha256": "d68cb8b9206234b010317faa212f96853e08a712d19e2bc67dfca81fbb035384",
+      "after_sha256": "d68cb8b9206234b010317faa212f96853e08a712d19e2bc67dfca81fbb035384",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0675-base-d68cb8b9206234b010317faa212f96853e08a712d19e2bc67dfca81fbb035384",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/d68cb8b9206234b010317faa212f96853e08a712d19e2bc67dfca81fbb035384",
+      "diff": "source-evidence/pr-0675.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          420
+        ]
+      ],
+      "facts": [
+        "Full420 and empty diff. Editor native floor/wall/stair/roof spawn order, per-storey context, first opening only on first freeform face, actual floor-presence wall reversal and origin offsets unchanged. Floor cuts use authored run and 1.90 clearance before .30 endpoint extension; subtraction yields four rectangles and omits <=.01 strips.",
+        "Visibility changed/added gating, hidden finished fachwerk/above-storey/wallDown, .24 ghost allocation and focus sum-before-half/unrotated local_half_size remain native. Rebuild despawns old entities before fallible setup and captures error, unchanged; not a new08 atomic replacement claim."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 676,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/windows.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/windows.rs",
+      "before_sha256": "ebb276b2f9852eb4cd3cf87b5582ac9f8e58c4b266f937bc5a84d0396b06ff76",
+      "after_sha256": "ebb276b2f9852eb4cd3cf87b5582ac9f8e58c4b266f937bc5a84d0396b06ff76",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0676-base-ebb276b2f9852eb4cd3cf87b5582ac9f8e58c4b266f937bc5a84d0396b06ff76",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/ebb276b2f9852eb4cd3cf87b5582ac9f8e58c4b266f937bc5a84d0396b06ff76",
+      "diff": "source-evidence/pr-0676.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          259
+        ]
+      ],
+      "facts": [
+        "Full259 and empty diff. Fixed bars independent state with width>=.9 three else2, original index/fraction/native frame no repair/source-bit identity; strict normalized tangent/outward gate retained. Operable eligibility, last duplicate solid-ID via BTreeMap then first selected supported closure by source list, errors and IDs unchanged.",
+        "Window leaf width/thickness projections, signed tangent hinge offset, .025 thickness clamp and .01 inward-probe\u2192signed80deg swing preserve operations. Native direction mapping and leaf owners independently bounded006/155. Exact seed0..19/42 inward-swing fixtures read, not run."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 677,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/windows/contract_tests.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/windows/contract_tests.rs",
+      "before_sha256": "e90e34c5bf132224c8fe4cf0e24b30950f9dab42abf14da6812e97d290a51c5d",
+      "after_sha256": "e90e34c5bf132224c8fe4cf0e24b30950f9dab42abf14da6812e97d290a51c5d",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0677-base-e90e34c5bf132224c8fe4cf0e24b30950f9dab42abf14da6812e97d290a51c5d",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/e90e34c5bf132224c8fe4cf0e24b30950f9dab42abf14da6812e97d290a51c5d",
+      "diff": "source-evidence/pr-0677.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          155
+        ]
+      ],
+      "facts": [
+        "Full155 and empty diff. Actual missing closure/ineligible fixed, zero frame, zero-height leaf, named bars wire and JSON/postcard rejected roles/directions, fixed degenerate glazing versus positive operable leaves retain inputs/oracles and source-ID errors; no fixture run."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 678,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/windows/leaf.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/windows/leaf.rs",
+      "before_sha256": "bea74075651588d26b629c3b43996d0c9fe8d76c47577b585af2b8e159488ffd",
+      "after_sha256": "bea74075651588d26b629c3b43996d0c9fe8d76c47577b585af2b8e159488ffd",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0678-base-bea74075651588d26b629c3b43996d0c9fe8d76c47577b585af2b8e159488ffd",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/bea74075651588d26b629c3b43996d0c9fe8d76c47577b585af2b8e159488ffd",
+      "diff": "source-evidence/pr-0678.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "facts": [
+        "Full150 and empty diff. Native .19 pitch ceil counts, shutter board widths minus.002, strap/came/side order, operable-only catches and shared Builder.into_meshes error retained. Tiny custom shutter may retain invalid derived strip; no newly introduced minimum inferred. Fixed degenerate glazing path remains allowed by cuboid owner155; source material fixtures read not rendered."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    },
+    {
+      "scope_index": 679,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/windows/spec.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/windows/spec.rs",
+      "before_sha256": "eb5e21dfb8d7915e6e7a3f3c39ee3ee3e9f0a91b5c3604972180918ca488234b",
+      "after_sha256": "eb5e21dfb8d7915e6e7a3f3c39ee3ee3e9f0a91b5c3604972180918ca488234b",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0679-base-eb5e21dfb8d7915e6e7a3f3c39ee3ee3e9f0a91b5c3604972180918ca488234b",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/eb5e21dfb8d7915e6e7a3f3c39ee3ee3e9f0a91b5c3604972180918ca488234b",
+      "diff": "source-evidence/pr-0679.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          147
+        ]
+      ],
+      "facts": [
+        "Full147 and empty diff. Window/bar field order and native intermediate wire schemas retain leaf-kind, bar-presence enum, positions/positive leaf or cuboid, unwrapped angles and normalized directions. Deserialize admits position\u2192hinge\u2192size\u2192yaw\u2192tangent\u2192outward\u2192angle with exact opening/source error wrapper; leaf admission does not prove inward swing or cross-field coherence."
+      ],
+      "disposition": "Own08 source-local comparison accounted with existing bounded155 common owner proof; no whole inventory clearance.",
+      "acceptance": "Preserve exact native error/wire/geometry/UV/order contracts and existing fixture inputs/oracles; no tests or project checks run."
+    }
+  ],
+  "next": "680 character_creator Cargo.lock scoped changed dependencies then681+"
+}

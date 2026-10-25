@@ -1,0 +1,330 @@
+{
+  "id": "RIG-NATIVE20-ADM03-COMPLETION-001",
+  "at": "2026-10-22T18:23:04.233408+00:00",
+  "authority": {
+    "record": "root/admission03/support-authority-071.json",
+    "sha256": "17b40424c89df7ff108668b356e1ff5dbdde8e30de9d5e7c51e699f9435b873c"
+  },
+  "queue": {
+    "record": "admission03-queue-v002/camera_rig_native20.json",
+    "sha256": "a6b79c6ff98fbdfb664afc235cfa8c3f1179e9b3ea0b3b74db703af7ffb23e0e"
+  },
+  "lens": "audit-admission-contracts",
+  "disposition": "EXACT_ASSIGNED_20_SOURCE_ROLES_COMPLETE_WITH_FINDINGS; supplier evidence only",
+  "count": 20,
+  "manifest": [
+    {
+      "id": "RIG-NATIVE20-ADM03-506",
+      "camera_queue_index": 506,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/corpse.rs",
+      "sha256": "ae853a404a9463c18ad6bf2d0b06e86f6fc35061f88cd34e823fc3df0aebbc3f",
+      "actual_read_ranges": [
+        [
+          1,
+          2121
+        ]
+      ],
+      "actual_eof": 2121,
+      "queue_pointer": "admission03-queue-v002/camera_rig_native20.json#/queue/0"
+    },
+    {
+      "id": "RIG-NATIVE20-ADM03-509",
+      "camera_queue_index": 509,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease.rs",
+      "sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+      "actual_read_ranges": [
+        [
+          1,
+          2950
+        ]
+      ],
+      "actual_eof": 2950,
+      "queue_pointer": "admission03-queue-v002/camera_rig_native20.json#/queue/1"
+    },
+    {
+      "id": "RIG-NATIVE20-ADM03-517",
+      "camera_queue_index": 517,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/authority_tests.rs",
+      "sha256": "f42fe8c6e10d816198aba42f752d418582a0bf4268aa0a21ba9b6e2116e3dab3",
+      "actual_read_ranges": [
+        [
+          1,
+          207
+        ]
+      ],
+      "actual_eof": 207,
+      "queue_pointer": "admission03-queue-v002/camera_rig_native20.json#/queue/2"
+    },
+    {
+      "id": "RIG-NATIVE20-ADM03-519",
+      "camera_queue_index": 519,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "sha256": "05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+      "actual_read_ranges": [
+        [
+          1,
+          868
+        ]
+      ],
+      "actual_eof": 868,
+      "queue_pointer": "admission03-queue-v002/camera_rig_native20.json#/queue/3"
+    },
+    {
+      "id": "RIG-NATIVE20-ADM03-520",
+      "camera_queue_index": 520,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/fireplace_custody.rs",
+      "sha256": "91a13115f15cf32eabd8971f881e1eb15a9177e089cc8e72d8c7ef0495cdb168",
+      "actual_read_ranges": [
+        [
+          1,
+          656
+        ]
+      ],
+      "actual_eof": 656,
+      "queue_pointer": "admission03-queue-v002/camera_rig_native20.json#/queue/4"
+    },
+    {
+      "id": "RIG-NATIVE20-ADM03-521",
+      "camera_queue_index": 521,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/ingredient_preparation.rs",
+      "sha256": "8424b8d20fe3619b57687d4e31b3715b141fe47d21a1f21d7c78ed11958c0b9f",
+      "actual_read_ranges": [
+        [
+          1,
+          652
+        ]
+      ],
+      "actual_eof": 652,
+      "queue_pointer": "admission03-queue-v002/camera_rig_native20.json#/queue/5"
+    },
+    {
+      "id": "RIG-NATIVE20-ADM03-525",
+      "camera_queue_index": 525,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/preparation_authority.rs",
+      "sha256": "4f06d127e8d7d358ded01b2d1b7eba9116644b53146a476dd780e98344689613",
+      "actual_read_ranges": [
+        [
+          1,
+          635
+        ]
+      ],
+      "actual_eof": 635,
+      "queue_pointer": "admission03-queue-v002/camera_rig_native20.json#/queue/6"
+    },
+    {
+      "id": "RIG-NATIVE20-ADM03-526",
+      "camera_queue_index": 526,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/projections.rs",
+      "sha256": "34432896548762546bb11a8ebc933ffe8ec596b120cafbedc81afa7ac38fdfa7",
+      "actual_read_ranges": [
+        [
+          1,
+          538
+        ]
+      ],
+      "actual_eof": 538,
+      "queue_pointer": "admission03-queue-v002/camera_rig_native20.json#/queue/7"
+    },
+    {
+      "id": "RIG-NATIVE20-ADM03-527",
+      "camera_queue_index": 527,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/tests/fireplace_and_cooking.rs",
+      "sha256": "acfc43dbdcea3d27f478885960da71bbc37353a0d5878d376458b05238464d6b",
+      "actual_read_ranges": [
+        [
+          1,
+          190
+        ]
+      ],
+      "actual_eof": 190,
+      "queue_pointer": "admission03-queue-v002/camera_rig_native20.json#/queue/8"
+    },
+    {
+      "id": "RIG-NATIVE20-ADM03-528",
+      "camera_queue_index": 528,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/tests/lots_and_consumption.rs",
+      "sha256": "6dc480ed2a4a6c22f394a7a310beb51b05331690975d1addcd802f0afb806164",
+      "actual_read_ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "actual_eof": 89,
+      "queue_pointer": "admission03-queue-v002/camera_rig_native20.json#/queue/9"
+    },
+    {
+      "id": "RIG-NATIVE20-ADM03-529",
+      "camera_queue_index": 529,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/tests/preparation.rs",
+      "sha256": "635ff9be462bb2f00748c6776bc4e15f232d69710185d948f770e9aa0af3159f",
+      "actual_read_ranges": [
+        [
+          1,
+          179
+        ]
+      ],
+      "actual_eof": 179,
+      "queue_pointer": "admission03-queue-v002/camera_rig_native20.json#/queue/10"
+    },
+    {
+      "id": "RIG-NATIVE20-ADM03-530",
+      "camera_queue_index": 530,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/foraging.rs",
+      "sha256": "be82a5ef7905b05d68bba4d61d5173cba6011c51ee8504da85d697bb2d80df84",
+      "actual_read_ranges": [
+        [
+          1,
+          1381
+        ]
+      ],
+      "actual_eof": 1381,
+      "queue_pointer": "admission03-queue-v002/camera_rig_native20.json#/queue/11"
+    },
+    {
+      "id": "RIG-NATIVE20-ADM03-532",
+      "camera_queue_index": 532,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/herbalism.rs",
+      "sha256": "22a0312534bd03b91e900595bd44d7bffe8b159545dfd65c8eccfe207f8cb0b8",
+      "actual_read_ranges": [
+        [
+          1,
+          600
+        ]
+      ],
+      "actual_eof": 600,
+      "queue_pointer": "admission03-queue-v002/camera_rig_native20.json#/queue/12"
+    },
+    {
+      "id": "RIG-NATIVE20-ADM03-535",
+      "camera_queue_index": 535,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "sha256": "1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+      "actual_read_ranges": [
+        [
+          1,
+          1451
+        ]
+      ],
+      "actual_eof": 1451,
+      "queue_pointer": "admission03-queue-v002/camera_rig_native20.json#/queue/13"
+    },
+    {
+      "id": "RIG-NATIVE20-ADM03-536",
+      "camera_queue_index": 536,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/actions.rs",
+      "sha256": "00ea04f41c3b01c494fc44e24a3bd5b3720d239de26a71f896d3841e2677fafd",
+      "actual_read_ranges": [
+        [
+          1,
+          1861
+        ]
+      ],
+      "actual_eof": 1861,
+      "queue_pointer": "admission03-queue-v002/camera_rig_native20.json#/queue/14"
+    },
+    {
+      "id": "RIG-NATIVE20-ADM03-539",
+      "camera_queue_index": 539,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/capabilities.rs",
+      "sha256": "6ef49eb46d226a645094323d9b637c290ec33b94068e634e865f3359188d2673",
+      "actual_read_ranges": [
+        [
+          1,
+          1343
+        ]
+      ],
+      "actual_eof": 1343,
+      "queue_pointer": "admission03-queue-v002/camera_rig_native20.json#/queue/15"
+    },
+    {
+      "id": "RIG-NATIVE20-ADM03-540",
+      "camera_queue_index": 540,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/claims.rs",
+      "sha256": "19ecf9355e0b4d4745fc425ac8c9f8f38f238fc9bb89dc91d4c2da28d0ec3c3a",
+      "actual_read_ranges": [
+        [
+          1,
+          1771
+        ]
+      ],
+      "actual_eof": 1771,
+      "queue_pointer": "admission03-queue-v002/camera_rig_native20.json#/queue/16"
+    },
+    {
+      "id": "RIG-NATIVE20-ADM03-543",
+      "camera_queue_index": 543,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/model.rs",
+      "sha256": "ce5e06fe7f483ecbd5c30af9a9475686d4c7acf147a8bb8de2e8a9e738211cb4",
+      "actual_read_ranges": [
+        [
+          1,
+          1399
+        ]
+      ],
+      "actual_eof": 1399,
+      "queue_pointer": "admission03-queue-v002/camera_rig_native20.json#/queue/17"
+    },
+    {
+      "id": "RIG-NATIVE20-ADM03-544",
+      "camera_queue_index": 544,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/projections.rs",
+      "sha256": "4277df1f4841a51dafe10f9ef950ca7dec6f434358cc8aa5a98f742766825102",
+      "actual_read_ranges": [
+        [
+          1,
+          1801
+        ]
+      ],
+      "actual_eof": 1801,
+      "queue_pointer": "admission03-queue-v002/camera_rig_native20.json#/queue/18"
+    },
+    {
+      "id": "RIG-NATIVE20-ADM03-546",
+      "camera_queue_index": 546,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/sites.rs",
+      "sha256": "f1b87ed586b1c651092b75de29d00b1717fdccca5ff4fa689e23a4295d1f119a",
+      "actual_read_ranges": [
+        [
+          1,
+          617
+        ]
+      ],
+      "actual_eof": 617,
+      "queue_pointer": "admission03-queue-v002/camera_rig_native20.json#/queue/19"
+    }
+  ],
+  "pins": {
+    "contracts.jsonl": "9626c0b189ecdd2fecf9b3156288889ee2c72d54670aedb1126dc737013847e8",
+    "coverage.jsonl": "cccfc953c6c053498dfd64d3b664d31bae0fa01f516ac86edc6fd529a86af5fe",
+    "findings.jsonl": "5b2a4e0d2d056cff8fcc1007ca2e16ece4ab617fca36e3b49ac41b8c274a7ce6",
+    "qualifications.jsonl": "f18079e4a5ef20cd3c1889309d9385f3a33c778f2a5f38309d3824a13081af59",
+    "clinical-admission-001.json": "3ac3fee4c8737b9889b904c129078f5cd9520b7dc7f2f15c72291c1e1e6938a3",
+    "camera-counterpart-witnesses-001.json": "b4c4b30293de38ea048e39a3c7e337c8e203e60d2b129938ad767a47f1ad80c3"
+  },
+  "findings": [
+    "RIG-NATIVE20-ADM03-F001: raw NaN mass bypasses exact50g tincture tolerance predicate; latent representable input, no actual bad row/whole transaction/runtime claim",
+    "RIG-NATIVE20-ADM03-F002: exact context-vs-manifest tuple misrouting; QUAL003 + Root078 now prove ordinary serialized no-override context fails GeneratedCase decode and omits modifier statically; developer/arbitrary overrides qualified"
+  ],
+  "qualification_refs": [
+    "QUAL001 exact private containment Core predicate versus actual DB mutations",
+    "QUAL002 actual pure foraging/preparation and corpse adapter current-role comparisons",
+    "QUAL003 actual ordinary serialization and existing validated authority product",
+    "clinical001 exact normal admin/component/fixture producers with public raw backend dose gap retained"
+  ],
+  "additional_scope_qualification": {
+    "record": "rig/admission03/source-registration-qualification-117.json",
+    "sha256": "006f3007f3d4eff6df9f0c18c34cb3010ec4108c6e61e2c71d26d9d63bd4572f"
+  },
+  "remaining_assigned_unread_source_roles": [],
+  "first_unfinished_assigned_source_role": null,
+  "shared_lower_limits": "All20 actual full scoped bodies and original tests read as source. Named dependencies inside immutable individual records remain exact delegated boundaries; clinical001 and QUAL001-003 explicitly close their described current obligations only. Core autopsy predicates, generation validation internals and SDK transaction behavior have separate supplier proofs; no wholesale graph clearance from calling helper. Existing raw fraction expect NativeF010/CameraF027 and raw clinical dose RootExtraF005 retained without unique finding duplication. Earlier partial clinical/counterpart pins describe historical prefixes, not current full-file pins.",
+  "acceptance_authority": "Camera final per-source audit acceptance; Root final global scope, claims/repair and all13 gate. No semantic credit from counts, hashes, source aliases or prior lens verdict. OriginalRig802/Root112/Camera162 immutable; no new source/repair ownership.",
+  "operations": {
+    "source_edits": 0,
+    "builds_tests_runtime": 0,
+    "new_cases_assertions_fixtures": 0,
+    "new_agents": 0,
+    "later_lens_credit": false
+  }
+}

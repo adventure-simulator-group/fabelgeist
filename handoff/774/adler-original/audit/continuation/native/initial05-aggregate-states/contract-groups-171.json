@@ -1,0 +1,71 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-171",
+  "at": "2026-10-23T04:08:03.357602+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/npc_policy.rs",
+      "sha256": "51c449efd5edf6380249bcc04ebf5a9a38cc9a1f20cab731e2bf80d6b958e18a",
+      "scope054_index": 124,
+      "actual_EOF": 296,
+      "scoped_ranges_compared": [
+        [
+          1,
+          296
+        ]
+      ],
+      "actual05_comparison": "Fresh actual PR full296, complete actual P16/PR diff empty and personal current policy record/current-role comparison, including all original fixtures; no DB truth guarantee from supplied booleans."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/npc_policy.rs",
+      "sha256": "51c449efd5edf6380249bcc04ebf5a9a38cc9a1f20cab731e2bf80d6b958e18a",
+      "scope054_index": 959,
+      "actual_EOF": 296,
+      "scoped_ranges_compared": [
+        [
+          1,
+          296
+        ]
+      ],
+      "actual05_comparison": "Fresh actual PR full296, complete actual P16/PR diff empty and personal current policy record/current-role comparison, including all original fixtures; no DB truth guarantee from supplied booleans."
+    }
+  ],
+  "contract_groups": [
+    {
+      "id": "canonical-bounded-npc-candidate-pool",
+      "comparison": "NpcCandidate public supplied snapshot permits any identity/Seed. stable_candidate_order95-120 sorts identity+seed, rejects conflicting seeds for SAME identity before dedup, identical duplicates collapse, domain-separated rank then identity tie, truncates16. Thus bounded immutable returned collection has unique identities and permutation-independent source-coordinate order; no actual alive/co-located/adult membership promise from pure helper. Individual Seed allword and actor/day coordinates preserved. Native RNG/rank projection receives actual fixed coordinates, not arbitrary entropy guarantee."
+    },
+    {
+      "id": "courtship-admission-summary",
+      "comparison": "NpcCourtshipEligibility ten supplied booleans intentionally summarized authority facts, not independent retained cache verified here. Requires six baseline facts before formal three-condition path, then informal threshold fallback; formal unavailable with informal allowed intentionally chooses informal, no contradictory payload states retained in output closedenum. Actual DB policy truth must be supplied by current authoritative scheduler; pure function cannot authenticate booleans. Existing fixtures reject nonNPC/kin/unattracted."
+    },
+    {
+      "id": "initial-saved-schedule",
+      "comparison": "Actual index5 native bounded draw generates0..4, social60+15*k in60..120; labor360, other Default schedule fields0. Quarterhour units and total<=480<=1440; Core DailySchedule rawpublic broader but actual returned normal schedule coherent. Saved once, not dynamic live summary; consumed03 saved gate proof retained only source facts not05verdict."
+    },
+    {
+      "id": "house-offer-affordability",
+      "comparison": "NpcHouseOffer rawrank/costs public. Filter uses saturating initial+recurring*1; normal finite sums enforce reserve and maxrank/cost tie deterministically, empty returnsNone. Saturation at availableMAX can admit unpayable total reserve, F039; no mutation/spending occurs in helper. Original nonoverflow fixtures positive evidence only, not universal reserve proof."
+    }
+  ],
+  "new_unique_findings": [
+    {
+      "id": "NATIVE-INITIAL05-F039",
+      "relationship": "Affordability must retain promised recurring reserve after initial purchase",
+      "source_refs": [
+        "physical-p16:crates/adventuresim-core/src/npc_policy.rs:140-154",
+        "pr-working:crates/adventuresim-core/src/npc_policy.rs:140-154"
+      ],
+      "counterexample": "available=u64::MAX, offer rank0 initial_cost=u64::MAX recurring_cost1 passes saturating_add <= available; paying initial leaves0, below recurring reserve1.",
+      "qualification": "Representable pure API weakness only; no normal NPC funds/offer producer bounds, ordinary bad house purchase, or executed behavior established. Fixed reserve periods1. Monetary fields all-u64 incl0 remain valid leaves.",
+      "connected_repair": "Admit checked combined cost/reserve or compare initial<=available then recurring<=available-initial. Preserve zero-cost offers, ranking and stable tie policy; no global cash cap.",
+      "acceptance": "Overflow cannot manufacture reserve affordability; same ordinary affordable set/rank remains. Source only, no new test cases/execution."
+    }
+  ],
+  "remaining_dependency_obligations": [
+    "Actual normal scheduler provides eligibility facts and bounded housing funds/offers; no inference of all DB authority from policy function."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

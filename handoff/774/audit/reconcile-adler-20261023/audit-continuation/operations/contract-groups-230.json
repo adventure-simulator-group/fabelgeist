@@ -1,0 +1,129 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-230",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/camera/smoothing.rs",
+      "sha256": "7a8b095a7fa6c14074686fd57c5fbfb86cafbc3e5fad5e78a0db2531b6c2d3f8",
+      "actual_EOF": 247,
+      "actual_compared_ranges": [
+        [
+          1,
+          247
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/debug.rs",
+      "sha256": "f86ccdaa306872d20b45f9b648814e7402ce790ec333f451406062e7ca0af0d7",
+      "actual_EOF": 341,
+      "actual_compared_ranges": [
+        [
+          1,
+          341
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/camera/smoothing.rs",
+      "sha256": "6f9948b9cd1412b7351a88e92a460780579e7d89ad0a9ae6bbfb4dd99102842a",
+      "actual_EOF": 269,
+      "actual_compared_ranges": [
+        [
+          1,
+          269
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/debug.rs",
+      "sha256": "95f141113d44f702b7ac4ae9db824785c6bc3340413a01f3e881b52fd26cdb33",
+      "actual_EOF": 376,
+      "actual_compared_ranges": [
+        [
+          1,
+          376
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Camera damping atomic replacement and computed viewport preconditions",
+      "source_ranges": {
+        "smoothing.rs": [
+          [
+            1,
+            247
+          ]
+        ],
+        "camera/config.rs": [
+          [
+            1,
+            134
+          ]
+        ],
+        "camera/values.rs": [
+          [
+            1,
+            91
+          ]
+        ]
+      },
+      "disposition": "Full exact P16 smoothing247/debug341 plus full actual PR deltas consumed. damp_focus extracts metres into local velocities, computes analytic filtering, then admits complete replacement Position/SceneVelocity before returning, so failed extreme computedfinite result is not published by this helper. Private critical_damp mutates provided rawvelocity, actual caller must still re-admit fullresult; finite leavesalone do not guarantee finite displacement/temp atMAX. Blend distance/offset/height/window results re-admitted; ResponseShapingTime checked_lerp owncontract. Sweetspot clamps BEFORE checkedoutputs and assumes nonnegative finite allowedextents; fresh public CameraProfile uses general SignedLength fordistance and raw native Projection metrics. Negative finite distance with ordinarypositivewindow/FOV causes reversedclamp panic; exact existing CAMERA-ADM03-F012 now personally analyzed in operations, not a new defect. Defaults are ordinarypositive3.75/2.75 and constantcheckedwindow; no actual badconfig/runtimeclaim. Preserve signed offsets/zeroboom/offscreendimensions>1; do not globallyforcePositiveLength/UnitInterval."
+    },
+    {
+      "contract": "Debug drawing and transient toggles",
+      "source_ranges": {
+        "debug.rs": [
+          [
+            1,
+            341
+          ]
+        ]
+      },
+      "disposition": "Toggle state changes fixedbool and uses actual quarter-speed request coefficient, no arbitrary rawtime scale. Screenshot millisname can collide for tworequests same millisecond, but naminguniqueness policy/tool only and no current overwrite demonstrated. Hit debug endpoint is origin+unitdirection*length; P16typed event ports versus PRraw ports retained, actual tactical physics handler ownsfinite/extent. BevyTimer2s yields boundedalpha fraction for easing and despawnsfinishedray; no durable gameplaystate mutation or generatedschema change. Gizmo offsets only display; extremefinite coordinate sums couldoverflow nativeGPUvector but do not corrupt authoritative stored bespokevalue here. Tests read not run."
+    }
+  ],
+  "findings": [
+    {
+      "existing": "audit/continuation/camera/admission03/findings.jsonl#13 CAMERA-ADM03-F012",
+      "support": "Fresh full exact smoothing body and actualpublicprofile/viewport/window owners confirm reversed clamp before fallible output; no ordinary badconfig/runtime assertion.",
+      "new_unique_claim": false
+    }
+  ],
+  "fresh_dependencies": [
+    {
+      "path": "physical-p16-unscoped-dependency/crates/adventuresim-tactical-client/src/camera/config.rs",
+      "git": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "7f2a817b53de8dc7665e181066779fdefe8f4a0484a62bc7399bd4bac23a6aaa",
+      "actually_read_ranges": [
+        [
+          1,
+          134
+        ]
+      ],
+      "coverage": "Fresh dependencyonly; no full originalrolecredit."
+    },
+    {
+      "path": "physical-p16-unscoped-dependency/crates/adventuresim-tactical-client/src/camera/values.rs",
+      "git": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "fb599db7ef1699dcd8c46a4f634724830dc2cf926d866b08d66831c3a5501f68",
+      "actually_read_ranges": [
+        [
+          1,
+          91
+        ]
+      ],
+      "coverage": "Fresh dependencyonly; no full originalrolecredit."
+    }
+  ],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-tactical-client/src/equipment.rs"
+}

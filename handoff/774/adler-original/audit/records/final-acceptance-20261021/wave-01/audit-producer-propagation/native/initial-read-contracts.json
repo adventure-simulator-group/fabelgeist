@@ -1,0 +1,954 @@
+[
+  {
+    "id": "calibration",
+    "meaning": "Authored geometric stride, stance residual and physical\u2192authored cycle mapping",
+    "canonical_owners": [
+      "NonnegativeLength",
+      "SignedLength",
+      "CyclePhase/CycleDelta",
+      "AuthoredStrideMeasurement",
+      "AuthoredPhaseCurve",
+      "CalibrationInputs"
+    ],
+    "producer": "Bevy AnimationClip Transform sampling and CalibrationAxis::component; contact_segments/contactorientation/fittedspan/fit_stride; measured leaves stored in AuthoredLocomotionStrides/CharacterLocomotionStrides",
+    "admission": "Native position finite checks; checked signed component; BakedGrid nonemptyaligned; checked increasing physicalspan; phase seam; finite nonnegative measured stride/slip",
+    "operations": "Native ordered leastsquares/heightband/weightedmean and atomicconvolution; new computed leaves admitted; no unchangedleaf re-admission",
+    "receiving_paths": [
+      "reference/characterstride cache\u2192CalibrationLookup.for_actor\u2192AuthoredLocomotionStrides.ordinary/combat\u2192apply_authored_cadence\u2192StepCadence selection\u2192CycleDelta\u2192PresentedSkeleton.gaitphase",
+      "phasecurve\u2192sample_phase\u2192PoseSampleResolver sampling time (receiverpending)"
+    ],
+    "actual_endpoints_read": [
+      "BakedClip.sample native interpolation and AnimationClip.sample_clamped",
+      "presentation/cadence retains checkedphase; later rendering endpoints read inposebackend"
+    ],
+    "findings": [
+      "NATIVE-PP-005"
+    ],
+    "pending": [
+      "core cadencebound owner source132",
+      "resolver sampling source85-86",
+      "config leaf owner sources133,154,153"
+    ],
+    "discovery_status": "incomplete; only listed concrete receiving bodies inspected"
+  },
+  {
+    "id": "catalogue",
+    "meaning": "Authored animation pack/motion/frame/asset path identity",
+    "canonical_owners": [
+      "AnimationPackId",
+      "SkeletonFamily",
+      "MotionId",
+      "MotionKey",
+      "AuthoredAnimationFrame",
+      "AnimationAssetDirectory/Path"
+    ],
+    "producer": "Builtin authoredtypedentries\u2192PackBuilder; MotionId/Directory TryFrom externalstrings",
+    "admission": "Stem/path checks and typed PackLibrary validation; frames intrinsicu16bound; catalogue pose references checked bybuilder",
+    "retained_state": "PackCatalog typed maps, MotionSource typedpath/frames, Runtime requestedtypedkeys/LoadedClip",
+    "operations": "Mirrored name appending preservescheckedstem; typedkey lookup; frame\u2192seconds native rate division returningClipTime",
+    "receiving_paths": [
+      "assetpath\u2192animation_asset_path\u2192Bevy AssetServer typedhandles\u2192MotionClipAdmission\u2192LoadedClip",
+      "pack/pose\u2192library.resolve\u2192ResolvedAnchor\u2192PoseSampleResolver",
+      "editorfixture nativefilesystemPaths and humanerrorformat"
+    ],
+    "actual_endpoints_read": [
+      "Bevy AssetPath conversion and load_untyped_async",
+      "nativePath.join/is_file fixture and humanerrors"
+    ],
+    "pending": [
+      "core PackLibrary owner150",
+      "resolver bodies85-86",
+      "weightedclip97"
+    ],
+    "discovery_status": "incomplete; only listed concrete receiving bodies inspected"
+  },
+  {
+    "id": "revision",
+    "meaning": "Native asset revision invalidation of availability and derived pose/calibration state",
+    "canonical_owners": [
+      "AssetId<AnimationClip/Gltf>",
+      "MotionKey",
+      "MotionLoad"
+    ],
+    "producer": "Bevy AssetEvent/AssetLoadFailedEvent/Assets change callback",
+    "admission": "Native firstparty generic AssetId stays typed; observed path uses AssetServer authority",
+    "retained_state": "ChangedAnimationAssets typedsets,requestedMotion handles,banktypedkeys,measuredcliptypedmap,plan AssetId keys",
+    "operations": "invalidate_asset typed comparisons; motion/grip deletion; calibration clear; planNoneforcesresample",
+    "receiving_paths": [
+      "RevisionEvents.read\u2192refresh_animation_revisions\u2192BakedClipBank.invalidate_assets/AuthoredLocomotionStrides.invalidate_assets/CharacterLocomotionStrides/PoseBufferRig.invalidate_clip_revisions\u2192rebuild_loaded_library\u2192samplebackend"
+    ],
+    "actual_endpoints_read": [
+      "All listed invalidation method bodies except downstreamlibrary coreowner; no primitiveAssetId encoding inthispath"
+    ],
+    "pending": [
+      "corelibraryvalidationowner150; full finalresolver afterrevisions"
+    ],
+    "discovery_status": "incomplete; only listed concrete receiving bodies inspected"
+  },
+  {
+    "id": "bind-transform",
+    "meaning": "Authored native scene transform and admitted rig identity mapping",
+    "canonical_owners": [
+      "Bevy Transform/Entity/AnimationTargetId",
+      "AuthoredBindTransform",
+      "AuthoredRigJoint",
+      "RigJointName/RigJointOrdinal/RigJointTable"
+    ],
+    "producer": "Added<Transform> undernative rigroot; nativeName paths\u2192AnimationTargetId/AuthoredRigJoint",
+    "retained_state": "AuthoredBindTransform nativeTransform; RigDefinition typedjointtable and nameordinalmap; poses nativeLocalPose",
+    "operations": "nativeTransform restore; nativeSkeletalJointOffset addition; typedordinal recursion\u2192Transform::mul_transform",
+    "actual_endpoints_read": [
+      "restore_authored_bind_pose",
+      "local_pose_global/sampled_global_transform and actual Transform writes apply_pose_buffers"
+    ],
+    "pending": [
+      "fabelgeist-rig actualtable index bodies",
+      "skeletalproportions source95",
+      "rigidentity source92"
+    ],
+    "discovery_status": "incomplete; only listed concrete receiving bodies inspected"
+  },
+  {
+    "id": "diagnostic-wire",
+    "meaning": "Final native animation JSON record adapter",
+    "canonical_owners": [
+      "typed Tick/Phase/Weight/Skeleton/Route/ClipTime state",
+      "DiagnosticTransform/Bone/Record"
+    ],
+    "producer": "log_animation_diagnostics snapshots nativeTransform and typedstate then constructs record",
+    "retained_state": "Only localrecords before write; rawscalarclearance and arrays finalwirevalues",
+    "operations": "Sortbones bynativeName/Target; no controlpolicy reconstructed from formattedidentity",
+    "actual_endpoints_read": [
+      "AnimationDiagnosticLog.write serde_json::to_value\u2192to_writer\u2192BufWriter newline; tracefieldnumbers finalwire",
+      "DiagnosticBone.from_global nativeheightdifference finalwire"
+    ],
+    "pending": [
+      "DiagnosticInputStatus command producer and RenderScheduleTelemetry otherreceivers outsideassignedscope; separatetimingtrace"
+    ],
+    "discovery_status": "incomplete; only listed concrete receiving bodies inspected"
+  },
+  {
+    "id": "foot-influence",
+    "meaning": "Bounded perfoot semantic IK influence",
+    "canonical_owners": [
+      "FootIkInfluence",
+      "UnitInterval",
+      "BlendWeight",
+      "CyclePhase"
+    ],
+    "producer": "AnimationEvaluation PoseSamples\u2192FootIkInfluence.from_evaluation; typedgaitsupportweights and discretecombatcontacts",
+    "retained_state": "AnimationPlayback.foot_ik_weights; PoseConformity.weights",
+    "operations": "Vec2 weightedmean actualnativekernel; checkedresultleaves; mirror swaps typedleaves",
+    "actual_endpoints_read": [
+      "posebufferconformity fraction used actual nativefootpositionlerp/solver",
+      "posemirroring actualnativeTransform lerp/slerp forwholebodyweights"
+    ],
+    "pending": [
+      "remaining IKreceivers sources42,54,56 etc",
+      "coregaitsupport owner146"
+    ],
+    "discovery_status": "incomplete; only listed concrete receiving bodies inspected"
+  },
+  {
+    "id": "pose-backend",
+    "meaning": "Checked clip timeline/weights through native rendered localpose sampling",
+    "canonical_owners": [
+      "ClipTime/ClipDuration",
+      "BlendWeight/UnitInterval",
+      "PlaybackContributions",
+      "RigJointTable<LocalPose>",
+      "PoseInterpolation"
+    ],
+    "producer": "Nativeclipduration admission; weightedtypedplans; bakegridtypedcardinality",
+    "retained_state": "BakedClip privatealignedtracks, PoseBufferRig clock/pose offsets and current/next arrays",
+    "operations": "Native Transform/Quat/Vec3 sampling/interpolation/extrapolation and inertialization; typedtime/weights end at actualmath; gridindices actualallocation/indexports",
+    "actual_endpoints_read": [
+      "AnimationClip.sample_clamped receives ClipTime.seconds",
+      "BakedClip.sample nativeVec3/Quat interpolation",
+      "LocalPose spline/quaternion math",
+      "apply_pose_buffers writes actual Bevy Transform fields"
+    ],
+    "findings": [
+      "NATIVE-PP-002",
+      "NATIVE-PP-003"
+    ],
+    "pending": [
+      "inertialization externalragdollreceiver proof",
+      "fullerrorflowreconciliation across P17/root/P16"
+    ],
+    "discovery_status": "incomplete; only listed concrete receiving bodies inspected"
+  },
+  {
+    "id": "continuation",
+    "meaning": "Attack curve coordinate,tangent,readiness and progress through continuation rendering",
+    "canonical_owners": [
+      "AttackPoseCoordinate",
+      "IncomingAttackTangent",
+      "ContinuationReadiness",
+      "UnitInterval",
+      "ContinuationSpan",
+      "ClipTime"
+    ],
+    "producer": "Semantic PoseSampling::ContinuationSpan\u2192append_continuation_span",
+    "retained_state": "ContinuationSpan checkedleaves and loadedtypedclipanchors\u2192ContinuationTransition",
+    "operations": "LocalPose.extrapolate and continuation_transition final nativeclampedcubic spline; rawcoordinates consumed actualnumericalfunctions, no primitiveapplicationstate carriedafterthiskernel",
+    "actual_endpoints_read": [
+      "full unchanged spline.rs tridiagonalsolve\u2192Vec3",
+      "posebuffer sample_plan\u2192Transform write"
+    ],
+    "pending": [
+      "canonicalcoordinate/readiness constructors source152/158",
+      "semantic producer/evaluation/timeline sources137-168",
+      "resolver85-86"
+    ],
+    "discovery_status": "incomplete; only listed concrete receiving bodies inspected"
+  },
+  {
+    "id": "sample-clock",
+    "meaning": "Fixedanimation/render elapsed, sample debt and interpolation",
+    "canonical_owners": [
+      "AnimationElapsed",
+      "PositiveAnimationDuration",
+      "AnimationSampleTick/Span",
+      "PoseInterpolation"
+    ],
+    "producer": "Procedural fixedstep or nativeTime.delta\u2192begin_observation typedelapsed",
+    "retained_state": "PoseBufferRig typed accumulator/decay/interpolation and Option lasttick",
+    "operations": "checked elapsedadd,saturatingsub,positiveintervalspan,typedfraction; native quotient/indexcount recorded separately",
+    "actual_endpoints_read": [
+      "PoseInterpolation ratio\u2192UnitInterval\u2192LocalPose.interpolate fraction native math",
+      "JointInertialOffset typedclock\u2192nativepolynomial math"
+    ],
+    "findings": [
+      "NATIVE-PP-004"
+    ],
+    "pending": [
+      "coreelapsedowner actualbounds/Serde",
+      "proceduralclock source46",
+      "sample_tick everyencoded/samples receiver source155"
+    ],
+    "discovery_status": "incomplete; only listed concrete receiving bodies inspected"
+  },
+  {
+    "id": "jitter-derivatives",
+    "meaning": "Angular and positional acceleration/jerk evidence and acceptance",
+    "producer": "JitterFrame nativepose arrays+typedelapsed\u2192derivatives",
+    "retained_state": "Raw f32 thresholds/limits/incidentvalue/threshold/severity",
+    "operations": "finite differences\u2192abs/noisefloor/comparison\u2192severitysort\u2192unacceptablecount",
+    "findings": [
+      "NATIVE-PP-001"
+    ],
+    "pending": [
+      "jitter_frames producer reportmetrics",
+      "summary reportvalidation/HTML/Serderecipients sources115/120/122 and P17overlays"
+    ],
+    "discovery_status": "incomplete; only listed concrete receiving bodies inspected"
+  },
+  {
+    "id": "presentation-events",
+    "meaning": "Authoritative event stream identity/coalesced replay",
+    "canonical_owners": [
+      "ContactSequence",
+      "LandingSequence",
+      "AnimationEventSpan",
+      "LocomotionPresentationPayload",
+      "AnimationSampleTick"
+    ],
+    "producer": "SkeletonState observations\u2192LocomotionEventCursor Option observed\u2192typed messagepayload",
+    "retained_state": "Payload variants owndistinctsequence leaf and contactfoot; no initialfakesequence",
+    "actual_endpoints_read": [
+      "tracing events125 encodedsequence+tick",
+      "shared rootcurrentwave ROOT-PP-AUDIO-003 movement_audio110 actual fixedwidth hashcontext (linkedinprogress)"
+    ],
+    "pending": [
+      "core eventcount/sequenceowners140,134",
+      "capture/report eventreceivers121/120/186+210"
+    ],
+    "discovery_status": "incomplete; only listed concrete receiving bodies inspected"
+  },
+  {
+    "id": "procedural-render",
+    "meaning": "Procedural postFK influence/height/look/landing math to native rendered bones",
+    "canonical_owners": [
+      "UnitInterval/FootIkInfluence",
+      "HeightDistance/SignedHeightOffset",
+      "LimbSegments/TwoBoneChain",
+      "AnimationSampleTick"
+    ],
+    "producer": "PresentedSkeleton/typedheight/body observations\u2192procedural systems",
+    "retained_state": "FixedTickPoseCache nativeTransform; ProceduralLookState nativeQuat; jumpamount rawf32gap",
+    "actual_endpoints_read": [
+      "full apply_head_and_torso_look nativeQuat::from_euler",
+      "apply_pose_mirroring nativeTransformlerp/slerp",
+      "apply_locomotion_height nativeYadd withoverflowguard",
+      "apply_landing_leg_compression typedsegments/height into IK nativekernel (actualsolver pending)"
+    ],
+    "findings": [
+      "NATIVE-PP-006"
+    ],
+    "pending": [
+      "height/body owners43-49,78",
+      "IK solver/support receiving modules50-76",
+      "CharacterLook producer/cameraoverlays"
+    ],
+    "discovery_status": "incomplete; only listed concrete receiving bodies inspected"
+  },
+  {
+    "id": "body-response",
+    "discovery_status": "incomplete config/state/report recipients pending",
+    "meaning": "Finite bodylocal linear/acceleration values\u2192bounded pitch/roll response and angularvelocity",
+    "canonical_owners": [
+      "BodyLocalVelocity/BodyLocalAcceleration",
+      "BodyAngle(Radians)",
+      "BodyAngularVelocity",
+      "BrakingLeanScale(UnitInterval)",
+      "BodyResponseAngles/Step"
+    ],
+    "producer": "skeleton nativeworldvelocity/accel transformed into currentbodyframe and finiteadmitted beforeretention",
+    "retained_state": "LocomotionBodyResponseState typed observation/targets/smoothedaccel/response/velocity; actualdefinition78 pendingread",
+    "operations": "finite vector filter; authoredvelocity/acceleration ratios; degree\u2192radianmultiply/clamps; implicit twoaxis spring with checkednumerator/denominator/magnitude; newlycomputedleaveschecked beforebyvalueself returned",
+    "actual_endpoints_read": [
+      "Quat::from_euler(response.pitch.radians,response.roll.radians)\u2192stablepelvisresponse nativeQuat composition\u2192actualTransform.rotation",
+      "BodyLocal*.planar_squared finitehelper\u2192immediate nativecomparison inresponsefilter/decelerationpolicy; rawvalue neverretained inapplicationstate"
+    ],
+    "pending": [
+      "core config numericopowners153",
+      "sample_state78",
+      "actualP17 degreeprojection/capturefields185-215"
+    ]
+  },
+  {
+    "id": "height-response",
+    "discovery_status": "incomplete heightproducer/state/capture recipients pending",
+    "meaning": "Signedvisualheightoffset plusnonnegative landingcompression/speed",
+    "canonical_owners": [
+      "SignedLength",
+      "HeightDistance/HeightSpeed"
+    ],
+    "operations": "add_offsets/subtract_offsets/advance_offset preserve typedleaves until actualsignedarithmetic; reject overflow with quantity-specificerror",
+    "actual_endpoints_read": [
+      "procedural.apply_locomotion_height guarded native Transform.translation.yadd",
+      "landing compression handedtyped to IKsolver (solver unread)"
+    ],
+    "pending": [
+      "height48",
+      "sample_state78",
+      "coreheightmeasurement143",
+      "P17 capture/state"
+    ]
+  },
+  {
+    "id": "fallback-render",
+    "discovery_status": "incomplete recipients pending",
+    "meaning": "Authored mannequin renderrecipe dimension leaves",
+    "canonical_owners": [
+      "PositiveLength",
+      "CuboidDimensions",
+      "SignedLength visualoffset"
+    ],
+    "actual_endpoints_read": [
+      "Capsule3d/Sphere/Cuboid constructors and Transform::from_translation in fallback10"
+    ],
+    "pending": [
+      "config visualoffset owner andP16reconciliation"
+    ]
+  },
+  {
+    "id": "playback-state",
+    "discovery_status": "incomplete recipients pending",
+    "meaning": "Typed retained presentation/readiness/ownership states",
+    "canonical_owners": [
+      "BaseRigLoad",
+      "PlaybackContributions",
+      "PoseOwnership",
+      "PoseVisibility",
+      "InertialState",
+      "OrdinaryLocomotion"
+    ],
+    "actual_endpoints_read": [
+      "plan clips\u2192sampling and real Transformrendering; is_bind/visibility ordinarypredicateconsumers"
+    ],
+    "pending": [
+      "all external component/readiness callers"
+    ]
+  },
+  {
+    "id": "length-duration-owner",
+    "discovery_status": "incomplete recipients pending",
+    "meaning": "Shared finite nonnegative scalar distance/positiveelapsed owners",
+    "canonical_owners": [
+      "NonnegativeLength",
+      "PositiveAnimationDuration"
+    ],
+    "actual_endpoints_read": [
+      "sameowner checkedmath and explicitnative getters; sample_span receiver sampledclock33"
+    ],
+    "pending": [
+      "all materiallydistinctmetres/secondsrecipientchains acrossassignedscope"
+    ]
+  },
+  {
+    "id": "sample-count-owner",
+    "discovery_status": "incomplete recipients pending",
+    "meaning": "Shared authoritative samplecoordinate and nonnegative span",
+    "canonical_owners": [
+      "AnimationSampleTick",
+      "AnimationSampleSpan"
+    ],
+    "actual_endpoints_read": [
+      "wrapping/saturation/checkedclockops, prediction numericcounts in36/37"
+    ],
+    "pending": [
+      "all encoded/samples externalrecipients"
+    ]
+  },
+  {
+    "id": "visibility",
+    "discovery_status": "incomplete recipients pending",
+    "meaning": "Native Bevy viewculling and retainedvisibilitymode",
+    "canonical_owners": [
+      "PoseVisibility",
+      "PositiveLengthcullradius/distance"
+    ],
+    "actual_endpoints_read": [
+      "Bevy Sphere radius, native squared-distance and Frustum::intersects_sphere actualrequirements"
+    ],
+    "pending": [
+      "typedconfigowner and externalis_frozen recipients"
+    ]
+  },
+  {
+    "id": "cadence",
+    "discovery_status": "incomplete recipients pending",
+    "meaning": "Typed cadenceapplication receiver linked detailed calibration/presentation contracts",
+    "contract_links": [
+      "calibration",
+      "presentation"
+    ],
+    "pending": [
+      "corecadenceowner132"
+    ]
+  },
+  {
+    "id": "calibration-fixtures",
+    "discovery_status": "incomplete recipients pending",
+    "meaning": "Existing explicit fixtureadmission and comparison kernels for calibration/cadence",
+    "contract_links": [
+      "calibration",
+      "cadence"
+    ],
+    "pending": [
+      "fixture behavior acceptance only source review, no execution"
+    ]
+  },
+  {
+    "id": "physics-pose",
+    "discovery_status": "incomplete recipients pending",
+    "meaning": "Typed rigjointpose/ownership accessors to actual physics/render numericports",
+    "contract_links": [
+      "pose-backend",
+      "rig-binding"
+    ],
+    "pending": [
+      "ragdoll drive/entry/muscle receivers79-84"
+    ]
+  },
+  {
+    "id": "rig-binding",
+    "discovery_status": "incomplete recipients pending",
+    "meaning": "Typed native scene rigbinding",
+    "contract_links": [
+      "bind-transform"
+    ],
+    "pending": [
+      "rigtable nativeindex receiver and native-nameclassification"
+    ]
+  },
+  {
+    "id": "inertialization",
+    "discovery_status": "incomplete recipients pending",
+    "meaning": "Complete nativejointlocal polynomial/quaternion inertialization numericreceiver",
+    "contract_links": [
+      "pose-backend"
+    ],
+    "pending": [
+      "ragdoll callers and full retainednativevector proof"
+    ]
+  },
+  {
+    "id": "sparse-sampling",
+    "discovery_status": "incomplete recipients pending",
+    "meaning": "Typed cliptime/phase into native4anchor interpolation",
+    "contract_links": [
+      "pose-backend"
+    ],
+    "findings": [
+      "NATIVE-PP-002"
+    ],
+    "pending": [
+      "all sample_locomotion_at_time callers"
+    ]
+  },
+  {
+    "id": "load-boundary",
+    "discovery_status": "incomplete recipients pending",
+    "meaning": "Typed assetrequest/admission into nativeBevy load operations",
+    "contract_links": [
+      "catalogue",
+      "revision"
+    ],
+    "pending": [
+      "all LoadedClip samplerreceivers"
+    ]
+  },
+  {
+    "id": "schedule",
+    "discovery_status": "incomplete recipients pending",
+    "meaning": "Frameworkcallbackregistration and authoritative systemordering",
+    "actual_endpoints_read": [
+      "Bevy Plugin::build registrations resources/messages/systems in41"
+    ],
+    "pending": [
+      "callbacks modules fullyread beforewholegraphcoverage"
+    ]
+  },
+  {
+    "id": "runtime-facade",
+    "discovery_status": "incomplete recipients pending",
+    "meaning": "Runtime retained typedplans and equipment\u2192semanticselection",
+    "contract_links": [
+      "catalogue",
+      "pose-backend",
+      "foot-influence",
+      "continuation",
+      "playback-state"
+    ],
+    "pending": [
+      "unchanged nativeequipmentstrings/skillweights producer\u2192catalogcallbacks; rigs; semantic/evaluation/stateowners"
+    ]
+  },
+  {
+    "id": "presentation",
+    "discovery_status": "incomplete recipients pending",
+    "meaning": "Authoritative\u2192renderphaseprediction/correction retainedcheckedstate",
+    "canonical_owners": [
+      "AnimationSampleTick/Span",
+      "AnimationElapsed",
+      "CyclePhase/Delta",
+      "ActionProgressDelta",
+      "UnitInterval"
+    ],
+    "actual_endpoints_read": [
+      "predict_gait/advance_quickstep/advance_attack\u2192PresentedSkeleton.state; latersemanticsampling endpointpending"
+    ],
+    "pending": [
+      "corestateactiontimeline160+",
+      "corecadence132",
+      "semanticroute94"
+    ]
+  },
+  {
+    "id": "dive-render",
+    "discovery_status": "incomplete configproducer pending",
+    "meaning": "Typed directional dive lowerbody influence\u2192nativeQuat output",
+    "canonical_owners": [
+      "DiveInfluence(UnitInterval)",
+      "DiveDirection",
+      "PostureTransition.phase",
+      "AngularMagnitudeDegrees"
+    ],
+    "actual_endpoints_read": [
+      "procedural_dive_pelvis_rotation/dive_pelvis_lean actualQuat math\u2192Transform rotation"
+    ],
+    "pending": [
+      "coretransition/config owners"
+    ]
+  },
+  {
+    "id": "foot-roll",
+    "discovery_status": "incomplete corephase+terrainconsumer pending",
+    "meaning": "Signed phase contact offset\u2192finite signed footrollangle\u2192nativeworldrotation",
+    "canonical_owners": [
+      "CyclePhase/CycleDelta",
+      "SignedAngleDegrees",
+      "LeadFoot"
+    ],
+    "actual_endpoints_read": [
+      "run_foot_roll_world_rotation actualQuat::from_axis_angle with checkedangle.radians"
+    ],
+    "pending": [
+      "all native worldrotation recipients interraincontacts modules"
+    ]
+  },
+  {
+    "id": "rig-frame",
+    "discovery_status": "incomplete IKorigin/rotation recipients pending",
+    "meaning": "Observed actualrigframe finiteorigin andorientation, absentframe explicitOption",
+    "canonical_owners": [
+      "ObservedRigFrame"
+    ],
+    "producer": "nativeGlobalTransform\u2192finitecheckedframe",
+    "actual_endpoints_read": [
+      "hands.apply_hand_target uses frame.rotation atactualpolevector/quaternion numericalport"
+    ],
+    "pending": [
+      "all IK frame getter recipients"
+    ]
+  },
+  {
+    "id": "hand-ik",
+    "discovery_status": "incomplete equipment+solver/state producers pending",
+    "meaning": "Native handtargets/weapon sockets and typedweights\u2192skeletal IK/math\u2192actualTransform",
+    "canonical_owners": [
+      "HandSide",
+      "UnitInterval",
+      "LimbSegments",
+      "ObservedRigFrame",
+      "TwoBoneChain"
+    ],
+    "actual_endpoints_read": [
+      "secondary_grip_world nativeGlobalTransform.transform_point",
+      "HandIkTarget weight nativeVec3lerp\u2192solver",
+      "set_world_transform/set_bone_world_rotation actualnativeTransform fields"
+    ],
+    "pending": [
+      "source66 rememberedarm poles",
+      "unchanged HeldWeaponConstraint/HandIkTarget producers and frozenP16 geometrydelta",
+      "native TwoBone solver65"
+    ]
+  },
+  {
+    "id": "ordinary-ik",
+    "meaning": "Ordinary terrain support/reach/typed pelvis displacement through retained support publication",
+    "canonical_owners": [
+      "UnitInterval",
+      "SignedLength",
+      "LimbSegments",
+      "ObservedRigFrame",
+      "ScenePlanPoint/SupportElevation"
+    ],
+    "actual_endpoints_read": [
+      "apply_root_vertical_shift native inverseparent vector and Transformtranslation",
+      "align_foot_to_slope_weighted native Quat/slerp/Transform",
+      "terrain_leg solve checkedsegments to TwoBoneChain and native boneTransform"
+    ],
+    "findings": [
+      "NATIVE-PP-003",
+      "NATIVE-PP-007"
+    ],
+    "pending": [
+      "state publication66/67 actual unavailable support recipient",
+      "solver65",
+      "requiredsupport capture99/P17admission187"
+    ],
+    "discovery_status": "incomplete receiving bodies pending"
+  },
+  {
+    "id": "terrain-ik-coordinator",
+    "meaning": "Complete terrain solve coordinator callback/sequencing and final nativePose writes",
+    "canonical_owners": [
+      "AnimationElapsed",
+      "CyclePhase/Delta",
+      "UnitInterval",
+      "SignedLength",
+      "LimbSegments/ReachLimit",
+      "FootClearanceFloor"
+    ],
+    "actual_endpoints_read": [
+      "whole apply_terrain_leg_ik source56:119-2965",
+      "native Transformtranslation431-454/1194-1227",
+      "actual apply_two_bone_solution callports882,1375,2105,2294,2847",
+      "actual slopealignment calls926/1405/2141/2328/2917"
+    ],
+    "findings": [
+      "NATIVE-PP-003"
+    ],
+    "pending": [
+      "callbackdefinitions57-76",
+      "typed support state\u2192capture admission and serializedmetrics",
+      "native knee bend/enddirection storedVec3 invariant/zero policy"
+    ],
+    "discovery_status": "incomplete receiving bodies pending"
+  },
+  {
+    "id": "ik-observation-orientation",
+    "meaning": "Final propagated support/kneeyaw observation and nativepolerotation kernels",
+    "actual_endpoints_read": [
+      "observed_support_weight explicitOption239-258; refresh_run_supportzip",
+      "orientation nativequat/sincos/Transforms58",
+      "anatomicalyaw typedangle observation109\u2192offsetstate155"
+    ],
+    "findings": [
+      "NATIVE-PP-008"
+    ],
+    "pending": [
+      "state66/publication67 finite targetcontract",
+      "capture/report requiredness98/115/186/200",
+      "retainednormalized Vec3direction owners/solver65"
+    ],
+    "discovery_status": "incomplete receiving bodies pending"
+  },
+  {
+    "id": "settle-reach",
+    "meaning": "Typed leggeometry and stopprogress ingredients retained to actuallawcosines/projection/pose kernels",
+    "actual_endpoints_read": [
+      "ReachLimit native_metres108-147 complete kernel",
+      "ordinary/terrain_pelvis_shift completed SignedLengthresult",
+      "guard/settle native Vec3 targetkernels and actualcoordinator56"
+    ],
+    "findings": [
+      "NATIVE-PP-003"
+    ],
+    "pending": [
+      "solver65 and directionretention66",
+      "all required terrain callback contracts70-74",
+      "reportcapture stance measurement actualreceivers"
+    ],
+    "discovery_status": "incomplete receiving bodies pending"
+  },
+  {
+    "id": "ik-state-solver",
+    "meaning": "Native posehistory/analytic joint math and retained typed temporal/length/support state",
+    "actual_endpoints_read": [
+      "TwoBoneChain checkedlengths\u2192complete lawcosines185-258\u2192TwoBoneSolution nativejointcoordinates",
+      "apply_two_bone_solution301-355 actualTransformrotationwrites",
+      "nativeVec3polecache\u2192transport/reject/normalize orientation kernels58 andsolver65",
+      "state publication67 actualBevycomponentstate"
+    ],
+    "findings": [
+      "NATIVE-PP-008"
+    ],
+    "pending": [
+      "all diagnostictarget receivers/capture98+186",
+      "actualfootclearancecallbacks70-74",
+      "canonicalowner classification of normalizedrenderdirectionstates"
+    ],
+    "discovery_status": "incomplete diagnostic recipients pending"
+  },
+  {
+    "id": "contact-clearance-kernels",
+    "meaning": "Typed phase/length/floor ingredients through actualfootprojection geometric kernels",
+    "actual_endpoints_read": [
+      "full mathematical search72 andDykstra74 bodies",
+      "typedfloor73\u2192actualpointnativeY\u2192IK65\u2192Transform",
+      "newmeasuredownerplanarspeed70\u2192typedstate66\u2192budget56"
+    ],
+    "findings": [
+      "NATIVE-PP-003"
+    ],
+    "pending": [
+      "whole fixture75",
+      "requiredsupportreportcapture98/99/P17overlay",
+      "all externallyexposed ankleoffset/tolerance actualrecipients"
+    ],
+    "discovery_status": "incomplete requiredsupport recipients pending"
+  },
+  {
+    "id": "ik-fixtures-track",
+    "meaning": "Existing coordinationfixture admissions and actualnativeaxis selector",
+    "actual_endpoints_read": [
+      "all3461 lines75 (including nestedfixturecallbacks)",
+      "FootTrackSide coefficient\u2192nativegeometricreceiver61/64/65"
+    ],
+    "pending": [
+      "rig77 remaining and canonicalidentity unchangedproducer proof",
+      "fullcapture/reportrequiredness"
+    ],
+    "discovery_status": "incomplete externalreceivers pending"
+  },
+  {
+    "id": "rig-ragdoll",
+    "meaning": "Canonical rigidentities and typed physicsdimensions/angles retained throughbind/body/readback",
+    "actual_endpoints_read": [
+      "ragdoll.drive_ragdoll_pose_buffers fullnativeAffine3A\u2192PoseBufferRig",
+      "apply_ragdoll_poses actualTransform105-108",
+      "resolve_ragdoll_terrain_contacts typedpenetration\u2192actualAvianPosition157"
+    ],
+    "findings": [
+      "NATIVE-PP-003",
+      "NATIVE-PP-009"
+    ],
+    "pending": [
+      "unchanged fabelgeist_rig::mhr canonicalcallbacks membership/mirror",
+      "ragdollentry81/mod83/muscles84",
+      "finiteVectorrepresentation vs bespokeunitdirection canonicalowner resolution"
+    ],
+    "discovery_status": "incomplete receiving bodies pending"
+  },
+  {
+    "id": "ragdoll-resolver",
+    "meaning": "Closedragdoll nativephysicsports andtypedsemantic resolver time/weights retained tosampling",
+    "actual_endpoints_read": [
+      "Avian Position/Rotation/LinearVelocity/AngularVelocity andCollider81",
+      "AvianSpherical/Revolute jointRadians endpoints81",
+      "PDkick/damping actualAngularVelocity writes84",
+      "PoseSampling typedvariants\u2192PlaybackContributions\u2192sampling18"
+    ],
+    "findings": [
+      "NATIVE-PP-009"
+    ],
+    "pending": [
+      "corePoseSampling137/semantic157",
+      "progress\u2192BlendWeight canonicalconversioncheck",
+      "canonicalrigtable+identity unchangedbody proof"
+    ],
+    "discovery_status": "incomplete coreproducer canonicalowner recipients pending"
+  },
+  {
+    "id": "scenario-identity-metadata",
+    "meaning": "Admittedscenariopolicy/riglabels/semanticroute/proportions until actualserialization/nativemath",
+    "actual_endpoints_read": [
+      "ScenarioMetadata Serialize101-104",
+      "AnimationBodyRegion literalgrammar62-64 actualenumclassification",
+      "SkeletalJointOffset\u2192nativeTransform/affine math18/83/95",
+      "typedClipTime/Duration operations93\u2192nativeposesampling18"
+    ],
+    "findings": [
+      "NATIVE-PP-010"
+    ],
+    "pending": [
+      "alllabel() recipients/actualgatepolicy/route reportcollectors98-130+P17overlays",
+      "CharacterProportions/JointProportionBasis unchangedcanonicalowner",
+      "coreBlendWeight samevalue typedconversion156"
+    ],
+    "discovery_status": "incomplete actualconsumer pending"
+  },
+  {
+    "id": "capture-report",
+    "meaning": "WholeECS capture producers\u2192retainedanalysis\u2192gate/HTML/Serde",
+    "actual_endpoints_read": [
+      "drive_sequence whole98 nativeTransform/projectedcapture inputs",
+      "CaptureAdmission typederror\u2192actualfailure.txt/log/AppExit99",
+      "bevy_ahoy::CharacterLook actualframeworkcomponent reexport corelib142-146; nativequatandlookassignments98",
+      "ScreenshotCaptured actualcallback98:763-795",
+      "GlobalBoneFrame projection102 needsactualserializationrecipientproof"
+    ],
+    "findings": [
+      "NATIVE-PP-008",
+      "NATIVE-PP-011"
+    ],
+    "pending": [
+      "metrics115/model120/validation122 reportmod119 actualreceivers",
+      "P17overlays185-215",
+      "alltyped globalbone/capture metrics methodrecipients",
+      "unchanged CharacterLook externaldefinition if exactnativefieldcontractneedsproof"
+    ],
+    "discovery_status": "incomplete actualanalysis andserializedreceivers pending"
+  },
+  {
+    "id": "capture-harness-observation",
+    "meaning": "Nativeoverlay ports, typedmotionadmission andrequiredoptionalcaptureobservations",
+    "actual_endpoints_read": [
+      "Gizmosnativeoverlay103",
+      "rootPositionScene\u2192Transform106",
+      "nativecontrollerprojectionCaptureMotion107\u2192sharedprojection pending166",
+      "repeatedsnapshot and mismatch comparison/log105",
+      "EquipmentVisualState actualmesh/material/skin consumers108"
+    ],
+    "findings": [
+      "NATIVE-PP-003",
+      "NATIVE-PP-011",
+      "NATIVE-PP-012"
+    ],
+    "pending": [
+      "harness216/P17capture/repeated/rootmotion186/189/190",
+      "unchangedWeightSummary/materialtexturecallback bodies",
+      "FrameSamplemetrics andvalidation115+120+122"
+    ],
+    "discovery_status": "incomplete actualanalysis receiving bodies pending"
+  },
+  {
+    "id": "report-policy",
+    "meaning": "Scenarioadmitted bounds andbodyresponseoutput toactualgate/sourcecommand admission",
+    "actual_endpoints_read": [
+      "VisualHeightExpectationrawproducer111:165-174 actualvalidationrecipientpending",
+      "BodyAngleperoperanddegrees\u2192nativeVec2norm thresholds112",
+      "CaptureInspectionactualQuat andserializedpreparedartifact109",
+      "run110 actualBevyApp/AssetSourceBuilder nativeports"
+    ],
+    "findings": [
+      "NATIVE-PP-011"
+    ],
+    "pending": [
+      "P17typedexpectations193/validation212",
+      "metrics/model/serializationreceiver115-122",
+      "itemidentity inspection52 equipmentcanonicalowner"
+    ],
+    "discovery_status": "incomplete expectedbounds/report receiver pending"
+  },
+  {
+    "id": "report-bone-html",
+    "meaning": "CanonicalBoneRole iteration/parentidentity andactualHTML/Serde formattingports",
+    "actual_endpoints_read": [
+      "CapturedBones SerializeMap113:84-94",
+      "JitterBoneIdentity< BoneRole > report_label113:96-100 actualjitter12 recipient",
+      "review_html114 wholeHTML/JS output; scalarformatters/serde frames"
+    ],
+    "pending": [
+      "allCapturedBones metriciter/get callbacks115",
+      "FrameSample/ScenarioMetrics serializedmodel120/P17model210",
+      "P17HTMLobservation variants198"
+    ],
+    "discovery_status": "incomplete model/metric receivers pending"
+  },
+  {
+    "id": "scenario-metrics",
+    "meaning": "Fullcaptureanalysis numericalproducers and their retainedroles/absence policies",
+    "actual_endpoints_read": [
+      "allmetricfunctions115:1-1282",
+      "allmetricfixturecallbacks1288-2050",
+      "typedFrameSampleBodyAngle\u2192actualdegree/normmath112",
+      "supportedfootmeasurement118actualbodypending"
+    ],
+    "findings": [
+      "NATIVE-PP-011",
+      "NATIVE-PP-013"
+    ],
+    "pending": [
+      "ScenarioMetrics model120/actualvalidation122",
+      "P17metrics200-208 actualcoherentretention/explicitabsence",
+      "facing tracking_residual unchangedcanonicalowner root/camera proof"
+    ],
+    "discovery_status": "incomplete actualgate/serializedreceivers pending"
+  },
+  {
+    "id": "metric-subkernels",
+    "meaning": "Catastrophiccontact, prominentheight andsupportslip actualarithmetic +missingobservation semantics",
+    "actual_endpoints_read": [
+      "allnative arithmetic116/117/118",
+      "NonnegativeLengthslip producer118\u2192parentrawreduction115",
+      "peakcircularindex/prominenceactualreceiver117"
+    ],
+    "findings": [
+      "NATIVE-PP-011"
+    ],
+    "pending": [
+      "P17heightpeaks206/support208",
+      "actualserializedmodel120/gates122"
+    ],
+    "discovery_status": "incomplete gates/overlay receivers pending"
+  },
+  {
+    "id": "report-gates-serde",
+    "meaning": "Fullactualreport analysis\u2192validation\u2192quality\u2192JSON/HTML/AppExit",
+    "actual_endpoints_read": [
+      "allbuild_completed_report/validation_passed/quality_score122:6-698",
+      "actualJSONL119:55-58 manifestJSON69 HTML79-87 AppExit89-99",
+      "PresentationEventborrowedSerializeview120:311-344",
+      "GlobalBoneFrame onlyserializedhere119:55-58 narrowfinalwireviewproof"
+    ],
+    "findings": [
+      "NATIVE-PP-001",
+      "NATIVE-PP-008",
+      "NATIVE-PP-011",
+      "NATIVE-PP-012",
+      "NATIVE-PP-013"
+    ],
+    "pending": [
+      "allP17overlaysindependentlyread185-215",
+      "corecanonicalquantity/enum/mathownerbodies131-170",
+      "allunchangedproducerdependencies"
+    ],
+    "discovery_status": "incomplete preservedoverlays andcanonicalowners pending"
+  }
+]

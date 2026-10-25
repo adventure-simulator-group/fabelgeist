@@ -1,0 +1,58 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-440",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor.rs",
+      "sha256": "918bd2a4ed873968c420e4ad7c3070043b2073a9bbdd30e27d1dbbd6c1a4d2a1",
+      "actual_EOF": 1231,
+      "actual_compared_ranges": [
+        [
+          1,
+          1231
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor/card_mesh.rs",
+      "sha256": "b05ac342df292a30117ec56a148a282b51c6fe49d23f3b6f26b68059e092c416",
+      "actual_EOF": 54,
+      "actual_compared_ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor/orientation.rs",
+      "sha256": "0832c7f01271afcbd8d65ccc61ac2a3b0837c605f1d6239b8ece5dddc7fb64bd",
+      "actual_EOF": 56,
+      "actual_compared_ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Tree atlas capacity and source provenance",
+      "analysis": "LOD1<=28cards, LOD2/3fixed14, LOD4fixed8; fixedtile64/112/160/256 boundsatlasdimensions/u32byteproduct. SparseemptyLOD1cards cancolumns0/div_ceil0 if nosecondarygroups, butactualmatureoak/beechallsectors ownsecondarybranches; noordinaryassetfailure. Actualoak50784 leaves fitsprovenanceu16count, arbitrarylargerrawsourcecountnarrowingnotchecked; noinstalledsourceoverflow. validateprovenance debugasserts arediagnostic-only and not releaseadmission, actualassetadmissionfrontier next. Sourcegeometryhash intentionallywrappingFNV-likeupdate but leaf.shoot_id convertedf32 dropsidentitybits and hash omits leafright/up/torsion/shade andbranchdepth/groupfields. Whetherusedasfullrender-equivalence check requiresactualreceiver; nohash-onlyclosure ornewfinding yet."
+    },
+    {
+      "contract": "Tree card fitting and projected range operations",
+      "analysis": "Project card bounds overmatchingbranches/leaves thenmargin+midpoint; requiresnonemptyfinitegroup/unitbasis. FitrightfallbackVec3X mayparallel arbitraryupVec3X, butactualcallstylesaxispositivevertical/currentframes valid. TreeCardGeometry nativekernel no freshresultadmission; currentboundedrecipecontract, not arbitraryfinitecoordinate guarantee. Per-leaf bitshift lacksbranch-styleprimary<8 guard; actualbakedmaturetreesgroups0..6safe, shrubgeneralrawAPInotwitness. Positivefocal_scale/currentboundedcluster radius preserveorderedoverlap ranges; negative/NaN/extremefocalrawinputs canbreakbounds, actualprojectioncallerfrontierpending. Trunk/leaf/aggregate handoffs deliberatelyoverlap nonidenticalsilhouettes ratherthanexactcomplementdither. Whole1231bodyfixturespluscard54/orientation56personallyread, notrun."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/impostor/raster.rs"
+}

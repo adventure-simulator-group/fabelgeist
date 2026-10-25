@@ -1,0 +1,50 @@
+{
+  "id": "CONT07-CONTRACT-568",
+  "at": "2026-10-24T00:07:57.467226+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2456,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/guard_liveness.rs",
+      "sha256": "4e99ffb41426fe317a4a92c09f49f3533cc6c9a8ced6517f4650408aa0a9d45f",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/guard_liveness.rs",
+      "actual_EOF": 108,
+      "ranges": [
+        [
+          1,
+          108
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2457,
+      "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height.rs",
+      "sha256": "e334517ee92a0081ddfa169ebb5f261d0720373b72c261ebe363b57f9a013576",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height.rs",
+      "actual_EOF": 254,
+      "ranges": [
+        [
+          1,
+          254
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "P17 guard-step liveness derives completed/visible counters and extrema together from contact-sequence intervals; SwingSupport selects changed foot by observed weight gains and requires swap/travel/clearance evidence. Missing half-step evidence is Unavailable, not zero or successful liveness. Authored combat locomotion may intentionally be not applicable.",
+    "P17 height functions distinguish controller/world vertical range, root-relative joint motion, body-local phase height and planned scenario classification. These are orthogonal measurements, not competing root positions. Missing required bones or frames remains explicit unavailable.",
+    "P17 phase peak aggregation preserves every completed post-warmup cycle and marks no complete cycles unavailable. Observed gait phase defines analytical grouping; expected two passing peaks is independent review policy. Unsupported duration derives contiguous observed support weights and sample timestamps; no wall-clock or tactical-server fatigue authority introduced.",
+    "P17 expected phase-height eligibility is called from one ExpectedVisualHeight scenario owner in both metric production and validation; no independently editable eligibility copy found in these recipients. Existing issue inventory remains, no whole-lens clearance."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2458,
+    "start_line": 1
+  }
+}

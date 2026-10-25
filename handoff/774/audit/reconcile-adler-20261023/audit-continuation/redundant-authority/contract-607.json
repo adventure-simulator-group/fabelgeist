@@ -1,0 +1,60 @@
+{
+  "id": "CONT07-CONTRACT-607",
+  "at": "2026-10-24T00:30:22.136274+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2627,
+      "source_id": "cargo-registry:num_enum_derive-0.7.6/src/parsing.rs",
+      "sha256": "abe7e01b2939a26e273d91fd975056216b87c87cf494a1869248762145469fd1",
+      "origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/num_enum_derive-0.7.6/src/parsing.rs",
+      "actual_EOF": 574,
+      "ranges": [
+        [
+          1,
+          20
+        ],
+        [
+          62,
+          406
+        ],
+        [
+          408,
+          447
+        ],
+        [
+          506,
+          533
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2628,
+      "source_id": "cargo-registry:num_enum_derive-0.7.6/src/enum_attributes.rs",
+      "sha256": "169a5b973235cf21f0d2c1c088acf3b6526d62758c83e14a0b1e624afcd648ed",
+      "origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/num_enum_derive-0.7.6/src/enum_attributes.rs",
+      "actual_EOF": 342,
+      "ranges": [
+        [
+          1,
+          210
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "num_enum parser collects canonical discriminant and explicitly authored alternatives into one VariantInfo roster; literal duplicate alternatives/canonical collisions rejected, nonliteral discriminant collisions intentionally delegated to generated unreachable-pattern compile errors. Same roster supplies expression and variant iterators. Alternatives are an explicitly admitted many-to-one vocabulary, not accidentally distinct current facts; caller enum contract determines whether alternatives acceptable.",
+    "Representation and crate/error attributes parsed once, duplicate settings rejected. Error type name/constructor are explicit two-part API configuration, not automatically duplicate semantic identity; generated TryFrom delegates same chosen error constructor. No generated output or compile executed, no inference of caller enum feature settings beyond exact source."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2629,
+    "start_line": 1
+  }
+}

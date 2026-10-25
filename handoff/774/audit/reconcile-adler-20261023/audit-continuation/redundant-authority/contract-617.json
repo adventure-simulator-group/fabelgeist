@@ -1,0 +1,128 @@
+{
+  "id": "CONT07-CONTRACT-617",
+  "at": "2026-10-24T00:43:04.537683+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2687,
+      "source_id": "report-p17:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+      "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+      "actual_EOF": 140,
+      "ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2688,
+      "source_id": "report-p17:crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+      "sha256": "c71c5590f1fb87ae1645a6e4f4ed54a0059d33b821ad0062e098821e1409b899",
+      "origin": "git:90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696:crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+      "actual_EOF": 28,
+      "ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2689,
+      "source_id": "p16:crates/adventuresim-tactical-server/src/combat/authority.rs",
+      "sha256": "115035332f28384bede83b873bba67e6877fbc481560196ae9aaa1ca2fd2d52b",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-server/src/combat/authority.rs",
+      "actual_EOF": 672,
+      "ranges": [
+        [
+          24,
+          43
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2690,
+      "source_id": "p16:crates/adventuresim-core/src/combat/incapacitation.rs",
+      "sha256": "a38c469cbc09f75a1d55f0050c74c54c9dba3adb5dfe9e13e88142dc10cff7e3",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-core/src/combat/incapacitation.rs",
+      "actual_EOF": 115,
+      "ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2691,
+      "source_id": "p16:crates/adventuresim-tactical-core/src/combat.rs",
+      "sha256": "98f3cb6b60b6672e3bdb730f6c922c012120f3763add4beb906040f1be122c2f",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/combat.rs",
+      "actual_EOF": 310,
+      "ranges": [
+        [
+          49,
+          57
+        ],
+        [
+          88,
+          108
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2692,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/world_actor/presence.rs",
+      "sha256": "39cd6d057c070e586f5701d068b930beaafe12dc00d68465ffd460ede664c5ea",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-stdb-module/src/world_actor/presence.rs",
+      "actual_EOF": 196,
+      "ranges": [
+        [
+          1,
+          196
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2693,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source.rs",
+      "sha256": "ff887ab06cf0892fa9f624f587e493319a93fc570898a890fb117a382061e3b3",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/source.rs",
+      "actual_EOF": 181,
+      "ranges": [
+        [
+          1,
+          179
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "CAMERA-INITIAL07-F017",
+    "ROOT-ADM-F005",
+    "ROOT-ADM-F010"
+  ],
+  "facts": [
+    "P17 coordinate private/sibling field roles and finite adapters retain distinct frame/datum/position/displacement/elevation meanings. Error mapping projects native Direction error exhaustively once; no separately maintained runtime classification state. P16 ReportedPrecision intentionally accepts every finite trusted client observation without geometric reconstruction/range clamp; do not introduce competing server precision authority. RecoveryTime and MeleeLungeArrival retain distinct cannot/none outcomes even when numerical contact timing fallback equals0; total incapacitation performance remains one wheel contribution policy.",
+    "P16 presence applies well-formed temporal membership before source projection and observer case visibility; context membership/current occupancy/observer lead are independent authorities with provenance/privacy relationships, not equivalent sets. Case visibility compares canonical place, source case/provenance aliases, coordinates, exact stage and correction time. No normal stale-access finding from multiple records alone.",
+    "GeographicSurface builds one sorted canonical triangle roster then private index and boundary extension factor. Sibling-mutable triangles can desynchronize both index and factor; this is exact source support for adopted ROOT-ADM-F010, full narrative previously consumed. from_vista_lod uses supplied actual width/depth/spacing/origin and a-c triangles, explicitly selectedLOD not arbitrary finer support. This preserves F080 supplied/grid-versus-display extent distinctions; no bilinear-is-generally-wrong claim.",
+    "Personally consumed CAMERA-INITIAL07-F017/ROOT-ADM-F005: pending P16 DailySchedulePlan duplicated organization minutes exact alias/source strengthening, not new unique. Actual normal Web/native paired amounts coherent; preserve ActivityMinutes valid0 and standalone>day, local syntax versus authoritative organization membership, private ValidatedSchedule admission."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2694,
+    "start_line": 1
+  }
+}

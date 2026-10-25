@@ -1,0 +1,24 @@
+{
+  "id": "SEGO-INITIAL09-REGISTRATION-662",
+  "lens": "audit-enum-shapes",
+  "records": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/draw.rs",
+      "pin": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "git_blob": "cc6d2988ec10224c50d82ff9c7e1728912899cf8",
+      "sha256": "faca55a34e4a003497e4f3aa87dfcef3a25e20ffa7e6c7108785a2df225e7337",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/enum-shapes/source-objects/faca55a34e4a003497e4f3aa87dfcef3a25e20ffa7e6c7108785a2df225e7337",
+      "actual_eof": 134,
+      "ranges": [
+        [
+          1,
+          134
+        ]
+      ],
+      "registration": "source-registration-662.json",
+      "audit_status": "registered before body read; no audit credit",
+      "material_reason": "Actual changed GPU1518::CityGpuPlugin build75 installs draw::install; actual1514 prepared per-view slots/dispatch and1519 scratch geometry/indirect buffers are consumed by custom city draw render adapter. Need receiver to distinguish native policy flags/readiness and observed buffer association from enum-shape claims; actual connected consumer, not all namespace children."
+    }
+  ],
+  "limits": "Prospective own role outside frozen2853, no body credit yet."
+}

@@ -1,0 +1,153 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-341",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/wardrobe.rs",
+      "sha256": "41051202a9da2998dcf73b5a1e095088d6838c1a849a66d080631ac8304951b9",
+      "actual_EOF": 154,
+      "actual_compared_ranges": [
+        [
+          1,
+          154
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/wardrobe_tab.rs",
+      "sha256": "4cd80a0338aaafa8f2b1f80eca296ef22614825d8d1058692fb8c4fe7bbe9595",
+      "actual_EOF": 325,
+      "actual_compared_ranges": [
+        [
+          1,
+          325
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/tests/device_bracer.rs",
+      "sha256": "d80f608bd68c33e719e9f66f8b59bfbea90bc3c569a42af3f4fbbce9d3b8ef09",
+      "actual_EOF": 247,
+      "actual_compared_ranges": [
+        [
+          1,
+          247
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/tests/device_breastplate.rs",
+      "sha256": "698dfb037f3fd0e90ec020ce5b5969e34a0e93deba590e1a863f0d04734e7d33",
+      "actual_EOF": 126,
+      "actual_compared_ranges": [
+        [
+          1,
+          126
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/tests/skeletal_proportions.rs",
+      "sha256": "60560353f21b023e6af79358bba4dcaa7e0b095a123bd157eb0fbec1d41c5414",
+      "actual_EOF": 164,
+      "actual_compared_ranges": [
+        [
+          1,
+          164
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/AGENTS.md",
+      "sha256": "7d2a3dd7507a8405fded5577a7f406273ab835389b52b189415d0878c39d8a73",
+      "actual_EOF": 9,
+      "actual_compared_ranges": [
+        [
+          1,
+          9
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Wardrobe retained state must be semantically admitted before mutation or exposure",
+      "source_ranges": {
+        "wardrobe.rs": [
+          [
+            1,
+            154
+          ]
+        ],
+        "wardrobe_tab.rs": [
+          [
+            1,
+            325
+          ]
+        ]
+      },
+      "disposition": "Bothcompletebodiesandalllibraryfixturesread. Wardrobeinsert modifieslocalownedgarmentname thenvalidatebeforeentryreplace; loadcallswholevalidate, savecallsbeforeIO, absentpathintentionalempty. DerivedtransparentDeserialize bypassescorrelatedkey/name+settledpredicateexactadoptedRIG-ADMISSION03-F022#22; publicreadviews canexposeinvaliddecodedprivateowneruntilvalidate. NormalWardrobe.load doesvalidate, so no normalcorruptfileacceptanceclaim. WardrobeLibrarysave/delete clonelibrary, performfalliblefilewrite andonlythenreplaceliveSelf, preservingretainedvalidstateonErr (filewriteatomicitynotpromised). Fulltabconfirmsrestartcachefinding330additionalmethodorder: restartsetsredrape aftercacheclear, updatecollectsbeforeprocessingredrape/request, sofinisheduncollectedoldcheckpointcanrestoreevenbeforequeuedrequest. Settled() requiresfinished+laststep+same_simulation; savecapturesactualbarebody/input, warningsremainexplicitusablequalitypolicy. BodycurrentnessusesBareBodyprevious319authority, no blanketnewbodycacheproof. Savedfit errorclearsgarmentandretainsexplicitproblems; staticspawnintentionallyclearsskinweights/indices. NoGUI/filesystemwrites/draperun."
+    },
+    {
+      "contract": "Original integration fixtures express source acceptance constraints without executed validation",
+      "source_ranges": {
+        "tests/device_bracer.rs": [
+          [
+            1,
+            247
+          ]
+        ],
+        "tests/device_breastplate.rs": [
+          [
+            1,
+            126
+          ]
+        ],
+        "tests/skeletal_proportions.rs": [
+          [
+            1,
+            164
+          ]
+        ]
+      },
+      "disposition": "Allthreecompletefixturefilespersonallyread. Syntheticforearm13rings/24segmentswithUVseam, finitewiden1.3morph, constructorwidth/coverage/hash/topologychecks andbadcolumn/missinglandmarkerrorscomparedactualdevicebracerproducercontract. Breastplate17x17twosidedfixtureexplicitmissingneck/inconsistentmorphpreflightchecks. Skeletalproportionfixtureignoresunlessrequestedpinnedassets/GPU, comparesparent-firstbasisjointtranslationsandfull8influencesvertexdeformationtosourceMHRunderbothsigns/bentposewithstatedtolerances. These are historicalassertionsandrepresentablesyntheticowners; nofixturetest/build/GPUexecutionorpassingclaim. Fixturearithmeticconstantspositiveandloopboundsproven; namesopenRigJointNameandrawsourcepositionsareintentionalfixtures, notmandatorynewproductionwrappers."
+    },
+    {
+      "contract": "Applicable shared Core policy is preserved during read-only operations audit",
+      "source_ranges": {
+        "crates/adventuresim-core/AGENTS.md": [
+          [
+            1,
+            9
+          ]
+        ]
+      },
+      "disposition": "Completefrozen9linepolicyandactualcurrentCoreAGENTSread. NoCoreRustorCargoediting; runtimecombatparametercontractwouldapplytofuturecombatbehaviorchange, notauthorizationtoimplementduringaudit. No hardcodedproductiontuningintroduced. Thisdocumentationroleisaccountedbyinstructionsemanticread, notruntimecodecoverage."
+    }
+  ],
+  "findings": [
+    {
+      "id": "RIG-ADMISSION03-F022",
+      "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+      "archive_line": 22,
+      "disposition": "same adopted checked decode aggregate gap; fresh04retainedstate support",
+      "no_new_unique_count": true
+    },
+    {
+      "id": "SEGOVB-04-DRAPE-RESTART-CACHE-001",
+      "file": "finding-drape-restart-cache.json",
+      "disposition": "additionalactualWardrobeupdateorderproof, same finding"
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "6 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-core/src/activity.rs"
+}

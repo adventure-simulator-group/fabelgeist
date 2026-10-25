@@ -1,0 +1,1412 @@
+{
+  "mode": "bounded supplemental source evidence only; camera716 remains explicit per-cell authority; no repair ownership/assignment transfer",
+  "source_repairs": "frozen_until_all13_initial_inventories",
+  "rows": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/authority_tests.rs",
+      "path": "crates/adventuresim-stdb-module/src/food/authority_tests.rs",
+      "sha256": "59669208fa577a62c9b73b3fab2c57202b442a12ef0447e846cf25451d48b8aa",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 142,
+          "read_ranges": [
+            [
+              1,
+              207
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-FOOD-FIXTURE-019"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/food/authority_tests.rs"
+        }
+      ],
+      "existing_producer_proofs": [
+        {
+          "shard": "camera",
+          "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+          "ranges": [
+            [
+              1,
+              207
+            ]
+          ],
+          "source_read_status": null,
+          "trace_refs": [
+            "CAM-PROP-DB-FOOD-LAW-001"
+          ]
+        }
+      ],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 41
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/consumption.rs",
+      "path": "crates/adventuresim-stdb-module/src/food/consumption.rs",
+      "sha256": "27d71249019722ede09f0961c7c4880a6acf19f99cdb0ab909eafa7bd1370bfc",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 143,
+          "read_ranges": [
+            [
+              1,
+              369
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-FOOD-CONSUMPTION-020"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/food/consumption.rs"
+        }
+      ],
+      "existing_producer_proofs": [
+        {
+          "shard": "camera",
+          "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+          "ranges": [
+            [
+              1,
+              369
+            ]
+          ],
+          "source_read_status": null,
+          "trace_refs": [
+            "CAM-PROP-DB-FOOD-LAW-001"
+          ]
+        }
+      ],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 42
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "path": "crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "sha256": "da8832af71a29edfd807274456fa4ee5890834beec5b80ef726e55b8399eaf7b",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 148,
+          "read_ranges": [
+            [
+              1,
+              868
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-FOOD-PREPARATION-021"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/food/cooking.rs"
+        }
+      ],
+      "existing_producer_proofs": [
+        {
+          "shard": "camera",
+          "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+          "ranges": [
+            [
+              1,
+              868
+            ]
+          ],
+          "source_read_status": null,
+          "trace_refs": [
+            "CAM-PROP-COOKING-SCOPE-001"
+          ]
+        },
+        {
+          "shard": "camera",
+          "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+          "ranges": null,
+          "source_read_status": null,
+          "trace_refs": []
+        },
+        {
+          "shard": "native",
+          "record": "wave-01/audit-producer-propagation/native/supplemental-operation-receivers.json",
+          "ranges": [
+            [
+              450,
+              522
+            ]
+          ],
+          "source_read_status": "exact connected ranges; full counterpart or common body proof linked camera",
+          "trace_refs": [
+            "NATIVE-SUPP-OPERATION-001"
+          ]
+        },
+        {
+          "shard": "native",
+          "record": "wave-01/audit-producer-propagation/native/supplemental-operation-shared-links.json",
+          "ranges": [
+            [
+              1,
+              868
+            ]
+          ],
+          "source_read_status": null,
+          "trace_refs": [
+            "CAM-PROP-COOKING-SCOPE-001"
+          ]
+        }
+      ],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 43
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/ingredient_preparation.rs",
+      "path": "crates/adventuresim-stdb-module/src/food/ingredient_preparation.rs",
+      "sha256": "9e75b9aba8942a342cb8fefc7b4d41940349122a52c86c976547d280e751a509",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 151,
+          "read_ranges": [
+            [
+              1,
+              652
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-FOOD-PREPARATION-021"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/food/ingredient_preparation.rs"
+        }
+      ],
+      "existing_producer_proofs": [
+        {
+          "shard": "camera",
+          "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+          "ranges": [
+            [
+              1,
+              652
+            ]
+          ],
+          "source_read_status": null,
+          "trace_refs": [
+            "CAM-PROP-PREPARATION-001"
+          ]
+        },
+        {
+          "shard": "camera",
+          "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+          "ranges": null,
+          "source_read_status": null,
+          "trace_refs": []
+        },
+        {
+          "shard": "native",
+          "record": "wave-01/audit-producer-propagation/native/supplemental-operation-receivers.json",
+          "ranges": [
+            [
+              1,
+              652
+            ]
+          ],
+          "source_read_status": "full",
+          "trace_refs": [
+            "NATIVE-SUPP-OPERATION-001"
+          ]
+        },
+        {
+          "shard": "native",
+          "record": "wave-01/audit-producer-propagation/native/supplemental-operation-shared-links.json",
+          "ranges": [
+            [
+              1,
+              652
+            ]
+          ],
+          "source_read_status": null,
+          "trace_refs": [
+            "CAM-PROP-PREPARATION-001"
+          ]
+        }
+      ],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 44
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/foraging.rs",
+      "path": "crates/adventuresim-stdb-module/src/foraging.rs",
+      "sha256": "c58f33b486ca2344cd5e4a141065bf3f39de22d6dc739e48a217ae969173d604",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 161,
+          "read_ranges": [
+            [
+              1,
+              1381
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-FORAGING-024"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/foraging.rs"
+        }
+      ],
+      "existing_producer_proofs": [
+        {
+          "shard": "camera",
+          "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+          "ranges": [
+            [
+              1,
+              1381
+            ]
+          ],
+          "source_read_status": null,
+          "trace_refs": [
+            "CAM-PROP-FORAGING-001"
+          ]
+        },
+        {
+          "shard": "camera",
+          "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+          "ranges": null,
+          "source_read_status": null,
+          "trace_refs": []
+        },
+        {
+          "shard": "native",
+          "record": "wave-01/audit-producer-propagation/native/supplemental-operation-receivers.json",
+          "ranges": [
+            [
+              900,
+              975
+            ]
+          ],
+          "source_read_status": "exact connected ranges; full counterpart or common body proof linked camera",
+          "trace_refs": [
+            "NATIVE-SUPP-OPERATION-001"
+          ]
+        },
+        {
+          "shard": "native",
+          "record": "wave-01/audit-producer-propagation/native/supplemental-operation-shared-links.json",
+          "ranges": [
+            [
+              1,
+              1381
+            ]
+          ],
+          "source_read_status": null,
+          "trace_refs": [
+            "CAM-PROP-FORAGING-001"
+          ]
+        }
+      ],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 45
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/outbreak.rs",
+      "path": "crates/adventuresim-stdb-module/src/outbreak.rs",
+      "sha256": "463018a13e8d3061fb161e6f5d814acd00f8cb489e3aa43f3cb08def9ea35f27",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 193,
+          "read_ranges": [
+            [
+              1,
+              2111
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-OUTBREAK-030"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/outbreak.rs"
+        }
+      ],
+      "existing_producer_proofs": [
+        {
+          "shard": "camera",
+          "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+          "ranges": [
+            [
+              1,
+              2111
+            ]
+          ],
+          "source_read_status": null,
+          "trace_refs": [
+            "CAM-PROP-DURABLE-LIFECYCLE-001"
+          ]
+        },
+        {
+          "shard": "native",
+          "record": "wave-01/audit-producer-propagation/native/supplemental-operation-receivers.json",
+          "ranges": [
+            [
+              150,
+              323
+            ],
+            [
+              650,
+              750
+            ]
+          ],
+          "source_read_status": "exact connected ranges; full counterpart or common body proof linked camera",
+          "trace_refs": [
+            "NATIVE-SUPP-OPERATION-001"
+          ]
+        },
+        {
+          "shard": "native",
+          "record": "wave-01/audit-producer-propagation/native/supplemental-operation-shared-links.json",
+          "ranges": [
+            [
+              1,
+              2111
+            ]
+          ],
+          "source_read_status": null,
+          "trace_refs": [
+            "CAM-PROP-DURABLE-LIFECYCLE-001"
+          ]
+        }
+      ],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 52
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/authority_tests.rs",
+      "path": "crates/adventuresim-stdb-module/src/food/authority_tests.rs",
+      "sha256": "f42fe8c6e10d816198aba42f752d418582a0bf4268aa0a21ba9b6e2116e3dab3",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+          "row": 234,
+          "read_ranges": [
+            [
+              1,
+              207
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-CONTAINER-FOOD-FIXTURES-093"
+          ],
+          "read_status": "fresh-current-lens-full-source-read",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/food/authority_tests.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 219
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/consumption.rs",
+      "path": "crates/adventuresim-stdb-module/src/food/consumption.rs",
+      "sha256": "6774eac9e912e8d500d0d9912545c2051fcc102d969f024be6dd157b22dea910",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 144,
+          "read_ranges": [
+            [
+              1,
+              369
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-FOOD-CONSUMPTION-020"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/food/consumption.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 220
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "path": "crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "sha256": "05b74b2a891da80bceb87ea3709269c90fb6933754c7c1387aac4fd622a940b2",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 149,
+          "read_ranges": [
+            [
+              1,
+              868
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-FOOD-PREPARATION-021"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/food/cooking.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 221
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/fireplace_custody.rs",
+      "path": "crates/adventuresim-stdb-module/src/food/fireplace_custody.rs",
+      "sha256": "91a13115f15cf32eabd8971f881e1eb15a9177e089cc8e72d8c7ef0495cdb168",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+          "row": 237,
+          "read_ranges": [
+            [
+              1,
+              656
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-FOOD-RECEIVERS-023"
+          ],
+          "read_status": null,
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/food/fireplace_custody.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 222
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/ingredient_preparation.rs",
+      "path": "crates/adventuresim-stdb-module/src/food/ingredient_preparation.rs",
+      "sha256": "8424b8d20fe3619b57687d4e31b3715b141fe47d21a1f21d7c78ed11958c0b9f",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 152,
+          "read_ranges": [
+            [
+              1,
+              652
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-FOOD-PREPARATION-021"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/food/ingredient_preparation.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 223
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/lot_inventory.rs",
+      "path": "crates/adventuresim-stdb-module/src/food/lot_inventory.rs",
+      "sha256": "28b22445ed307bc12de78b72d95df5b4325ba47ad3403f45292bb0c5b6efb87b",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+          "row": 239,
+          "read_ranges": [
+            [
+              1,
+              534
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-FOOD-RECEIVERS-023"
+          ],
+          "read_status": null,
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/food/lot_inventory.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 224
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/mod.rs",
+      "path": "crates/adventuresim-stdb-module/src/food/mod.rs",
+      "sha256": "80bfa29d162de3dce0554d867093029ba6a5a3b02e405cafd0863a80692c0e7f",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+          "row": 240,
+          "read_ranges": [
+            [
+              1,
+              84
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-FOOD-CONSUMPTION-020"
+          ],
+          "read_status": null,
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/food/mod.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 225
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/model.rs",
+      "path": "crates/adventuresim-stdb-module/src/food/model.rs",
+      "sha256": "b1ed41d6a51aaf7bcd77c4e36ad928b0ef533216ddc9efb1aa3a0f78a97c12d9",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+          "row": 241,
+          "read_ranges": [
+            [
+              1,
+              151
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-FOOD-CONSUMPTION-020"
+          ],
+          "read_status": null,
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/food/model.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 226
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/preparation_authority.rs",
+      "path": "crates/adventuresim-stdb-module/src/food/preparation_authority.rs",
+      "sha256": "4f06d127e8d7d358ded01b2d1b7eba9116644b53146a476dd780e98344689613",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+          "row": 242,
+          "read_ranges": [
+            [
+              1,
+              635
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-FOOD-PREPARATION-021"
+          ],
+          "read_status": null,
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/food/preparation_authority.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 227
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/projections.rs",
+      "path": "crates/adventuresim-stdb-module/src/food/projections.rs",
+      "sha256": "34432896548762546bb11a8ebc933ffe8ec596b120cafbedc81afa7ac38fdfa7",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+          "row": 243,
+          "read_ranges": [
+            [
+              1,
+              538
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-FOOD-RECEIVERS-023"
+          ],
+          "read_status": null,
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/food/projections.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 228
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/tests/fireplace_and_cooking.rs",
+      "path": "crates/adventuresim-stdb-module/src/food/tests/fireplace_and_cooking.rs",
+      "sha256": "acfc43dbdcea3d27f478885960da71bbc37353a0d5878d376458b05238464d6b",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+          "row": 244,
+          "read_ranges": [
+            [
+              1,
+              190
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-FOOD-RECEIVERS-023"
+          ],
+          "read_status": null,
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/food/tests/fireplace_and_cooking.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 229
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/tests/lots_and_consumption.rs",
+      "path": "crates/adventuresim-stdb-module/src/food/tests/lots_and_consumption.rs",
+      "sha256": "6dc480ed2a4a6c22f394a7a310beb51b05331690975d1addcd802f0afb806164",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+          "row": 245,
+          "read_ranges": [
+            [
+              1,
+              89
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-FOOD-RECEIVERS-023"
+          ],
+          "read_status": null,
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/food/tests/lots_and_consumption.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 230
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/tests/preparation.rs",
+      "path": "crates/adventuresim-stdb-module/src/food/tests/preparation.rs",
+      "sha256": "635ff9be462bb2f00748c6776bc4e15f232d69710185d948f770e9aa0af3159f",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+          "row": 246,
+          "read_ranges": [
+            [
+              1,
+              179
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-FOOD-RECEIVERS-023"
+          ],
+          "read_status": null,
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/food/tests/preparation.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 231
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/foraging.rs",
+      "path": "crates/adventuresim-stdb-module/src/foraging.rs",
+      "sha256": "be82a5ef7905b05d68bba4d61d5173cba6011c51ee8504da85d697bb2d80df84",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 162,
+          "read_ranges": [
+            [
+              1,
+              1381
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-FORAGING-024"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/foraging.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 232
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/foraging/timing.rs",
+      "path": "crates/adventuresim-stdb-module/src/foraging/timing.rs",
+      "sha256": "30193f2454edfb59bb1c74ca3f63056accf4a4540bc7fd16260bdfc8ed5b7cbc",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+          "row": 248,
+          "read_ranges": [
+            [
+              1,
+              43
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-FORAGING-024"
+          ],
+          "read_status": null,
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/foraging/timing.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 233
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak.rs",
+      "path": "crates/adventuresim-stdb-module/src/outbreak.rs",
+      "sha256": "7231d6f5c0ea33a0f938db9887dab36dff87fdb6341d8bf2099ada481593c41e",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 194,
+          "read_ranges": [
+            [
+              1,
+              2111
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-OUTBREAK-030"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/outbreak.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 250
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak/patient_chronology.rs",
+      "path": "crates/adventuresim-stdb-module/src/outbreak/patient_chronology.rs",
+      "sha256": "13d2838fd47720c3645d3c0cba3875699b4ad7984159ddeded1b2a23a32f15ee",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 196,
+          "read_ranges": [
+            [
+              1,
+              37
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-OUTBREAK-030"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/outbreak/patient_chronology.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 251
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak/water_time.rs",
+      "path": "crates/adventuresim-stdb-module/src/outbreak/water_time.rs",
+      "sha256": "de713cf1a7816326fcc398a37c9194736867f984202e5efaa22e7ac944bb1390",
+      "audit_owner": "camera",
+      "new_variant": false,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 198,
+          "read_ranges": [
+            [
+              1,
+              13
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-OUTBREAK-030"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/outbreak/water_time.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 252
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/mod.rs",
+      "path": "crates/adventuresim-stdb-module/src/food/mod.rs",
+      "sha256": "80bfa29d162de3dce0554d867093029ba6a5a3b02e405cafd0863a80692c0e7f",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 145,
+          "read_ranges": [
+            [
+              1,
+              84
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-FOOD-CONSUMPTION-020"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/food/mod.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 478
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/model.rs",
+      "path": "crates/adventuresim-stdb-module/src/food/model.rs",
+      "sha256": "b1ed41d6a51aaf7bcd77c4e36ad928b0ef533216ddc9efb1aa3a0f78a97c12d9",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 146,
+          "read_ranges": [
+            [
+              1,
+              151
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-FOOD-CONSUMPTION-020"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/food/model.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 479
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/preparation_authority.rs",
+      "path": "crates/adventuresim-stdb-module/src/food/preparation_authority.rs",
+      "sha256": "4f06d127e8d7d358ded01b2d1b7eba9116644b53146a476dd780e98344689613",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 150,
+          "read_ranges": [
+            [
+              1,
+              635
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-FOOD-PREPARATION-021"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/food/preparation_authority.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 480
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/lot_inventory.rs",
+      "path": "crates/adventuresim-stdb-module/src/food/lot_inventory.rs",
+      "sha256": "28b22445ed307bc12de78b72d95df5b4325ba47ad3403f45292bb0c5b6efb87b",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 155,
+          "read_ranges": [
+            [
+              1,
+              534
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-FOOD-RECEIVERS-023"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/food/lot_inventory.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 481
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/projections.rs",
+      "path": "crates/adventuresim-stdb-module/src/food/projections.rs",
+      "sha256": "34432896548762546bb11a8ebc933ffe8ec596b120cafbedc81afa7ac38fdfa7",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 156,
+          "read_ranges": [
+            [
+              1,
+              538
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-FOOD-RECEIVERS-023"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/food/projections.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 482
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/fireplace_custody.rs",
+      "path": "crates/adventuresim-stdb-module/src/food/fireplace_custody.rs",
+      "sha256": "91a13115f15cf32eabd8971f881e1eb15a9177e089cc8e72d8c7ef0495cdb168",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 157,
+          "read_ranges": [
+            [
+              1,
+              656
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-FOOD-RECEIVERS-023"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/food/fireplace_custody.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 483
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/tests/fireplace_and_cooking.rs",
+      "path": "crates/adventuresim-stdb-module/src/food/tests/fireplace_and_cooking.rs",
+      "sha256": "acfc43dbdcea3d27f478885960da71bbc37353a0d5878d376458b05238464d6b",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 158,
+          "read_ranges": [
+            [
+              1,
+              190
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-FOOD-RECEIVERS-023"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/food/tests/fireplace_and_cooking.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 484
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/tests/lots_and_consumption.rs",
+      "path": "crates/adventuresim-stdb-module/src/food/tests/lots_and_consumption.rs",
+      "sha256": "6dc480ed2a4a6c22f394a7a310beb51b05331690975d1addcd802f0afb806164",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 159,
+          "read_ranges": [
+            [
+              1,
+              89
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-FOOD-RECEIVERS-023"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/food/tests/lots_and_consumption.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 485
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/tests/preparation.rs",
+      "path": "crates/adventuresim-stdb-module/src/food/tests/preparation.rs",
+      "sha256": "635ff9be462bb2f00748c6776bc4e15f232d69710185d948f770e9aa0af3159f",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 160,
+          "read_ranges": [
+            [
+              1,
+              179
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-FOOD-RECEIVERS-023"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/food/tests/preparation.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 486
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/foraging/timing.rs",
+      "path": "crates/adventuresim-stdb-module/src/foraging/timing.rs",
+      "sha256": "30193f2454edfb59bb1c74ca3f63056accf4a4540bc7fd16260bdfc8ed5b7cbc",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 163,
+          "read_ranges": [
+            [
+              1,
+              43
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-FORAGING-024"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/foraging/timing.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 487
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/outbreak/patient_chronology.rs",
+      "path": "crates/adventuresim-stdb-module/src/outbreak/patient_chronology.rs",
+      "sha256": "13d2838fd47720c3645d3c0cba3875699b4ad7984159ddeded1b2a23a32f15ee",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 195,
+          "read_ranges": [
+            [
+              1,
+              37
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-OUTBREAK-030"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/outbreak/patient_chronology.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 497
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/outbreak/water_time.rs",
+      "path": "crates/adventuresim-stdb-module/src/outbreak/water_time.rs",
+      "sha256": "de713cf1a7816326fcc398a37c9194736867f984202e5efaa22e7ac944bb1390",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 197,
+          "read_ranges": [
+            [
+              1,
+              13
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-OUTBREAK-030"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/outbreak/water_time.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 498
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/outbreak/authority_tests.rs",
+      "path": "crates/adventuresim-stdb-module/src/outbreak/authority_tests.rs",
+      "sha256": "327d9f247ed9c164305e23809fbe5b46f77e8a1f5fb14adb60d01093c5f3324a",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 199,
+          "read_ranges": [
+            [
+              1,
+              212
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-OUTBREAK-030"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/outbreak/authority_tests.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 499
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak/authority_tests.rs",
+      "path": "crates/adventuresim-stdb-module/src/outbreak/authority_tests.rs",
+      "sha256": "327d9f247ed9c164305e23809fbe5b46f77e8a1f5fb14adb60d01093c5f3324a",
+      "audit_owner": "camera",
+      "new_variant": true,
+      "scope_basis": "All reached unchanged/foreign contracts plus any newly reached contract proofs on original frozen variants; original producer inventory remains preserved and exact existing trace can be reconciled, not restarted.",
+      "owner_contract_proofs": [
+        {
+          "supplier": "camera",
+          "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+          "row": 200,
+          "read_ranges": [
+            [
+              1,
+              212
+            ]
+          ],
+          "contract_refs": [
+            "CAM-OWN-OUTBREAK-030"
+          ],
+          "read_status": "complete",
+          "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/outbreak/authority_tests.rs"
+        }
+      ],
+      "existing_producer_proofs": [],
+      "discovery": "incomplete_not_started",
+      "required_disposition": "Trace newly reached source/use through retained state/operations/receiving bodies and actual boundary; reconcile exact existing producer proof only where it actually covers that contract. Record concrete repair or source-backed non-applicability; no inference from same file/hash/read count.",
+      "source_repair": "frozen_until_all13_initial_inventories",
+      "assigned_camera_index": 500
+    }
+  ],
+  "reason": "Native already traced Core material/rights/preparation causes and conservation. These exact DB food/foraging/outbreak variants share material/volume/receipt/clock/error consumers; residence materialization is excluded as a separate owned source family."
+}

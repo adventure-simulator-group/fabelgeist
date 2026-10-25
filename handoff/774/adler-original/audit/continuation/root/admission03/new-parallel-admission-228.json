@@ -1,0 +1,33 @@
+{
+  "id": "ROOT-ADM03-PARALLEL-228",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/scalp_map.rs",
+      "sha256": "717bbedb859bc7b5df413aeea35d20cccbdf1e08dc53f2f8d692b72dc2cc662e",
+      "registration_id": "CAMERA-INITIAL07-REG045",
+      "actual_compared_ranges": [[1, 147]],
+      "actual_EOF": 147,
+      "source_evidence": "Fresh literal complete147 after prospective registration, metadata confirmed absent from global065 and all245 overlays. Independent initial03 semantic admission comparison, not peer-verdict or hash-only credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/mod.rs",
+      "sha256": "f8844fc7362364c5217079615e4459865865020ba4a36f5b25a8997cdd9c8f92",
+      "registration_id": "CAMERA-INITIAL07-REG046",
+      "actual_compared_ranges": [[1, 138]],
+      "actual_EOF": 138,
+      "source_evidence": "Fresh literal complete138 after prospective registration, metadata confirmed absent from global065 and all245 overlays. Independent initial03 semantic admission comparison, no imported module/kernel body clearance."
+    }
+  ],
+  "groups": {
+    "scalp-map-owned-relation": "ScalpMap::fit derives bust-frame centre, oriented axis/forward/side, rim and linear texel scale from one Head plus Surface. These form one projection calibration, not interchangeable bare Vec3/f32 quantities. Private texel scale and pub(super) type restrict construction but pub(crate) geometry fields do not independently prove all updates remain coherent. Preserve whole map relation and coordinate frame through shader parameters and cap UV receivers; no independent mapping authority inferred merely from copied numerical fields.",
+    "admission-and-native-math": "fit filters directions whose norm is nonpositive/nonfinite, uses up on no mean, performs64 bounded cone refinements, clamps dot product for acos and rim angle toPI. Average radius still sums raw scalp position distances, so complete accepted scalp geometry and bounded cardinality contract remains upstream; filtering invalid directions does not independently admit radius/area. Empty positions yield radius0, texel scale0. Axis parallel face can use face fallback giving zero side; raw degenerate input relation, not proven ordinary head/scalp case. texel(size) divides by native texture side count with no local positive gate; uv takes a bust-frame position and returns None only for invalid direction or reach>1. These are actual computed-result/native-unit obligations, no new verified normal failure claimed.",
+    "projection": "Lambert half-angle sine/rim produces disk reach; quadrant rem_euclid mapping expands disk to square and then0..1 UV. Angular radians, unit direction, normalized UV, texture side count and metres-per-texel remain distinct semantic values. Native trigonometric calls legitimately consume scalar radians, while map construction should own frame, normalization and finite computed-result relations. Shader inverse mapping and actual texture receiver are separate already-scoped obligations; this proof does not clear their bodies.",
+    "gpu-device-and-errors": "HairGpu::new constructs one KernelSource with cloned WgpuContext and fresh KernelCache, then groomer/field/place/strip/bake kernels from that source, propagating constructor errors with ?. headless uses explicit owned context. KernelSource::compile delegates cache.get for its stored context. This establishes construction provenance, not foreign KernelCache internals or immutable device compatibility of every public result. Params string map is actual native named-binding port, not an interior semantic-ID substitute. PoisonError::into_inner is deliberate recovery justified by comment that every groom clears/sizes scratch; actual groom/reset body proof remains separate, no blanket panic recovery clearance.",
+    "buffer-port": "storage's rawu64 bytes is genuine native byte-capacity input, currently max16 then into native Buffer length; keep final canonical byte type through owner and genuine extraction at native port. upload uses BufferUpload::from_elements for typed element layout and pads an empty slice with four defaults. Padding establishes nonempty element slice, not universal nonzero byte length for all possible generic types; native element-size/alignment/device limits remain actual buffer-owner contracts. No foreign GPU crate patch, arbitrary blanket wrapper or invented allocation run. Current separate GPU propagation changes must remain preserved.",
+    "limits": "Two exact full PR files only, no included modules, transitive foreign package expansion, counterpart credit, project execution or source edits. No new unique finding from this admission proof. All mandatory226/224/220/210/208/200 and older qualifications retained. Complete all thirteen initial audits then handover163; implementation remains deferred."
+  },
+  "status": "exact_registered_source_semantic_admission_compared_with_qualified_observations",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

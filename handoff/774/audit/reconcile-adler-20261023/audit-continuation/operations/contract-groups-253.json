@@ -1,0 +1,219 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-253",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/dive_launch.rs",
+      "sha256": "92c5c2966afd08f99f1107fb60067033371cb1a4139a5d3c348ad79f27ee7bd9",
+      "actual_EOF": 101,
+      "actual_compared_ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+      "sha256": "40f9695ff7352badc2fff5fb1cc7a15d68a36ea48dcfd36083f2c7c5145096e9",
+      "actual_EOF": 162,
+      "actual_compared_ranges": [
+        [
+          1,
+          162
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/projection_equipment.rs",
+      "sha256": "5e4a989041915c8e90f822e9947824bb05615df6c4b4427d6ec00a9cad71a726",
+      "actual_EOF": 176,
+      "actual_compared_ranges": [
+        [
+          1,
+          176
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/spawn_admission.rs",
+      "sha256": "43080d2bf8aa77667af8dad133c2266cae1829c0b33d658e858391aaa93ab474",
+      "actual_EOF": 119,
+      "actual_compared_ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/scene_spawn.rs",
+      "sha256": "0ed8029897a512fc8ebb39248471b4febef60c0a7c7657673a9df6b393d9838a",
+      "actual_EOF": 40,
+      "actual_compared_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection/dive_launch.rs",
+      "sha256": "92c5c2966afd08f99f1107fb60067033371cb1a4139a5d3c348ad79f27ee7bd9",
+      "actual_EOF": 101,
+      "actual_compared_ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+      "sha256": "40f9695ff7352badc2fff5fb1cc7a15d68a36ea48dcfd36083f2c7c5145096e9",
+      "actual_EOF": 162,
+      "actual_compared_ranges": [
+        [
+          1,
+          162
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection/projection_equipment.rs",
+      "sha256": "2ac9b1b21c4c3c62b6815b0885c43e18995cc9bed66fde7d692bcd7c00a07f81",
+      "actual_EOF": 139,
+      "actual_compared_ranges": [
+        [
+          1,
+          139
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection/spawn_admission.rs",
+      "sha256": "036e9735654b7050eab0212a18012e9ade1badc0ceebe3f5c093235c48ff228f",
+      "actual_EOF": 108,
+      "actual_compared_ranges": [
+        [
+          1,
+          108
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/scene_spawn.rs",
+      "sha256": "377b39cdfd69aee6164a0d9df1f235f810f0211b299e506d97b5bd521719bbaf",
+      "actual_EOF": 33,
+      "actual_compared_ranges": [
+        [
+          1,
+          33
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/item_geometry.rs",
+      "sha256": "fd0e55979400ec53e6db4c76a659bca5f732e45e2431a7f66db35335c3472a75",
+      "actual_EOF": 112,
+      "actual_compared_ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Dive/posture native arithmetic and partial mutation applicability",
+      "source_ranges": {
+        "player_projection/dive_launch.rs": [
+          [
+            1,
+            101
+          ]
+        ],
+        "player_projection/posture_facing.rs": [
+          [
+            1,
+            162
+          ]
+        ]
+      },
+      "disposition": "Whole exact P16+actual PR comparison bodies semantically reanalyzed. Airborne dive computes horizontal axis-relative yaw*speed and replaces x/z only, preserves y; grounded slide deliberately retains complete existing sprint velocity. Current validated yaw canonical/native speed source guards ordinary values, huge finite speed floating operation still requires fullnativekernel result contract no ordinary overflow proved. Posture lock freezes body facing, explicit downed camera mode precedence and held/released aim prevents free camera seeding rolls. Fallible facing can change downed motion before later error; projected posture advances skeleton before fallible rotation transfer, then writes transform+physics same normalized quaternion. Exact downstream canonical transition and valid quaternion inputs needed to show actual error after mutation; no unconditional transactional/retry defect claimed. Deadline facing uses sample saturating_sub policy tied current sample clock family."
+    },
+    {
+      "contract": "Complete batch preparation versus destructive mailbox/error disposition",
+      "source_ranges": {
+        "player_projection/spawn_admission.rs": [
+          [
+            1,
+            119
+          ]
+        ],
+        "scene_spawn.rs": [
+          [
+            1,
+            40
+          ]
+        ],
+        "player_projection/item_geometry.rs": [
+          [
+            1,
+            112
+          ]
+        ]
+      },
+      "disposition": "Actual single-authoritative-terrain gate occurs before drain, missingterrain returns without consuming rows; ambiguousterrain errors beforedrain. Then parent player_projection541\u2013556 drains conn.take_connected_players before fallible PreparedPlayerSpawns::prepare. Fresh stdb92\u201394 is mem::take of mailbox; callbacks push only on_insert. Later bodymass/recipe/support/missingfixture error drops entire owned batch with no entity commands and no restored rows in these bodies. This is an exact failure-atomicity/error-disposition dependency, not promoted ordinary permanent-loading defect: actual Bevy Result error handler fatal/recoverable policy and supported badrow/config reachability remain untraced. Canonical decision must either make failure terminal explicitly or retain/requeue/reject rows coherently; do not claim source pre-admission preserves mailbox merely because commands atomic. P16 stages bodymass/allitemgeometry as structured error; PR defers bodymass expect/rawitem assertions until publication, actual delta preserved. Per-batch recipient selection only actual requestedcharacter mapping/enemy fixture; allnumeric character fields/topology duplicateIDs not admitted here, owning DB snapshot contract remains dependency."
+    },
+    {
+      "contract": "Weapon/holder recipe physical projections and real error boundaries",
+      "source_ranges": {
+        "player_projection/projection_equipment.rs": [
+          [
+            1,
+            176
+          ]
+        ],
+        "player_projection/item_geometry.rs": [
+          [
+            1,
+            112
+          ]
+        ]
+      },
+      "disposition": "P16 weapon recipe path preserves codec/generator/catalog/hash/derived/geometry structured causes and typed computed lengths; PR assert/expect/Option returns raw fallback semantics, not equivalent error contract. Exactbytes/version/hash validates recipe before deriving; advertised appearance mass/length ignored in favorof recipe geometry. Holder mass still uses assertions/expect in both variants, armor authored metadata/placement expect and appearance fixedhash try_into depend actual authoritative snapshot admission, not sealed by P16 weapon Result alone. Empty quantity returns Empty beforegeometry, spawn still reserves entity then skips, so malformedappearance onempty doesnotflowto appearance conversion; canonical item topology maynotreference skippedempty parent withoutowning policy. Mass/weaponprecision/skills/inertia remainrawprojections; derivedlength/grip arithmetic and anchoroffset computed native translation mayoverflowat finiteextremes, actual ownerfullgeometry checks required. No current badcanonical recipe or DB actor alleged; shared parent F46 mass-projection support distinct lens not coverage transfer. Static bodypart indexes are total seven-case mapping; authored parent requirement u16 indices still provenance-dependent."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [
+    {
+      "path": "crates/adventuresim-tactical-server/src/stdb.rs",
+      "pin": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "ab24f2abcf0306df9967ba4f53671ead170142f7fd1a0697bf116389584da5b8",
+      "actually_read_ranges": [
+        [
+          35,
+          115
+        ]
+      ],
+      "coverage": "Fresh mailbox insert/drain/terminal callback critical bodies only; no whole-role credit."
+    }
+  ],
+  "status": "11 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-terrain/src/digest.rs"
+}

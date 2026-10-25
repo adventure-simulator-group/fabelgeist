@@ -1,0 +1,1933 @@
+-mesh/src/data.rs:17, crates/adventuresim-strategic-sim/src/investigation_eval/environment/fixtures.rs:83)
+  ... run the census subcommand for all candidates
+##[group]Run python3 -m unittest scripts.test_check_calendar_api
+python3 -m unittest scripts.test_check_calendar_api
+python3 scripts/check_calendar_api.py
+shell: /usr/bin/bash -e {0}
+env:
+  CARGO_TERM_COLOR: always
+  SPACETIMEDB_VERSION: 2.6.1
+  CARGO_HOME: /home/runner/.cargo
+  CARGO_INCREMENTAL: 0
+  CACHE_ON_FAILURE: false
+##[endgroup]
+....
+----------------------------------------------------------------------
+Ran 4 tests in 0.055s
+
+OK
+##[group]Run cargo clippy --package adventuresim-tactical-client --bin adventuresim-tactical-client --target wasm32-unknown-unknown -- -D warnings
+cargo clippy --package adventuresim-tactical-client --bin adventuresim-tactical-client --target wasm32-unknown-unknown -- -D warnings
+shell: /usr/bin/bash -e {0}
+env:
+  CARGO_TERM_COLOR: always
+  SPACETIMEDB_VERSION: 2.6.1
+  CARGO_HOME: /home/runner/.cargo
+  CARGO_INCREMENTAL: 0
+  CACHE_ON_FAILURE: false
+##[endgroup]
+   Compiling unicode-ident v1.0.24
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling serde_core v1.0.229
+   Compiling serde v1.0.229
+    Checking cfg-if v1.0.4
+   Compiling autocfg v1.5.1
+   Compiling rustversion v1.0.23
+   Compiling syn v3.0.4
+   Compiling syn v2.0.119
+    Checking once_cell v1.21.4
+   Compiling libm v0.2.16
+   Compiling wasm-bindgen-shared v0.2.126
+   Compiling bumpalo v3.20.3
+   Compiling wasm-bindgen v0.2.126
+    Checking memchr v2.8.3
+   Compiling num-traits v0.2.19
+    Checking pin-project-lite v0.2.17
+   Compiling version_check v0.9.5
+   Compiling wasm-bindgen-macro-support v0.2.126
+    Checking futures-core v0.3.34
+    Checking futures-io v0.3.34
+    Checking log v0.4.34
+    Checking slab v0.4.12
+    Checking foldhash v0.2.0
+    Checking futures-sink v0.3.34
+    Checking arrayvec v0.7.8
+    Checking futures-channel v0.3.34
+    Checking futures-task v0.3.34
+   Compiling thiserror v2.0.20
+    Checking equivalent v1.0.2
+    Checking allocator-api2 v0.2.21
+    Checking hashbrown v0.16.1
+    Checking hashbrown v0.17.1
+    Checking indexmap v2.14.1
+   Compiling crossbeam-utils v0.8.22
+   Compiling winnow v1.0.4
+    Checking raw-window-handle v0.6.2
+   Compiling toml_parser v1.1.3+spec-1.1.0
+    Checking event-listener v5.4.2
+    Checking event-listener-strategy v0.5.4
+   Compiling toml_datetime v1.1.1+spec-1.1.0
+   Compiling toml_edit v0.25.13+spec-1.1.0
+   Compiling slotmap v1.1.1
+   Compiling zerocopy v0.8.56
+   Compiling bevy_macro_utils v0.19.1
+   Compiling unicode-segmentation v1.13.3
+   Compiling convert_case v0.10.0
+   Compiling unicode-xid v0.2.6
+    Checking rand_core v0.10.1
+    Checking approx v0.5.1
+   Compiling encase_derive_impl v0.12.1
+   Compiling zerocopy-derive v0.8.56
+   Compiling serde_derive v1.0.229
+   Compiling bytemuck_derive v1.12.0
+   Compiling wasm-bindgen-macro v0.2.126
+   Compiling futures-macro v0.3.34
+    Checking bytemuck v1.25.2
+   Compiling thiserror-impl v2.0.20
+    Checking bitflags v2.13.1
+   Compiling derive_more-impl v2.1.1
+    Checking smallvec v1.15.2
+    Checking typewit v1.15.2
+    Checking const_panic v0.2.17
+    Checking futures-util v0.3.34
+    Checking rand v0.10.2
+    Checking fastrand v2.5.0
+   Compiling encase_derive v0.12.1
+    Checking js-sys v0.3.103
+    Checking parking v2.2.1
+    Checking futures-lite v2.6.1
+    Checking concurrent-queue v2.5.0
+    Checking async-channel v2.5.0
+    Checking uuid v1.26.0
+   Compiling typeid v1.0.3
+    Checking thread_local v1.1.10
+    Checking spin v0.10.1
+    Checking smol_str v0.2.2
+   Compiling shlex v2.0.1
+   Compiling find-msvc-tools v0.1.11
+   Compiling erased-serde v0.4.10
+    Checking foldhash v0.1.5
+    Checking hashbrown v0.15.5
+   Compiling cc v1.4.4
+    Checking encase v0.12.1
+    Checking glam v0.32.1
+    Checking web-sys v0.3.103
+    Checking wasm-bindgen-futures v0.4.76
+    Checking web-time v1.1.0
+    Checking bevy_platform v0.19.1
+    Checking downcast-rs v2.0.2
+    Checking fixedbitset v0.5.7
+    Checking disqualified v1.0.0
+    Checking petgraph v0.8.3
+    Checking bevy_utils v0.19.1
+   Compiling bevy_reflect_derive v0.19.1
+   Compiling assert_type_match v0.1.1
+   Compiling variadics_please v1.1.0
+    Checking inventory v0.3.24
+    Checking bevy_ptr v0.19.1
+    Checking async-task v4.7.1
+    Checking half v2.7.1
+    Checking atomic-waker v1.1.2
+   Compiling bevy_ecs_macro_logic v0.19.1
+    Checking derive_more v2.1.1
+    Checking either v1.18.0
+    Checking web-task v1.1.3
+    Checking async-executor v1.14.0
+    Checking crossbeam-queue v0.3.13
+    Checking nonmax v0.5.5
+    Checking bevy_tasks v0.19.1
+    Checking console_error_panic_hook v0.1.7
+   Compiling bevy_derive v0.19.1
+    Checking wgpu-types v29.0.4
+   Compiling cfg_aliases v0.2.2
+    Checking async-lock v3.4.2
+    Checking tracing-core v0.1.36
+   Compiling tracing-attributes v0.1.31
+    Checking bevy_reflect v0.19.1
+   Compiling bevy_ecs_macros v0.19.1
+    Checking aho-corasick v1.1.5
+    Checking regex-syntax v0.8.11
+    Checking regex-automata v0.4.18
+   Compiling blake3 v1.8.7
+    Checking constant_time_eq v0.4.2
+    Checking unicode-width v0.2.2
+    Checking simd-adler32 v0.3.10
+   Compiling crc32fast v1.5.1
+    Checking adler2 v2.0.1
+    Checking miniz_oxide v0.9.1
+    Checking itertools v0.14.0
+    Checking rand_distr v0.6.0
+    Checking crossbeam-channel v0.5.16
+    Checking flate2 v1.1.10
+    Checking stable_deref_trait v1.2.1
+    Checking miniz_oxide v0.8.9
+    Checking bevy_math v0.19.1
+    Checking fdeflate v0.3.7
+    Checking piper v0.2.5
+    Checking blocking v1.7.0
+    Checking const-fnv1a-hash v1.1.0
+    Checking termcolor v1.4.1
+    Checking async-fs v2.2.0
+   Compiling naga v29.0.4
+    Checking ron v0.12.2
+    Checking stackfuture v0.3.1
+   Compiling bevy_asset_macros v0.19.1
+    Checking async-broadcast v0.7.2
+    Checking atomicow v1.2.0
+    Checking bit-vec v0.9.1
+    Checking pp-rs v0.2.1
+    Checking bit-set v0.9.1
+    Checking codespan-reporting v0.13.1
+   Compiling synstructure v0.13.2
+   Compiling parking_lot_core v0.9.12
+    Checking rustc-hash v1.1.0
+    Checking hexf-parse v0.2.1
+    Checking tracing v0.1.44
+   Compiling anyhow v1.0.104
+    Checking scopeguard v1.2.0
+    Checking lock_api v0.4.14
+   Compiling zmij v1.0.23
+    Checking parking_lot v0.12.5
+    Checking zune-core v0.5.3
+    Checking const_soft_float v0.1.4
+    Checking pxfm v0.1.30
+    Checking bevy_ecs v0.19.1
+    Checking profiling v1.0.18
+    Checking moxcms v0.8.1
+    Checking wgpu-naga-bridge v29.0.4
+    Checking constgebra v0.1.4
+    Checking zune-jpeg v0.5.15
+    Checking png v0.18.1
+    Checking byteorder-lite v0.1.0
+    Checking lazy_static v1.5.0
+    Checking image v0.25.10
+    Checking hexasphere v18.0.0
+   Compiling zerofrom-derive v0.1.7
+   Compiling yoke-derive v0.8.2
+    Checking bevy_color v0.19.1
+   Compiling wgpu-hal v29.0.4
+   Compiling bevy_encase_derive v0.19.1
+    Checking bevy_app v0.19.1
+    Checking bevy_time v0.19.1
+    Checking bevy_diagnostic v0.19.1
+    Checking bevy_asset v0.19.1
+    Checking bevy_transform v0.19.1
+   Compiling zerovec-derive v0.11.6
+    Checking euclid v0.22.14
+    Checking svg_fmt v0.4.5
+    Checking twox-hash v2.1.4
+    Checking bevy_mikktspace v1.0.0
+    Checking bevy_mesh v0.19.1
+    Checking ruzstd v0.8.3
+    Checking guillotiere v0.6.2
+    Checking sharded-slab v0.1.7
+    Checking matchers v0.2.0
+    Checking tracing-log v0.2.0
+    Checking glow v0.17.0
+    Checking ktx2 v0.5.0
+   Compiling displaydoc v0.2.7
+    Checking rectangle-pack v0.4.2
+    Checking nu-ansi-term v0.50.3
+    Checking tracing-subscriber v0.3.23
+    Checking bevy_image v0.19.1
+    Checking zerofrom v0.1.8
+    Checking yoke v0.8.3
+    Checking zerovec v0.11.8
+    Checking bevy_input v0.19.1
+   Compiling wgpu-core v29.0.4
+    Checking static_assertions v1.1.0
+   Compiling litrs v1.0.0
+    Checking writeable v0.6.4
+    Checking wgpu-core-deps-wasm v29.0.4
+    Checking tracing-wasm v0.2.1
+    Checking regex v1.13.1
+   Compiling wgpu v29.0.4
+   Compiling document-features v0.2.12
+    Checking bevy_window v0.19.1
+    Checking bevy_log v0.19.1
+    Checking litemap v0.8.3
+    Checking potential_utf v0.1.6
+   Compiling heck v0.5.0
+    Checking bevy_camera v0.19.1
+    Checking itoa v1.0.18
+    Checking font-types v0.11.3
+    Checking utf8_iter v1.0.4
+   Compiling icu_properties_data v2.3.0
+    Checking tinystr v0.8.4
+    Checking zerotrie v0.2.5
+    Checking icu_locale_core v2.3.0
+    Checking icu_collections v2.3.0
+   Compiling icu_normalizer_data v2.3.0
+    Checking linebender_resource_handle v0.1.1
+   Compiling serde_json v1.0.151
+    Checking icu_provider v2.3.1
+   Compiling icu_locale_fallback_data v2.3.0
+    Checking read-fonts v0.39.2
+    Checking icu_properties v2.3.0
+    Checking icu_normalizer v2.3.0
+    Checking byteorder v1.5.0
+   Compiling icu_segmenter_data v2.3.0
+    Checking codespan-reporting v0.12.0
+    Checking font-types v0.12.4
+    Checking data-encoding v2.11.1
+    Checking naga_oil v0.22.0
+    Checking read-fonts v0.41.0
+    Checking icu_locale_fallback v2.3.0
+   Compiling enumn v0.1.14
+   Compiling generic-array v0.14.7
+    Checking core_maths v0.1.1
+    Checking memmap2 v0.9.11
+    Checking parlance v0.1.0
+    Checking fontique v0.9.0
+    Checking harfrust v0.6.2
+    Checking accesskit v0.24.1
+    Checking skrifa v0.44.0
+    Checking skrifa v0.42.1
+    Checking icu_segmenter v2.3.0
+    Checking bevy_shader v0.19.1
+    Checking parley_data v0.9.0
+    Checking bevy_picking v0.19.1
+   Compiling bevy_material_macros v0.19.1
+   Compiling bevy_gizmos_macros v0.19.1
+    Checking zeno v0.3.3
+    Checking yazi v0.2.1
+    Checking swash v0.2.10
+    Checking parley v0.9.0
+    Checking bevy_clipboard v0.19.1
+    Checking sys-locale v0.3.2
+    Checking offset-allocator v0.2.0
+   Compiling bevy_render_macros v0.19.1
+    Checking bevy_text v0.19.1
+    Checking bevy_material v0.19.1
+    Checking weak-table v0.3.2
+    Checking radsort v0.1.1
+    Checking bevy_gizmos v0.19.1
+    Checking bevy_sprite v0.19.1
+    Checking bevy_light v0.19.1
+   Compiling libc v0.2.189
+    Checking bevy_input_focus v0.19.1
+    Checking bevy_a11y v0.19.1
+    Checking grid v1.0.1
+    Checking percent-encoding v2.3.2
+    Checking taffy v0.10.1
+   Compiling inflections v1.1.1
+    Checking base64 v0.22.1
+    Checking bevy_ui v0.19.1
+   Compiling gltf-derive v1.4.1
+   Compiling getrandom v0.3.4
+   Compiling bevy_animation_macros v0.19.1
+    Checking gltf-json v1.4.1
+    Checking num-integer v0.1.47
+   Compiling typenum v1.20.1
+    Checking gltf v1.4.1
+    Checking bevy_animation v0.19.1
+    Checking bevy_world_serialization v0.19.1
+   Compiling thiserror v1.0.69
+   Compiling rand_core v0.9.5
+    Checking bevy_gltf v0.19.1
+   Compiling winit v0.30.13
+   Compiling pin-project-internal v1.1.13
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.7
+   Compiling thiserror-impl v1.0.69
+    Checking bevy_render v0.19.1
+   Compiling ppv-lite86 v0.2.21
+   Compiling getrandom v0.4.3
+    Checking dpi v0.1.2
+   Compiling cpal v0.17.3
+    Checking cursor-icon v1.2.0
+   Compiling nohash-hasher v0.2.0
+    Checking tinyvec_macros v0.1.1
+    Checking tinyvec v1.12.0
+   Compiling rand_chacha v0.9.0
+   Compiling digest v0.10.7
+   Compiling itertools v0.12.1
+    Checking num-bigint v0.4.8
+    Checking ogg v0.8.0
+   Compiling enum-as-inner v0.6.1
+   Compiling bevy_state_macros v0.19.1
+    Checking dasp_sample v0.11.0
+   Compiling spacetimedb-primitives v2.6.1
+    Checking pin-project v1.1.13
+    Checking lewton v0.10.2
+    Checking num-rational v0.4.2
+   Compiling rand v0.9.5
+    Checking accesskit_winit v0.32.2
+   Compiling approx v0.3.2
+   Compiling castaway v0.2.4
+   Compiling heck v0.4.1
+   Compiling keccak v0.1.6
+   Compiling humantime v2.4.0
+    Checking bevy_state v0.19.1
+   Compiling convert_case v0.4.0
+   Compiling cpufeatures v0.3.1
+   Compiling ryu v1.0.23
+   Compiling lean_string v0.5.3
+   Compiling derive_more v0.99.20
+   Compiling spacetimedb-bindings-macro v2.6.1
+    Checking bevy_core_pipeline v0.19.1
+   Compiling sha3 v0.10.9
+   Compiling decorum v0.3.1
+    Checking bevy_winit v0.19.1
+    Checking rodio v0.22.2
+   Compiling chrono v0.4.45
+    Checking bevy_sprite_render v0.19.1
+    Checking bevy_pbr v0.19.1
+    Checking bevy_ui_render v0.19.1
+   Compiling ethnum v1.5.3
+   Compiling strum_macros v0.28.0
+   Compiling bevy_scene_macros v0.19.1
+   Compiling hex v0.4.3
+   Compiling bytes v1.12.1
+   Compiling spacetimedb-lib v2.6.1
+   Compiling second-stack v0.3.5
+   Compiling spacetimedb-sats v2.6.1
+    Checking bevy_scene v0.19.1
+    Checking bevy_anti_alias v0.19.1
+    Checking bevy_post_process v0.19.1
+    Checking bevy_audio v0.19.1
+   Compiling crossbeam-epoch v0.9.20
+   Compiling cpufeatures v0.2.17
+   Compiling sha2 v0.10.9
+   Compiling strum v0.28.0
+   Compiling crossbeam-deque v0.8.7
+   Compiling rayon-core v1.13.0
+    Checking anstyle v1.0.14
+   Compiling strum_macros v0.27.2
+   Compiling siphasher v1.0.3
+    Checking utf8parse v0.2.2
+    Checking anstyle-parse v1.0.0
+   Compiling phf_shared v0.13.1
+    Checking gloo-timers v0.3.0
+    Checking is_terminal_polyfill v1.70.2
+    Checking colorchoice v1.0.5
+    Checking anstyle-query v1.1.5
+    Checking anstream v1.0.0
+   Compiling phf_generator v0.13.1
+    Checking fabelgeist-timer v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-timer)
+    Checking rayon v1.12.0
+   Compiling adventuresim-world-schema v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-world-schema)
+    Checking rand_xoshiro v0.7.0
+    Checking fabelgeist-color v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-color)
+    Checking fabelgeist-math v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-math)
+   Compiling heapless v0.8.0
+    Checking robust v1.2.0
+    Checking strsim v0.11.1
+    Checking clap_lex v1.1.0
+    Checking float-cmp v0.9.0
+    Checking clap_builder v4.6.6
+    Checking strict-num v0.1.1
+    Checking spade v2.15.1
+   Compiling fabelgeist-determinism v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-determinism)
+    Checking hash32 v0.3.1
+   Compiling clap_derive v4.6.4
+    Checking num-complex v0.4.6
+   Compiling rustc-hash v2.1.3
+    Checking arrayref v0.3.9
+   Compiling mutants v0.0.3
+   Compiling unsynn v0.3.0
+    Checking tiny-skia-path v0.11.4
+    Checking bevy_dev_tools v0.19.1
+    Checking bevy_gizmos_render v0.19.1
+    Checking bevy_remote v0.19.1
+    Checking bevy_internal v0.19.1
+    Checking bevy v0.19.1
+    Checking polycool v0.4.0
+    Checking bitflags v1.3.2
+   Compiling paste v1.0.15
+    Checking png v0.17.16
+    Checking kurbo v0.13.1
+    Checking strum v0.27.2
+    Checking fabelgeist-gpu v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-gpu)
+    Checking rstar v0.12.2
+   Compiling variadics_please v2.0.0
+    Checking fabelgeist-compute v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-compute)
+   Compiling encoding_rs v0.8.35
+    Checking cobs v0.3.0
+    Checking color v0.3.3
+    Checking safe_arch v0.7.4
+   Compiling postcard-derive v0.2.2
+   Compiling portable-atomic v1.15.0
+   Compiling arraydeque v0.5.1
+   Compiling annotate-snippets v0.12.16
+   Compiling granit-parser v1.2.0
+    Checking clap v4.6.6
+   Compiling encoding_rs_io v0.1.8
+    Checking peniko v0.6.1
+    Checking wide v0.7.33
+    Checking tiny-skia v0.11.4
+    Checking postcard v1.1.3
+   Compiling phf_macros v0.13.1
+    Checking itertools v0.15.0
+    Checking fearless_simd v0.3.0
+   Compiling ahash v0.8.12
+   Compiling matrixmultiply v0.3.11
+   Compiling portable-atomic-util v0.2.7
+    Checking dtoa v1.0.11
+   Compiling base64 v0.23.1
+    Checking vello_common v0.0.6
+   Compiling serde-saphyr v1.2.0
+    Checking dtoa-short v0.3.5
+    Checking simba v0.9.1
+   Compiling adventuresim-dialogue v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-dialogue)
+    Checking phf v0.13.1
+   Compiling phf_codegen v0.13.1
+    Checking read-fonts v0.37.0
+    Checking emath v0.34.3
+   Compiling cssparser-macros v0.7.0
+    Checking i_float v1.16.0
+   Compiling proc-macro-error-attr3 v3.1.1
+    Checking rawpointer v0.2.1
+    Checking partition v0.1.2
+    Checking arbitrary-chunks v0.4.1
+    Checking rdst v0.20.14
+    Checking cssparser v0.37.0
+   Compiling proc-macro-error3 v3.1.1
+    Checking i_shape v1.18.0
+    Checking skrifa v0.40.0
+    Checking ecolor v0.34.3
+   Compiling selectors v0.38.0
+    Checking glamx v0.2.0
+    Checking vello_cpu v0.0.6
+    Checking aeronet_io v0.21.0
+    Checking fabelgeist-bvh v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-bvh)
+    Checking fabelgeist-xpbd v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-xpbd)
+    Checking i_key_sort v0.10.3
+   Compiling itertools v0.10.5
+    Checking idna_adapter v1.2.2
+    Checking glam_matrix_extras v0.3.0
+    Checking kurbo v0.11.3
+    Checking serde_arrays v0.2.0
+    Checking glam v0.33.6
+   Compiling enumflags2_derive v0.7.12
+   Compiling typesize-derive v0.1.11
+   Compiling adventuresim-core v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-core)
+   Compiling num-derive v0.4.2
+   Compiling proc-macro-crate v3.5.0
+    Checking ena v0.14.4
+    Checking ordered-float v5.5.0
+    Checking self_cell v1.3.0
+    Checking unsafe-libyaml v0.2.11
+    Checking ttf-parser v0.25.1
+    Checking i_tree v0.18.0
+    Checking epaint_default_fonts v0.34.3
+    Checking epaint v0.34.3
+    Checking i_overlay v4.5.2
+    Checking owned_ttf_parser v0.25.1
+    Checking serde_yaml v0.9.34+deprecated
+    Checking parry3d v0.27.0
+   Compiling bevy_flair_core_macros v0.8.1
+    Checking typesize v0.1.15
+    Checking obvhs v0.3.3
+    Checking enumflags2 v0.7.12
+    Checking bevy_heavy v0.5.0
+   Compiling ambassador v0.5.1
+    Checking svgtypes v0.15.3
+    Checking idna v1.1.0
+    Checking fabelgeist-physics v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-physics)
+    Checking adventuresim-weapon-model v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-weapon-model)
+    Checking ringbuf v0.4.8
+   Compiling avian_derive v0.2.3
+    Checking ndarray v0.17.2
+    Checking adventuresim-puzzles v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-puzzles)
+    Checking octs v1.0.0
+    Checking fabelgeist-mesh v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-mesh)
+    Checking geo-types v0.7.20
+    Checking bevy_transform_interpolation v0.5.0
+    Checking form_urlencoded v1.2.2
+    Checking servo_arc v0.4.3
+   Compiling enum-assoc v1.4.1
+   Compiling bevy_enhanced_input_macros v0.26.0
+   Compiling blanket v0.4.0
+    Checking rand_pcg v0.10.2
+    Checking simplecss v0.2.2
+    Checking earcut v0.4.5
+    Checking geographiclib-rs v0.2.7
+    Checking sif-itree v0.4.1
+    Checking xmlwriter v0.1.0
+    Checking float_next_after v2.0.0
+    Checking roxmltree v0.20.0
+    Checking precomputed-hash v0.1.1
+    Checking data-url v0.3.2
+    Checking imagesize v0.13.0
+    Checking pico-args v0.5.0
+    Checking new_debug_unreachable v1.0.6
+    Checking ab_glyph_rasterizer v0.1.10
+    Checking bit-vec v0.8.0
+    Checking aeronet_transport v0.21.0
+    Checking ab_glyph v0.2.32
+    Checking usvg v0.45.1
+    Checking egui v0.34.3
+    Checking geo v0.33.1
+    Checking bevy_enhanced_input v0.26.0
+    Checking avian3d v0.7.0
+    Checking url v2.5.8
+    Checking fabelgeist-shell v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-shell)
+    Checking sprs v0.11.5
+    Checking bevy_flair_core v0.8.1
+    Checking fabelgeist-garment-code v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-garment-code)
+   Compiling serde_spanned v1.1.1
+   Compiling toml_datetime v0.7.5+spec-1.1.0
+    Checking futures-executor v0.3.34
+    Checking rgb v0.8.53
+   Compiling enum-map-derive v0.17.0
+    Checking yansi v1.0.1
+   Compiling winnow v0.7.15
+    Checking xxhash-rust v0.8.18
+   Compiling toml_writer v1.1.2+spec-1.1.0
+    Checking deterministic-hash v1.0.2
+    Checking smallbitvec v2.6.1
+    Checking bevy_replicon v0.41.1
+    Checking enum-map v2.7.3
+   Compiling toml v0.9.12+spec-1.1.0
+    Checking ariadne v0.6.0
+    Checking resvg v0.45.1
+    Checking futures v0.3.34
+    Checking microlp v0.6.0
+    Checking bevy_flair_style v0.8.1
+    Checking webbrowser v1.2.4
+    Checking fabelgeist-cloth v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-cloth)
+    Checking adventuresim-building-generator v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-building-generator)
+    Checking cssparser-color v0.5.0
+    Checking noiz v0.5.0
+    Checking bevy_ahoy v0.2.0 (/home/runner/work/fabelgeist/fabelgeist/vendor/bevy_ahoy)
+    Checking pollster v0.4.0
+    Checking linked-hash-map v0.5.6
+    Checking ciborium-io v0.2.2
+   Compiling semver v1.0.28
+    Checking ciborium-ll v0.2.2
+    Checking bevy_flair_css_parser v0.8.1
+   Compiling adventuresim-tactical-client v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client)
+    Checking fabelgeist-armor v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-armor)
+    Checking bevy_egui v0.40.1
+    Checking fabelgeist-garment-fit v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-garment-fit)
+    Checking aeronet_websocket v0.21.0
+    Checking egui_extras v0.34.3
+    Checking aeronet_replicon v0.21.0
+    Checking aeronet v0.21.0
+    Checking fabelgeist-rig v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-rig)
+    Checking tokio v1.53.1
+    Checking bitfield v0.15.0
+    Checking bevy_mod_outline v0.13.0
+    Checking bevy_flair v0.8.1
+    Checking ciborium v0.2.2
+    Checking adventuresim-character-creator v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-character-creator)
+    Checking adventuresim-procedural-materials v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-procedural-materials)
+    Checking adventuresim-procedural-textures v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-procedural-textures)
+    Checking adventuresim-plant-generator v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-plant-generator)
+    Checking bevy_eidolon v0.5.0 (https://github.com/barsoosayque/bevy_eidolon?branch=fablegeist-0.19#1a5aff8d)
+    Checking adventuresim-tactical-core v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-core)
+    Checking adventuresim-tactical-netcode v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-netcode)
+    Finished `dev` profile [optimized] target(s) in 6m 26s
+##[group]Run python3 -B -m unittest scripts.test_check_deterministic_rng
+python3 -B -m unittest scripts.test_check_deterministic_rng
+python3 scripts/check_deterministic_rng.py
+cargo install wasm-bindgen-cli --version 0.2.126 --locked
+python3 scripts/test_determinism.py
+shell: /usr/bin/bash -e {0}
+env:
+  CARGO_TERM_COLOR: always
+  SPACETIMEDB_VERSION: 2.6.1
+  CARGO_HOME: /home/runner/.cargo
+  CARGO_INCREMENTAL: 0
+  CACHE_ON_FAILURE: false
+##[endgroup]
+......
+----------------------------------------------------------------------
+Ran 6 tests in 0.001s
+
+OK
+deterministic RNG duplication check passed
+    Updating crates.io index
+ Downloading crates ...
+  Downloaded wasm-bindgen-cli v0.2.126
+     Ignored package `wasm-bindgen-cli v0.2.126` is already installed, use --force to override
+   Compiling rand_core v0.9.5
+   Compiling blake3 v1.8.7
+   Compiling serde v1.0.229
+   Compiling rand_xoshiro v0.7.0
+   Compiling rand v0.9.5
+   Compiling fabelgeist-determinism v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-determinism)
+    Finished `test` profile [optimized] target(s) in 1.79s
+     Running unittests src/lib.rs (target/debug/deps/fabelgeist_determinism-7941ab828d7e6ab1)
+
+running 4 tests
+test stream::tests::rejection_consumes_another_full_width_draw ... ok
+test tests::splitmix64_seed_zero_sequence_is_stable ... ok
+test seed::tests::streaming_numeric_seeds_preserve_original_length_framing ... ok
+test tests::unit_conversions_keep_their_interval_contracts ... ok
+
+test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running tests/contract.rs (target/debug/deps/contract-b95237efa99167e3)
+
+running 6 tests
+test complete_derivation_and_sampling_vectors ... ok
+test empty_and_singleton_shuffles_and_float_endpoints ... ok
+test producer_seeds_preserve_draw_slots_word_arithmetic_and_lattice_order ... ok
+test framing_and_independent_streams ... ok
+test seed_documents_admit_only_the_final_record_shape ... ok
+test weights_fail_explicitly_and_exclude_zero ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests fabelgeist_determinism
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Compiling proc-macro2 v1.0.107
+   Compiling serde_core v1.0.229
+   Compiling cfg-if v1.0.4
+   Compiling wasm-bindgen v0.2.126
+   Compiling unicode-ident v1.0.24
+   Compiling wasm-bindgen-shared v0.2.126
+   Compiling slab v0.4.12
+   Compiling pin-project-lite v0.2.17
+   Compiling futures-task v0.3.34
+   Compiling once_cell v1.21.4
+   Compiling futures-core v0.3.34
+   Compiling libm v0.2.16
+   Compiling futures-util v0.3.34
+   Compiling quote v1.0.47
+   Compiling syn v2.0.119
+   Compiling syn v3.0.4
+   Compiling serde v1.0.229
+   Compiling num-traits v0.2.19
+   Compiling serde_json v1.0.151
+   Compiling rand_core v0.9.5
+   Compiling blake3 v1.8.7
+   Compiling zmij v1.0.23
+   Compiling memchr v2.8.3
+   Compiling itoa v1.0.18
+   Compiling arrayvec v0.7.8
+   Compiling constant_time_eq v0.4.2
+   Compiling wasm-bindgen-macro-support v0.2.126
+   Compiling rand_xoshiro v0.7.0
+   Compiling rand v0.9.5
+   Compiling oorandom v11.1.5
+   Compiling nu-ansi-term v0.50.3
+   Compiling wasm-bindgen-test-shared v0.2.126
+   Compiling cast v0.3.0
+   Compiling serde_derive v1.0.229
+   Compiling wasm-bindgen-test-macro v0.3.76
+   Compiling async-trait v0.1.92
+   Compiling wasm-bindgen-macro v0.2.126
+   Compiling js-sys v0.3.103
+   Compiling fabelgeist-determinism v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-determinism)
+   Compiling wasm-bindgen-futures v0.4.76
+   Compiling wasm-bindgen-test v0.3.76
+    Finished `test` profile [optimized] target(s) in 52.58s
+     Running unittests src/lib.rs (target/wasm32-unknown-unknown/debug/deps/fabelgeist_determinism-4525644757d999aa.wasm)
+running 1 test
+test stream::tests::rejection_consumes_another_full_width_draw ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 filtered out; finished in 0.02s
+
+     Running tests/contract.rs (target/wasm32-unknown-unknown/debug/deps/contract-18c28f5e132cbc0d.wasm)
+running 6 tests
+test weights_fail_explicitly_and_exclude_zero ... ok
+test seed_documents_admit_only_the_final_record_shape ... ok
+test producer_seeds_preserve_draw_slots_word_arithmetic_and_lattice_order ... ok
+test framing_and_independent_streams ... ok
+test empty_and_singleton_shuffles_and_float_endpoints ... ok
+test complete_derivation_and_sampling_vectors ... ok
+
+test result: ok. 6 passed; 0 failed; 0 ignored; 0 filtered out; finished in 0.02s
+
+   Doc-tests fabelgeist_determinism
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+##[group]Run cargo clippy --workspace --all-targets --all-features -- -D warnings
+cargo clippy --workspace --all-targets --all-features -- -D warnings
+cargo clippy --locked --manifest-path crates/adventuresim-character-creator/Cargo.toml --all-targets --all-features -- -D warnings
+cargo clippy --locked --manifest-path crates/fabelgeist-mhr/Cargo.toml --all-targets --all-features -- -D warnings
+cargo clippy --locked --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml --all-targets --all-features -- -D warnings
+shell: /usr/bin/bash -e {0}
+env:
+  CARGO_TERM_COLOR: always
+  SPACETIMEDB_VERSION: 2.6.1
+  CARGO_HOME: /home/runner/.cargo
+  CARGO_INCREMENTAL: 0
+  CACHE_ON_FAILURE: false
+##[endgroup]
+   Compiling serde_core v1.0.229
+   Compiling serde v1.0.229
+    Checking cfg-if v1.0.4
+   Compiling syn v3.0.4
+   Compiling syn v2.0.119
+    Checking log v0.4.34
+   Compiling libc v0.2.189
+   Compiling libm v0.2.16
+   Compiling num-traits v0.2.19
+    Checking once_cell v1.21.4
+    Checking foldhash v0.2.0
+    Checking equivalent v1.0.2
+    Checking memchr v2.8.3
+   Compiling jobserver v0.1.35
+   Compiling cc v1.4.4
+    Checking hashbrown v0.17.1
+    Checking arrayvec v0.7.8
+    Checking indexmap v2.14.1
+    Checking either v1.18.0
+    Checking pin-project-lite v0.2.17
+   Compiling crossbeam-utils v0.8.22
+    Checking itoa v1.0.18
+   Compiling crossbeam-epoch v0.9.20
+    Checking getrandom v0.4.3
+   Compiling crossbeam-deque v0.8.7
+   Compiling rayon-core v1.13.0
+    Checking uuid v1.26.0
+    Checking rayon v1.12.0
+    Checking futures-core v0.3.34
+    Checking slab v0.4.12
+    Checking tracing-core v0.1.36
+    Checking allocator-api2 v0.2.21
+    Checking hashbrown v0.16.1
+    Checking futures-io v0.3.34
+   Compiling rustix v1.1.4
+    Checking linux-raw-sys v0.12.1
+    Checking scopeguard v1.2.0
+    Checking lock_api v0.4.14
+    Checking simd-adler32 v0.3.10
+    Checking adler2 v2.0.1
+    Checking crc32fast v1.5.1
+    Checking anyhow v1.0.104
+    Checking miniz_oxide v0.9.1
+    Checking zlib-rs v0.6.7
+    Checking stable_deref_trait v1.2.1
+   Compiling paste v1.0.15
+    Checking bytes v1.12.1
+    Checking flate2 v1.1.10
+    Checking fastrand v2.5.0
+    Checking zmij v1.0.23
+   Compiling serde_json v1.0.151
+    Checking atomic-waker v1.1.2
+    Checking foldhash v0.1.5
+    Checking hashbrown v0.15.5
+    Checking parking v2.2.1
+   Compiling blake3 v1.8.7
+    Checking mio v1.2.2
+    Checking futures-sink v0.3.34
+    Checking approx v0.5.1
+    Checking unicode-ident v1.0.24
+    Checking raw-window-handle v0.6.2
+   Compiling getrandom v0.3.4
+    Checking futures-channel v0.3.34
+    Checking rand_core v0.10.1
+    Checking concurrent-queue v2.5.0
+    Checking rand v0.10.2
+    Checking futures-lite v2.6.1
+    Checking subtle v2.6.1
+    Checking futures-task v0.3.34
+    Checking event-listener v5.4.2
+    Checking miniz_oxide v0.8.9
+    Checking fdeflate v0.3.7
+    Checking event-listener-strategy v0.5.4
+   Compiling encase_derive_impl v0.12.1
+    Checking async-channel v2.5.0
+    Checking typewit v1.15.2
+    Checking const_panic v0.2.17
+    Checking constant_time_eq v0.4.2
+    Checking cpufeatures v0.3.1
+    Checking fnv v1.0.7
+    Checking async-task v4.7.1
+   Compiling synstructure v0.13.2
+    Checking async-executor v1.14.0
+    Checking writeable v0.6.4
+    Checking rand_core v0.9.5
+    Checking lazy_static v1.5.0
+    Checking litemap v0.8.3
+    Checking http v1.5.0
+    Checking num-integer v0.1.47
+    Checking libloading v0.8.9
+    Checking unicode-width v0.2.2
+    Checking ryu v1.0.23
+    Checking utf8_iter v1.0.4
+    Checking aho-corasick v1.1.5
+    Checking regex-syntax v0.8.11
+    Checking regex-automata v0.4.18
+    Checking icu_properties_data v2.3.0
+    Checking percent-encoding v2.3.2
+    Checking icu_normalizer_data v2.3.0
+    Checking errno v0.3.14
+    Checking signal-hook-registry v1.4.8
+    Checking piper v0.2.5
+    Checking itertools v0.14.0
+   Compiling zerocopy-derive v0.8.56
+   Compiling serde_derive v1.0.229
+   Compiling bytemuck_derive v1.12.0
+   Compiling thiserror-impl v2.0.20
+    Checking bytemuck v1.25.2
+    Checking bitflags v2.13.1
+   Compiling tracing-attributes v0.1.31
+    Checking thiserror v2.0.20
+    Checking zerocopy v0.8.56
+    Checking polling v3.11.0
+   Compiling futures-macro v0.3.34
+    Checking async-io v2.6.0
+   Compiling encase_derive v0.12.1
+    Checking smallvec v1.15.2
+    Checking parking_lot_core v0.9.12
+    Checking parking_lot v0.12.5
+    Checking wgpu-types v29.0.4
+    Checking encase v0.12.1
+    Checking glam v0.32.1
+    Checking tracing v0.1.44
+    Checking half v2.7.1
+    Checking futures-util v0.3.34
+   Compiling zerofrom-derive v0.1.7
+   Compiling yoke-derive v0.8.2
+   Compiling zerovec-derive v0.11.6
+   Compiling displaydoc v0.2.7
+    Checking ppv-lite86 v0.2.21
+   Compiling profiling-procmacros v1.0.18
+    Checking rand_chacha v0.9.0
+    Checking rand v0.9.5
+   Compiling thiserror-impl v1.0.69
+    Checking profiling v1.0.18
+   Compiling derive_more-impl v2.1.1
+    Checking getrandom v0.2.17
+    Checking blocking v1.7.0
+    Checking async-lock v3.4.2
+    Checking quick-error v2.0.1
+    Checking zune-core v0.5.3
+    Checking zune-jpeg v0.5.15
+    Checking hex v0.4.3
+    Checking async-broadcast v0.7.2
+    Checking async-fs v2.2.0
+    Checking zerofrom v0.1.8
+   Compiling tokio-macros v2.7.2
+    Checking yoke v0.8.3
+    Checking zerovec v0.11.8
+    Checking tinystr v0.8.4
+    Checking icu_locale_core v2.3.0
+    Checking potential_utf v0.1.6
+    Checking zerotrie v0.2.5
+    Checking icu_provider v2.3.1
+    Checking icu_collections v2.3.0
+    Checking socket2 v0.6.5
+    Checking icu_properties v2.3.0
+    Checking icu_normalizer v2.3.0
+    Checking termcolor v1.4.1
+    Checking typenum v1.20.1
+    Checking tokio v1.53.1
+   Compiling bevy_macro_utils v0.19.1
+    Checking generic-array v0.14.7
+    Checking scoped-tls v1.0.1
+   Compiling equator-macro v0.4.2
+    Checking num-bigint v0.4.8
+    Checking block-buffer v0.10.4
+    Checking crypto-common v0.1.7
+    Checking digest v0.10.7
+    Checking as-slice v0.2.1
+   Compiling built v0.8.1
+    Checking num-rational v0.4.2
+   Compiling av-scenechange v0.14.1
+    Checking equator v0.4.2
+    Checking aligned v0.4.3
+    Checking rgb v0.8.53
+    Checking aligned-vec v0.6.4
+    Checking v_frame v0.3.9
+   Compiling num-derive v0.4.2
+   Compiling arg_enum_proc_macro v0.3.4
+   Compiling rav1e v0.8.1
+    Checking nom v8.0.0
+    Checking no_std_io2 v0.9.4
+   Compiling pastey v0.1.1
+    Checking base64 v0.22.1
+    Checking y4m v0.8.0
+    Checking new_debug_unreachable v1.0.6
+    Checking bitstream-io v4.10.0
+    Checking av1-grain v0.2.5
+    Checking httparse v1.10.1
+    Checking thiserror v1.0.69
+    Checking crossbeam-queue v0.3.13
+    Checking maybe-rayon v0.1.1
+   Compiling simd_helpers v0.1.0
+    Checking imgref v1.12.3
+   Compiling noop_proc_macro v0.3.0
+    Checking loop9 v0.1.5
+    Checking avif-serialize v0.8.9
+    Checking pxfm v0.1.30
+    Checking png v0.18.1
+    Checking thread_local v1.1.10
+   Compiling typeid v1.0.3
+    Checking byteorder-lite v0.1.0
+    Checking spin v0.10.1
+    Checking bumpalo v3.20.3
+    Checking bevy_platform v0.19.1
+    Checking moxcms v0.8.1
+    Checking smol_str v0.2.2
+    Checking regex v1.13.1
+   Compiling naga v29.0.4
+    Checking bit-vec v0.9.1
+   Compiling erased-serde v0.4.10
+    Checking derive_more v2.1.1
+    Checking unicode-xid v0.2.6
+    Checking pp-rs v0.2.1
+    Checking bit-set v0.9.1
+    Checking ravif v0.13.0
+    Checking codespan-reporting v0.13.1
+    Checking spirv v0.4.0+sdk-1.4.341.0
+    Checking http-body v1.1.0
+    Checking fixedbitset v0.5.7
+    Checking disqualified v1.0.0
+    Checking rustc-hash v1.1.0
+    Checking downcast-rs v2.0.2
+    Checking hexf-parse v0.2.1
+    Checking bevy_utils v0.19.1
+    Checking petgraph v0.8.3
+   Compiling bevy_reflect_derive v0.19.1
+    Checking image v0.25.10
+   Compiling assert_type_match v0.1.1
+   Compiling variadics_please v1.1.0
+    Checking bevy_ptr v0.19.1
+    Checking inventory v0.3.24
+    Checking tokio-util v0.7.19
+   Compiling nix v0.31.3
+    Checking dlib v0.5.3
+   Compiling wayland-sys v0.31.11
+   Compiling slotmap v1.1.1
+    Checking try-lock v0.2.5
+    Checking httpdate v1.0.3
+    Checking want v0.3.1
+    Checking ash v0.38.0+1.3.281
+    Checking h2 v0.4.19
+    Checking wgpu-naga-bridge v29.0.4
+    Checking http-body-util v0.1.5
+   Compiling bevy_ecs_macro_logic v0.19.1
+    Checking gpu-descriptor-types v0.2.0
+   Compiling wgpu-hal v29.0.4
+   Compiling wayland-backend v0.3.17
+    Checking ordered-float v5.5.0
+    Checking presser v0.3.1
+    Checking gpu-descriptor v0.3.2
+    Checking hyper v1.11.1
+    Checking downcast-rs v1.2.1
+    Checking renderdoc-sys v1.1.0
+    Checking bevy_reflect v0.19.1
+    Checking nonmax v0.5.5
+   Compiling bevy_ecs_macros v0.19.1
+    Checking bevy_tasks v0.19.1
+   Compiling wgpu-core v29.0.4
+    Checking static_assertions v1.1.0
+    Checking gpu-allocator v0.28.0
+   Compiling wayland-scanner v0.31.11
+    Checking wgpu-core-deps-windows-linux-android v29.0.4
+    Checking ctrlc v3.5.2
+   Compiling bevy_derive v0.19.1
+   Compiling enum-as-inner v0.6.1
+   Compiling wgpu v29.0.4
+   Compiling spacetimedb-primitives v2.6.1
+    Checking wayland-client v0.31.15
+    Checking form_urlencoded v1.2.2
+   Compiling derive_more v0.99.20
+    Checking bevy_ecs v0.19.1
+   Compiling spacetimedb-bindings-macro v2.6.1
+    Checking wayland-protocols v0.32.13
+    Checking idna_adapter v1.2.2
+    Checking nohash-hasher v0.2.0
+    Checking idna v1.1.0
+   Compiling inotify-sys v0.1.8
+    Checking url v2.5.8
+    Checking float-cmp v0.9.0
+    Checking strict-num v0.1.1
+    Checking same-file v1.0.6
+    Checking arrayref v0.3.9
+    Checking tiny-skia-path v0.11.4
+    Checking walkdir v2.5.0
+    Checking inotify v0.11.5
+    Checking bevy_app v0.19.1
+    Checking crossbeam-channel v0.5.16
+    Checking bitflags v1.3.2
+    Checking png v0.17.16
+    Checking rand_distr v0.6.0
+    Checking bevy_time v0.19.1
+    Checking approx v0.3.2
+   Compiling protobuf v3.7.2
+    Checking twox-hash v2.1.4
+    Checking decorum v0.3.1
+    Checking tiny-skia v0.11.4
+    Checking bevy_math v0.19.1
+    Checking protobuf-support v3.7.2
+    Checking ethnum v1.5.3
+    Checking itertools v0.12.1
+   Compiling prometheus v0.14.0
+    Checking spacetimedb-memory-usage v2.6.1
+    Checking notify-types v2.1.0
+    Checking notify v8.2.0
+    Checking castaway v0.2.4
+    Checking sysinfo v0.38.4
+    Checking const-fnv1a-hash v1.1.0
+    Checking keccak v0.1.6
+    Checking file-id v0.2.3
+    Checking notify-debouncer-full v0.7.0
+    Checking bevy_diagnostic v0.19.1
+    Checking sha3 v0.10.9
+    Checking lean_string v0.5.3
+    Checking ron v0.12.2
+   Compiling bevy_asset_macros v0.19.1
+    Checking chrono v0.4.45
+    Checking spacetimedb-metrics v2.6.1
+    Checking stackfuture v0.3.1
+    Checking bytestring v1.5.1
+    Checking second-stack v0.3.5
+    Checking atomicow v1.2.0
+    Checking anstyle v1.0.14
+    Checking data-encoding v2.11.1
+    Checking rand_core v0.6.4
+    Checking bevy_asset v0.19.1
+    Checking utf8parse v0.2.2
+    Checking spacetimedb-sats v2.6.1
+    Checking anstyle-parse v1.0.0
+    Checking rand_chacha v0.3.1
+    Checking memmap2 v0.9.11
+    Checking anstyle-query v1.1.5
+    Checking const_soft_float v0.1.4
+    Checking is_terminal_polyfill v1.70.2
+    Checking colorchoice v1.0.5
+    Checking anstream v1.0.0
+    Checking constgebra v0.1.4
+    Checking rand v0.8.8
+    Checking bevy_transform v0.19.1
+    Checking bevy_color v0.19.1
+   Compiling tracy-client-sys v0.29.0
+    Checking euclid v0.22.14
+    Checking svg_fmt v0.4.5
+    Checking strsim v0.11.1
+    Checking clap_lex v1.1.0
+    Checking guillotiere v0.6.2
+    Checking clap_builder v4.6.6
+    Checking hexasphere v18.0.0
+    Checking ruzstd v0.8.3
+   Compiling bevy_encase_derive v0.19.1
+    Checking ktx2 v0.5.0
+    Checking matchers v0.2.0
+   Compiling clap_derive v4.6.4
+    Checking sharded-slab v0.1.7
+    Checking tracing-log v0.2.0
+    Checking rectangle-pack v0.4.2
+    Checking nu-ansi-term v0.50.3
+    Checking bevy_mikktspace v1.0.0
+    Checking tracing-subscriber v0.3.23
+    Checking bevy_mesh v0.19.1
+    Checking bevy_image v0.19.1
+    Checking bevy_input v0.19.1
+    Checking rand_xoshiro v0.7.0
+    Checking byteorder v1.5.0
+    Checking fabelgeist-determinism v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-determinism)
+    Checking tracing-error v0.2.1
+    Checking cpufeatures v0.2.17
+   Compiling enumflags2_derive v0.7.12
+    Checking bevy_window v0.19.1
+    Checking encoding_rs v0.8.35
+    Checking font-types v0.11.3
+    Checking linebender_resource_handle v0.1.1
+    Checking enumflags2 v0.7.12
+    Checking bevy_camera v0.19.1
+   Compiling ahash v0.8.12
+   Compiling icu_locale_fallback_data v2.3.0
+    Checking clap v4.6.6
+    Checking read-fonts v0.39.2
+   Compiling icu_segmenter_data v2.3.0
+   Compiling vcpkg v0.2.15
+    Checking font-types v0.12.4
+    Checking read-fonts v0.41.0
+    Checking tracy-client v0.18.5
+    Checking tracing-tracy v0.11.4
+    Checking bevy_log v0.19.1
+    Checking icu_locale_fallback v2.3.0
+    Checking codespan-reporting v0.12.0
+   Compiling enumn v0.1.14
+   Compiling enum-map-derive v0.17.0
+    Checking core_maths v0.1.1
+    Checking parlance v0.1.0
+    Checking enum-map v2.7.3
+    Checking accesskit v0.24.1
+    Checking naga_oil v0.22.0
+    Checking skrifa v0.42.1
+    Checking harfrust v0.6.2
+    Checking fontique v0.9.0
+    Checking skrifa v0.44.0
+    Checking icu_segmenter v2.3.0
+    Checking bevy_picking v0.19.1
+    Checking parley_data v0.9.0
+   Compiling strum_macros v0.28.0
+    Checking tinyvec_macros v0.1.1
+    Checking yazi v0.2.1
+    Checking zeno v0.3.3
+   Compiling spacetimedb-lib v2.6.1
+    Checking swash v0.2.10
+    Checking tinyvec v1.12.0
+    Checking parley v0.9.0
+    Checking bevy_shader v0.19.1
+    Checking bevy_clipboard v0.19.1
+   Compiling bevy_gizmos_macros v0.19.1
+   Compiling bevy_material_macros v0.19.1
+    Checking sys-locale v0.3.2
+    Checking bevy_text v0.19.1
+    Checking bevy_material v0.19.1
+    Checking bevy_gizmos v0.19.1
+   Compiling openssl-sys v0.9.117
+    Checking radsort v0.1.1
+    Checking bevy_sprite v0.19.1
+   Compiling strum v0.28.0
+   Compiling adventuresim-world-schema v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-world-schema)
+    Checking bevy_light v0.19.1
+    Checking sha2 v0.10.9
+    Checking offset-allocator v0.2.0
+   Compiling bevy_render_macros v0.19.1
+    Checking weak-table v0.3.2
+    Checking bevy_input_focus v0.19.1
+    Checking bevy_a11y v0.19.1
+    Checking grid v1.0.1
+    Checking alloc-no-stdlib v2.0.4
+    Checking alloc-stdlib v0.2.4
+    Checking taffy v0.10.1
+    Checking foreign-types-shared v0.1.1
+   Compiling openssl v0.10.81
+   Compiling rustix v0.38.44
+    Checking foreign-types v0.3.2
+   Compiling openssl-macros v0.1.1
+   Compiling native-tls v0.2.14
+   Compiling inflections v1.1.1
+    Checking bevy_ui v0.19.1
+    Checking linux-raw-sys v0.4.15
+    Checking cursor-icon v1.2.0
+    Checking xcursor v0.3.11
+    Checking winnow v1.0.4
+    Checking xkeysym v0.2.1
+    Checking wayland-cursor v0.31.14
+    Checking wayland-csd-frame v0.3.0
+   Compiling gltf-derive v1.4.1
+    Checking wayland-protocols-wlr v0.3.12
+    Checking openssl-probe v0.1.6
+    Checking calloop v0.13.0
+    Checking gltf-json v1.4.1
+   Compiling bevy_animation_macros v0.19.1
+   Compiling smithay-client-toolkit v0.19.2
+    Checking bevy_render v0.19.1
+    Checking ttf-parser v0.25.1
+    Checking bevy_animation v0.19.1
+    Checking gltf v1.4.1
+    Checking owned_ttf_parser v0.25.1
+    Checking calloop-wayland-source v0.3.0
+    Checking bevy_world_serialization v0.19.1
+    Checking gethostname v1.1.0
+   Compiling alsa-sys v0.4.0
+   Compiling x11-dl v2.21.0
+    Checking ab_glyph_rasterizer v0.1.10
+    Checking x11rb-protocol v0.13.2
+    Checking as-raw-xcb-connection v1.0.1
+    Checking bevy_gltf v0.19.1
+    Checking ab_glyph v0.2.32
+    Checking tokio-native-tls v0.3.1
+   Compiling winit v0.30.13
+   Compiling libudev-sys v0.1.4
+   Compiling cmake v0.1.58
+   Compiling dunce v1.0.5
+   Compiling fs_extra v1.3.0
+    Checking sctk-adwaita v0.10.1
+   Compiling aws-lc-sys v0.44.0
+    Checking xkbcommon-dl v0.4.2
+    Checking wayland-protocols-plasma v0.3.12
+    Checking dpi v0.1.2
+   Compiling cpal v0.17.3
+    Checking alsa v0.11.0
+    Checking x11rb v0.13.2
+    Checking ogg v0.8.0
+   Compiling bevy_state_macros v0.19.1
+    Checking zeroize v1.9.0
+    Checking vec_map v0.8.2
+   Compiling gilrs v0.11.2
+    Checking dasp_sample v0.11.0
+    Checking gilrs-core v0.6.8
+    Checking bevy_state v0.19.1
+    Checking lewton v0.10.2
+    Checking accesskit_winit v0.32.2
+   Compiling ring v0.17.14
+   Compiling aws-lc-rs v1.18.0
+    Checking bevy_core_pipeline v0.19.1
+    Checking bevy_winit v0.19.1
+    Checking rodio v0.22.2
+    Checking rustls-pki-types v1.15.1
+    Checking smol-hyper v0.1.1
+   Compiling bevy_scene_macros v0.19.1
+    Checking bevy_sprite_render v0.19.1
+    Checking bevy_pbr v0.19.1
+    Checking bevy_scene v0.19.1
+    Checking bevy_ui_render v0.19.1
+    Checking bevy_post_process v0.19.1
+    Checking bevy_anti_alias v0.19.1
+    Checking bevy_gilrs v0.19.1
+    Checking bevy_audio v0.19.1
+    Checking bevy_ui_widgets v0.19.1
+    Checking robust v1.2.0
+    Checking untrusted v0.9.0
+    Checking spade v2.15.1
+   Compiling rustls v0.23.43
+    Checking unicode-segmentation v1.13.3
+    Checking adventuresim-weapon-model v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-weapon-model)
+    Checking tower-service v0.3.3
+    Checking polycool v0.4.0
+    Checking kurbo v0.13.1
+    Checking color v0.3.3
+    Checking peniko v0.6.1
+    Checking fearless_simd v0.3.0
+    Checking sync_wrapper v1.0.2
+    Checking tower-layer v0.3.3
+    Checking mime v0.3.17
+    Checking vello_common v0.0.6
+    Checking read-fonts v0.37.0
+    Checking emath v0.34.3
+   Compiling heapless v0.8.0
+    Checking ecolor v0.34.3
+    Checking vello_cpu v0.0.6
+    Checking hash32 v0.3.1
+    Checking calloop v0.14.4
+    Checking epaint_default_fonts v0.34.3
+    Checking ipnet v2.12.1
+    Checking skrifa v0.40.0
+   Compiling smithay-client-toolkit v0.20.0
+    Checking self_cell v1.3.0
+    Checking hyper-util v0.1.20
+    Checking calloop-wayland-source v0.4.1
+    Checking epaint v0.34.3
+   Compiling adventuresim-dialogue v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-dialogue)
+    Checking brotli-decompressor v5.0.3
+    Checking wayland-protocols-misc v0.3.12
+    Checking wayland-protocols-experimental v20250721.0.1
+   Compiling unicase v2.9.0
+   Compiling mime_guess v2.0.5
+    Checking brotli v8.0.4
+    Checking egui v0.34.3
+    Checking rstar v0.12.2
+    Checking tower v0.5.3
+    Checking spacetimedb-query-builder v2.6.1
+    Checking cobs v0.3.0
+   Compiling postcard-derive v0.2.2
+    Checking bevy_dev_tools v0.19.1
+    Checking bevy_gizmos_render v0.19.1
+   Compiling arraydeque v0.5.1
+    Checking compression-core v0.4.32
+   Compiling annotate-snippets v0.12.16
+    Checking compression-codecs v0.4.38
+   Compiling granit-parser v1.2.0
+    Checking postcard v1.1.3
+    Checking bevy_remote v0.19.1
+   Compiling encoding_rs_io v0.1.8
+    Checking smithay-clipboard v0.7.3
+    Checking arboard v3.6.1
+    Checking webbrowser v1.2.4
+    Checking serde_urlencoded v0.7.1
+   Compiling base64 v0.23.1
+    Checking bevy_internal v0.19.1
+    Checking bevy v0.19.1
+   Compiling serde-saphyr v1.2.0
+    Checking bevy_egui v0.40.1
+    Checking async-compression v0.4.43
+    Checking webpki-roots v1.0.9
+    Checking adventuresim-puzzles v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-puzzles)
+    Checking http-range-header v0.4.2
+    Checking tower-http v0.6.11
+    Checking hyper-tls v0.6.0
+    Checking spacetimedb-bindings-sys v2.6.1
+   Compiling itertools v0.10.5
+   Compiling ambassador v0.5.1
+    Checking spacetimedb v2.6.1
+    Checking geo-types v0.7.20
+   Compiling enum-assoc v1.4.1
+   Compiling adventuresim-core v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-core)
+   Compiling blanket v0.4.0
+    Checking num-complex v0.4.6
+    Checking i_float v1.16.0
+    Checking i_shape v1.18.0
+    Checking i_key_sort v0.10.3
+    Checking i_tree v0.18.0
+    Checking i_overlay v4.5.2
+    Checking adventuresim-procedural-textures v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-procedural-textures)
+    Checking rand_pcg v0.10.2
+    Checking earcut v0.4.5
+    Checking geographiclib-rs v0.2.7
+   Compiling matrixmultiply v0.3.11
+    Checking sif-itree v0.4.1
+    Checking float_next_after v2.0.0
+    Checking geo v0.33.1
+    Checking proc-macro2 v1.0.107
+    Checking rawpointer v0.2.1
+    Checking quote v1.0.47
+    Checking ndarray v0.17.2
+    Checking bevy_panorbit_camera v0.35.0
+   Compiling zvariant_utils v4.2.0
+   Compiling async-trait v0.1.92
+   Compiling zvariant_derive v5.15.0
+    Checking itertools v0.15.0
+    Checking rustls-webpki v0.103.15
+   Compiling rustc-hash v2.1.3
+   Compiling mutants v0.0.3
+   Compiling unsynn v0.3.0
+    Checking tokio-rustls v0.26.4
+    Checking hyper-rustls v0.27.9
+    Checking reqwest v0.12.28
+    Checking sha1 v0.10.7
+   Compiling zcheapstr v1.1.0
+    Checking bitfield v0.15.0
+   Compiling zvariant v5.15.0
+    Checking bevy_mod_outline v0.13.0
+   Compiling variadics_please v2.0.0
+    Checking safe_arch v0.7.4
+    Checking endi v1.1.1
+   Compiling zbus_names v4.3.4
+    Checking wide v0.7.33
+    Checking async-signal v0.2.14
+    Checking async-process v2.5.0
+   Compiling zbus_macros v5.19.0
+    Checking adventuresim-building-generator v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-building-generator)
+    Checking simba v0.9.1
+   Compiling serde_repr v0.1.21
+   Compiling strum_macros v0.27.2
+   Compiling async-recursion v1.1.1
+    Checking ordered-stream v0.2.0
+   Compiling proc-macro-error-attr3 v3.1.1
+    Checking partition v0.1.2
+    Checking arbitrary-chunks v0.4.1
+    Checking rdst v0.20.14
+   Compiling proc-macro-error3 v3.1.1
+    Checking glamx v0.2.0
+    Checking glam_matrix_extras v0.3.0
+    Checking async-net v2.0.0
+    Checking serde_arrays v0.2.0
+    Checking glam v0.33.6
+    Checking zbus v5.19.0
+    Checking strum v0.27.2
+    Checking ena v0.14.4
+    Checking utf-8 v0.7.6
+    Checking option-ext v0.2.0
+    Checking dirs-sys v0.5.0
+    Checking parry3d v0.27.0
+    Checking bevy_heavy v0.5.0
+   Compiling avian_derive v0.2.3
+    Checking bevy_transform_interpolation v0.5.0
+    Checking obvhs v0.3.3
+    Checking fabelgeist-math v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-math)
+   Compiling bevy_enhanced_input_macros v0.26.0
+    Checking pollster v0.4.0
+    Checking urlencoding v2.1.3
+    Checking avian3d v0.7.0
+    Checking directories v6.0.0
+    Checking sprs v0.11.5
+    Checking ashpd v0.11.1
+    Checking bevy_enhanced_input v0.26.0
+    Checking web-time v1.1.0
+    Checking microlp v0.6.0
+    Checking noiz v0.5.0
+    Checking futures-executor v0.3.34
+    Checking futures v0.3.34
+    Checking fabelgeist-color v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-color)
+    Checking fabelgeist-timer v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-timer)
+    Checking unsafe-libyaml v0.2.11
+    Checking rfd v0.15.4
+    Checking fabelgeist-fs v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-fs)
+    Checking serde_yaml v0.9.34+deprecated
+    Checking toml_parser v1.1.3+spec-1.1.0
+    Checking fabelgeist-gpu v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-gpu)
+    Checking serde_spanned v1.1.1
+    Checking toml_writer v1.1.2+spec-1.1.0
+   Compiling ident_case v1.0.1
+    Checking fabelgeist-garment-code v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-garment-code)
+    Checking fabelgeist-compute v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-compute)
+   Compiling darling_core v0.23.0
+    Checking vte v0.14.1
+    Checking toml_datetime v1.1.1+spec-1.1.0
+   Compiling portable-atomic v1.15.0
+    Checking toml_edit v0.25.13+spec-1.1.0
+    Checking strip-ansi-escapes v0.2.1
+   Compiling strum_macros v0.25.3
+    Checking tempfile v3.27.0
+    Checking console v0.16.4
+    Checking sqlparser v0.38.0
+    Checking similar v2.7.0
+   Compiling portable-atomic-util v0.2.7
+    Checking fixedbitset v0.4.2
+    Checking petgraph v0.6.5
+    Checking insta v1.48.0
+    Checking bevy_ahoy v0.2.0 (/home/runner/work/fabelgeist/fabelgeist/vendor/bevy_ahoy)
+    Checking spacetimedb-sql-parser v2.6.1
+    Checking tungstenite v0.27.0
+    Checking convert_case v0.6.0
+    Checking brotli-decompressor v2.5.1
+    Checking unicode-normalization v0.1.25
+    Checking spacetimedb-data-structures v2.6.1
+   Compiling siphasher v1.0.3
+    Checking adventuresim-tactical-core v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-core)
+    Checking strum v0.25.0
+   Compiling phf_shared v0.13.1
+    Checking spacetimedb-schema v2.6.1
+    Checking brotli v3.5.0
+    Checking tokio-tungstenite v0.27.0
+    Checking aeronet_io v0.21.0
+   Compiling typesize-derive v0.1.11
+    Checking home v0.5.12
+    Checking anymap3 v1.1.0
+    Checking base64 v0.21.7
+   Compiling phf_generator v0.13.1
+    Checking ringbuf v0.4.8
+   Compiling darling_macro v0.23.0
+    Checking octs v1.0.0
+    Checking openssl-probe v0.2.1
+    Checking bit-vec v0.8.0
+    Checking rustls-native-certs v0.8.4
+    Checking fabelgeist-armor v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-armor)
+   Compiling darling v0.23.0
+   Compiling serde_with_macros v3.22.0
+    Checking typesize v0.1.15
+    Checking aeronet_transport v0.21.0
+    Checking tungstenite v0.26.2
+    Checking xxhash-rust v0.8.18
+    Checking deterministic-hash v1.0.2
+    Checking smallbitvec v2.6.1
+    Checking bevy_replicon v0.41.1
+    Checking tokio-tungstenite v0.26.2
+    Checking fabelgeist-bvh v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-bvh)
+    Checking fabelgeist-xpbd v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-xpbd)
+    Checking ciborium-io v0.2.2
+    Checking ciborium-ll v0.2.2
+    Checking aeronet_websocket v0.21.0
+    Checking aeronet_replicon v0.21.0
+    Checking serde_with v3.22.0
+    Checking aeronet v0.21.0
+    Checking ciborium v0.2.2
+    Checking fabelgeist-physics v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-physics)
+   Compiling phf_macros v0.13.1
+    Checking fabelgeist-mesh v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-mesh)
+    Checking dtoa v1.0.11
+    Checking spacetimedb-client-api-messages v2.6.1
+    Checking dtoa-short v0.3.5
+   Compiling phf_codegen v0.13.1
+    Checking adventuresim-procedural-materials v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-procedural-materials)
+   Compiling cssparser-macros v0.7.0
+    Checking adventuresim-tactical-netcode v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-netcode)
+    Checking spacetimedb-sdk v2.6.1
+    Checking fax v0.2.7
+    Checking phf v0.13.1
+    Checking weezl v0.1.12
+    Checking cssparser v0.37.0
+    Checking adventuresim-stdb-client v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-stdb-client)
+    Checking tiff v0.11.3
+   Compiling selectors v0.38.0
+    Checking fabelgeist-shell v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-shell)
+    Checking kurbo v0.11.3
+   Compiling bevy_flair_core_macros v0.8.1
+    Checking servo_arc v0.4.3
+    Checking simplecss v0.2.2
+    Checking precomputed-hash v0.1.1
+    Checking imagesize v0.13.0
+    Checking svgtypes v0.15.3
+    Checking xmlwriter v0.1.0
+    Checking pico-args v0.5.0
+    Checking roxmltree v0.20.0
+    Checking data-url v0.3.2
+    Checking usvg v0.45.1
+    Checking adventuresim-terrain v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-terrain)
+    Checking bevy_flair_core v0.8.1
+    Checking fabelgeist-cloth v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-cloth)
+    Checking fabelgeist-rig v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-rig)
+    Checking adventuresim-plant-generator v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-plant-generator)
+   Compiling toml_datetime v0.7.5+spec-1.1.0
+    Checking yansi v1.0.1
+   Compiling toml v0.9.12+spec-1.1.0
+    Checking ariadne v0.6.0
+    Checking bevy_flair_style v0.8.1
+    Checking resvg v0.45.1
+    Checking cssparser-color v0.5.0
+    Checking proj4rs v0.1.10
+   Compiling tracy-client-sys v0.28.0
+    Checking linked-hash-map v0.5.6
+    Checking bevy_flair_css_parser v0.8.1
+   Compiling adventuresim-tactical-client v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client)
+    Checking egui_extras v0.34.3
+    Checking fabelgeist-garment-fit v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-garment-fit)
+    Checking bevy_flair v0.8.1
+    Checking bevy_eidolon v0.5.0 (https://github.com/barsoosayque/bevy_eidolon?branch=fablegeist-0.19#1a5aff8d)
+    Checking adventuresim-character-creator v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-character-creator)
+   Compiling num-conv v0.2.2
+   Compiling time-core v0.1.9
+   Compiling time-macros v0.2.32
+    Checking deranged v0.5.8
+    Checking powerfmt v0.2.0
+   Compiling libsqlite3-sys v0.35.0
+    Checking time v0.3.55
+    Checking lz4_flex v0.11.6
+    Checking hdf5-core v0.8.0
+    Checking lru v0.16.4
+    Checking bufrw v0.2.0
+   Compiling geozero v0.14.0
+    Checking dbase v0.8.0
+    Checking hdf5-reader v0.8.0
+    Checking wkt v0.11.1
+    Checking zopfli v0.8.3
+    Checking geojson v0.24.2
+    Checking netcdf-core v0.8.0
+    Checking hashlink v0.10.0
+    Checking serde_path_to_error v0.1.20
+   Compiling proc-macro-error-attr v1.0.4
+    Checking csv-core v0.1.13
+    Checking scroll v0.11.0
+    Checking fallible-iterator v0.3.0
+    Checking fallible-streaming-iterator v0.1.9
+    Checking csv v1.4.0
+    Checking netcdf-reader v0.8.0
+    Checking zip v3.0.0
+    Checking shapefile v0.9.0
+   Compiling proc-macro-error v1.0.4
+    Checking html-escape v0.2.15
+    Checking tungstenite v0.29.0
+   Compiling cookie v0.18.2
+    Checking tokio-tungstenite v0.29.0
+    Checking axum-core v0.5.6
+    Checking matchit v0.8.4
+    Checking axum v0.8.9
+    Checking adventuresim-tactical-server-dispatcher v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-server-dispatcher)
+    Checking adventuresim-tactical-server v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-server)
+    Checking adventuresim-strategic-sim v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-strategic-sim)
+   Compiling maud_macros v0.26.0
+    Checking adventuresim-texture-studio v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-texture-studio)
+    Checking axum-core v0.4.5
+   Compiling petname v2.0.2
+    Checking winnow v0.7.15
+    Checking maud v0.26.0
+    Checking axum-extra v0.10.3
+    Checking hmac v0.12.1
+   Compiling num_enum_derive v0.7.6
+    Checking semver v1.0.28
+    Checking adventuresim-weapon-model-browser v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-weapon-model-browser)
+    Checking fabelgeist-animation v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-animation)
+error[E0364]: `setup_catalog` is private, and cannot be re-exported
+  --> crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture.rs:13:16
+   |
+13 | pub(super) use catalog::setup_catalog;
+   |                ^^^^^^^^^^^^^^^^^^^^^^
+   |
+note: consider marking `setup_catalog` as `pub` in the imported module
+  --> crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture.rs:13:16
+   |
+13 | pub(super) use catalog::setup_catalog;
+   |                ^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0603]: function import `setup_catalog` is private
+    --> crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs:1280:55
+     |
+1280 |     let catalog_cameras = interior_furniture_capture::setup_catalog(
+     |                                                       ^^^^^^^^^^^^^ private function import
+     |
+note: the function import `setup_catalog` is defined here...
+    --> crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture.rs:13:16
+     |
+  13 | pub(super) use catalog::setup_catalog;
+     |                ^^^^^^^^^^^^^^^^^^^^^^
+note: ...and refers to the function `setup_catalog` which is defined here
+    --> crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/catalog.rs:4:1
+     |
+   4 | / pub(super) fn setup_catalog(
+   5 | |     commands: &mut Commands,
+   6 | |     layout: &mut FurnitureLayout,
+   7 | |     terrain: &SceneTerrain,
+...    |
+  92 | |     Ok(Some(cameras))
+  93 | | }
+     | |_^
+help: import `setup_catalog` directly
+     |
+1280 -     let catalog_cameras = interior_furniture_capture::setup_catalog(
+1280 +     let catalog_cameras = catalog::setup_catalog(
+     |
+
+    Checking num_enum v0.7.6
+    Checking fabelgeist-fbx v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-fbx)
+error[E0599]: no method named `ok_or` found for enum `std::result::Result<T, E>` in the current scope
+  --> crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/catalog.rs:28:18
+   |
+26 | /             key.interior_spec()
+27 | |                 .map(|spec| spec.size_metres.metres())
+28 | |                 .ok_or(CatalogAdmissionError::MissingInteriorSpec { key })
+   | |                 -^^^^^ method not found in `Result<Vec3, FurnitureRecipeError>`
+   | |_________________|
+   |
+   |
+   = note: the full name for the type has been written to '/home/runner/work/fabelgeist/fabelgeist/target/debug/deps/tactical_scene_viewer-607592cce5737e66.long-type-9935352719856302401.txt'
+   = note: consider using `--verbose` to print the full type name to the console
+
+error[E0599]: no method named `ok_or` found for enum `std::result::Result<T, E>` in the current scope
+   --> crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/catalog.rs:145:10
+    |
+143 |       let size = FurnitureKey::natural(Counter, variant)
+    |  ________________-
+144 | |         .interior_spec()
+145 | |         .ok_or(CatalogAdmissionError::MissingInteriorSpec {
+    | |         -^^^^^ method not found in `Result<InteriorFurnitureSpec, FurnitureRecipeError>`
+    | |_________|
+    |
+    |
+    = note: the full name for the type has been written to '/home/runner/work/fabelgeist/fabelgeist/target/debug/deps/tactical_scene_viewer-607592cce5737e66.long-type-1033923804067407093.txt'
+    = note: consider using `--verbose` to print the full type name to the console
+
+error[E0599]: no method named `ok_or` found for enum `std::result::Result<T, E>` in the current scope
+   --> crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/catalog.rs:152:10
+    |
+150 |       let corner = FurnitureKey::natural(CounterCorner, variant)
+    |  __________________-
+151 | |         .interior_spec()
+152 | |         .ok_or(CatalogAdmissionError::MissingInteriorSpec {
+    | |         -^^^^^ method not found in `Result<InteriorFurnitureSpec, FurnitureRecipeError>`
+    | |_________|
+    |
+    |
+    = note: the full name for the type has been written to '/home/runner/work/fabelgeist/fabelgeist/target/debug/deps/tactical_scene_viewer-607592cce5737e66.long-type-1033923804067407093.txt'
+    = note: consider using `--verbose` to print the full type name to the console
+
+error[E0599]: no method named `ok_or` found for enum `std::result::Result<T, E>` in the current scope
+  --> crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/finishes.rs:35:18
+   |
+33 |               let size = key
+   |  ________________________-
+34 | |                 .interior_spec()
+35 | |                 .ok_or(CatalogAdmissionError::MissingInteriorSpec { key })?
+   | |                 -^^^^^ method not found in `Result<InteriorFurnitureSpec, FurnitureRecipeError>`
+   | |_________________|
+   |
+   |
+   = note: the full name for the type has been written to '/home/runner/work/fabelgeist/fabelgeist/target/debug/deps/tactical_scene_viewer-607592cce5737e66.long-type-1033923804067407093.txt'
+   = note: consider using `--verbose` to print the full type name to the console
+
+Some errors have detailed explanations: E0364, E0599, E0603.
+For more information about an error, try `rustc --explain E0364`.
+error: could not compile `adventuresim-tactical-client` (bin "tactical-scene-viewer") due to 6 previous errors
+warning: build failed, waiting for other jobs to finish...
+error[E0308]: mismatched types
+   --> crates/adventuresim-tactical-client/src/presentation/vista.rs:551:37
+    |
+551 | ...                   .at(Vec2::new(position[0], position[2]), Vec2::splat(9.0))
+    |                        -- ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected `PlanDisplacement`, found `Vec2`
+    |                        |
+    |                        arguments to this method are incorrect
+    |
+note: method defined here
+   --> crates/adventuresim-tactical-client/src/presentation/vista/pigment.rs:30:19
+    |
+ 30 |     pub(super) fn at(
+    |                   ^^
+ 31 |         &self,
+ 32 |         local: PlanDisplacement,
+    |         -----------------------
+
+error[E0308]: mismatched types
+  --> crates/adventuresim-tactical-client/src/presentation/vista/owned/landform_tests.rs:93:13
+   |
+92 |         vista_meshes(
+   |         ------------ arguments to this function are incorrect
+93 |             &terrain,
+   |             ^^^^^^^^ expected `&BoundedSettlementTerrain`, found `&SceneTerrain`
+   |
+   = note: expected reference `&adventuresim_tactical_core::city_layout::grounding::BoundedSettlementTerrain`
+              found reference `&adventuresim_tactical_core::scene::SceneTerrain`
+note: function defined here
+  --> crates/adventuresim-tactical-client/src/presentation/vista/owned.rs:43:15
+   |
+43 | pub(super) fn vista_meshes(
+   |               ^^^^^^^^^^^^
+44 |     surface: &BoundedSettlementTerrain,
+   |     ----------------------------------
+
+error[E0631]: type mismatch in function arguments
+    --> crates/adventuresim-tactical-client/src/presentation/vista/owned/landform_tests.rs:102:19
+     |
+  12 | fn mesh_triangles(mesh: &Mesh) -> BTreeSet<TriangleBits> {
+     | -------------------------------------------------------- found signature defined here
+...
+ 102 |         .flat_map(mesh_triangles)
+     |          -------- ^^^^^^^^^^^^^^ expected due to this
+     |          |
+     |          required by a bound introduced by this call
+     |
+     = note: expected function signature `fn(&std::vec::Vec<bevy::bevy_mesh::Mesh>) -> _`
+                found function signature `fn(&bevy::bevy_mesh::Mesh) -> _`
+note: required by a bound in `std::iter::Iterator::flat_map`
+    --> /home/runner/.rustup/toolchains/nightly-2026-07-13-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/traits/iterator.rs:1537:12
+     |
+1533 |     fn flat_map<U, F>(self, f: F) -> FlatMap<Self, U, F>
+     |        -------- required by a bound in this associated function
+...
+1537 |         F: FnMut(Self::Item) -> U,
+     |            ^^^^^^^^^^^^^^^^^^^^^^ required by this bound in `Iterator::flat_map`
+help: consider wrapping the function in a closure
+     |
+ 102 |         .flat_map(|arg0: &std::vec::Vec<bevy::bevy_mesh::Mesh>| mesh_triangles(/* &bevy::bevy_mesh::Mesh */))
+     |                   +++++++++++++++++++++++++++++++++++++++++++++               ++++++++++++++++++++++++++++++
+
+error[E0599]: the method `collect` exists for struct `FlatMap<Iter<'_, Vec<Mesh>>, _, fn(&Mesh) -> ... {mesh_triangles}>`, but its trait bounds were not satisfied
+   --> crates/adventuresim-tactical-client/src/presentation/vista/owned/landform_tests.rs:103:10
+    |
+ 92 | /         vista_meshes(
+ 93 | |             &terrain,
+ 94 | |             &lod,
+ 95 | |             Vec2::splat(1.0),
+...   |
+102 | |         .flat_map(mesh_triangles)
+103 | |         .collect::<BTreeSet<_>>()
+    | |         -^^^^^^^ method cannot be called due to unsatisfied trait bounds
+    | |_________|
+    |
+    |
+   ::: /home/runner/.rustup/toolchains/nightly-2026-07-13-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/iter/adapters/flatten.rs:17:1
+    |
+ 17 |   pub struct FlatMap<I, U: IntoIterator, F> {
+    |   ----------------------------------------- doesn't satisfy `_: Iterator`
+    |
+    = note: the following trait bounds were not satisfied:
+            `<for<'a> fn(&'a bevy::bevy_mesh::Mesh) -> std::collections::BTreeSet<[[u32; 3]; 3]> {presentation::vista::owned::landform_tests::mesh_triangles} as std::ops::FnOnce<(&std::vec::Vec<bevy::bevy_mesh::Mesh>,)>>::Output = _`
+            which is required by `std::iter::FlatMap<std::result::Iter<'_, std::vec::Vec<bevy::bevy_mesh::Mesh>>, _, for<'a> fn(&'a bevy::bevy_mesh::Mesh) -> std::collections::BTreeSet<[[u32; 3]; 3]> {presentation::vista::owned::landform_tests::mesh_triangles}>: std::iter::Iterator`
+            `for<'a> fn(&'a bevy::bevy_mesh::Mesh) -> std::collections::BTreeSet<[[u32; 3]; 3]> {presentation::vista::owned::landform_tests::mesh_triangles}: std::ops::FnMut<(&std::vec::Vec<bevy::bevy_mesh::Mesh>,)>`
+            which is required by `std::iter::FlatMap<std::result::Iter<'_, std::vec::Vec<bevy::bevy_mesh::Mesh>>, _, for<'a> fn(&'a bevy::bevy_mesh::Mesh) -> std::collections::BTreeSet<[[u32; 3]; 3]> {presentation::vista::owned::landform_tests::mesh_triangles}>: std::iter::Iterator`
+            `std::iter::FlatMap<std::result::Iter<'_, std::vec::Vec<bevy::bevy_mesh::Mesh>>, _, for<'a> fn(&'a bevy::bevy_mesh::Mesh) -> std::collections::BTreeSet<[[u32; 3]; 3]> {presentation::vista::owned::landform_tests::mesh_triangles}>: std::iter::Iterator`
+            which is required by `&mut std::iter::FlatMap<std::result::Iter<'_, std::vec::Vec<bevy::bevy_mesh::Mesh>>, _, for<'a> fn(&'a bevy::bevy_mesh::Mesh) -> std::collections::BTreeSet<[[u32; 3]; 3]> {presentation::vista::owned::landform_tests::mesh_triangles}>: std::iter::Iterator`
+    = note: the full name for the type has been written to '/home/runner/work/fabelgeist/fabelgeist/target/debug/deps/animation_viewer-336d2bb264ef3528.long-type-4146478855842984962.txt'
+    = note: consider using `--verbose` to print the full type name to the console
+
+error[E0308]: mismatched types
+   --> crates/adventuresim-tactical-client/src/presentation/vista/owned/tests.rs:252:36
+    |
+252 |                 .map(|p| colors.at(Vec2::new(p[0], p[2]), inner).unwrap())
+    |                                 -- ^^^^^^^^^^^^^^^^^^^^^ expected `PlanDisplacement`, found `Vec2`
+    |                                 |
+    |                                 arguments to this method are incorrect
+    |
+note: method defined here
+   --> crates/adventuresim-tactical-client/src/presentation/vista/pigment.rs:30:19
+    |
+ 30 |     pub(super) fn at(
+    |                   ^^
+ 31 |         &self,
+ 32 |         local: PlanDisplacement,
+    |         -----------------------
+
+error[E0308]: mismatched types
+   --> crates/adventuresim-tactical-client/src/presentation/vista/owned/tests.rs:290:17
+    |
+289 |             let actual = vista_meshes(
+    |                          ------------ arguments to this function are incorrect
+290 |                 &generated.terrain,
+    |                 ^^^^^^^^^^^^^^^^^^ expected `&BoundedSettlementTerrain`, found `&SceneTerrain`
+    |
+    = note: expected reference `&adventuresim_tactical_core::city_layout::grounding::BoundedSettlementTerrain`
+               found reference `&adventuresim_tactical_core::scene::SceneTerrain`
+note: function defined here
+   --> crates/adventuresim-tactical-client/src/presentation/vista/owned.rs:43:15
+    |
+ 43 | pub(super) fn vista_meshes(
+    |               ^^^^^^^^^^^^
+ 44 |     surface: &BoundedSettlementTerrain,
+    |     ----------------------------------
+
+error[E0308]: mismatched types
+   --> crates/adventuresim-tactical-client/src/presentation/vista/ground/tests.rs:126:13
+    |
+119 |         vista_scatter_transform(
+    |         ----------------------- arguments to this function are incorrect
+...
+126 |             0.08
+    |             ^^^^ expected `SignedLength`, found floating-point number
+    |
+note: function defined here
+   --> crates/adventuresim-tactical-client/src/presentation/vista/ground.rs:50:15
+    |
+ 50 | pub(super) fn vista_scatter_transform(
+    |               ^^^^^^^^^^^^^^^^^^^^^^^
+...
+ 57 |     lift: SignedLength,
+    |     ------------------
+
+error[E0599]: no method named `len` found for enum `std::result::Result<T, E>` in the current scope
+    --> crates/adventuresim-tactical-client/src/presentation/vista/owned/tests.rs:299:24
+     |
+ 299 |                 actual.len(),
+     |                        ^^^ method not found in `Result<Vec<Mesh>, VistaMeshError>`
+     |
+note: the method `len` exists on the type `std::vec::Vec<bevy::bevy_mesh::Mesh>`
+    --> /home/runner/.rustup/toolchains/nightly-2026-07-13-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/alloc/src/vec/mod.rs:3107:5
+     |
+3107 |     pub const fn len(&self) -> usize {
+     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+     = note: the full name for the type has been written to '/home/runner/work/fabelgeist/fabelgeist/target/debug/deps/animation_viewer-336d2bb264ef3528.long-type-11674430359720413465.txt'
+     = note: consider using `--verbose` to print the full type name to the console
+help: consider using `Result::expect` to unwrap the `std::vec::Vec<bevy::bevy_mesh::Mesh>` value, panicking if the value is a `Result::Err`
+     |
+ 299 |                 actual.expect("REASON").len(),
+     |                       +++++++++++++++++
+
+error[E0609]: no field `x` on type `adventuresim_tactical_core::scene_coordinates::ScenePlanPoint`
+    --> crates/adventuresim-tactical-client/src/presentation/terrain.rs:1013:31
+     |
+1013 |                 base + (point.x * core::f32::consts::PI).sin()
+     |                               ^ unknown field
+
+error[E0609]: no field `y` on type `adventuresim_tactical_core::scene_coordinates::ScenePlanPoint`
+    --> crates/adventuresim-tactical-client/src/presentation/terrain.rs:1014:30
+     |
+1014 |                     * (point.y * core::f32::consts::PI).sin()
+     |                              ^ unknown field
+
+error[E0308]: mismatched types
+    --> crates/adventuresim-tactical-client/src/presentation/terrain.rs:1013:17
+     |
+1013 | /                 base + (point.x * core::f32::consts::PI).sin()
+1014 | |                     * (point.y * core::f32::consts::PI).sin()
+1015 | |                     * 0.04
+     | |__________________________^ expected `Option<SupportElevation>`, found `SupportElevation`
+     |
+     = note: expected enum `std::option::Option<adventuresim_tactical_core::city_layout::grounding::SupportElevation>`
+              found struct `adventuresim_tactical_core::city_layout::grounding::SupportElevation`
+help: try wrapping the expression in `Some`
+     |
+1013 ~                 Some(base + (point.x * core::f32::consts::PI).sin()
+1014 |                     * (point.y * core::f32::consts::PI).sin()
+1015 ~                     * 0.04)
+     |
+
+error[E0599]: no method named `attribute` found for reference `&std::vec::Vec<bevy::bevy_mesh::Mesh>` in the current scope
+   --> crates/adventuresim-tactical-client/src/presentation/vista/owned/tests.rs:312:32
+    |
+312 |                         actual.attribute(attribute).unwrap().get_bytes()
+    |                                ^^^^^^^^^ method not found in `&std::vec::Vec<bevy::bevy_mesh::Mesh>`
+
+error[E0599]: no method named `indices` found for reference `&std::vec::Vec<bevy::bevy_mesh::Mesh>` in the current scope
+   --> crates/adventuresim-tactical-client/src/presentation/vista/owned/tests.rs:322:26
+    |
+321 | /                     actual
+322 | |                         .indices()
+    | |_________________________-^^^^^^^
+    |
+help: there is a method `index` with a similar name, but with different arguments
+   --> /home/runner/.rustup/toolchains/nightly-2026-07-13-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/ops/index.rs:73:5
+    |
+ 73 |     fn index(&self, index: Idx) -> &Self::Output;
+    |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+error[E0599]: no method named `count_vertices` found for reference `&std::vec::Vec<bevy::bevy_mesh::Mesh>` in the current scope
+   --> crates/adventuresim-tactical-client/src/presentation/vista/owned/tests.rs:330:36
+    |
+330 |                 examined += actual.count_vertices();
+    |                                    ^^^^^^^^^^^^^^ method not found in `&std::vec::Vec<bevy::bevy_mesh::Mesh>`
+
+Some errors have detailed explanations: E0308, E0599, E0609, E0631.
+For more information about an error, try `rustc --explain E0308`.
+error: could not compile `adventuresim-tactical-client` (bin "animation-viewer" test) due to 14 previous errors
+##[error]Process completed with exit code 101.
+##[group]Run actions/upload-artifact@v7
+with:
+  name: constraint-validati

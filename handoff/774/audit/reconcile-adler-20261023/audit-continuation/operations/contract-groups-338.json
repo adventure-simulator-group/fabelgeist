@@ -1,0 +1,200 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-338",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory_acquire.rs",
+      "sha256": "38c1ff570b3617b06af25f869d5ccd0f82d4827a6c4d0f9c4298e14c04ec145f",
+      "actual_EOF": 138,
+      "actual_compared_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/inventory_article_editor.rs",
+      "sha256": "bfaf8082b9b0e3aba214dbe23016ae3d83f78b3a66f777ea6e2601ddc5475cf9",
+      "actual_EOF": 199,
+      "actual_compared_ranges": [
+        [
+          1,
+          199
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/item_design.rs",
+      "sha256": "a33bdf3bde70ed5a647c3968c9e9c04dd60402bca585d47a4d2555ce9e3802aa",
+      "actual_EOF": 232,
+      "actual_compared_ranges": [
+        [
+          1,
+          232
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/lib.rs",
+      "sha256": "dc0c4f7b59ecd62d3a8a4a6b00c5bfecfc15470df833fe4294e486d1ffa5393c",
+      "actual_EOF": 238,
+      "actual_compared_ranges": [
+        [
+          1,
+          238
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/library_name.rs",
+      "sha256": "ecd978e94b850604d4345df1494e9536819e19d7a6d3b8921fde3d55bf54eb27",
+      "actual_EOF": 52,
+      "actual_compared_ranges": [
+        [
+          1,
+          52
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/lod.rs",
+      "sha256": "73ad82b91f4b15146231c922544a72466849407fc7fca6ebe2268d78f45d7fa3",
+      "actual_EOF": 39,
+      "actual_compared_ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/main.rs",
+      "sha256": "41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9",
+      "actual_EOF": 667,
+      "actual_compared_ranges": [
+        [
+          1,
+          667
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/model_controls.rs",
+      "sha256": "f52b873a70ee6fd3ac34fc78e3acb63fac9b6466d973114ca313fe066105b5ae",
+      "actual_EOF": 40,
+      "actual_compared_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/outfit.rs",
+      "sha256": "4d3281fb80e63eeb57bf3caaec77e63eb33d75c62e6ec5d7053e2fd76ebd95f2",
+      "actual_EOF": 104,
+      "actual_compared_ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Inventory editing and acquisition must retain identity, family and explicit regeneration intent",
+      "source_ranges": {
+        "inventory_acquire.rs": [
+          [
+            1,
+            138
+          ]
+        ],
+        "inventory_article_editor.rs": [
+          [
+            1,
+            199
+          ]
+        ],
+        "item_design.rs": [
+          [
+            1,
+            232
+          ]
+        ]
+      },
+      "disposition": "All three complete bodies/fixture source read. Catalog acquisition filters wearable before equipmentexpect, buildsactualplacementidentity andwearsafteradd; multi-articleacquisition is sequential with individuallyreportedwearfailure, no batchatomicitypromise. Existing F064IDcapacitywouldreachthiscaller onlyrepresentedhighIDinventory, no ordinaryUIlifetimeclaim. Catalogshape resolves actualidentity andconstructionfamily; set_default validatesbeforemutating oneappropriatefield, so rejectiondoesnotpartiallyinstallinvaliddesign. Usecatalogshape setsNone thenrebuildswithoutreapplyingstaleeditedcopy. Selectedinventory itemmutationreturnsrebuild onlywhenworn; settledgarmentrestrictseditsname/layer/appearance, notsavedbindingreconstruction. Completeeditor providesadditionalnewfindingrestartsupport: Drapeagain isnot locallydisabledbyrunning, invokesrestart then dirty forworn item. Outer UI disabledstate/scheduleruntime stillqualified; exactmethodorderproofunchanged. No actualGUIwrites orsourceedits."
+    },
+    {
+      "contract": "Creator recipe/native model boundary preserves schema version and coefficient cardinality",
+      "source_ranges": {
+        "lib.rs": [
+          [
+            1,
+            238
+          ]
+        ],
+        "library_name.rs": [
+          [
+            1,
+            52
+          ]
+        ],
+        "lod.rs": [
+          [
+            1,
+            39
+          ]
+        ],
+        "model_controls.rs": [
+          [
+            1,
+            40
+          ]
+        ]
+      },
+      "disposition": "All four fullbodies andfixtures read. Recipevalidate demands exactversion14,45identity/72expressioncounts, finitecoefficients, nonblankname andInventory.validate; publiceditablefields/deriveddecode are rawuntilcanonicalvalidate. Resetbody/face fillcurrentarrayswithoutchanginglength, validgivenprioradmission; doesnot itselfrepairmalformedvectorcardinality. Proportionssemanticpredicate isownedbyexistingtypedleaf, not inventedrangeforidentitycoefficients. LibraryName trims/rejectsblank throughTryFromandSerdeprivateString, immutableviews preservecontract. CharacterLod admitsactualMIN..MAX thensubtractionindexesfixed3counts; currentmin4/max6 comesexternalcanonicalconstants, slider usesexactrangeandcheckedconvert. No broadunsupportedLOD reinterpretation, upperdensityreservedbakeexplicit. NaNhairsettersremainadoptedF017, Recipevalidateabsenceofsecondhairchecknotnewduplicate."
+    },
+    {
+      "contract": "Creator startup, model reload and export routes preserve validation and specific error ordering",
+      "source_ranges": {
+        "main.rs": [
+          [
+            1,
+            667
+          ]
+        ],
+        "outfit.rs": [
+          [
+            1,
+            104
+          ]
+        ]
+      },
+      "disposition": "Both complete sources, allmainignoredintegrationfixturebody read inthreechunks, no commandsrun. CLIrejectsdensebakesourceearly; load_body_model admitsLod beforeexternalmodelread; catalog/designloadfallible; recipecanonicalvalidatebeforeexportstudio. run_studio explicitlyordersregenerate_mesh before drape_preview.poll; thiscloses additional sourceorder support forrestartcachefinding330, notexecuted scheduling. ModelreloadconstructsnewmodellocallyandonlyreplacesonOk; ErrrestoresselectedUIvalues/keepsoldmodel. Save/loadrecipevalidatebeforewrite/return; IO atomicitynotpromised. placement_coverage computesweightedregionmean andrequiresnonemptyactualregions; mainexportskipsplacementsurfaceemptybutrawspanwithzero regionswouldremaincatalogadmissiondependency, noactualcatalogbadspanclaimed. Outfitinputsreverseinnertoplateorder, accumulatehalfthicknessonlyforcoveredchannels, thenrestoreoriginaldrapingorder; actualfabricpositiveboundedthicknessowner neededforgenerichugecollectionsum, noordinaryoverflow. SavedarticlebindsclonedArc; lowerliningfiltersactualrigidpieces. IgnoredintegrationfixtureloadsLOD1althoughcurrentadmission4..6, historicalsourcefixturecannotserveascurrentpassingacceptance; no run/freshcaseadded. Preservewarning-onlyauthoringquality and strategic/tacticalauthorityboundary."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-DRAPE-RESTART-CACHE-001",
+      "file": "finding-drape-restart-cache.json",
+      "disposition": "freshcompleteeditorandactualsystemorderingaddsupport; same finding, no new count"
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "9 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-character-creator/src/parametric_equipment.rs"
+}

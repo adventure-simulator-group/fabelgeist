@@ -1,0 +1,99 @@
+{
+  "id": "CONT07-CONTRACT-460",
+  "at": "2026-10-23T22:16:46.366426+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2016,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/reviewer.rs",
+      "sha256": "bf80b110a492a275bd8550afe0af9bfc9b858b45faa71340c0f13dd6d5992ee3",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/reviewer.rs",
+      "actual_EOF": 85,
+      "ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2017,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs",
+      "sha256": "682408c513c94a29855ef855be8d4e16dad21a2de2e3349ff61dea8f87a43d0a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs",
+      "actual_EOF": 325,
+      "ranges": [
+        [
+          1,
+          325
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2014,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/mod.rs",
+      "sha256": "5a603f0c5055543157a0dd1d47bc979a6109569d0e61cf088f5ca7a99ca495bd",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/mod.rs",
+      "actual_EOF": 263,
+      "ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "2016 reviewer primary_weapon_rank currently uses Sword curve on weighted melee hours. Fresh996 source1-160/690-735 confirms all current melee skills Polearm/Axe/Bludgeon/Sword/Knife share8000 calibration, closing current wrong-weapon-curve candidate for those roles. Bow/Crossbow/Firearm/Throw15000 and defense/mental curves differ; do not generalize Sword proxy to arbitrary custom profiles.",
+    "2017 each batch has positive requested runs from actual2014 run guard; local batch is dropped on measurement/duel failure and no completed summary publishes partial accumulator. finish_means is called once after loop before report. Total simulated time and mean time stored separately with same run count are explicit statistics, not unexplained duplicate authority.",
+    "2014 full263 baseline reread confirms actual run obtains evidence and roster from fixed Core producers, then each matchup once; acceptance JSON is a report containing all booleans, no general pass field or automatic false-flag-to-error enforcement claimed. Empty summary/evidence questions require actual producer proof; CLI positive seed admission closes zero-run path.",
+    "2017 global defensive implement classification compares actual contact item identity to defender weapon id, else shield.2014 per-combatant classification only tests Block/Parry+Blocked, so a coherent blocked buckler event produces shield global and weapon perdefender; F097 recorded separately with actual normal roster support, source-only no seed occurrence claim.",
+    "Fresh865 melee_iteration.rs1-200 proves ordinary roster includes distinct authored opponents plus buckler militia; john name is generated from default character and opponent labels are fixed distinct authored labels. No arbitrary CLI rename input in runner. Further actual name collision/rank-description/evidence roster source dependencies remain explicit; no invented whole865freshread claim."
+  ],
+  "new_local_findings": [
+    "CONT07-F097"
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2025,
+    "start_line": 1
+  },
+  "supplemental_exact_reads": [
+    {
+      "scope_index": 996,
+      "source_id": "pr-working:crates/adventuresim-core/src/skill.rs",
+      "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/skill.rs",
+      "ranges": [
+        [
+          1,
+          160
+        ],
+        [
+          690,
+          735
+        ]
+      ],
+      "new_original_credit": false
+    },
+    {
+      "scope_index": 865,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "sha256": "2f56c5185ec61241a7e4607eef02ebb4051e24dee918f5200585d586a4d971a8",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+      "ranges": [
+        [
+          1,
+          200
+        ]
+      ],
+      "new_original_credit": false
+    }
+  ]
+}

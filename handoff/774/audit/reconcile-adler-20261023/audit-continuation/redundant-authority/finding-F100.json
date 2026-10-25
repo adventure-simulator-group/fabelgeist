@@ -1,0 +1,44 @@
+{
+  "id": "CONT07-F100",
+  "at": "2026-10-23T22:33:31.172424+00:00",
+  "classification": "maintenance redundant semantic part identity; current holder producer/icon consumer agree",
+  "title": "Holder icon focus reclassifies generated parts by independent string ids",
+  "sources": [
+    {
+      "scope_index": 2099,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/holders.rs",
+      "sha256": "d99cadde4f1dc9227c791e6b25dab8869a68bc888b93fa6854a2a43460148635",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/holders.rs",
+      "ranges": [
+        [
+          26,
+          85
+        ],
+        [
+          213,
+          229
+        ]
+      ]
+    },
+    {
+      "scope_index": 2100,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/icon.rs",
+      "sha256": "ee709ba9baafee9046a52d19cc14feea08c7194db4bc29a478fd98b71da4e33a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/icon.rs",
+      "ranges": [
+        [
+          278,
+          304
+        ]
+      ]
+    }
+  ],
+  "earliest_failed_contract": "Holder generator creates canonical semantic throat/suspension parts as free string ids; icon focus and anchor independently reclassify those names rather than receiving generated semantic roles. The same current semantic part identity is maintained in both places.",
+  "counterexample": "Current scabbard-throat/scabbard-suspension names agree. Renaming the generated throat id while retaining geometry and BladeSheath kind can make valid generation succeed but generate_holder_icon return MissingFocus; renaming suspension alone silently drops it from fitting focus. Future maintenance divergence only, not current shipped failure.",
+  "actual_recipient": "Projection::holder filters component_id names and separately finds throat for anchor; generate_holder_icon passes actual generated parts directly.",
+  "qualification": "Generated current holder parts always use matching ids and private normal call binds one design. Generic arbitrary weapon component ids and render labels retain different roles; no restriction to fixed catalog weapon ids. This is explicit maintenance obligation, not hot replacement/invalid payload claim.",
+  "connected_repair": "Carry canonical holder part role/identity from holder construction to icon focus selection or use a shared semantic inventory; keep mesh labels/text conversion at actual output. Preserve current generated ids, focus/anchor, mirrored framing and geometry.",
+  "acceptance": "Current holder portrait layout unchanged; a semantic part rename cannot silently alter icon selection independently. No rendering/build/tests execution.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

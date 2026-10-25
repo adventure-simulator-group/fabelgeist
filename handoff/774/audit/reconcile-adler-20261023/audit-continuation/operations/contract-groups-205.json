@@ -1,0 +1,186 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-205",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+      "sha256": "775c9d22ecc0823474a0e4941da7a73e63c7fe7ca755ffc29cc479d95c611dfe",
+      "actual_EOF": 1095,
+      "actual_compared_ranges": [
+        [
+          1,
+          1095
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; unchanged contracts reanalyzed for both exact roles. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_effects.rs",
+      "sha256": "c6bac2c08cd45980d144ecdad1141a05dd9b0bd403b8ca1be015f9819b064ea5",
+      "actual_EOF": 636,
+      "actual_compared_ranges": [
+        [
+          1,
+          636
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; unchanged contracts reanalyzed for both exact roles. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs",
+      "sha256": "d00168e23c47224b67755629192618e89fd66e2dc3c2f2440e4e2193acacaf4e",
+      "actual_EOF": 616,
+      "actual_compared_ranges": [
+        [
+          1,
+          616
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; unchanged contracts reanalyzed for both exact roles. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+      "sha256": "775c9d22ecc0823474a0e4941da7a73e63c7fe7ca755ffc29cc479d95c611dfe",
+      "actual_EOF": 1095,
+      "actual_compared_ranges": [
+        [
+          1,
+          1095
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; unchanged contracts reanalyzed for both exact roles. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_effects.rs",
+      "sha256": "e86e2ae841e103433b835515ccaa96bca4bdf76b249feda73990195735993201",
+      "actual_EOF": 636,
+      "actual_compared_ranges": [
+        [
+          1,
+          636
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; unchanged contracts reanalyzed for both exact roles. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs",
+      "sha256": "ffaa735d01a814246e3df80b2da9bd1318b5777e34da322aa20f2c17320574fa",
+      "actual_EOF": 616,
+      "actual_compared_ranges": [
+        [
+          1,
+          616
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; unchanged contracts reanalyzed for both exact roles. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "id": "Private witness projection and event coordinates",
+      "locations": "dialogue_bindings.rs1-267; dialogue_prompts.rs184-305,544-597",
+      "trace": "Exact private witness chosen from session delivery authority or outbreak fallback. Claim count and every emitted ordinal/text compared to private authority; enumerate asu32 narrows but the previously audited runtime saturates claim ordinals first, so an oversized runtime population is rejected here rather than accepted as ordinary aliased private claims. Claim count is not event count or session revision. release persists testimony before resolving speaker/fragments/event insertion, so all later fallible operations require outer rollback/catch semantics. It derives event sequence by count() asu32. Topic response uses sequence+offset asu32; result turns use saturating_add(turn_index asu32). Represented oversized retained event populations can wrap identity or lack a representable successor; qualified finding below, not ordinary billion-event reachability. Authored topic turns use resolve_turn aligned expansion, whereas result turns separately resolve fragments and retain one authored source per input fragment: runtime expansion alignment is a connected caller/validator question, no actual admitted result-turn runtime catalogue case established here.",
+      "disposition": "Existing local774:M48 claim/event owner graph strengthened; no new ordinary witness bug promoted.",
+      "dependencies": [
+        "local774:M48",
+        "SEGOVB-04-CLAIM-ORDINAL-001 in166",
+        "Actual generated witness/catalogue size and result-turn runtime authoring",
+        "Outer transaction/catch graph"
+      ],
+      "acceptance": "Successful event publication retains a distinct representable event ordinal and aligned source/claim projection; fail before partial publication on capacity or binding failure. Preserve exact private authority and public observer scope."
+    },
+    {
+      "id": "Pre-issued objective binding and consumed custody transition",
+      "locations": "dialogue_bindings.rs269-938; dialogue_effects.rs297-535",
+      "trace": "Generated manifests require exact provenance, regenerated authority and serialized objectives agreement. Evidence admission distinguishes physical exact custody from informational observer knowledge. Issuance gathers all matching objectives and requires exactly one per action before pending insertion; it never blindly takes an ambiguous objective. Each existing binding compared against party/recipient/case/objective/custodyversion and must remain unconsumed. Later pending-item conflicts can follow prior insertion, so local pending preflight alone does not prove atomic DB publication. Application rechecks living leader, exact revision/source/action/recipient, open case, objective and generated recipient, and current expected custody before mutation. Return/release/exchange pass current.version.saturating_add1 to already read canonical custody transition, then consumed_by only after success. Thus MAX version weakness is the same canonical custody exhaustion qualification recorded203, not separate unique errors for each caller. Other actions ingest a typed fact then consume binding.",
+      "disposition": "No unchecked local array/index defect. Preserve exact pre-issued binding and canonical custody successor with native transaction semantics.",
+      "dependencies": [
+        "Packet203 custody transition and fact authority",
+        "Canonical ObjectiveExpression retained decoding/admission",
+        "Actual outer callers/catches/SDK rollback",
+        "Generated manifest/recipient source ownership"
+      ],
+      "acceptance": "Every accepted action consumes one exact authorized objective/custody version and publishes its fact coherently. Exhausted custody version cannot masquerade as a fresh version. Failed issuance/action must not leave a usable partial binding or mismatched fact."
+    },
+    {
+      "id": "Session revision and prompt binding lifecycle",
+      "locations": "dialogue_bindings.rs940-1095; dialogue_prompts.rs115-367,389-616",
+      "trace": "Refresh deletes options before fallible selection/binding, then inserts each eligible option. Choice binding revision uses session.revision.saturating_add1. Topic ordinary branch and every answer use revision+=1; corpse-permission topic uses saturation. These extend exact audit/continuation/root/initial04-invariant-operations/findings.jsonl#33 ROOT-INITIAL04-F033, no ordinary session reachingMAX claimed. AtMAX a fresh choice binding shares the old revision and existing consumed binding conflicts; an explicit checked successor must govern all ports. Topic replay currently returns success for any existing action row without comparing requested topic, while answer replay validates answer:<promptid>; this is an exact immutable retry payload question, not arithmetic saturation alone. A non-final answer increments session revision without reissuing the original prompt investigation bindings, originally at topic revision+1; multi-respondent effect-bearing prompt resolution therefore needs actual authored cardinality/recipient reachability before claiming an ordinary missing binding. Current body alone does not establish such an authored prompt.",
+      "disposition": "Existing F033 exact recipient extension plus qualified multi-answer/canonical retry dependencies; no guessed new global count.",
+      "dependencies": [
+        "ROOT-INITIAL04-F033 exact archive row33",
+        "Actual authored multi-respondent prompt cardinality and effect binding lifetime",
+        "Canonical dialogue revision and immutable action payload owner",
+        "Outer transaction/catches"
+      ],
+      "acceptance": "Successful state changes have one fresh checked session revision shared by bindings/receipt. Existing committed retry remains valid under its exact semantic request policy. Valid multi-answer prompts must retain effect authority until legitimate resolution."
+    },
+    {
+      "id": "Ballot arithmetic, validation and effect boundaries",
+      "locations": "dialogue_prompts.rs1-113,430-616; dialogue_effects.rs1-296,538-636",
+      "trace": "Ordinary authored min/maxu16 widen tou32, promotion mode forces exactly one selected transition and at least two choices. New ballots reject duplicate choices, outside choices and invalid cardinality before write. vote_counts increments are bounded by actually allocated total ballot entries; no independent usize overflow witness within one representable Vec graph established. Majority uses count>respondents/2, avoiding doubled-count overflow; windows(2) guarantees safe pair indexes. Malformed retained JSON ballots are silently dropped while answer_count still includes them, an admitted-retained-model failure policy question, not valid empty ballots. Raw preexisting invalid/duplicate retained ballots are not assumed admitted by ordinary writer. Multiple-majority/FirstResponse ordering remain actual policy/authoring requirements rather than assumed numeric bugs. Effects resolve actual organization chapter/NPC and direct authored promotions, ordinary contract issuer equality, typed testimony event presence. Receipt/knowledge/contract interactions can precede fallible children; all calls propagate here. NPC missing personal time defaults720 at effects619, extends existing CAM-PPS-F003 fabricated clock family. Fresh actual calendar contains_daily_window rejects >1440 and equal endpoints and uses half-open/overnight comparison; no unsigned subtraction or arbitrary WGS constraints imposed. PR returnsString for effects/prompts while P16 uses StrategicOperationResult; actual full diffs consumed, retain typed-cause integration CAM-PPS-F006/local774:F05/M30.",
+      "disposition": "No new normal arithmetic defect; malformed-authority, clock fallback, error propagation and policy questions remain connected exact dependencies.",
+      "dependencies": [
+        "CAM-PPS-F003",
+        "CAM-PPS-F006",
+        "local774:F05",
+        "local774:M30",
+        "Canonical retained prompt/ballot admission and response policy",
+        "Actual group membership/cardinality and immutable dialogue receipt semantics"
+      ],
+      "acceptance": "Authoritative ballots cannot silently become absent votes; accepted outcomes preserve configured threshold/tie/order policy and typed failures. Required clock absence remains unavailable. Outer failures cannot commit partial effects."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-DIALOGUE-EVENT-SEQUENCE-001",
+      "classification": "Represented retained-state/API capacity strengthening, no ordinary huge-session or executed failure claimed.",
+      "source_ids": [
+        "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+        "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs",
+        "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+        "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs"
+      ],
+      "locations": "bindings184-212; prompts246-304,544-596",
+      "input": "A represented retained session with u32MAX+1 existing events is not locally rejected by these count-based append ports. No such allocation, DB run or ordinary session has been demonstrated.",
+      "operation": "count() asu32 narrows to0 and event:<0> aliases the original identity; for count=u32MAX and an admitted two-turn response, sequence+1 lacks representable u32 result. Saturating result-turn succession can repeatMAX. Scalar validity of existing ordinals does not imply append capacity.",
+      "relationship": "Extends local774:M48 distinct event coordinate graph, separate from event-local claim ordinal166 and same connected canonical capacity/identity decision. Not asserted globally unique.",
+      "dependencies": [
+        "Actual authored turn count and session retention bounds",
+        "Canonical event append owner and generated DB schema/bindings",
+        "Actual SDK insert conflict/rollback and outer callers"
+      ],
+      "acceptance": "Append preflights a representable distinct ordinal for every new event before dependent effects; exhaustion returns structured failure. Preserve ordinary dense order, exact retry, source alignment and no second counter/legacy aliases.",
+      "repair_status": "frozen",
+      "validation_status": "not_run"
+    }
+  ],
+  "fresh_dependencies": [
+    {
+      "path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/source/physical-p16-unscoped-dependency/crates/adventuresim-world-schema/src/calendar.rs",
+      "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "actually_read_ranges": [
+        [
+          326,
+          364
+        ]
+      ],
+      "coverage": "Fresh critical dependency body only; no additional full-role credit."
+    },
+    {
+      "path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/source/physical-p16/crates/adventuresim-stdb-module/src/strategic/custody_objectives.rs",
+      "sha256": "7274d8bedc95fa40cee64bda7b7dda0c32b6d02aa01e44e754f77e1bd171bc5b",
+      "actually_read_ranges": [
+        [
+          824,
+          905
+        ]
+      ],
+      "coverage": "Fresh critical dependency body only; no additional full-role credit."
+    }
+  ],
+  "status": "Six original roles personally compared; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs"
+}

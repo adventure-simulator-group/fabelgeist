@@ -1,0 +1,17 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-251",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        126,
+        127
+      ],
+      "comparison": "Exact P16 personality202 and physical_object383 fully read, source tests never executed. Personality has thirteen independent named mutable axes plus independent inclination/presentation/sex; neutral defaults are concrete starting values and do not imply all persons must share heterosexual male identity. Canonical presentation stable wire IDs and deterministic variant spellings deliberately differ, no forced normalization. Non-neutral count is derived predicate aggregation with no stored tally. InventoryLocation already owns Personal/Party/Fireplace/Repair applicable backing payload, preserving repair row ID and fireplace no-row policy. OperationalCustody separately owns direct holder/container/place/fixture; contained descendants can retain carried backing, so do not merge these two different location authorities or infer legal ownership from operational custody. ObjectCustody validates self-containment at construction and transfer while preserving one physical ID. Raw persisted backing IDs remain less refined than existing custody/place owners, a propagation/admission issue for adopted other-lens evidence, not a claim enum shape alone proves canonical IDs/checked serde. CarriedInventoryScope is only Personal/Party, deliberately excludes repair/fireplace even though those are valid physical backing states. Scope/row/is_fireplace/matches predicates are projections, not extra retained states. Multi-object containment cycle detection requires wider graph, not this single-object self check.",
+      "disposition": "Independent personality axes and existing applicable custody/backing payloads preserved",
+      "finding_refs": []
+    }
+  ],
+  "new_findings": [],
+  "limits": "Discovery only; no execution, fixes, checks, implementation plan or lens clearance."
+}

@@ -1,0 +1,27 @@
+{
+  "id": "ROOT-ADM03-PARALLEL-133",
+  "at": "2026-10-22T21:29:23.455563+00:00",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_schedule.rs",
+      "sha256": "ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+      "actual_compared_ranges": [
+        [
+          171,
+          182
+        ]
+      ],
+      "source_evidence": "Fresh exact registeredtail171-182;183blankexcluded. Necessaryold151-170callerbody independentlyfreshlyconsumed beforetailsemantics, no unscoped239+functions."
+    }
+  ],
+  "groups": {
+    "span-admission-and-progress": "Tailpushes spanonlyunderpriorend>start, endpoints derive max/min ofactualinterval/calendarboundaries. Nonemptypositiveinterval perreturnedrow; readonlyinputs andlocalVec. nextday<=daystartbreak protects saturatingclockedge, otherwise monotonedayprogress; topbreakatintervalend. Nativecalendararithmeticcontract separatecurrentStrategicMinute source. Scalarsaturation/prepassdefault handleszeroelapsed/fullallocation withemptyspans intentionally. No extra bool/cachedscalar authority fromspanlist versus pro-rata leisureminutes: differentdocumentedquestions, actualCamera094 rest/reproduction recipients confirm.",
+    "bounded-work-requirement": "Entirepublicfunction enumeratesandretainsonepotentialspanpercalendar day. Generalu64elapsed +unallocatedvalidschedule permitsastronomicalnumberofdays, no explicitacceptedinterval/nativeVecworkbound insidefunction. This is count/work contract strengthening fromrepresentableAPI, not normalbadrest/checkpoint. Earliestneed projecteddaycount/collectioncapacity orlazyexplicitwork ownershipbeforeloop; no imposednewglobalclock/yearlimit orsilenttruncation. Root052 independentoperationwitnessF018, no verdictcarry.",
+    "local-construction-failure": "Allspanrecordscollectedlocallybeforereturn; no externalstate/retryclockmutatedbyallocation/iterationfailure. Doesnotprovetransactionaroundcaller. Do notmisrepresent finitebutimpracticalhugeiterationasinfinitewhile: clockstrictlyprogresseswithupperboundu64MAX."
+  },
+  "findings": [],
+  "status": "exact_newmaterial_span_tail_manually_compared_with_work_limit_qualification",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

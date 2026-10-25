@@ -1,0 +1,79 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-328",
+  "at": "2026-10-23T07:53:37.115541+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_head_frame.rs",
+      "sha256": "0ba82a07830e04fce84a96018b01826029ddf86029936f1a328c91e41330406c",
+      "scope070_index": 747,
+      "actual_EOF": 327,
+      "scoped_ranges_compared": [
+        [
+          1,
+          327
+        ]
+      ],
+      "actual05_comparison": "Fresh entire host and shader source; head-frame count/rig/layout/status, matched limb current carrier ranges and recorded acceptance-check ownership compared. No GPU/compiler/test execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_limb.rs",
+      "sha256": "e0d892a94ac4639bcb6d76efd6ffe7b88eaab221e530f54832fba6daafd8355d",
+      "scope070_index": 748,
+      "actual_EOF": 212,
+      "scoped_ranges_compared": [
+        [
+          1,
+          212
+        ]
+      ],
+      "actual05_comparison": "Fresh entire host and shader source; head-frame count/rig/layout/status, matched limb current carrier ranges and recorded acceptance-check ownership compared. No GPU/compiler/test execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/device_piece.rs",
+      "sha256": "01c4a60fd64a4c0fc9c1c368d85e1c693d5e1e09849c67bead477704da65362f",
+      "scope070_index": 749,
+      "actual_EOF": 34,
+      "scoped_ranges_compared": [
+        [
+          1,
+          34
+        ]
+      ],
+      "actual05_comparison": "Fresh entire host and shader source; head-frame count/rig/layout/status, matched limb current carrier ranges and recorded acceptance-check ownership compared. No GPU/compiler/test execution."
+    }
+  ],
+  "groups": [
+    {
+      "id": "head frame is measured on same body and rig",
+      "comparison": "TOP reduces actual body y, orientation takes same current head/jaw/eyes slots, bounds samebody8weight rows against included Head family and .55 axial band. record_head_frame allocates16floatframe+status and explicit7reduction sentinels, bindsactualbodycount with sameParamspadding/zero hook and4orderedpasses. Exact host_float vector helpers keep operation order source-visible; ownkernelbody notproofallnativeFPbehavior. Missingfinite envelope and invalidaxes/extents setknownfailure, downstreamDeviceRecordingchecks before successfulCPUuse; no rawDeviceFrame.read constitutes validation. Distinct dedicatedhead path versus genericHead730/732 similarity explicitlycompared currentoperations, nohashverdictcarry."
+    },
+    {
+      "id": "geometry failure does not fabricate accepted fallback",
+      "comparison": "Head normalized helper flagsCoincident andreturnsupvector onlytokeepkernel progress; FINISH rechecksaxesdot/positiveextents/all15wordsfinite andretainedknownstatus rejects in actualDeviceFitread. Partialframeonfailurecannotbe calledaccepted merelybecause Bufferexists. ExtremesNaN ignoredbytopguard butallsourcefinitenessandcompletecurrenthost/devicebindingremainactualGpuBodyrequirements/F051qualification, noeveryinvalidbodyrejectedclaimfromoneguard."
+    },
+    {
+      "id": "limb clearance derives exact carrier count",
+      "comparison": "record_fitted_limb capturescurrentregionframe andrecord_limb_armorpart once; ClearanceFit currentgauge/style/count=thatpart.carrier_count,cuff0. Greave/Cuisse/Rerebrace clearanceroutes use actualsameframe/partcarrier/status, upperlimbtrim beforeclearance; Poleyn/Couter/Spaulder delegatednativepart with noadditionalclearancestage. Unsupportedextremity returnsErr; publicdesign/regionpair itself notvalidatedjointlyhere, normalrecord_recipe312 usesactualfit_region mapping. Newsource extends F061 actual normalcalleegraph but doesnotprovenormalonepointregionalinput or finalbadpart."
+    },
+    {
+      "id": "proximal trim couples shell address and bounds",
+      "comparison": "Eachnativepart.shell_carriers range fillscarrier→shell map andsameper-shell2orderedbounds initializedthenmeasuredactualcurrentcarriery. Samepartcountuniform+dispatch andbuffers reusedTRIM_BOUNDS→TRIM. ValidregionThigh/UpperArm choosesactualSide/depth/reserve,othersErr. Currenttrimamount clampsmaximum70%remaining span, interpolateslinearlyaxialfractiontoavoidhighpowerrowreversal. Shellrangevalidity/nonemptyheightspan fromactualnativeDevicePartgenerator remaininputcontract; rawpublic independently pairedpart/frame/region notuniversallycheckedbythismethod. No currentgeneratedfold/GUIrunclaim."
+    },
+    {
+      "id": "recording is pending execution evidence",
+      "comparison": "DeviceRecording holdspublicpart,frames+theirregion forerrors, checks asDevice orMesh closure. Documentationexplicitvalidityonlyknownafterbatchruns, so constructingrecording cannot certify acceptedmesh. DeviceValidation async function/Send+Sync lifetimesretainactualGPUandMeshValidation borrowsfinishedBuiltPart; no typed encapsulation seals arbitrarycalleremptyframes/checks. ActualDeviceFitread312 processesallrecordedchannelsbeforesuccessfulpartpublication. Nestedpartstatus from320 remainsseparatemissingforwardingqualification, exactchecksdefinitiondoesnotinventnonemptychecks."
+    },
+    {
+      "id": "scope and native limits",
+      "comparison": "All3completeproductionfiles noinlineoriginaltests; no counted external kernelorCPUvalidation fromfunctionnames. Native record_limb_armor/GpuBody/host_float/statusscratch/bufferlogicalextent remain exact queueddependencies. Only frozen PRsource, no PR→P16 or mergednewmaininference."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Exact native DevicePart generator/ranges/finish and normal source body support cardinality remain distinct obligations."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

@@ -1,0 +1,126 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-195",
+  "at": "2026-10-23T04:21:51.040659+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-057.json",
+    "sha256": "4abcd94e9ad2df0809aeddf48c6f6178231e465f340dd624a314aa26e6e0329a"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-056.json",
+    "sha256": "ef4ac5f10d673aeedd80786ace9c0277ec839f9395ef1941356e39e14cbfd9c6"
+  },
+  "new_variants": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/world_import.rs",
+      "sha256": "cc83d5f3e3c415a12dc0ced11a5e9271a2b115d3ed5ac9703d1a8b8ae9728d22",
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\strategic\\world_import.rs",
+      "snapshot": "physical-p16",
+      "actual_line_count": 1159,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          681,
+          717
+        ]
+      ],
+      "audit_owner": "camera",
+      "scope_registration": [
+        {
+          "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+          "sha256": "b220d9e5cfae93fb2174acd1a191aa950bcd93dcda94a31510aa6e5af0105877",
+          "row_1based": 39,
+          "id": "CAMERA-INITIAL07-REG-039",
+          "original_record": {
+            "id": "CAMERA-INITIAL07-REG-039",
+            "at": "2026-10-23T04:20:27.208058+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/world_import.rs",
+            "snapshot": "physical-p16",
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\strategic\\world_import.rs",
+            "sha256": "cc83d5f3e3c415a12dc0ced11a5e9271a2b115d3ed5ac9703d1a8b8ae9728d22",
+            "actual_EOF": 1159,
+            "material_ranges": [
+              [
+                681,
+                717
+              ]
+            ],
+            "role": "Direct canonical Settlement producer binds religious_status and religion_id fields before actual row update/insert; closes actual WebSettlementView503-548 copy-authority question",
+            "actual_caller_or_receiver": "Already-scoped P16/PR strategic-web spacetimedb/types.rs503-548 retains both generated fields; already-scoped mission_bootstrap1056 uses same called church() selector",
+            "exclusions": "675-680 earlier validation excluded; no rest of import validation/world graph, other rows or tests. Named external fields copied here are context only outside exact selected religion/canonical row publication role.",
+            "chronology": "QUAL167 premature675-717 display uncredited; registration before fresh credited681-717 body comparison",
+            "status": "registered_before_fresh_credited_material_analysis"
+          }
+        }
+      ],
+      "scope_limits": "Exact P16 Settlement religion-field producer/publication681-717 only. Fresh post-registration Root03proof194 and mandatory193 premature-read exclusion;675-680/rest of file/copy-helper bodies excluded. All prior mandatory qualifications retained, no whole1159/other-lens credit.",
+      "source_lens_credit": "none from scope metadata"
+    }
+  ],
+  "new_overlays": [],
+  "total_variants": 2826,
+  "total_overlays": 241,
+  "mandatory_scope_qualifications": [
+    {
+      "record": "continuation/root/parallel-scope-qualification-130.json",
+      "sha256": "5dc4e5cd771612c7e050ab4af544411523317ae4b57738f1fb20f493685a50fc"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-117.json",
+      "sha256": "f3b80648900716939057b20776d756a6e37001f6910378da1a1bbaea230d348b"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-149.json",
+      "sha256": "97103899514ade32cf1e41c2794fa9c49c0cb8c6c7a2c6a4961b7492de5dc708"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-151.json",
+      "sha256": "670dd53a640b28eef7ad9d57b37f9213e1bca7117d7098691c4b0cd20c2a8f65"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-158.json",
+      "sha256": "fa0e9cc06d04fca0a0e2b5f9a333390a0ba1e71eff846a4e957c46b68b3e940e"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-170.json",
+      "sha256": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-173.json",
+      "sha256": "5763e9e965b4f4c1d402a09eab682de47336885c8d30b3c5b3d157242a496948"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-176.json",
+      "sha256": "9a321e498a00285331d4ec4fb4dc7c3a49d7bb6e3a08a44a79c2e5bf58186270"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-184.json",
+      "sha256": "5e35c8530a11d0f90bc767812758e4c504eb9ca5e776d0d1f17bf14c0853468d"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-188.json",
+      "sha256": "e15ac81028377714ef550a4cbd68546ec0fbd2ab41300f64db2a1c8686cb43ab"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-193.json",
+      "sha256": "fa718d979ab18d0f9bc7ea210e912d4cb8e971c3bbaa8702a602311d515d6e06"
+    }
+  ],
+  "registered_rows": 1,
+  "input_pins": [
+    {
+      "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+      "sha256": "b220d9e5cfae93fb2174acd1a191aa950bcd93dcda94a31510aa6e5af0105877",
+      "captured_rows": 39,
+      "selected_ids": [
+        "CAMERA-INITIAL07-REG-039"
+      ]
+    }
+  ],
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through241-before057.jsonl",
+    "sha256": "dab119b1cddc825a5ec8518ef65f295fa3868e1ff56b2bbc74418407c12c0a7d",
+    "through": 241
+  },
+  "limits": "New exact P16 world_import681-717 source variant2826, overlays remain241. Mandatory193 preserves Camera premature675-717 noncredit. All previous mandatory qualifications retained; all13 exhaustive initial audits then handover163."
+}

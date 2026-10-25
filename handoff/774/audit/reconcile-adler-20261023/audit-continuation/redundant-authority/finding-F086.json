@@ -1,0 +1,58 @@
+{
+  "id": "CONT07-F086",
+  "at": "2026-10-23T20:41:36.589221+00:00",
+  "classification": "conditional accepted same-location document replacement/cache dependency defect; no UI/run claimed",
+  "title": "Retained strategic scenes ignore changed documents for the same location",
+  "sources": [
+    {
+      "scope_index": 1698,
+      "sha256": "d957debd0155371a6487925b22efab792acadf0a9a374b35e8994126146a1f27",
+      "ranges": [
+        [
+          9,
+          48
+        ],
+        [
+          60,
+          106
+        ],
+        [
+          122,
+          160
+        ]
+      ]
+    },
+    {
+      "scope_index": 1682,
+      "sha256": "fcc5da9af3e6cdbc09ec0512bcd8f36416dbfcf4ce9fad4f2c0e44c5cd8e47b5",
+      "ranges": [
+        [
+          27,
+          73
+        ]
+      ]
+    },
+    {
+      "scope_index": 1692,
+      "sha256": "1ac60dfc9e48db2d8717ff144d5b340d9f5cf2f9a158a8a7dcb1c966f17afdb4",
+      "ranges": [
+        [
+          153,
+          169
+        ],
+        [
+          183,
+          210
+        ]
+      ]
+    }
+  ],
+  "earliest_failed_contract": "Retainedscene nativeproducts anddigest mustcorrespondtoacceptedcurrent SceneDocument input/preparation identity, notonlyitslocationlabel.",
+  "counterexample": "AftervaliddocumentA producesrootatlocationL, replaceSceneDocument withvalidB forL withchangedenvironment/geometry/inputdigest. retain_scene passeslocationmatch butscene.location==view.location androotSome, soskipsdocument.generated_scene andprepare. Retainedoldnativegeometry/environment/digest survivewhilecurrentdocumentisB; oldsame-locationprepareerroralsoreturnsearlybeforeconsideringnewB. ReturntripimagekeyincludingretaineddigestcannotdetectinputB becauseRetainedScene.digestneverupdated.",
+  "actual_recipient": "Oldretainedscene root/materials/venues/models remainactualrendererinput. Status installed153-169 checkslocation/placecount/pending/assetconditions, notdocumentidentity, so cancontinueadvertisinginstalledoldcohortfornewacceptedB. No particularruntime reportclaimed.",
+  "qualification": "Meaningful API/resource replacement acceptedbySceneDocument::parse forsamename; actualbrowserinstallsame-locationupdateddocument sequence notyettraced, so no ordinaryweatherUI/runtimefailureclaim. Ifdocumentsareintentionallyimmutableforlocation, enforce thatactualownershipcontractratherthaninferringitfromlabelcomparison. Same-locationplace/venuechangesrelatedcohortquestion butnotneededprimarywitness.",
+  "connected_repair": "Bindretainedgeneration anderror/retry state toexactcurrentdocument/inputdigest/preparation pluslocation. Fullypreparecoherentreplacement thenpublishexplicitstate; invalidateactualimage/sceneproducts bynewidentity andretainoldonlyasexplicitlastgoodpolicyifdesired. Preserve exactworkeractivation, nativecleanup andsame-documentreuse.",
+  "acceptance": "ValidchangedB atsame locationcannotreuseA whileclaimingB/currentinstalledidentity; freshdocumentcanreplace/retrypriorfailedcohort. Identicaldocumentreturnvisitsstillreuseintendedcompleteassets/images. No tests added or executed.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

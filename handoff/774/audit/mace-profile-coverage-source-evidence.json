@@ -1,0 +1,59 @@
+{
+  "revision": "13fc9dcc71ab879de364117e5462310673e43210",
+  "kind": "Source-control-flow/aggregate-domain witness; no Rust or project execution",
+  "witness": {
+    "catalog_id": "arming_sword",
+    "recipe": {
+      "components": [
+        {
+          "id": "m",
+          "kind": "mace",
+          "length": 0.125,
+          "rootRadius": 0.0078125,
+          "shoulderRadius": 0.01171875,
+          "cuspRadius": 0.0234375,
+          "crownLength": -0.03125,
+          "flanges": 6,
+          "flangeThickness": 0.0009765625,
+          "coreProfile": [
+            [
+              -0.0625,
+              0.0078125
+            ],
+            [
+              0.03125,
+              0.01171875
+            ]
+          ],
+          "flangeProfile": [
+            {
+              "at": 0,
+              "radius": 0.0234375
+            },
+            {
+              "at": 1,
+              "radius": 0.0234375
+            }
+          ],
+          "attach": {
+            "to": "weapon.root",
+            "at": "origin"
+          }
+        }
+      ]
+    }
+  },
+  "trace": [
+    "All chosen dimensional endpoints are binary fractions, avoiding approximate equality in the validator. Root finite/unique/one-parent/frame/budget rules pass. dimensions::mace accepts the signed crown via bounded(abs<=20); core profile2stations are strictly increasing with positive radii.",
+    "melee::mace requires core first=-length/2=-0.0625 and last=length/2+crown=0.03125. It accepts two flange stations at0,1 with positive radius. Other Mace scalar/count guards pass.",
+    "mace uses6 sides, divisible by6 flanges, then calls receiving_profile before any core/flange mesh creation. Authored flange_outer returns heights[-0.0625,0.0625], both radius0.0234375.",
+    "First outer point interpolates the core at its first height. Its positive radius times cos(pi/6) is strictly below0.0234375, so it cannot return the earlier outside-flange error.",
+    "At second outer height0.0625, the only core span ends0.03125. No window satisfies height<=end. find returnsNone and unwrap panics before the Result can report rejection."
+  ],
+  "same_as_base": [
+    "crates/adventuresim-weapon-model/src/model/maces.rs",
+    "crates/adventuresim-weapon-model/src/recipe/validation/melee.rs",
+    "crates/adventuresim-weapon-model/src/recipe/validation/dimensions/furniture.rs"
+  ],
+  "limits": "No standard preset occurrence, generated source run, native crash reproduction, test/helper/assertion addition or project check. Small accepted Recipe/API counterexample only."
+}

@@ -1,0 +1,103 @@
+{
+  "id": "CONT-CAMERA-FOLLOWUP-PENDING-ANIMATION-001",
+  "lens": "audit-producer-propagation",
+  "purpose": "Exact actual P16 reference/rate retained config and receiving operations; no body analysis before Root registration. PR counterparts already producer-traced but cannot prove P16 callers by bytes/verdict.",
+  "sources": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+      "sha256": "3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+      "requested_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "actual_lines_metadata_only": 66,
+      "status": "navigation_only_no_body_analysis"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/ragdoll.rs",
+      "sha256": "af87991f5cb3f8fd2a6398ea5135c5daacd24c7b9c2b23181ebecec7bc516ad3",
+      "requested_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "actual_lines_metadata_only": 112,
+      "status": "navigation_only_no_body_analysis"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/playback.rs",
+      "sha256": "6eac571d575402a1ccbcdda6ad103850b9f52fed3f9bc602d558ea5629d23fdd",
+      "requested_ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "actual_lines_metadata_only": 48,
+      "status": "navigation_only_no_body_analysis"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation/procedural/body_response/target.rs",
+      "sha256": "81446933b198eac655968dd876b5bdd007e102f4daad11024f3e92242a34bd20",
+      "requested_ranges": [
+        [
+          84,
+          140
+        ]
+      ],
+      "actual_lines_metadata_only": 140,
+      "status": "navigation_only_no_body_analysis"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation/procedural/body_response.rs",
+      "sha256": "d307ec89363164d57e5762fea3f35d38adf4cb28c64801233bceacaddd9f5727",
+      "requested_ranges": [
+        [
+          195,
+          217
+        ]
+      ],
+      "actual_lines_metadata_only": 490,
+      "status": "navigation_only_no_body_analysis"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation/ragdoll/muscles.rs",
+      "sha256": "4d66c5e28731d05a4ff8e3fb3489cbe7d05bec7c2e76af21c7e2d7a58d846998",
+      "requested_ranges": [
+        [
+          40,
+          157
+        ]
+      ],
+      "actual_lines_metadata_only": 275,
+      "status": "navigation_only_no_body_analysis"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation/presentation.rs",
+      "sha256": "6a067389a1cdcbddd0dd3814f95e17664351794be139353572edd19928a18171",
+      "requested_ranges": [
+        [
+          82,
+          116
+        ]
+      ],
+      "actual_lines_metadata_only": 867,
+      "status": "navigation_only_no_body_analysis"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+      "sha256": "b1645110395d62b1dab020f6328f9b3d3fde6cd3f64b88101d6c66d5e7d8b0e6",
+      "requested_ranges": [
+        [
+          285,
+          315
+        ]
+      ],
+      "actual_lines_metadata_only": 2973,
+      "status": "navigation_only_no_body_analysis"
+    }
+  ]
+}

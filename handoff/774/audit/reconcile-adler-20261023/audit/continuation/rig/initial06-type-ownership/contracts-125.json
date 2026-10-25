@@ -1,0 +1,29 @@
+{
+  "id": "RIG-INITIAL06-GROUP-125",
+  "at": "2026-10-23T03:38:47.231012+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-052.json",
+  "groups": {
+    "pure-battle-state-and-durable-evidence": {
+      "comparison": "Personally consumed Camera054 whole PR2878/P162879 actual source narrative and exact detailed050/052/053 routes, then freshly inspected current PR1-305/313-625/625-695/900-965/1020-1128/1215-1448/2415-2470/2820-2878 and complete actual PR/P16 body delta from explicit distinct snapshot roots. Reanalyzed these actual definitions/uses for ownership: CombatantStrategicState is a durable input projection; Combatant owns fresh transient battle clocks/wounds/engagement/ammunition progress. Their overlapping body/equipment/skills are already canonical Core products, while transient fields are reset by from_strategic_state. Do not persist tick/duel state or make DB depend on client presentation. CombatantOutcome records durable physical consequences and BattleLogEntry per-hit provenance; Summary is an aggregate, Telemetry diagnostic observation and PendingAttack ephemeral slice ordinals. These shapes have different authority/lifetime, so do not merge from repeated fields. Participant u64 may include abstract enemies; do not force nonzero strategic CharacterId without source membership. Inventory-instance IDs differ participant/asset IDs. Canonical Seed/StreamId, BodyPart, BestiaryCategory, combat result/response/material/coverage types are shared below framework users. BattleTime is signed relative battle coordinate (actual negative-time fixture2448), AnimationElapsed nonnegative span, SignedSpeed closing/separation velocity: keep those owners distinct. Incapacitation contains general fatigue and encumbrance once; no new hidden fatigue owner or movement penalty. Output Serialize, private pending-index provenance and recorder source narratives do not certify every raw public field finite. Native armor Infinity fixture policy and nonhuman mass remain broad. External child modules are separate source obligations; main coverage never credits called helper bodies.",
+      "disposition": "Keep Core battle products and existing canonical leaves at lowest shared pure owner; preserve strategic/transient/output/diagnostic distinctions. Physical length propagation remains F034; phase/wire string vocabulary is pending later assigned lens."
+    },
+    "physical-tuning-versus-accepted-measure": {
+      "comparison": "Fresh full PR combat/config121 and actual complete P16config122 delta/current producer-use comparison. Shared CombatFatigueParameters/WeaponContactParameters already reused. AutoresolveParameters is strategic-only tuning around common physical resolver, not a second Tactical runtime config. Build123 emits source literals into these Core owners, a real code-generation port. Current PR retains rawf32 formation spacing, lunge travel maximum and long-weapon measure threshold; P16 uses neutral SignedLength but then extracts each to enforce finite>0 in actual validate. Their accepted contract is strictly positive length, so canonical neutral PositiveLength should carry it after source admission rather than retaining broader signed values and rechecking. In contrast main private engagement/scheduled/contact measures and defaultZERO cannot blindly use strictpositive; P16 already retains canonical signed lengths until real range/formation mathematics. Preserve canonical signed lengths for broad measures and positive lengths for tuning according to actual declared bounds, not one blanket all-metres type. Physical force/Newtons, acceleration, traction and leg-strength scales differ these lengths and each other. Hit-precision tuning is constrained0..1 here, but public CombatWeapon precision can exceed1; do not globally narrow precision from a tuning range. Elapsed positive-round/windup versus zero-valid cadence jitter and ordered pairs have separate local coupling. No local validate call establishes every mutable public parameter ingress as accepted state. Scalar constructor/admission issues stay prior03/04 findings, not a new numeric policy invented by ownership.",
+      "disposition": "F034 propagate existing neutral signed/positive metre owners through current Core tuning/state/telemetry and actual consumers; Core remains below Tactical and DB. No new battle-specific duplicate metre wrapper or compatibility raw path."
+    }
+  },
+  "source_fact_refs": [
+    "camera/admission03/contracts.jsonl#CAMERA-ADM03-054",
+    "camera/admission03/main-autoresolve-partial-050.json",
+    "camera/admission03/main-autoresolve-partial-052.json",
+    "camera/admission03/main-autoresolve-partial-053.json",
+    "contracts-001.json",
+    "contracts-037.json",
+    "contracts-038.json",
+    "contracts-042.json",
+    "contracts-057.json",
+    "contracts-123.json"
+  ],
+  "limits": "Four exact variants; whole source facts personally consumed with fresh focused ownership bodies and all actual counterpart deltas, not fresh every-line claim. Original tests source evidence only. No called child-module coverage from main, runtime, normal bad-asset or accepted aggregate guarantee."
+}

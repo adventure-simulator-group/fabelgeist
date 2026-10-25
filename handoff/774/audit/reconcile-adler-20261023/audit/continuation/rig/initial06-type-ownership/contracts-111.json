@@ -1,0 +1,28 @@
+{
+  "id": "RIG-INITIAL06-GROUP-111",
+  "at": "2026-10-23T02:23:44.044290+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "building-recipe-room-ordinal-and-fallible-query": {
+      "comparison": "Fresh PR checked.rs28/plan.rs53/room_index.rs45 full sources; actual complete P16 RoomIndex counterpart identical, current exact range remains1-45. BuildingPlan owns authored footprint/storeys/assemblies and resolved geometry association, Seed is generation identity not a room index or building instance. It composes established named model products; no second universal geometry type should replace BuildingPlan merely because dimensions_metres projects Vec2. That getter is lattice-cell -> native metre multiplication, an actual unit formula port, not unchanged typed to raw to typed forwarding. RoomIndex all-u16 incl0 is room ordinal, checked usize narrowing; StoreyIndex separate level role not equivalent based on same packed width, actual Room-from-ordinal error carries RecipeOrdinalRole. Index/raw serialized getters are appropriate indexing/codec ports, not membership proofs. try_any/try_all are generic short-circuit Result combinators preserving first construction error; no bespoke declared value or competing geometry authority, keep bounded helper near relying index rather than inventing public API.",
+      "disposition": "Keep source-plan and represented geometry roles, room/storey distinction and exact first-error query semantics."
+    },
+    "foraging-purpose-separated-draws": {
+      "comparison": "Fresh full25 PR and actual P16 counterpart body comparison. ForageDraw fractional yield/base yield/stealth are purposeful RNG stream selectors owning existing canonical Seed/StreamId; source/item byte context at derive is actual hash native port, not scene identity or sample ordinal. Numeric u64 draw upper -> NonZeroU64 expect is existing sampler prerequisite, not proof upper valid from name. No rival Seed or RNG state owner introduced here and no reason to collapse purpose enum into rawstrings at callers. Exact caller producer proof belongs original foraging source, not this short helper alone.",
+      "disposition": "Preserve canonical determinism owners and purpose separation; primitive byte/numerical sampler port warranted, caller upper-bound prerequisite explicit."
+    },
+    "context-answer-versus-observer-affordance": {
+      "comparison": "Fresh strategic_presence/context55. CharacterContextRole is authored cast role, not living membership or authority token. ContextualDecisionState allowed/refused/unavailable is authored answer; InteractionPresentationDecision request/refused/unavailable/emergency is observer-specific affordance. Allowed->Request map intentionally changes meaning and target has EmergencyTreatment extra value; equal spellings for other states do not make a duplicate owner. Keep both Core canonical products, derive observer decision at live presence/privacy/emergency receiver. Optional SDK unit enum boundary legitimate, no DB or web dependencies below shared types.",
+      "disposition": "Preserve authored answer and observer-specific presentation distinction; no consolidation."
+    },
+    "dialogue-authored-prompt-versus-puzzle-vocabulary": {
+      "comparison": "Fresh condition_validation30/prompt37 PR and complete actual P16 counterpart body comparison. Condition validators consume canonical Condition/Role and typed FactKey authoring policy, accumulate typed DialogueError values with raw unknown role attribution. Dialogue Prompt/Choice IDs and respondent are dynamic authored graph/role keys; Choice composes Effect and resulting Turn, not fixed puzzle Sigil/WitnessPath or a live selected EncounterChoice. Keep presenter-independent dialogue authoring owners below DB/rendering; do not force dynamic choice strings into closed puzzle enum because both are choice labels. PromptMode and ResolutionPolicy reused canonical declarations; min/max rawusize boundary default1 does not establish accepted topology/range or duplicate a bounded-count owner. This lens does not clear actual dialogue validation elsewhere.",
+      "disposition": "Keep dynamic authored graph identity separate from puzzle/encounter fixed choices; reuse canonical condition/effect/turn owners."
+    },
+    "module-and-dependency-only-boundaries": {
+      "comparison": "Fresh quest_generation/mod35/tests10, puzzles/Cargo15/choices6/lib19. Quest module shares actual model declarations across included solver/projection and exports assembly/generate, audit and validate; it declares no competing copy of included model. Tests include only existing source modules; no unexecuted test success claim or implicit body credit for included sources. Puzzles manifest depends only Serde/JSON/clap/determinism, so lower presenter-independent canonical choice vocabulary coherent and cannot import game DB. Reexport Sigil/WitnessPath and game-specific module reexports are API exposure of same types, not compatibility aliases or duplicated owners. No whole included helper body clearance from include/mod declaration.",
+      "disposition": "Nonapplicable to new competing type declaration; preserve dependency direction and exact included-source coverage obligations."
+    }
+  },
+  "limits": "All listed short PR bodies personally freshly read full; four actual P16 counterpart bodies completely compared and current roles explicit. No included-source/model-helper/transitive-code coverage from reexports. No source edits/project execution/other-lens credit."
+}

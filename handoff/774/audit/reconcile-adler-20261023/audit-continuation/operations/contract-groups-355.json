@@ -1,0 +1,98 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-355",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/tests/routes_and_evidence.rs",
+      "sha256": "1e63a6243b28e6299494477083e5ed5bed233a8a73c76fafded2475553a0ce10",
+      "actual_EOF": 581,
+      "actual_compared_ranges": [
+        [
+          1,
+          581
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/tests/solver_and_generation.rs",
+      "sha256": "ad5412d471d6177851e63bed5f4986db65b6d3ef02f3f604b0517a5fb3f60c9f",
+      "actual_EOF": 603,
+      "actual_compared_ranges": [
+        [
+          1,
+          603
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/tests/testimony.rs",
+      "sha256": "e79eddae99132e27031816672096c14b61289ed47b7da80e984a82c1c8e3877b",
+      "actual_EOF": 713,
+      "actual_compared_ranges": [
+        [
+          1,
+          713
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/validation.rs",
+      "sha256": "a58991cdececa54b76db9d44b4f5dd1702ef3c8d132e37350fcba62b5bf9e827",
+      "actual_EOF": 1121,
+      "actual_compared_ranges": [
+        [
+          1,
+          1121
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Quest fixture replay, identity budgets, topology and observer safety are source-read acceptance evidence",
+      "source_ranges": {
+        "quest_generation/tests/routes_and_evidence.rs": [
+          [
+            1,
+            581
+          ]
+        ],
+        "quest_generation/tests/solver_and_generation.rs": [
+          [
+            1,
+            603
+          ]
+        ],
+        "quest_generation/tests/testimony.rs": [
+          [
+            1,
+            713
+          ]
+        ]
+      },
+      "disposition": "All1897 lines personally read in six chunks. Fixtures cover exact >2^53 contact identity, same-name distinction, contact version0\u21921 and replay, no-match no mutation, multiple-root rejection, terminalcontact withoutsuccessors, completedalternate not revived by failure, root-dependent inactive successors and occupied-site sequencing. Other fixtures cover bestiary implication categories, graph missing/cycles/substitution rejection, seed/counterfactual/bridge hardzero/marginal variation, opaque privateentropy IDs, publicgrant shape/reliability independence, withheld concerns, track segment predecessor and exact-site ordering, navigabletabs, 256byte claim budget, weather confidence and challenge substring/response normalization. Every search/index/loop uses bounded fixture collections; no arithmetic anomaly found. Fixtures not executed and do not imply entire runtime/DB integration passing."
+    },
+    {
+      "contract": "Manifest aggregate validation terminates and avoids unchecked indexing before publishing valid result",
+      "source_ranges": {
+        "quest_generation/validation.rs": [
+          [
+            1,
+            1121
+          ]
+        ]
+      },
+      "disposition": "Whole1121 lines personally read in four chunks. validate_track_trails first checks lengths2..4 before ordinal+1, checked_sub predecessor; findings[0] guarded by len!=1 short circuit. Family entry unwraps guarded by prior None checks in OR chain. Reachability loop monotonically grows finite action-ID set, referral traversal visitedset preventscycles. Outbreak chronological computations use fixed small disease durations and strategic saturatedclock; terminaldates compare disease/attack precedence, physical/socialroutes and exact source/remediation relationships. Allerrors local, Resultgateprevents manifestpublication. Duplicate generic IDs/objective shape/public field/serdeingresses and incomplete linkexactness remain adopted03/05/06 authority dependencies, not claimedclosed merely fromthisvalidator. In particular finalobjective loop is vacuous for malformedempty public ObjectiveExpression; freshcase344 constructor requiresnonempty. This is source support for adopted admission/aggregate scope, not an independently counted04 mutation defect. Unknown currentmetadata/revision cannot be assumedadmitted; normalassemblercallsvalidatebeforeOk."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-core/src/rights.rs"
+}

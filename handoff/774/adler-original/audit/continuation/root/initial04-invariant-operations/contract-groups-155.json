@@ -1,0 +1,101 @@
+{
+  "packet_number": 155,
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/mod.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          230
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh literal full230 in untruncated slices. Original owner1-160 is not whole: original producer_reached observations explicitly include1-230. Full scoped union verified before read; independent04 arithmetic/topology/native-boundary comparison. No included child bodies from declarations.",
+      "sha256": "7327c75b4030df58f3b59c44b7b691713289908715ecb4c6adae4b0829806fc1",
+      "actual_EOF": 230
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/material.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          94
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh literal full94 and independent current04 closed material/density/palette operation comparison. No automatic P16 counterpart role.",
+      "sha256": "f23d96b4ae8655d4f129979f2b5c73bec79a5efc29caa5f1c508ba340af15c53",
+      "actual_EOF": 94
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/stock.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh literal full38 and actual complete empty P16 counterpart diff. Original fullrole plus existing overlay preserved; independent04 unit-mass/material membership comparison.",
+      "sha256": "848e1187843f8082d93fa8a1adc5e8b2bc60f90336e2d496176aa32969ee596e",
+      "actual_EOF": 38
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-weapon-model/src/recipe/stock.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Effective existing original/overlay full1-38 verified before read. Actual full empty diff and fresh full literal PR counterpart plus authored same operations. No hash-only credit.",
+      "sha256": "848e1187843f8082d93fa8a1adc5e8b2bc60f90336e2d496176aa32969ee596e",
+      "actual_EOF": 38
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/dimensions.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh literal full62 closed shape dispatcher, independent04 exact routing/omission comparison. None of child helper bodies cleared by dispatch/import.",
+      "sha256": "352602b462e8dfa78bb2bb05442c2e09a381a2d9547cd630c4a8f4bbfb28ae20",
+      "actual_EOF": 62
+    }
+  ],
+  "groups": {
+    "construction-budget-and-detail": "MODEL_FRAME_EXTENT20metres and strip separation4*20*f32EPSILON are real native renderer-resolution constraints, not arbitrary physicalquantity cap. construction_budget accepts finite0..262144 triangle estimate; actual shape callers must check an estimate that covers allocated output, declaration alone does not prove all sourcesbounded. Detail enumexplicit perbuild avoids mutable globalLOD. samples ceil scales request Low.5/Medium1/High2 then respects minimum; lathe exactrequested<=8 intentionally skips radial enhancement. radial combines detailfloor/requested/angular sagitta resolution. Actual admitted sampling/radius caller bounds required before claiming rawusizeMAX/radius0 generatedallocation failure.",
+    "solid-whole-topology": "triangle appends exactlythreepositions, oneface andonesurface; quad calls twice. Faces/surfaces/positions have distinct cardinalities and index memberships. append preserves surface0 flat, offsets nonzero surfacegroups by current max, adjusts faceindices by vertexbase and appends data. Combined usizeindex/u32group capacity and source membership remain wholeSolid invariants; raw pub(crate) fields can be edited, no independent boundary admission from owning type name. No actual supported surfaceMAX overflow claimed. positive flips winding only when signedvolume<-1e-10, so it is not a universal proof of strictly positive volume for tinynegative/degenerate geometry. Physical integration preconditions need actual successful shape producer proof.",
+    "coordinates-and-native-math": "Point/PlanarPoint aliases do not distinguish position/direction/normal/frame. Native add/sub/dot/cross/norm/lerp and explicit degree rotation are mathematical ports. rotate applies three Euleraxis steps and inverse_rotate reverses order with negativeangles, retaining whole transform relation. normalize explicitly maps exactzero norm tozerovector; finite-input norm overflow is existing general operation discipline, but acceptedmanufacturing geometry is bounded and no arbitraryMAX ordinary input asserted. Degrees must not be conflated with scene radians, time or unitless interpolation. Transform retains faces/surface IDs while applying rigidposition mapping.",
+    "canonical-material-values": "Closed Material enum covers actual authoredpalette; density table is positive finite350..19300kg/m3 and colors finite authoredtriples. DefaultSteel is deliberate authoring default, not a legacy compatibility fallback. Physics and renderer metadata source density/color from same enumfunctions in actual output constructor153. Do not substitute generic probability type for material appearance or infer identical units from samef64 fields. No public configurableMAXdensity in successful normalmaterial enum.",
+    "forge-stock-membership": "ForgeStock fourclosed tradedstocks each has exact stable itemkey and positive native unitmass2/4/5kg, so actual material_masses/stock unit division cannot dividebyzero through this enum. DarkSteel/Steel and DarkLeather/Leather share stock while other valid authoringmaterials intentionally returnNone, not silently mapped to another stock. Canonical materialidentity, tradedstockidentity, unitmass and resulting stockquantity remain different contracts. Forgequote mass/time concern144 now has real materialdensity/sampling/frameconstraints, but full child shape budget/geometry bounds remain pending; no claimedMAXadmittedmass, totalquote overflow or complete clearance.",
+    "shape-dispatch": "dimensions::check exhaustively matches closed Shape and routes each actual variant to correct dimensionhelper, with contouredplate/profilebody delegated to sibling owner. This establishes dispatch coverage only, not positive/finite dimension, contourindex, movingclearance or generatedtopology correctness for any uninspectedchild. Separategraph/ranged/melee/shield checks remain separate actual admission operations. Do not retrofit multiple local scalar wrappers as substitute for one accepted Recipe/Construction relation.",
+    "limits": "Five new exact04 roles561->566, findings60 unchanged. Current0672848+245/306queue, mandatory233/231/230/226/224/allprior retained. Full Construction230 union from producer metadata not shrunk to oldowner160. No sourceedits, execution, new tests or cross-lenscredit. All thirteen initial audits then handover163; implementation deferred."
+  },
+  "findings": [],
+  "id": "ROOT-INITIAL04-CONTRACT-155",
+  "at": "2026-10-23T07:11:17.125129+00:00",
+  "lens": "audit-invariant-operations",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-067.json",
+    "sha256": "476a2728a12d186588dd52afb8519090016a4cb9b6ee564759aece0f6ef28db2"
+  },
+  "mandatory_overlays": {
+    "record": "continuation/owner-range-extensions.jsonl",
+    "sha256": "0378e32d695512b875a86dd6bb695f10d5f3c8d43d8838fe8ee222cbb02a869a",
+    "through": 245
+  },
+  "mandatory_qualification170": {
+    "record": "continuation/root/parallel-scope-qualification-170.json",
+    "sha256": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c"
+  },
+  "repair": "frozen_initial_audits_then_handover",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

@@ -1,0 +1,140 @@
+{
+  "packet_number": 144,
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/smithing.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh literal full PRsource including originalfixtures and actual full emptyP16counterpartdiff; independent current04 arithmetic/nativecapacity/closedvocabulary/outputauthority comparisons.",
+      "sha256": "83f6b2eb7d945187bca6dc9f0fe78cbab0d25c292ce4c4096af94b4eb89a298b",
+      "actual_EOF": 78
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/smithing.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Exactfull P16currentrole, comparativeproof from fresh fullPRliteral and actual full emptydiff; independent same04 contracts, no hash-only or other-lens transfer.",
+      "sha256": "83f6b2eb7d945187bca6dc9f0fe78cbab0d25c292ce4c4096af94b4eb89a298b",
+      "actual_EOF": 78
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/social/action_kind.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          264
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh literal full PRsource including originalfixtures and actual full emptyP16counterpartdiff; independent current04 arithmetic/nativecapacity/closedvocabulary/outputauthority comparisons.",
+      "sha256": "2b9ff5d4ad32e81e8a66e3ad09dc43d0e382c88b117b89b970876d9d3789ce92",
+      "actual_EOF": 264
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/social/action_kind.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          264
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Exactfull P16currentrole, comparativeproof from fresh fullPRliteral and actual full emptydiff; independent same04 contracts, no hash-only or other-lens transfer.",
+      "sha256": "2b9ff5d4ad32e81e8a66e3ad09dc43d0e382c88b117b89b970876d9d3789ce92",
+      "actual_EOF": 264
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/social/claim_resolution.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh literal full PRsource including originalfixtures and actual full emptyP16counterpartdiff; independent current04 arithmetic/nativecapacity/closedvocabulary/outputauthority comparisons.",
+      "sha256": "adfd512aab47db7827260717ebbb91d41706b4668372a0137510c9d3df796dcc",
+      "actual_EOF": 69
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/social/claim_resolution.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Exactfull P16currentrole, comparativeproof from fresh fullPRliteral and actual full emptydiff; independent same04 contracts, no hash-only or other-lens transfer.",
+      "sha256": "adfd512aab47db7827260717ebbb91d41706b4668372a0137510c9d3df796dcc",
+      "actual_EOF": 69
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/social/witness.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          233
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh literal full PRsource including originalfixtures and actual full emptyP16counterpartdiff; independent current04 arithmetic/nativecapacity/closedvocabulary/outputauthority comparisons.",
+      "sha256": "14db851b00491a104efa4d272f24ef1285b357a92dbd0f875a109a27033fd735",
+      "actual_EOF": 233
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/social/witness.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          233
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Exactfull P16currentrole, comparativeproof from fresh fullPRliteral and actual full emptydiff; independent same04 contracts, no hash-only or other-lens transfer.",
+      "sha256": "14db851b00491a104efa4d272f24ef1285b357a92dbd0f875a109a27033fd735",
+      "actual_EOF": 233
+    }
+  ],
+  "groups": {
+    "forge-materials": "Derived weapon properties/material masses are fallibleinputs, actualrecipe/materialvalidation remains owningproducer. Requiredmicros widens numerator/divisor before*1000000,ceil perconstructionmaterial, rejectsnonfinite/>u32MAX beforecast and checked_add per sharedstock. Inventoryfractions are notmasskg, displaymaterialtotals notcanonical transactionrequirements. Negative masses are notindependentlyrejectedhere, sourceproducercontract unresolved not inferred fromderive name. Alllocalmapsdiscarded onErr, no persisted partialtransaction. Errorformatting currently collapses derivation causes; propagatecanonicalcoherentquote/units/capacity and preserve realcause atboundary.",
+    "forge-time-qualification": "minutes60+(physicalmassf32*120).ceil() asu64+componentlen asu64*12 is computed BEFORE inventoryfraction capacityreject. Extremefinite derivedmass couldsaturatecast thenoverflow addition if permitted by actualaccepted WeaponDesign. Exactderive_properties/dimension/material bounds notread in thispacket, so no arbitrarymass acceptedAPI/ordinarybug/panic claimed or new unique finding. Currentfixtures show later stockcapacity canreject validgeneratedconstruction, not proof of time-native capacity atall sourcebounds. Needactualproducercomparison in existingweapon-model inventory; canonical duration/count/quote should own checkedcomputedclockcapacity, not a fallback saturatedtime.",
+    "social-vocabulary": "SocialActionKind owns exactrequestkeys/topiceligibility/executingskill. Serde/FromStr/reducerkeys agree; Rally mapscommand and Reframedeception intentionally canonical, literalrally/reframe rejected rather thanaliases. Sharedconcern changesCommiserate skillInsight versusDeception; witnessApproach distinct three-keyvocabulary plus socialaction mapping only forskill/numericalresolution reuse, not sameadmission/affinityauthority. Fixedrisk/leverage valuesbounded. Descriptionfallback forineligible topic is presentation; actual actionrequiresavailable_for and reducercontext, not mere validenum.",
+    "captured-resolution": "WitnessClaimResolution outcome is solecapturedresolved authority, optionalNoneunresolved; realizedaffinitydelta intentionally differs requestedchallenge affinitydelta and laterrelationshipstate. Publicrawf32 field/from_challenge and derivedSerde do notadmit finiteboundedactualdelta; canonical realizeddelta shouldpropagate from owningrelationshipclamp to persistence/receipt/GUI, not recalculate from currentaffinity. Parent mutation/authorization/idempotence separate; no actualinvalid persisteddelta or staleevent claimed. SATS/nativeboundary legitimateadapter, not blanketprimitiveescape.",
+    "claim-assessment": "Input clamps bound finite insight0..5,roll0..1,signal\u22121..1; combinationmagnitude<=1.15 remainsfinite, strengthclamped0..1. Demeanordirection noisyobservation not factualconfidence, no treatment/truthauthority. RawNaNstillpasses floatingclamps and comparisonbranchcouldchooseLikelyTrue withmax-sanitizedzerostrength; existingordinaryboundproducer nottraced, no actualfalse testimonylabel/runclaimed. Preserve signedtruthsignal/check/unitroll/observationstrength distinctcanonical owners rather than attachfactual certainty tocolor.",
+    "challenge-policy": "Personalityfit and moraleclamp thenleverage feedexisting social resolver; boundedconstants alone do notestablish allparentnumeric outputproperties. Truthfulclaim forcesfailedresult and nonpositivemoraledelta, exactsamefeedbackpolicyasinsufficientchallenge; failedaffinityloss fixedbyapproach, successfulcommand\u2212.4 others0. Publicrawinput morality/skill/affinity/familiarity/roll admission and actualparentresolve_source remain pending. No finiteMAXoverflow inferred fromadding boundedconstant whoseULPmayroundunchanged; no private truthleak from output reason field.",
+    "limits": "Allfullsource originalfixtures read only, no newcases/assertions/helpers or projectexecution. Exactcounterpartproofs are actualemptydiff+literalbody+independentcontracts, notSHAverdicttransfer. Mandatory220/200/208/210/allpriorquals retained. No newuniquefinding; initialaudits thenhandover163."
+  },
+  "findings": [],
+  "id": "ROOT-INITIAL04-CONTRACT-144",
+  "at": "2026-10-23T06:11:30.714024+00:00",
+  "lens": "audit-invariant-operations",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-064.json",
+    "sha256": "c57337d219f15e8f110cb237b0eabde603f88862699860e531ec748d360ca91e"
+  },
+  "mandatory_overlays": {
+    "record": "continuation/owner-range-extensions.jsonl",
+    "sha256": "0378e32d695512b875a86dd6bb695f10d5f3c8d43d8838fe8ee222cbb02a869a",
+    "through": 245
+  },
+  "mandatory_qualification170": {
+    "record": "continuation/root/parallel-scope-qualification-170.json",
+    "sha256": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c"
+  },
+  "repair": "frozen_initial_audits_then_handover",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

@@ -1,0 +1,114 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-153",
+  "at": "2026-10-25T18:41:51.755724+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1680,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/cached_views/demand_tests.rs",
+      "sha256": "9b9e1c47575b75ed9e05a6bf4c177bf45f46268baffb3907822647c8003e2782",
+      "personally_read_ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Demandfixtures actualfirstrequestedportraitonly, boundedcamerapool<=4, differentpersoncapturedondemand, subsequentreturnfirstsamereadyimage/noactivecamera. Same canonicalpersonanchor/facing/layer generatedbeforeviews; no allocationfortotalpopulationuntilrequires_person. Read169/notrun."
+      ]
+    },
+    {
+      "scope_index": 1681,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/cached_views/environment_tests.rs",
+      "sha256": "5fde865575ed1523dfe0b0d67bc201ab597267943ffbdf1f7be8fb3838a429fa",
+      "personally_read_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Existingcapturecameras inheritcurrentMSAA/shadowfilter/tonemapping/exposure/environmentmap/atmospherebeforefirstrender, includingreusedsameentity. Sourceexpectednativevaluesareindependentrendererconfigurationevidence only86read/notexecuted; noactualfirstrenderclaim."
+      ]
+    },
+    {
+      "scope_index": 1682,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/cached_views/travel.rs",
+      "sha256": "fcc5da9af3e6cdbc09ec0512bcd8f36416dbfcf4ce9fad4f2c0e44c5cd8e47b5",
+      "personally_read_ranges": [
+        [
+          1,
+          159
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "SavedViews retains completedframesonly under exactlocation+digest identity; change_scene deactivates/recyclesallcameras,hidesimages,discardspendingframes,restoresexactmatchingidentitythenappliesnormalviewport/equipmentsignatureagain. Previouscachebounded2citiesand64MiBpixelestimate; budgetdoesnotclaimtotalGPU/activecurrentmemorybound.",
+        "RawStringpair/emptydigestabsence remains M76 ownershipshape. bytes width*height*4unprovenu64forunrestrictedu32rectanglesandtotal sum; currentnormaltexturesdevice/windowbounded path needscanonicalviewportcapacitysourceproof, no hugeallocation/currentoverflowclaim. Existingreturntrip/differentdimensions/weatherdigest/retentionfixtures source-only159read."
+      ]
+    },
+    {
+      "scope_index": 1683,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/equipment.rs",
+      "sha256": "bcfd6571ac4b5c7fb271cfb50e5ef79c08b7110bc649364f23abd31c44799bdf",
+      "personally_read_ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Wardrobe storescurrentEquipmentAppearancelist+spawnedentityset derivedfromsamestageditemsmap; sourceid\u2192Entitymatchingbeforeoccupancyprojection. Unknowncatalogitem/non-equipmentdespawnsplaceholder, missingattachmentparentfiltersoccupancyexplicitlycurrentdisplaypolicy. DuplicatepresentationIDs maylosefirstpreallocatedentityonHashMapcollectifbadsource; inheritedappearanceadmission/sourcegraphownership mustestablishuniqueness before accepteddisplay. No normalbadcollectionwitness.",
+        "ItemProperties/TacticalEquipmentPhysical useexplicitdisplayonlystrikinglength0(noattackvolume), realdimensions/mass fromcatalog; presenceWeapon/Holderappearance independent legitimatecapabilities. CoreEquipmentGraph/itemID/placement/channel/requirement/capacitycontracts M07/M10 retained."
+      ]
+    },
+    {
+      "scope_index": 1684,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/instances.rs",
+      "sha256": "66149a921888d0c9cf3f530e5c3d909dc4950a182bbaefc83c15ff8f7adf792b",
+      "personally_read_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Buildinginstance preparescheckedtransformandgeometrydatumfirst; eachdoor/windowusesexactdatumconversionandtypedbuilding/openingidentity. GeneratedBuilding plan/program/collisioninsertedtogetherwithSceneBuilding forobserverreuse; canonicalproducerassociation M66 pendingwholeproductadmission. IndividualclosurecompilationcanErr afterearlierqueuedentities, soouterStrategicWorld publication/error ownership musthandlefailedlocalcandidate; donotclaimall-or-nothingfromthisfunctionalone. FurnitureinstancesusecheckedscenePositionandBuildingOrientation beforenativetransform."
+      ]
+    },
+    {
+      "scope_index": 1685,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/lighting_diagnostics.rs",
+      "sha256": "a1627688fff10fc5762346ef4f2842952fb09815946d3ccbb17408e48353cb4c",
+      "personally_read_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "LightingDiagnostics mapsactualactivecameraGlobalTransformandExposuretosource-query daylightforthatcameraandpointatfixedconversationdistance. ViewLightingrawfieldsarefinalserializeddiagnosticprojection, notretainedcontrollingstate; no duplicatedmutablelightauthority. Nativeposition/color/EVroles remain typedbeforeactualinputwherecanonicalownerexists."
+      ]
+    },
+    {
+      "scope_index": 1686,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/mod.rs",
+      "sha256": "22bb9e14d430e2d820e9f1b489065461324a0cc48cfd1dbc1fe2c81f0a622628",
+      "personally_read_ranges": [
+        [
+          1,
+          298
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "RetainedScene root/location/digest/venues/people/error/pendinglifecycle mediatedbyorderedworld\u2192street\u2192people\u2192equipment\u2192lights\u2192views chain. Retainedpeopleactualanchor/facingfrommatchedvenuepositions, normalVenuefactoryhasnonemptypositions; representableemptyVenuewouldmodulo0but noactualnormalemptyfactory. Keepnonemptyacceptedfactorycontractwithoutinventingexistingusercase.",
+        "Personlayer uniquelymonotonicwithinretainedscene; newmodelonlywhendemanded, layer->ECSnativeRenderLayers andsamecamera/lighting owner. CharacterId from PortraitId actuallysamepersonunderdisplayrole, canonicalidentitymigrationreviewratherthannewdataauthority. Pendingroot/errors and partialstateoutcome remain M75/M76.",
+        "Scene entities deliberatelypresentationonly(no replication/damage) andrelease_scene resetsretainedownerbeforereplicatedtacticaladmission. Modelhierarchy/nativemeshboundsflags areframeworkgraphstate; actualparentswalk role notgenericsemanticboolban. Existingmodelposecanonicalvisualoffsetretainedbeforetranslation."
+      ]
+    }
+  ],
+  "findings": [],
+  "qualified_connected_requirements": [],
+  "discovery": "7 newly accounted original roles; other reads support already counted historical roles. Lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

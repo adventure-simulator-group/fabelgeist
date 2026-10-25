@@ -1,0 +1,92 @@
+{
+  "id": "CONT08-CONTRACT-101",
+  "at": "2026-10-25T11:42:22.287862+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 335,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player/action_clock.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-client/src/player/action_clock.rs",
+      "before_sha256": "1b21e39987ef8116d961373662e3566233e45bff974103bf29e399d4defaa9dd",
+      "after_sha256": "aaa9212aceb6edf4e5fbe62c3630c1d0dd02774cb3347740b2936d490049e610",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0335-base-1b21e39987ef8116d961373662e3566233e45bff974103bf29e399d4defaa9dd",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/aaa9212aceb6edf4e5fbe62c3630c1d0dd02774cb3347740b2936d490049e610",
+      "diff": "source-evidence/p16-0335.diff",
+      "diff_sha256": "1594fe589c017df7659f9d0476059e9118263774c0c29e237e9b77515f0391c3",
+      "head_body_read_ranges": [
+        [
+          1,
+          199
+        ]
+      ],
+      "source_fact_reuse": [
+        "source-evidence/archive-CAMERA-INITIAL07-CONTRACT-176.json"
+      ],
+      "facts": [
+        "Freshfull199+completeactualdiff. PrivateMeleeAcquisitionTiming samecaptureRunSpeed/conservativeacceleration/quickstepduration; geometryseparation/interaction/maxtravel replacesoldsurface/reach/zeroWeapon split exactlyat334actualpositivecombinedrange. Sameclosuremax0, inclusiveepsilon1e-5, CannotArrive\u2192None; fresh350native85\u2013225 old90\u2013180 confirmsunderlyinggapclamp/forward/quickstep/contactlaw, nottypemetadataalone.",
+        "Playbackcontinuationstart ticks/delay0-vs-animationmin1/roundsaturatingintegerfiniteproduct andoverflowreturn, contactdelayfromreplicatedtick exactpolicy retained. Currentlocaltimerseconds versusnativeanimationtick quantities distinctonepreparedtimingproduct. Originalcontinuation700\u2192732/64=.5 vsordinary.3 oracle unchanged/notrun."
+      ],
+      "disposition": "Own08 fullsource-localcomparison accounted WITH retainedgeometryfinite/error-lifecyclequalifications.",
+      "acceptance": "Preserve exactsampleclock/timer/nativeepsilon/gap/clamp/selection/bufferandpublicationorder, actualtypedcauseatcaller andoldoracles; no compatibility/tests/checks/repair."
+    },
+    {
+      "scope_index": 336,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player/attack_start.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-client/src/player/attack_start.rs",
+      "before_sha256": "9217876cb451796dde9e82c22f7a9533fbe263ebe21068756fb672e66eb622cf",
+      "after_sha256": "8d0d41365f804ba69b7249db78e85fd95f091405b565cbcc2144bb269d944cc6",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0336-base-9217876cb451796dde9e82c22f7a9533fbe263ebe21068756fb672e66eb622cf",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/8d0d41365f804ba69b7249db78e85fd95f091405b565cbcc2144bb269d944cc6",
+      "diff": "source-evidence/p16-0336.diff",
+      "diff_sha256": "5b33803e9b79b448f8d0cccda68750f75d7f1cd99fd4aaa43851d553b35c47c5",
+      "head_body_read_ranges": [
+        [
+          1,
+          454
+        ]
+      ],
+      "source_fact_reuse": [
+        "source-evidence/archive-CAMERA-INITIAL07-CONTRACT-176.json"
+      ],
+      "facts": [
+        "Freshfull454+completeactualdiff: actualPreparedMeleeAttack/preparedRanged alreadypresentatbase; newtyped geometryResult propagatesbeforebegin andnativeposition/target/statepublication. Viewerreach/handhybridranged+melee, style/family/continuation, effectivewindup/recovery/curvecfg unchangedsource facts/selection order. Missingview/unusableanatomy/incapacitated explicitnoaction, notimplicitfallbacksuccess.",
+        "Melee preparesgeometry/arrival/contacttiming/AttackState timers beforebegin; then ActionBusy buffersfamily+hand, Downed/Posture noaction, successstate+bufferremove+request. Rangedpreparescheckedtarget/timer/contact/end beforebegin, onlysuccessinsertsstate+Start. No newglobaltransactionclaim aboutbegin internals; actuallowerSkeletonStateowner remainsownfuturescope.",
+        "Flushbuffer selectsCURRENTspec/viewer/reach/condition/timing/geometry everyattempt, doesnotreplaycachedpreparedtarget; onErr warn retainsbuffer asbeforeexistinganimationerrors. Newfailinggeometrypolicy sourceconditionalQ002/Q008, noordinarypersistentbadrecipe/protocolharmdemonstrated. No newtests/checks/execution."
+      ],
+      "disposition": "Own08 fullsource-localcomparison accounted WITH retainedgeometryfinite/error-lifecyclequalifications.",
+      "acceptance": "Preserve exactsampleclock/timer/nativeepsilon/gap/clamp/selection/bufferandpublicationorder, actualtypedcauseatcaller andoldoracles; no compatibility/tests/checks/repair."
+    }
+  ],
+  "partial_native_recipient": {
+    "scope_index": 350,
+    "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat.rs",
+    "base": "a120390947c89b703dc74c4255a13c035d054c50",
+    "head": "039329518e264f19206cf5b0b98d177433f40c17",
+    "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/combat.rs",
+    "before_sha256": "6da9d5558329053c0ceaadbcb7a19730884fc55bbc50cdd90af9b9305346b48c",
+    "after_sha256": "98f3cb6b60b6672e3bdb730f6c922c012120f3763add4beb906040f1be122c2f",
+    "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0350-base-6da9d5558329053c0ceaadbcb7a19730884fc55bbc50cdd90af9b9305346b48c",
+    "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/98f3cb6b60b6672e3bdb730f6c922c012120f3763add4beb906040f1be122c2f",
+    "diff": "source-evidence/p16-0350.diff",
+    "diff_sha256": "31ca9cf055c49ac82f2324f6c6d08266785118363e8fc220215db23a4eec25d7",
+    "head_body_read_ranges": [
+      [
+        1,
+        225
+      ]
+    ],
+    "base_body_read_ranges": [
+      [
+        90,
+        180
+      ]
+    ],
+    "purpose": "Actual335clientlunge geometrytuple/zeroWeapon migration andnativecontacttiming/kernel; nofull310/remainingfixture/type declarationscredit.",
+    "limits": "Fresh3501\u2013225 only inclactualMeleeGeometryError transparentwrappers/finiteepsilon1e-5 and3fieldgeometry; nofull310/remainingtests orcfgownerfrontiercredit. Priorownpartialproofs preserved."
+  },
+  "next": "338quicksteptraceexactrole,339presentationenvironment577,340strategicsceneequipment150/341viewcamera265 +bounded342/343."
+}

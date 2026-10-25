@@ -1,0 +1,68 @@
+{
+  "id": "CONT07-F105",
+  "lens": "audit-redundant-authority",
+  "classification": "maintenance authority defect; current memberships agree",
+  "source_id": "pr-working:crates/adventuresim-world-schema/src/language.rs",
+  "sha256": "1475b920cad83e1f040a2c19627f288508d660a9d771bd72cf8993fa34b9a05f",
+  "locations": {
+    "oral_enum_ALL_index": [
+      [
+        30,
+        51
+      ],
+      [
+        110,
+        120
+      ]
+    ],
+    "oral_correlation_matrix": [
+      [
+        123,
+        135
+      ]
+    ],
+    "oral_recipients": [
+      [
+        177,
+        193
+      ],
+      [
+        220,
+        235
+      ],
+      [
+        259,
+        303
+      ]
+    ],
+    "written_enum_ALL_index_matrix": [
+      [
+        340,
+        370
+      ],
+      [
+        417,
+        428
+      ]
+    ],
+    "written_validation_effective": [
+      [
+        466,
+        481
+      ]
+    ]
+  },
+  "fact": "Oral enum8, ALL8, index0..7, 8x8 correlation axes and party top[8]; written enum7, ALL7, index0..6 and 7x7 axes separately encode current language membership/ordinal authority. All current variants and indices agree.",
+  "disagreement": "Future enum addition with exhaustive direct/index matches updated but ALL unchanged silently omits it from direct-field validation/effective/best-common and party training; stale ordinal or array capacity can misaddress the manual matrix/top. These are real consumers of independently maintained membership.",
+  "limits": [
+    "No current language data failure or occurrence claimed.",
+    "Direct and effective hours are distinct inputs versus computed shared-language capability; Yiddish incidence overlaps vernacular deliberately.",
+    "Written effective requires own direct>0 by explicit literacy policy, not duplicate oral policy.",
+    "No tests565+ or initialization module credit."
+  ],
+  "suggested_connected_remedy": "One language inventory owns enumerated iteration/count/index and labeled correlation policy, preserving distinct oral/written policy.",
+  "acceptance_contract": "Adding a variant cannot leave validation, common-language selection, party training or correlation axes silently incomplete; retain current ties/caps and written own-literacy gate.",
+  "related_archive": "CAMERA-INITIAL07-F011 disease roster is analogous pattern only, not exact language defect alias.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

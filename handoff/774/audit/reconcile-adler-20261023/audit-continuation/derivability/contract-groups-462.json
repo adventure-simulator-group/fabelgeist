@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-462",
+  "at": "2026-10-25T15:42:04.936801+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 865,
+  "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_iteration.rs",
+  "sha256": "2f56c5185ec61241a7e4607eef02ebb4051e24dee918f5200585d586a4d971a8",
+  "actual_compared_ranges": [
+    [
+      1,
+      400
+    ]
+  ],
+  "existing_derives": [
+    "MeleeIterationBuild Clone Debug"
+  ],
+  "trait_inventory": [],
+  "analysis": "Fresh181\u2013400 personally consumed: semantic starting attributes/skills\u2192combat projection, checked authored melee/shield/armor selection and per-instance native coverage/mass construction, then roster fixture prefix. No handwritten trait/codec; field mapping has explicit omitted ranged skills/religion aggregation and native validations, not mechanical derive. Remaining401\u2013866 unread.",
+  "first_unfinished": {
+    "scope_index": 865,
+    "line": 401
+  },
+  "execution": "none"
+}

@@ -1,0 +1,279 @@
+{
+  "id": "NATIVE-PP-OWNERS-002",
+  "read_files": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/elapsed.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-core/src/elapsed.rs",
+      "sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+      "read_ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "contract": "Finite nonnegative AnimationElapsed admission, native Duration conversion, ordered addition/subtraction/scale and Serde; typed leaf retained in assigned presentation/height/timelines."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/linear_speed.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-core/src/linear_speed.rs",
+      "sha256": "db3686060ebd8ce533fe48c88685c5643b024b8a92b2b617d97481196988f3e0",
+      "read_ranges": [
+        [
+          1,
+          178
+        ]
+      ],
+      "contract": "Signed/nonnegative/positive canonical speed admission/Serde, checked scale/lerp, direct extrema; coefficients end at native numerical kernels."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/unit_interval.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-core/src/unit_interval.rs",
+      "sha256": "268891d7d5556895ace4c6ce33b14953e35d5973bfce9b042e4b9d2dbc721a86",
+      "read_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "contract": "Canonical finite [0,1] admission and Serde; direct max; complement/new numerical computations distinct from unchanged value re-admission PP014."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "5d114988a64595879b04e6f151d2a184cdf8f893f2f2b17a9987a3faf933d4ab",
+      "read_ranges": [
+        [
+          1,
+          826
+        ]
+      ],
+      "contract": "Full definitions, top validate/digest/default and existing fixtures. Animation fields retain checked leaves through copied runtime snapshots; remaining primitive neighboring fields reserved other lenses, no blanket config clearance."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/defaults.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-tactical-core/src/combat_config/defaults.rs",
+      "sha256": "970a41a87d4738f8b9edc7a55d80caa78aed0bca9622fee03d034b297626f591",
+      "read_ranges": [
+        [
+          1,
+          26
+        ]
+      ],
+      "contract": "Embedded authored YAML -> serde_saphyr checked field deserialization -> complete validate -> LazyLock canonical typed config; no recursive Default construction."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-tactical-core/src/combat_config/procedural.rs",
+      "sha256": "3c8e5fb3460309d571886e03b68f8e50e2e57e03e54180785b2bd721d35fc65a",
+      "read_ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "contract": "Typed procedural/body response leaves, sample gap and response bound validate."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/landing.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-tactical-core/src/combat_config/landing.rs",
+      "sha256": "d2e6f0bf1986b9465dec28c0b29c39db72b5470d50c0d8ce55332f6f8d1c0831",
+      "read_ranges": [
+        [
+          1,
+          33
+        ]
+      ],
+      "contract": "Typed landing compression/speed/recovery leaves; ordering validate; no primitive flatten."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/playback.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-tactical-core/src/combat_config/playback.rs",
+      "sha256": "6eac571d575402a1ccbcdda6ad103850b9f52fed3f9bc602d558ea5629d23fdd",
+      "read_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "contract": "Typed playback durations/phase/count/cadence/length/speed values and ordered activation thresholds."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/pose_buffer.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-tactical-core/src/combat_config/pose_buffer.rs",
+      "sha256": "3cced457f7299b93a524ecf97ec487ea9ffe33d0c522293dbba1d80e6ee70b39",
+      "read_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "contract": "Typed sample grid/count/contact/length/duration config and ordered ranges."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "sha256": "5d254790fa2ec7e53bc749b18bfc8f4d89a1df367c3542f8f969403641c8a970",
+      "read_ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "contract": "Validated config cloned into lock then copied versioned animation cache; same typed values reach all assigned runtime consumers."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/maneuvers.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-tactical-core/src/combat_config/maneuvers.rs",
+      "sha256": "619803fcb9f24448df76fd87b28028c86c520edd9b41dbc7b29033c8b432234f",
+      "read_ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "contract": "Positive authored durations retained."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/ragdoll.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-tactical-core/src/combat_config/ragdoll.rs",
+      "sha256": "af87991f5cb3f8fd2a6398ea5135c5daacd24c7b9c2b23181ebecec7bc516ad3",
+      "read_ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "contract": "Typed ragdoll lengths/speeds/response/leaves; MuscleRelease Option wire null -> Never vs checked positive release age; actual Avian/pose recipients assigned79\u201384 read."
+    },
+    {
+      "source_id": "pr-working:content/tactical/combat.yaml",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "content/tactical/combat.yaml",
+      "sha256": "05958d54e48eba637c755f8ad89959dc6ef0aeaeeeaeb75022e07071a01ddaf3",
+      "read_ranges": [
+        [
+          1,
+          344
+        ]
+      ],
+      "contract": "Full authored numeric config producer including real signed toe clearance/visual offset, zero flight apex/tone shares, exact sample counts and thresholds."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/queries.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-tactical-core/src/scene/queries.rs",
+      "sha256": "feacac20255eb9787f14ee21a2b7955e72d5be7b618755698965657402efc08c",
+      "read_ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "contract": "Required vs optional support APIs and full sampled/owned terrain geometry branch, ordered native interpolation/new checked elevation+normal result."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/attack_commitment.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-tactical-core/src/animation/attack_commitment.rs",
+      "sha256": "9710c5585d8a1552feb4a8fb935b6f5050f15d82b292a36841b452f9bf83e438",
+      "read_ranges": [
+        [
+          1,
+          12
+        ]
+      ],
+      "contract": "Whole action cancellation retains typed ActionState authority."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/diagnostics.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-tactical-client/src/animation/diagnostics.rs",
+      "sha256": "255ebbf963270d5128375972f1059af2843fa7da821834bcb5df88014a122a35",
+      "read_ranges": [
+        [
+          1,
+          312
+        ]
+      ],
+      "contract": "Whole DiagnosticInputStatus/RenderScheduleTelemetry and animation log receiver, native wall/microsecond timing clocks, actual write callback and SpikeGuard. Raw command time originates in unchanged script state."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/diagnostics.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-tactical-client/src/diagnostics.rs",
+      "sha256": "f75fd2dcfa8891b72b801dec9631fdbb68183bdf125fd08f0a614ba420048a17",
+      "read_ranges": [
+        [
+          1,
+          876
+        ]
+      ],
+      "contract": "Full876 lines incl existing fixtures: JSON script ingress validate -> raw retained command duration/elapsed + status -> actual diagnostic serialization. Native screenshot callbacks and independent wall/render timing paths read."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/reviewer.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/reviewer.rs",
+      "sha256": "bf80b110a492a275bd8550afe0af9bfc9b858b45faa71340c0f13dd6d5992ee3",
+      "read_ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "contract": "Whole report context structs and producer: actual final reviewer serialization receiver already assigned run177. Native skill weighted numerical reduction and arithmetic attribute means, no typed checked value reconstruction."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness/material.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/harness/material.rs",
+      "sha256": "082b2d608e351444908c81cc624ab3627828ff0ec19111f32e708ac8f21caad3",
+      "read_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "contract": "Actual renderer image handles -> optional asset/path/size/format/mip/CPU byte observations -> explicit JSON -> assigned summary final serialization. Public wire shape reserved later lens."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness/skinning.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-tactical-client/src/animation_viewer/harness/skinning.rs",
+      "sha256": "f9807d42e32e69b0b93111a10c857c336aef6267956556595625cbcf95d475b9",
+      "read_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "contract": "Whole48 lines: native Bevy Float32x4 weights -> ordered sum/finite extrema/invalid count -> valid summary and assigned summary callback; no canonical checked leaf flattened."
+    },
+    {
+      "source_id": "pr-working:vendor/bevy_ahoy/src/lib.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "vendor/bevy_ahoy/src/lib.rs",
+      "sha256": "a0b15625d3086b64fd425b8bccae4f18370ae8f1f64b2633b9b3736523cc580d",
+      "read_ranges": [
+        [
+          1,
+          552
+        ]
+      ],
+      "contract": "Full native/vendor component owner read; CharacterLook yaw/pitch raw framework fields and Quat conversion methods288\u2013324. Tactical typed angle writers must project at this actual native component; no application checked type reconstructed by CharacterLook itself."
+    }
+  ],
+  "status": "current-wave full source reads; only listed first-lens contracts, not other-lens clearance"
+}

@@ -1,0 +1,222 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-184",
+  "at": "2026-10-25T13:22:36.487948+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 360,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/physics.rs",
+      "sha256": "35c74e188c90bf25618bfb0170d513f1c0b342473c22acccaca79c50447c857f",
+      "actual_EOF": 1762,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-tactical-core/src/physics.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-tactical-core/src/physics.rs",
+        "owner": "root",
+        "sha256": "35c74e188c90bf25618bfb0170d513f1c0b342473c22acccaca79c50447c857f",
+        "base_sha256": "14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b",
+        "state": "modified",
+        "bytes": 74482,
+        "audit_owner": "root",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "root",
+            "record": "wave-01/audit-producer-propagation/root/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                1762
+              ]
+            ],
+            "source_read_status": "full_collaborative_body_proof",
+            "trace_refs": [
+              "ROOT-PP-DISPATCHER-023",
+              "CAM-PROP-MOTOR-001"
+            ]
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                958
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-MOTOR-001"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 61,
+            "read_ranges": [
+              [
+                1,
+                1762
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-MOTOR-013"
+            ],
+            "read_status": "full_PR_body_plus_exact_current_overlay_delta",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-core/src/physics.rs"
+          },
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 328,
+            "read_ranges": [
+              [
+                1,
+                1762
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-MOTOR-013",
+              "ROOT-OWNER-MOTOR-CLOSURE-072"
+            ],
+            "read_status": "full_PR_body_plus_exact_current_overlay_delta",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-core/src/physics.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 764,
+            "read_ranges": [
+              [
+                1,
+                1762
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-MOTION-CAPTURE-RECEIVER-120"
+            ],
+            "read_status": "shared-current-lens-body-proof",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-core/src/physics.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root",
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-MOTOR-TARGETING-001",
+            "json_pointer": "/source_proofs/6",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-tactical-core/src/physics.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1762
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-tactical-core/src/physics.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-core/src/physics.rs",
+              "sha256": "35c74e188c90bf25618bfb0170d513f1c0b342473c22acccaca79c50447c857f",
+              "read_ranges": [
+                [
+                  1,
+                  1762
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": 102,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1762
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Default",
+          "type": "QuickstepPush",
+          "lines": [
+            161,
+            171
+          ],
+          "disposition": "KEEP small explicit initialization: native tick default, Vec2ZERO, RigidRotationIDENTITY, PositionORIGIN, inactive. Exact inner RigidRotation and Position lack Default; standard derive would require API expansion in separate owners."
+        }
+      ],
+      "existing_derives": "MovementPace and physical snapshot/component/state carriers already derive structural/reflection/native Serde traits. Only handwritten trait in1762 lines is QuickstepPush Default.",
+      "absence_basis": "Full source and all in-file fixtures personally consumed, with183 partial receipt1\u2013970 plus971\u20131762 current reads. Controller assembly and arithmetic/motor/gameplay policy are semantic functions, not handwritten trait/wire mechanics. Existing operation findings not cleared.",
+      "source_read_receipts": [
+        {
+          "scope_index": 41,
+          "sha256": "c3d39473c3dbc283a06a940bdaab465648c2789ebdf7757262ad128ef3851109",
+          "ranges": [
+            [
+              1,
+              29
+            ]
+          ],
+          "purpose": "Actual geometry reexport identity."
+        },
+        {
+          "scope_index": 42,
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "ranges": [
+            [
+              1,
+              95
+            ]
+          ],
+          "purpose": "Position declaration/ORIGIN and lack of Default; completed role not recounted."
+        },
+        {
+          "scope_index": 44,
+          "sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+          "ranges": [
+            [
+              1,
+              28
+            ],
+            [
+              85,
+              142
+            ]
+          ],
+          "purpose": "RigidRotation identity/declaration no Default; exact checked deserialization retained; completed role not recounted."
+        }
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Force actuator initialization and physics adaptation",
+      "disposition": "Retain manual Default with scoped native owner constants; no equivalent existing fieldwise derive. Remaining functions remain semantic arithmetic/controller behavior.",
+      "acceptance": "Preserve identity/origin initialization, native serde/reflection and rollback representation without adding owner Default or field exposure merely for cleanup. No runtime/check execution or other-lens clearance."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 361,
+    "source_id": "physical-p16:crates/adventuresim-tactical-core/src/physics/quickstep.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

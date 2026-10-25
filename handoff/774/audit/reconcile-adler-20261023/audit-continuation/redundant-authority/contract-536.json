@@ -1,0 +1,69 @@
+{
+  "id": "CONT07-CONTRACT-536",
+  "at": "2026-10-23T23:29:52.951274+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2368,
+      "source_id": "pr-working:crates/strategic-web/src/routes/map_environment/roads.rs",
+      "sha256": "b48245d7f7d0c787a430dbd3d96ee35771a0b0f77978e80b396df0c5c478b52c",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/routes/map_environment/roads.rs",
+      "actual_EOF": 55,
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2369,
+      "source_id": "pr-working:crates/strategic-web/src/routes/missions.rs",
+      "sha256": "c4a54e247cf699583c7874b9ad0b29861fa8ea3b0d48b1572e10d52d19f83e1e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/routes/missions.rs",
+      "actual_EOF": 340,
+      "ranges": [
+        [
+          1,
+          340
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2370,
+      "source_id": "pr-working:crates/strategic-web/src/routes/mod.rs",
+      "sha256": "4adf3c28275906a5a006f13438074aa6c5b525d53e57d25855f4d5195cbaf2c2",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/routes/mod.rs",
+      "actual_EOF": 930,
+      "ranges": [
+        [
+          1,
+          930
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "CAMERA-INITIAL07-F038 precise duplicate navigation predicate, previously consumed and actual stronger source now compared"
+  ],
+  "facts": [
+    "RoadSource retains immutable successful Arc admission; cache hits recheck actual roads.source against passed terrain.digest. Failed admission leaves resident empty. Source files replacing same directory after successful admission are outside explicit immutable lifetime; no unsupported missinghotreload bug.",
+    "Mission readiness projection prefers actual server then maps pending request; viewer character_id assigned fresh only after party authorization and is distinct from server party authority. Battle-result historical ownership checked separately. No independent writable private missioncache here; pending/ready state mirror remains actual SDK boundary projection.",
+    "local_return_url is exact stronger owner: absolute path, no double slash/backslash/control and Uri scheme/authority absent. Confirms inherited CAMERA-INITIAL07-F038 weak callers coexist; same policy repair, no second defect.",
+    "Party action path refreshes strategic condition before readiness read; DB reducer remains commit authority and request payload/kind/summary are native storedintent plus separate presentation. Temporary captain queries current matchingrequestor+kind after delay; no claim stale Web acceptance bypasses DB permission without reducerproof.",
+    "Full routes/mod projection personally inventoried. Route position derives distance from points and proportionalminute, independentstoredroute distance is not consumed here. Both outgoing leg_json and top-levelspan JSON manually repeat Surface\u2192JourneyTerrainKind mapping, water omission, point packing and native spans; currently agree, shared projection maintenance population recorded without newunique count.",
+    "party_terrain_profile independently reconstructs effective terrain hours from direct sixfields+ordinary correlations and applies terrain mental policy; exact canonical skill-capability recipient comparison remains pending before new07 finding. Departure max of livingcurrenttimes is currentgroupoperation policy, not duplicate of individualclock history.",
+    "Travel has explicit planfailure/unavailable fallback to unplanned reducer and reuses capturedweather for returnleg; neither correctness nor compatibility clearance inferred. Actual DB receipt/admission and weatherinterval interpretation prerequisite remains. Preserve inherited cause/coordinate migration evidence and exact source-qualified scopes."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2372,
+    "start_line": 1
+  }
+}

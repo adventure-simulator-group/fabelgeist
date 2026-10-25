@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-572",
+  "at": "2026-10-25T16:05:05.492265+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 927,
+  "source_id": "pr-working:crates/adventuresim-core/src/food.rs",
+  "sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+  "actual_compared_ranges": [
+    [
+      1,
+      440
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Fresh221\u2013440: inherent flavor arithmetic/validation and catalogue-backed borrowed food projection, native contamination/time/skill/nutrition calculations. FoodDefinition already structural. No manual trait/codec; flavour add_assign is inherent API, not a handwritten std::ops implementation; no dependency/trait expansion prescribed.",
+  "first_unfinished": {
+    "scope_index": 927,
+    "line": 441
+  },
+  "execution": "none"
+}

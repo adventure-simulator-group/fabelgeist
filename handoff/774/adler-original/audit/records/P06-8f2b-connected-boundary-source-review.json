@@ -1,0 +1,54 @@
+{
+  "recorded_at": "2026-10-21T06:38:29.126516+00:00",
+  "base_head": "8f2b901881f8aa8035a03cd99dbfefb7bbdf8926",
+  "scope": "Current P06 boundary support-datum consumer increment and existing litter fixture. Shared animation/native follow-through remains active under ownership map.",
+  "status": "Boundary increment source-complete after focused Code/Rule/producer receiver review; no compile/runtime acceptance and no push.",
+  "files": {
+    ".github/workflows/rust-quality.yml": "8dc046885cf138e4770ce5711e9c566d1544864688ceb33da4353ffa9352e876",
+    "crates/adventuresim-tactical-client/src/presentation/buildings/boundaries.rs": "ffdb3559ea0f7d890cce5e17163ad07db7cd15148029ca652b6a16966fde9d5a",
+    "crates/adventuresim-tactical-client/src/presentation/buildings/boundaries/batching.rs": "847dc0610fa3630451d5a8b0ce95bf807fd422350e0155d3c953a2e780e576bb",
+    "crates/adventuresim-tactical-client/src/presentation/buildings/boundaries/batching/tests.rs": "91c488bbcd41456ba8b49137d04a094b41263874eba6809977f4458d2dfe076b",
+    "crates/adventuresim-tactical-client/src/presentation/buildings/boundaries/projection.rs": "6f61f3e2a494cfb51a56517e12e00c03149e4e0d89a988f05331fdefdf83f0e2",
+    "crates/adventuresim-tactical-client/src/presentation/ground_scatter/litter.rs": "f62cff728e5975471e4fdf4e7860b6c8bc7a5cca3029e579b2fbdace6fde82b4",
+    "crates/adventuresim-tactical-client/src/tactical_scene_viewer/buildings.rs": "c8bf873f1396ed17589c6b0fb5c91895a48f20e35fb6e80f7caca42730245af5",
+    "crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs": "aab7cbd205fd372d7542412ed9898345ccc87e83c548b9988a46424d4b88c2af",
+    "crates/adventuresim-tactical-server/src/doors/gate_tests.rs": "b2f9e246b2d68e862f6c8fea96ceccacb559e6fa33edf26af6224836fdc57d4c"
+  },
+  "closed_paths": [
+    "GeneratedBoundary admitted SupportElevation -> GateDatum::new -> door projection -> checked SceneDoorPose -> real mesh/Transform ports; production viewer and distant presentation plus unchanged gate fixture updated.",
+    "BoundaryPlacement explicitly retains GateRelative or Scene(GateDatum) through insert_boundary/insert; only native vertex relocation extracts metres. Positive zero for parent-relative placement and old arithmetic/UV/material/cell order preserved.",
+    "Native tangent/merge errors -> BoundaryBatchError -> both Bevy systems; no string erasure/production expect. Nonfinite completed output positions/UV reject at mesh boundary. At most eight triangles prove <=24 native u32 indices.",
+    "Original litter test now requires spawn success; existing input/loop/assertions unchanged."
+  ],
+  "questions_resolved": [
+    "Remaining GateDatum::from_metres is the actual native Bevy Transform observation plus literal/invalid-input existing fixtures, not a checked value round trip.",
+    "Gate producer admits only a finite accepted height range: nonfinite extrema give NaN/infinite spread, which cannot satisfy finite contact tolerance; arbitrary geometry coefficients remain native until acceptance.",
+    "SceneTerrain row-major native buffers and concrete bilinear/LOD/seam/barycentric/normal/heightmap kernels retain their real native requirements. Support callbacks/query APIs remain typed.",
+    "Capture camera native view tuples/obstruction observation and report measures remain assigned P08/P17/P18 with exact owners, not silently cleared."
+  ],
+  "source_inventory": {
+    "support_symbol_matches": 305,
+    "error_symbol_matches": 57,
+    "limit": "rg inventory includes tests and unrelated height_at owners; hits alone are not proof. Existing receiver reports plus fresh receiving-body reads establish named paths only."
+  },
+  "focused_review": [
+    "Root/crates/tactical-core/core/animation guides applied; no duplicate owner, compatibility path, new tuning, schema/generated/wiki edits, ceiling/suppression change or tests added.",
+    "Checked native Bevy0.19.1 tangent/merge error owner and BevyError typed boxing from local dependency source; the foreign runtime preserves causes.",
+    "Prior movement/audio/masks/native receiver evidence compared by hash; ten of fifteen file hashes unchanged, changed terrain/urban/volumetric/focused source reread."
+  ],
+  "existing_hosted_coverage": {
+    "workflow": "unchanged previous vectors plus existing doors::gate_tests:: selection",
+    "required_groups": 42,
+    "additional_logs": 3,
+    "total_logs": 45,
+    "creator_vectors_preserved": 16,
+    "no_check_executed": true
+  },
+  "family_requirements": {
+    "P06": "Closes additionally discovered gate support datum/batch application erasure. Current family validation remains pending.",
+    "P02": "Published authored threat/sidearm/roster causes preserved; native runner shared function ownership transferred for complete P18 follow-through.",
+    "P19/P20": "Root is continuing shared IK/pose/semantic functions before assembled validation."
+  },
+  "ownership": "parallel-ownership/ownership-map.json",
+  "validation": "Hosted only after assembled source-complete increments; no local project command or new hosted request in this checkpoint."
+}

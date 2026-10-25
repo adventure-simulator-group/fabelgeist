@@ -1,0 +1,97 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1319",
+  "at": "2026-10-25T18:26:55.016340+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1372,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation.rs",
+      "sha256": "9b4f94526e80364851a02b320c51009e4b036671cd9c143cc299771d4da5fbfd",
+      "actual_EOF": 530,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation.rs",
+        "owner": "native",
+        "sha256": "9b4f94526e80364851a02b320c51009e4b036671cd9c143cc299771d4da5fbfd",
+        "base_sha256": "5ad76066cd48edd6a6aa03e796b9ae3dbc6ec25555155d9208e8ad79fb9b43f3",
+        "state": "modified",
+        "bytes": 19255,
+        "audit_owner": "native",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [],
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 214,
+            "read_ranges": [
+              [
+                1,
+                530
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-IK-STATE-004"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 556,
+            "read_ranges": [
+              [
+                1,
+                530
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-IK-STATE-004"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          530
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Full free native knee pole/anatomical foot-facing/slope/world-local/airborne/bounded rotation/current cache and final bilateral chain operations. No type declaration or handwritten trait/codec; contextual physical projections/finite guards/current state/order are semantic. Child anatomical_yaw declared separately."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Native orientation and retained frame/cache authority require current geometry/state and precise checked projections, not general derivation.",
+      "disposition": "NO_HANDWRITTEN_TRAIT_OR_CODEC",
+      "qualification": "No system/test execution, no imported/child body or other-lens correctness credit."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1373,
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation/anatomical_yaw.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

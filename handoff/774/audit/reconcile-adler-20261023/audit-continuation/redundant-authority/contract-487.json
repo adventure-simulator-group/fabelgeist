@@ -1,0 +1,79 @@
+{
+  "id": "CONT07-CONTRACT-487",
+  "at": "2026-10-23T22:43:53.054213+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2148,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/spear.rs",
+      "sha256": "e4dc7b816f841bc608cbf66f2a805ed4995455628dd8fbc3f3b382cebb875763",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/validation/spear.rs",
+      "actual_EOF": 174,
+      "ranges": [
+        [
+          1,
+          174
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2149,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/terminal_profile.rs",
+      "sha256": "b6aa86403a4ac871e54be65a54e59784cd802e4652e10822d7320a4f68ca3e69",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/validation/terminal_profile.rs",
+      "actual_EOF": 42,
+      "ranges": [
+        [
+          1,
+          42
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2150,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/tests.rs",
+      "sha256": "481e012a9c0d417acd568644f7df538ede44645e0cbd1918449cf7fd50e190e1",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/validation/tests.rs",
+      "actual_EOF": 101,
+      "ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2151,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/validation.rs",
+      "sha256": "fd79af94c541daf7519b52218301f4cc66dbd7614d444583271a2e955ed02aff",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/validation.rs",
+      "actual_EOF": 72,
+      "ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "2148 full174 spear blade/socket validates shared geometric kernel methods outer_barrel_radius/minimum_neck_axis/bore limits rather than independently stored model fit. Parent-child wrapping support is historical dependency graph constrained to earlier index; current material overlap validated by same winding direction/pitch inputs. Distinct source radius/tenon/wrapping allowances not redundant copies of exact physical envelope.",
+    "2149 full42 terminal-profile selected==payloadpresence is enforced across either/both sides; continuous monotone and annular-step constraints represent actual profile topology. Same dimensional station repeated at a step intentionally permits annular face, not duplicatecurrentpoint authority. Guard terminal sides can share profile by contract.",
+    "2150 full101 existing canonical validator fixtures show precise layered rejection and source boundaries only; none run. A fixture passing validation cannot clear unrelated source constructions, material or dynamic interaction. Full catalogue population assertions are tests read, not observed execution.",
+    "2151 full72 actual gameplay identity imposes only catalog id transport limit and Recipe.validate, no additional Grip-role uniqueness. This strengthens retained multi-Grip first-width/last-control dependency; exact model/guards.rs recipient not original2853 and coordinator source-registration reference requested before promotion. No guessed ordinary recipe occurrence.",
+    "2151 holder type/catalog and source geometry association is explicitly checked before constructing holder; fitted_weapon complete snapshot is intentional. Fixed scabbard/weapon_loop IDs are current persisted kind mapping, not same mutable active weapon identity. Actual source recipe kind is examined, so arbitrary catalog label alone cannot fabricate expected lofted blade or grip."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2152,
+    "start_line": 1
+  }
+}

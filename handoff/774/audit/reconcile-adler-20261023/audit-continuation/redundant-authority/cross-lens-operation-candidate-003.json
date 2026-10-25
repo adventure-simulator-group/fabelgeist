@@ -1,0 +1,42 @@
+{
+  "id": "CONT07-CROSS-LENS-003",
+  "at": "2026-10-23T22:04:40.753204+00:00",
+  "kind": "native codec admission / behavior candidate",
+  "status": "coordinator independently source-confirmed as root F52; originating07 evidence only",
+  "sources": [
+    {
+      "scope_index": 1976,
+      "source_id": "pr-working:crates/adventuresim-tactical-netcode/src/replication.rs",
+      "sha256": "3723f618b79b8e9c01b414c6fb374dd1f15e970c4182b2fa6d446c84924a33c8",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-netcode/src/replication.rs",
+      "fresh_full_read": true
+    },
+    {
+      "scope_index": 1968,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain/recipe.rs",
+      "sha256": "fcaf87702a89d958728884e2576a2f981d6a15f491e9fab4586e483f9527df2f",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/volumetric_terrain/recipe.rs",
+      "fresh_full_read": true
+    },
+    {
+      "scope_index": 1971,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/volumetric_terrain/surface_recipe.rs",
+      "sha256": "62dd60826db3c1d29b8ec6160d09985646410cb2b2b612e36b5370b3df1d891e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/volumetric_terrain/surface_recipe.rs",
+      "fresh_full_read": true
+    }
+  ],
+  "observation": "Default replicate_once<TerrainLandformRecipe> reaches a QuantizedLandformRecipe containing TerrainSurfaceRecipe and internally-tagged TerrainGeologicStructure. SceneBuilding custom JSON wrapper/source fixture explicitly avoids default postcard internally-tagged failure. Need actual default postcard deserializer proof before accepted current landform failure; no test/build/probe or07finding.",
+  "validation_status": "not_run",
+  "other_lens_coverage": false,
+  "coordinator_resolution": {
+    "finding": "F52",
+    "evidence": [
+      "root-pc112-terrain-network-codec-proof-001.json",
+      "root-native-codec-registration-001.json"
+    ],
+    "proof": "Actual locked serde_derive1.0.229 internally tagged enum deserializer calls deserialize_any; postcard1.1.3 deserialize_any returns WontImplement. Actual server inserts input.landform with valid Massive fixture. Native crate/member hashes matched frozen lock. Unchanged from base, retained correctness defect.",
+    "source07_credit": false,
+    "execution": "none"
+  }
+}

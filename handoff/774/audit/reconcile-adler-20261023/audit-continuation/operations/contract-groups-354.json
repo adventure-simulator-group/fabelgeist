@@ -1,0 +1,98 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-354",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/solver.rs",
+      "sha256": "5d9b71ab4620264dce7604d0c9662f52009a887d00225927ef217087e0f10ba2",
+      "actual_EOF": 979,
+      "actual_compared_ranges": [
+        [
+          1,
+          979
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/tests.rs",
+      "sha256": "7cb3ba6a24f81afd052cf1c35d004918cfcf693f5e7c7655302b74a74cb731ba",
+      "actual_EOF": 10,
+      "actual_compared_ranges": [
+        [
+          1,
+          10
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/tests/outbreak.rs",
+      "sha256": "f71a35301c19050ae9f6cec34f321798d94fdf73554c6104b7c5af1d3f9281d3",
+      "actual_EOF": 288,
+      "actual_compared_ranges": [
+        [
+          1,
+          288
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/tests/projection_and_limits.rs",
+      "sha256": "8bb989bec981a22f6606c07380d29c36e09c7599dfb4183ac97014095c82ca6a",
+      "actual_EOF": 407,
+      "actual_compared_ranges": [
+        [
+          1,
+          407
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Solver resource bounds, exact membership and downstream fixed choices",
+      "source_ranges": {
+        "quest_generation/solver.rs": [
+          [
+            1,
+            979
+          ]
+        ]
+      },
+      "disposition": "Whole979 lines read in three chunks. At least2 witnesses and<=4096 checked, body-byte sum<=64KiB for counted fields; resident stable sorting/shuffle determines indexes, secondary firstdifferent exists. visited counter increments thenrejects>16384, cannotusizeoverflow. Hardzero and positivecombinedweights filtered by checked sampler; cause threat parse imposes catalog membership before bestiaryprofile, closing this particular normal producer not arbitrarypublicThreatId candidate. Site/demographic/circumstance openIDs sourced immutable compiledcatalog. build_actions private exacttwo-segment slice matched from assembler; Outbreak branch not passedhere. Secondarywitness and later distinctcircumstance are fixedafter initialsolver decision: possible limitedbacktracking/resourcepolicy dependency, no concrete currentcontext failure established and no exact archive tokenfinding. Finalgenerator validates graph, so no invalid manifest publication inferred."
+    },
+    {
+      "contract": "Quest fixture contracts personally examined without execution",
+      "source_ranges": {
+        "quest_generation/tests.rs": [
+          [
+            1,
+            10
+          ]
+        ],
+        "quest_generation/tests/outbreak.rs": [
+          [
+            1,
+            288
+          ]
+        ],
+        "quest_generation/tests/projection_and_limits.rs": [
+          [
+            1,
+            407
+          ]
+        ]
+      },
+      "disposition": "All705lines personally read. Include manifest names actual five fixture owners. Outbreak tests assert six disease/sourcecoverage, equalearlypublicpresentation for differenttruths, independent physical/socialroutes, no artificialtracks, chronology/vector/remediation rejection, exactpatient/episode/residentuniqueness and matchingremediationfact. Projection tests assert withheldprivatepattern cannotalter initialactionshape, earnedpatterncondition exactcohort/presence drift, >2^53 numericresident representation and visiblepresentation distinctcommitments/sexNone, hardzero missingunusedtarget, candidatecount/bytebounds. Loops/index/search bounds and literalfixture arithmetic fit scalar widths. None executed; authored assertions supply acceptance intent, not empirical passing results or transitive receivercoverage."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-core/src/quest_generation/tests/routes_and_evidence.rs"
+}

@@ -1,0 +1,59 @@
+{
+  "id": "SEGOVB-INITIAL10-F007",
+  "classification": "source-backed native dependency maintenance suggestion",
+  "source_ids": [
+    "pinned-registry:avian3d-0.7.0/src/spatial_query/ray_caster.rs",
+    "pinned-registry:avian3d-0.7.0/src/spatial_query/shape_caster.rs"
+  ],
+  "source_sha256": [
+    "bcc49b636bc3db8ebe946f004414493433003c689a819ede071337f555cc7c52",
+    "e7ddca53ee044c4814c925fffa7f172680988ea9456834049da965f16a5c6b66"
+  ],
+  "ranges": {
+    "ray_caster.rs": [
+      [
+        338,
+        342
+      ],
+      [
+        373,
+        410
+      ]
+    ],
+    "shape_caster.rs": [
+      [
+        524,
+        528
+      ],
+      [
+        568,
+        574
+      ],
+      [
+        576,
+        612
+      ]
+    ]
+  },
+  "problem": "Native RayHitData/ShapeHitData map only their Entity field manually, while RayHits/ShapeHits manually loop all hit records. Existing Bevy MapEntities derive can generate the same annotated-field forwarding.",
+  "equivalent_implementation": "In the native owner, derive MapEntities on RayHitData/ShapeHitData with #[entities] entity, and RayHits/ShapeHits with #[entities] its Vec<RayHitData>/Vec<ShapeHitData> field; remove only these exact handwritten MapEntities bodies.",
+  "source_proof": [
+    "RayHitData406\u2013410 and ShapeHitData608\u2013612 each assign entity_mapper.get_mapped(self.entity); all geometric fields remain untouched.",
+    "ShapeHits568\u2013574 loops its mutable hits and calls hit.map_entities; native Vec<MapEntities>172\u2013178 preserves ordered mutable iteration.",
+    "Exact bevy_ecs_macros0.19.1 lib214\u2013239 generates the same borrowed mutable generic mapper signature; bevy_ecs_macro_logic map_entities1\u201358 selects only #[entities] fields and calls their map_entities; native Entity impl62\u201366 uses get_mapped.",
+    "All three cached package hashes independently match frozen physicalP16 Cargo.lock and exact source archive members: fresh-dependency-registration-244.json. Existing native imports use MapEntities macro/trait namespace; no new dependency needed.",
+    "Additional exact original485 dependency245: RayHits338\u2013342 contains Vec<RayHitData>; borrowed mutable iterator373\u2013380 delegates iter_mut, so loop382\u2013388 is identical to annotated Vec native mapping. No remaining unknown-container qualification."
+  ],
+  "acceptance": [
+    "Annotate only actual entity-bearing field; keep geometry/scalars/vectors unchanged.",
+    "Preserve native mapping order, each mapper invocation, mutation signature, generic bounds and all existing Reflect/Component/Serde derives.",
+    "Do not derive new wire traits or edit generated SDK; no project dependency patch is authorized."
+  ],
+  "qualifications": [
+    "This source belongs to a pinned external dependency, not a proposed local source repair. Upstream applicability is separate from repository scope.",
+    "Optional mechanical cleanup, no runtime defect/compiler/test claim.",
+    "Only exact scoped native ranges and necessary closure bodies read, not whole native crates. No global unique count inferred."
+  ],
+  "disposition": "EXTERNAL_EQUIVALENCE_ONLY_NOT_ACTIONABLE_IN_REPOSITORY_REPAIR_SCOPE",
+  "repair_scope": "Pinned external Avian/Bevy owner only; receiver contract evidence, no repository defect, cached source edit, SDK patch or new project dependency."
+}

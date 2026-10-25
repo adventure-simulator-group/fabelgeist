@@ -1,0 +1,140 @@
+{
+  "recorded_at": "2026-10-20T23:14:30.646909+00:00",
+  "head": "82cb2a3acccc852bba6a7ef9c706c337ba9fe765",
+  "source_snapshot": "Reviewed source is recoverable exactly from Git commit 39121ddae; P06-current-source-backup.json now records the later formatting-only head.",
+  "status": "Historical nested verdicts have limited scopes. Current P06 focused source review is in P06-source-trace.json; implementation believed complete, exact-head hosted validation pending. No PR-wide current PASS.",
+  "scope": "All 179 affected Rust paths and hosted workflow relative to 82cb2a3ac, including connected unchanged receiving operations. Earlier connected source reads remain part of this continuing pass; updated animation/capture/partial-review and new weather/staging/refinement source were reconciled to the current snapshot.",
+  "code_review": {
+    "completed_groups": [
+      "core",
+      "partial-review",
+      "animation",
+      "capture",
+      "strategic-art",
+      "presentation",
+      "viewer",
+      "viewer-fixtures",
+      "server-dispatcher",
+      "hosted workflow selections"
+    ],
+    "fixed_findings": [
+      "Private raster image fixture access uses into_image().",
+      "Scene shelter raster keeps Elevation<Scene> and completes replacement before publication.",
+      "ConversationPose retains scene anchors instead of Transform-to-Position re-admission.",
+      "Six relief inputs retain ScenePlanPoint until their full native formulas.",
+      "Settlement fixtures pass checked contact centres directly.",
+      "Absolute ankle minima retain Elevation<Scene>, distinct from signed clearances and authoritative SupportElevation.",
+      "New partial-review elapsed/error/import/order gaps are repaired."
+    ],
+    "final_native_receivers": [
+      "Root IK uses support metres in complete point/ankle/hip correction math, not a forwarding height API.",
+      "Run reach keeps checked query inputs/results through callbacks and projects in vector/root-delta and disk-intersection equations.",
+      "Flight projection retains typed clearance floors, projecting only at complete candidate Vec3 correction; its raw maximum_step is the computed native search-sphere radius.",
+      "FootClearanceFloor retains the scene datum through minimum_height, with the existing finite completed-result admission and operation order.",
+      "Ragdoll penetration projects actual support samples in complete capsule penetration and admits its completed signed correction before checked Position replacement.",
+      "Furniture sample extrema have five guaranteed samples; per-item support arrays explicitly reject empty input before native extrema/placement math. No infinity identity can escape as an observation.",
+      "Vista and heightfield helpers read native grids/triangle vertex buffers and perform interpolation/seam/clipping operations; checked query owners admit their completed results.",
+      "CaptureGround distinguishes explicit fixture plane authority from queried terrain; required scene setup/root observations terminally reject through the existing artifact lifecycle."
+    ],
+    "fix_verification": "Source bodies and connected calls read. Root IK named function shrinks 2864 -> 2840 physical text lines. Existing fixture names and assertion occurrences preserved; no Rust parser, runtime or numerical probe used."
+  },
+  "rule_review": {
+    "applicable_guides": [
+      "AGENTS.md",
+      "crates/AGENTS.md",
+      "crates/adventuresim-core/AGENTS.md",
+      "crates/adventuresim-tactical-core/AGENTS.md",
+      "crates/adventuresim-tactical-client/src/animation/AGENTS.md"
+    ],
+    "checked_contracts": [
+      "Canonical role/frame owners; finite admission, checked decoding and opaque reflection; zero/signed distinctions.",
+      "Typed query/callback/retained state and real native projection receivers.",
+      "Aggregate range ordering, nonempty reductions, failed replacement publication and absence policy.",
+      "Use/mod/constant/record/enum/trait/impl/function/test ordering in added responsibilities; touched vista declarations and new capture/player helpers repaired. Existing unrelated report/authority declarations are not a repository-wide cleanup claim.",
+      "No source/baseline/suppression weakening, no compatibility or database/schema/binding path, no test additions.",
+      "Hosted-only validation matrix preserves previous 25 result cells and sixteen Creator vectors, adds fourteen existing terrain-consumer cells and requires all 39 nonempty."
+    ],
+    "fixes": [
+      "Weather public constructor now precedes private functions.",
+      "Vista imports, modules, constants/aliases, records, impl and public/private function groups reordered with attached attributes; existing numerical bodies unchanged.",
+      "The connected vista expect is an explicit checked match before presentation commands; one redundant Option local removed.",
+      "Capture collect_bones and player_collider private helpers follow public functions."
+    ],
+    "native_rule_evidence": "crates/AGENTS.md semantic values and types plus modules and functions sections; native scratch coefficients are justified by inspected arithmetic, not by private visibility.",
+    "official_gates": "Not run locally. No-growth, rustfmt, compilation, Clippy, selected execution and baseline export remain required in hosted CI."
+  },
+  "new_absolute_elevation_trace": {
+    "owner": {
+      "file": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+      "line": 46,
+      "text": "pub struct Elevation",
+      "sha256": "874795ec5e99ead6f7579776576788c7285cbed1f7a9a38467e831dbae26ee27"
+    },
+    "retained": {
+      "file": "crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/foot_clearance.rs",
+      "line": 11,
+      "text": "Minimum(Elevation<Scene>)",
+      "sha256": "614249fd0639fa8505a69517a80be92f06559e9232f2258af6c55f71d45637a2"
+    },
+    "admission": {
+      "file": "crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/foot_clearance.rs",
+      "line": 300,
+      "text": "fn checked_scene_elevation(",
+      "sha256": "614249fd0639fa8505a69517a80be92f06559e9232f2258af6c55f71d45637a2"
+    },
+    "consumers": [
+      "FootClearanceFloor::apply and minimum_height; toe/transition/terrain floor producers; flight projection candidate construction; the same existing floor fixture inputs/assertions."
+    ],
+    "contract": "Absolute scene elevation is separate from signed offset. Generic canonical owner preserves signed zero, finite scalar admission, existing f32 sum/max order and no new wire schema."
+  },
+  "limits": [
+    "No fresh hosted check or local project command. Source inspection is not compilation or execution.",
+    "Seven existing ignored production/offline cases remain acceptance dependencies, including calibrated renderer/production fixture coverage; no new tests authorized.",
+    "P08-P20 retain their original responsibilities and exits. Camera/report/rig/equipment/continuation primitives are not declared complete.",
+    "The whole PR getter/constructor/cast inventory is not cleared by this P06 source pass.",
+    "No Comment Review, extra full bespoke-audit wave, new agent, merge or Goal completion."
+  ],
+  "format_only_followthrough": {
+    "head": "3216f21d76ce802c55b96b1bebdac9b183c50e7e",
+    "source_commit": "39121ddae304f977f944eccfe4eab307644d763c",
+    "report": "P06-hosted-39121-format-hunks.json",
+    "source_verification": "All 438 unique hosted rustfmt hunks matched original source exactly at their stated line positions, across 127 existing changed files; no hand-invented formatter changes. Names/assertions preserved.",
+    "root_ik_physical_lines": [
+      2864,
+      2862
+    ],
+    "root_ik_nonempty_non_line_comment_text_counts": [
+      2628,
+      2626
+    ],
+    "hosted_format_result": "success on run 39514318905; no local formatter ran",
+    "overall_acceptance": false
+  },
+  "reviewed_source_commit": "39121ddae304f977f944eccfe4eab307644d763c",
+  "source_comparison_base": "82cb2a3acccc852bba6a7ef9c706c337ba9fe765",
+  "reviewed_precommit_patch_sha256": "c529f431b4e89f870036cdba1c9f35271de130ebdb5648b259c5dbdefd5c8580",
+  "hosted_growth_repair_followthrough": {
+    "head": "285595747b5d4764c0e1f3563b2f009f216d8532",
+    "report": "P06-hosted-3216-growth-repair-source-review.json",
+    "official_first_failure": "P06-hosted-3216-quality.log",
+    "scope": "Seven source size regressions and three officially obsolete file entries. All repair diffs/new module/callers reviewed; no new full audit wave or independent review. No ceiling raised.",
+    "acceptance": false
+  },
+  "post_growth_format_followthrough": {
+    "head": "df50ed038789bde836db457aee770a1d0fb6a8b0",
+    "report": "P06-hosted-2855-format-repair.json",
+    "scope": "Two exact unique hosted formatting edits, no semantic changes or local formatter.",
+    "accepted": false
+  },
+  "core_compiler_followthrough": {
+    "source_commit": "6d15fdb8c34a1304550dec5a63043061665db005",
+    "latest_head": "807ab138a2dcbee4707095b87731bf7a063a7af7",
+    "source_report": "P06-hosted-df50-core-repair-source-review.json",
+    "hosted_format_report": "P06-hosted-6d15-format-repair.json",
+    "scope": "Four official tactical-core errors repaired; grade::constrain now validates all completed native f32 samples before copying its replacement. No validation visibility widened. All five changed bodies/diffs read; numerical repair math unchanged.",
+    "material_cost": "The successful repair path prepares one additional temporary f32 height-grid buffer before publication.",
+    "acceptance": false
+  },
+  "ground_consumer_followthrough": "P06-hosted-807a-ground-consumer-source-review.json",
+  "current_authoritative_trace": "P06-source-trace.json"
+}

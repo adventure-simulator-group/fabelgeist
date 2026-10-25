@@ -1,0 +1,26 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-675",
+  "at": "2026-10-25T16:25:21.938601+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 966,
+  "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog.rs",
+  "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+  "actual_compared_ranges": [
+    [
+      1,
+      660
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Catalog compile441\u2013588 validates supported typed route/objective graph, scheduling, bounded consequence/archetype compatibility and crosscatalogue monster/bridge/description relations before materializing maps. This is semantic content admission beyond derived records.",
+    "Lookup and witness demographic selection590\u2013660 applies authored predicates/priority/fallback; no handwritten trait/codec. Preserve explicit mapping rather than add serialization to runtime selectors."
+  ],
+  "first_unfinished": {
+    "scope_index": 966,
+    "line": 661
+  },
+  "execution": "none"
+}

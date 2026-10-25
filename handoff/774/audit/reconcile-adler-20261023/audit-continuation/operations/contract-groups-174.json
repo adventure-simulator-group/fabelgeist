@@ -1,0 +1,118 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-174",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/authority_tests.rs",
+      "sha256": "59669208fa577a62c9b73b3fab2c57202b442a12ef0447e846cf25451d48b8aa",
+      "actual_EOF": 207,
+      "actual_compared_ranges": [
+        [
+          1,
+          207
+        ]
+      ],
+      "method": "Whole P16 literal body personally read, then complete PR textual diff consumed and each return type/checked helper delta analyzed."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/consumption.rs",
+      "sha256": "27d71249019722ede09f0961c7c4880a6acf19f99cdb0ab909eafa7bd1370bfc",
+      "actual_EOF": 369,
+      "actual_compared_ranges": [
+        [
+          1,
+          369
+        ]
+      ],
+      "method": "Whole P16 literal body personally read, then complete PR textual diff consumed and each return type/checked helper delta analyzed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/authority_tests.rs",
+      "sha256": "f42fe8c6e10d816198aba42f752d418582a0bf4268aa0a21ba9b6e2116e3dab3",
+      "actual_EOF": 207,
+      "actual_compared_ranges": [
+        [
+          1,
+          207
+        ]
+      ],
+      "method": "Whole P16 literal body personally read, then complete PR textual diff consumed and each return type/checked helper delta analyzed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/consumption.rs",
+      "sha256": "6774eac9e912e8d500d0d9912545c2051fcc102d969f024be6dd157b22dea910",
+      "actual_EOF": 369,
+      "actual_compared_ranges": [
+        [
+          1,
+          369
+        ]
+      ],
+      "method": "Whole P16 literal body personally read, then complete PR textual diff consumed and each return type/checked helper delta analyzed."
+    }
+  ],
+  "groups": [
+    {
+      "id": "Food consumption numerical and state trace",
+      "locations": "consumption1-369; fresh Core food322-339,532-560; native lot_inventory1-8,225-280",
+      "trace": "Actual travel and explicit consumption reject nonfinite balances/available as zero and cap wanted by nonnegative nutrition. Positive wanted proves denominator nutrition>0 at actual finite producer, so ratio in0..1; zero nutrition does not reach division. Explicit meal can fill positive stomach budget, travel caps needs to0. Both private kcal arguments are f32MAX as existing local774:M29 notes, not an actual computed infinite amount. Consumption uses bounded contamination concentration, ratio and mass to form foodwater dose, medicine and provenance settlement then needs and lot retention. Full mass/concentration admitted product closure remains pending; raw finiteMAX mass can overflow a raw dose but no current accepted lot at that mass is proved. Partial retention increments material_revision with checked_add before in-memory scales; numeric food components use finite nonnegative retention helper. Saved ConsumableFractionMicros read uses expect, so raw corrupt >whole is admission weakness; retained fractional floor rounds tiny positive remnant up to canonical MINIMUM_NONZERO as intentional no-zero partialrow policy. Whole lot/amount/needs association remains local774:M29 rather than independently claiming conservation from leafchecks.",
+      "disposition": "No new ordinary numeric defect established. Missing current_minute clockdefault joins CAM-PPS-F003. Party path changes needs and lot but no capability refresh within its block; inspect whole time caller settlement before alleging stale retained mass. Raw lot admission, state associations and finite dose products remain incomplete connected dependencies.",
+      "dependencies": [
+        "local774:M29",
+        "CAM-PPS-F003",
+        "Food lot/inventory amount/provenance/herbalism complete graph",
+        "Core disease point protection and world_event infection commit",
+        "SDK transaction/caught error and outer time capability refresh"
+      ],
+      "acceptance": "Successful consumption conserves admitted nutrition/mass/value and exact remaining fraction under explicit rounding, uses only authorized carried lot and records actual contamination dose. Rejected logical operation must preserve retained state or explicit interruption policy. Preserve zero-nutrition handling, true time0, signed caloric balance and explicit versus travel fullness."
+    },
+    {
+      "id": "Authority fixture operation/replay checks",
+      "locations": "authority_tests1-207",
+      "trace": "Fixture admits named actor and singleton utility knife/apple, derives preparation request from actual place/custody/identity/revision. It compares unchanged mass,nutrition,value and exactly one material revision advance on completed work; replay must leave clock/revision unchanged and conflicting generation must fail. Interrupted fixture changes blood to9percent, not arbitrary invalid negative. u64+1 assertion only uses fresh fixture lot; no ordinary MAX witness. Digests fixed for two actions and complete fixtures personally read but never executed.",
+      "disposition": "Source fixture evidence only, not passing validation or personal proof of preparation implementation. Exact PR adds checked inventoryhelper; P16 typederror migration retained.",
+      "dependencies": [
+        "ingredient_preparation complete body next",
+        "local774:F05/M30 and CAM-PROP-F006"
+      ],
+      "acceptance": "Existing fixture contracts must remain true when eventual authorized validation runs. Do not add or run tests in this audit phase."
+    }
+  ],
+  "dependency_reads": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/food.rs",
+      "sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+      "ranges": [
+        [
+          300,
+          340
+        ],
+        [
+          532,
+          565
+        ]
+      ],
+      "coverage": "critical dependency only, no whole role credit"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/lot_inventory.rs",
+      "sha256": "28b22445ed307bc12de78b72d95df5b4325ba47ad3403f45292bb0c5b6efb87b",
+      "ranges": [
+        [
+          1,
+          12
+        ],
+        [
+          225,
+          282
+        ]
+      ],
+      "coverage": "critical dependency only; source role remains incomplete"
+    }
+  ],
+  "findings": [],
+  "status": "Four source roles compared; whole lens remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/food/cooking.rs"
+}

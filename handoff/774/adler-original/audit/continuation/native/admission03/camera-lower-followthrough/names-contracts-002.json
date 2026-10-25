@@ -1,0 +1,116 @@
+{
+  "id": "NATIVE-ADM03-LOWER-FOLLOWTHROUGH-002",
+  "at": "2026-10-22T18:30:34.903740+00:00",
+  "lens": "audit-admission-contracts",
+  "authority": "043/054; Root bounded direct lower followthrough after completion069",
+  "source_roles": [
+    {
+      "registration_id": "NATIVE-ADMISSION03-REG-123",
+      "source_id": "physical-p16:crates/adventuresim-world-schema/build.rs",
+      "sha256": "1cbb4c6032d77345ba85c017d2e5f94b1600c1a4064ff586f0e1872afd63df74",
+      "actual_EOF": 121,
+      "requested_ranges": [
+        [
+          1,
+          121
+        ]
+      ],
+      "effective_material_ranges": [
+        [
+          1,
+          121
+        ]
+      ],
+      "context_or_exclusions": "Only exact registered role; all unrelated source excluded."
+    },
+    {
+      "registration_id": "NATIVE-ADMISSION03-REG-124",
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/name_catalog_schema.rs",
+      "sha256": "c50dcf6eef9aa348c8c259b105a9734f1e25ee2e57a043ee484a3892e9795dfa",
+      "actual_EOF": 199,
+      "requested_ranges": [
+        [
+          1,
+          199
+        ]
+      ],
+      "effective_material_ranges": [
+        [
+          1,
+          199
+        ]
+      ],
+      "context_or_exclusions": "Only exact registered role; all unrelated source excluded."
+    },
+    {
+      "registration_id": "NATIVE-ADMISSION03-REG-125",
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/name_catalog_validation.rs",
+      "sha256": "555b21fb6dddac260f0a951252041fd40a0d3e02dd8bb0d649fda9a528e0ed77",
+      "actual_EOF": 576,
+      "requested_ranges": [
+        [
+          1,
+          411
+        ]
+      ],
+      "effective_material_ranges": [
+        [
+          1,
+          410
+        ]
+      ],
+      "context_or_exclusions": "411 blank, existing tests412–576 excluded; complete actual text counterpart diff includes tests only as identity/context, no P16 test coverage inferred."
+    },
+    {
+      "registration_id": "NATIVE-ADMISSION03-REG-126",
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/name_catalog_validation/derivations.rs",
+      "sha256": "7178c20d189f6254be6bd97094c550465c0b137c2c2e3ccf0b8f033cc80d435d",
+      "actual_EOF": 214,
+      "requested_ranges": [
+        [
+          1,
+          214
+        ]
+      ],
+      "effective_material_ranges": [
+        [
+          1,
+          214
+        ]
+      ],
+      "context_or_exclusions": "Only exact registered role; all unrelated source excluded."
+    }
+  ],
+  "current_source_proof": "Personally consumed full Root extra40 contracts001 source roles9/11/12/13 narratives and explicit current P16 production routes. Complete actual P16/PR text comparisons of all four full files saved names-complete-counterpart-diff-001.json (no differences), then independently freshly read actual P16 build1–121, schema1–199, validation1–221 and222–411, derivations1–214. Semantic credit is from those actual routes/current use comparisons, not hashes, prior verdicts or empty diff alone. Parent original roles/ownership unchanged.",
+  "group": {
+    "id": "p16-embedded-catalogue-production-gate-to-private-runtime-render",
+    "invariant": "Only build-resolved catalogue satisfying shared production membership/reference/frequency/provenance gates is emitted to private runtime OnceLock. Raw authoring/partial fragment DTOs and open personal identities remain representable; final rendered names independently enforce bounded display text.",
+    "all_admission_routes": [
+      "Actual build9–21 includes shared CalendarYear/demographics/schema/validator by exact source path; main25–70 walks content/names recursively with collect109–121, accepts .yaml extension, sorts files, rejects empty collection. Each actual file text must parse JSON-compatible NameCatalogDocument (not unrestricted YAML); all lists merge through72–87. Digest input is actual normalized repository-relative path, NUL and text; digest does not replace validation. No build/content run or authored-content correctness certificate is claimed.",
+      "Fragment helper89–107 takes all fragments out of raw catalogue, requires existing repertoire target before appending each sex-family list, everyday forms and surnames. Unknown targets panic build with precise ID. Then main57–58 canonical validate MUST succeed before Serde serialization60 and generated name_catalog.rs emission62–69. No successful build path emits unresolved fragments or skips validator; no fallback empty catalogue. Errors/panics are authoring/build boundary behavior, distinct from runtime typed errors.",
+      "P16 schema1–199 complete current comparison: public raw products derive ordinary Serde denyunknown, aggregate Default empty plus field defaults intentionally permit partial source documents before merge. Closed record/tradition/register/surname enums known variants. Source sample Option<u32> and observed_count Option<u32> are source evidence; quantitative Some0 is rejected later, None allowed, observed count0 not globally banned. Relative u64 family/form/surname frequencies are sampling scores, not UnitFraction/observed census. CalendarYear/Sex/Culture are canonical typed input dependencies; no arbitrary identity grammar or database authority inferred from these DTO names.",
+      "Actual shared validate23–56 rejects unresolved fragments then empty sources/families/forms/surnames/repertoires; checks sources, observations, families, forms, surnames, repertoires and derivations IN THAT ORDER. Sources58–79 require grammar IDs, unique source IDs, nonblank title/date/geography/bias/notes and https prefix; URL syntax beyond prefix is not promised. Quantitative Some sample0 rejected, None deliberate. Observations377–398 require unique grammar ID, known source, nonblank locator/derivation/recorded spelling; raw observed_count not forced positive.",
+      "Families81–92 unique grammar identity with canonical sex; forms94–131 grammar/unique identity/nonblank text/nonempty unique known linked families ALL same sex. Surnames133–173 unique grammar IDs and known nonblank surname forms, every surname at least one display form. This does NOT enforce rendered<=160 Unicode chars, no trim change/controlfree policy on every raw display form; those remain separately fallible RenderedPersonalName admission at actual runtime output.",
+      "Repertoires175–227 require grammar/unique ID, start<=end and nonoverlapping INCLUSIVE interval for same culture+tradition. Family frequencies241–274 iterate actual canonical Sex::VARIANTS and demand each advertised sex nonempty, weights positive, globally unique eligible family, family sex exact. Everyday forms276–329 positive/unique family+form pairs, eligible family, known form, exact native culture+Everyday register+family link, checked u64 sum PER family and every eligible family covered. Family-total and surname-total sums are not independently checked here; actual runtime fallible WeightedIndex remains responsible for overflow/empty failures rather than a false universal never-error generation claim.",
+      "Surname frequencies331–375 require nonempty positive unique IDs, only known HereditaryCommoner identities and at least one display form matching repertoire culture for each canonical Sex::VARIANTS entry (specific sex or neutral). Specific-before-neutral actual runtime selection from Native008 is preserved. Actual current Camera103 full P16 demographics and RootREG037 source proof establishes concrete closed Sex enum and VariantArray derive/receiver. This is a canonical iteration dependency, NOT an independently read generated-macro expansion or promise about unrelated derived enum arrays; no speculative foreign graph is opened.",
+      "Derivations1–214 exact current P16: targets from every family/form/surname frequency tuple; validate each grammar/unique derivation ID, nonblank operation+rationale/nonempty observation list/positive weight, known repertoire, exactly family-only/family+form/surname-only shape, known IDs and form-family relation, exact target frequency, unique covered target, distinct known observation IDs. Since successful insertions are a subset of actual targets, final coveredcount==targetcount proves total target coverage; accepted path cannot make subtraction negative. Raw tuples/maps are temporary work state, not a new serialized accepted owner.",
+      "Join to Native008 P16 full person_names849 actual current source: private OnceLock catalog394 parses generated NAME_CATALOG_JSON397, no public replacement/mutable cache; exact build product is now proved through123–126. Generation still returns explicit missing selector/empty eligible/sampling errors and inherited raw surname can await validation. Identity validate full169 (Native008) checks all references, including Some surname even Authored. render351 calls identity.validate BEFORE authored return/composition, EVERY final string enters RenderedPersonalName::new with nonempty/trim-equal/<=160 Unicode CHARS/no controls. Raw authored/catalogue text/IDs not globally narrowed; no fake fallback name or type-name membership inference."
+    ],
+    "counterexample_or_intentional": "Raw NameCatalogDocument Default empty or partial fragment is serializable but cannot pass production build validator until resolved/nonempty. IDs are open raw evidence prior validation. A structurally accepted catalogue display form can still violate final rendered160/control policy, so runtime rendering remains fallible; build validation and rendered value validity are distinct true contracts. No actual invalid repository content, executed build or failing runtime claim.",
+    "connected_repair_acceptance": "Close Native008 embedded-source lower dependency by exact P16 production gate/current private cache/use joins. Preserve source evidence, fragment resolution before canonical validation, error ordering, closed vocabularies, inclusive selectors, positive relative weights and checked per-family form totals, provenance equality/coverage, fallible sampling and strict final rendered owner. Existing Root/Camera catalogue/render/error whole-function authority remains; no changes or new cases.",
+    "closure": "Exact requested P16 embedded catalogue production gate CLOSED WITH QUALIFICATIONS. No universal successful generation/render for every arbitrary typed input or raw display source is asserted."
+  },
+  "prior_actual_source_refs": [
+    "continuation/root/admission03/camera-support-extra40/contracts-001.json#source_roles/9,11,12,13",
+    "continuation/native/admission03/camera-support/contracts-008.json#p16-person-name-open-identity-and-rendered-text-admission",
+    "continuation/native/admission03/camera-support/contracts-008.json#p16-personal-name-reference-validator-actual-render-gate",
+    "continuation/native/admission03/camera-support/contracts-036.json (PR pipeline only; superseded for exact P16 lower closure by this receipt)",
+    "continuation/native/admission03/source-range-registration.jsonl#NATIVE-ADMISSION03-REG-087 + camera-support/contracts-008.json current weighted_index proof"
+  ],
+  "new_defects": [],
+  "qualification": "No P16 existing validator tests412–576 were read or run for this bounded production task. No complete authored content/generated output scan; no imported graph or generated array proof beyond actual declared canonical iteration. Exact catalogue production gates plus final runtime re-admission are source-proved.",
+  "counts": "No change to128 original support completion069 or source ownership; additional lower definitions only",
+  "repair": "frozen",
+  "validation": "not_run",
+  "later_lens_credit": false
+}

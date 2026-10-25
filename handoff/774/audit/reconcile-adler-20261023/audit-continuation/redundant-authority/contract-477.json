@@ -1,0 +1,96 @@
+{
+  "id": "CONT07-CONTRACT-477",
+  "at": "2026-10-23T22:34:21.054905+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2105,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/blade_reduction.rs",
+      "sha256": "e4b1f3a3312fcfd952603a0dc1b72248df17dab354594e98f33578e8809c8065",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/model/blade_reduction.rs",
+      "actual_EOF": 161,
+      "ranges": [
+        [
+          1,
+          161
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2106,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/blade_sections.rs",
+      "sha256": "dd0179727083b89f6f7161f05e32ca61612ce7f8f30c01271e57c20cb883df16",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/model/blade_sections.rs",
+      "actual_EOF": 274,
+      "ranges": [
+        [
+          1,
+          274
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2107,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/blades.rs",
+      "sha256": "fcc04f50403bdcd25927bf4e6412ffdea4fc6c18a6c193a8e224b049e3477171",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/model/blades.rs",
+      "actual_EOF": 241,
+      "ranges": [
+        [
+          1,
+          241
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2108,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/generic_blade.rs",
+      "sha256": "518d70e1fcd856fc197048624dea1480297abb2c4cf30b22e130ce5a98263cb2",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/model/generic_blade.rs",
+      "actual_EOF": 90,
+      "ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2109,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/grip.rs",
+      "sha256": "bf3ed53fe98389fc076f302154befc4d3abd3169203067c07c0ca05a30acb9e2",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/model/grip.rs",
+      "actual_EOF": 35,
+      "ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "CAM-OWN-BLADE-PROFILE-117 per-source full ranges; supplied reached producer contexts consumed, source-specific independent07 reasoning recorded"
+  ],
+  "facts": [
+    "2105 full161 groove-tail reduction compares actual sampled ring normals against broad reference with explicit extra error, distinct from overall body chord error; current finite unit checks reject unresolved normals. NormalCheck stores immutable callback/interval/flat indices only for one comparison call group, not mutable cached current geometry.",
+    "2106 full274 unified section/loft producer validates profile then derives rings/stations/side faces/caps from same profile. Feature stations and baseline stations are deliberate alternative sampling strategies; same blade semantic geometry delegated to one section/profile owner. Smoothing0/1 vs side groups is normal presentation role, not second dimensional truth. Further profile validate/dimensions and groove transition helpers retain exact scoped source obligation when reached.",
+    "2107 full241 axe default root appears twice with different policy: outline caps width*.18 at.055, thickness_root omitscap. Explicit root paths agree. Need actual AxeParameters admitted bounds/semantic thickness contract before promoting root-coordinate discrepancy; retain exact dependency and no current fixture failure claim. Other axe side reflection reverses outline consistently; thickness interpolation uses same side transform.",
+    "2107 glaive outline built once from same parameters used for thickness, distinct axial taper vs planar outline. Diamond blade explicit finite tip with capped ends is separate from continuously pointed genericBlade, not accidentally divergent aliases without semantic shape equivalence proof. Fork/partisan/glaive recipes independently meaningful shapes.",
+    "2108 full90 generic forged blade delegates shared refine_sections/face/Region cap; section_dimensions is the canonical transverse geometric source, and triangular centroid/thickness differ deliberately from symmetric diamond. Extreme single-edge omits collinear landmarks before triangulation; do not force equal count across all shape variants.",
+    "2109 full35 controlling grip frame uses explicit priority: shield grip, authored clearance between grip base/top, last Grip-role center, named grip center, shaft fallback, origin. Frame positions and component roles have different priority meaning, not automatic competing identical authority. Actual admission requiring a real controlling hand frame must be inspected before classifying fallback origin/heuristic as hidden missing data; no arbitrary valid recipe failure asserted."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2110,
+    "start_line": 1
+  }
+}

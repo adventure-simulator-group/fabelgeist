@@ -1,0 +1,135 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-170",
+  "at": "2026-10-25T13:12:36.125518+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 328,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/equipment.rs",
+      "sha256": "de5de9948499820d3cad696afbcdc3f1d2473f3abac518c580de6440f3f8dd8a",
+      "actual_EOF": 1764,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-tactical-client/src/equipment.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-tactical-client/src/equipment.rs",
+        "owner": "rig",
+        "sha256": "de5de9948499820d3cad696afbcdc3f1d2473f3abac518c580de6440f3f8dd8a",
+        "base_sha256": "d341ec9a750f801013db4593ed67fe8925d3185c5cbbd7ba01ae23786b352899",
+        "state": "modified",
+        "bytes": 68249,
+        "audit_owner": "rig",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/sources.json",
+            "ranges": [
+              [
+                1,
+                1764
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-RUNTIME-02"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 150,
+            "read_ranges": [
+              [
+                1,
+                1764
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-CLIENT-EQUIPMENT-026",
+              "RIG-OWNER-EQUIPMENT-RUNTIME-019"
+            ],
+            "read_status": "current-lens-shared-identical-lines-plus-complete-distinct-line-read",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-client/src/equipment.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1764
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Plugin",
+          "lines": [
+            234,
+            246
+          ],
+          "type": "TacticalEquipmentPlugin",
+          "disposition": "Keep semantic plugin/resource/system schedule registration, no mechanical delegation."
+        }
+      ],
+      "existing_derives": {
+        "Resource_Default": [
+          "GrabSession",
+          "WeaponMeshCache",
+          "WeaponIconCache"
+        ],
+        "Clone": [
+          "CachedWeaponPart",
+          "CachedWeapon"
+        ],
+        "Clone_Copy_Debug_Eq_Hash_PartialEq": [
+          "WeaponMeshCacheKey",
+          "WeaponIconCacheKey",
+          "IconSource"
+        ],
+        "Clone_Copy_Debug_PartialEq_Eq": [
+          "GrabSelection"
+        ],
+        "Component": [
+          "ItemPlaceholder",
+          "ProceduralEquipmentResolved",
+          "ProceduralEquipmentFailed",
+          "ItemFallback"
+        ],
+        "Component_Default": [
+          "EquipmentAttachmentSockets"
+        ]
+      },
+      "absence_basis": "All1764 lines personally consumed in four bounded reads. Only manual trait Plugin registration; all local structural keys/caches/markers/session traits derived, no handwritten serializer. Source includes full HUD, recipe-authenticated cache, bind/topology and fixture functions."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "tactical equipment action/UI, authenticated cache and body attachment projection",
+      "disposition": "No derivability cleanup. Preserve explicit input-to-action conversion with expected hand/destination/revision, semantic location-to-bone/axis mapping, native mesh/material conversion and validated generation. Existing derives cover cache key equality/hash and default empty runtime resources. Plugin registration and graph traversal have behavior beyond derive.",
+      "qualification": "No renderer/system/tests executed; no operation/graph/asset/semantic clearance. Referenced child modules not covered by declarations."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 329,
+    "source_id": "physical-p16:crates/adventuresim-tactical-client/src/equipment/grab_world.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

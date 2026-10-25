@@ -1,0 +1,109 @@
+{
+  "id": "CONT07-CONTRACT-434",
+  "at": "2026-10-23T21:51:11.698515+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1908,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates/polygon.rs",
+      "sha256": "e2ab1721fe7a2424bb3b878a6e98d58d12b6f1edc5ef39a0ae15a8bd3f322956",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_coordinates/polygon.rs",
+      "actual_EOF": 191,
+      "ranges": [
+        [
+          1,
+          191
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1909,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+      "sha256": "aab7cbd205fd372d7542412ed9898345ccc87e83c548b9988a46424d4b88c2af",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+      "actual_EOF": 270,
+      "ranges": [
+        [
+          1,
+          270
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1910,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates/spatial_tests.rs",
+      "sha256": "1a9a519142dab5d29d3a258936cf8538a7305f0faa3d303a28915f7d3b849588",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_coordinates/spatial_tests.rs",
+      "actual_EOF": 173,
+      "ranges": [
+        [
+          1,
+          173
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1911,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates/velocity.rs",
+      "sha256": "f961ea0bc8da4a4bb23bba732b32f43172c9ab2aaa83bd4ff8319efb4faaf077",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_coordinates/velocity.rs",
+      "actual_EOF": 38,
+      "ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1912,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates/window.rs",
+      "sha256": "9e148e80284c8a960dc0fe0495783563bae67ec6bbf07abbdf6f82ff8edf5601",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_coordinates/window.rs",
+      "actual_EOF": 136,
+      "ranges": [
+        [
+          1,
+          136
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1913,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_ground.rs",
+      "sha256": "326752c9f0ad95c8f898c8ad0d106eae2395e3a89ec135922c6fd7da8d860622",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_ground.rs",
+      "actual_EOF": 88,
+      "ranges": [
+        [
+          1,
+          88
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "ROOT-PPS-SCENE-DATUM-CONTRACTS-022 full narrative excluding source_proofs"
+  ],
+  "facts": [
+    "1908 ArchitecturalPlanProjection has source datum values; ScenePlanPolygon owns actual represented transformed vertices. These are input/output roles, not independently mutable same-object state. point/from_architectural repeat currently identical complete equations and source fixture compares exact words, so no current disagreement demonstrated. from_rigid_projection is private and validates represented area/distinctness without re-hulling rounded authored topology.",
+    "1909/1912 paired SceneDoorPose/SceneWindowPose fields are private, built together only in datum conversions; accessors return copies. Original quaternion product versus summed-angle leaf has intentionally different numerical representation. No independently mutable yaw versus rotation state survives the interface. Preserve quaternion multiplication rather than rederive with different rounding.",
+    "1909 floor origin/collision centre/gate/ground/plot frames express actual different datums. collision_centre derives centerY floor+originY; transformation subtracts architectural origin. Source inverse fixture1910 uses rounding tolerance, not proof symbolic transform inverse is bitexact. No new source07 credit inherited from supplier recipients.",
+    "1911 SceneVelocity axes store SignedSpeed individually and nativeVec3 getter derives them; rest/reverse are supported. No additional native cached vector or frame reclassification here.",
+    "1913 build_scene_ground creates one environmental sample sequence then deterministic tree litter edits, admits once, installs urban surfaces before return. Tree obstacle index transformed by obstacle_spacing differs from terrain sample_spacing; these index spaces are separate input roles. Ground surface/urban override remain intentionally layered sources pending actual scatter exclusion. Fixedseed0 RNG with indexed tree/sample identity is an authored deterministic policy, not missing sceneSeed authority merely by difference."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1914,
+    "start_line": 1
+  }
+}

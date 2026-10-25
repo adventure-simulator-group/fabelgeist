@@ -1,0 +1,229 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-217",
+  "at": "2026-10-23T05:56:45.323396+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-063.json",
+    "sha256": "1f2af3459ff8a34d896e54c4f86b4347c4e3b32ccccbc727201b2b1a02929675"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-062.json",
+    "sha256": "218924e8757de3e9b020b48237c11cde4e6152aa996cca4680673b0a1667b0c2"
+  },
+  "new_variants": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/keep_core.rs",
+      "sha256": "4fe112080f5dcc507eb0600309b787389a2dbb7b056ead9fd82bea634d9e496b",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\spiral_stairs\\keep_core.rs",
+      "snapshot": "pr-working",
+      "actual_line_count": 70,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "audit_owner": "native",
+      "scope_registration": [
+        {
+          "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+          "sha256": "7e61760eddb0dcbd4ab859bcc98b997088c9ddcc1952cf36300c53f9cfe23b84",
+          "row_1based": 50,
+          "id": "NATIVE-INITIAL05-REG050",
+          "original_record": {
+            "id": "NATIVE-INITIAL05-REG050",
+            "at": "2026-10-23T05:53:39.533223+00:00",
+            "authority": "Root parallel-initial-audits-081 direct necessary roles beforebody",
+            "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/keep_core.rs",
+            "snapshot": "pr-working",
+            "sha256": "4fe112080f5dcc507eb0600309b787389a2dbb7b056ead9fd82bea634d9e496b",
+            "actual_EOF": 70,
+            "material_ranges": [
+              [
+                1,
+                37
+              ]
+            ],
+            "role": "Direct owns_occupied_storeys predicate and actual normal stair recipe factory; reserved_cells38+ excluded",
+            "actual_caller": "landing_policy4\u20136/spiralresolve92; exported keep_stair current normal factory bounds",
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\spiral_stairs\\keep_core.rs",
+            "exclusions": "Only exact material; no unregistered called factories/body expansion, no foreigngraph/sourceedits/tests execution/newcases/laterlens",
+            "status": "prospectively_registered_BEFORE_body_analysis"
+          }
+        }
+      ],
+      "scope_limits": "Exact direct firstparty role after prospective Native050-052 and independent literal Root03proof216. Keep_core material1-36 only,37blankcontext and38+reserved_cells excluded. Other two exact69/221 roles retained; originalfixture source-only. No parent/callee/foreign or other-lens credit; all prior200/208/210 qualifications retained.",
+      "source_lens_credit": "none from scope metadata"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/bearings.rs",
+      "sha256": "fe9290ba0a257cd25b730ebad5762e929b2c184773fb1b92f4b4591722a36089",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\spiral_stairs\\bearings.rs",
+      "snapshot": "pr-working",
+      "actual_line_count": 69,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "audit_owner": "native",
+      "scope_registration": [
+        {
+          "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+          "sha256": "7e61760eddb0dcbd4ab859bcc98b997088c9ddcc1952cf36300c53f9cfe23b84",
+          "row_1based": 51,
+          "id": "NATIVE-INITIAL05-REG051",
+          "original_record": {
+            "id": "NATIVE-INITIAL05-REG051",
+            "at": "2026-10-23T05:53:39.533915+00:00",
+            "authority": "Root parallel-initial-audits-081 direct necessary roles beforebody",
+            "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/bearings.rs",
+            "snapshot": "pr-working",
+            "sha256": "fe9290ba0a257cd25b730ebad5762e929b2c184773fb1b92f4b4591722a36089",
+            "actual_EOF": 69,
+            "material_ranges": [
+              [
+                1,
+                69
+              ]
+            ],
+            "role": "Direct final support graph mutation, bearing-pair predicate and exact bounds helper",
+            "actual_caller": "spiral_stairs resolve108 final connected support associations",
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\spiral_stairs\\bearings.rs",
+            "exclusions": "Only exact material; no unregistered called factories/body expansion, no foreigngraph/sourceedits/tests execution/newcases/laterlens",
+            "status": "prospectively_registered_BEFORE_body_analysis"
+          }
+        }
+      ],
+      "scope_limits": "Exact direct firstparty role after prospective Native050-052 and independent literal Root03proof216. Keep_core material1-36 only,37blankcontext and38+reserved_cells excluded. Other two exact69/221 roles retained; originalfixture source-only. No parent/callee/foreign or other-lens credit; all prior200/208/210 qualifications retained.",
+      "source_lens_credit": "none from scope metadata"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/tests.rs",
+      "sha256": "cc9107fd14bb47171e08b5020021594835c779dc021dd32e095a926ff9e977f1",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\spiral_stairs\\tests.rs",
+      "snapshot": "pr-working",
+      "actual_line_count": 221,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          1,
+          221
+        ]
+      ],
+      "audit_owner": "native",
+      "scope_registration": [
+        {
+          "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+          "sha256": "7e61760eddb0dcbd4ab859bcc98b997088c9ddcc1952cf36300c53f9cfe23b84",
+          "row_1based": 52,
+          "id": "NATIVE-INITIAL05-REG052",
+          "original_record": {
+            "id": "NATIVE-INITIAL05-REG052",
+            "at": "2026-10-23T05:53:39.534403+00:00",
+            "authority": "Root parallel-initial-audits-081 direct necessary roles beforebody",
+            "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/tests.rs",
+            "snapshot": "pr-working",
+            "sha256": "cc9107fd14bb47171e08b5020021594835c779dc021dd32e095a926ff9e977f1",
+            "actual_EOF": 221,
+            "material_ranges": [
+              [
+                1,
+                221
+              ]
+            ],
+            "role": "Original external existing spiral_stairs cfgtest module, full sourceonly",
+            "actual_caller": "spiral_stairs.rs16\u201317 originalmodtests; no runtime/sourcecallee expansion",
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\spiral_stairs\\tests.rs",
+            "exclusions": "Only exact material; no unregistered called factories/body expansion, no foreigngraph/sourceedits/tests execution/newcases/laterlens",
+            "status": "prospectively_registered_BEFORE_body_analysis"
+          }
+        }
+      ],
+      "scope_limits": "Exact direct firstparty role after prospective Native050-052 and independent literal Root03proof216. Keep_core material1-36 only,37blankcontext and38+reserved_cells excluded. Other two exact69/221 roles retained; originalfixture source-only. No parent/callee/foreign or other-lens credit; all prior200/208/210 qualifications retained.",
+      "source_lens_credit": "none from scope metadata"
+    }
+  ],
+  "new_overlays": [],
+  "total_variants": 2843,
+  "total_overlays": 244,
+  "mandatory_scope_qualifications": [
+    {
+      "record": "continuation/root/parallel-scope-qualification-130.json",
+      "sha256": "5dc4e5cd771612c7e050ab4af544411523317ae4b57738f1fb20f493685a50fc"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-117.json",
+      "sha256": "f3b80648900716939057b20776d756a6e37001f6910378da1a1bbaea230d348b"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-149.json",
+      "sha256": "97103899514ade32cf1e41c2794fa9c49c0cb8c6c7a2c6a4961b7492de5dc708"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-151.json",
+      "sha256": "670dd53a640b28eef7ad9d57b37f9213e1bca7117d7098691c4b0cd20c2a8f65"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-158.json",
+      "sha256": "fa0e9cc06d04fca0a0e2b5f9a333390a0ba1e71eff846a4e957c46b68b3e940e"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-170.json",
+      "sha256": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-173.json",
+      "sha256": "5763e9e965b4f4c1d402a09eab682de47336885c8d30b3c5b3d157242a496948"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-176.json",
+      "sha256": "9a321e498a00285331d4ec4fb4dc7c3a49d7bb6e3a08a44a79c2e5bf58186270"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-184.json",
+      "sha256": "5e35c8530a11d0f90bc767812758e4c504eb9ca5e776d0d1f17bf14c0853468d"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-188.json",
+      "sha256": "e15ac81028377714ef550a4cbd68546ec0fbd2ab41300f64db2a1c8686cb43ab"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-193.json",
+      "sha256": "fa718d979ab18d0f9bc7ea210e912d4cb8e971c3bbaa8702a602311d515d6e06"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-200.json",
+      "sha256": "0488f5857b999e28c0bfa68767711e5ccd0f5f7624892db7e578d0f680fa8c3c"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-208.json",
+      "sha256": "5fbee9250ddc79b5b7b1d96cf11104a38d4189b50be6afc922a7dad13ebe28c7"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-210.json",
+      "sha256": "e6967f316a6344840b02cf456d957909b3d845736e44be94ebf098ab31189b9b"
+    }
+  ],
+  "registered_rows": 3,
+  "input_pins": [
+    {
+      "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+      "sha256": "7e61760eddb0dcbd4ab859bcc98b997088c9ddcc1952cf36300c53f9cfe23b84",
+      "captured_rows": 52,
+      "selected_ids": [
+        "NATIVE-INITIAL05-REG050",
+        "NATIVE-INITIAL05-REG051",
+        "NATIVE-INITIAL05-REG052"
+      ]
+    }
+  ],
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through244-before063.jsonl",
+    "sha256": "a73ae9d6549ad3fa18a9f89c1b081508e2d464c98a8ba0e9c9b8b2341fc005a3",
+    "through": 244
+  },
+  "limits": "Three new exact firstparty spiral helper/original fixture variants2843+244overlays. Native048/049 are duplicate existing024/025/187 roles reconciled215, no newqueue/overlay;297->300 roles. No other-lens transfer or parent/callee clearance; all13initial audits then handover163."
+}

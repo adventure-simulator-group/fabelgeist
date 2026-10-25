@@ -1,0 +1,51 @@
+{
+  "id": "RIG-INITIAL06-GROUP-016",
+  "at": "2026-10-22T19:45:16.785774+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "source-construction-versus-canonical-units": {
+      "sources": [
+        "pr-working:crates/fabelgeist-armor/src/construction.rs"
+      ],
+      "comparison": "Fresh full Construction374 includes originaltests. Construction Solid/Lamellar(Tiling)/Scale(Tiling) owns source construction policy; Tiling combines Plate/Lacing and exact relation (holes needed and cord radius<=max), different from BreastplateConstruction Solid/Anime telescopingcourses. Plate uses continuous raw f32 metres plus roundness/overlap/stagger fractions and hole count; authored integer Millimeters/Permille do not have identical precision/admission. Neutral checked PositiveLength/NonnegativeLength/UnitInterval propagation is a possible connected API repair, not reason to create another length owner in Armor. Units/sign/zero differ: width/height/thickness positive, gap/hole radius zero valid, max_hole_radius deliberately uses +Infinity as intermediate no-between-row bound when pairs<=1. Keep authored first-error/correlation and source precision. Public Serde raw record/validation separate not accepted token. Trim relation actual caller is now read; lower Trim still separate pending."
+    },
+    "device-coordination-not-duplicate-GPU-owner": {
+      "sources": [
+        "pr-working:crates/fabelgeist-armor/src/gpu/mod.rs",
+        "pr-working:crates/fabelgeist-armor/src/gpu/staging.rs"
+      ],
+      "comparison": "Fresh GPUmod331/Staging77. ArmorGpu composes canonical WgpuContext/KernelCache/MeshQuery/VertexNormalKernels and owns feature lifecycle/cache policy; not independent lower device types. Staging only collects Buffer references and delegates single canonical Compute::Readback; Staged is batch-result ordinal, not byte offset/Rig ordinal/asset identity. StagedResults groups all bytes and local decode/status/prefix operations; distinct from lower single-buffer asynchronous Readback allocation. Actual ArmorGpu.scratch265\u2013273 accepts raw u64bytes then .into()canonicalGPUByteLength; host API could retain shared byte type earlier, while final native allocation is true boundary. Do not create local ArmorByteLength or assume native/private waivers. BufferLabel diagnostic strings distinct from PassParameters binding names. DevicePart public methods expose carrier/final/native status stages; ownership correct but lifecycle/state certification remains separate existing findings, no auto sealed-state clearance."
+    },
+    "shell-layout-native-address-domains": {
+      "sources": [
+        "pr-working:crates/fabelgeist-armor/src/gpu/part.rs",
+        "pr-working:crates/fabelgeist-armor/src/gpu/part/layout.rs",
+        "pr-working:crates/fabelgeist-armor/src/gpu/recipe.rs"
+      ],
+      "comparison": "Fresh part362/layout289/recipe166. Armor PartRecipe owns staged shell shape kernels/layout, PartLayout coordinates carrier-local/arena/final addresses/component shell runs, PartBuild allocates/binds/stages to BuiltPart. HingeSlot canonical localu32bufferordinal not RigJointOrdinal (hinge origin+axis written perfit), GridShape layoutdimensions not Geometry CuboidDimensions or terrain request dimensions. Extrusion codes Normal/AngleWeighted/CappedAxis/Along/Radial are one source enum interpreted in shader binding port. CoordExtrusion restricts/sourceorigin-axis data then projects to this canonical shell-layout Extrusion rather than duplicate competing code map. BuiltPart mesh fields include plateface/components/grids distinct from physical ShellMesh rest/mass/seams; no same-field-name merge. Scalar counts carrier/final/triangle/hinge are distinct domains; scratch byte arithmetic feeds existing GPUByteLength candidate, not a universal Count. Actual finish statuschecks then native decode preserves existing error-first semantics, but public/native stages not universal validity. ShellPlan is called; its own definitions not analyzed here, no blanket graph credit. part actualEOF362 qualifies old requested335\u2013369 overrun: nonexistent363\u2013369 gives no credit; actual methods/body through362 allread."
+    },
+    "chart-and-coordinate-shape-native-port": {
+      "sources": [
+        "pr-working:crates/fabelgeist-armor/src/gpu/chart.rs",
+        "pr-working:crates/fabelgeist-armor/src/gpu/coord.rs",
+        "pr-working:crates/fabelgeist-armor/src/gpu/extremities.rs"
+      ],
+      "comparison": "Fresh Chart352/Coord304/extremities78. ChartBoundary owns topology source choice, capped records bind physical fixed metres versus per-half-height scale. PlateChart grid/form metadata and CoordShell arbitrary shape-specific four-lane coordinates are different products; not duplicate shared mesh owners. Actual Chart layout/Coord spec project into canonical ShellSpec/Extrusion/PartLayout. Chart u/v material coordinates, local extrusion origin/axis, angular charts and per-shape values differ metres, probability, and Scene coordinate datums; raw arithmetic/native WGSL arrays are real algorithm ports, no blanket all-host waiver. Both Kernel wrappers compose canonical Compute::Kernel through Armor cache. Frame index selects exact host frame buffer; shellordinal, gridcount, boundarycode and passordinal retain distinct roles despiteu32. Coord WGSL actual Params/bindings pair source values, applies local reflection then fitframe, writes native hinge; supports reflected PartFrame distinction in015. Flute words physically convert canonical authored source exactly at upload. Extremity factory validates current LimbArmorDesign then only Mitten/Sabaton/Boot matches; other limb types not silently same recipient. Mitten implementation itself not read or credited from call."
+    },
+    "body-surface-reuses-canonical-rig": {
+      "sources": [
+        "pr-working:crates/fabelgeist-armor/src/gpu/body.rs"
+      ],
+      "comparison": "Fresh body229. Host BodySurface borrows raw positions/normals/faces/UV but canonical PackedRigSkin<8> and RigJointTable<[f32;8]>; GpuBody.new compares vertex cardinalities and canonical jointcounts, then native_words/as_native_slice only at actual upload. Equal count is not same Rig asset membership proof. Correspondence holds canonical QueryHits/nativeBuffers, caches RigJointCount and reconstructs PackedRigSkin::from_native after readback; Skin adds UV/weights and delegates append to canonical packedowner. This is domain-specific geometry correspondence grouping, not duplicate RigSkin/JointTable ownership. Vertex count/face count and joint count distinct. Native triple arrays/global quaternion+uniformscale states are not generic framed Building coordinate/Math Euler transform. Source finite/zero-weight normalization and publicrawDTO gaps retain other-lens qualifications; canonical names no additional validity guarantee."
+    },
+    "surface-correspondence-and-pattern-units": {
+      "sources": [
+        "pr-working:crates/fabelgeist-armor/src/pattern.rs",
+        "pr-working:crates/fabelgeist-armor/src/surface_grid.rs"
+      ],
+      "comparison": "Fresh pattern86/SurfaceGrid108. Pattern actual Plate metresf32\u2192GarmentCode centimetresf64 (*100)\u2192linearizededge\u2192metresf32 (*0.01) is explicit source-precision/unit adapter at high Armor\u2192GarmentCode dependency; no lower library imports Armor. Existingtests read actual extent/roundness evidence only. SurfaceColumn is continuous construction-columncoordinate, bracket returns two discrete columnindices+blend; signed physical SurfaceEdgeDistance::Cut metres and Rail absence separate. Not normalized UV/probability or clockfraction, so do not force UnitInterval/BP. GridShape justlayoutdimensions while SurfaceGrid adds final vertexaddresses+samples/materialcarrier correspondence; composition/different stages not duplicated products. SurfaceSample column versus unclamped carrier_column retain separate authorities aftercut. remap_vertices changes actual references coherently; public vectors/cardinality/admission remain separate concerns, not sealed type guarantee."
+    }
+  },
+  "new_findings": [],
+  "limits": "Fresh exact source-specific comparisons, all12 full bodies including originaltests wherepresent. No lower called-helper/source-role clearance or other lens/repair. Whole06 incomplete."
+}

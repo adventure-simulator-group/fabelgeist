@@ -1,0 +1,89 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-063",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "outbreak-water-material-custody-rights-and-physical-load",
+      "sources": [
+        {
+          "scope_index": 230,
+          "ranges": [
+            [
+              1,
+              2111
+            ]
+          ]
+        },
+        {
+          "scope_index": 233,
+          "ranges": [
+            [
+              1,
+              13
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "local774:M28",
+        "local774:M29",
+        "local774:M30",
+        "local774:M31",
+        "local774:M97",
+        "local774:M103",
+        "SEGO-INITIAL09-F202",
+        "SEGO-INITIAL09-F204",
+        "SEGO-INITIAL09-F205"
+      ],
+      "disposition": "connected existing material/physiology/authority and applicable-outcome support; no new unique finding",
+      "trace": "230 materialwater retains sourcefixture, immutableoutputlot and exactcontainercontribution identities99\u2013155. Transfers172\u2013238 use typedMicroliters and original/current/moved amounts with selectedcontaminantload; exposure241\u2013290 converts to dose through physicalml, notnormalizedhealth. Collection343\u2013359 exactreplays immutabletuple; livecapability/source/fixture/custody/rightsadmission360\u2013528 and postwait538\u2013590 retainprivate/publicauthority distinctions. Raw mlplanner519 versus laterreadmission595 is existingM28; fullselection677 passesMAXbutreceiver713 min(source_total), so using actualsource_totaldirectly avoidsunnecessarysentinel, notnewUnlimitedquantity. Actualmath/hash projections mayuseprimitives; earlierlotID/load/concentration/growth tuples neednamedroles. Sourceauthority1040\u20131064 projects typedOutbreakSource to tag+optionalcarrier+serializedfullsource, exact09F202; remediation1499\u20131501 tripleoptions exact09F204. Corpseprojection849\u2013974 converts clinicalstate to boundedpathologyobservations while preserving episode/privatekey version and physicaldeath/sourcecause, M97/M103. Patientautopsyevidence1311\u20131319 conditionalonmaterializedcorpse exact09F205.233 correctlyconverts absoluteanchor viaelapsed_since tocontamination duration.",
+      "qualifications": [
+        "Zeroavailablewater/zerochangedvolume/absentcontribution arelegitimate, notallnonzeroquantity. Raw publicml versus privateMicroliters and loadmicrounits are differentdimensions; do notcollapsecontaminantconcentration/load or clinical-doseMilliunits.",
+        "ExistingM28 deliberatelypreservesexactwidenedu128proration/nativebytekernels, originalfloor/round policies and noarbitrary physicalwatercap. CheckedMLtoMicro conversionisappropriatebutmustreach actualplanner/retainedapplication beforebeingdropped.",
+        "Rightsquestionsbuiltfromactualactor/fixture/object/place arecoherent. Conservative .is_ok gatekeepsavailability canbelegitimateprivatepolicy; typedcauseselsewhereM30donotimplyautomaticretry/errorbehavior. No ordinarywaterwrongquantity/unauthorizedcollect ortransactionpartialcommitproven.",
+        "Source remediation stopsfutureexposure andcasecontext; itdoesnotcureexistingillness. Current healthcheckpoint versus historicalobserverpresence deliberatelyseparate:1539\u20131648 reconstructs birth/death/course/remediation chronology, notlatestflags. Missingauthority returnsNoneexplicitly; no inventedordinarymissingrow.",
+        "Patientidentity is existingcanonical Character, notarbitrarydisplayNPC. Physicallocation sourcefixture versus patientpresentationplace and actor learnedknowledge remain distinct. Historicaldiscoveryparty doesnottransferotherpartyknowledge.",
+        "MaterialID fromdomainhash max1 isdeterministicidentityencoding, not sharedSeedrole or proofofcurrentcollision. Actualsource/output IDcollisiongates needpreservation; no globalIDuniquenessclaim.",
+        "Sourcefixture script assertions and guardedtests embeddedhere were readonly. Snapshot source/full family notacceptedruntimeproof, no cross-lensclearance."
+      ],
+      "acceptance": "Keepcanonicalvolume/mass, materialload, source/output/container/capability and physicianfactroles across actualadapters; applicabletypedoutcomes andexplicitabsence, preserving sourceprivate/observerpublic authority and all currentclosure/roundingpolicies."
+    },
+    {
+      "id": "patient-source-authored-history-versus-private-terminal-resolution",
+      "sources": [
+        {
+          "scope_index": 232,
+          "ranges": [
+            [
+              1,
+              37
+            ]
+          ]
+        },
+        {
+          "scope_index": 231,
+          "ranges": [
+            [
+              1,
+              212
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "SEGO-INITIAL09-F307",
+        "local774:M31",
+        "local774:M97"
+      ],
+      "disposition": "exact death-history shape support and deliberate lifecycle fixture evidence",
+      "trace": "232 inputdeathkindDiseaseusesprivate_terminaltodetermineactualdeath/timestamp, CarrierAttackrequiresallowedpreterminaltimebeforeclinicalterminal and at/after symptoms. Thus authoredpresentationdeathkind, privateclinicalterminal, actualatmostnowdeath and sourcecause have different authority. Optionaltimestamp/kind pair is exact09F307, normalgeneratorassociationcoherentwhereknown.231 guardedfixtureexplicitlyassertscontextreleasewhilehealthactive, historicalsuppressionremainingtrueatpriorobserverminute and laterindependentrecovery/deathcleanup.",
+      "qualifications": [
+        "Carrier chronologicalclamping iscurrentpolicy; donotinventuniversalstrictlypositiveminute orforceordinaryattackafterdeath. None authoreddeathkind remainsnoauthoreddeath despiteprivatecourse terminalhandledelsewhere; no newclaimallpatientsshoulddie.",
+        "Fixtureeditsgeneratedexposure tooneexistingresident purposefullyisolatematerialization, notnormalgenerationproof. Constantsandclonedrows deliberatefixturestate; no tests/reducersrun."
+      ],
+      "acceptance": "Retain actualcause-ownedtimestamp and authored-versus-realizedhistory; physicaldeath/publicknowledge/contextrelease/healthstate staydistinct and actualendpoint/tiebreakpolicypreserved."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

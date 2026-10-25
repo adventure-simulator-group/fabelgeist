@@ -1,0 +1,16 @@
+diff --git a/crates/adventuresim-tactical-client/src/camera/collision/tests.rs b/crates/adventuresim-tactical-client/src/camera/collision/tests.rs
+index dfd21216d..ff058c6ae 100644
+--- a/crates/adventuresim-tactical-client/src/camera/collision/tests.rs
++++ b/crates/adventuresim-tactical-client/src/camera/collision/tests.rs
+@@ -108,10 +108,9 @@ fn assert_clear(
+         assert!(
+             contact.is_none_or(|contact| contact.penetration <= 0.0001),
+             "camera at {position:?} penetrated obstacle at {:?}: {contact:?}",
+             obstacle.position
+-        )
+-        .unwrap();
++        );
+     }
+ }
+ 
+ #[test]

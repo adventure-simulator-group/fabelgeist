@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-946",
+  "at": "2026-10-25T17:18:20.537153+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1124,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/claims.rs",
+  "sha256": "19ecf9355e0b4d4745fc425ac8c9f8f38f238fc9bb89dc91d4c2da28d0ec3c3a",
+  "actual_compared_ranges": [
+    [
+      1,
+      1160
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Prior slices retained.761\u20131160 pipeline decoding/process validation, canonical event/observation/recollection/claim row projection and selected conflict checks, immutable generated site and report admission and complete testimony staging/projection setup consumed. All serde_json calls reuse existing typed codecs; no handwritten trait/serializer. Explicit hidden/private-to-safe mapping and context-specific equality retained.",
+  "first_unfinished": {
+    "scope_index": 1124,
+    "line": 1161
+  },
+  "execution": "none"
+}

@@ -1,0 +1,256 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-519",
+  "at": "2026-10-25T15:56:19.808232+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 908,
+      "source_id": "pr-working:crates/adventuresim-core/src/courtship.rs",
+      "sha256": "df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45",
+      "actual_EOF": 1153,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/courtship.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/courtship.rs",
+        "sha256": "df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45",
+        "bytes": 40371,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-db-additional-sources.json",
+            "ranges": [
+              [
+                1,
+                1153
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-SUPP-DB-004"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+            "row": 49,
+            "read_ranges": [
+              [
+                1,
+                180
+              ],
+              [
+                190,
+                355
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-HOME-029"
+            ],
+            "read_status": "explicit_supporting_definition_ranges",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/courtship.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 210,
+            "read_ranges": [
+              [
+                1,
+                1153
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-RELATIONSHIP-031"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/courtship.rs"
+          },
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 237,
+            "read_ranges": [
+              [
+                1,
+                1153
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-COURTSHIP-040"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/courtship.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 14,
+            "read_ranges": [
+              [
+                516,
+                605
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-STRATEGIC-002"
+            ],
+            "read_status": "exact_owner_and_receiving_bodies_read_remaining_unclaimed",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/courtship.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root",
+          "camera",
+          "rig",
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-RELATIONSHIP-RECEIVERS-030",
+            "json_pointer": "/related_current_sources/0",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/courtship.rs",
+            "read_ranges_as_recorded": [
+              [
+                85,
+                145
+              ],
+              [
+                575,
+                660
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/courtship.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/courtship.rs",
+              "sha256": "df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45",
+              "read_ranges": [
+                [
+                  85,
+                  145
+                ],
+                [
+                  575,
+                  660
+                ]
+              ],
+              "scope": "Actual reached helpers/codec/parsed state/numeric/hash/RNG definitions only; no full unrelated file credit outside ranges."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-031",
+            "json_pointer": "/additional_fresh_sources/0",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/courtship.rs",
+            "read_ranges_as_recorded": [
+              [
+                85,
+                145
+              ],
+              [
+                575,
+                660
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/courtship.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/courtship.rs",
+              "sha256": "df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45",
+              "read_ranges": [
+                [
+                  85,
+                  145
+                ],
+                [
+                  575,
+                  660
+                ]
+              ],
+              "scope": "Actual reached helpers/codec/parsed state/numeric/hash/RNG definitions only; no full unrelated file credit outside ranges."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 299,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1153
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Display",
+          "type": "CourtshipRejectionCode",
+          "lines": [
+            [
+              76,
+              80
+            ]
+          ],
+          "disposition": "KEEP small exactstable as_str/write_str; no owningDisplayderive."
+        },
+        {
+          "trait": "FromStr",
+          "type": "CourtshipRejectionCode",
+          "lines": [
+            [
+              82,
+              102
+            ]
+          ],
+          "disposition": "KEEP exactcase machinecodes and Err(()); enum-assoc optionhelper alone does not eliminate standardtrait/errorglue."
+        },
+        {
+          "trait": "Iterator",
+          "type": "DuePeriods",
+          "lines": [
+            [
+              300,
+              312
+            ]
+          ],
+          "disposition": "KEEP stateful inclusive due-date progression, checked finite timeline termination, cursor updates. No structural derive."
+        }
+      ],
+      "existing_derives": [
+        "CourtshipRejectionCode and CourtshipRejection structuralSerde41/104",
+        "HousingTier structuralSerde+cfgSpacetimeType196\u2013197",
+        "housing/payment/morale/interval/conception/dispositionrecords structural or Defaultwhereappropriate"
+      ],
+      "absence_basis": "Full1153 personally consumed514\u2013519, including custom reducer string-ABI envelope, housingcatalog validation, payment/morale/time/setnormalization/deterministicseedpolicies and all existingfixtures. Other impls/functions semantic; no extra mechanicalcodec. Childidentitymodule separate pendingrole."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Courtship native machinecodes, due timeline, reducerenvelope and strategic policy",
+      "disposition": "Keep fixedABI codes/parser and semantic time/state computations; no new derive suggestion or later-lens clearance. Sourcefixtures onlyread."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 909,
+    "source_id": "pr-working:crates/adventuresim-core/src/courtship/child_identity.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

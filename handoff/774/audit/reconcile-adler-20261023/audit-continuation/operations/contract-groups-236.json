@@ -1,0 +1,176 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-236",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+      "sha256": "62a3215d6f52174d7351776d55c5f7f07adf340abada8e8aff653d674f389095",
+      "actual_EOF": 135,
+      "actual_compared_ranges": [
+        [
+          1,
+          135
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "sha256": "3e29916a9d570f6e0d12ffb54541ee018fb068902a4e5b6c0f744db9971d9ba9",
+      "actual_EOF": 100,
+      "actual_compared_ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/mod.rs",
+      "sha256": "75fc12083762ad42e6fa03e9dbbd10e448c72c7940847b8c105add09c96e3c66",
+      "actual_EOF": 86,
+      "actual_compared_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+      "sha256": "d2eeb3c98817ee0e266094c559b48ef3736dc8b9fcdbcd975a9f47f637213222",
+      "actual_EOF": 217,
+      "actual_compared_ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/sample_tick.rs",
+      "sha256": "ce44941a09ab6edf1bfe96d5617ad84d777c4bc3e0c8735d65ed6b369d727990",
+      "actual_EOF": 110,
+      "actual_compared_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+      "sha256": "62a3215d6f52174d7351776d55c5f7f07adf340abada8e8aff653d674f389095",
+      "actual_EOF": 135,
+      "actual_compared_ranges": [
+        [
+          1,
+          135
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "sha256": "3e29916a9d570f6e0d12ffb54541ee018fb068902a4e5b6c0f744db9971d9ba9",
+      "actual_EOF": 100,
+      "actual_compared_ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/mod.rs",
+      "sha256": "de9811b3907cc3d97cd41b77b27c02d459a32275b5e813ee589b0cf1b8b9e4c9",
+      "actual_EOF": 90,
+      "actual_compared_ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+      "sha256": "d2eeb3c98817ee0e266094c559b48ef3736dc8b9fcdbcd975a9f47f637213222",
+      "actual_EOF": 217,
+      "actual_compared_ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/sample_tick.rs",
+      "sha256": "ce44941a09ab6edf1bfe96d5617ad84d777c4bc3e0c8735d65ed6b369d727990",
+      "actual_EOF": 110,
+      "actual_compared_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Finite authored angular/length/temporal operations",
+      "source_ranges": {
+        "authored_angle.rs": [
+          [
+            1,
+            135
+          ]
+        ],
+        "measurement.rs": [
+          [
+            1,
+            100
+          ]
+        ],
+        "response_parameters.rs": [
+          [
+            1,
+            217
+          ]
+        ]
+      },
+      "disposition": "Complete exact P16 bodies and fullactualPRdeltas consumed. Degreesradian conversion shrinksfiniteangle/speed, signedanglesunwrappedintentional; nonnegativehalf admitsvalidsubnormal0. PositiveAnimationDuration excludes0, sample_span multipliesthencheckscomputedfinite and returns zeroelapsedwheninterval0. ResponseRate expfraction permitsfiniteoperand exponentoverflow to-negativeInf because exp(-Inf)=0 yieldsvalidfullresponse; linearfractionmin1 explicitresponsecap. InertialLean gain interpolation nonnegativefiniteendpoints and unitfraction readmitsresult, preservesgains>1. Compression checkscomputedfinite and orderedmin/max BEFOREclampthenHeightDistanceadmission. ReferenceAcceleration/LookDistribution allowtinypositivefractionaldivisors and returnrawkernelratio; they can produceInf fromfiniteinputs, so actual completeangle/lean caller mustadmitoutput. Do not arbitrarilybounddivisor>=1 orwrapeachnativeintermediate; no ordinary badconfiguration/consumerescapeprovedhere. MuscleTone/AngularStiffness finite unboundednonnegative gains andcorrelatedkernelvalidity remain actualconsumerdependencies."
+    },
+    {
+      "contract": "Sample coordinates, spans and deliberate endpoint policies",
+      "source_ranges": {
+        "sample_tick.rs": [
+          [
+            1,
+            110
+          ]
+        ],
+        "mod.rs": [
+          [
+            1,
+            86
+          ]
+        ]
+      },
+      "disposition": "Distinct coordinate/spanfullu64. Checkedrequiredcoordinate add/sub rejectsoutofrange; deadline saturation preventspastwrap; consecutivecaptureclockexplicitlywrappingnext/delta admitsMAX->0. Do not globallyreplacewraporsaturationwithoutactualrecipientsemantics. Positive duration*rate quantization explicitlyrounds/min1 thennativecast saturates toMAXevenfiniteproductoverflow; successfulspan not byitselfproofrepresentablearray/workextent, actualcollectionconsumer mustowncapacity. No isolatednewordinaryoverflowfinding fromintentionalpolicy. PRmodaddscontinuation_parametersexports/moduleonly; nottransitivebodycredit. Modtestinclude doesnotcreditunreadtests. No projectexecution or sourceedits."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "10 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-tactical-core/src/combat.rs"
+}

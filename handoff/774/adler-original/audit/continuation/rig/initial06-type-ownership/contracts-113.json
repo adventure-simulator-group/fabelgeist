@@ -1,0 +1,70 @@
+{
+  "id": "RIG-INITIAL06-GROUP-113",
+  "at": "2026-10-23T02:29:07.730663+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "rig-binding-and-reduction-ownership": {
+      "comparison": "Fresh animation_preview/binding58, colliders26, morph hair55, exportskinning63 and rigged60. All actual joint ordinal/name/table/count/packed-skin fields reuse canonical low fabelgeist-rig while points/faces/weights use actual numerical/Bevy/export buffers. Joint ordinal versus vertex index versus nativeu16 word remain different; conversion at Mesh attribute/glTF byte append is real external native port. ClothBinding Unweighted versus Weighted means skin payload availability, not body membership/physicalclothvalidity. ArmorSkin component composes BodySkin and posed_colliders generates rest/end/offsetfaces numerical output, no independent canonical rig schema. RiggedMesh borrowed geometry/skin/parent/name/morph table projection differs from full MHR model/native tensors; transformed native [f32;8] state and metre units do not become Scene point. RiggedShell independent armor topology versus body-topology borrowed-skin selection is purposeful and cannot share indices blindly. Fresh canonical Rig skin1-114: strongest_four73-90 explicitly owns shared Bevy/glTF VEC4 reduction combining duplicates then sorting/tieordinal/top4+normalizing. Exportskinning already reuses it; previews skin_mesh15-50 independently sorts eight individual pairs, takes4, normalizes orfallbackweight0=1. Same target semantics/port has competing operation owner with actual duplicate/zero policy differences (F032), no normal asset mismatch asserted. Hair whole_joint->PackedRigSkin::repeated source count is proper canonical use, not second identity.",
+      "disposition": "Keep canonical Rig data/operation owners through actual native output; consolidate competing VEC4 reduction only after explicit duplicate/zero policy decision and earlier canonical aggregate admission finding."
+    },
+    "clothing-fit-borrowed-surface-and-errors": {
+      "comparison": "Fresh ArmorLayerSurface54, ClothingError48/fitting49/rig_selection41/validation28 and rig-quality validation62. Borrowed ArmorLayerSurface projects selected named morph realization plus matching triangles/skin for layering; it is not duplicate owning GeneratedArmor or generic ShellMesh. It checks actualcount/index conditions but does not authenticate same rig asset; public projection cannot claim that. ClothingPieceName open garment display identity differs from RigJointName and canonical library path/name; ClothingFaceContext retains rejected rawtriangle slots, so do not replace it with admitted vertex/rig ordinal. ClothingError composes GeometryError and RigJointLookupError as typed sources appropriately. Fitting preserves canonical SignedLength until normal*offset numerical metre equation, true numerical port; negative/zero offsets valid. The rejected out-of-range face intentionally remains rawu32 in typed diagnostic, not nonzero identity. Skin_family operates on canonical exact open names and explicit owner_twist prefix including unfamiliar suffixes, not canonical RigJointPart classification; preserve authored policy rather than making membership parser stricter. Rig-quality branch adds actual shared extent/count validation before same vertex validator, not a new accepted geometry owner; preserve PR versus branch delta, no hash/equal-bound sameasset assumption.",
+      "disposition": "Preserve borrowed realization views, canonical signed offset/error identity and exact source-frame/skin-family policy; no competing complete mesh owner introduced in these short files."
+    },
+    "device-recording-cache-and-compute-port": {
+      "comparison": "Fresh DeviceBody26, DeviceRecording34, gorgetsections65 actual WGSL source. DeviceBody wraps OnceLock<GpuBody> toown one realization upload, not a second GPU buffer schema or accepted-body certificate. DeviceRecording part+frames/checks means pending execution batch, not validated BuiltPart; DeviceCheck deviceasync versus finishedmesh closures own different validation stage. Type aliases denote callback shape, not compatibility aliases for replaced domain APIs. Gorget BANDS WGSL clips actual triangles into section min/max arrays and writes device fit offsets: rawvector/slot/infinity words are actual numerical GPU intermediate layout, not host-level canonical measurements. No native-prefix waiver for untraced helper/index/finite/correlation obligations; full shader arithmetic correctness belongs other lenses. No new domain owner competing here.",
+      "disposition": "Keep pending recording, validated result, cache identity and actual native GPU layout distinct; shared host leaves retained before packing."
+    },
+    "artist-color-palette-retention": {
+      "comparison": "Fresh clothing_material16 plus exact supporting ClothingSpecification::for_surface75-104/ArmorMetal1-46. Canonical EquipmentMaterial10 drives palette, not another steel identity enum. Color produced as artistRGBAfloat and retained unchanged into GarmentSpecification.base_color100 before export; Metal.color28-30 takes RGB projection and default procedural scratch/engraving policy, a different material product. RiggedShell41-44 explicitly artist-facing sRGB, with later glTF linear conversion, so preserve color space and HDR/signed/alpha policy rather than raw4=UnitInterval. This extends existing F005 canonical shared host color migration: raw retention is not waived merely because final consumer is a renderer. Metallic/roughness/PBR parameters and Metal procedural material are not the same complete record as plain Color; no gamma/double-conversion claim from these snippets.",
+      "disposition": "F005 shared canonical host color remains applicable; keep actual sRGB/linear/native conversion and distinct material properties."
+    },
+    "character-lod-versus-lower-model-owner": {
+      "comparison": "Fresh CharacterLod39/model_controls40 and supporting existing-scoped MHR model17-48/113-126/150-166/187-204. CharacterLod privateu8 checks MIN..MAX4-6 from MHR constants and maps exact MHR vertexcount2461/971/595. MhrConfig.lod remains publicrawu8; three MHRloaders repeat exactly4-6 admission. These are the same MHR asset detail identity (F031), not ArmorDetail runtime/bakesource or terrain Vista level/ring. Coherent authoritative owner is low fabelgeist-mhr; move/reuse checked selector there and retain through config/loader, deriving formatpath/array index only at true native selection port. UI Slider numerical storage is actual egui mutation boundary but current conversion/check should lead to canonical retained selection after UI. Fixed vertexcount display metadata may stay presentation or canonical model metadata; no need whole UI into low library. No automatic imported alias/deprecatedtype or branch fallback.",
+      "disposition": "F031 move shared checked MHR detail selector to defining library; preserve distinct armor/vista policies and 4-6 native asset identity."
+    },
+    "export-and-library-boundaries": {
+      "comparison": "Fresh glb38/sockets57/library_name52. glb writes actual GLTF magic/version/chunk/padding/byte lengths; nativeu32 length encoding is real format boundary, does not justify untraced lossy representability assumptions under ownership lens. Socket exports canonical named ROOT->rig ordinal until original-order Vec node lookup, then actual JSONtransform/nativeUV/attachmentkey fields; object/joint/index identity remains distinct. LibraryName trims and requires nonempty but allows arbitrary internal text; it is user library entry name, not canonical rigjoint grammar, authored character name, file path or global catalogue ID. Shared UTF8storage/predicate does not imply same concept. Correct placement near owning studio library, no need neutral global stringname type.",
+      "disposition": "Preserve actual export wire adapters and purposeful user-library naming owner; arithmetic/format bounds retain earlier/later source-specific obligations."
+    }
+  },
+  "supporting_partial_current_sources": {
+    "fabelgeist-mhr/src/model.rs": [
+      [
+        17,
+        48
+      ],
+      [
+        113,
+        126
+      ],
+      [
+        150,
+        166
+      ],
+      [
+        187,
+        204
+      ]
+    ],
+    "fabelgeist-rig/src/skin.rs": [
+      [
+        1,
+        114
+      ]
+    ],
+    "character-creator/src/clothing.rs": [
+      [
+        75,
+        104
+      ]
+    ],
+    "character-creator/src/armor_metal.rs": [
+      [
+        1,
+        46
+      ]
+    ]
+  },
+  "limits": "All listed short20 source bodies fresh full; supporting sources only narrow current roles, prior full proofs separately preserved. No shader/SDK wholegraph exemption or new source/reg; native kernel formulas/ABI bounds not independently certified by ownership verdict. Audit then handover/no edits or execution."
+}

@@ -1,0 +1,156 @@
+{
+  "id": "CONT07-F102",
+  "at": "2026-10-23T22:42:43.164650+00:00",
+  "classification": "source-confirmed duplicated default root coordinate policy with conditional dimensional effect; no generated recipe/run claimed",
+  "title": "Axe outline caps its default root while thickness reconstructs an uncapped root",
+  "sources": [
+    {
+      "scope_index": 2107,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/blades.rs",
+      "sha256": "fcc04f50403bdcd25927bf4e6412ffdea4fc6c18a6c193a8e224b049e3477171",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/model/blades.rs",
+      "ranges": [
+        [
+          9,
+          77
+        ]
+      ]
+    },
+    {
+      "scope_index": 2118,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/shapes.rs",
+      "sha256": "1bdea66bbc76b2483d53a48a954b78b725ae186d4121befd5781664c8a71e0d0",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/model/shapes.rs",
+      "ranges": [
+        [
+          80,
+          86
+        ]
+      ]
+    },
+    {
+      "scope_index": 2132,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation.rs",
+      "sha256": "e40db02777c0f7401b0e90bc493f420be7630091f469a9baa7f0ef1a6f7c965a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/validation.rs",
+      "ranges": [
+        [
+          112,
+          202
+        ]
+      ]
+    },
+    {
+      "scope_index": 2136,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/blades.rs",
+      "sha256": "3fb5785ee55629d966055979c2414e4b1f7daba4e1599cd0afc575285a407e39",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/blades.rs",
+      "ranges": [
+        [
+          45,
+          84
+        ]
+      ]
+    },
+    {
+      "scope_index": 2143,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/graphs.rs",
+      "sha256": "68fc28e52bc54754732311b7e557d85daab7b99b66c7f7b345227406838f7981",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/validation/graphs.rs",
+      "ranges": [
+        [
+          1,
+          39
+        ]
+      ]
+    },
+    {
+      "scope_index": 2144,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/melee.rs",
+      "sha256": "7b1ffa336f641cd42556a1104809cad88c913948710a3aa426b5f5f37302e616",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/validation/melee.rs",
+      "ranges": [
+        [
+          34,
+          41
+        ]
+      ]
+    },
+    {
+      "scope_index": 2115,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/placement.rs",
+      "sha256": "243d594fbb5904b60ec01daa6e25decb1ace121320b548926f0400a909222fc3",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/model/placement.rs",
+      "ranges": [
+        [
+          34,
+          89
+        ],
+        [
+          109,
+          151
+        ]
+      ]
+    },
+    {
+      "scope_index": 2849,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/extents.rs",
+      "sha256": "7a667b7bb903784bfd856046539b87174d517867f7b5992e22988980b69e78d6",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/model/extents.rs",
+      "ranges": [
+        [
+          19,
+          51
+        ],
+        [
+          136,
+          148
+        ]
+      ]
+    },
+    {
+      "scope_index": 2851,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/mounts.rs",
+      "sha256": "524bc66482c68f2d286db6de9a009b408c0eaa9863689ea78f21bfe00e0ed9dd",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/model/mounts.rs",
+      "ranges": [
+        [
+          133,
+          172
+        ]
+      ]
+    },
+    {
+      "scope_index": 2113,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/mod.rs",
+      "sha256": "485c06d11de0a974d67d404c21cde555b41f4126f6a3ffdac7cf5ba7727dc8ad",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/model/mod.rs",
+      "ranges": [
+        [
+          81,
+          123
+        ]
+      ]
+    }
+  ],
+  "earliest_failed_contract": "The planar root and the origin of thickness taper are both the axe root coordinate. For absent root_width the outline uses min(width*.18,.055), while thickness_root independently uses width*.18. They disagree whenever width>.055/.18; explicit root_width agrees.",
+  "counterexample": "Public API recipe with one Axe width.5,height.25,thickness.01,root_widthNone and other optional defaults, materialSteel, idhead, attached at Origin to weapon.root. Dimension gate admits these values; Axe proportion gate only constrains present root/shoulders. Graph/ranged/shield stages have no additional Axe restriction. Placement has zero axial range; implicit weapon parent without shaft bypasses parent-contact bounds. Source path therefore reaches actual shaped_plate with outline root.055 but thickness_root.09. At actual root x=-.055 the thickness formula already applies positive taper(.09-.055)/(edge+.09), reducing thickness below authored.01; with root_widthSome(.055), same outline uses root.055 and no root-edge reduction. No geometry generation/triangulation fixture was run; no ordinary catalogue occurrence or image claimed.",
+  "actual_recipient": "2118 Shape::Axe directly dispatches to model/blades::axe. Its shaped_plate thickness callback produces the actual material solid, then2113 Construction uses High sources for physical integration and requested detail for rendered geometry. This is a source-level API/default branch effect, not only metadata.",
+  "qualification": "Exact typical catalogue axes may all remain below threshold; no assertion otherwise. Root-width and blade breadth/height are intentionally distinct authored dimensions, but both root calculations here claim the same root boundary. The documented meaning of overall thickness outside this root taper is not broadened. Full numerical construct success/exact mass or rendered image remains unexecuted.",
+  "connected_repair": "Derive effective root_width once under its authored default/cap policy and use that same value for outline and thickness taper basis; preserve explicit-root behavior and shape orientation/detail policy. Coordinate any decision to change root default rather than silently choosing a second formula.",
+  "acceptance": "For absent and explicit matching root, identical admitted large-axe outlines have identical thickness values at root and corresponding profile points; smaller current recipes retain geometry and physical results. Source-only audit, no new tests/checks.",
+  "related_not_alias": [
+    "Root M82 physical pose/geometry propagation",
+    "Root F38 zero-volume component admission"
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "final_qualification": {
+    "evidence": [
+      "CONT07-CONTRACT-661"
+    ],
+    "disposition": "actual-default-coordinate-divergence; explicit intended-geometry policy unresolved",
+    "limits": "Earlier full public recipe/graph witness preserves exact source branch effect, not executed constructive success. Outline root and virtual thickness taper origin could intentionally differ; no documented equality/overall-thickness contract established. No ordinary catalogue geometry failure claimed.",
+    "repair_gate": "Do not automatically canonicalize both formulas until intended physical root/taper policy is explicit; if same datum intended, deriveonce. Keep exact defaultbranch witness andexplicit-root positivecase."
+  }
+}

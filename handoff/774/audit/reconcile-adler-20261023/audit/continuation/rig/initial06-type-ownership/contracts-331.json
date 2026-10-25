@@ -1,0 +1,25 @@
+{
+  "id": "RIG-INITIAL06-GROUP-331",
+  "at": "2026-10-23T09:04:19.561571+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "underlayer-cut-shell-native-skin": {
+      "comparison": "Workspace owns cut table/sources; LayerOffsets outer/inner are local signed shell offsets projected directly into GPU Params. SkinSources groups native UV/joint-index/weight buffers. WGSL combines three source corners and up to24 duplicate joint shares, keeps strongest8 with lower-joint tie policy and normalizes at actual newly computed skin boundary. This is distinct from preview8→4 contraction F032, not blanket permission for divergent canonical reduction semantics. Existing rig IDs reach only native u32 buffers here; no independent anatomical enum/rig asset identity. POINT_WORDS and shared status are imported; no per-column semantic branding at ABI.",
+      "disposition": "real computed native shell/skin math over canonical body topology; preserve exact reduction policies"
+    },
+    "weather-occlusion-height-texture": {
+      "comparison": "Rasterizer retains Option<Elevation<Scene>> per shelter cell, compares canonical SceneElevationRange and PositiveLength before actual packed texture encode. Native tree transform/radii/texel rectangle/along interpolation math are real numerical ports. Rgba8Unorm here carries two encoded height bytes and validity alpha, not perceptual color: F005 must not consolidate all4-byte/vector lanes into color. Tree signature canonical Seed::derive is projected to cache fingerprint word, not durable Scene identity or stochastic asset Seed interchange. Typed scene elevation supports F023 without world-geographic bounds. Original branch-footprint fixture source only.",
+      "disposition": "canonical scene elevation plus legitimate numerical/texture ABI boundary"
+    },
+    "anime-armor-reference-fixtures": {
+      "comparison": "Original fixture uses canonical AnimeDesign/BreastplateConstruction/Permille/Millimeters plus TorsoSurfaceInput and canonical rig-index buffer. Rigid course topology/ranges/morph correspondence are checked as geometry relationships; native positions/quaternions/weights/indices operate at test mesh port. Permille examples1300 show it is scaled magnitude, not universal <=1 fraction; no UnitInterval replacement. Distinct spine-joint ordinals and component topology cannot collapse into BodyPart taxonomy. Source only, no GPU, file output or test execution.",
+      "disposition": "original canonical design/rig/mesh relationship reference with signed/scaled-unit distinctions"
+    }
+  },
+  "supporting_existing_findings": [
+    "F005",
+    "F023"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit."
+}

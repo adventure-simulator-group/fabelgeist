@@ -1,0 +1,39 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-445",
+  "at": "2026-10-25T15:38:42.491446+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 857,
+  "source_id": "pr-working:crates/adventuresim-core/src/autoresolve.rs",
+  "sha256": "cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+  "actual_compared_ranges": [
+    [
+      1,
+      440
+    ]
+  ],
+  "existing_derives": [
+    "Combatant/CombatantStrategicState Clone Debug",
+    "BattleResolution/BattleAttackOutcome Clone Copy Debug PartialEq Eq Serialize snake_case",
+    "CombatantOutcome/BattleLogEntry/telemetry Clone Debug Serialize",
+    "BattleSummary Clone Debug Default Serialize",
+    "CombatTerminalCause Clone Copy Debug PartialEq Eq Serialize"
+  ],
+  "trait_inventory": [
+    {
+      "trait": "Display",
+      "type": "BattleAttackOutcome",
+      "lines": [
+        404,
+        413
+      ],
+      "disposition": "KEEP necessary small fixed snake_case labels, write_str behavior; owning no ready equivalent formatter derive."
+    }
+  ],
+  "analysis": "Actual additional221\u2013440 consumed: combat native state/checked speed/work conditions, semantic safety-margin assessment and outcome/log/telemetry declarations. Manual BattleAttackOutcome Display404\u2013413 fixed stable labels retained: no existing derive_more in849 and Serde enum codec is not Display; enum-assoc would still require Display glue rather than remove boilerplate. Current remainder441\u20132878 incomplete.",
+  "first_unfinished": {
+    "scope_index": 857,
+    "line": 441
+  },
+  "execution": "none"
+}

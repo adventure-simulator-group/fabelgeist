@@ -1,0 +1,94 @@
+{
+  "head": "82cb2a3acccc852bba6a7ef9c706c337ba9fe765",
+  "recorded_at": "2026-10-20T23:03:36.143459+00:00",
+  "status": "Further P06 source review and fixes; uncommitted, not compiled, not published, not accepted.",
+  "traces": [
+    {
+      "family": "Weather native image owner fixtures",
+      "location": {
+        "file": "crates/adventuresim-tactical-client/src/presentation/weather.rs",
+        "line": 349,
+        "source": "fn heightmap_encoding_preserves_terrain_range()",
+        "sha256": "7bf405b24f87253c1c03c0543cc48a02d0a9c49e86fdaef8af0b1ecf04aea236"
+      },
+      "finding": "Three existing fixture expressions still accessed the now-private image field from a sibling module. They use into_image() now. No test, input, case or assertion was added."
+    },
+    {
+      "family": "Weather shelter elevation retention",
+      "producer": {
+        "file": "crates/adventuresim-tactical-client/src/presentation/weather/occlusion.rs",
+        "line": 140,
+        "source": "shelter_heights: &mut [Option<Elevation<Scene>>]",
+        "sha256": "9b696f7fce03a5ff8d4a3c6b41039c12dfd40120e378987e5d9c5b75d4204faf"
+      },
+      "owner": {
+        "file": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+        "line": 129,
+        "source": "pub fn max(self, other: Self) -> Self",
+        "sha256": "874795ec5e99ead6f7579776576788c7285cbed1f7a9a38467e831dbae26ee27"
+      },
+      "trace": "The complete native branch-to-texel calculation admits Elevation<Scene>. Optional raster cells keep that owner across the rasterizer/image boundary. The canonical max operation selects with the same f32::max and retains frame and finiteness. Native normalization and byte quantization project only in the actual image encoder.",
+      "authority": "Use the existing generic scene-datum elevation for woody shelter; it is not an architectural floor/support observation or a new parallel height wrapper.",
+      "failure_policy": "GeometryError propagates from a nonfinite completed shelter height or invalid positive encoding span. The replacement image completes before acquiring its publication mutation and before updating the tree signature. A failed replacement publishes neither a partial image nor a matching signature.",
+      "existing_case": "The single moved large-limb raster case keeps the same branch, transform, terrain and four assertions; its existing call handles the Result and its final comparison projects metres."
+    },
+    {
+      "family": "Strategic conversation placement producer",
+      "producer": {
+        "file": "crates/adventuresim-tactical-client/src/strategic_scene/staging.rs",
+        "line": 14,
+        "source": "pub(super) struct ConversationPose",
+        "sha256": "a99867d097200f7b38b5034e7080a70a3286fedbc5c9956320cd7468da2e627c"
+      },
+      "consumer": {
+        "file": "crates/adventuresim-tactical-client/src/strategic_scene/mod.rs",
+        "line": 134,
+        "source": "let pose = venue.positions[rank % venue.positions.len()];",
+        "sha256": "9276f894de4e67d5ef0318bd484b5bbd2677256164dbd9f4c9d58e9f765f2e45"
+      },
+      "trace": "ConversationPose::in_building admits the completed building-local-to-scene anchor once and returns it with the original native facing quaternion. Venue.positions retains those records; primary venue focus and stable resident selection read their checked anchors directly. RetainedPerson and person/camera consumers already accept Position<Scene>. The former Transform retention and repeated Position admissions are removed.",
+      "preservation": "The old producer always authored unit scale, and its only application consumers read translation/rotation. Daylight ordering, spacing, transforms, facing, rank and fixture pose values remain. Outdoor poses and the same existing two fixture poses explicitly keep identity facing. Unrelated architectural floor-profile calculations and native lighting/clearance kernels remain separate."
+    },
+    {
+      "family": "Refinement scene-point helper handoffs",
+      "producer": {
+        "file": "crates/adventuresim-tactical-core/src/scene_input/refinement.rs",
+        "line": 69,
+        "source": "fn authoritative_surface_relief(",
+        "sha256": "ccaa12aaf76d8eaa86cf592243ff35601a20462a86c1887620e76d5237c7ead5"
+      },
+      "trace": "All six clod/drainage/creep/strata/boulder/root helper signatures retain ScenePlanPoint from the dispatcher. Each projects at its own complete native formula. Dimensionless noise coordinates and local scalar component math remain native until the complete height sum is admitted.",
+      "comparison_report": "P06-relief-projection-source-comparison.json",
+      "comparison": true
+    },
+    {
+      "family": "Existing settlement fixtures",
+      "location": {
+        "file": "crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement/tests.rs",
+        "line": 46,
+        "source": "let point = member.contact.centre();",
+        "sha256": "67fb45053ef79aa86a9009f0c8c15a2d853425f5124096db6d07cc9cbafabe93"
+      },
+      "trace": "Two obsolete admissions around an already checked contact centre are removed. A separate native-offset fixture admits its completed point once before containment, source and support queries. Existing numerical inputs and assertions remain."
+    }
+  ],
+  "review_coverage_this_turn": [
+    "Presentation changed-file diff, connected terrain contact raster/quad mask, tree retention/bark/species/hash, scatter, vista and weather bodies",
+    "Strategic/art changed-file diff, connected staging producer and retained venue/person/error consumers",
+    "Core changed-file diff, complete checked query/range owner, admitted refine/rewrite paths, ground/property support, furniture/gardens, reservation, refinement and volumetric source bodies"
+  ],
+  "native_dispositions": [
+    "Terrain detail zero buffer heights are unreferenced storage only: valid[] excludes every triangle touching a missing/nonfinite vertex before indices enter Mesh. They are not support observations.",
+    "BoundedSettlementTerrain::support_heights reads Y from actual native compiled triangle buffers; it does not flatten typed SurfaceHit values. SceneElevationRange admits and reduces those native samples without absence sentinels.",
+    "Vista native helpers perform actual bilinear/triangle/LOD/seam interpolation. Their typed query owners admit the completed result; no primitive query result is stored as application support state.",
+    "Positive/nonempty native voxel-grid extrema have explicit nonempty input or caller lattice proofs and checked completion; reduction identities cannot escape as empty measurements.",
+    "The native clipping emitter, sample lattices, byte/channel encoding and dimensionless noise coordinates remain mathematical/framework ports."
+  ],
+  "remaining": [
+    "Finish current animation/capture and partial-review source reconciliation and affected call graph, not merely lexical matches",
+    "Complete both whole-P06 Code/Rule source passes, including file/module order and no-growth obligations",
+    "Publish only source-complete P06, then hosted-only checks and exact-head nonempty artifact verification",
+    "All original twenty exits remain binding; P08-P20 and the overall Goal remain unfinished"
+  ],
+  "validation_limit": "Static source/Git/text comparisons only. No local Rust/project/runtime checks, new tests/cases/assertions/fixture helpers, extra full audit wave, new agents, commit, push or merge."
+}

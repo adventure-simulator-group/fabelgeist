@@ -1,0 +1,34 @@
+{
+  "id": "CONT07-CONTRACT-466",
+  "at": "2026-10-23T22:24:53.679762+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2061,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/lib.rs",
+      "sha256": "064901692ab50417dd140de61f50e78b074753457b6084cbc770b833a92369b4",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/lib.rs",
+      "actual_EOF": 51,
+      "ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "2061 full51 reflection/iteration library has duplicate Args and SceneVistaBundleResource stand-ins for binary module linkage, explicitly not active production resource values. Current consumers are compiled against field availability, but source duplication cannot be assumed same runtime authority or eliminated without target boundary proof. Library includes real combat/mission/projection/stdb modules for type registration; no fixtures or executable checks run.",
+    "Args URL/module raw strings and enemy scale need exact native receiving semantics; stand-in defaults not evidence production accepts missing server URL or zero policy. No independent07 finding from reflection stand-in duplication alone."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2063,
+    "start_line": 1
+  }
+}

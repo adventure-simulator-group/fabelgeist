@@ -1,0 +1,48 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-412",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/tests.rs",
+      "sha256": "244ceaa77e510437e0f435b2ebc89eec78e610e1f67b74abc45382634fa4246f",
+      "actual_EOF": 1524,
+      "actual_compared_ranges": [
+        [
+          1,
+          1524
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/weighted.rs",
+      "sha256": "8453166436911f4394c507ec05f4e3bf3f52d0bb92cb9f388bb0cecbe64ceb7c",
+      "actual_EOF": 71,
+      "actual_compared_ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Animation route and sampling fixture assertions",
+      "evidence": "tests.rs:1-1524",
+      "disposition": "Whole source read: semantic read-only routing, attack contacts, sparse packet smoothing/correction, catalog endpoints/fallbacks/layers, sample cadence, visibility and bounded sequence gaps. Duplicate pose fixture checks only returned error, not builder after failure; does not discharge packet392 mutation candidate. Direct action sampling is explicit expected policy and supports packet410 temporal handoff extension. Fixtures are source assertions only, no assets loaded or tests run."
+    },
+    {
+      "contract": "Weighted contribution mutation admission",
+      "evidence": "weighted.rs:1-71",
+      "disposition": "Existing contribution computes both total and mirror total before either field write; overflow retains original entry. Coalescing keys include clip handle, layer, coherent time and physical locomotion phase. New contributions preserve zero weight anchors and distinct phase intentionally. No fresh invariant operation defect found."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture.rs"
+}

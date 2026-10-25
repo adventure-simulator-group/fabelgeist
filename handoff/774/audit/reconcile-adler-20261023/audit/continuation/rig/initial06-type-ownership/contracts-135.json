@@ -1,0 +1,49 @@
+{
+  "id": "RIG-INITIAL06-GROUP-135",
+  "at": "2026-10-23T03:58:57.021215+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-054.json",
+  "groups": {
+    "shared-semantic-animation-facade": {
+      "comparison": "Fresh full PR animation facade90 and actual complete P1686 delta/current role comparison: PR adds continuation parameter module/reexports absent P16; no copied body inference. TacticalCore shares intent/timing semantics between server and presentation; authored clip assets/evaluated bone transforms stay client. It explicitly reexports canonical Core AnimationElapsed, UnitInterval, AnimationPackId rather than defining duplicates; checked height/weight/cadence/event/phase/angle/response leaves are owned once in shared child modules. Shared intent/context belongs below tactical client/server, not as a giant persisted tick state. NonnegativeLength generic placement is existingF002; no claim every facade reexport is semantically interchangeable or lower leaf implementations fully covered. Reflected wrappers are actual engine integration rather than proof derived mutable rawfields are always accepted; previous native adapter proof remains separate. include tests.rs is a child source role, never covered by this include directive.",
+      "disposition": "Preserve canonical reexports and shared semantic intent ownership; client assets/pose/runtime transform authority remain separate. F002 generic checked length placement, no facade-as-whole-feature credit."
+    },
+    "asset-clock-coordinate-versus-clip-extent": {
+      "comparison": "Fresh full PRclient sample_values91; actual supporting loading171-181/349-376 and baking174-190 inspected within their already scoped full files. ClipDuration is finite nonnegative authored asset extent (zero allowed); loading admits actual Bevy clip.duration into LoadedClip and baking separately extends grid extent. ClipTime is finite SIGNED clip coordinate; at_phase multiplies duration by unwrapped CyclePhase and checks overflow. Neither is battle/world/authority time: do not replace ClipTime with BattleTime because both permit negative seconds. Pose interpolation/runtime elapsed spans differ asset-relative coordinates and extent metadata. Local ClipDuration role can share canonical Core elapsed nonnegative-second admission internally with preserved ClipDuration error context if its backing is composed, but keeping this asset role is meaningful; equal predicate alone does not justify deleting the type or moving asset semantics into Core server intent. Actual numerical sample tolerance and frame-rate conversion are real ports, not lazy unchanged scalar forwarding. finite_sample_value is a generic finite-only helper with a stale incomplete-migration comment; current source symbol navigation finds only declaration/import, no named caller, so no live channel policy inferred from comment. Actual noncyclic retained channel owners must be compared in their own source files, not credited here.",
+      "disposition": "Keep client-owned asset extent/coordinate distinction and existing Core cycle/time invariants; share a checked span implementation without semantic aliasing if consolidating internals. No universal signed-second wrapper or unrelated caller clearance."
+    }
+  },
+  "source_fact_refs": [
+    "contracts-001.json",
+    "contracts-002.json",
+    "contracts-037.json",
+    "contracts-132.json"
+  ],
+  "supporting_existing_scope_ranges": [
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/loading.rs",
+      "snapshot": "pr-working",
+      "ranges": [
+        [
+          171,
+          181
+        ],
+        [
+          349,
+          376
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-tactical-client/src/animation/pose_buffer/baking.rs",
+      "snapshot": "pr-working",
+      "ranges": [
+        [
+          174,
+          190
+        ]
+      ]
+    }
+  ],
+  "limits": "Only three full source roles; supporting loader/baking critical bodies do not close whole source or every call/asset/phase contract. No P16 sample_values source inferred, no tests execution/new cases/later-lens verdict."
+}

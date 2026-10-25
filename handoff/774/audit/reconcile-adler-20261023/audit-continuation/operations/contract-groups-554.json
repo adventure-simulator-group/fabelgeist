@@ -1,0 +1,81 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-554",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-physics/src/contact.rs",
+      "sha256": "1717eaf74703d45e8205f525cc260cdb0da09133ef0377331011df5867b2f436",
+      "actual_EOF": 261,
+      "actual_compared_ranges": [
+        [
+          1,
+          261
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-physics/src/wgsl.rs",
+      "sha256": "a1f915887fcad485606bdc80aae9a12f5224233a774693b02d40df0f1d1ebb95",
+      "actual_EOF": 413,
+      "actual_compared_ranges": [
+        [
+          1,
+          413
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-physics/src/contact/count.rs",
+      "sha256": "2ed4586db0eaa8890968e3f6d0bc2f9d157940a3bb7fdf618971f273c9ba5964",
+      "actual_EOF": 55,
+      "actual_compared_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-physics/src/collider.rs",
+      "sha256": "296038416d7eb39fb2a5e71bbce613acc621b6ad99e7b4e12f540d45a27fb34c",
+      "actual_EOF": 218,
+      "actual_compared_ranges": [
+        [
+          1,
+          218
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Analytic shape admission plus operations preserve meaningful distance and response under valid frames.",
+      "evidence": "Full contact261/wgsl413/count55/collider218 personally read. Host and WGSL point/box medial directions differ for zero coordinate: precise saved candidate. Degenerate sphere/capsule normal falls backY, but box shader sign zero becomes zero. Mesh closest point denominator guards and medial normal fallback read; no general proof arbitrary raw mesh finite/invertible.",
+      "qualifications": "Exact adopted RIG-ADMISSION03-F081 record_index87 consumed: invalid raw shape unit/frame admission remains separate from valid box medial operation. GPU kernels not executed. Count u32 casts, next_power_of_two, pack len*16 and record_push_out count*16 need native capacity admission; no hugeallocatedcolliderlist/currentcaller claimed.",
+      "acceptance": "Valid unit shape cannot generate zero response direction merely from valid medial point; admit native host/kernel capacities before projection while preserving empty and degenerate capsule semantics."
+    },
+    {
+      "contract": "Failed collider replacement retains coherent live list/buffer/capacity state and can retry.",
+      "evidence": "set_colliders publishes capacity before fallible allocation and buffer before fallible upload; exact conditional state trace saved. update_colliders rejects mismatch beforeupload and host copy onlyafter successfulwrite. HookChain records partialprefix into caller-ownedbatch beforeErr; caller submit/discard protocol determines effect, no automatic violation asserted.",
+      "qualifications": "No allocation/upload/submit failure induced; signature/branch source proof. Need preserve native error cause and coherent explicit invalidation if chosen.",
+      "acceptance": "Complete candidate state commit or explicit unready state; next retry allocates the required buffer correctly."
+    }
+  ],
+  "findings": [
+    {
+      "ref": "finding-box-medial-normal-554.json"
+    },
+    {
+      "ref": "candidate-collider-growth-failure-554.json"
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/fabelgeist-rig/README.md"
+}

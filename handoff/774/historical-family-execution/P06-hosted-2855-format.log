@@ -1,0 +1,60 @@
+##[group]Run cargo fmt --all -- --check
+cargo fmt --all -- --check
+cargo fmt --manifest-path crates/adventuresim-character-creator/Cargo.toml -- --check
+cargo fmt --manifest-path crates/fabelgeist-mhr/Cargo.toml -- --check
+cargo fmt --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml -- --check
+shell: /usr/bin/bash -e {0}
+env:
+  CARGO_TERM_COLOR: always
+  SPACETIMEDB_VERSION: 2.6.1
+  CARGO_HOME: /home/runner/.cargo
+  CARGO_INCREMENTAL: 0
+  CACHE_ON_FAILURE: false
+##[endgroup]
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs:59:
+ use target_speed::FootTargetSpeeds;
+ use terminal::TerminalContacts;
+ pub(super) use terrain_contacts::smoothstep;
+-pub(crate) use terrain_contacts::{measured_ankle_sole_offset_metres, sole_contact_tolerance_metres};
+ use terrain_contacts::*;
++pub(crate) use terrain_contacts::{
++    measured_ankle_sole_offset_metres, sole_contact_tolerance_metres,
++};
+ pub(in crate::animation::procedural) use track::FootTrackSide;
+ 
+ mod evaluation_clock;
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs:59:
+ use target_speed::FootTargetSpeeds;
+ use terminal::TerminalContacts;
+ pub(super) use terrain_contacts::smoothstep;
+-pub(crate) use terrain_contacts::{measured_ankle_sole_offset_metres, sole_contact_tolerance_metres};
+ use terrain_contacts::*;
++pub(crate) use terrain_contacts::{
++    measured_ankle_sole_offset_metres, sole_contact_tolerance_metres,
++};
+ pub(in crate::animation::procedural) use track::FootTrackSide;
+ 
+ mod evaluation_clock;
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs:59:
+ use target_speed::FootTargetSpeeds;
+ use terminal::TerminalContacts;
+ pub(super) use terrain_contacts::smoothstep;
+-pub(crate) use terrain_contacts::{measured_ankle_sole_offset_metres, sole_contact_tolerance_metres};
+ use terrain_contacts::*;
++pub(crate) use terrain_contacts::{
++    measured_ankle_sole_offset_metres, sole_contact_tolerance_metres,
++};
+ pub(in crate::animation::procedural) use track::FootTrackSide;
+ 
+ mod evaluation_clock;
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-server-dispatcher/examples/inspect_city_grounding/source.rs:39:
+         input: &TacticalSceneInput,
+     ) -> Result<Self, Box<dyn std::error::Error>> {
+         let stages: TerrainStages = serde_json::from_slice(&std::fs::read(
+-            request.terrain_stages
++            request
++                .terrain_stages
+                 .as_ref()
+                 .ok_or("missing terrain stages")?,
+         )?)?;
+##[error]Process completed with exit code 1.

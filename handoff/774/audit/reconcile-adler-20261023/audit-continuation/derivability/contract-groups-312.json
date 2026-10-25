@@ -1,0 +1,109 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-312",
+  "at": "2026-10-25T14:39:27.908264+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 613,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church/fittings.rs",
+      "sha256": "b404568b0b0300bd88d8b21396aadf4673ba65ebf8be5b21310ba6b3379e48b0",
+      "actual_EOF": 285,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church/fittings.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\small_church\\fittings.rs",
+        "sha256": "b404568b0b0300bd88d8b21396aadf4673ba65ebf8be5b21310ba6b3379e48b0",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "root",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 285,
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-WALL-SOURCE-CLOSURE-039",
+            "json_pointer": "/supplier_reconciliation/verified_exact_proofs/28",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/generator/small_church/fittings.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                285
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church/fittings.rs",
+              "sha256": "b404568b0b0300bd88d8b21396aadf4673ba65ebf8be5b21310ba6b3379e48b0",
+              "read_ranges": [
+                [
+                  1,
+                  285
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-029",
+            "json_pointer": "/additional_fresh_sources/28",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/generator/small_church/fittings.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                285
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church/fittings.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/generator/small_church/fittings.rs",
+              "sha256": "b404568b0b0300bd88d8b21396aadf4673ba65ebf8be5b21310ba6b3379e48b0",
+              "read_ranges": [
+                [
+                  1,
+                  285
+                ]
+              ],
+              "scope": "Only actual material source/receiving functions in these ranges; no whole-file credit outside listed ranges"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          285
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full source personally read. assemble7\u201390/belfry92\u2013172 native geometry and SmallChurchPlan mapping; private Fittings borrowed mutable state174\u2013178 with inherent part181\u2013226/band228\u2013284 checked geometry/source/native support selection. No handwritten trait/codec. Borrowed native builder and semantic constructor do not have structural derive equivalents."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "small church native fittings and borrowed builder",
+      "disposition": "No handwritten trait boilerplate. Keep checked physical/source/role mapping and borrowed mutation/ownership explicit.",
+      "acceptance": "No execution or aggregate-state/native geometry verdict; no introduced serializer for native classifier."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 614,
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church/programme.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

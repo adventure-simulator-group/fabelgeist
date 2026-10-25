@@ -1,0 +1,59 @@
+{
+  "packet_number": 112,
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory/query.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh complete literal1-21 in current turn after Native025 prospective registration/global050; independent operations comparison after03 proof, no Native05 verdict transfer.",
+      "sha256": "88a095239e91a987745462a6d940bd24f04148126ba2f0297a9365612ba6f512",
+      "actual_EOF": 21
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/buildings/window.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh complete literal production1-75 after Native033 prospective registration and global052;76blankcontext,77+tests excluded.",
+      "sha256": "f1d40643528b12fce9e1062c6a2e23e0192c6216cb5a5f645bbc624ef90b5c26",
+      "actual_EOF": 129
+    }
+  ],
+  "groups": {
+    "inventory-query": "Holder query result into_iter/flat_map and native item iterator compose collection observation without local arithmetic/index or external mutation. item_at_slot tests canonical EquipSlot then copies string reference/optional inventory ID; no numeric narrowing. This does not validate cached equipment/actual ItemOf/slot coherence, caller authorization or whole InventoryView; Camera drop/rebuild graph remains independent and unresolved.",
+    "window-decode": "Each native geometry field admitted with concrete Result before local Self returns; failure drops the local incomplete product, attaching building/opening IDs and original GeometryError before final serde formatter. No ECS insert or partial component mutation occurs in this decoder. Explicit native serialization boundary justifies formatting custom serde error; internal GeometryError is not first erased into a string catchall.",
+    "window-whole-product": "Finite positive dimensions and individually normalized directions are leaf contracts; operations-lens review of this decoder does not establish tangent/outward orthogonality, opening/owner identity binding, native frame reconstruction or controller invariants. Public immutable-component designation prevents mutable ECS queries but does not validate arbitrary whole component replacement. No new normal scene failure asserted, no transitive geometry/SDK/source-test coverage.",
+    "scope": "Exact two production helpers only; source additions and raw old contexts separately qualified in Root171/177. No source/project execution, no cross-lens verdict carry."
+  },
+  "findings": [],
+  "id": "ROOT-INITIAL04-CONTRACT-112",
+  "at": "2026-10-23T03:05:51.626571+00:00",
+  "lens": "audit-invariant-operations",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-052.json",
+    "sha256": "505a017aa0689a7100624894b037b52b479409ef9a0da1201c9fbd4f3da07fc8"
+  },
+  "mandatory_overlays": {
+    "record": "continuation/owner-range-extensions.jsonl",
+    "sha256": "5e6bb0b590c8a298ed8dc44a980d39d44f5d21a82449623f405765f23496780c",
+    "through": 236
+  },
+  "mandatory_qualification170": {
+    "record": "continuation/root/parallel-scope-qualification-170.json",
+    "sha256": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c"
+  },
+  "repair": "frozen_initial_audits_then_handover",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

@@ -1,0 +1,62 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-086",
+  "at": "2026-10-23T01:29:29.991621+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/single/tests.rs",
+      "sha256": "d219a1f527a2ea6d2eb2e0d0a4fb9a8dfbae19fca579ccc36b91fcc6d2685775",
+      "scope044_index": 1844,
+      "actual_EOF": 454,
+      "scoped_ranges_compared": [
+        [
+          1,
+          454
+        ]
+      ],
+      "actual05_comparison": "Fresh full454 original fixture source, not executed. The actual request fixture constructs matching property ID/building/bearing/FloorRegion/doorpairs and positive engineering limits, not arbitrary independent leaves. Tests preserve all doors and order-independent canonical mesh while garden/court source remains ungraded. Negative fixtures inspect same member/error boundary and exact discrepancy, unsupported expandedperimeter rejects, containedcentre cannotauthorizeoutlyingfloorvertex. Cutbank fixtures distinguish verticalphysicalcollision from occupiedfloorheight and sourceoutside retains exactdatum. Recesseddoorway union test compares coveredarea with requiredarea and keeps wholefloor plus eachapproach at same selecteddatum, not duplicateoverlappingbearing. These are existing intendedrelationship checks, no normalruntime proof or acceptance of generic arbitrarysource.",
+      "source_body_proof": "Actual complete frozen source and originalexisting fixtures personally read; no execution/newtests."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/generation/support_obstacles.rs",
+      "sha256": "275490834d4f7a36140e5d3a0739f5ce80d5a731c9d261f5645675bd4647f624",
+      "scope044_index": 1948,
+      "actual_EOF": 87,
+      "scoped_ranges_compared": [
+        [
+          1,
+          87
+        ]
+      ],
+      "actual05_comparison": "Fresh full87 including originalinlinefixture source-only. Obstacle removal reads exactaccepted grounding surfaces, derives tree/rock physicalradius plus actorcylinder/skin clearance, then retains obstacles only if their FULL expanded disc avoids every surface. Removedcount computed afterretain from actualbefore/after lengths. Uses original inputplayable spacing and refinedterrain extent; actual refinement preserves extent and actualsource obstacle-grid dimensions established073/080, no treatingrefinedsample indices asrawobstacleindices. Missinggrounding intentionallydoesnothing. Fixture explicitly exposes centre-only/barepolygon omission and stable geometry under matching region+outline reorder, not an arbitraryunpairedcollection operation. Actualbevy_ahoy defaultskin lower body not inspected and no foreigncontractcredit.",
+      "source_body_proof": "Actual complete frozen source and originalexisting fixtures personally read; no execution/newtests."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/properties.rs",
+      "sha256": "f6b7e0173aefc53be5d5a32d2a1127e175f3101c199261306a1badca39d1c4bd",
+      "scope044_index": 1949,
+      "actual_EOF": 148,
+      "scoped_ranges_compared": [
+        [
+          1,
+          148
+        ]
+      ],
+      "actual05_comparison": "Fresh full148 including existing inlinefixtures source-only. Property catalogue validated beforehomebindings; imported scene withstreets requirescatalogue, absent inothercontext intentionallyallowed. Eachactualhome buildingID mustresolve nearplacement or distant occupiedprogram, and centre/orientation/dwellingusage/footprintwidth/depth mustexactlymatchhome fields beforereturn. No nearest-building/duplicateID fallback inferred; exactplacement ID uniqueness lower gate separate. Existingfixture changes missing/moved/rotated/resized binding and expects rejection. Catalogue lifecycle/market/tier/residentcapacity semantics delegated toactualCorevalidate remain separate source obligation, not proven by functionname. No mutablepartialadmission state here.",
+      "source_body_proof": "Actual complete frozen source and originalexisting fixtures personally read; no execution/newtests."
+    }
+  ],
+  "comparison_groups": {
+    "source-and-owned-floor-distinction": "Existingfixtures separate garden naturalterrain/verticalbank/occupiedfloor andallactualdoorbindings.",
+    "full-obstacle-envelope": "Actual obstacle removal uses physical radius plus actorclearance, no centre-onlyownership shortcut.",
+    "captured-property-to-program": "Catalogue IDs resolveactualplacement with exactpose/usage/footprint comparison, lowercatalogue policy separate."
+  },
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Remaining originalgrounding/movement/enclosure fixture bodies and broaderinitialinventory; exactlowerCorecatalogue and native skinwidth remain uncredited where needed."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

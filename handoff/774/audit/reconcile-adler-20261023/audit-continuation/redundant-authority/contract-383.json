@@ -1,0 +1,213 @@
+{
+  "id": "CONT07-CONTRACT-383",
+  "at": "2026-10-23T20:38:17.980916+00:00",
+  "lens": "audit-redundant-authority",
+  "members": [
+    {
+      "scope_index": 1686,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/mod.rs",
+      "sha256": "22bb9e14d430e2d820e9f1b489065461324a0cc48cfd1dbc1fe2c81f0a622628",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/strategic_scene/mod.rs",
+      "actual_EOF": 298,
+      "ranges": [
+        [
+          1,
+          298
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1687,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/preparation.rs",
+      "sha256": "5ecd9a8fa01b48aabda78b79670d7f2da23bd8a83d67efa8237d12d0c9a63a2c",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/strategic_scene/preparation.rs",
+      "actual_EOF": 65,
+      "ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1688,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/protocol.rs",
+      "sha256": "a336c40ca633f682bc6f03794f3d049316b2c1578ff0817d186b926ac4d2e93e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/strategic_scene/protocol.rs",
+      "actual_EOF": 133,
+      "ranges": [
+        [
+          1,
+          133
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1689,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/render_diagnostics.rs",
+      "sha256": "24723b09d19d3e854b960b1efe8dc118b2bf236352886ac871f5396e05dc9f40",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/strategic_scene/render_diagnostics.rs",
+      "actual_EOF": 93,
+      "ranges": [
+        [
+          1,
+          93
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1690,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/shadows.rs",
+      "sha256": "88162a5ba0e0b8ea382882acfed34414b1f0d04d2ea5ebd003a065c7e22b81a0",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/strategic_scene/shadows.rs",
+      "actual_EOF": 94,
+      "ranges": [
+        [
+          1,
+          94
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1691,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/staging.rs",
+      "sha256": "a82273da32ccd7a1120c85e4e623691449a0a3519f43d6a0020debe90997bb8f",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/strategic_scene/staging.rs",
+      "actual_EOF": 130,
+      "ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1692,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/status.rs",
+      "sha256": "1ac60dfc9e48db2d8717ff144d5b340d9f5cf2f9a158a8a7dcb1c966f17afdb4",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/strategic_scene/status.rs",
+      "actual_EOF": 226,
+      "ranges": [
+        [
+          1,
+          226
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1693,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/status/characters.rs",
+      "sha256": "aa6c73924aed3d3ba5cbd7e45de20812330b8c560e31e38a5929f8b996c7b95a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/strategic_scene/status/characters.rs",
+      "actual_EOF": 55,
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    }
+  ],
+  "contracts": [
+    {
+      "source_index": 1686,
+      "disposition": "accounted exact07 live/retained/ready/diagnostic/cache roles; connectedproducerquestions preserved",
+      "facts": [
+        "RetainedPerson anchor/facing andnativeTransform arecoordinated byactualretain_people poseupdate, notuncoordinatedtwoowners. Layerstableperperson and scene.next_person_layer ismonotoneallocationhistory, notcurrentcount. Roster retainsvisitedactors whileonlydemandcreatesnewrig; sourceview requires_person ownerexplicit.",
+        "inherit_model_layers copiesownerlayer onlyintoMesh3dWithoutRenderLayers. Structuralchanges triggerfunction butexistingwithlayers excluded; arbitrary reparent/SceneModel-layer mutationcouldstaleprojection, actualnormalstrategicproducer keepslayerstableanddespawnsreplacedwardrobe, so recordconditional concern not acceptednormaldefect. Native NoAutoAabb fixedmargin explicitlyidle/identitypresentation assumption, no livecombatauthority.",
+        "sync_room_lights recomputesdesiredlayers fromcurrentpeopleandupdatesactualallrelevantlights, handlingmembershipwithoutglobalunchangedskip. ExplicitREGIONALMAP-layerlights excludedbycurrentlayerpredicate, deliberateownerboundary. release_scene fullyremovesrootandretainedresource beforetacticalreplicationadmission; actualentitysourcecrossing notpersistentstrategictickstate."
+      ]
+    },
+    {
+      "source_index": 1687,
+      "disposition": "accounted exact07 live/retained/ready/diagnostic/cache roles; connectedproducerquestions preserved",
+      "facts": [
+        "Canonical PreparationError retainsstructuredsource/geometry/support/backdrop/nativeerrors untilstatusboundary, actualFromadaptersboxwithoutcauseerosion. Stringerrorannotations purediagnosticdisplay, notreparsedapplicationclassification. No duplicateerrorenumneededtoownsamefact."
+      ]
+    },
+    {
+      "source_index": 1688,
+      "disposition": "accounted exact07 live/retained/ready/diagnostic/cache roles; connectedproducerquestions preserved",
+      "facts": [
+        "CanvasRect distinctcurrentcrop vsfullrenderextent andoffset, actualuncropped derivesonesnapshot forstreetimage reuse. apply disablesoffscreenzeroextentcamera beforeviewportpublication; oldviewportretainedbutinactiveexplicitpolicy. Fullfieldsnotindependentlysamefact; aggregateconstraint/boundedNaNoffset admissionseparatelens.",
+        "StrategicView revision/location/places/people/selected/currentstage aredistinctUIrequestroles. stage_subject selected overridesfirstactiveScene person intentionally, requires_person includesportrait orlive-stage subject. Raw selected-IDmissingrosterpotentialadmission state notinferredcurrentbadinput. GlobalfirstpersonlayerderivedREGIONALMAP_LAYER+1 avoids currentcollision; fixture77? actual133lineoffscreenexampleconsumed noexecution."
+      ]
+    },
+    {
+      "source_index": 1689,
+      "disposition": "accounted exact07 live/retained/ready/diagnostic/cache roles; connectedproducerquestions preserved",
+      "facts": [
+        "Census storesonecompletedmeasurement perroot, intentionallyfrozenhistory notcurrentlivemeshtruth. unique_meshes assignedfromHashSet immediatelybeforejson; no independentmutablecounter throughconsumer. Name-based fallback diagnosticgrouping, notgameplayclassification.",
+        "visible_cuboids detects36indices, a heuristicdiagnosticlabelnotproofactualcuboidtopology; no hiddenrendererbehaviorbasedonit. MAX20groups outputbound not dataadmission. Full93source consumed, no renderedcensusrun."
+      ]
+    },
+    {
+      "source_index": 1690,
+      "disposition": "accounted exact07 live/retained/ready/diagnostic/cache roles; connectedproducerquestions preserved",
+      "facts": [
+        "InactiveCharacterShadow marker recordsownershipofNotShadowCaster insertion, soactivationremovesonlyflagsownedbythisculler andpreservespreauthoreddisabledmeshes. Nativeactivecamera layerunion currentcomputed eachcall, no staleglobalmembershipcache.",
+        "One-sidedexternalshadowflag mutationwhilecullerownsflag couldinvalidateownership assumptions, actualnormalpathnotshown; no genericmarkerredundancyfinding. Full94includingauthoredflag preservation/camera-layer-changefixture read, noexecution."
+      ]
+    },
+    {
+      "source_index": 1691,
+      "disposition": "accounted exact07 live/retained/ready/diagnostic/cache roles; connectedproducerquestions preserved",
+      "facts": [
+        "ConversationPose canonicalanchor/facing producedtogether fromacceptedlayoutpaths,collision-derivedfloor,standingclearance andactualdaylight; chosenpositions sortedandspacedonce beforeimmutableVenuepublication. Visitedbitkey exactphysicalpointdedup isacceleration, notnew sourceofcirculationauthority.",
+        "StandingClearance cachedbyfloorheight onlywithinonefixedobstaclecohort localfunction, soallreusedentries shareactualobstacles; no omitteddependency. Numericfloor_height heuristic assumesnearzero horizontalgroundfloor; sourcefallback0 isintentionalexistingpolicy butnotprooffullcanonicalfloor/steppedsloped cases. No witnessnormalbuildingmismatch established, otherowner/admission/behaviorcontractsremain.",
+        "Collisionobstaclesclone plusfurniturecuboids representsactualadditionalobstacleclasses, intentionalunion notduplicatephysicalmass. NativeResolvedItemId0 localclearancetestobjects notdurableworldidentity claim."
+      ]
+    },
+    {
+      "source_index": 1692,
+      "disposition": "accounted exact07 live/retained/ready/diagnostic/cache roles; connectedproducerquestions preserved",
+      "facts": [
+        "SceneAssetsReady/InstallationReady/status fields derivecurrentcompletegates onceperLast; distinctequipment-unfinishedinstallation versusfinalcomplete versus4frame settledreadiness intentionaltemporal stages. No independenteditableisready flag storedoutsidecanonicalgateexceptcopiesconsumedwithdocumentedoneframehandoff.",
+        "Cache settle explicitroot-change guard alreadyfresh1679; fullstatus nowprovesLast publicationtiming. GlobalWAITING_PIPELINES native device telemetry intentionallyshared, notcurrentactor-ownedcount; status_error convertsstructuredcausesonlyatJSONboundary.",
+        "SceneAssetFailure stickyrecord currentlyblocksreadiness, actualreload/recoverypolicy nottraced; cannotinferordinarypermanentfalsewithoutsupportedrecoverproducer. Reportbuildings usesnext_place, actualworldproducerstillqueued; do notclaimcurrentcountmismatch fromfieldnamealone. Sourcecompletebutconnectedproducerquestionpreserved."
+      ]
+    },
+    {
+      "source_index": 1693,
+      "disposition": "accounted exact07 live/retained/ready/diagnostic/cache roles; connectedproducerquestions preserved",
+      "facts": [
+        "CharacterCounts roster/requested/visitedloaded/posed/requiredposed differmeanings intentionally. actualrequiredposes correlateperson ID->retainedEntity->PoseBufferRig marker; totalPoseBuffer count includesallvisitedSceneModel, no duplicatepersistentpersonauthority.",
+        "Counts recomputedlocalvalues, notretainedindependentlyeditablecounters. Posehas_presented_pose isanothermoduleactualtypedcontract previouslyreadcoreownership, no runtimeacceptancefrommarkername. Full55sourcebody consumed, no rig/nativecheckexecution."
+      ]
+    }
+  ],
+  "personally_consumed_prior_narratives": [
+    "RIG-OWNER-STRATEGIC-CACHE-CLIP-061",
+    "ROOT-OWNER-PAVING-055",
+    "NATIVE-OWNER-CELESTIAL-002 withfinalframequalifications"
+  ],
+  "new_local_findings": [],
+  "identity_count_accounting": {
+    "new_original_variant_ids": [
+      "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/mod.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/preparation.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/protocol.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/render_diagnostics.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/shadows.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/staging.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/status.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/status/characters.rs"
+    ],
+    "already_covered_fresh_reanalysis_ids": [],
+    "new_this_contract": 8,
+    "cumulative_new_original_variants": 191,
+    "cumulative_original_unique": 1949,
+    "count_basis": "exact source_id union"
+  },
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true
+}

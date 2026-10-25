@@ -1,0 +1,106 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-343",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/bestiary.rs",
+      "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+      "actual_EOF": 1558,
+      "actual_compared_ranges": [
+        [
+          1,
+          1558
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/bin/content-check.rs",
+      "sha256": "98447fa524e96dfa1f89ade51017472fae06833cd9ea73014855140c7062f387",
+      "actual_EOF": 36,
+      "actual_compared_ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/book.rs",
+      "sha256": "1b4aac417b1f0ea794ff7f2832552b2ce1561a7d2cbede9129b274e29dc394ef",
+      "actual_EOF": 529,
+      "actual_compared_ranges": [
+        [
+          1,
+          529
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Bestiary normalization must retain full score scale before division",
+      "source_ranges": {
+        "bestiary.rs": [
+          [
+            1,
+            1558
+          ]
+        ]
+      },
+      "disposition": "Entire1558linespersonallyreadinsixboundedchunksincludingeveryinlinefixture. ExactNATIVE-INITIAL05-F055#57: solepositiveCandidateScoreu64MAX totalMAX, numerator.saturating_mul10000->MAX then/MAX1 misses9500dominance. Fresh04arithmeticproof, noactualcataloguerankcase/run. distribution_summary usesrelatedsaturatingweightednumeratorsandtotals; actualstaticweightboundsneedcomparisonbeforeclaimingcurrentmarginaldistortion. Rank evidenceunique32 andscoremul intentionalexplicit saturationfixturepolicy; donotbanallsaturationorcountitnewdefect. Norm/remedycanonicalwidefractionbeforedivision, preservesempty0unreachableandseparatecuratedweightmeaning. Reportclarityintegermean and investigabilitycomplement requireactualcatalogue<=100; sourcevalidate_catalogdiagnosesbutisnotbyitselfsealedadmission. Actualquestcatalogstartupvalidationisadopted03starting evidence/dependency, noindependentcoverageimplied."
+    },
+    {
+      "contract": "Bestiary identity membership, immutable profile cache and modeled lore are distinct authorities",
+      "source_ranges": {
+        "bestiary.rs": [
+          [
+            1,
+            1558
+          ]
+        ]
+      },
+      "disposition": "Samefreshcompletebodyanalysis. ThreatIdprivate63ASCIIbytes/lenchecked try_newsyntactic; FromStr/Serdefurtherrequirescurrentcatalogmembership. Publicprofile/getexpectneedsmemberprecondition, lexicalunknowntry_newcanreachpanic, preservedasqualifiedmembershipboundarydependencytoexistingCONT-CAMERA-OWNER-THREAT-ADMISSION-QUALIFICATION-006 ; parent confirms local774:M97 concerns corpse examination, not this API. local774:M46 is a connected catalog-membership owner dependency, not an exact profile-panic alias; notnewaccepteddefect orpermissiontonarrowsyntacticconstructor. Staticsmallnamedconstantsprivatefrom_staticfit63, profileprocessOnceLockmapsimmutableembeddedcatalogthenleaksownedstaticlookupviews once; nohotreloadinvalidationsupposed. DerivedOrdlen-firstdifferentfromStringlexicalcatalogenumerationretainedexistingqualification. ReportDescription/EvidenceKindsharedlexicalconstructorintentionalopenvocabulary, notcatalogthreatmembershiphandles. implemented_combat_lore derivesconsumedprofilefacts; existingRIG06F052/local774M41 typedinsightrecoversEnglishsentenceelsewhere, thisfreshproducerbody adds04sourcecontextonlynotconsumercoverage/newcount. Innate+wornarmorrejectionandactualcombatcategory/protectionboundspreserved; nohiddennewcombatfactor."
+    },
+    {
+      "contract": "Book training commits a bounded local target only after direct/effective ceiling decisions",
+      "source_ranges": {
+        "book.rs": [
+          [
+            1,
+            529
+          ]
+        ]
+      },
+      "disposition": "Full529linespersonallyreadintwochunks, allfixturesreadnotrun. Shapevalidatorquality1..familymaximumandclosedterrainnames; ordinary_skillisactualbook-admittedsubsetratherthanfullSkillroster, joinsadoptedRIG06F033/local774M23meaningqualificationwithoutglobaldedupbybroadroster. apply_bounded validatesrealpositivefinite/targetrank/aptitude/readability/prerequisite, computeslocaldesiredand64stepmonotonicprojectionsearch beforeonedirect mutation. hours_for_rank/project_effective_hoursclosuremustrepresentactualfinite/nondecreasingtargetcurve; arbitrarymaliciousFn isnotacceptedcanonicalproducerproof. Writtenbranch freezesbaseline, analyticcorrelatedmediumlog1p/expm1andcaptransition usesactualcorrelation, theneffectiverankceilingsearch; direct-zero discontinuityfixtureintentionallypreventsjumpingaband. Finitehugeelapsedcanoverflowunboundedexponentialbutfinaldesiredminfiniteceilingrejects/clipswhenactualcurvevalid; no currentnormalNaNwitnessestablished. Anyrawnonfinitehoursinputowningadmissionremainsdistinctfromallowedunusedtime/zerooutcome. Candidateorderingpersonalfirstthenquality/idstable; duplicatefilterinternalonlyselectedfirst, noidentityoverwriteofretainedbook. Preserveexacteffective/direct/real-hourunits, unusedtime andaptitudecap, noinvalidzero-requestyieldclaim."
+    },
+    {
+      "contract": "Content-check entry point is read as validation authority description without execution",
+      "source_ranges": {
+        "bin/content-check.rs": [
+          [
+            1,
+            36
+          ]
+        ]
+      },
+      "disposition": "Whole36linesread. Closedall/items/encounters CLIargs invalidtargetexit2, encountervalidatebeforeprintingdigest, itemsreferencevalidatorerrorspanicwithconcretemissingIDs; staticcatalogstartuptrustedboundaryconditional. NoCLI/check/build/CIexecution, sothisroleisnotpassingcontentverificationorcoveragetotransitivecatalogimplementations."
+    }
+  ],
+  "findings": [
+    {
+      "id": "NATIVE-INITIAL05-F055",
+      "archive_file": "audit/continuation/native/initial05-aggregate-states/findings.jsonl",
+      "archive_line": 57,
+      "disposition": "sameexactdiagnosticnormalizationfailure; independentfresh04arithmetic",
+      "no_new_unique_count": true
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-core/src/case.rs"
+}

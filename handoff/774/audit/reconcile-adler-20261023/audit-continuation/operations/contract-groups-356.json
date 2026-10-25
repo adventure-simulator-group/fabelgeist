@@ -1,0 +1,104 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-356",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/rights.rs",
+      "sha256": "452c9b104be14352c93d247f83a87de98fa79b10c86d3b51d28eaa252a927b07",
+      "actual_EOF": 1224,
+      "actual_compared_ranges": [
+        [
+          1,
+          1224
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/rights/validity.rs",
+      "sha256": "72edd06818cd5299b7c2abae17080541165ea0eebb52a05d557437b1ac41d159",
+      "actual_EOF": 32,
+      "actual_compared_ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/settlement_property/tests.rs",
+      "sha256": "37706ca3f62b5b44d61a78f6ec146281ba11990c9a218f0182be06e9f23a2c3b",
+      "actual_EOF": 99,
+      "actual_compared_ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/skeletal_fit.rs",
+      "sha256": "9263e946947987759ca44148c3b0683b27ad749fa9c679f9edc6d852293eafdc",
+      "actual_EOF": 132,
+      "actual_compared_ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Rights question and grant assessment preserve exact authority and replay chronology",
+      "source_ranges": {
+        "rights.rs": [
+          [
+            1,
+            1224
+          ]
+        ],
+        "rights/validity.rs": [
+          [
+            1,
+            32
+          ]
+        ]
+      },
+      "disposition": "Bothcompletebodies and all fixtures personally read. Digest length frames every common variant plus domainadapter callback, no identity arithmetic. Question rejects conflicting place/fixturejurisdiction and selfcontainertransfer before construction. Grant lifecycle rejects reusable consumedstate, revocationbeforegrantrevision, receiptgrantidentity/revisionmismatch. assess exactsubject/resource/operation/jurisdiction first; consumed sameattempt+exactactionprovenance replay deliberately precedes expiration (fixtureexplicit), sameattemptdifferentaction collision, activewindow inclusive through. No internalgrantmutation or quota decrement, so actual same-transaction consumption/publication remains receiverdependency. RightsValidity constructor checks orderedwindow but publicfields allowbypass (adopted03); reversedwindow cannot becomeusable through assessment because bothboundarychecks remain. Alloweddecision construction relies on trusted domainadapter evidence, no wireformat or fabricated externallyminted permissionclaim. Denial sanitizedsolelykind preserveshidden-evidence independence."
+    },
+    {
+      "contract": "Skeletal residual fitting keeps bounded finite weights",
+      "source_ranges": {
+        "skeletal_fit.rs": [
+          [
+            1,
+            132
+          ]
+        ]
+      },
+      "disposition": "Whole132linesincludingfixturesread. Closed12morphsmapfinite nonzerolimits and canonicalnames, endpoint-relative interval within2.2 and target/referenceindividuallyadmitted. Exactzerointervalreturns0 beforedivision. Adjacentrepresentable reference near fixednonzeroendpoint has at leastendpointULP gap, so numeratorbounded2.2 overnonzerointerval staysfarbelowf32MAX; clampemits0..1finite. No transient signedunboundedangleunitmisbranding. Shared JointProportionBasis overflowcandidate remainsdifferent linearcombination, notthisratio."
+    },
+    {
+      "contract": "Property fixture population allocation evidence remains source-only",
+      "source_ranges": {
+        "settlement_property/tests.rs": [
+          [
+            1,
+            99
+          ]
+        ]
+      },
+      "disposition": "Whole99linesread. Smallfixed2xHousingTiercatalog, ordinal+1and10metrepositionsbounded. Assertions targetduplicatedpropertyidentity/NaNgeometry/scope mismatch, reservehousingexcluded, exactfamilypopulation sum and9/21memberhouseholdrejection. No test execution or retransferred owningimplementationcoverage."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-core/src/starting_character.rs"
+}

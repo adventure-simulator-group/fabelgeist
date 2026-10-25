@@ -1,0 +1,73 @@
+{
+  "id": "CONT-ROOT-ADMISSION03-SCOPE-RECONCILIATION-044",
+  "at": "2026-10-22T06:00:16.332580+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-admission03-011.json",
+    "sha256": "f5a0131d043d42ddb6dd21bfcfd8f64efb6b7698b12ec52b4cd5eb4da10d6216"
+  },
+  "mandatory_overlays": {
+    "record": "continuation/owner-range-extensions.jsonl",
+    "sha256": "32e69f441555fa7ac5e6cd8d24014e0ad2b076866a794d9bfdef1422f92082fd"
+  },
+  "total_variants": 2573,
+  "total_overlays": 64,
+  "registrations": 21,
+  "qualified_source_variants": 18,
+  "new_source_ids": [
+    "pr-working:crates/adventuresim-building-generator/src/model.rs",
+    "pinned-registry:spacetimedb-bindings-macro-2.6.1/src/lib.rs",
+    "pinned-registry:spacetimedb-bindings-macro-2.6.1/src/sats.rs",
+    "dependency-bevy_reflect_derive0.19.1:src/lib.rs",
+    "dependency-bevy_reflect_derive0.19.1:src/from_reflect.rs",
+    "dependency-bevy_reflect_derive0.19.1:src/impls/opaque.rs",
+    "dependency-bevy_reflect_derive0.19.1:src/impls/common.rs",
+    "dependency-bevy_reflect_derive0.19.1:src/remote.rs",
+    "dependency-bevy_reflect_derive0.19.1:src/registration.rs",
+    "dependency-bevy_reflect_derive0.19.1:src/derive_data.rs",
+    "dependency-bevy_reflect_derive0.19.1:src/container_attributes.rs",
+    "dependency-bevy_reflect0.19.1:src/reflect.rs",
+    "dependency-bevy_reflect0.19.1:src/type_registry.rs"
+  ],
+  "new_overlay_ids": [
+    "CONT-OWNER-RANGE-EXTENSION-060",
+    "CONT-OWNER-RANGE-EXTENSION-061",
+    "CONT-OWNER-RANGE-EXTENSION-062",
+    "CONT-OWNER-RANGE-EXTENSION-063",
+    "CONT-OWNER-RANGE-EXTENSION-064"
+  ],
+  "input_pins": [
+    {
+      "supplier": "root",
+      "record": "continuation/root/admission03/source-range-registration.jsonl",
+      "sha256": "a21cd848b192821c1ba04fc3bf1bbe00984b2e400ad6f14955a28857ee2ce39c",
+      "rows": 2
+    },
+    {
+      "supplier": "camera",
+      "record": "continuation/camera/admission03/source-range-registration.jsonl",
+      "sha256": "642d5c25bc9c31192e1fd740915aa6d8fbfd5a52523b30dfab4cbfbce33111ad",
+      "rows": 3
+    },
+    {
+      "supplier": "rig",
+      "record": "continuation/rig/admission03/source-range-registration.jsonl",
+      "sha256": "c75d93513422266bff64a096b243766fbd002d346f1d8c3c5b58f54af25ba06c",
+      "rows": 13
+    },
+    {
+      "supplier": "rig",
+      "record": "continuation/rig/admission03/source-qualifications.jsonl",
+      "sha256": "70717aa1c0908935341afa5297937f1bf79513146453c1328076848d00e94e53",
+      "kind": "qualification"
+    },
+    {
+      "supplier": "native",
+      "record": "continuation/native/admission03/source-range-registration.jsonl",
+      "sha256": "833e17206520f2f0de1cbdf3c8509c836f4d75e4a8be56970b652ff9b9686981",
+      "rows": 3
+    }
+  ],
+  "limits": "Prospective043 registration before body preserved; scope only, no source/lens coverage. Existing producer/owner042 exact2560/59 historical scope preserved; new material01/02 qualification queued, not silently cleared. Admission03 active; initial all13 repair freeze persists.",
+  "source_edits": 0,
+  "project_execution": 0
+}

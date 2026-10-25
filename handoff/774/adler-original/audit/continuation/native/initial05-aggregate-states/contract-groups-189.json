@@ -1,0 +1,69 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-189",
+  "at": "2026-10-23T04:29:08.297158+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/settlement_rest.rs",
+      "sha256": "597a9011b190676ac71213abd7cf040a71a673d78e5b0498f204452a5b2d3223",
+      "scope057_index": 312,
+      "actual_EOF": 651,
+      "scoped_ranges_compared": [
+        [
+          1,
+          651
+        ]
+      ],
+      "actual05_comparison": "Fresh current PR ranges1-224 and371-651 plus personally rejoined prior actual05 packet185 range225-370. Complete actual P16/PR diff contains nine Result aliases only; current semantics of every route compared. No prior03 verdict credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/settlement_rest.rs",
+      "sha256": "f63df87344c6f358a0bcaa63481d349415e8e5481acb42031232d17cf20db125",
+      "scope057_index": 1252,
+      "actual_EOF": 651,
+      "scoped_ranges_compared": [
+        [
+          1,
+          651
+        ]
+      ],
+      "actual05_comparison": "Fresh current PR ranges1-224 and371-651 plus personally rejoined prior actual05 packet185 range225-370. Complete actual P16/PR diff contains nine Result aliases only; current semantics of every route compared. No prior03 verdict credit."
+    }
+  ],
+  "contract_groups": [
+    {
+      "id": "authorized service versus private policy",
+      "comparison": "SettlementRestProvision is a context tag, not a proof of permission. Public service/residence reducers check gateway actor authority and actual available service or active residence before entering private rest. Residence relies on active_residence_presence returning the exact residence and canonical presence; debug_assert is documentary, its callee remains separate. PrivateDowntime is intentionally venue-neutral system rest. Temple sanctuary is deliberately universal arrival fallback, not a player-selected unavailable service disguised as authorized."
+    },
+    {
+      "id": "sponsor-patient-price correlation",
+      "comparison": "Sponsor requires distinct payer/patient, both alive, same Character.party_id AND actual PartyMember rows, same named settlement, patient service availability and public recovery need. Expected price must equal current one-day inn quote; patient cannot already afford full price, payer must cover exact gap. Private rest checks requested price before recovery, then charges actual clipped elapsed price, patient min(current funds, elapsed cost) plus sponsor residual, no currency gift. Current funds and quote remain exact authoritative native values; zero and partial-day costs legitimate. Native transaction atomicity and coin helper truth not independently proved here."
+    },
+    {
+      "id": "elapsed schedule recovery and training",
+      "comparison": "Actual living settlement character and sourced clock required, zero returns zero. Effective organization/location schedule derived from one saved raw schedule; initial injury preview uses restorative minutes of requested interval, disease clips, recovery minutes recomputed for clipped interval, actual injury settlement determines final elapsed, checked clock addition before update. Same starting/elapsed interval drives weather/needs/leisure/disease/lifecycle/family, terminal branch returns zero training after dues. Training elapsed is full surviving elapsed; recovery occurs in restorative schedule allocation, so do not subtract all recovery time again or infer overlap from the comment. Field repair receives remaining restorative minutes after convalescence. Complete lower allocation/budget invariants remain actual Core/helper obligations."
+    },
+    {
+      "id": "snapshot consistency and refresh order",
+      "comparison": "Conversation choice uses one immutable party snapshot before own skill mutation; actual helper membership limitations from F041 remain. Training and oral awards combine one excess amount before mastery morale and SAME skill-row update. Activity outcomes receive same effective schedule and actual elapsed/end, incidents applied, rest condition and fullness updated, capability refreshed after completed state. Automatic chat is gated by recovery elapsed and automatic_social. No complete accepted clinical/skill product guarantee from these delegations; no runtime execution."
+    },
+    {
+      "id": "exact duration and intentional independent clocks",
+      "comparison": "Public explicit rest accepts every minute within named min/max, not whole hours only. System synchronization uses explicit=false so sub-hour catch-up is valid. Characters at a settlement intentionally keep independent dates. Arrival time-of-day uses official minute_of_day so canonical minutes_until_time_of_day Option expect is justified by the exact sourced in-day output, zero catch-up true. Checked final clock can still reject exhaustion; no fallback clock zero invented."
+    },
+    {
+      "id": "departure anchor product and temporary companions",
+      "comparison": "Departure rejects empty member slice, ensures each clock, finds a party via members, initializes canonical wilderness anchor once and resets elapsed only then; returns anchor with wrapped selected time-of-day plus existing elapsed, preserving subjective age. Raw mixed-party member slice is not checked here; normal same-party producer still owns that relationship. Temporary rest is only temporary, settled, party-associated, nonleader character and uses calculated convalescence via private downtime; no blanket player rest limits imposed on this system route. Missing party may return no-op intentionally, no claimed successful healing if no duration."
+    }
+  ],
+  "new_unique_findings": [],
+  "partial_closures": [
+    "Packet185 settlement312/1252 now fully compared. Journey288/1226 still partial; PRauthority1204 partial. P16authority269 previously complete127."
+  ],
+  "remaining_dependency_obligations": [
+    "Actual lower residence pair, clinical preview/settlement and schedule budget, coin/transaction helpers, normal same-party member producer and F041 uniqueness remain exact queued contracts."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

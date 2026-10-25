@@ -1,0 +1,875 @@
+{
+  "status": "administrative_pending_queue_only; do not start owner-fit until producer reconciliation complete",
+  "sources": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autopsy.rs",
+      "sha256": "590a02732db6f33532c882ce0d6a6686de3f4bad9e3368242999cc3c30f9fd35",
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\autopsy.rs",
+      "ranges": [
+        [
+          51,
+          90
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/bestiary.rs",
+      "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\bestiary.rs",
+      "ranges": [
+        [
+          90,
+          125
+        ]
+      ],
+      "roles": [
+        ""
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/bestiary/error.rs",
+      "sha256": "279813fa320c4ce35bbef2229faa4367af4c93d97f074cec46e6984974245b6c",
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\bestiary\\error.rs",
+      "ranges": [
+        [
+          1,
+          51
+        ]
+      ],
+      "roles": [
+        ""
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/food.rs",
+      "sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\food.rs",
+      "ranges": [
+        [
+          309,
+          335
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_presence.rs",
+      "sha256": "2eeea5c9831e10b7c5d51d0d3f61b0093ce8c682bd0994d2c94de50aa3354a52",
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\strategic_presence.rs",
+      "ranges": [
+        [
+          226,
+          298
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/capability/armor.rs",
+      "sha256": "027f27a4294fe1574bcb9c7f376db05904519094f99936be09bcf66d5459b7e0",
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\capability\\armor.rs",
+      "ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "roles": [
+        ""
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/inventory_container.rs",
+      "sha256": "1e8cafa848ca3965b804ce9d1766c9ea2d50d6a0cc123467ff317644e96c30bc",
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\inventory_container.rs",
+      "ranges": [
+        [
+          1030,
+          1085
+        ]
+      ],
+      "roles": [
+        ""
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/reputation.rs",
+      "sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\reputation.rs",
+      "ranges": [
+        [
+          253,
+          356
+        ]
+      ],
+      "roles": [
+        ""
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-strategic-sim/src/investigation_eval/report.rs",
+      "sha256": "9973408d3a3ebff65189a41a0537488dcf4ba9f88b667672e09543fc90318db4",
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-strategic-sim\\src\\investigation_eval\\report.rs",
+      "ranges": [
+        [
+          1130,
+          1205
+        ]
+      ],
+      "roles": [
+        "Existing OutbreakWaterFlow replay/material conservation/privacy fixture consumers; read only, no execution/assertion changes.",
+        "Existing OutbreakWaterFlow replay/material conservation/privacy fixture consumers; read only, no execution/assertion changes."
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "sha256": "5d254790fa2ec7e53bc749b18bfc8f4d89a1df367c3542f8f969403641c8a970",
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-core\\src\\combat_config\\runtime.rs",
+      "ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "roles": [
+        ""
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/mod.rs",
+      "sha256": "61fe528d93435e9e3d2d263110bc870e10ee25ea61c84196be203e4e771d6741",
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-server\\src\\bin\\melee_combat_iteration\\mod.rs",
+      "ranges": [
+        [
+          1,
+          261
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/defense.rs",
+      "sha256": "4eca0fbb28b320a2c62d9351bc7ce4331d2b0d011abe8ad74a6f10b62071884e",
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-server\\src\\bot\\defense.rs",
+      "ranges": [
+        [
+          1,
+          287
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-terrain/src/lib.rs",
+      "sha256": "b6f4484e8febb316766de322ff355f1d0dda5b394343be0227517c601c0f1421",
+      "path": "SNAPSHOTS\\p16\\crates\\adventuresim-terrain\\src\\lib.rs",
+      "ranges": [
+        [
+          321,
+          437
+        ]
+      ],
+      "roles": [
+        ""
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/strategic-web/src/routes/settlements/camp.rs",
+      "sha256": "f74938c062c2117522bc053568946e0dbb495f3852a85b95bc29154de215b972",
+      "path": "SNAPSHOTS\\p16\\crates\\strategic-web\\src\\routes\\settlements\\camp.rs",
+      "ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "roles": [
+        "Actual HH:MM form admission to StrategicMinuteOfDay then immediate JSON reducer argument boundary.",
+        "Actual HH:MM form admission to StrategicMinuteOfDay then immediate JSON reducer argument boundary."
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/strategic-web/src/templates/settlement/character_skills.rs",
+      "sha256": "38f67a86433b56274d2b29fcf8a12e129f973f07b9744fe8117b603674f25314",
+      "path": "SNAPSHOTS\\p16\\crates\\strategic-web\\src\\templates\\settlement\\character_skills.rs",
+      "ranges": [
+        [
+          2090,
+          2140
+        ]
+      ],
+      "roles": [
+        "Actual schedule preview allocation source and dynamic activity policy; no full-module credit.",
+        "Actual schedule preview allocation source and dynamic activity policy; no full-module credit."
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/stub.rs",
+      "sha256": "529a51987f2cef18ffc06af597e0dbe8aa6631e49c7a1b16d85002e9cfcd792d",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-core\\src\\stub.rs",
+      "ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/end_tactical_server_reducer.rs",
+      "sha256": "45a56ae8f6a11c4f676604c9e3c69148174c0cd6c50178a693bd9ebe8d3d4e0e",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-client\\src\\end_tactical_server_reducer.rs",
+      "ranges": [
+        [
+          1,
+          88
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/enter_mission_reducer.rs",
+      "sha256": "92a0024a27555a70ff4a28541bfacd19dae4f1ff89cbfbcdb12babfab28db71a",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-client\\src\\enter_mission_reducer.rs",
+      "ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-client/src/leave_mission_reducer.rs",
+      "sha256": "f31d61010f0bf76ac7c53412482736cc1568dfec0b445db4fe8e9bf057a460e6",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-client\\src\\leave_mission_reducer.rs",
+      "ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/alcohol.rs",
+      "sha256": "c572b0014c6114020ee98d99a3cdfa1579b25a815ade34656bfeb8b6a421d1dc",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\alcohol.rs",
+      "ranges": [
+        [
+          565,
+          605
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/bestiary_and_corrections.rs",
+      "sha256": "4237f3b685e3eb38b41d2eabd6b64c89542d97923b84d8b55b7a3f63e8bf5f70",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\investigation\\tests\\bestiary_and_corrections.rs",
+      "ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/projection_and_referrals.rs",
+      "sha256": "c66f2f103d7c9e06d5426737e2d87279cd43f0160b834292664ddaa3e55c8390",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\investigation\\tests\\projection_and_referrals.rs",
+      "ranges": [
+        [
+          530,
+          648
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/reputation.rs",
+      "sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\reputation.rs",
+      "ranges": [
+        [
+          74,
+          179
+        ],
+        [
+          91,
+          148
+        ],
+        [
+          258,
+          349
+        ],
+        [
+          258,
+          361
+        ]
+      ],
+      "roles": [
+        "",
+        "",
+        "Fresh actual case participant source/fallback/sorted pure plan, complete actual SDK snapshot/offense/event writes and contribution mutation receiver258-348; additional local_reputation350-360 confirms optional absent aggregate defaults genuine accumulated0, distinct required observation. Only74-179/258-361 read here; broad reputation supplier remains separate.",
+        "Fresh actual case participant source/fallback/sorted pure plan, complete actual SDK snapshot/offense/event writes and contribution mutation receiver258-348; additional local_reputation350-360 confirms optional absent aggregate defaults genuine accumulated0, distinct required observation. Only74-179/258-361 read here; broad reputation supplier remains separate."
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_policy.rs",
+      "sha256": "0b4667798ab18d21ca3e177acf453f643f39fd813f40d9dc55f2bf23fec06c01",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\strategic\\dialogue_policy.rs",
+      "ranges": [
+        [
+          1,
+          13
+        ]
+      ],
+      "roles": [
+        "Actual stored String policies decoded back to shared PromptMode/ResolutionPolicy",
+        "Actual stored String policies decoded back to shared PromptMode/ResolutionPolicy"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/encounter_policy.rs",
+      "sha256": "7d3199ead47d5700c22743f7a862eabfccaeb9b3027af9131908f1fea2d5884c",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-strategic-sim\\src\\live_core\\encounter_policy.rs",
+      "ranges": [
+        [
+          1,
+          330
+        ],
+        [
+          290,
+          330
+        ],
+        [
+          290,
+          346
+        ]
+      ],
+      "roles": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/schema_types.rs",
+      "sha256": "1652605409faa40d7ba5189405b89e55e69d935fdc07478507e9639da63b6bff",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-strategic-sim\\src\\live_core\\schema_types.rs",
+      "ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/placeholder_visual.rs",
+      "sha256": "43be98d339543f652eed674fbce2d8ceb5f22f1720fcd5758219f0535e494510",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-client\\src\\equipment\\placeholder_visual.rs",
+      "ranges": [
+        [
+          1,
+          63
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory/ordering.rs",
+      "sha256": "a16a4fd249e9a9fa97fa44588caa57dc7a15e35ef78bfd5e194267419a507f20",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\inventory\\ordering.rs",
+      "ranges": [
+        [
+          1,
+          130
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/mod.rs",
+      "sha256": "294366e9eac449d161658a404c461baaf901a04a89e96ea87909a819e322e88a",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-server\\src\\mission\\mod.rs",
+      "ranges": [
+        [
+          1,
+          158
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/systems.rs",
+      "sha256": "cc4bc873f502d3a08fc30a6f3d40d1d0752a81dfdee70651fb2c04737b64d6b8",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-server\\src\\mission\\systems.rs",
+      "ranges": [
+        [
+          52,
+          145
+        ],
+        [
+          146,
+          320
+        ]
+      ],
+      "roles": [
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/terminal.rs",
+      "sha256": "a381bfd75836c7f9f37ad73df102d94cfb8e8b2afb79592549e12b3ddbde1347",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-server\\src\\mission\\terminal.rs",
+      "ranges": [
+        [
+          1,
+          145
+        ],
+        [
+          146,
+          303
+        ]
+      ],
+      "roles": [
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/stdb.rs",
+      "sha256": "ab24f2abcf0306df9967ba4f53671ead170142f7fd1a0697bf116389584da5b8",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-server\\src\\stdb.rs",
+      "ranges": [
+        [
+          1,
+          100
+        ],
+        [
+          1,
+          191
+        ]
+      ],
+      "roles": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/curves.rs",
+      "sha256": "b5accc11c18f0ac90310414f5db75ca9ef76661bea923b658513fed644cea66e",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-weapon-model\\src\\construction\\curves.rs",
+      "ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/polygon.rs",
+      "sha256": "660aa84bce2b4252168df40b15a47bdb710ba829c03ea76bf45584a0c6e1bc9f",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-weapon-model\\src\\construction\\polygon.rs",
+      "ranges": [
+        [
+          1,
+          318
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/solids.rs",
+      "sha256": "b139a5600efc6654b3209ce230bb22ba7713836752f49c867f7b6996bcabb0c2",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-weapon-model\\src\\construction\\solids.rs",
+      "ranges": [
+        [
+          1,
+          118
+        ],
+        [
+          1,
+          389
+        ],
+        [
+          280,
+          389
+        ]
+      ],
+      "roles": [
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/surface_refinement.rs",
+      "sha256": "0c28888bf192ddcf2768b572e9cbd672a5ec2af2bc0c38d46af448782d987a65",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-weapon-model\\src\\construction\\surface_refinement.rs",
+      "ranges": [
+        [
+          1,
+          125
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/sweep/path.rs",
+      "sha256": "fff604760f978f0efae2a138eee46df45a887c3abe89b2bdbe94a56f20afb2d1",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-weapon-model\\src\\construction\\sweep\\path.rs",
+      "ranges": [
+        [
+          1,
+          146
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/grip.rs",
+      "sha256": "bf3ed53fe98389fc076f302154befc4d3abd3169203067c07c0ca05a30acb9e2",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-weapon-model\\src\\model\\grip.rs",
+      "ranges": [
+        [
+          1,
+          35
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/groove_sections.rs",
+      "sha256": "652cb4741bb36aa46baa4bfc2a15521ad5a939675d8ea36ae8517a7374b08175",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-weapon-model\\src\\model\\groove_sections.rs",
+      "ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/groove_transitions.rs",
+      "sha256": "86c133cddbd27493d2a2f90105a4fab5e4a0bbbbd5fc1a6dedd0d3d74dd60f14",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-weapon-model\\src\\model\\groove_transitions.rs",
+      "ranges": [
+        [
+          1,
+          109
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/placement.rs",
+      "sha256": "243d594fbb5904b60ec01daa6e25decb1ace121320b548926f0400a909222fc3",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-weapon-model\\src\\model\\placement.rs",
+      "ranges": [
+        [
+          1,
+          156
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/placement/anchors.rs",
+      "sha256": "d7d808f132cf5cb9b8b7ed612cab252cbafc14dd0b690bf3ec1774c60f1bd7d6",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-weapon-model\\src\\model\\placement\\anchors.rs",
+      "ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/placement/fitting.rs",
+      "sha256": "1c4e18d75b0af80b31df9117e68879dad923acac69e5a4a34365b533be070413",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-weapon-model\\src\\model\\placement\\fitting.rs",
+      "ranges": [
+        [
+          1,
+          141
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/shapes.rs",
+      "sha256": "1bdea66bbc76b2483d53a48a954b78b725ae186d4121befd5781664c8a71e0d0",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-weapon-model\\src\\model\\shapes.rs",
+      "ranges": [
+        [
+          1,
+          393
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/structure.rs",
+      "sha256": "4afde3b9b0b368ed92065d9e37c2b56b09b565aa87e70fe58fa51961b868aa4e",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-weapon-model\\src\\recipe\\structure.rs",
+      "ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/routes/dialogue.rs",
+      "sha256": "c3dde45589069173a7b9c0b94f377424e3164e25dbdde70df99cc9d9870d3a56",
+      "path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\routes\\dialogue.rs",
+      "ranges": [
+        [
+          24,
+          62
+        ],
+        [
+          235,
+          378
+        ],
+        [
+          1320,
+          1897
+        ]
+      ],
+      "roles": [
+        "Actual participant public projection, typed fragments/source link, complete build_view and all direct same-file error/HTTP callbacks + existing source fixtures; no whole earlier NPC/social file credit",
+        "Actual participant public projection, typed fragments/source link, complete build_view and all direct same-file error/HTTP callbacks + existing source fixtures; no whole earlier NPC/social file credit"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/routes/dialogue/claims.rs",
+      "sha256": "6ce1fead82db25ebeebc1f64944e44bf410b5ea3b28b9f46480cd04128130197",
+      "path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\routes\\dialogue\\claims.rs",
+      "ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "roles": [
+        "Actual structured claim feedback mapping and additional direct HTTP witness_approach callback to build_view; existing fixtures only",
+        "Actual structured claim feedback mapping and additional direct HTTP witness_approach callback to build_view; existing fixtures only"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/routes/settlements/party/location_personal.rs",
+      "sha256": "ba5a8c93dc9d1b62072610c5b016d87ce2db0c85f953822d5730ad4e9651f1f9",
+      "path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\routes\\settlements\\party\\location_personal.rs",
+      "ranges": [
+        [
+          86,
+          382
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/templates/interface_help.rs",
+      "sha256": "c78ba1ba7989dbb10ddda4b92fd1118f802fa26bb36d5e5623449ffb567af9c9",
+      "path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\templates\\interface_help.rs",
+      "ranges": [
+        [
+          60,
+          94
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_details.rs",
+      "sha256": "20df400f0369e7c2cb2ed08d3bd943f6ec5ac1ce6ee3d4db328401632767f82f",
+      "path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\templates\\settlement\\character_details.rs",
+      "ranges": [
+        [
+          1,
+          485
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_details/summary.rs",
+      "sha256": "8296a4e8146021634980e305ecae90f3794704fc74dd9865c9be8d4de2a57a4e",
+      "path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\templates\\settlement\\character_details\\summary.rs",
+      "ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_skills/rank.rs",
+      "sha256": "e9f11b0fa05841fb640d4c44507b6b8628ea52fdabffb0e657c88c96d888489c",
+      "path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\src\\templates\\settlement\\character_skills\\rank.rs",
+      "ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/static/dialogue-client.js",
+      "sha256": "dd5524466d59c0e52e3a527e31b8cc005ebf64f581b89a08801e2195943fcf19",
+      "path": "SNAPSHOTS\\pr-working\\crates\\strategic-web\\static\\dialogue-client.js",
+      "ranges": [
+        [
+          250,
+          397
+        ],
+        [
+          530,
+          712
+        ]
+      ],
+      "roles": [
+        "Actual fetch JSON stringify/response, category/choice controls, fragment tags to DOM textContent/createTextNode, source-link href and same-session revision input; no whole unrelated browser/social JS credit",
+        "Actual fetch JSON stringify/response, category/choice controls, fragment tags to DOM textContent/createTextNode, source-link href and same-session revision input; no whole unrelated browser/social JS credit"
+      ]
+    },
+    {
+      "source_id": "pr-working:vendor/bevy_ahoy/src/lib.rs",
+      "sha256": "a0b15625d3086b64fd425b8bccae4f18370ae8f1f64b2633b9b3736523cc580d",
+      "path": "SNAPSHOTS\\pr-working\\vendor\\bevy_ahoy\\src\\lib.rs",
+      "ranges": [
+        [
+          282,
+          331
+        ]
+      ],
+      "roles": [
+        "",
+        ""
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "id": "ROOT-CAMERA-ADM03-020",
+  "source_roles": {
+    "93": "P16 equipment.rs (1115 lines) compared source-specifically against the personally consumed full PR narrative RIG-CAMERA-ADM03-722 (1126 lines, SHA294ef27435a3d5286f596695c442fb8bd28041af6d7b9ab24a27e1d8c4d2526f), the complete actual PR-to-P16 diff, and fresh P16 changed bodies95-202/240-278/520-553. Request actor binding, four-request per-actor queue limit, one-action-per-frame processing, expected revision, current hand, ordered destination, ownership/root traversal, known anchors, occupied capacity and layer gates precede accepted mutation. Acceptance alone advances sequence/revision. Crucial current-PR contract: typed sequence.is_admissible_after(Option<last>) distinguishes absence from Some(ZERO), and typed revision.next preserves its own arithmetic contract. P16 instead unwraps absent sequence to raw zero, supplies custom half-range arithmetic and wrapping revision; do not replay that older representation or initial-request policy. Root directly consumed P16 changed sequence/revision gate bodies. Drop validates physical geometry before the actual native Cuboid metres conversion, checks candidate locations and intersection; raw actor Transform/native centre admission remains a qualified gap. Pickup requires empty hand, actual SceneItem/Transform, valid physical geometry and distance gate; Dir3 construction rejects nonfinite/zero direction before ray use, so no NaN pickup acceptance is alleged. Existing descendant owner validation depends on projection provenance, not an independent child-owner check here; u16 attachment enumeration needs catalogue bounds. P16 otherwise matches supplier semantics apart from physical getters and existing test API adaptations. Root's independently fresh attachment/fit/transfer proofs019/018/017 join the actual current-source dependencies without treating helper boundaries as primitive-extraction ports. Original tests628+ were source-read by supplier only; none executed or changed. Lower sequence/revision definitions retain their separately scoped obligations; method names are not proof of invariant enforcement."
+  },
+  "proof_route": "Actual Rig current-source contract722 fully consumed, complete actual P16 diff personally consumed and changed P16 bodies directly read; exact role only, no claim Root freshly displayed every unchanged P16 line, no whole-feature seal and no validation credit.",
+  "at": "2026-10-22T17:09:11.555619+00:00",
+  "authority": "ROOT-ADM-SUPPORT-AUTHORITY-058",
+  "lens": "audit-admission-contracts",
+  "repair": "frozen_initial_all13",
+  "validation": "not_established",
+  "later_lens_credit": false
+}

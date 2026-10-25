@@ -1,0 +1,68 @@
+{
+  "id": "CONT07-CONTRACT-459",
+  "at": "2026-10-23T22:14:07.133663+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2008,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee-combat-iteration.rs",
+      "sha256": "e1be72383593bbc4c921ecfdc904afcc7dc0b8364bef5b64efc35cb0ad11e5b3",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/bin/melee-combat-iteration.rs",
+      "actual_EOF": 7,
+      "ranges": [
+        [
+          1,
+          7
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2009,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/audit.rs",
+      "sha256": "351dc4cb2a26bcf9f8f708150890f43c3766a24c6d541eecdbe1a43869121f44",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/audit.rs",
+      "actual_EOF": 197,
+      "ranges": [
+        [
+          1,
+          197
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2010,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal.rs",
+      "sha256": "29a2443a5b6c08cb12ec620c470751f9f02b01152f0cdfce51f49395aaa84170",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal.rs",
+      "actual_EOF": 330,
+      "ranges": [
+        [
+          1,
+          330
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "NATIVE-OWNER-REPORT-001 full narrative and later chronological closure qualification",
+    "NATIVE-OWNER-HARNESS-001 full narrative and later chronological closure qualification"
+  ],
+  "facts": [
+    "2008 entrypoint delegates single run; no duplicated configuration/exit-status computation.2009 acceptance report derives boolean checks from supplied summaries/evidence, not direct tactical mutation. Fixed64 tick tolerance, expected6 revalidation samples and war_hammer/Pommel sentinel need exact current producer policy comparison, not automatic count-as-whole-roster proof.",
+    "2009 all_weapon_swept_contact_contract_holds currently checks every supplied band plus a required war_hammerPommel, while expected inventory cardinality/coverage is not independently validated here. Full normal evidence producer and fixture population must be traced before accepting missing-roster defect; no current truncated evidence claimed. Empty summaries all-check vacuity likewise requires actual positive run admission2014.",
+    "2010 totals and per-combatant observations are separately accumulated from the same event stream; actual callers/phase must prove both receive each event once. Weapon defense total predicate counts any Defended nonshield event, while per-defender effective_weapon_contacts additionally requires Block/Parry. Actual event outcome/decision producer contract needed before claiming contradictory counts.",
+    "2010 attacker==john_name string partitions reports into two combatant buckets. Source labels may be arbitrary; normal roster name uniqueness/actor admission still to read. Do not infer arbitrary duplicate names are actual normal matchup or equate report labels with durable CharacterId.",
+    "2010 source chronological previous_starts is per-combatant Option and independent of current decision count. Sum fields are accumulation phase until runner finalization; measurement-error partial mutations are not accepted output unless an actual caller retains/reuses failed summary. No new defect promoted from representable partial state."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2016,
+    "start_line": 1
+  }
+}

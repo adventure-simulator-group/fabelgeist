@@ -1,0 +1,122 @@
+{
+  "id": "CONT07-CONTRACT-664",
+  "at": "2026-10-24T01:43:55.148529+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2630,
+      "source_id": "pr-working:crates/fabelgeist-garment-code/src/pattern/core.rs",
+      "sha256": "78a40a867edc2528c4d5bd02bd24b48e21b4e8fdf0e70e4c0cac759b680efa50",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-garment-code/src/pattern/core.rs",
+      "actual_EOF": 442,
+      "ranges": [
+        [
+          102,
+          154
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2629,
+      "source_id": "pr-working:crates/fabelgeist-garment-code/src/pattern/spec.rs",
+      "sha256": "091a579552af6da77a2bbcf091a6a7afddf4784dd6f488460940b9eb9fa77ee9",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-garment-code/src/pattern/spec.rs",
+      "actual_EOF": 582,
+      "ranges": [
+        [
+          84,
+          141
+        ],
+        [
+          272,
+          307
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2378,
+      "source_id": "pr-working:crates/strategic-web/src/routes/settlements/party/location_personal.rs",
+      "sha256": "ba5a8c93dc9d1b62072610c5b016d87ce2db0c85f953822d5730ad4e9651f1f9",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/routes/settlements/party/location_personal.rs",
+      "actual_EOF": 382,
+      "ranges": [
+        [
+          155,
+          265
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 960,
+      "source_id": "pr-working:crates/adventuresim-core/src/organization.rs",
+      "sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/organization.rs",
+      "actual_EOF": 1251,
+      "ranges": [
+        [
+          420,
+          473
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1251,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/schedule.rs",
+      "sha256": "08c054563be5757fc2da0ce95af4c995e5a8f8d1acf549bc5dbc65f2c3443077",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/time/schedule.rs",
+      "actual_EOF": 741,
+      "ranges": [
+        [
+          120,
+          192
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1247,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/camp_rest.rs",
+      "sha256": "0b7a5ed8ec44cf760ca6c39a180bf3290b7342aa430e790aa1a48a2a69f16f5a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/time/camp_rest.rs",
+      "actual_EOF": 378,
+      "ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1146,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/organization.rs",
+      "sha256": "39842ba122cf2240e36f267f8db415dd2b54bfcc0dbd2478e813ef3c374a9645",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/organization.rs",
+      "actual_EOF": 655,
+      "ranges": [
+        [
+          220,
+          270
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "PatternSpec actual panel_order is computed lazily from panel_names+anchors when None/forced, then returned retained; merge adds/replacespanels and stitches without invalidating retainedorder. serialize(empty_ok=false) invokes unforcedcache and JSON writes cachedorder verbatim. Valid API sequence cacheorder[A], mergepanelB, serialize emits panelsA/B but order[A]. Startingempty cache[] thenmergeA can falsely fail empty-pattern guard. Explicit authored order and computed order share one field; do not equate insertionorder with geometricorder, defect is membership/staleness after actualcache population/mutation.",
+    "Normal garment component assembly navigation shows merges and later export; no ordinary compute-order-before-merge or liveSVGfailure traced, so retain API-conditional scope. force_update=true deliberately refreshes; export fresh pattern with None coherent. No file/SVGexecution.",
+    "with_professions location-id question narrowed: routeCaseSite uses originsettlement onlyfor reading/ability inputs but passes actualcase-siteID to chaptercheck. Actual professioneligibility owner requires currentsettlementchapter; field camp policyzeroes organizationtime. Passingoriginsettlement would incorrectlyenable professionawayfromchapter, not an automatic requiredfix. Exactrequire_activity_membership body stillneeded toclose localchapter gate; no APIwrongsettlementfinding promoted."
+  ],
+  "new_local_findings": [
+    "CONT07-F130"
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": null
+}

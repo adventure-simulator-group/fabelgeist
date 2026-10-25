@@ -1,0 +1,394 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-680",
+  "at": "2026-10-25T16:25:58.319182+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 966,
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog.rs",
+      "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+      "actual_EOF": 1630,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/quest_catalog.rs",
+        "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+        "bytes": 62269,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "root",
+            "record": "wave-01/audit-producer-propagation/root/additional-sources-026.json",
+            "ranges": [
+              [
+                1,
+                700
+              ]
+            ],
+            "source_read_status": "partial",
+            "trace_refs": [
+              "ROOT-PP-CATALOGUE-026"
+            ]
+          },
+          {
+            "shard": "root",
+            "record": "wave-01/audit-producer-propagation/root/unchanged-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                700
+              ]
+            ],
+            "source_read_status": "partial",
+            "trace_refs": [
+              "ROOT-PP-CATALOGUE-026"
+            ]
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+            "ranges": null,
+            "source_read_status": null,
+            "trace_refs": []
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                590,
+                670
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-MISSION-001"
+            ]
+          },
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/supplemental-catalog-sources.json",
+            "ranges": [
+              [
+                701,
+                1630
+              ]
+            ],
+            "source_read_status": "assigned_tail_full",
+            "trace_refs": [
+              "NATIVE-SUPP-CATALOG-001"
+            ]
+          }
+        ],
+        "audit_owner": "root",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 96,
+            "read_ranges": [
+              [
+                1,
+                940
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-CATALOGUE-023"
+            ],
+            "read_status": "explicit_partial",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_catalog.rs"
+          },
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 336,
+            "read_ranges": [
+              [
+                1,
+                1630
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-OUTPUT-AND-SOURCE-ENDPOINTS-073"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_catalog.rs"
+          },
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 429,
+            "read_ranges": [
+              [
+                1,
+                1630
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-CATALOGUE-023",
+              "ROOT-OWNER-OUTPUT-AND-SOURCE-ENDPOINTS-073",
+              "ROOT-OWNER-CLIENT-SOURCE-CLOSURE-083"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_catalog.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-CATALOGUE-ROLE-005",
+            "json_pointer": "/source_proofs/5",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/quest_catalog.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1630
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_catalog.rs",
+              "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+              "read_ranges": [
+                [
+                  1,
+                  1630
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-DIALOGUE-040",
+            "json_pointer": "/related_current_sources/10",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/quest_catalog.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                125
+              ],
+              [
+                324,
+                425
+              ],
+              [
+                520,
+                590
+              ],
+              [
+                685,
+                742
+              ],
+              [
+                834,
+                865
+              ],
+              [
+                915,
+                1145
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_catalog.rs",
+              "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+              "actual_lines": 1630,
+              "read_ranges": [
+                [
+                  1,
+                  125
+                ],
+                [
+                  324,
+                  425
+                ],
+                [
+                  520,
+                  590
+                ],
+                [
+                  685,
+                  742
+                ],
+                [
+                  834,
+                  865
+                ],
+                [
+                  915,
+                  1145
+                ]
+              ],
+              "proof_mode": "fresh actual current supplement bounded material source body, no execution",
+              "role": "Bounded actual referral variant source-map/selection/render/condition/template recipient and affected original fixtures; no full unrelated monster/generation owner credit"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-QUEST-KNOWLEDGE-050",
+            "json_pointer": "/additional_actual_source_proofs/13",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/quest_catalog.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                866
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_catalog.rs",
+              "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+              "read_ranges": [
+                [
+                  1,
+                  866
+                ]
+              ],
+              "actual_line_count": 1630,
+              "role": "Complete runtime production catalogue decode/validate/compile/lookup, relation/reference/bridge/consequence/evidence definitions; no whole1630 fixture claim",
+              "mode": "Fresh exact producer-supplement source-body read; only listed ranges, no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-033",
+            "json_pointer": "/fresh_current_additional_source_reads/10",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/quest_catalog.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                125
+              ],
+              [
+                324,
+                425
+              ],
+              [
+                520,
+                590
+              ],
+              [
+                685,
+                742
+              ],
+              [
+                834,
+                865
+              ],
+              [
+                915,
+                1145
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_catalog.rs",
+              "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+              "actual_lines": 1630,
+              "read_ranges": [
+                [
+                  1,
+                  125
+                ],
+                [
+                  324,
+                  425
+                ],
+                [
+                  520,
+                  590
+                ],
+                [
+                  685,
+                  742
+                ],
+                [
+                  834,
+                  865
+                ],
+                [
+                  915,
+                  1145
+                ]
+              ],
+              "proof_mode": "fresh actual current supplement bounded material source body, no execution",
+              "role": "Bounded actual referral variant source-map/selection/render/condition/template recipient and affected original fixtures; no full unrelated monster/generation owner credit"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-037",
+            "json_pointer": "/fresh_current_source_reads/7",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/quest_catalog.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                866
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/quest_catalog.rs",
+              "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+              "read_ranges": [
+                [
+                  1,
+                  866
+                ]
+              ],
+              "actual_line_count": 1630,
+              "role": "Complete runtime production catalogue decode/validate/compile/lookup, relation/reference/bridge/consequence/evidence definitions; no whole1630 fixture claim",
+              "mode": "Fresh exact producer-supplement source-body read; only listed ranges, no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 344,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1630
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "All wire catalogue record types Serde already derive with field/default/tag policies; Catalog Debug already derive; CatalogDocument and MonsterNegotiation Default already derive"
+      ],
+      "absence_basis": "Full exact1630 lines personally consumed672\u2013680: schema, template rendering, catalogue assembly/indexing, validation/selectors/lookups and all fixture bodies. No handwritten trait or codec; generated include20 not credited."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Quest catalogue derivability",
+      "disposition": "No mechanical trait target. Preserve semantic validation before derived record decoding, exact crossreferences/cohort/source mapping, public template constraints and fact/priority/demographic selection. Fixtures inspected only."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 967,
+    "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog_validation.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

@@ -1,0 +1,115 @@
+{
+  "id": "CONT07-CONTRACT-650",
+  "at": "2026-10-24T01:09:27.846336+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2034,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/defense.rs",
+      "sha256": "68cb46b9efe6c4f44ba41fe4386c02fa7000314c52d6e10b7d33fa9742290d8e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/combat/defense.rs",
+      "actual_EOF": 255,
+      "ranges": [
+        [
+          1,
+          112
+        ],
+        [
+          173,
+          185
+        ],
+        [
+          226,
+          244
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2041,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/melee/active_defense.rs",
+      "sha256": "291b5d7171d5674bc929189b672bf92ee1b1348b9866f526f65d4377c8fbedbe",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/combat/melee/active_defense.rs",
+      "actual_EOF": 186,
+      "ranges": [
+        [
+          1,
+          186
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2042,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/melee/outcome.rs",
+      "sha256": "b1df703eee8ffb66e22145a48e714ea090151771043a2c85b99905acb930c2f4",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/combat/melee/outcome.rs",
+      "actual_EOF": 129,
+      "ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2026,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat.rs",
+      "sha256": "847551347ed20961db50cd3ef65998a772b1d732f26b4810f4ccb725685547ba",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/combat.rs",
+      "actual_EOF": 1148,
+      "ranges": [
+        [
+          138,
+          169
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 897,
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/defense.rs",
+      "sha256": "a3019cfa64106abc38bbfa7b0962e406cc6cb1a1a663a8a0dfdee71f874201e1",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/combat/defense.rs",
+      "actual_EOF": 444,
+      "ranges": [
+        [
+          150,
+          196
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2032,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/consequence.rs",
+      "sha256": "9e767c76aa28c3742a0d11658983b2ce4abfd2fb63bc89962d5f1c02b3e396d0",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/combat/consequence.rs",
+      "actual_EOF": 308,
+      "ranges": [
+        [
+          110,
+          163
+        ],
+        [
+          227,
+          241
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Actual neutral weapon Block now traced producer\u2192selection\u2192outcome\u2192receipt: non-unarmed weapon without shield qualifies neutral raised Block; shield alignment leaves that response unchanged when no shield; blocking slot resolves weapon side; event carries selected slot. Receipt independently infers require_shield from response Block, rejecting actual selected weapon row. Promote CONT07-F124 as source-confirmed identity reclassification defect qualified on successful physical Block and valid single hand.",
+    "Shield Block remains correctly matched as shield; weapon Parry maps require_shield false and selected weapon slot. Both-hands returns no scalar slot by explicit ambiguity handling; do not treat that as same one-hand witness. No actual fight/receipt execution. Additional active defense source confirms F123 defender performance also reads stale state.incapacitation153\u2013154."
+  ],
+  "new_local_findings": [
+    "CONT07-F124"
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": null
+}

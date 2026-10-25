@@ -1,0 +1,84 @@
+{
+  "id": "CONT07-CONTRACT-476",
+  "at": "2026-10-23T22:33:31.181556+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2100,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/icon.rs",
+      "sha256": "ee709ba9baafee9046a52d19cc14feea08c7194db4bc29a478fd98b71da4e33a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/icon.rs",
+      "actual_EOF": 574,
+      "ranges": [
+        [
+          1,
+          407
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2101,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/icon/render.rs",
+      "sha256": "edff51da5c9b4c69950952e210b14a410e3b57e81af24119e35a300379796c81",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/icon/render.rs",
+      "actual_EOF": 199,
+      "ranges": [
+        [
+          1,
+          199
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2102,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/icon/studio.rs",
+      "sha256": "750bfa5bef2e547e50aca9f9835f5fcc90ccbc5183ebf3147cfebe159300ea69",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/icon/studio.rs",
+      "actual_EOF": 114,
+      "ranges": [
+        [
+          1,
+          114
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "CONT-OWNER-RANGE-EXTENSION-085 complete qualified registration narrative personally consumed before helper read"
+  ],
+  "facts": [
+    "2100 exact original1\u2013407 and mandatory extension085408\u2013521 personally read separately. Projection built once from immutable design/generated cohort; layout/focus/anchor metadata assembled with same scale and target then exposed in WeaponIcon. PrivateProjection mutation not public cache invalidation path. Full574 not claimed; tests523\u2013574 outside reached role.",
+    "2100 holder icon selects generated throat/suspension by independently authored strings; fresh2099 produces matching semantic parts. F100 maintenance classification preserves current agreement while recording uncoordinated future name drift. Generic weapon IDs joined to semantic ComponentRole map from same recipe; not hardcoded catalog classification.",
+    "2100 focus bounds describe framing geometry and occupied_bounds uses rendered geometric coverage.2101 actual RGBA output is deliberately opaque black background with independent coverage mask for bounds, not transparency; do not claim alpha channel stores foreground occupancy. Requested spec/actual output size and supersampling validated in same render call; encoded PNG validates supplied pixels/native dimensions.",
+    "2101 full199: per-pixel depths/colors initialized together; depth/color set only after valid interpolated normal, so occupancy tracks same drawn samples. Material icon aesthetic palette can intentionally differ canonical recipe material color; existing fallback delegates material.color/is_metal, not current competing physical material authority. Need actual shared presentation contract before forcing equal shaders.",
+    "2102 full114 immutable LazyLock environment generated from fixed studio recipe, sampled shade and exported HDR use exact same retained environment array/dimensions. Exposure/color transform output policy separate from raw linear HDR observations; not wrong same lighting truth merely because display exposure applies later.",
+    "EXT085 helper body uses actual same design roles/generated anchors, highest socket or averaged head bases and synthetic focus from actual bounds. Synthetic head reference is explicitly presentation framing fallback for nonblade/headless objects, not generated physical head identity. No material/GPU/image/codec execution."
+  ],
+  "new_local_findings": [
+    "CONT07-F100"
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2105,
+    "start_line": 1
+  },
+  "mandatory_overlays_personally_read": [
+    {
+      "id": "CONT-OWNER-RANGE-EXTENSION-085",
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/icon.rs",
+      "sha256": "ee709ba9baafee9046a52d19cc14feea08c7194db4bc29a478fd98b71da4e33a",
+      "ranges": [
+        [
+          408,
+          521
+        ]
+      ],
+      "original_unique_credit": false
+    }
+  ]
+}

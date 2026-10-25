@@ -1,0 +1,26 @@
+{
+  "canonical_reference": "audit/continuation/native/initial05-aggregate-states/findings.jsonl#row23",
+  "line": 24,
+  "record": {
+    "id": "NATIVE-INITIAL05-F022",
+    "lens": "audit-aggregate-states",
+    "classification": "finite profile endpoints overflow the checked passage grade comparison",
+    "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/profile.rs",
+    "sha256": "e8662abeffcf5acd766443246d2f7a45d909bc367cb1b2d2e0d13676503506ce",
+    "source_ranges": [
+      [
+        85,
+        119
+      ]
+    ],
+    "relationship": "A checked passage profile must preserve its permitted rise/run bound across otherwise valid finite ordered endpoint values.",
+    "source_counterexample": "Two admitted ProfileCoordinates(-f32MAX,+f32MAX), SupportElevations(-f32MAX,+f32MAX), valid SupportGrade .1 and positive finite tolerance yield run=Inf, rise=Inf, permitted=Inf. At98, run<=0 is false and Inf>Inf+tolerance is false. stepped then checks only finite elevations/nondecreasing coordinates and accepts. Mathematical grade is1, exceeding .1. No execution/new case.",
+    "actual_path": "Crate helper/API accepted-combination weakness. SupportProfile is also deliberately used for stepped courts, and comments retain later final plan acceptance; actual normal compiler paths/final gate not yet traced, so no normal unwalkable passage or unsafe installed surface claim.",
+    "connected_repair": "Connected property support/profile construction graph under Root authority; distinguish checked walkable profile from stepped/affine probe semantics. No supplier repair transfer or blanket new brand.",
+    "acceptance": "Compare completed run/rise/limit without f32 overflow, e.g widened differences/products or an explicit finite checked branch, before accepting passage. Preserve valid coordinate0, signed elevations, nondecreasing repeated-coordinate retaining steps through stepped factory, endpoint seam policy and affine probes; do not indiscriminately reject all extreme endpoint profiles whose stable interpolation is valid.",
+    "proof_ref": "contract-groups-075.json",
+    "repair": "frozen",
+    "validation": "not_established"
+  },
+  "disposition": "Exact operation and remedy independently confirmed full profile1\u2013260. Same extreme run/rise/permittedInf comparison, no duplicate; final plan/ordinarytrigger qualification preserved."
+}

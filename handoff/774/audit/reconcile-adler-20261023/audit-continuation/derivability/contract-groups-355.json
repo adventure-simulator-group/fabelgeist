@@ -1,0 +1,97 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-355",
+  "at": "2026-10-25T15:02:03.296628+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 696,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armory_ui.rs",
+      "sha256": "5c519edc1b220e1bdb7d874160b997ffb77a98266e5f6c5de49565d4ab5e9ada",
+      "actual_EOF": 332,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-character-creator/src/armory_ui.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-character-creator/src/armory_ui.rs",
+        "owner": "rig",
+        "sha256": "5c519edc1b220e1bdb7d874160b997ffb77a98266e5f6c5de49565d4ab5e9ada",
+        "base_sha256": "8d745c06d3da4e652234e2b1cbc13a3f23b7977a5efb079c51aea68ce12bf591",
+        "state": "modified",
+        "bytes": 12006,
+        "audit_owner": "rig",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/sources.json",
+            "ranges": [
+              [
+                1,
+                332
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-DEVICE-FIT-01"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 160,
+            "read_ranges": [
+              [
+                1,
+                332
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-ARMORY-EXPORT-029"
+            ],
+            "read_status": "full-source-read-current-lens",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-character-creator/src/armory_ui.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          332
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full exact source read1\u2013210/211\u2013332. egui show/view controls/stepping/list/editor/construction/decoration/label native UI functions only; no declared trait/type/codec. Catalog edits, borrowed library validation/save result rendering and viewport projection are semantic UI behavior, not derive targets."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "armory UI editing and selection",
+      "disposition": "No handwritten trait implementation; retain semantic native UI mapping and catalog/library boundaries.",
+      "acceptance": "No new codec/API and no UI/test execution claim."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 697,
+    "source_id": "pr-working:crates/adventuresim-character-creator/src/bare_body.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

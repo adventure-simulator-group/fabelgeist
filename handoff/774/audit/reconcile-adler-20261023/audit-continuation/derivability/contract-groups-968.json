@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-968",
+  "at": "2026-10-25T17:23:50.152302+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1136,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/item.rs",
+  "sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+  "actual_compared_ranges": [
+    [
+      1,
+      350
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "InventoryItem and Item table rows already derive Clone/Debug, Item Default. PersistedEquipmentPlacement and AttachmentPoint already SpacetimeType/Clone/Debug/PartialEq. project_definition142\u2013288 is contextual authored-kind/capability projection with defaults, computed balance and conditional fields, not a mechanical From/codec derive. Currency/catalog initialization and stable-object classification native; no handwritten trait in this prefix.",
+  "first_unfinished": {
+    "scope_index": 1136,
+    "line": 351
+  },
+  "execution": "none"
+}

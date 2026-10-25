@@ -1,0 +1,159 @@
+{
+  "id": "NATIVE-OWNER-SDK-001",
+  "lens": "audit-existing-type-owners",
+  "status": "Narrow current-lens actual SDK output-port proof, not application source clearance",
+  "pin": {
+    "lock_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+    "packages": [
+      {
+        "name": "spacetimedb",
+        "version": "2.6.1",
+        "source": "registry+https://github.com/rust-lang/crates.io-index",
+        "checksum": "b6eff5017248ff2e35e03564df947fdf3e963f7198be6ae1d9e894c2efb2ea15",
+        "dependencies": [
+          "anyhow",
+          "bytemuck",
+          "bytes",
+          "derive_more 0.99.20",
+          "getrandom 0.2.17",
+          "http",
+          "log",
+          "rand 0.8.8",
+          "scoped-tls",
+          "serde_json",
+          "spacetimedb-bindings-macro",
+          "spacetimedb-bindings-sys",
+          "spacetimedb-lib",
+          "spacetimedb-primitives",
+          "spacetimedb-query-builder"
+        ]
+      },
+      {
+        "name": "spacetimedb-bindings-macro",
+        "version": "2.6.1",
+        "source": "registry+https://github.com/rust-lang/crates.io-index",
+        "checksum": "fce86c7657dcb42a33ce55f0100f98964dc15b64e79f06803a478676b74d6c82",
+        "dependencies": [
+          "heck 0.4.1",
+          "humantime",
+          "proc-macro2",
+          "quote",
+          "spacetimedb-primitives",
+          "syn 2.0.119"
+        ]
+      }
+    ]
+  },
+  "read_files": [
+    {
+      "source_id": "native-dependency:spacetimedb-bindings-macro-2.6.1/src/reducer.rs",
+      "observed_sha256": "5d9af3fa69cda0c4377ddc6e3da0ead36b83bcb5f7cda7e53d78534b9bfd0fba",
+      "read_ranges": [
+        [
+          1,
+          204
+        ]
+      ],
+      "source_read_status": "Current lens fresh actual macro/native callback/serialization/error receiving bodies; exact ranges only",
+      "trace_refs": [
+        "NATIVE-OWNER-SDK-001"
+      ],
+      "path": "CARGO_REGISTRY/spacetimedb-bindings-macro-2.6.1/src/reducer.rs",
+      "native_source_path": "CARGO_REGISTRY/spacetimedb-bindings-macro-2.6.1/src/reducer.rs",
+      "native_file_resolution": {
+        "method": "Exact recorded file SHA256 match at existing pinned cargo source path; version/name alone is not evidence",
+        "expected_sha256": "5d9af3fa69cda0c4377ddc6e3da0ead36b83bcb5f7cda7e53d78534b9bfd0fba",
+        "observed_sha256": "5d9af3fa69cda0c4377ddc6e3da0ead36b83bcb5f7cda7e53d78534b9bfd0fba",
+        "hash_match": true,
+        "package_pin_ref": "sdk-output-port.json#pin",
+        "path_newly_normalized": true
+      }
+    },
+    {
+      "source_id": "native-dependency:spacetimedb-bindings-macro-2.6.1/src/view.rs",
+      "observed_sha256": "48fc81bd0f4780c85900aac82084c05599116c565c7beecd4d26239cf7d0a78a",
+      "read_ranges": [
+        [
+          190,
+          361
+        ]
+      ],
+      "source_read_status": "Current lens fresh actual macro/native callback/serialization/error receiving bodies; exact ranges only",
+      "trace_refs": [
+        "NATIVE-OWNER-SDK-001"
+      ],
+      "path": "CARGO_REGISTRY/spacetimedb-bindings-macro-2.6.1/src/view.rs",
+      "native_source_path": "CARGO_REGISTRY/spacetimedb-bindings-macro-2.6.1/src/view.rs",
+      "native_file_resolution": {
+        "method": "Exact recorded file SHA256 match at existing pinned cargo source path; version/name alone is not evidence",
+        "expected_sha256": "48fc81bd0f4780c85900aac82084c05599116c565c7beecd4d26239cf7d0a78a",
+        "observed_sha256": "48fc81bd0f4780c85900aac82084c05599116c565c7beecd4d26239cf7d0a78a",
+        "hash_match": true,
+        "package_pin_ref": "sdk-output-port.json#pin",
+        "path_newly_normalized": true
+      }
+    },
+    {
+      "source_id": "native-dependency:spacetimedb-2.6.1/src/rt.rs",
+      "observed_sha256": "9dae2fdd25e809c3fae6780569a1e6ce1a9d76d99feaac6a38a884faaa5ebf16",
+      "read_ranges": [
+        [
+          1,
+          200
+        ],
+        [
+          203,
+          225
+        ],
+        [
+          330,
+          465
+        ],
+        [
+          628,
+          655
+        ],
+        [
+          660,
+          695
+        ],
+        [
+          1025,
+          1065
+        ],
+        [
+          1086,
+          1098
+        ],
+        [
+          1228,
+          1295
+        ],
+        [
+          1374,
+          1393
+        ]
+      ],
+      "source_read_status": "Current lens fresh actual macro/native callback/serialization/error receiving bodies; exact ranges only",
+      "trace_refs": [
+        "NATIVE-OWNER-SDK-001"
+      ],
+      "path": "CARGO_REGISTRY/spacetimedb-2.6.1/src/rt.rs",
+      "native_source_path": "CARGO_REGISTRY/spacetimedb-2.6.1/src/rt.rs",
+      "native_file_resolution": {
+        "method": "Exact recorded file SHA256 match at existing pinned cargo source path; version/name alone is not evidence",
+        "expected_sha256": "9dae2fdd25e809c3fae6780569a1e6ce1a9d76d99feaac6a38a884faaa5ebf16",
+        "observed_sha256": "9dae2fdd25e809c3fae6780569a1e6ce1a9d76d99feaac6a38a884faaa5ebf16",
+        "hash_match": true,
+        "package_pin_ref": "sdk-output-port.json#pin",
+        "path_newly_normalized": true
+      }
+    }
+  ],
+  "reducer": "reducer_impl full204 registers FnInfo INVOKE and invokes original reducer through rt::invoke_reducer. Actual Reducer::invoke643–645 calls original then IntoReducerResult. Result<(),E:Display>219–223 formats sole nativeBoxstr endpoint, __call_reducer1035–1063 invokes thenconvert_err_to_errno1090–1098 writesbytes viawrite_to_sink1377–1393 intoSDKsink. Existing concrete errors can remaintypedtoactual reducer entry, no internalStringadapterneeded.",
+  "view": "view macro190–361 emits original Vec/Option body unmodified, FnInfoINVOKE→ViewDispatcher412/424→invoke_view89–100 oranonymous118–130; actual View::invoke tuple670–687 returns originaloutput. ViewReturn344–355 BSATNRowDataheader plusVec/Option slice serialize, actual __call_view/anon sinkcalls1239–1287 sendencodedbytes. Returned rowDTO finalprojections actualwireboundary; typed application intermediate records beforeview remainrequired.",
+  "scope": "Original native SDK structural/nativeerror and exact outputbytes port fit; applicationmissing/enum/admission policy remains. No source/runtime/familyacceptance. Earlier producer proof navigation only; all ranges freshlyread currentlens.",
+  "repair": "none",
+  "validation": "none",
+  "path_resolution_ref": "native-dependency-path-index.json#NATIVE-OWNER-PINNED-PATHS-013"
+}

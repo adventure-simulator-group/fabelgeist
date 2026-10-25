@@ -1,0 +1,65 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-411",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/sample_values.rs",
+      "sha256": "234c8eb4f9138aba0e0eb5302d52fba73d1c76044ca282b24e442fc693f22afb",
+      "actual_EOF": 91,
+      "actual_compared_ranges": [
+        [
+          1,
+          91
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/semantic_route.rs",
+      "sha256": "503b335e2aaa99a5cb283b02af958b8990b0e2fce6817b437b56e1bc8900e6e1",
+      "actual_EOF": 145,
+      "actual_compared_ranges": [
+        [
+          1,
+          145
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/skeletal_proportions.rs",
+      "sha256": "56f60067aad4396f087ebb56e068d5a0413b75ae81cd5fb4424dc3a14f28bc8c",
+      "actual_EOF": 279,
+      "actual_compared_ranges": [
+        [
+          1,
+          279
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Sampling values retain finite time and unwrapped phase meaning",
+      "evidence": "sample_values.rs:1-91",
+      "disposition": "Nonnegative duration includes zero; ClipTime intentionally admits signed finite time. Completed duration*cycle phase checked finite, no global unit-interval narrowing of unwrapped CyclePhase. Sample-coherence subtraction can overflow to infinity and correctly reports not same; finite sample primitive channels explicitly still unmigrated."
+    },
+    {
+      "contract": "Semantic route evaluation and telemetry",
+      "evidence": "semantic_route.rs:1-145",
+      "disposition": "Route evaluation fallible before trace insertion; failed evaluation removes old trace in chained command synchronization. Telemetry raw u64 increments have represented MAX overflow but no practical lifetime/count witness; retained as bounded counter contract qualification, no separately promoted ordinary defect. Direction projection depends on source velocity and native normalization, not independently checked by serializable trace."
+    },
+    {
+      "contract": "Skeletal proportion operations",
+      "evidence": "skeletal_proportions.rs:1-279",
+      "disposition": "Exact alias support for NATIVE-INITIAL05-F012 at audit/continuation/native/initial05-aggregate-states/findings.jsonl#14: finite basis admission alone does not prove finite resulting offsets/ground correction; current normalized authoring producer qualification preserved. Instance independence, overrides, changed basis and removed proportions handled; generated basis and actual final offset admission remain shared remedy. Recursive parent composition relies actual hierarchy acyclicity. Zero-scale parent correction native division can fail, but no real zero-scale canonical authoring witness added here. Existing unit fixture read, not run."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/animation/tests.rs"
+}

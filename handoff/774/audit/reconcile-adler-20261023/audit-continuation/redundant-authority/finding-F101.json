@@ -1,0 +1,129 @@
+{
+  "id": "CONT07-F101",
+  "at": "2026-10-23T22:41:21.576014+00:00",
+  "classification": "maintenance duplicate stock unit mass/membership authority; current four definitions agree",
+  "title": "Forge stock unit masses and measured-stock roster duplicate catalogue and stock membership",
+  "sources": [
+    {
+      "scope_index": 2130,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/stock.rs",
+      "sha256": "848e1187843f8082d93fa8a1adc5e8b2bc60f90336e2d496176aa32969ee596e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/stock.rs",
+      "ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "new_original_credit": false
+    },
+    {
+      "scope_index": 525,
+      "source_id": "pr-working:content/items/catalog.yaml",
+      "sha256": "87e0f51292d42ab62beeabc9f2624f635c27acf8b28ae3d8c2931eb9297f491b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:content/items/catalog.yaml",
+      "ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "new_original_credit": false
+    },
+    {
+      "scope_index": 850,
+      "source_id": "pr-working:crates/adventuresim-core/build.rs",
+      "sha256": "fc42ea1f2234144e94d6bfac86f254cd059799b9f9e5ae6de7f77e3125f19b7c",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/build.rs",
+      "ranges": [
+        [
+          220,
+          284
+        ]
+      ],
+      "new_original_credit": false
+    },
+    {
+      "scope_index": 937,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog.rs",
+      "sha256": "de7dd72013aa3af8ae0aae8691011a8aaa2d168db670188bcc1064cac9a23d18",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/item_catalog.rs",
+      "ranges": [
+        [
+          1,
+          135
+        ]
+      ],
+      "new_original_credit": false
+    },
+    {
+      "scope_index": 997,
+      "source_id": "pr-working:crates/adventuresim-core/src/smithing.rs",
+      "sha256": "83f6b2eb7d945187bca6dc9f0fe78cbab0d25c292ce4c4096af94b4eb89a298b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/smithing.rs",
+      "ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "new_original_credit": false
+    },
+    {
+      "scope_index": 1194,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/smithing.rs",
+      "sha256": "aecea90ad65fd73946a24653499fdfe07a626491543cb20c57f5e70ae82e4d49",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/smithing.rs",
+      "ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "new_original_credit": false
+    },
+    {
+      "scope_index": 1136,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/item.rs",
+      "sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/item.rs",
+      "ranges": [
+        [
+          72,
+          90
+        ],
+        [
+          136,
+          160
+        ],
+        [
+          286,
+          307
+        ]
+      ],
+      "new_original_credit": false
+    },
+    {
+      "scope_index": 1118,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/inventory_amount.rs",
+      "sha256": "535ee605910c63e7b0e6f89c70e89a47644fd854c8f6c3a9ed0bb31b9691e3b6",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/inventory_amount.rs",
+      "ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "new_original_credit": false
+    }
+  ],
+  "earliest_failed_contract": "One whole stock unit has a physical catalogue weight, a separately hardcoded ForgeStock.unit_mass_kg used to convert material mass to consumable fractions, and an independently written SMITHING_MATERIAL_IDS list controlling whether its per-row fraction exists. These maintain the same current unit identity/mass across distinct internal authorities.",
+  "current_comparison": "Current Steel5kg, Leather2kg, Brass2kg, Wood4kg exactly match content/items/catalog.yaml1\u201343 and ForgeStock.unit_mass_kg19\u201324. Core build embeds these authored records; Core.catalog overrides physical weight only for melee weapons, not Ingredient stock. Native project_definition copies catalogue weight. All four ForgeStock item ids currently appear in measured roster1118:10\u201311. No present wrong quote/consumption asserted.",
+  "counterexample": "If authored stock weight changes alone, an item whole projected at that new mass is still converted by old ForgeStock mass into required micros; the native forge then consumes fractions using only the stale quoted count, so same physical requested material can cost a wrong fraction of current stock mass. If a new ForgeStock member/item is admitted but measured roster omitted, quote can select it while amount-state initialization/classification may omit it and availability cannot satisfy normal consume. These are source maintenance divergence scenarios, not executed current failures.",
+  "actual_recipient": "Core quote_weapon33\u201346 divides actual generated material kg by independent stock unit mass; native forge_weapon97\u2013105 checks and consumes these fixed-point requirements. InventoryItemAmount explicitly represents one stable unit as WHOLE and stock membership comes from separately authored list. Item table carries catalogue unit weight.",
+  "qualification": "Related root M81 concerns stock identity erasure and separately mutable quote mass/requirement maps; this is separate exact canonical mass and measured membership authority support. M01 physical quantities applies without automatic alias. Material forge_stock authoring subset intentionally excludes unsupported traded materials; no requirement to trade every material. Equality tests may detect drift but do not remove independent definitions. Current values coherent.",
+  "connected_repair": "Choose one low shared ForgeStock identity/member/unit-mass authority that catalogue projection/validation, quotation and measured-inventory classification consume; preserve real content/hashing/DB boundaries and architectural dependency direction. Derive stock membership instead of manual parallel list. Coordinate with M81 collection/quantity remedy, not duplicate enum or compatibility API.",
+  "acceptance": "Existing four stock ids, weights, grouping, required ceil-per-material-before-shared-sum, micros splitting and external map order remain unchanged; edits cannot silently redefine one stock unit differently for inventory mass and forge fractions. No new tests/checks/DB execution in audit.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

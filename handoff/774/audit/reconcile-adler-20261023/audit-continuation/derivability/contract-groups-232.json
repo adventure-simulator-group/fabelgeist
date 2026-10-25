@@ -1,0 +1,167 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-232",
+  "at": "2026-10-25T13:57:40.021655+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 459,
+      "source_id": "physical-p16:crates/strategic-web/src/routes/quests.rs",
+      "sha256": "60584d6a541687989c1813acb39304738e37dd1bd1a9e17cf281551b36057b68",
+      "actual_EOF": 2102,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/strategic-web/src/routes/quests.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/strategic-web/src/routes/quests.rs",
+        "sha256": "60584d6a541687989c1813acb39304738e37dd1bd1a9e17cf281551b36057b68",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 69463,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 388,
+            "read_ranges": [
+              [
+                1550,
+                1604
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-ROUTE-SOURCE-054"
+            ],
+            "read_status": "scoped_complete_case_position_and_distance_receivers",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/strategic-web/src/routes/quests.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-038",
+            "json_pointer": "/fresh_current_source_reads/13",
+            "source_id_as_recorded": "physical-p16:crates/strategic-web/src/routes/quests.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                2102
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 577,
+              "source_id": "physical-p16:crates/strategic-web/src/routes/quests.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/strategic-web/src/routes/quests.rs",
+              "expected_sha256": "60584d6a541687989c1813acb39304738e37dd1bd1a9e17cf281551b36057b68",
+              "observed_sha256": "60584d6a541687989c1813acb39304738e37dd1bd1a9e17cf281551b36057b68",
+              "read_ranges": [
+                [
+                  1,
+                  2102
+                ]
+              ],
+              "proof_mode": "Fresh full material source/fixtures read; identical-hash PR/P16 variants explicitly reconciled after byte fingerprints, preserving downstream role distinctions. Source only; no project execution.",
+              "read_status": "full-source-read-receiver-reconciliation-in-progress"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/camera/traces.jsonl",
+            "receipt": "CONT-CAMERA-PP-008",
+            "json_pointer": "/exact_source_proofs/13",
+            "source_id_as_recorded": "physical-p16:crates/strategic-web/src/routes/quests.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                2102
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 577,
+              "source_id": "physical-p16:crates/strategic-web/src/routes/quests.rs",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\strategic-web\\src\\routes\\quests.rs",
+              "sha256": "60584d6a541687989c1813acb39304738e37dd1bd1a9e17cf281551b36057b68",
+              "read_ranges": [
+                [
+                  1,
+                  2102
+                ]
+              ],
+              "actual_line_count": 2102,
+              "proof_origin": "RIG-PPS-038 exact full-source read, source-backed producer graph and original fixtures; current continuation independently verifies frozen bytes and joins receiving contracts. Not a new full-file read.",
+              "material_disposition": "Same exact quest bytes as396, actual P16 source context reconciled for same authority/query/readiness/HTML roles; not automatic counterpart coverage.",
+              "disposition": "accounted-with-findings"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/rig/web-request-reconciliation-039.json",
+            "receipt": "RIG-CONT-PPS-WEB-REQUEST-RECONCILIATION-039",
+            "json_pointer": "/source_dispositions/13",
+            "source_id_as_recorded": "physical-p16:crates/strategic-web/src/routes/quests.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                2102
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 577,
+              "source_id": "physical-p16:crates/strategic-web/src/routes/quests.rs",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\strategic-web\\src\\routes\\quests.rs",
+              "sha256": "60584d6a541687989c1813acb39304738e37dd1bd1a9e17cf281551b36057b68",
+              "read_ranges": [
+                [
+                  1,
+                  2102
+                ]
+              ],
+              "actual_line_count": 2102,
+              "proof_origin": "RIG-PPS-038 exact full-source read, source-backed producer graph and original fixtures; current continuation independently verifies frozen bytes and joins receiving contracts. Not a new full-file read.",
+              "material_disposition": "Same exact quest bytes as396, actual P16 source context reconciled for same authority/query/readiness/HTML roles; not automatic counterpart coverage.",
+              "disposition": "accounted-with-findings"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1267,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          2102
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "Hostile surrender/negotiation, loot, map/enemy query, bandage/corpse/contact forms already Deserialize/Default/structural derives as needed; named AcceptQuestResponse/TurnInQuestResponse already Serialize derive.",
+      "absence_basis": "Full2102-line module personally consumed in231 prefix1\u20131030 then1031\u20131390/1391\u20131750/1751\u20132102. No handwritten trait/serializer. Native reducer arguments, authority/context/readiness checks, quest lifecycle, corpse/nativeSATS mappings, geo-versus-abstract distance, and presentation mapping are semantic runtime functions. Full fixtures read, not executed; child/include bodies uncredited."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Quest native protocol and named response serialization",
+      "disposition": "Existing derived records own mechanical serialization; explicit semantic route/native transformations retained. No derivability finding.",
+      "acceptance": "Preserve native schema/reducer arguments, authoritative occupancy/readiness, abstract-versus-geographic units and response records; source-only, no runtime/check claim."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 460,
+    "source_id": "physical-p16:crates/strategic-web/src/routes/settlements/camp.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

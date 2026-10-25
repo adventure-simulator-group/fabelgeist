@@ -1,0 +1,124 @@
+{
+  "id": "ROOT-DUPLICATE-SCOPE-RECONCILIATION-215",
+  "at": "2026-10-23T05:49:59.551498+00:00",
+  "registrations": [
+    {
+      "id": "NATIVE-INITIAL05-REG048",
+      "at": "2026-10-23T05:46:06.920093+00:00",
+      "authority": "Root parallel-initial-audits-081; direct actually needed firstparty material before body",
+      "source_id": "physical-p16:crates/adventuresim-core/src/quest_catalog_validation.rs",
+      "snapshot": "physical-p16",
+      "sha256": "738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+      "actual_EOF": 1526,
+      "material_ranges": [
+        [
+          200,
+          212
+        ],
+        [
+          448,
+          480
+        ]
+      ],
+      "role": "Missing directly called bounded-ID predicate plus item-dispatch/ID uniqueness prefix, completing actual P16 lower validation roles",
+      "actual_caller": "Existing P16validator481\u00e2\u20ac\u201c1516 calls id and relies common namespace dispatch",
+      "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\quest_catalog_validation.rs",
+      "exclusions": "Retain all prior roles; no unrelated rendering/getters/otherhelpers/tests/foreign graph. No PR equality substitution before actual selected semantic comparison.",
+      "status": "prospectively_registered_BEFORE_body_analysis"
+    },
+    {
+      "id": "NATIVE-INITIAL05-REG049",
+      "at": "2026-10-23T05:46:06.921290+00:00",
+      "authority": "Root parallel-initial-audits-081; direct actually needed firstparty material before body",
+      "source_id": "physical-p16:crates/adventuresim-core/src/quest_catalog.rs",
+      "snapshot": "physical-p16",
+      "sha256": "49f76eeee235f7458511523a247a9feabe167d5f84ba7ebe9a5a48d002f4f8f3",
+      "actual_EOF": 1630,
+      "material_ranges": [
+        [
+          90,
+          108
+        ],
+        [
+          324,
+          597
+        ],
+        [
+          731,
+          791
+        ],
+        [
+          842,
+          860
+        ]
+      ],
+      "role": "Monster fields; Catalog backing/whole compile/map getters; validate_monster; startup raw\u00e2\u2020\u2019validate\u00e2\u2020\u2019strictdecode\u00e2\u2020\u2019compile before immutable access",
+      "actual_caller": "Existing P16ThreatId parse108\u00e2\u20ac\u201c116/profile484\u00e2\u20ac\u201c500 uses actual catalogue receiver; prior036 explicitly left this lower pending",
+      "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\quest_catalog.rs",
+      "exclusions": "Retain all prior roles; no unrelated rendering/getters/otherhelpers/tests/foreign graph. No PR equality substitution before actual selected semantic comparison.",
+      "status": "prospectively_registered_BEFORE_body_analysis"
+    }
+  ],
+  "registry": {
+    "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+    "sha256": "e4e581d9b0d6d1e60f310101757d0e5e49b04a3b189b8f5db524c0fb3dfbb705"
+  },
+  "current_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-062.json",
+    "sha256": "218924e8757de3e9b020b48237c11cde4e6152aa996cca4680673b0a1667b0c2"
+  },
+  "existing_overlay": {
+    "record": "continuation/owner-range-extensions.jsonl",
+    "sha256": "a73ae9d6549ad3fa18a9f89c1b081508e2d464c98a8ba0e9c9b8b2341fc005a3"
+  },
+  "existing_roles": {
+    "NATIVE-INITIAL05-REG048": [
+      "CONT-OWNER-RANGE-EXTENSION-025 common bounded ID and namespace uniqueness prefix200-212/448-480"
+    ],
+    "NATIVE-INITIAL05-REG049": [
+      "CONT-OWNER-RANGE-EXTENSION-024 Monster92-110/privatecompile324-597/validate_monster731-791/catalog842-860",
+      "CONT-OWNER-RANGE-EXTENSION-187 Monsterderive89-91 coversnew90-91"
+    ]
+  },
+  "fresh_actual_Root03_read": {
+    "validator": [
+      [
+        200,
+        212
+      ],
+      [
+        448,
+        480
+      ]
+    ],
+    "catalogue": [
+      [
+        90,
+        108
+      ],
+      [
+        324,
+        597
+      ],
+      [
+        731,
+        791
+      ],
+      [
+        842,
+        860
+      ]
+    ],
+    "contract": "ID grammar nonempty<=63 lower ASCII/digit/_-.:; common root namespace uniqueness before dispatch. Catalog privatecompile builds local maps, checks duplicate references/mechanic enums/category uniqueness and raw runtime validate->strictdecode->compile before OnceLock publication. Direct raw DTO compilation/derivedDeserialize is not equivalent to runtime raw-document gate. validate_monster alone checks positiveweight but does not check finite; normal JSON gate/decoder and callednumeric validation remain separate, no normal nonfinite accepted path inferred. Optional source-map fixture input is not proof every persisted variant has source; actual dialogue receiver enforces that contract. No catalogue mass normalization or new finitefloat bounds implied. Exact597 partialevidence getter context, not complete598 body;448 delimiter,479-480 starts dispatch whose existing481+ role is separate."
+  },
+  "decision": "Both registrations repeat already-global exact material roles with same contracts; retain prospective/actual supplier evidence, no new variant/overlay/01-02 role or automatic semantic reset. No source/lens credit from metadata alone. Original audit obligations remain unchanged.",
+  "counts_unchanged": {
+    "variants": 2840,
+    "overlays": 244,
+    "bounded01_02_roles": 297
+  },
+  "mandatory_qualifications": "All prior200/208/210 and earlier qualifiers retained. No shrinking or new whole-file scope.",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

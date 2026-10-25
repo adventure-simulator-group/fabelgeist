@@ -1,0 +1,1374 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-006",
+  "at": "2026-10-25T11:23:21.377325+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 36,
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/io_types.wgsl",
+      "sha256": "3529f71ec77f88963ee969691ef2dd2f871abf490a8a4beed073b98ff10974b9",
+      "actual_EOF": 48,
+      "requested_registration": {
+        "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/io_types.wgsl",
+        "snapshot": "native",
+        "path": "LOCAL_PATH_REDACTED",
+        "sha256": "3529f71ec77f88963ee969691ef2dd2f871abf490a8a4beed073b98ff10974b9",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 1131,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 159,
+            "read_ranges": [
+              [
+                1,
+                48
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-EIDOLON-LITTER-055"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "LOCAL_PATH_REDACTED"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1518,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Entire exact WGSL source read: shader input/output/uniform declarations or native transform/dither functions. No Rust trait or serializer implementation exists in this language/source role; host interface correctness remains separate."
+    },
+    {
+      "scope_index": 37,
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/types.wgsl",
+      "sha256": "9bd27e4a4bb61b319e4ee13ae7e1407be2fdd432471ef6e9aede72e206321d90",
+      "actual_EOF": 15,
+      "requested_registration": {
+        "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/types.wgsl",
+        "snapshot": "native",
+        "path": "LOCAL_PATH_REDACTED",
+        "sha256": "9bd27e4a4bb61b319e4ee13ae7e1407be2fdd432471ef6e9aede72e206321d90",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 332,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 162,
+            "read_ranges": [
+              [
+                1,
+                15
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-EIDOLON-LITTER-055"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "LOCAL_PATH_REDACTED"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1521,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Entire exact WGSL source read: shader input/output/uniform declarations or native transform/dither functions. No Rust trait or serializer implementation exists in this language/source role; host interface correctness remains separate."
+    },
+    {
+      "scope_index": 38,
+      "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/utils.wgsl",
+      "sha256": "e681dfe05b5df31bfba37904eae24631e48be8a91e90910253cba046bdecfcc9",
+      "actual_EOF": 43,
+      "requested_registration": {
+        "source_id": "native:bevy_eidolon@1a5aff8d4809287e5f5713fb4cf72181b2285fff/src/render/utils.wgsl",
+        "snapshot": "native",
+        "path": "LOCAL_PATH_REDACTED",
+        "sha256": "e681dfe05b5df31bfba37904eae24631e48be8a91e90910253cba046bdecfcc9",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 1618,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 161,
+            "read_ranges": [
+              [
+                1,
+                43
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-EIDOLON-LITTER-055"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "LOCAL_PATH_REDACTED"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1520,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Entire exact WGSL source read: shader input/output/uniform declarations or native transform/dither functions. No Rust trait or serializer implementation exists in this language/source role; host interface correctness remains separate."
+    },
+    {
+      "scope_index": 39,
+      "source_id": "physical-p16:Cargo.lock",
+      "sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+      "actual_EOF": 13103,
+      "requested_registration": {
+        "source_id": "physical-p16:Cargo.lock",
+        "snapshot": "physical-p16",
+        "path": "Cargo.lock",
+        "owner": "root",
+        "sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+        "base_sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+        "state": "modified",
+        "bytes": 306149,
+        "audit_owner": "root",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [],
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 0,
+            "read_ranges": [
+              [
+                1,
+                13103
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-METADATA-001"
+            ],
+            "read_status": "full_stdlib_native_format_metadata",
+            "resolved_path": "SNAPSHOTS/physical-p16/Cargo.lock"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "admission03_increment050_role_observations": [
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 16,
+            "registration_id": "NATIVE-ADMISSION03-REG-016",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-016",
+              "at": "2026-10-22T07:38:46.604886+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "physical-p16:Cargo.lock",
+              "sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+              "snapshot": "physical-p16",
+              "actual_EOF": 13103,
+              "material_ranges": [
+                [
+                  10243,
+                  10256
+                ],
+                [
+                  10303,
+                  10327
+                ],
+                [
+                  10373,
+                  10405
+                ]
+              ],
+              "role": "Exact P16 basispoints optionalspacetimedb_lib derive namespace/dependencyversion/reexport chain toalreadyactualCamera2.6.1namedproductmacro. Definition59samecontract freshcompared; theseareonlydirectregistration/dependency/reexportedges.",
+              "reason": "Camera confirmed SATS001 PRonly andnoP16namespace/versionproof, soexactmissingdirectedgesprospectivelyregisteredbeforebody under043.",
+              "exclusions": "Dependency/reexportonly, notnewdecodersemantics/foreignpackageallsource/otherlensorwholemanifestwherebounded. No tests/projectexecution.",
+              "resolved_path": "SNAPSHOTS\\p16\\Cargo.lock",
+              "status": "registered_before_direct_dependency_reexport_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADMISSION03-QUAL-016",
+                "registration_id": "NATIVE-ADMISSION03-REG-016",
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-016",
+                  "at": "2026-10-22T07:38:46.604886+00:00",
+                  "authority": "continuation/root/admission03-discovery-authority-043.json",
+                  "source_id": "physical-p16:Cargo.lock",
+                  "sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+                  "snapshot": "physical-p16",
+                  "actual_EOF": 13103,
+                  "material_ranges": [
+                    [
+                      10243,
+                      10256
+                    ],
+                    [
+                      10303,
+                      10327
+                    ],
+                    [
+                      10373,
+                      10405
+                    ]
+                  ],
+                  "role": "Exact P16 basispoints optionalspacetimedb_lib derive namespace/dependencyversion/reexport chain toalreadyactualCamera2.6.1namedproductmacro. Definition59samecontract freshcompared; theseareonlydirectregistration/dependency/reexportedges.",
+                  "reason": "Camera confirmed SATS001 PRonly andnoP16namespace/versionproof, soexactmissingdirectedgesprospectivelyregisteredbeforebody under043.",
+                  "exclusions": "Dependency/reexportonly, notnewdecodersemantics/foreignpackageallsource/otherlensorwholemanifestwherebounded. No tests/projectexecution.",
+                  "resolved_path": "SNAPSHOTS\\p16\\Cargo.lock",
+                  "status": "registered_before_direct_dependency_reexport_body_analysis"
+                },
+                "original_requested_context_ranges": [
+                  [
+                    10243,
+                    10256
+                  ],
+                  [
+                    10303,
+                    10327
+                  ],
+                  [
+                    10373,
+                    10405
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    10243,
+                    10256
+                  ],
+                  [
+                    10303,
+                    10327
+                  ],
+                  [
+                    10373,
+                    10405
+                  ]
+                ],
+                "qualification": "Exact direct namespace/reexport route supporting P16 namedproductSATS macro witness; no general firstpartycodec orforeignpackagecredit.",
+                "current_admission_proof_refs": [
+                  "contract-groups-043.json#p16-basispoints-all-adapter-routes",
+                  "p16-basispoints-admission-witness-042.json"
+                ],
+                "frozen_hash_eof_verified": true,
+                "semantics_from_hash_or_ranges": false,
+                "global_reconciliation": "Root authority; raw original registration retained; no globalacceptance from this localqualification",
+                "producer_owner_later_lens_credit": false
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                10243,
+                10256
+              ],
+              [
+                10303,
+                10327
+              ],
+              [
+                10373,
+                10405
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\Cargo.lock",
+            "actual_EOF": 13103,
+            "bytes": 306149
+          }
+        ]
+      },
+      "method": "Complete exact TOML text decoded and structurally parsed with tomllib, then its root schema, every package field kind and dependency/derive package inventory inspected. This is declarative-data analysis, not a claim of a line-by-line Rust body read or project check.",
+      "actual_compared_ranges": [
+        [
+          1,
+          13103
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "The entire parsed Cargo.lock is version4 plus1126 package records with only name/version/source/checksum/dependencies keys. It contains no Rust implementation bodies. Locked derive presence is provenance only; owning crate features/imports must separately establish availability."
+    },
+    {
+      "scope_index": 40,
+      "source_id": "physical-p16:content/tactical/combat.yaml",
+      "sha256": "05958d54e48eba637c755f8ad89959dc6ef0aeaeeeaeb75022e07071a01ddaf3",
+      "actual_EOF": 344,
+      "requested_registration": {
+        "source_id": "physical-p16:content/tactical/combat.yaml",
+        "snapshot": "physical-p16",
+        "path": "content/tactical/combat.yaml",
+        "sha256": "05958d54e48eba637c755f8ad89959dc6ef0aeaeeeaeb75022e07071a01ddaf3",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 13718,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 20,
+            "read_ranges": [
+              [
+                1,
+                344
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SCALE-001",
+              "CAM-OWN-AUTORESOLVE-001",
+              "CAM-OWN-CONFIG-001"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/content/tactical/combat.yaml"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "continuation/camera/sources.jsonl",
+            "receipt": "CONT-CAMERA-SOURCE-422",
+            "json_pointer": "",
+            "source_id_as_recorded": "physical-p16:content/tactical/combat.yaml",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                344
+              ]
+            ],
+            "source_context": {
+              "id": "CONT-CAMERA-SOURCE-422",
+              "index": 422,
+              "source_id": "physical-p16:content/tactical/combat.yaml",
+              "sha256": "05958d54e48eba637c755f8ad89959dc6ef0aeaeeeaeb75022e07071a01ddaf3",
+              "read_ranges": [
+                [
+                  1,
+                  344
+                ]
+              ],
+              "proof_mode": "Fresh complete actual source read, including original fixture text; source only. Historical exact receiving contracts reconciled separately; bytes alone do not establish receiver closure.",
+              "validation": "none",
+              "source_repair": "frozen_until_all13"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1101,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          344
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Entire exact authored combat YAML read: schema_version plus resolution/autoresolve/realtime_authority/movement/AI/input/targeting/presentation/animation numeric and enum-valued records. No handwritten Rust trait/encoding implementation here. No config/build admission or runtime verdict from data read."
+    },
+    {
+      "scope_index": 41,
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry.rs",
+      "sha256": "c3d39473c3dbc283a06a940bdaab465648c2789ebdf7757262ad128ef3851109",
+      "actual_EOF": 29,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry.rs",
+        "snapshot": "physical-p16",
+        "path": "SNAPSHOTS\\p16\\crates\\adventuresim-building-generator\\src\\spatial_geometry.rs",
+        "sha256": "c3d39473c3dbc283a06a940bdaab465648c2789ebdf7757262ad128ef3851109",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "root",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 29,
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-CANONICAL-SPATIAL-CLOCK-CLOSURE-053",
+            "json_pointer": "/additional_actual_source_proofs/1",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                29
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/adventuresim-building-generator/src/spatial_geometry.rs",
+              "sha256": "c3d39473c3dbc283a06a940bdaab465648c2789ebdf7757262ad128ef3851109",
+              "read_ranges": [
+                [
+                  1,
+                  29
+                ]
+              ],
+              "role": "Canonical neutral geometry reexports, frame owner, feature dependency"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CANONICAL-SPATIAL-CLOCK-053",
+            "json_pointer": "/additional_actual_source_proofs/1",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                29
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/adventuresim-building-generator/src/spatial_geometry.rs",
+              "sha256": "c3d39473c3dbc283a06a940bdaab465648c2789ebdf7757262ad128ef3851109",
+              "read_ranges": [
+                [
+                  1,
+                  29
+                ]
+              ],
+              "role": "Canonical neutral geometry reexports, frame owner, feature dependency"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Entire module documentation/reexports/private module and fixture declarations read. Explicit imported owners, no handwritten trait or serialization implementation."
+    },
+    {
+      "scope_index": 42,
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+      "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+      "actual_EOF": 140,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+        "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 4747,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 458,
+            "read_ranges": [
+              [
+                1,
+                170
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-CLIENT-TARGETING-060"
+            ],
+            "read_status": "exact_scoped_current_owner_definition_or_receiving_body",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-CANONICAL-SPATIAL-CLOCK-CLOSURE-053",
+            "json_pointer": "/source_proofs/14",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                140
+              ]
+            ],
+            "source_context": {
+              "index": 596,
+              "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+              "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+              "read_ranges": [
+                [
+                  1,
+                  140
+                ]
+              ],
+              "role": "fresh current clock/angle/frame/velocity owner source, worldlib explicitly scoped; actual receiving contract disposition pending",
+              "timestamp": "2026-10-21T22:37:14.129279+00:00"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CANONICAL-SPATIAL-CLOCK-053",
+            "json_pointer": "/current_sources/14",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                140
+              ]
+            ],
+            "source_context": {
+              "index": 596,
+              "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+              "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+              "read_ranges": [
+                [
+                  1,
+                  140
+                ]
+              ],
+              "role": "fresh current clock/angle/frame/velocity owner source, worldlib explicitly scoped; actual receiving contract disposition pending",
+              "timestamp": "2026-10-21T22:37:14.129279+00:00"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1294,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved",
+        "admission03_increment046_role_observations": [
+          {
+            "supplier": "rig",
+            "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+            "row_1based": 29,
+            "registration_id": "RIG-ADMISSION03-REGISTER-029",
+            "original_record": {
+              "id": "RIG-ADMISSION03-REGISTER-029",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+              "snapshot": "physical-p16",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-building-generator\\src\\spatial_geometry\\coordinates.rs",
+              "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+              "actual_EOF": 140,
+              "material_ranges": [
+                [
+                  1,
+                  96
+                ]
+              ],
+              "reason": "Direct P16 SceneDoor/Window Position field decoder/constructor/visibility including attached declaration/trait; compare actual PRRoot G001 only after current role definition proof. Only Position material, other coordinate neighbors context until separately reached.",
+              "exclusions": "Only direct Position/SpatialDirection contracts; no unrelated neighbor operations or fixture graph",
+              "status": "prospectively_registered_before_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "RIG-ADMISSION03-QUALIFICATION-REG029-MATERIAL",
+                "registration": "RIG-ADMISSION03-REGISTER-029",
+                "qualified_material_ranges": [
+                  [
+                    1,
+                    29
+                  ],
+                  [
+                    51,
+                    89
+                  ]
+                ],
+                "qualification": "Only exact Position/SpatialDirection material body credit; registered adjacent declarations/blank/partialneighbor lines context only, nonexistentline credit excluded."
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                1,
+                29
+              ],
+              [
+                51,
+                89
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-building-generator\\src\\spatial_geometry\\coordinates.rs",
+            "actual_EOF": 140,
+            "bytes": 4747
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "GeometryFrame for Architectural",
+          "lines": [
+            60,
+            60
+          ],
+          "disposition": "Retain bespoke frame marker; standard derive cannot implement this semantic module trait."
+        },
+        {
+          "trait": "Deserialize Position<F>/Displacement<F>/Elevation<F>",
+          "lines": [
+            85,
+            89,
+            107,
+            111,
+            136,
+            140
+          ],
+          "disposition": "Retain checked from_metres admission and exact GeometryFrame bound without F:Deserialize; raw transparent Deserialize would bypass finite role checks."
+        }
+      ],
+      "existing_derives": "Mechanical Clone/Copy/Debug/PartialEq/Serialize/Reflect are already derived, with transparent shape, skipped PhantomData and explicit empty Serde bound."
+    },
+    {
+      "scope_index": 43,
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs",
+      "sha256": "4ccc1188de7d5f8bdbf63b71160b8557f76fb524ae47f924381325da11198ee8",
+      "actual_EOF": 105,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs",
+        "snapshot": "physical-p16",
+        "path": "SNAPSHOTS\\p16\\crates\\adventuresim-building-generator\\src\\spatial_geometry\\dimensions.rs",
+        "sha256": "4ccc1188de7d5f8bdbf63b71160b8557f76fb524ae47f924381325da11198ee8",
+        "bytes": 3347,
+        "actual_line_count": 105,
+        "scope_kind": "materially_reached_existing_owner_definition",
+        "audit_owner": "rig",
+        "material_ranges": [
+          [
+            1,
+            100
+          ]
+        ],
+        "scope_limits": "Actual P16 LeafDimensions definition/constructor/native projection/Serde policy; unrelated partially glimpsed PlanDimensions/PlanExtents operations receive no credit. Any further called helper needs explicit bounded extension. No whole-file, other-lens or byte-equality credit.",
+        "scope_extension_authority": "Root explicitly accepted Rig registered owner-definition dependency before actual body comparison.",
+        "owner_fit_delta_status": "incomplete_scoped_before_definition_comparison",
+        "producer_inventory_accounting": {
+          "status": "incomplete_new_owner_reached_contract_supplement_before_admission",
+          "initial2473_completion": "preserved only exact prior roles"
+        },
+        "source_or_other_lens_credit": "none from metadata registration"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Serialize LeafDimensions",
+          "lines": [
+            25,
+            29
+          ],
+          "disposition": "F001: existing transparent Serialize derive delegates through inner CuboidDimensions with proven identical native Vec3 protocol."
+        },
+        {
+          "trait": "Deserialize LeafDimensions/PlanDimensions/PlanExtents",
+          "lines": [
+            30,
+            34,
+            60,
+            64,
+            85,
+            89
+          ],
+          "disposition": "Retain actual positive versus nonnegative validation/error mapping. No new raw constructor or unchecked deserialization."
+        }
+      ],
+      "existing_derives": "Other mechanical traits and PlanDimensions/PlanExtents transparent Serialize already derive."
+    },
+    {
+      "scope_index": 44,
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+      "sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+      "actual_EOF": 142,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+        "sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 5142,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 459,
+            "read_ranges": [
+              [
+                1,
+                148
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-CLIENT-TARGETING-060"
+            ],
+            "read_status": "exact_scoped_current_owner_definition_or_receiving_body",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "native",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1295,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "admission03_increment046_role_observations": [
+          {
+            "supplier": "rig",
+            "registry": "continuation/rig/admission03/source-range-registration.jsonl",
+            "row_1based": 30,
+            "registration_id": "RIG-ADMISSION03-REGISTER-030",
+            "original_record": {
+              "id": "RIG-ADMISSION03-REGISTER-030",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+              "snapshot": "physical-p16",
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-building-generator\\src\\spatial_geometry\\orientation.rs",
+              "sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+              "actual_EOF": 142,
+              "material_ranges": [
+                [
+                  108,
+                  151
+                ]
+              ],
+              "reason": "Direct P16 SceneDoor/Window SpatialDirection actual private fields/constructors/manualSerde and exact normalized-input predicate, compare current roles rather than PRsame-path assumption.",
+              "exclusions": "Only direct Position/SpatialDirection contracts; no unrelated neighbor operations or fixture graph",
+              "status": "prospectively_registered_before_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "RIG-ADMISSION03-QUALIFICATION-REG030",
+                "registration": "RIG-ADMISSION03-REGISTER-030",
+                "original_ranges": [
+                  [
+                    108,
+                    151
+                  ]
+                ],
+                "material_ranges": [
+                  [
+                    108,
+                    142
+                  ]
+                ],
+                "qualification": "EOF142 verified before body read; nonexistent143\u2013151 no credit or obligation."
+              },
+              {
+                "id": "RIG-ADMISSION03-QUALIFICATION-REG030-MATERIAL",
+                "registration": "RIG-ADMISSION03-REGISTER-030",
+                "qualified_material_ranges": [
+                  [
+                    109,
+                    142
+                  ]
+                ],
+                "qualification": "Only exact Position/SpatialDirection material body credit; registered adjacent declarations/blank/partialneighbor lines context only, nonexistentline credit excluded."
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                109,
+                142
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-building-generator\\src\\spatial_geometry\\orientation.rs",
+            "actual_EOF": 142,
+            "bytes": 5142
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          142
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Deserialize Radians/PlanDirection<F>/RigidRotation/SpatialDirection<F>",
+          "lines": [
+            34,
+            38,
+            78,
+            82,
+            103,
+            107,
+            138,
+            142
+          ],
+          "disposition": "Retain finite angle, normalized direction and finite unit quaternion admission. from_normalized preserves represented native vector rather than repairing it; generic frame bounds and native wire shapes must stay exact."
+        }
+      ],
+      "existing_derives": "Structural Clone/Copy/Debug/PartialEq and transparent Serialize/Reflect already derive; Radians Default0 is valid. No manual semantic From conversion should be replaced by unchecked raw derive."
+    },
+    {
+      "scope_index": 450,
+      "source_id": "physical-p16:crates/fabelgeist-geometry/src/length.rs",
+      "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+      "actual_EOF": 40,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/fabelgeist-geometry/src/length.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/fabelgeist-geometry/src/length.rs",
+        "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 1383,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 2,
+            "read_ranges": [
+              [
+                1,
+                40
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SCALAR-DEFINITIONS-001",
+              "CAM-OWN-CONFIG-001"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/fabelgeist-geometry/src/length.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-CANONICAL-SPATIAL-CLOCK-CLOSURE-053",
+            "json_pointer": "/source_proofs/6",
+            "source_id_as_recorded": "physical-p16:crates/fabelgeist-geometry/src/length.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                40
+              ]
+            ],
+            "source_context": {
+              "index": 406,
+              "source_id": "physical-p16:crates/fabelgeist-geometry/src/length.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/fabelgeist-geometry/src/length.rs",
+              "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+              "read_ranges": [
+                [
+                  1,
+                  40
+                ]
+              ],
+              "role": "fresh whole current unit/reexport/dependency/surface/obstacle/grab/itemreference producer source; exact actual receiving path disposition pending",
+              "timestamp": "2026-10-21T22:37:06.828084+00:00"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CANONICAL-SPATIAL-CLOCK-053",
+            "json_pointer": "/current_sources/6",
+            "source_id_as_recorded": "physical-p16:crates/fabelgeist-geometry/src/length.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                40
+              ]
+            ],
+            "source_context": {
+              "index": 406,
+              "source_id": "physical-p16:crates/fabelgeist-geometry/src/length.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/fabelgeist-geometry/src/length.rs",
+              "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+              "read_ranges": [
+                [
+                  1,
+                  40
+                ]
+              ],
+              "role": "fresh whole current unit/reexport/dependency/surface/obstacle/grab/itemreference producer source; exact actual receiving path disposition pending",
+              "timestamp": "2026-10-21T22:37:06.828084+00:00"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1085,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Deserialize PositiveLength",
+          "lines": [
+            36,
+            40
+          ],
+          "disposition": "Retain explicit finite/negative/zero distinction and GeometryError mapping through checked constructor. Serialize already transparent derive."
+        }
+      ],
+      "read_reason": "Actual shared getter/positive leaf admission needed by the LeafDimensions/cuboid serializer comparison; this existing original role was consumed early, not new scope or other-lens credit."
+    },
+    {
+      "scope_index": 452,
+      "source_id": "physical-p16:crates/fabelgeist-geometry/src/measurement.rs",
+      "sha256": "c84b2c054d772b9b8037209e1d8542238c397c5dc0148ca5f68c86ef5fc9b9b2",
+      "actual_EOF": 107,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/fabelgeist-geometry/src/measurement.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/fabelgeist-geometry/src/measurement.rs",
+        "owner": "root",
+        "sha256": "c84b2c054d772b9b8037209e1d8542238c397c5dc0148ca5f68c86ef5fc9b9b2",
+        "base_sha256": "7424133b695eecdc9d04383ff3021b7f902952c2c24354e06ca31f104642c471",
+        "state": "modified",
+        "bytes": 3648,
+        "audit_owner": "root",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [],
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 27,
+            "read_ranges": [
+              [
+                1,
+                107
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-GEOMETRY-002",
+              "ROOT-OWNER-RATIO-003"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/fabelgeist-geometry/src/measurement.rs"
+          },
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 411,
+            "read_ranges": [
+              [
+                1,
+                107
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-GEOMETRY-002",
+              "ROOT-OWNER-RATIO-003",
+              "ROOT-OWNER-NATIVE-DEPENDENCY-CLOSURE-082"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/fabelgeist-geometry/src/measurement.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 1,
+            "read_ranges": [
+              [
+                1,
+                107
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SCALAR-DEFINITIONS-001",
+              "CAM-OWN-CONFIG-001"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/fabelgeist-geometry/src/measurement.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root",
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-MOTOR-TARGETING-001",
+            "json_pointer": "/source_proofs/7",
+            "source_id_as_recorded": "physical-p16:crates/fabelgeist-geometry/src/measurement.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                107
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/fabelgeist-geometry/src/measurement.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/fabelgeist-geometry/src/measurement.rs",
+              "sha256": "c84b2c054d772b9b8037209e1d8542238c397c5dc0148ca5f68c86ef5fc9b9b2",
+              "read_ranges": [
+                [
+                  1,
+                  107
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": 120,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          107
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "From<PositiveLength> SignedLength",
+          "lines": [
+            75,
+            79
+          ],
+          "disposition": "Retain explicit semantically widening unit conversion; float stored value is copied. No raw f32 infallible From added."
+        },
+        {
+          "trait": "Deserialize SignedLength/Area",
+          "lines": [
+            80,
+            84,
+            103,
+            107
+          ],
+          "disposition": "Retain finite signed metres and finite nonnegative area checks; Serialize already transparent derive."
+        }
+      ],
+      "read_reason": "Actual SignedLength::metres71\u201373 returns unchanged stored f32, closing exact axis serialization identity for F001. Full107 source read and inventoried independently for10."
+    },
+    {
+      "scope_index": 2491,
+      "source_id": "physical-p16:crates/fabelgeist-geometry/src/cuboid.rs",
+      "sha256": "7afef5cd462b579637596de505b962b8eecc1fd818b8c8382d59ec3ab4fc6b7a",
+      "actual_EOF": 123,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/fabelgeist-geometry/src/cuboid.rs",
+        "sha256": "7afef5cd462b579637596de505b962b8eecc1fd818b8c8382d59ec3ab4fc6b7a",
+        "requested_ranges": [
+          [
+            1,
+            80
+          ]
+        ],
+        "audit_owner": "rig",
+        "reason": "Actual P16 CuboidDimensions constructors/axis/native Vec3 projection called by LeafDimensions; PR counterpart not source proof.",
+        "scope_limits": "Exact1\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u015380 constructors/projections only;81+Serde excluded until actually needed and registered.",
+        "snapshot": "physical-p16",
+        "path": "SNAPSHOTS\\p16\\crates\\fabelgeist-geometry\\src\\cuboid.rs",
+        "bytes": 4275,
+        "actual_line_count": 123,
+        "material_ranges": [
+          [
+            1,
+            80
+          ]
+        ],
+        "scope_kind": "materially_reached_producer_followup_contract",
+        "scope_extension_authority": "Root explicit pre-body registration during bounded producer followup; metadata/signature navigation only previously.",
+        "producer_inventory_accounting": {
+          "status": "incomplete_new_followup_source_before_analysis"
+        },
+        "owner_fit_delta_status": "incomplete_after_current_producer_pass_for_new_contracts",
+        "source_or_other_lens_credit": "none from metadata registration",
+        "producer_followup_scope_additions": [
+          {
+            "authority": "continuation/root/producer-scope-extension-authority-022.json",
+            "candidate_record": "continuation/native/producer-registry-reconciliation/candidate-002.json",
+            "registered_before_body_analysis": [
+              {
+                "registry": "continuation/rig/owner-reached-producer-followup/additional-sources.jsonl",
+                "row_1based": 3,
+                "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-003",
+                "supplier": "rig",
+                "original_record": {
+                  "id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-003",
+                  "source_id": "physical-p16:crates/fabelgeist-geometry/src/cuboid.rs",
+                  "sha256": "7afef5cd462b579637596de505b962b8eecc1fd818b8c8382d59ec3ab4fc6b7a",
+                  "requested_ranges": [
+                    [
+                      1,
+                      80
+                    ]
+                  ],
+                  "new_variant": true,
+                  "reason": "Actual P16 LeafDimensions14\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u015322 calls CuboidDimensions::from_metres/metres/cuboid; P16 cuboid is not in current2483files and differsPR source1fe1e..., so cannot use PR definition by alias/hash. Exact necessary constructors/axisgetters/nativeVec3 projection only. Cuboid Serde81+excluded unless actuallycalled. Metadata hash/EOF123/signature navigation only, no bodyanalysis yet.",
+                  "status": "pre_read_pending_root"
+                },
+                "per_registration_qualification": {
+                  "registry": "continuation/rig/owner-reached-producer-followup/source-qualifications.jsonl",
+                  "row_1based": 3,
+                  "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-003",
+                  "supplier": "rig",
+                  "original_record": {
+                    "id": "RIG-OWNER-REACHED-PRODUCER-SOURCE-QUALIFICATION-003",
+                    "registration_ref": "additional-sources.jsonl#line=3",
+                    "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-003",
+                    "source_id": "physical-p16:crates/fabelgeist-geometry/src/cuboid.rs",
+                    "snapshot": "p16",
+                    "sha256": "7afef5cd462b579637596de505b962b8eecc1fd818b8c8382d59ec3ab4fc6b7a",
+                    "actual_EOF": 123,
+                    "original_registered_ranges": [
+                      [
+                        1,
+                        80
+                      ]
+                    ],
+                    "qualified_material_ranges": [
+                      [
+                        1,
+                        80
+                      ]
+                    ],
+                    "body_proof": "fresh bounded current producer source read after applicable prospective authorization; no owner verdict/hash carry",
+                    "qualification": "Only exact registered role; original exclusions preserved.",
+                    "scope_and_owner_gate": "Root authoritative global reconciliation and necessary owner delta pending; no other lens/repair credit",
+                    "authority": "Root global007/overlays018/019 acknowledged before source body read."
+                  }
+                },
+                "effective_registration_material_ranges": [
+                  [
+                    1,
+                    80
+                  ]
+                ],
+                "proof_classification": "actual_proof_registration_subject_to_separate_producer_acceptance",
+                "independent_producer_proof": true
+              }
+            ],
+            "effective_local_material_ranges": [
+              [
+                1,
+                80
+              ]
+            ],
+            "qualification_refs": [
+              {
+                "registry": "continuation/rig/owner-reached-producer-followup/source-qualifications.jsonl",
+                "row_1based": 3,
+                "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-003",
+                "supplier": "rig",
+                "original_record": {
+                  "id": "RIG-OWNER-REACHED-PRODUCER-SOURCE-QUALIFICATION-003",
+                  "registration_ref": "additional-sources.jsonl#line=3",
+                  "registration_id": "RIG-OWNER-REACHED-PRODUCER-REGISTER-003",
+                  "source_id": "physical-p16:crates/fabelgeist-geometry/src/cuboid.rs",
+                  "snapshot": "p16",
+                  "sha256": "7afef5cd462b579637596de505b962b8eecc1fd818b8c8382d59ec3ab4fc6b7a",
+                  "actual_EOF": 123,
+                  "original_registered_ranges": [
+                    [
+                      1,
+                      80
+                    ]
+                  ],
+                  "qualified_material_ranges": [
+                    [
+                      1,
+                      80
+                    ]
+                  ],
+                  "body_proof": "fresh bounded current producer source read after applicable prospective authorization; no owner verdict/hash carry",
+                  "qualification": "Only exact registered role; original exclusions preserved.",
+                  "scope_and_owner_gate": "Root authoritative global reconciliation and necessary owner delta pending; no other lens/repair credit",
+                  "authority": "Root global007/overlays018/019 acknowledged before source body read."
+                }
+              }
+            ],
+            "scope_limits": "Every original registration/role/caller/reason remains embedded independently. Byte overlap is not semantic role coverage, producer acceptance, owner-fit acceptance or edit ownership. none; Native qualifications trim local supplier roles only, never historical global scope.",
+            "producer_discovery": "separate actual source/recipient packet acceptance required",
+            "owner_fit": "pending exact new-role delta against owner019",
+            "source_or_other_lens_credit": "none from scope bookkeeping"
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          123
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Serialize CuboidDimensions",
+          "lines": [
+            81,
+            90
+          ],
+          "disposition": "Retain named Vec3 tuple-struct wire adapter and axis semantic projection. A naive transparent derive of [SignedLength;3] would change serializer shape."
+        },
+        {
+          "trait": "Deserialize CuboidDimensions and AxesVisitor",
+          "lines": [
+            92,
+            123
+          ],
+          "disposition": "Retain explicit Vec3 named tuple visitor, three required f32 elements/invalid_length errors, and checked from_metres admission. A plain inner-array derive is not equivalent."
+        }
+      ],
+      "read_reason": "Existing physicalP16 original role consumed early for F001 inner serializer proof. Different hash/context from root priorPR Cuboid slice; no samehash/other-lens coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Source-backed declarations and dependency metadata have no handwritten trait body",
+      "evidence": "Three entire WGSL roles36\u201338, full344-line authored combat YAML and29-line module declaration were personally read. Cargo.lock was completely parsed as a constrained TOML schema: version4 and1126 package records with a known field-key set. These exact sources are declarative data or non-Rust shader code, so no Rust trait boilerplate is present.",
+      "qualification": "Structured lock analysis does not claim line-by-line code review or feature availability from a package name. Available derives still require actual imports/macros and matching owning dependency versions. No search-only absence or numeric/gameplay verdict."
+    },
+    {
+      "contract": "Checked geometry decoding remains necessary; one wrapper serialization is mechanical",
+      "evidence": "Exact full P16 coordinate140/dimensions105/orientation142, shared length40/measurement107 andcuboid123 sources read and traits enumerated. Checked decoding distinguishes finite signed coordinates/zero displacement/nonnegative extents/positive dimensions/normalized directions/unit rotations. All ordinary structural traits already derive. F001 isolates LeafDimensions Serialize forwarding only, with exact native Vec3/inner Cuboid tuple protocol and actual Serde transparent implementation.",
+      "derive_comparison": "Existing serde::Serialize plus #[serde(transparent)] is equivalent for nongeneric LeafDimensions and leaves all its checked Deserialize behavior intact. This does not license deriving unchecked Deserialize for any admitted geometry owner or replacing the Cuboid Vec3 wire visitor. Direct pinned macro/package proof is fresh-dependency-registration-006.json.",
+      "acceptance": "Preserve native tuple-struct name Vec3, arity3, x/y/z order and stored f32 values, generic frame bounds, concrete GeometryError mapping and positive/nonnegative role policies. No source edits or compiler/serializer tests performed."
+    }
+  ],
+  "findings": [
+    "SEGOVB-INITIAL10-F001"
+  ],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 45,
+    "source_id": "physical-p16:crates/adventuresim-core/Cargo.toml"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

@@ -1,0 +1,152 @@
+{
+  "id": "CONT08-CONTRACT-140",
+  "at": "2026-10-25T12:47:10.644363+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 503,
+      "source_id": "pr-working:assets/shaders/tactical_city.wgsl",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:assets/shaders/tactical_city.wgsl",
+      "before_sha256": "b9f68613f166dd35f4ef5de3e5ccc51a46aa330079aea84b1ef20d6073a4185f",
+      "after_sha256": "b9f68613f166dd35f4ef5de3e5ccc51a46aa330079aea84b1ef20d6073a4185f",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0503-base-b9f68613f166dd35f4ef5de3e5ccc51a46aa330079aea84b1ef20d6073a4185f",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/b9f68613f166dd35f4ef5de3e5ccc51a46aa330079aea84b1ef20d6073a4185f",
+      "diff": "source-evidence/pr-0503.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          109
+        ]
+      ],
+      "facts": [
+        "Full109+emptydiff. City shader nativepackedBuilding/DrawRange/CityFrame andbindings retain exactlayouts. Owner/cluster addressing, optionalcomponenttransform,worldnormal inverseframe/handedness/tangentw,LODworlddistancefade and UV formula unchanged;prepassalpha/discard and PBR frontface handling identical. ChangedCPUtyped records must projectmatchingbuffers, notinferredfromunchangedWGSL."
+      ],
+      "disposition": "Exact own08 shaderbody comparison accounted WITH native CPU/buffer/policy qualifications; unchanged shader, not renderer family clearance.",
+      "acceptance": "Preserve exact WGSL packing/bindings/sentinels/transform/normal/arithmetic/discard/order and corresponding CPU nativebuffer projection; no GPU/shader compilation or visualchecks."
+    },
+    {
+      "scope_index": 504,
+      "source_id": "pr-working:assets/shaders/tactical_city_cull.wgsl",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:assets/shaders/tactical_city_cull.wgsl",
+      "before_sha256": "4d432edb3c8b72dfcd163fa412e19aa2ee5603f621de9e0fae55fc7e7e46132f",
+      "after_sha256": "4d432edb3c8b72dfcd163fa412e19aa2ee5603f621de9e0fae55fc7e7e46132f",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0504-base-4d432edb3c8b72dfcd163fa412e19aa2ee5603f621de9e0fae55fc7e7e46132f",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/4d432edb3c8b72dfcd163fa412e19aa2ee5603f621de9e0fae55fc7e7e46132f",
+      "diff": "source-evidence/pr-0504.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "facts": [
+        "Full80+emptydiff. Per-viewselection reset/history,reverseZfrustum/farplane,shadownearplaneexception, facadeflags and hysteresis thresholds retain exactentry/exit/order. Compaction reservesclustersviaatomic andwritespacked placement*cluster identity;capacity/CPUallocation anddrawsubmission unexecuted/separate recipients. No nativeunsignedoverflow bound inferredfromshaderalone."
+      ],
+      "disposition": "Exact own08 shaderbody comparison accounted WITH native CPU/buffer/policy qualifications; unchanged shader, not renderer family clearance.",
+      "acceptance": "Preserve exact WGSL packing/bindings/sentinels/transform/normal/arithmetic/discard/order and corresponding CPU nativebuffer projection; no GPU/shader compilation or visualchecks."
+    },
+    {
+      "scope_index": 505,
+      "source_id": "pr-working:assets/shaders/tactical_city_ground.wgsl",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:assets/shaders/tactical_city_ground.wgsl",
+      "before_sha256": "3bc0e8bdfb4aea730fbca506f80fd06afd9f410c658869396cc616d6c35c6a21",
+      "after_sha256": "3bc0e8bdfb4aea730fbca506f80fd06afd9f410c658869396cc616d6c35c6a21",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0505-base-3bc0e8bdfb4aea730fbca506f80fd06afd9f410c658869396cc616d6c35c6a21",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/3bc0e8bdfb4aea730fbca506f80fd06afd9f410c658869396cc616d6c35c6a21",
+      "diff": "source-evidence/pr-0505.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          189
+        ]
+      ],
+      "facts": [
+        "Full189+emptydiff. Cityground world\u2192source coordinate transform beforetraffic/materialsampling, signedfloor/fracthash andheightderivative denominator floor preserves exactnativeGPU math. Continuousstone/soil/wear/snowmix and PBRroughness/occlusion branches/prepass unchanged; no inventedCPUparity/visualsuccess fromformulas."
+      ],
+      "disposition": "Exact own08 shaderbody comparison accounted WITH native CPU/buffer/policy qualifications; unchanged shader, not renderer family clearance.",
+      "acceptance": "Preserve exact WGSL packing/bindings/sentinels/transform/normal/arithmetic/discard/order and corresponding CPU nativebuffer projection; no GPU/shader compilation or visualchecks."
+    },
+    {
+      "scope_index": 506,
+      "source_id": "pr-working:assets/shaders/tactical_cloud_composite.wgsl",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:assets/shaders/tactical_cloud_composite.wgsl",
+      "before_sha256": "bc687e4b087232f3d4cea9b9f05393ece9f197db7269d1df1467ea686a8730d4",
+      "after_sha256": "bc687e4b087232f3d4cea9b9f05393ece9f197db7269d1df1467ea686a8730d4",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0506-base-bc687e4b087232f3d4cea9b9f05393ece9f197db7269d1df1467ea686a8730d4",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/bc687e4b087232f3d4cea9b9f05393ece9f197db7269d1df1467ea686a8730d4",
+      "diff": "source-evidence/pr-0506.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          20
+        ]
+      ],
+      "facts": [
+        "Full20+emptydiff. Cloudcomposite usesnativeviewportoffset/sizeUV andpremultipliedtexturefetchlevel0 same; no resize/device/occlusionrunclaim."
+      ],
+      "disposition": "Exact own08 shaderbody comparison accounted WITH native CPU/buffer/policy qualifications; unchanged shader, not renderer family clearance.",
+      "acceptance": "Preserve exact WGSL packing/bindings/sentinels/transform/normal/arithmetic/discard/order and corresponding CPU nativebuffer projection; no GPU/shader compilation or visualchecks."
+    },
+    {
+      "scope_index": 507,
+      "source_id": "pr-working:assets/shaders/tactical_clouds.wgsl",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:assets/shaders/tactical_clouds.wgsl",
+      "before_sha256": "a04c3a457fc4e9bdf80cb0bb2eca4eb2364d8d3b5233f9942c740594b3084e66",
+      "after_sha256": "a04c3a457fc4e9bdf80cb0bb2eca4eb2364d8d3b5233f9942c740594b3084e66",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0507-base-a04c3a457fc4e9bdf80cb0bb2eca4eb2364d8d3b5233f9942c740594b3084e66",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/a04c3a457fc4e9bdf80cb0bb2eca4eb2364d8d3b5233f9942c740594b3084e66",
+      "diff": "source-evidence/pr-0507.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          177
+        ]
+      ],
+      "facts": [
+        "Full177+emptydiff. Dome/raysphere order,windcompensateddirections with positiveintersection guard, angularUV clamp andopticaldepthinterpolation remain. Same opacity/horizon/ambient/direct branch/discard thresholds, originalnativeunitvectors/uniformcontracts and premultipliedcolor. CPUtypedtime/coordinateuniforms separatelypending."
+      ],
+      "disposition": "Exact own08 shaderbody comparison accounted WITH native CPU/buffer/policy qualifications; unchanged shader, not renderer family clearance.",
+      "acceptance": "Preserve exact WGSL packing/bindings/sentinels/transform/normal/arithmetic/discard/order and corresponding CPU nativebuffer projection; no GPU/shader compilation or visualchecks."
+    },
+    {
+      "scope_index": 509,
+      "source_id": "pr-working:assets/shaders/tactical_grass_cull.wgsl",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:assets/shaders/tactical_grass_cull.wgsl",
+      "before_sha256": "a6f23cd340f962c7323c929b1f552324b50bad4034471c6c871b3585b8dff9ad",
+      "after_sha256": "a6f23cd340f962c7323c929b1f552324b50bad4034471c6c871b3585b8dff9ad",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0509-base-a6f23cd340f962c7323c929b1f552324b50bad4034471c6c871b3585b8dff9ad",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/a6f23cd340f962c7323c929b1f552324b50bad4034471c6c871b3585b8dff9ad",
+      "diff": "source-evidence/pr-0509.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "facts": [
+        "Full37+emptydiff ahead508. Orderedresetofindirectcounts, nativebatchsentinel0xffffffff andboundschecks, perbatchdistance lower/upperendpoint rules and conservativeFrobeniusradius unchanged. Atomicreserve+batchoffset append preservesoutputlayout;actualCPUbatchcapacity/resetdispatch lifecycle separate, no deviceexecution."
+      ],
+      "disposition": "Exact own08 shaderbody comparison accounted WITH native CPU/buffer/policy qualifications; unchanged shader, not renderer family clearance.",
+      "acceptance": "Preserve exact WGSL packing/bindings/sentinels/transform/normal/arithmetic/discard/order and corresponding CPU nativebuffer projection; no GPU/shader compilation or visualchecks."
+    }
+  ],
+  "next": "508 foliagefull507,then510grass315 and511+;509aheadaccounted."
+}

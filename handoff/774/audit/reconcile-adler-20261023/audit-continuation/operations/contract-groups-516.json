@@ -1,0 +1,89 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-516",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare-city-terrain.rs",
+      "sha256": "7a0b3a8a4149fccbcca7de846096d3935ba19c76ec08656385cb421b19a70bf7",
+      "actual_EOF": 349,
+      "actual_compared_ranges": [
+        [
+          1,
+          349
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/capture.rs",
+      "sha256": "3f691c1bd9644eff005d95abba6f62c0c89a8b0ed2ad2f54112a4b19321140f3",
+      "actual_EOF": 36,
+      "actual_compared_ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/capture_export.rs",
+      "sha256": "e65174baeec670a652bbab20759b78eee8e4298bb06332eaf027a7ef6f28c509",
+      "actual_EOF": 21,
+      "actual_compared_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/contacts.rs",
+      "sha256": "d1dc987945cf487f097125d544dd536513a1e62e2cec5c21e898698e8e1883f8",
+      "actual_EOF": 102,
+      "actual_compared_ranges": [
+        [
+          1,
+          102
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/gardens.rs",
+      "sha256": "a661575cb030eb98630e010d43a9abba58071c261328a6e344d886f323ae2d51",
+      "actual_EOF": 142,
+      "actual_compared_ranges": [
+        [
+          1,
+          142
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Diagnostic stage identity and failure evidence remain bounded",
+      "evidence": "Full compare349/capture36/export21: exactinputdigest+importedsource checked before comparisons; exact requestedbuilding set must exist, fourfixed stage roles preserveassociationunderreorder. Actualsource includes complete geographic context, physicalgradingandfootprintprojection; captureisolatedpurpose diagnostic only. Separate fs writes canleavepartialmetadata onIOfailure, not atomicpersistencepromise or currentgameplaystate. Ignoredoutput noexecutionhere. Sourceprovenance doesnot certifyfullsourcegeometry or relieve source-coverageF024."
+    },
+    {
+      "contract": "Contact versus region measurement preserves distinct acceptance",
+      "evidence": "Full contacts102/gardens142. Corner ray2contactheight/range3contact fixedbounded, no perturbations; nearestsolid/ray/cylinder/unboundedheightdifferentobservations explicitlylabelled, notoccupiedaccessproof. Gardencompletepolygon typedadmission, f64perimeter/area bound, exactoverlayextrema/contactwindow; gradefromactualmotor45degdefaultseparateconstructiongrade. Equalcoveredarea alone retains exactNATIVE05F024 overlapping/missingcompensationweakness; freshdiagnosticrecipient support, not newcount. Negativemasonrybase andgate/sourcefloor frames preserved."
+    }
+  ],
+  "findings": [
+    {
+      "id": "NATIVE-INITIAL05-F024",
+      "archive": "audit/continuation/native/initial05-aggregate-states/findings.jsonl#row25",
+      "disposition": "existing source area authority alias, diagnostic consumer support only",
+      "new_unique": false
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "5 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/export-city-scene.rs"
+}

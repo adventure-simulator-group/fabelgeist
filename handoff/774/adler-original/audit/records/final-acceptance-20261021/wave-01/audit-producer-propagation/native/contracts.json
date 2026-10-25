@@ -1,0 +1,3835 @@
+[
+  {
+    "id": "calibration",
+    "meaning": "Authored geometric stride, stance residual and physical\u2192authored cycle mapping",
+    "canonical_owners": [
+      "NonnegativeLength",
+      "SignedLength",
+      "CyclePhase/CycleDelta",
+      "AuthoredStrideMeasurement",
+      "AuthoredPhaseCurve",
+      "CalibrationInputs"
+    ],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/authored_cadence.rs",
+        "sha256": "fe34810c16d01e6e72cb6550444fb14d00245023b73d532a7bd87f5582897fc3",
+        "read_ranges": [
+          [
+            1,
+            200
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/calibration_inputs.rs",
+        "sha256": "bc7371531895550fdec30c4a70a75f549a9cf24c209efbef405f831df198b58a",
+        "read_ranges": [
+          [
+            1,
+            59
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/contact_calibration.rs",
+        "sha256": "818826cc05de685d9d918e9e1ec5693f18cf7544fd36a7777ffa191f80e7de32",
+        "read_ranges": [
+          [
+            1,
+            447
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/phase_calibration.rs",
+        "sha256": "6d2b74658ffa77e2c7d32635515ddbc3589a7aff449110421f754a56ca0e9cc6",
+        "read_ranges": [
+          [
+            1,
+            434
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/phase_calibration/curve.rs",
+        "sha256": "5b1c1ef5eef21306ecadd36217f88b1c00be40518fea94696a27498347562f65",
+        "read_ranges": [
+          [
+            1,
+            80
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/phase_calibration/periodic_smoothing.rs",
+        "sha256": "c18acd7fab5ff2e7a9e77f0d7a6009b4d17637cfe08b4d204a4cffab107808be",
+        "read_ranges": [
+          [
+            1,
+            55
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/stride_calibration.rs",
+        "sha256": "f3474e23dc4875712eb9e3c3a0ad4da0bd71e840ff758ae43ab1b877231e05e4",
+        "read_ranges": [
+          [
+            1,
+            297
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Native clip transforms -> checked stride/slip/cycle samples -> typed CalibrationInputs/lookup/cache -> StepCadence/CycleDelta -> PresentedSkeleton and resolver -> actual native interpolation/Transform. Core cadence132, config133/153/154, resolver85/86, sampler18/19, presentation36/38 and current unchanged config owners all read. Ordered fit/convolution/combat slip source inspected; synthetic unobserved combat ZERO is PP005.",
+    "findings": [
+      "NATIVE-PP-005"
+    ],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#calibration",
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "catalogue",
+    "meaning": "Authored animation pack/motion/frame/asset path identity",
+    "canonical_owners": [
+      "AnimationPackId",
+      "SkeletonFamily",
+      "MotionId",
+      "MotionKey",
+      "AuthoredAnimationFrame",
+      "AnimationAssetDirectory/Path"
+    ],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/catalog.rs",
+        "sha256": "4621b2ac33e53d39be4866122ba41283261d01f8d007455c5266ef88916655a0",
+        "read_ranges": [
+          [
+            1,
+            361
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/catalog/builtin.rs",
+        "sha256": "24dd229e7467ac0a4b6a11b398e06290949923b614b3deebfa972f03ab93e1d3",
+        "read_ranges": [
+          [
+            1,
+            264
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/catalog_id.rs",
+        "sha256": "349beedb860eef8c0f4e9b882e10824b343451085d654c20b7c001ea98a3b810",
+        "read_ranges": [
+          [
+            1,
+            134
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Built-in or decoded MotionId/Pack/SkeletonFamily/Frame -> typed catalogue/PackLibrary -> MotionSource/AssetPath -> actual AssetServer handles -> LoadedClip ClipTime/Duration -> ResolvedAnchor/weighted plans -> native clip sampler and Transform. AuthoredFrame abs_diff is native frame-distance arithmetic at frame_seconds; no application raw frame state. Full150/85/86/97 receiving bodies close initial queue.",
+    "findings": [],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#catalogue",
+    "discovery_status": "source inventory reconciled; no focused propagation defect on listed paths",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "revision",
+    "meaning": "Native asset revision invalidation of availability and derived pose/calibration state",
+    "canonical_owners": [
+      "AssetId<AnimationClip/Gltf>",
+      "MotionKey",
+      "MotionLoad"
+    ],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/clip_revision.rs",
+        "sha256": "a5a0437f0f85693b6e9a31ae24c43d47025c035cb436d68bcc2015213703c6ec",
+        "read_ranges": [
+          [
+            1,
+            100
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/clip_revision/events.rs",
+        "sha256": "b9dac06a620f8567a5eeef7aaef43f241262a4a7268577eff9d3714e02445b07",
+        "read_ranges": [
+          [
+            1,
+            78
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Native Bevy AssetId callbacks -> typed changed sets -> actual bank/stride/pose invalidation -> loaded library rebuild -> resolver/sampling. Asset IDs remain native generic IDs, equality/removal/cache keys; no primitive identity encoding/reconstruction. Full150/85/86/18 read, stale cache invalidation source paths accounted.",
+    "findings": [],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#revision",
+    "discovery_status": "source inventory reconciled; no focused propagation defect on listed paths",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "bind-transform",
+    "meaning": "Authored native scene transform and admitted rig identity mapping",
+    "canonical_owners": [
+      "Bevy Transform/Entity/AnimationTargetId",
+      "AuthoredBindTransform",
+      "AuthoredRigJoint",
+      "RigJointName/RigJointOrdinal/RigJointTable"
+    ],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/bind_pose.rs",
+        "sha256": "18362beeb59c79ca73d1ea84c897ce75b45074c2fd0e099999cabc707f058e12",
+        "read_ranges": [
+          [
+            1,
+            48
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Added native Transform/AnimationTargetId -> AuthoredBindTransform/AuthoredRigJoint -> canonical RigJointName/Ordinal/Table -> native local/global pose recursion/affine composition -> actual Transform writes. Fresh RIG-IDENTITY/ORDINAL/COLUMN and CharacterProportions proofs linked; 77/80/81/83/92/95 actual receivers full-read.",
+    "findings": [],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#bind-transform",
+    "discovery_status": "source inventory reconciled; no focused propagation defect on listed paths",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "diagnostic-wire",
+    "meaning": "Final native animation JSON record adapter",
+    "canonical_owners": [
+      "typed Tick/Phase/Weight/Skeleton/Route/ClipTime state",
+      "DiagnosticTransform/Bone/Record"
+    ],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/diagnostic_record.rs",
+        "sha256": "5141597330c799f5d0ca0312cb48602fb6dd20520737d18c46429dcf21829330",
+        "read_ranges": [
+          [
+            1,
+            117
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/diagnostics.rs",
+        "sha256": "255ebbf963270d5128375972f1059af2843fa7da821834bcb5df88014a122a35",
+        "read_ranges": [
+          [
+            1,
+            312
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Typed live pose/phase/tick/height/route state -> local DiagnosticRecord -> serde_json::to_value/to_writer/BufWriter newline. Raw arrays and formatted names here are final output fields. Unchanged DiagnosticInputStatus original raw command time producer/script state is PP019; render/wall microsecond clocks remain distinct original native timing observations, no false animation-clock identity.",
+    "findings": [
+      "NATIVE-PP-019"
+    ],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#diagnostic-wire",
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "foot-influence",
+    "meaning": "Bounded perfoot semantic IK influence",
+    "canonical_owners": [
+      "FootIkInfluence",
+      "UnitInterval",
+      "BlendWeight",
+      "CyclePhase"
+    ],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/foot_influence.rs",
+        "sha256": "132728572eda6899b6d6f9ebe07e1c1dae458a7f8347e66f86d692edf4af3a1c",
+        "read_ranges": [
+          [
+            1,
+            124
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Core AnimationEvaluation PoseSamples -> FootIkInfluence -> AnimationPlayback/PoseConformity -> checked UnitInterval per foot -> actual native foot target lerp/analytic IK/Transform. Full Core146, resolver85/86, procedural42/IK50\u201376/pose18 recipients read. Geometric weighted averaging introduces new checked output; mirroring swaps same typed leaves.",
+    "findings": [],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#foot-influence",
+    "discovery_status": "source inventory reconciled; no focused propagation defect on listed paths",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "pose-backend",
+    "meaning": "Checked clip timeline/weights through native rendered localpose sampling",
+    "canonical_owners": [
+      "ClipTime/ClipDuration",
+      "BlendWeight/UnitInterval",
+      "PlaybackContributions",
+      "RigJointTable<LocalPose>",
+      "PoseInterpolation"
+    ],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer.rs",
+        "sha256": "4544835a041e7c35f25b60d0b13e06ff22ea4ecc0efc90efdda1cd6963fb9638",
+        "read_ranges": [
+          [
+            1,
+            1892
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/hierarchy.rs",
+        "sha256": "b79d3b43a0f596852969cadef317f8c9e8db26bdfab12f4884fa094af46ac949",
+        "read_ranges": [
+          [
+            1,
+            146
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/proportions.rs",
+        "sha256": "02cbec8ef4635c8fc9afb5ee10bf4abacdc552432f70d03d44cf4f46995e24ec",
+        "read_ranges": [
+          [
+            1,
+            103
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Checked weighted ClipTime/Duration/coordinate/weights -> private aligned BakedClip/PoseBufferRig -> whole native Transform/Quat/Vec3 sampling, cubic spline, inertial polynomial channels -> actual Bevy bone writes. Rig/ragdoll native affine/physics consumers full-read; Option arithmetic/bake errors erase typed cause PP002 and required support absence PP003. Native pose vectors are actual numerical channel representation through complete kernels, not a scalar application forwarding excuse.",
+    "findings": [
+      "NATIVE-PP-002",
+      "NATIVE-PP-003"
+    ],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#pose-backend",
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "continuation",
+    "meaning": "Attack curve coordinate,tangent,readiness and progress through continuation rendering",
+    "canonical_owners": [
+      "AttackPoseCoordinate",
+      "IncomingAttackTangent",
+      "ContinuationReadiness",
+      "UnitInterval",
+      "ContinuationSpan",
+      "ClipTime"
+    ],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/continuation.rs",
+        "sha256": "8eef3d57c8ab2e84bcf5c759b08a63f26957dd3f847a4810fd6786b9f9f725ac",
+        "read_ranges": [
+          [
+            1,
+            92
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Core state/action queued continuation -> typed PoseSampling/ContinuationSpan coordinate/tangent/readiness/progress -> resolver and loaded clip anchors -> clamped cubic LocalPose interpolation/extrapolation -> actual Transform. Core135/137/138/152/157/158/160\u2013165 plus client7/18/85/86 and unchanged spline69 lines read. Preserve PR/P19 union; old P17 whole branch context is not a restore or regression.",
+    "findings": [
+      "NATIVE-PP-002",
+      "NATIVE-PP-010",
+      "NATIVE-PP-014",
+      "NATIVE-PP-015"
+    ],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#continuation",
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "sample-clock",
+    "meaning": "Fixedanimation/render elapsed, sample debt and interpolation",
+    "canonical_owners": [
+      "AnimationElapsed",
+      "PositiveAnimationDuration",
+      "AnimationSampleTick/Span",
+      "PoseInterpolation"
+    ],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/interpolation.rs",
+        "sha256": "df4064a80398f5a380e477f40ed91275fd6622505798ea906a41e6eb232d169e",
+        "read_ranges": [
+          [
+            1,
+            42
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/sampling_clock.rs",
+        "sha256": "2f9571a011a7099a5089fdff4360e78d20c638d2c8790a84187b65bedf89223a",
+        "read_ranges": [
+          [
+            1,
+            63
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/clock.rs",
+        "sha256": "f71ea0cad3b1311e6b0d29b398a293759f859ee7fc9c2fd2d91b2e09a54c33c0",
+        "read_ranges": [
+          [
+            1,
+            36
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/evaluation_clock.rs",
+        "sha256": "494c46a4fd56879e1b9901c824fedc3ae9d2e5a44d40535a7b7ef5acb93425be",
+        "read_ranges": [
+          [
+            1,
+            23
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Native Time or capture override -> AnimationElapsed/AnimationSampleTick -> PoseBufferRig accumulator/decay and IK dedup -> interpolation UnitInterval/native LocalPose blend. SampleRate count-to-elapsed math preserves cast/division and independent f64 Bevy fixed-clock reciprocal. Internal raw u32 sample debt roundtrip into positive sample_span is PP004; actual tick tracing/log/wire callbacks read.",
+    "findings": [
+      "NATIVE-PP-004"
+    ],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#sample-clock",
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "jitter-derivatives",
+    "meaning": "Angular and positional acceleration/jerk evidence and acceptance",
+    "canonical_owners": [],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/jitter.rs",
+        "sha256": "aa9bc30e0fc0897f1fd272a8702ca8bfef43e3dc14846a71d4b6666a1b25f39e",
+        "read_ranges": [
+          [
+            1,
+            608
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Captured native pose arrays plus checked elapsed -> ordered finite differences/angular shortest-arc derivatives -> raw dimensional derivative arrays/limits/incidents -> sorting/acceptance -> actual JSON/HTML. Actual PR and P17 gate/quality recipients read; PP001 remains earliest producer migration gap and nonfinite filtering issue. No green historical verdict used.",
+    "findings": [
+      "NATIVE-PP-001"
+    ],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#jitter-derivatives",
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "presentation-events",
+    "meaning": "Authoritative event stream identity/coalesced replay",
+    "canonical_owners": [
+      "ContactSequence",
+      "LandingSequence",
+      "AnimationEventSpan",
+      "LocomotionPresentationPayload",
+      "AnimationSampleTick"
+    ],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/presentation/events.rs",
+        "sha256": "e8b15deac3874c9457efc9dec7ac27b1b4eca56b6577a0352fe6cf3c1c896238",
+        "read_ranges": [
+          [
+            1,
+            174
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Authoritative SkeletonState typed Contact/LandingSequence -> cursor with optional initial observation -> bounded AnimationEventSpan offsets -> typed payload -> capture ordering gates/borrowed Serde. encoded_sequence flows into actual fixed-width StreamId hash bytes and tracing per ROOT-PP-AUDIO-003; no application numeric sequence roundtrip.",
+    "findings": [],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#presentation-events",
+    "discovery_status": "source inventory reconciled; no focused propagation defect on listed paths",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "procedural-render",
+    "meaning": "Procedural postFK influence/height/look/landing math to native rendered bones",
+    "canonical_owners": [
+      "UnitInterval/FootIkInfluence",
+      "HeightDistance/SignedHeightOffset",
+      "LimbSegments/TwoBoneChain",
+      "AnimationSampleTick"
+    ],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural.rs",
+        "sha256": "8b82644fdbb52e00c1b40a850239bb273c956668c89805efae19800b35f42487",
+        "read_ranges": [
+          [
+            1,
+            1813
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Presented typed state/body/height/IK weights -> complete native look Euler/rotation, mirror lerp/slerp, landing analytic IK and guarded height translation -> actual Transform fields. Vendor CharacterLook complete552-line native component definition read. JumpInfluence raw amount/pelvis amount retained between application stages is PP006; all solver53\u201376 receiving bodies inspected.",
+    "findings": [
+      "NATIVE-PP-006"
+    ],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#procedural-render",
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only",
+    "shared_findings": [
+      "CAM-PROP-F015"
+    ],
+    "shared_dependencies": [
+      "Native owns complete on_successful_attack/BoneKick/kick_bones repair per root explicit transfer; consume camera canonical SceneVelocity, preserve rotational native numerical spring state and actual telemetry result/error capture chain."
+    ]
+  },
+  {
+    "id": "body-response",
+    "meaning": "Finite bodylocal linear/acceleration values\u2192bounded pitch/roll response and angularvelocity",
+    "canonical_owners": [
+      "BodyLocalVelocity/BodyLocalAcceleration",
+      "BodyAngle(Radians)",
+      "BodyAngularVelocity",
+      "BrakingLeanScale(UnitInterval)",
+      "BodyResponseAngles/Step"
+    ],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/body_response.rs",
+        "sha256": "d307ec89363164d57e5762fea3f35d38adf4cb28c64801233bceacaddd9f5727",
+        "read_ranges": [
+          [
+            1,
+            490
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/body_response/target.rs",
+        "sha256": "81446933b198eac655968dd876b5bdd007e102f4daad11024f3e92242a34bd20",
+        "read_ranges": [
+          [
+            1,
+            140
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/body_values.rs",
+        "sha256": "ac32044bdad9c67748eefca7b1b7db59a7eed439e3182af7581833f49076750b",
+        "read_ranges": [
+          [
+            1,
+            211
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Native world velocity/acceleration inverse-rotated then admitted BodyLocalVelocity/Acceleration -> typed targets/smoothed response/BodyAngularVelocity state -> complete filter/spring numerical kernels -> checked BodyAngle -> actual Quat/Transform. P17 degree conversion checked before sample retention, bouncy Radians result retains typed error through capture rejection. Full config owners and sample_state78 read.",
+    "findings": [],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#body-response",
+    "discovery_status": "source inventory reconciled; no focused propagation defect on listed paths",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only",
+    "shared_findings": [
+      "CAM-PROP-F015"
+    ],
+    "shared_dependencies": [
+      "Native owns complete on_successful_attack/BoneKick/kick_bones repair per root explicit transfer; consume camera canonical SceneVelocity, preserve rotational native numerical spring state and actual telemetry result/error capture chain."
+    ]
+  },
+  {
+    "id": "height-response",
+    "meaning": "Signedvisualheightoffset plusnonnegative landingcompression/speed",
+    "canonical_owners": [
+      "SignedLength",
+      "HeightDistance/HeightSpeed"
+    ],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/height_values.rs",
+        "sha256": "185b3d1b5dd499737ed32495e54f252665053c4d330711e358639a88f58bd240",
+        "read_ranges": [
+          [
+            1,
+            39
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/height.rs",
+        "sha256": "b9328929e65c3617acb6340dc0db4ed3db4b260b76b791e7cd1fb8ed1b3cd441",
+        "read_ranges": [
+          [
+            1,
+            355
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Typed locomotion profile/duration/tick -> checked SignedLength offset, HeightDistance/HeightSpeed landing/wave state -> checked offset arithmetic -> actual parent-frame native Transform translation and analytic leg compression solve. P17 Option observation preserves absence in samples/reports; no fabricated compression/body default. Core143 and all state/capture/validation recipients read.",
+    "findings": [],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#height-response",
+    "discovery_status": "source inventory reconciled; no focused propagation defect on listed paths",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "fallback-render",
+    "meaning": "Authored mannequin renderrecipe dimension leaves",
+    "canonical_owners": [
+      "PositiveLength",
+      "CuboidDimensions",
+      "SignedLength visualoffset"
+    ],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/fallback.rs",
+        "sha256": "6c30cf49f852b97aca93c3f079511091c20e90b0f0e910571eb9a98e34d48dda",
+        "read_ranges": [
+          [
+            1,
+            141
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Authored checked PositiveLength/CuboidDimensions/visual SignedLength -> actual native Capsule3d/Sphere/Cuboid mesh constructors and Transform. Typed configured visual offset source/deserialization/full validation/cache bodies read; dimensional leaves project only at mesh or completed vector placement math. P16 source delta does not replace older entire file.",
+    "findings": [],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#fallback-render",
+    "discovery_status": "source inventory reconciled; no focused propagation defect on listed paths",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "playback-state",
+    "meaning": "Typed retained presentation/readiness/ownership states",
+    "canonical_owners": [
+      "BaseRigLoad",
+      "PlaybackContributions",
+      "PoseOwnership",
+      "PoseVisibility",
+      "InertialState",
+      "OrdinaryLocomotion"
+    ],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/playback_state.rs",
+        "sha256": "e9898cf619d1bdfe9c8ad70bd80b0600961abfda3e5cd8158330df18b2c9424d",
+        "read_ranges": [
+          [
+            1,
+            155
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/display_history.rs",
+        "sha256": "671c08c8e47aac129b38a9cc107630319a1fa9a2e9eb29bd1128272dcf15e268",
+        "read_ranges": [
+          [
+            1,
+            17
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Runtime checked plans/readiness/ownership/visibility -> PoseBufferRig sampling/physics selection/frozen state -> actual pose writes. has_presented_pose additionally reaches full unchanged CharacterReadiness counts predicate, not reconstructed numeric state. Bouncy uses is_frozen in native spring/render branch; actual whole recipient read.",
+    "findings": [],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#playback-state",
+    "discovery_status": "source inventory reconciled; no focused propagation defect on listed paths",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "length-duration-owner",
+    "meaning": "Shared finite nonnegative scalar distance/positiveelapsed owners",
+    "canonical_owners": [
+      "NonnegativeLength",
+      "PositiveAnimationDuration"
+    ],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/measurement.rs",
+        "sha256": "3e29916a9d570f6e0d12ffb54541ee018fb068902a4e5b6c0f744db9971d9ba9",
+        "read_ranges": [
+          [
+            1,
+            100
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Canonical finite nonnegative lengths/positive elapsed -> typed state and checked arithmetic -> actual ordered geometry, native interpolation/physics/controller, final tracing/Serde endpoints across all assigned graphs. Actual Core elapsed/speed/UnitInterval and neutral geometry owners linked fresh. Distinct same-leaf raw minima and interval count losses captured PP007/004, not waived as getter syntax.",
+    "findings": [
+      "NATIVE-PP-004",
+      "NATIVE-PP-007"
+    ],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#length-duration-owner",
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "sample-count-owner",
+    "meaning": "Shared authoritative samplecoordinate and nonnegative span",
+    "canonical_owners": [
+      "AnimationSampleTick",
+      "AnimationSampleSpan"
+    ],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/sample_tick.rs",
+        "sha256": "ce44941a09ab6edf1bfe96d5617ad84d777c4bc3e0c8735d65ed6b369d727990",
+        "read_ranges": [
+          [
+            1,
+            110
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "AnimationSampleTick/Span retained through authoritative/capture/action/repeated-view state, native count/rate quantization, pose debt and final logs/serialization. Actual server PR/P16 projection/input/posture/quickstep bodies plus ingress timing and client action clocks read. PP004 debt producer loses span; PP012 repeated snapshot fails to retain/compare authoritative source tick.",
+    "findings": [
+      "NATIVE-PP-004",
+      "NATIVE-PP-012"
+    ],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#sample-count-owner",
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "visibility",
+    "meaning": "Native Bevy viewculling and retainedvisibilitymode",
+    "canonical_owners": [
+      "PoseVisibility",
+      "PositiveLengthcullradius/distance"
+    ],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/visibility.rs",
+        "sha256": "bf02e1e338624be655cffa36d3628074ab252de4018d400f9ffc629cb37f5f34",
+        "read_ranges": [
+          [
+            1,
+            98
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Typed PoseVisibility/configured positive cull distance -> actual Bevy Sphere radius, Frustum intersects_sphere, squared native position comparisons -> frozen/visible state. Native positions originate Transform observation; no scalar checked type reconstruction. External frozen/readiness bouncy/ragdoll/status branches read.",
+    "findings": [],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#visibility",
+    "discovery_status": "source inventory reconciled; no focused propagation defect on listed paths",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "cadence",
+    "meaning": "Typed cadenceapplication receiver linked detailed calibration/presentation contracts",
+    "canonical_owners": [],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/presentation/cadence.rs",
+        "sha256": "9d7d6ca4239a97970517ad7b8b388d8173ce2cba9872f725316af92899489e9f",
+        "read_ranges": [
+          [
+            1,
+            90
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Typed AuthoredStrideMeasurement -> checked Core CadenceDemand/StepCadence cap -> CycleDelta elapsed -> checked gait phase -> semantic pose sampling/native bone interpolation. All cadence owner and receiving methods full-read; fabricated combat-slip ZERO still falsely selects Unrestricted PP005.",
+    "findings": [
+      "NATIVE-PP-005"
+    ],
+    "contract_links": [
+      "calibration",
+      "presentation"
+    ],
+    "initial_read_history": "initial-read-contracts.json#cadence",
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "calibration-fixtures",
+    "meaning": "Existing explicit fixtureadmission and comparison kernels for calibration/cadence",
+    "canonical_owners": [],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/presentation/cadence/tests.rs",
+        "sha256": "a671c59c7785b9a0341f00d788988e0000c14578636c9f2c6ed6f4921e7d3923",
+        "read_ranges": [
+          [
+            1,
+            203
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Every existing calibration/cadence fixture body, literal admission, numerical derivative/comparison and callback read. Real fixture zero is a measured/authored input; it does not prove runtime unobserved slip. No cases/assertions/helper changed and no executable verdict.",
+    "findings": [
+      "NATIVE-PP-005"
+    ],
+    "contract_links": [
+      "calibration",
+      "cadence"
+    ],
+    "initial_read_history": "initial-read-contracts.json#calibration-fixtures",
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "physics-pose",
+    "meaning": "Typed rigjointpose/ownership accessors to actual physics/render numericports",
+    "canonical_owners": [],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/physics_pose.rs",
+        "sha256": "3e8b29f3b61d9b5f287ba3b5f7bc392f8302da7462721bea60b4ec4b2d26fc30",
+        "read_ranges": [
+          [
+            1,
+            98
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Typed RigJointOrdinal/Table/ownership/positive interval -> PoseBufferRig LocalPose/PhysicsPose native affine -> ragdoll BodySeed -> actual Avian Position/Rotation/LinearVelocity/AngularVelocity and bone Transform. Native finite-difference vector channels are complete mathematical/native representation; temporal and scalar dimensional leaves retained.",
+    "findings": [],
+    "contract_links": [
+      "pose-backend",
+      "rig-binding"
+    ],
+    "initial_read_history": "initial-read-contracts.json#physics-pose",
+    "discovery_status": "source inventory reconciled; no focused propagation defect on listed paths",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "rig-binding",
+    "meaning": "Typed native scene rigbinding",
+    "canonical_owners": [],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/rig.rs",
+        "sha256": "bb6e369f80f80ea602ae9a6938e333749590e3958b30a1dad1137c4bcb606288",
+        "read_ranges": [
+          [
+            1,
+            192
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Native ECS name/target ingress -> AuthoredRigJoint with canonical RigJointName/BodyRegion/Ordinal/Table -> native Entity lookup and mathematical indexed pose arrays. Fresh canonical mhr/table/lib proof plus all actual procedural/pose/ragdoll recipients read. Native usize indexing occurs inside table owner or actual array kernel.",
+    "findings": [],
+    "contract_links": [
+      "bind-transform"
+    ],
+    "initial_read_history": "initial-read-contracts.json#rig-binding",
+    "discovery_status": "source inventory reconciled; no focused propagation defect on listed paths",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "inertialization",
+    "meaning": "Complete nativejointlocal polynomial/quaternion inertialization numericreceiver",
+    "canonical_owners": [],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/inertialization.rs",
+        "sha256": "8bf6f24386dae22c8e339928d6d9c90fbf89cfc3b438d0cd0e74468559e8cd84",
+        "read_ranges": [
+          [
+            1,
+            443
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "PoseBufferRig and ragdoll transitions produce native local pose offsets/short-arc angular channels; typed positive interval and elapsed retained until complete finite-difference/polynomial/quaternion solve and actual Transform writes. Full443-line owner and callers18/30/80/81/83 read.",
+    "findings": [],
+    "contract_links": [
+      "pose-backend"
+    ],
+    "initial_read_history": "initial-read-contracts.json#inertialization",
+    "discovery_status": "source inventory reconciled; no focused propagation defect on listed paths",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "sparse-sampling",
+    "meaning": "Typed cliptime/phase into native4anchor interpolation",
+    "canonical_owners": [],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/locomotion_sampling.rs",
+        "sha256": "deb2a7d38a16173129e6f12866eca3c14f9de0d1754040b34d37a08f54d3d0e1",
+        "read_ranges": [
+          [
+            1,
+            110
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Typed ClipTime/Duration -> computed checked CyclePhase/UnitInterval -> actual four-anchor native interpolation. Sole source call is pose_buffer775; full sampler110 and caller function read. Finite arithmetic failure is real Result then erased by Option upstream PP002.",
+    "findings": [
+      "NATIVE-PP-002"
+    ],
+    "contract_links": [
+      "pose-backend"
+    ],
+    "initial_read_history": "initial-read-contracts.json#sparse-sampling",
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "load-boundary",
+    "meaning": "Typed assetrequest/admission into nativeBevy load operations",
+    "canonical_owners": [],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/loading/motion.rs",
+        "sha256": "6240a63d570d51843113c28182afebe0b156ee558ae60ef960acbe737c308eb6",
+        "read_ranges": [
+          [
+            1,
+            175
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/loading.rs",
+        "sha256": "eacc5fba1f6e67621c9d3e473d7556c5cf66ba140e3f1c80431b5568de9fda07",
+        "read_ranges": [
+          [
+            1,
+            390
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Typed requested MotionKey/AnimationAssetPath/frame -> actual native AssetServer async handle/load status -> MotionClipAdmission checked duration/frame -> LoadedClip -> resolver/native sample. Pending/Failed are explicit readiness states, whereas numeric sample failures erased downstream PP002 are separate and actionable.",
+    "findings": [
+      "NATIVE-PP-002"
+    ],
+    "contract_links": [
+      "catalogue",
+      "revision"
+    ],
+    "initial_read_history": "initial-read-contracts.json#load-boundary",
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "schedule",
+    "meaning": "Frameworkcallbackregistration and authoritative systemordering",
+    "canonical_owners": [],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs",
+        "sha256": "678af470ebedb38a874258f1f27264052978d78d58b438469bc24e25ef4d0b78",
+        "read_ranges": [
+          [
+            1,
+            109
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Actual Bevy Plugin/system/observer registrations read in presentation, procedural, bouncy, capture, native iteration and server main. Typed payload retention continues across callback bodies, not inferred from callback signatures; pinned IntoResult/default-handler proof establishes new native observer error-port gap PP018.",
+    "findings": [
+      "NATIVE-PP-018"
+    ],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#schedule",
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "runtime-facade",
+    "meaning": "Runtime retained typedplans and equipment\u2192semanticselection",
+    "canonical_owners": [],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/mod.rs",
+        "sha256": "cd54ed038a4131a947dff4db1a0310069b669800547e2f2b6456566e9c0ec4c4",
+        "read_ranges": [
+          [
+            1,
+            810
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Typed motion request/library/calibration/route/evaluation -> resolver weighted plans -> checked playback/IK leaves -> sampling/native Transform. Original equipment source to raw skill array and reverse PlayerEquipment reconstruction is PP029. ItemProperties network/native string role reaches actual catalogue binary search -> typed animation pack, separate existing-owner/string lens; no claimed blanket item identity clearance.",
+    "findings": [
+      "NATIVE-PP-002",
+      "NATIVE-PP-014",
+      "NATIVE-PP-015",
+      "NATIVE-PP-029"
+    ],
+    "contract_links": [
+      "catalogue",
+      "pose-backend",
+      "foot-influence",
+      "continuation",
+      "playback-state"
+    ],
+    "initial_read_history": "initial-read-contracts.json#runtime-facade",
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only",
+    "shared_findings": [
+      "CAM-PROP-F015"
+    ],
+    "shared_dependencies": [
+      "Native owns complete on_successful_attack/BoneKick/kick_bones repair per root explicit transfer; consume camera canonical SceneVelocity, preserve rotational native numerical spring state and actual telemetry result/error capture chain."
+    ]
+  },
+  {
+    "id": "presentation",
+    "meaning": "Authoritative\u2192renderphaseprediction/correction retainedcheckedstate",
+    "canonical_owners": [
+      "AnimationSampleTick/Span",
+      "AnimationElapsed",
+      "CyclePhase/Delta",
+      "ActionProgressDelta",
+      "UnitInterval"
+    ],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/presentation.rs",
+        "sha256": "6a067389a1cdcbddd0dd3814f95e17664351794be139353572edd19928a18171",
+        "read_ranges": [
+          [
+            1,
+            867
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Authoritative typed tick/span/elapsed/action timeline -> render prediction/correction checked phase/progress -> PresentedSkeleton -> full semantic route/evaluation -> typed playback -> actual mathematical pose sampling. Core action curve raw target height is PP015; clock/sequence wrap and nonwrapping distinctions preserved in traced native kernels.",
+    "findings": [
+      "NATIVE-PP-015"
+    ],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#presentation",
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "dive-render",
+    "meaning": "Typed directional dive lowerbody influence\u2192nativeQuat output",
+    "canonical_owners": [
+      "DiveInfluence(UnitInterval)",
+      "DiveDirection",
+      "PostureTransition.phase",
+      "AngularMagnitudeDegrees"
+    ],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/dive.rs",
+        "sha256": "26b5e25b95cf1676bd54e0138ece10b0c150bf9787a1b47818b88746e3b9bfb2",
+        "read_ranges": [
+          [
+            1,
+            152
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "PostureTransition typed phase/kind/direction plus authored angular parameters -> complete smoothstep -> DiveInfluence UnitInterval -> actual native Quat rotation/slerp/Transform. Full Core transition/config admission/body recipients read; optional ended transition identity is an operation identity, not a fabricated report observation.",
+    "findings": [],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#dive-render",
+    "discovery_status": "source inventory reconciled; no focused propagation defect on listed paths",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "foot-roll",
+    "meaning": "Signed phase contact offset\u2192finite signed footrollangle\u2192nativeworldrotation",
+    "canonical_owners": [
+      "CyclePhase/CycleDelta",
+      "SignedAngleDegrees",
+      "LeadFoot"
+    ],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/foot_roll.rs",
+        "sha256": "7166759c52955028a3f30d17715d0b9abfe7b58c527666aeeebcaac588809717",
+        "read_ranges": [
+          [
+            1,
+            118
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "CyclePhase nearest-contact offset -> piecewise signed angle calculation -> admitted SignedAngleDegrees -> actual Quat::from_axis_angle in terrain contact/solver Transform write. Full Core angle/phase owners and all terrain/coordination consumers read, no primitive angle retained between APIs.",
+    "findings": [],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#foot-roll",
+    "discovery_status": "source inventory reconciled; no focused propagation defect on listed paths",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "rig-frame",
+    "meaning": "Observed actualrigframe finiteorigin andorientation, absentframe explicitOption",
+    "canonical_owners": [
+      "ObservedRigFrame"
+    ],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/frame.rs",
+        "sha256": "30e14becdee166e5f15201b0deae415b38c6d088df46d22ff2a918a77eff9fda",
+        "read_ranges": [
+          [
+            1,
+            54
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Actual native GlobalTransform finite admission -> Option ObservedRigFrame -> native inverse-frame coordinate/vector/Quat math in hand/ordinary/terrain IK -> native Transform. All frame getter recipients read; deliberately nonunit finite orientation policy preserved and reserved behavior/operations lenses.",
+    "findings": [],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#rig-frame",
+    "discovery_status": "source inventory reconciled; no focused propagation defect on listed paths",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "hand-ik",
+    "meaning": "Native handtargets/weapon sockets and typedweights\u2192skeletal IK/math\u2192actualTransform",
+    "canonical_owners": [
+      "HandSide",
+      "UnitInterval",
+      "LimbSegments",
+      "ObservedRigFrame",
+      "TwoBoneChain"
+    ],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/hands.rs",
+        "sha256": "e62b67d40676cfd09497eaf6f5b03e923700b922059570b8c56af5b520316243",
+        "read_ranges": [
+          [
+            1,
+            391
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Equipment placeholder native attachment/held constraint + typed hand/weight -> ObservedRigFrame/LimbSegments/TwoBoneChain -> complete target/pole/law-cosine solve -> native bone Transform. Full unchanged attachment139, native inventory and P16 geometry paths linked; canonical packed rig identity proof separate. Cached pole/native target vectors are actual solver representation; no inferred scalar re-admission.",
+    "findings": [],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#hand-ik",
+    "discovery_status": "source inventory reconciled; no focused propagation defect on listed paths",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "ordinary-ik",
+    "meaning": "Ordinary terrain support/reach/typed pelvis displacement through retained support publication",
+    "canonical_owners": [
+      "UnitInterval",
+      "SignedLength",
+      "LimbSegments",
+      "ObservedRigFrame",
+      "ScenePlanPoint/SupportElevation"
+    ],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion.rs",
+        "sha256": "7e4b80c439d05e7d13d360b80fcda7a4a10e6e8380d0889198f514dce0df962b",
+        "read_ranges": [
+          [
+            1,
+            526
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion/terrain_leg.rs",
+        "sha256": "51077dd4848c32f8c559637ff794ba44f8b071f92ed20fd7103ab1773aac8b9d",
+        "read_ranges": [
+          [
+            1,
+            121
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Checked frame/segments/support/weight -> ordinary terrain query/analytic solve -> typed pelvis shift/support publication -> actual bone/root Transform and capture. Pure checked pelvis min is projected/re-admitted PP007. Missing required terrain evidence erased/fallback PP003 flows into explicit P17 missing-clearance report failure, while original typed terrain cause still lost.",
+    "findings": [
+      "NATIVE-PP-003",
+      "NATIVE-PP-007"
+    ],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#ordinary-ik",
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "terrain-ik-coordinator",
+    "meaning": "Complete terrain solve coordinator callback/sequencing and final nativePose writes",
+    "canonical_owners": [
+      "AnimationElapsed",
+      "CyclePhase/Delta",
+      "UnitInterval",
+      "SignedLength",
+      "LimbSegments/ReachLimit",
+      "FootClearanceFloor"
+    ],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/mod.rs",
+        "sha256": "b1645110395d62b1dab020f6328f9b3d3fde6cd3f64b88101d6c66d5e7d8b0e6",
+        "read_ranges": [
+          [
+            1,
+            2973
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Whole apply_terrain_leg_ik plus every callback57\u201376 and fixtures75 read. Typed clock/phase/height/reach/support state -> complete target/projection/analytic math -> native Transform and published observations -> actual P17 capture/gates/Serde. Required support Option fallback remains PP003; finite native vector role ownership is subsequent lenses, not an unread numerical endpoint.",
+    "findings": [
+      "NATIVE-PP-003"
+    ],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#terrain-ik-coordinator",
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "ik-observation-orientation",
+    "meaning": "Final propagated support/kneeyaw observation and nativepolerotation kernels",
+    "canonical_owners": [],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/observation.rs",
+        "sha256": "09275206508fba4391d7e8dafc30589344978d5ced26b283173b2e5ab4691bfa",
+        "read_ranges": [
+          [
+            1,
+            453
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation.rs",
+        "sha256": "9b4f94526e80364851a02b320c51009e4b036671cd9c143cc299771d4da5fbfd",
+        "read_ranges": [
+          [
+            1,
+            530
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation/anatomical_yaw.rs",
+        "sha256": "c4d855062c60ad77559b87fcf6a346547a1e881fa904c620fe1b0e91dac439e8",
+        "read_ranges": [
+          [
+            1,
+            165
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/plant.rs",
+        "sha256": "4f30c6b7a81f9d8ba4f6d7b9d9fc02c40e102eff64ed14861234da7885647336",
+        "read_ranges": [
+          [
+            1,
+            44
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Native rendered joint observations -> optional support UnitInterval/finite transforms -> retained typed LegIkDiagnostics -> capture/metric/gate/Serde. Whole quaternion/sin-cos native orientation kernels read. Earliest missing/failed anatomical yaw is converted to zero before publication PP008; downstream P17 Option on component absence does not repair that producer.",
+    "findings": [
+      "NATIVE-PP-008"
+    ],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#ik-observation-orientation",
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "settle-reach",
+    "meaning": "Typed leggeometry and stopprogress ingredients retained to actuallawcosines/projection/pose kernels",
+    "canonical_owners": [],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/raised_footwork.rs",
+        "sha256": "2debf0e3594941b0920d795bbb04740691602b4dfc6df95066770b0e156eb15b",
+        "read_ranges": [
+          [
+            1,
+            498
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/reach.rs",
+        "sha256": "1cc9f3d9d7158bd2ad9c143ad3256ce97afd1e58516d4f968a224dbfb1e52a70",
+        "read_ranges": [
+          [
+            1,
+            148
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/settle.rs",
+        "sha256": "82541741fb7abc29a8018c22de3a815a496f10c8a19000345a9b5c708720a9c8",
+        "read_ranges": [
+          [
+            1,
+            373
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/settle/planning.rs",
+        "sha256": "f5003b3bf06fa6b565747e7a1e37a08ca9ed66aeb64d6d702ca90268078203c6",
+        "read_ranges": [
+          [
+            1,
+            297
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Typed segment/ReachLimit/SettleProgress/elapsed -> full law-cosine/projection/COM/capture-point kernels -> typed pelvis correction and native foot/root poses -> actual Transform. Every required terrain callback and stance capture/report receiver read; no terrain absence clearance exception, PP003.",
+    "findings": [
+      "NATIVE-PP-003"
+    ],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#settle-reach",
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "ik-state-solver",
+    "meaning": "Native posehistory/analytic joint math and retained typed temporal/length/support state",
+    "canonical_owners": [],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/solver.rs",
+        "sha256": "a677e882ad829a28f90793efb5ccfadcef1512255ef4b1c5105e9f8365e9f543",
+        "read_ranges": [
+          [
+            1,
+            564
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/state.rs",
+        "sha256": "bc1f1722e87fddf61d7200058af9bb729170ce3431ff1b2b344da00847d5f80b",
+        "read_ranges": [
+          [
+            1,
+            479
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/state/publication.rs",
+        "sha256": "b6746424e6fc5ccd0bdf97a25b61b2643ab2b19661ffd5e8f0fccc936b822d4e",
+        "read_ranges": [
+          [
+            1,
+            107
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/target_speed.rs",
+        "sha256": "6fd2a1c9a3a33667760a393c13375e52b1d5405bc665617b8ec84f44a9430663",
+        "read_ranges": [
+          [
+            1,
+            58
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/terminal.rs",
+        "sha256": "87307931b63413a77180b12610949cf5a3545ff101c8fa2ff2589c50b720b378",
+        "read_ranges": [
+          [
+            1,
+            59
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Typed support/temporal/shift/progress/leg leaves -> native analytic TwoBoneSolution/pole history and actual Transform -> published finite observations -> report. Canonical normalized-vector representation/contract strength belongs further lenses, actual mathematical recipients complete. Missing yaw producer PP008 remains, no fabricated diagnostics admitted by P17.",
+    "findings": [
+      "NATIVE-PP-008"
+    ],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#ik-state-solver",
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "contact-clearance-kernels",
+    "meaning": "Typed phase/length/floor ingredients through actualfootprojection geometric kernels",
+    "canonical_owners": [],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts.rs",
+        "sha256": "bd69d05aa06177aadb3c0a7e2e2e42f1e86fccf3ae5fc389bf5755bb6911f5dc",
+        "read_ranges": [
+          [
+            1,
+            564
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/approach.rs",
+        "sha256": "2c19e2ae2a9bad27291f92cec00c346ba03f1254289e441714f84016a5e37e7e",
+        "read_ranges": [
+          [
+            1,
+            76
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/flight_projection.rs",
+        "sha256": "522eaadd0e7580f987c7a1d37d5687abf202baca0b78bdc2ae9247d3de39424c",
+        "read_ranges": [
+          [
+            1,
+            256
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/foot_clearance.rs",
+        "sha256": "fbee9961d5150f7a221c942cab5c5288e3efdca4d36e920ab5476a2ed9be3b82",
+        "read_ranges": [
+          [
+            1,
+            395
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/terrain_contacts/run_reach.rs",
+        "sha256": "5c01b29f63732c34ba8e0fc73277f220ccb1ee6fc67f243a9c06ba5743093b92",
+        "read_ranges": [
+          [
+            1,
+            276
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Typed phase/time/speed/floor/support -> whole native disk/Dykstra/foot point search -> checked outputs and actual IK/Transform. Native helper radii and scores are confined to the complete geometric algorithm. Every callback and original coordination fixture read; required absent terrain still falls through at several branches PP003.",
+    "findings": [
+      "NATIVE-PP-003"
+    ],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#contact-clearance-kernels",
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "ik-fixtures-track",
+    "meaning": "Existing coordinationfixture admissions and actualnativeaxis selector",
+    "canonical_owners": [],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/tests.rs",
+        "sha256": "fef4e30bfd57aaca8dbbda3417f5f2ac5f67e6d03d6eaaa49e0f9726794fe525",
+        "read_ranges": [
+          [
+            1,
+            3461
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/track.rs",
+        "sha256": "5bfe737eeec5812b9bc25a52964dd42009e8a4721826beaed8d155d567408e48",
+        "read_ranges": [
+          [
+            1,
+            31
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "All3461 existing IK fixture lines and every callback/assertion/input read. Typed leaves admitted at original fixture ingress; FootTrackSide coefficient only actual geometric sign/coordinate kernel. Production required support/yaw gaps remain PP003/008; no blanket test exemption or executed evidence.",
+    "findings": [
+      "NATIVE-PP-003",
+      "NATIVE-PP-008"
+    ],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#ik-fixtures-track",
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "rig-ragdoll",
+    "meaning": "Canonical rigidentities and typed physicsdimensions/angles retained throughbind/body/readback",
+    "canonical_owners": [],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/rig.rs",
+        "sha256": "5da088286521af8e54c621b356ceb3fa949d3870c3748494352eda9016277bec",
+        "read_ranges": [
+          [
+            1,
+            514
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/sample_state.rs",
+        "sha256": "2605b48effbf078be1636edc4742d3f92bed99d01d2b20c232da4c564edefa3c",
+        "read_ranges": [
+          [
+            1,
+            73
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/ragdoll/definition.rs",
+        "sha256": "4164ade7dd800ba7a39b1318bce6a59e5920b0931d86fc161b9c1cfb8bff4a76",
+        "read_ranges": [
+          [
+            1,
+            602
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/ragdoll/drive.rs",
+        "sha256": "10c455bd92024d36b8b6cfc339c73ba3f7ebebe1fc0971090e69d63497d59904",
+        "read_ranges": [
+          [
+            1,
+            237
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Canonical rig names/ordinal/table -> native pose affine/body offsets -> typed scaled dimensions/Radians -> actual Avian spawn/readback and bone Transform. Fresh rig identity/table/proportion proof linked. Authored JointSpecKind raw limits cross constructors before late Radians admission PP009; absent terrain support filtering PP003.",
+    "findings": [
+      "NATIVE-PP-003",
+      "NATIVE-PP-009"
+    ],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#rig-ragdoll",
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "ragdoll-resolver",
+    "meaning": "Closedragdoll nativephysicsports andtypedsemantic resolver time/weights retained tosampling",
+    "canonical_owners": [],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/ragdoll/entry.rs",
+        "sha256": "ba3c2942e73fcaac4b7698ec909382e907d0fd807f395e5f31509d904f910d6f",
+        "read_ranges": [
+          [
+            1,
+            359
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/ragdoll/geometry.rs",
+        "sha256": "90a0f67311aeddea43683a7d3e4c1c8ce0fa9dda96367303edd0e7557c63e224",
+        "read_ranges": [
+          [
+            1,
+            66
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/ragdoll/mod.rs",
+        "sha256": "eaddce3e79397bc2d636eb4cecac5907f696760cbc35c1c305699bdc700df91a",
+        "read_ranges": [
+          [
+            1,
+            336
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/ragdoll/muscles.rs",
+        "sha256": "4d66c5e28731d05a4ff8e3fb3489cbe7d05bec7c2e76af21c7e2d7a58d846998",
+        "read_ranges": [
+          [
+            1,
+            275
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/resolver.rs",
+        "sha256": "1b0873cd746e039bdbc6d22d4f55b28ffad8141f68f43fbdb9fb3be25eb7eeb0",
+        "read_ranges": [
+          [
+            1,
+            217
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/resolver/span.rs",
+        "sha256": "6d417f317e9d6c150d1b588395132d72996b5645a9ede00a68c0f2eeac51e433",
+        "read_ranges": [
+          [
+            1,
+            143
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Typed physics dimensions/Radians/elapsed/MuscleRelease/tone -> full collider/joint/PD/damping native kernels and actual Avian velocity fields. Semantic PoseSampling variants retain payload to checked weighted clips/native sampler. Same UnitInterval -> BlendWeight readmission PP014 and original raw authored limits PP009 remain.",
+    "findings": [
+      "NATIVE-PP-009",
+      "NATIVE-PP-014"
+    ],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#ragdoll-resolver",
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "scenario-identity-metadata",
+    "meaning": "Admittedscenariopolicy/riglabels/semanticroute/proportions until actualserialization/nativemath",
+    "canonical_owners": [],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/review_scenarios.rs",
+        "sha256": "f887ed252c7a7b1f0856b08d8f75c056b7e570bcfaccfdb6a2ba323a4a40f7fa",
+        "read_ranges": [
+          [
+            1,
+            277
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/review_scenarios/authored.rs",
+        "sha256": "2514b2892652eef610794694ad9a68090c1016328facf5cce58686c9235b856e",
+        "read_ranges": [
+          [
+            1,
+            119
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/review_scenarios/authored_policy.rs",
+        "sha256": "2d2fb2dc2d28c7a6c9ab715bbd582f64a4e5b9a5149f878274abf52b263128e3",
+        "read_ranges": [
+          [
+            1,
+            206
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/review_scenarios/feature_policy.rs",
+        "sha256": "864022f57044851297ad46557bc6d7850639d4e66474297c712ef17a0f6a29ba",
+        "read_ranges": [
+          [
+            1,
+            238
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/review_scenarios/metadata.rs",
+        "sha256": "8ec8caeb8453d7529cd0a5ad9be322e9b49e9e3fa6e35171c3b196899d04ef96",
+        "read_ranges": [
+          [
+            1,
+            115
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/rig_identity.rs",
+        "sha256": "207d7aff4743dc30e8fd603dd02ca0e9dd83863ac4c65bc53e208949767a7b64",
+        "read_ranges": [
+          [
+            1,
+            84
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/sample_values.rs",
+        "sha256": "234c8eb4f9138aba0e0eb5302d52fba73d1c76044ca282b24e442fc693f22afb",
+        "read_ranges": [
+          [
+            1,
+            91
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/semantic_route.rs",
+        "sha256": "503b335e2aaa99a5cb283b02af958b8990b0e2fce6817b437b56e1bc8900e6e1",
+        "read_ranges": [
+          [
+            1,
+            145
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/skeletal_proportions.rs",
+        "sha256": "56f60067aad4396f087ebb56e068d5a0413b75ae81cd5fb4424dc3a14f28bc8c",
+        "read_ranges": [
+          [
+            1,
+            279
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Authored enum or open external label grammar -> owned ScenarioMetadata/features/terrain/execution policy -> actual capture/metric gates and final Serde/HTML. Rig/bone identity/proportions retained until actual native math or final label output. Unused finite_sample_value adapter PP010 and semantic route string-count aggregation PP016 remain; all labels actual receiving bodies read.",
+    "findings": [
+      "NATIVE-PP-010",
+      "NATIVE-PP-016"
+    ],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#scenario-identity-metadata",
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "capture-report",
+    "meaning": "WholeECS capture producers\u2192retainedanalysis\u2192gate/HTML/Serde",
+    "canonical_owners": [],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/weighted.rs",
+        "sha256": "8453166436911f4394c507ec05f4e3bf3f52d0bb92cb9f388bb0cecbe64ceb7c",
+        "read_ranges": [
+          [
+            1,
+            71
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+        "sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+        "read_ranges": [
+          [
+            1,
+            1021
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs",
+        "sha256": "be3851ecaa6b17fc8df5be03a931a840d86dde66294c07bb268dfe7aaa9cae4b",
+        "read_ranges": [
+          [
+            1,
+            168
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/capture_schedule.rs",
+        "sha256": "fc43df34f82478bf3b387906033df195b64b4cdbc32c6b9c4e53415a51ee1308",
+        "read_ranges": [
+          [
+            1,
+            57
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/frame_clock.rs",
+        "sha256": "d37afe5c70931612e23068f7982db7bac0b7aedbd2dfd726c6981aff6863b81f",
+        "read_ranges": [
+          [
+            1,
+            58
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/global_bones.rs",
+        "sha256": "974eb0a6fc0c028f246576cd03e2ba83b772d47befe3a2593663c1d38339dd68",
+        "read_ranges": [
+          [
+            1,
+            59
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Whole drive/capture/callback/analysis/gate/JSONL/manifest/HTML/AppExit graph read across PR and preserved P17. P17 retains typed distance/body/bouncy/height/IK/elapsed observations and errors to rejection. Original report dimensional/sentinel gaps largely repaired by overlay, remaining PP001/003/008/011/012/013/016 and shared motor are explicit. No P17 family completion inferred.",
+    "findings": [
+      "NATIVE-PP-001",
+      "NATIVE-PP-003",
+      "NATIVE-PP-008",
+      "NATIVE-PP-011",
+      "NATIVE-PP-012",
+      "NATIVE-PP-013",
+      "NATIVE-PP-016"
+    ],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#capture-report",
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "capture-harness-observation",
+    "meaning": "Nativeoverlay ports, typedmotionadmission andrequiredoptionalcaptureobservations",
+    "canonical_owners": [],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/overlay.rs",
+        "sha256": "52776510686b004cc99d1cc9373424cffdfbad85172cc116f47bb8b15a13f0aa",
+        "read_ranges": [
+          [
+            1,
+            80
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/readiness.rs",
+        "sha256": "2e535e01db3e5692c7f0955fab779a341ffe7d4edb246f4a987e288231223868",
+        "read_ranges": [
+          [
+            1,
+            32
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+        "sha256": "6255135aec06f6ce010b7bb960723b059db57684bf009fa48ad2fe9a8e754d23",
+        "read_ranges": [
+          [
+            1,
+            214
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+        "sha256": "40836a3c9a7e347f98f9ecf51aca3df955494d854e67f805e1cff8e54d02ec8a",
+        "read_ranges": [
+          [
+            1,
+            136
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture/subject_motion.rs",
+        "sha256": "863b3c4fafe43198495f75878f9544b5af7fd3cccd198a88c0cc37042c390981",
+        "read_ranges": [
+          [
+            1,
+            126
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness/readiness.rs",
+        "sha256": "64c3ae627a9e6e8b449c355a123aa9007228513e88cc07c9d3ec6f6783ecff34",
+        "read_ranges": [
+          [
+            1,
+            285
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Native subject/controller/Gizmos and material/mesh/packed-skin observations -> typed capture sample -> actual metrics and final artifact writers. Full unchanged WeightSummary48/material29 callbacks read, canonical rig owner linked. P17 structural mismatch is explicit and diagnostics optional; required IK absence rejects. Repeated snapshot missing authoritative tick remains PP012, motor optional tick repair still frozen P16 dependency.",
+    "findings": [
+      "NATIVE-PP-003",
+      "NATIVE-PP-011",
+      "NATIVE-PP-012"
+    ],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#capture-harness-observation",
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only",
+    "shared_findings": [
+      "RIG-SUPP-PP-007"
+    ],
+    "shared_dependencies": [
+      "Rig canonical retained fitting/cache/generation cause -> native owned EquipmentVisualStatus::state and actual capture/harness failure receivers; no competing cache edits."
+    ]
+  },
+  {
+    "id": "report-policy",
+    "meaning": "Scenarioadmitted bounds andbodyresponseoutput toactualgate/sourcecommand admission",
+    "canonical_owners": [],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/inspection.rs",
+        "sha256": "c3de8aecc1b589906a434397d0d78e51dc0b78c77453936e6f8c904a97a1bb7a",
+        "read_ranges": [
+          [
+            1,
+            67
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/mod.rs",
+        "sha256": "40cfb0af104c5b99efdf25346bf83168023b20c4305655f392ef49dcca1ab584",
+        "read_ranges": [
+          [
+            1,
+            179
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/acceptance_limits.rs",
+        "sha256": "df0755d84bee3dcbea4124ffdf5f53bb89e513796b87e1577bdfafbdf7fd17f0",
+        "read_ranges": [
+          [
+            1,
+            220
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/body_response_validation.rs",
+        "sha256": "b3292ab6c13201b261d597d9aa15c5e07143c7503fd78ecb229aab8c7bb967ca",
+        "read_ranges": [
+          [
+            1,
+            133
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Scenario policy -> typed P17 ExpectedVisualHeight/ExpectedScenarioBounds -> actual required measurement gates and explicit NotApplicable handling -> final quality/artifact output. Native inspection orbit input ends actual Quat and prepared JSON. Required absent body/lateral measurements now Unavailable and fail; original raw expected-bound path PP011 mapped to actual overlay.",
+    "findings": [
+      "NATIVE-PP-011"
+    ],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#report-policy",
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "report-bone-html",
+    "meaning": "CanonicalBoneRole iteration/parentidentity andactualHTML/Serde formattingports",
+    "canonical_owners": [],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/bones.rs",
+        "sha256": "1178bf380da9126c00678608493b9d252af9746d853d347d5f334d451586b5bb",
+        "read_ranges": [
+          [
+            1,
+            138
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/html.rs",
+        "sha256": "48cf5febbcb02887e500a960eb52ab06b5abfc9f55e4bdbf236319f5d89da684",
+        "read_ranges": [
+          [
+            1,
+            99
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Typed BoneRole map/parent/identity -> all metric iteration/native anatomical kernels -> typed observations -> actual SerializeMap/HTML/JS formatting. GlobalBoneFrame only JSONL consumer; P17 still retains elapsed before that sink. Actual wire-only labels/arrays distinguished from early route-count string key PP016.",
+    "findings": [
+      "NATIVE-PP-016"
+    ],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#report-bone-html",
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "scenario-metrics",
+    "meaning": "Fullcaptureanalysis numericalproducers and their retainedroles/absence policies",
+    "canonical_owners": [],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+        "sha256": "aa04ddf1b466365d8e27a43076eab1904f9d1d4abfd1715e2af1578f5d4e5636",
+        "read_ranges": [
+          [
+            1,
+            2050
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Every PR2050 and preserved P171184 metric/fixture line read with all dedicated submodules. Typed source observations enter actual geometric/range/continuity kernels then remain typed in ScenarioMetrics -> gates/Serde/HTML. Explicit Unavailable/NotApplicable/Measured and real negative clearance/cosine-1/real0 preserved. both_feet_behind_hips raw duration and absent-foot false/reset remains PP011; bool foot identity PP013; earliest yaw PP008.",
+    "findings": [
+      "NATIVE-PP-008",
+      "NATIVE-PP-011",
+      "NATIVE-PP-013"
+    ],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#scenario-metrics",
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "metric-subkernels",
+    "meaning": "Catastrophiccontact, prominentheight andsupportslip actualarithmetic +missingobservation semantics",
+    "canonical_owners": [],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/catastrophic_contacts.rs",
+        "sha256": "ad414c150521528e44dbcc6acc18f8631e8d868339839a74e49be89c99b04865",
+        "read_ranges": [
+          [
+            1,
+            65
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height_peaks.rs",
+        "sha256": "629837c2166162e41ef076b43d5c7f4e41714ad0da7c193423ff758e251a0cac",
+        "read_ranges": [
+          [
+            1,
+            50
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/support_slip.rs",
+        "sha256": "6bfdf963fc4f4564695be1a4a716194532e1afdb9afbbc602cf13373eb463352",
+        "read_ranges": [
+          [
+            1,
+            55
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Full catastrophic/height peak/support slip original and P17 modules read. P17 height samples retain phase/signed height until circular prominence kernel; supported-slip retains actual eligible absence vs missing bone. Catastrophic duration still raw and required absent foot treated false PP011; all actual gate recipients read.",
+    "findings": [
+      "NATIVE-PP-011"
+    ],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#metric-subkernels",
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "report-gates-serde",
+    "meaning": "Fullactualreport analysis\u2192validation\u2192quality\u2192JSON/HTML/AppExit",
+    "canonical_owners": [],
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+        "sha256": "46e0169bf601414d1b5ab885a9fa69b0c32436dd3fb1269d28e06e18b5cde1bc",
+        "read_ranges": [
+          [
+            1,
+            234
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+        "sha256": "71dab9d14d4296c98d6828de5f19e3998f8b3716a32f4bb28d665196edb9c376",
+        "read_ranges": [
+          [
+            1,
+            352
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/presentation_events.rs",
+        "sha256": "96bc4db93aefaea58374be6eba6a7eed668bfaebc77e74a40c1516b2fdf420e5",
+        "read_ranges": [
+          [
+            1,
+            48
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+        "sha256": "927e13d910b8e3b7dc6a9cc58ef2e936172b4ec9188948ffd5d1a524d4b89185",
+        "read_ranges": [
+          [
+            1,
+            792
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "All actual build/validation/quality/manifest/JSONL/HTML/AppExit receiving bodies read in PR and P17. Required absence returns false/error; declared NotApplicable alone may skip when_applicable. Original numeric thresholds and fold/count/tie order retained in evidence, no runtime claim. Snapshot tick omission PP012 reaches repeated_evaluation_valid -> validation_passed -> AppExit; reports do not clear earlier producer gaps.",
+    "findings": [
+      "NATIVE-PP-001",
+      "NATIVE-PP-008",
+      "NATIVE-PP-011",
+      "NATIVE-PP-012",
+      "NATIVE-PP-013",
+      "NATIVE-PP-016"
+    ],
+    "contract_links": [],
+    "initial_read_history": "initial-read-contracts.json#report-gates-serde",
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "playback-topology",
+    "meaning": "playback-topology",
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/playback_contributions.rs",
+        "sha256": "5c10fad61699ffe32bde91d9f48b833a2e6c42d30f7c77189f0da2a73a2823b1",
+        "read_ranges": [
+          [
+            1,
+            43
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Weighted clips/spans/continuations retain typed ClipTime/weights/coordinates, checked total before private PlaybackContributions state; slice accessors consumed actual sampler and native Transform.",
+    "findings": [
+      "NATIVE-PP-002",
+      "NATIVE-PP-014"
+    ],
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "bake-grid",
+    "meaning": "bake-grid",
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/baking.rs",
+        "sha256": "ad98238ee42b11ab107af73e24e4d4f43849fa442e0ef1ea2ae4a2d90ba55d26",
+        "read_ranges": [
+          [
+            1,
+            240
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Native clip duration -> checked positive duration/nonempty BakedFrameCount/aligned tracks -> actual allocation and native index/interpolation loop; errors logged into None PP002.",
+    "findings": [
+      "NATIVE-PP-002",
+      "NATIVE-PP-004"
+    ],
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "attack-presentation",
+    "meaning": "attack-presentation",
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/presentation/attack.rs",
+        "sha256": "aa611d89cd2327ddfd98bca611569e00b454764aee36d9a05553ab0c2ba94f5d",
+        "read_ranges": [
+          [
+            1,
+            170
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Typed action start/contact/duration span/progress/curve -> render prediction and correction -> checked full SkeletonState -> semantic evaluation/pose sampling. Raw target-height original retained producer PP015.",
+    "findings": [
+      "NATIVE-PP-015"
+    ],
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "canonical-animation-values",
+    "meaning": "canonical-animation-values",
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+        "sha256": "62a3215d6f52174d7351776d55c5f7f07adf340abada8e8aff653d674f389095",
+        "read_ranges": [
+          [
+            1,
+            135
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/cadence_limit.rs",
+        "sha256": "c8a718000e7ca797858aa79c1569d3a357a508e5bf319e75a1662bb47ebbf4c3",
+        "read_ranges": [
+          [
+            1,
+            174
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/calibration_parameters.rs",
+        "sha256": "5a37d4bd2c837948b19eec639ad5640b2f163e7c4c8d474e4e8048da9ac84656",
+        "read_ranges": [
+          [
+            1,
+            57
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/contact.rs",
+        "sha256": "e03c51c5d1f80bc6961802e1e70e9cac962661c3f83c44e275a2c5800d422d3c",
+        "read_ranges": [
+          [
+            1,
+            55
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/continuation_parameters.rs",
+        "sha256": "136104d58296283dd4227e0381e52b7d9893172a96f83ce34abf301c64d7b4a9",
+        "read_ranges": [
+          [
+            1,
+            112
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/elapsed_reflection.rs",
+        "sha256": "01d422dc938f9f193c310740e7f13210c400077bde9e3de66d170bc3acc96c43",
+        "read_ranges": [
+          [
+            1,
+            14
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/evaluation.rs",
+        "sha256": "7b026fd31eb9c09c84b446dbb0b71faea9717f93c027226dfbe357c5150dd704",
+        "read_ranges": [
+          [
+            1,
+            591
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/evaluation/attack.rs",
+        "sha256": "c1787a5b36b9fd27891c2646fd70a7d5206d7a1eefe00b86d1b3068d4dba8b03",
+        "read_ranges": [
+          [
+            1,
+            82
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/evaluation/locomotion.rs",
+        "sha256": "2767919da7545eecbaab9b212fc6a8e52802f6a61f3862c447903f75cf1ec6e7",
+        "read_ranges": [
+          [
+            1,
+            327
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/event_span.rs",
+        "sha256": "671ba3d11fc6a9fb01961f027b9eed9180186ecfa28eb0edc35735ca71ec341a",
+        "read_ranges": [
+          [
+            1,
+            81
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/fraction_reflection.rs",
+        "sha256": "07b2507c55331e27ceb0838e9e340f751961f35d74d29738a121e64c119297e7",
+        "read_ranges": [
+          [
+            1,
+            14
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/ground_contact.rs",
+        "sha256": "f4891ab322b4930bfdb678a97ed3b226b2f1aafbbf2ff6e15de727f9c025be74",
+        "read_ranges": [
+          [
+            1,
+            26
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+        "sha256": "60c9a6b987e30fcff66d01e8afadaaf41ffde91b9d1285c46bd88ec6a1678a39",
+        "read_ranges": [
+          [
+            1,
+            138
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/ik_parameters.rs",
+        "sha256": "53cc7934236d3051fdc9f6c24962500f4f4098a909bca4137dd2ac6ec4f14f57",
+        "read_ranges": [
+          [
+            1,
+            64
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/landing.rs",
+        "sha256": "b2c9f208720a6f2a993bcdb8b7752ad4799af0642e19c1d71b8bd29197a005db",
+        "read_ranges": [
+          [
+            1,
+            61
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/locomotion.rs",
+        "sha256": "6aef5ced10b1d430e513c990cd005b5e6ff4bdf8c98505b3dccd48d17cb6ac62",
+        "read_ranges": [
+          [
+            1,
+            267
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/mod.rs",
+        "sha256": "de9811b3907cc3d97cd41b77b27c02d459a32275b5e813ee589b0cf1b8b9e4c9",
+        "read_ranges": [
+          [
+            1,
+            90
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/motion_modes.rs",
+        "sha256": "9181b00087f1047a6a98384a3dfedf32c803368a63afed7727703c7999c51617",
+        "read_ranges": [
+          [
+            1,
+            77
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/packs.rs",
+        "sha256": "b1fa6c0abdf46f0a491d49293683bcb7a67ad6270b717b82ddb056cdcc6bad1f",
+        "read_ranges": [
+          [
+            1,
+            194
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/phase_response.rs",
+        "sha256": "924c663fe54edaaedc6f31a0d905cb5e72fe3e1e4cb918fbaad959e06d060fd5",
+        "read_ranges": [
+          [
+            1,
+            52
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/pose_coordinates.rs",
+        "sha256": "10188a5b28d9578344b32aff9e51ca9b673e16696f9750f745d903bc85c281b3",
+        "read_ranges": [
+          [
+            1,
+            95
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/response_parameters.rs",
+        "sha256": "d2eeb3c98817ee0e266094c559b48ef3736dc8b9fcdbcd975a9f47f637213222",
+        "read_ranges": [
+          [
+            1,
+            217
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/sample_rate.rs",
+        "sha256": "744e4868234738f05d7030c0cbae4c057fcbad21d41987b955e6895f3f9d5093",
+        "read_ranges": [
+          [
+            1,
+            86
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/sample_values.rs",
+        "sha256": "61864d871215d4140f142c121202374b5a8e3434504d459b29e97d7e0a889033",
+        "read_ranges": [
+          [
+            1,
+            207
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/shaping_time.rs",
+        "sha256": "daf4c6b1cf6f43edc45f91ac44fb6fe70ae0848a2e1b23b8bc313ba24d887a87",
+        "read_ranges": [
+          [
+            1,
+            63
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/skeleton_family.rs",
+        "sha256": "526f6b40dbe2b1a94aac7807e7ca9cb7f2fab69bd0a86f074319e7fd4f4e00bc",
+        "read_ranges": [
+          [
+            1,
+            24
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Full canonical owners131\u2013156/158\u2013159 read with unchanged elapsed/speed/UnitInterval/config owners. Private checked leaves or typed aggregate payloads retained through every materially distinct assigned body to real native math/wire; counts/clocks/angle/wrap policies differ intentionally. Same-value fraction conversion PP014, target-height PP015, raw debt PP004 and report producer gaps not cleared.",
+    "findings": [
+      "NATIVE-PP-004",
+      "NATIVE-PP-014",
+      "NATIVE-PP-015"
+    ],
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "state-evaluation",
+    "meaning": "state-evaluation",
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/semantic.rs",
+        "sha256": "bd7fae5f4804c3a1827174d3b17e17391688e8a3308bba7ecc68333100c7ac45",
+        "read_ranges": [
+          [
+            1,
+            1132
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state.rs",
+        "sha256": "48d075954cf0381f63c73815380ed47c37be6c35e30c573b6839e74c21572557",
+        "read_ranges": [
+          [
+            1,
+            2069
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/action_timeline.rs",
+        "sha256": "01140a5ec824cf8258598462f8d99cde62732bf1901ffaddcafcef6ee65e66a5",
+        "read_ranges": [
+          [
+            1,
+            89
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/downed_facing.rs",
+        "sha256": "a9750618561952fe5915714dea2b3d942edf076b37f122e4c7518920255d7d63",
+        "read_ranges": [
+          [
+            1,
+            353
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/guard_footwork.rs",
+        "sha256": "6ee51d617e6768c1552325294a976d780baa694c28386d909d913ef01475aea0",
+        "read_ranges": [
+          [
+            1,
+            153
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/guard_geometry.rs",
+        "sha256": "c0b137fbc417c7f671619a3cc9cc4b76cd30973682db603b40b27a6729ef5f2f",
+        "read_ranges": [
+          [
+            1,
+            123
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/posture_transition.rs",
+        "sha256": "bc8baae81a0a5a732df8dba8928b78d85c6b941c193ec50a31780d1a5b43f816",
+        "read_ranges": [
+          [
+            1,
+            158
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/projection.rs",
+        "sha256": "1c3d107a1b048fc5397ff0bd4ce896e703fd748296193bf90bea403fe7af7bab",
+        "read_ranges": [
+          [
+            1,
+            272
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/raised_locomotion.rs",
+        "sha256": "a2f784e17dfc1ae6b606c9688428b0a9596f4a1b0da358f5a59eacb6494bdfe9",
+        "read_ranges": [
+          [
+            1,
+            145
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/turn_deadline.rs",
+        "sha256": "bb92ce4b2c2252c6c68cc37955cba5f4d2c90ccdab05a4456a632a7f4adadc4e",
+        "read_ranges": [
+          [
+            1,
+            432
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/tests.rs",
+        "sha256": "48ba1b8005d63740183260c570153bbd903dba12c0fc3615253199a65a70f27e",
+        "read_ranges": [
+          [
+            1,
+            1969
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/value_error.rs",
+        "sha256": "18c3232bb01109cd7ec857f3c750d2c04ffb869dd52ca42cec82524816c41206",
+        "read_ranges": [
+          [
+            1,
+            217
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Full semantic/state/action/guard/posture/projection/turn-deadline and all existing fixtures read. Native controller ingress admits checked observations then typed state/evaluation -> checked plans -> real sampler/Transform. Raw target height PP015; fixture checked elapsed roundtrip PP028; guard/projection native vector math observed, other lenses still mandatory.",
+    "findings": [
+      "NATIVE-PP-015",
+      "NATIVE-PP-028"
+    ],
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "viewer-scenarios",
+    "meaning": "viewer-scenarios",
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs",
+        "sha256": "256fd3e5455eea95b629cf6ee1f856cb2149bb522d91b81d8bd9820c801161e6",
+        "read_ranges": [
+          [
+            1,
+            1409
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/admission.rs",
+        "sha256": "7d0001581edb1446088662238b20c1f4e4d2f8f30f69d47aac54402e9af2dc80",
+        "read_ranges": [
+          [
+            1,
+            43
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/plan_families.rs",
+        "sha256": "8e07b8a223fec8cbfa46b35aedc1732f3ff056c3000abf8db68f322517119d66",
+        "read_ranges": [
+          [
+            1,
+            190
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/terrain_policy.rs",
+        "sha256": "ef089759439d79d013473eda445c12a1f4ee725f5aee47be890a3983a8a492a2",
+        "read_ranges": [
+          [
+            1,
+            40
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "All authored scenario/family/terrain producers -> typed PlannedFrame metadata/speed/time/camera/action/lead -> whole drive_sequence -> capture/gates. Raw literal cycles/angle arguments are original authored numerical recipe inputs consumed duration/ceil/frame interpolation; no unchanged checked producer is stripped on those edges. Type/admission strength remains later lens work; original frame counts/order preserved.",
+    "findings": [],
+    "discovery_status": "source inventory reconciled; no focused propagation defect on listed paths",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "quickstep-fixture",
+    "meaning": "quickstep-fixture",
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/quickstep.rs",
+        "sha256": "33077519d29facefe510e67394af05f51874b1324ce3b4a8de4f27b657852e9c",
+        "read_ranges": [
+          [
+            1,
+            183
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Authored speed/duration/tick -> existing force/displacement/vertical integration loop -> native position/controller capture. P16 admits newly computed SignedLength and SignedSpeed before checked motor handoff. Primitive loop values remain inside full integration kernel; cap remains f32, corrected previous false comparison claim.",
+    "findings": [
+      "NATIVE-PP-011"
+    ],
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "capture-terrain",
+    "meaning": "capture-terrain",
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/setup.rs",
+        "sha256": "ca7571cd25d303d7ef2ca543a07674e3ba3ba58b4a9abb8bb3f234f03507f9cb",
+        "read_ranges": [
+          [
+            1,
+            94
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Required terrain query -> typed SupportElevation/ScenePosition -> native setup Transform; typed CharacterProportions retained to its native translation kernel and serialized setup artifact. Root terrain owner fresh proof linked; no fake support0 fallback.",
+    "findings": [],
+    "discovery_status": "source inventory reconciled; no focused propagation defect on listed paths",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "capture-camera",
+    "meaning": "capture-camera",
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/view.rs",
+        "sha256": "1ec7bad7a491c5c78bfefb2ee24f87039f35d5fc22fcca5aec8ab879f69a79d8",
+        "read_ranges": [
+          [
+            1,
+            74
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Actual native subject Transform/head framing plus typed camera rig/orientation/offset -> whole review_camera native geometric kernel -> actual Transform translation/look_at. Camera P08 graph source evidence linked; no primitive semantic camera state introduced here.",
+    "findings": [],
+    "discovery_status": "source inventory reconciled; no focused propagation defect on listed paths",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "viewer-command",
+    "meaning": "viewer-command",
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer_main.rs",
+        "sha256": "e0f7a9dac82a710fe98097b0b6baaa166da0f386c1c3314819bef4cabb95864d",
+        "read_ranges": [
+          [
+            1,
+            131
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "External CLI/options/config serde -> checked authored clock/config/scenario admission -> actual Bevy App run and failure display/exit. Paths and native orbit inputs consumed actual AssetSourceBuilder/Quat/JSON command ports. Raw positive settle budget remains next admission/count lens scope.",
+    "findings": [],
+    "discovery_status": "source inventory reconciled; no focused propagation defect on listed paths",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "runtime-fixtures",
+    "meaning": "runtime-fixtures",
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/tests.rs",
+        "sha256": "244ceaa77e510437e0f435b2ebc89eec78e610e1f67b74abc45382634fa4246f",
+        "read_ranges": [
+          [
+            1,
+            1524
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "All1524 runtime fixture lines/helper bodies/assertions read; literals/native observations admitted at existing boundaries, mathematical comparisons terminal. Real production skill aggregate loss PP029 remains in original fixtures too; no additional cases/assertions/helpers authorized.",
+    "findings": [
+      "NATIVE-PP-029"
+    ],
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "native-causal-report",
+    "meaning": "native-causal-report",
+    "source_refs": [
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee-combat-iteration.rs",
+        "sha256": "e1be72383593bbc4c921ecfdc904afcc7dc0b8364bef5b64efc35cb0ad11e5b3",
+        "read_ranges": [
+          [
+            1,
+            7
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/audit.rs",
+        "sha256": "351dc4cb2a26bcf9f8f708150890f43c3766a24c6d541eecdbe1a43869121f44",
+        "read_ranges": [
+          [
+            1,
+            197
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal.rs",
+        "sha256": "29a2443a5b6c08cb12ec620c470751f9f02b01152f0cdfce51f49395aaa84170",
+        "read_ranges": [
+          [
+            1,
+            330
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal/autoresolve.rs",
+        "sha256": "6b3523710ea972a96aebe9e062898169c56d10cf28ff987bdbfc36e5370521f0",
+        "read_ranges": [
+          [
+            1,
+            185
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/error.rs",
+        "sha256": "ff23deb907351c2ca0aab6e8e2831f2dfee7c3ec855d91124522d9e0102442e4",
+        "read_ranges": [
+          [
+            1,
+            62
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/measurement.rs",
+        "sha256": "ed0fe144881de7795bc3d5911ffa2a14bc9d33052a4c04f4af4d0db81e80ad95",
+        "read_ranges": [
+          [
+            1,
+            213
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/mod.rs",
+        "sha256": "5a603f0c5055543157a0dd1d47bc979a6109569d0e61cf088f5ca7a99ca495bd",
+        "read_ranges": [
+          [
+            1,
+            263
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/report.rs",
+        "sha256": "06ae9c455782ac10767b46537f84eea1e57f16391b7033fe44352edc24e0f8bc",
+        "read_ranges": [
+          [
+            1,
+            270
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs",
+        "sha256": "682408c513c94a29855ef855be8d4e16dad21a2de2e3349ff61dea8f87a43d0a",
+        "read_ranges": [
+          [
+            1,
+            325
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration.rs",
+        "sha256": "812c3b491db93ba51220e73ebe4aef93934ff80abeb3f7d4e2af796c598ce1b7",
+        "read_ranges": [
+          [
+            1,
+            648
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration/clock.rs",
+        "sha256": "049de982e2d1650e4040a5bcc9ac4a4e85d8354d2352bfe0f91972df55512539",
+        "read_ranges": [
+          [
+            1,
+            29
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration/logging.rs",
+        "sha256": "9b544bf84edcca32609b26242d2794c3800a45618c40cef1aa5f4d6965225b88",
+        "read_ranges": [
+          [
+            1,
+            427
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration/logging/decisions.rs",
+        "sha256": "1e132304f3127343f18a77a99b9d18205c3057788ce99700525a0d16e27a8768",
+        "read_ranges": [
+          [
+            1,
+            89
+          ]
+        ]
+      },
+      {
+        "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration/logging/resolution.rs",
+        "sha256": "a61ef59cb4da06988229325123ef72662197b3c568ea9822b2d27ee6cb1d7616",
+        "read_ranges": [
+          [
+            1,
+            167
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Actual Core roster/battle/movement/tactical event producers -> typed TacticalElapsed and f64 Measurement<Role> sums/means/max/contact Option -> native causal/audit/summary -> actual serialization and command termination. Native elapsed f32 subtraction precedes f64 promotion, wall Duration.as_secs_f64 distinct, seed/count/order/sum-before-division unchanged. Typed P02 and measurement/report/io/serde errors retain causes through runner/run/main; P16 observer native port does not yet retain/read back errors PP018. Required movement absence -> fake0 PP017; early string-key identity PP016; camera F003 reference physical producer shared. Native participant names/BodyPart/Subregion/decision text used in aggregate/classification before final serialization remain PP016; native typed actor identity must survive to report logic, source17952\u201365 and18081 actual Name-dependent victor reduction read.",
+    "findings": [
+      "NATIVE-PP-016",
+      "NATIVE-PP-017",
+      "NATIVE-PP-018"
+    ],
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only",
+    "cross_lens_candidates": [
+      "NATIVE-PP-C003"
+    ]
+  },
+  {
+    "id": "preserved-P17",
+    "meaning": "preserved-P17",
+    "source_refs": [
+      {
+        "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation/bouncy_bones.rs",
+        "sha256": "36a72e8b7ec69bfee0e9bf67a633ca079e4b157230b4628f885c9a19a4160e2b",
+        "read_ranges": [
+          [
+            1,
+            492
+          ]
+        ]
+      },
+      {
+        "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+        "sha256": "eb2b6cb3cb56cc6209f7a15a8b3dd72bf75cee67562c2b59cf0300223cac0c4d",
+        "read_ranges": [
+          [
+            1,
+            947
+          ]
+        ]
+      },
+      {
+        "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/capture/admission.rs",
+        "sha256": "6ea36de3b468aa2874ddb8b81039b2a85c7f77cc6beca0d15c2f957985cb4106",
+        "read_ranges": [
+          [
+            1,
+            195
+          ]
+        ]
+      },
+      {
+        "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/capture/global_bones.rs",
+        "sha256": "442ea977df5466ad973589f48a61e9166674c05f541f174dd0e54bb7e319b47e",
+        "read_ranges": [
+          [
+            1,
+            59
+          ]
+        ]
+      },
+      {
+        "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/capture/repeated_evaluation.rs",
+        "sha256": "a4cd3203c13ad00470f001d622f3c1097fcb28954a8c1e93766a53ddfa472441",
+        "read_ranges": [
+          [
+            1,
+            263
+          ]
+        ]
+      },
+      {
+        "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/capture/root_motion.rs",
+        "sha256": "9b77b6040fcf91aa02261a284189f50a43a59f05ba0e8e4d719966b21a0685bd",
+        "read_ranges": [
+          [
+            1,
+            140
+          ]
+        ]
+      },
+      {
+        "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/capture/sample.rs",
+        "sha256": "c3cbd6ab4893272cb488013c9d3837632ed6c9c44b105af9e6d36b705fdb194b",
+        "read_ranges": [
+          [
+            1,
+            132
+          ]
+        ]
+      },
+      {
+        "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/mod.rs",
+        "sha256": "de154a56960ffb19516e463e4fdd5bed4d85b09923ed552f3773729ac8ad56e7",
+        "read_ranges": [
+          [
+            1,
+            179
+          ]
+        ]
+      },
+      {
+        "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/acceptance_limits.rs",
+        "sha256": "cd50789f7bb51a70cba222126924e2bd09537e91732baaeaa87a5a5b764bf5a3",
+        "read_ranges": [
+          [
+            1,
+            288
+          ]
+        ]
+      },
+      {
+        "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/biomechanics_validation.rs",
+        "sha256": "9211b4536a6ae6cf42e37da786ff675287b5d917b2231ba82415e9ed4e84109a",
+        "read_ranges": [
+          [
+            1,
+            64
+          ]
+        ]
+      },
+      {
+        "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/body_response_validation.rs",
+        "sha256": "bd29a229e56b7d1e2bf3637893267470180968b4d88e10c970ab9067d78c2439",
+        "read_ranges": [
+          [
+            1,
+            103
+          ]
+        ]
+      },
+      {
+        "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/continuity_validation.rs",
+        "sha256": "2d2788cbd744673baa618011298af0a711c24b8063a8fe651eb4c15922cd68d0",
+        "read_ranges": [
+          [
+            1,
+            27
+          ]
+        ]
+      },
+      {
+        "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/height_validation.rs",
+        "sha256": "a40eb11dc1cb1c214bdd2fc118536d9e879075175c3688f4650f680c43bec3d3",
+        "read_ranges": [
+          [
+            1,
+            35
+          ]
+        ]
+      },
+      {
+        "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/html.rs",
+        "sha256": "ad225bb5b1a00479327871963669e407028cc5e4550fe10134be12a2030bacf1",
+        "read_ranges": [
+          [
+            1,
+            142
+          ]
+        ]
+      },
+      {
+        "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/landing_validation.rs",
+        "sha256": "f68a28a4d7d79923b5d9b1d5bec979b4518498f9d3d25a91f89911b2916a95cb",
+        "read_ranges": [
+          [
+            1,
+            30
+          ]
+        ]
+      },
+      {
+        "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics.rs",
+        "sha256": "afd630bf1aa3b39007ee568f0428f37e30d43c9b43bd12fc7cd114fca1486c34",
+        "read_ranges": [
+          [
+            1,
+            1184
+          ]
+        ]
+      },
+      {
+        "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/clearance.rs",
+        "sha256": "ef24a6569ba92503d98ad956984ab627e7c5fc41f7429713cbac258a178e57dd",
+        "read_ranges": [
+          [
+            1,
+            182
+          ]
+        ]
+      },
+      {
+        "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/continuity.rs",
+        "sha256": "d231794853b7f8d0c526e543e50e13d15499341746d4d50187f88d2022c5ced3",
+        "read_ranges": [
+          [
+            1,
+            186
+          ]
+        ]
+      },
+      {
+        "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/facing.rs",
+        "sha256": "3c351540f1c379a250a87469a2cc86c4bb2c525b5fc2dbf084ace8e4b1057671",
+        "read_ranges": [
+          [
+            1,
+            146
+          ]
+        ]
+      },
+      {
+        "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/guard_liveness.rs",
+        "sha256": "4e99ffb41426fe317a4a92c09f49f3533cc6c9a8ced6517f4650408aa0a9d45f",
+        "read_ranges": [
+          [
+            1,
+            108
+          ]
+        ]
+      },
+      {
+        "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height.rs",
+        "sha256": "e334517ee92a0081ddfa169ebb5f261d0720373b72c261ebe363b57f9a013576",
+        "read_ranges": [
+          [
+            1,
+            254
+          ]
+        ]
+      },
+      {
+        "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/height_peaks.rs",
+        "sha256": "7e8a84b7f3e6b3704d9d6af35807453511541907e3fc780f8c85928cf273e610",
+        "read_ranges": [
+          [
+            1,
+            65
+          ]
+        ]
+      },
+      {
+        "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/pose.rs",
+        "sha256": "3d5ddade1188ded7f01cd60e2cabe4ccd4fc9e3be625640ad75976ed4016e270",
+        "read_ranges": [
+          [
+            1,
+            188
+          ]
+        ]
+      },
+      {
+        "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/metrics/support_slip.rs",
+        "sha256": "7d5cfea52b585b38756a012a33525c2fd8cdde71e1a82a238b6a2a015a0538d7",
+        "read_ranges": [
+          [
+            1,
+            47
+          ]
+        ]
+      },
+      {
+        "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/mod.rs",
+        "sha256": "896ecc0389806812fad940c671d539b4c767e5a2e38d8a5865403c65b5377579",
+        "read_ranges": [
+          [
+            1,
+            244
+          ]
+        ]
+      },
+      {
+        "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/model.rs",
+        "sha256": "b25c00d6c145fc8ff6ba17b58925569f5377ec0ff736dd1ff61b53d6199d2a68",
+        "read_ranges": [
+          [
+            1,
+            390
+          ]
+        ]
+      },
+      {
+        "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/observation.rs",
+        "sha256": "b1dc9323bda01dd3f71ebf003ffe6190ac56ea73ea489ddf3a3f40498c51eab5",
+        "read_ranges": [
+          [
+            1,
+            203
+          ]
+        ]
+      },
+      {
+        "source_id": "report-p17:crates/adventuresim-tactical-client/src/animation_viewer/report/validation.rs",
+        "sha256": "fc63aaa5df83ab829486d1421eda4b014bf7be462cc7451b0b2c28d19c862e99",
+        "read_ranges": [
+          [
+            1,
+            618
+          ]
+        ]
+      },
+      {
+        "source_id": "report-p17:crates/adventuresim-tactical-core/src/animation/authored_angle.rs",
+        "sha256": "95852ba679486fb361ff90d203788f00fd951c87d215420de1e4931d6911226c",
+        "read_ranges": [
+          [
+            1,
+            155
+          ]
+        ]
+      },
+      {
+        "source_id": "report-p17:crates/adventuresim-tactical-core/src/animation/height_measurement.rs",
+        "sha256": "ab520d3fbb8ff15b6554a7ae16e036426dea29b02082af86a99ce8de78c02fe7",
+        "read_ranges": [
+          [
+            1,
+            148
+          ]
+        ]
+      },
+      {
+        "source_id": "report-p17:crates/adventuresim-tactical-core/src/animation/measurement.rs",
+        "sha256": "cd6f17bf2bc0925f53292c3a04e552698ba572ae7127aa3ce31430296ca420a4",
+        "read_ranges": [
+          [
+            1,
+            110
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Entire preserved delta185\u2013215 plus full bodies/readback/gates/HTML/Serde reconciled with current PR overlay, never whole old branch restore. Typed expected bounds, signed clearances, body/height/elapsed/distance, Result<Radians> telemetry and explicit observation absence now retained; earliest source and remaining PP001/003/008/011/012/013/016 plus frozen motor dependency remain mandatory. Geometry extrema additions preserve exact native private leaf min/max.",
+    "findings": [
+      "NATIVE-PP-001",
+      "NATIVE-PP-003",
+      "NATIVE-PP-008",
+      "NATIVE-PP-011",
+      "NATIVE-PP-012",
+      "NATIVE-PP-013",
+      "NATIVE-PP-016"
+    ],
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only",
+    "shared_findings": [
+      "CAM-PROP-F015"
+    ],
+    "shared_dependencies": [
+      "Native owns complete on_successful_attack/BoneKick/kick_bones repair per root explicit transfer; consume camera canonical SceneVelocity, preserve rotational native numerical spring state and actual telemetry result/error capture chain."
+    ]
+  },
+  {
+    "id": "preserved-P16",
+    "meaning": "preserved-P16",
+    "source_refs": [
+      {
+        "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation_viewer/harness.rs",
+        "sha256": "301ac4dfe279a9dde47a582987736d16158cea960a0398b2a59f57a63859511d",
+        "read_ranges": [
+          [
+            1,
+            511
+          ]
+        ]
+      },
+      {
+        "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/quickstep.rs",
+        "sha256": "760ecbcf0a6723b9624547541159758a8e9e117606b3c827969cbd9733645aab",
+        "read_ranges": [
+          [
+            1,
+            190
+          ]
+        ]
+      },
+      {
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/audit.rs",
+        "sha256": "a5a83e7409778230722685583a4efc7985dc11db52bf5eb2dd5a7ebde16af5a0",
+        "read_ranges": [
+          [
+            1,
+            196
+          ]
+        ]
+      },
+      {
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal.rs",
+        "sha256": "8c3f05243082a222416fbfc0b33d8307fcce43dce219c0a4bdc2046012220740",
+        "read_ranges": [
+          [
+            1,
+            320
+          ]
+        ]
+      },
+      {
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/error.rs",
+        "sha256": "5e7c0c74cc71452ee3a99374100ae1c8d60941f4b1a563eb4aa6d693440b3c31",
+        "read_ranges": [
+          [
+            1,
+            78
+          ]
+        ]
+      },
+      {
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/measurement.rs",
+        "sha256": "7484685c90ececcfe299b8e5e8c4c4f361fe53ed917ec14e15c28affe40669df",
+        "read_ranges": [
+          [
+            1,
+            237
+          ]
+        ]
+      },
+      {
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs",
+        "sha256": "e8b238c454b79527cff117b2acc8ad4b32214dfd7fb3714b9949c725daf7460d",
+        "read_ranges": [
+          [
+            1,
+            319
+          ]
+        ]
+      },
+      {
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration.rs",
+        "sha256": "5ebb42e36e764cd3adee88c336b2976f42db557494a436e8fa2eef2f79fdef61",
+        "read_ranges": [
+          [
+            1,
+            649
+          ]
+        ]
+      },
+      {
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration/equipment.rs",
+        "sha256": "734717189e02b8266dcc04626015d9fee4bb6e32d7a5816040db8d0a94d0f379",
+        "read_ranges": [
+          [
+            1,
+            163
+          ]
+        ]
+      },
+      {
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration/logging.rs",
+        "sha256": "cee413f196e6709475af3c4f68ba65471662d2dbc16d1fe978946ecbf362ca2d",
+        "read_ranges": [
+          [
+            1,
+            431
+          ]
+        ]
+      },
+      {
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration/logging/resolution.rs",
+        "sha256": "3454be3e36e9ce85770800d62425263aa87627bdcea264b6ab2803d24d3eeb02",
+        "read_ranges": [
+          [
+            1,
+            167
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Full frozen variant216\u2013227 native/report/harness and actual upstream camera source evidence read. Checked physical leaves retain through state/new arithmetic/native calculations; original P18 clock/f64/error contracts survive planned union. Frozen unfinished P16 is not integrated/validated and observer PP018/required movement PP017/reference camera F003 remain.",
+    "findings": [
+      "NATIVE-PP-017",
+      "NATIVE-PP-018",
+      "NATIVE-PP-029"
+    ],
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "preserved-P16-native",
+    "meaning": "preserved-P16-native",
+    "source_refs": [
+      {
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/causal/autoresolve.rs",
+        "sha256": "5b0e7292d55c87297515274078335112ffd415b7d491548345e6417de1ed129d",
+        "read_ranges": [
+          [
+            1,
+            182
+          ]
+        ]
+      }
+    ],
+    "producer_retention_operations_receivers": "Actual checked SignedLength timeline/contact/displacement -> f64 statistical length role conversion and raw abs-before-promotion kernel -> causal report/audit/Serde. Missing required displacement/before-after distance still defaults zero PP017; typed time/speed/f64 roles otherwise retained.",
+    "findings": [
+      "NATIVE-PP-016",
+      "NATIVE-PP-017"
+    ],
+    "discovery_status": "source inventory reconciled; actionable findings remain",
+    "repair_status": "not started; all13 discovery gate closed",
+    "validation_status": "not run; source evidence only"
+  },
+  {
+    "id": "NATIVE-PP-SERVER-001",
+    "meaning": "Supplemental whole server/player/AI/movement source contract",
+    "source_evidence": "native/server-coverage.json",
+    "producer_retention_operations_receivers": "Native observations/authored speed/timing/Seed -> typed speed/elapsed/RecoveryTime/checked P16 geometry -> AI Facts/Pursuit/phase/player state -> actual Timer/controller/Transform/Serde/framework callbacks. Whole24 variants and connected native receiver files read. PP029 named skill aggregate still flattened; P16 retained geometry closure and errors shared camera; no implementation acceptance.",
+    "findings": [
+      "NATIVE-PP-029"
+    ],
+    "shared_findings": [
+      "CAM-PROP-F003",
+      "CAM-PROP-F015"
+    ],
+    "discovery_status": "source inventory reconciled with open findings",
+    "repair_status": "not started; source frozen",
+    "validation_status": "not run"
+  },
+  {
+    "id": "NATIVE-PP-SERVER-RECEIVERS-002",
+    "meaning": "Actual architectural closures/furniture/terrain callback numerical/native receivers",
+    "source_evidence": "native/server-receivers-002.json",
+    "producer_retention_operations_receivers": "Original resolved geometry and typed DoorSpec/WindowSpec/SceneDoorPose/SceneWindowPose -> server controller/native collider/joint/motor/Transform. All whole native callbacks and decoder/error/fixture bodies read, actual pinned Avian scalar/vector/motor port implementations inspected. PP026 controller geometry loss and PP030 unchanged point re-admission remain; all root function transfers metadata only.",
+    "findings": [
+      "NATIVE-PP-026",
+      "NATIVE-PP-030"
+    ],
+    "discovery_status": "source inventory reconciled with open findings",
+    "repair_status": "not started; source frozen",
+    "validation_status": "not run"
+  },
+  {
+    "id": "NATIVE-SUPP-CAMERA-TIME-001",
+    "meaning": "Official/personal/journey calendar plus strategic typed physical causes through activities, stationary and rest",
+    "source_evidence": [
+      "supplemental-camera-sources.json",
+      "supplemental-camera-receivers.json",
+      "supplemental-camera-shared-links.json",
+      "supplemental-camera-framework-port.json"
+    ],
+    "producer_retention_operations_receivers": "WorldClock.official_minutes and CharacterTime.minutes preserve canonical StrategicMinute. SDK Timestamp microsecond primitive feeds actual official_minute integer rate conversion; absolute owner saturating/checked addition/elapsed operations preserve clocks, party canonical anchor remains separate from subjective dates. Capability/equipment typed physical errors enter activity_training_profile, apply_activity_outcomes, party_physiology, rest/catch-up, lifecycle; typed errors can reach SDK Display directly. Existing String helpers and discarded results remain CAM-PROP-F006, including surgery settlement String fanout. See exact connected issues below. Authored day schedule raw roles need next lenses, no blanket wire exemption.",
+    "findings": [
+      "CAM-PROP-F006",
+      "NATIVE-PP-035"
+    ],
+    "discovery_status": "assigned complete source; related full function evidence reconciled with open shared finding",
+    "repair_status": "frozen; camera retains whole DB error repair ownership",
+    "validation_status": "not run",
+    "schedule_reconciliation": "Confirmed PP035 supplemental-schedule-closure.json; prior candidate is historical"
+  },
+  {
+    "id": "NATIVE-SUPP-CAMERA-WORLD-001",
+    "meaning": "Context cast identities/typed clocks and operation errors into contextual reducer/SDK",
+    "source_evidence": [
+      "supplemental-camera-sources.json",
+      "supplemental-camera-receivers.json",
+      "supplemental-camera-shared-links.json",
+      "supplemental-camera-framework-port.json"
+    ],
+    "producer_retention_operations_receivers": "Typed Seed constructed from raw deterministic Character ID for actual Character random generation (not stripping an existing Seed). Ordinal remains bounded u16 through membership. StrategicMinute entered/left and observer frontiers retained directly to comparisons/native SDK records and view output. Role/decision enums retained to actual presentation enums. Case string identities use camera F009 scope; no automatic exception. Materialize typed Character/equipment errors and contextual contact typed errors to SDK via final Display; world_actor rebind return and feature fixture receive old String, naming errors stringified before generic Operation cause.",
+    "findings": [
+      "CAM-PROP-F006",
+      "CAM-PROP-F009"
+    ],
+    "discovery_status": "assigned and connected body inventory reconciled with open shared findings",
+    "repair_status": "frozen; camera retains DB whole-function ownership",
+    "validation_status": "not run"
+  },
+  {
+    "id": "NATIVE-SUPP-CORE-WEATHER-001",
+    "meaning": "Weather actual numeric coordinate/time/grid/entropy endpoints",
+    "source_evidence": "supplemental-core-receivers.json",
+    "producer_retention_operations_receivers": "Typed Seed and StrategicMinute enter weather_at. .period_index quantizes to weather interval, .floor_to_interval returns typed instant. Integer lat/lon immediately div_euclid into new coarse lattice coordinates185\u2013186; latitude scaling611\u2013613 is temperature arithmetic, not same point readmission. Correlated field typed Seed/StreamId retained until rng.index; primitive lattice coordinates directly fixed-width hash inputs and fixed-point interpolation. Weather snapshots retain typed interval_start and enum precipitation; new numeric scalar/grid results remain numeric kernel outputs.",
+    "findings": [
+      "NATIVE-PP-031"
+    ],
+    "intentional_boundaries": [
+      "Coordinate integers immediately consumed in weather grid math; actual caller retained raw Fixed is distinct earlier gap",
+      "Derived weather interval/cell indices are new numerical roles, not raw unchanged absolute minute/position",
+      "Seed retained to true canonical RNG; native sampling context uses fixed-width scalars, link rig current-wave RNG owner proof"
+    ],
+    "discovery_status": "full Core owner/children read; related calling-body proof linked; open earlier producer gap",
+    "repair_status": "frozen",
+    "validation_status": "not run"
+  },
+  {
+    "id": "NATIVE-SUPP-CORE-EXPOSURE-001",
+    "meaning": "Strategic exposure environment/state/native arithmetic",
+    "source_evidence": "supplemental-core-receivers.json",
+    "producer_retention_operations_receivers": "P16 condition canonical WGS/elevation\u2192raw Fixed is PP031. Position tuple then actual weather_at grid operation; WeatherSnapshot stream\u2192survival::advance_exposure minute loop wetness/thermal/frostbite offset accumulation\u2192typed absolute event_minute\u2192frostbite_peripheral_index canonical offset math\u2192actual injury commit\u2192native SDK exposure row. Shelter enums retained directly; numeric weather/clothing outcome state new roles; no existing checked physical leaf stripped inside pure survival kernel.",
+    "findings": [
+      "NATIVE-PP-031",
+      "CAM-PROP-F006"
+    ],
+    "preservation": "Personal injury timestamps remain independent from wrapped wilderness weather clock; event offsets replay original minute order; indoor/tent field branches and real zeros unchanged.",
+    "discovery_status": "full Core survival430 and actual condition exposure functions read; camera whole condition/equipment/surgery receiving bodies linked",
+    "repair_status": "camera condition whole-function owner; source frozen",
+    "validation_status": "not run"
+  },
+  {
+    "id": "NATIVE-SUPP-CORE-PHYSIOLOGY-001",
+    "meaning": "Canonical dose/body mass/physiology clock and actual medication numerical/SDK consumers",
+    "source_evidence": "supplemental-core-receivers.json",
+    "producer_retention_operations_receivers": "DoseMilliunits admitted0..8000 by try_new; active administration separately rejects0. STDB native table dose.get2205/2254 is true storage serialization; administration adapter validates actual raw wire dose19\u201320 and retains typed clocks22\u201323. Core Administration stores DoseMilliunits680 to effect_at.as_standard_doses711 actual multiplication/sensitivity/adverse scaling; no same dose readmission. DoseError cause currently mapped to message internally before generic Operation, F006. BodyMassKg owner admits finite20..300, direct estimated_blood_milliliters42\u201345 is new physical output, not retained same mass. Terminal/presence typed clocks retained through structural sort/binary search/min/max/real native arithmetic. Enum indices only actual fixed array numerical lookup; names at text/Serde/public presentation.",
+    "findings": [
+      "CAM-PROP-F006"
+    ],
+    "discovery_status": "full Core physiology1169 plus actual adapter27 and STDB administration/native inserts and terminal callback bodies read",
+    "repair_status": "frozen; camera DB error ownership",
+    "validation_status": "not run"
+  },
+  {
+    "id": "NATIVE-SUPP-CORE-DISEASE-001",
+    "meaning": "Canonical disease episode/clock/identity/entropy through full owner and actual private/public/terminal callbacks",
+    "source_evidence": "supplemental-core-receivers.json",
+    "producer_retention_operations_receivers": "Full Core3842+identity132+entropy26 read incl all existing fixtures. InfectionEpisode contracted_at StrategicMinute1325 passes evaluation, acquisition timeline maps/window/structural/event/terminal methods and actual meter-state callbacks typed. DiseaseId retained to canonical definition/index; canonical enum names projected at actual source/text/persistence ports. Core age conversions1556\u20131563 are elapsed-relative curve interpolation then derived absolute event (not unchanged clock reconstruction). Source SDK episode843\u2013845 unchanged-clock get/new remains CAM-PROP-F016. Source SDK ParseDiseaseIdError to_string and DoseError to generic messages remain F006. Typed disease/symptom/terminal enums remain in actual pure callbacks until DTO. Entropy helper StrategicMinute.get at exact fixed-width RNG hash context is proved, no intermediary raw clock retained. Seed-derived identity field dual role explicitly queued C002 rather than assuming syntax is defect or a boundary.",
+    "findings": [
+      "CAM-PROP-F006",
+      "CAM-PROP-F016",
+      "NATIVE-PP-032"
+    ],
+    "discovery_status": "Full source/actual supplied endpoint queue read; C002 confirmed source-backed PP032 by root, final exact identity/entropy owner deferred only to required later owner/granularity lens, not first-lens disposition",
+    "repair_status": "frozen; canonical owners reused",
+    "validation_status": "not run",
+    "historical_discovery_status": "source bodies/actual supplied endpoint queue read; dual-role Seed identity candidate pending coordinator reconciliation"
+  },
+  {
+    "id": "NATIVE-SUPP-CATALOG-001",
+    "meaning": "Actual quest/road runtime/authoring validation receivers and existing fixture population",
+    "source_evidence": [
+      "supplemental-catalog-sources.json",
+      "supplemental-catalog-receivers.json",
+      "supplemental-catalog-closure.json"
+    ],
+    "findings": [
+      "CAM-PROP-F011"
+    ],
+    "discovery_status": "assigned tails full and root prefixes exact same hash linked; known gap and explicit other-lens/API limitations remain",
+    "repair_status": "frozen; camera first-trace ownership retained",
+    "validation_status": "not run"
+  },
+  {
+    "id": "NATIVE-SUPP-OPERATION-001",
+    "lens": "audit-producer-propagation",
+    "scope": "Parent bounded strategic_action1209/rights1224/material1869 plus actual food/preparation ID/time/error/native recipients",
+    "read_status": "Full assigned owners incl all original fixtures; full connected investigation_action1291/water_source500; exact actual callback/DB native bodies and full camera shared proof linked",
+    "source_evidence": [
+      "supplemental-operation-sources.json",
+      "supplemental-operation-receivers.json",
+      "supplemental-operation-shared-links.json"
+    ],
+    "findings": [
+      "NATIVE-PP-033",
+      "NATIVE-PP-034",
+      "CAM-PROP-F006"
+    ],
+    "contracts": [
+      {
+        "name": "Strategic action request/time/commit",
+        "trace": "RequestedDuration -> TimeResolution/AuthoritativeActionPlan -> calculate -> retained effects -> validate_commit -> actual advance time -> direct SDK receipt; PP033 raw requested retention, genuine elapsed may0. Typed ActionRequestId/ActionDefinitionId/AuthorityBinding/Snapshot retained to commit equality. Unchanged numeric timeline ordering/clipping/error enum preserved in proof. Native time graph exact prior NATIVE-SUPP-CAMERA-TIME-001."
+      },
+      {
+        "name": "Rights questions and private decision",
+        "trace": "Typed actor/object/place/fixture/custody retained through RightsQuestion validation, private evidence/provenance, question digest and pure decisions. CanonicalRightsQuestionDigest39\u2013169 final native SHA256 length-framed bytes; domain callbacks preparation175\u2013184/forage631\u2013647/investigation567\u2013584/water253\u2013265 read. Rights grant lifecycle/validity/receipt APIs fully read incl fixtures; exact repository search finds no external assess_permission_grant/PermissionGrant/RightsConsumptionReceipt construction outside owner, so no invented SDK grant receiver or blanket future integration clearance. Public sanitized decision is explicit intentional privacy projection, not typed-error transport."
+      },
+      {
+        "name": "Material receipt identity/conservation",
+        "trace": "Typed MaterialLotId/PhysicalObjectId/ObjectCustody retained through snapshots, contributions, clone, source uniqueness, retry sort and commit equality. ProcessId derived from lot ID286 is different role, later granularity question. Typed source receipts retained until final DB lot update and receipt hash field. PP034 checked scalar units erased before these retained composites; actual errors MaterialError/CustodyIdentity/CommitRejection/MaterialCommitRejection mapped String/fixed message inside camera-owned functions, expands F006."
+      },
+      {
+        "name": "Material volume native ports",
+        "trace": "Microliters/Milliliters checked adds/splits stay typed in inventory ContainmentGraph.used_volume, native water proportional transfer406\u2013430, take_container_water_contributions175\u2013217 and result vector, container contamination682\u2013730. Actual amount.get is direct SDK row mutation202 or final SHA256 context263; as_milliliters_f32/as_water_kilograms_f32 reach real contamination/cooking arithmetic265\u2013272/481\u2013485. Raw table hydration195/714 is actual SDK ingress, not pure custom-state readmission. No producer retention gap inferred just from these final conversions."
+      }
+    ],
+    "cross_lens_candidates": [
+      {
+        "location": "Core water_source OutbreakWaterFlow27\u2013172/source and load fields; WaterCollectionAuthority/effect319/291",
+        "disposition": "Raw semantic volume/contaminant roles with canonical unit owners exist, but no prior checked leaf producer is stripped on this specific simulation ingress. Reserve raw-role/operations/aggregate lenses; no authored or simulated blanket exemption."
+      },
+      {
+        "location": "DB outbreak::contained_water_contamination677 passes Microliters::new(u64::MAX) -> moved.min(source_total)713",
+        "disposition": "All-volume selection encoded as maximum numeric leaf, candidate enum/magic-number policy, not absence/measurement same-value erasure. No new duplicate finding or repair until remaining lenses."
+      },
+      {
+        "location": "InvestigationPlanAuthority.duration618 vs resolution.cost.minutes681 -> raw retained AttemptPartyInterval",
+        "disposition": "Actual cost originates new resolve arithmetic/base_cost (minimum15), not identical .minutes value projected from checked request. Aggregate consistency/role retention must reconcile with PP033 whole callback without inventing a same-value producer defect."
+      },
+      {
+        "location": "material source expected_revision, input digest; rights provenance comments and generic public shape",
+        "disposition": "Later aggregate/redundant-authority/ownership/derivability/magic literals/rule/comment lenses remain mandatory; this first-lens evidence is not clearance."
+      }
+    ],
+    "preservation": [
+      "positive requested vs zero-permitting elapsed distinct",
+      "terminal/interruption tie order, saturating clock MAX policy",
+      "u128 proportional floor and conserved integer remainder",
+      "real zero/empty component rules",
+      "typed causes through actual native command/reducer boundary, not early String",
+      "hash frame widths, sort/order, identity bits and RNG draws",
+      "existing fixture input/count/order/assertion population unchanged"
+    ],
+    "first_unfinished_cell": "None in bounded operation source/receiver queue; new next assignment Core quest_generation/model pending",
+    "repair_status": "frozen until all13 initial discovery; no source changes",
+    "validation": "No local project commands/tests/check/CI or compile/runtime PASS"
+  },
+  {
+    "id": "NATIVE-SUPP-QUEST-IDENTITY-001",
+    "lens": "audit-producer-propagation",
+    "scope": "Parent bounded Core quest_generation model/case identity actual AssetId/SubjectId/ObjectiveId operations and receiving native callbacks; no unrelated solver/audit recursion",
+    "source_evidence": [
+      "supplemental-quest-sources.json",
+      "supplemental-quest-receivers.json",
+      "supplemental-quest-shared-links.json"
+    ],
+    "read_status": "All requested model1230 and actual canonical case921 incl fixtures read; full connected assembly1443/projection506/mod35/validation1121; actual required bounded receiver bodies through final SDK/readback/evaluation read or exact fresh full camera body proof linked",
+    "findings": [
+      "CAM-PROP-F022 (same connected earliest pure Asset/Subject and Objective recipient propagation; no duplicate native finding)",
+      "NATIVE-PP-032 (additional earliest outbreak assembly Seed identity edges)",
+      "CAM-PROP-F011 (existing visible witness age/presentation helper graph, stays camera-owned)",
+      "CAM-PROP-F006 (typed canonical errors erased inside DB helpers)"
+    ],
+    "contracts": [
+      {
+        "name": "Canonical Asset/Subject IDs in whole generated case",
+        "producer": "case.rs15\u201348 purpose-specific private string ID constructors/leaf accessors; assembly448/450 admits SubjectId/AssetId once",
+        "retention_gap": "assembly568/589/593 and607/641/644/650 extract same .as_str().into into model GeneratedActionConsequence1114\u20131121/GeneratedFinale1130\u20131131/GeneratedDialogueProducer1141/GeneratedCase.custody1170; canonical ObjectiveRequirement simultaneously retains typed clones578/622/628",
+        "operations": "full validate946\u20131085 compares primitive payloads against typed canonical objectives. Model mixed finale subject also contains proposition description_prop672 in fabricated branch; cannot blanket substitute SubjectId. Intended final enum/owner must represent distinct subject/proposition/asset meanings. Actual canonical typed CustodyObject/CaseId/OutcomeFact remain in pure apply_custody603\u2013622/evaluate368\u2013402 and matching/saturation405\u2013574, all read.",
+        "receivers": "DBcapabilities1019\u20131064 clones raw consequence into internal InvestigationActionConsequence1\u20138 before actual serializer139\u2013140/SDKinsert120\u2013144. DBprojections717\u2013759 expected-consequence same JSON validation read. Actual commit_action_consequence909\u2013963 invokes record_asset_retrieved/record_subject_rescued then custody_object parses same ID again. Full fresh camera custody1677 and native exact32\u201344/242\u2013429/803\u2013903 prove internal BTreeMap<String,Kind> and helper early erasure, before true SDK row326\u2013344. FactJSON1001 then actual SDK1020\u20131026; typed canonical evaluate1040 receives hydrated typed facts.",
+        "repair_owner": "Native whole pure assembly::generate/generate_outbreak/model affected role payloads/validation::validate; camera whole DBcase/F022/F006 graph; canonical case IDs reused, no duplicate wrappers."
+      },
+      {
+        "name": "ObjectiveId actual dialogue producer recipient and retained pending bindings",
+        "producer": "assembly canonical ObjectiveId558/613\u2013615/656 cloned into typed objectives/dialogue producer647/679, model1138 typed",
+        "retention_gap": "actual DB issue_dialogue_investigation_bindings590\u2013850 takes typed ObjectiveExpression, calls generated_dialogue_recipient with objective.id.as_str756 -> same String helper311\u2013332 -> generated_dialogue_producer_recipient365\u2013382 typed producer.objective_id.as_str equality375. Separate .as_str().to_string785 retains unchanged objective ID in matches/pending783\u2013811 before actual SDKrow832\u2013847. This is an internal comparison/retained tuple contract, not native serialization at756/785.",
+        "native_boundary": "Actual SDKcase_custody lookups541/554/572/772/778 are legitimate string index projections; final DialogueInvestigationBinding.objective_id843 actual row write. Coretyped ObjectiveId continues through pure progress/evaluate; no flatten at those pure functions.",
+        "repair_owner": "Camera owns whole DB/error graph, native sent exact additional receiving functions for F022 claim reconciliation; source freeze active."
+      },
+      {
+        "name": "Canonical outbreak episode identity/Seed",
+        "producer": "assembly1276\u20131279 outbreak_exposure_seed returns canonical Seed, same value .to_u64 in immediate InfectionEpisode1281 and retained OutbreakExposure1326",
+        "operations": "model episode_id631 remains raw before validation382\u2013402 reconstructs canonical InfectionEpisode then first_combined_terminal; native full disease3842 proves later same ID into Seed at actual symptom RNGs. This extends confirmed PP032, no second Seed/identity finding. Genuine stable identity role/order and native persistence distinct.",
+        "boundary": "model hash1200\u20131203 Seed::derive.to_u64 is read with both actual assembly call bodies111\u2013117/982\u2013988: returned word goes directly to formatted newly derived canonical case ID, not a retained unchanged Seed roundtrip. observer_scoped_id1216\u20131230 derives opaque hash IDs from raw observer entropy; native fixed-width hash bytes/frame at1206\u20131223 read. No upstream typed entropy producer is assumed without body proof.",
+        "repair_owner": "Native whole pure assembly + actual model episode field/validate; existing DBdisease/outbreak camera owners and later owner/granularity representation dependency remain."
+      },
+      {
+        "name": "Actual projection helper entropy word endpoint",
+        "producer": "projection::select_follow_up_evidence327\u2013343 takes entropy:u64; only actual production caller DB local_problem592\u2013596 supplies IncidentDraws::word(EVIDENCE), body fully read incident_draws1\u201362",
+        "operation_boundary": "IncidentDraws::rng derives Seed from case bytes, StreamId and ordinal then enters actual deterministic RNG. word28\u201330 calls next_u64, producing a NEW random output word. That word seeds follow-up evidence RNG at projection341. This is not Seed.to_u64 -> same Seed re-admission; replacing it by earlier derived Seed would alter the intentional extra RNG draw/entropy value. Source simulations supply independently derived stable_hash raw words; no prior checked Seed extraction demonstrated there.",
+        "disposition": "Narrow source-backed intentional RNG output/seed derivation boundary; no new producer finding, preserve exact stream/context/draw order. No blanket raw u64 entropy exemption."
+      }
+    ],
+    "explicit_remaining_dependencies": [
+      {
+        "kind": "representation/policy, not unread actual receiver",
+        "finding": "CAM-PROP-F022",
+        "meaning": "Finale mixed SubjectId/proposition reference, case ID vs generated observer ID roles, canonical case ID admission/Serde/public constructor shape; required enum/owner/admission/granularity lenses settle final API before shared patch."
+      },
+      {
+        "kind": "representation/policy, not unread actual receiver",
+        "finding": "NATIVE-PP-032",
+        "meaning": "Episode ID genuine identity + entropy role canonical representation; preserve bits/sort/hash/stream draw order; no new Seedduplicate."
+      },
+      {
+        "kind": "whole-owner coordination, not unread actual receiver",
+        "finding": "CAM-PROP-F022",
+        "meaning": "Camera should record exact whole dialogue_bindings::issue_dialogue_investigation_bindings/generated_dialogue_recipient/generated_dialogue_producer_recipient to consume native whole pure checked APIs; camera owns DB graph, no competing native edit."
+      }
+    ],
+    "remaining_actual_receiving_cells": [],
+    "bounds_not_claimed_clear": [
+      "No full solver.rs/sampling.rs/audit.rs or unrelated developer_quest/claims/local_problem operational subgraph read claimed from this bounded assignment. Native full model/projection includes public pure API bodies; those independent caller/source assignments remain with master, not silently waived or given whole-module clearance.",
+      "No first-lens blanket exemption for generated/authored IDs, fixtures, enums, Stringerrors or Serde. Canonical case ID derives Deserialize without enforcing new; model id_type public String/from_static asserts/expect and pure semantic primitives need subsequent admission/enum/owner/rule lenses.",
+      "Separate generated target IDs may derive different observer scopes and reference roles; no blanket replacing every String with CaseId/SiteId/SubjectId.",
+      "Full new source reading is not source-repair complete/runtime PASS/family acceptance. Existing P18/geometry/P17 work preserved."
+    ],
+    "preservation": [
+      "Same full generated manifest field values/wire representations until clean intended typed API change",
+      "original keyed Seed bits/streams/draw order and genuine episode identity",
+      "ordered candidate/patient/testimony/finale generation and existing whole source fixtures",
+      "case outcome source-idempotence, version0 initial policy/saturation and case/party filtering",
+      "No typed cause erasure until real final SDK Display/Serde/native boundary",
+      "Exact unchanged numeric thresholds/count/floor/sample/clock operations"
+    ],
+    "first_unfinished_cell": "None in bounded Asset/Subject/Objective and Seed/episode receiving paths; remaining listed dependencies are owner/representation/later-lens matters, no claimed unread receiver waived",
+    "source_status": "read-only inventory complete with findings for this bounded queue; all13 repair gate remains closed",
+    "validation": "No local project commands/checks/tests/fmt/CI; no compile/runtime PASS"
+  },
+  {
+    "id": "NATIVE-SUPP-SCHEDULE-001",
+    "lens": "audit-producer-propagation",
+    "scope": "Confirmed source-backed promotion of prior schedule C001, no new source or validation commands",
+    "source_evidence": [
+      "supplemental-camera-receivers.json (allocation full364 and exact Core1\u2013719 actual consumers)",
+      "supplemental-camera-sources.json (module schedule fullP16741/reversePR and other actual rest/stationary time variants)",
+      "supplemental-camera-closure.json historical candidate promoted by root"
+    ],
+    "finding": {
+      "id": "NATIVE-PP-035",
+      "previous_candidate": "NATIVE-SUPP-CAMERA-C001",
+      "disposition": "confirmed source-backed retained schedule-contract guarantee loss; final aggregate/owner/operation design pending required later lenses",
+      "locations": [
+        {
+          "source_id": "pr-working:crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+          "lines": [
+            221,
+            281
+          ],
+          "contract": "ValidatedSchedule::effective_at starts from validated allocation, redistributes15-minute segments within original day budget, but returns raw unvalidated DailySchedule"
+        },
+        {
+          "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/schedule.rs",
+          "lines": [
+            77,
+            89
+          ],
+          "contract": "actual caller retains effective result as raw SDK ScheduleAllocation in application state before later pure evaluation"
+        },
+        {
+          "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/schedule.rs",
+          "lines": [
+            728,
+            741
+          ],
+          "contract": "core_schedule reconstructs raw DailySchedule aggregate before Core numerical consumer"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-core/src/strategic_schedule.rs",
+          "lines": [
+            126,
+            237
+          ],
+          "contract": "actual recovery arithmetic receiving raw schedule aggregate"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-core/src/strategic_schedule.rs",
+          "lines": [
+            397,
+            473
+          ],
+          "contract": "actual training arithmetic receiving raw schedule aggregate"
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-core/src/strategic_schedule.rs",
+          "lines": [
+            647,
+            683
+          ],
+          "contract": "actual outcome arithmetic receiving raw schedule aggregate"
+        }
+      ],
+      "producer_proof": "Fresh native full allocation364 SHA031ee090102b5cc2ed9889b336ac1144ef7eb705cacc6fee37cbe8e7f6bafd0e plus Core strategic_schedule exact1\u2013719 SHAace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146 in supplemental-camera-receivers.json. Module schedule fullP16741 SHA6cbe8772bb5c9f5bd4f48d7dffa099df1b8a39a8a1cf69a83bc4a5ad0b938c73 with full exact reversePR delta in supplemental-camera-sources.json. Root independently read full allocation364 and explicitly confirms guarantee preserved by algorithm but erased in returned/retained API. Actual table projection is a true native boundary, distinct from application ScheduleAllocation/core_schedule loss.",
+      "smallest_connected_repair": "Use existing canonical validated schedule owner for effective_at result and connected pure consumer APIs; retain admitted day-budget/quarter-hour/allowed allocation guarantees across module application state and dynamic eligibility transformations until actual arithmetic or SDK projection. Whole Core producer/operation owner native, whole DB schedule functions camera. Later aggregate/ownership/operations lenses settle exact result shape and eligibility policy before coherent shared source patch; no duplicate schedule type or unchecked public/raw forwarding adapter.",
+      "acceptance": "Zero allocations remain valid; reading unchanged; unavailable alternatives redirect to leisure; never increase original day budget; retain quarter-hour segmentation and exact organization eligibility evaluation order. Preserve exact original RNG stream/context/draw count/order and allocation totals, rest/training arithmetic/sample order, true SDK schema values, existing fixture inputs/count/order/assertions. No admitted result becomes raw retained allocation merely for application forwarding/reconstruction.",
+      "dependencies": [
+        "Root explicit first-lens disposition confirms oldC001 as PP035",
+        "Native pure effective_at/validated result/connected Core schedule consumers exactclaim; camera retains whole DB time/schedule/rest/stationary/F006 graph",
+        "Final aggregate/owner/invariant-operation design remains mandatory later-lens dependency, not unread actual receiving path",
+        "Original P02 battle-time and P03 maneuver scopes are distinct; PP035 adjacent strategic source repair, no automatic narrow original-family regression"
+      ],
+      "discovery_status": "confirmed source-backed; unfixed"
+    },
+    "remaining_actual_receiving_cells": [],
+    "representation_dependencies": [
+      "canonical validated effective result shape",
+      "aggregate day budget and dynamic org eligibility invariants",
+      "canonical owner/invariant-preserving operations design in later lenses"
+    ],
+    "ownership_metadata": {
+      "path": "../parallel-ownership/native_reports-claims.json",
+      "sha256": "d7cce67ee644d4de1e759cf12f498eb729b2d1f2a5d661c012de4f5baa235d40",
+      "key": "shared_validated_schedule_claim"
+    },
+    "source_status": "read-only producer inventory complete with gap; no repair or family acceptance",
+    "validation": "No source/check/build/test/fmt/CI command or runtime PASS"
+  }
+]

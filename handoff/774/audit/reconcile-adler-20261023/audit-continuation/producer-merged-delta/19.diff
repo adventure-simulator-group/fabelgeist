@@ -1,0 +1,25 @@
+diff --git a/crates/adventuresim-tactical-client/src/camera.rs b/crates/adventuresim-tactical-client/src/camera.rs
+index c9ffae881..63c3800fb 100644
+--- a/crates/adventuresim-tactical-client/src/camera.rs
++++ b/crates/adventuresim-tactical-client/src/camera.rs
+@@ -9,18 +9,17 @@ use fabelgeist_geometry::SignedLength;
+ 
+ pub use adventuresim_tactical_core::animation::ResponseShapingTime;
+ use aim::update_camera_aim;
+ use collision::{CameraHit, CameraVolumeDebug};
+-pub(crate) use config::authored_metres;
+ pub use config::{CameraProfile, CameraRigConfig};
+ use rig::update_camera_rig;
+ use rig_history::CameraRigState;
+ use values::ScreenError;
+-pub use values::{CameraError, CameraResult, FramingOffset, MuzzleOffset, ScreenWindow};
++pub use values::{CameraError, CameraResult, ScreenWindow};
+ 
+ mod aim;
+ pub(crate) mod collision;
+-mod config;
++pub(crate) mod config;
+ mod rig;
+ mod rig_history;
+ mod smoothing;
+ mod values;

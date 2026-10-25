@@ -1,0 +1,749 @@
+[
+  {
+    "id": "F06",
+    "classification": "retained inventory identity allocation defect in an affected changed module; not introduced by #774",
+    "priority": "P2",
+    "title": "Handle exhausted inventory IDs without wrapping or panicking",
+    "lenses": [
+      "producer-propagation",
+      "admission-contracts",
+      "invariant-operations",
+      "aggregate-states"
+    ],
+    "locations": [
+      {
+        "file": "crates/adventuresim-character-creator/src/inventory.rs",
+        "start": 225,
+        "end": 239
+      },
+      {
+        "file": "crates/adventuresim-character-creator/src/inventory.rs",
+        "start": 353,
+        "end": 360
+      },
+      {
+        "file": "crates/adventuresim-character-creator/src/inventory_acquire.rs",
+        "start": 128,
+        "end": 136
+      }
+    ],
+    "contract_trace": "InventoryItemId transparently deserializes any u64 -> Inventory::validate only rejects duplicate IDs and invalid articles -> CharacterRecipe::validate/load_recipe accepts a unique MAX ID -> acquire -> Inventory::add maps every existing id to id.0 + 1 unchecked -> new item/selection identity. The old base already has this allocator; the audit must not present it as a new regression.",
+    "counterexample": "A valid inventory with unique IDs 0 and u64::MAX and otherwise valid articles passes validation. Adding an article overflows on the MAX member; checked-overflow builds panic, unchecked-overflow builds wrap it to 0 and insert a duplicate stable identity. A MAX-only inventory also demonstrates the overflow. This is source reasoning, not an executed test.",
+    "repair": "Give next-ID allocation an explicit checked contract and owning exhaustion error; admit/retain InventoryItemId through the allocator and return a fallible result from add. Propagate failure through acquisition/status callers and use a proven bounded authored construction for the four-item default rather than hiding failure in a sentinel or compatibility wrapper. A rejected insertion must not mutate inventory or selection. Preserve ordinary deterministic allocation order and existing valid identity values; do not impose an arbitrary max-ID cap solely to hide overflow.",
+    "dependencies": [
+      "Inventory::add and all production callers",
+      "CharacterRecipe default construction",
+      "acquisition UI status/selection owner"
+    ],
+    "acceptance": "Every admitted existing u64 identity is handled explicitly; MAX cannot trigger panic or duplicate insertion; failed additions leave inventory and selection unchanged; ordinary IDs remain deterministic and unique. Use existing tests only if later repairs are authorized.",
+    "repair_status": "not authorized",
+    "validation": "fresh source/read-only base comparison and saved recipe load trace; no project checks or new tests",
+    "existing_discussion": "No waiver inferred from merge. Full saved review deduplication remains to complete.",
+    "rule_support": [
+      {
+        "file": "crates/AGENTS.md",
+        "start": 31,
+        "end": 57,
+        "reason": "Identifiers and their operations must preserve their semantic contract across retained state and receiving APIs."
+      }
+    ]
+  },
+  {
+    "id": "F09",
+    "priority": "P2",
+    "classification": "retained atlas-index admission defect before native bracer and breastplate skinning; no claimed GPU crash or visual execution",
+    "title": "Check surface atlas IDs against the supplied texture-coordinate array before dispatch",
+    "lenses": [
+      "producer-propagation",
+      "admission-contracts",
+      "aggregate-states",
+      "existing-type-owners"
+    ],
+    "locations": [
+      {
+        "file": "crates/adventuresim-character-creator/src/bracer.rs",
+        "start": 85,
+        "end": 98
+      },
+      {
+        "file": "crates/adventuresim-character-creator/src/device_bracer.rs",
+        "start": 68,
+        "end": 82
+      },
+      {
+        "file": "crates/fabelgeist-armor/src/gpu/bracer_wgsl.rs",
+        "start": 369,
+        "end": 371
+      },
+      {
+        "file": "crates/adventuresim-character-creator/src/device_torso.rs",
+        "start": 110,
+        "end": 127
+      },
+      {
+        "file": "crates/fabelgeist-armor/src/gpu/breastplate/skin_wgsl.rs",
+        "start": 179,
+        "end": 182
+      }
+    ],
+    "contract_trace": "ForearmSurfaceInput exposes texcoords and texcoord_faces independently. validate checks body/skin/morph column lengths and face-count agreement, but no atlas coordinate membership. device_bracer deliberately sends an unused per-body-vertex zero texcoord column to GpuBody::new, then separately uploads actual input.texcoords as atlas. SeamTopology::new pairs each body face corner with its raw atlas ID, checking only nonempty matching face arrays; DeviceSeams/Surface preserve those IDs. DeviceBracer::record_skin binds that atlas without proving its IDs or length, and SKIN directly reads atlas[coordinate*2] and[coordinate*2+1]. For a nonempty atlas with one coordinate and face IDs1, host admission accepts those IDs and selected surface pairs refer outside that bound. Other columns/rig can remain admitted. Nonempty atlas avoids relying on any zero-buffer binding behavior. No atlas-bound status check exists in this skin kernel.",
+    "repair": "At the actual forearm and torso/seam/atlas source admission, validate every referenced atlas corner against the supplied coordinate population and preserve that relationship in the owning checked topology/atlas resource contract through upload, selected surface and ForearmSkin. Keep UV coordinate population distinct from body vertex count; do not fix this by forcing a per-body-vertex atlas or replacing the intentionally unused GpuBody texcoords. Reuse #780 canonical population/layout/index owners where they fit, with a contextual atlas role where distinct; do not create competing count/byte/grid APIs or add primitive temporary adapters. Return a structured owning input/topology error before allocation/dispatch for an outside-atlas index. Combine the whole shared source/selection functions under their retained owner and propagate connected signatures once for all affected families.",
+    "dependencies": [
+      "Adler retained Forearm/Torso source, body/seam/surface, bracer/breastplate whole-function claims",
+      "shared #780 topology/population/resource association contracts",
+      "canonical #779 launch/byte and #826 native failure owners",
+      "existing seam splitting and anatomical atlas semantics",
+      "rig/weight/source association obligations remain separate"
+    ],
+    "acceptance": "A supplied atlas and texcoord-face collection cannot disagree about index membership before native reads. Preserve valid0 IDs, distinct UV/body counts, seams, exact first-use pair/face ordering and generated UV bits for valid input. No speculative fixed population cap, crash assertion or wholesale rewrite of native geometry. Use existing fixtures only when repairs are later authorized; this review executed none.",
+    "repair_status": "not authorized",
+    "validation": "Independent static trace of original merged774 input\u2192seams\u2192surface\u2192bracer record\u2192WGSL atlas read; no GPU run, new test or visual acceptance. All buffers remain governed by original owners.",
+    "base_comparison": "Base ForearmSurfaceInput validation (bracer.rs73+) also lacks atlas membership; retained gap, not newly introduced gameplay regression.",
+    "existing_discussion": "Deduplicates UV part of780 AGD29 after independent source inspection. Joint-ID part of the old witness is invalid at this pin. Torso atlas path is now separately inspected and confirmed rather than inherited from bracer. Shared owners retain implementation; no handoff or acceptance is implied.",
+    "rule_support": [
+      {
+        "file": "crates/AGENTS.md",
+        "start": 31,
+        "end": 57,
+        "reason": "Bespoke source contracts must survive through state and native receiving operations; row names alone do not prove contextual index validity."
+      }
+    ],
+    "additional_traces": [
+      {
+        "source": "device_torso.rs110-127,180-209 -> breastplate/mod.rs108-146 -> plates.rs333-428 -> breastplate/skin_wgsl.rs174-182",
+        "trace": "Independent torso inspection confirms the same atlas-bound gap. TorsoSkinDomain::triangle_indices positively validates body face membership, each finite0..1 weight and packed-joint/table agreement, and derives eligible original face identities from that same topology. This does not validate texcoord_faces against texcoords. Creator uploads unused per-body-vertex zeros to GpuBody, uploads actual atlas separately, and TorsoBody forwards atlas/atlas_faces into record_correspondence. SKIN reads atlas[coordinate*2] and[coordinate*2+1] directly. A nonempty atlas with one coordinate and referenced coordinate1 is admitted by all these host checks; this is separate from the now-proven safe joint bound.",
+        "repair": "Apply the same checked source/atlas relationship to both forearm and torso entry paths, combining retained topology/recording functions once. Do not duplicate count owners or impose body-vertex=UV-coordinate counts. Preserve torso face eligibility thresholds, duplicates/original order and numeric weight checks."
+      }
+    ]
+  },
+  {
+    "id": "M15",
+    "priority": null,
+    "classification": "public body/cache/source admission gap; inspected runtime morph path resets correctly, no current normal-gameplay stale-fit claim",
+    "title": "Bind an uploaded body cache to its exact host realization, layout and device",
+    "lenses": [
+      "producer-propagation",
+      "aggregate-states",
+      "redundant-authority",
+      "type-ownership",
+      "admission-contracts"
+    ],
+    "locations": [
+      {
+        "file": "crates/adventuresim-character-creator/src/device_body.rs",
+        "start": 18,
+        "end": 25
+      },
+      {
+        "file": "crates/adventuresim-character-creator/src/device_fit.rs",
+        "start": 40,
+        "end": 69
+      },
+      {
+        "file": "crates/adventuresim-character-creator/src/runtime_equipment.rs",
+        "start": 47,
+        "end": 60
+      }
+    ],
+    "contract_trace": "DeviceBody is a public cloneable OnceLock<GpuBody>; get_or_upload returns its first stored body before inspecting a new closure or device. Public Realization independently borrows positions,normals,joints and an arbitrary DeviceBody; FitBody independently supplies topology/UV/skin/names. upload checks only skin/name bound before lookup, so on a hit GpuBody::new's other source checks do not run. The returned GPU record can therefore come from a different caller-supplied realization/layout/device. fit_piece_async separately constructs current hosts and zips them with cached GPU bodies into DeviceWearer, relying on their association rather than proving it. RuntimeBody exposes independently mutable host columns next to cloneable cache. Inspected production BodyShapeKey::apply explicitly resets body.device at morphs.rs74 and new GeneratedCharacter creation starts with a default cache; those normal paths are positively accounted for, not mislabeled as stale.",
+    "repair": "Make the exact admitted host realization/layout and its device upload one controlled ownership contract. Private/immutable shared source records or controlled mutation must ensure any positions/normals/joints/topology/UV/skin change starts a new associated cache; do not require every caller to remember manual reset. Cache hits must retain/check the actual device/source/layout association, using canonical native device ownership and #780 layout/population owners rather than duplicate IDs or count-only proofs. Preserve per-realization sharing, once-success initialization, retry after failed upload and race behavior; remove public combinations that can pair arbitrary hosts with an unrelated cached body. Propagate the associated record through Realization/FitBody/DeviceWearer and every generated/morph/runtime producer under one shared owner, not a temporary keyless cache adapter.",
+    "dependencies": [
+      "Adler retained Realization::upload/DeviceBody::get_or_upload whole-function and body/field claims",
+      "#780 body population/layout/source association",
+      "existing native GPU device ownership (#826) rather than a competing device identifier",
+      "F09 atlas/source membership and PC14 weight/rig semantics are separate obligations",
+      "M06 complete fitting/native cause propagation"
+    ],
+    "acceptance": "An upload returned for a source represents that exact admitted host payload and layout on its actual device; a different source cannot silently reuse it because counts happen to match. Normal same-body sharing and current explicit reset/new-body paths keep behavior. Existing fit/morph/device fixtures only; no new tests, no unmeasured performance redesign, no claim all current callers trigger the mismatch.",
+    "repair_status": "not authorized",
+    "validation": "Independent static public API/cache-hit and host/GPU zipper trace, plus current runtime reset and generated-body initialization read. Device frame uses and remaining creators still require complete trace; no project/GPU checks.",
+    "existing_discussion": "Confirms the body source-association portion of known #780/#774 expanded claims and Adler comment6360167523; no repair takeover or global clearance. Not the disproved small out-of-range packed-joint witness.",
+    "rule_support": [
+      {
+        "file": "crates/AGENTS.md",
+        "start": 31,
+        "end": 57,
+        "reason": "Retain guaranteed semantic state relationships through producers, retained state and consumers."
+      },
+      {
+        "file": "crates/AGENTS.md",
+        "start": 69,
+        "end": 71,
+        "reason": "Canonical source/device/layout concepts must be owned once and reused."
+      }
+    ]
+  },
+  {
+    "id": "M16",
+    "priority": null,
+    "classification": "known unfinished #774/#780/#779 count-layout integration, independently source-confirmed; no new current-large-allocation failure asserted",
+    "title": "Carry canonical fitting populations and layouts through native generation receivers",
+    "lenses": [
+      "producer-propagation",
+      "existing-type-owners",
+      "aggregate-states",
+      "type-ownership",
+      "magic-numbers"
+    ],
+    "locations": [
+      {
+        "file": "crates/fabelgeist-armor/src/gpu/body.rs",
+        "start": 28,
+        "end": 40
+      },
+      {
+        "file": "crates/fabelgeist-armor/src/gpu/anatomy.rs",
+        "start": 39,
+        "end": 75
+      },
+      {
+        "file": "crates/fabelgeist-armor/src/gpu/anatomy.rs",
+        "start": 107,
+        "end": 137
+      },
+      {
+        "file": "crates/fabelgeist-armor/src/gpu/bracer.rs",
+        "start": 46,
+        "end": 65
+      },
+      {
+        "file": "crates/fabelgeist-armor/src/gpu/mod.rs",
+        "start": 264,
+        "end": 273
+      }
+    ],
+    "contract_trace": "Host BodySurface columns enter GpuBody::new, which retains native vertex_count/face_count u32 beside independently public buffers. Correspondence forwards raw count/target population into QueryHits/PointTargets and stores raw query count beside allocated arrays. SeamTopology computes corner/pair IDs and face count with unchecked casts, then DeviceSeams/DeviceSurface store raw capacities and compute word offsets/byte scratch sizes; selected body and atlas populations are distinct. Bracer Layout separately stores around/triangle_count and recomputes sample/vertex counts for norms, skins, native kernels and readback. ArmorGpu::scratch accepts rawu64 bytes and immediately re-admits a byte length downstream with minimum4 policy. Native uniform words and WGSL arrays are final ports, but the retained resource/count records and shared facade signatures before them remain semantic internal contracts.",
+    "repair": "Integrate the canonical #779 WorkgroupGrid/BufferByteLength/Offset leaves and #780 owning-library MeshVertexCount/MeshTriangleCount/MeshCornerCount/QueryCount and related checked layout contracts through original host admission, retained resources, arithmetic, query/normal/sort/fitting recipients and readback. Native extraction belongs only at actual uniform/index/byte/native API operations. Keep UV pairs/capacity/body vertices/triangles/corners/query populations distinct; bind each resource to its actual validated source/population/layout, not just independent valid counts. Reject unrepresentable native products/tagged index layouts before allocation/projection according to the actual consuming ABI, without an invented global population cap. Preserve armor scratch byte/minimum4 policy separately from metal word-unit policy. Use agreed final APIs from owners before any repair; do not introduce equivalent types or temporary raw overloads.",
+    "dependencies": [
+      "D01 #779/#780/#826 combined integration",
+      "Adler retained whole body/skin/anatomy/bracer/facade function/field claims",
+      "F09 atlas membership and M15 exact source/device association",
+      "M06 native fitting failures and #826 parser/pipeline/pass causes",
+      "original source population admission before native allocation/projection"
+    ],
+    "acceptance": "Vertex/triangle/corner/query and other material population roles cannot be interchanged across internal signatures, and resources remain associated with the exact active population/layout. Preserve zero/empty-first behavior per native operation, ordinal tie/order, UV seam first-use order, WGSL tagged address constraints, partial-output failure semantics and existing fixtures. A small checked bracer design is not evidence of huge-count overflow; source bounds must be inspected before such a claim. Count typing alone does not clear atlas/source/weight relationships or complete any family.",
+    "repair_status": "not authorized",
+    "validation": "Entire body/anatomy/bracer source bodies read plus direct Creator bracer and scratch/error facade slices. Original #780 canonical count declarations inspected separately as provisional dependency source, not imported or accepted as validated merged774 implementation. No project/GPU checks.",
+    "existing_discussion": "Makes the already acknowledged unfinished shared-count contracts from Adler comments6356105349/6360167523 explicit findings rather than silent follow-up acceptance. Required implementation owner/final signatures/revision remain unresolved; no scope transfer.",
+    "rule_support": [
+      {
+        "file": "crates/AGENTS.md",
+        "start": 31,
+        "end": 57,
+        "reason": "Carry semantic quantities and meaningful resource records through internal producers, retained state and receiving operations."
+      },
+      {
+        "file": "crates/AGENTS.md",
+        "start": 69,
+        "end": 71,
+        "reason": "Canonical quantity/layout owners are shared and must not be reimplemented per fitter."
+      }
+    ],
+    "provisional_owner_evidence": [
+      {
+        "file": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/crates/fabelgeist-mesh/src/count.rs",
+        "sha256": "210d69c52c956bf08c4741ae6524ee7b5c185fae123cfd4e4297ea3c92ae0e67",
+        "read_ranges": [
+          [
+            1,
+            88
+          ]
+        ],
+        "scope": "Current #780 working source definitions only; final integration/validation still pending. Not this audit's pinned merged tree."
+      },
+      {
+        "file": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/crates/fabelgeist-compute/src/mesh_query/quantities.rs",
+        "sha256": "9527dace22a827c16ef4d1c8ad1fab21f692f58a7ea7ac89347f63cc4de793d2",
+        "read_ranges": [
+          [
+            1,
+            76
+          ]
+        ],
+        "scope": "Current #780 working source definitions only; final integration/validation still pending. Not this audit's pinned merged tree."
+      }
+    ],
+    "additional_traces": [
+      {
+        "source": "gpu/part.rs26-107,226-342;part/layout.rs33-119,166-289;shell_plan.rs18-118;breastplate/plates.rs20-128,168-332",
+        "trace": "PartBuild retains raw carrier/final triangle counts and hinge counts beside buffers; ShellSpec/PartLayout retains counts, shell ordinals and byte/word products before native recording/readback. VertexSource already classifies inner/outer semantically but holds raw local carrier IDs; PartLayout::sources offsets/repacks them with31-bit tag and cumulative counts. BuiltPart::append offsets mutable mesh/component/grid state with unchecked counts/casts/sums. Breastplate Plate/Shell repeat raw vertex/triangle counts through native normals, scratch and host remesh; these are same unfinished count/layout/resource contracts, not separate duplicate findings.",
+        "repair": "Carry canonical population/ordinal/checked-layout owners through part construction, layout pushes and append, cumulative tagged-source encoding, native shell generation, staging and readback. Verify actual bounded authored design populations before alleging reachable huge-count overflow. Plan all validation/fallible arithmetic before mutation where rejected append/layout could otherwise leave retained state. Preserve exact topology/winding/source role tags and armor scratch byte floor."
+      },
+      {
+        "source": "gpu/breastplate/topology.rs222-386;solid_grid.rs6-53;gpu/staging.rs16-57;compute/readback.rs79-116",
+        "trace": "SolidTopology encodes local inner/outer source identity in31 bits plus OUTER_BIT, extends with raw mid_count and offsets rendered sources/indices/grids, and compacts through a remap initialized to u32::MAX. Compact only indexes that map with rendered indices and explicitly asserts construction samples survive; install_grid retains rendered outer samples, while grid vertices depend on constructor invariants. Staging tickets erase batch association to usize, prefix<T> truncates rather than checks length, and actual Readback returns exactly the recorded per-buffer extents in order using checked canonical byte offsets/lengths. Count/layout propagation must preserve exact buffers/populations and not mistake a raw vector truncate for an admission proof.",
+        "repair": "Finish original shell/grid/clip/shape producer proof, carry canonical contextual populations and typed layouts to allocation/staging/readback, and establish checked source encoding before tagged native projection. Preserve separate OUTER_BIT vs INNER_BIT wire roles, source ordering and rendered construction sample expectations; do not classify every native bit/cast or algorithmic map initializer as an application sentinel. Batch-ticket and short-prefix guarantees remain specifically PC27 rather than a proven current normal readback failure."
+      },
+      {
+        "source": "gpu/breastplate/clip_carrier.rs26-216;construction_columns.rs11-50;trimmed_carrier.rs7-49;gpu/garment.rs270-386;gpu/limb.rs372-456",
+        "trace": "ClippedCarrier retains positional sample/index/edge and rim/source metadata, interpolates cuts, installs additional columns and construction grid into MidTopology; existing clipping fixtures exercise correspondence on actual rendered walls and missing flank rails. ConstructionColumns rejects noncontiguous/less-than-two retained rails and converts source SurfaceColumn into local coordinates. Authored lame count remains u8 in source design and repeatedly expands to host loop counts/populations; these roles are distinct from shader words/bytes/mesh vertices. Existing source-specific lower/upper bounds limit ordinary loops and must be preserved, not replaced by hypothetical huge-count claims.",
+        "repair": "Continue canonical contextual chart row/column/edge/lame/mesh population/layout/ordinal propagation and source association, preserving native cut precision/interpolation order and original role-specific admission. Complete current private construction-grid rail guarantees and all clipping/surface recipients before family clearance."
+      },
+      {
+        "source": "gpu/pauldron.rs14-29,107-217;gpu/close_helmet.rs54-60,145-239;gpu/wrapped_tassets.rs12-20,30-154;character_creator/device_pauldron.rs29-111",
+        "trace": "Pauldron frame+formed+fitted point arena and fixed carrier counts, close-helmet turn-table offsets converted usize\u2192f32\u2192shader, and wrapped-tasset hull/profile/per-course offsets still use raw words/counts/frames. Creator shoulder fitting appends original body and lower-layer triangle groups and retains raw endpoint counts through native sampling; canonical count/word/byte/source layouts must reach these receivers. DevicePauldronCarrier retains two independently public buffers and accepts a fresh design at record_plates; ordinary callers keep the original validated design and copy carrier status into final part (positive proof).",
+        "repair": "Integrate typed contextual frame/profile/point/triangle/group/word-offset/extent and source association contracts through source setup and receiver functions with original owners. Keep native float-encoded index representability as an actual ABI obligation; counts alone do not prove a source/resource/table match. Preserve bounded design loops, field offsets, copy-status failure semantics, real side/frame order and original native parameter encodings."
+      },
+      {
+        "source": "gpu/breastplate/anime_layout.rs15-127;anime_sampling.rs15-221;course_clip.rs14-109",
+        "trace": "Anime retains raw coordinate/source-bit tuples, source/reference IDs, course/side ordinals, per-side f32 bounds and u32 populations through host layout, component ranges, native resampling/skin/normals and morph link buffers. CourseFrame decodes actual native fit words at readback, then uses f64 numerical dot/level kernels. Positive dense-reference/skirt/retained-column proofs are recorded separately; these do not replace checked original population/source/layout ownership.",
+        "repair": "Propagate the canonical contextual course/side/sample/reference/mesh/word/byte owners, keeping bit30 REAR and bit31 OUTER native encodings and actual f32 blend words at the final adapter. Bind all parallel point/reference/bounds/layout/population resources to their actual source before connected host/native operations; do not introduce duplicate leaves or narrow f64 original level arithmetic. Preserve source order, mount reverse-order numbering and existing validated nonzero course/count behavior."
+      },
+      {
+        "source": "character_creator/device_close_helmet.rs49-118,187-356;gpu/gorget.rs157-246",
+        "trace": "Creator head/neck supports are dense checked host indices cast to raw nativeu32, and native band/sample/count/header/profile fields flow through word/count helpers. The normal close-helmet fit allocates exactly(FIT_PROFILE_WORD16+CLOSE_HELMET_PROFILE_WORDS11)*4=108 bytes and binds that same buffer to profile measurement then record_close_helmet. Gorget push_grid_coord explicitly admits rows*columns==coord count through PartRecipe and retains the same canonical source grid. These narrow allocation/cardinality proofs coexist with pending public contextual count/layout/profile resource APIs.",
+        "repair": "Carry canonical support/population/word/byte and profile/layout owner relationships through the shared producers/receivers, preserving fixed27-word/108-byte extent and existing counts/status. Do not infer normal buffer under-allocation from raw type syntax or generalize this proof to arbitrary externally provided fit buffers (PC33)."
+      }
+    ]
+  },
+  {
+    "id": "M17",
+    "priority": null,
+    "classification": "unfinished internal morph identity and associated-collection contracts; public admission gap, not a proven normal-producer gameplay regression",
+    "title": "Keep morph identities associated with their fitted endpoints through assembly",
+    "lenses": [
+      "producer-propagation",
+      "existing-type-owners",
+      "aggregate-states",
+      "type-ownership",
+      "magic-strings"
+    ],
+    "locations": [
+      {
+        "file": "crates/adventuresim-character-creator/src/character_morphs.rs",
+        "start": 73,
+        "end": 105
+      },
+      {
+        "file": "crates/adventuresim-character-creator/src/device_fit.rs",
+        "start": 429,
+        "end": 475
+      },
+      {
+        "file": "crates/fabelgeist-armor/src/gpu/bracer.rs",
+        "start": 446,
+        "end": 464
+      }
+    ],
+    "contract_trace": "CharacterMorphs::generate starts from existing IdentityMorph and SkeletalFitMorph roles but immediately converts their identity to String in MorphDelta/ForearmMorphSample. device_equipment converts samples to positional (&str, Realization) pairs; DevicePiece drops those names and retains an independent Vec<BuiltPart>. The studio re-extracts names later for public assemble_recipe, whose independently public Fitted.morphs is zipped with endpoints without cardinality admission. A piece with one valid endpoint assembled with no names returns successfully without that target (or excess names vanish), even though skin_rules::attach checks rig bounds only. Endpoint position topology is checked inside the zip but normal cardinality is not; public deltas also truncates unequal columns. Native DeviceBracer::read_async independently zips recorded morph slots with external names without length validation. ArmorLayerSurface and waist support choose a target by String comparison/first matching name; correct_armor_fit also matches text. Actual glTF/morph-export labels are valid text ports, but identity driving selection inside fitting is not that port.",
+    "repair": "Preserve the existing identity/skeletal-fit owner roles from their original studio producers. Define the lowest shared morph identity/associated-sample collection contract only after reconciling generic authored/native morph names with those existing roles; do not restrict generic armor APIs to just MHR targets or create equivalent enums per component. Carry named associated realizations/endpoints through fitting, readback, lower-layer selection, assembly and correction so a caller cannot silently relabel, drop or truncate targets. Validate endpoint/position/normal correspondence once at public admission and return a structured owning error on mismatches before delta calculation or successful assembly. Bind name/ordinal identity to the exact realization collection; a checked count alone cannot prevent reordering. Preserve literal authored labels and serialize/render names only at actual asset/export ports.",
+    "dependencies": [
+      "Adler retained complete fitting/bracer/breastplate body and readback claims",
+      "M15 exact host/device/body source association",
+      "M16 canonical population/layout owners from780 and779",
+      "M06 structured fitting/native cause propagation",
+      "existing IdentityMorph/SkeletalFitMorph roles and unchanged source/export callers"
+    ],
+    "acceptance": "No public fit/readback/assembly path silently truncates independently supplied morph names, endpoints or normal deltas. Preserve normal producer order, exact names and delta arithmetic, identity/skeletal target distinction, empty runtime target sets and legitimate generic authored morphs. Do not invent duplicate-name rejection or new policy without tracing its existing semantics. Existing studio currently derives both lists from the same canonical sample iteration and runtime uses two empty lists; no mismatch on those normal paths is asserted. Complete outstanding fixture/export paths before family clearance.",
+    "repair_status": "not authorized",
+    "validation": "Static source proof at pinned merged revision only. No new tests, project checks, GPU run or visual claim.",
+    "rule_support": [
+      {
+        "file": "crates/AGENTS.md",
+        "start": 31,
+        "end": 57,
+        "reason": "Carry existing bespoke roles through producer state and semantic named records; preserve related collection guarantees."
+      },
+      {
+        "file": "crates/AGENTS.md",
+        "start": 82,
+        "end": 89,
+        "reason": "Bounds and correspondence need proof at unproven public dynamic collections; do not invent absence for normally guaranteed internal rows."
+      }
+    ],
+    "base_comparison": "Base device_fit.rs432-454 exposes separate morph names/endpoints and zips without cardinality validation too. Retained public admission/migration gap, not newly introduced by774.",
+    "additional_traces": [
+      {
+        "source": "crates/adventuresim-character-creator/src/character_morphs.rs273-291",
+        "trace": "The studio SkeletalFitMorph typed producer emits target.name() into a String, then remove_skeletal_translation reparses SkeletalFitMorph::from_name(&sample.name) inside the application before applying residual translation. This is a concrete internal type-erasure/readmission canary, distinct from asset input decoding. Preserve the skeletal role through the sample; generic targets must retain explicit no-skeletal-correction semantics rather than being forced into this closed enum."
+      },
+      {
+        "source": "crates/fabelgeist-armor/src/gpu/breastplate/mod.rs247-300",
+        "trace": "Independent breastplate readback also zips recorded slots with external names without cardinality validation, identical defect/remedy to bracer; merged under M17, not a second finding. Its positions/normals prefixes use the same shell population and typed PackedRigSkin checks output joint IDs."
+      },
+      {
+        "source": "crates/adventuresim-tactical-client/examples/{armor_browser_probe.rs194-231,armor_fixture/tasset_tests.rs164-207,runtime_equipment_ports.rs108-135}",
+        "trace": "All three additional assemble_recipe call sites use no morph samples for fitting and no names for assembly, matching runtime. Together with the studio source, all five call sites are accounted for. This confirms no present ordinary mismatch witness; public association remains unproven."
+      },
+      {
+        "source": "crates/adventuresim-character-creator/src/export/{validation.rs72,morphs.rs20-90},export.rs633-659",
+        "trace": "Actual glTF export positively rejects blank/duplicate names, unequal ordered channels, unequal delta lengths and nonfinite deltas before compaction or JSON output. First-use/native names eventually feed extras.targetNames. Do not claim these malformed targets silently serialize successfully: the earlier fitting/readback API can silently truncate, and semantic role/readmission gap remains upstream."
+      }
+    ]
+  },
+  {
+    "id": "M18",
+    "priority": null,
+    "classification": "known unfinished supported-detail owner propagation; valid current UI/loading behavior does not prove a completed migration",
+    "title": "Retain the supported character detail owner through loading, cache state and export",
+    "lenses": [
+      "producer-propagation",
+      "existing-type-owners",
+      "type-ownership",
+      "magic-numbers"
+    ],
+    "locations": [
+      {
+        "file": "crates/adventuresim-character-creator/src/main.rs",
+        "start": 99,
+        "end": 116
+      },
+      {
+        "file": "crates/adventuresim-character-creator/src/main.rs",
+        "start": 408,
+        "end": 427
+      },
+      {
+        "file": "crates/fabelgeist-mhr/src/model.rs",
+        "start": 31,
+        "end": 45
+      },
+      {
+        "file": "crates/adventuresim-character-creator/src/export/validation.rs",
+        "start": 6,
+        "end": 12
+      }
+    ],
+    "contract_trace": "CLI range admission allows4..6, but Args.lod, Studio.selected_lod, BodyModel.lod, BareBody BodyKey.lod and cache keys retain u8. load_body_model immediately constructs CharacterLod and discards it, forwards raw lod into MhrConfig, whose URI/file/byte entry paths repeat the same supported4..6 check. UI formatting separately reconstructs CharacterLod for its vertices count. Studio/equipment export passes model.lod into export_rigged_glb, which again validates CharacterLod and forwards raw u8 to assembly::extras JSON; equipment manifest writes the same scalar at its real DTO boundary. Existing CharacterLod owns the exact range but lives above its MHR consumer. This is a loss/readmission path through internal state, not evidence that normal UI admits invalid LODs.",
+    "repair": "Reconcile the existing supported-detail concept into one lowest shared owner usable by MhrConfig, Creator and manifest producers; move the existing owner rather than inventing equivalent per-crate LOD types. Carry it through Args admission, semantic Studio/BodyModel/request/cache fields, model reload, library config/loaders and composite export signatures. Confine native u8 projection/admission to actual CLI/egui numeric controls, literal fixtures, pinned asset filenames and JSON/manifest DTO serialization. Provide shared supported constants/variants/metadata without arbitrary conversion calls at each internal site. Give invalid literal/input detail its owning structured error. Classify native wire DTO metadata separately rather than silently imposing a new accepted-manifest policy.",
+    "dependencies": [
+      "existing CharacterLod and fabelgeist-mhr MIN_LOD/MAX_LOD4..6 contracts",
+      "F10 broken existing integration fixtures",
+      "M14 cache/hash family and potential PC25 model-source key association",
+      "all unchanged public loader/default/doc/fixture and glTF/manifest recipients; final owner placement"
+    ],
+    "acceptance": "Internal functions cannot interchange arbitrary bytes with supported character detail, and known supported values are not repeatedly re-admitted. Preserve exact existing4..6 support, CLI/UI default/range, vertex metadata, reload-on-change/error rollback, cache distinction, native asset names and serialized numbers. Keep ArmorLod sampling and hair Form detail roles separate. Do not reopen dense LOD0..3 runtime loading, add compatibility shims or assert current source-asset label correspondence absent an actual FBX proof. Final source/fixture/export traces and the later existing-owner/type-ownership lens passes remain required.",
+    "repair_status": "not authorized",
+    "validation": "Static source trace at merged774 only; no builds, fixture/GPU or hosted checks.",
+    "existing_discussion": "Saved inline review4318537193 (2026-10-19 equipment_assets.rs18) already acknowledges that CharacterLod must have shared canonical ownership for the manifest, distinguishes ArmorLod and rejects dependency direction as a reason to leave primitives. Recorded as unfinished, not waived/deferred or a newly invented duplicate concern.",
+    "rule_support": [
+      {
+        "file": "crates/AGENTS.md",
+        "start": 31,
+        "end": 57,
+        "reason": "Carry bespoke admitted values through fields, producers and composite APIs; native controls and wire records alone justify raw leaves."
+      },
+      {
+        "file": "crates/AGENTS.md",
+        "start": 69,
+        "end": 71,
+        "reason": "One concept has one lowest shared owner, consumed across library and application."
+      }
+    ]
+  },
+  {
+    "id": "F10",
+    "priority": "P2",
+    "classification": "retained broken ignored acceptance fixtures, independently source-proven; not a new production regression",
+    "title": "Use supported model detail in the four existing garment and armor integration fixtures",
+    "lenses": [
+      "producer-propagation",
+      "existing-type-owners",
+      "behavior-preservation",
+      "magic-numbers"
+    ],
+    "locations": [
+      {
+        "file": "crates/adventuresim-character-creator/src/main.rs",
+        "start": 485,
+        "end": 485
+      },
+      {
+        "file": "crates/adventuresim-character-creator/src/parametric_equipment.rs",
+        "start": 316,
+        "end": 316
+      },
+      {
+        "file": "crates/adventuresim-character-creator/src/settled_garment_test.rs",
+        "start": 61,
+        "end": 61
+      },
+      {
+        "file": "crates/adventuresim-character-creator/src/chainmail_export_test.rs",
+        "start": 11,
+        "end": 11
+      }
+    ],
+    "contract_trace": "Four ignored tests intended to exercise measured drape/export, all catalog armor/morphs, settled garment transfer and cached chainmail export call load_body_model(...,1,false,...). That function immediately calls CharacterLod::try_from, which permits4..6 only, before any MHR asset file loading. With the required MHR_ASSETS set, these fixtures deterministically stop at the range gate and cannot reach their intended checks. The hair render fixture and skeletal-proportions fixture instead pass the supported minimum. Ignored status or green ordinary CI cannot validate the unreachable garment/armor acceptance work.",
+    "repair": "Update these existing fixtures to use the canonical supported character-detail owner/default consistent with the pinned input and expected cached artifacts. Propagate that owner through the shared loader as M18 requires, so an unsupported literal cannot survive to a runtime gate. Reconcile any downstream cached drape/model associations and fixture expectations instead of merely changing the number and claiming acceptance. Add no new tests. Do not widen production LOD support to accommodate stale fixture1.",
+    "dependencies": [
+      "M18 supported-detail owner migration",
+      "pinned MHR_ASSETS and compute-capable GPU for actual fixture execution",
+      "chainmail fixture measured drape acceptance output must correspond to the selected body",
+      "existing ignored integration fixture/environment selectors"
+    ],
+    "acceptance": "Each existing test can pass the model-admission gate with its chosen supported owner and then exercise its original drape/fitting/morph/export assertions with matching cached inputs. A repaired range gate is not a claimed passing GPU/artistic acceptance. Preserve valid authored/fixture sampling and expected downstream checks; record environment/output dependencies honestly.",
+    "repair_status": "not authorized",
+    "validation": "Static deterministic failure proof only; none of the ignored tests was executed.",
+    "base_comparison": "All four calls with literal1 and the same CharacterLod4..6 gate exist at base3a50b708381ad00c116445c2c999a49c3943088b (base main482,parametric312,settled61,chainmail11). Retained baseline defect; not introduced by774.",
+    "rule_support": [
+      {
+        "file": "crates/AGENTS.md",
+        "start": 31,
+        "end": 43,
+        "reason": "Literal fixtures are valid admission boundaries but must use the admitted supported concept rather than an invalid semantic number."
+      }
+    ]
+  },
+  {
+    "id": "M19",
+    "priority": null,
+    "classification": "retained unfinished dimensional producer propagation; one complete gauge-to-native trace and remaining sibling paths enumerated",
+    "title": "Retain checked plate dimensions through shell descriptors until native encoding",
+    "lenses": [
+      "producer-propagation",
+      "existing-type-owners",
+      "type-ownership",
+      "invariant-operations",
+      "magic-numbers"
+    ],
+    "locations": [
+      {
+        "file": "crates/fabelgeist-armor/src/gpu/coif.rs",
+        "start": 130,
+        "end": 138
+      },
+      {
+        "file": "crates/fabelgeist-armor/src/gpu/coord.rs",
+        "start": 29,
+        "end": 35
+      },
+      {
+        "file": "crates/fabelgeist-armor/src/gpu/chart.rs",
+        "start": 71,
+        "end": 87
+      },
+      {
+        "file": "crates/fabelgeist-armor/src/gpu/part/layout.rs",
+        "start": 33,
+        "end": 61
+      },
+      {
+        "file": "crates/fabelgeist-armor/src/gpu/part.rs",
+        "start": 347,
+        "end": 354
+      }
+    ],
+    "contract_trace": "record_coif validates a typed CoifDesign and then extracts design.fit.wall_thickness.metres() into CoordShell.thickness:f32. PartRecipe::push_coord calls spec, which copies raw thickness into ShellSpec; PartLayout::push copies it again into retained LaidShell. Only later PartBuild::shell_table puts it in native shell-table word1, which shell_kernels reads as thickness for extrusion. Parallel PlateChart retains thickness and cap length/factor payloads before layout/native parameter encoding. The PR already adds Millimeters::signed_length and canonical SignedLength::from_millimetres explicitly preserving f32 promotion/division, yet these original producer/descriptor paths still erase the length. Numerical native array/parameter packs are actual boundaries; these preceding semantic records and shared layout APIs are not made native boundaries merely by residing in gpu/.",
+    "repair": "Carry the existing checked authored Millimeters and shared SignedLength/PositiveLength owners, choosing the role from actual source guarantees, through original design-to-chart/coordinate-shell/host-layout records and intermediate fitting helpers. Do not create a second generic length wrapper. Extract metres only at actual shell-table/native parameter encoding or proven numerical kernels. Trace every sibling chart/coord thickness, cap/clearance/extent path and unchanged consumer before replacing the connected signatures; factor payloads need their actual dimensionless role rather than an arbitrary UnitInterval bound. Preserve finite admission through producing arithmetic and retain existing structured geometry causes through the owning error path. Reconcile shared records once with the retained function owner and canonical count/layout work.",
+    "dependencies": [
+      "Adler retained full fitting/armor/PartRecipe/body/shape functions and records",
+      "M16 part/chart/coord native population/layout integration",
+      "M01 physical quantity propagation shares existing generic geometry owners but different connected functions",
+      "M06 owning geometry/fitting/native cause propagation",
+      "all other generator/caller dimensions and native numerical kernel contracts"
+    ],
+    "acceptance": "No internal retained plate-gauge/length record or composite receiver erases an admitted unit before actual native encoding. Preserve exact f32::from(u16)/1000.0 conversion, evaluation order, valid authored zero/signed/fractional roles and existing extrusion/shape behavior. PositiveLength is not a universal replacement for zero/signed offsets; SignedLength already matches those values and from_millimetres preserves current bits. Do not mechanically wrap all native WGSL coordinates/word arrays or change geometry/gauge policy. Complete coif and sibling garment, wrapped-tasset, limb, footwear, helmet, puff and other shape paths plus existing fixtures before family clearance; no tests added.",
+    "repair_status": "not authorized",
+    "validation": "Static complete coif design-to-descriptor-to-shell-word-to-native-extrusion trace and canonical scalar conversion bodies. Other generator occurrences are navigation/frontier only. No GPU/project/visual checks.",
+    "base_comparison": "Base3a50 has the same raw CoordShell.thickness and descriptor chain; Millimeters originally offered only metres. Merged774 adds signed_length/from_millimetres but leaves this connected path primitive. Retained unfinished migration, not a newly introduced extrusion regression.",
+    "rule_support": [
+      {
+        "file": "crates/AGENTS.md",
+        "start": 31,
+        "end": 57,
+        "reason": "Existing typed leaf guarantees must survive internal producer state and composite interfaces until actual numerical/native projection."
+      },
+      {
+        "file": "crates/AGENTS.md",
+        "start": 69,
+        "end": 71,
+        "reason": "Reuse canonical shared scalar owners rather than making per-shape equivalent length types."
+      }
+    ],
+    "connected_frontier": [
+      "gpu/footwear.rs154,165,240,282",
+      "gpu/pauldron.rs38,144,211",
+      "gpu/garment.rs176,255",
+      "gpu/close_helmet.rs219",
+      "gpu/wrapped_tassets.rs78",
+      "gpu/gorget.rs116",
+      "gpu/extremities.rs33",
+      "gpu/mitten.rs104",
+      "gpu/limb/joint_cup.rs182",
+      "gpu/limb.rs271,298,314,325,340,351,366,372",
+      "gpu/puff_and_slash.rs83,136",
+      "gpu/helmet/surface.rs204"
+    ],
+    "additional_traces": [
+      {
+        "source": "gpu/footwear.rs161-245,251-310;extremities.rs29-53;mitten.rs103-180",
+        "trace": "Foot and mitten design thickness getters become raw gauge locals, pass through chart(thickness:f32), toe_cap(gauge:f32) and CappedByFrame.fixed raw clearance, and remain in PlateChart/CoordShell before the shared ShellSpec/LaidShell native encoder. Boot passes getter directly into CoordShell. These are now body-read source traces rather than lexical sibling leads. Actual foot_design/ExtremityShape.design arrays are final kernel parameter words forwarded to PartRecipe.record/upload; do not count that native encoding by itself as the descriptor gap.",
+        "repair": "Close the shared extremity chart and toe/boot/mitten descriptor contract once for all consumers. Preserve reverse mitten span orientation, cap zero fixed offsets and actual fractional clearances, typed authored gauges and same f32 conversion/arithmetic order."
+      },
+      {
+        "source": "gpu/garment.rs173-264,270-386;gpu/limb.rs268-478;gpu/limb/joint_cup.rs173-268",
+        "trace": "Garment coord_shell(thickness:f32) and lame_chart, limb plain_chart(thickness:f32), gauntlet and joint cup loops independently feed the same primitive retained descriptor. Original GarmentArmorDesign validates lame_count>=1 (Tassets<=12, others<=8); LimbArmorDesign checks Sabaton3..8, Mitten2..6 and Spaulder2..7 before private shape dispatch. No zero-divisor or enormous generated-lame witness is established in those normal paths. Shared ChartBoundary cap length and limb/garment gauge/clearance fields need the same existing unit owners; native design vectors and enum-to-native flags remain actual pack boundaries.",
+        "repair": "Repair common chart/layout/coord functions and connected callers together, use already validated role-specific counts and geometric units without interchangeable generic counts, and keep all distinct family requirements recorded. Do not substitute UnitInterval for arbitrary authored scale ratios (some valid>1), reverse/periodic coordinates or zero/signed offsets."
+      },
+      {
+        "source": "gpu/close_helmet.rs140-168,194-239;gpu/helmet/surface.rs124-132,204-215;gpu/pauldron.rs140-213",
+        "trace": "CloseHelmetLayout caches the entire typed design/host layout but stores wall:f32 and later copies it into CoordShell. CoordSurface::shell accepts thickness:f32; styled_dome accepts crest:f32 and tests whether it is positive before selecting source topology. Pauldron converts gauge to chart offset:f32, and the helper retains it in PlateChart.values together with raw thickness. These are source/descriptor contracts preceding native encoding, not merely getters inside final numerical kernels.",
+        "repair": "Carry original typed wall/crest/offset leaves through shared helmet surface/cache/recipe and pauldron chart descriptors, retaining Role enums and exact native numerical table construction. Do not create redundant generic length types or unnecessarily turn intrinsically dimensionless/native shader words into gameplay wrappers."
+      },
+      {
+        "source": "gpu/wrapped_tassets.rs32-92;gpu/puff_and_slash.rs26-143;gpu/breastplate/course_coordinates.rs59-79;surface_grid.rs30-39",
+        "trace": "Wrapped-tasset PlateChart and puff patch CoordShell retain extracted gauge/thickness just like the shared paths. Patch also takes native angular spans and signed seam distances before producing its coordinate words; per-field roles must be traced rather than universally clamped. SurfaceEdgeDistance already owns Rail versus Cut, but Cut retains raw signed metres produced by the actual f64 course distance kernel and narrowed to f32. Existing tests explicitly preserve negative/positive interior distances and exact snapped zero. Search finds that metadata stored/copied in grids and tested but no current production reader applying it to gameplay/render decisions.",
+        "repair": "Close sibling descriptor gauge/offset paths and keep signed edge-distance payloads in the existing SignedLength owner, with fallible native narrowing where needed, through actual stored sample state. Preserve Rail/physical Cut distinction, signs and zero; do not substitute PositiveLength or claim a current tiling behavior bug from unused metadata. Audit all remaining field reads before final family clearance."
+      },
+      {
+        "source": "gpu/gorget.rs111-246;character_creator/device_close_helmet.rs60-117",
+        "trace": "Gorget plate(columns,rows,thickness:f32,...) stores raw gauge and per-lame offset before CoordShell/native words, despite source design wall_thickness retaining Millimeters. Count>=1 is validated before count-1 loops; columns derive from fixed64 samples and known pattern. By contrast Creator close-helmet profile immediately packs extracted dimensions into the final native design array and writes a fixed native profile; that per-parameter encoding is an actual native boundary, not by itself an unfinished application signature.",
+        "repair": "Finish gorget helper/descriptor unit propagation with common M19 owners and connected callers. Preserve legitimate native measurement inputs, signed edge distances, fixed layout allocation and head/profile status coupling. Do not mechanically replace final native word arrays or order-preserving numerical kernels."
+      }
+    ]
+  },
+  {
+    "id": "F11",
+    "priority": "P2",
+    "classification": "retained public column-bracket bounds defect; current small generator populations are not claimed affected",
+    "title": "Reject rounded out-of-range column indices before forming their successor",
+    "lenses": [
+      "producer-propagation",
+      "admission-contracts",
+      "invariant-operations",
+      "aggregate-states",
+      "existing-type-owners"
+    ],
+    "locations": [
+      {
+        "file": "crates/fabelgeist-armor/src/surface_grid.rs",
+        "start": 69,
+        "end": 74
+      }
+    ],
+    "contract_trace": "SurfaceColumn::at accepts any u32 and stores column as f32. at(u32::MAX) rounds to2^32. In bracket(u32::MAX), (columns-1) as f32 rounds to the same2^32, so the upper-bound check accepts it. The float-to-u32 conversion then saturates first to MAX and first+1 overflows with overflow checks; otherwise the returned first is still outside the population and the successor wraps. The public helper therefore fails its own Option-based bounds contract for admitted inputs without requiring any allocation. Current garment/chart callers use much smaller populations, so no existing visible armor failure from this witness is asserted.",
+    "repair": "Establish exact contextual column/population bounds at source admission and recheck the converted first index against columns before forming the successor. Reject invalid projected coordinates through the owning fallible contract, and ensure every Some bracket has first<=second<columns and finite legal interpolation. Reuse agreed contextual count/index owners, preserve valid native f32 arithmetic/rounding and fractional cut coordinates, and trace all SurfaceColumn/Grid consumers. Do not invent a global design population cap or merely saturate the successor while leaving first outside the population. Broader ordinal/fraction precision and interpolation admission remain PC30 until traced.",
+    "dependencies": [
+      "M16 canonical contextual chart/grid/count/index owners",
+      "Adler retained topology/source/column functions and fields",
+      "PC30 public column interpolation and large-ordinal representability policy",
+      "all actual bracket consumers and valid tiny/fractional/current grid fixtures"
+    ],
+    "acceptance": "For every admitted column and supplied count, bracket returns None or valid ordered indices within that exact population, without integer overflow. Preserve exact endpoint behavior and existing fractional/native small-grid interpolation. No new tests; use existing fixtures only after repairs are separately authorized. Static public helper failure is not a normal-generator or GPU-crash claim.",
+    "repair_status": "not authorized",
+    "validation": "Static Rust f32 conversion and integer-bound proof using the actual source; no project/toy/GPU test was run.",
+    "base_comparison": "Base3a50 surface_grid.rs has the identical at/bracket implementation. This is a retained public contract defect in the shared type, not a new774 gameplay regression.",
+    "rule_support": [
+      {
+        "file": "crates/AGENTS.md",
+        "start": 31,
+        "end": 57,
+        "reason": "Preserve admitted bespoke quantities and establish bounds in producing operations and contextual public contracts."
+      },
+      {
+        "file": "crates/AGENTS.md",
+        "start": 82,
+        "end": 89,
+        "reason": "Dynamic indices require proven bounds; conversion to a primitive does not establish membership."
+      }
+    ]
+  },
+  {
+    "id": "M20",
+    "priority": null,
+    "classification": "unfinished structured public export/socket errors; existing typed causes should remain intact",
+    "title": "Give export and socket contract failures structured error variants",
+    "lenses": [
+      "producer-propagation",
+      "type-ownership",
+      "magic-strings"
+    ],
+    "locations": [
+      {
+        "file": "crates/adventuresim-character-creator/src/export.rs",
+        "start": 187,
+        "end": 193
+      },
+      {
+        "file": "crates/adventuresim-character-creator/src/export.rs",
+        "start": 324,
+        "end": 330
+      },
+      {
+        "file": "crates/adventuresim-character-creator/src/export.rs",
+        "start": 390,
+        "end": 398
+      },
+      {
+        "file": "crates/adventuresim-character-creator/src/export/validation.rs",
+        "start": 13,
+        "end": 49
+      }
+    ],
+    "contract_trace": "The public rigged export, anatomical socket resolution and UV bootstrap APIs return anyhow::Result. Domain rejection cases are message-only bail/context errors: malformed mesh/skin columns, unsupported atlas identity, unavailable fitted surface, unstable basis/palm geometry, missing body/UV correspondence and malformed native socket hierarchy. normalize takes raw side/description prose to describe the rejected contract; tests at export.rs1154 and1814-1817 classify failure by matching rendered text. Existing RigJointLookupError and native IO/serde/image/readback sources passed via ?/with_context can already retain their concrete cause; do not conflate that with message-only owning rejection or claim all anyhow Context destroys sources.",
+    "repair": "Define focused owning export/input/socket error enums with semantic stage/hand/axis and relevant input/source context. Preserve existing RigJointLookupError and native IO/serialization/material/image causes via typed source variants rather than reformatting them or adding a catch-all message path. Propagate errors through public socket/export functions, metadata/validation/native-output helpers and Creator callers until actual CLI/UI formatting. Replace existing prose-parsing assertions with matches on the stable owning error or source; add no tests. Keep intentionally rejected candidate triangles as search rejections, not fatal per-candidate errors: report the final no-eligible-surface outcome with its useful context.",
+    "dependencies": [
+      "full owning export/glb/texture/skeleton/socket validation submodule and original caller inventory",
+      "M21 associated anatomical atlas/coordinate/socket contract",
+      "M06 existing typed geometry/material/native sources where shared; use original owners not a universal error file",
+      "existing named rig ordinals and native glTF publication boundary"
+    ],
+    "acceptance": "Public failure contracts can be classified and their available causes inspected without parsing human prose. Preserve existing caller rejection/search/fallback policy, exact valid geometry and wire output, native source chains and useful malformed-input diagnostics. Raw rejected observations may be retained for diagnostics without admitting them as valid physical values. Existing fixtures continue to assert the same behavior through stable errors; no new tests/checks in this read-only audit. Full connected submodule source and later lenses remain required before repair/clearance.",
+    "repair_status": "not authorized",
+    "validation": "Complete central export.rs body and existing fixtures read, plus full validation/morph/sockets and selected caller bodies. Other export submodules/callers still open; no runtime/project checks.",
+    "rule_support": [
+      {
+        "file": "crates/AGENTS.md",
+        "start": 31,
+        "end": 43,
+        "reason": "Carry semantic allowed states and owning contract outcomes through APIs."
+      },
+      {
+        "file": "crates/AGENTS.md",
+        "start": 88,
+        "end": 90,
+        "reason": "Use stable typed errors/codes rather than branch on mutable prose; exact source shows existing assertions matching text."
+      }
+    ],
+    "additional_traces": [
+      {
+        "source": "export/skeleton.rs7-69;export/skinning.rs4-34;export/glb.rs12-38;export/textures.rs40-65,96-130",
+        "trace": "Skeleton helper preserves canonical rig ordinals/names/parents until actual native JSON node indexes and validates optional skeletal basis length/finiteness. Skin helper uses canonical RigInfluences::strongest_four and fallible native_u16 projection before native byte packing, preserving its typed native conversion error via ?. GLB serde/fs and PNG encoder errors through ?/with_context retain native causes; do not report all of those as string erasure. Skeleton basis and shared-texture-content mismatch are still message-only owning contract failures, while MetalGpu::textures is carried via existing generic material result path connected toM06.",
+        "repair": "Retain these positive native-cause/ordinal projections while classifying message-only skeleton/content/output contracts into owning export errors. Verify actual MetalGpu material error type/cause before attributing another loss. Native error types at genuine wire conversions need not be replaced merely for being generic standard-library errors."
+      },
+      {
+        "source": "export/textures/tests.rs183-185;export/shell.rs4-108",
+        "trace": "Existing packaging fixture also classifies corrupt content-addressed sibling output using error.to_string().contains(\"unexpected contents\"). Shell writer/build helper retains actual native views/JSON/accessor/material/texture indexes and final native wire codes; named/typed intermediate handle granularity is pendingPC36, not by itself evidence that final native JSON strings need wrappers.",
+        "repair": "Use the stable owning content-address mismatch error in the existing assertion and retain actual IO/image causes. Reconcile any internal named/native-handle record changes across shared encoder functions only after the boundary/granularity decision."
+      }
+    ]
+  },
+  {
+    "id": "M22",
+    "priority": null,
+    "classification": "retained native-format extent admission gap; no ordinary export reaching the limit asserted",
+    "title": "Admit binary glTF container extents before narrowing them into headers",
+    "lenses": [
+      "producer-propagation",
+      "admission-contracts",
+      "invariant-operations",
+      "magic-numbers"
+    ],
+    "locations": [
+      {
+        "file": "crates/adventuresim-character-creator/src/export/glb.rs",
+        "start": 15,
+        "end": 26
+      }
+    ],
+    "contract_trace": "The GLB encoder receives actual serialized JSON and binary payload byte vectors, rounds both lengths up to four-byte alignment, sums the header/chunk extents as usize and writes total_length/json_bytes.len()/bytes.len() with unchecked as u32 casts. Native u32 words are the real format boundary, but neither alignment/sum overflow nor representability of each chunk and complete container is established before those projections. A sufficiently large admitted payload can therefore produce a truncated header or overflow the host arithmetic instead of an owning error. Current bounded ordinary MHR exports have not been proved to reach this limit; no huge allocation or file was created in this audit.",
+    "repair": "At the actual encoder boundary, admit one checked GLB layout covering padding, both chunk extents and the complete container, and reject host arithmetic or native32-bit representation failure before resizing/copying/writing. Keep checked lengths through the shared layout/encoder; emit raw u32 only when writing header words. Use a focused native-format layout/error contract rather than a naked cast or arbitrary smaller global export cap. Reuse byte-unit concepts where semantics fit, but do not equate this format32-bit limit with GPU buffer/device or word-count contracts. Propagate failure through the owning structured export error M20.",
+    "dependencies": [
+      "M20 owning export/native-format error propagation",
+      "complete BufferBuilder/GLB/native file layout and caller admission trace",
+      "existing four-byte padding, chunk constants and little-endian format output"
+    ],
+    "acceptance": "All header extents equal the actual padded output size and are natively representable; unsupported extents return a structured error before an invalid file or partial output is emitted. Preserve byte-identical valid small exports, exact padding/token/endian behavior and native IO causes. No invented memory/workload policy and no claim that current ordinary assets overflow. Use existing fixtures only after repairs are authorized; no new tests.",
+    "repair_status": "not authorized",
+    "validation": "Complete encoder body and source byte-buffer construction read; deterministic unchecked narrowing/sum path. No allocation/reproduction/project checks performed.",
+    "rule_support": [
+      {
+        "file": "crates/AGENTS.md",
+        "start": 31,
+        "end": 57,
+        "reason": "Serialized boundaries can contain primitives only after their actual role/unit/representation contract is admitted; preserve checked leaves through preparing operations."
+      }
+    ]
+  }
+]

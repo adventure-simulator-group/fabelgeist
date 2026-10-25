@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-573",
+  "at": "2026-10-25T16:05:12.421892+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 927,
+  "source_id": "pr-working:crates/adventuresim-core/src/food.rs",
+  "sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+  "actual_compared_ranges": [
+    [
+      1,
+      660
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Fresh441\u2013660 native fat gate/flavour quality/chef tiers/meal consumption/component retention, followed by existing cooking source fixtures. Native decision rules not mechanical derives. No new trait/codec; all tests read only, flavour omission fixture unfinished.",
+  "first_unfinished": {
+    "scope_index": 927,
+    "line": 661
+  },
+  "execution": "none"
+}

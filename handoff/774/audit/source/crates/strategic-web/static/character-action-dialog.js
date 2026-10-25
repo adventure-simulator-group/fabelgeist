@@ -1,0 +1,107 @@
+(() => {
+  const FOCUSABLE = [
+    "a[href]", "button:not(:disabled)", "input:not([type='hidden']):not(:disabled)",
+    "select:not(:disabled)", "textarea:not(:disabled)", "[tabindex]:not([tabindex='-1'])",
+  ].join(",");
+
+  const visible = (root) => [...root.querySelectorAll(FOCUSABLE)]
+    .filter((element) => !element.hidden && !element.closest("[hidden]") && element.getAttribute("aria-hidden") !== "true");
+
+  const wrappedFocusIndex = (length, current, backwards) => {
+    if (length <= 0) return -1;
+    if (current < 0) return backwards ? length - 1 : 0;
+    if (backwards && current === 0) return length - 1;
+    if (!backwards && current === length - 1) return 0;
+    return current + (backwards ? -1 : 1);
+  };
+  const dialogOwnsBodyLock = (hasCharacterDialog, hasRemoteDialog = false) =>
+    hasCharacterDialog || hasRemoteDialog;
+  const openerIdentity = (opener) => opener?.dataset?.dialogOpener || opener?.getAttribute?.("aria-label") || null;
+  const submitAutomaticChatToggle = (input) => {
+    if (!input?.matches?.("[data-automatic-social-chat]") || !input.form?.requestSubmit) return false;
+    input.form.requestSubmit();
+    return true;
+  };
+
+  if (typeof module !== "undefined") {
+    module.exports = {
+      wrappedFocusIndex, dialogOwnsBodyLock, openerIdentity, submitAutomaticChatToggle,
+    };
+  }
+  if (typeof document === "undefined") return;
+
+  const restoreKey = "adventuresim-character-dialog-opener";
+  document.addEventListener("click", (event) => {
+    const opener = event.target.closest?.("[aria-haspopup='dialog']");
+    if (opener) {
+      sessionStorage.setItem(restoreKey, openerIdentity(opener));
+    }
+    if (event.target.closest?.(".character-action-dialog-close, .character-action-backdrop")) {
+      sessionStorage.setItem(`${restoreKey}-pending`, "true");
+    }
+  });
+  document.addEventListener("change", (event) => {
+    submitAutomaticChatToggle(event.target);
+  });
+
+  let lifecycle;
+  const unmount = () => {
+    lifecycle?.abort();
+    lifecycle = null;
+    document.body.classList.remove("character-action-dialog-open");
+  };
+  const mount = () => {
+    unmount();
+    lifecycle = new AbortController();
+    const { signal } = lifecycle;
+    const overlays = [...document.querySelectorAll("#strategic-page [data-character-action-dialog]")];
+    const overlay = overlays[0];
+    overlays.slice(1).forEach((extra) => { extra.hidden = true; });
+    // Dialogs must escape scrolling scene panels and their stacking contexts.
+    if (overlay) document.getElementById("strategic-page").append(overlay);
+    document.body.classList.toggle(
+      "character-action-dialog-open",
+      dialogOwnsBodyLock(Boolean(overlay), Boolean(document.querySelector("dialog[open]"))),
+    );
+    if (!overlay) {
+      if (sessionStorage.getItem(`${restoreKey}-pending`) === "true") {
+        sessionStorage.removeItem(`${restoreKey}-pending`);
+        const identity = sessionStorage.getItem(restoreKey);
+        if (identity) {
+          requestAnimationFrame(() => [...document.querySelectorAll("[aria-haspopup='dialog']")]
+            .find((element) => openerIdentity(element) === identity)?.focus());
+        }
+      }
+      return;
+    }
+
+    const dialog = overlay.querySelector("[role='dialog']");
+    const close = overlay.querySelector(".character-action-dialog-close");
+    requestAnimationFrame(() => {
+      if (signal.aborted || !dialog?.isConnected) return;
+      const preferred = overlay.dataset.initialFocus && dialog.querySelector(overlay.dataset.initialFocus);
+      dialog.scrollTop = 0;
+      (preferred || visible(dialog)[0] || dialog).focus?.({ preventScroll: true });
+    });
+
+    overlay.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && close) {
+        event.preventDefault();
+        sessionStorage.setItem(`${restoreKey}-pending`, "true");
+        close.click();
+        return;
+      }
+      if (event.key !== "Tab") return;
+      const focusables = visible(dialog);
+      const current = focusables.indexOf(document.activeElement);
+      const next = wrappedFocusIndex(focusables.length, current, event.shiftKey);
+      if (next >= 0 && (current < 0 || next !== current + (event.shiftKey ? -1 : 1))) {
+        event.preventDefault();
+        focusables[next].focus();
+      }
+    }, { signal });
+  };
+  mount();
+  document.addEventListener("strategic-page-unmounting", unmount);
+  document.addEventListener("strategic-page-mounted", mount);
+})();

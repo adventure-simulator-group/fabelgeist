@@ -1,0 +1,28 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-627",
+  "at": "2026-10-25T16:17:52.057523+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 948,
+  "source_id": "pr-working:crates/adventuresim-core/src/knowledge.rs",
+  "sha256": "eff9843bb7a8c4e0459b990f5684deae4c827ec824b58334789ec8e1cce55ffd",
+  "actual_compared_ranges": [
+    [
+      1,
+      660
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "KnowledgeEnvelope checked constructor223\u2013253 enforces shared provenance correlation, private visibility, and chronology; retain admission rather than raw From/Deserialize.",
+    "ObserverKnowledgeRecord project318\u2013351 is an authenticated, visibility/time-gated semantic public projection with observer-only reference and confidence band; not mechanical field serialization.",
+    "AuthoritativeTruth443\u2013480 deliberately has no truth-to-observer conversion. SharingReceipt543\u2013570 checks shareability/identity/chronology and derives provenance via semantic recipient envelope594\u2013625; no mechanical conversion substitution.",
+    "All inspected concrete records/enums already derive structural traits. No handwritten trait/codec in221\u2013660; ContradictionRecord constructor still incomplete."
+  ],
+  "first_unfinished": {
+    "scope_index": 948,
+    "line": 661
+  },
+  "execution": "none"
+}

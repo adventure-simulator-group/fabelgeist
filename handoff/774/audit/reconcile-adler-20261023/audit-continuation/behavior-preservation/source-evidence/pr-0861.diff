@@ -1,0 +1,54 @@
+--- PRbase/crates/adventuresim-core/src/autoresolve/incapacitation_tests.rs
++++ frozen/crates/adventuresim-core/src/autoresolve/incapacitation_tests.rs
+@@ -7,10 +7,14 @@
+     let mut otherwise_impaired = john.combatant;
+     tired.fatigue += 0.2;
+     otherwise_impaired.starting_incapacitation += 0.2;
+     assert!(
+-        (tired.incapacitation_performance() - otherwise_impaired.incapacitation_performance())
+-            .abs()
++        (tired.incapacitation_performance().unwrap().fraction()
++            - otherwise_impaired
++                .incapacitation_performance()
++                .unwrap()
++                .fraction())
++        .abs()
+             < 0.00001
+     );
+     let attack = |attacker: &Combatant| {
+         melee_exchange(
+@@ -23,8 +27,9 @@
+                 contact: 0.4,
+                 defense_alignment: 0.4,
+             },
+         )
++        .unwrap()
+         .result
+     };
+     assert_eq!(
+         serde_json::to_value(attack(&tired)).unwrap(),
+@@ -35,11 +40,22 @@
+ #[test]
+ fn fatigue_does_not_slow_autoresolve_movement() {
+     let (john, _) = melee_iteration_roster().unwrap();
+     let mut combatant = john.combatant;
+-    let fresh_speed = combatant.movement_speed_meters_per_second(0.1);
++    let fresh_speed = combatant
++        .movement_speed_meters_per_second(
++            crate::linear_speed::PositiveSpeed::from_metres_per_second(0.1).unwrap(),
++        )
++        .unwrap();
+     combatant.fatigue = 0.6;
+-    assert_eq!(combatant.movement_speed_meters_per_second(0.1), fresh_speed);
++    assert_eq!(
++        combatant
++            .movement_speed_meters_per_second(
++                crate::linear_speed::PositiveSpeed::from_metres_per_second(0.1).unwrap()
++            )
++            .unwrap(),
++        fresh_speed
++    );
+ }
+ 
+ #[test]
+ fn burden_is_visible_and_not_also_subtracted_from_physical_skills() {

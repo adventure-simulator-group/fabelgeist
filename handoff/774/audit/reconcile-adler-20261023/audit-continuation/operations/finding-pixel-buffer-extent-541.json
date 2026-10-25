@@ -1,0 +1,32 @@
+{
+  "id": "SEGOVB-04-PIXEL-BUFFER-EXTENT-CANDIDATE-001",
+  "sources": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-color/src/conversion.rs",
+      "sha256": "1c16766feee62bbb80b38bdcc46c18cd7c732d6f2d796a4c26e228cb4eff6f1e",
+      "ranges": [
+        [
+          171,
+          250
+        ],
+        [
+          251,
+          331
+        ],
+        [
+          381,
+          441
+        ]
+      ]
+    }
+  ],
+  "counterexamples": [
+    "Identical RGBA8 format width1/height1/src[]/dst[] copies0 and returnsOk despite requiring one pixel. Same-format route bypasses all declared length errors.",
+    "RGBA/BGRA or transfer branch width1/height1 with8-byte buffers validates4 then transforms both pixels, beyond requested extent. Prefix/tail meaning is an API policy question but dimension authority is inconsistent with R8 and YUV branches.",
+    "NV12 width1/height1, src[0] dst[0;4] passes computed expected1+floor(1/2)=1 then nv12_to_rgba8 indexes empty uv[0]; I420 same floor(1/4) gives empty chroma although receiver uses ceil(width/2). RGBA->NV12 can write all Y then panic in UV on exact floor-sized output, retaining partial caller dst.",
+    "width=usizeMAX,height2 overflows num_pixels before a structured error, even with empty slices; representable raw API extreme, no allocation needed."
+  ],
+  "qualification": "Source arithmetic/control-flow proof only; no caller runtime or project execution. Small odd dimensions require explicit support versus rejection policy, not guessed universal even-only restriction; receiver ChromaSubsampling::chroma_dimensions already uses ceil. Archived exact alias search found no indexed convert_pixels/num_pixels candidate; parent review pending and no new global count.",
+  "connected_contract": "One checked image extent/format plane layout controls checked arithmetic, required source/destination lengths and bounded conversion slice before any mutation; same-format and planar/packed routes obey same policy. Preserve actual format semantics and source-before-destination error order where defined.",
+  "acceptance": "Short buffers rejected coherently, zero/odd dimensions handled by explicit format policy, products checked, no accepted dimensions cause downstream indexing panic or partial dst mutation. Decide/preserve caller tail behavior explicitly; ordinary exact-sized conversion outputs unchanged."
+}

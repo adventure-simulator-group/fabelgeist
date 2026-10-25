@@ -1,0 +1,3379 @@
+{
+  "id": "NATIVE-OWNER-ADDITIONAL-RANGE-CLOSURE-011",
+  "lens": "audit-existing-type-owners",
+  "status": "all materially reached additional proof ranges accounted with findings; no source/other-lens clearance",
+  "source_input": {
+    "file": "additional-sources.jsonl",
+    "sha256": "8cfcf016883747beb4c4129cc0a10b8452af8a150ef2f7d3f77952ed3a2a4ebf",
+    "historical_rows": 164,
+    "actual_read_range_rows": 158,
+    "historical_queue_rows": 6
+  },
+  "range_coverage": {
+    "file": "additional-range-coverage.jsonl",
+    "sha256": "4d9baf763294f0cebcc07b49a686eb4f6cfb614ce111da1c54fa48a1910ed17a",
+    "rows": 158
+  },
+  "source_fingerprint_count": 144,
+  "foreign_fingerprint_count": 14,
+  "source_range_fingerprints": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/unit_interval.rs",
+      "observed_sha256": "268891d7d5556895ace4c6ce33b14953e35d5973bfce9b042e4b9d2dbc721a86",
+      "read_ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-005"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/activity.rs",
+      "observed_sha256": "d8ee276214a67b09ca6571d03b1adce2dc200e6201284a9a8e25b6053aa72a15",
+      "read_ranges": [
+        [
+          1,
+          243
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-006"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/incidents.rs",
+      "observed_sha256": "9358dd5b0a17f5f01f321c614d3c3309139134a24febfb634a9e6fa19eb0d622",
+      "read_ranges": [
+        [
+          320,
+          535
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-007"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/morale.rs",
+      "observed_sha256": "f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+      "read_ranges": [
+        [
+          1,
+          145
+        ],
+        [
+          180,
+          330
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-008",
+        "native-owner-additional-029",
+        "native-owner-additional-064"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-001",
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-002",
+        "contracts.jsonl#NATIVE-OWNER-ITERATION-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training",
+        "receiver-closure.json#native-command-observer-report-and-bot"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/calendar.rs",
+      "observed_sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "read_ranges": [
+        [
+          1,
+          698
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-011"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-002"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/basis_points.rs",
+      "observed_sha256": "b002f676777f801888bd9414e4ee0019ac3bc094e321b303758efe345868ff84",
+      "read_ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-012",
+        "native-owner-additional-083"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-002",
+        "contracts.jsonl#NATIVE-OWNER-PHYSIOLOGY-002"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training",
+        "receiver-closure.json#material-action-rights-clinical-case-quest"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/physical_object.rs",
+      "observed_sha256": "906e67eed5acc9fbf6ab98e2e4bc7df11b8e9742c1ee148092c7d2061f64afab",
+      "read_ranges": [
+        [
+          1,
+          383
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-013"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-002"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+      "observed_sha256": "031ee090102b5cc2ed9889b336ac1144ef7eb705cacc6fee37cbe8e7f6bafd0e",
+      "read_ranges": [
+        [
+          1,
+          364
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-014"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-002"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/courtship.rs",
+      "observed_sha256": "df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45",
+      "read_ranges": [
+        [
+          516,
+          605
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-015"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-002"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_inventory.rs",
+      "observed_sha256": "d271b63418f6ef51f276ab1e383bb534724f08ae106ffd7285f530e0308fef3e",
+      "read_ranges": [
+        [
+          1,
+          230
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-016"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-002"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/lib.rs",
+      "observed_sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+      "read_ranges": [
+        [
+          1,
+          330
+        ],
+        [
+          1825,
+          1888
+        ],
+        [
+          2990,
+          3080
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-017",
+        "native-owner-additional-041",
+        "native-owner-additional-056",
+        "native-owner-additional-099"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-002",
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-004",
+        "contracts.jsonl#NATIVE-OWNER-HARNESS-001",
+        "contracts.jsonl#NATIVE-OWNER-REPORT-002",
+        "contracts.jsonl#NATIVE-OWNER-LOCAL-PROBLEM-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training",
+        "receiver-closure.json#native-command-observer-report-and-bot",
+        "receiver-closure.json#material-action-rights-clinical-case-quest"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/language.rs",
+      "observed_sha256": "1475b920cad83e1f040a2c19627f288508d660a9d771bd72cf8993fa34b9a05f",
+      "read_ranges": [
+        [
+          120,
+          308
+        ],
+        [
+          315,
+          530
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-018",
+        "native-owner-additional-058"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-002",
+        "contracts.jsonl#NATIVE-OWNER-HARNESS-001",
+        "contracts.jsonl#NATIVE-OWNER-REPORT-002"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training",
+        "receiver-closure.json#native-command-observer-report-and-bot"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/bestiary.rs",
+      "observed_sha256": "0a8870d89db5190ae5b70aaffd93d7511b144e4861f37ffd649c62f464a3d2b7",
+      "read_ranges": [
+        [
+          1,
+          112
+        ],
+        [
+          140,
+          285
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-019",
+        "native-owner-additional-057"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-002",
+        "contracts.jsonl#NATIVE-OWNER-HARNESS-001",
+        "contracts.jsonl#NATIVE-OWNER-REPORT-002"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training",
+        "receiver-closure.json#native-command-observer-report-and-bot"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/attribute.rs",
+      "observed_sha256": "a3a9b63b62a8ecc73b592de825f4ac0350567eeb093391bda9fb7f7723a64455",
+      "read_ranges": [
+        [
+          1,
+          164
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-020"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-002"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/skill.rs",
+      "observed_sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "read_ranges": [
+        [
+          1,
+          160
+        ],
+        [
+          700,
+          824
+        ],
+        [
+          1010,
+          1165
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-021",
+        "native-owner-additional-037",
+        "native-owner-additional-082"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-002",
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-004",
+        "contracts.jsonl#NATIVE-OWNER-TRAINING-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/character/name_types.rs",
+      "observed_sha256": "698c97ddc6ffa8f8a1765775397dc10013ea5359f32a06b62845cf62ce0a946e",
+      "read_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-022"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-002"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/player.rs",
+      "observed_sha256": "7950d432247add4cf942e8eaf9a0dfeed6199326e4518094a1d616d1cd89a645",
+      "read_ranges": [
+        [
+          85,
+          135
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-023"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-002"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/surgery.rs",
+      "observed_sha256": "268262ad03da7ab7544ce8cf2417cf5da83a9b6cdd5a25e8da738a5880ed08ef",
+      "read_ranges": [
+        [
+          350,
+          442
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-024"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-002"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/character.rs",
+      "observed_sha256": "806a50bc71cade3ffdf93f52a62693f7d02d4d55a52e1cce7e5983b894ec28cf",
+      "read_ranges": [
+        [
+          435,
+          572
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-025"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-002"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union.",
+      "historical_fingerprint": {
+        "source_id": "git-commit:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/character.rs",
+        "observed_sha256": "517f93978b1b2a9fe9debaaa7d6386aa3200cda88348cd23a9ef6e5e94b5004a",
+        "read_ranges": [
+          [
+            435,
+            572
+          ]
+        ]
+      },
+      "range_correspondence_ref": "character-range-correspondence.json#NATIVE-OWNER-CHARACTER-RANGE-CORRESPONDENCE-012",
+      "scope_qualifier": "Current435–572 only; no wholefile equivalence. Historical read used Git6533 blob517f9397…, previously mislabeled frozenPR; actual frozen current806a50bc… range is byte-identical and nowreread."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/item.rs",
+      "observed_sha256": "68941c742d92f1b7df1a5483e7a749aa3184a5b0805213bc600f24c87f6fd70e",
+      "read_ranges": [
+        [
+          480,
+          560
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-026"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-002"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/organization.rs",
+      "observed_sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+      "read_ranges": [
+        [
+          335,
+          435
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-027"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-002"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/reputation.rs",
+      "observed_sha256": "f440b09e301404f9d1be804764c9be6af087320ea34c8b8a27fd9a4b191b8103",
+      "read_ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-028"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-002"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/lib.rs",
+      "observed_sha256": "2760315ff2997c68a703203018538d642878cf5aa461b2a6d90e38ef0005e168",
+      "read_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-030"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-002"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/operation_error.rs",
+      "observed_sha256": "f7a676c963f59e4691374c71e9f81caf252350a5c5c8f22da6a977beb97c62d4",
+      "read_ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-031"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-002"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/book.rs",
+      "observed_sha256": "1b4aac417b1f0ea794ff7f2832552b2ce1561a7d2cbede9129b274e29dc394ef",
+      "read_ranges": [
+        [
+          1,
+          345
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-032"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-004"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "observed_sha256": "96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+      "read_ranges": [
+        [
+          1,
+          180
+        ],
+        [
+          480,
+          558
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-033",
+        "native-owner-additional-052",
+        "native-owner-additional-106"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-004",
+        "contracts.jsonl#NATIVE-OWNER-REPORT-001",
+        "contracts.jsonl#NATIVE-OWNER-HARNESS-005"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training",
+        "receiver-closure.json#native-command-observer-report-and-bot"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/person_names.rs",
+      "observed_sha256": "e41326d6c8ae20b958581c0027d3b5bdd79a58faf43a142e446f52dc4a8f70ec",
+      "read_ranges": [
+        [
+          55,
+          105
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-034"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-004"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_presence/context.rs",
+      "observed_sha256": "e8fa0d3cc0b66a908ad8f44642c1cf2e09f9d6d5e8ac341e7201f7aea959995e",
+      "read_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-035"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-004"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_action.rs",
+      "observed_sha256": "4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+      "read_ranges": [
+        [
+          235,
+          275
+        ],
+        [
+          319,
+          411
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-036"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-004"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-determinism/src/seed.rs",
+      "observed_sha256": "ad0f8971f300e87ee98b0cd1d44273bb361c576566444a2b45216f9ddb65dff4",
+      "read_ranges": [
+        [
+          1,
+          213
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-038"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-004"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/investigation_action/vocabulary.rs",
+      "observed_sha256": "8d67cde0fd321af7ee5bae1c5045bc1adeb4fbe118698c40d194878ed01f5b5e",
+      "read_ranges": [
+        [
+          1,
+          120
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-039"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-004"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/encounter.rs",
+      "observed_sha256": "aad69b12c6ade6caa59828876caede30c0a0fe2577b11fdd91f84594d2471dd5",
+      "read_ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-040"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-004"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/case.rs",
+      "observed_sha256": "7b919041dbce7f4e53f859aab2c5b7c6b16dd110b1452ecfa598555bda9055b0",
+      "read_ranges": [
+        [
+          1,
+          185
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-042",
+        "native-owner-additional-089"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-004",
+        "contracts.jsonl#NATIVE-OWNER-QUEST-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training",
+        "receiver-closure.json#material-action-rights-clinical-case-quest"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_place.rs",
+      "observed_sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+      "read_ranges": [
+        [
+          1,
+          460
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-043"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-004"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory/chronology.rs",
+      "observed_sha256": "bc1144d088c13835018209779eecddba0f5a94957c7987fa4b8c7be902db9fb9",
+      "read_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-044"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-004"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pinned-sdk:spacetimedb-sats2.6.1/src/timestamp.rs",
+      "observed_sha256": "9a2b59b755254767182009ea99cc689199e310845668b3343faf52ca6139de0c",
+      "read_ranges": [
+        [
+          1,
+          343
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-045"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-STRATEGIC-004"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training",
+        "root-dependency-closure-index.json#ROOT-OWNER-SDK-CLOCK-019"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union.",
+      "source_path": "CARGO_REGISTRY/spacetimedb-sats-2.6.1/src/timestamp.rs",
+      "native_path_index_ref": "native-dependency-path-index.json#NATIVE-OWNER-PINNED-PATHS-013"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/elapsed.rs",
+      "observed_sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+      "read_ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-046"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-REPORT-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#native-command-observer-report-and-bot"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/linear_speed.rs",
+      "observed_sha256": "db3686060ebd8ce533fe48c88685c5643b024b8a92b2b617d97481196988f3e0",
+      "read_ranges": [
+        [
+          1,
+          178
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-047"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-REPORT-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#native-command-observer-report-and-bot"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/classification.rs",
+      "observed_sha256": "7699fe2b1452a7aff4551999b62c6ed6764dc5dddabf8bce8d8d74e8bf1ebd78",
+      "read_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-048"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-REPORT-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#native-command-observer-report-and-bot"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/timeline.rs",
+      "observed_sha256": "4e83c1f6cda9e4f7a8f9a19ac6c54119c67701f6d4dae37641c5e6b7b94b753d",
+      "read_ranges": [
+        [
+          1,
+          139
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-049"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-REPORT-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#native-command-observer-report-and-bot"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/contact_geometry.rs",
+      "observed_sha256": "8be98e18f4aa0d7bb6fbc302c7a10e6df912a744927240f6a4618ce41541e75f",
+      "read_ranges": [
+        [
+          1,
+          135
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-050"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-REPORT-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#native-command-observer-report-and-bot"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/targeting.rs",
+      "observed_sha256": "ef6af9c32d9abfa63057616b145b7777bcd39042472238e8966e73cbab202c08",
+      "read_ranges": [
+        [
+          1,
+          180
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-051"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-REPORT-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#native-command-observer-report-and-bot"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory/armor.rs",
+      "observed_sha256": "49cd8bc000aa19cd346741cd36179b1477050c9c1949bcddc4696e486cd0461c",
+      "read_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-053"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-REPORT-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#native-command-observer-report-and-bot"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve.rs",
+      "observed_sha256": "cc0f6780e86a9e0eebd3af3862517b7b99a63d7f9712e2f63de5d8b4d174c46a",
+      "read_ranges": [
+        [
+          305,
+          365
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-054"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-REPORT-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#native-command-observer-report-and-bot"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-math/src/units.rs",
+      "observed_sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "read_ranges": [
+        [
+          1,
+          120
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-055",
+        "native-owner-additional-111"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-REPORT-001",
+        "contracts.jsonl#NATIVE-OWNER-REPORT-MODEL-003"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#native-command-observer-report-and-bot",
+        "receiver-closure.json#capture-report-and-p17-observation"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/measurement.rs",
+      "observed_sha256": "6bf7e931e120e7f023858ffebeedc30845b61f861c39ec75d03c500564192bc1",
+      "read_ranges": [
+        [
+          1,
+          261
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-059"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-HARNESS-001",
+        "contracts.jsonl#NATIVE-OWNER-REPORT-002"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#native-command-observer-report-and-bot"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/error.rs",
+      "observed_sha256": "1e14c8d0441364e441ccc57365bdddfe9c895a633be80ce0bdf91c0f45b95b1a",
+      "read_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-060"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-HARNESS-001",
+        "contracts.jsonl#NATIVE-OWNER-REPORT-002"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#native-command-observer-report-and-bot"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness/skinning.rs",
+      "observed_sha256": "f9807d42e32e69b0b93111a10c857c336aef6267956556595625cbcf95d475b9",
+      "read_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-061"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-HARNESS-001",
+        "contracts.jsonl#NATIVE-OWNER-REPORT-002"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#native-command-observer-report-and-bot"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat.rs",
+      "observed_sha256": "98f3cb6b60b6672e3bdb730f6c922c012120f3763add4beb906040f1be122c2f",
+      "read_ranges": [
+        [
+          1,
+          180
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-062"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-REPORT-002"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#native-command-observer-report-and-bot"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/body.rs",
+      "observed_sha256": "febe5d8b193afe3cefa2292965bb42c15d4a5d25aef8a2f3c9fea757b3720317",
+      "read_ranges": [
+        [
+          1,
+          179
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-063"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-ITERATION-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#native-command-observer-report-and-bot"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment.rs",
+      "observed_sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+      "read_ranges": [
+        [
+          315,
+          495
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-065"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-ITERATION-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#native-command-observer-report-and-bot"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory.rs",
+      "observed_sha256": "513ea2b3aa9c0322422e9cea57e10c00c00fe2046f10ce6d9d0cf6460c93957e",
+      "read_ranges": [
+        [
+          330,
+          420
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-066"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-ITERATION-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#native-command-observer-report-and-bot"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/cuboid.rs",
+      "observed_sha256": "1fe1e6483da91ee1bd681df6ff788ec97d680ac453c450069a30111c66dc40ed",
+      "read_ranges": [
+        [
+          1,
+          126
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-067"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-ITERATION-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#native-command-observer-report-and-bot"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/Cargo.toml",
+      "observed_sha256": "feb7d553952f711d1296803b07e2ec1b7ee1cb555df59648b5bdef7e2cf5d4a9",
+      "read_ranges": [
+        [
+          1,
+          42
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-068"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-ITERATION-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#native-command-observer-report-and-bot"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/Cargo.toml",
+      "observed_sha256": "c966f29016d32aca39e17ea882e55271f208891ab003c331287114388a449a3a",
+      "read_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-069"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-ITERATION-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#native-command-observer-report-and-bot"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/inventory.rs",
+      "observed_sha256": "a1b3b6e0f7f1d9884a53f8306a3e0e9e6c1a8deb26e2b13fb163f73edd39900d",
+      "read_ranges": [
+        [
+          1,
+          215
+        ],
+        [
+          370,
+          415
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-070"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-ITERATION-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#native-command-observer-report-and-bot"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bin/melee-combat-iteration.rs",
+      "observed_sha256": "e1be72383593bbc4c921ecfdc904afcc7dc0b8364bef5b64efc35cb0ad11e5b3",
+      "read_ranges": [
+        [
+          1,
+          7
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-071"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-OBSERVER-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#native-command-observer-report-and-bot",
+        "native-framework-port.json#NATIVE-OWNER-OBSERVER-001"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/system/function_system.rs",
+      "observed_sha256": "a8c0b778125f2da28ada5005a40c2bc2ab5d783fd9d080aad99361cb55641c3a",
+      "read_ranges": [
+        [
+          570,
+          630
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-072"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-OBSERVER-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#native-command-observer-report-and-bot",
+        "native-framework-port.json#NATIVE-OWNER-OBSERVER-001"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union.",
+      "source_path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/system/function_system.rs",
+      "native_path_index_ref": "native-dependency-path-index.json#NATIVE-OWNER-PINNED-PATHS-013"
+    },
+    {
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/system/observer_system.rs",
+      "observed_sha256": "a5ec50cfa2fdb29a0f86a8bfb1c42a266bbd199da74e8c60c30384bf59409ac6",
+      "read_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-073"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-OBSERVER-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#native-command-observer-report-and-bot",
+        "native-framework-port.json#NATIVE-OWNER-OBSERVER-001"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union.",
+      "source_path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/system/observer_system.rs",
+      "native_path_index_ref": "native-dependency-path-index.json#NATIVE-OWNER-PINNED-PATHS-013"
+    },
+    {
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/observer/distributed_storage.rs",
+      "observed_sha256": "9a1c51dbb516b0cc08c33d8a5a714041eef55650447b4bb7efaf86ce537952b1",
+      "read_ranges": [
+        [
+          216,
+          275
+        ],
+        [
+          554,
+          583
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-074"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-OBSERVER-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#native-command-observer-report-and-bot",
+        "native-framework-port.json#NATIVE-OWNER-OBSERVER-001"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union.",
+      "source_path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/observer/distributed_storage.rs",
+      "native_path_index_ref": "native-dependency-path-index.json#NATIVE-OWNER-PINNED-PATHS-013"
+    },
+    {
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/observer/mod.rs",
+      "observed_sha256": "ebea03dbd974a67dc92c11ae4232a2a25a9e653c6df28eaea70e26a5f964c78a",
+      "read_ranges": [
+        [
+          45,
+          64
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-075"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-OBSERVER-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#native-command-observer-report-and-bot",
+        "native-framework-port.json#NATIVE-OWNER-OBSERVER-001"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union.",
+      "source_path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/observer/mod.rs",
+      "native_path_index_ref": "native-dependency-path-index.json#NATIVE-OWNER-PINNED-PATHS-013"
+    },
+    {
+      "source_id": "native-dependency:bevy_app-0.19.1/src/app.rs",
+      "observed_sha256": "0240f4b60c9848fcb5386998381c7b8f0be4fef83bfb574b19d818b99fc5e668",
+      "read_ranges": [
+        [
+          1468,
+          1483
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-076"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-OBSERVER-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#native-command-observer-report-and-bot",
+        "native-framework-port.json#NATIVE-OWNER-OBSERVER-001"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union.",
+      "source_path": "CARGO_REGISTRY/bevy_app-0.19.1/src/app.rs",
+      "native_path_index_ref": "native-dependency-path-index.json#NATIVE-OWNER-PINNED-PATHS-013"
+    },
+    {
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/observer/runner.rs",
+      "observed_sha256": "e8a6dca4f1ae317b6653d6f1c5fdf175fdb6ed42a5d4a6125730bc9e716f43dd",
+      "read_ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-077"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-OBSERVER-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#native-command-observer-report-and-bot",
+        "native-framework-port.json#NATIVE-OWNER-OBSERVER-001"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union.",
+      "source_path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/observer/runner.rs",
+      "native_path_index_ref": "native-dependency-path-index.json#NATIVE-OWNER-PINNED-PATHS-013"
+    },
+    {
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/handler.rs",
+      "observed_sha256": "800c43a7bcf3956170973151045546484c9546e3bb50635f9fab8cba7fed353d",
+      "read_ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-078"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-OBSERVER-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#native-command-observer-report-and-bot",
+        "native-framework-port.json#NATIVE-OWNER-OBSERVER-001"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union.",
+      "source_path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/error/handler.rs",
+      "native_path_index_ref": "native-dependency-path-index.json#NATIVE-OWNER-PINNED-PATHS-013"
+    },
+    {
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/bevy_error.rs",
+      "observed_sha256": "ae8feb04751ba67eaa86d03f3b748ef61d2bcdb9292c72dc0273eb353fb24fe2",
+      "read_ranges": [
+        [
+          40,
+          105
+        ],
+        [
+          395,
+          415
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-079"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-OBSERVER-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#native-command-observer-report-and-bot",
+        "native-framework-port.json#NATIVE-OWNER-OBSERVER-001"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union.",
+      "source_path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/error/bevy_error.rs",
+      "native_path_index_ref": "native-dependency-path-index.json#NATIVE-OWNER-PINNED-PATHS-013"
+    },
+    {
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/mod.rs",
+      "observed_sha256": "1647c35091db53ccde7cfd43e7b106f40942404b814f599015db776308ddfd3d",
+      "read_ranges": [
+        [
+          70,
+          82
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-080"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-OBSERVER-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#native-command-observer-report-and-bot",
+        "native-framework-port.json#NATIVE-OWNER-OBSERVER-001"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union.",
+      "source_path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/error/mod.rs",
+      "native_path_index_ref": "native-dependency-path-index.json#NATIVE-OWNER-PINNED-PATHS-013"
+    },
+    {
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/world/mod.rs",
+      "observed_sha256": "34963c05abcc51517c1db6cf1a3e1f90ae365409f75a9ceb54d6a892505681b6",
+      "read_ranges": [
+        [
+          3448,
+          3475
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-081"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-OBSERVER-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#native-command-observer-report-and-bot",
+        "native-framework-port.json#NATIVE-OWNER-OBSERVER-001"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union.",
+      "source_path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/world/mod.rs",
+      "native_path_index_ref": "native-dependency-path-index.json#NATIVE-OWNER-PINNED-PATHS-013"
+    },
+    {
+      "source_id": "native-dependency:spacetimedb-bindings-macro-2.6.1/src/reducer.rs",
+      "observed_sha256": "5d9af3fa69cda0c4377ddc6e3da0ead36b83bcb5f7cda7e53d78534b9bfd0fba",
+      "read_ranges": [
+        [
+          1,
+          204
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-084"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-SDK-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest",
+        "sdk-output-port.json#NATIVE-OWNER-SDK-001"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union.",
+      "source_path": "CARGO_REGISTRY/spacetimedb-bindings-macro-2.6.1/src/reducer.rs",
+      "native_path_index_ref": "native-dependency-path-index.json#NATIVE-OWNER-PINNED-PATHS-013"
+    },
+    {
+      "source_id": "native-dependency:spacetimedb-bindings-macro-2.6.1/src/view.rs",
+      "observed_sha256": "48fc81bd0f4780c85900aac82084c05599116c565c7beecd4d26239cf7d0a78a",
+      "read_ranges": [
+        [
+          190,
+          361
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-085"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-SDK-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest",
+        "sdk-output-port.json#NATIVE-OWNER-SDK-001"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union.",
+      "source_path": "CARGO_REGISTRY/spacetimedb-bindings-macro-2.6.1/src/view.rs",
+      "native_path_index_ref": "native-dependency-path-index.json#NATIVE-OWNER-PINNED-PATHS-013"
+    },
+    {
+      "source_id": "native-dependency:spacetimedb-2.6.1/src/rt.rs",
+      "observed_sha256": "9dae2fdd25e809c3fae6780569a1e6ce1a9d76d99feaac6a38a884faaa5ebf16",
+      "read_ranges": [
+        [
+          1,
+          200
+        ],
+        [
+          203,
+          225
+        ],
+        [
+          330,
+          465
+        ],
+        [
+          628,
+          655
+        ],
+        [
+          660,
+          695
+        ],
+        [
+          1025,
+          1065
+        ],
+        [
+          1086,
+          1098
+        ],
+        [
+          1228,
+          1295
+        ],
+        [
+          1374,
+          1393
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-086"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-SDK-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest",
+        "sdk-output-port.json#NATIVE-OWNER-SDK-001"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union.",
+      "source_path": "CARGO_REGISTRY/spacetimedb-2.6.1/src/rt.rs",
+      "native_path_index_ref": "native-dependency-path-index.json#NATIVE-OWNER-PINNED-PATHS-013"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/model.rs",
+      "observed_sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+      "read_ranges": [
+        [
+          1,
+          1230
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-087"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-QUEST-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/investigation.rs",
+      "observed_sha256": "670a2ae0df206f175978278ad2644e91d75c22a88cfa1ef89759171da672147b",
+      "read_ranges": [
+        [
+          1,
+          115
+        ],
+        [
+          290,
+          410
+        ],
+        [
+          460,
+          520
+        ],
+        [
+          625,
+          725
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-088"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-QUEST-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/assembly.rs",
+      "observed_sha256": "a54013572d9b0b6a8385c70e2aac6dbd516dfd40a72e87ede1c8ab6e9ea48ff7",
+      "read_ranges": [
+        [
+          1,
+          1443
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-090"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-QUEST-002"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/validation.rs",
+      "observed_sha256": "a58991cdececa54b76db9d44b4f5dd1702ef3c8d132e37350fcba62b5bf9e827",
+      "read_ranges": [
+        [
+          1,
+          1121
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-091"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-QUEST-002"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/sampling.rs",
+      "observed_sha256": "3c679c4e5177ee4462d6286d81cdd3e3cfaa9b6e2d91e844d3d45b8e2f666a44",
+      "read_ranges": [
+        [
+          1,
+          213
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-092"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-QUEST-003"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/solver.rs",
+      "observed_sha256": "5d9b71ab4620264dce7604d0c9662f52009a887d00225927ef217087e0f10ba2",
+      "read_ranges": [
+        [
+          1,
+          979
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-093"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-QUEST-003"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/audit.rs",
+      "observed_sha256": "d5c30cf48e89ffd626d8a3df81a151478fb15f25b92fe5bdaa4b1ca8bdb2674c",
+      "read_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-094"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-QUEST-003"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+      "observed_sha256": "42c0284a19db9d6e763cb9be7bb0c2472dea34f759b13794f37883c42e838474",
+      "read_ranges": [
+        [
+          1,
+          865
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-095"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-LOCAL-PROBLEM-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/threat_escalation.rs",
+      "observed_sha256": "87ab25a438699ec031fa507447c9108ccd3830f95cb5c6281eb6be1d4695fc47",
+      "read_ranges": [
+        [
+          1,
+          593
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-096"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-LOCAL-PROBLEM-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem/effects.rs",
+      "observed_sha256": "8f55ea514db0ec15ae06fb8ad544fcb6f107237239dcbb5e46be81a51cf084e0",
+      "read_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-097"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-LOCAL-PROBLEM-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem/inn_contact.rs",
+      "observed_sha256": "3507dc6ed96e62ba936ebe3f306f0bfc853af7c80eca4c40f4c9131033205357",
+      "read_ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-098"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-LOCAL-PROBLEM-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/condition.rs",
+      "observed_sha256": "48d1fbefb0cc475a98585e46dc0f4dabdef2c47eaa4bbb1ffb699ba604dc3758",
+      "read_ranges": [
+        [
+          303,
+          395
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-100"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-EXPOSURE-002"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/chronology.rs",
+      "observed_sha256": "ee9606893c2011c97cecde3bb8bef19e0b6354b96c165b66695c8f9e2b104646",
+      "read_ranges": [
+        [
+          1,
+          200
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-101"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-TIME-FIXTURES-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#strategic-clock-training",
+        "receiver-closure.json#material-action-rights-clinical-case-quest"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+      "observed_sha256": "30b742c763c3926909accc0596ba11f007dbeaa79660b0e1b965d57ca53a0281",
+      "read_ranges": [
+        [
+          590,
+          855
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-102"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-JOURNEY-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/travel_planning.rs",
+      "observed_sha256": "72e17030fb5f5e7f0337b78091c7ab5eddcac318c91f5a3ba7a246a3a7ba860b",
+      "read_ranges": [
+        [
+          255,
+          335
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-103"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-JOURNEY-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness.rs",
+      "observed_sha256": "ed20b1e997850b7b95cc52c88c55fad7855c2cf9c7a8e08ec3f610656517ee13",
+      "read_ranges": [
+        [
+          1,
+          511
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-104"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-HARNESS-004"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#native-command-observer-report-and-bot"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/movement_audio.rs",
+      "observed_sha256": "f5c454510c3069982a265c36de6013d01d6c00c12aff6c90c05b60ddcb610292",
+      "read_ranges": [
+        [
+          1,
+          370
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-105"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-PRESENTATION-AUDIO-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#procedural-presentation-ik-ragdoll-core-state"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog.rs",
+      "observed_sha256": "de7dd72013aa3af8ae0aae8691011a8aaa2d168db670188bcc1064cac9a23d18",
+      "read_ranges": [
+        [
+          490,
+          570
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-107"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-HARNESS-005"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#native-command-observer-report-and-bot"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation.rs",
+      "observed_sha256": "df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+      "read_ranges": [
+        [
+          660,
+          735
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-108"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-HARNESS-005"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#native-command-observer-report-and-bot"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+      "observed_sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+      "read_ranges": [
+        [
+          1,
+          142
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-109"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-IK-STATE-004"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#procedural-presentation-ik-ragdoll-core-state"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/capture_ids.rs",
+      "observed_sha256": "79611041d0a1bcee78aa63cf2241262e35d8850da9303a45d9627ba0b78bf8de",
+      "read_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-110"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-REPORT-MODEL-003"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#capture-report-and-p17-observation"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "report-p17:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+      "observed_sha256": "10ec37a1c4a64e581565d0eb9c297d396a34c1c9134a8d210de29cecb77e88ee",
+      "read_ranges": [
+        [
+          1,
+          147
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-112"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-IK-STATE-004",
+        "contracts.jsonl#NATIVE-OWNER-BOUNCY-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#procedural-presentation-ik-ragdoll-core-state",
+        "receiver-closure.json#capture-report-and-p17-observation"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/bouncy_bones.rs",
+      "observed_sha256": "14cc7dac87568e296696a1720be8620adc2c31b3451388d7e099e569d6608108",
+      "read_ranges": [
+        [
+          1,
+          471
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-113"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-BOUNCY-001"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#capture-report-and-p17-observation"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/rooms/sightlines.rs",
+      "observed_sha256": "3b246c9e91979cdd7f23a8527adef2df1dbe28bf14662cd1060b557d89c77324",
+      "read_ranges": [
+        [
+          1,
+          288
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-114"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-SCENE-SIBLINGS-004"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#scene-viewer-spec-producers-and-native-capture"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/environment.rs",
+      "observed_sha256": "913f58c174de72b8ad0b70160392437f294828f5fc3de6aeb7856771c5c1e1d9",
+      "read_ranges": [
+        [
+          1,
+          133
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-115"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-SPEC-PRODUCERS-005"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#scene-viewer-spec-producers-and-native-capture"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/landform.rs",
+      "observed_sha256": "39ff39cec45d94d185c1bac596accf4ef2fae16f917bb820110522fdd5876a9c",
+      "read_ranges": [
+        [
+          1,
+          84
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-116"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-SPEC-PRODUCERS-005"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#scene-viewer-spec-producers-and-native-capture"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/building_review.rs",
+      "observed_sha256": "183f14a949adfa0541e353577a85617dcdcc02a3b3a2aa373b727ba2fb3bb158",
+      "read_ranges": [
+        [
+          1,
+          677
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-117"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-SPEC-PRODUCERS-005"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#scene-viewer-spec-producers-and-native-capture"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/parish.rs",
+      "observed_sha256": "339e2d9cf79db85aa113576b820a43ccaa57d6f41046eff717ae3b87648bf99d",
+      "read_ranges": [
+        [
+          1,
+          312
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-118"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-SPEC-PRODUCERS-005"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#scene-viewer-spec-producers-and-native-capture"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/gable.rs",
+      "observed_sha256": "c06c6a2a44625d95f4179ea3a8ff362ce6bbc5d39db4adbf2f67b69f057b918d",
+      "read_ranges": [
+        [
+          1,
+          164
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-119"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-SPEC-PRODUCERS-005"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#scene-viewer-spec-producers-and-native-capture"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/heating.rs",
+      "observed_sha256": "3d4bcbe72d6cb1483399822f0ff4cc18aef6446b0b7efe38be75eb4ebe2497d3",
+      "read_ranges": [
+        [
+          1,
+          304
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-120"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-SPEC-PRODUCERS-005"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#scene-viewer-spec-producers-and-native-capture"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/facade.rs",
+      "observed_sha256": "a3ffee68cadb7373c2eab3a1b6df13f042b47bc33cf0177aba1fe4b7883928ad",
+      "read_ranges": [
+        [
+          1,
+          323
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-121"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-SPEC-PRODUCERS-005"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#scene-viewer-spec-producers-and-native-capture"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/compound.rs",
+      "observed_sha256": "418b8b501a48ca00cf36acd6e0db1a33f980ec90d01b5ce30e1dac82d062ef77",
+      "read_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-122"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-SPEC-PRODUCERS-005"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#scene-viewer-spec-producers-and-native-capture"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/garden.rs",
+      "observed_sha256": "0c939fe50254edf2c21b75afc2b9d464c12cde349a94d535c3f8a10f06edac06",
+      "read_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-123"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-SPEC-PRODUCERS-005"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#scene-viewer-spec-producers-and-native-capture"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/city.rs",
+      "observed_sha256": "15ee883d0bbf24bf353ef314307e2672e44d8d8142673b5d08da55f9f889548b",
+      "read_ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-124"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-SPEC-PRODUCERS-005"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#scene-viewer-spec-producers-and-native-capture"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/furniture.rs",
+      "observed_sha256": "c0f2743fb94e315015e7c9ec8d61e3a5de0d608846a3558fd9db294e4e5ec1c7",
+      "read_ranges": [
+        [
+          1,
+          94
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-125"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-SPEC-PRODUCERS-005"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#scene-viewer-spec-producers-and-native-capture"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_specs/interiors.rs",
+      "observed_sha256": "24552f7e7aa0805d62cae17823286990da18581de634a569fac255f8d6c342af",
+      "read_ranges": [
+        [
+          1,
+          83
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-126"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-SPEC-PRODUCERS-005"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#scene-viewer-spec-producers-and-native-capture"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/tests.rs",
+      "observed_sha256": "7cb3ba6a24f81afd052cf1c35d004918cfcf693f5e7c7655302b74a74cb731ba",
+      "read_ranges": [
+        [
+          1,
+          10
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-127"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-QUEST-FIXTURE-004"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/tests/testimony.rs",
+      "observed_sha256": "e79eddae99132e27031816672096c14b61289ed47b7da80e984a82c1c8e3877b",
+      "read_ranges": [
+        [
+          1,
+          713
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-128"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-QUEST-FIXTURE-004"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/tests/routes_and_evidence.rs",
+      "observed_sha256": "1e63a6243b28e6299494477083e5ed5bed233a8a73c76fafded2475553a0ce10",
+      "read_ranges": [
+        [
+          1,
+          581
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-129"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-QUEST-FIXTURE-004"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/tests/solver_and_generation.rs",
+      "observed_sha256": "ad5412d471d6177851e63bed5f4986db65b6d3ef02f3f604b0517a5fb3f60c9f",
+      "read_ranges": [
+        [
+          1,
+          603
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-130"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-QUEST-FIXTURE-004"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/tests/projection_and_limits.rs",
+      "observed_sha256": "8bb989bec981a22f6606c07380d29c36e09c7599dfb4183ac97014095c82ca6a",
+      "read_ranges": [
+        [
+          1,
+          407
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-131"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-QUEST-FIXTURE-004"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/tests/outbreak.rs",
+      "observed_sha256": "f71a35301c19050ae9f6cec34f321798d94fdf73554c6104b7c5af1d3f9281d3",
+      "read_ranges": [
+        [
+          1,
+          288
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-132"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-QUEST-FIXTURE-004"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/sky/mod.rs",
+      "observed_sha256": "98db3fe74b0ea6ed6df1900a31714f9462067510a09b1583c055fcdc354225b1",
+      "read_ranges": [
+        [
+          1,
+          827
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-133"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-CELESTIAL-002"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest",
+        "receiver-closure.json#scene-viewer-spec-producers-and-native-capture"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/sky/astrometry.rs",
+      "observed_sha256": "553895e6bbe39722c38999355c9d30c0c5bd72f3e5a702b2143d5826b749b6f2",
+      "read_ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-134"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-CELESTIAL-002"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest",
+        "receiver-closure.json#scene-viewer-spec-producers-and-native-capture"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_lighting.rs",
+      "observed_sha256": "14ccb04e74be7e9f7760d1f8b0e80da33903e4d381e2109def952436a0c18f57",
+      "read_ranges": [
+        [
+          1,
+          143
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-135"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-CELESTIAL-002"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest",
+        "receiver-closure.json#scene-viewer-spec-producers-and-native-capture"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_sky_viewer/configuration.rs",
+      "observed_sha256": "2ab68ac424a1330be6d25120eafe310737c3379a7e0be402a06f24c097c8fef0",
+      "read_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-136"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-CELESTIAL-002"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest",
+        "receiver-closure.json#scene-viewer-spec-producers-and-native-capture"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_sky_viewer.rs",
+      "observed_sha256": "cbb6ea6fc7bcecaff9f470a543695ac8757ae4fc43485dc74761262b147ed1e4",
+      "read_ranges": [
+        [
+          1,
+          787
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-137"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-CELESTIAL-002"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest",
+        "receiver-closure.json#scene-viewer-spec-producers-and-native-capture"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:assets/shaders/tactical_moon.wgsl",
+      "observed_sha256": "69d07afb5411b9aab80510259c6f30c47d2f6a6f27a07e96b09276dc3fb7639a",
+      "read_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-138"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-CELESTIAL-002"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest",
+        "receiver-closure.json#scene-viewer-spec-producers-and-native-capture"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:assets/shaders/tactical_stars.wgsl",
+      "observed_sha256": "929fdce1cb1b288bcc885f481a2fd64d20f60dc513e16ebd534b84d700e7ca98",
+      "read_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-139"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-CELESTIAL-002"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest",
+        "receiver-closure.json#scene-viewer-spec-producers-and-native-capture"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/clouds.rs",
+      "observed_sha256": "ed0d069d3ad4096d18a89716b34158f0db25d84009ea752a90e7beb367de52c4",
+      "read_ranges": [
+        [
+          1,
+          1692
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-140"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-CLOUD-003"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest",
+        "receiver-closure.json#scene-viewer-spec-producers-and-native-capture"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/clouds/noise.rs",
+      "observed_sha256": "be3ebae3349fed391089881f331e4d441b3028d0f2b882bc7b80b9020e51c6fc",
+      "read_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-141"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-CLOUD-003"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest",
+        "receiver-closure.json#scene-viewer-spec-producers-and-native-capture"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/clouds/streams.rs",
+      "observed_sha256": "2331da03edfee132b8f78ada82f67e4f5e56f8f4845fccd28a54fea442641428",
+      "read_ranges": [
+        [
+          1,
+          13
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-142"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-CLOUD-003"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest",
+        "receiver-closure.json#scene-viewer-spec-producers-and-native-capture"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:assets/shaders/tactical_clouds.wgsl",
+      "observed_sha256": "a04c3a457fc4e9bdf80cb0bb2eca4eb2364d8d3b5233f9942c740594b3084e66",
+      "read_ranges": [
+        [
+          1,
+          177
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-143"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-CLOUD-003"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest",
+        "receiver-closure.json#scene-viewer-spec-producers-and-native-capture"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:assets/shaders/tactical_cloud_composite.wgsl",
+      "observed_sha256": "bc687e4b087232f3d4cea9b9f05393ece9f197db7269d1df1467ea686a8730d4",
+      "read_ranges": [
+        [
+          1,
+          20
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-144"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-CLOUD-003"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest",
+        "receiver-closure.json#scene-viewer-spec-producers-and-native-capture"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/environment.rs",
+      "observed_sha256": "b6c219d19f45e18cf058bfa3ec4a06e826e50c2ae83d122e8d421f418dc31dbc",
+      "read_ranges": [
+        [
+          1,
+          577
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-145"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-ENVIRONMENT-004"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest",
+        "receiver-closure.json#scene-viewer-spec-producers-and-native-capture"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/procedural.rs",
+      "observed_sha256": "9374a31dd00faa7d347212451bf0f2ff87b5b97246e068ec2db7894cc021b695",
+      "read_ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-146"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-ENVIRONMENT-004"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest",
+        "receiver-closure.json#scene-viewer-spec-producers-and-native-capture"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/weather.rs",
+      "observed_sha256": "840dfc691065cd3c90f2f8bc9db2630ece62cc61ed5a2793e802ed3739d2b88e",
+      "read_ranges": [
+        [
+          1,
+          402
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-147"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-ENVIRONMENT-004"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest",
+        "receiver-closure.json#scene-viewer-spec-producers-and-native-capture"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:assets/shaders/tactical_weather.wgsl",
+      "observed_sha256": "5c0a4dc16844e0840b502186ec82a5b7b8398061d2fd4d68226c8bffebd47636",
+      "read_ranges": [
+        [
+          1,
+          317
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-148"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-ENVIRONMENT-004"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest",
+        "receiver-closure.json#scene-viewer-spec-producers-and-native-capture"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/developer_quest.rs",
+      "observed_sha256": "c81518557455da223c56b59f0003647eac72633ee5d4e681786aad20fa31de78",
+      "read_ranges": [
+        [
+          1,
+          114
+        ],
+        [
+          270,
+          554
+        ],
+        [
+          1018,
+          1783
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-149"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-DEVELOPER-QUEST-005"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates.rs",
+      "observed_sha256": "1aae0147a71b5bf6e93b486a289dc31681517aef7b8638f8307bc221a3accab1",
+      "read_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-150"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-CELESTIAL-FRAME-005"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest",
+        "receiver-closure.json#scene-viewer-spec-producers-and-native-capture"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_coordinates/spatial.rs",
+      "observed_sha256": "aab7cbd205fd372d7542412ed9898345ccc87e83c548b9988a46424d4b88c2af",
+      "read_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-151"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-CELESTIAL-FRAME-005"
+      ],
+      "current_receiving_closure_refs": [
+        "receiver-closure.json#material-action-rights-clinical-case-quest",
+        "receiver-closure.json#scene-viewer-spec-producers-and-native-capture"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_presence.rs",
+      "observed_sha256": "2eeea5c9831e10b7c5d51d0d3f61b0093ce8c682bd0994d2c94de50aa3354a52",
+      "read_ranges": [
+        [
+          1,
+          662
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-152"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-ROOT-DEPENDENCIES-008"
+      ],
+      "current_receiving_closure_refs": [
+        "root-dependency-closure-index.json#NATIVE-OWNER-ROOT-DEPENDENCIES-008"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/player/attack_timing.rs",
+      "observed_sha256": "b12efd1cc517a4644ee8742fcde084e4fec7ecf93bf35234fd1d7ba0b3ffaf31",
+      "read_ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-153"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-ROOT-SUPPORT-DEPENDENCIES-009"
+      ],
+      "current_receiving_closure_refs": [
+        "root-support-dependency-closure-index.json#NATIVE-OWNER-ROOT-SUPPORT-DEPENDENCIES-009"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/bounds.rs",
+      "observed_sha256": "7760db42bc6a6c39f285ff6b2fdacbf6ff98b481d2385630e6bfbbb56a18a786",
+      "read_ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-154"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-ROOT-SUPPORT-DEPENDENCIES-009"
+      ],
+      "current_receiving_closure_refs": [
+        "root-support-dependency-closure-index.json#NATIVE-OWNER-ROOT-SUPPORT-DEPENDENCIES-009"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/planar/query.rs",
+      "observed_sha256": "6876c759c1e7a12a44cce57a8c372f1f7dcb4f926b9edc6e1486fc341a489cf6",
+      "read_ranges": [
+        [
+          1,
+          156
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-155"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-ROOT-SUPPORT-DEPENDENCIES-009"
+      ],
+      "current_receiving_closure_refs": [
+        "root-support-dependency-closure-index.json#NATIVE-OWNER-ROOT-SUPPORT-DEPENDENCIES-009"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/ground.rs",
+      "observed_sha256": "54559503a139270a829c73a46cb1ba81b69ada99dc3827350e16b575c4139d8a",
+      "read_ranges": [
+        [
+          1,
+          182
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-156"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-ROOT-SUPPORT-DEPENDENCIES-009"
+      ],
+      "current_receiving_closure_refs": [
+        "root-support-dependency-closure-index.json#NATIVE-OWNER-ROOT-SUPPORT-DEPENDENCIES-009"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_ground.rs",
+      "observed_sha256": "326752c9f0ad95c8f898c8ad0d106eae2395e3a89ec135922c6fd7da8d860622",
+      "read_ranges": [
+        [
+          1,
+          88
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-157"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-ROOT-SUPPORT-DEPENDENCIES-009"
+      ],
+      "current_receiving_closure_refs": [
+        "root-support-dependency-closure-index.json#NATIVE-OWNER-ROOT-SUPPORT-DEPENDENCIES-009"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/streets/traffic.rs",
+      "observed_sha256": "3195a4f45a963f88a33777e7b530ca7f8804383461ac655219685b184c2f428f",
+      "read_ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-158"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-ROOT-SUPPORT-DEPENDENCIES-009"
+      ],
+      "current_receiving_closure_refs": [
+        "root-support-dependency-closure-index.json#NATIVE-OWNER-ROOT-SUPPORT-DEPENDENCIES-009"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/settlement/query/prepared.rs",
+      "observed_sha256": "33ddca39e36f0f095f87736f1200a55a65bc0fc7d99ed0a0f92494bc92f4b985",
+      "read_ranges": [
+        [
+          1,
+          83
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-159"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-ROOT-SUPPORT-DEPENDENCIES-009"
+      ],
+      "current_receiving_closure_refs": [
+        "root-support-dependency-closure-index.json#NATIVE-OWNER-ROOT-SUPPORT-DEPENDENCIES-009"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/transport.rs",
+      "observed_sha256": "09a9c25e0a7dafb032f9ea8aff1047088315596a4ffc23bcda809a40bd5574e8",
+      "read_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-160"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-ROOT-SUPPORT-DEPENDENCIES-009"
+      ],
+      "current_receiving_closure_refs": [
+        "root-support-dependency-closure-index.json#NATIVE-OWNER-ROOT-SUPPORT-DEPENDENCIES-009"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/transport/tests.rs",
+      "observed_sha256": "f1626212844a10fa14c660515f8ee6d36ce40b28dbd366ce85dac26e3db59243",
+      "read_ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-161"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-ROOT-SUPPORT-DEPENDENCIES-009"
+      ],
+      "current_receiving_closure_refs": [
+        "root-support-dependency-closure-index.json#NATIVE-OWNER-ROOT-SUPPORT-DEPENDENCIES-009"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/tests/foundations.rs",
+      "observed_sha256": "762d2f4653a5a2a9fa96d5d8b05a19c375ca9da47e942dd926eee70ea8a82dda",
+      "read_ranges": [
+        [
+          1,
+          289
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-162"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-ROOT-SUPPORT-DEPENDENCIES-009"
+      ],
+      "current_receiving_closure_refs": [
+        "root-support-dependency-closure-index.json#NATIVE-OWNER-ROOT-SUPPORT-DEPENDENCIES-009"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/tests/enclosures.rs",
+      "observed_sha256": "60f9d4a520e0e0be95bad429934bd1f982284d099f5da8fd1cd8222b0ffdfa93",
+      "read_ranges": [
+        [
+          1,
+          309
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-163"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-ROOT-SUPPORT-DEPENDENCIES-009"
+      ],
+      "current_receiving_closure_refs": [
+        "root-support-dependency-closure-index.json#NATIVE-OWNER-ROOT-SUPPORT-DEPENDENCIES-009"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/tests/grounding_contracts.rs",
+      "observed_sha256": "86099f8185a2046b811d7a1e14be6334d00f4b0eff889c3eb4e7bcda8e59a6a8",
+      "read_ranges": [
+        [
+          1,
+          514
+        ]
+      ],
+      "range_ids": [
+        "native-owner-additional-164"
+      ],
+      "owner_use_matrix_refs": [
+        "contracts.jsonl#NATIVE-OWNER-ROOT-SUPPORT-DEPENDENCIES-009"
+      ],
+      "current_receiving_closure_refs": [
+        "root-support-dependency-closure-index.json#NATIVE-OWNER-ROOT-SUPPORT-DEPENDENCIES-009"
+      ],
+      "inventory_status": "accounted-current-lens-scoped-ranges",
+      "coverage_extent": "Only union of exact observed ranges, with disjoint gaps left unread; same path other variant/hash independent. No whole-file inventory claim added by range union."
+    }
+  ],
+  "historical_queue_notes": [
+    {
+      "historical_proof_row": 1,
+      "source_id": "pr-working:crates/adventuresim-core/src/unit_interval.rs",
+      "observed_sha256": "268891d7d5556895ace4c6ce33b14953e35d5973bfce9b042e4b9d2dbc721a86",
+      "original_status": "queued",
+      "status": "historical queue note superseded for the actually reached ranges",
+      "current_range_ids": [
+        "native-owner-additional-005"
+      ],
+      "limit": "This navigation note had no read ranges and grants no source coverage; actual later proof ranges and owner/receiving closure are explicit."
+    },
+    {
+      "historical_proof_row": 2,
+      "source_id": "pr-working:crates/adventuresim-core/src/activity.rs",
+      "observed_sha256": "d8ee276214a67b09ca6571d03b1adce2dc200e6201284a9a8e25b6053aa72a15",
+      "original_status": "queued",
+      "status": "historical queue note superseded for the actually reached ranges",
+      "current_range_ids": [
+        "native-owner-additional-006"
+      ],
+      "limit": "This navigation note had no read ranges and grants no source coverage; actual later proof ranges and owner/receiving closure are explicit."
+    },
+    {
+      "historical_proof_row": 3,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/incidents.rs",
+      "observed_sha256": "9358dd5b0a17f5f01f321c614d3c3309139134a24febfb634a9e6fa19eb0d622",
+      "original_status": "queued",
+      "status": "historical queue note superseded for the actually reached ranges",
+      "current_range_ids": [
+        "native-owner-additional-007"
+      ],
+      "limit": "This navigation note had no read ranges and grants no source coverage; actual later proof ranges and owner/receiving closure are explicit."
+    },
+    {
+      "historical_proof_row": 4,
+      "source_id": "pr-working:crates/adventuresim-core/src/morale.rs",
+      "observed_sha256": "f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+      "original_status": "queued exact required functions",
+      "status": "historical queue note superseded for the actually reached ranges",
+      "current_range_ids": [
+        "native-owner-additional-008",
+        "native-owner-additional-029",
+        "native-owner-additional-064"
+      ],
+      "limit": "This navigation note had no read ranges and grants no source coverage; actual later proof ranges and owner/receiving closure are explicit."
+    },
+    {
+      "historical_proof_row": 9,
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_schedule/allocation.rs",
+      "observed_sha256": "031ee090102b5cc2ed9889b336ac1144ef7eb705cacc6fee37cbe8e7f6bafd0e",
+      "original_status": "queued",
+      "status": "historical queue note superseded for the actually reached ranges",
+      "current_range_ids": [
+        "native-owner-additional-014"
+      ],
+      "limit": "This navigation note had no read ranges and grants no source coverage; actual later proof ranges and owner/receiving closure are explicit."
+    },
+    {
+      "historical_proof_row": 10,
+      "source_id": "pr-working:crates/adventuresim-core/src/courtship.rs",
+      "observed_sha256": "df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45",
+      "original_status": "queued exactdefinition/use operations",
+      "status": "historical queue note superseded for the actually reached ranges",
+      "current_range_ids": [
+        "native-owner-additional-015"
+      ],
+      "limit": "This navigation note had no read ranges and grants no source coverage; actual later proof ranges and owner/receiving closure are explicit."
+    }
+  ],
+  "new_support_extension_range_ids": [
+    "native-owner-additional-153",
+    "native-owner-additional-154",
+    "native-owner-additional-155",
+    "native-owner-additional-156",
+    "native-owner-additional-157",
+    "native-owner-additional-158",
+    "native-owner-additional-159",
+    "native-owner-additional-160",
+    "native-owner-additional-161",
+    "native-owner-additional-162",
+    "native-owner-additional-163",
+    "native-owner-additional-164"
+  ],
+  "support_extensions_count": 12,
+  "current_receiver_artifacts": {
+    "receiver-closure.json": "4c2300c1f6e1610a9f2eda47f1816cadb024c358ec1009974eead03bbfef74da",
+    "root-dependency-closure-index.json": "bc533e705fc152250c5332c134bea53d7bda8a16294437b5e071c11d0f94a3c3",
+    "root-support-dependency-closure-index.json": "9e8e06cbff0687352c786cff4fe1f51f7eff7adcc45046ce2be17268f6c1f819",
+    "camera-receiver-proof-index.json": "896394b068609b13f182466b8a8f9ad68d4bc3de93323197496d00f89a987344",
+    "native-framework-port.json": "5d3fb89bd0a61079e05bb8c232474c81ed9d39ade41a4d45283f04307d765b28",
+    "sdk-output-port.json": "682c9dcabbbdea4d81494b3533dd0b5f52e6058faf0d77db0606f226c77314aa",
+    "character-range-correspondence.json": "711759bff8b83c4769ce89f4ec194672185ab1e4f289bd43f1f90707b0ec1627",
+    "native-dependency-path-index.json": "3579127874e6c43a4ded2f6b7b5cc1f1ad6fef7a2c3d9307e903ab321696a080"
+  },
+  "unresolved_matrix_or_receiving_links": [],
+  "actually_unread_material_contract_ranges": [],
+  "first_unfinished_material_cell": null,
+  "producer_supplement_contract": "Each source_id+observed_sha256+exact read_ranges may enter later scope as its bounded current owner proof. Only these ranges are inventoried; paths absent or unobserved holes are not coverage. Existing337 assigned evidence remains unchanged. Include all12 new support extensions, pinned foreign callbacks and math unit definitions at exact scopes, not whole package/function families from imports.",
+  "findings_policy": "All35 latest native findings and referenced root/camera/rig source-backed policy/missingowner/frame/precision/cause gaps remain actionable. F034/F035 latest qualification preserved. P16/P17 source/integration unfinished; all13 initial inventories still gate fixes.",
+  "preservation": "Metadata-only closure, no new source reading/audit, source/Git/claims/assignedcoverage mutations, project commands, tests/assertions/helpers/probes or nextlens. Native own337 evidence stands.",
+  "proof_metadata_corrections": {
+    "ref": "contracts.jsonl#NATIVE-OWNER-PROOF-METADATA-014",
+    "character": "Frozen PR fingerprint corrected from historical Git6533 to806a50bc…; exact435–572 byte correspondence and actual current range reread recorded; no wholefile equivalence.",
+    "foreign_paths": "13 missing absolute dependency paths normalized by exact recorded SHA; timestamp existing14th path independently hash-verified.",
+    "historical_evidence": "Original mislabeled character record retained as historical_read and git-commit source identity; existing scopes/findings retained.",
+    "counts_unchanged": {
+      "source_rows": 164,
+      "actual_range_rows": 158,
+      "source_fingerprints": 144,
+      "foreign_fingerprints": 14,
+      "support_extensions": 12
+    },
+    "scope": "Only character exact-range source attribution,13 missing native paths plus timestamp verification, and dependent current metadata fingerprints updated; no source/range/owner inventory expansion."
+  }
+}

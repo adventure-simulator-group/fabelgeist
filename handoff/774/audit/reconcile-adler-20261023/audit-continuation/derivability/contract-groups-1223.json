@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1223",
+  "at": "2026-10-25T18:10:53.930804+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1295,
+  "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/tests/travel.rs",
+  "sha256": "326a11e035cf162c0e62df1b3c5e6dedeb0df33f7186237238c1a40e2441eeb4",
+  "actual_compared_ranges": [
+    [
+      341,
+      680
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Only native/source travel fixture functions. Exact public post-rest interval/terminal/encounter/coherent camp/provision diagnostics and current actor/continuation assertions; no handwritten trait/custom codec/type. Source-text matching not production coverage or passing-test proof; data defaults/clones are existing derives. No tests run.",
+  "first_unfinished": {
+    "scope_index": 1295,
+    "line": 681
+  },
+  "execution": "none"
+}

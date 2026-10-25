@@ -1,0 +1,149 @@
+{
+  "family": "P06",
+  "head": "8f2b901881f8aa8035a03cd99dbfefb7bbdf8926",
+  "includes_uncommitted_and_untracked": false,
+  "recorded_at": "2026-10-21T05:59:19.487078+00:00",
+  "implementation_status": "REOPENED: gate-datum/batch consumer path and existing litter fixture require connected repair; no new hosted request.",
+  "trace_verification_status": "Focused Code/Rule/producer receiver review completed for the P06 support-query family and its connected vista/stair/raster/callback consumers. This is implementation-agent source review, not independent review or clearance of all PR canaries. Source-backed groups below and prior unchanged receiver evidence establish this limited conclusion.",
+  "validation_status": "8f2b exact-head passes formatting, generated bindings, schema/GPU, guards, semantic/growth and calendar; Wasm lint active. Native lint,41 selected groups/3 extra logs/16 Creator vectors,artifacts and official relevant reductions remain pending. No acceptance.",
+  "owners": [
+    {
+      "owner": "city_layout/grounding.rs::SupportElevation",
+      "invariant": "Finite absolute support elevation in scene metres; the leaf does not alone establish physical authority or sample provenance."
+    },
+    {
+      "owner": "scene_coordinates.rs::ScenePlanPoint",
+      "invariant": "Finite scene east/north point, not an architectural or geographic-degrees coordinate."
+    },
+    {
+      "owner": "scene_coordinates.rs::PlanDisplacement",
+      "invariant": "Finite east/north displacement. LOD origin remains with VistaLod; local offsets are not relabelled as absolute scene points."
+    },
+    {
+      "owner": "spatial_geometry::Elevation<Scene> and SignedLength",
+      "invariant": "Absolute ankle/shelter datums remain distinct from signed clearance or height differences."
+    },
+    {
+      "owner": "spatial_geometry::Position<Scene> and Displacement<Scene>",
+      "invariant": "Finite scene point and finite spatial displacement; native arrays/vectors remain at concrete math/framework adapters."
+    },
+    {
+      "owner": "bevy::math::Dir3",
+      "invariant": "Finite normalized normal; pinned constructor and old consumer normalization arithmetic differ and must remain explicit."
+    }
+  ],
+  "path_groups": [
+    {
+      "path": "SceneTerrain sampled/owned query -> SupportElevation -> IK/settle/toe/flight/ragdoll callbacks",
+      "status": "Source trace: scene/queries.rs::height_at/coarse_height_at -> SurfaceHit.elevation -> typed run_reach, settle, observation and flight_projection callbacks -> foot_clearance.rs native ankle/sole/toe sum, max, vector y correction and clearance predicates. Ragdoll drive retains support callbacks and reduces penetration before SignedLength admission. Previous focused receiving-body evidence remains applicable; root IK source was not expanded in this increment."
+    },
+    {
+      "path": "SceneTerrain query -> refinement/gardens/furniture/scatter/spawn/weather/capture",
+      "status": "Source trace: scene.rs::refined/rewrite_heights callbacks retain SupportElevation; refinement.rs five probes feed the completed gradient/concavity math. Garden support and furniture placement keep typed support until complete point/offset or local scalar reduction. Server scene_obstacles/player spawn retain checked Position<Scene> before commands. CaptureGround/admission and TerrainSummary keep checked datums; diagnostic clearances are newly calculated measurements, assigned broader report contracts remain P17."
+    },
+    {
+      "path": "GlobalTransform -> checked Position<Scene> -> movement audio helpers -> native proximity/seed bit framing/Transform",
+      "status": "Published connected repair in20797fac0; focused receiver trace in P06-hosted-807a-ground-consumer-source-review.json. Exact native exits preserve position bits/RNG framing."
+    },
+    {
+      "path": "native listener Transform -> ScenePlanPoint -> ground query; saturated UnitBasisPoints -> rain_mix",
+      "status": "Published repair and typed gain-helper parameter; final gain arithmetic is concrete native endpoint. UnitBasisPoints unchecked Serde/DB routes are not newly claimed admitted."
+    },
+    {
+      "path": "native ground pixel grid -> ScenePlanPoint -> urban lookup -> GeometryResult through masks/materials/plants/grass",
+      "status": "Published repair. Required invalid coordinates cannot select the natural no-overlay fallback. See focused source report for callers and explicit aggregate-admission limits."
+    },
+    {
+      "path": "ScenePlanPoint -> shared vista query wrappers -> SupportElevation -> furniture/inspection/backdrop/trees",
+      "status": "Implemented and traced: core vista_surface.rs public height APIs take ScenePlanPoint/PlanDisplacement and return SupportElevation. PlacementGround, InspectionSource, StrategicBackdrop, ActiveVistaSurface and tree_root_height retain the returned owner; no same-value re-admission. Core source/presented.rs and dispatcher footprint/vista.rs extract at actual Vec3 triangle encoding; compare-city-terrain uses the existing checked floor directly."
+    },
+    {
+      "path": "LOD local offset -> complete native five-probe interpolation -> VistaVertexGeometry elevation and typed tangents -> native normalization/mesh or support",
+      "status": "Implemented and reviewed: VistaVertexGeometry admits final elevation and finite Displacement<Scene> finite-difference tangents together. natural.rs uses the same cross-product and reciprocal-multiply normalization on successful values; ground.rs uses the same Dir3 division normalization; grass.rs retains normalize_or_zero. Native invalid coarse/probe heights are not prematurely classified absent. Malformed grid shape/spacing/origin rejects before indexing; environmental-column admission remains a mesh/pigment responsibility."
+    },
+    {
+      "path": "required mesh/colour -> VistaMeshError -> generation/focused preparation -> publication",
+      "status": "Implemented and traced: VistaMeshResult -> focused GroundMeshes/VistaChunks or generation PreparationError (including Wasm code arm). PreparedVistaLod completes visible ring meshes before active-surface replacement/despawn/assets. PreparedBackdrop completes its mesh cohort before strategic root/component publication; the existing outer location teardown still precedes prepare and is not claimed transactional. Paving upload retains a shared Arc<GeographicGroundError> through BevyError rather than string formatting. All discovered factory callers, including the ignored pigment acceptance fixture, were adapted."
+    },
+    {
+      "path": "CompoundSupportLevels -> CourtStair -> main_height -> PropertySupportMesh -> inspection serialization",
+      "status": "Implemented and reviewed: core-owned SupportStairFlight uses ScenePlanPoint and SupportElevation instead of the architectural AccessStairFlight recipe. CourtStair retains checked floor, width, landing and endpoint leaves; riser count is NonZeroU16. Landing returns its existing elevation; tread arithmetic admits only its completed result. Some(Err) preserves covered-but-invalid selection so main_height does not choose the court fallback. Mesh/grid profile_height and world carry SupportElevation until Vec3 encoding. Existing serialized field names/numeric representations remain; the scene flight is not an architectural alias."
+    },
+    {
+      "path": "Foundation floor-shift solver -> selected elevations and affine probe -> compiled support",
+      "status": "Implemented and reviewed: constraints.rs keeps native f64 interval/intersection math, admits the selected f32 shift as SignedLength and propagates it through bounded_floor_shift/selection. SupportElevation::translated checks completed sums. Affine probe mutates only a disposable clone with checked elevations; CourtStair validates all three replacements before mutating. Original f32 add order is retained and invalid results reject instead of publishing invalid checked state."
+    },
+    {
+      "path": "native settlement fixture and typed authored-threat bootstrap consumer",
+      "status": "Connected repair reviewed in P06-hosted-f817-consumer-source-review.json. Existing failure diagnostics and public caller retained; no new tests or cases."
+    }
+  ],
+  "primitive_exit_evidence": [
+    {
+      "exit": "Core vista private bilinear/LOD/seam/barycentric f32 coefficients",
+      "receiver": "Fresh receiving-body check on 3ef06860d in P06-interpolation-receiver-recheck.json: native bilinear row-major sampling, actual own/coarse LOD lerp, playable seam lerp and final u/v barycentric formulas form the compound calculation. Raw intermediates do not enter application storage; public results are admitted after completion. Private visibility alone is not the justification."
+    },
+    {
+      "exit": "VistaVertexGeometry::east_tangent/north_tangent",
+      "receiver": "Getter returns checked Displacement<Scene>; metres is extracted only for the real cross product/normalization. This typed-to-typed getter itself preserves guarantees."
+    },
+    {
+      "exit": "render vertex arrays, pixel encodings, seed context words and framework Transform",
+      "receiver": "Concrete Bevy image/mesh/Transform and deterministic byte-framing adapters recorded in focused reports."
+    }
+  ],
+  "known_unfinished": [
+    "Exact-head hosted compilation/formatting/lint, relevant official baseline reductions, all 41 required nonempty groups plus three additional core/startup logs and sixteen Creator command vectors.",
+    "Calibrated/native renderer verdict and frozen-manifest/offline ignored acceptance cases remain unavailable; passing CI does not discharge them.",
+    "P08-P20 remain unfinished. Earlier P01/P02/P03/P04/P05/P07 acceptance is historical at 82cb2, not fresh expanded-lens coverage. No PR-wide or whole-codebase all-clear is claimed."
+  ],
+  "related_records": [
+    "P06-vista-source-completion-plan.json",
+    "P06-getter-receiver-followthrough.json",
+    "P06-hosted-807a-ground-consumer-source-review.json",
+    "P06-source-code-rule-review.json",
+    "P06-hosted-f817-consumer-repair-plan.json",
+    "P06-hosted-f817-consumer-source-review.json",
+    "P06-hosted-f817-workflow-preservation.json",
+    "P06-hosted-3a9b-platform-owner-repair-plan.json",
+    "P06-platform-owner-source-review.json",
+    "P06-platform-owner-preservation.json",
+    "P06-interpolation-receiver-recheck.json",
+    "P06-hosted-3ef0-growth-repair-plan.json",
+    "P06-growth-extraction-preservation.json",
+    "P06-growth-extraction-source-review.json",
+    "P06-hosted-5959-format-repair.json",
+    "P06-hosted-5959-source-fixture-adaptation.json",
+    "P06-hosted-b359-baseline-cleanup.json"
+  ],
+  "limits": [
+    "Not a new full audit wave, independent review or family completion verdict.",
+    "No local build/check/test/formatter/scanner/runtime/parser commands; no agents, new tests, DB/schema/generated binding work or merge.",
+    "All twenty original exits remain. P08-P20 are not started; P06 is unaccepted."
+  ],
+  "expanded_lens_sha256": "3fbd9e2a8be2520de1f0935b9953702e7d1ef0c88937744c7ad16ebd52ee4145",
+  "behavior_notes": {
+    "normalization": "Pinned Bevy 0.19.1/glam 0.33.6 source read only: Dir3 divides by length; successful Vec3 try_normalize uses the same reciprocal multiplication as prior normalize. Optional grass retains normalize_or_zero. Degenerate/nonfinite required normals now reject.",
+    "signed_zero": "Original grass centre used local + Vec2::ZERO while mesh/rock centre used local directly. For admitted sampled grids width/depth >=2, bilinear grid coordinates add positive half-grid extents >=0.5, eliminating any difference in a signed zero before sampling/fraction arithmetic. Seam outside-distance uses abs/max; sampled SceneTerrain adds its positive half extent. Owned grass bypasses this aggregate. No valid height/normal/mesh/seed output difference follows from that centre-expression difference. Native normal-probe offset order and f32 interpolation formulas are otherwise preserved.",
+    "offset_origins": "LOD scene_point/local_offset preserve old addition/subtraction and f64-to-f32 order. Existing 500/500 inspection and 125/-275 pigment fixtures are preserved. ActiveVistaSurface retains its previous numeric seam policy; this change does not silently correct the old offset-ring interpretation.",
+    "invalid_coarse": "Nonfinite coarse native samples remain Some until the completed interpolation is rejected. Malformed coarse metadata is distinct from exterior missing samples and is rejected before fallback/indexing."
+  },
+  "ownership_limits": [
+    "#768 explicitly excludes grounding/compiled support ownership. Only the connected grounding support path was changed; no packing, graph, residence, solver-budget or building-generator access implementation was imported.",
+    "Serialized/native row-major height buffers remain at their actual SceneTerrain/VistaLod grid owners. This does not claim every city/LOD schema field, frame aggregate or producer admitted by Serde/reflection has migrated.",
+    "Newly calculated native Vec3 geometry enters the planned P08 position/camera scope or actual mesh/Transform endpoints; no original P08 exit is dropped. P06 completion is limited to support elevations/queries and directly affected datums."
+  ],
+  "publication": "Committed/pushed 8f2b901881f8aa8035a03cd99dbfefb7bbdf8926; worktree clean, main3a50 remains an ancestor.",
+  "format_only_followthrough": "271aaad01 source reviewed, with exact hosted formatting in b2d0193e3; no behavior change.",
+  "stair_projection_followthrough": "P06-hosted-b2d0-growth-repair.json",
+  "material_guard_followthrough": "P06-hosted-350c-material-guard-repair.json",
+  "native_caller_followthrough": "P06-hosted-66d90-caller-repair-source-review.json",
+  "native_caller_formatting": "P06-hosted-b1ac-format-repair.json",
+  "latest_error_followthrough": "P02-authored-sidearm-evidence-source-review.json",
+  "main_integration": "P06-main-3a50-integration-source-review.json",
+  "latest_formatting": "P06-hosted-64ca-format-repair.json",
+  "model_ownership_repair": "P06-hosted-a0b1-model-ownership-preservation.json",
+  "source_reopen_plan": "P06-8f2b-connected-source-reopen-plan.json",
+  "record_kind": "Historical source trace pinned to its recorded head; family status is authoritative in execution-ledger.json",
+  "current_status_record": "execution-ledger.json"
+}

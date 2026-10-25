@@ -1,0 +1,90 @@
+{
+  "id": "NATIVE-CAMERA-SUPPORT03-CONTRACTS-053",
+  "authority": "ROOT-ADM-SUPPORT-AUTHORITY-054",
+  "lens": "audit-admission-contracts",
+  "groups": {
+    "pr-strategic-capability-raw-rows-and-private-derived-equipment": {
+      "camera_indices": [
+        492
+      ],
+      "ranges": {
+        "492": [
+          [
+            1,
+            694
+          ]
+        ]
+      },
+      "invariant": "CharacterCapability is public derived persistent strategic summary, not a finite checked token or tactical tick state; private equipment projection is constructed from current strategic inventory/equipment.",
+      "all_admission_routes": [
+        "Public table26–50 rawu64/bools/floats including0 defaults, From<CharacterCapabilities>52 copies rawskills/capabilities and initializes combatpower0, no aggregatevalidate/checkedSerde. evaluate77–114 requires actual attribute/skill/limb/stat rows, diseaseeffectiveattributes then StrategicEquipmentload then pureevaluate, not independentfinite/senderauthorization gate.",
+        "refresh116–166 builds capability+combatant before update, optional strategiccondition absent maps0, writes only changed PartialEq summary; physiology band round/clamp/as-u8 updates presence before/after DBupdate ifbandchanged. NaN row would compare unequal and refresh repeatedly, no actualNaNproducer claimed. Public refresh reducer accepts rawcharacterID and delegates without localgateway check; intendedderivedrefresh policy separate from mutationauthority.",
+        "PlayerBody/Essentials/Attributes/Skills168–253 projectrawrow values; bodyweightfixed70/rightdominant; skillreligionmaximum/bestiaryaggregate not finiteadmission. StrategicEquipmentprivatefields255–276 allretention only load. Actualhands fixedtwo, position() fromsamearray provesindexsafe. FirstWeapon/Shield/Melee/Ranged bykind flags/order; instancegeometryactualhelper Option missing forknownparametricdesign panics341–346.",
+        "Ammunition366–380 sums rawu32arrowquantities acrossnonfireplaceownedrows withoutchecked/widenedaggregate bound; eachrowquantitypolicy remains actual DBdefinition/writer dependency, no universal aggregate<=u32 guarantee. Body7/limb4arrays use exhaustiveenum index; peripheral4explicitmatch. Armor/currentwearables/masshelpers called, not lowerwholebody credit.",
+        "OperationalCustody::character(character_id).expect419 requiresnonzero loweridentity; rawcallercharacterIDu64 notsealed here. WaterqueryErr deliberately maps+Inf burden423 (failclosedburdenpolicy), dry+waterweight rawfloat not finitecheckedowner. Weatherproof sum saturatingu32/7/min10000→u16 withclothingrawaggregate.",
+        "combat_equipment479–536 retains rawarmor/material/coverage, Nonecoverage→Default; map/transposes typed AnimationElapsed errors fromweaponprojection. SideabsenceRight/default/unarmedvalues intentional. Methods560–629 rawprojection/access only, no mutation/validation.",
+        "All tests631–694 freshsource-read; authoredgeometry/perinstance preservesmass/inertia/precision andcontainerwaterburden, notexecuted."
+      ],
+      "counterexample_or_intentional_evidence": [
+        "Successful capabilityevaluate is not proof allpersistedstats/hours finite; publictableliteral remainsbroader. Some invalidcontainerwater mapsInfinity intentionally, so a universalfinite inventoryweight replacement would change currentpolicy.",
+        "Raw arrowquantityaggregate can exceedu32 givenmultiple all-u32rows, causing debugoverflow/releasewrap unless actual DBwriter establishesstronger aggregate bound. Lowerrow/writer declaration495/actualcontainer535heldRig remains explicit; do not assert actual corrupt row or new independent defect beforefit."
+      ],
+      "connected_repair": "Carry checked semantic summaries/leaves through strategic derivation and native projections; explicit fallible aggregation/missingphysicalrecipe/identity handling under existing Root/Camera wholefunctionclaims. Preserve strategic/tactical authority boundary and one encumbrance contribution.",
+      "dependencies": [
+        "Actual armor/mass/effective_item_definition/DBcontainer validators are distinct lowercontracts; moduleuse statements do not credit includedsource bodies."
+      ]
+    },
+    "pr-capability-combatant-strategic-state-projection": {
+      "camera_indices": [
+        493
+      ],
+      "ranges": {
+        "493": [
+          [
+            1,
+            111
+          ]
+        ]
+      },
+      "invariant": "Required strategic row presence is separate from finite/transient battle-input admission.",
+      "all_admission_routes": [
+        "load5–82 requires attrs/skills/limbs/stats/condition, applies diseaseeffectiveattributes and actualequipment.combat_equipment typed error→String, derivesstartingcondition then Combatant::from_strategic_state. Copiessevenrawhealths/bodymass/calories/focus/rawskills into transient pure Combatant, not DBtacticaltickpersistence.",
+        "combat_skills84–111 copy actualhourfieldsinclreligiontotal/bestiary/skilltail; nofinite/nonnegative gate here. No ownpublicrecord/default/Serde/Reflect/test routes."
+      ],
+      "counterexample_or_intentional_evidence": [
+        "Presentrowsalone do not seal finitehealth/weight/hours; exact Core combatfactory route may sanitize some fields but cannot be inferred to validateall from its name. Optional condition fallback belongs parent492, conditionrowitselfrequiredhere."
+      ],
+      "connected_repair": "Retain actual checked vitality/skill/body/encumbrance owners to transient purebattlefactory; preserve typed causes until finalnative ABI and no tactical DBstate. Existing claims retained.",
+      "lower_refs": [
+        "Fresh parent contracts-053.json#pr-strategic-capability-raw-rows-and-private-derived-equipment; actual Corecombat rawstate/factory Camera068 separate qualified proof."
+      ]
+    },
+    "pr-capability-weapon-projection-checks-only-elapsed-return": {
+      "camera_indices": [
+        494
+      ],
+      "ranges": {
+        "494": [
+          [
+            1,
+            85
+          ]
+        ]
+      },
+      "invariant": "ElapsedResult checks duration math, not a checked whole weapon geometry/product.",
+      "all_admission_routes": [
+        "combat_weapon4–58 cataloguedefinition/equipment Some are productionpanic preconditions before output, arbitrary DBItem.id string notcheckedhere. OptionalpublicParametricWeaponCombatGeometry overrides rawmass/inertia/balance/precision/lengths; conditioned_precision called onactualitemid, independentgeometryliteral remainsbroader perCamera079/Root067.",
+        "Copies rawskills/flags/nativepositive-length dimensionarray; actualdistalstrikingsurface material/math helper notallrawfinite seal. ranged_force40*weight.max(.5) canInf whenweightInf; no outputcheckedforceowner.",
+        "melee_reach60–69 returns0when notmelee oractualgeometrynativecomputedreach. weapon_attack_interval71–85 delegatesfalliblemeleetiming then checked_add, otherwise clamped .4+max(weight,.1)*.15+.45 via actualAnimationElapsed::from_seconds. Only this completed duration is readmitted; otherCombatWeapon rawfields remainbroader. NoSerde/default/Reflect/tests inthissource; parenttests read separately."
+      ],
+      "counterexample_or_intentional_evidence": [
+        "ElapsedResultOk does not guarantee finiteforce/mass/lengths/precision or valid itemcatalogue membership. Missingdefinition/equipmentpanic is exactexistingprecondition, not a native boundary requirement."
+      ],
+      "connected_repair": "Bind actual item/instance physical recipe and typed checked quantity leaves before weaponprojection; preserve perinstanceauthoredgeometry and operation/errororder. Existing Root/Camera claims retained; no blanket Rangedforceprobability restrictions.",
+      "dependencies": [
+        "Actual PRParametricWeaponCombatGeometry canonicalnew and conditioned_precision policy Camera079/Root067 must be compared forPRsource role; noP16automaticwholecounterpartcredit."
+      ]
+    }
+  },
+  "not_part_of_native443_or_root_batches": true
+}

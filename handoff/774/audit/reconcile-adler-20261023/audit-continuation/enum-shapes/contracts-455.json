@@ -1,0 +1,16 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-455",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        927
+      ],
+      "comparison": "Fresh848 including source-only fixtures. FoodClass, CookingMethod and FoodPreparation finite owners; no tag plus optional method data in this exact module. DonenessOutcome is continuous derived observation, not binary cooked flag: raw/partial/full/late have meaningful separate calorie/kill/quality factors, methods plateau/stew, smoke/roast, burn/pan/oven deliberately differ. Do not replace by exclusive Raw/Cooked enum losing partial progress, or derive all other factors from one number across methods. Flavors coexist independent axes; baking dominant sweet/savory chooses required score set locally, no retained Boolean. culinary_fat retained capability independent food class; fatless_pan_fry Boolean carried quality condition needs real cooking producer to decide semantic owner/application policy, current numerical boundary coherent. Ingredient cookability terminal cooked_meal policy distinct from all FoodPreparation histories, actual writers required before consolidation. Quantity kernels/named yes-no predicates legitimate; zero contamination handling and partial retention remain existing semantics, no model recalibration.",
+      "finding_refs": [],
+      "disposition": "Finite owners and continuous doneness positive; fat/preparation producer trace open"
+    }
+  ],
+  "new_findings": [],
+  "limits": "Pinned source only. No execution, repairs or clearance."
+}

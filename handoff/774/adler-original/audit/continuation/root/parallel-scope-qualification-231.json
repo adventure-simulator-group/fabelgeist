@@ -1,0 +1,42 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-QUALIFICATION-231",
+  "supplier": "continuation/native/initial05-aggregate-states/source-qualifications.jsonl#NATIVE-INITIAL05-QUAL089",
+  "supplier_proof": "continuation/native/initial05-aggregate-states/contract-groups-288.json",
+  "fresh_Root_boundary_evidence": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/heating/placement.rs",
+      "sha256": "5dbdcafe3866798548d26b03a8880417e25b5730dd9c4d2de43f81b19dc0faa3",
+      "actual_EOF": 457,
+      "raw_scoped_union_retained": [[1, 103], [240, 457]],
+      "qualified_material_ranges": [[1, 103], [251, 457]],
+      "context_only_ranges": [[240, 250]],
+      "actual_Root_boundary_read": [[240, 254]],
+      "qualification": "240-250 previous clear predicate/helper tail,251 begins clear_doors. No104-239 credit or earlier closure prefix from tail. Raw original240-370 plus existing overlay068371-457 already covers latter station_offsets; all old overlays remain mandatory. This Root boundary read grants no full457 or station_offsets semantic coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/artillery_castle.rs",
+      "sha256": "14b02a0705bb6723b34d844c890603f50c3752efba281e3fefc495c1f4b70c71",
+      "actual_EOF": 1859,
+      "raw_scoped_role_retained": [[475, 555]],
+      "qualified_material_fragment": [[477, 554]],
+      "context_only_ranges": [[475, 476], [555, 555]],
+      "actual_Root_boundary_read": [[475, 481], [550, 555]],
+      "qualification": "475-476 preceding curtain-pair match tail,477 begins bondarray/loop fragment,555 next JunctionBond pushheader.477-554 is not a complete parentfunction or entire1859source. No556+ pushed-field body credit from header or whole current loop proof from this boundary read."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/viewer/player_build_scene.rs",
+      "sha256": "d68cb8b9206234b010317faa212f96853e08a712d19e2bc67dfca81fbb035384",
+      "actual_EOF": 420,
+      "raw_scoped_role_retained": [[225, 269]],
+      "qualified_complete_material_ranges": [[235, 267]],
+      "context_only_ranges": [[225, 234], [268, 269]],
+      "actual_Root_boundary_read": [[225, 239], [262, 269]],
+      "qualification": "225-233 preceding floorbuilder tail/234blank;235-267 freeform_wall_faces exact complete helper;268blank/269 following attribute. No priorfloorfn prefix,270+ nextbody or whole420credit. Boundary read here does not independently compare undisplayed240-261 helperbody."
+    }
+  ],
+  "qualification": "Retain original raw ranges and every independently broader scoped role. Fragment/context qualifications do not shrink requested whole sources or grant body coverage from a tail/header. No new source, overlay, bounded queue role, other-lens verdict or ownership transfer. All mandatory230/226/224/220/210/208/200 and older qualifiers retained.",
+  "all_lenses_mandatory": true,
+  "counts_unchanged": {"variants": 2846, "overlays": 245, "bounded01_02_roles": 304},
+  "source_edits": 0,
+  "project_execution": 0
+}

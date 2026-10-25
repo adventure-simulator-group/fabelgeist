@@ -1,0 +1,135 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-214",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/mission_roster.rs",
+      "sha256": "f67d08c1d5b6f22ad63de5ab13e46c5b4f2cd5d7512a7d90de2d1c1cc538a292",
+      "actual_EOF": 101,
+      "actual_compared_ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/mission_roster/authority_tests.rs",
+      "sha256": "d9c4ce465bfb869bfde7aaade8b21ca64cec33f41267edca408d12561d4c9904",
+      "actual_EOF": 231,
+      "actual_compared_ranges": [
+        [
+          1,
+          231
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/mod.rs",
+      "sha256": "f2c7bd8a10ef22ad1fc696786a18c09fa024604c9e249f13ce8a872362249246",
+      "actual_EOF": 97,
+      "actual_compared_ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_roster.rs",
+      "sha256": "f67d08c1d5b6f22ad63de5ab13e46c5b4f2cd5d7512a7d90de2d1c1cc538a292",
+      "actual_EOF": 101,
+      "actual_compared_ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/mission_roster/authority_tests.rs",
+      "sha256": "b7a857a5b5c6d5ff38ff46fc5c80fb4a4bf41a4138454c7e089e6099d6f7ae7a",
+      "actual_EOF": 231,
+      "actual_compared_ranges": [
+        [
+          1,
+          231
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/mod.rs",
+      "sha256": "32f47b926eea8c6d366a26c6d6f6e237595b9c0b44c84eb15b1150e49c980870",
+      "actual_EOF": 98,
+      "actual_compared_ranges": [
+        [
+          1,
+          98
+        ]
+      ],
+      "method": "Complete literal P16 body personally read and full actual PR textual comparison consumed; operation contracts reanalyzed for both exact roles. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "id": "Immutable enemy snapshot count and order",
+      "locations": "mission_roster.rs1-101; fresh Core mission/enemy_roster.rs1-96",
+      "trace": "Native capture delegates real CoreMissionEnemyRoster and compares derivednonzerocount toactualgroup.enemy_count before retainingorderedIDs. FreshCore constructor checkedu32cardinality/nonempty andduplicateIDset beforeprivatestorage; accessor rechecks sameimmutablelen, expect provenbyconstructor. It accepts fullu64IDsincluding0 and counts above tacticalpartyreceiptlimit intentionally, doesnotimposeMAX30globally. Runtimeenemy_roster reparsesretainedsnapshotandrequiresallactualCharacterrows exist, deliberately doesnotrereadlivegroupcountorrequireeverycapturedactorcurrentalive. Laterlivegroupescalationcannotrewriteboundsnapshot. NativeMissionAuthority::capture checksrosteronly while copies rawsite/group/scene/difficulty/scale/dropfields; itsdocdoesnotprovethoseinputschecked. Actual203/213/ensure_boundcaller/hostilematerializer mustretaincrossfieldadmission. Source body performs nootherarithmetic/mutationbeyondrandomoutcomeentropy.",
+      "disposition": "No local cardinalityoverflow/duplicateacceptance. Existing canonical roster positiveboundary closes sharedcapture dependency, notwholemissionadmission.",
+      "dependencies": [
+        "Actual ensure_bound_mission_authority and hostile/site snapshot admission",
+        "Actual Character/worldactor identity lifetime",
+        "Canonical mission parser and transienttactical boundary",
+        "Native schema codecs/generated bindings and typederrors"
+      ],
+      "acceptance": "Boundmissionsretainoneimmutableorderednonemptyuniquerosterwithrepresentablecount, exactcurrentcapturegroupcount and existingrows atlaunch. Preservefullsupportedidentityandhostilecardinalitydistinctfrompartyreceipts; allcopiedcombat/lootfactsrequireactualcanonicaladmission."
+    },
+    {
+      "id": "Guarded authority fixtures and deliberate invalid snapshots",
+      "locations": "mission_roster/authority_tests.rs1-231",
+      "trace": "Allauthorityreducers requirecompiledbootstrapcapabilitybeforemutation; fixturesnotexecuted. Existingnormalgroupcount isknownsmallbefore+1/-1, rosternonemptyconstructorbefore[0], invalidempty/duplicate/missingMAXsnapshots intentionalrejectioncases. Fixture catchesResult viais_ok onrequest/autoresolve toassertnolaunch/report, notordinaryproductionignorederrors. Thisnestedfixturebehavior means sourceorderingcannotstandinforactualtransactionaltestproof. Finale fixture emptyobjectivealternatives intentionallymanual resolvedcontext, tests exactselection/executionreceipt/replayconflictingparty/source. Actor/contextvaluesfixedsupportassertion, noautomaticproductioncardinalityorWGSrestrictioncredit. ActualPRonlyfirstguardedreducerresulttypechanges.",
+      "disposition": "Existingfixturesfullyread, noexecution/edits/noadditionalproductioncoveragefromfixturecalls.",
+      "dependencies": [
+        "203 finale selection/execution contracts",
+        "213 actual bootstrap/mission construction and tactical entrypoints",
+        "SDK innercall versusoutertransaction failuresemantics"
+      ],
+      "acceptance": "Preserve originalfixturecases/order/oracles whenimplementationeventuallyauthorized. Source assertions are not passing tests or productionclearance."
+    },
+    {
+      "id": "Macro assembly and error boundary",
+      "locations": "strategic/mod.rs1-97P16/98PR",
+      "trace": "Orderedinclude fragments intentionallyshareSpacetimeDBmacro/accessor scope; ordinarychildmodules carry nonmacrohelpers. STRATEGIC_SOURCE concat isfixturetextonly andnotruntimeadmission. Childincludesdonotgranttransitivebodycoverage. PR switchescrateStrategicOperationError/Result import toownedcombat_error publicreexport andaddsmod; fixturetext switchesoperation_error tocombat_error. Actualnumericoperationsnoneinthisassembler. Thisconfirms real variant-specifictypederrorintegration graph ratherthanblindwholebranchrestoreorassumingcompilefromsimilar names; no build/checkexecution.",
+      "disposition": "No numericalfinding; actualmod/errorownershipsupportforCAM-PPS-F006/local774:F05/M30.",
+      "dependencies": [
+        "Packet200 actual combat_error andoperation_error bodies",
+        "Exact included/childmodule sourcevariant coverage",
+        "SpacetimeDBschema/generator ABI and currentcaller errorgraph"
+      ],
+      "acceptance": "Canonicalerrorspropagateinsideactualmoduleownershipandformatonlyattrueport; macrodiscovery/ABI/generatedbindingscorrect. Preserve moduleassemblyandfixturetextpurpose without treatingunreadchildrenascovered."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [
+    {
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/source/physical-p16-unscoped-dependency/crates/adventuresim-core/src/mission/enemy_roster.rs",
+      "sha256": "c83ace93cc95cb243c86bf6bc02bea9954953b433db0ab7790ea890ac7251642",
+      "actually_read_ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "coverage": "Fresh complete critical Core dependency, not additional full original-role credit."
+    }
+  ],
+  "status": "6 original roles personally compared; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/strategic/party_readiness.rs"
+}

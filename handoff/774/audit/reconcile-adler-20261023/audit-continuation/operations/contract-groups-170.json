@@ -1,0 +1,89 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-170",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/continuity.rs",
+      "sha256": "c93e1acda81c6f3f48403b86443fefb4e8244339b5e99a22ea5825a4233010a0",
+      "actual_EOF": 908,
+      "actual_compared_ranges": [
+        [
+          1,
+          908
+        ]
+      ],
+      "method": "P16full literal modules/fixtures read; actualcompletePRtextualdiff consumed and eachtypedResult/custodycause delta independentlyanalyzed; curriculumcompleteactualtextualdiff empty, not hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/continuity/curriculum.rs",
+      "sha256": "c28ca94bdb3400052f552aee2311ad7fa2956bf5eebcc7b3395df407e85ecdc1",
+      "actual_EOF": 61,
+      "actual_compared_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "method": "P16full literal modules/fixtures read; actualcompletePRtextualdiff consumed and eachtypedResult/custodycause delta independentlyanalyzed; curriculumcompleteactualtextualdiff empty, not hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/continuity.rs",
+      "sha256": "90ac44f54e67bb703e77edc0d8c56f9221e9e31aeaaa3e897cbc0d5ff8759e7a",
+      "actual_EOF": 909,
+      "actual_compared_ranges": [
+        [
+          1,
+          909
+        ]
+      ],
+      "method": "P16full literal modules/fixtures read; actualcompletePRtextualdiff consumed and eachtypedResult/custodycause delta independentlyanalyzed; curriculumcompleteactualtextualdiff empty, not hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/continuity/curriculum.rs",
+      "sha256": "c28ca94bdb3400052f552aee2311ad7fa2956bf5eebcc7b3395df407e85ecdc1",
+      "actual_EOF": 61,
+      "actual_compared_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "method": "P16full literal modules/fixtures read; actualcompletePRtextualdiff consumed and eachtypedResult/custodycause delta independentlyanalyzed; curriculumcompleteactualtextualdiff empty, not hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "id": "child stage, deterministic focus and training cursor",
+      "locations": "continuity58-81,156-331;curriculum1-61",
+      "trace": "Fixedfourfoci chooseRNGindex4; closedstages0..5/6..11/12..15/adult16. Frozenfocus row initializedonce, maternalgrantwins byfind_map order. Naturalbirth mustconvert signedstoredminute toi64nonnegativeu64 beforetraining; negativebirth returnsErr. Endclippedtosixteenthbirthday, cursor=max(trained,birth).min(end); earlierrepeat doesnotrewindcursor. Twoactualtracks0..2 protect fixed2array indexing; matcharms preserve trackskill acrossagebands so debugassert isnot soletrustedrandomdata gate. middle/adolescent windows use min/max/elapsed_since topreventnegativeoroverlap; exactly10years maxschool span makes boundedf32hours finite foractualsourcebirth/end. Eachacceptedgain adds todistinct audittrackcounter andpersistscurrentSkill beforecursorupdate. Actualunderlyingcheckedtraininggain andrawtableadmission remain local774:M51 and archiveF053 graph.",
+      "disposition": "No newwrongindex/replaycursor/normalarithmeticfailure. RawAPI track arbitraryusize canpanic butthis privatehelper hasexact0..2ordinarysender andsame2sizeallarms; do notinvent missingelementoutcome. No universal5000cap orpositiveabsoluteclock admission.",
+      "acceptance": "Exactbirthdate/stages, curriculumdraw/order andonce-onlycursor behavior preserved; accumulatedeffectivehours sourceauthority distinct from skilltotals, failures handled atactualoutertransaction."
+    },
+    {
+      "id": "frozen heir selection and route progress",
+      "locations": "continuity333-615",
+      "trace": "Eldestchild sorted signedbirth+ID afterbirth/kinship/effectivealive gates; otherwisealiveeffective spouse, else(0,Unclaimed). Explicitvalid_estate_choice rejectskind/zero mismatchbeforeunequip/insert. Do notinfer validnaturalchild/spouseID0ordinaryproducer. Route tracksvisitedIDs; transferredsuccessor onlyadvanceswhenlaterdeath>effective, otherstatesexplicitlystopaspredeceased/unclaimed/pendingstaging. Outerpendingrows sorted(effective,decedent), transferthenstatus/settledminute. Existingreceiptpreventschoosingnewheir onretry.",
+      "disposition": "Same local774:M57 payload-owning/frozenchoice andstatecorrelation obligation, not newuniqueestatebug. Scalarall-u64CharacterId andnonzerocustodyauthority notsilentlyinterchangeable.",
+      "acceptance": "No cycles orreselectedheirs; exacteffectivechronology, intentionalpendingstaging andhistoricalunclaimedoutcome retained; actual admittedHeirChoice/statepreventunrelatedpairs."
+    },
+    {
+      "id": "estate ownership mutation and cause preservation",
+      "locations": "continuity434-489,568-615",
+      "trace": "Snapshot equippedIDs thenunequip; snapshotactualpersonal rootobjects (excludingnested) andrehometheirsubtrees throughOperationalCustody beforequeryingremainingfungibleinventory. RemainingrowsstableIDsort, onlyownerchanges. Capabilityrefreshdecedent/heir canfail. P16retainsCustodycause via? whilePRformatsit atactualinternalstep; existingconnectederrorpropagation remains.",
+      "disposition": "No acceptedpartialtransferclaimwithout whole native SDKoutertransaction/caught-errorcaller proof. No source ofnew tacticalstate DBauthority. Exact rehome_subtree/row/foodlot semantics remain separatelyqueuedrecipient bodies; thiscallcannotclear theirconservation.",
+      "acceptance": "Successful transfer preservesstableIDs, allsubtree/quantity/lot/conditionownership once; failure mustnotpublishhalfsettledestate, typedcausestoactualSDKboundary."
+    },
+    {
+      "id": "family and estate observer projections withfullfixtures",
+      "locations": "continuity617-909",
+      "trace": "Gatewayselectionmustmatchownergrant andactualobserverclock orrowomitted. Kinship/birth/effectivedate filters beforehistoricalalive/maturityprojection. Optionalnoheir nativeprojectionderivedfromzero. Maturity usescanonicalscaledprogressowner andsamebirthdate, rowssortedbyowner/observer/child. Childplayability separatefromalivepresentation, no unsupportedclaim thatownergrantitselfcertifieslife. Fulloriginaltests source806-908 read:exactstagebounds, safeactivitysubset, splitintervalequivalence and3generation/pendingestate/choicecases.",
+      "disposition": "No new04nativeprojectionarithmeticwitness; existing local774:M55 provenance/M57state andtypedtime/IDcontracts remain. No runtime/testexecution; fixedfixturearithmetic notproductionpolicynewfinding.",
+      "acceptance": "No futurebirth/estate leakage orclockdefaultonmissingobservation; preserve exactsourceoracles andrealchronologyroles."
+    }
+  ],
+  "findings": [],
+  "status": "whole04incomplete",
+  "source_edits": 0,
+  "project_execution": 0,
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/corpse.rs"
+}

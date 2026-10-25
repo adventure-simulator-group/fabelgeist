@@ -1,0 +1,71 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-035",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "organization-content-identities-and-scoped-service-projections",
+      "sources": [
+        {
+          "scope_index": 125,
+          "ranges": [
+            [
+              1,
+              36
+            ],
+            [
+              88,
+              246
+            ],
+            [
+              316,
+              645
+            ]
+          ],
+          "qualification": "Only registeredranges; actualEOF1251, partialderive36/test645 do not credit omittedbodies orresttests."
+        }
+      ],
+      "distinction": "Organizationdefinition/instance, role scopedwithinorganization, chapter stableinstitutional location, physicalservicevenue andprofession display are different identities/authorities. Roles/privileges/training are authoredcontent, not hardcodedinstitutionenum. Publicthreatreferral anderrantryissuance are separatecapabilities. Recognitionarea differschapterpresence; titlepriority differssocialprecedence.",
+      "uses": "role463\u2013465 lookup underorganization andpromotion467\u2013483 bindsorganization+from/to role. chapter_effective_location582\u2013594 mayuseavailablephysicalservicevenue whilechapter.location retainsidentity. Organizationrepresentative606\u2013609 derivesstableactoridentity independentofvenue/providerordinal. Service dispatch548\u2013579 isclosedinterpreterover8 recognizedservicekeys connectedtoactualStorefront/ActionService, notproof arbitraryorganizationIDs shouldclose.",
+      "disposition": "Keep scopedrole/chapter/venue associations andmeaningfulsemantics forsocialrepresentation; no universalIdentifier/Stringtype acrossallroles. Common serviceowner or explicit typedrelation canreduce repeateddispatch where actualsamevocabulary, but preserveStorefrontversusActionService meanings andopencontentnamespace. TrainingTarget semanticfamily hasknownexistingtypedowners pendingactualsource validation/recipients, notexemptionforrawretainedkeys.",
+      "acceptance": "No profession/recognition/authority inferredfromnamesorserviceordinal; physicalco-locationdoesnotchange institutionalidentity. Preserve authored entry/disconnectedrolepolicy, meaningfulpublicrecognition/private-roleprivacy andexactentropycontext. No sourceprototype widening or claimednativeproducercoverage."
+    },
+    {
+      "id": "personality-independent-axes-and-projections",
+      "sources": [
+        {
+          "scope_index": 126,
+          "ranges": [
+            [
+              1,
+              202
+            ]
+          ]
+        }
+      ],
+      "distinction": "Nerve/Drive/Outlook andotherpersonalityaxes areindependentfinite semanticvocabularies despite repeatedNeutral variants; a genericthree-state Strength enum would permitwrongaxisassignment. Inclination, Presentation andSex are independentrealaxes, not mutuallyderived. Conviction strength0/2.5/5 numericprojection isnotpersistedaxisidentity.",
+      "uses": "personality_enum sharesdeclarationmechanicsbeneathdistincttypes; Personality coherenttraitprofile, non_neutral_count excludesinclination/presentation/sex deliberately. Presentation stable_id snake_case and stable_variant_id uppercase are explicitdifferentcodecs foractualpurposes.",
+      "disposition": "Keep purpose-specificenums usingcommonmacro, no separatevalidatorperNeutral or artificialnumericordinalbetweenaxes. Do notmergeOutlookSanguine withphysiologySanguinehumour becausewordmatches. Public/currentpersonalityprofileandprivateNPCseedproducer remainfutureactualrolecoverage.",
+      "acceptance": "All validindependentcombinations survive, canonicalwirevocabulary stays explicit, defaultneutralNPCtemplateisnotuniversalhumanpolicy. No newclaimnormalinitializationbad ormanualgeneratedbindingchange."
+    },
+    {
+      "id": "stable-object-custody-backing-location-and-legal-authority",
+      "sources": [
+        {
+          "scope_index": 127,
+          "ranges": [
+            [
+              1,
+              383
+            ]
+          ]
+        }
+      ],
+      "distinction": "PhysicalObjectId is typedview ofexistingstableInventoryObjectidentity, notnewsecondID. OperationalCustody saysactualholder/location, distinctlynotlegalownership/permission/materiallotidentity. InventoryLocation ispersistedbackingrow withscopequalifiedrowidentity; directContainercustody descendantmayretainssamecarriedbacking. Place versusfixture distinction preservesexactphysicaltarget.",
+      "uses": "ObjectCustody241\u2013260 rejects selfcontainment andtransferpreservesonlyobjectID; matchescarried224\u2013229 projectsCharacter/Partyholders only. Raw backingPersonal/Party/Repair/Fireplace source records supportnativewire shape, while checkedCustodyCharacterId/PartyId/ObjectId serveoperationalAPIs. CustodyCharacterId andotherpurposeCharIDbothnonzerodoesnotproveindependentidentitynamespace; sourceonly establishesroleview.",
+      "disposition": "Keep custody/location/rights separation andscope-qualifiedrowassociation, do notflattencontainer/fixture/place/carry into genericownerstring. Existingowner-fit qualifications for same-representationCharacterId remainstrengtheningonly, no producerloss or automaticIDsplit. GenericObjectCustody isnotproofwholecontainmentgraphacyclic (onlyselfedgechecked), actualnativegraphfutureown11.",
+      "acceptance": "Transfersretainstablephysicalidentityandactualdirectholder; legalrightsneedseparatequestionboundauthority(F004), materiallotsneedownidentity. Preserve realNone rowIDforfireplace andgenuineabsenceofcarriedscope, no0sentinel hidinginvalidstableobject. No sourcechecks/execution orglobalcustodyclearance."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

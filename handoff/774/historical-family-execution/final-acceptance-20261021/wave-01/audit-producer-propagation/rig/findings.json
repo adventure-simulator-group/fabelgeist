@@ -1,0 +1,281 @@
+{
+  "lens": "audit-producer-propagation",
+  "status": "inventory-exhausted-with-findings",
+  "not_family_verdict": "Masteraudit-ledger andexecution-ledgerremainrootauthority; noindependentfamilyimplementationstatus.",
+  "findings": [
+    {
+      "id": "RIG-PP-001",
+      "status": "actionable-candidate",
+      "disposition": "migration gap",
+      "location": "pr-working:crates/fabelgeist-mhr/src/character/skin.rs104,110 parse_skin",
+      "scenario": "Native cluster object ID was already resolved into RigJointOrdinal at50/83, then projected into an internal raw Vec<u32>104 and re-admitted at110 without an intervening external/framework write. This is an internal checked-leaf-to-primitive-to-owner round trip, not direct raw FBX joint-word decoding.",
+      "rule": "Producer-propagation lens; crates/AGENTS repeated extraction/readmission and composite APIs accept checked leaves",
+      "smallest_connected_repair": "Keep row joints as [RigJointOrdinal;8] after resolution; append through canonical PackedRigSkin::push or another owning typed row constructor with actual source count, retaining sorted weights, all zero slots and row order. No numerical policy change.",
+      "dependencies": [
+        "RigJointOrdinal/PackedRigSkin existing canonical owner",
+        "parse_skin complete row construction and final receiver; no new manifests or tests required"
+      ],
+      "acceptance": "No raw joint-word intermediate or from_native re-admission between typed cluster identity resolution and packed storage; actual fixed-u32 encoding remains solely canonical PackedRigSkin operation. Existing numerical inputs/order/weights and errors reviewed at connected receivers.",
+      "validation": "not executed",
+      "coordinator_notified": true,
+      "evidence_file": "contracts-001.json",
+      "repair_status": "not_started_initial_discovery_freeze"
+    },
+    {
+      "id": "RIG-PP-002",
+      "status": "actionable-candidate",
+      "disposition": "migration gap",
+      "location": "unchanged pr-working crates/adventuresim-core/src/character_proportions.rs54-67 BodyProportion::mhr_parameter -> scoped Creator proportions.rs20/42 ModelParameterName::from",
+      "scenario": "An internal authored MHR parameter identity is returned as raw static text and immediately reconstructed into the same model name owner in two application lookup paths. No serialization/parser boundary occurs between the mapping and receiver. Diagnostic strings are separate actual presentation ports.",
+      "rule": "Producer-propagation lens and crates/AGENTS typed producer propagation/composite checked leaves",
+      "smallest_connected_repair": "Move or adapt the BodyProportion-to-MHR-name mapping to an appropriate canonical shared/integration owner returning ModelParameterName, retaining Core independence from MHR. Update both lookups and actual diagnostics/underlayer label consumer together. No raw getter/re-admission forwarding shim.",
+      "dependencies": [
+        "Core BodyProportion role mapping",
+        "MHR ModelParameterName owner placement/import layering",
+        "Creator proportions::{model_parameters,joint_bases}",
+        "underlayer_equipment/proportions.rs88 label consumer fullyread: actualdiagnosticformatonly, notapplicationlookup. BothCreatorlookupreceiversstillrequiretypedmappingrepair."
+      ],
+      "acceptance": "One owning authored mapping emits typed parameter identity; lookup receivers consume it directly while native text diagnostic/file-label endpoints format it only when required. Existing exact spelling/order/coefficient values and errors preserved.",
+      "coordinator_notified": true,
+      "validation": "not executed",
+      "evidence_file": "contracts-002.json",
+      "repair_status": "not_started_initial_discovery_freeze"
+    },
+    {
+      "id": "RIG-PP-003",
+      "status": "actionable-candidate",
+      "disposition": "migration gap",
+      "location": "pr-working:crates/adventuresim-character-creator/src/device_garment_skirt.rs41,43 -> skirt_span420,431",
+      "scenario": "Authored continuous offset policy constants FAULD_DROP_M and TASSET_RISE_M remain primitive f32 producer/storage; the consumer admits SignedLength only inside span construction. The checked offset contract starts after its internal producer, although the resulting span retains it correctly.",
+      "rule": "Producer-propagation lens; primitive authored quantity owner should emit and retain existing checked leaf rather than late caller admission.",
+      "smallest_connected_repair": "Retain checked SignedLength at the authored offset policy owner and consume it directly in skirt_span; coordinate a clean canonical constant/literal admission mechanism without unwrap/expect or unchecked forwarding constructor. Review all sibling span producers before final repair.",
+      "dependencies": [
+        "Shared SignedLength const checked from_metres API",
+        "Creator skirt_span and sibling torso/gorget/tube span producers",
+        "Do not change scaling arithmetic, frame policy or shader ABI"
+      ],
+      "acceptance": "Authored offset producers carry checked continuous lengths through every span constructor; numerical extraction occurs only in actual Word::F uniform/native calculation. No late from_metres at an internal scalar constant receiver.",
+      "coordinator_notified": true,
+      "validation": "not executed",
+      "evidence_file": "contracts-003.json",
+      "repair_status": "not_started_initial_discovery_freeze"
+    },
+    {
+      "id": "RIG-PP-004",
+      "status": "reconciled-intentional-owner-implementation",
+      "disposition": "not an actionable producer-propagation gap",
+      "location": "pr-working:crates/adventuresim-character-creator/src/equipment_catalog.rs21,28-31,40-41 EquipmentItemSelection::{admit,includes}",
+      "scenario": "Full owner equipment_catalog.rs18-43 re-read: private ids backing is created only by admit after exact authored filter resolves wearable record. includes takes typed CatalogItem and performs membership wholly inside EquipmentItemSelection. No raw IDs escape this container and no downstream re-admission is required; export292 only consumes includes bool. Record identity is intentionally coarser than CatalogItem pointer identity so every duplicate-ID catalogue record remains selected.",
+      "rule": "Encapsulated validated bespoke container may own primitive backing; producer propagation does not require another nested bespoke identity without an actual naked application API/state edge.",
+      "smallest_connected_repair": "None for this container under current lens.",
+      "dependencies": [
+        "Core canonical CatalogItem identity and duplicate-record policy",
+        "EquipmentItemSelection admission and export loop receiver",
+        "CLI filters remain legitimate original raw boundary and must keep exact unknown-filter error/order"
+      ],
+      "acceptance": "Preserve exact-string match, unknown-filter errors, duplicate-ID selection and export order. CLI filter authoring/parsed input still needs its own current-wave source read.",
+      "coordinator_notified": true,
+      "validation": "not executed",
+      "reconciliation": "Root identified original P14 risk; current-wave full owner and actual export receiver source independently confirm stated distinction. Prior candidate is withdrawn, not waived as legacy debt.",
+      "evidence_file": "contracts-004.json",
+      "final_current_lens_disposition": "intentional owner implementation; candidatewithdrawn"
+    },
+    {
+      "id": "RIG-PP-005",
+      "status": "actionable-candidate",
+      "disposition": "migration gap",
+      "location": "armor_design_input.rs::{ArmorDesigns41-42,parse79/111/119}; item_design.rs::{default_in111,set_default122/133}; armor_recipes.rs::{CATALOG53,recipe61}",
+      "scenario": "Native JSON keys are resolved to canonical catalogue records during validation, then retained as String lookup authority across loaded/editor state; typed CatalogItem at set_default is explicitly stripped to text and stored for later internal defaults/selected lookup. Serialization is a later operation, not the immediate receiving endpoint.",
+      "smallest_connected_repair": "Reconcile one canonical exact catalogue item-key/record authority for loaded/editable/embedded recipe maps and selection state, preserving distinct item vs placement identity and owned snapshot semantics. Carry typed leaves from native JSON admission through set/default/selected state; format only at actual serde/diagnostic endpoints. Do not key solely by transient record pointers across separately owned catalogue copies.",
+      "dependencies": [
+        "Private EquipmentItemSelection implementation is intentional (withdrawnPP004); preserve independently proven exact duplicate-ID membership while sharing canonical key policy across true005/007/010 retained-identity gaps.",
+        "Core schema/selection owner with Creator owned catalogue snapshots",
+        "ArmorDesigns parse/decode/selected and CatalogDesigns defaults/editor/save graph",
+        "Canonical ArmourPlacement/side refinement should be reconciled in the same first-reached shared functions before repair"
+      ],
+      "acceptance": "No String item key is created from a canonical item for internal stored lookup; real config/serde adapter owns exact original key spelling and round trips. Defaults, placement-specific override family checks and duplicate/snapshot semantics remain source-complete across actual consumers.",
+      "rule": "Producer-propagation; retained application identity must keep canonical type through internal storage/operations. No blanket config/authoring exemption.",
+      "coordinator_notified": true,
+      "validation": "not executed",
+      "evidence_file": "contracts-005.json",
+      "repair_status": "not_started_initial_discovery_freeze"
+    },
+    {
+      "id": "RIG-PP-006",
+      "status": "actionable-candidate",
+      "disposition": "migration gap",
+      "location": "Creator inventory/occupancy.rs221,248,255 -> Core equipment.rs198-328",
+      "scenario": "Creator-local InventoryItemId unwraps into Core graph raw u64 map/edge key, then is re-admitted to InventoryItemId from the internal graph edge. Core graph body performs application graph operations; no wire/framework/numerical endpoint occurs.",
+      "producer_and_state": [
+        "Creator Inventory::add226 allocates local ID and WornGraph supports stores typed IDs",
+        "Core EquipmentGraph nodes199, EquipmentGraphEdge parent ID210 retain raw keys; equip216, unequip281, has_children289,would_cycle298 all use raw u64 application identity.",
+        "Creator support220-224 strips parent.id.0 into edge; children_on229-237 compares raw key; place246-255 rebuilds typed supports from raw edge then strips candidate ID for equip."
+      ],
+      "all_actual_callers": [
+        "Production Creator WornGraph::attach/support/place/children_on, complete file read; graph rebuild only, no DB identity provenance",
+        "Core equipment.rs graph_supports_belt_sheath_sword_and_body_bag_contents1005-1072, graph_multi_point_move_is_atomic_and_cycle_safe1075-1133, singleton_wearable_orders_conflict_but_accessory_coexists1136-1186 existing authored numeric fixture keys",
+        "Core tests/armor_harness.rs all four existing fixtures use authored integer counters/indexes; full file read",
+        "Tactical animation_viewer/harness.rs::review_harnesses_use_nonconflicting_catalog_placements455-518 uses test-local placement enumeration converted to u64 and parent position index; actual complete caller body read",
+        "Repository use inventory contains separate CharacterEquipmentGraph persisted views, which are not callers of this Core graph and must not be conflated."
+      ],
+      "smallest_connected_repair": "Keep identity authority through graph record and methods, e.g. parameterize graph/edge/placement by the caller key type or use correctly scoped canonical keys. Preserve Creator-local IDs independently of persisted DB IDs. Finish graph record/method/caller changes together; adapt existing fixtures only with unchanged keys/assertions.",
+      "ownership_dependencies": [
+        "Root owns Core shared contracts and P15 sequence/reservation/error graph; camera owns reached Core PlayerEquipment/P16 physical and related fixture files. Confirm exact shared-function repair ownership before editing.",
+        "Core graph body is currently shared file context, but no production DB caller was found, so P15 dependency does not justify conflating DB key authority."
+      ],
+      "acceptance": "Canonical Creator ID survives support edge construction, graph key storage/mutation/cycle traversal and supports extraction without .0/untyped u64/reconstruction. All actual graph fixture authorities remain explicit at native authored boundary; no cross-authority key alias.",
+      "rule": "Producer propagation, distinct authority and no primitive application forwarding",
+      "coordinator_notified": true,
+      "validation": "not executed",
+      "evidence_file": "contracts-005.json",
+      "repair_status": "not_started_initial_discovery_freeze"
+    },
+    {
+      "id": "RIG-PP-007",
+      "status": "actionable-candidate",
+      "disposition": "migration gap",
+      "location": "unchanged inventory_acquire.rs::catalog_item95-124 -> scoped inventory.rs::CatalogArticle57-108 -> Loadout::loadout58 / inventory_article_editor48",
+      "scenario": "Acquisition starts with canonical CatalogItem from ItemCatalog::wearable, implicitly dereferences into raw ItemDefinition helper, extracts item.id/placement strings into CatalogArticle::new, and retains raw pair until repeated resolve/re-admission during wear/name/design/occupancy/loadout/editor operations. There is no persistence write at acquisition or those repeated internal receiving operations.",
+      "smallest_connected_repair": "Carry canonical item/placement identity leaves or an admitted retained placement from acquisition through Inventory/CatalogArticle and resolved loadout/editor graph. If persisted authoring recipe needs unresolved keys, represent that boundary state with canonical distinct key owners and resolve it once when catalogue context is available; keep unknown-key errors and save format explicit. Reconcile with RIG-PP-004/005 shared key owner rather than independent wrappers.",
+      "dependencies": [
+        "Core CatalogItem/CatalogPlacement/OwnedCatalogPlacement authority",
+        "Creator inventory_acquire, CatalogArticle constructor/serde/resolve, Inventory/Loadout/occupancy and editor",
+        "Actual CharacterRecipe defaultliteralproduction,serde save/load andschema validation fully read: main219-223/371-379,lib112-134; connect same canonical identity repair while retaining exact authored keys/order/error behavior."
+      ],
+      "acceptance": "No typed catalogue selection drops into raw pair for internal retention/repeated lookup; loaded unknown references remain explicit handled state and no unrelated item/placement pair is admitted. Save format and all existing fixture values/count/order/assertions retained unless final user-authorized contract requires a clean schema change.",
+      "rule": "Producer-propagation; internal raw parameter/state followed by reconstruction signals unfinished producer",
+      "coordinator_notified": true,
+      "validation": "not executed",
+      "evidence_file": "contracts-005.json",
+      "repair_status": "not_started_initial_discovery_freeze"
+    },
+    {
+      "id": "RIG-CODE-001",
+      "status": "actionable-source-finding",
+      "lens": "Code discovered during producer-propagation",
+      "source_cells": [
+        34
+      ],
+      "location": "device_fit.rs310-367 suspended_waist, call305",
+      "scenario": "suspended_waist returns DevicePiece314 but uses fallible skin.append(tassets.skin)?357. The non-Result return cannot propagate this error; actual caller305 wraps result in Ok.",
+      "smallest_connected_repair": "Make whole suspension composition return Result<DevicePiece>, propagate checked append incompatibility, adapt actual fit_recipe_async caller without unwrap/discard. Preserve geometry order/arithmetic and existing cases.",
+      "dependencies": [
+        "Skin::append actual owning Result contract (full owner pending)"
+      ],
+      "acceptance": "Source return type and all callers propagate actual append error consistently; existing geometry and morph behavior unchanged.",
+      "coordinator_notified": true,
+      "validation": "not executed",
+      "evidence_file": "contracts-007.json",
+      "repair_status": "not_started_initial_discovery_freeze"
+    },
+    {
+      "id": "RIG-PP-008",
+      "status": "actionable-candidate",
+      "disposition": "migration gap",
+      "source_cells": [
+        20,
+        21,
+        16,
+        18,
+        19
+      ],
+      "location": "character_morphs.rs73-110 generate, remove_skeletal_translation280; ForearmMorphSample name bracer.rs65",
+      "scenario": "Canonical SkeletalFitMorph producer92 becomes String name105 in retained internal ForearmMorphSample and later is reclassified from_name280 before actual internal bone correction. Identity and other purpose channels share same field; this is before glTF output.",
+      "smallest_connected_repair": "Retain one proper typed generated morph purpose/channel through original generation/sample/correction/armorfit records, derive exact exported strings only at native glTF/serialized labels, keep arbitrary externally named morph data explicit. Adapt all internal matching and original fixtures without a raw-name forwarding API.",
+      "dependencies": [
+        "Canonical Core IdentityMorph/SkeletalFitMorph owners fully read additional-sources-007.json",
+        "All sample creation/armor morph association/garment hair drape receivers must be traced",
+        "Shared Core/native exported skeletal fit naming receivers and family ownership"
+      ],
+      "acceptance": "No canonical generated morph purpose is stringified then reparsed across internal application state; unchanged exact target label/order/values and existing fixture inputs/assertions.",
+      "coordinator_notified": true,
+      "validation": "not executed",
+      "evidence_file": "contracts-009.json",
+      "repair_status": "not_started_initial_discovery_freeze"
+    },
+    {
+      "id": "RIG-CODE-002",
+      "status": "actionable-source-finding",
+      "lens": "Code discovered during producer propagation",
+      "source_cells": [
+        91,
+        57
+      ],
+      "location": "main.rs200-207 write_armor_designs branch, equipment_catalog.rs81",
+      "scenario": "catalog.items.iter() yields &ItemDefinition but catalog.design(item)?204 now requires canonical CatalogItem. Production branch cannot type-check.",
+      "smallest_connected_repair": "Iterate/admit canonical actual records in source order at original writer, pass typed CatalogItem, derive stringkeys onlyimmediate serialized output map. Preserve duplicatekey collectionpolicy and placementoverrides.",
+      "acceptance": "Actual write-defaults production receiver accepts canonical arguments and emits unchanged exact wirekey/values/order behavior.",
+      "coordinator_notified": true,
+      "validation": "not executed",
+      "evidence_file": "contracts-010.json",
+      "repair_status": "not_started_initial_discovery_freeze"
+    },
+    {
+      "id": "RIG-PP-009",
+      "status": "actionable-candidate",
+      "disposition": "migration gap",
+      "source_cells": [
+        91,
+        58,
+        115,
+        161,
+        68
+      ],
+      "location": "main.rs414,BodyModel.lod101,Studio.selected_lod115,export::validation12,Core EquipmentAssets.lod16",
+      "scenario": "Originalload_body_modeladmitsCharacterLodbutdiscardscheckedvalueandretainsrawu8forinternalmodelandexports;exportreadmits. ExistingmanifestLODownerdiscussion4318537193explicitlyrequests canonicalsharingratherthan dependency-basedrawretention.",
+      "smallest_connected_repair": "Unify canonical MHR character/export LOD owner in correctlysharedlowercrate; retain checked LOD through original model/runtime/meta/exportreceivers and translateonlyactualnativefilepaths/clap/slider/serde. Armor samplingLOD remainsdistinct.",
+      "dependencies": [
+        "CanonicalCharacterLod sourcefullyreadadditional-sources-008.json",
+        "MHRConfig producer/body and Core manifest/runtimeactualreceivers",
+        "AllCLI/UI/nativefield adapter and aggregate acceptance rules"
+      ],
+      "acceptance": "Every admitted characterdetaillevel remainschecked acrossinternalstate; unchangedrange4..6, exactfileformat and existingfixtures. No compatibilityaliases, latevalidation wrapper only, or widenedrange.",
+      "coordinator_notified": true,
+      "validation": "not executed",
+      "evidence_file": "contracts-010.json",
+      "repair_status": "not_started_initial_discovery_freeze"
+    },
+    {
+      "id": "RIG-PP-010",
+      "status": "actionable-candidate",
+      "disposition": "migration gap",
+      "location": "tactical equipment/runtime_equipment.rs3-7,128-143 presentation; assigned generation.rs64-95/316-322",
+      "scenario": "ActualECSapplicationpresentationproducer callsCreatoris_runtime_equipment which resolvescanonicalitemthen returnsbool, dropsadmittedrecord, clonesrawstringsintoretainedpresentation. FitKey subsequently re-resolves sameitem/placement text.",
+      "smallest_connected_repair": "Retaincanonicaladmitteditem andproperexplicitfit/display/invalidplacementstate throughoriginalpresentation andallactualFitKey/outfit/cache/diagnosticreceivers. Handleunwornfirstfit/previousLastFit/heldplacementsemantics together insteadlatewrapper.",
+      "dependencies": [
+        "ReplicatedItemProperties/EquipmentTopologyactualwireboundary",
+        "Canonicalcatalogue selectionowner",
+        "Existing invalid-placement recovery fixture must adapt API withoutnewinputs/count/order/assertions",
+        "SharedP14/P15identityauthority andP16physicalstateownercoordination"
+      ],
+      "acceptance": "No canonicalitemadmissionisdiscardedandrepeatedacrossapplicationpresentation; unchangedmissing/error/readiness/previousfit policy andexplicitrejectedrequesthandling.",
+      "coordinator_notified": true,
+      "validation": "not executed",
+      "evidence_file": "contracts-011.json",
+      "repair_status": "not_started_initial_discovery_freeze"
+    },
+    {
+      "id": "RIG-CODE-003",
+      "status": "actionable-source-blocker",
+      "location": "pr-working:crates/adventuresim-character-creator/src/garment/dressing.rs97",
+      "source_hash": "a5b190694f00f1dbc5e1895f5b40f65b6c1f7242da45ea844b59a6b6d6932523",
+      "scenario": "Dressing::new takes typed joints from PackedRigSkin::iter (fabelgeist-rig/skin.rs154-155) and uses *joint as usize. RigJointOrdinal is a struct(usize), fabelgeist-rig/lib.rs52; Rust primitive as cast is invalid for this struct.",
+      "smallest_connected_repair": "Preserve joint-column ownership in parts as RigJointTable<bool> and use typed get (or equivalent canonical typed owning operation); preserve existing max_by total_cmp tie and fallback semantics and every existing fixture input/assertion. Re-read actual drape/conform callers.",
+      "dependencies": [
+        "Canonical RigJointOrdinal/PackedRigSkin producer",
+        "Actual drape run78 Dressing caller"
+      ],
+      "acceptance": "Actual clothing module type-checks under hosted source checks with no internal raw ordinal adapter and unchanged bodypart selection/fallback behavior.",
+      "coordinator_notified": true,
+      "validation": "not executed",
+      "evidence_file": "contracts-013.json",
+      "repair_status": "not_started_initial_discovery_freeze"
+    }
+  ],
+  "shared_finding_refs": [
+    "ROOT-CODE-001",
+    "CAM-PROP-F002",
+    "CAM-PROP-F004"
+  ],
+  "execution": "No source/Gitchangesorprojectchecks; noconstructorrejection/runtime/validationPASSclaim."
+}

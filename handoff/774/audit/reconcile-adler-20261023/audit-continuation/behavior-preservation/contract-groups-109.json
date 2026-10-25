@@ -1,0 +1,58 @@
+{
+  "id": "CONT08-CONTRACT-109",
+  "at": "2026-10-25T12:02:06.580415+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 374,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-server/src/bot.rs",
+      "before_sha256": "8626aece6d47f2087249b45ecc70c2fc943b600943ac23e3a5eb3c7cbc55619b",
+      "after_sha256": "8799ec6db566e8afa5b708f0f13cb671cd6ecdbd5e02ae02a75e9c237954b1ce",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0374-base-8626aece6d47f2087249b45ecc70c2fc943b600943ac23e3a5eb3c7cbc55619b",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/8799ec6db566e8afa5b708f0f13cb671cd6ecdbd5e02ae02a75e9c237954b1ce",
+      "diff": "source-evidence/p16-0374.diff",
+      "diff_sha256": "b3a0ee9382c40b14f1ccf2b27ca88a468368479650c3bab3f5a3e5a48f5ed63e",
+      "head_body_read_ranges": [
+        [
+          1,
+          1248
+        ]
+      ],
+      "facts": [
+        "Fresh full1248 including every original fixture, complete73-line P16 diff. Live fixture/package loading, ordinary guard/recover/aim composition and schedule unchanged: materialize\u2192guard\u2192aim\u2192recover\u2192offense\u2192reaction afterCombatCondition. Targettie actualentity order and sameyawprojection retain native kernel. New diff onlytypedfixturemeasure admission/observation; no newlivebotlogic inparent.",
+        "Existing un/targeted reaction,ammoexhaustion/meleefallback,controlledno-physics approach,lungegap/maxrange/character radii,committedthreatreassessment,incapacitatedstop/missionresult fixtures retain same inputs/assertions. Checked source constants .8/1/8 finite; no removedcase,weakenedtolerance,simulated/runclaim. Actual childdecision bodies remainnext376+; not cleared fromparenttests."
+      ],
+      "disposition": "Own08 exact scoped source comparison accounted WITH childreceiver frontier retained.",
+      "acceptance": "Preserve actualtargetselection,draworder,capability/guardpolicy,timer/phase/error order andalloriginalfixture cases/thresholds. No tests/checks/source repairs."
+    },
+    {
+      "scope_index": 375,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/defense.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-server/src/bot/defense.rs",
+      "before_sha256": "4eca0fbb28b320a2c62d9351bc7ce4331d2b0d011abe8ad74a6f10b62071884e",
+      "after_sha256": "4eca0fbb28b320a2c62d9351bc7ce4331d2b0d011abe8ad74a6f10b62071884e",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0375-base-4eca0fbb28b320a2c62d9351bc7ce4331d2b0d011abe8ad74a6f10b62071884e",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/4eca0fbb28b320a2c62d9351bc7ce4331d2b0d011abe8ad74a6f10b62071884e",
+      "diff": "source-evidence/p16-0375.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          287
+        ]
+      ],
+      "facts": [
+        "Fresh full287 and emptyP16diff. Untargeted windup chooses nearestlivingopponent before capability filter; targetedmelee/ranged inspect actualtarget directly. Samefacinggate, RNGunitf64\u2192conditionalcoinflip\u2192conditionaldelay draws, authoredalwaysdodge anticipatoryclamp(.02,.12), reactiondurationadmission andnativeTimer retained.",
+        "Delayed reaction is removed onincapacitation or beforeemittingDefendIntent; no retry/queue retention promise added. Defaultchance.2 percomponent/configpolicy retained; separate exactcamera/native admission sourcebaseline not08regression. No nativeTimerexecution."
+      ],
+      "disposition": "Own08 exact scoped source comparison accounted WITH childreceiver frontier retained.",
+      "acceptance": "Preserve actualtargetselection,draworder,capability/guardpolicy,timer/phase/error order andalloriginalfixture cases/thresholds. No tests/checks/source repairs."
+    }
+  ],
+  "next": "376offense302 then377facts199/378phase370/379ranged43/380tactics48."
+}

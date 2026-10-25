@@ -1,0 +1,97 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-025",
+  "at": "2026-10-22T20:15:56.072816+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/elapsed.rs",
+      "sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+      "actual_compared_ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "scope_index": 96,
+      "source_evidence": "Freshfull PR elapsed131/physicalObject383 actualbodies; completeactualP16 bodydiff compared to freshlyreadPR with zero changes inthese functions andexplicitoperation-specific comparison, nothash-onlyverdict. XPBD exactfresh1-110/1-40 only, MassAddAssign110 header notbody111+."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/elapsed.rs",
+      "sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+      "actual_compared_ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "scope_index": 916,
+      "source_evidence": "Freshfull PR elapsed131/physicalObject383 actualbodies; completeactualP16 bodydiff compared to freshlyreadPR with zero changes inthese functions andexplicitoperation-specific comparison, nothash-onlyverdict. XPBD exactfresh1-110/1-40 only, MassAddAssign110 header notbody111+."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/physical_object.rs",
+      "sha256": "906e67eed5acc9fbf6ab98e2e4bc7df11b8e9742c1ee148092c7d2061f64afab",
+      "actual_compared_ranges": [
+        [
+          1,
+          383
+        ]
+      ],
+      "scope_index": 127,
+      "source_evidence": "Freshfull PR elapsed131/physicalObject383 actualbodies; completeactualP16 bodydiff compared to freshlyreadPR with zero changes inthese functions andexplicitoperation-specific comparison, nothash-onlyverdict. XPBD exactfresh1-110/1-40 only, MassAddAssign110 header notbody111+."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/physical_object.rs",
+      "sha256": "906e67eed5acc9fbf6ab98e2e4bc7df11b8e9742c1ee148092c7d2061f64afab",
+      "actual_compared_ranges": [
+        [
+          1,
+          383
+        ]
+      ],
+      "scope_index": 963,
+      "source_evidence": "Freshfull PR elapsed131/physicalObject383 actualbodies; completeactualP16 bodydiff compared to freshlyreadPR with zero changes inthese functions andexplicitoperation-specific comparison, nothash-onlyverdict. XPBD exactfresh1-110/1-40 only, MassAddAssign110 header notbody111+."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-xpbd/src/dynamics/mass.rs",
+      "sha256": "4e4b5872d576dbd61f91b464ea8f3e2fe8a00e2516fd7e013d06e9add76f062b",
+      "actual_compared_ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "scope_index": 2350,
+      "source_evidence": "Freshfull PR elapsed131/physicalObject383 actualbodies; completeactualP16 bodydiff compared to freshlyreadPR with zero changes inthese functions andexplicitoperation-specific comparison, nothash-onlyverdict. XPBD exactfresh1-110/1-40 only, MassAddAssign110 header notbody111+."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-xpbd/src/dynamics/constraint.rs",
+      "sha256": "3a8f7b401dcd7f06e0373678542ef523772827884cbbf5a64d718201eea63228",
+      "actual_compared_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "scope_index": 2654,
+      "source_evidence": "Freshfull PR elapsed131/physicalObject383 actualbodies; completeactualP16 bodydiff compared to freshlyreadPR with zero changes inthese functions andexplicitoperation-specific comparison, nothash-onlyverdict. XPBD exactfresh1-110/1-40 only, MassAddAssign110 header notbody111+."
+    }
+  ],
+  "groups": {
+    "both-snapshot-elapsed-value-arithmetic": "Privatefinite>=0AnimationElapsedfrom_seconds rejectsnonfinite before negative, \u00b10 accepted, ZERO/SECOND/Default0valid, Serdetry_from samegate. min/maxselectadmittedvalue withspecificbranch tiebehavior; retain signedzerobits/tiepolicy insteadof replacingblindlywithnativefloatmin/max. capped_by_seconds checks rawlimit beforemin. saturating_sub ofnonnegativefinitea,b cannotexceed\u00b1MAXsoresultfiniteandmax0valid; abs_diff sameboundedsubtractionthenabs finite>=0. checked_scale computesproductthenrejectsnonfinite Overflow, thenfrom_seconds rejectsnegative; zero\u00d7negativefinite mayyieldvalidnegativezero, donotrequirefactor>=0globally andchangeexistingpolicy. checked_add rejectsnonfinite beforeSelf; sumofnonnegativecannotnegative. No mutation orpartialclockpublish inthesevaluemethods.",
+    "elapsed-native-clock-port": "native_duration falliblyrefines atactualDuration::try_from_secs_f32 clockport; elapsedmayvalidlyexceednativeu64secondsrange, NativeRange rejects there withoutglobalelapsedcap. From<Duration> nativeu64secondsfractionnonnegativewithmaximum~2^64seconds which isfinitef32; precisionlossactualfloat-secondsport notsignedclock/retrysentinel. From<Elapsed>f32readonlyordinarynativeprojectionnotuncheckedrawconstructor. ErrorDisplayactualdiagnosticport closedtypedcauses. P16/PRallmethods explicitlysameactualfunctionbody/sourcefacts, notborrowed03verdict.",
+    "physical-identity-and-custody-operations": "Bothactual383linevariants: PhysicalObjectId/CustodyCharacterId NonZeroU64 rawctor rejects0, get readonlyallnonzerowords inclMAX valid no arithmetic/ordinalallocation. CustodyPartyId privateString checksnonempty/noleadingtrailingtrim, len<=256bytes, nocontrol thenstoresunchanged; getterreadonly no mutation/Serde/Reflect. OperationalCustody closedstates actualtypedPlace/Fixture differentidentities, character/partyconstructadmittedtokens, matches_carried_inventory deliberatelymatchesexactkind/id notlegalrights. ObjectCustody::try_new rejectsdirectselfcontainer; transfer consumesoldvalue, calls SAMEconstructor preservingobjectID andchecksnewcustodybeforepublishingreturnedSelf. No DBmutation orretryclock invalueoperation. Longercontainmentcycles/custodyDBrights needactualcollectiongraph notimpossiblelocalleafcheck; no normalcyclepublicationclaim. OwnedselfconsumptiononErr isstandardfallibleAPI notexternalpartiallycommittedDBproof.",
+    "inventory-location-records-versus-custody": "InventoryLocation publicrawfieldSerde/SATS shape selectswhichbackingidentityisstructurallypresent, notvalidationofnonzerorow/character/canonicalparty/fixture/currentDBmembership. CarriedScope2closedenum strparse/as_strlegitimateboundaryexactpersonal/party; repair/fireplace notcarried. row_id optionalcontext andhas_same_carried_custody ignorebackingrow intentionallyholdingscopecomparison, notduplicateobjectidentity orallrowsameassertion. Raw\u2192checkedcustodyproducerpropagation remainspriorgap; no needinventnonemptyStringoridentityconstructorfromlabels. Tests sourceonlycurrentidentity/transfer/rejectionoracles preservelegalvsoperationaldistinction.",
+    "xpbd-native-raw-response-and-cpu-admission": "ParticleInverseMass explicitlynativeallfloatwordPod/Zeroable/Fromf32 representation, notcertifiedfiniteCPUvalue; toBits/nativePINNED0/UNIT1 actualports. validity isfinite>=0 classifiedquery, mobility0PrescribedelseDynamic soNaN/negativeuntestedstatewouldDynamic. AnyCPUsolver guarantee mustreadmit atactualproducer; donotmakeGPUall-worddataforbiddenorassumePodseal. distance/opposedcorrection rawproducts canoverflow/nonfiniteevenvalidfiniteoperands; Add rawinverseweights MAX+MAXInf then EffectiveInverseMass activity maywrongActive perRootF006. Massabsolute preservesfiniteifadmitted, butallfloatFrompermitsNaN. inverse_mass currentthreshold1e-12: valid0/tinymass intentionallyPINNED, >thresholdreciprocalfinitebounded~1e12; rawNaN/negative fallthroughPINNEDisnotvalid-inputproof. Preserveactualthreshold/zerostaticresponse/nativebits, do notblindlyrejectvalidmassless orcapinverseallnativeports. MassAddAssign110header only; accumulationbody111+ excluded, no unscopedoperationcredit.",
+    "xpbd-constraint-operations": "CompliancePerSubstep/ConstraintViolation rawf32From andConstraintMultiplierDefault0/uncheckedAddAssign actualshallowtypednumerics. multiplier_delta(-violation-compliance*lambda)/response needsfinitecomputednumerator ANDadmittedpositiveactivefinite response; zeroresponsealldynamic? actualpinnedcase requiresexplicitinactivebranch ratherthansilentlydivide0; rawnegative/NaN also representable. += canoverflowfiniteoperands/publishrawnonfinite state. SameRoot04F006connectednumeric-solvergraph, notnewuniquebug. Signedviolations/lambdacorrections validnegative, compliance/zero-response rolesdistinct, no blanketUnitInterval/clamp. Keepnativekernelsprimitivewhereactualacceptedcallerinvariantsprovepreconditions; enforceCPUacceptedstate atwholeproducer/computedpublication. Actualordinarybadsolvercaller/runnotidentified."
+  },
+  "findings": [],
+  "prior_finding_support": [
+    "ROOT-INITIAL04-F006 sameXPBDraw/active-response/computedresult graph independentlycompared mass/constraint source",
+    "Existing physicalidentity/custody producer propagation gaps retained; no extra duplicate-owner finding"
+  ],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

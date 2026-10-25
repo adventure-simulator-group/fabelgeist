@@ -1,0 +1,17 @@
+{
+  "id": "RIG-INITIAL06-GROUP-253",
+  "at": "2026-10-23T07:29:24.808574+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-069.json",
+  "groups": {
+    "shape-axial-seat-range-is-not-bounding-box": {
+      "comparison": "Fresh exact PR model extents20–51/53–149 attachment_anchor and range methods consume canonical Shape/AttachmentAnchor/Metres and produce native f64 Point/axial [low,high]. This is model-local assembly-seat coordinate interval, not full 3D mesh bounds, width/depth or scene collision SpatialBounds. Valid [0,0] for Axe/FacetedBeak/Pick/Beak/Hammer must remain; forcing positive dimensions would change intended frame semantics. Shapes such as leadball/roundshield use signed symmetric seats, bow splits by upper_ratio, guard assembly derives declared nodes and special anchor; they share model coordinate convention but not identical positive-length invariant. AttachmentAnchor enum Base/Center/Top/Origin/HeelCenter is feature ownership, distinct from native arbitrary point or equipment AttachmentPointId grammar. Point arrays and Metres.get at weighted/mapped coordinates are actual numerical boundary, not duplicate public geometric type. Existing weapon placement248 consumes range as local assembly extent; source resolved product and canonical f64 units remain owning model responsibility. F001 generic neutral geometry lower-owner work can share appropriate math, never substitute f32 Scene AABB or call this a mesh-finiteness/width admission seal. Excluded pommel_range/profile_range bodies remain uncredited, no allShape helper correctness from call names. Exact surrounding19/52/150 context excluded; no whole166/P16 source credit.",
+      "disposition": "Keep axial seat interval/anchor policy in weapon model over canonical f64 units; distinguish it from geometric bounding boxes and preserve zero/signed extents."
+    }
+  },
+  "source_fact_refs": [
+    "contracts-248.json",
+    "contracts-249.json"
+  ],
+  "limits": "One exact newly registered source role freshly compared. No1–18/151–166 helper bodies, full166, P16/caller/sourcewidth credit, edits/execution/new scope/later-lens credit."
+}

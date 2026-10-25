@@ -1,0 +1,74 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-020",
+  "at": "2026-10-25T07:42:03.635424+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1076,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability.rs",
+      "sha256": "3249a867a88a75dc29d514b94c01a89965aed2c037a05fdbcc9109b0bde179f6",
+      "personally_read_ranges": [
+        [
+          1,
+          694
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole694capability personallyread3boundedchunks. Evaluation looksupsattributes/diseaseeffectiveattributes/body/stats/skills bysamecharacterID; nativeCharacterCapability fieldcopy derivesoneCharacterCapabilities andcomputesautoresolvepowerfromfreshsameactorcombatantbeforetableupdate. UnchangedrowelisionpreventsSSErefreshloop; physiologybandchangesclose/resetpresence before/afteractualrowreplacement. Cachedcapabilityinvalidationsoutsidefunctionremaincallerobligation. StrategicEquipment privateaggregate constructionqueriesnormalizedheldoccupancies, samehandsarrayandfirstmatchingpredicates deriveweapon/side/inventory IDs; repeatedfind usesstableimmutablearray no independentnormalmismatch. Eachbodypart collectsprotection once, derivesouterlayerID/material/authoredcoverageandaggregatedresistance/padding fromsamepieces; aggregatealllayers vsoutermostmetadata distinctpolicies. Arraysfixed7 keymappingbody_part_index canonical, rawtypedindicesnotnewidentity. Missingvalidparametricrecipepanics andmissingcoverageNone defaults requireupstreamauthoredrecipe/schema; no ordinarymissingassetwitness. Arrowtotalplainu32sum aggregatecapacitygap exactROOT04F036support; firewall custodyfilterdoesnotboundtotal. Waterqueryerror mapsInf asfailclosedburden, notactualmeasuredweight; preserveexplicitfailurestatein eventualtypeflow notBodyMassKg. PlayerBody fixed70 andselectedbaseItemweaponweight vsbattlecondition/instancemass exactCAM07F021qualifiedpolicy, notnewdefect. Tests sourceonly."
+    },
+    {
+      "scope_index": 1077,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability/combatant.rs",
+      "sha256": "afba3aaeb15ab41fe36d35221b5269a784098863766c03ad61ecd6532204bdbc",
+      "personally_read_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole111 combatantloadjoinsallnative tables samecharacter then effectiveattributes/fatigue/equipment/condition. Startingcondition usescallerstrategicincapacitation/pain/bloodloss pluscurrentblood/maximum fromsamecondition row; externalcaller can supplyotheractorconditionrawfloats, actualalliedcollector source179 confirmsnormalcallerreturnedcondition matchingmember. CombatBodyusesactualcondition.body_weight_kg unlikegenericPlayerBody70, CAM07F021connectedactualphysicalinputpolicy. Namedstateconstructionavoidspositionalfieldmixup butrawpubbody/health/skillweightsnotwholeadmittedseal. bestiarytypedcategoryhoursretained, religiontotalDirect vsgenericmaximumEffective representdifferentpurposeobserver andmustnotcollapsejustsameSkilllabel. Result strings erase lowercause atcombat_equipment, errorfamilyretained. Tacticalinputtransientpurebattle, notpersistedtacticaltickrows."
+    },
+    {
+      "scope_index": 1078,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability/equipment_projection.rs",
+      "sha256": "f8b4732bf544887996ecaf8ffba647c00a6a7f4c4d88728b7b5ac094a689c6af",
+      "personally_read_ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole85 equipmentprojection choosesonecataloguedefinitionbyitemID, actualgeometryoptionalperinstance appliedconsistentlyto mass/inertia/reach/tip/total/headlength/balance/precision. Nonparametriccataloguephysicaldimensions deliberatefallback; publicOptioninstancefunctioncannotproveinstancebelongsitem, actualStrategicEquipment pairscombat_geometry(ctx,inventoryID,itemID) sourcefunctionownsprovenance. Shape/material/classdifferentfacts, precisionconditionusesbothsameitemID+instance. Resultonlyelapsederrorforattackinterval; catalogue/equipmentpanics andrawItemflags/pathscanonicaladmission stillupstream obligations. No newcrossedweaponmetadataordinaryscenario. Attackduration preparation+recoverychecked sum beforeweaponpublished, rawmomofinertia internalgateexistingproducerfamily. Rangedforce40*weightpolicy distinctauthoredballisticsownerquestion; notforce-new [0,1]or20..300massleaf."
+    }
+  ],
+  "own_same_lens_inherited_support_consumed": [
+    "contract-groups-117.json actualmass2810/armor2811 exactnativejoin/policyqualifications",
+    "contract-groups-179.json mass177/2810 andalliedcombatantcollectoractualconditioncorrelation"
+  ],
+  "fresh_inherited_support": [
+    {
+      "scope_index": 2810,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability/mass.rs",
+      "sha256": "1f6a584fc834b98fd0a39dee168f5b8c461518b712f56906a9de26bd44fe192e",
+      "ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "comparison": "Drymass selectsactualfoodlotabsolutemassoralternateeffectiveunitquantity*instance/fittedholdermass. SameinventoryIDjoinassumesfoodlotassociation; actualfraction/sumcapacity andmissingrecipe/preconditionfailuresretained. Thisisfreshsupplementnotadditionalrolecount."
+    }
+  ],
+  "aliases": [
+    "CAMERA-INITIAL07-F021 actualbody/base-vs-instancephysicalprojectionpolicy support",
+    "ROOT-INITIAL04-F036 multiple-stackammunitioncapacity support"
+  ],
+  "connected_acceptance": [
+    "One coherent acceptedactorstate/equipmentcohort throughcapabilityandcombatprojection; explicitpurpose-specificpolicy ifcatalogueclassification intentionallydiffersactualmass.",
+    "Aggregatecount andburdenfailures representedexplicitly instead of wrappingorordinarymeasuredinfinity; preservevalidzeroemptyinventory and actualgeneralobjectmassdomain.",
+    "Existingcanonicalinventory/recipe provenance owner mustbindoptionalgeometry toitem+instance; no duplicatephysicaltype/adaptor."
+  ],
+  "new_unique_findings": [],
+  "discovery": "Source-backedaggregate discovery WITH exactaliases/qualifieddependencies, no clearance",
+  "repair": "not_started",
+  "validation": "not_run"
+}

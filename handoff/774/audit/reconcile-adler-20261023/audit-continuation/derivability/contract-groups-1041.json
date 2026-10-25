@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1041",
+  "at": "2026-10-25T17:34:49.697853+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1202,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/social_roles.rs",
+  "sha256": "328d8285856568995cc423bb2ec74bb88bfa690af6e4defcbfc4aa8f9a355415",
+  "actual_compared_ranges": [
+    [
+      1,
+      330
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "SocialOrganizationInstance/CharacterOrganizationRole rows Clone/Debug/table. Native canonical definition/settlement instance admission, exact selected immutable equality, borrowed provisional/family prefix classifier126\u2013158, family role transfer and current role uniqueness consumed. No handwritten trait/codec. Borrowed suffix/classification/default Other semantics and checked DB joins not generic FromStr/Serde derive.",
+  "first_unfinished": {
+    "scope_index": 1202,
+    "line": 331
+  },
+  "execution": "none"
+}

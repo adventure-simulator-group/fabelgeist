@@ -1,0 +1,15 @@
+diff --git a/crates/adventuresim-character-creator/src/device_garment_torso.rs b/crates/adventuresim-character-creator/src/device_garment_torso.rs
+index d72cf71c1..f1ff886b5 100644
+--- a/crates/adventuresim-character-creator/src/device_garment_torso.rs
++++ b/crates/adventuresim-character-creator/src/device_garment_torso.rs
+@@ -15,9 +15,9 @@ use anyhow::Result;
+ use fabelgeist_armor::gpu::record_garment_torso;
+ use fabelgeist_armor::{GarmentArmorDesign, GarmentArmorKind as Kind};
+ use fabelgeist_compute::KernelBatch;
+ use fabelgeist_geometry::SignedLength;
+-use fabelgeist_math::Ratio;
++use fabelgeist_math::units::Ratio;
+ use fabelgeist_rig::RigJointName;
+ 
+ /// The torso frame rises above the neck to hold the shoulder seams.
+ const SHOULDER_LIFT_M: f32 = 0.045;

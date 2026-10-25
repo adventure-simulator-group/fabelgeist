@@ -1,0 +1,167 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-248",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ranged.rs",
+      "sha256": "e960a4f52cd7fa6f8d28da2983c5f066e216f0b74828295faa41b66bd436659e",
+      "actual_EOF": 335,
+      "actual_compared_ranges": [
+        [
+          1,
+          335
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ranged/outcome.rs",
+      "sha256": "666e7ae0d0aaeeed9b53efc70bf96befd2ffbbfdc84adf176db63126431658f5",
+      "actual_EOF": 105,
+      "actual_compared_ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/ranged.rs",
+      "sha256": "1a644ecf10b57c8e5f34d503a9002cd71bd5ecdf4736d1dd689925c65a91f10e",
+      "actual_EOF": 325,
+      "actual_compared_ranges": [
+        [
+          1,
+          325
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/ranged/outcome.rs",
+      "sha256": "f45632053e10a52d5ea4a1ecf1259f323c55fa091f9de58a92e8894815c55cc8",
+      "actual_EOF": 105,
+      "actual_compared_ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Ranged prepare, one-shot authority and actual ammo mutation ordering",
+      "source_ranges": {
+        "combat/ranged.rs": [
+          [
+            1,
+            335
+          ]
+        ],
+        "combat/ranged/outcome.rs": [
+          [
+            1,
+            105
+          ]
+        ]
+      },
+      "disposition": "Full P16 bodies and all actual PR deltas personally read. Current target_character produces separation/position/yaw together; missing character yields missing separation and cheap rejection before validated target position/yaw expect, so private malformed facts counterexample from packet245 not a current producer loss. Geometry/performance/native duration/line-of-sight checks and read-only ammunition lookup/defense preparation precede authority authorize. Actual ammo mutation and party use receipt occur only after successful authorization. Dry fire deliberately consumes cooldown without ammo; explicit miss consumes ammo without defense. Quantity positive owner guarantees quantity-1 safe. Actual queries immutable through lookup, so final target transform expect protected in this system. Deferred mutation visibility and externally mutable native state are framework dependencies, not proven races."
+    },
+    {
+      "contract": "Same resolved ranged contact drives transient consequence and feedback",
+      "source_ranges": {
+        "combat/ranged/outcome.rs": [
+          [
+            1,
+            105
+          ]
+        ]
+      },
+      "disposition": "One SuccessfulAttackResponse is mapped to ApplyMeleeAttackResult then server feedback with same target/result/velocity; ranged sets attacker_weapon_contact false, anatomical midpoint and intended contact sentinel explicit diagnostic policy. Partial receipt does not invent persistent tactical HP; consequence remains actual clipped body graph packet245. P16 still raw transform argument into Position authoritative_impact signature joins source coherence issue; no compile run. Core contact primitive/result finite guarantee and reaction/workload graph remain canonical dependencies."
+    },
+    {
+      "contract": "Ranged work/defense contribution and existing source-assertion qualification",
+      "source_ranges": {
+        "combat/ranged.rs": [
+          [
+            34,
+            81
+          ],
+          [
+            243,
+            327
+          ]
+        ],
+        "combat/ranged/outcome.rs": [
+          [
+            76,
+            105
+          ]
+        ]
+      },
+      "disposition": "New source omission recorded finding-ranged-work.json, connected once-per-action fatigue cluster, no global unique count. Existing archive audit/continuation/rig/admission03/camera-support/qualifications.jsonl#12 RIG-CAMERA-ADM03-QUAL-012 personally reverified: old include_str tests seek q_ammo.iter().find and authorize_completion absent actual sources. Actual read-only ammo prepare precedes authority, actual consume follows; do not repair to stale text-order premise or claim tests passed/failed from execution. No new duplicate test finding."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-RANGED-WORK-001",
+      "classification": "actual source operation omission in supported tactical ranged graph; no actor/session/run witness",
+      "source_variants": [
+        "physical-p16",
+        "pr-working"
+      ],
+      "locations": {
+        "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress.rs": [
+          [
+            432,
+            499
+          ]
+        ],
+        "physical-p16:crates/adventuresim-tactical-server/src/combat/ranged.rs": [
+          [
+            34,
+            81
+          ],
+          [
+            243,
+            327
+          ]
+        ],
+        "physical-p16:crates/adventuresim-tactical-server/src/combat/melee/active_defense.rs": [
+          [
+            151,
+            186
+          ]
+        ],
+        "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress/work.rs": [
+          [
+            21,
+            50
+          ]
+        ]
+      },
+      "trace": "Supported player/AI ranged starts schedule actual skeleton attack and authority without charge_started_attack_work or equivalent ranged work; actual authorized hit prepares passive Block/Parry response and scales it for defender performance, then consumes ammo/response and publishes injury/velocity without charging WeaponDefense work. Equivalent melee starts and committed weapon defense have explicit single-pool charge calls. Pinned source callsite inventory finds tactical-server charge_work only in dodge, melee start, melee active defense.",
+      "contract": "Root AGENTS combat legibility requires weapon work and defenses to contribute to the single visible general fatigue value. Core workload doc says charged once when an action begins. This is absent contribution, not NaN/overflow finding ROOT-INITIAL04-F030 and not a new pool requirement.",
+      "qualification": [
+        "No particular authored actor or exact shield intercept session executed; supported source branch with usable ranged weapon/ammo and weapon defense is the witness boundary.",
+        "Do not blindly reuse melee swing-travel/inertia work for drawing/firing a ranged implement. Canonical physical work model for actual ranged action/defense must be decided at the shared action owner.",
+        "Dodge already has separate explicit charge; do not charge again merely because a projectile resolves during a dodge. Preserve admitted miss ammunition and dry-fire cooldown policies."
+      ],
+      "connected_repair": "Unify once-per-actual-action workload correlation across melee, ranged, defense and prebegun dodge. Carry actual implement/mass/duration and checked computed work into TacticalCombatState::charge_work, preserve general visible fatigue/total incapacitation performance without speed penalties or parallel oxygen pools.",
+      "acceptance": "Every actual admitted ranged weapon action and actual weapon/shield defense contributes appropriate canonical work exactly once. Failed preparation must not charge; miss/dry-fire charge must reflect declared actual physical action policy. Melee/dodge existing once-per-action accounting and wheel behavior stay coherent. No hidden alternate penalty or unqualified arbitrary work constant."
+    },
+    {
+      "namespace": "audit/continuation/rig/admission03/camera-support/qualifications.jsonl#12",
+      "id": "RIG-CAMERA-ADM03-QUAL-012",
+      "disposition": "Fresh actual source confirms supplied qualification; no duplicate finding/execution."
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-tactical-server/src/equipment.rs"
+}

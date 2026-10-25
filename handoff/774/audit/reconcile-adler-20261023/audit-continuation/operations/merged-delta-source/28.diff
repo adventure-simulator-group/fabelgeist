@@ -1,0 +1,50 @@
+--- 6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/tactical_scene_viewer/triangle_census.rs
++++ 13fc9dcc71ab879de364117e5462310673e43210:crates/adventuresim-tactical-client/src/tactical_scene_viewer/triangle_census.rs
+@@ -194,10 +194,10 @@
+         Mut<Projection>,
+     ),
+ ) -> bool {
+     if !state.configured {
+-        let transform = Transform::from_translation(capture.ground_eye_position)
+-            .looking_at(capture.ground_eye_target, Vec3::Y);
++        let transform = Transform::from_translation(capture.ground_eye_position.metres())
++            .looking_at(capture.ground_eye_target.metres(), Vec3::Y);
+         commands.entity(camera.0).insert(RenderLayers::layer(31));
+         *camera.1 = transform;
+         *camera.2 = GlobalTransform::from(transform);
+         if let Projection::Perspective(projection) = &mut *camera.3 {
+@@ -277,9 +277,9 @@
+         fixture: capture.fixture.clone(),
+         screenshot: "terrain-wireframe.png",
+         resolution: capture_resolution::physical_pixels(&capture.profile).to_array(),
+         camera_translation: camera.1.translation.to_array(),
+-        camera_target: capture.ground_eye_target.to_array(),
++        camera_target: capture.ground_eye_target.metres().to_array(),
+         vertical_fov_degrees: 80.0,
+         count_semantics: "Triangles in terrain mesh entities whose Bevy ViewVisibility is true. Chunk-level vista culling is reflected; partial triangle clipping within a visible mesh is not.",
+         total_visible_triangles: tiers.values().map(|tier| tier.visible_triangles).sum(),
+         tiers,
+@@ -358,10 +358,10 @@
+     >,
+     mut exit: MessageWriter<AppExit>,
+ ) {
+     if !state.configured {
+-        let transform = Transform::from_translation(capture.ground_eye_position)
+-            .looking_at(capture.ground_eye_target, Vec3::Y);
++        let transform = Transform::from_translation(capture.ground_eye_position.metres())
++            .looking_at(capture.ground_eye_target.metres(), Vec3::Y);
+         *camera.0 = transform;
+         *camera.1 = GlobalTransform::from(transform);
+         if let Projection::Perspective(projection) = &mut *camera.2 {
+             projection.fov = 80.0_f32.to_radians();
+@@ -391,9 +391,9 @@
+     let report = TriangleCensusReport {
+         pipeline: "tactical_triangle_census_v1",
+         fixture: capture.fixture.clone(),
+         camera_translation: camera_position.to_array(),
+-        camera_target: capture.ground_eye_target.to_array(),
++        camera_target: capture.ground_eye_target.metres().to_array(),
+         vertical_fov_degrees: 80.0,
+         mesh_count_semantics: "Triangles in terrain and building mesh entities whose Bevy ViewVisibility is true. Partial clipping within a visible mesh is not counted.",
+         grass_count_semantics: "Tufts whose world-space camera distance passes Eidolon's configured per-instance range. Eidolon frustum-culls only each scene-wide species/LOD batch, so this is the submitted population whenever that batch intersects the frustum; it intentionally includes off-screen tufts within the distance ring.",
+         terrain,

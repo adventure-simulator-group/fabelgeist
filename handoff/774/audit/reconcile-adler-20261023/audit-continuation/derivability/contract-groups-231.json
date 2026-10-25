@@ -1,0 +1,27 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-231",
+  "at": "2026-10-25T13:56:59.111439+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_ROLE_INCOMPLETE",
+  "scope_index": 459,
+  "source_id": "physical-p16:crates/strategic-web/src/routes/quests.rs",
+  "sha256": "60584d6a541687989c1813acb39304738e37dd1bd1a9e17cf281551b36057b68",
+  "actual_compared_ranges": [
+    [
+      1,
+      1030
+    ]
+  ],
+  "trait_inventory": [],
+  "existing_derives": "Request forms/query structs already Deserialize/Default/Clone; named AcceptQuestResponse/TurnInQuestResponse already derive Serialize.",
+  "semantic_contracts": "Full1\u20131030 prefix personally consumed: router composition, surrender operation reducer selection, explicit native reducer argument mapping, quest acceptance/loot/travel/rest/corpse actions, case-site presentation/readiness/context and location admission; no handwritten trait/serializer in prefix. Semantic/native protocol functions are not derivable field projection.",
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 459,
+    "source_id": "physical-p16:crates/strategic-web/src/routes/quests.rs",
+    "next_line": 1031,
+    "actual_EOF": 2102
+  },
+  "execution": "none",
+  "limits": "Whole2102-line role remains pending1031\u20132102; ends inside rendering query."
+}

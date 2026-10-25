@@ -1,0 +1,123 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-066",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "residence-title-occupancy-household-and-observer-billing",
+      "sources": [
+        {
+          "scope_index": 245,
+          "ranges": [
+            [
+              1,
+              1455
+            ]
+          ]
+        },
+        {
+          "scope_index": 246,
+          "ranges": [
+            [
+              1,
+              99
+            ]
+          ]
+        },
+        {
+          "scope_index": 248,
+          "ranges": [
+            [
+              1,
+              282
+            ]
+          ]
+        },
+        {
+          "scope_index": 252,
+          "ranges": [
+            [
+              1,
+              57
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "SEGO-INITIAL09-F142",
+        "SEGO-INITIAL09-F208",
+        "SEGO-INITIAL09-F209",
+        "local774:M30",
+        "local774:M35"
+      ],
+      "disposition": "existing applicable billing and legal state support; distinct property, holding, occupancy and family roles retained",
+      "trace": "Residence245 distinguishes immutable physical property from acquired legal holding, one primary designation, optional holding on actual occupancy, and household relationship. None holding is legitimate seeded home, not missing legal title. View owners retain private billing while occupants receive ZERO fields296\u2013305, exact09F208 requires explicit redacted payload without changing privacy. Latest holding Active/Dormant/Relinquished plus optional resolved minute is exact09F209; historical usability193\u2013215/491\u2013517 folds transition history, so status is not sole observer authority. Billing784\u2013940 distinguishes adult/dependent counts at due time, category costs and total, available currency versus accumulated spending, due deadline versus last processed date. Charge244 model similarly preserves requested payment versus balances; amount zero remains possible algebraic value. period_charge842 uses semantic owner Boolean, exact09F142. Acquisition246 consumes selected tenure price and replaces rental only, preserving other owned holdings. Occupancy248 folds scoped Admitted/Removed transitions by effective minute and recorded ordinal, then reconstructs latest pointer; delayed write does not mean latest current move. Public admission245644\u2013717 checks living identity, pairwise observer frontier, exact settlement co-presence and actual kinship/household authorization.",
+      "qualifications": [
+        "No blanket sum-state for independent active/primary/occupied facts; different legal, designation and physical authorities legitimately combine. No actual ordinary bad occupancy or title transfer claimed.",
+        "Specific counts and money line items are meaningful roles even where a shared nonnegative invariant fits. Billing period, total elapsed, due date and processing frontier must not become interchangeable raw u64, and no invented universal positive monetary owner.",
+        "Transition precedence is explicit stable encoding/order, not physical quantity. Property-occupancy recorded ordinal distinguishes same-minute moves; no random Seed substitution or independently reselected effective state.",
+        "Native NpcResidenceOutcome already carries Rented(HousingTier), useful payload shape. Its current NoAffordableOffer on recovery error1198\u20131201 is conservative classification needing M30 cause preservation; no newly established ordinary wrong failure.",
+        "Owner status visibility remains even after they occupy another holding; occupant privacy excludes owner-only economic dates. ZERO redaction is representation debt, not permission to expose exact billing.",
+        "Parent own05 wedding housing preflight finding is connected to this actual fallible move/capacity receiver; own11 has not independently read the wedding body in this packet and claims no new unique partial commit proof.",
+        "Actual residence morale source parser944\u2013959 recognizes spouse-source namespace; physical location, actual positive earned morale and source identity need retention. Existing absence/no-benefit are legitimate, do not fabricate a mandatory benefit."
+      ],
+      "acceptance": "Retain distinct legal/property/occupancy/family identities and explicit owner-only payload through native history and gateway projections. Preserve chronological billing, inclusive availability, capacity, source morale and private visibility; structured causes remain inspectable internally."
+    },
+    {
+      "id": "generated-property-capacity-and-materialized-census",
+      "sources": [
+        {
+          "scope_index": 249,
+          "ranges": [
+            [
+              1,
+              377
+            ]
+          ]
+        },
+        {
+          "scope_index": 250,
+          "ranges": [
+            [
+              1,
+              62
+            ]
+          ]
+        },
+        {
+          "scope_index": 251,
+          "ranges": [
+            [
+              1,
+              111
+            ]
+          ]
+        },
+        {
+          "scope_index": 247,
+          "ranges": [
+            [
+              1,
+              242
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "local774:M35",
+        "local774:M28",
+        "local774:M30"
+      ],
+      "disposition": "meaningful geometry, capacity and census-stage roles; no new distinct finding",
+      "trace": "249 validates GeneratedHomeCatalog against settlement population153\u2013158, derives immutable digest159 then projects home identity and actual local geometry201\u2013213 to native fields. East/north positions, yaw angle, width/depth lengths, capacity persons, building ID and property ID are separate units/frames/identities, not interchangeable f32/u32/u64. Allocation receives named households/counts, while unmaterialized aggregate residents do not require per-person rows43\u201353. Room admission265\u2013310 checks every later occupancy boundary before proposed admission end, subtracting the same actor from named count and adding aggregate census residents against physical capacity.251 consumes aggregate census count into actual named household occupancy exactly once via GeneratedResidentHome; that source provenance is not current occupancy after later moves.250 projects materialized and aggregate counts separately.247 guarded fixture explicitly checks census total, rent versus ownership, occupancy versus household, later effective capacity and rejection preserving future pointer.",
+      "qualifications": [
+        "Private generated-resident source provenance and mutable current home have different authority. Do not merge merely because both store property ID or require a current immutable-source home to equal later occupancy.",
+        "No new population bound or all-residents materialization requirement; bounded named roster plus aggregate population is intentional. Actual capacity comparisons use wider counts.",
+        "Generated catalogue identity is already admitted before native text serialization; internal helpers should retain its semantic owner where fit, not invent a duplicate property ID type per layer. Authored/public property and household identities are open keys.",
+        "Guarded setup and fixtures are source evidence only, not authorization to seed or proof a test passed. No project checks, reducers, browser or database execution."
+      ],
+      "acceptance": "Retain canonical local geometry and property identity through actual native adapters, distinct named/aggregate count authority and historical capacity intervals, preserving one-time census conservation and legal/physical separation."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

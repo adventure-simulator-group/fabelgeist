@@ -1,0 +1,39 @@
+{
+  "id": "CAMERA-ADM03-F004",
+  "at": "2026-10-22T06:19:05.435691+00:00",
+  "classification": "admission_defect: omitted required kind capabilities",
+  "contract": "CAMERA-ADM03-026",
+  "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation.rs",
+  "sha256": "df661928f5ac6376e0d1ce0f9f90e17d4db7d8b7417d49a2cf683656dddfe945",
+  "actual_source_ranges": [
+    [
+      526,
+      544
+    ],
+    [
+      1210,
+      1214
+    ],
+    [
+      1278,
+      1282
+    ],
+    [
+      1354,
+      1358
+    ]
+  ],
+  "invariant": "Repairable kinds require durability; Food kind requires nutrition metadata; Container kind requires capacity metadata, per actual predicate/errorpolicy. Simplekind mayintentionallylackcapabilities.",
+  "all_admission_routes_and_failed_gate": "Outer validate_item537 calls validate_capabilities onlyif sourcefieldexists. Missingfield skips requiredbodychecks. Actual typedItemCatalogDocument decode269 independentlyreceives PRItemDefinition #[serde(default)] capabilities39\u201340; allOption Capabilities492\u2013500 derivesDefault+Deserialize. PRItemKind380\u2013430 Foodunit/Containeronlyslot andweapon/armor fields lackcapabilityguard. P16actualschema currentcounterpart sameordinarydefault/kindpolicy independentlycompared byRig, nothashinference. RuntimeP16 loadtypeddecode/project/coverage/sort hasnoauthoritativesemanticpostdecodegate inRigsources; sourcecompilemain itselfalsoacceptsabsentfield.",
+  "conceptual_counterexample": "Otherwisevalidfood/container/repairableitem withentirecapabilitiesfieldomitted: requiredkindchecksneverrunandtypeddecodeyieldsallNone. No fabricatedtest/case/assertion/fixtureor execution.",
+  "actual_dependency_witness": {
+    "record": "continuation/rig/admission03/catalogue-schema-receiver-witness-001.json",
+    "sha256": "c154e61d2167e921b2d34d29099e9c11db5a37ca25f5f401843477e18d435bf7",
+    "id": "RIG-ADMISSION03-CATALOGUE-SCHEMA-WITNESS-001"
+  },
+  "current_semantic_comparison": "Compared actual missingfield branch in personallyreadPRmain to both exact schema default/kinddeclarations and no customdeserialize in currentRigsupplierbodyfacts; schema type/default hasno independentrequired-by-kind proof. Old owner/current counts notcoverage.",
+  "earliest_connected_repair": "At actual outer item-kind admission, enforce required capabilitypresence evenwhenobjectabsent and apply sameauthoritativepredicate acrossbuild/runtimecompiledstate. Preserve optional/defaultNone for kindswhereabsencevalid; no injectednutrition/durability/defaultcompatibilityvalues or stricterunrelatedgrammar. KeeprawDTO/diagnostic rejectedsource intact.",
+  "acceptance": "Missingwholecapabilities andmissingrequiredchild bothrejectforrequiredkind; legitimateSimpleabsencevalid; everydirect/Serde/compiledruntimeboundaryclaimingadmittedcatalogue respects samekindcondition. Preserve originalfirsterrors and currentcapabilitynumeric/bool/unitpolicies.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

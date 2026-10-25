@@ -1,0 +1,195 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-505",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture.rs",
+      "sha256": "a6e05f5d76dc07ebb642f6ff405725f46b5aa8a429666231e0b09e9c768abf2d",
+      "actual_EOF": 145,
+      "actual_compared_ranges": [
+        [
+          1,
+          145
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/candidates.rs",
+      "sha256": "3d43e5f1ea3eaa2b4ef34c3b21965f23981802c64eea068ee61ae184c69e6a00",
+      "actual_EOF": 143,
+      "actual_compared_ranges": [
+        [
+          1,
+          143
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/candidates/composition.rs",
+      "sha256": "05750ce7d6a8f3afd88276d9baebd4bc1d7f523692648055c76682c740f901c1",
+      "actual_EOF": 24,
+      "actual_compared_ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/candidates/frontage.rs",
+      "sha256": "41fde4d65e80d763b05b87610fd7abd7b749f080370869c1d57eebb153b30131",
+      "actual_EOF": 71,
+      "actual_compared_ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/candidates/market.rs",
+      "sha256": "dd69ac02f15fd9ea319e4936ca043f3d44bb7c3c17ee086a3bddefa939c70236",
+      "actual_EOF": 208,
+      "actual_compared_ranges": [
+        [
+          1,
+          208
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/collision.rs",
+      "sha256": "f62042f52b90927aa161dcd0af4e4fd714c15b0e1732e8e93a7a2cff98aed060",
+      "actual_EOF": 29,
+      "actual_compared_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/footprint.rs",
+      "sha256": "2d944f76903a993e6124e546880e4e4b294c89ab1967f5f89b23e9413919ac11",
+      "actual_EOF": 122,
+      "actual_compared_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/ground.rs",
+      "sha256": "0309759636f548b7fc109f9743cbb1dd6a5a7ad5d3f41e24ef4a1521ef83b9b5",
+      "actual_EOF": 97,
+      "actual_compared_ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/interior.rs",
+      "sha256": "bafc30c78120a7b81fdf782b1d30782169a0f8632dcb973eac202b39c69847f0",
+      "actual_EOF": 103,
+      "actual_compared_ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/interior/tests.rs",
+      "sha256": "503801e4a1878c3ff962d59f4526020b82b8d798fbb60de2c5e232b686c7d11f",
+      "actual_EOF": 87,
+      "actual_compared_ranges": [
+        [
+          1,
+          87
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Complete deterministic kits preserve local bounds and access clearances",
+      "evidence": "Full furniture145/candidates143/composition24/frontage71/market208: localrecipebounds+everyclearance, checkeddisplacements thenPlanExtents/placedfootprint, fixednonemptycompositionmax3items.20frontageslots andmarket128rowsperhalf/512columns preservefinitecounter andunique rowbits32: slot max255<<32|511. Aggregateallmarketcount\u00d7permarketbudget stillneedscomposedworkcapacity, not implied byindividualcaps. MarketFrame construction mayskiperror viaOption, no actualnormalerror witness asserted. Stablehashedidentities notpositivepersistentIDs."
+    },
+    {
+      "contract": "Physical furniture geometry and scene boundary classification",
+      "evidence": "Full collision29/footprint122/ground97. Serverandreviewsharecanonicalrecipecompoundcolliders, no canvas/waterphysicalsolid. Footprint allowszeroextentsforcontact but checksorientation+finitecorners; SATintentionalstrictpenetration touchingnotcollision. PlacementScope allcornersplayable\u2192physics, crossingboundaryrejected, fullyoutside\u2192vistaspecifiednophysics. Groundheight firstphysicalthenfirst2rawvistaseam; selectedcohortquestion related459 notanotherunique defect. Water/wetlandthreshold andlandformcollaractivity exclusionexplicit. Exactnativeenvironmentindex depends on inputvalidation dimensions/envcount, fullcallerproofpending."
+    },
+    {
+      "contract": "Interior fallible installation mutates retained container before whole result",
+      "evidence": "Full interior103/tests87 plus4freshRig dependencies. Publicinstall_interior wrapper takes&mutFurnitureLayout; interior::install pushesinstancesinsidefallibleloop thenonlypusheslayoutcirculationproofafterall. Lateractualfloor_height MissingFloor or checkedpositionerror leavesearlierinstances; appendalsoearlierbuildings. This is API/raw/mismatchedlayout partialmutation candidate; normal furnishsameplan coherent, actualworkerjob source/retention witness notclosed. RelatedM16 source/layout association requires exactdefect/remedy dedup. No ordinaryclientbadjob/run asserted. Acceptance relevantpublicoperationmustpreserve priorlayout/proof on Err or establish explicit coherentpartialresultcontract before caller relies on it; no sourcechange."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/interior.rs",
+      "path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/dependencies-505/interior.rs",
+      "sha256": "6dfb61f15cc323392577e8773083c09ea549a3efaace1d3c92802e113ba026cd",
+      "actual_compared_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "method": "Whole exact source personally read for floor error/circulation and actual placement semantics; no originalrole transfer."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/placement.rs",
+      "path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/dependencies-505/interior/placement.rs",
+      "sha256": "bdb6ff8d669fb04becfeae5b400ac090c1e458b64a5fb54c215e62f43b4f23f3",
+      "actual_compared_ranges": [
+        [
+          1,
+          213
+        ]
+      ],
+      "method": "Whole exact source personally read for floor error/circulation and actual placement semantics; no originalrole transfer."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/architecture.rs",
+      "path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/dependencies-505/interior/architecture.rs",
+      "sha256": "ea8f3edc195be45a804f200cf4651c7855317fcb7726dfdc1dff0f256fb9bde7",
+      "actual_compared_ranges": [
+        [
+          1,
+          281
+        ]
+      ],
+      "method": "Whole exact source personally read for floor error/circulation and actual placement semantics; no originalrole transfer."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/interior/geometry.rs",
+      "path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/dependencies-505/interior/geometry.rs",
+      "sha256": "ab00aade1ddd259c070bf761e9877e4c5f08ac7cf31913b4d7448ea389123509",
+      "actual_compared_ranges": [
+        [
+          1,
+          317
+        ]
+      ],
+      "method": "Whole exact source personally read for floor error/circulation and actual placement semantics; no originalrole transfer."
+    }
+  ],
+  "status": "10 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture/occupancy.rs"
+}

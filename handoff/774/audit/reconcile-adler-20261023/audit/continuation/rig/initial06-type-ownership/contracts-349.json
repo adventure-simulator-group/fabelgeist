@@ -1,0 +1,26 @@
+{
+  "id": "RIG-INITIAL06-GROUP-349",
+  "at": "2026-10-23T09:22:22.969438+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "leaf-shader-abi-and-metadata-lanes": {
+      "comparison": "TacticalTreeLeafCardMaterial is actual WGSL three-vec4 ABI: wind XY/amplitude, cutoff/normalstrength/canopyblend/transmission, physicalthickness/pigmentblend. Texture albedo is color but vertex color can instead contain canopy visibility/shoot thinning unless pigmentblend opts in; ARM and normal textures are native encoded measures, not color-owner candidates. Shader derives displacement/normal/light/LOD coverage in native world space and uses Bevy globals time intentionally to avoid CPU material dirtying. Actual PBR output is true color port under F005; do not brand every Vec4 or metadata color channel as RGBA. Host material contract previously compared remains distinct from this shader implementation.",
+      "disposition": "actual shader ABI/numerical port with color versus encoded metadata distinction"
+    },
+    "prepared-ground-owner-specific-upload": {
+      "comparison": "PreparedCityGround retains canonical TrafficTile/CityGroundKind/SurfaceVertices; CPU geometry batches serialize while installed PresentationOwners<OnceLock<GroundUpload>> and traffic runtime caches skip Serde. Scene and RegionalMap have genuinely distinct winding/handle uploads while identical coordinates may be shared: tests verify reflected triangles and no duplicate warm uploads. GroundSupport canonical property surface versus prepared mesh/landform remains authority distinction; raw f64 origin→nativeVec3 and clipping/mesh construction are actual numerical/upload operations. No copied independent geometry declaration or competing presentation owner enum is authored here. Original transport/cache fixtures read only.",
+      "disposition": "coherent CPU prepared geometry versus owner-specific native upload authority"
+    },
+    "interior-sightline-owner-and-numerical-kernel": {
+      "comparison": "Blocker retains authoritative CollisionCuboid<Architectural> and Owner distinguishes architecture ResolvedItemId from local furniture ordinal; they are not one universal entity identity. PreparedBlocker computes oriented native slab values/world padding from canonical cuboid, so raw centre/half/inverseQuat here are changed numerical representations rather than unchanged cuboid reconstruction F024. Subject importance/signature/front-view/working-points are camera-composition policy, not combat or geometry admission certificates; scoring fraction and world-space vectors serve actual slab/frustum search. Own fitting camera offsets F046 were authored target-relative values: these are computed architectural-frame sightlines and do not establish same wrong-frame finding. Original fixtures read only.",
+      "disposition": "canonical solid owner consumed by explicit camera visibility kernel; separate local subject identity/policy"
+    }
+  },
+  "supporting_existing_findings": [
+    "F005",
+    "F024",
+    "F046"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit."
+}

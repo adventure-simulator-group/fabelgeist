@@ -1,0 +1,25 @@
+{
+  "goal": "#726 / #774 migration plan execution",
+  "source_head": "8db8d83f1d0bde61db1dba37c1bdee79bd934c04",
+  "plan": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-canary-audit-20261020/migration-plan.json",
+  "worktree": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree",
+  "initial_order": [
+    "P01",
+    "P05",
+    "P07"
+  ],
+  "next_family": "P02",
+  "changed_files": {
+    ".github/workflows/rust-quality.yml": "94b0686d52f3b01b64e5c79d53df08e6a19c131d13b1bbf969ca60b8abac52c9",
+    "crates/adventuresim-core/src/elapsed.rs": "636da42c5654347f8e3a1f724da8277d2174f15b537be35279f9bf101d52af73",
+    "crates/adventuresim-tactical-client/src/animation/jitter.rs": "09489de222ca4f30491d5c8749c7fb8a340468667726d93443aaa54866be1b70",
+    "crates/adventuresim-tactical-client/src/animation/procedural/ik/orientation.rs": "ff4aaee32aae4083fc2d3ce6a8bc5f80a46be340a8e2ff965e2666dabffe9ae2",
+    "crates/adventuresim-tactical-client/src/animation/procedural/ik/tests.rs": "07173723dc1b394d9c0fd6f2ecb7fa286d29b4c3ee67c86acd26505355f6acd8",
+    "crates/adventuresim-tactical-client/src/animation_viewer/capture.rs": "f64b45dfec78aed2689c7e9a84d80fa77095ae0c5af1cf741c12769f7ec34f72",
+    "crates/adventuresim-tactical-client/src/movement_audio.rs": "dba25cb81026359ed1006ee16cbd93790f7d7187ed45a046c4f3a2d32a52249b",
+    "rust-quality-baseline.toml": "3323e992aa8b51a21b930fe8f9a2648b2c2f44fbcfefb7172b9035df3d5110c4"
+  },
+  "validation": "Hosted only. No local project build, test, formatter or quality scanner run.",
+  "previous_goal_turn": "Progress: remote and local evidence ruled out merge conflicts, allowing implementation to resume.",
+  "completion": "Not achieved; all twenty migration-plan items retain their original requirements."
+}

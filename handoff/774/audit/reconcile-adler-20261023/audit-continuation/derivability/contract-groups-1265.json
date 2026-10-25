@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1265",
+  "at": "2026-10-25T18:20:00.480638+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1331,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer.rs",
+  "sha256": "4544835a041e7c35f25b60d0b13e06ff22ea4ecc0efc90efdda1cd6963fb9638",
+  "actual_compared_ranges": [
+    [
+      301,
+      600
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Inherent semantic PosePlanKey sorts/dedups selected clip+layer topology; retained cache invalidation and target/displayed velocities/transition capture carry runtime state. Native Bevy update system reads current rig/clock/visibility/physics ownership/current playback/terrain; checked sampling/transitions preserve error order. No handwritten trait or codec in this actual slice.",
+  "first_unfinished": {
+    "scope_index": 1331,
+    "line": 601
+  },
+  "execution": "none"
+}

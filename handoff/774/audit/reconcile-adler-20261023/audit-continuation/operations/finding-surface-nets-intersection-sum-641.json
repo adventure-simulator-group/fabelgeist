@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-04-SURFACE-NETS-INTERSECTION-SUM-CANDIDATE-001",
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/volumetric.rs",
+  "sha256": "91cc6773da28100f122fbaa19b7bbc9a258f808a68f09e61f199d880652266b0",
+  "ranges": [
+    [
+      35,
+      70
+    ],
+    [
+      110,
+      140
+    ]
+  ],
+  "witness": "Finite ordered2x2x2 bounds minimum=(f32MAX*.5,0,0),maximum=(f32MAX,1,1), field returning\u22121 when x<MAX*.75 else+1. All eight sample values finite. Four x-crossing edges interpolate finite x\u2248.75MAX; summing intersections into native Vec3 overflows x toInf before division by4. Some(surface) publishes Inf position, with zero gradient fallbackY.",
+  "qualification": "Internal representable custom-grid/field API counterexample at extreme finite coordinates; no ordinary authored physical grid, rendered bad mesh, GPU execution or runtime failure asserted. Exact f32 arithmetic inferred from source, not executed.",
+  "repair_boundary": "Compute robust intersection mean and re-admit spacing/sample/vertex results before publishing native mesh, preserving signed coordinates and legal physical scales.",
+  "acceptance": [
+    "Finite-input extreme witness rejects or publishes finite mathematically valid vertex, never Some nonfinite mesh.",
+    "Ordinary scalar field topology/winding and deterministic normals preserved.",
+    "Native u32 index and actual allocation/work capacity admitted separately."
+  ],
+  "alias_status": "Pending exact archive comparison, no global uniqueness assertion.",
+  "alias_qualification": "Parent narrow indexed archive check found no exact sum-overflow alias; ROOT-INITIAL04-F012 hair-head surface nets grid capacity is a different receiver/defect, no semantic global uniqueness proof."
+}

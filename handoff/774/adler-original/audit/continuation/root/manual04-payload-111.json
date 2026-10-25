@@ -1,0 +1,34 @@
+{
+  "packet_number": 111,
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/composite.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          386
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Full literal P16 composite1-386 and actual complete PR empty diff; independently resolved same Player* traits/combat owners and literal docs/examples, no hash-only or trait-wide clearance."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/composite.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          386
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Full literal P16 composite1-386 and actual complete PR empty diff; independently resolved same Player* traits/combat owners and literal docs/examples, no hash-only or trait-wide clearance."
+    }
+  ],
+  "groups": {
+    "builder-and-delegation": "PlayerInfo private fields preserve every owned part when each consuming builder adds the missing trait part. No arithmetic/index or partially committed external mutation; unit marker controls method availability. Derive/delegation forwards actual trait contract rather than validating all part values, and does not itself seal a coherent combat state. Lossless impl Into<Attribute> dispatch is appropriate enum composition, not a primitive-erasure port.",
+    "forwarded-operation-graph": "fatigue/weighted limb attr/attr/skill_check and melee/ranged resolution forward actual constituents directly; their computed result guarantees remain lower helper obligations. Raw hit precision/flanking/skill outputs cross internal APIs and must join canonical shared owner propagation. Same Self defender type constrains component types, not two players' value validity or identity.",
+    "contact-computation": "melee_contact_location computes gap_targeting=(accuracy-1).clamp0..1 times ContactPrecision concentrated fraction; finite nonnegative accuracy/precision contract needed before this calculation. ContactPrecision::new is an assertion-bearing late admission for raw trait weapon_precision; joins F014/F025 physical precision graph, no independent normal failure asserted. The final equipment sampling helper does not make preceding NaN/Inf safe.",
+    "scope-and-docs": "Read all existing doctest/example source as scoped content; no new or executed tests/helpers. Existing fatigue/combat method behavior stays delegated; no separate fatigue pool or tactical persistence. This operations record grants no general trait implementor/default-body/underlying combat module clearance."
+  },
+  "findings": []
+}

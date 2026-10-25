@@ -1,0 +1,394 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-172",
+  "at": "2026-10-23T02:46:19.446863+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-050.json",
+    "sha256": "50f66e3bf7b00825a1c463b6cf0261dd046988baed47ff6627faab839e83e488"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-049.json",
+    "sha256": "b1535d16d5fc9727f0e46a56965826f0d52e4ec6b3c778db072de4b57b83025d"
+  },
+  "new_variants": [
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability/mass.rs",
+      "sha256": "1f6a584fc834b98fd0a39dee168f5b8c461518b712f56906a9de26bd44fe192e",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\capability\\mass.rs",
+      "snapshot": "pr-working",
+      "actual_line_count": 41,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "audit_owner": "root",
+      "scope_registration": [
+        {
+          "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+          "sha256": "c9204966306c560359e9ea2ab7903845bcccaef0560cb886afd855881bbce1cb",
+          "row_1based": 16,
+          "id": "ROOT-INITIAL04-REG016",
+          "original_record": {
+            "id": "ROOT-INITIAL04-REG016",
+            "at": "2026-10-23T02:32:21.772226+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability/mass.rs",
+            "snapshot": "pr-working",
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\capability\\mass.rs",
+            "sha256": "1f6a584fc834b98fd0a39dee168f5b8c461518b712f56906a9de26bd44fe192e",
+            "actual_EOF": 41,
+            "material_ranges": [
+              [
+                1,
+                41
+              ]
+            ],
+            "actual_reach": "Direct exact current PR counterpart to scoped P16 carried-mass/combatant/equipment projection. Required to compare actual unchanged PR helper rather than infer from P16 or root filename.",
+            "exclusions": "Only exact helper file; no whole parent capability or downstream mutation/SDK credit. Prior premature comparison103 uncredited under root170; fresh post-registration body required.",
+            "premature_read_qualification": {
+              "record": "continuation/root/parallel-scope-qualification-170.json",
+              "sha256": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c"
+            },
+            "status": "prospectively_registered_before_credited_fresh_body_analysis"
+          }
+        }
+      ],
+      "scope_limits": "Only exact prospectively registered range; fresh03 comparison171. Root170 permanently excludes premature103 credit for PR mass/armor. No other-lens clearance or adjacent test coverage.",
+      "source_lens_credit": "none from scope metadata"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability/armor.rs",
+      "sha256": "027f27a4294fe1574bcb9c7f376db05904519094f99936be09bcf66d5459b7e0",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\capability\\armor.rs",
+      "snapshot": "pr-working",
+      "actual_line_count": 103,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "audit_owner": "root",
+      "scope_registration": [
+        {
+          "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+          "sha256": "c9204966306c560359e9ea2ab7903845bcccaef0560cb886afd855881bbce1cb",
+          "row_1based": 17,
+          "id": "ROOT-INITIAL04-REG017",
+          "original_record": {
+            "id": "ROOT-INITIAL04-REG017",
+            "at": "2026-10-23T02:32:21.772226+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability/armor.rs",
+            "snapshot": "pr-working",
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\capability\\armor.rs",
+            "sha256": "027f27a4294fe1574bcb9c7f376db05904519094f99936be09bcf66d5459b7e0",
+            "actual_EOF": 103,
+            "material_ranges": [
+              [
+                1,
+                103
+              ]
+            ],
+            "actual_reach": "Direct exact current PR counterpart to scoped P16 carried-mass/combatant/equipment projection. Required to compare actual unchanged PR helper rather than infer from P16 or root filename.",
+            "exclusions": "Only exact helper file; no whole parent capability or downstream mutation/SDK credit. Prior premature comparison103 uncredited under root170; fresh post-registration body required.",
+            "premature_read_qualification": {
+              "record": "continuation/root/parallel-scope-qualification-170.json",
+              "sha256": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c"
+            },
+            "status": "prospectively_registered_before_credited_fresh_body_analysis"
+          }
+        }
+      ],
+      "scope_limits": "Only exact prospectively registered range; fresh03 comparison171. Root170 permanently excludes premature103 credit for PR mass/armor. No other-lens clearance or adjacent test coverage.",
+      "source_lens_credit": "none from scope metadata"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory/query.rs",
+      "sha256": "88a095239e91a987745462a6d940bd24f04148126ba2f0297a9365612ba6f512",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\inventory\\query.rs",
+      "snapshot": "pr-working",
+      "actual_line_count": 21,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "audit_owner": "native",
+      "scope_registration": [
+        {
+          "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+          "sha256": "56d1a42c9bab45cf616aef13795dc0bf28256ee75b21c7d6dfa6a0a7d1fb2507",
+          "row_1based": 25,
+          "id": "NATIVE-INITIAL05-REG025",
+          "original_record": {
+            "id": "NATIVE-INITIAL05-REG025",
+            "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory/query.rs",
+            "sha256": "88a095239e91a987745462a6d940bd24f04148126ba2f0297a9365612ba6f512",
+            "actual_EOF": 21,
+            "material_ranges": [
+              [
+                1,
+                21
+              ]
+            ],
+            "role": "Direct InventoryView::iter ownership/filter recipient for scoped inventory1877 and actual equipment/combat observers; no broader ECS dependency graph.",
+            "actual_caller": "inventory.rs326\u2013336/528 and PlayerEquipment observers",
+            "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+            "snapshot": "pr-working",
+            "snapshot_commit": "6533e444fa37552927070cc8d8190907fd3b413e plus exact frozen overlay",
+            "at": "2026-10-23T02:35:31.683136+00:00",
+            "status": "registered_before_body_analysis",
+            "source_edits": 0,
+            "other_lens_credit": false
+          }
+        }
+      ],
+      "scope_limits": "Only exact prospectively registered range; fresh03 comparison171. Root170 permanently excludes premature103 credit for PR mass/armor. No other-lens clearance or adjacent test coverage.",
+      "source_lens_credit": "none from scope metadata"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory_armor.rs",
+      "sha256": "6eccc859a14c75eb9734e96267595d482c3216028bda7e2f4cd113b8312a996b",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\inventory_armor.rs",
+      "snapshot": "pr-working",
+      "actual_line_count": 205,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          1,
+          79
+        ]
+      ],
+      "audit_owner": "native",
+      "scope_registration": [
+        {
+          "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+          "sha256": "56d1a42c9bab45cf616aef13795dc0bf28256ee75b21c7d6dfa6a0a7d1fb2507",
+          "row_1based": 26,
+          "id": "NATIVE-INITIAL05-REG026",
+          "original_record": {
+            "id": "NATIVE-INITIAL05-REG026",
+            "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory_armor.rs",
+            "sha256": "6eccc859a14c75eb9734e96267595d482c3216028bda7e2f4cd113b8312a996b",
+            "actual_EOF": 205,
+            "material_ranges": [
+              [
+                1,
+                79
+              ]
+            ],
+            "role": "Direct armor_layer_chain/fold_armor_layers complete production roles for scoped inventory1877 selected surface/fold; excludes80+tests and unrelated native graph.",
+            "actual_caller": "inventory.rs377\u2013381/578\u2013586",
+            "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+            "snapshot": "pr-working",
+            "snapshot_commit": "6533e444fa37552927070cc8d8190907fd3b413e plus exact frozen overlay",
+            "at": "2026-10-23T02:35:31.683182+00:00",
+            "status": "registered_before_body_analysis",
+            "source_edits": 0,
+            "other_lens_credit": false
+          }
+        }
+      ],
+      "scope_limits": "Only exact prospectively registered range; fresh03 comparison171. Root170 permanently excludes premature103 credit for PR mass/armor. No other-lens clearance or adjacent test coverage.",
+      "source_lens_credit": "none from scope metadata"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/enrollment.rs",
+      "sha256": "9d6646ad8d4c3da14afcf544a8426c44afd33921fc4c39d20f4e2c09a49aa5f1",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-server\\src\\mission\\enrollment.rs",
+      "snapshot": "pr-working",
+      "actual_line_count": 189,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          1,
+          125
+        ]
+      ],
+      "audit_owner": "native",
+      "scope_registration": [
+        {
+          "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+          "sha256": "56d1a42c9bab45cf616aef13795dc0bf28256ee75b21c7d6dfa6a0a7d1fb2507",
+          "row_1based": 28,
+          "id": "NATIVE-INITIAL05-REG028",
+          "original_record": {
+            "id": "NATIVE-INITIAL05-REG028",
+            "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/enrollment.rs",
+            "sha256": "9d6646ad8d4c3da14afcf544a8426c44afd33921fc4c39d20f4e2c09a49aa5f1",
+            "snapshot": "pr-working",
+            "actual_EOF": 189,
+            "material_ranges": [
+              [
+                1,
+                125
+              ]
+            ],
+            "role": "Actual PartyEnrollment lifecycle/join/seal constructor and operations directly used mission/mod67\u201398 and systems191\u2013244; no126+tests.",
+            "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+            "at": "2026-10-23T02:39:31.392415+00:00",
+            "status": "registered_before_body_analysis",
+            "source_edits": 0,
+            "other_lens_credit": false
+          }
+        }
+      ],
+      "scope_limits": "Only exact prospectively registered range; fresh03 comparison171. Root170 permanently excludes premature103 credit for PR mass/armor. No other-lens clearance or adjacent test coverage.",
+      "source_lens_credit": "none from scope metadata"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/receipt.rs",
+      "sha256": "24e17b0e16c1731ef4fa81d7e8f2448cd42b12b6b75dbbe16bc502f0f606508d",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-server\\src\\mission\\receipt.rs",
+      "snapshot": "pr-working",
+      "actual_line_count": 102,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "audit_owner": "native",
+      "scope_registration": [
+        {
+          "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+          "sha256": "56d1a42c9bab45cf616aef13795dc0bf28256ee75b21c7d6dfa6a0a7d1fb2507",
+          "row_1based": 29,
+          "id": "NATIVE-INITIAL05-REG029",
+          "original_record": {
+            "id": "NATIVE-INITIAL05-REG029",
+            "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/receipt.rs",
+            "sha256": "24e17b0e16c1731ef4fa81d7e8f2448cd42b12b6b75dbbe16bc502f0f606508d",
+            "snapshot": "pr-working",
+            "actual_EOF": 102,
+            "material_ranges": [
+              [
+                1,
+                76
+              ]
+            ],
+            "role": "Actual tactical_consequence_receipt frozen projection called systems60\u201364 before terminal commit; no77+tests.",
+            "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+            "at": "2026-10-23T02:39:31.392431+00:00",
+            "status": "registered_before_body_analysis",
+            "source_edits": 0,
+            "other_lens_credit": false
+          }
+        }
+      ],
+      "scope_limits": "Only exact prospectively registered range; fresh03 comparison171. Root170 permanently excludes premature103 credit for PR mass/armor. No other-lens clearance or adjacent test coverage.",
+      "source_lens_credit": "none from scope metadata"
+    }
+  ],
+  "new_overlays": [
+    {
+      "id": "CONT-OWNER-RANGE-EXTENSION-233",
+      "at": "2026-10-23T02:46:19.446863+00:00",
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/mod.rs",
+      "sha256": "294366e9eac449d161658a404c461baaf901a04a89e96ea87909a819e322e88a",
+      "material_ranges": [
+        [
+          159,
+          213
+        ]
+      ],
+      "audit_owner": "native",
+      "reason": null,
+      "scope_registration": [
+        {
+          "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+          "sha256": "56d1a42c9bab45cf616aef13795dc0bf28256ee75b21c7d6dfa6a0a7d1fb2507",
+          "row_1based": 27,
+          "id": "NATIVE-INITIAL05-REG027",
+          "original_record": {
+            "id": "NATIVE-INITIAL05-REG027",
+            "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/mod.rs",
+            "sha256": "294366e9eac449d161658a404c461baaf901a04a89e96ea87909a819e322e88a",
+            "snapshot": "pr-working",
+            "actual_EOF": 362,
+            "material_ranges": [
+              [
+                159,
+                213
+              ]
+            ],
+            "role": "Complete directly reached tick_timeout tail and TerminalCombatSnapshot/CombatOutcomeHold::advance for scoped systems175\u2013276; excludes214+test-only state helper and original tests.",
+            "actual_caller": "MissionState::advance_combat_outcome101\u2013106 and systems234\u2013245",
+            "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+            "at": "2026-10-23T02:38:31.412904+00:00",
+            "status": "registered_before_body_analysis",
+            "source_edits": 0,
+            "other_lens_credit": false
+          }
+        }
+      ],
+      "limits": null,
+      "source_qualifications": "Only exact prospectively registered range; fresh03 comparison171. Root170 permanently excludes premature103 credit for PR mass/armor. No other-lens clearance or adjacent test coverage."
+    }
+  ],
+  "total_variants": 2816,
+  "total_overlays": 233,
+  "mandatory_scope_qualifications": [
+    {
+      "record": "continuation/root/parallel-scope-qualification-130.json",
+      "sha256": "5dc4e5cd771612c7e050ab4af544411523317ae4b57738f1fb20f493685a50fc"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-117.json",
+      "sha256": "f3b80648900716939057b20776d756a6e37001f6910378da1a1bbaea230d348b"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-149.json",
+      "sha256": "97103899514ade32cf1e41c2794fa9c49c0cb8c6c7a2c6a4961b7492de5dc708"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-151.json",
+      "sha256": "670dd53a640b28eef7ad9d57b37f9213e1bca7117d7098691c4b0cd20c2a8f65"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-158.json",
+      "sha256": "fa0e9cc06d04fca0a0e2b5f9a333390a0ba1e71eff846a4e957c46b68b3e940e"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-170.json",
+      "sha256": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c"
+    }
+  ],
+  "registered_rows": 7,
+  "input_pins": [
+    {
+      "record": "continuation/root/initial04-invariant-operations/source-range-registration.jsonl",
+      "sha256": "c9204966306c560359e9ea2ab7903845bcccaef0560cb886afd855881bbce1cb",
+      "captured_rows": 17,
+      "selected_ids": [
+        "ROOT-INITIAL04-REG016",
+        "ROOT-INITIAL04-REG017"
+      ]
+    },
+    {
+      "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+      "sha256": "56d1a42c9bab45cf616aef13795dc0bf28256ee75b21c7d6dfa6a0a7d1fb2507",
+      "captured_rows": 29,
+      "selected_ids": [
+        "NATIVE-INITIAL05-REG025",
+        "NATIVE-INITIAL05-REG026",
+        "NATIVE-INITIAL05-REG027",
+        "NATIVE-INITIAL05-REG028",
+        "NATIVE-INITIAL05-REG029"
+      ]
+    }
+  ],
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through232-before050.jsonl",
+    "sha256": "b22c2000b274c0209f65c2fdc6c4a2569ded6fedce59f9e7ccbf9cd97a20042a",
+    "through": 232
+  },
+  "limits": "Six new variants2816 and one mandatory overlay233, seven exact registered roles; all previous qualifications plus170 preserved. All initial audits then handover under163; no source edits/project execution."
+}

@@ -1,0 +1,58 @@
+{
+  "id": "CONT07-F126",
+  "contract": "CONT07-CONTRACT-652",
+  "at": "2026-10-24T01:12:43.720299+00:00",
+  "title": "Repeated shell recording repositions retained hinges while rebuilding mesh in its original frame",
+  "classification": "source-confirmed public repeated-record API coherence defect; ordinary repeated caller unproven",
+  "sources": [
+    {
+      "scope_index": 2196,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/mod.rs",
+      "sha256": "e2c32d059f773c9dc53ca214859713765404865e75e82302ea6b978145960199",
+      "ranges": [
+        [
+          107,
+          120
+        ],
+        [
+          140,
+          157
+        ]
+      ]
+    },
+    {
+      "scope_index": 2197,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/part.rs",
+      "sha256": "b990af2759b5c457ee1e2035060d64f0fdeaa9185b2239392b8d98fd18eefeaf",
+      "ranges": [
+        [
+          155,
+          207
+        ],
+        [
+          227,
+          239
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/placement.rs",
+      "sha256": "a2f0bf9ab7c3f926407e6957b28e04563f05c287418d90c678ff1fa9999c5073",
+      "ranges": [
+        [
+          122,
+          128
+        ]
+      ],
+      "registration": "CONT07-REG-032"
+    }
+  ],
+  "producer_and_recipient": "Each record_shells rebuilds walls/final mesh from local carrier source and places final positions. The same placement dispatch transforms retained hinges in place without reconstructing their local source. stage later returns both mesh and current hinge records.",
+  "static_witness": "A part with a hinge and nonidentity proper placement frame records shells twice without re-recording original hinge producer. First record yields mesh F(V), hinge F(H). Second reassembles local V then yields F(V), but reads already placed hinge and yields F(F(H)); rotation/axis likewise compounded. A finite translation alone suffices. No malformed geometry or runtime execution needed to identify two different update authorities.",
+  "normal_qualification": "Normal current creator records each prepared part once; no ordinary repeated call or GPU/readback run established. Parts without hinges or identity placement do not exhibit this hinge mismatch. API takes mutable self without consuming/finalizing state or rejecting repeat, and source does not restore local hinge data.",
+  "connected_repair": "Own local-versus-placed hinge state with the same lifecycle as final geometry: retain immutable local hinge provenance or regenerate local hinges before each placement, so every supported record_shells call derives mesh and hinges from one source frame. An explicit recording state must preserve legitimate regeneration after carrier edits and reject only actually unsupported transitions before dispatch. Preserve exact host_float arithmetic and reflection rejection.",
+  "acceptance": "Repeated supported recording or enforced one-shot rejection cannot publish mesh and hinges in different frames. First ordinary record, shared staging, independent part identity and proper frame constraints preserved.",
+  "dedup": "Engine09 confirms no exact alias established. F055 is related carrier-versus-shell phase API contract and explicitly preserves legitimate repeated generation; F056 retained hinge-emission Boolean differs. Keep exact hinge source/provenance remedy separate, global union pending.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

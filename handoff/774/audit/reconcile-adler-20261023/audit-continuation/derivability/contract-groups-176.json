@@ -1,0 +1,548 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-176",
+  "at": "2026-10-25T13:17:57.195933+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 340,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/strategic_scene/equipment.rs",
+      "sha256": "a5276f1904f7b2072d0b173663ed3592075960f11ef193b5ffc0688023523a41",
+      "actual_EOF": 150,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-tactical-client/src/strategic_scene/equipment.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-tactical-client/src/strategic_scene/equipment.rs",
+        "owner": "root",
+        "sha256": "a5276f1904f7b2072d0b173663ed3592075960f11ef193b5ffc0688023523a41",
+        "base_sha256": "bcfd6571ac4b5c7fb271cfb50e5ef79c08b7110bc649364f23abd31c44799bdf",
+        "state": "modified",
+        "bytes": 5214,
+        "audit_owner": "rig",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "root",
+            "record": "wave-01/audit-producer-propagation/root/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                150
+              ]
+            ],
+            "source_read_status": "full_delta_plus_current_PR_body",
+            "trace_refs": [
+              "ROOT-PP-NATIVE-PORTS-017"
+            ]
+          },
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-root-sources.json",
+            "ranges": [
+              [
+                1,
+                150
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-SUPP-STRATEGIC-001"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 146,
+            "read_ranges": [
+              [
+                1,
+                150
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-CLIENT-EQUIPMENT-026",
+              "RIG-OWNER-EQUIPMENT-RUNTIME-019"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-client/src/strategic_scene/equipment.rs"
+          },
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 154,
+            "read_ranges": [
+              [
+                1,
+                150
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-BROWSER-PREVIEW-051"
+            ],
+            "read_status": "exact_current_lens_receiver_reread",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-client/src/strategic_scene/equipment.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": 96,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "Wardrobe Component/Default and SceneEquipment Component already derive; no handwritten traits or serializers. Functions resolve catalog definition, native entity references, equipment presentation and semantic held-slot classification.",
+      "absence_basis": "Wardrobe Component/Default and SceneEquipment Component already derive; no handwritten traits or serializers. Functions resolve catalog definition, native entity references, equipment presentation and semantic held-slot classification."
+    },
+    {
+      "scope_index": 341,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera.rs",
+      "sha256": "b8ca7d503b8d6de9b9f0892346e97eb71f3a801b68012337f4943be7e7057af9",
+      "actual_EOF": 265,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera.rs",
+        "sha256": "b8ca7d503b8d6de9b9f0892346e97eb71f3a801b68012337f4943be7e7057af9",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 12832,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 113,
+            "read_ranges": [
+              [
+                1,
+                265
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-CAMERA-015"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CAMERA-BOUNDARIES-048",
+            "json_pointer": "/current_sources/11",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                265
+              ]
+            ],
+            "source_context": {
+              "index": 461,
+              "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera.rs",
+              "sha256": "b8ca7d503b8d6de9b9f0892346e97eb71f3a801b68012337f4943be7e7057af9",
+              "read_ranges": [
+                [
+                  1,
+                  265
+                ]
+              ],
+              "read_mode": "Fresh full actual source body including all existing in-file fixtures; physicalharness exactcomplete delta separately read, no source/check execution."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1144,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          265
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "CaptureCameraError already derives Debug/thiserror::Error with explicit transparent sources and native pose errors. All other bodies select scene-dependent positions, checked Position/Direction constructors and camera modes, not handwritten traits or serialization.",
+      "absence_basis": "CaptureCameraError already derives Debug/thiserror::Error with explicit transparent sources and native pose errors. All other bodies select scene-dependent positions, checked Position/Direction constructors and camera modes, not handwritten traits or serialization."
+    },
+    {
+      "scope_index": 342,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/landscape.rs",
+      "sha256": "0ca70d46d9aafbe4f1fef2e245b771e23fd6a79eb7263b7937c6306ed1068a11",
+      "actual_EOF": 101,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/landscape.rs",
+        "snapshot": "physical-p16",
+        "path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-client\\src\\tactical_scene_viewer\\view_camera\\landscape.rs",
+        "sha256": "0ca70d46d9aafbe4f1fef2e245b771e23fd6a79eb7263b7937c6306ed1068a11",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Read-only source assignment; whole-function repair ownership remains in authoritative claims.",
+        "scope_limits": "Explicit material contracts/ranges and necessary signature dependencies only; no implied whole-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/expanded-producer-delta-map-049.json",
+        "actual_line_count": 101,
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 142,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CAMERA-BOUNDARIES-048",
+            "json_pointer": "/additional_actual_source_proofs/4",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row300/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                101
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                101
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "Fresh actual bounded application/native receiving body read",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "continuation_actual_producer_source_proofs": [
+          {
+            "record": "continuation/native/expanded-producer-role-delta-002.json",
+            "json_pointer": "/per_observation/3/fresh_actual_source_read",
+            "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/landscape.rs",
+            "sha256": "0ca70d46d9aafbe4f1fef2e245b771e23fd6a79eb7263b7937c6306ed1068a11",
+            "read_ranges": [
+              [
+                1,
+                101
+              ]
+            ],
+            "proof": {
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-client\\src\\tactical_scene_viewer\\view_camera\\landscape.rs",
+              "sha256": "0ca70d46d9aafbe4f1fef2e245b771e23fd6a79eb7263b7937c6306ed1068a11",
+              "read_ranges": [
+                [
+                  1,
+                  101
+                ]
+              ],
+              "actual_EOF": 101,
+              "mode": "Fresh exact bounded body read in this delta; no source execution"
+            },
+            "limits": "Actual source-role proof for producer lens only; no owner-fit or other-lens clearance."
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": true,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "Only landscape camera functions; no type declaration, handwritten trait or serializer. Preserve checked positions, geography-dependent framing and native camera result errors.",
+      "absence_basis": "Only landscape camera functions; no type declaration, handwritten trait or serializer. Preserve checked positions, geography-dependent framing and native camera result errors."
+    },
+    {
+      "scope_index": 343,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/placement.rs",
+      "sha256": "6f16515e0ef35ed320d6c8b862676bb68e853ba485c30454c7c049a6c61bfa0c",
+      "actual_EOF": 60,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/placement.rs",
+        "snapshot": "physical-p16",
+        "path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-client\\src\\tactical_scene_viewer\\view_camera\\placement.rs",
+        "sha256": "6f16515e0ef35ed320d6c8b862676bb68e853ba485c30454c7c049a6c61bfa0c",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Read-only source assignment; whole-function repair ownership remains in authoritative claims.",
+        "scope_limits": "Explicit material contracts/ranges and necessary signature dependencies only; no implied whole-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/expanded-producer-delta-map-049.json",
+        "actual_line_count": 60,
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 143,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CAMERA-BOUNDARIES-048",
+            "json_pointer": "/additional_actual_source_proofs/3",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row301/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                60
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                60
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "Fresh actual bounded application/native receiving body read",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "continuation_actual_producer_source_proofs": [
+          {
+            "record": "continuation/native/expanded-producer-role-delta-002.json",
+            "json_pointer": "/per_observation/4/fresh_actual_source_read",
+            "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/placement.rs",
+            "sha256": "6f16515e0ef35ed320d6c8b862676bb68e853ba485c30454c7c049a6c61bfa0c",
+            "read_ranges": [
+              [
+                1,
+                60
+              ]
+            ],
+            "proof": {
+              "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-client\\src\\tactical_scene_viewer\\view_camera\\placement.rs",
+              "sha256": "6f16515e0ef35ed320d6c8b862676bb68e853ba485c30454c7c049a6c61bfa0c",
+              "read_ranges": [
+                [
+                  1,
+                  60
+                ]
+              ],
+              "actual_EOF": 60,
+              "mode": "Fresh exact bounded body read in this delta; no source execution"
+            },
+            "limits": "Actual source-role proof for producer lens only; no owner-fit or other-lens clearance."
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": true,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "SceneCameraView and SceneCameraOrientation already Clone/Copy/Debug derive. CaptureCameraPlacement is plain scoped carrier. Inherent looking_at validates distinct forward/up, oriented retains rotation and native_transform branches by orientation; semantic checked construction/native representation, not derive boilerplate.",
+      "absence_basis": "SceneCameraView and SceneCameraOrientation already Clone/Copy/Debug derive. CaptureCameraPlacement is plain scoped carrier. Inherent looking_at validates distinct forward/up, oriented retains rotation and native_transform branches by orientation; semantic checked construction/native representation, not derive boilerplate."
+    },
+    {
+      "scope_index": 344,
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/targeting.rs",
+      "sha256": "d98b3d7ac9f2dd1dfd08f9eaa0442053cdc84b0e110c02d79de04eadafa0529f",
+      "actual_EOF": 103,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-tactical-client/src/targeting.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-tactical-client/src/targeting.rs",
+        "owner": "root",
+        "sha256": "d98b3d7ac9f2dd1dfd08f9eaa0442053cdc84b0e110c02d79de04eadafa0529f",
+        "base_sha256": "d1d12b0de4fd11d6e6b88a8a2c5b8f61ef2e05121c72a09853d745dc7db54f5c",
+        "state": "modified",
+        "bytes": 3637,
+        "audit_owner": "root",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "root",
+            "record": "wave-01/audit-producer-propagation/root/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                103
+              ]
+            ],
+            "source_read_status": "full_delta_plus_current_PR_body",
+            "trace_refs": [
+              "ROOT-PP-NATIVE-PORTS-017"
+            ]
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                103
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-TARGETING-001"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 59,
+            "read_ranges": [
+              [
+                1,
+                103
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-TARGETING-011"
+            ],
+            "read_status": "full_PR_body_plus_exact_current_overlay_delta",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-client/src/targeting.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 455,
+            "read_ranges": [
+              [
+                1,
+                103
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-CLIENT-TARGETING-060"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-client/src/targeting.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root",
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-MOTOR-TARGETING-001",
+            "json_pointer": "/source_proofs/5",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-tactical-client/src/targeting.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                103
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-tactical-client/src/targeting.rs",
+              "path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-client/src/targeting.rs",
+              "sha256": "d98b3d7ac9f2dd1dfd08f9eaa0442053cdc84b0e110c02d79de04eadafa0529f",
+              "read_ranges": [
+                [
+                  1,
+                  103
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-001",
+            "json_pointer": "/supplement_receiving_source_proofs/1",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-tactical-client/src/targeting.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                103
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-tactical-client/src/targeting.rs",
+              "sha256": "d98b3d7ac9f2dd1dfd08f9eaa0442053cdc84b0e110c02d79de04eadafa0529f",
+              "read_ranges": [
+                [
+                  1,
+                  103
+                ]
+              ],
+              "contract": "actual complete range/vector ordering kernel and existing fixtures"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": 97,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "TargetingRange Clone/Copy already derive; TargetingCandidate<T> plain generic carrier. Native auto-aim ranking and complete fixtures contain no handwritten trait or serializer; do not add generic trait bounds or serialization to replace ranking.",
+      "absence_basis": "TargetingRange Clone/Copy already derive; TargetingCandidate<T> plain generic carrier. Native auto-aim ranking and complete fixtures contain no handwritten trait or serializer; do not add generic trait bounds or serialization to replace ranking."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Equipment presentation and camera/target ranking",
+      "disposition": "No unnecessary handwritten trait implementation in these actual bodies. Preserve checked camera admission, orientation-sensitive native conversion and semantic ranking.",
+      "acceptance": "No new trait/dependency or serialization needed; retain existing error sources, scoped visibility, generic API and native entity/geometry boundaries."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 345,
+    "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/authored_angle.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

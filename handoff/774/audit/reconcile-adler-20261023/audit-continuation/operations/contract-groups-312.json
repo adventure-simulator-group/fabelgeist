@@ -1,0 +1,206 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-312",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/lod.rs",
+      "sha256": "a67de5a3238c34c5d18edae89ddc2c51c4fe1dd562189103a6549bb34a88cfac",
+      "actual_EOF": 666,
+      "actual_compared_ranges": [
+        [
+          1,
+          666
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/lod/compilation.rs",
+      "sha256": "d3191310e607fea9469139eb7a208aa89f391a379c093465007d2cf6f49d3c10",
+      "actual_EOF": 162,
+      "actual_compared_ranges": [
+        [
+          1,
+          162
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/lod/exterior.rs",
+      "sha256": "5d39e37932759155ea90488c12ce6672b9087e09198c204de79464d6bb4603b7",
+      "actual_EOF": 173,
+      "actual_compared_ranges": [
+        [
+          1,
+          173
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/lod/small_church.rs",
+      "sha256": "bce3503f0c6162bc047fb9abb04dd01961ea47edcb3807fb1d1f1b8dbfe1b9ca",
+      "actual_EOF": 143,
+      "actual_compared_ranges": [
+        [
+          1,
+          143
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/lod/small_church/tests.rs",
+      "sha256": "79c797f7eb72b4cd65bb4ce9a7861869c224a278e9934e0c35f9a891d5873d8e",
+      "actual_EOF": 204,
+      "actual_compared_ranges": [
+        [
+          1,
+          204
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/lod/vertex_remap.rs",
+      "sha256": "856b77c9bb81768cafe4256dc1c5915e506263708d38a388a0c51b717cf1d15e",
+      "actual_EOF": 133,
+      "actual_compared_ranges": [
+        [
+          1,
+          133
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/member_uv.rs",
+      "sha256": "c560af0f6ea1265a0cc35a0bc9c0757094219d2c6bf12f37de47d4ea15460af9",
+      "actual_EOF": 68,
+      "actual_compared_ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/layout.rs",
+      "sha256": "f19587b5c651091d18b720268e43f9bdef0e2ca083b33b57d53cbdbccb1be298",
+      "actual_EOF": 452,
+      "actual_compared_ranges": [
+        [
+          1,
+          452
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/plan.rs",
+      "sha256": "23e353759ff4ea8be954680fcc550feac57d3b56a6e3086d92ad46e5d5692f6d",
+      "actual_EOF": 53,
+      "actual_compared_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "LOD native mesh arithmetic relies on accepted semantic input and must not be mistaken for a validating public aggregate",
+      "source_ranges": {
+        "lod.rs": [
+          [
+            1,
+            666
+          ]
+        ],
+        "lod/compilation.rs": [
+          [
+            1,
+            162
+          ]
+        ],
+        "model/layout.rs": [
+          [
+            1,
+            452
+          ]
+        ],
+        "model/plan.rs": [
+          [
+            1,
+            53
+          ]
+        ]
+      },
+      "disposition": "All four complete bodies personally read. LodMesh raw vertices/indices and FacadeRun floats derive serde; BuildingPlan public fields and raw roof/stair recipes do not by themselves establish the documented accepted-plan precondition. Four-index quad and3-index triangle insertion aligns attributes and corrects winding by dot product; u32 narrowing/addition assumes mesh capacity, no billions-of-vertices ordinary witness. Compiled workplace/heating batches offset indices before appending and remap after filtering. These native ports do not re-admit all float normals/UVs. Finite huge arithmetic or malformed raw plans are contract-strengthening/admission dependencies, not a demonstrated ordinary generated render failure. join is called only after can_join proves both straight variants and joining removes exactly one run each time, so termination/expect precondition holds. Full test bodies for joined runs, winding, shell budgets, interior omission and crown masks read only. Model operations use bounded i16 cells for wall centres and u16 footprint dimensions for plan dimensions; RoundTower new/deserialize proves anchor parity with rem_euclid, but intentionally does not prove all raw height/thickness/chord/roof relations."
+    },
+    {
+      "contract": "Exterior selection follows actual source solids and preserves dynamic closure ownership",
+      "source_ranges": {
+        "lod/exterior.rs": [
+          [
+            1,
+            173
+          ]
+        ],
+        "lod/compilation.rs": [
+          [
+            1,
+            162
+          ]
+        ]
+      },
+      "disposition": "Whole bodies personally read. Retained runs exclude replaced owners, gable sources, internal material and reserved workplace/small-church bearing walls. Radial circumference divides by fixed TAU; straight tangent orientation is canonicalized before deterministic joining. Facade context collects host solids, actual opening closure refs and timber bay member refs in a set, subtracts excluded dynamic IDs and compiles only matching actual solids. Missing raw refs are not repaired by a fallback owner search. compile_static_building_lod reserves operable leaves via actual dynamic_closure_solids previously read291/292; Shell deliberately uses coarse enclosure. Selected triangle source indices are supplied by internal compiled meshes; malformed public LodMesh is not passed to private remap by this API. Ordinary inner skins and church outward filtering have deliberately different policy."
+    },
+    {
+      "contract": "Exact vertex remapping preserves indexed attributes and tangent discontinuities under the internal mesh contract",
+      "source_ranges": {
+        "lod/vertex_remap.rs": [
+          [
+            1,
+            133
+          ]
+        ],
+        "member_uv.rs": [
+          [
+            1,
+            68
+          ]
+        ]
+      },
+      "disposition": "Complete bodies and fixtures read. remap builds per-original-vertex bases/seams and maps original source index through a same-length vector; attributes plus tangent basis form exact bit keys, intentionally canonicalizing signed zero. Determinant0 or nonfinite yields no basis and prevents merging; nonfinite tangent/bitangent likewise prevents merging rather than validating or deleting geometry. Vertices used by conflicting bases retain separate IDs. Private input indices must be in bounds and triangle-aligned; all personally read push paths produce this, while huge u32 capacity remains qualified. member UV phase uses centre dot and norm; finite centre alone does not prove finite norm/UV at extreme coordinates. No current ordinary catalogue coordinate overflow is claimed; preserving actual UV output would require supported arithmetic or admission at its real render boundary. Rotated member scale/longitudinal grain and mirrored seam fixture source read, not run."
+    },
+    {
+      "contract": "Small church LOD clips exposed fittings using admitted geometry and keeps semantic roof silhouette/material",
+      "source_ranges": {
+        "lod/small_church.rs": [
+          [
+            1,
+            143
+          ]
+        ],
+        "lod/small_church/tests.rs": [
+          [
+            1,
+            204
+          ]
+        ]
+      },
+      "disposition": "Both complete bodies read. Small-church expect is guarded by actual compile dispatcher small_church.is_some(). Shell uses4 stage edges; positive stage spans from actual bounded small-church generator308 support normalize, but arbitrary zero-volume public stage is not admitted as accepted church. Facade exposed fittings clone solids, skip top<=bottom and re-admit computed centre/height with source ID before compiling; local Err drops mesh. Hidden floors/piers intentionally omitted, retained roofs omit interior triangles and preserve authored enclosure material including boarded belfry. Full fixture matrix excludes large principal parish branch and checks silhouette vertices, hidden supports, triangle reduction, window apertures and exact skirt material. No fixture executed; no whole church render clearance inferred from source assertions."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "9 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-building-generator/src/model/resolved_shapes.rs"
+}

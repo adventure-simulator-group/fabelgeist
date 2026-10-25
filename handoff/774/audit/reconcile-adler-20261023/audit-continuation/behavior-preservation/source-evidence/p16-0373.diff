@@ -1,0 +1,13 @@
+--- p16base/crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs
++++ catalog-p16head/crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/runner.rs
+@@ -122,9 +122,9 @@
+         .combatant
+         .equipment
+         .melee_weapon
+         .map_or(Ok(Measurement::ZERO), |weapon| {
+-            Measurement::<WeaponReachMetres>::from_native(weapon.melee_reach)
++            Ok(Measurement::<WeaponReachMetres>::from_length(weapon.melee_reach))
+         })
+ }
+ 
+ fn record_autoresolve_outcome(

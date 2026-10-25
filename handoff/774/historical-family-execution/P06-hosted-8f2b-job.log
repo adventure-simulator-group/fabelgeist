@@ -1,0 +1,1524 @@
+﻿2026-10-21T05:55:38.7805748Z Current runner version: '2.338.0'
+2026-10-21T05:55:38.7824644Z ##[group]Runner Image Provisioner
+2026-10-21T05:55:38.7825227Z Hosted Compute Agent
+2026-10-21T05:55:38.7825665Z Version: 20261015.610
+2026-10-21T05:55:38.7826067Z Commit: 267fdb4e8bbec4ab5ea31367f3a00d5c480c7656
+2026-10-21T05:55:38.7826503Z Build Date: 2026-10-14T17:06:54Z
+2026-10-21T05:55:38.7826978Z Worker ID: {39f7a25d-5bbb-47d0-a1ed-7b659f295f04}
+2026-10-21T05:55:38.7827443Z Region: centralus
+2026-10-21T05:55:38.7827806Z Cloud: Azure
+2026-10-21T05:55:38.7828164Z ##[endgroup]
+2026-10-21T05:55:38.7829012Z ##[group]Operating System
+2026-10-21T05:55:38.7829439Z Ubuntu
+2026-10-21T05:55:38.7829801Z 24.04.5
+2026-10-21T05:55:38.7830148Z LTS
+2026-10-21T05:55:38.7830491Z ##[endgroup]
+2026-10-21T05:55:38.7830837Z ##[group]Runner Image
+2026-10-21T05:55:38.7831236Z Image: ubuntu-24.04
+2026-10-21T05:55:38.7831623Z Version: 20261018.339.1
+2026-10-21T05:55:38.7832565Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261018.339/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-21T05:55:38.7833488Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261018.339
+2026-10-21T05:55:38.7834104Z ##[endgroup]
+2026-10-21T05:55:38.7834831Z ##[group]GITHUB_TOKEN Permissions
+2026-10-21T05:55:38.7836052Z Contents: read
+2026-10-21T05:55:38.7836414Z Metadata: read
+2026-10-21T05:55:38.7836835Z ##[endgroup]
+2026-10-21T05:55:38.7838198Z Secret source: Actions
+2026-10-21T05:55:38.7838726Z Cache mode: write
+2026-10-21T05:55:38.7839216Z Prepare workflow directory
+2026-10-21T05:55:38.8188405Z Prepare all required actions
+2026-10-21T05:55:38.8220550Z Getting action download info
+2026-10-21T05:55:39.0821549Z Download action repository 'actions/checkout@v7' (SHA:3d3c42e5aac5ba805825da76410c181273ba90b1)
+2026-10-21T05:55:39.1887888Z Download action repository 'dtolnay/rust-toolchain@master' (SHA:683b588c487a69d01f6c6ddf40f036ff682cc2c8)
+2026-10-21T05:55:39.3399413Z Download action repository 'Swatinem/rust-cache@v2' (SHA:d1527c8f67ef9af357290475d4af4b0fab8f12e0)
+2026-10-21T05:55:39.7294094Z Download action repository 'actions/upload-artifact@v7' (SHA:cf430e030ddbb5b0abf93d22962f4752f3646cd9)
+2026-10-21T05:55:39.8244451Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-21T05:55:40.0435801Z Complete job name: rust-quality
+2026-10-21T05:55:40.1164189Z ##[group]Run actions/checkout@v7
+2026-10-21T05:55:40.1164680Z with:
+2026-10-21T05:55:40.1164962Z   ref: 8f2b901881f8aa8035a03cd99dbfefb7bbdf8926
+2026-10-21T05:55:40.1165307Z   fetch-depth: 2
+2026-10-21T05:55:40.1165608Z   repository: adventure-simulator-group/fabelgeist
+2026-10-21T05:55:40.1168081Z   token: ***
+2026-10-21T05:55:40.1168337Z   ssh-strict: true
+2026-10-21T05:55:40.1168593Z   ssh-user: git
+2026-10-21T05:55:40.1168861Z   persist-credentials: true
+2026-10-21T05:55:40.1169146Z   clean: true
+2026-10-21T05:55:40.1169414Z   sparse-checkout-cone-mode: true
+2026-10-21T05:55:40.1169722Z   fetch-tags: false
+2026-10-21T05:55:40.1170000Z   show-progress: true
+2026-10-21T05:55:40.1170301Z   lfs: false
+2026-10-21T05:55:40.1170589Z   submodules: false
+2026-10-21T05:55:40.1170856Z   set-safe-directory: true
+2026-10-21T05:55:40.1171175Z   allow-unsafe-pr-checkout: false
+2026-10-21T05:55:40.1171559Z env:
+2026-10-21T05:55:40.1171800Z   CARGO_TERM_COLOR: always
+2026-10-21T05:55:40.1172256Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-21T05:55:40.1172544Z ##[endgroup]
+2026-10-21T05:55:40.1944319Z Syncing repository: adventure-simulator-group/fabelgeist
+2026-10-21T05:55:40.1946399Z ##[group]Getting Git version info
+2026-10-21T05:55:40.1947125Z Working directory is '/home/runner/work/fabelgeist/fabelgeist'
+2026-10-21T05:55:40.1948097Z [command]/usr/bin/git version
+2026-10-21T05:55:40.2027010Z git version 2.55.0
+2026-10-21T05:55:40.2041493Z ##[endgroup]
+2026-10-21T05:55:40.2051051Z Temporarily overriding HOME='/home/runner/work/_temp/be0616fd-217d-49b0-afb1-d35613a04e08' before making global git config changes
+2026-10-21T05:55:40.2052915Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-21T05:55:40.2056494Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/fabelgeist/fabelgeist
+2026-10-21T05:55:40.2113570Z Deleting the contents of '/home/runner/work/fabelgeist/fabelgeist'
+2026-10-21T05:55:40.2114650Z ##[group]Determining repository object format
+2026-10-21T05:55:40.2115480Z ##[endgroup]
+2026-10-21T05:55:40.2116099Z ##[group]Initializing the repository
+2026-10-21T05:55:40.2116615Z [command]/usr/bin/git init /home/runner/work/fabelgeist/fabelgeist
+2026-10-21T05:55:40.2233979Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-21T05:55:40.2235484Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-21T05:55:40.2236932Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-21T05:55:40.2237722Z hint: call:
+2026-10-21T05:55:40.2238173Z hint:
+2026-10-21T05:55:40.2238739Z hint: 	git config --global init.defaultBranch <name>
+2026-10-21T05:55:40.2239462Z hint:
+2026-10-21T05:55:40.2240082Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-21T05:55:40.2241040Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-21T05:55:40.2241831Z hint:
+2026-10-21T05:55:40.2242425Z hint: 	git branch -m <name>
+2026-10-21T05:55:40.2242924Z hint:
+2026-10-21T05:55:40.2243574Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-21T05:55:40.2244350Z Initialized empty Git repository in /home/runner/work/fabelgeist/fabelgeist/.git/
+2026-10-21T05:55:40.2245784Z [command]/usr/bin/git remote add origin https://github.com/adventure-simulator-group/fabelgeist
+2026-10-21T05:55:40.2299537Z ##[endgroup]
+2026-10-21T05:55:40.2300341Z ##[group]Disabling automatic garbage collection
+2026-10-21T05:55:40.2302470Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-21T05:55:40.2343727Z ##[endgroup]
+2026-10-21T05:55:40.2344397Z ##[group]Setting up auth
+2026-10-21T05:55:40.2344977Z Removing SSH command configuration
+2026-10-21T05:55:40.2351290Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-21T05:55:40.2393719Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-21T05:55:40.2708160Z Removing HTTP extra header
+2026-10-21T05:55:40.2713117Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-21T05:55:40.2754300Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-21T05:55:40.2958473Z Removing includeIf entries pointing to credentials config files
+2026-10-21T05:55:40.2959328Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-21T05:55:40.3000154Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-21T05:55:40.3201944Z [command]/usr/bin/git config --file /home/runner/work/_temp/git-credentials-36ae426e-629a-4cb2-8625-9836b0d70697.config http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-21T05:55:40.3246832Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/fabelgeist/fabelgeist/.git.path /home/runner/work/_temp/git-credentials-36ae426e-629a-4cb2-8625-9836b0d70697.config
+2026-10-21T05:55:40.3286030Z [command]/usr/bin/git config --local includeIf.gitdir:/home/runner/work/fabelgeist/fabelgeist/.git/worktrees/*.path /home/runner/work/_temp/git-credentials-36ae426e-629a-4cb2-8625-9836b0d70697.config
+2026-10-21T05:55:40.3327876Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git.path /github/runner_temp/git-credentials-36ae426e-629a-4cb2-8625-9836b0d70697.config
+2026-10-21T05:55:40.3368614Z [command]/usr/bin/git config --local includeIf.gitdir:/github/workspace/.git/worktrees/*.path /github/runner_temp/git-credentials-36ae426e-629a-4cb2-8625-9836b0d70697.config
+2026-10-21T05:55:40.3406356Z ##[endgroup]
+2026-10-21T05:55:40.3406818Z ##[group]Fetching the repository
+2026-10-21T05:55:40.3411515Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=2 origin 8f2b901881f8aa8035a03cd99dbfefb7bbdf8926
+2026-10-21T05:55:49.2222859Z From https://github.com/adventure-simulator-group/fabelgeist
+2026-10-21T05:55:49.2223537Z  * branch            8f2b901881f8aa8035a03cd99dbfefb7bbdf8926 -> FETCH_HEAD
+2026-10-21T05:55:49.2232980Z [command]/usr/bin/git rev-parse --verify --quiet 8f2b901881f8aa8035a03cd99dbfefb7bbdf8926^{object}
+2026-10-21T05:55:49.2268029Z 8f2b901881f8aa8035a03cd99dbfefb7bbdf8926
+2026-10-21T05:55:49.2271664Z ##[endgroup]
+2026-10-21T05:55:49.2272022Z ##[group]Determining the checkout info
+2026-10-21T05:55:49.2273119Z ##[endgroup]
+2026-10-21T05:55:49.2276798Z [command]/usr/bin/git sparse-checkout disable
+2026-10-21T05:55:49.2335007Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-21T05:55:49.2375021Z ##[group]Checking out the ref
+2026-10-21T05:55:49.2378725Z [command]/usr/bin/git checkout --progress --force 8f2b901881f8aa8035a03cd99dbfefb7bbdf8926
+2026-10-21T05:55:50.2527073Z Updating files:  71% (4300/5990)
+2026-10-21T05:55:50.2584522Z Updating files:  72% (4313/5990)
+2026-10-21T05:55:50.3175456Z Updating files:  73% (4373/5990)
+2026-10-21T05:55:50.3196241Z Updating files:  74% (4433/5990)
+2026-10-21T05:55:50.3230127Z Updating files:  75% (4493/5990)
+2026-10-21T05:55:50.3257443Z Updating files:  76% (4553/5990)
+2026-10-21T05:55:50.3288376Z Updating files:  77% (4613/5990)
+2026-10-21T05:55:50.3319977Z Updating files:  78% (4673/5990)
+2026-10-21T05:55:50.3350865Z Updating files:  79% (4733/5990)
+2026-10-21T05:55:50.3385408Z Updating files:  80% (4792/5990)
+2026-10-21T05:55:50.3417052Z Updating files:  81% (4852/5990)
+2026-10-21T05:55:50.3447033Z Updating files:  82% (4912/5990)
+2026-10-21T05:55:50.3482024Z Updating files:  83% (4972/5990)
+2026-10-21T05:55:50.3515307Z Updating files:  84% (5032/5990)
+2026-10-21T05:55:50.3553820Z Updating files:  85% (5092/5990)
+2026-10-21T05:55:50.3590933Z Updating files:  86% (5152/5990)
+2026-10-21T05:55:50.3630031Z Updating files:  87% (5212/5990)
+2026-10-21T05:55:50.3648051Z Updating files:  88% (5272/5990)
+2026-10-21T05:55:50.3665288Z Updating files:  89% (5332/5990)
+2026-10-21T05:55:50.3690193Z Updating files:  90% (5391/5990)
+2026-10-21T05:55:50.3774614Z Updating files:  91% (5451/5990)
+2026-10-21T05:55:50.3888934Z Updating files:  92% (5511/5990)
+2026-10-21T05:55:50.3914104Z Updating files:  93% (5571/5990)
+2026-10-21T05:55:50.3951126Z Updating files:  94% (5631/5990)
+2026-10-21T05:55:50.3999019Z Updating files:  95% (5691/5990)
+2026-10-21T05:55:50.4027894Z Updating files:  96% (5751/5990)
+2026-10-21T05:55:50.4060197Z Updating files:  97% (5811/5990)
+2026-10-21T05:55:50.4089436Z Updating files:  98% (5871/5990)
+2026-10-21T05:55:50.4148501Z Updating files:  99% (5931/5990)
+2026-10-21T05:55:50.4148756Z Updating files: 100% (5990/5990)
+2026-10-21T05:55:50.4148973Z Updating files: 100% (5990/5990), done.
+2026-10-21T05:55:50.4190713Z Note: switching to '8f2b901881f8aa8035a03cd99dbfefb7bbdf8926'.
+2026-10-21T05:55:50.4190964Z 
+2026-10-21T05:55:50.4191129Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-10-21T05:55:50.4191469Z changes and commit them, and you can discard any commits you make in this
+2026-10-21T05:55:50.4191716Z state without impacting any branches by switching back to a branch.
+2026-10-21T05:55:50.4191858Z 
+2026-10-21T05:55:50.4191958Z If you want to create a new branch to retain commits you create, you may
+2026-10-21T05:55:50.4192380Z do so (now or later) by using -c with the switch command. Example:
+2026-10-21T05:55:50.4192545Z 
+2026-10-21T05:55:50.4192608Z   git switch -c <new-branch-name>
+2026-10-21T05:55:50.4192728Z 
+2026-10-21T05:55:50.4193040Z Or undo this operation with:
+2026-10-21T05:55:50.4193127Z 
+2026-10-21T05:55:50.4193179Z   git switch -
+2026-10-21T05:55:50.4193244Z 
+2026-10-21T05:55:50.4193361Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-10-21T05:55:50.4193521Z 
+2026-10-21T05:55:50.4193623Z HEAD is now at 8f2b901 Own combat snapshots alongside equipment models
+2026-10-21T05:55:50.4298876Z ##[endgroup]
+2026-10-21T05:55:50.4349340Z [command]/usr/bin/git log -1 --format=%H
+2026-10-21T05:55:50.4384240Z 8f2b901881f8aa8035a03cd99dbfefb7bbdf8926
+2026-10-21T05:55:50.4678410Z ##[group]Run dtolnay/rust-toolchain@master
+2026-10-21T05:55:50.4678588Z with:
+2026-10-21T05:55:50.4678707Z   toolchain: nightly-2026-07-13
+2026-10-21T05:55:50.4678847Z   components: rustfmt, clippy
+2026-10-21T05:55:50.4678985Z   targets: wasm32-unknown-unknown
+2026-10-21T05:55:50.4679116Z env:
+2026-10-21T05:55:50.4679224Z   CARGO_TERM_COLOR: always
+2026-10-21T05:55:50.4679355Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-21T05:55:50.4679503Z ##[endgroup]
+2026-10-21T05:55:50.4723789Z ##[start-action display=Parse toolchain version;id=__dtolnay_rust-toolchain.parse]
+2026-10-21T05:55:50.4765717Z ##[group]Run if [[ -z $toolchain ]]; then
+2026-10-21T05:55:50.4765985Z [36;1mif [[ -z $toolchain ]]; then[0m
+2026-10-21T05:55:50.4766303Z [36;1m  # GitHub does not enforce `required: true` inputs itself. https://github.com/actions/runner/issues/1070[0m
+2026-10-21T05:55:50.4766602Z [36;1m  echo "'toolchain' is a required input" >&2[0m
+2026-10-21T05:55:50.4766766Z [36;1m  exit 1[0m
+2026-10-21T05:55:50.4767006Z [36;1melif [[ $toolchain =~ ^stable' '[0-9]+' '(year|month|week|day)s?' 'ago$ ]]; then[0m
+2026-10-21T05:55:50.4767234Z [36;1m  if [[ Linux == macOS ]]; then[0m
+2026-10-21T05:55:50.4767523Z [36;1m    echo "toolchain=1.$((($(date -v-$(sed 's/stable \([0-9]*\) \(.\).*/\1\2/' <<< $toolchain) +%s)/60/60/24-16569)/7/6))" >> $GITHUB_OUTPUT[0m
+2026-10-21T05:55:50.4767813Z [36;1m  else[0m
+2026-10-21T05:55:50.4768029Z [36;1m    echo "toolchain=1.$((($(date --date "${toolchain#stable }" +%s)/60/60/24-16569)/7/6))" >> $GITHUB_OUTPUT[0m
+2026-10-21T05:55:50.4768279Z [36;1m  fi[0m
+2026-10-21T05:55:50.4768445Z [36;1melif [[ $toolchain =~ ^stable' 'minus' '[0-9]+' 'releases?$ ]]; then[0m
+2026-10-21T05:55:50.4768794Z [36;1m  echo "toolchain=1.$((($(date +%s)/60/60/24-16569)/7/6-${toolchain//[^0-9]/}))" >> $GITHUB_OUTPUT[0m
+2026-10-21T05:55:50.4769056Z [36;1melif [[ $toolchain =~ ^1\.[0-9]+$ ]]; then[0m
+2026-10-21T05:55:50.4769334Z [36;1m  echo "toolchain=1.$((i=${toolchain#1.}, c=($(date +%s)/60/60/24-16569)/7/6, i+9*i*(10*i<=c)+90*i*(100*i<=c)))" >> $GITHUB_OUTPUT[0m
+2026-10-21T05:55:50.4769598Z [36;1melse[0m
+2026-10-21T05:55:50.4769711Z [36;1m  delimiter=EOF[0m
+2026-10-21T05:55:50.4769880Z [36;1m  while [[ $toolchain == *$delimiter* ]]; do delimiter+=_; done[0m
+2026-10-21T05:55:50.4770152Z [36;1m  printf 'toolchain<<%s\n%s\n%s\n' "$delimiter" "$toolchain" "$delimiter" >> $GITHUB_OUTPUT[0m
+2026-10-21T05:55:50.4770370Z [36;1mfi[0m
+2026-10-21T05:55:50.4912028Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-21T05:55:50.4912378Z env:
+2026-10-21T05:55:50.4912517Z   CARGO_TERM_COLOR: always
+2026-10-21T05:55:50.4912656Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-21T05:55:50.4912806Z   toolchain: nightly-2026-07-13
+2026-10-21T05:55:50.4912944Z ##[endgroup]
+2026-10-21T05:55:50.5020944Z ##[end-action id=__dtolnay_rust-toolchain.parse;outcome=success;conclusion=success;duration_ms=29]
+2026-10-21T05:55:50.5024719Z ##[start-action display=Set $CARGO_HOME;id=__dtolnay_rust-toolchain.__run]
+2026-10-21T05:55:50.5049129Z ##[group]Run echo CARGO_HOME=${CARGO_HOME:-"$HOME/.cargo"} >> $GITHUB_ENV
+2026-10-21T05:55:50.5049414Z [36;1mecho CARGO_HOME=${CARGO_HOME:-"$HOME/.cargo"} >> $GITHUB_ENV[0m
+2026-10-21T05:55:50.5093451Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-21T05:55:50.5093639Z env:
+2026-10-21T05:55:50.5093757Z   CARGO_TERM_COLOR: always
+2026-10-21T05:55:50.5093889Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-21T05:55:50.5094207Z ##[endgroup]
+2026-10-21T05:55:50.5167425Z ##[end-action id=__dtolnay_rust-toolchain.__run;outcome=success;conclusion=success;duration_ms=14]
+2026-10-21T05:55:50.5169415Z ##[start-action display=Install rustup if needed;id=__dtolnay_rust-toolchain.__run_2]
+2026-10-21T05:55:50.5193056Z ##[group]Run if ! command -v rustup &>/dev/null; then
+2026-10-21T05:55:50.5193300Z [36;1mif ! command -v rustup &>/dev/null; then[0m
+2026-10-21T05:55:50.5193886Z [36;1m  curl --proto '=https' --tlsv1.2 --retry 10 --retry-connrefused --location --silent --show-error --fail https://sh.rustup.rs | sh -s -- --default-toolchain none -y[0m
+2026-10-21T05:55:50.5194271Z [36;1m  echo "$CARGO_HOME/bin" >> $GITHUB_PATH[0m
+2026-10-21T05:55:50.5194427Z [36;1mfi[0m
+2026-10-21T05:55:50.5240146Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-21T05:55:50.5240345Z env:
+2026-10-21T05:55:50.5240471Z   CARGO_TERM_COLOR: always
+2026-10-21T05:55:50.5240622Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-21T05:55:50.5240775Z   CARGO_HOME: /home/runner/.cargo
+2026-10-21T05:55:50.5240912Z ##[endgroup]
+2026-10-21T05:55:50.5312800Z ##[end-action id=__dtolnay_rust-toolchain.__run_2;outcome=success;conclusion=success;duration_ms=14]
+2026-10-21T05:55:50.5314829Z ##[start-action display=Install rustup if needed on windows;id=__dtolnay_rust-toolchain.__run_3]
+2026-10-21T05:55:50.5321017Z ##[end-action id=__dtolnay_rust-toolchain.__run_3;outcome=skipped;conclusion=skipped;duration_ms=0]
+2026-10-21T05:55:50.5329743Z ##[start-action display=rustup toolchain install nightly-2026-07-13;id=__dtolnay_rust-toolchain.__run_4]
+2026-10-21T05:55:50.5346388Z ##[group]Run set -f  # split targets and components on commas and whitespace, without glob expansion
+2026-10-21T05:55:50.5346771Z [36;1mset -f  # split targets and components on commas and whitespace, without glob expansion[0m
+2026-10-21T05:55:50.5346995Z [36;1mflags=()[0m
+2026-10-21T05:55:50.5347145Z [36;1mfor t in ${targets//,/ }; do flags+=(--target "$t"); done[0m
+2026-10-21T05:55:50.5347376Z [36;1mfor c in ${components//,/ }; do flags+=(--component "$c"); done[0m
+2026-10-21T05:55:50.5347638Z [36;1mif [[ $toolchain == nightly && -n $components ]]; then flags+=(--allow-downgrade); fi[0m
+2026-10-21T05:55:50.5347860Z [36;1mlog=$(mktemp)[0m
+2026-10-21T05:55:50.5347987Z [36;1mtrap 'rm -f "$log"' EXIT[0m
+2026-10-21T05:55:50.5348127Z [36;1mfor attempt in 1 2 3 4 5; do[0m
+2026-10-21T05:55:50.5348429Z [36;1m  if rustup toolchain install "$toolchain" "${flags[@]}" --profile minimal --no-self-update --force-non-host 2>&1 | tee "$log"; then[0m
+2026-10-21T05:55:50.5348719Z [36;1m    break[0m
+2026-10-21T05:55:50.5348827Z [36;1m  else[0m
+2026-10-21T05:55:50.5348935Z [36;1m    status=$?[0m
+2026-10-21T05:55:50.5349049Z [36;1m  fi[0m
+2026-10-21T05:55:50.5349207Z [36;1m  if [[ $attempt == 5 ]] || ! grep -Fq 'checksum failed for ' "$log" \[0m
+2026-10-21T05:55:50.5349498Z [36;1m      || ! grep -Fq 'this is likely due to an ongoing update of the official release server' "$log"; then[0m
+2026-10-21T05:55:50.5349743Z [36;1m    exit "$status"[0m
+2026-10-21T05:55:50.5349864Z [36;1m  fi[0m
+2026-10-21T05:55:50.5350051Z [36;1m  echo "Retrying rustup toolchain install in 30 seconds (retry $attempt of 4)" >&2[0m
+2026-10-21T05:55:50.5350267Z [36;1m  sleep 30[0m
+2026-10-21T05:55:50.5350378Z [36;1mdone[0m
+2026-10-21T05:55:50.5394974Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-21T05:55:50.5395158Z env:
+2026-10-21T05:55:50.5395272Z   CARGO_TERM_COLOR: always
+2026-10-21T05:55:50.5395403Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-21T05:55:50.5395551Z   CARGO_HOME: /home/runner/.cargo
+2026-10-21T05:55:50.5395693Z   toolchain: nightly-2026-07-13
+2026-10-21T05:55:50.5395835Z   targets: wasm32-unknown-unknown
+2026-10-21T05:55:50.5395974Z   components: rustfmt, clippy
+2026-10-21T05:55:50.5396111Z   RUSTUP_PERMIT_COPY_RENAME: 1
+2026-10-21T05:55:50.5396244Z ##[endgroup]
+2026-10-21T05:55:50.5861712Z info: syncing channel updates for nightly-2026-07-13-x86_64-unknown-linux-gnu
+2026-10-21T05:55:51.2420135Z info: latest update on 2026-07-13 for version 1.99.0-nightly (77cf889bc 2026-07-12)
+2026-10-21T05:55:51.2420462Z info: downloading 6 components
+2026-10-21T05:55:59.1374661Z 
+2026-10-21T05:55:59.1438007Z   nightly-2026-07-13-x86_64-unknown-linux-gnu installed - rustc 1.99.0-nightly (77cf889bc 2026-07-12)
+2026-10-21T05:55:59.1438432Z 
+2026-10-21T05:55:59.1596536Z ##[end-action id=__dtolnay_rust-toolchain.__run_4;outcome=success;conclusion=success;duration_ms=8626]
+2026-10-21T05:55:59.1602536Z ##[start-action display=rustup default nightly-2026-07-13;id=__dtolnay_rust-toolchain.__run_5]
+2026-10-21T05:55:59.1616967Z ##[group]Run rustup default "$toolchain" --force-non-host
+2026-10-21T05:55:59.1617203Z [36;1mrustup default "$toolchain" --force-non-host[0m
+2026-10-21T05:55:59.1658396Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-21T05:55:59.1658577Z env:
+2026-10-21T05:55:59.1658688Z   CARGO_TERM_COLOR: always
+2026-10-21T05:55:59.1658821Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-21T05:55:59.1658974Z   CARGO_HOME: /home/runner/.cargo
+2026-10-21T05:55:59.1659121Z   toolchain: nightly-2026-07-13
+2026-10-21T05:55:59.1659253Z ##[endgroup]
+2026-10-21T05:55:59.1749227Z info: using existing install for nightly-2026-07-13-x86_64-unknown-linux-gnu
+2026-10-21T05:55:59.1755874Z info: default toolchain set to nightly-2026-07-13-x86_64-unknown-linux-gnu
+2026-10-21T05:55:59.1756049Z 
+2026-10-21T05:55:59.1812863Z   nightly-2026-07-13-x86_64-unknown-linux-gnu unchanged - rustc 1.99.0-nightly (77cf889bc 2026-07-12)
+2026-10-21T05:55:59.1813116Z 
+2026-10-21T05:55:59.1815944Z info: note that the toolchain 'nightly-2026-07-13-x86_64-unknown-linux-gnu' is currently in use (overridden by '/home/runner/work/fabelgeist/fabelgeist/rust-toolchain.toml')
+2026-10-21T05:55:59.1829775Z ##[end-action id=__dtolnay_rust-toolchain.__run_5;outcome=success;conclusion=success;duration_ms=22]
+2026-10-21T05:55:59.1833076Z ##[start-action display=Create cachekey;id=__dtolnay_rust-toolchain.rustc-version]
+2026-10-21T05:55:59.1847027Z ##[group]Run DATE=$(rustc +"$toolchain" --version --verbose | sed -ne 's/^commit-date: \(20[0-9][0-9]\)-\([01][0-9]\)-\([0-3][0-9]\)$/\1\2\3/p')
+2026-10-21T05:55:59.1847510Z [36;1mDATE=$(rustc +"$toolchain" --version --verbose | sed -ne 's/^commit-date: \(20[0-9][0-9]\)-\([01][0-9]\)-\([0-3][0-9]\)$/\1\2\3/p')[0m
+2026-10-21T05:55:59.1847869Z [36;1mHASH=$(rustc +"$toolchain" --version --verbose | sed -ne 's/^commit-hash: //p')[0m
+2026-10-21T05:55:59.1848142Z [36;1mecho "cachekey=$(echo $DATE$HASH | head -c12)" >> $GITHUB_OUTPUT[0m
+2026-10-21T05:55:59.1889367Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-21T05:55:59.1889544Z env:
+2026-10-21T05:55:59.1889657Z   CARGO_TERM_COLOR: always
+2026-10-21T05:55:59.1889790Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-21T05:55:59.1889928Z   CARGO_HOME: /home/runner/.cargo
+2026-10-21T05:55:59.1890073Z   toolchain: nightly-2026-07-13
+2026-10-21T05:55:59.1890206Z ##[endgroup]
+2026-10-21T05:55:59.2168235Z ##[end-action id=__dtolnay_rust-toolchain.rustc-version;outcome=success;conclusion=success;duration_ms=33]
+2026-10-21T05:55:59.2170636Z ##[start-action display=Disable incremental compilation;id=__dtolnay_rust-toolchain.__run_6]
+2026-10-21T05:55:59.2208107Z ##[group]Run if [ -z "${CARGO_INCREMENTAL+set}" ]; then
+2026-10-21T05:55:59.2208346Z [36;1mif [ -z "${CARGO_INCREMENTAL+set}" ]; then[0m
+2026-10-21T05:55:59.2208522Z [36;1m  echo CARGO_INCREMENTAL=0 >> $GITHUB_ENV[0m
+2026-10-21T05:55:59.2208675Z [36;1mfi[0m
+2026-10-21T05:55:59.2249765Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-21T05:55:59.2249950Z env:
+2026-10-21T05:55:59.2250066Z   CARGO_TERM_COLOR: always
+2026-10-21T05:55:59.2250197Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-21T05:55:59.2250332Z   CARGO_HOME: /home/runner/.cargo
+2026-10-21T05:55:59.2250466Z ##[endgroup]
+2026-10-21T05:55:59.2312485Z ##[end-action id=__dtolnay_rust-toolchain.__run_6;outcome=success;conclusion=success;duration_ms=14]
+2026-10-21T05:55:59.2314071Z ##[start-action display=Enable colors in Cargo output;id=__dtolnay_rust-toolchain.__run_7]
+2026-10-21T05:55:59.2327577Z ##[group]Run if [ -z "${CARGO_TERM_COLOR+set}" ]; then
+2026-10-21T05:55:59.2327787Z [36;1mif [ -z "${CARGO_TERM_COLOR+set}" ]; then[0m
+2026-10-21T05:55:59.2327966Z [36;1m  echo CARGO_TERM_COLOR=always >> $GITHUB_ENV[0m
+2026-10-21T05:55:59.2328121Z [36;1mfi[0m
+2026-10-21T05:55:59.2366675Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-21T05:55:59.2366853Z env:
+2026-10-21T05:55:59.2366964Z   CARGO_TERM_COLOR: always
+2026-10-21T05:55:59.2367219Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-21T05:55:59.2367355Z   CARGO_HOME: /home/runner/.cargo
+2026-10-21T05:55:59.2367489Z   CARGO_INCREMENTAL: 0
+2026-10-21T05:55:59.2367604Z ##[endgroup]
+2026-10-21T05:55:59.2423007Z ##[end-action id=__dtolnay_rust-toolchain.__run_7;outcome=success;conclusion=success;duration_ms=10]
+2026-10-21T05:55:59.2425766Z ##[start-action display=Enable Cargo sparse registry;id=__dtolnay_rust-toolchain.__run_8]
+2026-10-21T05:55:59.2440366Z ##[group]Run # implemented in 1.66, stabilized in 1.68, made default in 1.70
+2026-10-21T05:55:59.2440649Z [36;1m# implemented in 1.66, stabilized in 1.68, made default in 1.70[0m
+2026-10-21T05:55:59.2441011Z [36;1mif [ -z "${CARGO_REGISTRIES_CRATES_IO_PROTOCOL+set}" -o -f "/home/runner/work/_temp"/.implicit_cargo_registries_crates_io_protocol ]; then[0m
+2026-10-21T05:55:59.2441395Z [36;1m  if rustc +"$toolchain" --version --verbose | grep -q '^release: 1\.6[89]\.'; then[0m
+2026-10-21T05:55:59.2441708Z [36;1m    touch "/home/runner/work/_temp"/.implicit_cargo_registries_crates_io_protocol || true[0m
+2026-10-21T05:55:59.2441992Z [36;1m    echo CARGO_REGISTRIES_CRATES_IO_PROTOCOL=sparse >> $GITHUB_ENV[0m
+2026-10-21T05:55:59.2442443Z [36;1m  elif rustc +"$toolchain" --version --verbose | grep -q '^release: 1\.6[67]\.'; then[0m
+2026-10-21T05:55:59.2442741Z [36;1m    touch "/home/runner/work/_temp"/.implicit_cargo_registries_crates_io_protocol || true[0m
+2026-10-21T05:55:59.2443007Z [36;1m    echo CARGO_REGISTRIES_CRATES_IO_PROTOCOL=git >> $GITHUB_ENV[0m
+2026-10-21T05:55:59.2443197Z [36;1m  fi[0m
+2026-10-21T05:55:59.2443302Z [36;1mfi[0m
+2026-10-21T05:55:59.2477732Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-21T05:55:59.2477906Z env:
+2026-10-21T05:55:59.2478017Z   CARGO_TERM_COLOR: always
+2026-10-21T05:55:59.2478148Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-21T05:55:59.2478285Z   CARGO_HOME: /home/runner/.cargo
+2026-10-21T05:55:59.2478418Z   CARGO_INCREMENTAL: 0
+2026-10-21T05:55:59.2478546Z   toolchain: nightly-2026-07-13
+2026-10-21T05:55:59.2478687Z ##[endgroup]
+2026-10-21T05:55:59.2733370Z ##[end-action id=__dtolnay_rust-toolchain.__run_8;outcome=success;conclusion=success;duration_ms=30]
+2026-10-21T05:55:59.2736501Z ##[start-action display=Work around spurious network errors in curl 8.0;id=__dtolnay_rust-toolchain.__run_9]
+2026-10-21T05:55:59.2751263Z ##[group]Run # https://rust-lang.zulipchat.com/#narrow/stream/246057-t-cargo/topic/timeout.20investigation
+2026-10-21T05:55:59.2751716Z [36;1m# https://rust-lang.zulipchat.com/#narrow/stream/246057-t-cargo/topic/timeout.20investigation[0m
+2026-10-21T05:55:59.2752048Z [36;1mif rustc +"$toolchain" --version --verbose | grep -q '^release: 1\.7[01]\.'; then[0m
+2026-10-21T05:55:59.2752437Z [36;1m  echo CARGO_HTTP_MULTIPLEXING=false >> $GITHUB_ENV[0m
+2026-10-21T05:55:59.2752605Z [36;1mfi[0m
+2026-10-21T05:55:59.2793654Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-21T05:55:59.2793838Z env:
+2026-10-21T05:55:59.2793953Z   CARGO_TERM_COLOR: always
+2026-10-21T05:55:59.2794096Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-21T05:55:59.2794231Z   CARGO_HOME: /home/runner/.cargo
+2026-10-21T05:55:59.2794367Z   CARGO_INCREMENTAL: 0
+2026-10-21T05:55:59.2794491Z   toolchain: nightly-2026-07-13
+2026-10-21T05:55:59.2794625Z ##[endgroup]
+2026-10-21T05:55:59.2956806Z ##[end-action id=__dtolnay_rust-toolchain.__run_9;outcome=success;conclusion=success;duration_ms=21]
+2026-10-21T05:55:59.2960456Z ##[start-action display=rustc +nightly-2026-07-13 --version --verbose;id=__dtolnay_rust-toolchain.__run_10]
+2026-10-21T05:55:59.2975392Z ##[group]Run rustc +"$toolchain" --version --verbose
+2026-10-21T05:55:59.2975610Z [36;1mrustc +"$toolchain" --version --verbose[0m
+2026-10-21T05:55:59.3015523Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-10-21T05:55:59.3015706Z env:
+2026-10-21T05:55:59.3015822Z   CARGO_TERM_COLOR: always
+2026-10-21T05:55:59.3015952Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-21T05:55:59.3016094Z   CARGO_HOME: /home/runner/.cargo
+2026-10-21T05:55:59.3016358Z   CARGO_INCREMENTAL: 0
+2026-10-21T05:55:59.3016488Z   toolchain: nightly-2026-07-13
+2026-10-21T05:55:59.3016622Z ##[endgroup]
+2026-10-21T05:55:59.3189805Z rustc 1.99.0-nightly (77cf889bc 2026-07-12)
+2026-10-21T05:55:59.3190100Z binary: rustc
+2026-10-21T05:55:59.3190318Z commit-hash: 77cf889bc178ddb44d6a1c78e5a820b5abb31d8d
+2026-10-21T05:55:59.3190541Z commit-date: 2026-07-12
+2026-10-21T05:55:59.3190681Z host: x86_64-unknown-linux-gnu
+2026-10-21T05:55:59.3190842Z release: 1.99.0-nightly
+2026-10-21T05:55:59.3191562Z LLVM version: 22.1.8
+2026-10-21T05:55:59.3204256Z ##[end-action id=__dtolnay_rust-toolchain.__run_10;outcome=success;conclusion=success;duration_ms=24]
+2026-10-21T05:55:59.3379599Z ##[group]Run Swatinem/rust-cache@v2
+2026-10-21T05:55:59.3379752Z with:
+2026-10-21T05:55:59.3379862Z   prefix-key: v0-rust
+2026-10-21T05:55:59.3379986Z   add-job-id-key: true
+2026-10-21T05:55:59.3380117Z   add-rust-environment-hash-key: true
+2026-10-21T05:55:59.3380266Z   cache-targets: true
+2026-10-21T05:55:59.3380391Z   cache-all-crates: false
+2026-10-21T05:55:59.3380526Z   cache-workspace-crates: false
+2026-10-21T05:55:59.3380658Z   save-if: true
+2026-10-21T05:55:59.3380772Z   cache-provider: github
+2026-10-21T05:55:59.3380893Z   cache-bin: true
+2026-10-21T05:55:59.3381001Z   lookup-only: false
+2026-10-21T05:55:59.3381113Z   cmd-format: {0}
+2026-10-21T05:55:59.3381222Z env:
+2026-10-21T05:55:59.3381327Z   CARGO_TERM_COLOR: always
+2026-10-21T05:55:59.3381456Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-21T05:55:59.3381608Z   CARGO_HOME: /home/runner/.cargo
+2026-10-21T05:55:59.3381745Z   CARGO_INCREMENTAL: 0
+2026-10-21T05:55:59.3381860Z ##[endgroup]
+2026-10-21T05:56:08.0611120Z ##[group]Cache Configuration
+2026-10-21T05:56:08.0611435Z Cache Provider:
+2026-10-21T05:56:08.0611623Z     github
+2026-10-21T05:56:08.0611794Z Workspaces:
+2026-10-21T05:56:08.0612280Z     /home/runner/work/fabelgeist/fabelgeist
+2026-10-21T05:56:08.0612537Z Cache Paths:
+2026-10-21T05:56:08.0612773Z     /home/runner/.cargo/bin
+2026-10-21T05:56:08.0613068Z     /home/runner/.cargo/.crates.toml
+2026-10-21T05:56:08.0613374Z     /home/runner/.cargo/.crates2.json
+2026-10-21T05:56:08.0613656Z     /home/runner/.cargo/registry
+2026-10-21T05:56:08.0613949Z     /home/runner/.cargo/git
+2026-10-21T05:56:08.0614234Z     /home/runner/work/fabelgeist/fabelgeist/target
+2026-10-21T05:56:08.0614545Z Restore Key:
+2026-10-21T05:56:08.0614754Z     v0-rust-rust-quality-Linux-x64-209b4f59
+2026-10-21T05:56:08.0615055Z Cache Key:
+2026-10-21T05:56:08.0615296Z     v0-rust-rust-quality-Linux-x64-209b4f59-c0d7edae
+2026-10-21T05:56:08.0615560Z .. Prefix:
+2026-10-21T05:56:08.0615747Z   - v0-rust-rust-quality-Linux-x64
+2026-10-21T05:56:08.0616082Z .. Environment considered:
+2026-10-21T05:56:08.0616664Z   - Rust Versions:
+2026-10-21T05:56:08.0617194Z     - 1.99.0-nightly x86_64-unknown-linux-gnu 77cf889bc178ddb44d6a1c78e5a820b5abb31d8d
+2026-10-21T05:56:08.0617965Z     - 1.99.1 x86_64-unknown-linux-gnu 58cf8f9c35b355199727627d07ae34a4e2846d67
+2026-10-21T05:56:08.0618332Z   - CARGO_HOME
+2026-10-21T05:56:08.0618518Z   - CARGO_INCREMENTAL
+2026-10-21T05:56:08.0618714Z   - CARGO_TERM_COLOR
+2026-10-21T05:56:08.0618906Z .. Lockfiles considered:
+2026-10-21T05:56:08.0619189Z   - /home/runner/work/fabelgeist/fabelgeist/.cargo/config.toml
+2026-10-21T05:56:08.0619545Z   - /home/runner/work/fabelgeist/fabelgeist/Cargo.lock
+2026-10-21T05:56:08.0619986Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-building-generator/Cargo.toml
+2026-10-21T05:56:08.0620901Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-core/Cargo.toml
+2026-10-21T05:56:08.0621387Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-dialogue/Cargo.toml
+2026-10-21T05:56:08.0621923Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-plant-generator/Cargo.toml
+2026-10-21T05:56:08.0622666Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-procedural-materials/Cargo.toml
+2026-10-21T05:56:08.0623239Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-procedural-textures/Cargo.toml
+2026-10-21T05:56:08.0623754Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-puzzles/Cargo.toml
+2026-10-21T05:56:08.0624242Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-stdb-client/Cargo.toml
+2026-10-21T05:56:08.0624759Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-stdb-module/Cargo.toml
+2026-10-21T05:56:08.0625276Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-strategic-sim/Cargo.toml
+2026-10-21T05:56:08.0625859Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-brp-generator/Cargo.toml
+2026-10-21T05:56:08.0626797Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client/.cargo/config.toml
+2026-10-21T05:56:08.0627397Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client/Cargo.toml
+2026-10-21T05:56:08.0628010Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-core/Cargo.toml
+2026-10-21T05:56:08.0628557Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-netcode/Cargo.toml
+2026-10-21T05:56:08.0629188Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-server-dispatcher/Cargo.toml
+2026-10-21T05:56:08.0629782Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-server/Cargo.toml
+2026-10-21T05:56:08.0630316Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-terrain/Cargo.toml
+2026-10-21T05:56:08.0630839Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-texture-studio/Cargo.toml
+2026-10-21T05:56:08.0631432Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-weapon-model-browser/Cargo.toml
+2026-10-21T05:56:08.0632006Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-weapon-model/Cargo.toml
+2026-10-21T05:56:08.0632736Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-world-import/Cargo.toml
+2026-10-21T05:56:08.0633280Z   - /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-world-schema/Cargo.toml
+2026-10-21T05:56:08.0633807Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-animation/Cargo.toml
+2026-10-21T05:56:08.0634299Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-armor/Cargo.toml
+2026-10-21T05:56:08.0634764Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-bvh/Cargo.toml
+2026-10-21T05:56:08.0635233Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-cloth/Cargo.toml
+2026-10-21T05:56:08.0635703Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-color/Cargo.toml
+2026-10-21T05:56:08.0636188Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-compute/Cargo.toml
+2026-10-21T05:56:08.0636695Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-determinism/Cargo.toml
+2026-10-21T05:56:08.0637187Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-fbx/Cargo.toml
+2026-10-21T05:56:08.0637638Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-fs/Cargo.toml
+2026-10-21T05:56:08.0638127Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-garment-code/Cargo.toml
+2026-10-21T05:56:08.0638649Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-garment-fit/Cargo.toml
+2026-10-21T05:56:08.0639128Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-gpu/Cargo.toml
+2026-10-21T05:56:08.0639596Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-hair/Cargo.toml
+2026-10-21T05:56:08.0640077Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-math/Cargo.toml
+2026-10-21T05:56:08.0640755Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-mesh/Cargo.toml
+2026-10-21T05:56:08.0641225Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-physics/Cargo.toml
+2026-10-21T05:56:08.0641691Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-rig/Cargo.toml
+2026-10-21T05:56:08.0642580Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-rust-quality/Cargo.toml
+2026-10-21T05:56:08.0643092Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-shell/Cargo.toml
+2026-10-21T05:56:08.0643584Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-spatial-hash/Cargo.toml
+2026-10-21T05:56:08.0644075Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-timer/Cargo.toml
+2026-10-21T05:56:08.0644535Z   - /home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-xpbd/Cargo.toml
+2026-10-21T05:56:08.0644992Z   - /home/runner/work/fabelgeist/fabelgeist/crates/strategic-web/Cargo.toml
+2026-10-21T05:56:08.0645414Z   - /home/runner/work/fabelgeist/fabelgeist/rust-toolchain.toml
+2026-10-21T05:56:08.0646027Z ##[endgroup]
+2026-10-21T05:56:08.0646134Z 
+2026-10-21T05:56:08.0646219Z ... Restoring cache ...
+2026-10-21T05:56:08.1937145Z Cache hit for restore-key: v0-rust-rust-quality-Linux-x64-209b4f59-747f5c67
+2026-10-21T05:56:09.3585758Z Received 113246208 of 1400808568 (8.1%), 108.0 MBs/sec
+2026-10-21T05:56:10.3596073Z Received 327155712 of 1400808568 (23.4%), 155.9 MBs/sec
+2026-10-21T05:56:11.3604734Z Received 536870912 of 1400808568 (38.3%), 170.6 MBs/sec
+2026-10-21T05:56:12.3615619Z Received 746586112 of 1400808568 (53.3%), 177.9 MBs/sec
+2026-10-21T05:56:13.3663470Z Received 914358272 of 1400808568 (65.3%), 174.3 MBs/sec
+2026-10-21T05:56:14.3638461Z Received 1073741824 of 1400808568 (76.7%), 170.5 MBs/sec
+2026-10-21T05:56:15.3693569Z Received 1245708288 of 1400808568 (88.9%), 169.6 MBs/sec
+2026-10-21T05:56:16.3693572Z Received 1392508928 of 1400808568 (99.4%), 165.9 MBs/sec
+2026-10-21T05:56:16.4215294Z Received 1400808568 of 1400808568 (100.0%), 165.7 MBs/sec
+2026-10-21T05:56:16.4215674Z Cache Size: ~1336 MB (1400808568 B)
+2026-10-21T05:56:16.4235700Z [command]/usr/bin/tar -xf /home/runner/work/_temp/b73025d2-68b6-48a3-aee9-f9531c821264/cache.tzst -P -C /home/runner/work/fabelgeist/fabelgeist --use-compress-program unzstd
+2026-10-21T05:56:35.8479724Z Cache restored successfully
+2026-10-21T05:56:35.9030583Z Restored from cache key "v0-rust-rust-quality-Linux-x64-209b4f59-747f5c67" full match: false.
+2026-10-21T05:56:36.1716413Z ##[group]Run curl -sSf https://install.spacetimedb.com | sh -s -- -y
+2026-10-21T05:56:36.1716880Z [36;1mcurl -sSf https://install.spacetimedb.com | sh -s -- -y[0m
+2026-10-21T05:56:36.1717212Z [36;1mecho "$HOME/.local/bin" >> "$GITHUB_PATH"[0m
+2026-10-21T05:56:36.1717550Z [36;1m"$HOME/.local/bin/spacetime" version install "$SPACETIMEDB_VERSION"[0m
+2026-10-21T05:56:36.1717953Z [36;1m"$HOME/.local/bin/spacetime" version use "$SPACETIMEDB_VERSION"[0m
+2026-10-21T05:56:36.1769626Z shell: /usr/bin/bash -e {0}
+2026-10-21T05:56:36.1769787Z env:
+2026-10-21T05:56:36.1769903Z   CARGO_TERM_COLOR: always
+2026-10-21T05:56:36.1770039Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-21T05:56:36.1770184Z   CARGO_HOME: /home/runner/.cargo
+2026-10-21T05:56:36.1770323Z   CARGO_INCREMENTAL: 0
+2026-10-21T05:56:36.1770447Z   CACHE_ON_FAILURE: false
+2026-10-21T05:56:36.1770573Z ##[endgroup]
+2026-10-21T05:56:36.5076368Z Downloading installer...
+2026-10-21T05:56:36.9192808Z The SpacetimeDB command line tool will now be installed:
+2026-10-21T05:56:36.9193254Z 	CLI configuration directory: /home/runner/.config/spacetime/
+2026-10-21T05:56:36.9193597Z 	`spacetime` binary: /home/runner/.local/bin/spacetime
+2026-10-21T05:56:36.9193994Z 	directory for installed SpacetimeDB versions: /home/runner/.local/share/spacetime/bin
+2026-10-21T05:56:36.9194424Z 	database directory: /home/runner/.local/share/spacetime/data
+2026-10-21T05:56:36.9296563Z Downloading latest version...
+2026-10-21T05:56:38.0766541Z The `spacetime` command has been installed as /home/runner/.local/bin/spacetime
+2026-10-21T05:56:38.0767031Z 
+2026-10-21T05:56:38.0767187Z The install process is complete; check out our quickstart guide to get started!
+2026-10-21T05:56:38.0767443Z 	<https://spacetimedb.com/docs/>
+2026-10-21T05:56:39.3209117Z ##[group]Run sudo apt-get update && sudo apt-get install --no-install-recommends -y mold libasound2-dev libudev-dev libwayland-dev libx11-dev libxcursor-dev libxinerama-dev libxkbcommon-dev libxkbcommon-x11-dev libxrandr-dev libxi-dev libvulkan1 mesa-vulkan-drivers
+2026-10-21T05:56:39.3210085Z [36;1msudo apt-get update && sudo apt-get install --no-install-recommends -y mold libasound2-dev libudev-dev libwayland-dev libx11-dev libxcursor-dev libxinerama-dev libxkbcommon-dev libxkbcommon-x11-dev libxrandr-dev libxi-dev libvulkan1 mesa-vulkan-drivers[0m
+2026-10-21T05:56:39.3255884Z shell: /usr/bin/bash -e {0}
+2026-10-21T05:56:39.3256057Z env:
+2026-10-21T05:56:39.3256181Z   CARGO_TERM_COLOR: always
+2026-10-21T05:56:39.3256323Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-21T05:56:39.3256474Z   CARGO_HOME: /home/runner/.cargo
+2026-10-21T05:56:39.3256614Z   CARGO_INCREMENTAL: 0
+2026-10-21T05:56:39.3256738Z   CACHE_ON_FAILURE: false
+2026-10-21T05:56:39.3256867Z ##[endgroup]
+2026-10-21T05:56:39.5118266Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-10-21T05:56:39.5572403Z Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+2026-10-21T05:56:39.5586139Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+2026-10-21T05:56:39.5616599Z Get:6 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
+2026-10-21T05:56:39.6086106Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+2026-10-21T05:56:39.6630667Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+2026-10-21T05:56:39.6944065Z Get:7 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1397 kB]
+2026-10-21T05:56:39.7299366Z Get:8 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1704 kB]
+2026-10-21T05:56:39.7834006Z Get:9 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [342 kB]
+2026-10-21T05:56:39.7854636Z Get:10 https://packages.microsoft.com/ubuntu/24.04/prod noble/main arm64 Packages [565 kB]
+2026-10-21T05:56:39.8455539Z Get:11 https://packages.microsoft.com/ubuntu/24.04/prod noble/main amd64 Packages [628 kB]
+2026-10-21T05:56:39.8604054Z Get:12 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Packages [1145 kB]
+2026-10-21T05:56:39.8999476Z Get:13 http://azure.archive.ubuntu.com/ubuntu noble-security/main Translation-en [231 kB]
+2026-10-21T05:56:39.9000096Z Get:14 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1222 kB]
+2026-10-21T05:56:43.4285159Z Fetched 7616 kB in 1s (11.3 MB/s)
+2026-10-21T05:56:44.0211107Z Reading package lists...
+2026-10-21T05:56:44.0525984Z Reading package lists...
+2026-10-21T05:56:44.2121179Z Building dependency tree...
+2026-10-21T05:56:44.2126751Z Reading state information...
+2026-10-21T05:56:44.3197466Z libvulkan1 is already the newest version (1.3.275.0-1build1).
+2026-10-21T05:56:44.3197985Z libvulkan1 set to manually installed.
+2026-10-21T05:56:44.3198421Z The following additional packages will be installed:
+2026-10-21T05:56:44.3199298Z   libpthread-stubs0-dev libwayland-bin libwayland-server0 libxau-dev
+2026-10-21T05:56:44.3199869Z   libxcb-xkb-dev libxcb-xkb1 libxcb1-dev libxdmcp-dev libxext-dev
+2026-10-21T05:56:44.3201619Z   libxfixes-dev libxkbcommon-x11-0 libxrender-dev x11proto-dev
+2026-10-21T05:56:44.3201849Z   xorg-sgml-doctools xtrans-dev
+2026-10-21T05:56:44.3205771Z Suggested packages:
+2026-10-21T05:56:44.3206008Z   libasound2-doc libwayland-doc libx11-doc libxcb-doc libxext-doc
+2026-10-21T05:56:44.3380126Z The following NEW packages will be installed:
+2026-10-21T05:56:44.3381693Z   libasound2-dev libpthread-stubs0-dev libudev-dev libwayland-bin
+2026-10-21T05:56:44.3382375Z   libwayland-dev libwayland-server0 libx11-dev libxau-dev libxcb-xkb-dev
+2026-10-21T05:56:44.3383276Z   libxcb-xkb1 libxcb1-dev libxcursor-dev libxdmcp-dev libxext-dev
+2026-10-21T05:56:44.3383829Z   libxfixes-dev libxi-dev libxinerama-dev libxkbcommon-dev libxkbcommon-x11-0
+2026-10-21T05:56:44.3384751Z   libxkbcommon-x11-dev libxrandr-dev libxrender-dev mesa-vulkan-drivers mold
+2026-10-21T05:56:44.3385249Z   x11proto-dev xorg-sgml-doctools xtrans-dev
+2026-10-21T05:56:44.3545959Z 0 upgraded, 27 newly installed, 0 to remove and 45 not upgraded.
+2026-10-21T05:56:44.3546233Z Need to get 22.4 MB of archives.
+2026-10-21T05:56:44.3546423Z After this operation, 127 MB of additional disk space will be used.
+2026-10-21T05:56:44.3546649Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-10-21T05:56:44.4095617Z Get:2 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 libasound2-dev amd64 1.2.11-1ubuntu0.3 [115 kB]
+2026-10-21T05:56:44.4462813Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libpthread-stubs0-dev amd64 0.4-1build3 [4746 B]
+2026-10-21T05:56:44.4805492Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 libudev-dev amd64 255.4-1ubuntu8.18 [22.0 kB]
+2026-10-21T05:56:44.5149390Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libwayland-server0 amd64 1.22.0-2.1build1 [33.9 kB]
+2026-10-21T05:56:44.5494785Z Get:6 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xorg-sgml-doctools all 1:1.11-1.1 [10.9 kB]
+2026-10-21T05:56:44.5838236Z Get:7 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 x11proto-dev all 2023.2-1 [602 kB]
+2026-10-21T05:56:44.6239456Z Get:8 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxau-dev amd64 1:1.0.9-1build6 [9570 B]
+2026-10-21T05:56:44.6584855Z Get:9 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxdmcp-dev amd64 1:1.1.3-0ubuntu6 [26.5 kB]
+2026-10-21T05:56:44.6928283Z Get:10 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xtrans-dev all 1.4.0-1 [68.9 kB]
+2026-10-21T05:56:44.7288529Z Get:11 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxcb1-dev amd64 1.15-1ubuntu2 [85.8 kB]
+2026-10-21T05:56:44.7637084Z Get:12 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 libx11-dev amd64 2:1.8.7-1ubuntu0.1 [732 kB]
+2026-10-21T05:56:44.8050253Z Get:13 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxcb-xkb1 amd64 1.15-1ubuntu2 [32.3 kB]
+2026-10-21T05:56:44.8394374Z Get:14 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxcb-xkb-dev amd64 1.15-1ubuntu2 [42.5 kB]
+2026-10-21T05:56:44.8739256Z Get:15 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxrender-dev amd64 1:0.9.10-1.1build1 [26.3 kB]
+2026-10-21T05:56:44.9084075Z Get:16 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxfixes-dev amd64 1:6.0.0-2build1 [12.1 kB]
+2026-10-21T05:56:44.9426750Z Get:17 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxcursor-dev amd64 1:1.2.1-1build1 [31.8 kB]
+2026-10-21T05:56:44.9772473Z Get:18 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxext-dev amd64 2:1.3.4-1build2 [83.5 kB]
+2026-10-21T05:56:45.0120727Z Get:19 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxi-dev amd64 2:1.8.1-1build1 [194 kB]
+2026-10-21T05:56:45.0893110Z Get:20 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxinerama-dev amd64 2:1.1.4-3build1 [7988 B]
+2026-10-21T05:56:45.1245026Z Get:21 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxkbcommon-dev amd64 1.6.0-1build1 [56.3 kB]
+2026-10-21T05:56:45.1599116Z Get:22 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxkbcommon-x11-0 amd64 1.6.0-1build1 [14.5 kB]
+2026-10-21T05:56:45.1952952Z Get:23 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxrandr-dev amd64 2:1.5.2-2build1 [26.4 kB]
+2026-10-21T05:56:45.2305881Z Get:24 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 mesa-vulkan-drivers amd64 25.2.8-0ubuntu0.24.04.4 [17.5 MB]
+2026-10-21T05:56:45.4663116Z Get:25 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 mold amd64 2.30.0+dfsg-1build1 [2529 kB]
+2026-10-21T05:56:45.5288822Z Get:26 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libwayland-bin amd64 1.22.0-2.1build1 [20.6 kB]
+2026-10-21T05:56:45.5641287Z Get:27 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libwayland-dev amd64 1.22.0-2.1build1 [71.3 kB]
+2026-10-21T05:56:45.5995649Z Get:28 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libxkbcommon-x11-dev amd64 1.6.0-1build1 [5586 B]
+2026-10-21T05:56:45.7884534Z Fetched 22.4 MB in 1s (17.8 MB/s)
+2026-10-21T05:56:45.8066603Z Selecting previously unselected package libasound2-dev:amd64.
+2026-10-21T05:56:45.8290357Z (Reading database ... 
+2026-10-21T05:56:45.8291340Z (Reading database ... 5%
+2026-10-21T05:56:45.8291516Z (Reading database ... 10%
+2026-10-21T05:56:45.8291654Z (Reading database ... 15%
+2026-10-21T05:56:45.8291781Z (Reading database ... 20%
+2026-10-21T05:56:45.8291903Z (Reading database ... 25%
+2026-10-21T05:56:45.8292027Z (Reading database ... 30%
+2026-10-21T05:56:45.8292270Z (Reading database ... 35%
+2026-10-21T05:56:45.8292401Z (Reading database ... 40%
+2026-10-21T05:56:45.8292540Z (Reading database ... 45%
+2026-10-21T05:56:45.8292662Z (Reading database ... 50%
+2026-10-21T05:56:45.8333294Z (Reading database ... 55%
+2026-10-21T05:56:45.9797973Z (Reading database ... 60%
+2026-10-21T05:56:46.1845832Z (Reading database ... 65%
+2026-10-21T05:56:46.2558066Z (Reading database ... 70%
+2026-10-21T05:56:46.3887998Z (Reading database ... 75%
+2026-10-21T05:56:46.5864586Z (Reading database ... 80%
+2026-10-21T05:56:46.7049154Z (Reading database ... 85%
+2026-10-21T05:56:46.8262695Z (Reading database ... 90%
+2026-10-21T05:56:46.9662760Z (Reading database ... 95%
+2026-10-21T05:56:46.9662965Z (Reading database ... 100%
+2026-10-21T05:56:46.9663172Z (Reading database ... 214410 files and directories currently installed.)
+2026-10-21T05:56:46.9704615Z Preparing to unpack .../00-libasound2-dev_1.2.11-1ubuntu0.3_amd64.deb ...
+2026-10-21T05:56:46.9886734Z Unpacking libasound2-dev:amd64 (1.2.11-1ubuntu0.3) ...
+2026-10-21T05:56:47.0407768Z Selecting previously unselected package libpthread-stubs0-dev:amd64.
+2026-10-21T05:56:47.0519767Z Preparing to unpack .../01-libpthread-stubs0-dev_0.4-1build3_amd64.deb ...
+2026-10-21T05:56:47.0525915Z Unpacking libpthread-stubs0-dev:amd64 (0.4-1build3) ...
+2026-10-21T05:56:47.0711832Z Selecting previously unselected package libudev-dev:amd64.
+2026-10-21T05:56:47.0823796Z Preparing to unpack .../02-libudev-dev_255.4-1ubuntu8.18_amd64.deb ...
+2026-10-21T05:56:47.0830007Z Unpacking libudev-dev:amd64 (255.4-1ubuntu8.18) ...
+2026-10-21T05:56:47.1206244Z Selecting previously unselected package libwayland-server0:amd64.
+2026-10-21T05:56:47.1319857Z Preparing to unpack .../03-libwayland-server0_1.22.0-2.1build1_amd64.deb ...
+2026-10-21T05:56:47.1339482Z Unpacking libwayland-server0:amd64 (1.22.0-2.1build1) ...
+2026-10-21T05:56:47.1538517Z Selecting previously unselected package xorg-sgml-doctools.
+2026-10-21T05:56:47.1649364Z Preparing to unpack .../04-xorg-sgml-doctools_1%3a1.11-1.1_all.deb ...
+2026-10-21T05:56:47.1655845Z Unpacking xorg-sgml-doctools (1:1.11-1.1) ...
+2026-10-21T05:56:47.1866011Z Selecting previously unselected package x11proto-dev.
+2026-10-21T05:56:47.1974607Z Preparing to unpack .../05-x11proto-dev_2023.2-1_all.deb ...
+2026-10-21T05:56:47.1979975Z Unpacking x11proto-dev (2023.2-1) ...
+2026-10-21T05:56:47.2330951Z Selecting previously unselected package libxau-dev:amd64.
+2026-10-21T05:56:47.2435790Z Preparing to unpack .../06-libxau-dev_1%3a1.0.9-1build6_amd64.deb ...
+2026-10-21T05:56:47.2441276Z Unpacking libxau-dev:amd64 (1:1.0.9-1build6) ...
+2026-10-21T05:56:47.2622411Z Selecting previously unselected package libxdmcp-dev:amd64.
+2026-10-21T05:56:47.2725311Z Preparing to unpack .../07-libxdmcp-dev_1%3a1.1.3-0ubuntu6_amd64.deb ...
+2026-10-21T05:56:47.2730962Z Unpacking libxdmcp-dev:amd64 (1:1.1.3-0ubuntu6) ...
+2026-10-21T05:56:47.2907273Z Selecting previously unselected package xtrans-dev.
+2026-10-21T05:56:47.3009634Z Preparing to unpack .../08-xtrans-dev_1.4.0-1_all.deb ...
+2026-10-21T05:56:47.3015251Z Unpacking xtrans-dev (1.4.0-1) ...
+2026-10-21T05:56:47.3245981Z Selecting previously unselected package libxcb1-dev:amd64.
+2026-10-21T05:56:47.3351000Z Preparing to unpack .../09-libxcb1-dev_1.15-1ubuntu2_amd64.deb ...
+2026-10-21T05:56:47.3357507Z Unpacking libxcb1-dev:amd64 (1.15-1ubuntu2) ...
+2026-10-21T05:56:47.3560355Z Selecting previously unselected package libx11-dev:amd64.
+2026-10-21T05:56:47.3664461Z Preparing to unpack .../10-libx11-dev_2%3a1.8.7-1ubuntu0.1_amd64.deb ...
+2026-10-21T05:56:47.3670227Z Unpacking libx11-dev:amd64 (2:1.8.7-1ubuntu0.1) ...
+2026-10-21T05:56:47.3989792Z Selecting previously unselected package libxcb-xkb1:amd64.
+2026-10-21T05:56:47.4103482Z Preparing to unpack .../11-libxcb-xkb1_1.15-1ubuntu2_amd64.deb ...
+2026-10-21T05:56:47.4108944Z Unpacking libxcb-xkb1:amd64 (1.15-1ubuntu2) ...
+2026-10-21T05:56:47.4293427Z Selecting previously unselected package libxcb-xkb-dev:amd64.
+2026-10-21T05:56:47.4407164Z Preparing to unpack .../12-libxcb-xkb-dev_1.15-1ubuntu2_amd64.deb ...
+2026-10-21T05:56:47.4412807Z Unpacking libxcb-xkb-dev:amd64 (1.15-1ubuntu2) ...
+2026-10-21T05:56:47.4608480Z Selecting previously unselected package libxrender-dev:amd64.
+2026-10-21T05:56:47.4718590Z Preparing to unpack .../13-libxrender-dev_1%3a0.9.10-1.1build1_amd64.deb ...
+2026-10-21T05:56:47.4725094Z Unpacking libxrender-dev:amd64 (1:0.9.10-1.1build1) ...
+2026-10-21T05:56:47.4917204Z Selecting previously unselected package libxfixes-dev:amd64.
+2026-10-21T05:56:47.5026631Z Preparing to unpack .../14-libxfixes-dev_1%3a6.0.0-2build1_amd64.deb ...
+2026-10-21T05:56:47.5032386Z Unpacking libxfixes-dev:amd64 (1:6.0.0-2build1) ...
+2026-10-21T05:56:47.5217049Z Selecting previously unselected package libxcursor-dev:amd64.
+2026-10-21T05:56:47.5324536Z Preparing to unpack .../15-libxcursor-dev_1%3a1.2.1-1build1_amd64.deb ...
+2026-10-21T05:56:47.5329972Z Unpacking libxcursor-dev:amd64 (1:1.2.1-1build1) ...
+2026-10-21T05:56:47.5547246Z Selecting previously unselected package libxext-dev:amd64.
+2026-10-21T05:56:47.5653852Z Preparing to unpack .../16-libxext-dev_2%3a1.3.4-1build2_amd64.deb ...
+2026-10-21T05:56:47.5659182Z Unpacking libxext-dev:amd64 (2:1.3.4-1build2) ...
+2026-10-21T05:56:47.5897489Z Selecting previously unselected package libxi-dev:amd64.
+2026-10-21T05:56:47.6004338Z Preparing to unpack .../17-libxi-dev_2%3a1.8.1-1build1_amd64.deb ...
+2026-10-21T05:56:47.6009851Z Unpacking libxi-dev:amd64 (2:1.8.1-1build1) ...
+2026-10-21T05:56:47.6257860Z Selecting previously unselected package libxinerama-dev:amd64.
+2026-10-21T05:56:47.6364073Z Preparing to unpack .../18-libxinerama-dev_2%3a1.1.4-3build1_amd64.deb ...
+2026-10-21T05:56:47.6368847Z Unpacking libxinerama-dev:amd64 (2:1.1.4-3build1) ...
+2026-10-21T05:56:47.6553274Z Selecting previously unselected package libxkbcommon-dev:amd64.
+2026-10-21T05:56:47.6661383Z Preparing to unpack .../19-libxkbcommon-dev_1.6.0-1build1_amd64.deb ...
+2026-10-21T05:56:47.6667072Z Unpacking libxkbcommon-dev:amd64 (1.6.0-1build1) ...
+2026-10-21T05:56:47.6877487Z Selecting previously unselected package libxkbcommon-x11-0:amd64.
+2026-10-21T05:56:47.6987685Z Preparing to unpack .../20-libxkbcommon-x11-0_1.6.0-1build1_amd64.deb ...
+2026-10-21T05:56:47.6997385Z Unpacking libxkbcommon-x11-0:amd64 (1.6.0-1build1) ...
+2026-10-21T05:56:47.7188240Z Selecting previously unselected package libxrandr-dev:amd64.
+2026-10-21T05:56:47.7295063Z Preparing to unpack .../21-libxrandr-dev_2%3a1.5.2-2build1_amd64.deb ...
+2026-10-21T05:56:47.7301665Z Unpacking libxrandr-dev:amd64 (2:1.5.2-2build1) ...
+2026-10-21T05:56:47.7505239Z Selecting previously unselected package mesa-vulkan-drivers:amd64.
+2026-10-21T05:56:47.7609972Z Preparing to unpack .../22-mesa-vulkan-drivers_25.2.8-0ubuntu0.24.04.4_amd64.deb ...
+2026-10-21T05:56:47.7615954Z Unpacking mesa-vulkan-drivers:amd64 (25.2.8-0ubuntu0.24.04.4) ...
+2026-10-21T05:56:48.2992448Z Selecting previously unselected package mold.
+2026-10-21T05:56:48.3098466Z Preparing to unpack .../23-mold_2.30.0+dfsg-1build1_amd64.deb ...
+2026-10-21T05:56:48.3105056Z Unpacking mold (2.30.0+dfsg-1build1) ...
+2026-10-21T05:56:48.4487028Z Selecting previously unselected package libwayland-bin.
+2026-10-21T05:56:48.4593438Z Preparing to unpack .../24-libwayland-bin_1.22.0-2.1build1_amd64.deb ...
+2026-10-21T05:56:48.4601838Z Unpacking libwayland-bin (1.22.0-2.1build1) ...
+2026-10-21T05:56:48.4794900Z Selecting previously unselected package libwayland-dev:amd64.
+2026-10-21T05:56:48.4902254Z Preparing to unpack .../25-libwayland-dev_1.22.0-2.1build1_amd64.deb ...
+2026-10-21T05:56:48.4908799Z Unpacking libwayland-dev:amd64 (1.22.0-2.1build1) ...
+2026-10-21T05:56:48.5126557Z Selecting previously unselected package libxkbcommon-x11-dev:amd64.
+2026-10-21T05:56:48.5232880Z Preparing to unpack .../26-libxkbcommon-x11-dev_1.6.0-1build1_amd64.deb ...
+2026-10-21T05:56:48.5239636Z Unpacking libxkbcommon-x11-dev:amd64 (1.6.0-1build1) ...
+2026-10-21T05:56:48.5647967Z Setting up mesa-vulkan-drivers:amd64 (25.2.8-0ubuntu0.24.04.4) ...
+2026-10-21T05:56:48.5665676Z Setting up libwayland-server0:amd64 (1.22.0-2.1build1) ...
+2026-10-21T05:56:48.5679053Z Setting up libxkbcommon-dev:amd64 (1.6.0-1build1) ...
+2026-10-21T05:56:48.5692949Z Setting up libpthread-stubs0-dev:amd64 (0.4-1build3) ...
+2026-10-21T05:56:48.5706003Z Setting up mold (2.30.0+dfsg-1build1) ...
+2026-10-21T05:56:48.5719227Z Setting up libxcb-xkb1:amd64 (1.15-1ubuntu2) ...
+2026-10-21T05:56:48.5732658Z Setting up xtrans-dev (1.4.0-1) ...
+2026-10-21T05:56:48.5746334Z Setting up libwayland-bin (1.22.0-2.1build1) ...
+2026-10-21T05:56:48.5759051Z Setting up libxkbcommon-x11-0:amd64 (1.6.0-1build1) ...
+2026-10-21T05:56:48.5774406Z Setting up libudev-dev:amd64 (255.4-1ubuntu8.18) ...
+2026-10-21T05:56:48.5787618Z Setting up xorg-sgml-doctools (1:1.11-1.1) ...
+2026-10-21T05:56:48.5801443Z Setting up libasound2-dev:amd64 (1.2.11-1ubuntu0.3) ...
+2026-10-21T05:56:48.5814817Z Setting up libwayland-dev:amd64 (1.22.0-2.1build1) ...
+2026-10-21T05:56:48.5857879Z Processing triggers for sgml-base (1.31) ...
+2026-10-21T05:56:48.6011879Z Setting up x11proto-dev (2023.2-1) ...
+2026-10-21T05:56:48.6027364Z Setting up libxau-dev:amd64 (1:1.0.9-1build6) ...
+2026-10-21T05:56:48.6044565Z Processing triggers for libc-bin (2.39-0ubuntu8.9) ...
+2026-10-21T05:56:48.7821820Z Processing triggers for man-db (2.12.0-4build2) ...
+2026-10-21T05:56:48.7841954Z Not building database; man-db/auto-update is not 'true'.
+2026-10-21T05:56:48.7850815Z Setting up libxdmcp-dev:amd64 (1:1.1.3-0ubuntu6) ...
+2026-10-21T05:56:48.7870629Z Setting up libxcb1-dev:amd64 (1.15-1ubuntu2) ...
+2026-10-21T05:56:48.7886367Z Setting up libxcb-xkb-dev:amd64 (1.15-1ubuntu2) ...
+2026-10-21T05:56:48.7901206Z Setting up libx11-dev:amd64 (2:1.8.7-1ubuntu0.1) ...
+2026-10-21T05:56:48.7917266Z Setting up libxfixes-dev:amd64 (1:6.0.0-2build1) ...
+2026-10-21T05:56:48.7935066Z Setting up libxext-dev:amd64 (2:1.3.4-1build2) ...
+2026-10-21T05:56:48.7951359Z Setting up libxi-dev:amd64 (2:1.8.1-1build1) ...
+2026-10-21T05:56:48.7966792Z Setting up libxrender-dev:amd64 (1:0.9.10-1.1build1) ...
+2026-10-21T05:56:48.7981593Z Setting up libxkbcommon-x11-dev:amd64 (1.6.0-1build1) ...
+2026-10-21T05:56:48.7997598Z Setting up libxcursor-dev:amd64 (1:1.2.1-1build1) ...
+2026-10-21T05:56:48.8012050Z Setting up libxrandr-dev:amd64 (2:1.5.2-2build1) ...
+2026-10-21T05:56:48.8026558Z Setting up libxinerama-dev:amd64 (2:1.1.4-3build1) ...
+2026-10-21T05:56:49.2862798Z 
+2026-10-21T05:56:49.2863352Z Running kernel seems to be up-to-date.
+2026-10-21T05:56:49.2863595Z 
+2026-10-21T05:56:49.2863685Z No services need to be restarted.
+2026-10-21T05:56:49.2863839Z 
+2026-10-21T05:56:49.2863928Z No containers need to be restarted.
+2026-10-21T05:56:49.2864078Z 
+2026-10-21T05:56:49.2864186Z No user sessions are running outdated binaries.
+2026-10-21T05:56:49.2864372Z 
+2026-10-21T05:56:49.2864542Z No VM guests are running outdated hypervisor (qemu) binaries on this host.
+2026-10-21T05:56:49.9803916Z ##[group]Run cargo fmt --all -- --check
+2026-10-21T05:56:49.9804127Z [36;1mcargo fmt --all -- --check[0m
+2026-10-21T05:56:49.9804373Z [36;1mcargo fmt --manifest-path crates/adventuresim-character-creator/Cargo.toml -- --check[0m
+2026-10-21T05:56:49.9804809Z [36;1mcargo fmt --manifest-path crates/fabelgeist-mhr/Cargo.toml -- --check[0m
+2026-10-21T05:56:49.9805112Z [36;1mcargo fmt --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml -- --check[0m
+2026-10-21T05:56:49.9846177Z shell: /usr/bin/bash -e {0}
+2026-10-21T05:56:49.9846308Z env:
+2026-10-21T05:56:49.9846418Z   CARGO_TERM_COLOR: always
+2026-10-21T05:56:49.9846548Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-21T05:56:49.9846687Z   CARGO_HOME: /home/runner/.cargo
+2026-10-21T05:56:49.9846823Z   CARGO_INCREMENTAL: 0
+2026-10-21T05:56:49.9846946Z   CACHE_ON_FAILURE: false
+2026-10-21T05:56:49.9847068Z ##[endgroup]
+2026-10-21T05:56:58.5749305Z ##[group]Run python3 -m unittest scripts.tests.test_dev_stack.WorkflowTests.test_binding_diff_detects_changed_and_extra_files
+2026-10-21T05:56:58.5749800Z [36;1mpython3 -m unittest scripts.tests.test_dev_stack.WorkflowTests.test_binding_diff_detects_changed_and_extra_files[0m
+2026-10-21T05:56:58.5795470Z shell: /usr/bin/bash -e {0}
+2026-10-21T05:56:58.5795732Z env:
+2026-10-21T05:56:58.5795918Z   CARGO_TERM_COLOR: always
+2026-10-21T05:56:58.5796143Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-21T05:56:58.5796376Z   CARGO_HOME: /home/runner/.cargo
+2026-10-21T05:56:58.5796617Z   CARGO_INCREMENTAL: 0
+2026-10-21T05:56:58.5796827Z   CACHE_ON_FAILURE: false
+2026-10-21T05:56:58.5797033Z ##[endgroup]
+2026-10-21T05:56:58.8045925Z .
+2026-10-21T05:56:58.8046201Z ----------------------------------------------------------------------
+2026-10-21T05:56:58.8046512Z Ran 1 test in 0.001s
+2026-10-21T05:56:58.8046595Z 
+2026-10-21T05:56:58.8046640Z OK
+2026-10-21T05:56:58.8221190Z ##[group]Run python3 -m unittest scripts.tests.test_building_review_boundary
+2026-10-21T05:56:58.8221495Z [36;1mpython3 -m unittest scripts.tests.test_building_review_boundary[0m
+2026-10-21T05:56:58.8263964Z shell: /usr/bin/bash -e {0}
+2026-10-21T05:56:58.8264109Z env:
+2026-10-21T05:56:58.8264227Z   CARGO_TERM_COLOR: always
+2026-10-21T05:56:58.8264371Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-21T05:56:58.8264527Z   CARGO_HOME: /home/runner/.cargo
+2026-10-21T05:56:58.8264673Z   CARGO_INCREMENTAL: 0
+2026-10-21T05:56:58.8264800Z   CACHE_ON_FAILURE: false
+2026-10-21T05:56:58.8264927Z ##[endgroup]
+2026-10-21T05:56:58.8976243Z ...
+2026-10-21T05:56:58.8976584Z ----------------------------------------------------------------------
+2026-10-21T05:56:58.8976917Z Ran 3 tests in 0.025s
+2026-10-21T05:56:58.8977041Z 
+2026-10-21T05:56:58.8977115Z OK
+2026-10-21T05:56:58.9084862Z ##[group]Run python3 scripts/dev_stack.py verify-bindings
+2026-10-21T05:56:58.9085279Z [36;1mpython3 scripts/dev_stack.py verify-bindings[0m
+2026-10-21T05:56:58.9140584Z shell: /usr/bin/bash -e {0}
+2026-10-21T05:56:58.9140745Z env:
+2026-10-21T05:56:58.9140863Z   CARGO_TERM_COLOR: always
+2026-10-21T05:56:58.9141010Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-21T05:56:58.9141160Z   CARGO_HOME: /home/runner/.cargo
+2026-10-21T05:56:58.9141306Z   CARGO_INCREMENTAL: 0
+2026-10-21T05:56:58.9141437Z   CACHE_ON_FAILURE: false
+2026-10-21T05:56:58.9141583Z ##[endgroup]
+2026-10-21T05:59:05.3725908Z SpacetimeDB client bindings match the current module schema.
+2026-10-21T05:59:05.3726415Z [startup] phase='database client binding verification' duration=126.392s cache=miss
+2026-10-21T05:59:05.3853912Z ##[group]Run cargo test --package adventuresim-world-schema --all-features
+2026-10-21T05:59:05.3854230Z [36;1mcargo test --package adventuresim-world-schema --all-features[0m
+2026-10-21T05:59:05.3854514Z [36;1mcargo test --package fabelgeist-gpu --lib data::gpu::buffer::readback::tests[0m
+2026-10-21T05:59:05.3896565Z shell: /usr/bin/bash -e {0}
+2026-10-21T05:59:05.3896703Z env:
+2026-10-21T05:59:05.3896820Z   CARGO_TERM_COLOR: always
+2026-10-21T05:59:05.3896957Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-21T05:59:05.3897104Z   CARGO_HOME: /home/runner/.cargo
+2026-10-21T05:59:05.3897248Z   CARGO_INCREMENTAL: 0
+2026-10-21T05:59:05.3897382Z   CACHE_ON_FAILURE: false
+2026-10-21T05:59:05.3897510Z ##[endgroup]
+2026-10-21T05:59:05.5662083Z [1m[92m   Compiling[0m adventuresim-world-schema v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-world-schema)
+2026-10-21T05:59:05.5663512Z [1m[92m   Compiling[0m fabelgeist-determinism v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-determinism)
+2026-10-21T05:59:16.7999368Z [1m[92m    Finished[0m `test` profile [optimized] target(s) in 11.38s
+2026-10-21T05:59:16.8116113Z [1m[92m     Running[0m unittests src/lib.rs (target/debug/deps/adventuresim_world_schema-0f0b6d9dc81323a8)
+2026-10-21T05:59:16.8129525Z 
+2026-10-21T05:59:16.8129708Z running 84 tests
+2026-10-21T05:59:16.8139247Z test basis_points::tests::basis_point_units_own_bounds_conversions_and_scaling ... ok
+2026-10-21T05:59:16.8139813Z test bestiary::tests::bestiary_correlations_are_symmetric_nonrecursive_and_direct_gated ... ok
+2026-10-21T05:59:16.8140285Z test calendar::tests::age_derived_birth_years_and_bounds ... ok
+2026-10-21T05:59:16.8140770Z test bestiary::tests::bestiary_direct_fields_reject_nonfinite_negative_or_overmastery_values ... ok
+2026-10-21T05:59:16.8141266Z test calendar::tests::epoch_and_year_boundaries ... ok
+2026-10-21T05:59:16.8141682Z test coordinates::tests::coordinate_pair_converts_degrees_without_order_ambiguity ... ok
+2026-10-21T05:59:16.8142493Z test coordinates::tests::coordinate_pairs_round_trip_between_e7_and_microdegrees ... ok
+2026-10-21T05:59:16.8142960Z test coordinates::tests::degree_construction_preserves_rounding ... ok
+2026-10-21T05:59:16.8143424Z test coordinates::tests::e7_to_microdegree_conversion_preserves_integer_truncation ... ok
+2026-10-21T05:59:16.8143884Z test calendar::tests::serialization_validates_year_and_preserves_minute_units ... ok
+2026-10-21T05:59:16.8144172Z test coordinates::tests::coordinate_pair_rejects_an_invalid_component ... ok
+2026-10-21T05:59:16.8144431Z test coordinates::tests::latitude_units_enforce_wgs84_bounds ... ok
+2026-10-21T05:59:16.8144707Z test coordinates::tests::travel_geometry_boundary_keeps_primitive_e7_wire_shape ... ok
+2026-10-21T05:59:16.8144985Z test coordinates::tests::longitude_units_enforce_wgs84_bounds ... ok
+2026-10-21T05:59:16.8145261Z test coordinates::tests::unbounded_coordinate_preserves_abstract_coordinate_units ... ok
+2026-10-21T05:59:16.8145591Z test coordinates::tests::unbounded_coordinate_rejects_non_finite_and_unrepresentable_units ... ok
+2026-10-21T05:59:16.8145917Z test demographics::tests::demographic_values_roundtrip_with_stable_catalog_ids ... ok
+2026-10-21T05:59:16.8146216Z test language::tests::common_oral_language_caps_direct_and_correlated_fluency ... ok
+2026-10-21T05:59:16.8146510Z test demographics::tests::typed_sex_draw_preserves_the_existing_binary_draw ... ok
+2026-10-21T05:59:16.8146791Z test language::tests::common_language_ties_are_stable_and_nonrecursive ... ok
+2026-10-21T05:59:16.8147050Z test language::tests::correlations_are_identity_and_symmetric ... ok
+2026-10-21T05:59:16.8147293Z test language::tests::descriptors_cover_every_stable_language ... ok
+2026-10-21T05:59:16.8147529Z test language::tests::inference_is_exact_and_geographic ... ok
+2026-10-21T05:59:16.8147815Z test language::tests::final_location_reinitializes_oral_identity_without_granting_literacy ... ok
+2026-10-21T05:59:16.8148382Z test language::tests::language_scaling_is_safe_for_missing_or_invalid_proficiency ... ok
+2026-10-21T05:59:16.8148681Z test language::tests::yiddish_people_are_bilingual_with_weaker_local_german ... ok
+2026-10-21T05:59:16.8148971Z test language::tests::party_choices_are_order_independent_and_snapshot_linear ... ok
+2026-10-21T05:59:16.8156435Z test person_names::identity_validation::tests::authored_display_still_validates_hereditary_metadata ... ok
+2026-10-21T05:59:16.8167605Z test person_names::identity_validation::tests::native_render_rejects_missing_family_and_mismatched_valid_references ... ok
+2026-10-21T05:59:16.8168388Z test person_names::identity_validation::tests::unresolved_names_preserve_evidence_but_reject_missing_candidates ... ok
+2026-10-21T05:59:16.8169074Z test person_names::tests::attested_feminine_surname_form_is_selected_without_a_suffix_rule ... ok
+2026-10-21T05:59:16.8170526Z test person_names::tests::authored_names_are_not_parsed ... ok
+2026-10-21T05:59:16.8171038Z test person_names::tests::culture_and_period_select_the_baseline_without_invented_modifiers ... ok
+2026-10-21T05:59:16.8171622Z test person_names::tests::generated_name_has_resolved_family_and_stable_rendering ... ok
+2026-10-21T05:59:16.8172327Z test person_names::tests::hans_and_johannes_share_one_family_while_hans_dominates_everyday_use ... ok
+2026-10-21T05:59:16.8172877Z test person_names::tests::henne_can_remain_historically_unresolved ... ok
+2026-10-21T05:59:16.8173418Z test person_names::tests::register_rendering_does_not_mutate_the_native_everyday_projection ... ok
+2026-10-21T05:59:16.8173979Z test person_names::tests::register_specific_forms_render_from_one_family ... ok
+2026-10-21T05:59:16.8174502Z test person_names::tests::rendered_names_reject_unvalidated_wire_and_authored_text ... ok
+2026-10-21T05:59:16.8175072Z test person_names::tests::repertoire_fragments_extend_the_matching_sex_group ... ok
+2026-10-21T05:59:16.8175656Z test person_names::tests::validation::tests::derivation_frequency_must_match_its_repertoire_entry ... ok
+2026-10-21T05:59:16.8176357Z test person_names::tests::validation::tests::overlapping_selectors_are_ambiguous_but_adjacent_periods_are_not ... ok
+2026-10-21T05:59:16.8177007Z test person_names::tests::validation::tests::stable_ids_reject_human_facing_spellings ... ok
+2026-10-21T05:59:16.8177629Z test playable_bounds_tests::playable_bounds_include_requested_landmarks_and_reject_external_points ... ok
+2026-10-21T05:59:16.8178937Z test person_names::tests::validation::tests::repertoire_family_groups_use_sex_keys_and_require_correct_coverage ... ok
+2026-10-21T05:59:16.8180850Z test settlement_buildings::tests::capacities_cover_each_eligible_catchment_without_an_unnecessary_last_building ... ok
+2026-10-21T05:59:16.8181492Z test person_names::tests::compiled_catalog_is_valid_and_source_backed ... ok
+2026-10-21T05:59:16.8182298Z test person_names::tests::adding_a_form_does_not_change_family_prevalence ... ok
+2026-10-21T05:59:16.8183032Z test settlement_buildings::tests::business_ordinals_are_stable_coordinates_not_iteration_positions ... ok
+2026-10-21T05:59:16.8183805Z test settlement_buildings::tests::global_business_identity_includes_its_settlement_scope ... ok
+2026-10-21T05:59:16.8188129Z test settlement_buildings::tests::parish_growth_is_deterministic_and_does_not_duplicate_cathedrals ... ok
+2026-10-21T05:59:16.8188663Z test settlement_buildings::tests::empty_and_extreme_populations_are_bounded_and_shortfalls_are_explicit ... ok
+2026-10-21T05:59:16.8189162Z test settlement_buildings::tests::specialist_presence_is_owned_by_the_economy ... ok
+2026-10-21T05:59:16.8189665Z test settlement_name_tests::settlement_names_are_bounded_and_reject_controls ... ok
+2026-10-21T05:59:16.8190241Z test tests::adding_direct_hours_repairs_poisoned_canonical_field ... ok
+2026-10-21T05:59:16.8190797Z test tests::drought_history_rejects_impossible_twenty_year_counts ... ok
+2026-10-21T05:59:16.8191276Z test tests::elevations_parse_into_bounded_values_and_bands ... ok
+2026-10-21T05:59:16.8191891Z test tests::external_settlement_text_is_bounded_and_nul_free ... ok
+2026-10-21T05:59:16.8192788Z test tests::forest_cover_cannot_attach_zero_density_to_woodland ... ok
+2026-10-21T05:59:16.8193310Z test tests::geologic_unit_identifiers_are_bounded_source_values ... ok
+2026-10-21T05:59:16.8193767Z test tests::historical_context_enforces_direct_fractions_and_wetland_convergence ... ok
+2026-10-21T05:59:16.8194251Z test tests::hydrology_wire_values_cannot_bypass_bounded_constructors ... ok
+2026-10-21T05:59:16.8194697Z test tests::historical_vegetation_wire_rejects_invalid_dependent_fields ... ok
+2026-10-21T05:59:16.8195131Z test tests::industry_profile_serde_rejects_constructor_bypasses ... ok
+2026-10-21T05:59:16.8195537Z test tests::land_use_profiles_are_exhaustive_and_derive_intensity ... ok
+2026-10-21T05:59:16.8195973Z test tests::industry_profiles_are_nonempty_bounded_unique_and_canonical ... ok
+2026-10-21T05:59:16.8196544Z test tests::language_codes_are_parsed_into_a_closed_representation ... ok
+2026-10-21T05:59:16.8197075Z test settlement_buildings::tests::parish_programmes_keep_population_roles_and_physical_scale_separate ... ok
+2026-10-21T05:59:16.8197587Z test tests::pdsi_is_bounded_and_classifies_hydroclimate ... ok
+2026-10-21T05:59:16.8198027Z test tests::maximal_industry_diversity_keeps_the_strongest_bounded_specializations ... ok
+2026-10-21T05:59:16.8198447Z test tests::old_world_metadata_cannot_default_new_identity_fields ... ok
+2026-10-21T05:59:16.8198694Z test tests::potential_vegetation_is_bounded_and_has_stable_ties ... ok
+2026-10-21T05:59:16.8198961Z test tests::religion_correlations_are_identity_symmetric_and_non_recursive ... ok
+2026-10-21T05:59:16.8199226Z test tests::religious_status_derives_the_single_church_religion ... ok
+2026-10-21T05:59:16.8203429Z test tests::raw_route_terrain_validation_is_panic_free_and_rechecks_wrappers ... ok
+2026-10-21T05:59:16.8204156Z test tests::religion_direct_field_validation_rejects_each_invalid_shape ... ok
+2026-10-21T05:59:16.8204745Z test tests::religion_minutes_split_evenly_with_stable_remainders ... ok
+2026-10-21T05:59:16.8205168Z test tests::route_terrain_context_rejects_semantic_contradictions ... ok
+2026-10-21T05:59:16.8205570Z test tests::source_markdown_is_nonempty_nul_free_and_bounded ... ok
+2026-10-21T05:59:16.8205949Z test tests::soil_uncertainty_and_percentages_are_bounded ... ok
+2026-10-21T05:59:16.8206334Z test tests::spatial_grid_wire_values_cannot_bypass_invariants ... ok
+2026-10-21T05:59:16.8206773Z test tests::tree_species_profiles_are_nonempty_unique_and_canonically_ranked ... ok
+2026-10-21T05:59:16.8213198Z test tests::spatial_grid_sizes_cover_only_the_canonical_range_and_increment ... ok
+2026-10-21T05:59:16.8220260Z test tests::route_terrain_wire_rejects_bounds_order_and_duplicates ... ok
+2026-10-21T05:59:16.8220474Z 
+2026-10-21T05:59:16.8220612Z test result: ok. 84 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+2026-10-21T05:59:16.8220799Z 
+2026-10-21T05:59:16.8225210Z [1m[92m   Doc-tests[0m adventuresim_world_schema
+2026-10-21T05:59:17.5413830Z 
+2026-10-21T05:59:17.5414409Z running 0 tests
+2026-10-21T05:59:17.5414638Z 
+2026-10-21T05:59:17.5414924Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-21T05:59:17.5415359Z 
+2026-10-21T05:59:18.2717268Z [1m[92m   Compiling[0m fabelgeist-fs v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-fs)
+2026-10-21T05:59:18.2718188Z [1m[92m   Compiling[0m fabelgeist-math v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-math)
+2026-10-21T05:59:18.2718806Z [1m[92m   Compiling[0m fabelgeist-color v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-color)
+2026-10-21T05:59:18.2719289Z [1m[92m   Compiling[0m fabelgeist-timer v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-timer)
+2026-10-21T05:59:18.8143420Z [1m[92m   Compiling[0m fabelgeist-gpu v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-gpu)
+2026-10-21T05:59:19.8635929Z [1m[92m    Finished[0m `test` profile [optimized] target(s) in 2.28s
+2026-10-21T05:59:19.8828446Z [1m[92m     Running[0m unittests src/lib.rs (target/debug/deps/fabelgeist_gpu-517bace026343db8)
+2026-10-21T05:59:19.8846252Z 
+2026-10-21T05:59:19.8846414Z running 3 tests
+2026-10-21T05:59:19.8849286Z test data::gpu::buffer::readback::tests::readback_excludes_gpu_allocation_padding ... ok
+2026-10-21T05:59:19.8849851Z test data::gpu::buffer::readback::tests::readback_copies_unaligned_bytes_and_preserves_bits ... ok
+2026-10-21T05:59:19.8850408Z test data::gpu::buffer::readback::tests::readback_rejects_partial_and_zero_sized_elements ... ok
+2026-10-21T05:59:19.8850722Z 
+2026-10-21T05:59:19.8850947Z test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 10 filtered out; finished in 0.00s
+2026-10-21T05:59:19.8851137Z 
+2026-10-21T05:59:19.8991198Z ##[group]Run cargo test --locked --package fabelgeist-rust-quality --test bevy_version_guard
+2026-10-21T05:59:19.8991699Z [36;1mcargo test --locked --package fabelgeist-rust-quality --test bevy_version_guard[0m
+2026-10-21T05:59:19.9034549Z shell: /usr/bin/bash -e {0}
+2026-10-21T05:59:19.9034691Z env:
+2026-10-21T05:59:19.9034811Z   CARGO_TERM_COLOR: always
+2026-10-21T05:59:19.9034948Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-21T05:59:19.9035090Z   CARGO_HOME: /home/runner/.cargo
+2026-10-21T05:59:19.9035233Z   CARGO_INCREMENTAL: 0
+2026-10-21T05:59:19.9035365Z   CACHE_ON_FAILURE: false
+2026-10-21T05:59:19.9035494Z ##[endgroup]
+2026-10-21T05:59:20.1067465Z [1m[92m   Compiling[0m fabelgeist-rust-quality v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-rust-quality)
+2026-10-21T05:59:25.6849844Z [1m[92m    Finished[0m `test` profile [optimized] target(s) in 5.75s
+2026-10-21T05:59:25.6943579Z [1m[92m     Running[0m ../adventuresim-tactical-client/build.rs (target/debug/deps/bevy_version_guard-186e08aeb22d8165)
+2026-10-21T05:59:25.6958007Z 
+2026-10-21T05:59:25.6958337Z running 8 tests
+2026-10-21T05:59:25.6961329Z test tests::duplicates_take_precedence_over_invalid_versions ... ok
+2026-10-21T05:59:25.6961973Z test tests::invalid_selected_version_retains_its_parse_source_and_context ... ok
+2026-10-21T05:59:25.6962606Z test tests::missing_engine_has_a_structured_actionable_error ... ok
+2026-10-21T05:59:25.6962982Z test tests::malformed_wire_fields_remain_string_only ... ok
+2026-10-21T05:59:25.6963322Z test tests::only_exact_bevy_names_select_the_engine ... ok
+2026-10-21T05:59:25.6963700Z test tests::selected_version_keeps_prerelease_and_build_components ... ok
+2026-10-21T05:59:25.6964080Z test tests::selected_versions_keep_the_backport ... ok
+2026-10-21T05:59:25.6964453Z test tests::stable_fix_versions_require_removal_with_the_selected_version ... ok
+2026-10-21T05:59:25.6964623Z 
+2026-10-21T05:59:25.6964783Z test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-21T05:59:25.6964990Z 
+2026-10-21T05:59:25.7132498Z ##[group]Run cargo test --locked --package fabelgeist-fbx --lib array_encoding_tests::array_encoding_preserves_actual_main_payload_and_error_behavior -- --exact --nocapture
+2026-10-21T05:59:25.7133146Z [36;1mcargo test --locked --package fabelgeist-fbx --lib array_encoding_tests::array_encoding_preserves_actual_main_payload_and_error_behavior -- --exact --nocapture[0m
+2026-10-21T05:59:25.7175898Z shell: /usr/bin/bash -e {0}
+2026-10-21T05:59:25.7176046Z env:
+2026-10-21T05:59:25.7176170Z   CARGO_TERM_COLOR: always
+2026-10-21T05:59:25.7176311Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-21T05:59:25.7176460Z   CARGO_HOME: /home/runner/.cargo
+2026-10-21T05:59:25.7176606Z   CARGO_INCREMENTAL: 0
+2026-10-21T05:59:25.7176773Z   CACHE_ON_FAILURE: false
+2026-10-21T05:59:25.7176976Z ##[endgroup]
+2026-10-21T05:59:25.9301791Z [1m[92m   Compiling[0m syn v2.0.119
+2026-10-21T05:59:25.9302661Z [1m[92m   Compiling[0m serde v1.0.229
+2026-10-21T05:59:28.8533714Z [1m[92m   Compiling[0m strum_macros v0.27.2
+2026-10-21T05:59:28.8534483Z [1m[92m   Compiling[0m derive_more-impl v2.1.1
+2026-10-21T05:59:28.8534829Z [1m[92m   Compiling[0m num_enum_derive v0.7.6
+2026-10-21T05:59:30.9503746Z [1m[92m   Compiling[0m num_enum v0.7.6
+2026-10-21T05:59:33.5043666Z [1m[92m   Compiling[0m strum v0.27.2
+2026-10-21T05:59:34.9900875Z [1m[92m   Compiling[0m derive_more v2.1.1
+2026-10-21T05:59:35.0375585Z [1m[92m   Compiling[0m fabelgeist-rig v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-rig)
+2026-10-21T05:59:35.2095450Z [1m[92m   Compiling[0m fabelgeist-fbx v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-fbx)
+2026-10-21T05:59:35.6102773Z [1m[92m    Finished[0m `test` profile [optimized] target(s) in 9.85s
+2026-10-21T05:59:35.6196720Z [1m[92m     Running[0m unittests src/lib.rs (target/debug/deps/fabelgeist_fbx-356ce801c494b95b)
+2026-10-21T05:59:35.6211172Z 
+2026-10-21T05:59:35.6211324Z running 1 test
+2026-10-21T05:59:35.6260066Z test array_encoding_tests::array_encoding_preserves_actual_main_payload_and_error_behavior ... ok
+2026-10-21T05:59:35.6260718Z 
+2026-10-21T05:59:35.6260864Z test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+2026-10-21T05:59:35.6261057Z 
+2026-10-21T05:59:35.6394081Z ##[group]Run cargo test --locked --package fabelgeist-fbx
+2026-10-21T05:59:35.6394363Z [36;1mcargo test --locked --package fabelgeist-fbx[0m
+2026-10-21T05:59:35.6437031Z shell: /usr/bin/bash -e {0}
+2026-10-21T05:59:35.6437186Z env:
+2026-10-21T05:59:35.6437308Z   CARGO_TERM_COLOR: always
+2026-10-21T05:59:35.6437451Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-21T05:59:35.6437597Z   CARGO_HOME: /home/runner/.cargo
+2026-10-21T05:59:35.6437741Z   CARGO_INCREMENTAL: 0
+2026-10-21T05:59:35.6437872Z   CACHE_ON_FAILURE: false
+2026-10-21T05:59:35.6438005Z ##[endgroup]
+2026-10-21T05:59:35.8340162Z [1m[92m   Compiling[0m fabelgeist-fbx v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-fbx)
+2026-10-21T05:59:36.3082712Z [1m[92m    Finished[0m `test` profile [optimized] target(s) in 0.63s
+2026-10-21T05:59:36.3175639Z [1m[92m     Running[0m unittests src/lib.rs (target/debug/deps/fabelgeist_fbx-356ce801c494b95b)
+2026-10-21T05:59:36.3190112Z 
+2026-10-21T05:59:36.3190361Z running 2 tests
+2026-10-21T05:59:36.3192343Z test animation::tests::scalar_channels_interpolate_at_small_and_large_time_scales ... ok
+2026-10-21T05:59:36.3240103Z test array_encoding_tests::array_encoding_preserves_actual_main_payload_and_error_behavior ... ok
+2026-10-21T05:59:36.3240450Z 
+2026-10-21T05:59:36.3240670Z test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+2026-10-21T05:59:36.3240996Z 
+2026-10-21T05:59:36.3242346Z [1m[92m   Doc-tests[0m fabelgeist_fbx
+2026-10-21T05:59:36.3494705Z 
+2026-10-21T05:59:36.3495208Z running 0 tests
+2026-10-21T05:59:36.3495398Z 
+2026-10-21T05:59:36.3495722Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-21T05:59:36.3496101Z 
+2026-10-21T05:59:36.3646186Z ##[group]Run cargo test --package fabelgeist-rust-quality
+2026-10-21T05:59:36.3646455Z [36;1mcargo test --package fabelgeist-rust-quality[0m
+2026-10-21T05:59:36.3646678Z [36;1mcargo run --package fabelgeist-rust-quality -- check .[0m
+2026-10-21T05:59:36.3689102Z shell: /usr/bin/bash -e {0}
+2026-10-21T05:59:36.3689248Z env:
+2026-10-21T05:59:36.3689369Z   CARGO_TERM_COLOR: always
+2026-10-21T05:59:36.3689509Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-21T05:59:36.3689655Z   CARGO_HOME: /home/runner/.cargo
+2026-10-21T05:59:36.3689801Z   CARGO_INCREMENTAL: 0
+2026-10-21T05:59:36.3689928Z   CACHE_ON_FAILURE: false
+2026-10-21T05:59:36.3690060Z ##[endgroup]
+2026-10-21T05:59:36.5497677Z [1m[92m   Compiling[0m fabelgeist-rust-quality v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-rust-quality)
+2026-10-21T05:59:42.0349931Z [1m[92m    Finished[0m `test` profile [optimized] target(s) in 5.63s
+2026-10-21T05:59:42.0453322Z [1m[92m     Running[0m unittests src/main.rs (target/debug/deps/fabelgeist_rust_quality-1d4f80d5520b9204)
+2026-10-21T05:59:42.0467261Z 
+2026-10-21T05:59:42.0467477Z running 41 tests
+2026-10-21T05:59:42.0493511Z test analyze::tests::debt_can_shrink_but_cannot_grow_past_its_ceiling ... ok
+2026-10-21T05:59:42.0496040Z test analyze::tests::epsilon_provenance_crosses_reexports_test_files_and_macro_definitions ... ok
+2026-10-21T05:59:42.0501150Z test analyze::tests::independent_crates_and_modules_with_matching_names_need_no_exception ... ok
+2026-10-21T05:59:42.0502513Z test analyze::tests::machine_precision_requires_exact_audited_exceptions ... ok
+2026-10-21T05:59:42.0503053Z test analyze::tests::included_production_and_test_fragments_keep_exact_exception_locations ... ok
+2026-10-21T05:59:42.0503475Z test analyze::tests::stale_exceptions_fail ... ok
+2026-10-21T05:59:42.0503692Z test analyze::tests::standalone_build_outputs_are_excluded ... ok
+2026-10-21T05:59:42.0503952Z test calendar_flow::tests::accepts_owned_operations_and_plain_durations ... ok
+2026-10-21T05:59:42.0504243Z test analyze::tests::test_files_are_not_production ... ok
+2026-10-21T05:59:42.0504754Z test float_epsilon::imports::tests::a_shared_fragment_is_resolved_in_every_caller_and_reported_once ... ok
+2026-10-21T05:59:42.0505125Z test analyze::tests::precision_scan_includes_test_files_without_changing_production_metrics ... ok
+2026-10-21T05:59:42.0505428Z test calendar_flow::tests::rejects_unwrapped_calendar_arithmetic ... ok
+2026-10-21T05:59:42.0505743Z test float_epsilon::imports::tests::binary_and_integration_test_roots_do_not_inherit_library_bindings ... ok
+2026-10-21T05:59:42.0506329Z test float_epsilon::imports::tests::blocks_and_macro_bodies_shadow_names_without_leaking ... ok
+2026-10-21T05:59:42.0506863Z test float_epsilon::imports::tests::cyclic_globs_terminate_without_hiding_resolvable_names ... ok
+2026-10-21T05:59:42.0507463Z test float_epsilon::imports::tests::explicit_crate_aliases_and_same_name_prelude_imports_resolve ... ok
+2026-10-21T05:59:42.0508086Z test float_epsilon::imports::tests::literal_fragments_share_aliases_with_the_including_module ... ok
+2026-10-21T05:59:42.0508633Z test float_epsilon::imports::tests::included_bindings_stay_in_their_module_block_and_crate ... ok
+2026-10-21T05:59:42.0509179Z test float_epsilon::imports::tests::macro_bodies_follow_literal_includes_in_their_own_scope ... ok
+2026-10-21T05:59:42.0509724Z test float_epsilon::imports::tests::module_files_and_explicit_paths_use_their_own_child_directories ... ok
+2026-10-21T05:59:42.0510296Z test float_epsilon::imports::tests::qualified_reexports_and_module_globs_keep_their_provenance ... ok
+2026-10-21T05:59:42.0510885Z test float_epsilon::imports::tests::nested_fragments_and_their_modules_resolve_from_the_fragment_source ... ok
+2026-10-21T05:59:42.0511470Z test float_epsilon::imports::tests::recursive_includes_terminate_without_hiding_inherited_aliases ... ok
+2026-10-21T05:59:42.0512013Z test float_epsilon::imports::tests::restricted_aliases_follow_module_and_crate_visibility ... ok
+2026-10-21T05:59:42.0512973Z test float_epsilon::imports::tests::text_custom_and_nonliteral_macros_do_not_inherit_include_semantics ... ok
+2026-10-21T05:59:42.0513533Z test float_epsilon::imports::tests::unrelated_crates_can_bind_the_same_terminal_name ... ok
+2026-10-21T05:59:42.0514031Z test analyze::tests::cargo_target_paths_and_dependency_renames_preserve_import_identity ... ok
+2026-10-21T05:59:42.0514557Z test float_epsilon::imports::tests::value_namespace_items_do_not_shadow_imported_modules ... ok
+2026-10-21T05:59:42.0515059Z test float_epsilon::imports::tests::unrelated_modules_do_not_share_private_aliases ... ok
+2026-10-21T05:59:42.0515584Z test float_epsilon::tests::checks_imports_in_macro_definitions_and_assertion_arguments ... ok
+2026-10-21T05:59:42.0516074Z test float_epsilon::tests::covers_tests_macros_qualified_paths_and_aliases ... ok
+2026-10-21T05:59:42.0516558Z test float_epsilon::tests::ignores_comments_strings_and_adjacent_float_boundaries ... ok
+2026-10-21T05:59:42.0517080Z test float_epsilon::tests::macro_import_occurrences_count_source_identifiers_once ... ok
+2026-10-21T05:59:42.0517574Z test float_epsilon::tests::precision_constants_have_exact_associated_owners ... ok
+2026-10-21T05:59:42.0518129Z test float_epsilon::tests::rejects_float_globs_before_bare_expressions_and_assertions_can_hide_epsilon ... ok
+2026-10-21T05:59:42.0518860Z test float_epsilon::tests::rejects_globs_through_grouped_and_chained_float_module_aliases ... ok
+2026-10-21T05:59:42.0519297Z test scan::tests::path_prefixes_are_explicit ... ok
+2026-10-21T05:59:42.0519675Z test scan::tests::raw_strings_and_debug_derived_locals_cannot_drive_branches ... ok
+2026-10-21T05:59:42.0520029Z test manifests::tests::checks_workspace_and_standalone_lint_policy ... ok
+2026-10-21T05:59:42.0523013Z test scan::tests::tests_are_excluded_from_metrics_and_semantics ... ok
+2026-10-21T05:59:42.0524725Z test scan::tests::semantic_context_does_not_ban_ordinary_values ... ok
+2026-10-21T05:59:42.0524881Z 
+2026-10-21T05:59:42.0525033Z test result: ok. 41 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+2026-10-21T05:59:42.0525605Z 
+2026-10-21T05:59:42.0529959Z [1m[92m     Running[0m ../adventuresim-tactical-client/build.rs (target/debug/deps/bevy_version_guard-186e08aeb22d8165)
+2026-10-21T05:59:42.0544545Z 
+2026-10-21T05:59:42.0544985Z running 8 tests
+2026-10-21T05:59:42.0547877Z test tests::duplicates_take_precedence_over_invalid_versions ... ok
+2026-10-21T05:59:42.0548329Z test tests::invalid_selected_version_retains_its_parse_source_and_context ... ok
+2026-10-21T05:59:42.0548710Z test tests::malformed_wire_fields_remain_string_only ... ok
+2026-10-21T05:59:42.0549078Z test tests::missing_engine_has_a_structured_actionable_error ... ok
+2026-10-21T05:59:42.0549430Z test tests::selected_versions_keep_the_backport ... ok
+2026-10-21T05:59:42.0553028Z test tests::only_exact_bevy_names_select_the_engine ... ok
+2026-10-21T05:59:42.0553589Z test tests::stable_fix_versions_require_removal_with_the_selected_version ... ok
+2026-10-21T05:59:42.0554049Z test tests::selected_version_keeps_prerelease_and_build_components ... ok
+2026-10-21T05:59:42.0556032Z 
+2026-10-21T05:59:42.0556261Z test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-21T05:59:42.0556618Z 
+2026-10-21T05:59:42.2363058Z [1m[92m   Compiling[0m fabelgeist-rust-quality v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-rust-quality)
+2026-10-21T05:59:47.7974445Z [1m[92m    Finished[0m `dev` profile [optimized] target(s) in 5.70s
+2026-10-21T05:59:47.8068099Z [1m[92m     Running[0m `target/debug/fabelgeist-rust-quality check .`
+2026-10-21T05:59:53.0890346Z semantic-value census: 1909 repeated candidate(s), advisory only
+2026-10-21T05:59:53.0891161Z   "2": 3858 occurrence(s) (crates/fabelgeist-gpu/src/globals/wgpu_context/blitter.rs:125, crates/fabelgeist-gpu/src/globals/wgpu_context/blitter.rs:288, crates/fabelgeist-mesh/src/wireframe.rs:35)
+2026-10-21T05:59:53.0892824Z   "0.5": 2787 occurrence(s) (crates/fabelgeist-mesh/src/gpu.rs:51, crates/fabelgeist-mesh/src/gpu.rs:52, crates/fabelgeist-mesh/src/gpu.rs:267)
+2026-10-21T05:59:53.0893696Z   "3": 2411 occurrence(s) (crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs:56, crates/fabelgeist-mesh/src/wireframe.rs:45, crates/fabelgeist-mesh/src/wireframe.rs:113)
+2026-10-21T05:59:53.0894695Z   "4": 1576 occurrence(s) (crates/fabelgeist-gpu/src/globals/wgpu_context/blitter.rs:257, crates/fabelgeist-gpu/src/globals/wgpu_context/blitter.rs:313, crates/fabelgeist-mesh/src/data.rs:49)
+2026-10-21T05:59:53.0895608Z   "2.0": 1366 occurrence(s) (crates/fabelgeist-mesh/src/gpu.rs:51, crates/fabelgeist-mesh/src/gpu.rs:52, crates/fabelgeist-mesh/src/gpu.rs:427)
+2026-10-21T05:59:53.0896520Z   "8": 743 occurrence(s) (crates/adventuresim-puzzles/src/ordered_sigils.rs:40, crates/adventuresim-puzzles/src/puzzles.rs:627, crates/adventuresim-texture-studio/src/document.rs:75)
+2026-10-21T05:59:53.0897536Z   "5": 592 occurrence(s) (crates/adventuresim-puzzles/src/analysis.rs:72, crates/adventuresim-puzzles/src/analysis.rs:193, crates/adventuresim-puzzles/src/lib.rs:4)
+2026-10-21T05:59:53.0898516Z   "6": 539 occurrence(s) (crates/fabelgeist-mesh/src/gpu.rs:44, crates/adventuresim-puzzles/src/logic_grid.rs:30, crates/adventuresim-puzzles/src/resource_allocation.rs:22)
+2026-10-21T05:59:53.0899542Z   "7": 397 occurrence(s) (crates/adventuresim-puzzles/src/resource_allocation.rs:55, crates/adventuresim-puzzles/src/resource_allocation.rs:124, crates/adventuresim-core/src/disease.rs:1032)
+2026-10-21T05:59:53.0900535Z   "9": 381 occurrence(s) (crates/adventuresim-puzzles/src/analysis.rs:108, crates/adventuresim-core/src/disease.rs:1886, crates/adventuresim-core/src/local_problem.rs:237)
+2026-10-21T05:59:53.0901485Z   "10": 362 occurrence(s) (crates/fabelgeist-animation/src/skeleton/auto_rigger.rs:53, crates/adventuresim-core/src/disease.rs:1052, crates/adventuresim-core/src/disease.rs:1942)
+2026-10-21T05:59:53.0902584Z   "3.0": 359 occurrence(s) (crates/fabelgeist-mesh/src/gpu.rs:428, crates/fabelgeist-animation/src/skeleton/auto_rigger.rs:257, crates/adventuresim-texture-studio/src/document.rs:189)
+2026-10-21T05:59:53.0903921Z   "60": 339 occurrence(s) (crates/adventuresim-core/src/disease.rs:1217, crates/adventuresim-core/src/disease.rs:1241, crates/adventuresim-core/src/disease.rs:1242)
+2026-10-21T05:59:53.0904989Z   "0.08": 311 occurrence(s) (crates/fabelgeist-animation/src/skeleton/auto_rigger.rs:145, crates/adventuresim-texture-studio/src/scene/geometry.rs:10, crates/adventuresim-texture-studio/src/scene/environment.rs:28)
+2026-10-21T05:59:53.0906098Z   "0.01": 310 occurrence(s) (crates/adventuresim-texture-studio/src/document.rs:181, crates/adventuresim-core/src/survival.rs:21, crates/adventuresim-core/src/durability.rs:261)
+2026-10-21T05:59:53.0907065Z   "12": 303 occurrence(s) (crates/fabelgeist-mesh/src/gpu.rs:238, crates/adventuresim-puzzles/src/logic_grid.rs:43, crates/adventuresim-texture-studio/src/scene/geometry.rs:11)
+2026-10-21T05:59:53.0908061Z   "0.25": 295 occurrence(s) (crates/fabelgeist-animation/src/animation/mod.rs:104, crates/fabelgeist-animation/src/animation/mod.rs:107, crates/fabelgeist-animation/src/animation/mod.rs:110)
+2026-10-21T05:59:53.0909030Z   "16": 288 occurrence(s) (crates/fabelgeist-mesh/src/data.rs:22, crates/adventuresim-core/src/disease.rs:1890, crates/adventuresim-core/src/item_catalog_surface.rs:19)
+2026-10-21T05:59:53.0909960Z   "0.001": 275 occurrence(s) (crates/adventuresim-character-creator/src/outfit.rs:11, crates/fabelgeist-hair/src/look.rs:179, crates/fabelgeist-hair/src/look.rs:269)
+2026-10-21T05:59:53.0910917Z   "11": 250 occurrence(s) (crates/adventuresim-core/src/strategic_economy.rs:9, crates/adventuresim-core/src/physiology.rs:610, crates/adventuresim-core/src/physiology.rs:733)
+2026-10-21T05:59:53.0911568Z   ... run the census subcommand for all candidates
+2026-10-21T05:59:53.1905525Z ##[group]Run python3 -m unittest scripts.test_check_calendar_api
+2026-10-21T05:59:53.1905810Z [36;1mpython3 -m unittest scripts.test_check_calendar_api[0m
+2026-10-21T05:59:53.1906018Z [36;1mpython3 scripts/check_calendar_api.py[0m
+2026-10-21T05:59:53.1950646Z shell: /usr/bin/bash -e {0}
+2026-10-21T05:59:53.1950790Z env:
+2026-10-21T05:59:53.1950921Z   CARGO_TERM_COLOR: always
+2026-10-21T05:59:53.1951063Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-21T05:59:53.1951208Z   CARGO_HOME: /home/runner/.cargo
+2026-10-21T05:59:53.1951355Z   CARGO_INCREMENTAL: 0
+2026-10-21T05:59:53.1951482Z   CACHE_ON_FAILURE: false
+2026-10-21T05:59:53.1951644Z ##[endgroup]
+2026-10-21T05:59:53.2830501Z ....
+2026-10-21T05:59:53.2830881Z ----------------------------------------------------------------------
+2026-10-21T05:59:53.2831237Z Ran 4 tests in 0.032s
+2026-10-21T05:59:53.2831359Z 
+2026-10-21T05:59:53.2831440Z OK
+2026-10-21T05:59:58.6622511Z ##[group]Run cargo clippy --package adventuresim-tactical-client --bin adventuresim-tactical-client --target wasm32-unknown-unknown -- -D warnings
+2026-10-21T05:59:58.6623094Z [36;1mcargo clippy --package adventuresim-tactical-client --bin adventuresim-tactical-client --target wasm32-unknown-unknown -- -D warnings[0m
+2026-10-21T05:59:58.6666098Z shell: /usr/bin/bash -e {0}
+2026-10-21T05:59:58.6666247Z env:
+2026-10-21T05:59:58.6666366Z   CARGO_TERM_COLOR: always
+2026-10-21T05:59:58.6666508Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-21T05:59:58.6666658Z   CARGO_HOME: /home/runner/.cargo
+2026-10-21T05:59:58.6666806Z   CARGO_INCREMENTAL: 0
+2026-10-21T05:59:58.6666935Z   CACHE_ON_FAILURE: false
+2026-10-21T05:59:58.6667067Z ##[endgroup]
+2026-10-21T06:00:00.1422437Z [1m[92m   Compiling[0m derive_more-impl v2.1.1
+2026-10-21T06:00:00.1559466Z [1m[92m   Compiling[0m adventuresim-world-schema v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-world-schema)
+2026-10-21T06:00:00.1560533Z [1m[92m    Checking[0m fabelgeist-timer v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-timer)
+2026-10-21T06:00:00.1561250Z [1m[92m    Checking[0m fabelgeist-color v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-color)
+2026-10-21T06:00:00.2030947Z [1m[92m    Checking[0m fabelgeist-math v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-math)
+2026-10-21T06:00:00.4717790Z [1m[92m    Checking[0m fabelgeist-determinism v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-determinism)
+2026-10-21T06:00:00.4857743Z [1m[92m    Checking[0m fabelgeist-gpu v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-gpu)
+2026-10-21T06:00:00.7184343Z [1m[92m    Checking[0m adventuresim-weapon-model v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-weapon-model)
+2026-10-21T06:00:01.1164031Z [1m[92m    Checking[0m fabelgeist-compute v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-compute)
+2026-10-21T06:00:05.7604930Z [1m[92m    Checking[0m fabelgeist-bvh v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-bvh)
+2026-10-21T06:00:05.9183816Z [1m[92m    Checking[0m fabelgeist-mesh v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-mesh)
+2026-10-21T06:00:06.1094341Z [1m[92m    Checking[0m adventuresim-puzzles v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-puzzles)
+2026-10-21T06:00:06.1624087Z [1m[92m    Checking[0m fabelgeist-garment-code v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-garment-code)
+2026-10-21T06:00:06.7314327Z [1m[92m   Compiling[0m adventuresim-dialogue v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-dialogue)
+2026-10-21T06:00:06.9863722Z [1m[92m   Compiling[0m adventuresim-core v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-core)
+2026-10-21T06:00:07.2115224Z [1m[92m    Checking[0m fabelgeist-spatial-hash v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-spatial-hash)
+2026-10-21T06:00:07.3243964Z [1m[92m   Compiling[0m adventuresim-tactical-client v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client)
+2026-10-21T06:00:07.6413988Z [1m[92m    Checking[0m fabelgeist-hair v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-hair)
+2026-10-21T06:00:09.8414799Z [1m[92m    Checking[0m fabelgeist-armor v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-armor)
+2026-10-21T06:00:15.5993625Z [1m[92m    Checking[0m derive_more v2.1.1
+2026-10-21T06:00:15.6467349Z [1m[92m    Checking[0m bevy_reflect v0.19.1
+2026-10-21T06:00:15.6467753Z [1m[92m    Checking[0m bevy_tasks v0.19.1
+2026-10-21T06:00:15.6468415Z [1m[92m    Checking[0m fabelgeist-xpbd v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-xpbd)
+2026-10-21T06:00:15.7734938Z [1m[92m    Checking[0m selectors v0.38.0
+2026-10-21T06:00:15.8909758Z [1m[92m    Checking[0m fabelgeist-physics v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-physics)
+2026-10-21T06:00:16.0283925Z [1m[92m    Checking[0m fabelgeist-shell v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-shell)
+2026-10-21T06:00:16.3224052Z [1m[92m    Checking[0m fabelgeist-cloth v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-cloth)
+2026-10-21T06:00:16.3383140Z [1m[92m    Checking[0m fabelgeist-rig v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-rig)
+2026-10-21T06:00:16.4941032Z [1m[92m    Checking[0m fabelgeist-garment-fit v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-garment-fit)
+2026-10-21T06:00:18.1873001Z [1m[92m    Checking[0m bevy_ecs v0.19.1
+2026-10-21T06:00:18.1873446Z [1m[92m    Checking[0m bevy_math v0.19.1
+2026-10-21T06:00:18.1873794Z [1m[92m    Checking[0m glam_matrix_extras v0.3.0
+2026-10-21T06:00:21.7181313Z [1m[92m    Checking[0m bevy_color v0.19.1
+2026-10-21T06:00:21.7182551Z [1m[92m    Checking[0m bevy_heavy v0.5.0
+2026-10-21T06:00:21.9373560Z [1m[92m    Checking[0m noiz v0.5.0
+2026-10-21T06:00:25.0639320Z [1m[92m    Checking[0m bevy_app v0.19.1
+2026-10-21T06:00:25.4669501Z [1m[92m    Checking[0m bevy_time v0.19.1
+2026-10-21T06:00:25.4669927Z [1m[92m    Checking[0m bevy_transform v0.19.1
+2026-10-21T06:00:25.4670260Z [1m[92m    Checking[0m bevy_input v0.19.1
+2026-10-21T06:00:25.4670958Z [1m[92m    Checking[0m bevy_log v0.19.1
+2026-10-21T06:00:25.5581588Z [1m[92m    Checking[0m bevy_clipboard v0.19.1
+2026-10-21T06:00:25.6550838Z [1m[92m    Checking[0m bevy_a11y v0.19.1
+2026-10-21T06:00:25.8020806Z [1m[92m    Checking[0m bevy_state v0.19.1
+2026-10-21T06:00:25.8213819Z [1m[92m    Checking[0m aeronet_io v0.21.0
+2026-10-21T06:00:25.8533744Z [1m[92m    Checking[0m bevy_diagnostic v0.19.1
+2026-10-21T06:00:26.0183729Z [1m[92m    Checking[0m bevy_asset v0.19.1
+2026-10-21T06:00:26.1462096Z [1m[92m    Checking[0m aeronet_transport v0.21.0
+2026-10-21T06:00:26.7984331Z [1m[92m    Checking[0m aeronet v0.21.0
+2026-10-21T06:00:26.8523783Z [1m[92m    Checking[0m aeronet_websocket v0.21.0
+2026-10-21T06:00:27.3822683Z [1m[92m    Checking[0m bevy_window v0.19.1
+2026-10-21T06:00:28.5785238Z [1m[92m    Checking[0m bevy_mesh v0.19.1
+2026-10-21T06:00:28.5788000Z [1m[92m    Checking[0m bevy_image v0.19.1
+2026-10-21T06:00:28.9536720Z [1m[92m    Checking[0m bevy_shader v0.19.1
+2026-10-21T06:00:29.1873180Z [1m[92m    Checking[0m bevy_audio v0.19.1
+2026-10-21T06:00:29.5544223Z [1m[92m    Checking[0m bevy_text v0.19.1
+2026-10-21T06:00:29.5884080Z [1m[92m    Checking[0m bevy_scene v0.19.1
+2026-10-21T06:00:30.4003104Z [1m[92m    Checking[0m bevy_camera v0.19.1
+2026-10-21T06:00:30.4005543Z [1m[92m    Checking[0m bevy_material v0.19.1
+2026-10-21T06:00:30.6876898Z [1m[92m    Checking[0m bevy_animation v0.19.1
+2026-10-21T06:00:31.6712477Z [1m[92m    Checking[0m bevy_picking v0.19.1
+2026-10-21T06:00:31.6715043Z [1m[92m    Checking[0m bevy_gizmos v0.19.1
+2026-10-21T06:00:31.6913519Z [1m[92m    Checking[0m bevy_render v0.19.1
+2026-10-21T06:00:31.9853763Z [1m[92m    Checking[0m bevy_world_serialization v0.19.1
+2026-10-21T06:00:32.6600187Z [1m[92m    Checking[0m bevy_light v0.19.1
+2026-10-21T06:00:33.2107918Z [1m[92m    Checking[0m bevy_sprite v0.19.1
+2026-10-21T06:00:33.2110637Z [1m[92m    Checking[0m bevy_input_focus v0.19.1
+2026-10-21T06:00:33.7943525Z [1m[92m    Checking[0m bevy_winit v0.19.1
+2026-10-21T06:00:33.8953683Z [1m[92m    Checking[0m bevy_ui v0.19.1
+2026-10-21T06:00:33.9234599Z [1m[92m    Checking[0m bevy_gltf v0.19.1
+2026-10-21T06:00:36.6623830Z [1m[92m    Checking[0m bevy_flair_core v0.8.1
+2026-10-21T06:00:37.0893760Z [1m[92m    Checking[0m bevy_flair_style v0.8.1
+2026-10-21T06:00:38.7708461Z [1m[92m    Checking[0m bevy_flair_css_parser v0.8.1
+2026-10-21T06:00:39.4906572Z [1m[92m    Checking[0m bevy_flair v0.8.1
+2026-10-21T06:00:42.8499461Z [1m[92m    Checking[0m bevy_core_pipeline v0.19.1
+2026-10-21T06:00:45.6468537Z [1m[92m    Checking[0m bevy_sprite_render v0.19.1
+2026-10-21T06:00:45.6469057Z [1m[92m    Checking[0m bevy_pbr v0.19.1
+2026-10-21T06:00:45.6469372Z [1m[92m    Checking[0m bevy_anti_alias v0.19.1
+2026-10-21T06:00:45.6469711Z [1m[92m    Checking[0m bevy_post_process v0.19.1
+2026-10-21T06:00:49.0943205Z [1m[92m    Checking[0m bevy_ui_render v0.19.1
+2026-10-21T06:00:50.7893039Z [1m[92m    Checking[0m bevy_egui v0.40.1
+2026-10-21T06:01:04.1097282Z [1m[92m    Checking[0m bevy_dev_tools v0.19.1
+2026-10-21T06:01:04.1097723Z [1m[92m    Checking[0m bevy_gizmos_render v0.19.1
+2026-10-21T06:01:04.1098205Z [1m[92m    Checking[0m bevy_eidolon v0.5.0 (https://github.com/barsoosayque/bevy_eidolon?branch=fablegeist-0.19#1a5aff8d)
+2026-10-21T06:01:05.9683420Z [1m[92m    Checking[0m bevy_remote v0.19.1
+2026-10-21T06:01:06.8377940Z [1m[92m    Checking[0m bevy_internal v0.19.1
+2026-10-21T06:01:06.9463817Z [1m[92m    Checking[0m bevy v0.19.1
+2026-10-21T06:01:06.9921331Z [1m[92m    Checking[0m bevy_transform_interpolation v0.5.0
+2026-10-21T06:01:06.9921951Z [1m[92m    Checking[0m bevy_enhanced_input v0.26.0
+2026-10-21T06:01:06.9922978Z [1m[92m    Checking[0m adventuresim-building-generator v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-building-generator)
+2026-10-21T06:01:06.9923684Z [1m[92m    Checking[0m bevy_replicon v0.41.1
+2026-10-21T06:01:07.7333677Z [1m[92m    Checking[0m avian3d v0.7.0
+2026-10-21T06:01:08.7874112Z [1m[92m    Checking[0m adventuresim-character-creator v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-character-creator)
+2026-10-21T06:01:09.5444913Z [1m[92m    Checking[0m aeronet_replicon v0.21.0
+2026-10-21T06:01:09.8364380Z [1m[92m    Checking[0m bevy_mod_outline v0.13.0
+2026-10-21T06:01:11.9433910Z [1m[92m    Checking[0m adventuresim-procedural-textures v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-procedural-textures)
+2026-10-21T06:01:12.6094089Z [1m[92m    Checking[0m adventuresim-plant-generator v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-plant-generator)
+2026-10-21T06:01:13.0334189Z [1m[92m    Checking[0m adventuresim-procedural-materials v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-procedural-materials)
+2026-10-21T06:01:17.6760110Z [1m[92m    Checking[0m bevy_ahoy v0.2.0 (/home/runner/work/fabelgeist/fabelgeist/vendor/bevy_ahoy)
+2026-10-21T06:01:18.8477913Z [1m[92m    Checking[0m adventuresim-tactical-core v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-core)
+2026-10-21T06:01:25.7911433Z [1m[92m    Checking[0m adventuresim-tactical-netcode v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-netcode)
+2026-10-21T06:01:40.9371824Z [1m[92m    Finished[0m `dev` profile [optimized] target(s) in 1m 42s
+2026-10-21T06:01:41.0040918Z ##[group]Run python3 -B -m unittest scripts.test_check_deterministic_rng
+2026-10-21T06:01:41.0041228Z [36;1mpython3 -B -m unittest scripts.test_check_deterministic_rng[0m
+2026-10-21T06:01:41.0041453Z [36;1mpython3 scripts/check_deterministic_rng.py[0m
+2026-10-21T06:01:41.0041702Z [36;1mcargo install wasm-bindgen-cli --version 0.2.126 --locked[0m
+2026-10-21T06:01:41.0041912Z [36;1mpython3 scripts/test_determinism.py[0m
+2026-10-21T06:01:41.0084251Z shell: /usr/bin/bash -e {0}
+2026-10-21T06:01:41.0084391Z env:
+2026-10-21T06:01:41.0084522Z   CARGO_TERM_COLOR: always
+2026-10-21T06:01:41.0084658Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-21T06:01:41.0084802Z   CARGO_HOME: /home/runner/.cargo
+2026-10-21T06:01:41.0084941Z   CARGO_INCREMENTAL: 0
+2026-10-21T06:01:41.0085067Z   CACHE_ON_FAILURE: false
+2026-10-21T06:01:41.0085196Z ##[endgroup]
+2026-10-21T06:01:41.0434138Z ......
+2026-10-21T06:01:41.0434472Z ----------------------------------------------------------------------
+2026-10-21T06:01:41.0434871Z Ran 6 tests in 0.001s
+2026-10-21T06:01:41.0435002Z 
+2026-10-21T06:01:41.0435079Z OK
+2026-10-21T06:02:07.0153856Z deterministic RNG duplication check passed
+2026-10-21T06:02:07.0536079Z [1m[92m    Updating[0m crates.io index
+2026-10-21T06:02:07.1216439Z [1m[92m Downloading[0m crates ...
+2026-10-21T06:02:07.1989121Z [1m[92m  Downloaded[0m wasm-bindgen-cli v0.2.126
+2026-10-21T06:02:07.2096546Z [1m[92m     Ignored[0m package `wasm-bindgen-cli v0.2.126` is already installed, use --force to override
+2026-10-21T06:02:07.4438453Z [1m[92m   Compiling[0m fabelgeist-determinism v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-determinism)
+2026-10-21T06:02:07.9485727Z [1m[92m    Finished[0m `test` profile [optimized] target(s) in 0.69s
+2026-10-21T06:02:07.9588204Z [1m[92m     Running[0m unittests src/lib.rs (target/debug/deps/fabelgeist_determinism-7941ab828d7e6ab1)
+2026-10-21T06:02:07.9602064Z 
+2026-10-21T06:02:07.9602319Z running 4 tests
+2026-10-21T06:02:07.9604930Z test tests::splitmix64_seed_zero_sequence_is_stable ... ok
+2026-10-21T06:02:07.9605279Z test stream::tests::rejection_consumes_another_full_width_draw ... ok
+2026-10-21T06:02:07.9605564Z test seed::tests::streaming_numeric_seeds_preserve_original_length_framing ... ok
+2026-10-21T06:02:07.9605982Z test tests::unit_conversions_keep_their_interval_contracts ... ok
+2026-10-21T06:02:07.9606226Z 
+2026-10-21T06:02:07.9606459Z test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-21T06:02:07.9606760Z 
+2026-10-21T06:02:07.9609725Z [1m[92m     Running[0m tests/contract.rs (target/debug/deps/contract-b95237efa99167e3)
+2026-10-21T06:02:07.9616816Z 
+2026-10-21T06:02:07.9616959Z running 6 tests
+2026-10-21T06:02:07.9619454Z test complete_derivation_and_sampling_vectors ... ok
+2026-10-21T06:02:07.9620003Z test empty_and_singleton_shuffles_and_float_endpoints ... ok
+2026-10-21T06:02:07.9620240Z test framing_and_independent_streams ... ok
+2026-10-21T06:02:07.9620491Z test producer_seeds_preserve_draw_slots_word_arithmetic_and_lattice_order ... ok
+2026-10-21T06:02:07.9622745Z test seed_documents_admit_only_the_final_record_shape ... ok
+2026-10-21T06:02:07.9630540Z test weights_fail_explicitly_and_exclude_zero ... ok
+2026-10-21T06:02:07.9630721Z 
+2026-10-21T06:02:07.9630866Z test result: ok. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-21T06:02:07.9631051Z 
+2026-10-21T06:02:07.9632645Z [1m[92m   Doc-tests[0m fabelgeist_determinism
+2026-10-21T06:02:07.9838530Z 
+2026-10-21T06:02:07.9838714Z running 0 tests
+2026-10-21T06:02:07.9838868Z 
+2026-10-21T06:02:07.9839036Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-21T06:02:07.9839226Z 
+2026-10-21T06:02:08.1945315Z [1m[92m   Compiling[0m fabelgeist-determinism v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-determinism)
+2026-10-21T06:02:08.6752236Z [1m[92m    Finished[0m `test` profile [optimized] target(s) in 0.65s
+2026-10-21T06:02:08.6857887Z [1m[92m     Running[0m unittests src/lib.rs (target/wasm32-unknown-unknown/debug/deps/fabelgeist_determinism-4525644757d999aa.wasm)
+2026-10-21T06:02:08.9786863Z running 1 test
+2026-10-21T06:02:08.9803739Z test stream::tests::rejection_consumes_another_full_width_draw ... ok
+2026-10-21T06:02:08.9808486Z 
+2026-10-21T06:02:08.9808800Z test result: ok. 1 passed; 0 failed; 0 ignored; 0 filtered out; finished in 0.01s
+2026-10-21T06:02:08.9897481Z [1m[92m     Running[0m tests/contract.rs (target/wasm32-unknown-unknown/debug/deps/contract-18c28f5e132cbc0d.wasm)
+2026-10-21T06:02:08.9897767Z 
+2026-10-21T06:02:09.0914583Z running 6 tests
+2026-10-21T06:02:09.0964923Z test weights_fail_explicitly_and_exclude_zero ... ok
+2026-10-21T06:02:09.0980943Z test seed_documents_admit_only_the_final_record_shape ... ok
+2026-10-21T06:02:09.0985824Z test producer_seeds_preserve_draw_slots_word_arithmetic_and_lattice_order ... ok
+2026-10-21T06:02:09.0986229Z test framing_and_independent_streams ... ok
+2026-10-21T06:02:09.0986591Z test empty_and_singleton_shuffles_and_float_endpoints ... ok
+2026-10-21T06:02:09.0986933Z test complete_derivation_and_sampling_vectors ... ok
+2026-10-21T06:02:09.0987138Z 
+2026-10-21T06:02:09.0987338Z test result: ok. 6 passed; 0 failed; 0 ignored; 0 filtered out; finished in 0.01s
+2026-10-21T06:02:09.0987628Z 
+2026-10-21T06:02:09.1075553Z [1m[92m   Doc-tests[0m fabelgeist_determinism
+2026-10-21T06:02:09.1284162Z 
+2026-10-21T06:02:09.1284548Z running 0 tests
+2026-10-21T06:02:09.1284711Z 
+2026-10-21T06:02:09.1284991Z test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+2026-10-21T06:02:09.1285306Z 
+2026-10-21T06:02:09.1481370Z ##[group]Run cargo clippy --workspace --all-targets --all-features -- -D warnings
+2026-10-21T06:02:09.1481717Z [36;1mcargo clippy --workspace --all-targets --all-features -- -D warnings[0m
+2026-10-21T06:02:09.1482283Z [36;1mcargo clippy --locked --manifest-path crates/adventuresim-character-creator/Cargo.toml --all-targets --all-features -- -D warnings[0m
+2026-10-21T06:02:09.1482811Z [36;1mcargo clippy --locked --manifest-path crates/fabelgeist-mhr/Cargo.toml --all-targets --all-features -- -D warnings[0m
+2026-10-21T06:02:09.1483275Z [36;1mcargo clippy --locked --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml --all-targets --all-features -- -D warnings[0m
+2026-10-21T06:02:09.1526703Z shell: /usr/bin/bash -e {0}
+2026-10-21T06:02:09.1526849Z env:
+2026-10-21T06:02:09.1526967Z   CARGO_TERM_COLOR: always
+2026-10-21T06:02:09.1527108Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-21T06:02:09.1527408Z   CARGO_HOME: /home/runner/.cargo
+2026-10-21T06:02:09.1527657Z   CARGO_INCREMENTAL: 0
+2026-10-21T06:02:09.1527789Z   CACHE_ON_FAILURE: false
+2026-10-21T06:02:09.1527923Z ##[endgroup]
+2026-10-21T06:02:10.0492716Z [1m[92m   Compiling[0m derive_more-impl v2.1.1
+2026-10-21T06:02:10.0650721Z [1m[92m    Checking[0m fabelgeist-determinism v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-determinism)
+2026-10-21T06:02:10.0803962Z [1m[92m   Compiling[0m adventuresim-world-schema v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-world-schema)
+2026-10-21T06:02:10.0993945Z [1m[92m    Checking[0m adventuresim-weapon-model v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-weapon-model)
+2026-10-21T06:02:10.4883740Z [1m[92m    Checking[0m adventuresim-puzzles v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-puzzles)
+2026-10-21T06:02:16.1234066Z [1m[92m    Checking[0m fabelgeist-math v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-math)
+2026-10-21T06:02:16.5474048Z [1m[92m    Checking[0m fabelgeist-fs v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-fs)
+2026-10-21T06:02:16.8114079Z [1m[92m    Checking[0m fabelgeist-color v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-color)
+2026-10-21T06:02:17.3034583Z [1m[92m    Checking[0m fabelgeist-timer v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-timer)
+2026-10-21T06:02:17.3674148Z [1m[92m    Checking[0m fabelgeist-gpu v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-gpu)
+2026-10-21T06:02:18.2934487Z [1m[92m    Checking[0m fabelgeist-compute v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-compute)
+2026-10-21T06:02:19.0724132Z [1m[92m    Checking[0m fabelgeist-garment-code v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-garment-code)
+2026-10-21T06:02:19.5293750Z [1m[92m    Checking[0m fabelgeist-bvh v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-bvh)
+2026-10-21T06:02:19.9034852Z [1m[92m    Checking[0m adventuresim-stdb-client v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-stdb-client)
+2026-10-21T06:02:20.3313860Z [1m[92m    Checking[0m fabelgeist-armor v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-armor)
+2026-10-21T06:02:20.8344125Z [1m[92m   Compiling[0m adventuresim-dialogue v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-dialogue)
+2026-10-21T06:02:24.1079933Z [1m[92m   Compiling[0m adventuresim-core v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-core)
+2026-10-21T06:02:24.5854773Z [1m[92m    Checking[0m fabelgeist-mesh v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-mesh)
+2026-10-21T06:02:25.0704049Z [1m[92m    Checking[0m adventuresim-terrain v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-terrain)
+2026-10-21T06:02:25.6783889Z [1m[92m    Checking[0m fabelgeist-spatial-hash v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-spatial-hash)
+2026-10-21T06:02:25.9324448Z [1m[92m   Compiling[0m adventuresim-tactical-client v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-client)
+2026-10-21T06:02:26.2655473Z [1m[92m    Checking[0m derive_more v2.1.1
+2026-10-21T06:02:26.3157874Z [1m[92m    Checking[0m fabelgeist-hair v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-hair)
+2026-10-21T06:02:26.4023771Z [1m[92m    Checking[0m bevy_reflect v0.19.1
+2026-10-21T06:02:29.1113779Z [1m[92m    Checking[0m bevy_tasks v0.19.1
+2026-10-21T06:02:29.4804131Z [1m[92m    Checking[0m fabelgeist-xpbd v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-xpbd)
+2026-10-21T06:02:29.9385017Z [1m[92m    Checking[0m fabelgeist-physics v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-physics)
+2026-10-21T06:02:30.1223655Z [1m[92m    Checking[0m bevy_ecs v0.19.1
+2026-10-21T06:02:30.2633613Z [1m[92m    Checking[0m bevy_math v0.19.1
+2026-10-21T06:02:34.2743645Z [1m[92m    Checking[0m bevy_color v0.19.1
+2026-10-21T06:02:35.1444911Z [1m[92m    Checking[0m glam_matrix_extras v0.3.0
+2026-10-21T06:02:36.4125561Z [1m[92m    Checking[0m bevy_heavy v0.5.0
+2026-10-21T06:02:36.7453763Z [1m[92m    Checking[0m noiz v0.5.0
+2026-10-21T06:02:38.9153031Z [1m[92m    Checking[0m fabelgeist-shell v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-shell)
+2026-10-21T06:02:39.0913841Z [1m[92m    Checking[0m bevy_app v0.19.1
+2026-10-21T06:02:39.4185150Z [1m[92m    Checking[0m fabelgeist-cloth v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-cloth)
+2026-10-21T06:02:39.7863739Z [1m[92m    Checking[0m fabelgeist-rig v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-rig)
+2026-10-21T06:02:39.9576601Z [1m[92m    Checking[0m bevy_time v0.19.1
+2026-10-21T06:02:39.9790756Z [1m[92m    Checking[0m bevy_transform v0.19.1
+2026-10-21T06:02:40.4323893Z [1m[92m    Checking[0m bevy_input v0.19.1
+2026-10-21T06:02:40.4535167Z [1m[92m    Checking[0m bevy_diagnostic v0.19.1
+2026-10-21T06:02:40.7834185Z [1m[92m    Checking[0m bevy_asset v0.19.1
+2026-10-21T06:02:42.5543620Z [1m[92m    Checking[0m bevy_log v0.19.1
+2026-10-21T06:02:42.7364238Z [1m[92m    Checking[0m bevy_clipboard v0.19.1
+2026-10-21T06:02:42.8844011Z [1m[92m    Checking[0m bevy_a11y v0.19.1
+2026-10-21T06:02:43.1283521Z [1m[92m    Checking[0m bevy_state v0.19.1
+2026-10-21T06:02:44.0013651Z [1m[92m    Checking[0m bevy_gilrs v0.19.1
+2026-10-21T06:02:44.2503916Z [1m[92m    Checking[0m aeronet_io v0.21.0
+2026-10-21T06:02:44.2814102Z [1m[92m    Checking[0m bevy_image v0.19.1
+2026-10-21T06:02:44.6942424Z [1m[92m    Checking[0m bevy_mesh v0.19.1
+2026-10-21T06:02:45.5533674Z [1m[92m    Checking[0m bevy_window v0.19.1
+2026-10-21T06:02:46.6530948Z [1m[92m    Checking[0m bevy_shader v0.19.1
+2026-10-21T06:02:46.9723590Z [1m[92m    Checking[0m bevy_material v0.19.1
+2026-10-21T06:02:47.3624040Z [1m[92m    Checking[0m bevy_text v0.19.1
+2026-10-21T06:02:47.4943949Z [1m[92m    Checking[0m bevy_camera v0.19.1
+2026-10-21T06:02:48.8943735Z [1m[92m    Checking[0m bevy_animation v0.19.1
+2026-10-21T06:02:49.0673640Z [1m[92m    Checking[0m bevy_audio v0.19.1
+2026-10-21T06:02:49.1564423Z [1m[92m    Checking[0m bevy_picking v0.19.1
+2026-10-21T06:02:49.6727829Z [1m[92m    Checking[0m bevy_gizmos v0.19.1
+2026-10-21T06:02:50.2063728Z [1m[92m    Checking[0m bevy_render v0.19.1
+2026-10-21T06:02:50.9803863Z [1m[92m    Checking[0m bevy_light v0.19.1
+2026-10-21T06:02:51.0614059Z [1m[92m    Checking[0m bevy_sprite v0.19.1
+2026-10-21T06:02:51.6693560Z [1m[92m    Checking[0m bevy_input_focus v0.19.1
+2026-10-21T06:02:52.0163859Z [1m[92m    Checking[0m bevy_world_serialization v0.19.1
+2026-10-21T06:02:52.4473601Z [1m[92m    Checking[0m bevy_ui v0.19.1
+2026-10-21T06:02:52.5903448Z [1m[92m    Checking[0m bevy_winit v0.19.1
+2026-10-21T06:02:52.6393708Z [1m[92m    Checking[0m bevy_gltf v0.19.1
+2026-10-21T06:02:53.5200405Z [1m[92m    Checking[0m bevy_scene v0.19.1
+2026-10-21T06:02:53.7195898Z [1m[92m    Checking[0m aeronet_transport v0.21.0
+2026-10-21T06:02:54.1503648Z [1m[92m    Checking[0m aeronet_websocket v0.21.0
+2026-10-21T06:02:54.4974852Z [1m[92m    Checking[0m aeronet v0.21.0
+2026-10-21T06:02:54.5884158Z [1m[92m    Checking[0m selectors v0.38.0
+2026-10-21T06:02:54.7413871Z [1m[92m    Checking[0m fabelgeist-garment-fit v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-garment-fit)
+2026-10-21T06:02:55.1204116Z [1m[92m    Checking[0m adventuresim-world-import v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-world-import)
+2026-10-21T06:02:55.2523854Z [1m[92m    Checking[0m adventuresim-strategic-sim v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-strategic-sim)
+2026-10-21T06:02:56.7283829Z [1m[92m    Checking[0m bevy_ui_widgets v0.19.1
+2026-10-21T06:02:57.1363889Z [1m[92m    Checking[0m bevy_flair_core v0.8.1
+2026-10-21T06:02:57.9954876Z [1m[92m    Checking[0m bevy_flair_style v0.8.1
+2026-10-21T06:02:58.7429448Z [1m[92m    Checking[0m adventuresim-weapon-model-browser v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-weapon-model-browser)
+2026-10-21T06:02:58.9853860Z [1m[92m    Checking[0m fabelgeist-animation v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-animation)
+2026-10-21T06:03:00.0414136Z [1m[92m    Checking[0m fabelgeist-rust-quality v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-rust-quality)
+2026-10-21T06:03:01.0163654Z [1m[92m    Checking[0m bevy_flair_css_parser v0.8.1
+2026-10-21T06:03:01.0955104Z [1m[92m    Checking[0m adventuresim-stdb-module v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-stdb-module)
+2026-10-21T06:03:02.3843681Z [1m[92m    Checking[0m bevy_flair v0.8.1
+2026-10-21T06:03:02.5574006Z [1m[92m    Checking[0m fabelgeist-fbx v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/fabelgeist-fbx)
+2026-10-21T06:03:09.4234222Z [1m[92m    Checking[0m bevy_core_pipeline v0.19.1
+2026-10-21T06:03:15.1123748Z [1m[92m    Checking[0m bevy_sprite_render v0.19.1
+2026-10-21T06:03:15.2143741Z [1m[92m    Checking[0m bevy_pbr v0.19.1
+2026-10-21T06:03:19.9933784Z [1m[92m    Checking[0m bevy_ui_render v0.19.1
+2026-10-21T06:03:24.0953901Z [1m[92m    Checking[0m bevy_post_process v0.19.1
+2026-10-21T06:03:28.8343982Z [1m[92m    Checking[0m bevy_anti_alias v0.19.1
+2026-10-21T06:03:31.2483676Z [1m[92m    Checking[0m bevy_egui v0.40.1
+2026-10-21T06:03:54.6474417Z [1m[92m    Checking[0m bevy_dev_tools v0.19.1
+2026-10-21T06:03:55.7934844Z [1m[92m    Checking[0m bevy_gizmos_render v0.19.1
+2026-10-21T06:03:57.6114284Z [1m[92m    Checking[0m bevy_eidolon v0.5.0 (https://github.com/barsoosayque/bevy_eidolon?branch=fablegeist-0.19#1a5aff8d)
+2026-10-21T06:03:58.1514804Z [1m[92m    Checking[0m bevy_remote v0.19.1
+2026-10-21T06:04:00.0553848Z [1m[92m    Checking[0m bevy_internal v0.19.1
+2026-10-21T06:04:00.3515510Z [1m[92m    Checking[0m bevy v0.19.1
+2026-10-21T06:04:00.4674243Z [1m[92m    Checking[0m adventuresim-procedural-textures v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-procedural-textures)
+2026-10-21T06:04:01.0943820Z [1m[92m    Checking[0m bevy_panorbit_camera v0.35.0
+2026-10-21T06:04:02.0245267Z [1m[92m    Checking[0m bevy_mod_outline v0.13.0
+2026-10-21T06:04:02.5204789Z [1m[92m    Checking[0m bevy_transform_interpolation v0.5.0
+2026-10-21T06:04:03.7033651Z [1m[92m    Checking[0m avian3d v0.7.0
+2026-10-21T06:04:05.9973917Z [1m[92m    Checking[0m bevy_enhanced_input v0.26.0
+2026-10-21T06:04:06.5794250Z [1m[92m    Checking[0m adventuresim-building-generator v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-building-generator)
+2026-10-21T06:04:08.4573849Z [1m[92m    Checking[0m bevy_replicon v0.41.1
+2026-10-21T06:04:11.8383831Z [1m[92m    Checking[0m aeronet_replicon v0.21.0
+2026-10-21T06:04:12.5704686Z [1m[92m    Checking[0m adventuresim-procedural-materials v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-procedural-materials)
+2026-10-21T06:04:12.6839691Z [1m[92m    Checking[0m adventuresim-plant-generator v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-plant-generator)
+2026-10-21T06:04:13.4854228Z [1m[92m    Checking[0m adventuresim-character-creator v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-character-creator)
+2026-10-21T06:04:13.6956695Z [1m[92m    Checking[0m adventuresim-texture-studio v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-texture-studio)
+2026-10-21T06:04:17.8884016Z [1m[92m    Checking[0m bevy_ahoy v0.2.0 (/home/runner/work/fabelgeist/fabelgeist/vendor/bevy_ahoy)
+2026-10-21T06:04:22.4414180Z [1m[92m    Checking[0m adventuresim-tactical-core v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-core)
+2026-10-21T06:04:35.6870636Z [1m[92m    Checking[0m adventuresim-tactical-netcode v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-netcode)
+2026-10-21T06:04:35.7014372Z [1m[92m    Checking[0m adventuresim-tactical-server-dispatcher v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-server-dispatcher)
+2026-10-21T06:04:36.4714599Z [1m[92m    Checking[0m strategic-web v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/strategic-web)
+2026-10-21T06:04:49.2784154Z [1m[92m    Checking[0m adventuresim-tactical-server v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-server)
+2026-10-21T06:05:17.2013952Z [1m[91merror[0m[1m: unused `std::result::Result` that must be used[0m
+2026-10-21T06:05:17.2043100Z    [1m[94m--> [0mcrates/adventuresim-tactical-client/src/presentation/ground_scatter/litter.rs:580:13
+2026-10-21T06:05:17.2052497Z     [1m[94m|[0m
+2026-10-21T06:05:17.2052847Z [1m[94m580[0m [1m[94m|[0m [1m[91m/[0m             spawn(
+2026-10-21T06:05:17.2053305Z [1m[94m581[0m [1m[94m|[0m [1m[91m|[0m                 &mut commands,
+2026-10-21T06:05:17.2053807Z [1m[94m582[0m [1m[94m|[0m [1m[91m|[0m                 &mut meshes,
+2026-10-21T06:05:17.2054241Z [1m[94m583[0m [1m[94m|[0m [1m[91m|[0m                 &terrain,
+2026-10-21T06:05:17.2054602Z [1m[94m...[0m   [1m[91m|[0m
+2026-10-21T06:05:17.2054962Z [1m[94m586[0m [1m[94m|[0m [1m[91m|[0m                 &assets,
+2026-10-21T06:05:17.2055380Z [1m[94m587[0m [1m[94m|[0m [1m[91m|[0m             );
+2026-10-21T06:05:17.2055742Z     [1m[94m|[0m [1m[91m|_____________^[0m
+2026-10-21T06:05:17.2056034Z     [1m[94m|[0m
+2026-10-21T06:05:17.2056445Z     [1m[94m= [0m[1mnote[0m: this `Result` may be an `Err` variant, which should be handled
+2026-10-21T06:05:17.2057079Z     [1m[94m= [0m[1mnote[0m: `-D unused-must-use` implied by `-D warnings`
+2026-10-21T06:05:17.2057605Z     [1m[94m= [0m[1mhelp[0m: to override `-D warnings` add `#[allow(unused_must_use)]`
+2026-10-21T06:05:17.2058114Z [1m[96mhelp[0m: use `let _ = ...` to ignore the resulting value
+2026-10-21T06:05:17.2058464Z     [1m[94m|[0m
+2026-10-21T06:05:17.2058770Z [1m[94m580[0m [1m[94m| [0m            [92mlet _ = [0mspawn(
+2026-10-21T06:05:17.2059114Z     [1m[94m|[0m             [92m+++++++[0m
+2026-10-21T06:05:17.2059307Z 
+2026-10-21T06:05:17.7924224Z [1m[91merror[0m: could not compile `adventuresim-tactical-client` (lib test) due to 1 previous error
+2026-10-21T06:05:17.7983125Z [1m[33mwarning[0m: build failed, waiting for other jobs to finish...
+2026-10-21T06:05:29.9633423Z [1m[91merror[0m: could not compile `adventuresim-tactical-client` (bin "animation-viewer" test) due to 1 previous error
+2026-10-21T06:05:30.0609030Z ##[error]Process completed with exit code 101.
+2026-10-21T06:05:30.0673390Z ##[group]Run actions/upload-artifact@v7
+2026-10-21T06:05:30.0673570Z with:
+2026-10-21T06:05:30.0673707Z   name: constraint-validation-39552331390-1
+2026-10-21T06:05:30.0673892Z   path: target/constraint-validation/
+2026-10-21T06:05:30.0674073Z   if-no-files-found: error
+2026-10-21T06:05:30.0674217Z   compression-level: 6
+2026-10-21T06:05:30.0674351Z   overwrite: false
+2026-10-21T06:05:30.0674486Z   include-hidden-files: false
+2026-10-21T06:05:30.0674635Z   archive: true
+2026-10-21T06:05:30.0674753Z env:
+2026-10-21T06:05:30.0674872Z   CARGO_TERM_COLOR: always
+2026-10-21T06:05:30.0675012Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-21T06:05:30.0675169Z   CARGO_HOME: /home/runner/.cargo
+2026-10-21T06:05:30.0675323Z   CARGO_INCREMENTAL: 0
+2026-10-21T06:05:30.0675461Z   CACHE_ON_FAILURE: false
+2026-10-21T06:05:30.0675594Z ##[endgroup]
+2026-10-21T06:05:30.3056501Z ##[error]No files were found with the provided path: target/constraint-validation/. No artifacts will be uploaded.
+2026-10-21T06:05:30.3207405Z ##[group]Run actions/upload-artifact@v4
+2026-10-21T06:05:30.3207602Z with:
+2026-10-21T06:05:30.3207853Z   name: rig-contracts-8f2b901881f8aa8035a03cd99dbfefb7bbdf8926
+2026-10-21T06:05:30.3208077Z   path: target/rig-contracts/
+2026-10-21T06:05:30.3208414Z   if-no-files-found: warn
+2026-10-21T06:05:30.3208619Z   compression-level: 6
+2026-10-21T06:05:30.3208758Z   overwrite: false
+2026-10-21T06:05:30.3208891Z   include-hidden-files: false
+2026-10-21T06:05:30.3209037Z env:
+2026-10-21T06:05:30.3209157Z   CARGO_TERM_COLOR: always
+2026-10-21T06:05:30.3209343Z   SPACETIMEDB_VERSION: 2.6.1
+2026-10-21T06:05:30.3209531Z   CARGO_HOME: /home/runner/.cargo
+2026-10-21T06:05:30.3209687Z   CARGO_INCREMENTAL: 0
+2026-10-21T06:05:30.3209825Z   CACHE_ON_FAILURE: false
+2026-10-21T06:05:30.3209963Z ##[endgroup]
+2026-10-21T06:05:30.4517900Z (node:7502) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-21T06:05:30.4518433Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-21T06:05:30.4532633Z ##[warning]No files were found with the provided path: target/rig-contracts/. No artifacts will be uploaded.
+2026-10-21T06:05:30.4766625Z Post job cleanup.
+2026-10-21T06:05:30.5420505Z [command]/usr/bin/git version
+2026-10-21T06:05:30.5461989Z git version 2.55.0
+2026-10-21T06:05:30.5491327Z Temporarily overriding HOME='/home/runner/work/_temp/6c1dbf5d-0da3-46f3-a8b4-2d6212e1a7bd' before making global git config changes
+2026-10-21T06:05:30.5492858Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-21T06:05:30.5497361Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/fabelgeist/fabelgeist
+2026-10-21T06:05:30.5542651Z Removing SSH command configuration
+2026-10-21T06:05:30.5549508Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-21T06:05:30.5588252Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-21T06:05:30.5840518Z Removing HTTP extra header
+2026-10-21T06:05:30.5846637Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-21T06:05:30.5894733Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-21T06:05:30.6133245Z Removing includeIf entries pointing to credentials config files
+2026-10-21T06:05:30.6138407Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-21T06:05:30.6183905Z includeif.gitdir:/home/runner/work/fabelgeist/fabelgeist/.git.path
+2026-10-21T06:05:30.6184589Z includeif.gitdir:/home/runner/work/fabelgeist/fabelgeist/.git/worktrees/*.path
+2026-10-21T06:05:30.6185179Z includeif.gitdir:/github/workspace/.git.path
+2026-10-21T06:05:30.6185660Z includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-21T06:05:30.6191902Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/fabelgeist/fabelgeist/.git.path
+2026-10-21T06:05:30.6228246Z /home/runner/work/_temp/git-credentials-36ae426e-629a-4cb2-8625-9836b0d70697.config
+2026-10-21T06:05:30.6237832Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/fabelgeist/fabelgeist/.git.path \/home\/runner\/work\/_temp\/git\-credentials\-36ae426e\-629a\-4cb2\-8625\-9836b0d70697\.config
+2026-10-21T06:05:30.6286651Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/home/runner/work/fabelgeist/fabelgeist/.git/worktrees/*.path
+2026-10-21T06:05:30.6320974Z /home/runner/work/_temp/git-credentials-36ae426e-629a-4cb2-8625-9836b0d70697.config
+2026-10-21T06:05:30.6329191Z [command]/usr/bin/git config --local --unset includeif.gitdir:/home/runner/work/fabelgeist/fabelgeist/.git/worktrees/*.path \/home\/runner\/work\/_temp\/git\-credentials\-36ae426e\-629a\-4cb2\-8625\-9836b0d70697\.config
+2026-10-21T06:05:30.6376684Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git.path
+2026-10-21T06:05:30.6414642Z /github/runner_temp/git-credentials-36ae426e-629a-4cb2-8625-9836b0d70697.config
+2026-10-21T06:05:30.6425120Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git.path \/github\/runner_temp\/git\-credentials\-36ae426e\-629a\-4cb2\-8625\-9836b0d70697\.config
+2026-10-21T06:05:30.6484103Z [command]/usr/bin/git config --local --get-all includeif.gitdir:/github/workspace/.git/worktrees/*.path
+2026-10-21T06:05:30.6524796Z /github/runner_temp/git-credentials-36ae426e-629a-4cb2-8625-9836b0d70697.config
+2026-10-21T06:05:30.6534562Z [command]/usr/bin/git config --local --unset includeif.gitdir:/github/workspace/.git/worktrees/*.path \/github\/runner_temp\/git\-credentials\-36ae426e\-629a\-4cb2\-8625\-9836b0d70697\.config
+2026-10-21T06:05:30.6608409Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-21T06:05:30.6849350Z Removing credentials config '/home/runner/work/_temp/git-credentials-36ae426e-629a-4cb2-8625-9836b0d70697.config'
+2026-10-21T06:05:30.6984572Z Cleaning up orphan processes
+2026-10-21T06:05:30.7170702Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

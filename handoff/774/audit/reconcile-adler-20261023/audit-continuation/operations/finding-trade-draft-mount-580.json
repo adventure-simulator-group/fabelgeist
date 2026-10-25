@@ -1,0 +1,19 @@
+{
+  "id": "SEGOVB-04-TRADE-DRAFT-MOUNT-LEAK-CANDIDATE-001",
+  "status": "source-backed ordinary finite draft/navigation sequence; no browser witness executed",
+  "operation": "party-trade.js global window.strategicTradeUi.state maps survive strategic-page-unmounting (only bodyclass and WeakMap opener deletion). New page mount calls initializeProvisioningDraft; absent valid provisioningquery it returns without reset. updateMerchantOfferForm reads complete retained merchantDraft/Sells and publishes all rows as comma-separated hidden form fields.",
+  "witness": "On merchantpageA stageonebuy itemA, then softnavigate to merchantpageB (different page/currentinventorycontext; no commit orcancel). PageB form startswithout A; stageonebuy B. updateMerchantOfferForm serializes retained buys A andB, while currentpage A wasnotstaged/shown. If oldinventorysale ID persists, samehidden oldsale submission occurs. Nativebackend mayreject stale inventory, but oldsamecatalogbuy remains representable and currentUI lacks coherent retainedintent.",
+  "qualifications": [
+    "Source state/write/lifecycle paths personallyconsumed; no actual commerce/DB/DOM run.",
+    "Explicit persistent crosspagecart could beintentional onlywith visible binding/reconciliation; no such restorationpresent inthisscript. Must trace anyexternalreset hook beforecalling allfrontend paths failing.",
+    "Different service/server mightreject olditem andavoidcommit; observed sourcegap is hidden stale draft included in newform, not guaranteed badDBcommit.",
+    "No globalunique count fromindexedaliasabsence; connected clientmount authority with578butdifferent retainedstate/remedy."
+  ],
+  "repair_cluster": "strategic-trade-draft-context-authority",
+  "dependencies": [
+    "page/inventoryscope identity for retained draft",
+    "actual form mount/reset owner",
+    "server checked trade payload and partialfailuretransaction policy"
+  ],
+  "acceptance": "New page/scope owns an explicit draft: clear oldpending maps orrestore/revalidate/display them againstexactcurrentcontext before submission. No invisible oldrow in newform; failure preserves/reconcilesvisiblependingintent; sourcequalified tests onlyafterdiscovery gate."
+}

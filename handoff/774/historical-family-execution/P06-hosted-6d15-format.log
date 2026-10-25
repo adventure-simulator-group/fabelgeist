@@ -1,0 +1,36 @@
+##[group]Run cargo fmt --all -- --check
+cargo fmt --all -- --check
+cargo fmt --manifest-path crates/adventuresim-character-creator/Cargo.toml -- --check
+cargo fmt --manifest-path crates/fabelgeist-mhr/Cargo.toml -- --check
+cargo fmt --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml -- --check
+shell: /usr/bin/bash -e {0}
+env:
+  CARGO_TERM_COLOR: always
+  SPACETIMEDB_VERSION: 2.6.1
+  CARGO_HOME: /home/runner/.cargo
+  CARGO_INCREMENTAL: 0
+  CACHE_ON_FAILURE: false
+##[endgroup]
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-core/src/scene_ground.rs:70:
+             }
+         }
+     }
+-    let mut ground = SceneGround::from_samples(width, depth, spacing, samples)
+-        .ok_or(SceneInputError::Validation(SceneValidationError::GroundSurface))?;
++    let mut ground = SceneGround::from_samples(width, depth, spacing, samples).ok_or(
++        SceneInputError::Validation(SceneValidationError::GroundSurface),
++    )?;
+     ground.urban = crate::scene::UrbanGroundSurfaces::new(streets, yards, buildings)?;
+     Ok(ground)
+ }
+Diff in /home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-core/src/scene_input.rs:6:
+ //! never need access to the continental source pack.
+ 
+ use adventuresim_core::weather::{Precipitation, WEATHER_RULES_VERSION, WeatherSnapshot};
+-use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
+ use adventuresim_world_schema::BASIS_POINTS_PER_WHOLE;
++use adventuresim_world_schema::calendar::{MINUTES_PER_DAY, StrategicMinute};
+ use bevy::prelude::Component;
+ use serde::{Deserialize, Serialize};
+ use sha2::{Digest, Sha256};
+##[error]Process completed with exit code 1.

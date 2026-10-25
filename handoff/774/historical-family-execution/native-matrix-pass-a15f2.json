@@ -1,0 +1,29 @@
+{
+  "head": "a15f24ad44fc22f86e1e1fd9f2ae47b6bb0ba860",
+  "run": 39459842316,
+  "job": 118756130752,
+  "observed_at": "2026-10-20T17:09:24.727783+00:00",
+  "step": 19,
+  "status": "completed",
+  "conclusion": "success",
+  "observed_twice": true,
+  "independent_sources": [
+    "GitHub connector job metadata and job steps",
+    "Direct gh REST job response at actions/jobs/118756130752"
+  ],
+  "native_started_at": "2026-10-20T16:50:57Z",
+  "native_completed_at": "2026-10-20T17:02:43Z",
+  "commands_rechecked_in_current_source": [
+    "cargo clippy --workspace --all-targets --all-features -- -D warnings",
+    "cargo clippy --locked --manifest-path crates/adventuresim-character-creator/Cargo.toml --all-targets --all-features -- -D warnings",
+    "cargo clippy --locked --manifest-path crates/fabelgeist-mhr/Cargo.toml --all-targets --all-features -- -D warnings",
+    "cargo clippy --locked --manifest-path crates/fabelgeist-numpy-storage/Cargo.toml --all-targets --all-features -- -D warnings"
+  ],
+  "revision_guard": "Record rig contract revision step22 success; exact head also matches both constraint artifact revision files and artifact metadata.",
+  "constraint_artifact": "constraint-artifact-verification-a15f2.json",
+  "constraint_unit_executions": 67,
+  "constraint_doctest_executions": 5,
+  "current_live_step": "Test creator rig family contracts",
+  "metadata_limit": "Step24 autoresolve still lacks a completed status while later MHR passed and Creator started, confirmed in both APIs. Do not infer its acceptance from ordering: inspect the final test artifact.",
+  "full_family_acceptance": "pending all selected behavior, required nonempty verifier and official baseline"
+}

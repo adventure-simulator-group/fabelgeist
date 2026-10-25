@@ -1,0 +1,38 @@
+{
+  "id": "RIG-INITIAL06-GROUP-040",
+  "at": "2026-10-22T20:42:50.746759+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "canonical-item-topology-versus-fit-regions-open-pack-and-restricted-loadout": {
+      "sources": [
+        "pr-working:crates/adventuresim-core/src/animation_pack_id.rs",
+        "physical-p16:crates/adventuresim-core/src/animation_pack_id.rs",
+        "pr-working:crates/adventuresim-core/src/item_catalog_fit.rs",
+        "physical-p16:crates/adventuresim-core/src/item_catalog_fit.rs",
+        "pr-working:crates/adventuresim-core/src/item_catalog_surface.rs",
+        "physical-p16:crates/adventuresim-core/src/item_catalog_surface.rs"
+      ],
+      "comparison": "Fresh complete PR/P16AnimationPack43/Fit46/Surface47 independentlyactualread/currentroles compared. AnimationPackId open Cowstr preserves arbitrary authoredlabel through source/runtime, constants onlyknownprofiles, different Clip assetpath/RigJointName/SceneBuildingId/Seed; Corelow sharedcatalogue policy owns it without importing tacticalBevy. Actual From<String/&str> is textadmission port notidentifiergrammarcertificate. EquipmentFitZone sixnon-sidedmountingzones within arm/leg and EquipmentAnatomicalRegion ordered15regionchains are distinctbothfrom7BodyPart/combatABI and24EquipmentLocation anchors. SurfaceAnchor proximal/distal/center is retainedclippingdirection, not geometricPose orEquipmentLayer ordinal. Fit.conflicts_with compareslocation/channel +singleton-ororder +wholezoneorzoneidentity; usescanonicalOccupancyRequirement/currentSchema data, no independentruntimeoccupancy model. MAXsegments16 is bounded authoredregionchain capacity projectedintoAuthoredArmorCoverage033, not nativeVertexCount/RigJointCount. Rawspan coverage ratio/publicSerde no sealedfinite0..1 guarantee; actual validation/sourceadmission laterlensfindings retained. LowerRig bone naming/skin topology, ArmorPartFrame coordinates andclinicalanatomy do not replace these authoring/gameplay taxonomyowners. Actual prospective MeleeAttackStyle18 is canonicalsharedSwing/Stab withDefaultSwing/Serde/optionalSATS alreadyusedSchema+runtime, no copyvariant owner. LoadoutSlot39 intentionallyrestricted11initialanchors mapswideninginto24EquipmentLocation, a purposecheckedsubset not redundantfulltaxonomy; retainthebespoketype and legitimateFrom adapter. Do not turn all legitimate Into widening into changes merelytoavoidInto. Exactfineranatomy/nativeword enumshapes notmerged bysimilar names/fieldcount."
+    },
+    "skill-authority-hours-rank-aptitude-and-training-product": {
+      "sources": [
+        "pr-working:crates/adventuresim-core/src/skill.rs"
+      ],
+      "comparison": "Fresh exact fullscopedunion1\u2013187 and690\u20131165 (188\u2013689 uncredited/excluded). CanonicalSkill enum owns trained/intuitive/maxhours/category andgoverningaptitude gamepolicy, notnineleafweaponweights themselves; WeaponSkillDistribution mapsnine subsettoSkill atactualweightedcheck. Hours storedDIRECT versus projectedEFFECTIVE hours, 0..5rank versus realtrainingbudget versuspercentageweights are separatequantitymeaning despitef32; do not useAnimationElapsedseconds/StrategicMinuteclock/UnitInterval everywhere. GoverningAptitudes private3u8percent sum100 pluscanonicalLimbWeights is onecomplete correlatedpolicy product, not generalBasisPoints/per-mille orper-limb fatiguepool. Source noSerde/Default/uncheckedpublicfields, constweighted assertionownscomposition; labels/detailedskillcalibration remainCoresharedgamepolicy. TrainingGain accepted/excesseffectivehours is actualcomputedresult ofsamebudget, notanotherauthoredSkillspayload; realinputnonfinite/nonpositive rejectedtonoop and storednonfinite normalizedexplicitlyinsideactualkernel, no acceptedstateinferredfromrawinput. Cappedrank/projection family/metaSkill distinctdirectsource lifetimehours; no recursivepersistenceofderivedcorrelations. SharedPlayerAttributes/Body/Equipment/Essentials facets used, no Core\u2192DB/Bevydependency. Source tests1\u2013187partialcontext only, notunscopedtests188\u2013689 or execution; SKILLnameordinaryCorrelations exactvalues read, no future09/12credit."
+    },
+    "one-seven-part-combat-protection-taxonomy-owner": {
+      "sources": [
+        "pr-working:crates/adventuresim-core/src/body.rs",
+        "physical-p16:crates/adventuresim-core/src/body.rs",
+        "pr-working:crates/adventuresim-core/src/item_catalog_schema.rs",
+        "physical-p16:crates/adventuresim-core/src/item_catalog_schema.rs",
+        "physical-p16:crates/adventuresim-core/src/equipment/armor.rs"
+      ],
+      "comparison": "ActualCoreBodyPart1\u201330 from037, PRSchemaEquipmentBodyPart291\u2013305 freshlyread039, P16Schema296\u2013310 freshfocusednow, P16equipment_body_part40\u201349 fresh033. Allsevenexactcombat/healthdestinations LeftArm/RightArm/LeftLeg/RightLeg/Chest/Stomach/Head mapone-for-one; EquipmentBodyPart is protectionprojectiontag, not finerEquipmentLocation orEquipmentAnatomicalRegion. This duplicatefulltaxonomy is a migrationgap. Realboundarydifferences: BodyPart repru8bitflags/singlepart+BodyPartsset, ordinarySerde Pascalnames; Equip uses snakecase/optionalSpacetimeType runtime_catalog/build-source leaf. NativeSATSunitvariants supportedactualSDK035; bodytypecanbeextractedintotinyframework-neutralcanonicaldeclaration preservingbitflags andoptionalSATS so buildcompiler neednotimportPlayerBody/traits/gamegraph. Use onecanonical7BodyPart in ItemDefinition.protection and runtimeBody/Armor APIs, removeEquipmentBodyPart andidentitymapper, directmigratecallers no alias/deprecatedforwarder. Preservebitpositions/sourcecase/nativeSATSorder with explicitformatadapter at actualauthoringport or deliberatelyadoptcleanfinalwireAPI; no accidental serdepolicy change disguisedasalias and no compatibilityschema. Other14/15fineanatomy/clinical/Riglabels remainexplicitdifferentcontracts, no allbodytaxonomyequivalence. CurrentP16Schemafullcell notcredited from16linefocusedproof; SourceMelee/Schema pending039 stayswholecellincomplete."
+    }
+  },
+  "new_findings": [
+    "RIG-INITIAL06-F009"
+  ],
+  "limits": "Currentexactownershipcomparison only; no wholeEquipment/Schema/SDK/otherlens clearance. GlobalREG018\u2013020 pending, directactualproof separate."
+}

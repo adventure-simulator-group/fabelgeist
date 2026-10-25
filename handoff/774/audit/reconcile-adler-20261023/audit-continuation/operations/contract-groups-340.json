@@ -1,0 +1,244 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-340",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/studio_cache.rs",
+      "sha256": "6d7378554d92fcefc39d39434744bdb50dd98358ce1596f571652a65ce4bf013",
+      "actual_EOF": 192,
+      "actual_compared_ranges": [
+        [
+          1,
+          192
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/studio_generation.rs",
+      "sha256": "7d6baf7df5362f498eb963aa984845e08e31952bec84de19b40620ea8f15dd0b",
+      "actual_EOF": 187,
+      "actual_compared_ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/surface_cut.rs",
+      "sha256": "a62fc268fef2024b832c7557c089daee6d948bfa8296b12f128bdbf5fea7b849",
+      "actual_EOF": 277,
+      "actual_compared_ranges": [
+        [
+          1,
+          277
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/torso_domain.rs",
+      "sha256": "d00dd8818cff04db09a6da07ec1bb8e88270b85d88677532a01352ce9ad68209",
+      "actual_EOF": 188,
+      "actual_compared_ranges": [
+        [
+          1,
+          188
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/underlayer/mail_regions.rs",
+      "sha256": "97d08f8f347891423424441d17e6d421f2b1855d184ac6c03aedc2914eab4dca",
+      "actual_EOF": 94,
+      "actual_compared_ranges": [
+        [
+          1,
+          94
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/underlayer/pattern.rs",
+      "sha256": "4b445b7dcd85806cde575fa40320b08412e87a18f12ff30c5e7de2648d8c3cab",
+      "actual_EOF": 258,
+      "actual_compared_ranges": [
+        [
+          1,
+          258
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/underlayer_armor.rs",
+      "sha256": "2e8a0fab854290874e3eda648d5a957f93d4ea0efe16bf0d12797d68099085d2",
+      "actual_EOF": 186,
+      "actual_compared_ranges": [
+        [
+          1,
+          186
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/underlayer_equipment.rs",
+      "sha256": "91acbb6c6ec41a6642c3ef9ab51d184ef615cb1cf631662d719f12a9b8f8b35d",
+      "actual_EOF": 99,
+      "actual_compared_ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/underlayer_equipment/proportions.rs",
+      "sha256": "b70d923027be5cb02b9771a3f8932728114177bc62c8b3b128a21c869cfeb651",
+      "actual_EOF": 129,
+      "actual_compared_ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/underlayer_equipment/proportions/probe_bounds.rs",
+      "sha256": "721a06c6ea10f1a278dacc94ffe003927da1662e139783ce5ac1f023d89ba7a7",
+      "actual_EOF": 125,
+      "actual_compared_ranges": [
+        [
+          1,
+          125
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Model and fitting caches must observe the complete source generation before reusing derived artifacts",
+      "source_ranges": {
+        "studio_cache.rs": [
+          [
+            1,
+            192
+          ]
+        ],
+        "studio_generation.rs": [
+          [
+            1,
+            187
+          ]
+        ]
+      },
+      "disposition": "Both complete bodies personally read. Exact CAMERA-INITIAL07-F050#50: bodykeyincludeslod/proportions/identity/expression butnotcorrectives; actual successfulsameLODreloadmain338replacesmodel+dirty, cachebodyhitreturnsoldGeneratedCharacterandskipsdependentfit/lining/drapeclear. Actualmodelcorrectiveforwardproof suppliedbyCamera, notpersonallytransferredcoverage. SourceUIdependencyomission confirmed; noexecutedtoggle/differentneutralgeometryclaim. Fitkeysincludeactualdirectsupportfinishkeys andtherebytransitiveconstruction/trimdependencies; localsnewmapsreplaceatend. removefromoldcachebeforelaterErrmayloseoptimizationbutdoesnotpublishpartialSelectedArmor. liningusesprefinishfits intentionallysoclothfitdoesnotfollowdecorchanges. drape_changedserializesorderedIDs/selections/saveddataandcurrentbody/liningkeys; keycommittedbeforeworkerrequest but laterrequestinthisfunctioninfallible. DirtyclearedbeforepreparationErr meansmanualretryUI remainspolicydependency; no provenconsumedrequiredretryclockcasehere. Completegenerationreconfirmsrestartcachefinding330support andspecificerrorstaging, nofreshfindingcount."
+    },
+    {
+      "contract": "Surface cutting retains source barycentric/UV correspondence and must keep topology admission separate from equation meaning",
+      "source_ranges": {
+        "surface_cut.rs": [
+          [
+            1,
+            277
+          ]
+        ]
+      },
+      "disposition": "Whole277lines includingthreefixturebodiesread. Include iteratesremainingoutsidepieces toavoidduplicateoverlap; subtract keepscomplementpieces, sourcebarycentricf64clipping thenexplicitf32projection. Crossings occuronlysidechange, denominatornonzero forfinitewellconditioneddistances; emptyloops guardedbeforemodulo. SourcePoint/SurfaceCutpublicrawmutation exactadoptedRIG03F021; actualfactorydirectlyindexesfaces/uv_faceswithrawinputmembershipprecondition, acceptedartifactmustsealowningrelation. BordersphysicallyweldsamepositionswhilekeyretainsUVseamidentity. Candidate-cut-plane-scale.json records rawresidualsnapthresholddependsnormalmagnitude for equivalentscaledplanes; intermediatecaseonly, canonicalplane/tolerancemeaning unresolved, notnewaccepteddefect orunitnormalrestriction. Existingfalsearbitrarybarycentricpositivity policy notintroduced. Finiteextremeinterpolate/cross/quantizedbordersnativecastsremaincoherentgeometryadmissiondependency, no normalcutfailure/run."
+    },
+    {
+      "contract": "Torso eligibility keeps exact original face identity and separate anatomical-selection meaning",
+      "source_ranges": {
+        "torso_domain.rs": [
+          [
+            1,
+            188
+          ]
+        ]
+      },
+      "disposition": "Completebodyandallfixturesread. Actualcardinality, rigbounds, faceindex andu32facecountgates precede indexing/narrowing; everyweightfinite0..1 means8sum<=8 andthreecornermean<=8, so arithmeticdoesnotneedarbitrarytotalprobabilitylimitforfinite computation. Originalfaceenumerationretainsduplicatesandstableidentity. Torsoexactnames andlimbcontains_part useexistingmembershipsemantics; eligibilityisnotbearingfootprint/attachmentauthoritybymoduledoc. LexicalLoarm/Loleg/Handtokens comparedactualbodyrecipefixtures, no wholesaleclosedriggrammarimposed. Selectednonempty orErr, and scopedtestsreadnotrun."
+    },
+    {
+      "contract": "Underlayer volume construction and pane assembly preserve exact anatomical and material partitions",
+      "source_ranges": {
+        "underlayer/mail_regions.rs": [
+          [
+            1,
+            94
+          ]
+        ],
+        "underlayer/pattern.rs": [
+          [
+            1,
+            258
+          ]
+        ],
+        "underlayer_armor.rs": [
+          [
+            1,
+            186
+          ]
+        ]
+      },
+      "disposition": "Allthreecompletebodiesread. required_framesmatchclosedkindandcheckedplacementside; jointlandmarksresolveactualnames, nohelperimplicitmissingfallback. Tubesnormalizedframeandfixed8sideplanes withsignedendclearance; coincident/axialZdegeneracycanproducezeroaxisacross butactualcanonicalbodyjointdirectionremainsproducerdependency, not ordinarygeneratedfailure. Standardbib createslegitimatenonunitslopeplane, so candidateequationsnapscalemeaningcannotberesolvedbyforcingallplanesUnitDirection. DesignvalidatedinCutPlan.new/TrunkHosebeforeuse; panel_countnonzeroowningvalidate dependency, zero notassumedallowed. Fitunderlayerendpointzipsactualdevicefitoneendpointpermorph established329; GeneratedArmorretainswholeUV/skin/indicesandownfabriccomponent. Trunkpanessortwholetrianglesintoexactprimary+secondarypartitionandcomponentindexruns, preservingallvertex/morphchannels. Centerpositivecountcomesnonemptycut; extremefinitecentroidsumoverflowconditional, noordinaryoutputcaseorGPUrun."
+    },
+    {
+      "contract": "Static hypothetical body probes preserve skeletal correspondence within explicit local bounds",
+      "source_ranges": {
+        "underlayer_equipment.rs": [
+          [
+            1,
+            99
+          ]
+        ],
+        "underlayer_equipment/proportions.rs": [
+          [
+            1,
+            129
+          ]
+        ],
+        "underlayer_equipment/proportions/probe_bounds.rs": [
+          [
+            1,
+            125
+          ]
+        ]
+      },
+      "disposition": "Allthreecompletebodiesandfixturesread. Jointshiftsaccumulatefromcanonicalparentorder andperjointtranslationbasis; strongest_fourselectscanonicalskin. Onefraction scalesbothpositions/jointtranslationsbeforefreezingcompression. OrientedAreaPathwidenscoordinatesbeforedifferencesandcomputesquadraticprojectedareaoverwholeinterval; checksstationaryminimumwhenquadraticpositive, notjustendpointnormal. Binarysearch24stepsroundsresultnext_down toavoidacceptedboundaryovershoot. Invalidpathreturns0onlyforhypotheticalprobe, notcertifyinginvalidselectedbody; no genericNaNrepairthrough0multiplicationassumed. SagittalboundpreservesquarterexistingnonzeroXseparation,signedcenterlinezeroignoredintentionally. Thesearelocalfold/medialreserves, notglobalnonadjacentcollision theorem norcertifiededitorendpointbounds. Frozenreadback/GPUprobesnotexecuted."
+    }
+  ],
+  "findings": [
+    {
+      "id": "CAMERA-INITIAL07-F050",
+      "archive_file": "audit/continuation/camera/initial07-redundant-authority/findings.jsonl",
+      "archive_line": 50,
+      "disposition": "same actual model cache dependency omission; fresh04replacement/retention proof",
+      "no_new_unique_count": true
+    },
+    {
+      "id": "RIG-ADMISSION03-F021",
+      "archive_file": "audit/continuation/rig/admission03/findings.jsonl",
+      "archive_line": 21,
+      "disposition": "same source correspondence admission gap",
+      "no_new_unique_count": true
+    },
+    {
+      "id": "SEGOVB-04-CUT-PLANE-SCALE-CANDIDATE-001",
+      "file": "candidate-cut-plane-scale.json",
+      "disposition": "qualifiedsemanticdependency, notaccepteddefect"
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "10 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-character-creator/src/wardrobe.rs"
+}

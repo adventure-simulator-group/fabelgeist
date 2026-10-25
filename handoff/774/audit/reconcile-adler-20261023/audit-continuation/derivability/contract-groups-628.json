@@ -1,0 +1,39 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-628",
+  "at": "2026-10-25T16:18:05.214717+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 948,
+  "source_id": "pr-working:crates/adventuresim-core/src/knowledge.rs",
+  "sha256": "eff9843bb7a8c4e0459b990f5684deae4c827ec824b58334789ec8e1cce55ffd",
+  "actual_compared_ranges": [
+    [
+      1,
+      880
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "Display + std::error::Error",
+      "type": "KnowledgeError",
+      "lines": [
+        [
+          786,
+          818
+        ]
+      ],
+      "disposition": "OPTIONAL_F002_EXACT_THISERROR_LITERAL_DERIVE"
+    }
+  ],
+  "analysis": [
+    "ContradictionRecord639\u2013675 validates distinct records, observer correlation, and chronology; retain semantic admission. classify_knowledge_mutation740\u2013763 distinguishes absent/single exact/duplicate receipt and borrows committed outcome; not derived serialization/conversion.",
+    "KnowledgeError765\u2013818 has nineteen payload-free variants, Display writes one fixed literal per variant, and empty Error; exact additional optional F002 thiserror2.0.20 derive site, preserving literal bytes and no source.",
+    "Test local marker opt-ins829/835/841/847/853/859/864/867/874 carry no implementation methods and no existing project derive for these local traits; keep explicit. Structural traits already derive."
+  ],
+  "first_unfinished": {
+    "scope_index": 948,
+    "line": 881
+  },
+  "execution": "none"
+}

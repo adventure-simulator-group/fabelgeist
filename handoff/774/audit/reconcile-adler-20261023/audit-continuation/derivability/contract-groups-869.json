@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-869",
+  "at": "2026-10-25T17:04:15.624281+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1079,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/character.rs",
+  "sha256": "806a50bc71cade3ffdf93f52a62693f7d02d4d55a52e1cce7e5983b894ec28cf",
+  "actual_compared_ranges": [
+    [
+      2361,
+      2760
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Native skill/default/literacy/personality schema assembly, generated loadout/carry, organization membership/religion and component-completeness validation continue; no additional handtrait/codec/type declaration. Variant-to-distinct-personality-axis assignment and multi-authority construction semantic and not a derived From/Serialize replacement. No runtime/DB actions."
+  ],
+  "first_unfinished": {
+    "scope_index": 1079,
+    "line": 2761
+  },
+  "execution": "none"
+}

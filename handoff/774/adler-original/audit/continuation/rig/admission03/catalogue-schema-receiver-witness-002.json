@@ -1,0 +1,73 @@
+{
+  "id": "RIG-ADMISSION03-CATALOGUE-RECEIVER-WITNESS-002",
+  "lens": "audit-admission-contracts",
+  "sources": [
+    {
+      "queue": 316,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "sha256": "96546aef4b24312d582f896fd925045cf4e37dd0eed7229d063e659f2ffa3013",
+      "fresh_material_ranges": [
+        [
+          72,
+          86
+        ],
+        [
+          233,
+          266
+        ],
+        [
+          469,
+          490
+        ]
+      ]
+    },
+    {
+      "queue": 26,
+      "source_id": "physical-p16:crates/adventuresim-core/src/item_catalog_schema.rs",
+      "sha256": "115d9400063d89f5782dc3c34be2b9f2af774ca438768a9059f815b531d71b1f",
+      "fresh_complete_read": [
+        [
+          1,
+          623
+        ]
+      ],
+      "material_ranges_for_this_witness": [
+        [
+          76,
+          91
+        ],
+        [
+          236,
+          271
+        ],
+        [
+          474,
+          495
+        ]
+      ]
+    }
+  ],
+  "source_comparison": "Complete actualPR/P16schema diffreviewed; identicalrawanchor/tangent/skillroles apartfromlineoffset, dimensions/grip/reach intentionallydifferent checkedleafpolicies. Both currentrawreceivercontracts independentlycomparedbelow; nohash/oldverdictcredit.",
+  "anchor_and_tangent": {
+    "routes": "PR EquipmentPhysical72\u201386/P16 76\u201391 derivesDeserialize, rawanchor_offset:[f32;3] default[0;3]. PRAttachmentPoint233\u2013257/P16 238\u2013262 derivesDeserialize with optionaltangent_direction:[f32;3] defaultNone; surface_uv optionalpair isseparate. Publicfields/literals andordinarydecoder have no finitecheckedvectorconstructor.",
+    "actual_admission_join": "ActualP16main713\u2013724 and1031\u20131046 freshlyread; completePR/P16mainbody/currentrolecomparison plusCamera026. Source requiresfinitef64components; tangentnormSquared>1e-12, pairingpresenceUV+tangent1048\u20131052. Value1e100 finitef64, its square1e200 finite and>threshold, cancasttargetf32Inf. Ordinaryfinaltypeddecode269 receives rawf32array anddoesnotrestorefinitepolicy.",
+    "counterexample": "Otherwisevalidserializedanchor/tangentcomponent finite1e100 canbecomeInf in storedtypedDTO; conceptualstaticproof, no fixture/testexecution. Tangentnormalization/unitlength isNOTpromised orintroduced. Missinganchorzero andabsentoptionalpairremainintentional."
+  },
+  "dimensions_and_grip_variant_limits": {
+    "PR": "Rawdimensions[f32;3]/gripf32 likewiseallowtargetInfafterfinitef64source check; sourcegripdefault0 intentional.",
+    "P16": "CustomphysicalarraySerde\u2192genericCuboid rejectsnonfiniteaftercast, SignedLength decoderrejectsnonfinitegrip; zeroCuboidvalidandSignedLengthsignedbydefinition. Do notextendPRoverflowfindingtoP16checkedaxes/grip. P16positiveaxisunderflowto0remainsseparateCameraF005."
+  },
+  "weapon_skills": {
+    "routes": "PRWeaponSkills469\u2013490/P16 474\u2013495 publicninef32fields, derivedDefault all0 and derivedDeserialize withperfield #[serde(default)]. No checkeddistributionwrapper/try_from/customDeserialize attheseroutes. Definitionfilecomplete+owningCore targetednavigation foundno implWeaponSkills orTypedSkillDistribution declaration; absenceelsewherenotassumed, andanyoptionalhelpercouldnotsealpublicliteral/derivedSerde route.",
+    "actual_admission_join": "P16main1058\u20131147 freshlyread, completePR/P16mainbody/currentrolecomparison/Camera026. Allsourcef64weightsfinite>=0, sum1within1e-4, active meleetotal(firstfive)>0/rangedtotal(lastfour)>0. Thesechecksrunbeforefinaltypeddecoder to rawf32fields; omittedweightsdefault0.",
+    "counterexample": "Withbothmodesenabled, oneactivegroupsourceweight1e-100 andothergroupweight1 canpasssourcepositivegroups andnear1total, butsmallgrouptargetf32weightbecomes0. Thenstoredactivegroupviolatespositive-mode distribution despitetypeddecode success. Thisisrepresentablesourceproofonly, no newJSONcase/testexecuted.",
+    "limits": "Individualinactiveweights0 valid; missingfielddefaults0 preserved. Do notforceallninepositive, clamp/normalizeweights, orreplaceapproximate1\u00b11e-4acceptancewithexactsum1/blanketUnitInterval<=1. Thisisadmissiontargetrepresentationmismatch; laterarithmetic/aggregateoperatorsnotcleared."
+  },
+  "actual_numeric_route": {
+    "registry": "source-range-registration.jsonl#RIG-ADMISSION03-REGISTER-021/022/023/025",
+    "source_qualifications": "source-qualifications.jsonl exactactualmacrobodies",
+    "normal_Value_path": "Value::deserialize_f32 macro169\u2013193/313\u2192Number.deserialize_any535\u2013547 Float.visit_f64\u2192serde_core PrimitiveVisitor f32 macro450\u2013456 +num_as_copysign222\u2013242 casts andpreservessign, no finite/positive check.",
+    "feature_limit": "ActualPR/P16Cargo.lock serde_core1.0.229/serde_json1.0.151 pinned; arbitrary_precisiontargetmethodparsesf32directly withoutowningfinite/positivepolicy. No sourcequery/testexecution substitutedforcastproof."
+  },
+  "repair_ownership": "Camera mainvalidator canonical F006/F007 if selected, Rig schema/helper currentreceiver supplier. No newsourceclaims/edits/lensclearance. Keep unrelatedgeneratedphysicalF002 andexistingF004/F005 independent."
+}

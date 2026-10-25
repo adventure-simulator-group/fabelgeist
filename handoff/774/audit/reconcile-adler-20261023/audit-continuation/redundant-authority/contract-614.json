@@ -1,0 +1,151 @@
+{
+  "id": "CONT07-CONTRACT-614",
+  "at": "2026-10-24T00:41:50.337359+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2666,
+      "source_id": "pr-working:crates/fabelgeist-numpy-storage/src/npy.rs",
+      "sha256": "68819769cfa8ef5618a5db759768165d38063bff4ba263f40c6e4d36fbdb547b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-numpy-storage/src/npy.rs",
+      "actual_EOF": 260,
+      "ranges": [
+        [
+          1,
+          186
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2667,
+      "source_id": "pr-working:crates/fabelgeist-numpy-storage/src/zip.rs",
+      "sha256": "7e9b70f0870cf014d25bd11d783636ca6cb413bc69b6dfa00c12eee0241695de",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-numpy-storage/src/zip.rs",
+      "actual_EOF": 232,
+      "ranges": [
+        [
+          1,
+          232
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2668,
+      "source_id": "pr-working:crates/fabelgeist-shell/src/outer_layer/surface.rs",
+      "sha256": "b5fe1c6379d3472d00a1a574d652c8393269192f2273a1575b7a569c6bc1fc26",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-shell/src/outer_layer/surface.rs",
+      "actual_EOF": 215,
+      "ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2669,
+      "source_id": "pr-working:crates/strategic-web/src/routes/inventory_forms.rs",
+      "sha256": "cd34587835aa6f2448bb0cff2e893950703e9da622db14c7da7ad65ee0b39718",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/routes/inventory_forms.rs",
+      "actual_EOF": 150,
+      "ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2670,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/Cargo.toml",
+      "sha256": "3c5bed9bdba2fe4d9a73522f70749beccc5240021b04af3755167af288735655",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-world-schema/Cargo.toml",
+      "actual_EOF": 31,
+      "ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2671,
+      "source_id": "physical-p16:Cargo.toml",
+      "sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:Cargo.toml",
+      "actual_EOF": 221,
+      "ranges": [
+        [
+          178,
+          182
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2672,
+      "source_id": "native-dependency:spacetimedb-lib-2.6.1/src/lib.rs",
+      "sha256": "a7aa9b25f2c271998679ab0c79c861d0e44647bc42d6dc7d94d0c9f979b18b57",
+      "origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spacetimedb-lib-2.6.1/src/lib.rs",
+      "actual_EOF": 337,
+      "ranges": [
+        [
+          39,
+          49
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2673,
+      "source_id": "native-dependency:spacetimedb-sats-2.6.1/src/lib.rs",
+      "sha256": "402f09813045df7a27d95ceceac65b2191e570b9284371cd4bd948e1b1e79620",
+      "origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spacetimedb-sats-2.6.1/src/lib.rs",
+      "actual_EOF": 307,
+      "ranges": [
+        [
+          74,
+          96
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2674,
+      "source_id": "native-dependency:spacetimedb-sats-2.6.1/src/typespace.rs",
+      "sha256": "2ff9ac1123584afecdb55ac04bc118f75d05afd96d3149ce46638a8f21ac3243",
+      "origin": "local-native:/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/spacetimedb-sats-2.6.1/src/typespace.rs",
+      "actual_EOF": 496,
+      "ranges": [
+        [
+          320,
+          320
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "RIG-ADMISSION03-F091"
+  ],
+  "facts": [
+    "NpyArray public dtype/shape can change independently from private byte payload; to_tensor combines converted bytes with current shape. Exact support belongs adopted RIG-ADMISSION03-F091, whose full narrative personally consumed; malformed version/ZIP slicing and products are same inherited admission contract, not newly discovered defects. Generic NumPy floating words deliberately allow nonfinite observations; no blanket finite tensor policy.",
+    "ZIP archive retains central metadata privately, and decoding uses central compressed_size/method plus local header variable offset. It does not cross-check declared uncompressed_size against actual decoded bytes, local name against central, or complete central entry count after early break. These are explicit metadata-versus-payload questions requiring real caller reliance/format-admission policy before promotion; central-directory metadata is not automatically a certificate of decoded array semantics.",
+    "OuterLayer surface projection and residual use same triangle clipping geometry and current clearance, but projection tolerance intentionally leaves numerical headroom rather than promising zero measured residual. Actual projected samples recompute barycentric contributions after earlier vertex moves; residual is independent measured outcome, not an editable cached label.",
+    "Inventory form parser deliberately removes empty comma tokens independently then checks lengths and parses paired typedIDs/positive quantities. No normal mispair proved without actual browser encoding/field-position contract; preserve raw transport boundary and do not introduce a duplicate inventoryID owner from String alone.",
+    "Pinned P16 manifests and SATS reexports establish optional spacetimedb owner chain to exact2.6.1 and native derive reexport. They supply dependency identity, no semantic decoder validation or other-lens coverage. No build/macro expansion/runtime executed."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2676,
+    "start_line": 1
+  }
+}

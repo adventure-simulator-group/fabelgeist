@@ -1,0 +1,17 @@
+{
+  "id": "CONT08-Q005-QUALIFICATION-001",
+  "at": "2026-10-25T08:49:26.676915+00:00",
+  "question": "CONT08-Q005",
+  "disposition": "Exact inherited admission finding ROOT-ADM-F006, not a new unique defect. Own08 graphics source/diff proves unchanged behavior only.",
+  "evidence": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit/continuation/root/admission03/findings.jsonl",
+  "actual_evidence_consumed": "Exact ROOT-ADM-F006 record personally consumed: typed_yaml_nan_passes_graphics_range_and_order_checks. Native typed-f32 .nan/.inf path is separate from default typeless rejection; both typed float branches return T::nan.",
+  "supported": [
+    "NaN root_occlusion bypasses <=0 || >1.",
+    "NaN maximum_push bypasses comparison against valid positive minimum."
+  ],
+  "limits": [
+    "Inherited03 native parser reading supplies alias/dependency evidence only; no fresh08 native-float body credit.",
+    "No decode reproduction, ordinary authored-data occurrence, +Inf maximum_push finite policy, native GPU recipient or lens clearance asserted."
+  ],
+  "repair_acceptance": "Carry exact ROOT-ADM-F006 finite/range and ordered-push migration with unchanged legitimate zero/above-one semantics and actual native-uniform recipients."
+}

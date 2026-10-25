@@ -1,0 +1,221 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-039",
+  "at": "2026-10-22T21:07:24.219278+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer.rs",
+      "sha256": "4544835a041e7c35f25b60d0b13e06ff22ea4ecc0efc90efdda1cd6963fb9638",
+      "scope030_index": 1331,
+      "actual_EOF": 1892,
+      "scoped_ranges_compared": [
+        [
+          1,
+          1892
+        ]
+      ],
+      "actual05_comparison": "PoseBufferRig retains one canonical Arc RigDefinition plus entity/previous/next/offset/velocity tables; normal new/bind and sample_plan derive exact cardinality and ordinal order fromsame definition. sampleplan builds all tracks indefinitionorder, independent contribution families notparallelzip. Normal final rendering indexes entity ordinals into sameallocatedtables. Revision invalidates plan ifchangedasset; PlanKey deliberatelyrecordsclip/layer topology, notcontinuousphase/weights, so smootherupdatesdonotretriggerplantransition. Per-jointlocalpose/bind/nativegeometryraw; sanitize_pose guards sample butfallback israwbind and laterblend canoverflow. update mutates clock/plants/offsets beforealllaterfalls; no globalpose rollback guarantee. Conformlegorderedclamp requires bothlimbs big enough forfixedmargin: F011 exactshortpositivechain. Existing1892sourceinclall670testlines personallyread, noexecution; fixturesordinaryunitlimbs, terrainXZpreservation andplantownership do notproveallinputbounds.",
+      "source_body_proof": "Fresh full actual source plus every inline originalfixture read for05 retainedpose/columns/hierarchy/kernelrelationships. No projectexecution/newcases, oldverdict/hashcannotclear."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/rig.rs",
+      "sha256": "bb6e369f80f80ea602ae9a6938e333749590e3958b30a1dad1137c4bcb606288",
+      "scope030_index": 1345,
+      "actual_EOF": 192,
+      "scoped_ranges_compared": [
+        [
+          1,
+          192
+        ]
+      ],
+      "actual05_comparison": "RigDefinition constructedfromsameowner target list; sorted identitiesderive entity→ordinal map, eachparent onlyknownmember then jointrecord. Referencefamilycache iscanonicalfirstdefinition, laterownerentities align bytarget withNoneforabsentjoints; currentpose andallhistory/offset/velocitycolumns allocate definitioncount. No trustfromequalcounts alone: realbytargetmappingproven. RawRigDefinition pubsuper cancycle/misindex or staleOnceLock aftermutation; actualnormalbind usesECSparenttree and doesnotmutatepublishedArc, no actualcorruptnativehierarchyasserted. Samefamily label meanssamecanonicalreference contract; no currentalternatefamily/rebind normalcall proven. Capture doesnotrequirepositivebone lengths, so F011 degenerate acceptednativegeometry boundary remains.",
+      "source_body_proof": "Fresh full actual source plus every inline originalfixture read for05 retainedpose/columns/hierarchy/kernelrelationships. No projectexecution/newcases, oldverdict/hashcannotclear."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/baking.rs",
+      "sha256": "ad98238ee42b11ab107af73e24e4d4f43849fa442e0ef1ea2ae4a2d90ba55d26",
+      "scope030_index": 1332,
+      "actual_EOF": 240,
+      "scoped_ranges_compared": [
+        [
+          1,
+          240
+        ]
+      ],
+      "actual05_comparison": "PrivateBakedClip new checksall3 channels ofeachtrack exactly nonzero framecount beforepublication; slice-only translationedits preservecount. bake generates everytrack fromsame orderedRigDefinition and sameframe range, finitegridratio/nativeusizeendpointgate beforeallocation. One storedsample valid/nointerpolationinterval; duration0 allowed/minimumgridproductionpolicyseparate. Native channelvalues remainraw, sanitize laternotnewfiniteBakedClipowner. sample bounds frame indices byactualintervalcount evenf32roundup, jointordinal comesfromsamecanonicaldefinition. offset_translations rawslicezip cantruncate ifarbitrarylength, currentcalibrationcaller/provenance stilllater exactrole; no blanketalignmentclaimfromzip. Bankkeyfamily+AssetID assumesdefinitioncanonicalperfamily, actualnormalRigDefinitionscache establishesoneArc; revisionremovalactualPoseBuffer334–337 compared.",
+      "source_body_proof": "Fresh full actual source plus every inline originalfixture read for05 retainedpose/columns/hierarchy/kernelrelationships. No projectexecution/newcases, oldverdict/hashcannotclear."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/hierarchy.rs",
+      "sha256": "b79d3b43a0f596852969cadef317f8c9e8db26bdfab12f4884fa094af46ac949",
+      "scope030_index": 1336,
+      "actual_EOF": 146,
+      "scoped_ranges_compared": [
+        [
+          1,
+          146
+        ]
+      ],
+      "actual05_comparison": "Recursiveposeglobal/cache usejointordinal andparent fromsame RigDefinition; cachefilled onlyafterparentcomposition, acyclic nativeparentprecondition. Normalbind parentmapmembershipproven but rawpubsuper definitions cancycle/misindex; no newuncheckedordinaryECSclaim. Handlayer followsactualparentroles tofirstwrist, notnameorderorwholearm. aim usesactualparentrotation ofselectedjoint, checksnewlocalfinitebeforeunitnormalize; no wholetransformfinite guarantee. Existing subtreefixture fullsource readonly.",
+      "source_body_proof": "Fresh full actual source plus every inline originalfixture read for05 retainedpose/columns/hierarchy/kernelrelationships. No projectexecution/newcases, oldverdict/hashcannotclear."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/proportions.rs",
+      "sha256": "02cbec8ef4635c8fc9afb5ee10bf4abacdc552432f70d03d44cf4f46995e24ec",
+      "scope030_index": 1344,
+      "actual_EOF": 103,
+      "scoped_ranges_compared": [
+        [
+          1,
+          103
+        ]
+      ],
+      "actual05_comparison": "sample_character_plan samplesfreshcanonicaldefinitionpose then appliesper-entityoffsettable alignedbyactualrig.entities; both built sameordinalorder, missingoffset no-op. SharedBakedClip notmutated, no per-frameoffsetaccumulation. Internalapply_offsets takesrawtables andzipwouldtruncate onarbitrarymismatch, actualcallersameRigpairproven. Existingfixtureusesone-tracktwosample andtwoactorsdistinctoffsets, sourceonly. Raw offsetfinite/normpolicy remainsactualproducer own05cell.",
+      "source_body_proof": "Fresh full actual source plus every inline originalfixture read for05 retainedpose/columns/hierarchy/kernelrelationships. No projectexecution/newcases, oldverdict/hashcannotclear."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/sampling_clock.rs",
+      "sha256": "2f9571a011a7099a5089fdff4360e78d20c638d2c8790a84187b65bedf89223a",
+      "scope030_index": 1346,
+      "actual_EOF": 63,
+      "scoped_ranges_compared": [
+        [
+          1,
+          63
+        ]
+      ],
+      "actual05_comparison": "Computes due/nativefloorcount, checkedinterval.sample_span, saturatingsubtract remainder andcheckedboundedinterpolation BEFORE buffercommit. Normaltarget sameRigcount+order; due0doesnotreplacepose, positive due previous←oldnext/next←newtarget andsameindexvelocitycolumns. Extremevalidleaf intervaltiny canproducehuge due saturatedu32, remainder notnecessarily<interval butfractionkernelintentionallyclamps finitefraction; notassertingexactdebtidentityforunboundedextremes. Actualpublicconfig/sample-rate policies preserved, no silentzero fallbackintroduced.",
+      "source_body_proof": "Fresh full actual source plus every inline originalfixture read for05 retainedpose/columns/hierarchy/kernelrelationships. No projectexecution/newcases, oldverdict/hashcannotclear."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/interpolation.rs",
+      "sha256": "df4064a80398f5a380e477f40ed91275fd6622505798ea906a41e6eb232d169e",
+      "scope030_index": 1338,
+      "actual_EOF": 42,
+      "scoped_ranges_compared": [
+        [
+          1,
+          42
+        ]
+      ],
+      "actual05_comparison": "PrivateUnitInterval carriesdisplayphase, from_sample_clock usesoneelapsed/strictpositiveinterval quotientchecksfinite thenclamps0..1. This isexplicitdisplayclamp, notproof elapsed<interval. Positive denominator andzeroelapsedlegitimate; no recordcorrelationbeyondactualratio. No uncheckedSerde/Reflect/default rawroute.",
+      "source_body_proof": "Fresh full actual source plus every inline originalfixture read for05 retainedpose/columns/hierarchy/kernelrelationships. No projectexecution/newcases, oldverdict/hashcannotclear."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/physics_pose.rs",
+      "sha256": "3e8b29f3b61d9b5f287ba3b5f7bc392f8302da7462721bea60b4ec4b2d26fc30",
+      "scope030_index": 1343,
+      "actual_EOF": 98,
+      "scoped_ranges_compared": [
+        [
+          1,
+          98
+        ]
+      ],
+      "actual05_comparison": "Physicsownership suppressesauthoredsampling; pin_joint writesbothbufferposes,samejointoffsetzero andbothvelocities0 together; hold_joint capturesupcomingposewithoutnewmotion. ReturningPhysics→Authored clearsplan forcesfreshinertialtransition evenunchangedclipset. Displayhistory distinct andnotsetbyphysics pin. JointgetterssuppliedordinalmustbelongactualRigDefinition; currentnormalcallersderivedjointcount/roles butragdollsource ownunread05cell. RawLocalPose/affine is native port, notfinitegeometryseal.",
+      "source_body_proof": "Fresh full actual source plus every inline originalfixture read for05 retainedpose/columns/hierarchy/kernelrelationships. No projectexecution/newcases, oldverdict/hashcannotclear."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/display_history.rs",
+      "sha256": "671c08c8e47aac129b38a9cc107630319a1fa9a2e9eb29bd1128272dcf15e268",
+      "scope030_index": 1335,
+      "actual_EOF": 17,
+      "scoped_ranges_compared": [
+        [
+          1,
+          17
+        ]
+      ],
+      "actual05_comparison": "Inactive versusDisplaying isauthoreddisplayhistory, independentofPhysicsownership/Frozenvisibility. has_presented_pose readsonebacking; physicscanpopulateposeswithoutestablishingauthoreddisplay ascommented. Notvalidtomergemodesintooneflag orrequireShowingfromanynonemptybuffer; noindependentaggregatefield here.",
+      "source_body_proof": "Fresh full actual source plus every inline originalfixture read for05 retainedpose/columns/hierarchy/kernelrelationships. No projectexecution/newcases, oldverdict/hashcannotclear."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/visibility.rs",
+      "sha256": "bf02e1e338624be655cffa36d3628074ab252de4018d400f9ffc629cb37f5f34",
+      "scope030_index": 1349,
+      "actual_EOF": 98,
+      "scoped_ranges_compared": [
+        [
+          1,
+          98
+        ]
+      ],
+      "actual05_comparison": "Culling testsallactive3Dviews, matchingRenderLayers,distance+frustum; noactiveview=>outsidefalse, notfreezingeverything. Firstunpresentedrig samplesbeforeculling; resume resetsaccumulator/interpolation/velocitycolumns onlyifpreviousFrozen, retainsdisplayhistory totransitionfromrealpose. Sameposebuffer arraysfill lengthpreserving; no changes tophysicsownership. Originalportrait/layerfixture sourcefullyreadnotrun; nativedistanceoverflow notclaimednewfinitepositionadmission.",
+      "source_body_proof": "Fresh full actual source plus every inline originalfixture read for05 retainedpose/columns/hierarchy/kernelrelationships. No projectexecution/newcases, oldverdict/hashcannotclear."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/spline.rs",
+      "sha256": "81c80049332da27f4e7ba2bac782477bf2d848d1f37ee1ec56b0cd0dacc36e0b",
+      "scope030_index": 1347,
+      "actual_EOF": 69,
+      "scoped_ranges_compared": [
+        [
+          1,
+          69
+        ]
+      ],
+      "actual05_comparison": "Constgenericvalues/knots arrays necessarilyequalcardinality, assertsK>=2beforeindexing butdoesnotadmitorderedfiniteknots. Actualonlycontinuationcaller suppliesK4 [0,checkedreadinessin(0,.5),.5,1], henceallpositiveintervals andThomasdivisors mathematicallypositive. Genericinternalnativehelpercanrepresentduplicateknots butnotnormalcallerdefect; needexplicittrustedkernelprecondition ifkeptgeneric. Sourcefiniteoperationoverflow remainsrawmath, notwholefinitepose guarantee.",
+      "source_body_proof": "Fresh full actual source plus every inline originalfixture read for05 retainedpose/columns/hierarchy/kernelrelationships. No projectexecution/newcases, oldverdict/hashcannotclear."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/calibration_inputs.rs",
+      "sha256": "bc7371531895550fdec30c4a70a75f549a9cf24c209efbef405f831df198b58a",
+      "scope030_index": 1333,
+      "actual_EOF": 59,
+      "scoped_ranges_compared": [
+        [
+          1,
+          59
+        ]
+      ],
+      "actual05_comparison": "PrivateCalibrationInputs capturesone PoseBufferConfig snapshot alltuningchangingbake/fit/admission, retainsorderedmin/maxpairstogether; actualvalidationpredicate alreadyNative031. CalibrationLookup selectsperactormeasurements onlywhenoffsets matchcurrentRigEntities/Query; elseglobalreference fallbackintentional. Actualmatches_offsets/cache staleconfigmethodbodies remainstride/sourcecells pending, cannotcreditfromfunctionname. No symmetryorcommon-normalized-rangeinvented acrossdifferentheight/displacementroles.",
+      "source_body_proof": "Fresh full actual source plus every inline originalfixture read for05 retainedpose/columns/hierarchy/kernelrelationships. No projectexecution/newcases, oldverdict/hashcannotclear."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/inertialization.rs",
+      "sha256": "8bf6f24386dae22c8e339928d6d9c90fbf89cfc3b438d0cd0e74468559e8cd84",
+      "scope030_index": 1337,
+      "actual_EOF": 443,
+      "scoped_ranges_compared": [
+        [
+          1,
+          443
+        ]
+      ],
+      "actual05_comparison": "EachJointInertialOffset privately owns translation+rotationquintics andone elapsed; capturecomputesbothnewchannelslocally beforecommit/resetelapsed, interruption capturesdisplayedpose+currentvelocitysameframe. Quintic directionfrozenatcapture; closingvelocityshortensduration/divergingdropped, defaultfinishedzero valid; doneusesmaxchannelinterval, completedoffsetreturns0 exactly. updatecheckselapsedaddbeforewrite; rawvectors/quaternions/coefficients nofiniteguaranteeonlytypedclock. Parentloopcaptureacrossjointscanpartiallyupdatepriorjoint iflaterfalliblecallfails, notassertedall-rigtransaction. Original443source/allfixtures freshread, noexecution; preservequaternionantipodeshortpath/normalization andactualFPorder.",
+      "source_body_proof": "Fresh full actual source plus every inline originalfixture read for05 retainedpose/columns/hierarchy/kernelrelationships. No projectexecution/newcases, oldverdict/hashcannotclear."
+    }
+  ],
+  "groups": {
+    "matching-rig-columns-and-membership": {
+      "relationship": "Everypose/entity/offset/velocity ordinal referssamecanonicalRigDefinition, parentmember andboneorder, notjustsameusizecount.",
+      "establishment": "RigDefinitions::bind derivesactualentity→ordinalparentmapfromoneownertargetlist, alignsentitiesbytarget tocanonicalfamilydefinition, allocatesallcolumns atdefinitioncount. sample_plan iteratesdefinition.joints tobuildsameorderedpose; BakedCliptracks derivedsameorder andall3 channelscheckedcount.",
+      "qualification": "pubsuperRawRigDefinition/BoneTrack/RigTable arbitraryliteralcanbreakmembership; actualnormalcallersprovenpositivewithoutunnecessarybranding. CacheFamilycontractrequiresonecanonicaldefinitionperfamily; nativeECSacyclictree trusted, directdefinitionmutationnotnormal. No generalclearanceforunreadrig/calibration/physicscallers."
+    },
+    "sample-clock-and-lifecycle": {
+      "source": "WholePoseBufferRig tiesoneplan/visibility/ownership/displayhistory toarrays; completedPhysicsreturnclearsplan, cullingresume resets clockswithoutlyingaboutpresentedhistory; sampleclockchecks ratiosbeforebuffercommit.",
+      "limits": "Posecaptureloop/terrainconformity/nativeTransformwrites notatomicacrossalljoints/falliblecalls; no universalrollbackpromised. RawLocalPose+bindfallback notfiniteowner; sanitizecheckedsourceonly, arithmeticoutput/unchangednativeportsdistinct."
+    },
+    "continuation-knot-relation": {
+      "actual_caller": "LocalPose.continuation usesfourpairedknots fromchecked0<readiness<.5, .5,1 andsame4posevalues; constgenerichelperrequirementK>=2+orderedknots satisfiednormalcall.",
+      "acceptance": "Retainactualwholeknots/valuesrelationship andseamderivatives. Do not brandarbitraryrawsplinecallerwithoutrealadmitted-splineAPIpromise, preserveempty/defaultoffset/staticclip cases."
+    },
+    "reach-interval-positive-leaves-not-sufficient": {
+      "finding": "NATIVE-INITIAL05-F011",
+      "counterexample": "Both actual segment lengths1e-5: lower bound .0001, upper bound 2e-5-.0001 = -8e-5; any nonzero target offset passes try_normalize then f32::clamp receives invertedbounds before returningOption. Finite jointposes can have these small positive distances; sourcebind/bake checks no minimumlimblength. Conceptual sourcecounterexample only, no newcase/execution/currentasset or gameplayrunclaim.",
+      "normal_qualification": "conform_upcoming_pose_to_terrain measures hip/knee/ankle from named actual chain after local_pose_global, suppliesrawdistances1141–1148 toprivate solve; loader target/duration gates and bindfinite/native policies do notestablish reachpadding relation. Positive nonzero clip/clock unrelated. Existing normalfixtures legs~.9/1m safe.",
+      "acceptance": "Admit ordered feasible reach interval/degenerate geometry before clamp; return deliberate no-solve/rejection or scale-aware supportedgeometry policy, preserving authoredpose on unsupportedchain. Do not impose .0001 minimum on everyunrelatedbone/coordinate, fabricate lengths, or panic for representable rejectedrawinput. Preserve actuallegside/pole/terrain/no-op behavior andFPorder forknownvalidchains."
+    }
+  },
+  "new_unique_findings": [
+    "NATIVE-INITIAL05-F011"
+  ],
+  "pending_exact_dependencies": [
+    "ContactCalibration447/PhaseCalibration434/StrideCalibration297 actual cache fit roles; RigJointTable canonical definition current03 narrative can supportfuture05explicitsemanticcomparison, notautomaticwholeleafcredit",
+    "Actualpresentationplugin scheduling and ragdoll inputs remain own05cells"
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

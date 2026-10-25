@@ -1,0 +1,32 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-083",
+  "at": "2026-10-25T14:49:55.297474+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1270,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/cycle.rs",
+      "sha256": "3b8f6cf71583d3d4384601cc98adcaa89ff36b5698bd268077eff5a3df340f9b",
+      "personally_read_ranges": [
+        [
+          1,
+          964
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Direct-contract cycle retains actual party identity and expected quest owner, refreshes leader/health/equipment before departure and again after disease-time travel. Distinguishes active/ready-to-report/offered quest, public issuer availability rechecked after provisioning; Result error propagates except explicitly recognized provider-unavailable branch, structured-cause parsing remains migration requirement.",
+        "Case-site pin selected for actual owner/case and nearest site, already-at-site based on canonical CaseSiteId. Departure enum Ready/ReadyWithItinerary/WaitForSafeDeparture/Deferred carries actual schedule fields and deferred reason; optional party settlement/current-site XOR guards route-projection. Existing structured products positive, primitive frame/quantity/ID projections should not create parallel owners.",
+        "Battle request derives mission and expected battle identity from actual party/site/cycle; finds matching report and winning battle authority. Whole defeat/victory branch must keep leader updates and quest owner coherent. Winning battle Option construction controlled by exact bool before use, can retain actual outcome payload instead of reconstructing independent boolean/optionalID, no ordinary missing authority success claimed.",
+        "Normal liquidation sender641\u2013669 selects ALL noncurrency Party inventory rows and produces ID/quantity columns from same vector; column alignment current caller coherent. Nested parent and child rows are not excluded, so this caller must consume checked disjoint-root batch contract in existing F005 remedy. No guaranteed DB iteration order or ordinary child-first loot claim asserted; source route corroborates receiver requirement without expanding witness.",
+        "Upgrade constructs candidate utility+quote+shortfall+reserve+provider together in tuple, sorts deterministic improvement/id then rechecks exact selected storefront offer before call. Actual cost measured through purse/stake deltas, external reducer gets quote/payment caps. Pre-reducer quote vs pairwise temporal settlement question Q017 still depends actual price mutation policy, no new independent claim.",
+        "Equipment current condition absent defaults whole by existing policy, unavailable catalog definitions skipped. New purchased row selected same owner/item and latestID; chooses actual root placement matching slot then reducer verifies exact inventory row equipped. Native authored CatalogItemKind/Slot/occupancy contracts reused; semantic upgrade request/result would retain candidate/placement/quote relation rather than multiple raw IDs. Existing current source not executed."
+      ]
+    }
+  ],
+  "findings": [
+    "SEGO-INITIAL05-F005 (additional connected caller support, no new finding)"
+  ],
+  "discovery": "One full original role accounted with connected F005 receiver/caller requirement and other qualified contracts; lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

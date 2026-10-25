@@ -1,0 +1,50 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-063",
+  "at": "2026-10-22T21:57:02.363569+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_role_supplements": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/capture.rs",
+      "sha256": "d1ed65d72efa512a27f1520790aa26d9f705968026b8e30a343aec34f5a8d1d3",
+      "scope038_index": 1412,
+      "ranges": [
+        [
+          502,
+          520
+        ]
+      ],
+      "actual05_comparison": "Actual capture collector guards Open + plan index, associates all currently read presentation messages with current planned scenario/frame and each original owner/sample_tick/payload, preserving message order; does not itself filter capture subject or sort/seal per-owner stream. This is the actual previously pending collector, already within credited full capture body."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/report/presentation_events.rs",
+      "sha256": "96bc4db93aefaea58374be6eba6a7eed668bfaebc77e74a40c1516b2fdf420e5",
+      "scope038_index": 1439,
+      "ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "actual05_comparison": "Actual stream validator compares only neighboring entries in the global vector. A different stream between two same-owner Contact entries prevents comparing that Contact pair; all-earlier duplicate check does not detect different sequences. Current normal emitter cursor guards its own state; no normal reordered emission or capture false-pass demonstrated."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/presentation/events.rs",
+      "sha256": "e8b15deac3874c9457efc9dec7ac27b1b4eca56b6577a0352fe6cf3c1c896238",
+      "ranges": [
+        [
+          8,
+          76
+        ]
+      ],
+      "actual05_comparison": "Fresh already-scoped body confirms payload Contact versus Landing defines independent same_stream class; advances_from accepts only same typed stream with nonzero forward events_since. Event owner and tick are public data, not a seal on arbitrary message chronology. Previously full174 source proof041 preserved."
+    }
+  ],
+  "new_unique_findings": [
+    "NATIVE-INITIAL05-F018"
+  ],
+  "closure": "Actual collector no longer unread; its full source was054 and current bounded reread now provides explicit event association comparison. No extra variant coverage credit.",
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

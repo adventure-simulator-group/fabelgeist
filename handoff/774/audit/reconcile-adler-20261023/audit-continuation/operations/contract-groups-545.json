@@ -1,0 +1,38 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-545",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-garment-code/src/design.rs",
+      "sha256": "752a641161b3427416832ced038eb618e4491be51882ee13d53c4d4e69ec373a",
+      "actual_EOF": 763,
+      "actual_compared_ranges": [
+        [
+          1,
+          763
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Mutable body derivation readiness",
+      "evidence": "Consumed complete wrapper audit/continuation/rig/admission03/findings.jsonl record_index65 RIG-ADMISSION03-F063. from_yaml returnsResult but eval_dependencies panics on missingrequiredheight; default/insert rawbuilder intentionallylegitimate. Body.set updatesrawvalue before eval; partialderivedwrites if laterrequiredkeymissing are same readiness contract, no duplicatefinding. No globallypositive/finitebodypolicy imposed on cm/angles orsigned measurements."
+    },
+    {
+      "contract": "Shared raw design mutation and codec shapes",
+      "evidence": "Design.sub shares Rc tree deliberately, deep_copy detaches entire tree. set_v creates/replaces intermediate raw maps intentionally; no fallible partialcommitcontract. OrderedMap insert replacesvalue preserving first declaration order. Float->i64 conversion saturating/truncating rawpresentation needs admitted ParamKind policy, not assumed invariant. write_yaml sends listitems through scalar_yaml, whose nested containers become[]/{} even if nonempty: representable generic Value nested container loss is API shape-policy candidate, actual garment schema onlyscalarlist use not provedotherwise. Exceptionalfloat YAMLspellings and arbitrarykeyescaping require same codec admission policy; no new ordinary failure promoted."
+    },
+    {
+      "contract": "Derived arithmetic ordinary bounds",
+      "evidence": "Waist/leg subtracts/bustweightedmix/armscye+2.5 can overflow arbitraryf64MAX, but Body raw stores permit incomplete/sourcevalues and no checked finite-body guarantee exists inthisbody. Preserve explicit raw-builder versus completebody owner dependency. Existing fixtures read for arithmetic, sharedhandles and ordinary scalarYAML roundtrip, not executed."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "1 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/fabelgeist-garment-code/src/measure/mod.rs"
+}

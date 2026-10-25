@@ -1,0 +1,301 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1070",
+  "at": "2026-10-25T17:41:35.009713+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1212,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+      "sha256": "775c9d22ecc0823474a0e4941da7a73e63c7fe7ca755ffc29cc479d95c611dfe",
+      "actual_EOF": 1095,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+        "sha256": "775c9d22ecc0823474a0e4941da7a73e63c7fe7ca755ffc29cc479d95c611dfe",
+        "bytes": 40825,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+            "ranges": [
+              [
+                241,
+                398
+              ],
+              [
+                400,
+                867
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": []
+          },
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/supplemental-quest-receivers.json",
+            "ranges": [
+              [
+                241,
+                398
+              ],
+              [
+                400,
+                867
+              ]
+            ],
+            "source_read_status": "exact actual bounded receiving bodies, no inferred whole-file read",
+            "trace_refs": [
+              "NATIVE-SUPP-QUEST-IDENTITY-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 291,
+            "read_ranges": [
+              [
+                1,
+                1095
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-DIALOGUE-043"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 292,
+            "read_ranges": [
+              [
+                1,
+                1095
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-DIALOGUE-043"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CASE-RECEIVERS-029",
+            "json_pointer": "/current_sources/5",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1095
+              ]
+            ],
+            "source_context": {
+              "packet_obligation": 6,
+              "assigned_camera_index": 275,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+              "sha256": "775c9d22ecc0823474a0e4941da7a73e63c7fe7ca755ffc29cc479d95c611dfe",
+              "read_ranges": [
+                [
+                  1,
+                  1095
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+              "read_status": "full current frozen body; packet7 shares independently verified identical bytes with packet6",
+              "role": "dialogue-bindings",
+              "disposition": "F022 objective/asset/subject identities are projected into retained pending tuples before native binding insertion. Generated and manual authority remain explicit; no-match/ambiguous/collision behavior and public-case privacy remain. Typed testimony pipeline reaches F032 staging.",
+              "trace_refs": [
+                "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016#dialogue-bindings"
+              ],
+              "authority": "Camera716 explicit per-cell reconciliation and whole DB repair authority unchanged"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-DIALOGUE-040",
+            "json_pointer": "/related_current_sources/0",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1095
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+              "sha256": "775c9d22ecc0823474a0e4941da7a73e63c7fe7ca755ffc29cc479d95c611dfe",
+              "actual_lines": 1095,
+              "read_ranges": [
+                [
+                  1,
+                  1095
+                ]
+              ],
+              "proof_mode": "fresh actual current supplement bounded material source body, no execution",
+              "role": "Complete actual typed turn/fragment resolver, generated/manual objective/recipient preflight, pending tuples, native row codecs and source metadata producer; existing camera whole canonical loop"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-033",
+            "json_pointer": "/fresh_current_additional_source_reads/0",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1095
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+              "sha256": "775c9d22ecc0823474a0e4941da7a73e63c7fe7ca755ffc29cc479d95c611dfe",
+              "actual_lines": 1095,
+              "read_ranges": [
+                [
+                  1,
+                  1095
+                ]
+              ],
+              "proof_mode": "fresh actual current supplement bounded material source body, no execution",
+              "role": "Complete actual typed turn/fragment resolver, generated/manual objective/recipient preflight, pending tuples, native row codecs and source metadata producer; existing camera whole canonical loop"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016",
+            "json_pointer": "/source_reads/5",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1095
+              ]
+            ],
+            "source_context": {
+              "packet_obligation": 6,
+              "assigned_camera_index": 275,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+              "sha256": "775c9d22ecc0823474a0e4941da7a73e63c7fe7ca755ffc29cc479d95c611dfe",
+              "read_ranges": [
+                [
+                  1,
+                  1095
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+              "read_status": "full current frozen body; packet7 shares independently verified identical bytes with packet6",
+              "role": "dialogue-bindings",
+              "disposition": "F022 objective/asset/subject identities are projected into retained pending tuples before native binding insertion. Generated and manual authority remain explicit; no-match/ambiguous/collision behavior and public-case privacy remain. Typed testimony pipeline reaches F032 staging.",
+              "trace_refs": [
+                "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016#dialogue-bindings"
+              ],
+              "authority": "Camera716 explicit per-cell reconciliation and whole DB repair authority unchanged"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/camera/traces.jsonl",
+            "receipt": "CONT-CAMERA-PP-009",
+            "json_pointer": "/exact_receiver_proofs/4",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+            "read_ranges_as_recorded": [
+              [
+                335,
+                398
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+              "sha256": "775c9d22ecc0823474a0e4941da7a73e63c7fe7ca755ffc29cc479d95c611dfe",
+              "actual_lines": 1095,
+              "read_ranges": [
+                [
+                  335,
+                  398
+                ]
+              ],
+              "role": "Fresh actual manual/generated branch, validated manifest retention, objective serialization and typed action matching; whole associated receivers supplied Camera040/Native016."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/native/receiver-reads.json",
+            "receipt": "row-1",
+            "json_pointer": "/4",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+            "read_ranges_as_recorded": [
+              [
+                335,
+                398
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/dialogue_bindings.rs",
+              "sha256": "775c9d22ecc0823474a0e4941da7a73e63c7fe7ca755ffc29cc479d95c611dfe",
+              "actual_lines": 1095,
+              "read_ranges": [
+                [
+                  335,
+                  398
+                ]
+              ],
+              "role": "Fresh actual manual/generated branch, validated manifest retention, objective serialization and typed action matching; whole associated receivers supplied Camera040/Native016."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 524,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1095
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Allsource1067\u20131070 consumed. No handwritten trait/codec. Private ReferredTestimonyClaim plain aggregate; observer-scoped source/recipient/actions/manifest/runtime turn/testimony correlations are fallible context-sensitive mapping; existing typed Serde performs transcript/source encoding. Final911\u20131095 selects one validated publiccase, issues exact prompt/topic bindings and dynamically labels permission/testimony topics; not derived wire boilerplate."
+    }
+  ],
+  "groups": [
+    "KEEP private-to-public projections and context/identity/recipient validation. Runtime action classifiers are not reason to add Serde. No wire/interface widening or blanket From derives."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1213,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_effects.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

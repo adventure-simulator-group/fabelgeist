@@ -1,0 +1,15 @@
+--- p16base/crates/adventuresim-tactical-server/src/main.rs
++++ catalog-p16head/crates/adventuresim-tactical-server/src/main.rs
+@@ -549,10 +549,10 @@
+                         adventuresim_core::item_catalog_schema::EquipmentMaterial::RoughSteel,
+                     skill_weights: [0.0; 9],
+ 
+                     precision: 1.0,
+-                    reach: 0.8,
+-                    grip_to_tip_m: 0.8,
++                    reach: fabelgeist_geometry::SignedLength::from_metres(0.8).unwrap(),
++                    grip_to_tip_m: fabelgeist_geometry::SignedLength::from_metres(0.8).unwrap(),
+                     moment_of_inertia_kg_m2: 0.0,
+ 
+                     melee: true,
+                     ranged: false,

@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1368",
+  "at": "2026-10-25T18:39:36.533212+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1422,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness.rs",
+  "sha256": "ed20b1e997850b7b95cc52c88c55fad7855c2cf9c7a8e08ec3f610656517ee13",
+  "actual_compared_ranges": [
+    [
+      1,
+      300
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "ArmorHarness already derives clap ValueEnum and Serde snake_case plus structural traits. Inherent catalogue fixture selection/placements, checked breastplate cache override, current native camera and spawn semantics, contextual JSON fixture/readiness artifacts and failure side effects. No handwritten trait/codec in slice; json! records are native semantic reporting, not manual Serializer implementation.",
+  "first_unfinished": {
+    "scope_index": 1422,
+    "line": 301
+  },
+  "execution": "none"
+}

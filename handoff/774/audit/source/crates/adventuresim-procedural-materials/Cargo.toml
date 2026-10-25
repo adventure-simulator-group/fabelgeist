@@ -1,0 +1,13 @@
+[package]
+name = "adventuresim-procedural-materials"
+description = "Shared Bevy bindings for procedural surface materials"
+version.workspace = true
+edition.workspace = true
+repository.workspace = true
+license.workspace = true
+
+[dependencies]
+bevy = { workspace = true, features = ["std", "bevy_pbr"] }
+
+[lints]
+workspace = true

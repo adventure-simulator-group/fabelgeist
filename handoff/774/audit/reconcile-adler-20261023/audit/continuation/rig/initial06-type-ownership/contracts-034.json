@@ -1,0 +1,22 @@
+{
+  "id": "RIG-INITIAL06-GROUP-034",
+  "at": "2026-10-22T20:21:20.941271+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "pinned-native-sampler-versus-owning-game-rng": {
+      "sources": [
+        "native-rand0.9.5:src/distr/weighted/weighted_index.rs",
+        "native-rand0.9.5:src/distr/uniform.rs",
+        "native-rand0.9.5:src/distr/uniform_int.rs",
+        "native-rand0.9.5:src/distr/weighted/mod.rs",
+        "native-rand0.9.5:src/distr/utils.rs",
+        "native-rand0.9.5:src/distr/integer.rs",
+        "native-rand0.9.5:src/rng.rs"
+      ],
+      "comparison": "Fresh exact seven pinnednative Rand0.9.5 material bodies/ranges, plus fresh current PR DeterministicRng stream1\u2013169 alreadycounted earlier06. Application canonical DeterministicRng owns Seed projection/fixedu64 sampling/stable inputorder; SDK WeightedIndex/Uniform/UniformInt own native numerical sampling distributions, not game identity/probability/config types. weighted_index receives &[u64] relativeweights (zero permitted if positive nonoverflow total), constructs SDK distribution then returns candidateordinal; no chance/BasisPoints/UnitInterval reinterpretation, no mixing with SampleTick/Seed despite samewordwidth. SDK WeightedIndex retains private cumulativeweights+total+sampler; generic borrowed X impl delegatesexactvalue not migrationgap. Actual new checks nonempty/nonnegative/checkedaddition/positivetotal; u64Weight uses checkedadd, sample nativepartition returns sourceordinal, not entity/itemidentity. App SamplingError maps three reachable construction categories and preserves authoredorder/withoutreplacement semantics; no duplicate lowowner needed. Uniform wraps canonical native sampler associated type; SampleBorrow preserves sameinputmeaning and holds no independent valueowner. Actual u64 UniformInt macro samples widening u128 multiply/rejection thenlow wrapping add; nativebits/threshold/range0=allbits are intentional algorithm representation and cannot be forced into bespoke nonzero gamequantity. StandardUniform u64 delegatesnext_u64; Rng blankettrait extendsRngCore; application port wraps nativeRng in canonicalDeterministicRng rather than duplicate algorithms. This exact foreign adapter belongs SDK; game layers should use owning DeterministicRng/Seed/Stream API, not move SDK tables intoCore or attach sceneauthority to rawselectedordinal. No new sourceownership finding and no blanket entire SDK/native prefix waiver. SDK cfgSerde attrs observed only, featureenablement/deserialized samplers not newlyaudited or gameacceptedstate guarantee. Floats/SIMD/update_weights/single_range/tests outside material ranges excluded. Contracts existing range/weight errors and actual native precision preserved; no external package edits/runtime/checks.",
+      "focused_existing_caller": "pr-working:crates/fabelgeist-determinism/src/stream.rs1\u2013169 freshre-read; canonicalexisting03/06 countsunchanged"
+    }
+  },
+  "new_findings": [],
+  "limits": "Exact bounded native adapter roles only; all remaining06 application and frontier work incomplete."
+}

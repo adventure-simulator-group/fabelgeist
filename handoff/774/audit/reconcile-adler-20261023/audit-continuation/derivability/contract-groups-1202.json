@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1202",
+  "at": "2026-10-25T18:07:54.325739+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1290,
+  "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/settlement.rs",
+  "sha256": "652eac9d7899ae0a71dea77f7d1b4cd40beef647afa972cf51ee85de57f5acf9",
+  "actual_compared_ranges": [
+    [
+      681,
+      1020
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Only inherent native live schedule restore/install and current medical safety policy selection. No handwritten trait/custom codec/type. Current life/readiness/chart/finance/sponsor/settlement/supply repeatedly joined after clock-affecting calls. Existing derived schedule equality verifies selected postconditions; prepared MedicalActionContext and classified reason synthesize native policy, not field-only conversion. No commands executed.",
+  "first_unfinished": {
+    "scope_index": 1290,
+    "line": 1021
+  },
+  "execution": "none"
+}

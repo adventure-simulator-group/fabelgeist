@@ -1,0 +1,241 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-258",
+  "at": "2026-10-25T14:15:17.462777+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 513,
+      "source_id": "pr-working:assets/shaders/tactical_pebble.wgsl",
+      "sha256": "5a55c52e1b2950b498e8d1679e7983bd84b6da069dc6fe5698a4b22d0646353e",
+      "actual_EOF": 90,
+      "requested_registration": {
+        "source_id": "pr-working:assets/shaders/tactical_pebble.wgsl",
+        "snapshot": "pr-working",
+        "path": "assets/shaders/tactical_pebble.wgsl",
+        "sha256": "5a55c52e1b2950b498e8d1679e7983bd84b6da069dc6fe5698a4b22d0646353e",
+        "bytes": 3285,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-root-receivers-001.json",
+            "ranges": [
+              [
+                1,
+                90
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-SUPP-NATIVE-001"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 364,
+            "read_ranges": [
+              [
+                1,
+                90
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-PEBBLE-SHRUB-SHADERS-057"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/assets/shaders/tactical_pebble.wgsl"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 129,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "WGSL native material source, no Rust trait/Serde implementation.",
+      "absence_basis": "Full90-line pebble shader consumed: TacticalPebbleMaterial uniform layout and vertex/fragment native frame/normal/visibility/Lambert/shadow functions; no derivable hand implementation."
+    },
+    {
+      "scope_index": 514,
+      "source_id": "pr-working:assets/shaders/tactical_pebble_billboard.wgsl",
+      "sha256": "c4644f87c9162b39d2fc1225d9912d8e7a0580cd7556d1333181defd62752b93",
+      "actual_EOF": 95,
+      "requested_registration": {
+        "source_id": "pr-working:assets/shaders/tactical_pebble_billboard.wgsl",
+        "snapshot": "pr-working",
+        "path": "assets/shaders/tactical_pebble_billboard.wgsl",
+        "sha256": "c4644f87c9162b39d2fc1225d9912d8e7a0580cd7556d1333181defd62752b93",
+        "bytes": 3812,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-root-receivers-001.json",
+            "ranges": [
+              [
+                1,
+                95
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-SUPP-NATIVE-001"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 365,
+            "read_ranges": [
+              [
+                1,
+                95
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-PEBBLE-SHRUB-SHADERS-057"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/assets/shaders/tactical_pebble_billboard.wgsl"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 130,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "WGSL native material source, no Rust trait/Serde implementation.",
+      "absence_basis": "Full95-line pebble billboard consumed: TacticalPebbleBillboardMaterial, vertex/interleaved_gradient_noise/fragment, native center/camera-facing frame, derivative coverage and shading semantic. No imported/native producer body credit."
+    },
+    {
+      "scope_index": 515,
+      "source_id": "pr-working:assets/shaders/tactical_shrub_bark_instanced.wgsl",
+      "sha256": "696467dcd07aed5f94b0dfb6d9605560daf85fd74e780da49e2449c840e15844",
+      "actual_EOF": 119,
+      "requested_registration": {
+        "source_id": "pr-working:assets/shaders/tactical_shrub_bark_instanced.wgsl",
+        "snapshot": "pr-working",
+        "path": "assets/shaders/tactical_shrub_bark_instanced.wgsl",
+        "sha256": "696467dcd07aed5f94b0dfb6d9605560daf85fd74e780da49e2449c840e15844",
+        "bytes": 4397,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/supplemental-root-receivers-001.json",
+            "ranges": [
+              [
+                1,
+                119
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-SUPP-NATIVE-001"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 366,
+            "read_ranges": [
+              [
+                1,
+                119
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-PEBBLE-SHRUB-SHADERS-057"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/assets/shaders/tactical_shrub_bark_instanced.wgsl"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 131,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "WGSL instance material source, no Rust trait/Serde implementation.",
+      "absence_basis": "Full119-line shrub bark shader consumed: bark_color binding, ShrubVertexOutput, vertex/fragment, instance yaw/scale, visibility and bark metric-color interpretation/native shadow semantics. Not Rust trait boilerplate."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Pebble and shrub native material layouts/functions",
+      "disposition": "Exact WGSL roles have no hand Rust derive target; actual layouts/entry/helper functions enumerated.",
+      "acceptance": "Keep native shader/host attribute contract distinct from Rust consumer review; no shader compile/render or other-lens clearance."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 516,
+    "source_id": "pr-working:assets/shaders/tactical_shrub_leaf_instanced.wgsl"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

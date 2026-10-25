@@ -1,0 +1,23 @@
+{
+  "id": "RIG-INITIAL06-GROUP-043",
+  "at": "2026-10-22T20:49:42.714912+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "pure-combat-authority-versus-health-and-native-physics-quantities": {
+      "sources": [
+        "pr-working:crates/adventuresim-core/src/combat.rs",
+        "physical-p16:crates/adventuresim-core/src/combat.rs"
+      ],
+      "comparison": "Fresh PRcombat full1\u20131137 incloriginaltests personallyread042/043; completeactualPR/P16textdiff compared and EVERY changed currentP16body/fixture range read separately. CanonicalCore AttackResult/DefenderResponse and shared facets are purecombat authority; preserve tacticaltickpositions/damage/HP/enemies in transientserver, no strategicDB model relocation. AttackResult publicSerde is effect product, not authoritativeDBhealthrecord or acceptedfiniteenergy seal. Its cut/blunt fields are physicalJoules until actualhealth_damage_from_attack473 maps regions capacities20/35/80/55 andapportion495 producesappliedhealthfractions; they cannot share HealthFraction/clinicalDose justbecausef32positive. contact_force namedlegacy is actualJoules per351comment/formula/armorenergy448, not nativeNewtons vector; shared checkedenergy leaf should live lowenoughforcombat/material ifintroduced, not borrow geometryLength or count. No equivalentindependentcanonicalenergytype found in actualreachedowners; existingpropagation/admission findings retained ratherthan inventduplicate. derive_combat_starting_condition95 is derivedremainingincapacitation+remainingbloodratio aftersubtractingrecomputedstrategicpain/bloodloss, legitimateauthorityprojection not duplicatedfullstrategicstate. Balanceimpairment anddamagesfraction have distinctmeaning fromweapon geometricbalance andSeeddecisionsample; notallUnitInterval because accumulatedincapacitation can>1. Combatforce/mass/rawnumericalkernel extraction is real changedarithmetic, P16weapon_reach().metres362 validterminalmathprojection; it doesnotjustify upstreamunchangedtyped\u2192raw\u2192typedforwarding. P16usesSignedLength::ZERO forintendedcontact andcheckedSignedLengthMeleeContactFacts/testfixtures instead ofPRraw, preserve actualalreadytypedAPI ratherthan regressfromPRschema. Allothercompletevariantcontracts explicitlysamecurrentCore definitions/callers; onlyactualchangedranges analyzedasdelta, noSHAcartblanche. TestsreusecanonicalCombatEquipment/BodyPart/style/contact/protection facets; privateMatchupCombatant/Matchup/AvoidedMatchup are purposefixturedata, no alternateproductionbodyowner. No tests executed and no source edits."
+    }
+  },
+  "supporting_existing_definitions": [
+    "contracts-033.json armor/contactprecision",
+    "contracts-037.json body/attributes",
+    "contracts-038.json config/contacttiming/recovery",
+    "contracts-039.json combatfacts/equipmentstage",
+    "contracts-040.json skill/styles",
+    "contracts-042.json targeting/defense"
+  ],
+  "limits": "Onlycurrent06owneranalysis; no otherlens/semanticwholefeatureclearance; broaderEquipment/Schema pending039 notclosedbycallerimports."
+}

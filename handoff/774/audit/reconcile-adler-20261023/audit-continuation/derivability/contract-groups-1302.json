@@ -1,0 +1,98 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1302",
+  "at": "2026-10-25T18:25:00.086781+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1367,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/hands.rs",
+      "sha256": "e62b67d40676cfd09497eaf6f5b03e923700b922059570b8c56af5b520316243",
+      "actual_EOF": 391,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/hands.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/hands.rs",
+        "owner": "native",
+        "sha256": "e62b67d40676cfd09497eaf6f5b03e923700b922059570b8c56af5b520316243",
+        "base_sha256": "75e0df4e1f36bdbfc6480d762ba7e8821602dec988cdc31702fda62182637dde",
+        "state": "modified",
+        "bytes": 12266,
+        "audit_owner": "native",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [],
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 198,
+            "read_ranges": [
+              [
+                1,
+                391
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-IK-TARGETS-002"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/procedural/ik/hands.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 540,
+            "read_ranges": [
+              [
+                1,
+                391
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-IK-TARGETS-002"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/procedural/ik/hands.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          391
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "HandIkTarget structural Debug Clone Copy; HumanoidIkTargets Component Debug Clone Copy Default; HandSide Debug Clone Copy PartialEq Eq; HeldWeaponConstraint Component Debug Clone Copy; HandChain Debug Clone Copy.",
+      "absence_basis": "Only inherent semantic hand selectors/constants and native current-owner/socket/chain/world transforms/solver memory helpers plus fixtures. No handwritten trait/codec. Native socket projection deliberately uses scaleONE and target precedence/coordinate frame, not derive conversion."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Contextual current hand/socket ownership, checked geometry/owner observations and native memory/frame mutation preserve application semantics; structural behavior derives already.",
+      "disposition": "NO_HANDWRITTEN_TRAIT_OR_CODEC",
+      "qualification": "No IK/system/test execution; no correctness or child/body transfer."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1368,
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/locomotion.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

@@ -1,0 +1,57 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-003",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "native-normalized-direction-versus-quantity",
+      "sources": [
+        {
+          "scope_index": 15,
+          "ranges": [
+            [
+              1,
+              205
+            ],
+            [
+              550,
+              660
+            ]
+          ]
+        },
+        {
+          "scope_index": 16,
+          "ranges": [
+            [
+              60,
+              87
+            ]
+          ]
+        }
+      ],
+      "distinction": "Native Dir2/Dir3 represent normalized orientation, distinct from arbitrary Vec and dimensional magnitude; new_and_length returns both direction and raw native magnitude. InvalidDirectionError keeps Zero/Infinite/NaN admission classification. Parry selecteddim3/f32 features show actual native scalar/dimension, not application world-frame authority.",
+      "uses": "new normalizes using finite positive computed length; new_unchecked assumes normalization, with debug diagnostics rather than universal checked admission. Native north naming follows its own axes, not proof of application Scene/Plan sign convention. Native slerp consumes normalized directions and dimensionless weight, not physical rate.",
+      "disposition": "Keep direction/magnitude, dimension and application frame distinctions. Do not flatten a purpose-specific scene-facing owner into arbitrary Dir3 solely because storage matches. Conversely do not duplicate native normalization owner without an actual extra frame/authority contract. First-party frame producers/receivers remain independently pending11.",
+      "acceptance": "Later proposed wrapper must prevent actual frame/unit mix-ups and preserve existing north/sign conventions through explicit adapters. Do not impose extra positive magnitude or bounded coordinate policy on normalized direction, infer strong serde admission from a private field/derive, or broaden native unchecked guarantee. No SDK repair or normalization execution."
+    },
+    {
+      "id": "native-image-encoding-error",
+      "sources": [
+        {
+          "scope_index": 17,
+          "ranges": [
+            [
+              20,
+              165
+            ]
+          ]
+        }
+      ],
+      "distinction": "EncodingError separates I/O, format, parameter and limits; private FormatErrorKind carries reason-specific color/depth/count/encoding context. Encoder has format info/options and writer, not game identity. These type distinctions enable typed failure handling even when presentation messages vary.",
+      "uses": "From<io::Error> retains cause. Native From<EncodingError> for io::Error at120\u2013123 stringifies: external required io::Error adapter is weaker than retaining native EncodingError through application storage. Message-only conversion must not be mistaken for native cause preservation.",
+      "disposition": "Keep actual native error owner in application APIs where available; no need for duplicate PNG-reason enum or wrapper for each raw native byte count. No new source-backed application finding until concrete first-party codec caller is read for11.",
+      "acceptance": "Actual application write failure should retain encoding error/cause and own stage/path context until presentation. Native dependency implementation is evidence, not authorization to change SDK or claim every private format detail accessible externally."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

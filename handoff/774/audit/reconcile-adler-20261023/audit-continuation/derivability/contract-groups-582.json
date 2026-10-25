@@ -1,0 +1,34 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-582",
+  "at": "2026-10-25T16:06:45.434338+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 930,
+  "source_id": "pr-working:crates/adventuresim-core/src/herbalism.rs",
+  "sha256": "501c6cf8ba05522213c175784f28e6ddecd14aaab72a490fcb4bfa846eccb203",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "DomainPreparation, DomainMaterialProcess, DomainMaterialComponent, DomainContaminant, DomainConservationPolicy, DomainMaterialReceipt, PublicMaterialPresentation, DomainTarget, DomainRequirement, DomainCapability, DomainInterruption, DomainEffect, PublicPreview, DomainRightsSubject, DomainRightsResource, DomainRightsOperation, DomainJurisdiction",
+      "lines": [
+        [
+          38,
+          137
+        ]
+      ],
+      "disposition": "KEEP seventeen explicit empty local opt-ins on distinct native vocabulary; no existing matching derive. Imported trait definitions not covered by this role."
+    }
+  ],
+  "analysis": "Fresh herbalism1\u2013220: all local material/planner/rights vocabulary structural traits already derive. Seventeen explicit empty local opt-ins at38/42/49/55/61/67/74/80/90/96/102/116/124/128/131/134/137 retained; no ready owning derives and one-line semantic extension is not redundant standard-trait boilerplate. Rights question/digest and planned authority carry explicit custody/place/revision semantics; no handwritten codec. Planner body continues.",
+  "first_unfinished": {
+    "scope_index": 930,
+    "line": 221
+  },
+  "execution": "none"
+}

@@ -1,0 +1,26 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1174",
+  "at": "2026-10-25T18:02:22.921576+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1274,
+  "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/error.rs",
+  "sha256": "d3c463510dc48c5dcaf3e13310352dfaede3f8be29c90146ebca5dd2bf289214",
+  "actual_compared_ranges": [
+    [
+      1,
+      300
+    ]
+  ],
+  "existing_derives": [
+    "ReducerOperation Clone Copy Debug Eq PartialEq",
+    "ReducerCallFailureKind/ReducerCallFailure/CoreLoopError Clone Debug Eq PartialEq"
+  ],
+  "trait_inventory": [],
+  "analysis": "Native error enum data already derives Clone Debug Eq PartialEq; no handwritten trait yet in slice. ReducerOperation stable const key/travel classification must remain explicit; no runtime Serde solely replacing classifier. ReducerCallFailure rejected constructor parses machine code from detail, distinct dispatch/timeout native constructors and CoreLoopError accessors preserve exact contextual classification, not raw From/Default. Remaining Display/Error/conversion tail unread next.",
+  "first_unfinished": {
+    "scope_index": 1274,
+    "line": 301
+  },
+  "execution": "none"
+}

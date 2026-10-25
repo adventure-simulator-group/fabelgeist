@@ -1,0 +1,117 @@
+{
+  "contract": {
+    "id": "ROOT-ADM-G030",
+    "source_roles": {
+      "bounds396": "Full49 private Wgs84BoundsE7 canonicaltypedcorners, ctor inclusiveSW<=NE bothaxes; zeroextentvalid, antimeridiancrossingrejected. fromnative degrees delegates actualNative020 checkedgeopair. noSerde/Reflect/Default/rawsetter. Native output west/south/east/north order.",
+      "projection397": "Full83 nativecontinuousTerrain coordinate/offset/frame structs publicrawfloats intentionally notboundedgeoposition. Fromcheckedorigin once; atoffsetmayleaveworld/package. No newfinite/earthboundrestriction; longitude cosabsmax.01 operation preserved. Actualmesh/cameraadapter/kernel ports, notapplicationretainedcheckedstate blanket.",
+      "schema398": "Exact1..330/1636..1690/1768..1909/2670..3510 current bodies consumed; no whole4796filecredit. Source text booleanvalidation functions no acceptedwrapper. OfficialReligion closed7enum/correlationlookup. ReligionHours publicrawfloats Default0/Serde/SATS; explicitdirectfieldsvalid and nonfinitenormalizing arithmetic notcheckedsealed. ReligionMinutes allu16split7dedupclosedenumtargets/emptyvalid, no15quarter/daytotalpromise. Elevation/route scalar ctorandmanualSerde precisebounds; actualmacroSATS route compared concrete declarations perF007. RouteElevationProfile boundedcustomSerde/checkednew and readonlysamples, deriveSATS bypassF007. BoundedVec checks sizehint and next-elementlimit. RouteTerrain explicitlocalvalidate vs validate_context invariants distinct: signs/slope/aspect/class/closedorderedcollections then routeprofilecomputedextrema/relief/risks/tags. GenericrawTravelRoute Land/Ferry structs not DBmembershipproof. Native gradefunction checkspositivelength/progress,checkeddenominator,round/clamps\u00b110000 intentionally. Stageplaceholder constructedvalidconstants; manyproductionunwraps require Rustcleanupwithoutcallingobservedbadcaller. Actualrisk/tagBTreeSetclosedenumstableordering. F007 coherentadmission findings retained. Native020 geo actualmanualSerde consumed; CameraSATSexactnamedproduct001 consumed. REG019 attachedderive1636..1638/closing3508..3510 completes scopedfunctions, unrelated1633..1635notcredit."
+    },
+    "supplier_refs": [
+      "native/admission03/contract-groups-020.json#geographic-component-and-pair-admission",
+      "camera/admission03/sats-basispoints-route-001.json"
+    ],
+    "coverage": [
+      {
+        "index": 396,
+        "ranges": [
+          [
+            1,
+            49
+          ]
+        ]
+      },
+      {
+        "index": 397,
+        "ranges": [
+          [
+            1,
+            83
+          ]
+        ]
+      },
+      {
+        "index": 398,
+        "ranges": [
+          [
+            1,
+            330
+          ],
+          [
+            1636,
+            1690
+          ],
+          [
+            1768,
+            1909
+          ],
+          [
+            2670,
+            3510
+          ]
+        ]
+      }
+    ]
+  },
+  "finding": {
+    "id": "ROOT-ADM-F007",
+    "at": "2026-10-22T07:33:56.953063+00:00",
+    "lens": "audit-admission-contracts",
+    "source_id": "pr-working:crates/adventuresim-world-schema/src/lib.rs",
+    "classification": "checked_geographic_route_values_have_bypassing_safe_admission_routes",
+    "routes": {
+      "travel_geometry": {
+        "ranges": [
+          [
+            1778,
+            1809
+          ]
+        ],
+        "counterexample": "Public TravelGeometryPoint{longitude_e7:i32::MAX,latitude_e7:0} or derived Serde accepts axis value rejected by canonical LongitudeE7; longitude() then expects checkednew and panics. Same latitude. Actual Native020 inclusive axis predicate proof consumed. No observed current badcaller/runtime execution.",
+        "remedy": "Retain canonical checked geographic components through actual record API/Serde/SATS/consumers, extract primitive at real schema/format projection. Remove recheck-expect; no compatibility duplicate shape or forced source/playable-region membership."
+      },
+      "bounded_named_products": {
+        "ranges": [
+          [
+            1636,
+            1690
+          ],
+          [
+            1830,
+            1908
+          ],
+          [
+            2683,
+            2718
+          ],
+          [
+            2803,
+            2911
+          ],
+          [
+            2914,
+            2958
+          ]
+        ],
+        "counterexample": "ElevationMeters,WaterDistanceMeters,StrahlerOrder,EdgeProgressPermille and five bounded_route_metric expansions have checkednew/manualSerde but no reprC, named private primitive fields, deriveSpacetimeType; Camera exact macro route001 independently constructs raw named fields without constructor. RouteElevationProfile private Vec likewise namedSATScannot enforce 2..1001/sortedunique0..1000endpoints though customSerde does. ScalarSATS can also feed invalid typedleaves into RouteElevationProfile::new, which validates only lengths/progressordering, unlike validate_raw explicitleafrechecks. Featureon only, actual Core/DBfeatureproof Camera020.",
+        "remedy": "Canonical scalar and profile admission must govern all enabled decoder/validate routes, preserve0wherevalid/signedgrade/Elevation-500..9000/endpointbounds/exact wire authority. No assumption Serdetry_from repairs SATS. Source macro supplier pinned receipt135204893e6a2f2b966eb1c10bf622a05ee5745becf97c36966cd49cdf084d8e consumed; no independent foreigngraph credit."
+      },
+      "route_terrain": {
+        "ranges": [
+          [
+            3076,
+            3188
+          ],
+          [
+            3453,
+            3494
+          ]
+        ],
+        "counterexample": "Public fields admit mean_slope>max_slope or contradictory grade signs using individually valid scalar constructors, while manualDeserialize callsvalidate and rejects. Postdecode mutation canbreak invariant; deriveSATS bypasses validation and collection bounds. validate_context is separate currentroute/length-derived correlation and not promised by mere localvalidate.",
+        "remedy": "Separate raw/stageintermediate and canonical accepted aggregate via clean owned typedAPI; route every claimedaccepteddecoder/state transition through realpredicate. Stageplaceholder is explicit temporary workflow role, no fabricated finished terrain/certification. Preserve contextual validation andsource provenance."
+      }
+    },
+    "boundaries": "Ordinary closed enums decode valid variants. ReligionHours/Minutes are raw broad pubfields and explicitnormalizing operations, not validatednumericowners; no invented globalupperbounds. WaterDistance0 valid; Strahler0invalid; elevationnegativevalid; continuousNativeTerrainCoordinate mayleaveWGS84. No schema mutation/generator/build/tests now.",
+    "repair": "frozen_initial_all13",
+    "validation": "not_established"
+  }
+}

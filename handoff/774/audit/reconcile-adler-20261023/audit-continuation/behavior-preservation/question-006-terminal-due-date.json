@@ -1,0 +1,25 @@
+{
+  "id": "CONT08-Q006",
+  "classification": "Unchanged terminal-clock recurrence policy/receiver dependency, no08 regression or new unique finding.",
+  "source": {
+    "scope_index": 91,
+    "sha256": "df32e607c73acd197551466beee4a77c3ae77bed0dbaa41d781d6c596a4aff45",
+    "ranges": [
+      [
+        292,
+        367
+      ]
+    ]
+  },
+  "question": "Does actual StrategicMinute admission/DB settlement receiver exclude or terminally mark final representable due date?",
+  "analytical_witness": "next_due=through=maximum representable minute, funds>=charge>0. Checked due iterator yields final date once then ends, while returned next_due saturates same maximum. Reusing returned state at same frontier can bill final date again unless receiver receipt/terminal guard prevents it.",
+  "limits": "Calendar body and actual persistent receiver not yet consumed in own08. No ordinary timeline reachability, actual debit/retry or native execution claimed. Root asked for exact alias/policy; own07 narrow search noexactmatch is not exhaustive dedup proof.",
+  "next": "Read actual calendar bounds and residence billing receiver; disposition finding, intentional boundary exclusion, or explicit terminal-clock policy. Preserve original practical chunk fixtures.",
+  "resolution": {
+    "at": "2026-10-25T09:13:49.963190+00:00",
+    "existing_finding": "ROOT-INITIAL04-F046",
+    "evidence": "audit/continuation/root/initial04-invariant-operations/findings.jsonl:46",
+    "status": "Exact finding personally consumed. API terminal boundary witness, no new08regression/count.",
+    "qualification": "Retains existing canonical exhausted-timeline repair, inclusive period/partial funds/zero-charge/failure-retry semantics. No current calendar/DB runtime coverage inferred from inherited04 proof; own08 local unchanged body/diff stands independently."
+  }
+}

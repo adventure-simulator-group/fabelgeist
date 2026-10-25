@@ -1,0 +1,352 @@
+{
+  "id": "CONT08-FINAL-HANDOFF",
+  "at": "2026-10-25T18:56:27.733480+00:00",
+  "handoff_reason": "User requests complete portable evidence handoff to Adler on another machine now; stopped discovery, no assertion audit complete.",
+  "lens": "08 behavior-preservation",
+  "skill": "/home/brunosegovia/.codex/skills/audit-behavior-preservation/SKILL.md",
+  "status": "INCOMPLETE WITH FINDINGS AND QUALIFICATIONS; STOPPED FOR HANDOFF",
+  "paths": {
+    "artifact_root_alias": "R = extracted reconcile-adler-20261023 package root",
+    "directory_relative_to_R": "audit-continuation/behavior-preservation",
+    "portability": "Original proof JSON retains producing-machine absolute paths as provenance. Resolve paths below R by suffix; recovered-sources/objects/<sha> and this directory/source-evidence/ contain exact bytes. Do not substitute a current checkout. Final handoff source references below are R-relative or this-directory-relative.",
+    "authoritative_progress": "progress.json",
+    "per_source_receipts": "coverage.jsonl and contract-groups-*.json",
+    "last_complete_packet": "contract-groups-424.json",
+    "latest_consumed_partial_packet": "contract-groups-425-partial-handoff.json",
+    "source_inventory": "source-inventory.json",
+    "shared_catalog": "recovered-sources/catalog.json",
+    "shared_scope": "audit/continuation/cumulative-source-scope-parallel-072.json",
+    "shared_later_material": "audit-continuation/source-extensions.json",
+    "current_status": "AUDIT-CURRENT.json"
+  },
+  "pins": {
+    "PR_base": "3a50b708381ad00c116445c2c999a49c3943088b",
+    "PR_archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+    "PR_four_working_overlay_origin": "36c97923da8ee84d0ab8994e7cfedf6a0cdea641",
+    "P16_base": "a120390947c89b703dc74c4255a13c035d054c50",
+    "P16_preserved_dirty": "039329518e264f19206cf5b0b98d177433f40c17",
+    "P17_base": "18360adba0fb43add88c75dfbd2f45d7e71d8ace",
+    "P17_preserved": "90a422a453cd990ebc7f0ecf2ad5ed3e2d57d696",
+    "rig_preserved": "cbbbca08c89a8768926799371f54cf6057312e5e",
+    "frozen_merged_local774": "13fc9dcc71ab879de364117e5462310673e43210",
+    "qualification": "Distinct variants and before/after pairs; exact hashes prove recovery only, not source audit/head clearance. P16/P17 isolated unfinished behavior is not automatically merged774 regression."
+  },
+  "coverage": {
+    "original_total": 2853,
+    "exact_roles_accounted": 1469,
+    "complete_original_prefix_inclusive": [
+      0,
+      1440
+    ],
+    "complete_original_indices_authority": "progress.json.completed_original_indices",
+    "recorded_bounded_original_comparisons": 1497,
+    "recorded_separate_source_contracts": 17,
+    "new_partial_not_added_to_counts": "contract-groups-425-partial-handoff.json seven rows; range receipt only",
+    "first_unfinished_original_index": 1441,
+    "mandatory_overlays": {
+      "total": 246,
+      "accounted": 0
+    },
+    "merged": {
+      "total": 38,
+      "accounted": 3,
+      "accounted_paths": [
+        "crates/adventuresim-character-creator/src/device_fit.rs",
+        "crates/adventuresim-character-creator/src/main.rs",
+        "crates/adventuresim-tactical-client/src/camera/collision/tests.rs"
+      ]
+    },
+    "latest_shared_extensions": 173,
+    "shared_extensions_limit": "Full latest173 reconciliation incomplete; ownnative169 exact70\u2013108/116\u2013180 covered420, other source reuse only matching actual own-lens receipts. No rolecountunion with otherlenses.",
+    "historical_qualification": "No completed08 baseline was adopted; completed02/07 and adopted03/06 evidence do not transfer08 clearance."
+  },
+  "partially_consumed_frontier": [
+    {
+      "scope_index": 1441,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs",
+      "after_sha256": "256fd3e5455eea95b629cf6ee1f856cb2149bb522d91b81d8bd9820c801161e6",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation_viewer/scenarios.rs",
+      "line_count": 1409,
+      "head_object": "recovered-sources/objects/256fd3e5455eea95b629cf6ee1f856cb2149bb522d91b81d8bd9820c801161e6",
+      "saved_diff": "source-evidence/pr-1441.diff",
+      "saved_diff_sha256": "6d7297c2e0709f928a7ad09393682f3b8b07b772e3001a6da32e41b0db517ced",
+      "saved_base_object": "source-evidence/pr-1441-base-66d93ce5dd6c0e60109815c376d117c87f71030fcf350f1bc4ce4f97c4f9d9fa",
+      "before_sha256": "66d93ce5dd6c0e60109815c376d117c87f71030fcf350f1bc4ce4f97c4f9d9fa",
+      "head_read": [
+        [
+          1,
+          1409
+        ]
+      ],
+      "actual_diff_read": [
+        [
+          1,
+          2116
+        ]
+      ],
+      "method": "All current head bodies; all actual diff old/context/hunk lines with original diff line IDs. All added bodies consumed in current head.",
+      "status": "PARTIAL contract comparison: source/diff consumed, actual numerical supplier comparisons pending. Do not reread the whole scenario file.",
+      "facts": [
+        "Authored scenario collection order, complete steady-cycle postwrap sample, movement/tap/stop/chatter/attack/start-transition constants and existing source fixture oracles personally compared.",
+        "Extracted raised_guard/right_support/attacks families match old ordered list; exact scalar producer and typed error edge comparisons still pending.",
+        "Zero/signed custom helper inputs have not been classified as new defects; supplied built-in calls use positive steady speeds. Native float\u2192usize frame-count expression remains; no execution."
+      ]
+    },
+    {
+      "scope_index": 1442,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/admission.rs",
+      "after_sha256": "7d0001581edb1446088662238b20c1f4e4d2f8f30f69d47aac54402e9af2dc80",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/admission.rs",
+      "line_count": 43,
+      "head_object": "recovered-sources/objects/7d0001581edb1446088662238b20c1f4e4d2f8f30f69d47aac54402e9af2dc80",
+      "saved_diff": "source-evidence/pr-1442.diff",
+      "saved_diff_sha256": "54f02ba549097549e8331ad28f0b1ff500cbec62fc2ac400c8ef3a921a07f6a3",
+      "head_read": [
+        [
+          1,
+          43
+        ]
+      ],
+      "actual_diff_read": {
+        "shape": "new-file all-added body read in full"
+      },
+      "status": "PARTIAL: authored constants wrappers read; actual canonical tactical_sprint_speed producer comparison pending1888."
+    },
+    {
+      "scope_index": 1443,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/plan_families.rs",
+      "after_sha256": "8e07b8a223fec8cbfa46b35aedc1732f3ff056c3000abf8db68f322517119d66",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/plan_families.rs",
+      "line_count": 190,
+      "head_object": "recovered-sources/objects/8e07b8a223fec8cbfa46b35aedc1732f3ff056c3000abf8db68f322517119d66",
+      "saved_diff": "source-evidence/pr-1443.diff",
+      "saved_diff_sha256": "f2daaa78d2673310e67595f54efaac426159e9fe78954febc6af535ae726dc39",
+      "head_read": [
+        [
+          1,
+          190
+        ]
+      ],
+      "actual_diff_read": {
+        "shape": "new-file all-added body read in full"
+      },
+      "status": "PARTIAL: ordered raised/right-support/attack arrays read, actual old list in1441 diff consumed; lower numerical supplier dependencies pending."
+    },
+    {
+      "scope_index": 1444,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/quickstep.rs",
+      "after_sha256": "33077519d29facefe510e67394af05f51874b1324ce3b4a8de4f27b657852e9c",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/animation_viewer/scenarios/quickstep.rs",
+      "line_count": 183,
+      "head_object": "recovered-sources/objects/33077519d29facefe510e67394af05f51874b1324ce3b4a8de4f27b657852e9c",
+      "saved_diff": "source-evidence/pr-1444.diff",
+      "saved_diff_sha256": "1ee98a230ac44b337e93ba08ff6232601dfbd6c0d8adeae729998ede3cdd29d4",
+      "head_read": [
+        [
+          1,
+          183
+        ]
+      ],
+      "actual_diff_read": {
+        "shape": "new-file all-added body read in full"
+      },
+      "old_counterpart": "1441 actual diff987\u20131123 and moved source-fixtures1745\u20131758 personally consumed",
+      "status": "PARTIAL: default quickstep force/displacement/velocity loops and moved fixture oracles read; actual current PR1886/1889 numerical supplier comparisons pending. No trajectory computed or tests run."
+    },
+    {
+      "scope_index": 1785,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/guard_geometry.rs",
+      "after_sha256": "c0b137fbc417c7f671619a3cc9cc4b76cd30973682db603b40b27a6729ef5f2f",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/animation/state/guard_geometry.rs",
+      "line_count": 123,
+      "head_object": "recovered-sources/objects/c0b137fbc417c7f671619a3cc9cc4b76cd30973682db603b40b27a6729ef5f2f",
+      "head_read": [
+        [
+          1,
+          115
+        ]
+      ],
+      "actual_diff_read": [],
+      "old_counterpart": "1781 base2950\u20132982 and2990\u20133037; old guard_step_length ignored speed, and open/closed/travel scalar formulas read.",
+      "status": "PARTIAL: kernels1\u201386 compared with old scalar guard geometry; test starts88 and was consumed only through115, remainder and full actual diff pending."
+    },
+    {
+      "scope_index": 1781,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state.rs",
+      "after_sha256": "48d075954cf0381f63c73815380ed47c37be6c35e30c573b6839e74c21572557",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/animation/state.rs",
+      "line_count": 2069,
+      "head_object": "recovered-sources/objects/48d075954cf0381f63c73815380ed47c37be6c35e30c573b6839e74c21572557",
+      "saved_diff": "source-evidence/pr-1781.diff",
+      "saved_diff_sha256": "6136eeebb65b4766970a23818ea976915a3c362d205f84ad93396dccd6476762",
+      "saved_base_object": "source-evidence/pr-1781-base-47c04943f11bc1d221e680cfdf8a44b05c9face66c7aa14279e6d7eee807aa7b",
+      "before_sha256": "47c04943f11bc1d221e680cfdf8a44b05c9face66c7aa14279e6d7eee807aa7b",
+      "base_read_additional": [
+        [
+          2490,
+          2505
+        ],
+        [
+          2950,
+          2982
+        ],
+        [
+          2990,
+          3037
+        ]
+      ],
+      "status": "PARTIAL old producer facts only; no full current1781 body/diff credit."
+    },
+    {
+      "scope_index": 1789,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state/turn_deadline.rs",
+      "after_sha256": "bb92ce4b2c2252c6c68cc37955cba5f4d2c90ccdab05a4456a632a7f4adadc4e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/animation/state/turn_deadline.rs",
+      "line_count": 432,
+      "head_object": "recovered-sources/objects/bb92ce4b2c2252c6c68cc37955cba5f4d2c90ccdab05a4456a632a7f4adadc4e",
+      "saved_diff": "source-evidence/pr-1789.diff",
+      "saved_diff_sha256": "561a0feefe257d6e27ff4bbd935cee40ff3cd37779099fd7b530fe2bb680dfc9",
+      "saved_base_object": "source-evidence/pr-1789-base-2b9e0250057ef1d5001b4451bae195193d8e5270d766e0a3f569cb843f34bf6f",
+      "before_sha256": "2b9e0250057ef1d5001b4451bae195193d8e5270d766e0a3f569cb843f34bf6f",
+      "head_read": [
+        [
+          20,
+          115
+        ]
+      ],
+      "base_read": [
+        [
+          1,
+          40
+        ]
+      ],
+      "status": "PARTIAL only: body-facing tracking_residual/native rate/half-turn config projection compared for1433; whole432 body/full actual diff pending."
+    }
+  ],
+  "next_exact_action_when_audit_resumed": "Resume comparison at original1441 using saved whole head/diff; connect current PR1886 physics.rs quickstep_push_duration180+/quickstep_motion_target232+, PR1888 movement_speed.rs tactical_sprint_speed99+, PR1889 quickstep.rs action_contact_ticks73+ against actual old producers and exact own prior variant proof. Do not assume P16 equals PR. Then finish1441\u201344 disposition and next1446setup/1447view, with1445/1448 already complete. No new discovery authorized during handoff.",
+  "outstanding_policy_questions_Q023_Q025": [
+    {
+      "id": "CONT08-Q023",
+      "evidence": "question-023-pelvis-case-policy.json",
+      "status": "Exact custom/API behavior difference; case-policy ambiguity, no ordinary authored runtime regression established.",
+      "trigger": [
+        "Old1331base753\u2013756 detects pelvis name.eq_ignore_ascii_case(\"root\"), including ROOT; oldterrainreference1072\u20131082 samewidepredicate. Oldlowerbody1326base401\u2013416 alsoignorecase.",
+        "New1326:277\u2013301 binds originalName intoAuthoredRigJoint1406:31\u201338; Lower classification1406:42\u201371stillignorecase butrole1391:200\u2013204 exactRigJointName lookup. ThusROOT remainsLower withroleNone. New1331:760\u2013910 pelvis specialblend requiresrolePelvis and1406:80 CombatUpperincludes onlyUpperorPelvis; terrainreference1331:1003\u20131016 alsoexactrole.",
+        "For a custom bound ROOT rig and concurrentCombatUpper/CombatLower contributions, oldROOT participatesupper/pelvis rotation composition and supplieslocomotionreference; newexcludesupperfromLowerROOT andhasnocomposition/reference. Ordinary exactroot unchanged."
+      ],
+      "qualification": [
+        "README1302:601 explicitly documents case-sensitive proceduralhumanoid names, supporting intentional exact-role interpretation; does not explicitly explain narrowing oldposebuffer predicates. UnfamiliarRigJointName remainsvalid; no existing uppercaseROOTasset orordinarycaller established.",
+        "No tests/run/render performed; metadataaliaslookup pending. This is no globalcase-insensitive requirement."
+      ],
+      "coordinator_lookup": "Root170/Adler1002 metadata lookup no exactcasepolicyalias, noacceptedchangeofcasepolicy found. Metadataabsence notuniquenessproof; conditionalROOTwitness retained."
+    },
+    {
+      "id": "CONT08-Q024",
+      "evidence": "question-024-body-response-norm-policy.json",
+      "status": "Source-confirmed finite API behavior difference; intent of norm-range narrowing unresolved. No ordinary movement/runtimeclaim.",
+      "trigger": {
+        "velocity_metres_per_second": [
+          0,
+          0,
+          "1e20_f32"
+        ],
+        "acceleration_metres_per_second_squared": [
+          0,
+          0,
+          0
+        ],
+        "braking_scale": 1,
+        "config": "Existingdefaultpositive runreferencespeed5.5,steadytravel16degrees,maximumtravel18degrees,maximumresponse30degrees."
+      },
+      "qualification": [
+        "No ordinary producer established for magnitude1e20; gameplay motor likely bounded butthatbound notassumed/creditedhere. Directcurrenttypeconstruction admitsvector andrecipient explicitly rejects derivednorm.",
+        "DistinctfromCONT08-SUPPORT-004 landingcompression multiplication-before-clamp; same general preservewholeboundedkernelpolicy question doesnotproveexactfindingalias.",
+        "No numericalprogram/test/visualrun; mathematicalsourcecomparisononly. Acceptedintent mustchoose whether finitevector alone ismeaningful ornormrepresentability is intended admission."
+      ],
+      "coordinator_lookup": "Rootlocal170+Adler1002+currentinvestigatorfindingsmetadata: no exactnormrejectionalias oracceptednarrowingpolicy found. Own09F108 optionalpitch/rollcorrelation distinct. Absenceisnotsemanticuniquenessproof; finitecustomvectorqualificationretained."
+    },
+    {
+      "id": "CONT08-Q025",
+      "evidence": "question-025-eager-ik-budget-policy.json",
+      "status": "OPEN:custom configuration behavior/intent question;noordinarydefault/runtimeclaim",
+      "trigger": "Otherwise coherent default config with raised_settle_step_metres=-1 (finite SignedLength). Ordinary/raised guard frame that does not enter raised-handoff settle; defaultsampleHz remainspositive64. Alternative: unused finite budget whose product withpositiveHz overflows.",
+      "qualification": "No executed run; no default config fault or ordinary authored asset claim; negativebudget may warrant explicit stronger config admission policy, but no accepted authorization established. Whole1860config file remainsunread, nofullrolecoverage. Exact sharedalias/intent unresolved.",
+      "coordinator_lookup": "Root exactAdler1002/local171/currentinvestigator metadata search found no exactalias/acceptedallbudgetadmissionnarrowing;not semantic uniquenessproof"
+    }
+  ],
+  "all_open_policy_ids": [
+    "CONT08-Q002",
+    "CONT08-Q003",
+    "CONT08-Q008",
+    "CONT08-Q009",
+    "CONT08-Q010",
+    "CONT08-Q011",
+    "CONT08-Q012",
+    "CONT08-Q014",
+    "CONT08-Q015",
+    "CONT08-Q017",
+    "CONT08-Q019",
+    "CONT08-Q022",
+    "CONT08-Q023",
+    "CONT08-Q024",
+    "CONT08-Q025"
+  ],
+  "outstanding_evidence_and_resolutions": {
+    "connected_animation": "connected-animation-001.json; only its actual uncompleted dependencies remain, never replay completed source roles",
+    "source_supports": [
+      "CONT08-SUPPORT-001-P16-SIGNED-COMPARISON",
+      "CONT08-SUPPORT-002-DAMAGE-SHARES",
+      "CONT08-SUPPORT-003-FORECAST-TERMINAL",
+      "CONT08-SUPPORT-004-LANDING-COMPRESSION-CLAMP",
+      "CONT08-SUPPORT-005-QUICKSTEP-CAPPED-SCALE",
+      "CONT08-SUPPORT-006-P16-LUNGE-FIXTURE",
+      "CONT08-SUPPORT-007-P16-IMPACT-POSITION-RECEIVERS",
+      "CONT08-SUPPORT-008-DB-BILLING-TERMINAL"
+    ],
+    "migration_supports": [
+      "CONT08-MIGRATION-001",
+      "CONT08-MIGRATION-002"
+    ],
+    "resolved_questions": {
+      "CONT08-Q005": "ROOT-ADM-F006",
+      "CONT08-Q006": "ROOT-INITIAL04-F046",
+      "CONT08-Q007": "ROOT-INITIAL04-F039",
+      "CONT08-Q004": "question-004-profile-finite-result.json",
+      "CONT08-Q001": "question-001-owned-movement-result.json",
+      "foraging_postcheck_retained_alias": "qualified-011-forage-fatigue-retained-alias.json",
+      "CONT08-Q013": "SEGO-INITIAL05-F002",
+      "CONT08-Q016": "SEGO-INITIAL05-F003",
+      "CONT08-Q018": "SEGO-INITIAL05-F004",
+      "CONT08-Q020": "NATIVE-INITIAL05-F051",
+      "CONT08-Q021": "SEGO-INITIAL05-F009"
+    },
+    "important_merged_resolution": [
+      "qualified-008-waist-append-merged-resolution.json: RIG-CODE-001 historical6533 append Result issue fixed in exact13fc merged source.",
+      "qualified-009-main-catalogue-design-merged-resolution.json: historical Item\u2192CatalogItem mismatch resolved in merged; do not call current merged compilefailure."
+    ],
+    "other_intent_questions": "Q002/Q003/Q008/Q009/Q010/Q011/Q012/Q014/Q015/Q017/Q019/Q022 retained exact qualified files, not reclassified as ordinary regressions."
+  },
+  "root_F011_F012_relation_metadata": [
+    {
+      "id": "SEGO-INITIAL05-F011",
+      "evidence_relative_to_R": "audit-continuation/aggregate-states/source-support-009-visible-vista-selection.json",
+      "relation": "Coordinator-provided aggregate-state retained defect metadata only; no own08 source coverage or exact alias asserted. Shared M61/M66/M72/M76 dependencies are not automatic defect aliases.",
+      "source_claim": "1636 visible_lods.take(maximum_lods) vs1674 retained bundle.lods.take(2); maximum_lods1 can sample unrenderedsecondLOD. Coordinator traced actual1626 detailpatch and1964 core.",
+      "qualified_witness": "Flat3x3 spacing2height10, first5x5spacing2height20, second5x5spacing4height40,maxLOD1,local(3,0): visible-only seam15 vs retainedmorph22.5. Samebase/merged source, no renderer/test/defaultfailure claim.",
+      "own08_disposition": "Pending original source frontier; relate earlier07F080/M64 only after exact comparison, do not invent alias from Vista/LOD topic."
+    },
+    {
+      "id": "SEGO-INITIAL05-F012",
+      "evidence_relative_to_R": "audit-continuation/aggregate-states/source-support-010-original-building-relocation.json",
+      "relation": "Coordinator-provided aggregate-state conditional retained defect metadata only; no own08 coverage or new08regression. SharedM77/M66/M70 dependency, exact alias unresolved by ownsource.",
+      "source_claim": "1694 street107\u2013113/188\u2013200 overwrites originalbuildingT0 move withintermediateT1 when twoPlaceIDs selectsamebuilding through1635:61\u201387 fallback; furniture staysT0 until final transform.",
+      "qualified_witness": "Two accepted Innplaces/nopeople selectsamebuilding: final applies Tf*inverse(T1)*p vs neededTf*inverse(T0)*p. Algebra/acceptedinputconditional, no defaultfixture/run; existing singlebuildingperplacefixture doesnotcoveralias."
+    }
+  ],
+  "prohibitions_and_limits": [
+    "No source repairs, implementation plan, tests, project checks, builds, CI, push or publication performed in this continuation.",
+    "No SDK-wide, renderer, browser, network, DB or numerical execution claimed. Source fixture assertions were read, never run.",
+    "Do not equate source recovery/metadata/reconciliation with semantic discovery; do not use newer-main hashes/CI as clearance.",
+    "Current handoff is a saved unfinished frontier, not terminal model capacity failure. Stop now per user; continue only on later authorization."
+  ]
+}

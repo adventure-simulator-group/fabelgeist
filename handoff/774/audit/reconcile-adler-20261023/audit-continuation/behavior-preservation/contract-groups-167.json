@@ -1,0 +1,83 @@
+{
+  "id": "CONT08-CONTRACT-167",
+  "at": "2026-10-25T13:28:35.709243+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 646,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/layout.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/model/layout.rs",
+      "before_sha256": "f19587b5c651091d18b720268e43f9bdef0e2ca083b33b57d53cbdbccb1be298",
+      "after_sha256": "f19587b5c651091d18b720268e43f9bdef0e2ca083b33b57d53cbdbccb1be298",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0646-base-f19587b5c651091d18b720268e43f9bdef0e2ca083b33b57d53cbdbccb1be298",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/f19587b5c651091d18b720268e43f9bdef0e2ca083b33b57d53cbdbccb1be298",
+      "diff": "source-evidence/pr-0646.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          452
+        ]
+      ],
+      "facts": [
+        "Full 452-line frozen body and exact empty PR diff read. Room/Wall/Opening/Storey, roof assembly/edge/abutment, tower and Stair payload field and variant ordering remain unchanged. Cardinal half-cell centres and signed roof underside operation order are preserved.",
+        "RoundTower custom deserialization still validates only anchor/diameter grid parity via rem_euclid, including negative anchors. Native public heights/thicknesses, SquareTower and stair counts are unchanged; this is not whole-aggregate admission clearance."
+      ],
+      "disposition": "Source-local own08 comparison accounted WITH exactlowerowner155support andremainingmaterialrecipient qualifications.",
+      "acceptance": "Preserve nativefloat/vertex/winding/material/UV/index/order/sourcecontracts andexactfixtures; no rendered/native/test/checkexecution."
+    },
+    {
+      "scope_index": 647,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/plan.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/model/plan.rs",
+      "before_sha256": "23e353759ff4ea8be954680fcc550feac57d3b56a6e3086d92ad46e5d5692f6d",
+      "after_sha256": "23e353759ff4ea8be954680fcc550feac57d3b56a6e3086d92ad46e5d5692f6d",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0647-base-23e353759ff4ea8be954680fcc550feac57d3b56a6e3086d92ad46e5d5692f6d",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/23e353759ff4ea8be954680fcc550feac57d3b56a6e3086d92ad46e5d5692f6d",
+      "diff": "source-evidence/pr-0647.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "facts": [
+        "Full 53-line frozen body and exact empty PR diff read. BuildingPlan source/program/native geometry/semantic assembly fields and existing serde(default) wall_style_overrides retain their representation. dimensions_metres preserves u16-to-f32 then CELL_SIZE_METRES multiplication.",
+        "Plan/program coherence remains a retained conditional contract question, not a new behavior regression."
+      ],
+      "disposition": "Source-local own08 comparison accounted WITH exactlowerowner155support andremainingmaterialrecipient qualifications.",
+      "acceptance": "Preserve nativefloat/vertex/winding/material/UV/index/order/sourcecontracts andexactfixtures; no rendered/native/test/checkexecution."
+    },
+    {
+      "scope_index": 648,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/resolved_shapes.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/model/resolved_shapes.rs",
+      "before_sha256": "485156188b8c858094e576418d153b0e315f06c01ef25685a6e11eb97e60a56b",
+      "after_sha256": "485156188b8c858094e576418d153b0e315f06c01ef25685a6e11eb97e60a56b",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0648-base-485156188b8c858094e576418d153b0e315f06c01ef25685a6e11eb97e60a56b",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/485156188b8c858094e576418d153b0e315f06c01ef25685a6e11eb97e60a56b",
+      "diff": "source-evidence/pr-0648.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          447
+        ]
+      ],
+      "facts": [
+        "Full 447-line frozen body (1\u2013165 earlier, 167\u2013447 now) and exact empty PR diff read. ID newtypes, structural/solid/surface/void variant order and snake_case/internal-tag wire payloads unchanged. Crown drainage width remains .12. Native shape payloads remain independently representable.",
+        "ResolvedSolid deserialization still reads native centre/size/angles then CollisionCuboid::from_metres and Self::new; cuboid_envelope copies exactly id/position/size/three angles. Common leaf owner extraction is bounded by own155, preserving wire/native rounding and zero-size admission. No new guarantee relating shape parameters, support identities and envelope inferred."
+      ],
+      "disposition": "Source-local own08 comparison accounted WITH exactlowerowner155support andremainingmaterialrecipient qualifications.",
+      "acceptance": "Preserve nativefloat/vertex/winding/material/UV/index/order/sourcecontracts andexactfixtures; no rendered/native/test/checkexecution."
+    }
+  ],
+  "next": "649 room_index then650 walls"
+}

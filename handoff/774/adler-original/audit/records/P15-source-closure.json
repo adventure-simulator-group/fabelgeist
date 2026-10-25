@@ -1,0 +1,51 @@
+{
+  "family": "P15",
+  "status": "source-complete; unvalidated",
+  "base": "e329c7dd8",
+  "canonical_owners": "tactical-core inventory::chronology::{EquipmentSequence,EquipmentRevision}; distinct u32 roles, no reuse of PlayerInputTick",
+  "paths": [
+    {
+      "producer": "GrabSession::default next cursor = EquipmentSequence::FIRST; update_grab_input reads actual EquipmentActionState.revision",
+      "retained": "EquipmentActionRequest typed sequence/revision -> PendingEquipmentActions -> LastEquipmentSequence Option history and authoritative EquipmentActionState",
+      "receiver": "process_equipment_actions compares checked owners; record_action_outcome commits actual observed sequence and next revision only on successful action",
+      "boundary": "Derived transparent u32 Serde preserves existing event/component wire shapes. Only actual tracing fields call encoded(). No internal scalar forwarding/reconstruction."
+    },
+    {
+      "producer": "Native DB EquipmentOccupancy table query and transaction-local reserved_capacity set",
+      "retained": "AttachmentCapacity::{Free,Reserved,Occupied(actual native u64 ID)}",
+      "receiver": "first_free_attachment_capacity scans existing u16 capacity indices, accepts Free or actual same-item occupancy, skips Reserved",
+      "boundary": "Focused local storage adapter consumes schema-native capacity and item IDs. No duplicate item identity owner, schema change, fake ID or compatibility path."
+    }
+  ],
+  "preservation": [
+    "First client send remains1; cursor advances only when a request can actually be formed",
+    "Initial server admission retains original range 1..=u32::MAX/2 as an explicit initial policy, without synthesizing observed0",
+    "After an actual observation the same wrapping difference and half-range comparison apply; actual zero follows MAX and is retained",
+    "Sequence and revision remain independent; actual initial authoritative revision is0; missing revision never becomes0",
+    "Client drops an equipment release with unavailable authoritative state, clears the grab and consumes no sequence; next release after replicated state arrives uses its actual revision",
+    "Rejected server actions never advance history/revision; success alone commits both",
+    "Reconnect transfers typed prior history and snapshot revision to the new entity; queue purge/rekey/expiry receiving bodies read, unchanged",
+    "All native DB item IDs including MAX retain equality meaning; a reservation is a distinct state and cannot match any ID",
+    "Original capacity fixture values, chronological fixture inputs, test names and assertions preserved; no tests added"
+  ],
+  "receiving_bodies_read": [
+    "netcode message MapEntities fixtures and Ordered replication registration",
+    "server queue/process/record_action_outcome",
+    "server equipment/lifecycle reconnect and purge",
+    "server player_projection reconnect snapshot capture/restore, on_join_request and disconnected expiry",
+    "server combat_projection_state actual initial EquipmentActionState::default",
+    "client full update_grab_input and GrabSession construction sites",
+    "DB full equipment reservation query, replacement fallback, occupancy writes, and existing capacity helper fixture"
+  ],
+  "source_review_findings_resolved": [
+    "Removed duplicated nested fixture import introduced by an over-broad text replacement before source completion",
+    "All global EquipmentActionRequest constructors and EquipmentActionState references traced; other sequence/revision concepts excluded by semantic owner, not spelling"
+  ],
+  "limits": [
+    "No compiler/project checks/runtime/CI executed",
+    "DB crate test=false and doctest=false remain unchanged; its existing pure capacity unit fixture cannot be represented as an executed Cargo-test acceptance result. Existing authority-tests reducers can compile under existing hosted all-feature gates, no live DB mutation is authorized or performed.",
+    "Initial admission, wrap and MAX behavior established by source inspection only until relevant existing checks execute"
+  ],
+  "hosted_ci_requested": false,
+  "updated_at": "2026-10-21T07:26:14.715672+00:00"
+}

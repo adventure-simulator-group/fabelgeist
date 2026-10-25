@@ -1,0 +1,84 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-611",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/model/storey_index.rs",
+      "sha256": "399c8ab44cc2dd0c22df8ab1cb88d4284837f7aaccd08f14cb1e4fefcd58c05c",
+      "actual_EOF": 137,
+      "actual_compared_ranges": [
+        [
+          1,
+          137
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/plan_geometry.rs",
+      "sha256": "a767ca4e45d2c04ddf94d1f23452ecbb3a5c6c864bc8ce63fc673e6f39e5b92b",
+      "actual_EOF": 341,
+      "actual_compared_ranges": [
+        [
+          1,
+          341
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/presentation/interior_lighting/field.rs",
+      "sha256": "cbc42cdf56bc3c26ad2b18de8e3c7729729adf374864c725afb51d3739be7dd0",
+      "actual_EOF": 206,
+      "actual_compared_ranges": [
+        [
+          1,
+          206
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/sample_rate.rs",
+      "sha256": "744e4868234738f05d7030c0cbae4c057fcbad21d41987b955e6895f3f9d5093",
+      "actual_EOF": 86,
+      "actual_compared_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "P16 ordinal derivation andfiniteconvex topology operations",
+      "evidence": "Complete137+341read. Storeyelevation ratio\u2192round explicitlyrejectsnonfinite/negative/>u16MAXbeforeusize; widthserialization TryFrom retainsoriginalusize. Planpolygon validatesfinite/cardinality/area/winding/all-edgeconvexity/duplicates; topologycross andshiftedoriginarea usef64 off32differences, preservingtinynonzeroarea/largeoffset; try_map readmitwholemappedpolygon; hullsort/dedupgeomzero canonical monotonechains beforeclassifyingempty/point/segment/area.",
+      "qualifications": "Ordinal meaningcohortmembership separate fromrepresentablepackedwidth; roundednegativefraction\u2192\u22120ground intentionalexistingstationpolicy. f64 differences/products offinitef32 fitnormalnativef64; no falsef32overflowclaim. GenericPlanVertexinteriormutablegetter stability istraitcaller contract, no realisticmaliciousimplementation audit demanded.",
+      "acceptance": "Preserve fullpackedzero/max andtypederrors, exactauthoredvertexorder infromordered, no proximityepsilon fordistincttinycontacts."
+    },
+    {
+      "contract": "P16 interior daylight factory/sample storage andshuttercontributionindex",
+      "evidence": "Whole206read. from_plan derivesi16min/maxgrid/levels, allocatesflattenedfield thenindexesactualcell/storey/wall relationships; lightusesroom-specificexterioropenings, fixeddistance2.25 andboundedordinarygeometry; nativeclampRGB sentinelroomid+1 remainsdistinct. sampleconvertsrelativeposition/grid thenboundschecksandindexes.",
+      "qualifications": [
+        "Consumed exact RIG-ADMISSION03-F033 rig/admission03/findings.jsonl record_index32 publicmutabledimensions/samplecardinality bypass; newbodyaddsoperationssupport notduplicatedfinding. from_plan width/depth c\u2212min+1 inoriginalintegerdomain andu32product need executablecardinality/admittedcellrange; no ordinarycurrentnegativefulli16grid witness claimed.",
+        "Consumed RIG03F001 record_index0/OWNER81F005 record_index4 exactshutterfractionpolicy and RIG-OWNER-REACHED-PRODUCER-F007 record_index6 checkedarchitecturaloriginloss. PreserveNaN-ignoreaperturepolicy andRGB+roompackedABI, notallUnitInterval.",
+        "Nativeinvalid/NaNquerysample policy not established fromtypedAPI (rawVec3) alone; actualfirstpartycoordinate/frame admission needed. No newordinarybadcamera/query/run orschema narrow imposed."
+      ],
+      "acceptance": "Coherentindexcapacity beforeallocation/iteration, correctroom/frame/shutter indices andnativequeryfailurepolicy; preserve actualroom0 andoutsidepacked0. Wholefactoryvalidcurrentplanassumptions remain owningaggregatecontract."
+    },
+    {
+      "contract": "P16 authoredsamplefrequency reciprocal pair andspan conversion",
+      "evidence": "Complete86read. Positivefinitefrequency alone distinctfromsampleRatewithcheckedpositivefiniteresiprocal; TryFrom derives reciprocal thenreadmitselapsed andstrictduration; elapsed_for_span performsoriginalf32count/frequency thenreadmitsnonnegativefiniteelapsed. Serializedfrequency retainsoriginalbits.",
+      "qualifications": "AnimationFrequency calibrationneednotrepresentreciprocal, no inappropriate sampleRate substitution. Hugefinitespanratio mayreject orzero allowedelapsed, notinfalliblepositive promise.",
+      "acceptance": "Preservefrequencybits, countbeforedivisionf32order andcontextquantity; no arbitraryminimumsampleperiod."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/fabelgeist-compute/src/prefix_sum.rs"
+}

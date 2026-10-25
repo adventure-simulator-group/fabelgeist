@@ -1,0 +1,33 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-230",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        50,
+        52
+      ],
+      "comparison": "Exact P16 autoresolve2879 and classification65 fully read, including test bodies without running them. F136 owns conditional log attack payload, F137 records three valid armor contact states. Yielded history and current physical incapacitation are independent: both may coexist and outcome gives yielded terminal-cause precedence; never replace with an exclusive healthy/yielded/incapacitated enum that drops facts. Aggregate incapacitation and detailed components are derived together at outcome snapshot; no ordinary stale outcome claim. BattleOpening already owns exclusive Normal/AlliesSurprise/EnemiesSurprise, and awareness is not rerolled. classify_battle_resolution receives immediate named predicates, not retained modes; empty side is intentionally defeated. Transient attack start/contact/measure Options, engagement target/distance and telemetry defense tuples remain candidates requiring child writer traces; do not assume all Options must be Some together. Recovery-until survives canceled attack and is meaningful independent history. AttackEffect.hit differs from positive damage: ToDefender counts as contact hit even when armor absorbs all; a false contact carries zero health damage on reached producer. Summary counters are event aggregates, not exclusive modes; no enum of arbitrary round/index/count. Tests preserve fixed seeds, stable side-independent contact ordering, ranged/melee switching, general fatigue and one encumbrance contribution. All child scheduling/defense/weapon schemas need their own reads.",
+      "disposition": "F136/F137 payload suggestions; independent combat history and actual outcome predicates preserved",
+      "finding_refs": [
+        "SEGO-INITIAL09-F136",
+        "SEGO-INITIAL09-F137"
+      ]
+    },
+    {
+      "indices": [
+        51,
+        53,
+        54
+      ],
+      "comparison": "Exact P16 authored_weapon130, error21 and incapacitation_tests86 read completely. Authored melee projection checks ItemKind::Weapon and rejects not melee-only before constructing coherent melee=true/ranged=false; generic CombatWeapon body and item capability schema are not credited. Timing false literal is an unresolved semantic argument pending owning function. Recipe violations retain typed validation payload and identity; typed transparent errors retain geometry, speed, timing, battle clock and performance causes. Incapacitation tests are source evidence only: general fatigue and other impairment share performance, fatigue adds no movement-speed factor, and inventory burden contributes once through incapacitation. Do not execute or claim test results.",
+      "disposition": "Checked authored projection, typed causes and source-only test contracts preserved",
+      "finding_refs": []
+    }
+  ],
+  "new_findings": [
+    "SEGO-INITIAL09-F136",
+    "SEGO-INITIAL09-F137"
+  ],
+  "limits": "Discovery only; no execution, fixes, checks, implementation plan or lens clearance."
+}

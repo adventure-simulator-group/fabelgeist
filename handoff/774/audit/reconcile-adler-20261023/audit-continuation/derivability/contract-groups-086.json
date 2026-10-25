@@ -1,0 +1,154 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-086",
+  "at": "2026-10-25T12:29:54.411235+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 210,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/preparation_authority.rs",
+      "sha256": "4f06d127e8d7d358ded01b2d1b7eba9116644b53146a476dd780e98344689613",
+      "actual_EOF": 635,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/preparation_authority.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-stdb-module/src/food/preparation_authority.rs",
+        "sha256": "4f06d127e8d7d358ded01b2d1b7eba9116644b53146a476dd780e98344689613",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 24175,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 150,
+            "read_ranges": [
+              [
+                1,
+                635
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-FOOD-PREPARATION-021"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/food/preparation_authority.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-MATERIAL-FOOD-016",
+            "json_pointer": "/current_shared_body_proof/source_records/19",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-stdb-module/src/food/preparation_authority.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                635
+              ]
+            ],
+            "source_context": {
+              "index": 480,
+              "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/preparation_authority.rs",
+              "sha256": "4f06d127e8d7d358ded01b2d1b7eba9116644b53146a476dd780e98344689613",
+              "read_ranges": [
+                [
+                  1,
+                  635
+                ]
+              ],
+              "method": "Fresh whole P16 source and complete actual PR reverse delta, identical common source once where both pinned hashes match"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-MATERIAL-FOOD-012",
+            "json_pointer": "/source_reads/19",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-stdb-module/src/food/preparation_authority.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                635
+              ]
+            ],
+            "source_context": {
+              "packet_obligation": 27,
+              "assigned_camera_index": 480,
+              "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/preparation_authority.rs",
+              "sha256": "4f06d127e8d7d358ded01b2d1b7eba9116644b53146a476dd780e98344689613",
+              "read_ranges": [
+                [
+                  1,
+                  635
+                ]
+              ],
+              "method": "Fresh whole P16 source and complete actual PR reverse delta, identical common source once where both pinned hashes match",
+              "disposition": "producer/retained-state/operation/receiver/native-port inventory accounted with existing findings; no per-cell camera credit inferred",
+              "owner_proof_refs": [
+                {
+                  "supplier": "camera",
+                  "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+                  "row": 150,
+                  "read_ranges": [
+                    [
+                      1,
+                      635
+                    ]
+                  ],
+                  "contract_refs": [
+                    "CAM-OWN-FOOD-PREPARATION-021"
+                  ],
+                  "read_status": "complete",
+                  "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/food/preparation_authority.rs"
+                }
+              ],
+              "original_producer_refs": []
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1163,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          635
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "Clone on private PreparationAuthority111\u2013138"
+      ],
+      "absence_basis": "Fullsource1\u2013325/326\u2013635. No manual trait/serializer. PreparationAuthority already Clone. Canonical request/source/current/plan digests use explicit versioned framing; object.location serde_json delegates existing Serialize, not manual wire implementation. preparation_lot_truth_unchanged140\u2013166 intentionally compares floating fields and quantities via to_bits, unlike derived f32 PartialEq (NaN/signedzero differences); do not replace with structural equality. Checked material snapshot/receipt and planner construction own semantic conversions."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Preparation snapshot identity and exact equality",
+      "disposition": "Retain semantic hash framing, bitwise material equality, validated material/plan conversion; no new lens10 finding.",
+      "acceptance": "Equivalent refactor must preserve bitwise float semantics, versioned framing/native errors and private material visibility, not merely JSON/output equality."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 211,
+    "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/projections.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

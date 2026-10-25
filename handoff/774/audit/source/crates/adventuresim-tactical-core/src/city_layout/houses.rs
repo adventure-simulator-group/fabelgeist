@@ -1,0 +1,71 @@
+/// A physical urban dwelling class with the exact generated footprint used to pack frontages.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum CityHouseClass {
+    Cottage,
+    CraftTownHouse,
+    HallHouse,
+    MerchantHouse,
+}
+
+impl CityHouseClass {
+    pub const fn housing_tier(self) -> adventuresim_core::courtship::HousingTier {
+        use adventuresim_core::courtship::HousingTier;
+        match self {
+            Self::Cottage => HousingTier::Cheap,
+            Self::CraftTownHouse | Self::HallHouse => HousingTier::Moderate,
+            Self::MerchantHouse => HousingTier::Fancy,
+        }
+    }
+
+    pub const fn archetype(self) -> adventuresim_building_generator::BuildingArchetype {
+        use adventuresim_building_generator::BuildingArchetype;
+        match self {
+            Self::Cottage => BuildingArchetype::FachwerkCottage,
+            Self::CraftTownHouse => BuildingArchetype::TownHouse,
+            Self::HallHouse => BuildingArchetype::HallHouse,
+            Self::MerchantHouse => BuildingArchetype::FachwerkMerchantHouse,
+        }
+    }
+
+    pub fn from_archetype(
+        archetype: adventuresim_building_generator::BuildingArchetype,
+    ) -> Option<Self> {
+        Self::ALL
+            .into_iter()
+            .find(|class| class.archetype() == archetype)
+    }
+
+    pub const ALL: [Self; 4] = [
+        Self::Cottage,
+        Self::CraftTownHouse,
+        Self::HallHouse,
+        Self::MerchantHouse,
+    ];
+
+    pub fn frontage_width_metres(self) -> f32 {
+        match self {
+            Self::Cottage => 10.5,
+            Self::CraftTownHouse => 9.0,
+            Self::HallHouse => 13.5,
+            Self::MerchantHouse => 12.0,
+        }
+    }
+
+    pub fn depth_metres(self) -> f32 {
+        match self {
+            Self::Cottage => 12.0,
+            Self::CraftTownHouse => 15.0,
+            Self::HallHouse => 19.5,
+            Self::MerchantHouse => 16.5,
+        }
+    }
+
+    pub fn resident_capacity(self) -> u32 {
+        match self {
+            Self::Cottage => 6,
+            Self::CraftTownHouse => 13,
+            Self::HallHouse => 16,
+            Self::MerchantHouse => 30,
+        }
+    }
+}

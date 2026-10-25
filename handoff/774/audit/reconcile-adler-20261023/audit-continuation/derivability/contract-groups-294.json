@@ -1,0 +1,105 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-294",
+  "at": "2026-10-25T14:34:34.098919+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 590,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/artillery_openings.rs",
+      "sha256": "cf9a03acb280fa5d4e7397456d4ace1bcba402e898af3539d8301c5661c6deaa",
+      "actual_EOF": 552,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/artillery_openings.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-building-generator/src/generator/artillery_openings.rs",
+        "sha256": "cf9a03acb280fa5d4e7397456d4ace1bcba402e898af3539d8301c5661c6deaa",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 19346,
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+            "row": 143,
+            "read_ranges": [
+              [
+                75,
+                165
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-RESOLVED-SHAPE-PORTS-075"
+            ],
+            "read_status": "affected_ranges",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/generator/artillery_openings.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root"
+        ],
+        "audit_owner": "root",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-RESOLVED-GEOMETRY-036",
+            "json_pointer": "/source_proofs/8",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/generator/artillery_openings.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                552
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/artillery_openings.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/generator/artillery_openings.rs",
+              "sha256": "cf9a03acb280fa5d4e7397456d4ace1bcba402e898af3539d8301c5661c6deaa",
+              "read_ranges": [
+                [
+                  1,
+                  552
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1059,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          552
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full source personally read1\u2013280/281\u2013552. floor_for_artillery_level1\u20137 is semantic classifier; retaining_support_node9\u201330 resolves contextual native bearing; resolve_artillery_gun_opening32\u2013552 builds checked native jamb/head/void/surface/mount/ray/interface/opening/station and mutates associated geometry. No handwritten trait/type/codec anywhere; named record construction is semantic assembly, not an equivalent derive."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "artillery opening semantic assembly",
+      "disposition": "No trait boilerplate in full exact source. Keep native classification, checked bounds/source/context and associated collection mutations.",
+      "acceptance": "No new codec/derive/API to replace runtime semantic mapping. No execution or geometry correctness claim."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 591,
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/cathedral_clerestory.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

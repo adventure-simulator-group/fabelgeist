@@ -1,0 +1,96 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-155",
+  "at": "2026-10-23T01:12:46.407183+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-043.json",
+    "sha256": "7f0e34f856d4eb9da1f82c738ea9bf0ebd4f83a51fc7438a25c77320a89737f2"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-042.json",
+    "sha256": "1df7459eaef101c866577ebeda3e3af5bfe05ba4fa6c0480f3e9f0692881f70f"
+  },
+  "new_variants": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/planar.rs",
+      "sha256": "443ff701ad79a52b06623fc199de7ea1df011b7527ed2ef8056057b9b8fac059",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\city_layout\\grounding\\planar.rs",
+      "snapshot": "pr-working",
+      "actual_line_count": 83,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          3,
+          66
+        ]
+      ],
+      "audit_owner": "native",
+      "scope_registration": [
+        {
+          "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+          "sha256": "c8b1fb4dbce7e103d69a8c5f3182e2f5a8dfa07cbb0ef31d82d660601a5698bf",
+          "row_1based": 22,
+          "id": "NATIVE-INITIAL05-REG022",
+          "original_record": {
+            "id": "NATIVE-INITIAL05-REG022",
+            "at": "2026-10-23T01:11:05.305852+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/planar.rs",
+            "snapshot": "pr-working",
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-core\\src\\city_layout\\grounding\\planar.rs",
+            "sha256": "443ff701ad79a52b06623fc199de7ea1df011b7527ed2ef8056057b9b8fac059",
+            "actual_EOF": 83,
+            "material_ranges": [
+              [
+                3,
+                68
+              ]
+            ],
+            "actual_reach": "Actual GroundTriangle::intersection and outside_outline, floor coverage, geographic measure_region and foundation visit_source_intersections call clip/subtract/signed_area. Direct pure polygon helper bodies needed to distinguish coverage union versus area sum.",
+            "exclusions": "1-2 module context; distance_outside69+ and unrelated helper/test bodies excluded. No runtime/build or foreign package.",
+            "status": "prospectively_registered_before_body_analysis"
+          }
+        }
+      ],
+      "scope_limits": "Only3-66 clip/subtract/signed_area;67blank/68NEXT distance_outside doccontextuncredited,69+helperexcluded. Exactdirect registered scene-support numericalcontract only, no allplanaralgorithm/otherlenscredit.",
+      "source_lens_credit": "none from scope metadata"
+    }
+  ],
+  "new_overlays": [],
+  "total_variants": 2799,
+  "total_overlays": 226,
+  "mandatory_scope_qualifications": [
+    {
+      "record": "continuation/root/parallel-scope-qualification-130.json",
+      "sha256": "5dc4e5cd771612c7e050ab4af544411523317ae4b57738f1fb20f493685a50fc"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-117.json",
+      "sha256": "f3b80648900716939057b20776d756a6e37001f6910378da1a1bbaea230d348b"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-149.json",
+      "sha256": "97103899514ade32cf1e41c2794fa9c49c0cb8c6c7a2c6a4961b7492de5dc708"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-151.json",
+      "sha256": "670dd53a640b28eef7ad9d57b37f9213e1bca7117d7098691c4b0cd20c2a8f65"
+    }
+  ],
+  "registered_rows": 1,
+  "input_pins": [
+    {
+      "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+      "sha256": "c8b1fb4dbce7e103d69a8c5f3182e2f5a8dfa07cbb0ef31d82d660601a5698bf",
+      "captured_rows": 22,
+      "selected_ids": [
+        "NATIVE-INITIAL05-REG022"
+      ]
+    }
+  ],
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through226-before043.jsonl",
+    "sha256": "af037af0b4d4c1eb01973c0a0b85a5ccbcd3c9b3d9a9cd01a0ee0f2f2c9daa58",
+    "through": 226
+  },
+  "limits": "NativeREG022 one new PRplanar3-66 sourcevariant2799; no newoverlay226. AllmandatoryEOF149/151/SDK117/Bevy130qualifications andoriginalroles retained. No user scope change or source edits."
+}

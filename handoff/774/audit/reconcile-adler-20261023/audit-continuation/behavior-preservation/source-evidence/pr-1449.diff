@@ -1,0 +1,87 @@
+--- PRbase/crates/adventuresim-tactical-client/src/art_demo.rs
++++ frozen/crates/adventuresim-tactical-client/src/art_demo.rs
+@@ -1,24 +1,38 @@
+ //! Fixed exhibits composed from shipped equipment and production generators.
++
++use std::sync::Mutex;
++
++use adventuresim_tactical_core::physics::AdventureSimulatorPhysicsPlugin;
++use bevy::prelude::*;
++use serde::{Deserialize, Serialize};
++
++use crate::presentation::{TacticalCameraSetup, TacticalPresentationPlugin};
++use camera::OrbitView;
++use exhibits::{Exhibit, ExhibitId};
++use preparation::SharedArtDemoResult;
+ 
+ mod camera;
+ mod district;
+ mod exhibits;
++mod preparation;
+ mod residency;
+ mod scenery;
+ 
+-use std::sync::Mutex;
+-
+-use adventuresim_tactical_core::physics::AdventureSimulatorPhysicsPlugin;
+-use bevy::prelude::*;
+-use serde::{Deserialize, Serialize};
+-
+-use crate::presentation::{TacticalCameraSetup, TacticalPresentationPlugin};
+-use camera::OrbitView;
+-use exhibits::{Exhibit, ExhibitId};
+-
+ static PENDING: Mutex<Vec<DemoCommand>> = Mutex::new(Vec::new());
+ static STATUS: Mutex<DemoStatus> = Mutex::new(DemoStatus::Starting);
++
++#[derive(Component)]
++struct DemoEntity(ExhibitId);
++
++#[derive(Component)]
++struct StudioEntity;
++
++#[derive(Resource)]
++struct CurrentExhibit {
++    id: ExhibitId,
++    scene: SharedArtDemoResult<Option<Handle<WorldAsset>>>,
++}
+ 
+ #[derive(Deserialize)]
+ #[serde(tag = "type", rename_all = "kebab-case", deny_unknown_fields)]
+ enum DemoCommand {
+@@ -60,20 +74,8 @@
+     },
+     Failed {
+         message: String,
+     },
+-}
+-
+-#[derive(Component)]
+-struct DemoEntity(ExhibitId);
+-
+-#[derive(Component)]
+-struct StudioEntity;
+-
+-#[derive(Resource)]
+-struct CurrentExhibit {
+-    id: ExhibitId,
+-    scene: Result<Option<Handle<WorldAsset>>, String>,
+ }
+ 
+ pub(super) fn queue(json: &str) -> Result<(), String> {
+     let command: DemoCommand = serde_json::from_str(json).map_err(|error| error.to_string())?;
+@@ -272,12 +274,12 @@
+             };
+         }
+     }
+     match &current.scene {
+-        Err(message) => {
++        Err(error) => {
+             status = DemoStatus::Unavailable {
+                 exhibit: current.id,
+-                message: message.clone(),
++                message: error.to_string(),
+             }
+         }
+         Ok(Some(scene)) => {
+             let error = match assets.get_load_state(scene.id()) {

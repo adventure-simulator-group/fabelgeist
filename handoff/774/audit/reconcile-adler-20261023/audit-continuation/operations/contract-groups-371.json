@@ -1,0 +1,139 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-371",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/marriage.rs",
+      "sha256": "707052669ad21da99362ea13fe18eefef9b2ee79c0cea3da8f4350da05068031",
+      "actual_EOF": 481,
+      "actual_compared_ranges": [
+        [
+          1,
+          481
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/model.rs",
+      "sha256": "91e0b874352ecb65b64568b5149fbf1bd8a1103dbb836c2a5639cca239ab0043",
+      "actual_EOF": 496,
+      "actual_compared_ranges": [
+        [
+          1,
+          496
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/projections.rs",
+      "sha256": "21ca8c10819955044eb13b938fbd469c82394fafb8353c1b4af33d72b8edc688",
+      "actual_EOF": 255,
+      "actual_compared_ranges": [
+        [
+          1,
+          255
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/socializing.rs",
+      "sha256": "9a9ab241262b451da17be5f58496db212b0d767fba0049cd64ee9de105ed927f",
+      "actual_EOF": 325,
+      "actual_compared_ranges": [
+        [
+          1,
+          325
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Wedding settlement follows canonical event date and durable legal history",
+      "source_ranges": {
+        "relationship/marriage.rs": [
+          [
+            1,
+            481
+          ]
+        ],
+        "relationship/model.rs": [
+          [
+            1,
+            496
+          ]
+        ]
+      },
+      "disposition": "All977 lines personally read. Ceremony due uses refreshed worldclock, explicitlynotparticipantfrontiers. Deathat/beforeceremonycancel; historyalive/age checks; residence holding effectiveatceremonywithlegalhistory, deterministicoldest/idchoice; dowryescrowexactfather/amount andcreditbeforedelete. Household/residence/kinship/marriage/participant writes thencourtshipendedandcommitmentfulfilled; actualfallibleresidencemove occursafterfirstwrites despitecommentallvalidationcomplete, SDKtransaction semantics required beforepartialcommit claim. Globaldue sorted/truncated; perparticipantactiveunique prevents batchexpansion under valid state, returnsselectedcountnotpromisedeventsactuallysettled if suppliednowdiffers refreshedclock. Resolve marriage oneActivegate, releasesmatchingmembers/participants, spouseedges andcommitmentEnded. Widowsettlement waitsbothpersonalfrontiers atdeath. Private stateparsers validate semanticstatus tuple atboundaries, all rawschema construction/serde retainedadopted03/06evidence. No new injury/fatigue/tacticalpersistence."
+    },
+    {
+      "contract": "Wedding projection loses historical access after active participant index is released",
+      "source_ranges": {
+        "relationship/projections.rs": [
+          [
+            64,
+            211
+          ]
+        ],
+        "relationship/marriage.rs": [
+          [
+            1,
+            50
+          ],
+          [
+            281,
+            293
+          ]
+        ],
+        "relationship/commitments.rs": [
+          [
+            89,
+            114
+          ]
+        ]
+      },
+      "disposition": "Source-backed conditional projection counterexample: commitment created<=999, ceremony1000; canonicalworld1000 settlesfulfilled even whileparticipantpersonalclock999. Terminalhelperdeletesactive exclusive_commitment_participant indexes. Backendrelationshipprojectionqueriesonlythatactiveindexforwedding, thentemporalfilter would haveacceptedhistoricalcommitmentat999 butcannotreachit; marriageprojectioncorrectlywaitsmarried_minute<=999 false. Upcomingweddingthereforedisappears beforeobserverreachesceremony, thoughretainedcommitmentrowexists. ActualDB/UIwitnessnotrun; no exactarchivealiasfoundviawedding/history/participant search, notgloballynewcount. Remedyreadhistoricalcommitmentrows byparticipant/effectivedate orcanonicalhistoryowner, whileactiveuniqueindexescontinuecurrentreservationauthority. Acceptance ordinaryasynchronouspersonalclockbefore/at/afterceremony, cancelled/rescheduledhistoricalreservations, nofuturemarriageleak orduplicatewedding."
+    },
+    {
+      "contract": "Relationship gateway projections retain personal frontier and discovery visibility",
+      "source_ranges": {
+        "relationship/projections.rs": [
+          [
+            1,
+            255
+          ]
+        ]
+      },
+      "disposition": "Whole255 lines read. Gatewayonly, actorIDscollectedfromkinship/courtship/pregnancy, marriage/courtship/pregnancyfiltereffectivehalftimeintervals; bornchildlatestdue<=observerminute. Secretcourtshipexposurefromsucceededreceipttime<=observerminute, observerdiscoveryseparategatewaypayload onlyrecipient. ClocksfallbackZEROsharedknownabsencegraph, notfreshordinaryerror. active_courtship_between_view explicitlycurrentstatus vsdatedhistoricalsummarydistinctpolicy. Multiplecurrentsoftcourtships canexistandfirstselectedsummaryonlyone; schema/productcardpolicydependency, notnew04 mutationfailure."
+    },
+    {
+      "contract": "Scheduled socializing conserves proportional allocation through bounded availability slices and receipts",
+      "source_ranges": {
+        "relationship/socializing.rs": [
+          [
+            1,
+            325
+          ]
+        ]
+      },
+      "disposition": "Complete325 lines read. affinity_at rejectsfutureanchor, softscope readsactoronly bydesign. Target deterministic sorted/dedupdaily/location priorityromantic\u2192party\u2192acquainted\u2192others, residenthistoricalschedule vsnonresidentcurrentlocation failclosedifnotyetfrontier. Boundarystrictcursor<boundary<end ensuresprogress; dayindex StrategicMinute-limited, daystart andnextday safe/saturatingfinalday. Allocationelapsed<=1440 *u16MAX fitsu64 before/1440, differences telescopicallyconserved; original schedulevalidation mustkeep<=dailybudget (admissiondependency, noforcedboundedglobalu16). Processedmaxreceiptend watermark preventsreplay; impossibleactortarget0minwatermark intentionallyrecordsnoavailabletarget. Replayend updates monotonic withinactualcallerprogress; outoforderarbitraryAPIintervalgaps notnormalcallerproved. Partyasyncskipfamiliarity intentional; softaffinityprojectioncallerthroughcurrentaffinitymaydifferhistoricalpriority, actual sourceboundarypolicydependency. No runningfixtures."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-WEDDING-HISTORY-PROJECTION-CANDIDATE-001",
+      "kind": "source-backed conditional asynchronous projection counterexample",
+      "ordinary_runtime_witness": false,
+      "acceptance": "Retained historical wedding remains visible at observer date before canonical ceremony even after active uniqueness release; current authority remains exclusive."
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-stdb-module/src/relationship/tests/chronology.rs"
+}

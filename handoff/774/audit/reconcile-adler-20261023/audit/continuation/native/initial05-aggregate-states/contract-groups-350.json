@@ -1,0 +1,62 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-350",
+  "at": "2026-10-23T08:15:14.353128+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs",
+      "sha256": "2d8ba1f7658b0a709143467f73dc6b3f0a0eab31ad0a36a6a7436028b0ba4d7f",
+      "scope071_index": 798,
+      "actual_EOF": 448,
+      "scoped_ranges_compared": [
+        [
+          1,
+          448
+        ]
+      ],
+      "actual05_comparison": "Fresh complete host and generated WGSL source in bounded displays; same scalp map, groom shape/count, atomic packing, blur ping-pong, mip offsets and readback layout compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/hair/gpu/bake/wgsl.rs",
+      "sha256": "7965432924278f1a7cbcf9a47a295a9c2b9fe4103783e8d641f54dbbd9bc70ec",
+      "scope071_index": 799,
+      "actual_EOF": 400,
+      "scoped_ranges_compared": [
+        [
+          1,
+          400
+        ]
+      ],
+      "actual05_comparison": "Fresh complete host and generated WGSL source in bounded displays; same scalp map, groom shape/count, atomic packing, blur ping-pong, mip offsets and readback layout compared."
+    }
+  ],
+  "groups": [
+    {
+      "id": "one exact mip layout owns allocation write and read",
+      "comparison": "798 levels starts side2048 and halves until1, stride=max(side,64texels) for256byte row alignment, offset accumulates prior stride*side. Buffer allocation sums same finite fixed chain, finish dispatches adjacent level pairs with exact sides/strides/offsets, read gathers only side texels per padded row with same Level list.799 HALVE clamps source2x2 to actual from_side and writes current to offset/stride. Mean channel sum<=4*255 fitsu32; no mismatch from padding or smaller final rows."
+    },
+    {
+      "id": "stage ownership and explicit initialization",
+      "comparison": "Host clears atomic topmost and shadowed buffers before draw. Grid block_side and bare_reach each max1, blocks ceilSIZE/block_side; draw supplies same groom positions/attributes, count/points and source bust/map. BARE writes every current texel, BLUR four ping-pong passes alternate row/column and ends in bare0 actually passed finish. Finish writes bothshade/strands top-level before every downsample. No relying on uninitialized native scratch for those outputs."
+    },
+    {
+      "id": "atomic texture payload coherent",
+      "comparison": "799 pack uses12height+12direction+8shade exactly32bits with0 reserved no-strand; atomicMax therefore selects quantized height first and deterministic lower fields for ties. Decode uses same shifts/bits. Render strand direction encoded as2 components plus tone, shade alpha derived current bare share and same topmost. Current host bare_start.1<bare_full.75 establishes positive divisor, positive step/reach/lockwidth from fixed constants. No interpretation of shade/height as canonical gameplay probability or identity."
+    },
+    {
+      "id": "source map and native limits",
+      "comparison": "map_texel uses actual shared center/axis/forward/side/rim; current map/body/scalp correlation comes from804 grow, not arbitrary public ShaderParams. Longest reads same groom count/points and clears reduction, measures each polyline arc length then positive-float bitmaximum; finite source and overflow bounds remain native groom requirements. Host read first-or0 is explicit empty reduction policy, not proof arbitrary malformed native buffer valid. No universal finite GPU arithmetic or normal bad groom claim."
+    },
+    {
+      "id": "fixed dispatch contract not foreign clearance",
+      "comparison": "All kernels use64workgroup and identical folded index id.y*groups.x*64+id.x with count guards; host uses dispatch_folded for those same counts. Actual generic dispatch implementation remains separately queued, no inferred huge capacity or runtime scheduling credit. Two files contain production only and no inline fixture. No GPU/bake/readback executed."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "ScalpMap and native groom/dispatch producer contracts remain exact own05 source obligations."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

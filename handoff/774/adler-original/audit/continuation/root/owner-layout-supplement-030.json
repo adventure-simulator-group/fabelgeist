@@ -1,0 +1,149 @@
+{
+  "id": "CONT-ROOT-OWNER-LAYOUT-SUPPLEMENT-030",
+  "at": "2026-10-22T05:01:53.312895+00:00",
+  "lens": "audit-existing-type-owners",
+  "status": "one bounded inherited range proof gap explicitly corrected by fresh source/use-owner comparison; WITH_FINDINGS not clear",
+  "queue_supplement": {
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/model/layout.rs",
+    "sha256": "f19587b5c651091d18b720268e43f9bdef0e2ca083b33b57d53cbdbccb1be298",
+    "material_ranges": [
+      [
+        151,
+        284
+      ]
+    ],
+    "readonly_supplier": "root",
+    "original_owner81": "unchanged; this separate Root1 supplement makes82 exact current role obligations"
+  },
+  "proof_gap": {
+    "incorrect_credit": "owner019 range_overlay_dispositions006 named Root geometry/source002 as complete owner comparison.",
+    "actual_prior_evidence": "CONT-ROOT-OWNER-ROLES-002#room_ordinal_owner explicitly excludes layout151-284; root-reconciliation011 source_membership cites only that receipt. Excluded source read cannot support owner fit.",
+    "correction": "Preserve exact accepted other source roles; remove only unsupported151-284 carry and supply actual current comparison here. No whole baseline restart or retroactive source credit."
+  },
+  "comparisons": [
+    {
+      "roles": "RoofFace polygon/cutouts, RoofEnclosureFace polygon, RoofEdge start/end, RoofAbutmentSample point",
+      "candidates": "Position<Architectural> for finite admitted XYZ; ArchitecturalPlanPoint for projected finite XZ, not ScenePlanPoint or Displacement; existing generic geometry owner reuses frame.",
+      "fit": "Exact semantic point/frame match after actual successful point admission in roof_polygon_bounds; current typed point discarded before unchanged retained Face. Raw public/Serde source still broader: no finite or planar guarantee merely from later bounds; preserve distinct raw source evidence/admission policy. Projected XZ creates a different point role; no Scene alias or multiply by grid cell scale.",
+      "producer_use": "Personally consumed Native roof26 current producers/mutations and Root direct5, RIG027/native output joins; checked point discard and actual clipping/height/containment/Earcut arithmetic tracked separately from newly calculated coordinates."
+    },
+    {
+      "roles": "Outer weather polygon and ordered cutout/enclosure contours",
+      "candidates": "Existing PlanPolygon<ArchitecturalPlanPoint> versus collection of canonical points.",
+      "fit": "Point leaf reusable; strict PlanPolygon is NOT exact topology owner: requires CCW convex/nondegenerate/nonduplicate/3+ and must not replace arbitrary concave faces/holes, clockwise hole winding or genuine empty intermediate contours. Missing looser collection invariant/policy remains explicit for later aggregate/admission design; no equivalent point wrapper or rehull."
+    },
+    {
+      "roles": "RoofPlaneEquation.normal/constant and RoofFace::underside_height_at",
+      "candidates": "Existing coupled RoofPlaneEquation itself; SpatialDirection/PlanDirection versus native plane coefficients; SignedLength/Metres for scalar dimensional role.",
+      "fit": "Normal is scaled equation coefficient, not unit direction; constant must remain coupled to it. Existing normalized directions would change geometry unless both coefficients and constant transformed consistently, and zero/degenerate/raw inputs have no direction guarantee. Actual -(nx*x+nz*z+d+t*normal.length)/normal.y proves nonunit scale. Native coefficients inside owning mathematical equation are distinct from semantic points in application records; no invented unit-normal wrapper. Unit-only Metres preserves broader scalar policy while SignedLength requires successful finite admission; final aggregate/admission policy remains unresolved, not silently strengthened."
+    },
+    {
+      "roles": "pitch_degrees and thickness_metres",
+      "candidates": "Radians finite nonwrapping, SignedLength finite signed, PositiveLength strictpositive, Metres unit-only.",
+      "fit": "Thickness is physical length, not unitless Ratio; no source proof forbids0/negative/nonfinite at public raw record, so PositiveLength not exact. SignedLength is reusable only for finite admitted values; Metres preserves raw unit without pretending validation. Authored degree pitch is not directly Radians or wrapped BuildingOrientation; any degree/radian numeric conversion must preserve source FP/order/Serde and supported raw inputs. Suitable retained degree role/admission is a strengthening gap, not a duplicate checked-angle loss."
+    },
+    {
+      "roles": "RoofFootprintLoop GridPoint and all owner/source IDs, enums, Option/collection relationships",
+      "candidates": "Existing GridPoint, ResolvedItemId, StructuralNodeId, WallAssemblyId, RoofAssemblyId, GeometryOwnerId, RoofChildKind/RoofEdgeKind/RoofAbutmentKind etc.",
+      "fit": "Existing typed identities/closed roles retained, no String or numeric substitution. Lattice cell vertices differ metre points. General identity word permits0 and does not alone prove membership; adjacency cardinality and parallel child lists are later aggregate questions, no current owner clearance inferred."
+    }
+  ],
+  "repair": "Root023 whole roof/layout/canonical geometry graph and existing Root/Rig shape receivers; no function authority transfer, duplicate owners, compatibility paths or new fixture population. All initial repairs remain frozen.",
+  "actual_source_proofs": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/layout.rs",
+      "sha256": "f19587b5c651091d18b720268e43f9bdef0e2ca083b33b57d53cbdbccb1be298",
+      "read_ranges": [
+        [
+          151,
+          284
+        ]
+      ],
+      "qualification": "Roof definitions/coupled underside equation only; previous enum closing151-152 and assembly continuation285+ not new role credit.",
+      "source_read": "fresh current owner-lens bounded body; all ranges already globally registered, no new source extension"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+      "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+      "read_ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "qualification": "Actual finite framed Position/Displacement/Elevation definitions, constructors/Serde and scalar-vector projection policies.",
+      "source_read": "fresh current owner-lens bounded body; all ranges already globally registered, no new source extension"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/plan_geometry.rs",
+      "sha256": "a767ca4e45d2c04ddf94d1f23452ecbb3a5c6c864bc8ce63fc673e6f39e5b92b",
+      "read_ranges": [
+        [
+          1,
+          161
+        ]
+      ],
+      "qualification": "Actual ArchitecturalPlanPoint and strict convex PlanPolygon definition/admission; merely displayed PlanHull164-191 prefix uncredited.",
+      "source_read": "fresh current owner-lens bounded body; all ranges already globally registered, no new source extension"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs",
+      "sha256": "05f48ed8a27959acd5930fc56690d454e5307482f673cbdb5628d88970c3db1d",
+      "read_ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "qualification": "Finite nonwrapping Radians and actual normalized PlanDirection admission; unrelated lift/rotation/spatial methods not fresh credit.",
+      "source_read": "fresh current owner-lens bounded body; all ranges already globally registered, no new source extension"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/length.rs",
+      "sha256": "7ce3b7a0720e800087df009c9726c0869988dfad3c24cc4a67bfbf49e059f48e",
+      "read_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "qualification": "Actual finite strictpositive length including sourcezero rejection.",
+      "source_read": "fresh current owner-lens bounded body; all ranges already globally registered, no new source extension"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/measurement.rs",
+      "sha256": "72ee58eb8ae01af4b7f17ef81f007dfa63c7dc818a1ed71ce5bbba0707236e70",
+      "read_ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "qualification": "Actual SignedLength finite signed inclzero, scaled result policy and owning native arithmetic; no Area implementation credit from declaration.",
+      "source_read": "fresh current owner-lens bounded body; all ranges already globally registered, no new source extension"
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-math/src/units.rs",
+      "sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "read_ranges": [
+        [
+          1,
+          120
+        ]
+      ],
+      "qualification": "Actual unit-only Metres/Ratio versus refined finite leaf; no bounded/finite claim from representation.",
+      "source_read": "fresh current owner-lens bounded body; all ranges already globally registered, no new source extension"
+    }
+  ],
+  "existing_proofs_semantically_reused": [
+    "Native roof producer26 exact current producer/operation/native recipient narratives and Root direct5/native joins (producer028 pins).",
+    "Root geometry001 actual candidate definition comparisons consistent with freshly read bodies; prior verdict is not source fit credit."
+  ],
+  "new_source_variants": 0,
+  "new_material_source_ranges": 0,
+  "new_producer_followup_required_for_this_supplement": false,
+  "remaining_actual_owner_receivers": [],
+  "source_edits": 0,
+  "new_human_decisions": [],
+  "other_lens_credit": false
+}

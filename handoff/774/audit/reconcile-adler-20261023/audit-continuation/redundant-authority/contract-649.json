@@ -1,0 +1,119 @@
+{
+  "id": "CONT07-CONTRACT-649",
+  "at": "2026-10-24T01:08:24.659379+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1889,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics/quickstep.rs",
+      "sha256": "10c98a5fec7f36e1567f37c82b15e65c990d8412f2a1a1a9f67982adaef10223",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/physics/quickstep.rs",
+      "actual_EOF": 81,
+      "ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1886,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/physics.rs",
+      "sha256": "14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/physics.rs",
+      "actual_EOF": 1738,
+      "ranges": [
+        [
+          1,
+          110
+        ],
+        [
+          470,
+          548
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1901,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene/ground.rs",
+      "sha256": "54559503a139270a829c73a46cb1ba81b69ada99dc3827350e16b575c4139d8a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene/ground.rs",
+      "actual_EOF": 182,
+      "ranges": [
+        [
+          1,
+          182
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2067,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+      "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/player_projection.rs",
+      "actual_EOF": 3497,
+      "ranges": [
+        [
+          1340,
+          1369
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1781,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state.rs",
+      "sha256": "48d075954cf0381f63c73815380ed47c37be6c35e30c573b6839e74c21572557",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/animation/state.rs",
+      "actual_EOF": 2069,
+      "ranges": [
+        [
+          1818,
+          1852
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 526,
+      "source_id": "pr-working:content/tactical/combat.yaml",
+      "sha256": "05958d54e48eba637c755f8ad89959dc6ef0aeaeeeaeb75022e07071a01ddaf3",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:content/tactical/combat.yaml",
+      "actual_EOF": 344,
+      "ranges": [
+        [
+          103,
+          115
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1865,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/maneuvers.rs",
+      "sha256": "619803fcb9f24448df76fd87b28028c86c520edd9b41dbc7b29033c8b432234f",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/combat_config/maneuvers.rs",
+      "actual_EOF": 19,
+      "ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Quickstep exact actuator clock and actual server begin_dodge receiver re-read; REG031 now personally read actual symmetric ActionTimeline. Config complete duration and actuator full-span round differ from symmetric midpoint floor for odd accepted totals. Config0.50 at normal64 yields32 coherent. Actuator next integration tick sampling elapsed+1 intentional; timeline at exact end remains ActiveONE until following tick. Do not infer measured wrong displacement or universal phase mismatch solely from endpoint arithmetic. Retain source-contract migration question with exact numerical witness and explicit timing qualifications.",
+    "SceneGround ground_at gives urban semantic override then natural base sample; cover_count and cover_intersects_square query natural raster population directly. Exact source navigation finds no production cover_intersects_square caller (test only); cover_count production tactical viewer expects_grass preflight plus fixtures. These are not proven duplicated current ground authority: natural source population and effective urban-overridden sample differ intentionally by stage. Close ordinary macro-grass misuse claim absent actual recipient; keep viewer preflight if all-covered urban natural raster reaches it as bounded diagnostic question."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": null
+}

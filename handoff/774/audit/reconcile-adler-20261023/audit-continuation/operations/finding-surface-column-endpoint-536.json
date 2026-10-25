@@ -1,0 +1,15 @@
+{
+  "id": "SEGOVB-04-SURFACE-COLUMN-ENDPOINT-CANDIDATE-001",
+  "source_id": "pr-working:crates/fabelgeist-armor/src/surface_grid.rs",
+  "sha256": "d2e76894c4233cad8a8656215bf15fe6defcce235adc2350b3e2d5ad0308465e",
+  "ranges": [
+    [
+      57,
+      75
+    ]
+  ],
+  "counterexample": "SurfaceColumn::at(u32::MAX).bracket(u32::MAX): at rounds MAX to 2^32f32; upper guard (columns-1) as f32 also rounds to2^32, so first becomes u32MAX and first+1 overflows before min. Debug panic / release wrap changes returned neighboring index. Source proof only, no execution.",
+  "qualification": "Public representable API. Actual generated armor column counts read are small and do not trigger; no ordinary asset or GPU failure claimed. Exact RIG-ADMISSION03-F053 alias pending detailed record comparison, not a new unique global count.",
+  "contract": "Endpoint bracket must preserve valid indices and explicitly reject/unrepresentable native column cardinality or use checked next endpoint. Do not add arbitrary physical extent clamp.",
+  "acceptance": "Representable endpoint and neighboring indices within admitted cardinality; ordinary endpoints/last-column interpolation preserved. Shared cardinality/grid owner relationship maintained."
+}

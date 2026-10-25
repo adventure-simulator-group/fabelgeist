@@ -1,0 +1,71 @@
+{
+  "id": "CONT08-Q019",
+  "at": "2026-10-25T17:05:43.392450+00:00",
+  "classification": "retained_abstract_case_route_weather_coordinate_boundary",
+  "sources": [
+    {
+      "scope_index": 1236,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/travel_planning.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/strategic/travel_planning.rs",
+      "before_sha256": "72e17030fb5f5e7f0337b78091c7ab5eddcac318c91f5a3ba7a246a3a7ba860b",
+      "after_sha256": "72e17030fb5f5e7f0337b78091c7ab5eddcac318c91f5a3ba7a246a3a7ba860b",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1236-base-72e17030fb5f5e7f0337b78091c7ab5eddcac318c91f5a3ba7a246a3a7ba860b",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/72e17030fb5f5e7f0337b78091c7ab5eddcac318c91f5a3ba7a246a3a7ba860b",
+      "diff": "source-evidence/pr-1236.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ranges": [
+        [
+          9,
+          49
+        ]
+      ]
+    },
+    {
+      "scope_index": 1237,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs",
+      "before_sha256": "ff33eb4a42abbfa737b312019fdfc7c457688d66bd84fb81af2364ed30fa9cfe",
+      "after_sha256": "ff33eb4a42abbfa737b312019fdfc7c457688d66bd84fb81af2364ed30fa9cfe",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1237-base-ff33eb4a42abbfa737b312019fdfc7c457688d66bd84fb81af2364ed30fa9cfe",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/ff33eb4a42abbfa737b312019fdfc7c457688d66bd84fb81af2364ed30fa9cfe",
+      "diff": "source-evidence/pr-1237.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "ranges": [
+        [
+          51,
+          85
+        ],
+        [
+          193,
+          248
+        ],
+        [
+          261,
+          274
+        ]
+      ]
+    }
+  ],
+  "old_new": "Both full PR source diffs empty. Not introduced774; current merged/successor status not established by this receipt.",
+  "trigger": "Source/API conditional abstract origin=(0,100), destination nearby, coordinates_are_geographic=false and no supplied route: encode_position_e7 admits unbounded finite E7 origin, then unconditional Wgs84CoordinateE7::new rejects latitude100 before weather generation.",
+  "positive_qualification": [
+    "Normal small demo coordinates may fit WGS84 and no authored ordinary abstract origin outside WGS84 newly established.",
+    "Case endpoint/observer/location/readiness/departure synchronization guards remain inforce; isolated arbitrary helper call is not proof of normal DB state."
+  ],
+  "policy_question": "Hybrid abstract coordinate convention is explicit; determine canonical weather context for abstract worlds rather than implicitly treating every abstract position as Earth latitude/longitude.",
+  "connected_repair": "If abstract world/weather contract permits these origins, supply an explicit authoritative weather-coordinate mapping/context while retaining abstract travel geometry and geographic validation; do not globally narrow UnboundedCoordinateE7.",
+  "acceptance": [
+    "Same admitted geographic routes retain WGS84 error behavior and departure weather identity.",
+    "Valid abstract endpoints outside WGS84 either obtain declared abstract weather context or return an explicitly documented unsupported-world outcome before any journey mutation."
+  ],
+  "disposition": "conditional source-backed policy/admission question; alias lookup pending; no runtime/unique issue count",
+  "related_family_not_exact_alias": [
+    "local774:M37",
+    "local774:M90"
+  ],
+  "dedup_disposition": "Coordinator bounded metadata lookup found no exact100degree route weather rejection alias. Preserve distinct conditional behavior witness within shared abstract/geographic endpoint andweather contracts; not unique semantic dedup proof."
+}

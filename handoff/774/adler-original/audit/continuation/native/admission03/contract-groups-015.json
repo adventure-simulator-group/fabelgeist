@@ -1,0 +1,21 @@
+{
+  "id": "NATIVE-ADMISSION03-CONTRACT-GROUPS-015",
+  "lens": "audit-admission-contracts",
+  "groups": {
+    "orientation-native-kernels-and-checked-yaw": {
+      "indices": [
+        200,
+        201
+      ],
+      "invariant": "Orientation helpers retain raw native directions/quaternions and typed finite signed angularspeed / nonnegative magnitude / elapsed. Only observed kneeoffset becomes refinedchecked magnitude; no universal finiteunitQuat output type.",
+      "all_admission_routes": "No new decoded/refinedscalarowner declared. Private KneeYawLeg has closedroles/side constantsLEFT/RIGHT only, noDefault/Serde/Reflect. Actualrendered_offset performs native normalizeddirection/bend/facing then AngularMagnitudeDegrees::from_degrees(absnativeangledegrees) beforeSome; enforcer initialZERO/receivedcheckedoffset storedonlytyped. Mainorientation nativehelpers try_normalize optionalvectors, rawfallback andQuatnativeoperators; nounchecked newtypebacking. advance_airborne_foot_rotation accepts SignedAngularSpeedDegrees andelapsedthen native max0/unitconversion/cap/slerp; missinginvalidprevious returnsdesired raw, baddesiredwithgoodpreviousreturnsprior; notfiniteunitadmission. final_leg_rotation_chain copies rawcurrent/cachedLegRotationChain, cacheclearNone, exactslope-modeclosed. local_rotation_for_world testslocal.is_finite thennormalizesnativequat; postnormalization finite/unitnot guaranteedbynewfirstpartyowner. Footrollcurrent193 returnscheckeddegree before nativequatprojection; existingrig194finite-nonunit orientation contract respected.",
+      "actual_source_receiver": "Full orientation530/anatomical165 read. Native rawcacheliteralorientation363–367→rawLegRotationChainstate208 fields, noSerde/Reflect/backingconstructor. Actual finalwriter overwritesSDKTransform andretainsrawworldquat; canonicalRigidRotation neverconstructed. This supports existing rawrotation owner/producer strengthening, not incorrectlycleared bynamedhelper or finiteguard alone. Present/missingToe/Soleaxis controlsfallback branch, actualrig219 read.",
+      "counterexample": "Nonfinite rawdesired withbadprevious canreturnrawdesired, normalizationofzero/hugefinitequat mayproduceinvalidnativevalues; no claimalreadyvalidatedunitquat. Finite negative speedvaliddeclaredSigned type mapsnativecap0. Native +0defaultfinaloffset usedwhenmissingmeasurement deliberatelyexistingreportpolicy, not realactualmeasurementproof. Atan2/angularlimits/overflows belong04operationlens, anatomicalrelationship05/11 remains independent.",
+      "finding_support": "No newly exposed checkedleafadmissionbypass. F001/F002/F003 remain separate actualboundaries. Preserve rawinput/candidate/error/None/nativefallback sourcefacts for eventualconnected repairs.",
+      "connected_repair": "Existing connected-repair-map exact nativeorientation/IK/rootdegrees sharedwholefunctionclaims unchanged; source supplieronly.",
+      "acceptance": "All actualretainedrefinedangle outputs checked orcopiedcheckedleaf; raw SDK rotation/vector routes accuratelybroader, no unitnormalization restrictiononObservedRigFrame or swallowed missinggeometry. Sourcefreeze/alllaterlensespreserved.",
+      "later_lens_credit": false
+    }
+  },
+  "later_lens_credit": false
+}

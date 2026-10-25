@@ -1,0 +1,52 @@
+{
+  "id": "CONT07-CROSS-LENS-006",
+  "at": "2026-10-23T22:29:41.783647+00:00",
+  "kind": "source polygon union / topology operation candidate",
+  "status": "actual upstream accepts conditional overlapping water polygons; forwarded owning lens, no07finding or current dataset claim",
+  "source": {
+    "scope_index": 2079,
+    "source_id": "pr-working:crates/adventuresim-terrain/src/builder.rs",
+    "sha256": "39502f30860a433c74e3d1309365d46fda323b7406ee627123dfcd50630442a1",
+    "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-terrain/src/builder.rs",
+    "ranges": [
+      [
+        392,
+        449
+      ]
+    ]
+  },
+  "observation": "polygon_mask XORs every covered interval into one global mask across all independent polygons. Two overlapping input polygons cancel the overlap, while parity over rings of one polygon is intentional for holes. Source-only representable input; actual water/wetlands/cultivation upstream disjointness not proven. No07finding or other-lens credit.",
+  "validation_status": "not_run",
+  "upstream_sources": [
+    {
+      "scope_index": 2152,
+      "source_id": "pr-working:crates/adventuresim-world-import/src/bin/build-strategic-map.rs",
+      "sha256": "04e204bfa41896b53eb82671ad9b0378036a21b7ec54b3fce0e4c285c0b097bb",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-world-import/src/bin/build-strategic-map.rs",
+      "ranges": [
+        [
+          625,
+          654
+        ],
+        [
+          825,
+          849
+        ]
+      ]
+    },
+    {
+      "scope_index": 2153,
+      "source_id": "pr-working:crates/adventuresim-world-import/src/bin/build-strategic-map/terrain_features.rs",
+      "sha256": "e4be1391bce49d102c596d622f3dcb646e44ac71555c5ded9028a50f5beeeeaa",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-world-import/src/bin/build-strategic-map/terrain_features.rs",
+      "ranges": [
+        [
+          24,
+          49
+        ]
+      ]
+    }
+  ],
+  "upstream_proof": "Source CSV WKT polygons are preserved independently and geometry validation checks only finite/inbounds/ring cardinality. terrain_features::build copies all polygon rings without union/dedup into Features.water. A self-consistent input containing two identical/overlapping water polygons therefore reaches global XOR. No actual initialized dataset overlap or build execution asserted.",
+  "positive_qualification": "Normal cultivation producer emits canonical projected grid squares2152:506\u2013535; no ordinary cultivation overlap inferred. Wetland import topology not yet independently reviewed in this packet."
+}

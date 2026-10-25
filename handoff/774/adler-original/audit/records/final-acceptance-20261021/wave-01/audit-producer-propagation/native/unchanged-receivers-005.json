@@ -1,0 +1,152 @@
+{
+  "id": "NATIVE-PP-RECEIVERS-005",
+  "read_files": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+      "observed_sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "read_ranges": [
+        [
+          180,
+          310
+        ],
+        [
+          1086,
+          1513
+        ],
+        [
+          1534,
+          1740
+        ],
+        [
+          800,
+          921
+        ]
+      ],
+      "read_status": "exact connected functions only; whole file remains camera/root assigned",
+      "contract": "Whole on_player_input, quickstep/posture/getup/locomotion/aftercollision/snapshot functions; typed tick/span state retained. encoded/samples getters feed actual info/warn only. Native Time quantization preserves f64 multiply/round/cast. Physical/original skill projection prefix read, no full file clearance."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+      "revision": "frozen physical-p16 overlay at a120390947c89b703dc74c4255a13c035d054c50",
+      "path": "crates/adventuresim-tactical-server/src/player_projection.rs",
+      "observed_sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+      "read_ranges": [
+        [
+          230,
+          273
+        ],
+        [
+          1030,
+          1510
+        ],
+        [
+          1574,
+          1693
+        ]
+      ],
+      "read_status": "exact connected functions only; whole file remains camera/root assigned",
+      "contract": "Whole P16 input/quickstep/posture/getup/locomotion/aftercollision/snapshot; typed clocks unchanged. Position/RigidRotation admission in accepted input, getters only actual vector/Quat diagnostics. Only ranges stated read; remaining physical graph camera-owned."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-tactical-server/src/player_projection/posture_facing.rs",
+      "observed_sha256": "40f9695ff7352badc2fff5fb1cc7a15d68a36ea48dcfd36083f2c7c5145096e9",
+      "read_ranges": [
+        [
+          1,
+          162
+        ]
+      ],
+      "read_status": "full",
+      "contract": "Whole actual typed tick/elapsed -> saturating contact difference -> sample rate elapsed_for_span -> BodyFacingTurn -> native Quat/Transform; typed errors to caller warning. Posture transition advances same authoritative tick."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/status/characters.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-tactical-client/src/strategic_scene/status/characters.rs",
+      "observed_sha256": "aa6c73924aed3d3ba5cbd7e45de20812330b8c560e31e38a5929f8b996c7b95a",
+      "read_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "read_status": "full",
+      "contract": "Whole readiness consumer of has_presented_pose: predicate directly counts actual posed ECS entries; typed pose state not flattened/reconstructed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/coordinates.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-world-schema/src/coordinates.rs",
+      "observed_sha256": "9a4428f9b0bcf848dd91f6c9dc6f4977c2341aabcc4d1261652bdd020b9e9291",
+      "read_ranges": [
+        [
+          1,
+          512
+        ]
+      ],
+      "read_status": "full",
+      "contract": "Whole latitude/longitude owner including Serde and existing fixtures; E7 and microdegrees separate scales. Checked bounds retained until degrees calculation or actual serialization; viewer repeated new().expect is PP020, not legitimate math conversion."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/celestial.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-core/src/celestial.rs",
+      "observed_sha256": "c31595528b5df5ab5137bb15789e202abcc096187f12ba1f5f207d7299726b06",
+      "read_ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "read_status": "full",
+      "contract": "Whole typed StrategicMinute + lat/long -> actual analytical horizon trigonometry -> final native light direction arrays. degrees getters directly consumed by true mathematical kernel; viewer prior primitive retained coordinates PP020."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/iteration/equipment.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-tactical-server/src/iteration/equipment.rs",
+      "observed_sha256": "ca4439b826717b1d61d7efd26d33a4538f66c8fc5527e32d8e7d9768b71e7074",
+      "read_ranges": [
+        [
+          1,
+          163
+        ]
+      ],
+      "read_status": "full",
+      "contract": "Whole PR equipment producer and actual spawn payload read; physical P16 variant225 already read. Canonical WeaponSkillDistribution19 -> retained raw array38 is PP029, actual ECS/native typed component can retain purpose aggregate. Item identity/placement raw roles linked rig/catalog graph; no blanket wire excuse."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/equipment.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-core/src/equipment.rs",
+      "observed_sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+      "read_ranges": [
+        [
+          320,
+          433
+        ]
+      ],
+      "read_status": "exact connected functions only; whole file remains camera/root assigned",
+      "contract": "Entire canonical WeaponSkillDistribution owner, From schema and all methods. Public role aggregate preserves raw authored words; weights() applies finite/max0 only inside actual weighted numerical kernels. Carry role without calling weights() early or changing policy."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog.rs",
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-core/src/item_catalog.rs",
+      "observed_sha256": "de7dd72013aa3af8ae0aae8691011a8aaa2d168db670188bcc1064cac9a23d18",
+      "read_ranges": [
+        [
+          1,
+          202
+        ]
+      ],
+      "read_status": "exact connected functions only; whole file remains camera/root assigned",
+      "contract": "Whole runtime catalogue production and non-test helper bodies through validate_references. Canonical typed AnimationPackId returned unchanged; generated JSON is actual build text boundary linked fresh camera/rig. Raw generated physical/precision producer gaps owned camera F002/F004; no duplicate."
+    }
+  ],
+  "limits": "Source-only reads; no build/runtime/format/test verdict. Root/camera whole-file discovery remains independent of narrow exact ranges."
+}

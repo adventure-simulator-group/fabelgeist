@@ -1,0 +1,564 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-246",
+  "at": "2026-10-25T14:10:57.015512+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 491,
+      "source_id": "pinned-sdk-2.6.1:db_connection.rs",
+      "sha256": "79c452f092b1123e8a9c4f7ca3c34167290bb97e3a64093ce903f4bf742b2b9a",
+      "actual_EOF": 1624,
+      "requested_registration": {
+        "source_id": "pinned-sdk-2.6.1:db_connection.rs",
+        "snapshot": "pinned-sdk-2.6.1",
+        "path": "CARGO_REGISTRY/spacetimedb-sdk-2.6.1/src/db_connection.rs",
+        "sha256": "79c452f092b1123e8a9c4f7ca3c34167290bb97e3a64093ce903f4bf742b2b9a",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 68131,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 644,
+            "read_ranges": [
+              [
+                715,
+                805
+              ],
+              [
+                930,
+                975
+              ],
+              [
+                1138,
+                1180
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SIM-SDK-ERROR-098"
+            ],
+            "read_status": "fresh-current-lens-scoped-native-owner-receiver-read",
+            "resolved_path": "CARGO_REGISTRY/spacetimedb-sdk-2.6.1/src/db_connection.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-SIMULATION-NATIVE-SDK-QUALIFICATION-048",
+            "json_pointer": "/source_proofs/2",
+            "source_id_as_recorded": "pinned-sdk-2.6.1:db_connection.rs",
+            "read_ranges_as_recorded": [
+              [
+                715,
+                805
+              ],
+              [
+                930,
+                975
+              ],
+              [
+                1138,
+                1180
+              ]
+            ],
+            "source_context": {
+              "source_id": "pinned-sdk-2.6.1:db_connection.rs",
+              "path": "CARGO_REGISTRY/spacetimedb-sdk-2.6.1/src/db_connection.rs",
+              "sha256": "79c452f092b1123e8a9c4f7ca3c34167290bb97e3a64093ce903f4bf742b2b9a",
+              "read_ranges": [
+                [
+                  715,
+                  805
+                ],
+                [
+                  930,
+                  975
+                ],
+                [
+                  1138,
+                  1180
+                ]
+              ],
+              "mode": "Fresh actual pinned native SDK error/type/callback bodies; bounded scopes only"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/additional_actual_source_proofs/29",
+            "source_id_as_recorded": "pinned-sdk-2.6.1:db_connection.rs",
+            "read_ranges_as_recorded": [
+              [
+                715,
+                805
+              ],
+              [
+                930,
+                975
+              ],
+              [
+                1138,
+                1180
+              ]
+            ],
+            "source_context": {
+              "source_id": "pinned-sdk-2.6.1:db_connection.rs",
+              "path": "CARGO_REGISTRY/spacetimedb-sdk-2.6.1/src/db_connection.rs",
+              "sha256": "79c452f092b1123e8a9c4f7ca3c34167290bb97e3a64093ce903f4bf742b2b9a",
+              "read_ranges": [
+                [
+                  715,
+                  805
+                ],
+                [
+                  930,
+                  975
+                ],
+                [
+                  1138,
+                  1180
+                ]
+              ],
+              "mode": "Fresh actual pinned native SDK error/type/callback bodies; bounded scopes only"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1349,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          712,
+          805
+        ],
+        [
+          930,
+          1012
+        ],
+        [
+          1138,
+          1194
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "No handwritten trait or serialization in exact material native methods.",
+      "absence_basis": "Registered715\u2013805/930\u2013975/1138\u20131180 plus critical disconnect prefix712\u2013714/nativebuild976\u20131012/disconnectcallback1181\u20131194 consumed. Async/native connection/publication, queue mutations, callback ownership and BSATN procedure adapters semantic methods. Generic input/owned output/context errors not derivable boilerplate. Whole1624-line SDK uncredited; exploratory708\u2013710/1014\u20131040/1196\u20131205 uncredited.",
+      "necessary_signature_extension": {
+        "additional_ranges": [
+          [
+            712,
+            714
+          ],
+          [
+            976,
+            1012
+          ],
+          [
+            1181,
+            1194
+          ]
+        ],
+        "reason": "Material cuts inside disconnect, native build_impl and on_disconnect; close actual bodies."
+      }
+    },
+    {
+      "scope_index": 492,
+      "source_id": "pinned-sdk-2.6.1:error.rs",
+      "sha256": "e98badf5f0eaff8bfe959e31b3ed9e4a6ad5cf5ec4040bfe806f74dc0c692d38",
+      "actual_EOF": 104,
+      "requested_registration": {
+        "source_id": "pinned-sdk-2.6.1:error.rs",
+        "snapshot": "pinned-sdk-2.6.1",
+        "path": "CARGO_REGISTRY/spacetimedb-sdk-2.6.1/src/error.rs",
+        "sha256": "e98badf5f0eaff8bfe959e31b3ed9e4a6ad5cf5ec4040bfe806f74dc0c692d38",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 2970,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 642,
+            "read_ranges": [
+              [
+                1,
+                104
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SIM-SDK-ERROR-098"
+            ],
+            "read_status": "fresh-current-lens-full-source-read",
+            "resolved_path": "CARGO_REGISTRY/spacetimedb-sdk-2.6.1/src/error.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-SIMULATION-NATIVE-SDK-QUALIFICATION-048",
+            "json_pointer": "/source_proofs/0",
+            "source_id_as_recorded": "pinned-sdk-2.6.1:error.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                104
+              ]
+            ],
+            "source_context": {
+              "source_id": "pinned-sdk-2.6.1:error.rs",
+              "path": "CARGO_REGISTRY/spacetimedb-sdk-2.6.1/src/error.rs",
+              "sha256": "e98badf5f0eaff8bfe959e31b3ed9e4a6ad5cf5ec4040bfe806f74dc0c692d38",
+              "read_ranges": [
+                [
+                  1,
+                  104
+                ]
+              ],
+              "mode": "Fresh actual pinned native SDK error/type/callback bodies; bounded scopes only"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/additional_actual_source_proofs/27",
+            "source_id_as_recorded": "pinned-sdk-2.6.1:error.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                104
+              ]
+            ],
+            "source_context": {
+              "source_id": "pinned-sdk-2.6.1:error.rs",
+              "path": "CARGO_REGISTRY/spacetimedb-sdk-2.6.1/src/error.rs",
+              "sha256": "e98badf5f0eaff8bfe959e31b3ed9e4a6ad5cf5ec4040bfe806f74dc0c692d38",
+              "read_ranges": [
+                [
+                  1,
+                  104
+                ]
+              ],
+              "mode": "Fresh actual pinned native SDK error/type/callback bodies; bounded scopes only"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1347,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Display",
+          "type": "InternalError",
+          "lines": [
+            74,
+            82
+          ],
+          "disposition": "KEEP conditional write_str(message) then optional colon/cause formatting; error derive without semantic helper cannot express exact conditional display."
+        },
+        {
+          "trait": "Error",
+          "type": "InternalError",
+          "lines": [
+            84,
+            102
+          ],
+          "disposition": "KEEP distinct deprecated cause()->Some optional stored Arc error and description()->message, while source()->None. Ordinary thiserror source attribute changes source() and default Error implementation changes deprecated methods; exact native contract not fixed-message F002 family."
+        }
+      ],
+      "existing_derives": "Public Error already thiserror native source/transparent/from; InternalError Debug/Clone already derive.",
+      "absence_basis": "Full104-line pinned SDK error source consumed. Source/cause distinction and optional Arc ownership preserved; no compiler/runtime or validity endorsement of unrelated SDK policies."
+    },
+    {
+      "scope_index": 493,
+      "source_id": "pinned-sdk-2.6.1:lib.rs",
+      "sha256": "8de4cda1540f853eb47c888806c1529d3a7b2ed9e928d8fa01304f7d525e8161",
+      "actual_EOF": 76,
+      "requested_registration": {
+        "source_id": "pinned-sdk-2.6.1:lib.rs",
+        "snapshot": "pinned-sdk-2.6.1",
+        "path": "CARGO_REGISTRY/spacetimedb-sdk-2.6.1/src/lib.rs",
+        "sha256": "8de4cda1540f853eb47c888806c1529d3a7b2ed9e928d8fa01304f7d525e8161",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 3054,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 643,
+            "read_ranges": [
+              [
+                35,
+                65
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SIM-SDK-ERROR-098"
+            ],
+            "read_status": "fresh-current-lens-scoped-native-owner-receiver-read",
+            "resolved_path": "CARGO_REGISTRY/spacetimedb-sdk-2.6.1/src/lib.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-SIMULATION-NATIVE-SDK-QUALIFICATION-048",
+            "json_pointer": "/source_proofs/1",
+            "source_id_as_recorded": "pinned-sdk-2.6.1:lib.rs",
+            "read_ranges_as_recorded": [
+              [
+                35,
+                65
+              ]
+            ],
+            "source_context": {
+              "source_id": "pinned-sdk-2.6.1:lib.rs",
+              "path": "CARGO_REGISTRY/spacetimedb-sdk-2.6.1/src/lib.rs",
+              "sha256": "8de4cda1540f853eb47c888806c1529d3a7b2ed9e928d8fa01304f7d525e8161",
+              "read_ranges": [
+                [
+                  35,
+                  65
+                ]
+              ],
+              "mode": "Fresh actual pinned native SDK error/type/callback bodies; bounded scopes only"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/additional_actual_source_proofs/28",
+            "source_id_as_recorded": "pinned-sdk-2.6.1:lib.rs",
+            "read_ranges_as_recorded": [
+              [
+                35,
+                65
+              ]
+            ],
+            "source_context": {
+              "source_id": "pinned-sdk-2.6.1:lib.rs",
+              "path": "CARGO_REGISTRY/spacetimedb-sdk-2.6.1/src/lib.rs",
+              "sha256": "8de4cda1540f853eb47c888806c1529d3a7b2ed9e928d8fa01304f7d525e8161",
+              "read_ranges": [
+                [
+                  35,
+                  65
+                ]
+              ],
+              "mode": "Fresh actual pinned native SDK error/type/callback bodies; bounded scopes only"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1348,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          35,
+          67
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "Native/codegen reexports only.",
+      "absence_basis": "Exact35\u201365 plus native reexport/module close66\u201367 consumed. No type/trait body, generated SDK ownership remains canonical; no direct generated edits or whole76-line library credit.",
+      "necessary_signature_extension": {
+        "additional_ranges": [
+          [
+            66,
+            67
+          ]
+        ],
+        "reason": "Close reached __codegen reexport list/module."
+      }
+    },
+    {
+      "scope_index": 494,
+      "source_id": "pinned-sdk-2.6.1:subscription.rs",
+      "sha256": "5b1c6b0def7c80c6afb1659ff676de3c9414173452a374041d4c9f27f760e729",
+      "actual_EOF": 566,
+      "requested_registration": {
+        "source_id": "pinned-sdk-2.6.1:subscription.rs",
+        "snapshot": "pinned-sdk-2.6.1",
+        "path": "CARGO_REGISTRY/spacetimedb-sdk-2.6.1/src/subscription.rs",
+        "sha256": "5b1c6b0def7c80c6afb1659ff676de3c9414173452a374041d4c9f27f760e729",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 21884,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 645,
+            "read_ranges": [
+              [
+                140,
+                190
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SIM-SDK-ERROR-098"
+            ],
+            "read_status": "fresh-current-lens-scoped-native-owner-receiver-read",
+            "resolved_path": "CARGO_REGISTRY/spacetimedb-sdk-2.6.1/src/subscription.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-SIMULATION-NATIVE-SDK-QUALIFICATION-048",
+            "json_pointer": "/source_proofs/3",
+            "source_id_as_recorded": "pinned-sdk-2.6.1:subscription.rs",
+            "read_ranges_as_recorded": [
+              [
+                140,
+                190
+              ]
+            ],
+            "source_context": {
+              "source_id": "pinned-sdk-2.6.1:subscription.rs",
+              "path": "CARGO_REGISTRY/spacetimedb-sdk-2.6.1/src/subscription.rs",
+              "sha256": "5b1c6b0def7c80c6afb1659ff676de3c9414173452a374041d4c9f27f760e729",
+              "read_ranges": [
+                [
+                  140,
+                  190
+                ]
+              ],
+              "mode": "Fresh actual pinned native SDK error/type/callback bodies; bounded scopes only"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/additional_actual_source_proofs/30",
+            "source_id_as_recorded": "pinned-sdk-2.6.1:subscription.rs",
+            "read_ranges_as_recorded": [
+              [
+                140,
+                190
+              ]
+            ],
+            "source_context": {
+              "source_id": "pinned-sdk-2.6.1:subscription.rs",
+              "path": "CARGO_REGISTRY/spacetimedb-sdk-2.6.1/src/subscription.rs",
+              "sha256": "5b1c6b0def7c80c6afb1659ff676de3c9414173452a374041d4c9f27f760e729",
+              "read_ranges": [
+                [
+                  140,
+                  190
+                ]
+              ],
+              "mode": "Fresh actual pinned native SDK error/type/callback bodies; bounded scopes only"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1350,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          133,
+          198
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "No handwritten trait/Serde in scoped subscription callbacks/builder.",
+      "absence_basis": "Material140\u2013190 plus exact subscription_error start133\u2013139 and subscribe completion191\u2013198 consumed. Custom native error context/subscription removal callbacks, connection clone and queued subscription publication semantic methods. Not whole566-line source; exploratory125\u2013131/200\u2013205 uncredited.",
+      "necessary_signature_extension": {
+        "additional_ranges": [
+          [
+            133,
+            139
+          ],
+          [
+            191,
+            198
+          ]
+        ],
+        "reason": "Registration begins inside subscription_error and ends inside subscribe function."
+      }
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Native SDK callbacks, query publication and exact error introspection",
+      "disposition": "Keep behavioral queue/callback methods and InternalError bespoke cause/source/display semantics; already derived fixed public Error.",
+      "acceptance": "Preserve native async/cfg/generic bounds, callback ownership/IDs, BSATN/native errors and cause/source distinction. No SDK patch or generated binding edits; source-only discovery."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 495,
+    "source_id": "pinned-sdk:spacetimedb-sats2.6.1/src/timestamp.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

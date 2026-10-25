@@ -1,0 +1,94 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-526",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/icon.rs",
+      "sha256": "ee709ba9baafee9046a52d19cc14feea08c7194db4bc29a478fd98b71da4e33a",
+      "actual_EOF": 574,
+      "actual_compared_ranges": [
+        [
+          1,
+          574
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/icon/render.rs",
+      "sha256": "edff51da5c9b4c69950952e210b14a410e3b57e81af24119e35a300379796c81",
+      "actual_EOF": 199,
+      "actual_compared_ranges": [
+        [
+          1,
+          199
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/icon/studio.rs",
+      "sha256": "750bfa5bef2e547e50aca9f9835f5fcc90ccbc5183ebf3147cfebe159300ea69",
+      "actual_EOF": 114,
+      "actual_compared_ranges": [
+        [
+          1,
+          114
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/blades.rs",
+      "sha256": "fcc04f50403bdcd25927bf4e6412ffdea4fc6c18a6c193a8e224b049e3477171",
+      "actual_EOF": 241,
+      "actual_compared_ranges": [
+        [
+          1,
+          241
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/groove_sections.rs",
+      "sha256": "652cb4741bb36aa46baa4bfc2a15521ad5a939675d8ea36ae8517a7374b08175",
+      "actual_EOF": 76,
+      "actual_compared_ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/groove_transitions.rs",
+      "sha256": "86c133cddbd27493d2a2f90105a4fab5e4a0bbbbd5fc1a6dedd0d3d74dd60f14",
+      "actual_EOF": 109,
+      "actual_compared_ranges": [
+        [
+          1,
+          109
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Bounded icon raster and completed projection",
+      "evidence": "Fullicon574/render199/studio114. Renderpublicspec16..512 andsupersampling1..8 beforewidth\u00b2allocation (4096\u00b2max), sample/countproductsfitnative32bit; sourceordinary96x4. Generatedmeshindex/normalcardinality precondition suppliedbygenerate, notarbitraryMeshPart; rasterinternalnotpublicuntrustedmeshAPI. Boundstrianglemax clippedimageedge andemptyrangehandlesfullyoutside; depthfloatcomparison, finitecoveragealpha, occupiedboundsfailuretyped. Focusscale finitepositivegate, maxheadzoom2, semanticcomponentanchorsnotcatalogname; model20mframepreventsrawMAXprojectionwitness. SourcePNGchecksactualbytecardinality, stablefixedHDRmap128x64and12samples bounded."
+    },
+    {
+      "contract": "Blade native arithmetic and fuller transition mutation",
+      "evidence": "Fullblades241/groovesections76/transitions109. Fixedblade/ringindices andpositive recipe dimensions underpinthickness/interpolation; tapereddiamond closesbothfiniteends. Glaivebelly/point denominators requirewholeRecipe validation, leafRatio alone insufficient; no currentadmittedzerodenominatorroute established. Grooveq0 allowsinactivezero-mouth/depthlandmarks intentionally: cut.at returns0 beforemouth-floor division, no0/0 there. Sortedfacepoints preserve per-face winding. Grooveintervalrefinement insertsstrictlyinteriorcutoffs, boundedby2ends*groovecount; unchangedstationpass succeeds, unsupportedintervalErr, budgetbeforestationsreplace. Earlier successfulpasses remainafterlaterErr onlocalmodel scratch; callerdiscardvsretryqualification, no gameplayretainedstateclaim."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "6 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-weapon-model/src/recipe/blade_clearance.rs"
+}

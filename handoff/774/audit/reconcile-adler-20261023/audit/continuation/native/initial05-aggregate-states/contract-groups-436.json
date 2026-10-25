@@ -1,0 +1,62 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-436",
+  "at": "2026-10-23T13:42:20.793102+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_occupancy.rs",
+      "sha256": "9cb076d4f2ff85b5932981983e2eeea82850c8b40b647948ca400bd4d00aad51",
+      "scope072_index": 944,
+      "actual_EOF": 185,
+      "scoped_ranges_compared": [
+        [
+          1,
+          185
+        ]
+      ],
+      "actual05_comparison": "Fresh complete actual helper production and original fixtures; typed occupancy conflict, anatomical fit, layer precedence, protected surface membership and native segment capacity compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_validation_surface.rs",
+      "sha256": "1eb2a395a932ac45938d89d58e3a88df73821acda92560da49748ad1c80ffe8b",
+      "scope072_index": 945,
+      "actual_EOF": 219,
+      "scoped_ranges_compared": [
+        [
+          1,
+          219
+        ]
+      ],
+      "actual05_comparison": "Fresh complete actual helper production and original fixtures; typed occupancy conflict, anatomical fit, layer precedence, protected surface membership and native segment capacity compared."
+    }
+  ],
+  "groups": [
+    {
+      "id": "ordered occupancy conflicts depend on typed requirement admission",
+      "comparison": "944 validates objectform/known fields, allowed location/channel strings, typed deserialize and fit-zone-belongs-location, singletonchannelorder0, u16ordercapacity and pair conflicts. Only successfully typed requirement enters occupiedvector; actual conflicts_with lower importedfit rules separately scoped. typed.decode.ok means malformedtypedfield canbeignoredlocally ifnootherpredicateflags; whole mainvalidator mustcatch native schema decode before success. This privatepubsuper helper notstandaloneacceptedaggregatefactory. No acceptedbadcatalog claimed without actualwholemaincaller."
+    },
+    {
+      "id": "parent and precedence records have structural admission but not runtime graph proof",
+      "comparison": "Dependencyhelper explicitly reports typed ParentRequirement deserializeerrors and optional layers_over requiresarraythen typed eachprecedence. Wholevalidschema establishes closed enums/order bounds and fieldforms; doesnotitselfbindactualparentinventorynode/tag/custody/location path or acyclicgraph. Actual runtimegraph equip and catalogmain unique parent/point rules are separate exact suppliers, notcall-nameclearance."
+    },
+    {
+      "id": "surface validators enforce actual ordered anatomy and physical membership",
+      "comparison": "945 required armor/clothing surface array nonempty, anynonempty surface requiresmaterial, actualtotal regionsegments<=canonicalMAX. Eachspan objectknownkeys, nonemptyknownregions, contiguousproximal-distal allowedchains, validanchor and positivef32coverage<=1. Regionsmappedtocanonical7bodyparts andmustbelongprotectedset IFsetnonempty. This is subsetrelation, not proof every protectedpart has a surface; emptyprotected allows no restriction byhelperpolicy. Maincaller/cardinality and later selectedgeometry recipient mustestablish additionalrequiredmembership, no universalbijection guessed."
+    },
+    {
+      "id": "native segment and coverage bounds justify downstream local summary once whole caller admits",
+      "comparison": "segment_count computedusize from actualarraylengths; sum of separatelyownedparts withinactualparsedinputcapacity notproofarbitraryresourcefreeparse. Onacceptedtotal<=MAX and eachspan nonempty positivecoverage<=1, loader937region-weightedmean numerator<=total and positive divisor, no unboundedfinite overflow. Actual canonicalMAX definition is separately alreadyglobal47; not inferred16 merelyfromtestname. positive_f32_in underlying helper readmission matters to smallestsubnormalcoverage, direct945fixture166-195 asserts1e-100rejected/minpositiveaccepted; sourcefixturealone notpredicatebodyproof."
+    },
+    {
+      "id": "original fixture source limits",
+      "comparison": "944145-185 fitzoneandconflict examples and945160-219 postconversioncoverage/segmentcapacity allreadnotrun. Fit-zone conflict intentionallyallowsdisjointarticulatedsegments but rejectsduplicateorwholelimbreservation. No newcases/assertions/scanners, no wholemain orforeignserdeimplementationcredit."
+    }
+  ],
+  "new_unique_findings": [],
+  "remaining_dependency_obligations": [
+    "Actual main941 catches structural decode failures and establishes all required protected-part/surface correspondence; exact positive_f32_in and importedfit predicate; runtimeparentgraph/custody separate."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

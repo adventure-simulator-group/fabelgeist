@@ -1,0 +1,15 @@
+diff --git a/crates/adventuresim-tactical-client/src/camera/values.rs b/crates/adventuresim-tactical-client/src/camera/values.rs
+index b3a1a5c23..fb3293659 100644
+--- a/crates/adventuresim-tactical-client/src/camera/values.rs
++++ b/crates/adventuresim-tactical-client/src/camera/values.rs
+@@ -42,8 +42,10 @@ pub(crate) struct ScreenError {
+ pub(super) struct SignedBlendVelocity(f32);
+ 
+ #[derive(Debug, thiserror::Error)]
+ pub enum CameraError {
++    #[error(transparent)]
++    Fraction(#[from] adventuresim_core::unit_interval::FractionError),
+     #[error(transparent)]
+     Geometry(#[from] GeometryError),
+     #[error(transparent)]
+     Speed(#[from] SpeedError),

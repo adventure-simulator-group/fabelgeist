@@ -1,0 +1,146 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-175",
+  "at": "2026-10-23T04:13:18.031872+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/morale.rs",
+      "sha256": "f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+      "scope054_index": 123,
+      "actual_EOF": 527,
+      "scoped_ranges_compared": [
+        [
+          1,
+          527
+        ]
+      ],
+      "actual05_comparison": "Fresh actual bounded current source semantics; complete actual PR/P16 diff empty, personal role/range comparison. QUAL058 explicitly excludes companion displays beyond each scoped union; REG035/036 exact tails reread AFTER prospective registration. No full counterpart/source exemption."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/morale.rs",
+      "sha256": "f902bb0b1067c0247c8309ac84bd8bb4af3ea9443be399780e82223ebf122750",
+      "scope054_index": 958,
+      "actual_EOF": 527,
+      "scoped_ranges_compared": [
+        [
+          1,
+          145
+        ],
+        [
+          180,
+          334
+        ]
+      ],
+      "actual05_comparison": "Fresh actual bounded current source semantics; complete actual PR/P16 diff empty, personal role/range comparison. QUAL058 explicitly excludes companion displays beyond each scoped union; REG035/036 exact tails reread AFTER prospective registration. No full counterpart/source exemption."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/reputation.rs",
+      "sha256": "f440b09e301404f9d1be804764c9be6af087320ea34c8b8a27fd9a4b191b8103",
+      "scope054_index": 133,
+      "actual_EOF": 331,
+      "scoped_ranges_compared": [
+        [
+          1,
+          331
+        ]
+      ],
+      "actual05_comparison": "Fresh actual bounded current source semantics; complete actual PR/P16 diff empty, personal role/range comparison. QUAL058 explicitly excludes companion displays beyond each scoped union; REG035/036 exact tails reread AFTER prospective registration. No full counterpart/source exemption."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/reputation.rs",
+      "sha256": "f440b09e301404f9d1be804764c9be6af087320ea34c8b8a27fd9a4b191b8103",
+      "scope054_index": 984,
+      "actual_EOF": 331,
+      "scoped_ranges_compared": [
+        [
+          1,
+          280
+        ]
+      ],
+      "actual05_comparison": "Fresh actual bounded current source semantics; complete actual PR/P16 diff empty, personal role/range comparison. QUAL058 explicitly excludes companion displays beyond each scoped union; REG035/036 exact tails reread AFTER prospective registration. No full counterpart/source exemption."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/reputation.rs",
+      "sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+      "scope054_index": 244,
+      "actual_EOF": 440,
+      "scoped_ranges_compared": [
+        [
+          85,
+          360
+        ]
+      ],
+      "actual05_comparison": "Fresh actual bounded current source semantics; complete actual PR/P16 diff empty, personal role/range comparison. QUAL058 explicitly excludes companion displays beyond each scoped union; REG035/036 exact tails reread AFTER prospective registration. No full counterpart/source exemption."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/reputation.rs",
+      "sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+      "scope054_index": 1179,
+      "actual_EOF": 440,
+      "scoped_ranges_compared": [
+        [
+          74,
+          188
+        ],
+        [
+          258,
+          361
+        ]
+      ],
+      "actual05_comparison": "Fresh actual bounded current source semantics; complete actual PR/P16 diff empty, personal role/range comparison. QUAL058 explicitly excludes companion displays beyond each scoped union; REG035/036 exact tails reread AFTER prospective registration. No full counterpart/source exemption."
+    }
+  ],
+  "contract_groups": [
+    {
+      "id": "derived-strategic-incapacitation",
+      "comparison": "StrategicIncapacitation seven public contribution fields retain no independent cached total/status/multiplier: all consumers recompute SAME sum. Default all0 is valid ready; exact .5 ready and >=1 incapacitated thresholds deliberate. Raw negative/nonfinite fields can violate intended impairment but no constructor seal promised. Native F029 tactical cached total is distinct. Strategic move/check penalty is this strategic helper; AGENTS prohibits importing it as hidden tactical fatigue-speed penalty. Current DB projection must supply correct canonical inputs, not inferred from raw name."
+    },
+    {
+      "id": "morale-ranked-sign-aggregates",
+      "comparison": "cumulative_morale filters nonfinite/nonpositive entries, sorts descending total_cmp and divides each SAME ordered effect by ordinal+1. Signed resolves separate positive/negative accumulators and negative-only Will floor .25, avoiding zero divisor; finite effects do not bound total => F040. Same source-backed aggregate mechanism both PR/P16, no automatic DB badwriter claim. Ally bonus intentionally pre-bonus surplus avoids recursive two-character amplification; current party leadership caps belong caller, not separate retained cache."
+    },
+    {
+      "id": "morale-meters-and-intervals",
+      "comparison": "P16full527 current scope includes mastery152-183: canonicalizes starting0..4/excess>=0, duration0decays0, elapsed>=durationclamps0, award once at interval endpoint; simultaneous sources should combine before call, order policy source-doc explicit. Rawpublic pure helpers fervor/neglect/discord use caller facts; fervor finalexp maps positivepressure to<=1, rawNaN/Inf policy separate rather than blanket checkedinput assumption. PR current scoped180-334 excludes mastery146-179 except tail180-183 context; NO PR mastery body credit. P16blood/hunger/thirst/fear/fatigue kernels335-369 are only P16 semantic scope. Zero-denominator branches explicit, time0genuine no positive-duration invent. Finite huge numerator/denominator/intermediate may overflow or alter ratio; no ordinary caller bound inferred. All P16 original fixtures371-527 readnotrun; PR335+excluded."
+    },
+    {
+      "id": "bounded-reputation-projection-graph",
+      "comparison": "Core contributions derives origin by ID, missing origin empty; no node returns localonly. Bidirectional adjacency uses edge length.max1, sorted neighbors, Dijkstra distance bounded reach<=250000 and seen<=4096, zero cycles cannot amplify. Destinations sorted(distance,id) truncate24; SAME ordered refs produce positive weights<=250001 then zip directly, total<=6000024 and budget<=30000, budget*weight<=7500030000 safei64. Floors each term so total spill<=budget, no recursive source reinsertion. Shared input settlement ID uniqueness is caller precondition: raw duplicate IDs allowed but SAME actual DB primary-key iteration284-294 provides normal distinct settlements. PopulationEstimate0 explicitly level fallback, not migration compatibility code; signedlevel<=1 lowerbucket intentional. fame/infamy remain independent nonnegative capped counters, not complements."
+    },
+    {
+      "id": "reputation-numeric-and-charge-collections",
+      "comparison": "Core clamp/apply wideni32+i32 tosafei64, local multiplier populationpositiveclamped2000..10000, rawfamei32max product<=~2e13safe; reputation cap100000. npc reaction widens difference/product, bounds familiarity to10000 then signed[-20,20]. Fine source collection filters settled then severity.clamp1..5 per actualcharge, emptyNone vs nonempty0notpossible, summin100; practical collection capacity/hugeusize sum proof not invented. No consumed charge identity in pure severity helper, exact DBsnapshot defines it. P16whole331 fixtures read; PR scope1-280 only,281+excluded; nonexistent P16tail332-338 QUAL058."
+    },
+    {
+      "id": "event-ledger-and-terminal-projection",
+      "comparison": "Actual DB record_event258-348 rejectsnegative raw deltas, eventID existing\u2192Okfalse before origin lookup, then knownorigin and SAME current settlement/travel graph snapshots\u2192pure bounded contributions. Inserts immutable event coordinates and updates each contribution with apply_delta; no aggregate rows fed back as events. Exact eventID retry is caller action identity contract, not whole payload equality gate; same-ID different-payload no-op explicitly possible raw helper input, no false duplicate award claim. Documented native reducer transaction is required for atomic event+allprojection publication, native runtime body not read or independently verified. No stronger partial-write/rollback guarantee inferred from source. Aggregate PK combines characteru64 plus settlement and current normal keys, absent local record returns genuine0/0; no missing authority signal masquerade."
+    },
+    {
+      "id": "snapshotted-arrest-and-case-membership",
+      "comparison": "DB case_resolution_participant_ids91-119 captures participants for exact publiccase+party matching battle, living fallback only if all battle participants absent, delegates canonical world-event participant planner (separate actual lower proof). Snapshots canonicalcase+character immutable ID firstwrite, not canonical/public ID conflation. Discoveredoffense150-170 retriesID no-op, severity1..5. Local current offense172-188 filters BOTH actor+settlement+unsettled then sorts clock,id; REG036 closes PR actualtail. P16snapshot_arrest190-212 captures only current set, IDincident+offense; unsettled_arrest214-237 rechecks capturedcharge actor/place and currentoffense actor/place/unsettled, so later crimes not silently added. settle_offenses239-244 consumes suppliedrows and markssettled; rawpub/table/stale caller literals broader than accepted snapshots and no hidden authority proof here. PR190-257 specifically excluded, no counterpartcredit. Deletion361+uncredited in both current scoped roles."
+    }
+  ],
+  "new_unique_findings": [
+    {
+      "id": "NATIVE-INITIAL05-F040",
+      "relationship": "Individually finite positive morale effects must not combine into nonfinite signed morale",
+      "source_refs": [
+        "physical-p16:crates/adventuresim-core/src/morale.rs:246-267",
+        "pr-working:crates/adventuresim-core/src/morale.rs:246-267"
+      ],
+      "counterexample": "Positive effects[MAX,MAX], negative effects[MAX,MAX], Will1: each effect passes finite>0 filter; harmonic SUM MAX+MAX/2 overflowsInf on each sign; resolve returnsInf-Inf=NaN.",
+      "qualification": "Public finite-input aggregate/API strengthening only; no normal current bounded morale event producer reaching extremes or gameplay/run failure established. No invented <=1 bound on morale/Will or blanket clipping different effects.",
+      "connected_repair": "Retain checked finite aggregate for each sign and compute stable widened/deliberately bounded signed result before accepted morale. Preserve ranked diminishing returns, negative-only Will mitigation, signed surplus/deficit and invalid-effect filtering policy until explicit raw-source policy decision.",
+      "acceptance": "Finite accepted contribution combinations cannot silently yield NaN; normal rank ordering/Will mitigation and empty zero semantics remain unchanged. No new tests/run."
+    }
+  ],
+  "scope_qualifications": [
+    "QUAL058 EOF/context limits; REG035 morale331-334/REG036 DBreputation180-188 prospective new existing-role tails pending global reconciliation, actual freshly reread after registration."
+  ],
+  "remaining_dependency_obligations": [
+    "Actual bounded DB morale event/projection inputs and exact eventID action producers/native transaction remain their queued sources. No whole SDK/parent helper clearance."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

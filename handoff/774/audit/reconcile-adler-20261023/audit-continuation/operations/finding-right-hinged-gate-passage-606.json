@@ -1,0 +1,30 @@
+{
+  "id": "SEGOVB-04-RIGHT-HINGED-GATE-PASSAGE-CENTRE-CANDIDATE-001",
+  "lens": "04",
+  "status": "source-backed ordinary-sized generated-producer conditional case; no actual actor/session/physics run",
+  "variant": "physical-p16 039329518e264f19206cf5b0b98d177433f40c17",
+  "earliest_failed_operation": "server doors.rs156\u2013164 recomputes doorway_centre=hinge+tangent*width/2 regardless actual hinge side, replacing actual closed_centre",
+  "producer_trace": [
+    "city_layout.rs268\u2013294 choosesLeftpassage for merchant whenstreamboolean true; no fixedseed asserted",
+    "compiled/property.rs164\u2013199 choosesgatehinge=passage_side.opposite withwidth1.6, boundaryheight1.8",
+    "compound/boundary.rs CityGate::door computesright hinge=closedcentre+tangent*.8 (left givesclosed\u2212.8)",
+    "server boundaries.rs4\u201329 convertsgate datumthenactualdoors::spawn_door",
+    "server doors.rsDoorGrabber84\u201399 passesreplicated shiftedcentre tocorecan_grab; update_door_passages323\u2013370 usesretained samecentre"
+  ],
+  "witness": "Right-hinged generatedgate ofwidth1.6: actualclosedcentre C; hinge C+.8T. Server passagecentre C+1.6T. Anactor C\u2212.5*outward is legallyinside attruecentre. Actualcan_grabdoor takesdepth\u2212.5 valid, butlateraldistance1.6 >halfwidth.8+margin.6=1.4 and rejects; correctauthoredcentre gives0. Sourcequantities ordinary-sized. Requires generatedLeftpassage merchant tosurviveordinarylayoutacceptance; existinghandednessfixtures explicitlycompilebothsidesbutnotexecutedhere.",
+  "related_contracts": [
+    "supplier RIG-OWNER-REACHED-PRODUCER-F003/OWNER81F006 retaincheckedhinge/angle; differentlostinformation remedy, no automaticsamefinding",
+    "M12 broad door/controllergeometry scope is not exactalias proof",
+    "report_unseated_doors303\u2013312 likewiseassumes leftlocalhinge; classify diagnostic consequence separately withoutclaimingjointphysicaldrift",
+    "windowanimate hasactualleftedgegeometry anddoesnotreceiveCityGate; arbitraryoffsetdecodedwindow remainsseparate APIaggregatepolicy"
+  ],
+  "repair_boundary": "Preserve actual doorway/opening centre as semantic fact; derive from admittedleaf.closed_centre or carry explicit hinge geometry. Do not force allgatehinges left ornormalize mirroredpassage away. Shared door spawn/controller/grab/exemption/diagnostic recipients requireconsistentcentre.",
+  "acceptance": [
+    "Left/rightgeneratedgates both admitinsideactorattrueopeningcentre withcurrentgrabdistancepolicy",
+    "Actualhingepose andphysicaljoint unchanged; no artificial passagegeometryshift oroutsidegrant",
+    "Exemptionlateralrevocation usesactualopeningcentre, ordinarybuildingdoor behavior preserved",
+    "Sourceonly support; run/asset/physicsacceptance remains unperformed"
+  ],
+  "alias_status": "Narrow1002wrapperlookup no exactgeometrycase consumed; parentaskedforpriorcurrentledgerexactalias. No uniqueglobalcount.",
+  "later_alias_qualification": "Parent targeted1002 exactwrapperlookup foundnoexacthinge-centerright-hingecounterpart; M12 explicitlypropagationonly anddoesnotcovergeometryerror. Keepdistinctsource-backeddefect connectedM12, ordinarytrace qualifications retained."
+}

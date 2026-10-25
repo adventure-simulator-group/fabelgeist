@@ -1,0 +1,55 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-131",
+  "at": "2026-10-25T12:47:36.421032+00:00",
+  "lens": "10 audit-derivability",
+  "status": "DELETED_ROLE_ACCOUNTED_NO_CURRENT_BODY",
+  "source_roles": [
+    {
+      "scope_index": 272,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/combat_error.rs",
+      "current_sha256": null,
+      "current_body_ranges": [],
+      "source_state": "deleted",
+      "base_sha256": "58e6e2c18b7b24c5ca48112d598be60bec75a889ebfbf494562073baa85b318f",
+      "base_compared_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "base_EOF": 29,
+      "absence_proof": "Fresh git ls-tree039329518e264f19206cf5b0b98d177433f40c17 exact path returned no combat_error.rs entry; operation_error.rs Gitblob316f663818463ed120e0c2d6aca83eb22e91c38b exists. Exact recovered base verified SHA256; base bytes not currentbody."
+    }
+  ],
+  "trait_inventory": [
+    {
+      "trait": "Deleted-base From<String>/From<&str> for StrategicCombatError",
+      "lines": [
+        [
+          19,
+          23
+        ],
+        [
+          25,
+          29
+        ]
+      ],
+      "disposition": "Historical necessary small conversions only; no currentbody finding or derive recommendation. Current replacement operation_error.rs original227 already personally reviewed096 with native thiserror derive plus necessary String conversions."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Deleted combat error consolidation into strategic operation error",
+      "disposition": "Account exact frozen deletion, not current source trait coverage; do not restore old error type or add compatibility aliases.",
+      "acceptance": "Current derive assessment belongs exact successor original227, not deleted base. Preserve native leaf errors and do not add plainString source semantics."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 273,
+    "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/custody_objectives.rs"
+  },
+  "execution": "none",
+  "limits": "Deleted-role accounting increments accounted originalcells only; no current29linebody coverage, other variant/live successor integration or compileclaim."
+}

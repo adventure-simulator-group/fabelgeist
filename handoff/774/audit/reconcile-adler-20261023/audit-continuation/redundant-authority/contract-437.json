@@ -1,0 +1,93 @@
+{
+  "id": "CONT07-CONTRACT-437",
+  "at": "2026-10-23T21:52:43.727978+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1920,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/detail_obstacles.rs",
+      "sha256": "3f3f41a4aa24cbc26e90b89344ff0efd29cb7949da014bd7df1d6326bae2e702",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/detail_obstacles.rs",
+      "actual_EOF": 50,
+      "ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1921,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/environment.rs",
+      "sha256": "5dc4692893cb46eafc83376730b05121885a310d915bfacc8b824aebd24eee3d",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/environment.rs",
+      "actual_EOF": 86,
+      "ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1922,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/error.rs",
+      "sha256": "80158c095602a7e448e6da5071281e1c49d757524c199fcd9f193ea44d0c0a04",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/error.rs",
+      "actual_EOF": 74,
+      "ranges": [
+        [
+          1,
+          74
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1923,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/establishments.rs",
+      "sha256": "9033f4633d599fd7c5a2d4802c4942993bca3a804ed98f9e88b3e4ea1cdbfbc1",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/establishments.rs",
+      "actual_EOF": 68,
+      "ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1924,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/furniture.rs",
+      "sha256": "a6e05f5d76dc07ebb642f6ff405725f46b5aa8a429666231e0b09e9c768abf2d",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/furniture.rs",
+      "actual_EOF": 145,
+      "ranges": [
+        [
+          1,
+          145
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "1920 detail obstacles derive scene points and checked rock radius from immutable obstacle-grid records plus original spacing/extent. No retained second obstacle-grid layout in this projection; physical sphere influence is distinct from exact rendered mesh silhouette.",
+    "1921 SceneEnvironment is explicitly compact immutable broad presentation handoff with provenance/weather; large grids are separate. TemperateHills fixture is authored source, accepts external diagnostic digest intentionally; matching this synthetic fixture digest to an imported input cannot be assumed. Captured absolute and lunar clocks are distinct authority roles.",
+    "1922 error enum preserves original causes and identity context; explicit From implementations only box exact cause. They do not rebuild competing classifications or silently convert failures into valid state.",
+    "1923 confirms branding contract concretely: validate derives building usage map, requires business usage match, and requires exact ShopName::for_operator against captured operator_name. Later missions recapture name; historical mission snapshot is not stale current-player-name cache. Per-call BTreeMaps/sets are temporary validation, not independently retained business registry.",
+    "1924 furniture group metadata has one group object and per-instance group identity, while interior ownership carries physical building/room/storey. Debug SceneFurnitureGroup snapshots versus replicated per-item recipe/location are explicit consumer roles; representable public-layout mismatches alone do not prove normal inconsistent publication. Current F085 alias-building placement scenario remains separate and unaffected."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1925,
+    "start_line": 1
+  }
+}

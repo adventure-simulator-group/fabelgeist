@@ -1,0 +1,100 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-354",
+  "at": "2026-10-25T15:01:48.673337+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 695,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/armory_scene.rs",
+      "sha256": "ece71ad33e583d6908d9ad2db842ffa724b97e8d498a19258602836608b093a3",
+      "actual_EOF": 288,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-character-creator/src/armory_scene.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-character-creator/src/armory_scene.rs",
+        "owner": "rig",
+        "sha256": "ece71ad33e583d6908d9ad2db842ffa724b97e8d498a19258602836608b093a3",
+        "base_sha256": "5d96cbb34290e13ce5c993da3cce44bb26a652f196cbe12116a04cedbb7523cb",
+        "state": "modified",
+        "bytes": 9479,
+        "audit_owner": "rig",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/sources.json",
+            "ranges": [
+              [
+                1,
+                288
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-DEVICE-FIT-01"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 159,
+            "read_ranges": [
+              [
+                1,
+                288
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-ARMORY-EXPORT-029"
+            ],
+            "read_status": "full-source-read-current-lens",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-character-creator/src/armory_scene.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          288
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "ArmoryMesh Component/Clone/Copy5",
+        "ArmoryBody/ArmoryLight Component11/15"
+      ],
+      "absence_basis": "Full exact source: setup18\u201329, spawn_exhibit33\u2013128 checked native material/constructed mesh projection, display136\u2013219 runtime Bevy visibility/material updates and frame_camera222\u2013250 native framing policy. Fixture252\u2013288 read not run. No handwritten trait/codec; native runtime classifiers not wire derive targets."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "armory preview mesh/visibility/camera recipients",
+      "disposition": "No handwritten trait boilerplate; preserve native runtime material/scene semantics and existing framework derives.",
+      "acceptance": "No new codec/API or operation correctness credit; fixture only read."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 696,
+    "source_id": "pr-working:crates/adventuresim-character-creator/src/armory_ui.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

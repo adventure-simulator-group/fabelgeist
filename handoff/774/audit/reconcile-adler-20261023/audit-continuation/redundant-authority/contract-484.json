@@ -1,0 +1,79 @@
+{
+  "id": "CONT07-CONTRACT-484",
+  "at": "2026-10-23T22:38:31.374515+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2136,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/blades.rs",
+      "sha256": "3fb5785ee55629d966055979c2414e4b1f7daba4e1599cd0afc575285a407e39",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/blades.rs",
+      "actual_EOF": 275,
+      "ranges": [
+        [
+          1,
+          275
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2137,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/crossbow.rs",
+      "sha256": "17be9e75d18a697aaa64ae36410bf3f3f49adea7fa79e851272027716ebc9993",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/crossbow.rs",
+      "actual_EOF": 87,
+      "ranges": [
+        [
+          1,
+          87
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2138,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/firearm.rs",
+      "sha256": "870b68813086125b863525172135665a0c2d366955bcd75025ecc3e164a99a46",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/firearm.rs",
+      "actual_EOF": 70,
+      "ranges": [
+        [
+          1,
+          70
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2139,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/furniture.rs",
+      "sha256": "5cf9bbef830041b5ac7355e8496ebcb7c9137917882d3b414a60cf059c97fe12",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/furniture.rs",
+      "actual_EOF": 217,
+      "ranges": [
+        [
+          1,
+          217
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "2136 full275 actual dimension gate allows Axe width up to20 including>.30556, unspecified root accepted here. Broader melee proportion/graph/mount still required before complete recipe/generation witness; retain pending default root discrepancy. SectionBlade dimensions intentionally broad, actual BladeProfile validates shape relations later in construction.",
+    "2137 full87 crossbow/bolt/quiver numerical dimension stage is distinct from later ranged clearance and actual material topology. Optional derived scales vs explicit geometry fields are authored inputs; no independently cached current measurements in these validators. Bounded can allow signed decorative inputs intentionally; no broad narrowing under07.",
+    "2138 full70 firearm dimension stage bounds count/size fields without asserting that every weapon kind obeys general predicate. Other constructor/dependency checks reached separately. Metadata/model part distinctions such as barrelcount/bandcount are cardinalities of different objects, not duplicates merely same Count leaf.",
+    "2139 full217 socket dimension accepts absent wall and facets here, later melee/graph constraints still required. It explicitly bounds requested segments; fitted shaft-contact separate prepared fact not represented by wall presence. Other grip/pommel scale bounds do not by themselves prove source and resolved physical shape agree, so no clearance from successful dimension stage.",
+    "Exact full sources personally read; no semantic credit from public finite wrappers, source hashes or supplier earlier pass. No generation/codec/build/tests execution; current admission/lifecycle dependencies preserved."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2140,
+    "start_line": 1
+  }
+}

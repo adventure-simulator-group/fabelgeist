@@ -1,0 +1,164 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-236",
+  "at": "2026-10-25T14:00:28.862946+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_ROLE_INCOMPLETE",
+  "scope_index": 464,
+  "source_id": "physical-p16:crates/strategic-web/src/spacetimedb/types.rs",
+  "sha256": "df37c376e240735c231aaeca1737d1a0392643d37ab962f902a7d02df42ece02",
+  "actual_compared_ranges": [
+    [
+      1,
+      1650
+    ]
+  ],
+  "trait_inventory": [
+    {
+      "trait": "BestiaryDeductionExt",
+      "lines": [
+        457,
+        465
+      ],
+      "disposition": "KEEP JSON parse/filter/error fallback semantic adapter."
+    },
+    {
+      "trait": "From / TryFrom generated rows",
+      "lines": [
+        [
+          467,
+          498
+        ],
+        [
+          500,
+          550
+        ],
+        [
+          552,
+          575
+        ],
+        [
+          577,
+          628
+        ],
+        [
+          630,
+          651
+        ],
+        [
+          653,
+          688
+        ],
+        [
+          690,
+          704
+        ],
+        [
+          706,
+          726
+        ],
+        [
+          760,
+          791
+        ],
+        [
+          793,
+          813
+        ],
+        [
+          821,
+          978
+        ]
+      ],
+      "disposition": "KEEP checked identities, native/schema conversions, projections/default-fill or crossrecord field mapping. Available From derive generates field construction from native input, not crossrecord named projection. No generated-binding edits."
+    },
+    {
+      "trait": "Default",
+      "type": "CatalogItemView",
+      "lines": [
+        980,
+        1025
+      ],
+      "disposition": "F006 exact built-in Default derive equivalent: Slot None and CatalogItemKind Simple both are existing owners derived defaults; all remaining fields match native/default calls. See finding-F006 and exact dependency236."
+    },
+    {
+      "trait": "JourneyEndpointExt",
+      "lines": [
+        1027,
+        1049
+      ],
+      "disposition": "KEEP native enum borrowed-ID/name selection with Camp label."
+    },
+    {
+      "trait": "ReligionHoursExt / OralLanguageHoursExt / WrittenLanguageHoursExt / BestiaryHoursExt",
+      "lines": [
+        [
+          1051,
+          1063
+        ],
+        [
+          1065,
+          1073
+        ],
+        [
+          1075,
+          1083
+        ],
+        [
+          1085,
+          1101
+        ]
+      ],
+      "disposition": "KEEP custom extension methods projecting generated native schema to core semantic skills; no existing derive for these custom traits."
+    },
+    {
+      "trait": "ItemConditionExt",
+      "lines": [
+        1103,
+        1122
+      ],
+      "disposition": "KEEP ordered tier array, clamped total/skill-dependent repair/residual methods, not mechanical serialization."
+    }
+  ],
+  "existing_derives": "All consumed local query/native/presentation structures already structural/Serde/Default derives as appropriate.",
+  "semantic_contracts": "Personally read1\u2013330/331\u2013660/661\u2013990/991\u20131320: joined query declarations, generated schema/native projection, custom trait bridges and exhaustive enum matching. Manual Default remains specific dependency question. No whole2523-line credit, read ends within generated fixture function. Additional1321\u20131650 personally consumed: native skill fixtures, owned/borrowed crossrecord religion/language/bestiary/personality/requirements projections and native SATS normalization prefix. These are different native owners/semantic conversion, no ordinary derive equivalent. Default question closed with exact selected dependencies; no whole role clearance.",
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 464,
+    "source_id": "physical-p16:crates/strategic-web/src/spacetimedb/types.rs",
+    "next_line": 1651,
+    "actual_EOF": 2523
+  },
+  "execution": "none",
+  "fresh_compared_ranges": [
+    [
+      1321,
+      1650
+    ]
+  ],
+  "findings": [
+    "SEGOVB-INITIAL10-F006"
+  ],
+  "source_read_receipts": [
+    {
+      "scope_index": 116,
+      "sha256": "115d9400063d89f5782dc3c34be2b9f2af774ca438768a9059f815b531d71b1f",
+      "ranges": [
+        [
+          451,
+          472
+        ]
+      ],
+      "purpose": "Exact existing Slot derive Default=None rechecked, no new original credit."
+    },
+    {
+      "evidence": "fresh-dependency-registration-236.json",
+      "ranges": [
+        [
+          8,
+          22
+        ]
+      ],
+      "purpose": "Exact CatalogItemKind derive Default=Simple direct dependency."
+    }
+  ]
+}

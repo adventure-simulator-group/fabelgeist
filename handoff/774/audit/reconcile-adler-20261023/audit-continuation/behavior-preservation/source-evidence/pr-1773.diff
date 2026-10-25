@@ -1,0 +1,98 @@
+--- PRbase/crates/adventuresim-tactical-core/src/animation/pose_coordinates.rs
++++ frozen/crates/adventuresim-tactical-core/src/animation/pose_coordinates.rs
+@@ -0,0 +1,95 @@
++//! Finite authored attack coordinates and nonwrapping action-progress offsets.
++
++use super::{
++    AnimationQuantity, AnimationValueError, AnimationValueResult, AttackCurve, UnitInterval,
++};
++use serde::{Deserialize, Deserializer, Serialize};
++
++/// Guard-to-contact pose coordinate; negative drawback and overshoot above one
++/// are valid. This is neither a cyclic phase nor a bounded blend contribution.
++#[derive(Debug, Clone, Copy, PartialEq, PartialOrd, Serialize, Deserialize, derive_more::Into)]
++#[serde(try_from = "f32", into = "f32")]
++pub struct AttackPoseCoordinate(f32);
++
++/// Signed nonwrapping difference between normalized action-progress coordinates.
++#[derive(Debug, Clone, Copy, PartialEq, Serialize, Deserialize, derive_more::Into)]
++#[serde(try_from = "f32", into = "f32")]
++pub struct ActionProgressDelta(f32);
++
++impl AttackPoseCoordinate {
++    pub fn from_coordinate(coordinate: f32) -> AnimationValueResult<Self> {
++        if !coordinate.is_finite() {
++            return Err(AnimationValueError::NonFinite {
++                quantity: AnimationQuantity::AttackPoseCoordinate,
++            });
++        }
++        Ok(Self(coordinate))
++    }
++    pub fn from_arithmetic(coordinate: f32) -> AnimationValueResult<Self> {
++        if !coordinate.is_finite() {
++            return Err(AnimationValueError::Overflow {
++                quantity: AnimationQuantity::AttackPoseCoordinate,
++            });
++        }
++        Ok(Self(coordinate))
++    }
++    /// Apply the existing authored drawback/overshoot policy without wrapping.
++    pub fn clamped_to_curve(self) -> Self {
++        Self(self.0.clamp(
++            -AttackCurve::maximum_drawback(),
++            1.0 + AttackCurve::maximum_overshoot(),
++        ))
++    }
++    pub fn coordinate(self) -> f32 {
++        self.0
++    }
++}
++
++impl ActionProgressDelta {
++    pub const ZERO: Self = Self(0.0);
++    pub fn from_arithmetic(delta: f32) -> AnimationValueResult<Self> {
++        if !delta.is_finite() {
++            return Err(AnimationValueError::Overflow {
++                quantity: AnimationQuantity::ActionProgressDelta,
++            });
++        }
++        Ok(Self(delta))
++    }
++    pub fn fraction(self) -> f32 {
++        self.0
++    }
++}
++
++impl TryFrom<f32> for AttackPoseCoordinate {
++    type Error = AnimationValueError;
++    fn try_from(value: f32) -> AnimationValueResult<Self> {
++        Self::from_coordinate(value)
++    }
++}
++
++impl TryFrom<f32> for ActionProgressDelta {
++    type Error = AnimationValueError;
++    fn try_from(value: f32) -> AnimationValueResult<Self> {
++        if !value.is_finite() {
++            return Err(AnimationValueError::NonFinite {
++                quantity: AnimationQuantity::ActionProgressDelta,
++            });
++        }
++        Ok(Self(value))
++    }
++}
++
++/// Preserve finite out-of-range normalization at the existing owned decoding
++/// boundary. Malformed nonfinite input is rejected rather than invented zero.
++pub(super) fn deserialize_progress<'de, D>(deserializer: D) -> Result<UnitInterval, D::Error>
++where
++    D: Deserializer<'de>,
++{
++    let value = f32::deserialize(deserializer)?;
++    if !value.is_finite() {
++        return Err(serde::de::Error::custom(AnimationValueError::NonFinite {
++            quantity: AnimationQuantity::UnitInterval,
++        }));
++    }
++    UnitInterval::from_fraction(value.clamp(0.0, 1.0)).map_err(serde::de::Error::custom)
++}

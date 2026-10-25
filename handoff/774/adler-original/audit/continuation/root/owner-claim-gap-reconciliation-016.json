@@ -1,0 +1,96 @@
+{
+  "id": "CONT-ROOT-OWNER-CLAIM-GAP-RECONCILIATION-016",
+  "at": "2026-10-22T04:02:12.645131+00:00",
+  "input": "continuation/native/owner-delta-claim-gap-map-001.json",
+  "before_claim_sha256": {
+    "camera_targeting-claims.json": "a3abbf99c8a909359155223f2c32145edc985d6c1dbeeef4aafa747829d75556",
+    "native_reports-claims.json": "d3d70a94e655bf2149866786c65fb68c26d2dd935425b4b177db1c62b3dbd8e1",
+    "rig_garments-claims.json": "91fe8e223f734ea2a0c701343105cfbac295137f59342baa41ff3640179d3c60",
+    "root-claims.json": "8866397f9b55ef55ac35a1cfdccff7948fcda0ea5fa9bed74051f9ee4c9529ea"
+  },
+  "added_claims": [
+    {
+      "ledger": "root-claims.json",
+      "claim_index": 275,
+      "path": "crates/adventuresim-world-schema/src/lib.rs",
+      "functions": [
+        "RouteTerrain::class_for",
+        "expected_route_seasonal_risks",
+        "expected_route_encounter_tags"
+      ],
+      "records": [],
+      "finding": "CONT-ROOT-OWNER-F001"
+    },
+    {
+      "ledger": "root-claims.json",
+      "claim_index": 276,
+      "path": "crates/adventuresim-tactical-core/src/regional_terrain.rs",
+      "functions": [
+        "RegionalTerrainScale::spacing_metres"
+      ],
+      "records": [],
+      "finding": "CONT-ROOT-OWNER-F002"
+    },
+    {
+      "ledger": "root-claims.json",
+      "claim_index": 277,
+      "path": "crates/adventuresim-strategic-sim/src/live_core/config.rs",
+      "functions": [
+        "default_simulation_disease",
+        "CoreLoopConfig::validate"
+      ],
+      "records": [
+        "CoreLoopConfig.disease"
+      ],
+      "finding": "CONT-ROOT-OWNER-F003"
+    },
+    {
+      "ledger": "camera_targeting-claims.json",
+      "claim_index": 385,
+      "path": "crates/adventuresim-core/src/smithing.rs",
+      "functions": [
+        "quote_weapon"
+      ],
+      "records": [
+        "ForgeQuote"
+      ],
+      "finding": "CONT-CAMERA-OWNER-F001"
+    },
+    {
+      "ledger": "camera_targeting-claims.json",
+      "claim_index": 386,
+      "path": "crates/adventuresim-stdb-module/src/smithing.rs",
+      "functions": [
+        "available",
+        "consume"
+      ],
+      "records": [],
+      "finding": "CONT-CAMERA-OWNER-F001"
+    },
+    {
+      "ledger": "native_reports-claims.json",
+      "claim_index": 155,
+      "path": "crates/adventuresim-core/src/world_event.rs",
+      "functions": [
+        "WorldEventEnvelope::validate",
+        "validate_id"
+      ],
+      "records": [
+        "WorldEventPlace"
+      ],
+      "finding": "CONT-NATIVE-OWNER-F005 / NATIVE-CONT-WORLD-F001"
+    }
+  ],
+  "source_signature_navigation": "Exact existing paths and signatures only. RouteTerrain::class_for3190; expected_route_seasonal_risks3299; expected_route_encounter_tags3388; RegionalTerrainScale::spacing_metres64; default_simulation_disease44/CoreLoopConfig::validate72; quote_weapon19; available11/consume27; WorldEventEnvelope::validate261/validate_id359. No broader signature-search output or source body receives additional audit credit.",
+  "neutral_Radians": "Root014 neutral owner relocation dependency preserved; exact API/location choice intentionally follows all13 synthesis with Native max/direction ownership retained. No human decision needed.",
+  "already_closed": "Camera383/384 complete prior World029 missing DB targets; Rig426–433/014 cover sort/alcohol/rest/boot/helmet. No duplicate assignments.",
+  "remaining_limits": "Consumers and plan constructors already held by existing whole-function scopes retain them. Any genuinely new connected function needs its own explicit reconciliation before repair. Broad existing raw event-place policy is an invariant/aggregate design obligation, not waived.",
+  "source_edits": 0,
+  "other_lens_or_validation_credit": "none",
+  "claim_result_sha256": {
+    "camera_targeting-claims.json": "7bf1ac1e685b6d8163fa6d1511537d348a84a6d6006a86a45df41a58353022e9",
+    "native_reports-claims.json": "2e8b011ba857371c74475564fbf2cf44543f4b6c4415d1f706e2eeeece60062b",
+    "rig_garments-claims.json": "91fe8e223f734ea2a0c701343105cfbac295137f59342baa41ff3640179d3c60",
+    "root-claims.json": "c59fcd91a9f3b417b702f0483fa9318b43c95e51bbb333039a576b6e9da6f3c3"
+  }
+}

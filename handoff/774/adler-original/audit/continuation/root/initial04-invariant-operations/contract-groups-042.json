@@ -1,0 +1,85 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-042",
+  "at": "2026-10-22T21:07:53.505403+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/quest_generation/sampling.rs",
+      "sha256": "3c679c4e5177ee4462d6286d81cdd3e3cfaa9b6e2d91e844d3d45b8e2f666a44",
+      "actual_compared_ranges": [
+        [
+          60,
+          109
+        ]
+      ],
+      "source_evidence": "Exact prospective registered role; original exclusions retained.",
+      "registration": "ROOT-INITIAL04-REG011"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/quest_generation/solver.rs",
+      "sha256": "5d9b71ab4620264dce7604d0c9662f52009a887d00225927ef217087e0f10ba2",
+      "actual_compared_ranges": [
+        [
+          591,
+          597
+        ]
+      ],
+      "source_evidence": "Effective591-597 full witness_order helper;599-601 next build_actions attribute context excluded.",
+      "registration": "ROOT-INITIAL04-REG012"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/quest_generation/model.rs",
+      "sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+      "actual_compared_ranges": [
+        [
+          289,
+          303
+        ],
+        [
+          1191,
+          1198
+        ]
+      ],
+      "source_evidence": "Effective Weight289-303/Candidate1191-1198 only;305-308 nextGenerationContext header and1199blank excluded.",
+      "registration": "ROOT-INITIAL04-REG013"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/lib.rs",
+      "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+      "actual_compared_ranges": [
+        [
+          1910,
+          1978
+        ]
+      ],
+      "source_evidence": "Exact prospective registered role; original exclusions retained.",
+      "registration": "RIG-INITIAL06-REG-028"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/lib.rs",
+      "sha256": "a73a35c617f2a5910ecb0e623f00afd3486b055f3400031fc9883920c76e14ed",
+      "actual_compared_ranges": [
+        [
+          1758,
+          1765
+        ]
+      ],
+      "source_evidence": "Exact prospective registered role; original exclusions retained.",
+      "registration": "RIG-INITIAL06-REG-029"
+    }
+  ],
+  "groups": {
+    "candidate-product-and-bounds": "Weight has publicu32 plausibility/curation, combined widens BOTH operandsu64 beforemultiply. Maxu32 squared<maxu64 so result exact/nooverflow; zero legitimate eligibilityrejection. Candidate tiesonevalue/stableID/weight/optionalbridge/impossiblereason/factors, privatewholefieldproductnotfinitefloatwrapper. Native total across4096 positiveweights mayoverflowu64; actual deterministic Rand weighted constructor checkedoverflowResult is validrejection, no insistenceinfallible sumortruncate. ExistingRoot014 actualnativecheckedweight/sample/order proof is independently applied to operation meaning, not copiedverdict. MAXcandidates4096/visited16384 exact existingmodel19-20 make visited increment safe: abort at16385 longbeforeusizeMAX.",
+    "index-producer-and-witness-permutation": "choose andweighted_order construct0..candidates.len; canonicalize onlysorts indexpermutation and rejectsadjacent equalstableIDs. Allcurrentindexuses withinlist by construction; sourceIDs canonicalordering unchanged. windows2 safelygivesexact2, no pair[1]underflow. Generalprivatehelper rawindicescontract callerowned, actualcallersprovideindices; no claimedpubliccheckedarbitraryindexAPI. weighted_order filtersin-place retaining validindexes; weights sameindexorder, deterministicweighted_order outputrelativepermutation thenindexmapping same bounds. Emptyeligible returnsOkempty; caller handlesloops/description.first withoutoutofbounds. Witness helper creates0..inputlen, sortsbyresidentID, native shuffle preservescardinality/uniqueindexmembership; inputlen>=2 => secondaryindexdistinct primary exists. DuplicatepersistentresidentID is aggregatecontextidentity issue, not duplicateindexes or reasonthisexpectpanics. Sourceuppercandidatefactory bodies notautomaticallycredited by these focusedproofs.",
+    "hydrology-and-travel-kind": "FlowPersistence3closedcategories notnumericduration; RiverAccess couplesadmitted distance/StrahlerOrder/persistence, RiverAndCanal extendsriveraccess withactualcanaldistance/navigableflag, FlowingWaterAccess two meaningful sumshapes. Inlandsize3categories andinlanddistance, MarineTidal/OpenCoast carryingdistance, SettlementHydrology independent optionalflowing/inland/marine permittingrealcombinedwateraccess. DefaultallNone validdrysite, no nonempty/cross-source exclusivity invented. Leaves WaterDistanceMeters/StrahlerOrder actualadmission remainseparateexistingownerproof, derivedaggregateSerde/SATS alone notproofleafprivateconstructorcalled. No arithmetic/mutation/indexing innewdeclarations. TravelEdgeKind Land/Ferry closedtag lowercaseSerde; kind islosseyobservation ofrouteproduct, preserveotherRoutegeometry/provenance ratherthanfoldingintojusttag."
+  },
+  "findings": [],
+  "prior_finding_support": [
+    "Root041 actual lower index/weight/witness preconditions now proved; generic wholeWorldLib/model current04 roles still incomplete"
+  ],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

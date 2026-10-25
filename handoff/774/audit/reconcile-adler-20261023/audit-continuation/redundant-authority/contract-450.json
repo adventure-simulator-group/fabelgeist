@@ -1,0 +1,65 @@
+{
+  "id": "CONT07-CONTRACT-450",
+  "at": "2026-10-23T22:04:40.721167+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1974,
+      "source_id": "pr-working:crates/adventuresim-tactical-netcode/src/client/melee_preparation.rs",
+      "sha256": "bc62caee41b6c642c35101af3a0f5dee241c87afceff2d426fc038ec8740cf03",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-netcode/src/client/melee_preparation.rs",
+      "actual_EOF": 178,
+      "ranges": [
+        [
+          1,
+          178
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1975,
+      "source_id": "pr-working:crates/adventuresim-tactical-netcode/src/message.rs",
+      "sha256": "61261c4055cee33ac91c6cdac317996352c4997f93cbd692a93448656a2db2eb",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-netcode/src/message.rs",
+      "actual_EOF": 475,
+      "ranges": [
+        [
+          1,
+          475
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1976,
+      "source_id": "pr-working:crates/adventuresim-tactical-netcode/src/replication.rs",
+      "sha256": "3723f618b79b8e9c01b414c6fb374dd1f15e970c4182b2fa6d446c84924a33c8",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-netcode/src/replication.rs",
+      "actual_EOF": 242,
+      "ranges": [
+        [
+          1,
+          242
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "1974 preparation is built fully from immutable controls observations before publish; all local interpolation fields and discrete selection are committed together, forced edge consumed, released held states cleared. Progress1 at exact threshold can coexist with Preferred because selection uses strict>; that explicit discrete boundary is not automatically stale state. Clock press/release delta assignment differs from Sprint and is forwarded as cross-lens operation/behavior candidate002, not new07finding.",
+    "1975 EquipmentHand id/slot/location exhaustive matches represent different output vocabularies of one enum, not independent hand state. Equipment expected revision/item/destination are optimistic preconditions against server topology, not second authoritative topology. InputTick and command sequence have distinct chronology; JumpCommand retains last edge intentionally across unreliable packets.",
+    "1975 SceneVistaBundle is immutable separate asset transport including digest/extents and accepted scene snapshots, not tactical current simulation. TacticalOutcomeResponse explicitly publishes only accepted strategic terminal outcome; event itself is presentation history. SuccessfulAttackResponse effects/classification and impact observations have distinct server-produced roles; total_damage derives from result on demand.",
+    "1976 server components are replicated through one registration surface; immutable static snapshots are sent once while dynamic quantities/topology/equipment state continue replication. No assumption that replicate_once prevents arbitrary authoring replacement: ordinary producers and entity lifecycle determine that. Custom SceneBuilding codec preserves JSON bytes inside postcard due internally-tagged program. Default landform codec with nested internally-tagged structure is a new cross-lens codec candidate003 requiring actual default deserializer proof, not runtime failure claim or07finding.",
+    "1976 all242 source fixture lines read; mappings preserve native entity identities and component codec roundtrips are assertions only, not run. Replicated diagnostic collider copies and authoritative transient server physics retain explicit roles, with tactical tick state never persisted to DB."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1977,
+    "start_line": 1
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "id": "NATIVE-PP-BEVY-001",
+  "dependency_pin": {
+    "bevy_ecs": "0.19.1",
+    "checksum": "a350b2e4c2e47f7903d688affb8a723b31bca63af9789f1da88703f1ba04e354",
+    "source": "pr-working Cargo.lock at 6533e444fa37552927070cc8d8190907fd3b413e"
+  },
+  "read_files": [
+    {
+      "path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/system/function_system.rs",
+      "sha256": "a8c0b778125f2da28ada5005a40c2bc2ab5d783fd9d080aad99361cb55641c3a",
+      "read_ranges": [
+        [
+          576,
+          612
+        ]
+      ]
+    },
+    {
+      "path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/system/observer_system.rs",
+      "sha256": "a5ec50cfa2fdb29a0f86a8bfb1c42a266bbd199da74e8c60c30384bf59409ac6",
+      "read_ranges": [
+        [
+          1,
+          52
+        ]
+      ]
+    },
+    {
+      "path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/observer/distributed_storage.rs",
+      "sha256": "9a1c51dbb516b0cc08c33d8a5a714041eef55650447b4bb7efaf86ce537952b1",
+      "read_ranges": [
+        [
+          550,
+          578
+        ]
+      ]
+    },
+    {
+      "path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/observer/runner.rs",
+      "sha256": "e8a6dca4f1ae317b6653d6f1c5fdf175fdb6ed42a5d4a6125730bc9e716f43dd",
+      "read_ranges": [
+        [
+          1,
+          124
+        ]
+      ]
+    },
+    {
+      "path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/error/handler.rs",
+      "sha256": "800c43a7bcf3956170973151045546484c9546e3bb50635f9fab8cba7fed353d",
+      "read_ranges": [
+        [
+          1,
+          187
+        ]
+      ]
+    },
+    {
+      "path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/error/bevy_error.rs",
+      "sha256": "ae8feb04751ba67eaa86d03f3b748ef61d2bcdb9292c72dc0273eb353fb24fe2",
+      "read_ranges": [
+        [
+          40,
+          168
+        ],
+        [
+          230,
+          285
+        ],
+        [
+          390,
+          430
+        ]
+      ]
+    },
+    {
+      "path": "CARGO_REGISTRY/bevy_ecs-0.19.1/src/world/mod.rs",
+      "sha256": "34963c05abcc51517c1db6cf1a3e1f90ae365409f75a9ceb54d6a892505681b6",
+      "read_ranges": [
+        [
+          3458,
+          3466
+        ]
+      ]
+    },
+    {
+      "path": "CARGO_REGISTRY/bevy_app-0.19.1/src/app.rs",
+      "sha256": "0240f4b60c9848fcb5386998381c7b8f0be4fef83bfb574b19d818b99fc5e668",
+      "read_ranges": [
+        [
+          1450,
+          1484
+        ]
+      ]
+    }
+  ],
+  "contract": "App::add_observer -> IntoObserver -> IntoObserverSystem with default Out=() -> IntoSystem requires IntoResult<()>. Actual IntoResult implementations accept plain (), Result<(), RunSystemError> and Result<(), BevyError>; no generic Result<(), E>. Native P16 record_attack_start returns MeleeGeometryResult<()> and record_resolved_attack GeometryResult<()> directly; these typed aliases do not meet the native callback output contract. BevyError can box typed error, preserving downcast_ref and Display, but actual observer runner routes a failed system to its error handler. With no repository ECS override, fallback is match_severity and ordinary boxed error defaults Severity::Panic. A framework conversion by itself therefore would not return the retained cause to resolve_tactical_server_melee_duel/IterationError/main.",
+  "repository_search": "Pinned PR git grep for DefaultErrorHandler|FallbackErrorHandler|set_error_handler|bevy_ecs::error found no ECS handler installation; only render handlers. Frozen physical-p16 iteration app133\u2013189 contains no handler or failure resource.",
+  "status": "source-backed gap; no local compilation or execution"
+}

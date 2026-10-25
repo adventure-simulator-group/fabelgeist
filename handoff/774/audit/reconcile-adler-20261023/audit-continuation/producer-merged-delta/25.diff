@@ -1,0 +1,18 @@
+diff --git a/crates/adventuresim-tactical-client/src/strategic_scene/views.rs b/crates/adventuresim-tactical-client/src/strategic_scene/views.rs
+index c6531a2da..e4305b883 100644
+--- a/crates/adventuresim-tactical-client/src/strategic_scene/views.rs
++++ b/crates/adventuresim-tactical-client/src/strategic_scene/views.rs
+@@ -327,9 +327,12 @@ mod tests {
+                 })
+                 .collect(),
+             width: 220.0,
+             height: 40.0,
+-            front: Vec3::ZERO,
++            front: adventuresim_building_generator::spatial_geometry::Position::from_metres(
++                Vec3::ZERO,
++            )
++            .unwrap(),
+         };
+         let scene = RetainedScene {
+             street: Some(street),
+             ..default()

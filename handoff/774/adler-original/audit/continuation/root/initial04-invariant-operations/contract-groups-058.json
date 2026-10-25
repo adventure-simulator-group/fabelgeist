@@ -1,0 +1,89 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-058",
+  "at": "2026-10-22T21:52:04.218264+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/weather.rs",
+      "sha256": "62c3d0b44fa30ce15dab8e231cc5ef90e631e633d9ef4ea34091c5c8c3f3fde9",
+      "actual_compared_ranges": [
+        [
+          1,
+          958
+        ]
+      ],
+      "source_evidence": "Fresh full each frozen PR/P16 weather body, field and streams independently displayed/computed, not pairedhashverdictcarry; existingtests readonly."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/weather/field.rs",
+      "sha256": "8f11cdffeb39e9e0ca929c9cf3ac853b89c6d926c5bdd4d42c0ec9208e36cede",
+      "actual_compared_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "source_evidence": "Fresh full each frozen PR/P16 weather body, field and streams independently displayed/computed, not pairedhashverdictcarry; existingtests readonly."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/weather/streams.rs",
+      "sha256": "441a11bfce5d076e3dc78875c0f4bfbe8622178c5c1a4cba2c7e0077f5ea2ea8",
+      "actual_compared_ranges": [
+        [
+          1,
+          11
+        ]
+      ],
+      "source_evidence": "Fresh full each frozen PR/P16 weather body, field and streams independently displayed/computed, not pairedhashverdictcarry; existingtests readonly."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/weather.rs",
+      "sha256": "62c3d0b44fa30ce15dab8e231cc5ef90e631e633d9ef4ea34091c5c8c3f3fde9",
+      "actual_compared_ranges": [
+        [
+          1,
+          958
+        ]
+      ],
+      "source_evidence": "Fresh full each frozen PR/P16 weather body, field and streams independently displayed/computed, not pairedhashverdictcarry; existingtests readonly."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/weather/field.rs",
+      "sha256": "8f11cdffeb39e9e0ca929c9cf3ac853b89c6d926c5bdd4d42c0ec9208e36cede",
+      "actual_compared_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "source_evidence": "Fresh full each frozen PR/P16 weather body, field and streams independently displayed/computed, not pairedhashverdictcarry; existingtests readonly."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/weather/streams.rs",
+      "sha256": "441a11bfce5d076e3dc78875c0f4bfbe8622178c5c1a4cba2c7e0077f5ea2ea8",
+      "actual_compared_ranges": [
+        [
+          1,
+          11
+        ]
+      ],
+      "source_evidence": "Fresh full each frozen PR/P16 weather body, field and streams independently displayed/computed, not pairedhashverdictcarry; existingtests readonly."
+    }
+  ],
+  "groups": {
+    "field-admission-and-fixedpoint": "Actualsampleindex10001>0 returns0..10000 fitsu16; signedlattice x/y/t encodedasu64 onlyatdeterministicRNGkey bitport, notforgeographicposition. Scale8*65536/65536 positive; remainders0..scale\u22121, f=floor(rem*65535/scale)<65535, fadef\u00b2*(3*65535\u22122f)<2.82e14 fitsu64, denominator65535\u00b2fitsu64. Lerpdelta\u00b110000 timesfraction<=65535fitsi64 thenclamp0..10000/finalu16safe. Explicitintervalcapfits multiplication butnot xsubtraction F024. t0/dx/dy/dt local0/1 normalbounded, afterwideoperation shouldkeepseedencodingsemantics. Stream8 constants nonempty distinct names capturedreplaycontract, notad hocpercallstrings.",
+    "public-weather-clock-and-history": "Clockquotient/360positive; checkedperiodstart index*360<=clockMAX, expectsafe. Historymin16 withage0..15, startfloor andsaturatingpreviousindices avoidnegativeclock; finitefixedcost17field evaluations, notpersistenttacticalrows. Allsnapshotsconstructedlocally beforepublication. Oldcapturedsnapshot maykeepversion/time/cell immutablehistoricalevidence, notsecondcurrentweatherwriter. No routecachecorrectnessclearancewithoutactualrecipient. RawinputlatitudeEarthgate missing F023 and fullcanonicalclocknativefieldgapF024.",
+    "weather-integer-bounds": "Afterfield guarantee0..10000, humid3200+5000+1800<=10000; pressure10132\u00b1250fitsu16; diffgrad\u00b110000,sumabs<=20000 thenmin10000; allwind/liftprecipsignals/productsfitu32/i32 withclampsbeforei16/u16. Dewpointtemp\u2212atmost200 andLCL(temp\u2212dew)*25/2<=2500 safeforgeographicEarthbound/afterlatreconstruction; elevationi16.max0*65<=2129855safe. Moisture/snowstart0, atmost16samples eachadd3333 so<=53328 beforenameddecay; saturationmulcannotreachu32capacity underactualcaller. No F017stylelossfromthatprivateboundeddecay. Cellderivedrawi32/250000 gives\u22128590..8589; neighbors\u00b11 safei32, F023 reconstructionearliestbadrawlat separately.",
+    "clouds-and-periodic-native-kernels": "Actualcoverage span6500/5500/5000 allnonzero; actualsignals<20000 and*10000<2e8safe. Base120..2500/topbounded<=12000, saturatingheight explicitbeforefinalstoredlayer. Precip threshold>=15000 ensures(sub14000) no underflow. trianglewaveprivateactualperiod24/365, phase%period\u00d720000<7.3m fitsu64, returned\u00b110000; no unscoped genericperiod0API invented. Windatan2 casti32tof64beforeunaryminus, finiterem_euclid/round/%360 preserves0..359includinground360. Bpssignedlift\u221210000..10000 differspositivehumidity versuswinddirectiondegrees, nooneblanketunitinterval.",
+    "snow-public-arithmetic": "snow_overlay_check clampsONLYcover0..10000; underlying/snowchecks arbitraryu16 meaningpotential>whole. Convexweightedsumnumerator<=65535*10000=655350000 fitsu32 andquotient<=65535 finalu16safe; do notgloballycapunderlyingchecks1. Snowtrainingwidensminutesu32 tou64before\u00d7<=10000, discounted<=originalu32, snow<=discounted, subtract/narrow exact; returnedpairpartitiondiscountedpractice preservesunderlyingbiome+snowdistinct. Publicsnapshotrawmutation/Serdewholecrossfieldadmission alreadyotherlensgaps, operationshere no newtestorassertions."
+  },
+  "findings": [
+    "ROOT-INITIAL04-F023",
+    "ROOT-INITIAL04-F024"
+  ],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

@@ -1,0 +1,49 @@
+{
+  "id": "RIG-INITIAL09-GROUP-013",
+  "at": "2026-10-23T12:53:48.025296+00:00",
+  "lens": "audit-enum-shapes",
+  "scope": "cumulative-source-scope-parallel-072.json",
+  "groups": {
+    "removed-geometric-numeric-definitions": {
+      "comparison": "Current frozen PR intentionally removes old building-local PositiveLength and SignedLength/Area files. Fresh recovered base bodies36/69 manually reviewed for removal semantics: all are scalar wrappers/private values with exact structuredResult, no carried boolean/flag/tag/optional state. Current canonical neutralGeometry newdefinitions current09packet001/004 already personallycompared; removal doesnotorphan an enumvariant/payloaddefinition. BaseErrorroleprojection not claimed currentbody. Do not restoreobsoletecopy/compatibilityalias.",
+      "disposition": "Deleted current source: no runtime09contract; actualbase removal review complete, not sourcebody credit from absence"
+    }
+  },
+  "removed_source_proofs": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/length.rs",
+      "current_sha256": null,
+      "state": "deleted",
+      "actual_current_eof": null,
+      "base_revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "base_sha256": "85b9e28a95b866246fdc9e3c87fbf6c59f3c8ab02b87d623ef1bdaeb3110411a",
+      "base_path": "target\\774-continuation-20261021\\continuation\\deleted-source\\pr-working\\crates\\adventuresim-building-generator\\src\\spatial_geometry\\length.rs",
+      "base_read_ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "scope_pointer": "/files/669"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/measurement.rs",
+      "current_sha256": null,
+      "state": "deleted",
+      "actual_current_eof": null,
+      "base_revision": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "base_sha256": "1c74872f4983d3d79a526dff9b345c9d8dfbbf1178e1caccdbcdd897f9fb3b28",
+      "base_path": "target\\774-continuation-20261021\\continuation\\deleted-source\\pr-working\\crates\\adventuresim-building-generator\\src\\spatial_geometry\\measurement.rs",
+      "base_read_ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "scope_pointer": "/files/670"
+    }
+  ],
+  "source_edits": 0,
+  "project_execution": 0,
+  "limits": "Base snapshot evidence labeled separately from absent current source, no current-body or other-lens clearance."
+}

@@ -1,0 +1,49 @@
+{
+  "id": "CONT07-CONTRACT-496",
+  "at": "2026-10-23T22:54:54.148140+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2168,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/person_names.rs",
+      "sha256": "e41326d6c8ae20b958581c0027d3b5bdd79a58faf43a142e446f52dc4a8f70ec",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-world-schema/src/person_names.rs",
+      "actual_EOF": 849,
+      "ranges": [
+        [
+          1,
+          849
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2170,
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/person_names/identity_validation.rs",
+      "sha256": "d1d7a7cff2bd6d44336c622d4f9e451f72c6166a16eb2702d128d32adc27525b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-world-schema/src/person_names/identity_validation.rs",
+      "actual_EOF": 169,
+      "ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Baseline-covered personal_names full849 and identity_validation full169 freshly reread as actual receiver comparison, adds no originalunique count. Personal identity has retained family/native form/culture; render calls validate before either native fastpath or alternate register derivation, explicitly rejecting family-form/culture/register incoherence.",
+    "Native form records originally selected everyday spelling; form_selector reproducibly selects viewer/register-specific alternate. They are deliberately history versus projection, not competing authority requiring deletion of native spelling. Unresolved recorded forms preserve evidence and candidate-family list is uncertain metadata, not obligation to choose a family.",
+    "OnceLock catalog derives once from immutable generated embedded document; source digest identifies embedded catalogue rather than live asset revision. No mutable external reload path in these bodies. Existing generated build graph remains independently inventoried elsewhere; no implicit build execution or semantic source credit."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2174,
+    "start_line": 1
+  }
+}

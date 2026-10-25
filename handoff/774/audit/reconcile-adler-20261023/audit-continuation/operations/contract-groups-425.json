@@ -1,0 +1,138 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-425",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/assembly/props.rs",
+      "sha256": "58055c79f3fdfbfcee3824dd3008ebe3b966a6697615b1e1fcf8f0f4efb80ff4",
+      "actual_EOF": 50,
+      "actual_compared_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/assembly/ranges.rs",
+      "sha256": "93018a75b7998c586b48974ab837dc5cefa3d9bf9af497c987bda989e6840615",
+      "actual_EOF": 134,
+      "actual_compared_ranges": [
+        [
+          1,
+          134
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/assembly/tests.rs",
+      "sha256": "98a39ca62ce098e89154d81e8e8a1f955c7d8b33909c59ce4737664c4ddc23ca",
+      "actual_EOF": 449,
+      "actual_compared_ranges": [
+        [
+          1,
+          449
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/compute.rs",
+      "sha256": "d681948a7f1f82b5ab95dfe90ffc820f8dafa85c558a29756c26603c5f208aba",
+      "actual_EOF": 430,
+      "actual_compared_ranges": [
+        [
+          1,
+          430
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/frame.rs",
+      "sha256": "51939cee77e0767339534b9efe7543597e9698c3904d2ecaf559a5c14260c8e4",
+      "actual_EOF": 103,
+      "actual_compared_ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/geometry.rs",
+      "sha256": "29d5e171eb43f72999573edd891e5789074d9df1f31c061568965e17ef885740",
+      "actual_EOF": 151,
+      "actual_compared_ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/material.rs",
+      "sha256": "828e37839d5d4490e9ea77f264645c928c80d3fafa13251ea30a1c792d966dd6",
+      "actual_EOF": 102,
+      "actual_compared_ranges": [
+        [
+          1,
+          102
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/mod.rs",
+      "sha256": "76c13f913682347307d57a33b86d367ca3e074609de2365fa7833a0013fe2a38",
+      "actual_EOF": 123,
+      "actual_compared_ranges": [
+        [
+          1,
+          123
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/gpu/scratch.rs",
+      "sha256": "a552361866bcc278a46333d7ca2ee578a10cbf888f96cbd8f402eda84dcebc83",
+      "actual_EOF": 139,
+      "actual_compared_ranges": [
+        [
+          1,
+          139
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Static furniture GPU projection",
+      "analysis": "props includes only outdoor VistaFurniture roots, excludes interactive/interior. Captures each child GlobalTransform but sets local_transform identity; grouping by root retains only first part transform as placement. Different child transforms would be lost, but actual furniture mesh producer may bake geometry/all child transforms identical; defer source-conditional question to producer frontier. Existing ordinary fixture has one child/root and cannot decide. No promoted runtime defect."
+    },
+    {
+      "contract": "GPU ranges and page capacities",
+      "analysis": "RangeGroups identity uses Arc pointer while retaining owner Arcs so no freed-pointer reuse; preserves repeated groups/draws intentionally, sorts owners and shares lists. Draw capacity checked_add/checked_mul panic on overflow; owner_start+length itself and usize-to-u32 casts precede checked multiply, so arbitrary huge caller not fully admitted. No memory-sized ordinary city witness. Geometry page bound64MiB makes per-page u32 vertex/index/slice counts safe, whole-triangle split preserves order; input generated mesh requires attributes/index/vertex correspondence and finite normal assumptions, not general untrusted mesh API. Empty mesh yields no slices; radius raw length may overflow for extreme finite vertices, no admitted current bad geometry established."
+    },
+    {
+      "contract": "GPU temporal view state and scratch publication",
+      "analysis": "Active retained views bounded MAX64 before history assignment; previous history survives only active views, draw slots distinct per sequential camera group. Clears prepared per-frame maps before missing-resource exits. Scratch candidate builds local batches and commits only after all required buffers/capacity available, retaining old source until complete. Actual indirect counters cleared in GPU command order per group, not queue reset across all groups. Readiness atomic set after compute command recording, not proof GPU completion; preserve existing renderer acceptance requirement. Component/furniture tests personally read include owner isolation, failed replacement preserving old ready/frame and exact-root failure, successful replacement awaiting readiness, page split and owner-list sharing; not run."
+    },
+    {
+      "contract": "Geographic city frame and material adapters",
+      "analysis": "Native geographic projection casts to f32, constructs inverse-transpose normal matrix and reflects north to south; exact projection owner must establish finite/nonsingular scale, no global sign/positive-elevation requirement imposed. Frame install checks source buffer before mutating stored frame; same-frame return safe. CityMaterial maps authored scale/offset diagonal and texture properties with mask-vs-opaque policy; arbitrary rotated/sheared UV or blend material would lose semantics but actual building/furniture material producer boundary pending. Existing tests only opaque/mask, no full material equivalence claim."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "9 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/kit.rs"
+}

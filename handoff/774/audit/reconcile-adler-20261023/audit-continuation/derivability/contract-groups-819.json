@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-819",
+  "at": "2026-10-25T16:55:46.629495+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1027,
+  "source_id": "pr-working:crates/adventuresim-core/src/world_event.rs",
+  "sha256": "10007dfcca53443d2794c0e38d8e9d741588f79ba8f61163c84d2281e7b40fb4",
+  "actual_compared_ranges": [
+    [
+      1,
+      310
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "All event provenance/actor/subject/place/payload/consequence/envelope records already structural/Serde derived. Native dose quantization, consequence production, participant canonicalization and envelope validation are semantic policy; no manual trait or codec in consumed range. Keep private occurrence separate from observation/authorization, no raw serializer as classifier."
+  ],
+  "first_unfinished": {
+    "scope_index": 1027,
+    "line": 311
+  },
+  "execution": "none"
+}

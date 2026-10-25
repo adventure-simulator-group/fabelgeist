@@ -1,0 +1,62 @@
+{
+  "id": "RIG-INITIAL06-GROUP-005",
+  "at": "2026-10-22T18:53:07.880377+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "canonical-shared-rig": {
+      "files": [
+        "crates/fabelgeist-rig/Cargo.toml",
+        "crates/fabelgeist-rig/README.md",
+        "crates/fabelgeist-rig/src/lib.rs",
+        "crates/fabelgeist-rig/src/names.rs",
+        "crates/fabelgeist-rig/src/part.rs",
+        "crates/fabelgeist-rig/src/mhr.rs",
+        "crates/fabelgeist-rig/src/table.rs",
+        "crates/fabelgeist-rig/src/skin.rs",
+        "crates/fabelgeist-rig/src/tests.rs"
+      ],
+      "comparison": "Fresh full actual bodies: neutral Rig owns exact open authored RigJointName/Cow, distinct arbitrary ordinal/count and homogeneous ordered table, named part/side/querymembership and checked native packed skin extent. Lower Cargo onlySerde/derive/strum, no MHR Burn/Bevy/game dependency. MHR backend imports Rig; runtime Bevy identity imports Rig. Actual names constants/openlabel, prefix/contains/case-insensitive queries do not establish rig membership/anatomy and do not narrow arbitrarynamespace policies. Explicit mhr naming profile in lightweight crate is data-only shared convention (not hidden mandatory full model backend); authored format normalization remains FBX sourceowner, animation mask classification remains runtime. Canonical RigInfluences weights rawf32 do not establish normalized sum/membership by typename; nativeu16/u32 ports preservecheckedwidth. JointCount matches bound not riginstance provenance, RigJointTable has no cross-column/hierarchy proof. These are one shared owner, not independent equal-looking copies. Tests/README actually compared to declarations; no testexecution/newcases or docs-only semanticcredit."
+    },
+    "mhr-backend-versus-shared-identities": {
+      "files": [
+        "crates/fabelgeist-mhr/Cargo.toml",
+        "crates/fabelgeist-mhr/src/lib.rs",
+        "crates/fabelgeist-mhr/src/character/skeleton.rs",
+        "crates/fabelgeist-mhr/src/model_def/layout.rs"
+      ],
+      "comparison": "Fresh actual full sources. MHR crate owns native Burn/FBX parameter model; Cargo MHR->Rig, FBX and NumPy, no reverse Rig->MHR. Actual SkeletonBuilder visitsFBXtypedObject, defines shared RigJointOrdinal at currentnames.len, retains RigJointName and all parallel RigJointTables together; ObjectIDi64 remains FBX identity until explicitjoint mapping, notsameRigordinal. MHR layout defines model-specific namedparameter column, joint-channel row and authoredseven-channel enum/table/matrix; imports canonical RigJointOrdinal/Table rather than duplicate joint owner. Matrix row(joint,channel) and parametercolumn cannot be interchanged althoughbothnativeusize; nativefloat coefficients and tensors stay model numerical format. Exact ModelParameterName/ParameterSetName are modelgrammar identities, distinct authored RigJointName and FBX objectnames; duplicates preservefirstintroducedcolumn/sourceorder. Shared Rig stayslightweight; do not move MHR matrix/channel/schema into general Rig or force runtimegame dependencies into backend. Generic row/column and jointcount/cardinality aggregation invariants belong05/11, not automatically certified by shared ownership."
+    },
+    "runtime-derived-rig-metadata": {
+      "files": [
+        "crates/adventuresim-tactical-client/src/animation/rig_identity.rs"
+      ],
+      "comparison": "Fresh full actual84. Runtime AuthoredRigJoint stores canonical RigJointName plus derived AnimationBodyRegion/optional BoneRole from actualnew. AnimationBodyRegion upper/lower and ClipLayer inclusion is gameplay animationmask policy, differentfrom sourceauthored naming fragments/side or clinical anatomy. Lower Rig shouldnotdependBevy/ClipLayer/BoneRole or own runtimeComponent, while clientmustnotcopyRigJointName class. Exactlabel preserved; casefold/fragmentpolicy is separate explicitquery during derivedcacheadmission. This is useful runtimeprojection over onecanonicalidentity, not duplicate owner toconsolidate into arbitrary string."
+    }
+  },
+  "actual_focused_current_caller_witnesses": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/model_def.rs",
+      "ranges": [
+        [
+          1,
+          180
+        ]
+      ],
+      "status": "partial only; no whole sourcecredit",
+      "comparison": "ParameterTransform retains actualtyped ModelParameterTable/ParameterMatrix/JointParameterTable and parse_model_definition resolves sharedRigJointName againstSkeleton; parsermodel responsibilities remainMHR."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/character.rs",
+      "ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "status": "partial only no whole sourcecredit",
+      "comparison": "Character loader maps native FBX objectIDs→RigJointOrdinal, keeps typed skeleton/inverseBindPose columns and format-specific FbxObjectName blendshapenames. No duplicate arbitraryname owner."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Remaining MHRnumericalTransform precision/frame comparison, parameter parser tail/skin/Burn tensor recipients and all remaining source consumers are explicitlyunaccounted untiltheir own06 comparisons. No wholeMHR/physics/FBX feature clearance fromthisgroup. No source/ledger/claim edits/projectexecution/laterlens."
+}

@@ -1,0 +1,107 @@
+//! Retained solve requests and checked native component publication.
+
+use super::*;
+
+pub(in crate::animation::procedural::ik) struct FootSolveRequest {
+    pub(in crate::animation::procedural::ik) frame: ObservedRigFrame,
+    pub(in crate::animation::procedural::ik) target: Vec3,
+    pub(in crate::animation::procedural::ik) planted_target: Vec3,
+    pub(in crate::animation::procedural::ik) weight: UnitInterval,
+    pub(in crate::animation::procedural::ik) release_active: bool,
+    pub(in crate::animation::procedural::ik) bounded_unplanned_support_release: bool,
+}
+
+impl LegIkMemory {
+    pub(in crate::animation::procedural::ik) fn publish(
+        self,
+        owner: Entity,
+        states: &mut Query<&mut LegIkState>,
+        commands: &mut Commands,
+    ) -> AnimationValueResult<()> {
+        self.validate_targets()?;
+        if let Ok(mut state) = states.get_mut(owner) {
+            state.0 = self;
+        } else {
+            commands.entity(owner).insert(LegIkState(self));
+        }
+        Ok(())
+    }
+
+    pub(in crate::animation::procedural::ik) fn retain_solve_request(
+        &mut self,
+        foot: LeadFoot,
+        request: FootSolveRequest,
+        elapsed: AnimationElapsed,
+    ) {
+        let owner_target =
+            request.frame.rotation().inverse() * (request.target - request.frame.origin());
+        let desired_owner_target =
+            request.frame.rotation().inverse() * (request.planted_target - request.frame.origin());
+        let release_target = support_release_diagnostic_goal(
+            request.release_active,
+            request.bounded_unplanned_support_release,
+            owner_target,
+            desired_owner_target,
+        );
+        if foot == LeadFoot::Left {
+            self.left_foot_target = Some(owner_target);
+            if !elapsed.is_zero() || self.left_support_weight.is_none() {
+                self.left_support_weight = Some(request.weight);
+                self.left_transition_support_weight = Some(request.weight);
+            }
+            self.left_release_active = request.release_active;
+            self.left_release_target = release_target;
+        } else {
+            self.right_foot_target = Some(owner_target);
+            if !elapsed.is_zero() || self.right_support_weight.is_none() {
+                self.right_support_weight = Some(request.weight);
+                self.right_transition_support_weight = Some(request.weight);
+            }
+            self.right_release_active = request.release_active;
+            self.right_release_target = release_target;
+        }
+        if foot == LeadFoot::Left {
+            self.left_foot_world_target = Some(request.target);
+        } else {
+            self.right_foot_world_target = Some(request.target);
+        }
+    }
+
+    /// Logical solver ownership and independently observed contacts stay separate.
+    pub(in crate::animation::procedural::ik) fn validate_targets(
+        &self,
+    ) -> AnimationValueResult<()> {
+        let world = [
+            self.left_authored_world_target,
+            self.right_authored_world_target,
+            self.left_foot_plant.target(),
+            self.right_foot_plant.target(),
+            self.left_foot_world_target,
+            self.right_foot_world_target,
+            self.left_planned_contact,
+            self.right_planned_contact,
+        ];
+        let local = [
+            self.left_foot_target,
+            self.right_foot_target,
+            self.left_release_target,
+            self.right_release_target,
+        ];
+        if world
+            .into_iter()
+            .chain(local)
+            .flatten()
+            .any(|target| !target.is_finite())
+        {
+            return Err(AnimationValueError::Overflow {
+                quantity: AnimationQuantity::WorldPosition,
+            });
+        }
+        if let Some(settle) = self.settle {
+            checked_foot_target(settle.swing_start)?;
+            checked_foot_target(settle.capture_point)?;
+            checked_foot_target(settle.landing_target)?;
+        }
+        Ok(())
+    }
+}

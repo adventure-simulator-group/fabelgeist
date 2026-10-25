@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1153",
+  "at": "2026-10-25T17:58:17.090273+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1260,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor.rs",
+  "sha256": "a3c66672809464f5c6f872093d500dc115aba74a7de342d4bd3f6f374cc07c95",
+  "actual_compared_ranges": [
+    [
+      351,
+      700
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Native deterministic context/road roster materialization and retry/rebind require current DB identity, ordinal, clock, location/role/backing and selected immutable comparisons. Selective retry checks intentionally omit revision/other current state, not whole-row Eq. Stable synthetic field identity is explicit versioned/string hash helper, not derived Hash. Road cast Patient seeds condition effects. Context co-presence joins current party/encounter/case knowledge; no handwritten trait/custom codec in slice. Included children not credited.",
+  "first_unfinished": {
+    "scope_index": 1260,
+    "line": 701
+  },
+  "execution": "none"
+}

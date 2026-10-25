@@ -1,0 +1,80 @@
+{
+  "id": "CONT08-CONTRACT-060",
+  "at": "2026-10-25T10:26:42.437126+00:00",
+  "lens": "08behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 212,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/tests/fireplace_and_cooking.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-stdb-module/src/food/tests/fireplace_and_cooking.rs",
+      "before_sha256": "acfc43dbdcea3d27f478885960da71bbc37353a0d5878d376458b05238464d6b",
+      "after_sha256": "acfc43dbdcea3d27f478885960da71bbc37353a0d5878d376458b05238464d6b",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0212-base-acfc43dbdcea3d27f478885960da71bbc37353a0d5878d376458b05238464d6b",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/acfc43dbdcea3d27f478885960da71bbc37353a0d5878d376458b05238464d6b",
+      "diff": "source-evidence/p16-0212.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          190
+        ]
+      ],
+      "facts": [
+        "Fresh full190 plus emptyactual P16diff. Existing source-shape tests assert direct vessel ingredient selection, no recooking, stew water/microbialmass, escrow withoutadvance, tool/dish source custody, tactical exclusion, departure/death cleanup and prefix/safety policy. Real custody destination unitassertion uses originalparty source and rejects mismatchedpersonal actor. These are source/isolated assertions, no DB race/transaction/runtime certification."
+      ],
+      "disposition": "Own08 unchanged fixture-source semantics accounted; not executed test or broader recipe behavior coverage.",
+      "acceptance": "Keep original fixture inputs/assertions/policies intact during canonical error migration; native raw byteidentity values remain meaningful; no newtests/checks."
+    },
+    {
+      "scope_index": 213,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/tests/lots_and_consumption.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-stdb-module/src/food/tests/lots_and_consumption.rs",
+      "before_sha256": "6dc480ed2a4a6c22f394a7a310beb51b05331690975d1addcd802f0afb806164",
+      "after_sha256": "6dc480ed2a4a6c22f394a7a310beb51b05331690975d1addcd802f0afb806164",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0213-base-6dc480ed2a4a6c22f394a7a310beb51b05331690975d1addcd802f0afb806164",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/6dc480ed2a4a6c22f394a7a310beb51b05331690975d1addcd802f0afb806164",
+      "diff": "source-evidence/p16-0213.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "facts": [
+        "Fresh full89/emptydiff. Existing raw source construction counts and contamination split/consumption assertions retain exact expectations. Actual quarterlot fixture allfiveflavors scale whilequality4remains; cataloguequality capture and protected FoodWater exposure selector unchanged. No execution or generatedschema conclusion."
+      ],
+      "disposition": "Own08 unchanged fixture-source semantics accounted; not executed test or broader recipe behavior coverage.",
+      "acceptance": "Keep original fixture inputs/assertions/policies intact during canonical error migration; native raw byteidentity values remain meaningful; no newtests/checks."
+    },
+    {
+      "scope_index": 214,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/tests/preparation.rs",
+      "base": "a120390947c89b703dc74c4255a13c035d054c50",
+      "head": "039329518e264f19206cf5b0b98d177433f40c17",
+      "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-stdb-module/src/food/tests/preparation.rs",
+      "before_sha256": "635ff9be462bb2f00748c6776bc4e15f232d69710185d948f770e9aa0af3159f",
+      "after_sha256": "635ff9be462bb2f00748c6776bc4e15f232d69710185d948f770e9aa0af3159f",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0214-base-635ff9be462bb2f00748c6776bc4e15f232d69710185d948f770e9aa0af3159f",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/635ff9be462bb2f00748c6776bc4e15f232d69710185d948f770e9aa0af3159f",
+      "diff": "source-evidence/p16-0214.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          179
+        ]
+      ],
+      "facts": [
+        "Fresh full179/emptydiff. Exact digest vector retains -0/Inf damagebins intentionally as byteidentity; request comparisons distinguish generation/row/custody; same source assertions for revalidation, terminal receipts, injury/disease preview and wait-beforematerial/training. Actual revisionMAX retain rejects and preservesrevision; no statement about DB atomic rollback or success of tests."
+      ],
+      "disposition": "Own08 unchanged fixture-source semantics accounted; not executed test or broader recipe behavior coverage.",
+      "acceptance": "Keep original fixture inputs/assertions/policies intact during canonical error migration; native raw byteidentity values remain meaningful; no newtests/checks."
+    }
+  ],
+  "next": "215foraging actual fallible equipment admission and current recipient chain."
+}

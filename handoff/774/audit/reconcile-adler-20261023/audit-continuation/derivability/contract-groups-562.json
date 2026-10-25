@@ -1,0 +1,35 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-562",
+  "at": "2026-10-25T16:03:23.821830+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 920,
+  "source_id": "pr-working:crates/adventuresim-core/src/equipment.rs",
+  "sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+  "actual_compared_ranges": [
+    [
+      1,
+      440
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "From<item_catalog_schema::WeaponSkills>",
+      "type": "WeaponSkillDistribution",
+      "lines": [
+        [
+          336,
+          350
+        ]
+      ],
+      "disposition": "KEEP explicit sibling-record nine-field projection; no existing exact record-mapping derive in Core."
+    }
+  ],
+  "analysis": "Fresh221\u2013440 native equipment graph admission/cycle mutation, weapon skill normalization and weighted capability. Hand From<WeaponSkills> for WeaponSkillDistribution336\u2013350 KEEP: explicit nine-field sibling-record projection; owning Core has no existing structural record-mapping derive, standard/derive_more wrapper From does not generate it. Existing structural/Serde/default wire derives already. Physical balance function incomplete.",
+  "first_unfinished": {
+    "scope_index": 920,
+    "line": 441
+  },
+  "execution": "none"
+}

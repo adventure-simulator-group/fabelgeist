@@ -1,0 +1,44 @@
+{
+  "id": "SEGO-INITIAL09-QUAL527",
+  "source": {
+    "scope_index": 1123,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/capabilities.rs",
+    "sha256": "6ef49eb46d226a645094323d9b637c290ec33b94068e634e865f3359188d2673",
+    "ranges": [
+      [
+        718,
+        881
+      ]
+    ]
+  },
+  "qualifications": [
+    {
+      "finding": "SEGO-INITIAL09-F333",
+      "correction": "Actual fourth receipt family is zero-time referred contact dialogue, not sampled Resolution. Add applicable family and preserve transition success, unchanged uncertainty and decoder Break behavior."
+    },
+    {
+      "finding": "SEGO-INITIAL09-F334",
+      "correction": "Empty outcome attempt_id means intentionally unlinked association. Dialogue producer creates a private attempt, then leaves public outcome unlinked. Do not infer actual attempt absence from empty or mechanically attach private IDs."
+    },
+    {
+      "finding": "SEGO-INITIAL09-F302",
+      "correction": "Canonical successful_referred_contact_resolution1123:867\u2013881 legitimately has minutes/fatigue/food/water cost0. Previous acceptance positive cost is limited to sampled ordinary action contract, not every Resolution. Preserve explicit zero-time dialogue outcome."
+    },
+    {
+      "finding": "SEGO-INITIAL09-F329",
+      "source": {
+        "scope_index": 1006,
+        "source_id": "pr-working:crates/adventuresim-core/src/strategic_action.rs",
+        "sha256": "4f2173f2f102e0e788b91604fc81d48d23f9af85ccb8f0102681c59fae9812a9",
+        "ranges": [
+          [
+            665,
+            714
+          ]
+        ]
+      },
+      "correction": "Typed planned.time and planned.calculation are separately compared to replanning. None/MAX hash alias is source proven, but does not establish stale commit acceptance. Root05 supporting report prompted this own bounded source reread; no extra role credit."
+    }
+  ],
+  "limits": "Source-specific qualifications; findings unresolved, no tests or execution."
+}

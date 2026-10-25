@@ -1,0 +1,155 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1218",
+  "at": "2026-10-25T18:10:10.592183+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1293,
+      "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/tests/failure_security.rs",
+      "sha256": "c072e8a42ab41dbd28ee281414b98b457e54f52f978dd91320c77bd9fad4b933",
+      "actual_EOF": 812,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/tests/failure_security.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-strategic-sim/src/live_core/tests/failure_security.rs",
+        "owner": "camera",
+        "sha256": "c072e8a42ab41dbd28ee281414b98b457e54f52f978dd91320c77bd9fad4b933",
+        "base_sha256": "0e542b1811d2bdb2adbd0bf71e43c61018ffb98183c0774602ba71bbe0d94beb",
+        "state": "modified",
+        "bytes": 29892,
+        "audit_owner": "camera",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                812
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-SIM-001",
+              "CAM-PROP-EQUIPMENT-001"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 331,
+            "read_ranges": [
+              [
+                1,
+                812
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SIM-FAILURE-SECURITY-FIXTURES-103"
+            ],
+            "read_status": "fresh-current-lens-full-source-read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/tests/failure_security.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-SIMULATION-CORE-GENERATED-PARTIAL-047",
+            "json_pointer": "/source_proofs/16",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/live_core/tests/failure_security.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                245
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/tests/failure_security.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/tests/failure_security.rs",
+              "sha256": "c072e8a42ab41dbd28ee281414b98b457e54f52f978dd91320c77bd9fad4b933",
+              "read_ranges": [
+                [
+                  1,
+                  245
+                ]
+              ],
+              "mode": "Fresh source-only bounded actual receiver/fixture proof",
+              "roles": [
+                "Exact fixture golden plus original observation/semantic-dedup/privacy assertions read. Rest of fixture file not claimed covered."
+              ],
+              "pending_receivers": []
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/additional_actual_source_proofs/16",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-strategic-sim/src/live_core/tests/failure_security.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                245
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/tests/failure_security.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-strategic-sim/src/live_core/tests/failure_security.rs",
+              "sha256": "c072e8a42ab41dbd28ee281414b98b457e54f52f978dd91320c77bd9fad4b933",
+              "read_ranges": [
+                [
+                  1,
+                  245
+                ]
+              ],
+              "mode": "Fresh source-only bounded actual receiver/fixture proof",
+              "roles": [
+                "Exact fixture golden plus original observation/semantic-dedup/privacy assertions read. Rest of fixture file not claimed covered."
+              ],
+              "pending_receivers": []
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          812
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full812 personally consumed1216\u20131218. All native/source tests or fixture constructors: exact public event/failure wire golden, selected typed semantic key, sanitized coded failure projection, coverage first error, bounded wait/current contact and code-only replan. No local handwritten trait/custom codec/type. Existing derived JSON/equality/default calls not implementations. Source assertions preserve intended contracts but do not prove current execution; no test/I/O run."
+    }
+  ],
+  "groups": [
+    "Adjacent failure/security fixtures independently read as source evidence only. No derivability candidate; do not import passing or production coverage from strings."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1294,
+    "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/tests/recovery_and_cases.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

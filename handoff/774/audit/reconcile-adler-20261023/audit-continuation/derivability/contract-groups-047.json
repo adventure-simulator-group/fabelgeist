@@ -1,0 +1,151 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-047",
+  "at": "2026-10-25T11:55:13.897001+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 143,
+      "source_id": "physical-p16:crates/adventuresim-core/src/social.rs",
+      "sha256": "bb53725a73f48ae6fbd9f4ff3e2e744aaaea403fa2fd0a9381c6766ce0ad1b6d",
+      "actual_EOF": 1909,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-core/src/social.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-core/src/social.rs",
+        "sha256": "bb53725a73f48ae6fbd9f4ff3e2e744aaaea403fa2fd0a9381c6766ce0ad1b6d",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 65014,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 120,
+            "read_ranges": [
+              [
+                1,
+                110
+              ],
+              [
+                475,
+                610
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-CORPSE-016"
+            ],
+            "read_status": "partial",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/social.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 263,
+            "read_ranges": [
+              [
+                1,
+                1909
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-SOCIAL-037"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-core/src/social.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 43,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CORPSE-012",
+            "json_pointer": "/current_sources/5",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row132/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                40,
+                125
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                40,
+                125
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "delta_observation_index": 44,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SOCIAL-027",
+            "json_pointer": "/current_sources/7",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row132/proofs/1",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1909
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                1909
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1148,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1909
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "All local enums/records use structural Debug/Clone/Copy with applicable Eq/Hash/PartialEq",
+        "PersonalityAxis Serialize/Deserialize and conditional SpacetimeType"
+      ],
+      "absence_basis": "Full exactsource personally consumed, including permission petition functions and fixtures, social/personality ID/label/code/classification methods, source/observer projections, automatic selection, prayer/bedside/casual-chat profiles, outcomes and all existing fixture bodies. Only inherent impls present; no handwritten trait/serializer implementation. Runtime classifiers and shaped semantic record constructors are retained rather than assigned new serialization for cleanup.",
+      "coverage_limit": "Declared child modules are independent source roles, no child coverage transferred."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Social classifications and resolution semantics",
+      "disposition": "Existing structural derives own mechanics; retain separate stable IDs, visible labels, legal codes, contextual profiles and outcome construction. No lens10 suggestion.",
+      "acceptance": "No blanket serialization or automatic conversion replacing policy mappings, and no leaked hidden outcome inputs via added derives. This review read fixtures but did not run them."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 144,
+    "source_id": "physical-p16:crates/adventuresim-core/src/social/action_kind.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

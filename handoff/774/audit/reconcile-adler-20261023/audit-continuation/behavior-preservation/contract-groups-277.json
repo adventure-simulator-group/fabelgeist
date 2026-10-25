@@ -1,0 +1,135 @@
+{
+  "id": "CONT08-CONTRACT-277",
+  "at": "2026-10-25T15:37:19.307590+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 1058,
+      "source_id": "pr-working:crates/adventuresim-puzzles/Cargo.toml",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-puzzles/Cargo.toml",
+      "before_sha256": "776ef3b34040bd18cba056db05a10463f6838cbaef84a75f4d669ffe3966683f",
+      "after_sha256": "776ef3b34040bd18cba056db05a10463f6838cbaef84a75f4d669ffe3966683f",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1058-base-776ef3b34040bd18cba056db05a10463f6838cbaef84a75f4d669ffe3966683f",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/776ef3b34040bd18cba056db05a10463f6838cbaef84a75f4d669ffe3966683f",
+      "diff": "source-evidence/pr-1058.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "head_body_read_method": "Freshcompletefrozenmanifest/puzzlebodies+originalfixtures and completeemptyPRdiffs; rawAPI/solver/nativeboundaryqualifications explicit",
+      "facts": [
+        "Freshfull15/emptyactualPRdiff. SameSerde/JSON/clap/determinismworkspace dependency/lints; nofeature/API/SDKresolutionexecuted."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1059,
+      "source_id": "pr-working:crates/adventuresim-puzzles/src/choices.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-puzzles/src/choices.rs",
+      "before_sha256": "903776fd76d202ee0e8047523cff9ae9812cfa700bdfa466a68e066c19a69f0d",
+      "after_sha256": "903776fd76d202ee0e8047523cff9ae9812cfa700bdfa466a68e066c19a69f0d",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1059-base-903776fd76d202ee0e8047523cff9ae9812cfa700bdfa466a68e066c19a69f0d",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/903776fd76d202ee0e8047523cff9ae9812cfa700bdfa466a68e066c19a69f0d",
+      "diff": "source-evidence/pr-1059.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          6
+        ]
+      ],
+      "head_body_read_method": "Freshcompletefrozenmanifest/puzzlebodies+originalfixtures and completeemptyPRdiffs; rawAPI/solver/nativeboundaryqualifications explicit",
+      "facts": [
+        "Freshfull6/emptyactualPRdiff. SameprivateSigil/WitnessPath modules/reexports parseerrors; lowerclosedvocabulary registeredlivepending own08 ratherthaninferredbodyclearance."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1060,
+      "source_id": "pr-working:crates/adventuresim-puzzles/src/lib.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-puzzles/src/lib.rs",
+      "before_sha256": "710b7464b874f4a7d13e47772786ff780a13d4b4689a613d6f7fbc0efa2b5f28",
+      "after_sha256": "710b7464b874f4a7d13e47772786ff780a13d4b4689a613d6f7fbc0efa2b5f28",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1060-base-710b7464b874f4a7d13e47772786ff780a13d4b4689a613d6f7fbc0efa2b5f28",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/710b7464b874f4a7d13e47772786ff780a13d4b4689a613d6f7fbc0efa2b5f28",
+      "diff": "source-evidence/pr-1060.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "head_body_read_method": "Freshcompletefrozenmanifest/puzzlebodies+originalfixtures and completeemptyPRdiffs; rawAPI/solver/nativeboundaryqualifications explicit",
+      "facts": [
+        "Freshfull19/emptyactualPRdiff. OrderedSigilrules4/count5/maxminimizationsubsets100000 andmodulevisibility/reexports preserved. analysis lowerbodyexistsregisteredlivepending, not clearedby declaration."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1061,
+      "source_id": "pr-working:crates/adventuresim-puzzles/src/logic_grid.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-puzzles/src/logic_grid.rs",
+      "before_sha256": "c40ef50453ea8397ae1ea890892eb142f77ce9b6f8d58f5d8e2158afd75de2c4",
+      "after_sha256": "c40ef50453ea8397ae1ea890892eb142f77ce9b6f8d58f5d8e2158afd75de2c4",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1061-base-c40ef50453ea8397ae1ea890892eb142f77ce9b6f8d58f5d8e2158afd75de2c4",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/c40ef50453ea8397ae1ea890892eb142f77ce9b6f8d58f5d8e2158afd75de2c4",
+      "diff": "source-evidence/pr-1061.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          407
+        ]
+      ],
+      "head_body_read_method": "Freshcompletefrozenmanifest/puzzlebodies+originalfixtures and completeemptyPRdiffs; rawAPI/solver/nativeboundaryqualifications explicit",
+      "facts": [
+        "Freshfull407/emptyactualPRdiff. LogicGridrules2/size3or4/polarity/maxclues1..12 defaults, fixednamepopulations/wireenumfields unchanged. Exactdomainseed andshuffle token\u2192road\u2192cluepool order; choosemaxelimination/earliestpooltie, stopunique/cluebound thenreverse-removalirredundancy beforevalidate same. Actualshuffle1063 pendinglowerbody; no solverexecuted.",
+        "Validation spec\u2192rules\u2192assignment allvaluesexactonce/order\u2192cluecount/coordinates/polarity/truth\u2192exactuniquesolution\u2192irredundancy, projectionnoSeed/solution vsprivateSerdeauthority same; checkrequirescanonicaltravelerorder. Publicall_grid_solutions rawsizeu8 unboundedfactorial/textindexrawclue/projectionrawspec areexistingAPIadmissionlimits notnewPRregression. Allpermutation/relation/negativeclue/lexicographiciteration andlimit0 semantics retained.384\u2013407250seedfixtures readnotrun/noobserverJSONpublicationclaim."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1062,
+      "source_id": "pr-working:crates/adventuresim-puzzles/src/ordered_sigils.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-puzzles/src/ordered_sigils.rs",
+      "before_sha256": "663ef1d62d85a2b952a6be5d496949ae0b71d293110c14d6d7d123319559ee6b",
+      "after_sha256": "663ef1d62d85a2b952a6be5d496949ae0b71d293110c14d6d7d123319559ee6b",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1062-base-663ef1d62d85a2b952a6be5d496949ae0b71d293110c14d6d7d123319559ee6b",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/663ef1d62d85a2b952a6be5d496949ae0b71d293110c14d6d7d123319559ee6b",
+      "diff": "source-evidence/pr-1062.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          392
+        ]
+      ],
+      "head_body_read_method": "Freshcompletefrozenmanifest/puzzlebodies+originalfixtures and completeemptyPRdiffs; rawAPI/solver/nativeboundaryqualifications explicit",
+      "facts": [
+        "Freshfull392/emptyactualPRdiff. Fixed5Sigil120orderingsfitu128, rules4, specfamilyenabled/max1..8 beforegeneration, exactpuzzle.ordered_sigil FisherYates order. Canonicaltruecluepool Before\u2192Adjacent\u2192NotAt\u2192Exact andminimum cardinality thenExactcount/NotAtcount/indices tie, global100000evaluatedsubsetsErr preserved; no seed/searchrun.",
+        "validate rules\u2192spec\u2192cluefamilies/count\u2192permutation\u2192coordinates/selfpairs\u2192uniquesolution; checksubmissionpermutation thenorderingexacteq, expected_revision intentionallycallerowned notreadhere. Projectionomitsseed+solution; publicSerde/privateauthoritydifferentadmission. Publicclue textposition+1u8/holdsunwrap andminimum_clues rawspec unvalidated areexistingAPIlimits, no new08normalfaultclaim. ActuallowerSigil enum/table livepending; no shape/vocab/seed migrationinthisunchangedbody."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    }
+  ],
+  "next": "1063puzzles1131 then1064resourceallocation373 and later original roles"
+}

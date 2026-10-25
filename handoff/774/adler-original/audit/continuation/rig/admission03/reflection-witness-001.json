@@ -1,0 +1,103 @@
+{
+  "id": "RIG-ADMISSION03-REFLECTION-001",
+  "lens": "audit-admission-contracts",
+  "status": "Bounded shared generated-adapter proof; no original supplier source/lens completion",
+  "source_registry": "continuation/rig/admission03/source-range-registration.jsonl",
+  "registration_ids": [
+    "RIG-ADMISSION03-REGISTER-002",
+    "RIG-ADMISSION03-REGISTER-003",
+    "RIG-ADMISSION03-REGISTER-004",
+    "RIG-ADMISSION03-REGISTER-005",
+    "RIG-ADMISSION03-REGISTER-006",
+    "RIG-ADMISSION03-REGISTER-007",
+    "RIG-ADMISSION03-REGISTER-008",
+    "RIG-ADMISSION03-REGISTER-009",
+    "RIG-ADMISSION03-REGISTER-010",
+    "RIG-ADMISSION03-REGISTER-011",
+    "RIG-ADMISSION03-REGISTER-012",
+    "RIG-ADMISSION03-REGISTER-013"
+  ],
+  "source_qualifications": "continuation/rig/admission03/source-qualifications.jsonl",
+  "invariant": "Reflection must not reconstruct checked finite/bounded/positive leaves from mutable raw fields or bypass canonical checked deserialization. Opaque reflection preserves only an already-existing concrete typed value; validity still depends on all ordinary source routes.",
+  "actual_routes": [
+    {
+      "route": "derive dispatch",
+      "evidence": "derive_data.rs184\u2013322 reads reflect container attributes and returns ReflectDerive::Opaque at290\u2013292 before collecting fields. container_attributes395\u2013399 sets opaque flag;242\u2013243 selects it. lib60\u2013117 dispatches both Reflect and auto FromReflect to opaque implementations.",
+      "effect": "Private tuple contents are not exposed as reflected Struct/TupleStruct fields by this opaque implementation."
+    },
+    {
+      "route": "FromReflect",
+      "evidence": "from_reflect.rs25\u201356 uses try_downcast_ref::<ConcreteSelf> then Clone; remote version downcasts the canonical Remote, clones it and calls ReflectRemote::into_wrapper. reflect.rs494\u2013496/574\u2013576 uses underlying Any downcast_ref.",
+      "counterexample": "A dynamic tuple representing the same type name but containing NaN, negative extent or a zero positive length is not the actual ConcreteSelf/Remote and fails this opaque FromReflect route. No field-constructor call is generated."
+    },
+    {
+      "route": "try_apply/to_dynamic/reflect_mut",
+      "evidence": "impls/opaque.rs36\u201351/80\u2013129 replaces only by downcast + clone of actual Self (actual Remote in remote wrapper), otherwise MismatchedTypes. to_dynamic clones self; reflect_kind/ref/mut/owned are Opaque.",
+      "counterexample": "Applying a reflected primitive float or DynamicTupleStruct raw-field payload cannot mutate the canonical inner f32; no field_mut adapter exists here. Cloning an invalid value already fabricated by another ordinary/unsafe route is not repaired by opacity."
+    },
+    {
+      "route": "Reflect::set and Any views",
+      "evidence": "impls/common.rs7\u201380 uses typed Reflect::take for set. reflect.rs534\u2013549 checks concrete type/downcasts and unboxes. Ordinary Any views return Self; remote views return canonical Remote, not its primitive field.",
+      "effect": "Whole-value replacement/downcast can access only canonical typed APIs and any ordinary visibility they expose. This is not proof that an independent public raw setter or constructor is safe."
+    },
+    {
+      "route": "remote wrapper generation",
+      "evidence": "remote.rs21\u2013100 dispatches opaque implementations;114\u2013130 emits repr(transparent) Wrapper(pub Remote), preserving original non-reflect attributes.139\u2013212 as_remote[_mut], into_remote and into_wrapper wrap/reference/transmute the canonical Remote itself, not an authored placeholder raw scalar field.",
+      "effect": "Native elapsed/fraction marker syntax is replaced with wrapper over the canonical checked type. Safe wrapper construction and mutable remote access do not expose an inner raw f32 if canonical Remote keeps it private. Generated layout transmutation is library implementation; no arbitrary user native bytes accepted by these safe signatures."
+    },
+    {
+      "route": "type data and reflected Serde",
+      "evidence": "derive_data.rs489\u2013498 passes no field dependencies/serialization data for opaque. registration.rs8\u201359 registers ReflectFromReflect when enabled plus explicitly requested type data. ReflectDeserialize type_registry.rs881\u2013911 delegates to T::deserialize and boxes its typed result.",
+      "effect": "For Native transparent wrappers with derived Deserialize over canonical Remote, reflection Deserialize delegates Remote::deserialize. Need independently verify that canonical Deserialize reaches checked constructor; this receipt does not infer it from a comment. Geometry opaque leaves without #[reflect(Deserialize)] do not acquire a new raw-field decoder through this generated registration."
+    },
+    {
+      "route": "reflect_clone",
+      "evidence": "impls/opaque.rs34/128 uses actual container get_clone_impl; container_attributes621\u2013637 emits Clone when explicitly requested, explicit custom function only when requested, or none. to_dynamic and FromReflect still clone the concrete opaque value.",
+      "effect": "Derived ordinary Clone on immutable checked leaves copies admission. A custom Clone/reflection override requires its own per-type comparison; no blanket custom override approval."
+    }
+  ],
+  "specific_source_applicability": [
+    {
+      "sources": [
+        "physical-p16:crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs:9\u201312",
+        "physical-p16:crates/fabelgeist-geometry/src/cuboid.rs:9\u201314",
+        "physical-p16:crates/adventuresim-building-generator/src/plan_geometry.rs:9\u201313"
+      ],
+      "current_comparison": "Fresh source declarations use ordinary Clone/Copy plus Reflect opaque and private payload; no custom clone/from-reflect override in these exact declaration roles. Ordinary constructors/Serde are separately inventoried in source contract groups, not cleared by this foreign proof."
+    },
+    {
+      "sources": [
+        {
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/elapsed_reflection.rs",
+          "sha256": "01d422dc938f9f193c310740e7f13210c400077bde9e3de66d170bc3acc96c43",
+          "ranges": [
+            [
+              1,
+              14
+            ]
+          ]
+        },
+        {
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/fraction_reflection.rs",
+          "sha256": "07b2507c55331e27ceb0838e9e340f751961f35d74d29738a121e64c119297e7",
+          "ranges": [
+            [
+              1,
+              14
+            ]
+          ]
+        }
+      ],
+      "current_comparison": "Native independently freshly read exact wrappers: reflect_remote(canonical), ordinary Clone/Debug/Serialize/Deserialize with serde transparent, reflect opaque + Serialize/Deserialize. Native is responsible for canonical elapsed/UnitInterval admission source comparison. Its source observations are consumed as actual declaration facts, not tests or prior verdicts.",
+      "supplier_ref": "continuation/native/admission03/contract-groups-001.json#reflection-remote (Native supplied forthcoming exact contract receipt; not used as an existing pin)"
+    }
+  ],
+  "findings": [],
+  "remaining_generated_adapter_ambiguity": [],
+  "limits": [
+    "Only Bevy0.19.1 actual opaque/remote implementations; nonopaque reflected fields and custom overrides require separate source comparison.",
+    "No execution, new tests, source changes, family/lens clearance, arbitrary unsafe-memory validity guarantee or full foreign package coverage.",
+    "Source registrations and exact local qualifications need Root global reconciliation before next lens.",
+    "Other suppliers must explicitly compare their own canonical constructors/defaults/Serde/visibility/current use; this common adapter witness cannot award source coverage."
+  ]
+}

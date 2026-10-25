@@ -1,0 +1,74 @@
+{
+  "id": "CONT07-CONTRACT-658",
+  "at": "2026-10-24T01:24:46.454904+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2495,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_cutting.rs",
+      "sha256": "e2ef028f462708ee81a496944390463c7cdbbab84163bebed8bc335690bb84db",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/generator/roof_cutting.rs",
+      "actual_EOF": 484,
+      "ranges": [
+        [
+          310,
+          415
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2542,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_finalization.rs",
+      "sha256": "c02cf2fd7b6a594dd75307d1b2164471415a1ed28c01a8b1ee5008268d27b35a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/generator/roof_finalization.rs",
+      "actual_EOF": 138,
+      "ranges": [
+        [
+          1,
+          83
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 667,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs",
+      "sha256": "4ccc1188de7d5f8bdbf63b71160b8557f76fb524ae47f924381325da11198ee8",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/spatial_geometry/dimensions.rs",
+      "actual_EOF": 105,
+      "ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2268,
+      "source_id": "pr-working:crates/fabelgeist-geometry/src/cuboid.rs",
+      "sha256": "1fe1e6483da91ee1bd681df6ff788ec97d680ac453c450069a30111c66dc40ed",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-geometry/src/cuboid.rs",
+      "actual_EOF": 126,
+      "ranges": [
+        [
+          1,
+          126
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Roof cutting deletion question now traced through actual dimensions owner. trim310\u2013409 kept branch updates derived interface bounds, removed branch sets x0 and drops solid without corresponding interface removal. CuboidDimensions deliberately admits finite nonnegative zero extents, so x0 branch does not inherently error. Do not misapply LeafDimensions strict-positive policy to generic cuboid owner.",
+    "Final refit derives orphan treatment IDs only from surviving solids; cannot discover already removed sourceID. Conditional stale-descriptor lifecycle support for inherited roof interface family, no additional globalunique asserted. Current comments explicitly say no curated tower bisects ridge and topology should reject later; no normal scene failure or positive-bearing falseacceptance proved. RoofGutter treatment versus edge treatment finalizer scope also remains explicit.",
+    "Conditional repair obligation must coordinate actual removed identity set with associated support interfaces/edge associations; do not narrow legitimate generic point/line CuboidDimensions as an accidental workaround. Actual descriptor receiver/normal admitted topology qualification preserved."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": null
+}

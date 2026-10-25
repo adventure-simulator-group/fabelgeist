@@ -1,0 +1,94 @@
+{
+  "id": "CONT07-CONTRACT-510",
+  "at": "2026-10-23T23:02:25.669204+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2219,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/trim.rs",
+      "sha256": "f6f7a3d774d843fe5c0e7cbf2c1d141aebe44d81c23b715ecb5d098c217aae13",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/trim.rs",
+      "actual_EOF": 128,
+      "ranges": [
+        [
+          1,
+          128
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2220,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/trim/edges.rs",
+      "sha256": "ffdc73a54de37023064d476bba8fbf666fe57f7597a910468c96fa3e9f63b2c7",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/trim/edges.rs",
+      "actual_EOF": 319,
+      "ranges": [
+        [
+          1,
+          319
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2221,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/trim/finish.rs",
+      "sha256": "22fcc26e5e46b91b4d5da5b9fff2ffc438e06adbf7d7164fd2c7b0c0334fc04a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/trim/finish.rs",
+      "actual_EOF": 146,
+      "ranges": [
+        [
+          1,
+          146
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2222,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/trim/split.rs",
+      "sha256": "44aafa5468b01108bee89840514846df79aa2075ea6c2e154b21d93cee321b9a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/trim/split.rs",
+      "actual_EOF": 330,
+      "ranges": [
+        [
+          1,
+          330
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2223,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/trim/tests.rs",
+      "sha256": "b40b7397f4677e6f9e6a7d9c791bda22cabf537d0802bee09fe75bfa3af21459",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/trim/tests.rs",
+      "actual_EOF": 276,
+      "ranges": [
+        [
+          1,
+          276
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Trim128 edges319 finish146 split330 tests276 full freshread. Rims plateconnectedcomponents derivedfromweldedtopology (alltriangle connectivity), outerrims fromPlateFaceOuter only, desired near-rimfilter stayssameplate despite nearbyotherpiece. Rawfaces/index ingress archiveRIG-ADMISSION03-F014-SUPPLEMENT-001 extendsF014 unchanged open, no malformedcurrentfixture claim.",
+    "Trim width/material engravingperiod is derivedonrequest fromsameTILES_PER_METRE/tiles. Narrowed ownsnewclone adjusting engravingtiles withwidth, output neverindependentlycachedperiod; correct deliberateclamped artistic bounds.",
+    "Split near cache built onimmutable originalrims andallnewvertices compute explicitnearest; cutvertices share sortededge cache. Newvertex pushes positions/normals/uv/skin/allthree morpharrays together, component/near arrays sameindex. Finishreorders allvertexattributes/morpharrays/trimcoords plusindices andcomponentvertexranges coherently; grids cleared explicitly becauseoldgridindicesinvalid.",
+    "Basegeometrycut interpolation and targetendpoint interpolation preserveaffine position relationship oncurrentderivedmorphs; normalsdifferentnormalizationpolicy not blindlyasserted equivalent. CachedRims unchanged afterinserts because physicalouterboundary staysoriginal, no selfinvalidating cache demonstrated.",
+    "THICKEST_PLATE.025 is conservative nearestsearchreach floor, not evidenceallpublicrawgeometryhonors thatmax; no concreteadmittedproducer>25mm/currentlostedge proven. Existingfixtures observeclosedmesh/wholeperiodseam/cutskin+morph/componentmembership, readnotexecuted."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2225,
+    "start_line": 1
+  },
+  "id_correction": "Trim backing ingress is RIG-ADMISSION03-F014-SUPPLEMENT-001, not F054 (BVH). Corrected exact crosslink; no semantic/count change."
+}

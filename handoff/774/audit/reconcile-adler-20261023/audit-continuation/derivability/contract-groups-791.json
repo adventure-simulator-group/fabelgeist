@@ -1,0 +1,61 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-791",
+  "at": "2026-10-25T16:51:16.373705+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1010,
+  "source_id": "pr-working:crates/adventuresim-core/src/strategic_place.rs",
+  "sha256": "841d48af4179d4777d5f5f1ca22557d5117362cb78fd942410f1e365afb726bf",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "From<String>",
+      "type": "CaseSiteId",
+      "lines": [
+        [
+          75,
+          79
+        ]
+      ],
+      "disposition": "KEEP validated authored conversion"
+    },
+    {
+      "trait": "Deref/Display",
+      "type": "CaseSiteId",
+      "lines": [
+        [
+          81,
+          93
+        ]
+      ],
+      "disposition": "KEEP small str dereference and String formatter delegation"
+    },
+    {
+      "trait": "Serialize/Deserialize",
+      "type": "CaseSiteId",
+      "lines": [
+        [
+          95,
+          119
+        ]
+      ],
+      "disposition": "KEEP derived named borrowed/owned wire DTO plus checked semantic admission"
+    }
+  ],
+  "analysis": [
+    "CaseSiteId FromString75\u201379 validates/panics on invalid authored component; preserve semantic admission rather than From derive. Deref81\u201387 exposes str not String; Display89\u201393 forwards inner String formatter (flags preserved), necessary small impls absent owning enabled equivalent generic derives.",
+    "CaseSiteId Serialize95\u2013107 already uses derived borrowed named Wire{value:&str}; preserve view/name/cohort and explicit projection. Deserialize109\u2013119 already derives deny_unknown_fields Wire then checked try_new and Errorcustom. Raw structural/transparent deserialization would weaken lexical admission or wire shape. Keep checked bridge; no existing TryFrom<Wire> conversion to reuse without adding API solely for tiny glue.",
+    "Venue closed vocabulary already Serde/structural derives; native physical id public-square differs snake_case Serde public_square, so runtime id/from_id and service cross-vocabulary mapping must remain semantic."
+  ],
+  "first_unfinished": {
+    "scope_index": 1010,
+    "line": 221
+  },
+  "execution": "none"
+}

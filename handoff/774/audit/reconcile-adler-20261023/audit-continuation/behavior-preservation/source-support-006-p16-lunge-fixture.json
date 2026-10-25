@@ -1,0 +1,93 @@
+{
+  "id": "CONT08-SUPPORT-006-P16-LUNGE-FIXTURE",
+  "at": "2026-10-25T11:59:02.913858+00:00",
+  "classification": "Source-level cfg(test) receiving migration support; no compiler result/unique-count claim",
+  "pin": {
+    "scope_index": 360,
+    "source_id": "physical-p16:crates/adventuresim-tactical-core/src/physics.rs",
+    "base": "a120390947c89b703dc74c4255a13c035d054c50",
+    "head": "039329518e264f19206cf5b0b98d177433f40c17",
+    "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/physics.rs",
+    "before_sha256": "14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b",
+    "after_sha256": "35c74e188c90bf25618bfb0170d513f1c0b342473c22acccaca79c50447c857f",
+    "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0360-base-14dfe2f0469b462c984c61217bceef5b24769d4598df0ba54192ce560bc5a79b",
+    "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/35c74e188c90bf25618bfb0170d513f1c0b342473c22acccaca79c50447c857f",
+    "diff": "source-evidence/p16-0360.diff",
+    "diff_sha256": "0824ce21fced44c0e370462fcc0d0995ede90da307bc441d11fabad0db93ada9"
+  },
+  "location": "physics.rs979\u2013988",
+  "before": "MeleeLunge::Forward.distance_metres:f32 receives distance from[.101,.404,.441,.499].",
+  "after": "Current350 combat enum field SignedLength, actual360 distance fixture remains raw float at982; rest loop displacement>=distance also keeps original native numeric variable.",
+  "connected_remedy": "Admit exact existing fixture distance at enum construction; retain original native expected displacement observation and every original case, no compatibility field or weakened tolerance.",
+  "acceptance": "Eventually authorized relevant existing fixture compiles and preserves comparisons; no tests written/run.",
+  "dedup": "Related mandatory typed receiving migration CAM-PPS-F001/SUPPORT001; exact fixture is new source support, no exact alias asserted merely by category.",
+  "additional_exact_receivers": [
+    {
+      "source": {
+        "scope_index": 382,
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/authority.rs",
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-server/src/combat/authority.rs",
+        "before_sha256": "083b8b2af667eddfbb85c778a24dd9794d2b6729a5990f1334f922fa5b2a3730",
+        "after_sha256": "115035332f28384bede83b873bba67e6877fbc481560196ae9aaa1ca2fd2d52b",
+        "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0382-base-083b8b2af667eddfbb85c778a24dd9794d2b6729a5990f1334f922fa5b2a3730",
+        "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/115035332f28384bede83b873bba67e6877fbc481560196ae9aaa1ca2fd2d52b",
+        "diff": "source-evidence/p16-0382.diff",
+        "diff_sha256": "b77fc16bc77fc2a3e6d792c16bd8b13b0188684b5feda3b56f029e40008dafe5"
+      },
+      "location": "authority.rs430\u2013447,observe445",
+      "new_parameter": "observe212 scheduled_measure_metres:SignedLength",
+      "retained_actual_input": "1.0 raw f32",
+      "repair": "Admit exact1.0fixturemeasure, retain all reciprocalprecision/reflex/correlationassertions; no wrappercompatibility"
+    },
+    {
+      "source": {
+        "scope_index": 388,
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/combat/ingress.rs",
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-server/src/combat/ingress.rs",
+        "before_sha256": "7b8e51061494a9d8a04960207b16657e3494be1831663d62e911f8a690429d3a",
+        "after_sha256": "555e18f9ec8b6190fd3c3431665f737b37a74a9b7ee6341d99b660663015c75c",
+        "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0388-base-7b8e51061494a9d8a04960207b16657e3494be1831663d62e911f8a690429d3a",
+        "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/555e18f9ec8b6190fd3c3431665f737b37a74a9b7ee6341d99b660663015c75c",
+        "diff": "source-evidence/p16-0388.diff",
+        "diff_sha256": "93b6b6382835e863d8e2d4ffa0d92f7a111be7a0a50dafbf04546c6d014fcf42"
+      },
+      "location": "ingress.rs792\u2013795 producer;844/853 receivingmatrixgap",
+      "new_parameter": "quickstep_target_displacement_metres returnsResult<SignedLength>;matrixunwrap retainsbespokevalue",
+      "retained_actual_input": "quickstep_distance -0.01 and+0.01 nativearithmetic amongnative desired_gap f32cases",
+      "repair": "Explicitnumericobservation.metres atownmatrixgapcalculation, preserve bothmax\u00b1.01casesandoriginal mode/reach/latencyassertions; no nativecompatoperator"
+    },
+    {
+      "source": {
+        "scope_index": 406,
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/iteration.rs",
+        "base": "a120390947c89b703dc74c4255a13c035d054c50",
+        "head": "039329518e264f19206cf5b0b98d177433f40c17",
+        "head_origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-server/src/iteration.rs",
+        "before_sha256": "812c3b491db93ba51220e73ebe4aef93934ff80abeb3f7d4e2af796c598ce1b7",
+        "after_sha256": "5ebb42e36e764cd3adee88c336b2976f42db557494a436e8fa2eef2f79fdef61",
+        "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/p16-0406-base-812c3b491db93ba51220e73ebe4aef93934ff80abeb3f7d4e2af796c598ce1b7",
+        "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/5ebb42e36e764cd3adee88c336b2976f42db557494a436e8fa2eef2f79fdef61",
+        "diff": "source-evidence/p16-0406.diff",
+        "diff_sha256": "fd86bb37216f237f513dd4109a30d8cfc95cd50520b4c842326f943a6069c0df"
+      },
+      "location": "iteration.rs530\u2013566 polearmfixture",
+      "owner": {
+        "scope_index": 81,
+        "sha256": "49172abd688b3e643d98f8214b92848a339da49622b13331988449baffcb93f5",
+        "fresh_reread_ranges": [
+          [
+            69,
+            96
+          ]
+        ],
+        "contract": "preferred_melee_striking_measure69\u201375 acceptsSignedLength andreturnsGeometryResult<SignedLength>;own08 full81 earliercomparison retained"
+      },
+      "retained_actual_input": "535 rawHUMANOID_REFERENCE_ARM_REACH_METRES+weapon.melee_reach:SignedLength;540 noResult handling;566 measure-expected_preferred rawarithmetic/.abs",
+      "repair": "Constructsamecompletephysicalrangeviaactualcanonicalowner,handleResult/projectexactnumericobservationfororiginal.01comparison,retainall8seeds/targetclassifications andsameassertions."
+    }
+  ]
+}

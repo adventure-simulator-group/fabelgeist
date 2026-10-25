@@ -1,0 +1,24 @@
+{
+  "id": "RIG-INITIAL06-GROUP-227",
+  "at": "2026-10-23T06:49:01.935163+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-066.json",
+  "groups": {
+    "anatomical-texture-projection-not-source-scalp-owner": {
+      "comparison": "Fresh new ScalpMap147 derives one bust-specific map from canonical Hair Head/Surface: centre, fitted narrow-cap axis, forward/side, sine-half-angle rim and physical texel-per-side. This is a coordinate projection product, not another authored scalp/Head/rig identity or Scene/Furniture frame. Actual spherical-cap equal-area plus disk-to-square mapping changes native numerical coordinates, with signed square coordinates then texture UV. Scalar rim is sine of angle, physical texel length differs dimensionless UV/texture resolution ordinal. Local fabelgeist_math Vec3 calculations and unit/angle helpers are real numerical operations, not independent checked Geometry definitions or reason to make low Hair depend game Core. Raw public(crate) fields and Option UV do not certify all source inputs finite, orthonormal or universal output [0,1]; preserve actual07 host/shader binding comparison separately. No native ScalpLevel/LOD or anatomical part ID merge by same u32/f32. Shared projection parameters must remain coherent at actual host/shader port, but shader bodies not read/credited from this host file.",
+      "disposition": "Keep anatomical map/projection authority in fitting layer over canonical Head/Surface and native math, distinct from game geometry and source scalp identity."
+    },
+    "hair-device-context-and-canonical-gpu-payload": {
+      "comparison": "Fresh HairGpu138 composes canonical WgpuContext/GpuGroomer, feature-specific field/place/strips/bake kernels and KernelCache. One device-local owner protects groomer scratch with Mutex; compile cache belongs Kernel/Compute, no duplicate GPUBuffer/context definitions. Params is an exact local shorthand for canonical PassParameters, not legacy compatibility alias or separately maintained parameter product. params! populates native named bindings; key strings are shader ABI addresses, not canonical gameplay IDs. storage takes native bytes then max16 into existing GPU byte-length owner at actual Buffer::new port; upload uses BufferUpload::from_elements with four default elements for empty native allocation. Physical byte length, element count, pass slot and semantic shape quantities remain distinct. No mandatory new per-field wrappers inside native ABI or dependency fork; canonical byte types already used at actual API. Imported feature constructors/finish/groomer methods are not whole called-body or runtime evidence. Headless context versus renderer shared context are distinct resource lifecycles, not second semantic HairGpu schema.",
+      "disposition": "Keep one device-local hair orchestration product over canonical low GPU/Compute/Hair owners and real native buffer/binding ports."
+    }
+  },
+  "source_fact_refs": [
+    "contracts-010.json",
+    "contracts-011.json",
+    "contracts-014.json",
+    "contracts-205.json",
+    "contracts-208.json"
+  ],
+  "limits": "Two new066 full source roles independently freshly read and compared under06. No Camera07/Root03 verdict carry, imported shader/helper/body coverage, device execution, source edits or scope expansion."
+}

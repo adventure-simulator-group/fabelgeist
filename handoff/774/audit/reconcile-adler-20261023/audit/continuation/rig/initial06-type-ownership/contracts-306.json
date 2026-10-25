@@ -1,0 +1,28 @@
+{
+  "id": "RIG-INITIAL06-GROUP-306",
+  "at": "2026-10-23T08:38:54.622548+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-071.json",
+  "groups": {
+    "mission-status-presentation-adapter": {
+      "comparison": "Template consumes shared MissionServerView and MissionStatus directly; page and fragment use typed Ready/Failed/Ended/Pending matches, badge tone maps enum rather than label strings. Mission status semantic owner remains server/view vocabulary, UI waiting/failed/completed panels are presentation descriptions, not independent state enums. Mission ID, server address, certificate digest and optional enrollment character ID project into URL/HTML native boundary with different identities; no equal-string alias. Original badge fixture validates typed mapping; no source of tactical HP/enemy tick state persisted here.",
+      "disposition": "Correct typed status presentation over canonical mission view."
+    },
+    "fungus-borrowed-profile-kernel": {
+      "comparison": "Profile borrows canonical FungusParameters and stores one sampled phase; no new accepted shape schema or copied morphology defaults. FertileSurface/FungusSpecies/PlantLod canonical enums reused directly; High/Low plant mesh sampling policy differs from building/character platform LOD. Seed+StreamId purpose-specific draws preserve canonical determinism. Cap/stipe radius, signed displacement/angle/normalized ratio and mesh surface t/r/v are true numerical kernel roles; same f32 storage does not imply one positivity/fraction owner. Original edited-species/attachment fixtures use canonical parameter validation separately and do not certify all public generate calls. No new competing plant typeowner.",
+      "disposition": "Legitimate procedural numerical profile over canonical plant vocabulary and seed."
+    },
+    "construction-quantity-diagnostic-port": {
+      "comparison": "QuantityError preserves failed raw point/elevation evidence while accepted controls compose ScenePlanPoint, signed SupportElevation and DiagnosticMetres. Diagnostic displacement f64, geometric elevation f32 and area/volume numerical sums have different unit/precision/report roles; no reason to replace rejected values with accepted finite points or human mass/length bounds. Measure borrows canonical CompoundSupportPlan and compares actual native support/source triangles, re-admits completed difference control, returns rough JSON quantities with explicit limits/absence. Local area/signed_volume and perimeter integration are actual numerical ports, not duplicate accepted support owner or structural-cost authority. F023 neutral shared elevation remains applicable.",
+      "disposition": "Coherent diagnostic quantity/evidence owner and native integration kernels, preserve raw failures."
+    },
+    "equipment-render-binding-native-realization": {
+      "comparison": "ProceduralEquipmentPart associates native item Entity, inverse-bind handle, canonical RigJointTable<RigJointName> and rigid-local centre; Entity renderer link is not strategic CharacterId or inventory database ID. EquipmentMeshSources bound/unbound holds two deliberate native vertex-layout realizations of same fitted mesh, preserving morph names and removing joint attributes only for rigid dropped rendering; not two independently authoritative equipment recipes. Native source clone/recenter is a real renderer conversion, not competing canonical skin owner. Rig vocabulary retained until Bevy SkinnedMesh boundary; body fitted versus rigid own-centre frames must stay distinct. Original load/drop/re-equip fixture uses actual components, not a new accepted mesh schema.",
+      "disposition": "Legitimate native render-layout/cache realization using canonical rig names; no duplicate owner."
+    }
+  },
+  "supporting_existing_findings": [
+    "F023"
+  ],
+  "limits": "Current06 source-role analysis only. No execution, other-lens or called-helper body credit."
+}

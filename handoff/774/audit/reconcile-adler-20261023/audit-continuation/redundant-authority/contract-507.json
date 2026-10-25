@@ -1,0 +1,106 @@
+{
+  "id": "CONT07-CONTRACT-507",
+  "at": "2026-10-23T23:01:06.627098+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2205,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/limb_armor.rs",
+      "sha256": "5cc9bda50004b9d57d81c6c253f9e51e1185141f978f731fd9b55809de0f3b55",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/limb_armor.rs",
+      "actual_EOF": 376,
+      "ranges": [
+        [
+          1,
+          376
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2206,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/material.rs",
+      "sha256": "ab288766a2010d8edd2795c541884dda9c55367deaf0105f1a7e8a0574c0f0fe",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/material.rs",
+      "actual_EOF": 103,
+      "ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2208,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/pattern.rs",
+      "sha256": "8d0d262278bc2b6511da93bf24abf111ae4e5649b288166b56a2a5a4a17d1ca2",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/pattern.rs",
+      "actual_EOF": 86,
+      "ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2209,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/skin.rs",
+      "sha256": "30e87caf9ec73fb5defee0388b3bd24e2fc37b5d9c5200af5889d03455f7e816",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/skin.rs",
+      "actual_EOF": 99,
+      "ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2210,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/surface_grid.rs",
+      "sha256": "d2e76894c4233cad8a8656215bf15fe6defcce235adc2350b3e2d5ad0308465e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/surface_grid.rs",
+      "actual_EOF": 108,
+      "ranges": [
+        [
+          1,
+          108
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2211,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/tiling/embedded.rs",
+      "sha256": "6c7f84f8e6b242d32e19ddecedfa1cfdb5f849bd984008eda7b0ea1da79e5345",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/tiling/embedded.rs",
+      "actual_EOF": 115,
+      "ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "LimbArmor376 Material103 Pattern86 Skin99 SurfaceGrid108 Embedded115 freshfullread: designs derivegauge/physicalcontrols, materialinputs not duplicated outputs; actualshaderTILES_PER_METRE owner4 injectedshared. Pattern convertsmetres\u2192GarmentCodecm\u2192metres and usesone authoredPlateoutline, numericalrepresentationchange not independentgeometryauthority.",
+    "Skinblend merges bysamejointordinal, highest8tie lowerindex, normalizes andfallbackfirstskin onlyexplicitzero. Separate sparseweights/inputshares not samecurrentfact; no agreementforced between CPU weightedblend andbracerGPU iftheirinputdomain differs.",
+    "SurfaceGrid regularvertices versus samples differ onpurpose: samplesincludes physicalcut/shadingaliases. remap_vertices updatesboth; carrier_column can deliberatelyleave retainedconstructionrail whilecolumnclamped, and CutdistancevsRail are distinctedgeprovenance. Existingrawgrid/admissionF053 covers malformedcardinality; no everyparallelsetredundancyclaim.",
+    "IMPORTANT qualification: ArmorMorph.direct_positions actualtiling geometry input in EmbeddedMesh::armor75\u201388, not only exportoracle despite designcomment. Currentgenerators derive position_deltas/directpositions together, but publicaggregatecorrelation remains actualreceiverobligation (existingrawGeneratedArmorfamily). Embeddedactualgeometry reconstructsfromdirectpositions, while deriveddeltasfornewtopology re-evaluatedcoherently. No ordinary inconsistentmorph or differentchecksum claimed."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2212,
+    "start_line": 1
+  }
+}

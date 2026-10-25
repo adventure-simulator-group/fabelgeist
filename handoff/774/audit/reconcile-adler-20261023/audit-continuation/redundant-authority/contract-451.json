@@ -1,0 +1,95 @@
+{
+  "id": "CONT07-CONTRACT-451",
+  "at": "2026-10-23T22:05:48.551997+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1977,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare-city-terrain.rs",
+      "sha256": "7a0b3a8a4149fccbcca7de846096d3935ba19c76ec08656385cb421b19a70bf7",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server-dispatcher/examples/compare-city-terrain.rs",
+      "actual_EOF": 349,
+      "ranges": [
+        [
+          1,
+          349
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1978,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/capture.rs",
+      "sha256": "3f691c1bd9644eff005d95abba6f62c0c89a8b0ed2ad2f54112a4b19321140f3",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/capture.rs",
+      "actual_EOF": 36,
+      "ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1979,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/capture_export.rs",
+      "sha256": "e65174baeec670a652bbab20759b78eee8e4298bb06332eaf027a7ef6f28c509",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/capture_export.rs",
+      "actual_EOF": 21,
+      "ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1980,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/contacts.rs",
+      "sha256": "d1dc987945cf487f097125d544dd536513a1e62e2cec5c21e898698e8e1883f8",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/contacts.rs",
+      "actual_EOF": 102,
+      "ranges": [
+        [
+          1,
+          102
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1981,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/gardens.rs",
+      "sha256": "a661575cb030eb98630e010d43a9abba58071c261328a6e344d886f323ae2d51",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server-dispatcher/examples/compare_city_terrain/gardens.rs",
+      "actual_EOF": 142,
+      "ranges": [
+        [
+          1,
+          142
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "ROOT-OWNER-DIAGNOSTIC-CLOSURE-069 full narrative"
+  ],
+  "facts": [
+    "1977 full349 source read in two bounded chunks. Stage role mapping searches semantic enum role rather than positional index and main constructs all four distinct roles; reordered fixture confirms intended role identity without execution. [StageSource;4] alone does not enforce uniqueness, but no admitted actual duplicate-role caller found. Raw source, prepared source and bounded support are chronological observations by explicit role, not competing current truths.",
+    "1977 selected_building_reports rejects every absent explicitly requested building and rejects empty selection; report scope expressly disclaims full route/collision/renderer acceptance. A bounded building subset is explicit request scope, not automatically a claim all buildings were inspected. Source and scene input digests are separate package/document authority and checked before output.",
+    "1978 geographic_surface verifies document/package provenance but does not itself inspect purpose or compare arbitrary supplied terrain to regenerated source.1979 metadata always describes CompleteContext. Navigation through original catalog found only1977 write_with_metadata caller and it constructs CompleteSceneContext; no PropertyAssetIsolation constructor. Thus no normal mislabeled isolated capture found, broader decoded/API association remains explicit and downstream purpose gate still to read.",
+    "1980 immutable terrain borrow and colliders derived once coordinate probe data; retained tolerance is bounded_settlement default rather than arbitrary bound embedded in input. Exact rays, nearest solid point, cylinder and support-height are explicitly distinct observations. They must not be collapsed to one truth or promoted to whole-footprint/access acceptance. Enclosure minimum reduction has admitted nonempty support cells from binding, not missing sample0.",
+    "1981 construction/contact limits and controller walking slope serve different constraints. Walking slope here derives TacticalCombatConfig::default, not a captured selected server config; report can evidence that authored default comparison only. It does not establish arbitrary running controller acceptance. Full coverage and unchanged-source booleans derive actual measured area and contact deltas, while route/collision/controller traversal remain explicitly separate checks."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1982,
+    "start_line": 1
+  }
+}

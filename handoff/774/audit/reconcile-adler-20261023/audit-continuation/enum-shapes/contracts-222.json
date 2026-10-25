@@ -1,0 +1,54 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-222",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        22,
+        23,
+        24
+      ],
+      "ranges": {
+        "22": [
+          [
+            190,
+            361
+          ]
+        ],
+        "23": [
+          [
+            1,
+            95
+          ],
+          [
+            210,
+            251
+          ]
+        ],
+        "24": [
+          [
+            187,
+            254
+          ],
+          [
+            410,
+            450
+          ],
+          [
+            727,
+            770
+          ],
+          [
+            1290,
+            1433
+          ]
+        ]
+      },
+      "comparison": "Fresh nativeSTD\u00adBviewmacro190\u2013361/Timestamp1\u201395+210\u2013251/SDKconnection187\u2013254+410\u2013450+727\u2013770+1290\u20131433. Viewmacro dispatchesactualcontexttype, emitsRawQueryforimplQueryorconvertibleconcreteRawQuery whileleavingVec/Optionbodyunchanged; primarykeyoptionalmetadata fieldtypecheckedwhenknown, notprojectconditionalstate. Timestamp signedmicroseconds beforeepochvalid; Result<Duration,Duration> explicitlydirectionviaOk/Errnativeport, notgenericnonnegativeStrategicMinute. MINnegation/toSystemTime arithmeticdomain remainsnativeAPIquestion, no projectnormalfailureclaim. SDK reducerresult nestedResult representsCommittedwithupdate / applicationrejectionString / moduleInternalError, callbackrequestid+timestampowncompleteobservation. Normalwireparse distinguishesSDKparseerrors(eventErrorwithnativecause)frommodule-reportedinternalfailure(callback), preservescausewhereavailable. invoke_reducer_with_callbackqueuesmutationandreturnsOk beforeoutcome; synchronousenqueueOk isNOTcommittedreducerreceipt. ApplicationStringisactualnativeouterreducertransport, notpermissiontoflatteninternaltypederrors. Private ParsedMessagevariantsownpayload, optionalidentitybeforeconnectionlegitimateasyncstate; realcallbackassociation mustremain. No new09finding or broadSDKcause/admissionclearance.",
+      "disposition": "Actual SDK callback outcome, enqueue-vs-commit and signed timestamp boundaries preserved",
+      "finding_refs": []
+    }
+  ],
+  "new_findings": [],
+  "limits": "Discovery only; no execution/repairs/checks/plan/clearance."
+}

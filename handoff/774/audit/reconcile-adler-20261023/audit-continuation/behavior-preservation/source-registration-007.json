@@ -1,0 +1,23 @@
+{
+  "id": "CONT08-REG007",
+  "at": "2026-10-25T16:35:39.230564+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/settlement_population/authority_tests.rs",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/settlement_population/authority_tests.rs",
+      "sha256": "3d35f13b4f3e263e8f175c10c010bf9361228812c3ab76d55199b371c33dc0b5",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/registered-3d35f13b4f3e263e8f175c10c010bf9361228812c3ab76d55199b371c33dc0b5",
+      "line_count": 113,
+      "prospective_material_ranges": [
+        [
+          1,
+          113
+        ]
+      ],
+      "base_sha256": "3d35f13b4f3e263e8f175c10c010bf9361228812c3ab76d55199b371c33dc0b5",
+      "reason": "Actual1188 settlement_population.rs422\u2013423 declares authority-tests child. Existing fixture materially specifies source/identity/binding behavior; absent original2853 and current shared161 metadata, register before semantic body read."
+    }
+  ],
+  "qualification": "Verified exact PRbase/head Git bytes equal, prospective only; no semantic audit coverage or execution from metadata/recovery."
+}

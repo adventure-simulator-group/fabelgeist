@@ -1,0 +1,185 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1059",
+  "at": "2026-10-25T17:39:59.699693+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1208,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/combat_error.rs",
+      "sha256": "58e6e2c18b7b24c5ca48112d598be60bec75a889ebfbf494562073baa85b318f",
+      "actual_EOF": 29,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/combat_error.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/strategic/combat_error.rs",
+        "owner": "camera",
+        "sha256": "58e6e2c18b7b24c5ca48112d598be60bec75a889ebfbf494562073baa85b318f",
+        "base_sha256": null,
+        "state": "new",
+        "bytes": 867,
+        "audit_owner": "camera",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                29
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-STRATEGIC-PROJECTION-001",
+              "CAM-PROP-CONCENTRATION-001",
+              "CAM-PROP-WEAPON-STORAGE-001"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 287,
+            "read_ranges": [
+              [
+                1,
+                29
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-ERROR-012",
+              "CAM-OWN-ERROR-REMOVAL-042"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/combat_error.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 282,
+            "read_ranges": [
+              [
+                1,
+                29
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-ERROR-REMOVAL-042"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/combat_error.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-TIME-PACKET-011",
+            "json_pointer": "/source_reads/31",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/strategic/combat_error.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                29
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/combat_error.rs",
+              "sha256": "58e6e2c18b7b24c5ca48112d598be60bec75a889ebfbf494562073baa85b318f",
+              "read_ranges": [
+                [
+                  1,
+                  29
+                ]
+              ],
+              "method": "Fresh bounded actual body read; no whole module claim",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/strategic/combat_error.rs"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 163,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SHARED-CONFIG-WEATHER-010",
+            "json_pointer": "/current_sources/3",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row716/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                29
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                29
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": 521,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "From<String>",
+          "type": "StrategicCombatError",
+          "lines": [
+            19,
+            23
+          ],
+          "disposition": "KEEP small manual Operation wrapping. Existing thiserror from implies error source; String is message payload, not std::error::Error. Manifest1072 has no conversion derive; no new dependency solely for this."
+        },
+        {
+          "trait": "From<&str>",
+          "type": "StrategicCombatError",
+          "lines": [
+            25,
+            29
+          ],
+          "disposition": "KEEP small manual owned String allocation then Operation variant. thiserror source/from would change contract or fail source bound; no equivalent existing dependency."
+        }
+      ],
+      "existing_derives": [
+        "Debug, thiserror::Error with transparent authored/resolution sources and explicit Operation message."
+      ]
+    }
+  ],
+  "groups": [
+    "Already derives structured Error and typed source conversions. Retain intentional non-source message From implementations; do not add source semantics or a dependency to remove small wrappers."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1209,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/custody_objectives.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

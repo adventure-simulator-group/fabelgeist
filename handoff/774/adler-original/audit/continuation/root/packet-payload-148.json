@@ -1,0 +1,52 @@
+{
+  "packet_number": 148,
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/settlement_population.rs",
+      "actual_compared_ranges": [[1, 667]],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh literal full PR667, actual full empty P16 counterpart diff, independent operations comparison. Fixtures read, not executed."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/settlement_population.rs",
+      "actual_compared_ranges": [[1, 667]],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Exact full P16 scoped source supported by actual empty full diff and literal complete PR counterpart with independently authored same operations contracts, not SHA-only transfer."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/skill.rs",
+      "actual_compared_ranges": [[1, 187], [690, 1165]],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Fresh literal exact current scoped union only, actual full empty P16 diff. No188-689 or whole1165 credit; first test prefix incomplete."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/skill.rs",
+      "actual_compared_ranges": [[9, 117], [720, 777], [892, 981], [1010, 1105]],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Exact P16 original plus overlay union, actual empty full diff and fresh literal PR counterpart containing each range, independently authored operations comparison within this union. No PR1106+ transfer-body/final-check, description983-1009, unregistered tests or whole1165 credit."
+    }
+  ],
+  "support_only_source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/settlement_population/demographics.rs",
+      "actual_compared_ranges": [[1, 36]],
+      "evidence": "Fresh full literal source and empty P16 counterpart diff; already completed131, no new distinct count."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/settlement_population/demographics.rs",
+      "actual_compared_ranges": [[1, 36]],
+      "evidence": "Fresh complete counterpart operations comparison within full scope, already completed131, no new distinct count."
+    }
+  ],
+  "groups": {
+    "population-selection": "Closed bridge/profession/schedule/location vocabularies preserve typed interior. Public raw inputs distinguish seed, optional planned age, provider profession override and explanation role. choose filters positive plausibility/curation and available required bridge, sorts stable decision keys, rejects duplicate surviving keys, multiplies u32 factors in u64 and propagates weighted_index error. Actual private builders have fixed arrays at most five, curation10 and plausibility<=100; no fabricated arbitrary MAX-weight failure for current generate. Stable hash uses Seed::derive with population.source-identity stream, not a collision-free identity promise.",
+    "population-authority": "Seven decisions and profile produced locally before success, no DB authority inferred. Planned age bypasses random selection and emits household-plan trace with curation0 deliberately; positive random weight precondition does not apply to all receipts. Actual adult-only contexts still author rare bridged young candidates; provider young weights zero. Provider requires profession override or errors, remains ServiceProvider in profile while dynamic trace captures override. service unknown string is explanation, not provider capability fallback. Trace context uses punctuation but does not seed RNG, so no F055 preimage alias here. Profession stable_id serviceprovider, Serde service_provider and stable_variant ServiceProvider have distinct boundary roles; no invented compatibility alias bug. Actual demographic building seed uses original settlement bytes and settlement.building-plan stream; age-dependent hair/household follow selected age without extra random consumption.",
+    "skill-units-and-boundaries": "MAX_CHECK5 and per-skill5000..30000 hours calibration are not mandatory hard caps. training_rank sanitizes nonfinite to0, positive finite asymptote is intentional; MAX+small calibration roundsMAX without an addition-overflow witness. hours_for_rank clips admitted rank and deliberately returns infinity at5. Preserve explicit asymptotic capacity and latent accumulated hours instead of imposing universal finite scalar or family5000 cap. Fixed nonrecursive correlation coefficients .15/.20; trained skills require direct training and cap transferred contribution at direct, intuitive skills do not. Enum metadata, kind, governing aptitude and labels have separate meaning; PR690-703 is only label tail, no whole label bijection claim.",
+    "healthy-aptitudes": "GoverningAptitudes private percent product uses authored constructors with u16 sum100, limb selection optional only when agility weight0. Healthy/raw aptitudes govern learning/mastery capacity; injuries enter final performance separately. Intelligence/instinct/agility weighted before division can overflow finite MAX*100 and sanitize to0, independently supporting NativeF052, no normal attribute-bound failure inferred. Ordinary mental skills/knowledge/agility mappings preserved; no extra aptitude added directly to final skill check.",
+    "training-gain": "Learning multiplier finite clips0..5 and spans0..2.25. Language training caps accepted increment at aptitude*1000 while retaining existing latent hours; MAX input can overflow gain/excess although accepted capped. Ordinary direct training at governing rank5 has deliberate infinite remaining capacity, so MAX*2.25 can store infinity and produce NaN excess; independent NativeF053 support, raw API case with ordinary producer bounds untraced. TrainingGain accepted/excess fields need connected computed-result policy rather than leaf-only finite wrappers.",
+    "ordinary-transfer-additional-F016": "PR1106-1125 actual effective_skill_hours adds finite Dodge direct MAX to Balance MAX*.20, yielding infinity; subsequent training_rank converts nonfinite to0. Same broad admitted-study-hours aggregate propagation graph as existing RootF016, not a new unique finding. Ordinary skill calibration up to30000 is not family5000 cap. Actual normal training/persisted-hour bounds not traced, no gameplay run/failure claimed. P16 union ends1105 documentation context and receives none of this body's credit. Native227 independently recorded exact same operation; no cross-lens credit.",
+    "performance-and-fixtures": "PR final skill check projects hours to training rank capped by governing aptitude, then mental head-health or physical usable limb weights, armor penalty and physical condition. Preserve intentional limb injuries and general incapacitation authority, no new fatigue/movement penalty. Invalid raw health/weights do not prove normal bad inputs. PR119-187 includes test stubs and partial first fixture only;188-689 excluded. Population fixtures source-read only, no universal probability proof or runtime validation.",
+    "limits": "Four new distinct source roles only: child demographic roles already completed131 and are supporting rereads. Root524->528, unique findings remain59. All current mandatory qualifications retained. No implementation, source edit, project execution, tests or other-lens clearance. Finish all thirteen initial audits then handover163."
+  },
+  "findings": []
+}

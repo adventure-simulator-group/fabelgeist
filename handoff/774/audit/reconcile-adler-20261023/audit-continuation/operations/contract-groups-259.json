@@ -1,0 +1,131 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-259",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/person_names.rs",
+      "sha256": "e41326d6c8ae20b958581c0027d3b5bdd79a58faf43a142e446f52dc4a8f70ec",
+      "actual_EOF": 849,
+      "actual_compared_ranges": [
+        [
+          1,
+          849
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/person_names/identity_validation.rs",
+      "sha256": "d1d7a7cff2bd6d44336c622d4f9e451f72c6166a16eb2702d128d32adc27525b",
+      "actual_EOF": 169,
+      "actual_compared_ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/person_names.rs",
+      "sha256": "e41326d6c8ae20b958581c0027d3b5bdd79a58faf43a142e446f52dc4a8f70ec",
+      "actual_EOF": 849,
+      "actual_compared_ranges": [
+        [
+          1,
+          849
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/person_names/identity_validation.rs",
+      "sha256": "d1d7a7cff2bd6d44336c622d4f9e451f72c6166a16eb2702d128d32adc27525b",
+      "actual_EOF": 169,
+      "actual_compared_ranges": [
+        [
+          1,
+          169
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Weighted selection retains candidate domain and typed overflow failure",
+      "source_ranges": {
+        "person_names.rs": [
+          [
+            1,
+            520
+          ]
+        ]
+      },
+      "disposition": "Whole exact849body and actual PRcomparison consumed, sharedbody semantically analyzed. Family/form/surname arrays built in stableauthoredorder, fallible weighted_index constructor maps Empty/ZeroTotal/WeightOverflow, never own uncheckedweight sum. Fresh deterministicstream105\u2013120 constructs pinned RandWeightedIndex and samples valid candidateindex, plainindex57\u201361 requiresnonempty and samplesbelowfixedbound; actual renderform/surname guardsforms.is_empty beforeplainindex. Partialrandomdraws onlatererror operatefreshstreamderivedfromimmutableSeed, no retainedrandomstate/retrytoken consumed. Generationwithsuppliedinheritedsurname keepsrawID andrenderlatervalidatesactualcatalogreference; publicidentityunsealed so no claimedcompleteadmissionfromgenerationOk. PrivatecatalogOnceLock expect depends actualbuild-generatedvalidatedJSON; thisfile include/commentnotfullbuildproducercoverage. NameSampling(err.to_string) loses actualcanonicalSamplingError, same CAM-OWNER-F006 source support; preserveactual nativeDisplay atfinalport, no sourceownership transfer inferredfromarchive."
+    },
+    {
+      "contract": "Rendered name concatenation and semantic reference validation",
+      "source_ranges": {
+        "person_names.rs": [
+          [
+            88,
+            200
+          ],
+          [
+            348,
+            520
+          ],
+          [
+            521,
+            849
+          ]
+        ],
+        "person_names/identity_validation.rs": [
+          [
+            1,
+            169
+          ]
+        ]
+      },
+      "disposition": "RenderedPersonalName new/privateString/manualSerde enforcebounded160char nonemptytrimmedcontrol-free, methodsimmutable. Renderfirstidentity.validate includingauthoredsurname metadata, familyexists andnativeformfamily/culture/Everydaymatch; unresolvedfamilylist mayempty intentionallyrecordedevidence. Authoredvalue returnsvalidatedfullstring, unresolvedrecordedform clonesaftervalidation; renderedgiven+surname concatenation re-admittedtocompleteboundedproduct, typederrorvalid eveniftwovalidleaveswouldexceed160. No blindtruncationorparseauthorednames. Registerviewer transforms display fromsamefamily withoutmutatingidentity/nativeform orreusecorrelatedoutputasnewcanonicalauthority. Allfixedfixture loops<=256 andguardedsourcecatalogindexes readnotrun; schema/validationincludes and actualOUT_DIRgeneration not creditedtransitively. No newoperationdefect orprojectexecution."
+    }
+  ],
+  "findings": [
+    {
+      "namespace": "audit/records/final-acceptance-20261021/wave-01/audit-existing-type-owners/camera/findings.jsonl#6",
+      "id": "CAM-OWNER-F006",
+      "disposition": "Fresh actual weighted-index error cause/receiver supports same canonical error retention graph; no duplicate finding/archived ownership authorization."
+    }
+  ],
+  "fresh_dependencies": [
+    {
+      "path": "crates/fabelgeist-determinism/src/stream.rs",
+      "pin": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+      "actually_read_ranges": [
+        [
+          45,
+          145
+        ]
+      ],
+      "coverage": "Fresh actual sampling/error critical bodies only; no extra full-role credit."
+    },
+    {
+      "path": "crates/adventuresim-world-schema/src/person_names/error.rs",
+      "pin": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "d61ede6d1993fc5dd57a526c714ccd91c133b235f1cd8dc86d019b11ae1c479a",
+      "actually_read_ranges": [
+        [
+          1,
+          34
+        ]
+      ],
+      "coverage": "Fresh actual sampling/error critical bodies only; no extra full-role credit."
+    }
+  ],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/strategic-web/AGENTS.md"
+}

@@ -1,0 +1,49 @@
+{
+  "captures": [
+    {
+      "capture": "plate-runtime-final-flat-walk",
+      "frames": 237,
+      "pngs": 711,
+      "exit_code": 1,
+      "failed_checks": [
+        "continuity_within_review_bounds",
+        "biomechanics_within_review_bounds",
+        "phase_owned_height_valid",
+        "ordinary_swing_tracking_valid",
+        "repeated_evaluation_valid"
+      ],
+      "jitter_incidents": 120,
+      "all_artifacts_written": true,
+      "no_ground_penetration": true
+    },
+    {
+      "capture": "unarmored-runtime-final-walk",
+      "frames": 159,
+      "pngs": 477,
+      "exit_code": 1,
+      "failed_checks": [
+        "continuity_within_review_bounds",
+        "biomechanics_within_review_bounds",
+        "no_ground_penetration",
+        "phase_owned_height_valid",
+        "repeated_evaluation_valid"
+      ],
+      "jitter_incidents": 109,
+      "all_artifacts_written": true,
+      "no_ground_penetration": false
+    },
+    {
+      "capture": "unarmored-runtime-final-guard",
+      "frames": 55,
+      "pngs": 165,
+      "exit_code": 0,
+      "failed_checks": [],
+      "jitter_incidents": 0,
+      "all_artifacts_written": true,
+      "no_ground_penetration": true
+    }
+  ],
+  "distinct_fixture_glbs_verified": 38,
+  "current_glb_hash_mismatches": [],
+  "gpu_layout_error_captures": []
+}

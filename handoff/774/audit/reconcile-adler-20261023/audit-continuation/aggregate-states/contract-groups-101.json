@@ -1,0 +1,162 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-101",
+  "at": "2026-10-25T16:12:02.788160+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1448,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer_main.rs",
+      "sha256": "e0f7a9dac82a710fe98097b0b6baaa166da0f386c1c3314819bef4cabb95864d",
+      "personally_read_ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full131 viewer entry read. The fixed clock is built from the same config sample rate that is installed; no normal mismatched-clock construction. CaptureOptions binds config, paths, inspected body proportions, scenario and render-settle policy. CLI parsing is the admission boundary; max(1) deliberately retains existing zero-frame clamping. Native filesystem/Serde/Clap/exit handling is a final entry port, not permission to stringify internal errors. No viewer run."
+      ]
+    },
+    {
+      "scope_index": 1449,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/art_demo.rs",
+      "sha256": "81ecb5d3d8ae44d03b83c3de1fe81332b833fcffabf776d4faeed2baad4cb708",
+      "personally_read_ranges": [
+        [
+          1,
+          343
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full343 demo runner read. Tagged commands own their payload; queue rejects nonfinite input and latest Show clears preceding commands. Existing F412 owns CurrentExhibit Result<Option<Handle>> plus PendingScenery lifecycle. Positive qualifier: readiness actually checks PendingScenery, pending city work and native asset/dependency load state, so no normal false Ready is inferred from Ok(None) alone. Typed preparation causes survive in Arc until final status JSON. Render errors publish Failed after Last and request exit; tests are source only."
+      ]
+    },
+    {
+      "scope_index": 1450,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/art_demo/camera.rs",
+      "sha256": "f224852ee3543e1c0825abbacf14ffcfe52d92a1b2bdddfdaa8645a12feff4de",
+      "personally_read_ranges": [
+        [
+          1,
+          179
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full179 orbit camera read. Focus, distance and limits require a coherent finite positive range, but public fields allow otherwise valid independent values to disagree. Actual constructor receives positive catalogue distances and derives limits from the same value. Current zoom deliberately lets exp overflow clamp to a finite endpoint, preserving finite extreme-input behavior. Studio/Landscape controls pan basis, pitch floor and exposure; it is a presentation policy, not a geographic datum. Native event/Transform/Exposure adapters are real ports. No ordinary invalid-camera witness asserted."
+      ]
+    },
+    {
+      "scope_index": 1451,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/art_demo/district.rs",
+      "sha256": "ced1a14ba05320405f8cac4e768b2d3748c26d408ecd23c3f25c124585c888b2",
+      "personally_read_ranges": [
+        [
+          1,
+          136
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full136 district loader read. City layout schema/generation versions are checked; final TacticalSceneInput.validate runs before returning. PreparedOutdoorFurniture instances and groups are separately decoded; actual fixture asserts outdoor/group/building membership, which is not itself production admission. Whole city/furniture admission must bind those relationships. curate mutates its argument before validation, but its actual caller prepares a fresh local input and returns Err without installing it; no normal partial-world publication claim."
+      ]
+    },
+    {
+      "scope_index": 1452,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/art_demo/exhibits.rs",
+      "sha256": "5896675fcae039122783eb698deaed6685a79a3a2ae52bf861dc0bcfdb27d19c",
+      "personally_read_ranges": [
+        [
+          1,
+          275
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full275 exhibit source and exact material119 catalogue154 read. Existing F411 owns kind plus optional asset: checked Armor asset, Weapon chassis and Scenery payloads. All ten actual shipped entries have coherent identities, required assets and positive camera distances; this remains strengthening, not a shipped invalid-asset claim. ExhibitId selects prefetch recipes while kind selects studio/scenery, so admission must preserve their association. get expects complete catalogue membership. Generated weapon bounds drive centering/scale; no ordinary zero-extent recipe asserted. Native Mesh/material output is a true final adapter."
+      ]
+    },
+    {
+      "scope_index": 1453,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/art_demo/preparation.rs",
+      "sha256": "5c5a0fb15ea84f9280fac5580c45ad6471f2a8a2bc5fd61a4a92b63e143b5e33",
+      "personally_read_ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full45 preparation error owner read. Canonical typed serde/scene/collider/weapon/native AssetLoad causes survive in owned variants and Arc through retained loading/cache state. Only the public status converts to prose. Box conversion does not imply one global error file. Cloud mismatch retains authored baked identity separately from the actual input identity."
+      ]
+    },
+    {
+      "scope_index": 1454,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/art_demo/residency.rs",
+      "sha256": "9b5cf78205d9e06cf9e5020a05dfa36cec92c54a5bb40e7480790be0471a5279",
+      "personally_read_ranges": [
+        [
+          1,
+          336
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full336 residency source read. F412 actual transitions cancel PendingScenery before replacing current, save/restore the matching view, clear old scenery, wait retirement/textures/impostor readiness, then publish the matching result. spawn_pending is synchronous after drain, not an unbound async completion; no normal wrong-exhibit race claimed. Private studio cache/recency/view updates maintain association, exclude active/incoming and cap six entries. Failure entries are cached; Show of current is not an implicit retry. Camera history and scenery retirement are independent facts, not redundant authorities to merge."
+      ]
+    },
+    {
+      "scope_index": 1455,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/art_demo/scenery.rs",
+      "sha256": "95a004dde106af96c0cf9b12ff034f21fdca47458dcc594df12b52abac2c7857",
+      "personally_read_ranges": [
+        [
+          1,
+          365
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full365 scenery source read. PreparedSceneryInput intentionally keeps authored cloud digest before city curation, while the later scene digest identifies curated terrain/presentation; these are different facts. Baked identity is compared against the authored cloud source. OakSite pairs canonical horizontal point/elevation and Scene root position; trunk half-height offset is deliberate. Local slope neighbor absence uses center elevation only for view ranking/orientation, not authoritative terrain support. Prepared furniture groups remain tied to their original building owners. Partial preparatory world mutations before later collider failure are not a demonstrated normal success path. Offline generator fixtures read only, not run."
+      ]
+    },
+    {
+      "scope_index": 1456,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/art_demo_main.rs",
+      "sha256": "2521e13453acacdb89c6e96f50324d3ee88f1cb272b8e63f915cd7130fff3b01",
+      "personally_read_ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full41 art demo entry read. Native startup and Wasm boot/command/status form explicit boundaries; JSON String and final browser failure message belong there. Panic hook publishes failure before console logging. Reusing presentation modules does not create a tactical network session."
+      ]
+    }
+  ],
+  "additional_material": [
+    {
+      "material_index": 119,
+      "source_id": "pr-working:assets/art-demo/catalog.json",
+      "sha256": "765076511ef7f6d1e7ea00204088128519329399059e93ad89a53e5587192c37",
+      "personally_read_ranges": [
+        [
+          1,
+          154
+        ]
+      ],
+      "qualification": "Actual embedded catalogue source joined with1452, not whole asset-directory coverage."
+    }
+  ],
+  "findings": [
+    "SEGO-INITIAL09-F411 exact exhibit-kind payload relationship",
+    "SEGO-INITIAL09-F412 exact retained preparation/deferred lifecycle"
+  ],
+  "qualified_connected_requirements": [
+    "Prepared furniture group/member association and camera range must be controlled at their real owning producers; current normal catalogue/navigation remains coherent. No new unique ordinary defect asserted."
+  ],
+  "discovery": "Nine full original roles and exact catalogue material119 consumed WITH existing aliases and explicit qualifications. Lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run",
+  "later_alias_reconciliation": {
+    "at": "2026-10-25T16:36:40.471181+00:00",
+    "alias": "ROOT-PP-005",
+    "trace": "Typed Oak geographic-height control becomes raw OrbitView.focus retained across panning/cache and final native Transform. Keep Position<Scene> from actual producer to native camera boundary; exact existing producer-propagation alias, not new aggregate defect."
+  }
+}

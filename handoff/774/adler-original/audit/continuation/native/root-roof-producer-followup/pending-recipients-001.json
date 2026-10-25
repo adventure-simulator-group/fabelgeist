@@ -1,0 +1,217 @@
+{
+  "id": "NATIVE-ROOF-PENDING-RECIPIENTS-001",
+  "lens": "audit-producer-propagation",
+  "six_registered_sources_body_read": true,
+  "source_reads_beyond_six": false,
+  "dependencies": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_child_enclosure.rs",
+      "sha256": "e40c96a484c04ef51cdd5139e5f0dc6bf3be92f09516dfc1cd0de27493ea7eed",
+      "actual_lines_metadata_only": 78,
+      "reached_functions_signature_navigation_only": [
+        "append4"
+      ],
+      "existing_scope": [],
+      "status": "body_unread_no_registration_no_credit",
+      "request": "Root register exact actual producer/receiving functions or supply exact already-read semantic producer receipt; no broad wholefile waiver."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_internal_cut.rs",
+      "sha256": "fa5481795fb308912be246d67e10a7a5deeadc1fa2f2ba4051255e7ed52d23e3",
+      "actual_lines_metadata_only": 143,
+      "reached_functions_signature_navigation_only": [
+        "split_internal_edges8 / split_caps43 / interior_cut122"
+      ],
+      "existing_scope": [],
+      "status": "body_unread_no_registration_no_credit",
+      "request": "Root register exact actual producer/receiving functions or supply exact already-read semantic producer receipt; no broad wholefile waiver."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_dormers.rs",
+      "sha256": "6484f99b8bdfc8cd1fc1f9aae444f6a56feaee41546a24d97109c317bba4c5f1",
+      "actual_lines_metadata_only": 305,
+      "reached_functions_signature_navigation_only": [
+        "append5 and actual attached helpers"
+      ],
+      "existing_scope": [],
+      "status": "body_unread_no_registration_no_credit",
+      "request": "Root register exact actual producer/receiving functions or supply exact already-read semantic producer receipt; no broad wholefile waiver."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/church_apse.rs",
+      "sha256": "075279208015858b1ae308c7ae36a1eb58062aec9ad5469816af6cbc1524380e",
+      "actual_lines_metadata_only": 75,
+      "reached_functions_signature_navigation_only": [
+        "ApseRoof::from_source underimpl8"
+      ],
+      "existing_scope": [],
+      "status": "body_unread_no_registration_no_credit",
+      "request": "Root register exact actual producer/receiving functions or supply exact already-read semantic producer receipt; no broad wholefile waiver."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_enclosure_material.rs",
+      "sha256": "38b955313e7d9f09e6b15e3fb0e46497a149df2db2fa417ffec671c9ad130999",
+      "actual_lines_metadata_only": 18,
+      "reached_functions_signature_navigation_only": [
+        "for_walls4"
+      ],
+      "existing_scope": [],
+      "status": "body_unread_no_registration_no_credit",
+      "request": "Root register exact actual producer/receiving functions or supply exact already-read semantic producer receipt; no broad wholefile waiver."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_contacts.rs",
+      "sha256": "4cd1f8a5d9662f277ac4d7707ddefda519e4cf56d107132f8c7a403c3a3c28d1",
+      "actual_lines_metadata_only": 106,
+      "reached_functions_signature_navigation_only": [
+        "RoofContacts::new/touching underimpl12",
+        "abutment_host55"
+      ],
+      "existing_scope": [],
+      "status": "body_unread_no_registration_no_credit",
+      "request": "Root register exact actual producer/receiving functions or supply exact already-read semantic producer receipt; no broad wholefile waiver."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_drainage.rs",
+      "sha256": "78f6495882663da6c57047c052bf85c818f6640300a5c9e3819a1958e3393f1f",
+      "actual_lines_metadata_only": 265,
+      "reached_functions_signature_navigation_only": [
+        "finalize_roof_drainage1"
+      ],
+      "existing_scope": [],
+      "status": "body_unread_no_registration_no_credit",
+      "request": "Root register exact actual producer/receiving functions or supply exact already-read semantic producer receipt; no broad wholefile waiver."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_edge_binding.rs",
+      "sha256": "710d88030ba0cda4005e228f397aaa523d571bdbc64cd00a5c234ee5861ff4a7",
+      "actual_lines_metadata_only": 164,
+      "reached_functions_signature_navigation_only": [
+        "bind_coincident_primary_roof_edges1"
+      ],
+      "existing_scope": [],
+      "status": "body_unread_no_registration_no_credit",
+      "request": "Root register exact actual producer/receiving functions or supply exact already-read semantic producer receipt; no broad wholefile waiver."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_finalization.rs",
+      "sha256": "c02cf2fd7b6a594dd75307d1b2164471415a1ed28c01a8b1ee5008268d27b35a",
+      "actual_lines_metadata_only": 138,
+      "reached_functions_signature_navigation_only": [
+        "refit_roof_edge_treatments1",
+        "bind_roof_junctions82"
+      ],
+      "existing_scope": [],
+      "status": "body_unread_no_registration_no_credit",
+      "request": "Root register exact actual producer/receiving functions or supply exact already-read semantic producer receipt; no broad wholefile waiver."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_outlets.rs",
+      "sha256": "a867ca903db8d40b4576b9e1985a40c0483f6f75f5a69efde7b6aa35d6a36ba4",
+      "actual_lines_metadata_only": 1005,
+      "reached_functions_signature_navigation_only": [
+        "consolidate_roof_outlet_stations5"
+      ],
+      "existing_scope": [],
+      "status": "body_unread_no_registration_no_credit",
+      "request": "Root register exact actual producer/receiving functions or supply exact already-read semantic producer receipt; no broad wholefile waiver."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_split_drainage.rs",
+      "sha256": "3b490e81578cef157900d07954f9fb8d077058299d752879ba933ba0a604576a",
+      "actual_lines_metadata_only": 223,
+      "reached_functions_signature_navigation_only": [
+        "supplement_split_eave_drainage1"
+      ],
+      "existing_scope": [],
+      "status": "body_unread_no_registration_no_credit",
+      "request": "Root register exact actual producer/receiving functions or supply exact already-read semantic producer receipt; no broad wholefile waiver."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+      "sha256": "a4a880f61be02405eeb1c8e2b551d9c90a0ede8737e7d59a1c67ed0155d49493",
+      "actual_lines_metadata_only": 154,
+      "reached_functions_signature_navigation_only": [
+        "belfry_enclosure_top71 only"
+      ],
+      "existing_scope": [
+        {
+          "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+          "snapshot": "pr-working",
+          "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\small_church.rs",
+          "sha256": "a4a880f61be02405eeb1c8e2b551d9c90a0ede8737e7d59a1c67ed0155d49493",
+          "scope_kind": "materially_reached_producer_contract",
+          "audit_owner": "root",
+          "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+          "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+          "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+          "actual_line_count": 154,
+          "producer_reached_contract_observations": [
+            {
+              "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+              "receipt": "ROOT-PPS-WALL-SOURCE-CLOSURE-039",
+              "json_pointer": "/supplier_reconciliation/verified_exact_proofs/25",
+              "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+              "read_ranges_as_recorded": [
+                [
+                  1,
+                  154
+                ]
+              ],
+              "source_context": {
+                "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+                "sha256": "a4a880f61be02405eeb1c8e2b551d9c90a0ede8737e7d59a1c67ed0155d49493",
+                "read_ranges": [
+                  [
+                    1,
+                    154
+                  ]
+                ]
+              },
+              "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+            },
+            {
+              "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+              "receipt": "RIG-PPS-029",
+              "json_pointer": "/additional_fresh_sources/25",
+              "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+              "read_ranges_as_recorded": [
+                [
+                  1,
+                  154
+                ]
+              ],
+              "source_context": {
+                "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/small_church.rs",
+                "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/generator/small_church.rs",
+                "sha256": "a4a880f61be02405eeb1c8e2b551d9c90a0ede8737e7d59a1c67ed0155d49493",
+                "read_ranges": [
+                  [
+                    1,
+                    154
+                  ]
+                ],
+                "scope": "Only actual material source/receiving functions in these ranges; no whole-file credit outside listed ranges"
+              },
+              "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+            }
+          ],
+          "producer_inventory_accounting": {
+            "initial946_cell": false,
+            "frozen1650_supplement_index": null,
+            "new158_material_role_packet": true,
+            "expanded36_context_variant": false,
+            "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+            "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+          },
+          "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+        }
+      ],
+      "status": "body_unread_no_registration_no_credit",
+      "request": "Root register exact actual producer/receiving functions or supply exact already-read semantic producer receipt; no broad wholefile waiver."
+    }
+  ],
+  "existing_math_receiver": "roof_tessellation1-426 globally scoped viaRIG-PPS027 actualEarcut/mesh nativepath; no neednewregistration for matchingexactrole.",
+  "definitions_request": "Root current model/layout RoofFace/PlaneEquation/Edge/Abutment proof can supply exact ref; raw/nonunit and Serdepolicy preserved.",
+  "status": "No receiverclosure claimed for these unread material bodies; sourcefreeze remains."
+}

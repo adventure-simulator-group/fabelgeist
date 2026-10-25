@@ -1,0 +1,237 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-078",
+  "at": "2026-10-25T12:17:51.036703+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 193,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/disease.rs",
+      "sha256": "c001a52a7bb957260ae3914ca056d847292760b5911984791143b8a4a1ede2e5",
+      "actual_EOF": 2950,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/disease.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-stdb-module/src/disease.rs",
+        "owner": "camera",
+        "sha256": "c001a52a7bb957260ae3914ca056d847292760b5911984791143b8a4a1ede2e5",
+        "base_sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+        "state": "modified",
+        "bytes": 102069,
+        "audit_owner": "camera",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                2950
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-DISEASE-001"
+            ]
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+            "ranges": null,
+            "source_read_status": null,
+            "trace_refs": []
+          },
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/supplemental-core-receivers.json",
+            "ranges": [
+              [
+                1,
+                190
+              ],
+              [
+                815,
+                870
+              ],
+              [
+                1670,
+                1824
+              ],
+              [
+                1825,
+                2265
+              ]
+            ],
+            "source_read_status": "partial_exact_connected_bodies",
+            "trace_refs": [
+              "NATIVE-SUPP-CORE-DISEASE-001",
+              "NATIVE-SUPP-CORE-PHYSIOLOGY-001"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 38,
+            "read_ranges": [
+              [
+                1,
+                2950
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-DISEASE-017"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/disease.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 123,
+            "read_ranges": [
+              [
+                1,
+                2950
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-DISEASE-017"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/disease.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-FORAGE-OUTBREAK-020",
+            "json_pointer": "/current_shared_actual_source_proofs/1/related_current_reads/5",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-stdb-module/src/disease.rs",
+            "read_ranges_as_recorded": [
+              [
+                1753,
+                1830
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-stdb-module/src/disease.rs",
+              "sha256": "c001a52a7bb957260ae3914ca056d847292760b5911984791143b8a4a1ede2e5",
+              "read_ranges": [
+                [
+                  1753,
+                  1830
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/disease.rs",
+              "scope": "whole terminal_failure_for_meter1755\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01531767 and first_private_terminal1770\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01531821 typed clinical callback; remainder nextfunction signature only, no broad wholeclinical clearance"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-MATERIAL-OUTBREAK-014",
+            "json_pointer": "/related_current_reads/5",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-stdb-module/src/disease.rs",
+            "read_ranges_as_recorded": [
+              [
+                1753,
+                1830
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-stdb-module/src/disease.rs",
+              "sha256": "c001a52a7bb957260ae3914ca056d847292760b5911984791143b8a4a1ede2e5",
+              "read_ranges": [
+                [
+                  1753,
+                  1830
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/disease.rs",
+              "scope": "whole terminal_failure_for_meter1755\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01531767 and first_private_terminal1770\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u01531821 typed clinical callback; remainder nextfunction signature only, no broad wholeclinical clearance"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 61,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-DISEASE-013",
+            "json_pointer": "/current_sources/0",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row169/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                2950
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                2950
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": 38,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          2950
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "Infection/key/outbreak/cut/notice/status/administration records Clone/Debug and table macros",
+        "BackendPhysiologyDifferential/Chart/Administration Clone/Debug/SpacetimeType",
+        "VisibleHumourReading structural",
+        "CachedCoverage/CheckSegment/PairPresence Clone/Debug",
+        "PartyDiseaseIntervalPlan Clone/Debug/Default"
+      ],
+      "absence_basis": "Full2950line exactsource personally consumed:0751\u2013900,076901\u20131800,0771801\u20132700 and fresh2701\u20132950. Handwritten impls only inherent plan accessors; no trait/manual serializer anywhere including fixtures. Semantic observer-private chart inference, bounded presence/acquisition planning, versioned episode/administration admission, private terminal/point/interval decisions, treatment context and numeric dose/route checks, persisted projections and fixture construction remain explicit; native errors/owned and borrowed values preserved.",
+      "source_read_receipts": [
+        "contract-groups-075.json",
+        "contract-groups-076.json",
+        "contract-groups-077.json"
+      ],
+      "coverage_limit": "No source credit for referenced helper/module/foreigncallee bodies; no operation/aggregate clearance from10 absence, no key/DB execution."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Disease admitted state, privacy-preserving output and bounded interval plan",
+      "disposition": "Existing structural/table/type derives cover record writing. Retain semantic conversion and policy functions; no new10finding.",
+      "acceptance": "No automatic raw Deserialize exposing private key/state or bypassing version/dose/context checks. Keep borrowed observer/history inputs, typed native errors and explicit persisted/visible field selection."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 194,
+    "source_id": "physical-p16:crates/adventuresim-stdb-module/src/disease/administration_adapter.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

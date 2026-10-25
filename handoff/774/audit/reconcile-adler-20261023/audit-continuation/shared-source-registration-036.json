@@ -1,0 +1,43 @@
+{
+  "at": "2026-10-25T18:39:21.950111+00:00",
+  "rows": [
+    {
+      "source_id": "native-dependency:bevy_time-0.19.1/src/fixed.rs",
+      "sha256": "c3e4e4bee5d4cdde83d23e3016d7c8532b2ca00f98fbea93f34c23d316bfb963",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/native-bevy-time-fixed-c3e4e4bee5d4cdde83d23e3016d7c8532b2ca00f98fbea93f34c23d316bfb963",
+      "line_count": 367,
+      "index": 169,
+      "ranges": [
+        [
+          70,
+          108
+        ],
+        [
+          116,
+          180
+        ]
+      ],
+      "package_checksum": "f6896d83d7ed32a2f89da127b7aeddf01eb702e603897cf5ddac231480a1870e",
+      "reason": "Actual old Time::from_hz(f64(sample_hz)) versus new capture_fixed_clock Duration::try_from_secs_f64 reciprocal needs native constructor/order proof. Register only reached constructors/setters before body read.",
+      "registration_evidence": "behavior-preservation/source-registration-009.json",
+      "qualification": "New bounded reached native constructors/setters only, not whole dependency source or original-role credit; completed lens baselines retained. Metadata registration gives no semantic coverage.",
+      "lenses": {
+        "producer-propagation": "Bounded material reconciliation pending; completed baseline source evidence preserved.",
+        "existing-type-owners": "Bounded material reconciliation pending; completed baseline source evidence preserved.",
+        "admission-contracts": "Bounded material reconciliation pending; completed baseline source evidence preserved.",
+        "invariant-operations": "Bounded material reconciliation pending; completed baseline source evidence preserved.",
+        "aggregate-states": "Bounded material reconciliation pending; completed baseline source evidence preserved.",
+        "type-ownership": "Bounded material reconciliation pending; completed baseline source evidence preserved.",
+        "redundant-authority": "Bounded material reconciliation pending; completed baseline source evidence preserved.",
+        "behavior-preservation": "Bounded material reconciliation pending; completed baseline source evidence preserved.",
+        "enum-shapes": "Bounded material reconciliation pending; completed baseline source evidence preserved.",
+        "derivability": "Bounded material reconciliation pending; completed baseline source evidence preserved.",
+        "type-granularity": "Bounded material reconciliation pending; completed baseline source evidence preserved.",
+        "magic-strings": "Bounded material reconciliation pending; completed baseline source evidence preserved.",
+        "magic-numbers": "Bounded material reconciliation pending; completed baseline source evidence preserved."
+      }
+    }
+  ],
+  "shared_count": 170,
+  "registration": "Exact native dependency reached by own08 original1412 capture-clock old/new path; append-only bounded material, no baseline replay or semantic credit."
+}

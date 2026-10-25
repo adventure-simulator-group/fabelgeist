@@ -1,0 +1,3 @@
+{
+  "body": "Validation now keeps the duration array typed: positivity uses `AnimationElapsed::is_zero`, and cadence jitter compares directly with `AnimationElapsed::SECOND`. The previous timing bounds and ordering remain. The related fatigue validation and internal movement helper also consume checked elapsed values directly. These changes are published; [current-head hosted checks](https://github.com/adventure-simulator-group/fabelgeist/pull/774/checks) remain pending."
+}

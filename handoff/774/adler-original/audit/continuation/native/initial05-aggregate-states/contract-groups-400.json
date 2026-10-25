@@ -1,0 +1,99 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-400",
+  "at": "2026-10-23T13:12:31.376515+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/mod.rs",
+      "sha256": "3ada1de8aa9e1322565a5f1ae9b5882e0beba1d5ad024cc4705f7eb35ba0982b",
+      "scope072_index": 873,
+      "actual_EOF": 595,
+      "scoped_ranges_compared": [
+        [
+          1,
+          595
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source and original round fixtures; scheduled contact lifecycle, prepared exchange state, defense cancellation and body/equipment projection compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/scheduling.rs",
+      "sha256": "9c56fb8232e356e6e204ba7c1065597c6063b0b25572d6f0e7cb131b2a7eb320",
+      "scope072_index": 874,
+      "actual_EOF": 391,
+      "scoped_ranges_compared": [
+        [
+          1,
+          391
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source and original round fixtures; scheduled contact lifecycle, prepared exchange state, defense cancellation and body/equipment projection compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/model.rs",
+      "sha256": "20d6bb98602db1d3dbc649b575e54c27fb766279d064deed4a13fcc0c695af72",
+      "scope072_index": 875,
+      "actual_EOF": 363,
+      "scoped_ranges_compared": [
+        [
+          1,
+          363
+        ]
+      ],
+      "actual05_comparison": "Fresh complete source and original round fixtures; scheduled contact lifecycle, prepared exchange state, defense cancellation and body/equipment projection compared."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/melee_round/assignment.rs",
+      "sha256": "edaab496e73d7ae22b10743303627d76c5526cdff566e72e60f563dcbc2c77f9",
+      "registry_ref": "NATIVE-INITIAL05-REG056",
+      "actual_EOF": 72,
+      "scoped_ranges_compared": [
+        [
+          1,
+          72
+        ]
+      ],
+      "actual05_comparison": "Fresh actual body after prospective registration; active participant index membership and nonempty target supplier for both scheduling paths.",
+      "global_membership": "pending after072; no count or other-lens credit"
+    }
+  ],
+  "groups": [
+    {
+      "id": "shared prepared exchange keeps correlated samples and result together",
+      "comparison": "873 prepares one contact-at-time, one sampled contact location, response/decision, effective exchange, performance, attack duration and adjusted interval. Same sample is reused for shield alignment and actual exchange contact; no independent RNG resampling of body region in this path. Prepared structure is private, normal constructor couples fields. Attacker power is reset with mem::replace before later fallible computations and work is charged before defender commitment; no whole-operation rollback on error. Public battle owns local state and returns Err, so no normal successful partial publication claimed."
+    },
+    {
+      "id": "defense mutation and timeline retain the same causal transition",
+      "comparison": "873 applies commitment then computes checked after-readiness, records response and cancellation/transformation before copying the corresponding private state. Same-weapon cancellation clears start/contact/measure together and stores adaptation, FinishTrade decrements intercept count intentionally. Optional committed decision telemetry is only emitted for actual decisionSome. Contact timeline and batch use the same timing and occurrence key; RootF027 identity alias remains separate, not fixed by coherent copying. Different attempted versus effective response is intentional, including action work charged for attempted defense."
+    },
+    {
+      "id": "F065 consumes a contact in one caller but leaves it pending in another",
+      "comparison": "874 take_side_turns332\u2013367 and873 full resolve function do not clear the occurrence after successful contact. Joint862 does clear259\u2013265. Parent857 surprise then round1 repeats original time window. New qualified F065 above pins this exact cross-caller lifecycle gap, not an arbitrary raw state fabrication or executed battle."
+    },
+    {
+      "id": "scheduling establishes complete timing before normal commit",
+      "comparison": "874 computes availability from window/recovery+adaptation, obtains available checked interval, then checks contact and recovery BattleTime additions and jitter before engagement/timing commit. initialize_melee_phases admits both derived spans before each participant update, but earlier participants/random draws can change before later Err; no global initialization rollback promised. Active pending timing is reused rather than resampled. scheduled contacts filter both start/contact options and window, prefer matching stored target ID then current assignment. Public duplicate participant IDs remain a caller membership precondition, not rejected here."
+    },
+    {
+      "id": "direct target supplier membership proof after REG056",
+      "comparison": "Fresh PR assignment1\u201372 after registry and all-peer notification: active lists enumerate same defender slice, append each remaining active index at most once. schedule_attacker has side_defeated guard before melee_assignment; joint round likewise guards both sides, so nonempty ordered target follows an active defender. Attacker index comes from bounded enumeration and rank is counted in its prefix. rank%ordered.len returns an actual current index; no vector removal occurs before use. P16 counterpart hash is not the basis for this actual PR proof."
+    },
+    {
+      "id": "raw battle snapshots and intentional per-mode projection",
+      "comparison": "875 full363: health exactly7 and body_part_index is closed map; all numeric values remain raw public fields, no typed whole-state admission from snapshot name. for_melee/for_ranged clone equipment then choose matching weapon and holding side together; stored selected weapon and concrete per-mode options can otherwise be independently edited. CombatEssentials physical-skill modifier returns1 so fatigue and burden are not double-applied; body traits and fixed armor rows retain current meaning. Armor coverage scalar versus selected geometry are different observer roles, no requirement their numeric values be equal by name. No new raw numeric finding from permissive records alone."
+    },
+    {
+      "id": "complete original round fixtures read only",
+      "comparison": "873454\u2013595 covers short/long weapon measure, distal head band, reach boundary and exact later-of measure/recovery start. 874 and875 full production have no inline fixture module. No execution, new test, altered config, runtime state or source edit."
+    }
+  ],
+  "new_unique_findings": [
+    "NATIVE-INITIAL05-F065"
+  ],
+  "remaining_dependency_obligations": [
+    "REG056 global admission pending; full tick and next queued calculations remain separate source roles. Root exact F065 dedup reply pending."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

@@ -1,0 +1,24 @@
+--- p16base/crates/adventuresim-stdb-module/src/simulation.rs
++++ catalog-p16head/crates/adventuresim-stdb-module/src/simulation.rs
+@@ -321,9 +321,9 @@
+ pub fn kill_simulation_character(
+     ctx: &ReducerContext,
+     nonce: String,
+     character_id: u64,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     owned_run(ctx, &nonce)?;
+     ctx.db
+         .character()
+         .id()
+@@ -355,9 +355,9 @@
+     attributes: CharacterAttributes,
+     skills: CharacterSkills,
+     downtime: ScheduleAllocation,
+     personality: crate::personality::CharacterPersonality,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     let run = owned_run(ctx, &nonce)?;
+     let mut character = ctx
+         .db
+         .character()

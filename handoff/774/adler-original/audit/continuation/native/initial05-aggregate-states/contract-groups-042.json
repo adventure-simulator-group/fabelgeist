@@ -1,0 +1,92 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-042",
+  "at": "2026-10-22T21:18:22.966948+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/character_morph.rs",
+      "sha256": "078e18702247381254e0d5970a170bf88f594487ea11fee98a44c1b01d849013",
+      "scope032_index": 889,
+      "actual_EOF": 73,
+      "scoped_ranges_compared": [
+        [
+          1,
+          73
+        ]
+      ],
+      "actual05_comparison": "IdentityMorph private ordinal parses only exact canonical two-digit mhr_identity_00..44; fixed private45-array keeps name/index correspondence. Deterministic identity stream high24 inclusive-unit proof Native018 means (unit*2-1)*.35 stays finite signed bound, not probability/sum1. named_weight parses then indexes same array. Existing tests52–73 source-read only.",
+      "source_body_proof": "Actual full source personally read for this lens, including original inline tests source only. No execution or prior-verdict carry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/character_proportions.rs",
+      "sha256": "7a3b0a5797dbb6d8c811aa2e2df9d831e7424367faf501cf6b3b9bffe1683433",
+      "scope032_index": 890,
+      "actual_EOF": 208,
+      "scoped_ranges_compared": [
+        [
+          1,
+          208
+        ]
+      ],
+      "actual05_comparison": "BodyProportion closed9 ALL/index and fixed array have same declaration order. Private CharacterProportions Default0 and all-array TryFrom/Serde set every role only after finite and abs<=its actual .1..1.1 limit; seeded .35*role limit stays inside using exact inclusive-unit helper. Public JointProportionBasis combines checked reference with raw finite-only 9x3 metre-per-coefficient basis; translation143–152 sums products without final finite gate. Valid individually bounded reference/target and finite basis do not establish finite completed offset (F012). No universal sum1/probability or common coefficient limit invented. All existing tests163–208 read, not run.",
+      "source_body_proof": "Actual full source personally read for this lens, including original inline tests source only. No execution or prior-verdict carry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/skeletal_fit.rs",
+      "sha256": "9263e946947987759ca44148c3b0683b27ad749fa9c679f9edc6d852293eafdc",
+      "scope032_index": 995,
+      "actual_EOF": 132,
+      "scoped_ranges_compared": [
+        [
+          1,
+          132
+        ]
+      ],
+      "actual05_comparison": "Closed12 short/long morphs for six roles map names and endpoints to same role-specific limits. weight86–93 uses endpoint-reference same coordinate, returns0 exact zero denominator otherwise clamps signed ratio. Bounded target/reference limit ensures this actual small range, not arbitrary MAX input. Short/long channels do not need sum1; same reference gives both0. Common rig reference correlation remains pipeline requirement. All tests96–132 read only.",
+      "source_body_proof": "Actual full source personally read for this lens, including original inline tests source only. No execution or prior-verdict carry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/rig_identity.rs",
+      "sha256": "207d7aff4743dc30e8fd603dd02ca0e9dd83863ac4c65bc53e208949767a7b64",
+      "scope032_index": 1406,
+      "actual_EOF": 84,
+      "scoped_ranges_compared": [
+        [
+          1,
+          84
+        ]
+      ],
+      "actual05_comparison": "AuthoredRigJoint retains private exact RigJointName plus derived region and optional BoneRole; new derives both once from same name, no independently authorable classification/setter/Serde. Roots and lower limb fragments intentionally lower, unfamiliar names upper. CombatUpper includes pelvis; hand layers false here because separate subtree policy. No canonical-name whitelist or rig membership inferred from accepted open name.",
+      "source_body_proof": "Actual full source personally read for this lens, including original inline tests source only. No execution or prior-verdict carry."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/skeletal_proportions.rs",
+      "sha256": "56f60067aad4396f087ebb56e068d5a0413b75ae81cd5fb4424dc3a14f28bc8c",
+      "scope032_index": 1409,
+      "actual_EOF": 279,
+      "scoped_ranges_compared": [
+        [
+          1,
+          279
+        ]
+      ],
+      "actual05_comparison": "Loader46–63 admits JSON basis only via finite entries and checked CharacterProportions reference. sync69–143 groups actual bones by bind.owner, explicit bounded coefficients else deterministic ID; computes raw basis.translation125–127 then inserts SkeletalJointOffset134–140 without completed-result check (F012). Each bone writes shared owner reference109–113; inconsistent per-node references can select last value, supporting existing CAMERA-INITIAL07-F004, not a new counted defect. Current rebuild invalidation depends new bind/basis/owner changes, existing CameraF003 qualification retained. Neutral-ground147–168 needs both feet+pelvis else no-op; root expect is actual same-map membership, parent rotation/scale raw native precondition. Signed per-joint bases legitimately differ, common reference must cohere. Tests171–279 source-read only, independent actors and reset/default preserve no shared asset mutation.",
+      "source_body_proof": "Actual full source personally read for this lens, including original inline tests source only. No execution or prior-verdict carry."
+    }
+  ],
+  "comparison_groups": {
+    "fixed-coefficient-column-order": "Actual closed enum/index/ALL and fixed private arrays compared at each definition; checked role bounds, seeded generation, parser and current morph fitting recipient matched, no count/hash-only carry.",
+    "coherent-rig-reference-and-offset": "Actual basis loader→group by owner→derived offset→existing039 pose write and038 bind reset compared. CameraF004 shared-reference and F003 change-invalidation exact source support retained separately from new finite-output witness."
+  },
+  "new_unique_findings": [
+    "NATIVE-INITIAL05-F012"
+  ],
+  "finding_support": [
+    "CAMERA-INITIAL07-F003",
+    "CAMERA-INITIAL07-F004"
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

@@ -1,0 +1,344 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-638",
+  "at": "2026-10-25T16:19:46.622020+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 953,
+      "source_id": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+      "sha256": "42c0284a19db9d6e763cb9be7bb0c2472dea34f759b13794f37883c42e838474",
+      "actual_EOF": 865,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/local_problem.rs",
+        "sha256": "42c0284a19db9d6e763cb9be7bb0c2472dea34f759b13794f37883c42e838474",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 29321,
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/additional-sources.jsonl",
+            "row": 44,
+            "read_ranges": [
+              [
+                1,
+                260
+              ],
+              [
+                422,
+                660
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-SIGNED-OFFSETS-028"
+            ],
+            "read_status": "explicit_partial_supporting_definitions_receivers",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/local_problem.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/additional-sources.jsonl",
+            "row": 94,
+            "read_ranges": [
+              [
+                1,
+                865
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-LOCAL-PROBLEM-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/local_problem.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root",
+          "native"
+        ],
+        "audit_owner": "root",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-LOCAL-PROBLEM-EFFECTS-031",
+            "json_pointer": "/source_proofs/0",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                305
+              ],
+              [
+                390,
+                660
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/local_problem.rs",
+              "sha256": "42c0284a19db9d6e763cb9be7bb0c2472dea34f759b13794f37883c42e838474",
+              "read_ranges": [
+                [
+                  1,
+                  305
+                ],
+                [
+                  390,
+                  660
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-SIMULATION-OBSERVATION-047",
+            "json_pointer": "/additional_actual_source_proofs/38",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+            "read_ranges_as_recorded": [
+              [
+                485,
+                515
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/local_problem.rs",
+              "sha256": "42c0284a19db9d6e763cb9be7bb0c2472dea34f759b13794f37883c42e838474",
+              "read_ranges": [
+                [
+                  485,
+                  515
+                ]
+              ],
+              "actual_line_count": 865,
+              "mode": "fresh current producer-supplement actual material source bodies; no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-036",
+            "json_pointer": "/additional_fresh_sources/3",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+            "read_ranges_as_recorded": [
+              [
+                485,
+                515
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/local_problem.rs",
+              "sha256": "42c0284a19db9d6e763cb9be7bb0c2472dea34f759b13794f37883c42e838474",
+              "read_ranges": [
+                [
+                  485,
+                  515
+                ]
+              ],
+              "actual_line_count": 865,
+              "mode": "fresh current producer-supplement actual material source bodies; no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-QUEST-006",
+            "json_pointer": "/related_pure_source",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+            "read_ranges_as_recorded": [
+              [
+                175,
+                210
+              ],
+              [
+                295,
+                332
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+              "sha256": "42c0284a19db9d6e763cb9be7bb0c2472dea34f759b13794f37883c42e838474",
+              "ranges": [
+                [
+                  175,
+                  210
+                ],
+                [
+                  295,
+                  332
+                ]
+              ],
+              "scope": "actualnewpair/Seed/SamplingError producer, notwholeunrelatedpricingowner"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1023,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved",
+        "admission03_increment077_role_observations": [
+          {
+            "supplier": "native",
+            "registry": "continuation/native/admission03/source-range-registration.jsonl",
+            "row_1based": 60,
+            "registration_id": "NATIVE-ADMISSION03-REG-060",
+            "original_record": {
+              "id": "NATIVE-ADMISSION03-REG-060",
+              "at": "2026-10-22T14:23:34.048796+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-047.json",
+              "source_id": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+              "sha256": "42c0284a19db9d6e763cb9be7bb0c2472dea34f759b13794f37883c42e838474",
+              "snapshot": "pr-working",
+              "actual_EOF": 865,
+              "material_ranges": [
+                [
+                  333,
+                  389
+                ]
+              ],
+              "role": "Completeactualgenerate294\u2013364 andeffects_for366\u2013397 currentRoot101declaredpartial1\u2013332/390\u2013660 beforeadmissioncomparison; actualDB118callscurrentgenerate.",
+              "reason": "ExactprovidedrangescutgeneratedProblemIdliteralat332 andeffectsbranchat390; directneededfactorycompletion registersinterveningrange beforebodyanalysis.",
+              "exclusions": "No laterexistingtests661+ or unrelatedsource/lens; originalrequestedrangespreserved.",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-core\\src\\local_problem.rs",
+              "status": "registered_before_direct_current03_body_analysis"
+            },
+            "local_qualifications": [
+              {
+                "id": "NATIVE-ADM03-FINALQUAL-060",
+                "registration_id": "NATIVE-ADMISSION03-REG-060",
+                "source_id": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+                "snapshot": "pr-working",
+                "sha256": "42c0284a19db9d6e763cb9be7bb0c2472dea34f759b13794f37883c42e838474",
+                "actual_EOF": 865,
+                "registered_requested_ranges": [
+                  [
+                    333,
+                    389
+                  ]
+                ],
+                "qualified_material_ranges": [
+                  [
+                    333,
+                    389
+                  ]
+                ],
+                "context_or_excluded_within_registration": [],
+                "original_registration": {
+                  "id": "NATIVE-ADMISSION03-REG-060",
+                  "at": "2026-10-22T14:23:34.048796+00:00",
+                  "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-047.json",
+                  "source_id": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+                  "sha256": "42c0284a19db9d6e763cb9be7bb0c2472dea34f759b13794f37883c42e838474",
+                  "snapshot": "pr-working",
+                  "actual_EOF": 865,
+                  "material_ranges": [
+                    [
+                      333,
+                      389
+                    ]
+                  ],
+                  "role": "Completeactualgenerate294\u2013364 andeffects_for366\u2013397 currentRoot101declaredpartial1\u2013332/390\u2013660 beforeadmissioncomparison; actualDB118callscurrentgenerate.",
+                  "reason": "ExactprovidedrangescutgeneratedProblemIdliteralat332 andeffectsbranchat390; directneededfactorycompletion registersinterveningrange beforebodyanalysis.",
+                  "exclusions": "No laterexistingtests661+ or unrelatedsource/lens; originalrequestedrangespreserved.",
+                  "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-core\\src\\local_problem.rs",
+                  "status": "registered_before_direct_current03_body_analysis"
+                },
+                "qualification_history": [
+                  {
+                    "qualification_file": "root-support/source-qualifications-006.jsonl",
+                    "row_1based": 3,
+                    "payload": {
+                      "registration_id": "NATIVE-ADMISSION03-REG-060",
+                      "original_registration": {
+                        "id": "NATIVE-ADMISSION03-REG-060",
+                        "at": "2026-10-22T14:23:34.048796+00:00",
+                        "authority": "continuation/root/admission03-discovery-authority-043.json; support-authority-047.json",
+                        "source_id": "pr-working:crates/adventuresim-core/src/local_problem.rs",
+                        "sha256": "42c0284a19db9d6e763cb9be7bb0c2472dea34f759b13794f37883c42e838474",
+                        "snapshot": "pr-working",
+                        "actual_EOF": 865,
+                        "material_ranges": [
+                          [
+                            333,
+                            389
+                          ]
+                        ],
+                        "role": "Completeactualgenerate294\u2013364 andeffects_for366\u2013397 currentRoot101declaredpartial1\u2013332/390\u2013660 beforeadmissioncomparison; actualDB118callscurrentgenerate.",
+                        "reason": "ExactprovidedrangescutgeneratedProblemIdliteralat332 andeffectsbranchat390; directneededfactorycompletion registersinterveningrange beforebodyanalysis.",
+                        "exclusions": "No laterexistingtests661+ or unrelatedsource/lens; originalrequestedrangespreserved.",
+                        "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-core\\src\\local_problem.rs",
+                        "status": "registered_before_direct_current03_body_analysis"
+                      },
+                      "qualified_material_ranges": [
+                        [
+                          333,
+                          389
+                        ]
+                      ],
+                      "qualification": "Completes actual generate294\u2013357/effects_for359\u2013397, correcting original registration role prose endnumbers; raw requested ranges preserved.",
+                      "current_admission_proof": "continuation/native/admission03/root-support/contracts-002.json",
+                      "global_reconciliation": "Root pending; no semantic or otherlens credit"
+                    }
+                  }
+                ],
+                "current_proof_refs": {
+                  "current_admission_proof": "continuation/native/admission03/root-support/contracts-002.json"
+                },
+                "body_rereads_for_this_normalization": 0,
+                "semantic_credit_from_metadata": false,
+                "producer_or_owner_or_later_lens_credit": false,
+                "global_reconciliation_pending": true
+              }
+            ],
+            "effective_material_ranges": [
+              [
+                333,
+                389
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-core\\src\\local_problem.rs",
+            "actual_EOF": 865,
+            "bytes": 29321
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          865
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "Structural and Serde derives on ProblemId/Scope/Cause/Symptom/Effects/LocalProblem/generation records; Default already on AggregateEffects; structural derives on consequence/discovery/referral records"
+      ],
+      "absence_basis": "Full exact865 lines personally analyzed635\u2013638, native deterministic candidate selection/incident/lifecycle/consequence/capped-price/public-referral functions and all fixtures. No handwritten trait or codec."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Local problem derivability absence",
+      "disposition": "No mechanical trait implementation to replace. Runtime scope canonicalization, safe symptom/referral projection, cause effects and lifecycle/aggregation are semantic rules; adding Serde to replace them would change contracts."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 954,
+    "source_id": "pr-working:crates/adventuresim-core/src/material.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

@@ -1,0 +1,72 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-084",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "injury-clinical-work-restoration-and-treatment-history-roles",
+      "sources": [
+        {
+          "scope_index": 300,
+          "ranges": [
+            [
+              1,
+              1435
+            ]
+          ]
+        },
+        {
+          "scope_index": 301,
+          "ranges": [
+            [
+              1,
+              117
+            ]
+          ]
+        },
+        {
+          "scope_index": 302,
+          "ranges": [
+            [
+              1,
+              28
+            ]
+          ]
+        },
+        {
+          "scope_index": 303,
+          "ranges": [
+            [
+              1,
+              59
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "local774:M59",
+        "local774:M89",
+        "local774:M97",
+        "local774:M103",
+        "SEGO-INITIAL11-F003",
+        "SEGO-INITIAL09-F167",
+        "SEGO-INITIAL09-F246",
+        "SEGO-INITIAL09-F247",
+        "SEGO-INITIAL09-F248",
+        "SEGO-INITIAL09-F249"
+      ],
+      "disposition": "Existing complete injury/treatment shape and clinical quantity contracts supported; meaningful restoration owner retained, no new unique finding.",
+      "trace": "Injury300:102\u2013144 distinguishes cut, bruise, frostbite, fracture within bruise, stitch quality, splint history, infection exposure and retained projectile source damage. Projection187\u2013190 uses bruise.max(fracture), avoiding double penalty, and tissue damage differs physical contact energy routed earlier to repair. Hit257\u2013329 retains summed cut/blunt versus max_single_hit_blunt_damage for fracture and original projectile kind; source damage is not extraction DC. Restorative InjuryRecoveryMinutes366\u2013379 is a useful role without extra bounds: preview396\u2013437 and settlement442\u2013566 use min(recovery,actual elapsed), while ordinary elapsed can include no healing. NONE=0 means actual zero restorative duration, not missing/unavailable time. InjuryPreview and InjurySettlement differ forecast terminal boundary versus authoritative elapsed/alive outcome; time owner commits clock separately551\u2013555. Current accumulated damage is not automatically bounded per-hit damage or healthy remaining fraction; do not add a universal0..1 bound to retained sums without actual contract proof. Treatment897\u20131168 checks full immutable request receipt, current contextual permission, selected projectile and supply requirements, aligns actor/patient time then rechecks permission and reloads injury. Contextual claim productF248, applicable live procedureF247, applied splint provenanceF246, independent stitches with qualityF167 and anchored infection historyF249 all remain exact existing repairs. Actual soap1060\u20131070 consumes one cleansing capacity point, not one physical soap stack, supporting own11F003. Native302 ProjectileDepthContribution samples hundredth-point lattice0..1.5 and projects directly into extraction difficulty kernel: meaningful check contribution, not penetration length or unit probability.",
+      "qualifications": [
+        "All source bodies and existing guarded fixtures read, never executed. Source301 partial cut without anchor is intentional raw fixture setup; current normal hit/field/extraction installs anchor, so no ordinary unanchored infection history claim. Source303 zero-damage projectile fixture is expected no retained projectile.",
+        "Bandaging and stitching coexist legitimately; quality0 can be valid. Splint original return owner differs patient/current row owner and cannot be reconstructed from current custody. History survives healed wound and later injuries until explicit reset; do not clear anchor on cut0.",
+        "Extraction difficulty intentionally unbounded above5; random contribution may exceed1. Existing common finite/nonnegative invariant can sit beneath separate role types, but UnitInterval cannot substitute. Limb injury fractions, physical impact Joules, blood millilitres, exposure cut-days, ordinal check count and clinical difficulty are different units.",
+        "OpenBody is rejected by live treatment before unreachable arm; corpse opening remains M97 independent context, not normal panic. Extract requires actual selected projectile; ignored projectile on other procedures is an existing applicability gap, not proof UI supplied it.",
+        "Some contextual claim is historical observer reference plus membership revision, not current authority. Exact replay before live permission remains deliberate; missing half is rejected. Actor/patient self relation is a local derived predicate, not another retained authority or generic patient identity namespace.",
+        "No added fatigue pool or hidden parallel movement penalty. Existing physical soap fraction, alcohol disinfectant effectiveness and request cleansing choice remain independent; selecting soap does not suppress automatic alcohol. Source convalescence568\u2013599 raw result remains related to existing Q009/M51 recovery representation question, with no ordinary unrepresentable healthy producer invented."
+      ],
+      "acceptance": "Keep distinct clinical/physical/restoration quantities, complete applicable treatment and anchored/splint histories through source admission, wait/revalidation, supplies and receipts, preserving exact injury projection, uncapped DC, zero/partial duration and immutable retry behavior."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

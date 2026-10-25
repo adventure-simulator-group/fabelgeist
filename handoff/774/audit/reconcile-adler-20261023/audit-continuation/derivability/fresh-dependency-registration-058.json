@@ -1,0 +1,27 @@
+{
+  "id": "SEGOVB-INITIAL10-REG-058",
+  "lens": "10 audit-derivability",
+  "sources": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-dialogue/Cargo.toml",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-dialogue/Cargo.toml",
+      "sha256": "6f2c4bfbf6d202fdadfc88465dfacd0ffd8461259578bde3f185ad0b47ab844b",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/derivability/fresh-dependencies-058/dialogue-Cargo.toml",
+      "actual_EOF": 23,
+      "actual_compared_ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "material_ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "reason": "Exact direct dependency availability needed167 DialoguePolicyParseError derive comparison. Fullmanifest has serde/serde_json,worldschema,sha2 dev/build, no thiserror; retain small error implementation instead of newdependency just for cleanup.",
+      "status": "Fresh bounded personal10 analysis, no project execution/otherlens coverage."
+    }
+  ]
+}

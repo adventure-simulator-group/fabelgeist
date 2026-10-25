@@ -1,0 +1,159 @@
+{
+  "id": "RIG-INITIAL06-QUAL-006",
+  "at": "2026-10-22T19:51:12.486521+00:00",
+  "scope_record": "cumulative-source-scope-parallel-021.json",
+  "scope_sha256": "e104221a35dfe28cea04740b0d7fc10f9ff710ff082569b2b5535df621813c42",
+  "global_variants": 2767,
+  "mandatory_overlays": 199,
+  "new_sources_accounted": [
+    2764,
+    2765
+  ],
+  "previous_source_extension_now_global": {
+    "source_id": "pr-working:crates/fabelgeist-armor/src/limb_armor.rs",
+    "registration_ref": "RIG-INITIAL06-REG-007",
+    "global_overlay": "CONT-OWNER-RANGE-EXTENSION-199",
+    "ranges": [
+      [
+        161,
+        186
+      ]
+    ],
+    "proof_ref": "contracts-015.json#/groups/family-source-designs"
+  },
+  "new_unreviewed06_sources": [
+    {
+      "scope_pointer": "/files/2757",
+      "source_id": "native-rand0.9.5:src/distr/weighted/weighted_index.rs",
+      "sha256": "b4559037354bcb9e0b1eab569c867dd70053de382232c7ed4d9aef3d5b049003",
+      "ranges": [
+        [
+          1,
+          145
+        ],
+        [
+          358,
+          369
+        ]
+      ],
+      "status": "navigation only; actual06 analysis pending"
+    },
+    {
+      "scope_pointer": "/files/2758",
+      "source_id": "native-rand0.9.5:src/distr/uniform.rs",
+      "sha256": "04efcc061e1904b824e3feb68541c4e8259a46ecd2c118af6fb383b3ad37f73c",
+      "ranges": [
+        [
+          219,
+          260
+        ],
+        [
+          268,
+          312
+        ],
+        [
+          399,
+          415
+        ],
+        [
+          190,
+          219
+        ]
+      ],
+      "status": "navigation only; actual06 analysis pending"
+    },
+    {
+      "scope_pointer": "/files/2759",
+      "source_id": "native-rand0.9.5:src/distr/uniform_int.rs",
+      "sha256": "30c620bc9d74263162de2e0755ae4b323abce1d6aa22c00d1b9de378480f22c0",
+      "ranges": [
+        [
+          71,
+          160
+        ],
+        [
+          280,
+          280
+        ],
+        [
+          1,
+          70
+        ]
+      ],
+      "status": "navigation only; actual06 analysis pending"
+    },
+    {
+      "scope_pointer": "/files/2760",
+      "source_id": "native-rand0.9.5:src/distr/weighted/mod.rs",
+      "sha256": "52379f09ea06c8ac54bdb4ecaed93fd7fc08f85866b5e3fcb4e40d0f1576bdfe",
+      "ranges": [
+        [
+          25,
+          60
+        ],
+        [
+          85,
+          115
+        ]
+      ],
+      "status": "navigation only; actual06 analysis pending"
+    },
+    {
+      "scope_pointer": "/files/2761",
+      "source_id": "native-rand0.9.5:src/distr/utils.rs",
+      "sha256": "a631940e728257c9b0cb753bc64fa631958c92ce52d5b2265c7ed06a46567b8f",
+      "ranges": [
+        [
+          16,
+          61
+        ]
+      ],
+      "status": "navigation only; actual06 analysis pending"
+    },
+    {
+      "scope_pointer": "/files/2762",
+      "source_id": "native-rand0.9.5:src/distr/integer.rs",
+      "sha256": "69ac205b6fed57ae09e2f8f1b15ae3d2049b85874bc4da3f246a18188b42d8ea",
+      "ranges": [
+        [
+          49,
+          54
+        ]
+      ],
+      "status": "navigation only; actual06 analysis pending"
+    },
+    {
+      "scope_pointer": "/files/2763",
+      "source_id": "native-rand0.9.5:src/rng.rs",
+      "sha256": "19a29d58ea169c50ae7fea0a941c405e4a8f3a9b2ac0dc0edd9f7a55e9431703",
+      "ranges": [
+        [
+          58,
+          58
+        ],
+        [
+          95,
+          103
+        ],
+        [
+          357,
+          357
+        ]
+      ],
+      "status": "navigation only; actual06 analysis pending"
+    },
+    {
+      "scope_pointer": "/files/2766",
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/coverage.rs",
+      "sha256": "8bebf038e281f0b1529dd8008a42379c43eac3e0c2f9767d9a29606eb69ddced",
+      "ranges": [
+        [
+          1,
+          142
+        ]
+      ],
+      "status": "navigation only; actual06 analysis pending"
+    }
+  ],
+  "limits": "Globalmetadata registration notsemanticcoverage; new otherpeerlens proofs notcurrent06credit. REG009\u2013011 directArmor definitions stillprospective."
+}

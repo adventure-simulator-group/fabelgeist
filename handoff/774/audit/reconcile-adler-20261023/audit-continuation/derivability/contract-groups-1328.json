@@ -1,0 +1,98 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1328",
+  "at": "2026-10-25T18:30:44.763702+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1379,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/solver.rs",
+      "sha256": "a677e882ad829a28f90793efb5ccfadcef1512255ef4b1c5105e9f8365e9f543",
+      "actual_EOF": 564,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/solver.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/solver.rs",
+        "owner": "native",
+        "sha256": "a677e882ad829a28f90793efb5ccfadcef1512255ef4b1c5105e9f8365e9f543",
+        "base_sha256": "c2b75c87727c8f0e1e80d54be4ffde404a0b57e17684b54e9fbe272805bdbd5a",
+        "state": "modified",
+        "bytes": 19231,
+        "audit_owner": "native",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [],
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 216,
+            "read_ranges": [
+              [
+                1,
+                564
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-IK-STATE-004"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/procedural/ik/solver.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 558,
+            "read_ranges": [
+              [
+                1,
+                564
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-IK-STATE-004"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/procedural/ik/solver.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          564
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "TwoBoneSolution/TwoBoneChain Debug Clone Copy.",
+      "absence_basis": "Full native six-input chain constructor/continuity/reach/analytic solve/finite snapshots/parent-frame application and fixtures; no handwritten trait/codec. Native current geometry/state/error/Option/coordinate conversion is semantic, not structural trait projection."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Native analytic geometry and hierarchy-dependent pose mutation retain physical context/guards and current-frame semantics; structural traits already derived.",
+      "disposition": "NO_HANDWRITTEN_TRAIT_OR_CODEC",
+      "qualification": "No native tests/system execution; fixture code references cached systems only as source, no passing inference."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1380,
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/state.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

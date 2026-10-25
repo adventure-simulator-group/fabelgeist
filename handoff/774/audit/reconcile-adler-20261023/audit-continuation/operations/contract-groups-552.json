@@ -1,0 +1,131 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-552",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-math/src/lib.rs",
+      "sha256": "bd588528cad05e62401905c31645e928a15b1175985219d9d79d21b2b2e81510",
+      "actual_EOF": 17,
+      "actual_compared_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-mhr/Cargo.lock",
+      "sha256": "45961a0c74b57fb81e9429abc14d387a4e4a00ba18a771c17b0fd5e4ea09eaf4",
+      "actual_EOF": 7093,
+      "actual_compared_ranges": [
+        [
+          1,
+          25
+        ],
+        [
+          7079,
+          7093
+        ]
+      ],
+      "method": "Static dependency descriptor: personal header/tail and full structural descriptor scan; no executing operations, dependency implementation not credited."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-mhr/README.md",
+      "sha256": "2f55f036aa8e477333adc25d8fd8c50685a6648e6e9966c76c1e227bd5607ea7",
+      "actual_EOF": 154,
+      "actual_compared_ranges": [
+        [
+          1,
+          154
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/character.rs",
+      "sha256": "2d2357141ae8fa55cdb6e758723986a13dae79c775a82cdb7d4d79615e1076ed",
+      "actual_EOF": 315,
+      "actual_compared_ranges": [
+        [
+          1,
+          315
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/character/skeleton.rs",
+      "sha256": "2383576b6c27646e1d1a0f8d8ace26b841a830c28d9bdf745a3a6efe0df1d50d",
+      "actual_EOF": 136,
+      "actual_compared_ranges": [
+        [
+          1,
+          136
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/character/skin.rs",
+      "sha256": "1c89d671f5f028a6d29f35ee160591ab974b84417ffab4037f886ed996940b68",
+      "actual_EOF": 113,
+      "actual_compared_ranges": [
+        [
+          1,
+          113
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/correctives.rs",
+      "sha256": "315f5296ef9ba45169384bc17e9157b66cb1224bedfb4962a04e32821afc63c4",
+      "actual_EOF": 188,
+      "actual_compared_ranges": [
+        [
+          1,
+          188
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-mhr/src/math.rs",
+      "sha256": "20b8033a4cd2771f494d9a73e0820bd9c27c5cdce23c097687360719bfc46b0a",
+      "actual_EOF": 357,
+      "actual_compared_ranges": [
+        [
+          1,
+          357
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "MHR authored mesh/skin/hierarchy compilation establishes joint membership and supported numeric transform before publication.",
+      "evidence": "Full character315, skeleton136, skin113 bodies personally read. Character triangulation never validates decoded u32 vertex membership; native projected index support follows in model role. Skeleton parser appends all parallel fields together and parents before children on acyclic source; public tables permit independent mutation. Weight top8 clamps only after <=0, so NaN survives and normalized NaN is stored. Factory-local inverse_bind mutations are discarded when construction returns Err, not proven retained caller partial commit.",
+      "qualifications": "Exact inherited aliases consumed: audit/continuation/rig/admission03/findings.jsonl record_index80 RIG-ADMISSION03-F076,84 F080,85 F010-SUPPLEMENT-002,86 F027-SUPPLEMENT-001; and audit/records/final-acceptance-20261021/wave-01/audit-producer-propagation/rig/findings.json record_index0 RIG-PP-001. No bad asset, tensor run or DB proof. Current-parser hierarchy does not prove arbitrary public Skeleton safe.",
+      "acceptance": "Canonical coherent hierarchy and mesh channels, decoded membership before native indexing, finite normalized weights preserving intended top8/nonpositive policy, supported affine inverse-bind admission; no mandatory finite gate across every raw math operation."
+    },
+    {
+      "contract": "Corrective tensor counts and source affine kernels preserve their stated shape/assumptions.",
+      "evidence": "Full correctives188/math357 personally read. num_joints-2, posed*24/6, inputs*hidden and vertices*3 are unchecked before tensor publication; inherited F079 exact. Missing basis returns None before count arithmetic, intentional optional path. Raw Transform inverse/compose assumes valid scale/rotation; public raw f64 math is not itself admitted finite state. Near-zero affine determinant returns zero inverse, which must not be mistaken for accepted invertibility at actual asset boundary.",
+      "qualifications": "Exact F079 admission record_index83 and inverse-bind supplement86 consumed. Only checked count/admission obligations and raw-kernel strengthening beyond documented assumptions; no normal MHR runtime failure asserted. Existing matrix/inverse fixtures personally read but not executed.",
+      "acceptance": "Supported joint/shape/native capacity admitted before arithmetic; preserve missing-basis None, f64 source precision, valid finite/invertible supported affine frame and legitimate scalar algebra."
+    },
+    {
+      "contract": "Static module/docs/dependency descriptor do not themselves perform mutation/arithmetic.",
+      "evidence": "math lib17 and MHR README154 fully read. Cargo.lock header/tail personally inspected; package descriptor schema scanned across7093 lines,661 package headers, no build/script field; dependency strings are non-executing metadata, not 661 dependency body reviews.",
+      "qualifications": "README is supporting claimed units/pipeline, not proof actual MHR tensors execute. Lock metadata disposition is explicit and does not claim entire7093-line personal textual read or dependency implementation coverage."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "8 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/fabelgeist-mhr/src/model.rs"
+}

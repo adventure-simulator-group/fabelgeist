@@ -1,0 +1,27 @@
+{
+  "head": "4c8c559fede919be940d0694f020133d0fffb417",
+  "run": 39441499527,
+  "job": 118692243316,
+  "failed": [],
+  "in_progress": [
+    {
+      "name": "Test shared schema and GPU readback boundaries",
+      "status": "in_progress",
+      "conclusion": null,
+      "number": 11
+    }
+  ],
+  "passed": [
+    "Set up job",
+    "Run actions/checkout@v7",
+    "Install pinned Rust toolchain",
+    "Cache Rust build artifacts",
+    "Install pinned SpacetimeDB CLI",
+    "Install configured Linux linker",
+    "Check formatting",
+    "Test generated bindings verifier",
+    "Check building review presentation boundary",
+    "Verify generated SpacetimeDB bindings"
+  ],
+  "acceptance": "Full native matrix, selected behavioral execution, official baseline export and P04 acceptance remain pending."
+}

@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1186",
+  "at": "2026-10-25T18:04:40.001801+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1281,
+  "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/generated_cases.rs",
+  "sha256": "73138f7fd9ee10974b6eb14acf7a18a5adb75129cb936b74159c0de5397cd584",
+  "actual_compared_ranges": [
+    [
+      1,
+      340
+    ]
+  ],
+  "existing_derives": [
+    "GeneratedDialogueTopicRequest/GeneratedInvestigationAttempt/GeneratedInvestigationWindow Clone Copy Debug"
+  ],
+  "trait_inventory": [],
+  "analysis": "Three borrowed request/attempt/window structs already derive Clone Copy Debug; only inherent LiveRunner current case/action/lead/cohort selection/progress/public observations. No handwritten trait/custom codec. Current stable_status classification/clock adaptation and no-progress diagnostic aggregates/redacts/caps selected native fields, not raw From/Display. Exact identity and state policies remain explicit.",
+  "first_unfinished": {
+    "scope_index": 1281,
+    "line": 341
+  },
+  "execution": "none"
+}

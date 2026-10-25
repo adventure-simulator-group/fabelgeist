@@ -1,0 +1,139 @@
+{
+  "id": "CONT07-CONTRACT-355",
+  "at": "2026-10-23T19:06:25.870343+00:00",
+  "lens": "audit-redundant-authority",
+  "baseline": {
+    "scope": "audit/continuation/cumulative-source-scope-parallel-072.json",
+    "variants": 2853,
+    "mandatory_overlays": 246,
+    "prior_latest": "CAMERA-INITIAL07-CONTRACT-354",
+    "prior_unique_covered_source_ids": 1758
+  },
+  "members": [
+    {
+      "scope_index": 1492,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/rig_tests.rs",
+      "sha256": "4361cea596a62d622535d10bf3c8e217573ebb98a64ec6dee0ac5e28a95eb2da",
+      "expected_sha256": "4361cea596a62d622535d10bf3c8e217573ebb98a64ec6dee0ac5e28a95eb2da",
+      "retrieved_from": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/rig_tests.rs",
+      "actual_EOF": 161,
+      "ranges": [
+        [
+          1,
+          161
+        ]
+      ]
+    },
+    {
+      "scope_index": 1494,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/skin.rs",
+      "sha256": "7d3de24eaaf295e510aeb41c6bd8e6f5d5204beea0b976cbc16cb617d862c7a4",
+      "expected_sha256": "7d3de24eaaf295e510aeb41c6bd8e6f5d5204beea0b976cbc16cb617d862c7a4",
+      "retrieved_from": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/equipment/skin.rs",
+      "actual_EOF": 111,
+      "ranges": [
+        [
+          1,
+          111
+        ]
+      ]
+    },
+    {
+      "scope_index": 1495,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/slot_selection.rs",
+      "sha256": "95cb7d00f5f9c53287ed626304bd1914c958f7ee38933a8906a354ca12610678",
+      "expected_sha256": "95cb7d00f5f9c53287ed626304bd1914c958f7ee38933a8906a354ca12610678",
+      "retrieved_from": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/equipment/slot_selection.rs",
+      "actual_EOF": 243,
+      "ranges": [
+        [
+          1,
+          243
+        ]
+      ]
+    }
+  ],
+  "personally_consumed_prior_narratives": [
+    "audit/continuation/rig/admission03/contract-groups.jsonl#RIG-ADMISSION03-CONTRACT-426",
+    "audit/continuation/rig/admission03/contract-groups.jsonl#RIG-ADMISSION03-CONTRACT-427",
+    "audit/continuation/rig/admission03/contract-groups.jsonl#RIG-ADMISSION03-CONTRACT-428"
+  ],
+  "fresh_supporting_bodies": [
+    {
+      "scope_index": 1481,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/render_binding.rs",
+      "sha256": "278723baa84e424a5faff89f4ed396c8f5591f507165e11ae62842cafe37c974",
+      "ranges": [
+        [
+          1,
+          140
+        ]
+      ],
+      "credit": "fresh critical support only; previously covered role, no extra source count"
+    },
+    {
+      "scope_index": 1484,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/generation.rs",
+      "sha256": "ea41899e503a9d300af874feb8f230532b8e8c1b9f6994c4c89b690746dfaf29",
+      "ranges": [
+        [
+          217,
+          467
+        ]
+      ],
+      "credit": "fresh construction/replacement/receiving bodies; previously covered role, no extra source count"
+    }
+  ],
+  "contracts": [
+    {
+      "source_index": 1492,
+      "facts": [
+        "Full original fitting fixtures1-161 personally read. Separate expected parent rotation/proportion offsets and morph-plus-skin equality are test oracles, not independent production policy. RuntimeBody native fields are controlled fixture construction, not an alternative authoring owner.",
+        "Reference versus desired proportions are separate baseline/current facts; BodyShapeKey variation assertions exercise actual cache dependencies rather than duplicating a current identity authority. Missing target assertion is an intended rejection oracle.",
+        "Fixture guarantees do not prove arbitrary matrix invertibility, aggregate skin row validity or all cache invalidation; preserve prior admissionF010/F014/F027. No fixture was run or changed."
+      ],
+      "disposition": "accounted exact fixture roles; no new07 defect"
+    },
+    {
+      "source_index": 1494,
+      "facts": [
+        "rig_bones is rebuilt from actual MhrBone.owner and AuthoredRigJoint each invocation, so it is a transient lookup projection rather than independently retained bone identity. Same-name duplicates overwrite in encounter order: cardinality/uniqueness remains separate admission/aggregate evidence, no new07 wrong-name authority inferred.",
+        "Desired joints are recomputed from current ItemOf, holding slot and scene status; existing skin is removed when no complete worn mapping is available. Test56-110 observes actual ownership transfer then scene removal, not a second independently maintained transfer algorithm.",
+        "Current generated part lifetime preserves inverse-bind cohort on actual key replacement; conditional same-entity mutable inverse handle is explicitly retained in CONT07-OBS-001. No normal mutation, renderer failure or definite new unique defect claimed."
+      ],
+      "disposition": "accounted full source with conditional cache-ownership candidate"
+    },
+    {
+      "source_index": 1495,
+      "facts": [
+        "eligible_mapped_slot is the shared keyboard/HUD eligibility algorithm. MappedSlot.location_index and location are resolved together from immutable InputAddressMapping.locations; private index is applied only alongside that mapping. No actual producer for inconsistent pairs found.",
+        "GrabSession.repeated_input is prior key-cycle history; selection is current resolved location/depth. They are orthogonal temporal/current facts, and keyboard start=index+1 versus HUD current selected index intentionally serve distinct cycle/preview operations. Empty mapping loop avoids modulo; Unknown item remains unavailable.",
+        "Full fixtures92-243 compare keyboard/HUD outcomes using actual catalogue and opposite entity allocation orders. Expected authored values are independent oracles. Equality checks do not remove duplicated traversal policy from Camera07F069: slot selection calls the two independently maintained ordered_preview/hud traversal producers; this is existingF069 receiver support, not new finding."
+      ],
+      "disposition": "accounted full source; supports existingF069 only"
+    }
+  ],
+  "observations": [
+    "CONT07-OBS-001"
+  ],
+  "new_accepted_unique_findings": 0,
+  "existing_graph_support": [
+    "CAMERA-INITIAL07-F069"
+  ],
+  "discovery_status": "three exact previously unread07 source variants personally compared",
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "identity_count_accounting": {
+    "new_original_variant_ids": [
+      "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/rig_tests.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/equipment/skin.rs",
+      "pr-working:crates/adventuresim-tactical-client/src/equipment/slot_selection.rs"
+    ],
+    "already_covered_fresh_reanalysis_ids": [],
+    "new_this_contract": 3,
+    "cumulative_new_original_variants": 3,
+    "cumulative_original_unique": 1761,
+    "count_basis": "Exact source_id union against Adler saved07coverage1758, not number of fresh-read rows"
+  }
+}

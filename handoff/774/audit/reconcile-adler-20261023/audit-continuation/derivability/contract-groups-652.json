@@ -1,0 +1,38 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-652",
+  "at": "2026-10-25T16:21:55.879368+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 959,
+  "source_id": "pr-working:crates/adventuresim-core/src/npc_policy.rs",
+  "sha256": "51c449efd5edf6380249bcc04ebf5a9a38cc9a1f20cab731e2bf80d6b958e18a",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "Display + Error",
+      "type": "ConflictingCandidate",
+      "lines": [
+        [
+          76,
+          85
+        ]
+      ],
+      "disposition": "OPTIONAL_F002 existing thiserror fixed prefix + decimal tuple field; exact message/source None"
+    }
+  ],
+  "analysis": [
+    "All policy input/eligibility/result records structural traits already derive. ConflictingCandidate Display76\u201385 writes fixed text plus native decimal u64 tuple field and empty Error; optional F002 equivalent existing thiserror #[error(\"Conflicting NPC policy snapshots for character {0}\")] preserving outer flags ignored/source None.",
+    "Courtship eligibility/candidate ordering/dedup/conflict rejection/seeded rank/schedule/house affordability are semantic policy functions, not mechanical From/Serde. No other handwritten trait through220."
+  ],
+  "first_unfinished": {
+    "scope_index": 959,
+    "line": 221
+  },
+  "execution": "none"
+}

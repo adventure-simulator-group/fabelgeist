@@ -1,0 +1,36 @@
+{
+  "id": "RIG-CAMERA-ADM03-595",
+  "camera_queue_index": 595,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_prompts.rs",
+  "sha256": "ffaa735d01a814246e3df80b2da9bd1318b5777e34da322aa20f2c17320574fa",
+  "queue_ref": "continuation/admission03-queue-v002/camera_rig_support.json#/queue/48",
+  "scope_pointer": "/files/1215",
+  "actual_read_ranges": [
+    [
+      1,
+      616
+    ]
+  ],
+  "actual_eof": 616,
+  "current_source_absent": false,
+  "base_sha256": null,
+  "current_roles": "Dialogue topic/prompt choice admission and retained answer resolution",
+  "invariant": "New actions require current catalogue/sessionrevision/member and authored context; stored prompt strings/choice JSON decoded and checked at use. Retry identity is narrower than complete submitted payload and is stated explicitly.",
+  "all_admission_routes": [
+    "resolved_prompt_choices ordinaryauthoredmode/choices/min/max casts; dynamicpromotionactualrepresentative/currentrole/directtargets+requesttemplate, optionalwait, at least2choices, fixedSingle1..1. Internal CorpsePermissionTopicId recognizes exactprefix, knownscopeexamination/exhumation, nonemptyapproach/corpse remainder; no specificapproachwhitelistlocally, actualcorpsegrantrecipient gate.",
+    "choose topic gateway/currentcatalogue/validactionID/member then ANYexistingactionrow same(session,actionID) returnsOk without comparing requestedtopic; newchecks sessioncatalogue/currentrevision. Corpsepermission requirescurrenttopicoption+actualNPC\u2192ordinarygrant. Otherknownauthoredtopic+knowledge/cardinality/facts/unambiguousresponse, resolveactualturnbindings and alignedsources; at mostone emittedtestimony event; effectgate593 then rawpromptrecord fromactualauthoredresolvedchoices.",
+    "answer gateway/catalogue/actionID/member+actualrespondentrole; committedretry parsespromptstate and compares receipt.action_kind only answer:promptRowID, ignores new choice_ids_json/expectedrevision afterreceipt. New requirescurrentcatalogue/revision, typed chosenVec+authoritativeChoiceVec and exactpolicyparsers594; noduplicates/minmax/allowedID, nonMulti exactly1, no existinganswer forcharacter.",
+    "Ballots decode storedanswers with filter_map (malformedoldballot skipped), resolution explicit FirstResponse/Majority/Unanimous/AllRespondents; actualauthoredtopic/response exists before applying winningchoice effect+resultfragments. PromptResolved andanswerreceipts retained. Publicrawstoredchoice effects not independently matched equalcurrentauthoredchoice beforeexecution; normalcreationcopiesactualcatalogue.",
+    "Session.revision +=1 raw ordinaryoperation at357/605; otherprojectednext revisions use saturating. Eventcounts/offsetcasts rawu32. These are operation/aggregate crossrefs, not a new current03boundedowner promise."
+  ],
+  "counterexample_or_intentional_boundary": "Full616 read. ArbitraryrawDBprompt/session records can bypass creationgates; no accepted-state seal. Reusing same actionID with different topic or changedchosenpayload can getOk withoutreexecution: exact behavior retained as identity/correlation qualification, not described as exact immutable request replay. No actualbadcaller/runtime assertion or laterlensclearance; connected future remedy would capture/reconcile complete request if exact retry required.",
+  "finding_refs": [],
+  "connected_dependencies": [
+    "RIG-CAMERA-ADM03-592/593/594",
+    "Own schema597/session598 actualmembership/state/cardinality/actionID",
+    "Current adventuresim_dialogue catalogue/Prompt/Choice/ResolutionPolicy admission"
+  ],
+  "mode": "Fresh actual current admission source comparison; original tests read as source only. No project execution or earlier-lens verdict carry.",
+  "authority": "root/admission03/support-authority-053.json; Camera retains source/audit ownership; Root final audit/repair authority",
+  "disposition": "exact_source_role_compared_with_stated_limits_and_dependencies"
+}

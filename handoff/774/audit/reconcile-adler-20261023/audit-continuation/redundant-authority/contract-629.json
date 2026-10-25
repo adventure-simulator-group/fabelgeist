@@ -1,0 +1,94 @@
+{
+  "id": "CONT07-CONTRACT-629",
+  "at": "2026-10-24T00:48:13.937530+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2735,
+      "source_id": "physical-p16:crates/strategic-web/src/schedule.rs",
+      "sha256": "87bb6b40cc4c57605e3b8c0601b6db29818a0a548aa8d3d4c3b136f55411f001",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/strategic-web/src/schedule.rs",
+      "actual_EOF": 99,
+      "ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2736,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/build.rs",
+      "sha256": "1cbb4c6032d77345ba85c017d2e5f94b1600c1a4064ff586f0e1872afd63df74",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-world-schema/build.rs",
+      "actual_EOF": 121,
+      "ranges": [
+        [
+          1,
+          121
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2737,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/name_catalog_schema.rs",
+      "sha256": "c50dcf6eef9aa348c8c259b105a9734f1e25ee2e57a043ee484a3892e9795dfa",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-world-schema/src/name_catalog_schema.rs",
+      "actual_EOF": 199,
+      "ranges": [
+        [
+          1,
+          199
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2738,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/name_catalog_validation.rs",
+      "sha256": "555b21fb6dddac260f0a951252041fd40a0d3e02dd8bb0d649fda9a528e0ed77",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-world-schema/src/name_catalog_validation.rs",
+      "actual_EOF": 576,
+      "ranges": [
+        [
+          1,
+          410
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2739,
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/name_catalog_validation/derivations.rs",
+      "sha256": "7178c20d189f6254be6bd97094c550465c0b137c2c2e3ccf0b8f033cc80d435d",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-world-schema/src/name_catalog_validation/derivations.rs",
+      "actual_EOF": 214,
+      "ranges": [
+        [
+          1,
+          214
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "CAMERA-INITIAL07-F017"
+  ],
+  "facts": [
+    "P16 web schedule actual validate passes the same apprenticeship/practice minutes to both array and organization tuples, retains normalized organization IDs, then effective delegates to Core validated schedule with exactseed/location. This is concrete normal-coherence qualification for CAMERA-INITIAL07-F017, while generic duplicate-authority API gap persists. Transport ScheduleAllocation clone preserves unrelated fields, not an independent randomized sampler.",
+    "Name catalogue build sorts sourcefiles, hashes path+source bytes, merges fragments into target repertoire before validation and embeds one validated JSON catalogue. Digest covers source provenance including whitespace/path, not only derived semantic JSON; those identities intentionally differ. Runtime fragments are removed by take before embed, and validator explicitly rejects unresolved fragments. No build or external naming-source review performed.",
+    "Name observations record actual spelling/count/provenance, repertoire frequencies are explicitly relative gameplay sampling scores, and derivations describe authored reasoning. They are not interchangeable census quantities. Derivation validator binds each typed target to equal repertoire frequency and requires complete one-to-one coverage with real observation references. Repeated frequency serves independently inspectable justification checked at build; no mutable runtime competing frequency cache. Target option-shape and sex/culture/register/surname admissibility relationships remain adopted admission/schema questions, not automatically independent authorities because fields can be named alike.",
+    "Sex uniform roster reused from canonical VARIANTS in family/surname validation. Current source provenance validator only checks syntax/link presence, not historical truth, HTTPS content, count derivation correctness or distribution validity beyond local policies. Do not credit referenced URLs or content data from these schema/validator reads."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2740,
+    "start_line": 1
+  }
+}

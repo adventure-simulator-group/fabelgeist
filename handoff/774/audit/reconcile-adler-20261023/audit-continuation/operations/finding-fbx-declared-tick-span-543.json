@@ -1,0 +1,19 @@
+{
+  "id": "SEGOVB-04-FBX-DECLARED-TICK-SPAN-CANDIDATE-001",
+  "source_id": "pr-working:crates/fabelgeist-fbx/src/animation.rs",
+  "sha256": "61ffde90e0bf3164ab4c30830b9f3613d9c2725475aa4172ff7f27712c83232d",
+  "ranges": [
+    [
+      262,
+      270
+    ],
+    [
+      349,
+      351
+    ]
+  ],
+  "counterexample": "Finite integer LocalStart=i64MAX-1 and LocalStop=i64MAX represent a positive1tick declared interval, but each is castf64 and divided first, yielding equal seconds so their difference0 is rejected as nonpositive. Scene::takes then infers duration from keys instead of respecting positive declared interval. Source precision counterexample, no actual asset/run.",
+  "qualification": "Large absolute tick offset plus tiny interval API/source-file case; no ordinary authored asset incidence. Do not impose positive duration globally: FbxAnimationDuration explicitly permits0. Raw source scalar channels may intentionally retain nonfinite values per adopted03 finding; this candidate does not add finite value policy. Exact archive alias pending.",
+  "connected_contract": "Compute signed integer tick delta without i64 subtraction overflow before projecting to f64 seconds; preserve declaredpositive-versuskeyinference precedence, sourceprecision and structured duration admission. Negative/zero declared spans retain current fallback policy unless explicit decision changes it.",
+  "acceptance": "All representable positive i64 endpoint differences preserve positive declared span; opposite-sign extremes handled with widerchecked arithmetic, ordinary spans/key inference/empty stacks unchanged."
+}

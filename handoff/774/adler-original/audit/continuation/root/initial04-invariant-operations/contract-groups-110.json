@@ -1,0 +1,125 @@
+{
+  "packet_number": 110,
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/durability.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          454
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Full literal P16 durability1-454; actual PR/P16 equal bytes verified via complete empty diff, independently same fixed Rust numeric/Core meaning. Existing fixture bodies individually compared, no hash-only verdict.",
+      "sha256": "7e08e94102b0e097fdb309ad3f5caaf54c6d5c313979a3c5186bb671bb231afd",
+      "actual_EOF": 454
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/disease/identity.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Full literal P16 identity1-132; complete actual PR/P16 empty diff and independent same serde/native/string contracts, no hash-only verdict.",
+      "sha256": "bbf3c7a20b95f217815f48c7e830dc75efab9ecf9d7e52a79fd4ad86324388af",
+      "actual_EOF": 132
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/durability.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          454
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Full literal P16 durability1-454; actual PR/P16 equal bytes verified via complete empty diff, independently same fixed Rust numeric/Core meaning. Existing fixture bodies individually compared, no hash-only verdict.",
+      "sha256": "7e08e94102b0e097fdb309ad3f5caaf54c6d5c313979a3c5186bb671bb231afd",
+      "actual_EOF": 454
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/disease/identity.rs",
+      "actual_compared_ranges": [
+        [
+          1,
+          132
+        ]
+      ],
+      "complete_scoped_comparison": true,
+      "source_evidence": "Full literal P16 identity1-132; complete actual PR/P16 empty diff and independent same serde/native/string contracts, no hash-only verdict.",
+      "sha256": "bbf3c7a20b95f217815f48c7e830dc75efab9ecf9d7e52a79fd4ad86324388af",
+      "actual_EOF": 132
+    }
+  ],
+  "groups": {
+    "repair-and-capacity": "affordable_repair_prefix checks cost<=remaining before subtraction and stops at first unaffordable item; no partial external state. remaining_after_priority uses min before subtract and therefore preserves0 endpoint. bounded_durable_change uses unsigned_abs then64cap, so i32MIN rejects safely. Durable removal sorting/take uses a collection length and exact u32 count, no out-of-range index. Reservation u64sum still needs actual outstanding-job cardinality/capacity contract; saturation after sum is not general overflow proof, no current bounded jobs failure asserted.",
+    "damage-bin-local-operations": "normalized sanitizes raw nonfinite/negative values, then consumes at most1 capacity deepest-first: each subtraction staysfinite/nonnegative. total intentionally reports capped0..1 even raw finite sumInf; this differs from F040 overflow erasing all damage after tier folding. yellow/red/repairable/repair_through on valid whole bins remain bounded, raw public tuple permits bypass. add_to_tier clamps1..5 before usize-1 and has safe5arrayindex; capped_to_quality slicesquality_index+1<=5. Whole-bin admission and quality/tier owner must be propagated, not an arbitrary PositiveFloat per component.",
+    "impact-and-conditioned-stat": "quality multiplier clamps authored quality1..5, exhaustive match safe. F039 identifies cast/add before final5cap. Correctly admitted ordered positive yield/catastrophic and nonnegative stress matter for severity span and finite output; arbitrary raw profile can violate them, so validated leaves alone insufficient. effective_weapon_stat multiplier stays0..1 for normalizeddamage/finite sensitivity and base finite, so no local positivefinitebase multiplication overflow; preserve valid precision>1. Its raw Infbase can still publishInf but that is outside finitebase guarantee. Actual conditioned-precision ratio elsewhere remains F014.",
+    "quotation-policy": "repair_quote rejects nonfinite/nonpositive damage, clamps repairable share0..1 and computesceil with minimum1 for positivejob. Max u32\u2192f32 rounds up, final asu32 saturation currently acts as count ceiling; this quote contract differs from merchant markup F034 and should be explicit in canonical coin/quantity API, no new ordinary lost-price claim here. Preserve zeroquote invalid/nojob, positive tinyshare minimum1.",
+    "disease-identity": "Twelve closed disease variants have exhaustive storage snakecase and separate deterministic variant-coordinate spellings. Parser delegates serde vocabulary and returns typed ParseDiseaseIdError; no independent arithmetic/index/mutation. Error mapping drops serde details only because public parse error is deliberate closed vocabulary failure, not a native operational cause chain. Stable coordinate spelling is an active deterministic contract, not a compatibility alias; no RNG coordinate rewrite. Existing strict malformed-key fixtures read, no execution/additions."
+  },
+  "findings": [
+    {
+      "id": "ROOT-INITIAL04-F039",
+      "kind": "finite_impact_severity_narrows_before_damage_tier_cap",
+      "source_id": "physical-p16:crates/adventuresim-core/src/durability.rs",
+      "locations": [
+        [
+          232,
+          256
+        ]
+      ],
+      "case": "DurabilityProfile{yield_threshold:1,catastrophic_threshold:2,wear_rate:.1,failure_share:.5,quality:3}, stress258: quality multiplier1, overload258/2-1=128. (overload*2).floor() asu8 saturates256 to255. Then3+255 overflows before .min(5); checked builds fail, wrapping builds can return tier2 instead of intended capped5. All inputs finite/positive and ordered thresholds; no current authored stress/ordinary-run claim.",
+      "operation": "Narrowing a finite derived severity before adding the tier offset defeats the final damage-tier cap. The returned DamageEvent can panic or designate a shallow repair tier for catastrophic damage.",
+      "connected_repair": "Compute or clamp severity in an adequately wide/checkable representation before narrowing the final canonical1..5 damage-tier owner. Preserve actual catastrophic amount, quality adjustment and field-versus-workshop tier policy; no arbitrary stress cap or hidden fallback. Whole profile/finite event admission belongs same durability producer/receiver graph.",
+      "acceptance": "Successful catastrophic damage computation always returns the policy-capped tier without intermediate u8 overflow for supported finite severity; reject nonrepresentable arithmetic explicitly where necessary. Adapt existing tests only, no new cases/assertions/helpers.",
+      "deduplication": "Native05 confirmed no exact duplicate. Distinct from merchant quote narrowing F034 and skill/hour accumulation.",
+      "contract_ref": "ROOT-INITIAL04-CONTRACT-110"
+    },
+    {
+      "id": "ROOT-INITIAL04-F040",
+      "kind": "finite_malformed_damage_bin_fold_overflows_then_restores_healthy_state",
+      "source_id": "physical-p16:crates/adventuresim-core/src/durability.rs",
+      "locations": [
+        [
+          119,
+          146
+        ],
+        [
+          181,
+          193
+        ]
+      ],
+      "case": "Public DamageBins([f32MAX;5]).capped_to_quality(1) has finite nonnegative but unnormalized inputs. Higher-tier sum overflowsInf; first tierMAX+Inf becomesInf, other tierszeroed. normalized then discards computedInf as malformed input and returns allzero damage/condition1. Applying the stated deepest-first normalization before folding would preserve full damage in allowedtier1. API malformed-aggregate strengthening only; valid normalized bins unaffected, no current corrupt DB/runtime claim.",
+      "operation": "Intermediate overflow creates a nonfinite value that a later input sanitizer mistakes for discardable input, erasing finite damage entirely.",
+      "connected_repair": "Admit one coherent damage-bin product before mutation/folding or use bounded checked accumulation preserving deepest-first capacity policy. Distinguish input nonfinite sanitization from computed overflow; do not retain public mutable fields that bypass normalized-total invariant. Preserve explicit existing nonfinite-input policy and five-tier quality semantics.",
+      "acceptance": "Finite over-capacity inputs cannot become undamaged solely due to tier-fold accumulation overflow; legitimate normalized inputs keep exact policy. Existing source fixtures only, no new cases/assertions/helpers.",
+      "deduplication": "Native05 confirmed no exact duplicate; same durability graph as F039 but separate raw-aggregate admission/normalization requirement.",
+      "contract_ref": "ROOT-INITIAL04-CONTRACT-110"
+    }
+  ],
+  "id": "ROOT-INITIAL04-CONTRACT-110",
+  "at": "2026-10-23T03:00:44.361827+00:00",
+  "lens": "audit-invariant-operations",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-051.json",
+    "sha256": "17a341b1ef7f323d9091325e03aac691c0f443d407b49c990920033043bfe682"
+  },
+  "mandatory_overlays": {
+    "record": "continuation/owner-range-extensions.jsonl",
+    "sha256": "5e6bb0b590c8a298ed8dc44a980d39d44f5d21a82449623f405765f23496780c",
+    "through": 236
+  },
+  "mandatory_qualification170": {
+    "record": "continuation/root/parallel-scope-qualification-170.json",
+    "sha256": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c"
+  },
+  "repair": "frozen_initial_audits_then_handover",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

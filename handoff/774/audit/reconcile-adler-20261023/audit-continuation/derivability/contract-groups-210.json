@@ -1,0 +1,27 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-210",
+  "at": "2026-10-25T13:40:25.182388+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_ROLE_INCOMPLETE",
+  "scope_index": 411,
+  "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+  "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+  "actual_compared_ranges": [
+    [
+      1,
+      920
+    ]
+  ],
+  "trait_inventory": [],
+  "existing_derives": "Native components/input/snapshot/enum structural traits already derive in consumed ranges; no handwritten trait/serializer yet.",
+  "semantic_contracts": "Personally consumed1\u2013300/301\u2013610/611\u2013920: query aliases/scoped native carriers, explicit snapshot reinsertion, mechanical enum variant bridges, checked projection, scaling/skill aggregation, durable-to-transient entity topology and join prefix. Existing derives cannot replace multi-source policy; copied fields distinguished from semantic transformations. No child body coverage.",
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 411,
+    "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+    "next_line": 921,
+    "actual_EOF": 3450
+  },
+  "execution": "none",
+  "limits": "Changed3450-line role remains pending921\u20133450; read ends inside reconnect join closure."
+}

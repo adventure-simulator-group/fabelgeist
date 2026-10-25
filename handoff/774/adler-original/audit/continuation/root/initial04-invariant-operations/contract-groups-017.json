@@ -1,0 +1,44 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-017",
+  "at": "2026-10-22T19:58:40.093903+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/world_event.rs",
+      "sha256": "9403e2e3d8bc995c0483da0502427442f1c526ee1b513db2a9b5beac3078a5b0",
+      "actual_read_ranges": [
+        [
+          1,
+          811
+        ],
+        [
+          941,
+          1009
+        ]
+      ],
+      "registration": "NATIVE-INITIAL05-REG006",
+      "scope_limits": "Fresh exact original plus REG006 direct material scope only. 1001-1009 fixture header/prefix context, no testbody credit; adapters812-940/tests1010+ excluded."
+    }
+  ],
+  "groups": {
+    "fingerprint-and-records": "Persisted public structural records map every source/actor/subjects/place/payload field from same envelope in persist169-265. StrategicMinute retained, no tactical tick state. Request enum owns its envelope and signed fame/infamy or episode; raw public persisted fields are not valid-token constructors. Hash frames fixed domain then JSONbytes each with little-endian u64 len. usize-to-u64 lossless on supported32/64bit hosts, not evidence hashes injective/collision impossible. Hex formatting is actual opaque digest port, no semantic ID parsing.",
+    "failure-clock-and-publication": "Commit301-350 validates request then fingerprints input BEFORE looking up receipt and BEFORE build closure; exact digest retry returnsfalse without mutable domain reads. First commit builds/validates, checks whole consequences/order/semantic binding, fingerprints, checkedu16count, maps envelope, preflights, applies and ONLYTHEN writes receipt. All failures before apply do not mutate event effects here. apply352-461 sequentially invokes fallible owning effects: Rust Result alone does not prove rollback of earlier effects if later effect fails, and hosttransaction behavior not established here. No false atomicity claim or new demonstrated partial-publication defect. Actual SDK/reducer transaction contract needed if questioned. Do not move retry receipt/clock beforeeffects.",
+    "bounded-count-order-and-indexing": "128cap checked before checkedu16 length cast; native persist collect preserves cardinality, not ziptruncation. Case order chooses start1 only if first exists and matchesoptionalproblem, else0, so slicingstart alwaysinbounds includingempty. Evenlen check plus as_chunks::<2> makes pair destructuring total. StrictascendingcharacterIDs maintainscanonicalorder and rejectsduplicates. Trueemptycase valid. Forage exact2 linkedcharacter/place/minute, Foodexact1infection. Namespaced consequence identities rejectedduplicates; preserve real effectnamespaces.",
+    "same-request-plans-and-preflight": "Semantic binding recomputes wholeexpectedVec fromactualrequest: equality prevents correctshape/wrongamount/member/order; case removes only Character subjects tocomparestable envelope thenextractscanonicalparticipants. Publicrequest/plans arenot universallycertified outsideactualcommitgate. Preflight checks actual immutable row payloads, rules/phenotypeversions; offense severity clamp1..5 deliberatelymatchesactualsourcepolicy and settled is excludedmutablelegalstate. Noneallowed, Some(false) failsbeforeapply. Preserve errororder/stable retry independently of latermutableplan discovery.",
+    "food-floating-port": "Current scoped Foodcaller constructsclosedsource/actor/solecharactersubject andsameevent identity. Dose/protecteddose usefalliblequantizers beforecommit; native Corequantizer actualevidence Native021 retained, no new bodycredit fromcalls alone. Immunity finite values clamped0..100 then*1000round/u32 gives0..100000; NaN survivesclamp thenfloat-to-u32 saturatingcast0 erasesinvalidity, infinitiesclampendpoints. Existing immunity admission gap, not extraunique bug. Consumedfraction rawu16 actualCorevalidation caps10000, signedfame/infamy not forcednonnegative. minuteallnativevalues not inventedfreshnessconstraint.",
+    "limits": "Actual Native021 full substantive source narrative personally compared for whole-event relationship and Corepostgate facts, not inherited05verdict. P16CoreForage/Caseplanner153-244 and P16DBnonfoodadapters812-940 remain unscoped; bodies not credited because equivalent PR read elsewhere. Childauthority_tests/owning DBsubsystems not implicitly read. End1001-1009 is contextonly. No projectexecution."
+  },
+  "findings": [],
+  "prior_finding_support": [
+    "Existing raw-immunity admission and world-event bespoke source/place propagation gaps retained; no duplicate unique finding."
+  ],
+  "source_narrative_consumed": {
+    "record": "continuation/native/initial05-aggregate-states/contract-groups-021.json",
+    "sha256": "1fde82a3a104ed5a9615ae40859e33470d208b18cceceb4e76bc134eb1e54e1e"
+  },
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

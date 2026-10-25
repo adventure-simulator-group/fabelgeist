@@ -1,0 +1,14 @@
+--- 6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/camera/collision/tests.rs
++++ 13fc9dcc71ab879de364117e5462310673e43210:crates/adventuresim-tactical-client/src/camera/collision/tests.rs
+@@ -108,10 +108,9 @@
+         assert!(
+             contact.is_none_or(|contact| contact.penetration <= 0.0001),
+             "camera at {position:?} penetrated obstacle at {:?}: {contact:?}",
+             obstacle.position
+-        )
+-        .unwrap();
++        );
+     }
+ }
+ 
+ #[test]

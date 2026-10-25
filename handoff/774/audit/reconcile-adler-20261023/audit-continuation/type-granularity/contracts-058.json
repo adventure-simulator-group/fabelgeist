@@ -1,0 +1,72 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-058",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "tincture-source-potency-portion-and-realized-dose",
+      "sources": [
+        {
+          "scope_index": 217,
+          "ranges": [
+            [
+              1,
+              600
+            ]
+          ]
+        },
+        {
+          "scope_index": 218,
+          "ranges": [
+            [
+              1,
+              21
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "local774:M103",
+        "local774:M29",
+        "SEGO-INITIAL09-F196",
+        "SEGO-INITIAL09-F197"
+      ],
+      "disposition": "existing versioned medicinal carrier/install support; qualified portion-vs-dose question Q012 pending exact alias reconciliation",
+      "trace": "217 pins recipe profile/version, ingredient object, real50g source mass and0.1..1standard-dose potency after actual setup wait; world-minute maturation survives custody transfer, unlike actor personal minute. Material installation matured39/141\u2013175 is separate from clock eligibility150 and later dose can consume payload. Current live component remainingpotency differs pinned originalpotency; do not merge. Medicine food fraction177\u2013225 preserveszero no-op, sorted component preflight and real dose conversion; food component can legitimatelybezero. Tincture request512\u2013515 uses DoseMilliunits as1..1000 then542 interprets as relative fraction of remaining bottle;543\u2013548 converts remaining component potency\u00d7portion into actual DoseMilliunits with explicit minimum nonzero policy. Q012 asks for meaningful portion-versus-effective-dose owners with shared invariant below; current arithmetic coherent, actual UI caller later.218 deletes exact ingredient row/amount/object/edge/materiallot, not arbitrary source count.",
+      "qualifications": [
+        "No ordinary overdose, faulty tincture or quantity leak established. Preserve current request domain1..1000, minimumdose/rounding, ceil physical ml consumption and zero-lot cleanup. Do not globallynarrow common DoseMilliunits to positive: food component0 and othercommon zero semantics valid.",
+        "World chronology versus personal strategic chronology is semantic authority even though same StrategicMinute owner today. Do not change maturation policy by replacing currentworldclock with actorclock.",
+        "carrier_kind container/food_lot and rawID separate namespaces exact09F196; matured checkpoint exact09F197, not merely elapsedready. Current constructor coherent; no staleinstallation claimed.",
+        "Pinned source identity is historical after ingredient consumption; cannot require current source object remainsalive. Current remainingpotency is deliberatelymutable, originalcheck/potency is immutable. ProfileID/version and preparation/check quantities remain M103.",
+        "Tincture recipe and initialliquid identity are constrained by actual vessel/custody/fixed150ml+50g admission, not proof all generic ContainerLiquid contents are water. Statusprojection deliberately redacts profile/potency."
+      ],
+      "acceptance": "Retain versioned private medicinal identity and actual physicalcarriers, explicit installationstage and meaningful original/remaining quantities. ResolveQ012 by real request/recipient semantics before changing any policy; no blanket genericfloatwrapper."
+    },
+    {
+      "id": "measured-inventory-fraction-vs-row-count",
+      "sources": [
+        {
+          "scope_index": 219,
+          "ranges": [
+            [
+              1,
+              241
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "local774:M29",
+        "local774:M30"
+      ],
+      "disposition": "reuse existing ConsumableFractionMicros at native measured amount boundary; distinctcount/portion roles",
+      "trace": "Stable row quantity1 is separate from remaining fractionmicros13\u201330. Persisted scalar readmits canonicalConsumableFractionMicros63\u201387. Consumption returns actualminimum(request,available),zero no-op beforestate lookup, deletes both amount/row onlywhenempty; requested andactualfraction roles share compatible dimension but not identicalauthority. Moves preserve exactamount between different personal/party row namespaces, not resetWHOLE.",
+      "qualifications": [
+        "Existing rawpersisted ABI is actualtableadapter; retain typedvalue throughoperations and typedmissingstate causeuntilreal reducer edge. Fixturekind/tags do not prove malformednativeproducer.",
+        "Personal/party quantity families have same commonfraction invariant; separate rowidentity and holderpayload remain useful. Do not create duplicatevalidation merelybecause eachtable has analogousmethod."
+      ],
+      "acceptance": "Existingcanonical fraction flows through measuredoperations and exact identity association; preserve validzero,boundedclipping, partial material and missingstate semantics."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

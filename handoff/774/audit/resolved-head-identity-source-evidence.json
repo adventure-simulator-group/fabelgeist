@@ -1,0 +1,40 @@
+{
+  "revision": "13fc9dcc71ab879de364117e5462310673e43210",
+  "kind": "Source association and exact geometry-span witness; no project/model/runtime execution",
+  "witness": {
+    "catalog_id": "war_hammer",
+    "recipe": {
+      "shaft": {
+        "length": 1.0,
+        "radius": 0.0078125
+      },
+      "components": [
+        {
+          "role": "Head",
+          "kind": "box",
+          "size": [
+            0.03125,
+            0.125,
+            0.03125
+          ],
+          "attach": {
+            "to": "shaft.top",
+            "at": "origin"
+          }
+        }
+      ]
+    }
+  },
+  "comparison_change_only": "Add id=component-0 to the otherwise identical head component.",
+  "trace": [
+    "Recipe id is optional; resolved_id uses explicitid thenlabel then component-{index}. Headrole is ComponentRole::Head, valid decoded spellingHead. Both versions resolve the component to component-0 and therefore the same placement/frame/mesh metadata.",
+    "Positive bounded shaft and box dimensions, maxgripradius, uniqueID, onevalidoriginattachment and actualshaft/head envelope overlap pass source guards. Box centrey1 and fullYsize0.125 yield headpoints y0.9375..1.0625.",
+    "Construction clone materializesidSome(component-0) and PartSource/ModelPart carry that ID. Original WeaponDesign stillhas idNone; derived() builds head_ids using filter_map(c.id), so original head_ids empty. It cannot select the emitted headpoints and returns striking_head_length_m0.",
+    "Adding explicitidcomponent-0 leaves resolved geometry/source IDs unchanged but original head_ids nowcontainscomponent-0, so exposed striking_head_length_m becomes0.125. Both generate and derive_properties share derived(); EvaluatedWeapon memo stores its result with originaldesign.",
+    "ParametricWeaponCombatGeometry accepts zero headlength, so its numeric bounds do not recover the lost semanticassociation. Contact has_distal_striking_surface depends on headlength>0; downstream behavioral impact depends on actual item/material/contact facts, not asserted as a runtime demonstration here."
+  ],
+  "limits": "No test/helper/assertion added, no model/GPU/DB execution or actual catalog/default occurrence claimed. Canonical hash may legitimately differ between authored recipes; do not normalize source recipe/hash as a shortcut.",
+  "same_as_base": [
+    "crates/adventuresim-weapon-model/src/mesh.rs"
+  ]
+}

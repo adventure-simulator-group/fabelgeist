@@ -1,0 +1,84 @@
+{
+  "id": "CONT07-CONTRACT-390",
+  "at": "2026-10-23T20:54:37.456712+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1713,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_capture.rs",
+      "sha256": "bce910fe4144f1301ece257fd3e0a1b333d4f4e61ae2908f796f4e4e72faa933",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_capture.rs",
+      "actual_EOF": 241,
+      "ranges": [
+        [
+          1,
+          241
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1714,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture.rs",
+      "sha256": "bcaff9a888ddff154b19d741d428659d595446dbb78e29938811c169810b6738",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture.rs",
+      "actual_EOF": 379,
+      "ranges": [
+        [
+          1,
+          379
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1715,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/catalog.rs",
+      "sha256": "e02b7ac3ba7478629a9233a5790f4c54e8f1d2f20d859926fd2c804a87759cd1",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/catalog.rs",
+      "actual_EOF": 201,
+      "ranges": [
+        [
+          1,
+          201
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1716,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/finishes.rs",
+      "sha256": "1fe023253ded6f1a52e1aa88b1d0f415c6ee1ee9b9219a26f1edf1e2f122bbde",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/finishes.rs",
+      "actual_EOF": 89,
+      "ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "read_kind": "fresh full exact source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "CAM-OWN-CAPTURE-CLOSURE-114",
+    "NATIVE-OWNER-SCENE-SIBLINGS-004"
+  ],
+  "facts": [
+    "F089 exact room rostergraph maintenancegap recorded separately fromruntimebadcapture.",
+    "Interior cameras derive storey/room/wall targeting and planklight from same GeneratedBuilding datum/transform; retainedwallpoint/normal/lightposition intentionallysourceprovenance. No mutationbetween setup/captureproven; no redundancydefectfromnativevectorsalone.",
+    "Catalog stages typedFurnitureKey variants and canonicalrecipeenvelopes, pairedwidth/camera derivedsamekeys. IDbase+ordinal deterministicnativeidentity notSeed. Placeholderbuilding0 deliberatecapturelocation policy remainsseparatefinding lens; no inventedmissingrealbuildingconsumer.",
+    "Catalogue/finish label rosters same-length constants separate from canonicalkind enumeration. ExactcanonicalINTERIOR/FinishableALL order needs freshcomparison beforeassertingcurrentagreement ormislabel; pending sourcegraph, no inheritedsupplierclearance. FinishinstanceID uses canonicalFurnitureKey::ALL position with typedMissingCatalogueEntry failure.",
+    "No sourcefixtures/capture executed; image/geometry/finite/admission/0/None historicalqualifiers remain."
+  ],
+  "new_local_findings": [
+    "CONT07-F089"
+  ],
+  "next_cell": {
+    "scope_index": 1717,
+    "start_line": 1
+  },
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true
+}

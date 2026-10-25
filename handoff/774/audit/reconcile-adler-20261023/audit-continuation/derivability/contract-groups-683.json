@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-683",
+  "at": "2026-10-25T16:26:22.132195+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 967,
+  "source_id": "pr-working:crates/adventuresim-core/src/quest_catalog_validation.rs",
+  "sha256": "738146c8cbe20bfd3aace0f834635051a93fd8b1b68e010819bbb012c1542428",
+  "actual_compared_ranges": [
+    [
+      1,
+      660
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Validator441\u2013660 iterates namespaced catalogue values, validates typed numeric widths/finite narrowing, closed combat vocabulary, negotiated sapience correlation, category uniqueness and armor/protection composition constraints. No handwritten trait/codec; these are semantic admission rather than field decoding."
+  ],
+  "first_unfinished": {
+    "scope_index": 967,
+    "line": 661
+  },
+  "execution": "none"
+}

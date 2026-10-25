@@ -1,0 +1,237 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-783",
+  "at": "2026-10-25T16:49:50.353587+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1003,
+      "source_id": "pr-working:crates/adventuresim-core/src/starting_character.rs",
+      "sha256": "6fc3cb5410e5f3657ffc30cdb4be97fca0dbd4542238960d0db8d0fcc8ff7192",
+      "actual_EOF": 1936,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/starting_character.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/starting_character.rs",
+        "sha256": "6fc3cb5410e5f3657ffc30cdb4be97fca0dbd4542238960d0db8d0fcc8ff7192",
+        "bytes": 70536,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/findings.jsonl",
+            "ranges": [
+              [
+                886,
+                933
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": []
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                70
+              ],
+              [
+                282,
+                635
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-CHARACTER-NAME-RECEIVER-001"
+            ]
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                1936
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-CHARACTER-NAME-RECEIVER-001",
+              "CAM-PROP-NAME-SEED-ENDPOINT-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 196,
+            "read_ranges": [
+              [
+                1,
+                1936
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-STARTING-LIFE-075"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/starting_character.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-PURE-FOOD-LIFE-PARTIAL-054",
+            "json_pointer": "/source_proofs/2",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/starting_character.rs",
+            "read_ranges_as_recorded": [
+              [
+                915,
+                1045
+              ],
+              [
+                1030,
+                1090
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/starting_character.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/starting_character.rs",
+              "sha256": "6fc3cb5410e5f3657ffc30cdb4be97fca0dbd4542238960d0db8d0fcc8ff7192",
+              "read_ranges": [
+                [
+                  915,
+                  1045
+                ],
+                [
+                  1030,
+                  1090
+                ]
+              ],
+              "role": "Actual simulate_starting_life source\u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122LifeSimulationInput\u00c3\u00a2\u00e2\u20ac\u00a0\u00e2\u20ac\u2122StartingSkills output and skill/religion consumers; scoped, not whole1936"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 156,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-NAMING-STARTING-052",
+            "json_pointer": "/additional_actual_source_proofs/0",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row606/proofs/1",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1936
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                1936
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "Fresh whole actual source/originalfixtures; no generator/test/parser execution.",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "continuation_actual_producer_source_proofs": [
+          {
+            "record": "continuation/rig/expanded-producer-role-delta-051.json",
+            "json_pointer": "/fresh_source_proofs/11",
+            "source_id": "pr-working:crates/adventuresim-core/src/starting_character.rs",
+            "sha256": "6fc3cb5410e5f3657ffc30cdb4be97fca0dbd4542238960d0db8d0fcc8ff7192",
+            "read_ranges": [
+              [
+                886,
+                984
+              ]
+            ],
+            "proof": {
+              "source_id": "pr-working:crates/adventuresim-core/src/starting_character.rs",
+              "sha256": "6fc3cb5410e5f3657ffc30cdb4be97fca0dbd4542238960d0db8d0fcc8ff7192",
+              "read_ranges": [
+                [
+                  886,
+                  984
+                ]
+              ],
+              "actual_EOF": 1936,
+              "origin": "Fresh actual bounded source displayed/reviewed in this producer-only turn; no inference beyond these ranges"
+            },
+            "limits": "Actual source-role proof for producer lens only; no owner-fit or other-lens clearance."
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 367,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1936
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "PlayerAttributes",
+          "type": "StartingAttributes",
+          "lines": [
+            [
+              83,
+              106
+            ]
+          ],
+          "disposition": "KEEP semantic selector projection and limb-independent starting values"
+        },
+        {
+          "trait": "PlayerSkills",
+          "type": "StartingSkills",
+          "lines": [
+            [
+              145,
+              196
+            ]
+          ],
+          "disposition": "KEEP semantic selector/aggregate/category implementation, no available equivalent derive"
+        }
+      ],
+      "existing_derives": [
+        "Structural/Serde records and enums already derived",
+        "StartingSkills Default already derived",
+        "Local StartingPersonalityGenerationAxis CloneCopy already derived"
+      ]
+    }
+  ],
+  "groups": [
+    "Full starting-character source including fixtures1491\u20131936 personally consumed. Partial proofs779\u2013782 retain exact analysis. Only two handtrait impls are semantic bespoke interface adapters; preserve limb-independent values, summed Religion and effective Bestiary/category mapping.",
+    "Inherent checked version/seed/slot admission, deterministic domain tables, personality prose, loadout/professional/life-simulation construction are policy. Inherent skills projection accepts distinct written input; do not add new conversion API or serialization just for cleanup. No additional manual codec or trait in fixtures. Child modules including personality_tests are separate roles; no source credit transferred. Source read only, fixtures not run."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1004,
+    "source_id": "pr-working:crates/adventuresim-core/src/starting_character/names.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

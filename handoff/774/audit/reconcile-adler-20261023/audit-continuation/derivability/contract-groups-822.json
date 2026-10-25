@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-822",
+  "at": "2026-10-25T16:56:05.366969+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1029,
+  "source_id": "pr-working:crates/adventuresim-dialogue/build.rs",
+  "sha256": "cc1742e70ed56b721e25aebb320b2295d621a1f826310a05b1f8771ab968093b",
+  "actual_compared_ranges": [
+    [
+      1,
+      290
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Dialogue build-source consumes schema types through modules and validates vocabulary, roles/cardinality, runtime slots/testimony/effects and response correlations. Pure native helpers/assertions here; no handwritten trait/codec/type declaration in consumed range. Do not replace semantic schema validation with derives. Build script read only, not executed."
+  ],
+  "first_unfinished": {
+    "scope_index": 1029,
+    "line": 291
+  },
+  "execution": "none"
+}

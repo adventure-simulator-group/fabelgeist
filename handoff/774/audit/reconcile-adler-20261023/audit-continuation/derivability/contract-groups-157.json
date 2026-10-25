@@ -1,0 +1,276 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-157",
+  "at": "2026-10-25T13:04:01.989575+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 305,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/advancement.rs",
+      "sha256": "2baeb9fb076d4f802e6d65c3e31d148b12d4b44f6b57756ca9022338afcb76a4",
+      "actual_EOF": 582,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/advancement.rs",
+        "snapshot": "physical-p16",
+        "path": "crates/adventuresim-stdb-module/src/time/advancement.rs",
+        "owner": "camera",
+        "sha256": "2baeb9fb076d4f802e6d65c3e31d148b12d4b44f6b57756ca9022338afcb76a4",
+        "base_sha256": "4d29377483597d2c70b29a228fcbda60ed1f81614ae46c891cb9d833c18da188",
+        "state": "modified",
+        "bytes": 20126,
+        "audit_owner": "native",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                582
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "NATIVE-SUPP-CAMERA-TIME-001"
+            ]
+          },
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/supplemental-camera-assignment.json",
+            "ranges": null,
+            "source_read_status": null,
+            "trace_refs": []
+          },
+          {
+            "shard": "native",
+            "record": "wave-01/audit-producer-propagation/native/supplemental-camera-sources.json",
+            "ranges": [
+              [
+                1,
+                582
+              ]
+            ],
+            "source_read_status": "full_source_read",
+            "trace_refs": [
+              "NATIVE-SUPP-CAMERA-TIME-001",
+              "NATIVE-SUPP-CAMERA-SDK-001"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 4,
+            "read_ranges": [
+              [
+                1,
+                582
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-STRATEGIC-001",
+              "NATIVE-OWNER-SCHEDULE-001",
+              "NATIVE-OWNER-STRATEGIC-002"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/time/advancement.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 85,
+            "read_ranges": [
+              [
+                1,
+                582
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-STRATEGIC-001",
+              "NATIVE-OWNER-SCHEDULE-001",
+              "NATIVE-OWNER-STRATEGIC-002",
+              "NATIVE-OWNER-STRATEGIC-004"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/time/advancement.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 368,
+            "read_ranges": [
+              [
+                1,
+                582
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-STRATEGIC-001",
+              "NATIVE-OWNER-SCHEDULE-001",
+              "NATIVE-OWNER-STRATEGIC-002",
+              "NATIVE-OWNER-STRATEGIC-004"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/time/advancement.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CHARACTER-NAME-LIFECYCLE-008",
+            "json_pointer": "/current_sources/9",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-stdb-module/src/time/advancement.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                135
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/advancement.rs",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/time/advancement.rs",
+              "sha256": "2baeb9fb076d4f802e6d65c3e31d148b12d4b44f6b57756ca9022338afcb76a4",
+              "ranges": [
+                [
+                  1,
+                  135
+                ]
+              ],
+              "read_kind": "fresh_actual_supplement_body"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-TIME-PACKET-011",
+            "json_pointer": "/source_reads/5",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-stdb-module/src/time/advancement.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                582
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/advancement.rs",
+              "sha256": "2baeb9fb076d4f802e6d65c3e31d148b12d4b44f6b57756ca9022338afcb76a4",
+              "read_ranges": [
+                [
+                  1,
+                  582
+                ]
+              ],
+              "method": "P16 whole actual body plus complete textual reversePR delta, or exact byteidentity correspondence; both pinned hashes retained",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/time/advancement.rs"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          582
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "All582 lines consumed in two bounded reads; source contains time preview/advance/wait/synchronization functions only, no local type or manual traits/serializer. Include lifecycle separately consumed."
+    },
+    {
+      "scope_index": 306,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/advancement/lifecycle.rs",
+      "sha256": "a8f43539a28232bc47303c02e648761d55590e7f33d97fd66abbc703374965f5",
+      "actual_EOF": 11,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/advancement/lifecycle.rs",
+        "snapshot": "physical-p16",
+        "path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\time\\advancement\\lifecycle.rs",
+        "sha256": "a8f43539a28232bc47303c02e648761d55590e7f33d97fd66abbc703374965f5",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "native",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 11,
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-TIME-PACKET-011",
+            "json_pointer": "/source_reads/7",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-stdb-module/src/time/advancement/lifecycle.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                11
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/advancement/lifecycle.rs",
+              "sha256": "a8f43539a28232bc47303c02e648761d55590e7f33d97fd66abbc703374965f5",
+              "read_ranges": [
+                [
+                  1,
+                  11
+                ]
+              ],
+              "method": "P16 whole actual body plus complete textual reversePR delta, or exact byteidentity correspondence; both pinned hashes retained",
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-stdb-module/src/time/advancement/lifecycle.rs"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          11
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Entire11-line lifecycle segment helper consumed independently; single semantic interval function, no manual traits/serializer."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "subjective clock advancement and lifecycle/terminal segmentation",
+      "disposition": "No derivability cleanup. Keep disease/injury/lifecycle clipped intervals, native clock arithmetic, zero-boundary settlement and context-sensitive waiting/travel effects. Similar control-flow bodies are policy paths, not handwritten trait/serialization boilerplate.",
+      "qualification": "No behavior, arithmetic, clock or completeness clearance from this lens; no calls run."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 307,
+    "source_id": "physical-p16:crates/adventuresim-stdb-module/src/time/camp_rest.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

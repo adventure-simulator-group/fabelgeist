@@ -1,0 +1,171 @@
+{
+  "id": "ROOT-PPS-PURE-FOOD-LIFE-PARTIAL-054",
+  "lens": "audit-producer-propagation",
+  "assigned_indices": [],
+  "assigned_camera_indices": [
+    156,
+    165
+  ],
+  "source_proofs": [
+    {
+      "index": 156,
+      "source_id": "pr-working:crates/adventuresim-core/src/food.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-core/src/food.rs",
+      "sha256": "e9a7252b38f6d0bd82da3c638879dbc08ad1bf8f5ab5ad154da759878366ffcf",
+      "read_ranges": [
+        [
+          1,
+          848
+        ]
+      ],
+      "mode": "Fresh whole current source incl original fixtures personally read in bounded nontruncated chunks, no execution"
+    },
+    {
+      "index": 165,
+      "source_id": "pr-working:crates/adventuresim-core/src/life_simulation.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-core/src/life_simulation.rs",
+      "sha256": "de8b909f4a6436e5f21c9828322d80f19905b15764e7f0b54fca2b1f0079457a",
+      "read_ranges": [
+        [
+          1,
+          552
+        ]
+      ],
+      "mode": "Fresh whole current source incl original fixtures personally read in bounded nontruncated chunks, no execution"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/starting_character.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-core/src/starting_character.rs",
+      "sha256": "6fc3cb5410e5f3657ffc30cdb4be97fca0dbd4542238960d0db8d0fcc8ff7192",
+      "read_ranges": [
+        [
+          915,
+          1045
+        ],
+        [
+          1030,
+          1090
+        ]
+      ],
+      "role": "Actual simulate_starting_life source\u2192LifeSimulationInput\u2192StartingSkills output and skill/religion consumers; scoped, not whole1936"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_schedule.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-core/src/strategic_schedule.rs",
+      "sha256": "ace0cbb5e974ca6f612bccd06c12f1f75b4e6e17c076d01989c01e2bcf282146",
+      "read_ranges": [
+        [
+          390,
+          624
+        ]
+      ],
+      "role": "Actual apply_schedule_training/apply_religion_training/apply_curriculum_training/fixedskill/terrain target equations and rawtext-to-owner receivingmodel"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/skill.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-core/src/skill.rs",
+      "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "read_ranges": [
+        [
+          995,
+          1107
+        ]
+      ],
+      "role": "Actual shared aptitude/language/direct training and mutablehours/TrainingGain receiver; nextPlayerSkills prefix only"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/character.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/rig-review-774/worktree/crates/adventuresim-stdb-module/src/character.rs",
+      "sha256": "806a50bc71cade3ffdf93f52a62693f7d02d4d55a52e1cce7e5983b894ec28cf",
+      "read_ranges": [
+        [
+          2245,
+          2332
+        ]
+      ],
+      "role": "Native character creation consumes life simulator\u2192oral/written/skills then begins actual SDKCharacterSkills.insert; bounded recordprefix, full creation Camera008 proof"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/camera/worktree/crates/adventuresim-stdb-module/src/food/cooking.rs",
+      "sha256": "da8832af71a29edfd807274456fa4ee5890834beec5b80ef726e55b8399eaf7b",
+      "read_ranges": [
+        [
+          638,
+          812
+        ]
+      ],
+      "role": "Actual method_doneness_outcome\u2192quality/retention/kill/growth/medicine derivedvalues\u2192SDK FoodLot/provenance/component/contamination rows; bounded retrievalbody"
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/model.rs",
+      "path": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/semantic-goal/pr774-parallel/camera/worktree/crates/adventuresim-stdb-module/src/food/model.rs",
+      "sha256": "b1ed41d6a51aaf7bcd77c4e36ad928b0ef533216ddc9efb1aa3a0f78a97c12d9",
+      "read_ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "role": "Whole native schema FoodLot/FireplaceDish/receipt sources and actual stored quantities/chronology/custody keys"
+    }
+  ],
+  "supplier_receipts": [
+    {
+      "record": "native/traces.jsonl",
+      "id": "NATIVE-PS-CAMERA-MATERIAL-FOOD-012",
+      "entry_sha256": "564ca5d48689a140a7debda61e71d0a4e949e5463280c6ae915ed8fc1d7c0970",
+      "consumed_roles": "Actual exact puretraining/charactercreation/DBfood/cooking/custody/microbiology/native SDK receiving roles, preserving original source gaps; no broad lower pure body credit by hash"
+    },
+    {
+      "record": "camera/traces.jsonl",
+      "id": "CAM-PPS-MATERIAL-FOOD-016",
+      "entry_sha256": "64bb0249f105560f04ee6913af504e9cead15e594d5a32342b727ffff8e588c4",
+      "consumed_roles": "Actual exact puretraining/charactercreation/DBfood/cooking/custody/microbiology/native SDK receiving roles, preserving original source gaps; no broad lower pure body credit by hash"
+    },
+    {
+      "record": "camera/traces.jsonl",
+      "id": "CAM-PPS-CHARACTER-NAME-LIFECYCLE-008",
+      "entry_sha256": "f5bb2e5e4c13da7263d0d499f7d3669f223e5078264f61107f5b521f4ee86ce6",
+      "consumed_roles": "Actual exact puretraining/charactercreation/DBfood/cooking/custody/microbiology/native SDK receiving roles, preserving original source gaps; no broad lower pure body credit by hash"
+    },
+    {
+      "record": "camera/traces.jsonl",
+      "id": "CAM-PPS-CORE-TRAITS-005",
+      "entry_sha256": "328c18a5c851e0a9f572a4bfeccaed20eaf795743b07fe39afc580130c7cd692",
+      "consumed_roles": "Actual exact puretraining/charactercreation/DBfood/cooking/custody/microbiology/native SDK receiving roles, preserving original source gaps; no broad lower pure body credit by hash"
+    }
+  ],
+  "producer_to_receiver": [
+    "Fresh full food848 incl original fixtures extends Native014 contamination_at309\u2013335, and full life552 covers actual complete source/input/output/curriculum/helper graph, not inferred from older checked Seed verdict. Active independent samepacket Rig157/158/488 and Native435/501/513 source proofs still pending before8closure.",
+    "Canonical Seed\u2192StreamId(food.initial-contamination).rng.unit_f64 native stochastic source stays checked, final f64 log/exp\u2192f32 concentration is genuinely changed output. Life stableSeed\u2192domain_draw\u2192Seed.derive canonical life stream with exact byte domain\u2192RNG emphasis, no sameowner rawword retained; domain &str childhoodcurrently oneactualauthored semanticstream, later rawstring/typegranularity disposition. No RNG/reordering/widened context or source ID\u2192entropy substitution.",
+    "Authored ItemDefinition food raw class/id/quantities\u2192FOOD_CATALOG converted FoodClass/FlavorProfile rawkg/kcal/value/growth/u32minutes/u8quality fields retained across pure definition/cooking/consumption/lot APIs before DB model then actual SDK columns. Reuse canonical FoodClass/catalogue identity and available leaf/unit owners through actual internal graph; successful registered catalogue membership differs unknownmalformed references needed by validator. Native final FoodLot/FireplaceDish etc are genuine persistence representations only at reads/writes, not blanket waiver for pure records or lower helper parameters.",
+    "DonenessOutcome progress0..2 versus calorie_factor/killprogress0..1 and qualitypenalty0..4 are real different contracts. Method Stew lateplateaus, Roast dries/smokes, Pan/Bake destroys nutrition. Actual retrieval659 onward uses progress for preparation/medicine, penalty for storedquality, fraction for nutrition/value/kill/growth then SDKrows. Preserve f64 elapsedratio clamp thenf32 round, exacttargetmax1/sourcezero acceptance, max/min/ceil/policy/precision. Do not replace progress with UnitInterval or rawqualitytier with u8penalty interchangeable by representation. Existing original fixtureinputs includingu64MAX/zero/NaN/negative and all oracles unchanged.",
+    "Food contamination/growth/loadconcentration and flavor mass-equivalent quantities are distinct dimensions: microbial load versus concentration, exponential/hour versus elapsedminutes, arbitrary fractional f32kg versus integerMilligrams sampling/nativeunits. Pure helpers normalize broad original nonfinite/negative inputs at actualowned equations; checked application callers should retain admitted leaves while ingress/rejected evidence must keep original acceptedinput/normalizationpolicy explicit. Numeric output finite/invariant admission and mutation/aggregate guarantees remain later lenses; never infer that a finite wrapper makes every multiplication valid. FlavorProfile::scaled and preparation_safety_minutes already wholeCamera transfer; allother purefood/helpers share one coordinating owner pending acknowledgement, Nativecanonical material conservation untouched.",
+    "Food retained_component is a unit-generic changed multiplication kernel with source sanitization thenfractionclamp; actual application results forkg/kcal/value/flavor/provenance remain named typed roles on return/storage. is_cookable_ingredient rawID!=cooked_meal is actual semantic control; same existing canonical catalogue identity/capability must reach it. Doneness semantic booleans/fat requirement, culinaryfat and fivefieldflavor mutation/quality outcome are explicit laterenum/aggregate/typegranularity roles, not guessed closedenum merely by bool.",
+    "LifeSimulationInput retains canonicalSeed/OfficialReligion/WrittenLanguage/nativeOralHours and Actual PlayerAttributes trait through native mathematical aptitude access. age/start/end/phasecount/elapsed/workhours are still rawpurpose roles across simulator/commonphase/curriculum/apply_creation_literacy, StartingSkills retainedfields and SDKCharacterSkills nativeport. Six/twelve/sixteen/phase<=3 andrealhours versus effectivehours/subjectlanguage leaf roles remain explicit; allsource ages u16 incl fixture6/16/40 supported, no blind adult-only refinement. Historical allocation rawDailySchedule can contain non-quarter-hour emphasis, so do not admit as quarter-hour plan or narrow arbitrary realizedelapsed to authoredplan.",
+    "Life pure credential_curriculum/normalized/professional preserve raw TrainingTarget String identities from existingvalidated Organization Requirement and native source before apply_curriculum_training parses OfficialReligion/BestiaryCategory/fixedSkill/terrain. Existing Skill/OfficialReligion/BestiaryCategory owners should survive these internal selectors, correct narrower accepted subset and open rejectedsource evidence retained. preserve professional dedup thenmaxweight, normalize max0/sum/div/order and zeroemptycurriculum. Rawworkhours\u2192typedgoverningaptitude/directtraining\u2192TrainingGain accepted/excess mutablehours record is one sharedpuretraining function repair, not function sliced among families.",
+    "Fresh actual starting_character simulate_starting_life and character2245\u20132332 show pure output drives genuine retained StartingSkills/oral/written and final SDKCharacterSkills; phases_advanced is currently diagnostic fixturefield, no retainedpersistentphasehistory. Raw hours outputfield0 defaults on emptyyounglife are real observed/trainingzero, distinct required missingclock/failedquery defaulting. Starting function Result staticstr errors and broader name/cause source remains wholeCamera008 and current names loop; actual creationbirth/seed/death/currentclock policies not reinterpreted.",
+    "Exact existing Native012+Camera016 whole DB food source schemas/receivers and Camera008 creation whole source consumed with freshbounded changedrole reads above. Unchanged ingredient/cooking/custody/preflight/errorgraph remains CAM006/F017/F023 andmaterialrequest/source loss NativePP032/033/034, never declared sourcecomplete by lower pureoutput tracing. Later admission/operations/aggregate/authority/enum/derivability/granularity/rawprimitive/string/behavior still required across bothfiles and allchanged/affectedpaths."
+  ],
+  "finding_refs": [
+    "CAM-PROP-F006",
+    "CAM-PROP-F017",
+    "CAM-PROP-F023",
+    "NATIVE-PP-032",
+    "NATIVE-PP-033",
+    "NATIVE-PP-034",
+    "CAM-OWNER-F005"
+  ],
+  "exact_connected_repair": "Combine purelife/curriculum/skillhours receiving changes with Native existing wholepuretraining079/080; Camera whole starting/DBcreation/food/custody/clock/cause and the two specific purefood functions retained. Root remaining purefood ownership pending explicit coordination, consume Native canonical material units and existing geometry/ratio/fraction/time/quantity owners. Preserve all20 mandatoryfamily scope; exactclaimfiles remain authoritative.",
+  "remaining_actual_receiver": [
+    "Rig fullcoreforaging/sampling157/158/488 current supplier pending",
+    "Native survival/water/time435/501/513 current supplier pending",
+    "Explicit purelife/food overlap ownership coordination pending; no source repairs"
+  ],
+  "acceptance": "Source-backed twoofeight supplier read/trace WITH FINDINGS only. No automatic Camera716coverage, no family/source/integration/validation acceptance. Preserve all original tests/fixtures and no execution/newtests.",
+  "discovery": "partial_packet_inventory_with_findings",
+  "source_repair": "frozen_until_all13_initial_inventories",
+  "validation": "not_executed",
+  "timestamp": "2026-10-21T22:43:58.567201+00:00"
+}

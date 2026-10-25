@@ -1,0 +1,28 @@
+{
+  "id": "NATIVE-ADMISSION03-CONTRACT-GROUPS-002",
+  "lens": "audit-admission-contracts",
+  "groups": {
+    "reflection-remote": {
+      "indices": [
+        330,
+        335
+      ],
+      "invariant": "Remote elapsed finite>=0 seconds; fraction finiteclosed0..1. Reflection cannot construct invalid scalar bypassing private backing and canonical Serde.",
+      "all_admission_routes": "Fresh wrappers1–14 use reflect_remote canonical owner, ordinary Clone/Debug/Serialize/Deserialize, serde transparent, reflect opaque and Serialize/Deserialize type-data. Actual Bevy0.19.1 Rig witness generates Wrapper(pubRemote), so wrapper literals/safeinto_wrapper/as_remote_mut carry checked Remote, not raw f32. Opaque FromReflect/try_apply/set downcast/clones concrete canonical Remote, no reflectedfield mutation; ReflectDeserialize delegates T::deserialize, wrapper transparentSerde delegates Remote::deserialize. Canonical AnimationElapsed11/28–35/100–104 rejectsnonfinite/negative; UnitInterval9/22–29/44–48 rejectsnonfinite/outside0..1. Default0/constants legal, no publicrawsetter; From<Duration> canonicalelapsed nativefinite nonnegative proof. No customclone/uncheckedoverride on these declarations.",
+      "counterexample_or_intentional_evidence": "A DynamicTupleStruct carryingNaN/-1 or reflectedrawf32 is not canonical Remote and fails actual downcast; scalar deserializeNaN/-1 or fraction2 reaches checkedcanonicalconstructorand rejects. Cloning alreadytypedRemote cannot create invalidf32 throughsafeAPIs. Unsafeexternalfabricationnotclaimedimpossible.",
+      "actual_supplier_proof": {
+        "record": "continuation/rig/admission03/reflection-witness-001.json",
+        "sha256": "7de2989b1e6b39ef448333cee2f0563652b00af19a1ada16d156de0b6d869355"
+      },
+      "canonical_source_refs": [
+        "source-range-registration.jsonl#NATIVE-ADMISSION03-REG-001",
+        "source-range-registration.jsonl#NATIVE-ADMISSION03-REG-003"
+      ],
+      "connected_repair": "No local remote admission bypass found; Rig newforeignsource registrations/globalreconciliationpending; no blanketreflect/custom/nonopaque/versionclearance.",
+      "acceptance": "Every reflected/fromreflect/apply/Serde pathway retains canonical invariant without rawfielddecoder, preservingactualadmittedzero/signedzeroandformatpolicy."
+    }
+  },
+  "repair": "frozen_initial_all13",
+  "validation": "not_executed",
+  "no_later_lens_credit": true
+}

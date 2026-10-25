@@ -1,0 +1,76 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-095",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "lunge-drive-distance-and-contact-schedule-roles",
+      "sources": [
+        {
+          "scope_index": 350,
+          "ranges": [
+            [
+              1,
+              310
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "SEGO-INITIAL11-F001"
+      ],
+      "disposition": "Purpose-specific distance support; preserve meaningful finite signed drive and explicit no-arrival variants.",
+      "trace": "ForwardLungeAcceleration35034 admits allfinite signed75\u201381: nonpositive drive142\u2013143 means CannotArrive, while no lunge remains valid NotNeeded131. This differs positive ReferenceAcceleration divisor34812 and must not be merged based on both metres/sec\u00b2. MeleeContactTiming37\u201340 delay and contact are relative input times with different scheduling roles, not duplicate generic seconds. MeleeLungeGeometry68\u201372 separation, interaction range and maximum travel share SignedLength despite different consumer roles in gap181 and selection183\u2013190, exact11F001 strengthening support. None/Forward/Quickstep are explicit motion policies; Quickstep fixed duration can ignore gap in arrival154 while actuator still needs distance.",
+      "qualifications": [
+        "Full310 lines read, tests source only; no movement/kernel execution. Existing no-movement far-target policy177\u2013179 preserves valid ordinary attack rather than rejects all attempts.",
+        "Negative drive and speed0 are legitimate outcomes, no unsupported positive-drive narrowing. Fists extension0, max-zero range normalization and0 delay remain valid. Current distance arithmetic coherent; typed role strengthening is not new numerical failure.",
+        "Geometry/Animation/Timing/Performance typed error causes18\u201329 remain distinct owning failures; shared Result alias is useful, not redundant type."
+      ],
+      "acceptance": "Keep actual separation/gap/reach/travel roles explicit under common metre invariant and preserve no-lunge/no-arrival/arrives outcomes, signed drive, timing and typed causes."
+    },
+    {
+      "id": "combat-configuration-semantic-quantity-inventory-and-runtime-copy",
+      "sources": [
+        {
+          "scope_index": 351,
+          "ranges": [
+            [
+              1,
+              827
+            ]
+          ]
+        },
+        {
+          "scope_index": 352,
+          "ranges": [
+            [
+              1,
+              37
+            ]
+          ]
+        },
+        {
+          "scope_index": 353,
+          "ranges": [
+            [
+              1,
+              71
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [],
+      "disposition": "Inventory source-specific roles and admitted relationships; no duplicate-type removal or blanket validator substitution. Actual receiver propagation remains independently scoped.",
+      "trace": "TacticalCombatConfig partitions resolution/autoresolve/realtime authority/motor/AI/input/targeting/presentation/animation35153\u201364. Physical mass, drive/braking force, acceleration, strength/agility reference, bodyweight multipliers, traction coefficient, time-per-agility slope and displacement-profile fractions264\u2013324 are distinct dimensions; not one positivef32 contract. Config validate446\u2013747 gives actual compiled bounds, retains monotone displacement profile534\u2013545, decreasing turn-radius quadratic546\u2013558, input deadzone fraction bounds572\u2013590, exact7 unique body-part hitboxes592\u2013614, curve weight-sum649 and guard range/time relationships682\u2013696. A source field already having finite leaf does not establish whole valid configuration; native public raw fields and repeated unit validation are producer obligations, not proof complete migration. AngularStiffness-like coupling in BouncyBones has inverse-sec\u00b2, strength maps velocity to angular velocity (inverse length), envelope half-life is duration and frequency is cycles/sec. Their same positive validation does not make them interchangeable. Config digest750 validates before exact serialized hashing. Runtime35314\u201320 validates then installs process snapshot and bumps version, cache39\u201353 holds explicit(version,config) association; version is invalidation epoch, not simulation time/CharacterId.",
+      "qualifications": [
+        "Full827+37+71 registered lines personally read; defaults/child validators have separate roles, no body credit from declarations. No config parsing/project checks, native execution or concurrency verdict.",
+        "Current positive movement fields are actual configured policy515\u2013519, not an authorization to impose those bounds on generic dimensions, aggregate carried mass, signed offsets or computed lunge drive. Retain allowedair0/gainsabove1, input signed look-scale, and use compiled actualbounds where config owns policy.",
+        "AiOffense.has_valid_intervals35222\u201330 validates a subset; source alone does not prove all hit_precision/ranged_reach_fraction call routes use admitted profile. Further actual recipients remain scoped, no blanket clean config claim or malformed normal default claim.",
+        "Tactical config schema9 and fingerprint are format/authority roles, not gameplay sample count. Reusing one same accepted numeric leaf beneath different purpose roles is appropriate; no universal quantity framework or wrapper justified solely by field name.",
+        "Typed AnimationElapsed/PositiveAnimationDuration/ResponseRate/HeightDistance/UnitInterval are used in actual semantic fields. Public fields that use broad SignedLength for specific positive config policy may need retained whole admission, but no invented per-fieldnewtype/extra rejecting policy chosen here."
+      ],
+      "acceptance": "Retain actual leaf units and complete configuration relationships through source-specific application receivers and immutable installed snapshot. Preserve exact hash bytes/schema/native ports and compiled accepted domain, while keeping distinct physical dimensions, control gains, clock epochs and source-specific policy owners."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

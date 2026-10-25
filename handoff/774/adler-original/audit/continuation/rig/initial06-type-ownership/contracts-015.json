@@ -1,0 +1,107 @@
+{
+  "id": "RIG-INITIAL06-GROUP-015",
+  "at": "2026-10-22T19:42:37.438230+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "authored-units-and-owner-dependencies": {
+      "sources": [
+        "pr-working:crates/fabelgeist-armor/Cargo.toml",
+        "pr-working:crates/fabelgeist-armor/src/design.rs"
+      ],
+      "comparison": "Fresh Armor Cargo26/design171: low dependency graph uses Compute/GarmentCode/Geometry/GPU/Math/Rig, no Building or game Core. Millimeters(pub u16) and Milliradians(pub u16) preserve quantized unsigned source precision and zero; Permille(pub u16) is a general thousandth scale, not discrete probability or continuous UnitInterval. Actual family values/defaults cuff_flare1350, shaft_flare1100, crown1050 and validation upperbounds2000 prove >1 intentional. PR Millimeters.signed_length already projects into neutral checked SignedLength; do not replace authored serial integers with unrestricted raw f32 or clinical quantity bounds. Continuous signed unwrapped Radians remains distinct from authored unsigned milliradians: F001 relocation can enable correctly typed host-angle APIs without forcing Armor to depend on Building. GeneratedArmor owns feature output mesh/components/design provenance/skin/morph records; actual mesh vectors and raw weights are not automatically admitted ShellMesh or canonical gameplay state. Remaining full output consumers still pending whole06; no blanket private/native exemption."
+    },
+    "part-frame-and-rig-skin": {
+      "sources": [
+        "pr-working:crates/fabelgeist-armor/src/frame.rs",
+        "pr-working:crates/fabelgeist-armor/src/skin.rs"
+      ],
+      "comparison": "Fresh PartFrame50/skin99: anatomical PartFrame stores origin/three axes/half-extents and explicitly permits reflected orthonormal frames. Generic proper quaternion rotation cannot replace it without losing handedness; Scene/Architectural/Furniture datums are different authorities. Frame validation remains feature operation, public raw axes are not a finite accepted token. SkinShare references canonical RigInfluences<8>, local Influence uses canonical RigJointOrdinal. Merge collects duplicate joints/top8/normalizes before fixed packed representation; dynamic intermediate stage is not a second RigJoint owner. Keep actual zero/nonfinite normalization semantics and membership qualifications from other inventories; no new validity clearance from using canonical labels."
+    },
+    "feature-errors-not-competing-lower-causes": {
+      "sources": [
+        "pr-working:crates/fabelgeist-armor/src/error.rs"
+      ],
+      "comparison": "Fresh GenerateError40 retains source DesignError plus canonical RigSkinError, ReadbackError, PlateShellFailure and local cutaway/native span context. Armor owns its operation/error context and preserves lower causes; no need merge unrelated error taxonomies or move high design policy into GPU/Geometry. Exact error-order/first-cause policy not changed or newly awarded by06."
+    },
+    "family-source-designs": {
+      "sources": [
+        "pr-working:crates/fabelgeist-armor/src/helmet_crown.rs",
+        "pr-working:crates/fabelgeist-armor/src/helmets_buffe.rs",
+        "pr-working:crates/fabelgeist-armor/src/helmets_buffe_courses.rs",
+        "pr-working:crates/fabelgeist-armor/src/besagew.rs",
+        "pr-working:crates/fabelgeist-armor/src/radial_fluting.rs",
+        "pr-working:crates/fabelgeist-armor/src/joint_extension.rs",
+        "pr-working:crates/fabelgeist-armor/src/breastplate_design.rs",
+        "pr-working:crates/fabelgeist-armor/src/anime_design.rs",
+        "pr-working:crates/fabelgeist-armor/src/plate_fluting.rs",
+        "pr-working:crates/fabelgeist-armor/src/limb_armor.rs",
+        "pr-working:crates/fabelgeist-armor/src/joint_cup_design.rs",
+        "pr-working:crates/fabelgeist-armor/src/pauldron.rs",
+        "pr-working:crates/fabelgeist-armor/src/garment_armor.rs",
+        "pr-working:crates/fabelgeist-armor/src/garment_plate_design.rs",
+        "pr-working:crates/fabelgeist-armor/src/wrapped_tassets.rs",
+        "pr-working:crates/fabelgeist-armor/src/helmets.rs"
+      ],
+      "comparison": "Fresh exact source declarations/defaults/predicates: HelmetFit/family products, HelmetCrown/Buffe/Courses/Besagew/JointExtension/RadialFluting, Breastplate/Profile/Anime, PlateGauge/Greave/Cuisse/Rerebrace/Spaulder/Gauntlet/FootArmor/Boot, JointCup/Pauldron, GarmentArmor/GarmentPlateShape/WrappedTasset. They reuse canonical authored Millimeters/Permille/Milliradians/PlateFluting rather than redeclare equivalents. Different anatomical constructions and field correlations belong Armor, not neutral Geometry; physical gauge/clearance is not continuous Cuboid dimensions or clinical BodyMass. HelmetDesign combines actual family product identity with fit/crown validation; rejected CloseHelmet/MailCoif declarations/validation arms remain excluded, no inferred all-family proof. Actual limb branch LeatherBoot shaft40..350/flare1000..1500/toe800..1300 differs Sabaton foot geometry/toe extension/lame count. Newly registered161\u2013186 completes Gauntlet fields/default (finger_lames4/cuff_flare1350); pre-existing1\u2013160+overlay086187\u2013376 otherwise preserved. Public Serde/default/source validators stay raw authored input, not sealed acceptance; default Anime7mm with4mm gauge may fail correlated policy, no false all-default validity. No reason to create per-family copies of generic length or ratio owner. WrappedTasset only1\u201354, no closing/test tail credit; PlateFluting gaps and helmet exclusions preserved."
+    },
+    "independent-lod-policy": {
+      "sources": [
+        "pr-working:crates/fabelgeist-armor/src/sampling.rs"
+      ],
+      "comparison": "Fresh sampling1\u201343: ArmorLod closed authored4/5/6 and ArmorDetail Runtime/BakeSource choose feature mesh detail, independently of MHR LOD selecting native parameter/skin assets and terrain Vista level/ring policy. Equal numeric tags do not establish shared meaning/range/authority; keep Armor owner. Helpers beyond43 not read or credited."
+    },
+    "helmet-source-to-native-coordinate-port": {
+      "sources": [
+        "pr-working:crates/fabelgeist-armor/src/gpu/helmet/mod.rs",
+        "pr-working:crates/fabelgeist-armor/src/gpu/helmet/parts.rs",
+        "pr-working:crates/fabelgeist-armor/src/gpu/helmet/surface.rs"
+      ],
+      "comparison": "Fresh helmet recipe54/parts339/surface1\u2013224: design.validate precedes kernel/parts recipe. Host DesignFloats maps heterogeneous source values into named native Slot indices; CoordSurface vertices pack VertexKind plus three interpretation-dependent coordinates, CoordShell carries these native parameter vertices and extrusion/thickness. They are not actual world-space ShellMesh or frame Position records. Latitude Regular angle versus Crest side/base selector and PostMap transformations are different coordinate meanings. Fresh direct codes REG006 defines one macro-generated host enum/WGSL constants for Slot/VertexKind/PostMap/CheekRow, avoiding competing numeric code owners. Raw f32 host angles from authored milliradians and PI/TAU remain a concrete shared-neutral-angle propagation candidate after F001 move; real sin/trig/calculus and final buffer packing are numerical ports, not a blanket excuse for earlier typed-to-raw forwarding. No need move Armor-specific GPU slot authority into generic GPU. Surface220\u2013224 only test module/attribute prefix;225+ body excluded. Other burgonet/shape equation recipients still separately pending."
+    },
+    "footwear-source-to-native-coordinate-port": {
+      "sources": [
+        "pr-working:crates/fabelgeist-armor/src/gpu/footwear.rs"
+      ],
+      "comparison": "Fresh footwear310 plus actual Boot/FootArmor declarations/defaults/validation: foot_design converts authored gauge/clearance/shaft/tip/scales into native mixed design-array parameters and CoordShell/Chart geometry. Boot shaft is physical signed-length projection candidate for actual existing host APIs; normalized toe/roundness coordinates and native pow/trig are algorithm ports, not metres. Sabaton and boot share anatomy but differ design products and validator policies; do not force a single universal checked positive-length field or silently clamp >1 scales. Existing owner propagation finding targets remain; current06 finds coherent authored-owner location, remaining broader runtime users not blanket cleared."
+    },
+    "actual-source-validation-is-not-type-relocation": {
+      "sources": [
+        "pr-working:crates/fabelgeist-armor/src/lib.rs"
+      ],
+      "comparison": "Fresh lib86\u2013171 reads actual encode/decode/design-hash and breastplate profile/construction/fluting predicates. Shared source wrappers stay low in Armor and validators depend on them; design hash records provenance of authored source, not source-content/current identity authority merely because both use32 bytes. Need all actual consumers before proposing any digest owner merge. Checked source factory may validate while public declarations/Serde remain alternative routes;03 findings preserved, no type-name accepted-state inference."
+    },
+    "p16-explicit-contract-comparison": {
+      "sources": [
+        "physical-p16:crates/fabelgeist-armor/src/lib.rs",
+        "physical-p16:crates/fabelgeist-armor/src/breastplate_design.rs",
+        "physical-p16:crates/fabelgeist-armor/src/plate_fluting.rs",
+        "physical-p16:crates/fabelgeist-armor/src/anime_design.rs",
+        "physical-p16:crates/fabelgeist-armor/src/design.rs"
+      ],
+      "comparison": "Personally fresh P16 lib86\u2013171/Breastplate1\u2013128/Fluting1\u201399/Anime56/design1\u201322,33\u201366 compared actual source predicates, data fields/defaults and current role to corresponding PR bodies just read. Same authored unsigned Millimeters/Permille/Bracer and cross-field policies warrant same local ownership reasoning; no hash/old verdict credit. PR adds Millimeters.signed_length projection; P16 exact1\u201322/33\u201366 lacks it. P16 Milliradians23\u201332 and other output definitions67+ remain outside current bounded proof; do not assume complete counterpart. Other P16/PR feature routes remain separate."
+    },
+    "garment-body-measurements-not-rig-or-clock": {
+      "sources": [
+        "pr-working:crates/fabelgeist-garment-code/src/design.rs"
+      ],
+      "comparison": "Fresh GarmentCode Body472\u2013608: private name\u2192f64 measurement map/order, YAML/open extension names and derived anatomical measurements. Values include source centimetre body lengths, ratios/angles and derived prefixed measurements. This source garment-fitting context is neither RigJointTable ordinal values nor game CharacterProportions accepted snapshot/BodyMass/Scene positions. Dynamic named measurement storage belongs GarmentCode; keep exact source units and string extension authority rather than force all values into one Geometry length or game schema. Other GarmentCode definitions/consumers remain unreviewed in06, no full feature clearance."
+    },
+    "textile-and-metal-source-materials": {
+      "sources": [
+        "pr-working:crates/fabelgeist-armor/src/trunk_hose.rs",
+        "pr-working:crates/fabelgeist-armor/src/material.rs"
+      ],
+      "comparison": "Fresh Metal103 and TrunkHose56: Metal owns finish-source color/roughness/scratch geometry/density/seed/engraving plus normal/metal-roughness/depth textures. Color [f32;3] and native texture bytes differ authored TextileColor sRGB [u8;3]. Newly registered008 fresh11\u201328 explicitly converts u8 channels /255 to component material with alpha1/metallic0/roughness.92; no linear/sRGB equivalence claim. TrunkHose physical envelope/even panels and textile color stay garment-source products; they are not solver Fabric or ShellMaterial response. Metal seedu32 is local texture source parameter; actual deterministic consumer map still pending before choosing canonical Seed projection. Engraving and ArmorComponentMaterial canonical declarations not read here; no inferred finite or sealed output guarantee from constructor/name."
+    }
+  },
+  "new_findings": [],
+  "supporting_existing_findings": [
+    "RIG-INITIAL06-F001"
+  ],
+  "new_material_refs": [
+    "RIG-INITIAL06-REG-006",
+    "RIG-INITIAL06-REG-007",
+    "RIG-INITIAL06-REG-008"
+  ],
+  "limits": "Fresh ownership comparisons, exact source ranges; no hashes/old verdict coverage. Remaining Armor callers, all other06 sources and new global frontiers incomplete. No source edits/project execution/other-lens credit."
+}

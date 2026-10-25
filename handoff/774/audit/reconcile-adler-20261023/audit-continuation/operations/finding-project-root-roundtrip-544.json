@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-04-PROJECT-ROOT-ROUNDTRIP-CANDIDATE-001",
+  "source_id": "pr-working:crates/fabelgeist-fs/src/lib.rs",
+  "sha256": "b0eda40872d0165cc3a1524083dc60e23ec7a9ee0e88d7bd88fa26e7f3a4ed6f",
+  "ranges": [
+    [
+      99,
+      109
+    ],
+    [
+      460,
+      495
+    ],
+    [
+      605,
+      613
+    ]
+  ],
+  "counterexample": "NativeDirectory path /tmp/project -> to_file_uri file:///tmp/project. Native persist_project_root strips file:/// first, saving tmp/project without absolute slash. restore_project_root constructs relative PathBuf from that text, so selected absolute directory is lost or a distinct cwd-relative directory may be returned. Source roundtrip proof only; no filesystem writes performed.",
+  "qualification": "Ordinary POSIX selected absolute path; no live persisted workspace/current machine outcome claimed. Windowsdrive URI has different stripping behavior and must be preserved separately. Indexed archive no exact alias; broad RIG-OWNER-F009 only native cause handling. No new unique global count.",
+  "connected_contract": "Canonical native path and URI codec must preserve absolute root identity through persistence and restore, with explicit platform-aware conversion. Direct native ProjectRoot authority should avoid lossy URI stripping before PathBuf; no compatibilityfallback.",
+  "acceptance": "Absolute POSIX path persists/restores identical root independent of process cwd; Windows drive/UNC/native separators and URL escaping policy handled by owning path/URI contract. No automatic directory creation/deletion or reset required."
+}

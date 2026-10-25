@@ -1,0 +1,101 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-162",
+  "at": "2026-10-23T01:45:01.170749+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-046.json",
+    "sha256": "0cb2963974c08802747f3819cd0a51e095ca2a684326dc0d77f76249928b2fb3"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-045.json",
+    "sha256": "1a92c50ea71c9b242d2b6c345a407e437d72fcc81405924347b9247f0c75f22c"
+  },
+  "new_variants": [
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/personality.rs",
+      "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+      "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\personality.rs",
+      "snapshot": "pr-working",
+      "actual_line_count": 1210,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          54,
+          69
+        ]
+      ],
+      "audit_owner": "rig",
+      "scope_registration": [
+        {
+          "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+          "sha256": "ce2472a7afafa8b002be074191b2245b1ef351e13d467e413c91eed0cfc6d2ed",
+          "row_1based": 32,
+          "id": "RIG-INITIAL06-REG-032",
+          "original_record": {
+            "id": "RIG-INITIAL06-REG-032",
+            "at": "2026-10-23T01:43:51.055128+00:00",
+            "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+            "source_id": "pr-working:crates/adventuresim-stdb-module/src/personality.rs",
+            "snapshot": "pr-working",
+            "sha256": "e93d3c285e8b1dc7af742e6e831fd6bb13c5656f61f5b2aace2919a121fa4b3d",
+            "actual_EOF": 1210,
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\personality.rs",
+            "material_ranges": [
+              [
+                54,
+                69
+              ]
+            ],
+            "material_caller": "Already scoped Core starting_character generated_personality684\u2013787 declares same thirteen personality axes, current P16 DB canonical MutablePersonalityAxis55\u201369 and generation110\u2013203 separately reached. Exact PR selector definition needed to compare current branch ownership before proposing low Core shared selector.",
+            "reason": "Direct actual canonical selector definition/derive only; compare current PR definition rather than infer it from P16/hash. Register before body under081.",
+            "exclusions": "No surrounding personality label/scores/gateway schema, mutation/generation helpers70+ or whole1210 body credit; source bytes and actual endpoints qualify after read.",
+            "status": "Prospectively registered before body analysis; global pending"
+          }
+        }
+      ],
+      "scope_limits": "Only54-69 exactclosed MutablePersonalityAxis declaration/SpacetimeType derive; no label/scores/gateway/mutation/generation/tail or whole1210 credit.",
+      "source_lens_credit": "none from scope metadata"
+    }
+  ],
+  "new_overlays": [],
+  "total_variants": 2803,
+  "total_overlays": 228,
+  "mandatory_scope_qualifications": [
+    {
+      "record": "continuation/root/parallel-scope-qualification-130.json",
+      "sha256": "5dc4e5cd771612c7e050ab4af544411523317ae4b57738f1fb20f493685a50fc"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-117.json",
+      "sha256": "f3b80648900716939057b20776d756a6e37001f6910378da1a1bbaea230d348b"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-149.json",
+      "sha256": "97103899514ade32cf1e41c2794fa9c49c0cb8c6c7a2c6a4961b7492de5dc708"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-151.json",
+      "sha256": "670dd53a640b28eef7ad9d57b37f9213e1bca7117d7098691c4b0cd20c2a8f65"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-158.json",
+      "sha256": "fa0e9cc06d04fca0a0e2b5f9a333390a0ba1e71eff846a4e957c46b68b3e940e"
+    }
+  ],
+  "registered_rows": 1,
+  "input_pins": [
+    {
+      "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+      "sha256": "ce2472a7afafa8b002be074191b2245b1ef351e13d467e413c91eed0cfc6d2ed",
+      "captured_rows": 32,
+      "selected_ids": [
+        "RIG-INITIAL06-REG-032"
+      ]
+    }
+  ],
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through228-before046.jsonl",
+    "sha256": "f8bacc06835805d7381293438115c263d0ff8ee01e34e70c9fa9540c7d231794",
+    "through": 228
+  },
+  "limits": "RigREG032one new exactclosed selector variant2803;228overlays unchanged, all mandatorypriorqualifications retained, no scope/gateauthorizationchange."
+}

@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-656",
+  "at": "2026-10-25T16:22:31.916132+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 960,
+  "source_id": "pr-working:crates/adventuresim-core/src/organization.rs",
+  "sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+  "actual_compared_ranges": [
+    [
+      1,
+      660
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Organization native lookup/promotion/privilege/service-capability/chapter-venue/representative-identity functions441\u2013632 contain no handwritten trait/codec. They apply authored role/service/settlement policy and do not become derive targets just because table-shaped. Catalog OnceLock uses existing derived deserialization; no generated include body credited. Source fixture prefix634\u2013660 no new trait."
+  ],
+  "first_unfinished": {
+    "scope_index": 960,
+    "line": 661
+  },
+  "execution": "none"
+}

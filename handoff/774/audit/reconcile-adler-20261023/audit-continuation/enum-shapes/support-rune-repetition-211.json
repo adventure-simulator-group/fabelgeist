@@ -1,0 +1,25 @@
+{
+  "id": "SEGO-INITIAL09-SUPPORT-211-RUNE-REPETITION",
+  "source_id": "physical-p16:crates/adventuresim-puzzles/src/puzzles.rs",
+  "sha256": "e3eb46b050e02df31df84a6d18ded142d748383d0e9611c55bc720d086bbbfbe",
+  "ranges": [
+    [
+      622,
+      642
+    ],
+    [
+      760,
+      826
+    ],
+    [
+      840,
+      885
+    ],
+    [
+      900,
+      909
+    ]
+  ],
+  "evidence": "Spec rejects nonrepeatingroute longerthangates; normalgeneration buildsdistinctroutevia shuffledactivegates. Authorityvalidate insteadchecks onlydimensions, mappedroute/solution andexampleproofs, not repetitionpolicies. Conditional APIwitness: from anyvalid threegate/three-route nonrepeatingauthority, replace routewiththreecopiesofoneexistinggate and recomputesolutionviaapply_rune_route; dimensions/known-gate/examplechecksunchangedandmappedsolutionpasses whilepolicyfalse. Analogous duplicateoperationmayneedexamplesrecomputed/proof, not separatelyclaimedconcretewitness.",
+  "qualification": "Source-algebra/APIadmission extension only, not executed, not normalgeneratorviolation, not globalalias/otherlenscoverage."
+}

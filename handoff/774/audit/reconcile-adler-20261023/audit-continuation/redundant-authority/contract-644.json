@@ -1,0 +1,61 @@
+{
+  "id": "CONT07-CONTRACT-644",
+  "at": "2026-10-24T00:59:05.660876+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 646,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/model/layout.rs",
+      "sha256": "f19587b5c651091d18b720268e43f9bdef0e2ca083b33b57d53cbdbccb1be298",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/model/layout.rs",
+      "actual_EOF": 452,
+      "ranges": [
+        [
+          151,
+          284
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 532,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/resolved_geometry.rs",
+      "sha256": "f0fcbc815b3c695713f9dd8055470b78b871e583aad689aa45ce562c1f20fd4a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/audit/resolved_geometry.rs",
+      "actual_EOF": 514,
+      "ranges": [
+        [
+          71,
+          514
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 534,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/shared_helpers.rs",
+      "sha256": "76e7f6c63abfedfdacaf9045369ed282f14c8eb113b868127679ab236368ee36",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/audit/shared_helpers.rs",
+      "actual_EOF": 171,
+      "ranges": [
+        [
+          121,
+          134
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Overlay006 RoofFace stores polygon/plane/pitch independently and RoofAssembly repeats parent material alongside per-face material; actual producer/update coherence remains inherited roof graph contracts, no new failure inferred from declarations. Child/edge/drainage IDs are associations with distinct roles. This exact range completes previously missing declaration body.",
+    "Overlay007 resolved audit derives physical overlap from solids then permits contact via explicit drainage IDs, frame member/opening/void connections, support interfaces, child gable owner or bounded junction bond. Scope reveals multiple broad role-based exemptions, not evidence itself of contradictory normal geometry. Roof-edit stale interface candidate must reach actual member.support_interfaces and overlap gate; no universal roof-validation assertion.",
+    "Overlay007 actual void gate exempts roof flashing/framing/wall hosts from RoofOpening blockage; materialized void and geometry roles must be preserved in connected repair. Drainage route checks actual owned outlet and drop0.04; it is an independent geometric check rather than duplicated current drop cache.",
+    "Overlay008 point-in-roof face recipient excludes every actual cutout. Confirms contrast with earlier roof-height nominal planar query, but still requires exact intended physical recipient before promoting those queries as same authority."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": null
+}

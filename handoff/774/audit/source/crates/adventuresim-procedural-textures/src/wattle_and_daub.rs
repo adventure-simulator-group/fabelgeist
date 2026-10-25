@@ -1,0 +1,628 @@
+//! Weathered earth-and-lime daub with rare, localized exposed wattle.
+
+mod streams;
+use bevy::{
+    asset::Assets,
+    image::Image,
+    math::{FloatExt, Vec3},
+};
+use fabelgeist_determinism::Seed;
+use fabelgeist_determinism::StreamId;
+
+use super::{SurfaceTextureSet, image_rgba_mipped};
+
+pub const WATTLE_AND_DAUB_TEXTURE_SIZE: u32 = 1024;
+pub const WATTLE_AND_DAUB_TILE_METRES: f32 = 1.5;
+pub const WATTLE_AND_DAUB_HEIGHT_RANGE_METRES: f32 = 0.012;
+
+const DAUB_WARM: Vec3 = Vec3::new(0.66, 0.57, 0.42);
+const WATTLE_COLOR: Vec3 = Vec3::new(0.33, 0.23, 0.13);
+
+#[derive(Clone, Copy, Debug)]
+struct DaubSample {
+    height: f32,
+    albedo: Vec3,
+    roughness: f32,
+    #[cfg(test)]
+    aggregate: f32,
+    #[cfg(test)]
+    fibre: f32,
+    crack: f32,
+    #[cfg(test)]
+    wattle: f32,
+    exposed_cavity: f32,
+}
+
+fn hash_unit(params: &crate::TextureParameters, x: i32, y: i32, field_seed: Seed) -> f32 {
+    params
+        .rng(
+            streams::LATTICE,
+            &[field_seed.to_u64(), x as u32 as u64, y as u32 as u64],
+        )
+        .inclusive_unit_f32()
+}
+
+fn periodic_hash(
+    params: &crate::TextureParameters,
+    x: i32,
+    y: i32,
+    cells_x: i32,
+    cells_y: i32,
+    field_seed: Seed,
+) -> f32 {
+    hash_unit(
+        params,
+        x.rem_euclid(cells_x),
+        y.rem_euclid(cells_y),
+        field_seed,
+    )
+}
+
+fn quintic(value: f32) -> f32 {
+    value * value * value * (value * (value * 6.0 - 15.0) + 10.0)
+}
+
+fn smoothstep(lower: f32, upper: f32, value: f32) -> f32 {
+    let t = ((value - lower) / (upper - lower)).clamp(0.0, 1.0);
+    t * t * (3.0 - 2.0 * t)
+}
+
+fn periodic_noise(
+    params: &crate::TextureParameters,
+    u: f32,
+    v: f32,
+    cells_x: i32,
+    cells_y: i32,
+    field_seed: Seed,
+) -> f32 {
+    let x = u.rem_euclid(1.0) * cells_x as f32;
+    let y = v.rem_euclid(1.0) * cells_y as f32;
+    let ix = x.floor() as i32;
+    let iy = y.floor() as i32;
+    let tx = quintic(x.fract());
+    let ty = quintic(y.fract());
+    let lower = periodic_hash(params, ix, iy, cells_x, cells_y, field_seed).lerp(
+        periodic_hash(params, ix + 1, iy, cells_x, cells_y, field_seed),
+        tx,
+    );
+    let upper = periodic_hash(params, ix, iy + 1, cells_x, cells_y, field_seed).lerp(
+        periodic_hash(params, ix + 1, iy + 1, cells_x, cells_y, field_seed),
+        tx,
+    );
+    lower.lerp(upper, ty) * 2.0 - 1.0
+}
+
+fn toroidal_delta(value: f32) -> f32 {
+    (value + 0.5).rem_euclid(1.0) - 0.5
+}
+
+fn capsule_distance(point: (f32, f32), start: (f32, f32), end: (f32, f32)) -> f32 {
+    let segment = (end.0 - start.0, end.1 - start.1);
+    let relative = (point.0 - start.0, point.1 - start.1);
+    let length_squared = segment.0 * segment.0 + segment.1 * segment.1;
+    let along =
+        ((relative.0 * segment.0 + relative.1 * segment.1) / length_squared).clamp(0.0, 1.0);
+    let dx = relative.0 - segment.0 * along;
+    let dy = relative.1 - segment.1 * along;
+    (dx * dx + dy * dy).sqrt()
+}
+
+fn sparse_capsules(
+    params: &crate::TextureParameters,
+    u: f32,
+    v: f32,
+    layer: CapsuleLayer,
+    purpose: StreamId,
+) -> f32 {
+    let CapsuleLayer {
+        cells,
+        enabled_threshold,
+        half_length_range,
+        radius,
+    } = layer;
+    let field_seed = params.field_seed(purpose, &[]);
+    let scaled_x = u.rem_euclid(1.0) * cells as f32;
+    let scaled_y = v.rem_euclid(1.0) * cells as f32;
+    let base_x = scaled_x.floor() as i32;
+    let base_y = scaled_y.floor() as i32;
+    let mut coverage = 0.0_f32;
+    for offset_y in -1..=1 {
+        for offset_x in -1..=1 {
+            let cell_x = base_x + offset_x;
+            let cell_y = base_y + offset_y;
+            if periodic_hash(
+                params,
+                cell_x,
+                cell_y,
+                cells,
+                cells,
+                params.field_seed(streams::PRESENCE, &[field_seed.to_u64()]),
+            ) < enabled_threshold
+            {
+                continue;
+            }
+            let center = (
+                cell_x as f32
+                    + params.wattle_and_daub.sparse_capsules_center_1
+                    + periodic_hash(
+                        params,
+                        cell_x,
+                        cell_y,
+                        cells,
+                        cells,
+                        params.field_seed(streams::CENTER_X, &[field_seed.to_u64()]),
+                    ) * params.wattle_and_daub.sparse_capsules_center_2,
+                cell_y as f32
+                    + params.wattle_and_daub.sparse_capsules_center_3
+                    + periodic_hash(
+                        params,
+                        cell_x,
+                        cell_y,
+                        cells,
+                        cells,
+                        params.field_seed(streams::CENTER_Y, &[field_seed.to_u64()]),
+                    ) * params.wattle_and_daub.sparse_capsules_center_4,
+            );
+            let angle = periodic_hash(
+                params,
+                cell_x,
+                cell_y,
+                cells,
+                cells,
+                params.field_seed(streams::ANGLE, &[field_seed.to_u64()]),
+            ) * std::f32::consts::TAU;
+            let half_length = half_length_range.0
+                + periodic_hash(
+                    params,
+                    cell_x,
+                    cell_y,
+                    cells,
+                    cells,
+                    params.field_seed(streams::LENGTH, &[field_seed.to_u64()]),
+                ) * (half_length_range.1 - half_length_range.0);
+            let direction = (angle.cos() * half_length, angle.sin() * half_length);
+            let point = (scaled_x, scaled_y);
+            let distance = capsule_distance(
+                point,
+                (center.0 - direction.0, center.1 - direction.1),
+                (center.0 + direction.0, center.1 + direction.1),
+            );
+            let footprint = cells as f32 / params.size(WATTLE_AND_DAUB_TEXTURE_SIZE) as f32;
+            let filtered_radius = (radius * radius + footprint * footprint / 12.0).sqrt();
+            let profile =
+                (-0.5 * (distance / filtered_radius).powi(2)).exp() * radius / filtered_radius;
+            coverage = coverage.max(profile);
+        }
+    }
+    coverage
+}
+
+fn aggregate_coverage(params: &crate::TextureParameters, u: f32, v: f32) -> f32 {
+    sparse_capsules(
+        params,
+        u,
+        v,
+        params.wattle_and_daub.aggregate,
+        streams::AGGREGATE,
+    )
+}
+
+fn fibre_coverage(params: &crate::TextureParameters, u: f32, v: f32) -> f32 {
+    sparse_capsules(params, u, v, params.wattle_and_daub.fibre, streams::FIBRE)
+}
+
+fn shrink_crack(params: &crate::TextureParameters, u: f32, v: f32) -> f32 {
+    sparse_capsules(
+        params,
+        u,
+        v,
+        params.wattle_and_daub.shrink_crack,
+        streams::SHRINK_CRACK,
+    )
+}
+
+fn exposed_wattle(params: &crate::TextureParameters, u: f32, v: f32) -> (f32, f32) {
+    let dx = toroidal_delta(u - params.wattle_and_daub.exposed_wattle_dx);
+    let dy = toroidal_delta(v - params.wattle_and_daub.exposed_wattle_dy);
+    let angle = 0.16_f32;
+    let cosine = angle.cos();
+    let sine = angle.sin();
+    let local_x = dx * cosine + dy * sine;
+    let local_y = -dx * sine + dy * cosine;
+    let theta = (local_y / params.wattle_and_daub.exposed_wattle_theta_1)
+        .atan2(local_x / params.wattle_and_daub.exposed_wattle_theta_2);
+    let irregular_radius = 1.0
+        + (theta * 3.0 + params.wattle_and_daub.exposed_wattle_irregular_radius_1).sin()
+            * params.wattle_and_daub.exposed_wattle_irregular_radius_2
+        + (theta * params.wattle_and_daub.exposed_wattle_irregular_radius_3
+            - params.wattle_and_daub.exposed_wattle_irregular_radius_4)
+            .sin()
+            * params.wattle_and_daub.exposed_wattle_irregular_radius_5;
+    let edge_noise = periodic_noise(params, u, v, 17, 13, params.field_seed(streams::EDGE, &[]))
+        * params.wattle_and_daub.exposed_wattle_edge_noise;
+    let elliptical = ((local_x / params.wattle_and_daub.exposed_wattle_elliptical_1).powi(2)
+        + (local_y / params.wattle_and_daub.exposed_wattle_elliptical_2).powi(2))
+    .sqrt();
+    let cavity = 1.0
+        - smoothstep(
+            irregular_radius * params.wattle_and_daub.exposed_wattle_cavity + edge_noise,
+            irregular_radius + edge_noise,
+            elliptical,
+        );
+
+    let rod_distance = capsule_distance(
+        (local_x, local_y),
+        (
+            -params.wattle_and_daub.exposed_wattle_rod_distance_1,
+            -params.wattle_and_daub.exposed_wattle_rod_distance_2,
+        ),
+        (
+            params.wattle_and_daub.exposed_wattle_rod_distance_3,
+            params.wattle_and_daub.exposed_wattle_rod_distance_4,
+        ),
+    );
+    let woody_fragment = 1.0
+        - smoothstep(
+            params.wattle_and_daub.exposed_wattle_woody_fragment_1,
+            params.wattle_and_daub.exposed_wattle_woody_fragment_2,
+            rod_distance,
+        );
+    let chipped_occlusion = smoothstep(
+        -params.wattle_and_daub.exposed_wattle_chipped_occlusion_1,
+        params.wattle_and_daub.exposed_wattle_chipped_occlusion_2,
+        local_x + local_y * params.wattle_and_daub.exposed_wattle_chipped_occlusion_3,
+    );
+    (cavity, cavity * woody_fragment * chipped_occlusion * 0.72)
+}
+
+fn sample_daub(params: &crate::TextureParameters, u: f32, v: f32) -> DaubSample {
+    let broad = periodic_noise(params, u, v, 4, 5, params.field_seed(streams::BROAD, &[]));
+    let medium = periodic_noise(params, u, v, 11, 9, params.field_seed(streams::MEDIUM, &[]));
+    let fine = periodic_noise(params, u, v, 61, 53, params.field_seed(streams::FINE, &[]));
+    let warp = periodic_noise(params, u, v, 3, 4, params.field_seed(streams::WARP, &[]))
+        * params.wattle_and_daub.sample_daub_warp;
+    let smear = periodic_noise(
+        params,
+        u + warp,
+        v - warp * params.wattle_and_daub.sample_daub_smear,
+        5,
+        9,
+        params.field_seed(streams::SMEAR, &[]),
+    );
+    let marks = params.wattle_and_daub.application.sample(
+        params,
+        bevy::math::Vec2::new(u, v),
+        params.field_seed(streams::SPALLS, &[]),
+    );
+    let trowel_mass = marks.facet + marks.edge;
+    let aggregate = aggregate_coverage(params, u, v);
+    let fibre = fibre_coverage(params, u, v);
+    let crack = shrink_crack(params, u, v);
+    let (exposed_cavity, wattle) = exposed_wattle(params, u, v);
+
+    let surface = params.wattle_and_daub.sample_daub_surface_1
+        + broad * params.wattle_and_daub.sample_daub_surface_2
+        + medium * params.wattle_and_daub.sample_daub_surface_3
+        + fine * params.wattle_and_daub.sample_daub_surface_4
+        + smear * params.wattle_and_daub.sample_daub_surface_5
+        + trowel_mass * params.wattle_and_daub.sample_daub_surface_6
+        + aggregate * params.wattle_and_daub.sample_daub_surface_7
+        + fibre * params.wattle_and_daub.sample_daub_surface_8
+        - crack * params.wattle_and_daub.sample_daub_surface_9;
+    let height = surface * (1.0 - exposed_cavity)
+        + (params.wattle_and_daub.sample_daub_height_1
+            + wattle * params.wattle_and_daub.sample_daub_height_2)
+            * exposed_cavity;
+
+    // A single lime/earth matrix; only exposed timber is another material.
+    // Cavity darkness is provided by AO, never multiplied into pigment.
+    let albedo = params
+        .wattle_and_daub
+        .daub_warm
+        .lerp(params.wattle_and_daub.wattle_color, wattle * exposed_cavity);
+
+    DaubSample {
+        height: height.clamp(0.0, 1.0),
+        albedo: albedo.clamp(Vec3::ZERO, Vec3::ONE),
+        roughness: (0.87
+            + broad * 0.008
+            + smear.abs() * 0.012
+            + trowel_mass.abs() * 0.010
+            + aggregate * params.wattle_and_daub.aggregate_roughness
+            + fibre * 0.028
+            + crack * 0.018)
+            .clamp(0.80, 0.96),
+        #[cfg(test)]
+        aggregate,
+        #[cfg(test)]
+        fibre,
+        crack,
+        #[cfg(test)]
+        wattle,
+        exposed_cavity,
+    }
+}
+
+fn height_at(params: &crate::TextureParameters, samples: &[DaubSample], x: i32, y: i32) -> f32 {
+    let size = params.size(WATTLE_AND_DAUB_TEXTURE_SIZE) as i32;
+    samples[(y.rem_euclid(size) * size + x.rem_euclid(size)) as usize].height
+}
+
+fn ambient_visibility(
+    params: &crate::TextureParameters,
+    samples: &[DaubSample],
+    x: i32,
+    y: i32,
+) -> f32 {
+    let center = height_at(params, samples, x, y);
+    let mut obstruction = 0.0_f32;
+    for (dx, dy) in [(1, 0), (-1, 0), (0, 1), (0, -1)] {
+        for step in [1, 4, 12, 32] {
+            obstruction += ((height_at(params, samples, x + dx * step, y + dy * step) - center)
+                / step as f32)
+                .max(0.0);
+        }
+    }
+    (1.0 - obstruction * 2.2).clamp(0.42, 1.0)
+}
+
+fn encode_unit(value: f32) -> u8 {
+    (value.clamp(0.0, 1.0) * 255.0).round() as u8
+}
+
+pub fn generate_wattle_and_daub_textures(
+    params: &crate::TextureParameters,
+    images: &mut Assets<Image>,
+) -> SurfaceTextureSet {
+    let size = params.size(WATTLE_AND_DAUB_TEXTURE_SIZE);
+    let samples = (0..size)
+        .flat_map(|y| {
+            (0..size).map(move |x| {
+                sample_daub(
+                    params,
+                    (x as f32 + 0.5) / size as f32,
+                    (y as f32 + 0.5) / size as f32,
+                )
+            })
+        })
+        .collect::<Vec<_>>();
+    let normal_heights = crate::normal::filter_heights_periodic(
+        &samples
+            .iter()
+            .map(|sample| sample.height)
+            .collect::<Vec<_>>(),
+        size,
+    );
+    let mut albedo = Vec::with_capacity((size * size * 4) as usize);
+    let mut normal = Vec::with_capacity(albedo.capacity());
+    let mut height = Vec::with_capacity(albedo.capacity());
+    let mut arm = Vec::with_capacity(albedo.capacity());
+    let metres_per_texel = params.wattle_and_daub.tile_metres / size as f32;
+    let slope_scale = params.wattle_and_daub.height_range_metres / (2.0 * metres_per_texel);
+
+    for y in 0..size {
+        for x in 0..size {
+            let sample = samples[(y * size + x) as usize];
+            albedo.extend_from_slice(&[
+                encode_unit(sample.albedo.x),
+                encode_unit(sample.albedo.y),
+                encode_unit(sample.albedo.z),
+                255,
+            ]);
+            let at = |xx: i32, yy: i32| {
+                normal_heights[(yy.rem_euclid(size as i32) * size as i32
+                    + xx.rem_euclid(size as i32)) as usize]
+            };
+            let dx = at(x as i32 + 1, y as i32) - at(x as i32 - 1, y as i32);
+            let dy = at(x as i32, y as i32 + 1) - at(x as i32, y as i32 - 1);
+            let surface_normal =
+                crate::normal::from_image_gradient(dx * slope_scale, dy * slope_scale);
+            normal.extend_from_slice(&[
+                encode_unit(surface_normal.x * 0.5 + 0.5),
+                encode_unit(surface_normal.y * 0.5 + 0.5),
+                encode_unit(surface_normal.z * 0.5 + 0.5),
+                255,
+            ]);
+            let encoded_height = encode_unit(sample.height);
+            height.extend_from_slice(&[encoded_height, encoded_height, encoded_height, 255]);
+            let ao = ambient_visibility(params, &samples, x as i32, y as i32)
+                * (1.0
+                    - sample.exposed_cavity
+                        * params
+                            .wattle_and_daub
+                            .generate_wattle_and_daub_textures_ao_1
+                    - sample.crack
+                        * params
+                            .wattle_and_daub
+                            .generate_wattle_and_daub_textures_ao_2);
+            arm.extend_from_slice(&[encode_unit(ao), encode_unit(sample.roughness), 0, 255]);
+        }
+    }
+
+    let albedo_image = crate::palette::albedo_image(albedo, size);
+    SurfaceTextureSet {
+        albedo: images.add(albedo_image),
+        normal_gl: images.add(image_rgba_mipped(normal, size, true)),
+        height: images.add(image_rgba_mipped(height, size, true)),
+        arm: images.add(image_rgba_mipped(arm, size, true)),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use bevy::render::render_resource::TextureFormat;
+    use std::collections::BTreeSet;
+
+    use super::*;
+
+    fn generated() -> (Assets<Image>, SurfaceTextureSet) {
+        let params = &crate::TextureParameters::default();
+        let mut images = Assets::default();
+        let textures = generate_wattle_and_daub_textures(params, &mut images);
+        (images, textures)
+    }
+
+    #[test]
+    fn sampling_is_deterministic_and_periodic() {
+        let params = &crate::TextureParameters::default();
+        for (u, v) in [(0.01, 0.17), (0.31, 0.66), (0.74, 0.93), (0.97, 0.04)] {
+            let first = sample_daub(params, u, v);
+            let repeated = sample_daub(params, u + 1.0, v - 1.0);
+            assert_eq!(
+                first.height.to_bits(),
+                sample_daub(params, u, v).height.to_bits()
+            );
+            assert!((first.height - repeated.height).abs() < 1.0e-4);
+            assert!(first.albedo.distance(repeated.albedo) < 1.0e-4);
+            assert!((first.roughness - repeated.roughness).abs() < 1.0e-4);
+        }
+    }
+
+    #[test]
+    fn tile_edges_match_in_value_and_first_derivative() {
+        let params = &crate::TextureParameters::default();
+        let epsilon = 0.25 / WATTLE_AND_DAUB_TEXTURE_SIZE as f32;
+        let mut maximum_value_error = 0.0_f32;
+        let mut maximum_slope_error = 0.0_f32;
+        for index in 0..512 {
+            let coordinate = (index as f32 + 0.5) / 512.0;
+            for horizontal in [true, false] {
+                let sample = |edge: f32| {
+                    if horizontal {
+                        sample_daub(params, edge, coordinate)
+                    } else {
+                        sample_daub(params, coordinate, edge)
+                    }
+                };
+                let center = sample(0.0);
+                let inside = sample(epsilon);
+                let wrapped = sample(1.0 - epsilon);
+                maximum_value_error = maximum_value_error
+                    .max((inside.height - wrapped.height).abs())
+                    .max(inside.albedo.distance(wrapped.albedo))
+                    .max((inside.roughness - wrapped.roughness).abs());
+                let inward_slope = inside.height - center.height;
+                let wrapped_slope = center.height - wrapped.height;
+                maximum_slope_error = maximum_slope_error.max((inward_slope - wrapped_slope).abs());
+            }
+        }
+        assert!(
+            maximum_value_error < 0.012,
+            "edge value error: {maximum_value_error}"
+        );
+        assert!(
+            maximum_slope_error < 0.006,
+            "edge slope error: {maximum_slope_error}"
+        );
+    }
+
+    #[test]
+    fn physical_scale_and_feature_coverage_are_restrained() {
+        let mut params = crate::TextureParameters::default();
+        assert_eq!(WATTLE_AND_DAUB_TILE_METRES, 1.5);
+        assert!((0.008..=0.014).contains(&WATTLE_AND_DAUB_HEIGHT_RANGE_METRES));
+        let mut aggregate = 0_usize;
+        let mut fibre = 0_usize;
+        let mut cracks = 0_usize;
+        let mut cavities = 0_usize;
+        let mut wattle = 0_usize;
+        let sample_count = 4 * 512_usize.pow(2);
+        // Sparse inclusions fluctuate between tiles; bound the coverage across
+        // independently seeded tiles while preserving their physical scale.
+        for seed in (0..4).map(fabelgeist_determinism::Seed::from_u64) {
+            params.seed = seed;
+            for y in 0..512 {
+                for x in 0..512 {
+                    let sample =
+                        sample_daub(&params, (x as f32 + 0.5) / 512.0, (y as f32 + 0.5) / 512.0);
+                    aggregate += usize::from(sample.aggregate > 0.5);
+                    fibre += usize::from(sample.fibre > 0.5);
+                    cracks += usize::from(sample.crack > 0.5);
+                    cavities += usize::from(sample.exposed_cavity > 0.5);
+                    wattle += usize::from(sample.wattle > 0.5);
+                }
+            }
+        }
+        let fraction = |count| count as f32 / sample_count as f32;
+        assert!(
+            (0.0015..=0.035).contains(&fraction(aggregate)),
+            "aggregate: {}",
+            fraction(aggregate)
+        );
+        assert!(
+            (0.001..=0.020).contains(&fraction(fibre)),
+            "fibre: {}",
+            fraction(fibre)
+        );
+        assert!(fraction(cracks) < 0.012, "cracks: {}", fraction(cracks));
+        assert!(
+            (0.0001..=0.004).contains(&fraction(cavities)),
+            "cavities: {}",
+            fraction(cavities)
+        );
+        assert!(fraction(wattle) < fraction(cavities) * 0.45);
+    }
+
+    #[test]
+    fn generated_channels_are_coherent_nonmetallic_and_mipped() {
+        let (images, textures) = generated();
+        let expected_levels = WATTLE_AND_DAUB_TEXTURE_SIZE.ilog2() + 1;
+        let expected_bytes = (0..expected_levels)
+            .map(|level| {
+                let level_size = WATTLE_AND_DAUB_TEXTURE_SIZE >> level;
+                (level_size * level_size * 4) as usize
+            })
+            .sum::<usize>();
+        for handle in [
+            &textures.albedo,
+            &textures.normal_gl,
+            &textures.height,
+            &textures.arm,
+        ] {
+            let image = images.get(handle).unwrap();
+            assert_eq!((image.width(), image.height()), (1024, 1024));
+            assert_eq!(image.texture_descriptor.mip_level_count, expected_levels);
+            assert_eq!(image.data.as_ref().unwrap().len(), expected_bytes);
+        }
+        assert_eq!(
+            images
+                .get(&textures.albedo)
+                .unwrap()
+                .texture_descriptor
+                .format,
+            TextureFormat::Rgba8UnormSrgb
+        );
+        let base_bytes = (WATTLE_AND_DAUB_TEXTURE_SIZE.pow(2) * 4) as usize;
+        let arm = &images.get(&textures.arm).unwrap().data.as_ref().unwrap()[..base_bytes];
+        assert!(arm.iter().skip(2).step_by(4).all(|metallic| *metallic == 0));
+        assert!(
+            arm.iter()
+                .step_by(4)
+                .copied()
+                .collect::<BTreeSet<_>>()
+                .len()
+                > 24
+        );
+        assert!(
+            arm.iter()
+                .skip(1)
+                .step_by(4)
+                .copied()
+                .collect::<BTreeSet<_>>()
+                .len()
+                > 12
+        );
+    }
+}
+
+mod controls;
+pub use controls::Parameters;
+
+/// Sparse inclusions in the daub, in cell-space units.
+#[derive(Clone, Copy, serde::Serialize, serde::Deserialize)]
+pub struct CapsuleLayer {
+    pub cells: i32,
+    pub enabled_threshold: f32,
+    pub half_length_range: (f32, f32),
+    pub radius: f32,
+}

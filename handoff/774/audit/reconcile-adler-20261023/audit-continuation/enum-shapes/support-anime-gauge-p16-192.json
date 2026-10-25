@@ -1,0 +1,27 @@
+{
+  "id": "SEGO-INITIAL09-SUPPORT-171-P16-192",
+  "support_ref": "support-anime-gauge-171.json",
+  "sources": [
+    {
+      "source_id": "physical-p16:crates/fabelgeist-armor/src/lib.rs",
+      "sha256": "80124b8fa3d698044166b5f4226391835bde877e6e3e55904a8e6ab149a5fdcd",
+      "ranges": [
+        [
+          86,
+          171
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/fabelgeist-armor/src/anime_design.rs",
+      "sha256": "3fd27205e209b9133d640381c16458c180e205625a017b93138e363d14b04b86",
+      "ranges": [
+        [
+          1,
+          56
+        ]
+      ]
+    }
+  ],
+  "qualification": "ExactP16source freshread independently repeats anime-before-wallgauge ordering and u16doubling. API-only debugoverflow; releasewrapthenlatergaugereject, no ordinaryacceptedfailure; no new09finding."
+}

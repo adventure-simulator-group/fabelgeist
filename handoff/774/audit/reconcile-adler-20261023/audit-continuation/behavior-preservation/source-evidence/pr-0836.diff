@@ -1,0 +1,177 @@
+--- PRbase/crates/adventuresim-character-creator/src/torso_domain.rs
++++ frozen/crates/adventuresim-character-creator/src/torso_domain.rs
+@@ -2,29 +2,42 @@
+ //!
+ //! Eligibility identifies candidate torso faces. It does not identify a bearing
+ //! footprint, an anatomical attachment, or a permitted sliding region.
+ use anyhow::{Result, ensure};
++use fabelgeist_rig::{RigJointMembership, RigJointName, RigJointPart};
+ 
+-const TORSO_JOINTS: [&str; 8] = [
+-    "root",
+-    "c_spine0",
+-    "c_spine1",
+-    "c_spine2",
+-    "c_spine3",
+-    "c_neck",
+-    "l_clavicle",
+-    "r_clavicle",
++const TORSO_JOINTS: [RigJointName; 8] = [
++    RigJointName::ROOT,
++    RigJointName::C_SPINE0,
++    RigJointName::C_SPINE1,
++    RigJointName::C_SPINE2,
++    RigJointName::C_SPINE3,
++    RigJointName::C_NECK,
++    RigJointName::L_CLAVICLE,
++    RigJointName::R_CLAVICLE,
+ ];
+-const LIMB_JOINTS: [&str; 6] = ["uparm", "loarm", "hand", "upleg", "loleg", "foot"];
++const LIMB_JOINTS: [RigJointPart; 6] = [
++    RigJointPart::Uparm,
++    RigJointPart::Loarm,
++    RigJointPart::Hand,
++    RigJointPart::Upleg,
++    RigJointPart::Loleg,
++    RigJointPart::Foot,
++];
+ const MINIMUM_MEAN_TORSO_WEIGHT: f32 = 0.08;
+ const MAXIMUM_MEAN_LIMB_WEIGHT: f32 = 0.35;
+ 
+ /// Canonical body topology and skin ownership, before any equipment is fitted.
+ pub struct TorsoSkinDomain<'a> {
+     pub faces: &'a [[u32; 3]],
+-    pub joint_indices: &'a [[u32; 8]],
++    pub joint_indices: &'a fabelgeist_rig::PackedRigSkin<8>,
+     pub joint_weights: &'a [[f32; 8]],
+-    pub joint_names: &'a [String],
++    pub joint_names: &'a fabelgeist_rig::RigJointTable<RigJointName>,
++}
++
++struct JointSkinOwnership {
++    torso: RigJointMembership,
++    limb: RigJointMembership,
+ }
+ 
+ impl TorsoSkinDomain<'_> {
+     /// Original body triangle identities, in input order, including duplicate
+@@ -32,25 +45,29 @@
+     pub fn triangle_indices(&self) -> Result<Vec<u32>> {
+         ensure!(
+             self.joint_indices.len() == self.joint_weights.len()
+                 && !self.joint_names.is_empty()
++                && self.joint_indices.joint_count() == self.joint_names.joint_count()
+                 && self.faces.len() <= u32::MAX as usize
+                 && self
+                     .faces
+                     .iter()
+                     .flatten()
+                     .all(|&vertex| { (vertex as usize) < self.joint_indices.len() }),
+             "torso skin domain has inconsistent topology"
+         );
+-        let torso = self
++        let ownership: fabelgeist_rig::RigJointTable<_> = self
+             .joint_names
+             .iter()
+-            .map(|name| TORSO_JOINTS.contains(&name.as_str()));
+-        let limbs = self
+-            .joint_names
+-            .iter()
+-            .map(|name| LIMB_JOINTS.iter().any(|limb| name.contains(limb)));
+-        let ownership: Vec<_> = torso.zip(limbs).collect();
++            .map(|name| JointSkinOwnership {
++                torso: RigJointMembership::from(TORSO_JOINTS.contains(name)),
++                limb: RigJointMembership::from(
++                    LIMB_JOINTS
++                        .iter()
++                        .any(|part| name.contains_part(*part) == RigJointMembership::Included),
++                ),
++            })
++            .collect();
+         let weights = self
+             .joint_indices
+             .iter()
+             .zip(self.joint_weights)
+@@ -60,15 +77,15 @@
+                     ensure!(
+                         weight.is_finite() && (0.0..=1.0).contains(&weight),
+                         "invalid torso skin weight"
+                     );
+-                    let Some(&(torso, limb)) = ownership.get(joint as usize) else {
++                    let Some(ownership) = ownership.get(joint) else {
+                         anyhow::bail!("torso skin references a missing joint");
+                     };
+-                    if torso {
++                    if ownership.torso == RigJointMembership::Included {
+                         totals[0] += weight;
+                     }
+-                    if limb {
++                    if ownership.limb == RigJointMembership::Included {
+                         totals[1] += weight;
+                     }
+                 }
+                 Ok(totals)
+@@ -102,29 +119,36 @@
+     use super::*;
+ 
+     #[test]
+     fn retains_original_face_identity_and_excludes_limb_dominated_skin() {
+-        let names = vec!["c_spine3".into(), "l_uparm".into()];
++        let names: fabelgeist_rig::RigJointTable<_> =
++            vec!["c_spine3".into(), "l_uparm".into()].into();
+         let indices = [[0; 8], [0; 8], [0; 8], [1; 8], [1; 8], [1; 8]];
+         let weights = [[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 6];
+         let domain = TorsoSkinDomain {
+             faces: &[[3, 4, 5], [0, 1, 2], [0, 1, 2]],
+-            joint_indices: &indices,
++            joint_indices: &fabelgeist_rig::PackedRigSkin::from_native(
++                indices.to_vec(),
++                names.joint_count(),
++            )
++            .unwrap(),
+             joint_weights: &weights,
+             joint_names: &names,
+         };
+         assert_eq!(domain.triangle_indices().unwrap(), vec![1, 2]);
+     }
+ 
+     #[test]
+     fn malformed_skin_and_missing_support_return_errors() {
+-        let names = vec!["l_hand".into()];
++        let names: fabelgeist_rig::RigJointTable<_> = vec!["l_hand".into()].into();
+         let mut indices = [[0; 8]; 3];
+         let mut weights = [[1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]; 3];
+         let selected = |faces: &[[u32; 3]], indices: &[[u32; 8]], weights: &[[f32; 8]]| {
++            let indices =
++                fabelgeist_rig::PackedRigSkin::from_native(indices.to_vec(), names.joint_count())?;
+             TorsoSkinDomain {
+                 faces,
+-                joint_indices: indices,
++                joint_indices: &indices,
+                 joint_weights: weights,
+                 joint_names: &names,
+             }
+             .triangle_indices()
+@@ -139,15 +163,20 @@
+     }
+ 
+     #[test]
+     fn mixed_shoulder_skin_keeps_the_fitting_domains_thresholds() {
+-        let names = vec!["c_spine3".into(), "l_uparm".into(), "c_head".into()];
++        let names: fabelgeist_rig::RigJointTable<_> =
++            vec!["c_spine3".into(), "l_uparm".into(), "c_head".into()].into();
+         let indices = [[0, 1, 2, 0, 0, 0, 0, 0]; 3];
+         let selected = |torso: f32, limb: f32| {
+             let weights = [[torso, limb, 1.0 - torso - limb, 0.0, 0.0, 0.0, 0.0, 0.0]; 3];
+             TorsoSkinDomain {
+                 faces: &[[0, 1, 2]],
+-                joint_indices: &indices,
++                joint_indices: &fabelgeist_rig::PackedRigSkin::from_native(
++                    indices.to_vec(),
++                    names.joint_count(),
++                )
++                .unwrap(),
+                 joint_weights: &weights,
+                 joint_names: &names,
+             }
+             .triangle_indices()

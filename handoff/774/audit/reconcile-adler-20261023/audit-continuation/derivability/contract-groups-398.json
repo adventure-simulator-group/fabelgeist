@@ -1,0 +1,334 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-398",
+  "at": "2026-10-25T15:16:11.164206+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 773,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/shell.rs",
+      "sha256": "6d0c444527f9a25d6aaf8e23e15ab8d973c489f6edb3a75429444c15c4132038",
+      "actual_EOF": 80,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-character-creator/src/export/shell.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-character-creator/src/export/shell.rs",
+        "sha256": "6d0c444527f9a25d6aaf8e23e15ab8d973c489f6edb3a75429444c15c4132038",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 3340,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 34,
+            "read_ranges": [
+              [
+                1,
+                80
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-EXPORT-013",
+              "RIG-OWNER-FIT-011"
+            ],
+            "read_status": "fresh-current-lens-full-source-read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-character-creator/src/export/shell.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-022",
+            "json_pointer": "/fresh_current_source_reads/2",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-character-creator/src/export/shell.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                80
+              ]
+            ],
+            "source_context": {
+              "assigned_index": 366,
+              "source_id": "pr-working:crates/adventuresim-character-creator/src/export/shell.rs",
+              "sha256": "6d0c444527f9a25d6aaf8e23e15ab8d973c489f6edb3a75429444c15c4132038",
+              "read_ranges": [
+                [
+                  1,
+                  80
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1424,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          80
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full registered80-line source native borrowed Writer with append12\u201380 assigning GLB/native accessor/material/UV/skin cohort views and invoking native texture writer. No handwritten trait/codec. Frozen fallback UV behavior historical other-lens evidence retained,780 successor verification separate; no current fix/coverage transfer."
+    },
+    {
+      "scope_index": 774,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/skeleton.rs",
+      "sha256": "ac761936db58c742f2c58ab7381b8e26a8b6f819bfb91c0b29c54170fe96abff",
+      "actual_EOF": 69,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-character-creator/src/export/skeleton.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-character-creator/src/export/skeleton.rs",
+        "owner": "rig",
+        "sha256": "ac761936db58c742f2c58ab7381b8e26a8b6f819bfb91c0b29c54170fe96abff",
+        "base_sha256": "da6245f3ee1da144acee99664c8a192daeac6438fd41f423bdcf9e4ea5d6950a",
+        "state": "modified",
+        "bytes": 2564,
+        "audit_owner": "rig",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/sources.json",
+            "ranges": [
+              [
+                1,
+                69
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-EXPORT-01"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 84,
+            "read_ranges": [
+              [
+                1,
+                69
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-EXPORT-013",
+              "RIG-OWNER-COLOR-014"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-character-creator/src/export/skeleton.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full exact69-line source nodes4\u201343 semantic native parent/hierarchy/local transform/optional proportion assembly, validate_proportions45\u201355 and append_attachment58\u201369 ordered rig update. No handwritten trait/codec; native serializer geometry/index mapping not record derive."
+    },
+    {
+      "scope_index": 775,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/skinning.rs",
+      "sha256": "7ddf91c41655775cc2ac55844fa884d4f06dd8ba6951ee0d45b4550bbde5b199",
+      "actual_EOF": 63,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-character-creator/src/export/skinning.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-character-creator/src/export/skinning.rs",
+        "owner": "rig",
+        "sha256": "7ddf91c41655775cc2ac55844fa884d4f06dd8ba6951ee0d45b4550bbde5b199",
+        "base_sha256": "9f6b50a0ddc29348fe632b50276bb13dbfb9d86d008ce9379868f4f496b6e4f4",
+        "state": "modified",
+        "bytes": 1997,
+        "audit_owner": "rig",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/sources.json",
+            "ranges": [
+              [
+                1,
+                63
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-EXPORT-01"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 85,
+            "read_ranges": [
+              [
+                1,
+                63
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-EXPORT-013",
+              "RIG-OWNER-COLOR-014"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-character-creator/src/export/skinning.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          63
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full exact63-line source native append4\u201333 strongest-four skin/checked u16/endian buffer projection; fixture35\u201363 read not run. No handwritten trait/type/codec; semantic weight selection/narrowing not generic derive."
+    },
+    {
+      "scope_index": 776,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/export/sockets.rs",
+      "sha256": "d51e531f136697d43d673cc1e6d16764b2c6fd35661d83d9a46b45a4eb5facdf",
+      "actual_EOF": 57,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-character-creator/src/export/sockets.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-character-creator/src/export/sockets.rs",
+        "owner": "rig",
+        "sha256": "d51e531f136697d43d673cc1e6d16764b2c6fd35661d83d9a46b45a4eb5facdf",
+        "base_sha256": "25beceaf64809a2204bac9287db8b41f8dd1236c99d77b7f826351c0db92cdc4",
+        "state": "modified",
+        "bytes": 2224,
+        "audit_owner": "rig",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/sources.json",
+            "ranges": [
+              [
+                1,
+                57
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-EXPORT-01"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 86,
+            "read_ranges": [
+              [
+                1,
+                57
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-EXPORT-013",
+              "RIG-OWNER-COLOR-014"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-character-creator/src/export/sockets.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full exact57-line source only checked native socket append8\u201357 resolved root ordinal/context, transform conversion/optional JSON hierarchy mutation and borrowed identity. No handwritten trait/typecodec; semantic native index/root selection not raw derive."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "native GLB shell/skeleton/skin/socket encoding",
+      "disposition": "No handwritten trait boilerplate; preserve semantic native hierarchy, checked narrowing and dynamic/indexed GLB view construction.",
+      "acceptance": "No generic derive/API changing native validation/borrow/wire representation, no fixture/export run or other-lens closure."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 777,
+    "source_id": "pr-working:crates/adventuresim-character-creator/src/export/textures.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

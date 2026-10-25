@@ -1,0 +1,91 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-003",
+  "at": "2026-10-22T18:58:16.740176+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_abutments.rs",
+      "sha256": "13371703dd83b55b1536cde9ee3fadd4a768080d6a2cb5d4c0b678cd8cea19c6",
+      "actual_read_ranges": [
+        [
+          1,
+          251
+        ]
+      ],
+      "registration_ref": "scope016existingrole"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+      "sha256": "be333fcb0e9e981f14bcbccb3decbda82d7ad87fd758d1f3dbc75b311ca345cd",
+      "actual_read_ranges": [
+        [
+          1,
+          277
+        ]
+      ],
+      "registration_ref": "scope016existingrole"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/framed_roofs.rs",
+      "sha256": "a59c1c293c17b206f5608ab7911c49309758f10c5c16101742cdbc6fcbe8a54b",
+      "actual_read_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "registration_ref": "ROOT-INITIAL04-REG001"
+    }
+  ],
+  "groups": {
+    "abutment-operations": {
+      "source": "pr-working:crates/adventuresim-building-generator/src/generator/roof_abutments.rs",
+      "trace": "Fresh full251. edge_indices comes exact current immutableenumeration then each borrowededge safe; sampleslen/firstedge monotonic peredge, drainbase valid. station_count nominal>=1 so nominaldenominatornonzero, butfinite/narrowingcapacity F002. ID bitallocation F001. Perstation3 successfulsolid pushes precede len-3 slice, so slice safe on thatpath; failedconstructor returns before slice, no inventedunderflow. Arithmeticcentre/span/crossfall/nativevectors readmitted by CollisionCuboid/SpatialBounds for publishedphysicalsolids/interfaces, but raw sample/inlet/outlet/route andIDs notwholegraphvalidated by thisfunction. Result failures afteroldflashing removal49 or earlier successfulpushes leave mutablereceiver changed; thisis local nontransactionality, not an establishedpublishedbuilding failure. Samplecleanup removesfailededge solids/interfaces andtruncates junctionbonds but reliesuniqueIDs. Norm/atan/lerp arithmetic/range is notmadefinite merelybyhavingfinite start/end. min/maxsample selection hasSomeguards; checkedothergeometryfunctions remain owncells.",
+      "disposition": "F001/F002 concrete representable API cases; localpartialstate qualification callerpending; no runtimeclaim."
+    },
+    "assembly-operations": {
+      "source": "pr-working:crates/adventuresim-building-generator/src/generator/roof_assemblies.rs",
+      "trace": "Freshfull277. Original roofs andassemblies maintainonepushperrecipe inearlyloopbeforeadditionalappend; guardedfirstparent +index1..roofs.len establishesearlydynamicindices. Rawindex asu32 and IDoffset arithmetic requireindependentcapacity/disjointnessF001, notprovenby word-widthnewtype. Physicaloverlap andheight operations canoverflow finiteoperands; boundsconstructor laterrejects some, no repairallRawRoofPiece here. Childfaces[0]218 unguarded inlocalbody, relies resolve_one_roofnonemptyplane contract (calleeowncellpending), no declaredactualpanic. Childparent/phase mutated56-57 beforefalliblebounds/cuts; Geometry mutablethroughhelpers andsquaredtowercut. Native05selfparent conditional path independentlyconfirmed: no principalroofs andonevalidsquaretower =>firstassembly equalschild0; ifinterveninggeometrysucceeds parent_id175==child.id, thenparentSome(self)258. Noactualnormalprogram/run. Preserve standaloneprimarytower or rejectinappropriateattachment fromactualparentcontext. Finalhelper sequence remains fallible withmutablereceiver, notwholeatomicacceptance.",
+      "disposition": "Identifier capacity F001; qualifiedconditionalselfparent support andnontransactionalbuilding stages, currentcallerpublicationpending."
+    },
+    "immediate-caller": {
+      "source": "pr-working:crates/adventuresim-building-generator/src/generator/framed_roofs.rs",
+      "trace": "Fresh exact46 AFTERREG001; firstprematuredisplayuncredited. Caller resolve forwards callerowned mutableGeometry to roof_assemblies then tofrontopenings andtimberframe, propagates?each; locallycreatedroofassemblies only returned onallthree success. Thus no acceptedroofvector returned onErr, but no rollback of passedgeometry/walls/openings/stairs isimplementedhere. ThisdoesNOTproveoutsidecallerpublishesfailedgeometry; ultimatebuilder mayuse throwawaylocalstate, mustcheck beforedefectclaim. No own arithmetic/indexing/uncheckedleafconstruction or retryclock. Native?retains GenerationError unchanged.",
+      "disposition": "No added atomicity defect atthissource; sourcequalifiedpending ultimatepublicationcontext, no newtest/foreignhelpercredit."
+    }
+  },
+  "findings": [
+    {
+      "id": "ROOT-INITIAL04-F001",
+      "class": "defect_representable_generation_api; actual_runtime_input_not_established",
+      "sources": [
+        "pr-working:crates/adventuresim-building-generator/src/generator/roof_abutments.rs",
+        "pr-working:crates/adventuresim-building-generator/src/generator/roof_assemblies.rs"
+      ],
+      "operation": "Truncating/masking and fixed-offset ID allocation does not preserve uniqueness across admitted independent indices/counts.",
+      "counterexample": "roof_abutments55 masks station&0xFF and edge_index&7: same assembly edge0 stations0 and256 yield identical serial/base andupstand/counter/interface IDs; e.g finite57m edge yields station_count>=256 if hosts exist. Edge0 and8 similarlyalias. Independent unbounded primaryid=index+1 versusroundtower2000+index andsquaretower3000+index canoverlap; source arrays have no namespace-capacity admission inthisbody. No particular authoredrecipe or committedduplicate geometry asserted.",
+      "consumer": "solids.push90, supportinterfaces105 andsamples116 retaintheseIDs; rejected-IDcleanup168-175 mayremoveearlieritems withsameID. Primary/child ID lookup andlinks canselect wrongassembly ifallocationcollides.",
+      "repair_acceptance": "Use one coherent checked unique-ID allocation context across full generation and retained references, or explicitly checked representable encoding with capacity guarantees at actual producer. Preserve deterministic IDs/draw order for all supported existing inputs where feasible; do not silentlymask/truncate, impose arbitrary eightedge/256station gameplay limits, or add compatibilityIDs. Reuse canonical typedindex/identity owner where present.",
+      "related_other_lens": "Native05F002 source independently freshread for04; no acceptance imported."
+    },
+    {
+      "id": "ROOT-INITIAL04-F002",
+      "class": "contract_strengthening_concrete_finite_operand_counterexample; current_authored_path_not_established",
+      "source": "pr-working:crates/adventuresim-building-generator/src/generator/roof_abutments.rs",
+      "operation": "Finite raw endpoints do not prove finite norm or bounded inclusive station work.",
+      "counterexample": "Endpoints x=-f32::MAX,+f32::MAX are individuallyfinite, subtraction33 overflowsInf, length34 Inf, ceil(... )asusize35 saturates to usizeMAX; no finite/count-capacity check precedes inclusive0..=station_count. Longfinite nonoverflowednorm can also exceedusize samplingcapacity. Downstream cuboid/bounds gates mayreject if reached, but cannotestablish finitepreloop work. No executedhang, ordinaryasset, or nativehost response claimed.",
+      "consumer": "t division38, lerp39 and station_count+1 at148 inherit count/nativekernel state. hostNone cancontinue sampling withouta rejecting geometryconstructor; allpossiblehost behavior not examinedhere.",
+      "repair_acceptance": "Admit derived displacement/norm and checked supported station count before loop/allocation/ID computation; reject unsupported finite geometry explicitly with canonical GenerationError and preserve native accepted sampling for supported inputs. No fallback minimum/NaN max as admission policy."
+    }
+  ],
+  "new_role_admission03_comparison": {
+    "source": "pr-working:crates/adventuresim-building-generator/src/generator/framed_roofs.rs",
+    "trace": "Explicitseparate03analysis: no newbespokeleafowner/rawdeserializer/constructor/Self/unsafevalueentryin46. Publicsuper domainoperation accepts existingcompositeBuildingProgram/edits/rawroofrecipecollections+mutablegeometry, forwards themunchanged to existingactualcallee andstructuredGenerationError. Ownreturnedpositional(Vec<RoofAssembly>,Option<TimberFrame>) israwcomposite migrationgap alreadyexistingconnectedroofgraph scope, no checkedacceptedgraphcertificate createdhere. No mereprivateboundaryjustification.",
+    "disposition": "Exactnewrole03admissioncomparedWITH_FINDINGS_sharedroofgraph; no wholecallee or otherlenscredit"
+  },
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "project_execution": 0,
+  "source_edits": 0,
+  "other_lens_credit": false
+}

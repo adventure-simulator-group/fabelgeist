@@ -1,0 +1,93 @@
+pub mod alcohol;
+mod browser_session;
+pub mod capability;
+pub mod character;
+pub mod condition;
+pub mod continuity;
+pub mod corpse;
+pub mod disease;
+pub mod equipment_law;
+pub mod filth;
+pub mod food;
+pub mod foraging;
+pub mod herbalism;
+pub mod inventory_amount;
+pub mod inventory_container;
+pub mod investigation;
+pub mod item;
+pub mod local_problem;
+pub mod npc_adventurer;
+pub mod npc_causal;
+pub mod object_custody;
+pub mod organization;
+pub mod outbreak;
+pub mod personality;
+pub mod relationship;
+pub mod repair;
+pub mod reputation;
+pub mod residence;
+pub mod settlement_population;
+pub mod simulation;
+pub mod smithing;
+pub mod social;
+pub mod social_roles;
+pub mod strategic;
+pub mod surgery;
+pub mod tactical;
+pub mod time;
+pub mod weapon_instance;
+pub mod world_actor;
+pub mod world_event;
+
+pub use alcohol::*;
+pub use browser_session::*;
+pub use capability::*;
+pub use character::*;
+pub use condition::*;
+pub use continuity::*;
+pub use corpse::*;
+pub use disease::*;
+pub use equipment_law::*;
+pub use filth::*;
+pub use food::*;
+pub use foraging::*;
+pub use herbalism::*;
+pub use inventory_amount::*;
+pub use inventory_container::*;
+pub use investigation::*;
+pub use item::*;
+pub use local_problem::*;
+pub use npc_adventurer::*;
+pub use npc_causal::*;
+pub use object_custody::*;
+pub use organization::*;
+pub use outbreak::*;
+pub use personality::*;
+pub use relationship::*;
+pub use repair::*;
+pub use reputation::*;
+pub use residence::*;
+pub use settlement_population::*;
+pub use simulation::*;
+pub use smithing::*;
+pub use social::*;
+pub use social_roles::*;
+pub use strategic::*;
+pub use surgery::*;
+pub use tactical::*;
+pub use time::*;
+pub use weapon_instance::*;
+pub use world_actor::*;
+pub use world_event::*;
+
+/// Return the production portion of a source file for architecture tests.
+///
+/// Source-boundary tests must not match their own assertion strings. Modules
+/// keep their test module last, so the final `#[cfg(test)]` marker is the
+/// stable boundary between implementation and the assertions about it.
+#[cfg(test)]
+pub(crate) fn production_source(source: &str) -> &str {
+    source
+        .rsplit_once("\n#[cfg(test)]")
+        .map_or(source, |(production, _)| production)
+}

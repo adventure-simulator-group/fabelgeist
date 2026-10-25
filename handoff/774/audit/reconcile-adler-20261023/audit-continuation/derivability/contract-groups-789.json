@@ -1,0 +1,61 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-789",
+  "at": "2026-10-25T16:50:41.194316+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1009,
+  "source_id": "pr-working:crates/adventuresim-core/src/strategic_inventory.rs",
+  "sha256": "d271b63418f6ef51f276ab1e383bb534724f08ae106ffd7285f530e0308fef3e",
+  "actual_compared_ranges": [
+    [
+      1,
+      240
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "Display + Error",
+      "type": "PaymentPlanError/MerchantProviderError/UnknownMerchantService",
+      "lines": [
+        [
+          102,
+          113
+        ],
+        [
+          142,
+          154
+        ],
+        [
+          188,
+          194
+        ]
+      ],
+      "disposition": "OPTIONAL F002 exact literal thiserror equivalence/source None"
+    },
+    {
+      "trait": "TryFrom",
+      "type": "MerchantProviderId/TradeQuantity",
+      "lines": [
+        [
+          125,
+          133
+        ],
+        [
+          206,
+          213
+        ]
+      ],
+      "disposition": "KEEP checked narrowing/error mapping"
+    }
+  ],
+  "analysis": [
+    "PaymentPlanError102\u2013113, MerchantProviderError142\u2013154 and UnknownMerchantService188\u2013194 have exact fixed literal Display/empty Error; optional F002 existing thiserror equivalent with source None.",
+    "MerchantProviderId TryFrom125\u2013133 checks nonzero and maps exact InvalidIdentifier; TradeQuantity TryFrom206\u2013213 uses ItemQuantity nonzero gate and exact ZeroQuantity error. Preserve manual checked narrowing, not From/raw construction. All records structural derives already; payment source selection/native getters and merchant cohort uniqueness/route are semantic."
+  ],
+  "first_unfinished": {
+    "scope_index": 1009,
+    "line": 241
+  },
+  "execution": "none"
+}

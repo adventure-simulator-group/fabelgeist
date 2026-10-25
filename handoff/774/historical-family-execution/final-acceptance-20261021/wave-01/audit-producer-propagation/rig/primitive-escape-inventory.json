@@ -1,0 +1,359 @@
+{
+  "id": "RIG-PRIMITIVE-PORTS-01",
+  "lens": "audit-producer-propagation",
+  "scope": "All191assignedpinnedvariantsandmateriallyaffectedunchangedreceivers; exactmetadatahashes/rangesinsources+additionalsources. Groupedonlyidenticalprovenreceivingreasons.",
+  "rows": [
+    {
+      "id": "joint-label-text",
+      "escapes": "RigJointName::{AsRef<str>,Display,Serialize}; name fragments",
+      "actual_receiving_path": "Ownerlexicalmhr/member/equality andactualserde/glTF/diagnosticlabels; canonicalidentityretainedoninternalAPIs. FbxObjectName directintoRigNameclonesinsideformatowner.",
+      "trace_refs": [
+        "RIG-IDENTITY-01",
+        "FBX-NAME-01",
+        "RIG-EXPORT-01",
+        "RIG-HAIR-01"
+      ],
+      "disposition": "intentional proven boundary"
+    },
+    {
+      "id": "joint-ordinal-native-index",
+      "escapes": "RigJointOrdinal From/Into<usize>,checkedTryFrom<u32>,RigJointTable get/Index/indexed",
+      "actual_receiving_path": "NativeVecindexingonlyinsidecanonicaltable; typedordinalcrossesapplicationcolumnAPIs. ActualFKTensorDatai32gatheradapterhascheckednarrowingandBurnselect/select_assignreceiver.",
+      "trace_refs": [
+        "RIG-ORDINAL-01",
+        "RIG-COLUMN-01",
+        "MHR-FK-01"
+      ],
+      "disposition": "intentional proven boundary"
+    },
+    {
+      "id": "typed-skin-internal-word-loss",
+      "escapes": "parse_skin ordinal->u32 internalrow104->PackedRigSkin::from_native110",
+      "actual_receiving_path": "No externalnativewritebetween; actualtypedordinalalreadyknownfromclusterresolution50/83. Typedrowpushrepairrequired.",
+      "trace_refs": [
+        "RIG-PP-001"
+      ],
+      "disposition": "migration gap"
+    },
+    {
+      "id": "typed-column-bad-cast",
+      "escapes": "Dressing::new97 androotanimefixture213",
+      "actual_receiving_path": "TypedRigJointOrdinalasusizeinvalid; rootanimecollectsnativeu32thenwrongusizeIndextypedtable. Theseareactualmissedreceivers, notproofthatrawindexingAPIshouldbeadded.",
+      "trace_refs": [
+        "RIG-CODE-003",
+        "ROOT-CODE-001",
+        "ROOT-PP-FIXTURE-014"
+      ],
+      "disposition": "actionable defect"
+    },
+    {
+      "id": "skin-native-packed-ports",
+      "escapes": "PackedRigSkin::native_words; RigInfluences::native_u16",
+      "actual_receiving_path": "ActualGPU BufferUpload forbody/underlayers; actualBevyUint16x4attribute; actualglTFu16LEencoder; reviewJSONfile; existinglowlevelmemory/assertionfixtures. Everyknownscopedoccurrencereceivingbodyread.",
+      "trace_refs": [
+        "RIG-PACKED-01",
+        "RIG-ARMOR-SKIN-01",
+        "RIG-DEVICE-NATIVE-01",
+        "RIG-EXPORT-01",
+        "RIG-RUNTIME-02"
+      ],
+      "disposition": "intentional proven boundary"
+    },
+    {
+      "id": "rig-column-native-slice",
+      "escapes": "RigJointTable::as_native_slice",
+      "actual_receiving_path": "MHRpositions/prerotations/inversebindconcat->TensorData;GPUbodyjointstateBufferUpload;GPUregionmembershipmaskBufferUpload;preview.joints->BevySkinnedMeshentitylist. No intermediateprimitivejointidentitystate.",
+      "trace_refs": [
+        "MHR-TENSOR-01",
+        "RIG-PREVIEW-01",
+        "CREATOR-SUPPORT-01",
+        "RIG-RUNTIME-01"
+      ],
+      "disposition": "intentional proven boundary"
+    },
+    {
+      "id": "rig-count-port",
+      "escapes": "RigJointCount::{len,is_empty,from_native_joint_count}",
+      "actual_receiving_path": "ActualsourceextentfromRigJointTable usednativejointmatrixshapesandreadbacksingleadmission; explicitauthorednumericalfixturesretainoriginalextent. Countdoesnotproveriginstanceidentity; no productionmaxword+1 fabricatedextentobserved.",
+      "trace_refs": [
+        "RIG-PACKED-01",
+        "RIG-RUNTIME-01",
+        "ROOT-PP-FIXTURE-014"
+      ],
+      "disposition": "intentional proven boundary"
+    },
+    {
+      "id": "typed-gpu-uniform-joints",
+      "escapes": "RigPassParameters::insert_joint; FrameLandmark::device_word; Word::Joint",
+      "actual_receiving_path": "Typedjointrole+ordinalresolveuntilcheckedu32wordattheactualreflectedPassParametersuniformpack; exactWGSLfieldreceiversread. Unused0ispaddingonlyasadvertised; independentrule/slotspermitaggregatecounterexampleforlaterlens.",
+      "trace_refs": [
+        "CREATOR-UNIFORM-01",
+        "RIG-DEVICE-NATIVE-01"
+      ],
+      "disposition": "intentional proven boundary"
+    },
+    {
+      "id": "native-gpu-byte-upload",
+      "escapes": "BufferUpload::from_elements; PassParameter Number/Unsigned encodings",
+      "actual_receiving_path": "Actualbytemuck::cast_slice ->borrowedbytes->wgpuQueue::write_buffer; fallbackandfastuniformlittle-endianpackersactualbodiesread. Neitherhelperprivacynorcommentusedasboundaryproof.",
+      "trace_refs": [
+        "RIG-PRIMITIVE-PORTS-01",
+        "CREATOR-UNIFORM-01"
+      ],
+      "disposition": "intentional proven boundary"
+    },
+    {
+      "id": "model-name-text-producer",
+      "escapes": "BodyProportion::mhr_parameter staticstr->ModelParameterName",
+      "actual_receiving_path": "BothCreator model_parameters andjoint_bases reconstructinternalcanonicalidentity. Underlayerproportionlabel88onlyformatsdiagnostics, separatelegitlabelreceiver.",
+      "trace_refs": [
+        "RIG-PP-002"
+      ],
+      "disposition": "migration gap"
+    },
+    {
+      "id": "mhr-native-layout-ports",
+      "escapes": "ModelParameterColumn::native_index; JointParameterTable::tensor_values;ParameterMatrix::tensor_transpose;ModelParameterRow::as_slice",
+      "actual_receiving_path": "ActualcoefficientVec indexing/densematrixmemory/nativeTensorData andexistingnumericassertions. Names/channels/rows/columns otherwise typedandordered; native tensor outputs admittedatactualCreatorreadbackcount/shape.",
+      "trace_refs": [
+        "MHR-LAYOUT-01",
+        "MHR-TENSOR-01",
+        "CREATOR-SKELETON-01"
+      ],
+      "disposition": "intentional proven boundary"
+    },
+    {
+      "id": "fbx-duration-getter",
+      "escapes": "FbxAnimationDuration::seconds",
+      "actual_receiving_path": "FullScene::takesadmissionandTakefieldread. Noinrepotakeconsumer/rawgettercallobserved; publicgetterinventoriedwithoutfabricatednativeendpoint. NativeCurvekeyf64interpolationnotthesametype.",
+      "trace_refs": [
+        "FBX-DURATION-01"
+      ],
+      "disposition": "non-applicable"
+    },
+    {
+      "id": "fbx-wire-tags-and-ids",
+      "escapes": "FbxArrayEncoding rawwireu32,reported_code; FBXObjecti64IDs",
+      "actual_receiving_path": "ActualbinaryReader/ZlibDecoder/densearray/nativeconnectiongraph; IDsresolveintorigordinalonce. Rejectedwirecodeinerrorisactualdiagnosticnativeevidence.",
+      "trace_refs": [
+        "FBX-ARRAY-01",
+        "MHR-FBX-01",
+        "MHR-SKIN-01"
+      ],
+      "disposition": "intentional proven boundary"
+    },
+    {
+      "id": "millimetre-leaf-conversion",
+      "escapes": "Millimeters::signed_length ->SignedLength::from_millimetres",
+      "actual_receiving_path": "Owningu16leafdirectpromotion/divisionf32::from(u16)/1000.0; callergetscheckedcontinuouslength. Scaled_by3.0keepscheckedleafthenrechecksfiniteactualproduct; no callerpeel/re-admit.",
+      "trace_refs": [
+        "ARMOR-LENGTH-01",
+        "ROOT-PP-GEOMETRY-001"
+      ],
+      "disposition": "intentional proven boundary"
+    },
+    {
+      "id": "authored-span-constant-producer",
+      "escapes": "FAULD_DROP_M,TASSET_RISE_M,SHOULDER_LIFT_M rawconstf32->lateSignedLength",
+      "actual_receiving_path": "Authoredinternaloffsetpolicyproducerisrawbeforetypedspanconstructor; noexistingcheckedinputwaspeeled. Retainedcandidateshouldreconcileauthoredliteral-ownerpolicyinlaternumber/ownershiplenses; distinctfromprovencheckedMillimetersleafconversion.",
+      "trace_refs": [
+        "RIG-PP-003"
+      ],
+      "disposition": "migration gap"
+    },
+    {
+      "id": "continuous-length-and-reach-native-ports",
+      "escapes": "SignedLength::metres;JointReachTarget Ratio::get;GarmentSpecification offset getter",
+      "actual_receiving_path": "ActualWord::F/PassParameters nativeuniformandnativeposition+normalXYZkernel. UptothatpointSpan/Specificationrecordskeepnamedcheckedleaves.",
+      "trace_refs": [
+        "CREATOR-UPRIGHT-01",
+        "RIG-CLOTHING-01",
+        "RIG-DEVICE-FIT-02"
+      ],
+      "disposition": "intentional proven boundary"
+    },
+    {
+      "id": "discrete-design-unit-native-ports",
+      "escapes": "Millimeters::metres/.0;Permille::unit/.0;Milliradians::radians",
+      "actual_receiving_path": "Actualnativefitting/clippingcoordinatearithmetic,Egui editing/serdeandGPUdesignvectors/slotencoding; angleprojectionsinpauldron/helmet/jointcupreachedbodyandsinglePartRecipe::recordBufferUpload99read. No sameownerre-admissionidentifiedinthisgraph; otherlensesmustassessloosepublictuplemutability/granularity.",
+      "trace_refs": [
+        "ARMOR-LENGTH-01",
+        "RIG-DEVICE-NATIVE-01",
+        "RIG-PRIMITIVE-PORTS-01"
+      ],
+      "disposition": "intentional proven boundary"
+    },
+    {
+      "id": "armor-error-native-evidence",
+      "escapes": "GenerateError::SabatonTrimExceedsFoot cutaway_m/available_span_m",
+      "actual_receiving_path": "Actualdevice_sabaton::record_sabaton_fit cutawaynativeuniformvaluecapturedonlyforDeviceCheck failurediagnostic; GPUframereadbackspanmultipliedbytrimsharethenDisplayerror. Nointernaltypeconstructionfromerrorpayload. Otherlensescanassesserrorleafownershipwithoutinventingroundtrip.",
+      "trace_refs": [
+        "ARMOR-ERROR-01",
+        "RIG-DEVICE-FIT-02"
+      ],
+      "disposition": "intentional proven boundary"
+    },
+    {
+      "id": "candidate-status-native-ports",
+      "escapes": "WGSLpresentflags,cursorpayload,FIT_FAILED,candidate_status",
+      "actual_receiving_path": "ActualshadernativepresencegatesallpayloadreadsandfailurewordpropagationthroughDevicePartread/errorreceivers. WGSLnativearithmetic/layoutpreserved; Rustapplicationabsenceisexplicit.",
+      "trace_refs": [
+        "CREATOR-CANDIDATE-01",
+        "RIG-DEVICE-FIT-02",
+        "RIG-DEVICE-NATIVE-01"
+      ],
+      "disposition": "intentional proven boundary"
+    },
+    {
+      "id": "catalogue-retained-map-keys",
+      "escapes": "CatalogItem.id.to_owned /defaultsStringmaps",
+      "actual_receiving_path": "ActualLoadedArmorDesigns/CatalogDesignsset_defaultdropcheckedidentityforretainedapplicationlookup; laterDesignPathsserdewriteisnotimmediatereceiver.",
+      "trace_refs": [
+        "RIG-PP-005"
+      ],
+      "disposition": "migration gap"
+    },
+    {
+      "id": "catalogue-inventory-retained-keys",
+      "escapes": "CatalogArticle::new rawitem/placement fields",
+      "actual_receiving_path": "Actualacquisitioncanonicalhandle->rawrecord->repeatedresolveacrosswear/design/occupancy/loadout/editor; defaultrecipeandloadedwireboundariesreadandrepairmustremainexplicit.",
+      "trace_refs": [
+        "RIG-PP-007"
+      ],
+      "disposition": "migration gap"
+    },
+    {
+      "id": "catalogue-runtime-retained-keys",
+      "escapes": "RuntimeEquipmentPresentation rawStringitem/placement",
+      "actual_receiving_path": "ActualECSproducerresolvesforboolclassificationthenclonesstrings; generation/FitKeyre-resolvesinternalstate. WireItemPropertiesdistinctfromapplicationpresentation.",
+      "trace_refs": [
+        "RIG-PP-010"
+      ],
+      "disposition": "migration gap"
+    },
+    {
+      "id": "private-membership-and-cache-backing",
+      "escapes": "EquipmentItemSelection privateVec<str>;LayerSelectionprivatepair;BodyShapeKeybits;StudioCachebytes",
+      "actual_receiving_path": "OwnerAPIreceivescanonical/checkedvalues; privateexactmembership/identitybits/cachebytesneverescapeforcallerreadmission. Exactduplicate-ID/-0bit/cachepolicyretained. PP004withdrawnfromfreshowner+actualcallersource; no blanketprivatehelperexemption.",
+      "trace_refs": [
+        "RIG-PP-004",
+        "RIG-RUNTIME-01",
+        "RIG-RUNTIME-02",
+        "RIG-GARMENT-05"
+      ],
+      "disposition": "intentional proven boundary"
+    },
+    {
+      "id": "catalogue-layer-borrow",
+      "escapes": "CatalogPlacement::definition ->LayerPlan",
+      "actual_receiving_path": "FullLayerPlan244doespureorderingonadmittedborrowedfields,storesprivateinputpositionsnotidentitystrings;actualcallersindexoriginalcanonicalselection. No re-admission.",
+      "trace_refs": [
+        "RIG-RECEIVER-01"
+      ],
+      "disposition": "intentional proven boundary"
+    },
+    {
+      "id": "creator-local-key-loss",
+      "escapes": "InventoryItemId.0 ->EquipmentGraphu64->InventoryItemId",
+      "actual_receiving_path": "OriginalCreatorlocalIDauthoritylostacrossCoregraphrecord/methods; allactualproduction/fixturegraphcallersread. DBpersistedgraphisadifferentauthority.",
+      "trace_refs": [
+        "RIG-PP-006"
+      ],
+      "disposition": "migration gap"
+    },
+    {
+      "id": "generated-morph-identity-loss",
+      "escapes": "SkeletalFitMorph::name->ForearmMorphSample String->from_name",
+      "actual_receiving_path": "Canonicalgeneratedpurposeerasedandlaterreparsedforbonecorrection; fullhair/armor/underlayer/draped/exportaffectedreceiversread. ArbitraryactualexternalglTFtargetnamesareseparatelegitimateinput.",
+      "trace_refs": [
+        "RIG-PP-008",
+        "RIG-RECEIVER-01",
+        "ROOT-PP-FIXTURE-014"
+      ],
+      "disposition": "migration gap"
+    },
+    {
+      "id": "character-lod-loss",
+      "escapes": "CharacterLodvalidatesanddiscarded->BodyModel/Studio/MHRConfig/Coremanifestu8->re-admit",
+      "actual_receiving_path": "Actualmainload/export/BareBodycache+UI/CLI/nativepathreceiversread; canonicalsharedownerrequired. ArmorLodsamplerroleisdifferent.",
+      "trace_refs": [
+        "RIG-PP-009",
+        "RIG-RECEIVER-01"
+      ],
+      "disposition": "migration gap"
+    },
+    {
+      "id": "hair-affine-ports",
+      "escapes": "HeadPlacement::{point,bust_point,normal,bust_normal,direction,bust_direction}",
+      "actual_receiving_path": "ActualowningaffinetransformmathimmediatelyfeedsScalpCapnativevertices,HairGeometrycarriedarraysandGPUFrameuniforms;headordinalkeepstypeduntilBevyword.",
+      "trace_refs": [
+        "RIG-HAIR-01",
+        "RIG-RECEIVER-02"
+      ],
+      "disposition": "intentional proven boundary"
+    },
+    {
+      "id": "hair-unit-arithmetic",
+      "escapes": "HairShape::apply Metres/Ratio getters",
+      "actual_receiving_path": "Actualadd/multiply/clampkernel221-225immediatelyretainsproperunit; no rawprimitiveforwardingAPIorretainedstate. Mathunitownersownnoextra numericalpolicy; NaN/shapeoperationguaranteesseparaterequiredlens.",
+      "trace_refs": [
+        "RIG-RECEIVER-02"
+      ],
+      "disposition": "intentional proven boundary"
+    },
+    {
+      "id": "hair-seed-native-hash",
+      "escapes": "HairSeed::word asu64; Ratio::ratio ->Hairdo::guides",
+      "actual_receiving_path": "Actualguide_keytwo-wordavalanchehash/Streamnativewrappingcounter andcombactualvariationlength/wandermathfullyread; no Seedre-admission. Preserve signcast/wrapping/rotationf32 policy.",
+      "trace_refs": [
+        "RIG-HAIR-NUMERIC-01"
+      ],
+      "disposition": "intentional proven boundary"
+    },
+    {
+      "id": "raw-construction-profiles",
+      "escapes": "Plate/Tiling/Lacing gettersrawmetres/holecoords/labels",
+      "actual_receiving_path": "Originalrawmutableprofilesneverhadanexistingcheckedleafproducerinthispath. Actualholescoordinates->triangulation/cordnativegeometry,maxradius->actualEgui range,namelabel->egui/stderrread. Recordforlaterexistingowners/magicnumbers/admissionlenses; notclearedbycompositevalidate.",
+      "trace_refs": [
+        "ARMOR-CONSTRUCTION-01",
+        "RIG-RECEIVER-02"
+      ],
+      "disposition": "non-applicable"
+    },
+    {
+      "id": "serialized-path-ports",
+      "escapes": "catalogueids/name/hashsurface_domain/file strings ->serde/glTF/filesystem/AssetServer",
+      "actual_receiving_path": "ActualnamedSerializedrecordsandglb::write/file/readbodyread. Manifestfile APIreachesiconpathstripsuffixandAssetServerload72, noactualproductionGLBloaderfoundthroughit. RIGPP005/007/010remainseparateinternalstatebeforeendpoints.",
+      "trace_refs": [
+        "RIG-EXPORT-ASSET-01",
+        "RIG-EXPORT-01",
+        "RIG-RECEIVER-01",
+        "RIG-RUNTIME-02"
+      ],
+      "disposition": "intentional proven boundary"
+    },
+    {
+      "id": "physical-shared-loss",
+      "escapes": "WeaponModelDerivedPropertiesrawlengthandcheckedContactPrecision.value",
+      "actual_receiving_path": "Sharedcamera CAMF002rawfirst-partyphysicsmetadataandCAMF004typedprecisiondiscard/re-admissiondemonstratedbyfullsame-waveoriginalproducer/schema/projectionread. Physicaloverlaytypedreach/dimensionsdoesnotresolveoriginalmetadataproducerorfinalintegration.",
+      "trace_refs": [
+        "RIG-PHYSICAL-CATALOG-01",
+        "CAM-PROP-F002",
+        "CAM-PROP-F004"
+      ],
+      "disposition": "migration gap"
+    },
+    {
+      "id": "native-rig-shared-math",
+      "escapes": "CoreCharacterProportions get/from_seed,JointProportionBasis translation; runtimeRigName/Table",
+      "actual_receiving_path": "ActualnativeMHRcoefficientvec/basisweightedtranslationmathread; nativeagentcanonicaljointmembership/mirror/Avian/presentationretainedtypedgraphsame-wavehasheslinkedshared-proofs. NoDBauthoritymixing.",
+      "trace_refs": [
+        "CREATOR-SKELETON-01",
+        "RIG-IDENTITY-01",
+        "NATIVE-shared-rig-proof"
+      ],
+      "disposition": "intentional proven boundary"
+    }
+  ],
+  "execution": "No source/Git changes or project/runtime/numerical execution. No acceptance PASS."
+}

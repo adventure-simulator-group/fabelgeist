@@ -1,0 +1,58 @@
+[
+  {
+    "reference": "audit/continuation/native/initial05-aggregate-states/findings.jsonl#row25",
+    "line": 26,
+    "full_record": {
+      "id": "NATIVE-INITIAL05-F024",
+      "lens": "audit-aggregate-states",
+      "classification": "overlapping geographic source can cancel missing coverage in area sum",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations.rs",
+      "sha256": "067e6669cec19996bd4cbe6fc1caf61c221b294ad11a150ccc3ca36423379797",
+      "source_ranges": [
+        [
+          319,
+          374
+        ]
+      ],
+      "relationship": "Complete support coverage and absence of source overlap are independent correlated geometry properties; equality of summed areas does not prove either.",
+      "source_counterexample": "Flat support triangle A=(0,0),B=(2,0),C=(0,2), area2. GeographicSurface::from_triangles accepts two identical flat faces A,B,M=(1,1), eacharea1. Actual clip produces eachfullhalf triangle. visit_source_intersections accumulates2 and validate_coverage discrepancy0 passes although triangle A,M,C ismissing and A,B,M isdoublycovered. No new test/execution.",
+      "actual_path": "Representable public source/foundation API acceptance weakness in actual coverage predicate; source from_triangles has no nonoverlap gate. Exact normal vista-grid source emits two propera-c faces percell, not this duplicatecounterexample. No complete normal installedbadscene/runtime claim; further banks/query/native construction may reject a particular enclosingplan for other reasons.",
+      "connected_repair": "Join existing physicalsupport/sourcecoverage repairgraph; Root retains implementationauthority. Keep requiredarea, unioncoveredarea and overlappedarea distinct, or establish sourcepartition invariant at admission and preserve it under mutation. Do not rename summedarea as union.",
+      "acceptance": "Missing region and overlapping source cannot compensate numerically; preserve exactsourceorder/physicalplane/legitimate sharededges/contactareatolerance and separate ownership/retaining levels. No arbitrary global exact-zero tolerance or proximitymerging.",
+      "proof_ref": "contract-groups-078.json",
+      "repair": "frozen",
+      "validation": "not_established"
+    },
+    "disposition": "Personally read full supplied record, exact source/helper support from earlier fresh04 packet488/489/490; retains API/public input vs normalfactory qualifications, no newcount."
+  },
+  {
+    "reference": "audit/continuation/native/initial05-aggregate-states/findings.jsonl#row27",
+    "line": 28,
+    "full_record": {
+      "id": "NATIVE-INITIAL05-F026",
+      "lens": "audit-aggregate-states",
+      "classification": "empty public garden envelope vacuously contains arbitrary horizontal vertex",
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/gardens/specimen.rs",
+      "sha256": "f4f7b85d6aa1694b5b2732810b329ac15caf2ebb77b71832a67880c70e0bd4d4",
+      "source_ranges": [
+        [
+          22,
+          31
+        ],
+        [
+          47,
+          60
+        ]
+      ],
+      "relationship": "Conservative finite specimenenvelope containment requires valid nonempty orderedhull and orderedheightband before relying on all edgehalfplanes.",
+      "source_counterexample": "Public GardenSpecimenEnvelope withhull_metres empty,min_height0,max_height1 andotherwiselegalfields; contains_local_vertex((1000000,.5,1000000)) returns true becausefiniteheight checks pass andemptyedgeiterator.all istrue. Safe publicliteral/ordinarySerde; no execution/newtest.",
+      "actual_path": "API/rawdecode representableweakness in actualcontainment predicate. CurrentGardenSpecimen::CommonHazel alwaysresolvesactualreadimmutable17point authoredhull, so no normalmissinghull/meshbadasset/runclaim. Arbitraryrevision/countmatching actualmeshalso separateunprovenpolicy.",
+      "connected_repair": "Join measuredspecimen/sourcegeometry envelopeaggregate graph; Root retains implementationauthority. Validate nonemptyorderedconvexfinitehull/nondegenerateedges andheightbounds once, retain coherentimmutableenvelope; reuse canonicalpolygon onlyifactualpolicyfit.",
+      "acceptance": "Empty/degenerate/reversed/nonfinite envelope cannot certify actualvertex containment. Current17pointcontent andwindreserve/heighttolerance preserved; no arbitrarystrictpositiveheightminimum or whitelisting opengeometryrevision withoutactualpolicy.",
+      "proof_ref": "contract-groups-082.json",
+      "repair": "frozen",
+      "validation": "not_established"
+    },
+    "disposition": "Personally read full supplied record, exact source/helper support from earlier fresh04 packet488/489/490; retains API/public input vs normalfactory qualifications, no newcount."
+  }
+]

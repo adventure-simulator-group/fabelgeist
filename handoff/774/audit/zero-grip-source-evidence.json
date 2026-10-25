@@ -1,0 +1,42 @@
+{
+  "revision": "13fc9dcc71ab879de364117e5462310673e43210",
+  "kind": "Complete small source-control-flow and arithmetic witness, not an executed test/reproducer",
+  "witness": {
+    "catalog_id": "arming_sword",
+    "recipe": {
+      "components": [
+        {
+          "id": "g",
+          "kind": "grip",
+          "length": 0.1,
+          "radius": 0.01,
+          "bottomScale": 0.0,
+          "topScale": 0.0,
+          "attach": {
+            "to": "weapon.root",
+            "at": "origin"
+          }
+        }
+      ]
+    }
+  },
+  "construction_route": [
+    "Recipe finite typed Ratio admits zero; dimensions::grip permits abs(scale)<=128; melee::Grip only checks radius*max(bottom,top)<=anatomicalmaximum, so both zero pass. All other Component.validate branches for Grip are no-op except parent/identity/finite/dimension checks, which this witness satisfies.",
+    "One origin attachment is present, unique id g, no opposition/shaft/mount/extra dimensions. Shape.range gives[0,0.1]; attachment/register/grip frames stay finite. Construction source limit checks do not reject.",
+    "shape Grip creates profile[[0,0],[0.1,0]], default14 radial request, no wraps, positive radial_scale1. Detail High chooses28 segments. Zero largest radius gives a NaN adaptive radial term which saturates to zero usize; the floor/request still chooses28.",
+    "radial_profile minimum over strictlypositive radii is infinity, so finite detail chord0.01 wins. Station estimate is bounded (at most12 rows), construction_budget passes. subdivide preserves all radii zero. Every side triangle guard r>0 is false; both cap guards r==0 skip. Solid is empty and positive() returns it unchanged.",
+    "PartSource still exists with empty faces; PhysicalProperties::from_sources computes part and total mass0, divides zero moments by zero mass for nonfinite centroids, and returns success. Construction/validate/derive_properties/generate have no later nonempty-positive-finite source guard. GeneratedModel/mesh bounds remain infinite when no positions are emitted."
+  ],
+  "limits": [
+    "No Rust compilation, test, model generation, native allocation, browser execution or DB transaction performed.",
+    "This is an exposed accepted-source/API counterexample, not a claim that current catalog presets or ordinary editor controls produce zero taper.",
+    "No free-forged-weapon or downstream transaction/render crash claim without tracing those exact remaining recipients."
+  ],
+  "same_as_base": [
+    "crates/adventuresim-weapon-model/src/recipe/validation/dimensions/furniture.rs",
+    "crates/adventuresim-weapon-model/src/recipe/validation/melee.rs",
+    "crates/adventuresim-weapon-model/src/model/shapes.rs",
+    "crates/adventuresim-weapon-model/src/construction/solids.rs",
+    "crates/adventuresim-weapon-model/src/model/output.rs"
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "id": "CONT08-QUAL011",
+  "alias": "local774:F44 / SEGO-INITIAL05-F001",
+  "at": "2026-10-25T16:05:38.797657+00:00",
+  "source_proofs": [
+    {
+      "scope_index": 1245,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/advancement.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/time/advancement.rs",
+      "before_sha256": "4d29377483597d2c70b29a228fcbda60ed1f81614ae46c891cb9d833c18da188",
+      "after_sha256": "4d29377483597d2c70b29a228fcbda60ed1f81614ae46c891cb9d833c18da188",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1245-base-4d29377483597d2c70b29a228fcbda60ed1f81614ae46c891cb9d833c18da188",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/4d29377483597d2c70b29a228fcbda60ed1f81614ae46c891cb9d833c18da188",
+      "diff": "source-evidence/pr-1245.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_read_ranges": [
+        [
+          1,
+          73
+        ],
+        [
+          266,
+          297
+        ]
+      ],
+      "qualification": "Fresh bounded material receiver/body and complete empty PRdiff consumed; other1245lines not read/cleared here."
+    },
+    {
+      "scope_index": 925,
+      "source_id": "pr-working:crates/adventuresim-core/src/essential.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/essential.rs",
+      "before_sha256": "3d1b91f2f3bd1d9ffaeaa98eb8cf921fcbfee807aba9fd8bd16ca762448a10e0",
+      "after_sha256": "3d1b91f2f3bd1d9ffaeaa98eb8cf921fcbfee807aba9fd8bd16ca762448a10e0",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0925-base-3d1b91f2f3bd1d9ffaeaa98eb8cf921fcbfee807aba9fd8bd16ca762448a10e0",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/3d1b91f2f3bd1d9ffaeaa98eb8cf921fcbfee807aba9fd8bd16ca762448a10e0",
+      "diff": "source-evidence/pr-0925.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_reconsumed_ranges": [
+        [
+          1,
+          40
+        ]
+      ]
+    },
+    {
+      "scope_index": 1076,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/capability.rs",
+      "before_sha256": "2170e327e2217e9f76956051fdbceaa9d684e30cdb03d4d9b9e1860e58bb8897",
+      "after_sha256": "3249a867a88a75dc29d514b94c01a89965aed2c037a05fdbcc9109b0bde179f6",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1076-base-2170e327e2217e9f76956051fdbceaa9d684e30cdb03d4d9b9e1860e58bb8897",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/3249a867a88a75dc29d514b94c01a89965aed2c037a05fdbcc9109b0bde179f6",
+      "diff": "source-evidence/pr-1076.diff",
+      "diff_sha256": "ca2cd5b3e73ffb5d7d1573f680a54b5bf2757b9870b97b09a88284de8e90b858",
+      "head_body_reconsumed_ranges": [
+        [
+          190,
+          198
+        ]
+      ]
+    },
+    {
+      "scope_index": 996,
+      "source_id": "pr-working:crates/adventuresim-core/src/skill.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/skill.rs",
+      "before_sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "after_sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0996-base-8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "diff": "source-evidence/pr-0996.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_reconsumed_ranges": [
+        [
+          76,
+          107
+        ],
+        [
+          1128,
+          1165
+        ]
+      ]
+    }
+  ],
+  "earlier_own08": [
+    "contract-groups-264.json",
+    "contract-groups-282.json",
+    "contract-groups-288.json",
+    "contract-groups-300.json"
+  ],
+  "root_evidence": "Parent root F44 exact full record personally consumed in target/bespoke-audit-774-merged-20261022/ledger.json incl additional_qualified_witness; not other-lens coverage.",
+  "trace": "Exact1114 initial/post skillcheck guard plus fresh1245 advance_investigation_time\u2192advance_character_time\u21921086 condition1923 calories_elapsed/1440*6000\u2192actual CharacterStats PlayerEssentials\u2192925 physical fatigue1\u2212ratio^5\u2192996StealthPhysical (terrainMental). Healthy Endurance3/calories0\u2192480minute adds2000 and positiveStealthcheck changes by much more than rounding with unchanged stable authority. Original source unchangedPR; retained normal-size conditional defect, no observed shippedactor or DB invocation.",
+  "repair_acceptance": "Use pinned starting performance for resolution; validate stable source/rights/place/skill/equipment authority and permitted interval physiology transitions, not exactunchangedderivedStealth; retain every real external-change/terminal/elapsed/no-partialyield/replay guard. No repair/test planned or executed during initialdiscovery.",
+  "counts": "Alias/support only, no unique finding added; bounded1245 source receipt does not complete1245role."
+}

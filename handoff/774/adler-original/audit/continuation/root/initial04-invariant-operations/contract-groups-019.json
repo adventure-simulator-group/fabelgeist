@@ -1,0 +1,789 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-019",
+  "at": "2026-10-22T20:03:07.878800+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:Cargo.lock",
+      "sha256": "1191ee1e830f870d16ebaa30e6d84953656acaed04cf9c2a0367bbbcb1f78201",
+      "actual_compared_ranges": [
+        [
+          1,
+          13103
+        ]
+      ],
+      "source_fact_evidence": "ROOT-ADM-METADATA-005 personallyconsumed fullsource-specific structured TOMLcontent/role narratives in current04; not inherited03verdict or newrawbodyread",
+      "operations_disposition": "Nonapplicableto acceptedvalue arithmetic/mutation: Cargo lock table values select package versions/dependency identities; no arithmetical method or retained game state. Actual lockedReflect0.19.1/SATS2.6.1 evidence selects concrete native source, not validity guarantee.",
+      "actual_metadata_context": {
+        "kind": "locked_package_dependency_metadata",
+        "full_format_keys": [
+          "version",
+          "package"
+        ],
+        "actual_locked_adapter_versions": [
+          {
+            "name": "bevy_reflect",
+            "version": "0.19.1"
+          },
+          {
+            "name": "bevy_reflect_derive",
+            "version": "0.19.1"
+          },
+          {
+            "name": "spacetimedb-bindings-macro",
+            "version": "2.6.1"
+          },
+          {
+            "name": "spacetimedb-sats",
+            "version": "2.6.1"
+          }
+        ]
+      }
+    },
+    {
+      "source_id": "pr-working:Cargo.lock",
+      "sha256": "82b8a6ebb3685ec699069eed2cd8cdf76be94b6fe70f23b7e8eb2a62fe10c1ce",
+      "actual_compared_ranges": [
+        [
+          1,
+          13102
+        ]
+      ],
+      "source_fact_evidence": "ROOT-ADM-METADATA-005 personallyconsumed fullsource-specific structured TOMLcontent/role narratives in current04; not inherited03verdict or newrawbodyread",
+      "operations_disposition": "Nonapplicableto acceptedvalue arithmetic/mutation: Cargo lock table values select package versions/dependency identities; no arithmetical method or retained game state. Actual lockedReflect0.19.1/SATS2.6.1 evidence selects concrete native source, not validity guarantee.",
+      "actual_metadata_context": {
+        "kind": "locked_package_dependency_metadata",
+        "full_format_keys": [
+          "version",
+          "package"
+        ],
+        "actual_locked_adapter_versions": [
+          {
+            "name": "bevy_reflect",
+            "version": "0.19.1"
+          },
+          {
+            "name": "bevy_reflect_derive",
+            "version": "0.19.1"
+          },
+          {
+            "name": "spacetimedb-bindings-macro",
+            "version": "2.6.1"
+          },
+          {
+            "name": "spacetimedb-sats",
+            "version": "2.6.1"
+          }
+        ]
+      }
+    },
+    {
+      "source_id": "pr-working:Cargo.toml",
+      "sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+      "actual_compared_ranges": [
+        [
+          1,
+          221
+        ]
+      ],
+      "source_fact_evidence": "ROOT-ADM-METADATA-005 personallyconsumed fullsource-specific structured TOMLcontent/role narratives in current04; not inherited03verdict or newrawbodyread",
+      "operations_disposition": "Nonapplicableto acceptedvalue arithmetic/mutation: Actual package/workspace/features/dependencies/targets/lints/build-target tables configure compiled source. Profile/runtimefeature choices select actual operations but do not themselves construct/replace admitted gameplay values. Native/Wasm/optionalroutes require actual implementation review independently.",
+      "actual_metadata_context": {
+        "kind": "package_dependency_feature_metadata",
+        "full_format_keys": [
+          "workspace",
+          "patch",
+          "profile"
+        ],
+        "package": null,
+        "features": {}
+      }
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/Cargo.toml",
+      "sha256": "7b2672843eec305915871c4ba93c1e4c617e555e5a354eea2abc565b654b665f",
+      "actual_compared_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "source_fact_evidence": "ROOT-ADM-METADATA-005 personallyconsumed fullsource-specific structured TOMLcontent/role narratives in current04; not inherited03verdict or newrawbodyread",
+      "operations_disposition": "Nonapplicableto acceptedvalue arithmetic/mutation: Actual package/workspace/features/dependencies/targets/lints/build-target tables configure compiled source. Profile/runtimefeature choices select actual operations but do not themselves construct/replace admitted gameplay values. Native/Wasm/optionalroutes require actual implementation review independently.",
+      "actual_metadata_context": {
+        "kind": "package_dependency_feature_metadata",
+        "full_format_keys": [
+          "package",
+          "features",
+          "dependencies",
+          "target",
+          "lints",
+          "bin"
+        ],
+        "package": "adventuresim-building-generator",
+        "features": {
+          "default": [],
+          "sign-render": [
+            "dep:ab_glyph",
+            "bevy/bevy_pbr",
+            "bevy/bevy_render"
+          ],
+          "viewer": [
+            "sign-render",
+            "dep:adventuresim-procedural-textures",
+            "bevy/default",
+            "bevy/png",
+            "dep:bevy_egui",
+            "dep:bevy_mod_outline",
+            "dep:bevy_panorbit_camera"
+          ]
+        }
+      }
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-puzzles/Cargo.toml",
+      "sha256": "776ef3b34040bd18cba056db05a10463f6838cbaef84a75f4d669ffe3966683f",
+      "actual_compared_ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "source_fact_evidence": "ROOT-ADM-METADATA-005 personallyconsumed fullsource-specific structured TOMLcontent/role narratives in current04; not inherited03verdict or newrawbodyread",
+      "operations_disposition": "Nonapplicableto acceptedvalue arithmetic/mutation: Actual package/workspace/features/dependencies/targets/lints/build-target tables configure compiled source. Profile/runtimefeature choices select actual operations but do not themselves construct/replace admitted gameplay values. Native/Wasm/optionalroutes require actual implementation review independently.",
+      "actual_metadata_context": {
+        "kind": "package_dependency_feature_metadata",
+        "full_format_keys": [
+          "package",
+          "dependencies",
+          "lints"
+        ],
+        "package": "adventuresim-puzzles",
+        "features": {}
+      }
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/Cargo.toml",
+      "sha256": "c57a0334ef2f29a999ad45e9d4714bc954669a429a1a95f3cd993b6cff8722e2",
+      "actual_compared_ranges": [
+        [
+          1,
+          131
+        ]
+      ],
+      "source_fact_evidence": "ROOT-ADM-METADATA-005 personallyconsumed fullsource-specific structured TOMLcontent/role narratives in current04; not inherited03verdict or newrawbodyread",
+      "operations_disposition": "Nonapplicableto acceptedvalue arithmetic/mutation: Actual package/workspace/features/dependencies/targets/lints/build-target tables configure compiled source. Profile/runtimefeature choices select actual operations but do not themselves construct/replace admitted gameplay values. Native/Wasm/optionalroutes require actual implementation review independently.",
+      "actual_metadata_context": {
+        "kind": "package_dependency_feature_metadata",
+        "full_format_keys": [
+          "package",
+          "features",
+          "dependencies",
+          "target",
+          "lints",
+          "build-dependencies",
+          "lib",
+          "bin",
+          "dev-dependencies"
+        ],
+        "package": "adventuresim-tactical-client",
+        "features": {
+          "default": [
+            "debug",
+            "client-audio"
+          ],
+          "debug": [
+            "bevy/debug",
+            "bevy/bevy_remote",
+            "adventuresim-tactical-core/avian_debug"
+          ],
+          "client-audio": [
+            "bevy/audio"
+          ],
+          "tracy": [
+            "bevy/trace_tracy",
+            "dep:tracing-tracy",
+            "dep:tracing-subscriber",
+            "dep:tracy-client-sys"
+          ],
+          "remote-types": [
+            "debug"
+          ]
+        }
+      }
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/Cargo.toml",
+      "sha256": "a514b1eccfff839c875aaa5148d8299f119beb39ce645dc828e653399b6ef320",
+      "actual_compared_ranges": [
+        [
+          1,
+          44
+        ]
+      ],
+      "source_fact_evidence": "ROOT-ADM-METADATA-005 personallyconsumed fullsource-specific structured TOMLcontent/role narratives in current04; not inherited03verdict or newrawbodyread",
+      "operations_disposition": "Nonapplicableto acceptedvalue arithmetic/mutation: Actual package/workspace/features/dependencies/targets/lints/build-target tables configure compiled source. Profile/runtimefeature choices select actual operations but do not themselves construct/replace admitted gameplay values. Native/Wasm/optionalroutes require actual implementation review independently.",
+      "actual_metadata_context": {
+        "kind": "package_dependency_feature_metadata",
+        "full_format_keys": [
+          "package",
+          "features",
+          "dependencies",
+          "lints",
+          "dev-dependencies"
+        ],
+        "package": "adventuresim-tactical-core",
+        "features": {
+          "default": [],
+          "meshgen": [
+            "bevy/bevy_mesh"
+          ],
+          "avian_debug": [
+            "avian3d/debug-plugin"
+          ]
+        }
+      }
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/Cargo.toml",
+      "sha256": "c966f29016d32aca39e17ea882e55271f208891ab003c331287114388a449a3a",
+      "actual_compared_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "source_fact_evidence": "ROOT-ADM-METADATA-005 personallyconsumed fullsource-specific structured TOMLcontent/role narratives in current04; not inherited03verdict or newrawbodyread",
+      "operations_disposition": "Nonapplicableto acceptedvalue arithmetic/mutation: Actual package/workspace/features/dependencies/targets/lints/build-target tables configure compiled source. Profile/runtimefeature choices select actual operations but do not themselves construct/replace admitted gameplay values. Native/Wasm/optionalroutes require actual implementation review independently.",
+      "actual_metadata_context": {
+        "kind": "package_dependency_feature_metadata",
+        "full_format_keys": [
+          "package",
+          "lib",
+          "bin",
+          "features",
+          "dependencies",
+          "lints"
+        ],
+        "package": "adventuresim-tactical-server",
+        "features": {
+          "default": [],
+          "debug": [
+            "bevy/debug",
+            "bevy/bevy_remote",
+            "bevy/scene",
+            "dep:ron"
+          ],
+          "remote-types": [
+            "debug"
+          ],
+          "iteration": []
+        }
+      }
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-animation/Cargo.toml",
+      "sha256": "c2091fc5e4e9c43dc0f1944ead0dfb0a2511a0ad8162fd3d0e7790974e33553f",
+      "actual_compared_ranges": [
+        [
+          1,
+          18
+        ]
+      ],
+      "source_fact_evidence": "ROOT-ADM-METADATA-005 personallyconsumed fullsource-specific structured TOMLcontent/role narratives in current04; not inherited03verdict or newrawbodyread",
+      "operations_disposition": "Nonapplicableto acceptedvalue arithmetic/mutation: Actual package/workspace/features/dependencies/targets/lints/build-target tables configure compiled source. Profile/runtimefeature choices select actual operations but do not themselves construct/replace admitted gameplay values. Native/Wasm/optionalroutes require actual implementation review independently.",
+      "actual_metadata_context": {
+        "kind": "package_dependency_feature_metadata",
+        "full_format_keys": [
+          "package",
+          "dependencies",
+          "dev-dependencies",
+          "lints"
+        ],
+        "package": "fabelgeist-animation",
+        "features": {}
+      }
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-bvh/Cargo.toml",
+      "sha256": "fc9b1f379eeea4867b58375107863be9dc93fead720fa2598f2a3a9f319fd73b",
+      "actual_compared_ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "source_fact_evidence": "ROOT-ADM-METADATA-005 personallyconsumed fullsource-specific structured TOMLcontent/role narratives in current04; not inherited03verdict or newrawbodyread",
+      "operations_disposition": "Nonapplicableto acceptedvalue arithmetic/mutation: Actual package/workspace/features/dependencies/targets/lints/build-target tables configure compiled source. Profile/runtimefeature choices select actual operations but do not themselves construct/replace admitted gameplay values. Native/Wasm/optionalroutes require actual implementation review independently.",
+      "actual_metadata_context": {
+        "kind": "package_dependency_feature_metadata",
+        "full_format_keys": [
+          "package",
+          "dependencies",
+          "dev-dependencies",
+          "features",
+          "lints"
+        ],
+        "package": "fabelgeist-bvh",
+        "features": {
+          "default": [
+            "gpu"
+          ],
+          "gpu": [
+            "dep:fabelgeist-compute"
+          ]
+        }
+      }
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-cloth/Cargo.toml",
+      "sha256": "4d25ce0c957fc08ea17964e695728d4c47251e88e98ad2eace19233a20128a2d",
+      "actual_compared_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "source_fact_evidence": "ROOT-ADM-METADATA-005 personallyconsumed fullsource-specific structured TOMLcontent/role narratives in current04; not inherited03verdict or newrawbodyread",
+      "operations_disposition": "Nonapplicableto acceptedvalue arithmetic/mutation: Actual package/workspace/features/dependencies/targets/lints/build-target tables configure compiled source. Profile/runtimefeature choices select actual operations but do not themselves construct/replace admitted gameplay values. Native/Wasm/optionalroutes require actual implementation review independently.",
+      "actual_metadata_context": {
+        "kind": "package_dependency_feature_metadata",
+        "full_format_keys": [
+          "package",
+          "dependencies",
+          "dev-dependencies",
+          "lints"
+        ],
+        "package": "fabelgeist-cloth",
+        "features": {}
+      }
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-color/Cargo.toml",
+      "sha256": "a6c66c1e272fc13f282c7b0c03cb1a3291cac8af10876bccdbc1a44a85504f46",
+      "actual_compared_ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "source_fact_evidence": "ROOT-ADM-METADATA-005 personallyconsumed fullsource-specific structured TOMLcontent/role narratives in current04; not inherited03verdict or newrawbodyread",
+      "operations_disposition": "Nonapplicableto acceptedvalue arithmetic/mutation: Actual package/workspace/features/dependencies/targets/lints/build-target tables configure compiled source. Profile/runtimefeature choices select actual operations but do not themselves construct/replace admitted gameplay values. Native/Wasm/optionalroutes require actual implementation review independently.",
+      "actual_metadata_context": {
+        "kind": "package_dependency_feature_metadata",
+        "full_format_keys": [
+          "package",
+          "dependencies",
+          "dev-dependencies",
+          "features",
+          "lints"
+        ],
+        "package": "fabelgeist-color",
+        "features": {
+          "default": [
+            "std",
+            "bytemuck",
+            "serde"
+          ],
+          "std": [],
+          "wgpu": [
+            "dep:wgpu"
+          ],
+          "serde": [
+            "dep:serde"
+          ],
+          "bytemuck": [
+            "dep:bytemuck"
+          ]
+        }
+      }
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-compute/Cargo.toml",
+      "sha256": "f7da2a134b0c98ad462cb8a5ac6a9e422ef5a49f9406993beb83a950f5991560",
+      "actual_compared_ranges": [
+        [
+          1,
+          33
+        ]
+      ],
+      "source_fact_evidence": "ROOT-ADM-METADATA-005 personallyconsumed fullsource-specific structured TOMLcontent/role narratives in current04; not inherited03verdict or newrawbodyread",
+      "operations_disposition": "Nonapplicableto acceptedvalue arithmetic/mutation: Actual package/workspace/features/dependencies/targets/lints/build-target tables configure compiled source. Profile/runtimefeature choices select actual operations but do not themselves construct/replace admitted gameplay values. Native/Wasm/optionalroutes require actual implementation review independently.",
+      "actual_metadata_context": {
+        "kind": "package_dependency_feature_metadata",
+        "full_format_keys": [
+          "package",
+          "dependencies",
+          "dev-dependencies",
+          "target",
+          "lints"
+        ],
+        "package": "fabelgeist-compute",
+        "features": {}
+      }
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-fs/Cargo.toml",
+      "sha256": "d2956fd40d57eb20bc9dec56699c024d7d83cd1d1b62de9a685a69352dc27aef",
+      "actual_compared_ranges": [
+        [
+          1,
+          53
+        ]
+      ],
+      "source_fact_evidence": "ROOT-ADM-METADATA-005 personallyconsumed fullsource-specific structured TOMLcontent/role narratives in current04; not inherited03verdict or newrawbodyread",
+      "operations_disposition": "Nonapplicableto acceptedvalue arithmetic/mutation: Actual package/workspace/features/dependencies/targets/lints/build-target tables configure compiled source. Profile/runtimefeature choices select actual operations but do not themselves construct/replace admitted gameplay values. Native/Wasm/optionalroutes require actual implementation review independently.",
+      "actual_metadata_context": {
+        "kind": "package_dependency_feature_metadata",
+        "full_format_keys": [
+          "package",
+          "dependencies",
+          "target",
+          "lints"
+        ],
+        "package": "fabelgeist-fs",
+        "features": {}
+      }
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-garment-code/Cargo.toml",
+      "sha256": "1aea342bac056950bd088b2f0772d3765d69f3167a648d3ea32773e579986988",
+      "actual_compared_ranges": [
+        [
+          1,
+          19
+        ]
+      ],
+      "source_fact_evidence": "ROOT-ADM-METADATA-005 personallyconsumed fullsource-specific structured TOMLcontent/role narratives in current04; not inherited03verdict or newrawbodyread",
+      "operations_disposition": "Nonapplicableto acceptedvalue arithmetic/mutation: Actual package/workspace/features/dependencies/targets/lints/build-target tables configure compiled source. Profile/runtimefeature choices select actual operations but do not themselves construct/replace admitted gameplay values. Native/Wasm/optionalroutes require actual implementation review independently.",
+      "actual_metadata_context": {
+        "kind": "package_dependency_feature_metadata",
+        "full_format_keys": [
+          "package",
+          "dependencies",
+          "dev-dependencies",
+          "lints"
+        ],
+        "package": "fabelgeist-garment-code",
+        "features": {}
+      }
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-garment-fit/Cargo.toml",
+      "sha256": "dd061849693685f8c417df0292bec4c57bcb03679ba2c6df37e3f5cbb7f8b28b",
+      "actual_compared_ranges": [
+        [
+          1,
+          23
+        ]
+      ],
+      "source_fact_evidence": "ROOT-ADM-METADATA-005 personallyconsumed fullsource-specific structured TOMLcontent/role narratives in current04; not inherited03verdict or newrawbodyread",
+      "operations_disposition": "Nonapplicableto acceptedvalue arithmetic/mutation: Actual package/workspace/features/dependencies/targets/lints/build-target tables configure compiled source. Profile/runtimefeature choices select actual operations but do not themselves construct/replace admitted gameplay values. Native/Wasm/optionalroutes require actual implementation review independently.",
+      "actual_metadata_context": {
+        "kind": "package_dependency_feature_metadata",
+        "full_format_keys": [
+          "package",
+          "dependencies",
+          "dev-dependencies",
+          "lints"
+        ],
+        "package": "fabelgeist-garment-fit",
+        "features": {}
+      }
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-geometry/Cargo.toml",
+      "sha256": "a301b39ec718fa3959414680a15d2fa22226c216298da879aed86b9a1fb62165",
+      "actual_compared_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "source_fact_evidence": "ROOT-ADM-METADATA-005 personallyconsumed fullsource-specific structured TOMLcontent/role narratives in current04; not inherited03verdict or newrawbodyread",
+      "operations_disposition": "Nonapplicableto acceptedvalue arithmetic/mutation: Actual package/workspace/features/dependencies/targets/lints/build-target tables configure compiled source. Profile/runtimefeature choices select actual operations but do not themselves construct/replace admitted gameplay values. Native/Wasm/optionalroutes require actual implementation review independently.",
+      "actual_metadata_context": {
+        "kind": "package_dependency_feature_metadata",
+        "full_format_keys": [
+          "package",
+          "features",
+          "dependencies",
+          "lints"
+        ],
+        "package": "fabelgeist-geometry",
+        "features": {
+          "default": [],
+          "reflect": [
+            "dep:bevy_reflect"
+          ],
+          "bevy-math": [
+            "dep:bevy_math"
+          ]
+        }
+      }
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-gpu/Cargo.toml",
+      "sha256": "5fcedc2343591f9fdc806e66e0e0f619d352e9c1f19d615603fda80cc7168e64",
+      "actual_compared_ranges": [
+        [
+          1,
+          43
+        ]
+      ],
+      "source_fact_evidence": "ROOT-ADM-METADATA-005 personallyconsumed fullsource-specific structured TOMLcontent/role narratives in current04; not inherited03verdict or newrawbodyread",
+      "operations_disposition": "Nonapplicableto acceptedvalue arithmetic/mutation: Actual package/workspace/features/dependencies/targets/lints/build-target tables configure compiled source. Profile/runtimefeature choices select actual operations but do not themselves construct/replace admitted gameplay values. Native/Wasm/optionalroutes require actual implementation review independently.",
+      "actual_metadata_context": {
+        "kind": "package_dependency_feature_metadata",
+        "full_format_keys": [
+          "package",
+          "dependencies",
+          "dev-dependencies",
+          "target",
+          "features",
+          "lints"
+        ],
+        "package": "fabelgeist-gpu",
+        "features": {
+          "default": [
+            "image-io"
+          ],
+          "image-io": [
+            "dep:image",
+            "dep:fabelgeist-fs"
+          ]
+        }
+      }
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-math/Cargo.toml",
+      "sha256": "6aaf0cb94d1603d0d6cdd07f1bee8021c3c29c841d01d144143faa4be39a6321",
+      "actual_compared_ranges": [
+        [
+          1,
+          17
+        ]
+      ],
+      "source_fact_evidence": "ROOT-ADM-METADATA-005 personallyconsumed fullsource-specific structured TOMLcontent/role narratives in current04; not inherited03verdict or newrawbodyread",
+      "operations_disposition": "Nonapplicableto acceptedvalue arithmetic/mutation: Actual package/workspace/features/dependencies/targets/lints/build-target tables configure compiled source. Profile/runtimefeature choices select actual operations but do not themselves construct/replace admitted gameplay values. Native/Wasm/optionalroutes require actual implementation review independently.",
+      "actual_metadata_context": {
+        "kind": "package_dependency_feature_metadata",
+        "full_format_keys": [
+          "package",
+          "dependencies",
+          "features",
+          "lints"
+        ],
+        "package": "fabelgeist-math",
+        "features": {
+          "default": []
+        }
+      }
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-mesh/Cargo.toml",
+      "sha256": "8f645b6fbb63fc80d2fbea4f2c149da1843aaf914f2a4b55d65c3f5036de8cef",
+      "actual_compared_ranges": [
+        [
+          1,
+          25
+        ]
+      ],
+      "source_fact_evidence": "ROOT-ADM-METADATA-005 personallyconsumed fullsource-specific structured TOMLcontent/role narratives in current04; not inherited03verdict or newrawbodyread",
+      "operations_disposition": "Nonapplicableto acceptedvalue arithmetic/mutation: Actual package/workspace/features/dependencies/targets/lints/build-target tables configure compiled source. Profile/runtimefeature choices select actual operations but do not themselves construct/replace admitted gameplay values. Native/Wasm/optionalroutes require actual implementation review independently.",
+      "actual_metadata_context": {
+        "kind": "package_dependency_feature_metadata",
+        "full_format_keys": [
+          "package",
+          "dependencies",
+          "dev-dependencies",
+          "features",
+          "lints"
+        ],
+        "package": "fabelgeist-mesh",
+        "features": {
+          "default": [
+            "gpu"
+          ],
+          "gpu": [
+            "dep:fabelgeist-gpu",
+            "dep:bytemuck",
+            "dep:indexmap",
+            "dep:wgpu"
+          ]
+        }
+      }
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-numpy-storage/Cargo.toml",
+      "sha256": "8ef22429cd59cffcebbdcb08b0b646a6f5b0714736087c0787ddd4d417518599",
+      "actual_compared_ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "source_fact_evidence": "ROOT-ADM-METADATA-005 personallyconsumed fullsource-specific structured TOMLcontent/role narratives in current04; not inherited03verdict or newrawbodyread",
+      "operations_disposition": "Nonapplicableto acceptedvalue arithmetic/mutation: Actual package/workspace/features/dependencies/targets/lints/build-target tables configure compiled source. Profile/runtimefeature choices select actual operations but do not themselves construct/replace admitted gameplay values. Native/Wasm/optionalroutes require actual implementation review independently.",
+      "actual_metadata_context": {
+        "kind": "package_dependency_feature_metadata",
+        "full_format_keys": [
+          "package",
+          "dependencies",
+          "workspace",
+          "patch",
+          "lints"
+        ],
+        "package": "fabelgeist-numpy-storage",
+        "features": {}
+      }
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-physics/Cargo.toml",
+      "sha256": "91c93380a6b93e8f00e036cca5dc7da6e4752393a6b5e07c4baa69881c545a12",
+      "actual_compared_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "source_fact_evidence": "ROOT-ADM-METADATA-005 personallyconsumed fullsource-specific structured TOMLcontent/role narratives in current04; not inherited03verdict or newrawbodyread",
+      "operations_disposition": "Nonapplicableto acceptedvalue arithmetic/mutation: Actual package/workspace/features/dependencies/targets/lints/build-target tables configure compiled source. Profile/runtimefeature choices select actual operations but do not themselves construct/replace admitted gameplay values. Native/Wasm/optionalroutes require actual implementation review independently.",
+      "actual_metadata_context": {
+        "kind": "package_dependency_feature_metadata",
+        "full_format_keys": [
+          "package",
+          "dependencies",
+          "dev-dependencies",
+          "lints"
+        ],
+        "package": "fabelgeist-physics",
+        "features": {}
+      }
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-shell/Cargo.toml",
+      "sha256": "bd28ce22922272bbd433498fddc9ea68d068ae507d3dedb1c9d12cf7bcad2715",
+      "actual_compared_ranges": [
+        [
+          1,
+          24
+        ]
+      ],
+      "source_fact_evidence": "ROOT-ADM-METADATA-005 personallyconsumed fullsource-specific structured TOMLcontent/role narratives in current04; not inherited03verdict or newrawbodyread",
+      "operations_disposition": "Nonapplicableto acceptedvalue arithmetic/mutation: Actual package/workspace/features/dependencies/targets/lints/build-target tables configure compiled source. Profile/runtimefeature choices select actual operations but do not themselves construct/replace admitted gameplay values. Native/Wasm/optionalroutes require actual implementation review independently.",
+      "actual_metadata_context": {
+        "kind": "package_dependency_feature_metadata",
+        "full_format_keys": [
+          "package",
+          "dependencies",
+          "dev-dependencies",
+          "lints"
+        ],
+        "package": "fabelgeist-shell",
+        "features": {}
+      }
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-timer/Cargo.toml",
+      "sha256": "33cebad8c429f5d694041bac3e8b3e61049ddc1fc9f1bf695d072196ee007065",
+      "actual_compared_ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "source_fact_evidence": "ROOT-ADM-METADATA-005 personallyconsumed fullsource-specific structured TOMLcontent/role narratives in current04; not inherited03verdict or newrawbodyread",
+      "operations_disposition": "Nonapplicableto acceptedvalue arithmetic/mutation: Actual package/workspace/features/dependencies/targets/lints/build-target tables configure compiled source. Profile/runtimefeature choices select actual operations but do not themselves construct/replace admitted gameplay values. Native/Wasm/optionalroutes require actual implementation review independently.",
+      "actual_metadata_context": {
+        "kind": "package_dependency_feature_metadata",
+        "full_format_keys": [
+          "package",
+          "target",
+          "lints"
+        ],
+        "package": "fabelgeist-timer",
+        "features": {}
+      }
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-xpbd/Cargo.toml",
+      "sha256": "e049988fc93c6de3ae4cea1aa73b63039c36c5038a5ce196487911d301f3d64a",
+      "actual_compared_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "source_fact_evidence": "ROOT-ADM-METADATA-005 personallyconsumed fullsource-specific structured TOMLcontent/role narratives in current04; not inherited03verdict or newrawbodyread",
+      "operations_disposition": "Nonapplicableto acceptedvalue arithmetic/mutation: Actual package/workspace/features/dependencies/targets/lints/build-target tables configure compiled source. Profile/runtimefeature choices select actual operations but do not themselves construct/replace admitted gameplay values. Native/Wasm/optionalroutes require actual implementation review independently.",
+      "actual_metadata_context": {
+        "kind": "package_dependency_feature_metadata",
+        "full_format_keys": [
+          "package",
+          "dependencies",
+          "dev-dependencies",
+          "lints"
+        ],
+        "package": "fabelgeist-xpbd",
+        "features": {}
+      }
+    },
+    {
+      "source_id": "pr-working:rust-quality-baseline.toml",
+      "sha256": "059d0c2bc687c8d7bd314cfa50fb863ac83959cc3483e74aee993980f47e3efe",
+      "actual_compared_ranges": [
+        [
+          1,
+          12847
+        ]
+      ],
+      "source_fact_evidence": "ROOT-ADM-METADATA-005 personallyconsumed fullsource-specific structured TOMLcontent/role narratives in current04; not inherited03verdict or newrawbodyread",
+      "operations_disposition": "Nonapplicableto acceptedvalue arithmetic/mutation: Actual source-quality policy tables/limits/semantic families/exceptions, no arithmetic method constructing accepted runtime objects. Do not confuse thresholds with physical caps, do not change baseline to mask findings; consumer/checker behavior is separate concrete script contract.",
+      "actual_metadata_context": {
+        "kind": "source_quality_policy_metadata",
+        "full_format_keys": [
+          "files",
+          "functions",
+          "findings"
+        ]
+      }
+    },
+    {
+      "source_id": "rig-quality:rust-quality.toml",
+      "sha256": "5d4c5bdafc3295b771e474acffa02faa4a43caa74624423cf02d3dabf4efa523",
+      "actual_compared_ranges": [
+        [
+          1,
+          1001
+        ]
+      ],
+      "source_fact_evidence": "ROOT-ADM-METADATA-005 personallyconsumed fullsource-specific structured TOMLcontent/role narratives in current04; not inherited03verdict or newrawbodyread",
+      "operations_disposition": "Nonapplicableto acceptedvalue arithmetic/mutation: Actual source-quality policy tables/limits/semantic families/exceptions, no arithmetic method constructing accepted runtime objects. Do not confuse thresholds with physical caps, do not change baseline to mask findings; consumer/checker behavior is separate concrete script contract.",
+      "actual_metadata_context": {
+        "kind": "source_quality_policy_metadata",
+        "full_format_keys": [
+          "file_limit",
+          "function_limit",
+          "census_minimum",
+          "census_summary_limit",
+          "excluded_paths",
+          "scopes",
+          "semantic_families",
+          "exceptions"
+        ]
+      }
+    }
+  ],
+  "groups": {
+    "actual-common-justification": "Exactly listed static TOMLcontent cases, personally compared current04focus from detailed actualsourcefacts, not filename/hash inference. Two locksets actualpackage/version nativeadapter context, manifests actual concretefeatures, twoquality tables actualpolicydata. No acceptedvalueoperations in those data formats. This accounts their materialmetadata role only; no Rust/WGSL/generatedsource/callback/codecoverage inherited. Fullsourceformat contextualproof fromprioractualcontentinspection permitted; no repeated parse/checker/generator/execution performed.",
+    "configuration-caveat": "Profiles/features affect active implementation, and metadata does not establish Release/debug panic/overflow behavior of downstream code. RootF008states checked vsunchecked overflow conditionally, no current configuredrun assertion. ColorSerde/Bytemuck, Mesh/BVHGPU, Clientremote, WorldSDK SATS source routes remain independently reviewed. Opaque reflect proof not rederived from optionalfeature key.",
+    "policy": "Preserve quality ceilings/scopedexceptions and allfinalhostedtargets; no code/metadata edits, no testsorprojectcommands. No newnumericpolicies inventedfromlimits."
+  },
+  "findings": [],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

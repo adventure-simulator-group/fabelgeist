@@ -1,0 +1,47 @@
+{
+  "id": "RIG-INITIAL06-GROUP-183",
+  "at": "2026-10-23T05:45:20.845668+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-061.json",
+  "groups": {
+    "standalone-mission-classification": {
+      "comparison": "Fresh standalone112 first uses canonical MissionId grammar then classifies exact animation/diagnostic/general coordinate prefixes for diagnostic site distance. StandaloneMissionFamily is mission bootstrap policy subset, not duplicate complete mission identity or case provenance enum. Geographic degrees and unbounded coordinate unit differ by explicit scale111000/1000m; offset helper is numerical policy, not justification to use WGS checked type for synthetic unbounded coordinates. Case ID formatting is real namespace boundary; retain distinct Case/Mission identity concepts. Original fixtures source only.",
+      "disposition": "Keep canonical mission identity and explicit diagnostic family/projection policy."
+    },
+    "weapon-holder-transport-envelopes": {
+      "comparison": "Fresh codec111 wraps canonical WeaponDesign versus WeaponHolderDesign with their own schema/generator version constants and exact validation entrypoints. Envelope and HolderEnvelope are wire schemas over distinct payloads, not competing manufacturing owners or compatibility fallbacks. Private parse routes check transport/versions and public decode adds semantic validation; raw parse is not accepted design token. CodecError composes actual JSON/validation errors and records expected/found version, not early unstructured internal copy. Keep canonical models and true transport adapter at weapon kernel.",
+      "disposition": "Preserve distinct weapon/holder payloads and versioned wire boundary, no compatibility path."
+    },
+    "shared-door-policy-versus-native-collision": {
+      "comparison": "Fresh doors132 actualEOF confirms shared can_grab door/window policy in TacticalCore, actual interior signed-depth/lateral constants, per-character DoorPassageExemptions Entity set and Avian pair hook. Door and window use same actual positional policy without separate definition. Entities/layers are native transient collision identities, not durable opening/building IDs. Raw Vec3 and halfwidth are numerical predicate ports but existing canonical Scene Position/directions/length should propagate through caller-owned APIs where merely forwarded; no native-prefix exemption. Exemption state must remain tactical transient. All original fixtures source read, no run and no inherited EOF72/159 error.",
+      "disposition": "Keep one shared tactical passage policy, canonical geometry propagation and native collision hook boundary."
+    },
+    "continuous-access-native-polygon-port": {
+      "comparison": "Fresh access115 reread fully after initial tool truncation. CityPlotBounds and canonical scene point/plan dimensions/orientation define plot and near street half; output DVec2 polygons are genuine clipping precision port. available_run subtracts full region union and uses minimum width/tolerance, not independent route permission or authoritative property footprint. Finite/infinite maximum has sentinel computational search role; no strictly-positive physical-length replacement of every intermediate or merging DVec2 with f32 point. Native normal coefficients/projection coordinates differ canonical plan direction/frame owners.",
+      "disposition": "Preserve canonical plot/frame input and continuous polygon computation here."
+    },
+    "clock-authority-source-fixtures": {
+      "comparison": "Fresh clock_and_advancement105 inspects existing production source for retroactive target rejection, exactly-once exposure, lifecycle segmentation and contextual case-site occupancy. It declares no new calendar/time type or second authority; strings select function source for fixtures, not gameplay state. Official and personal frontiers must remain distinct actual owners. Source-text assertions are not execution or proof every calling route obeys them; no new tests or whole included source credit.",
+      "disposition": "No competing semantic owner; retain canonical clocks/context and source-only fixture limits."
+    },
+    "armor-studio-output-boundary": {
+      "comparison": "Fresh armor_design_output118 accepts canonical ArmorDesigns/BracerDesign/BreastplateDesign, validates each before distinct-path resolution and serialization, then writes separate files. DesignPaths groups actual path roles, not authoritative design IDs or new armor dimensions. Windows canonicalization/case comparison is filesystem adapter, unrelated to canonical catalog key grammar. Millimeters4 fixture uses armor units, not generic finite f32 metres. Original file-effect tests read only, no filesystem effects executed. Keep designs in low armor library and studio output codec here.",
+      "disposition": "Preserve canonical armor designs/units and explicit authoring filesystem boundary."
+    },
+    "focused-city-installation-authority": {
+      "comparison": "Fresh installation115 consumes canonical RegionalCityInput, verifies presented source/requested place, activates exact PreparationTicket and native CityFrame before InstalledCity product publication. Resident versus Replacement are local operation outcomes, not duplicate source schema; InstallationStatus tracks preparation lifecycle. World roots and native render layers differ canonical place/source identity. Ground/building failures map to owning InstallationFailure with logs, cleanup only temporary root. Keep map/client lifecycle above shared document/preparation owners, no moving World/Assets below Core. No claim lower acceptance from helper names.",
+      "disposition": "Keep focus/source/preparation authority distinctions and native installation owner."
+    },
+    "camera-aim-current-observation": {
+      "comparison": "Fresh aim94 uses current ranged guard/player equipment and shared camera config, constructs checked scene positions then actual Avian rays with unit Bevy directions/native distances. Camera target and actual muzzle target are different endpoints, same Entity hit namespace but different observed rays; retain together in CameraAimObservation, not duplicate aim authority. Reinitialize current observation each frame; no strategic persistence. Degenerate planar-forward/muzzle fallback is numerical camera policy, not schema backward compatibility. Native ray projection and checked reconstructed endpoints are genuine boundary; preserve existing camera error/contextF039.",
+      "disposition": "Retain complete current aim observation and shared scene/camera owners."
+    }
+  },
+  "source_fact_refs": [
+    "contracts-003.json",
+    "contracts-083.json",
+    "contracts-165.json",
+    "contracts-182.json"
+  ],
+  "limits": "Eight complete scoped source bodies read; access115 fully reread after truncated first display before coverage. Original source fixtures only; no execution/source edits/new tests/new scope/other lens."
+}

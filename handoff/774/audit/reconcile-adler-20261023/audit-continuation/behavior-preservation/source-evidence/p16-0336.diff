@@ -1,0 +1,172 @@
+--- p16base/crates/adventuresim-tactical-client/src/player/attack_start.rs
++++ catalog-p16head/crates/adventuresim-tactical-client/src/player/attack_start.rs
+@@ -2,9 +2,9 @@
+ 
+ use super::*;
+ 
+ struct AttackWeaponFacts {
+-    reach: f32,
++    reach: SignedLength,
+     ranged: bool,
+     melee: bool,
+     windup: adventuresim_core::elapsed::ElapsedResult<AnimationElapsed>,
+     recovery: adventuresim_core::elapsed::ElapsedResult<AnimationElapsed>,
+@@ -17,9 +17,9 @@
+     hand: AttackHand,
+     family: StrikeFamily,
+     spec: AttackSpec,
+     start: AnimationSampleTick,
+-    reach: f32,
++    reach: SignedLength,
+ }
+ 
+ struct PreparedMeleeAttack {
+     spec: AttackSpec,
+@@ -29,9 +29,9 @@
+ }
+ 
+ struct PredictedRangedAttack {
+     entity: Entity,
+-    reach: f32,
++    reach: SignedLength,
+     windup: AnimationElapsed,
+     recovery: AnimationElapsed,
+     curve: adventuresim_tactical_core::animation::AttackCurve,
+     start: AnimationSampleTick,
+@@ -41,9 +41,9 @@
+     entity: Entity,
+     hand: AttackHand,
+     alternate_attack: bool,
+     attacking: bool,
+-    reach: f32,
++    reach: SignedLength,
+     preferred_style: MeleeAttackStyle,
+     start: AnimationSampleTick,
+ }
+ 
+@@ -84,9 +84,9 @@
+         skeleton: &SkeletonState,
+         viewer: &TacticalPlayerViewer,
+         targeting: &CombatTargeting,
+         config: &TacticalCombatConfig,
+-    ) -> AnimationValueResult<Option<Self>> {
++    ) -> MeleeGeometryResult<Option<Self>> {
+         let Ok(character) = viewer.get_for_attack(request.entity, request.hand) else {
+             return Ok(None);
+         };
+         let style = request.family.melee_style();
+@@ -118,15 +118,16 @@
+         targeting: &CombatTargeting,
+         config: &TacticalCombatConfig,
+         windup: AnimationElapsed,
+         recovery: AnimationElapsed,
+-    ) -> AnimationValueResult<Self> {
+-        let range = targeting.melee_acquisition_range(request.entity, request.reach, config);
+-        let (target, position, direction) = targeting.acquire(
++    ) -> MeleeGeometryResult<Self> {
++        let range = targeting.melee_acquisition_range(request.entity, request.reach, config)?;
++        let acquired = targeting.acquire(
+             request.entity,
+             range,
+             Some(MeleeAcquisitionTiming::try_from(&config.movement)?),
+         )?;
++        let target = acquired.target;
+         let arrival = target.map_or(MeleeLungeArrival::NotNeeded, |target| target.arrival);
+         let contact = arrival.contact_timing(windup)?;
+         let timing = MeleePlaybackTiming::delayed(
+             skeleton,
+@@ -140,11 +141,11 @@
+             timing.contact_from_input_seconds,
+             timing.contact_from_input_seconds,
+             request.reach,
+             false,
+-            target,
+-            position,
+-            direction,
++            acquired.target,
++            acquired.position,
++            acquired.direction,
+         )?;
+         Ok(Self {
+             spec: request.spec,
+             timing,
+@@ -159,9 +160,9 @@
+         self,
+         cmd: &mut Commands,
+         skeleton: &mut SkeletonState,
+         targeting: &CombatTargeting,
+-    ) -> AnimationValueResult<()> {
++    ) -> MeleeGeometryResult<()> {
+         let Self {
+             entity,
+             reach,
+             windup,
+@@ -169,11 +170,11 @@
+             curve,
+             start,
+         } = self;
+         let spec = AttackSpec { curve, ..default() };
+-        let (target, position, direction) = targeting.acquire(entity, (reach, 0.0), None)?;
++        let acquired = targeting.acquire(entity, AttackAcquisitionRange { reach, maximum_travel: SignedLength::ZERO }, None)?;
+         let attack_state =
+-            AttackState::new(windup, windup, reach, true, target, position, direction)?;
++            AttackState::new(windup, windup, reach, true, acquired.target, acquired.position, acquired.direction)?;
+         let contact = start.saturating_add(animation_ticks(windup)?);
+         let end = start.saturating_add(animation_ticks(windup.checked_add(recovery)?)?);
+         if skeleton
+             .begin_attack_timed(spec, start, contact, end)
+@@ -182,9 +183,9 @@
+             return Ok(());
+         }
+         cmd.entity(entity).insert(attack_state);
+         cmd.client_trigger(RangedActionRequest::Start {
+-            target: target.map(|target| target.body),
++            target: acquired.target.map(|target| target.body),
+         });
+         Ok(())
+     }
+ }
+@@ -196,9 +197,9 @@
+         skeleton: &mut SkeletonState,
+         viewer: &TacticalPlayerViewer,
+         targeting: &CombatTargeting,
+         combat_config: &TacticalCombatConfig,
+-    ) -> AnimationValueResult<()> {
++    ) -> MeleeGeometryResult<()> {
+         let Self {
+             entity,
+             hand,
+             alternate_attack,
+@@ -253,9 +254,9 @@
+             target,
+         } = prepared;
+         match skeleton.begin_attack_timed(spec, timing.start, timing.contact, timing.end) {
+             Ok(()) => {}
+-            Err(ActionTransitionError::InvalidAnimationValue(error)) => return Err(error),
++            Err(ActionTransitionError::InvalidAnimationValue(error)) => return Err(error.into()),
+             Err(ActionTransitionError::ActionBusy) => {
+                 cmd.entity(entity).insert(BufferedMeleeAttack {
+                     family: strike_family,
+                     hand,
+@@ -285,9 +286,9 @@
+     viewer: &TacticalPlayerViewer,
+     time: &Time,
+     combat_config: &TacticalCombatConfig,
+     targeting: &CombatTargeting,
+-) -> AnimationValueResult<()> {
++) -> MeleeGeometryResult<()> {
+     let AttackStartRequest {
+         entity,
+         alternate_attack,
+         hand,
+@@ -365,9 +366,9 @@
+     combat_config: Res<TacticalCombatConfig>,
+     targeting: CombatTargeting,
+ ) {
+     for (entity, buffered, mut skeleton) in &mut characters {
+-        let attempt = (|| -> AnimationValueResult<()> {
++        let attempt = (|| -> MeleeGeometryResult<()> {
+             let Some(spec) = (match buffered.hand {
+                 AttackHand::Main => skeleton.select_main_attack(buffered.family),
+                 AttackHand::Offhand => skeleton.select_offhand_attack(buffered.family),
+             }) else {

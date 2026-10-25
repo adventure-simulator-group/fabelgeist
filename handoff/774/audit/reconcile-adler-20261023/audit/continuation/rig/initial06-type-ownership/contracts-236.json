@@ -1,0 +1,35 @@
+{
+  "id": "RIG-INITIAL06-GROUP-236",
+  "at": "2026-10-23T07:07:07.170061+00:00",
+  "lens": "audit-type-ownership",
+  "scope": "cumulative-source-scope-parallel-066.json",
+  "groups": {
+    "physical-terrain-native-material-packing": {
+      "comparison": "Fresh terrain material103 packs canonical SceneTerrain/SceneEnvironment/SceneGround/config into TacticalTerrainExtension. Cover fractions, weather wind-speed scalar, fade distances, detail height ranges, tile repetitions/metre, reserved flags and texture handles deliberately occupy Vec4 lanes with different units; one generic RGBA or UnitInterval replacement would be wrong. Actual color_vec4 scene-ground/grass pigment is color, distinct from later metric lanes. F005 shared semantic color conversions can coexist with real native packed payload. width/depth/half extents here are computed native renderer values; generic GeometryResult belongs lower shared geometry F001, not an independent terrain scalar owner. Source seed derived from scene_digest for image content, not environment current authority token. Config raw fields/caller validation remain separate; no accepted-material guarantee from successful construction, imported ground_map_image body not inferred.",
+      "disposition": "Keep material shader packing explicit and unit-specific; preserve shared lower geometry/color ownership suggestions only where meanings match."
+    },
+    "semantic-route-read-only-observation": {
+      "comparison": "Fresh semantic_route145 SemanticRouteInputs is read-only presentation/evaluation snapshot, not another authoritative SkeletonState. It borrows canonical NonnegativeSpeed/CyclePhase/SkeletonAction/GroundContact/UnitInterval/LeadFoot/ContactSequence/AnimationPackId. Direction Vec2 is derived normalized local velocity, not WGS or target position; requested_path/path distinction is trace lifecycle fields even currently equal. SemanticRoutePath three client routing modes differ from equipment/animation catalogue IDs and its as_str is telemetry wire adapter. GroundContact serialized airborne bool is deliberately lossy observer projection, not compatibility alias. Counts BTreeMap keyed canonical routing enum retains owned classifier; no repeated string parser or second path owner here. Equipped animation pack resolution clones presentation state, leaving tactical authority transient. Failure removes stale trace; called evaluation/library/body semantics not credited by method names.",
+      "disposition": "Keep semantic routing telemetry and snapshot separate from canonical authoritative animation state; reuse canonical leaves."
+    },
+    "mission-lifetime-settlement-snapshot-authority": {
+      "comparison": "Fresh tactical request133 distinguishes immutable TacticalSettlementSnapshot/TacticalBusinessOperator capture from live DB Character/settlement/business assignment. Display operator_name String is captured presentation text, not rename authority; BusinessId canonical WorldSchema owns compound business identity. operator_character_id raw u64 carries actual durable DB Character identity, supporting F040 common low CharacterId while preserving Business/Establishment/Settlement/Scene identities. Snapshot id and scene boundary matching are explicit source authority; distance_m==0 means site inside origin settlement rather than generic zero-invalid length or proximity inference. Population estimate/level/economy differ units and authority, not probability scalars. TacticalPartyRoster constructed through canonical Core type from current living IDs, no duplicate roster definition. SATS tables/wire snapshots remain legitimate adapters but should consume canonical shareable IDs if codec/dependency allows, no compatibility facade.",
+      "disposition": "Keep immutable mission capture distinct from live DB authority and personal-name identity; durable CharacterId sharing remains F040."
+    },
+    "compound-engineering-selection-and-support-elevation": {
+      "comparison": "Fresh selection127 CompoundSupportRequest gathers property, observed levels, typed scene threshold/apron, GeographicSurface and engineering limits to produce CompoundSupportPlan. Selection and attempted treatment/diagnostic context belong grounding, not generic geometry. SupportElevation wraps same Scene vertical elevation meaning as canonical Elevation<Scene>, supporting F023 shared owner rather than another duplicate finite vertical scalar. Native clamp arithmetic changes selected elevations; canonical translated SignedLength retained through chosen floor shift. ScenePlanPoint and plot bounds remain correct local frame, no WorldGeo or positiveLeaf substitution. Level versus terraced treatments preserve semantic choices/first-error eligibility and real source controls, not second accepted plan owner. Public request is raw aggregate of components; actual compilation/binding/source-control calls retain own predicates, successful candidate name does not imply unseen body coverage. Preserve diagnostic measured/permitted and attempts even when raw rejected numeric evidence differs accepted leaves.",
+      "disposition": "Keep engineering request/plan/treatment authority in grounding; reuse shared Scene elevation per F023 and neutral geometry per F001."
+    }
+  },
+  "supporting_existing_findings": [
+    "RIG-INITIAL06-F001",
+    "RIG-INITIAL06-F005",
+    "RIG-INITIAL06-F023",
+    "RIG-INITIAL06-F040"
+  ],
+  "source_fact_refs": [
+    "contracts-234.json",
+    "contracts-235.json"
+  ],
+  "limits": "Four fresh full actual bodies, no unseen called-helper coverage, no shader/runtime/test/build execution, no source/claim edits or later-lens credit."
+}

@@ -1,0 +1,123 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-177",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/lot_inventory.rs",
+      "sha256": "28b22445ed307bc12de78b72d95df5b4325ba47ad3403f45292bb0c5b6efb87b",
+      "actual_EOF": 534,
+      "actual_compared_ranges": [
+        [
+          1,
+          534
+        ]
+      ],
+      "method": "Whole P16 literal bodies personally read; actual complete PR textual comparisons empty and semantic justification reviewed for each file, not hash-only counterpart credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/mod.rs",
+      "sha256": "80bfa29d162de3dce0554d867093029ba6a5a3b02e405cafd0863a80692c0e7f",
+      "actual_EOF": 84,
+      "actual_compared_ranges": [
+        [
+          1,
+          84
+        ]
+      ],
+      "method": "Whole P16 literal bodies personally read; actual complete PR textual comparisons empty and semantic justification reviewed for each file, not hash-only counterpart credit."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/food/model.rs",
+      "sha256": "b1ed41d6a51aaf7bcd77c4e36ad928b0ef533216ddc9efb1aa3a0f78a97c12d9",
+      "actual_EOF": 151,
+      "actual_compared_ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "method": "Whole P16 literal bodies personally read; actual complete PR textual comparisons empty and semantic justification reviewed for each file, not hash-only counterpart credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/lot_inventory.rs",
+      "sha256": "28b22445ed307bc12de78b72d95df5b4325ba47ad3403f45292bb0c5b6efb87b",
+      "actual_EOF": 534,
+      "actual_compared_ranges": [
+        [
+          1,
+          534
+        ]
+      ],
+      "method": "Whole P16 literal bodies personally read; actual complete PR textual comparisons empty and semantic justification reviewed for each file, not hash-only counterpart credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/mod.rs",
+      "sha256": "80bfa29d162de3dce0554d867093029ba6a5a3b02e405cafd0863a80692c0e7f",
+      "actual_EOF": 84,
+      "actual_compared_ranges": [
+        [
+          1,
+          84
+        ]
+      ],
+      "method": "Whole P16 literal bodies personally read; actual complete PR textual comparisons empty and semantic justification reviewed for each file, not hash-only counterpart credit."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/model.rs",
+      "sha256": "b1ed41d6a51aaf7bcd77c4e36ad928b0ef533216ddc9efb1aa3a0f78a97c12d9",
+      "actual_EOF": 151,
+      "actual_compared_ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "method": "Whole P16 literal bodies personally read; actual complete PR textual comparisons empty and semantic justification reviewed for each file, not hash-only counterpart credit."
+    }
+  ],
+  "groups": [
+    {
+      "id": "Stable food rows and schema admission",
+      "locations": "lot_inventory1-183; model1-166; mod1-84",
+      "trace": "ensure_food_material_object requires native quantity1 and exact existing item/location or creates canonical stableobject. Lot nutrition/mass/value multiply actualcatalog values by rawu32 quantity; u32->f32 cannot overflow itself. This does not prove quantity argument matches actual singleton row or zeroquantity admitted coherently. Party creator erases object errors intoNone, personal returnscause. Existing current_minute fabricates epoch0 on missing clock, already CAM-PPS-F003. Deletion removes associated medicine, provenance and contamination. Model has raw fields and parallel optional Personal/Party references; leafschema alone does not establish exactlyone or one-to-one row association. Include mod has only ordering/import/delegation, no additional mutator. Generatednativebinding boundary remains separate later obligation.",
+      "disposition": "Existing local774:M29 food whole-product and provenance/owner gap retained; no new ordinary duplicate-lot claim or rawcatalogmax multiplication failure. Current missing-clock evidence strengthened.",
+      "dependencies": [
+        "local774:M29",
+        "CAM-PPS-F003",
+        "Actual item addinventory singleton and inventory object construction graph",
+        "Generated native binding decoding"
+      ],
+      "acceptance": "Every admitted lot retains exactly its canonical stable object, scope and measured amount; source identity and typed failures survive operations until genuine schema boundary. Preserve quantity-one physical food policy and actual authored measure ranges."
+    },
+    {
+      "id": "Split/remove/move numeric preconditions",
+      "locations": "lot_inventory185-241,281-442",
+      "trace": "Personal split/remove explicitly require0<taken/removed<=original. That guards denominator and ratio0..1; equalfull path moves identity/deletes exactly once. Partial source/child ingredient quantities derivechild then source subtract to preserve component accounting; revisionchecked before any localscalar changes. Cross-scope move_or_split_to_party/personal and remove_party_lot_quantity lack equivalent inputguards. Representable removed0/original0 immediately deletes party lot; removed>original produces negativekeep clamped0; move taken0/original0 transfers entire source through equality branch. These are strengthened counterexamples for existing local774:M29 quantity/ownership contract, not ordinary accepted current transfer, because actual now-singleton transfer caller preconditions and obsoletepartial paths still need complete source trace. For valid large original nearu32MAX, takenoriginal-1 can round ratio1 so source mass/nutrition rounds0 while ingredient source subtraction policy may differ; raw oldquantityAPI not by itself proof first-party singleton bug.",
+      "disposition": "Extend existing M29 with concrete source/API preconditions and narrowing/precision limits; do not count every unguarded wrapper separately. No new runtime or normal transfer failure asserted.",
+      "dependencies": [
+        "local774:M29",
+        "Native current singleton transfer versus obsoletepartial split callers",
+        "Canonical material measure/fraction and immutable preparation revision",
+        "SDK transaction/catch scope"
+      ],
+      "acceptance": "Admit coherent positive taken/original and exact source/destination before operation. Accepted split conserves material/provenance under chosen rounding; invalid0/overdraw cannot silently move/delete or create state. Clean final API should remove obsolete partial operations only after actual caller discovery."
+    },
+    {
+      "id": "Contamination provenance arithmetic and association",
+      "locations": "lot_inventory262-279,444-534",
+      "trace": "Contamination elapsed uses saturating absolute difference, Core bounded growth returns concentration. Provenance digest lengthframes eachID and exactf32bits but zips IDs/loads, so unmatchedtails omitted unless upstreamassociation admitted. Split scales child and remaining loads using same rawratio; consume actualratio in0..1 from consumption, allcomplete removaldeletes. Cross-scope invalid rawsplitratio is not checked here and can create negative/nonfinite provenance values even though generic retainedfoodcomponent clamps. Existing inputshape/localM29 graph owns associated contribution collection and validratio. Native schema publicity does not make each raw stored product fully admitted.",
+      "disposition": "Existing associated provenance/fraction finding supported with operations trace. Distinct recipe/catalog is not enough to regenerate historicalcookedmaterial. No validmatchingproducer hashcollision/droppedtail asserted.",
+      "dependencies": [
+        "local774:M29",
+        "Core/material associated provenance and measured fraction owners",
+        "Outbreak/worldevent/medicine recipients"
+      ],
+      "acceptance": "Admitted provenance retains paired identities/loads and digest across split/consume; all successful arithmetic remains finite and amount-conserving with explicit rounding. Reject malformed association instead of silently zip-truncating."
+    }
+  ],
+  "findings": [],
+  "status": "Six source roles personally compared with existing findings/open dependencies; whole lens incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/food/preparation_authority.rs"
+}

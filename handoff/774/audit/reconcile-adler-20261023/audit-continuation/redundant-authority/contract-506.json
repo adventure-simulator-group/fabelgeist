@@ -1,0 +1,111 @@
+{
+  "id": "CONT07-CONTRACT-506",
+  "at": "2026-10-23T23:00:16.972005+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2199,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/pauldron.rs",
+      "sha256": "941b424f604c4fec00e1b408cfc88a31540522830f0e5936078674a541c3a78b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/gpu/pauldron.rs",
+      "actual_EOF": 244,
+      "ranges": [
+        [
+          1,
+          244
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2200,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/recipe.rs",
+      "sha256": "09540bbac5ff1df4fbe07021b362cd80495d565cc843ed8b484f8ab401fe508b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/gpu/recipe.rs",
+      "actual_EOF": 166,
+      "ranges": [
+        [
+          1,
+          166
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2201,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/staging.rs",
+      "sha256": "c82ccc89151834ead198496d95805780ebc3770b1d259c1d7d61dafa9817f02e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/gpu/staging.rs",
+      "actual_EOF": 77,
+      "ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2202,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/wrapped_tasset_carrier.wgsl",
+      "sha256": "d2769977cd06ab462c3180b8faf97efd4b55c067d626ff300078d8a6baa6409d",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/gpu/wrapped_tasset_carrier.wgsl",
+      "actual_EOF": 64,
+      "ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2203,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/wrapped_tasset_shape.wgsl",
+      "sha256": "6bf36983d7b2fe90b22fd0e5bccd860aa4e951be3fd90828a85c87438f8f6c40",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/gpu/wrapped_tasset_shape.wgsl",
+      "actual_EOF": 55,
+      "ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2204,
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/wrapped_tassets.rs",
+      "sha256": "e3b42051512367ece0bf95da50fe255586f90159da138fc22385ba5304ba62b9",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-armor/src/gpu/wrapped_tassets.rs",
+      "actual_EOF": 154,
+      "ranges": [
+        [
+          1,
+          154
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Pauldron244 recipe166 staging77 wrappedcarrier64 wrappedshape55 wrappedtassets154 personally fullread. PartRecipe private owns Chart+ChartSlots+Kernel together fromsame layout and consumes self before dispatch. Actualbindingcloses generic ChartSlots mismatched-chart candidate in ordinary recipe path.",
+    "Pauldron record stores no design and record_plates takes newd; exact archive RIG-ADMISSION03-F052 already owns publicdesignadmission/correlation. Added07 source support to that record, no unique newfinding or claimed ordinarywrongdesign. Carrier constants/formed-fitted starts generated fromhostcounts.",
+    "Staged(usize) and StagedResults independent provenance confirmed fullbody: archive RIG-ADMISSION03-F051 exact existing latent cross-session flaw, no new unique07defect. Ordinary PartBuild/Bracer/Breastplate localstage/read/finish pairings coherent; public crosssession route not dismissed.",
+    "Wrappedtasset boundary cache is actualsinglebatchderived memo: eachcourse/row inner-angle solve shares sameframe/design/shape helper and rowindex with actualchartreader. CONT07-F107helmet policy does not imply sharedCOURSE_ROWSwrong; here layout injectsconstant. Native rawfit/status association remains existingadmission concern; no arbitrarymalformedbuffer acceptedclaim.",
+    "Wrappedcarrier exploratorysignedradii vsfinalpositive-sectionchecks are deliberately different solverphases. Formation and fittingpositions are before/after history states, not duplicated samecurrentauthority."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2205,
+    "start_line": 1
+  },
+  "existing_finding_source_support": [
+    "RIG-ADMISSION03-F051",
+    "RIG-ADMISSION03-F052"
+  ]
+}

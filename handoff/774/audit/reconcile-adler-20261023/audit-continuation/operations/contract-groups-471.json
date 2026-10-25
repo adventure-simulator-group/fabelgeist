@@ -1,0 +1,58 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-471",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture.rs",
+      "sha256": "bcaff9a888ddff154b19d741d428659d595446dbb78e29938811c169810b6738",
+      "actual_EOF": 379,
+      "actual_compared_ranges": [
+        [
+          1,
+          379
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/catalog.rs",
+      "sha256": "e02b7ac3ba7478629a9233a5790f4c54e8f1d2f20d859926fd2c804a87759cd1",
+      "actual_EOF": 201,
+      "actual_compared_ranges": [
+        [
+          1,
+          201
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/finishes.rs",
+      "sha256": "1fe023253ded6f1a52e1aa88b1d0f415c6ee1ee9b9219a26f1edf1e2f122bbde",
+      "actual_EOF": 89,
+      "actual_compared_ranges": [
+        [
+          1,
+          89
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Catalogue specimen staging and bounded identity arithmetic",
+      "analysis": "All threecomplete379/201/89linebodies read. Constant45interiorfamilies/fourwoodstates/fivefinishfamilies boundusize\u2192u8/u16 camera/room/instanceordinalcasts andlargebaseu64addition. Key membership checked by FurnitureKey::ALL exactordinal, no hand-assumedvariantid. Buildingid0 intentionallysyntheticcatalogue payload, no persistentowner or databaseadmission imposed. Fallible stagingappendslocal layout incrementally; failure isterminalcapture setup, no reusablelive atomicity guarantee assumed."
+    },
+    {
+      "contract": "Perspective envelope arithmetic and room sequence",
+      "analysis": "Cataloguecamera fixedunitaxes/FOV/aspect denominator, typedcuboid dimensions, re-admits completedcamera/target. Envelope corners includeactualheights/twovariants plusintentionalgap; fixtures checkallcornerprojection at sourcelevel only. expect_furniture completesrecipes/counts beforequeuedresource insert; layout evidencewrite afterstaging mayfailterminal. Semanticroomselection indexesfixed16uses; missingrequiredusage returnsErr. No projectexecution oractualGPUreadiness claim."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/interior_furniture_capture/rooms.rs"
+}

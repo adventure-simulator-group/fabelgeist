@@ -1,0 +1,154 @@
+{
+  "id": "CONT07-CONTRACT-642",
+  "at": "2026-10-24T00:57:25.075356+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2834,
+      "source_id": "physical-p16:crates/adventuresim-puzzles/src/logic_grid.rs",
+      "sha256": "c40ef50453ea8397ae1ea890892eb142f77ce9b6f8d58f5d8e2158afd75de2c4",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-puzzles/src/logic_grid.rs",
+      "actual_EOF": 407,
+      "ranges": [
+        [
+          1,
+          382
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2835,
+      "source_id": "physical-p16:crates/adventuresim-puzzles/src/resource_allocation.rs",
+      "sha256": "d2ec402f714f075538152f588064e8025bd2436fac765d8168e09980f4fa911b",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-puzzles/src/resource_allocation.rs",
+      "actual_EOF": 373,
+      "ranges": [
+        [
+          1,
+          358
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2836,
+      "source_id": "pr-working:crates/adventuresim-core/src/bestiary/report_quality.rs",
+      "sha256": "99cf829423d94b7d5cafa84c6bc853ce91d1c74dc20891d894e1ca435cc5310b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/bestiary/report_quality.rs",
+      "actual_EOF": 39,
+      "ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2837,
+      "source_id": "pr-working:crates/adventuresim-core/src/bestiary/catalog_tests.rs",
+      "sha256": "3ed5388a106af6a5915305446634cba57154d784984dc9f05ffc089161938279",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/bestiary/catalog_tests.rs",
+      "actual_EOF": 33,
+      "ranges": [
+        [
+          1,
+          33
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2838,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/landing_policy.rs",
+      "sha256": "e054b33865a02762e480744ec0074a04fe71d7bf73e61c10ca5357f493eaf7d3",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/spiral_stairs/landing_policy.rs",
+      "actual_EOF": 62,
+      "ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2839,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/floors.rs",
+      "sha256": "8a2961c2a6d64a997bc81cf6cc94ac1647dbe32afa1093446f97f6de93cedca4",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/spiral_stairs/floors.rs",
+      "actual_EOF": 101,
+      "ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2840,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/keep_core.rs",
+      "sha256": "4fe112080f5dcc507eb0600309b787389a2dbb7b056ead9fd82bea634d9e496b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/spiral_stairs/keep_core.rs",
+      "actual_EOF": 70,
+      "ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2841,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/bearings.rs",
+      "sha256": "fe9290ba0a257cd25b730ebad5762e929b2c184773fb1b92f4b4591722a36089",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/spiral_stairs/bearings.rs",
+      "actual_EOF": 69,
+      "ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2842,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/tests.rs",
+      "sha256": "cc9107fd14bb47171e08b5020021594835c779dc021dd32e095a926ff9e977f1",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/spiral_stairs/tests.rs",
+      "actual_EOF": 221,
+      "ranges": [
+        [
+          1,
+          221
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "NATIVE-INITIAL05-F045 complete record",
+    "NATIVE-INITIAL05-F046 complete record",
+    "ROOT-ADM-F008 complete record"
+  ],
+  "facts": [
+    "2834 logic-grid retained private solution must agree with public spec/clues. Factory validates coordinate bounds, permutations, unique solution and irredundancy; check compares against private solution. Ordinary derived decoding/public spec mutation bypass remains exact ROOT-ADM-F008 / NATIVE-INITIAL05-F045 API-qualified support, not new unique defect. Label arrays one canonical roster; projection slices based on mutable spec, exact existing panic witness.",
+    "2835 ResourceAllocation profile weight/readiness/protections freshly derive from ProvisionId; projection does not independently classify labels. Solution cached from unique optimal pack; validate checks canonical sorted unique offered set and same optimizer. Public raw allocation_legal_packs accepts oversized repeated Vec beyond native mask capacity, exact NATIVE-INITIAL05-F046/ROOT-ADM-F008 support, no normal generator fault. Seed/spec replay provenance separate from actual edited puzzle.",
+    "2836 report quality derives ambiguity/marginals/clue count from bestiary authority. Threshold9500 is curated admission policy, not an independently stored measured probability.",
+    "2837 catalogue tests assert authored IDs/name/loot reach compiled profiles and open additional IDs without named constants; read only, no test execution or pass claim.",
+    "2838\u20132841 stair flight is resolved derivative, occupied-floor landing admission follows actual plan storeys/cells; auxiliary crown platform intentionally not occupied landing portal. Floor panel cutouts generated from exact admitted flight extents. Keep stair centre/rise derive program, materialized output not competing independently authored geometry. Junction bounds derived from actual resolved solids, retains distinct contact policy. Namespace/tolerance remain scoped contracts, no collision witness from literals alone.",
+    "2842 tests assert source identity shared by collision/detail, tread count/rise limits, floor holes and distinction of auxiliary crown from occupied portals. Test bodies personally read, not executed; no source derivation correctness inferred from test existence."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2846,
+    "start_line": 1
+  }
+}

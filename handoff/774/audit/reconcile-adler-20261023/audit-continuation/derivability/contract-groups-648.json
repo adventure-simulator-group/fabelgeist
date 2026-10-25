@@ -1,0 +1,362 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-648",
+  "at": "2026-10-25T16:21:22.143539+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 956,
+      "source_id": "pr-working:crates/adventuresim-core/src/mission/enemy_roster.rs",
+      "sha256": "c83ace93cc95cb243c86bf6bc02bea9954953b433db0ab7790ea890ac7251642",
+      "actual_EOF": 96,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/mission/enemy_roster.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/mission/enemy_roster.rs",
+        "sha256": "c83ace93cc95cb243c86bf6bc02bea9954953b433db0ab7790ea890ac7251642",
+        "bytes": 3025,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/core-trait-receiver-sources.json",
+            "ranges": [
+              [
+                1,
+                96
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-CORE-TRAIT-RECEIVERS-001"
+            ]
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                96
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-CORE-TRAIT-RECEIVERS-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 179,
+            "read_ranges": [
+              [
+                1,
+                96
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-TRADE-MISSION-050"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/mission/enemy_roster.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 338,
+            "read_ranges": [
+              [
+                1,
+                96
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-TRADE-MISSION-050"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/mission/enemy_roster.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CASE-RECEIVERS-029",
+            "json_pointer": "/related_current_sources/21",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/mission/enemy_roster.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                96
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/mission/enemy_roster.rs",
+              "sha256": "c83ace93cc95cb243c86bf6bc02bea9954953b433db0ab7790ea890ac7251642",
+              "read_ranges": [
+                [
+                  1,
+                  96
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/mission/enemy_roster.rs",
+              "scope": "Whole canonical nonempty unique original-order roster/count implementation and existing fixtures, exact actual EOF applied."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016",
+            "json_pointer": "/related_current_reads/21",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-core/src/mission/enemy_roster.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                96
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-core/src/mission/enemy_roster.rs",
+              "sha256": "c83ace93cc95cb243c86bf6bc02bea9954953b433db0ab7790ea890ac7251642",
+              "read_ranges": [
+                [
+                  1,
+                  96
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/mission/enemy_roster.rs",
+              "scope": "Whole canonical nonempty unique original-order roster/count implementation and existing fixtures, exact actual EOF applied."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 336,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          96
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Display + Error",
+          "type": "EnemyRosterError",
+          "lines": [
+            [
+              18,
+              27
+            ]
+          ],
+          "disposition": "OPTIONAL_F002 existing thiserror exact unit variant literals/source None"
+        },
+        {
+          "trait": "TryFrom<Vec<u64>>",
+          "lines": [
+            [
+              34,
+              44
+            ]
+          ],
+          "disposition": "KEEP checked nonempty/count/unique identity gates and exact error ordering, not raw field conversion"
+        }
+      ],
+      "existing_derives": [
+        "Structural Clone/Debug/Eq/PartialEq roster and Clone/Copy/Debug/Eq/PartialEq error already derive"
+      ],
+      "absence_basis": "Entire exact role personally consumed647 output: declarations, checked conversion/count/getters, every fixture; no other handwritten trait or codec."
+    },
+    {
+      "scope_index": 957,
+      "source_id": "pr-working:crates/adventuresim-core/src/mission/roster.rs",
+      "sha256": "2b4baf6c921fd489d497a5f002c8ee5a84e48014c6932e1bd4153754501759dd",
+      "actual_EOF": 91,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/mission/roster.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/mission/roster.rs",
+        "sha256": "2b4baf6c921fd489d497a5f002c8ee5a84e48014c6932e1bd4153754501759dd",
+        "bytes": 2983,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/core-trait-receiver-sources.json",
+            "ranges": [
+              [
+                1,
+                91
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-CORE-TRAIT-RECEIVERS-001"
+            ]
+          },
+          {
+            "shard": "camera",
+            "record": "wave-01/audit-producer-propagation/camera/related-paths.jsonl",
+            "ranges": [
+              [
+                1,
+                91
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "CAM-PROP-CORE-TRAIT-RECEIVERS-001"
+            ]
+          }
+        ],
+        "audit_owner": "camera",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/coverage.jsonl",
+            "row": 180,
+            "read_ranges": [
+              [
+                1,
+                91
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-TRADE-MISSION-050"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/mission/roster.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 340,
+            "read_ranges": [
+              [
+                1,
+                91
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-TRADE-MISSION-050"
+            ],
+            "read_status": "complete",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/mission/roster.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "continuation_actual_producer_source_proofs": [
+          {
+            "record": "continuation/rig/source-role-qualification-045.json",
+            "json_pointer": "/fresh_source_proofs/4",
+            "source_id": "pr-working:crates/adventuresim-core/src/mission/roster.rs",
+            "sha256": "2b4baf6c921fd489d497a5f002c8ee5a84e48014c6932e1bd4153754501759dd",
+            "read_ranges": [
+              [
+                1,
+                91
+              ]
+            ],
+            "proof": {
+              "source_id": "pr-working:crates/adventuresim-core/src/mission/roster.rs",
+              "sha256": "2b4baf6c921fd489d497a5f002c8ee5a84e48014c6932e1bd4153754501759dd",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-core\\src\\mission\\roster.rs",
+              "read_ranges": [
+                [
+                  1,
+                  91
+                ]
+              ],
+              "actual_EOF": 91,
+              "fingerprint_matches_receipt": true,
+              "endpoints_within_actual_source": true,
+              "role": "TacticalPartyRoster admits native durable u64 IDs without reordering, rejects empty/over-limit/duplicate, derives NonZeroU32 enrollment count and projects vector at actual native request. Existing fixtures retain original values/order including valid zero identity; no execution.",
+              "proof_origin": "Fresh bounded source read or explicitly described complete counterpart-delta reconciliation in this turn"
+            },
+            "limits": "Actual source-role proof for producer lens only; no owner-fit or other-lens clearance."
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 337,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          91
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Display + Error",
+          "type": "TacticalRosterError",
+          "lines": [
+            [
+              23,
+              33
+            ]
+          ],
+          "disposition": "OPTIONAL_F002 existing thiserror exact unit variant literals/source None"
+        },
+        {
+          "trait": "TryFrom<Vec<u64>>",
+          "lines": [
+            [
+              35,
+              50
+            ]
+          ],
+          "disposition": "KEEP checked nonempty/count/unique identity gates and exact error ordering, not raw field conversion"
+        }
+      ],
+      "existing_derives": [
+        "Structural Clone/Debug/Eq/PartialEq roster and Clone/Copy/Debug/Eq/PartialEq error already derive"
+      ],
+      "absence_basis": "Entire exact role personally consumed647 output: declarations, checked conversion/count/getters, every fixture; no other handwritten trait or codec."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Roster identity admission versus literal error formatting",
+      "disposition": "Native checked Vec roster conversions remain. Only optional F002 literal Display/Error derive; no runtime defect or new count."
+    }
+  ],
+  "findings": [
+    "F002 additional exact enemy/party roster error support"
+  ],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 958,
+    "source_id": "pr-working:crates/adventuresim-core/src/morale.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

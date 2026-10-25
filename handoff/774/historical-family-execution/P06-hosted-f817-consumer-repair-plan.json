@@ -1,0 +1,31 @@
+{
+  "recorded_at": "2026-10-21T03:00:31.986714+00:00",
+  "head": "f81712e56aa09105e62d4a72e13305093b945a17",
+  "status": "Native hosted compilation exposed seven diagnostics; source repair in progress, no new CI request until the connected repair is complete.",
+  "evidence": "P06-hosted-f817-first-failure.log",
+  "paths": [
+    {
+      "family": "P06",
+      "earliest_producer": "settlement/tests.rs member.contact.centre_metres() returns Vec2 although its consumers already expect ScenePlanPoint.",
+      "action": "Use the existing checked centre() producer, with no new admission, numerical input or assertion changes."
+    },
+    {
+      "family": "P02 review follow-through",
+      "earliest_unfinished_consumer": "strategic-sim live_core/bootstrap.rs::run_core_loop_inner still returns String and cannot retain AuthoredThreatError.",
+      "trace": "authored_threat_combatant -> typed core-loop operation error -> typed inner bootstrap -> typed outer run outcome -> typed FailureRecorder input/projection -> main() Box<dyn Error> CLI boundary.",
+      "action": [
+        "Reuse existing CoreLoopError and reducer operation owners; expose those actual canonical types for the new public result instead of creating equivalent private/public aliases. Preserve AuthoredThreatError as a distinct source variant.",
+        "Introduce a distinct run-outcome error for an operation failure versus failure to record that failure; the compound variant owns the original structured error and the diagnostic-write cause. This is not a duplicate operation error.",
+        "Give failure-report locking, JSON encoding and file output structured owning error variants. FailureRecorder consumes CoreLoopError directly and retains its fallback source; remove the intermediate to_string handoff.",
+        "Adapt the single existing recorder fixture without new cases/assertions. Add its existing failure-security suite as a required hosted test group and preserve the earlier 40 groups/16 Creator command vectors.",
+        "Keep current schema-v9 failure projection/redaction and chronological/bootstrap behavior; do not move threat construction before database work merely to avoid propagating its error.",
+        "Source-review all public/native/root callers and test paths, preserve source metadata, then publish for hosted checks."
+      ],
+      "limits": "This closes the newly typed authored-threat cause path. The simulator contains older unrelated String-returning operations and open SDK/reducer prose; this increment does not claim the entire simulator error model has migrated. No String conversion may erase the new authored-threat cause."
+    }
+  ],
+  "constraints": [
+    "No local project tools, agents, new tests/cases/assertions/helpers, fourth audit wave, Comment Review, DB/schema/generated changes, gate weakening or PR merge.",
+    "Current main is c20169551, an ancestor; unrelated manifests and original stash remain preserved."
+  ]
+}

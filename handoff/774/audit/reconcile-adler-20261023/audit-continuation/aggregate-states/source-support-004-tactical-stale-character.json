@@ -1,0 +1,132 @@
+{
+  "id": "SEGO-INITIAL05-F006",
+  "at": "2026-10-25T14:09:17.285241+00:00",
+  "title": "Clear tactical assignments on current character state after applying consequences",
+  "priority": "P1",
+  "classification": "Source-backed stale whole-row overwrite of committed death; admitted native receipt sequence, not executed",
+  "lenses": [
+    "aggregate-states"
+  ],
+  "locations": [
+    {
+      "file": "crates/adventuresim-stdb-module/src/tactical.rs",
+      "start": 1247,
+      "end": 1252
+    },
+    {
+      "file": "crates/adventuresim-stdb-module/src/tactical.rs",
+      "start": 1275,
+      "end": 1289
+    },
+    {
+      "file": "crates/adventuresim-stdb-module/src/tactical.rs",
+      "start": 598,
+      "end": 601
+    }
+  ],
+  "contract_trace": "end_tactical_server_by_instance snapshots connected Vec<Character> before strategic completion and apply_tactical_receipt. Receipt blood loss may call transition_character_to_dead_at, which writes alive=false and immutable death/corpse/estate/relationship/party consequences while deliberately preserving server assignment for teardown. The final loop passes the old Character value to leave_mission_for_server, which changes only its server field locally then updates the ENTIRE stale row. For a previously living party member, this restores alive=true even though death and its consequences remain committed.",
+  "counterexample": "Supported initialized non-temporary party member assigned to this server and in its frozen authorized roster/current party; an authenticated bounded receipt reports blood_loss_fraction1 (or enough to cross10% circulation threshold). With another surviving member, session success is consistent with victim death. Native bounds admit fraction1 and no injuries/contacts/ammunition; condition.apply_blood_loss writes currentblood0 and actual death transition writes alive=false while preserving tactical assignment. Normal uninfected character has no malformed episode: effective_attributes and capability loaders have no living gate, and dirt deposit does not require life. If all later normal processing succeeds, stale snapshot teardown restores pre-receipt alive=true. This is a source-derived accepted receipt witness, not a runtime/reproducer/installedsession assertion or claim the child is malicious.",
+  "repair": "Own the whole completion/consequence/teardown function jointly with M58/M59. Retain character identity and expected tactical assignment for cleanup, not a writable pre-consequence whole Character snapshot. Load and validate current authoritative character state at the mutation seam and clear only the assignment while preserving death, party, progression and other intervening changes. Apply the same current-state contract through public leave, interrupted standalone retirement and completion callers, preserving temporary cascade and foreign active assignment rejection. Do not skip dead members, suppress death, delete death evidence, revive on cleanup, or reinitialize character state. Reuse canonical CharacterId and assignment/lifecycle owners; no duplicate type or primitive shim.",
+  "dependencies": [
+    "M58 mission completion/terminal/canonical identity/error contracts and M59 admitted receipt/clinical/durability consumers share end_tactical_server_by_instance; one future repair owner for whole function and connected signatures",
+    "Authoritative character death/corpse/estate/relationship/party normalization must remain final; server assignment intentionally survives death until cleanup",
+    "Exact current Character and tactical assignment owner policies; source-local helper repair does not complete other family requirements",
+    "All13 discovery gate; existing tests only after connected source repair, no newtests"
+  ],
+  "acceptance": "A receipt that kills a participant leaves Character.alive=false and its death/corpse/estate/relationship/party outcomes coherent after server teardown. Living members lose only intended assignment fields; intervening current data survives. Dead temporary and persistent participants still clean up through appropriate actual lifecycle; wrong active owner fails closed. Success/failure/cancel/standalone paths and receipt authority semantics remain. No validation claimed.",
+  "sources": [
+    {
+      "scope_index": 1242,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/tactical.rs",
+      "sha256": "82b5e76f9dd6bdefc16a72d5c03e94deaa8d94bd843272fd49953df6dd5ab160",
+      "personally_read_ranges": [
+        [
+          586,
+          605
+        ],
+        [
+          1037,
+          1183
+        ],
+        [
+          1185,
+          1302
+        ]
+      ]
+    },
+    {
+      "scope_index": 1086,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/condition.rs",
+      "sha256": "294cb300d2e6c3cee8a6ed923a24ab450efd97cfb87254a10c7743943bc4d6f8",
+      "personally_read_ranges": [
+        [
+          2143,
+          2211
+        ]
+      ]
+    },
+    {
+      "scope_index": 1079,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/character.rs",
+      "sha256": "806a50bc71cade3ffdf93f52a62693f7d02d4d55a52e1cce7e5983b894ec28cf",
+      "personally_read_ranges": [
+        [
+          336,
+          436
+        ]
+      ]
+    },
+    {
+      "scope_index": 1076,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability.rs",
+      "sha256": "3249a867a88a75dc29d514b94c01a89965aed2c037a05fdbcc9109b0bde179f6",
+      "personally_read_ranges": [
+        [
+          77,
+          161
+        ]
+      ]
+    },
+    {
+      "scope_index": 1077,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability/combatant.rs",
+      "sha256": "afba3aaeb15ab41fe36d35221b5269a784098863766c03ad61ecd6532204bdbc",
+      "personally_read_ranges": [
+        [
+          1,
+          111
+        ]
+      ]
+    },
+    {
+      "scope_index": 1098,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/filth.rs",
+      "sha256": "5b1b42cf0757533e9b4591a203615729ea9ebd91da1891cadabb8bde74dec69a",
+      "personally_read_ranges": [
+        [
+          207,
+          308
+        ]
+      ]
+    },
+    {
+      "scope_index": 1093,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/disease.rs",
+      "sha256": "de9c4020e62190669d6fe4114d0f68aaeb75954d3eb3420f5659073024a88b28",
+      "personally_read_ranges": [
+        [
+          851,
+          861
+        ],
+        [
+          1477,
+          1507
+        ]
+      ]
+    }
+  ],
+  "merged_confirmation": "6533\u219213fc diff has no changes in tactical, condition, capability/combatant or filth. Character21-line diff personally read: only weapon_carry import/placement extraction at1/2916, no death transition change. Death overwrite mechanism retained on frozen merged head; no introduced774 regression claimed.",
+  "deduplication": "Targeted Adler1002/root166 and own09 exact teardown/stale-character/death/receipt lookup found no exact mechanism. Own09 owner explicitly reports no alias: F364 opening policy, F035 role propagation and F298 contact quantities differ. M58/M59 shared function/family support is preserved, but this discrete stale-write cause/remedy is not subsumed by typing raw receipt leaves. F25 is completion ID bounds, unrelated.",
+  "repair_status": "not_started_initial_discovery_gate",
+  "validation": "Source only; no compiler, tests, DB, hosted CI or rendered session."
+}

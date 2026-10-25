@@ -1,0 +1,157 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-235",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera.rs",
+      "sha256": "b8ca7d503b8d6de9b9f0892346e97eb71f3a801b68012337f4943be7e7057af9",
+      "actual_EOF": 265,
+      "actual_compared_ranges": [
+        [
+          1,
+          265
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/landscape.rs",
+      "sha256": "0ca70d46d9aafbe4f1fef2e245b771e23fd6a79eb7263b7937c6306ed1068a11",
+      "actual_EOF": 101,
+      "actual_compared_ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/placement.rs",
+      "sha256": "6f16515e0ef35ed320d6c8b862676bb68e853ba485c30454c7c049a6c61bfa0c",
+      "actual_EOF": 60,
+      "actual_compared_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/targeting.rs",
+      "sha256": "d98b3d7ac9f2dd1dfd08f9eaa0442053cdc84b0e110c02d79de04eadafa0529f",
+      "actual_EOF": 103,
+      "actual_compared_ranges": [
+        [
+          1,
+          103
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera.rs",
+      "sha256": "17a9a24f5d15cbd9db474bed73f9cecc39d1dddb1af6a7ff2d9d74a83ae13461",
+      "actual_EOF": 350,
+      "actual_compared_ranges": [
+        [
+          1,
+          350
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/landscape.rs",
+      "sha256": "8a9fe4f5dd1a72f306edf38bf29bb147569abd3314d13ff00e9f3fc01fb8e66e",
+      "actual_EOF": 122,
+      "actual_compared_ranges": [
+        [
+          1,
+          122
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/placement.rs",
+      "sha256": "1d7e47c42a77acec3c103a59dbd02b3810eb0fed0afacbc35c1866908cc55e30",
+      "actual_EOF": 78,
+      "actual_compared_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/targeting.rs",
+      "sha256": "d1d12b0de4fd11d6e6b88a8a2c5b8f61ef2e05121c72a09853d745dc7db54f5c",
+      "actual_EOF": 84,
+      "actual_compared_ranges": [
+        [
+          1,
+          84
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Capture camera whole view admission and computed geometry",
+      "source_ranges": {
+        "view_camera.rs": [
+          [
+            1,
+            265
+          ]
+        ],
+        "landscape.rs": [
+          [
+            1,
+            101
+          ]
+        ],
+        "placement.rs": [
+          [
+            1,
+            60
+          ]
+        ]
+      },
+      "disposition": "Complete exact P16 bodies and full actual PR textual deltas consumed. Allscenecomputedposition/targetvectors re-admitted finite, looking_at rejects coincident/unusableforward and collinearup before returning. Oriented keeps actualcheckedrotation and allows arbitrarytarget because native transform usesfixedorientation; do not force target-based relation ontofixed view. Result includesconcrete missingvista/plant/buildingcamera/livequery/authoredcamera/terrain/geometry errors, no inventeddefault for missingrequiredspecificproof. Optionaltree/debris focus explicitlyfallsbackordinarygroundcamera bycurrentcapturepolicy. Fixedazimuthtrig offsetsfinitegivencheckedangle; extremefinitetree/halfextentproducts canfailordinarygeometryadmission withoutpublishingbadview. Landscapeclamp bounds position.y-80 <=position.y-8, evenwhen equalfromrounding; ifnonfinite intermediates, outputpointconstructorrejects. Native Bevyfinal look-at kernel retains its exact arithmetic after preflight; no newtestsor nativeexecution. Mutablepubcrateposition/target couldbypassviewrelation, requiresactualwriterclosure before wholeownerclaim; no shownbadwriter."
+    },
+    {
+      "contract": "Cursor ranking computed squared-range and native finite-input assumptions",
+      "source_ranges": {
+        "targeting.rs": [
+          [
+            1,
+            103
+          ]
+        ]
+      },
+      "disposition": "ActualP16boundedSignedLength versus MovementPrevalidated retained, PRrawMAXextent sentinel earlierpacket233. Boundednegative->0 maxpolicy and no cursorcone intentional, tieorder angularerror/distancesquared/entityu64. Existing RIG-ROOT-ADM03-SUPPLEMENT-006 provesrawNaNcandidate escapes >range exclusion; now personally fullkernel analyzed. Additional all-finite arithmetic witness: bound1e20 and solecandidateposition(2e20,0,0), actor/cameraorigin0, finiteforward bothsquared valuesoverflowInf, so Inf>Inf false and candidateoutsidegeometricrange retained. Normal2m pickup and boundedlocal-scene coordinates avoidcase; no actualhugeactor/scene/nativeGPUrunclaimed. Same connected range/candidate admission/computedoperation graph, notunique newdefect. Accepted finitepointleaves alone do notseal distance-squared comparison. Need actualsupportedscene/rangeowner or checked/widenedcomparison, preserveordinary equations/ties/negativezero policy ratherthan capglobalworlds silently."
+    }
+  ],
+  "findings": [
+    {
+      "existing": "audit/continuation/rig/admission03/root-support/findings.jsonl#6 RIG-ROOT-ADM03-SUPPLEMENT-006",
+      "support": "Personally full PR/P16kernel analyzed and finite1e20/2e20 squared-overflow range witness adds operations support beyond supplied rawNaNcounterexample; sourceonly, no normalbadcaller/run.",
+      "new_unique_claim": false
+    },
+    {
+      "existing": "audit/records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/findings.jsonl#1 RIG-PPS-F001",
+      "support": "Actualcaller/receiver paths packet231/233/235 confirm typed scene geometry erased beforecompositecandidate API despitecomplete native numericalbody; retain fullowner/framepolicy qualification.",
+      "new_unique_claim": false
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "8 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-tactical-core/src/animation/authored_angle.rs"
+}

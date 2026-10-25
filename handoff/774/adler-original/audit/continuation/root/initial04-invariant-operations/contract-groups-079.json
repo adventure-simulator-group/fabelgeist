@@ -1,0 +1,95 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-079",
+  "at": "2026-10-23T01:03:03.375322+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_iteration/evidence.rs",
+      "sha256": "a806a6dd4779dabe9e140cdc109d4450a5d400c0460b862e157ad4f73b58c345",
+      "actual_compared_ranges": [
+        [
+          1,
+          447
+        ]
+      ],
+      "source_evidence": "Fresh complete actual body, source-only existing tests, connected checked configuration and timeline/geometry receivers compared."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/contact_geometry.rs",
+      "sha256": "49172abd688b3e643d98f8214b92848a339da49622b13331988449baffcb93f5",
+      "actual_compared_ranges": [
+        [
+          1,
+          489
+        ]
+      ],
+      "source_evidence": "Fresh complete actual body, source-only existing tests, connected checked configuration and timeline/geometry receivers compared."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/fatigue.rs",
+      "sha256": "823dc22517760aafcf6f7107becb2e1d9c647c685bfe5022f7865d7739cb52f5",
+      "actual_compared_ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "source_evidence": "Fresh complete actual body, source-only existing tests, connected checked configuration and timeline/geometry receivers compared."
+    }
+  ],
+  "groups": {
+    "contact-positive-energy": "invalid_contact_cause rejects negativegeometry or nonpositiveeffective reach as successful InvalidatedMiss stage, outsideactualreach explicit differentcause. Withvalid nonnegativegeometry, grip0 unarmed avoiding energydivision; otherwise grip>0. Nativelever/butt differences between nonnegativefiniteinputs remainfinite signed; scaled .1 and headclamp staybounded. Energy ratios may overflow toInf on tinynonzerogrip but clamp1 before square producesfinite unitenergy; result must still retain canonicalfraction instead of rawfloat. Ordinary mean(headstart+reach)*.5 mayreturn GeometryError onoverflow evenif hypotheticalwidermeanfits; do not demand infallible arithmetic. F029 ratio degeneracy is separate.",
+    "contact-shapes-and-policy": "Authored scheduledmeasure vs currentactual vs preferredideal have distinctmeaning; rescheduling doesnotredefine ideal. Haft/pommel/head body/strikingmaterial is contextualclassification, invalidgeometry/outsidecause retainedexplicitly. Intended constructor energy1/accuracy1 and zero lever is a deliberateideal shortcut stage, not automatically a fullyresolved geometry product. Publicstruct/Serde can bypass coherent classification/cause tuple; existing admission/aggregate lenses retain their separate obligations. No new same-shape geometry owner.",
+    "evidence-local-work": "Top-level evidence obtains namedopponents with fallible find before returning result; all subsequent vectors/clones unpublished until everyfallible branch completes. Fifteenattack/fifteendefense/onedodge loops use fixedpositive counts no unboundedwhile. Disabledarm fixed7-waybodypartindex alreadyproven, cloneonly. Historical defense/attackavailability comparisons and captured labels distinct from currentauthorities. Fixed incidentenergies69.5/76.788/101.4 times successfulunitcontactenergy arefinite; fractions/energy/geometry retained forlaterreportcomputations, not an automatic terminalserialization boundary. F027 canceledattack vectorIDs remain full recipient repair.",
+    "evidence-geometry": "Native band samples .0001/.00001/.05 create typedSignedLength before contact/result publication; derived geometric arithmetic readmitted where checked output exists. Hardcodedtemplate source generation and base-vs-selectedreach remain actualroster/CameraF009 graph, no assurance for arbitrary edits or publicmutableBuild reused outside privatehelpers. forcedcontact deliberately uses intendedzero shortcut while probes targetchosen authoredsurfaces, not production evidence thatzero reach is normalvalidweapon.",
+    "fatigue-policy": "One general fatigue pool, charged once ataction start, unsustainablemovement samepool, rests recover. Currentparameter validators requirepositivecapacity/efficiency/orderedpositiveactionwindow; rawpublic mutable parameter combinations do not retain proof. Action mechanicalenergy mixes mass/inertia with actualnativekernel and canoverflowfinite inputs; metabolicwork rawstruct lacksseal, downstream computeddivision mayproduceNaN including F030. Finalclamp explicitlysaturates actualexcess to1 when denominatorfinite; existingMAXwork fixture protects that policy, so do not reject legitimate finite overexertion solely for exceeding1 beforeclamp. Positiveeffort with sustainableZERO admittedNonnegativeSpeed yieldsinfinite ratio, applicability mustbeexplicit before a retainedrate/elapsed multiplication.",
+    "existing-source-oracles": "Read all existingcontact energycontinuity/material/band/outside-reach, cadence and actionfatigue/recovery sourceoracles without execution/change. Preserve exactf32 kernel order, contextualzero/absence, continuous short-contactenergy and authoringsemantics. Findings are staticAPIstrengthening, notobserved gameplayfailures."
+  },
+  "findings": [
+    {
+      "id": "ROOT-INITIAL04-F029",
+      "kind": "representable_public_API_computed_measurement_admission_gap",
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/contact_geometry.rs",
+      "locations": [
+        [
+          287,
+          303
+        ],
+        [
+          141,
+          147
+        ]
+      ],
+      "case": "Public resolve_melee_contact_at_time with allnonnegative finite SignedLength facts, effective_reach=f32smallestpositivesubnormal, actual=ideal=scheduled=0, grip/total/head=0, distal=false passes invalid_contact_cause and unarmed branch. reach*.08 underflows0; tolerance0,deviation0 ->0/0NaN, clamp preservesNaN, Okcontact publishes NaNmeasure_accuracy_multiplier. SignedLength finite admission has no positive real-world lower bound. No current ordinary humanoid/template case or run claimed.",
+      "operation": "Leaf-finite geometry does not preserve a computed ratio guarantee; helper is infallible f32 and whole GeometryResult never readmits ratio. Largefinite tolerance+deviation can also overflow toInf and mask a positive ratio as0.",
+      "connected_repair": "Use existing canonical unit fraction for energy/accuracy through computed contact result and downstream retained evidence. Check nativef32 denominator/result and return structured geometry/operation error for degenerate arithmetic, or define explicit zero-tolerance limit policy without silently manufacturing zero. Preserve original f32 order, validzero distances and negative signed geometry owner semantics; no arbitrary minimum portable length or duplicate Probability type. Ordinary rejection remains valid.",
+      "acceptance": "Successful resolved contact has admitted finite unit energy/accuracy; finite geometry cannot publish NaN and clipping cannot hide invalid ratio arithmetic. Existing source tests only, no new case/assertion/helper.",
+      "deduplication": "P16 shared contact geometry computed-fraction owner graph, distinct from F025 authored precision and F028 movement sum."
+    },
+    {
+      "id": "ROOT-INITIAL04-F030",
+      "kind": "representable_public_API_retained_fatigue_NaN",
+      "source_id": "physical-p16:crates/adventuresim-core/src/combat/fatigue.rs",
+      "locations": [
+        [
+          18,
+          21
+        ],
+        [
+          99,
+          110
+        ]
+      ],
+      "case": "Take otherwise admitted CombatFatigueParameters and set capacity_joules_per_endurance=2 and recovery_watts_per_endurance=2 (both finitepositive, pass parameter policy), endurance=f32MAX, fatigue=.5, rest_seconds=1 admitted AnimationElapsed. Numerator2*MAX and capacity2*MAX overflowInf independently; recovered Inf/InfNaN, final clamp preservesNaN and mutates fatigue toNaN. Static valid raw public API case, no normal current endurance/configuration or run claimed.",
+      "operation": "Finite positive input fields and valid durations do not preserve computed recovery or retained wheel fraction; saturation after ratio does not rejectNaN. This directly changes retained state before any error can be reported because helper is infallible.",
+      "connected_repair": "Carry canonical fatigue fraction, positive finite metabolic capacity/work/rate quantities and existing typed durations through action/movement/recovery consumers. Readmit computed operations before replacing retained fatigue; preserve the single visible general-fatigue pool, incapacitation-driven performance and no fatigue movement-speed penalty. Decide ordinary overflow via structured failure or numerically valid bounded operation, not hidden defaults/extra pools/arbitrary endurance cap. SustainableSpeedZERO versus positive effort is a separate explicit applicability policy, not a reason to treat all NonnegativeSpeed asPositiveSpeed.",
+      "acceptance": "Every successful fatigue mutation retains finite0..1 and rejected arithmetic leaves original fatigue unchanged; do not doublecount burden or fatigue in physical skills. Existing action/cadence/recovery tests only with necessary API adaptation; no added tests/assertions/helpers.",
+      "deduplication": "Combat wheel work/capacity/recovery graph; strategic travel capacity ratio F020 uses different units and is not blindly replaced by the same quantity type."
+    }
+  ],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

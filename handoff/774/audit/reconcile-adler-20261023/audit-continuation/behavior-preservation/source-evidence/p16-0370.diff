@@ -1,0 +1,32 @@
+--- p16base/crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/error.rs
++++ catalog-p16head/crates/adventuresim-tactical-server/src/bin/melee_combat_iteration/error.rs
+@@ -17,8 +17,12 @@
+     #[error(transparent)]
+     Resolution(#[from] BattleResolutionError),
+     #[error(transparent)]
+     Preparation(#[from] MeleeIterationError),
++    #[error(transparent)]
++    Geometry(#[from] fabelgeist_geometry::GeometryError),
++    #[error(transparent)]
++    Performance(#[from] adventuresim_core::unit_interval::FractionError),
+     #[error(transparent)]
+     Measurement(#[from] AnimationValueError),
+     #[error(transparent)]
+     Statistics(#[from] MeasurementError),
+@@ -59,4 +63,16 @@
+     },
+     #[error("unknown tactical victor {victor}")]
+     UnknownTacticalVictor { victor: String },
+ }
++
++impl From<adventuresim_tactical_core::combat::MeleeGeometryError> for IterationError {
++    fn from(error: adventuresim_tactical_core::combat::MeleeGeometryError) -> Self {
++        use adventuresim_tactical_core::combat::MeleeGeometryError;
++        match error {
++            MeleeGeometryError::Geometry(error) => Self::Geometry(error),
++            MeleeGeometryError::Animation(error) => Self::Measurement(error),
++            MeleeGeometryError::Timing(error) => Self::Timing(error),
++            MeleeGeometryError::Performance(error) => Self::Performance(error),
++        }
++    }
++}

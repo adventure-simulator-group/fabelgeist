@@ -1,0 +1,139 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-531",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/name_catalog_validation/derivations.rs",
+      "sha256": "7178c20d189f6254be6bd97094c550465c0b137c2c2e3ccf0b8f033cc80d435d",
+      "actual_EOF": 214,
+      "actual_compared_ranges": [
+        [
+          1,
+          214
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/construction.rs",
+      "sha256": "c589129c7386c136feaf7f63fc21ed925f81dd035642ea3dacdc92d054659854",
+      "actual_EOF": 374,
+      "actual_compared_ranges": [
+        [
+          1,
+          374
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/design.rs",
+      "sha256": "8e37cfc29b43f781bc5f265fc6f263c2625aa32cdffbc21e289268437d772ecb",
+      "actual_EOF": 171,
+      "actual_compared_ranges": [
+        [
+          1,
+          171
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/frame.rs",
+      "sha256": "3f26803970af96abe7f16ff9d245230a7718e93f657f8868d605623716356c5e",
+      "actual_EOF": 50,
+      "actual_compared_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/engraving.rs",
+      "sha256": "678b5940a6ed8ab768eee0cefbe366694b743df49a22e6cb75f8d5e55234a005",
+      "actual_EOF": 249,
+      "actual_compared_ranges": [
+        [
+          1,
+          249
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/body.rs",
+      "sha256": "f1bd53ff9b582384bddb6b2c32e63eb62838eb48c3b8eba911d1b4802a013624",
+      "actual_EOF": 229,
+      "actual_compared_ranges": [
+        [
+          1,
+          229
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/bracer.rs",
+      "sha256": "b97ad57cfea2e265e2b9cb6f861344e248047f68def1a29063ef6a0e2916a032",
+      "actual_EOF": 486,
+      "actual_compared_ranges": [
+        [
+          1,
+          486
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Name derivation target coverage and checked sampling join",
+      "evidence": "Fullderivations214. Everyinsertedcoveredtarget proves existsinexacttargetsfirst125, so targets.len-covered.len underflowimpossible; targetshape3boolsum<=3 safeu8. Frequenciesexactmatchprovenancetarget andduplicate/danglingrefsrejected. Freshdepsperson_names274\u2013349\u2192determinismstream105\u2013115 confirms overflowmapsstructuredSamplingErrorbeforeindex/sample. Earlier530missingaggregatequestion doesnotestablishwrappedselection/panic; validrejectionallowed, no new04finding."
+    },
+    {
+      "contract": "Armor plate engineering arithmetic under admitted dimensions",
+      "evidence": "Fullconstruction374/design171/frame50; applicablearmorAGENTSread, no shape iteration/research/render invokedbyreadonlyaudit. Platewidth.012\u2013.15,height.02\u2013.2,gauge.0005\u2013.012,gap0\u2013.005,overlap<=.6,holepairs<=3 implyboundedpitch/holes andpositiveprotectedclearance; infinitysentinel between_rows intentionalmin, maxtrim respectsminimum. RawpublicPlate::holes unvalidatedu32MAX can requesthugework but notvalidadmittedtilingroute. Permille allu16raw meaningwholebracer validation supplies0..1000range, axialintervalread-only. PartFramevalidatefiniteorthogonalhalfextents>0; publicrawpointcanoverflowforarbitraryMAXorigin/localextents, nativeframekernelcompletedresultadmission remainsrecipientdependency, noordinarygeneratedbodyfailureasserted."
+    },
+    {
+      "contract": "Engraving source decode and bounded semantic parameters",
+      "evidence": "Fullengraving249. Validatedheight0..5mm,normalstrength0..4,tiles.25..64,rotation\u00b1PI,recessroughness0..1; proceduralOrnamentrequiresHeight variant. Decoderpixel conversion normalz>=.05 preventszero denominator; arbitrary imageformats/HDRinputfinite/unitpixelguarantee separate imageboundary, no actualNaNPNGwitness. Sourcebytes/readdecodefallible, shadercutconsumer pending. Legalzeroetch/strengthpreserved; nohiddenphysicsreliefclaim."
+    },
+    {
+      "contract": "GPU body correspondence and bracer readback relationship",
+      "evidence": "Fullbody229/bracer486. Bodyarraycardinality/indexbounds+jointcountcheckedbeforeuploads, bytecountu64scaling safefromu32; staging/getcontextbinding deferred exactexistingownershipqualification, notordinarybufferoverflowclaim. ValidSkin+validSkinappendpreservescardinalitywhenpackedrigappendaccepts; malformedrawSkin fields are03/05aggregateadmissionquestion. Bracermorphrecord pushesonlyaftermesh/normalsrecordOk; batchmayretainearlierinternaldispatchonlaterErr, no publishedpartialarmorresultclaimed. Readback checksstatusbeforepublishing; rawprefixcardinalityandPackedRigSkinchecked; deltaszip requiresmatchingtopology. read_async446\u2013459 zipsrecordedmorphslotsandexternalnames withoutlengthcheck, too-fewnamesdropsrecordedtargets, too-manyignored. Exactalias/owningAPIordinarycallercoherence pending; currentcapabilityquestion no guesseduniquecount."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/person_names.rs",
+      "sha256": "e41326d6c8ae20b958581c0027d3b5bdd79a58faf43a142e446f52dc4a8f70ec",
+      "actual_compared_ranges": [
+        [
+          200,
+          420
+        ]
+      ],
+      "actual_EOF": 849,
+      "qualification": "Fresh dependencyonly, notwhole849ororiginalrolecoverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-determinism/src/stream.rs",
+      "sha256": "c2ec90f6b96a13e2f97e9b20426954990d9df8a0331b08bb5709d73e0d09cec6",
+      "actual_compared_ranges": [
+        [
+          70,
+          155
+        ]
+      ],
+      "actual_EOF": 169,
+      "qualification": "Fresh dependencyonly; weightedIndexoverflowmappederror. Noexternaldependencybody/replay/testexecutionclaimed."
+    }
+  ],
+  "status": "7 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/fabelgeist-armor/src/gpu/breastplate/mod.rs"
+}

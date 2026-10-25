@@ -1,0 +1,12 @@
+{
+  "id": "RIG-INITIAL06-GROUP-082",
+  "at": "2026-10-23T01:01:05.152591+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "scene-velocity-composes-canonical-signed-speed": {
+      "comparison": "Fresh full both actualPR/P16velocity38 and exact sourcefingerprints. Existing SignedSpeed definition/contracts personally compared earlier001/002/058 (finite signedm/s, zero/reverse valid, distinct nonnegative magnitude); currentSceneVelocity composes three canonical SignedSpeed values east/up/north, rather than independently declaring raw checked scalar speed. Constructor admits numerical Vec3 output peraxis in order, getter actualnativeXYZmetres/sec projection. This is directional velocity in sceneEUNframe, not displacement/position, scalar speedmagnitude, unitdirection, animation progression rate or gameclock. Pointedaxis names earn complete frame-specific vector product; no force universalVec3 wrapper or threeUnitIntervals. Core existing speed owner is coherent shareddependency available toTacticalCore, no duplicateimplementation discovered or needed new speed owner solely because genericmathcanstore3floats. DerivedDefault uses canonicalleafrest policy; noSerde/Reflectdeclared in thissource, no inferredrawdecode path. Nativeframework/renderer projection should happen atactual numerical adapter, not earlyreplace entireSceneVelocity inapplicationstate. PriorF001 neutralgeometry relocation must preserve different units andframe rather than borrowScenePosition/SignedLength. P16oldowner1-44 qualification actualEOF38, nonexistent39-44 uncredited/no obligation, no nativephysics/callergraph proof from source alone.",
+      "disposition": "Shared scalar owner already reused in meaningful scene-frame velocity product; actualEOF qualification preserved"
+    }
+  },
+  "limits": "Exact two current velocity38 source cells; no framework/caller/otherframe or later-lens credit. Whole06 incomplete,09/12 not started; no source edits/projectexecution/newtests."
+}

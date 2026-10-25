@@ -1,0 +1,131 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-837",
+  "at": "2026-10-25T16:58:53.251221+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1052,
+      "source_id": "pr-working:crates/adventuresim-plant-generator/src/viewer/controls.rs",
+      "sha256": "a39473cd592fe4ab63fdbc183ac4004fb7572b4d5820a74996342da6befb8042",
+      "actual_EOF": 151,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-plant-generator/src/viewer/controls.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-plant-generator/src/viewer/controls.rs",
+        "sha256": "a39473cd592fe4ab63fdbc183ac4004fb7572b4d5820a74996342da6befb8042",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 5607,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 141,
+            "read_ranges": [
+              [
+                1,
+                151
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-BOTANICAL-045"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-plant-generator/src/viewer/controls.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1511,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          151
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Full viewer control source only native egui drawing, recipe/admission/edit and JSON numeric/color/vocabulary controls; no own type/handtrait/codec."
+    },
+    {
+      "scope_index": 1053,
+      "source_id": "pr-working:crates/adventuresim-plant-generator/src/viewer/main.rs",
+      "sha256": "a82177376083409276cc58189b2edcc8320c03798f8ff1f29d5009a8c1b214e6",
+      "actual_EOF": 215,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-plant-generator/src/viewer/main.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-plant-generator/src/viewer/main.rs",
+        "sha256": "a82177376083409276cc58189b2edcc8320c03798f8ff1f29d5009a8c1b214e6",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 6195,
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/additional-sources.jsonl",
+            "row": 139,
+            "read_ranges": [
+              [
+                1,
+                215
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-BOTANICAL-045"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-plant-generator/src/viewer/main.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_owner": "rig",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1509,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          215
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "View already ValueEnum/Serialize/structural; Options Parser/Resource, EditorResource, RecipeOriginCloneCopy, SpecimenComponent already derived"
+      ],
+      "absence_basis": "Full viewer source native setup/camera/framing/rebuild and already-derived declarations; no handtrait/codec."
+    }
+  ],
+  "groups": [
+    "Viewer parameter control, app setup and semantic frame/rebuild paths are not derive replacements. Existing Bevy/clap traits already derive; persistent recipe authority differs diagnostic view slug and native geometry. No app/filesystem execution; capture child separate role/material."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1054,
+    "source_id": "pr-working:crates/adventuresim-plant-generator/src/viewer/recipe.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

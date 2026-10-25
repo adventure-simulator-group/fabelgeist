@@ -1,0 +1,101 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-QUALIFICATION-208",
+  "at": "2026-10-23T05:17:31.873695+00:00",
+  "source_boundaries": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/organization.rs",
+      "source_sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+      "actual_EOF": 1251,
+      "original_scoped_union_retained": [
+        [
+          1,
+          36
+        ],
+        [
+          88,
+          246
+        ],
+        [
+          316,
+          645
+        ]
+      ],
+      "material_operation_ranges": [
+        [
+          1,
+          35
+        ],
+        [
+          89,
+          246
+        ],
+        [
+          317,
+          632
+        ]
+      ],
+      "context_only_ranges": [
+        [
+          36,
+          36
+        ],
+        [
+          88,
+          88
+        ],
+        [
+          316,
+          316
+        ],
+        [
+          633,
+          645
+        ]
+      ],
+      "facts": "Fresh actual Root04 literal exact original scoped union. line36 is derive attribute for excluded SecondPersonRegister declaration, not body. 88/316/633 blanks;634cfg(test)/635module/636import then partial original assertions through645. Original supplier exclusions saying tests646+ do not mean tests start646: actual tests start634. No37-87/247-315/646+ implementation or whole1251/complete fixture credit. Raw original ranges retained, context cannot award excluded body."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/mod.rs",
+      "source_sha256": "00f1fa799283c10da8bc5b3310a04c43d117753258629c791c379b6485f25f3f",
+      "actual_EOF": 107,
+      "inherited_requested_endpoint": 108,
+      "qualification": "PR line108 does not exist; max actual body107. This says nothing about P16time/mod.rs which separately has real108. Source length/hash independently checked here; Native073 records actual source semantics, no fresh Root03/04 body coverage inferred."
+    }
+  ],
+  "source_qualification_provenance": {
+    "record": "continuation/native/initial05-aggregate-states/source-qualifications.jsonl",
+    "sha256": "13e3716d044aab054dec33edbca49dbda8f0b35fe94c71dac4e63dd64a069007",
+    "id": "NATIVE-INITIAL05-QUAL073",
+    "row_1based": 73
+  },
+  "raw_native_qualification": {
+    "id": "NATIVE-INITIAL05-QUAL073",
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/time/mod.rs",
+    "sha256": "00f1fa799283c10da8bc5b3310a04c43d117753258629c791c379b6485f25f3f",
+    "actual_EOF": 107,
+    "original_requested_ranges": [
+      [
+        1,
+        108
+      ]
+    ],
+    "qualified_material_ranges": [
+      [
+        1,
+        107
+      ]
+    ],
+    "excluded_nonexistent_ranges": [
+      [
+        108,
+        108
+      ]
+    ],
+    "proof_ref": "contract-groups-217.json",
+    "qualification": "FreshactualfrozenPRmodEOF107; inherited108tailnonexistent/notcredited. P16counterpart108actualclosingretained; no crosssnapshotnarrowing/no newsource role."
+  },
+  "qualification": "All original requested whole-source scopes and raw reached-range provenance retained. Only actual body/material semantics count; context/nonexistent endpoints give no body/test/function/wholefile credit. No new scope, semantic coverage or previous-lens clearance. All prior mandatory qualifications includingRoot200 remain.",
+  "all_lenses_mandatory": true,
+  "source_edits": 0,
+  "project_execution": 0
+}

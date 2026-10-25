@@ -1,0 +1,56 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-528",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-world-import/src/bin/build-strategic-map.rs",
+      "sha256": "04e204bfa41896b53eb82671ad9b0378036a21b7ec54b3fce0e4c285c0b097bb",
+      "actual_EOF": 1194,
+      "actual_compared_ranges": [
+        [
+          1,
+          1194
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-import/src/bin/build-strategic-map/terrain_features.rs",
+      "sha256": "e4be1391bce49d102c596d622f3dcb646e44ac71555c5ded9028a50f5beeeeaa",
+      "actual_EOF": 64,
+      "actual_compared_ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Water source polygons retain record identity through parity raster",
+      "evidence": "Fullbuilder1194/features64 personallyread. EveryCSVwaterWKTpolygon clipped/simplified/ringlength>=4 pushed625\u2013645; geometryvalidator825\u2013849 finitebounds/ringlen, no duplicate/disjointunionadmission. Features31\u201341 retains distinctpolygoncohort thenactualterrain::builder polygon_maskglobalXOR524. Exact07CROSS006 cause/remedy nowindependently04producer\u2192consumerclosed, noacceptedordinarydatasetoverlap/run. Polygonholes remainringgroups intentional; cultivationdistinctprojectedgridcells separateproducerqualification."
+    },
+    {
+      "contract": "Whole package source identity and completed terrain/road correspondence",
+      "evidence": "Fullsidecarbuild560\u2013654 validatesfiles<=64uniquenames/safeCSVnames/version/exactrequiredbyteshash+size; typedWgsbounds beforeclippingandfinalfinitegeometrycheck. Inferredroadwalkinglinksretainfullcanonicalgeometry; sortedsourcecohortsharedraster/roadpackageanddigest checks. Stagepurpose DocumentedBase/Final/Roads explicit; finalneedsvalidatedworldbaseidentity+currentroad/wetland/bounds/resolutionmatches. Outputwrites notatomicbundletransaction, nohistoricalcompatibilityshims introduced. RawWKTparser dropsunsupported/malformedpoints underexplicitsourceboundary, not proof alltopologyvalid."
+    },
+    {
+      "contract": "Cultivation rounding, coordinates and work bounds",
+      "evidence": "Fullcultivated327\u2013540: fixedboundedplayableWGSprojectioncorners beforekmgridfloor\u00b11; actualprojectedvaluesfarfromi64nativeextremes, noarbitraryProjectedCoordinateMAX claim.4x4nonwatersampling max16fitsu16, elevationreliefsaturatingi16max capped32767intentionalnativebound (realpackrange9500); cropquotasclippedfractions0..1 thenallocationresidualabs<.500001 gate, capacitylimitedexplicit. Uniquegridcells\u2192closed1kmsquares, no materializationnewarbitraryglobal extent clamp. Datasetabsence/runtimecoverage remainsunestablished; sourcefixturetests onlyread."
+    }
+  ],
+  "findings": [
+    {
+      "id": "lens07:CROSS-LENS006",
+      "disposition": "exact alias; independent04 producer/consumer source closure",
+      "new_unique": false
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-world-import/src/sources/road_inference.rs"
+}

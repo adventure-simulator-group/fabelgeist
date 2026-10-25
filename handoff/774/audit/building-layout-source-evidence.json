@@ -1,0 +1,29 @@
+{
+  "revision": "13fc9dcc71ab879de364117e5462310673e43210",
+  "purpose": "Source-only architectural/layout proof and overflow witnesses; no newtests or runtimeexecution.",
+  "witnesses": [
+    {
+      "finding": "F34",
+      "input": "Courtyard width3 depth3 wing32768 gate_width1",
+      "arithmetic": "u16 wing*2=65536. Checkedoverflowpanics; wrapping gives0 andallrejectionpredicatesfalse; x<wing keepsall9cells."
+    },
+    {
+      "finding": "F35",
+      "input": "Rectangle32767x3; twoStairHallstoreys andstraightconnection0..1",
+      "arithmetic": "Cellanchorx32765 + along3 inEast/West candidate=32768, outsidei16before usablefilter. Search visitsallanchors/directions."
+    },
+    {
+      "finding": "M72",
+      "input": "Validmatchingvenue except oneopening.wall=storey.walls.len()",
+      "trace": "Deriveddecode->outerprogrammatch->retainedrecipe/scene->field native directwallindex; circulationvalidator usesopening_assemblies anddoesnotbyitselfestablishthisrawwallreference."
+    }
+  ],
+  "positive_contracts": [
+    "BuildingProgram maydescribeunsupportedrecipes; generate rejectsconstructionfailures andexplicittools/editorownfullaudit_plan. Keepthispolicy distinctfromstructuraldecodingpreconditions.",
+    "Footprint admitted dimensions3..32767 boundnormalcellconversion; plainouterbounddoesnotprove wingproducts orcandidateoffsetfits.",
+    "StoreyIndex serializedu16boundary andRoomIndex u16admission distinctfromsimpleindexusize; from_elevation checks finite/negative/u16maxanddoesnotfloat-roundu32maxbug.",
+    "LocalReservation serdeTryFrom checksnativefiniteprojection/corners andprivatePlanExtents/typedCollisionRelativeoffset. Actualsiteproducer andcanonicalownersalreadyexist.",
+    "CanonicalCollisionCentreDatum mapsArchitectural/Scene preservingnativeorder; CollisionRelative docscoverXZcollisionrebase, actualInteriorField usesfullXYZ origin subtraction andStrategyoriginZERO. Contractmustbeprecisebeforetypepropagation."
+  ],
+  "remaining": "Exactrecipe/plan/collision andremainingpreparedfacade/instance sourceassociation, gridnativecapacity andotherconnectedfamilies/lenses stayincomplete. No fixes orownershiptransfers."
+}

@@ -1,0 +1,117 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-097",
+  "at": "2026-10-23T02:01:11.296241+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player/contact.rs",
+      "sha256": "c2ecfdb4af316c360a84cf28f9b9e0217b87f33150794971dd656ec47239a599",
+      "actual_compared_ranges": [
+        [
+          1,
+          82
+        ]
+      ],
+      "source_evidence": "Fresh complete literal P16 client source with actual transition support compared against both old P16 and current PR; no whole sibling or current PR client verdict transfer."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player/action_clock.rs",
+      "sha256": "aaa9212aceb6edf4e5fbe62c3630c1d0dd02774cb3347740b2936d490049e610",
+      "actual_compared_ranges": [
+        [
+          1,
+          199
+        ]
+      ],
+      "source_evidence": "Fresh complete literal P16 client source with actual transition support compared against both old P16 and current PR; no whole sibling or current PR client verdict transfer."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player/quickstep_trace.rs",
+      "sha256": "d4c445ad8881a51294103c9f7ee9ef4024f1a3d64692356dfa8ac21f93604346",
+      "actual_compared_ranges": [
+        [
+          1,
+          128
+        ]
+      ],
+      "source_evidence": "Fresh complete literal P16 client source with actual transition support compared against both old P16 and current PR; no whole sibling or current PR client verdict transfer."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player/attack_start.rs",
+      "sha256": "8d0d41365f804ba69b7249db78e85fd95f091405b565cbcc2144bb269d944cc6",
+      "actual_compared_ranges": [
+        [
+          1,
+          454
+        ]
+      ],
+      "source_evidence": "Fresh complete literal P16 client source with actual transition support compared against both old P16 and current PR; no whole sibling or current PR client verdict transfer."
+    }
+  ],
+  "pending_registered_source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/state.rs",
+      "sha256": "82a59a621b3c855886fcd18f50d917a76c60070917c5921976fed5fb0a11a6a6",
+      "actual_compared_ranges": [
+        [
+          1707,
+          1752
+        ],
+        [
+          1895,
+          1988
+        ]
+      ],
+      "registration_id": "ROOT-INITIAL04-REG015",
+      "source_evidence": "Fresh literal after prospective registration;1989 blank excluded. Exact old P16 parent context only, not proposed integration source."
+    }
+  ],
+  "support_ranges": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat.rs",
+      "ranges": [
+        [
+          90,
+          132
+        ]
+      ]
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/player.rs",
+      "ranges": [
+        [
+          385,
+          402
+        ]
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/state.rs",
+      "ranges": [
+        [
+          1856,
+          1958
+        ]
+      ],
+      "qualification": "Only actual current transition method compared; no whole PR state04 credit."
+    }
+  ],
+  "groups": {
+    "sample-count-boundary": "Animation elapsed*sample rate is readmitted by finite check before native rounded saturating u64 sample-count encoding. animation_ticks enforces at least one sample interval; delay_ticks permits zero. Keep distinct zero policies. Native tick/span saturating arithmetic preserves existing deadline ordering convention; not interchangeable with semantic elapsed impossibility or lossy identity hashes. Contact-from-input continuation uses replicated skeleton sample tick, ordinary attack retains authored delay. Existing700\u2192732/64=.5 fixture read, not executed.",
+    "arrival-and-order": "Actual contact_timing computes contact=max(windup,predicted) and delay=max(contact-windup,0), so delay<=contact for admitted nonnegative inputs. No unsupported accusation that ordinary preparation starts after contact. MeleeAcquisitionTiming represents CannotArrive as no acquired arrival, preserving explicit upstream enum and genuine optional acquisition. Ranged acquisition receives no movement-assisted timing. Contact+recovery checked before timeline publication.",
+    "ray-observation": "No target produces explicit Miss with retained typed ray facts. Otherwise native Vec3/Dir3/Avian calculation is actual numerical boundary; fallback direction for degenerate delta and scene-item exclusions preserve current policy. Returned ray distance passes SignedLength admission before local result; finite leaf alone does not prove all preceding native vector arithmetic universally bounded. Actual scene/target/weapon admission must bound negative ray limit or extreme coordinates; no ordinary bad ray or platform result claimed. Observe itself only reads spatial data and returns owned result, so constructor rejection does not emit events.",
+    "attack-preparation-publication": "Weapon facts retain checked reach and deferred typed windup/recovery failures; get_for_attack selects actual hand. Typed config/acquisition/timing/AttackState admission precede begin_attack_timed and Commands insertion. Busy path explicitly buffers, unavailable/downed/posture paths decline action, successful branch inserts state then requests authority. Ranged and buffered branches currently swallow all transition errors through is_err; current PR can produce concrete InvalidAnimationValue, so integration must reconcile error cause handling rather than restoring old infallible/stale transition behavior. No new normal failure claimed.",
+    "old-parent-versus-current-contract": "Actual P16 selectors only inspect action/authored availability. Old P16 queued transition computes raw incoming tangent and continuation coordinate; queued RHS fallible coordinate work completes before assignment. Current PR1856-1957 adds IncomingAttackTangent/AttackPoseCoordinate arithmetic readmission before either queued/action assignment. Preserve those current P20 owners and errors when integrating changed client functions. RootREG015 is unchanged historical parent support, not an implementation delta to import or a requirement to repair discarded old source. Other private action/timeline helpers not globally certified by this bounded comparison.",
+    "quickstep-observation": "Trace stores private typed active/inactive start-tick observation and emits logs on its deliberately selected action/actuator/start changes. Borrowed snapshot and transform are logged, not gameplay state writes. encoded ticks are real diagnostic format ports. This diagnostic is not the P17 complete repeated-evaluation snapshot acceptance contract; do not infer all clock/direction/lunge mutations are detected by its limited change predicate. No hidden counters or tactical DB persistence."
+  },
+  "findings": [],
+  "migration_notes": [
+    "Preserve current PR P20 transition arithmetic owners and typed errors; do not restore old P16 raw tangent/coordinate state.",
+    "Keep numeric transition failures distinct from action-busy/no-target gameplay outcomes when adapting ranged/buffered callers."
+  ],
+  "repair": "frozen_initial_audits_then_handover",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

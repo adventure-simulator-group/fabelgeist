@@ -1,0 +1,63 @@
+{
+  "id": "NATIVE-ADMISSION03-CONTRACT-GROUPS-012",
+  "lens": "audit-admission-contracts",
+  "groups": {
+    "observed-rig-frame-admission": {
+      "indices": [
+        194
+      ],
+      "invariant": "ObservedRigFrame privateorigin finiteVec3 and rotationfiniteQuat; nonunit includingzero explicitly representable. Absence neverfabricates worldorigin/identity.",
+      "routes": "Only from_native rawfactory finiteoriginfirst thenrotation; from_global delegates extractednativefields; resolve missingrigscene/computefailure→OkNone otherwisecheckedSome. Privatefields/gettercopyonly, noDefault/Serde/Reflect/From/backingmutation. Directliteral onlyafterchecks. Full54 lines actualallroutes.",
+      "counterexample": "OriginNaN rejectsWorldPosition; rotationNaN rejectsBodyOrientation; finitezero/scaledquaternion accepted byexplicitline50 policy. Mustnot substitute RigidRotation unitrefinement and therebychange projections. None distinct realorigin0/frameidentity.",
+      "repair": "No admissionbypass; existing producer/nativeframe strengthening connects currentrootownerclaims only.",
+      "acceptance": "Every route enforcesfinite origin/rotation withoutnormalization or unitrequirement; preserve errororder, missingframe None and realobservationauthority.",
+      "connected_repair": "continuation/native/connected-repair-map.json + exact existing claim files; supplieronly, no sourceedits/implementation/ownershiptransfer/laterlenscredit."
+    },
+    "reach-operands-not-eager-scalar": {
+      "indices": [
+        204
+      ],
+      "invariant": "LimbSegments retainchecked finite>=0 lengths; ReachLimit retains typedoperand variant, notguaranteed finite/nonnegative eagerlycomputed native reach. Signed minimumflexion remainsfiniteunwrapped angle.",
+      "routes": "LimbSegments publicprocedural typedfields allow directliteral checkedlengths; measure native distances→NonnegativeLength checked factories. ReachLimit public enum payloadallcheckedleaves, FromNonnegativeLength→Fixed subset, noSerde/Reflect/Default/rawfloatbacking. terrain/ordinarypelvisshift complete native correction/clamp/weight then SignedLengthcheckedfactory; native_metres explicitlyOptionnativef32 forcompletekernel, Extendedtinysegments cannegativeresult, Flexedlargeinputs canInf; notretainedvalidatedlength.",
+      "counterexample": "Zero segments validrepresentable; downstreamsolver rejects<=.0001. Scaled/nonunit/negativeangle differs geometrically yet validfiniteoperand. Landing unorderednativebounds returnsNone; intermediateoverflow maylaterclampfinite, do notpreemptivelyreadmitrawreach orforcepositivebeforecompletekernel. Exact148lines actual.",
+      "repair": "No localadmissionbypass; preserve existingRoot/Native wholekernelclaims and refinements currenttypeowner; 04 operationbehavior separate.",
+      "acceptance": "Typedoperands retainfinite/sign invariants and nativekernelprojection remainslocal, no type name usedas stronger finite-result guarantee.",
+      "connected_repair": "continuation/native/connected-repair-map.json + exact existing claim files; supplieronly, no sourceedits/implementation/ownershiptransfer/laterlenscredit."
+    },
+    "two-bone-native-input-and-output": {
+      "indices": [
+        207
+      ],
+      "invariant": "TwoBoneChain checkedsegmentleaves plus explicitly rawpositions/knee/end/pole; Solution rawnative outputrecord, no inherent finiteowner. Ownedsolver checksfiniteknee/end before result literal.",
+      "routes": "Chain privatefields constnew copiesnativeVecs+checkedlengths with no newfinitepromise; noSerde/Reflect/Default/rawlength factory. Solution publicproceduralnativefields maydirectliteral, noSerde/Reflect/default. solve internal rejectsbadroot/target/smallsegments, native normalize/fallback/interval/analyticmath then is_finiteknee/end beforeSome; outputdirection derivesnative normalization. Landingmeasuredreach checked NonnegativeLength beforeReachLimitliteral; maximum_reach/landing_reach use onlytypedpayloads. Pelvisshift complete cap/order thencheckedSignedLength. BoneSnapshot private record nativeGlobalTransform/parentrotation fromSDK query, nofiniteproof. applyresult takesnativeSolution and checkscandidate rotationfinite before nativewrite; no asserted general checkedgeometry guarantee.",
+      "counterexample": "Chainnew NaNpole/knee remainsrawuntil actualsolver; publicSolutionliteralNaN possible, so stronger promisedadmittedSolutionfinite wouldneedseparatecoherent boundary. Existing rawownerpropagation concern support only, not newlyclaimedcheckedtype bug. advance_foot_target ifbadprevious returnsdesiredunchecked (whichmayalsoNaN), ifpreviousgood/desiredbad returnsprevious: preserveexactsourceboundarybehavior, notblanketfiniteoutput. Nativequotient/clamp mayoverflow transient, later04 separate. Full564lines incl original358–564 tests read without execution.",
+      "repair": "Existing rawsource/solver record/wholefunction claims preserved; source-level distinctions feed laterrepair, no additionaldefectcount or authoritytransfer.",
+      "acceptance": "Actual checked segment/offset admissions remain checked; raw native contracts cannot be promoted silently tocheckedgeometry; preserve small/zero/None/fallback/rawfixtureandFPorder.",
+      "connected_repair": "continuation/native/connected-repair-map.json + exact existing claim files; supplieronly, no sourceedits/implementation/ownershiptransfer/laterlenscredit."
+    },
+    "rig-topology-and-axes-admission": {
+      "indices": [
+        219
+      ],
+      "invariant": "Native Entity topology partial/empty allowed, closed BoneRole27; exactopenname source matching separateMHRnaming convention and actualhierarchy/partnerlookup. Optionalsoleaxisprivate only actualbind normalizedcapture.",
+      "routes": "BoneRole closedrepru8 nointinput/Serde/Reflect/Default; ALL27from_name matchesexactcanonical RigJointName constants. HumanoidBone/MhrBone publicnativeowner/roleliterals noexternalmembershippromise. HumanoidRig privatebones/rigscene/soleaxes/mirror Defaultempty/None; retain_stable_role pickslowestentity onduplicate, cachefactory builds fromactualcomponentqueries. MhrMirrorTopology/MirroredJointPair superpublicnativefields plusDefaultempty; from_names uses actualMHRprofile then requiresrightpartner maplookup beforepairliteral. SoleAxes privateOptions DefaultNone; onlycapture try_normalize actualauthoredbindaxis beforeSome. MarkerSoleAxisCaptured onlyliteral no raw numericroute. bind_humanoid boundsancestry64, identitymembership gate+actualsceneancestor before componentwrite; nofullnamegrammar imposed.",
+      "counterexample": "Unfamiliar/NUL/emptyname valididentity butexcludedbyprofileorunknownrole; no fullrigexistence guarantee inferred. Named l_ mayproposer_ onlypairedifactualmapentryexists. Partial/emptyrig andNoneaxisintentional; publiccomponentowner canbeunrelatedEntity; 05authority/provenance separate. Full514incl original387–514fixtures read; actualRig033 mhr1–35 proof consumed andcompared currentprefix/bodyworld/root/partner contracts, plus032openname.",
+      "repair": "No newrefinedadmissionbypass; existing sharedrig/nativehandle claims only. Preserveexactnames/stableentityordering/rawauthoredBind vs liveFK distinction.",
+      "acceptance": "Allclosedroles/actualnormalizedsolecapture andoptional/partialstate routes explicit; stronger arbitrarypublictopology validity notinferred; no renderer/foreignSDK waiver.",
+      "connected_repair": "continuation/native/connected-repair-map.json + exact existing claim files; supplieronly, no sourceedits/implementation/ownershiptransfer/laterlenscredit."
+    },
+    "procedural-facade-raw-and-checked-seams": {
+      "indices": [
+        184,
+        193
+      ],
+      "invariant": "Procedural facade rawengine transform snapshots and privatefiniteboundedamount recurrence coexist with checkedheight/degree outputs; no rawTransform automatically admitted into canonicalgeometry.",
+      "routes": "ProceduralLookState privateQuat retainsactualrawcurrentbase onlyadditivefactory, noSerde/Reflect/Default. JumpAnticipationState privatebase/appliednativeTransform +nativeamounts +checkedtick; actualfirstamount0 and nextbounded towardBoolean0/1 by±.125, previousownedamountrecurrence retains finite0..1 undercurrentproductionroute; no rawdecoder/default orpublicfieldbypass. FixedTickPoseCache ResourceDefaultNone/empty nativeTransformmap, actualSDKobservationcache no finitepromise. MirrorBone/BoneSnapshot private nativesnapshotliterals only. Look/guard/mirroring/landing functions retain rawnativecoords, checkcandidatefinite wherepresent, no newcheckedgeometryconstructor; additivebodyheight outputonlyafteractualHeightState candidatecurrent190 and finite newrootYguard. LandingLimbSegmentsmeasure actualchecked204 andTwoBoneChainnew raw207 exactcompared; generatedsolution stillnative. run_foot_roll_degrees nativephasepiecewise→SignedAngleDegrees::from_degrees, offmodecheckedZERO; worldrotation returnsnativeQuat notcheckedowner. NoSerde/Reflect/rawFromforlocaltypes.",
+      "counterexample": "Rawtransform/CharacterLook maynonfinite, and landingtargetretention copiesnativeposition unchanged; nofalse guarantee ofalreadyfiniteprivateRawState. FiniteJumpAmount recurrence dependsownedfactory, not arbitrarysource float. Full1813including all768–1813originalfixtures +118including66–118footrolltests read; NaN desiredfootfixture actualsource retained. Other referencedmodulebodies currentownqueue independentlypending, nofacadefamilyclearance.",
+      "repair": "F002 broaderSkeletonState/rawfrontier support only. Existing wholefunctionnative geometry/IK claims authoritative, no newdefectcount. Operation04/crossrecord05/ownership11 independent.",
+      "acceptance": "Local newlyadmittedheight/degree leaveschecked and raw/native/missing/zero/signpoliciesexplicit; preserve exact source fixtures, bodyframe, virtualfixedclock and tacticalauthority boundaries.",
+      "connected_repair": "continuation/native/connected-repair-map.json + exact existing claim files; supplieronly, no sourceedits/implementation/ownershiptransfer/laterlenscredit."
+    }
+  },
+  "later_lens_credit": false
+}

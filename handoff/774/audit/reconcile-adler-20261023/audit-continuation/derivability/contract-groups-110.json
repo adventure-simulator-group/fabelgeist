@@ -1,0 +1,87 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-110",
+  "at": "2026-10-25T12:39:59.746402+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 254,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/settlement_population/resident_drafts.rs",
+      "sha256": "0bdbeb8d3d35fb200d35d06429d177a9311b5e71207f89a3644fadcd6e72d959",
+      "actual_EOF": 585,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/settlement_population/resident_drafts.rs",
+        "snapshot": "physical-p16",
+        "path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\settlement_population\\resident_drafts.rs",
+        "sha256": "0bdbeb8d3d35fb200d35d06429d177a9311b5e71207f89a3644fadcd6e72d959",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Read-only source assignment; whole-function repair ownership remains in authoritative claims.",
+        "scope_limits": "Explicit material contracts/ranges and necessary signature dependencies only; no implied whole-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/expanded-producer-delta-map-049.json",
+        "actual_line_count": 585,
+        "expanded_producer_contract_observations": [
+          {
+            "delta_observation_index": 103,
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-POPULATION-024",
+            "json_pointer": "/current_sources/2",
+            "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row230/proofs/0",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                585
+              ]
+            ],
+            "material_contract_ranges_as_recorded": [
+              [
+                1,
+                585
+              ]
+            ],
+            "scope_qualification": "Explicit material qualifier limits this supplementary role; never reduces original requested changed-file fullscope.",
+            "role_as_recorded": null,
+            "read_status_as_recorded": "fresh_actual_supplement_body",
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": true,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          585
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "Clone ResidentDraft8\u201322",
+        "Clone/Copy DefaultPresence24\u201328,StrategicServiceEndpoint36\u201340"
+      ],
+      "absence_basis": "Fullsource1\u2013295/296\u2013585. No manual trait/serializer. Constructor identity/seed/sex/presentation defaults, service endpoint/ordinal classifier, business role/location, household demographics and hereditary surname assignment are semantic functions/inherent methods. serde_json::to_string BusinessId delegates existing native Serialize, not manual wire. Existing Clone/Copy derives adequate."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Deterministic resident drafts and household generation",
+      "disposition": "No new derivabilityfinding. Retain semantic constructors/classifiers/determinism/admission.",
+      "acceptance": "No generic derive replaces context-dependent identity/demographics/surname/service semantics; no fixture execution or compatibility policy inferred from fixture names."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 255,
+    "source_id": "physical-p16:crates/adventuresim-stdb-module/src/settlement_population/resident_persistence.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1269",
+  "at": "2026-10-25T18:20:26.364124+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1331,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer.rs",
+  "sha256": "4544835a041e7c35f25b60d0b13e06ff22ea4ecc0efc90efdda1cd6963fb9638",
+  "actual_compared_ranges": [
+    [
+      1501,
+      1800
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Native fixture source for terrain interpolation, pelvis rotation compensation, presentation origin, flat-ground no-lowering, every authored XZ trajectory and beginning contact retention. Fixture joint-building closures add current identity/semantic role and fixed body-region context, not trait impls. No handwritten trait/codec in actual slice; not run.",
+  "first_unfinished": {
+    "scope_index": 1331,
+    "line": 1801
+  },
+  "execution": "none"
+}

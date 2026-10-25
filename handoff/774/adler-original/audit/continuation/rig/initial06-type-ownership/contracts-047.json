@@ -1,0 +1,27 @@
+{
+  "id": "RIG-INITIAL06-GROUP-047",
+  "at": "2026-10-22T21:02:09.830686+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "checked-geographic-bounds-versus-continuous-native-terrain-port": {
+      "sources": [
+        "pr-working:crates/adventuresim-world-schema/src/coordinates/bounds.rs",
+        "pr-working:crates/adventuresim-world-schema/src/coordinates/terrain_projection.rs"
+      ],
+      "comparison": "Fresh complete PRbounds49 andterrain_projection83 personally read. Wgs84BoundsE7 composes canonical checkedcoordinate corners and enforces SW<=NE inclusive, zeroarea valid, noantimeridiancrossing; notBuildingfiniteSpatialBounds/physicsAabbunitframe despite4extents. NativeTerrainCoordinate intentionally continuousf64degrees and offsets mayleaveWGS84/sourcecoverage; NativeTerrainOffseteast/northsignedf64metres andNativeTerrainFrameaffineorigin/eastscale are actualnumericalkernelproducts, not duplicatecheckedgeographic/logicalScenePosition. CheckedWGS origin projects once viaFrom thenactualframe_from/at_offset/offset_to/coslatitudescale; avoidrepeatedmicrodegreequantization/readmissioninsidemeshsampler. Native prefix alone no exemption: exactfunctions45\u201382 provechangingcoordinate math andoffcoverage semantics, rawpublicfields notfiniteguarantee. Source lookupownscoveragefailure. LowWorldSchemacanonicalgeography/samplingportsharedbystrategic/tactical doesnotneedadventuresimscene dependency. BothcheckedRectangleandcontinuousNativeport justifieddistinctowner/contracts; F012rawtravelunchangedcopydifferentcase."
+    },
+    "settlement-economy-types-distinguish-stock-and-action-capability": {
+      "sources": [
+        "pr-working:crates/adventuresim-world-schema/src/economy.rs"
+      ],
+      "comparison": "Fresh exacteconomy1\u2013145 only. CanonicalWorldSchemaEconomyProfile owns immutableworldbuildinferencefacts: rulesversion,score0..1000,tier5,services10,specializations,stock17 withabundance1..5 andfactprovenance. Differentfrommutableshopquantity/PhysicalObjectinventory, ItemKind, material/durabilityquality, clinicalseverity orBodyPart taxonomy despiteenumoverlap/5tiers. SettlementActionServiceInn/Temple ispurpose-authorizing2subsetofbroader10SettlementService, likeLoadoutrestrictedsubset; no duplicatecompletevocabularyfinding. ProfileFactProvenance3states isauthoritysourceclassification, notSourcePackageDigest/TravelEdgeProvenance2source-route kinds; preservepurpose distinctions. Actualstage_placeholder100\u2013113 constructscoherentminimumInn/GeneralGoods profile; validate115\u2013135 verifiesversion/score/boundednonemptystrictlysorteduniquecollections+abundance, has_service usesbinary_search. Publicfields/Serde/SATS allowrawDTO alternatives, no immutableacceptedseal. WorldSchema islowestcoherentworldvocabularyowner forCore/import/DB/Web, nottacticalrenderer. Line145 isONLYinfer_settlement_economy signature/navigation, actualbody146+notanalyzed/creditedorcalled-helpercleared; no inferwholefeatureclaim or inventedsourceobligationwithoutmaterialcaller."
+    },
+    "source-package-identity-is-not-all-sha256-authorities": {
+      "sources": [
+        "pr-working:crates/adventuresim-world-schema/src/source_package.rs"
+      ],
+      "comparison": "Fresh fullSourcePackageDigest53: privateString lowercase64hex, checkedfrom_hex/manualSerdeDisplay; openallsyntacticallyvaliddigests includingzero, noDefault/uncheckedpublicconstructor. This brands immutableimportedsourcePACKAGE identity sharedgeographicproducers/consumers belowtacticalScene, notgeometryCONTENTdigest, placementbinding,compiledcatalogueidentity,payloadfingerprint/Seed orsceneinstanceID. Equalhashrepresentation doesnotjustifyaliasingdifferentauthority. Source digest doesnotprovebytes/currentmanifestmembershipitself; loadercomparisonseparateactualcaller. ParserandwiremanualSerde genuine externaltext admission; Display/as_str legitimateport projection, no duplicateowner inthissource. Earlierownerfindingsaboutcheckedterrainpackageauthority reusedexactmeaning, no arbitrarygenericStringdigest propagation waiver."
+    }
+  },
+  "limits": "Whole06incomplete; NativeP16bestiarynew029helperroles notclosedhere, WorldLibpartial;09/12notstarted."
+}

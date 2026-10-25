@@ -1,0 +1,152 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-305",
+  "at": "2026-10-25T14:37:37.037641+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 602,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/heated_rooms.rs",
+      "sha256": "443063c283413c94c1d5b856ab84ff71fe275f9f039e1427384f13a395671879",
+      "actual_EOF": 274,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/heated_rooms.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\heated_rooms.rs",
+        "sha256": "443063c283413c94c1d5b856ab84ff71fe275f9f039e1427384f13a395671879",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "root",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 274,
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+            "receipt": "ROOT-PPS-WALL-SOURCE-CLOSURE-039",
+            "json_pointer": "/supplier_reconciliation/verified_exact_proofs/7",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/generator/heated_rooms.rs",
+            "read_ranges_as_recorded": [
+              [
+                115,
+                274
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/heated_rooms.rs",
+              "sha256": "443063c283413c94c1d5b856ab84ff71fe275f9f039e1427384f13a395671879",
+              "read_ranges": [
+                [
+                  115,
+                  274
+                ]
+              ]
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-029",
+            "json_pointer": "/additional_fresh_sources/7",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-building-generator/src/generator/heated_rooms.rs",
+            "read_ranges_as_recorded": [
+              [
+                115,
+                274
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/heated_rooms.rs",
+              "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/generator/heated_rooms.rs",
+              "sha256": "443063c283413c94c1d5b856ab84ff71fe275f9f039e1427384f13a395671879",
+              "read_ranges": [
+                [
+                  115,
+                  274
+                ]
+              ],
+              "scope": "Only actual material source/receiving functions in these ranges; no whole-file credit outside listed ranges"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved",
+        "admission03_increment046_role_observations": [
+          {
+            "supplier": "root",
+            "registry": "continuation/root/admission03/source-range-registration.jsonl",
+            "row_1based": 8,
+            "registration_id": "ROOT-ADM-REG-008",
+            "original_record": {
+              "id": "ROOT-ADM-REG-008",
+              "at": "2026-10-22T06:42:30.625731+00:00",
+              "authority": "continuation/root/admission03-discovery-authority-043.json",
+              "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/heated_rooms.rs",
+              "snapshot": "pr-working",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\heated_rooms.rs",
+              "sha256": "443063c283413c94c1d5b856ab84ff71fe275f9f039e1427384f13a395671879",
+              "actual_EOF": 274,
+              "material_ranges": [
+                [
+                  1,
+                  74
+                ]
+              ],
+              "actual_reach": "Assigned production146 RearCellOffset::from_cells and occupied_storeys110 HeatingStorey::for_program plus existingtests name constructors butnotimplementation. Actualdefinition/signature/fieldvisibility andsolefactories1-68/ReservationFailure71-74 directadmissiondependency needed. Symbolnavigationonlybeforebody.",
+              "exclusions": "No unrelated reserveclosure76-114 orimplicitfullfilecredit; actualconstructorbacking andaliases only.",
+              "status": "prospectively_registered_before_body_analysis"
+            },
+            "local_qualifications": [],
+            "effective_material_ranges": [
+              [
+                1,
+                74
+              ]
+            ],
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\generator\\heated_rooms.rs",
+            "actual_EOF": 274,
+            "bytes": 9270
+          }
+        ]
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          274
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "HeatingStoreyRole structural7\u201312",
+        "RearCellOffset Clone/Copy46\u201347",
+        "ReservationFailure structural70\u201374",
+        "HeatingDoorSetOut Clone/Copy154\u2013158"
+      ],
+      "necessary_signature_extension": "Registered1\u201374/115\u2013274 joined with reserve76\u2013114: enclosing signature, native anchor selection and checked room/cell closure needed to interpret115\u2013152. Complete file consumed, but no scope outside this native heating contract inferred.",
+      "absence_basis": "Full actual body read. HeatingStorey19\u201342 is inherent borrowed program/role selection; RearCellOffset48\u201355 and HeatingBayAnchor60\u201368 checked native constructors; reserve76\u2013152 native reservation error/mutation; doorway167\u2013229 selected room-boundary/native opening mapping; two tests235\u2013273 read not run. No handwritten trait or custom codec; native checked construction and semantic classifiers are not derives."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "heating native role classification and reservation/door construction",
+      "disposition": "No handwritten trait boilerplate. Existing structural derives adequate; retain borrowed programme, arbitrary upper ordinals, positive cell offset admission, source errors and runtime selected mapping.",
+      "acceptance": "Do not add serialization solely to replace classifier. No execution or other-lens guarantee."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 603,
+    "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/occupied_storeys.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

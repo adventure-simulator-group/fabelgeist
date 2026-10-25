@@ -1,0 +1,38 @@
+error[E0596]: cannot borrow `target` as mutable, as it is not declared as mutable
+  --> crates/adventuresim-tactical-client/src/presentation/terrain/volumetric.rs:54:6
+   |
+54 |     *target = material.clone();
+   |      ^^^^^^ cannot borrow as mutable
+   |
+help: consider changing this to be mutable
+   |
+51 |     let Some(mut target) = materials.get_mut(&handle.0) else {
+   |              +++
+
+error[E0499]: cannot borrow `*materials` as mutable more than once at a time
+  --> crates/adventuresim-tactical-client/src/presentation/terrain/volumetric.rs:58:24
+   |
+51 |     let Some(target) = materials.get_mut(&handle.0) else {
+   |                        --------- first mutable borrow occurs here
+...
+58 |     let Some(target) = materials.get_mut(&detail_handle.0) else {
+   |                        ^^^^^^^^^ second mutable borrow occurs here
+...
+70 | }
+   | - first borrow might be used here, when `target` is dropped and runs the destructor for type `bevy::bevy_asset::AssetMut<'_, bevy::bevy_pbr::ExtendedMaterial<bevy::bevy_pbr::StandardMaterial, presentation::terrain::cliff_surface::TacticalTerrainExtension>>`
+
+error[E0596]: cannot borrow `target` as mutable, as it is not declared as mutable
+  --> crates/adventuresim-tactical-client/src/presentation/terrain/volumetric.rs:61:6
+   |
+61 |     *target = detail_material;
+   |      ^^^^^^ cannot borrow as mutable
+   |
+help: consider changing this to be mutable
+   |
+58 |     let Some(mut target) = materials.get_mut(&detail_handle.0) else {
+   |              +++
+
+Some errors have detailed explanations: E0499, E0596.
+For more information about an error, try `rustc --explain E0499`.
+error: could not compile `adventuresim-tactical-client` (bin "adventuresim-tactical-client") due to 3 previous errors
+##[error]Process completed with exit code 101.

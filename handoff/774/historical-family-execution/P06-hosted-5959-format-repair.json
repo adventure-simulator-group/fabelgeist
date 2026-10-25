@@ -1,0 +1,51 @@
+{
+  "source_head": "59590dc92134cc2b798917a44b47bd4bbaf5c0b6",
+  "run": 39541597774,
+  "job": 119030360269,
+  "raw_hunks": 12,
+  "applied_unique_hunks": 12,
+  "files": [
+    {
+      "file": "crates/adventuresim-stdb-module/src/simulation/quest_fixture.rs",
+      "applied_unique_hunks": 1,
+      "before_sha256": "37b911c33444ea2ccab7a8cdb8452e0466ac940743284fc5b66bec079dc34df9",
+      "after_sha256": "bd0529ff5891ce948c1a824c58e17062149a9c16c36a0341036cc72f8fcccb58"
+    },
+    {
+      "file": "crates/adventuresim-stdb-module/src/strategic/approved_action.rs",
+      "applied_unique_hunks": 1,
+      "before_sha256": "ae6386893d871a583245ad13931cde3bb6921052fa1281df2867c6cb345e9c52",
+      "after_sha256": "dc45100de7c1f6bfa836ee8b4634f1b502be0aab07d778f21595785bf2eadca1"
+    },
+    {
+      "file": "crates/adventuresim-stdb-module/src/strategic/development_gallery.rs",
+      "applied_unique_hunks": 9,
+      "before_sha256": "8d3a616cba0bbc9d707aef2f47c62f1f3aeadf1fb5409e0dba733ea33aa6080f",
+      "after_sha256": "95917e848a7696eed59a6878365b3b9171c9257d530a6254819270c59cead7e7"
+    },
+    {
+      "file": "crates/adventuresim-stdb-module/src/strategic/mod.rs",
+      "applied_unique_hunks": 1,
+      "before_sha256": "9f6696f24ae64ba8ac96df9559d8eb65fb0fbd8c6b4d537a6667c44cf84d7bb2",
+      "after_sha256": "32f47b926eea8c6d366a26c6d6f6e237595b9c0b44c84eb15b1150e49c980870"
+    }
+  ],
+  "log_tail_adjustments": [
+    {
+      "file": "crates/adventuresim-stdb-module/src/simulation/quest_fixture.rs",
+      "line": 103,
+      "log_separator_blank_context_removed": 1
+    },
+    {
+      "file": "crates/adventuresim-stdb-module/src/strategic/approved_action.rs",
+      "line": 171,
+      "log_separator_blank_context_removed": 1
+    },
+    {
+      "file": "crates/adventuresim-stdb-module/src/strategic/development_gallery.rs",
+      "line": 191,
+      "log_separator_blank_context_removed": 1
+    }
+  ],
+  "verification": "Exact hosted rustfmt source replacements, each old block matched once and non-overlapping on the pinned clean source. No local formatter/project checker/parser execution."
+}

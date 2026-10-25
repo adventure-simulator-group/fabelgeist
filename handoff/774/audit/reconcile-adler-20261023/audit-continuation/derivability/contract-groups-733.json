@@ -1,0 +1,38 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-733",
+  "at": "2026-10-25T16:39:00.882079+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 985,
+  "source_id": "pr-working:crates/adventuresim-core/src/rights.rs",
+  "sha256": "452c9b104be14352c93d247f83a87de98fa79b10c86d3b51d28eaa252a927b07",
+  "actual_compared_ranges": [
+    [
+      1,
+      440
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "Display + Error",
+      "type": "RightsIdentityError",
+      "lines": [
+        [
+          395,
+          415
+        ]
+      ],
+      "disposition": "OPTIONAL_F002 existing thiserror literal unit derive/source None"
+    }
+  ],
+  "analysis": [
+    "RightsQuestion226\u2013259 performs resource/jurisdiction/self-containment admission; IDs/digest macro only checked inherent constructors/getters, not handtrait. Structural traits already derive.",
+    "RightsIdentityError395\u2013415 nine unit variants fixed-literal write_str plus empty Error is optional F002 exact existing thiserror derive preserving messages/source None. RightsQuestionError only structural derives, do not add Error solely cleanup."
+  ],
+  "first_unfinished": {
+    "scope_index": 985,
+    "line": 441
+  },
+  "execution": "none"
+}

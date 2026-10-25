@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-770",
+  "at": "2026-10-25T16:45:15.525113+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 998,
+  "source_id": "pr-working:crates/adventuresim-core/src/social.rs",
+  "sha256": "bb53725a73f48ae6fbd9f4ff3e2e744aaaea403fa2fd0a9381c6766ce0ad1b6d",
+  "actual_compared_ranges": [
+    [
+      1,
+      880
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Social661\u2013880 profile and attempt/chat records already structural derives. Native approach-specific profile/default methods choose action risk and conviction modifiers; actor availability/automatic choice uses explicit semantic filter/score/tiebreak. Casual personality fit ongoing. No handwritten trait/codec; ordinary named constructors not raw-derived conversion candidates."
+  ],
+  "first_unfinished": {
+    "scope_index": 998,
+    "line": 881
+  },
+  "execution": "none"
+}

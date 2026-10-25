@@ -1,0 +1,113 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1348",
+  "at": "2026-10-25T18:35:49.752945+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1389,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/tests.rs",
+      "sha256": "fef4e30bfd57aaca8dbbda3417f5f2ac5f67e6d03d6eaaa49e0f9726794fe525",
+      "actual_EOF": 3461,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/tests.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/animation/procedural/ik/tests.rs",
+        "owner": "native",
+        "sha256": "fef4e30bfd57aaca8dbbda3417f5f2ac5f67e6d03d6eaaa49e0f9726794fe525",
+        "base_sha256": "8425bb033974ec3f457a9d7b1d7a05ae3b8b4c4f37585b52f966073f92fa218b",
+        "state": "modified",
+        "bytes": 137032,
+        "audit_owner": "native",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [],
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 228,
+            "read_ranges": [
+              [
+                1,
+                1840
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-IK-FIXTURE-007"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/procedural/ik/tests.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 229,
+            "read_ranges": [
+              [
+                1,
+                3461
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-IK-FIXTURE-007",
+              "NATIVE-OWNER-IK-CLEARANCE-006",
+              "NATIVE-OWNER-IK-STATE-004"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/procedural/ik/tests.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 569,
+            "read_ranges": [
+              [
+                1,
+                3461
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-IK-FIXTURE-007",
+              "NATIVE-OWNER-IK-CLEARANCE-006",
+              "NATIVE-OWNER-IK-STATE-004"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/procedural/ik/tests.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          3461
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Complete native IK fixture module personally consumed in bounded packets1337\u20131347 and final3301\u20133461 here. Setup/functions/closures/assertions only, no handwritten trait implementation, type declaration or codec. Final fixtures exercise terrain descent retargeting and physical reach/follower coordination; those semantic operations are not structural trait projection."
+    }
+  ],
+  "groups": [
+    "Preserve all native fixtures and semantic coordinate/clearance/reach setup. No derive replacement identified. Assertions were not executed. Earlier bounded packets retain exact source evidence; no source proof from other lenses."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1390,
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/ik/track.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

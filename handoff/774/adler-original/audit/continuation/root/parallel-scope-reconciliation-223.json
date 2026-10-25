@@ -1,0 +1,140 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-223",
+  "at": "2026-10-23T06:17:20.608841+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-065.json",
+    "sha256": "5912cf3861acbf9ece8666db7dec00285ddd0333b78afcec5174ce45167f8f89"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-064.json",
+    "sha256": "c57337d219f15e8f110cb237b0eabde603f88862699860e531ec748d360ca91e"
+  },
+  "new_variants": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/coif_drape.rs",
+      "sha256": "f9ccb3bf0662590f4dd34ea6de4ce89569348359037efc93e3736a9524c3bca1",
+      "path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\gpu\\coif_drape.rs",
+      "snapshot": "pr-working",
+      "actual_line_count": 72,
+      "scope_kind": "materially_reached_initial_audit_contract",
+      "material_ranges": [
+        [
+          1,
+          12
+        ]
+      ],
+      "audit_owner": "camera",
+      "scope_registration": [
+        {
+          "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+          "sha256": "b41417d1938965b07178ab1040d9b79b1f08b30101465669d85999f46c982df6",
+          "row_1based": 44,
+          "id": "CAMERA-INITIAL07-REG044",
+          "original_record": {
+            "id": "CAMERA-INITIAL07-REG044",
+            "at": "2026-10-23T06:12:01.393331+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/coif_drape.rs",
+            "snapshot": "pr-working",
+            "path": "SNAPSHOTS\\pr-working\\crates\\fabelgeist-armor\\src\\gpu\\coif_drape.rs",
+            "sha256": "f9ccb3bf0662590f4dd34ea6de4ce89569348359037efc93e3736a9524c3bca1",
+            "actual_EOF": 72,
+            "material_ranges": [
+              [
+                1,
+                12
+              ]
+            ],
+            "actual_material_role": "Direct canonical imported COIF_DRAPE_SECTIONS/COIF_DRAPE_WORDS layout definition only: scoped device_coif allocates fit by imported words but stores/validates local fixed37 word array, determine exact same-layout current authority versus explicit native packing. Symbol-only navigation located declarations8/12; no definition body read before registration.",
+            "excluded_scope": "No13+ CoifDrapeProfile implementations/serialization/tests/other GPU graph.",
+            "status": "prospectively_registered_before_body_analysis; global_reconciliation_pending; no_other_lens_credit"
+          }
+        }
+      ],
+      "scope_limits": "Exact prospective Camera044 canonical coiflayout constprefix1-12 after literalindependentRoot03proof222; no13+profile/helper/test or whole72source credit. Receiver nativeport separate; currentcanonical5/37 only, no GPUrun. Allpriorqualifiers retained.",
+      "source_lens_credit": "none from scope metadata"
+    }
+  ],
+  "new_overlays": [],
+  "total_variants": 2844,
+  "total_overlays": 245,
+  "mandatory_scope_qualifications": [
+    {
+      "record": "continuation/root/parallel-scope-qualification-130.json",
+      "sha256": "5dc4e5cd771612c7e050ab4af544411523317ae4b57738f1fb20f493685a50fc"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-117.json",
+      "sha256": "f3b80648900716939057b20776d756a6e37001f6910378da1a1bbaea230d348b"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-149.json",
+      "sha256": "97103899514ade32cf1e41c2794fa9c49c0cb8c6c7a2c6a4961b7492de5dc708"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-151.json",
+      "sha256": "670dd53a640b28eef7ad9d57b37f9213e1bca7117d7098691c4b0cd20c2a8f65"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-158.json",
+      "sha256": "fa0e9cc06d04fca0a0e2b5f9a333390a0ba1e71eff846a4e957c46b68b3e940e"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-170.json",
+      "sha256": "6aa166f7a09a5a88127a8069fa434ec7dc4493affcec73096d5db0cb933bc21c"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-173.json",
+      "sha256": "5763e9e965b4f4c1d402a09eab682de47336885c8d30b3c5b3d157242a496948"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-176.json",
+      "sha256": "9a321e498a00285331d4ec4fb4dc7c3a49d7bb6e3a08a44a79c2e5bf58186270"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-184.json",
+      "sha256": "5e35c8530a11d0f90bc767812758e4c504eb9ca5e776d0d1f17bf14c0853468d"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-188.json",
+      "sha256": "e15ac81028377714ef550a4cbd68546ec0fbd2ab41300f64db2a1c8686cb43ab"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-193.json",
+      "sha256": "fa718d979ab18d0f9bc7ea210e912d4cb8e971c3bbaa8702a602311d515d6e06"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-200.json",
+      "sha256": "0488f5857b999e28c0bfa68767711e5ccd0f5f7624892db7e578d0f680fa8c3c"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-208.json",
+      "sha256": "5fbee9250ddc79b5b7b1d96cf11104a38d4189b50be6afc922a7dad13ebe28c7"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-210.json",
+      "sha256": "e6967f316a6344840b02cf456d957909b3d845736e44be94ebf098ab31189b9b"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-220.json",
+      "sha256": "6037ab6a14b7e1f4a3a410940e5c00a6be8dcdff65b6fa058ae908a6df2a225f"
+    }
+  ],
+  "registered_rows": 1,
+  "input_pins": [
+    {
+      "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+      "sha256": "b41417d1938965b07178ab1040d9b79b1f08b30101465669d85999f46c982df6",
+      "captured_rows": 44,
+      "selected_ids": [
+        "CAMERA-INITIAL07-REG044"
+      ]
+    }
+  ],
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through245-before065.jsonl",
+    "sha256": "0378e32d695512b875a86dd6bb695f10d5f3c8d43d8838fe8ee222cbb02a869a",
+    "through": 245
+  },
+  "limits": "One newexactPRcoiflayoutprefixvariant2844+245overlays;301->302boundedroles. No13+orwhole72scope, no other-lens carry; all13initialaudits thenhandover163."
+}

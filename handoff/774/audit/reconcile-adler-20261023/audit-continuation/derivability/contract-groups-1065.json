@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1065",
+  "at": "2026-10-25T17:40:45.827957+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1211,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/development_scenarios.rs",
+  "sha256": "0a3344aa8f11ea2768169b64f3d7b887260bc7fd53e818c8bfff3b55b01ee394",
+  "actual_compared_ranges": [
+    [
+      1,
+      350
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "DevelopmentScenario/Subject/UpdateReceipt already Clone/Debug native table; BackendDevelopmentScenario/Quest already Clone/Debug/SpacetimeType. No handwritten trait/codec. Native capability gateway, checked slug/route metadata admission, seed/fixture recipes and DB projections. BackendDevelopmentScenario306\u2013314 moves selected fields while omitting scan_id; no handwritten From to replace and existing crate has no conversion derive; no new dependency solely for projection. Sorting selects category/label, not whole-row Ord."
+  ],
+  "first_unfinished": {
+    "scope_index": 1211,
+    "line": 351
+  },
+  "execution": "none"
+}

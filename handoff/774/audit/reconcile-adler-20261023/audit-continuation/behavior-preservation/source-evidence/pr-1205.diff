@@ -1,0 +1,41 @@
+--- PRbase/crates/adventuresim-stdb-module/src/strategic/autoresolve.rs
++++ frozen/crates/adventuresim-stdb-module/src/strategic/autoresolve.rs
+@@ -1,5 +1,5 @@
+-use fabelgeist_determinism::Seed;
++use adventuresim_core::autoresolve::AuthoredThreatResult;
+ use adventuresim_core::morale::fervor_event_occurs;
+ use adventuresim_core::prelude::*;
+ use adventuresim_world_schema::{
+     AgriculturalLimitation, AvailableWaterCapacity, CanopyDensity, CationExchangeCapacity,
+@@ -19,8 +19,9 @@
+     UnconsolidatedDeposit, WORLD_SCHEMA_VERSION, Woodland, WorldNodeImport,
+     historical_vegetation_matches_context, industry_profile_is_canonical,
+     valid_bounded_source_text, valid_sources_markdown,
+ };
++use fabelgeist_determinism::Seed;
+ use sha2::{Digest, Sha256};
+ use spacetimedb::{
+     Identity, ReducerContext, SpacetimeType, Table, ViewContext, reducer, table, view,
+ };
+@@ -120,9 +121,9 @@
+     id: u64,
+     enemy_type: &str,
+     difficulty: i32,
+     combat_scale_bps: u32,
+-) -> Result<Combatant, String> {
++) -> AuthoredThreatResult<Combatant> {
+     autoresolve_enemy_with_countermeasure(
+         id,
+         enemy_type,
+         difficulty,
+@@ -136,9 +137,9 @@
+     enemy_type: &str,
+     difficulty: i32,
+     combat_scale_bps: u32,
+     countermeasure_multiplier_bps: u32,
+-) -> Result<Combatant, String> {
++) -> AuthoredThreatResult<Combatant> {
+     adventuresim_core::autoresolve::authored_threat_combatant(
+         id,
+         enemy_type,
+         difficulty,

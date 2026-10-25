@@ -1,0 +1,96 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-608",
+  "at": "2026-10-25T16:12:22.349763+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 938,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_fit.rs",
+      "sha256": "a15e1319cc1730ca71c4b6e36a50f3514e43c62b5c006ac28115aefb620c02e3",
+      "actual_EOF": 46,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_fit.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-core/src/item_catalog_fit.rs",
+        "sha256": "a15e1319cc1730ca71c4b6e36a50f3514e43c62b5c006ac28115aefb620c02e3",
+        "bytes": 1510,
+        "already_in_frozen_variants": false,
+        "evidence": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/additional-sources-006.json",
+            "ranges": [
+              [
+                1,
+                46
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-CATALOG-VALIDATION-01"
+            ]
+          }
+        ],
+        "audit_owner": "rig",
+        "scope_kind": "affected_unchanged_reached_contract",
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 34,
+            "read_ranges": [
+              [
+                1,
+                46
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-CATALOG-008"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-core/src/item_catalog_fit.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 323,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "EquipmentFitZone structural snake_caseSerde cfgSpacetimeType5\u201310"
+      ],
+      "absence_basis": "Full46 native anatomical location/fit and occupancy conflict predicates; no manualtrait/codec. Shared equipment types imported, no body credit."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Equipment fit semantic predicates",
+      "disposition": "Keep native compatibility rules; mechanical wire/structural traits already derive, no issue or execution."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 939,
+    "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_schema.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

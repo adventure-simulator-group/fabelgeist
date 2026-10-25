@@ -1,0 +1,28 @@
+{
+  "head": "a15f24ad44fc22f86e1e1fd9f2ae47b6bb0ba860",
+  "observed_at": "2026-10-20T17:09:24.727783+00:00",
+  "status": "Source-proven error boundary and connected P06 plan; no implementation.",
+  "chain": [
+    "street::Street::arrange / relocate_interior_furniture",
+    "buildings::Venue::from_building / select_buildings / prepare_venues",
+    "world::prepare",
+    "world::retain_scene caches the rendered message in RetainedScene.error",
+    "status::publish copies error into published status payload"
+  ],
+  "existing_error_sources": {
+    "geometry": "adventuresim_building_generator::spatial_geometry::GeometryError",
+    "scene_input": "scene_input::furniture::FurnitureLayout::furnish_interiors -> SceneInputError",
+    "recipe": "scene_input::recipes::GeneratedBuildingRecipes::get_or_generate -> adventuresim_building_generator::GenerationError",
+    "backdrop": "presentation::vista::strategic::BackdropError (currently only reexported indirectly through constructor; export the canonical error if the shared preparation error needs it)",
+    "conversation_staging": "strategic_scene::staging::positions returns Bevy Result; preserve the existing rich framework error as a specifically classified staging cause rather than stringify it or invent Other(String). Its architectural-floor sampling internals are not SceneTerrain support queries and are outside this support migration."
+  },
+  "planned_contract": "Use one owning strategic preparation error/Result surface across the connected street/venue/world prepare operations. Classify missing support and existing missing placement/interior/conversation/orientation outcomes, preserve canonical typed geometry/recipe/input/backdrop causes, and render a message only in retain_scene for status presentation. Remove the obsolete relocated-floor admission entirely: backdrop returns SupportElevation already.",
+  "concrete_new_support_payload": "Missing support carries canonical ScenePlanPoint; missing building/furniture records carry existing IDs rather than raw IDs.",
+  "display_boundary_evidence": "status.rs:208-218 clones the stored display message into the published status; domain behavior only checks error presence, never its prose. world.rs:68 and status.rs:169 establish this behavior.",
+  "not_in_scope": [
+    "SceneDocument parse/generated_scene already prepares user-facing decode/generation messages in a separate path before world::prepare; no new support rejection passes through it. Do not rewrite unrelated document acquisition or generation errors to finish the new support path.",
+    "Street width/height framing and unrelated camera dimensions remain their own quantity family; do not claim this support migration finishes all numeric fields in the module.",
+    "Do not add new error/fixture tests or new helper fixtures; adapt existing callers/cases and validate hosted."
+  ],
+  "remaining": "P04 exact-head acceptance remains pending. Implement the connected typed support/error path together with the P06 family after that prerequisite."
+}

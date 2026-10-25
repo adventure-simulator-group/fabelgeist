@@ -1,0 +1,93 @@
+{
+  "id": "RIG-INITIAL06-GROUP-003",
+  "at": "2026-10-22T18:47:08.180224+00:00",
+  "lens": "audit-type-ownership",
+  "groups": {
+    "deterministic-root-versus-purpose": {
+      "files": [
+        "crates/fabelgeist-determinism/src/lib.rs",
+        "crates/fabelgeist-determinism/src/seed.rs",
+        "crates/fabelgeist-determinism/src/stream.rs"
+      ],
+      "comparison": "Fresh full actual58/213/169 bodies. Canonical Seed is all-u64 root word, StreamId is caller-owned nonempty static purpose, DeterministicRng owns fixed-width sampling state/algorithm; portable SamplingError owns actual sampling absence/weight cases. Lowest neutral deterministic module imports algorithms/framework traits, no game modules. Actual typed child/home/name and HairSeed consumers retain canonical Seed rather than new RNG implementation. Stable identity words, pregnancy ordinals, sample ticks and native physics BodySeed are NOT root randomness owners just because sameword or name. Preserve domain framing/draw order/native integer ports, not separate independently maintained type for every RNG implementation. Seed native Rand0.8/0.10 adapters and optional SATS/Serde records are legitimate boundaries, not competing owner modules. No blanket .index empty-precondition or operations clearance."
+    },
+    "calendar-coordinate-versus-elapsed": {
+      "files": [
+        "crates/adventuresim-world-schema/src/calendar.rs"
+      ],
+      "comparison": "Fresh full698 actualbody incl original406-698 fixtures. Schema owns positive CalendarYear and absolute StrategicMinute over allu64 including0/MAX, game-specific non-leap epoch/constants. Core/Tactical do not independently define this coordinate. CoreStrategicMinuteOfDay consumes schema modulo; its <1440 dayposition/night policy is distinct from inclusive1440 daily-window endpoints, raw elapsedminutes/counts, signed birthstorage coordinate and finite f32 AnimationElapsed seconds. Keep explicit integer/calendar/native conversions at actual storage/protocol ports; no merge based on time terminology or u64. Current SATS CalendarYear bypass stays same owning definition admission defect, not reason for another CalendarYear owner. No narrowing MAX for receiver-loop defects."
+    },
+    "discrete-bounded-fractions": {
+      "files": [
+        "crates/adventuresim-world-schema/src/basis_points.rs"
+      ],
+      "comparison": "Fresh full actual UnitBasisPoints/SignedUnitBasisPoints implementation+originaltests. Shared schema owns discrete10000-scale fractions: unsigned[0,10000] and signed[-10000,10000] intentionally distinct. Continuous CoreUnitInterval is not duplicate; unrestricted mathRatio has broader invariant. Coreinvestigation BasisPoints actual wrapper delegates UnitBasisPoints for constructors/scaling, no independent unit-scale constant/validator. Do not relocate generic typed integer quantities into consumer templates or silently quantize floating values to achieve reuse. Existing derivedSerde/SATS admission bypass remains owning definition repair, not competing-type reason."
+    },
+    "animation-clock-and-frequency": {
+      "files": [
+        "crates/adventuresim-tactical-core/src/animation/sample_tick.rs",
+        "crates/adventuresim-tactical-core/src/animation/sample_rate.rs"
+      ],
+      "comparison": "Fresh full actual sample_tick and sample_rate. AnimationSampleTick identifies sampled authoritative observation; AnimationSampleSpan is relative samplecount, allu64zero valid. Both different from absolute strategic calendar/time, elapsedseconds or stable entity Seed/IDs. SampleRate owns checked pair(positive finite AnimationFrequency, representable positive reciprocal duration); Frequency alone is multiplier requiring no reciprocal. Keep separate stronger record versus base leaf, not duplicate Hz owners tocollapse. StepCadence steps/sec uses two steps/cycle and zero-cap valid, not same as positive sampled frequency. Core AnimationElapsed retained via positive tactical duration wrapper; dependencies direction Core->Tactical forbidden. Existing Vec/native/report boundary words do not change canonical clock ownership."
+    },
+    "hair-native-and-policy-roles": {
+      "files": [
+        "crates/fabelgeist-hair/src/parameters.rs"
+      ],
+      "comparison": "Fresh full140 body. HairSeed retains canonical neutral Seed but owns exact signed32-bit native shader bitpattern/JSON projection, not all64bitseedsemantics; preservefrom_i32→u32→u64 andreverse. StrandCount/PointsPerStrand/GuideNeighborCount distinct collection roles, allusize incl0, not generic GPUu32 drawcounts. LockFormation and Draping independent named policies with distinct native bool adapters. Hair crate is authoritative purpose owner; no game-specific import/upward cycle, no independent RNG owner. Whether role earns wrapper belongs11, not this06 pass."
+    },
+    "child-identity-versus-numeric-seed": {
+      "files": [
+        "crates/adventuresim-core/src/courtship/child_identity.rs"
+      ],
+      "comparison": "Fresh full97 actualbody. Core lifecycle owns ChildIdentitySeed/PregnancyOrdinal and named ChildSeeds role product; canonical neutral Seed reused for ChildNameSeed and HouseholdPlacementSeed. Identity hash used as stable child identity and ordinal as count are distinct from RNGroot despiteallu64. Purpose framing child-identity/name/sex/home and ordered parents belong owning lifecycle algorithm; Sex canonical schema enum and minute canonical calendar reused. No move lifecycle family policy/identityauthority into neutral RNG; wrapping identity word is an explicit operation, not permission to interchange with everySeed."
+    },
+    "core-itinerary-owning-calculation": {
+      "files": [
+        "crates/adventuresim-core/src/strategic_time.rs"
+      ],
+      "comparison": "Fresh focused entire type declaration/import/constructor region1-130, personally consumed full current-source Native023 strategic-clock-day-and-raw-itinerary-admission narrative for all860 and existingfixtures; original truncated initialdisplay does not count as fullfreshread. Core owns strategic travel/night/forecast calculation records and <1440 dayposition; schema owns absolute calendar coordinate imported9-10, not local replica. Itinerary input/forecast raw fatigue/elapsed/memberordered fields intentionally not secretly finite UnitInterval or sampled-tick types. Distinct Walking/Camp and fixedDailySchedule import remain game-policy module. No equivalent independently maintained calendar owner established by local helpers. Daily window endpoint1440 differs dayposition<1440; do not force same wrapper merelyunitsminute."
+    }
+  },
+  "actual_focused_witnesses": [
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/person_names.rs",
+      "ranges": [
+        [
+          55,
+          105
+        ]
+      ],
+      "status": "partial source only, no whole849 source credit",
+      "comparison": "NameFormSelectionSeed/NameStableSeed retain actual canonicalSeed, RenderedPersonalName is textprojection not randomword; namingrole overlap requires later wholecurrentcaller comparison."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/investigation.rs",
+      "ranges": [
+        [
+          280,
+          340
+        ]
+      ],
+      "status": "partial source only, no whole1154 source credit",
+      "comparison": "BasisPoints delegates canonical UnitBasisPoints, its local ValidationError is game validation classification, not second shared fraction owner."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/ragdoll/entry.rs",
+      "ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "status": "partial only no whole359 credit",
+      "comparison": "BodySeed record actual worldposition/rotation/linear/angular velocity is physics entry state, not deterministicRootSeed despite name; MuscleTarget andSpawnedRagdoll localruntime relationships."
+    }
+  ],
+  "consumed_semantic_receipts": [
+    "native/admission03/contract-groups-023.json#/groups/strategic-clock-day-and-raw-itinerary-admission",
+    "rig/admission03/contract-groups.jsonl#RIG-ADMISSION03-CONTRACT-578"
+  ],
+  "ownership_findings": "No new ownership defect in this group; preserve F001/F002 separate and original admission findings outside06.",
+  "limits": "Current source-specific concepts/dependency/users mapped; no blanketwholefeature/otherclock/physicalunit equivalence. Remaining exactvariants and consumers separately incomplete. No source edits/builds/tests/runtime/new cases."
+}

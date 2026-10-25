@@ -1,0 +1,56 @@
+{
+  "id": "CONT07-F119",
+  "title": "Door passage centres are reconstructed with a left-hinge assumption",
+  "classification": "source-confirmed conditional producer/receiver mismatch for admitted Right CityGate; no ordinary curated or runtime occurrence claim",
+  "sources": [
+    {
+      "scope_index": 2523,
+      "sha256": "d9fb76fe3c22007ad7491c759dc3d5f4d6a2e9725cb73b08f6a349eade427d5e",
+      "ranges": [
+        [
+          215,
+          265
+        ]
+      ]
+    },
+    {
+      "scope_index": 2526,
+      "ranges": [
+        [
+          172,
+          199
+        ]
+      ]
+    },
+    {
+      "scope_index": 2529,
+      "sha256": "676d9b173c594a21fd92761c7737e160d1c19c5c17a5efd8cadd784c51cb6c33",
+      "ranges": [
+        [
+          142,
+          178
+        ],
+        [
+          222,
+          229
+        ],
+        [
+          275,
+          311
+        ],
+        [
+          323,
+          370
+        ]
+      ]
+    }
+  ],
+  "producer_operation_receiver": "CityGate::door sets hinge=closedcentre+tangent*(width/2)*PropertySide.sign; Right sign+1. GateDatum preserves hinge/centre while binding Y. spawn_door reads correct closedcentre for physical transform but derives doorwaycentre=hinge+tangent*width/2; Right yields closedcentre+tangent*width. ReplicatedSceneDoor.grab and DoorController passage width/depth read shiftedcentre. report_unseated_doors always uses localnegativeXedge ashinge.",
+  "witness": "Any finitepositive width Right gate with ordinary orientation and valid datum: true doorwaycenterC, hingeC+t*w/2; reconstructedcenterC+t*w. No malformedvectors, staleasset or external fieldmutation needed.",
+  "qualification": "Static internal API sequence. Exact actual curated Right CityGate producer/caller to spawn_door not yet traced; no spawnedscene, inputtest, physicswarning or failedpassage observed. Architectural door_from_solid alwaysnegativehinge and agrees with equation; do not retract its valid proof. Fresh P16bytes only, no currentmain clearance/occurrence.",
+  "connected_repair_acceptance": "Use authoritative door.closed_centre as doorwaycenter and retain actual hinge offset/side for diagnostics where required; keep physical hinge, original quaternion product, dimensions and actor-specific passagehistory coherent. Preserve ordinarylefthinge behavior and correctrightgeometry without reconstructingcenter from a guessedside. Readonlyaudit; no repairs/tests.",
+  "contract": "CONT07-CONTRACT-583",
+  "dedup": "root exact alias pending; not auto-merged by door category",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

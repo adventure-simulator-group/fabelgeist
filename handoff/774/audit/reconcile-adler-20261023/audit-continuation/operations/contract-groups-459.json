@@ -1,0 +1,111 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-459",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/vista/surface.rs",
+      "sha256": "b487f7c3b762586f17bebd06fd0a7cae7d415743566df637800b4056cc3441ac",
+      "actual_EOF": 168,
+      "actual_compared_ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/weather.rs",
+      "sha256": "840dfc691065cd3c90f2f8bc9db2630ece62cc61ed5a2793e802ed3739d2b88e",
+      "actual_EOF": 402,
+      "actual_compared_ranges": [
+        [
+          1,
+          402
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/weather/occlusion.rs",
+      "sha256": "5d2644ab73944ec770aff90913a9d15f9e76e336437b5d9654b40f66affee7ad",
+      "actual_EOF": 257,
+      "actual_compared_ranges": [
+        [
+          1,
+          257
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/windows.rs",
+      "sha256": "2d77a52e25f3ddce4d5ddba62a3d79b48c9479e298e4e1e89e3abbe4b25e157e",
+      "actual_EOF": 77,
+      "actual_compared_ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Retained vista selection matches rendered selection",
+      "analysis": "vista.rs chooses bundle.lods.take(graphics.maximum_lods), prepares each with coarser from this selectedlist. surface.rs::update always keeps bundle.lods.take(2); presented_height_at always morphs first toward retainedsecond. Config disable_headless_rendering explicitly sets maximum_lods1. Representable nonurban scene: flat0m playable3x3 spacing1 (half1); firstlod5x5 spacing2 height10, second5x5 spacing4 height30, sameorigin0. Rendering selectedfirstonly generates outer x4 vertexheight10 with no coarser. ActiveVistaSurface samples x4 with secondlod weight1 and edgeweight1, returns30. Fixed movingdetailpatch can sample that sameScenePlanPoint x4 within12mradius, publishingheight30 abovefirstmesh10. No build/render/livecapture, no current authoredinput claim.",
+      "candidate": "SEGOVB-04-VISTA-RETAINED-LOD-COHORT-CANDIDATE-001"
+    },
+    {
+      "contract": "Precipitation and occlusion atomic update",
+      "analysis": "All fourfull bodies read. Weather only reacts activechanged; environment-onlyupdates sameentity remain conditional producer propagation question. Removesoldparticles andresetsstate beforefallible heightmappreparation; oninvalidnewscene no oldscene weather retained, deliberate sceneisolation not automatictransactiondefect. Particle capacitiesfixed3072/384 andsheet16x6 boundbytecounts/u32indices andnonzero fractions. Occlusion buildsreplacement locally, onErr/missingimage leaves signatureunchanged forretry; updatesimage beforecommitting signature. Rasterindices fixed512 andclamped; computed elevation re-admitted. Signature containscachekey+translationbutnotrotation/scale, while raster usesfulltransform; actualpostpublication tree rotation/scale producer not shown, remains exactdependency question. Window observer completesfalliblecachelookup/primarybatch resolution before insert/childrencommands; body andaccessory meshes retain sameclosureidentity."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-VISTA-RETAINED-LOD-COHORT-CANDIDATE-001",
+      "classification": "source-backed selected-configuration and admitted-input counterexample; alias comparison pending",
+      "operation": "vista.rs chooses bundle.lods.take(graphics.maximum_lods), prepares each with coarser from this selectedlist. surface.rs::update always keeps bundle.lods.take(2); presented_height_at always morphs first toward retainedsecond. Config disable_headless_rendering explicitly sets maximum_lods1.",
+      "witness": "Representable nonurban scene: flat0m playable3x3 spacing1 (half1); firstlod5x5 spacing2 height10, second5x5 spacing4 height30, sameorigin0. Rendering selectedfirstonly generates outer x4 vertexheight10 with no coarser. ActiveVistaSurface samples x4 with secondlod weight1 and edgeweight1, returns30. Fixed movingdetailpatch can sample that sameScenePlanPoint x4 within12mradius, publishingheight30 abovefirstmesh10. No build/render/livecapture, no current authoredinput claim.",
+      "consumer": "terrain.rs::terrain_detail_patch_mesh uses ActiveVistaSurface::presented_height_at for highresolution mesh; both are presentation support contracts, no strategic/tacticalDB authority transfer",
+      "qualification": "Preserve actualcamera/detailpatch lifecycle and canonicalownedterrain distinction; example shows sampled nonurban input/selectedmax1, not everyownedmap. Parent may find exactarchivealias; do not sum asglobalnewcount.",
+      "repair_contract": "Retain the actual selected ring/coarser cohort alongside prepared mesh authority, including maximum_lods and absence; query same interpolation/visibility contract.",
+      "acceptance": [
+        "max1 andmax2 with distinct adjacentheight fields match exactemittedmesh vertices/detailpatch outsideplayable",
+        "ordinarytwo-ring boundary and missing-support behavior preserved",
+        "config/headless selection must not retain unrenderedcoarser authority"
+      ],
+      "dependencies": [
+        {
+          "source_id": "pr-working:crates/adventuresim-tactical-core/src/vista_surface.rs",
+          "sha256": "0238db91b3a926b53a353da8892a2e0ff17018d131529261be5a4cdf2cb8e405",
+          "read_ranges": [
+            [
+              1,
+              480
+            ]
+          ],
+          "qualification": "full fresh arithmetic dependency read; no role coverage transfer"
+        }
+      ]
+    }
+  ],
+  "fresh_dependencies": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/vista_surface.rs",
+      "sha256": "0238db91b3a926b53a353da8892a2e0ff17018d131529261be5a4cdf2cb8e405",
+      "read_ranges": [
+        [
+          1,
+          480
+        ]
+      ],
+      "qualification": "full fresh arithmetic dependency read; no role coverage transfer"
+    }
+  ],
+  "status": "4 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/strategic_scene/buildings.rs"
+}

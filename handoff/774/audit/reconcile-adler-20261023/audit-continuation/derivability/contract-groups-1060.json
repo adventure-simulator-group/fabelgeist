@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1060",
+  "at": "2026-10-25T17:39:59.886091+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1209,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/custody_objectives.rs",
+  "sha256": "7274d8bedc95fa40cee64bda7b7dda0c32b6d02aa01e44e754f77e1bd171bc5b",
+  "actual_compared_ranges": [
+    [
+      1,
+      350
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "No handwritten trait/codec in actual slice. custody_object32\u201344 and holder46\u201375 validate typed IDs, empty terminal-holder rules, length and numeric conversion with exact errors; cannot replace with unchecked mechanical From. CustodyPartyDispatch79\u201384 already structural derives. Party dispatcher86\u2013109 combines nonempty key and actual DB authority predicates; selected retry attribution and custody comparisons122\u2013133/263\u2013290 intentionally differ from whole-row derived equality. Native transition uses checked Core custody state machine; fixtures136\u2013236 read only."
+  ],
+  "first_unfinished": {
+    "scope_index": 1209,
+    "line": 351
+  },
+  "execution": "none"
+}

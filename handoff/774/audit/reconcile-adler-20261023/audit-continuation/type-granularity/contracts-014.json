@@ -1,0 +1,94 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-014",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "authored-melee-projection-and-error-owner",
+      "sources": [
+        {
+          "scope_index": 51,
+          "ranges": [
+            [
+              1,
+              130
+            ]
+          ]
+        }
+      ],
+      "distinction": "AuthoredMeleeWeaponError owns meaningful schema/type/recipe/nativegeometry/timing context; transparent nativecauses are different from requestedweaponidentity and violations. Projected CombatWeapon is runtimecalculationrecord, not authoredrecipe/catalog authority.",
+      "uses": "Actualconstructor narrows ItemKind::Weapon to meleeonly, derivesrecipe strikinglength, carries signedlength/timing owners, preserves two material roles. Missingphysicalequipment intentionallyprojectsZERO/None while recipeexistence checked; no ordinarymissingphysicaldefinition proved.",
+      "disposition": "Keep authoreddefinition\u2192calculationprojection and nativeerrorcause distinction. A shared resultalias helps cohesiveconstructorwithoutwideningerror. Do notinvent positivebounds for legitimateZEROabstractfields or a newweaponIDenum fromcurrentcatalogentries; actualcatalogidentityowner fitstillpending11.",
+      "acceptance": "Actualthreat/iteration/equipment recipients retain common admittedweaponproperties and completeerror; do notmergebodymaterial withstrikingmaterial or momentofinertia withmass. No recipegeneration or sourceexecution."
+    },
+    {
+      "id": "requested-movement-and-resolution-result",
+      "sources": [
+        {
+          "scope_index": 52,
+          "ranges": [
+            [
+              1,
+              65
+            ]
+          ]
+        },
+        {
+          "scope_index": 53,
+          "ranges": [
+            [
+              1,
+              21
+            ]
+          ]
+        },
+        {
+          "scope_index": 54,
+          "ranges": [
+            [
+              1,
+              86
+            ]
+          ]
+        }
+      ],
+      "distinction": "BattleAttackKind is oneclassificationowner for scheduling/replay. MeleeMovementAction meansrequested Close/Retreat/Hold, distinct from actualsignedvelocity/displacement. BattleResolutionError cohesivelyowns nativegeometry/speed/elapsed/instant/performancefailures; it is not universalquantityvalidator.",
+      "uses": "Movementtarget convertsnonnegative maximummagnitude into signedclosingnegative/retreatpositive/holdzero. Includedfixturesexplicitlypreserve totalimpairmentperformance equality, fatigue-independentmovement andsingleburdencontribution.",
+      "disposition": "Keep requestedpolicy versusobservedmotion and signedversusnonnegativespeed distinctions. Noenumforarbitrarytick/index. Errorunion is proper operationboundary, nosimplificationbyerasingnativecauses. Existingfixturebool parameters are testbuilders, not normalwirepolicy admission.",
+      "acceptance": "Preserve movementpolicy/sign and actualobservedmotion separately, generalfatiguelegibility andburdenonce. Testsread ascontracts only; noruntimepassesclaimed."
+    },
+    {
+      "id": "scheduled-attack-time-and-complete-identity",
+      "sources": [
+        {
+          "scope_index": 55,
+          "ranges": [
+            [
+              1,
+              329
+            ]
+          ]
+        },
+        {
+          "scope_index": 56,
+          "ranges": [
+            [
+              1,
+              221
+            ]
+          ]
+        }
+      ],
+      "distinction": "ScheduledMeleeTiming owns battleinstants; contactduration andresponseoffset are elapsed/signeddifference contracts. MeleeDefenderPhase correctlyseparates neutral, committedattacktiming andoccupiedrecovery. AutoresolveMeleeDefenderDecision preserves committedpolicyhistory separatelyfromeffective DefenderResponse. Packedattack_id erases fullcombatantidentity.",
+      "uses": "Jointwindow recursivelysegmentsactualcontacttimes andrechecks currentattack beforecontact; aftersuccessfulresolve explicitlyclears start/contact/measure. Nativepopulationindex+side determinesactualfullattackerID; contactbatch consumes lossyattackID equality. Actualcommittedresponse mayFinishTrade\u2192None orintercept, recoveringguard independentcurrenteffectiveness.",
+      "disposition": "Keep temporalrole/policyhistory andeffectiveaction distinctions. Exactlocal774:F04 granularity alias retained in ALIAS001, not a newunique finding. Sameunderlyingu64 cannotjustifylossypackingorrestrictinglegitimatefullIDs. No universalStrongId/Quantityframework orcoalescing policyandeffect.",
+      "finding_refs": [
+        "SEGO-INITIAL11-ALIAS001"
+      ],
+      "acceptance": "Fullidentityrepair sharedrootF04; preserve time/ordering/sideassociation andrealoptionals. NativeInit05F065surprisereplay remains separate lifecycle dependency; jointclear nowpersonallyreadbut take_side_turns childpending. No execution,ordinarycollisionclaim or acceptanceclearance."
+    }
+  ],
+  "new_findings": [
+    "SEGO-INITIAL11-ALIAS001"
+  ],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

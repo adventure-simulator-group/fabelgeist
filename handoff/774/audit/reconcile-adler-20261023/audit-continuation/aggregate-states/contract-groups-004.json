@@ -1,0 +1,195 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-004",
+  "at": "2026-10-24T02:32:56.356498+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 983,
+      "source_id": "pr-working:crates/adventuresim-core/src/reducer_error.rs",
+      "sha256": "ec4f9bddc8b7d73ed40bcfbecb23d7b061016ee53bd6fea4a524d05e838691c7",
+      "personally_read_ranges": [
+        [
+          1,
+          100
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Reducer code and detail envelope are emitted atomically. Parsing intentionally finds the prefix after framework context; existing tests cover that. It classifies the code without inspecting detail. No authentication authority is asserted by this transport helper.",
+      "acceptance": "Preserve the stated zero, order, identity and authority policies through owning factories and recipients. Distinguish representable API weakness from a proven normal producer failure. Existing fixtures only.",
+      "repair": "not started",
+      "validation": "source inspected; not run"
+    },
+    {
+      "scope_index": 984,
+      "source_id": "pr-working:crates/adventuresim-core/src/reputation.rs",
+      "sha256": "f440b09e301404f9d1be804764c9be6af087320ea34c8b8a27fd9a4b191b8103",
+      "personally_read_ranges": [
+        [
+          1,
+          331
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Local reputation is clamped to 0..100000. Widened arithmetic, at most 24 destinations and reach at most 250000 bound weight totals and budgets. Destinations and weights come from the same list and are zipped without independent mutation. Graph identity/duplicate settlement membership remains an API question; no malformed ordinary producer is proven. Estimate zero deliberately selects a population-level fallback.",
+      "acceptance": "Preserve the stated zero, order, identity and authority policies through owning factories and recipients. Distinguish representable API weakness from a proven normal producer failure. Existing fixtures only.",
+      "repair": "not started",
+      "validation": "source inspected; not run"
+    },
+    {
+      "scope_index": 985,
+      "source_id": "pr-working:crates/adventuresim-core/src/rights.rs",
+      "sha256": "452c9b104be14352c93d247f83a87de98fa79b10c86d3b51d28eaa252a927b07",
+      "personally_read_ranges": [
+        [
+          1,
+          1224
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Private RightsQuestion construction checks place jurisdiction and object self-containment. PermissionGrant checks lifecycle, revision and receipt grant ID/revision, but trusts public RightsValidity fields. Reversed validity has no usable instant, so this is the existing admission gap rather than a demonstrated authorization bypass. Consumed replay deliberately checks exact attempt/action provenance before expiry. Sanitized denial excludes private evidence. Generic server-authored values do not themselves prove question/provenance association; qualified question Q001 records that limit.",
+      "acceptance": "Preserve the stated zero, order, identity and authority policies through owning factories and recipients. Distinguish representable API weakness from a proven normal producer failure. Existing fixtures only.",
+      "repair": "not started",
+      "validation": "source inspected; not run"
+    },
+    {
+      "scope_index": 986,
+      "source_id": "pr-working:crates/adventuresim-core/src/rights/validity.rs",
+      "sha256": "72edd06818cd5299b7c2abae17080541165ea0eebb52a05d557437b1ac41d159",
+      "personally_read_ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "aggregate_trace_and_disposition": "RightsValidity admits inclusive ordered endpoints and None for an unbounded end. Public fields permit reversed literals or mutation. This is exact NATIVE-ADMISSION03-F006 with fresh aggregate and receiving-grant support. Preserve zero, equal endpoints and MAX; seal the existing predicate rather than narrow it.",
+      "acceptance": "Preserve the stated zero, order, identity and authority policies through owning factories and recipients. Distinguish representable API weakness from a proven normal producer failure. Existing fixtures only.",
+      "repair": "not started",
+      "validation": "source inspected; not run"
+    },
+    {
+      "scope_index": 990,
+      "source_id": "pr-working:crates/adventuresim-core/src/settlement_population/age.rs",
+      "sha256": "31003479452c3c598a403dfeb1cdbfb32d807c7fdf1863fa27c799461c67ab66",
+      "personally_read_ranges": [
+        [
+          1,
+          64
+        ]
+      ],
+      "aggregate_trace_and_disposition": "AgeBand exhaustively classifies one u16 age with the documented boundaries. No independently retained chronology is stored here; parent birth-date association remains separate. The existing fixture explicitly admits u16::MAX as Elder; do not invent an age cap.",
+      "acceptance": "Preserve the stated zero, order, identity and authority policies through owning factories and recipients. Distinguish representable API weakness from a proven normal producer failure. Existing fixtures only.",
+      "repair": "not started",
+      "validation": "source inspected; not run"
+    },
+    {
+      "scope_index": 991,
+      "source_id": "pr-working:crates/adventuresim-core/src/settlement_population/demographics.rs",
+      "sha256": "3e604f71e6a6d7875755c49f940f0111d1c75d75dae50344b335962f44f50202",
+      "personally_read_ranges": [
+        [
+          1,
+          36
+        ]
+      ],
+      "aggregate_trace_and_disposition": "An optional supplied age intentionally overrides candidate choice and produces a decision record from the same age. Parent GenerationInput fact correspondence remains separate. Settlement seed derives from exact UTF-8 identity bytes and the canonical stream, preserving text-hash semantics.",
+      "acceptance": "Preserve the stated zero, order, identity and authority policies through owning factories and recipients. Distinguish representable API weakness from a proven normal producer failure. Existing fixtures only.",
+      "repair": "not started",
+      "validation": "source inspected; not run"
+    },
+    {
+      "scope_index": 994,
+      "source_id": "pr-working:crates/adventuresim-core/src/simulation_security.rs",
+      "sha256": "3c199480635cb250ba4fe3c60e13afcad2b958c8b11b3e97588c57fd85500272",
+      "personally_read_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "aggregate_trace_and_disposition": "The compiled token must be exactly 64 ASCII hex characters before comparison. None always denies. The fixed expected-length comparison includes the presented length, so longer/shorter strings cannot match. This preserves opaque text, including case, and does not claim entropy or a strict cryptographic timing guarantee from syntax. One-run durable claim authority belongs to the caller.",
+      "acceptance": "Preserve the stated zero, order, identity and authority policies through owning factories and recipients. Distinguish representable API weakness from a proven normal producer failure. Existing fixtures only.",
+      "repair": "not started",
+      "validation": "source inspected; not run"
+    },
+    {
+      "scope_index": 997,
+      "source_id": "pr-working:crates/adventuresim-core/src/smithing.rs",
+      "sha256": "83f6b2eb7d945187bca6dc9f0fe78cbab0d25c292ce4c4096af94b4eb89a298b",
+      "personally_read_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "aggregate_trace_and_disposition": "ForgeQuote derives duration, material masses and required fractions from one design. Each material resolves canonical stock; per-row ceil precedes checked u32 accumulation. An error discards the local quote rather than publishing partial maps. Two public maps can be independently mispaired by another API constructor, while the normal factory is coherent. Native time/quantity bounds and design admission remain connected obligations.",
+      "acceptance": "Preserve the stated zero, order, identity and authority policies through owning factories and recipients. Distinguish representable API weakness from a proven normal producer failure. Existing fixtures only.",
+      "repair": "not started",
+      "validation": "source inspected; not run"
+    },
+    {
+      "scope_index": 1000,
+      "source_id": "pr-working:crates/adventuresim-core/src/social/affinity.rs",
+      "sha256": "498a0922e501f63800d2c4fa9bbffd863ca4cf98b83e09393c504b29d8a8ba7c",
+      "personally_read_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Affinity decay preserves signed bounds and the explicit nonfinite-to-neutral policy. Requested and realized deltas differ deliberately under clamping. Raw helper APIs make no admitted-input guarantee; same-current relationship binding belongs to the mutation caller. No redundant live state is stored by this math module.",
+      "acceptance": "Preserve the stated zero, order, identity and authority policies through owning factories and recipients. Distinguish representable API weakness from a proven normal producer failure. Existing fixtures only.",
+      "repair": "not started",
+      "validation": "source inspected; not run"
+    },
+    {
+      "scope_index": 1001,
+      "source_id": "pr-working:crates/adventuresim-core/src/social/claim_resolution.rs",
+      "sha256": "adfd512aab47db7827260717ebbb91d41706b4668372a0137510c9d3df796dcc",
+      "personally_read_ranges": [
+        [
+          1,
+          69
+        ]
+      ],
+      "aggregate_trace_and_disposition": "WitnessClaimResolution maps outcome from the same challenge and separately records the actual realized affinity change, intentionally different from the requested delta. Presence is the resolved-state authority; later live affinity must not replace captured feedback. Public Serde/SATS f32 admission remains a leaf concern and is not proof of an ordinary malformed receipt.",
+      "acceptance": "Preserve the stated zero, order, identity and authority policies through owning factories and recipients. Distinguish representable API weakness from a proven normal producer failure. Existing fixtures only.",
+      "repair": "not started",
+      "validation": "source inspected; not run"
+    },
+    {
+      "scope_index": 1007,
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_currency.rs",
+      "sha256": "837f9fd6f0198b1141b6908e9a329a770104cb67be25e2234764977af3db85df",
+      "personally_read_ranges": [
+        [
+          1,
+          40
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Currency selection uses a bounded RNG index into the canonical authored roster. Name/kind resolve the same catalogue entry with explicit Option/false for other IDs. Roster/currency membership remains an owning catalogue contract. Equal denominations are intentional; no exchange-rate conversion is missing here.",
+      "acceptance": "Preserve the stated zero, order, identity and authority policies through owning factories and recipients. Distinguish representable API weakness from a proven normal producer failure. Existing fixtures only.",
+      "repair": "not started",
+      "validation": "source inspected; not run"
+    }
+  ],
+  "archive_aliases": [
+    {
+      "id": "NATIVE-ADMISSION03-F006",
+      "source": "audit/continuation/native/admission03/findings.jsonl#5",
+      "relationship": "Exact public-field validity bypass, now with fresh aggregate/receiving-grant proof; no new unique defect."
+    }
+  ],
+  "qualified_questions": [
+    {
+      "id": "SEGO-INITIAL05-Q001",
+      "source": "scope985:439-542/604-668",
+      "relationship": "A consumption receipt does not retain the question; grant reconstruction checks only grant ID and revision.",
+      "source_counterexample": "Obtain a proposal from valid grant A, create its consumed receipt, then construct B using the same grant ID/revision and a different valid question with that receipt. B passes the receipt association predicate; assessment of matching question B with the same attempt/provenance returns receipt A. Search of the frozen source found only fixture callers, so no ordinary production failure or exploit is claimed.",
+      "disposition": "API association strengthening question. SEGO-INITIAL09-F126 concerns the separate private decision shape and is not an exact alias.",
+      "required_resolution": "Establish whether immutable unique grant identity is sufficient external authority. If the type promises question identity, bind the canonical question digest into proposal/receipt admission or seal reconstruction. Preserve intentional replay after expiry.",
+      "repair": "pending all thirteen discovery lenses",
+      "validation": "not run"
+    }
+  ],
+  "new_unique_findings": [],
+  "discovery": "With inherited findings and qualified questions; no clearance",
+  "repair": "not started",
+  "validation": "not run"
+}

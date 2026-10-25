@@ -1,0 +1,196 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-237",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat.rs",
+      "sha256": "98f3cb6b60b6672e3bdb730f6c922c012120f3763add4beb906040f1be122c2f",
+      "actual_EOF": 310,
+      "actual_compared_ranges": [
+        [
+          1,
+          310
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "6f50079ada28d050e5bfea42953c9c789e0da99bde9ea8af38f69a2240f4c47c",
+      "actual_EOF": 827,
+      "actual_compared_ranges": [
+        [
+          1,
+          827
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/ai_offense.rs",
+      "sha256": "cede3ecf1ccb8e95c2d4fedb6196a0a8137451304361c35822cafbe9c5f799e7",
+      "actual_EOF": 37,
+      "actual_compared_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "sha256": "5d254790fa2ec7e53bc749b18bfc8f4d89a1df367c3542f8f969403641c8a970",
+      "actual_EOF": 71,
+      "actual_compared_ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat.rs",
+      "sha256": "6da9d5558329053c0ceaadbcb7a19730884fc55bbc50cdd90af9b9305346b48c",
+      "actual_EOF": 290,
+      "actual_compared_ranges": [
+        [
+          1,
+          290
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config.rs",
+      "sha256": "5d114988a64595879b04e6f151d2a184cdf8f893f2f2b17a9987a3faf933d4ab",
+      "actual_EOF": 826,
+      "actual_compared_ranges": [
+        [
+          1,
+          826
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/ai_offense.rs",
+      "sha256": "ee4573d3b48808c80f0dcea6b98ccbb8b44ef4d1120c6c8b0889571c572b982c",
+      "actual_EOF": 37,
+      "actual_compared_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "sha256": "5d254790fa2ec7e53bc749b18bfc8f4d89a1df367c3542f8f969403641c8a970",
+      "actual_EOF": 71,
+      "actual_compared_ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Whole tactical config admission before mechanical consumers",
+      "source_ranges": {
+        "combat_config.rs": [
+          [
+            1,
+            827
+          ]
+        ],
+        "ai_offense.rs": [
+          [
+            1,
+            37
+          ]
+        ]
+      },
+      "disposition": "Complete exact P16 bodies and full actual PR deltas consumed. Schema9; core resolution/autoresolvevalidate; finitepositive movement, boundedtraction/slide<=2/lateral<=2, airtarget0..1, takeoff<45/slope<90, strict5-pointdisplacement0..1, strictdecreasingquadraticturn relation, exact7uniquebodypart hitboxes, finiteinputs and actualintervalrelations are checked. These are aggregatechecks but not sufficient computednativeextent/motorarithmetic proof at extremeacceptedf32. AIhitprecision omission exact existing NATIVE-INITIAL05-F032 supported; finite signedprecision shouldremainvalid, no probabilitycap. Defaultgeneration owns actualordinaryvalues; publicfields let rawmutation exist untilvalidate. Config owns rawexternalserde andvalidatedruntime installation; no allconsumerclosure from a schema/name. P16static duplicate SignedLengthimports line1/10 is a real variant build-coherence dependency, PRremovesfirst; no compiler/checkrun. Digest validatefirst thenconcreteSHA25664hex, but Serialization(error.to_string()) erasescause per NATIVE-PS-F033, no new graph."
+    },
+    {
+      "contract": "Lunge geometry/arrival computed outputs and deliberate modes",
+      "source_ranges": {
+        "combat.rs": [
+          [
+            1,
+            310
+          ]
+        ]
+      },
+      "disposition": "P16typedfiniteSignedLength, geometryaggregate andstructuredGeometry/Animation/Timing/Performance errors replace PRrawrange/Nonefallback. Maxzero arm+weapon sum re-admitted; maximumassistedrange re-admitscomputedaddition. Arrival clampsnegative gap tozero policy, nonpositiveforwarddrive returnsCannotArrive; Quickstepusesconfiguredfixedpositive duration independentofdistancebecausemodealreadychosen. Finalelapsed finitecheck preservesordinaryerror on extremeintermediate overflow; contactmax(authored,arrival) thennonnegative difference finite. Conservativeforce/tractionkernel usesphysicalconfig andre-admitsfiniteForwardLungeAcceleration. No ordinarybadlungeproducerproved; private f32 intermediate/numericallystable largeAPI questions share physicalcomputedresult owner, not blanketpositivegeometry. Fixedtests readnotrun."
+    },
+    {
+      "contract": "Runtime snapshot publication and copy cache",
+      "source_ranges": {
+        "runtime.rs": [
+          [
+            1,
+            71
+          ]
+        ]
+      },
+      "disposition": "Install validateswholeconfig before lockpublish, clonescurrentproduct thenReleasegenerationincrement; readersAcquiregeneration andreadcopyunderlock, perthreadcacheholdsTacticalAnimationConfig copy. CounterAtomicU64wrap is a theoreticalgenerationABA at2^64installs; no ordinaryruntimeoccurrence or newdefectpromoted. Poisonlock expect is explicitprocessfailure policy, no errorclearanceclaim. ECS/globalruntime synchronization ownership remains canonicalconfigproducer dependency, especially independent mirrored authored knobs CAMERA-INITIAL07-F005. No sourcefixes/projectexecution."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-HITBOX-EXTENT-001",
+      "classification": "source-level accepted whole-config numerical counterexample; no shippedasset/installedresource/nativepanic/runclaim",
+      "source_ranges": {
+        "P16/combat_config.rs": [
+          [
+            595,
+            620
+          ]
+        ],
+        "PR/combat_config.rs": [
+          [
+            594,
+            619
+          ]
+        ],
+        "P16/client/player.rs": [
+          [
+            226,
+            239
+          ]
+        ],
+        "PR/client/player.rs": [
+          [
+            505,
+            518
+          ]
+        ]
+      },
+      "case": "Take any otherwise accepted TacticalCombatConfig and replace one body-part hitbox half_extents_metres coordinate by f32MAX. All local targeting gates stillpass: finitepositiveleaf, exactsevenuniqueBodyPart/finitecenter unchanged. Actual on_new_player_added_hook multiplieseachhalfextent by2.0 before Collider::cuboid, producingInf fromacceptedfiniteconfig. This establishes nonfinite nativehandoff, not a claimaboutAvian panic/result or actualbadgameconfiguration.",
+      "connected": "Canonical admitted hitbox dimensions/complete nativecolliderextent operation, scenegeometry owner and actualconfigruntime/clientspawn producer. Exactledgersearch found no existinghalfextentwitness; broader computedphysicalgraph remains connected, no globaluniquedefectcount asserted.",
+      "acceptance": "An admitted hitbox construction has representable positive fullnativeextents or returns concrete ordinaryerror before spawning; owning half/full dimension conversion preserves actualnormalcollider shape and7bodypart identity. Positiveleafwrappers alone insufficient; no arbitrarysmallglobalgeometrycap or silentInf/default collider."
+    },
+    {
+      "existing": "audit/continuation/native/initial05-aggregate-states/findings.jsonl#34 NATIVE-INITIAL05-F032",
+      "support": "Personallyread fullactualwholeconfig plushas_valid_intervals omission; noimportedcoverageofAIphasecallee.",
+      "new_unique_claim": false
+    },
+    {
+      "existing": "audit/records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/findings.jsonl#32 NATIVE-PS-F033",
+      "support": "Actualdigestsourceerrorcauseerasure retained, no newuniqueclaim.",
+      "new_unique_claim": false
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "8 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-tactical-core/src/doors.rs"
+}

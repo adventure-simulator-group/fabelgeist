@@ -1,0 +1,15 @@
+--- PRbase/crates/adventuresim-character-creator/src/generation.rs
++++ frozen/crates/adventuresim-character-creator/src/generation.rs
+@@ -65,8 +65,12 @@
+         return Err(anyhow::anyhow!(
+             "GPU skeleton readback did not contain complete joint states"
+         ));
+     }
++    anyhow::ensure!(
++        skeleton_chunks.len() == model.mhr.num_joints(),
++        "GPU skeleton readback differs from the admitted rig joint count"
++    );
+     let global_joint_states = skeleton_chunks
+         .iter()
+         .map(|joint| {
+             let mut state = *joint;

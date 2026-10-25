@@ -1,0 +1,2022 @@
+{
+  "tool": "scripts/optimize_art_demo_armor.py",
+  "pillow": "11.3.0",
+  "policy": {
+    "occlusion_only": "256px, R8 PNG",
+    "all_other": "512px PNG",
+    "ktx2": "not used; KHR_texture_basisu unavailable in Bevy 0.19 glTF"
+  },
+  "geometry_bytes": 852632,
+  "source_glb_bytes": 6312216,
+  "glb_bytes": 6312216,
+  "source_image_bytes": 14925746,
+  "image_bytes": 5354125,
+  "source_images": 95,
+  "unique_images": 95,
+  "duplicate_images": 0,
+  "gpu_bytes_estimate_before": 258648746,
+  "gpu_bytes_estimate_after": 37486592,
+  "dimensions": {
+    "512x512x3": 29,
+    "256x256x1": 65,
+    "512x512x4": 1
+  },
+  "images": [
+    {
+      "index": 0,
+      "name": "armor-normal-9d635534e475c7dc60f869767dbd9b0f37a94ddd7aa9a7b98642a6bd4febe8bc",
+      "roles": [
+        "normal"
+      ],
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "dimensions": [
+        512,
+        512
+      ],
+      "channels": 3,
+      "format": "image/png",
+      "source_bytes": 4544,
+      "bytes": 1489,
+      "sha256": "71d432413a10aab25e5dee0aa377a1ca29dddef8eb2e30584135268d218c9d96",
+      "duplicate_of": null
+    },
+    {
+      "index": 1,
+      "name": "armor-ao-88023c9f280cd3f9a721a83c8e6c49c79c7529991d686eb195f7164835c6eb5f",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 86540,
+      "bytes": 21233,
+      "sha256": "52911f475a64656a7e91ce464ede19dfafa7d40ecec1f3b93e68b8d1fd18378e",
+      "duplicate_of": null
+    },
+    {
+      "index": 2,
+      "name": "armor-ao-4139a38813d33fbb6588a137b740e878a21c1837edd6a29e09ce64aece9b39f6",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 53533,
+      "bytes": 15522,
+      "sha256": "b6f2021be48ee728ae6bf25f18c1e5ffb377dc2674fb0d64a7eaf8df000cb0e7",
+      "duplicate_of": null
+    },
+    {
+      "index": 3,
+      "name": "armor-normal-f78831ed770d79b88256f95006daac557679ce91b562c57e0d68f116e981d44d",
+      "roles": [
+        "normal"
+      ],
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "dimensions": [
+        512,
+        512
+      ],
+      "channels": 3,
+      "format": "image/png",
+      "source_bytes": 438199,
+      "bytes": 185680,
+      "sha256": "b91e35212f66c259f08e7c93b3b33e6cccd5f8ff128b03d0972aedda8e14adef",
+      "duplicate_of": null
+    },
+    {
+      "index": 4,
+      "name": "armor-ao-bf811bb83de2673039b92a5f030acf75cf6997a5f6553df0b2bb51307eea16b3",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 81540,
+      "bytes": 21457,
+      "sha256": "b0bf8bc7246aba6a56eda3252147c94f695d4c93f90937f24c2615fe9cb2d42f",
+      "duplicate_of": null
+    },
+    {
+      "index": 5,
+      "name": "armor-normal-89b9a9bab3af56f2772dabea401197434c0cff6e46436ff1721f0b19d90becd6",
+      "roles": [
+        "normal"
+      ],
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "dimensions": [
+        512,
+        512
+      ],
+      "channels": 3,
+      "format": "image/png",
+      "source_bytes": 228381,
+      "bytes": 123152,
+      "sha256": "ec90f631adfa18c03991e9d33908100cd9f048ddd31c078dc39546cb0318f3c5",
+      "duplicate_of": null
+    },
+    {
+      "index": 6,
+      "name": "armor-ao-505635dbde4a85ac87e47e3e2edaac5a9a59517f5430201d6b5a4a2a2f892b93",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 115180,
+      "bytes": 28178,
+      "sha256": "1ad312220b9e3e8fd1ee0a6ae7e774667aca8bac8548586bb5526544ea55b7da",
+      "duplicate_of": null
+    },
+    {
+      "index": 7,
+      "name": "armor-normal-90f64ab2890c948d018bacaf432a9b8fad1a70fbb8c5a45b92da4a51e838a2fc",
+      "roles": [
+        "normal"
+      ],
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "dimensions": [
+        512,
+        512
+      ],
+      "channels": 3,
+      "format": "image/png",
+      "source_bytes": 337973,
+      "bytes": 151923,
+      "sha256": "f2975bfd227188c8e398ff4635d0a93bb8f6fb9ab8db9ea92a77c718e47d3421",
+      "duplicate_of": null
+    },
+    {
+      "index": 8,
+      "name": "armor-ao-ebfc656e697fc220a9a9761ec46d2c3e56ea3aed0aac24f25f5af3985acbe05e",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 80976,
+      "bytes": 20667,
+      "sha256": "c93f8f50ccb0a44c6788c5d64c214a5a2384caae195ccf7ed4db0bdce7605115",
+      "duplicate_of": null
+    },
+    {
+      "index": 9,
+      "name": "armor-normal-b8de9abf3c36aaae8adb5ab0bbbbcb06876a13e1d9424173dc9dee1620a76bf7",
+      "roles": [
+        "normal"
+      ],
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "dimensions": [
+        512,
+        512
+      ],
+      "channels": 3,
+      "format": "image/png",
+      "source_bytes": 254840,
+      "bytes": 123221,
+      "sha256": "7e1b6debd982a5feb2823a4569a2dfb0a66e8134b4779dfc090f4fb9d7628300",
+      "duplicate_of": null
+    },
+    {
+      "index": 10,
+      "name": "armor-ao-60787d171ec65b8ac2c9f60641447cf5497b4add97c5973e0bb4b5137c6071cf",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 59121,
+      "bytes": 16639,
+      "sha256": "4a66b7fe125d49c6b06dddad18dda94aa78be8d58e365d9d40039a03ccb4107a",
+      "duplicate_of": null
+    },
+    {
+      "index": 11,
+      "name": "armor-ao-489a21298691eeb9fec0015f6bce5f65c9ceee256ffcc3611a3ec6c8239e782a",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 106262,
+      "bytes": 27532,
+      "sha256": "ad0336f5fe716d3cdb8b1d8c4c9d0c9cd49eb37f868f1713438018301d4026d7",
+      "duplicate_of": null
+    },
+    {
+      "index": 12,
+      "name": "armor-ao-8e32ad296d9b91cca7b8585d2beeb6a0f249fe75353c9b15f2d1e41b160f3b04",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 92702,
+      "bytes": 25090,
+      "sha256": "86787101d7736502750ca241cb7dbc4d642e27bb2c04ee83edd7a014961c10c1",
+      "duplicate_of": null
+    },
+    {
+      "index": 13,
+      "name": "armor-normal-f48f990035f302c238c7015b1a580ba5a3199e3b45eca8149b07f14e0635ecb0",
+      "roles": [
+        "normal"
+      ],
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "dimensions": [
+        512,
+        512
+      ],
+      "channels": 3,
+      "format": "image/png",
+      "source_bytes": 265011,
+      "bytes": 117537,
+      "sha256": "f0ef00e3ada904b53c7a0d1d8cb23d8725ab0f7dc0a03e88b6da32139144f5ed",
+      "duplicate_of": null
+    },
+    {
+      "index": 14,
+      "name": "armor-ao-66b1fd52bba4568d23d8e3f713fb279b432a49ca69cbf04f3933dc46e392abec",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 68048,
+      "bytes": 18321,
+      "sha256": "96d112c9c9d80edba467240bec6bb1d3c09b49572fa6dd87818e0425880ec768",
+      "duplicate_of": null
+    },
+    {
+      "index": 15,
+      "name": "armor-ao-12f0c0a5ab91c79cc122401cd66f09677fde0df20895fa0c6d0890a7f224284f",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 106106,
+      "bytes": 27315,
+      "sha256": "c421dfc6a359204fd05f360ceebdac62245002a8a5b8a922073eb3fa671ae641",
+      "duplicate_of": null
+    },
+    {
+      "index": 16,
+      "name": "armor-ao-079a63d0907ed57b1c024934d1dd725aafa217fff078b118485cb94424609a74",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 90722,
+      "bytes": 24629,
+      "sha256": "f8d06b4093677228d009d17b4cea7972260641e731562916282c4b9c325d6020",
+      "duplicate_of": null
+    },
+    {
+      "index": 17,
+      "name": "armor-normal-c87eeac132c16341db7bef87d180dc91ce238dc4227da205c8d3776b6f4db948",
+      "roles": [
+        "normal"
+      ],
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "dimensions": [
+        512,
+        512
+      ],
+      "channels": 3,
+      "format": "image/png",
+      "source_bytes": 271422,
+      "bytes": 117845,
+      "sha256": "f5d73f17d11d7bf8cc6fb6c05c3046a51c5b1e5b5c22951b50ee7d5afc8589c9",
+      "duplicate_of": null
+    },
+    {
+      "index": 18,
+      "name": "armor-ao-a82f71e4feceb0ea98cfbca8b86deffde8065d01854284f682ff9f1eee27a099",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 67433,
+      "bytes": 17897,
+      "sha256": "df7445581d66cf3d84f8028b8cbff73b0fc38552061df9f59c3b9b0a1d837687",
+      "duplicate_of": null
+    },
+    {
+      "index": 19,
+      "name": "armor-ao-ccaa3bc57a6b422eac2d6e16c787ae57b648adcd89cdfe712e9f270ff7e0d9c9",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 102870,
+      "bytes": 24992,
+      "sha256": "4ad4c978990dfb14a8e5de2321d760583cc498714a010661411fa2e2ca0c42e7",
+      "duplicate_of": null
+    },
+    {
+      "index": 20,
+      "name": "armor-ao-1b312c10cccf084d70bd77750dc41dff5dd265c8980e08e1f9d841ce375fef6a",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 102853,
+      "bytes": 26749,
+      "sha256": "18b0cf64629ea65bd213f6d93b1e468934c6587385e901222cd690cd7fd6ec8f",
+      "duplicate_of": null
+    },
+    {
+      "index": 21,
+      "name": "armor-normal-ffb8740feeffcaf597ac8624379a7034f8d7970e977cec4d96a175c76888adf5",
+      "roles": [
+        "normal"
+      ],
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "dimensions": [
+        512,
+        512
+      ],
+      "channels": 3,
+      "format": "image/png",
+      "source_bytes": 297383,
+      "bytes": 124992,
+      "sha256": "6c3231a77872dbc8f97b8a17a3ed1fbb15160ab8edf0275ca3c0bebe056409ba",
+      "duplicate_of": null
+    },
+    {
+      "index": 22,
+      "name": "armor-ao-4cb4582996eb6841360ee40db1054982623d6397286f109f4245fe943e790e9e",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 31890,
+      "bytes": 10523,
+      "sha256": "c8a5b58b8269b55c49db4ef174e4a0cc2fa5162a3f8d106444095046fbee8717",
+      "duplicate_of": null
+    },
+    {
+      "index": 23,
+      "name": "armor-normal-8d63b6de11d26c7b7ae8341282a434e22d4c94c494dd4d2802bbbcc9a6a05ab5",
+      "roles": [
+        "normal"
+      ],
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "dimensions": [
+        512,
+        512
+      ],
+      "channels": 3,
+      "format": "image/png",
+      "source_bytes": 4776,
+      "bytes": 1611,
+      "sha256": "d88b136377a8cc23b11379667d1561bfb29d1ecaabd1a1324da968bfaed35ab0",
+      "duplicate_of": null
+    },
+    {
+      "index": 24,
+      "name": "armor-ao-50ca605fac70e88f0e4f924310f7dc91599b0ce3b44716f48fe6b39820ac7fa8",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 107247,
+      "bytes": 25840,
+      "sha256": "07576a72078d00b82db08ad338894bf05ac96f4b6f13c4b0100c7c722d4556b5",
+      "duplicate_of": null
+    },
+    {
+      "index": 25,
+      "name": "armor-ao-5ba9812f6d37c9002661055ba141a64872c6037ec136db57162ff26812467abc",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 88819,
+      "bytes": 22759,
+      "sha256": "0a8993805be4c824fa94fb3d910c71ae069812a65d2790278867b85701ed6be3",
+      "duplicate_of": null
+    },
+    {
+      "index": 26,
+      "name": "armor-normal-d8edb77522763194d0a8fa88751a103619c507b3ad9854fdd178aa8ec5b9d4d5",
+      "roles": [
+        "normal"
+      ],
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "dimensions": [
+        512,
+        512
+      ],
+      "channels": 3,
+      "format": "image/png",
+      "source_bytes": 391136,
+      "bytes": 158025,
+      "sha256": "1cc22468629ff4f0f206052ab742015147911c9aacba029a9a529dbcdad821fe",
+      "duplicate_of": null
+    },
+    {
+      "index": 27,
+      "name": "armor-ao-a2720a60f03ed245f44821fdfdcf56137b9caffb51eaa3470864827b3abd7928",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 30130,
+      "bytes": 9582,
+      "sha256": "8ff7e5b235dd3705cb1bb7fa79a7d1a3c77e3ed019f36192ea50b4abdb216b0a",
+      "duplicate_of": null
+    },
+    {
+      "index": 28,
+      "name": "armor-normal-bb32502f995608eb631e7dfeb7d54c54c93371577fd9d792e9fbc0615f9cd4b3",
+      "roles": [
+        "normal"
+      ],
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "dimensions": [
+        512,
+        512
+      ],
+      "channels": 3,
+      "format": "image/png",
+      "source_bytes": 552047,
+      "bytes": 216253,
+      "sha256": "c76efb528b5b5ade51ebc024654f6c7bd7b76beb80df656f02cd5149ff5222c7",
+      "duplicate_of": null
+    },
+    {
+      "index": 29,
+      "name": "armor-ao-ba73abdd99ad89549209ff4f7c2a517106a717d1c34564132d6a5365c9d7d0f0",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 76548,
+      "bytes": 23692,
+      "sha256": "e928d17889262dcea0951d179371ee81bef6e28f648f23b10dd51995cfd5798d",
+      "duplicate_of": null
+    },
+    {
+      "index": 30,
+      "name": "armor-normal-a8320728b5086be56c16b2f1b5f8200d784aaaa46730880ea421530131580ebb",
+      "roles": [
+        "normal"
+      ],
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "dimensions": [
+        512,
+        512
+      ],
+      "channels": 3,
+      "format": "image/png",
+      "source_bytes": 337833,
+      "bytes": 166024,
+      "sha256": "133ebeca95521a44c0b44485739882e6d449f33fafdc8f5e7aec64870b0f808a",
+      "duplicate_of": null
+    },
+    {
+      "index": 31,
+      "name": "armor-ao-380bf3d4512154af511070c05e0b2f9ff6e3f8254481ae321eff3c5fa175b5b6",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 86720,
+      "bytes": 23024,
+      "sha256": "184bfb1a1eb7695054884d00905483445de717517d4cfb7958f4fa5cab93095e",
+      "duplicate_of": null
+    },
+    {
+      "index": 32,
+      "name": "armor-ao-5a3ca2bbcfb413a200e175a0749aa56dc7d993f69c95e2852a85d2913c88f0e2",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 124460,
+      "bytes": 31141,
+      "sha256": "45973857a4f84300e3a9d9ede9461a6f9edfbb1348f9eb3c78e0293eeeb690d1",
+      "duplicate_of": null
+    },
+    {
+      "index": 33,
+      "name": "armor-ao-4f3fe16ca0c6f12019656afdd38e5c9fe2f485aec9e03fb361de86a3ff853693",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 111366,
+      "bytes": 30357,
+      "sha256": "8b3dc7f914d12ce6bd435b7e62131d5ff88bb149636526f36b3bea7bb5a3a688",
+      "duplicate_of": null
+    },
+    {
+      "index": 34,
+      "name": "armor-normal-a72ca43f8d6cc995d22554b07f051b6513559a329d97f4d0ebe19c6aa16f44fb",
+      "roles": [
+        "normal"
+      ],
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "dimensions": [
+        512,
+        512
+      ],
+      "channels": 3,
+      "format": "image/png",
+      "source_bytes": 190262,
+      "bytes": 93347,
+      "sha256": "72650f3eb026ff27ca90bc450a5e153ec580f39638fddd5d34b25ab3312194bb",
+      "duplicate_of": null
+    },
+    {
+      "index": 35,
+      "name": "armor-ao-2bffca4bdc18de48d0317eb5c4a12ff17db195212f1fb7fe1e1947e116e70d02",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 65629,
+      "bytes": 17783,
+      "sha256": "5bada95a0de6a2adbdc627479640ef40e02ae264aa10ae326f3f217d4db15ac0",
+      "duplicate_of": null
+    },
+    {
+      "index": 36,
+      "name": "armor-ao-09366295a7c836da6f9bcf0c03733a8e0ee8e1584cf20ba807c1297ac5c70237",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 123320,
+      "bytes": 30715,
+      "sha256": "82619a462f8cee39a461d8e3bdf314900e0a336f45b49b6626374614fd932184",
+      "duplicate_of": null
+    },
+    {
+      "index": 37,
+      "name": "armor-ao-f9b82106beeac8ed05b1cb4a98719c66cba6576d1f37d553fe26ddacb40fadfb",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 110872,
+      "bytes": 30186,
+      "sha256": "e195518ec3cc1db43b3c01a35adad14bdd90489eafd49284b60b29f7a032383d",
+      "duplicate_of": null
+    },
+    {
+      "index": 38,
+      "name": "armor-normal-4db9cad6be64ac2a51efcb0c4a43bdffc48abef2e06d79d08e6bc94f9eb0b398",
+      "roles": [
+        "normal"
+      ],
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "dimensions": [
+        512,
+        512
+      ],
+      "channels": 3,
+      "format": "image/png",
+      "source_bytes": 175783,
+      "bytes": 85347,
+      "sha256": "662167acc38486660b6ecb7d551b01375b30b6e33fdcf35ab88bed75edce9bcd",
+      "duplicate_of": null
+    },
+    {
+      "index": 39,
+      "name": "armor-ao-c7f2dcdc467f02ca4aace58577b2c15b4447d937c083231bfe01a525612e9a93",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 59506,
+      "bytes": 16175,
+      "sha256": "624c44fe441541b4dc0c920bac9609c35383cfe28b3abb9ddf79279258f6562b",
+      "duplicate_of": null
+    },
+    {
+      "index": 40,
+      "name": "texture-291cd41544d796170872b94ebceaaddd7813c8ebcbf211f01f91280a32eba8b2",
+      "roles": [
+        "normal"
+      ],
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "dimensions": [
+        512,
+        512
+      ],
+      "channels": 3,
+      "format": "image/png",
+      "source_bytes": 617254,
+      "bytes": 126703,
+      "sha256": "51f75434975223eaaa17c2706e791c1ce6740598ba769e365da4f688b31a962a",
+      "duplicate_of": null
+    },
+    {
+      "index": 41,
+      "name": "texture-b9d8ba8e9a3ee8a0fb0b305e6314ce394571c91d10933b93a13ad101df7e2345",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 46404,
+      "bytes": 10571,
+      "sha256": "f3038b37b89392d19d63bac0ac0c9a6239624a5ac8116f3780798fc60f06cacb",
+      "duplicate_of": null
+    },
+    {
+      "index": 42,
+      "name": "texture-bbe63965509931a4d8eeadf898cc81afe668d887c7ef6023b8b5092245e9d80d",
+      "roles": [
+        "base_color"
+      ],
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "dimensions": [
+        512,
+        512
+      ],
+      "channels": 4,
+      "format": "image/png",
+      "source_bytes": 548271,
+      "bytes": 118536,
+      "sha256": "8e91d945770702187f3a4ab86ebb7cb9424bc83654fb316bb2ca3b0a076446d9",
+      "duplicate_of": null
+    },
+    {
+      "index": 43,
+      "name": "armor-ao-41e896a0f649699ac121c5014a9348b6b89b9fcc7d06a83a3d3712d1d8baf85a",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 104666,
+      "bytes": 25641,
+      "sha256": "4396d72e347a6d0383e325abbc047b3d207377ea414abbfdc6837fccbfe8038f",
+      "duplicate_of": null
+    },
+    {
+      "index": 44,
+      "name": "armor-ao-be11ad545f741672db14dc2db236e75c742cc697f014ccee49ae84c5c9b49bae",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 73814,
+      "bytes": 19794,
+      "sha256": "6878b58177c82eb215fab1cb80bbe703781dcb9a0213fc1d26df0ae0efb1d461",
+      "duplicate_of": null
+    },
+    {
+      "index": 45,
+      "name": "armor-normal-56bf6cb03f591ad8a2292907f9f68ef9f43718f5526ab1789371d766f2382c8f",
+      "roles": [
+        "normal"
+      ],
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "dimensions": [
+        512,
+        512
+      ],
+      "channels": 3,
+      "format": "image/png",
+      "source_bytes": 235036,
+      "bytes": 112693,
+      "sha256": "b088e46c3833a316dae6cea4ae05d44c94d8a93286451e08549f139437b8e6e9",
+      "duplicate_of": null
+    },
+    {
+      "index": 46,
+      "name": "armor-ao-e63a8c3f7bc1bbd0749733f0ca0285303985bed737e2954751fa7d000659ddca",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 71169,
+      "bytes": 19243,
+      "sha256": "0dcbb1c7e35c8eb01c6df1134846bc3456b0bcea8be1ff3d68798c51d9e48b12",
+      "duplicate_of": null
+    },
+    {
+      "index": 47,
+      "name": "armor-ao-fa0ba4143cccd9905a62e53a065956e8091c04f78116ed06cbff1cfccbb7d027",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 104232,
+      "bytes": 25491,
+      "sha256": "570e638fc85145ada46f708a8ee470fa2b4bde040d3190095ac965675c911671",
+      "duplicate_of": null
+    },
+    {
+      "index": 48,
+      "name": "armor-ao-e18215f4d3aab44bcdbfd1c35b258ba6a41ef50f059e73e303088cc9e357a469",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 74073,
+      "bytes": 19933,
+      "sha256": "b6320a96c1e89bbb9559a980570bc3ed7e1a982e3bcf6840fa398dd71285113a",
+      "duplicate_of": null
+    },
+    {
+      "index": 49,
+      "name": "armor-normal-d6c5670a89ca87927e93851afe28cb4bb913df883593908be91cbe397dbec0cd",
+      "roles": [
+        "normal"
+      ],
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "dimensions": [
+        512,
+        512
+      ],
+      "channels": 3,
+      "format": "image/png",
+      "source_bytes": 233296,
+      "bytes": 110485,
+      "sha256": "574c7f1f63194939f4c79322491ca2605fe025999e39ba7840960e099ebe1bd1",
+      "duplicate_of": null
+    },
+    {
+      "index": 50,
+      "name": "armor-ao-3aa66a57efa8c5ecb952dfc4b3dd5e6c03a3d2bd12b277b6f4153ff50c74521f",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 68559,
+      "bytes": 18217,
+      "sha256": "05c28564f55cc15de40207ec9b3c59c3ae755e05e58696849111c10e2195d56f",
+      "duplicate_of": null
+    },
+    {
+      "index": 51,
+      "name": "armor-ao-0b2a4552c1d503eb711f85213a0afdefa03a9b21ad4ef5bf5fddcc4ba2d86658",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 111762,
+      "bytes": 27724,
+      "sha256": "7c7677a3861c5ef8a59bad37142ec824be9e5bdb70dd41131c5fb48ab4fc6e39",
+      "duplicate_of": null
+    },
+    {
+      "index": 52,
+      "name": "armor-ao-4b80c9b03fe72a7b9707e1f75d627a5f1a474bc80c624c324ea215faaf18dd19",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 76863,
+      "bytes": 21632,
+      "sha256": "5dd9ac799384dfd2571863219e4b146e00b6ebb94b6841867b1454030f266663",
+      "duplicate_of": null
+    },
+    {
+      "index": 53,
+      "name": "armor-normal-ba77034e42d876b2e211e6ed2da338f9072af0aaa5726c2169b4ce1f6eabb40f",
+      "roles": [
+        "normal"
+      ],
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "dimensions": [
+        512,
+        512
+      ],
+      "channels": 3,
+      "format": "image/png",
+      "source_bytes": 161855,
+      "bytes": 77505,
+      "sha256": "b990beb2db92d6df9bcf49abaf7e4088137248403ed63f716cbfb32a3c174b06",
+      "duplicate_of": null
+    },
+    {
+      "index": 54,
+      "name": "armor-ao-98b7f46bdf4a0285c024725b6a28413b699d046a6e0dc3b4bdd6afd2fbefd130",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 28308,
+      "bytes": 8776,
+      "sha256": "05064cb2b235d144e1545f5121aa48c7bc07d0f9c99a335d3c251392ad9318a5",
+      "duplicate_of": null
+    },
+    {
+      "index": 55,
+      "name": "armor-ao-7c6fdc981cedf7e2e3e00d2932978bb2efd160ef3e9a11efb7ef2827ccd4b974",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 104368,
+      "bytes": 26186,
+      "sha256": "a9ba29dca56a4d7341d7440cf3cc5e3aef7c38837d459fd1de9feb354bed3128",
+      "duplicate_of": null
+    },
+    {
+      "index": 56,
+      "name": "armor-ao-72d7009101ef738c7f9bdb14d4966145419008e84cf468ac88d9a307868c2aae",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 77690,
+      "bytes": 21414,
+      "sha256": "707fe0e5c1c576e20b1dbcc291d8c8b097dfa648bfa2bbcaa61ed9e0d3c11b47",
+      "duplicate_of": null
+    },
+    {
+      "index": 57,
+      "name": "armor-normal-b5741336c0f9fb50c9f49654f5e1bb36df46ab99cf8f0675edae9a417e5003c4",
+      "roles": [
+        "normal"
+      ],
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "dimensions": [
+        512,
+        512
+      ],
+      "channels": 3,
+      "format": "image/png",
+      "source_bytes": 161424,
+      "bytes": 78355,
+      "sha256": "911814702a8366c1f6585a676a693548169f416c33ebc801af015d2f926ab22f",
+      "duplicate_of": null
+    },
+    {
+      "index": 58,
+      "name": "armor-ao-bb7787e26f7fe130e501997cc67c640bdc28c53f08cc7c25d3366f4f9bc925af",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 28906,
+      "bytes": 8957,
+      "sha256": "445fd522e592c0ec5b1cb97b4d5321d746c72c4d09db413529a7cb40c5b70fd1",
+      "duplicate_of": null
+    },
+    {
+      "index": 59,
+      "name": "armor-ao-7bcf85b991d94b328abea9d46f2d0f6a0beb940b40baa37ffa369a398bc6e14a",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 110713,
+      "bytes": 26984,
+      "sha256": "b9c3787262f1acae1034f216d68ce7da47121f1ba65a92265b326647918712b7",
+      "duplicate_of": null
+    },
+    {
+      "index": 60,
+      "name": "armor-ao-ad71709ff4ff6377545e39540419226faa42edd3a9bc7dfd80b8ad41e29b9344",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 102284,
+      "bytes": 26845,
+      "sha256": "9ecd17a708a61df1aa657c82e774afe2615d6651ded54285ad71cf0504e3afcd",
+      "duplicate_of": null
+    },
+    {
+      "index": 61,
+      "name": "armor-normal-2dc15d56411777c01ced30a449076bbfe91a42078d12ba839a75e17b485696a1",
+      "roles": [
+        "normal"
+      ],
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "dimensions": [
+        512,
+        512
+      ],
+      "channels": 3,
+      "format": "image/png",
+      "source_bytes": 373164,
+      "bytes": 156787,
+      "sha256": "d8f06acec99de6d3add69fd152426aa888c1fca3f5a7dda0e6707443d50f54e9",
+      "duplicate_of": null
+    },
+    {
+      "index": 62,
+      "name": "armor-ao-7ab42ccf9403eb1e179cdd3f97c8a542642c49cb5c7d2b1b6b7da2d61204902c",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 68084,
+      "bytes": 17730,
+      "sha256": "6da67c937e3aa953ad1f403041f7d435d14361cca8ba321d4656ec0386fa23a0",
+      "duplicate_of": null
+    },
+    {
+      "index": 63,
+      "name": "armor-ao-59f2bd5ffa08d1045324b44f79f619c901976bb5ecbc4096432ae00450aa64a6",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 108610,
+      "bytes": 26570,
+      "sha256": "fc548f7f4de9e9f3084b5b0ab2a74b49b8c760a3fabaa407c08034cca998837c",
+      "duplicate_of": null
+    },
+    {
+      "index": 64,
+      "name": "armor-ao-ea55d3db2b98072507b8423825d22fa265c43017ac87e731a652f9bc7e4056da",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 104260,
+      "bytes": 27323,
+      "sha256": "d80187cabdc1c093493257fbb5fcde696baa5bf36208aea52fb17f9cf707506a",
+      "duplicate_of": null
+    },
+    {
+      "index": 65,
+      "name": "armor-normal-a2555a6ed6d407aea34bf5120ce274db0a669598855e3f5a5714c73169e2188e",
+      "roles": [
+        "normal"
+      ],
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "dimensions": [
+        512,
+        512
+      ],
+      "channels": 3,
+      "format": "image/png",
+      "source_bytes": 429779,
+      "bytes": 181295,
+      "sha256": "4d690bc0f3f9c28824dd6ed2bb3ea4c837472714312648a70cc9cfeeb2fd78c5",
+      "duplicate_of": null
+    },
+    {
+      "index": 66,
+      "name": "armor-ao-54bb8a663d719d21241609062c30fb49872d8d95a10246e774870bb309c11539",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 74985,
+      "bytes": 19179,
+      "sha256": "6036f3f15ff0bb6ad291b0f66d8aa97c940be04f2d4b3fd3c9d2e1b15f48e81c",
+      "duplicate_of": null
+    },
+    {
+      "index": 67,
+      "name": "armor-ao-abaa5f1963a6e5a36ee10b32d324061445c0aba2023599eb414b6d18b65e857e",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 103037,
+      "bytes": 25652,
+      "sha256": "db5ac3f78c80161e75f2bc370ae2531c2bbf437ac1be1b8ee02f20d7d51411d1",
+      "duplicate_of": null
+    },
+    {
+      "index": 68,
+      "name": "armor-ao-1d3be4ca8de2ea016171a8c38618983798070e0a1208d180a80bce0cefbb16a6",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 70924,
+      "bytes": 19820,
+      "sha256": "41c0d67ee0db0638133f823f6ad59b65bfb15d3236b526fcc006800e4e71fd24",
+      "duplicate_of": null
+    },
+    {
+      "index": 69,
+      "name": "armor-normal-27c5f73c2a0f0c0fda9b10a325a40aa03e3953c5dd14b60561b6579492bdf9f8",
+      "roles": [
+        "normal"
+      ],
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "dimensions": [
+        512,
+        512
+      ],
+      "channels": 3,
+      "format": "image/png",
+      "source_bytes": 365059,
+      "bytes": 171536,
+      "sha256": "094127c89cbc09579c0a62fc42b4886c3e475faa7f4815e861a595b21f98e1ba",
+      "duplicate_of": null
+    },
+    {
+      "index": 70,
+      "name": "armor-ao-96c3ef9472773b5ec9a531ade96dbb72eb7a42323ed2bcfe7f1d71a02b146095",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 116400,
+      "bytes": 29979,
+      "sha256": "7b81379a264059c263625e7a48d0e00efb23cd473a96aa11ccd311053ef8835e",
+      "duplicate_of": null
+    },
+    {
+      "index": 71,
+      "name": "armor-ao-c4c07fd7cb7de68981c57040301ee68e879bf3bf67c2c97394520c5bfba0d348",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 102515,
+      "bytes": 25634,
+      "sha256": "bae41b51ea7314f276fca1668fc78beaec5d993c0e1aac4741ef0e4a0b39a59e",
+      "duplicate_of": null
+    },
+    {
+      "index": 72,
+      "name": "armor-ao-836497dbeeac5dea7ff664b13bb16e64f098ab4efcadcdbadbd227d1a2596742",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 60657,
+      "bytes": 17118,
+      "sha256": "c36cf4eda0a3349cbd102484003f2787d9ed90b15ba30eb714884bc044e972a5",
+      "duplicate_of": null
+    },
+    {
+      "index": 73,
+      "name": "armor-normal-521fbd12f9a2d976a86ac0a7c21017baf813e43822b710c157afae37b0026998",
+      "roles": [
+        "normal"
+      ],
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "dimensions": [
+        512,
+        512
+      ],
+      "channels": 3,
+      "format": "image/png",
+      "source_bytes": 299301,
+      "bytes": 139997,
+      "sha256": "174f001d276f0f2d8a488907534b838e710c9f9ad77f4b623d67adce8ed9be1f",
+      "duplicate_of": null
+    },
+    {
+      "index": 74,
+      "name": "armor-ao-a820e610813495231f6133a883e5944bf3a4cd09eeddd898e141bc21620d82a3",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 101696,
+      "bytes": 25213,
+      "sha256": "e7bb6add7d3e5d14f0066f11efde8affc6fc9f6791eb576d1ab8adc509318506",
+      "duplicate_of": null
+    },
+    {
+      "index": 75,
+      "name": "armor-normal-a12424fdc14181df0ee1c5d04c50e7457c5e243209124cf34f4000c4264be559",
+      "roles": [
+        "normal"
+      ],
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "dimensions": [
+        512,
+        512
+      ],
+      "channels": 3,
+      "format": "image/png",
+      "source_bytes": 576682,
+      "bytes": 231872,
+      "sha256": "334d3ef977bbff29c3c99d7a23075be995226291f12906542cc2ed5371122196",
+      "duplicate_of": null
+    },
+    {
+      "index": 76,
+      "name": "armor-ao-5a8152f49c5e693ca38fe011237521fdf3d348640829de2f3cfd03b84a629f12",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 75706,
+      "bytes": 15460,
+      "sha256": "2acd7512637987322c48488d80fc5c6209171a7d23f35742a5382279bce5c602",
+      "duplicate_of": null
+    },
+    {
+      "index": 77,
+      "name": "armor-ao-68458377c29841044a0868817eb9ff34b34403d9da173b0c37dce29acae0290d",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 85380,
+      "bytes": 24235,
+      "sha256": "679a075c1bf91de84fe09f990ad2cb459fbea629605e0a04f1dd61431a9fe1f0",
+      "duplicate_of": null
+    },
+    {
+      "index": 78,
+      "name": "armor-ao-6d08fa94ed2f438c8adf2bf0f844fce1a6956cdb6e77220fef1a388722f19b46",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 96964,
+      "bytes": 26580,
+      "sha256": "e96d82632adf8ff7bd5e848ac9b42df03ec427c2e143d29114eeb5bd8c49bfae",
+      "duplicate_of": null
+    },
+    {
+      "index": 79,
+      "name": "armor-normal-c63a16a4f3becae4ac7fcedc9441e598973cc59f7ff066629ee187ec27450cb8",
+      "roles": [
+        "normal"
+      ],
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "dimensions": [
+        512,
+        512
+      ],
+      "channels": 3,
+      "format": "image/png",
+      "source_bytes": 289483,
+      "bytes": 131959,
+      "sha256": "fd2304c482ca11f62e3aafa5c6cc45d2f257e7b817754d642feecf6343708d48",
+      "duplicate_of": null
+    },
+    {
+      "index": 80,
+      "name": "armor-ao-7c840fade184e95a8f734bd323ad196b77d302e65d0bfb3ca7b6698d240615b3",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 78592,
+      "bytes": 19646,
+      "sha256": "4082bbf8d8cfeb47195e2598af16bef1fb09afdc9593c36849c9eefa75c070d9",
+      "duplicate_of": null
+    },
+    {
+      "index": 81,
+      "name": "armor-normal-77520a36f911a3e9705e3e3806f391c9a145e699e30d355f6025353e4c2ae266",
+      "roles": [
+        "normal"
+      ],
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "dimensions": [
+        512,
+        512
+      ],
+      "channels": 3,
+      "format": "image/png",
+      "source_bytes": 580434,
+      "bytes": 235371,
+      "sha256": "a2b9cdd7d134bd7371cc4ebc0cc25310ff7e9a25aa4435ed82c20fc3d3753a40",
+      "duplicate_of": null
+    },
+    {
+      "index": 82,
+      "name": "armor-ao-f51f3fc698905ddd999e766a9783308aa4bf71b3a1e6aaa821442ebe2646ad41",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 75449,
+      "bytes": 15338,
+      "sha256": "11c6767e8fc3cde3a55f0f4b6c45f432ddb4ff5e8c20fcd4954c44fcf7e903e9",
+      "duplicate_of": null
+    },
+    {
+      "index": 83,
+      "name": "armor-ao-d49615b794aabc59bfa0bdc911b45c435389c47598671191e9b38bb24a8dbaec",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 83078,
+      "bytes": 24029,
+      "sha256": "6d9210988f2f92cf4c3e5ac8aeeb47cd029f684a494d5bc25a09402ec354ec7d",
+      "duplicate_of": null
+    },
+    {
+      "index": 84,
+      "name": "armor-ao-b8627fedd3ce8d443f0574c65a9a30d33497522db1c43d66e33067af01b46407",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 94789,
+      "bytes": 25620,
+      "sha256": "1d7bed7149effba14e4b8f60870d5c71642e1eee8ed2f989cb4cda4511097ca1",
+      "duplicate_of": null
+    },
+    {
+      "index": 85,
+      "name": "armor-normal-8d4bcd9f8ac294a10667d23e6f804ae87bdd365dc5fc7bd341ee98d8d5295d7c",
+      "roles": [
+        "normal"
+      ],
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "dimensions": [
+        512,
+        512
+      ],
+      "channels": 3,
+      "format": "image/png",
+      "source_bytes": 285732,
+      "bytes": 130162,
+      "sha256": "4cc6309df973ff45c4334ea7f4366b9d6add28cdf559d64abc4d6c5385a16b62",
+      "duplicate_of": null
+    },
+    {
+      "index": 86,
+      "name": "armor-ao-241f47c1039de69f14e2def09a5ad7d957eb9e1a25ad24fe9766e8db25e2de08",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 80116,
+      "bytes": 19661,
+      "sha256": "45269ac086375cad56528d7fb1949e6e8f4f0b749214e7bbd34c370a71ff79af",
+      "duplicate_of": null
+    },
+    {
+      "index": 87,
+      "name": "armor-ao-3e817a9036cb3a5963f6a8df3a86a5656c403f2c46b6470ffd03c8cd89cebab1",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 110929,
+      "bytes": 30045,
+      "sha256": "66edc64d3c584c9fa88f4b882c26f92804a0dbfbfd22d9235fd55a8df68a67c6",
+      "duplicate_of": null
+    },
+    {
+      "index": 88,
+      "name": "armor-ao-c9cee0dce208412c628d142e5037b784188f5c23b054d0b5f99ccad0d3c961bd",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 95591,
+      "bytes": 24912,
+      "sha256": "ac5ec0ec91b313ff76fc929df8e02d7d7a5a42af935a770fcb199afa94b30d98",
+      "duplicate_of": null
+    },
+    {
+      "index": 89,
+      "name": "armor-normal-77fa8398f414b91dec47c8d4fcef707d10e9fd3c994aa7457dcf8a8ef0c59f98",
+      "roles": [
+        "normal"
+      ],
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "dimensions": [
+        512,
+        512
+      ],
+      "channels": 3,
+      "format": "image/png",
+      "source_bytes": 264549,
+      "bytes": 125611,
+      "sha256": "383d66c72043f2ec1a7f3bfc00c7bc5990bd5e1c032e4e3ba430b210ea6702e6",
+      "duplicate_of": null
+    },
+    {
+      "index": 90,
+      "name": "armor-ao-17ccedaf6e8fe7d54e66eccffcbeaabd6fb7206b0f6927a5d5f1df2191eaecad",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 50155,
+      "bytes": 14704,
+      "sha256": "75ededbb04569a1f3d831be2604780de78b4a49498e9c692135e24760b66f31d",
+      "duplicate_of": null
+    },
+    {
+      "index": 91,
+      "name": "armor-ao-05ccd547749621c8add56c87181382ab26f539f66f1decc4b109c3e207de7476",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 108022,
+      "bytes": 28596,
+      "sha256": "a1052dcdae86f5256683075b6fef03951af196411d68080c751b60c399129a2c",
+      "duplicate_of": null
+    },
+    {
+      "index": 92,
+      "name": "armor-ao-8d449056c2d429d48685b1ebe147c40a776eb1dd2fab66708babd11169427dc8",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 92183,
+      "bytes": 23532,
+      "sha256": "d62e356c87f3c480643a4c2beca93f9d765389c1b139a1995f63810c5afe5120",
+      "duplicate_of": null
+    },
+    {
+      "index": 93,
+      "name": "armor-normal-4c0e2d58e8c60e4b6028d5d471f1e0187c5e03122f441314e18a2aac55f8fe5e",
+      "roles": [
+        "normal"
+      ],
+      "source_dimensions": [
+        1024,
+        1024
+      ],
+      "dimensions": [
+        512,
+        512
+      ],
+      "channels": 3,
+      "format": "image/png",
+      "source_bytes": 250365,
+      "bytes": 120866,
+      "sha256": "d7ca877518e886efe785d5c2c4d17d058821e77377133147bcd859eb3e7f6af6",
+      "duplicate_of": null
+    },
+    {
+      "index": 94,
+      "name": "armor-ao-3155d4a2e409c6c1fae55a4c8544daeda7988a056201825139e198753b8e20b3",
+      "roles": [
+        "occlusion"
+      ],
+      "source_dimensions": [
+        512,
+        512
+      ],
+      "dimensions": [
+        256,
+        256
+      ],
+      "channels": 1,
+      "format": "image/png",
+      "source_bytes": 52146,
+      "bytes": 15964,
+      "sha256": "ae6cf6ec41b8f012853a8840ee1c3065e385201aadb06ffaeeec2a93d8172cb5",
+      "duplicate_of": null
+    }
+  ],
+  "output_sha256": "ebfc770f4a44b497e6e2a20e0775efee13f353a7a8e28a748668497a8262b24f"
+}

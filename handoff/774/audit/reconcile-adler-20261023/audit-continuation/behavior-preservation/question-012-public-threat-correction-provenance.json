@@ -1,0 +1,51 @@
+{
+  "id": "CONT08-Q012",
+  "classification": "retained-source conditional temporal correction provenance question; not new #774 regression",
+  "sources": [
+    {
+      "scope_index": 1139,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/local_problem.rs",
+      "sha256": "49dfecf1d8b09c88835ef0e2c5d2ffcc8cfd8b6624b3a05e7320e7499a723942",
+      "ranges": [
+        [
+          1411,
+          1424
+        ]
+      ]
+    },
+    {
+      "scope_index": 1130,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/sites.rs",
+      "sha256": "f1b87ed586b1c651092b75de29d00b1717fdccca5ff4fa689e23a4295d1f119a",
+      "ranges": [
+        [
+          296,
+          320
+        ]
+      ]
+    }
+  ],
+  "facts": [
+    "surface_public_threat marks stale same-public-case leads at other exact_location_id corrected_by public-threat disclosure ID, owned by PublicThreatDisclosure table.",
+    "lead_is_live_at only resolves nonempty correction reference through InvestigationLead table; absence returns false for allfrontiers, including before actual disclosure.",
+    "Trigger requires older exact lead to different site plus later publicdisclosure, earlier observer frontier and actual historicalrecipient; ordinary generation/source population not established. Own1139 and1130 fullPRdiffempty."
+  ],
+  "disposition": "Open bounded source/API qualification pending exact retained alias/normalproducer/intent policy; no newunique count/no runtimeclaim.",
+  "connected_acceptance": "If intended retrospective corrections, preserve typed timestamped correction source identity across lead/disclosure populations without revealing futurefacts; preserve before/atfrontier and missingreference failclosed policy.",
+  "coordinator_question_sent": true,
+  "coordinator_lookup": "Root narrow root168 + Adler1002 metadata search found no exact corrected_by/PublicThreatDisclosure frontier alias; absence is not exhaustive semantic unique proof. F20 private-case corroboration differs. Ordinary oldlead/disclosure witness still pending.",
+  "additional_own08_source_support": [
+    {
+      "scope_index": 1263,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/world_actor/presence.rs",
+      "sha256": "39cd6d057c070e586f5701d068b930beaafe12dc00d68465ffd460ede664c5ea",
+      "ranges": [
+        [
+          148,
+          195
+        ]
+      ],
+      "fact": "Actual unchanged exact_case_site_visible_to_observer_view also resolves corrected_by against investigation_lead.id and only futureownedcorrection permits oldlead. Supports same unresolved disclosureID-versusleadlookup frontier question, not additionaluniqueissue orordinarywitness."
+    }
+  ]
+}

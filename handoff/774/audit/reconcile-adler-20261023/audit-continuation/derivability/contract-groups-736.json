@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-736",
+  "at": "2026-10-25T16:39:32.350358+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 985,
+  "source_id": "pr-working:crates/adventuresim-core/src/rights.rs",
+  "sha256": "452c9b104be14352c93d247f83a87de98fa79b10c86d3b51d28eaa252a927b07",
+  "actual_compared_ranges": [
+    [
+      1,
+      1100
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Rights fixture881\u20131100 constructs typed attempts/provenance/questions/grants and source assertions for impossible place/custody combinations, revision boundaries, distinct ownership/custody/permission/organization jurisdiction and validity prefix. No additional trait/codec; native fixture helper semantics not derived conversion. Source read only."
+  ],
+  "first_unfinished": {
+    "scope_index": 985,
+    "line": 1101
+  },
+  "execution": "none"
+}

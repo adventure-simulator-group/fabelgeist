@@ -1,0 +1,60 @@
+{
+  "id": "CONT08-CONTRACT-225",
+  "at": "2026-10-25T14:49:05.777033+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 862,
+      "source_id": "pr-working:crates/adventuresim-core/src/autoresolve/joint_melee.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/autoresolve/joint_melee.rs",
+      "before_sha256": "c923dc99b1f471c496727999a471de7d8c4dfc0eb2b2b4652753e40f7f5f510e",
+      "after_sha256": "7373a905f23ab3075cfb464c0a936ce1ebc33ba6c5c6ad23866b1a1479c5b983",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0862-base-c923dc99b1f471c496727999a471de7d8c4dfc0eb2b2b4652753e40f7f5f510e",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/7373a905f23ab3075cfb464c0a936ce1ebc33ba6c5c6ad23866b1a1479c5b983",
+      "diff": "source-evidence/pr-0862.diff",
+      "diff_sha256": "4e80cb92e5fcbb702b63407c210b3aacf4fea2c9c09413f82dafd5935dcef2b1",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          329
+        ]
+      ],
+      "head_body_read_method": "862 exactown0055fullbodyreuse andfresh1\u2013155;880fresh1\u201395; complete actualPRdiff consumed.",
+      "facts": [
+        "Exact329head own0055fullbodyreused, entireactualPRdiff consumed andfreshhead1\u2013155criticalread. Original64Hzround/max1 count andsame f32 roundstart/window division/multiply/add nowadmitted checked elapsed/time; sameearliestcontact/tolerance1e-6, windowmovement\u2192sort\u2192contacts\u2192recursive remainder\u2192scheduleorder. Owner880actual fullread confirms subtractionabs andadditionmargin predicates preserve original arithmetic includingtransient overflowBooleanfalse.",
+        "EarliestError nowpropagatesfrommovement/contact beforeclearingstarted/contact/measure, sameclearstageaftersuccess. Publicnestedfailedprefix semanticremainsqualified no ordinary recoverycorruptioninferred (resolve_battleownsdiscardedinputvectors). Exactequalitybatch/multi-member afterincapacitation/minattackerID scheduling unchanged own0055proof; pendingactualPRmelee recipients next."
+      ],
+      "disposition": "Own08 actual old/new source comparison accounted, with retained exact-source/API qualifications and remaining connected scope stated.",
+      "acceptance": "Retain canonical source identity, ordinal/wire/native geometry, first errors and original fixture oracles. No tests, checks, exports or GPU execution."
+    },
+    {
+      "scope_index": 880,
+      "source_id": "pr-working:crates/adventuresim-core/src/battle_time.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/battle_time.rs",
+      "before_sha256": null,
+      "after_sha256": "989db0ee4ad72276f3923b7d005480e50b6c618e04d0b7623602bf0de0d2a350",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/989db0ee4ad72276f3923b7d005480e50b6c618e04d0b7623602bf0de0d2a350",
+      "diff": "source-evidence/pr-0880.diff",
+      "diff_sha256": "410c447e64442b9a4b65d6f02a5b76ca1c47f8ae004c17e6add8ca4ec2199f9b",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          95
+        ]
+      ],
+      "head_body_read_method": "862 exactown0055fullbodyreuse andfresh1\u2013155;880fresh1\u201395; complete actualPRdiff consumed.",
+      "facts": [
+        "Full95body+entireaddition read; exactown0074fullbody additionallyreused. SignedfiniteBattleTime acceptsnegative/signedzeros unlikeelapsed; typedserializefloat unchanged. checked_add retainsnativef32thenrejectsnonfinite, elapsed_since andsaturatingdiff actualnormalzero/math unchanged.",
+        "is_within native(subtract).abs<=tolerance andprecedeswithmargin nativeadd<other preserve transientoverflowBoolean insteadfailedpredicate; exact862thresholds supported, no extra tickrounding. Otherclockcallers stillseparatescope, no globalheadroomrestriction ornewcompat API."
+      ],
+      "disposition": "Own08 actual old/new source comparison accounted, with retained exact-source/API qualifications and remaining connected scope stated.",
+      "acceptance": "Retain canonical source identity, ordinal/wire/native geometry, first errors and original fixture oracles. No tests, checks, exports or GPU execution."
+    }
+  ],
+  "next": "863defense221 then864exchange293/865iteration866"
+}

@@ -1,0 +1,122 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-487",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/homes.rs",
+      "sha256": "7dfacb7e216eecec7860d9e42a6abbb2cfc92ca6df1114d21a74bb762c6230ee",
+      "actual_EOF": 57,
+      "actual_compared_ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/property/gate_sweep.rs",
+      "sha256": "60ca372a1f75d3accd4461f56dea1305e81bf8b653ca03850af93866782dfd6a",
+      "actual_EOF": 127,
+      "actual_compared_ranges": [
+        [
+          1,
+          127
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/support.rs",
+      "sha256": "d28606e279ac45d8c65e8ec2eceacaddf20747af389761b9c2b1b6a5b4273c82",
+      "actual_EOF": 291,
+      "actual_compared_ranges": [
+        [
+          1,
+          291
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/support/street.rs",
+      "sha256": "bfad206136bada1647f958a30c678a8adb4be33c01a967d3253aebde5f58de8b",
+      "actual_EOF": 67,
+      "actual_compared_ranges": [
+        [
+          1,
+          67
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/support/tests.rs",
+      "sha256": "7c6a8e1c2dff28aca275a96b548ba687a6723103c0ef7844b7dbd3b4cb22f0e8",
+      "actual_EOF": 250,
+      "actual_compared_ranges": [
+        [
+          1,
+          250
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/compiled/support/tests/neighboring.rs",
+      "sha256": "05fa8e91c739271d3354f764d365b9faca0d7d667c13f993afbd9f200d8d08f8",
+      "actual_EOF": 152,
+      "actual_compared_ranges": [
+        [
+          1,
+          152
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/gardens.rs",
+      "sha256": "fe019503a9b5cc09df4b954906c81c1484e5b1f31f622c2b385d2de4ea88da85",
+      "actual_EOF": 97,
+      "actual_compared_ranges": [
+        [
+          1,
+          97
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/gardens/geometry.rs",
+      "sha256": "6714471caf51d59b35d1f74bc741f96616aa5eded3fd07658d13516b2aeab93d",
+      "actual_EOF": 270,
+      "actual_compared_ranges": [
+        [
+          1,
+          270
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Physical identity and source-bound support plan publication",
+      "evidence": "Full homes57, support291, street67: residences stable sortedphysicalIDs, localmarket reserve then finalcatalogvalidate; supportduplicate physicalIDs rejected beforeBTreeMap, localrecipepaletteclone, exactprogram/member/uniquegatebinding and checkedgeometric construction. Preferredapron failure retries maximum only for named grade/stair/cutfill constraints. Collection returns completeResult no mutation of original layout. Tests250+152 personally read assert IDs, program, source floors, promotion/reorder, exactnonrectangularbearing and noemptycornerownership; not executed."
+    },
+    {
+      "contract": "Swept gate and completed native collision inputs",
+      "evidence": "Full127 gate_sweep personallyread. Checkedradius and per-step CollisionCuboid completed geometry, angular interval enlarged samples. Zeroangle wouldsteps0/noiteration at privatehelper, but actual CityGate positiveopen-angle producer notyet reclosed here; noordinaryfalseclear claim. Unbounded publicDoorSpec extremeangles require actualcaller/admission distinction. Building transform yawadditionre-admitted Radians and framed point; no rawinvalidsolid handedoff."
+    },
+    {
+      "contract": "Garden bounded admission and fallible translation order",
+      "evidence": "Full gardens97+geometry270. Worldhullrawnative helper scale/domain checked by aggregate validation maximum2, plotextent100/elements16/accesswidth2/approach6, completehulls+windmargins and duplicateplantIDs. validate_access precedes privatevalidate_plants corridorunwrap. translate writes plot then cultivated/beds/plants/access before all fallible additions complete; partialmutation contract question needs actualcaller retention proof, not newly promoted ordinary defect. Huge physicalcentres/scale allowed by scalarowners do not alone prove accepted garden; no globalphysicaldomain narrowing. Acceptance for any relevant actualcaller must retain allgeometry or report rejection before publication, with fullcaller evidence."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "8 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-core/src/city_layout/gardens/specimen.rs"
+}

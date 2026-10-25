@@ -1,0 +1,115 @@
+{
+  "id": "SEGO-INITIAL05-F010",
+  "at": "2026-10-25T18:06:56.473703+00:00",
+  "title": "Derive retained leaf triangle metadata from the mesh actually emitted",
+  "priority": "P2",
+  "classification": "Retained source-backed benchmark accounting mismatch; normal reduced alpha-card generation, no benchmark/GPU reproduction or introduced774 claim",
+  "lenses": [
+    "aggregate-states"
+  ],
+  "locations": [
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/presentation.rs",
+      "start": 274,
+      "end": 276
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/presentation/obstacles/tree/presentation.rs",
+      "start": 525,
+      "end": 536
+    },
+    {
+      "file": "crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+      "start": 1710,
+      "end": 1718
+    }
+  ],
+  "contract_trace": "CachedTreeClusterPresentation owns the selected card mesh, but spawn_streamed_tree_children derives TreeLeafTriangleCount from every source leaf in the cluster. The actual card mesher first selects detailed_flat_card_group_leaves, dropping one deterministic ordinal lane of every four. benchmark_leaf_representations sums the independent stored count for the selected AlphaCard representation and serializes it as scene_leaf_triangles. The recorded submitted-geometry count is therefore based on a different population from its associated emitted mesh.",
+  "counterexample": "For an ordinary generated oak shoot with sixteen source leaves (ordinals0..15), the selector retains twelve leaves. The actual native indexed card mesh emits24 triangles, while the attached component reports32. Summed over a normally generated oak cluster the alpha-card total overstates resident submitted card geometry by one third. This does not assert GPU visibility/culling counts, a measured performance regression or a runtime benchmark run. The cambered mesh path retains all source leaves and its8-per-leaf formula is a distinct currently coherent case.",
+  "repair": "At each mesh construction, derive the count from that exact mesh/index topology before its main-world vertex data is discarded, retain the checked count with its corresponding cached mesh/representation, and carry it into the emitted component and benchmark report. Reconcile diagnostic vertex/source/retained-leaf measures with the existing semantic owners; do not independently recalculate the selection or multiply the original source count at a later receiver. Preserve current3/4 card selection, actual native rendering and benchmark timing/camera/mode policy.",
+  "dependencies": [
+    "Whole CachedTreeClusterPresentation producer/mesh residency/spawn/render count/report association; this shared function also carries existing tree level, geometry and residency contracts.",
+    "Native triangle topology and exactly emitted mesh index count remain the measure; do not conflate source leaves, retained leaves, vertices, resident triangles and per-frame GPU-visible triangles.",
+    "Existing tree source/selection/count fixtures and benchmark outputs only; no new tests authorized."
+  ],
+  "acceptance": "Retained and reported triangle metadata equals the actual associated emitted mesh triangle count for both leaf representations, including the ordinary reduced AlphaCard path. The current biological source population and reduction/determinism, material/timing/camera/budget behavior stay unchanged. Unavailable native data is not replaced with fabricated zero.",
+  "sources": [
+    {
+      "scope_index": 1607,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/presentation.rs",
+      "sha256": "eb8c1a54c7a158a3a3858b2eb9ba2b4f5c62ce6fb1fde444bc6b2c2207b824be",
+      "personally_rechecked_ranges": [
+        [
+          54,
+          58
+        ],
+        [
+          220,
+          289
+        ],
+        [
+          525,
+          537
+        ]
+      ],
+      "role_count_credit": false
+    },
+    {
+      "scope_index": 1593,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves.rs",
+      "sha256": "c47a14c6ada04f5f80c476dae5e16fb28dbc5c4b34b9cb6a098a4a2d37e59567",
+      "personally_rechecked_ranges": [
+        [
+          221,
+          227
+        ],
+        [
+          416,
+          474
+        ]
+      ],
+      "role_count_credit": false
+    },
+    {
+      "scope_index": 1596,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/selection.rs",
+      "sha256": "a01ecfebb9837e6abc2b46941f50ec94710f30e93bbf0395eed65f47ca5ad40c",
+      "personally_rechecked_ranges": [
+        [
+          35,
+          61
+        ]
+      ],
+      "role_count_credit": false
+    },
+    {
+      "scope_index": 1594,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/obstacles/tree/geometry/leaves/arrangement.rs",
+      "sha256": "16e43f82ef10e80570e1a742bc302d72fc23eb2c2293b8300c5ca652cc2a656d",
+      "personally_rechecked_ranges": [
+        [
+          14,
+          93
+        ]
+      ],
+      "role_count_credit": false
+    },
+    {
+      "scope_index": 1699,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/tactical_scene_viewer.rs",
+      "sha256": "f877618a4d50810eabec574d49c5b70c93dfa50616ef9adb524cafec38ffd4f1",
+      "personally_rechecked_ranges": [
+        [
+          1666,
+          1746
+        ]
+      ],
+      "role_count_credit": false
+    }
+  ],
+  "base_comparison": "Same full-cluster*2 versus3/4 selected card mesher exists at comparisonbase3a50b708 and frozenmerged13fc9dcc; not introduced by774. Actual primarycheckout58ea is an ancestor of13fc, not a later implementation snapshot; its formula remains the same by bounded recheck.",
+  "deduplication": "Exact lookup across adopted Adler1002, local170 and current investigator findings sets found no existing exact source-leaf versus emitted-card triangle metadata defect/remedy. Existing missing-native-geometry measurement finding09F485 concerns botanical LOD observation availability, distinct source/repair.",
+  "repair_status": "not_started_initial_discovery_gate",
+  "validation": "Source bodies/ranges and normal16-leaf selection algebra only; no project checks, tests, benchmarks or GPU execution.",
+  "rule_support": []
+}

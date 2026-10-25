@@ -1,0 +1,17 @@
+{
+  "id": "SEGOVB-04-MHR-AFFINE-REFERENCE-POLICY-CANDIDATE-001",
+  "classification": "source-backed arithmetic policy question, canonical model-format requirement still needs evidence",
+  "source_id": "pr-working:crates/fabelgeist-mhr/src/model_def.rs",
+  "sha256": "aba9d2376e3b4633b05e1d51ec5f2baa54f29bcb5b57e511b1694612585c657a",
+  "ranges": [
+    [
+      188,
+      259
+    ]
+  ],
+  "representable_case": "Existing fixture skeleton names root/child, version/header plus [ParameterTransform], root.tx = 2.0 then child.tx = 3.0 * root.tx. Parser stores root offset2 but reference branch copies only Contribution coefficients, not offsets, so child offset stays0 rather than affine substitution6. Also root.tx = 1.0 + 2.0 overwrites offset to2 rather than summing3. Source trace only; no parser/test/model run.",
+  "qualification": "Actual format may define reference copying only model coefficients and last constant wins; current docs say terms copied, while whole transform docs state transform*parameters+offsets. Existing fixtures cover reference without source constant and one bare constant, not these compositions. No current authored MHR file occurrence or normative external specification consumed. Do not silently change source semantics without canonical format decision.",
+  "connected_dependency": "ParameterTransform offset ownership, parse_expression, Mhr::forward_with offsets addition model.rs503\u2013510; all source bodies personally consumed.",
+  "acceptance": "Decide and encode canonical affine-reference/constant composition semantics, preserve legitimate coefficient values and definition order; either reject unsupported composition at format admission or propagate offsets under canonical format. Do not infer all algebra coefficients must be finite.",
+  "status": "needs canonical policy evidence; no global unique defect count; no repair"
+}

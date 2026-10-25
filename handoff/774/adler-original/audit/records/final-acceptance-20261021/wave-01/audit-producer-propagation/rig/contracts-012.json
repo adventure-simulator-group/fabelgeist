@@ -1,0 +1,43 @@
+[
+  {
+    "id": "RIG-HAIR-01",
+    "source_cells": [
+      80,
+      81,
+      82,
+      83
+    ],
+    "status": "source-read-native-receivers-read",
+    "operations": [
+      "BodyHead::new88-97 clones admitted PackedRigSkin8, RigJointTable names and globalstates from same actual model/generated path; placement101-109 passes those intact to HeadSkin. HeadPlacement::fit51-68 checks cardinalities and resolves typed head/eyes against canonical names; HeadExtent::of187-220 compares typed influences to typed head while positions/dot products remain actual geometry arithmetic. No primitive ordinal roundtrip in this path.",
+      "GroomedHair::place103-126 receives native BodySurface XYZ/faces only at bodyfield/collider/GPU geometry kernels. prepare164-186 retains typed HeadPlacement through PlacedHair. HairAssets::mesh124/cap_mesh149 converts typed head ordinal to checked u16 immediately at actual Bevy Uint16x4 attribute writes133/162. Form/count getters reach HairPreview::form_choices205-220 and strands_drawn225-230 actual UI presentation.",
+      "HairPreview request134-159 retains actual body Arc and typed groom. Matching uses Arc::ptr_eq128/138, generated body and hair object remain paired through collection185-191 and assets draw307-342.",
+      "HeadPlacement::identity used for standalone bust owns authored head ordinal0 without claiming source rig membership; later aggregate/ownership lenses must distinguish explicit bust-local role. Equal counts in HeadSkin are not proof of same rig identity; no aggregate clearance claimed."
+    ],
+    "pending": [
+      "Hair native GPU/shading siblings unchanged and not yet full read; exact ordinal native port itself is read."
+    ]
+  },
+  {
+    "id": "RIG-GARMENT-04",
+    "source_cells": [
+      93,
+      101,
+      104,
+      105
+    ],
+    "status": "incomplete-connected-receivers-pending",
+    "operations": [
+      "Parametric fitted_item69-91 and fitted_catalog_item94-111 retain CatalogPlacement until fitting and material access. selected270-302 peels placement.definition into LayerPlan borrowed native schema records; full LayerPlan owner/actual numeric order receiver must be read before classifying this private planning implementation. Final fitting still receives original canonical selection251.",
+      "Assembled40-65 peels ForearmMorphSample.name into string list for device assemble; this is an affected receiver of RIG-PP-008 generated canonical morph purpose loss, not a native external boundary. All existing parametric fixtures305-478 read unchanged; authored native skin count assertions remain fixture ports, not same-rig aggregate proof.",
+      "SkinRules attach25-125, breastplate130-141, waist145-176, fill215-220 retain typed RigJointName/Ordinal and use PackedRigSkin::set_vertex for mutation. No u32 forwarding in production. sheets179-201 operates native triangle vertex topology, separate role from rig ordinal. Native_words accesses in existing tests are exact memory/assertion observations.",
+      "TorsoSkinDomain triangle_indices45-114 retains typed membership and ordinal lookup through canonical table. It validates face vertex bounds and weight ranges then returns original native triangle identities in input order, including duplicates; these IDs are mesh face roles, not rig joints. Actual GPU/native support receiver is covered by earlier RIG support trace; no blanket identity exemption.",
+      "Underlayer mail_regions uses RigJointName/RigJointPart lookup callbacks and typed FittingPlacement; design scalar and Millimeters getters immediately feed actual clipping plane/box coordinate arithmetic. These are native numerical kernels, distinct from RIG-PP-003 late authored checked-span constants. Full region dispatcher/pattern producer receiving graph remains open."
+    ],
+    "pending": [
+      "LayerPlan owner implementation",
+      "Remaining garment/underlayer morph and native region consumers",
+      "Existing parametric test uses load_body_model LOD1; relates RIG-PP-009 canonical LOD policy and preexisting ignored fixture coverage, no execution."
+    ]
+  }
+]

@@ -1,0 +1,322 @@
+{
+  "id": "CAMERA-ADM03-139",
+  "at": "2026-10-22T17:24:31.951306+00:00",
+  "lens": "audit-admission-contracts",
+  "members": [
+    172,
+    175,
+    178,
+    182,
+    189,
+    191,
+    192
+  ],
+  "source_proof_method": "Personally consumed all seven current source-specific PR full-body including original test source narratives; personally reviewed complete actual P16 counterpart text diffs and current material admission role comparisons below. Fresh P16 critical scheduler441-535, organization138-205/489-545, repair298-340, reputation90-162, chronology133-200, residence480-525/961-1001, fixture1-38. Does not claim fresh display of all P16 lines or hash/verdict coverage. Full scopes preserved by explicit shared actual body+complete counterpart role comparison.",
+  "sources": [
+    {
+      "queue_index": 172,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/npc_causal.rs",
+      "sha256": "f148788fb9f35b6fd5762cb3905c229568da28a9fc3b0556b662fa5ec10b6532",
+      "ranges": [
+        [
+          1,
+          635
+        ]
+      ],
+      "current_roles": "NPC causal scheduler, private decision receipts and actor-time admission",
+      "source_backed_shared_proof": {
+        "record": "continuation/rig/admission03/camera-support/contracts.jsonl",
+        "id": "RIG-CAMERA-ADM03-555",
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/npc_causal.rs",
+        "sha256": "3e8edab2fcd4988c3443a07ef35041bc7c9522ab9e6e025317b29608a41de263",
+        "ranges": [
+          [
+            1,
+            635
+          ]
+        ]
+      },
+      "invariant": "Scheduler wallclock only wakes database-authorized bounded work; durable decision order uses actual personal CharacterTime frontier and allphase decisions before any member advancement.",
+      "all_routes_compared": [
+        "closedphase/outcome SATS enums; rawreceiptfields+schedule row storage notunforgeabledecisiontoken",
+        "scheduler sender==databaseidentity required; initialize onlysingleton0/fixedpositive5s TimeDuration",
+        "living+existingtime+policy behindofficialminute, sort(time,id), exactminimumfrontier, max64",
+        "receiptkeyactualcharacter/day/phase andfirstinsertonly givesidempotence; scheduleactualeffectiveage chronology required, underageempty preserved, initialonlyunallocated/notpreviousinitialized",
+        "housing/romance living/adult/currentpresence andactualhome checks, complete lowerResult beforedecision; privatecandidate query excludesactor",
+        "allcausaldecisions before advance to min(official, personal.saturating_add_days1); max64lifecycleevents independently",
+        "fulloriginaltests include sourceassertions and roleorderingexamples sourceonly"
+      ],
+      "counterexample_or_intentional_boundary": "No Default/Serde/Reflect numericacceptedwrapper; rawtable recordroutes exist internally. Authoritativepersonalminute differswallclockwake; max/saturatingzero/MAX legitimateclock words. Cachedcharacter.age_years inhousing/romance versus effectiveage in schedule accurately retained, no claim allagechronology identical. Lowerpolicy/scheduleallocation/relationship/residence gates explicit, not inventedfromResult.",
+      "actual_current_semantic_comparison": "Actual sole diff reducer Result to StrategicOperationResult. Current scheduler still database identity only, refresh official clock once, lifecycle first, all cohort policy decisions before advancing exact personal frontiers; raw receipt/time tables are not private accepted work tokens. No nonzero clock bound. Actual P16time/presence/schedule refs043/116/Root100 preserve missing-time error and unallocated schedule policy, not Result-as-validator.",
+      "complete_actual_counterpart_diff": "--- PR\n\n+++ P16\n\n@@ -481,9 +481,9 @@\n\n #[reducer]\n pub fn run_npc_causal_tick(\n     ctx: &ReducerContext,\n     _schedule: NpcCausalSchedule,\n-) -> Result<(), String> {\n+) -> crate::StrategicOperationResult<()> {\n     if ctx.sender() != ctx.database_identity() {\n         return Err(\"NPC causal processing may only be invoked by its scheduler\".into());\n     }\n     let official_minute = crate::time::refresh_clock(ctx)?;",
+      "remaining_dependencies": [
+        "RIG-CAMERA-ADM03-556",
+        "RIG-CAMERA-ADM03-564",
+        "RIG-CAMERA-ADM03-565",
+        "RIG-CAMERA-ADM03-570",
+        "RIG-CAMERA-ADM03-571",
+        "Camera actual time/ScheduleAllocation admission",
+        "root/admission03/determinism-admission-023.json"
+      ]
+    },
+    {
+      "queue_index": 175,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/organization.rs",
+      "sha256": "c6543ebb001f40f15986ba54ee0f5a2d05fa72e12639504d65d963aa816b17fc",
+      "ranges": [
+        [
+          1,
+          655
+        ]
+      ],
+      "current_roles": "Organization membership/role/chapter/recognition and actor-time admission",
+      "source_backed_shared_proof": {
+        "record": "continuation/rig/admission03/camera-support/contracts.jsonl",
+        "id": "RIG-CAMERA-ADM03-558",
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/organization.rs",
+        "sha256": "39842ba122cf2240e36f267f8db415dd2b54bfcc0dbd2478e813ef3c374a9645",
+        "ranges": [
+          [
+            1,
+            655
+          ]
+        ]
+      },
+      "invariant": "Raw membership/presentation storage separates dues checkpoint from current eligibility and canonicalrole; actual reducers bind definitions/role/currentclock before updates.",
+      "all_routes_compared": [
+        "organization/member records publicString/clock/u64; membershiplookup exactchar+org, backendview gateway-only and canonicalassignment join",
+        "active_membership actualactorclock plus statusactive/paidThrough inclusive; membership_role currentassignment+definition.role",
+        "requirements exactknownskill/leaf parser orErr, rawhours\u2192training_rank<minimum comparison (no independentfinite gate here), religion exactequality",
+        "join requiresstrategiccharacterauthority, timeinit/Institutional temporal scope/localchapter/living; knownentryrole andadmission/rolerequirements thenfee; duesNONE\u2192StrategicMinuteMAX intentionalunlimited, accrued0",
+        "promote actualdirecttransition/knownnextrole+requirements; pay exactdues+currency preflight, basecurrentthroughornow then saturatingdays",
+        "present knownrecognizedorg/currentmembership/livinglocalsettlement; clear/reconcile equipmentlaw; globallycurrent privilege deliberatelyignoreslocation butrequirescurrentdues+actualrole",
+        "increment accrual saturatesallu64, missingmembershipnoop; originalrole/expiryboundarytests readsourceonly"
+      ],
+      "counterexample_or_intentional_boundary": "No Default/Reflect/Serde acceptedmembershiptoken; table/SATS rawshapes permitinternalinvalidstate unless actualconsumer gates. Presentation != membership/role; preserve globalvslocalrecognition, zeroaccrual, MAXnodues, exactclockmissingerror. Canonical OrganizationDefinition/Requirement/training_rank policy remains shared source dependency, not assumed finitefromstaticcatalogue/type.",
+      "actual_current_semantic_comparison": "Three return-type header changes only; organization/role/dues content checks and globally current privilege semantics unchanged. Current Skill known leaf match includes all32 scalar/typed hour sources; training_rank lower actual117/118 sanitizes bad raw hours to rank0 rather than finite-table invariant. Membership raw row/SATS remains broader than active membership/known-role projection. Core OrganizationDefinition admission lower Native Root support002/003 actual PR only until explicit P16 counterpart proof; no embedded-catalogue blanket clearance.",
+      "complete_actual_counterpart_diff": "--- PR\n\n+++ P16\n\n@@ -374,9 +374,9 @@\n\n pub fn present_organization(\n     ctx: &ReducerContext,\n     character_id: u64,\n     organization_id: String,\n-) -> Result<(), String> {\n+) -> crate::StrategicOperationResult<()> {\n     crate::strategic::require_strategic_character_authority(ctx, character_id)?;\n     let definition = organization(&organization_id).ok_or(\"Unknown organization\")?;\n     active_membership(ctx, character_id, &organization_id)?;\n     let character = crate::character::require_living_character(ctx, character_id)?;\n@@ -411,9 +411,9 @@\n\n #[reducer]\n pub fn clear_organization_presentation(\n     ctx: &ReducerContext,\n     character_id: u64,\n-) -> Result<(), String> {\n+) -> crate::StrategicOperationResult<()> {\n     crate::strategic::require_strategic_character_authority(ctx, character_id)?;\n     ctx.db\n         .organization_presentation()\n         .character_id()\n@@ -489,9 +489,9 @@\n\n /// it.\n pub fn reconcile_presentation(\n     ctx: &ReducerContext,\n     character_id: u64,\n-) -> Result<Option<String>, String> {\n+) -> crate::StrategicOperationResult<Option<String>> {\n     let effective = effective_presented_organization(ctx, character_id);\n     if globally_current_presented_organization(ctx, character_id).is_none()\n         && ctx\n             .db",
+      "remaining_dependencies": [
+        "RIG-CAMERA-ADM03-559",
+        "RIG-CAMERA-ADM03-582",
+        "RIG-CAMERA-ADM03-584",
+        "RIG-CAMERA-ADM03-565",
+        "Camera current03 Core OrganizationDefinition/Requirement/Skill predicates"
+      ]
+    },
+    {
+      "queue_index": 178,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/outbreak/authority_tests.rs",
+      "sha256": "327d9f247ed9c164305e23809fbe5b46f77e8a1f5fb14adb60d01093c5f3324a",
+      "ranges": [
+        [
+          1,
+          212
+        ]
+      ],
+      "current_roles": "Guarded original outbreak lifecycle authority test reducer",
+      "source_backed_shared_proof": {
+        "record": "continuation/rig/admission03/camera-support/contracts.jsonl",
+        "id": "RIG-CAMERA-ADM03-561",
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/outbreak/authority_tests.rs",
+        "sha256": "327d9f247ed9c164305e23809fbe5b46f77e8a1f5fb14adb60d01093c5f3324a",
+        "ranges": [
+          [
+            1,
+            212
+          ]
+        ]
+      },
+      "invariant": "Bootstrap-token gate precedes explicit existingresident fixture materialization/lifecycle mutation; this is an isolated test-only materializer route, not full generated pipeline admission.",
+      "all_routes_compared": [
+        "fixedgeneratedcontext thenexposuretruncate1/directpatient/date/death rewrites explicitlybypassfullquestbinding byfixtureintent",
+        "materializetwice/exactremediatetwice/recoveryrefresh repeated; checks illnesscheckpointvscontextrelease andhistoricalobserver suppression",
+        "secondrawpatient/episode/membership copies anddirectclock/death create fixture toexerciseclosureidempotence"
+      ],
+      "counterexample_or_intentional_boundary": "All212lines sourceonly/noexecution. Fixturepolicy mustnotbe mistaken canonicalrawGeneratedCasevalidation or newproductioningress; source freezeretainscurrent tests unchanged.",
+      "actual_current_semantic_comparison": "Complete actual counterpart identical; compared full supplied fixture narrative to current P16 guarded reducer32: bootstrap token FIRST. Direct generated exposure truncation and patient/date/death row copies are deliberate isolated acceptance fixture routes, not proof every raw GeneratedCase passes production validation. Existing tests source only; no new case or run.",
+      "complete_actual_counterpart_diff": "",
+      "remaining_dependencies": [
+        "RIG-CAMERA-ADM03-560",
+        "current require_dev_bootstrap_token actualpredicate"
+      ]
+    },
+    {
+      "queue_index": 182,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/chronology.rs",
+      "sha256": "9bd03249bc0fbc1de28571a08035a777f3ab8fe1ddd0ac177d6e32b3693ee621",
+      "ranges": [
+        [
+          1,
+          200
+        ]
+      ],
+      "current_roles": "Canonical personal chronology and NPC policy/time mutation boundary",
+      "source_backed_shared_proof": {
+        "record": "continuation/rig/admission03/camera-support/contracts.jsonl",
+        "id": "RIG-CAMERA-ADM03-564",
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/relationship/chronology.rs",
+        "sha256": "ee9606893c2011c97cecde3bb8bef19e0b6354b96c165b66695c8f9e2b104646",
+        "ranges": [
+          [
+            1,
+            200
+          ]
+        ]
+      },
+      "invariant": "Actualpersonalclock is required, history mustinclude signedbirth, and NPC-only advancement rejectsretroactivewrites while splitting actual lifecycle boundaries.",
+      "all_routes_compared": [
+        "character_alive_at requiresCharacter+birthSome+birth<=minute andnodeath<=minute; no mutablelatestalive shortcut",
+        "canonical_now lookupErr onmissingclock",
+        "nextboundary earliest strictlyinside(start,end) birthday/reservedengagement/activepregnancy/marriage/estate event",
+        "initializeNPCpolicy requiresfullCharacter components theninsertonce; callerprovidedhomeString andSeed retained, not DBhomeexistencevalidator",
+        "advance requiresNPCpolicy/currentclock,target>=current, recursivelyadvancestostrictboundary, stopsifadulttransferremovedNPCpolicy; clockwrite+sharedlifecycleResult intransaction",
+        "developmentseedreducer databaseidentity only"
+      ],
+      "counterexample_or_intentional_boundary": "NoSerde/Default/Reflect acceptedclockwrapper. Clocks permit0/MAX; monotonic/currentauthority is actualreceiver relation, not nonzero number. Birthrequiredhere differs outbreak view560 optionalbirth check; fullCharacter consistency required separately, no actualmissingbirth data asserted.",
+      "actual_current_semantic_comparison": "Single advance_npc return header only; current factory requires full character components, then inserts NPC policy once; home string/Seed do not prove settlement membership. Advancement requires existing NPCpolicy/current CharacterTime and nonretroactive target, splits interior event boundaries, stops adult authority transfer, then clockwrite and lifecycle result. Underlying full Character125 validator still pending; preserve concrete dependency rather than infer from function name. Birth invariant F026 directnormalpath mismatch separate.",
+      "complete_actual_counterpart_diff": "--- PR\n\n+++ P16\n\n@@ -138,9 +138,9 @@\n\n pub fn advance_npc_personal_time(\n     ctx: &ReducerContext,\n     character_id: u64,\n     target_minute: StrategicMinute,\n-) -> Result<(), String> {\n+) -> crate::StrategicOperationResult<()> {\n     if ctx\n         .db\n         .npc_policy()\n         .character_id()",
+      "remaining_dependencies": [
+        "RIG-CAMERA-ADM03-555",
+        "RIG-CAMERA-ADM03-565",
+        "Camera current03 validate_full_character_components/lifecycle helpers"
+      ]
+    },
+    {
+      "queue_index": 189,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/repair.rs",
+      "sha256": "059b098c4d5f5c79ce5f04d376a03631e5d78b601474c3f151881ccae4a66d45",
+      "ranges": [
+        [
+          1,
+          726
+        ]
+      ],
+      "current_roles": "Repair storage, service/custody/quote admission and native damage bins",
+      "source_backed_shared_proof": {
+        "record": "continuation/rig/admission03/camera-support/contracts.jsonl",
+        "id": "RIG-CAMERA-ADM03-567",
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/repair.rs",
+        "sha256": "121a3412ae887fe1eec8fdf53acc1d66a0e091bc4d5d68593f16f0c13b270c09",
+        "ranges": [
+          [
+            1,
+            724
+          ]
+        ]
+      },
+      "invariant": "Raw ItemCondition/RepairOrder/SettlementSmith fields are persistence state, not validated bounded condition/skill/time aggregates; actual submit/retrieve enforce explicit instance, owner, place and escrow relations.",
+      "all_routes_compared": [
+        "ItemCondition.bins/set_bins explicitlynormalize DamageBins, no privatecheckedconditionseal; initialization0 allbins legitimateundamaged",
+        "submit actualcharacter/originsettlement+ownedquantity1/noexistingorder+knownitem/service+actualsmithservice/conditionrepairable>0; missingclock defaultZERO explicit",
+        "storesrawtargetcondition, ready=now.saturating_add(maxceilrepairminutes,1), preservesequippedplacement+sortedallparenttargets; objectdetach\u2192Repairlocation andowner0 deliberateescrow, notinvalidgeneralID",
+        "retrieve exactowner/place/readiness, actualgoldcharge thenvalid_repair_escrow_row, normalizedbinrepair, restoreowner/objectuniqueness+correctRepairsettlement/item; actualequipmentrestoreResult required beforeorderdelete",
+        "bulk submit catchesperItemErr whereasbulk retrievepropagates; no universaltransactionalallornoopcertificate frominnerResult",
+        "fieldrepair skillcap2/remainingbudget/actualbinnormalization; impact actualcatalogueprofile/qualityclamp1..5 andnativeDamageBinskernel",
+        "simulationfixture requiresownedrun+matchingclaimedcharacter+ownedrow, fixedwear0.08/0.24; alloriginaltestssourceonly"
+      ],
+      "counterexample_or_intentional_boundary": "No blanketfinite/rawconditionbounds from .normalized methodname: exactCoreDamageBins/durabilitypredicate stillshareddependency. Genericrawu8smith doesnotensure3..5 oncepersisted; stableinitializer568 specificroute. Preserve smithowner0, zero-skip/fullwordclock/currency domains; no sourceedits/execution/newassertions.",
+      "actual_current_semantic_comparison": "Complete counterpart changes include typed signatures AND bulk submit318-322: ordinary Operation errors are skipped, every other typed cause propagates. This is a substantive correction to PR catch-all is_ok; retain when integrating. Raw condition/order/smith table shapes not bounded admission tokens. Normal submit/retrieve bind actual owner, item, service, settlement, quantity and escrow; smith owner0 deliberate custody. Core damage normalization/quote policy must use actual lower receipt, not name. Parent operation error173 actual133 closed causal distinctions, not all errors equivalent.",
+      "complete_actual_counterpart_diff": "--- PR\n\n+++ P16\n\n@@ -139,9 +139,9 @@\n\n     character_id: u64,\n     settlement_id: &str,\n     service: adventuresim_core::durability::RepairService,\n     inventory_item_id: u64,\n-) -> Result<u64, String> {\n+) -> crate::StrategicOperationResult<u64> {\n     let character = ctx\n         .db\n         .character()\n         .id()\n@@ -283,9 +283,9 @@\n\n     character_id: u64,\n     settlement_id: String,\n     service: String,\n     inventory_item_id: u64,\n-) -> Result<(), String> {\n+) -> crate::StrategicOperationResult<()> {\n     submit(\n         ctx,\n         character_id,\n         &settlement_id,\n@@ -300,9 +300,9 @@\n\n     ctx: &ReducerContext,\n     character_id: u64,\n     settlement_id: String,\n     service: String,\n-) -> Result<(), String> {\n+) -> crate::StrategicOperationResult<()> {\n     let service = repair_service(&service)?;\n     let ids: Vec<u64> = ctx\n         .db\n         .inventory_item()\n@@ -314,10 +314,12 @@\n\n         })\n         .collect();\n     let mut submitted = 0;\n     for id in ids {\n-        if submit(ctx, character_id, &settlement_id, service, id).is_ok() {\n-            submitted += 1;\n+        match submit(ctx, character_id, &settlement_id, service, id) {\n+            Ok(_) => submitted += 1,\n+            Err(crate::StrategicOperationError::Operation(_)) => {}\n+            Err(error) => return Err(error),\n         }\n     }\n     if submitted == 0 {\n         return Err(\"No matching item has damage this service can repair\".into());\n@@ -329,13 +331,13 @@\n\n pub fn retrieve_repaired_item(\n     ctx: &ReducerContext,\n     character_id: u64,\n     order_id: u64,\n-) -> Result<(), String> {\n+) -> crate::StrategicOperationResult<()> {\n     retrieve(ctx, character_id, order_id)\n }\n \n-fn retrieve(ctx: &ReducerContext, character_id: u64, order_id: u64) -> Result<(), String> {\n+fn retrieve(ctx: &ReducerContext, character_id: u64, order_id: u64) -> crate::StrategicOperationResult<()> {\n     let order = ctx\n         .db\n         .repair_order()\n         .id()\n@@ -445,9 +447,9 @@\n\n     settlement_id: String,\n     service: String,\n     item_id: Option<String>,\n     limit: u32,\n-) -> Result<(), String> {\n+) -> crate::StrategicOperationResult<()> {\n     let service = repair_service(&service)?;\n     if limit == 0 {\n         return Err(\"Retrieve count must be positive\".into());\n     }\n@@ -607,9 +609,9 @@\n\n     ctx: &ReducerContext,\n     nonce: String,\n     character_id: u64,\n     inventory_item_id: u64,\n-) -> Result<(), String> {\n+) -> crate::StrategicOperationResult<()> {\n     let run = crate::simulation::owned_run(ctx, &nonce)?;\n     let simulation_character = ctx\n         .db\n         .simulation_character()",
+      "remaining_dependencies": [
+        "RIG-CAMERA-ADM03-568",
+        "RIG-CAMERA-ADM03-552",
+        "RIG-CAMERA-ADM03-557",
+        "RIG-CAMERA-ADM03-574",
+        "Camera/Native current03 Coredurability DamageBins/repair_quote/RepairService exactpredicates",
+        "current equipmentrestore/custody sourcegates"
+      ]
+    },
+    {
+      "queue_index": 191,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/reputation.rs",
+      "sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+      "ranges": [
+        [
+          1,
+          440
+        ]
+      ],
+      "current_roles": "Reputation event ingress, terminal aggregates and exact offence/case snapshots",
+      "source_backed_shared_proof": {
+        "record": "continuation/rig/admission03/camera-support/contracts.jsonl",
+        "id": "RIG-CAMERA-ADM03-569",
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/reputation.rs",
+        "sha256": "054fbefbd8cc7c6883c305310e6df18a2171a57fc0473b4922200d77d4c38e98",
+        "ranges": [
+          [
+            1,
+            440
+          ]
+        ]
+      },
+      "invariant": "Onlyimmutableaction events feedspreading; actual event receiver rejectsnegative deltas and unknownorigin, while publicraw aggregate rows do not seal nonnegative capped centipoints.",
+      "all_routes_compared": [
+        "raw publicaggregate fame/infamyi32; privateevent/offence/arrest/caseparticipant records retainrawIDs/counts/time, no checkednew/Serde/Reflect seal",
+        "record_event rawfame/infamy>=0 BEFOREreplayduplicateID\u2192false; knownoriginsettlement beforeactualgraph contributions; storesoneevent thenapply_delta eachterminalaggregate intransaction",
+        "offencerecord insertsfirstIDonly severityclamp1..5; sourcekindString open not closedoffencefactory; charges exactincident+actor+settlement snapshot andretainedoffencejoin",
+        "caseparticipants exactpubliccase+party battlejoin, livingpartyfallback onlyif nobattlecharacters, canonicalizationpurehelper; canonicalcase snapshot distinct",
+        "localmissingreputation\u2192(0,0) intentionalabsence, deletion removesallreferencingrecords; fulloriginalsourceassertiontests readonly"
+      ],
+      "counterexample_or_intentional_boundary": "Rawaggregate literal/DB/SATS can violate documentednonnegative/cappedpolicy unlessactualeventprojection used; actualapply_delta/contributions Corepredicate remains shareddependency, notnamecredit. ReplayIDtrustedsemanticbinding not revalidatedbygenericrecord_event, deliberate statedretry noop. No broadersecurity/transactionallensclearance.",
+      "actual_current_semantic_comparison": "Complete actual counterpart identical. Current record_event negative-delta rejection precedes replay false, known origin before contributions, severity clamp1..5 only dedicated offence factory. Public persisted aggregates/raw event identity remain broader; zero missing reputation is explicit absence policy. Replay noop doesnot revalidate payload for existing ID. Core actual apply_delta/contributions lower remains explicitly linked, no cap proof from name.",
+      "complete_actual_counterpart_diff": "",
+      "remaining_dependencies": [
+        "Camera/Native current03 Core reputation apply_delta/contributions",
+        "RIG-CAMERA-ADM03-584",
+        "RIG-CAMERA-ADM03-627"
+      ]
+    },
+    {
+      "queue_index": 192,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/residence.rs",
+      "sha256": "c7ba3678d9c73cdd365cf91f5e8b4d115c161f1b454f4508128e6dd16408461a",
+      "ranges": [
+        [
+          1,
+          1455
+        ]
+      ],
+      "current_roles": "Residence legal interest/occupancy/billing/history and public admission receivers",
+      "source_backed_shared_proof": {
+        "record": "continuation/rig/admission03/camera-support/contracts.jsonl",
+        "id": "RIG-CAMERA-ADM03-570",
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/residence.rs",
+        "sha256": "df7d47666e333785437d381321a5e7b85cd6e4c453067c83f8d86ea00a30ce35",
+        "ranges": [
+          [
+            1,
+            1455
+          ]
+        ]
+      },
+      "invariant": "Raw holding/offer/charge/occupancy/transition/primary records are flattened storage; usable home authority is reconstructed at exactpersonalminute and differs ownership, primarydesignation and occupancy.",
+      "all_routes_compared": [
+        "closedtenure/status/chargeoutcome/transition enums, publicrawSATS/DBrecords nocheckedwholeaggregate/default/Reflect; tableprimarykeys enforceoneprimary/occupantrow butnotsemanticbinding",
+        "offersknownsettlement/threeHousingTierstatic economy; actorclockmissingErr; gatewayview reconstructs transitionfold sortedtime+precedence+ID, hidesownerbillingtimestamps forguestsusingZERO intentionalredaction",
+        "active residence requires chronologicaloccupancy+activeholding+settlement, canonicalresidencePlace and actualStrategicPresence::residence_occupancy(frontier) beforeSome; ownedinterestaloneinsufficient",
+        "move requireshistoricallyactiveholding thenactualoccupancy::admit; removalrecordshistory/refreshescurrent; publicadmission checks living/co-locatedactualtypedpresence/samefrontier/adultordependent/familyorhousehold/currentoccupancy conflicts",
+        "relinquish exactowner/noopifalreadyterminal removesoccupants/primary butretainslegalhistory; designate Activeowner andactualmove; recover OwnednotRelinquished thenactualbilling mustleaveActive",
+        "billing exactduetimehistoricaloccupants/effectiveage, stableglobal(due,id), indivisiblecost/paid-unpaidreceipt; unpaiddormants, paidnativeu64money andsaturatingnextdue, actualcurrencydeductafterloop",
+        "morale rejectsbaseline<=0/nonfinite; actualoccupiedhome/offer, nativefloat\u2192milli thenboundedleisurekernel+fixedsource; no independentfiniteoldrawmorale proof",
+        "NPCknownhome/living; currentoccupiedpropertydirectreturn, stableoldestownedrecovery elseactualavailableproperty andaffordableoffer sortedbyID, acquiredelegated",
+        "publicreducers strategiccharacterauthority, actualowner/holding checks; alloriginaltests sourceonly"
+      ],
+      "counterexample_or_intentional_boundary": "No typeofResidenceHolding acceptance from row/Result. Corehousing/presence/occupancy/acquisition/view sourcepredicates remainexactotherownerdependencies. maxclock saturatingbilldeadline/nativeFloat\u2192integer rounding are ordinaryoperationcrossrefs (no04credit), not inventedclockcap/invalidZERO. Currentlatestcachedage inpublicadmission vs historicaleffectiveagebilling preserved. No actualbadstate/run assertion.",
+      "actual_current_semantic_comparison": "Only apply_residence_leisure_morale typed result header changes. Current positive finite baseline guard remains before native cast; existing raw MoraleEvent not guaranteed finite. Actual holding transition fold uses chronological <= frontier and precedence; occupancy plus historically active holding differs legal ownership/primary designation. Public reducer authority plus local admission adult/dependent/co-located same frontier retained; private helpers/raw rows not accepted residence. Exact P16children acquisition/occupancy/properties123+Core catalogue124 and presence116 now substantiate their named gates. Upper raw aggregate fields still fabricateable; native fixedzero redaction/owned-not-occupied distinction deliberate.",
+      "complete_actual_counterpart_diff": "--- PR\n\n+++ P16\n\n@@ -963,9 +963,9 @@\n\n     ctx: &ReducerContext,\n     character_id: u64,\n     baseline_morale: f32,\n     now: StrategicMinute,\n-) -> Result<(), String> {\n+) -> crate::StrategicOperationResult<()> {\n     if baseline_morale <= 0.0 || !baseline_morale.is_finite() {\n         return Ok(());\n     }\n     let character = ctx",
+      "remaining_dependencies": [
+        "native/admission03/camera-support/contracts-001.json#canonical-place-codec-and-public-fixture-association-bypass",
+        "Camera/Native current03 StrategicPresence residence factory/frontier",
+        "Camera current03 residence/{occupancy,properties,acquisition,view} exactbodies",
+        "Camera current03 Corecourtship HousingTier/economy/morale",
+        "RIG-CAMERA-ADM03-552",
+        "RIG-CAMERA-ADM03-564",
+        "RIG-CAMERA-ADM03-555"
+      ]
+    }
+  ],
+  "connected_repair_acceptance": "Retain one canonical guarded admission path per operation and raw rejected/storage records as explicit separate roles; typed errors must propagate causal non-Operation failures. No blanket scalar nonzero/finite/UnitInterval policy for clock/identity/morale multipliers. Enforce known role/member/actor/place/time/custody at actual normal entry; close listed lower definition dependencies by exact current receipts before stronger feature claims. No new independent proven admission defect beyond existing storage/encapsulation findings and F026 crossref; future operation/aggregate concerns not credited here.",
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "later_lens_credit": false
+}

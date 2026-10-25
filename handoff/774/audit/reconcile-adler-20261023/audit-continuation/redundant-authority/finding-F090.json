@@ -1,0 +1,35 @@
+{
+  "id": "CONT07-F090",
+  "at": "2026-10-23T21:04:49.827329+00:00",
+  "classification": "maintenance: current roster agrees; no current missing rain layer asserted",
+  "title": "RainSurface enum and handwritten ALL list independently own which rain layers exist",
+  "sources": [
+    {
+      "scope_index": 1747,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/weather_audio.rs",
+      "sha256": "35e0527b4916af005b7cf251be2808a43f5226c23fefc9287f14ae511c6b27e9",
+      "ranges": [
+        [
+          17,
+          64
+        ],
+        [
+          67,
+          81
+        ],
+        [
+          130,
+          138
+        ]
+      ]
+    }
+  ],
+  "earliest_failed_contract": "Every semantic RainSurface variant must be represented in the startup layer population. The enum and ALL list independently declare that population; exhaustive asset_path/at matches do not require the ALL list to include a newly added surface.",
+  "counterexample": "Add a new surface variant and handle it in asset_path/at while leaving ALL at its current four entries. Runtime selection can then choose that surface, but startup never creates its AudioSink and all existing surface layers fade to zero. This is a future edit counterexample; current four variants and ALL entries agree, and no edit or audio run was executed.",
+  "actual_recipient": "spawn_rain_layers iterates only RainSurface::ALL. update_rain_layers selects one surface and gives gain only to matching existing layer sinks.",
+  "connected_repair": "Derive the iterable surface roster from one canonical declaration and retain exhaustive asset and ground classification policy. Preserve the separate HeavyStorm layer, current order, default SoftGround fallback and smoothing.",
+  "acceptance": "Adding a semantic surface cannot silently omit its audio layer. Current four assets, layer ordering and gain behavior remain unchanged unless deliberately revised.",
+  "related_limits": "Separate concrete enum/recipient graph from grass, building palette and city ground rosters. Broad CAMERA-INITIAL07-F011 references do not establish equivalence; global deduplication remains pending.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

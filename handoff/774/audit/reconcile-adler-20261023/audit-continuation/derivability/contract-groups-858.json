@@ -1,0 +1,181 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-858",
+  "at": "2026-10-25T17:02:12.300225+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1074,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/browser_session.rs",
+      "sha256": "58bcbbfa28a430def36a47439a94587ab24f3fbdfe2eeca4b9c58e19a6e0ed4a",
+      "actual_EOF": 567,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/browser_session.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/browser_session.rs",
+        "sha256": "58bcbbfa28a430def36a47439a94587ab24f3fbdfe2eeca4b9c58e19a6e0ed4a",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 19543,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 707,
+            "read_ranges": [
+              [
+                1,
+                238
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-BOUNDED-OWNER-CLOSURE-115"
+            ],
+            "read_status": "partial",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/browser_session.rs"
+          },
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 770,
+            "read_ranges": [
+              [
+                260,
+                315
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-POPULATION-ROLE-CLOSURE-121"
+            ],
+            "read_status": "exactaffectedranges",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/browser_session.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-038",
+            "json_pointer": "/fresh_current_source_reads/14",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/browser_session.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                567
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 665,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/browser_session.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/browser_session.rs",
+              "expected_sha256": "58bcbbfa28a430def36a47439a94587ab24f3fbdfe2eeca4b9c58e19a6e0ed4a",
+              "observed_sha256": "58bcbbfa28a430def36a47439a94587ab24f3fbdfe2eeca4b9c58e19a6e0ed4a",
+              "read_ranges": [
+                [
+                  1,
+                  567
+                ]
+              ],
+              "proof_mode": "Fresh full material source/fixtures read; identical-hash PR/P16 variants explicitly reconciled after byte fingerprints, preserving downstream role distinctions. Source only; no project execution.",
+              "read_status": "full-source-read-receiver-reconciliation-in-progress"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/camera/traces.jsonl",
+            "receipt": "CONT-CAMERA-PP-008",
+            "json_pointer": "/exact_source_proofs/14",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/browser_session.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                567
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 665,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/browser_session.rs",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\browser_session.rs",
+              "sha256": "58bcbbfa28a430def36a47439a94587ab24f3fbdfe2eeca4b9c58e19a6e0ed4a",
+              "read_ranges": [
+                [
+                  1,
+                  567
+                ]
+              ],
+              "actual_line_count": 567,
+              "proof_origin": "RIG-PPS-038 exact full-source read, source-backed producer graph and original fixtures; current continuation independently verifies frozen bytes and joins receiving contracts. Not a new full-file read.",
+              "material_disposition": "Gateway grant/descendant lineage, native SDK authority rows, strict cookie-owner-key admission -> effective visibility -> Web selection. StrategicMinute retained; grant/durable identity loss remains existing repair.",
+              "disposition": "accounted-with-findings"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "continuation/rig/web-request-reconciliation-039.json",
+            "receipt": "RIG-CONT-PPS-WEB-REQUEST-RECONCILIATION-039",
+            "json_pointer": "/source_dispositions/14",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/browser_session.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                567
+              ]
+            ],
+            "source_context": {
+              "camera_assigned_index": 665,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/browser_session.rs",
+              "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\browser_session.rs",
+              "sha256": "58bcbbfa28a430def36a47439a94587ab24f3fbdfe2eeca4b9c58e19a6e0ed4a",
+              "read_ranges": [
+                [
+                  1,
+                  567
+                ]
+              ],
+              "actual_line_count": 567,
+              "proof_origin": "RIG-PPS-038 exact full-source read, source-backed producer graph and original fixtures; current continuation independently verifies frozen bytes and joins receiving contracts. Not a new full-file read.",
+              "material_disposition": "Gateway grant/descendant lineage, native SDK authority rows, strict cookie-owner-key admission -> effective visibility -> Web selection. StrategicMinute retained; grant/durable identity loss remains existing repair.",
+              "disposition": "accounted-with-findings"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1367,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          567
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "Browser grant origin structural/SpacetimeType, durable grant/access/selection table macros+CloneDebug, backend access SpacetimeType already"
+      ],
+      "absence_basis": "Complete browser-session source including fixtures consumed: native provenance/authority/liveness/chronology/grant/select/view functions only; no handtrait or codec."
+    }
+  ],
+  "groups": [
+    "Partial857 retained. Owner-scoped validated grants and selected observer frontier/gateway view projection are semantic DB policy, not mechanical serializer or derive target. Child descendants506 separate role. Fixtures508\u2013567 read not run, no DB operation executed."
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1075,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/browser_session/descendants.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

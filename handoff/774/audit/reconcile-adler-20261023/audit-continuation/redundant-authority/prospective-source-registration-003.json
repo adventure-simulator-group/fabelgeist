@@ -1,0 +1,36 @@
+{
+  "id": "CONT07-REG-003",
+  "at": "2026-10-23T19:24:37.132841+00:00",
+  "status": "prospective exact range extension before independent07 body analysis",
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/buildings/streaming.rs",
+  "sha256": "b8091bd1fe336c7162f6fcc4729bdd1e16cadf288fafe8ad4092029e2ea1fcc4",
+  "scope072_index": 1524,
+  "original_requested_ranges": [
+    [
+      175,
+      245
+    ]
+  ],
+  "new_material_ranges": [
+    [
+      7,
+      97
+    ],
+    [
+      169,
+      174
+    ],
+    [
+      246,
+      272
+    ]
+  ],
+  "reason": "Immediate construction/update/consumer closure for PendingCityBuildings.finished queried by existing1508GPU assembly gating and for CityBuildingAssets.spawn receiver. Source175..245 includes only spawn plus partial present, not the queue field/constructors/completion semantics nor full consumer. Original fixtures99..167 and unrelated module rows excluded.",
+  "prior_incidental_display": "A multi-file render emitted full272 but truncated globally while also displaying clouds. Outside existing175..245 receives no analysis/coverage credit from that output. Fresh bounded registered bodies will follow.",
+  "new_variants": 0,
+  "new_range_overlay_candidate": 1,
+  "all_lenses_reconciliation": "mandatory new material; no automatic01/02 or other-lens credit",
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "range_refinement": "Before semantic accounting, include immediate queue-element record9-14 and two control constants7-8 required by registered methods; no test99-167 or unrelated new imports/helpers."
+}

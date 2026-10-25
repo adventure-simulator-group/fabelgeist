@@ -1,0 +1,210 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-289",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/arch_geometry.rs",
+      "sha256": "49ed35940c0cf6b1c49c55b2cd39464e8751b3774c3ab722ca10e5130d24ccc6",
+      "actual_EOF": 138,
+      "actual_compared_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/audit.rs",
+      "sha256": "aff233410d3aa23607fd4124f078c29ea13f1e7bdf0f43a02ced2c665c2133a5",
+      "actual_EOF": 73,
+      "actual_compared_ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/bonding_metrics.rs",
+      "sha256": "7a82b60c27bca633d25fee62377aba66012d2b6d2c2edc065b52c38639721e22",
+      "actual_EOF": 126,
+      "actual_compared_ranges": [
+        [
+          1,
+          126
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/resolved_geometry.rs",
+      "sha256": "f0fcbc815b3c695713f9dd8055470b78b871e583aad689aa45ce562c1f20fd4a",
+      "actual_EOF": 514,
+      "actual_compared_ranges": [
+        [
+          1,
+          514
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/resolved_geometry_helpers.rs",
+      "sha256": "e6f71c899743f84ee65814398d45e0b9a98d21945a3d5cf6b483a47a368a742c",
+      "actual_EOF": 445,
+      "actual_compared_ranges": [
+        [
+          1,
+          445
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/shared_helpers.rs",
+      "sha256": "76e7f6c63abfedfdacaf9045369ed282f14c8eb113b868127679ab236368ee36",
+      "actual_EOF": 171,
+      "actual_compared_ranges": [
+        [
+          1,
+          171
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/vertical_circulation.rs",
+      "sha256": "61cecc8ba05a5f788ece207cfcaa96ac4575f557143704191cb16b4f7e59cf54",
+      "actual_EOF": 90,
+      "actual_compared_ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Resolved arch strips hand a native geometric kernel to mesh/collision consumers",
+      "source_ranges": {
+        "arch_geometry.rs": [
+          [
+            1,
+            138
+          ]
+        ]
+      },
+      "disposition": "Fullbody read. Fixed24segments and pair windows establish index bounds; dedup removes adjacent equal endpoints. Tangent normalization requires actual nonzero wallframe or fallbackaxis. Segmental rise denominator and squaredradius finite arithmetic need aggregate checkedshape admission; positivefinite rawleaves alone do not imply finite square/norm. crown max0 intentionally clipsradicand but is not universal invalidshape rejection. Pointed and segmental ring/panel bottom/upper semantics distinct. No actual generateddegeneratearch witnessed; preserve common visible/collisiongeometry owner and readmit native results at owning publishport."
+    },
+    {
+      "contract": "Plan overlap area preserves geometric intersection semantics used by bearing checks",
+      "source_ranges": {
+        "bonding_metrics.rs": [
+          [
+            1,
+            39
+          ]
+        ]
+      },
+      "disposition": "Fresh source-backed ordinary helper counterexample saved SEGOVB-04-PLAN-OVERLAP-AREA-001. Result constructor readmits numeric area but cannot repair incorrect intersection formula. Actual Breteche bearing consumers personally read at pinned6533 projected_defenses830..925; fullpath not credited until originalfrontier. No fullplanbypass or generated badbuilding claimed."
+    },
+    {
+      "contract": "Bond contacts preserve tolerated gap planes, signed separation and real containment",
+      "source_ranges": {
+        "bonding_metrics.rs": [
+          [
+            40,
+            126
+          ]
+        ]
+      },
+      "disposition": "Full remainder and actual62linefixture read, no execution. A toleratedgap intentionally has contactmin>contactmax on one sampledaxis; fits orders onlyforcontainment, not replacing with orderedphysicalbounds. Signed overlap threshold .025; two otheraxespositive; area and signedpenetration fallibly readmitted. Midpoint may overflowforunboundedfinitepositions; supported buildingbounds required before ordinary failure. Distinct geometrical semantics from wrong footprintarea; do not mechanically dedup them. Fixture tests2.02gap/2.03reject/zero-thicknessplane do not establish exactcontainedfootprintarea."
+    },
+    {
+      "contract": "Resolved geometry audit accumulates independent rejection evidence rather than admitting partially valid graph",
+      "source_ranges": {
+        "audit.rs": [
+          [
+            1,
+            73
+          ]
+        ],
+        "resolved_geometry.rs": [
+          [
+            1,
+            514
+          ]
+        ]
+      },
+      "disposition": "Full entryinclude graph and resolvedauditbody read. Schema2, owner/support/uniqueitem checks precede overlap/bond/void/drain checks and append issues; any positive-bearing failures remain visible. Allowed native overlap exceptions depend on actual role/membership/support/network association. Drainage requires outwarddrop.04 andownedoutlet; errors from geometryindex/bondreadmission propagate. Local issue accumulation itself is not successful planpublication; owning auditresultconsumer needed. Generated Spacetime bindings unrelated boundary remain generated. No sourcefix or auditexecution."
+    },
+    {
+      "contract": "Shape tests deliberately use conservative bounds or sampled intersection and require actual shape/frame applicability",
+      "source_ranges": {
+        "resolved_geometry_helpers.rs": [
+          [
+            1,
+            445
+          ]
+        ]
+      },
+      "disposition": "Allbody read. Bounds helper accounts yaw, whereas fullorientedcuboidSAT uses yaw/crossfall/longfall; actual tiltedsolid applicability and conservativeboundscoherence remains trace dependency. Fixed4corners/9x5x9sampling bounded, directindices constructionsafe. Annularsectorsweep remTAU zero mapped.0001 intentional policy; roundtowerchord explicitlydifferentrole. Opening splay division needs positivewallthickness. Point/direction/norm and lineartransforms can overflowrawfinite extremes before predicate; no ordinary buildingextreme witness. Sampled annulus tests need coverage contract before considered exact collisionproof. No arbitrary narrowing or WGSpositiveelevation introduced."
+    },
+    {
+      "contract": "Shared polygon, roof and circulation helpers respect bounded iteration and fallible applicability",
+      "source_ranges": {
+        "shared_helpers.rs": [
+          [
+            1,
+            171
+          ]
+        ],
+        "vertical_circulation.rs": [
+          [
+            1,
+            90
+          ]
+        ]
+      },
+      "disposition": "Bothfullbodiesread. pointpolygon empty loop nevermoduloszero; iteratededge indexing index+1 boundedforrealVec, horizontalcrossingguard avoids zeroedgeheightdivision. Edge projection checkszerolength first, clampst, inclusiveouter/cutout policyintentionallydifferent. roofplane nearverticalreturnsNone, finite computedheightstillactualownercontract. linearwalkunreachable arm is guardedbycallerletvariant. Verticalstairs storeyheightdivision thenroundasu16 can normalize invalidnegative/nonfinite to0; completeplan/program admission must establish positiveheight and supportedstoreylevels, not inventedzeroheightordinarycase. Landingfixed9samples and roomdoor checkedwallget; missingstorey/hall returns issue, not panic. Rawwholeplan/nativegeometry policy gaps remain qualifications until producer trace."
+    }
+  ],
+  "findings": [
+    "SEGOVB-04-PLAN-OVERLAP-AREA-001"
+  ],
+  "fresh_dependencies": [
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-building-generator/src/audit/interface_contract_tests.rs",
+      "sha256": "02013c2e8180cd731204b241e2ec897fd0df64bb4e5ced4e9c54e70050327bc2",
+      "personally_read_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "coverage": "support only, no original fullrole coverage imported",
+      "actual_EOF": 62
+    },
+    {
+      "revision": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "path": "crates/adventuresim-building-generator/src/audit/projected_defenses.rs",
+      "sha256": "0dea3e89a0e899b941a250f90e536ded12dfd039cc473f8af69e0816d7db167d",
+      "personally_read_ranges": [
+        [
+          830,
+          925
+        ]
+      ],
+      "coverage": "support only, no original fullrole coverage imported"
+    }
+  ],
+  "status": "7 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-building-generator/src/audit/wall_openings.rs"
+}

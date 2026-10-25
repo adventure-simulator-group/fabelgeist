@@ -1,0 +1,177 @@
+--- PRbase/Cargo.lock
++++ frozen/Cargo.lock
+@@ -121,8 +121,9 @@
+  "bevy_panorbit_camera",
+  "clap",
+  "earcut",
+  "fabelgeist-determinism",
++ "fabelgeist-geometry",
+  "geo",
+  "postcard",
+  "serde",
+  "serde_json",
+@@ -142,19 +143,22 @@
+  "bevy_egui",
+  "blake3",
+  "bytemuck",
+  "clap",
++ "derive_more 2.1.1",
+  "egui_extras",
+  "fabelgeist-armor",
+  "fabelgeist-bvh",
+  "fabelgeist-cloth",
+  "fabelgeist-compute",
+  "fabelgeist-determinism",
+  "fabelgeist-garment-code",
+  "fabelgeist-garment-fit",
++ "fabelgeist-geometry",
+  "fabelgeist-gpu",
+  "fabelgeist-hair",
+  "fabelgeist-math",
++ "fabelgeist-rig",
+  "fabelgeist-shell",
+  "image",
+  "pollster",
+  "rand 0.9.5",
+@@ -177,8 +181,9 @@
+  "blanket",
+  "enum-assoc",
+  "enumflags2",
+  "fabelgeist-determinism",
++ "fabelgeist-geometry",
+  "serde",
+  "serde-saphyr",
+  "serde_json",
+  "sha2",
+@@ -263,8 +268,9 @@
+  "serde",
+  "serde_json",
+  "sha2",
+  "spacetimedb",
++ "thiserror 2.0.20",
+ ]
+ 
+ [[package]]
+ name = "adventuresim-strategic-sim"
+@@ -317,20 +323,24 @@
+  "bytemuck",
+  "ciborium",
+  "clap",
+  "console_error_panic_hook",
++ "derive_more 2.1.1",
+  "fabelgeist-armor",
+  "fabelgeist-bvh",
+  "fabelgeist-determinism",
++ "fabelgeist-geometry",
+  "fabelgeist-math",
++ "fabelgeist-rig",
+  "flate2",
+  "gltf",
+  "pollster",
+  "postcard",
+  "semver",
+  "serde",
+  "serde-saphyr",
+  "serde_json",
++ "strum 0.27.2",
+  "thiserror 2.0.20",
+  "toml",
+  "tracing",
+  "tracing-subscriber",
+@@ -354,15 +364,18 @@
+  "bevy_enhanced_input",
+  "bevy_math",
+  "bytemuck",
+  "ciborium",
++ "derive_more 2.1.1",
+  "fabelgeist-determinism",
++ "fabelgeist-geometry",
+  "libm",
+  "microlp",
+  "noiz",
+  "postcard",
+  "rayon",
+  "serde",
++ "serde-saphyr",
+  "serde_json",
+  "sha2",
+  "smallvec",
+  "strum 0.28.0",
+@@ -400,14 +413,16 @@
+  "adventuresim-world-schema",
+  "bevy",
+  "clap",
+  "fabelgeist-determinism",
++ "fabelgeist-geometry",
+  "rand 0.9.5",
+  "ron",
+  "serde",
+  "serde-saphyr",
+  "serde_json",
+  "spacetimedb-sdk",
++ "thiserror 2.0.20",
+ ]
+ 
+ [[package]]
+ name = "adventuresim-tactical-server-dispatcher"
+@@ -4830,10 +4845,12 @@
+  "blake3",
+  "bytemuck",
+  "fabelgeist-compute",
+  "fabelgeist-garment-code",
++ "fabelgeist-geometry",
+  "fabelgeist-gpu",
+  "fabelgeist-math",
++ "fabelgeist-rig",
+  "image",
+  "pollster",
+  "postcard",
+  "serde",
+@@ -4919,8 +4936,9 @@
+ version = "0.1.0"
+ dependencies = [
+  "anyhow",
+  "derive_more 2.1.1",
++ "fabelgeist-rig",
+  "flate2",
+  "num_enum",
+ ]
+ 
+@@ -4971,8 +4989,18 @@
+  "fabelgeist-physics",
+  "fabelgeist-shell",
+  "fabelgeist-xpbd",
+  "tokio",
++]
++
++[[package]]
++name = "fabelgeist-geometry"
++version = "0.1.0"
++dependencies = [
++ "bevy_math",
++ "bevy_reflect",
++ "serde",
++ "thiserror 2.0.20",
+ ]
+ 
+ [[package]]
+ name = "fabelgeist-gpu"
+@@ -5060,8 +5088,18 @@
+  "fabelgeist-gpu",
+  "fabelgeist-math",
+  "fabelgeist-xpbd",
+  "tokio",
++]
++
++[[package]]
++name = "fabelgeist-rig"
++version = "0.1.0"
++dependencies = [
++ "derive_more 2.1.1",
++ "serde",
++ "serde_json",
++ "strum 0.27.2",
+ ]
+ 
+ [[package]]
+ name = "fabelgeist-rust-quality"

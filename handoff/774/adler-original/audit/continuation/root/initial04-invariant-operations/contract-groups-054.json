@@ -1,0 +1,81 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-054",
+  "at": "2026-10-22T21:44:49.495752+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/strategic_time.rs",
+      "sha256": "3af84cd2d335ef14e2ae8034345fcdcb999a93b4adeabd1a2e1f58beb780f57c",
+      "actual_compared_ranges": [
+        [
+          1,
+          860
+        ]
+      ],
+      "source_evidence": "Fresh full current frozen body in bounded sequential reads; each exact variant compared, byte equality checked explicitly, no prior verdict carry. Tests source-read only."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-world-schema/src/calendar.rs",
+      "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "actual_compared_ranges": [
+        [
+          1,
+          698
+        ]
+      ],
+      "source_evidence": "Fresh full current frozen body including existing source oracles; each exact scoped variant compared, no whole-year headroom invented."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/strategic_time.rs",
+      "sha256": "3af84cd2d335ef14e2ae8034345fcdcb999a93b4adeabd1a2e1f58beb780f57c",
+      "actual_compared_ranges": [
+        [
+          1,
+          860
+        ]
+      ],
+      "source_evidence": "Fresh full current frozen body in bounded sequential reads; each exact variant compared, byte equality checked explicitly, no prior verdict carry. Tests source-read only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/calendar.rs",
+      "sha256": "64e57270d86d0c5de29f25c63deb77421e1c0be5eb6ccb4b2e20f805ae9777bc",
+      "actual_compared_ranges": [
+        [
+          1,
+          698
+        ]
+      ],
+      "source_evidence": "Fresh full current frozen body including existing source oracles; each exact scoped variant compared, no whole-year headroom invented."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/provisioning.rs",
+      "sha256": "438b45a44c51026e751788a6ef9da9c40ee88ae53eac79a64ca0845d5170cd68",
+      "actual_compared_ranges": [
+        [
+          3,
+          3
+        ]
+      ],
+      "source_evidence": "Prospective REG014 before fresh literal line3; exact6000.0 finite travel kcal/day constant, no other provisioning body credit."
+    }
+  ],
+  "groups": {
+    "calendar-admission": "StrategicMinute accepts everyu64 includingMAX/ZERO. CalendarYear positivei32 checkednew/SerdeTryFrom, rawSATS product admission distinct existing03gap. Clock display calendar_year explicitly caps ati32MAX: documented display range, not reason to shrink clock. MinuteOfDay privateu16<1440/hour<24/minute<60. SignedBirthMinute distincti64 coordinate; widei128 age differences and finalstorage cap intentional.",
+    "calendar-arithmetic": "Checked/saturating clock operations explicitly named; day_start floor product<=self. Day index+1 <=u64MAX/1440+1 safe. Midpointordered<=later, reversed returns self. Inclusive native MAX range terminates once; after_throughMAX empty by self<end. Yearsu16*525600 safe; signed birth age/progressi128/u128 fits; anniversarynext strictself<next<end. Period zero checked_div/rem None; floor product<=self. Native time-wrap<=2878 before endpoint saturation, presence windows0..1440 halfopen overnight/start==endfalse. Year interpolation order/privatepositive values avoidszero/overflow. F022 early saturation is distinct from intentional final endpoint clipping.",
+    "forecast-and-fatigue": "Daylight walk range1..1440 implies daytime endpoints0..1440; nighttime split/order legitimate. Forecast owns copied members/segments and aggregates before return; no external retry clock mutation. F019 no-progress and F020 computed finite output gaps. Native cleared-minutes ceil float-to-u64 saturation is explicit maximum waiting sentinel, not necessarily retained clock admission. Travel thresholdu8/100 may exceed1; capacity floor and min1 are existing projection policy. No assumption total fatigue ratio<=1. Camping uses exact6000/day and schedule leisure operation already separately traced.",
+    "clock-lunar-and-allocation": "Lunar modulo42524 fits exactf64 integer then finite phase; illumination rem_euclid beforeTAU/cos for finitephase. Nonfinite rawphase admission remains separate. Real microseconds u64minutes*604800000000 fitsu128; div_ceil525600 exact rounding. F021 actual signed intermediate loses valid final results. Const-generic duration sum native theoretical giantarray not a concrete practical overflow; current actual activity arrays fixed10. Training elapsedu64/day*f32u16/60 bounded below1e20.",
+    "healing-and-failure": "Healing health accepts signednegative deficit, finite recovery boundedelapsed; min1 cap actual policy not blanket new UnitInterval. NaNmin behavior documented native normalization not a new finite-input overflow. Convalescence exact7limbs/lowestmin1, doubling max64 monotone saturation, binarylower+(upper-lower)/2 safe; MAX sentinel for no representable healing interval. Preserve legitimate negative health pending design. All current computations local, no proof of host transaction rollback beyond function. Existing tests readonly, no generated cases/new assertions/helpers/runtime."
+  },
+  "findings": [
+    "ROOT-INITIAL04-F019",
+    "ROOT-INITIAL04-F020",
+    "ROOT-INITIAL04-F021",
+    "ROOT-INITIAL04-F022"
+  ],
+  "shared_graph_qualification": "F021/F022 share early-intermediate-loss repair principles with F017;22 finding records are not22 distinct repair graphs. F019 first candidate from Camera, actual whole operations independently read here.",
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

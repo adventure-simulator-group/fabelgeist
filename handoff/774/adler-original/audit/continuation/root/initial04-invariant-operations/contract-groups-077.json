@@ -1,0 +1,87 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-077",
+  "at": "2026-10-23T00:54:33.005920+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_movement.rs",
+      "sha256": "3fcb38f4034fe1eccf1d7d99ee3310fed62812d16ef25d547e79e009e4425c33",
+      "actual_compared_ranges": [
+        [
+          1,
+          392
+        ]
+      ],
+      "source_evidence": "Fresh full actual P16 kernel/state/helper and source-only existing tests; native arithmetic and receiving mobility facts compared."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/commitment.rs",
+      "sha256": "52eb21ff762fa1bb6d55c4237bf1d1d66638a7929d996eb94074726727b563f6",
+      "actual_compared_ranges": [
+        [
+          1,
+          239
+        ]
+      ],
+      "source_evidence": "Fresh full actual P16 kernel/state/helper and source-only existing tests; native arithmetic and receiving mobility facts compared."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/model.rs",
+      "sha256": "b1b76643680707125e6bd040b60703127a2ed09cc460e226b2c4f08c90724ffe",
+      "actual_compared_ranges": [
+        [
+          1,
+          364
+        ]
+      ],
+      "source_evidence": "Fresh full actual P16 kernel/state/helper and source-only existing tests; native arithmetic and receiving mobility facts compared."
+    }
+  ],
+  "groups": {
+    "axis-integrator": "Typed signed/nonnegative speeds and elapsed are extracted at actual nativef32 integration. beforeclamped tospeed, target selectedbyintent, delta mayoverflow evenfinite endpoints but direction/sign and bounded elapsed retain native policy; after_acceleration explicitfinitecheck rejects invalid computed speed, displacement checkedgeometry rejects nonfinite trapezoid/constant sum. Axis failure onlydropslocal state. Zeroaccelerationcoasts; zeroelapsed nodisplacement. Opposed aggregate has F028 masked overflow; orderedbounds are combined-input precondition, no global signed-length positivity invented.",
+    "physical-drive-and-normal-caller": "ground_drive sanitizes mass>=1/reference>=1/nonnegativeforce/traction and capsdrive bytraction; rawforce/mass/attribute input still unsealed, finite totalmass arithmetic canoverflow beforedivide. Actualmobility15-69 selects speed through checked movement_speed and min(guarded/lunge config), applies whole maxseparation and centerfloor, constructs local movement before retaining. No numerical guarantee from arbitrary raw combat body/equipment fields and no normal hugecounter inference. BodyMass and inventory/equippedmass distinct, no duplicate encumbrance impairment introduced.",
+    "commitment-transitions": "Phase gap computes checked saturatedelapsed then minexistinginterval; phase/response translation maps closed sums without arithmetic. body_part_index already proven7-way in Root060 so fixed7armor access inbounds. Defensive action obtains fixed.5 elapsed beforemutation; shieldoffhand transforms existing power byfactor .6..1 forfiniteeffectiveness, no amplification/finiteoverflow and noattack work duplicated. RawNaNeffectiveness remains input admission issue, not finiteoperand counter. Neutralguard/committed/recovery and attempted/effective defense differ deliberately. retainedpower optional mirrorsvariant shape for09, no new04 arithmetic defect.",
+    "model-authority": "CombatBody keeps7 rawhealth leaves/weight, wholebody1and70 defaults; raw health signed injury values not blanketUnitInterval. apply_damage delegates existingclampedlimbdamage; total_damage can sum huge unsealed negative-health values, so body admission and accumulation obligation remains in existing physical/F009 graph, no claim of arbitrary finite-output guarantee. CombatEssentials intentionallyreturns1 physicalskillcondition because wheel accounts fatigue/burden once. Skillmatch finite source-independent missing Cooking/Herbalism/terrain zero is deliberate battleprojection, Bestiary canonicalowner delegated.",
+    "equipment-selection": "for_melee/for_ranged clone same backinginventory/armor and select primaryweapon+holdingside peraction. They do notmutate underlyingrawprojections. Publicrawweapon/melee/ranged andmass/precision fields remain earlier03/CameraF009/RigF008graph. PlayerEquipment trait bodypartindexed getters inbounds; SignedLength/elapsed leaves preserved, true innateresistance/padding andcoverage from_spanRootF007 separate. Effective reach mobility73-75 uses baseweapon trait (not for_melee), supports CameraF009 existing normal mixed-loadout graph, no new duplicate finding.",
+    "existing-oracles": "Read full existingaxis, opposed-intent, collision-floor and substep-invariance test source, no execution/edits. Preserve original geometry datums, signed separation velocity, exact operation order, movement-fatigue policy and actual no-double-impairment contract."
+  },
+  "support_only": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_round/mobility.rs",
+      "ranges": [
+        [
+          15,
+          125
+        ]
+      ],
+      "no_new_full_file_credit": true
+    }
+  ],
+  "findings": [
+    {
+      "id": "ROOT-INITIAL04-F028",
+      "kind": "representable_internal_kernel_finite_arithmetic_contract_strengthening",
+      "source_id": "physical-p16:crates/adventuresim-core/src/autoresolve/melee_movement.rs",
+      "locations": [
+        [
+          73,
+          80
+        ],
+        [
+          97,
+          103
+        ]
+      ],
+      "case": "Let M=f32MAX. Admitted distance .5M, each signed before velocity/maxspeed .4M, both Retreat, acceleration0, elapsed1, ordered bounds[0,M]. integrate_axis computes each finite .4M displacement (before+after=.8M staysfinite). Opposed ordered .5M+.4M+.4M overflows raw_after toInf, clamp emits M, raw_deltaInf, bounded_delta.5M, travel_fraction0. Both displacements become0 while distance changes .5M\u2192M; all final fields finite and function returnsOk. Static IEEE-f32 reasoning, not executed. Crate-visible kernel API qualification only; actual mobility caps speeds to guarded/lunge embedded config, so no current normal giant-velocity battle claim.",
+      "operation": "Collision clamp masks overflowing intermediate before computed-result admission. Re-admitting only bounded distance and scaled displacements misses their aggregate conservation relation.",
+      "connected_repair": "Readmit/check ordered nativef32 sum and distance deltas before clipping/scaling or return existing structured overflow error; preserve actual f32 operation order and ordinary clipping/signed displacement behavior. Keep canonical typed geometry/speeds/durations through mobility/timeline. Do not silently widen physics kernel, add arbitrary real-world caps, or claim ordinary rejection invalid. Preserve valid ordered distance bounds explicitly through whole operation input.",
+      "acceptance": "Successful opposed motion retains coherent distance change and scaled actor displacements within existing rounding/collision policy; overflow cannot silently turn movement into zero displacements with a changed distance. Existing movement/substep/collision tests only, no added cases/assertions/helpers.",
+      "deduplication": "Connected P16 native centre-distance integration and result admission graph; separate from RootF027 identity and RootF014 contact precision."
+    }
+  ],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

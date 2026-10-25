@@ -1,0 +1,80 @@
+{
+  "id": "F53",
+  "priority": "P2",
+  "classification": "Retained checked-API arithmetic defect; same zero-time quotient/product exists in comparison base. No ordinary subnormal runtime configuration or gameplay trigger established.",
+  "title": "Preserve zero-time facing when a valid duration overflows the intermediate turn rate",
+  "lenses": [
+    "producer-propagation",
+    "invariant-operations"
+  ],
+  "locations": [
+    {
+      "file": "crates/adventuresim-tactical-core/src/animation/state/turn_deadline.rs",
+      "start": 78,
+      "end": 80
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/animation/state/turn_deadline.rs",
+      "start": 84,
+      "end": 96
+    },
+    {
+      "file": "crates/adventuresim-tactical-core/src/animation/measurement.rs",
+      "start": 44,
+      "end": 51
+    },
+    {
+      "file": "crates/adventuresim-core/src/elapsed.rs",
+      "start": 9,
+      "end": 12
+    }
+  ],
+  "contract_trace": "PositiveAnimationDuration admits any nonzero finite AnimationElapsed, including f32 smallest positive subnormal. BodyFacingTurn::configured_half_turn or deadline keeps that checked duration, but native_radians_per_second computes PI/duration or angle/duration in f32, which may be infinity. advance then multiplies by admitted elapsedZERO: Inf*0=NaN, f32 min(PI) selectsPI, so delta clamping permits a nonzero rotation. tracking_residual has the same product and NaN.max(0) yields a false zero residual. Checked operands and a finite final quaternion therefore do not establish intended no-time/no-turn semantics.",
+  "counterexample": "Source-only public API: configured_half_turn(PositiveAnimationDuration::try_from(f32::from_bits(1))) then advance(Quat::IDENTITY,Vec3::X,AnimationElapsed::ZERO) computes maximumPI and turns toward+X despite zero elapsed. Equivalent for_deadline(identity,+X,smallestpositive remaining,ZERO) has finite nonzero angle and same overflow. Native IEEE/Rust min/max reasoning, no executed test.",
+  "repair": "Repair complete bounded rotation and residual kernels together so zero elapsed preserves orientation and finite admitted duration cannot create false successful observations through nonfinite intermediate rate. Use robust ratio/product calculation or explicit handling preserving ordinary exact operation behavior, stable reversal and PI cap; do not arbitrarily reject supported positive tiny durations, clamp them to a fake minimum or silently substitute zero residual. Keep actual body-facing policy as semantic input through unchanged callers and carry checked angular observation to actual report boundary.",
+  "dependencies": [
+    "P16/P17 facing and source/observational angular contracts remain mandatory shared family scope.",
+    "Existing paused_turns_do_not_advance_and_small_deadlines_remain_meaningful fixture reads zero/zero and1e-10 cases, not subnormal duration followed by advanceZERO; existing tests only, no new test authorized.",
+    "Adopted neutral geometry ownership migration RIG-INITIAL06-F001 is separate remedy; no duplicate arithmetic finding identified in saved1002archive records or current161root records."
+  ],
+  "acceptance": "Every admitted facing policy preserves current yaw at zero elapsed; deadline/half-turn integration and residual cannot accept Inf*0 or NaN as a successful physical update/zero observation. Preserve ordinary frame/deadline behavior, positive reversal choice and supported tiny positive deadlines, without introducing compatibility paths or arbitrary bounds. Existing facing/attack-contact/downed oracles remain valid.",
+  "repair_status": "not started; awaiting complete initial discovery",
+  "validation": "Full production body and existing432line fixture source read; admitted duration owner body read; exact merged source matches P16/PR hash. No build, test, new test, simulation or renderer run.",
+  "base_comparison": {
+    "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+    "deadline_file_sha256": "2b9e0250057ef1d5001b4451bae195193d8e5270d766e0a3f569cb843f34bf6f",
+    "deadline_ranges": [
+      [
+        1,
+        40
+      ]
+    ],
+    "old_integrator_file": "crates/adventuresim-tactical-core/src/animation/state.rs",
+    "integrator_sha256": "47c04943f11bc1d221e680cfdf8a44b05c9face66c7aa14279e6d7eee807aa7b",
+    "integrator_ranges": [
+      [
+        2545,
+        2629
+      ]
+    ],
+    "evidence": "Old deadline quotient1-22 and advance_body_facing_toward2588 and downed2622 have the same native quotient/product/min behavior. Classify retained, not introduced by checked migration."
+  },
+  "archive_cross_references": [
+    {
+      "finding_id": "RIG-INITIAL06-F001",
+      "relationship": "Shared angle/rotation owner dependency only; distinct from this bounded integration arithmetic remedy.",
+      "evidence": "adopted-completed-audits.json type-ownership finding evidence"
+    }
+  ],
+  "additional_contract_support": {
+    "source": "crates/adventuresim-core/src/elapsed.rs",
+    "sha256": "354e6d15bf6865ee078bb50f920eb16a743d1bd6eaa78fbc18d1b3bb2bd7853e",
+    "ranges": [
+      [
+        1,
+        90
+      ]
+    ],
+    "evidence": "Actual AnimationElapsed documentation says zero observation does not advance; ZERO and finite nonnegative admission verified. Supplemental source proof, not independently complete other-lens coverage."
+  }
+}

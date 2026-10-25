@@ -1,0 +1,91 @@
+{
+  "id": "CONT07-F094",
+  "at": "2026-10-23T21:56:49.723417+00:00",
+  "classification": "source-backed decoded/API conditional product association defect; ordinary generation coordinates fields; no worker execution",
+  "title": "A matching program label admits a venue built for a different program",
+  "sources": [
+    {
+      "scope_index": 1950,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/recipes.rs",
+      "sha256": "cce4ce937c53b3edbb8c3ebc7e76f14b65139f4acc63770d448ed6712398e60e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/recipes.rs",
+      "ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "coverage": "fresh personally read full exact scoped body"
+    },
+    {
+      "scope_index": 1915,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+      "sha256": "2ab63d7b16ae590554651b5dfcd574e8ee3ea6028e227a6ef96bf13b40936403",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/buildings.rs",
+      "ranges": [
+        [
+          271,
+          298
+        ]
+      ],
+      "coverage": "fresh personally read full exact scoped body"
+    },
+    {
+      "scope_index": 1548,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/worker_products.rs",
+      "sha256": "c3f678338ff7c06487580632000b48d3948022da0a3c8845056df88a34efab63",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/generation/worker_products.rs",
+      "ranges": [
+        [
+          24,
+          67
+        ]
+      ],
+      "coverage": "fresh personally read full exact body; supplemental baseline reread has no new unique credit"
+    },
+    {
+      "scope_index": 1542,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/scene.rs",
+      "sha256": "2881b50dfcd55e6d008b3852ea37e34b90130da2739fc846e6b9e8d0f2282d49",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/generation/scene.rs",
+      "ranges": [
+        [
+          6,
+          68
+        ]
+      ],
+      "coverage": "fresh personally read full exact body; supplemental baseline reread has no new unique credit"
+    },
+    {
+      "scope_index": 1545,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/generation/venue.rs",
+      "sha256": "5e4b722af6525a9d5d8be612acd50c57eedaeb97c3886fb264a0e73796cf5c0a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-client/src/presentation/generation/venue.rs",
+      "ranges": [
+        [
+          51,
+          78
+        ],
+        [
+          133,
+          164
+        ]
+      ],
+      "coverage": "fresh personally read full exact body; supplemental baseline reread has no new unique credit"
+    }
+  ],
+  "earliest_failed_contract": "A retained generated venue must be associated with the requested physical program, rather than trusting a mutable label independently of its plan, collision, interior and prepared geometry.",
+  "counterexample": "Take a valid PreparedVenue generated for a distinct supported program B. Keep its mutually coherent plan B, collision B, interior B and prepared geometry B; change only recipe.program to requested valid program A. Venue(A) receive guard checks program == venue.recipe.program and retains it. PreparedStrategicScene::from_products finds that venue by A, inserts it into the recipe cache, installs GeneratedBuilding with placement/program A but plan/collision B, and installs the valid interior B against plan B. This source-only decoded DTO witness requires no out-of-range references or malformed mesh columns.",
+  "actual_recipient": "worker_products.rs59-62 retains the matched label; scene.rs41-57 binds its plan/collision/interior to the requested placement; recipes.rs64-69 and buildings.rs279-295 likewise take a program-labelled recipe without another association check. Physical geometry, dimensions and room metadata can therefore describe B under A.",
+  "qualification": "PreparedVenue::generate normally calls GeneratedBuildingRecipe::generate or accepts a dependency with matching outer program, compiles geometry from its plan and furnishes that plan. GeneratedBuildingRecipe::generate coordinates source program, plan and collision. No ordinary hot replacement, malicious transport, persisted corruption, runtime reproduction or default failure claimed. Do not require literal plan.seed == program.seed: generator-derived layout seeds can differ legitimately. Existing M72 structural-reference admission, M66 mesh-column admission and M70 circulation proof are different guarantees.",
+  "related_not_automatic_alias": [
+    "local M72 and its PC86 exact program/source/collision association dependency",
+    "local M66 native mesh column admission",
+    "local M70 circulation proof"
+  ],
+  "connected_repair": "Establish one admitted generated-recipe/product association through actual generation and decoded receipt. Retain source/provenance sufficient to verify the requested complete program and coherent products before caching or installation; keep accepted products immutable or enforce coordinated replacement. Apply the same association to dependency recipes and ProgramFurnitureSite cache entries. Preserve legitimate generator seed derivation and avoid mandatory full engineering audits or blindly regenerating every cached product.",
+  "acceptance": "A coherent B product relabelled as A is rejected with structured cause before publication/cache installation. Current generated A products and supported complete-program distinctions remain accepted with exact geometry/RNG/serialization behavior. Structural reference, mesh-buffer and circulation checks remain separately required. No tests added or executed.",
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "later_receiver_qualification": "Fresh2066 openings.rs50\u201370 regenerates server plan/collision from replicated SceneBuilding.program and installs that canonical collider/openings. Do not claim wrong retained worker collision automatically reaches server physical collider. Actual client/interior/furniture retained association remains separate source-proven recipient. CONT07-CONTRACT-468."
+}

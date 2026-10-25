@@ -1,0 +1,40 @@
+{
+  "at": "2026-10-25T18:19:27.691630+00:00",
+  "rows": [
+    {
+      "source_id": "pinned-registry:thiserror-2.0.20/src/lib.rs",
+      "sha256": "817cfdb6c24d60de78f399d4db84f2910c543dec9a9d75d191215b4308e19823",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/derivability/fresh-dependencies-037/thiserror-2.0.20/src/lib.rs",
+      "ranges": [
+        [
+          60,
+          97
+        ]
+      ],
+      "package_checksum": "ec86235f5fcc2a73650310756d2ac5b138a5780bbbdfae3eeccec992c435ba4f",
+      "reason": "Explicit range amendment of prior037/shared115: arbitrary format args and named .field expressions for QuestCoverageFailure metric.as_str(); exact source bytes already pinned. Only60\u201397 new material, no whole module credit.",
+      "index": 168,
+      "line_count": 291,
+      "range_supplement_of": 115,
+      "registration_evidence": "derivability/fresh-dependency-registration-1199.json",
+      "qualification": "Append-only distinct bounded range60\u201397, preserving prior115 range38\u201359 and completed snapshot evidence. Same native source identity is not another whole-file audit. New pending own-lens delta only.",
+      "lenses": {
+        "producer-propagation": "New bounded range60\u201397 reconciliation pending; prior115 evidence and completed snapshots retained.",
+        "existing-type-owners": "New bounded range60\u201397 reconciliation pending; prior115 evidence and completed snapshots retained.",
+        "admission-contracts": "New bounded range60\u201397 reconciliation pending; prior115 evidence and completed snapshots retained.",
+        "invariant-operations": "New bounded range60\u201397 reconciliation pending; prior115 evidence and completed snapshots retained.",
+        "aggregate-states": "New bounded range60\u201397 reconciliation pending; prior115 evidence and completed snapshots retained.",
+        "type-ownership": "New bounded range60\u201397 reconciliation pending; prior115 evidence and completed snapshots retained.",
+        "redundant-authority": "New bounded range60\u201397 reconciliation pending; prior115 evidence and completed snapshots retained.",
+        "behavior-preservation": "New bounded range60\u201397 reconciliation pending; prior115 evidence and completed snapshots retained.",
+        "enum-shapes": "New bounded range60\u201397 reconciliation pending; prior115 evidence and completed snapshots retained.",
+        "derivability": "New bounded range60\u201397 reconciliation pending; prior115 evidence and completed snapshots retained.",
+        "type-granularity": "New bounded range60\u201397 reconciliation pending; prior115 evidence and completed snapshots retained.",
+        "magic-strings": "New bounded range60\u201397 reconciliation pending; prior115 evidence and completed snapshots retained.",
+        "magic-numbers": "New bounded range60\u201397 reconciliation pending; prior115 evidence and completed snapshots retained."
+      }
+    }
+  ],
+  "shared_count": 169,
+  "registration": "Exact range supplement added at168 rather than mutating already-accounted115 behind completed snapshots. No baseline replay or whole-file/cross-lens credit."
+}

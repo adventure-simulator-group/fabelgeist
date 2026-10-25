@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-SUPPORT-245",
+  "at": "2026-10-25T14:10:00.928100+00:00",
+  "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/ray_caster.rs",
+  "sha256": "bcc49b636bc3db8ebe946f004414493433003c689a819ede071337f555cc7c52",
+  "actual_additional_ranges": [
+    [
+      338,
+      342
+    ],
+    [
+      373,
+      383
+    ]
+  ],
+  "already_read_ranges": [
+    [
+      384,
+      410
+    ]
+  ],
+  "finding": "SEGOVB-INITIAL10-F007",
+  "disposition": "Exact RayHits Vec container and iter_mut confirms same native MapEntities derive equivalence as ShapeHits; actual immediate field/trait dependency extension, no new original completed count.",
+  "execution": "none"
+}

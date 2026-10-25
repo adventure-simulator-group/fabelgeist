@@ -1,0 +1,87 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-108",
+  "at": "2026-10-23T02:18:18.924510+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/ingress/attack_start.rs",
+      "sha256": "d00a98bfffa50eabd877d4ec5d96667e98aa85c161639a074f7f3ec2a4046aa7",
+      "scope049_index": 2036,
+      "actual_EOF": 295,
+      "scoped_ranges_compared": [
+        [
+          1,
+          295
+        ]
+      ],
+      "actual05_comparison": "Fresh full295. StartedMeleePreparation builds onepublication aftercheckedrecovery/timing, selectsCannotArrive→targetNone/bodypartNone together, preserving authoredmiss/noassistedmotion. Scheduledmeasure computedfromsameeventtarget/actorTransforms orintentionalweaponreachfallback. Publication drivesfacing/lungemovement andauthority+PendingContact usingSAME key/target/bodypart/contactsample/ticks; no reconstructionfromdelayedanimation coordinate. MeleeStartTiming combinesanimationcontact→nativewindup andworkdurationcheckedadd beforepublication. MeleeRecoverySchedule handlesNever/noaction viaOption, exactnativeDuration errors preserved. ActualSkeleton mutation/admissionorder isparent2035 obligation, notprovenbythisbundle. pubsuperrawrecordcanberaw internally butcurrentone builder controlsrelationship. No partialevent targetretained afterCannotArrive.",
+      "source_body_proof": "Fresh actual full scoped production andoriginalfixturebodies personally read, no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/ingress/lunge.rs",
+      "sha256": "6ce3ba9b4f6c1fef1cd90580466b74bde537c4ec2dac0f1cecec0fcda437c12b",
+      "scope049_index": 2037,
+      "actual_EOF": 298,
+      "scoped_ranges_compared": [
+        [
+          1,
+          298
+        ]
+      ],
+      "actual05_comparison": "Fresh full298 incloriginalfixtures. PlannedMeleeLunge derivesone collision-aware movement thenarrival fromthat movement andconfiguredacceleration/run/quickstepduration; CannotArrive dropsmovement. Nativecollision maximumtravel andsemanticreach remain separate lengths. Install usesSAMEmovementorigin/direction/distance toactuator andQuickstepPush, flipsdirection y once forcontrollerconvention/identityorientation; no second independentlyplannedtrajectory. TargetNone/zeroPlanDirection returnsnoassist intentionally; distinctqueries get_many rejectsameentity/missingtransforms/colliders withNone, missingdimensions defaults intentionally. Actualcallerbindsrequest actor/target tosamepassedplan, privateplanretainsno separateglobaltarget token; no mismatchednormalplan claim. Reachability includesboundednativecollider clearance, AABBconservativepurpose notexactfullshape. Existing fist/alreadyreachable/unreachable fixture observed, notexecuted. Rawphysicalports/nonfinite/extreme geometryadmission delegatedactualCore/typedleaf scope, no finite guarantee fromnormalize_or_zero/clamp.",
+      "source_body_proof": "Fresh actual full scoped production andoriginalfixturebodies personally read, no execution."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/ingress/timing.rs",
+      "sha256": "8e06350841fdbea99a6cf45ab7c1aca53485273d5b07a064c11ee956cee446f7",
+      "scope049_index": 2038,
+      "actual_EOF": 168,
+      "scoped_ranges_compared": [
+        [
+          1,
+          168
+        ]
+      ],
+      "actual05_comparison": "Fresh full168 incloriginalfixtures. One observednativef64 clockquantization createsdistinct key/sample wrappers; no globalkeyuniqueness inferred withoutactualrecipientrequiring it. for_attack selectscontinuationtick orinput, delay function quantizesauthored/arrival/recovery beforelocalSelf, positive minimumOne fornative durationticks; rawarrival finitechecked. Normaldelay preservesauthoredpreparation andwaitsforlunge, signedarrivalNone/CannotArrive zeroaddition intentional. Atcapacity, saturatingcontact/end plusbackderivedstart losesrequest-start/recoveryrelationship: F030API-only validclockcounterexample. No claim all saturatingarithmetic wrong; nativeclock scalarpolicy differsacceptedwhole actiontimeline. Originalfixture checksordinaryinput10 anddelaycase, nocapacitycaseexecuted.",
+      "source_body_proof": "Fresh actual full scoped production andoriginalfixturebodies personally read, no execution."
+    }
+  ],
+  "comparison_groups": {
+    "whole-start-publication": "Target/bodypart/timing/authority/pendingcontact/plan keptoneproduct.",
+    "shared-lunge-authority": "One collisionplan ownsarrival andactualactuator, no duplicate trajectorypolicy.",
+    "timeline-capacity": "Validleafclock anddurations insufficienttoretainrelativeintervalrelationships atMAX."
+  },
+  "new_unique_findings": [
+    {
+      "id": "NATIVE-INITIAL05-F030",
+      "lens": "audit-aggregate-states",
+      "classification": "saturated action endpoints can precede accepted request and collapse positive recovery",
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/ingress/timing.rs",
+      "sha256": "8e06350841fdbea99a6cf45ab7c1aca53485273d5b07a064c11ee956cee446f7",
+      "source_ranges": [
+        [
+          26,
+          55
+        ],
+        [
+          62,
+          107
+        ]
+      ],
+      "relationship": "A formed delayed attack starts no earlier than its chosen sequence/input coordinate, preserves authored preparation, and retains admitted recovery ticks after contact. Individually valid clockwords/durations do not establish whole interval capacity.",
+      "source_counterexample": "delayed_melee_timing_ticks(AnimationSampleTick::MAX, authored native1second, NotNeeded, recovery native1second): duration_ticks givespositive64 samples for both atcurrent64Hz; contact saturatesMAX, animation_start=MAX−64 (before inputMAX), recovery_end=MAX soend−contact0 instead of64; returnsOk. No test/case/assertion created orrun.",
+      "actual_path": "Bounded internalAPI valid-clock capacity counterexample, not currentordinary elapsedclock/lifetime/gameplay orhostresponse claim. NativeTime/f64 quantization couldsaturateword onlyat extreme clock; parentactual ordinarycaller andlowerreceivers remainexplicit. Root reportsnoexactexisting04finding; notsameasgenericP16saturatingpolicy orRootF027identityloss.",
+      "connected_repair": "Root retainsrepair. Admit complete actiontimeline with checked coordinatecapacity beforepublication/skeleton/authoritymutation; propagate capacityerror fromfallibletimeline rather than backdatingstart or silentlycollapsingphase. Preserve chosen lunge delay/authoredpreparation andvalidzero/nativeclock meaning, no invented globalclockcap/fallback.",
+      "acceptance": "Every successfultiming result retains request/sequence-start ordering andintended preparation/recovery tickrelationships; capacityexhaustion isexplicitErr beforeacceptedattackpublication. Preserve continuationselection, lungearrival timing, zero/native durationminimum policy andactualerrororder. No blanketban saturating nativeclock differences.",
+      "proof_ref": "contract-groups-108.json",
+      "repair": "frozen",
+      "validation": "not_established"
+    }
+  ],
+  "remaining_dependency_obligations": [
+    "Parentingress2035 actualSkeletonadmission/publicationsequence pending; no globalclockkeyidentityfinding withoutactualrecipientproof. Full frozeninventory remainsincomplete."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

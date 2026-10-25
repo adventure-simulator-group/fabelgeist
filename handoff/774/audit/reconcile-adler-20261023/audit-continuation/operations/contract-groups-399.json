@@ -1,0 +1,106 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-399",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/presentation.rs",
+      "sha256": "6a067389a1cdcbddd0dd3814f95e17664351794be139353572edd19928a18171",
+      "actual_EOF": 867,
+      "actual_compared_ranges": [
+        [
+          1,
+          867
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/presentation/attack.rs",
+      "sha256": "aa611d89cd2327ddfd98bca611569e00b454764aee36d9a05553ab0c2ba94f5d",
+      "actual_EOF": 170,
+      "actual_compared_ranges": [
+        [
+          1,
+          170
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/presentation/cadence.rs",
+      "sha256": "9d7d6ca4239a97970517ad7b8b388d8173ce2cba9872f725316af92899489e9f",
+      "actual_EOF": 90,
+      "actual_compared_ranges": [
+        [
+          1,
+          90
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/presentation/cadence/tests.rs",
+      "sha256": "a671c59c7785b9a0341f00d788988e0000c14578636c9f2c6ed6f4921e7d3923",
+      "actual_EOF": 203,
+      "actual_compared_ranges": [
+        [
+          1,
+          203
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/presentation/events.rs",
+      "sha256": "e8b15deac3874c9457efc9dec7ac27b1b4eca56b6577a0352fe6cf3c1c896238",
+      "actual_EOF": 174,
+      "actual_compared_ranges": [
+        [
+          1,
+          174
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/presentation/plugin.rs",
+      "sha256": "678af470ebedb38a874258f1f27264052978d78d58b438469bc24e25ef4d0b78",
+      "actual_EOF": 109,
+      "actual_compared_ranges": [
+        [
+          1,
+          109
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Gait prediction, coalesced source and retained presentation",
+      "evidence": "presentation.rs1\u2013867 full: elapsedcheckedcap.1s, fixedrepeatdelta0, checkedtickcontiguousmaxgap, predictonlymatchingposture/action/support/pack/contact/guardstep; responsefractionchecked thennativevelocitylerp, checkedgaitdelta/advance/wrap; packeterrorcircularmetric/deadband/gradualcorrectionpreservescontinuousaccumulator. FinalSkeletonState/source_tick onlyreplaceafterquickstep,attack,cadence succeed.",
+      "qualification": "Auxiliaryprediction/diagnostic fields mayupdatebeforelatertop-levelErr; no claimcompleteatomicity, but no actual laterfailure case promoted solelyfrom? syntax. presentation_tick markbeforeadvance meansrepeatedfixedticksnoelapsed; staleassetretrycontract notassumed. Separateclientshadow intentionallypredictsphase whilegameplay/eventauthority remainsSkeletonState. Currentsourceconfigsmall; largefiniteconfigproducts mayoverflow, checkedphasequotientrejects while intentionalboundedactioncaps cancomplete atInf below. No run."
+    },
+    {
+      "contract": "Quickstep and attack action-time prediction",
+      "evidence": "presentation.rs325\u2013400 andattack.rs1\u2013170: preparation/recoveryticks min1 andsaturatingtwoduration, candidateSkeletonState advancedto boundedelapsedtick; quicksteptailretaineduntilvisual1 thenreleased. Attackphasewholecandidateclone+phaseprepared beforepublish, identity starttick/animation/hand/continuation; staleinitial/queuedpayload reconcile preservespredictedfollowup; boundedphaseadvance/correctionneverreverse, continuationrecoveryovershootpolicy andtailusesprevioussource.",
+      "qualification": "predicted intentionally permits overflowingtransientdelta followedbyfinite min1, preserveacceptedendpointcap semantics. No narroweruniversalfiniteintermediaterule. Sourcefixtures ordinarycontactrepeat,delayedpacket,stalequeue,overshoot,quickstepcoalescedguardrelease readnotrun. Authoritativecycle/actionlifeadmission sourced elsewhere, no duplicateinventedcombat authority."
+    },
+    {
+      "contract": "Authored cadence acceptance and event coalescing",
+      "evidence": "cadence.rs1\u201390/tests203: posture/quickstepclear optionalcadence, ordinaryvscombatdistinctstate, selectioncapsrequestedcadenceandrecordsstanceSlip/cappedreason, checkedphaseadvance beforecadencecommit; stoppedcontinuingphase held. events.rs1\u2013174: typedcontact/landingstreams, checkedforwardgap onlyboundedmaxeventwindow, reconstructorderedalternatingcontacts backwardsfromlatest, landinglatestonly; cursorresetsobserved oninvalidgap silently. Eventtickactualobservation notinventedhistory.",
+      "qualification": "Cadencecap andstanceSlip areexplicitpresentationlimitpolicy, notzero invalidmeasurement nornewgameplaypenalty. KnownNative05F009 configreferencepair mismatch remainssharedcallerownergraph, noordinaryshippedpairfailure. Oversized/backwardeventgaps deliberatelyresynchronize, wrappingreportcontinuitydistinctfromeventsforwardsemantics. Nativeu64encodedonlytrace/audioadapter. No tests executed."
+    },
+    {
+      "contract": "Scheduled animation mutation order and diagnostic receiver",
+      "evidence": "presentation/plugin.rs1\u2013109: explicitUpdatechainrevision\u2192load\u2192rig\u2192proportion/presentation\u2192bind\u2192semantic\u2192playback\u2192pose\u2192calibration\u2192visibility\u2192events; PostUpdate physicsreadback thenauthored/procedural/bouncy/IK\u2192ragdoll\u2192fixedrepeatstabilize beforeTransformpropagate; diagnostics afterpropagation. Fixedphysicsmuscle/damping separate.",
+      "qualification": "Fresh04actualordinaryBoneKickconsumerorderclosedforNative05F013 alias; addsno newunique. Chainedsystems areordinarydeferredcommandbarriers butexternalasset/task/replicationauthority semanticallyseparate. Sourceonlycannotclaim actualenginecompletedrender/GPU/transportacceptance. No diagnosticnative run peruserrestriction."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "6 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural.rs"
+}

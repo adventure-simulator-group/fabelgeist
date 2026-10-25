@@ -1,0 +1,79 @@
+diff --git a/crates/adventuresim-tactical-server/src/player_projection/spawn_admission.rs b/crates/adventuresim-tactical-server/src/player_projection/spawn_admission.rs
+index e41ded707..a14d8437c 100644
+--- a/crates/adventuresim-tactical-server/src/player_projection/spawn_admission.rs
++++ b/crates/adventuresim-tactical-server/src/player_projection/spawn_admission.rs
+@@ -1,8 +1,9 @@
+ //! Admit the complete applicable connected-player batch before any entity commands.
+ 
+ use super::{LoadingPlayer, player_collider, spawn_connected_player};
++use super::item_geometry::PreparedInventoryItem;
+ use crate::{
+     Args,
+     bot::CombatantBehaviorPackages,
+     scene_spawn::{SceneSpawnError, SceneSpawnResult},
+ };
+@@ -19,10 +20,12 @@ pub(super) struct PreparedPlayerSpawns(Vec<AdmittedPlayer>);
+ pub(super) struct AdmittedPlayer {
+     pub(super) player: ConnectedPlayer,
+     pub(super) recipient: SpawnRecipient,
+     pub(super) position: Position<Scene>,
+     pub(super) collider: Collider,
++    pub(super) items: Vec<PreparedInventoryItem>,
++    pub(super) body_mass: adventuresim_core::physiology::BodyMassKg,
+ }
+ 
+ pub(super) enum SpawnRecipient {
+     Loading(Entity),
+     Enemy(CombatantBehaviorPackages),
+@@ -35,11 +38,11 @@ impl PreparedPlayerSpawns {
+         terrain: &SceneTerrain,
+         args: &Args,
+         combat: &TacticalCombatConfig,
+     ) -> SceneSpawnResult<Self> {
+         let mut admitted = Vec::with_capacity(players.len());
+-        for player in players {
++        for mut player in players {
+             let recipient = if player.mission_side == TacticalMissionSide::Enemy {
+                 let packages = if let Some(fixture) = args.enemy_fixture.as_ref() {
+                     let enemy = fixture.enemy_named(&player.character.name).ok_or(
+                         SceneSpawnError::MissingEnemyFixture {
+                             character: CharacterId(player.character.id),
+@@ -77,28 +80,36 @@ impl PreparedPlayerSpawns {
+             let position = Position::from_metres(Vec3::new(
+                 point.metres().x,
+                 elevation.metres() + offset.metres(),
+                 point.metres().y,
+             ))?;
++            let body_mass = adventuresim_core::physiology::BodyMassKg::try_new(player.body_weight_kg)
++                .map_err(|cause| SceneSpawnError::BodyMass {
++                    character: CharacterId(player.character.id), cause,
++                })?;
++            let items = std::mem::take(&mut player.items).into_iter()
++                .map(|item| PreparedInventoryItem::observe(item, combat.resolution.contact))
++                .collect::<Result<Vec<_>, _>>()?;
+             admitted.push(AdmittedPlayer {
+                 player,
+                 recipient,
+                 position,
+                 collider,
++                items,
++                body_mass,
+             });
+         }
+         Ok(Self(admitted))
+     }
+ 
+     pub(super) fn project(
+         self,
+         args: &Args,
+         commands: &mut Commands,
+-        combat: &TacticalCombatConfig,
+     ) {
+         for admitted in self.0 {
+-            spawn_connected_player(admitted, args.enemy_combat_scale_bps, commands, combat);
++            spawn_connected_player(admitted, args.enemy_combat_scale_bps, commands);
+         }
+     }
+ }
+ 
+ fn player_spawn_offset(collider: &Collider) -> SceneSpawnResult<SignedLength> {

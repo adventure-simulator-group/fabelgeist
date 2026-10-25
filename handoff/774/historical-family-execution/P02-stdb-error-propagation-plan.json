@@ -1,0 +1,26 @@
+{
+  "recorded_at": "2026-10-21T03:17:50.214962+00:00",
+  "head": "3a9b72c7ffaec06ab2895081d1902e8df5e33709",
+  "family": "P02 connected error follow-through, not a new family or dropped original exit",
+  "finding": "strategic/autoresolve.rs::autoresolve_enemy_with_countermeasure prematurely formats AuthoredThreatError. Its internal view, mission, encounter, simulation and autopsy callers do not require String. The prior partial-review claim that this is a required SpacetimeDB boundary was too broad.",
+  "boundary_evidence": "Pinned spacetimedb 2.6.1 src/rt.rs:208-223 accepts Result<(), E: Display> and formats at IntoReducerResult::into_result. bindings-macro reducer.rs:151-155 checks that trait; error payload is not a reducer argument or stored schema field.",
+  "plan": [
+    "Return canonical AuthoredThreatResult<Combatant> from both enemy wrappers, preserving typed errors through view .ok() absence policies without formatting.",
+    "Introduce one strategic combat operation error owner retaining AuthoredThreatError and BattleResolutionError, plus explicit required-death absence. Existing unrelated String operations may enter an Operation(String) variant; do not claim full strategic error migration.",
+    "Carry the operation result through mission autoresolve -> ApprovedPartyAction::execute -> approve_party_action_request and existing authority-test reducer; carry encounter battle -> resolve_strategic_encounter. Keep typed errors through actual SDK reducer return. Preserve existing message text and side-effect order.",
+    "Carry simulation_quest_fixture_enemy_power AuthoredThreatResult -> seed_simulation_quest_fixture typed reducer result.",
+    "Carry autopsy_demo_outcome -> seed_autopsy_demo -> materialize_gallery_item -> gallery materialization -> bootstrap_development_world/dev_bootstrap_gallery typed reducer results; retain BattleResolutionError and explicit missing-death outcome. Preserve fixed recipes, seeds and max-attempt budget.",
+    "Adapt existing callers and source fixtures only, with no tests/cases/assertions/helpers added. Add the existing authority-tests feature check to hosted commands if absent. No schema/row/reducer argument change or generated edit.",
+    "Inspect every connected caller and tail expression before requesting another CI run. No formatting/size gate chase while this known source gap remains. Then focused Code/Rule review, source preservation, commit/push and exact-head hosted gates."
+  ],
+  "scope_limits": [
+    "No whole strategic generic-error migration is claimed. Existing unrelated open SDK/operation prose remains distinct from the newly typed causes.",
+    "P06 terrain source remains believed complete, but neither P06 nor this P02 follow-through is currently accepted. No P08 implementation yet.",
+    "No local project commands, new agents, full audit waves, tests, DB operations, generated bindings, gate relaxation or merge."
+  ],
+  "additional_receiver": {
+    "producer": "BattleResolutionError from resolve_battle",
+    "gap": "tactical-server/src/bin/melee_combat_iteration/runner.rs::run_autoresolve_batch still formats it before run_matchup -> run -> main.",
+    "action": "Retain the canonical BattleResolutionError in a focused iteration-run error, through batch/matchup/run and native main. Keep older unrelated equipment/report String operations explicitly scoped, without pretending their errors are migrated. No new test or runner execution."
+  }
+}

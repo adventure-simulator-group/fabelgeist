@@ -1,0 +1,38 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-755",
+  "at": "2026-10-25T16:42:12.949089+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 989,
+  "source_id": "pr-working:crates/adventuresim-core/src/settlement_population.rs",
+  "sha256": "427a6f6e78d9b203d41f9186e0c4722a1622a9f1d3e2916b43e1b69b73ef601e",
+  "actual_compared_ranges": [
+    [
+      1,
+      440
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "StableDecision",
+      "type": "&'static str",
+      "lines": [
+        [
+          219,
+          223
+        ]
+      ],
+      "disposition": "KEEP tiny local identity adapter no available derive"
+    }
+  ],
+  "analysis": [
+    "StableDecision for staticstr219\u2013223 returns borrowed self unchanged, preserve tiny local adapter/no matching owning derive. choose225\u2013283 sorts stable semantic names, gates causal bridges and duplicate identities, maps shared sampling error to context and builds native decision evidence.",
+    "Population generate304\u2013440 applies location/provider/age/profession/bridge and schedule authored weights with special profession override, semantic classifier/selection not mechanical From. No new handwritten trait/codec after str adapter."
+  ],
+  "first_unfinished": {
+    "scope_index": 989,
+    "line": 441
+  },
+  "execution": "none"
+}

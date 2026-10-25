@@ -1,0 +1,68 @@
+{
+  "head": "82cb2a3acccc852bba6a7ef9c706c337ba9fe765",
+  "recorded_at": "2026-10-20T21:29:24.493789+00:00",
+  "review_submission": "PRR_kwDOPo01Gc8AAAABTKzgSA",
+  "status": "All ten submitted suggestions have uncommitted source changes; not compiled, hosted-validated, published or resolved on GitHub.",
+  "comments": [
+    {
+      "id": 4321983859,
+      "change": "Named the bounded cancellation evidence seed search limit; same 1..=64 stream order."
+    },
+    {
+      "id": 4321994428,
+      "change": "Imported SpeedError."
+    },
+    {
+      "id": 4322009410,
+      "change": "Threat construction retains UnknownThreatId and ElapsedError in AuthoredThreatError; only the SpacetimeDB-facing adapter formats it."
+    },
+    {
+      "id": 4322018615,
+      "change": "Kept the duration array typed; positive elapsed and jitter bounds use the elapsed owner."
+    },
+    {
+      "id": 4322019857,
+      "change": "Jitter compares directly to AnimationElapsed::SECOND."
+    },
+    {
+      "id": 4322020922,
+      "change": "Combat round stays AnimationElapsed in the positivity check."
+    },
+    {
+      "id": 4322024718,
+      "change": "Reference attack stays AnimationElapsed in the positivity check."
+    },
+    {
+      "id": 4329956892,
+      "change": "Imported RecoveryTime in evidence."
+    },
+    {
+      "id": 4329959161,
+      "change": "Imported AnimationElapsed in evidence."
+    },
+    {
+      "id": 4329969061,
+      "change": "Imported RecoveryTime in melee round; moved its record before functions."
+    }
+  ],
+  "posted_replies": [
+    "https://github.com/adventure-simulator-group/fabelgeist/pull/774#discussion_r4330432653",
+    "https://github.com/adventure-simulator-group/fabelgeist/pull/774#discussion_r4330433154"
+  ],
+  "extra_confirmed_getter_gap": {
+    "producer": "integrate_opposed_movement already received AnimationElapsed",
+    "intermediate": "Two integrate_axis calls extracted .seconds() and the axis signature accepted f32",
+    "fix": "integrate_axis now accepts AnimationElapsed; projection occurs inside the complete trapezoidal native integration. Existing seven fixture calls retain their numeric elapsed inputs.",
+    "anchor": {
+      "file": "crates/adventuresim-core/src/autoresolve/melee_movement.rs",
+      "line": 19,
+      "contains": "elapsed_seconds: AnimationElapsed"
+    }
+  },
+  "additional_validation_followthrough": [
+    "Fatigue validation keeps elapsed values and uses is_zero; finite/nonnegative guarantees come from the private checked owner.",
+    "Removed redundant leaf-finiteness projections from tactical timing validation and AI interval validation.",
+    "Pose-buffer validation retains aggregate ordering; positive lengths/durations/contact scale and at-least-three intervals are already admitted at their private owners."
+  ],
+  "remaining_error_scope": "The authored melee equipment fixture still has preexisting String/expect paths. This review repair does not claim those or all battle errors are migrated."
+}

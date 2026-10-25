@@ -1,0 +1,86 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-200",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/approved_action.rs",
+      "sha256": "d950b13458eeb9181a8e5c13187b252a25adee7f26374e42ace4a85dd58c243f",
+      "actual_EOF": 173,
+      "actual_compared_ranges": [
+        [
+          1,
+          173
+        ]
+      ],
+      "method": "Whole P16 bodies personally read; full PR textual comparisons consumed, exact StrategicOperation versus StrategicCombat receiver changes assessed."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/combat_error.rs",
+      "sha256": null,
+      "actual_EOF": 29,
+      "actual_compared_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "method": "Whole P16 bodies personally read; full PR textual comparisons consumed, exact StrategicOperation versus StrategicCombat receiver changes assessed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/approved_action.rs",
+      "sha256": "dc45100de7c1f6bfa836ee8b4634f1b502be0aab07d778f21595785bf2eadca1",
+      "actual_EOF": 173,
+      "actual_compared_ranges": [
+        [
+          1,
+          173
+        ]
+      ],
+      "method": "Whole P16 bodies personally read; full PR textual comparisons consumed, exact StrategicOperation versus StrategicCombat receiver changes assessed."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/combat_error.rs",
+      "sha256": "58e6e2c18b7b24c5ca48112d598be60bec75a889ebfbf494562073baa85b318f",
+      "actual_EOF": 29,
+      "actual_compared_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "method": "Whole P16 bodies personally read; full PR textual comparisons consumed, exact StrategicOperation versus StrategicCombat receiver changes assessed."
+    }
+  ],
+  "groups": [
+    {
+      "id": "Approved action dispatch and cause-preserving error boundary",
+      "locations": "approved_action1-173; combat_error1-29; fresh operation_error1-44",
+      "trace": "Taggedenumownsactionpayload, exactkindmatch closed andno arithmetic/defaultnumericconstructionin dispatcher. Everyordinarybranch directlyforwardsrawadmittedrequestpayloadtoactualowningreducer; this adapterdoesnotprovefinitechecktargets/quantity/roleguarantees. Inventorytarget literaltrue marksknownapprovedauthority, investigationforwardsrequester ratherthanleader andtrue explicitauthseam. Autoresolveearlyreturns typedresult, soactualterminalcause preservedincombatbranch. OtherbranchesString mappedinto actualOperationerror variant; no hiddenretrycatch or receiptmutationhere. P16returnaggregateStrategicOperationResult includesTiming/Custody/Geometry/weaponcauses; PRreceiverusesStrategicCombatResult containingAuthoredThreat/Resolution/Operation only. ExistingpartialP16migration mustpropagateactualleaferrors end-to-end; donotclaimtextualdiff alone fullcompileintegration. Allcalleeandouterproposalreceipt mutationstilldependencies.",
+      "disposition": "No local invariant arithmetic defect; exactcausepropagation/approvedoperation publication graph joinsCAM-PROP-F006/localF05/M30. Four source roles completed including combat_error after skipped inheritedbattlebody, notcreditforotherstrategicfiles.",
+      "dependencies": [
+        "CAM-PROP-F006",
+        "local774:F05",
+        "local774:M30",
+        "Actual individualreducerrequestadmission andproposalacceptancecaller transaction/catches",
+        "Canonical structuredTiming/Custody/Geometry/combatcause owners"
+      ],
+      "acceptance": "Rejectedapprovedoperation mustpropagateactualownercause andcannotconsumeapproval/retryreceipt whilepublishingpartialoperation; successfuldispatch mustpreserveexactapprovedpayload,actualactorauthority and existingtypedcombatfailures withoutstringclassification."
+    }
+  ],
+  "findings": [],
+  "status": "Four originalsource rolespersonallycompared; whole04andactualcalleecontracts incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-stdb-module/src/strategic/authority_model.rs",
+  "fresh_dependency": {
+    "source_id": "physical-p16:crates/adventuresim-stdb-module/src/operation_error.rs",
+    "sha256": "f7a676c963f59e4691374c71e9f81caf252350a5c5c8f22da6a977beb97c62d4",
+    "actually_read_ranges": [
+      [
+        1,
+        44
+      ]
+    ],
+    "coverage": "Fresh complete errorownerbody; inheritedpriorrole getsno duplicatecompletioncredit."
+  }
+}

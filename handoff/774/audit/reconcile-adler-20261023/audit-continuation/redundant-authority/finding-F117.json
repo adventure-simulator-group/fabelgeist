@@ -1,0 +1,53 @@
+{
+  "id": "CONT07-F117",
+  "lens": "audit-redundant-authority",
+  "classification": "source-confirmed failed replacement leaves stale derived route under fallback flag; mutable API conditional",
+  "title": "A reused travel destination retains its old computed route after routing becomes unavailable",
+  "sources": {
+    "2383": [
+      [
+        330,
+        355
+      ],
+      [
+        358,
+        403
+      ]
+    ],
+    "2413": [
+      [
+        89,
+        100
+      ],
+      [
+        383,
+        389
+      ],
+      [
+        414,
+        452
+      ],
+      [
+        613,
+        653
+      ]
+    ],
+    "2392": [
+      [
+        112,
+        145
+      ]
+    ]
+  },
+  "fact": "Successful apply_terrain_route writes distance, journey time, itinerary duration and route products then marks computed. A later None terrain or failed outbound/return planning sets only uses_straight_line_estimate=true. Actual map template still passes terrain_route to map producer without consulting that flag, and map producer labels every Some route Computed. Detail prose separately displays straight-line fallback warning.",
+  "counterexample": "Start with a fresh destination, successfully apply route A, then reapply the same mutable destination for changed start/goal with terrain=None. Route A and its distance/time remain, fallback flag becomes true. Render with this selected destination: overlay remains computed A, details call it a straight-line estimate, and terrain spans/itinerary may retain A. This is a static supported operation sequence; no async planner or browser run claimed.",
+  "limits": [
+    "Ordinary current callers may construct a fresh destination per request; no normal repeated mutation or live failure incident established.",
+    "No claim the route cache precision defect or source admission fallback is the same defect; coordinator confirmed no exact accepted alias.",
+    "A failed return-plan branch likewise leaves old state, but minimum witness uses terrain=None and needs no source/package/planner malfunction."
+  ],
+  "suggested_connected_remedy": "Represent route derivation and its estimate/computed status as one coordinated product, or reset/rebuild every derived dependency from explicit original fallback data on failure. Preserve genuine routing failure and immutable package ownership.",
+  "acceptance_contract": "No route replacement failure can label or consume an earlier computed path as the new fallback; overlay, descriptive mode, distance, time, spans and itinerary share one actual captured derivation.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

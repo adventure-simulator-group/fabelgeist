@@ -1,0 +1,176 @@
+--- p16base/crates/adventuresim-stdb-module/src/social.rs
++++ catalog-p16head/crates/adventuresim-stdb-module/src/social.rs
+@@ -27,8 +27,9 @@
+ use adventuresim_world_schema::calendar::StrategicMinute;
+ use spacetimedb::{ReducerContext, SpacetimeType, Table, ViewContext, reducer, table, view};
+ 
+ use crate::character::{character, character__view, character_limbs, character_stats};
++use crate::StrategicOperationResult;
+ use crate::condition::character_strategic_condition__view;
+ use crate::condition::{character_condition, character_morale_source__view, morale_event};
+ 
+ fn social_clock_or(
+@@ -447,9 +448,9 @@
+     resident_character_id: u64,
+     event_id: &str,
+     morale_delta: f32,
+     affinity_delta: f32,
+-) -> Result<(), String> {
++) -> StrategicOperationResult<()> {
+     let current = current_affinity(ctx, resident_character_id, observer_character_id);
+     put_affinity(
+         ctx,
+         resident_character_id,
+@@ -646,9 +647,9 @@
+     actor_id: u64,
+     resident_character_id: u64,
+     requested_minutes: u64,
+     action_id: String,
+-) -> Result<(), String> {
++) -> StrategicOperationResult<()> {
+     crate::strategic::require_strategic_gateway(ctx)?;
+     crate::strategic::require_strategic_character_authority(ctx, actor_id)?;
+     validate_casual_chat_request(requested_minutes, &action_id)?;
+     if actor_id == resident_character_id {
+@@ -770,9 +771,9 @@
+     actor_id: u64,
+     target_id: u64,
+     requested_minutes: u64,
+     action_id: String,
+-) -> Result<(), String> {
++) -> StrategicOperationResult<()> {
+     crate::strategic::require_strategic_gateway(ctx)?;
+     crate::strategic::require_strategic_character_authority(ctx, actor_id)?;
+     validate_casual_chat_request(requested_minutes, &action_id)?;
+     if actor_id == target_id {
+@@ -914,9 +915,9 @@
+     session_id: &str,
+     resident_character_id: u64,
+     event_sequence: u32,
+     claims: Vec<crate::strategic::ReferredTestimonyClaim>,
+-) -> Result<(), String> {
++) -> StrategicOperationResult<()> {
+     let insight = crate::condition::mental_check(ctx, observer_character_id, Skill::Insight)?;
+     let assessment_seed: fabelgeist_determinism::Seed = ctx.random();
+     for (claim_order, claim) in claims.into_iter().enumerate() {
+         if ctx
+@@ -966,9 +967,9 @@
+     ctx: &ReducerContext,
+     observer_character_id: u64,
+     session_id: &str,
+     event_sequence: u32,
+-) -> Result<(), String> {
++) -> StrategicOperationResult<()> {
+     let session = crate::strategic::require_session_member(ctx, session_id, observer_character_id)?;
+     let capability = ctx
+         .db
+         .dialogue_witness_capability()
+@@ -998,9 +999,9 @@
+     observer_character_id: u64,
+     session: &crate::strategic::DialogueSession,
+     resident_character_id: u64,
+     event_sequence: u32,
+-) -> Result<(), String> {
++) -> StrategicOperationResult<()> {
+     let claims = crate::strategic::referred_testimony_claims(
+         ctx,
+         observer_character_id,
+         session,
+@@ -1126,9 +1127,9 @@
+     morale_delta: f32,
+     affinity_delta: f32,
+     morale_source_id: &str,
+     morale_source_kind: adventuresim_core::morale::MoraleEventKind,
+-) -> Result<f32, String> {
++) -> StrategicOperationResult<f32> {
+     if morale_delta != 0.0 {
+         crate::condition::record_morale_event(
+             ctx,
+             resident_character_id,
+@@ -1157,9 +1158,9 @@
+     challenge_token: String,
+     approach_kind: String,
+     action_id: String,
+     expected_revision: u64,
+-) -> Result<(), String> {
++) -> StrategicOperationResult<()> {
+     crate::strategic::require_strategic_gateway(ctx)?;
+     crate::strategic::require_strategic_character_authority(ctx, observer_character_id)?;
+     let receipt_id = format!("{session_id}:{action_id}");
+     if witness_social_action_replayed(
+@@ -1852,13 +1853,17 @@
+             now,
+         );
+         return;
+     }
+-    let (Ok(insight), Ok(base_deception)) = (
++    let (insight, base_deception) = match (
+         crate::condition::mental_check(ctx, observer_id, Skill::Insight),
+         crate::condition::mental_check(ctx, subject_id, Skill::Deception),
+-    ) else {
+-        return;
++    ) {
++        (Ok(insight), Ok(deception)) => (insight, deception),
++        (Err(error), _) | (_, Err(error)) => {
++            log::warn!("Cannot observe social presentation for {observer_id}/{subject_id}: {error}");
++            return;
++        }
+     };
+     let deception = (base_deception
+         + match personality.transparency {
+             crate::personality::Transparency::Open => -1.0,
+@@ -2188,9 +2193,9 @@
+     ctx: &ReducerContext,
+     actor_id: u64,
+     target_id: u64,
+     topic: SocialTopic,
+-) -> Result<Option<SocialActionKind>, String> {
++) -> StrategicOperationResult<Option<SocialActionKind>> {
+     const ACTIONS: [SocialActionKind; 8] = [
+         SocialActionKind::Listen,
+         SocialActionKind::Commiserate,
+         SocialActionKind::Pray,
+@@ -2541,9 +2546,9 @@
+     actor_id: u64,
+     target_id: u64,
+     source_id: String,
+     action_kind: String,
+-) -> Result<(), String> {
++) -> StrategicOperationResult<()> {
+     crate::strategic::require_strategic_gateway(ctx)?;
+     perform_social_action_authoritative(ctx, actor_id, target_id, source_id, action_kind, true)
+ }
+ 
+@@ -2569,9 +2574,9 @@
+     target_id: u64,
+     source_id: String,
+     action_kind: String,
+     consume_time: bool,
+-) -> Result<(), String> {
++) -> StrategicOperationResult<()> {
+     let action = admission::admit_social_action(ctx, actor_id, target_id, &action_kind)?;
+     let is_self = actor_id == target_id;
+     if consume_time && !is_self {
+         crate::time::synchronize_party_activity_time(ctx, &[actor_id, target_id], actor_id)?;
+@@ -2885,9 +2890,9 @@
+ pub(crate) fn apply_automatic_social_chats(
+     ctx: &ReducerContext,
+     actor_id: u64,
+     discretionary_minutes: u64,
+-) -> Result<(), String> {
++) -> StrategicOperationResult<()> {
+     let preferences: Vec<_> = ctx
+         .db
+         .automatic_social_chat()
+         .actor_id()
+@@ -3073,9 +3078,9 @@
+ }
+ 
+ /// Deterministic relationship fixture, reachable only through the guarded
+ /// isolated-development bootstrap.
+-pub(crate) fn seed_social_demo(ctx: &ReducerContext) -> Result<(), String> {
++pub(crate) fn seed_social_demo(ctx: &ReducerContext) -> StrategicOperationResult<()> {
+     const VIEWER: u64 = 9_999_999_999_999_977;
+     const TARGET: u64 = 9_999_999_999_999_976;
+     const ZEALOUS_VIEWER: u64 = 9_999_999_999_999_975;
+     const ZEALOUS_TARGET: u64 = 9_999_999_999_999_974;

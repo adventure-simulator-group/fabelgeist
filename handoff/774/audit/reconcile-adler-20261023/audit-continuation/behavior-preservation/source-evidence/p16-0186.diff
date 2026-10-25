@@ -1,0 +1,365 @@
+--- p16base/crates/adventuresim-stdb-module/src/condition.rs
++++ catalog-p16head/crates/adventuresim-stdb-module/src/condition.rs
+@@ -7,8 +7,9 @@
+ use spacetimedb::{ReducerContext, Table, reducer, table};
+ use std::collections::BTreeMap;
+ 
+ use crate::capability::StrategicEquipment;
++use crate::StrategicOperationResult;
+ use crate::character::character;
+ use crate::filth::character_filth;
+ use crate::investigation::case_site_authority;
+ use crate::item::item;
+@@ -305,9 +306,9 @@
+     starting_minute: StrategicMinute,
+     elapsed_minutes: u64,
+     moving: bool,
+     shelter: adventuresim_core::survival::ExposureShelter,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     initialize_character_condition(ctx, character_id)?;
+     if elapsed_minutes == 0 {
+         return Ok(());
+     }
+@@ -316,9 +317,9 @@
+         .character_exposure()
+         .character_id()
+         .find(character_id)
+         .ok_or("Character exposure not found")?;
+-    let clothing = StrategicEquipment::load(ctx, character_id).survival_clothing();
++    let clothing = StrategicEquipment::load(ctx, character_id)?.survival_clothing();
+     let location = exposure_location(ctx, character_id);
+     let wilderness_environment_start = ctx
+         .db
+         .character()
+@@ -504,9 +505,9 @@
+ pub fn apply_elapsed_needs(
+     ctx: &ReducerContext,
+     character_id: u64,
+     elapsed_minutes: u64,
+-) -> Result<(), String> {
++) -> StrategicOperationResult<()> {
+     apply_elapsed_needs_with_provision(
+         ctx,
+         character_id,
+         elapsed_minutes,
+@@ -520,9 +521,9 @@
+     ctx: &ReducerContext,
+     character_id: u64,
+     elapsed_minutes: u64,
+     provision: crate::time::SettlementRestProvision,
+-) -> Result<(), String> {
++) -> StrategicOperationResult<()> {
+     apply_elapsed_needs_with_provision(
+         ctx,
+         character_id,
+         elapsed_minutes,
+@@ -609,9 +610,9 @@
+     ctx: &ReducerContext,
+     character_id: u64,
+     elapsed_minutes: u64,
+     provision: ElapsedNeedsProvision,
+-) -> Result<(), String> {
++) -> StrategicOperationResult<()> {
+     initialize_character_condition(ctx, character_id)?;
+     let mut needs = ctx
+         .db
+         .character_needs()
+@@ -693,9 +694,9 @@
+ pub(crate) fn mental_check(
+     ctx: &ReducerContext,
+     character_id: u64,
+     skill: Skill,
+-) -> Result<f32, String> {
++) -> crate::StrategicOperationResult<f32> {
+     let attributes = ctx
+         .db
+         .character_attributes()
+         .character_id()
+@@ -718,9 +719,9 @@
+         .character_skills()
+         .character_id()
+         .find(character_id)
+         .ok_or("Character skills not found")?;
+-    let equipment = StrategicEquipment::load(ctx, character_id);
++    let equipment = StrategicEquipment::load(ctx, character_id)?;
+     Ok(skills.skill_check_by_parts(
+         skill,
+         &attributes,
+         &limbs,
+@@ -864,9 +865,9 @@
+ fn party_religion_context(
+     ctx: &ReducerContext,
+     character_id: u64,
+     party_members: &[u64],
+-) -> Result<Option<(String, PartyReligionContext)>, String> {
++) -> StrategicOperationResult<Option<(String, PartyReligionContext)>> {
+     let mut cohorts: BTreeMap<String, Vec<f32>> = BTreeMap::new();
+     let mut commands = Vec::with_capacity(party_members.len());
+     for member_id in party_members.iter().copied() {
+         initialize_character_condition(ctx, member_id)?;
+@@ -933,9 +934,9 @@
+ 
+ fn base_morale(
+     ctx: &ReducerContext,
+     character_id: u64,
+-) -> Result<(f32, Vec<ProjectedMoraleSource>), String> {
++) -> StrategicOperationResult<(f32, Vec<ProjectedMoraleSource>)> {
+     let character = ctx
+         .db
+         .character()
+         .id()
+@@ -1237,9 +1238,9 @@
+ 
+ fn party_morale_support(
+     ctx: &ReducerContext,
+     party_members: &[u64],
+-) -> Result<(f32, Vec<(u64, f32)>), String> {
++) -> StrategicOperationResult<(f32, Vec<(u64, f32)>)> {
+     let mut commands = Vec::new();
+     let mut surplus_weights = Vec::new();
+     for member_id in party_members.iter().copied() {
+         commands.push(mental_check(ctx, member_id, Skill::Command)?);
+@@ -1265,9 +1266,9 @@
+     ctx: &ReducerContext,
+     character_id: u64,
+     morale_bonus_cap: f32,
+     morale_bonus_shares: &[(u64, f32)],
+-) -> Result<(CharacterStrategicCondition, Vec<ProjectedMoraleSource>), String> {
++) -> StrategicOperationResult<(CharacterStrategicCondition, Vec<ProjectedMoraleSource>)> {
+     initialize_character_condition(ctx, character_id)?;
+     let condition = ctx
+         .db
+         .character_condition()
+@@ -1402,9 +1403,9 @@
+     ctx: &ReducerContext,
+     character_id: u64,
+     morale_bonus_cap: f32,
+     morale_bonus_shares: &[(u64, f32)],
+-) -> Result<CharacterStrategicCondition, String> {
++) -> StrategicOperationResult<CharacterStrategicCondition> {
+     let (row, sources) =
+         evaluate_strategic_condition(ctx, character_id, morale_bonus_cap, morale_bonus_shares)?;
+     if let Some(existing) = ctx
+         .db
+@@ -1515,20 +1516,20 @@
+ 
+ fn refresh_character_strategic_condition_projection(
+     ctx: &ReducerContext,
+     character_id: u64,
+-) -> Result<CharacterStrategicCondition, String> {
++) -> StrategicOperationResult<CharacterStrategicCondition> {
+     let party_members = party_character_ids(ctx, character_id)?;
+     let rows = refresh_party_strategic_condition_projection(ctx, &party_members)?;
+     rows.into_iter()
+         .find(|row| row.character_id == character_id)
+-        .ok_or_else(|| "Character is not a member of their party".to_string())
++        .ok_or_else(|| "Character is not a member of their party".into())
+ }
+ 
+ fn refresh_party_strategic_condition_projection(
+     ctx: &ReducerContext,
+     party_members: &[u64],
+-) -> Result<Vec<CharacterStrategicCondition>, String> {
++) -> StrategicOperationResult<Vec<CharacterStrategicCondition>> {
+     let (morale_bonus_cap, morale_bonus_shares) = party_morale_support(ctx, party_members)?;
+     let rows = party_members
+         .iter()
+         .copied()
+@@ -1547,9 +1548,9 @@
+ 
+ pub fn refresh_character_strategic_condition(
+     ctx: &ReducerContext,
+     character_id: u64,
+-) -> Result<CharacterStrategicCondition, String> {
++) -> StrategicOperationResult<CharacterStrategicCondition> {
+     let mut requested = refresh_character_strategic_condition_projection(ctx, character_id)?;
+     if refuse_expired_holy_day_demands(ctx, character_id, false)? {
+         requested = refresh_character_strategic_condition_projection(ctx, character_id)?;
+     }
+@@ -1564,9 +1565,9 @@
+ fn refuse_expired_holy_day_demands(
+     ctx: &ReducerContext,
+     character_id: u64,
+     departing: bool,
+-) -> Result<bool, String> {
++) -> StrategicOperationResult<bool> {
+     let current_minute = crate::time::refresh_clock(ctx)?;
+     let current_day = current_minute.day_index();
+     let pending: Vec<_> = ctx
+         .db
+@@ -1612,9 +1613,9 @@
+ pub fn resolve_religious_demand(
+     ctx: &ReducerContext,
+     demand_id: u64,
+     choice: String,
+-) -> Result<(), String> {
++) -> StrategicOperationResult<()> {
+     let mut demand = ctx
+         .db
+         .religious_demand()
+         .id()
+@@ -1697,9 +1698,9 @@
+     character_id: u64,
+     kind: MoraleEventKind,
+     magnitude: f32,
+     source_id: Option<String>,
+-) -> Result<(), String> {
++) -> StrategicOperationResult<()> {
+     if magnitude == 0.0 || !magnitude.is_finite() {
+         return Ok(());
+     }
+     let occurred_at_minute = ctx
+@@ -1835,9 +1836,9 @@
+ pub(crate) fn record_immediate_prayer_morale(
+     ctx: &ReducerContext,
+     character_id: u64,
+     minutes: u16,
+-) -> Result<(), String> {
++) -> StrategicOperationResult<()> {
+     let party_members = party_character_ids(ctx, character_id)?;
+     let (kind, magnitude) = if let Some((_religion_id, religion)) =
+         party_religion_context(ctx, character_id, &party_members)?
+     {
+@@ -1859,9 +1860,9 @@
+         Some(format!("activity:{}", kind.as_str())),
+     )
+ }
+ 
+-fn party_command(ctx: &ReducerContext, character_id: u64) -> Result<f32, String> {
++fn party_command(ctx: &ReducerContext, character_id: u64) -> StrategicOperationResult<f32> {
+     Ok(aggregate_party_command(
+         party_character_ids(ctx, character_id)?
+             .into_iter()
+             .map(|id| mental_check(ctx, id, Skill::Command))
+@@ -1885,9 +1886,9 @@
+     character_id: u64,
+     starting_minute: StrategicMinute,
+     elapsed_minutes: u64,
+     prayer_minutes: u16,
+-) -> Result<(), String> {
++) -> StrategicOperationResult<()> {
+     if elapsed_minutes > adventuresim_core::alcohol::MAX_ALCOHOL_INTERVAL_MINUTES {
+         return Err("Travel condition interval cannot exceed one year".into());
+     }
+     let interval_end = starting_minute
+@@ -1959,9 +1960,9 @@
+     ctx: &ReducerContext,
+     character_id: u64,
+     canonical_start: StrategicMinute,
+     canonical_end: StrategicMinute,
+-) -> Result<(), String> {
++) -> StrategicOperationResult<()> {
+     let elapsed = canonical_end.elapsed_since(canonical_start);
+     if elapsed == 0 {
+         return Ok(());
+     }
+@@ -1994,9 +1995,9 @@
+ pub fn apply_rest_condition(
+     ctx: &ReducerContext,
+     character_id: u64,
+     elapsed_minutes: u64,
+-) -> Result<(), String> {
++) -> StrategicOperationResult<()> {
+     initialize_character_condition(ctx, character_id)?;
+     let _ = elapsed_minutes;
+     refresh_character_strategic_condition(ctx, character_id).map(|_| ())
+ }
+@@ -2082,9 +2083,9 @@
+     character_id: u64,
+     schedule: DailySchedule,
+     elapsed_minutes: u64,
+     interval_end_minute: StrategicMinute,
+-) -> Result<(), String> {
++) -> crate::StrategicOperationResult<()> {
+     let mut stats = ctx
+         .db
+         .character_stats()
+         .character_id()
+@@ -2114,9 +2115,9 @@
+ pub fn apply_camp_rest_condition(
+     ctx: &ReducerContext,
+     character_id: u64,
+     elapsed_minutes: u64,
+-) -> Result<(), String> {
++) -> StrategicOperationResult<()> {
+     initialize_character_condition(ctx, character_id)?;
+     apply_elapsed_needs(ctx, character_id, elapsed_minutes)?;
+     apply_camp_rest_recovery_condition(ctx, character_id, elapsed_minutes)
+ }
+@@ -2126,9 +2127,9 @@
+ pub fn apply_camp_rest_recovery_condition(
+     ctx: &ReducerContext,
+     character_id: u64,
+     elapsed_minutes: u64,
+-) -> Result<(), String> {
++) -> StrategicOperationResult<()> {
+     let days = elapsed_minutes as f32 / (24.0 * 60.0);
+     let mut stats = ctx
+         .db
+         .character_stats()
+@@ -2143,9 +2144,9 @@
+ pub fn apply_blood_loss(
+     ctx: &ReducerContext,
+     character_id: u64,
+     fraction_of_maximum: f32,
+-) -> Result<(), String> {
++) -> StrategicOperationResult<()> {
+     initialize_character_condition(ctx, character_id)?;
+     let mut condition = ctx
+         .db
+         .character_condition()
+@@ -2180,9 +2181,9 @@
+ pub fn set_blood_fraction(
+     ctx: &ReducerContext,
+     character_id: u64,
+     fraction: f32,
+-) -> Result<(), String> {
++) -> StrategicOperationResult<()> {
+     initialize_character_condition(ctx, character_id)?;
+     let mut condition = ctx
+         .db
+         .character_condition()
+@@ -2209,9 +2210,9 @@
+         refresh_character_strategic_condition(ctx, character_id).map(|_| ())
+     }
+ }
+ 
+-pub fn require_character_ready(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {
++pub fn require_character_ready(ctx: &ReducerContext, character_id: u64) -> StrategicOperationResult<()> {
+     crate::character::require_living_character(ctx, character_id)?;
+     let condition = refresh_character_strategic_condition(ctx, character_id)?;
+     if condition.status == IncapacitationStatus::Incapacitated {
+         Err("Character is incapacitated and must recover before acting".into())
+@@ -2219,9 +2220,9 @@
+         Ok(())
+     }
+ }
+ 
+-pub fn require_characters_ready(ctx: &ReducerContext, character_ids: &[u64]) -> Result<(), String> {
++pub fn require_characters_ready(ctx: &ReducerContext, character_ids: &[u64]) -> StrategicOperationResult<()> {
+     for character_id in character_ids {
+         crate::character::require_living_character(ctx, *character_id)?;
+     }
+     let conditions = refresh_party_strategic_condition_projection(ctx, character_ids)?;
+@@ -2234,18 +2235,18 @@
+     Ok(())
+ }
+ 
+ #[reducer]
+-pub fn refresh_strategic_condition(ctx: &ReducerContext, character_id: u64) -> Result<(), String> {
++pub fn refresh_strategic_condition(ctx: &ReducerContext, character_id: u64) -> StrategicOperationResult<()> {
+     refresh_character_strategic_condition(ctx, character_id).map(|_| ())
+ }
+ 
+ #[reducer]
+ pub fn set_character_religion(
+     ctx: &ReducerContext,
+     character_id: u64,
+     religion_id: String,
+-) -> Result<(), String> {
++) -> StrategicOperationResult<()> {
+     crate::strategic::require_strategic_character_authority(ctx, character_id)?;
+     crate::character::require_living_character(ctx, character_id)?;
+     initialize_character_condition(ctx, character_id)?;
+     let religion_id = religion_id.trim();

@@ -1,0 +1,85 @@
+[
+  {
+    "id": "SEGO-INITIAL09-CROSSLENS-309-endpoint-interruption",
+    "sources": [
+      {
+        "scope_index": 281,
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/encounters.rs",
+        "sha256": "3c9ffa24338de25378c4f5b46c684ed6e4dbe34e70b4edff6badc1df3f025340",
+        "ranges": [
+          [
+            510,
+            588
+          ]
+        ]
+      },
+      {
+        "scope_index": 288,
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/journey_camp.rs",
+        "sha256": "ab3af7b5a55d4b5ecd5974feef7679c29546ab298f39086ee9b92bc1977a7f0d",
+        "ranges": [
+          [
+            253,
+            277
+          ],
+          [
+            332,
+            369
+          ]
+        ]
+      },
+      {
+        "scope_index": 299,
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs",
+        "sha256": "0d84cd735fae1cf275ad3e2003b55b209f41cdf0c4dc22c8acdeb1b7809864d2",
+        "ranges": [
+          [
+            305,
+            338
+          ],
+          [
+            725,
+            758
+          ],
+          [
+            885,
+            915
+          ]
+        ]
+      }
+    ],
+    "observation": "Source permits selected interruption at requested travel endpoint and retains Journey location with remaining0; resolved-stop promotion requires incomplete movement, continuation current/between checks also require incomplete movement, so endpoint interruption has no continuable arrival path shown.",
+    "qualification": "Static API/boundary witness. Ordinary chosen seed/endpoint trigger not executed or fully traced. Not separate09finding; parent may reconcile with existing journey lifecycle/remedy.",
+    "coordinator_notified": true
+  },
+  {
+    "id": "SEGO-INITIAL09-CROSSLENS-309-abstract-weather-origin",
+    "sources": [
+      {
+        "scope_index": 298,
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/travel_planning.rs",
+        "sha256": "72e17030fb5f5e7f0337b78091c7ab5eddcac318c91f5a3ba7a246a3a7ba860b",
+        "ranges": [
+          [
+            12,
+            31
+          ]
+        ]
+      },
+      {
+        "scope_index": 299,
+        "source_id": "physical-p16:crates/adventuresim-stdb-module/src/strategic/travel_reducers.rs",
+        "sha256": "0d84cd735fae1cf275ad3e2003b55b209f41cdf0c4dc22c8acdeb1b7809864d2",
+        "ranges": [
+          [
+            51,
+            85
+          ]
+        ]
+      }
+    ],
+    "observation": "Authoritative straight-line helper accepts coordinates_are_geographic=false and valid UnboundedCoordinateE7 pair, then unconditional Wgs84CoordinateE7::new forweather rejects legal abstract longitude200 latitude0 after representableE7encoding.",
+    "qualification": "Static private API witness; normal abstract200 producer untraced/no execution. Intentionally hybrid encoder/decoder remain correct; source-specific abstract route/weather owner association needs reconciliation, not force-WGS. Linked F243/F100 conceptual dependencies, no automatic alias/globalcount.",
+    "coordinator_notified": true
+  }
+]

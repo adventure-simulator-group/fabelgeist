@@ -1,0 +1,52 @@
+2026-10-21T03:20:16.5437597Z     Checking adventuresim-strategic-sim v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-strategic-sim)
+2026-10-21T03:20:25.4517256Z     Checking adventuresim-tactical-netcode v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-netcode)
+2026-10-21T03:20:28.6331749Z error[E0432]: unresolved import `super::generation`
+2026-10-21T03:20:28.6336590Z   --> crates/adventuresim-tactical-client/src/presentation/strategic_scene_assets.rs:3:12
+2026-10-21T03:20:28.6385981Z    |
+2026-10-21T03:20:28.6396172Z  3 | use super::generation::PreparationResult;
+2026-10-21T03:20:28.6397106Z    |            ^^^^^^^^^^ could not find `generation` in `super`
+2026-10-21T03:20:28.6397800Z    |
+2026-10-21T03:20:28.6398306Z note: found an item that was configured out
+2026-10-21T03:20:28.6399576Z   --> crates/adventuresim-tactical-client/src/presentation/mod.rs:19:16
+2026-10-21T03:20:28.6400300Z    |
+2026-10-21T03:20:28.6400822Z 18 | #[cfg(any(target_family = "wasm", test))]
+2026-10-21T03:20:28.6401685Z    |          ------------------------------ the item is gated here
+2026-10-21T03:20:28.6402522Z 19 | pub(crate) mod generation;
+2026-10-21T03:20:28.6403126Z    |                ^^^^^^^^^^
+2026-10-21T03:20:28.6403465Z 
+2026-10-21T03:20:28.6404047Z error[E0432]: unresolved import `crate::presentation::generation`
+2026-10-21T03:20:28.6436267Z   --> crates/adventuresim-tactical-client/src/presentation/vista/streets/prepared.rs:3:26
+2026-10-21T03:20:28.6465730Z    |
+2026-10-21T03:20:28.6506596Z  3 | use crate::presentation::generation::PreparationResult;
+2026-10-21T03:20:28.6526219Z    |                          ^^^^^^^^^^ could not find `generation` in `presentation`
+2026-10-21T03:20:28.6535689Z    |
+2026-10-21T03:20:28.6536302Z note: found an item that was configured out
+2026-10-21T03:20:28.6537301Z   --> crates/adventuresim-tactical-client/src/presentation/mod.rs:19:16
+2026-10-21T03:20:28.6538657Z    |
+2026-10-21T03:20:28.6539275Z 18 | #[cfg(any(target_family = "wasm", test))]
+2026-10-21T03:20:28.6540259Z    |          ------------------------------ the item is gated here
+2026-10-21T03:20:28.6541064Z 19 | pub(crate) mod generation;
+2026-10-21T03:20:28.6541682Z    |                ^^^^^^^^^^
+2026-10-21T03:20:28.6542022Z 
+2026-10-21T03:20:32.4287760Z     Checking adventuresim-tactical-server-dispatcher v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-server-dispatcher)
+2026-10-21T03:20:33.0117299Z     Checking adventuresim-tactical-server v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/adventuresim-tactical-server)
+2026-10-21T03:20:33.6347033Z error[E0432]: unresolved import `crate::scene_spawn`
+2026-10-21T03:20:33.6406740Z  --> crates/adventuresim-tactical-server/src/player_projection/spawn_admission.rs:7:5
+2026-10-21T03:20:33.6436029Z   |
+2026-10-21T03:20:33.6466687Z 7 |     scene_spawn::{SceneSpawnError, SceneSpawnResult},
+2026-10-21T03:20:33.6496431Z   |     ^^^^^^^^^^^ could not find `scene_spawn` in the crate root
+2026-10-21T03:20:33.6525486Z 
+2026-10-21T03:20:33.8396643Z error[E0433]: cannot find `scene_spawn` in `crate`
+2026-10-21T03:20:33.8426546Z    --> crates/adventuresim-tactical-server/src/player_projection.rs:545:32
+2026-10-21T03:20:33.8445887Z     |
+2026-10-21T03:20:33.8476500Z 545 |     let Some(terrain) = crate::scene_spawn::authoritative_terrain(&q_scene)? else {
+2026-10-21T03:20:33.8506178Z     |                                ^^^^^^^^^^^ could not find `scene_spawn` in the crate root
+2026-10-21T03:20:33.8535349Z 
+2026-10-21T03:20:36.1577122Z     Checking strategic-web v0.1.0 (/home/runner/work/fabelgeist/fabelgeist/crates/strategic-web)
+2026-10-21T03:20:38.1584695Z Some errors have detailed explanations: E0432, E0433.
+2026-10-21T03:20:38.1586168Z For more information about an error, try `rustc --explain E0432`.
+2026-10-21T03:20:38.1768332Z error: could not compile `adventuresim-tactical-server` (lib) due to 2 previous errors
+2026-10-21T03:20:38.1770330Z warning: build failed, waiting for other jobs to finish...
+2026-10-21T03:20:52.5046198Z For more information about this error, try `rustc --explain E0432`.
+2026-10-21T03:20:52.5330544Z error: could not compile `adventuresim-tactical-client` (lib) due to 2 previous errors
+2026-10-21T03:20:52.6360840Z ##[error]Process completed with exit code 101.

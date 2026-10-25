@@ -1,0 +1,43 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-004",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "native-yaml-error-granularity",
+      "sources": [
+        {
+          "scope_index": 18,
+          "ranges": [
+            [
+              676,
+              1100
+            ],
+            [
+              1960,
+              1985
+            ],
+            [
+              2227,
+              2270
+            ]
+          ]
+        },
+        {
+          "scope_index": 19,
+          "ranges": [
+            [
+              20,
+              44
+            ]
+          ]
+        }
+      ],
+      "distinction": "Native nonexhaustive YAML Error preserves specific syntax/type/policy/include/validation reasons, optional actual source locations, native I/O cause and snippet context. DeserializeError export is native descriptive alias of same owner, not proof a second application error wrapper is useful.",
+      "uses": "Display renders default snippets; custom serde error necessarily formats an arbitrary Display value and stores redacted text, whereas explicit variants retain fields. Empty std::error::Error impl2233 does not provide source traversal to nested stored causes, so retaining native Error and direct access pattern matters; do not claim every dependency inner error automatically walks source().",
+      "disposition": "Keep concrete native deserialization error as source at actual application boundary, add meaningful recipe/path/stage context only where it prevents actual mix-up. No useful simplification from flattening all YAML reasons into String or cloning the entire native variant taxonomy in game modules. Source text/name fields are open parser metadata, not closed game vocabulary.",
+      "acceptance": "Actual recipes/config callers must be reviewed independently11; preserve YAML native error ownership and source/snippet/location limits, avoid branching on rendered prose. Native Error::custom text conversion is real serde adapter, not justification for early loss of an owned game cause. No parser execution or dependency error implementation change."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

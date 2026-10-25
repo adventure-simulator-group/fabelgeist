@@ -1,0 +1,91 @@
+//! Artist controls and canonical recipe defaults.
+use super::*;
+
+crate::parameters::parameter_block! {
+    pub struct Parameters {
+        segments_per_strip: i32 = 2;
+        grain: crate::board_grain::Parameters = floor_grain();
+        joint_srgb: [u8; 3] = [64, 45, 29];
+        nail_srgb: [u8; 3] = [42, 42, 40];
+        sample_plank_floor_cut_skew_metres: f32 = 0.010;
+        sample_plank_floor_end_inside_board_1: f32 = 0.035;
+        sample_plank_floor_end_inside_board_2: f32 = 0.035;
+        sample_plank_floor_cup_1: f32 = 4.0;
+        sample_plank_floor_cup_2: f32 = 0.34;
+        sample_plank_floor_cup_3: f32 = 0.010;
+        sample_plank_floor_cup_4: f32 = 0.010;
+        sample_plank_floor_traffic_center_1: f32 = 0.56;
+        sample_plank_floor_traffic_center_2: f32 = 0.055;
+        sample_plank_floor_traffic_center_3: f32 = 0.025;
+        sample_plank_floor_traffic_center_4: f32 = 1.4;
+        sample_plank_floor_wear_1: f32 = 0.17;
+        sample_plank_floor_wear_2: f32 = 0.68;
+        sample_plank_floor_wear_3: f32 = 0.32;
+        sample_plank_floor_height_1: f32 = 0.66;
+        sample_plank_floor_height_2: f32 = 0.018;
+        sample_plank_floor_height_3: f32 = 0.16;
+        sample_plank_floor_height_4: f32 = 0.035;
+        sample_plank_floor_height_5: f32 = 0.53;
+        sample_plank_floor_height_6: f32 = 0.16;
+        sample_plank_floor_roughness_1: f32 = 0.77;
+        sample_plank_floor_roughness_2: f32 = 0.018;
+        sample_plank_floor_roughness_3: f32 = 0.12;
+        sample_plank_floor_roughness_4: f32 = 0.08;
+        sample_plank_floor_roughness_5: f32 = 0.05;
+        sample_plank_floor_roughness_6: f32 = 0.15;
+        sample_plank_floor_roughness_7: f32 = 0.54;
+        sample_plank_floor_roughness_8: f32 = 0.94;
+        sample_plank_floor_ao_1: f32 = 0.46;
+        sample_plank_floor_ao_2: f32 = 0.05;
+        sample_plank_floor_ao_3: f32 = 0.24;
+        sample_plank_floor_ao_4: f32 = 0.08;
+        sample_plank_floor_ao_5: f32 = 0.48;
+        nail_profile_side_1: f32 = 0.14;
+        nail_profile_side_2: f32 = 0.86;
+        joint_profile_feather: f32 = 0.85;
+        finite_surface_features_center_u_1: f32 = 0.18;
+        finite_surface_features_center_u_2: f32 = 0.64;
+        finite_surface_features_dx: f32 = 0.035;
+        finite_surface_features_width_1: f32 = 0.006;
+        finite_surface_features_width_2: f32 = 0.006;
+        finite_surface_features_half_length_1: f32 = 0.06;
+        finite_surface_features_half_length_2: f32 = 0.09;
+        finite_surface_features_center_u_1_layer: f32 = 0.14;
+        finite_surface_features_center_u_2_layer: f32 = 0.72;
+        finite_surface_features_dx_1: f32 = 0.10;
+        finite_surface_features_dx_2: f32 = 0.08;
+        finite_surface_features_dy_1: f32 = 0.10;
+        finite_surface_features_dy_2: f32 = 0.16;
+        finite_surface_features_facet_1: f32 = 0.45;
+        finite_surface_features_facet_2: f32 = 0.08;
+        finite_surface_features_pore_phase_1: f32 = 31.0;
+        finite_surface_features_pore_phase_2: f32 = 7.0;
+        finite_surface_features_pore_1: f32 = 0.48;
+        finite_surface_features_pore_2: f32 = 0.94;
+        finite_surface_features_pore_3: f32 = 0.06;
+        finite_surface_features_pore_4: f32 = 19.0;
+        finite_surface_features_pore_5: f32 = 0.72;
+        finite_surface_features_pore_6: f32 = 0.28;
+        finite_surface_features_pore_7: f32 = 0.28;
+        edge_warp_amplitude_metres_1: f32 = 0.0018;
+        edge_warp_amplitude_metres_2: f32 = 0.0024;
+        tile_metres: f32 = PLANK_FLOOR_TILE_METRES;
+        height_range_metres: f32 = PLANK_FLOOR_HEIGHT_RANGE_METRES;
+        board_count: i32 = BOARD_COUNT;
+        joist_stations: i32 = JOIST_STATIONS;
+        edge_gap_metres: f32 = EDGE_GAP_METRES;
+        end_gap_metres: f32 = END_GAP_METRES;
+    }
+}
+
+/// Sawn floorboards have close, low-contrast growth bands; joints remain distinct.
+fn floor_grain() -> crate::board_grain::Parameters {
+    crate::board_grain::Parameters {
+        ring_count: 28,
+        knot_fraction: 0.12,
+        knot_radius: [0.065, 0.04],
+        light_srgb: [115, 82, 48],
+        dark_srgb: [108, 76, 44],
+        ..Default::default()
+    }
+}

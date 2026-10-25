@@ -1,0 +1,163 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-251",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/main.rs",
+      "sha256": "0fd91dac25a4b0b05eb65c51f7aa7bc5740bd0de5adff082320dd247d83b2444",
+      "actual_EOF": 726,
+      "actual_compared_ranges": [
+        [
+          1,
+          726
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/main.rs",
+      "sha256": "a52f98db1a5b753a3b5f3d54348ffa36df35e266644e667489c8a1784508b150",
+      "actual_EOF": 726,
+      "actual_compared_ranges": [
+        [
+          1,
+          726
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Startup native duration admission and explicit optional timeout",
+      "source_ranges": {
+        "main.rs": [
+          [
+            1,
+            250
+          ]
+        ]
+      },
+      "disposition": "Complete P16 main and actual full PR delta consumed. Scene/combat StartupInputs load happens before app resources; expected party parser >=1 supports NonZero conversion, but raw f32 timeout/grace feed panicking native timer. Exact new source candidate saved finding-cli-native-duration.json with local actual parser/native duration proof, no command invoked. No-timeout remains separate Boolean applicability; combat/scene config validity does not validate CLI duration. Generated DB bindings imported and reducers used at ABI; no binding edits or tactical persistence introduced."
+    },
+    {
+      "contract": "System scheduling, dump restore and scene native geometry handoff",
+      "source_ranges": {
+        "main.rs": [
+          [
+            188,
+            726
+          ]
+        ]
+      },
+      "disposition": "Actual spawn_connected_players+ApplyDeferred chain owns visibility before terminal checks; terminal submission result after DBupdate ordering explicit. Debug standalone bypasses DB plugin/join authority only when dump provided; malformed dump parse errors return before write, but scene.write_to_world error may partially mutate then flush/hooks/replication before reporting. No atomic scene-restore promise or new gameplay-state defect inferred; dump allowlist loader/exact framework write contract remain dependency. NoAssetHandles unimplemented depends actual allowlist (fixtures source read, not executed). Worldbounds width/depth uses u16 saturating_sub then finite authored spacing product; full scene admission must own meaningful dimensions/product, no huge default overflow demonstrated. Scene generation then multiple Commands spawns may precede later fallible opening/reducer call; no global rollback promise assumed. DB server creation authoritative enemy enrollment preserved, no durable tick-state write. Full native/debug fixture bodies read without execution; sibling debug test modules not imported as coverage."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-CLI-NATIVE-DURATION-001",
+      "classification": "source-backed malformed CLI admission reaches panic; no CLI invocation or ordinary default failure",
+      "source_variants": [
+        "physical-p16",
+        "pr-working"
+      ],
+      "source_ranges": {
+        "crates/adventuresim-tactical-server/src/main.rs": [
+          [
+            100,
+            110
+          ],
+          [
+            174,
+            182
+          ]
+        ]
+      },
+      "case": "With otherwise valid required args/startup inputs, explicit --party-reconnect-grace NaN, a negative f32 supplied through option=value, or sufficiently large finite seconds pass raw f32 parsing and reach Duration::from_secs_f32. The native contract panics for nonfinite/negative/overflow. --timeout analog uses Timer::from_seconds then same native constructor when timeout enabled.",
+      "qualifications": [
+        "No command/server was executed. Shipped timeout300s and resolved PARTY_RECONNECT_GRACE10s remain representable.",
+        "Pinned Cargo.lock Bevy_time0.19.1 and clap_builder4.6.6 actual cached source read; installed Rust standard-library source documents/implements the panic and float nonfinite parser, supplemental dependency proof only, not original audit scope coverage.",
+        "Clap expected_party_members has explicit 1.. parser and NonZeroU32 expect is supported; do not conflate with unbounded raw f32 args. no_timeout is distinct deliberate applicability state, not numeric sentinel."
+      ],
+      "connected_repair": "Admit enabled mission timeout and reconnect grace at CLI/startup owner into checked native-duration-capable quantities with structured diagnostic before constructing MissionState. Preserve disabled timeout separately and explicitly decide zero grace/timeout policy; do not add arbitrary duration cap or compatibility path.",
+      "acceptance": "All accepted CLI time values construct native timers without panic; nonfinite/negative/out-of-native-range reject through normal CLI/startup error. Defaults and no-timeout semantics remain coherent. No tests/checks/builds run."
+    }
+  ],
+  "fresh_dependencies": [
+    {
+      "path": "/home/brunosegovia/.rustup/toolchains/nightly-2026-07-13-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/time.rs",
+      "sha256": "12efe985ec205c32a8813a64c889464f5d7692d3a5fe97ab3e12088d9964b526",
+      "actually_read_ranges": [
+        [
+          965,
+          1002
+        ],
+        [
+          1720,
+          1782
+        ]
+      ],
+      "coverage": "Supplemental exact local dependency critical bodies; no original-role credit."
+    },
+    {
+      "path": "/home/brunosegovia/.rustup/toolchains/nightly-2026-07-13-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/num/imp/dec2flt/mod.rs",
+      "sha256": "7198e238c554b692405537a446b3526ad66805ec2900cd0e299f10c51402a44a",
+      "actually_read_ranges": [
+        [
+          210,
+          234
+        ]
+      ],
+      "coverage": "Supplemental exact local dependency critical bodies; no original-role credit."
+    },
+    {
+      "path": "/home/brunosegovia/.rustup/toolchains/nightly-2026-07-13-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/library/core/src/num/imp/dec2flt/parse.rs",
+      "sha256": "9daf21ab9445a84552535152f376eef8c30f3d5827296c0645f5952d3b22bbf1",
+      "actually_read_ranges": [
+        [
+          190,
+          244
+        ]
+      ],
+      "coverage": "Supplemental exact local dependency critical bodies; no original-role credit."
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_time-0.19.1/src/timer.rs",
+      "sha256": "d7f2acb8af7af87ef86bad4e8ee07a1a2d008e6f60360b666eddc6c908073ca0",
+      "actually_read_ranges": [
+        [
+          40,
+          68
+        ]
+      ],
+      "coverage": "Supplemental exact local dependency critical bodies; no original-role credit."
+    },
+    {
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/clap_builder-4.6.6/src/builder/value_parser.rs",
+      "sha256": "4342c19e43fc783b7adea44c74d3bd35a13ee0f7982d79e63867c9d7258d4042",
+      "actually_read_ranges": [
+        [
+          2550,
+          2572
+        ]
+      ],
+      "coverage": "Supplemental exact local dependency critical bodies; no original-role credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-server/src/mission/systems.rs",
+      "pin": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "cc4bc873f502d3a08fc30a6f3d40d1d0752a81dfdee70651fb2c04737b64d6b8",
+      "actually_read_ranges": [
+        [
+          20,
+          32
+        ]
+      ],
+      "coverage": "Resolved owning grace default10s only; no whole-body credit."
+    }
+  ],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs"
+}

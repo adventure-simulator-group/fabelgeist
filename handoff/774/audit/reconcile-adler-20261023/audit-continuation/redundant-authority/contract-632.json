@@ -1,0 +1,108 @@
+{
+  "id": "CONT07-CONTRACT-632",
+  "at": "2026-10-24T00:50:13.719172+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2751,
+      "source_id": "pr-working:crates/fabelgeist-math/src/transform.rs",
+      "sha256": "db425ac10c79f92ed75f446051d52b90811ab3c5b2c5f28304959c9445182564",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-math/src/transform.rs",
+      "actual_EOF": 322,
+      "ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2752,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/framed_roofs.rs",
+      "sha256": "a59c1c293c17b206f5608ab7911c49309758f10c5c16101742cdbc6fcbe8a54b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/generator/framed_roofs.rs",
+      "actual_EOF": 46,
+      "ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2753,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/generator/roof_editing.rs",
+      "sha256": "53655cb95df237464c4b34646936dd085323800bf11a21f2f7762de11dd29b17",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/generator/roof_editing.rs",
+      "actual_EOF": 351,
+      "ranges": [
+        [
+          1,
+          229
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2754,
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/audit/bearing.rs",
+      "sha256": "426ca5b68aff61bdf650125502698d909d7c426408627fabf2172720f564bd29",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-building-generator/src/audit/bearing.rs",
+      "actual_EOF": 138,
+      "ranges": [
+        [
+          1,
+          58
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2755,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs",
+      "sha256": "64c0cb1ac75e094cf6521bf61ea6ad9eef9aa1a1ab63ca34ae3d395d3a66969a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-gpu/src/data/gpu/buffer/label.rs",
+      "actual_EOF": 28,
+      "ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2756,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/mod.rs",
+      "sha256": "7a84c8ef7c760fd6292dac52b88418a52a7e4831a5a3579e05d9fd19e4e856ad",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-gpu/src/data/mod.rs",
+      "actual_EOF": 13,
+      "ranges": [
+        [
+          7,
+          13
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "CAMERA-INITIAL07-F006",
+    "NATIVE-INITIAL05-F004"
+  ],
+  "facts": [
+    "Native math Transform retains TRS operands and derives matrix on demand; no independent editable matrix beside TRS here. look_at requires separately scoped matrix inverse/decomposition correctness before preserving/equating all affine transforms, no generic closed rigid-pose promise.",
+    "Actual roof-editing frontier confirms CAMERA-INITIAL07-F006/NATIVE-INITIAL05-F004: set_roof_pitch clones assembly/geometry and commits jointly only after success; it updates face geometry/catchments/routes/edges and physical weather/flashing solids but never matching support_interfaces. Bearing audit matches ANY same-owner/support-node interface, not matching descriptorID, so descriptor stale is concrete while universal missing_positive_bearing is not claimed. Original recipe authoring RoofPiece versus edited resolved assembly remains deliberate stage distinction, not missing source-authoring update defect. Framed roof resolution coordinates original assemblies/openings/timber through one staged product.",
+    "BufferLabel is exact native diagnostic identity distinct from shader lookup key, broadstrings intentional at allocation port. Reexport module gives actual native vector/transform owner linkage, no independent implementation or sourceclearance. No code/test execution."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2757,
+    "start_line": 1
+  }
+}

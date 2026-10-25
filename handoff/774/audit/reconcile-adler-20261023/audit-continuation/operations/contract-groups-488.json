@@ -1,0 +1,110 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-488",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/gardens/specimen.rs",
+      "sha256": "f4f7b85d6aa1694b5b2732810b329ac15caf2ebb77b71832a67880c70e0bd4d4",
+      "actual_EOF": 61,
+      "actual_compared_ranges": [
+        [
+          1,
+          61
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding.rs",
+      "sha256": "8d0975e7d71d04bd596bc3ceb324e894b59c7b9c68eff57d6b59420f47029f9c",
+      "actual_EOF": 407,
+      "actual_compared_ranges": [
+        [
+          1,
+          407
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/access.rs",
+      "sha256": "cf8f7790613cc67bc1de9815eea5ef31cc30c35b571b64930902c42c8d0469ab",
+      "actual_EOF": 115,
+      "actual_compared_ranges": [
+        [
+          1,
+          115
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/access/tests.rs",
+      "sha256": "95d01208f51eef1ecd658d46f278a2653900f5d066b8dbd204b06f92568df4fa",
+      "actual_EOF": 92,
+      "actual_compared_ranges": [
+        [
+          1,
+          92
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/boundaries.rs",
+      "sha256": "e66d93cefb4883a44af53783082b0b68b858239941caff7321c9e1f4def9c9d4",
+      "actual_EOF": 106,
+      "actual_compared_ranges": [
+        [
+          1,
+          106
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/compound.rs",
+      "sha256": "22142125daa3ad166d22b90691982c18b7e3de421212d6d49f62079e9ec0b26b",
+      "actual_EOF": 304,
+      "actual_compared_ranges": [
+        [
+          1,
+          304
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/compound/profiles.rs",
+      "sha256": "6ab4bf585e63e8be980b2d6913fe980abd7d17f035499e321ada84e8b0bd2b0b",
+      "actual_EOF": 171,
+      "actual_compared_ranges": [
+        [
+          1,
+          171
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Garden actual immutable hull source and finite physical owner arithmetic",
+      "evidence": "Full specimen61 parsed static embedded envelope; contains_local_vertex actual edge-length division requires nonduplicate convex finite envelope. No current malformed authored envelope proven. Grounding407 SupportElevation translation re-admits completed addition; signed elevations preserved. floor_translation_basis operates private clone, admitted unitoffset, local profiles/stairs then returns Result; never published accepted support plan. Multiheight retaining-boundary support intentionally preserves separate surfaces and bound member, not average."
+    },
+    {
+      "contract": "Continuous access subtraction and exterior unions",
+      "evidence": "Full access115/tests92/boundaries106: strips subtract each declared region to represent union, repeated endpoints zeroarea minimumwidth0 before edge projections, exterior intervals split by crossings/projected collinear endpoints and deduplicate internal/shared edges by owner. f64 geometry originates f32 scene coordinates; no root water XOR alias. Tests assert junction union, gap blocked and inputorder, not executed."
+    },
+    {
+      "contract": "Compound compile checked completed profile geometry before return",
+      "evidence": "Full compound304/profiles171: exact front/rear IDs, valid aligned contact/plot bounds, unique routes and positivewidth/longitudinalrun checked; completed passageRegion checked; plan.mesh/validate_bearings before return. CourtLevel deliberately moves rear/court floor to front datum, terraced retains distinctlevels and explicitstairs; repeated coordinate profile is retainingface notwalkableramp. street_gate_level raw reach/clamp arithmetic sourceconditional depends on actualroute/limits validation and caller order stillpending; no newly promoted ordinary panic. Profiles check finite constructed coordinates and ordering/grade through SupportProfile, no rawinvalid plan published from proved path."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "7 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/diagnostic.rs"
+}

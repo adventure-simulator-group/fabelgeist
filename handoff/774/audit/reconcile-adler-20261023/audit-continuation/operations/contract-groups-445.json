@@ -1,0 +1,58 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-445",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/markers.rs",
+      "sha256": "6ab27e02750fe474d00d1c066d9d98aa39c08f06179b38a58897149df8c53c04",
+      "actual_EOF": 74,
+      "actual_compared_ranges": [
+        [
+          1,
+          74
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/mod.rs",
+      "sha256": "365b296fd751df7d5a2a463d6c2ea22c5885f0a3b55d1c836004bb2617b38363",
+      "actual_EOF": 231,
+      "actual_compared_ranges": [
+        [
+          1,
+          231
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/sky/astrometry.rs",
+      "sha256": "553895e6bbe39722c38999355c9d30c0c5bd72f3e5a702b2143d5826b749b6f2",
+      "actual_EOF": 32,
+      "actual_compared_ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Map markers and command publication",
+      "analysis": "Markers require matching presented terrain/source/request, camera viewport and visible rectangular viewport; ranking and checked world_to_viewport reject absent/off-screen projections. Map commands update rectangle/pose/source revisions and reset settling; downstream scene source/readiness guards remain the authority for geometry. No unchecked accumulating operation with an ordinary invalid result found in these bodies. Open does not itself clear every presented resource, so source-cohort rejection remains an explicit dependency, not a claim of old geometry publication."
+    },
+    {
+      "contract": "Celestial geographic rotation",
+      "analysis": "Typed geographic latitude/longitude and strategic minute conversion feed finite f32 trig operations. Even terminal u64 minutes yield finite day and angular intermediates, with precision loss at extreme times; no ordinary NaN-overflow claim. Actual terminal-time reachability/calendar precision policy is distinct from finite-value preservation."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/presentation/sky/mod.rs"
+}

@@ -1,0 +1,35 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-496",
+  "at": "2026-10-25T15:53:01.147876+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 891,
+  "source_id": "pr-working:crates/adventuresim-core/src/combat.rs",
+  "sha256": "7d00629a7da937cf41b5bc49a86df7119cc7054743dce1f70ac2507a7aba59b0",
+  "actual_compared_ranges": [
+    [
+      1,
+      660
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "PlayerBody",
+      "type": "tests::MatchupCombatant",
+      "lines": [
+        [
+          527,
+          539
+        ]
+      ],
+      "disposition": "KEEP test healthy-body/rightside semantics with mass projection, not one embedded delegate."
+    }
+  ],
+  "analysis": "Fresh441\u2013660 completes force/armor damage, health energy conversion/apportionment (semantic formulas). New fixture PlayerBody527\u2013539 KEEP: constant healthy parts/rightside with specific mass field, not embedded traitdelegate; fixture Debug already derives. Remaining fixture bodies not yet read. Mul148\u2013182 retained494.",
+  "first_unfinished": {
+    "scope_index": 891,
+    "line": 661
+  },
+  "execution": "none"
+}

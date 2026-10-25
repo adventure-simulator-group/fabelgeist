@@ -1,0 +1,62 @@
+{
+  "id": "CONT08-CONTRACT-342",
+  "at": "2026-10-25T16:52:43.934093+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 1217,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/strategic/dialogue_schema.rs",
+      "before_sha256": "aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576",
+      "after_sha256": "aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1217-base-aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/aad9a8d85274246ec4a34ceaf33f869f44d80b116f75b304767d290aa15fe576",
+      "diff": "source-evidence/pr-1217.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          781
+        ]
+      ],
+      "head_body_read_method": "Fresh complete exact source bodies plus emptyPRdiff; actual guarded receiver narrows previous API-only question.",
+      "facts": [
+        "Fresh full781 unchangedPR schemas+views+sourcefixtures: localchat privateparty audience projected currentpartymembership forbothsides orNPCaudience only; sameparty avoidsdoubleprojection. Scripteddialogue privatebase rows/gatewaybucket projections expanded to everyplayerparticipant ID; no publicrawsession/witnessprivateauthority. Currentmembershiphistory semantics unchanged, no blanketprivacyclearance.",
+        "Session exacttaggeddialogue:u64:nonemptynonce withsplitn3 permitscoloninnonce, <=160/control gate; Activeonly, promptOpen/Resolvedexact, nativepolicynames unchanged. Runtimeidentity/JSONcolumns remainstorageadapters carrying stablefields, no generatedbindingedit.",
+        "Complete require_live_dialogue_presence checksnavigableexactplace, owningparty/samesettlement, everyNPCactor parsedu64+authoritativeprofile/presence, actorpersonalclockmandatory, nativehistoricalco-presence andexactorganizationrepresentative; primaryfirstNPC returnedonlyafterallvalidate. This actual guard narrows1216 malformedactorindex concern: ordinarymutationsfailbeforebinding ifNPCrawIDinvalid; playerSomeIDneverrequiresparsing. Fullsourcefixturesnotrun."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1218,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/dialogue_sessions.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/strategic/dialogue_sessions.rs",
+      "before_sha256": "86473c2872a35a61a69775dc2578440eeefe4b620a5414c4aa044ca98bacf412",
+      "after_sha256": "86473c2872a35a61a69775dc2578440eeefe4b620a5414c4aa044ca98bacf412",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1218-base-86473c2872a35a61a69775dc2578440eeefe4b620a5414c4aa044ca98bacf412",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/86473c2872a35a61a69775dc2578440eeefe4b620a5414c4aa044ca98bacf412",
+      "diff": "source-evidence/pr-1218.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          351
+        ]
+      ],
+      "head_body_read_method": "Fresh complete exact source bodies plus emptyPRdiff; actual guarded receiver narrows previous API-only question.",
+      "facts": [
+        "Fresh full351 plus emptyactualPRdiff. Start gateway/catalogue/living/partymember/settlement andcanonicalnavigableplace precedes parsedNPCid/PairwiseSoftfrontier/nativehistoricalco-presence, exactconversation/cataloguevalidation, typedownerboundnonce; existingrequest keepscurrentpresence. ActorconstructorplayerSomeu64 andNPCNone+canonicalu64string closes ordinary1216 unparsableactorcandidate, rawstoragecorruption/API alone notnewregression.",
+        "Newsession participantrole firstauthoredplayer, eachNPCrole one actualresident, extraNPC queriedco-present distinctroster, min>1rejects; fullcardinality+presence checkedafterinsertion. Normaladmittedcatalogue multiplicityandprivate rowconstruction retained, no runtime/transactionclaim. Greeting result usesauthoredsource alignment without testimony wherecatalogueforbids; orderedstart effects then actualproblemsurface/referraldelivery/rumorreceive/witnesscapability/topicrefresh.",
+        "InputNPC string parsednumeric at30 then storedcanonicalstring205, rumor speaker lookup300 comparesoriginalraw string; numerictextaliases such asleadingzero couldfailonlywhenrumordeliverypresent, actualgatewaycallerordinarycanonicalstring notyetprovedhere. Retainedsource/APIformatqualification, notintroduced774 ornewcount. Private/publicreferral sourceforms preserve own1216 disambiguation and current-speaker semantic proof."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    }
+  ],
+  "next": "Read1219 encounters1463 full in threeboundedreads; full diff alreadyread (typederror/result andsharedloader only)."
+}

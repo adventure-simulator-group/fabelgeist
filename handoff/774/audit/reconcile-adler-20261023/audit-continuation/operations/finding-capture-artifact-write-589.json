@@ -1,0 +1,21 @@
+{
+  "id": "SEGOVB-04-CAPTURE-ARTIFACT-WRITE-RECEIPT-CANDIDATE-001",
+  "status": "source-backed conditional nativefilesystem failure counterexample; no filesystem/capture/GPUexecution",
+  "source_variant": "report-p17",
+  "operation": "report/mod.rs invalidate_previous_report removesonlymanifest/index/failure/globaltrace. ExistingPNGnamesremain. capture.rs screenshotobserver calls save_to_disk(path)(captured), ignoresnativewriteoutcome (helperreturnsunit), advancesview/index andbuildreport. capture_artifacts_written checksmetadata.len>0 only.",
+  "witness": "AnexpectedcurrentframePNG alreadyexists frompriorrun andisnotwritable, whileoutputdirectory/summarypathsremainwritable; nativeimage savefailsopeningandoldnonemptyPNGstays. Or expected*.png pathisexistingnonemptydirectory, nativewritesfail butmetadata.len>0stilltrue. Sourceartifactgate seesoldfile/directoryaswrittenfornewcapture. Withotherwisevalidnewcapturethatgatefails toreflectIOerror; noactualoverallpassrunclaimed.",
+  "qualification": [
+    "Bevy native save_to_disk isSYNCHRONOUS, nottheinitialsuspectedasyncwrite race: exactSDKfunctionread dischargespendingwrite timingclaim.",
+    "SDKerror logged ratherthanpropagated; sourcecounterexampleconditionalonrepresentedfilesystemfailure/collision, notnormalcurrentoutput/run claim.",
+    "No deletion/permissionchange/captureexecutionperformed. Metadataexistencealone alsoisnotimage/pixel/provenanceverification.",
+    "Targeted1002recordaliassearchnoexactsave_to_disk/capture_artifacts_written record, notexhaustivesemanticuniqueness."
+  ],
+  "repair_cluster": "native-capture-artifact-commit-authority",
+  "dependencies": [
+    "capture screenshotcompletion ownsfalliblenativewrite",
+    "reportartifactcompleteness/currentcaptureidentity",
+    "failurepublication beforeacceptedmanifest/exit",
+    "pinnedBevyfunctionorfirstpartyfalliblesaveowner"
+  ],
+  "acceptance": "Eachrequiredviewhasacknowledgedsuccessfulwriteforcurrentcapturebeforeartifactcomplete/acceptedexit; oldnonemptyfile/directorycannotstandinforcurrentimage. Failedwriteproducesexplicitterminalartifactfailure; preserveunrelateduserfiles/outputpolicy andactualthree-view/renderedpixelproof. Noimplementation/testnow."
+}

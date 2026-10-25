@@ -1,0 +1,266 @@
+{
+  "id": "CONT-ROOT-PP-EXPANDED-MATERIAL-QUALIFIERS-004",
+  "lens": "audit-producer-propagation",
+  "created_at": "2026-10-22T02:20:21.926601+00:00",
+  "input": {
+    "record": "continuation/rig/expanded-producer-delta-map-049.json",
+    "sha256": "0dc306277a6865938b1915a025e925ab7569ec3f7d6ddba9ea4c1cc107f3673b"
+  },
+  "assigned_delta_observations": 6,
+  "dispositions": [
+    {
+      "delta_observation_index": 152,
+      "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row507/proofs/0",
+      "source_id": "pr-working:crates/adventuresim-core/build.rs",
+      "sha256": "fc42ea1f2234144e94d6bfac86f254cd059799b9f9e5ae6de7f77e3125f19b7c",
+      "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+      "parent_trace": "ROOT-PPS-CAMERA-WEAPON-INSTANCE-CATALOGUE-PACKET-044",
+      "json_pointer": "/additional_fresh_sources/3",
+      "recorded_read_ranges": [
+        [
+          90,
+          132
+        ],
+        [
+          210,
+          355
+        ]
+      ],
+      "material_contract_ranges": [
+        [
+          220,
+          344
+        ],
+        [
+          108,
+          109
+        ]
+      ],
+      "disposition": "Exact material-range qualifier consumed; actual bounded source/recipient role accounted with existing findings; larger physical read is not unrelated function coverage. Original requested changed-file fullscope is never reduced by a supplementary qualifier.",
+      "source_role_proof": "pr-working:crates/adventuresim-core/build.rs",
+      "unresolved_actual_recipient": []
+    },
+    {
+      "delta_observation_index": 153,
+      "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row507/proofs/2",
+      "source_id": "pr-working:crates/adventuresim-core/build.rs",
+      "sha256": "fc42ea1f2234144e94d6bfac86f254cd059799b9f9e5ae6de7f77e3125f19b7c",
+      "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+      "parent_trace": "CAM-PPS-WEAPON-INSTANCE-CATALOGUE-038",
+      "json_pointer": "/related_current_sources/3",
+      "recorded_read_ranges": [
+        [
+          90,
+          132
+        ],
+        [
+          210,
+          355
+        ]
+      ],
+      "material_contract_ranges": [
+        [
+          220,
+          344
+        ],
+        [
+          108,
+          109
+        ]
+      ],
+      "disposition": "Exact material-range qualifier consumed; actual bounded source/recipient role accounted with existing findings; larger physical read is not unrelated function coverage. Original requested changed-file fullscope is never reduced by a supplementary qualifier.",
+      "source_role_proof": "pr-working:crates/adventuresim-core/build.rs",
+      "unresolved_actual_recipient": []
+    },
+    {
+      "delta_observation_index": 171,
+      "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row1082/proofs/0",
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/solids.rs",
+      "sha256": "b139a5600efc6654b3209ce230bb22ba7713836752f49c867f7b6996bcabb0c2",
+      "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+      "parent_trace": "ROOT-PPS-CAMERA-WEAPON-SHAPE-PACKET-041",
+      "json_pointer": "/additional_fresh_sources/4",
+      "recorded_read_ranges": [
+        [
+          1,
+          118
+        ],
+        [
+          280,
+          389
+        ]
+      ],
+      "material_contract_ranges": [
+        [
+          5,
+          9
+        ],
+        [
+          70,
+          113
+        ],
+        [
+          290,
+          321
+        ]
+      ],
+      "disposition": "Exact material-range qualifier consumed; actual bounded source/recipient role accounted with existing findings; larger physical read is not unrelated function coverage. Original requested changed-file fullscope is never reduced by a supplementary qualifier.",
+      "source_role_proof": "pr-working:crates/adventuresim-weapon-model/src/construction/solids.rs",
+      "unresolved_actual_recipient": []
+    },
+    {
+      "delta_observation_index": 172,
+      "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row1082/proofs/2",
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/solids.rs",
+      "sha256": "b139a5600efc6654b3209ce230bb22ba7713836752f49c867f7b6996bcabb0c2",
+      "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+      "parent_trace": "CAM-PPS-WEAPON-SHAPE-037",
+      "json_pointer": "/related_current_sources/4",
+      "recorded_read_ranges": [
+        [
+          1,
+          118
+        ],
+        [
+          280,
+          389
+        ]
+      ],
+      "material_contract_ranges": [
+        [
+          5,
+          9
+        ],
+        [
+          70,
+          113
+        ],
+        [
+          290,
+          321
+        ]
+      ],
+      "disposition": "Exact material-range qualifier consumed; actual bounded source/recipient role accounted with existing findings; larger physical read is not unrelated function coverage. Original requested changed-file fullscope is never reduced by a supplementary qualifier.",
+      "source_role_proof": "pr-working:crates/adventuresim-weapon-model/src/construction/solids.rs",
+      "unresolved_actual_recipient": []
+    },
+    {
+      "delta_observation_index": 173,
+      "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row1083/proofs/0",
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/surface_refinement.rs",
+      "sha256": "0c28888bf192ddcf2768b572e9cbd672a5ec2af2bc0c38d46af448782d987a65",
+      "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/root/traces.jsonl",
+      "parent_trace": "ROOT-PPS-CAMERA-WEAPON-SHAPE-PACKET-041",
+      "json_pointer": "/additional_fresh_sources/5",
+      "recorded_read_ranges": [
+        [
+          1,
+          125
+        ]
+      ],
+      "material_contract_ranges": [
+        [
+          60,
+          112
+        ]
+      ],
+      "disposition": "Exact material-range qualifier consumed; actual bounded source/recipient role accounted with existing findings; larger physical read is not unrelated function coverage. Original requested changed-file fullscope is never reduced by a supplementary qualifier.",
+      "source_role_proof": "pr-working:crates/adventuresim-weapon-model/src/construction/surface_refinement.rs",
+      "unresolved_actual_recipient": []
+    },
+    {
+      "delta_observation_index": 174,
+      "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row1083/proofs/1",
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/surface_refinement.rs",
+      "sha256": "0c28888bf192ddcf2768b572e9cbd672a5ec2af2bc0c38d46af448782d987a65",
+      "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+      "parent_trace": "CAM-PPS-WEAPON-SHAPE-037",
+      "json_pointer": "/related_current_sources/5",
+      "recorded_read_ranges": [
+        [
+          1,
+          125
+        ]
+      ],
+      "material_contract_ranges": [
+        [
+          60,
+          112
+        ]
+      ],
+      "disposition": "Exact material-range qualifier consumed; actual bounded source/recipient role accounted with existing findings; larger physical read is not unrelated function coverage. Original requested changed-file fullscope is never reduced by a supplementary qualifier.",
+      "source_role_proof": "pr-working:crates/adventuresim-weapon-model/src/construction/surface_refinement.rs",
+      "unresolved_actual_recipient": []
+    }
+  ],
+  "fresh_source_proofs": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/build.rs",
+      "sha256": "fc42ea1f2234144e94d6bfac86f254cd059799b9f9e5ae6de7f77e3125f19b7c",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-core\\build.rs",
+      "read_ranges": [
+        [
+          108,
+          109
+        ],
+        [
+          220,
+          344
+        ]
+      ],
+      "proof_mode": "fresh exact material body read by root, plus personally consumed exact current producer parent narratives",
+      "producer_role": "compile_items keeps raw compiler documents after strict decode and validation, collects source tokens, validates assets, and serializes generated catalogue constants at actual Cargo/fs boundary. Its retained raw validated document/source identity and diagnostics are existing ROOT-CATALOGUE-PACKET-F001/F002 repair scope, not waived by generated output. collect_item_sources/locate_item_id_token preserve byte offsets, Unicode column counts and source ordering. Other parse_document use108\u2013109 reaches actual build panic Display without a separate generic helper-string flatten.",
+      "current_semantic_receipts": [
+        "ROOT-PPS-CAMERA-WEAPON-INSTANCE-CATALOGUE-PACKET-044",
+        "CAM-PPS-WEAPON-INSTANCE-CATALOGUE-038"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/solids.rs",
+      "sha256": "b139a5600efc6654b3209ce230bb22ba7713836752f49c867f7b6996bcabb0c2",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-weapon-model\\src\\construction\\solids.rs",
+      "read_ranges": [
+        [
+          5,
+          9
+        ],
+        [
+          70,
+          113
+        ],
+        [
+          290,
+          321
+        ]
+      ],
+      "proof_mode": "fresh exact material body read by root, plus personally consumed exact current producer parent narratives",
+      "producer_role": "planar_region retains f64 source outline/max-edge roles and Region topology, then prism/cuboid/shaped_plate own exact half-thickness, detail-error, layer and triangulation/face equations. These complete bodies confirm existing typed-leaf/application geometry and concrete cause gaps: returning an internal Result<Solid,String> and retained raw source geometry are not justified solely by containing numeric equations. Region::triangulate/refine and actual physical/renderer recipients are explicitly traced in ROOT041/ROOT040; preserve all f64 precision and exact source topology/side labels.",
+      "current_semantic_receipts": [
+        "ROOT-PPS-CAMERA-WEAPON-SHAPE-PACKET-041",
+        "CAM-PPS-WEAPON-SHAPE-037"
+      ]
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/construction/surface_refinement.rs",
+      "sha256": "0c28888bf192ddcf2768b572e9cbd672a5ec2af2bc0c38d46af448782d987a65",
+      "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-weapon-model\\src\\construction\\surface_refinement.rs",
+      "read_ranges": [
+        [
+          60,
+          112
+        ]
+      ],
+      "proof_mode": "fresh exact material body read by root, plus personally consumed exact current producer parent narratives",
+      "producer_role": "Region::split_edges consumes exact midpoint lookup topology and retained point/triangle/boundary state, choosing stable diagonals by complete shape-quality comparisons and updating boundary then triangles. This is the explicit Region refinement recipient in ROOT041, not a new untraced receiver; preserve ordering, native indices at actual indexing, tie tolerance and geometry precision. Existing source geometry/cause/unit findings remain open; no admission/aggregate correctness inferred.",
+      "current_semantic_receipts": [
+        "ROOT-PPS-CAMERA-WEAPON-SHAPE-PACKET-041",
+        "CAM-PPS-WEAPON-SHAPE-037"
+      ]
+    }
+  ],
+  "genuine_unresolved_material_obligations": [],
+  "source_edits": 0,
+  "project_commands_or_tests": 0,
+  "owner_fit_and_other_lenses": "not started; no credit",
+  "overall_clearance": "not awarded"
+}

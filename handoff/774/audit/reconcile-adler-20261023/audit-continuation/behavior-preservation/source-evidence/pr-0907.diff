@@ -1,0 +1,8 @@
+--- PRbase/crates/adventuresim-core/src/composite.rs
++++ frozen/crates/adventuresim-core/src/composite.rs
+@@ -1,4 +1,5 @@
++use crate::elapsed::{AnimationElapsed, ElapsedResult};
+ use crate::{
+     attribute::*, body::*, combat::*, combat_style::*, equipment::*, essential::*, skill::*,
+ };
+ 

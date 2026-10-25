@@ -1,0 +1,106 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-497",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/tests/enclosures.rs",
+      "sha256": "60f9d4a520e0e0be95bad429934bd1f982284d099f5da8fd1cd8222b0ffdfa93",
+      "actual_EOF": 309,
+      "actual_compared_ranges": [
+        [
+          1,
+          309
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/tests/foundations.rs",
+      "sha256": "762d2f4653a5a2a9fa96d5d8b05a19c375ca9da47e942dd926eee70ea8a82dda",
+      "actual_EOF": 289,
+      "actual_compared_ranges": [
+        [
+          1,
+          289
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement.rs",
+      "sha256": "9a3b4ed5cede2d65e1b880ae2247536fe3478b19fe34207df5ebd6cd96ec6a29",
+      "actual_EOF": 689,
+      "actual_compared_ranges": [
+        [
+          1,
+          689
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement/gardens.rs",
+      "sha256": "7194841c344f694469815ebb3e0ac44331b6b0dffe29fd41ebfd096e08f0bc3e",
+      "actual_EOF": 227,
+      "actual_compared_ranges": [
+        [
+          1,
+          227
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement/outdoor.rs",
+      "sha256": "0a214fa18fafd300f3f87c6e6eca9ef295a41ec09420af5aadd17adc4fe5b3d5",
+      "actual_EOF": 77,
+      "actual_compared_ranges": [
+        [
+          1,
+          77
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement/production.rs",
+      "sha256": "5f93404e0fc4e5bcc3c452fd4874298568fb5b933a531c09430b006ebb0e6e17",
+      "actual_EOF": 123,
+      "actual_compared_ranges": [
+        [
+          1,
+          123
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement/single.rs",
+      "sha256": "661dc3873537da23868c5366984c8aeed205db213413a8c3d4634f77e00eca49",
+      "actual_EOF": 199,
+      "actual_compared_ranges": [
+        [
+          1,
+          199
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Actual native thin contact topology and descriptor binding fixtures",
+      "evidence": "Full enclosures309/foundations289: exactgate-relativeposttop/baseboundsoil, fullfootprintstraddleslevels, samepropertyrepeat/reorder, foreignowner/element/datum JSON+postcard reject; boundaryphysics explicitwidth1,1e-8,0 andbothwindings preserves zeroareaContactOnly distinctthinSolid. Foundationclosed8faces/pairededges, coplanarvolume area*.2, missing/overlap source distinguished, interiorpeak rejected, outsideunownedsource unchanged. No execution; missing+duplicatecancellation remains F024 despite separate individualtests."
+    },
+    {
+      "contract": "Production motion acceptance uses actual motor and retained geometry with explicit limits",
+      "evidence": "Full movement689 personallyread in twohalves, plus gardens227/outdoor77/production123/single199. Walker realproductionphysics plugin/charactercontroller defaultwalk/gravity/step/slope with64Hz manualclock, boundedroute-length2x+1s/min640ticks, goalbraking preservesmotor notvelocityreset. Fixedgeometry canonicalbuilding/boundary/terrain/outdoor instances installednearroute, distantfurniture intentionallynophysics. Selectedopencompoundgate separatelyfromclosedothers. Ignoredproductionexports requireinput env; no such inputrun performed. Ordinaryabove-step/headroom/steep-face controls assertblocked; doorwayfullwidth tracks preservebodyradius/skin/tolerance andentryreturn. Centrelinegardenroute explicitlydoesnotcertifyfullwidthsoil. Allassertions/sourcecontract only, no claimedphysicalpasses/GPU evidence."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "7 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-core/src/city_layout/surfaces.rs"
+}

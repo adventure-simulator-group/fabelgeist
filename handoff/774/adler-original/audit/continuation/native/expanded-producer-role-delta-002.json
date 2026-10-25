@@ -1,0 +1,1320 @@
+{
+  "id": "CONT-NATIVE-EXPANDED-PRODUCER-ROLE-DELTA-002",
+  "authority": "Exact15 Camera048 broader-schema producer role rows only, per root dispatch. No owner-fit, other lens, source edit, authoritative ledger change, project command, runtime, tests, CI or new acceptance.",
+  "inputs": [
+    {
+      "record": "continuation/rig/expanded-producer-delta-map-049.json",
+      "sha256": "0dc306277a6865938b1915a025e925ab7569ec3f7d6ddba9ea4c1cc107f3673b"
+    },
+    {
+      "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+      "sha256": "f0e53b1f18b85876dd81c01dfeacfffaf3b1d60ca13eaa9b59f33d2de7f8d674"
+    },
+    {
+      "record": "continuation/camera/reached-role-reconciliation/eof-role-qualification-012.json",
+      "sha256": "27a47c55ae47500806fddcf64a723b0a867cc4654c38a11f0264a7ae4e347c4d"
+    }
+  ],
+  "summary": {
+    "assigned_observations": 15,
+    "explicit_dispositions": 15,
+    "new_identities_among_global36": 5,
+    "existing_identities_with_additional_role_context": 10,
+    "fresh_bounded_actual_source_variants": 8,
+    "exact_prior_actual_body_witness_sufficient_without_new_source_read": 7,
+    "remaining_actual_receivers": 0
+  },
+  "new_source_membership": [
+    {
+      "source_id": "native-dependency:bevy_math-0.19.1/src/direction.rs",
+      "path": "CARGO_REGISTRY/bevy_math-0.19.1/src/direction.rs",
+      "sha256": "0aef18fddadf5d5361c4c11f0b9d5561637a7cee6dabde16dfd2816dcf2e521c",
+      "delta_observation_index": 1
+    },
+    {
+      "source_id": "native-dependency:parry3d-0.27.0/Cargo.toml",
+      "path": "CARGO_REGISTRY/parry3d-0.27.0/Cargo.toml",
+      "sha256": "e9a4996484162b4fcda871bf170f0224ad27e1fff77ef5c88a8d8eafdfc89b9a",
+      "delta_observation_index": 2
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/landscape.rs",
+      "path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/landscape.rs",
+      "sha256": "0ca70d46d9aafbe4f1fef2e245b771e23fd6a79eb7263b7937c6306ed1068a11",
+      "delta_observation_index": 142
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/placement.rs",
+      "path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/placement.rs",
+      "sha256": "6f16515e0ef35ed320d6c8b862676bb68e853ba485c30454c7c049a6c61bfa0c",
+      "delta_observation_index": 143
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness/topology.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation_viewer/harness/topology.rs",
+      "sha256": "2a13ec33b49d92daf80c15f8c4220d8ea184e6aad88dd7ccc4d7d6d3c341e59c",
+      "delta_observation_index": 167
+    }
+  ],
+  "per_observation": [
+    {
+      "delta_observation_index": 0,
+      "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row3/proofs/1",
+      "source_id": "pinned-registry:avian3d-0.7.0/Cargo.toml",
+      "path": "CARGO_REGISTRY/avian3d-0.7.0/Cargo.toml",
+      "sha256": "784418664acf79e35890108db95d9b43517706726665ab37152f3f252cb0dba9",
+      "new_identity_among36": false,
+      "source_identity_map_membership": {
+        "new_identity": false,
+        "delta_observation_indices": [
+          0
+        ],
+        "frozen_source_ids": [
+          "pinned-registry:avian3d-0.7.0/Cargo.toml"
+        ],
+        "cumulative_source_ids": [
+          "pinned-registry:avian3d-0.7.0/Cargo.toml"
+        ]
+      },
+      "original_recorded_read_ranges": [
+        [
+          364,
+          381
+        ]
+      ],
+      "original_material_contract_ranges": [
+        [
+          364,
+          381
+        ]
+      ],
+      "qualified_effective_ranges": [
+        [
+          364,
+          381
+        ]
+      ],
+      "nonexistent_endpoint_credit": 0,
+      "exact_prior_body_witness": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "trace": "CAM-PPS-CAMERA-BOUNDARIES-048",
+        "source_proof_pointer": "/additional_actual_source_proofs/9",
+        "source_proof": {
+          "path": "CARGO_REGISTRY/avian3d-0.7.0/Cargo.toml",
+          "sha256": "784418664acf79e35890108db95d9b43517706726665ab37152f3f252cb0dba9",
+          "read_ranges": [
+            [
+              364,
+              381
+            ]
+          ],
+          "mode": "Fresh actual bounded application/native receiving body read"
+        },
+        "material_contract_witnesses": [
+          {
+            "pointer": "/contracts/3",
+            "text": "ActualAvian0.7 f32/3d/Parry selection pinnedworkspaceCargo104–116+nativefeatures. Scalar=f32/VectorVec3/RotationQuat; cuboid747–749 extents*0.5→Parry SharedShape cuboid290→Cuboid.new118 storeshalfextents. ShapeCastConfig nativeScalar maxdistance plusboolpolicy; cast_shape_predicate523–596 uses actual shapeAABB/tree/sweep/Parrycast_shapes with nativeposes/Dir3 andnearesttime, returnsworldnormals/points/distance hitstruct. Raypredicate176–224 actualtree/Collider.cast_ray651 nativeRay/normal. Those realforeignsignatures require primitive math. No inference that arbitraryapplicationVec3 API is nativeport."
+          }
+        ]
+      },
+      "fresh_actual_source_read": null,
+      "fresh_source_actual_read_count": 0,
+      "actual_material_role": "Exact Avian Cargo364-381 native dependency selection belongs to the same explicitly traced f32/3d/Parry branch. Native primitive scalar/vector/quaternion representations are justified at actual collider/cast APIs by their implementation graph, not from manifest identity alone.",
+      "actual_receiver_contract": "Avian current_sources12-19 math/collider/system_param/shape/ray/Transform and actual Parry shape/math current_sources20-22 in Camera048. EOF012 preserves exact shape/ray native config and hit receiver bodies.",
+      "preserved_behavior_and_findings": "Bounded feature/dependency witness only; no whole407-line Cargo file or foreign module waiver, no build execution.",
+      "disposition": "Exact producer role accounted with existing findings; bounded native/context/source role only",
+      "remaining_actual_material_receiver": [],
+      "owner_fit": "not performed",
+      "whole_file_clearance": "none beyond exact existing read scope; partial scopes remain partial"
+    },
+    {
+      "delta_observation_index": 1,
+      "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row13/proofs/0",
+      "source_id": "native-dependency:bevy_math-0.19.1/src/direction.rs",
+      "path": "CARGO_REGISTRY/bevy_math-0.19.1/src/direction.rs",
+      "sha256": "0aef18fddadf5d5361c4c11f0b9d5561637a7cee6dabde16dfd2816dcf2e521c",
+      "new_identity_among36": true,
+      "source_identity_map_membership": {
+        "new_identity": true,
+        "delta_observation_indices": [
+          1
+        ],
+        "frozen_source_ids": [],
+        "cumulative_source_ids": []
+      },
+      "original_recorded_read_ranges": [
+        [
+          15,
+          47
+        ],
+        [
+          550,
+          611
+        ]
+      ],
+      "original_material_contract_ranges": [
+        [
+          15,
+          47
+        ],
+        [
+          550,
+          611
+        ]
+      ],
+      "qualified_effective_ranges": [
+        [
+          15,
+          47
+        ],
+        [
+          550,
+          611
+        ]
+      ],
+      "nonexistent_endpoint_credit": 0,
+      "exact_prior_body_witness": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "trace": "CAM-PPS-CAMERA-BOUNDARIES-048",
+        "source_proof_pointer": "/additional_actual_source_proofs/7",
+        "source_proof": {
+          "path": "CARGO_REGISTRY/bevy_math-0.19.1/src/direction.rs",
+          "sha256": "0aef18fddadf5d5361c4c11f0b9d5561637a7cee6dabde16dfd2816dcf2e521c",
+          "read_ranges": [
+            [
+              15,
+              47
+            ],
+            [
+              550,
+              611
+            ]
+          ],
+          "mode": "Fresh actual bounded application/native receiving body read"
+        },
+        "material_contract_witnesses": [
+          {
+            "pointer": "/contracts/3",
+            "text": "ActualAvian0.7 f32/3d/Parry selection pinnedworkspaceCargo104–116+nativefeatures. Scalar=f32/VectorVec3/RotationQuat; cuboid747–749 extents*0.5→Parry SharedShape cuboid290→Cuboid.new118 storeshalfextents. ShapeCastConfig nativeScalar maxdistance plusboolpolicy; cast_shape_predicate523–596 uses actual shapeAABB/tree/sweep/Parrycast_shapes with nativeposes/Dir3 andnearesttime, returnsworldnormals/points/distance hitstruct. Raypredicate176–224 actualtree/Collider.cast_ray651 nativeRay/normal. Those realforeignsignatures require primitive math. No inference that arbitraryapplicationVec3 API is nativeport."
+          },
+          {
+            "pointer": "/contracts/5",
+            "text": "CAM-PPS-F005: CameraVolume.sweep159–166 Dir3.new(delta) failures allproduce measuredsweepfraction1/hitNone, conflating Zero with Infinite/NaN. Pinned BevyMath direction23–47/563–594 distinguishesactualfailurevariants; Position.from_metres finite-onlygeometrysource allowsfinitepoints whose subtraction/length mayoverflow (static inference only, no probe). Legitzeropath clear canremain, invalidderivedobservation mustremainexplicitthroughCameraSweep/placement/capture/failed actionpolicy. Whole camera sweep alreadycameraowner, laterinvariant/behavior/admission design before repair."
+          }
+        ]
+      },
+      "fresh_actual_source_read": null,
+      "fresh_source_actual_read_count": 0,
+      "actual_material_role": "Exact native Bevy direction15-47/550-611 witness differentiates InvalidDirectionError Zero/Infinite/NaN and native Dir3 normalization admission. Camera048 directly names those variants and points to actual CameraVolume.sweep159-166 where all failures become measured clear.",
+      "actual_receiver_contract": "Actual collision.rs152-191/sweep and canonical direction_error adapter; EOF012 EOF-ROLE-02 freshly supplies immediate typed CameraSweep/CameraHit receivers. Actual finite point source allows changed subtraction/length overflow; no runtime probe claimed.",
+      "preserved_behavior_and_findings": "Legitimate zero-length clear policy and invalid infinite/NaN observation must remain distinct through whole camera/capture policy. Retain CAM-PPS-F005; no whole1511-line foreign module clearance.",
+      "disposition": "Exact producer role accounted with existing findings; bounded native/context/source role only",
+      "remaining_actual_material_receiver": [],
+      "owner_fit": "not performed",
+      "whole_file_clearance": "none beyond exact existing read scope; partial scopes remain partial"
+    },
+    {
+      "delta_observation_index": 2,
+      "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row23/proofs/0",
+      "source_id": "native-dependency:parry3d-0.27.0/Cargo.toml",
+      "path": "CARGO_REGISTRY/parry3d-0.27.0/Cargo.toml",
+      "sha256": "e9a4996484162b4fcda871bf170f0224ad27e1fff77ef5c88a8d8eafdfc89b9a",
+      "new_identity_among36": true,
+      "source_identity_map_membership": {
+        "new_identity": true,
+        "delta_observation_indices": [
+          2
+        ],
+        "frozen_source_ids": [],
+        "cumulative_source_ids": []
+      },
+      "original_recorded_read_ranges": [
+        [
+          60,
+          87
+        ]
+      ],
+      "original_material_contract_ranges": [
+        [
+          60,
+          87
+        ]
+      ],
+      "qualified_effective_ranges": [
+        [
+          60,
+          87
+        ]
+      ],
+      "nonexistent_endpoint_credit": 0,
+      "exact_prior_body_witness": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "trace": "CAM-PPS-CAMERA-BOUNDARIES-048",
+        "source_proof_pointer": "/additional_actual_source_proofs/10",
+        "source_proof": {
+          "path": "CARGO_REGISTRY/parry3d-0.27.0/Cargo.toml",
+          "sha256": "e9a4996484162b4fcda871bf170f0224ad27e1fff77ef5c88a8d8eafdfc89b9a",
+          "read_ranges": [
+            [
+              60,
+              87
+            ]
+          ],
+          "mode": "Fresh actual bounded application/native receiving body read"
+        },
+        "material_contract_witnesses": [
+          {
+            "pointer": "/contracts/3",
+            "text": "ActualAvian0.7 f32/3d/Parry selection pinnedworkspaceCargo104–116+nativefeatures. Scalar=f32/VectorVec3/RotationQuat; cuboid747–749 extents*0.5→Parry SharedShape cuboid290→Cuboid.new118 storeshalfextents. ShapeCastConfig nativeScalar maxdistance plusboolpolicy; cast_shape_predicate523–596 uses actual shapeAABB/tree/sweep/Parrycast_shapes with nativeposes/Dir3 andnearesttime, returnsworldnormals/points/distance hitstruct. Raypredicate176–224 actualtree/Collider.cast_ray651 nativeRay/normal. Those realforeignsignatures require primitive math. No inference that arbitraryapplicationVec3 API is nativeport."
+          }
+        ]
+      },
+      "fresh_actual_source_read": null,
+      "fresh_source_actual_read_count": 0,
+      "actual_material_role": "Exact Parry Cargo60-87 feature context joins Avian/workspace selected f32/3d backend and the actual SharedShape::cuboid/Cuboid half-extents, native cast math receiver implementations explicitly read in Camera048.",
+      "actual_receiver_contract": "Parry shared_shape282-300, cuboid55-90/110-127 and math1-48; Avian cuboid633-810 and cast_shape_predicate523-596 actual native bridge. These implement half-extent/native pose math, not a retained first-party geometric contract.",
+      "preserved_behavior_and_findings": "Bounded manifest context only; no whole397-line manifest or foreign module clearance. Original dependency identity and read endpoints preserved.",
+      "disposition": "Exact producer role accounted with existing findings; bounded native/context/source role only",
+      "remaining_actual_material_receiver": [],
+      "owner_fit": "not performed",
+      "whole_file_clearance": "none beyond exact existing read scope; partial scopes remain partial"
+    },
+    {
+      "delta_observation_index": 142,
+      "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row300/proofs/0",
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/landscape.rs",
+      "path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/landscape.rs",
+      "sha256": "0ca70d46d9aafbe4f1fef2e245b771e23fd6a79eb7263b7937c6306ed1068a11",
+      "new_identity_among36": true,
+      "source_identity_map_membership": {
+        "new_identity": true,
+        "delta_observation_indices": [
+          142
+        ],
+        "frozen_source_ids": [],
+        "cumulative_source_ids": []
+      },
+      "original_recorded_read_ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "original_material_contract_ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "qualified_effective_ranges": [
+        [
+          1,
+          101
+        ]
+      ],
+      "nonexistent_endpoint_credit": 0,
+      "exact_prior_body_witness": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "trace": "CAM-PPS-CAMERA-BOUNDARIES-048",
+        "source_proof_pointer": "/additional_actual_source_proofs/4",
+        "source_proof": {
+          "path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/landscape.rs",
+          "sha256": "0ca70d46d9aafbe4f1fef2e245b771e23fd6a79eb7263b7937c6306ed1068a11",
+          "read_ranges": [
+            [
+              1,
+              101
+            ]
+          ],
+          "mode": "Fresh actual bounded application/native receiving body read"
+        },
+        "material_contract_witnesses": [
+          {
+            "pointer": "/contracts/9",
+            "text": "P16 fullview_camera actualEOF currentread plusPlacement/landscape wholehelpers: admittedScene focus/elevation/angle/distance staytyped until completecamera affine/trig/max newpointderivation orSceneCameraView.looking_at/native_transform genuineTransform. Ground typedpacket unchanged, absentplant/vista/authoredcamera typederrors explicit. Existing native009 actualcapture_views3088–3137 →rawCaptureRecord FOV/boom/arrays retainedthenmanifest342–347 validation is connectedPP021gap, notwaived by earlierTransform3017/3020port. FixedCamera validatedrawretentionPP024, scenegeographicaxisPP020 andmissingreadbackPP022 remain distinct; camera fullcapture/build/setup owners consume rig species/native Street/Plaster/root census contracts once."
+          }
+        ]
+      },
+      "fresh_actual_source_read": {
+        "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-client\\src\\tactical_scene_viewer\\view_camera\\landscape.rs",
+        "sha256": "0ca70d46d9aafbe4f1fef2e245b771e23fd6a79eb7263b7937c6306ed1068a11",
+        "read_ranges": [
+          [
+            1,
+            101
+          ]
+        ],
+        "actual_EOF": 101,
+        "mode": "Fresh exact bounded body read in this delta; no source execution"
+      },
+      "fresh_source_actual_read_count": 1,
+      "actual_material_role": "Full landscape helpers: vista_valley5-30 and vista_peak47-72 use admitted vista extrema, scene focus and typed height/half extent in complete direction/framing/max/clamp equations; horizon32-45 uses optional peak or admitted eye target; terrain_grazing74-85 derives close detail view; city_oblique87-101 uses typed angle and extent in trig framing.",
+      "actual_receiver_contract": "Changed Position<Scene> admitted immediately at each SceneCameraView::looking_at call29/44/71/80-84/94-100; actual retained SceneCameraView and its Transform adapter are traced in placement.rs.",
+      "preserved_behavior_and_findings": "Missing vista is explicit error for required valley/peak; horizon intentionally permits no vista. Preserve native normalization fallback direction, terrain/vista safe-height comparisons, clamp and max order, signed finite input ranges and ground packet. Broader invalid-derived policy remains later work.",
+      "disposition": "Exact producer role accounted with existing findings; bounded native/context/source role only",
+      "remaining_actual_material_receiver": [],
+      "owner_fit": "not performed",
+      "whole_file_clearance": "none beyond exact existing read scope; partial scopes remain partial"
+    },
+    {
+      "delta_observation_index": 143,
+      "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row301/proofs/0",
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/placement.rs",
+      "path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/placement.rs",
+      "sha256": "6f16515e0ef35ed320d6c8b862676bb68e853ba485c30454c7c049a6c61bfa0c",
+      "new_identity_among36": true,
+      "source_identity_map_membership": {
+        "new_identity": true,
+        "delta_observation_indices": [
+          143
+        ],
+        "frozen_source_ids": [],
+        "cumulative_source_ids": []
+      },
+      "original_recorded_read_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "original_material_contract_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "qualified_effective_ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "nonexistent_endpoint_credit": 0,
+      "exact_prior_body_witness": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "trace": "CAM-PPS-CAMERA-BOUNDARIES-048",
+        "source_proof_pointer": "/additional_actual_source_proofs/3",
+        "source_proof": {
+          "path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-client/src/tactical_scene_viewer/view_camera/placement.rs",
+          "sha256": "6f16515e0ef35ed320d6c8b862676bb68e853ba485c30454c7c049a6c61bfa0c",
+          "read_ranges": [
+            [
+              1,
+              60
+            ]
+          ],
+          "mode": "Fresh actual bounded application/native receiving body read"
+        },
+        "material_contract_witnesses": [
+          {
+            "pointer": "/contracts/9",
+            "text": "P16 fullview_camera actualEOF currentread plusPlacement/landscape wholehelpers: admittedScene focus/elevation/angle/distance staytyped until completecamera affine/trig/max newpointderivation orSceneCameraView.looking_at/native_transform genuineTransform. Ground typedpacket unchanged, absentplant/vista/authoredcamera typederrors explicit. Existing native009 actualcapture_views3088–3137 →rawCaptureRecord FOV/boom/arrays retainedthenmanifest342–347 validation is connectedPP021gap, notwaived by earlierTransform3017/3020port. FixedCamera validatedrawretentionPP024, scenegeographicaxisPP020 andmissingreadbackPP022 remain distinct; camera fullcapture/build/setup owners consume rig species/native Street/Plaster/root census contracts once."
+          }
+        ]
+      },
+      "fresh_actual_source_read": {
+        "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-client\\src\\tactical_scene_viewer\\view_camera\\placement.rs",
+        "sha256": "6f16515e0ef35ed320d6c8b862676bb68e853ba485c30454c7c049a6c61bfa0c",
+        "read_ranges": [
+          [
+            1,
+            60
+          ]
+        ],
+        "actual_EOF": 60,
+        "mode": "Fresh exact bounded body read in this delta; no source execution"
+      },
+      "fresh_source_actual_read_count": 1,
+      "actual_material_role": "SceneCameraView7-22 retains Position<Scene> target/position and sum-typed looking-at up versus fixed RigidRotation. looking_at25-34 validates changed forward and cross-product directions while retaining the original typed fields; oriented36-42 retains checked rotation.",
+      "actual_receiver_contract": "native_transform52-60 is the actual Bevy Transform translation/look-at/rotation adapter. native_up45-49 supplies its native direction, including complete fixed-rotation Y-axis math.",
+      "preserved_behavior_and_findings": "Invalid/degenerate looking-at produces CaptureCameraError::InvalidView; fixed orientation remains a distinct variant. Preserve original framework look-at arithmetic and exact input policy, without introducing duplicate point/rotation owners.",
+      "disposition": "Exact producer role accounted with existing findings; bounded native/context/source role only",
+      "remaining_actual_material_receiver": [],
+      "owner_fit": "not performed",
+      "whole_file_clearance": "none beyond exact existing read scope; partial scopes remain partial"
+    },
+    {
+      "delta_observation_index": 148,
+      "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row396/proofs/1",
+      "source_id": "pr-working:Cargo.toml",
+      "path": "SNAPSHOTS/pr-working/Cargo.toml",
+      "sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+      "new_identity_among36": false,
+      "source_identity_map_membership": {
+        "new_identity": false,
+        "delta_observation_indices": [
+          148
+        ],
+        "frozen_source_ids": [
+          "pr-working:Cargo.toml"
+        ],
+        "cumulative_source_ids": [
+          "pr-working:Cargo.toml"
+        ]
+      },
+      "original_recorded_read_ranges": [
+        [
+          104,
+          116
+        ]
+      ],
+      "original_material_contract_ranges": [
+        [
+          104,
+          116
+        ]
+      ],
+      "qualified_effective_ranges": [
+        [
+          104,
+          116
+        ]
+      ],
+      "nonexistent_endpoint_credit": 0,
+      "exact_prior_body_witness": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "trace": "CAM-PPS-CAMERA-BOUNDARIES-048",
+        "source_proof_pointer": "/additional_actual_source_proofs/8",
+        "source_proof": {
+          "path": "SNAPSHOTS/pr-working/Cargo.toml",
+          "sha256": "5ed2a487edaef9c2632e251c8d241d278352fed8a16d870149d980665388431d",
+          "read_ranges": [
+            [
+              104,
+              116
+            ]
+          ],
+          "mode": "Fresh actual bounded application/native receiving body read"
+        },
+        "material_contract_witnesses": [
+          {
+            "pointer": "/contracts/3",
+            "text": "ActualAvian0.7 f32/3d/Parry selection pinnedworkspaceCargo104–116+nativefeatures. Scalar=f32/VectorVec3/RotationQuat; cuboid747–749 extents*0.5→Parry SharedShape cuboid290→Cuboid.new118 storeshalfextents. ShapeCastConfig nativeScalar maxdistance plusboolpolicy; cast_shape_predicate523–596 uses actual shapeAABB/tree/sweep/Parrycast_shapes with nativeposes/Dir3 andnearesttime, returnsworldnormals/points/distance hitstruct. Raypredicate176–224 actualtree/Collider.cast_ray651 nativeRay/normal. Those realforeignsignatures require primitive math. No inference that arbitraryapplicationVec3 API is nativeport."
+          }
+        ]
+      },
+      "fresh_actual_source_read": null,
+      "fresh_source_actual_read_count": 0,
+      "actual_material_role": "Exact workspace Cargo104-116 selects the actual Avian0.7 f32/3d/Parry backend used by the camera cast graph. This is dependency/feature context for primitive native Scalar/Vector/Rotation signatures, not a value producer or a reason to flatten earlier first-party APIs.",
+      "actual_receiver_contract": "Actual Avian single/math and Parry cuboid/cast bodies named in Camera048 current_sources12-22 and contract3; config/hit receiver bodies are explicitly qualified by EOF012 entries01-02.",
+      "preserved_behavior_and_findings": "No builds or feature resolution executed. Source-pinned selection proof stays bounded to104-116 and exact named native math branches.",
+      "disposition": "Exact producer role accounted with existing findings; bounded native/context/source role only",
+      "remaining_actual_material_receiver": [],
+      "owner_fit": "not performed",
+      "whole_file_clearance": "none beyond exact existing read scope; partial scopes remain partial"
+    },
+    {
+      "delta_observation_index": 149,
+      "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row467/proofs/1",
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+      "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+      "new_identity_among36": false,
+      "source_identity_map_membership": {
+        "new_identity": false,
+        "delta_observation_indices": [
+          149
+        ],
+        "frozen_source_ids": [
+          "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs"
+        ],
+        "cumulative_source_ids": [
+          "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs"
+        ]
+      },
+      "original_recorded_read_ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "original_material_contract_ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "qualified_effective_ranges": [
+        [
+          1,
+          105
+        ]
+      ],
+      "nonexistent_endpoint_credit": 0,
+      "exact_prior_body_witness": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "trace": "CAM-PPS-CAMERA-BOUNDARIES-048",
+        "source_proof_pointer": "/additional_actual_source_proofs/5",
+        "source_proof": {
+          "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/spatial_geometry/coordinates.rs",
+          "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+          "read_ranges": [
+            [
+              1,
+              105
+            ]
+          ],
+          "mode": "Fresh actual bounded application/native receiving body read"
+        },
+        "material_contract_witnesses": [
+          {
+            "pointer": "/contracts/5",
+            "text": "CAM-PPS-F005: CameraVolume.sweep159–166 Dir3.new(delta) failures allproduce measuredsweepfraction1/hitNone, conflating Zero with Infinite/NaN. Pinned BevyMath direction23–47/563–594 distinguishesactualfailurevariants; Position.from_metres finite-onlygeometrysource allowsfinitepoints whose subtraction/length mayoverflow (static inference only, no probe). Legitzeropath clear canremain, invalidderivedobservation mustremainexplicitthroughCameraSweep/placement/capture/failed actionpolicy. Whole camera sweep alreadycameraowner, laterinvariant/behavior/admission design before repair."
+          },
+          {
+            "pointer": "/contracts/9",
+            "text": "P16 fullview_camera actualEOF currentread plusPlacement/landscape wholehelpers: admittedScene focus/elevation/angle/distance staytyped until completecamera affine/trig/max newpointderivation orSceneCameraView.looking_at/native_transform genuineTransform. Ground typedpacket unchanged, absentplant/vista/authoredcamera typederrors explicit. Existing native009 actualcapture_views3088–3137 →rawCaptureRecord FOV/boom/arrays retainedthenmanifest342–347 validation is connectedPP021gap, notwaived by earlierTransform3017/3020port. FixedCamera validatedrawretentionPP024, scenegeographicaxisPP020 andmissingreadbackPP022 remain distinct; camera fullcapture/build/setup owners consume rig species/native Street/Plaster/root census contracts once."
+          }
+        ]
+      },
+      "fresh_actual_source_read": {
+        "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\spatial_geometry\\coordinates.rs",
+        "sha256": "f3bd5b6f701bfa11f4b8fa4cfe25602cfe67a7abcf07d0de6a785c6f7dcd669e",
+        "read_ranges": [
+          [
+            1,
+            105
+          ]
+        ],
+        "actual_EOF": 140,
+        "mode": "Fresh exact bounded body read in this delta; no source execution"
+      },
+      "fresh_source_actual_read_count": 1,
+      "actual_material_role": "coordinates1-105 defines framed finite Position, Displacement and Elevation; Position::from_metres67-73 checks finite components, translated78-80 and displacement_to81-83 admit changed arithmetic outputs, Deserialize85-89 calls checked admission. Displacement::ZERO and constructor96-102 preserve zero as legitimate.",
+      "actual_receiver_contract": "finite(value,role) actual helper8-18 and canonical error owner; Position::metres75-77/Displacement::metres103-105 are explicit projections requiring caller-specific evidence supplied by camera/diagnostic/Transform paths.",
+      "preserved_behavior_and_findings": "The bounded1-105 scope ends inside the Displacement impl (source EOF140). Do not infer later methods/elevation admission/fixtures. Finite points may subtract or normalize to invalid derived values; existing CAM-PPS-F005 remains, rather than treating finite admission as all-operation validity.",
+      "disposition": "Exact producer role accounted with existing findings; bounded native/context/source role only",
+      "remaining_actual_material_receiver": [],
+      "owner_fit": "not performed",
+      "whole_file_clearance": "none beyond exact existing read scope; partial scopes remain partial"
+    },
+    {
+      "delta_observation_index": 150,
+      "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row468/proofs/0",
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+      "sha256": "c71c5590f1fb87ae1645a6e4f4ed54a0059d33b821ad0062e098821e1409b899",
+      "new_identity_among36": false,
+      "source_identity_map_membership": {
+        "new_identity": false,
+        "delta_observation_indices": [
+          150
+        ],
+        "frozen_source_ids": [
+          "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/error.rs"
+        ],
+        "cumulative_source_ids": [
+          "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/error.rs"
+        ]
+      },
+      "original_recorded_read_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "original_material_contract_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "qualified_effective_ranges": [
+        [
+          1,
+          28
+        ]
+      ],
+      "nonexistent_endpoint_credit": 0,
+      "exact_prior_body_witness": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "trace": "CAM-PPS-CAMERA-BOUNDARIES-048",
+        "source_proof_pointer": "/additional_actual_source_proofs/6",
+        "source_proof": {
+          "path": "SNAPSHOTS/pr-working/crates/adventuresim-building-generator/src/spatial_geometry/error.rs",
+          "sha256": "c71c5590f1fb87ae1645a6e4f4ed54a0059d33b821ad0062e098821e1409b899",
+          "read_ranges": [
+            [
+              1,
+              28
+            ]
+          ],
+          "mode": "Fresh actual bounded application/native receiving body read"
+        },
+        "material_contract_witnesses": [
+          {
+            "pointer": "/contracts/5",
+            "text": "CAM-PPS-F005: CameraVolume.sweep159–166 Dir3.new(delta) failures allproduce measuredsweepfraction1/hitNone, conflating Zero with Infinite/NaN. Pinned BevyMath direction23–47/563–594 distinguishesactualfailurevariants; Position.from_metres finite-onlygeometrysource allowsfinitepoints whose subtraction/length mayoverflow (static inference only, no probe). Legitzeropath clear canremain, invalidderivedobservation mustremainexplicitthroughCameraSweep/placement/capture/failed actionpolicy. Whole camera sweep alreadycameraowner, laterinvariant/behavior/admission design before repair."
+          }
+        ]
+      },
+      "fresh_actual_source_read": {
+        "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-building-generator\\src\\spatial_geometry\\error.rs",
+        "sha256": "c71c5590f1fb87ae1645a6e4f4ed54a0059d33b821ad0062e098821e1409b899",
+        "read_ranges": [
+          [
+            1,
+            28
+          ]
+        ],
+        "actual_EOF": 28,
+        "mode": "Fresh exact bounded body read in this delta; no source execution"
+      },
+      "fresh_source_actual_read_count": 1,
+      "actual_material_role": "Full native geometry adapter: finite8-18 checks each XYZ component and preserves GeometryRole/CoordinateAxis in canonical NonFinite error. direction_error21-28 maps exact native Zero/Infinite/NaN variants into canonical DirectionError without prose conversion.",
+      "actual_receiver_contract": "Canonical fabelgeist_geometry::GeometryError::{NonFinite,Direction} retains the specific source/role. Camera collision actual invalid-direction policy is separately traced; this adapter is not evidence that every caller preserves it.",
+      "preserved_behavior_and_findings": "Preserve distinction among zero, infinite and NaN. CAM-PPS-F005 current sweep treats all native Dir3 failure as clear; source error adapter does not close that finding.",
+      "disposition": "Exact producer role accounted with existing findings; bounded native/context/source role only",
+      "remaining_actual_material_receiver": [],
+      "owner_fit": "not performed",
+      "whole_file_clearance": "none beyond exact existing read scope; partial scopes remain partial"
+    },
+    {
+      "delta_observation_index": 164,
+      "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row790/proofs/0",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness/material.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation_viewer/harness/material.rs",
+      "sha256": "082b2d608e351444908c81cc624ab3627828ff0ec19111f32e708ac8f21caad3",
+      "new_identity_among36": false,
+      "source_identity_map_membership": {
+        "new_identity": false,
+        "delta_observation_indices": [
+          164
+        ],
+        "frozen_source_ids": [
+          "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness/material.rs"
+        ],
+        "cumulative_source_ids": [
+          "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness/material.rs"
+        ]
+      },
+      "original_recorded_read_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "original_material_contract_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "qualified_effective_ranges": [
+        [
+          1,
+          29
+        ]
+      ],
+      "nonexistent_endpoint_credit": 0,
+      "exact_prior_body_witness": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "trace": "CAM-PPS-CAMERA-BOUNDARIES-048",
+        "source_proof_pointer": "/additional_actual_source_proofs/14",
+        "source_proof": {
+          "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation_viewer/harness/material.rs",
+          "sha256": "082b2d608e351444908c81cc624ab3627828ff0ec19111f32e708ac8f21caad3",
+          "read_ranges": [
+            [
+              1,
+              29
+            ]
+          ],
+          "mode": "Fresh actual bounded application/native receiving body read"
+        },
+        "material_contract_witnesses": [
+          {
+            "pointer": "/contracts/8",
+            "text": "Harness successfulcatalogue&ItemDefinition/&EquipmentPlacement tuple towhole physical/runtime spawn andtopology parentoccupancies predate checkedmembershiphandle; consume rig canonical membership/selection/instance IDs inexistingwholefunction authority, notduplicate catalogueowner. Fulltopology/readiness/skinning48/material29 actualnativeMesh4weights/assets/Skin/JSON/maud recipients nowread. Readiness retainsMissing/Loading/Failed/Ready, requiredparts/morph/skin/texture checks; WeightSummary rawnative observations noexistingcheckedscalarstrip. JSONserializable recordstill usedinreadiness decisions beforeformat, ownerstrengthening separate; originalfixtures preservedsource-only."
+          }
+        ]
+      },
+      "fresh_actual_source_read": null,
+      "fresh_source_actual_read_count": 0,
+      "actual_material_role": "Exact full material1-29 was read as an actual native assets/texture/material observation helper in Camera048 clause8; joins the required material/readiness graph rather than an unexplained file-hash reference.",
+      "actual_receiver_contract": "Actual native assets/material presence -> required texture/readiness decisions and final serialized report; Camera048 full readiness285 and harness511 provide the semantic consumer proof.",
+      "preserved_behavior_and_findings": "Retain absent/loading/failed/ready states and original fixture behavior. Actual output serialization does not waive earlier readiness state/aggregate strengthening requirements.",
+      "disposition": "Exact producer role accounted with existing findings; bounded native/context/source role only",
+      "remaining_actual_material_receiver": [],
+      "owner_fit": "not performed",
+      "whole_file_clearance": "none beyond exact existing read scope; partial scopes remain partial"
+    },
+    {
+      "delta_observation_index": 165,
+      "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row791/proofs/0",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness/readiness.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation_viewer/harness/readiness.rs",
+      "sha256": "64c3ae627a9e6e8b449c355a123aa9007228513e88cc07c9d3ec6f6783ecff34",
+      "new_identity_among36": false,
+      "source_identity_map_membership": {
+        "new_identity": false,
+        "delta_observation_indices": [
+          165
+        ],
+        "frozen_source_ids": [
+          "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness/readiness.rs"
+        ],
+        "cumulative_source_ids": [
+          "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness/readiness.rs"
+        ]
+      },
+      "original_recorded_read_ranges": [
+        [
+          1,
+          285
+        ]
+      ],
+      "original_material_contract_ranges": [
+        [
+          1,
+          285
+        ]
+      ],
+      "qualified_effective_ranges": [
+        [
+          1,
+          285
+        ]
+      ],
+      "nonexistent_endpoint_credit": 0,
+      "exact_prior_body_witness": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "trace": "CAM-PPS-CAMERA-BOUNDARIES-048",
+        "source_proof_pointer": "/additional_actual_source_proofs/12",
+        "source_proof": {
+          "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation_viewer/harness/readiness.rs",
+          "sha256": "64c3ae627a9e6e8b449c355a123aa9007228513e88cc07c9d3ec6f6783ecff34",
+          "read_ranges": [
+            [
+              1,
+              285
+            ]
+          ],
+          "mode": "Fresh actual bounded application/native receiving body read"
+        },
+        "material_contract_witnesses": [
+          {
+            "pointer": "/contracts/8",
+            "text": "Harness successfulcatalogue&ItemDefinition/&EquipmentPlacement tuple towhole physical/runtime spawn andtopology parentoccupancies predate checkedmembershiphandle; consume rig canonical membership/selection/instance IDs inexistingwholefunction authority, notduplicate catalogueowner. Fulltopology/readiness/skinning48/material29 actualnativeMesh4weights/assets/Skin/JSON/maud recipients nowread. Readiness retainsMissing/Loading/Failed/Ready, requiredparts/morph/skin/texture checks; WeightSummary rawnative observations noexistingcheckedscalarstrip. JSONserializable recordstill usedinreadiness decisions beforeformat, ownerstrengthening separate; originalfixtures preservedsource-only."
+          }
+        ]
+      },
+      "fresh_actual_source_read": null,
+      "fresh_source_actual_read_count": 0,
+      "actual_material_role": "Exact full readiness1-285 already read in Camera048 clause8: required parts/morph/skin/texture observations retain Missing/Loading/Failed/Ready, with actual readiness decisions before any JSON rendering. Serializable WeightSummary is a native observed record, not proof of an already checked scalar being stripped.",
+      "actual_receiver_contract": "Actual mesh/assets/Skin, readiness and output path jointly traced by full harness511 plus native skinning48/material29/topology66 proof bodies. JSON is a final output only after semantic readiness decisions.",
+      "preserved_behavior_and_findings": "Preserve required observation versus optional absence and all original fixture inputs/count/order/assertions; owner strengthening of raw readiness record remains distinct from a demonstrated producer regression.",
+      "disposition": "Exact producer role accounted with existing findings; bounded native/context/source role only",
+      "remaining_actual_material_receiver": [],
+      "owner_fit": "not performed",
+      "whole_file_clearance": "none beyond exact existing read scope; partial scopes remain partial"
+    },
+    {
+      "delta_observation_index": 166,
+      "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row792/proofs/0",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness/skinning.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation_viewer/harness/skinning.rs",
+      "sha256": "f9807d42e32e69b0b93111a10c857c336aef6267956556595625cbcf95d475b9",
+      "new_identity_among36": false,
+      "source_identity_map_membership": {
+        "new_identity": false,
+        "delta_observation_indices": [
+          166
+        ],
+        "frozen_source_ids": [
+          "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness/skinning.rs"
+        ],
+        "cumulative_source_ids": [
+          "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness/skinning.rs"
+        ]
+      },
+      "original_recorded_read_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "original_material_contract_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "qualified_effective_ranges": [
+        [
+          1,
+          48
+        ]
+      ],
+      "nonexistent_endpoint_credit": 0,
+      "exact_prior_body_witness": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "trace": "CAM-PPS-CAMERA-BOUNDARIES-048",
+        "source_proof_pointer": "/additional_actual_source_proofs/13",
+        "source_proof": {
+          "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation_viewer/harness/skinning.rs",
+          "sha256": "f9807d42e32e69b0b93111a10c857c336aef6267956556595625cbcf95d475b9",
+          "read_ranges": [
+            [
+              1,
+              48
+            ]
+          ],
+          "mode": "Fresh actual bounded application/native receiving body read"
+        },
+        "material_contract_witnesses": [
+          {
+            "pointer": "/contracts/8",
+            "text": "Harness successfulcatalogue&ItemDefinition/&EquipmentPlacement tuple towhole physical/runtime spawn andtopology parentoccupancies predate checkedmembershiphandle; consume rig canonical membership/selection/instance IDs inexistingwholefunction authority, notduplicate catalogueowner. Fulltopology/readiness/skinning48/material29 actualnativeMesh4weights/assets/Skin/JSON/maud recipients nowread. Readiness retainsMissing/Loading/Failed/Ready, requiredparts/morph/skin/texture checks; WeightSummary rawnative observations noexistingcheckedscalarstrip. JSONserializable recordstill usedinreadiness decisions beforeformat, ownerstrengthening separate; originalfixtures preservedsource-only."
+          }
+        ]
+      },
+      "fresh_actual_source_read": null,
+      "fresh_source_actual_read_count": 0,
+      "actual_material_role": "Exact full skinning1-48 is an actual native Mesh four-weight/skin observation recipient in Camera048 clause8. WeightSummary originates raw native observations; the trace explicitly distinguishes first-party readiness use before final JSON formatting.",
+      "actual_receiver_contract": "Mesh/Skin native attribute data -> WeightSummary -> readiness decisions -> actual JSON/report. This is not an exemption for retaining raw semantic records between the observation and readiness.",
+      "preserved_behavior_and_findings": "Keep original four-weight representation, missing/loading/failed/ready distinction and original fixtures. No inferred blanket fraction/positive constraints or already checked scalar erasure.",
+      "disposition": "Exact producer role accounted with existing findings; bounded native/context/source role only",
+      "remaining_actual_material_receiver": [],
+      "owner_fit": "not performed",
+      "whole_file_clearance": "none beyond exact existing read scope; partial scopes remain partial"
+    },
+    {
+      "delta_observation_index": 167,
+      "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row793/proofs/0",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/harness/topology.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation_viewer/harness/topology.rs",
+      "sha256": "2a13ec33b49d92daf80c15f8c4220d8ea184e6aad88dd7ccc4d7d6d3c341e59c",
+      "new_identity_among36": true,
+      "source_identity_map_membership": {
+        "new_identity": true,
+        "delta_observation_indices": [
+          167
+        ],
+        "frozen_source_ids": [],
+        "cumulative_source_ids": []
+      },
+      "original_recorded_read_ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "original_material_contract_ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "qualified_effective_ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "nonexistent_endpoint_credit": 0,
+      "exact_prior_body_witness": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "trace": "CAM-PPS-CAMERA-BOUNDARIES-048",
+        "source_proof_pointer": "/additional_actual_source_proofs/11",
+        "source_proof": {
+          "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation_viewer/harness/topology.rs",
+          "sha256": "2a13ec33b49d92daf80c15f8c4220d8ea184e6aad88dd7ccc4d7d6d3c341e59c",
+          "read_ranges": [
+            [
+              1,
+              66
+            ]
+          ],
+          "mode": "Fresh actual bounded application/native receiving body read"
+        },
+        "material_contract_witnesses": [
+          {
+            "pointer": "/contracts/8",
+            "text": "Harness successfulcatalogue&ItemDefinition/&EquipmentPlacement tuple towhole physical/runtime spawn andtopology parentoccupancies predate checkedmembershiphandle; consume rig canonical membership/selection/instance IDs inexistingwholefunction authority, notduplicate catalogueowner. Fulltopology/readiness/skinning48/material29 actualnativeMesh4weights/assets/Skin/JSON/maud recipients nowread. Readiness retainsMissing/Loading/Failed/Ready, requiredparts/morph/skin/texture checks; WeightSummary rawnative observations noexistingcheckedscalarstrip. JSONserializable recordstill usedinreadiness decisions beforeformat, ownerstrengthening separate; originalfixtures preservedsource-only."
+          }
+        ]
+      },
+      "fresh_actual_source_read": {
+        "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-client\\src\\animation_viewer\\harness\\topology.rs",
+        "sha256": "2a13ec33b49d92daf80c15f8c4220d8ea184e6aad88dd7ccc4d7d6d3c341e59c",
+        "read_ranges": [
+          [
+            1,
+            66
+          ]
+        ],
+        "actual_EOF": 66,
+        "mode": "Fresh exact bounded body read in this delta; no source execution"
+      },
+      "fresh_source_actual_read_count": 1,
+      "actual_material_role": "Full occupancies4-66 accepts existing ItemDefinition/EquipmentPlacement plus previously equipped definition/entity/placement tuples. It retains channel/order/location, constructs exact armor-review occupancy IDs, and picks first prior compatible garment by location, channel/order, positive capacity and accepted tags before producing CharacterLocation or ItemAttachment anchor.",
+      "actual_receiver_contract": "Vec<EquipmentTopologyOccupancy> feeds whole harness physical/runtime spawn already traced by Camera048 full harness511 and clause8. Raw membership/selection/instance IDs existed before checked handles; canonical rig owner propagation is existing owner strengthening, not an evidenced peeled checked membership value.",
+      "preserved_behavior_and_findings": "Preserve tuple/first-match order, intentional harness expect behavior, generated IDs, requirement index casts and capacity_index0. Later extent/aggregate/invalid input lenses remain open; native Entity anchor is distinct from stable attachment ID.",
+      "disposition": "Exact producer role accounted with existing findings; bounded native/context/source role only",
+      "remaining_actual_material_receiver": [],
+      "owner_fit": "not performed",
+      "whole_file_clearance": "none beyond exact existing read scope; partial scopes remain partial"
+    },
+    {
+      "delta_observation_index": 168,
+      "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row796/proofs/0",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/view.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation_viewer/view.rs",
+      "sha256": "1ec7bad7a491c5c78bfefb2ee24f87039f35d5fc22fcca5aec8ab879f69a79d8",
+      "new_identity_among36": false,
+      "source_identity_map_membership": {
+        "new_identity": false,
+        "delta_observation_indices": [
+          168
+        ],
+        "frozen_source_ids": [
+          "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/view.rs"
+        ],
+        "cumulative_source_ids": [
+          "pr-working:crates/adventuresim-tactical-client/src/animation_viewer/view.rs"
+        ]
+      },
+      "original_recorded_read_ranges": [
+        [
+          1,
+          74
+        ]
+      ],
+      "original_material_contract_ranges": [
+        [
+          1,
+          74
+        ]
+      ],
+      "qualified_effective_ranges": [
+        [
+          1,
+          74
+        ]
+      ],
+      "nonexistent_endpoint_credit": 0,
+      "exact_prior_body_witness": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "trace": "CAM-PPS-CAMERA-BOUNDARIES-048",
+        "source_proof_pointer": "/additional_actual_source_proofs/2",
+        "source_proof": {
+          "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation_viewer/view.rs",
+          "sha256": "1ec7bad7a491c5c78bfefb2ee24f87039f35d5fc22fcca5aec8ab879f69a79d8",
+          "read_ranges": [
+            [
+              1,
+              74
+            ]
+          ],
+          "mode": "Fresh actual bounded application/native receiving body read"
+        },
+        "material_contract_witnesses": [
+          {
+            "pointer": "/contracts/7",
+            "text": "Fullharness511+P16exacttwofielddelta typedCuboid/Grip andSignedLengthZERO physicalleaf retention; rawArmorCapture.review_camera subjectTransform/headVec3/orbitQuat are nativeECS-observed source, completeframingmath→nativeTransform. ExistingScenePosition/rotation/offset reuse is sourceowner strengthening/acceptedinput policy requirement, notsamecheckedleaf peeled. Gameplay None meansnooverride, Helmet/TorsoheadNone meansrequiredobservation absent, rawpublicorbit policy may bebroaderRigidRotation. Actualposition_capture_camera full74 consumes offsettypedDisplacement directlynativeTransform and passesobservedhead/orbit throughwhole review kernel. No blanketcaptureabsence waiver."
+          }
+        ]
+      },
+      "fresh_actual_source_read": {
+        "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-client\\src\\animation_viewer\\view.rs",
+        "sha256": "1ec7bad7a491c5c78bfefb2ee24f87039f35d5fc22fcca5aec8ab879f69a79d8",
+        "read_ranges": [
+          [
+            1,
+            74
+          ]
+        ],
+        "actual_EOF": 74,
+        "mode": "Fresh exact bounded body read in this delta; no source execution"
+      },
+      "fresh_source_actual_read_count": 1,
+      "actual_material_role": "Full position_capture_camera5-74 reads native subject/bone Transform observations. Gameplay retains checked animation offset to direct Transform translation35. Side/front complete framing math, optional armor review transform, non-gameplay orbit fallback and final label formatting reach actual camera/label ports.",
+      "actual_receiver_contract": "Native Transform35-55 and Text/Visibility58-71. Head and subject/orbit raw values originate native ECS observations, not an already checked source being peeled.",
+      "preserved_behavior_and_findings": "Keep missing subject/camera early return, checked offset error diagnostic/return, Gameplay no-override None versus missing armor head observation distinctions, and non-gameplay fallback. Existing source strengthening/accepted input requirements stay with whole review owner.",
+      "disposition": "Exact producer role accounted with existing findings; bounded native/context/source role only",
+      "remaining_actual_material_receiver": [],
+      "owner_fit": "not performed",
+      "whole_file_clearance": "none beyond exact existing read scope; partial scopes remain partial"
+    },
+    {
+      "delta_observation_index": 169,
+      "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row815/proofs/0",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/debug.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/debug.rs",
+      "sha256": "95f141113d44f702b7ac4ae9db824785c6bc3340413a01f3e881b52fd26cdb33",
+      "new_identity_among36": false,
+      "source_identity_map_membership": {
+        "new_identity": false,
+        "delta_observation_indices": [
+          169
+        ],
+        "frozen_source_ids": [
+          "pr-working:crates/adventuresim-tactical-client/src/debug.rs"
+        ],
+        "cumulative_source_ids": [
+          "pr-working:crates/adventuresim-tactical-client/src/debug.rs"
+        ]
+      },
+      "original_recorded_read_ranges": [
+        [
+          279,
+          338
+        ]
+      ],
+      "original_material_contract_ranges": [
+        [
+          279,
+          338
+        ]
+      ],
+      "qualified_effective_ranges": [
+        [
+          279,
+          338
+        ]
+      ],
+      "nonexistent_endpoint_credit": 0,
+      "exact_prior_body_witness": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "trace": "CAM-PPS-CAMERA-BOUNDARIES-048",
+        "source_proof_pointer": "/additional_actual_source_proofs/0",
+        "source_proof": {
+          "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/debug.rs",
+          "sha256": "95f141113d44f702b7ac4ae9db824785c6bc3340413a01f3e881b52fd26cdb33",
+          "read_ranges": [
+            [
+              279,
+              338
+            ]
+          ],
+          "mode": "Fresh actual bounded application/native receiving body read"
+        },
+        "material_contract_witnesses": [
+          {
+            "pointer": "/contracts/2",
+            "text": "CameraFrame/Volume/Placement/Observation retaincheckedpoints/displacementviewframe/rotation/dimensions/nativeCollider/sweepfraction/normals through endpoint→sweep→recovery→finalsweep. Physical changedpoint/math outputs admitted, canonical limited.min(recovery.distance) avoids old samevalue cap readmission. Getter projections immediate nativeaffine/lerp/clamp/filter equations, actualAvian casts, finalTransform translation orUI/Gizmo ports individually proved. Closeprofileblend rawderived smoothstepfraction is originaloutput owner/admission strengthening (can failderiveddenominator for arbitrarypublicprofile); not an alreadycheckedUnitInterval being peeled."
+          },
+          {
+            "pointer": "/contracts/4",
+            "text": "CameraAimObservation checkedcamera/muzzle/targetpoints andexplicit Optionhit identities preservedto actualrayqueries/reticleblocked equality. ConfigaimdistSignedLength exactrange policy kept; fallbackplanarNEG_Z/currentdirection fordegeneracy remains explicitnativeobservation/failedderivedpolicy dependency, notunit narrowing. Interactivecamera warnings are actualdiagnosticport; requiredcapture failure paths remain actualtypedCaptureCameraError/nativeAppExit, no universalcontinuation waiver."
+          }
+        ]
+      },
+      "fresh_actual_source_read": {
+        "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-client\\src\\debug.rs",
+        "sha256": "95f141113d44f702b7ac4ae9db824785c6bc3340413a01f3e881b52fd26cdb33",
+        "read_ranges": [
+          [
+            279,
+            338
+          ]
+        ],
+        "actual_EOF": 376,
+        "mode": "Fresh exact bounded body read in this delta; no source execution"
+      },
+      "fresh_source_actual_read_count": 1,
+      "actual_material_role": "draw_camera_rig279-338 takes checked camera/aim debug observations and extracts scene coordinates, normal and native transform only as immediate Gizmos line/cube arguments. The normal endpoint and soft-occluder tick are complete diagnostic arithmetic, not retained application records. Disabled or absent rig returns without drawing; absent optional hit/aim omits only its mark.",
+      "actual_receiver_contract": "Gizmos.line291-319/323-336 and Gizmos.cube321 are actual native diagnostic ports; no downstream application re-admission.",
+      "preserved_behavior_and_findings": "Keep optional marks, colors, blocked-hit predicate and original0.6/0.25 geometry. Real diagnostic output does not waive earlier camera sweep/capture guarantees.",
+      "disposition": "Exact producer role accounted with existing findings; bounded native/context/source role only",
+      "remaining_actual_material_receiver": [],
+      "owner_fit": "not performed",
+      "whole_file_clearance": "none beyond exact existing read scope; partial scopes remain partial"
+    },
+    {
+      "delta_observation_index": 170,
+      "expanded_ref": "producer-role-receipts-expanded-pending.jsonl#row893/proofs/1",
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/ui.rs",
+      "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/ui.rs",
+      "sha256": "2a2206d4b76e7db409e7cfa2b8e4337d5ea4a6fa606a95de4e8cf04ca85666e6",
+      "new_identity_among36": false,
+      "source_identity_map_membership": {
+        "new_identity": false,
+        "delta_observation_indices": [
+          170
+        ],
+        "frozen_source_ids": [
+          "pr-working:crates/adventuresim-tactical-client/src/ui.rs"
+        ],
+        "cumulative_source_ids": [
+          "pr-working:crates/adventuresim-tactical-client/src/ui.rs"
+        ]
+      },
+      "original_recorded_read_ranges": [
+        [
+          562,
+          601
+        ]
+      ],
+      "original_material_contract_ranges": [
+        [
+          562,
+          601
+        ]
+      ],
+      "qualified_effective_ranges": [
+        [
+          562,
+          601
+        ]
+      ],
+      "nonexistent_endpoint_credit": 0,
+      "exact_prior_body_witness": {
+        "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+        "trace": "CAM-PPS-CAMERA-BOUNDARIES-048",
+        "source_proof_pointer": "/additional_actual_source_proofs/1",
+        "source_proof": {
+          "path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/ui.rs",
+          "sha256": "2a2206d4b76e7db409e7cfa2b8e4337d5ea4a6fa606a95de4e8cf04ca85666e6",
+          "read_ranges": [
+            [
+              562,
+              601
+            ]
+          ],
+          "mode": "Fresh actual bounded application/native receiving body read"
+        },
+        "material_contract_witnesses": [
+          {
+            "pointer": "/contracts/2",
+            "text": "CameraFrame/Volume/Placement/Observation retaincheckedpoints/displacementviewframe/rotation/dimensions/nativeCollider/sweepfraction/normals through endpoint→sweep→recovery→finalsweep. Physical changedpoint/math outputs admitted, canonical limited.min(recovery.distance) avoids old samevalue cap readmission. Getter projections immediate nativeaffine/lerp/clamp/filter equations, actualAvian casts, finalTransform translation orUI/Gizmo ports individually proved. Closeprofileblend rawderived smoothstepfraction is originaloutput owner/admission strengthening (can failderiveddenominator for arbitrarypublicprofile); not an alreadycheckedUnitInterval being peeled."
+          },
+          {
+            "pointer": "/contracts/4",
+            "text": "CameraAimObservation checkedcamera/muzzle/targetpoints andexplicit Optionhit identities preservedto actualrayqueries/reticleblocked equality. ConfigaimdistSignedLength exactrange policy kept; fallbackplanarNEG_Z/currentdirection fordegeneracy remains explicitnativeobservation/failedderivedpolicy dependency, notunit narrowing. Interactivecamera warnings are actualdiagnosticport; requiredcapture failure paths remain actualtypedCaptureCameraError/nativeAppExit, no universalcontinuation waiver."
+          }
+        ]
+      },
+      "fresh_actual_source_read": {
+        "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-tactical-client\\src\\ui.rs",
+        "sha256": "2a2206d4b76e7db409e7cfa2b8e4337d5ea4a6fa606a95de4e8cf04ca85666e6",
+        "read_ranges": [
+          [
+            562,
+            601
+          ]
+        ],
+        "actual_EOF": 1039,
+        "mode": "Fresh exact bounded body read in this delta; no source execution"
+      },
+      "fresh_source_actual_read_count": 1,
+      "actual_material_role": "update_camera_ui562-601 retains optional CameraAimObservation through reticle/blocked predicates. Checked blend, distance, speed, velocity, screen error/window are projected directly into the final debug TextSpan format; length of velocity is an immediate displayed magnitude.",
+      "actual_receiver_contract": "Actual Visibility assignments570-579 and formatted TextSpan582-599; no semantic parsing or retained raw metric record after formatting.",
+      "preserved_behavior_and_findings": "No aim hides reticle and blocked marker. Debug disabled/absent uses explicit OFF text; preserve Option hit presence independently of measured numeric zero.",
+      "disposition": "Exact producer role accounted with existing findings; bounded native/context/source role only",
+      "remaining_actual_material_receiver": [],
+      "owner_fit": "not performed",
+      "whole_file_clearance": "none beyond exact existing read scope; partial scopes remain partial"
+    }
+  ],
+  "consumed_actual_native_caster_and_hit_receiver_qualification": {
+    "record": "continuation/camera/reached-role-reconciliation/eof-role-qualification-012.json",
+    "id": "CONT-CAMERA-EOF-PRODUCER-ROLE-QUALIFICATION-012",
+    "entries": [
+      {
+        "id": "EOF-ROLE-01",
+        "original_ranges_preserved": [
+          [
+            384,
+            415
+          ]
+        ],
+        "effective_original_ranges": [
+          [
+            384,
+            410
+          ]
+        ],
+        "nonexistent_lines_credit": 0,
+        "source_proof": {
+          "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/ray_caster.rs",
+          "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\avian3d-0.7.0\\src\\spatial_query\\ray_caster.rs",
+          "sha256": "bcc49b636bc3db8ebe946f004414493433003c689a819ede071337f555cc7c52",
+          "actual_EOF": 410,
+          "fresh_read_ranges": [
+            [
+              384,
+              410
+            ]
+          ],
+          "material_role_ranges": [
+            [
+              384,
+              410
+            ]
+          ],
+          "proof_mode": "fresh source body and current exact semantic recipient trace review; no execution"
+        },
+        "semantic_basis": "RayHitData is native hit Entity, travel Scalar and world-space Vector normal; MapEntities changes only the native Entity. Fresh immediate update_camera_aim consumes native distances in complete endpoint equations and immediately admits changed Position<Scene>; hit entities retained as explicit Option native identities. No intermediate checked source erasure established by these foreign fields.",
+        "actual_source_to_receiver_graph": "RayHitData/MapEntities384-410 -> camera/aim.rs38-87 nativecasts/endpoints/Optionhit",
+        "remaining_material_receiver": []
+      },
+      {
+        "id": "EOF-ROLE-02",
+        "original_ranges_preserved": [
+          [
+            400,
+            472
+          ],
+          [
+            572,
+            614
+          ]
+        ],
+        "effective_original_ranges": [
+          [
+            400,
+            472
+          ],
+          [
+            572,
+            612
+          ]
+        ],
+        "nonexistent_lines_credit": 0,
+        "source_proof": {
+          "source_id": "pinned-registry:avian3d-0.7.0/src/spatial_query/shape_caster.rs",
+          "resolved_path": "CARGO_HOME\\registry\\src\\index.crates.io-1949cf8c6b5b557f\\avian3d-0.7.0\\src\\spatial_query\\shape_caster.rs",
+          "sha256": "e7ddca53ee044c4814c925fffa7f172680988ea9456834049da965f16a5c6b66",
+          "actual_EOF": 612,
+          "fresh_read_ranges": [
+            [
+              400,
+              612
+            ]
+          ],
+          "material_role_ranges": [
+            [
+              400,
+              491
+            ],
+            [
+              572,
+              612
+            ]
+          ],
+          "proof_mode": "fresh source body and current exact semantic recipient trace review; no execution"
+        },
+        "semantic_basis": "ShapeCastConfig retains native Scalar max/target distance and booleans. Constructors and with_* setters are the actual foreign API, with Scalar::MAX default and explicit 0.0 target, not application leaves. ShapeHitData has native Entity/distance/world-space points/normals; MapEntities remaps only Entity. Fresh CameraVolume.sweep passes typed source extraction at actual SpatialQuery.cast_shape_predicate and immediately admits changed UnitInterval fraction and SpatialDirection normal into CameraSweep/CameraHit. Existing CAM-PPS-F005 zero versus invalid derived direction conflation remains; no blanket foreign-module waiver.",
+        "actual_source_to_receiver_graph": "ShapeCastConfig407-491 and ShapeHitData576-612 -> collision.rs152-191",
+        "remaining_material_receiver": []
+      }
+    ],
+    "limit": "Supporting actual native bodies and immediate collision/aim receivers only. Original shape572-614 and ray384-415 endpoints preserved with zero credit beyond612/410; config constructor473-491 now explicitly read, not assumed from foreign module. Incidental492-571 gets no unrelated contract credit."
+  },
+  "findings_retained": [
+    "CAM-PPS-F005 actual zero/invalid Dir3 conflation remains a whole camera sweep/capture policy finding.",
+    "CAM-PROP-F013 existing assert!(...).unwrap fixture seam remains source-only, with no execution or assertion changes.",
+    "PP020 geographic/render axis, PP021 raw CaptureRecord FOV/boom/arrays before manifest validation, PP022 missing readback and PP024 fixed-camera retained raw representation remain distinct existing findings.",
+    "Rig canonical catalogue/membership/selection/instance owner requirements remain; raw observed WeightSummary/subject/head/orbit is source strengthening rather than unsupported claim of erased prior checked owner."
+  ],
+  "limits": [
+    "All15 original endpoints/material ranges remain unchanged and explicitly qualified. coordinates1-105 ends inside Displacement impl; no later methods are implied.",
+    "Manifest and foreign math/cast/hit evidence qualifies exact selected native signatures and operation bodies. No foreign whole-file or generic native-kernel waiver.",
+    "Seven zero-new-read dispositions use named exact existing full/bounded body proofs AND material contract narratives, not identity/hash/range equality alone. Eight fresh application reads make specific bounded material roles explicit.",
+    "The existing158 packet remains unchanged and accepted only for its exact producer scope. No owner-fit/all13/source-complete/implementation/check acceptance follows from this packet."
+  ],
+  "remaining_actual_material_receivers": [],
+  "next_unread_cell": "None within these15 assigned producer-role observations; hold for root dispatch."
+}

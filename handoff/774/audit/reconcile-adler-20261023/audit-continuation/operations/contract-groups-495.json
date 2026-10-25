@@ -1,0 +1,90 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-495",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/single/tests.rs",
+      "sha256": "d219a1f527a2ea6d2eb2e0d0a4fb9a8dfbae19fca579ccc36b91fcc6d2685775",
+      "actual_EOF": 454,
+      "actual_compared_ranges": [
+        [
+          1,
+          454
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/stairs.rs",
+      "sha256": "98fff0a77a3fffd4da7a5753553311a5899c2a620dd707bd04db0fca4016bc8a",
+      "actual_EOF": 318,
+      "actual_compared_ranges": [
+        [
+          1,
+          318
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface.rs",
+      "sha256": "dd84d03806822c09a5bd0e299647d2b4454050ad009a1add640a462320bafd20",
+      "actual_EOF": 177,
+      "actual_compared_ranges": [
+        [
+          1,
+          177
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface/floor/tests.rs",
+      "sha256": "418f05f73a7de5b68da774e1b2ae4ab2fd20f011803ed19fb013b2e5cf7379b7",
+      "actual_EOF": 185,
+      "actual_compared_ranges": [
+        [
+          1,
+          185
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/surface_hit.rs",
+      "sha256": "27d50aec52ef52b5d464e0e14d56fd1099e965784ab7db2198744ec9de96e558",
+      "actual_EOF": 37,
+      "actual_compared_ranges": [
+        [
+          1,
+          37
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Cut faces are deliberate physical walls, independent of bearing floor",
+      "evidence": "Full single/tests454 personallyread: explicit cut_banks test asserts nonemptycutfaces, horizontalrayhits bank atdistance1 and unchangedoutside sourceheight. This is actualexistingfixture contract supporting candidate490 physicalpurpose, not a run or witness naturalempty. Other assertions keep exactmember/doorfloor, unchangedgardencourt, missingbankrejection and recessedfloorunion withoutdoublecoverage."
+    },
+    {
+      "contract": "Stair operation and floor shift retain checked completed owners",
+      "evidence": "Full stairs318: available_run finitepositivecheck; maximum_rise explicitboundedcount andvalidphysicalgrade, later selectionrejectsnonpositive reach. compilechecksgrade/reservation/count<=u16MAX andNonZero beforechecked ScenePlanPoint/goingwidth; localheight result re-admits completed finiteelevation, shift_floorcomputesallthree beforewrites. Extreme nativeintermediateoverflow may reject, no invalid completedstairowner ordinary route proved. Architecturalstepsbounds distinct fromactorlimits."
+    },
+    {
+      "contract": "Accepted surface freeze and role-specific physical queries",
+      "evidence": "Full surface177/surface_hit37. Generated/decoded surface follows validate_encoded; doorwayapproach slice depends on privatevalidatednonemptyregionstorage. contains uses actualclippingoutlines; boundfloors distinct from generichighesthit. SurfaceHit admits finite elevation andDir3nonzero, deliberate rejectionzero/nonfinite normal. No new zero-normal fallbackphysicalsurface."
+    },
+    {
+      "contract": "Floor partition and transformed-outline acceptance constraints",
+      "evidence": "Full floor/tests185: signedzero sharededgecancelswithoutchangingbits, duplicate/partialsharededges rejected, explicit1e-8tinyregionsretained, roundedarchitectural13-pointoutline canbe legitimatelynonconvex afterf32transform andusesownsource-awareadmission. Removedface+duplicatedother cannotmaskfloorcoverage. Preserve this legitimate roundingpolicy in physicalgrade/coverage repair; do not globalepsiloncollapse or demandstrictconvexityofallrepresentedarchitecturaloutlines. No execution."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "5 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/tests.rs"
+}

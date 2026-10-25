@@ -1,0 +1,46 @@
+--- PRbase/crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs
++++ frozen/crates/adventuresim-building-generator/src/spatial_geometry/orientation.rs
+@@ -7,9 +7,9 @@
+ use serde::{Deserialize, Serialize};
+ use std::marker::PhantomData;
+ 
+ /// Finite radians. Admission preserves the represented angle without wrapping.
+-#[derive(Clone, Copy, Debug, PartialEq, Serialize, Reflect)]
++#[derive(Clone, Copy, Debug, PartialEq, Serialize, Reflect, Default)]
+ #[repr(transparent)]
+ #[serde(transparent)]
+ #[reflect(opaque)]
+ pub struct Radians(f32);
+@@ -48,14 +48,14 @@
+     frame: PhantomData<F>,
+ }
+ impl<F: GeometryFrame> PlanDirection<F> {
+     pub fn from_vector(value: Vec2) -> Result<Self> {
+-        Dir2::new(value).map_err(|source| GeometryError::Direction { source })?;
++        Dir2::new(value).map_err(super::error::direction_error)?;
+         // Keep the generator's original reciprocal-multiply normalization.
+         Self::from_normalized(value.normalize_or_zero())
+     }
+     pub fn from_normalized(value: Vec2) -> Result<Self> {
+-        Dir2::new(value).map_err(|source| GeometryError::Direction { source })?;
++        Dir2::new(value).map_err(super::error::direction_error)?;
+         if !value.is_normalized() {
+             return Err(GeometryError::UnnormalizedDirection);
+         }
+         Ok(Self {
+@@ -117,13 +117,13 @@
+     frame: PhantomData<F>,
+ }
+ impl<F: GeometryFrame> SpatialDirection<F> {
+     pub fn from_vector(value: Vec3) -> Result<Self> {
+-        Dir3::new(value).map_err(|source| GeometryError::Direction { source })?;
++        Dir3::new(value).map_err(super::error::direction_error)?;
+         Self::from_normalized(value.normalize_or_zero())
+     }
+     pub fn from_normalized(value: Vec3) -> Result<Self> {
+-        Dir3::new(value).map_err(|source| GeometryError::Direction { source })?;
++        Dir3::new(value).map_err(super::error::direction_error)?;
+         if !value.is_normalized() {
+             return Err(GeometryError::UnnormalizedDirection);
+         }
+         Ok(Self {

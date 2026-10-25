@@ -1,0 +1,79 @@
+{
+  "id": "CONT07-CONTRACT-478",
+  "at": "2026-10-23T22:34:52.224529+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2110,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/groove_sections.rs",
+      "sha256": "652cb4741bb36aa46baa4bfc2a15521ad5a939675d8ea36ae8517a7374b08175",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/model/groove_sections.rs",
+      "actual_EOF": 76,
+      "ranges": [
+        [
+          1,
+          76
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2111,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/groove_transitions.rs",
+      "sha256": "86c133cddbd27493d2a2f90105a4fab5e4a0bbbbd5fc1a6dedd0d3d74dd60f14",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/model/groove_transitions.rs",
+      "actual_EOF": 109,
+      "ranges": [
+        [
+          1,
+          109
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2112,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/lofted_blade.rs",
+      "sha256": "5a70afd50394b12fee4b39a09ae58f9cd0386b234559ae419bb5036045b70191",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/model/lofted_blade.rs",
+      "actual_EOF": 9,
+      "ranges": [
+        [
+          1,
+          9
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2113,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/model/mod.rs",
+      "sha256": "485c06d11de0a974d67d404c21cde555b41f4126f6a3ffdac7cf5ba7727dc8ad",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/model/mod.rs",
+      "actual_EOF": 273,
+      "ranges": [
+        [
+          1,
+          273
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "2110 full76 groove landmarks at each cross-section all account for other overlapping cuts at same position before sorted order; inactive lanes retain landmarks to keep indexed ring topology stable. Flat broad-face boundary indices in2105 derive only member counts and same face order, not unsorted groove-specific identity. No independent stale current topology proved.",
+    "2111 full109 compares reduced and raw rings from same immutable callback, inserts exact representable cutoffs and rechecks every unsuccessful interval; stations replaced only with coordinated next list. Raw analytic source versus intentionally simplified surface is expected-versus-realized error contract, not competing authority. Closure/validity still scoped numerical budgets; no execution.",
+    "2112 full9 Section and Loft use same BladeProfile and shared blade_sections producer; sampling count differs but no duplicated cross-section geometry owner.2113 full273 Construction always constructs High sources for canonical physical integration, then optionally constructs display-detail sources from same resolved recipe. Physical properties intentionally independent of selected display detail, not stale low-LOD properties.",
+    "2113 bound frames validated before construct; actual tip anchor chosen from High source farthest point relative control grip, and inserted once into same resolved output. Rendering at lower detail retains canonical frame/physics source, distinct from display approximation; no assertion tip exactly vertex of every lower mesh. Pivots/bore centerlines transformed with same component rotation/offset as material solid.",
+    "2113 same source assembly backs holders, physics and renderer at High; model tests read full but not run. Existing F38 zero-volume source admission/root M82 pose propagation not cleared by successful fixture assertions. PhysicalMemo complete design dependency remains same immutable pure construction; no global mutable detail input."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2115,
+    "start_line": 1
+  }
+}

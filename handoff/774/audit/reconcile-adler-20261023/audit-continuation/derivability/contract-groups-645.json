@@ -1,0 +1,48 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-645",
+  "at": "2026-10-25T16:20:48.232016+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 954,
+  "source_id": "pr-working:crates/adventuresim-core/src/material.rs",
+  "sha256": "ec177e58ea40fcbb972874ce19a6433312cdd9ae0894a105270a24829a0a27a5",
+  "actual_compared_ranges": [
+    [
+      1,
+      1540
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "Display + Error",
+      "type": "MaterialError",
+      "lines": [
+        [
+          1338,
+          1382
+        ]
+      ],
+      "disposition": "OPTIONAL_F002 literal derive preserving ignored InvalidCustody payload, NO source/transparent/from annotation"
+    },
+    {
+      "trait": "seven local empty material marker opt-ins",
+      "lines": [
+        [
+          1434,
+          1461
+        ]
+      ],
+      "disposition": "KEEP explicit local markers; no matching project derive"
+    }
+  ],
+  "analysis": [
+    "MaterialError1338\u20131382 fixed-literal Display plus empty Error is exact optional F002 derive site, including InvalidCustody(CustodyIdentityError) deliberately ignored payload. Use literal error attribute and NO transparent/source/from attribute; preserve Error::source None and no payload formatting/extra error bound. Existing pinned thiserror macro contract017/026/037 applies; structural Debug already present.",
+    "Seven local test material trait opt-ins1434/1439/1444/1449/1455/1458/1461 are empty marker implementations, retain explicit; no owning matching derive. Source fixture helpers/native admission not run."
+  ],
+  "first_unfinished": {
+    "scope_index": 954,
+    "line": 1541
+  },
+  "execution": "none"
+}

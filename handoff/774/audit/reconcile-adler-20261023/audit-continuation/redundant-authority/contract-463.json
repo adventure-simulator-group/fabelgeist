@@ -1,0 +1,109 @@
+{
+  "id": "CONT07-CONTRACT-463",
+  "at": "2026-10-23T22:23:27.034184+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2040,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/melee.rs",
+      "sha256": "fe64843450cc6ba428fd3c9c1fec3a5fcb5b65b3cbf3a5c21997548d3a355dd6",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/combat/melee.rs",
+      "actual_EOF": 473,
+      "ranges": [
+        [
+          1,
+          473
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2042,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/melee/outcome.rs",
+      "sha256": "b1df703eee8ffb66e22145a48e714ea090151771043a2c85b99905acb930c2f4",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/combat/melee/outcome.rs",
+      "actual_EOF": 129,
+      "ranges": [
+        [
+          1,
+          129
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "audit/records/final-acceptance-20261021/wave-01/audit-existing-type-owners/native/contracts.jsonl#NATIVE-OWNER-DOORS-002"
+  ],
+  "facts": [
+    "2040 full473 baseline reread proves current completion admission reads TacticalCombatState.incapacitation through is_incapacitated, then actual attack precision/power also reads same total. Pending contacts2035:274\u2013304 queue multiple eligible intents after Condition; same-frame consequence-before-next-intent ordering requires actual observer command semantics before promotion, not inferred arbitrary schedule.",
+    "2042 full129 baseline reread carries single accepted response/contact/actual slot to consequence and client effect, with historical attempted response intentionally separate from effective alignment. Block fallback slot remains correct; receipt independently assumes shield and F098 captures exact conditional omission.",
+    "Fresh Core901 full123 and891:180\u2013350 plus897:125\u2013194/234\u2013295 show Block and Parry are both physical weapon contacts; positive avoided contact force derives from actual accuracy/contact energy. Shield alignment with no shield explicitly leaves response unchanged. These supplemental ranges do not add new original role credit.",
+    "NATIVE-OWNER-DOORS-002 supplier narrative personally read from ZIP full matching row (both historical and closure-qualified duplicate): raw failed native pose observations remain diagnostic; canonical boundary/building/furniture Transform/collider ownership preserved, URLs/native labels not blanket identity; lower unseated/mutating native receiver risks require actual source, not inherited lens07 verdict."
+  ],
+  "new_local_findings": [
+    "CONT07-F098"
+  ],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2046,
+    "start_line": 1
+  },
+  "supplemental_exact_reads": [
+    {
+      "scope_index": 901,
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/melee_resolution.rs",
+      "sha256": "5dd8e24f1b117b07079d9bbd53930a23740ac4970336b315e88a11642e2d0635",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/combat/melee_resolution.rs",
+      "ranges": [
+        [
+          1,
+          123
+        ]
+      ]
+    },
+    {
+      "scope_index": 897,
+      "source_id": "pr-working:crates/adventuresim-core/src/combat/defense.rs",
+      "sha256": "a3019cfa64106abc38bbfa7b0962e406cc6cb1a1a663a8a0dfdee71f874201e1",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/combat/defense.rs",
+      "ranges": [
+        [
+          125,
+          194
+        ],
+        [
+          234,
+          295
+        ]
+      ]
+    },
+    {
+      "scope_index": 891,
+      "source_id": "pr-working:crates/adventuresim-core/src/combat.rs",
+      "sha256": "7d00629a7da937cf41b5bc49a86df7119cc7054743dce1f70ac2507a7aba59b0",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/combat.rs",
+      "ranges": [
+        [
+          180,
+          350
+        ]
+      ]
+    },
+    {
+      "scope_index": 2035,
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/combat/ingress.rs",
+      "sha256": "7b8e51061494a9d8a04960207b16657e3494be1831663d62e911f8a690429d3a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server/src/combat/ingress.rs",
+      "ranges": [
+        [
+          260,
+          330
+        ]
+      ],
+      "new_original_credit": false
+    }
+  ]
+}

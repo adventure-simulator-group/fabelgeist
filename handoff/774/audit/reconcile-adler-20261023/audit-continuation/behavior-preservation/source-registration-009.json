@@ -1,0 +1,28 @@
+{
+  "id": "CONT08-REG009",
+  "at": "2026-10-25T18:38:50.045583+00:00",
+  "reason": "Actual old Time::from_hz(f64(sample_hz)) versus new capture_fixed_clock Duration::try_from_secs_f64 reciprocal needs native constructor/order proof. Register only reached constructors/setters before body read.",
+  "registration_timing": "Prospective before semantic body read; function-line navigation only.",
+  "crate_sha256": "f6896d83d7ed32a2f89da127b7aeddf01eb702e603897cf5ddac231480a1870e",
+  "rows": [
+    {
+      "source_id": "native-dependency:bevy_time-0.19.1/src/fixed.rs",
+      "path": "/home/brunosegovia/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bevy_time-0.19.1/src/fixed.rs",
+      "sha256": "c3e4e4bee5d4cdde83d23e3016d7c8532b2ca00f98fbea93f34c23d316bfb963",
+      "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/native-bevy-time-fixed-c3e4e4bee5d4cdde83d23e3016d7c8532b2ca00f98fbea93f34c23d316bfb963",
+      "material_ranges": [
+        [
+          70,
+          108
+        ],
+        [
+          116,
+          180
+        ]
+      ],
+      "line_count": 367
+    }
+  ],
+  "byte_identity": "Exact cached member/local bytes match and crate SHA equals frozen6533 Cargo.lock checksum. Metadata only, no semantic credit.",
+  "limits": "Bounded native receiver only; original2853 and later-material denominators retained."
+}

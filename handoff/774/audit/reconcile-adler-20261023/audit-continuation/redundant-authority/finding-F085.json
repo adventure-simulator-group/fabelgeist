@@ -1,0 +1,64 @@
+{
+  "id": "CONT07-F085",
+  "at": "2026-10-23T20:41:36.589221+00:00",
+  "classification": "source-backed conditional valid distinct-place alias/relocation provenance defect; no runtime run",
+  "title": "Repeated selection of one building loses the original furniture relocation pose",
+  "sources": [
+    {
+      "scope_index": 1635,
+      "sha256": "ae556b18add14ae22e1b97bc772ab06f455827e6afdff55b5659fac6ae9b9d27",
+      "ranges": [
+        [
+          61,
+          86
+        ]
+      ]
+    },
+    {
+      "scope_index": 1678,
+      "sha256": "eed4c2d99ec4ad18e67456e133d4ea14ae54d5bb6645beaa5dd3b707f842a3be",
+      "ranges": [
+        [
+          75,
+          107
+        ],
+        [
+          119,
+          134
+        ]
+      ]
+    },
+    {
+      "scope_index": 1694,
+      "sha256": "05e1262eceecd704375cc6d33a557bb5ad265eafb44ecf6697a08a74dc439197",
+      "ranges": [
+        [
+          71,
+          129
+        ],
+        [
+          184,
+          207
+        ]
+      ]
+    },
+    {
+      "scope_index": 1684,
+      "sha256": "66149a921888d0c9cf3f530e5c3d909dc4950a182bbaefc83c15ff8f7adf792b",
+      "ranges": [
+        [
+          82,
+          94
+        ]
+      ]
+    }
+  ],
+  "earliest_failed_contract": "Original furniture worldpose must be transformed byinverse(originalbuildingpose) thenfinalbuildingpose exactlyonce. moves[id].before mustremainoriginal whenmultipleplaceentriesaliasonephysicalbuilding.",
+  "counterexample": "Two distinct place IDs withsamekind andno matchingoperator establishments maybothselectfirstbuildingwithmatchingusage viaactualselect_building. Street::arrange firstrelocatesbuilding T0->T1 andstoresbeforeT0. Secondplace readsalreadyrelocatedT1 andoverwritesmoves[id] withbeforeT1; centeringwritesfinalT2. Furniture remainsatT0 untilrelocate_interior_furniture, whichappliesT2*inverse(T1), missingtheinitialT1*inverse(T0) transform. Condition requiresatleastoneinteriorfurnitureinstance andnonidentityfirstrelocation; generatedfrontage normallymovesmatchingbuilding.",
+  "actual_recipient": "relocate_interior_furniture writesFurnitureInstance position/orientation usingwrongbefore; spawn_props1684:87-92 feeds thoseworldposes directlyinto nativeTransform. Buildingitselfusesfinalplacement. Thisisactualtwo-product disagreement, notonlyduplicatebaydiagnostic.",
+  "qualification": "Conditional representabledistinct-placealiasinputusingcurrentselection/relocation routes, no claimactuallivecityhasthisalias, ordinaryuserrequestedtwoinns, allrecipesfurnished, badrenderedfixture or executedexample. Existingfixtureuses2distinctbuildings anddoesnotexercisealias. Duplicatebay/venuepolicyrelatedbutnotcountedasseparatedefect.",
+  "connected_repair": "ChooseonecanonicalrelocationperphysicalSceneBuildingId retainingitsoriginalpose, thenderiveallfurniture/venues/finalplacement coherently. Ifviewrequiresindependentduplicatefacades, createexplicitdistinctpresentationinstanceidentity/cohort withitsownfurniture ratherthan reusingonephysicalID. Preserveunique-buildingnormalfrontage andlocalpose/facing/datum.",
+  "acceptance": "Multipleplacesselectingonebuilding cannotapplypartial/overwrittenrelocationtofurniture; eachacceptedbuilding/furniturecohort retainsoriginal-to-final transform andexplicitsharedvenue/duplicateinstancepolicy. No tests added or executed.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

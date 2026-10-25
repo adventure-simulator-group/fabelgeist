@@ -1,0 +1,55 @@
+{
+  "id": "ROOT-INITIAL04-CONTRACT-038",
+  "at": "2026-10-22T20:58:07.248552+00:00",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-hair/src/ops/interpolate.rs",
+      "sha256": "695c1097efb81ad14d92b7d55949e67524b0e3949da155df54fac940c6f5b92a",
+      "actual_compared_ranges": [
+        [
+          1,
+          95
+        ],
+        [
+          166,
+          433
+        ]
+      ],
+      "source_evidence": "Fresh full remaining source; Parting96-165 separately personally compared031. No tests in actual EOF433."
+    }
+  ],
+  "groups": {
+    "image-index-operation": "At positive width/height all four reads depend actual complete-image cardinality. Zero width OR height returns1 before subtract/index, deliberately supported uniform result. UV clamp alone does not admit source geometry/product: f32 rounding of very large usize extent can saturate x0 out of bounds, x0+1 and y*width+x need representable bounds, and f32 samples can be nonfinite. Use actual accepted image/native indexing boundary; no assertion that every finite dimension count fits f32 coordinate indexing exactly. F015 concrete smallest malformed image corroborates existing F072.",
+    "balder-probability-operation": "Balding finite unit loss inputs intended but raw public fields not checked; arithmetic square can overflow for arbitrary finite UV, smoothstep inputs/thresholds require owning operations. Final clamp limits comparable finite values but does not prove NaN admission. Density Image weighted samples no final clamp; canonical valid sample policy is separate. Uniform1 valid. Patchiness0/edge0 are supported disable sentinels; do not replace all raw roles with positive lengths or force density channel sums1.",
+    "root-count-grid-and-kernel": "count.max1 protects spacing division at count0, roots capacity and count*2 need one coherent native allocation/iteration extent bound. For huge count earliest Vec capacity error precedes multiplication, so no claimed later multiply executes after impossible allocation. count0 yields no new roots; keep_guides may retain originals intentionally. spacing derives actual scalp area and raw count; max epsilon is existing native numerical behavior, not general Surface area/admission. Actual PointGrid query uses neighbors.max1; this call cannot reach NativeF006 k0 case. nearest.is_empty checked before nearest[0]. divergence branch points>=3 makes indices points/3,2*points/3,points-1 valid under native size capacity; whole Strands cardinality is separate F070/071. No foreign numerical helper inferred safe from name.",
+    "weights-and-curves": "Nearest tuples produce weights same vector length then sum, so zip does not truncate independently authored columns. Inverse-distance-square denominator +1e-10 avoids zero for finite squared distance but d*d can overflow, nonfinite distances/vanishing total still need admitted actual query result and checked normalization. No current far-guide output defect claimed without actual Grid distance contract. Strand sample subtraction/norm/along accumulation, weighted offsets/root additions and radius multiplication require computed finite readmission at coherent retained Strands output, same RigF073 extent/finite geometry graph. Reference sample comparisons and turn normalizations cannot establish arbitrary raw guide input coherence. turn_between nearzero cross returns v, including antiparallel normal case existing behavior; no invented proper-rotation invariant or redesign. Attachment group derives same parting, unassigned wildcard intentional; host dummy from_gpu_word0 is existing Rig06F006 ownership gap.",
+    "identity-publication-failure": "Indexed parallel iterator collect retains root order, raw i asu32 then stable hash same actual stream schedule; preserve deterministic ordering/identity policy without claiming hash collision-freedom. Output Strands constructed locally, optional guides copied then grown flattened, so intermediate numerical/append failure has no retained external partial output. Local Rng consumed during local compute only; caller retry state not established. guide_groups is one-for-one guides.len, guide root and normals depend canonical Strands structure. grown.len+guides.len capacity may overestimate when not keeping guides but not correctness failure. No new actual runtime/render claim."
+  },
+  "findings": [
+    {
+      "id": "ROOT-INITIAL04-F015",
+      "kind": "representable_public_API_counterexample",
+      "source_id": "pr-working:crates/fabelgeist-hair/src/ops/interpolate.rs",
+      "locations": [
+        [
+          218,
+          234
+        ]
+      ],
+      "case": "DensityMask::Image{width:1,height:1,values:vec![]}.at([0.0,0.0]) computes all indices0 then values[0] panics. Positive dimensions and finite valid UV alone insufficient. No actual bad asset/runtime claimed.",
+      "operation": "Unchecked bilinear lookup assumes width*height cardinality and native index representability. Public raw fields and ordinary derived Deserialize permit malformed complete aggregate.",
+      "connected_repair": "Same existing Rig-admission03 F072 graph: checked canonical density image with overflow-safe dimension/product/storage relation, finite usable channel policy and appropriate nativeUV handling before lookup. Preserve width0 or height0 existing uniform1 policy if intentional final contract; reject malformed positive image rather than fallback fabricated samples. Propagate admitted mask through Interpolate authoring/config/kernel.",
+      "acceptance": "Every accepted positive image has representable complete storage and all bilinear reads within storage for supported UV policy. Test additions prohibited; adapt existing or source/hosted acceptance after all13.",
+      "deduplication": "Supports existing RIG-ADMISSION03-F072, not unique new repairgraph."
+    }
+  ],
+  "prior_finding_support": [
+    "RootF013 public Parting lanes; RigF072 image aggregate, RigF070/071 Strands and F073 numeric extent; NativeF006 nearest_k zero excluded from this caller"
+  ],
+  "repair": "frozen_all13_initial",
+  "validation": "not_run",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false
+}

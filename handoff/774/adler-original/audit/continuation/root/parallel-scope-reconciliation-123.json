@@ -1,0 +1,273 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-123",
+  "at": "2026-10-22T21:00:51.152491+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-029.json",
+    "sha256": "65836914fe9237dea26f1c0acb562f412d7882d9a96bb82204acb968395e1889"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-028.json",
+    "sha256": "ea4e9de261fa618b7365ebd714c7338da49de722a677cf197155f3e662b3f2a2"
+  },
+  "new_variants": [],
+  "new_overlays": [
+    {
+      "id": "CONT-OWNER-RANGE-EXTENSION-208",
+      "at": "2026-10-22T21:00:51.152491+00:00",
+      "source_id": "physical-p16:crates/adventuresim-core/src/bestiary.rs",
+      "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+      "material_ranges": [
+        [
+          300,
+          306
+        ],
+        [
+          805,
+          836
+        ]
+      ],
+      "audit_owner": "native",
+      "reason": "Direct exact aggregate-contract callees and signature type; original scope only ends803 and excludes this enum. Registered before actual new body analysis, navigation-only declaration endpoints established.",
+      "scope_registration": [
+        {
+          "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+          "sha256": "bad81379345801e0477b1f6b5980e6122b5c9bcf5703a01ee9b01b7641f7e06c",
+          "row_1based": 9,
+          "id": "NATIVE-INITIAL05-REG009",
+          "original_record": {
+            "id": "NATIVE-INITIAL05-REG009",
+            "at": "2026-10-22T20:56:45.069051+00:00",
+            "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+            "source_id": "physical-p16:crates/adventuresim-core/src/bestiary.rs",
+            "snapshot": "physical-p16",
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-core\\src\\bestiary.rs",
+            "sha256": "223a264abf8a0c920de6dbe26b12c3b013dfb0cd8e7161c0a5614db5eb3294b7",
+            "actual_EOF": 1558,
+            "material_ranges": [
+              [
+                300,
+                306
+              ],
+              [
+                805,
+                836
+              ]
+            ],
+            "material_caller": "Already-global P16 select_habitat_relation 777\u00e2\u20ac\u201c803 directly uses CausalBridge and contains_habitat/required_bridge/bridge_evidence to establish whole admitted relation.",
+            "reason": "Direct exact aggregate-contract callees and signature type; original scope only ends803 and excludes this enum. Registered before actual new body analysis, navigation-only declaration endpoints established.",
+            "exclusions": "RegionalContext295\u00e2\u20ac\u201c299, unrelated report/scoring policy838+, unsupported layered predicate339\u00e2\u20ac\u201c344, tests, whole file excluded. No foreign graph or source/later-lens credit.",
+            "status": "prospectively registered before new body analysis; global pending"
+          }
+        }
+      ],
+      "limits": "RegionalContext295\u00e2\u20ac\u201c299, unrelated report/scoring policy838+, unsupported layered predicate339\u00e2\u20ac\u201c344, tests, whole file excluded. No foreign graph or source/later-lens credit.",
+      "source_qualifications": "Exact prospective caller/helper role only. Language309-314 premature display uncredited, fresh reread complete; other historical scopes preserved independently."
+    },
+    {
+      "id": "CONT-OWNER-RANGE-EXTENSION-209",
+      "at": "2026-10-22T21:00:51.152491+00:00",
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/language.rs",
+      "sha256": "1475b920cad83e1f040a2c19627f288508d660a9d771bd72cf8993fa34b9a05f",
+      "material_ranges": [
+        [
+          1,
+          119
+        ]
+      ],
+      "audit_owner": "rig",
+      "reason": "Necessary directlyreached existingcanonicaldefinition/helpercompletebody; beforefreshboundedread/current06comparison",
+      "scope_registration": [
+        {
+          "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+          "sha256": "de794db9ff23b7a97c341940926816bbfcdcc7e212ea663db388c214eb7451ed",
+          "row_1based": 23,
+          "id": "RIG-INITIAL06-REG-023",
+          "original_record": {
+            "id": "RIG-INITIAL06-REG-023",
+            "at": "2026-10-22T20:56:57.792875+00:00",
+            "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+            "source_id": "pr-working:crates/adventuresim-world-schema/src/language.rs",
+            "snapshot": "pr-working",
+            "sha256": "1475b920cad83e1f040a2c19627f288508d660a9d771bd72cf8993fa34b9a05f",
+            "actual_EOF": 756,
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-world-schema\\src\\language.rs",
+            "material_ranges": [
+              [
+                1,
+                119
+              ]
+            ],
+            "material_caller": "Direct OralLanguage/LanguageDescriptor/ORAL_FLUENCY_HOURS definition+ALL/index/descriptor neededfor scopedOralLanguageHours140\u2013205,partytraining andBookWrittenLanguage371descriptor; existing120\u2013308/315\u2013530 only excludesdeclarations.",
+            "reason": "Necessary directlyreached existingcanonicaldefinition/helpercompletebody; beforefreshboundedread/current06comparison",
+            "exclusions": "Onlyexactranges, no feature/foreigngraph/testexecution. PrematureLanguage309\u2013314companiondisplayuncredited beforeREG024; everyothernewrangeunread.",
+            "status": "ProspectivelyregisteredBEFOREfreshbodyanalysis; globalpending"
+          }
+        }
+      ],
+      "limits": "Onlyexactranges, no feature/foreigngraph/testexecution. PrematureLanguage309\u2013314companiondisplayuncredited beforeREG024; everyothernewrangeunread.",
+      "source_qualifications": "Exact prospective caller/helper role only. Language309-314 premature display uncredited, fresh reread complete; other historical scopes preserved independently."
+    },
+    {
+      "id": "CONT-OWNER-RANGE-EXTENSION-210",
+      "at": "2026-10-22T21:00:51.152491+00:00",
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/language.rs",
+      "sha256": "1475b920cad83e1f040a2c19627f288508d660a9d771bd72cf8993fa34b9a05f",
+      "material_ranges": [
+        [
+          309,
+          314
+        ]
+      ],
+      "audit_owner": "rig",
+      "reason": "Necessary directlyreached existingcanonicaldefinition/helpercompletebody; beforefreshboundedread/current06comparison",
+      "scope_registration": [
+        {
+          "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+          "sha256": "de794db9ff23b7a97c341940926816bbfcdcc7e212ea663db388c214eb7451ed",
+          "row_1based": 24,
+          "id": "RIG-INITIAL06-REG-024",
+          "original_record": {
+            "id": "RIG-INITIAL06-REG-024",
+            "at": "2026-10-22T20:56:57.792875+00:00",
+            "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+            "source_id": "pr-working:crates/adventuresim-world-schema/src/language.rs",
+            "snapshot": "pr-working",
+            "sha256": "1475b920cad83e1f040a2c19627f288508d660a9d771bd72cf8993fa34b9a05f",
+            "actual_EOF": 756,
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-world-schema\\src\\language.rs",
+            "material_ranges": [
+              [
+                309,
+                314
+              ]
+            ],
+            "material_caller": "Exact party_oral_training_gains307\u2013319 signature/normalizationprefixmissingfromold120\u2013308/315\u2013530; materialcurrentcaller+returnedtuplecomparison, no unrelatedlanguagefeature.",
+            "reason": "Necessary directlyreached existingcanonicaldefinition/helpercompletebody; beforefreshboundedread/current06comparison",
+            "exclusions": "Onlyexactranges, no feature/foreigngraph/testexecution. PrematureLanguage309\u2013314companiondisplayuncredited beforeREG024; everyothernewrangeunread.",
+            "status": "ProspectivelyregisteredBEFOREfreshbodyanalysis; globalpending"
+          }
+        }
+      ],
+      "limits": "Onlyexactranges, no feature/foreigngraph/testexecution. PrematureLanguage309\u2013314companiondisplayuncredited beforeREG024; everyothernewrangeunread.",
+      "source_qualifications": "Exact prospective caller/helper role only. Language309-314 premature display uncredited, fresh reread complete; other historical scopes preserved independently."
+    },
+    {
+      "id": "CONT-OWNER-RANGE-EXTENSION-211",
+      "at": "2026-10-22T21:00:51.152491+00:00",
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/bestiary.rs",
+      "sha256": "0a8870d89db5190ae5b70aaffd93d7511b144e4861f37ffd649c62f464a3d2b7",
+      "material_ranges": [
+        [
+          113,
+          139
+        ]
+      ],
+      "audit_owner": "rig",
+      "reason": "Necessary directlyreached existingcanonicaldefinition/helpercompletebody; beforefreshboundedread/current06comparison",
+      "scope_registration": [
+        {
+          "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+          "sha256": "de794db9ff23b7a97c341940926816bbfcdcc7e212ea663db388c214eb7451ed",
+          "row_1based": 25,
+          "id": "RIG-INITIAL06-REG-025",
+          "original_record": {
+            "id": "RIG-INITIAL06-REG-025",
+            "at": "2026-10-22T20:56:57.792875+00:00",
+            "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+            "source_id": "pr-working:crates/adventuresim-world-schema/src/bestiary.rs",
+            "snapshot": "pr-working",
+            "sha256": "0a8870d89db5190ae5b70aaffd93d7511b144e4861f37ffd649c62f464a3d2b7",
+            "actual_EOF": 330,
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-world-schema\\src\\bestiary.rs",
+            "material_ranges": [
+              [
+                113,
+                139
+              ]
+            ],
+            "material_caller": "DirectclosedBestiaryCategorycorrelationmatrixremaining27lines requiredtofinishactualscopedmethod108\u2013151 calledbyBestiaryHours.effective224\u2013241; old1\u2013112/140\u2013285 excludesmiddle, no wholebestiarytests286+scope.",
+            "reason": "Necessary directlyreached existingcanonicaldefinition/helpercompletebody; beforefreshboundedread/current06comparison",
+            "exclusions": "Onlyexactranges, no feature/foreigngraph/testexecution. PrematureLanguage309\u2013314companiondisplayuncredited beforeREG024; everyothernewrangeunread.",
+            "status": "ProspectivelyregisteredBEFOREfreshbodyanalysis; globalpending"
+          }
+        }
+      ],
+      "limits": "Onlyexactranges, no feature/foreigngraph/testexecution. PrematureLanguage309\u2013314companiondisplayuncredited beforeREG024; everyothernewrangeunread.",
+      "source_qualifications": "Exact prospective caller/helper role only. Language309-314 premature display uncredited, fresh reread complete; other historical scopes preserved independently."
+    },
+    {
+      "id": "CONT-OWNER-RANGE-EXTENSION-212",
+      "at": "2026-10-22T21:00:51.152491+00:00",
+      "source_id": "pr-working:crates/adventuresim-world-schema/src/language.rs",
+      "sha256": "1475b920cad83e1f040a2c19627f288508d660a9d771bd72cf8993fa34b9a05f",
+      "material_ranges": [
+        [
+          531,
+          563
+        ]
+      ],
+      "audit_owner": "rig",
+      "reason": "Necessarydirectproducerfunctiontail, registeredbeforebodyanalysis, no independentlanguageinitializationfeature.",
+      "scope_registration": [
+        {
+          "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+          "sha256": "de794db9ff23b7a97c341940926816bbfcdcc7e212ea663db388c214eb7451ed",
+          "row_1based": 26,
+          "id": "RIG-INITIAL06-REG-026",
+          "original_record": {
+            "id": "RIG-INITIAL06-REG-026",
+            "at": "2026-10-22T20:57:40.422151+00:00",
+            "authority": "ROOT-PARALLEL-INITIAL-AUDIT-AUTHORITY-081",
+            "source_id": "pr-working:crates/adventuresim-world-schema/src/language.rs",
+            "snapshot": "pr-working",
+            "sha256": "1475b920cad83e1f040a2c19627f288508d660a9d771bd72cf8993fa34b9a05f",
+            "actual_EOF": 756,
+            "resolved_path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-world-schema\\src\\language.rs",
+            "material_ranges": [
+              [
+                531,
+                563
+              ]
+            ],
+            "material_caller": "Scoped infer_settlement_language_profile526\u2013530 begins canonicalSettlementLanguageProfile producer but bodytailmissing. Exact531\u2013563 completesactualnativeinference/checkedcoordinate admissionandreturnedprofile, tests565+excluded.",
+            "reason": "Necessarydirectproducerfunctiontail, registeredbeforebodyanalysis, no independentlanguageinitializationfeature.",
+            "exclusions": "Only531\u2013563 completeproductiontail; no565+tests or initializationmodule",
+            "status": "ProspectivelyregisteredBEFOREfreshbodyanalysis; globalpending"
+          }
+        }
+      ],
+      "limits": "Only531\u2013563 completeproductiontail; no565+tests or initializationmodule",
+      "source_qualifications": "Exact prospective caller/helper role only. Language309-314 premature display uncredited, fresh reread complete; other historical scopes preserved independently."
+    }
+  ],
+  "total_variants": 2781,
+  "total_overlays": 212,
+  "registered_rows": 5,
+  "input_pins": [
+    {
+      "record": "continuation/native/initial05-aggregate-states/source-range-registration.jsonl",
+      "sha256": "bad81379345801e0477b1f6b5980e6122b5c9bcf5703a01ee9b01b7641f7e06c",
+      "captured_rows": 9,
+      "selected_ids": [
+        "NATIVE-INITIAL05-REG009"
+      ]
+    },
+    {
+      "record": "continuation/rig/initial06-type-ownership/source-range-registration.jsonl",
+      "sha256": "de794db9ff23b7a97c341940926816bbfcdcc7e212ea663db388c214eb7451ed",
+      "captured_rows": 26,
+      "selected_ids": [
+        "RIG-INITIAL06-REG-023",
+        "RIG-INITIAL06-REG-024",
+        "RIG-INITIAL06-REG-025",
+        "RIG-INITIAL06-REG-026"
+      ]
+    }
+  ],
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through207-before029.jsonl",
+    "sha256": "bc644a4070726ef1b1b3b12d086870c9d7bb06914ee59fe2a0046e497e6ef922",
+    "through": 207
+  },
+  "limits": "P16Bestiary causalbridge/directhelpers + PRWorldSchemaLanguage declaration/missingproducerparts + Bestiarymatrixmiddle only. Actual03 proof122 separate; no wider module/tests/foreign graph."
+}

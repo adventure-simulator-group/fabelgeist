@@ -1,0 +1,225 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-315",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/solid_overlap.rs",
+      "sha256": "e61d932304ccb07e313798a4bd6cafd3c7003cf995bb29550db5cfcdf3558d24",
+      "actual_EOF": 118,
+      "actual_compared_ranges": [
+        [
+          1,
+          118
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/admission_tests.rs",
+      "sha256": "5268a1443a2d6b73539f31a9a5f081be3016051fbca1926bf308882de6c22776",
+      "actual_EOF": 104,
+      "actual_compared_ranges": [
+        [
+          1,
+          104
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spatial_geometry/tests.rs",
+      "sha256": "4d0e7f06245f70e6d3ae6904a2870cfea7f6a052fa5da512e1dd5a8768e1cbfc",
+      "actual_EOF": 99,
+      "actual_compared_ranges": [
+        [
+          1,
+          99
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs.rs",
+      "sha256": "495d427c43e115c3500736607942c7f99cd34f8e3044ce73028de1c6c8080054",
+      "actual_EOF": 175,
+      "actual_compared_ranges": [
+        [
+          1,
+          175
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/spiral_stairs/flight.rs",
+      "sha256": "0818457e8abbc4f4e47e831e9ecb51fa917ee6573d45329a524982523b982d3f",
+      "actual_EOF": 197,
+      "actual_compared_ranges": [
+        [
+          1,
+          197
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/viewer/player_build_scene.rs",
+      "sha256": "d68cb8b9206234b010317faa212f96853e08a712d19e2bc67dfca81fbb035384",
+      "actual_EOF": 420,
+      "actual_compared_ranges": [
+        [
+          1,
+          420
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/windows.rs",
+      "sha256": "ebb276b2f9852eb4cd3cf87b5582ac9f8e58c4b266f937bc5a84d0396b06ff76",
+      "actual_EOF": 259,
+      "actual_compared_ranges": [
+        [
+          1,
+          259
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/windows/contract_tests.rs",
+      "sha256": "e90e34c5bf132224c8fe4cf0e24b30950f9dab42abf14da6812e97d290a51c5d",
+      "actual_EOF": 155,
+      "actual_compared_ranges": [
+        [
+          1,
+          155
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/windows/leaf.rs",
+      "sha256": "bea74075651588d26b629c3b43996d0c9fe8d76c47577b585af2b8e159488ffd",
+      "actual_EOF": 150,
+      "actual_compared_ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-building-generator/src/windows/spec.rs",
+      "sha256": "eb5e21dfb8d7915e6e7a3f3c39ee3ee3e9f0a91b5c3604972180918ca488234b",
+      "actual_EOF": 147,
+      "actual_compared_ranges": [
+        [
+          1,
+          147
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Spiral flight compilation must establish its whole derived geometry before returning Some",
+      "source_ranges": {
+        "spiral_stairs.rs": [
+          [
+            1,
+            175
+          ]
+        ],
+        "spiral_stairs/flight.rs": [
+          [
+            1,
+            197
+          ]
+        ]
+      },
+      "disposition": "Both complete bodies personally read. Fresh lens04 analysis confirms exact archive audit/continuation/native/initial05-aggregate-states/findings.jsonl#57 NATIVE-INITIAL05-F056: raw public Spiral centre0/base0/rise0/inner.2/outer1/turns1/tread_count0 with storey_height3 produces required0, checked_sub succeeds, zero-count tread loop skips, then angle(0)=0/0 gives NaN landing/member and Some(Flight). No normal positive authored flight or published accepted building shown malformed. required_treads u16 casts/sum and per-interval count+extras require capacity policy; existing record already includes this family. level_breaks always starts base and pushes top, proving len>=2 and interval_count>=1, so interval division is not itself a zero-count panic. Owning resolve consumes plan, re-admits native solids/interfaces and drops on Err; this is distinct from public compile_flight success. landings checks one retained owner Landing then recomputes from recipe and occupied-floor filter; preserve existing archive audit/continuation/camera/initial07-redundant-authority/findings.jsonl#46 relationship (no new identity dedup). Owner-index casts/domain capacity require actual bounded stair population. Connected acceptance: valid rise/radii/storey/tread capacity and finite paired geometry or rejection before successful Flight, preserving handedness/occupied landing policy."
+    },
+    {
+      "contract": "Native solid SAT kernels retain their real applicability; spatial fixtures describe checks without execution",
+      "source_ranges": {
+        "solid_overlap.rs": [
+          [
+            1,
+            118
+          ]
+        ],
+        "spatial_geometry/admission_tests.rs": [
+          [
+            1,
+            104
+          ]
+        ],
+        "spatial_geometry/tests.rs": [
+          [
+            1,
+            99
+          ]
+        ]
+      },
+      "disposition": "All three complete bodies read. Solid contact uses all YXZ axes and nondegenerate world/local cross axes; triangle-box builds3world+normal+9edgecross axes and filters near-zero native axes. Tolerance defines strict penetration, not boundary overlap. Finite native inputs alone do not prove every centre, norm and dot product finite at extremes; actual admitted bounded generated geometry remains the private caller contract, no ordinary SAT failure promoted. Complete fixtures read for thin triangles, decoded/reflected leaves, checked point overflow, signed lengths/zero area, extent/centre errors and normalized directions. These explicitly allow flat/point bounds and distinguish positive clearance, with no claim that every finite leaf permits every downstream operation. No fixture execution."
+    },
+    {
+      "contract": "Window operations retain source-linked errors and distinguish fixed degenerate cuboids from positive operable leaves",
+      "source_ranges": {
+        "windows.rs": [
+          [
+            1,
+            259
+          ]
+        ],
+        "windows/spec.rs": [
+          [
+            1,
+            147
+          ]
+        ],
+        "windows/leaf.rs": [
+          [
+            1,
+            150
+          ]
+        ],
+        "windows/contract_tests.rs": [
+          [
+            1,
+            155
+          ]
+        ]
+      },
+      "disposition": "All four full bodies read; a truncated combined output was followed by an untruncated re-read of windows.rs/spec.rs before completion. Bars use authored count2or3 and denominator3or4, validate normalized frame and computed centre/size/yaw, and collect Result. Encoding opening.id<<8 requires supported ID capacity for injectivity; normal generated IDs personally seen1+global index and1000000+child index fit, no ordinary collision shown. Operable compilation filters window/state/inside/exterior, finds first actually existing supported closure and returns MissingClosure with identities otherwise. Normalization does not prove frame orthogonality; current checked individual leaves preserve that qualification. Computed width/thickness/hinge/angle re-admit; deliberate thickness minimum.025 is policy. Fixed glazing may have zero cuboid thickness; operable LeafDimensions rejects zero. Shutter width below .002 can produce a typed Builder rejection, which is valid, not an infallibility defect. Arbitrarily huge pane/board loops remain capacity strengthening, no normal generated witness. Complete fixture bodies for state/seed matrix, inward swing, missing closure, bad frame/height, JSON/postcard and barred identity read only."
+    },
+    {
+      "contract": "Player-build viewer operations use private accepted document assumptions and expose a separate scene failure boundary",
+      "source_ranges": {
+        "viewer/player_build_scene.rs": [
+          [
+            1,
+            420
+          ]
+        ]
+      },
+      "disposition": "All420lines personally read. Footprint and storey ordinal conversions are bounded u16; floor cut subtraction uses actual cardinal direction, overlap guards and <=.01 culling before spawning pieces. Straight clearance_start clamp requires nonnegative finite run; raw Stair does not guarantee it, so arbitrary invalid document needs its owner admission rather than assuming helper totality. Freeform wall neighbor arithmetic requires the valid cell bounds already established for actual generated footprints; no detached arbitrary i16MAX document proof. Selection framing skips empty matches before midpoint/radius, but finite transforms alone do not guarantee finite native norm; ordinary viewer transforms not shown extreme. Visibility applies captured base material/cutaway state explicitly. Rebuild deletes old scene entities before setup and records setup error; any required scene-level rollback/cleanup must be traced at actual setup owner, not confused with consume-and-drop pure plan transactions. No concrete normal setup failure leaving a bad playable scene established in this batch; dependency remains qualified, not an accepted new defect."
+    }
+  ],
+  "findings": [
+    {
+      "disposition": "same existing finding; personally analyzed lens04 support",
+      "archive_key": "audit/continuation/native/initial05-aggregate-states/findings.jsonl#57",
+      "id": "NATIVE-INITIAL05-F056",
+      "no_new_unique_count": true
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "10 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-character-creator/Cargo.lock"
+}

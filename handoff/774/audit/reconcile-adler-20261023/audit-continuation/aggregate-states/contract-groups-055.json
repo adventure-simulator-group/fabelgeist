@@ -1,0 +1,96 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-055",
+  "at": "2026-10-25T11:50:26.016064+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1196,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/social/action_authority_tests.rs",
+      "sha256": "ba5b4a0bf39b20046078778a463fce3dea54375d10801a7f68c2d58aaa689198",
+      "personally_read_ranges": [
+        [
+          1,
+          154
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole154 guarded reducer read, not executed. Distinct fixture pairs, exact canonical action and requested target/source binding checked in single interaction, shared-concern executing skill split, explicit current-cooldown repeat rejection, invalid action parse precedes actor lookup. Fixture manual no-time execution intentional; it does not establish production clock acceptance. Native IDs, action string roundtrip and String failures remain inherited migration work; no false new aggregate defect."
+    },
+    {
+      "scope_index": 1197,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/social/admission.rs",
+      "sha256": "69e421c97648b448a374ac32ca30481cb6d0599800f9fbfa88d27dd6fb0f9137",
+      "personally_read_ranges": [
+        [
+          1,
+          31
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole31 admission read. Parses action before lookups, enforces actor==target iff Reflect, fetches both actual characters then same canonical living/co-presence gate. Thus prior1195/1200 private is_self bool derives actual identities on ordinary request; representable wrong bool is not public normal bad combination. Returns only action rather than admitted pair capability; actual same reducer has no competing mutation between synchronous lookup and use. Existing bespoke request/error propagation required, no duplicate owner."
+    },
+    {
+      "scope_index": 1198,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/social/authority_tests.rs",
+      "sha256": "7d9764fa811d072a8b73d6cff64f240b384f8a04d87654fa95c97a8f06a72231",
+      "personally_read_ranges": [
+        [
+          1,
+          379
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole379 guarded witness fixture read, not executed. Session has coherent owner-party/player/resident/event and bound capability; fixture claims/receipt/resolution verify exact replay before mutated revision and no second affinity/time charge, changed request rejected. Accurate test claims all DidNotYield, authored absence causes no receipt or resolution. These direct private-row fixtures and synthetic deterministic outcomes do not prove observer-safe public morale effect equivalence or actual normal state leak; Q002 still qualified. Raw session roles/state, claim token/revision/error vocabulary remain inherited typing work. Separate generated claims use distinct tokens despite same order fixture value, not proof production normal claim-order uniqueness violation."
+    },
+    {
+      "scope_index": 1199,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/social/automatic_authority_tests.rs",
+      "sha256": "005d1418c985d41f95a7556250dba755b766afd37f61192b5750025194eec271",
+      "personally_read_ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole85 guarded automatic preference lifecycle fixture read, not run. Repeated enable one row, disable removes and no care, enable one randomized outcome-independent attempt, party departure/death prune and reject enrollment, self rejected. Direct mutated character fixture state used intentionally to exercise pruning, not ordinary invalid lifecycle construction evidence. Actual production preference/admitted target/action/source trace1195 remains coherent."
+    },
+    {
+      "scope_index": 1200,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/social/discovery.rs",
+      "sha256": "848aa99d18243a4679c4c3ef1cbe3e9e1556f5c93b1a5cf83cd6c9a04c545198",
+      "personally_read_ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole47 axis-selection function read. Actual admission1197 establishes is_self exactly Reflect, making unreachable nonself Reflect inaccessible from normal request. Self two distinct axes; Listen selected topic axis plus Transparency distinct in all six topics: core998536\u2013543 maps DefeatDrive/InjurySelfRegard/FaithConviction/FilthHygiene, fatigue/hungerNone handled Outlook/Temperance. Other vectors distinct, Reassure empty deliberately. No duplicate discovery/training witness; raw bool relationship could be encoded with canonical admitted action scope in existing family, not fabricated present failure."
+    },
+    {
+      "scope_index": 1201,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/social/draws.rs",
+      "sha256": "788653b52576c63a07a52065f8742eb6b63bc0268cb64ce16441cdea693f8c09",
+      "personally_read_ranges": [
+        [
+          1,
+          54
+        ]
+      ],
+      "aggregate_trace_and_disposition": "Whole54 isolated draws read. Seed owner typed, immutable ActionDraws stores seed+ordered actor/target once; resolution/discovery use distinct stable streams and axis discriminator. Contact draw directional observer/subject deliberate; testimony uses stable proposition bytes. Arbitrary swapped participants API representable but actual1195 producers bind actor,target consistently; no wrong draw or same-stream correlation witness. Participant IDs and axis cast are producer/primitive migration candidates, require actual role owner rather than duplicate Seed."
+    }
+  ],
+  "supporting_source_members": [
+    {
+      "scope_index": 998,
+      "source_id": "pr-working:crates/adventuresim-core/src/social.rs",
+      "sha256": "bb53725a73f48ae6fbd9f4ff3e2e744aaaea403fa2fd0a9381c6766ce0ad1b6d",
+      "personally_read_ranges": [
+        [
+          536,
+          565
+        ]
+      ],
+      "purpose": "Actual topic-to-axis discriminator closure, already original-accounted; no extra role credit."
+    }
+  ],
+  "discovery": "Six original roles WITH inherited migration findings and bounded qualifications. Full lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

@@ -1,0 +1,41 @@
+{
+  "id": "SEGOVB-04-BRACER-MORPH-NAME-CARDINALITY-CANDIDATE-001",
+  "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/bracer.rs",
+  "sha256": "b97ad57cfea2e265e2b9cb6f861344e248047f68def1a29063ef6a0e2916a032",
+  "ranges": [
+    [
+      372,
+      382
+    ],
+    [
+      385,
+      459
+    ],
+    [
+      460,
+      477
+    ]
+  ],
+  "counterexample": "Representable public API sequence: DeviceBracer hasbaseplusonevalidrecordedmorph (record_morph returnsOk); read/read_async calledwith morphnames[]. slots has2meshes butskip1.zip(empty) emits0ArmorMorph, readreturnsOkGeneratedArmor afterstatusOK. Extra names similarlysilentlyignored. Freshsourceonly, no GPUrecord/read/runtimeinvocation.",
+  "qualification": "Public/API mismatch counterexample conditionalonvalidGPUmesh/status, no ordinary canonical caller mismatches proved. Normal record/name loops may be coherent. Existing RIG03F053 surface_grid cardinality/index and RIG-PP008 typed sample-name fixture aredifferentfirstbadoperation/remedies; parentindexedsearch noexactzipalias, notexhaustivesemanticdedup.",
+  "dependencies": "Oneowning recordedmorph+name cardinality/order contract across DeviceBracer and top-level generator/readback. Preserve fullfrozen topology/signeddelta/directendpoint distinctions, bodymanifest binding and existingfailure statuses. No persistentcharacteridentity imposed onsyntheticmorphlabels.",
+  "acceptance": "Reject mismatched names/count asstructuredownererror before successfulaggregatepublication; everyrecordedendpoint corresponds exactlyone intendedname; preserve zero-morphcase and existingGPUstatusfailureprecedence ascanonicalAPIdecision. No source repairuntilall13initialdiscovery.",
+  "new_unique_global": "notdetermined",
+  "additional_evidence": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/gpu/breastplate/mod.rs",
+      "sha256": "512f6fc4ad56ec5cfcbc18c361c88c6983b4647620502f4ed53971bbda10d1c3",
+      "ranges": [
+        [
+          176,
+          232
+        ],
+        [
+          245,
+          301
+        ]
+      ],
+      "disposition": "Same recorded-morph/namezip loss, sharedrepaircontract, noadditionaluniquecount."
+    }
+  ]
+}

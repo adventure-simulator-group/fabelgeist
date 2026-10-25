@@ -1,0 +1,50 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-572",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_details.rs",
+      "sha256": "20df400f0369e7c2cb2ed08d3bd943f6ec5ac1ce6ee3d4db328401632767f82f",
+      "actual_EOF": 1065,
+      "actual_compared_ranges": [
+        [
+          1,
+          1065
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/templates/settlement/character_details/summary.rs",
+      "sha256": "8296a4e8146021634980e305ecae90f3794704fc74dd9865c9be8d4de2a57a4e",
+      "actual_EOF": 56,
+      "actual_compared_ranges": [
+        [
+          1,
+          56
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Shared character sheet composes independently admitted actor/clinical/skill values without introducing another numerical authority.",
+      "evidence": "Full details1065/summary56 personallyread. Mainpersonal/stats callbacks composecanonicalhealth/skills/summaryops, nofieldarithmeticexceptformattingfame/infamy. Requiredprofileabsence=>emptyicons=>No notablecapabilities explicitlyfixture; thisdoesnotproveactualzerocapability andlinksrequiredcausegraph. Personalsource suppliesprivatepersonalityNone; preview maypassSome tostaticpersonalitytags, textalone notcurrentgameplaymechanicsproof. Summaryiconrankclass delegatescanonicalrank helper, notownrenormalization.",
+      "qualifications": "No browser/UI/GPUtestsrun or freshotherbodycoverage. Current templatepublicoptional data cannotdistinguishunavailablefromlegitimateempty withoutowningroute changes. Tooltipstatic descriptions maybesubjectcomment-reviewlens, no behaviorclaimsverifiedbytext.",
+      "acceptance": "Preserve sharedsheetowner and actor-vsselected distinctions, explicitunavailable/emptysemantics, originalcanonicalskill/health/condition arithmetic and observer-safe data."
+    },
+    {
+      "contract": "Organization eligibility/identity and party control projections preserve exact current context, finalauthority remains reducer.",
+      "evidence": "PickerfiltersActive, duesminute>=currentminute andrecognition.includes beforeselecteddisplay, catalogueorganization/rolelookupsOptionnofakefallbackauthority. Readonlydisplayfiltersactivebutdoesnotdues/recognition becauseonlyprojection provided, distinct presentationcontext. Membership/scopedqueryrelation stillcallercontract. Statscontrol tests active_character.party_id==selected.party_id includingNone equality; couldofferRequestkickforbothunpartied, but commandnotrunandactual routeauthorizationremainsreducer, no provenstatefailure.",
+      "qualifications": "No arbitrarypersistentownerimposedonsyntheticidentity, no constructornarrowing. Staticorganizationcrestservice/vocabularymatchesarepresentation, notarithmeticalinvariantbythemselves.",
+      "acceptance": "Actual admitted membership/time/recognition context retainedthrougheligibilityandcommand; representnoparty explicitlyifUIpolicyrequiresavoidingspuriouscontrols, no hiddenauthorityfromoptionalfield equality."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/strategic-web/src/templates/settlement/character_health.rs"
+}

@@ -1,0 +1,37 @@
+{
+  "id": "CONT07-CONTRACT-448",
+  "at": "2026-10-23T22:02:04.059657+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1972,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/tests/grounding_contracts.rs",
+      "sha256": "86099f8185a2046b811d7a1e14be6334d00f4b0eff889c3eb4e7bcda8e59a6a8",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/tests/grounding_contracts.rs",
+      "actual_EOF": 514,
+      "ranges": [
+        [
+          1,
+          514
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "NATIVE-OWNER-ROOT-SUPPORT-DEPENDENCIES-009 exact record/source-extension metadata; no inherited semantic closure from its index pointer"
+  ],
+  "facts": [
+    "1972 full514 public-contract fixture personally read in two bounded ranges. Explicit source cases cover malformed policy decoders, opaque reflection, ordered member identities, thin/zero contact cells, signed support ceilings and query topology cycles/references. These are observed test contracts, not execution results or proof every alternative decoder/mutation was tested.",
+    "1972 strict positive SupportGrade/Embedment policy versus zero-capable TerrainGradeLimit/Wander are intentionally distinct accepted sets. ContactOnly zero-width prism is physical boundary contact, not fabricated absent geometry. Native normals for retained prism collisions are checked through existing ray assertions only, no all-normal guarantee inferred.",
+    "1972 duplicate diagnostics expected/actual/discrepancy values come from one rejection calculation and preserve source attempt context; snapshot observations are not mutable gameplay truth. Garden constructor/JSON/postcard all reject zero identities and use same source aggregate, but these cases do not independently establish terrain/source association for arbitrary supplied finite roots."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1973,
+    "start_line": 1
+  }
+}

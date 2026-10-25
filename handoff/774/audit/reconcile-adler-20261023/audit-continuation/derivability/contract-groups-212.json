@@ -1,0 +1,29 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-212",
+  "at": "2026-10-25T13:41:15.124842+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_ROLE_INCOMPLETE",
+  "scope_index": 411,
+  "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+  "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+  "actual_compared_ranges": [
+    [
+      1,
+      2470
+    ]
+  ],
+  "trait_inventory": [],
+  "source_read_receipts": [
+    "210 personal1\u2013920;211 extends to1540; fresh1541\u20131850/1851\u20132160/2161\u20132470 complete."
+  ],
+  "semantic_contracts": "No handwritten trait/serializer through2470. All production bodies through2105 personally consumed: native locomotion/pose and snapshot mapping; reconnection capability/state transfer; native reflection/world serialization delegation; explicit errors/cfg. Component/snapshot Clone/Default/SystemSet already derive. Mechanical copied fields and variant bridges retained because no proven equivalent existing derive for these selected cross-type/native APIs; no child credit. Fixture bodies2107\u20132470 read only, never executed.",
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 411,
+    "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+    "next_line": 2471,
+    "actual_EOF": 3450
+  },
+  "execution": "none",
+  "limits": "3450-line role incomplete2471\u20133450, inside reconnect fixture."
+}

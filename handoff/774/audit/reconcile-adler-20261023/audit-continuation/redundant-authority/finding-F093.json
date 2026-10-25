@@ -1,0 +1,38 @@
+{
+  "id": "CONT07-F093",
+  "at": "2026-10-23T21:39:10.313528+00:00",
+  "classification": "source-backed conditional report scope defect; explicit diagnostic selector, no traversal execution",
+  "title": "Single-entrance report claims both width edges after selecting one track",
+  "sources": [
+    {
+      "scope_index": 1856,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement/single.rs",
+      "sha256": "661dc3873537da23868c5366984c8aeed205db213413a8c3d4634f77e00eca49",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/city_layout/grounding/tests/movement/single.rs",
+      "ranges": [
+        [
+          80,
+          103
+        ],
+        [
+          114,
+          162
+        ]
+      ],
+      "coverage": "fresh full exact199-line body"
+    }
+  ],
+  "earliest_failed_contract": "The emitted acceptance report must describe the coverage actually requested and attempted by the same run. Track selection is computed independently from a fixed full-width scope description.",
+  "counterexample": "Set FABELGEIST_CENTRELINE_ONLY and FABELGEIST_SINGLE_REPORT. Lines89-92 select exactly one centre track, then lines153-156 still state centre and both usable-width edges, entry and return. SINGLE_TRACK can also select one track from either roster. The report is written before the final pass assertion, so this coverage discrepancy does not depend on assuming any traversal succeeds. Source-only witness; no environment or fixture execution.",
+  "actual_recipient": "The JSON report scope is published to the selected output file and read alongside per-visit observations/pass fields. Observations retain lateral values but do not record requested track roster/selectors or distinguish a selected subset from the unqualified full-width scope. The claim concerns reported coverage, not proof a reader cannot manually notice fewer observations.",
+  "qualification": "Default unfiltered mode does construct three tracks, and this finding does not assert a default route fails or that one track should imply all-track acceptance. Garden report intentionally says centreline and is not this defect. Property/entrance selectors also narrow scope but no separate defect counted without a stronger universal claim. Exact scalar lateral observations remain valid.",
+  "related_not_automatic_alias": [
+    "ROOT-PP-013 premature JSON outcome representation",
+    "CONT07-F088 independent report target descriptor/matcher",
+    "CONT07-F087 benchmark visibility attribution"
+  ],
+  "connected_repair": "Resolve requested track roster once into a typed run-scope record and derive both traversal and emitted scope from it. Record selectors, required tracks, attempted tracks and completion before any full-width coverage claim; preserve narrow diagnostic runs and their exact observations. Do not remove selectors or treat a selected track as proof of both edges.",
+  "acceptance": "A centre-only or one-track run is labelled as that subset; full-width coverage requires centre and both current usable edges for every requested entrance, with entry and return completion shown. Failure/partial attempt remains explicit. Preserve current controller/configuration, geometry, route order, thresholds and case population; no tests added or executed.",
+  "repair_status": "frozen",
+  "validation_status": "not_run"
+}

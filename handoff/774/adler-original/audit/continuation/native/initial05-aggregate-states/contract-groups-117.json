@@ -1,0 +1,182 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-117",
+  "at": "2026-10-23T02:48:13.084188+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bot/offense.rs",
+      "sha256": "eb77ed366461de7b58fa7111ba5a06c2d32e1b47617ff297e2ef0f25d8fae8c3",
+      "scope050_index": 2020,
+      "actual_EOF": 287,
+      "scoped_ranges_compared": [
+        [
+          1,
+          287
+        ]
+      ],
+      "actual05_comparison": "Fresh full287 including original2fixtures sourceonly. OffensiveCombatAi private targetOption+phase, DefaultNone/Pursuing. Eachupdate filtersopposite/currentnonincapacitated/non-yielded candidate andneareststabletotal_cmp+entitytie. Targetchange computescheckedinitiative/nativeDuration BEFOREcommittingtarget+Assessing; errorsclearinput andleaveoldcontroller. None target stopsinput butcanleaveAssessing, intentionalnoactiveattackpromiseoutsidevalidtarget. Same targetlookup/Transform suppliesyaw/distance/facts. Fresh facts recheck melee availability/lungereach/recovery andrangedammo beforecontinuingwindup; cancellation→Pursuing. Completion/defense event resetsAssessing onlyafterfallibleduration. Movementintent clearedonfalliblephaseerror; not proofno earliermovementassignments orRNGconsumption. Reflectnativecontroller broader thannormalmethods, not a publicacceptedstate token. Phase explicitlysuppliedfacts/target fromsameiteration; no independentlycachedOffensiveFacts. Normal authority still rechecksintents, AIplanningphase is notstrategicacceptedattackstate.",
+      "source_body_proof": "Fresh full scoped actual source personally read; existingfixtures source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bot/offense/facts.rs",
+      "sha256": "ab5ef062d89204566f6f01b3c95ed45aecb640aae364883b7becefc6e9e4c854",
+      "scope050_index": 2021,
+      "actual_EOF": 198,
+      "scoped_ranges_compared": [
+        [
+          1,
+          198
+        ]
+      ],
+      "actual05_comparison": "Fresh full198. Two local aggregateproducts WeaponFacts→OffensiveFacts built fromsameview/state/dimensions/selectedtarget inoneResult. Missingviewer yields reach/preferred0, melee/ranged/availablefalse,recoveryNone, notfakeweaponfallback. Someviewer couplesmelee/ranged/style/availability/recovery fromsameactor+incapacity; use_ranged requiresfinitepositive reachammolookup andactualArrow stack viaInventoryView. Optionalcolliders/lunge mapnone intentionallycannotarrive. DefaultCharacterDimensions onmissingcomponent intentionalfallback, notactualincomingrowvalidity. Localcopiedfacts notretainedsecondauthority; callerrebuildseachframe. Rawsource numericoperations preferredrange/instinct/Transform stillneedactualunderlyingleaf/nativeboundarycontracts; no finitegeometrypromise fromrecordname. Targetsort total_cmp deterministicallyhandlesnonfinite/rawsquaredoverflow butnotguaranteed geometricnearest underarbitraryrawinputs. No actualbadnormalTransformassertion.",
+      "source_body_proof": "Fresh full scoped actual source personally read; existingfixtures source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bot/offense/phase.rs",
+      "sha256": "3319be254a488cfacf2abfcea4c143c419090ebcd9b778b4dabdec7c95b85bb5",
+      "scope050_index": 2022,
+      "actual_EOF": 370,
+      "scoped_ranges_compared": [
+        [
+          1,
+          370
+        ]
+      ],
+      "actual05_comparison": "Fresh full370. OffensiveCombatPhase sum makes timers/recovery/strike family variant-owned ratherthanparallelOptionproducts. MeleePursuit requiresactualNotNeeded|ArrivesIn andRecoveryTime::After, convertsconfigwindup+maxarrival beforeintent+phasepublication; skeletonavailablefamily gate beforetrigger. AIreportedprecisionexpect dependsunvalidatedconfig hit_precision: F032. Guard/pursuit/withdrawal state transitions explicit; rearmedavailability canabortwithdrawal inparent. Actualwinduptimerclone tick thencheckedjitter+recovery/nativeDuration beforeassigningadvancedtimer orCooldown, so numericalfailure retainsoriginaltimer; RNGconsumption/movementintent mayalreadychange, no universalrollback. Rangedcompletion similarlycomputescooldown beforetrigger andphase, actualtarget iscurrentcontroller target; targetchangereassesses beforephase. Meleephaseobserves plannedstartintent, serverauthoritymayreject independently; planningphase notacceptedattackproof. Withdrawal1second→Yielded event explicitlycannotcontinue, notextrafatiguepool. OriginalNone/zero/nativecompletedtimer behaviorintentional.",
+      "source_body_proof": "Fresh full scoped actual source personally read; existingfixtures source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bot/offense/ranged.rs",
+      "sha256": "60b6f6c4256b2ef4d61e7c1c1cc052ef163e78deb6cb260504820e365ec76c5b",
+      "scope050_index": 2023,
+      "actual_EOF": 43,
+      "scoped_ranges_compared": [
+        [
+          1,
+          43
+        ]
+      ],
+      "actual05_comparison": "Fresh full43. RangedPursuit triplederivedsamecaller entity/target/distance; standoffusesweaponreach*fraction clampedmin/max thencappedreach. Ordered/finite minimum gate suppliedwholeconfig031, maxInf/rawslop/fractionbroader remainexistingAIphysicalqualifier. Differentpursuitdistanceband versusweaponreach intentionalhysteresis. Onlyinstandoff computescheckedCombatDuration/nativewindup BEFOREtrigger andRangedWinduptimer, thenbothsameauthoredwindup; minimumwindup=animationwindup deliberatehere. Rawconfigreversedbounds canpanicbutnormalwholevalidatechecksmax>=min; no CameraProfileF012transfer.",
+      "source_body_proof": "Fresh full scoped actual source personally read; existingfixtures source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/bot/offense/tactics.rs",
+      "sha256": "7cf8c5d94969b2b6fbdcdf953d7dc70d3923ff6b2990e0a207d87dc67b9e0615",
+      "scope050_index": 2024,
+      "actual_EOF": 48,
+      "scoped_ranges_compared": [
+        [
+          1,
+          48
+        ]
+      ],
+      "actual05_comparison": "Fresh full48. Initiative samplesconfiguredmin/max theninstinctscale andreadmitsAnimationElapsed, nativeDuration callerchecks; no stableonewordRNGconsumptionassumption. Committed-threat probability observescurrentphase/instinct, clampedprobabilitypurpose vselapsedinitiativepurpose; differentinstinct defaults3/5 inparents aredifferentfallbackobservers, no duplicateauthoritydefectsolelydifference. Longweaponretreat comparespreferred contactmeasure+minimumcentreseparation againstactualcentredistance, no mixedcoordinateequivalence invented. Some(-Vec2Y) backwardmovementorNone policy, no mutablecache orwholeattackstate promised.",
+      "source_body_proof": "Fresh full scoped actual source personally read; existingfixtures source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability/mass.rs",
+      "sha256": "1f6a584fc834b98fd0a39dee168f5b8c461518b712f56906a9de26bd44fe192e",
+      "scope050_index": 2810,
+      "actual_EOF": 41,
+      "scoped_ranges_compared": [
+        [
+          1,
+          41
+        ]
+      ],
+      "actual05_comparison": "Fresh full41 new050globalbody personallyread. DrymassqueriespersonalcharacterInventoryItem rows; excludesactualfireplace-rootedobjects, choosesFoodLotabsolute mass ifmatchingrow elsecatalogueunitmass*effectivequantity/fraction, withparametricweapon/fittedholderactualgeometrymass beforebaseitemweight. Alternativefoodmass versusunitquantitypurposes notdoublecounting. Matchinglotfind byinventoryID trustsunique/boundDBrelation, no rowitem/actor equalityseal fromqueryalone; earlierfoodbinding finding remainsseparate. Fractionhelperexpectsrawstorageadmission existingF027 graph, no calledhelperguarantee. Unitmass products/sum canoverflowrawfiniteinputs; acceptedencumbrance sanitizes separately notuniversalfinitecarriedmassproof. Wholeavatarweight/cache invalidation isparentcapabilityrole, thishelperonlyfreshqueryproduct. Geometryexpectsnormalrecord/recipeprecondition, no currentbadrow/runclaimed.",
+      "source_body_proof": "Fresh full scoped actual source personally read; existingfixtures source-only."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability/armor.rs",
+      "sha256": "027f27a4294fe1574bcb9c7f376db05904519094f99936be09bcf66d5459b7e0",
+      "scope050_index": 2811,
+      "actual_EOF": 103,
+      "scoped_ranges_compared": [
+        [
+          1,
+          103
+        ]
+      ],
+      "actual05_comparison": "Fresh full103 new050globalbody personallyread. Wearableprotection joinscharacter-equipped→inventory→effectiveitem→exactplacement andrequestedBodyPart; placement.protection gatesbeforeprojection. It doesnot independentlycheckinventory.character_id==requestedcharacter, relyingnormalrecordbinding; no actualbadnormalrowclaimed. Highestchannel/order amongsameinventoryoccupancies yieldslayer, missingdefaultsContainment0 deliberatefallback, noactualcanonicalparentgraphseal. effectiveitemclone updatesprecision/block/ROM/resistance fromsameconditionbins; basecatalogue isimmutabledefinitionobserver whilecurrentconditioneditem iscurrentstatobserver, notduplicateauthoritativecache. armor_material andequipped_coverage derivefromsameinventorydefinition/placement, returnNoneonmissingchain; rawauthoredcoverage factorygap existinggraph remains. ExactDBnativeuniqueindex/conditionstat kernels areseparateroles, notclearedbymethodnames.",
+      "source_body_proof": "Fresh full scoped actual source personally read; existingfixtures source-only."
+    }
+  ],
+  "comparison_groups": {
+    "one-frame-ai-observation": "Privatecontroller target/phase andfreshsameactor/targetfacts; acceptedserverauthority separatefromAIplanning.",
+    "phase-owned-timing": "Sum ownsrecovery/timer; tickclone andnativecheckedcooldown beforecommit, partialinput/RNG effectsqualified.",
+    "whole-config-to-intent": "Actualwholeconfigvalidator failsfiniteprecision precondition beforeAIexpect, F032.",
+    "conditioned-item-projection": "FreshDBmass/armor actualjoin andalternatepurpose policy compared, nativewholebinding remainsindependent."
+  },
+  "source_specific_scope050_reconciliation": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory/query.rs",
+      "scope050_index": 2812,
+      "actual_proof_ref": "contract-groups-114.json#NATIVE-INITIAL05-REG025",
+      "qualified_ranges": [
+        [
+          1,
+          21
+        ]
+      ],
+      "status": "Same actual registered contract and recipients explicitly compared; globalmembershipmetadata only, no newsemanticverdict"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/inventory_armor.rs",
+      "scope050_index": 2813,
+      "actual_proof_ref": "contract-groups-114.json#NATIVE-INITIAL05-REG026",
+      "qualified_ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "status": "Same actual registered contract and recipients explicitly compared; globalmembershipmetadata only, no newsemanticverdict"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/enrollment.rs",
+      "scope050_index": 2814,
+      "actual_proof_ref": "contract-groups-115.json#NATIVE-INITIAL05-REG028",
+      "qualified_ranges": [
+        [
+          1,
+          124
+        ]
+      ],
+      "status": "Same actual registered contract and recipients explicitly compared; globalmembershipmetadata only, no newsemanticverdict"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/receipt.rs",
+      "scope050_index": 2815,
+      "actual_proof_ref": "contract-groups-115.json#NATIVE-INITIAL05-REG029",
+      "qualified_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "status": "Same actual registered contract and recipients explicitly compared; globalmembershipmetadata only, no newsemanticverdict"
+    }
+  ],
+  "existing_range_overlay": {
+    "registration": "NATIVE-INITIAL05-REG027",
+    "source_id": "pr-working:crates/adventuresim-tactical-server/src/mission/mod.rs",
+    "ranges": [
+      [
+        159,
+        212
+      ]
+    ],
+    "proof_ref": "contract-groups-115.json",
+    "global_status": "scope050 overlay233 role joined; blank213excluded"
+  },
+  "new_unique_findings": [
+    "NATIVE-INITIAL05-F032"
+  ],
+  "remaining_dependency_obligations": [
+    "Actual captured-roster-to-actor binding and boundedreceiptcapacity remainsconditional, no normalovercapacityassertion; no exactexistingRootproof. Botparent/defense/config P16 currentroles notcreditedbythesePRbodies."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

@@ -1,0 +1,80 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-106",
+  "at": "2026-10-25T16:48:46.716417+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1481,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/render_binding.rs",
+      "sha256": "278723baa84e424a5faff89f4ed396c8f5591f507165e11ae62842cafe37c974",
+      "personally_read_ranges": [
+        [
+          1,
+          234
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full234 render binding plus original fixture read. Worn without skin stays hidden; native joint attributes removed from cloned unbound mesh before dropped/carried display. Cached bound/unbound handles share source and rigid-center association, preserving original morph names; reequip selects original bound handle. This is actual renderer layout/native API adapter, but ProceduralEquipmentPart joint table/IBP/mesh/source/body population must already be admitted together (M16,F50). Valid RigJointTable independently does not prove bindpose rows/joints correspond.",
+        "Private EquipmentMeshSources captures first current mesh and lazily derives unbound copy. Actual generation replaces whole parts on fit key change rather than mutating cached bound handle; no ordinary stale mesh source claimed. center_unbound guards finite center and absent positions but subtraction can overflow finite leaves; derived native geometry contract must preserve error before claiming admitted output, without whole SDK changes. Existing fixture source only."
+      ]
+    },
+    {
+      "scope_index": 1482,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment.rs",
+      "sha256": "6ad606cfa6e06fa08e4526a3aa00bc7994af35b88608f906eb7987f16d88099c",
+      "personally_read_ranges": [
+        [
+          1,
+          143
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full143 runtime cache/prerequisite/presentation graph read. M07 exact successful catalogue item/placement is retained as Strings then readmitted; fix actual producer once, distinguish absent topology default worn from anatomical unworn display and preserved old fit. M06 owns typed body/design/fit causes instead of cached String/anyhow erasure. SEGO-INITIAL09-F426 exact failed bool plus three optional prepared resources lifecycle already identified; normal setup sequential and actual errors mark failed, no current false readiness claimed.",
+        "Canonical body once prepared is reused without explicit current base-source identity in this cache. Existing source/cache association contracts M15/M16 must verify producer immutability or associate real source; do not invent a hash owner or source epoch without actual lifecycle. Pending task is whole key/task pair, and bodies/model/last_used maps share actual FitKey."
+      ]
+    },
+    {
+      "scope_index": 1483,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/body.rs",
+      "sha256": "fa65ba144131a0190348b38de97ef1fdcf28b5625f80f5b66ddd92a7d1ce3f82",
+      "personally_read_ranges": [
+        [
+          1,
+          229
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full229 canonical body extraction and existing UV fixture read. Native assets remain Option not-loaded versus Some(Result) failure. First skinned primitive intentionally selected; mesh position/normal/skin arrays and triangle faces collected from same actual asset. Triangle divisibility, joint name/bindpose count and PackedRigSkin joint membership are checked, but these independent gates alone do not establish all vertex-column lengths/finite weights/face membership/morph identity association. M16/M17/F50 and retained rig admission findings own complete record validation, no malformed normal shipped glTF asserted.",
+        "Runtime geometric cylindrical chart is deliberately different from offline authored MHR UV atlas, explicitly documented. Finite vertices + strictly positive finite vertical range checked before UV calculation, empty/flat rejected. Joint states collapse native inverse bind scale to scale.x; actual FittingRig contract must retain rigid/uniform-scale policy, not assume all glTF matrices satisfy it. String labels in native attribute errors belong M06 typed failure until final log."
+      ]
+    },
+    {
+      "scope_index": 1484,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/equipment/runtime_equipment/generation.rs",
+      "sha256": "ea41899e503a9d300af874feb8f230532b8e8c1b9f6994c4c89b690746dfaf29",
+      "personally_read_ranges": [
+        [
+          1,
+          467
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full467 generation/cache/task/attachment source read. FitKey binds body shape, selected layer and ordered supports. While worn, authoritative owner CharacterId/proportions select fresh key; held/dropped uses LastFit body/selection/supports deliberately. This is retained fit continuity, not forbidden schema compatibility. Unworn never-fitted display chooses authored first anatomical placement. M07 must retain canonical selection through actual receiver.",
+        "Pending task stores exact requested key, canonical prepared body and designs captured before await. Result inserted under that same key; next loop derives current request and attaches only matching key, so no unconditional async wrong-item race claim. Body shape/model association still must include actual relevant source/revision where mutable; existing M15/M16/M17 dependencies. trim retains prepared bodies used by models or pending, and last_used filters exactly those; pending body cannot be evicted by this loop.",
+        "M06 typed causes are erased in support lookup, model result, outfit error formatting and failure cache. Whole function/connected task fixes preserve source cause, actual selected item and support key. Cached negative result is intentional retained failure; no silent retry requirement invented. SEGO-INITIAL09-F426 prerequisite payload and per-fit failed/resolved marker state are lifecycle dependencies; failed+resolved intentionally means terminal failed, not two contradictory booleans by naming alone.",
+        "Fit installation clears sockets and old generated children, stores item LastFit, resets failure/resolved. Attach inserts exact body IBP/joint names and matching generated parts/socket set. Body map indexing relies on prepare/retain invariant; controlled current map retains it. Socket coordinate producer still pending. Use-clock wrapping affects eviction ordering only; no native physics authority or global time. No GPU/task/test execution."
+      ]
+    }
+  ],
+  "findings": [
+    "M06 runtime structured fitting causes",
+    "M07 canonical catalogue item/placement",
+    "M15/M16 exact source/population association",
+    "M17 morph identity/endpoint association",
+    "F50 canonical skin influence admission/reduction",
+    "SEGO-INITIAL09-F426 exact prerequisite lifecycle"
+  ],
+  "discovery": "Four full original roles personally source-accounted, no new unique normal failure claim. Lens incomplete; preserved #780/#826 owner boundaries remain.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

@@ -1,0 +1,66 @@
+{
+  "id": "CONT07-CONTRACT-455",
+  "at": "2026-10-23T22:11:24.888348+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1997,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/bin/materialize-real-world-scene.rs",
+      "sha256": "afd12b3197f8d638eb98f7bca4386601ab1cdf16966b04fb2c7c705d5100f5f2",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server-dispatcher/src/bin/materialize-real-world-scene.rs",
+      "actual_EOF": 102,
+      "ranges": [
+        [
+          1,
+          102
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1998,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/main.rs",
+      "sha256": "de12026f8d2b3c6409d0ff52f053b48b2caf54e3af425d2abdc2e7a3ec6b7eb5",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server-dispatcher/src/main.rs",
+      "actual_EOF": 346,
+      "ranges": [
+        [
+          1,
+          346
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1999,
+      "source_id": "pr-working:crates/adventuresim-tactical-server-dispatcher/src/regional_terrain.rs",
+      "sha256": "22a41ec7f9d8c0ac2b542f0651aca53f528fe22448aa0ee8bcd52969265f6900",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-server-dispatcher/src/regional_terrain.rs",
+      "actual_EOF": 57,
+      "ranges": [
+        [
+          1,
+          57
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [
+    "ROOT-OWNER-DISPATCH-SOURCE-070 full narrative"
+  ],
+  "facts": [
+    "1997 deterministic offline mission identity includes generation version, terrain digest, quantized coordinate, both requested clocks and scene key before materialization. Printed original decimal coordinates are input observations, not a second source-selection coordinate; actual sampling uses admitted rounded E7. Offline equal absolute/lunar minute is explicit source request, not a live clock invariant.",
+    "1998 spawned mission set records successful process launch history and port counter allocates attempts; they are not automatically equivalent to current DB pending request or active child-process state. Exact retry/re-enrollment semantics require actual lifecycle producer before stale-cache finding. Callback only records spawned after authorized successful spawn and revokes claim on spawn failure; does not publish successful-launch metadata before child creation.",
+    "1998 mission id and scene key are different identity purposes; captured request metadata and SettlementSceneProfile values are immutable launch input. TacticalLaunchArguments strings are actual final Command args projections from same captured request, not separately recalculated gameplay authority. Raw expected member count derives validated roster once; no invented equal roster-order identity.",
+    "1999 uses one RegionalTerrainRequest, shared65 grid constants, exact source digest and scale.spacing_metres to sample4225 observations. Missing pack cells remain None, absolute elevation admission errors retained. Source origin is quantized request, internal offset math stays continuous f64; no second rounded coordinate source introduced in this producer."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2000,
+    "start_line": 1
+  }
+}

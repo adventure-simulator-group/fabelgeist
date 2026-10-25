@@ -1,0 +1,125 @@
+{
+  "classification": "Audit bookkeeping correction, no source edits or new coverage",
+  "reason": "Some sed reads requested an end past EOF. Supporting ranges now name the actual available lines, preserving personally read source proof and avoiding nonexistent tail coverage. Original-role completion counts are unchanged.",
+  "changes": [
+    {
+      "packet": 289,
+      "path": "crates/adventuresim-building-generator/src/audit/interface_contract_tests.rs",
+      "requested_ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "actual_read_ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "actual_EOF": 62
+    },
+    {
+      "packet": 299,
+      "path": "crates/adventuresim-building-generator/src/generator/artillery_route_geometry.rs",
+      "requested_ranges": [
+        [
+          1,
+          42
+        ]
+      ],
+      "actual_read_ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "actual_EOF": 39
+    },
+    {
+      "packet": 299,
+      "path": "crates/adventuresim-building-generator/src/generator/core.rs",
+      "requested_ranges": [
+        [
+          190,
+          315
+        ]
+      ],
+      "actual_read_ranges": [
+        [
+          190,
+          311
+        ]
+      ],
+      "actual_EOF": 311
+    },
+    {
+      "packet": 299,
+      "path": "crates/adventuresim-building-generator/src/generator/architectural_envelope.rs",
+      "requested_ranges": [
+        [
+          1,
+          72
+        ]
+      ],
+      "actual_read_ranges": [
+        [
+          1,
+          68
+        ]
+      ],
+      "actual_EOF": 68
+    },
+    {
+      "packet": 299,
+      "path": "crates/adventuresim-building-generator/src/audit/bearing.rs",
+      "requested_ranges": [
+        [
+          1,
+          168
+        ]
+      ],
+      "actual_read_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "actual_EOF": 138
+    },
+    {
+      "packet": 299,
+      "path": "crates/adventuresim-building-generator/src/generator/framed_roofs.rs",
+      "requested_ranges": [
+        [
+          1,
+          49
+        ]
+      ],
+      "actual_read_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "actual_EOF": 46
+    },
+    {
+      "packet": 301,
+      "path": "crates/adventuresim-building-generator/src/church_programme.rs",
+      "requested_ranges": [
+        [
+          1,
+          47
+        ]
+      ],
+      "actual_read_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "actual_EOF": 46
+    }
+  ]
+}

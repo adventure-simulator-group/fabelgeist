@@ -1,0 +1,61 @@
+{
+  "id": "CONT08-CONTRACT-293",
+  "at": "2026-10-25T15:56:01.753843+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 1101,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/authority_tests.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/food/authority_tests.rs",
+      "before_sha256": "f42fe8c6e10d816198aba42f752d418582a0bf4268aa0a21ba9b6e2116e3dab3",
+      "after_sha256": "f42fe8c6e10d816198aba42f752d418582a0bf4268aa0a21ba9b6e2116e3dab3",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1101-base-f42fe8c6e10d816198aba42f752d418582a0bf4268aa0a21ba9b6e2116e3dab3",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/f42fe8c6e10d816198aba42f752d418582a0bf4268aa0a21ba9b6e2116e3dab3",
+      "diff": "source-evidence/pr-1101.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          207
+        ]
+      ],
+      "head_body_read_method": "Personally consumed full exact frozen bodies and complete PRdiff; source fixture oracles/actual old-new recipients only, no execution.",
+      "facts": [
+        "Fresh full207-line authority fixture body/empty PRdiff. Bootstrap token gates explicit actor/inventory, two golden versioned request digests, Cut/Grind normal and lowblood.09 interrupted witnesses preserve exact inputs. prepare_and_replay checks conservation/materialrevision/finalpreparation/receipt interrupted, idempotentclock/revision, conflictinggenerationErr and terminalcursor. These are source acceptance oracles only, not execution or semantic proof of later1105 body; native rollback not inferred."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1102,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/food/consumption.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/food/consumption.rs",
+      "before_sha256": "6774eac9e912e8d500d0d9912545c2051fcc102d969f024be6dd157b22dea910",
+      "after_sha256": "6774eac9e912e8d500d0d9912545c2051fcc102d969f024be6dd157b22dea910",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1102-base-6774eac9e912e8d500d0d9912545c2051fcc102d969f024be6dd157b22dea910",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/6774eac9e912e8d500d0d9912545c2051fcc102d969f024be6dd157b22dea910",
+      "diff": "source-evidence/pr-1102.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          369
+        ]
+      ],
+      "head_body_read_method": "Personally consumed full exact frozen bodies and complete PRdiff; source fixture oracles/actual old-new recipients only, no execution.",
+      "facts": [
+        "Fresh full369-line consumption body/empty PRdiff; actual condition1086\u2192consume_travel_food caller and disease1093 protection recipient now traced. Dysentery dose<=0no-op, unresolved guard\u2192priorimmunity\u2192seed\u2192protectedpoint\u2192acquisition then source-backedworldevent, no disease inserted from observed truth; causecommit nativeworldevent receiving graph remains later source scope.",
+        "Personal consume ownercheck then reconcile(false)\u2192lot\u2192needs\u2192explicitortravelwantedminnonnegativekcal, ratio\u2192contamination/disease\u2192foodmedicine\u2192provenance\u2192needsupdate, full>=.999999 cleanup or retainlotandmicrosfloor/min1\u2192capability refresh. Nutrition/mass/rawNaN admission deferred canonicallot producer, no positivezero-denominator invention from this consumer. Error/write order preserved; no DBtransaction inference.",
+        "Travel partyfirst oldest(created,id), excludesfireplaceroot, reconcilebeforedeficit, wanted<=0break, each infection/medicine before needs (min0) then full/partial party cleanup. Personal oldestafterparty, missinglot .ok omitted, only whiledeficit. Party path lacks explicitcapability refresh here vs personalconsumer; retained receiving/projection obligation not new08 regression or ordinary stale symptom claim. Party fullcleanup differs personal helper and later medicine/provenance cleanup recipients remain scoped.",
+        "eat_food gateway\u2192living\u2192char\u2192no tacticalassignment then explicitmeal; no actorserver guard inferred. Clearstomach maxsurplus removal (min0) unchanged; defaultf32MAXrequest is not unbounded actualconsumption because ownerfood rules govern wanted. Existing corefood/measurement facts previously read own08, no tests/DB execution."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    }
+  ],
+  "next": "Next1103 cooking868,1104 fireplace_custody656,1105 ingredient_preparation652."
+}

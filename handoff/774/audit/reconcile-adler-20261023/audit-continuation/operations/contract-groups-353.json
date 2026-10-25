@@ -1,0 +1,86 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-353",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/model.rs",
+      "sha256": "73c4a1193a02724832d28eb1da2625ed2a4d31d8fb4a06b2ad8d1ed309dca7e8",
+      "actual_EOF": 1230,
+      "actual_compared_ranges": [
+        [
+          1,
+          1230
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/projection.rs",
+      "sha256": "2ef4a66455b4f4fb0790abfcc0e0ca9ff70e312d140170fbf47b9f880e79fb87",
+      "actual_EOF": 506,
+      "actual_compared_ranges": [
+        [
+          1,
+          506
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-core/src/quest_generation/sampling.rs",
+      "sha256": "3c679c4e5177ee4462d6286d81cdd3e3cfaa9b6e2d91e844d3d45b8e2f666a44",
+      "actual_EOF": 213,
+      "actual_compared_ranges": [
+        [
+          1,
+          213
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Quest model identity, mutation transitions and observer-visible projection",
+      "source_ranges": {
+        "quest_generation/model.rs": [
+          [
+            1,
+            1230
+          ]
+        ]
+      },
+      "disposition": "Full1230 lines personally read in four chunks. Public id_type payload/derivedserde and openfrom_static character validation are adopted03 admission dependencies; generated fixed-length hash IDs are distinctfrom arbitrary publickind/name. Weight combined u32*u32 widensu64exact. Witness presence digest frames tuple and preserves public presentation versus hidden sex; pattern comparison checks actual resident/presence/demographic/location. Record dependencies and public shape alone do not proveaggregate validity. player_visible_testimony_sequence uses delivered witness set so referral cycles terminate; withheld statements cannot alter initial chosen volunteer sequence. Truthful/mistaken demeanor distinctions deliberate. transition_failed_action_alternate validates case/owner/prerequisite before one active mutation; no versionpolicy inferred. transition_referred_contact_action rejects multiple roots before writes, gathers successors before changing state, handles inactive successful root replay. At active root versionMAX, saturation publishes Applied expected_version=next_version=MAX while changingactive/successors: source-backed bounded API terminal-version candidate, related to custody version contract but not automatically exact same finding. Current root version producer/actual DB lifetime not traced; no ordinary repeatfailure claim. Completed successor reactivation/state validity remains caller aggregate dependency."
+    },
+    {
+      "contract": "Quest projections use catalog bounds before sampled arithmetic",
+      "source_ranges": {
+        "quest_generation/projection.rs": [
+          [
+            1,
+            506
+          ]
+        ]
+      },
+      "disposition": "Whole506 lines read in two chunks. generated_testimony_pipeline get(index) fallible, constructs bounded IDs/proposition/result locally, separates truthful/perceived versus spoken/disclosed strings and weather-confidence. Membership and received_at chronology tied to current caller; this API itself does not assert exact same case/witness/context correlation. evidence_presentation width=(max-min)u16+1u64, random<width thenmin+roll fitsu16 if catalog ordered bounds hold; startup validator dependency preserves this, no assumption from typename alone. select_follow_up_evidence canonicalizes unique candidate IDs before shared weighted selection; total weight overflow handled by shared sampler but expect depends validated catalog budget. Exact current weight bounds must remain before that infallible port. Account family intentionally independent of hidden reliability; hardzero victimpattern excludes emptytarget set."
+    },
+    {
+      "contract": "Canonical sampling rejects duplicates and numeric overflow while retaining stable draw semantics",
+      "source_ranges": {
+        "quest_generation/sampling.rs": [
+          [
+            1,
+            213
+          ]
+        ]
+      },
+      "disposition": "Entire213 lines and all fixtures read. Candidatecount<=4096, indices madefromsamecollection before privatecanonicalize and weightlookup. canonicalize sorts exactlexicalID rejects duplicates evenzero-weight entries. choose pushes tracinglocals then shared weighted_index Result maps Sampling; caller generationlocalscontain failure, no persistent partialcommit. weighted_order shares checked sampler and remapsvalidindices. canonical_context clones/sorts actual resident IDs and rejectsduplicatesbeforegeneration; doesnotprove nonzero resident/currentpresence/circumstancefields. Witness contexts and samples role privacy respected; no hash-only counterpart credit. Overflow fixture withtwoMAX*MAXweights explicitlyexpects WeightOverflow, readnotrun."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-core/src/quest_generation/solver.rs"
+}

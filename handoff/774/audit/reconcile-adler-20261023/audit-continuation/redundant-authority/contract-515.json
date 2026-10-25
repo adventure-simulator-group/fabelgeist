@@ -1,0 +1,83 @@
+{
+  "id": "CONT07-CONTRACT-515",
+  "at": "2026-10-23T23:06:21.419817+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2243,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/kernel/fast.rs",
+      "sha256": "8cb7511310b96d6e799dd584a3a6f64270c73ee3abbb50a7f730831938ef2fcf",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-compute/src/kernel/fast.rs",
+      "actual_EOF": 379,
+      "ranges": [
+        [
+          1,
+          379
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2244,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/kernel/mod.rs",
+      "sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-compute/src/kernel/mod.rs",
+      "actual_EOF": 406,
+      "ranges": [
+        [
+          1,
+          406
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2245,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/prelude.rs",
+      "sha256": "68d9ab3add92c4324cd578477317e07ec1d8928dd58d212e8e53f9aeef8926b4",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-compute/src/prelude.rs",
+      "actual_EOF": 16,
+      "ranges": [
+        [
+          1,
+          16
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2246,
+      "source_id": "pr-working:crates/fabelgeist-compute/src/readback.rs",
+      "sha256": "caaf8c9738e40e94a3dc17914bebeaeda33a6b37bacb74158619c9fca955af76",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/fabelgeist-compute/src/readback.rs",
+      "actual_EOF": 294,
+      "ranges": [
+        [
+          1,
+          294
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "KernelFast379 Kernelmod406 prelude16 Readback294 full exact freshread. ExistingRIG-ADMISSION03-F057 covers kernelpublicmetadata/privatefastschema andcache source-onlykey vscontext; source confirmsactualfast/slow dispatchrecipientsandgroups_for usesmutabledeclaredworkgroup. No actualcrossdeviceorpublicmutationcallerclaimed.",
+    "ExistingRIG-ADMISSION03-F058 exactwrite_uniform reflectedsizeignored/silentpayloadskip confirmed; unrelatedtypenamecounterexample notneeded. PrivateFastPathmetadata derivedfromsamepipeline reflection once; onlypublicKernelreplacementeffectbreaks association, no independentprivatecachemutation.",
+    "PositiveUniformArena belongsbatch, chunksnotreusedacrossconcurrentunsubmittedbatches; allocatelayout usesactualdeviceuniformalignment, freshbindgroup eachdispatch registersactualbufferbindings. Historical performance/barriernarrative sourcereadonly, no SDKbehavior/benchmarkverificationclaimed.",
+    "Readback rangesprivateandconstructed fromactualorderedbuffers withcheckedalignedextent, mappedbytecopyssame ranges. Pending state is one atomicenum Pending/Ready/Failed/Taken, completed resultstakenonce; no separatebooleanreadinessauthority. Explicitcontextargument remainsdeviceassociation boundary, not automaticallyprovenallcallerscorrect.",
+    "Actualreadback fixtures readnotrun. Any typedGPUBuffer.size versusphysicalallocation relationship remainsnativebufferowner sourceobligation; no backinglengthguarantee inferredfromwrappedbyteunit."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2247,
+    "start_line": 1
+  },
+  "existing_finding_source_support": [
+    "RIG-ADMISSION03-F057",
+    "RIG-ADMISSION03-F058"
+  ]
+}

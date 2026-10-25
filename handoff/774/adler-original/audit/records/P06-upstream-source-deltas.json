@@ -1,0 +1,1009 @@
+{
+  "recorded_at": "2026-10-21T05:31:16.706319+00:00",
+  "base_main": "c20169551087b86c0f639d7e8bbe151b510f410a",
+  "incoming_main": "3a50b708381ad00c116445c2c999a49c3943088b",
+  "own_source_head": "596fb3b8778c1461a7831ea1adb65262c9caa933",
+  "source_scope": "Incoming main source deltas, separately accounted for in static preservation metadata. They are upstream work, not new tests or cases authored by this implementation agent.",
+  "files": {
+    "crates/adventuresim-character-creator/src/character_controls.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "0036ebc2e9f6df8a9b6ebe62da99602347f3bb074948f22d1ac58355e2569c9e",
+      "merged_sha256": "0036ebc2e9f6df8a9b6ebe62da99602347f3bb074948f22d1ac58355e2569c9e"
+    },
+    "crates/adventuresim-character-creator/src/character_export.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "74b258d7decbf8f4228014651a18a29cb7076634a0a1c08a99e168c580a73ade",
+      "merged_sha256": "9aaf9c400df322f9862472c103a425b4af304406bbecac8af62065c404ff24d8"
+    },
+    "crates/adventuresim-character-creator/src/character_export/hair.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "151838ff42378abc3b25678d146473e8e564c3b1e598d373e0c0dcf6be279f11",
+      "merged_sha256": "151838ff42378abc3b25678d146473e8e564c3b1e598d373e0c0dcf6be279f11"
+    },
+    "crates/adventuresim-character-creator/src/character_morphs.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "c510f81754e4a478d81b3038a976b6222fe80d14071c8a91d6f523a970b5b4b9",
+      "merged_sha256": "d59054090a2a7f39c9f5f406da36dec524acc0b06b276b55378973181e70a8f5"
+    },
+    "crates/adventuresim-character-creator/src/character_morphs/hair.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "36f4588baee2a7415ff091ed14f3209e28c88b26c3dccbeb8d86f30b9ba02204",
+      "merged_sha256": "36f4588baee2a7415ff091ed14f3209e28c88b26c3dccbeb8d86f30b9ba02204"
+    },
+    "crates/adventuresim-character-creator/src/hair.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "a9d4f30809a845df7b5e43bac564eb66824d90bb6cfed878e96c6afae8ff332c",
+      "merged_sha256": "a9d4f30809a845df7b5e43bac564eb66824d90bb6cfed878e96c6afae8ff332c"
+    },
+    "crates/adventuresim-character-creator/src/hair/cap.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "f15aaadb4a376988994c92be34ee22767367490569bb5a1fec2dd21d0db5fdf8",
+      "merged_sha256": "f15aaadb4a376988994c92be34ee22767367490569bb5a1fec2dd21d0db5fdf8"
+    },
+    "crates/adventuresim-character-creator/src/hair/geometry.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "58e56192a203d08a0cff3e0d1b4a037df09a24a86b969555bb1f2b6faf8a5fa0",
+      "merged_sha256": "58e56192a203d08a0cff3e0d1b4a037df09a24a86b969555bb1f2b6faf8a5fa0"
+    },
+    "crates/adventuresim-character-creator/src/hair/gpu/bake/mod.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "2d8ba1f7658b0a709143467f73dc6b3f0a0eab31ad0a36a6a7436028b0ba4d7f",
+      "merged_sha256": "2d8ba1f7658b0a709143467f73dc6b3f0a0eab31ad0a36a6a7436028b0ba4d7f"
+    },
+    "crates/adventuresim-character-creator/src/hair/gpu/bake/wgsl.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "7965432924278f1a7cbcf9a47a295a9c2b9fe4103783e8d641f54dbbd9bc70ec",
+      "merged_sha256": "7965432924278f1a7cbcf9a47a295a9c2b9fe4103783e8d641f54dbbd9bc70ec"
+    },
+    "crates/adventuresim-character-creator/src/hair/gpu/field.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "1f537b363a614847b1ddf760ac719c5ed099171646ce606649e8b7ca79390264",
+      "merged_sha256": "1f537b363a614847b1ddf760ac719c5ed099171646ce606649e8b7ca79390264"
+    },
+    "crates/adventuresim-character-creator/src/hair/gpu/mod.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "f8844fc7362364c5217079615e4459865865020ba4a36f5b25a8997cdd9c8f92",
+      "merged_sha256": "f8844fc7362364c5217079615e4459865865020ba4a36f5b25a8997cdd9c8f92"
+    },
+    "crates/adventuresim-character-creator/src/hair/gpu/place/mod.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "4197c4d14aeac409495f9d91e21e2e69439a4a62bd9991804a5b8fe59ebaad8d",
+      "merged_sha256": "4197c4d14aeac409495f9d91e21e2e69439a4a62bd9991804a5b8fe59ebaad8d"
+    },
+    "crates/adventuresim-character-creator/src/hair/gpu/place/wgsl.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "21850bcf4f22d8cd055230bb6ac0c8b93f722a90a278d51568acb513894f88c3",
+      "merged_sha256": "21850bcf4f22d8cd055230bb6ac0c8b93f722a90a278d51568acb513894f88c3"
+    },
+    "crates/adventuresim-character-creator/src/hair/gpu/strips.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "018591fdd7fdc9288f16a0ed5ed2f2ef6e3649448afa564b58358a3987144bba",
+      "merged_sha256": "018591fdd7fdc9288f16a0ed5ed2f2ef6e3649448afa564b58358a3987144bba"
+    },
+    "crates/adventuresim-character-creator/src/hair/groom.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "06d1f537a304c3cd8f65390401ebd3eb462b2ee0a98b49117ee320a0b29ea6f1",
+      "merged_sha256": "06d1f537a304c3cd8f65390401ebd3eb462b2ee0a98b49117ee320a0b29ea6f1"
+    },
+    "crates/adventuresim-character-creator/src/hair/placement.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "093ba0d411cbd185b8916e6ca43721f38a531817da8eb5876730247dcb306c09",
+      "merged_sha256": "a1104b353c195c2fd61b5fbd1c44f2de57449e2dc1b9394e24a3a74c6dd3ea0f"
+    },
+    "crates/adventuresim-character-creator/src/hair/scalp_map.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "717bbedb859bc7b5df413aeea35d20cccbdf1e08dc53f2f8d692b72dc2cc662e",
+      "merged_sha256": "717bbedb859bc7b5df413aeea35d20cccbdf1e08dc53f2f8d692b72dc2cc662e"
+    },
+    "crates/adventuresim-character-creator/src/hair/shape.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "d2da1edcace60e78eab855e992651bda223fcbab7bd832c0f00304ecdcbe7294",
+      "merged_sha256": "d2da1edcace60e78eab855e992651bda223fcbab7bd832c0f00304ecdcbe7294"
+    },
+    "crates/adventuresim-character-creator/src/hair_color_controls.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "7aaf0085bbbefc5bb45e1c9ab08a02513fb086c84d83a295c5c314b3b42b7a92",
+      "merged_sha256": "7aaf0085bbbefc5bb45e1c9ab08a02513fb086c84d83a295c5c314b3b42b7a92"
+    },
+    "crates/adventuresim-character-creator/src/hair_controls.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "8e9fc2ebe137bb6765c672155835f032498767cf2e8b8dae178f9f5decac18ac",
+      "merged_sha256": "8e9fc2ebe137bb6765c672155835f032498767cf2e8b8dae178f9f5decac18ac"
+    },
+    "crates/adventuresim-character-creator/src/hair_preview.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "292cd3dbd224845dead93a7caea366e0dfc88dfd6b42978fd68a4d1006d15db1",
+      "merged_sha256": "32ba3e0f907d1af9bfc3d66e5064aebe5dbded36e3aa5751f3360da052654e29"
+    },
+    "crates/adventuresim-character-creator/src/hair_preview/assets.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "4b682fea43d6f64dba6a7c87023c071ff2163c4d608454c6471e863f7986d5d9",
+      "merged_sha256": "4b682fea43d6f64dba6a7c87023c071ff2163c4d608454c6471e863f7986d5d9"
+    },
+    "crates/adventuresim-character-creator/src/hair_preview/gpu.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "462eb12c93f953673bc177a3cef00835889022f59d278bf1884086fc328c2adc",
+      "merged_sha256": "462eb12c93f953673bc177a3cef00835889022f59d278bf1884086fc328c2adc"
+    },
+    "crates/adventuresim-character-creator/src/hair_preview/layers.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "735c961b2b83916a2d754ba15566754c87e22e4937b2a8184e59535a39d92dea",
+      "merged_sha256": "735c961b2b83916a2d754ba15566754c87e22e4937b2a8184e59535a39d92dea"
+    },
+    "crates/adventuresim-character-creator/src/hair_preview/render_test.rs": {
+      "test_names_added": [
+        "hair_renders"
+      ],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "2e71abeddf4c5c176e026eeed2284cacb0139045128e6437ea97bbb1181e9bc3",
+      "merged_sha256": "2e71abeddf4c5c176e026eeed2284cacb0139045128e6437ea97bbb1181e9bc3"
+    },
+    "crates/adventuresim-character-creator/src/hair_preview/scalp_shade.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "4bee07accb46e2b52d29da58644b4b620c69f55278774fcd1fff1d591d4c8779",
+      "merged_sha256": "4bee07accb46e2b52d29da58644b4b620c69f55278774fcd1fff1d591d4c8779"
+    },
+    "crates/adventuresim-character-creator/src/hair_preview/scalp_upload.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "2204f09240707fa76e04f408ffdd9a1b1ab0f7b65b840c4a290db3f368156a63",
+      "merged_sha256": "2204f09240707fa76e04f408ffdd9a1b1ab0f7b65b840c4a290db3f368156a63"
+    },
+    "crates/adventuresim-character-creator/src/hair_preview/strand_shading.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "13592232826ab0676fdf0cf93edd150713c436e3c73f743bd5d828072e1224b9",
+      "merged_sha256": "13592232826ab0676fdf0cf93edd150713c436e3c73f743bd5d828072e1224b9"
+    },
+    "crates/adventuresim-character-creator/src/lib.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "651fe0fab12ff4c92d38a43c5e218ede78e10fb46193b8f7b03a733c9ca18214",
+      "merged_sha256": "dc0c4f7b59ecd62d3a8a4a6b00c5bfecfc15470df833fe4294e486d1ffa5393c"
+    },
+    "crates/adventuresim-character-creator/src/main.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "31040d06aaf28711632268409163f463d038c1dbdb915c8289d1dcbf704810c0",
+      "merged_sha256": "2b391bbd71eba2d3e75011eaeb451564f5b7f2bb76f61f2cc63c2b394cca8b7a"
+    },
+    "crates/adventuresim-character-creator/src/preview.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "b194929f40eb29ffa5782a8ddd21c55422f4b1df0a7dce5fd20fa49c751eaf03",
+      "merged_sha256": "c992bda5ebab2040f050df66165d022b419c8db585e591671e6cb2d35b927585"
+    },
+    "crates/adventuresim-character-creator/src/studio_ui.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "ab4430b01df6df4b77ee2e29a491531bd3a5782c92fd16b67a9aaba2d239b394",
+      "merged_sha256": "ab4430b01df6df4b77ee2e29a491531bd3a5782c92fd16b67a9aaba2d239b394"
+    },
+    "crates/fabelgeist-armor/src/error.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "8b4c7032361186e92a792ec38ddc6b2691c2d84658a5715241c1b84aa144f08c",
+      "merged_sha256": "8b4c7032361186e92a792ec38ddc6b2691c2d84658a5715241c1b84aa144f08c"
+    },
+    "crates/fabelgeist-armor/src/gpu/staging.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "c82ccc89151834ead198496d95805780ebc3770b1d259c1d7d61dafa9817f02e",
+      "merged_sha256": "c82ccc89151834ead198496d95805780ebc3770b1d259c1d7d61dafa9817f02e"
+    },
+    "crates/fabelgeist-compute/src/kernel/mod.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274",
+      "merged_sha256": "dae1952c339f41ebda108d54286ef154bcb482d6b45879321dbc8bb6f498b274"
+    },
+    "crates/fabelgeist-compute/src/lib.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "17d52c28a3489b266ec2a514084215b192e6bdea87d3326ab518ea5001f15771",
+      "merged_sha256": "17d52c28a3489b266ec2a514084215b192e6bdea87d3326ab518ea5001f15771"
+    },
+    "crates/fabelgeist-compute/src/prefix_sum.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 4,
+      "upstream_sha256": "d37a82c99c0d23659bf6b0533ccb96435592ed4e2f3e62d9b5867d5c36a6e5c7",
+      "merged_sha256": "d37a82c99c0d23659bf6b0533ccb96435592ed4e2f3e62d9b5867d5c36a6e5c7"
+    },
+    "crates/fabelgeist-compute/src/readback.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 5,
+      "upstream_sha256": "caaf8c9738e40e94a3dc17914bebeaeda33a6b37bacb74158619c9fca955af76",
+      "merged_sha256": "caaf8c9738e40e94a3dc17914bebeaeda33a6b37bacb74158619c9fca955af76"
+    },
+    "crates/fabelgeist-compute/src/sort/mod.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "2cf6b4446ab00dce84c8b3169d9685d3b2e304b869f4c25d0e4322c7bedf9634",
+      "merged_sha256": "2cf6b4446ab00dce84c8b3169d9685d3b2e304b869f4c25d0e4322c7bedf9634"
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/mod.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "f795df445833d7fae4fca22e42c07b01eb3b7f09e4033708bb68673597149204",
+      "merged_sha256": "f795df445833d7fae4fca22e42c07b01eb3b7f09e4033708bb68673597149204"
+    },
+    "crates/fabelgeist-gpu/src/data/gpu/texture/texture_cube/mod.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "f0586f192d129825c11541db615cb1882433f862d473e768d8a224af53541bc0",
+      "merged_sha256": "f0586f192d129825c11541db615cb1882433f862d473e768d8a224af53541bc0"
+    },
+    "crates/fabelgeist-gpu/src/globals/wgpu_context/mod.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "dd7c6c3515b7f79314eccb5a4be41e3ec6856c0c5c26f3788df27473b1f12834",
+      "merged_sha256": "dd7c6c3515b7f79314eccb5a4be41e3ec6856c0c5c26f3788df27473b1f12834"
+    },
+    "crates/fabelgeist-hair/src/cards.rs": {
+      "test_names_added": [
+        "a_comb_of_strands_becomes_a_few_cards"
+      ],
+      "test_names_removed": [],
+      "assertion_delta": 4,
+      "upstream_sha256": "94362357c99bfe3788518e391eeb66986b7ab8f5bf85608c6e2ffb09b916c2a0",
+      "merged_sha256": "94362357c99bfe3788518e391eeb66986b7ab8f5bf85608c6e2ffb09b916c2a0"
+    },
+    "crates/fabelgeist-hair/src/collider.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "a6c42473a9969568f6eb700df01cc6753b92bb2034ade7d129733d1a550c2021",
+      "merged_sha256": "a6c42473a9969568f6eb700df01cc6753b92bb2034ade7d129733d1a550c2021"
+    },
+    "crates/fabelgeist-hair/src/cover.rs": {
+      "test_names_added": [
+        "skin_under_hair_is_covered_and_bare_skin_is_not"
+      ],
+      "test_names_removed": [],
+      "assertion_delta": 2,
+      "upstream_sha256": "50287b76df57d36dd9afcab6aa2a578f96e49b421b73e26b536d23c1bc65345f",
+      "merged_sha256": "50287b76df57d36dd9afcab6aa2a578f96e49b421b73e26b536d23c1bc65345f"
+    },
+    "crates/fabelgeist-hair/src/dataset.rs": {
+      "test_names_added": [
+        "draws_are_reproducible_and_varied"
+      ],
+      "test_names_removed": [],
+      "assertion_delta": 4,
+      "upstream_sha256": "2c0e269b9b3b342dcc8bbebae16001f8ebd8f04946c84a8e8be5c1f7a071eba1",
+      "merged_sha256": "2c0e269b9b3b342dcc8bbebae16001f8ebd8f04946c84a8e8be5c1f7a071eba1"
+    },
+    "crates/fabelgeist-hair/src/difflocks.rs": {
+      "test_names_added": [
+        "a_written_sample_reads_back",
+        "the_camera_looks_down_its_z"
+      ],
+      "test_names_removed": [],
+      "assertion_delta": 6,
+      "upstream_sha256": "a849dbb63bee02aa972bad574020d900c3ddcad3d68cb0cfee1d729158a157a5",
+      "merged_sha256": "a849dbb63bee02aa972bad574020d900c3ddcad3d68cb0cfee1d729158a157a5"
+    },
+    "crates/fabelgeist-hair/src/export/error.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "9a6b4ec4caa2f2942c4ed56febc4e4ff025a73319b24a4efc69000a03b0a6d41",
+      "merged_sha256": "9a6b4ec4caa2f2942c4ed56febc4e4ff025a73319b24a4efc69000a03b0a6d41"
+    },
+    "crates/fabelgeist-hair/src/export/mod.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "d2e171a1a705f36cd5869cd7ceb27d011f6d2a723005c8ecf1f06e8ac6275a21",
+      "merged_sha256": "d2e171a1a705f36cd5869cd7ceb27d011f6d2a723005c8ecf1f06e8ac6275a21"
+    },
+    "crates/fabelgeist-hair/src/export/npz.rs": {
+      "test_names_added": [
+        "npy_headers_are_aligned_and_describe_the_shape",
+        "an_archive_reads_back",
+        "an_archive_ends_in_its_directory"
+      ],
+      "test_names_removed": [],
+      "assertion_delta": 12,
+      "upstream_sha256": "b9507354d8453c0f2c0878186e7b05f3ac814a2887382554b846906e740f29e7",
+      "merged_sha256": "b9507354d8453c0f2c0878186e7b05f3ac814a2887382554b846906e740f29e7"
+    },
+    "crates/fabelgeist-hair/src/export/ply.rs": {
+      "test_names_added": [
+        "reads_an_ascii_quad",
+        "reads_binary"
+      ],
+      "test_names_removed": [],
+      "assertion_delta": 5,
+      "upstream_sha256": "345e252405ff462d496041a3b7229059e8722c75666265ee580e7a3f2d9ad7c8",
+      "merged_sha256": "345e252405ff462d496041a3b7229059e8722c75666265ee580e7a3f2d9ad7c8"
+    },
+    "crates/fabelgeist-hair/src/export/png.rs": {
+      "test_names_added": [
+        "a_png_has_its_signature_and_chunks"
+      ],
+      "test_names_removed": [],
+      "assertion_delta": 3,
+      "upstream_sha256": "153201fea79add13daaedd64145159ee29edec26518a1aa4f6e11d27a9441cd5",
+      "merged_sha256": "153201fea79add13daaedd64145159ee29edec26518a1aa4f6e11d27a9441cd5"
+    },
+    "crates/fabelgeist-hair/src/export/usc.rs": {
+      "test_names_added": [
+        "round_trips"
+      ],
+      "test_names_removed": [],
+      "assertion_delta": 2,
+      "upstream_sha256": "b4dd677d36d6175d7fd6d5ff5dddd54f06077334aa2ac6c4c41c18eadaf6e2a7",
+      "merged_sha256": "b4dd677d36d6175d7fd6d5ff5dddd54f06077334aa2ac6c4c41c18eadaf6e2a7"
+    },
+    "crates/fabelgeist-hair/src/follicles.rs": {
+      "test_names_added": [
+        "a_crown_whorl_turns_and_runs_forward_and_down",
+        "every_pattern_gives_a_tangent_direction_everywhere",
+        "a_hairline_raised_recedes_and_a_peak_dips"
+      ],
+      "test_names_removed": [],
+      "assertion_delta": 9,
+      "upstream_sha256": "340bfe96a91d869c32ce69355977aa5d552d76fe8f27d48d566e6f78c4b1ad49",
+      "merged_sha256": "340bfe96a91d869c32ce69355977aa5d552d76fe8f27d48d566e6f78c4b1ad49"
+    },
+    "crates/fabelgeist-hair/src/gpu/buffers.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "56b07c022d332c7f08791949cbbed967de3b94a2e6a442511b387dd625facfc7",
+      "merged_sha256": "56b07c022d332c7f08791949cbbed967de3b94a2e6a442511b387dd625facfc7"
+    },
+    "crates/fabelgeist-hair/src/gpu/collide.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "af851e973e6dd5ec0e0926e794e3765a70640e402fe32274dfade030971f541a",
+      "merged_sha256": "af851e973e6dd5ec0e0926e794e3765a70640e402fe32274dfade030971f541a"
+    },
+    "crates/fabelgeist-hair/src/gpu/error.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "25a756339cea66b615724837d2faae7b31356dd795ef2ad6bcb46decaae4b9db",
+      "merged_sha256": "25a756339cea66b615724837d2faae7b31356dd795ef2ad6bcb46decaae4b9db"
+    },
+    "crates/fabelgeist-hair/src/gpu/grow.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef",
+      "merged_sha256": "2b4fc3895876d9f654a2e9b73dd35a0a9db523ac040052a082750a96a7dcfcef"
+    },
+    "crates/fabelgeist-hair/src/gpu/grow/input.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "79df824a0c6fc00d93e45308c1d6f5a24ecb35216bab4b22b51d271d96a6f9e3",
+      "merged_sha256": "79df824a0c6fc00d93e45308c1d6f5a24ecb35216bab4b22b51d271d96a6f9e3"
+    },
+    "crates/fabelgeist-hair/src/gpu/grow/profile.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "952ded1a5956f9cc562e2a19d85ecd6fcc07e49e5f5c663a9d2c0f20f2323e36",
+      "merged_sha256": "952ded1a5956f9cc562e2a19d85ecd6fcc07e49e5f5c663a9d2c0f20f2323e36"
+    },
+    "crates/fabelgeist-hair/src/gpu/guides.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "ff313e8605d4893263109f7c930fcc81eb6c71aae6a7cffdbcafd10a44137aea",
+      "merged_sha256": "ff313e8605d4893263109f7c930fcc81eb6c71aae6a7cffdbcafd10a44137aea"
+    },
+    "crates/fabelgeist-hair/src/gpu/guides/packed.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "eabbc4d66906c663bc661d3ac362b051fc301694f436b2fdd0613116e2e2249b",
+      "merged_sha256": "eabbc4d66906c663bc661d3ac362b051fc301694f436b2fdd0613116e2e2249b"
+    },
+    "crates/fabelgeist-hair/src/gpu/lods.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "4c4942bcc61f37168061524da5455ca10cfd712e6611f8128f2cf45cf1c58fb9",
+      "merged_sha256": "4c4942bcc61f37168061524da5455ca10cfd712e6611f8128f2cf45cf1c58fb9"
+    },
+    "crates/fabelgeist-hair/src/gpu/lods/prepare.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "31ca4c48ec589f5a01741121afa476d020ffc305d36dd4b71015067ad5e81960",
+      "merged_sha256": "31ca4c48ec589f5a01741121afa476d020ffc305d36dd4b71015067ad5e81960"
+    },
+    "crates/fabelgeist-hair/src/gpu/mod.rs": {
+      "test_names_added": [
+        "the_kernels_validate",
+        "a_groom_grows_on_the_gpu_as_on_the_host",
+        "growing_again_gives_the_same_groom",
+        "hair_moves_on_the_gpu_as_on_the_host",
+        "guides_grow_on_the_gpu_as_on_the_host",
+        "the_scalp_is_cut_on_the_gpu_as_on_the_host",
+        "strands_meeting_leave_a_groom_at_rest",
+        "a_strand_does_not_pass_through_another",
+        "hair_pressed_together_keeps_its_volume",
+        "every_hairstyle_rests_and_swings",
+        "a_simulation_changes_level_without_a_jump"
+      ],
+      "test_names_removed": [],
+      "assertion_delta": 41,
+      "upstream_sha256": "a81bbfd1f2648d8e5de93f7d4b1781884b3567dbf07e4247fc44d9c2fe5ecfb3",
+      "merged_sha256": "a81bbfd1f2648d8e5de93f7d4b1781884b3567dbf07e4247fc44d9c2fe5ecfb3"
+    },
+    "crates/fabelgeist-hair/src/gpu/scalp.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "64a5cc8196a567a3b4d071c355bc491a23956d815c57d4805277bf15b1135304",
+      "merged_sha256": "64a5cc8196a567a3b4d071c355bc491a23956d815c57d4805277bf15b1135304"
+    },
+    "crates/fabelgeist-hair/src/gpu/scalp/layout.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "1934e3eae9d1344b28b6cfd751a0fb691b3a81c64c1a18f2aea41a65f4e3f036",
+      "merged_sha256": "1934e3eae9d1344b28b6cfd751a0fb691b3a81c64c1a18f2aea41a65f4e3f036"
+    },
+    "crates/fabelgeist-hair/src/gpu/sim.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "8be18917f31c4bc0a8594afed413bfb6ead312246396079def0abcb485306be6",
+      "merged_sha256": "8be18917f31c4bc0a8594afed413bfb6ead312246396079def0abcb485306be6"
+    },
+    "crates/fabelgeist-hair/src/gpu/sim/density.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "05b7ff8f80cd66fbaec76ae6aa709dc209663129e36e3c82e999b0ff19fc08a5",
+      "merged_sha256": "05b7ff8f80cd66fbaec76ae6aa709dc209663129e36e3c82e999b0ff19fc08a5"
+    },
+    "crates/fabelgeist-hair/src/gpu/wgsl/common.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "ffd989fed5f4bc512ee53fc408db1d2ecb6bcd81464b5c3eecc8ce4e4eef71e0",
+      "merged_sha256": "ffd989fed5f4bc512ee53fc408db1d2ecb6bcd81464b5c3eecc8ce4e4eef71e0"
+    },
+    "crates/fabelgeist-hair/src/gpu/wgsl/groom.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "955f005be356cd5dac7fef18bd1c669d248c1fdf2632f5a787a7b10222be2ae2",
+      "merged_sha256": "955f005be356cd5dac7fef18bd1c669d248c1fdf2632f5a787a7b10222be2ae2"
+    },
+    "crates/fabelgeist-hair/src/gpu/wgsl/guides.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "bcd60aee22ae82fae270b38599aca660f0432c0a6baf72d58241a88da4cfa840",
+      "merged_sha256": "bcd60aee22ae82fae270b38599aca660f0432c0a6baf72d58241a88da4cfa840"
+    },
+    "crates/fabelgeist-hair/src/gpu/wgsl/lod.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "84921c3738f17ead3b584e9957b4da132682a3a9c475c3b99a664b48ec245df7",
+      "merged_sha256": "84921c3738f17ead3b584e9957b4da132682a3a9c475c3b99a664b48ec245df7"
+    },
+    "crates/fabelgeist-hair/src/gpu/wgsl/mod.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "a15fa14b15efdff7da3bf54a5ce9b5b3f911fa117cb37c5fd3e9d6fad95b7e9b",
+      "merged_sha256": "a15fa14b15efdff7da3bf54a5ce9b5b3f911fa117cb37c5fd3e9d6fad95b7e9b"
+    },
+    "crates/fabelgeist-hair/src/gpu/wgsl/scalp.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "cc5ad35615a4f666696cf74cfaf49438343456cb5476a7fbfea2b130553e6374",
+      "merged_sha256": "cc5ad35615a4f666696cf74cfaf49438343456cb5476a7fbfea2b130553e6374"
+    },
+    "crates/fabelgeist-hair/src/gpu/wgsl/sim.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "4367a5a90c36960651b65fa738f16cb223984d50bb8c071022533dbf78d0b856",
+      "merged_sha256": "4367a5a90c36960651b65fa738f16cb223984d50bb8c071022533dbf78d0b856"
+    },
+    "crates/fabelgeist-hair/src/grid.rs": {
+      "test_names_added": [
+        "nearest_k_matches_brute_force"
+      ],
+      "test_names_removed": [],
+      "assertion_delta": 1,
+      "upstream_sha256": "c09704f7670decebc3e4eb9ff4ea525870f197f4302a4e16407c5e298f988996",
+      "merged_sha256": "c09704f7670decebc3e4eb9ff4ea525870f197f4302a4e16407c5e298f988996"
+    },
+    "crates/fabelgeist-hair/src/groom.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "083ab47dd800216d8bbcd584b64aa7851587f5e88bd459c449d0d429793f23cf",
+      "merged_sha256": "083ab47dd800216d8bbcd584b64aa7851587f5e88bd459c449d0d429793f23cf"
+    },
+    "crates/fabelgeist-hair/src/haircut.rs": {
+      "test_names_added": [
+        "clippers_cut_the_sides_and_leave_the_top",
+        "an_angled_bob_is_longer_in_front",
+        "scaling_keeps_every_cut_positive"
+      ],
+      "test_names_removed": [],
+      "assertion_delta": 5,
+      "upstream_sha256": "707b015e87fe4c3b69df96658a1f904b186775ff7d80b7e3f2a3b68fb9a0f02b",
+      "merged_sha256": "707b015e87fe4c3b69df96658a1f904b186775ff7d80b7e3f2a3b68fb9a0f02b"
+    },
+    "crates/fabelgeist-hair/src/hairdo.rs": {
+      "test_names_added": [
+        "every_preset_grows_guides_outside_the_head",
+        "every_cut_style_and_growth_combine",
+        "roots_leave_the_scalp_gently",
+        "short_hair_follows_the_growth_pattern",
+        "long_hair_hangs_short_hair_stands"
+      ],
+      "test_names_removed": [],
+      "assertion_delta": 11,
+      "upstream_sha256": "7adbce20aa4fb6390748d4a83ad91e4c31a976db817f0a26c321f5c415393f14",
+      "merged_sha256": "7adbce20aa4fb6390748d4a83ad91e4c31a976db817f0a26c321f5c415393f14"
+    },
+    "crates/fabelgeist-hair/src/hairdo/tied.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "cfc6af7986e8029ebca3d23cf4a7d67e0478f87af9972c3a8908baa6d31a0786",
+      "merged_sha256": "cfc6af7986e8029ebca3d23cf4a7d67e0478f87af9972c3a8908baa6d31a0786"
+    },
+    "crates/fabelgeist-hair/src/hairstyle.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "b5f8a3df2ec5973448ef2183c300de94346d3a00051e77fb1ed61a8c98ec68a2",
+      "merged_sha256": "b5f8a3df2ec5973448ef2183c300de94346d3a00051e77fb1ed61a8c98ec68a2"
+    },
+    "crates/fabelgeist-hair/src/head.rs": {
+      "test_names_added": [
+        "the_bust_is_head_sized",
+        "the_scalp_is_a_cap_with_a_disc_of_uvs",
+        "mesh_normals_face_out"
+      ],
+      "test_names_removed": [],
+      "assertion_delta": 8,
+      "upstream_sha256": "5d1dcadadba0fa88cbd668791a3a995a7ef83af5fdbaa3b699b828531f339335",
+      "merged_sha256": "5d1dcadadba0fa88cbd668791a3a995a7ef83af5fdbaa3b699b828531f339335"
+    },
+    "crates/fabelgeist-hair/src/identity.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "9e6bb30bdee39ecc35561aa4a286e46a7645129f179f7734fcba0e78d433dc48",
+      "merged_sha256": "9e6bb30bdee39ecc35561aa4a286e46a7645129f179f7734fcba0e78d433dc48"
+    },
+    "crates/fabelgeist-hair/src/lib.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "57c7525f7e70077874384b0491220ff8d9dd427cc3b5e18b8e0f43d5ef5ddff0",
+      "merged_sha256": "57c7525f7e70077874384b0491220ff8d9dd427cc3b5e18b8e0f43d5ef5ddff0"
+    },
+    "crates/fabelgeist-hair/src/lod.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "858dfb6b573d078ef1ecec3d6a2d8a0f16e80b1780e213259d8fe27946a6acc6",
+      "merged_sha256": "858dfb6b573d078ef1ecec3d6a2d8a0f16e80b1780e213259d8fe27946a6acc6"
+    },
+    "crates/fabelgeist-hair/src/look.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "81e8743f737a776691275b86117f5b22c8b318ae88c8985f2dcc12f7280b69d5",
+      "merged_sha256": "81e8743f737a776691275b86117f5b22c8b318ae88c8985f2dcc12f7280b69d5"
+    },
+    "crates/fabelgeist-hair/src/look/groom.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "3dffaa4b35a78c1b5f3d8e07b5698d2f273f563741c9250883f74701d5572818",
+      "merged_sha256": "3dffaa4b35a78c1b5f3d8e07b5698d2f273f563741c9250883f74701d5572818"
+    },
+    "crates/fabelgeist-hair/src/look/random.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "bbc2659794d1758ed6147329c7cc21c8e1a08a726ec80e12426ae397fa13e0b5",
+      "merged_sha256": "bbc2659794d1758ed6147329c7cc21c8e1a08a726ec80e12426ae397fa13e0b5"
+    },
+    "crates/fabelgeist-hair/src/material.rs": {
+      "test_names_added": [
+        "more_melanin_is_darker_and_redness_is_red",
+        "a_dye_alone_gives_back_its_colour",
+        "the_taper_runs_from_one_to_the_tip"
+      ],
+      "test_names_removed": [],
+      "assertion_delta": 5,
+      "upstream_sha256": "20fdf72de21b47f4596eb6538d58a2d89aeb5217a8b797ca53730c769b5d5b1e",
+      "merged_sha256": "20fdf72de21b47f4596eb6538d58a2d89aeb5217a8b797ca53730c769b5d5b1e"
+    },
+    "crates/fabelgeist-hair/src/noise.rs": {
+      "test_names_added": [
+        "perlin_is_zero_on_the_lattice_and_bounded",
+        "perlin_is_continuous"
+      ],
+      "test_names_removed": [],
+      "assertion_delta": 3,
+      "upstream_sha256": "ed0e545896064f64d04a024c1c6f781d2fc6cbee70bb34fdecf51aa3d4db8bc1",
+      "merged_sha256": "ed0e545896064f64d04a024c1c6f781d2fc6cbee70bb34fdecf51aa3d4db8bc1"
+    },
+    "crates/fabelgeist-hair/src/occlusion.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "df64e77a72e480695878f022bd0cbc55a81364239a203a9f470f868a1abe53a6",
+      "merged_sha256": "df64e77a72e480695878f022bd0cbc55a81364239a203a9f470f868a1abe53a6"
+    },
+    "crates/fabelgeist-hair/src/ops/clump.rs": {
+      "test_names_added": [
+        "tips_gather_to_their_guide_and_roots_stay"
+      ],
+      "test_names_removed": [],
+      "assertion_delta": 3,
+      "upstream_sha256": "90e08b44226041af9172a4908ad63bbb12e23de7f658949938e36c49ba6b6687",
+      "merged_sha256": "90e08b44226041af9172a4908ad63bbb12e23de7f658949938e36c49ba6b6687"
+    },
+    "crates/fabelgeist-hair/src/ops/curl.rs": {
+      "test_names_added": [
+        "a_lone_strand_becomes_a_helix_of_the_radius"
+      ],
+      "test_names_removed": [],
+      "assertion_delta": 1,
+      "upstream_sha256": "e27a356a7d2a2f5b421639e8bc129c21e1606db45b44e64d291539c5bb9be8b8",
+      "merged_sha256": "e27a356a7d2a2f5b421639e8bc129c21e1606db45b44e64d291539c5bb9be8b8"
+    },
+    "crates/fabelgeist-hair/src/ops/displace.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "2715f2dfeec43e50e71143bd8f810e071df650a766ff78d694123868c15b91e7",
+      "merged_sha256": "2715f2dfeec43e50e71143bd8f810e071df650a766ff78d694123868c15b91e7"
+    },
+    "crates/fabelgeist-hair/src/ops/interpolate.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "695c1097efb81ad14d92b7d55949e67524b0e3949da155df54fac940c6f5b92a",
+      "merged_sha256": "695c1097efb81ad14d92b7d55949e67524b0e3949da155df54fac940c6f5b92a"
+    },
+    "crates/fabelgeist-hair/src/ops/mod.rs": {
+      "test_names_added": [
+        "shape_range_spans_constant_linear_and_late",
+        "restoring_lengths_undoes_a_stretch"
+      ],
+      "test_names_removed": [],
+      "assertion_delta": 6,
+      "upstream_sha256": "b5146988078e923f50a7c89002bacf7e8cee61f11e1f894b946aed9441c0d704",
+      "merged_sha256": "b5146988078e923f50a7c89002bacf7e8cee61f11e1f894b946aed9441c0d704"
+    },
+    "crates/fabelgeist-hair/src/ops/orient.rs": {
+      "test_names_added": [
+        "a_short_strand_turns_to_its_follicle_and_a_long_one_keeps_its_course"
+      ],
+      "test_names_removed": [],
+      "assertion_delta": 2,
+      "upstream_sha256": "4b8ec31a314feb37e259b5f276d012a5cfc08656d0c342bf09de0bbd69d77d59",
+      "merged_sha256": "4b8ec31a314feb37e259b5f276d012a5cfc08656d0c342bf09de0bbd69d77d59"
+    },
+    "crates/fabelgeist-hair/src/ops/settle.rs": {
+      "test_names_added": [
+        "standard_gravity_leaves_the_groom_alone",
+        "long_hair_sags_short_hair_holds",
+        "wind_blows_hair_along_it"
+      ],
+      "test_names_removed": [],
+      "assertion_delta": 5,
+      "upstream_sha256": "1ea57e0acb96a13b8f2554315f14a7dd3cf70794266a900454c5e1189c2d3372",
+      "merged_sha256": "1ea57e0acb96a13b8f2554315f14a7dd3cf70794266a900454c5e1189c2d3372"
+    },
+    "crates/fabelgeist-hair/src/ops/shrinkwrap.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "a2e81f30ca8aae925d31d5e2f99faf151775a528a0ac09105a1e9155c27b8ae5",
+      "merged_sha256": "a2e81f30ca8aae925d31d5e2f99faf151775a528a0ac09105a1e9155c27b8ae5"
+    },
+    "crates/fabelgeist-hair/src/ops/trim.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "1e0b2b06f2b4d96070e3174e33106a2154601ab07a72aa086db15ecd2f9ba5c6",
+      "merged_sha256": "1e0b2b06f2b4d96070e3174e33106a2154601ab07a72aa086db15ecd2f9ba5c6"
+    },
+    "crates/fabelgeist-hair/src/parameters.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "e8ddc101f1ef8295f3ab1943b4cae0257e483fd9fb67e2255bf614c1e51557e2",
+      "merged_sha256": "e8ddc101f1ef8295f3ab1943b4cae0257e483fd9fb67e2255bf614c1e51557e2"
+    },
+    "crates/fabelgeist-hair/src/presets.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "5cd3548d5fcfed2e1d8b3131c1cfcf378fd65f0f5a885f4a2f5dd11ff0cd3562",
+      "merged_sha256": "5cd3548d5fcfed2e1d8b3131c1cfcf378fd65f0f5a885f4a2f5dd11ff0cd3562"
+    },
+    "crates/fabelgeist-hair/src/render/math.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "297582116bff991d2c1dc9db4fc6d079b5b3b301255c517108c35a1c9fa0f2c9",
+      "merged_sha256": "297582116bff991d2c1dc9db4fc6d079b5b3b301255c517108c35a1c9fa0f2c9"
+    },
+    "crates/fabelgeist-hair/src/render/mod.rs": {
+      "test_names_added": [
+        "the_shaders_validate",
+        "uniforms_match_their_wgsl_sizes"
+      ],
+      "test_names_removed": [],
+      "assertion_delta": 5,
+      "upstream_sha256": "25b0b9a2168d3aafa49b08f1ed5b6b3438a9e2e6b3925df6c47aa09a47d05017",
+      "merged_sha256": "25b0b9a2168d3aafa49b08f1ed5b6b3438a9e2e6b3925df6c47aa09a47d05017"
+    },
+    "crates/fabelgeist-hair/src/rng.rs": {
+      "test_names_added": [
+        "units_are_uniform_enough",
+        "seeds_decorrelate"
+      ],
+      "test_names_removed": [],
+      "assertion_delta": 3,
+      "upstream_sha256": "84f8d24277715741f39370e332b06b8a111193ae2d3e8602e115b1f6410913bd",
+      "merged_sha256": "84f8d24277715741f39370e332b06b8a111193ae2d3e8602e115b1f6410913bd"
+    },
+    "crates/fabelgeist-hair/src/rod.rs": {
+      "test_names_added": [
+        "the_turn_changes_as_its_derivative_says",
+        "a_block_inverts"
+      ],
+      "test_names_removed": [],
+      "assertion_delta": 2,
+      "upstream_sha256": "727dacc7e3575ff8280cc14cee75d7aa0e2595eeac2190d7e525620bbd72c0e2",
+      "merged_sha256": "727dacc7e3575ff8280cc14cee75d7aa0e2595eeac2190d7e525620bbd72c0e2"
+    },
+    "crates/fabelgeist-hair/src/sim.rs": {
+      "test_names_added": [
+        "a_still_head_keeps_the_groom_as_it_is",
+        "turning_the_head_carries_the_roots_and_the_tips_lag",
+        "a_cantilever_sags_as_beam_theory_says",
+        "a_cantilever_rings_at_its_natural_frequency",
+        "a_hanging_strand_swings_as_a_chain_does",
+        "a_groom_rests_as_groomed_under_its_weight"
+      ],
+      "test_names_removed": [],
+      "assertion_delta": 11,
+      "upstream_sha256": "fb1ff8533a78fe122a0d19f28b64f6f757b55898aded84056dbe0fef816e6079",
+      "merged_sha256": "fb1ff8533a78fe122a0d19f28b64f6f757b55898aded84056dbe0fef816e6079"
+    },
+    "crates/fabelgeist-hair/src/strands.rs": {
+      "test_names_added": [
+        "sampling_by_factor_walks_the_arc",
+        "resampling_spaces_points_evenly",
+        "transported_normals_stay_perpendicular"
+      ],
+      "test_names_removed": [],
+      "assertion_delta": 9,
+      "upstream_sha256": "5a3bb021b299493d92f25c9aca9d2fc24fd46c9f0fa66c97aa5845996f6f6f29",
+      "merged_sha256": "5a3bb021b299493d92f25c9aca9d2fc24fd46c9f0fa66c97aa5845996f6f6f29"
+    },
+    "crates/fabelgeist-hair/src/surface.rs": {
+      "test_names_added": [
+        "samples_land_on_the_surface_with_their_uv",
+        "the_closest_point_interpolates_uv"
+      ],
+      "test_names_removed": [],
+      "assertion_delta": 6,
+      "upstream_sha256": "117cfab53d13fbb84de5149685248b1c6a0b6d5578fb8ffdb522d08af10ccd60",
+      "merged_sha256": "117cfab53d13fbb84de5149685248b1c6a0b6d5578fb8ffdb522d08af10ccd60"
+    },
+    "crates/fabelgeist-math/src/lib.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "bd588528cad05e62401905c31645e928a15b1175985219d9d79d21b2b2e81510",
+      "merged_sha256": "bd588528cad05e62401905c31645e928a15b1175985219d9d79d21b2b2e81510"
+    },
+    "crates/fabelgeist-math/src/matrix/dmat3.rs": {
+      "test_names_added": [
+        "a_quarter_turn_about_z_takes_x_to_y",
+        "the_transpose_undoes_a_rotation"
+      ],
+      "test_names_removed": [],
+      "assertion_delta": 4,
+      "upstream_sha256": "08baabbabf15456731c11c9115078196aa7c3718034010c18d593a5d015d2f14",
+      "merged_sha256": "08baabbabf15456731c11c9115078196aa7c3718034010c18d593a5d015d2f14"
+    },
+    "crates/fabelgeist-math/src/matrix/mat4.rs": {
+      "test_names_added": [
+        "reverse_infinite_depth_runs_from_one_at_near_to_zero_at_infinity"
+      ],
+      "test_names_removed": [],
+      "assertion_delta": 3,
+      "upstream_sha256": "117ab1b23f9a547462573871ff5bef9824f3fad9dedf3878569f0569c0c39c28",
+      "merged_sha256": "117ab1b23f9a547462573871ff5bef9824f3fad9dedf3878569f0569c0c39c28"
+    },
+    "crates/fabelgeist-math/src/matrix/mod.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "9dcfbe0ee25d65df2cf7b535f1e774bccb12148226e4ba5237c81aac0c537339",
+      "merged_sha256": "9dcfbe0ee25d65df2cf7b535f1e774bccb12148226e4ba5237c81aac0c537339"
+    },
+    "crates/fabelgeist-math/src/units.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492",
+      "merged_sha256": "0c76a1a79a18e833d21fc2ffb011e2a351139ee7a299df13df12fdbcf3c27492"
+    },
+    "crates/fabelgeist-math/src/vector/dvec3.rs": {
+      "test_names_added": [
+        "relative_positions_keep_their_precision_far_from_the_origin",
+        "cross_follows_the_right_hand"
+      ],
+      "test_names_removed": [],
+      "assertion_delta": 4,
+      "upstream_sha256": "b1653da9eb530fe0de757ddd9159f050eda15026c759b9ffcb937a45ac14a515",
+      "merged_sha256": "b1653da9eb530fe0de757ddd9159f050eda15026c759b9ffcb937a45ac14a515"
+    },
+    "crates/fabelgeist-math/src/vector/mod.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "4b334efe0db52e6a31df92442575d17d2b7a9bfc9e0fcdd494d097213556b18d",
+      "merged_sha256": "4b334efe0db52e6a31df92442575d17d2b7a9bfc9e0fcdd494d097213556b18d"
+    },
+    "crates/fabelgeist-mesh/src/data.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "41c300bd088e2a69594225a867cee9f1bc3fe5f19410bf77d3c8de73a383f1b4",
+      "merged_sha256": "41c300bd088e2a69594225a867cee9f1bc3fe5f19410bf77d3c8de73a383f1b4"
+    },
+    "crates/fabelgeist-mesh/src/front_face.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "c1b630720303e34731d25e7422f82fea689019c731af6ffe634b167b2849e2e3",
+      "merged_sha256": "c1b630720303e34731d25e7422f82fea689019c731af6ffe634b167b2849e2e3"
+    },
+    "crates/fabelgeist-mesh/src/lib.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "6a0d874f4c07665cb0c5f3e477bd5a79d6c431a46aea2be921a7fab150e5e04b",
+      "merged_sha256": "6a0d874f4c07665cb0c5f3e477bd5a79d6c431a46aea2be921a7fab150e5e04b"
+    },
+    "crates/fabelgeist-mesh/src/topology.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "2012935ce1258985c9a8455d4b1c4e1835734568cdb6b5e11ff3fffbac77ee57",
+      "merged_sha256": "2012935ce1258985c9a8455d4b1c4e1835734568cdb6b5e11ff3fffbac77ee57"
+    },
+    "crates/fabelgeist-spatial-hash/src/gpu.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 1,
+      "upstream_sha256": "eb46b3a71f1237af1fad8cd3af122dd885552800b24faf8e89312ec9d6e70ba3",
+      "merged_sha256": "eb46b3a71f1237af1fad8cd3af122dd885552800b24faf8e89312ec9d6e70ba3"
+    },
+    "crates/fabelgeist-spatial-hash/src/host.rs": {
+      "test_names_added": [
+        "finds_exactly_the_neighbours_brute_force_finds",
+        "visits_each_entry_once"
+      ],
+      "test_names_removed": [],
+      "assertion_delta": 2,
+      "upstream_sha256": "59cee8f8bff3b60e8bfef62104b795b1b2bf050d2ee7b07aaa52a8a3fc9076b7",
+      "merged_sha256": "59cee8f8bff3b60e8bfef62104b795b1b2bf050d2ee7b07aaa52a8a3fc9076b7"
+    },
+    "crates/fabelgeist-spatial-hash/src/lib.rs": {
+      "test_names_added": [],
+      "test_names_removed": [],
+      "assertion_delta": 0,
+      "upstream_sha256": "198378cd3592d5db840f8b7d6862b4e2656fa33fa1c52bb3d2f68254fb9896c9",
+      "merged_sha256": "198378cd3592d5db840f8b7d6862b4e2656fa33fa1c52bb3d2f68254fb9896c9"
+    },
+    "crates/fabelgeist-spatial-hash/src/overlap.rs": {
+      "test_names_added": [
+        "apart_touching_and_nested",
+        "continuous_at_the_nesting_boundary",
+        "equal_spheres_match_two_caps"
+      ],
+      "test_names_removed": [],
+      "assertion_delta": 5,
+      "upstream_sha256": "63072274f21f2ed6bdb634d3c6b50cbf400ccebc7bd4c6117d520a607001104f",
+      "merged_sha256": "63072274f21f2ed6bdb634d3c6b50cbf400ccebc7bd4c6117d520a607001104f"
+    }
+  },
+  "test_names_added": 79,
+  "test_names_removed": 0,
+  "assertion_delta": 202,
+  "incoming_test_names_and_assertions_preserved": true,
+  "all_nine_authored_error_family_files_identical_to_published_head": true,
+  "limits": "Ordinary #[test] name and assertion occurrence metadata, not Rust parsing or executed validation. Incoming async/GPU tests have not been run locally."
+}

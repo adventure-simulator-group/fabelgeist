@@ -1,0 +1,110 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-489",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/diagnostic.rs",
+      "sha256": "520b5ce55ac4b5404d138e55e4d055f098d08b02377b7779dbc54bd970f3db62",
+      "actual_EOF": 233,
+      "actual_compared_ranges": [
+        [
+          1,
+          233
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure.rs",
+      "sha256": "f9abcd66e159994c71c72f4cbf44f1562f9e72eb376d07cbef3f09f01cd2053b",
+      "actual_EOF": 263,
+      "actual_compared_ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/binding.rs",
+      "sha256": "9db0cfc4b4c3053884d835faaca49a404c9942f7f0599b3069b89729fd8d7ae3",
+      "actual_EOF": 209,
+      "actual_compared_ranges": [
+        [
+          1,
+          209
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/enclosure/projection.rs",
+      "sha256": "b9c9f5a56ca087ccf2cd618c4136ff2fe79d900005cdb98d007270cfc41bf1d1",
+      "actual_EOF": 272,
+      "actual_compared_ranges": [
+        [
+          1,
+          272
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/entry.rs",
+      "sha256": "5530e36190c3c3b7ccab00e124d4fd3ea5fec6e1601d6356a169640ca0b7431d",
+      "actual_EOF": 208,
+      "actual_compared_ranges": [
+        [
+          1,
+          208
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations.rs",
+      "sha256": "067e6669cec19996bd4cbe6fc1caf61c221b294ad11a150ccc3ca36423379797",
+      "actual_EOF": 390,
+      "actual_compared_ranges": [
+        [
+          1,
+          390
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Exact enclosure descriptor/datum ownership and atomic result",
+      "evidence": "Full diagnostic233/enclosure263/binding209/projection272. Descriptor hashes allwallorder/hinge/fields; binding exactproperty/members/gatedatum/elements, per-cell prism admission and completeelementcoverage with boundednativeindex count. Projection validates exactfoundationowner then derives gate unambiguousrange and checkedmemberlevel/pointsubtractions; localmesh returns only after everymember/cell validation. Coveragechecks compare expectedarea with actualclippedfullthickness and perimeter tolerance. No substitutelevel/omittedenclosure ordinaryroute established."
+    },
+    {
+      "contract": "Collider centroid transient overflow candidate discharged by actual admission",
+      "evidence": "Full foundations390/enclosure263 contain sum(points)/6 beforecentering. Fresh exactadmission.rs1\u201365 read: prism explicitly rejects nonfinite positionSUM aswellaseachposition, so naive sixfinitepositiveMAXpositions counterexample is NOT admitted. Do not promote that supposed overflow. Moregeneralrecenterextreme API geometry/parryfailure semantics need concrete accepted input and receiver proof before claim; None convex_mesh is an explicit structuredColliderError. Currentnormalgeneratedgeometry/run notasserted."
+    },
+    {
+      "contract": "Source-complete foundation and finite completed geometry",
+      "evidence": "Foundations from_prisms verifiesexactcells/topology/membership; append_cell checksaddition/u32capacitybeforemutation, completecompilelocalmesh finalvalidate before return. Cutfillchecked every geographicintersectionvertex; coverage fullarea difference distinguish missing/overlap. Entry208 consumes self, builds checkedlocalmesh beforestreet_entrywrite; stepcount boundedu16MAX before i+1loop (largest i65534), gradeschecked beforepublication. No mutationofborrowedpublishedplan."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [
+    {
+      "path": "target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/operations/dependencies-489/admission.rs",
+      "sha256": "11bb44acefc12ab10604d09e33f8b1d26fc3958fa916255972ec6ea63e1f6d2f",
+      "actual_compared_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "purpose": "Disprove finite-operands sum overflow by reading actual prism aggregate admission; not transferred originalrole coverage."
+    }
+  ],
+  "status": "6 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-core/src/city_layout/grounding/foundations/banks.rs"
+}

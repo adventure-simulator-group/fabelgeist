@@ -1,0 +1,190 @@
+{
+  "id": "SEGO-CONT03-NEW-MATERIAL-006",
+  "at": "2026-10-25T08:33:11.552810+00:00",
+  "lens": "audit-admission-contracts",
+  "receipts": [
+    {
+      "extension_index": 62,
+      "source_id": "pr-working:crates/fabelgeist-math/src/vector/vec3.rs",
+      "sha256": "83d359f9d5ae866cc3935577b48f93d9916081bceb05ac92748c91e98672c143",
+      "personally_read_ranges": [
+        [
+          1,
+          263
+        ]
+      ],
+      "admission_routes_and_contract": "Generic numerical Vec3 makes no finite/unit/frame guarantee: public x/y/z, new/from_array/splat, derived Deserialize/Zeroable/Default and unchecked arithmetic deliberately admit IEEE values. Checked Scene/geometry directions must admit at their coherent higher boundary, not treat this numerical carrier as validated merely by type.",
+      "disposition": "No new Vec3 admission defect. RIG-ADMISSION03-F055 mutable Ray reciprocal consistency remains actual relying contract; generic component min/max semantics do not repair Ray invariants."
+    },
+    {
+      "extension_index": 63,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/compute/pipeline/reflection.rs",
+      "sha256": "fffb818614246ec7eb8bf3f9ee56b81aec5e50306b75b864be70f836777094fe",
+      "personally_read_ranges": [
+        [
+          1,
+          209
+        ]
+      ],
+      "admission_routes_and_contract": "ReflectedInterface::new parses Naga then takes first compute entry, reflects every bound variable and allocates native layouts. Parser success is not proof host supports all reflected uniform shapes, dimensions/access or stage payload; actual UniformMember stores only name/offset/size. Public downstream reflection remains generic native data.",
+      "disposition": "Supports retained RIG-ADMISSION03-F058 reflected packing contract and existing typed native cause requirements; unsupported shapes must be rejected at coherent supported-interface admission or represented faithfully. No actual accepted bad shader execution asserted. Stage-specific entry ownership is own06Q004, not automatic03clearance."
+    },
+    {
+      "extension_index": 64,
+      "source_id": "pr-working:crates/fabelgeist-gpu/src/data/gpu/buffer/definition.rs",
+      "sha256": "df4ac3dfd782f661d28766bd0db10a06a934d760b4d0ac0fd24a5a6b43f77e70",
+      "personally_read_ranges": [
+        [
+          1,
+          138
+        ]
+      ],
+      "admission_routes_and_contract": "BufferDefinition private fields admit through new/all/default/with_usage/with_label; unspecified default capability set is distinguished from explicit OR flags. Native descriptor receives canonical BufferByteLength/BufferLabel. HostRead/HostWrite flags can be combined with unsupported capabilities through public builder; final WGPU device/features validation still owns native validity.",
+      "disposition": "Do not assert every BufferDefinition is a prevalidated legal WGPU resource or invent device-independent legality rule. Preserve actual native rejection/source and explicit supported allocation gate; generic byte lengths/zero policy inspected in owning Buffer API baseline, not inferred from definition alone."
+    },
+    {
+      "extension_index": 65,
+      "source_id": "pr-working:crates/fabelgeist-hair/src/collider.rs",
+      "sha256": "a6c42473a9969568f6eb700df01cc6753b92bb2034ade7d129733d1a550c2021",
+      "personally_read_ranges": [
+        [
+          1,
+          171
+        ]
+      ],
+      "admission_routes_and_contract": "MeshCollider private storage only enters through public new(positions,triangles,reach), which first calls actual surface2643:216\u2013225 vertex_normals. That directly indexes positions before BVH creation: one position plus face[1,0,0] is a safe public API counterexample yielding out-of-range indexing. Finite coordinates, supported reach and normal geometry are not admitted by constructor. NoCollider explicitly returns infinite no-obstacle, not malformed finite distance.",
+      "disposition": "Extends RIG-ADMISSION03-F054 shared mesh/population gate with this earlier actual relying constructor; no need a second geometry taxonomy. Reject bad membership before normals/indexing and carry coherent accepted source through BVH. Decide actual bounded-query/no-obstacle result semantics explicitly; do not impose closed-manifold/winding/strictpositive reach without actual producer policy. No ordinary authored mesh failure claimed."
+    },
+    {
+      "extension_index": 66,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_catalog_material.rs",
+      "sha256": "27f68197aed8fbddabadd7cf19e14bee176fbd01746a4dce9e3706a55c86e10a",
+      "personally_read_ranges": [
+        [
+          1,
+          15
+        ]
+      ],
+      "admission_routes_and_contract": "is_metal accepts already canonical closed EquipmentMaterial, exhaustive matches known enum variants; it introduces no raw constructor/default/deserializer and no independent validity seal.",
+      "disposition": "No new admission finding; actual authored EquipmentMaterial serde/schema gates remain baseline authority."
+    },
+    {
+      "extension_index": 67,
+      "source_id": "pr-working:crates/adventuresim-core/src/item_classification.rs",
+      "sha256": "a65529b45c53a783feaa8905b9fba38d95d28e97b01fe8198d4ffeee0a57c58d",
+      "personally_read_ranges": [
+        [
+          1,
+          55
+        ]
+      ],
+      "admission_routes_and_contract": "CatalogItemKind closed enum has explicit default Simple, derived Serde and optional SATS. There is no invalid payload by construction; Simple is meaningful classification, not hidden uninitialized sentinel. Stable string is final identity/presentation projection; economy_kind intentionally lossy and must not be used to reconstruct source classification.",
+      "disposition": "No fresh local enum-admission defect. Authoritative authored-item classification projection and any materialized/native persisted mismatches remain actual producer/correlated-state scope, not a claim unknown open item identities must be rejected."
+    },
+    {
+      "extension_index": 68,
+      "source_id": "pr-working:crates/adventuresim-core/src/errantry.rs",
+      "sha256": "c745b617fe6b91b054b4f968565f295d03f9839eb329c4957d86306d65969858",
+      "personally_read_ranges": [
+        [
+          62,
+          98
+        ]
+      ],
+      "admission_routes_and_contract": "tactical_insight_for accepts canonical ThreatId, reads its actual profile and emits fixed kind plus human prose. Public TacticalInsight threat_id String can be arbitrary while kind/prose differ, but there is no advertised sealed mechanical effect: actual combat is not modified here. English-string eligibility dependency is actual RIG-INITIAL06-F052.",
+      "disposition": "Retain ThreatId until genuine text/native boundary and typed modeled fact authority; do not invent a malformed normal insight or require arbitrary user-visible prose to match a hardcoded sentence. Scalar versus whole-record seals remain distinct."
+    },
+    {
+      "extension_index": 69,
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/bevy_error.rs",
+      "sha256": "ae8feb04751ba67eaa86d03f3b748ef61d2bcdb9292c72dc0273eb353fb24fe2",
+      "personally_read_ranges": [
+        [
+          7,
+          25
+        ],
+        [
+          228,
+          285
+        ],
+        [
+          381,
+          421
+        ]
+      ],
+      "admission_routes_and_contract": "Framework From<E> retains Box<dyn Error> and assigns Severity::Panic; with_severity only changes metadata. This is actual native error admission, not application semantic validation or automatic recovery. Source is not flattened by this conversion.",
+      "disposition": "No native SDK change required. App Error must implement and retain real causes until actual BevyResult envelope; generic String conversion beforehand remains existing cause-erasure finding. Missing fallback override means default fatal, not evidence of swallowed recoverable error."
+    },
+    {
+      "extension_index": 70,
+      "source_id": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-client/src/character_settlement_reputation_type.rs",
+      "sha256": "fb0c3f00ff6ec75a99d6053871e23ef12e31108af4342f236de077e4d8f2e881",
+      "personally_read_ranges": [
+        [
+          1,
+          65
+        ]
+      ],
+      "admission_routes_and_contract": "Generated row decode admits actual String/u64/i32 native widths and does not establish bounded reputation score. Core reputation984 clamp_reputation/apply_delta imposes0..100000 at actual policy; schema-generated wire permits broader signed values.",
+      "disposition": "No edits to generated SDK. Preserve valid wire range and route schema changes through generator if chosen later. Actual module writer exclusivity/ingress must establish stronger range before claiming ordinary extreme input or using score bounds; native width alone is not admission proof."
+    }
+  ],
+  "supporting_original_ranges": [
+    {
+      "index": 2643,
+      "ranges": [
+        [
+          213,
+          283
+        ]
+      ],
+      "actual_relying_body": "vertex_normals216\u2013225 direct position indexing; barycentric denominator fallback and existing fixtures source-read only."
+    },
+    {
+      "index": 984,
+      "ranges": [
+        [
+          1,
+          110
+        ]
+      ],
+      "actual_owner": "Core centipoint arithmetic bound; actual schema/publication exclusivity remains qualified."
+    },
+    {
+      "index": 2283,
+      "ranges": [
+        [
+          1,
+          73
+        ]
+      ],
+      "actual_owner": "UniformMember and native generic reflection declarations; parse source errors remain typed-cause scope."
+    },
+    {
+      "index": 2280,
+      "ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "actual_recipient": "Native compute pipeline and selected entry consumption; no new normal execution claim."
+    }
+  ],
+  "aliases": [
+    "RIG-ADMISSION03-F054",
+    "RIG-ADMISSION03-F055",
+    "RIG-ADMISSION03-F058",
+    "RIG-INITIAL06-F052"
+  ],
+  "repair_requirements": [
+    "Shared mesh admission must precede any topology indexing/normals; keep all associated populations/topology coherent, no temporary primitive adapters.",
+    "Supported native reflection interface must own shape/access/entry contract, preserving canonical low-GPU ports and error causes.",
+    "Native transport range and application semantic score range remain distinct; prove actual publication/ingress before narrowing."
+  ],
+  "acceptance": "All actual admission routes obey their asserted invariant or have explicit supported native/error/absence semantics; ordinary source counterexamples and API-only weaknesses remain distinguished.",
+  "new_unique_findings": [],
+  "discovery": "Completed exact new-material roles62\u201370 WITH retained findings/qualifications; adopted original03baseline unchanged",
+  "repair": "not_started",
+  "validation": "not_run"
+}

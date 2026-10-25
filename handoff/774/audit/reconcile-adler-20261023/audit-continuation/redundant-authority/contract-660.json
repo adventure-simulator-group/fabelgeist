@@ -1,0 +1,88 @@
+{
+  "id": "CONT07-CONTRACT-660",
+  "at": "2026-10-24T01:30:02.308400+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2130,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/stock.rs",
+      "sha256": "848e1187843f8082d93fa8a1adc5e8b2bc60f90336e2d496176aa32969ee596e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/stock.rs",
+      "actual_EOF": 38,
+      "ranges": [
+        [
+          1,
+          38
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 997,
+      "source_id": "pr-working:crates/adventuresim-core/src/smithing.rs",
+      "sha256": "83f6b2eb7d945187bca6dc9f0fe78cbab0d25c292ce4c4096af94b4eb89a298b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/smithing.rs",
+      "actual_EOF": 78,
+      "ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 525,
+      "source_id": "pr-working:content/items/catalog.yaml",
+      "sha256": "87e0f51292d42ab62beeabc9f2624f635c27acf8b28ae3d8c2931eb9297f491b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:content/items/catalog.yaml",
+      "actual_EOF": 5632,
+      "ranges": [
+        [
+          1,
+          45
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1194,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/smithing.rs",
+      "sha256": "aecea90ad65fd73946a24653499fdfe07a626491543cb20c57f5e70ae82e4d49",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/smithing.rs",
+      "actual_EOF": 119,
+      "ranges": [
+        [
+          52,
+          119
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2810,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability/mass.rs",
+      "sha256": "1f6a584fc834b98fd0a39dee168f5b8c461518b712f56906a9de26bd44fe192e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/capability/mass.rs",
+      "actual_EOF": 41,
+      "ranges": [
+        [
+          1,
+          41
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "ForgeStock mass question resolved as current-equal duplicate authority: stock.rs item_id and unit_mass_kg mapping5/2/2/4 independently duplicates actual content catalogue weight_kg for same four traded stock IDs. This is same physical one-unit stock mass, distinct from custom weapon/fitted-holder actual recipe mass. Actual normal stock carried mass falls back item.weight.",
+    "Actual Core smithing quote divides canonical generated materialmass by hardcoded stockmass into consumable fractions, then reducer validates/consumes exactly those fractions bystock itemID. Values currentlyagree, no runtime conservation failure claimed. One-sided admitted catalogue mass edit would leave quote conversion old, so equalitytest alone notsingleauthority. Exact additional support for rootM81 physical quote/material identity owner, no automatic newglobalunique.",
+    "Root M81 repair should carry canonical stock mass through actual portable quote/catalogue authority without creating reverse crate dependency or dual fallback. Preserve open valid authoring materials that have no traded stock, checked aggregate fraction overflow, inventory units and full-design physical mass production."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": null
+}

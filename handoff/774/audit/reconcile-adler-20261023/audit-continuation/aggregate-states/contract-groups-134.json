@@ -1,0 +1,60 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-134",
+  "at": "2026-10-25T18:20:10.235753+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1614,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/recipe_mesh.rs",
+      "sha256": "31c7b18fa239684452edb0b7b11e6727f19a146a3588f239231c59c0501daa52",
+      "personally_read_ranges": [
+        [
+          1,
+          87
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full87 recipe mesh adapter read. Native Cuboid produces corresponding position/normal columns then oneUV perpaired vertex and tangents from actualpositive geometry; accepted size/nondegenerateUV contract belongs actual producer. LodMesh single vertexrecord projects position/normal/UV in sameiterationorder, preventing independentlymismatchedcolumns, but indices andsourcegeometry/layout admission still M66/M72. local_origin rawVec3 API stripscheckedarchitecturaldatum before semantic rebase M73; numericalvertexsubtract itself real Meshport. Tangent-material classification explicit preservesrequiresUV types."
+      ]
+    },
+    {
+      "scope_index": 1615,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_lighting.rs",
+      "sha256": "14ccb04e74be7e9f7760d1f8b0e80da33903e4d381e2109def952436a0c18f57",
+      "personally_read_ranges": [
+        [
+          1,
+          143
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full143 regional lighting synchronization and original fixture read. MapLightSource holds actual sourceEntity and copiesits light+transform together onsourcechange, deletingtargetswhensourcegone. Root RenderLayers keep isolatedregionalmap presentation; originalsun/moon remainsolecelestialauthority. Sunbelowlocalhorizon explicit map-lightzero adjustment isnecessary because mapomitsatmosphere; no extra source lighting state. Same source context normalone regionalroot; multipleinvalidroots return without assertingarbitrarycopyproof. Existing duskgeographicfixture not executed."
+      ]
+    },
+    {
+      "scope_index": 1616,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/camera.rs",
+      "sha256": "e489903779b44ce0caf1979e761f7234bd5556bd984af9e0abc4b7cba7fce7ef",
+      "personally_read_ranges": [
+        [
+          1,
+          189
+        ]
+      ],
+      "aggregate_trace_and_dispositions": [
+        "Full189 geographic MapPose/camera body read. CanonicalSourcePackageDigest, geographic home/origin, boundedMapSpan andRadians retained, MapPointerDisplacement becomesrawpixels at realf64view/geographic arithmetic. zoom constructsnewspanbeforeassignment; rotate checkedmoduloangle; frame_route computescheckedspanthenboundedneworiginbeforepublishingboth, preservingpairedposeonerror. Optionalrectabsent intentionally disablesviewcommands, resetretainsauthoredhome+home_span. SourceCoordinate native publicdoublefields admittedfinite andclamped at bounded_origin; preserve range/clampingcurrentpolicy, not invent narrower projection.",
+        "Route fit localInf Min/Max assumes actualnonemptyMapRoute.points; canonicalrouteowner admission mustprovidecardinality proof. CanvasRect aspect/divisors assumeactualpositivefullwidth/fullheight; genuineprotocolowner/reacheddeclarationanddecoder pending before claimingaggregate guarantee. requested_window selectscoverage andquantizedcenterfromsamehome/origin/yaw/span, canonicalscale defaultContinent capsnativewindow, not promisesunlimited coverageforarbitraryaspect. No browser/map/mesh checks."
+      ]
+    }
+  ],
+  "findings": [
+    "M66/M72 accepted mesh/recipe source",
+    "M73 canonical geometry datum"
+  ],
+  "qualified_connected_requirements": [
+    "MapRoute points/CanvasRect fullsize owner admission remains reachedsource dependency, no currentzero width/empty route witness or generic invalidfloat inference."
+  ],
+  "discovery": "3 newly accounted original roles; other reads support already counted historical roles. Lens incomplete.",
+  "repair": "not_started",
+  "validation": "not_run"
+}

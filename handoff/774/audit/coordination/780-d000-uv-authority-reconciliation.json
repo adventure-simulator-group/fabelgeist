@@ -1,0 +1,100 @@
+{
+  "at": "2026-10-25T10:45:39.106962+00:00",
+  "revision": "d000e848f2f5bc28b0728c2cd664c727a41ecf50",
+  "manifest": "/home/brunosegovia/.codex/worktrees/audit-pr-780/adventure-simulator/target/pr780-audit/handoff-uv-authority-d000e848f/manifest.json",
+  "manifest_sha256": "08108d5f1591fd9dddd27d21d0c0d4e7d1c6977f3208699ede02e464da98e0c3",
+  "all_six_manifest_hashes_verified": true,
+  "actual_source_read": [
+    {
+      "path": "crates/adventuresim-character-creator/src/export/rigged.rs",
+      "sha256": "f5fd53af89771488b500f8b2e661505b5b169dd355785fafe6005127f7c23fad",
+      "personally_read_ranges": [
+        [
+          1,
+          62
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/shell.rs",
+      "sha256": "37d9aad2bed62e065620cccd542180cc439dba8aae9726d0b3177d9f7cb7311a",
+      "personally_read_ranges": [
+        [
+          1,
+          111
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/validation.rs",
+      "sha256": "2f01964984a42e98201c8cb2be6095d0779a2f6292d8571021b64f70bc976656",
+      "personally_read_ranges": [
+        [
+          1,
+          162
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export/compact.rs",
+      "sha256": "9b57fb4bbcebe5b20113a06d530507253693a37d40f85f1617a38cbccb63fa87",
+      "personally_read_ranges": [
+        [
+          1,
+          105
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/character_export.rs",
+      "sha256": "a542629ff77155448219d508e544a55f2da0c3f024f7454fb2c26a597f1da13a",
+      "personally_read_ranges": [
+        [
+          156,
+          235
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/equipment_export.rs",
+      "sha256": "bc324c39eaed75e445e0b5247a8ce1adcd1cc336525d221ba6f174aacfb2cbd8",
+      "personally_read_ranges": [
+        [
+          75,
+          110
+        ],
+        [
+          180,
+          225
+        ]
+      ]
+    },
+    {
+      "path": "crates/adventuresim-character-creator/src/export.rs",
+      "sha256": "e725590d8bfe60bfe165344b3476bacfc4ed84d7426fd7f59c2586a992fbf368",
+      "personally_read_ranges": [
+        [
+          555,
+          675
+        ],
+        [
+          800,
+          840
+        ]
+      ]
+    }
+  ],
+  "extra_comparison": "Entired000parent\u2192d000diff forcharacter_export/equipment_export/export.rs consumed; sixlistedhashesverifiednotall6wholebodycoverage. Compact105exactbodyreadinadditiontomanifest.",
+  "mechanism": "RiggedShell.surface containsmapsreferenceonly; texcoordssoleUVcolumn. Inputvalidate52\u201366 requiresUVforbothmapfamilies andfiniteposition-sizedUV. Compact selectssoleUVusingexactsameusedvertexBTreeSet asgeometry/skin, newriggedsurfaceretainsmapsonly. Writer53\u201359 readssoleUVcolumn, no oldsurfaceUVfallback. OriginalF062texcoordsNone texturedwitnessrejectsbeforecompaction; valid4rows\u21923faceusedrows mapsUVcohortonce.",
+  "finding_disposition": {
+    "id": "NATIVE-INITIAL05-F062",
+    "status": "Exactmechanism repairedinsuccessor#780d000source; frozen#774olderAPI remains, dependencyintegration/finalvalidationpending.",
+    "limits": "No authoredasset/export/GPU/render/build/test/CIpass, no broaderF09topology/physicalM16count/exportGLBlengthorfinitematerialclearance. ProducerAPIchangedhunksreviewed, notwholehigherbody/UVsourceassociation."
+  },
+  "ownership": "Existing#780agent ownsCreatorcomposition/exportsuccessor; Root774readonlyreconciliation, no claimtransfer/competingedit.",
+  "reported_newer_successor": {
+    "revision": "ead46619dec5ef45993f63202cb289bd3986b018",
+    "status": "Reported77sourcePBR/colors/appearancecheckpointpreservessoleUV; notyetindependentlyroot-source-reconciled. Broaderfamiliesremainopen."
+  },
+  "validation": "Source-onlyexactmechanismreceipt, noexecution."
+}

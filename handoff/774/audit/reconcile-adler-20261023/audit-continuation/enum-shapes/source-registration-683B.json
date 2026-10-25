@@ -1,0 +1,17 @@
+{
+  "id": "SEGO-INITIAL09-REG683B",
+  "index": 45,
+  "source_id": "pr-working:crates/adventuresim-tactical-client/src/presentation/regional_map/path_geometry/city.rs",
+  "commit": "6533e444fa37552927070cc8d8190907fd3b413e",
+  "git_blob": "6a677b3c855c2de55128b347b1b66987aa14d3a2",
+  "sha256": "b7ecb82d2b5d2e208f81ac48422b040c186340cf8ff33d407ea5cbd8ec71e4d5",
+  "object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/enum-shapes/source-objects/b7ecb82d2b5d2e208f81ac48422b040c186340cf8ff33d407ea5cbd8ec71e4d5",
+  "ranges": [
+    [
+      1,
+      78
+    ]
+  ],
+  "reason": "Actual PathMeshBuilder::add_city called path_geometry.rs86\u201387 when admittedCitySurface exists; receives GeographicLine Route|Connection and returns same single capacity error/retainedmesh; needed complete branch semantics for route and connection coverage.",
+  "status": "registered before body read; no coverage yet"
+}

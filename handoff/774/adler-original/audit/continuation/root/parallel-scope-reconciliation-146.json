@@ -1,0 +1,87 @@
+{
+  "id": "ROOT-PARALLEL-SCOPE-RECONCILIATION-146",
+  "at": "2026-10-23T00:24:53.671788+00:00",
+  "scope": {
+    "record": "continuation/cumulative-source-scope-parallel-040.json",
+    "sha256": "e980c8f26ac9760c2a30ef0ef5041e6a1c48130808604227ada61187a4932fbb"
+  },
+  "previous_scope": {
+    "record": "continuation/cumulative-source-scope-parallel-039.json",
+    "sha256": "4fdfd266ef11592b221defd2fd358129e47d0f85558d3f19cc6efccdbba97728"
+  },
+  "new_variants": [],
+  "new_overlays": [
+    {
+      "id": "CONT-OWNER-RANGE-EXTENSION-225",
+      "at": "2026-10-23T00:24:53.671788+00:00",
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/model.rs",
+      "sha256": "91e0b874352ecb65b64568b5149fbf1bd8a1103dbb836c2a5639cca239ab0043",
+      "material_ranges": [
+        [
+          60,
+          91
+        ]
+      ],
+      "audit_owner": "camera",
+      "reason": "Compare actual canonical CharacterKinship kind/table semantics (used by scoped family::ensure_kinship) to corpse permission FamilyBinding and stale no-authoritative-kinship comment, not assume household labels are kin. Existingmodel250-440 different role remains unchanged.",
+      "scope_registration": [
+        {
+          "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+          "sha256": "ff6e02767b73308d5608deadecaf8732444590e72739eed2cfc28893293a0ce6",
+          "row_1based": 19,
+          "id": "CAMERA-INITIAL07-REG019",
+          "original_record": {
+            "registration_id": "CAMERA-INITIAL07-REG019",
+            "at": "2026-10-22T22:01:00.497794+00:00",
+            "authority": "continuation/root/parallel-initial-audits-081.json",
+            "source_id": "physical-p16:crates/adventuresim-stdb-module/src/relationship/model.rs",
+            "snapshot": "physical-p16",
+            "resolved_path": "SNAPSHOTS\\p16\\crates\\adventuresim-stdb-module\\src\\relationship\\model.rs",
+            "sha256": "91e0b874352ecb65b64568b5149fbf1bd8a1103dbb836c2a5639cca239ab0043",
+            "actual_EOF": 496,
+            "material_ranges": [
+              [
+                60,
+                94
+              ]
+            ],
+            "reason": "Compare actual canonical CharacterKinship kind/table semantics (used by scoped family::ensure_kinship) to corpse permission FamilyBinding and stale no-authoritative-kinship comment, not assume household labels are kin. Existingmodel250-440 different role remains unchanged.",
+            "exclusions": "Only directly needed canonical kinship declaration+methods/table; surrounding HouseholdRole/member, consent/marriage fields and tests excluded; navigation symbols only before body.",
+            "status": "prospectively_registered_before_body_analysis"
+          }
+        }
+      ],
+      "limits": "Only directly needed canonical kinship declaration+methods/table; surrounding HouseholdRole/member, consent/marriage fields and tests excluded; navigation symbols only before body.",
+      "source_qualifications": "Only60-91 KinshipKind/method/CharacterKinship table;92blank/93-94NEXT Householdattributesuncredited, no Householdbody/marriage/consent. Original250-440role preserved separately. Enumderiveprefixoutside60notcredited; no automatic Corpsepermissioncontactequivalence."
+    }
+  ],
+  "total_variants": 2790,
+  "total_overlays": 225,
+  "mandatory_scope_qualifications": [
+    {
+      "record": "continuation/root/parallel-scope-qualification-130.json",
+      "sha256": "5dc4e5cd771612c7e050ab4af544411523317ae4b57738f1fb20f493685a50fc"
+    },
+    {
+      "record": "continuation/root/parallel-scope-qualification-117.json",
+      "sha256": "f3b80648900716939057b20776d756a6e37001f6910378da1a1bbaea230d348b"
+    }
+  ],
+  "registered_rows": 1,
+  "input_pins": [
+    {
+      "record": "continuation/camera/initial07-redundant-authority/source-range-registration.jsonl",
+      "sha256": "ff6e02767b73308d5608deadecaf8732444590e72739eed2cfc28893293a0ce6",
+      "captured_rows": 19,
+      "selected_ids": [
+        "CAMERA-INITIAL07-REG019"
+      ]
+    }
+  ],
+  "preserved_old_overlay_prefix": {
+    "record": "continuation/owner-range-extensions-through224-before040.jsonl",
+    "sha256": "8d8a2dcec70e77b4fb9429c5598d9d112c4f8adffba9bf1c553a5cb0b7fe1320",
+    "through": 224
+  },
+  "limits": "OnlyexpandedP16relationshipmodel60-91 role overlay225; no newvariant, nextHouseholdattributes93-94excluded. Allpriorroles/SDK117/Bevy130qualifierspreserved."
+}

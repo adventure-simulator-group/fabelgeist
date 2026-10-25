@@ -1,0 +1,93 @@
+{
+  "id": "CONT07-CONTRACT-483",
+  "at": "2026-10-23T22:37:58.447209+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2131,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/structure.rs",
+      "sha256": "4afde3b9b0b368ed92065d9e37c2b56b09b565aa87e70fe58fa51961b868aa4e",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/structure.rs",
+      "actual_EOF": 187,
+      "ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2132,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation.rs",
+      "sha256": "e40db02777c0f7401b0e90bc493f420be7630091f469a9baa7f0ef1a6f7c965a",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/validation.rs",
+      "actual_EOF": 207,
+      "ranges": [
+        [
+          1,
+          207
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2133,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/contoured_plate.rs",
+      "sha256": "068b75564fa3b26dd52bdf4473b5f92acc0f5001c3b8fdf57dbf482582def0e7",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/validation/contoured_plate.rs",
+      "actual_EOF": 135,
+      "ranges": [
+        [
+          1,
+          135
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2134,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/dimensions.rs",
+      "sha256": "352602b462e8dfa78bb2bb05442c2e09a381a2d9547cd630c4a8f4bbfb28ae20",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/validation/dimensions.rs",
+      "actual_EOF": 62,
+      "ranges": [
+        [
+          1,
+          62
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2135,
+      "source_id": "pr-working:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/archery.rs",
+      "sha256": "2bf36119d6be6bf23e5ec2b0ac46959b1929cde3e1ba99b900143e97118dd421",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-weapon-model/src/recipe/validation/dimensions/archery.rs",
+      "actual_EOF": 78,
+      "ranges": [
+        [
+          1,
+          78
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "2131 full187 Socket profile/facets/wall/fit_shaft remain authored inputs; documented physical polygon section differs requested display sampling. Candidate facetsSome/wallNone/fitted contact still needs actual dimension/mount validation; optional type alone not sufficient accepted witness. Grip shape values and seat/assembly variants distinct physical roles.",
+    "2132 full207 actual Recipe validates all ids unique and parent cardinality1, input bytes/count bounded, then dimensions/graphs/ranged/melee/shield constraints. No semantic role uniqueness gate in this method; strict gameplay identity validator could further restrict admitted builds. Keep multi-Grip control/width dependency rather than claiming current gameplay supports it.",
+    "2132 max local dimensions20 and2086 construction frameextent20 name similar but distinct envelope contracts: valid local size vs final transformed frame bound. Do not assume identical semantic authority merely numeric equality. All broad dimensions/rawfinite wrappers still require contextual positive/proportion bounds; no extra lens03/04 coverage.",
+    "2133 full135 plate station data typed and matching cardinality/endpoints; upper bound admission is not exact physical volume proof. It permits nonnegative profile thicknesses, existing rootF38 zero-volume component admission not cleared. Boundary closure/endconditions and actual per-section thickness are linked constraints, not competing cached geometry.",
+    "2134 full62 exhaustive Shape-specific dimension dispatcher delegates one source per variant; no separately stored admissible kind tag.2135 full78 archery dimension bounds are distinct from later ranged mechanics/clearance and actual sampleallocation choices, not alternate total validity. Whole Recipe invokes all stages; narrow check success not claimed complete admission. Source-only, no generated geometry/tests run."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2136,
+    "start_line": 1
+  }
+}

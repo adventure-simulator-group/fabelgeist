@@ -1,0 +1,68 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-562",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/strategic-web/src/routes/scene_assets.rs",
+      "sha256": "1c8846c66fb8bbf851e770ac75472794fa7c32b45112e5736e3ee1110bc53685",
+      "actual_EOF": 121,
+      "actual_compared_ranges": [
+        [
+          1,
+          121
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/routes/scene_equipment.rs",
+      "sha256": "2ecdbb109e62b9227c8b94ae71714cab987c49a1cb9c47c4e87afb39560ac210",
+      "actual_EOF": 306,
+      "actual_compared_ranges": [
+        [
+          1,
+          306
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/strategic-web/src/routes/settlements/encumbrance.rs",
+      "sha256": "1b05e35b79269c08ac5183beede6022f00ca9cb2ffa3c3b0ca9e2121a62a4035",
+      "actual_EOF": 484,
+      "actual_compared_ranges": [
+        [
+          1,
+          484
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Scene asset/equipment preparation keeps authorized current source identity and generated appearance shape before publication.",
+      "evidence": "Full assets121/equipment306 read. Assetsrequestsettlement mustmatchactor, coordinatesadmittedworldE7, sceneprofile/minute/identitycaptured; semaphore2 boundsactiveCPUgeneration but acquire_owned awaitsqueue, unlikemaptryacquire. Generatedproperties ensure_catalog is actualDBmutation on GET, so moduledescription preparation isnotpurereadonly; no invalid mutation/deterministicpartialcontract established here. Equipment parsesu64IDs thenmax256 and validatesallrequestedtargets againstownership/party/presentedsettlement; bothmissinglocations alone notscope. Appearanceoccupancy requirescorrectoptionalpayload and designhashlengthtry_into rejects beforeoutput.",
+      "qualifications": "No malformedactualequipment/scene run or claim GET istransactionalread. Collectionsqueriedindependently and allobjectsread forassociation, so currentauthorization isnotatomicobserverdateproof. Unboundedquerybody collectionbeforemax and fullobjectread areworkpolicyquestions withoutactualfailureincidence, not duplicate globaldefectcount.",
+      "acceptance": "Retain source/frame/digest and exact per-objectrecipeidentity; structuredrejectmalformededges/hash and actualauthorization; boundedcapture/workpolicy if canonicalendpoint promisesmorethan activeconcurrency."
+    },
+    {
+      "contract": "Displayed carried mass and capabilities use actual object quantity/composition rather than catalogue-only approximations.",
+      "evidence": "Full encumbrance484 read: item_stack_weight catalogueweight*quantity, foodlot specialcase, water fromcustody tree; personal/party bothreuse cataloguepath. This fresh04 receiverproof links parent local774:F46: measured inventoryquantity stays1 while actualConsumableFractionMicros and per-objectgeneratedrecipe carrymass, so partial5kgsteel displays5kg afterhalfconsumed instead ofserver2.5kg. Server/smithing bodyproof suppliedbyparent, not credited aspersonal04read inthispacket.",
+      "qualifications": "Exact existing M29/M01/M81 shared dependencies and parentF46 remain one connected carried-mass projection contract, no newglobalunique. Queryerrors defaultempty canunderstateweight, but availability/errorpresentation policy separate fromknownfiniteordinarymassloss. No universalfinitef32catalogueweight/product proof frommax0 alone; no currentextremeauthoredweight asserted.",
+      "acceptance": "Consume authoritative complete physicalobject mass/composition and fraction at actualwebprojection, preserving body/water/food and partyaggregation semantics; no independent duplicated massrecipe owner or hidden movementpenalty."
+    },
+    {
+      "contract": "Party visible mutable state remains observer-qualified before notifications/summary.",
+      "evidence": "EncumbrancequeryIDs dedup living+active; memberqueryconcurrency4 bounds sequentialpermember lookups, inventorylookups bounded4. Activepartyactualmembers filtered by subject<=observer thenlifeprojected; sources/automaticnotifications limitedcolocation/alive. Capabilityrefresh errorignored thenreadactualrow; staleavailability notsuccessorrollbackproof.",
+      "qualifications": "join_all party/addressqueries notboundedlikeencumbrance but no hugecurrentparty orcapacitycontracttrigger supplied. Public rows/notifiedcount rely canonicalsocialsource operation alreadyowned, no unnecessarynewprimitiveadmission.",
+      "acceptance": "Preserve authoritative chronological visibility and actual capability/mass owningoperation; report incomplete/failed data under chosenpolicy without falselycertifyingcompletefreshstate."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "3 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/strategic-web/src/routes/settlements/medical.rs"
+}

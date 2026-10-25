@@ -1,0 +1,59 @@
+{
+  "id": "CONT08-Q014",
+  "classification": "Retained source-conditional presentation/admission coherence question; not established introduced774 regression or ordinary catalogue occurrence",
+  "sources": [
+    {
+      "scope_index": 1207,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/strategic/challenges.rs",
+      "before_sha256": "b7631b4632c175df4a0e7531e08f7ac9cb8deaaad24bd17eed0d978f7dc76906",
+      "after_sha256": "b7631b4632c175df4a0e7531e08f7ac9cb8deaaad24bd17eed0d978f7dc76906",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1207-base-b7631b4632c175df4a0e7531e08f7ac9cb8deaaad24bd17eed0d978f7dc76906",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/b7631b4632c175df4a0e7531e08f7ac9cb8deaaad24bd17eed0d978f7dc76906",
+      "diff": "source-evidence/pr-1207.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "scope_index": 987,
+      "source_id": "pr-working:crates/adventuresim-core/src/road_encounter_catalog.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-core/src/road_encounter_catalog.rs",
+      "before_sha256": "62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+      "after_sha256": "62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-0987-base-62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/62ff51c51a1e39d328e76cd09c6307638056c1bbae1634b97b790584bd4cb433",
+      "diff": "source-evidence/pr-0987.diff",
+      "diff_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "source_ranges": {
+    "1207": [
+      [
+        470,
+        486
+      ],
+      [
+        575,
+        586
+      ],
+      [
+        1579,
+        1637
+      ]
+    ],
+    "987": [
+      [
+        167,
+        174
+      ]
+    ]
+  },
+  "comparison": "Both exact PR bodies unchanged. Actual presentation shortcut returns ordinary_treatment_complete for requires_treatment, bypassing all choice requirements; reducer requires treated patient and then validates skill/religion/currency/non-bandage item requirements, skips bandage already consumed by treatment. Existing own08 134/987 catalogue evidence establishes exactly two treatment-route fixture expectation, not concrete admitted requirement population in this receipt.",
+  "trigger": "A Treatment-backed admitted authored choice also has another requirement that is false, after actual patient bandaged; displayed available could disagree with reducer rejection. No actual normal authored witness established.",
+  "next_source_question": "Inspect existing generated catalogue/source material provenance for both Treatment-backed choices before promotion; do not execute catalogue generator/fixtures.",
+  "repair_if_policy_confirmed": "One shared requirement projection should account for already-consumed treatment bandage while retaining every other condition; preserve ordinary Surgery authority and no second bandage charge.",
+  "acceptance": "Source-backed exact actual choice and treatment state, no generic all-treatment narrowing or claimed runtime/CI result."
+}

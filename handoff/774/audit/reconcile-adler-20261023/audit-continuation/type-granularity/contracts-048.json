@@ -1,0 +1,116 @@
+{
+  "id": "SEGO-INITIAL11-CONTRACT-048",
+  "lens": "audit-type-granularity",
+  "groups": [
+    {
+      "id": "character-creation-and-equipment-stage-granularity",
+      "sources": [
+        {
+          "scope_index": 178,
+          "ranges": [
+            [
+              1,
+              3987
+            ]
+          ]
+        },
+        {
+          "scope_index": 182,
+          "ranges": [
+            [
+              1,
+              191
+            ]
+          ]
+        },
+        {
+          "scope_index": 183,
+          "ranges": [
+            [
+              1,
+              67
+            ]
+          ]
+        },
+        {
+          "scope_index": 184,
+          "ranges": [
+            [
+              1,
+              10
+            ]
+          ]
+        },
+        {
+          "scope_index": 185,
+          "ranges": [
+            [
+              1,
+              157
+            ]
+          ]
+        }
+      ],
+      "finding_refs": [
+        "SEGO-INITIAL09-F174",
+        "SEGO-INITIAL09-F175",
+        "SEGO-INITIAL09-F177",
+        "local774:M50",
+        "local774:M51"
+      ],
+      "disposition": "exact own09 source-backed payload/reservation supports plus meaningful native stages",
+      "trace": "CharacterCreationMode selects player/persistentNPC/temporaryNPC/newborn; generalized insert independently accepts starting/life/personality options whereas normal dedicated wrappers bind coherent choices. Explicit generatedcarry, solo-party, field placement and bootstrap settlement are independent policies, not inferred from persistence alone. Equipment row anchor tag with conditional fields admits contradictory internal product, while normal root/attachment writers coherent. Local reservation capacity encodesMAX as an inventory ID; same-item availability then conflates reservedslot if selectedIDMAX. Actual normal MAX allocation not established. Fixed native APIs retain physical placement/requirement/capacity indices and item/character/parent/attachment identity roles.",
+      "qualifications": [
+        "Own09F174/F175/F177 exact records read; no new unique finding or imported09coverage. Newborn actual caller not yet read; preserve optional default facts, child reservation and no adult inventory.",
+        "StartingPersonalityTrait is restricted authored nonneutral projection, not equivalent to full canonical Personality. Native mapping supports M50 shared canonical projection; private latent scores remain truth. Normal generic personality initializer passesfalse, dedicatedNPC path explicitstableSeed.",
+        "Temporary enemy scaling permits limbhealth>one; health capacity/remaining differs from normalized applied injury. Do not force all durable health toUnitInterval or impose human BodyMass caps on inventory/nonhumanbody.",
+        "Gateway broad rows remain private-authority projection and player observers must apply chronology. Indexed serverIdentityZERO denotes unassigned; no transient tactical positions/HP/enemies are persisted by these contracts. Historical first-known death is distinct from presentliving predicate and tacticalassignment deliberately retained duringteardown.",
+        "Dues no-expiry MAX2107 and missing character clock\u2192ZERO death346/382 remain explicit-boundary observations; no ordinary missingclock or unlimiteddues bug inferred. Fullcomponent validation proves row presence, not every row semanticrelationship.",
+        "Inventory law is deliberately deferred duringcomplete starterconstruction, then enforced once; no compatibility fallback or ordinary unsupportedgeneratedholder claim. Equipment cycle/parent guards and conflict before graphrow mutation preserved; detach_row_for_action earlier is a distinct custody mutation requiring its receiver trace before atomicity claim."
+      ],
+      "acceptance": "Unify applicable creation payloads and equipmentanchor/reservation observations with canonical owners; preserve independent policies, realzero/absence, deterministic lexical settlements, privacy and associated index/identity meanings. Keep source-generated trait mapping coherent without inventing currentbadcaller."
+    },
+    {
+      "id": "durable-name-identity-and-storage-adapter",
+      "sources": [
+        {
+          "scope_index": 179,
+          "ranges": [
+            [
+              1,
+              242
+            ]
+          ]
+        },
+        {
+          "scope_index": 180,
+          "ranges": [
+            [
+              1,
+              8
+            ]
+          ]
+        },
+        {
+          "scope_index": 181,
+          "ranges": [
+            [
+              1,
+              111
+            ]
+          ]
+        }
+      ],
+      "disposition": "meaningful semantic identity/display and native storage boundary",
+      "trace": "PersonalNameIdentity authority differs from Character.name rendered native-culture Everyday display. Authored name preserves hereditarysurname; generated identity uses NameStableSeed and CalendarYear. NameIdentityJson is an explicit private serialized DBadapter for canonical shared identity; readers parse thenrender forsemanticvalidation. CharacterId newtype earns identity-role distinction without new numericbounds; its constructor does not prove current DBmembership/living. Errors retain typedNameCatalogError/Serde causes internally until native reducer string formatting.",
+      "qualifications": [
+        "Synthetic temporarybot labels intentionally skip durable semanticidentity; do not require personalnamecatalogue for tacticalfixtures.",
+        "Newborn assigns sex/presentation accordingactualbirth path; latent score owner recipient still unread, no inferred current stalepersonality claim. Source-ref/key syntax alone notsemanticidentity provenance.",
+        "No name content secretpublication or reducerexecution; generated SDK bindings are not handwrittenrepairtarget."
+      ],
+      "acceptance": "Preserve one authoritative canonical name identity and explicit render/storage projections; keep purpose seed/year/identity roles meaningful with fallible semantic consumer."
+    }
+  ],
+  "new_findings": [],
+  "limits": "Exact pinned registered ranges personally read for11; no other-lens source credit, source edits, tests/checks, native execution, clearance or implementation plan."
+}

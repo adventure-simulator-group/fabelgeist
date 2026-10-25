@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-563",
+  "at": "2026-10-25T16:03:30.510282+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 920,
+  "source_id": "pr-working:crates/adventuresim-core/src/equipment.rs",
+  "sha256": "e3e9ec611f38dbff59fef4e76625eb5d168357bb0ea9d5818cd9d228af21c215",
+  "actual_compared_ranges": [
+    [
+      1,
+      660
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Fresh441\u2013660: physical balance and finite encumbrance normalization/summary; PlayerEquipment already blanket pointer implementations and ambassador delegatable trait530\u2013531. Trait default methods encode native timing, weapon/armor, selected surface and carrying rules, not handwritten implementations to derive. No new handtrait/codec; trait continues.",
+  "first_unfinished": {
+    "scope_index": 920,
+    "line": 661
+  },
+  "execution": "none"
+}

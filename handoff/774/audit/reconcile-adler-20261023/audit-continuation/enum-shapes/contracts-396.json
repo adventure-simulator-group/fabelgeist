@@ -1,0 +1,38 @@
+{
+  "id": "SEGO-INITIAL09-CONTRACT-396",
+  "lens": "audit-enum-shapes",
+  "groups": [
+    {
+      "indices": [
+        727,
+        728,
+        729,
+        730,
+        731,
+        732,
+        733
+      ],
+      "ranges": {
+        "729": [
+          [
+            1,
+            100
+          ],
+          [
+            284,
+            284
+          ]
+        ]
+      },
+      "comparison": "Full727323/728414/730246/731387/732341/733153;729 only frozen1\u2013100+284. Foot/native frame failure flags use atomicOr and may coexist; check_status precedence is explicit diagnostic policy and normal read_frame checks status before decoding. DeviceFrame public read alone remains API association/admission question, no ordinary bypass. SectionFit already Envelope|Layer{hems}; dummy buffer bindings for unused shader slots are real ABI adapter requirements. Support masks represent independent ownership and are bounded32 regions. Private host Landmarks rule plus conditionally meaningful slots yields F282; all current constructors and source packing tests coherent, no execution. Synthetic test fixtures intentionally use full eight-slot skin and bent/collinear cases.",
+      "finding_refs": [
+        "SEGO-INITIAL09-F282"
+      ],
+      "disposition": "Qualified host landmark payload suggestion; native bitsets/packing preserved"
+    }
+  ],
+  "new_findings": [
+    "SEGO-INITIAL09-F282"
+  ],
+  "limits": "Source review only; no tests, device execution, fixes, checks or clearance."
+}

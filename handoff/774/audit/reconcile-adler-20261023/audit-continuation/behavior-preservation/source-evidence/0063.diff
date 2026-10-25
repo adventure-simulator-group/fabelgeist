@@ -1,0 +1,345 @@
+diff --git a/crates/adventuresim-core/src/autoresolve/melee_movement.rs b/crates/adventuresim-core/src/autoresolve/melee_movement.rs
+index b7205ccef..385a13af8 100644
+--- a/crates/adventuresim-core/src/autoresolve/melee_movement.rs
++++ b/crates/adventuresim-core/src/autoresolve/melee_movement.rs
+@@ -1,21 +1,22 @@
+-use super::MeleeMovementAction;
++use super::{BattleResolutionResult, MeleeMovementAction};
+ use crate::elapsed::AnimationElapsed;
+-use crate::linear_speed::{NonnegativeSpeed, SignedSpeed, SpeedError, SpeedResult};
++use crate::linear_speed::{NonnegativeSpeed, SignedSpeed, SpeedError};
++use fabelgeist_geometry::SignedLength;
+ 
+ #[derive(Clone, Copy, Debug, PartialEq)]
+ pub(super) struct AxisMotion {
+     pub velocity_before_metres_per_second: SignedSpeed,
+     pub velocity_after_metres_per_second: SignedSpeed,
+     pub speed_limit_metres_per_second: NonnegativeSpeed,
+-    pub displacement_metres: f32,
++    pub displacement_metres: SignedLength,
+ }
+ 
+ #[derive(Clone, Copy, Debug, PartialEq)]
+ pub(super) struct OpposedMovement {
+-    pub distance_before_metres: f32,
+-    pub distance_after_metres: f32,
++    pub distance_before_metres: SignedLength,
++    pub distance_after_metres: SignedLength,
+     pub first: AxisMotion,
+     pub second: AxisMotion,
+     pub elapsed_seconds: AnimationElapsed,
+ }
+ 
+@@ -38,23 +39,23 @@ pub(super) fn ground_drive_acceleration(
+ #[expect(
+     clippy::too_many_arguments,
+     reason = "the pure integrator receives both actors' independent physical bounds"
+ )]
+ pub(super) fn integrate_opposed_movement(
+-    distance_metres: f32,
++    distance_metres: SignedLength,
+     first_velocity_metres_per_second: SignedSpeed,
+     first_intent: MeleeMovementAction,
+     first_maximum_speed_metres_per_second: NonnegativeSpeed,
+     second_velocity_metres_per_second: SignedSpeed,
+     second_intent: MeleeMovementAction,
+     second_maximum_speed_metres_per_second: NonnegativeSpeed,
+     first_maximum_acceleration_metres_per_second_squared: f32,
+     second_maximum_acceleration_metres_per_second_squared: f32,
+     elapsed_seconds: AnimationElapsed,
+-    minimum_distance_metres: f32,
+-    maximum_distance_metres: f32,
+-) -> SpeedResult<OpposedMovement> {
++    minimum_distance_metres: SignedLength,
++    maximum_distance_metres: SignedLength,
++) -> BattleResolutionResult<OpposedMovement> {
+     let mut first = integrate_axis(
+         first_velocity_metres_per_second,
+         first_intent,
+         first_maximum_speed_metres_per_second,
+         first_maximum_acceleration_metres_per_second_squared,
+@@ -65,19 +66,21 @@ pub(super) fn integrate_opposed_movement(
+         second_intent,
+         second_maximum_speed_metres_per_second,
+         second_maximum_acceleration_metres_per_second_squared,
+         elapsed_seconds,
+     )?;
+-    let raw_after = distance_metres + first.displacement_metres + second.displacement_metres;
+-    let bounded_after = raw_after.clamp(minimum_distance_metres, maximum_distance_metres);
+-    let raw_delta = raw_after - distance_metres;
+-    let bounded_delta = bounded_after - distance_metres;
++    // Complete native centre-distance integration and collision clipping. The
++    // ordered additions and signed contributions remain f32 throughout.
++    let raw_after = distance_metres.metres() + first.displacement_metres.metres() + second.displacement_metres.metres();
++    let bounded_after = raw_after.clamp(minimum_distance_metres.metres(), maximum_distance_metres.metres());
++    let raw_delta = raw_after - distance_metres.metres();
++    let bounded_delta = bounded_after - distance_metres.metres();
+     if (raw_after - bounded_after).abs() > 0.0 && raw_delta.abs() > 0.0 {
+         let travel_fraction = (bounded_delta / raw_delta).clamp(0.0, 1.0);
+-        first.displacement_metres *= travel_fraction;
+-        second.displacement_metres *= travel_fraction;
+-        if raw_after < minimum_distance_metres {
++        first.displacement_metres = first.displacement_metres.scaled_by(travel_fraction)?;
++        second.displacement_metres = second.displacement_metres.scaled_by(travel_fraction)?;
++        if raw_after < minimum_distance_metres.metres() {
+             first.velocity_after_metres_per_second = first
+                 .velocity_after_metres_per_second
+                 .max(SignedSpeed::ZERO);
+             second.velocity_after_metres_per_second = second
+                 .velocity_after_metres_per_second
+@@ -91,11 +94,11 @@ pub(super) fn integrate_opposed_movement(
+                 .min(SignedSpeed::ZERO);
+         }
+     }
+     Ok(OpposedMovement {
+         distance_before_metres: distance_metres,
+-        distance_after_metres: bounded_after,
++        distance_after_metres: SignedLength::from_metres(bounded_after)?,
+         first,
+         second,
+         elapsed_seconds: elapsed_seconds.max(AnimationElapsed::ZERO),
+     })
+ }
+@@ -108,11 +111,11 @@ fn integrate_axis(
+     velocity_metres_per_second: SignedSpeed,
+     intent: MeleeMovementAction,
+     maximum_speed_metres_per_second: NonnegativeSpeed,
+     maximum_acceleration_metres_per_second_squared: f32,
+     elapsed_seconds: AnimationElapsed,
+-) -> SpeedResult<AxisMotion> {
++) -> BattleResolutionResult<AxisMotion> {
+     let elapsed_seconds = elapsed_seconds.seconds().max(0.0);
+     let maximum_speed = maximum_speed_metres_per_second.max(NonnegativeSpeed::ZERO);
+     let maximum_speed_scalar = maximum_speed.metres_per_second();
+     let acceleration = maximum_acceleration_metres_per_second_squared.max(0.0);
+     let before = velocity_metres_per_second
+@@ -126,11 +129,11 @@ fn integrate_axis(
+         elapsed_seconds
+     };
+     let acceleration_direction = delta.signum();
+     let after_acceleration = before + acceleration_direction * acceleration * acceleration_seconds;
+     if !after_acceleration.is_finite() {
+-        return Err(SpeedError::Overflow);
++        return Err(SpeedError::Overflow.into());
+     }
+     let after = if acceleration_seconds < elapsed_seconds {
+         target
+     } else {
+         after_acceleration.clamp(before.min(target), before.max(target))
+@@ -139,11 +142,11 @@ fn integrate_axis(
+     let constant_displacement = target * (elapsed_seconds - acceleration_seconds);
+     Ok(AxisMotion {
+         velocity_before_metres_per_second: SignedSpeed::from_metres_per_second(before)?,
+         velocity_after_metres_per_second: SignedSpeed::from_metres_per_second(after)?,
+         speed_limit_metres_per_second: maximum_speed,
+-        displacement_metres: accelerating_displacement + constant_displacement,
++        displacement_metres: SignedLength::from_metres(accelerating_displacement + constant_displacement)?,
+     })
+ }
+ 
+ #[cfg(test)]
+ mod tests {
+@@ -161,11 +164,11 @@ mod tests {
+         .unwrap();
+         assert_eq!(
+             coast.velocity_after_metres_per_second.metres_per_second(),
+             1.0
+         );
+-        assert_eq!(coast.displacement_metres, 0.5);
++        assert_eq!(coast.displacement_metres.metres(), 0.5);
+         let paused = integrate_axis(
+             crate::linear_speed::SignedSpeed::from_metres_per_second(1.0).unwrap(),
+             MeleeMovementAction::Close,
+             crate::linear_speed::NonnegativeSpeed::from_metres_per_second(2.0).unwrap(),
+             1.0,
+@@ -174,11 +177,11 @@ mod tests {
+         .unwrap();
+         assert_eq!(
+             paused.velocity_after_metres_per_second.metres_per_second(),
+             1.0
+         );
+-        assert_eq!(paused.displacement_metres, 0.0);
++        assert_eq!(paused.displacement_metres.metres(), 0.0);
+     }
+ 
+     const SPEED: NonnegativeSpeed = match NonnegativeSpeed::from_metres_per_second(2.0) {
+         Ok(speed) => speed,
+         Err(_) => panic!("invalid fixture speed"),
+@@ -198,11 +201,11 @@ mod tests {
+                 SPEED,
+                 ACCELERATION,
+                 AnimationElapsed::from_seconds(0.25).unwrap(),
+             )
+             .unwrap();
+-            assert!(motion.displacement_metres.abs() <= SPEED.metres_per_second() * 0.25 + 1.0e-6);
++            assert!(motion.displacement_metres.metres().abs() <= SPEED.metres_per_second() * 0.25 + 1.0e-6);
+         }
+     }
+ 
+     #[test]
+     fn acceleration_integration_is_substep_invariant() {
+@@ -229,11 +232,11 @@ mod tests {
+             ACCELERATION,
+             AnimationElapsed::from_seconds(0.1).unwrap(),
+         )
+         .unwrap();
+         assert!(
+-            (whole.displacement_metres - (first.displacement_metres + second.displacement_metres))
++            (whole.displacement_metres.metres() - (first.displacement_metres.metres() + second.displacement_metres.metres()))
+                 .abs()
+                 < 1.0e-6
+         );
+         assert!(
+             (whole.velocity_after_metres_per_second.metres_per_second()
+@@ -259,67 +262,67 @@ mod tests {
+             12.0,
+             AnimationElapsed::from_seconds(0.01).unwrap(),
+         )
+         .unwrap();
+         assert!(motion.velocity_after_metres_per_second.metres_per_second() > 0.0);
+-        assert!(motion.displacement_metres > 0.0);
++        assert!(motion.displacement_metres.metres() > 0.0);
+     }
+ 
+     #[test]
+     fn opposed_intents_use_signed_simultaneous_displacement() {
+         let mutual_close = integrate_opposed_movement(
+-            2.0,
++            SignedLength::from_metres(2.0).unwrap(),
+             crate::linear_speed::SignedSpeed::from_metres_per_second(0.0).unwrap(),
+             MeleeMovementAction::Close,
+             SPEED,
+             crate::linear_speed::SignedSpeed::from_metres_per_second(0.0).unwrap(),
+             MeleeMovementAction::Close,
+             SPEED,
+             ACCELERATION,
+             ACCELERATION,
+             crate::elapsed::AnimationElapsed::from_seconds(0.25).unwrap(),
+-            0.0,
+-            3.0,
++            SignedLength::from_metres(0.0).unwrap(),
++            SignedLength::from_metres(3.0).unwrap(),
+         )
+         .unwrap();
+         let chase = integrate_opposed_movement(
+-            2.0,
++            SignedLength::from_metres(2.0).unwrap(),
+             crate::linear_speed::SignedSpeed::from_metres_per_second(0.0).unwrap(),
+             MeleeMovementAction::Close,
+             SPEED,
+             crate::linear_speed::SignedSpeed::from_metres_per_second(0.0).unwrap(),
+             MeleeMovementAction::Retreat,
+             SPEED,
+             ACCELERATION,
+             ACCELERATION,
+             crate::elapsed::AnimationElapsed::from_seconds(0.25).unwrap(),
+-            0.0,
+-            3.0,
++            SignedLength::from_metres(0.0).unwrap(),
++            SignedLength::from_metres(3.0).unwrap(),
+         )
+         .unwrap();
+-        assert!(mutual_close.distance_after_metres < 2.0);
+-        assert!((chase.distance_after_metres - 2.0).abs() < 1.0e-6);
++        assert!(mutual_close.distance_after_metres.metres() < 2.0);
++        assert!((chase.distance_after_metres.metres() - 2.0).abs() < 1.0e-6);
+     }
+ 
+     #[test]
+     fn body_collision_prevents_center_overlap_and_stops_closing_velocity() {
+         let movement = integrate_opposed_movement(
+-            0.81,
++            SignedLength::from_metres(0.81).unwrap(),
+             SignedSpeed::from(SPEED).negated(),
+             MeleeMovementAction::Close,
+             SPEED,
+             SignedSpeed::from(SPEED).negated(),
+             MeleeMovementAction::Close,
+             SPEED,
+             ACCELERATION,
+             ACCELERATION,
+             crate::elapsed::AnimationElapsed::from_seconds(0.1).unwrap(),
+-            0.8,
+-            3.0,
++            SignedLength::from_metres(0.8).unwrap(),
++            SignedLength::from_metres(3.0).unwrap(),
+         )
+         .unwrap();
+-        assert!((movement.distance_after_metres - 0.8).abs() < 1.0e-6);
++        assert!((movement.distance_after_metres.metres() - 0.8).abs() < 1.0e-6);
+         assert!(
+             movement
+                 .first
+                 .velocity_after_metres_per_second
+                 .metres_per_second()
+@@ -330,44 +333,44 @@ mod tests {
+                 .second
+                 .velocity_after_metres_per_second
+                 .metres_per_second()
+                 >= 0.0
+         );
+-        assert!(movement.first.displacement_metres.abs() <= SPEED.metres_per_second() * 0.1);
+-        assert!(movement.second.displacement_metres.abs() <= SPEED.metres_per_second() * 0.1);
++        assert!(movement.first.displacement_metres.metres().abs() <= SPEED.metres_per_second() * 0.1);
++        assert!(movement.second.displacement_metres.metres().abs() <= SPEED.metres_per_second() * 0.1);
+     }
+ 
+     #[test]
+     fn body_collision_floor_is_substep_invariant_and_cannot_tunnel() {
+         let whole = integrate_opposed_movement(
+-            1.0,
++            SignedLength::from_metres(1.0).unwrap(),
+             SignedSpeed::from(SPEED).negated(),
+             MeleeMovementAction::Close,
+             SPEED,
+             SignedSpeed::from(SPEED).negated(),
+             MeleeMovementAction::Close,
+             SPEED,
+             ACCELERATION,
+             ACCELERATION,
+             crate::elapsed::AnimationElapsed::from_seconds(0.2).unwrap(),
+-            0.8,
+-            3.0,
++            SignedLength::from_metres(0.8).unwrap(),
++            SignedLength::from_metres(3.0).unwrap(),
+         )
+         .unwrap();
+         let first = integrate_opposed_movement(
+-            1.0,
++            SignedLength::from_metres(1.0).unwrap(),
+             SignedSpeed::from(SPEED).negated(),
+             MeleeMovementAction::Close,
+             SPEED,
+             SignedSpeed::from(SPEED).negated(),
+             MeleeMovementAction::Close,
+             SPEED,
+             ACCELERATION,
+             ACCELERATION,
+             crate::elapsed::AnimationElapsed::from_seconds(0.1).unwrap(),
+-            0.8,
+-            3.0,
++            SignedLength::from_metres(0.8).unwrap(),
++            SignedLength::from_metres(3.0).unwrap(),
+         )
+         .unwrap();
+         let second = integrate_opposed_movement(
+             first.distance_after_metres,
+             first.first.velocity_after_metres_per_second,
+@@ -377,13 +380,13 @@ mod tests {
+             MeleeMovementAction::Close,
+             SPEED,
+             ACCELERATION,
+             ACCELERATION,
+             crate::elapsed::AnimationElapsed::from_seconds(0.1).unwrap(),
+-            0.8,
+-            3.0,
++            SignedLength::from_metres(0.8).unwrap(),
++            SignedLength::from_metres(3.0).unwrap(),
+         )
+         .unwrap();
+-        assert!((whole.distance_after_metres - 0.8).abs() < 1.0e-6);
+-        assert!((second.distance_after_metres - 0.8).abs() < 1.0e-6);
++        assert!((whole.distance_after_metres.metres() - 0.8).abs() < 1.0e-6);
++        assert!((second.distance_after_metres.metres() - 0.8).abs() < 1.0e-6);
+     }
+ }

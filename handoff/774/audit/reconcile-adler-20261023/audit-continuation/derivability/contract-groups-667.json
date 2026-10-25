@@ -1,0 +1,59 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-667",
+  "at": "2026-10-25T16:24:06.056599+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 964,
+  "source_id": "pr-working:crates/adventuresim-core/src/physiology.rs",
+  "sha256": "58161910d9518bcdd9c32f0833899fe03e1ab544cfe745838dafbc81c23550bb",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [
+    {
+      "trait": "TryFrom<u32>",
+      "type": "DoseMilliunits",
+      "lines": [
+        [
+          96,
+          102
+        ]
+      ],
+      "disposition": "KEEP checked capped dose admission"
+    },
+    {
+      "trait": "From<DoseMilliunits> for u32",
+      "lines": [
+        [
+          104,
+          108
+        ]
+      ],
+      "disposition": "KEEP tiny extraction no owning Into derive"
+    },
+    {
+      "trait": "Display",
+      "type": "BodyRegion",
+      "lines": [
+        [
+          202,
+          206
+        ]
+      ],
+      "disposition": "KEEP small as_str formatting; as_str body pending next slice"
+    }
+  ],
+  "analysis": [
+    "DoseMilliunits TryFrom<u32>96\u2013102 retains capped dose admission with concrete DoseError; From<DoseMilliunits> foru32104\u2013108 small extraction, keep no owning Into derive. BodyMass/dose checked rounded physical conversions inherent semantic.",
+    "BodyRegion Display202\u2013206 small as_str formatter retained with no owning general Display derive; actual as_str body still pending. Meter/BodyRegion already structural/Serde and conditional native derives, no need serialization classifier substitute."
+  ],
+  "first_unfinished": {
+    "scope_index": 964,
+    "line": 221
+  },
+  "execution": "none"
+}

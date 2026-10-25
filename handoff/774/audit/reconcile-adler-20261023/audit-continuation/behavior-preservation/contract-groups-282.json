@@ -1,0 +1,87 @@
+{
+  "id": "CONT08-CONTRACT-282",
+  "at": "2026-10-25T15:40:59.504340+00:00",
+  "lens": "08 behavior-preservation",
+  "rows": [
+    {
+      "scope_index": 1076,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/capability.rs",
+      "before_sha256": "2170e327e2217e9f76956051fdbceaa9d684e30cdb03d4d9b9e1860e58bb8897",
+      "after_sha256": "3249a867a88a75dc29d514b94c01a89965aed2c037a05fdbcc9109b0bde179f6",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1076-base-2170e327e2217e9f76956051fdbceaa9d684e30cdb03d4d9b9e1860e58bb8897",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/3249a867a88a75dc29d514b94c01a89965aed2c037a05fdbcc9109b0bde179f6",
+      "diff": "source-evidence/pr-1076.diff",
+      "diff_sha256": "ca2cd5b3e73ffb5d7d1573f680a54b5bf2757b9870b97b09a88284de8e90b858",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          694
+        ]
+      ],
+      "head_body_read_method": "Freshfull1076/1077 andexact1078priorproof+fullvariant/currentproducer921 comparison; completeactualdiffandmovedoldbodyconsumed",
+      "facts": [
+        "Fresh full694/twoboundedreads andcompleteactualPRdiff (includingoldload_combatantremovedbody) consumed. evaluate/refresh rows lookup attributes\u2192effective disease\u2192skills\u2192limbs\u2192stats andcombatant beforeautoresolvepower/upsert unchanged; existingequalrow avoidsSSEupdates, physiologyband closebeforeupdate/resetafter same. Newcombat_equipmentResultpropagates firstweapon\u2192melee\u2192rangedprojection beforeownedconstruct/publication; no priorDBmutationinthismethod.",
+        "StrategicEquipment firstheldmatchingoccupancy L/R, firstweapon/shield/melee/ranged selection andside/ID/recipe geometry, missingparametricrecipepanic, personalarrow sum/excludefireplace, perpartlayer/outermostgeometry/survival insulation/weatherproofing /7, drymass+containedwater Err\u2192Inf retained. Sourcehiddenauthority/coherence/cacheissuesnotclearedbyunchangedbody; armor/mass/container lowerreceiversindependentpending.",
+        "PlayerBodyCharacterLimbs constant70kg vsloadcombatant actualconditionbodyweight, Skillsreligionmaximumeffective vscombat_skillstotaldirect andallotherleafmappings retainedbothversions; do notbrandtheseasnew08drift. ActualfullPRcombat loadextraction1077 mirrorsoldfield/lookup/errororder. 631\u2013694 fixtures keepgeometrymaterials/instanceprecision/reach/mass/inertia/typedinterval assertions+textwatercheck;none run."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1077,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability/combatant.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/capability/combatant.rs",
+      "before_sha256": null,
+      "after_sha256": "afba3aaeb15ab41fe36d35221b5269a784098863766c03ad61ecd6532204bdbc",
+      "base_object": null,
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/afba3aaeb15ab41fe36d35221b5269a784098863766c03ad61ecd6532204bdbc",
+      "diff": "source-evidence/pr-1077.diff",
+      "diff_sha256": "04be9f9eafaed47e7815b8bc9724ee4671175ec1c9605b57791bbfbf16a5fd13",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          111
+        ]
+      ],
+      "head_body_read_method": "Freshfull1076/1077 andexact1078priorproof+fullvariant/currentproducer921 comparison; completeactualdiffandmovedoldbodyconsumed",
+      "facts": [
+        "Freshfull111completeaddition+oldload_combatantbodyremovedfrom1076diff consumed. Sameattributes/disease\u2192skills\u2192limbs\u2192stats\u2192condition/fatigue\u2192equipment\u2192startingcondition thenCombatant construction; health7/order/bodyweight/side/calories/focus andall22combat_skillfields exactlymoved, no strategy/tacticaltickstate persistenceadded. combat_equipmentElapsedErrornowstringified atnativeDB boundary beforeOk; no compiler/ordinaryfailureclaim.",
+        "Actualtimingproducer921 analyzedbelow closes genericpotentialfailure for this branch ratherthan assuminganyResultchangesnormalbehavior; from_strategic_state andfatigueportown875/876retainlaw, independentlyrelatedinjury/readinessfindings remainqualified."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    },
+    {
+      "scope_index": 1078,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/capability/equipment_projection.rs",
+      "base": "3a50b708381ad00c116445c2c999a49c3943088b",
+      "archive_head": "6533e444fa37552927070cc8d8190907fd3b413e",
+      "head_origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-stdb-module/src/capability/equipment_projection.rs",
+      "before_sha256": "5be4a90bddb1c41490a47aaf43db5d9dacf7feb5aaf3dcd1e6ce68c83831de68",
+      "after_sha256": "f8b4732bf544887996ecaf8ffba647c00a6a7f4c4d88728b7b5ac094a689c6af",
+      "base_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/audit-continuation/behavior-preservation/source-evidence/pr-1078-base-5be4a90bddb1c41490a47aaf43db5d9dacf7feb5aaf3dcd1e6ce68c83831de68",
+      "head_object": "/home/brunosegovia/.codex/worktrees/ae46/adventure-simulator/target/bespoke-audit-774-merged-20261022/reconcile-adler-20261023/recovered-sources/objects/f8b4732bf544887996ecaf8ffba647c00a6a7f4c4d88728b7b5ac094a689c6af",
+      "diff": "source-evidence/pr-1078.diff",
+      "diff_sha256": "18e0ff85239afbc33675eba285bc2a87f7907770a9bc4981a4d81b96c23a7c16",
+      "head_body_accounted_ranges": [
+        [
+          1,
+          85
+        ]
+      ],
+      "head_body_read_method": "Freshfull1076/1077 andexact1078priorproof+fullvariant/currentproducer921 comparison; completeactualdiffandmovedoldbodyconsumed",
+      "facts": [
+        "Exact own08 earlierfull85 sourceproof reconsumed nowcompleteactualPRdiff/fullheadandactual921timingproduction. Thiscloses earlierpendingnumericproducerquestion locally: melee_attack_timing sanitizes nonfiniteinertia\u2192.3/negative\u21920 thenboundedratio cycle .24..(.64*1.18); prep/recoveryshares positivebounded so checked_add reconstructs exactly priorf32sum without possiblefiniteoverflow. Rangedrawweight.max(.1), linear+clamp .35..3 (Infclamps3, NaNmaxuses.1) guaranteesfinitepositive; samepreexistingnativef32law. No numericalprobe/run.",
+        "Catalogue/equipmentlookup panicprecedence/instancevsdefinition geometry/mass/inertia/precision andmelee/rangedbooleanbranches unchanged, checkedelapsedresultwiretransparent. OtherCombatWeaponrawgeometry/force40*weighte.g.Inf notclaimedvalidated; onlytimingfailurequestionclosed. Actual1076 threeprojectiontranspose\u21921077stringnativeboundary traced, no normalnewerror/runtime/APIcompileclaim; P16SignedLengthfixturemigrationseparate."
+      ],
+      "disposition": "Own08 old/new source comparison accounted WITH exact source/API qualifications; no execution or other-lens clearance.",
+      "acceptance": "Preserve admitted-input numeric order, source identity, endpoint/wire shape, first errors and original fixture oracles; connected pending policy questions remain separate."
+    }
+  ],
+  "next": "1079character3983 actualPR variant/diff +exactpriorown08 scopedproofs; lowercharacter modules1080+"
+}

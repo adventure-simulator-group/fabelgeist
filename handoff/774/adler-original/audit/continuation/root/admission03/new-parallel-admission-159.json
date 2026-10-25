@@ -1,0 +1,49 @@
+{
+  "id": "ROOT-ADM03-PARALLEL-159",
+  "at": "2026-10-23T01:36:37.661512+00:00",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/strategic-web/src/templates/recruitment.rs",
+      "sha256": "ac67b736f6b3d39a214a9d95831e20cbdbead9b95d1b5c8d34b11dff58001cd5",
+      "actual_compared_ranges": [
+        [
+          325,
+          342
+        ]
+      ],
+      "registration_id": "CAMERA-INITIAL07-REG020"
+    },
+    {
+      "source_id": "physical-p16:crates/strategic-web/src/routes/parties.rs",
+      "sha256": "ab69f73988cfe3ec66925ba43a1060eee98e493f0859e60be2e325e18a89ad96",
+      "actual_compared_ranges": [
+        [
+          355,
+          581
+        ]
+      ],
+      "registration_id": "CAMERA-INITIAL07-REG021"
+    },
+    {
+      "source_id": "physical-p16:crates/strategic-web/src/templates/recruitment.rs",
+      "sha256": "ac67b736f6b3d39a214a9d95831e20cbdbead9b95d1b5c8d34b11dff58001cd5",
+      "actual_compared_ranges": [
+        [
+          19,
+          35
+        ]
+      ],
+      "registration_id": "CAMERA-INITIAL07-REG022"
+    }
+  ],
+  "groups": {
+    "retained-request-to-panel": "Actual route query typed PartyJoinRequest vector then clones same request into RecruitmentApplicant after refreshing/querying capability. No recomputation of request.meets_requirements at visible panel guard325-342; other current contribution helpers separate and do not overwrite retainedrequest. This is actual boolean recipient/dataadmission trace, not proof producer initialization/currentnormalstaleness alone. Camera07 owns full lifecycle finding. Optional database reads/default vectors and profile fallbacks remain explicit existing policies; no invented measured evidence from rawbool.",
+    "web-format-and-owner": "Template strings/classes/HTML serialization are actual display ports; membership/current recommendation policy cannot be inferred from primitivebool label or generatedDBtype. Applicant/panel structs combine distinct request snapshot and currentmedical/capability/profile facts. No new typeadmission or arithmetic policy imposed without actual owner graph. Only19-36 shapes325-342 display355-581 route,343-345 unrelated excluded."
+  },
+  "findings": [],
+  "status": "exact_new_recruitment_request_panel_admission_roles_compared",
+  "source_edits": 0,
+  "project_execution": 0,
+  "other_lens_credit": false,
+  "qualifications": "Camera142 qualifiers effectiveREG020325-342,REG021355-581,REG02219-35;36blank and343-345 unrelated context excluded."
+}

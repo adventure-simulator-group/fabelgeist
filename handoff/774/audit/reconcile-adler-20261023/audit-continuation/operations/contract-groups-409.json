@@ -1,0 +1,235 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-409",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/ragdoll/definition.rs",
+      "sha256": "4164ade7dd800ba7a39b1318bce6a59e5920b0931d86fc161b9c1cfb8bff4a76",
+      "actual_EOF": 602,
+      "actual_compared_ranges": [
+        [
+          1,
+          602
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/ragdoll/drive.rs",
+      "sha256": "10c455bd92024d36b8b6cfc339c73ba3f7ebebe1fc0971090e69d63497d59904",
+      "actual_EOF": 237,
+      "actual_compared_ranges": [
+        [
+          1,
+          237
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/ragdoll/entry.rs",
+      "sha256": "ba3c2942e73fcaac4b7698ec909382e907d0fd807f395e5f31509d904f910d6f",
+      "actual_EOF": 359,
+      "actual_compared_ranges": [
+        [
+          1,
+          359
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/ragdoll/geometry.rs",
+      "sha256": "90a0f67311aeddea43683a7d3e4c1c8ce0fa9dda96367303edd0e7557c63e224",
+      "actual_EOF": 66,
+      "actual_compared_ranges": [
+        [
+          1,
+          66
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/ragdoll/mod.rs",
+      "sha256": "eaddce3e79397bc2d636eb4cecac5907f696760cbc35c1c305699bdc700df91a",
+      "actual_EOF": 336,
+      "actual_compared_ranges": [
+        [
+          1,
+          336
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/ragdoll/muscles.rs",
+      "sha256": "4d66c5e28731d05a4ff8e3fb3489cbe7d05bec7c2e76af21c7e2d7a58d846998",
+      "actual_EOF": 275,
+      "actual_compared_ranges": [
+        [
+          1,
+          275
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/animation/sample_rate.rs",
+      "sha256": "744e4868234738f05d7030c0cbae4c057fcbad21d41987b955e6895f3f9d5093",
+      "actual_EOF": 86,
+      "actual_compared_ranges": [
+        [
+          1,
+          86
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/ragdoll.rs",
+      "sha256": "af87991f5cb3f8fd2a6398ea5135c5daacd24c7b9c2b23181ebecec7bc516ad3",
+      "actual_EOF": 112,
+      "actual_compared_ranges": [
+        [
+          1,
+          112
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/pose_buffer.rs",
+      "sha256": "3cced457f7299b93a524ecf97ec487ea9ffe33d0c522293dbba1d80e6ee70b39",
+      "actual_EOF": 46,
+      "actual_compared_ranges": [
+        [
+          1,
+          46
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Definition, dimensions and entry preflight",
+      "evidence": "definition.rs:1-602; geometry.rs:1-66; entry.rs:1-359; mod.rs:1-336",
+      "disposition": "15 bodies/14 joints static parent-before-child; missing driver declines ragdoll. Positive scaled radius and signed segment preflight before queuing entities. Signed segment reverses endpoints intentionally; negative radius invalid, no blanket positive segment restriction. Body seed positions/rotations/velocities and joint-anchor native products lack completed finite readmission; no assertion dimensional preflight covers all seeds. Live parent traversal relies Bevy hierarchy acyclicity, topological buffered order explicitly stops no-progress."
+    },
+    {
+      "contract": "Readback, terrain and muscle mutation",
+      "evidence": "drive.rs:1-237; muscles.rs:1-275",
+      "disposition": "World-to-local readback uses actual parent affine; driven ancestor pinning prevents interpolation shear. Terrain contact samples both ends and centre and admits corrected scene position before mutation; three samples are approximation, not complete continuous collision guarantee. Age/envelope admitted before retaining age; impulse and spin mutation have conditional finite-overflow candidate below. Kinematic pelvis never kicked."
+    },
+    {
+      "contract": "Sampling and ragdoll configuration admission",
+      "evidence": "core animation/sample_rate.rs:1-84; core combat_config/ragdoll.rs:1-112; core combat_config/pose_buffer.rs:1-46",
+      "disposition": "Sample frequency finite positive and reciprocal checked positive; allows very high finite frequency/subnormal period. Pose validate orders foot range and contact window only, no practical rate or seed-arithmetic bound. Ragdoll scalars owned types and explicit Never/After muscle release preserve zero passive tone. Current YAML normal values qualify API counterexamples."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-RAGDOLL-PD-FINITE-OVERFLOW-CANDIDATE-001",
+      "status": "source-backed conditional admitted-config counterexample; exact semantic dedup pending",
+      "evidence": [
+        "muscles.rs:43-119",
+        "core animation/response_parameters.rs:175-218",
+        "core animation/measurement.rs:87-100",
+        "core combat_config/ragdoll.rs:35-58",
+        "core combat_config.rs:690-747",
+        "core combat_config/runtime.rs:11-20",
+        "dependencies-409/glam-0.32.1-vec3.rs:1016-1032"
+      ],
+      "contract": "A checked finite gain and kick cap do not guarantee a finite completed PD impulse or retained AngularVelocity.",
+      "witness": "Keep ordinary tone1, derivative20, max kick60, elapsed1/64 and zero spins. With a two-radian short-arc error about Y and admitted AngularStiffness f32::MAX, error axis times gain overflows Y to infinity before elapsed multiplication. Exact glam clamp computes length_sq infinity then infinity/infinity in Y, retaining NaN. Zero-kick comparison does not reject NaN; child and nonkinematic parent spin additions commit it. Runtime snapshot validates but imposes no aggregate safe-PD range.",
+      "qualification": "Current YAML proportional600, derivative20, tone1 are ordinary safe-size tuning; no installed MAX config or native/GPU failure claimed. Do not force all gains positive: zero/passive semantics remain legal. Native dependency package and member match frozen lock.",
+      "repair_cluster": "ragdoll-completed-impulse-admission",
+      "dependencies": [
+        "exact canonical alias decision",
+        "completed native impulse and spin finite-admission policy",
+        "retain kinematic pelvis authority and equal/opposite split"
+      ],
+      "acceptance": "Represented finite extreme admitted gains must reject/retain prior usable spins or use overflow-stable bounded math; ordinary impulses and passive zero tone preserved. No arbitrary global gain cap inferred."
+    },
+    {
+      "id": "SEGOVB-04-RAGDOLL-SEED-SAMPLE-SPAN-CANDIDATE-001",
+      "status": "source-backed cross-body denominator mismatch; ordinary entry schedule witness pending, exact semantic dedup pending",
+      "evidence": [
+        "entry.rs:132-175",
+        "pose_buffer/sampling_clock.rs:7-29",
+        "pose_buffer/physics_pose.rs:85-91",
+        "pose_buffer.rs:659-661"
+      ],
+      "contract": "Entry finite differences must use the actual temporal distance between the buffered previous and next samples.",
+      "witness": "Sampling clock computes due from accumulator/interval, places old next into previous and new target into next once, and computes normal velocities using elapsed=interval*due. Ragdoll seed instead obtains sample_interval() which always returns one configured period. A due=2 transition with positions separated by 0.02m over two 30Hz periods represents0.3m/s but ragdoll seed requests0.6m/s before adding momentum; both below configured10m/s cap. Angular difference shares one-period denominator subject to its 1e-5 floor.",
+      "qualification": "Source-level ordinary-size helper counterexample, not an executed actual character/entry/frame witness. Need exact scheduling/actual previous-next pose timing before claiming ordinary live ragdoll launch. Huge sample-rate finite-division overflow is a connected admission qualification, not another unique defect.",
+      "repair_cluster": "pose-buffer-temporal-span-authority",
+      "dependencies": [
+        "actual source schedule and previous-next timing",
+        "canonical sample-span owner and alias decision"
+      ],
+      "acceptance": "Retain actual span for both linear and angular entry derivatives, including coincident/initial samples; preserve actual controller momentum, short-arc handling and seed caps."
+    }
+  ],
+  "fresh_dependencies": [
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/sampling_clock.rs",
+      "actual_ranges": [
+        [
+          1,
+          63
+        ]
+      ],
+      "coverage": "fresh dependency reread; original role already credited395"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/pose_buffer/physics_pose.rs",
+      "actual_ranges": [
+        [
+          78,
+          98
+        ]
+      ],
+      "coverage": "fresh getter proof; original role already credited397"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config/runtime.rs",
+      "actual_ranges": [
+        [
+          1,
+          71
+        ]
+      ],
+      "coverage": "fresh dependency reread; no duplicate inventory credit"
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/combat_config.rs",
+      "actual_ranges": [
+        [
+          690,
+          752
+        ]
+      ],
+      "coverage": "fresh aggregate validation suffix; earlier full original evidence retained"
+    },
+    {
+      "source_id": "pr-working:content/tactical/combat.yaml",
+      "actual_ranges": [
+        [
+          315,
+          350
+        ]
+      ],
+      "coverage": "fresh current authored-value qualification only"
+    },
+    {
+      "source": "dependencies-409/native-package-proof.json",
+      "coverage": "exact native package checksum/member match and personally read clamp snippet; no full dependency coverage"
+    }
+  ],
+  "status": "9 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/adventuresim-tactical-client/src/animation/resolver.rs"
+}

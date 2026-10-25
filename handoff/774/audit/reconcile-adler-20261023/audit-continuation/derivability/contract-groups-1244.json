@@ -1,0 +1,113 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1244",
+  "at": "2026-10-25T18:16:29.768008+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1308,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/examples/armor_fixture/tasset_tests.rs",
+      "sha256": "e4db0a32c0f79fc793caa9295b74055ec393c3353590008fc5992c6a2d69c9ca",
+      "actual_EOF": 254,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/examples/armor_fixture/tasset_tests.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/examples/armor_fixture/tasset_tests.rs",
+        "owner": "root",
+        "sha256": "e4db0a32c0f79fc793caa9295b74055ec393c3353590008fc5992c6a2d69c9ca",
+        "base_sha256": "82ef20bb7bee8231ad6773fa15e0b62b970b314cf3e6092b09261a1779c96f35",
+        "state": "modified",
+        "bytes": 9381,
+        "audit_owner": "root",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "root",
+            "record": "wave-01/audit-producer-propagation/root/coverage.jsonl",
+            "ranges": [
+              [
+                1,
+                254
+              ]
+            ],
+            "source_read_status": "full",
+            "trace_refs": [
+              "ROOT-PP-FIXTURE-014"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 121,
+            "read_ranges": [
+              [
+                1,
+                254
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-ARMOR-FIXTURE-031"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/examples/armor_fixture/tasset_tests.rs"
+          },
+          {
+            "supplier": "root",
+            "record": "wave-01/audit-existing-type-owners/root/coverage.jsonl",
+            "row": 356,
+            "read_ranges": [
+              [
+                1,
+                254
+              ]
+            ],
+            "contract_refs": [
+              "ROOT-OWNER-ARMOR-FIXTURE-031",
+              "ROOT-OWNER-CLOSURE-INDEX-079"
+            ],
+            "read_status": "full",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/examples/armor_fixture/tasset_tests.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "root"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          254
+        ]
+      ],
+      "trait_inventory": [],
+      "absence_basis": "Three native GPU/body fixture tests only; no local type, handwritten trait, or custom codec. Existing design Default updates used as fixture inputs; selected json! diagnostics use serde_json rather than a handwritten Serializer."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Actual fixture constructs wrapped design, topology and current realizations, checks morph correspondence/final radii/rigid thigh ownership and finite nondegenerate triangles.",
+      "disposition": "NO_HANDWRITTEN_TRAIT_OR_CODEC",
+      "qualification": "Native geometry/fit semantics are not mechanical From or Default boilerplate. GPU/asset/I/O fixture source only, not executed."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1309,
+    "source_id": "pr-working:crates/adventuresim-tactical-client/examples/runtime_equipment_bench.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

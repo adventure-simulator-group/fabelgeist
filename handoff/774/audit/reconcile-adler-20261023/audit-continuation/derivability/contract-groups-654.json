@@ -1,0 +1,25 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-654",
+  "at": "2026-10-25T16:22:18.110014+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 960,
+  "source_id": "pr-working:crates/adventuresim-core/src/organization.rs",
+  "sha256": "cb410372fbb5a1f8b61fad2bf447bcd93512725560fb69338ec024ed3135b0e1",
+  "actual_compared_ranges": [
+    [
+      1,
+      220
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": [
+    "Organization schema records/enums already structural/Serde derives with explicit rename/default/deny_unknown_fields; conditional native SpacetimeType where present. SecondPersonRegister and InitialSocialRole structural derives already. Native second-person social register and stable actor-domain social role assignment semantic, not derived classification. No handwritten trait/codec1\u2013220. Generated include10 is separate source, no implied body credit."
+  ],
+  "first_unfinished": {
+    "scope_index": 960,
+    "line": 221
+  },
+  "execution": "none"
+}

@@ -1,0 +1,105 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-024",
+  "at": "2026-10-25T08:42:26.965366+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 1090,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/corpse.rs",
+      "sha256": "ae853a404a9463c18ad6bf2d0b06e86f6fc35061f88cd34e823fc3df0aebbc3f",
+      "personally_read_ranges": [
+        [
+          1,
+          2121
+        ]
+      ],
+      "method": "Fresh whole bounded source read",
+      "aggregate_trace_and_disposition": "Full2121 corpse source incl all fixtures consumed in three bounded reads. StrategicCorpse/BodyState/Injury are joined by same corpse ID at normal factories; body health fixed7 at producer and only reconstructed when native Vec length7. Unknown injury region and malformed/missing pathology silently become absent weaker findings (existing required-observation graph), not evidence no injury/pathology exists. Autopsy realized kind is separate from wording and systemic evidence uses actual physiology+kind; no prose-prefix eligibility. Corpse burial/exhumation/opening/burning retain historical handling flags and their exact corpse_location interpretation; raw public table can express contradictions but ordinary mutations preserve intentional interment/exhumation history. Revisions and receipts pair actor/corpse/action/discipline/stage/expected revision; client action ID is validated but semantic receipt identity deliberately does not use it, so retries do not repeat work. Receipt replay before current access returns successful no-op, not new mutation or exposed finding. Open/exhume/bury/burn preflight same loaded corpse then wait; incomplete interval returnsOk without action/receipt. Multirow effects rely actual top-level reducer rollback on laterErr. Permissions query same party/corpse/scope, exhumation implies examination; granted authority derived exact known NPC/home locality/titled-or-family policy. Family contact materialization still explicitly receives empty list for ordinary death despite canonical kinship (exact CAMERA-INITIAL07-F023). Frozen demos deliberately stage synthetic subjectNone and deaths/discovery independently, bounded max8 explicit contacts; no requirement that synthetic corpse acquire real CharacterId. Display name is death snapshot, not current character alias. burn publishes destroyed flag after consequences, observer projection excludes destroyed and redacts interred identities/evidence. Public persist_body accepts independent StrategicCorpse and PostCombatBody without subject/body identity comparison, a qualified whole-product API question rather than normal bad-call proof. Autoresolve canonical corpse update refreshes health from same enemy; actual historical injury refresh/causal replay dependencies are not inferred from body log names. Full1978\u20132121 original fixtures source-read only."
+    },
+    {
+      "scope_index": 190,
+      "source_id": "physical-p16:crates/adventuresim-stdb-module/src/corpse.rs",
+      "sha256": "7c9ccbcd887b073dab9e1e468d3e89b3b491124213383e12957c5e5736f06242",
+      "personally_read_ranges": [],
+      "method": "Fresh whole actualPRbody plus entire exact P16diff consumed; same regions compared in actual preserved role",
+      "aggregate_trace_and_disposition": "EntirePR1090 body personally read plus complete exact P16 counterpartdiff consumed: additional StrategicOperation aliases and fallible seed inventory addition only; same aggregate/corpse/permission relationships. Mandatory P16 incomplete error propagation/CAM-PROP-F006 remains; this source comparison is not integration/compilation acceptance. Preserve accepted current source when recovering P16, do not wholesale restore."
+    },
+    {
+      "scope_index": 1097,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/equipment_law.rs",
+      "sha256": "0b9934bea4ea2409d1927ae01c670626d26a700fc2a8c268e9aa8d21c9faa90e",
+      "personally_read_ranges": [
+        [
+          1,
+          81
+        ]
+      ],
+      "method": "Fresh whole bounded source read",
+      "aggregate_trace_and_disposition": "Whole81 exact equipment-law source: current character settlement selects policy, actual inventory query pairs same character+inventory ID, item kind comes actual referenced Item row, privilege uses same settlement. Missing settlement/policy intentionally permits. enforce_equipment_compliance treats every Err (including missing character/inventory/definition, not only legal prohibition) as removal; actual graph integrity determines whether non-policy failures are reachable, existing structured failure requirement retained. Removal is normalized unequip only, inventory ownership remains; capabilities and condition refreshed once after any removal. No ordinary illegal-owner/corrupt-row proof and no blanket coherent transaction claim."
+    },
+    {
+      "scope_index": 1099,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/filth/blood_attempts.rs",
+      "sha256": "c62050a86c8ae93213b5e6dfe2ec5137f050ff790ee91b2889f477e69b9c7f7e",
+      "personally_read_ranges": [
+        [
+          1,
+          157
+        ]
+      ],
+      "method": "Fresh whole bounded source read",
+      "aggregate_trace_and_disposition": "Whole157 blood exposure source incl existing source fixture. Monotone requested interval only skips to<=from, then same actor deposits/routes and each canonical disease generate absolute-minute seeds; checkpoint advances start to max(from+1,saved+1). InfectionEpisode carries same actor/disease/contracted minute and disease definition. Actual disease1093 preview1274 uses persist=false and matching plan; commit1876 reevaluates only current now..terminal prefix with persist=true, then publishes clinical effects. Same plan lacks member/window binding as exact NATIVE-INITIAL05-F044, not ordinary current-call mismatch. Budget checked before candidate push, no checkpoint until each disease full loop, lateErr requires top-level transaction. If checkpoint is already later than to, public API still writes to after empty windows, so saved cursor can regress under an out-of-order API call; actual normal current-clock callers appear monotone, not proof ordinary replay occurred. Independent key/actor/disease helper arguments are paired correctly by only caller. Needed stronger whole accepted replay interval/checkpoint association is qualified Q008, not an invented native runtime incident."
+    }
+  ],
+  "supporting_exact_original_ranges": [
+    {
+      "index": 1093,
+      "ranges": [
+        [
+          1252,
+          1299
+        ],
+        [
+          1854,
+          1901
+        ]
+      ],
+      "contract": "Actual preview versus committed-prefix blood caller arguments; historical own05 full2950 retained."
+    }
+  ],
+  "same_lens_inherited_support": {
+    "1091,1092,1094,1096,1100": "Historical initial05 contract-groups-179 exact small adapters retained; no replay/count.",
+    "1093,1095": "Historical initial05 contract-groups-199 full clinical graph/plan/contribution evidence retained WITH F044 and actual preview/commit qualification.",
+    "1098": "Historical initial05 contract-groups-221 full filth source retained WITH F049/F050 and Root04 endpoint/washing/capacity support; blood include was explicitly not body credit and now body1099 consumed."
+  },
+  "qualified_questions": [
+    {
+      "id": "SEGO-INITIAL05-Q007",
+      "source": "1090:698\u2013721",
+      "relationship": "Declared corpse subject versus authoritative PostCombatBody.combatant_id",
+      "disposition": "Public(crate) snapshot API accepts separately valid unequal identities and discards body identity at storage. Normal factory uses corresponding enemy; syntheticNone intentional. Trace remaining source producers before promoting ordinary defect. Final coherent snapshot should bind actual known identity and body once without requiring fictional fixtures to pretend real actors."
+    },
+    {
+      "id": "SEGO-INITIAL05-Q008",
+      "source": "1099:35\u201344/96\u201398/120\u2013138; actual1093:1274\u20131283/1876\u20131885",
+      "relationship": "Evaluated-through checkpoint must remain monotone and belong to same committed actor/disease interval",
+      "disposition": "Representable out-of-order public API call can overwrite later cursor with earlier to. Normal actual preview/commit starts from actor current clock and matching plan; no bad normal call proved. Preserve earliest-unknown versus evaluated-zero and actual no-active-blood behavior; settle policy in shared replay owner."
+    }
+  ],
+  "aliases": [
+    "CAM-PROP-F006",
+    "CAMERA-INITIAL07-F023",
+    "NATIVE-INITIAL05-F044",
+    "RIG-PPS-F016",
+    "RIG-PPS-F017"
+  ],
+  "connected_acceptance": [
+    "Publish coherent durable bounded body/observables and selected subject, preserve tactical/strategic authority and observer privacy; never persist tactical tick/replay/attacker truth.",
+    "Actual corpse lifecycle/permission/action receipt product owns correlated state; preserve intentional history, synthetic cases, scope implication and retry no-op behavior.",
+    "Canonical blood replay retains same actor/disease/window/plan and monotone committed cursor, with explicit failure/rollback and no guessed ordinary failure."
+  ],
+  "new_unique_findings": [],
+  "discovery": "Four exact named roles compared WITH inherited findings and qualified connected questions; whole05 incomplete",
+  "repair": "not_started",
+  "validation": "not_run"
+}

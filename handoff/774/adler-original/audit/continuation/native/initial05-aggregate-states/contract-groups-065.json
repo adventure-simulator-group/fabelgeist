@@ -1,0 +1,165 @@
+{
+  "id": "NATIVE-INITIAL05-GROUP-065",
+  "at": "2026-10-22T21:59:45.138536+00:00",
+  "lens": "audit-aggregate-states",
+  "authority": "081",
+  "source_members": [
+    {
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/error/handler.rs",
+      "sha256": "800c43a7bcf3956170973151045546484c9546e3bb50635f9fab8cba7fed353d",
+      "scope038_index": 7,
+      "actual_EOF": 187,
+      "requested_original_ranges": [
+        [
+          1,
+          187
+        ]
+      ],
+      "scoped_ranges_compared": [
+        [
+          1,
+          187
+        ]
+      ],
+      "context_only_ranges": [],
+      "actual05_comparison": "Full187 actual ErrorContext payload-bearing System/RunCondition/Command/Observer binds relevant name+last-run+condition context, no irrelevant independent fields in each variant. Display/name/kind derive from same discriminant; error handler receives actual BevyError plus matching context, framework fallback policy keyed by actual error severity. FallbackErrorHandler function-pointer native configuration, no gameplay aggregate seal. Native deprecatedalias declaration is an upstream API fact, not an application compatibility path to retain. No source transaction promise in any handler.",
+      "source_body_proof": "Fresh exact globally scoped native receiving/adapter bodies personally read for05; prefixes/tails explicit context only, no foreign whole-file exemption."
+    },
+    {
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/observer/distributed_storage.rs",
+      "sha256": "9a1c51dbb516b0cc08c33d8a5a714041eef55650447b4bb7efaf86ce537952b1",
+      "scope038_index": 9,
+      "actual_EOF": 638,
+      "requested_original_ranges": [
+        [
+          216,
+          275
+        ],
+        [
+          554,
+          583
+        ]
+      ],
+      "scoped_ranges_compared": [
+        [
+          218,
+          244
+        ],
+        [
+          554,
+          575
+        ]
+      ],
+      "context_only_ranges": [
+        [
+          216,
+          217
+        ],
+        [
+          245,
+          275
+        ],
+        [
+          576,
+          583
+        ]
+      ],
+      "actual05_comparison": "Typed Observer::new224-244 creates erased system, generic hook and runner from SAME E/B/I::System and rejects exclusive systems before publishing Self. Descriptor/last_trigger_id/conditions initialize together. IntoObserver554-575 either retains exact existingObserver or delegates same typed constructor; native customrunner is an explicit unsafe execution boundary, not an application bespoke type or automatic generic proof for arbitrary native memory. Dynamic-runner247-275 and conditionedimpl578-583 end midbodies; only context about handler initialization/conditions, no full lifecycle/hook predicate credit.",
+      "source_body_proof": "Fresh exact globally scoped native receiving/adapter bodies personally read for05; prefixes/tails explicit context only, no foreign whole-file exemption."
+    },
+    {
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/observer/runner.rs",
+      "sha256": "e8a6dca4f1ae317b6653d6f1c5fdf175fdb6ed42a5d4a6125730bc9e716f43dd",
+      "scope038_index": 11,
+      "actual_EOF": 186,
+      "requested_original_ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "scoped_ranges_compared": [
+        [
+          1,
+          124
+        ]
+      ],
+      "context_only_ranges": [
+        [
+          125,
+          150
+        ]
+      ],
+      "actual05_comparison": "Actual unsafe runner1-124 states same world/event/trigger/event_key contract; same genericS downcast after typed Observer factory retains erased system/runner association. Last trigger duplicate guard updates before conditions, so rejectedcondition consumes trigger intentionally; conditions initialized under declared nativepreconditions. On carries currentevent+observer+trigger+context together, no raw app scalar recoupling. On Failed RunSystemError native handler receives actualerror/name/last_run; queue_deferred called AFTER failure branch as well, so Result failure is NOT framework state rollback. Native alias/lifetime invariants are unsafe caller preconditions, no inferred full foreign soundness proof. Existing test fragment126-150 readonly context, no unscoped secondfixture tail.",
+      "source_body_proof": "Fresh exact globally scoped native receiving/adapter bodies personally read for05; prefixes/tails explicit context only, no foreign whole-file exemption."
+    },
+    {
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/system/function_system.rs",
+      "sha256": "a8c0b778125f2da28ada5005a40c2bc2ab5d783fd9d080aad99361cb55641c3a",
+      "scope038_index": 12,
+      "actual_EOF": 991,
+      "requested_original_ranges": [
+        [
+          570,
+          630
+        ]
+      ],
+      "scoped_ranges_compared": [
+        [
+          572,
+          628
+        ]
+      ],
+      "context_only_ranges": [
+        [
+          570,
+          571
+        ],
+        [
+          629,
+          630
+        ]
+      ],
+      "actual05_comparison": "IntoSystem576-587 keeps actual function in generic FunctionSystem type with SystemMeta ofF. IntoResult589-628 maps plainT→Ok, Result<T,RunSystemError> unchanged, Result<T,BevyError> through? preserving framework cause, Never has deliberateunreachable-type conversions. This is native output adapter contract, not arbitrary E:Display result support or earlystringerrorloss. Prior functiontail570 and nextimpl630 are context only; no full parameter accessor/runtime pipeline proof.",
+      "source_body_proof": "Fresh exact globally scoped native receiving/adapter bodies personally read for05; prefixes/tails explicit context only, no foreign whole-file exemption."
+    },
+    {
+      "source_id": "native-dependency:bevy_ecs-0.19.1/src/system/observer_system.rs",
+      "sha256": "a5ec50cfa2fdb29a0f86a8bfb1c42a266bbd199da74e8c60c30384bf59409ac6",
+      "scope038_index": 13,
+      "actual_EOF": 85,
+      "requested_original_ranges": [
+        [
+          1,
+          75
+        ]
+      ],
+      "scoped_ranges_compared": [
+        [
+          1,
+          52
+        ]
+      ],
+      "context_only_ranges": [
+        [
+          53,
+          75
+        ]
+      ],
+      "actual05_comparison": "ObserverSystem1-52 statically ties System::In to On<E,B> and same Out; blanket IntoObserverSystem requires corresponding IntoSystem and same ObserverSystem bound, delegates without independent event/schema rewrite. No aggregate mutable record hidden here; generic identity is native contract. Test prefix54-75 source context only, not complete second test or native scheduling proof. Application output still must meet actual framework IntoResult contract, see current peer sources and prior020 BevyError boundary.",
+      "source_body_proof": "Fresh exact globally scoped native receiving/adapter bodies personally read for05; prefixes/tails explicit context only, no foreign whole-file exemption."
+    }
+  ],
+  "comparison_groups": {
+    "typed-native-observer-association": "Generic E/B/S factory retains matching erased runner/system/hook; exact actual recipient requires typed On and native Result adapter, no arbitrary app From/string conversion inference.",
+    "failure-is-not-rollback": "Actual runner dispatches error context then queues deferred commands even after error; application atomicity must be established in its own state transition, not from framework Result shape."
+  },
+  "new_unique_findings": [],
+  "prior_actual05_join": "contract-groups-020.json actual BevyError/error result/world observer declaration boundaries, current actual source-specific receiving bodies add semantic closure, no prior verdict stamps.",
+  "remaining_dependency_obligations": [
+    "No actual project observer failure or scheduling execution claimed; application observer/producer paths retain own exact source cells and existing findings. Native unsafe implementation graph outside direct scope not expanded."
+  ],
+  "repair": "frozen",
+  "validation": "not_established",
+  "other_lens_credit": false
+}

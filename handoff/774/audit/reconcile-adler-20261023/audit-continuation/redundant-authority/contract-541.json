@@ -1,0 +1,51 @@
+{
+  "id": "CONT07-CONTRACT-541",
+  "at": "2026-10-23T23:31:56.909869+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2378,
+      "source_id": "pr-working:crates/strategic-web/src/routes/settlements/party/location_personal.rs",
+      "sha256": "ba5a8c93dc9d1b62072610c5b016d87ce2db0c85f953822d5730ad4e9651f1f9",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/routes/settlements/party/location_personal.rs",
+      "actual_EOF": 382,
+      "ranges": [
+        [
+          86,
+          382
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2379,
+      "source_id": "pr-working:crates/strategic-web/src/routes/settlements/residences.rs",
+      "sha256": "f95d9bc6d0274f4525b6a04742e81bd574abbeb74fc78e7d0cab24879d33b34b",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/strategic-web/src/routes/settlements/residences.rs",
+      "actual_EOF": 417,
+      "ranges": [
+        [
+          1,
+          417
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "Personalpage scoped86\u2013382 freshly derives activityrates from observed attributes/skills/limbs/capability, actualoriginsettlement atcase site andcurrentcatalogue. with_professions receiveslocation.id whereasfrom_character usesoriginsettlement and reputation usesoriginsettlementid: dependencyquestion forwardedroot; actual professionreceiverpolicy not assumed. RootF48 JS rewardprojection remains independentlyconfirmed elsewhere, no duplicatecount/coverage.",
+    "Personalpage currentclock failure yieldsZERO, otherrequiredinputsdefaultempty; preserve requiredobservation findings rather than callalloptionalfields independenttruth. Authoritativepersonality intentionallyNone; observerprivateclinicalprojection separate.",
+    "Residences full417body residenceactions use exactpropertyid/holdingid; housingtier route checkedagainstactualpropertysettlement+tier before native reducer. Cheap/Moderate/Fancy/Current encodesactionselector with Current sentinel; notequivalentHousingTierowner forwholeenum. can_rest_at_home freshactive+occupied+settlement projection fromsamequeriedholdings, no storedduplicateflag here.",
+    "Keepavailability Town/City/Capital manualsubset duplicatesdialoguepredicate currentequal; actual Corecategoryownercomparison stillrequired. Relationshippresentation derivescountdowns fromclock, retainschildrenstage/maturity/alive as SDKobservations; those distinctrecordfacts requirecanonicalproducerproof beforecallingredundant.",
+    "ResidenceOperation enum independently mapsrequesttags/reducers/successnotices; stabletransport/presentation mappings differroles, no drift currently. Missingclock ZERO canaffectavailability/countdown but oldfailedobservationfindingfamily rather than automaticallynewunique07defect."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2380,
+    "start_line": 1
+  }
+}

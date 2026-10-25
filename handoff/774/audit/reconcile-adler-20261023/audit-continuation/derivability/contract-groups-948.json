@@ -1,0 +1,200 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-948",
+  "at": "2026-10-25T17:18:38.572520+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1124,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/claims.rs",
+      "sha256": "19ecf9355e0b4d4745fc425ac8c9f8f38f238fc9bb89dc91d4c2da28d0ec3c3a",
+      "actual_EOF": 1771,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/claims.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-stdb-module/src/investigation/claims.rs",
+        "sha256": "19ecf9355e0b4d4745fc425ac8c9f8f38f238fc9bb89dc91d4c2da28d0ec3c3a",
+        "scope_kind": "materially_reached_owner_contract",
+        "bytes": 65781,
+        "owner_contract_proofs": [
+          {
+            "supplier": "camera",
+            "record": "wave-01/audit-existing-type-owners/camera/additional-sources.jsonl",
+            "row": 635,
+            "read_ranges": [
+              [
+                1,
+                1771
+              ]
+            ],
+            "contract_refs": [
+              "CAM-OWN-INVESTIGATION-SITES-CLAIMS-092"
+            ],
+            "read_status": "fresh-current-lens-full-source-read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/investigation/claims.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "camera"
+        ],
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CASE-RECEIVERS-029",
+            "json_pointer": "/current_sources/15",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/investigation/claims.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1771
+              ]
+            ],
+            "source_context": {
+              "packet_obligation": 16,
+              "assigned_camera_index": 641,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/claims.rs",
+              "sha256": "19ecf9355e0b4d4745fc425ac8c9f8f38f238fc9bb89dc91d4c2da28d0ec3c3a",
+              "read_ranges": [
+                [
+                  1,
+                  1771
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/investigation/claims.rs",
+              "read_status": "full current frozen body; packet7 shares independently verified identical bytes with packet6",
+              "role": "claim-and-testimony",
+              "disposition": "Fresh typed PipelineInput producer is serialized only to call an internal helper that reparses it (F032). Claims processing and evidence knowledge keep purpose IDs until actual row codecs; F006 covers internal typed cause erasure. Disclosure modes, confidence, revisions, privacy and exact testimony ordering remain.",
+              "trace_refs": [
+                "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016#claim-and-testimony"
+              ],
+              "authority": "Camera716 explicit per-cell reconciliation and whole DB repair authority unchanged"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-QUEST-KNOWLEDGE-050",
+            "json_pointer": "/additional_actual_source_proofs/20",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/investigation/claims.rs",
+            "read_ranges_as_recorded": [
+              [
+                1040,
+                1080
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/claims.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/investigation/claims.rs",
+              "sha256": "19ecf9355e0b4d4745fc425ac8c9f8f38f238fc9bb89dc91d4c2da28d0ec3c3a",
+              "read_ranges": [
+                [
+                  1040,
+                  1080
+                ]
+              ],
+              "actual_line_count": 1771,
+              "role": "Actual generated_testimony_pipeline call/typed mutation/replay lookup before native016 staging recipient",
+              "mode": "Fresh exact producer-supplement source-body read; only listed ranges, no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/rig/traces.jsonl",
+            "receipt": "RIG-PPS-037",
+            "json_pointer": "/fresh_current_source_reads/14",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/investigation/claims.rs",
+            "read_ranges_as_recorded": [
+              [
+                1040,
+                1080
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/claims.rs",
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/investigation/claims.rs",
+              "sha256": "19ecf9355e0b4d4745fc425ac8c9f8f38f238fc9bb89dc91d4c2da28d0ec3c3a",
+              "read_ranges": [
+                [
+                  1040,
+                  1080
+                ]
+              ],
+              "actual_line_count": 1771,
+              "role": "Actual generated_testimony_pipeline call/typed mutation/replay lookup before native016 staging recipient",
+              "mode": "Fresh exact producer-supplement source-body read; only listed ranges, no execution"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016",
+            "json_pointer": "/source_reads/15",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/investigation/claims.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                1771
+              ]
+            ],
+            "source_context": {
+              "packet_obligation": 16,
+              "assigned_camera_index": 641,
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/claims.rs",
+              "sha256": "19ecf9355e0b4d4745fc425ac8c9f8f38f238fc9bb89dc91d4c2da28d0ec3c3a",
+              "read_ranges": [
+                [
+                  1,
+                  1771
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/investigation/claims.rs",
+              "read_status": "full current frozen body; packet7 shares independently verified identical bytes with packet6",
+              "role": "claim-and-testimony",
+              "disposition": "Fresh typed PipelineInput producer is serialized only to call an internal helper that reparses it (F032). Claims processing and evidence knowledge keep purpose IDs until actual row codecs; F006 covers internal typed cause erasure. Disclosure modes, confidence, revisions, privacy and exact testimony ordering remain.",
+              "trace_refs": [
+                "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016#claim-and-testimony"
+              ],
+              "authority": "Camera716 explicit per-cell reconciliation and whole DB repair authority unchanged"
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": 1342,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1771
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Entire exact claim source consumed944\u2013948. No handwritten trait/codec. Native safe-label/redacted lead mapping, bounded/versioned/idempotent authority, immutable witness/pipeline/testimony provenance, correction/revision knowledge and sharing reducers. Borrowed WitnessReferralProvenance only semantic input, no trait implementation."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Claim authority derivability",
+      "disposition": "Retain exact field subsets and receipt/provenance checks, canonical payload framing, owned versus borrowed construction and private/public mapping. Existing typed codecs reused. Whole-row PartialEq would add deliberately excluded chronology fields; no raw derive replacement. No DB/reducer execution or other-lens clearance."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1125,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/geometry.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

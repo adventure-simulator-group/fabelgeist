@@ -1,0 +1,193 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-252",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs",
+      "sha256": "ea07a5fe31e73d8ee05f8ed554f6bf6f7fa2032d047558e712919625bb90d29f",
+      "actual_EOF": 3450,
+      "actual_compared_ranges": [
+        [
+          1,
+          3450
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/adventuresim-tactical-server/src/player_projection.rs",
+      "sha256": "53a298dded98b5419e757b7b6ae3907346d3e566b5d4210be7329834d2b5e331",
+      "actual_EOF": 3497,
+      "actual_compared_ranges": [
+        [
+          1,
+          3497
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Continuous input and independently repeated action command chronology",
+      "source_ranges": {
+        "player_projection.rs": [
+          [
+            1,
+            335
+          ],
+          [
+            1024,
+            1480
+          ]
+        ]
+      },
+      "disposition": "Full P16 body3450 and all actual PR deltas personally read including fixture tail. Nonfinite look/movement/quickstep reject before state mutation; admitted yaw/pitch canonicalized once, movement bounded native clamp. Extreme finite norm can collapse movement/quickstep direction via overflowing squared magnitude before normalize; no ordinary sized case claimed. Continuous input tick accepts wrap-aware newer only, jump edge consumed deliberately even incapacitated/airborne to prevent stale delayed launch. Posture command sequence consumed before action so rejected old command does not replay; this is explicit current policy, not accidental retry-clock loss. Shared quickstep begins animation and actuator together and then sends DefendIntent to charge; preserve prebegun notification qualification SEGOVB-04-DODGE-REPLAY-WORK-001. Physics fixed-sample time narrowing/saturation remains existing clock family. Partial facing/projection mutation before later observation error remains underlying owners failure-atomicity dependency, not complete transactional update claim."
+    },
+    {
+      "contract": "Durable snapshot projection, enemy scaling and item preparation",
+      "source_ranges": {
+        "player_projection.rs": [
+          [
+            336,
+            906
+          ]
+        ]
+      },
+      "disposition": "Actual raw difficulty saturating_sub/max then bps products and post-admission multiplication of skills/attributes/health may overflow for representable extreme admitted inputs; spawn_admission and canonical snapshot bounds remain next critical dependencies, no ordinary huge character alleged. Zero combat_scale giveshealth1 deliberately, not zero-life defect. Seven finite religion-hour values summed may overflow despite filtering, same computed aggregation discipline, no ordinary source bound proved here. Body/geometry prepared P16 before spawn contrasts PR raw per-item geometry/fallback/BodyMass expect in actual delta. Tactical entity map reserved before edges; duplicate IDs/Empty parent/requirements cardinality admission is helper obligation. All generated stdb fields are ABI adapters, no handwritten bindings or tactical persistence. Shared weight/quantity authenticity connects parent local774:F46 support but no imported04 body coverage."
+    },
+    {
+      "contract": "Reconnect must retain complete prerequisites for transient consequence mutations",
+      "source_ranges": {
+        "player_projection.rs": [
+          [
+            397,
+            486
+          ],
+          [
+            900,
+            1022
+          ],
+          [
+            1690,
+            2000
+          ]
+        ]
+      },
+      "disposition": "New exact source finding saved finding-reconnect-wounds.json: snapshot drops wounds, restore does not insert them, exact consequence query requires both actors have component and condition uses empty fallback. Claim mutation occurs synchronously before deferred rebind and capability rotates after accepted match, preventing duplicate same-frame reuse; expiration skips claimed roots, decrements30s marker, retries leave_mission failure before teardown. Inventory rekeys actor and recomputes caches; old own motion/sample authority fields carried exactly but internal Entity references may require remap policy, no new self-reference defect promoted without exact origin. PendingDefenderResponse also omitted; investigate intended most-recent response reconnect policy separately, no automatic duplicate finding. P16/PR scalar deltas do not fix omitted-state graph. Dump standalone distinct data source/authorization boundary, no current live takeover assumed."
+    },
+    {
+      "contract": "Authoritative motion projection and source fixtures",
+      "source_ranges": {
+        "player_projection.rs": [
+          [
+            1481,
+            1690
+          ],
+          [
+            2001,
+            3450
+          ]
+        ]
+      },
+      "disposition": "Fixed controller input preserves latest accepted complete movement until explicit stop; downed/aim/roll override order explicit. Facing then locomotion then posture may reject in sequence; native position/velocity snapshots direct complete observation aftercollision, no partial snapshot components. Standalone dump binder writes scene then clearsloading/flushed extra posture/pace only on success; native write atomicity not assumed, no returned-error rollback claim. All tiny authored transition/reconnect/input fixtures personally read, none run; reconnect fixture neither creates nor asserts wound retention, so cannot clear new consequence prerequisite loss. Remaining helper scopes are not credited transitively; whole04 incomplete."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-RECONNECT-WOUNDS-001",
+      "classification": "actual source-supported loss of transient operation prerequisites during reconnect; no live reconnect/DB run",
+      "source_variants": [
+        "physical-p16",
+        "pr-working"
+      ],
+      "source_ranges": {
+        "physical-p16:crates/adventuresim-tactical-server/src/player_projection.rs": [
+          [
+            145,
+            180
+          ],
+          [
+            397,
+            486
+          ],
+          [
+            900,
+            954
+          ],
+          [
+            1707,
+            1778
+          ],
+          [
+            1953,
+            1980
+          ]
+        ],
+        "crates/adventuresim-tactical-server/src/combat/consequence.rs": [
+          [
+            15,
+            34
+          ]
+        ],
+        "crates/adventuresim-tactical-server/src/combat/condition.rs": [
+          [
+            5,
+            17
+          ],
+          [
+            49,
+            53
+          ]
+        ],
+        "crates/adventuresim-tactical-server/src/combat.rs": [
+          [
+            208,
+            215
+          ]
+        ]
+      },
+      "trace": "Normal fresh spawn installs combat_projection_state(TacticalWounds,EquipmentActionState). Disconnect snapshots core+motion+physics but neither queries nor stores TacticalWounds; reconnect inserts snapshot into new client, rebinds item ownership then despawns orphan. Player require list and on_player_added do not recreate TacticalWounds. Consequently restored character has no wounds component even if previously unwounded. apply_melee_attack_result queries Limbs/CombatState/TacticalWounds for BOTH attacker and defender with get_many_mut, returns immediately if either missing. Thus a resolved contact involving restored actor skips damage, imbalance, wound and velocity consequences/receipt in this handler. Condition update treats missing wounds as empty, so prior ongoing bleeding source disappears while accumulated blood fraction is retained.",
+      "qualification": [
+        "No live disconnect, damage/bleed runtime trace or DB result was executed. Actual canonical reconnect producer and exact receiver component requirements establish conditional source failure when that successful reconnect path is used.",
+        "This is transient Bevy state retention; storing tick/wound data in SpacetimeDB would violate architecture. Preserve complete transient wound list on snapshot/restore, not default it and erase existing bleeding.",
+        "Source-wide pinned callsite search plus actual Player require list found no independent global wounds insertion; all relevant constructor/restore bodies personally read. Current P16/PR complete textual delta leaves these snapshot fields unchanged.",
+        "Existing reconnect fixture snapshot omits wounds itself and asserts selected transform/name/authority fields; read only, no fixture execution or claim it covers consequences. Distinct local774:F45 durable enemy corpse injury loss."
+      ],
+      "connected_repair": "Restore the complete transient combat-operation prerequisite state across actual snapshot/rebind, with canonical same-action/receiver ownership and exact wound list retained. Review pending response and any remaining transient facets against their declared reconnect policy, without assuming every omission is an independent defect. Preserve claim-before-deferred-rebind duplicate guard and no durable tactical tick state.",
+      "acceptance": "Successful reconnect preserves prior wound list and continued bleeding under the same declared elapsed-time policy; restored actor remains a valid participant in the actual consequence query as attacker and defender. An originally unwounded actor still has required empty component. Source/receiver failures cannot silently yield broadcast contact with no applied consequence. No default reset of retained wounds; no DB persistence workaround."
+    }
+  ],
+  "fresh_dependencies": [
+    {
+      "path": "crates/adventuresim-tactical-server/src/combat/condition.rs",
+      "pin": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "543fe525702b8245d56a704a028a74138144789cf48c888b58704897bb6be7bf",
+      "actual_EOF": 160,
+      "actually_read_ranges": [
+        [
+          1,
+          160
+        ]
+      ],
+      "coverage": "Fresh actual operation prerequisite bodies; no extra original-role credit."
+    },
+    {
+      "path": "crates/adventuresim-tactical-core/src/player.rs",
+      "pin": "039329518e264f19206cf5b0b98d177433f40c17",
+      "sha256": "ebf883ac714ec8f48c9377495da01713b01e9f4ba9e7bd5e4edda78dc320ee68",
+      "actual_EOF": 650,
+      "actually_read_ranges": [
+        [
+          1,
+          50
+        ]
+      ],
+      "coverage": "Fresh actual operation prerequisite bodies; no extra original-role credit."
+    }
+  ],
+  "status": "2 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-tactical-server/src/player_projection/dive_launch.rs"
+}

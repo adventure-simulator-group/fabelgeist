@@ -1,0 +1,132 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-538",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/trim.rs",
+      "sha256": "f6f7a3d774d843fe5c0e7cbf2c1d141aebe44d81c23b715ecb5d098c217aae13",
+      "actual_EOF": 128,
+      "actual_compared_ranges": [
+        [
+          1,
+          128
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/trim/edges.rs",
+      "sha256": "ffdc73a54de37023064d476bba8fbf666fe57f7597a910468c96fa3e9f63b2c7",
+      "actual_EOF": 319,
+      "actual_compared_ranges": [
+        [
+          1,
+          319
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/trim/finish.rs",
+      "sha256": "22fcc26e5e46b91b4d5da5b9fff2ffc438e06adbf7d7164fd2c7b0c0334fc04a",
+      "actual_EOF": 146,
+      "actual_compared_ranges": [
+        [
+          1,
+          146
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/trim/split.rs",
+      "sha256": "44aafa5468b01108bee89840514846df79aa2075ea6c2e154b21d93cee321b9a",
+      "actual_EOF": 330,
+      "actual_compared_ranges": [
+        [
+          1,
+          330
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "pr-working:crates/fabelgeist-armor/src/trim/tests.rs",
+      "sha256": "b40b7397f4677e6f9e6a7d9c791bda22cabf537d0802bee09fe75bfa3af21459",
+      "actual_EOF": 276,
+      "actual_compared_ranges": [
+        [
+          1,
+          276
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Closed rim computed period/coordinate finiteness",
+      "finding": "SEGOVB-04-TRIM-PERIOD-OVERFLOW-CANDIDATE-001",
+      "evidence": "An ordinary finite closed plate rim with positive length and TrimBand {width:.03, period:f32::from_bits(1)} passes public validate. push_chain computes length/period as Inf, round/max preserves Inf, periods*period remains Inf; scale/closure become Inf and first along0*Inf becomes NaN. nearest propagates rescaled along/closure and Split.finish publishes coordinates without finite admission. Source arithmetic proof; no execution.",
+      "qualification": "Public tiny custom-period API case. Normal validated Trim material uses bounded Engraving tiles and ordinary period, excluding this witness. No ordinary authored failure or GPU output claimed; archive exact alias pending, no global unique count."
+    },
+    {
+      "contract": "Trim failure staging and aligned data",
+      "evidence": "trimmed consumes self; Split local push_vertex can mutate geometry before fallible joint push, but Err drops the owned armor before publication. No retained partial mutation defect. finish reorders positions/normals/UV/skin/all3morph arrays and trim coordinates with one order then rewrites triangle indices/components; source alignment admission needed before direct indexing. grids intentionally cleared after trim, preserving construct-before-trim policy."
+    },
+    {
+      "contract": "Rim and geometric work qualification",
+      "evidence": "Weld1micrometre and THICKEST_PLATE.025m are explicit geometric policies; Rims buckets spans before any work cap and native saturating coordinate conversions remain large-geometry contract questions, no ordinary failure proof. Ordinary positive Trim width.003..06, validated material tile bounds make period and cell origin finite. narrowed invalid raw width does not validate returned result; actual Construction.trim_on uses positive bounded widest_trim."
+    },
+    {
+      "contract": "Existing fixtures inspected",
+      "evidence": "Entire trim fixtures read for closed shell, width tolerances, seam coordinates, skin/morph and component remap. Existing tests use ordinary period.05/.3 and do not cover subnormal period. They were not executed."
+    }
+  ],
+  "findings": [
+    {
+      "id": "SEGOVB-04-TRIM-PERIOD-OVERFLOW-CANDIDATE-001",
+      "sources": [
+        {
+          "source_id": "pr-working:crates/fabelgeist-armor/src/trim.rs",
+          "sha256": "f6f7a3d774d843fe5c0e7cbf2c1d141aebe44d81c23b715ecb5d098c217aae13",
+          "ranges": [
+            [
+              70,
+              98
+            ]
+          ]
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-armor/src/trim/edges.rs",
+          "sha256": "ffdc73a54de37023064d476bba8fbf666fe57f7597a910468c96fa3e9f63b2c7",
+          "ranges": [
+            [
+              117,
+              158
+            ]
+          ]
+        },
+        {
+          "source_id": "pr-working:crates/fabelgeist-armor/src/trim/split.rs",
+          "sha256": "44aafa5468b01108bee89840514846df79aa2075ea6c2e154b21d93cee321b9a",
+          "ranges": [
+            [
+              269,
+              297
+            ]
+          ]
+        }
+      ],
+      "counterexample": "An ordinary finite closed plate rim with positive length and TrimBand {width:.03, period:f32::from_bits(1)} passes public validate. push_chain computes length/period as Inf, round/max preserves Inf, periods*period remains Inf; scale/closure become Inf and first along0*Inf becomes NaN. nearest propagates rescaled along/closure and Split.finish publishes coordinates without finite admission. Source arithmetic proof; no execution.",
+      "qualification": "Public tiny custom-period API case. Normal validated Trim material uses bounded Engraving tiles and ordinary period, excluding this witness. No ordinary authored failure or GPU output claimed; archive exact alias pending, no global unique count.",
+      "connected_contract": "Closed-rim repeat count and rescaling must have explicit representable arithmetic/rejection policy before publishing finite trim coordinates. Preserve positive physical periods rather than inventing arbitrary physical lower bound; robust wider arithmetic plus admission or structured error is valid.",
+      "acceptance": "Finite accepted coordinate/closure results or named failure; ordinary period.05 closed seam, continuous unwrap, skins/morphs/components and rejection staging preserved."
+    }
+  ],
+  "fresh_dependencies": [],
+  "status": "5 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "pr-working:crates/fabelgeist-bvh/src/aabb.rs"
+}

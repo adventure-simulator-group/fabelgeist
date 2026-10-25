@@ -1,0 +1,100 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-424",
+  "at": "2026-10-25T15:31:01.162249+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 819,
+      "source_id": "pr-working:crates/adventuresim-character-creator/src/main.rs",
+      "sha256": "41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9",
+      "actual_EOF": 667,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-character-creator/src/main.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-character-creator/src/main.rs",
+        "owner": "rig",
+        "sha256": "41961ead92363687fdd3286fe6e6d55a11fb00fc67c53a64cf5dada05d4090b9",
+        "base_sha256": "31040d06aaf28711632268409163f463d038c1dbdb915c8289d1dcbf704810c0",
+        "state": "modified",
+        "bytes": 24183,
+        "audit_owner": "rig",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [
+          {
+            "shard": "rig",
+            "record": "wave-01/audit-producer-propagation/rig/sources.json",
+            "ranges": [
+              [
+                1,
+                667
+              ]
+            ],
+            "source_read_status": null,
+            "trace_refs": [
+              "RIG-MAIN-01"
+            ]
+          }
+        ],
+        "owner_contract_proofs": [
+          {
+            "supplier": "rig",
+            "record": "wave-01/audit-existing-type-owners/rig/coverage.jsonl",
+            "row": 46,
+            "read_ranges": [
+              [
+                1,
+                667
+              ]
+            ],
+            "contract_refs": [
+              "RIG-OWNER-LOD-006",
+              "RIG-OWNER-CREATOR-010"
+            ],
+            "read_status": "full_current_lens_source_read",
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-character-creator/src/main.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "rig"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          667
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [
+        "BodyModel/Studio Resource",
+        "CharacterMesh Component Clone"
+      ],
+      "absence_basis": "Full binary root personally consumed: module declarations, Studio argument policy, checked recipe/model load/write/export flow, Bevy schedule/plugin composition, native reload/coverage/mount direction functions, then geometry/integration fixture diagnostics. No handwritten trait implementation or manual Serialize/Deserialize. Dynamic json! fixture diagnostics are not handwritten Serde boilerplate. Source fixtures only read, never executed; child/includes not credited."
+    }
+  ],
+  "groups": [
+    {
+      "disposition": "NO_HANDWRITTEN_TRAIT_OR_CODEC",
+      "contracts": "Retain native argument-dependent construction and effectful file/model/runtime logic; framework derives already mechanical."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 820,
+    "source_id": "pr-working:crates/adventuresim-character-creator/src/model_controls.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

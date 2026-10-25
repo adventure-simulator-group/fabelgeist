@@ -1,0 +1,28 @@
+{
+  "id": "SEGOVB-04-GRASS-TOPOLOGY-ARITHMETIC-CANDIDATE-001",
+  "kind": "admitted custom configuration operation extension, archive canonical pending",
+  "sources": [
+    "grass.rs:247-309 native grid square and mesh construction",
+    "instanced_grass.rs:276-328 usize-to-i32 side and side-1",
+    "config.rs:373-379 nonzero-only topology admission"
+  ],
+  "counterexamples": [
+    "On 32-bit WASM native_blades_per_tuft_side=65536 is positive and usize-representable; grid_side*grid_side overflows usize before blade generation (panic with overflow checks, wraps to zero in unchecked release arithmetic). No huge vertex allocation required to reach this first bad operation.",
+    "native_tufts_per_cell_side=2147483648 is admitted on32/64-bit targets, cast to i32::MIN; when an allowed grass cell is processed side-1 overflows before tuft loop (or wraps in unchecked release), and negative side emits no tufts. Actual allowed scene/ordinary grass supports this API-conditional route, no extreme config installed."
+  ],
+  "qualifications": [
+    "Frozen shipped tiers use tuft counts12/12/4/2 and blade sides8/6/5/4; none trigger these extreme routes.",
+    "No browser/native execution, OOM, hang or observed missing sward asserted.",
+    "Connect to existing admission/config work-budget findings if exact canonical semantics match; do not claim new unique count from operation routes.",
+    "Acceptable fix may reject unsupported completed topology/casts before mutation; no requirement for infallible arbitrary-size mesh generation."
+  ],
+  "dependencies": [
+    "canonical topology/work budget policy",
+    "existing03 config findings",
+    "mesh u32 index and allocation capacities"
+  ],
+  "acceptance": [
+    "All admitted tier dimensions fit subsequent signed lattice and checked size/index arithmetic or reject before generation/partial publication.",
+    "Current tier geometries, deterministic root/species streams, crossfade positions and authored mesh metadata preserved."
+  ]
+}

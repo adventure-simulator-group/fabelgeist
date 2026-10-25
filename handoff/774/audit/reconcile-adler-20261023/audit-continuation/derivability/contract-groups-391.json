@@ -1,0 +1,28 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-391",
+  "at": "2026-10-25T15:14:26.691774+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 767,
+  "source_id": "pr-working:crates/adventuresim-character-creator/src/export.rs",
+  "sha256": "ee364aaa0d304eb120d6f91216c6da3e186f5e20809e28ffa74f5864e568d72d",
+  "actual_compared_ranges": [
+    [
+      731,
+      970
+    ]
+  ],
+  "cumulative_ranges": [
+    [
+      1,
+      970
+    ]
+  ],
+  "trait_inventory": [],
+  "analysis": "Fresh731\u2013910 finishes checked GLB export: native joint attachment hierarchy, inverse matrices, accessor/index/material/cohort values, borrowed child writer, ordered skeleton/morph/assembly/texture finalization and GLB write. json! declarations are runtime schema/native index/optional view assembly, not manual Serialize impls; no unneeded trait introduced for cleanup. Tests912\u2013970 native helper partial only, no manual trait in slice; remaining971\u20131841 unread.",
+  "first_unfinished": {
+    "scope_index": 767,
+    "line": 971
+  },
+  "execution": "none"
+}

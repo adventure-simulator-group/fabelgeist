@@ -1,0 +1,132 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-192",
+  "at": "2026-10-25T13:27:36.019470+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 375,
+      "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/defense.rs",
+      "sha256": "4eca0fbb28b320a2c62d9351bc7ce4331d2b0d011abe8ad74a6f10b62071884e",
+      "actual_EOF": 287,
+      "requested_registration": {
+        "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/defense.rs",
+        "snapshot": "physical-p16",
+        "path": "SNAPSHOTS\\p16\\crates\\adventuresim-tactical-server\\src\\bot\\defense.rs",
+        "sha256": "4eca0fbb28b320a2c62d9351bc7ce4331d2b0d011abe8ad74a6f10b62071884e",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 287,
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-TACTICAL-RECEIVERS-044",
+            "json_pointer": "/additional_actual_source_proofs/18",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-tactical-server/src/bot/defense.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                287
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/defense.rs",
+              "sha256": "4eca0fbb28b320a2c62d9351bc7ce4331d2b0d011abe8ad74a6f10b62071884e",
+              "actual_line_count": 287,
+              "read_ranges": [
+                [
+                  1,
+                  287
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-server/src/bot/defense.rs",
+              "method": "Fresh current material body; PR/P16 paired attack_start/action_clock/offense source plus complete exact delta, duplicate defense bytes compared. Bounded ranges stay bounded; incidental partial fixture prefixes do not imply whole fixtures."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-COMBAT-RECEIVER-CLOSURE-020",
+            "json_pointer": "/source_reads/18",
+            "source_id_as_recorded": "physical-p16:crates/adventuresim-tactical-server/src/bot/defense.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                287
+              ]
+            ],
+            "source_context": {
+              "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/defense.rs",
+              "sha256": "4eca0fbb28b320a2c62d9351bc7ce4331d2b0d011abe8ad74a6f10b62071884e",
+              "actual_line_count": 287,
+              "read_ranges": [
+                [
+                  1,
+                  287
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/physical-p16/crates/adventuresim-tactical-server/src/bot/defense.rs",
+              "method": "Fresh current material body; PR/P16 paired attack_start/action_clock/offense source plus complete exact delta, duplicate defense bytes compared. Bounded ranges stay bounded; incidental partial fixture prefixes do not imply whole fixtures."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          287
+        ]
+      ],
+      "trait_inventory": [
+        {
+          "trait": "Default",
+          "type": "DefenseChances",
+          "lines": [
+            30,
+            34
+          ],
+          "disposition": "KEEP authored dodge chance0.2 rather than fieldwise0."
+        },
+        {
+          "trait": "Default",
+          "type": "ReactiveDefenseAi",
+          "lines": [
+            42,
+            48
+          ],
+          "disposition": "KEEP requires_facing=true rather than fieldwisefalse."
+        }
+      ],
+      "existing_derives": "Defense components already derive Component/Reflect/Debug/Clone/Copy/PartialEq; pending reaction Component and borrowed attempt carrier have no handmade structural traits.",
+      "absence_basis": "Full body read; reaction selection, facing check, config/anticipatory delay and native checked timer conversion are semantic, not trait/wire boilerplate."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Reactive defense authored defaults",
+      "disposition": "Retain two policy defaults; no mechanical serde/structural candidate.",
+      "acceptance": "Preserve facing and chance values, query/borrow lifetimes and native elapsed/duration error propagation."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 376,
+    "source_id": "physical-p16:crates/adventuresim-tactical-server/src/bot/offense.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

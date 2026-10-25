@@ -1,0 +1,199 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-967",
+  "at": "2026-10-25T17:23:41.070643+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1134,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/bestiary_and_corrections.rs",
+      "sha256": "4237f3b685e3eb38b41d2eabd6b64c89542d97923b84d8b55b7a3f63e8bf5f70",
+      "actual_EOF": 586,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/bestiary_and_corrections.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\investigation\\tests\\bestiary_and_corrections.rs",
+        "sha256": "4237f3b685e3eb38b41d2eabd6b64c89542d97923b84d8b55b7a3f63e8bf5f70",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 586,
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CASE-RECEIVERS-029",
+            "json_pointer": "/related_current_sources/16",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/bestiary_and_corrections.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                110
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/bestiary_and_corrections.rs",
+              "sha256": "4237f3b685e3eb38b41d2eabd6b64c89542d97923b84d8b55b7a3f63e8bf5f70",
+              "read_ranges": [
+                [
+                  1,
+                  110
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/investigation/tests/bestiary_and_corrections.rs",
+              "scope": "Actual existing support helper fixture and unchanged adjacent inspection fixtures; only bounded body source proof, no full586 claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016",
+            "json_pointer": "/related_current_reads/16",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/bestiary_and_corrections.rs",
+            "read_ranges_as_recorded": [
+              [
+                1,
+                110
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/bestiary_and_corrections.rs",
+              "sha256": "4237f3b685e3eb38b41d2eabd6b64c89542d97923b84d8b55b7a3f63e8bf5f70",
+              "read_ranges": [
+                [
+                  1,
+                  110
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/investigation/tests/bestiary_and_corrections.rs",
+              "scope": "Actual existing support helper fixture and unchanged adjacent inspection fixtures; only bounded body source proof, no full586 claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          586
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "All bestiary/correction fixtures and helper functions consumed. No handwritten trait/type codec; failed_attempt183\u2013206 constructs intentional fixture JSON text with variable success, not a production serialization implementation. Existing PersistedBestiaryLoreResult Serde used by fixture. Preserve exact observer-safe lore atomicity, failed observation, tracking/correction/replay assertions; no execution."
+    },
+    {
+      "scope_index": 1135,
+      "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/projection_and_referrals.rs",
+      "sha256": "c66f2f103d7c9e06d5426737e2d87279cd43f0160b834292664ddaa3e55c8390",
+      "actual_EOF": 648,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/projection_and_referrals.rs",
+        "snapshot": "pr-working",
+        "path": "SNAPSHOTS\\pr-working\\crates\\adventuresim-stdb-module\\src\\investigation\\tests\\projection_and_referrals.rs",
+        "sha256": "c66f2f103d7c9e06d5426737e2d87279cd43f0160b834292664ddaa3e55c8390",
+        "scope_kind": "materially_reached_producer_contract",
+        "audit_owner": "camera",
+        "audit_assignment_limits": "Read-only audit-source assignment; authoritative whole-function repair claims remain separate. No transfer of code ownership.",
+        "scope_limits": "Only explicit materially reached contract ranges and their necessary signature/recipient dependencies. No implied full-file or other-lens coverage.",
+        "locator_proof": "continuation/rig/source-scope-reconciliation-044.json",
+        "actual_line_count": 648,
+        "producer_reached_contract_observations": [
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/camera/traces.jsonl",
+            "receipt": "CAM-PPS-CASE-RECEIVERS-029",
+            "json_pointer": "/related_current_sources/17",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/projection_and_referrals.rs",
+            "read_ranges_as_recorded": [
+              [
+                530,
+                648
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/projection_and_referrals.rs",
+              "sha256": "c66f2f103d7c9e06d5426737e2d87279cd43f0160b834292664ddaa3e55c8390",
+              "read_ranges": [
+                [
+                  530,
+                  648
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/investigation/tests/projection_and_referrals.rs",
+              "scope": "Full reached existing testimony fixture561\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153648 with original two families, seeds, large identities, input count and error assertions; adjacent prefix partial, no full648 claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          },
+          {
+            "record": "records/final-acceptance-20261021/wave-01/producer-supplement-after-owner/native/traces.jsonl",
+            "receipt": "NATIVE-PS-CAMERA-INVESTIGATION-CASE-PACKET-016",
+            "json_pointer": "/related_current_reads/17",
+            "source_id_as_recorded": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/projection_and_referrals.rs",
+            "read_ranges_as_recorded": [
+              [
+                530,
+                648
+              ]
+            ],
+            "source_context": {
+              "source_id": "pr-working:crates/adventuresim-stdb-module/src/investigation/tests/projection_and_referrals.rs",
+              "sha256": "c66f2f103d7c9e06d5426737e2d87279cd43f0160b834292664ddaa3e55c8390",
+              "read_ranges": [
+                [
+                  530,
+                  648
+                ]
+              ],
+              "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-stdb-module/src/investigation/tests/projection_and_referrals.rs",
+              "scope": "Full reached existing testimony fixture561\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153648 with original two families, seeds, large identities, input count and error assertions; adjacent prefix partial, no full648 claim."
+            },
+            "status": "producer_role_accounted_with_findings; owner-fit_delta_pending"
+          }
+        ],
+        "producer_inventory_accounting": {
+          "initial946_cell": false,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": true,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        },
+        "owner_fit_delta_status": "incomplete_explicit_contract_comparison_required; prior_frozen_role_proofs_preserved"
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          648
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": [],
+      "absence_basis": "Full projection/referral fixtures consumed. No handwritten trait/type codec; source-text assertions, existing Serde calls/json! and semantic fixture construction only. Explicit witness, generated manifest provenance, bounded progress and observer-scope checks cannot be replaced by trait derives. Referenced runtime bodies not newly credited."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Investigation bestiary, correction and referral fixtures",
+      "disposition": "No handwritten trait boilerplate; preserve explicit semantic fixtures and existing codec calls. No tests executed or other-lens verdict transferred."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1136,
+    "source_id": "pr-working:crates/adventuresim-stdb-module/src/item.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

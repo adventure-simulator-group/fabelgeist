@@ -1,0 +1,98 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1294",
+  "at": "2026-10-25T18:23:40.110190+00:00",
+  "lens": "10 audit-derivability",
+  "source_roles": [
+    {
+      "scope_index": 1356,
+      "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural.rs",
+      "sha256": "8b82644fdbb52e00c1b40a850239bb273c956668c89805efae19800b35f42487",
+      "actual_EOF": 1813,
+      "requested_registration": {
+        "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural.rs",
+        "snapshot": "pr-working",
+        "path": "crates/adventuresim-tactical-client/src/animation/procedural.rs",
+        "owner": "native",
+        "sha256": "8b82644fdbb52e00c1b40a850239bb273c956668c89805efae19800b35f42487",
+        "base_sha256": "344e229759ee5afad015b4ff72ecf35eb8cc3b83bf3cfdb6df805db6ede33cc0",
+        "state": "modified",
+        "bytes": 68672,
+        "audit_owner": "native",
+        "scope_kind": "frozen_requested_change",
+        "producer_source_proof": [],
+        "owner_contract_proofs": [
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 187,
+            "read_ranges": [
+              [
+                1,
+                1813
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-PROCEDURAL-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/procedural.rs"
+          },
+          {
+            "supplier": "native",
+            "record": "wave-01/audit-existing-type-owners/native/coverage.jsonl",
+            "row": 529,
+            "read_ranges": [
+              [
+                1,
+                1813
+              ]
+            ],
+            "contract_refs": [
+              "NATIVE-OWNER-PROCEDURAL-001"
+            ],
+            "read_status": null,
+            "resolved_path": "SNAPSHOTS/pr-working/crates/adventuresim-tactical-client/src/animation/procedural.rs"
+          }
+        ],
+        "current_owner_suppliers": [
+          "native"
+        ],
+        "audit_assignment_limits": "Audit-source responsibility only; exact repair function ownership remains authoritative in existing claim files. Mixed shared functions consume supplier source proofs; no ownership transfer.",
+        "scope_limits": "Original changed variants retain full requested scope. Reached unchanged/foreign sources require exact materially reached contracts/ranges and newly reached signature dependencies; no unrelated whole-file/SDK exemption or implied coverage.",
+        "producer_inventory_accounting": {
+          "initial946_cell": true,
+          "frozen1650_supplement_index": null,
+          "new158_material_role_packet": false,
+          "expanded36_context_variant": false,
+          "status": "accounted_for_exact_current_scoped_contracts_with_findings_preserved",
+          "authority": "Combined original producer inventory, completed frozen supplier queues and personally reconciled exact role packets in producer_inventory_evidence. No ownership or later-lens credit."
+        }
+      },
+      "method": "Every stated exact material range personally consumed and analyzed for lens10; source-backed trait inventory/absence only, no other-lens or search-only coverage.",
+      "actual_compared_ranges": [
+        [
+          1,
+          1813
+        ]
+      ],
+      "trait_inventory": [],
+      "existing_derives": "ProceduralLookState/JumpAnticipationState Component Debug Clone Copy; FixedTickPoseCache Resource Debug Default; MirrorBone Clone Copy; BoneSnapshot Clone Copy Debug.",
+      "absence_basis": "Entire facade/native body and fixtures personally consumed: current fixed-tick cache, look/jump/mirror/height/guarded yaw/landing solver and context/error/state helpers. No handwritten trait/codec. Fixture app/system operations were source only. Semantic classification/coordinate transformations and selected partial comparisons are not whole structural trait implementations."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Mechanical traits already derive; explicit native procedural state/coordinate/current-body policy remains necessary.",
+      "disposition": "NO_HANDWRITTEN_TRAIT_OR_CODEC",
+      "qualification": "No app/test/asset/system execution and no child module source or other-lens correctness coverage inferred."
+    }
+  ],
+  "findings": [],
+  "first_unfinished": {
+    "dimension": "original",
+    "scope_index": 1357,
+    "source_id": "pr-working:crates/adventuresim-tactical-client/src/animation/procedural/body_response.rs"
+  },
+  "execution": "none",
+  "status": "Bounded actual lens10 discovery WITH_QUALIFICATIONS; full lens remains incomplete."
+}

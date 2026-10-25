@@ -1,0 +1,48 @@
+{
+  "id": "CONT07-CONTRACT-623",
+  "at": "2026-10-24T00:45:39.798945+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 2716,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/state/turn_deadline.rs",
+      "sha256": "bb92ce4b2c2252c6c68cc37955cba5f4d2c90ccdab05a4456a632a7f4adadc4e",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/animation/state/turn_deadline.rs",
+      "actual_EOF": 432,
+      "ranges": [
+        [
+          1,
+          208
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 2717,
+      "source_id": "physical-p16:crates/adventuresim-tactical-core/src/animation/state/downed_facing.rs",
+      "sha256": "a9750618561952fe5915714dea2b3d942edf076b37f122e4c7518920255d7d63",
+      "origin": "git:039329518e264f19206cf5b0b98d177433f40c17:crates/adventuresim-tactical-core/src/animation/state/downed_facing.rs",
+      "actual_EOF": 353,
+      "ranges": [
+        [
+          1,
+          325
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "BodyFacingTurn retains policy operands (speed, positivehalfturn duration, or deadline angle/duration), rather than separately storing derived rate. Complete native quotient\u2192elapsed product\u2192pi cap intentionally permits transient rate infinity; it is not an admitted cached speed. Configured wrappers read installed config; controller/root/body forward conventions explicitly differ and use one native yaw adapter.",
+    "DownedFacingState separates target sticky sector, continuous unwrapped interpolation coordinate and last observed lateral motion. Body contact parity updates only at actual whole-contact boundary. These are independent commanded/current/history facts, so a target/current difference during turn is intentional. Wire normalization is deliberately a different raw observation boundary from strict scalar constructors. P16 held/released and tie parity policy reads current transition config once for selection; no duplicated writable discrete sector cache outside private state identified here. Large-coordinate arithmetic/saturation needs actual operation/admission finding, not a category-only redundant-authority claim."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 2718,
+    "start_line": 1
+  }
+}

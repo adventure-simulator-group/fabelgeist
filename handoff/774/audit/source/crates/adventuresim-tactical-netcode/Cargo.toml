@@ -1,0 +1,31 @@
+[package]
+name = "adventuresim-tactical-netcode"
+description = "Fabelgeist: Server/Client netcode library"
+version.workspace = true
+edition.workspace = true
+repository.workspace = true
+license.workspace = true
+
+[features]
+default = []
+server = ["aeronet_replicon/server", "aeronet_websocket/server"]
+client = ["aeronet_replicon/client", "aeronet_websocket/client"]
+
+[dependencies]
+adventuresim-core.workspace = true
+adventuresim-tactical-core.workspace = true
+aeronet.workspace = true
+aeronet_replicon.workspace = true
+aeronet_websocket.workspace = true
+bevy_replicon.workspace = true
+bevy_enhanced_input.workspace = true
+bevy.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+
+[lints]
+workspace = true
+
+[dev-dependencies]
+fabelgeist-determinism.workspace = true
+adventuresim-building-generator.workspace = true

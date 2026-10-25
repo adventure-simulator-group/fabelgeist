@@ -1,0 +1,90 @@
+{
+  "id": "SEGOVB-INITIAL04-CONTRACT-603",
+  "lens": "audit-invariant-operations",
+  "source_roles": [
+    {
+      "source_id": "physical-p16:crates/adventuresim-building-generator/src/windows/spec.rs",
+      "sha256": "eb5e21dfb8d7915e6e7a3f3c39ee3ee3e9f0a91b5c3604972180918ca488234b",
+      "actual_EOF": 147,
+      "actual_compared_ranges": [
+        [
+          1,
+          147
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/animation/procedural/body_values.rs",
+      "sha256": "ac32044bdad9c67748eefca7b1b7db59a7eed439e3182af7581833f49076750b",
+      "actual_EOF": 211,
+      "actual_compared_ranges": [
+        [
+          1,
+          211
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/presentation/building_closures.rs",
+      "sha256": "af2c9b3d3279b11ed2414d2f698f3c3eeae0d7f71ffff09fd4cffc894826bfbb",
+      "actual_EOF": 150,
+      "actual_compared_ranges": [
+        [
+          1,
+          150
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/presentation/buildings/materials.rs",
+      "sha256": "b40a4b3063040003cdd4e0cfee6573ce1e51f131dde1d14cf4dbf25c13295916",
+      "actual_EOF": 568,
+      "actual_compared_ranges": [
+        [
+          1,
+          568
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    },
+    {
+      "source_id": "physical-p16:crates/adventuresim-tactical-client/src/presentation/closure_meshes.rs",
+      "sha256": "39104be92a09f4e09bc38db7353d77a82f5fe5457067c9c6c08da3d88a46e41f",
+      "actual_EOF": 148,
+      "actual_compared_ranges": [
+        [
+          1,
+          148
+        ]
+      ],
+      "method": "Complete exact source body personally read and analyzed under lens04; any stated counterpart textual deltas personally consumed. No hash-only coverage."
+    }
+  ],
+  "groups": [
+    {
+      "contract": "Window serialized projection and body response computed leaves",
+      "evidence": "Whole147+211 read. Nativebar/window serializedhelper individuallyadmits Fpoints/positiveleaf/nonnnegativebar/extents/directions/radians withsourceIDs; doesnotclaiminward swingon arbitrarydecode. BodyAngle fallibleallscales/clamps, planar squared overflowchecked, vectorresponse summednormfinite beforecap, finalsigned angles readmitted.",
+      "qualifications": "Validstructural rawdomain leaves do notprove frame/pivot semantic aggregate. Bodyresponse rejects overflowbeforepublishing; maximumsquared overflow harmless when responsefinite norm<=f32MAX and magnitudehuge, no false needuniversal intermediatefinite rule.",
+      "acceptance": "Preserve dimensional roles/fullsourceidentity and concrete nativeboundaries without blanketpositive/zero ban."
+    },
+    {
+      "contract": "Closure capability projection, meshcache and building materials",
+      "evidence": "Full150+568+148lines read. Facade membership toggles visibilityrange onlywhenstatechanges, allchildbatches sameopening; no transformmutation. Cache keys fullf32bits bypositiveLeafDimensions, separatekindmaps; window compile completes beforeVacantinsert, nativeAssets population fromsuccessfulbatches. Appearance8variants matchesALLorder; rngindex100 exhaustivebins; bytepalette sums <=510 divided510; positivefixed references usedforlinear tint and tileUV ratio.",
+      "qualifications": [
+        "Sourcefixtures readnotrun; noGPU/material/render acceptance. Unit/fullHDR colorpolicy remains; targetbytecolorsbounded so prior rigMAXcoloroverflow witness not transferred here.",
+        "Missingbuilding invisibility sync leavesoldrange; actualunload ownership requirement is separate, no wholeviewportlifecyclefailure established bymissingbranch.",
+        "Cachedmeshassets survive removedinstances byexplicitresource; boundedcachelifetime/capability policy separate from arithmetic guarantee. Door nativeCuboid assetport usescheckedpositiveextents but not universalallf32 mesh overflowproof."
+      ],
+      "acceptance": "Preserve all leaf materialparts, independentinstance transforms, exactbit-key reuse and continuousdetail/facaderange; no texturepackedRthickness inference where actualStandardMaterial usesnominalscalar."
+    }
+  ],
+  "findings": [],
+  "fresh_dependencies": [],
+  "status": "5 original roles personally analyzed; whole04 remains incomplete.",
+  "source_edits": false,
+  "project_execution": "none",
+  "first_unfinished": "physical-p16:crates/adventuresim-tactical-client/src/presentation/doors.rs"
+}

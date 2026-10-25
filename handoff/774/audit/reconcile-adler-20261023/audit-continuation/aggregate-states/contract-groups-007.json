@@ -1,0 +1,61 @@
+{
+  "id": "SEGO-INITIAL05-GROUP-007",
+  "at": "2026-10-24T02:38:52.187130+00:00",
+  "lens": "audit-aggregate-states",
+  "source_members": [
+    {
+      "scope_index": 996,
+      "source_id": "pr-working:crates/adventuresim-core/src/skill.rs",
+      "sha256": "8e728cfbf635da12652b9efd7017da057525b5f483756483a21b85a5aa700f9c",
+      "personally_read_ranges": [
+        [
+          1,
+          1165
+        ]
+      ],
+      "inherited_partial_proof": "../../audit/continuation/native/initial05-aggregate-states/contract-groups-227.json",
+      "additional_range_completion": [
+        [
+          188,
+          689
+        ]
+      ],
+      "count_qualification": "An already compared source identity; closes missing full-file fixture/declaration ranges and adds current relationship evidence without increasing distinct-role count."
+    }
+  ],
+  "groups": [
+    {
+      "relationship": "Governing aptitude definition and anatomical weights",
+      "trace": "Private constructor requires integer percentages sum100. All Skill variants map to fixed coherent definitions and canonical limb weights; existing fixtures inspect all definitions. Healthy raw aptitude controls learning speed and cap, while actual injury/armor/condition affect performance separately. Surgery remains a mental skill despite arm-agility learning contribution. No external arbitrary weighted constructor or added limb injury penalty is inferred."
+    },
+    {
+      "relationship": "Real training budget, retained effective hours and accepted/excess partition",
+      "trace": "Positive finite real hours enter multiplier/cap calculation. Existing hours above a lowered aptitude cap are retained, and the gain splits at the same cap. The language and skill cap policies differ deliberately. NATIVE-INITIAL05-F053 is exact shared overflow witness: MAX finite budget and aptitude5 yield gainInf, acceptedInf and excessNaN for direct training, while language retains finite accepted but Inf excess. No ordinary elapsed budget nearMAX is shown."
+    },
+    {
+      "relationship": "Finite rank and unbounded asymptote",
+      "trace": "hours_for_rank5 represents no finite hours boundary. This must become an explicit unbounded ceiling state, not a rejected rank or accidental nonfinite stored-hours value. Native mathematical threshold behavior is distinct from an admitted retained training quantity. Public TrainingGain fields otherwise permit independently inconsistent partitions; actual accepted operations need atomic admission before mutation."
+    },
+    {
+      "relationship": "Skill transfer and checks",
+      "trace": "Transfer reads direct source hours in one nonrecursive pass. Trained targets require direct investment and cap transfer by direct hours; intuitive targets may gain from related skills without direct study. Transfer is derived and never persisted by this trait. Check then caps by aptitude and applies the intentional head/limb, armor and condition factors. Same-character membership across arbitrary trait providers remains caller authority; trait bounds alone do not prove it."
+    },
+    {
+      "relationship": "Existing acceptance fixtures",
+      "trace": "All existing source fixtures were read, including missing188-689. They cover percentage/limb sums, aptitude scales, inverse cap and latent hours, realized excess, surgery classification, zero aptitude, language partial-cap conservation and bulk/chunk behavior, one-pass correlations and terrain/craft symmetry. They were not executed and do not cover the MAX budget witness."
+    }
+  ],
+  "archive_aliases": [
+    {
+      "id": "NATIVE-INITIAL05-F053",
+      "source": "audit/continuation/native/initial05-aggregate-states/findings.jsonl#54",
+      "relationship": "Exact training arithmetic/retained partition defect; full-file context and fixtures strengthen existing finding, no duplicate."
+    }
+  ],
+  "connected_repair": "Use canonical real/effective hour leaves, an explicit finite/unbounded training ceiling, and checked or widened gain partition before committing stored hours. Coordinate shared training/language/morale consumers. Preserve positive-only training, zero aptitude, latent hours, operation order and authored transfer policy; no silent zero fallback for an invalid newly computed result.",
+  "acceptance": "Every accepted operation returns a coherent representable partition and retained quantity, or a typed failure before mutation; rank5 remains an explicit valid unbounded ceiling. Existing tests only.",
+  "new_unique_findings": [],
+  "discovery": "With inherited findings; full lens incomplete",
+  "repair": "not started",
+  "validation": "not run"
+}

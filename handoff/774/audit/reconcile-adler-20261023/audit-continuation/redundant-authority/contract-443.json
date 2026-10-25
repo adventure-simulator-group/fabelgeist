@@ -1,0 +1,107 @@
+{
+  "id": "CONT07-CONTRACT-443",
+  "at": "2026-10-23T21:57:28.033846+00:00",
+  "lens": "audit-redundant-authority",
+  "sources": [
+    {
+      "scope_index": 1951,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/refinement.rs",
+      "sha256": "c8a815b0fa38e2129824d16959c687cc19518f35c40225d214b8da63c9ecc479",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/refinement.rs",
+      "actual_EOF": 346,
+      "ranges": [
+        [
+          1,
+          346
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1952,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/refinement/road.rs",
+      "sha256": "26635ffc6ea95de6e83b102b0bde2feb3cbced426ce746b8e16118abab9f4662",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/refinement/road.rs",
+      "actual_EOF": 60,
+      "ranges": [
+        [
+          1,
+          60
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1953,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/refinement/road/tests.rs",
+      "sha256": "8cc0d5b3274e48cdd009c4542d066bc186465d1a5787d53adcc9afdd320fd2e7",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/refinement/road/tests.rs",
+      "actual_EOF": 32,
+      "ranges": [
+        [
+          1,
+          32
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1954,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/rock_recipe.rs",
+      "sha256": "93b82b73cb6f4f9c0501c47b0d15f1be447ab434585eb6bbb1ae6af22db8b40c",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/rock_recipe.rs",
+      "actual_EOF": 39,
+      "ranges": [
+        [
+          1,
+          39
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1955,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/rock_streams.rs",
+      "sha256": "205990ee005c5d1990c0527ec632f8929a4cc10aa44cde11498ade7a4dc974a3",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/rock_streams.rs",
+      "actual_EOF": 7,
+      "ranges": [
+        [
+          1,
+          7
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    },
+    {
+      "scope_index": 1956,
+      "source_id": "pr-working:crates/adventuresim-tactical-core/src/scene_input/terrain_samples.rs",
+      "sha256": "d2ea661c716a406090f74c7caf955d7381bb8eee5f02850af42cd153b3fedd84",
+      "origin": "git:6533e444fa37552927070cc8d8190907fd3b413e:crates/adventuresim-tactical-core/src/scene_input/terrain_samples.rs",
+      "actual_EOF": 109,
+      "ranges": [
+        [
+          1,
+          109
+        ]
+      ],
+      "read_kind": "fresh exact scoped source in bounded untruncated reads"
+    }
+  ],
+  "supplier_narratives_personally_consumed": [],
+  "facts": [
+    "1951 refined surface uses one admitted terrain, existing semantic ground and immutable obstacle influence projections before final grade constraint. All relief processes sum into one replacement field; CPU/render/collision do not separately apply these noises in this producer. TerrainShapeSample slope/downhill/concavity are derived scratch observations, with concavity a weighted relative height rather than curvature unit.",
+    "1951 substrate clod strength, total relief strength and rock-specific relief are different authored effects, not duplicate copies of one coefficient. Moisture is repeatedly saturated before numerical conversion but not retained as a second mutable weather source here. Final clamp and terrain grade constraint enforce different shape bounds.",
+    "1952 road tangent and edges are approximated from actual semantic ground queries with deterministic score/tie order, not a separately persisted road polyline. Software libm use and exact fixture1953 bit-oracle preserve current cross-target source policy; source only, no validation execution.",
+    "1954 rock archetype/lithology random bounds3 and matches currently agree with three variants; independent two axes are not one shared identity. Full dimensions and sphere radius are not equal geometric facts. Existing dimension<=diameter fixture does not by itself prove every rendered vertex lies in the sphere, so no conservative-envelope clearance claimed.",
+    "1955 three stream constants name separate random purposes. 1956 ordinal VistaLevelIndex deliberately accepts17 and allu8; distance-scale roles are separate regional contract1896. Caller scene validation owns ring count/order; do not duplicate near/regional/horizon classifications from ordinal number. Source fields and source transport surface vocabulary are captured facts, not tactical routing authority."
+  ],
+  "new_local_findings": [],
+  "repair_status": "frozen",
+  "validation_status": "not_run",
+  "no_other_lens_credit": true,
+  "next_cell": {
+    "scope_index": 1957,
+    "start_line": 1
+  }
+}

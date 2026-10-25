@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-1168",
+  "at": "2026-10-25T18:00:52.964182+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1270,
+  "source_id": "pr-working:crates/adventuresim-strategic-sim/src/live_core/cycle.rs",
+  "sha256": "3b8f6cf71583d3d4384601cc98adcaa89ff36b5698bd268077eff5a3df340f9b",
+  "actual_compared_ranges": [
+    [
+      1,
+      340
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Only inherent LiveRunner native methods: current issuer availability/defer/unsafe-contract retreat and cycle acceptance/readiness/disclosure. No handwritten trait/custom codec/type. Selected sort keys site distance+canonical site identity are native selection, not whole-object Ord. Policy observations/semantic event data contextual; exact live command/error handling retained. No calls executed.",
+  "first_unfinished": {
+    "scope_index": 1270,
+    "line": 341
+  },
+  "execution": "none"
+}

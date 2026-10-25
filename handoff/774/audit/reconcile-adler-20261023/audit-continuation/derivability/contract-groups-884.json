@@ -1,0 +1,23 @@
+{
+  "id": "SEGOVB-INITIAL10-CONTRACT-884",
+  "at": "2026-10-25T17:09:54.200285+00:00",
+  "lens": "10 audit-derivability",
+  "status": "PARTIAL_SOURCE_ROLE_INCOMPLETE",
+  "scope_index": 1088,
+  "source_id": "pr-working:crates/adventuresim-stdb-module/src/continuity.rs",
+  "sha256": "90ac44f54e67bb703e77edc0d8c56f9221e9e31aeaaa3e897cbc0d5ff8759e7a",
+  "actual_compared_ranges": [
+    [
+      1,
+      760
+    ]
+  ],
+  "existing_derives": [],
+  "trait_inventory": [],
+  "analysis": "Prior slice retained.361\u2013760 effective-dated spouse/heir choice, estate unequip and custody subtree transfer, cycle-aware inheritance routing/settlement and selected-observer family projection consumed. EstateRouteState/Outcome structural traits already derive. No handwritten traits/codecs; frontier/ownership/idempotence projections are semantic and must remain explicit.",
+  "first_unfinished": {
+    "scope_index": 1088,
+    "line": 761
+  },
+  "execution": "none"
+}

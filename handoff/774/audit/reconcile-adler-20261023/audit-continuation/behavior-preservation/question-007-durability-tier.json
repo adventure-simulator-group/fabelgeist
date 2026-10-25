@@ -1,0 +1,24 @@
+{
+  "id": "CONT08-Q007",
+  "source": {
+    "scope_index": 95,
+    "sha256": "7e08e94102b0e097fdb309ad3f5caaf54c6d5c313979a3c5186bb671bb231afd",
+    "range": [
+      232,
+      265
+    ]
+  },
+  "classification": "Unchanged raw u8 catastrophic-tier arithmetic, source-conditional support only.",
+  "question": "Exact adopted04 finding and actual stress/profile admission/recipients for add-before-min5?",
+  "source_witness": "In catastrophic branch, overload*2 floor asu8 can reach255 for large finite stress relative to positive catastrophic threshold.3+u8value+qualitybonus is computed before .min(5), so cap cannot protect intermediate u8 addition.",
+  "limits": "No executed arithmetic/debug/release/ordinary battle occurrence; raw public API alone does not prove normal recipe reaches witness. Parent exact alias query pending; no new unique count.",
+  "acceptance": "Later repair must preserve tier1/2 boundaries, quality and catastrophic damage amount while saturating/checking in a sufficiently wide tier owner before bounded output. Existing fixtures/inputs retained.",
+  "resolution": {
+    "at": "2026-10-25T09:18:37.069678+00:00",
+    "existing_finding": "ROOT-INITIAL04-F039",
+    "evidence": "audit/continuation/root/initial04-invariant-operations/findings.jsonl:39",
+    "status": "Exact record personally consumed: finite_impact_severity_narrows_before_damage_tier_cap. Source support/alias, no new unique count/08regression.",
+    "qualified_witness": "yield1,catastrophic2,wear.1,failure.5,quality3,stress258 all finite/positive ordered: overload128, floor256 asu8=>255, then3+255 beforemin5. Actual ordinary authored stress/run not claimed.",
+    "acceptance": "Carry exact existing shared durability producer/receiver repair; final canonical1..5 tier admitted after sufficiently wide checked/clamped computation, preserve amount/quality/repair policy and original fixture inputs."
+  }
+}
